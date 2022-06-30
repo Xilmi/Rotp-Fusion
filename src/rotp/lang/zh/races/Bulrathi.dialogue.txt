@@ -1,0 +1,87 @@
+//
+// All text below this point is copyright 2018-2020 Jeff Colucci
+// 
+// Licensed under the Creative Commons License, 
+// Attribution-NonCommercial-NoDerivatives 4.0 International (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     https://creativecommons.org/licenses/by-nc-nd/4.0/
+//  
+// This license is legally binding. Please review this license before altering 
+// or distributing any material covered under this license.
+//
+
+// Bulrathi specific dialogue
+
+// 第1次校对：2021.12.14
+
+CONTACT_AGGRESSIVE         | 我是[my_empire]的大使。我建议你站在[my_title]的一边，小[your_race]。因为他只需要开口，你的族人就会在你无法想象的力量下灭亡。
+CONTACT_RUTHLESS           | 你真是个可爱的小动物！你只需要知道两件事：第一，我们被称为“[my_race]”，第二，反对我们的征服只会加速你的灭亡！
+CONTACT_ERRATIC            | 我们[my_empire]向你们致意，小家伙们。我们的未来就在这广袤的宇宙中。你会如何融入我们的雄伟版图呢？我拭目以待。
+//
+GREETING_01                | 你会做符合荣誉的事情，所以我们也会用符合荣誉的方式对待你。告诉我们你需要什么吧，小朋友。
+GREETING_04                | 有话快说，小[your_race]。记住，不要用虚假的承诺来激怒我们。
+GREETING_07                | 对于你这么小的一个生物来说，来跟我们对话就表现出了极大的勇气。现在，这种勇敢为您赢得了安全。
+
+DECLAREWAR_HATE_01         | 小[your_race_plural]在他们的小窝窝里耍着他们的雕虫小技。[my_title]对你不断的骚扰，感到厌烦了。你将无法在我们给你带来的厄运中幸存下来！
+DECLAREWAR_HATE_02         | 够了！熊族人民的命运已经被写在星辰中。我们不会再忍受像你这样你反对我们的小人物了！
+DECLAREWAR_HATE_03         | 为战斗做好准备吧，小[your_race]！我们将向您展示，只有勇猛能在战场上带来胜利！
+DECLAREWAR_ERRATIC_01      | 哲人的智慧会让那些无法理解它的人感到困惑。当我们最伟大的大脑告诉我们进攻时，我们的战士当然会服从。
+
+DECLAREWAR_ERRATIC_02      | 每个事物在这个宇宙中都有其时间和位置。战争与和平，生与死，统治与臣服 对我们来说，这是进攻的时候，对你们来说，这是防守的时候。
+DECLAREWAR_ERRATIC_03      | 大使，你有没有惊叹过命运的无常呢？它经常将看似不可能的事情变成现实。让我们一起面对命运吧，小[your_race]，看看它会带来什么。
+DECLAREWAR_MILITARY_01     | 战利品属于强者。[my_race]最强大，所以无论不论战利品是什么，我们都会获得它。
+DECLAREWAR_MILITARY_02     | 大使，对于像你们种族这么渺小的生物，你们战斗得已经很勇敢了。让我们看看在[my_race]的力量下，你们表现得怎么样吧。
+DECLAREWAR_MILITARY_03     | 这个宇宙属于强者，我们的力量不会让它旁落。好好保卫你的世界，否则我们将从你手上夺走它们！
+DECLAREWAR_ALLIANCE_01     | 帝国的一位盟友向我们请求援助！我们将向您和[defender_race]展示[my_race]的真正力量！
+DECLAREWAR_ALLIANCE_02     | 你对我们的盟友开战，毫无疑问你也对我们开战了。这是一场你不可能胜利的战斗。大使，考虑一下吧。
+DECLAREWAR_ALLIANCE_03     | 如果我们[my_race]加入[defender_race]，你竭尽全力也无法对抗[defender_race]！做好准备吧，小[your_race]！
+DECLAREWAR_SPYING_01       | 这简直是背叛！但是当你必须以如此渺小的身体存在时，你别无选择：正如我们现在将快证明的那样，你在战场上没有机会，只能做些鸡鸣狗盗之事。
+DECLAREWAR_SPYING_02       | 我还以为这么渺小的生物不可能在这种秘密行动中取得成功。把你的间谍高高挂起吧，让你的世界看到。你会用你的生命为他们的错误付出代价！
+DECLAREWAR_SPYING_03       | 你认为我们太软弱，无法对这种卑鄙的行为做出反应吗，小家伙？我们将向您展示您的误判有多严重！
+DECLAREWAR_ATTACK_01       | 如果你想打仗，你只需要开口就行了，小[your_race]。我们将粉碎你眼前所珍视的一切！
+DECLAREWAR_ATTACK_02       | 你竟然如此肆无忌惮地攻击我们，似乎你觉得自己很强大。这值得称赞，但最终你会发现自己的错误。
+DECLAREWAR_ATTACK_03       | 就这样吧，我们可能确实输了一场战斗了，但你最终会发现自己输掉一场战争！
+DECLAREWAR_OPPORTUNITY_01  | 我们的人一直在寻找机会来提高他们的战斗技能，而你们可能是一个值得挑战的种族。你们可要利用好这个机会，我们的编年史会亲切地描述你们种族的。
+DECLAREWAR_ASSASSIN_01     | 我们对你们没有期待：一个身体素质如此低劣的种族，你们必须诉诸于杀死一名手无寸铁的大使来实现野心。向你的任何神灵祈祷吧，小[your_race]，因为我们将确保这是你的最后一战。
+OFFER_PEACE_01             | 你的人打得很好，小家伙，但这场战争流的血已经够多了。如果你也有足够的勇气，我们已准备好摆脱过去的争端，走向和平。
+OFFER_TRADE_01             | 你体型上的不足似乎可以用你的足智多谋来弥补。我们提议每年进行[amt] BC 的贸易，希望对我们双方来说贸易比冲突更有利。
+OFFER_PACT_01              | 我们[my_race_plural]对我们遇到的众多种族有不同的看法。你的族人让[my_title]很开心，他希望我们签署互不侵犯条约，以防止将来发生任何不必要的争端。
+OFFER_ALLIANCE_01          | 虽然我们在战斗中无人能敌，但我们不会野蛮到为了感受胜利的快感而放弃与你们的纽带。小大使，让我们正式结盟，在战场上做朋友，而不是敌人。
+//
+WARN_TRESPASSING_01        | 你在[system]的存在让我们很恼火。在你进一步激怒我们之前，离开是明智的。
+WARN_EXPANSION_01          | 占领领土是最强大帝国的权利。我们警告你不要进一步扩张了，小家伙，除非你希望我们保卫未来会属于[my_race]的领土。
+WARN_BUILDUP_01            | 太空是懦夫的剧场：真正的勇者会在地面上证明自己。你的舰队越来越庞大，如果你继续扩张，你将要直面我们的愤怒。
+WARN_SKIRMISH_01           | [system]的小规模冲突对我们来说不过是麻烦事。不要再打扰我们了，否则我们会像碾碎害虫一样碾碎你！
+WARN_ATTACKED_01           | 来自同样可悲的种族的可悲表演！你很幸运，[defender_title]有比你微薄的耀武扬威更重要的事情要处理，但记住，如果你想要一场战争，我们很乐意为你效劳，小家伙。
+WARN_INVADED_01            | 哈！这么袖珍的种族竟然有这么大的勇气。在你做一些你会后悔的事情之前，离开我们的领地吧。
+WARN_ESPIONAGE_01          | 懦夫！在 [victim_race_plural]中潜行。感恩我们没有碾碎你的间谍吧，不要再让我们发现这种懦夫行径了！ [framed]
+WARN_SABOTAGE_01           | 小家伙，为什么不在战斗中面对我们呢？与胆小到只会搞破坏的种族战斗，会让我们感到无聊。如果你再次这样做，为了消灭你，我们可能要忍受与你战斗的无趣了！ [forced]
+WARN_BIOWEAPON_01          | 用生化武器对付手无寸铁的人，这是懦夫的终极表现！你的人民将承受这种耻辱，直到你的帝国毁灭，小家伙：你所做的任何事情都无法抹去这个恶行了。
+WARN_GENOCIDE_01           | [victim_race_plural]是一群病号，他们的毁灭对银河系没有太大的损失。但一个像你们这样微不足道的种族对他们的灭绝负责，这是我们不齿的。
+WARN_FINAL_WAR_01          | 我们钦佩那些在银河系选择和平统一之后仍然试图与之对抗的人，你们很勇敢。当我们杀死你们的最后一个孩子时，我们会把你们的勇气记录在史书里。
+WARN_COUNCIL_VOTE_01       | 这个议会里的人都是一群傻笑的傻瓜，他们宁愿在嘴上讨论问题，也不愿像战士一样解决问题！但是，仅仅因为我们对这些程序如此不屑，并不意味着我们会欣然原谅你在会议上对我们的反对！
+WARN_OATHBREAKER_01        | 小家伙！违背诺言是最大的耻辱！我们知道你是身体上的软弱者，但言语上的软弱甚至更让我们感到惊讶！[spiesCaught]
+WARN_ATTACKED_ALLY_01      | 小[defender_race]在我们的保护之下！停止你的战争并进行补偿吧，否则你会死在我们手上。
+WARN_REBELLING_AGAINST_01    | 大主教是唯一适合坐在星际委员会宝座上的人！我们绝不会接受你的卑鄙篡位！
+
+//
+PRAISE_COUNCIL_VOTE_01     | 哈！当你站在我们一边时，那些人脸上的表情非常有趣。但现在他们知道真正的力量在哪里了，我们感谢小伙伴们帮助他们学习！
+PRAISE_COUNCIL_VOTE_02     | 在这些会议期间被迫忍受喋喋不休的蠢话是相当乏味的。无论您想帮助我们更快地休会，还是因为您了解我们的力量，我们都认可您今天的选票。
+PRAISE_COUNCIL_VOTE_03     | 你引起了我们的兴趣，小家伙。你选择在今天承认我们的力量，这对你的人民来说是件好事。为了你的好处，我希望你继续这样做。
+
+PRAISE_ATTACKED_ENEMY_01   | 哈哈！很高兴今天在战场上见到你，小朋友！让我们一起粉碎这些可悲的[defender_race]！让他们的血流遍他们的世界，直到他们一个都不剩！
+PRAISE_ATTACKED_ENEMY_02   | 小家伙，我们将打出多么光辉的一战！向我们展示你如何打败[defender_race]吧，我们从今天起将给你应有的尊重！
+PRAISE_ATTACKED_ENEMY_03   | 很明显，你与[defender_race]战斗，只是因为我们选择这样做。尽管如此，你并没有完全回避战斗……也许我们该对你刮目相看了。
+PRAISE_TRADE_01            | 我们的贸易协定对我们两个种族都是有利可图的，小朋友。信任是最有价值的通货，只要你这样做，我们就会继续信任你。
+PRAISE_TRADE_02            | 虽然战争可能是最令人振奋的前进方式，但正如我们的贸易协议所证明的那样，战争不是唯一的方式。愿它继续下去，使我们两国人民都能繁荣昌盛！
+
+PRAISE_REBELLING_WITH_01   | 哈哈！所以你想靠自己对抗银河系？你以为我们会回避这样一场光荣的战斗吗？我们挺身而出，因为[my_empire]与您同在！
+
+ACCEPT_TRADE_01            | 你谈判的智慧弥补了你体型上的不足，小[your_race]！从现在开始，帝国很高兴每年与你进行[amt] BC 的交易。
+
+RESPOND_IGNORE_THREAT_01   | 哈哈哈，为什么要听这些小动物的威胁？现在去吧，算你走运，我们今天的心情很好！
+
+RESPOND_STOP_SPYING_01     | 我们用来监视的小怪物被抓住了，是吗？好吧，把我们的间谍安然无恙地还给我们，我们保证他们不再打扰你。
+RESPOND_STOP_ATTACKING_01  | 帝国的舰队很可怕吧？不要害怕，我们的表演已经达到了预期的效果，我们现在将召回军队。

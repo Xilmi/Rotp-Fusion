@@ -1,0 +1,1 @@
+The purpose of this folder is to contains classes and packages that import game classes, but are unknown from them.

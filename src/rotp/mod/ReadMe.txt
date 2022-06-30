@@ -1,0 +1,2 @@
+The purpose of this folder is to contains classes and packages that inject mod functionlities to the game. they are the only mod classes known by the game.
+The modified game classes are only accessing mod classes in this folder, never the outside ones.

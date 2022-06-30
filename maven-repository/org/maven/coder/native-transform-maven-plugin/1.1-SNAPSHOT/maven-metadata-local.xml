@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>org.maven.coder</groupId>
+  <artifactId>native-transform-maven-plugin</artifactId>
+  <version>1.1-SNAPSHOT</version>
+  <versioning>
+    <snapshot>
+      <localCopy>true</localCopy>
+    </snapshot>
+    <lastUpdated>20210414225520</lastUpdated>
+    <snapshotVersions>
+      <snapshotVersion>
+        <extension>jar</extension>
+        <value>1.1-SNAPSHOT</value>
+        <updated>20210414225520</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>pom</extension>
+        <value>1.1-SNAPSHOT</value>
+        <updated>20210414225520</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+</metadata>

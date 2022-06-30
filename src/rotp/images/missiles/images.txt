@@ -1,0 +1,26 @@
+#
+// modnar: change color of scatter-pack missiles and torpedoes
+COMBAT_MISSILE            | images/missiles/missile.png
+
+MISSILE_NUCLEAR           | images/missiles/missile.png
+MISSILE_HYPER_V           | images/missiles/missile.png
+MISSILE_HYPER_X           | images/missiles/missile.png
+MISSILE_SCATTER_PACK_V    | images/missiles/missile_blue.png
+MISSILE_MERCULITE         | images/missiles/missile.png
+MISSILE_STINGER           | images/missiles/missile.png
+MISSILE_SCATTER_PACK_VII  | images/missiles/missile_blue.png
+MISSILE_PULSON            | images/missiles/missile.png
+MISSILE_HERCULAR          | images/missiles/missile.png
+MISSILE_ZEON              | images/missiles/missile.png
+MISSILE_SCATTER_PACK_X    | images/missiles/missile_blue.png
+
+TORPEDO_ANTI_MATTER       | images/missiles/missile_green.png
+TORPEDO_HELLFIRE          | images/missiles/missile_green.png
+TORPEDO_PROTON            | images/missiles/missile_green.png
+TORPEDO_PLASMA            | images/missiles/missile_green.png
+
+SPACE_AMOEBA              | images/missiles/SpaceAmoeba.png
+SPACE_CRYSTAL             | images/missiles/SpaceCrystal.png
+// modnar: add space pirate random event
+SPACE_PIRATES             | images/missiles/SpacePirates.png
+ORION_GUARDIAN            | images/missiles/OrionGuardian.png

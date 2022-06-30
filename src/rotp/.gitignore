@@ -1,0 +1,15 @@
+/PlaySoundClip.class
+/ReadJSON.class
+/Rotp$1.class
+/Rotp.class
+/RotpCommon.class
+/RotpGovernor.class
+/RotpJSON$ColorDeserializer.class
+/RotpJSON$ColorSerializer.class
+/RotpJSON$GalaxySerializer.class
+/RotpJSON$GameSessionSerializer.class
+/RotpJSON$GameStatusSerializer.class
+/RotpJSON$ShipsSerializer.class
+/RotpJSON.class
+/SaveToJSON.class
+/SaveToJSONShips.class

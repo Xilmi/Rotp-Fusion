@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <plugins>
+    <plugin>
+      <name>native-transform-maven-plugin</name>
+      <prefix>native-transform</prefix>
+      <artifactId>native-transform-maven-plugin</artifactId>
+    </plugin>
+  </plugins>
+</metadata>

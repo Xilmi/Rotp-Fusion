@@ -1,0 +1,30 @@
+# This workflow will build a Java project with Maven
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Maven release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'zulu'
+        java-version: '11'
+    - name: Install vorbis-tools / oggenc
+      run: sudo apt install vorbis-tools
+    - name: Install webp / cwebp
+      run: sudo apt install webp
+    - name: Check CPU
+      run: sudo cat /proc/cpuinfo
+    - name: Build with Maven
+      run: mvn -B clean package github-release:github-release -DGITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} -Dmaven.javadoc.skip=true --file pom.xml
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

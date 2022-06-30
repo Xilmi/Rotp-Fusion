@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="stargateOptions">
+    </Component>
+  </NonVisualComponents>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="autotransportPanel" max="32767" attributes="0"/>
+                  <Component id="stargatePanel" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="allGovernorsOn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="allGovernorsOff" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="governorDefault" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="autoColonize" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="autoScout" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="autoAttack" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="autoAttackShipCount" max="32767" attributes="0"/>
+                                  <Component id="autoScoutShipCount" max="32767" attributes="0"/>
+                                  <Component id="autoColonyShipCount" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="autoColonyShipCountLabel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="autoScoutShipCountLabel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="autoAttackShipCountLabel" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="okButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="cancelButton" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="shipbuilding" min="-2" max="-2" attributes="0"/>
+                                  <Component id="autoInfiltrate" min="-2" pref="193" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="autoSpy" min="-2" pref="294" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="completionist" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Component id="legacyGrowthMode" max="32767" attributes="0"/>
+                                      <EmptySpace min="-2" pref="193" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="autospend" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="reserve" min="-2" pref="90" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="resrveLabel" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="missileBases" min="-2" pref="64" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="missileBasesLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="shieldWithoutBases" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="governorDefault" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="autotransportPanel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="allGovernorsOn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="allGovernorsOff" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="stargatePanel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="autoScout" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="autoScoutShipCount" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="autoScoutShipCountLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="autoColonize" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="autoColonyShipCount" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="autoColonyShipCountLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="autoAttack" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="autoAttackShipCount" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="autoAttackShipCountLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="missileBases" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="missileBasesLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="shieldWithoutBases" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="autospend" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="reserve" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="resrveLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="shipbuilding" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="legacyGrowthMode" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="completionist" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="autoSpy" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="autoInfiltrate" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="okButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cancelButton" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JCheckBox" name="governorDefault">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Governor is on by default"/>
+      </Properties>
+    </Component>
+    <Container class="javax.swing.JPanel" name="autotransportPanel">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder title="Autotransport Options">
+              <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                <EtchetBorder/>
+              </Border>
+            </TitledBorder>
+          </Border>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
+      </AuxValues>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="transportMaxTurns" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="transportMaxTurnsLabel" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="transportMaxTurnsNebula" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="transportRichDisabled" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="transportPoorDouble" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="autotransport" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="autotransportXilmi" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="187" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="allowUngoverned" min="-2" pref="393" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="187" pref="187" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="autotransportXilmi" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="allowUngoverned" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="autotransport" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="transportMaxTurns" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="transportMaxTurnsLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="transportMaxTurnsNebula" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="transportRichDisabled" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="transportPoorDouble" min="-2" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JCheckBox" name="autotransport">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Population automatically transported from colonies at max production capacity"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="transportMaxTurns">
+          <Properties>
+            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+              <SpinnerModel initial="15" maximum="15" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseWheelMoved" listener="java.awt.event.MouseWheelListener" parameters="java.awt.event.MouseWheelEvent" handler="transportMaxTurnsMouseWheelMoved"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="transportMaxTurnsLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Maximum transport distance in turns"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseWheelMoved" listener="java.awt.event.MouseWheelListener" parameters="java.awt.event.MouseWheelEvent" handler="transportMaxTurnsLabelMouseWheelMoved"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="transportMaxTurnsNebula">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="(1.5x higher distance when transporting to nebulae)"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="transportRichDisabled">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Don&apos;t send from Rich/Artifacts planets"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="transportPoorDouble">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Send double from Poor planets"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="autotransportXilmi">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Let AI handle population transportation"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autotransportXilmiActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="allowUngoverned">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="allow sending population from ungoverned colonies"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JButton" name="allGovernorsOn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="All Governors ON"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="allGovernorsOnActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="allGovernorsOff">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="All Governors OFF"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="allGovernorsOffActionPerformed"/>
+      </Events>
+    </Component>
+    <Container class="javax.swing.JPanel" name="stargatePanel">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder title="Stargate Options">
+              <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                <EtchetBorder/>
+              </Border>
+            </TitledBorder>
+          </Border>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
+      </AuxValues>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="stargateOff" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="stargateRich" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="stargateOn" alignment="0" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="stargateOff" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="stargateRich" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="stargateOn" min="-2" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JRadioButton" name="stargateOff">
+          <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="stargateOptions"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Never build stargates"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="stargateRich">
+          <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="stargateOptions"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Build stargates on Rich and Ultra Rich planets"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="stargateOn">
+          <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="stargateOptions"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Always build stargates"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JButton" name="okButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="OK"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="okButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="cancelButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cancel"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="missileBases">
+      <Properties>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel initial="0" maximum="20" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseWheelMoved" listener="java.awt.event.MouseWheelListener" parameters="java.awt.event.MouseWheelEvent" handler="missileBasesMouseWheelMoved"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="missileBasesLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Minimum missile bases"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="autospend">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Autospend"/>
+        <Property name="toolTipText" type="java.lang.String" value="Automatically spend reserve on planets with lowest production"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="reserve">
+      <Properties>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel initial="1000" maximum="100000" minimum="0" numberType="java.lang.Integer" stepSize="10" type="number"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseWheelMoved" listener="java.awt.event.MouseWheelListener" parameters="java.awt.event.MouseWheelEvent" handler="reserveMouseWheelMoved"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="resrveLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Keep in reserve"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="shipbuilding">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Shipbuilding with Governor enabled"/>
+        <Property name="toolTipText" type="java.lang.String" value="Divert resources into shipbuilding and not research if planet is already building ships"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="autoScout">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Auto Scout"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="autoColonize">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Auto Colonize"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="completionist">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Completionist Technologies"/>
+        <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&#xa;I like completing games fully. &lt;br/&gt;&#xa;Allow all Empires to Research the following Technologies:&lt;br/&gt;&#xa;&lt;br/&gt;&#xa;Controlled Irradiated Environment&lt;br/&gt;&#xa;Atmospheric Terraforming&lt;br/&gt;&#xa;Complete Terraforming&lt;br/&gt;&#xa;Advanced Soil Enrichment&lt;br/&gt;&#xa;Intergalactic Star Gates&lt;br/&gt;&#xa;&lt;br/&gt;&#xa;More than 30% of the Galaxy needs to be colonized.&lt;br/&gt;&#xa;Player must control more than 50% of colonized systems.&lt;br/&gt;&#xa;Player must have completed all Research in their Tech Tree (Future Techs too).&lt;br/&gt;&#xa;&lt;/html&gt;"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="completionistActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="autoAttack">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Auto Attack"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="autoColonyShipCount">
+      <Properties>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel initial="1" maximum="9999" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseWheelMoved" listener="java.awt.event.MouseWheelListener" parameters="java.awt.event.MouseWheelEvent" handler="autoColonyShipCountMouseWheelMoved"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="autoColonyShipCountLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Number of colony ships to send"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="autoScoutShipCount">
+      <Properties>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel initial="1" maximum="9999" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseWheelMoved" listener="java.awt.event.MouseWheelListener" parameters="java.awt.event.MouseWheelEvent" handler="autoScoutShipCountMouseWheelMoved"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="autoAttackShipCount">
+      <Properties>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel initial="1" maximum="9999" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseWheelMoved" listener="java.awt.event.MouseWheelListener" parameters="java.awt.event.MouseWheelEvent" handler="autoAttackShipCountMouseWheelMoved"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="autoScoutShipCountLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Number of scout ships to send"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="autoAttackShipCountLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Number of attack ships to send"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="shieldWithoutBases">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Allow shields without bases"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="legacyGrowthMode">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Develop colonies as quickly as possible"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="autoSpy">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Let AI handle spies"/>
+        <Property name="toolTipText" type="java.lang.String" value="Hand control over spies to AI"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="autoInfiltrate">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Autoinfiltrate"/>
+        <Property name="toolTipText" type="java.lang.String" value="Automatically sends spies to infiltrate other empires"/>
+      </Properties>
+    </Component>
+  </SubComponents>
+</Form>

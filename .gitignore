@@ -1,0 +1,16 @@
+dist
+nbproject
+build
+build.xml
+manifest.mf
+launch4j/Remnants/
+target/
+.idea/
+bin/
+*.iml
+*.log
+*Test.java
+nbactions.xml
+.project
+**/*Test.java
+**/*.bak

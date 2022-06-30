@@ -1,0 +1,21 @@
+// rename to RotpFeature.java
+// Not sure what to do with modules, cannot do "provided" org.graalvm.sdk?
+package rotp;
+
+import com.oracle.svm.core.annotate.AutomaticFeature;
+import com.oracle.svm.hosted.FeatureImpl;
+import com.oracle.svm.hosted.c.NativeLibraries;
+import org.graalvm.nativeimage.hosted.Feature;
+
+@AutomaticFeature
+public class RotpFeature implements Feature {
+
+    @Override
+    public void beforeAnalysis(BeforeAnalysisAccess access) {
+        if ("".equals(System.getProperty("os.name"))) {
+            // needed on Linux for Robot classes
+            NativeLibraries nativeLibraries = ((FeatureImpl.BeforeAnalysisAccessImpl) access).getNativeLibraries();
+            nativeLibraries.addDynamicNonJniLibrary("Xtst");
+        }
+    }
+}

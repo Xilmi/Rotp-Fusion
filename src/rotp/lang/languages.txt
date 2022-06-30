@@ -1,0 +1,42 @@
+##
+## 5 fields for each language line:
+##   1 - the folder name under the lang folder
+##   2 - the language name as displayed on the language selection menu
+##   3 - "Y" if this is a right-to-left language
+##   4 - global font size multiplier (100=normal size)
+##   5 - "Y" if this is a logographic language (affects word wrapping)
+##   6 - optional, character replacements for the digits 0-9 (supports Bengali)
+##
+
+
+en,  English          ,  ,   , 
+bg,  българин         ,  ,   , 
+#bn,  বাংলা            ,  ,   ,  , ০১২৩৪৫৬৭৮৯
+de,  Deutsch          ,  ,   , 
+el,  Ελληνικά         ,  ,   , 
+fr,  Français         ,  ,   ,  , 
+hu,  Magyar           ,  ,   ,  , 
+id,  Indonesia        ,  ,   , 
+it,  Italiana         ,  ,   ,
+pl,  Polski           ,  ,   , 
+pt,  Português        ,  ,   , 
+ro,  Română           ,  ,   , 
+ru,  Русский          ,  ,   , 
+sk,  Slovenčina       ,  ,   ,
+sr,  Srpski           ,  ,   , 
+sr2, Српски           ,  ,   , 
+sv,  Svenska          ,  ,   ,
+tr,  Türkçe           ,  ,   ,
+uk,  Українська       ,  ,   , 
+zh,  简体中文          ,  ,   , Y
+zh2, 繁體中文          ,  ,   , Y
+
+//bn,     , বাংলা     , 
+//es,     , Español    ,
+//fi,     , Suomen kieli,
+//he,     , עִברִית ,
+//hi,     , हिन्दी              ,
+//jp,     , 日本語      ,
+//ko,     , 한국어      ,
+//sk,     , Slovák     , 
+//vi,     , Tiếng Việt ,
