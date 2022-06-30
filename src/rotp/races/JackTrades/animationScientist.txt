@@ -1,0 +1,10 @@
+#
+# JackTrades Scientist Animation
+Base,    _ALL_      , JackSci
+
+# 1/NULL-@tablet, 2-@player, 3-halfopen, 4-closed
+Eye,    300@100   , JackSciEy02:12:18+JackSciEy04:1+JackSciEy03:4:12+NULL:12:18+JackSciEy04:1+NULL:12:20
+
+# 1/NULL-closed,
+Mouth,  325@190   , NULL:2+JackSciMo02:2+JackSciMo03:2+JackSciMo02:2+JackSciMo03:2+JackSciMo02:2
+

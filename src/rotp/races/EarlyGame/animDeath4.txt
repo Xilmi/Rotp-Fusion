@@ -1,0 +1,5 @@
+#
+# EarlyGame Hostile Combat Frames
+
+# vaporized into nothingness
+Base, _ALL_ , EarlyDeath401:1+EarlyDeath402:1+EarlyDeath403:1+EarlyDeath404:1+EarlyDeath405:1+EarlyDeath406:1+EarlyDeath407:1+EarlyDeath408:1+null:99999

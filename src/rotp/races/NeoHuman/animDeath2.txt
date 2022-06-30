@@ -1,0 +1,5 @@
+#
+# Combat Frames
+
+# Disrupted into nothingness
+Base, _ALL_ , NeoDeath201+NeoDeath202+NeoDeath203+NeoDeath204+null:99999

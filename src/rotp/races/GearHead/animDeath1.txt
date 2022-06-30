@@ -1,0 +1,5 @@
+#
+# GearHead Hostile Combat Frames
+
+# falls over dead
+Base, _ALL_ , GearDeath101:1+GearDeath102:1+GearDeath103:1+GearDeath104:1+GearDeath105:99999

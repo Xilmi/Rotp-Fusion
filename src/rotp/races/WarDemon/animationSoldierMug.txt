@@ -1,0 +1,5 @@
+#
+# WarDemon Soldier Animation
+
+Base,   _ALL_    , WarLab01
+Base,   _ALL_    , WarSol01

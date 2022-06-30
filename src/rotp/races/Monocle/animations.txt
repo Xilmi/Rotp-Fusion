@@ -1,0 +1,21 @@
+
+
+MonocleLaboratory    | races/Monocle/animationLaboratory.txt
+MonocleDiploMug      | races/Monocle/animationMugshot.txt
+MonocleSpyMug        | races/Monocle/animationSpyMug.txt
+MonocleSoldierMug    | races/Monocle/animationSoldierMug.txt
+MonocleDiplomat      | races/Monocle/animationDiplomat.txt
+MonocleScientist     | races/Monocle/animationScientist.txt
+MonocleSoldier       | races/Monocle/animationSoldier.txt
+MonocleSpy           | races/Monocle/animationSpy.txt
+MonocleCombat        | races/Monocle/animCombat.txt
+MonocleDeath1        | races/Monocle/animDeath1.txt
+MonocleDeath2        | races/Monocle/animDeath2.txt
+MonocleDeath3        | races/Monocle/animDeath3.txt
+MonocleDeath4        | races/Monocle/animDeath4.txt
+MonocleGNN           | races/Monocle/animationGNN.txt
+MonocleGNNHost       | races/Monocle/animationGNNHost.txt
+
+MonocleTransportDesc | races/Monocle/animationTransportDescending.txt
+MonocleTransportOpen | races/Monocle/animationTransportOpening.txt
+

@@ -1,0 +1,8 @@
+#
+# NeoHuman Scientist Animation
+Base,     _ALL_   , NeoLab
+Base,     _ALL_   , NeoSol14
+
+# 1/NULL-@tablet, 2-@player, 3-halfopen, 4-closed
+Eye,    0@0   , NULL:20:30+NeoSolEy02:2+NeoSolEy03:2
+

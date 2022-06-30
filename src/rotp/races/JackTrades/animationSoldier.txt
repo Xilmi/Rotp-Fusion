@@ -1,0 +1,11 @@
+#
+# JackTrades Soldier Animation
+
+Base,   _ALL_  , JackSol
+
+#   Open/Blink
+Eye,   320@100 , NULL:30:50+JackSolEy02:2
+
+#   1-Closed, 2-Half-Open, 3-Open
+Mouth, 310@140 , NULL:3+JackSolMo02:3+JackSolMo03:3+JackSolMo02:3+JackSolMo03:3+JackSolMo02:3
+

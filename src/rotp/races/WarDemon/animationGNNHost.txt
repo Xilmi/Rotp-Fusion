@@ -1,0 +1,5 @@
+#
+# WarDemon GNN Host Frames
+
+HostL, _ALL_, WarGNNHostL1:1:5+WarGNNHostL2:1:5+WarGNNHostL3:1:5+WarGNNHostL4:1:5+WarGNNHostL5:1:5+WarGNNHostL6:1:5
+HostR, 350@0, WarGNNHostR1:1:5+WarGNNHostR2:1:5+WarGNNHostR3:1:5+WarGNNHostR4:1:5+WarGNNHostR5:1:5+WarGNNHostR6:1:5

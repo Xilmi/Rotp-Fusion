@@ -1,0 +1,10 @@
+#
+# EarlyGame GNN Host Frames
+
+Host, _ALL_, EarlyGNNH_3:3+EarlyGNNH_4:3+EarlyGNNH_3:3+EarlyGNNH_4:3+EarlyGNNH_1:3+EarlyGNNH_6:3+EarlyGNNH_1:3+EarlyGNNH_6:3
+
+
+ScreenA, _ALL_, EarlyGNNHA_1:5:15+EarlyGNNHA_2:5:15+EarlyGNNHA_3:5:15+EarlyGNNHA_4:5:15+EarlyGNNHA_5:5:15+EarlyGNNHA_6:5:15
+ScreenB, _ALL_, EarlyGNNHB_1:5:15+EarlyGNNHB_2:5:15+EarlyGNNHB_3:5:15+EarlyGNNHB_4:5:15
+ScreenC, _ALL_, EarlyGNNHC_1:5:15+EarlyGNNHC_2:5:15+EarlyGNNHC_3:5:15+EarlyGNNHC_4:5:15+EarlyGNNHC_5:5:15+EarlyGNNHC_6:5:15+EarlyGNNHC_7:5:15+EarlyGNNHC_8:5:15+EarlyGNNHC_9:5:15+EarlyGNNHC_10:5:15+EarlyGNNHC_11:5:15+EarlyGNNHC_12:5:15+EarlyGNNHC_13:5:15
+ScreenD, _ALL_, EarlyGNNHD_1:5:15+EarlyGNNHD_2:5:15+EarlyGNNHD_3:5:15+EarlyGNNHD_4:5:15

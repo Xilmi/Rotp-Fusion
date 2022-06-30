@@ -1,0 +1,5 @@
+
+
+Base, _ALL_  , WarLab01:1+WarLab02:1+WarLab03:1+WarLab04:1+WarLab05:120:360+WarLab04:1+WarLab03:1+WarLab02:1
+
+Fog, _ALL_   , WarLabFog01:2:5+WarLabFog02:2:5+WarLabFog03:2:5+WarLabFog04:2:5+WarLabFog05:2:5+WarLabFog03:2:5

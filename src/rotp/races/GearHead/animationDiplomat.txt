@@ -1,0 +1,15 @@
+#
+# GearHead Diplomat Animation
+
+Base,   _ALL_  , GearDip
+
+# NOTE: Staff MUST draw before eyes because of pixel overlap
+#   1(null)-Closed, 2,3-Half-Open, 4-Open
+Staff, 430@105 , GearDipSt04:20:30+GearDipSt03:2+GearDipSt02:2+GearDipSt01:2:4+GearDipSt02:1+GearDipSt03:1
+
+#   1(null)-Open, Closing (2,3) and Closed 4
+Eye,   315@115 , NULL:8:20+GearDipEy02:1+GearDipEy03:6:12+NULL:8:20+GearDipEy04:2:4
+
+#   1(null)-Closed, 2,3-Half-Open, 4-Open
+Mouth, 320@145 , NULL:2+GearDipMo02:2+GearDipMo03:2+GearDipMo04:2+GearDipMo03:2+GearDipMo02:2+GearDipMo03:2+GearDipMo02:2
+

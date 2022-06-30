@@ -1,0 +1,5 @@
+#
+# WarDemon Hostile Combat Frames
+
+# Disrupted into nothingness
+Base, _ALL_ , WarDeath201:1+WarDeath202:1+WarDeath203:1+WarDeath204:1+null:99999

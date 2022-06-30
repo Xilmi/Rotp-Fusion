@@ -1,0 +1,6 @@
+#
+# GearHead Hostile Combat Frames
+
+
+# immolated. only ashes remain
+Base, _ALL_ , GearDeath301:1+GearDeath302:1+GearDeath303:1+GearDeath304:1+GearDeath305:1+GearDeath306:1+GearDeath307:1+GearDeath308:1+GearDeath309:1+GearDeath310:99999

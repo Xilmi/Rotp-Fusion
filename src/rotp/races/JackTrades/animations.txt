@@ -1,0 +1,25 @@
+
+
+JackTradesLaboratory    | races/JackTrades/animationLaboratory.txt
+JackTradesDiploMug      | races/JackTrades/animationMugshot.txt
+JackTradesSpyMug        | races/JackTrades/animationSpyMug.txt
+JackTradesSoldierMug    | races/JackTrades/animationSoldierMug.txt
+JackTradesDiplomat      | races/JackTrades/animationDiplomat.txt
+JackTradesScientist     | races/JackTrades/animationScientist.txt
+JackTradesSoldier       | races/JackTrades/animationSoldier.txt
+JackTradesSpy           | races/JackTrades/animationSpy.txt
+JackTradesCombat        | races/JackTrades/animCombat.txt
+JackTradesCombatH       | races/JackTrades/animCombatH.txt
+JackTradesDeath1        | races/JackTrades/animDeath1.txt
+JackTradesDeath2        | races/JackTrades/animDeath2.txt
+JackTradesDeath3        | races/JackTrades/animDeath3.txt
+JackTradesDeath4        | races/JackTrades/animDeath4.txt
+JackTradesDeath1H       | races/JackTrades/animDeath1H.txt
+JackTradesDeath2H       | races/JackTrades/animDeath2H.txt
+JackTradesDeath3H       | races/JackTrades/animDeath3H.txt
+JackTradesDeath4H       | races/JackTrades/animDeath4H.txt
+JackTradesGNN           | races/JackTrades/animationGNN.txt
+JackTradesGNNHost       | races/JackTrades/animationGNNHost.txt
+
+JackTradesTransportDesc | races/JackTrades/animationTransportDescending.txt
+JackTradesTransportOpen | races/JackTrades/animationTransportOpening.txt

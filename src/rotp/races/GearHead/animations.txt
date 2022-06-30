@@ -1,0 +1,25 @@
+
+GearHeadLaboratory    | races/GearHead/animationLaboratory.txt
+GearHeadDiploMug      | races/GearHead/animationMugshot.txt
+GearHeadSpyMug        | races/GearHead/animationSpyMug.txt
+GearHeadSoldierMug    | races/GearHead/animationSoldierMug.txt
+GearHeadDiplomat      | races/GearHead/animationDiplomat.txt
+GearHeadScientist     | races/GearHead/animationScientist.txt
+GearHeadSoldier       | races/GearHead/animationSoldier.txt
+GearHeadSpy           | races/GearHead/animationSpy.txt
+GearHeadCombat        | races/GearHead/animCombat.txt
+GearHeadCombatH       | races/GearHead/animCombatH.txt
+GearHeadDeath1        | races/GearHead/animDeath1.txt
+GearHeadDeath2        | races/GearHead/animDeath2.txt
+GearHeadDeath3        | races/GearHead/animDeath3.txt
+GearHeadDeath4        | races/GearHead/animDeath4.txt
+GearHeadDeath1H       | races/GearHead/animDeath1H.txt
+GearHeadDeath2H       | races/GearHead/animDeath2H.txt
+GearHeadDeath3H       | races/GearHead/animDeath3H.txt
+GearHeadDeath4H       | races/GearHead/animDeath4H.txt
+GearHeadGNN           | races/GearHead/animationGNN.txt
+GearHeadGNNHost       | races/GearHead/animationGNNHost.txt
+
+GearHeadTransportDesc | races/GearHead/animationTransportDescending.txt
+GearHeadTransportOpen | races/GearHead/animationTransportOpening.txt
+

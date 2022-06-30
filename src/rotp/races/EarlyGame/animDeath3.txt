@@ -1,0 +1,5 @@
+#
+# EarlyGame Hostile Combat Frames
+
+# immolated. only ashes remain
+Base, _ALL_ , EarlyDeath301:1+EarlyDeath302:1+EarlyDeath303:1+EarlyDeath304:1+EarlyDeath305:1+EarlyDeath306:1+EarlyDeath307:1+EarlyDeath308:1+EarlyDeath309:1+EarlyDeath310:99999

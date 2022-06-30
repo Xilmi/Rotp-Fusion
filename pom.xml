@@ -17,7 +17,7 @@
     <scm>
         <connection>scm:git:${project.scm.url}</connection>
         <developerConnection>scm:git:${project.scm.url}</developerConnection>
-        <url>https://github.com/BrokenRegistry/Rotp-Xilmi-BR.git</url>
+        <url>https://github.com/BrokenRegistry/Rotp-C-M-X-BR.git</url>
         <tag>HEAD</tag>
     </scm>
 
@@ -25,7 +25,7 @@
         <repository>
             <id>github</id>
             <name>BrokenRegistry</name>
-            <url>https://maven.pkg.github.com/BrokenRegistry/Rotp-Xilmi-BR</url>
+            <url>https://maven.pkg.github.com/BrokenRegistry/Rotp-C-M-X-BR</url>
         </repository>
     </distributionManagement>
 
@@ -347,10 +347,10 @@
                         <id>default-cli</id>
                         <configuration>
                             <owner>BrokenRegistry</owner>
-                            <repository>Rotp-Xilmi-BR</repository>
+                            <repository>Rotp-C-M-X-BR</repository>
                             <authToken>${GITHUB_TOKEN}</authToken>
                             <tagName>${project.version}</tagName>
-                            <name>Rotp-Xilmi-BR ${project.version}</name>
+                            <name>Rotp-C-M-X-BR ${project.version}</name>
                             <targetCommitish>main</targetCommitish>
                             <releaseNotes>target/classes/README.md</releaseNotes>
                             <assets>

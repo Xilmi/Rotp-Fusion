@@ -1,0 +1,5 @@
+#
+# Monocle Combat Animation
+
+// Actual firing of weapon is on 5th of 7 frames
+Firing, _ALL_ , MonoCombat01:1+MonoCombat02:1+MonoCombat03:1+MonoCombat04:1+MonoCombat05:1+MonoCombat03:1+MonoCombat01:1

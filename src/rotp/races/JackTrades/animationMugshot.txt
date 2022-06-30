@@ -1,0 +1,13 @@
+#
+# JackTrades Mugshot Animation (Setup & Races UI)
+Base, _ALL_  , JackLab
+Base,  _ALL_    , JackDip
+
+// open-blink-open-squint-blink-squint
+Eye,    320@50    , NULL:3:6+JackDipEy03:1+NULL:2:4+JackDipEy02:2:4+JackDipEy03:1+JackDipEy02:1:3
+
+// closed-open1-open2-open3-open2-open3-open2-open1
+Mouth,  320@120   , NULL:2+JackDipMo02:2+JackDipMo03:2+JackDipMo04:2+JackDipMo03:2+JackDipMo04:2+JackDipMo03:2+JackDipMo02:2
+
+// finger down-up-down-up-down-up (triple tap)
+Hand,   190@325   , NULL:5:9+JackDipFi02:1+NULL:1+JackDipFi02:1+NULL:1+JackDipFi02:1

@@ -36,7 +36,7 @@ public class UserProfiles extends AbstractProfiles<ClientClasses> {
 	}
 	
 	private static final String BR_GROUP_NAME = "BR";
-	static final BaseMod baseMod = BaseMod.Xilmi;
+	static final BaseMod baseMod = BaseMod.BrokenRegistry;
 	
 	// ==================================================
 	// Constructors and helpers

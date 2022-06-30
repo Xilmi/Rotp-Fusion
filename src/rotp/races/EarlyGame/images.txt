@@ -1,0 +1,185 @@
+EarlyFlagWar  | races/EarlyGame/banner_war.png
+EarlyFlagNorm | races/EarlyGame/banner_norm.png
+EarlyFlagPact | races/EarlyGame/banner_pact.png
+
+EarlyDlgWar   | races/Meklar/dialogue_war.png
+EarlyDlgNorm  | races/Meklar/dialogue_norm.png
+EarlyDlgPact  | races/Meklar/dialogue_pact.png
+
+EarlyFort01   | races/Meklar/Fortress_01.png
+EarlyFort02   | races/Meklar/Fortress_02.png
+EarlyGameShield  | races/Meklar/Fortress_shield.png
+
+EarlyLab      | races/Meklar/Meklar_Laboratory.jpg
+EarlyLabGlowA | races/Meklar/Meklar_Laboratory_glowA.png
+EarlyLabGlowB | races/Meklar/Meklar_Laboratory_glowB.png
+EarlyCouncil  | races/EarlyGame/Council_01.jpg
+
+EarlyLeader    | races/EarlyGame/CouncilLeader.png
+
+EarlyDip      | races/EarlyGame/Diplomat_Base.png
+EarlyDipMo02  | races/Meklar/Diplomat_Mouth_02.png
+EarlyDipMo03  | races/Meklar/Diplomat_Mouth_03.png
+EarlyDipMo04  | races/Meklar/Diplomat_Mouth_04.png
+EarlyDipMo05  | races/Meklar/Diplomat_Mouth_05.png
+EarlyDipMo06  | races/Meklar/Diplomat_Mouth_06.png
+EarlyDipMo07  | races/Meklar/Diplomat_Mouth_07.png
+EarlyDipMo08  | races/Meklar/Diplomat_Mouth_08.png
+EarlyDipMo09  | races/Meklar/Diplomat_Mouth_09.png
+EarlyDipMo10  | races/Meklar/Diplomat_Mouth_10.png
+EarlyDipMo11  | races/Meklar/Diplomat_Mouth_11.png
+
+EarlySci      | races/EarlyGame/Scientist_Base.png
+EarlySciEy02  | races/Meklar/Scientist_Eye_02.png
+EarlySciEy03  | races/Meklar/Scientist_Eye_03.png
+EarlySciEy04  | races/Meklar/Scientist_Eye_04.png
+EarlySciHa01  | races/Meklar/Scientist_Hand_01.png
+EarlySciHa02  | races/Meklar/Scientist_Hand_02.png
+EarlySciHa03  | races/Meklar/Scientist_Hand_03.png
+EarlySciHa04  | races/Meklar/Scientist_Hand_04.png
+EarlySciBe01  | races/Meklar/Scientist_Beaker_01.png
+EarlySciBe02  | races/Meklar/Scientist_Beaker_02.png
+EarlySciBe03  | races/Meklar/Scientist_Beaker_03.png
+EarlySciBe04  | races/Meklar/Scientist_Beaker_04.png
+EarlySciBe05  | races/Meklar/Scientist_Beaker_05.png
+EarlySciBe06  | races/Meklar/Scientist_Beaker_06.png
+
+
+EarlySol      | races/EarlyGame/Soldier_Base.png
+EarlySolEy02  | races/Meklar/Soldier_Eye_02.png
+EarlySolEy03  | races/Meklar/Soldier_Eye_03.png
+EarlySolEy04  | races/Meklar/Soldier_Eye_04.png
+EarlySolHa02  | races/Meklar/Soldier_Hand_02.png
+EarlySolHa03  | races/Meklar/Soldier_Hand_03.png
+EarlySolHa04  | races/Meklar/Soldier_Hand_04.png
+EarlySolHa05  | races/Meklar/Soldier_Hand_05.png
+EarlySolHa06  | races/Meklar/Soldier_Hand_06.png
+
+EarlySpy      | races/EarlyGame/Spy_Base.png
+EarlySpyEy02  | races/Meklar/Spy_Eye_02.png
+EarlySpyEy03  | races/Meklar/Spy_Eye_03.png
+EarlySpyEy04  | races/Meklar/Spy_Eye_04.png
+EarlySpyEy05  | races/Meklar/Spy_Eye_05.png
+EarlySpyEy06  | races/Meklar/Spy_Eye_06.png
+EarlySpyEy07  | races/Meklar/Spy_Eye_07.png
+EarlySpyEy08  | races/Meklar/Spy_Eye_08.png
+EarlySpyEy09  | races/Meklar/Spy_Eye_09.png
+EarlySpyEy10  | races/Meklar/Spy_Eye_10.png
+
+EarlyComFir01 | races/Meklar/Combat_01.png
+EarlyComFir02 | races/Meklar/Combat_02.png
+EarlyComFir03 | races/Meklar/Combat_03.png
+EarlyComFir04 | races/Meklar/Combat_04.png
+EarlyComFir05 | races/Meklar/Combat_05.png
+EarlyComFir06 | races/Meklar/Combat_06.png
+EarlyComFir07 | races/Meklar/Combat_07.png
+
+EarlyTransport  | races/Meklar/Transport_Transit.png
+EarlyTrans      | races/Meklar/Transport_00.png
+EarlyTrans07    | races/Meklar/Transport_07.png
+EarlyTrans11    | races/Meklar/Transport_11.png
+EarlyTrans12    | races/Meklar/Transport_12.png
+EarlyTrans13    | races/Meklar/Transport_13.png
+EarlyTrans14    | races/Meklar/Transport_14.png
+EarlyTrans21    | races/Meklar/Transport_21.png
+EarlyTrans22    | races/Meklar/Transport_22.png
+EarlyTrans23    | races/Meklar/Transport_23.png
+
+EarlyGNNB_01    | races/Meklar/GNN_Back_01.jpg
+EarlyGNNB_02    | races/Meklar/GNN_Back_02.jpg
+EarlyGNNB_03    | races/Meklar/GNN_Back_03.jpg
+EarlyGNNB_04    | races/Meklar/GNN_Back_04.jpg
+EarlyGNNB_05    | races/Meklar/GNN_Back_05.jpg
+EarlyGNNB_06    | races/Meklar/GNN_Back_06.jpg
+EarlyGNNB_07    | races/Meklar/GNN_Back_07.jpg
+EarlyGNNB_08    | races/Meklar/GNN_Back_08.jpg
+EarlyGNNB_09    | races/Meklar/GNN_Back_09.jpg
+EarlyGNNB_10    | races/Meklar/GNN_Back_10.jpg
+EarlyGNNB_11    | races/Meklar/GNN_Back_11.jpg
+EarlyGNNB_12    | races/Meklar/GNN_Back_12.jpg
+EarlyGNNB_13    | races/Meklar/GNN_Back_13.jpg
+EarlyGNNB_14    | races/Meklar/GNN_Back_14.jpg
+EarlyGNNB_15    | races/Meklar/GNN_Back_15.jpg
+EarlyGNNB_16    | races/Meklar/GNN_Back_16.jpg
+EarlyGNNB_17    | races/Meklar/GNN_Back_17.jpg
+EarlyGNNB_18    | races/Meklar/GNN_Back_18.jpg
+EarlyGNNB_19    | races/Meklar/GNN_Back_19.jpg
+EarlyGNNB_20    | races/Meklar/GNN_Back_20.jpg
+EarlyGNNB_21    | races/Meklar/GNN_Back_21.jpg
+EarlyGNNB_22    | races/Meklar/GNN_Back_22.jpg
+EarlyGNNB_23    | races/Meklar/GNN_Back_23.jpg
+
+EarlyGNNH_1     | races/EarlyGame/GNN_Host_01.png
+EarlyGNNH_2     | races/EarlyGame/GNN_Host_02.png
+EarlyGNNH_3     | races/EarlyGame/GNN_Host_03.png
+EarlyGNNH_4     | races/EarlyGame/GNN_Host_04.png
+EarlyGNNH_5     | races/EarlyGame/GNN_Host_05.png
+EarlyGNNH_6     | races/EarlyGame/GNN_Host_06.png
+EarlyGNNHA_1    | races/Meklar/GNN_HostA_01.png
+EarlyGNNHA_2    | races/Meklar/GNN_HostA_02.png
+EarlyGNNHA_3    | races/Meklar/GNN_HostA_03.png
+EarlyGNNHA_4    | races/Meklar/GNN_HostA_04.png
+EarlyGNNHA_5    | races/Meklar/GNN_HostA_05.png
+EarlyGNNHA_6    | races/Meklar/GNN_HostA_06.png
+EarlyGNNHA_7    | races/Meklar/GNN_HostA_07.png
+EarlyGNNHB_1    | races/Meklar/GNN_HostB_01.png
+EarlyGNNHB_2    | races/Meklar/GNN_HostB_02.png
+EarlyGNNHB_3    | races/Meklar/GNN_HostB_03.png
+EarlyGNNHB_4    | races/Meklar/GNN_HostB_04.png
+EarlyGNNHC_1    | races/Meklar/GNN_HostC_01.png
+EarlyGNNHC_2    | races/Meklar/GNN_HostC_02.png
+EarlyGNNHC_3    | races/Meklar/GNN_HostC_03.png
+EarlyGNNHC_4    | races/Meklar/GNN_HostC_04.png
+EarlyGNNHC_5    | races/Meklar/GNN_HostC_05.png
+EarlyGNNHC_6    | races/Meklar/GNN_HostC_06.png
+EarlyGNNHC_7    | races/Meklar/GNN_HostC_07.png
+EarlyGNNHC_8    | races/Meklar/GNN_HostC_08.png
+EarlyGNNHC_9    | races/Meklar/GNN_HostC_09.png
+EarlyGNNHC_10   | races/Meklar/GNN_HostC_10.png
+EarlyGNNHC_11   | races/Meklar/GNN_HostC_11.png
+EarlyGNNHC_12   | races/Meklar/GNN_HostC_12.png
+EarlyGNNHC_13   | races/Meklar/GNN_HostC_13.png
+EarlyGNNHD_1    | races/Meklar/GNN_HostD_01.png
+EarlyGNNHD_2    | races/Meklar/GNN_HostD_02.png
+EarlyGNNHD_3    | races/Meklar/GNN_HostD_03.png
+EarlyGNNHD_4    | races/Meklar/GNN_HostD_04.png
+
+EarlyComFir01 | races/Meklar/Combat_01.png
+EarlyComFir02 | races/Meklar/Combat_02.png
+EarlyComFir03 | races/Meklar/Combat_03.png
+EarlyComFir04 | races/Meklar/Combat_04.png
+EarlyComFir05 | races/Meklar/Combat_05.png
+EarlyComFir06 | races/Meklar/Combat_06.png
+
+EarlyDeath101  | races/Meklar/Death1-01.png
+EarlyDeath102  | races/Meklar/Death1-02.png
+EarlyDeath103  | races/Meklar/Death1-03.png
+EarlyDeath104  | races/Meklar/Death1-04.png
+EarlyDeath105  | races/Meklar/Death1-05.png
+EarlyDeath106  | races/Meklar/Death1-06.png
+EarlyDeath107  | races/Meklar/Death1-07.png
+EarlyDeath108  | races/Meklar/Death1-08.png
+EarlyDeath201  | races/Meklar/Death2-01.png
+EarlyDeath202  | races/Meklar/Death2-02.png
+EarlyDeath203  | races/Meklar/Death2-03.png
+EarlyDeath204  | races/Meklar/Death2-04.png
+EarlyDeath301  | races/Meklar/Death3-01.png
+EarlyDeath302  | races/Meklar/Death3-02.png
+EarlyDeath303  | races/Meklar/Death3-03.png
+EarlyDeath304  | races/Meklar/Death3-04.png
+EarlyDeath305  | races/Meklar/Death3-05.png
+EarlyDeath306  | races/Meklar/Death3-06.png
+EarlyDeath307  | races/Meklar/Death3-07.png
+EarlyDeath308  | races/Meklar/Death3-08.png
+EarlyDeath309  | races/Meklar/Death3-09.png
+EarlyDeath310  | races/Meklar/Death3-10.png
+EarlyDeath401  | races/Meklar/Death4-01.png
+EarlyDeath402  | races/Meklar/Death4-02.png
+EarlyDeath403  | races/Meklar/Death4-03.png
+EarlyDeath404  | races/Meklar/Death4-04.png
+EarlyDeath405  | races/Meklar/Death4-05.png
+EarlyDeath406  | races/Meklar/Death4-06.png
+EarlyDeath407  | races/Meklar/Death4-07.png
+EarlyDeath408  | races/Meklar/Death4-08.png
+
+

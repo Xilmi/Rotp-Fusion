@@ -1,0 +1,6 @@
+#
+# WarDemon Diplomat Animation
+Base,   _ALL_       , WarLab01
+
+Base,   _ALL_  , WarDip
+Staff, 0@0 , WarDipStaff01:1+WarDipStaff02:1+WarDipStaff03:1+WarDipStaff04:1

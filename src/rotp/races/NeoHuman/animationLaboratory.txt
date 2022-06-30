@@ -1,0 +1,6 @@
+#
+# NeoHuman Laboratory Animation
+#
+
+Base,   _ALL_  , NeoLab
+Effect, _ALL_  , NeoLabEff01+NeoLabEff02+NeoLabEff03

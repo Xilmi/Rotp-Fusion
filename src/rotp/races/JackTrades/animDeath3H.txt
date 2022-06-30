@@ -1,0 +1,6 @@
+#
+# JackTrades Hostile Combat Frames
+
+# immolated. only ashes remain
+Base, _ALL_ , JackDeath3H01:1+JackDeath3H02:1+JackDeath3H03:1+JackDeath3H04:1+JackDeath3H05:1+JackDeath3H06:1+JackDeath3H07:1+JackDeath3H08:1+JackDeath3H09:1+JackDeath3H10:1+JackDeath3H11:99999
+

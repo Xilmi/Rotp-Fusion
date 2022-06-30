@@ -1,0 +1,5 @@
+#
+# WarDemon Combat Frames
+
+# shoots on frame 4 (of 7)
+Base, _ALL_ , WarComb01:1+WarComb02:1+WarComb03:1+WarComb04:1+WarComb03:1+WarComb02:1+WarComb01:1

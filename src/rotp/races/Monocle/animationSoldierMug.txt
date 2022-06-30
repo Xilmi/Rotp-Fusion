@@ -1,0 +1,11 @@
+#
+# Monocle Soldier Animation
+# #1 - Eye
+# #2 - Glowing Shield
+
+Base,   _ALL_    , MonoLab
+Base,  _ALL_     , MonoSol
+
+Eye,   280@100   , NULL:2:6+MonoSolEy02:2:6+MonoSolEy03:2:6+MonoSolEy04:2:6+MonoSolEy03:2:6+MonoSolEy02:2:6
+
+Shield, 30@520   , NULL:3:5+MonoSolSh02:1+MonoSolSh03:1+MonoSolSh04:1+MonoSolSh05:1+MonoSolSh06:3:5

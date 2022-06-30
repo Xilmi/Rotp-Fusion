@@ -1,0 +1,4 @@
+#
+# EarlyGame Transport Ship Descending Animation
+
+Descending, 0@0, EarlyTrans

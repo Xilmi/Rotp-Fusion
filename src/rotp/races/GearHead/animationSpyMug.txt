@@ -1,0 +1,15 @@
+#
+# GearHead Spy Mugshot Animation (Races Tech UI)
+
+Base, _ALL_  , GearLab
+Base, _ALL_  , GearSpy
+
+#   Looking (2,3) and Blinking (4,5)
+Eye,   260@90 , NULL:8:20+GearSpyEy02:1+GearSpyEy03:1+GearSpyEy04:1+GearSpyEy05:1+GearSpyEy06:1
+
+#   1(null)-Closed, 2-Half-Open, 3-Open
+Mouth, 260@150 , NULL:2+GearSpyMo02:2+GearSpyMo03:2+GearSpyMo02:2+GearSpyMo03:2+GearSpyMo02:2
+
+# Camera - 1-34  (lauching to fully open)
+Camera, 50@130 , NULL:10:20+GearSpyCa02:1+GearSpyCa03:1+GearSpyCa04:1+GearSpyCa05:1+GearSpyCa06:1+GearSpyCa07:1+GearSpyCa08:1+GearSpyCa09:1+GearSpyCa10:1+GearSpyCa11:1+GearSpyCa12:1+GearSpyCa13:1+GearSpyCa14:1+GearSpyCa15:1+GearSpyCa16:1+GearSpyCa17:1+GearSpyCa18:1+GearSpyCa19:1+GearSpyCa20:1+GearSpyCa21:1+GearSpyCa22:1+GearSpyCa23:1+GearSpyCa24:1+GearSpyCa25:1+GearSpyCa26:1+GearSpyCa27:1+GearSpyCa28:1+GearSpyCa29:10+GearSpyCa30:1+GearSpyCa31:1+GearSpyCa32:1+GearSpyCa33:1+GearSpyCa34:1000
+

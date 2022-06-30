@@ -1,0 +1,4 @@
+#
+# WarDemon Spy Animation
+
+Base,   _ALL_  , WarSpy00:7+WarSpy01:3+WarSpy02:2+WarSpy03:2+WarSpy04+WarSpy05+WarSpy06+WarSpy07:9999

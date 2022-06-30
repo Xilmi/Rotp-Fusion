@@ -1,0 +1,5 @@
+#
+# JackTrades  Hostile Combat Frames
+
+# falls over dead
+Base, _ALL_ , JackDeath101:1+JackDeath102:1+JackDeath103:1+JackDeath104:1+JackDeath105:1+JackDeath106:1+JackDeath107:1+JackDeath108:1+JackDeath109:99999

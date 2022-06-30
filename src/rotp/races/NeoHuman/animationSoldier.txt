@@ -1,0 +1,9 @@
+#
+# NeoHuman Scientist Animation
+Base,     _ALL_   , NeoSol
+
+Helm,     _ALL_   , NULL:6+NeoSol02+NeoSol03+NeoSol04+NeoSol05+NeoSol06+NeoSol07+NeoSol08+NeoSol09+NeoSol10+NeoSol11+NeoSol12+NeoSol13+NeoSol14:99999
+
+# 1/NULL-@tablet, 2-@player, 3-halfopen, 4-closed
+Eye,    0@0   , NULL:20:30+NeoSolEy02:2+NeoSolEy03:2
+

@@ -1,0 +1,8 @@
+#
+# Monocle Spy Animation
+# #1 - Blinking eye
+
+Base,   _ALL_       , MonoLab
+Base, _ALL_  , MonoSpy
+
+Eye, 300@100 , NULL:20:40+MonoSpyEy02:2+MonoSpyEy03:2+MonoSpyEy04:2+MonoSpyEy05:2+MonoSpyEy06:2+MonoSpyEy07:2+MonoSpyEy08:2+MonoSpyEy09:20:40

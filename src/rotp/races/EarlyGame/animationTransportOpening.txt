@@ -1,0 +1,4 @@
+#
+# EarlyGame Transport Ship Opening Animation
+
+Open,  0@0, EarlyTrans07:1+EarlyTrans11:1+EarlyTrans12:1+EarlyTrans13:1+EarlyTrans14:1+EarlyTrans21:1+EarlyTrans22:1+EarlyTrans23:999999

@@ -1,0 +1,5 @@
+#
+# WarDemon Hostile Combat Frames
+
+# vaporized into nothingness
+Base, _ALL_ , WarDeath401:1+WarDeath402:1+WarDeath403:1+WarDeath404:1+WarDeath405:1+WarDeath406:1+WarDeath407:1+null:99999

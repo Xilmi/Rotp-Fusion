@@ -1,0 +1,3 @@
+#
+# NeoHuman Diplomat Animation
+Base,  _ALL_    , NeoDip

@@ -1,0 +1,20 @@
+
+NeoHumanLaboratory    | races/NeoHuman/animationLaboratory.txt
+NeoHumanDiploMug      | races/NeoHuman/animationDiploMug.txt
+NeoHumanSpyMug        | races/NeoHuman/animationSpyMug.txt
+NeoHumanSoldierMug    | races/NeoHuman/animationSoldierMug.txt
+NeoHumanDiplomat      | races/NeoHuman/animationDiplomat.txt
+NeoHumanScientist     | races/NeoHuman/animationScientist.txt
+NeoHumanSoldier       | races/NeoHuman/animationSoldier.txt
+NeoHumanSoldier2      | races/NeoHuman/animationSoldier2.txt
+NeoHumanSpy           | races/NeoHuman/animationSpy.txt
+NeoHumanCombat        | races/NeoHuman/animCombat.txt
+NeoHumanDeath1        | races/NeoHuman/animDeath1.txt
+NeoHumanDeath2        | races/NeoHuman/animDeath2.txt
+NeoHumanDeath3        | races/NeoHuman/animDeath3.txt
+NeoHumanDeath4        | races/NeoHuman/animDeath4.txt
+NeoHumanGNN           | races/NeoHuman/animationGNN.txt
+NeoHumanGNNHost       | races/NeoHuman/animationGNNHost.txt
+
+NeoHumanTransportDesc | races/NeoHuman/animationTransportDescending.txt
+NeoHumanTransportOpen | races/NeoHuman/animationTransportOpening.txt

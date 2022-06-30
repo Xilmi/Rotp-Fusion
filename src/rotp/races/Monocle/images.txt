@@ -1,0 +1,189 @@
+MonoFlagWar   | races/Monocle/banner_war.png
+MonoFlagNorm  | races/Monocle/banner_norm.png
+MonoFlagPact  | races/Monocle/banner_pact.png
+
+MonoDlgWar    | races/Silicoid/dialogue_war.png
+MonoDlgNorm   | races/Silicoid/dialogue_norm.png
+MonoDlgPact   | races/Silicoid/dialogue_pact.png
+
+MonocleTroopIcon | races/Monocle/troop_icon.png
+
+MonoLab       | races/Silicoid/Silicoid_Laboratory_Base.jpg
+MonoLabGlowA  | races/Silicoid/Silicoid_Laboratory_GlowA.png
+MonoLabGlowB  | races/Silicoid/Silicoid_Laboratory_GlowB.png
+MonoCouncil   | races/Monocle/Council_01.jpg
+
+MonoLeader    | races/Monocle/CouncilLeader.png
+
+MonoDip       | races/Monocle/Diplomat_Base.png
+MonoDipEy02   | races/Monocle/Diplomat_Eye_02.png
+MonoDipHa02   | races/Silicoid/Diplomat_Hand_02.png
+MonoDipHa03   | races/Silicoid/Diplomat_Hand_03.png
+MonoDipHa04   | races/Silicoid/Diplomat_Hand_04.png
+MonoIntroDip  | races/Monocle/Diplomat_Base.png
+
+MonoSci       | races/Monocle/Scientist_Base.png
+MonoSciEy02   | races/Monocle/Scientist_Eye_02.png
+MonoSciEy03   | races/Monocle/Scientist_Eye_03.png
+MonoSciEy04   | races/Monocle/Scientist_Eye_04.png
+MonoSciCu01   | races/Silicoid/Scientist_Cube_01.png
+MonoSciCu02   | races/Silicoid/Scientist_Cube_02.png
+MonoSciCu03   | races/Silicoid/Scientist_Cube_03.png
+MonoSciCu04   | races/Silicoid/Scientist_Cube_04.png
+MonoSciCu05   | races/Silicoid/Scientist_Cube_05.png
+MonoSciCu06   | races/Silicoid/Scientist_Cube_06.png
+MonoSciCu07   | races/Silicoid/Scientist_Cube_07.png
+
+MonoSol       | races/Monocle/Soldier_Base.png
+MonoSolEy02   | races/Monocle/Soldier_Eye_02.png
+MonoSolEy03   | races/Monocle/Soldier_Eye_03.png
+MonoSolEy04   | races/Monocle/Soldier_Eye_04.png
+MonoSolSh02   | races/Silicoid/Soldier_Shield_02.png
+MonoSolSh03   | races/Silicoid/Soldier_Shield_03.png
+MonoSolSh04   | races/Silicoid/Soldier_Shield_04.png
+MonoSolSh05   | races/Silicoid/Soldier_Shield_05.png
+MonoSolSh06   | races/Silicoid/Soldier_Shield_06.png
+
+MonoSpy       | races/Monocle/Spy_Base.png
+MonoSpyEy02   | races/Monocle/Spy_Eye_02.png
+MonoSpyEy03   | races/Monocle/Spy_Eye_03.png
+MonoSpyEy04   | races/Monocle/Spy_Eye_04.png
+MonoSpyEy05   | races/Monocle/Spy_Eye_05.png
+MonoSpyEy06   | races/Monocle/Spy_Eye_06.png
+MonoSpyEy07   | races/Monocle/Spy_Eye_07.png
+MonoSpyEy08   | races/Monocle/Spy_Eye_08.png
+MonoSpyEy09   | races/Monocle/Spy_Eye_09.png
+
+MonoFort01    | races/Silicoid/Fortress_01.png
+MonoFort02    | races/Silicoid/Fortress_02.png
+MonoFort03    | races/Silicoid/Fortress_03.png
+MonoFort04    | races/Silicoid/Fortress_04.png
+
+MonoTransport | races/Silicoid/Transport_Transit.png
+MonoTrans01   | races/Silicoid/Transport_01.png
+MonoTrans02   | races/Silicoid/Transport_02.png
+MonoTrans03   | races/Silicoid/Transport_03.png
+MonoTrans04   | races/Silicoid/Transport_04.png
+MonoTrans05   | races/Silicoid/Transport_05.png
+MonoTrans06   | races/Silicoid/Transport_06.png
+MonoTrans07   | races/Silicoid/Transport_07.png
+MonoTrans11   | races/Silicoid/Transport_11.png
+MonoTrans12   | races/Silicoid/Transport_12.png
+MonoTrans13   | races/Silicoid/Transport_13.png
+MonoTrans14   | races/Silicoid/Transport_14.png
+
+MonoGNNB_01    | races/Silicoid/GNN_Back_01.jpg
+MonoGNNB_02    | races/Silicoid/GNN_Back_02.jpg
+MonoGNNB_03    | races/Silicoid/GNN_Back_03.jpg
+MonoGNNB_04    | races/Silicoid/GNN_Back_04.jpg
+MonoGNNB_05    | races/Silicoid/GNN_Back_05.jpg
+MonoGNNB_06    | races/Silicoid/GNN_Back_06.jpg
+MonoGNNB_07    | races/Silicoid/GNN_Back_07.jpg
+MonoGNNB_08    | races/Silicoid/GNN_Back_08.jpg
+MonoGNNB_09    | races/Silicoid/GNN_Back_09.jpg
+MonoGNNB_10    | races/Silicoid/GNN_Back_10.jpg
+MonoGNNB_11    | races/Silicoid/GNN_Back_11.jpg
+MonoGNNB_12    | races/Silicoid/GNN_Back_12.jpg
+MonoGNNB_13    | races/Silicoid/GNN_Back_13.jpg
+MonoGNNB_14    | races/Silicoid/GNN_Back_14.jpg
+MonoGNNB_15    | races/Silicoid/GNN_Back_15.jpg
+MonoGNNB_16    | races/Silicoid/GNN_Back_16.jpg
+MonoGNNB_17    | races/Silicoid/GNN_Back_17.jpg
+MonoGNNB_18    | races/Silicoid/GNN_Back_18.jpg
+MonoGNNB_19    | races/Silicoid/GNN_Back_19.jpg
+MonoGNNB_20    | races/Silicoid/GNN_Back_20.jpg
+MonoGNNB_21    | races/Silicoid/GNN_Back_21.jpg
+MonoGNNB_22    | races/Silicoid/GNN_Back_22.jpg
+MonoGNNB_23    | races/Silicoid/GNN_Back_23.jpg
+
+MonoGNNH_00    | races/Silicoid/GNN_Host_00.png
+MonoGNNH_01    | races/Silicoid/GNN_Host_01.png
+MonoGNNH_02    | races/Silicoid/GNN_Host_02.png
+MonoGNNH_03    | races/Silicoid/GNN_Host_03.png
+MonoGNNH_04    | races/Silicoid/GNN_Host_04.png
+MonoGNNH_05    | races/Silicoid/GNN_Host_05.png
+MonoGNNH_06    | races/Silicoid/GNN_Host_06.png
+MonoGNNH_07    | races/Silicoid/GNN_Host_07.png
+MonoGNNH_08    | races/Silicoid/GNN_Host_08.png
+MonoGNNH_09    | races/Silicoid/GNN_Host_09.png
+MonoGNNH_10    | races/Silicoid/GNN_Host_10.png
+MonoGNNH_11    | races/Silicoid/GNN_Host_11.png
+MonoGNNH_12    | races/Silicoid/GNN_Host_12.png
+MonoGNNH_13    | races/Silicoid/GNN_Host_13.png
+MonoGNNH_14    | races/Silicoid/GNN_Host_14.png
+MonoGNNH_15    | races/Silicoid/GNN_Host_15.png
+MonoGNNH_16    | races/Silicoid/GNN_Host_16.png
+MonoGNNH_17    | races/Silicoid/GNN_Host_17.png
+MonoGNNH_18    | races/Silicoid/GNN_Host_18.png
+MonoGNNH_19    | races/Silicoid/GNN_Host_19.png
+MonoGNNH_20    | races/Silicoid/GNN_Host_20.png
+MonoGNNH_21    | races/Silicoid/GNN_Host_21.png
+MonoGNNH_22    | races/Silicoid/GNN_Host_22.png
+MonoGNNH_23    | races/Silicoid/GNN_Host_23.png
+MonoGNNH_24    | races/Silicoid/GNN_Host_24.png
+MonoGNNH_25    | races/Silicoid/GNN_Host_25.png
+MonoGNNH_26    | races/Silicoid/GNN_Host_26.png
+MonoGNNH_27    | races/Silicoid/GNN_Host_27.png
+MonoGNNH_28    | races/Silicoid/GNN_Host_28.png
+MonoGNNH_29    | races/Silicoid/GNN_Host_29.png
+MonoGNNH_30    | races/Silicoid/GNN_Host_30.png
+MonoGNNH_31    | races/Silicoid/GNN_Host_31.png
+MonoGNNH_32    | races/Silicoid/GNN_Host_32.png
+
+MonoGNNHF_01   | races/Silicoid/GNN_HF01.png
+MonoGNNHF_02   | races/Silicoid/GNN_HF02.png
+MonoGNNHF_03   | races/Silicoid/GNN_HF03.png
+MonoGNNHF_04   | races/Silicoid/GNN_HF04.png
+MonoGNNHF_05   | races/Silicoid/GNN_HF05.png
+MonoGNNHF_06   | races/Silicoid/GNN_HF06.png
+MonoGNNHF_07   | races/Silicoid/GNN_HF07.png
+
+MonoGNNHM_01   | races/Silicoid/GNN_HM_01.png
+MonoGNNHM_02   | races/Silicoid/GNN_HM_02.png
+MonoGNNHM_03   | races/Silicoid/GNN_HM_03.png
+MonoGNNHM_04   | races/Silicoid/GNN_HM_04.png
+MonoGNNHM_05   | races/Silicoid/GNN_HM_05.png
+MonoGNNHM_06   | races/Silicoid/GNN_HM_06.png
+MonoGNNHM_07   | races/Silicoid/GNN_HM_07.png
+MonoGNNHM_08   | races/Silicoid/GNN_HM_08.png
+MonoGNNHM_09   | races/Silicoid/GNN_HM_09.png
+MonoGNNHM_10   | races/Silicoid/GNN_HM_10.png
+MonoGNNHM_11   | races/Silicoid/GNN_HM_11.png
+MonoGNNHM_12   | races/Silicoid/GNN_HM_12.png
+
+
+MonoCombat01   | races/Silicoid/Combat_01.png
+MonoCombat02   | races/Silicoid/Combat_02.png
+MonoCombat03   | races/Silicoid/Combat_03.png
+MonoCombat04   | races/Silicoid/Combat_04.png
+MonoCombat05   | races/Silicoid/Combat_05.png
+
+MonoDeath101   | races/Silicoid/Death1-01.png
+MonoDeath102   | races/Silicoid/Death1-02.png
+MonoDeath103   | races/Silicoid/Death1-03.png
+MonoDeath104   | races/Silicoid/Death1-04.png
+MonoDeath105   | races/Silicoid/Death1-05.png
+MonoDeath106   | races/Silicoid/Death1-06.png
+MonoDeath107   | races/Silicoid/Death1-07.png
+MonoDeath201   | races/Silicoid/Death2-01.png
+MonoDeath202   | races/Silicoid/Death2-02.png
+MonoDeath203   | races/Silicoid/Death2-03.png
+MonoDeath204   | races/Silicoid/Death2-04.png
+MonoDeath301   | races/Silicoid/Death3-01.png
+MonoDeath302   | races/Silicoid/Death3-02.png
+MonoDeath303   | races/Silicoid/Death3-03.png
+MonoDeath304   | races/Silicoid/Death3-04.png
+MonoDeath305   | races/Silicoid/Death3-05.png
+MonoDeath306   | races/Silicoid/Death3-06.png
+MonoDeath307   | races/Silicoid/Death3-07.png
+MonoDeath308   | races/Silicoid/Death3-08.png
+MonoDeath309   | races/Silicoid/Death3-09.png
+MonoDeath401   | races/Silicoid/Death4-01.png
+MonoDeath402   | races/Silicoid/Death4-02.png
+MonoDeath403   | races/Silicoid/Death4-03.png
+MonoDeath404   | races/Silicoid/Death4-04.png
+MonoDeath405   | races/Silicoid/Death4-05.png
+MonoDeath406   | races/Silicoid/Death4-06.png
+MonoDeath407   | races/Silicoid/Death4-07.png
+
+

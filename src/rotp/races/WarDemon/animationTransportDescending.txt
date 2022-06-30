@@ -1,0 +1,4 @@
+#
+# WarDemon Transport Ship Descending Animation
+
+Base, _ALL_  , WarTrans00

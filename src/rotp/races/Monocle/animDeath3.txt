@@ -1,0 +1,5 @@
+#
+# Monocle Hostile Combat Frames
+
+# immolated. only ashes remain
+Base, _ALL_ , MonoDeath301:1+MonoDeath302:1+MonoDeath303:1+MonoDeath304:1+MonoDeath305:1+MonoDeath306:1+MonoDeath307:1+MonoDeath308:1+MonoDeath309:99999

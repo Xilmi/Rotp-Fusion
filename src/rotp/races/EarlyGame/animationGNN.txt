@@ -1,0 +1,4 @@
+#
+# EarlyGame GNN Frames
+
+Base, _ALL_ , EarlyGNNB_01+EarlyGNNB_02+EarlyGNNB_03+EarlyGNNB_04+EarlyGNNB_05+EarlyGNNB_06+EarlyGNNB_07+EarlyGNNB_08+EarlyGNNB_09+EarlyGNNB_10+EarlyGNNB_11+EarlyGNNB_12+EarlyGNNB_13+EarlyGNNB_14+EarlyGNNB_10+EarlyGNNB_14+EarlyGNNB_15+EarlyGNNB_16+EarlyGNNB_17+EarlyGNNB_18+EarlyGNNB_19+EarlyGNNB_20+EarlyGNNB_21+EarlyGNNB_22+EarlyGNNB_23:99999

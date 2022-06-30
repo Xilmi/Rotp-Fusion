@@ -1,0 +1,5 @@
+#
+# JackTrades Transport Ship Opening Animation
+
+// Starts closed and opens "permanently" 
+Open,  0@0,JackTrans07:7+JackTrans11:1+JackTrans12:1+JackTrans13:1+JackTrans14:1+JackTrans15:999999

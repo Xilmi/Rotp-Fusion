@@ -1,0 +1,5 @@
+#
+# WarDemon Scientist Animation
+
+Base,   _ALL_  , WarSci01:5:10+WarSci02:1+WarSci03:1+WarSci04:1+WarSci05:30:60+WarSci06:1+WarSci07:1+WarSci08:1+WarSci09:1+WarSci10:30:60+WarSci11:1+WarSci12:1+WarSci13:1+WarSci14:1+WarSci15:5+WarSci16:5+WarSci17:5+WarSci16:3+WarSci17:3+WarSci18:5+WarSci17:3+WarSci18:3+WarSci19:5+WarSci18:3+WarSci19:3+WarSci20:10:30+WarSci19:3+WarSci20:5:10+WarSci19:3+WarSci20:5:10+WarSci19:3+WarSci20:5:10+WarSci19:3+WarSci20:5:10+WarSci19:3+WarSci20:5:10+WarSci19:3+WarSci20:5:10+WarSci19:3+WarSci20:5:10+WarSci19:3+WarSci20:5:10+WarSci19:3+WarSci20:5:10+WarSci19:3+WarSci20:5:10+WarSci19:3+WarSci20:5:10+WarSci19:3+WarSci20:5:10+WarSci19:3+WarSci20:5:10+WarSci21:5+WarSci22:5+WarSci23:5+WarSci24:5+WarSci25:3
+

@@ -1,0 +1,5 @@
+#
+# EarlyGame Hostile Combat Frames
+
+# falls over dead
+Base, _ALL_ , EarlyDeath101:1+EarlyDeath102:1+EarlyDeath103:1+EarlyDeath104:1+EarlyDeath105:1+EarlyDeath106:1+EarlyDeath107:1+EarlyDeath108:99999

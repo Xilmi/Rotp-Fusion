@@ -1,0 +1,12 @@
+#
+# JackTrades Diplomat Animation
+Base,  _ALL_    , JackDip
+
+// open-blink-open-squint-blink-squint
+Eye,    320@50    , NULL:30:60+JackDipEy03:2+NULL:10:20+JackDipEy02:4:10+JackDipEy03:2+JackDipEy02:3:10
+
+// closed-open1-open2-open3-open2-open3-open2-open1
+Mouth,  320@120   , NULL:2+JackDipMo02:2+JackDipMo03:2+JackDipMo04:2+JackDipMo03:2+JackDipMo04:2+JackDipMo03:2+JackDipMo02:2
+
+// finger down-up-down-up-down-up (triple tap)
+Hand,   190@300   , NULL:10:25+JackDipFi02:1+JackDipFi03:1+JackDipFi02:1+NULL:2+JackDipFi02:1+JackDipFi03:1+JackDipFi02:1+NULL:2+JackDipFi02:1+JackDipFi03:1+JackDipFi02:1

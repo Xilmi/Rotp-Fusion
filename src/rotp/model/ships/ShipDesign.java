@@ -298,11 +298,15 @@ public final class ShipDesign extends Design {
     public float totalSpace() { return totalSpace(size()); }
     public float totalSpace(int s) {
         float techBonus = 1 + (.02f * empire().tech().construction().techLevel());
+        float raceSpaceBonus = 1.0f; // modnar: change total ship space for new races
+        if (empire().race().homeworldKey() == 888) { // modnar: NeoHumans, +40% space
+            raceSpaceBonus = 1.4f;
+        }
         switch(s) {
-            case SMALL  : return 40 * techBonus;
-            case MEDIUM : return 200 * techBonus;
-            case LARGE  : return 1000 * techBonus;
-            case HUGE   : return 5000 * techBonus;
+            case SMALL  : return 40 * techBonus * raceSpaceBonus; // modnar: change total ship space for new races
+            case MEDIUM : return 200 * techBonus * raceSpaceBonus; // modnar: change total ship space for new races
+            case LARGE  : return 1000 * techBonus * raceSpaceBonus; // modnar: change total ship space for new races
+            case HUGE   : return 5000 * techBonus * raceSpaceBonus; // modnar: change total ship space for new races
             default     : return 0;
         }
     }
@@ -473,11 +477,15 @@ public final class ShipDesign extends Design {
     }
     public int weaponMax(int i) { return (int)Math.max(0, weapon(i).max(this, i));  }
     public int baseHits() {
+        float raceHPBonus = 1.0f; // modnar: change base ship HP for new races
+        if (empire().race().homeworldKey() == 888) { // modnar: NeoHumans, 66.6% HP
+            raceHPBonus = 0.666f;
+        }
         switch(size()) {
-            case SMALL  : return 3;
-            case MEDIUM : return 18;
-            case LARGE  : return 100;
-            case HUGE   : return 600;
+            case SMALL  : return (int) Math.round(3 * raceHPBonus);
+            case MEDIUM : return (int) Math.round(18 * raceHPBonus);
+            case LARGE  : return (int) Math.round(100 * raceHPBonus);
+            case HUGE   : return (int) Math.round(600 * raceHPBonus);
             default     : return 0;
         }
     }

@@ -1,0 +1,5 @@
+#
+# Transport Ship Opening Animation
+
+// Starts closed and opens "permanently" 
+Open,  0@0,NeoTrans01:2+NeoTrans02:2+NeoTrans03:3+NeoTrans04:4+NeoTrans05:5+NeoTrans06:999999

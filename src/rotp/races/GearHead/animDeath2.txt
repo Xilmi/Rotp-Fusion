@@ -1,0 +1,5 @@
+#
+# GearHead Hostile Combat Frames
+
+# Disrupted into nothingness
+Base, _ALL_ , GearDeath201:1+GearDeath202:1+GearDeath203:1+GearDeath204:1+GearDeath205:1+null:99999

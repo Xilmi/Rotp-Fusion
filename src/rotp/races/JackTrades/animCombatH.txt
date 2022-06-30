@@ -1,0 +1,4 @@
+#
+# JackTrades Hostile Combat Frames
+
+Base, _ALL_ , JackHComb01:1+JackHComb02:1+JackHComb03:1+JackHComb04:1

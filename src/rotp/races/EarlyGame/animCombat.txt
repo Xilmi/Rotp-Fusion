@@ -1,0 +1,4 @@
+#
+# EarlyGame Combat Animation
+
+Base, _ALL_ , EarlyComFir01:1+EarlyComFir02:1+EarlyComFir03:1+EarlyComFir04:1+EarlyComFir05:2+EarlyComFir06:1+EarlyComFir01:1

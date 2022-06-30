@@ -1,0 +1,4 @@
+#
+# NeoHuman Mugshot Animation (Setup & Races UI)
+Base, _ALL_    , NeoLab
+Base, _ALL_    , NeoDip

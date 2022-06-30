@@ -1,0 +1,3 @@
+#
+# NeoHuman Scientist Animation
+Base,     _ALL_   , NeoSci:12:18+NeoSci01+NeoSci02+NeoSci03+NeoSci04+NeoSci05+NeoSci06+NeoSci07+NeoSci08+NeoSci09+NeoSci10+NeoSci11+NeoSci12+NeoSci13+NeoSci14:99999

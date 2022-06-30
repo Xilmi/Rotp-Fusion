@@ -1,0 +1,5 @@
+#
+# JackTrades Hostile Combat Frames
+
+# Disrupted into nothingness
+Base, _ALL_ , JackDeath201:1+JackDeath202:1+JackDeath203:1+JackDeath204:1+null:99999

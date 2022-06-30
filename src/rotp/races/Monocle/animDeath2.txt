@@ -1,0 +1,5 @@
+#
+# Monocle Hostile Combat Frames
+
+# Disrupted into nothingness
+Base, _ALL_ , MonoDeath201:1+MonoDeath202:1+MonoDeath203:1+MonoDeath204:1+null:99999

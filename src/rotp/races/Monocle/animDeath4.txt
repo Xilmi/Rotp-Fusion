@@ -1,0 +1,5 @@
+#
+# Monocle Hostile Combat Frames
+
+# vaporized into nothingness
+Base, _ALL_ , MonoDeath401:1+MonoDeath402:1+MonoDeath403:1+MonoDeath404:1+MonoDeath405:1+MonoDeath406:1+MonoDeath407:1+null:99999

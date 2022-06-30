@@ -1,0 +1,5 @@
+#
+# GearHead Hostile Combat Frames
+
+# leaps and shoots on frame 7 (of 11), then descends
+Base, _ALL_ , GearHComb01:1+GearHComb02:1+GearHComb03:1+GearHComb04:1+GearHComb05:3+GearHComb04:1+GearHComb03:1+GearHComb02:1+GearHComb01:1

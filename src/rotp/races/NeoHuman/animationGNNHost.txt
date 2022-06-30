@@ -1,0 +1,7 @@
+#
+# NeoHuman GNN Host Frames
+
+Host, _ALL_, NeoGNNHA_0:5+NeoGNNHA_1+NeoGNNHA_2+NeoGNNHA_3+NeoGNNHA_4+NeoGNNHA_5+NeoGNNHA_6+NeoGNNHA_7+NeoGNNHA_8:999999
+
+
+

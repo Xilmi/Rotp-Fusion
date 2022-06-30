@@ -1,0 +1,5 @@
+#
+# EarlyGame Hostile Combat Frames
+
+# Disrupted into nothingness
+Base, _ALL_ , EarlyDeath201:1+EarlyDeath202:1+EarlyDeath203:1+EarlyDeath204:1+null:99999

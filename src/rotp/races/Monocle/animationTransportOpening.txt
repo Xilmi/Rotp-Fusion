@@ -1,0 +1,5 @@
+#
+# Monocle Transport Ship Opening Animation
+
+// Starts closed and opens "permanently" 
+Open,  0@0, MonoTrans02:1+MonoTrans05:1+MonoTrans06:1+MonoTrans07:80+MonoTrans11:10+MonoTrans12:10+MonoTrans13:10+MonoTrans14:999999

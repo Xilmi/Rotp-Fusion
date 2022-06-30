@@ -42,7 +42,7 @@ import rotp.ui.RotPUI;
 
 public final class SetupRaceUI extends BasePanel implements MouseListener, MouseMotionListener {
     private static final long serialVersionUID = 1L;
-    static final int MAX_RACES = 10;
+    static final int MAX_RACES = 16; // modnar: increase MAX_RACES to add new Races
     int MAX_COLORS = 16; // modnar: add new colors
     int FIELD_W;
     int FIELD_H;
@@ -90,8 +90,8 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         int x = colorBox[0].x;
         int y = colorBox[0].y;
         leaderName.setCaretPosition(leaderName.getText().length());
-        leaderName.setLocation(x, y-s58);
-        leaderBox.setBounds(x-s1, y-s59, FIELD_W+s2, FIELD_H+s2);
+        leaderName.setLocation(x, y-s53);
+        leaderBox.setBounds(x-s1, y-s53, FIELD_W+s2, FIELD_H+s2);
         homeWorld.setCaretPosition(homeWorld.getText().length());
         homeWorld.setLocation(x, y-s100-s10);
 		// modnar: test hover text
@@ -216,7 +216,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         // draw leader name label
         String nameLbl = text("SETUP_LEADER_NAME_LABEL");
         x3 = colorBox[0].x;
-        y3 = colorBox[0].y-s64;
+        y3 = colorBox[0].y-s60;
         g.setFont(narrowFont(20));
         g.setColor(Color.black);
         drawString(g,nameLbl, x3, y3);
@@ -232,7 +232,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         // draw empire color label
         String colorLbl = text("SETUP_RACE_COLOR");
         x3 = colorBox[0].x;
-        y3 = colorBox[0].y-s8;
+        y3 = colorBox[0].y-s7;
         g.setFont(narrowFont(20));
         g.setColor(Color.black);
         drawString(g,colorLbl, x3, y3);
@@ -397,43 +397,52 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         drawBorderedString(g, title, 2, x0, y0, Color.darkGray, Color.white);
 
         // draw shading, modnar: extend right side
+		// modnar: extend out for new Races
         g.setColor(GameUI.setupShade());
-        g.fillRect(scaled(205), s95, scaled(850), scaled(515));
+        g.fillRect(scaled(125), s95, scaled(930), scaled(515));
 
         // draw race frame
         g.setColor(GameUI.setupFrame());
         g.fillRect(scaled(420), scaled(103), scaled(395), scaled(499));
 
         // draw race left gradient
+		// modnar: extend out for new Races
         g.setPaint(GameUI.raceLeftBackground());
-        g.fillRect(scaled(220), scaled(115), scaled(200), scaled(475));
+        g.fillRect(scaled(140), scaled(110), scaled(280), scaled(485));
 
         // draw race right gradient, modnar: extend right side
         g.setPaint(GameUI.raceRightBackground());
-        g.fillRect(scaled(815), scaled(115), scaled(225), scaled(475));
+        g.fillRect(scaled(815), scaled(110), scaled(225), scaled(485));
 
         int cnr = s5;
         int buttonH = s45;
         int buttonW = scaled(220);
 
-        int xL = scaled(234);
-        int xR = scaled(325);
+        int xL = scaled(155); // modnar: shift columns over for old Races
+		int xCC = scaled(245); // modnar: shift columns over for old Races
+        int xR = scaled(340); // modnar: set column for new Races
 
         Composite comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER , 0.3f);
-        drawRaceBox(g, 0, xL, scaled(125), comp);
-        drawRaceBox(g, 1, xR, scaled(125), comp);
-        drawRaceBox(g, 2, xL, scaled(218), comp);
-        drawRaceBox(g, 3, xR, scaled(218), comp);
-        drawRaceBox(g, 4, xL, scaled(311), comp);
-        drawRaceBox(g, 5, xR, scaled(311), comp);
-        drawRaceBox(g, 6, xL, scaled(403), comp);
-        drawRaceBox(g, 7, xR, scaled(403), comp);
-        drawRaceBox(g, 8, xL, scaled(496), comp);
-        drawRaceBox(g, 9, xR, scaled(496), comp);
+        drawRaceBox(g, 0, xL, scaled(122), comp);
+        drawRaceBox(g, 1, xCC, scaled(122), comp);
+        drawRaceBox(g, 2, xL, scaled(217), comp);
+        drawRaceBox(g, 3, xCC, scaled(217), comp);
+        drawRaceBox(g, 4, xL, scaled(312), comp);
+        drawRaceBox(g, 5, xCC, scaled(312), comp);
+        drawRaceBox(g, 6, xL, scaled(407), comp);
+        drawRaceBox(g, 7, xCC, scaled(407), comp);
+        drawRaceBox(g, 8, xL, scaled(502), comp);
+        drawRaceBox(g, 9, xCC, scaled(502), comp);
+		drawRaceBox(g, 10, xR, scaled(120), comp); // modnar: add new Races
+        drawRaceBox(g, 11, xR, scaled(200), comp); // modnar: add new Races
+		drawRaceBox(g, 12, xR, scaled(280), comp); // modnar: add new Races
+		drawRaceBox(g, 13, xR, scaled(360), comp); // modnar: add new Races
+		drawRaceBox(g, 14, xR, scaled(440), comp); // modnar: add new Races
+        drawRaceBox(g, 15, xR, scaled(520), comp); // modnar: add new Races
 
         // draw color buttons on right panel
         int xC = scaled(830);
-        int yC = scaled(550);
+        int yC = scaled(555);
         int wC = s21; // modnar: add new colors, change color box sizes
         int hC = s15;
         for (int i=0;i<MAX_COLORS;i++) {
@@ -461,15 +470,22 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     }
     private void drawRaceBox(Graphics2D g, int num, int x, int y, Composite comp) {
         raceBox[num].setBounds(0,0,0,0);
+        // modnar: 80% size box for newRaces
+        float raceBoxSize = 1.0f;
+        if (num >= 10)
+            raceBoxSize = 0.8f;
         BufferedImage back = raceBackImg();
-        g.drawImage(back, x, y, null);
+        int w = (int)(raceBoxSize * back.getWidth()); // modnar: 80% size box for newRaces
+        int h = (int)(raceBoxSize * back.getHeight()); // modnar: 80% size box for newRaces
+        
+        g.drawImage(back, x, y, w, h, null); // modnar: 80% size box for newRaces
 
         List<String> races = newGameOptions().startingRaceOptions();
         if (num >= races.size())
             return;
 
-        int w = back.getWidth();
-        int h = back.getHeight();
+//        int w = back.getWidth();
+//        int h = back.getHeight();
 
         raceBox[num].setBounds(x,y,w,h);
         Race r = Race.keyed(races.get(num));

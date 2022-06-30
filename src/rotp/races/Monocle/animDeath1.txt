@@ -1,0 +1,5 @@
+#
+# Monocle Hostile Combat Frames
+
+# falls over dead
+Base, _ALL_ , MonoDeath101:1+MonoDeath102:1+MonoDeath103:1+MonoDeath104:1+MonoDeath105:1+MonoDeath106:1+MonoDeath107:99999

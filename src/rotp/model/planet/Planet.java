@@ -157,6 +157,10 @@ public class Planet implements Base, IMappedObject, Serializable {
         artifacts = RUINS_ANTARAN;
         bonusTechs = 1;
     }
+	// modnar: setArtifactRace for setting Race Homeworld to be Artifact
+	public void setArtifactRace()          {
+        artifacts = RUINS_ANTARAN;
+    }
     public void setOrionArtifact()       { 
         artifacts = RUINS_ORION; 
         bonusTechs = 3;

@@ -1,0 +1,5 @@
+#
+# Combat Frames
+
+# vaporized into nothingness
+Base, _ALL_ , NeoDeath401+NeoDeath402+NeoDeath403+NeoDeath404+NeoDeath405+NeoDeath406+NeoDeath407+null:99999

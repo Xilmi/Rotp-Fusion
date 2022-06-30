@@ -1,0 +1,6 @@
+#
+# Monocle Diplomat Animation
+Base,   _ALL_       , MonoDip
+Eye,    290@130     , NULL:2:6+MonoDipEy02:2:6
+
+Hand,     0@410     , NULL:5:10+MonoDipHa02:1+MonoDipHa03:1+MonoDipHa04:20:30+MonoDipHa03:1+MonoDipHa02:1

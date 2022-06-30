@@ -1,0 +1,5 @@
+#
+#  Combat Frames
+
+# falls over dead
+Base, _ALL_ , NeoDeath101+NeoDeath102+NeoDeath103+NeoDeath104+NeoDeath105+NeoDeath106:99999

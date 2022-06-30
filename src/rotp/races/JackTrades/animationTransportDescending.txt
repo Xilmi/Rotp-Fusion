@@ -1,0 +1,5 @@
+#
+# JackTrades Transport Ship Descending Animation
+
+// Default is closed
+Base, _ALL_  , JackTrans01

@@ -1,0 +1,8 @@
+#
+# EarlyGame Diplomat Animation
+# #1 : Blinking mouth
+
+Base,   _ALL_        , EarlyLab
+Base,   _ALL_        , EarlyDip
+
+Mouth, 280@190 , NULL:1:5+EarlyDipMo02:1+EarlyDipMo03:1+EarlyDipMo04:1+EarlyDipMo05:1+EarlyDipMo06:1+EarlyDipMo07:1+EarlyDipMo08:1+EarlyDipMo09:1+EarlyDipMo10:1+EarlyDipMo11:3:10

@@ -1,0 +1,5 @@
+#
+# GearHead Hostile Combat Frames
+
+# vaporized into nothingness
+Base, _ALL_ , GearDeath401:1+GearDeath402:1+GearDeath403:1+GearDeath404:1+GearDeath405:1+GearDeath406:1+GearDeath407:1+null:99999

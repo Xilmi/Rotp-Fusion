@@ -1,0 +1,7 @@
+#
+# EarlyGame Laboratory Animation
+
+Base,    _ALL_    , EarlyLab
+
+GlowA, 280@400  , NULL:10:30+EarlyLabGlowA:10:30
+GlowB, 1150@440 , NULL:10:30+EarlyLabGlowB:10:30

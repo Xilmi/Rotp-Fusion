@@ -1,0 +1,21 @@
+
+WarDemonLaboratory    | races/WarDemon/animationLaboratory.txt
+WarDemonEmbassy       | races/WarDemon/animationEmbassy.txt
+WarDemonDiploMug      | races/WarDemon/animationMugshot.txt
+WarDemonSpyMug        | races/WarDemon/animationSpyMug.txt
+WarDemonSoldierMug    | races/WarDemon/animationSoldierMug.txt
+WarDemonDiplomat      | races/WarDemon/animationDiplomat.txt
+WarDemonScientist     | races/WarDemon/animationScientist.txt
+WarDemonSoldier       | races/WarDemon/animationSoldier.txt
+WarDemonSpy           | races/WarDemon/animationSpy.txt
+WarDemonCombat        | races/WarDemon/animCombat.txt
+WarDemonDeath1        | races/WarDemon/animDeath1.txt
+WarDemonDeath2        | races/WarDemon/animDeath2.txt
+WarDemonDeath3        | races/WarDemon/animDeath3.txt
+WarDemonDeath4        | races/WarDemon/animDeath4.txt
+WarDemonGNN           | races/WarDemon/animationGNN.txt
+WarDemonGNNHost       | races/WarDemon/animationGNNHost.txt
+
+WarDemonTransportDesc | races/WarDemon/animationTransportDescending.txt
+WarDemonTransportOpen | races/WarDemon/animationTransportOpening.txt
+

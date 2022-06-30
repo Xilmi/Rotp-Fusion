@@ -71,6 +71,15 @@ public class PlanetFactory implements Base {
         p.baseSize(r.homeworldSize*bonus);
         if (r.homeworldKey() > 0)
             p.terrainSeed(r.homeworldKey());
+		// modnar: add option for changing Race homeworld type
+		if (r.homeworldKey() == 888)
+			p.setResourceRich();
+		if (r.homeworldKey() == 8888)
+			p.setResourceUltraRich();
+		if (r.homeworldKey() == 1337) {
+			p.setArtifactRace();
+			p.makeEnvironmentFertile();
+		}
         return p;
     }
     // modnar: add option to start game with additional colonies

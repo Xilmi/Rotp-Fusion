@@ -1,0 +1,22 @@
+
+
+EarlyGameLaboratory      | races/EarlyGame/animationLaboratory.txt
+EarlyGameSpyMug          | races/EarlyGame/animationSpyMug.txt
+EarlyGameSoldierMug      | races/EarlyGame/animationSoldierMug.txt
+EarlyGameDiploMug        | races/EarlyGame/animationMugshot.txt
+EarlyGameDiplomat        | races/EarlyGame/animationDiplomat.txt
+EarlyGameScientist       | races/EarlyGame/animationScientist.txt
+EarlyGameSoldier         | races/EarlyGame/animationSoldier.txt
+EarlyGameSpy             | races/EarlyGame/animationSpy.txt
+EarlyGameCombat          | races/EarlyGame/animCombat.txt
+EarlyGameDeath1          | races/EarlyGame/animDeath1.txt
+EarlyGameDeath2          | races/EarlyGame/animDeath2.txt
+EarlyGameDeath3          | races/EarlyGame/animDeath3.txt
+EarlyGameDeath4          | races/EarlyGame/animDeath4.txt
+
+EarlyGameGNN             | races/EarlyGame/animationGNN.txt
+EarlyGameGNNHost         | races/EarlyGame/animationGNNHost.txt
+
+EarlyGameTransportDesc   | races/EarlyGame/animationTransportDescending.txt
+EarlyGameTransportOpen   | races/EarlyGame/animationTransportOpening.txt
+

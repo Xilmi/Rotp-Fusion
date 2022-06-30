@@ -1,0 +1,5 @@
+#
+# WarDemon Spy Animation
+
+Base,   _ALL_       , WarLab01
+Base,   _ALL_  , WarSpy00:1+WarSpy01:1+WarSpy02:1+WarSpy03:1+WarSpy04:1+WarSpy05:1+WarSpy06:1+WarSpy00:9999

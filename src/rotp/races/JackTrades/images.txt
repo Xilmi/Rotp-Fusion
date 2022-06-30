@@ -1,0 +1,178 @@
+JackWin        | races/JackTrades/WinSplash.jpg
+JackLoss       | races/JackTrades/LossSplash.jpg
+
+JackFlagWar  | races/JackTrades/banner_war.png
+JackFlagNorm | races/JackTrades/banner_norm.png
+JackFlagPact | races/JackTrades/banner_pact.png
+
+JackDlgWar   | races/Bulrathi/dialogue_war.png
+JackDlgNorm  | races/Bulrathi/dialogue_norm.png
+JackDlgPact  | races/Bulrathi/dialogue_pact.png
+
+JackLab      | races/Bulrathi/Bulrathi_Laboratory.jpg
+JackCouncil  | races/JackTrades/Council_01.jpg
+
+JackLeader    | races/JackTrades/CouncilLeader.png
+
+JackDip      | races/JackTrades/Diplomat_Base.png
+JackDipEy02  | races/Bulrathi/Diplomat_Eye_02.png
+JackDipEy03  | races/Bulrathi/Diplomat_Eye_03.png
+JackDipMo02  | races/Bulrathi/Diplomat_Mouth_02.png
+JackDipMo03  | races/Bulrathi/Diplomat_Mouth_03.png
+JackDipMo04  | races/Bulrathi/Diplomat_Mouth_04.png
+JackDipFi02  | races/Bulrathi/Diplomat_Finger_02.png
+JackDipFi03  | races/Bulrathi/Diplomat_Finger_03.png
+
+JackSci      | races/JackTrades/Scientist_Base.png
+JackSciEy02  | races/Bulrathi/Scientist_Eye_02.png
+JackSciEy03  | races/Bulrathi/Scientist_Eye_03.png
+JackSciEy04  | races/Bulrathi/Scientist_Eye_04.png
+JackSciMo02  | races/Bulrathi/Scientist_Mouth_02.png
+JackSciMo03  | races/Bulrathi/Scientist_Mouth_03.png
+
+JackSol         | races/JackTrades/Soldier_Base.png
+JackSolEy02     | races/Bulrathi/Soldier_Eye_02.png
+JackSolMo02     | races/Bulrathi/Soldier_Mouth_02.png
+JackSolMo03     | races/Bulrathi/Soldier_Mouth_03.png
+
+JackSpy         | races/JackTrades/Spy_Base.png
+JackSpyEy02     | races/Bulrathi/Spy_Eye_02.png
+JackSpyEy03     | races/Bulrathi/Spy_Eye_03.png
+JackSpyMo02     | races/Bulrathi/Spy_Mouth_02.png
+JackSpyMo03     | races/Bulrathi/Spy_Mouth_03.png
+JackSpyCr02     | races/Bulrathi/Spy_Critter_02.png
+JackSpyCr03     | races/Bulrathi/Spy_Critter_03.png
+JackSpyCr04     | races/Bulrathi/Spy_Critter_04.png
+JackSpyCr05     | races/Bulrathi/Spy_Critter_05.png
+
+JackFort01      | races/Bulrathi/Fortress_01.png
+JackFort02      | races/Bulrathi/Fortress_02.png
+JackFortShield  | races/Bulrathi/Fortress_shield.png
+
+JackTransport   | races/Bulrathi/Transport_Transit.png
+JackTrans01     | races/Bulrathi/Transport01.png
+JackTrans07     | races/Bulrathi/Transport07.png
+JackTrans11     | races/Bulrathi/Transport11.png
+JackTrans12     | races/Bulrathi/Transport12.png
+JackTrans13     | races/Bulrathi/Transport13.png
+JackTrans14     | races/Bulrathi/Transport14.png
+JackTrans15     | races/Bulrathi/Transport15.png
+
+JackGNNB_01    | races/Bulrathi/GNN_Back_01.jpg
+JackGNNB_02    | races/Bulrathi/GNN_Back_02.jpg
+JackGNNB_03    | races/Bulrathi/GNN_Back_03.jpg
+JackGNNB_04    | races/Bulrathi/GNN_Back_04.jpg
+JackGNNB_05    | races/Bulrathi/GNN_Back_05.jpg
+JackGNNB_06    | races/Bulrathi/GNN_Back_06.jpg
+JackGNNB_07    | races/Bulrathi/GNN_Back_07.jpg
+JackGNNB_08    | races/Bulrathi/GNN_Back_08.jpg
+JackGNNB_09    | races/Bulrathi/GNN_Back_09.jpg
+JackGNNB_10    | races/Bulrathi/GNN_Back_10.jpg
+JackGNNB_11    | races/Bulrathi/GNN_Back_11.jpg
+JackGNNB_12    | races/Bulrathi/GNN_Back_12.jpg
+JackGNNB_13    | races/Bulrathi/GNN_Back_13.jpg
+JackGNNB_14    | races/Bulrathi/GNN_Back_14.jpg
+JackGNNB_15    | races/Bulrathi/GNN_Back_15.jpg
+JackGNNB_16    | races/Bulrathi/GNN_Back_16.jpg
+JackGNNB_17    | races/Bulrathi/GNN_Back_17.jpg
+JackGNNB_18    | races/Bulrathi/GNN_Back_18.jpg
+JackGNNB_19    | races/Bulrathi/GNN_Back_19.jpg
+JackGNNB_20    | races/Bulrathi/GNN_Back_20.jpg
+JackGNNB_21    | races/Bulrathi/GNN_Back_21.jpg
+JackGNNB_22    | races/Bulrathi/GNN_Back_22.jpg
+JackGNNB_23    | races/Bulrathi/GNN_Back_23.jpg
+
+JackGNNHA_0    | races/JackTrades/GNN_HostA_00.png
+JackGNNHA_1    | races/JackTrades/GNN_HostA_01.png
+JackGNNHA_2    | races/JackTrades/GNN_HostA_02.png
+JackGNNHA_3    | races/JackTrades/GNN_HostA_03.png
+JackGNNHA_4    | races/JackTrades/GNN_HostA_04.png
+JackGNNHA_5    | races/JackTrades/GNN_HostA_05.png
+JackGNNHB_1    | races/JackTrades/GNN_HostB_01.png
+JackGNNHB_2    | races/JackTrades/GNN_HostB_02.png
+JackGNNHB_3    | races/JackTrades/GNN_HostB_03.png
+JackGNNHB_4    | races/JackTrades/GNN_HostB_04.png
+JackGNNHB_5    | races/JackTrades/GNN_HostB_05.png
+JackGNNHB_6    | races/JackTrades/GNN_HostB_06.png
+JackGNNHB_7    | races/JackTrades/GNN_HostB_07.png
+JackGNNHB_8    | races/JackTrades/GNN_HostB_08.png
+JackGNNHB_9    | races/JackTrades/GNN_HostB_09.png
+
+
+JackComb01      | races/Bulrathi/Combat_01.png
+JackComb02      | races/Bulrathi/Combat_02.png
+JackComb03      | races/Bulrathi/Combat_03.png
+JackComb04      | races/Bulrathi/Combat_04.png
+
+JackHComb01     | races/Bulrathi/HCombat_01.png
+JackHComb02     | races/Bulrathi/HCombat_02.png
+JackHComb03     | races/Bulrathi/HCombat_03.png
+JackHComb04     | races/Bulrathi/HCombat_04.png
+
+JackDeath101    | races/Bulrathi/Death1-01.png
+JackDeath102    | races/Bulrathi/Death1-02.png
+JackDeath103    | races/Bulrathi/Death1-03.png
+JackDeath104    | races/Bulrathi/Death1-04.png
+JackDeath105    | races/Bulrathi/Death1-05.png
+JackDeath106    | races/Bulrathi/Death1-06.png
+JackDeath107    | races/Bulrathi/Death1-07.png
+JackDeath108    | races/Bulrathi/Death1-08.png
+JackDeath109    | races/Bulrathi/Death1-09.png
+JackDeath201    | races/Bulrathi/Death2-01.png
+JackDeath202    | races/Bulrathi/Death2-02.png
+JackDeath203    | races/Bulrathi/Death2-03.png
+JackDeath204    | races/Bulrathi/Death2-04.png
+JackDeath301    | races/Bulrathi/Death3-01.png
+JackDeath302    | races/Bulrathi/Death3-02.png
+JackDeath303    | races/Bulrathi/Death3-03.png
+JackDeath304    | races/Bulrathi/Death3-04.png
+JackDeath305    | races/Bulrathi/Death3-05.png
+JackDeath306    | races/Bulrathi/Death3-06.png
+JackDeath307    | races/Bulrathi/Death3-07.png
+JackDeath308    | races/Bulrathi/Death3-08.png
+JackDeath309    | races/Bulrathi/Death3-09.png
+JackDeath310    | races/Bulrathi/Death3-10.png
+JackDeath311    | races/Bulrathi/Death3-11.png
+JackDeath401    | races/Bulrathi/Death4-01.png
+JackDeath402    | races/Bulrathi/Death4-02.png
+JackDeath403    | races/Bulrathi/Death4-03.png
+JackDeath404    | races/Bulrathi/Death4-04.png
+JackDeath405    | races/Bulrathi/Death4-05.png
+JackDeath406    | races/Bulrathi/Death4-06.png
+JackDeath407    | races/Bulrathi/Death4-07.png
+
+JackDeath1H01   | races/Bulrathi/Death1H-01.png
+JackDeath1H02   | races/Bulrathi/Death1H-02.png
+JackDeath1H03   | races/Bulrathi/Death1H-03.png
+JackDeath1H04   | races/Bulrathi/Death1H-04.png
+JackDeath1H05   | races/Bulrathi/Death1H-05.png
+JackDeath1H06   | races/Bulrathi/Death1H-06.png
+JackDeath1H07   | races/Bulrathi/Death1H-07.png
+JackDeath1H08   | races/Bulrathi/Death1H-08.png
+JackDeath1H09   | races/Bulrathi/Death1H-09.png
+JackDeath2H01   | races/Bulrathi/Death2H-01.png
+JackDeath2H02   | races/Bulrathi/Death2H-02.png
+JackDeath2H03   | races/Bulrathi/Death2H-03.png
+JackDeath2H04   | races/Bulrathi/Death2H-04.png
+JackDeath3H01   | races/Bulrathi/Death3H-01.png
+JackDeath3H02   | races/Bulrathi/Death3H-02.png
+JackDeath3H03   | races/Bulrathi/Death3H-03.png
+JackDeath3H04   | races/Bulrathi/Death3H-04.png
+JackDeath3H05   | races/Bulrathi/Death3H-05.png
+JackDeath3H06   | races/Bulrathi/Death3H-06.png
+JackDeath3H07   | races/Bulrathi/Death3H-07.png
+JackDeath3H08   | races/Bulrathi/Death3H-08.png
+JackDeath3H09   | races/Bulrathi/Death3H-09.png
+JackDeath3H10   | races/Bulrathi/Death3H-10.png
+JackDeath3H11   | races/Bulrathi/Death3H-11.png
+JackDeath4H01   | races/Bulrathi/Death4H-01.png
+JackDeath4H02   | races/Bulrathi/Death4H-02.png
+JackDeath4H03   | races/Bulrathi/Death4H-03.png
+JackDeath4H04   | races/Bulrathi/Death4H-04.png
+JackDeath4H05   | races/Bulrathi/Death4H-05.png
+JackDeath4H06   | races/Bulrathi/Death4H-06.png
+JackDeath4H07   | races/Bulrathi/Death4H-07.png
+
+
+
+

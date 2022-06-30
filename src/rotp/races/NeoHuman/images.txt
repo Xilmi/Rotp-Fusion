@@ -1,0 +1,133 @@
+
+NeoFlagWar    | races/NeoHuman/banner_war.png
+NeoFlagNorm   | races/NeoHuman/banner_norm.png
+NeoFlagPact   | races/NeoHuman/banner_pact.png
+
+NeoDlgWar     | races/Human/dialogue_war.png
+NeoDlgNorm    | races/Human/dialogue_norm.png
+NeoDlgPact    | races/Human/dialogue_pact.png
+
+NeoLab        | races/Human/Laboratory.jpg
+NeoLabEff01   | races/Human/Lab_Effect_01.png
+NeoLabEff02   | races/Human/Lab_Effect_02.png
+NeoLabEff03   | races/Human/Lab_Effect_03.png
+NeoCouncil    | races/NeoHuman/Council.jpg
+
+NeoFort01     | races/Human/Fortress_01.png
+NeoFort02     | races/Human/Fortress_02.png
+NeoShield     | races/Human/Fortress_shield.png
+
+NeoLeader    | races/NeoHuman/CouncilLeader.png
+
+NeoDip        | races/NeoHuman/Diplomat_Base.png
+
+NeoSci        | races/NeoHuman/Scientist_Base.png
+NeoSci01      | races/NeoHuman/Scientist_01.png
+NeoSci02      | races/NeoHuman/Scientist_02.png
+NeoSci03      | races/NeoHuman/Scientist_03.png
+NeoSci04      | races/NeoHuman/Scientist_04.png
+NeoSci05      | races/NeoHuman/Scientist_05.png
+NeoSci06      | races/NeoHuman/Scientist_06.png
+NeoSci07      | races/NeoHuman/Scientist_07.png
+NeoSci08      | races/NeoHuman/Scientist_08.png
+NeoSci09      | races/NeoHuman/Scientist_09.png
+NeoSci10      | races/NeoHuman/Scientist_10.png
+NeoSci11      | races/NeoHuman/Scientist_11.png
+NeoSci12      | races/NeoHuman/Scientist_12.png
+NeoSci13      | races/NeoHuman/Scientist_13.png
+NeoSci14      | races/NeoHuman/Scientist_14.png
+
+NeoSol        | races/NeoHuman/Soldier_Base.png
+NeoSol02      | races/Human/Soldier_02.png
+NeoSol03      | races/Human/Soldier_03.png
+NeoSol04      | races/Human/Soldier_04.png
+NeoSol05      | races/Human/Soldier_05.png
+NeoSol06      | races/Human/Soldier_06.png
+NeoSol07      | races/Human/Soldier_07.png
+NeoSol08      | races/Human/Soldier_08.png
+NeoSol09      | races/Human/Soldier_09.png
+NeoSol10      | races/Human/Soldier_10.png
+NeoSol11      | races/Human/Soldier_11.png
+NeoSol12      | races/Human/Soldier_12.png
+NeoSol13      | races/Human/Soldier_13.png
+NeoSol14      | races/Human/Soldier_14.png
+NeoSolEy02    | races/Human/Soldier_15.png
+NeoSolEy03    | races/Human/Soldier_16.png
+
+NeoSpy        | races/NeoHuman/Spy_Base.png
+NeoSpyEy01    | races/Human/Spy_03.png
+NeoSpyEy02    | races/Human/Spy_04.png
+
+NeoTransport  | races/Human/Transport_00e.png
+NeoTrans00    | races/Human/Transport_00e.png
+NeoTrans01    | races/Human/Transport_01.png
+NeoTrans02    | races/Human/Transport_02.png
+NeoTrans03    | races/Human/Transport_03.png
+NeoTrans04    | races/Human/Transport_04.png
+NeoTrans05    | races/Human/Transport_05.png
+NeoTrans06    | races/Human/Transport_06.png
+
+NeoGNNB_01    | races/Human/GNN_Back_01.jpg
+NeoGNNB_02    | races/Human/GNN_Back_02.jpg
+NeoGNNB_03    | races/Human/GNN_Back_03.jpg
+NeoGNNB_04    | races/Human/GNN_Back_04.jpg
+NeoGNNB_05    | races/Human/GNN_Back_05.jpg
+NeoGNNB_06    | races/Human/GNN_Back_06.jpg
+NeoGNNB_07    | races/Human/GNN_Back_07.jpg
+NeoGNNB_08    | races/Human/GNN_Back_08.jpg
+NeoGNNB_09    | races/Human/GNN_Back_09.jpg
+NeoGNNB_10    | races/Human/GNN_Back_10.jpg
+NeoGNNB_11    | races/Human/GNN_Back_11.jpg
+NeoGNNB_12    | races/Human/GNN_Back_12.jpg
+NeoGNNB_13    | races/Human/GNN_Back_13.jpg
+NeoGNNB_14    | races/Human/GNN_Back_14.jpg
+NeoGNNB_15    | races/Human/GNN_Back_15.jpg
+NeoGNNB_16    | races/Human/GNN_Back_16.jpg
+NeoGNNB_17    | races/Human/GNN_Back_17.jpg
+NeoGNNB_18    | races/Human/GNN_Back_18.jpg
+NeoGNNB_19    | races/Human/GNN_Back_19.jpg
+NeoGNNB_20    | races/Human/GNN_Back_20.jpg
+NeoGNNB_21    | races/Human/GNN_Back_21.jpg
+NeoGNNB_22    | races/Human/GNN_Back_22.jpg
+NeoGNNB_23    | races/Human/GNN_Back_23.jpg
+
+NeoGNNHA_0    | races/NeoHuman/GNN_HostA_00.png
+NeoGNNHA_1    | races/NeoHuman/GNN_HostA_01.png
+NeoGNNHA_2    | races/NeoHuman/GNN_HostA_02.png
+NeoGNNHA_3    | races/NeoHuman/GNN_HostA_03.png
+NeoGNNHA_4    | races/NeoHuman/GNN_HostA_04.png
+NeoGNNHA_5    | races/NeoHuman/GNN_HostA_05.png
+NeoGNNHA_6    | races/NeoHuman/GNN_HostA_06.png
+NeoGNNHA_7    | races/NeoHuman/GNN_HostA_07.png
+NeoGNNHA_8    | races/NeoHuman/GNN_HostA_08.png
+
+NeoComb01      | races/Human/Combat_01.png
+NeoComb02      | races/Human/Combat_02.png
+NeoComb03      | races/Human/Combat_03.png
+NeoDeath101    | races/Human/Death1-01.png
+NeoDeath102    | races/Human/Death1-02.png
+NeoDeath103    | races/Human/Death1-03.png
+NeoDeath104    | races/Human/Death1-04.png
+NeoDeath105    | races/Human/Death1-05.png
+NeoDeath106    | races/Human/Death1-06.png
+NeoDeath201    | races/Human/Death2-01.png
+NeoDeath202    | races/Human/Death2-02.png
+NeoDeath203    | races/Human/Death2-03.png
+NeoDeath204    | races/Human/Death2-04.png
+NeoDeath301    | races/Human/Death3-01.png
+NeoDeath302    | races/Human/Death3-02.png
+NeoDeath303    | races/Human/Death3-03.png
+NeoDeath304    | races/Human/Death3-04.png
+NeoDeath305    | races/Human/Death3-05.png
+NeoDeath306    | races/Human/Death3-06.png
+NeoDeath307    | races/Human/Death3-07.png
+NeoDeath308    | races/Human/Death3-08.png
+NeoDeath309    | races/Human/Death3-09.png
+NeoDeath310    | races/Human/Death3-10.png
+NeoDeath401    | races/Human/Death4-01.png
+NeoDeath402    | races/Human/Death4-02.png
+NeoDeath403    | races/Human/Death4-03.png
+NeoDeath404    | races/Human/Death4-04.png
+NeoDeath405    | races/Human/Death4-05.png
+NeoDeath406    | races/Human/Death4-06.png
+NeoDeath407    | races/Human/Death4-07.png

@@ -1,0 +1,16 @@
+#
+# EarlyGame Scientist Animation
+# #1 - Blinking eye
+# #2 - Hand
+# #3 - Bubbling Beaker
+
+Base , _ALL_  , EarlySci
+
+// generally stays open (EarlySci04): but periodically closes (EarlySci01) briefly
+Hand,    40@80  , EarlySciHa01:1:5+EarlySciHa02:1+EarlySciHa03:1+EarlySciHa04:5:15+EarlySciHa03:1+EarlySciHa02:1
+
+// Flickers between off (NULL) and on (EarlySci04)
+Eye,    530@290 , NULL:1:3+EarlySciEy02:1+EarlySciEy03:1+EarlySciEy04:1:7
+
+// steady bubbling
+Beaker, 740@390, EarlySciBe01:1+EarlySciBe02:1+EarlySciBe03:1+EarlySciBe04:1+EarlySciBe05:1+EarlySciBe06:1

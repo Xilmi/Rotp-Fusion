@@ -1,0 +1,5 @@
+#
+# JackTrades Hostile Combat Frames
+
+# vaporized into nothingness
+Base, _ALL_ , JackDeath401:1+JackDeath402:1+JackDeath403:1+JackDeath404:1+JackDeath405:1+JackDeath406:1+JackDeath407:1+null:99999

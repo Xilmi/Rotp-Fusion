@@ -1,0 +1,6 @@
+#
+# WarDemon Hostile Combat Frames
+
+
+# immolated. only ashes remain
+Base, _ALL_ , WarDeath301:1+WarDeath302:1+WarDeath303:1+WarDeath304:1+WarDeath305:1+WarDeath306:1+WarDeath307:1+null:99999

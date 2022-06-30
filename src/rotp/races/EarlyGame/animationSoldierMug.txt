@@ -1,0 +1,13 @@
+#
+# EarlyGame Soldier Animation
+# #1 - Eye
+# #2 - Glowing Gun
+
+Base,   _ALL_        , EarlyLab
+Base, _ALL_          , EarlySol
+
+// Flickers between off (NULL) and on (EarlySol04)
+Eye,  510@200 , NULL:2:6+EarlySolEy02:2+EarlySolEy03:2+EarlySolEy04:3:10
+
+// cycles smoothly from On (EarlySol01) to Off (EarlySol06) and back to On
+Gun, 370@578 , NULL:1+EarlySolHa02:1+EarlySolHa03:1+EarlySolHa04:1+EarlySolHa05:1+EarlySolHa06:1

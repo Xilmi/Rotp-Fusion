@@ -1,0 +1,5 @@
+#
+# WarDemon Combat Frames
+
+# falls over dead
+Base, _ALL_ , WarDeath101:1+WarDeath102:1+WarDeath103:1+WarDeath104:1+WarDeath105:1+WarDeath106:1+WarDeath107:1+WarDeath108:1+WarDeath109:1+WarDeath110:1+null:99999

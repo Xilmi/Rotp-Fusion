@@ -1,0 +1,14 @@
+#
+# GearHead Soldier Animation
+
+Base,   _ALL_  , GearSol
+
+# Gun
+Gun,   425@290, GearSolGu01:8:20+GearSolGu02:1+GearSolGu03:1+GearSolGu04:1+GearSolGu05:1+GearSolGu06:1+GearSolGu05:1+GearSolGu04:1+GearSolGu03:1+GearSolGu02:1
+
+#   Rotating and stopping
+Eye,   330@85 , NULL:8:20+GearSolEy02:1+GearSolEy03:1+GearSolEy04:1+GearSolEy05:1+GearSolEy06:1
+
+#   1-Closed, 2-Half-Open, 3-Open
+Mouth, 360@125 , GearSolMo01:2+GearSolMo02:2+GearSolMo03:2+GearSolMo04:2+GearSolMo03:2+GearSolMo02:2+GearSolMo03:2+GearSolMo02:2
+

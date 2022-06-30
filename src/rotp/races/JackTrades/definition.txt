@@ -1,0 +1,140 @@
+key:           RACE_JACKTRADES
+langKey:       JackTrades
+year:          12321
+
+homeStarType:  YELLOW
+homeworldType: PLANET_TERRAN
+homeworldSize: 110
+homeworldKey:  12321
+
+// animations
+mugshot:       JackTradesDiplomat, 210@0|250x270
+setupImage:    JackTradesDiploMug, 0@0|584x768
+spyMug:        JackTradesSpyMug,  165@0|440x330
+soldierMug:    JackTradesSoldierMug, 165@0|440x330
+advisorMug:    JackTradesDiplomat, 185@0|440x640
+diploProfile:  JackTradesDiploMug, 95@0|630x480
+lab:           JackTradesLaboratory
+embassy:       JackTradesLaboratory
+holograph:     
+diplomat:      JackTradesDiplomat
+scientist:     JackTradesScientist
+trooper:       JackTradesSoldier
+spy:           JackTradesSpy
+leader:        JackLeader
+diploTheme:    ThemeBulrathi
+gnn:           JackTradesGNN
+gnnHost:       JackTradesGNNHost
+gnnColor:      Orange
+gnnTextColor:  255,93,0
+winSplash:     JackWin,255,255,255
+lossSplash:    JackLoss,255,255,255
+
+
+advisorScout:      JackTradesDiplomat, 185@0|440x640
+advisorTransport:  JackTradesDiplomat, 185@0|440x640
+advisorDiplomacy:  JackTradesDiplomat, 185@0|440x640
+advisorShip:       JackTradesDiplomat, 185@0|440x640
+advisorRally:      JackTradesDiplomat, 185@0|440x640
+advisorMissile:    JackTradesDiplomat, 185@0|440x640
+advisorWeapon:     JackTradesDiplomat, 185@0|440x640
+advisorCouncil:    JackTradesDiplomat, 185@0|440x640
+advisorRebellion:  JackTradesDiplomat, 185@0|440x640
+advisorResistCouncil:   JackTradesDiplomat, 185@0|440x640
+advisorCouncilResisted: JackTradesDiplomat, 185@0|440x640
+
+transport:     JackTransport
+transportDesc: JackTradesTransportDesc, 1, 0@0|385x250
+transportOpen: JackTradesTransportOpen, 32, 0@0|385x250
+transportW:    100
+transportYOff: 0
+transportLandingFrames: 120
+colonistWalk:  50, 150, 240@180>370@250
+landingAudio:  BulrathiShip
+
+troopIcon:      JackTradesCombat,    4/4
+troopHIcon:     JackTradesCombatH,   4/4
+troopDeath1:    JackTradesDeath1,    9
+troopDeath2:    JackTradesDeath2,    5
+troopDeath3:    JackTradesDeath3,    11
+troopDeath4:    JackTradesDeath4,    8
+troopDeath1H:   JackTradesDeath1H,   9
+troopDeath2H:   JackTradesDeath2H,   5
+troopDeath3H:   JackTradesDeath3H,   11
+troopDeath4H:   JackTradesDeath4H,   8
+troopScale:     0.5, 25, 33
+troopFireXY:    153@119
+troopHFireXY:   153@119
+
+fortress:      JackFort01|JackFort02,  0@0|420x450
+council:       JackCouncil
+shield:        JackFortShield,    0@0|420x450
+introTextX:    680
+espionageXY:   0@0
+spyFactories:  0
+spyMissiles:   0
+spyRebellion:  0
+dialogTextX:   180,180
+dialogTextY:   550
+councilDiplo:  0.4, 375, -160, 0.6
+labFlagX:      0.73
+flagSize:      200x200
+flagWar:       JackFlagWar
+flagNormal:    JackFlagNorm
+flagPact:      JackFlagPact
+dialogWar:     JackDlgWar
+dialogNormal:  JackDlgNorm
+dialogPact:    JackDlgPact
+
+// sounds
+voice:     BulrathiVoice
+ambience:  BulrathiAmbience
+
+// species info:
+// field #1 - terran(1), aquatic(2), silicate(3) or robotic(4)
+// field #2 - ignoreEco(1), don't ignore eco (0)
+species: 1, 0
+
+// personality % (must=100) - erratic, pacifist, honorable, ruthless, aggressive, xenophobic
+personality: 16,16,17,17,17,17
+// objective % (must=100) - militarist, ecologist, diplomat, industrialist, expansionist, technologist
+objective: 16,16,17,17,17,17
+
+// ship set & preferred size (0-small to 3-huge)
+preferredship: JackTrades, 2
+
+// ship bonus - att, def, init
+shipmod: 1,1,1
+
+// ground mod - att
+groundmod: 5
+
+// spy mod - cost%, security adj%, infiltration adj%, telepathic?(1/0), mask relations?(1/0)
+spymod: 90, 5, 5, 0, 0
+
+// production mod - worker productivity, factory controls bonus, ignoreRefitCost?(1/0)
+prodmod: 110, 0, 0
+
+// tech mods - discovery %, research bonus
+techmod: 60, 110
+
+// pop mods - growth rate
+popmod: 110
+
+// diplomacy mods % - trade % bonus, positive DP mod, diplomacy bonus, council bonus
+diplomod: 5,110,5,5
+
+// research category mods % - computer, construction, force field, planetary, propulsion, weapon
+research: 90,90,90,90,90,90
+
+// race relations
+relations: DEFAULT=7,RACE_JACKTRADES=31,RACE_MONOCLE=0
+
+//ship design modifiers
+//1-2-3-4 cost adjustments for sizes S,M,L,H. Higher means estimated costs more, means less likely to build
+// 5th = module space ratio (default 0.5)
+// 6 to 14 additional weights for shield-FD, shield-B, ecm-FD, ecm-B, maneuver-BD, manv-F, armor-FB, armor-D, specials
+// 15-16-17 flags (0 or 1) for speed matching, reinforced armor and bio weapon usage
+// 18 to 28 flags (0 or 1) for ship special preferences: 
+//  Pulsar, Cloak, Repair, Inertial, MissileShield, Repulsor, Stasis, StreamProj, Warp Diss, Tech Null, Oracle
+shipdesign: 1.25,1,1,1.25,0.5,4,3,2,2,4,4,2,3,2,0,0,1,1,1,1,1,0,1,1,1,1,1,1

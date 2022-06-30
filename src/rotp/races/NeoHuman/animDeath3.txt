@@ -1,0 +1,6 @@
+#
+# Combat Frames
+
+
+# immolated. only ashes remain
+Base, _ALL_ , NeoDeath301+NeoDeath302+NeoDeath303+NeoDeath304+NeoDeath305+NeoDeath306+NeoDeath307+NeoDeath308+NeoDeath309+NeoDeath310:99999

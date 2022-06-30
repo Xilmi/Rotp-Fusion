@@ -1,0 +1,4 @@
+#
+# WarDemon Transport Ship Opening Animation
+
+Open,  0@0,WarTrans01:1+WarTrans02:1+WarTrans03:1+WarTrans04:1+WarTrans05:1+WarTrans06:1+WarTrans07:1+WarTrans08:1+WarTrans09:1+WarTrans10:1+WarTrans11:1+WarTrans12:1+WarTrans13:1+WarTrans14:1+WarTrans15:999999
