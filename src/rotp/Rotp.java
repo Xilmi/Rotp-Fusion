@@ -45,15 +45,18 @@ import rotp.util.ImageManager;
 
 public class Rotp {
     private static final int MB = 1048576;
+    public static final String version = "22.07.01";
     public static int IMG_W = 1229;
     public static int IMG_H = 768;
 
-    public static String jarFileName = "rotp-"+RotpGovernor.governorVersion()+RotpGovernor.miniSuffix()+".jar";
-    public static String exeFileName = "Remnants.exe";
+    public static String jarFileName = "rotp-" + version + ".jar";
+    public static String exeFileName = "rotp-" + version + ".exe";
+//    public static String jarFileName = "rotp-"+RotpGovernor.governorVersion()+RotpGovernor.miniSuffix()+".jar";
+//    public static String exeFileName = "Remnants.exe";
     public static boolean countWords = false;
     private static String startupDir = System.getProperty("startupdir");
     private static JFrame frame;
-    public static String releaseId = "Rotp-C-M-X-BR 22.06.29";
+    public static String releaseId = "Rotp-C-M-X-BR-" + version;
     public static long startMs = System.currentTimeMillis();
     public static long maxHeapMemory = Runtime.getRuntime().maxMemory() / 1048576;
     public static long maxUsedMemory;
