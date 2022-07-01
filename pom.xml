@@ -7,7 +7,7 @@
     <!-- Project Declaration -->
     <groupId>com.rayfowler</groupId>
     <artifactId>rotp</artifactId>
-    <version>2022.06.30</version>
+    <version>2022.07.01</version>
     <packaging>jar</packaging>
 	
     <!-- Variables Declaration -->
