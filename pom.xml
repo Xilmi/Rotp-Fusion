@@ -1,31 +1,42 @@
+<!-- Standardt Mavent Header -->
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
-    <artifactId>rotp</artifactId>
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.rayfowler</groupId>
 
+    <!-- Project Declaration -->
+    <groupId>com.rayfowler</groupId>
+    <artifactId>rotp</artifactId>
     <version>2022.06.29</version>
+    <packaging>jar</packaging>
+
+    <!-- Variables Declaration -->
     <properties>
+    	<!-- Personal -->
+    	<RepoId>Rotp-C-M-X-BR</RepoId>
+    	<AuthorId>BrokenRegistry</AuthorId>
+    	<!-- Maven Standard -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>8</java.version>
+        <junit.jupiter.version>5.8.1</junit.jupiter.version>
+        <junit.platform.version>1.8.1</junit.platform.version>
         <GITHUB_TOKEN></GITHUB_TOKEN>
     </properties>
 
+    <!-- GitHub Declaration -->
     <scm>
         <connection>scm:git:${project.scm.url}</connection>
         <developerConnection>scm:git:${project.scm.url}</developerConnection>
-        <url>https://github.com/BrokenRegistry/Rotp-C-M-X-BR.git</url>
+        <url>https://github.com/${AuthorId}/${RepoId}.git</url>
         <tag>HEAD</tag>
     </scm>
 
     <distributionManagement>
         <repository>
             <id>github</id>
-            <name>BrokenRegistry</name>
-            <url>https://maven.pkg.github.com/BrokenRegistry/Rotp-C-M-X-BR</url>
+            <name>${AuthorId}</name>
+            <url>https://maven.pkg.github.com/${AuthorId}/${RepoId}</url>
         </repository>
     </distributionManagement>
 
@@ -42,7 +53,40 @@
         </pluginRepository>
     </pluginRepositories>
 
+    <!-- All the dependencies Declaration -->
     <dependencies>
+    	<!-- JUNIT dependencies -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-suite</artifactId>
+            <version>${junit.platform.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Base and modders ROTP dependencies -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-math3</artifactId>
@@ -83,7 +127,11 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
+	<!-- Files generation -->
     <build>
+
+    	<!-- Ressources non-conventionnal location Declaration-->
         <sourceDirectory>src</sourceDirectory>
         <resources>
             <resource>
@@ -113,9 +161,9 @@
             </resource>
         </resources>
 
+        <!-- Building tools -->
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
@@ -123,7 +171,28 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <argLine>
+                        --illegal-access=permit
+                    </argLine>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <argLine>
+                        --illegal-access=permit
+                    </argLine>
+                </configuration>
+            </plugin>
+ 
+            <!-- Coder plugin for images compression -->
             <plugin>
                 <groupId>org.maven.coder</groupId>
                 <artifactId>native-transform-maven-plugin</artifactId>
@@ -170,10 +239,10 @@
                             </inputFiles>
                         </configuration>
                     </execution>
-
                 </executions>
             </plugin>
 
+            <!-- plugin for Mini Jar -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -197,7 +266,7 @@
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>rotp.Rotp</mainClass>
                                     <manifestEntries>
-                                        <Built-By>BrokenRegistry</Built-By>
+                                        <Built-By>${AuthorId}</Built-By>
                                         <Mini>true</Mini>
                                     </manifestEntries>
                                 </transformer>
@@ -229,7 +298,7 @@
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>rotp.RotpGovernor</mainClass>
                                     <manifestEntries>
-                                        <Built-By>BrokenRegistry</Built-By>
+                                        <Built-By>${AuthorId}</Built-By>
                                     </manifestEntries>
                                 </transformer>
                             </transformers>
@@ -247,6 +316,7 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- Some Download helper -->
             <plugin>
                 <groupId>com.googlecode.maven-download-plugin</groupId>
                 <artifactId>download-maven-plugin</artifactId>
@@ -268,6 +338,7 @@
                     <sha256>7b0c07a068506b8539408cfe60e3120f54610af463a2dbd3b2ca42b572dd567e</sha256>
                 </configuration>
             </plugin>
+            <!-- Windows executable creation -->
             <plugin>
                 <groupId>com.akathist.maven.plugins.launch4j</groupId>
                 <artifactId>launch4j-maven-plugin</artifactId>
@@ -346,11 +417,11 @@
                     <execution>
                         <id>default-cli</id>
                         <configuration>
-                            <owner>BrokenRegistry</owner>
-                            <repository>Rotp-C-M-X-BR</repository>
+                            <owner>${AuthorId}</owner>
+                            <repository>${RepoId}</repository>
                             <authToken>${GITHUB_TOKEN}</authToken>
                             <tagName>${project.version}</tagName>
-                            <name>Rotp-C-M-X-BR ${project.version}</name>
+                            <name>${RepoId} ${project.version}</name>
                             <targetCommitish>main</targetCommitish>
                             <releaseNotes>target/classes/README.md</releaseNotes>
                             <assets>

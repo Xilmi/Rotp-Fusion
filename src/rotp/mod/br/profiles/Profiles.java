@@ -129,6 +129,20 @@ public class Profiles {
   	 * Check if it is OK to use Spacing
 	 * @return status
 	 */
+	public static boolean isPreferredStarsPerEmpireEnabled() {
+		return userProfiles.isParameterEnabled("PREF STARS PER EMPIRE");
+	}
+	/**
+  	 * Check if it is OK to use Spacing
+	 * @return status
+	 */
+	public static boolean isMinStarsPerEmpireEnabled() {
+		return userProfiles.isParameterEnabled("MAXIMIZE EMPIRES SPACING");
+	}
+	/**
+  	 * Check if it is OK to use Spacing
+	 * @return status
+	 */
 	public static boolean isSpacingEnabled() {
 		return userProfiles.isParameterEnabled("MAXIMIZE EMPIRES SPACING");
 	}

@@ -95,22 +95,23 @@ public class GalaxySpacing {
 	/**
 	 * Default value for "PREFERED STARS PER EMPIRE" Mod
 	 */
-	public static final int DEFAULT_PREFERED_STARS_PER_EMPIRE = 16;
+	public static final int DEFAULT_PREFERRED_STARS_PER_EMPIRE = 16;
+	private static final int MIN_PREF_ALLOWED = 1;
 
-	private static Integer preferedStarsPerEmpire = DEFAULT_PREFERED_STARS_PER_EMPIRE;
+	private static int preferredStarsPerEmpire = DEFAULT_PREFERRED_STARS_PER_EMPIRE;
 	
 	/**
 	 * @return preferedStarsPerEmpire {@code Integer} value
 	 */
-	public static Integer getPreferedStarsPerEmpire() {
-		return preferedStarsPerEmpire;
+	public static int getPreferredStarsPerEmpire() {
+		return preferredStarsPerEmpire;
 	}
 
 	/**
 	 * @param newValue the new {@code Integer} value
 	 */
-	public static void setPreferedStarsPerEmpire(Integer newValue) {
-		preferedStarsPerEmpire = newValue;
+	public static void setPreferredStarsPerEmpire(int newValue) {
+		preferredStarsPerEmpire = Math.max(MIN_PREF_ALLOWED, newValue);
 	}
 
     // ========================================================================
@@ -120,20 +121,21 @@ public class GalaxySpacing {
 	 * Default value for "MIN STARS PER EMPIRE" Mod
 	 */
 	public static final int DEFAULT_MIN_STARS_PER_EMPIRE = 8;
+	private static final int MIN_MIN_ALLOWED = 1;
 
-	private static Integer minStarsPerEmpire  = DEFAULT_MIN_STARS_PER_EMPIRE;
+	private static int minStarsPerEmpire  = DEFAULT_MIN_STARS_PER_EMPIRE;
 
 	/**
 	 * @return minStarsPerEmpire {@code Integer} value
 	 */
-	public static Integer getMinStarsPerEmpire() {
+	public static int getMinStarsPerEmpire() {
 		return minStarsPerEmpire;
 	}
 
 	/**
 	 * @param newMin the new {@code Integer} value
 	 */
-	public static void setMinStarsPerEmpire(Integer newMin) {
-		minStarsPerEmpire = newMin;
+	public static void setMinStarsPerEmpire(int newMin) {
+		minStarsPerEmpire = Math.max(MIN_MIN_ALLOWED, newMin);
 	}
 }

@@ -53,6 +53,18 @@ public class GalaxyOptions {
 		return GalaxySpacing.getMinOrionBuffer();
 	}
 	/**
+	 * @return getMinStarsPerEmpire {@code float} value
+	 */
+	public static int getMinStarsPerEmpire() {
+		return GalaxySpacing.getMinStarsPerEmpire();
+	}
+	/**
+	 * @return getPreferedStarsPerEmpire {@code float} value
+	 */
+	public static int getPreferredStarsPerEmpire() {
+		return GalaxySpacing.getPreferredStarsPerEmpire();
+	}
+	/**
 	 * Adjust Star Probability to the user preference
 	 * @param pcts the original cumulative distribution
 	 * @return the modified cumulative distribution

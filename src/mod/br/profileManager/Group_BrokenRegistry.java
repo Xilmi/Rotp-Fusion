@@ -57,7 +57,7 @@ public class Group_BrokenRegistry extends  AbstractGroup <ClientClasses> {
 	@Override protected void initSettingList(ClientClasses go) {
 		addParameter(new FlagColorOrder(go));
 		addParameter(new MaximizeEmpiresSpacing(go));
-		addParameter(new PreferedStarsPerEmpire(go));
+		addParameter(new PreferredStarsPerEmpire(go));
 		addParameter(new MinStarsPerEmpire(go));
 		addParameter(new BaseProbabilityModifier(go, "STAR TYPE PROBABILITY"
 				, probabilityModifier(STARS_KEY), STAR_TYPES
@@ -182,13 +182,13 @@ public class Group_BrokenRegistry extends  AbstractGroup <ClientClasses> {
 	// ========================================================================
 	// PREF STARS PER EMPIRE
 	//
-	static class PreferedStarsPerEmpire extends 
+	static class PreferredStarsPerEmpire extends 
 			AbstractParameter <Integer, Validation<Integer>, ClientClasses> {
 
-		PreferedStarsPerEmpire(ClientClasses go) { 
+		PreferredStarsPerEmpire(ClientClasses go) { 
 			super( "PREF STARS PER EMPIRE",
 					new Validation<Integer>(
-							new T_Integer(GalaxySpacing.DEFAULT_PREFERED_STARS_PER_EMPIRE)));
+							new T_Integer(GalaxySpacing.DEFAULT_PREFERRED_STARS_PER_EMPIRE)));
 
 			setHistoryCodeView(Default, 16); // BR DEFAULT
 			setLimits(0 , 1000000);
@@ -197,17 +197,17 @@ public class Group_BrokenRegistry extends  AbstractGroup <ClientClasses> {
 	    // ========== Overriders ==========
 	    //
 		@Override public AbstractT<Integer> getFromGame (ClientClasses go) {
-			return new T_Integer(GalaxySpacing.getPreferedStarsPerEmpire());
+			return new T_Integer(GalaxySpacing.getPreferredStarsPerEmpire());
 		}
 		
 		@Override public void putToGame(ClientClasses go, AbstractT<Integer> value) {}
 		
 		@Override public AbstractT<Integer> getFromUI (ClientClasses go) {
-			return new T_Integer(GalaxySpacing.getPreferedStarsPerEmpire());
+			return new T_Integer(GalaxySpacing.getPreferredStarsPerEmpire());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<Integer> value) {
-			GalaxySpacing.setPreferedStarsPerEmpire(value.getCodeView());
+			GalaxySpacing.setPreferredStarsPerEmpire(value.getCodeView());
 		}
 		
 		@Override public void initComments() {
