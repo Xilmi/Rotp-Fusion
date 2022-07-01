@@ -30,7 +30,7 @@ import java.util.Properties;
  * to get more memory it uses the right jar file name.
  */
 public class RotpGovernor {
-    static String expectedROTPVersion = "Rotp-C-M-X-BR 22.06.29";
+    static String expectedROTPVersion = Rotp.releaseId;
     public static boolean GRAALVM_NATIVE = System.getProperty("org.graalvm.nativeimage.imagecode") != null;
     private static String governorVersion = null;
 
@@ -87,7 +87,7 @@ public class RotpGovernor {
     }
 
     public static void main(String[] args) throws IOException {
-        String jarFilename = "rotp-" + governorVersion() + "-governor.jar";
+        String jarFilename = "rotp-" + Rotp.version + "-governor.jar";
         try {
             Class.forName("rotp.Rotp");
         } catch (ClassNotFoundException e) {
