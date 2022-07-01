@@ -21,6 +21,11 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
+2026.07.01
+  - Junit test integration
+  - Pom file normalization
+  - Minor bugs solved
+
 2026.06.29
   - Copy of Fusion-MOD v2022.06.25
   - Merged with 1.02a_modnar_MOD39_newRaces
