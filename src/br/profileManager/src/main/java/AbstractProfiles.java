@@ -41,8 +41,9 @@ public abstract class AbstractProfiles<C> extends WriteUtil {
 	// Variables Properties
 	//
 	protected static final PMconfig PM = new PMconfig();
-	private static String continueOnNewLine;
-	private static String commentKey;
+	// Keep the initializations for Junit test
+	private static String continueOnNewLine = "..";
+	private static String commentKey        = ";";
 	
 	private List<String> defaultUserSettingKeys = new ArrayList<String>(List.of("User", "LastWord"));
 	private boolean firstInit = true;

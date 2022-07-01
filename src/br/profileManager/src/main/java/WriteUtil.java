@@ -23,9 +23,10 @@ import java.util.List;
  */
 public class WriteUtil {
 
-	private static int    maxLineLength;
-	private static String commentKey;
-	private static String commentSpacer;
+	// Keep the initializations for Junit test
+	private static int    maxLineLength = 80;
+	private static String commentKey    = ";";
+	private static String commentSpacer = " ";
 	/**
 	 * To be notified the config has been updated
 	 */

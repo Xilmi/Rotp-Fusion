@@ -28,7 +28,8 @@ import java.util.List;
  */
 public abstract class AbstractT <T> {
 
-	private static String listSeparator;
+	// Keep the initializations for Junit test
+	private static String listSeparator = "/";
 
 	private T blankCodeView = null;
 	private List<T> codeList;

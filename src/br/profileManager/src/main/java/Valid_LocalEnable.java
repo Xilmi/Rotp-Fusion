@@ -23,7 +23,8 @@ import static br.profileManager.src.main.java.Validation.History.Default;
  */
 public class Valid_LocalEnable extends Validation<String> {
 
-	private static String clogId;
+	// Keep the initializations for Junit test
+	private static String clogId = "·";
 	// From Valid_ConfigAction
 		static final String LOAD_ENABLED    = "ENABLE_LOAD_LIST";
 		static final String WRITE_ENABLED   = "ENABLE_WRITE_LIST";

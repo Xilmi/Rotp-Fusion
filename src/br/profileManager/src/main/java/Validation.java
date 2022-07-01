@@ -56,9 +56,10 @@ public class Validation<T> extends OptionValidation<T> {
 	     */
 	    Game
 	}
-	private static String randomId;
-	private static String parametersSeparator;
-	private static String listSeparator;
+	// Keep the initializations for Junit test
+	private static String randomId            = "RANDOM";
+	private static String parametersSeparator = ",";
+	private static String listSeparator       = "/";
 
 	private final AbstractT<T> factory;
 	private final boolean isString;

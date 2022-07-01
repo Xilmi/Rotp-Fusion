@@ -27,15 +27,16 @@ public class Lines<T, V extends Validation<T>>
     // ==================================================
 	// Former Constant Properties, linked to config
     //
-    private static String keyValueSeparator;
-    private static String baseKeyFormat;
-    private static String keyValueSeparatorPrt;
-    private static String keyFormat;
-    private static String keyValueFormat;
-    private static String clogId;
-    private static String valueSubHead;
-    private static String commentSubHead;
-	private static String profilesBreakLines;
+	// Keep the initializations for Junit test
+    private static String keyValueSeparator    = ":";
+    private static String baseKeyFormat        = "%-16s";
+    private static String keyValueSeparatorPrt = ": ";
+    private static String keyFormat      = "%-16s: ";
+    private static String keyValueFormat = "%-30s";
+    private static String clogId         = "·";
+    private static String valueSubHead   = String.format(baseKeyFormat, " ") + commentPrt();
+    private static String commentSubHead = String.format(keyValueFormat, " ") + commentPrt();
+	private static String profilesBreakLines = "..";
 
     // ==================================================
 	// Variables Properties

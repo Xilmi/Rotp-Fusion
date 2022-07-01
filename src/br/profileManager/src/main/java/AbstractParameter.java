@@ -30,15 +30,16 @@ public abstract class AbstractParameter<
 		T, V extends Validation<T>, O> extends WriteUtil {
 
 	// Former Constant
-	private static String optionsHead;
-	private static String optionsSubHead;
-	private static String historyHead;
-	private static String historyKey;
-	private static String parameterKey;
-	private static String historyElementsSeparator;
-	private static String historyNameValueSeparator;
-	private static String availableForChange;
-	private static String dynamicParameter;
+	// Keep the initializations for Junit test
+	private static String optionsHead    = lineFormat(toComment("Options"), "");
+	private static String optionsSubHead = lineFormat(toComment("  \" \" "), "");
+	private static String historyHead    = lineFormat("¦ History", "");
+	private static String historyKey     = "¦ History";
+	private static String parameterKey   = "¦==== Parameter";
+	private static String historyElementsSeparator  = " ¦ ";
+	private static String historyNameValueSeparator = ": ";
+	private static String availableForChange = "---- Available for changes in game saves";
+	private static String dynamicParameter   = "---- Follow the GUI, not stored in game";
 	
 	// ==================================================
 	// Variables Properties

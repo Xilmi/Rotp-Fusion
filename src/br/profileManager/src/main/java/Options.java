@@ -24,9 +24,10 @@ import static br.profileManager.src.main.java.PMutil.suggestedUserViewFromCodeVi
  */
 class Options<T> extends WriteUtil {
 
-	private static String separatorSymbol;
-	private static String separatorSpacer;
-	private static int    lineSplitPosition;
+	// Keep the initializations for Junit test
+	private static String separatorSymbol   = "=";
+	private static String separatorSpacer   = " ";
+	private static int    lineSplitPosition = 16;
 
 	private String description;
 	private String category ;

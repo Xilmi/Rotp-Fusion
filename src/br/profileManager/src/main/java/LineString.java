@@ -24,10 +24,11 @@ class LineString {
     // ==================================================
 	// Variables Properties
     //
-	private static String keyValueSeparator;
-	private static String valueSpacer;
-	private static String lineSplitPosition;
-	private static String commentEndPosition;
+	// Keep the initializations for Junit test
+	private static String keyValueSeparator  = ":";
+	private static String valueSpacer        = " ";
+	private static String lineSplitPosition  = "16";
+	private static String commentEndPosition = "30";
 	
 	private String key;
 	private String value;
