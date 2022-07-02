@@ -2,6 +2,6 @@
 # Meklar Laboratory Animation
 #  Glowing Letter animations
 
-Base,   _ALL_    , SilLab
+Base,   _ALL_    , MonoLab
 GlowA,  105@0    , NULL:10:30+MonoLabGlowA:10:30
 GlowB,  590@10   , NULL:10:30+MonoLabGlowB:10:30
