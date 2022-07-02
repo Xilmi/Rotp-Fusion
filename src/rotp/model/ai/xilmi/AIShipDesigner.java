@@ -226,7 +226,15 @@ public class AIShipDesigner implements Base, ShipDesigner {
         ShipDesign currDesign = BestDesignToColonize();
         
         // weapons needed on colony ships if we've made AI contact
-        boolean weaponsNeeded = !empire.contactedEmpires().isEmpty();
+        boolean weaponsNeeded = false;
+        for(EmpireView emp : empire.contacts())
+        {
+            if(empire.inShipRange(emp.empId()))
+            {
+                weaponsNeeded = true;
+                break;
+            }
+        }
         // current design is "properlyArmed" if it is armed &weapons needed or unarmed & weapons unneeded
         //always try to make extended, if possible, additional-cost is worth it and once it fits on large, the costs won't matter much anyways
         boolean extendedFuelNeeded = !empire.tech().topFuelRangeTech().unlimited;

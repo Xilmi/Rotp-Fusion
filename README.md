@@ -25,6 +25,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
   - Junit test integration
   - Pom file normalization
   - Minor bugs solved
+  - Updated to ROTP Fusion-MOD v2022.06.29
 
 2026.06.29
   - Copy of Fusion-MOD v2022.06.25

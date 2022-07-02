@@ -755,7 +755,12 @@ public class AIGeneral implements Base, General {
             }
             currentScore *= enemyMultiplyer;
             currentScore /= tradeMod;
-            currentScore /= emp.powerLevel(emp);
+            float powerRatio = empire.powerLevel(empire) / emp.powerLevel(emp);
+            float milPowerRatio = 0;
+            if(emp.militaryPowerLevel() > 0)
+                milPowerRatio = smartPowerLevel() / emp.militaryPowerLevel();
+            powerRatio = max(powerRatio, milPowerRatio);
+            currentScore *= powerRatio;
             float spyAnnoyanceMod = 100f;
             for(DiplomaticIncident inc : empire.viewForEmpire(emp).embassy().allIncidents())
             {

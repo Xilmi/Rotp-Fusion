@@ -1385,30 +1385,39 @@ public class AIDiplomat implements Base, Diplomat {
         if(empire.generalAI().additionalColonizersToBuild(false) > 0 && !empire.atWar())
             warAllowed = false;
         float enemyPower = empire.powerLevel(empire);
+        float enemyMilitaryPower = 0;
         Empire victim = empire.generalAI().bestVictim();
         if(victim != null)
         {
+            if(empire.generalAI().smartPowerLevel() > victim.totalIncome())
+                enemyMilitaryPower = empire.generalAI().smartPowerLevel();
             float victimPower = victim.powerLevel(victim);
+            float victimMilitaryPower = victim.militaryPowerLevel();
             for(Empire enemy : victim.warEnemies())
             {
                 if(enemy == empire)
                     continue;
                 enemyPower += enemy.powerLevel(enemy);
+                enemyMilitaryPower += enemy.militaryPowerLevel();
             }
             for(Empire ally : empire.allies())
             {
                 //avoid counting our allies twice when they are already counted
                 if(!victim.warEnemies().contains(ally))
+                {
                     enemyPower += ally.powerLevel(ally);
+                    enemyMilitaryPower += ally.militaryPowerLevel();
+                }
             }
             for(Empire ally : victim.allies())
             {
                 victimPower += ally.powerLevel(ally);
+                victimMilitaryPower += victim.militaryPowerLevel();
             }
-            //System.out.println(galaxy().currentTurn()+" "+empire.name()+" my power: "+enemyPower+" "+victim.name()+" power: "+victim.powerLevel(victim));
-            if(enemyPower <= empire.powerLevel(empire) && victimPower > 1.0f / 2.0f * enemyPower)
+            //System.out.println(galaxy().currentTurn()+" "+empire.name()+" my power: "+enemyPower+" "+victim.name()+" power: "+victim.powerLevel(victim)+" my military: "+enemyMilitaryPower+" their military: "+victimMilitaryPower);
+            if(enemyPower <= empire.powerLevel(empire) && victimPower > 1.0f / 2.0f * enemyPower && victimMilitaryPower >= 1.0f / 2.0f * enemyMilitaryPower)
                 warAllowed = false;
-            if(enemyPower > empire.powerLevel(empire) && victimPower > enemyPower)
+            if(enemyPower > empire.powerLevel(empire) && victimPower > enemyPower && victimMilitaryPower >= enemyMilitaryPower)
                 warAllowed = false;
         }
         //Ail: If there's only two empires left, there's no time for preparation. We cannot allow them the first-strike-advantage!
