@@ -42,10 +42,16 @@ import rotp.ui.game.StartModOptionsUI;
 class Group_Modnar extends  AbstractGroup <ClientClasses> {
 
 	Group_Modnar(ClientClasses go) {
-	   super(go);
+		super(go, getHeadComments());
 	}
-	@Override
-	protected void initSettingList(ClientClasses go) {
+	
+	private static String getHeadComments() {
+		return  " " + NL
+				+ "------------- Modnar's Options -------------" + NL
+				+ "";
+	}
+
+	@Override protected void initSettingList(ClientClasses go) {
 		addParameter(new AlwaysStarGates(go));
 		addParameter(new AlwaysThorium(go));
 		addParameter(new ChallengeMode(go));
@@ -104,10 +110,6 @@ class Group_Modnar extends  AbstractGroup <ClientClasses> {
 		}
 		
 		@Override public void initComments() {
-			setHeadComments(
-				" " + NL +
-				"------------- Modnar's Options -------------" + NL +
-				" ");
 			setBottomComments(availableForChange());
 		}
 	}

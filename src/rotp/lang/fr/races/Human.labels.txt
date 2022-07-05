@@ -28,13 +28,13 @@ _nameTitle                        | le Triumvir
 // Advisor text
 MAIN_ADVISOR_TITLE                | Conseiller Humain
 MAIN_ADVISOR_BUTTON_OK            | Rejeter
-MAIN_ADVISOR_SCOUT                | Notre division logistique rapporte qu'une paire d'éclaireurs et un navire de colonie sont prêts à être déployés. Je suggère que nous localisions et colonisions une planète proche dès que possible.
-MAIN_ADVISOR_TRANSPORT            | L'établissement d'une colonie à %1 a réussi. Plus nous utilisons de transports, plus vite %1 deviendra la pierre angulaire de notre empire interstellaire.
-MAIN_ADVISOR_DIPLOMACY            | Triumvir, je suis ravi de confirmer notre premier contact avec une civilisation extraterrestre ! S'il vous plaît, révisez notre intelligence afin que nous puissions commencer à manipuler ces extraterrestres pour mieux servir nos fins.
-MAIN_ADVISOR_SHIP_ENGINE          | Nos recherches sur la propulsion ont abouti à une conception de navire plus avancée. Veuillez intégrer cette percée dans tous les futurs navires. C'est tout pour le moment.
-MAIN_ADVISOR_RALLY_POINTS         | Nos forces militaires se préparent à la guerre, mais nous devrons mobiliser nos forces rapidement. Je recommande d'utiliser des points de ralliement pour intégrer nos navires nouvellement créés à la flotte dès que possible.
+MAIN_ADVISOR_SCOUT                | Notre division logistique rapporte qu'une paire d'éclaireurs et un vaisseau de colonisation sont prêts à être déployés. Je suggère que nous localisions et colonisions une planète proche dès que possible.
+MAIN_ADVISOR_TRANSPORT            | L'établissement d'une colonie à %1 a réussi. Plus nous utiliserons de transports, plus vite %1 deviendra la pierre angulaire de notre empire interstellaire.
+MAIN_ADVISOR_DIPLOMACY            | Triumvir, je suis ravi de confirmer notre premier contact avec une civilisation extraterrestre ! SVP, ajustez nos services secrets afin que nous puissions commencer à manipuler ces extraterrestres pour mieux servir nos desseins.
+MAIN_ADVISOR_SHIP_ENGINE          | Nos recherches en propulsion ont abouti à une technologie de vaisseau plus avancée. Veuillez intégrer cette percée dans tous les futurs vaisseaux. C'est tout pour l'instant.
+MAIN_ADVISOR_RALLY_POINTS         | Nos forces militaires se préparent à la guerre, mais nous devrons mobiliser nos forces rapidement. Je recommande d'utiliser des points de ralliement pour intégrer nos vaisseau nouvellement créés à la flotte dès que possible.
 MAIN_ADVISOR_MISSILE_BASES        | Nos stratèges s'inquiètent des capacités défensives des mondes aux confins de notre territoire. Ils recommandent de créer des bases de missiles pour fortifier les défenses planétaires, et je suis d'accord avec leur évaluation.
-MAIN_ADVISOR_SHIP_WEAPON          | Nos dernières recherches ont conduit à une avancée dans la technologie des armes. Vous pouvez désormais modifier la conception de nouveaux navires pour inclure ces armes à tout moment.
+MAIN_ADVISOR_SHIP_WEAPON          | Nos dernières recherches ont conduit à une avancée dans la technologie des armes. Vous pouvez désormais modifier la conception de nouveaux vaisseaux pour inclure ces armes à tout moment.
 MAIN_ADVISOR_COUNCIL              | Triumvir! Une réunion de tous les empires interstellaires se produira dans seulement 5 petites années. Demandez à nos diplomates d'améliorer la façon dont nous sommes perçus, et nous utiliserons nos avantages pour diriger ce Conseil Galactique à nos fins.
 MAIN_ADVISOR_REBELLION            | J'ai entendu dire qu'il y a une rébellion en cours sur %1. Une rébellion ! J’en suis bouche bée ! Mettons des bottes sur le terrain et maîtrisons cette colonie.
 MAIN_ADVISOR_RESIST_COUNCIL       | On dirait que ce sera notre dernière guerre d'une manière ou d'une autre. J'espère juste que tout ce que notre passé nous a appris sera suffisant pour préparer ce qui nous attend...

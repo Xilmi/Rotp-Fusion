@@ -562,12 +562,18 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
         if (Profiles.isStartOpponentRaceListEnabled()) {
         	RacesOptions.loadStartingOpponents(newGameOptions());
         }
+        if (Profiles.isStartOpponentAIListEnabled()) {
+        	RacesOptions.loadStartingAIs(newGameOptions());
+        } // \BR:
         Race r = Race.keyed(newGameOptions().selectedPlayerRace());
-        GameUI.gameName = r.setupName()+ " - "+text(newGameOptions().selectedGalaxySize())+ " - "+text(newGameOptions().selectedGameDifficulty());
+        GameUI.gameName = r.setupName() + " - "
+        		+ text(newGameOptions().selectedGalaxySize())
+        		+ " - "+text(newGameOptions().selectedGameDifficulty());
         // modnar: add custom difficulty level option, set in Remnants.cfg
         // append this custom difficulty percentage to gameName if selected
         if (text(newGameOptions().selectedGameDifficulty()).equals("Custom")) {
-            GameUI.gameName = GameUI.gameName + " (" + Integer.toString(UserPreferences.customDifficulty()) + "%)";
+            GameUI.gameName = GameUI.gameName 
+            		+ " (" + Integer.toString(UserPreferences.customDifficulty()) + "%)";
         }
         repaint();
         buttonClick();

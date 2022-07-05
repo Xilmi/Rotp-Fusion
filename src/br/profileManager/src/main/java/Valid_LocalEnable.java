@@ -24,12 +24,14 @@ import static br.profileManager.src.main.java.Validation.History.Default;
 public class Valid_LocalEnable extends Validation<String> {
 
 	// Keep the initializations for Junit test
-	private static String clogId = "·";
+	private static String clogId    = "·";
+	private static String hiddenKey = "HIDE";
 	// From Valid_ConfigAction
 		static final String LOAD_ENABLED    = "ENABLE_LOAD_LIST";
 		static final String WRITE_ENABLED   = "ENABLE_WRITE_LIST";
 		static final String GAME_ENABLED    = "ENABLE_GAME_LIST";
 		static final String GUI_ENABLED     = "ENABLE_GUI_LIST";
+		static final String HIDDEN_ENABLED  = "HIDDEN_LIST";
 	//	static final String SPECIAL_ENABLED = "SPECIAL_LIST";
 	//  static final String LOCAL_ENABLED = "LOCAL_LIST";
 
@@ -37,7 +39,7 @@ public class Valid_LocalEnable extends Validation<String> {
 	 * Local Enable Key
 	 */
 	public  static final String PARAMETER_NAME = "¦ LOCAL ENABLE";
-	private static final String DEFAULT_VALUE  = "ALL";
+	static final String DEFAULT_VALUE  = "ALL";
 
 	Valid_LocalEnable() {
 		super(new T_String(DEFAULT_VALUE));
@@ -69,6 +71,9 @@ public class Valid_LocalEnable extends Validation<String> {
 		addOption("LOAD", 
 				"Allows actions that change GUI and GAMES" ,
 				LOAD_ENABLED + " " + GUI_ENABLED + " " + GAME_ENABLED);
+		addOption(hiddenKey,
+				"No actions are allowed in this Setting, and this Parameter won't be shown" ,
+				HIDDEN_ENABLED);
 		addOption(clogId,
 				"No actions are allowed in this Setting" ,
 				"");
@@ -78,7 +83,8 @@ public class Valid_LocalEnable extends Validation<String> {
 	 * To be notified that config has been updated
 	 */
 	static void newConfig(PMconfig PM) {
-		clogId = PM.getConfig("clogId");
+		clogId    = PM.getConfig("clogId");
+		hiddenKey = PM.getConfig("hiddenKey").toUpperCase();
 	}
  	// ==========================================================
     // Nested Classes
@@ -130,6 +136,17 @@ public class Valid_LocalEnable extends Validation<String> {
 			return isValueFromCategory(WRITE_ENABLED);
 		}
 		
+		boolean isHidden() {
+			return isValueFromCategory(HIDDEN_ENABLED);
+		}
+
+		void setHidden() {
+			setValue("HIDE");
+		}
+		void unHide() {
+			setValue(clogId);
+		}
+
 //		boolean isLocal() {
 //			return isValueFromCategory(LOCAL_ENABLED);
 //		}

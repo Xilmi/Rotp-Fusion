@@ -29,6 +29,7 @@ public class ValidationCriteria {
 	private boolean userViewEquals  = true ;
 	private boolean codeViewEquals  = true ;
 	private boolean categoryEquals  = false;
+	private boolean showOptions     = true;
 	private boolean userViewIsCaseSensitive  = false;
 	private boolean codeViewIsCaseSensitive  = false;
 	private boolean categoryIsCaseSensitive  = false;
@@ -39,14 +40,12 @@ public class ValidationCriteria {
 	boolean isNullAllowed()  { 
 		return isNullAllowed; 
 	}
-	
 	boolean isBlankAllowed() { 
 		return isBlankAllowed; 
 	}
 	boolean isRandomAllowed() { 
 		return isRandomAllowed; 
 	}
-	
 	/**
 	 * @return <b>true</b>: user View equals 
 	 * <b>false</b>: user View isContained
@@ -54,7 +53,6 @@ public class ValidationCriteria {
 	boolean userViewEquals() { 
 		return userViewEquals; 
 	}
-	
 	/**
 	 * @return <b>true</b>: code View equals 
 	 * <b>false</b>: code View isContained
@@ -62,7 +60,6 @@ public class ValidationCriteria {
 	boolean codeViewEquals() { 
 		return codeViewEquals; 
 	}
-	
 	/**
 	 * @return <b>true</b>: category equals 
 	 * <b>false</b>: category Contains
@@ -70,15 +67,18 @@ public class ValidationCriteria {
 	boolean categoryEquals() { 
 		return categoryEquals; 
 	}
-	
+	/**
+	 * @return <b>true</b>: options should be shown 
+	 */
+	boolean showOptions() { 
+		return showOptions; 
+	}
 	boolean userViewIsCaseSensitive() { 
 		return userViewIsCaseSensitive; 
 	}
-	
 	boolean categoryIsCaseSensitive() { 
 		return categoryIsCaseSensitive; 
 	}
-	
 	boolean codeViewIsCaseSensitive() { 
 		return codeViewIsCaseSensitive; 
 	}
@@ -86,7 +86,6 @@ public class ValidationCriteria {
 	// ==================================================
     // Setters for chaining purpose
     //
-
 	/**
 	 * @param allowed the new value
 	 * @return this for chaining purpose
@@ -95,7 +94,6 @@ public class ValidationCriteria {
 		isNullAllowed = allowed;
 		return this; 
 	}
-	
 	/**
 	 * @param allowed the new value
 	 * @return this for chaining purpose
@@ -104,7 +102,6 @@ public class ValidationCriteria {
 		isBlankAllowed = allowed;
 		return this; 
 	}
-	
 	/**
 	 * @param allowed the new value
 	 * @return this for chaining purpose
@@ -113,7 +110,6 @@ public class ValidationCriteria {
 		isRandomAllowed = allowed;
 		return this; 
 	}
-	
 	/**
 	 * <b>true</b>: user View equals 
 	 * <b>false</b>: user View isContained
@@ -124,7 +120,6 @@ public class ValidationCriteria {
 		userViewEquals = equals;
 		return this; 
 	}
-	
 	/**
 	 * <b>true</b>: code View equals 
 	 * <b>false</b>: code View isContained
@@ -135,7 +130,6 @@ public class ValidationCriteria {
 		codeViewEquals = equals;
 		return this; 
 	}
-	
 	/**
 	 * <b>true</b>: category equals 
 	 * <b>false</b>: category Contains
@@ -146,7 +140,15 @@ public class ValidationCriteria {
 		categoryEquals = equals;
 		return this; 
 	}
-	
+	/**
+	 * set showOptions
+	 * @param show the new value
+	 * @return this for chaining purpose
+	 */
+	public ValidationCriteria showOptions(boolean show) { 
+		showOptions = show;
+		return this; 
+	}
 	/**
 	 * @param caseSensitive the new value
 	 * @return this for chaining purpose
@@ -155,7 +157,6 @@ public class ValidationCriteria {
 		userViewIsCaseSensitive = caseSensitive;
 		return this; 
 	}
-	
 	/**
 	 * @param caseSensitive the new value
 	 * @return this for chaining purpose
@@ -164,7 +165,6 @@ public class ValidationCriteria {
 		categoryIsCaseSensitive = caseSensitive;
 		return this; 
 	}
-	
 	/**
 	 * @param caseSensitive the new value
 	 * @return this for chaining purpose

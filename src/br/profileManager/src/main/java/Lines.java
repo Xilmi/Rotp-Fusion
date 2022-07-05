@@ -105,7 +105,7 @@ public class Lines<T, V extends Validation<T>>
 	static void newConfig(PMconfig PM) {
 		keyValueSeparator    = PM.getConfig("keyValueSeparator");
 		keyValueSeparatorPrt = keyValueSeparator + PM.getConfig("valueSpacer");
-		profilesBreakLines   = " " + PM.getConfig("continueOnNewLine");
+		profilesBreakLines   = " " + PM.getConfig("breakLine");
 		baseKeyFormat  = "%-" + PM.getConfig("lineSplitPosition") + "s";
 		keyFormat      = baseKeyFormat + keyValueSeparatorPrt;
 		keyValueFormat = "%-" + PM.getConfig("commentEndPosition") + "s";

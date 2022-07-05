@@ -51,7 +51,7 @@ public class AI implements Base {
     public static final int UNFAIR = 4;
     public static final int RANDOM = 5;
     public static final int ALLRANDOM = 6;
-    
+   
     private final Empire empire;
 
     private final Diplomat diplomat;

@@ -478,8 +478,13 @@ public interface IGameOptions {
     }
     default void nextSpecificOpponentAI(int i) {
         List<String> allAIs = specificOpponentAIOptions();
+        // BR: Add user filter
+    	if (Profiles.isGuiOpponentAIListEnabled()) {
+    		allAIs = RacesOptions.getGuiFilteredAIList();
+    	} // \BR:
         String currAI = specificOpponentAIOption(i);
 
+        // if currAI not on the list: index=-1 then result=0 -> OK
         int nextIndex = currAI == null ? 0 : allAIs.indexOf(currAI)+1;
         if (nextIndex >= allAIs.size())
             nextIndex = 0;
@@ -489,8 +494,13 @@ public interface IGameOptions {
     }
     default void prevSpecificOpponentAI(int i) {
         List<String> allAIs = specificOpponentAIOptions();
+        // BR: Add user filter
+    	if (Profiles.isGuiOpponentAIListEnabled()) {
+    		allAIs = RacesOptions.getGuiFilteredAIList();
+    	} // \BR:
         String currAI = specificOpponentAIOption(i);
 
+        // if currAI not on the list: index=-1 then result=0 -> OK
         int nextIndex = currAI == null ? 0 : allAIs.indexOf(currAI)-1;
         if (nextIndex < 0)
             nextIndex = allAIs.size()-1;

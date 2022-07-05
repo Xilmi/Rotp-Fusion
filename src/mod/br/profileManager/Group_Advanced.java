@@ -32,7 +32,13 @@ import br.profileManager.src.main.java.Validation;
 public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 
 	Group_Advanced(ClientClasses go) {
-	   super(go);
+	   super(go, getHeadComments());
+	}
+	
+	private static String getHeadComments() {
+		return  " " + NL
+				+ "----------- Advanced Game Options -----------" + NL
+				+ "";
 	}
 	@Override
 	protected void initSettingList(ClientClasses go) {
@@ -85,12 +91,7 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 			go.options().selectedGalaxyAge(value.getCodeView());
 		}
 		
-		@Override public void initComments() {
-			setHeadComments(
-				" " + NL +
-				"----------- Advanced Game Options -----------" + NL +
-				" ");
-		}
+		@Override public void initComments() {}
 	}
  	// ==============================================================
 	// STAR DENSITY

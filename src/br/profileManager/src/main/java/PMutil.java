@@ -265,7 +265,6 @@ public class PMutil {
 		}
 		return String.join(System.lineSeparator(), lines);
 	}
-	
 	/**
 	 * Remove first Space if one. 
 	 * Originally done to restore original comment
@@ -286,7 +285,6 @@ public class PMutil {
 		}
 		return string;
 	}
-
 	/**
 	 * Remove last Space if one. Never null.
 	 * @param string the {@code String} to process
@@ -301,7 +299,6 @@ public class PMutil {
 		}
 		return string;
 	}
-
 	/**
 	 * Get the last char of the {@code String}  
 	 * @param string the {@code String} to process
@@ -313,7 +310,6 @@ public class PMutil {
 		}
 		return string.substring(string.length() - 1);
 	}
-
 	/**
 	 * Convert {@code objects} to  {@code String}
 	 * null {@code objects} are replaced by Empty {@code String}
@@ -326,7 +322,6 @@ public class PMutil {
 		}
 		return obj.toString(); 
     }
-
 	/**
 	 * Convert {@code objects} to  {@code String} and strip them.
 	 * null {@code objects} are replaced by Empty {@code String}
@@ -339,7 +334,6 @@ public class PMutil {
 		}
 		return obj.toString().strip(); 
     }
-
 	/**
 	 * Strip and convert to upper case
 	 * @param source the {@code String} to process
@@ -348,7 +342,6 @@ public class PMutil {
 	static String toKey(String source) {
 		return clean(source).toUpperCase();
 	}
-
 	/**
 	 * Strip and return in lower case with first char to upper case, never null
 	 * @param source the {@code String} to process
@@ -366,7 +359,6 @@ public class PMutil {
 		}
 		return result.strip();
 	}
-
 	/**
 	 * Strip and return every word capitalized, never null
 	 * @param source the {@code String} to process
@@ -384,7 +376,6 @@ public class PMutil {
 		}
 		return result;
 	}
-
 	/**
 	 * Strip and return every word capitalized, never null
 	 *  or only first word
@@ -400,13 +391,21 @@ public class PMutil {
 				return capitalize(source);				
 			}
 	}
-
+	/**
+	 * @param str    Containing String
+	 * @param target String to find
+	 * @return The number of Occurrence
+	 */
+	public static int countStringOccurrence(String str, String target) {
+	    return (str.length() - str.replace(target, "").length()) / target.length();
+	}
 	/**
 	 * Convert a {@code String} with several "_" to a more user friendly one
 	 * @param option the {@code String} Option 
+	 * @param minLength the minimal length of the two las elements String
 	 * @return  the capitalized last element of the {@code String} (after "_")
 	 */
-	static String suggestedUserViewFromCodeView (Object value) {
+	static String suggestedUserViewFromCodeView (Object value, int minLength) {
 		if (value == null) {
 			return "null";
 		}
@@ -414,7 +413,37 @@ public class PMutil {
 		if (codeView == null) {
 			return "null";
 		}
-		return toSentence(codeView.substring(codeView.lastIndexOf("_") + 1));
+		String[] elements = codeView.split("_", 0);
+		int last = elements.length-1;
+		if (last > 1 && 
+				(elements[last-1].length() <= minLength
+				|| elements[last].length() <= minLength)) {
+			return capitalize(elements[last-1]) + "_" + capitalize(elements[last]);
+		}
+		return capitalize(elements[last]);
+	}
+	/**
+	 * Convert a {@code String} with several "_" to a more user friendly one
+	 * @param option the {@code String} Option 
+	 * @return  the capitalized last element of the {@code String} (after "_")
+	 */
+	static String suggestedUserViewFromCodeView (Object value) {
+		return suggestedUserViewFromCodeView (value, 1);
+	}
+	/**
+	 * Convert a {@code String} with several "_" to a more user friendly one
+	 * @param list the {@code List<String>} Option 
+	 * @param minLength the minimal length of the two las elements String
+	 * @return  the capitalized last element of the {@code String} (after "_")
+	 */
+	public static List<String> suggestedUserViewFromCodeView (List<?> list, int minLength) {
+		List<String> result = new ArrayList<String>();
+		if (list != null) {
+			for (Object value : list) {
+				result.add(suggestedUserViewFromCodeView(value, minLength));
+				}
+		}
+		return result;
 	}
 	/**
 	 * Convert a {@code String} with several "_" to a more user friendly one
@@ -422,13 +451,7 @@ public class PMutil {
 	 * @return  the capitalized last element of the {@code String} (after "_")
 	 */
 	public static List<String> suggestedUserViewFromCodeView (List<?> list) {
-		List<String> result = new ArrayList<String>();
-		if (list != null) {
-			for (Object value : list) {
-				result.add(suggestedUserViewFromCodeView(value));
-				}
-		}
-		return result;
+		return suggestedUserViewFromCodeView (list, 1);
 	}
 
 	// ==================================================

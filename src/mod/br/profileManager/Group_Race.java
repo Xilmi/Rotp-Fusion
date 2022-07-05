@@ -39,7 +39,13 @@ import br.profileManager.src.main.java.Validation;
 public class Group_Race extends AbstractGroup <ClientClasses> {
 
 	Group_Race(ClientClasses go) {
-		super(go);
+	   super(go, getHeadComments());
+	}
+	
+	private static String getHeadComments() {
+		return  " " + NL
+				+ "--------- Races Game Options ---------" + NL
+				+ "";
 	}
 	
 	@Override protected void initSettingList(ClientClasses go) {
@@ -85,10 +91,6 @@ public class Group_Race extends AbstractGroup <ClientClasses> {
 		}
 		
 		@Override public void initComments() {
-			setHeadComments(
-				" " + NL +
-				"--------- Races Game Options ---------" + NL +
-				" ");
 			setBottomComments(availableForChange());
 		}
 	}
@@ -222,6 +224,7 @@ public class Group_Race extends AbstractGroup <ClientClasses> {
 							new T_String(go.newOptions().selectedHomeWorldName())));			
 		
 			getValidation().getCriteria().isRandomAllowed(false);
+			getValidation().getCriteria().showOptions(false);
 		}
 		
 	    // ========== Overriders ==========
@@ -266,6 +269,7 @@ public class Group_Race extends AbstractGroup <ClientClasses> {
 							new T_String(go.newOptions().selectedLeaderName())));			
 
 			getValidation().getCriteria().isRandomAllowed(false);
+			getValidation().getCriteria().showOptions(false);
 		}
 		
 	    // ========== Overriders ==========

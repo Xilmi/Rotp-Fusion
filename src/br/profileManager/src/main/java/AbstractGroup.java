@@ -30,12 +30,18 @@ public abstract class AbstractGroup<C> extends WriteUtil {
 	LinkedHashMap<String, AbstractParameter<?, ?, C>>
 		parameterNameMap = new LinkedHashMap<String, 
 								AbstractParameter<?, ?, C>>();
-
+	private String headerComment= "";
 	//  ========================================================================
 	// Constructor
 	//
 	protected AbstractGroup(C clientObject) {
 		initSettingList(clientObject);
+	}
+	protected AbstractGroup(C clientObject, String comment) {
+		initSettingList(clientObject);
+		if (comment != null) {
+			headerComment = comment;
+		}
 	}
 	// ========================================================================
 	// Abstract Methods
@@ -102,7 +108,7 @@ public abstract class AbstractGroup<C> extends WriteUtil {
 	 * @return parameters group as String, ready to be printed
 	 */
 	public String toString(List<String> profileList, boolean cleanProfiles) {
-		String out = "";
+		String out = toComment(headerComment) + NL + emptyCommentLines(1);
 		for (AbstractParameter<?, ?, C>
 					parameter : parameterNameMap.values() ) {
 			if (cleanProfiles) {

@@ -51,7 +51,13 @@ public class Group_BrokenRegistry extends  AbstractGroup <ClientClasses> {
 //			PMutil.suggestedUserViewFromCodeView(PLANET_TYPES);
 	
 	Group_BrokenRegistry(ClientClasses go) {
-	   super(go);
+	   super(go, getHeadComments());
+	}
+	
+	private static String getHeadComments() {
+		return  " " + NL
+				+ "------------- Broken Registry Options -------------" + NL
+				+ "";
 	}
 	
 	@Override protected void initSettingList(ClientClasses go) {
@@ -131,9 +137,6 @@ public class Group_BrokenRegistry extends  AbstractGroup <ClientClasses> {
 		
 		@Override public void initComments() {
 			setBottomComments(dynamicParameter());
-			setHeadComments(" " + NL
-					+ "------------- Broken Registry Options -------------" + NL
-					+ " ");
 			setSettingComments(" " + NL
 					+ "This setting will change scrolling order of the star flags in the galaxy map" + NL
 					+ "List lenght may be shortened. by removing some colors" + NL

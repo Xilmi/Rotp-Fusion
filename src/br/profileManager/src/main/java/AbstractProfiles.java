@@ -42,8 +42,10 @@ public abstract class AbstractProfiles<C> extends WriteUtil {
 	//
 	protected static final PMconfig PM = new PMconfig();
 	// Keep the initializations for Junit test
-	private static String continueOnNewLine = "..";
-	private static String commentKey        = ";";
+	private static String breakLine     = "..";
+	private static String commentKey    = ";";
+	private static String hiddenKey     = "HIDE";
+	private static String hideSeparator = "-";
 	
 	private List<String> defaultUserSettingKeys = new ArrayList<String>(List.of("User", "LastWord"));
 	private boolean firstInit = true;
@@ -55,7 +57,8 @@ public abstract class AbstractProfiles<C> extends WriteUtil {
 	private boolean cleanUserKeys = true;
 
 	private AbstractParameter<?, ?, C> currentParameter;
-	private String currentParameterName;
+	private String  currentParameterName;
+	private boolean currentParameterIsHidden = false;
 	private AbstractGroup<C> currentGroup;
 		
 	// ==================================================
@@ -73,8 +76,10 @@ public abstract class AbstractProfiles<C> extends WriteUtil {
 	 * To be notified the config has been updated
 	 */
 	static void newConfig(PMconfig PM) {
-		continueOnNewLine = PM.getConfig("continueOnNewLine");
-		commentKey        = PM.getConfig("commentKey");
+		breakLine     = PM.getConfig("breakLine");
+		commentKey    = PM.getConfig("commentKey");
+		hiddenKey     = PM.getConfig("hiddenKey").toUpperCase();
+		hideSeparator = PM.getConfig("hideSeparator");
 	}
 	// ========================================================================
 	//  Abstract Methods
@@ -351,7 +356,7 @@ public abstract class AbstractProfiles<C> extends WriteUtil {
 				String line;
 				while ((line = in.readLine()) != null) {
 					line = line.trim();
-					while (line.endsWith(continueOnNewLine)) {
+					while (line.endsWith(breakLine)) {
 						line = mergeLines(line, in.readLine());
 					}
 					processLine(line.trim());
@@ -405,11 +410,22 @@ public abstract class AbstractProfiles<C> extends WriteUtil {
 		}
 		// Test for New Setting Section
 		if (AbstractParameter.isHeadOfParameter(key) ) {
-			currentParameterName = Lines.getValueAsString(line).toUpperCase();
+			String local = Valid_LocalEnable.DEFAULT_VALUE;
+			currentParameterIsHidden = false;
+			String[] elements = Lines.getValueAsString(line)
+					.toUpperCase().split(hideSeparator, 2);
+			currentParameterName = elements[0].strip();
+			if (elements.length == 2) {
+				local = elements[1].strip();
+				if (local.equalsIgnoreCase(hiddenKey)) {
+					currentParameterIsHidden = true;
+				}
+			}
 			// Test if initial profile list declaration
 			if (parameterProfileAction.getParameterName()
 					.equalsIgnoreCase(currentParameterName)) {
 				currentParameter = parameterProfileAction;
+				currentParameterIsHidden = false; // big problem if hidden!
 				currentGroup = null;
 				return;
 			}
@@ -417,12 +433,14 @@ public abstract class AbstractProfiles<C> extends WriteUtil {
 			currentParameter = null;
 			if (currentGroup != null) {
 				currentParameter = currentGroup.getParameter(currentParameterName);
+				currentParameter.setLocalEnable(local);
 				return;
 			}
 			return;
 		}
 		// it's a setting Line
-		if (currentParameter != null) {
+		if (currentParameter != null
+				&& !currentParameterIsHidden) {
 			currentParameter.addLine(line);
 		}
 	}

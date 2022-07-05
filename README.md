@@ -21,8 +21,13 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
+2026.07.05
+  - Added AI filters for individual filling option.
+  - Added secondary options for Galaxy shapes.
+  - Added possibility to hide parameters in Profiles.cfg
+
 2026.07.01
-  - Junit test integration
+  - Junit test integration to github
   - Pom file normalization
   - Minor bugs solved
   - Updated to ROTP Fusion-MOD v2022.06.29

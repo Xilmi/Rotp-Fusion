@@ -64,6 +64,7 @@ public final class GameOverUI extends FadeInPanel implements MouseListener, Mous
         addMouseMotionListener(this);
         
     }
+    public boolean textFinished()  { return transIndex >= (trans.length -1); }
     @Override
     public int fadeInMs()        { return 2000; }
     public void init() {
@@ -141,7 +142,8 @@ public final class GameOverUI extends FadeInPanel implements MouseListener, Mous
             }
             g.setComposite(preComp);
         }
-        drawButtons(g);
+        if (textFinished())
+            drawButtons(g);
 
         drawOverlay(g);
         
@@ -364,6 +366,8 @@ public final class GameOverUI extends FadeInPanel implements MouseListener, Mous
         endFade();
         if (e.getButton() > 3)
             return;
+        if (!textFinished())
+            return;
         if (hoverBox == exitBox) {
             softClick(); 
             advanceMode();
@@ -377,7 +381,8 @@ public final class GameOverUI extends FadeInPanel implements MouseListener, Mous
     }
     @Override
     public void keyPressed(KeyEvent e) {
-        endFade();
+        if (!textFinished())
+            return;
         switch(e.getKeyCode()) {
             case KeyEvent.VK_ESCAPE:
                 advanceMode();

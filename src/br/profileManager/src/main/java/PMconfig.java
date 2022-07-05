@@ -48,7 +48,7 @@ public class PMconfig {
 	PMconfig() {
 		config.put("commentKey",		";");
 		config.put("commentSpacer",	    " ");
-		config.put("continueOnNewLine", "..");
+		config.put("breakLine",         "..");
 		config.put("keyValueSeparator", ":");
 		config.put("valueSpacer",	    " ");
 		config.put("separatorSymbol",   "=");
@@ -62,6 +62,8 @@ public class PMconfig {
 		config.put("clogId",    "·");
 		config.put("randomId",	"RANDOM");
 		config.put("parameterKey",	    "¦==== Parameter");
+		config.put("hiddenKey",	        "Hide");
+		config.put("hideSeparator",     "-");
 		config.put("historyKey",		"¦ History");
 		config.put("optionsKey",		"Options");
 		config.put("--------------------", "----------");

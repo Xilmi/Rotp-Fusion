@@ -29,10 +29,16 @@ import br.profileManager.src.main.java.T_Integer;
 class Group_Governor extends AbstractGroup <ClientClasses> {
 	
 	Group_Governor(ClientClasses go) {
-	   super(go);
+	   super(go, getHeadComments());
 	}
-	@Override
-	protected void initSettingList(ClientClasses go) {
+	
+	private static String getHeadComments() {
+		return  " " + NL
+				+ "------------- Governor Options -------------" + NL
+				+ " ";
+	}
+
+	@Override protected void initSettingList(ClientClasses go) {
 		addParameter(new GovernorOnByDefault(go));
 		addParameter(new AutospendOnByDefault(go));
 		addParameter(new DefaultMaxBases(go));
@@ -65,12 +71,7 @@ class Group_Governor extends AbstractGroup <ClientClasses> {
 			UserPreferences.setGovernorOn(value.getCodeView());
 		}
 		
-		@Override public void initComments() {
-			setHeadComments(
-				" " + NL +
-				"------------- Governor Options -------------" + NL +
-				" ");
-		}
+		@Override public void initComments() {}
 	}
 	// ==============================================================
 	// AUTOSPEND ON BY DEFAULT

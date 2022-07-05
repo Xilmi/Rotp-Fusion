@@ -30,6 +30,14 @@ public class RaceFilter {
 	private static List<String> selectedGuiRaceFilter;
 	private static String[]     startOpponentRace;
 
+	private static List<String> defaultGameAIList; // = all Random
+	private static List<String> defaultGuiAIList;
+	private static List<String> randomAIList;
+	private static List<String> allRandomAIList;
+	private static List<String> selectedGameAIFilter;
+	private static List<String> selectedGuiAIFilter;
+	private static String[]     startOpponentAI;
+
     // ========== Setters ==========
     //
 	/**
@@ -55,6 +63,38 @@ public class RaceFilter {
 	 */
 	public static void startOpponentRace(String[] newRaceList) {
 		startOpponentRace = newRaceList;
+	}
+	/**
+	 * @param newAIList the new default Game AIList to set
+	 */
+	public static void defaultGameAIList(List<String> newAIList) {
+		defaultGameAIList = newAIList;
+		allRandomAIList = newAIList.subList(0, newAIList.size()-2);
+		randomAIList = newAIList.subList(0, newAIList.size()-3);
+	}
+	/**
+	 * @param newAIList the new default Gui AIList to set
+	 */
+	public static void defaultGuiAIList(List<String> newAIList) {
+		defaultGuiAIList = newAIList;
+	}
+	/**
+	 * @param newAIList the AI List to set
+	 */
+	public static void selectedGameAIFilter(List<String> newAIList) {
+		selectedGameAIFilter = newAIList;
+	}
+	/**
+	 * @param newAIList the AI Filter to set
+	 */
+	public static void selectedGuiAIFilter(List<String> newAIList) {
+		selectedGuiAIFilter = newAIList;
+	}
+	/**
+	 * @param newAIList the Preset Opponents to set
+	 */
+	public static void startOpponentAI(String[] newAIList) {
+		startOpponentAI = newAIList;
 	}
     // ========== Getters ==========
     //
@@ -89,6 +129,56 @@ public class RaceFilter {
 	 */
 	public static String[] startOpponentRace() {
 		return startOpponentRace;
+	}
+	/**
+	 * @return the Default Game AI List
+	 */
+	public static List<String> defaultGameAIList() {
+		return defaultGameAIList;
+	}
+	/**
+	 * @return the Default Gui AI List
+	 */
+	public static List<String> defaultGuiAIList() {
+		return defaultGuiAIList;
+	}
+	/**
+	 * @return the random AI List
+	 */
+	public static List<String> randomAIList() {
+		return randomAIList;
+	}
+	/**
+	 * @return the all random AI List
+	 */
+	public static List<String> allRandomAIList() {
+		return allRandomAIList;
+	}
+	/**
+	 * @return the race List
+	 */
+	public static List<String> selectedGameAIFilter() {
+		if (selectedGameAIFilter == null 
+				|| selectedGameAIFilter.toString().isBlank()) {
+			return defaultGameAIList;
+		}
+		return selectedGameAIFilter;
+	}
+	/**
+	 * @return the AI Filter
+	 */
+	public static List<String> selectedGuiAIFilter() {
+		if (selectedGuiAIFilter == null 
+				|| selectedGuiAIFilter.toString().isBlank()) {
+			return defaultGuiAIList;
+		}
+		return selectedGuiAIFilter;
+	}
+	/**
+	 * @return the Preset Opponents AI
+	 */
+	public static String[] startOpponentAI() {
+		return startOpponentAI;
 	}
     // ========== Other Methods ==========
     //

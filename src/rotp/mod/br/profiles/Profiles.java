@@ -154,11 +154,25 @@ public class Profiles {
 		return userProfiles.isParameterEnabled("START PRESET OPPONENT");
 	}
 	/**
+  	 * Check if it is OK to use OpponentRaceList (for Random)
+	 * @return status
+	 */
+	public static boolean isStartOpponentAIListEnabled() {
+		return userProfiles.isParameterEnabled("START PRESET AI");
+	}
+	/**
   	 * Check if it is OK to use GuiOpponentRaceList (for Random)
 	 * @return status
 	 */
 	public static boolean isGuiOpponentRaceListEnabled() {
 		return userProfiles.isParameterEnabled("GUI RACE FILTER");
+	}
+	/**
+  	 * Check if it is OK to use GuiOpponentRaceList (for Random)
+	 * @return status
+	 */
+	public static boolean isGuiOpponentAIListEnabled() {
+		return userProfiles.isParameterEnabled("GUI AI FILTER");
 	}
 	/**
   	 * Check if it is OK to use Star Probability Modifier (for Random)
