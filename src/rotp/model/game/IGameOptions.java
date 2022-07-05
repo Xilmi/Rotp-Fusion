@@ -323,9 +323,10 @@ public interface IGameOptions {
             // modnar: set all fuelRangeMultiplier to 1
             // this keeps save game compatibility with official version
             // but does not allow high range multipliers
-            case FUEL_RANGE_HIGH: return 1; // original: return 2
-            case FUEL_RANGE_HIGHER: return 1; // original: return 3
-            case FUEL_RANGE_HIGHEST: return 1; // original: return 5
+            // BR: restored Fuel Ranges
+            case FUEL_RANGE_HIGH: return 2; // original: return 2
+            case FUEL_RANGE_HIGHER: return 3; // original: return 3
+            case FUEL_RANGE_HIGHEST: return 5; // original: return 5
             default: return 1;
         }
     }

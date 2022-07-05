@@ -941,9 +941,10 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         List<String> list = new ArrayList<>();
         list.add(FUEL_RANGE_NORMAL);
         // modnar: comment out fuelRangeOptions from being selected
-        //list.add(FUEL_RANGE_HIGH);
-        //list.add(FUEL_RANGE_HIGHER);
-        //list.add(FUEL_RANGE_HIGHEST);
+        // BR: restored them
+        list.add(FUEL_RANGE_HIGH);
+        list.add(FUEL_RANGE_HIGHER);
+        list.add(FUEL_RANGE_HIGHEST);
         return list;
     }
     @Override

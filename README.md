@@ -21,6 +21,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
+2026.07.xx
+  - REstored Fuel Range.
+
 2026.07.05
   - Added AI filters for individual filling option.
   - Added secondary options for Galaxy shapes.
