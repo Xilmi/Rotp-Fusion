@@ -646,4 +646,12 @@ public class Planet implements Base, IMappedObject, Serializable {
         else
             return buffer1;
     }
+    // BR: For Symmetric galaxies
+    public void copy(Planet src) {
+    	this.environment = src.environment();
+    	this.resources   = src.resources();
+    	this.artifacts   = src.artifacts();
+    	this.bonusTechs  = src.bonusTechs();
+    	this.baseSize    = src.baseSize();
+    }
 }

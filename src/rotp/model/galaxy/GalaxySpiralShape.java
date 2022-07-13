@@ -20,12 +20,15 @@ import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.List;
+
+import rotp.mod.br.profiles.Profiles;
 import rotp.model.game.IGameOptions;
 
 public class GalaxySpiralShape extends GalaxyShape {
     private static final long serialVersionUID = 1L;
     public static final List<String> options1;
     public static final List<String> options2;
+    private static final String SYMMETRIC = "SETUP_SPIRAL_SYMMETRIC"; // BR: This label for a better ID in Profiles 
     static {
         options1 = new ArrayList<>();
         options1.add("SETUP_SPIRAL_2_ARMS");
@@ -35,6 +38,7 @@ public class GalaxySpiralShape extends GalaxyShape {
         options1.add("SETUP_SPIRAL_6_ARMS");
         options1.add("SETUP_SPIRAL_7_ARMS");
         options1.add("SETUP_SPIRAL_8_ARMS");
+        options1.add(SYMMETRIC); // BR:
         options2 = new ArrayList<>();
         options2.add("SETUP_SPIRAL_ROTATION_0");
         options2.add("SETUP_SPIRAL_ROTATION_1");
@@ -44,20 +48,52 @@ public class GalaxySpiralShape extends GalaxyShape {
         options2.add("SETUP_SPIRAL_ROTATION_5");
         options2.add("SETUP_SPIRAL_ROTATION_6");
     }
-    public static int numOptions1 = 7;
+    public static int numOptions1 = 8;
     public static int numOptions2 = 7;
     float numArms = 8;
     float armOffsetMax = 0.7f;
     float rotationFactor = 0;
     float armSeparationDistance = 2 * (float)Math.PI / numArms;
     Shape circle;
-    float adjust_density = 1.0f; //unused
-	
+    float adjust_density = 1.0f; //unused // BR: used for symmetric
+    // BR: for symmetric galaxy
+    private double minRandRay = 0.0; // relative limit Stars ray
+    private double randomOrientation;
+
     float randomX = 0;
     float randomY = 0;
     public GalaxySpiralShape(IGameOptions options) {
         opts = options;
     }
+    // BR: for symmetric galaxy
+    private CtrPoint getRandomSymmetric(double minRay) {
+        double ray = rand.randX(minRay, 1); 
+        ray *= ray; // to favor short ray
+        double armOffset = rand.symY(armOffsetMax);
+        armOffset = (armOffset - armOffsetMax/2) / ray;
+        armOffset *= armOffset * Math.signum(armOffset); // to Squeeze the arm
+        double angle = armOffset + ray * rotationFactor;
+    	return new CtrPoint(ray * galaxyRay())
+    			.rotate(angle + randomOrientation);
+    }
+    @Override public CtrPoint getValidRandomSymmetric() {
+    	CtrPoint pt = getRandomSymmetric(minRandRay);
+		while (!valid(pt.getX(), pt.getY()))
+			pt = getRandomSymmetric(minRandRay);
+    	return pt;
+    }
+	@Override public CtrPoint getPlayerSymmetricHomeWorld() {
+    	double minHomeRay = Math.sqrt(empireBuffer * numEmpires / twoPI / galaxyRay());
+    	if (Profiles.isMaximizeSpacingEnabled()) {
+    		minHomeRay = Math.max(minHomeRay, (galaxyRay() - sysBuffer)/galaxyRay()) ;
+    	}
+    	return getRandomSymmetric(minHomeRay);
+	}
+	@Override public boolean isSymmetric() {
+		return opts.selectedGalaxyShapeOption1().equals(SYMMETRIC);
+	}
+	@Override public boolean isCircularSymmetric() { return isSymmetric(); }
+	// \BR:
     @Override
     public List<String> options1()  { return options1; }
     @Override
@@ -73,6 +109,25 @@ public class GalaxySpiralShape extends GalaxyShape {
         int option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
 
         numArms = option1+2;
+    	// BR: For symmetric galaxy
+        if (isSymmetric()) {
+        	randomOrientation = rand.rand(twoPI);
+        	// a void coming from symmetry depends on number of opponents
+         	double minHomeRay = empireBuffer * numEmpires / twoPI;
+        	double minRay = systemBuffer() * numEmpires / twoPI;
+        	double maxRay = (float) Math.sqrt(maxStars * adjustedSizeFactor())
+        							/ 2 - galaxyEdgeBuffer();
+        	float adjTmp = (float) (1.0 / (1.0 - minRay*minRay/maxRay/maxRay));
+            adjust_density = max(adjust_density, adjTmp);
+            double securityFactor = 0.95 * galaxyRay() / minHomeRay;
+            if (securityFactor < 1.0f) {
+            	adjust_density /= securityFactor * securityFactor;
+            }
+            adjust_density = max(1f, adjust_density);
+            minRandRay = Math.sqrt(minRay / galaxyRay()); 
+            numArms = numEmpires;
+        } // \BR:
+
         rotationFactor = option2;
         armSeparationDistance = 2 * (float)Math.PI / numArms;
         
@@ -80,13 +135,13 @@ public class GalaxySpiralShape extends GalaxyShape {
     }
     @Override
     public float maxScaleAdj()               { return 1.1f; }
-    @Override
-    protected int galaxyWidthLY() { 
-        return (int) (Math.sqrt(maxStars*adjustedSizeFactor()));
+    @Override // BR: added adjust_density for the void in symmetric galaxies
+    protected int galaxyWidthLY() {
+        return (int) (Math.sqrt(adjust_density*maxStars*adjustedSizeFactor()));
     }
-    @Override
+    @Override // BR: added adjust_density for the void in symmetric galaxies
     protected int galaxyHeightLY() { 
-        return (int) (Math.sqrt(maxStars*adjustedSizeFactor()));
+        return (int) (Math.sqrt(adjust_density*maxStars*adjustedSizeFactor()));
     }
     @Override
     public void setRandom(Point.Float pt) {

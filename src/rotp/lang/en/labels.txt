@@ -1260,6 +1260,7 @@ SETUP_SPIRAL_5_ARMS               | Five Arms
 SETUP_SPIRAL_6_ARMS               | Six Arms
 SETUP_SPIRAL_7_ARMS               | Seven Arms
 SETUP_SPIRAL_8_ARMS               | Eight Arms
+SETUP_SPIRAL_SYMMETRIC            | Symmetric
 SETUP_SPIRAL_ROTATION_0           | No Rotation
 SETUP_SPIRAL_ROTATION_1           | Rotation 1
 SETUP_SPIRAL_ROTATION_2           | Rotation 2
@@ -1272,6 +1273,7 @@ SETUP_ELLIPSE_1                   | Ellipse 1
 SETUP_ELLIPSE_2                   | Ellipse 2
 SETUP_ELLIPSE_3                   | Ellipse 3
 SETUP_ELLIPSE_4                   | Ellipse 4
+SETUP_ELLIPSE_SYMMETRIC           | Symmetric
 SETUP_RECTANGLE_0                 | Rectangle
 SETUP_RECTANGLE_1                 | Square
 SETUP_VOID_0                      | No Void
@@ -1308,9 +1310,14 @@ SETUP_MAZE_2                      | Maze C
 SETUP_SHURIKEN_0                  | 9 Spikes
 SETUP_SHURIKEN_1                  | 11 Spikes
 SETUP_SHURIKEN_2                  | 13 Spikes
-SETUP_SPIRALARMS_0                | Normal
-SETUP_SPIRALARMS_1                | Loose
-SETUP_SPIRALARMS_2                | Tight
+SETUP_SHURIKEN_SYMMETRIC          | Symmetric
+SETUP_SPIRALARMS_0                | Straight
+SETUP_SPIRALARMS_1                | Very Loose
+SETUP_SPIRALARMS_2                | Loose
+SETUP_SPIRALARMS_3                | Normal
+SETUP_SPIRALARMS_4                | Tight
+SETUP_SPIRALARMS_NORMAL           | Normal
+SETUP_SPIRALARMS_SYMMETRIC        | Symmetric
 SETUP_SWIRLCLUSTERS_0             | Clusters Along
 SETUP_SWIRLCLUSTERS_1             | Clusters Across
 SETUP_SWIRLCLUSTERS_2             | No Clusters
@@ -1376,7 +1383,7 @@ SETTINGS_MOD_ALWAYS_STARGATES_DESC   | Always include "Intergalactic Star Gates"
 SETTINGS_MOD_ALWAYS_THORIUM_DESC     | Always include "Thorium Cells" in the Tech Tree for ALL Empires. Selecting NO leaves Tech availability up to chance.
 SETTINGS_MOD_CHALLENGE_MODE_DESC     | Give AI Empires additional starting resources (more Population, Factories, and Ships).
 SETTINGS_MOD_BATTLE_SCOUT_DESC       | Medium-Hull armed Scout Design for the Player at start of game. Buildable despite breaking Ship Space limitations.
-SETTINGS_MOD_COMPANION_WORLDS_DESC   | Give 0 to 4 additional Colonies around ALL Empire Homeworlds at start of game.
+SETTINGS_MOD_COMPANION_WORLDS_DESC   | Give 0 to 6 additional Colonies around ALL Empire Homeworlds at start of game. (Negative value for original disposition)
 SETTINGS_MOD_RANDOM_TECH_START_DESC  | Give ALL Empires 2 random first Tier Techs at start of game. No Artifact Planets will be generated in the Galaxy. (Techs can differ from Empire to Empire.)
 SETTINGS_MOD_CUSTOM_DIFFICULTY_DESC  | Sets the AI Production Modifier from 20% to 500%. Make sure to select "Difficulty: Custom". (Hold down Shift/Ctrl, then scroll the mouse wheel to change in units of 5%/20%.)
 SETTINGS_MOD_DYNAMIC_DIFFICULTY_DESC | Scales the AI Production up/down when weaker/stronger than the Player. Effect ramps up at around Turn-150. (Will not infinitely scale, very strong AI Empires will be almost un-changed.)

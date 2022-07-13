@@ -23,6 +23,10 @@ package mod.br.AddOns;
  */
 public class GalaxySpacing {
 
+	private static float minEmpireBuffer;
+	private static float maxMinEmpireBuffer;
+	private static float minOrionBuffer;
+
     // ========================================================================
     // MAXIMIZE EMPIRES SPACING
     //
@@ -46,16 +50,12 @@ public class GalaxySpacing {
 		maximizeEmpiresSpacing = b;
 	}
 
-	private static float minEmpireBuffer;
-	private static float maxMinEmpireBuffer;
-	private static float minOrionBuffer;
-
 	/**
 	 * @param maxStars the {@code Integer} maximum number of stars per empire
 	 * @param numOpps the {@code Integer} number of opponents
 	 * @param sysBuffer the {@code float} some space reserve factor
 	 */
-	public static void initSpacing(int maxStars, int numOpps, float sysBuffer) {
+	public static void initMaximizeSpacing(int maxStars, int numOpps, float sysBuffer) {
 		int minStarsPerEmpire = getMinStarsPerEmpire();
 		if (isMaximizeEmpiresSpacing())
 			minStarsPerEmpire = maxStars/numOpps;

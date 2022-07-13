@@ -22,7 +22,15 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 ## What'New
 
 2026.07.xx
-  - REstored Fuel Range.
+  - Restored Fuel Range.
+  - Added randomness in the distribution of companion worlds.
+  - Up to 6 companions worlds are now available.
+  - Negative value of companion worlds for the original distribution.
+  - Added tools for symmetric Galaxies generation.
+  - Added symmetric option to Elliptical Galaxies.
+  - Added symmetric option to Spiral Galaxies.
+  - Added symmetric option to Spiral Arms Galaxies.
+  - Added Straigth and Very Loose options to Spiral Arms Galaxies.
 
 2026.07.05
   - Added AI filters for individual filling option.

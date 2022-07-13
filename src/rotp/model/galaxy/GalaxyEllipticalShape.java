@@ -22,12 +22,15 @@ import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import rotp.mod.br.profiles.Profiles;
 import rotp.model.game.IGameOptions;
 
 public class GalaxyEllipticalShape extends GalaxyShape {
     public static final List<String> options1;
     public static final List<String> options2;
     private static final long serialVersionUID = 1L;
+    private static final String SYMMETRIC = "SETUP_ELLIPSE_SYMMETRIC"; // BR: This label for a better ID in Profiles 
     static {
         options1 = new ArrayList<>();
         options1.add("SETUP_ELLIPSE_0");
@@ -35,6 +38,7 @@ public class GalaxyEllipticalShape extends GalaxyShape {
         options1.add("SETUP_ELLIPSE_2");
         options1.add("SETUP_ELLIPSE_3");
         options1.add("SETUP_ELLIPSE_4");
+        options1.add(SYMMETRIC); // BR:
         options2 = new ArrayList<>();
         options2.add("SETUP_VOID_0");
         options2.add("SETUP_VOID_1");
@@ -48,10 +52,39 @@ public class GalaxyEllipticalShape extends GalaxyShape {
     float adjust_density = 1.0f; // modnar: adjust stellar density
     float ellipseRatio = 2.0f;
     float voidSize = 0.0f;
+    // BR: for symmetric galaxy
+    private double minRandRay = 0.0; // relative limit Stars ray
+    private double randomOrientation;
 	
     public GalaxyEllipticalShape(IGameOptions options) {
         opts = options;
     }
+    // BR: for symmetric galaxy
+    private CtrPoint getRandomSymmetric(double minRay) {
+    	double ray   = galaxyRay() * Math.sqrt(rand.randX(minRay, 1));
+    	double angle = rand.symY(randomOrientation, twoPI / numEmpires);
+    	return new CtrPoint(ray).rotate(angle);
+    }
+    @Override public CtrPoint getValidRandomSymmetric() {
+    	CtrPoint pt = getRandomSymmetric(minRandRay);
+		while (!valid(pt.getX(), pt.getY()))
+			pt = getRandomSymmetric(minRandRay);
+    	return pt;
+    }
+	@Override public CtrPoint getPlayerSymmetricHomeWorld() {
+    	double minHomeRay = Math.pow(empireBuffer * numEmpires / twoPI / galaxyRay(), 2);
+    	if (Profiles.isMaximizeSpacingEnabled()) {
+    		minHomeRay = Math.max(minHomeRay, (galaxyRay() - sysBuffer)/galaxyRay()) ;
+    	}
+//    	double ray = galaxyRay() * Math.sqrt(rand.randX(minHomeRay2, 1));
+//    	return new CtrPoint(ray).rotate(randomOrientation);
+    	return getRandomSymmetric(minHomeRay);
+	}
+	@Override public boolean isSymmetric() {
+		return opts.selectedGalaxyShapeOption1().equals(SYMMETRIC);
+	}
+	@Override public boolean isCircularSymmetric() { return isSymmetric(); }
+	// \BR:
     @Override
     public List<String> options1()  { return options1; }
     @Override
@@ -69,27 +102,44 @@ public class GalaxyEllipticalShape extends GalaxyShape {
         int option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
         int option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
         
-        switch(option1) {
-            case 0: ellipseRatio = 1.0f; break;
-            case 1: ellipseRatio = 1.5f; break;
-            case 2: ellipseRatio = 2.0f; break;
-            case 3: ellipseRatio = 3.0f; break;
-            case 4: ellipseRatio = 5.0f; break;
-            default: ellipseRatio = 2.0f; break;
-        }
-        
         switch(option2) {
             case 0: voidSize = 0.0f; break;
             case 1: voidSize = 0.2f; break;
             case 2: voidSize = 0.4f; break;
             case 3: voidSize = 0.6f; break;
             case 4: voidSize = 0.8f; break;
-            default: voidSize = 0.0f; break;
+       	default: voidSize = 0.0f; break;
         }
         
         // modnar: account for void size
         adjust_density = 1.0f / (1.0f - voidSize*voidSize);
-        
+
+        switch(option1) { // BR: moved after option2
+            case 0: ellipseRatio = 1.0f; break;
+            case 1: ellipseRatio = 1.5f; break;
+            case 2: ellipseRatio = 2.0f; break;
+            case 3: ellipseRatio = 3.0f; break;
+            case 4: ellipseRatio = 5.0f; break;
+            case 5:
+            	ellipseRatio = 1.0f;  // BR: Symmetric
+	        	randomOrientation = rand.rand(twoPI);
+	        	// a void coming from symmetry depends on number of opponents
+	         	double minHomeRay = empireBuffer * numEmpires / twoPI;
+	        	double minRay = systemBuffer() * numEmpires / twoPI;
+	        	double maxRay = (float) Math.sqrt(maxStars * adjustedSizeFactor())
+	        							/ 2 - galaxyEdgeBuffer();
+	        	float adjTmp = (float) (1.0 / (1.0 - minRay*minRay/maxRay/maxRay));
+	            adjust_density = max(adjust_density, adjTmp);
+	            double securityFactor = 0.95 * galaxyRay() / minHomeRay;
+	            if (securityFactor < 1.0f) {
+	            	adjust_density /= securityFactor * securityFactor;
+	            }
+	            adjust_density = max(1f, adjust_density);
+	            minRandRay = Math.pow(Math.max(voidSize, minRay / galaxyRay()), 2); 
+	        	break; // \BR
+            default: ellipseRatio = 2.0f; break;
+        }
+
         // reset w/h vars since aspect ratio may have changed
         initWidthHeight();
         

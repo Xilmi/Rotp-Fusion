@@ -136,9 +136,9 @@ EVENT_FERTILE                     | Un changement soudain de l'axe planétaire d
 EVENT_PIRACY                      | Des pirates ont commencé à perturber le commerce global entre les systèmes [target_race_pluraladjec], réduisant les revenus commerciaux de [amt]%. Des navires armés sont nécessaires dans le système [system] pour interrompre leur base d'opérations.
 EVENT_PIRACY_2                    | Les pirates basés dans le système [system] continuent de perturber l'activité commerciale [target_race_pluralnounof], réduisant les niveaux commerciaux globaux d'environ [amt]%.
 EVENT_PIRACY_3                    | La flotte [target_raceadjecF] a détruit une opération de piratage majeure basée sur le système [system]. Dans l'ensemble, les niveaux commerciaux sont revenus à des niveaux normaux.
-EVENT_PLAGUE                      | Une peste mortelle frappe le monde [target_raceadjec] dans le système [system]. Une quarantaine a été établie sur le système et des millions de personnes devraient mourir chaque année jusqu'à ce que les scientifiques puissent trouver un remède.
-EVENT_PLAGUE_2                    | La peste mortelle dans le système [system] persiste. Les scientifiques estiment qu'il faudra encore [amt] RP pour trouver un remède.
-EVENT_PLAGUE_3                    | Les scientifiques [target_race_pluraladjec] ont trouvé un remède contre la peste mortelle qui affligeait le système [system]. La quarantaine du système a été levée.
+EVENT_PLAGUE                      | Une pandémie mortel frappe le monde [target_raceadjec] dans le système [system]. Une quarantaine a été établie sur le système et des millions de personnes devraient mourir chaque année jusqu'à ce que les scientifiques puissent trouver un remède.
+EVENT_PLAGUE_2                    | La pandémie mortelle dans le système [system] persiste. Les scientifiques estiment qu'il faudra encore [amt] RP pour trouver un remède.
+EVENT_PLAGUE_3                    | Les scientifiques [target_race_pluraladjec] ont trouvé un remède contre la pandémie mortelle qui affligeait le système [system]. La quarantaine du système a été levée.
 EVENT_REBELLION                   | Le monde [target_raceadjec] dans le système [system] s'est révolté, cessant toute production planétaire. La révolte se poursuivra jusqu'à ce que la rébellion soit vaincue militairement.
 EVENT_SUPERNOVA                   | Les scientifiques [target_race_pluraladjec] prédisent que l'étoile du système [system] deviendra une supernova d'ici [year] ans. Ils recommandent de détourner toutes les recherches du système vers la recherche d'une solution.
 EVENT_SUPERNOVA_2                 | La menace d'une supernova dans le système [system] d'ici [year] ans demeure. Les scientifiques estiment qu'il faudra encore [amt] RP pour prévenir cette catastrophe.
@@ -167,8 +167,8 @@ SYSEVENT_SOIL_ENRICHED            | Le sol de la planète s'est enrichi, ce qui 
 SYSEVENT_GAIA_TERRAFORMING        | La planète a été convertie en un monde Gaïa.
 SYSEVENT_REBELLION                | La colonie s'est rebellée.
 SYSEVENT_COMET                    | Une comète a impacté la planète.
-SYSEVENT_PLAGUE                   | Une peste mortelle a balayé la planète.
-SYSEVENT_PLAGUE_ENDED             | La peste qui affligeait la planète est terminée.
+SYSEVENT_PLAGUE                   | Une pandémie mortelle a balayé la planète.
+SYSEVENT_PLAGUE_ENDED             | La pandémie qui affligeait la planète est terminée.
 SYSEVENT_ENRICHED                 | D'énormes gisements riches en minerais ont été découverts sur la planète.
 SYSEVENT_DEPLETED                 | Les gisements de minerai de la planète ont été épuisés.
 SYSEVENT_ACCIDENT                 | Un accident industriel massif a irradié la planète.
@@ -421,7 +421,7 @@ MAIN_HELP_1E                      | Écologie - nettoie les déchets industriels
 MAIN_HELP_1F                      | Technologie - ajoute à la recherche globale de l'empire.
 MAIN_HELP_1G                      | Les barres de ratio montrent la répartition de la production d'une planète. Les dépenses pour chaque barre peuvent être ajustées à l'aide de la molette de la souris, en cliquant dans la barre ou en cliquant sur les flèches gauche/droite de chaque barre.
 MAIN_HELP_1H                      | Le résultat attendu des dépenses pour une zone est affiché à droite de chaque barre. Les dépenses excédentaires seront envoyées à la réserve du trésor de l'empire.
-MAIN_HELP_2A                      | Niveau de bouclier planétaire pour la colonie. Les boucliers ne peuvent pas être construits sur les planètes dans une nébuleuse.
+MAIN_HELP_2A                      | Niveau du bouclier planétaire de la colonie. Les boucliers ne peuvent pas être construits sur les planètes dans une nébuleuse.
 MAIN_HELP_2B                      | Nombre de bases de missiles et le maximum souhaité pour cette planète. Cliquez ou utilisez la molette de la souris pour modifier le maximum.
 MAIN_HELP_2C                      | Production planétaire totale de l'industrie et de la population.
 MAIN_HELP_2D                      | Production réelle ajustée en fonction des revenus commerciaux à l'échelle de l'empire, des coûts d'espionnage et de sécurité, ainsi que de la maintenance des bases de missiles et des navires.
@@ -469,7 +469,7 @@ MAIN_PLANET_REBELLION             | En Rébellion
 MAIN_PLANET_QUARANTINE            | En Quarantaine
 MAIN_PLANET_EVENT_COMET           | Comète
 MAIN_PLANET_EVENT_PIRACY          | Piraterie
-MAIN_PLANET_EVENT_PLAGUE          | Peste
+MAIN_PLANET_EVENT_PLAGUE          | pandémie
 MAIN_PLANET_EVENT_SUPERNOVA       | Supernova
 MAIN_PLANET_EVENT_AMOEBA          | l'Amibe Spatial
 MAIN_PLANET_EVENT_CRYSTAL         | le Cristal Spatial
@@ -579,7 +579,7 @@ MAIN_COLONY_FOUNDED               | Colonie %1
 MAIN_COLONY_POPULATION            | Population
 MAIN_COLONY_FACTORIES             | Usines
 MAIN_COLONY_VALUE+                | %1+
-MAIN_COLONY_SHIELD                | Niveau de Bouclier
+MAIN_COLONY_SHIELD                | Niveau des Boucliers
 MAIN_COLONY_BASES                 | Bases
 MAIN_COLONY_PRODUCTION            | Production - Nette (Brute)
 MAIN_COLONY_SHIP                  | Vaisseau
@@ -599,11 +599,11 @@ MAIN_COLONY_SPENDING_ECO_GROWTH   | Croissance %1
 MAIN_COLONY_SPENDING_ATMOSPHERE   | Atmo
 MAIN_COLONY_SPENDING_ENRICH_SOIL  | Sol
 MAIN_COLONY_SPENDING_TERRAFORM    | T-form
-MAIN_COLONY_SPENDING_CLEANUP      | Nettoyer
+MAIN_COLONY_SPENDING_CLEANUP      | Nettoyage
 MAIN_COLONY_SPENDING_GROWTH       | Croissance
-MAIN_COLONY_SPENDING_SHIELD       | Bouclier
-MAIN_COLONY_SPENDING_UPG_BASES    | Amélioration
-MAIN_COLONY_SPENDING_PLAGUE       | Peste
+MAIN_COLONY_SPENDING_SHIELD       | Boucliers
+MAIN_COLONY_SPENDING_UPG_BASES    | Améliorations
+MAIN_COLONY_SPENDING_PLAGUE       | Pandémies
 MAIN_COLONY_SPENDING_SUPERNOVA    | Supernova
 MAIN_COLONY_SPENDING_RP           | %1 RP
 MAIN_COLONY_COMPLETION_YEAR       | 1 An
@@ -806,7 +806,7 @@ PLANETS_HELP_4A                   | Nom - Le nom de votre système. Modifiable.
 PLANETS_HELP_4B                   | Population - Population actuelle, y compris le changement par rapport au tour précédent.
 PLANETS_HELP_4C                   | Ressources - pour les planètes Riches, Pauvres et Artefacts.
 PLANETS_HELP_4D                   | Production - production totale de la colonie.
-PLANETS_HELP_4E                   | Shield - niveau du bouclier planétaire.
+PLANETS_HELP_4E                   | Boucliers - niveau du bouclier planétaire.
 PLANETS_HELP_4F                   | Bases - bases de missiles sur la planète. Rouge si technologie obsolète.
 PLANETS_HELP_4G                   | Chantier Naval - conception du navire en cours de construction.
 PLANETS_HELP_4H                   | Notes - PNotes du joueur sur le système. Modifiable.
@@ -822,7 +822,7 @@ MAIN_BOMBARD_NO                  | Non
 MAIN_BOMBARD_POPULATION          | Population : %1
 MAIN_BOMBARD_FACTORIES           | Usines : %1
 MAIN_BOMBARD_BASES               | Bases : %1
-MAIN_BOMBARD_SHIELD              | Bouclier : %1
+MAIN_BOMBARD_SHIELD              | Boucliers : %1
 MAIN_BOMBARD_COMPLETE            | Bombardement terminé.
 MAIN_BOMBARD_DESTROYED           | Colonie détruite
 MAIN_BOMBARD_DMG                 | (%1)

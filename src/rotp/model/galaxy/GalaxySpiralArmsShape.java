@@ -16,52 +16,170 @@
 package rotp.model.galaxy;
 
 import java.awt.Point;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+
+import rotp.mod.br.profiles.Profiles;
 import rotp.model.game.IGameOptions;
 
 // modnar: custom map shape, Spiral Arms
 public class GalaxySpiralArmsShape extends GalaxyShape {
     public static final List<String> options1;
-    //public static final List<String> options2;
+    public static final List<String> options2; // BR: For Symmetric galaxies
     private static final long serialVersionUID = 1L;
+    private static final String SYMMETRIC = "SETUP_SPIRALARMS_SYMMETRIC"; // BR: This label for a better ID in Profiles 
     static {
+    	// BR: reordered to add straight and very loose
         options1 = new ArrayList<>();
-        options1.add("SETUP_SPIRALARMS_0");
-        options1.add("SETUP_SPIRALARMS_1");
-        options1.add("SETUP_SPIRALARMS_2");
-        //options2 = new ArrayList<>();
-        //options2.add("SETUP_NOT_AVAILABLE");
+        options1.add("SETUP_SPIRALARMS_0"); // Straight
+        options1.add("SETUP_SPIRALARMS_1"); // Very Loose
+        options1.add("SETUP_SPIRALARMS_2"); // Loose
+        options1.add("SETUP_SPIRALARMS_3"); // Normal
+        options1.add("SETUP_SPIRALARMS_4"); // Tight
+        // BR: For Symmetric galaxies
+        options2 = new ArrayList<>();
+        options2.add("SETUP_SPIRALARMS_NORMAL");
+        options2.add(SYMMETRIC);
     }
-    
+    // BR: for symmetric galaxy
+    private float numSwirls = 2.0f;
+    private float armRadius = 1.5f;
+    private double minRandRay = 0.0; // relative limit Stars ray
+    private double randomOrientation;
+    private float adjust_density = 1.0f;
+    // \BR:
     public GalaxySpiralArmsShape(IGameOptions options) {
         opts = options;
     }
+    // BR: for symmetric galaxy
+    private CtrPoint getRandomSymmetric(double minRay) { // TODO
+//        int option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
+        
+//		double gRay = galaxyRay();
+//		double numSwirls = 2.0;
+//		double armRadius = Math.max(1.5, 0.06*gRay);
+		// choose spiral swirl size and max spiral arm width with options1
+		// // maybe (?) scale up the spiral swirl size with size of map (?)
+		// // Math.round(Math.sqrt(Math.sqrt(Math.sqrt(opts.numberStarSystems()))));
+		// scale max spiral arm width (2*armRadius) with map size
+//		switch(option1) {
+//            case 3: { // normal swirls, medium swirl arm width
+//                numSwirls = 2.0;
+//                armRadius = Math.max(1.5, 0.06*gRay);
+//                break;
+//            }
+//            case 4: { // loose swirls, large swirl arm width
+//                numSwirls = 1.0;
+//                armRadius = Math.max(1.5, 0.1*gRay);
+//                break;
+//            }
+//            case 5: { // tight swirls, small swirl arm width
+//                numSwirls = 3.0;
+//                armRadius = Math.max(1.5, 0.04*gRay);
+//                break;
+//            }
+//        }
+		double armRadius   = Math.min(this.armRadius, twoPI * galaxyRay() / numEmpires);
+		double swirlRadius = rand.randX();
+		double swirlAngle  = numSwirls * swirlRadius * Math.PI;
+		CtrPoint arm = new CtrPoint(swirlRadius * galaxyRay()).rotate(swirlAngle);
+		double phi = rand.randY(twoPI);
+		double radiusSelect = Math.sqrt(rand.rand()) * armRadius * (1 - swirlRadius);
+    	return new CtrPoint(radiusSelect).rotate(phi + randomOrientation).shift(arm);
+    }
+    @Override public CtrPoint getValidRandomSymmetric() {
+    	CtrPoint pt = getRandomSymmetric(minRandRay);
+		while (!valid(pt.getX(), pt.getY()))
+			pt = getRandomSymmetric(minRandRay);
+    	return pt;
+    }
+	@Override public CtrPoint getPlayerSymmetricHomeWorld() {
+    	double minHomeRay = Math.sqrt(empireBuffer * numEmpires / twoPI / galaxyRay());
+    	if (Profiles.isMaximizeSpacingEnabled()) {
+    		minHomeRay = Math.max(minHomeRay, (galaxyRay() - sysBuffer)/galaxyRay()) ;
+    	}
+    	return getRandomSymmetric(minHomeRay);
+	}
+	@Override public boolean isSymmetric() {
+		return opts.selectedGalaxyShapeOption2().equals(SYMMETRIC);
+	}
+	@Override public boolean isCircularSymmetric() { return isSymmetric(); }
+	// \BR:
     @Override
     public List<String> options1()  { return options1; }
-    //@Override
-    //public List<String> options2()  { return options2; }
+    @Override // BR: For Symmetric Galaxies
+    public List<String> options2()  { return options2; }
     @Override
-    public String defaultOption1()  { return options1.get(0); }
-    //@Override
-    //public String defaultOption2()  { return options2.get(0); }
+    public String defaultOption1()  { return options1.get(3); }
+    @Override // BR: For Symmetric Galaxies
+    public String defaultOption2()  { return options2.get(0); }
     @Override
     public void init(int n) {
         super.init(n);
-        
         // reset w/h vars since aspect ratio may have changed
         initWidthHeight();
+        int option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
+		float gW = (float) galaxyWidthLY();
+		numSwirls = 2.0f;
+		armRadius = max(1.5f, 0.03f*gW);
+		// BR: Moved here: common for Normal and Symmetric
+		// Added Straight and very loose
+		switch(option1) {
+	        case 0: { // straight, no swirls, very large swirl arm width
+	            numSwirls = (float) 0.0f;
+	            armRadius = (float) max(1.5f, 0.09f*gW);
+	            break;
+	        }
+	        case 1: { // very loose swirls, larger swirl arm width
+	            numSwirls = (float) 0.5f;
+	            armRadius = (float) max(1.5f, 0.07f*gW);
+	            break;
+	        }
+	        case 2: { // loose swirls, large swirl arm width
+	            numSwirls = (float) 1.0f;
+	            armRadius = (float) max(1.5f, 0.05f*gW);
+	            break;
+	        }
+	        case 3: { // normal swirls, medium swirl arm width
+	            numSwirls = (float) 2.0f;
+	            armRadius = (float) max(1.5f, 0.03f*gW);
+	            break;
+	        }
+	        case 4: { // tight swirls, small swirl arm width
+	            numSwirls = (float) 3.0f;
+	            armRadius = (float) max(1.5f, 0.02f*gW);
+	            break;
+	        }
+	    }
+        
+        // BR: For symmetric galaxy
+        if (isSymmetric()) {
+        	randomOrientation = rand.rand(twoPI);
+        	// a void coming from symmetry depends on number of opponents
+         	double minHomeRay = empireBuffer * numEmpires / twoPI;
+        	double minRay = systemBuffer() * numEmpires / twoPI;
+        	double maxRay = (float) Math.sqrt(maxStars * adjustedSizeFactor())
+        							/ 2 - galaxyEdgeBuffer();
+        	float adjTmp = (float) (1.0 / (1.0 - minRay*minRay/maxRay/maxRay));
+            adjust_density = max(adjust_density, adjTmp);
+            double securityFactor = 0.95 * galaxyRay() / minHomeRay;
+            if (securityFactor < 1.0f) {
+            	adjust_density /= securityFactor * securityFactor;
+            }
+            adjust_density = max(1f, adjust_density);
+            minRandRay = Math.sqrt(minRay / galaxyRay()); 
+        } // \BR:
     }
     @Override
     public float maxScaleAdj()               { return 1.1f; }
-    @Override
+    @Override // BR: added adjust_density for the void in symmetric galaxies
     protected int galaxyWidthLY() { 
-        return (int) (Math.sqrt(2.0*opts.numberStarSystems()*adjustedSizeFactor()));
+        return (int) (Math.sqrt(2.0*opts.numberStarSystems()*adjust_density*adjustedSizeFactor()));
     }
-    @Override
+    @Override // BR: added adjust_density for the void in symmetric galaxies
     protected int galaxyHeightLY() { 
-        return (int) (Math.sqrt(2.0*opts.numberStarSystems()*adjustedSizeFactor()));
+        return (int) (Math.sqrt(2.0*opts.numberStarSystems()*adjust_density*adjustedSizeFactor()));
     }
     @Override
     public void setRandom(Point.Float pt) {
@@ -72,33 +190,33 @@ public class GalaxySpiralArmsShape extends GalaxyShape {
 		float gW = (float) galaxyWidthLY();
 		float gH = (float) galaxyHeightLY();
 		
-		float numSwirls = (float) 2.0f;
-		float armRadius = (float) max(1.5f, 0.03f*gW);
+//		float numSwirls = (float) 2.0f;
+//		float armRadius = (float) max(1.5f, 0.03f*gW);
 		
 		// choose spiral swirl size and max spiral arm width with options1
 		// // maybe (?) scale up the spiral swirl size with size of map (?)
 		// // Math.round(Math.sqrt(Math.sqrt(Math.sqrt(opts.numberStarSystems()))));
 		// scale max spiral arm width (2*armRadius) with map size
-		switch(option1) {
-            case 0: {
-                // normal swirls, medium swirl arm width
-                numSwirls = (float) 2.0f;
-                armRadius = (float) max(1.5f, 0.03f*gW);
-                break;
-            }
-            case 1: {
-                // loose swirls, large swirl arm width
-                numSwirls = (float) 1.0f;
-                armRadius = (float) max(1.5f, 0.05f*gW);
-                break;
-            }
-            case 2: {
-                // tight swirls, small swirl arm width
-                numSwirls = (float) 3.0f;
-                armRadius = (float) max(1.5f, 0.02f*gW);
-                break;
-            }
-        }
+//		switch(option1) {
+//            case 0: {
+//                // normal swirls, medium swirl arm width
+//                numSwirls = (float) 2.0f;
+//                armRadius = (float) max(1.5f, 0.03f*gW);
+//                break;
+//            }
+//            case 1: {
+//                // loose swirls, large swirl arm width
+//                numSwirls = (float) 1.0f;
+//                armRadius = (float) max(1.5f, 0.05f*gW);
+//                break;
+//            }
+//            case 2: {
+//                // tight swirls, small swirl arm width
+//                numSwirls = (float) 3.0f;
+//                armRadius = (float) max(1.5f, 0.02f*gW);
+//                break;
+//            }
+//        }
 		
 		// scale up the number of spirals with size of map
 		int numSpirals = (int) Math.floor(Math.sqrt(Math.sqrt(opts.numberStarSystems())));

@@ -30,6 +30,13 @@ public class PlanetFactory implements Base {
 
     static { instance.loadDataFiles(); }
 
+    // BR: For Symmetric galaxies
+    public static Planet copyPlanet(StarSystem sys, Planet src) {
+    	Planet p = new Planet(sys);
+        p.initPlanetType(src.type().key());
+        p.copy(src);
+        return p;
+    }
     public static Planet createPlanet(StarSystem sys, float bonus) {
         Planet p = instance.options().randomPlanet(sys);
         

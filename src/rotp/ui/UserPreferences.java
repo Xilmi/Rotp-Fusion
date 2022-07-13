@@ -154,7 +154,8 @@ public class UserPreferences {
     
     // BR setters and getter for Show Factors
     /**
-     * This Factor is used to adjust the fleet disappearance
+     * This Factor is used to adjust the fleet disappearance.
+     * The bigger the value, the longer it's shown.
      * @param newValue between 0.5 and 2.0
      */
     public static void setShowFleetFactor(float newValue) {
@@ -163,14 +164,16 @@ public class UserPreferences {
     	showFleetFactor = Math.min(max, Math.max(min, newValue));
     }
     /**
-     * This factor is used to adjust the fleet disappearance
+     * This factor is used to adjust the fleet disappearance.
+     * The bigger the value, the longer it's shown.
      * @return Scale factor between 0.5 and 2.0
      */
     public static Float getShowFleetFactor() {
     	return showFleetFactor;
     }
     /**
-     * This Factor is used to adjust the flag disappearance
+     * This Factor is used to adjust the flag disappearance.
+     * The bigger the value, the longer it's shown.
      * @param newValue between 0.5 and 2.0
      */
     public static void setShowFlagFactor(float newValue) {
@@ -179,14 +182,16 @@ public class UserPreferences {
     	showFlagFactor = Math.min(max, Math.max(min, newValue));
     }
     /**
-     * This factor is used to adjust the flag disappearance
+     * This factor is used to adjust the flag disappearance.
+     * The bigger the value, the longer it's shown.
      * @return Scale factor between 0.5 and 2.0
      */
     public static Float getShowFlagFactor() {
     	return showFlagFactor;
     }
     /**
-     * This Factor is used to adjust the path disappearance
+     * This Factor is used to adjust the path disappearance.
+     * The bigger the value, the longer it's shown.
      * @param newValue between 0.5 and 2.0
      */
     public static void setShowPathFactor(float newValue) {
@@ -195,14 +200,16 @@ public class UserPreferences {
     	showPathFactor = Math.min(max, Math.max(min, newValue));
     }
     /**
-     * This factor is used to adjust the path disappearance
+     * This factor is used to adjust the path disappearance.
+     * The bigger the value, the longer it's shown.
      * @return Scale factor between 0.5 and 2.0
      */
     public static Float getShowPathFactor() {
     	return showPathFactor;
     }
     /**
-     * This Factor is used to adjust the Star Name disappearance
+     * This Factor is used to adjust the Star Name disappearance.
+     * The smaller the value, the longer it's shown.
      * @param newValue between 2 and 24
      */
     public static void setShowNameMinFont(int newValue) {
@@ -211,14 +218,16 @@ public class UserPreferences {
     	showNameMinFont = Math.min(max, Math.max(min, newValue));
     }
     /**
-     * This factor is used to adjust the Star Name disappearance
+     * This factor is used to adjust the Star Name disappearance.
+     * The smaller the value, the longer it's shown.
      * @return Scale factor between 2 and 24
      */
     public static Integer getShowNameMinFont() {
     	return showNameMinFont;
     }
     /**
-     * This Font Size is used while displaying Star Name
+     * This Factor is used to adjust the info box disappearance.
+     * The bigger the value, the longer it's shown.
      * @param newValue between 0.25 and 2.0
      */
     public static void setShowInfoFontRatio(float newValue) {
@@ -227,14 +236,15 @@ public class UserPreferences {
     	showInfoFontRatio = Math.min(max, Math.max(min, newValue));
     }
     /**
-     * This Font Size is used while displaying Star Name
+     * This Factor is used to adjust the info box disappearance.
+     * The bigger the value, the longer it's shown.
       * @return Scale factor between 0.25 and 2.0
      */
     public static Float getShowInfoFontRatio() {
     	return showInfoFontRatio;
     }
     /**
-     * To adjust the Galaxy Map Font Size
+     * To adjust the Galaxy Map Font Size (Multiplier)
       * @param newValue between 0.5 and 2.0
      */
     public static void setMapFontFactor(float newValue) {
@@ -243,7 +253,7 @@ public class UserPreferences {
     	mapFontFactor = Math.min(max, Math.max(min, newValue));
     }
     /**
-     * To adjust the Galaxy Map Font Size
+     * To adjust the Galaxy Map Font Size (Multiplier)
      * @return Scale factor between 0.5 and 2.0
      */
     public static Float getMapFontFactor() {
@@ -266,11 +276,11 @@ public class UserPreferences {
     }
     public static void setCompanionWorlds(int newValue) {
         companionWorlds = newValue;
-        if (companionWorlds > 4) {
-        	companionWorlds = 4;
+        if (companionWorlds > 6) { // BR: changed to 6; default = 4
+        	companionWorlds = 6;
         }
-        else if (companionWorlds < 0) {
-        	companionWorlds = 0;
+        else if (companionWorlds < -4) { // BR: changed to -4; default = 0
+        	companionWorlds = -4;
         }
     }
     public static void setRandomTechStart(boolean newValue) {
@@ -298,8 +308,8 @@ public class UserPreferences {
     public static void toggleChallengeMode()         { challengeMode = !challengeMode; save(); }
     public static void toggleBattleScout()           { battleScout = !battleScout; save(); }
     public static void toggleCompanionWorlds()       {
-        if ((companionWorlds >= 4) || (companionWorlds < 0))
-            companionWorlds = 0;
+        if ((companionWorlds >= 6) || (companionWorlds < -4)) // BR: changed to 6; default = 4
+            companionWorlds = -4; // BR: changed to -4; default = 0
         else
             companionWorlds++;
         save();
@@ -439,7 +449,8 @@ public class UserPreferences {
     public static boolean challengeMode()    { return challengeMode; } // modnar: add option to give AI more initial resources
     public static boolean randomTechStart()  { return randomTechStart; } // modnar: add option to start all Empires with 2 techs, no Artifacts
     public static boolean battleScout()      { return battleScout; } // modnar: add battleScout option to give player super Scout design
-    public static int companionWorlds()      { return companionWorlds; } // modnar: add option to start game with additional colonies
+    public static int companionWorlds()      { return Math.abs(companionWorlds); } // modnar: add option to start game with additional colonies
+    public static int companionWorldsSigned() { return companionWorlds; } // BR: to manage old and new distribution
     public static float missileSizeModifier() { return missileSizeModifier; } 
     public static int retreatRestrictions() { return retreatRestrictions; }
     public static int retreatRestrictionTurns() { return retreatRestrictionTurns; }
@@ -639,8 +650,8 @@ public class UserPreferences {
     }
     // modnar: add option to start game with additional colonies
     private static void setNumCompanionWorlds(String s) {
-        int val = Integer.valueOf(s);
-        companionWorlds = Math.max(0, Math.min(4, val)); // max number of companion worlds is 4
+        int val = Integer.valueOf(s); // BR: changed limits; was 0 & 4
+        companionWorlds = Math.max(-4, Math.min(6, val)); // max number of companion worlds is 4
     }
     // modnar: add custom difficulty level option, in units of percent
     private static void setCustomDifficulty(String s) {

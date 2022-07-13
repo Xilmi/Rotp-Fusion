@@ -403,7 +403,7 @@ public class StartModOptionsUI extends BasePanel implements MouseListener, Mouse
         return text("SETTINGS_MOD_BATLLE_SCOUT", opt)+"   ";
     }
     private String companionWorldsStr() {
-        String opt = String.format("%d",UserPreferences.companionWorlds());
+        String opt = String.format("%d",UserPreferences.companionWorldsSigned()); // BR:
         return text("SETTINGS_MOD_COMPANION_WORLDS", opt)+"   ";
     }
     private String randomTechStartStr() {

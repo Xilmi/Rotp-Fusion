@@ -20,6 +20,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import rotp.model.empires.Empire;
 import rotp.model.empires.Race;
 import rotp.model.galaxy.GalaxyShape.EmpireSystem;
@@ -35,7 +39,11 @@ import rotp.util.Base;
 public class GalaxyFactory implements Base {
     static GalaxyFactory instance = new GalaxyFactory();
     public static GalaxyFactory current()   { return instance; }
-
+    /**
+     * Companion world greek letter prefix
+     * // BR : added two possibilities
+     */
+    public static final String[] compSysName = new String[]{"α", "β", "γ", "δ", "ε", "ζ"};
     public Galaxy newGalaxy() {
         for (Race r: Race.races()) {
             r.loadNameList();
@@ -224,21 +232,21 @@ public class GalaxyFactory implements Base {
         // modnar: add option to start game with additional colonies
         // between 0 to 4 additional colonies, set in UserPreferences
         int numCompWorlds = UserPreferences.companionWorlds();
-        List<StarSystem> compSystems;
-        int[] pmQuadA = new int[]{ 2,2,1,1 }; // companion world location, plus/minus quadrants
-        int[] pmQuadB = new int[]{ 2,1,2,1 }; // companion world location, plus/minus quadrants
-        String[] compSysName = new String[]{"α", "β", "γ", "δ"}; // companion world greek letter prefix
+//        List<StarSystem> compSystems; // BR: no more needed
+//        int[] pmQuadA = new int[]{ 2,2,1,1 }; // companion world location, plus/minus quadrants
+//        int[] pmQuadB = new int[]{ 2,1,2,1 }; // companion world location, plus/minus quadrants
+//        String[] compSysName = new String[]{"α", "β", "γ", "δ"}; // companion world greek letter prefix
         int[] compSysId = new int[numCompWorlds];
-        if (numCompWorlds > 0) { 
-            for (int i=0; i<numCompWorlds; i++) {
-                StarSystem sysComp = StarSystemFactory.current().newCompanionSystemForRace(g);
-                sysComp.setXY(empSystem.colonyX() + (float)Math.pow(-1, pmQuadA[i])*0.7f, empSystem.colonyY() + (float)Math.pow(-1, pmQuadB[i])*0.7f); // companion world within one ly distance to homeworld
-                sysComp.name(compSysName[i]+" "+systemName); // companion world greek letter prefix
+        if (numCompWorlds > 0) {
+        	for (int i=0; i<numCompWorlds; i++) { // BR: Symmetry management
+    			StarSystem sysComp = StarSystemFactory.current().newCompanionSystemForRace(g, 0);
+    			Point.Float pt = opts.galaxyShape().getCompanion(0, i);
+    			sysComp.setXY(pt.x, pt.y);
+                sysComp.name(compSysName[i]+" "+sys.name()); // companion world greek letter prefix
                 g.addStarSystem(sysComp);
                 compSysId[i] = sysComp.id;
-            }
+    		}
         }
-        
         // add Empire to galaxy
         // modnar: add option to start game with additional colonies
         // modnar: compSysId is the System ID array for these additional colonies
@@ -298,21 +306,21 @@ public class GalaxyFactory implements Base {
             // modnar: add option to start game with additional colonies
             // between 0 to 4 additional colonies, set in UserPreferences
             int numCompWorlds = UserPreferences.companionWorlds();
-            List<StarSystem> compSystems;
-            int[] pmQuadA = new int[]{ 2,2,1,1 }; // companion world location, plus/minus quadrants
-            int[] pmQuadB = new int[]{ 2,1,2,1 }; // companion world location, plus/minus quadrants
-            String[] compSysName = new String[]{"α", "β", "γ", "δ"}; // companion world greek letter prefix
+//            List<StarSystem> compSystems; // BR: no more needed
+//            int[] pmQuadA = new int[]{ 2,2,1,1 }; // companion world location, plus/minus quadrants
+//            int[] pmQuadB = new int[]{ 2,1,2,1 }; // companion world location, plus/minus quadrants
+//            String[] compSysName = new String[]{"α", "β", "γ", "δ"}; // companion world greek letter prefix
             int[] compSysId = new int[numCompWorlds];
-            if (numCompWorlds > 0) { 
-                for (int i=0; i<numCompWorlds; i++) {
-                    StarSystem sysComp = StarSystemFactory.current().newCompanionSystemForRace(g);
-                    sysComp.setXY(empSystem.colonyX() + (float)Math.pow(-1, pmQuadA[i])*0.7f, empSystem.colonyY() + (float)Math.pow(-1, pmQuadB[i])*0.7f); // companion world within one ly distance to homeworld
+            if (numCompWorlds > 0) {
+            	for (int i=0; i<numCompWorlds; i++) { // BR: Symmetry management
+        			StarSystem sysComp = StarSystemFactory.current().newCompanionSystemForRace(g, i+1);
+        			Point.Float pt = opts.galaxyShape().getCompanion(h+1, i);
+        			sysComp.setXY(pt.x, pt.y);
                     sysComp.name(compSysName[i]+" "+sys.name()); // companion world greek letter prefix
                     g.addStarSystem(sysComp);
                     compSysId[i] = sysComp.id;
-                }
+        		}
             }
-            
             // modnar: add option to start game with additional colonies
             // modnar: compSysId is the System ID array for these additional colonies
             Empire emp = new Empire(g, empId, r.id, sys, compSysId, colorId, null);
@@ -322,10 +330,16 @@ public class GalaxyFactory implements Base {
             boolean needHabitable = true;
             for (int i=1;i<empSystem.numSystems();i++) {
                 StarSystem sys0 = StarSystemFactory.current().newSystem(g);
-                if (needHabitable) {
-                    while ((sys0 == null) || !sys0.planet().isEnvironmentFriendly())
-                        sys0 = StarSystemFactory.current().newSystem(g);
-                    needHabitable = false;
+                if (opts.galaxyShape().isSymmetric()) { // BR: Symmetry management
+                	// BR: Symmetric Galaxy: copy Player nearby systems
+                	StarSystem refStar = g.starSystems()[numCompWorlds + i];
+                	sys0 = StarSystemFactory.current().copySystem(g, refStar);
+                } else {
+                	if (needHabitable) {
+                        while ((sys0 == null) || !sys0.planet().isEnvironmentFriendly())
+                            sys0 = StarSystemFactory.current().newSystem(g);
+                        needHabitable = false;
+                    }
                 }
                 sys0.setXY(empSystem.x(i), empSystem.y(i));
                 g.addStarSystem(sys0);
@@ -333,6 +347,7 @@ public class GalaxyFactory implements Base {
         }
     }
     private void addUnsettledSystemsForGalaxy(Galaxy g, GalaxyShape sh) {
+        IGameOptions opts = GameSession.instance().options(); // BR:
         Point.Float pt = new Point.Float();
         // add Orion, index =0;
         StarSystem orion = StarSystemFactory.current().newOrionSystem(g);
@@ -342,11 +357,28 @@ public class GalaxyFactory implements Base {
         g.addStarSystem(orion);
         
         // add all other systems, starting at index 1
-        for (int i=1;i<sh.numberStarSystems();i++) {
-            StarSystem sys = StarSystemFactory.current().newSystem(g);
-            sh.coords(i, pt);
-            sys.setXY(pt.x, pt.y);
-            g.addStarSystem(sys);
+        if (opts.galaxyShape().isSymmetric()) { // BR: Symmetry management
+            for (int i=1; i<sh.numberStarSystems(); i+=sh.numEmpires) {
+            	// first symmetry system
+                StarSystem refSys = StarSystemFactory.current().newSystem(g);
+                sh.coords(i, pt);
+                refSys.setXY(pt.x, pt.y);
+                g.addStarSystem(refSys);
+                // other symmetry systems
+                for (int k=i+1; k<i+sh.numEmpires; k++) {
+                    StarSystem sys = StarSystemFactory.current().copySystem(g, refSys);
+                    sh.coords(k, pt);
+                    sys.setXY(pt.x, pt.y);
+                    g.addStarSystem(sys);
+                }
+            }
+        } else {
+        	for (int i=1;i<sh.numberStarSystems();i++) {
+                StarSystem sys = StarSystemFactory.current().newSystem(g);
+                sh.coords(i, pt);
+                sys.setXY(pt.x, pt.y);
+                g.addStarSystem(sys);
+            }
         }
         log("total systems created: ", str(g.numStarSystems()));
     }

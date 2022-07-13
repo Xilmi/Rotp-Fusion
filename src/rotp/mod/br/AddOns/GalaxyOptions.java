@@ -31,8 +31,14 @@ public class GalaxyOptions {
 	 * @param numOpps the {@code Integer} number of opponents
 	 * @param sysBuffer the {@code float} some space reserve factor
 	 */
-	public static void initSpacing(int maxStars, int numOpps, float sysBuffer) {
-		GalaxySpacing.initSpacing(maxStars, numOpps, sysBuffer);
+	public static void initMaximizeSpacing(int maxStars, int numOpps, float sysBuffer) {
+		GalaxySpacing.initMaximizeSpacing(maxStars, numOpps, sysBuffer);
+	}
+	/**
+	 * @return isMaximizeEmpiresSpacing {@code boolean} value
+	 */
+	public static boolean isMaximizeEmpiresSpacing() {
+		 return GalaxySpacing.isMaximizeEmpiresSpacing();
 	}
 	/**
 	 * @return minEmpireBuffer {@code float} value
