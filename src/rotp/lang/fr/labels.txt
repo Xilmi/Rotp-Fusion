@@ -1186,6 +1186,7 @@ SETUP_SPIRAL_5_ARMS               | Cinq bras
 SETUP_SPIRAL_6_ARMS               | Six bras
 SETUP_SPIRAL_7_ARMS               | Sept bras
 SETUP_SPIRAL_8_ARMS               | Huit bras
+SETUP_SPIRAL_SYMMETRIC            | Symétrique
 SETUP_SPIRAL_ROTATION_0           | Pas de rotation
 SETUP_SPIRAL_ROTATION_1           | Rotation 1
 SETUP_SPIRAL_ROTATION_2           | Rotation 2
@@ -1198,12 +1199,52 @@ SETUP_ELLIPSE_1                   | Ellipse 1
 SETUP_ELLIPSE_2                   | Ellipse 2
 SETUP_ELLIPSE_3                   | Ellipse 3
 SETUP_ELLIPSE_4                   | Ellipse 4
+SETUP_ELLIPSE_SYMMETRIC           | Symétrique
 SETUP_VOID_0                      | Pas de vide
 SETUP_VOID_1                      | Vide 1
 SETUP_VOID_2                      | Vide 2
 SETUP_VOID_3                      | Vide 3
 SETUP_VOID_4                      | Vide 4
-
+SETUP_TEXT_0                      | votre planète
+SETUP_TEXT_1                      | ROTP
+SETUP_TEXT_2                      | MoO1
+SETUP_1_LINE                      | Simple Ligne
+SETUP_2_LINE                      | Double Ligne
+SETUP_3_LINE                      | Triple Ligne
+SETUP_BULLSEYE_0                  | Cible
+SETUP_BULLSEYE_1                  | Anneaux
+SETUP_BULLSEYE_2                  | Carrés
+SETUP_CLUSTER_0                   | 4 Groupes
+SETUP_CLUSTER_1                   | 6 Groupes
+SETUP_CLUSTER_2                   | 8 Groupes
+SETUP_FRACTAL_0                   | Sierpinski
+SETUP_FRACTAL_1                   | Jeux du Chaos
+SETUP_GRID_0                      | Quelques Groupes
+SETUP_GRID_1                      | Que des Groupes
+SETUP_GRID_2                      | Aucuns Groupes
+SETUP_LORENZ_0                    | Lorenz-1
+SETUP_LORENZ_1                    | Lorenz-2
+SETUP_VIEW_0                      | Vue A
+SETUP_VIEW_1                      | Vue B
+SETUP_VIEW_2                      | Vue C
+SETUP_MAZE_0                      | Dédale A
+SETUP_MAZE_1                      | Dédale B
+SETUP_MAZE_2                      | Dédale C
+SETUP_SHURIKEN_0                  | 9 Pointes
+SETUP_SHURIKEN_1                  | 11 Pointes
+SETUP_SHURIKEN_2                  | 13 Pointes
+SETUP_SHURIKEN_SYMMETRIC          | Symétrique
+SETUP_SPIRALARMS_0                | Droit
+SETUP_SPIRALARMS_1                | Très Lâche
+SETUP_SPIRALARMS_2                | Relâché
+SETUP_SPIRALARMS_3                | Normal
+SETUP_SPIRALARMS_4                | Serré
+SETUP_SPIRALARMS_NORMAL           | Normal
+SETUP_SPIRALARMS_SYMMETRIC        | Symmetric
+SETUP_SWIRLCLUSTERS_0             | Groupé en long
+SETUP_SWIRLCLUSTERS_1             | Groupé en croix
+SETUP_SWIRLCLUSTERS_2             | Aucuns Groupes
+SETUP_NOT_AVAILABLE               | N/A
 
 // Advanced Settings
 SETTINGS_TITLE                    | Options de jeu avancées
