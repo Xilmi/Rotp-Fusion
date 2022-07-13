@@ -948,6 +948,28 @@ public class NewShipTemplate implements Base {
         {
             scoreMod = totalPopulationCost / (totalMissileBaseCost + totalPopulationCost);
         }
+        float invasionStrength = ai.empire().tech().troopCombatAdj(false);
+        float avgDefenderStrength = 0;
+        int empireCount = 0;
+        for(Empire emp : ai.empire().contactedEmpires()) {
+            avgDefenderStrength += ai.empire().viewForEmpire(emp).spies().tech().troopCombatAdj(true);
+            ++empireCount;
+        }
+        if(empireCount > 0)
+            avgDefenderStrength /= empireCount;
+        float killRatio = 1.0f;
+        if(avgDefenderStrength > 0) {
+            if(invasionStrength > avgDefenderStrength) {
+                float atkAdv = invasionStrength - avgDefenderStrength;
+                killRatio = (float) ((Math.pow(100-atkAdv,2)/2) / (Math.pow(100,2) - Math.pow(100-atkAdv,2)/2));
+            } else {
+                float defAdv = avgDefenderStrength - invasionStrength;
+                killRatio = (float) ((Math.pow(100,2) - Math.pow(100-defAdv,2)/2) / (Math.pow(100-defAdv,2)/2));
+            }
+        }
+        if(killRatio < 1)
+            scoreMod *= killRatio;
+        //System.out.print("\n"+ai.empire().name()+" multiplies bio-weapon score by "+killRatio+" new score-modifier: "+scoreMod);
         return scoreMod;
     }
     public float weaponSpace(ShipDesign d)

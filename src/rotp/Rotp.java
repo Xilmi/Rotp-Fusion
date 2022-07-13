@@ -45,7 +45,7 @@ import rotp.util.ImageManager;
 
 public class Rotp {
     private static final int MB = 1048576;
-    public static final String version = "22.07.05";
+    public static final String version = "22.07.13";
     public static int IMG_W = 1229;
     public static int IMG_H = 768;
 
@@ -66,27 +66,6 @@ public class Rotp {
     public static boolean reloadRecentSave = false;
 
     static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-    // BR:
-    /**
-     * Get the scaling factor of the screen this game is running on
-     * May be used to adjust the to early disappearance of fleets
-     * @return the scaling factor
-     */
-    public static double getScalingFactor() {
-    	// This search is needed for the case a screen has been added after starting this program.
-    	GraphicsDevice myDevice = frame.getGraphicsConfiguration().getDevice();
-    	for(GraphicsDevice gd : GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()){
-    	    if(frame.getLocation().getX() >= gd.getDefaultConfiguration().getBounds().getMinX() &&
-    	        frame.getLocation().getX() < gd.getDefaultConfiguration().getBounds().getMaxX() &&
-    	        frame.getLocation().getY() >= gd.getDefaultConfiguration().getBounds().getMinY() &&
-    	        frame.getLocation().getY() < gd.getDefaultConfiguration().getBounds().getMaxY())
-    	        myDevice=gd;
-    	}
-    	double physicalScreenWith = (double) myDevice.getDisplayMode().getWidth();
-    	double logicalScreenWith  = (double) myDevice.getDefaultConfiguration().getBounds().width;
-	    return physicalScreenWith / logicalScreenWith;
-    }
-    // \BR
     
     public static void main(String[] args) {
         frame = new JFrame("Remnants of the Precursors");

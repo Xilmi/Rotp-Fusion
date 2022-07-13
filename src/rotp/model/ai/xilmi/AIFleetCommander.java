@@ -99,17 +99,16 @@ public class AIFleetCommander implements Base, FleetCommander {
         {
             if(empire.tech().researchCompleted())
                 maxMaintenance = 0.8f;
-            else if((underSiege()     
-                    || incomingInvasion() 
-                    || empire.atWar())
+            else if(incomingInvasion() ||
+                    ((underSiege() || !empire.enemies().isEmpty())
                     && ((empire.tech().topShipWeaponTech().quintile() > 1 
                         || empire.tech().topBaseMissileTech().quintile() > 1 
                         || empire.tech().topBaseScatterPackTech() != null) 
                         && empire.tech().topSpeed() > 1
-                        && empire.contactedEmpires().size() < 2))
+                        && empire.contactedEmpires().size() < 2)))
                 maxMaintenance = min(empire.generalAI().gameProgress(), 0.8f);
             else
-                maxMaintenance = enemyMaintenance();
+                maxMaintenance = min(empire.generalAI().gameProgress(), enemyMaintenance());
             //System.out.println(galaxy().currentTurn()+" "+empire.name()+" maxMaintenance: "+maxMaintenance+ " enemyMaintenance(): "+enemyMaintenance()+" progress: "+empire.generalAI().gameProgress());
         }
         return maxMaintenance;
@@ -1412,6 +1411,8 @@ public class AIFleetCommander implements Base, FleetCommander {
             {
                 float ourEffectiveBombBC = bcValue(orbiting, false, false, true, false);
                 ourEffectiveBombBC *= (1 + 0.125f * empire.shipAttackBonus() + 0.2f * empire.shipDefenseBonus()) * (empire.tech().avgTechLevel()+10);
+                if(empire.governorAI().expectedBombardDamageAsIfBasesWereThere(orbiting, sys) == 0)
+                    ourEffectiveBombBC = 0;
                 //System.out.println(galaxy().currentTurn()+" "+empire.name()+" "+sys.name()+" ourEffectiveBombBC: "+ourEffectiveBombBC+" enemyBaseBC: "+enemyBaseBC);
                 if(ourEffectiveBombBC >= enemyBaseBC)
                 {
@@ -1427,6 +1428,8 @@ public class AIFleetCommander implements Base, FleetCommander {
             {
                 float ourEffectiveBombBC = bcValue(incoming, false, false, true, false);
                 ourEffectiveBombBC *= (1 + 0.125f * empire.shipAttackBonus() + 0.2f * empire.shipDefenseBonus()) * (empire.tech().avgTechLevel()+10);
+                if(empire.governorAI().expectedBombardDamageAsIfBasesWereThere(incoming, sys) == 0)
+                    ourEffectiveBombBC = 0;
                 //System.out.println(galaxy().currentTurn()+" "+empire.name()+" "+sys.name()+" ourEffectiveBombBC: "+ourEffectiveBombBC+" enemyBaseBC: "+enemyBaseBC);
                 if(ourEffectiveBombBC >= enemyBaseBC)
                 {

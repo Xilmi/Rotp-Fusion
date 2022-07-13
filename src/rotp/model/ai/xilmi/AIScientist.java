@@ -524,7 +524,8 @@ public class AIScientist implements Base, Scientist {
         
         // return highest priority
         cat.currentTech(cheapestTech);
-        /*for(Tech t : techs)
+        /*
+        for(Tech t : techs)
         {
             System.out.print("\n"+galaxy().currentTurn()+" "+empire.name()+" "+cat.id()+" option: "+t.name()+" "+researchPriority(t));
         }
@@ -565,7 +566,7 @@ public class AIScientist implements Base, Scientist {
         //System.out.print("\n"+galaxy().currentTurn()+" "+empire.name()+" researchValue of "+t.name()+" t.warModeFactor(): "+t.warModeFactor()+" warMode(): "+warMode()+" is Weapon: "+(t.cat.index() == WEAPON)+" is obsolete: "+t.isObsolete(empire));
         if (t.isObsolete(empire))
             return 0;
-        if(t.quintile() > 1 || t.baseValue(empire) < 3)
+        if(!empire.fleetCommanderAI().inExpansionMode() && (t.quintile() > 1 || t.baseValue(empire) < 3))
         {
             boolean needWeapon = false;
             boolean needWarp = false;
@@ -704,8 +705,8 @@ public class AIScientist implements Base, Scientist {
     public float baseValue(TechControlEnvironment t) {
         if (empire.ignoresPlanetEnvironment())
             return 0;
-        List<StarSystem> possible = empire.uncolonizedPlanetsInRange(empire.shipRange());
-        List<StarSystem> newPossible = empire.uncolonizedPlanetsInShipRange(t.environment());
+        List<StarSystem> possible = empire.uncolonizedPlanetsInRange(empire.scoutRange());
+        List<StarSystem> newPossible = empire.uncolonizedPlanetsInExtendedShipRange(t.environment());
         float newPlanets = newPossible.size() - possible.size();
         if (newPlanets < 1)
             return 1;
@@ -801,10 +802,10 @@ public class AIScientist implements Base, Scientist {
     }
     @Override
     public float baseValue(TechMissileWeapon t) {
-        float val = 2;
+        float val = 2 / UserPreferences.missileSizeModifier();
         if(empire.tech().topShipWeaponTech().quintile() < 2 && empire.tech().topBaseMissileTech().quintile() < 2 && empire.tech().topBaseScatterPackTech() == null)
             val += 1;
-        return val / UserPreferences.missileSizeModifier();
+        return val;
     }
     @Override
     public float baseValue(TechPersonalShield t) {
@@ -840,11 +841,11 @@ public class AIScientist implements Base, Scientist {
     @Override
     public float baseValue(TechShipWeapon t) {
         float val = 3;
-        //Gatling Lasers never worth it until you got nothing else available
         if(empire.tech().topShipWeaponTech().quintile() < 2 && empire.tech().topBaseMissileTech().quintile() < 2 && empire.tech().topBaseScatterPackTech() == null)
             val += 1;
         if((t.range > 1 || t.heavyAllowed) && needRange() && !empire.tech().knowsTechOfType(CLOAKING))
             val += 1;
+        //Gatling Lasers never worth it until you got nothing else available
         if(t.damageHigh() <= 4)
             val = 1;
         return val;

@@ -78,12 +78,6 @@ public class AISpyMaster implements Base, SpyMaster {
             return;
         }
 
-        // if we are not in war preparations and we've received threats 
-        // about spying, then no spending
-        if (!emb.isEnemy() && spies.threatened()) {
-            spies.allocation(0);
-            return;
-        }
             
         int maxSpiesNeeded = 0;
 
@@ -136,37 +130,6 @@ public class AISpyMaster implements Base, SpyMaster {
         }
 
         // we've been warned and they are not our enemy (i.e. no war preparations)
-        boolean shouldHide = false;
-        if (!v.embassy().anyWar() && (v.spies().maxSpies() > 0)
-        && v.otherView().embassy().timerIsActive(DiplomaticEmbassy.TIMER_SPY_WARNING)) {
-            //System.out.println(empire.galaxy().currentTurn()+" "+ empire.name()+" we have been recently warned to stop spying by "+v.embassy().empire()+" "+v.otherView().embassy().timers[DiplomaticEmbassy.TIMER_SPY_WARNING]);
-            if (!v.spies().isHide()
-            || (v.empire().leader().isXenophobic())) {
-                shouldHide = true;
-            }
-        }
-        
-        //When I'm ruthless or they can't reach me anyways, no reason to listen to their threats
-        if(empire.leader().isRuthless() || !v.empire().inShipRange(empire.id))
-            shouldHide = false;
-        
-        //check if they are in trouble. If they are, we don't care about their threat
-        if(shouldHide)
-        {
-            if(empire.diplomatAI().readyForWar(v, false))
-                shouldHide = false;
-        }
-        
-        if (!emb.isEnemy() && shouldHide) {
-            if(v.empire().leader().isXenophobic())
-            {
-                spies.shutdownSpyNetworks();
-                return;
-            }
-            spies.beginHide();
-            spies.maxSpies(1);
-            return;
-        }
         
         boolean canEspionage = !spies.possibleTechs().isEmpty();
         Sabotage sabMission = bestSabotageChoice(v);

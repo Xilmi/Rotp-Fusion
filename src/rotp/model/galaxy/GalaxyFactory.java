@@ -20,10 +20,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import rotp.model.empires.Empire;
 import rotp.model.empires.Race;
 import rotp.model.galaxy.GalaxyShape.EmpireSystem;

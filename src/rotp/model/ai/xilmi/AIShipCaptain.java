@@ -786,9 +786,9 @@ public class AIShipCaptain implements Base, ShipCaptain {
             return false;
         
         // threatened to be completely disabled by warp-dissipater
-        //System.out.print("\n"+currStack.fullName()+" currStack.maxMove(): "+currStack.maxMove()+" currStack.design().combatSpeed(): "+currStack.design().combatSpeed());
-        if(currStack.maneuverablity() <= 2 && currStack.design().maneuverability() > currStack.maneuverablity())
-            return true;
+        /*System.out.print("\n"+currStack.fullName()+" currStack.maxMove(): "+currStack.maxMove()+" currStack.maneuverablity()"+currStack.maneuverablity()+" currStack.design().combatSpeed(): "+currStack.design().combatSpeed());
+        if(currStack.maxMove() <= 1 && currStack.design().combatSpeed() > currStack.maxMove())
+            return true;*/
 
         // don't retreat if we still have missiles in flight
         float killPct = 0;
@@ -1166,6 +1166,8 @@ public class AIShipCaptain implements Base, ShipCaptain {
         ShipDesign d = ship.design();
         for (int j=0;j<ShipDesign.maxWeapons();j++)
         {
+            if(d.weapon(j).noWeapon())
+                continue;
             float dmg = num * d.wpnCount(j) * d.weapon(j).estimatedBombardDamage(d, colony);
             if(ship.roundsRemaining[j] > 0)
                 dmg /= d.weapon(j).bombardAttacks();
@@ -1180,9 +1182,12 @@ public class AIShipCaptain implements Base, ShipCaptain {
         float popLoss = 0.0f;
 
         ShipDesign d = ship.design();
-        for (int j=0;j<ShipDesign.maxWeapons();j++)
+        for (int j=0;j<ShipDesign.maxWeapons();j++) {
+            if(d.weapon(j).noWeapon())
+                continue;
             if(ship.roundsRemaining[j] > 0)
                 popLoss += (num * d.wpnCount(j) * d.weapon(j).estimatedBioweaponDamage(ship, colony) / d.weapon(j).bombardAttacks()); //divide by bombard-attacks as the return-value is for orbital-bombard, not during-combat-bombard
+        }
         return popLoss;
     }
     public float expectedPopulationLoss(CombatStackShip ship, CombatStackColony colony) {

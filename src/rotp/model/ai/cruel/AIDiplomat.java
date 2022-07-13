@@ -1382,8 +1382,6 @@ public class AIDiplomat implements Base, Diplomat {
     }
     public boolean readyForWar() {
         boolean warAllowed = true;
-        if(empire.generalAI().additionalColonizersToBuild(false) > 0 && !empire.atWar())
-            warAllowed = false;
         float enemyPower = empire.powerLevel(empire);
         float enemyMilitaryPower = 0;
         Empire victim = empire.generalAI().bestVictim();
@@ -1412,17 +1410,34 @@ public class AIDiplomat implements Base, Diplomat {
             for(Empire ally : victim.allies())
             {
                 victimPower += ally.powerLevel(ally);
-                victimMilitaryPower += victim.militaryPowerLevel();
+                victimMilitaryPower += ally.militaryPowerLevel();
             }
-            //System.out.println(galaxy().currentTurn()+" "+empire.name()+" my power: "+enemyPower+" "+victim.name()+" power: "+victim.powerLevel(victim)+" my military: "+enemyMilitaryPower+" their military: "+victimMilitaryPower);
-            if(enemyPower <= empire.powerLevel(empire) && victimPower > 1.0f / 2.0f * enemyPower && victimMilitaryPower >= 1.0f / 2.0f * enemyMilitaryPower)
+            //System.out.println(galaxy().currentTurn()+" "+empire.name()+" my power: "+enemyPower+" "+victim.name()+" power: "+victim.powerLevel(victim)+" my military: "+enemyMilitaryPower+" their military: "+victimMilitaryPower+" colonize: "+empire.generalAI().additionalColonizersToBuild(false));
+            float victimPowerMod = 1.0f; //default for Kholdan, Cryslonoid, Ssslaura and Nazlok
+            if(empire.race().robotControlsAdj > 0 || empire.race().researchBonusPct() > 1.0f)
+                victimPowerMod = 0.75f;
+            if(empire.race().tradePctBonus() > 0)
+                victimPowerMod = 0.5f;
+            if(enemyPower <= empire.powerLevel(empire) && victimPower > victimPowerMod * enemyPower && victimMilitaryPower >= victimPowerMod * enemyMilitaryPower)
                 warAllowed = false;
             if(enemyPower > empire.powerLevel(empire) && victimPower > enemyPower && victimMilitaryPower >= enemyMilitaryPower)
                 warAllowed = false;
+            if(empire.race().groundAttackBonus() > 0)
+                warAllowed = true;
+            if(empire.race().shipAttackBonus() > 0 || empire.race().shipDefenseBonus() > 0) {
+                if ((empire.tech().topShipWeaponTech().quintile() > 1 
+                            || empire.tech().topBaseMissileTech().quintile() > 1 
+                            || empire.tech().topBaseScatterPackTech() != null) 
+                            && empire.tech().topSpeed() > 1)
+                    warAllowed = true;
+            }
         }
+        if(empire.generalAI().additionalColonizersToBuild(false) > 0 && !empire.atWar())
+            warAllowed = false;
         //Ail: If there's only two empires left, there's no time for preparation. We cannot allow them the first-strike-advantage!
         if(galaxy().numActiveEmpires() < 3)
             warAllowed = true;
+        //System.out.println(galaxy().currentTurn()+" "+empire.name()+" war allowed against "+victim.name()+": "+warAllowed);
         //System.out.println(galaxy().currentTurn()+" "+empire.name()+" col: "+empire.generalAI().additionalColonizersToBuild(false)+" tech: "+techIsAdequateForWar());
         return warAllowed;
     }
@@ -1478,39 +1493,32 @@ public class AIDiplomat implements Base, Diplomat {
         EmpireView cv1 = empire.viewForEmpire(civ1);
         EmpireView cv2 = empire.viewForEmpire(civ2);
 
-        // check special allied victory condition and vote for bigger one
-        if(empire == civ1 && cv2.embassy().alliance() && civ2.totalEmpirePopulation() >= empire.totalEmpirePopulation())
-            return castVoteFor(civ2);
-        if(empire == civ2 && cv1.embassy().alliance() && civ1.totalEmpirePopulation() >= empire.totalEmpirePopulation())
+        if(empire == civ1)
             return castVoteFor(civ1);
+        if(empire == civ2)
+            return castVoteFor(civ2);
         
-        // always vote for yourself
-        if (civ1 == empire)   return castVoteFor(civ1);
-        if (civ2 == empire)   return castVoteFor(civ2);
-        
-        //System.out.println(empire.name()+" voting in range of candidate 1 "+empire.inEconomicRange(cv1.empId())+" in range of candidate 2: "+empire.inEconomicRange(cv2.empId()));
-        if(!empire.inEconomicRange(cv2.empId()) || !empire.inEconomicRange(cv1.empId()) || !empire.contactedEmpires().contains(civ1) || !empire.contactedEmpires().contains(civ2))
+        if(empire.totalPlanetaryPopulation() > 1.0f / 3.0f * max(civ2.totalPlanetaryPopulation(), civ1.totalPlanetaryPopulation()))
             return castVoteFor(null);
-        //System.out.println(empire.name()+" should now vote for ally.");
         
-        // if allied with one, vote for that ally
-        if (cv1.embassy().alliance() && !cv2.embassy().alliance())
-            return castVoteFor(civ1);
-        if (cv2.embassy().alliance() && !cv1.embassy().alliance())
-            return castVoteFor(civ2);
+        float civ1Score = 0;
+        float civ2Score = 0;
 
-        // if at war with one, vote for other (if contacted)
-        if (cv1.embassy().anyWar() && !cv2.embassy().anyWar())
-            return castVoteFor(civ2);
-        if (cv2.embassy().anyWar() && !cv1.embassy().anyWar())
-            return castVoteFor(civ1);
+        if(cv1.trade().profit() > 0)
+            civ1Score = cv1.trade().profit();
+        if(cv2.trade().profit() > 0)
+            civ2Score = cv2.trade().profit();
         
-        //ail: I want it to be deterministic, so I pick whoever I fear more
-        if(empire.generalAI().timeToKill(civ1, empire) < empire.generalAI().timeToKill(civ2, empire) && empire.generalAI().timeToKill(empire, civ1) > empire.generalAI().timeToKill(civ1, empire))
+        civ1Score *= civ1.powerLevel(civ1);
+        civ2Score *= civ2.powerLevel(civ2);
+        
+        civ1Score /= empire.generalAI().fleetCenter(civ1).distanceTo(empire.generalAI().colonyCenter(empire)) + empire.generalAI().colonyCenter(civ1).distanceTo(empire.generalAI().colonyCenter(empire));
+        civ2Score /= empire.generalAI().fleetCenter(civ2).distanceTo(empire.generalAI().colonyCenter(empire)) + empire.generalAI().colonyCenter(civ2).distanceTo(empire.generalAI().colonyCenter(empire));
+        
+        if(civ1Score > civ2Score)
             return castVoteFor(civ1);
-        if(empire.generalAI().timeToKill(civ2, empire) < empire.generalAI().timeToKill(civ1, empire) && empire.generalAI().timeToKill(empire, civ2) > empire.generalAI().timeToKill(civ2, empire))
+        if(civ2Score > civ1Score)
             return castVoteFor(civ2);
-        // return undecided
         return castVoteFor(null);
     }
     @Override
@@ -1747,7 +1755,7 @@ public class AIDiplomat implements Base, Diplomat {
             enemyPower+= enemy.militaryPowerLevel();
         }
         boolean scared = false;
-        if(empire.militaryPowerLevel() < enemyPower)
+        if(empire.generalAI().smartPowerLevel() < enemyPower)
         {
             //ail: If we are not fighting our preferred target, we don't really want a war
             if(v.empire() != empire.generalAI().bestVictim())

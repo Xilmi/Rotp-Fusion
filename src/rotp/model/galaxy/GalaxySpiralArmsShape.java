@@ -53,33 +53,7 @@ public class GalaxySpiralArmsShape extends GalaxyShape {
         opts = options;
     }
     // BR: for symmetric galaxy
-    private CtrPoint getRandomSymmetric(double minRay) { // TODO
-//        int option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
-        
-//		double gRay = galaxyRay();
-//		double numSwirls = 2.0;
-//		double armRadius = Math.max(1.5, 0.06*gRay);
-		// choose spiral swirl size and max spiral arm width with options1
-		// // maybe (?) scale up the spiral swirl size with size of map (?)
-		// // Math.round(Math.sqrt(Math.sqrt(Math.sqrt(opts.numberStarSystems()))));
-		// scale max spiral arm width (2*armRadius) with map size
-//		switch(option1) {
-//            case 3: { // normal swirls, medium swirl arm width
-//                numSwirls = 2.0;
-//                armRadius = Math.max(1.5, 0.06*gRay);
-//                break;
-//            }
-//            case 4: { // loose swirls, large swirl arm width
-//                numSwirls = 1.0;
-//                armRadius = Math.max(1.5, 0.1*gRay);
-//                break;
-//            }
-//            case 5: { // tight swirls, small swirl arm width
-//                numSwirls = 3.0;
-//                armRadius = Math.max(1.5, 0.04*gRay);
-//                break;
-//            }
-//        }
+    private CtrPoint getRandomSymmetric(double minRay) {
 		double armRadius   = Math.min(this.armRadius, twoPI * galaxyRay() / numEmpires);
 		double swirlRadius = rand.randX();
 		double swirlAngle  = numSwirls * swirlRadius * Math.PI;

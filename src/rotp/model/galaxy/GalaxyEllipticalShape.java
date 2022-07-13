@@ -22,7 +22,6 @@ import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import rotp.mod.br.profiles.Profiles;
 import rotp.model.game.IGameOptions;
 
@@ -108,7 +107,7 @@ public class GalaxyEllipticalShape extends GalaxyShape {
             case 2: voidSize = 0.4f; break;
             case 3: voidSize = 0.6f; break;
             case 4: voidSize = 0.8f; break;
-       	default: voidSize = 0.0f; break;
+            default: voidSize = 0.0f; break;
         }
         
         // modnar: account for void size
