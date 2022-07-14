@@ -48,6 +48,7 @@ public class Miscellaneous {
 			}
 			defaultFlagColorOrder.setCodeViewOnly(codeView);
 			defaultFlagColor = defaultFlagColorOrder.getUserList();
+			selectedFlagColorOrder(defaultFlagColorOrder);
 		}
 	
 		static String asString(List<Integer> value) {
