@@ -1002,7 +1002,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add("RACE_DARLOK");
         list.add("RACE_SAKKRA");
         list.add("RACE_BULRATHI");
-        list.add("RACE_SILICOID");
         list.add("RACE_NEOHUMAN"); // modnar: add races
 		list.add("RACE_MONOCLE"); // modnar: add races
 		list.add("RACE_JACKTRADES"); // modnar: add races

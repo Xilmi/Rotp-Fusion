@@ -192,6 +192,19 @@ public final class TechTree implements Base, Serializable {
         }
         return colonizableHostility;
     }
+    public void reBuild(Empire c) { // BR:
+        empire = c;
+        float discoveryPct = empire.techDiscoveryPct();
+        category[0].reBuild(this, discoveryPct);
+        category[1].reBuild(this, discoveryPct);
+        category[2].reBuild(this, discoveryPct);
+        category[3].reBuild(this, discoveryPct);
+        category[4].reBuild(this, discoveryPct);
+        category[5].reBuild(this, discoveryPct);
+//        for (TechCategory cat: category)
+//            cat.learnFreeTechs();
+        updateMissileBase();
+    }
     public void init(Empire c, boolean spyFlag) {
         spy = spyFlag;
         colonizableHostility[0] = true;

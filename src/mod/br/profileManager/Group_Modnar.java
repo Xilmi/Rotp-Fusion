@@ -419,7 +419,7 @@ class Group_Modnar extends  AbstractGroup <ClientClasses> {
 		}
 
 		@Override public void putToGame(ClientClasses go, AbstractT<Integer> value) {
-			UserPreferences.setMissileSizeModifier(value.getCodeView()); // Dynamic: Same as UserPreferences
+			UserPreferences.setRetreatRestrictions(value.getCodeView()); // Dynamic: Same as UserPreferences
 		}		
 
 		@Override public AbstractT<Integer> getFromUI (ClientClasses go) {
@@ -427,7 +427,7 @@ class Group_Modnar extends  AbstractGroup <ClientClasses> {
 		}
 
 		@Override public void putToGUI(ClientClasses go, AbstractT<Integer> value) {
-			UserPreferences.setMissileSizeModifier(value.getCodeView());
+			UserPreferences.setRetreatRestrictions(value.getCodeView());
 		}
 
 		@Override public void initComments() {
@@ -455,7 +455,7 @@ class Group_Modnar extends  AbstractGroup <ClientClasses> {
 		}
 
 		@Override public void putToGame(ClientClasses go, AbstractT<Integer> value) {
-			UserPreferences.setMissileSizeModifier(value.getCodeView()); // Dynamic: Same as UserPreferences
+			UserPreferences.setRetreatRestrictionTurns(value.getCodeView()); // Dynamic: Same as UserPreferences
 		}		
 
 		@Override public AbstractT<Integer> getFromUI (ClientClasses go) {
@@ -463,7 +463,7 @@ class Group_Modnar extends  AbstractGroup <ClientClasses> {
 		}
 
 		@Override public void putToGUI(ClientClasses go, AbstractT<Integer> value) {
-			UserPreferences.setMissileSizeModifier(value.getCodeView());
+			UserPreferences.setRetreatRestrictionTurns(value.getCodeView());
 		}
 
 		@Override public void initComments() {

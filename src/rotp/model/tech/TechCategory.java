@@ -194,6 +194,12 @@ public final class TechCategory implements Base, Serializable {
     public List<String> possibleTechs()  { return possibleTechs; }
     public List<String> allTechs()       { return TechLibrary.baseCategory[index].possibleTechs(); }
 
+    void reBuild(TechTree tr, float p) { // BR: to allow changing race
+        tree = tr;
+        discoveryPct = p;
+        // knownTechs.clear(); // The cost of changing races!!!
+    	buildResearchList();
+    }
     private void buildResearchList() {
         TechCategory baseCat = TechLibrary.baseCategory[index];
 

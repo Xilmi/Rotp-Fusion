@@ -54,9 +54,9 @@ import rotp.model.events.SystemColonizedEvent;
 import rotp.model.events.SystemHomeworldEvent;
 import rotp.model.game.GameSession;
 import rotp.model.game.GovernorOptions;
-import rotp.model.ships.ShipSpecialColony;
 import rotp.ui.notifications.*;
 import rotp.model.galaxy.Galaxy;
+import rotp.model.galaxy.GalaxyFactory;
 import rotp.model.galaxy.IMappedObject;
 import rotp.model.galaxy.Location;
 import rotp.model.galaxy.NamedObject;
@@ -103,8 +103,8 @@ public final class Empire implements Base, NamedObject, Serializable {
     public int selectedAI = -1;
     public final int id;
     private Leader leader;
-    private final String raceKey;
-    private final int raceNameIndex;
+    private String raceKey; // BR: removed final to be able to change race!
+    private int raceNameIndex; // BR: removed final to be able to change race!
     private TechTree tech = new TechTree();
     private final ShipDesignLab shipLab;
     private final int homeSysId;
@@ -139,7 +139,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     private float tradePiracyRate = 0;
     private NamedObject lastAttacker;
     private int defaultMaxBases = UserPreferences.defaultMaxBases();
-    private final String dataRaceKey;
+    private String dataRaceKey; // BR: removed final to be able to change race!
     
     private transient float avgX, avgY, nameX1, nameX2;
 
@@ -1499,7 +1499,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         List<ShipDesign> designs = scoutDesigns();
         // no scout ship designs
         if (designs.isEmpty()) {
-            System.out.println("No Scout designs");
+            // System.out.println("No Scout designs"); // BR: //
             return;
         } else {
             for (ShipDesign sd: designs) {
@@ -1616,7 +1616,7 @@ public final class Empire implements Base, NamedObject, Serializable {
 
         // no colony ship designs
         if (designs.isEmpty()) {
-            System.out.println("No Colony ship designs");
+            // System.out.println("No Colony ship designs"); // BR: //
             return;
         } else {
             for (ShipDesign sd: designs) {
@@ -3855,9 +3855,8 @@ public final class Empire implements Base, NamedObject, Serializable {
 		sv.name(homeSysId, newName);
         int numCompWorlds = getCompanionWorldsNumber();
         if (numCompWorlds > 0) { 
-            String[] compSysName = new String[]{"α", "β", "γ", "δ"}; // companion world Greek letter prefix
             for (int id = 0; id < numCompWorlds; id++) {
-               	String name = compSysName[id] + " " + newName;
+               	String name = GalaxyFactory.compSysName[id] + " " + newName;
                	sv.name(compSysId[id], name);
              }
         }
@@ -3868,18 +3867,62 @@ public final class Empire implements Base, NamedObject, Serializable {
 	 * @param newRace the new race Name
 	 */
 	public void setRace(String newRace) {
-		// raceKey = newRace; 
-		race = Race.keyed(newRace);
-        // dataRaceKey = newRace;
-		dataRace = Race.keyed(newRace);
-        // raceNameIndex = race.nameIndex(race.nextAvailableName());
-        leader = new Leader(this, race.nextAvailableLeader());
+		raceKey     = newRace; 
+        dataRaceKey = newRace;
+		race        = Race.keyed(newRace);
+        dataRace    = Race.keyed(newRace);
+        // sv = new SystemInfo(this);
+        String raceName   = race.nextAvailableName();
+        raceNameIndex     = race.nameIndex(raceName);
+        String leaderName = race.nextAvailableLeader();
+        leader            = new Leader(this, leaderName);
+        tech.reBuild(this);
+//        // As the rebuild clear every known tech, it's OK to add the following tech
+//        // modnar: add game mode to start all Empires with 2 random techs
+//        if (UserPreferences.randomTechStart()) {
+//			// randomUnknownTech, somewhat awkward to use in succession
+//			//e.tech().learnTech(e.tech().randomUnknownTech(1,4).id());
+//			//e.tech().learnTech(e.tech().randomUnknownTech(1,4).id());
+//			// generate full tech tree
+//			TechTree eTech = tech();
+//			List<String> firstTierTechs = new ArrayList<>();
+//			List<String> allTechs = new ArrayList<>();
+//			allTechs.addAll(eTech.computer().allTechs());
+//			allTechs.addAll(eTech.construction().allTechs());
+//			allTechs.addAll(eTech.forceField().allTechs());
+//			allTechs.addAll(eTech.planetology().allTechs());
+//			allTechs.addAll(eTech.propulsion().allTechs());
+//			allTechs.addAll(eTech.weapon().allTechs());
+//			for (String id: allTechs) {
+//				Tech t = tech(id);
+//				// pick only from first tier/quintile
+//				if ((t.level() >= 2) && (t.level() <= 5))
+//					firstTierTechs.add(id);
+//			}
+//			// shuffle for randomness
+//			Collections.shuffle(firstTierTechs);
+//			tech().learnTech(firstTierTechs.get(0));
+//			tech().learnTech(firstTierTechs.get(1));
+//		}
+        shipLab.specials().remove(0); // To avoid 2 "NONE"
+        shipLab.weapons().remove(0); // To avoid 2 "NONE"
+        loadStartingShipDesigns();
+        Colony home = colonizedSystems.get(homeSysId).colony();
+        governorAI().setInitialAllocations(home);
+        sv.refreshFullScan(homeSysId);
+        for (int i=0; i<UserPreferences.companionWorlds(); i++) {
+        	int cID = i+1;
+            Colony c1 = colonizedSystems.get(cID).colony();
+            governorAI().setInitialAllocations(c1);
+            sv.refreshFullScan(cID);
+        }
+        setBeginningColonyAllocations();
+        ai().scientist().setDefaultTechTreeAllocations();
         shipImage = null;
         shipImageLarge = null;
         shipImageHuge = null;
         scoutImage = null;
         transportImage = null;
-        loadStartingShipDesigns();
         recalcPlanetaryProduction();
         setHomeWorldName(race.nextAvailableHomeworld());
 	} // \BR

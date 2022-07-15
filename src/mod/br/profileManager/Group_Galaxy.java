@@ -127,8 +127,8 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 //				, SHAPE_SWIRLCLUSTERS, 2, GalaxySwirlClustersShape.options2));
 		addParameter(new ShapeOption(go, "SHAPE SPIRALARMS OPTION 1"
 				, SHAPE_SPIRALARMS, 1, GalaxySpiralArmsShape.options1));
-//		addParameter(new ShapeOption(go, "SHAPE SPIRALARMS OPTION 2"
-//				, SHAPE_SPIRALARMS, 2, GalaxySpiralArmsShape.options2));
+		addParameter(new ShapeOption(go, "SHAPE SPIRALARMS OPTION 2"
+				, SHAPE_SPIRALARMS, 2, GalaxySpiralArmsShape.options2));
 		addParameter(new Difficulty(go));
 		addParameter(new OpponentAI(go));
 		addParameter(new NbOpponent(go));	

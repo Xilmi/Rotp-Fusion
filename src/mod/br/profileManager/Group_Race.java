@@ -98,64 +98,6 @@ public class Group_Race extends AbstractGroup <ClientClasses> {
 	// ==============================================================
 	// PLAYER COLOR
 	//
-	static class Valid_Color extends Validation<Integer> {
-
-		static final List<String> EMPIRECOLORS = getEmpireColors();
-
-		private static List<String> getEmpireColors() {
-			switch(UserProfiles.baseMod) {
-			case BrokenRegistry:
-			case Modnar:
-			case Xilmi:
-				return List.of ("Red", "Green", "Yellow", "Blue", "Orange", "Purple",
-								"Aqua", "Fuchsia", "Brown", "White", "Lime", "Grey",
-								"Plum", "Light Blue", "Mint", "Olive");
-			default:
-				return List.of ("Blue", "Brown", "Green",  "Orange", "Pink",
-								"Purple", "Red", "Teal", "Yellow", "White");
-			}
-		}
-
-		Valid_Color(int initial) {
-			super(new T_Integer(initial));
-			init();
-		}
-
-		private void initCriteria() {
-			getCriteria().isNullAllowed(false);
-		}
-		
-		private void init() {
-			initCriteria();
-			for (String color : EMPIRECOLORS) {
-				addOption(EMPIRECOLORS.indexOf(color), color);
-			}
-			setLimits(0 , EMPIRECOLORS.size());
-			setDefaultRandomLimits(0 , EMPIRECOLORS.size());
-			setHistory(Default, getDefaultColor());
-		}
-
-		private String getDefaultColor() {
-			switch(UserProfiles.baseMod) {
-			case Modnar:
-			case Xilmi:
-				return "Red";
-			default:
-				return "Blue";
-			}
-		}
-				
-		/**
-		 * Generate UserViewList and convert it to capitalized String
-		 * @return UserView List in capitalized String
-		 */
-		@Override public String getOptionsRange() {
-			return PMutil.capitalize(getOptionsStringList().toString());
-		}
-	}
-
-	// ========== Parameter Section ==========
-	//
 	static class PlayerColor extends 
 			AbstractParameter <Integer, Valid_IntegerWithList, ClientClasses> {
 

@@ -532,11 +532,11 @@ public class ShipDesignLab implements Base, Serializable {
         return manvList;
     }
     public void addWeapon(ShipWeapon c) {
-        weapons().add(c);
+    	weapons().add(c);
         Collections.sort(weapons(),ShipComponent.SELECTION_ORDER);
     }
     public void addSpecial(ShipSpecial c) {
-        specials().add(c);
+    	specials().add(c);
         Collections.sort(specials(),ShipComponent.SELECTION_ORDER);
     }
     public ShipWeapon beamWeapon(int seq, boolean heavy) {

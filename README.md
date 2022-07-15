@@ -22,6 +22,11 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
+2026.07.15
+  - Changing Player Race: Fixed Technology tree re-generation.
+  - Minor bugs Fix
+  - Added total mouse control to Modnar and Advanced GUI
+
 2026.07.13
   - Restored Fuel Range.
   - Added randomness in the distribution of companion worlds.
