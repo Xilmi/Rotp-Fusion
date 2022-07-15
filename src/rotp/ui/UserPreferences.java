@@ -307,11 +307,18 @@ public class UserPreferences {
     public static void toggleAlwaysThorium()         { alwaysThorium = !alwaysThorium; save(); }
     public static void toggleChallengeMode()         { challengeMode = !challengeMode; save(); }
     public static void toggleBattleScout()           { battleScout = !battleScout; save(); }
-    public static void toggleCompanionWorlds()       {
-        if ((companionWorlds >= 6) || (companionWorlds < -4)) // BR: changed to 6; default = 4
-            companionWorlds = -4; // BR: changed to -4; default = 0
-        else
-            companionWorlds++;
+    public static void toggleCompanionWorlds(boolean up) {// BR: made bidirectional
+    	if (up) {
+	        if ((companionWorlds >= 6) || (companionWorlds < -4)) // BR: changed to 6; default = 4
+	            companionWorlds = -4; // BR: changed to -4; default = 0
+	        else
+	            companionWorlds++;
+    	} else {
+	        if ((companionWorlds >= 6) || (companionWorlds < -4)) // BR: changed to 6; default = 4
+	            companionWorlds = 6; // BR: changed to -4; default = 0
+	        else
+	            companionWorlds--;    		
+    	}
         save();
     }
     public static void toggleRandomTechStart()       { randomTechStart = !randomTechStart; save(); }
@@ -662,9 +669,15 @@ public class UserPreferences {
         float val = Float.valueOf(s);
         missileSizeModifier = Math.max(0.1f, Math.min(1, val));
     }
+    public static void setRetreatRestrictions(int val) { // BR: For Profile Manager
+        retreatRestrictions = Math.max(0, Math.min(3, val));
+    }
     private static void setRetreatRestrictions(String s) {
         int val = Integer.valueOf(s);
         retreatRestrictions = Math.max(0, Math.min(3, val));
+    }
+    public static void setRetreatRestrictionTurns(int val) { // BR: For Profile Manager
+        retreatRestrictionTurns = Math.max(0, Math.min(100, val));
     }
     private static void setRetreatRestrictionTurns(String s) {
         int val = Integer.valueOf(s);

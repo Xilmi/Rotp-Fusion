@@ -30,6 +30,8 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.List;
 
+import javax.swing.SwingUtilities;
+
 import rotp.mod.br.profiles.Profiles;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
@@ -452,7 +454,7 @@ public class StartModOptionsUI extends BasePanel implements MouseListener, Mouse
     			"SETTINGS_MOD_RETREAT_NONE"
     			, "SETTINGS_MOD_RETREAT_AI"
     			, "SETTINGS_MOD_RETREAT_PLAYER"
-    			, "SETTINGS_MOD_RETREAT_NONE");
+    			, "SETTINGS_MOD_RETREAT_BOTH");
     } // \BR:
     private String retreatRestrictionTurnsStr() {
         String opt = String.format("%d",UserPreferences.retreatRestrictionTurns());
@@ -479,9 +481,9 @@ public class StartModOptionsUI extends BasePanel implements MouseListener, Mouse
         UserPreferences.toggleBattleScout();
         battleScoutText.repaint(battleScoutStr());
     }
-    private void toggleCompanionWorlds() {
+    private void toggleCompanionWorlds(boolean up) { // BR: added bidirectional
         softClick();
-        UserPreferences.toggleCompanionWorlds();
+        UserPreferences.toggleCompanionWorlds(up);
         companionWorldsText.repaint(companionWorldsStr());
     }
     private void toggleRandomTechStart() {
@@ -489,9 +491,25 @@ public class StartModOptionsUI extends BasePanel implements MouseListener, Mouse
         UserPreferences.toggleRandomTechStart();
         randomTechStartText.repaint(randomTechStartStr());
     }
-    private void toggleCustomDifficulty() {
+    private void toggleCustomDifficulty(boolean up, // BR: added bidirectional
+    		boolean shiftPressed, boolean ctrlPressed) {
         softClick();
-        UserPreferences.toggleCustomDifficulty(1);
+        if (up) {
+            if (shiftPressed) 
+                scrollCustomDifficulty(5);
+            else if (ctrlPressed)
+                scrollCustomDifficulty(20);
+            else
+                scrollCustomDifficulty(1); 
+        }
+        else {
+            if (shiftPressed) 
+                scrollCustomDifficulty(-5);
+            else if (ctrlPressed)
+                scrollCustomDifficulty(-20);
+            else
+                scrollCustomDifficulty(-1); 
+        }
         customDifficultyText.repaint(customDifficultyStr());
     }
     private void scrollCustomDifficulty(int i) {
@@ -657,25 +675,11 @@ public class StartModOptionsUI extends BasePanel implements MouseListener, Mouse
             return;
         if (hoverBox == null)
             return;
-        int x = e.getX();
-        int y = e.getY();
-        if (hoverBox == alwaysStarGatesText.bounds())
-            toggleAlwaysStarGates();
-        else if (hoverBox == alwaysThoriumText.bounds())
-            toggleAlwaysThorium();
-        else if (hoverBox == challengeModeText.bounds())
-            toggleChallengeMode();
-        else if (hoverBox == battleScoutText.bounds())
-            toggleBattleScout();
-        else if (hoverBox == companionWorldsText.bounds())
-            toggleCompanionWorlds();
-        else if (hoverBox == randomTechStartText.bounds())
-            toggleRandomTechStart();
-        else if (hoverBox == customDifficultyText.bounds())
-            toggleCustomDifficulty();
-        else if (hoverBox == dynamicDifficultyText.bounds())
-            toggleDynamicDifficulty();
-        else if (hoverBox == okBox)
+        boolean up = !SwingUtilities.isRightMouseButton(e); // BR: added bidirectional
+        boolean shiftPressed = e.isShiftDown();
+        boolean ctrlPressed = e.isControlDown();
+        mouseCommon(up, shiftPressed, ctrlPressed);
+        if (hoverBox == okBox)
             close();
         else if (hoverBox == defaultBox)
             setToDefault();
@@ -692,10 +696,29 @@ public class StartModOptionsUI extends BasePanel implements MouseListener, Mouse
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
         // modnar: mouse scroll for custom difficulty, with Shift/Ctrl modifiers
-        boolean shiftPressed = (e.getModifiers() & InputEvent.SHIFT_MASK) != 0;
-        boolean ctrlPressed = (e.getModifiers() & InputEvent.CTRL_MASK) != 0;
+        boolean shiftPressed = e.isShiftDown(); // BR: updated deprecated method
+        boolean ctrlPressed = e.isControlDown();
         boolean up = e.getWheelRotation() < 0;
-        if (hoverBox == customDifficultyText.bounds()) {
+        mouseCommon(up, shiftPressed, ctrlPressed);
+    }
+    private void mouseCommon(boolean up, boolean shiftPressed, boolean ctrlPressed) { // BR:
+        if (hoverBox == alwaysStarGatesText.bounds())
+            toggleAlwaysStarGates();
+        else if (hoverBox == alwaysThoriumText.bounds())
+            toggleAlwaysThorium();
+        else if (hoverBox == challengeModeText.bounds())
+            toggleChallengeMode();
+        else if (hoverBox == battleScoutText.bounds())
+            toggleBattleScout();
+        else if (hoverBox == companionWorldsText.bounds())
+            toggleCompanionWorlds(up);
+        else if (hoverBox == randomTechStartText.bounds())
+            toggleRandomTechStart();
+        else if (hoverBox == customDifficultyText.bounds())
+            toggleCustomDifficulty(up, shiftPressed, ctrlPressed);
+        else if (hoverBox == dynamicDifficultyText.bounds())
+            toggleDynamicDifficulty();
+        else if (hoverBox == customDifficultyText.bounds()) {
             if (up) {
                 if (shiftPressed) 
                     scrollCustomDifficulty(5);
@@ -714,8 +737,7 @@ public class StartModOptionsUI extends BasePanel implements MouseListener, Mouse
                     scrollCustomDifficulty(-1); 
                 return;
             }
-        }
-        if (hoverBox == missileSizeModifierText.bounds()) {
+        } else if (hoverBox == missileSizeModifierText.bounds()) {
             if (up) {
                 if (shiftPressed) 
                     scrollMissileSizeModifier(0.05f);
@@ -734,8 +756,7 @@ public class StartModOptionsUI extends BasePanel implements MouseListener, Mouse
                     scrollMissileSizeModifier(-0.01f); 
                 return;
             }
-        }
-        if (hoverBox == retreatRestrictionsText.bounds()) {
+        } else if (hoverBox == retreatRestrictionsText.bounds()) {
             if (up) {
                 scrollRetreatRestrictions(1); 
                 return;
@@ -744,8 +765,7 @@ public class StartModOptionsUI extends BasePanel implements MouseListener, Mouse
                 scrollRetreatRestrictions(-1); 
                 return;
             }
-        }
-        if (hoverBox == retreatRestrictionTurnsText.bounds()) {
+        } else if (hoverBox == retreatRestrictionTurnsText.bounds()) {
             if (up) {
                 if (shiftPressed) 
                     scrollRetreatRestrictionTurns(5);
@@ -766,5 +786,4 @@ public class StartModOptionsUI extends BasePanel implements MouseListener, Mouse
             }
         }
     }
-
 }

@@ -21,18 +21,23 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Stroke;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.util.List;
+
+import javax.swing.SwingUtilities;
 
 import rotp.mod.br.profiles.Profiles;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.main.SystemPanel;
 
-public class StartOptionsUI extends BasePanel implements MouseListener, MouseMotionListener {
+public class StartOptionsUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
     private static final long serialVersionUID = 1L;
     private static final Color backgroundHaze = new Color(0,0,0,160);
     
@@ -84,6 +89,7 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
         aiHostilityText = new BaseText(this, false, 20, 20,-78,  textC, textC, hoverC, depressedC, textC, 0, 0, 0);
         addMouseListener(this);
         addMouseMotionListener(this);
+        addMouseWheelListener(this);
     }
     public void init() {
         galaxyAgeText.displayText(galaxyAgeStr());
@@ -523,81 +529,81 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
         String opt = text(newGameOptions().selectedTechTradeOption());
         return text("SETTINGS_TECH_TRADING", opt)+"   ";
     }
-    private void toggleGalaxyAge() {
+    private void toggleGalaxyAge(boolean up) { // BR: added bidirectional
         softClick();
-        newGameOptions().selectedGalaxyAge(newGameOptions().nextGalaxyAge());
+        newGameOptions().selectedGalaxyAge(newGameOptions().nextGalaxyAge(up));
         galaxyAgeText.repaint(galaxyAgeStr());
     }
-    private void toggleStarDensity() {
+    private void toggleStarDensity(boolean up) { // BR: added bidirectional
         softClick();
-        newGameOptions().selectedStarDensityOption(newGameOptions().nextStarDensityOption());
+        newGameOptions().selectedStarDensityOption(newGameOptions().nextStarDensityOption(up));
         starDensityText.repaint(starDensityStr());
     }
-    private void toggleAIHostility() {
+    private void toggleAIHostility(boolean up) { // BR: added bidirectional
         softClick();
-        newGameOptions().selectedAIHostilityOption(newGameOptions().nextAIHostilityOption());
+        newGameOptions().selectedAIHostilityOption(newGameOptions().nextAIHostilityOption(up));
         aiHostilityText.repaint(aiHostilityStr());
     }
-    private void toggleNebulae(MouseEvent e) {
+    private void toggleNebulae(boolean up) { // BR: added bidirectional
         softClick();
-        newGameOptions().selectedNebulaeOption(newGameOptions().nextNebulaeOption());
+        newGameOptions().selectedNebulaeOption(newGameOptions().nextNebulaeOption(up));
         nebulaeText.repaint(nebulaeStr());
     }
-    private void toggleRandomEvents() {
+    private void toggleRandomEvents(boolean up) { // BR: added bidirectional
         softClick();
-        newGameOptions().selectedRandomEventOption(newGameOptions().nextRandomEventOption());
+        newGameOptions().selectedRandomEventOption(newGameOptions().nextRandomEventOption(up));
         randomEventsText.repaint(randomEventsStr());
     }
-    private void togglePlanetQuality() {
+    private void togglePlanetQuality(boolean up) { // BR: added bidirectional
         softClick();
-        newGameOptions().selectedPlanetQualityOption(newGameOptions().nextPlanetQualityOption());
+        newGameOptions().selectedPlanetQualityOption(newGameOptions().nextPlanetQualityOption(up));
         planetQualityText.repaint(planetQualityStr());
     }
-    private void toggleTerraforming() {
+    private void toggleTerraforming(boolean up) { // BR: added bidirectional
         softClick();
-        newGameOptions().selectedTerraformingOption(newGameOptions().nextTerraformingOption());
+        newGameOptions().selectedTerraformingOption(newGameOptions().nextTerraformingOption(up));
         terraformingText.repaint(terraformingStr());
     }
-    private void toggleColonizing() {
+    private void toggleColonizing(boolean up) { // BR: added bidirectional
         softClick();
-        newGameOptions().selectedColonizingOption(newGameOptions().nextColonizingOption());
+        newGameOptions().selectedColonizingOption(newGameOptions().nextColonizingOption(up));
         colonizingText.repaint(colonizingStr());
     }
-    private void toggleCouncilWin(MouseEvent e) {
+    private void toggleCouncilWin(boolean up) { // BR: added bidirectional
         softClick();
-        newGameOptions().selectedCouncilWinOption(newGameOptions().nextCouncilWinOption());
+        newGameOptions().selectedCouncilWinOption(newGameOptions().nextCouncilWinOption(up));
         councilWinText.repaint(councilWinStr());
     }
-    private void toggleRandomizeAI(MouseEvent e) {
+    private void toggleRandomizeAI(boolean up) { // BR: added bidirectional
         softClick();
-        newGameOptions().selectedRandomizeAIOption(newGameOptions().nextRandomizeAIOption());
+        newGameOptions().selectedRandomizeAIOption(newGameOptions().nextRandomizeAIOption(up));
         randomizeAIText.repaint(randomizeAIStr());
     }
-    private void toggleAutoplay(MouseEvent e) {
+    private void toggleAutoplay(boolean up) { // BR: added bidirectional
         softClick();
-        newGameOptions().selectedAutoplayOption(newGameOptions().nextAutoplayOption());
+        newGameOptions().selectedAutoplayOption(newGameOptions().nextAutoplayOption(up));
         autoplayText.repaint(autoplayStr());
     }
-    private void toggleResearchRate(MouseEvent e) {
+    private void toggleResearchRate(boolean up) { // BR: added bidirectional
         softClick();
-        newGameOptions().selectedResearchRate(newGameOptions().nextResearchRate());
+        newGameOptions().selectedResearchRate(newGameOptions().nextResearchRate(up));
         researchRateText.repaint(researchRateStr());
     }
-    private void toggleWarpSpeed(MouseEvent e) {
+    private void toggleWarpSpeed(boolean up) { // BR: added bidirectional
         softClick();
-        newGameOptions().selectedWarpSpeedOption(newGameOptions().nextWarpSpeedOption());
+        newGameOptions().selectedWarpSpeedOption(newGameOptions().nextWarpSpeedOption(up));
         warpSpeedText.repaint(warpSpeedStr());
     }
-    private void toggleFuelRange() {
+    private void toggleFuelRange(boolean up) { // BR: added bidirectional
         softClick();
-        newGameOptions().selectedFuelRangeOption(newGameOptions().nextFuelRangeOption());
+        newGameOptions().selectedFuelRangeOption(newGameOptions().nextFuelRangeOption(up));
         fuelRangeText.repaint(fuelRangeStr());
     }
-    private void toggleTechTrading(MouseEvent e) {
+    private void toggleTechTrading(boolean up) { // BR: added bidirectional
         softClick();
-        newGameOptions().selectedTechTradeOption(newGameOptions().nextTechTradeOption());
+        newGameOptions().selectedTechTradeOption(newGameOptions().nextTechTradeOption(up));
         techTradingText.repaint(techTradingStr());
-    }
+    } // \ BR:
 
     // BR:
     private void goToMainMenu() {
@@ -778,44 +784,14 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
     @Override
     public void mousePressed(MouseEvent e) { }
     @Override
-    public void mouseReleased(MouseEvent e) {
+    public void mouseReleased(MouseEvent e) { // BR: added bidirectional
         if (e.getButton() > 3)
             return;
         if (hoverBox == null)
             return;
-        int x = e.getX();
-        int y = e.getY();
-        if (hoverBox == galaxyAgeText.bounds())
-            toggleGalaxyAge();
-        else if (hoverBox == starDensityText.bounds())
-            toggleStarDensity();
-        else if (hoverBox == nebulaeText.bounds())
-            toggleNebulae(e);
-        else if (hoverBox == planetQualityText.bounds())
-            togglePlanetQuality();
-        else if (hoverBox == terraformingText.bounds())
-            toggleTerraforming();
-        else if (hoverBox == colonizingText.bounds())
-            toggleColonizing();
-        else if (hoverBox == randomEventsText.bounds())
-            toggleRandomEvents();
-        else if (hoverBox == aiHostilityText.bounds())
-            toggleAIHostility();
-        else if (hoverBox == councilWinText.bounds())
-            toggleCouncilWin(e);
-        else if (hoverBox == randomizeAIText.bounds())
-            toggleRandomizeAI(e);
-        else if (hoverBox == autoplayText.bounds())
-            toggleAutoplay(e);
-        else if (hoverBox == researchRateText.bounds())
-            toggleResearchRate(e);
-        else if (hoverBox == warpSpeedText.bounds())
-            toggleWarpSpeed(e);
-        else if (hoverBox == fuelRangeText.bounds())
-            toggleFuelRange();
-        else if (hoverBox == techTradingText.bounds())
-            toggleTechTrading(e);
-        else if (hoverBox == okBox)
+        boolean up = !SwingUtilities.isRightMouseButton(e);
+        mouseCommon(up);
+        if (hoverBox == okBox)
             close();
         else if (hoverBox == defaultBox)
             setToDefault();
@@ -829,5 +805,42 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
             repaint();
         }
     }
-
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) { // BR: 
+        boolean up = e.getWheelRotation() < 0;
+        mouseCommon(up);
+    }
+    private void mouseCommon(boolean up) { // BR:
+        if (hoverBox == galaxyAgeText.bounds())
+            toggleGalaxyAge(up);
+        else if (hoverBox == starDensityText.bounds())
+            toggleStarDensity(up);
+        else if (hoverBox == nebulaeText.bounds())
+            toggleNebulae(up);
+        else if (hoverBox == planetQualityText.bounds())
+            togglePlanetQuality(up);
+        else if (hoverBox == terraformingText.bounds())
+            toggleTerraforming(up);
+        else if (hoverBox == colonizingText.bounds())
+            toggleColonizing(up);
+        else if (hoverBox == randomEventsText.bounds())
+            toggleRandomEvents(up);
+        else if (hoverBox == aiHostilityText.bounds())
+            toggleAIHostility(up);
+        else if (hoverBox == councilWinText.bounds())
+            toggleCouncilWin(up);
+        else if (hoverBox == randomizeAIText.bounds())
+            toggleRandomizeAI(up);
+        else if (hoverBox == autoplayText.bounds())
+            toggleAutoplay(up);
+        else if (hoverBox == researchRateText.bounds())
+            toggleResearchRate(up);
+        else if (hoverBox == warpSpeedText.bounds())
+            toggleWarpSpeed(up);
+        else if (hoverBox == fuelRangeText.bounds())
+            toggleFuelRange(up);
+        else if (hoverBox == techTradingText.bounds())
+            toggleTechTrading(up);
+    }
+    	 
 }
