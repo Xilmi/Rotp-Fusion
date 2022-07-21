@@ -7,7 +7,7 @@
     <includeBaseDirectory>false</includeBaseDirectory>
     <fileSets>
         <fileSet>
-            <directory>${basedir}/target/jre-win/jdk-11.0.13+8-jre</directory>
+            <directory>${basedir}/target/jre-win/jdk-17.0.3+7-jre</directory>
             <outputDirectory>/jre</outputDirectory>
         </fileSet>
         <fileSet>

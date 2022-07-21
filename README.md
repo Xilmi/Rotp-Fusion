@@ -22,6 +22,20 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
+2026.07.21
+  - Made Rookie AI independent of Base and Modnar AI.
+  - Restored original Base and Modnar AI.
+  - Added Low fuel range. (to compensate companion bonus!)
+  - Allow Fuel Range edition.
+  - Allow Warp Speed edition.
+  - Allow Terraforming Hostile edition.
+  - Allow AI Hostility edition.
+  - Allow Research Rate edition.
+  - Debug Random Events edition.
+  - Added Random Events Starting Year.
+  - Added Option to always have the Control Irradiated in Tech tree
+  - Added Always Irradiated to Modnar GUI
+
 2026.07.15
   - Changing Player Race: Fixed Technology tree re-generation.
   - Minor bugs Fix

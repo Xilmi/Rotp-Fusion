@@ -22,7 +22,7 @@ import static br.profileManager.src.main.java.PMutil.suggestedUserViewFromCodeVi
  * Single element for validation list
  * @param <T> the Value's Code View Class
  */
-class Options<T> extends WriteUtil {
+public class Options<T> extends WriteUtil {
 
 	// Keep the initializations for Junit test
 	private static String separatorSymbol   = "=";
@@ -165,19 +165,19 @@ class Options<T> extends WriteUtil {
 	// ------------------------------------------------
     // Getters
     //
-	String getCategory() {
+	public String getCategory() {
 		return category;
 	}
 
-	String getDescription() {
+	public String getDescription() {
 		return description;
 	}
 
-	T getCodeView() {
+	public T getCodeView() {
 		return codeView;
 	}
 
-	String getUserView() {
+	public String getUserView() {
 		return userView;
 	}
 
@@ -187,7 +187,7 @@ class Options<T> extends WriteUtil {
 	private void setCategory(String newCategory) {
 		category = newCategory ;
 	}
-	private void setDescription(String newDescription) {
+	void setDescription(String newDescription) {
 		description = newDescription;
 	}
 	private void setCodeView(T newCodeView) {

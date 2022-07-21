@@ -332,6 +332,8 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
      * Load Profiles with option "Surprise" and start Game
      */
     public void surpriseStart()        { setupGalaxyUI.surpriseStart(); } // BR:
+    // To avoid reset options while returning to Race panel
+    public void returnToSetupRacePanel() { selectPanel(SETUP_RACE_PANEL, setupRaceUI);  }  // BR:
     public void selectSetupRacePanel() { setupRaceUI.init(); selectPanel(SETUP_RACE_PANEL, setupRaceUI);  }
     public void selectSetupGalaxyPanel() { setupGalaxyUI.init(); selectPanel(SETUP_GALAXY_PANEL, setupGalaxyUI);  }
     public void selectLoadGamePanel()  { loadGameUI.init(); selectPanel(LOAD_PANEL, loadGameUI);  }

@@ -63,9 +63,9 @@ public abstract class GalaxyShape implements Base, Serializable {
 	long tm0; // for timing computation
 	// \BR
 
-	public int width()		  { return width; }
-	public int height()		 { return height; }
-	public boolean fullyInit()  { return fullyInit; }
+	public int width()		   { return width; }
+	public int height()		   { return height; }
+	public boolean fullyInit() { return fullyInit; }
 	// ========== abstract and overridable methods ==========
 	protected abstract int galaxyWidthLY();
 	protected abstract int galaxyHeightLY();

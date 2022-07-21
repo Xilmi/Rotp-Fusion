@@ -58,6 +58,10 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="okButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="applyButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="autoApplyToggleButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="cancelButton" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -164,6 +168,8 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="okButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cancelButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="applyButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="autoApplyToggleButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -254,6 +260,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Population automatically transported from colonies at max production capacity"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autotransportActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JSpinner" name="transportMaxTurns">
           <Properties>
@@ -262,6 +271,7 @@
             </Property>
           </Properties>
           <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="transportMaxTurnsStateChanged"/>
             <EventHandler event="mouseWheelMoved" listener="java.awt.event.MouseWheelListener" parameters="java.awt.event.MouseWheelEvent" handler="transportMaxTurnsMouseWheelMoved"/>
           </Events>
         </Component>
@@ -290,11 +300,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Don&apos;t send from Rich/Artifacts planets"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="transportRichDisabledActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JCheckBox" name="transportPoorDouble">
           <Properties>
             <Property name="text" type="java.lang.String" value="Send double from Poor planets"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="transportPoorDoubleActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JCheckBox" name="autotransportXilmi">
           <Properties>
@@ -308,6 +324,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="allow sending population from ungoverned colonies"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="allowUngovernedActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -378,6 +397,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Never build stargates"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="stargateOffActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="stargateRich">
           <Properties>
@@ -386,6 +408,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Build stargates on Rich and Ultra Rich planets"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="stargateRichActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="stargateOn">
           <Properties>
@@ -394,6 +419,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Always build stargates"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="stargateOnActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -420,6 +448,7 @@
         </Property>
       </Properties>
       <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="missileBasesStateChanged"/>
         <EventHandler event="mouseWheelMoved" listener="java.awt.event.MouseWheelListener" parameters="java.awt.event.MouseWheelEvent" handler="missileBasesMouseWheelMoved"/>
       </Events>
     </Component>
@@ -433,6 +462,9 @@
         <Property name="text" type="java.lang.String" value="Autospend"/>
         <Property name="toolTipText" type="java.lang.String" value="Automatically spend reserve on planets with lowest production"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autospendActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JSpinner" name="reserve">
       <Properties>
@@ -441,6 +473,7 @@
         </Property>
       </Properties>
       <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="reserveStateChanged"/>
         <EventHandler event="mouseWheelMoved" listener="java.awt.event.MouseWheelListener" parameters="java.awt.event.MouseWheelEvent" handler="reserveMouseWheelMoved"/>
       </Events>
     </Component>
@@ -454,16 +487,25 @@
         <Property name="text" type="java.lang.String" value="Shipbuilding with Governor enabled"/>
         <Property name="toolTipText" type="java.lang.String" value="Divert resources into shipbuilding and not research if planet is already building ships"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="shipbuildingActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="autoScout">
       <Properties>
         <Property name="text" type="java.lang.String" value="Auto Scout"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autoScoutActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="autoColonize">
       <Properties>
         <Property name="text" type="java.lang.String" value="Auto Colonize"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autoColonizeActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="completionist">
       <Properties>
@@ -478,6 +520,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Auto Attack"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autoAttackActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JSpinner" name="autoColonyShipCount">
       <Properties>
@@ -486,6 +531,7 @@
         </Property>
       </Properties>
       <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="autoColonyShipCountStateChanged"/>
         <EventHandler event="mouseWheelMoved" listener="java.awt.event.MouseWheelListener" parameters="java.awt.event.MouseWheelEvent" handler="autoColonyShipCountMouseWheelMoved"/>
       </Events>
     </Component>
@@ -501,6 +547,7 @@
         </Property>
       </Properties>
       <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="autoScoutShipCountStateChanged"/>
         <EventHandler event="mouseWheelMoved" listener="java.awt.event.MouseWheelListener" parameters="java.awt.event.MouseWheelEvent" handler="autoScoutShipCountMouseWheelMoved"/>
       </Events>
     </Component>
@@ -511,6 +558,7 @@
         </Property>
       </Properties>
       <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="autoAttackShipCountStateChanged"/>
         <EventHandler event="mouseWheelMoved" listener="java.awt.event.MouseWheelListener" parameters="java.awt.event.MouseWheelEvent" handler="autoAttackShipCountMouseWheelMoved"/>
       </Events>
     </Component>
@@ -528,23 +576,52 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Allow shields without bases"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="shieldWithoutBasesActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="legacyGrowthMode">
       <Properties>
         <Property name="text" type="java.lang.String" value="Develop colonies as quickly as possible"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="legacyGrowthModeActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="autoSpy">
       <Properties>
         <Property name="text" type="java.lang.String" value="Let AI handle spies"/>
         <Property name="toolTipText" type="java.lang.String" value="Hand control over spies to AI"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autoSpyActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="autoInfiltrate">
       <Properties>
         <Property name="text" type="java.lang.String" value="Autoinfiltrate"/>
         <Property name="toolTipText" type="java.lang.String" value="Automatically sends spies to infiltrate other empires"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autoInfiltrateActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="applyButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Apply"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="applyButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JToggleButton" name="autoApplyToggleButton">
+      <Properties>
+        <Property name="selected" type="boolean" value="true"/>
+        <Property name="text" type="java.lang.String" value="Auto Apply"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autoApplyToggleButtonActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

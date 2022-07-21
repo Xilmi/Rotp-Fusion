@@ -484,9 +484,6 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         if (num >= races.size())
             return;
 
-//        int w = back.getWidth();
-//        int h = back.getHeight();
-
         raceBox[num].setBounds(x,y,w,h);
         Race r = Race.keyed(races.get(num));
         if (racemugs[num] == null)

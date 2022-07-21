@@ -39,6 +39,7 @@ import java.util.List;
 import br.profileManager.src.main.java.AbstractGroup;
 import br.profileManager.src.main.java.AbstractParameter;
 import br.profileManager.src.main.java.AbstractT;
+import br.profileManager.src.main.java.Options;
 import br.profileManager.src.main.java.T_Integer;
 import br.profileManager.src.main.java.T_String;
 import br.profileManager.src.main.java.Validation;
@@ -294,7 +295,14 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 							new T_String(go.newOptions().selectedGalaxySize()),
 							go.newOptions().galaxySizeOptions()));			
 
-		setHistory(Default, "Small"); // Ray Choice
+			setHistory(Default, "Small"); // Ray Choice
+			
+			// Get the size to build the description, for comments purpose
+			List<String> sizeList = new ArrayList<String>();
+			for (String size: go.newOptions().galaxySizeOptions()) {
+				sizeList.add("" + go.newOptions().numberStarSystems(size));
+			}
+			getValidation().setDescriptions(sizeList);
 		}
 		
 		// ========== Overriders ==========
@@ -303,9 +311,7 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 			return new T_String(go.newOptions().selectedGalaxySize());
 		}
 		
-		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {
-
-		}
+		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
 			return new T_String(go.newOptions().selectedGalaxySize());
@@ -316,7 +322,13 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 			go.options().selectedGalaxySize(value.getCodeView());
 		}
 		
-		@Override public void initComments() {}
+		@Override public void initComments() {
+			List<String> list = new ArrayList<String>();
+			for (Options<String> option: getValidation().optionList()) {
+				list.add(option.getUserView() + "=" + option.getDescription());
+			}
+			// setOptionsComments("Number of Star : " + list.toString());
+		}
 	}
 	 
 	// ==============================================================

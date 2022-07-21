@@ -271,7 +271,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         colorId(newColor);
     }
     public int defaultShipTint() {
-        int maxRaces = 16;
+        int maxRaces = 10;
         return id < maxRaces ? 0 : id % (ShipDesign.shipColors.length-1)+1;
     }
     private void resetColors() {
@@ -3871,7 +3871,6 @@ public final class Empire implements Base, NamedObject, Serializable {
         dataRaceKey = newRace;
 		race        = Race.keyed(newRace);
         dataRace    = Race.keyed(newRace);
-        // sv = new SystemInfo(this);
         String raceName   = race.nextAvailableName();
         raceNameIndex     = race.nameIndex(raceName);
         String leaderName = race.nextAvailableLeader();

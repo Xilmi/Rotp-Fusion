@@ -542,7 +542,9 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
     }
     public void goToRaceSetup() {
         buttonClick();
-        RotPUI.instance().selectSetupRacePanel();
+//        RotPUI.instance().selectSetupRacePanel();
+        // BR: To avoid reset options while returning to Race panel
+        RotPUI.instance().returnToSetupRacePanel();
         release();
     }
     // BR: Add option to return to the main menu

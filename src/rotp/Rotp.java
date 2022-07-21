@@ -24,7 +24,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.awt.Image;
-import java.awt.Graphics2D;
 import java.io.File;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
@@ -34,7 +33,6 @@ import java.util.ArrayList; // modnar: change to cleaner icon set
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import rotp.mod.br.profiles.BR_Main;
 import rotp.model.game.GameSession;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
@@ -45,16 +43,14 @@ import rotp.util.ImageManager;
 
 public class Rotp {
     private static final int MB = 1048576;
-    public static final String version = "22.07.13";
+    public static final String version = "22.07.21";
     public static int IMG_W = 1229;
     public static int IMG_H = 768;
 
-    public static String jarFileName = "rotp-" + version + ".jar";
+    public static String jarFileName = "rotp-" + version + RotpGovernor.miniSuffix() + ".jar";
     public static String exeFileName = "rotp-" + version + ".exe";
-//    public static String jarFileName = "rotp-"+RotpGovernor.governorVersion()+RotpGovernor.miniSuffix()+".jar";
-//    public static String exeFileName = "Remnants.exe";
     public static boolean countWords = false;
-    private static String startupDir = System.getProperty("startupdir");
+    private static String startupDir;
     private static JFrame frame;
     public static String releaseId = "Rotp-C-M-X-BR-" + version;
     public static long startMs = System.currentTimeMillis();
@@ -225,16 +221,17 @@ public class Rotp {
     public static void restartFromLowMemory() {
         restartWithMoreMemory(frame, true);
     }
-    private static boolean restartWithMoreMemory(JFrame frame, boolean reload) {
+    @SuppressWarnings("restriction")
+	private static boolean restartWithMoreMemory(JFrame frame, boolean reload) {
         // MXBeans are not supported by GraalVM Native, so skip this part
         if (RotpGovernor.GRAALVM_NATIVE) {
             System.out.println("Running as GraalVM Native image");
             return false;
         }
-        long memorySize = ((com.sun.management.OperatingSystemMXBean) ManagementFactory
-                        .getOperatingSystemMXBean()).getTotalPhysicalMemorySize();
+        long memorySize = ((com.sun.management.OperatingSystemMXBean) ManagementFactory 
+                        .getOperatingSystemMXBean()).getTotalMemorySize(); // BR: updated deprecated
         long freeMemory = ((com.sun.management.OperatingSystemMXBean) ManagementFactory
-                        .getOperatingSystemMXBean()).getFreePhysicalMemorySize();
+        				.getOperatingSystemMXBean()).getFreeMemorySize();
         int maxMb = (int) (memorySize / MB);
         long allocMb = Runtime.getRuntime().maxMemory() / MB;
         int freeMb = (int) (freeMemory / MB);

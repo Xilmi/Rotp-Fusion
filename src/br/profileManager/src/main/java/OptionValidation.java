@@ -124,7 +124,7 @@ class OptionValidation<T> extends WriteUtil {
 	 * Get the optionList
 	 * @return the optionList
 	 */
-	List<Options<T>> optionList() {
+	public List<Options<T>> optionList() {
 		return optionList;
 	}
 	/**
@@ -146,6 +146,27 @@ class OptionValidation<T> extends WriteUtil {
 	 */
 	protected T getBlankCodeView() {
 		return blankCodeView;
+	}
+	public List<String> getOptionList() {
+		List<String> options = new ArrayList<String>();
+		for (Options<T> option : optionList) {
+			options.add(option.getUserView());
+		}
+		return options;
+	}
+	public List<String> getDescriptionList() {
+		List<String> options = new ArrayList<String>();
+		for (Options<T> option : optionList) {
+			options.add(option.getDescription());
+		}
+		return options;
+	}
+	public void setDescriptions(List<String> list) {
+		int i = 0;
+		for (Options<T> option : optionList) {
+			option.setDescription(list.get(i));
+			i++;
+		}
 	}
 	// ------------------------------------------------
     // Other Methods List Setters & Getters

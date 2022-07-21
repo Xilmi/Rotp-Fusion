@@ -184,18 +184,18 @@ class Block<T, V extends Validation<T>> extends WriteUtil {
 	// ==================================================
     // Getters
     //
-//	/**
-//	 * Get the profile value
-//	 * @param profile profile name
-//	 * @return the value as {@code T} or null if none
-//	 */	
-//	 AbstractT<T> getValue(String profile) {
-//		Lines<T, Validation<T>> line = get(profile);
-//		if (line == null) { // none exist... so empty
-//			return null;
-//		}
-//		return line.getValue();
-//	}
+	/**
+	 * Get the profile value
+	 * @param profile profile name
+	 * @return the value as {@code T} or null if none
+	 */	
+	 AbstractT<T> getValue(String profile) {
+		Lines<T, Validation<T>> line = get(profile);
+		if (line == null || line.isBlankValue()) { // none exist... so empty
+			return null;
+		}
+		return line.getValue();
+	}
 
 //	/**
 //	 * Get the profile value or return the default one
@@ -217,13 +217,12 @@ class Block<T, V extends Validation<T>> extends WriteUtil {
 	 * @return the value as {@code T}
 	 */	
 	 AbstractT<T> getValueOrDefault(String profile, AbstractT<T> defaultValue) {
-		Lines<T, Validation<T>> line = get(profile);
-		if (line == null || line.isBlankValue()) { // none exist... so empty
-			return defaultValue;
-		}
-		return line.getValue();
+		 Lines<T, Validation<T>> line = get(profile);
+		 if (line == null || line.isBlankValue()) { // none exist... so empty
+			 return defaultValue;
+		 }
+		 return line.getValue();
 	}
-			
 	/**
 	 * Get the profile Line or return the default one
 	 * @param profile profile name

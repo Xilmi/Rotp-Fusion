@@ -123,9 +123,27 @@ public abstract class AbstractParameter<
 	/**
 	 * Search for the winning code View
 	 * @param profileNames  List of names to check
-	 * @return The Value, if one.
+	 * @return The Value, if one, null if disabled.
 	 */
-	private AbstractT<T> getWinningCodeView (List<String> profileNames) {
+	private AbstractT<T> getWinningValue (List<String> profileNames) {
+ 	AbstractT<T> value = null;
+	 	if (localEnable.isLoadEnabled()) {
+				// Loop thru profiles, last valid win
+		 	for (String profile : profileNames) {
+		 		AbstractT<T> val = userProfiles.getValue(profile);
+		 		if (val != null) {
+		 			value = val;
+		 		}
+			}
+	  	}
+		return value;
+	}
+	/**
+	 * Search for the winning code View
+	 * @param profileNames  List of names to check
+	 * @return The Value if one, the default value if none, null if disabled.
+	 */
+	private AbstractT<T> getValidWinningValue (List<String> profileNames) {
  	AbstractT<T> value = null;
 	 	if (localEnable.isLoadEnabled()) {
 				// Loop thru profiles, last valid win
@@ -135,6 +153,16 @@ public abstract class AbstractParameter<
 	  	}
 		return value;
 	}
+
+	/**
+	 * Check if the User has set a value
+	 * @param profileNames  List of names to check
+	 * @return True if not null nor blank
+	 */
+	boolean hasUserValue (List<String> profileNames) {
+		return getWinningValue(profileNames)!= null;
+	}
+	
 	boolean isHidden() {
 		return localEnable.isHidden();
 	}
@@ -155,7 +183,7 @@ public abstract class AbstractParameter<
 	 */
 	public void changeGameFileParameters(
  		O clientObject, List<String> profileNames) {
-	 	AbstractT<T> value = getWinningCodeView (profileNames);
+	 	AbstractT<T> value = getWinningValue(profileNames);
 	 	// if one valid code View is found: set it
 	 	if (value != null) {
 	 		putToGame(clientObject, value);
@@ -171,7 +199,6 @@ public abstract class AbstractParameter<
 	 		setFromGuiCodeView(clientObject);
 	 	}
 	}
-
 	/**
 	 * Search for the winning Value and
 	 * Override the GUI parameter with it 
@@ -180,13 +207,12 @@ public abstract class AbstractParameter<
 	 */
 	public void overrideGuiParameters(
 	 		O clientObject, List<String> profileNames) {
-		overrideGuiParameters(clientObject, getWinningCodeView (profileNames));
+		overrideGuiParameters(clientObject, getValidWinningValue (profileNames));
 	}
 
 	protected void putHistoryToGUI(Validation.History history, O clientObject) {
 		overrideGuiParameters (clientObject, validation.getHistory(history));
 	}
-
 	/**
 	 * Check if the "history" Exist
 	 * @param history  Field to be retrieved
@@ -195,7 +221,6 @@ public abstract class AbstractParameter<
 	protected boolean historyIsNull(Validation.History history) {
 		return validation.historyIsNull(history);
 	}
-
 	/**
 	 * Set "history" codeView
 	 * @param history   The History case to fill
@@ -204,7 +229,6 @@ public abstract class AbstractParameter<
 	protected void setHistoryCodeView(Validation.History history, T codeView) {
 		validation.setHistoryCodeView(history, codeView);
 	}
-
 	/**
 	 * Set "history" codeView List
 	 * @param history  The History case to fill
@@ -213,7 +237,6 @@ public abstract class AbstractParameter<
 	protected void setHistoryCodeView(Validation.History history, List<T> codeView) {
 		validation.setHistoryCodeView(history, codeView);
 	}
-
 	/**
 	 * Set "history" Value
 	 * @param history   The History case to fill
@@ -222,7 +245,6 @@ public abstract class AbstractParameter<
 	protected void setHistory(Validation.History history, AbstractT<T> newValue) {
 		validation.setHistory(history, newValue);
 	}
-
 	/**
 	 * Copy one History to another
 	 * @param history   The History case to fill
@@ -231,7 +253,6 @@ public abstract class AbstractParameter<
 	protected void setHistory(Validation.History history, Validation.History source) {
 		validation.setHistory(history, source);
 	}
-
 	/**
 	 * Set "history" User View
 	 * @param history   The History case to fill
@@ -240,7 +261,6 @@ public abstract class AbstractParameter<
 	protected void setHistory(Validation.History history, String newValue) {
 		validation.setHistory(history, newValue);
 	}
-	
 	/**
 	 * Get "history" value
 	 * @return The "history" value
@@ -248,7 +268,6 @@ public abstract class AbstractParameter<
 	protected AbstractT<T> getHistory(Validation.History history) {
 		return validation.getHistory(history);
 	}
-
 	/**
 	 * Conditions to set user choice to "history" value:
 	 *	- if the key is absent: 
@@ -260,7 +279,6 @@ public abstract class AbstractParameter<
 	public void actionToFile(Validation.History history, String profile) {
 			actionToFile(profile, validation.getHistory(history));
 	}
-
 	/**
 	 * Conditions to set user choice to "history" value:
 	 *	- if the key is absent: 
@@ -272,7 +290,6 @@ public abstract class AbstractParameter<
 	public void actionUpdateFile(Validation.History history, String profile) {
 			actionUpdateFile(profile, validation.getHistory(history).getUserView());
 	}
-
 	/**
 	 * Set Limits Value
 	 * @param value the new values
@@ -280,7 +297,6 @@ public abstract class AbstractParameter<
 	protected void setLimits(T Limit1, T Limit2) {
 		validation.setLimits(Limit1, Limit2);
 	}
-
 	/**
 	 * Set Default Random Limits Value
 	 * @param value the new values
@@ -288,7 +304,6 @@ public abstract class AbstractParameter<
 	protected void setDefaultRandomLimits(T Limit1, T Limit2) {
 		validation.setDefaultRandomLimits(Limit1, Limit2);
 	}
-
 	/**
 	 * Update Last GUI code View 
 	 * @param clientObject   the {@code O Object}
@@ -296,7 +311,6 @@ public abstract class AbstractParameter<
 	public void setFromGuiCodeView(O clientObject) {
 		validation.setHistory(Current, getFromUI(clientObject));
 	}
-	
 	/**
 	 * Update Last Game CodeView (Computer friendly) 
 	 * @param clientObject   the {@code O Object}
@@ -304,28 +318,24 @@ public abstract class AbstractParameter<
 	public void setFromGameCodeView(O clientObject) {
 		validation.setHistory(Game, getFromGame(clientObject));
 	}
-
 	/**
 	 * @return the Parameter's Name 
 	 */
 	public String getParameterName() {
 		return parameterName;
 	}
-	
 	/**
 	 * @param name  the Parameter's Name 
 	 */
 	private void setParameterName(String name) {
 		parameterName = name;
 	}
-	
 	/**
 	 * @return Full Profiles list
 	 */
 	public List<String> getProfileList() {
 		return userProfiles.getProfileList();
 	}
-
 	/**
 	 * Get profile list from for the given category
 	 * @param category the {@code String} category to filter with
@@ -334,7 +344,6 @@ public abstract class AbstractParameter<
 	public List<String> getProfileListForCategory(String category) {
 		return userProfiles.getProfileListForCategory(category);
 	}
-
 	/**
 	 * Ask for profile codeView, or initial codeView
 	 * @param   profile the profile name 
@@ -343,7 +352,6 @@ public abstract class AbstractParameter<
 	public T getProfileCodeView(String profile) {
 		return getProfileLine(profile).getValue().getCodeView();
 	}
-
 	/**
 	 * Ask for profile userView, or initial
 	 * @param   profile the profile name 
@@ -352,7 +360,6 @@ public abstract class AbstractParameter<
 	public String getProfileUserView(String profile) {
 		return getProfileLine(profile).getValue().getUserView();
 	}
-
 	/**
 	 * Ask for profile line, or initial
 	 * @return  selected Profile as Gen_Line
@@ -370,7 +377,6 @@ public abstract class AbstractParameter<
 				.setName(profile)
 				.setValue(validation.getHistory(Initial));
 	}
-
 	// for default parameters and internal use
 	/**
 	 * @param name Key
@@ -379,7 +385,6 @@ public abstract class AbstractParameter<
 	public void addLine (String name,  AbstractT<T> value) {
 		userProfiles.add(name, value);
 	}
-
 	/**
 	 * @param name Key
 	 * @param value User Entry
@@ -387,7 +392,6 @@ public abstract class AbstractParameter<
 	public void addLine (String name, String value) {
 		userProfiles.add(name, value);
 	}
-
 	// for default parameters and internal use
 	/**
 	 * @param name Key
@@ -407,7 +411,6 @@ public abstract class AbstractParameter<
 		}
 		userProfiles.add(newLine);
 	}
-
 	/**
 	 * Find "Current" value and assign to "Last" 
 	 * @param line the {@code String to process}
@@ -469,7 +472,6 @@ public abstract class AbstractParameter<
 			userProfiles.forceCreationMissingProfile(profileList);
 		}
 	}
-
 	/**
 	 * @param groupCodeViews 
 	 * @return parameter as String, ready to be printed
@@ -550,7 +552,6 @@ public abstract class AbstractParameter<
 	private void addProfileIfNone(String profile) {
 		userProfiles.addMissing(profile);
 	}
-
   /**
 	 * Conditions to set user choice to value:
 	 *	 - if Writing is allowed 
@@ -564,7 +565,6 @@ public abstract class AbstractParameter<
 			addLine(profile, value.toString());
 		}
 	}
-
 	/**
 	 * Conditions to set user choice to value:
 	 *	- if the key is absent: 

@@ -34,7 +34,8 @@ public class ClientClasses {
 	 */
 	public ClientClasses(IGameOptions options, IGameOptions newOptions) {
 		newOption = newOptions;
-		option = options;
+//		option = options;
+		option = newOptions; // TODO BR: Validate
 	}
 	/**
 	 * @param gameObject {@code GameSession} to set
@@ -48,7 +49,7 @@ public class ClientClasses {
 	// Getters
 	//
 	/**
-	 * @return the guiObject
+	 * @return the guiObject or the Session().options()
 	 */
 	public IGameOptions newOptions() {
 		return newOption;

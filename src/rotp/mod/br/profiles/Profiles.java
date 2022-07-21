@@ -124,28 +124,29 @@ public class Profiles {
 	 * @return status
 	 */
 	public static boolean isFlagColorOrderEnabled() {
-		return userProfiles.isParameterEnabled("FLAG COLOR ORDER");
+		return userProfiles.hasValidUserValueForNewGame("FLAG COLOR ORDER");
+//		return userProfiles.isParameterEnabled("FLAG COLOR ORDER");
 	}
 	/**
   	 * Check if it is OK to use Spacing
 	 * @return status
 	 */
 	public static boolean isPreferredStarsPerEmpireEnabled() {
-		return userProfiles.isParameterEnabled("PREF STARS PER EMPIRE");
+		return userProfiles.hasValidUserValueForNewGame("PREF STARS PER EMPIRE");
 	}
 	/**
   	 * Check if it is OK to use Spacing
 	 * @return status
 	 */
 	public static boolean isMinStarsPerEmpireEnabled() {
-		return userProfiles.isParameterEnabled("MIN STARS PER EMPIRE");
+		return userProfiles.hasValidUserValueForNewGame("MIN STARS PER EMPIRE");
 	}
 	/**
   	 * Check if it is OK to use Spacing
 	 * @return status
 	 */
 	public static boolean isMaximizeSpacingEnabled() {
-		return userProfiles.isParameterEnabled("MAXIMIZE EMPIRES SPACING")
+		return userProfiles.hasValidUserValueForNewGame("MAXIMIZE EMPIRES SPACING")
 				&& GalaxyOptions.isMaximizeEmpiresSpacing();
 	}
 	/**
@@ -153,35 +154,35 @@ public class Profiles {
 	 * @return status
 	 */
 	public static boolean isStartOpponentRaceListEnabled() {
-		return userProfiles.isParameterEnabled("START PRESET OPPONENT");
+		return userProfiles.hasValidUserValueForNewGame("START PRESET OPPONENT");
 	}
 	/**
   	 * Check if it is OK to use OpponentRaceList (for Random)
 	 * @return status
 	 */
 	public static boolean isStartOpponentAIListEnabled() {
-		return userProfiles.isParameterEnabled("START PRESET AI");
+		return userProfiles.hasValidUserValueForNewGame("START PRESET AI");
 	}
 	/**
   	 * Check if it is OK to use GuiOpponentRaceList (for Random)
 	 * @return status
 	 */
 	public static boolean isGuiOpponentRaceListEnabled() {
-		return userProfiles.isParameterEnabled("GUI RACE FILTER");
+		return userProfiles.hasValidUserValueForNewGame("GUI RACE FILTER");
 	}
 	/**
   	 * Check if it is OK to use GuiOpponentRaceList (for Random)
 	 * @return status
 	 */
 	public static boolean isGuiOpponentAIListEnabled() {
-		return userProfiles.isParameterEnabled("GUI AI FILTER");
+		return userProfiles.hasValidUserValueForNewGame("GUI AI FILTER");
 	}
 	/**
   	 * Check if it is OK to use Star Probability Modifier (for Random)
 	 * @return status
 	 */
 	public static boolean isStarProbabilityEnabled() {
-		return userProfiles.isParameterEnabled("STAR TYPE PROBABILITY");
+		return userProfiles.hasValidUserValueForNewGame("STAR TYPE PROBABILITY");
 	}
 	/**
   	 * Check if it is OK to use Purple Planet Probability Modifier (for Random)
@@ -189,7 +190,7 @@ public class Profiles {
 	 * @return status
 	 */
 	public static boolean isPlanetProbabilityEnabled(String type) {
-		return userProfiles.isParameterEnabled("PLANET TYPE PROBABILITY " + type);
+		return userProfiles.hasValidUserValueForNewGame("PLANET TYPE PROBABILITY " + type);
 	}
 	
 }

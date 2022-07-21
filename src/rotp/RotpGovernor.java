@@ -87,7 +87,7 @@ public class RotpGovernor {
     }
 
     public static void main(String[] args) throws IOException {
-        String jarFilename = "rotp-" + Rotp.version + "-governor.jar";
+        String jarFilename = "rotp-" + Rotp.version + ".jar";
         try {
             Class.forName("rotp.Rotp");
         } catch (ClassNotFoundException e) {
@@ -98,24 +98,24 @@ public class RotpGovernor {
             JOptionPane.showMessageDialog(null, message, "Remnants.jar not found", JOptionPane.ERROR_MESSAGE);
             System.exit(2);
         }
-        // if (!expectedROTPVersion.equals(Rotp.releaseId)) {
-        //     System.out.println("Version mismatch. Governor " + governorVersion() +
-        //             " expects ROTP " + expectedROTPVersion +
-        //             " but actual is " + Rotp.releaseId);
-        //     Object result = JOptionPane.showInputDialog(null,
-        //             "Governor and ROTP veresions don't match\n" +
-        //                     "Please upgrade either Governor or ROTP\n" +
-        //                     "Link to latest governor release below\n" +
-        //                     "Continue with incorrect version?",
-        //             "Version mismatch", JOptionPane.WARNING_MESSAGE, null,
-        //             null,
-        //             "https://github.com/coder111111/rotp-public-governor/releases"
-        //     );
-        //     if (result == null) {
-        //         System.exit(1);
-        //     }
-        // }
-        // only do this if we are packaged as a class-only-jar and we're running with original Remnants.jar
+         if (!expectedROTPVersion.equals(Rotp.releaseId)) {
+             System.out.println("Version mismatch. Governor " + governorVersion() +
+                     " expects ROTP " + expectedROTPVersion +
+                     " but actual is " + Rotp.releaseId);
+             Object result = JOptionPane.showInputDialog(null,
+                     "Governor and ROTP veresions don't match\n" +
+                             "Please upgrade either Governor or ROTP\n" +
+                             "Link to latest governor release below\n" +
+                             "Continue with incorrect version?",
+                     "Version mismatch", JOptionPane.WARNING_MESSAGE, null,
+                     null,
+                     "https://github.com/coder111111/rotp-public-governor/releases"
+             );
+             if (result == null) {
+                 System.exit(1);
+             }
+         }
+//         only do this if we are packaged as a class-only-jar and we're running with original Remnants.jar
         if (Rotp.jarFileName.startsWith("Remnants.jar")) {
             Rotp.jarFileName = jarFilename;
         }

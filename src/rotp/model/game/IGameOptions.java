@@ -134,6 +134,8 @@ public interface IGameOptions {
     public static final String COLONIZING_NORMAL      = "SETUP_COLONIZING_NORMAL";
     public static final String COLONIZING_RESTRICTED  = "SETUP_COLONIZING_RESTRICTED";
 
+    public static final String FUEL_RANGE_CUT      = "SETUP_FUEL_RANGE_CUT";
+    public static final String FUEL_RANGE_LOW      = "SETUP_FUEL_RANGE_LOW";
     public static final String FUEL_RANGE_NORMAL   = "SETUP_FUEL_RANGE_NORMAL";
     public static final String FUEL_RANGE_HIGH     = "SETUP_FUEL_RANGE_HIGH";
     public static final String FUEL_RANGE_HIGHER   = "SETUP_FUEL_RANGE_HIGHER";
@@ -153,6 +155,8 @@ public interface IGameOptions {
     public static final String AI_HOSTILITY_HIGHEST  = "SETUP_AI_HOSTILITY_HIGHEST";
 
     public static final String OPPONENT_AI_BASE       = "SETUP_OPPONENT_AI_BASE";
+    public static final String OPPONENT_AI_MODNAR     = "SETUP_OPPONENT_AI_MODNAR";
+    public static final String OPPONENT_AI_ROOKIE     = "SETUP_OPPONENT_AI_ROOKIE";
     public static final String OPPONENT_AI_XILMI      = "SETUP_OPPONENT_AI_XILMI";
     public static final String OPPONENT_AI_CRUEL      = "SETUP_OPPONENT_AI_CRUEL";
     public static final String OPPONENT_AI_UNFAIR     = "SETUP_OPPONENT_AI_UNFAIR";
@@ -162,6 +166,8 @@ public interface IGameOptions {
 
     public static final String AUTOPLAY_OFF           = "SETUP_AUTOPLAY_OFF";
     public static final String AUTOPLAY_AI_BASE       = "SETUP_AUTOPLAY_AI_BASE";
+    public static final String AUTOPLAY_AI_MODNAR     = "SETUP_AUTOPLAY_AI_MODNAR";
+    public static final String AUTOPLAY_AI_ROOKIE     = "SETUP_AUTOPLAY_AI_ROOKIE";
     public static final String AUTOPLAY_AI_XILMI      = "SETUP_AUTOPLAY_AI_XILMI";
     public static final String AUTOPLAY_AI_CRUEL      = "SETUP_AUTOPLAY_AI_CRUEL";
     public static final String AUTOPLAY_AI_RANDOM     = "SETUP_AUTOPLAY_AI_RANDOM";
@@ -198,6 +204,7 @@ public interface IGameOptions {
     public void setToDefault();
 
     public int numberStarSystems();
+    public int numberStarSystems(String size); // BR: For Profile Manager comments
     public int numberNebula();
     public default float nebulaSizeMult()                { return 1.0f; }
     public List<Integer> possibleColors();
@@ -318,13 +325,11 @@ public interface IGameOptions {
     default boolean immediateCouncilWin()    { return selectedCouncilWinOption().equals(COUNCIL_IMMEDIATE); }
     default boolean noGalacticCouncil()      { return selectedCouncilWinOption().equals(COUNCIL_NONE); }
     default float fuelRangeMultiplier() {
-        switch(selectedFuelRangeOption()) {
+        switch(selectedFuelRangeOption()) { // BR: restored and added 2
+            case FUEL_RANGE_CUT:    return 0.67f;
+            case FUEL_RANGE_LOW:    return 0.8f;
             case FUEL_RANGE_NORMAL: return 1;
-            // modnar: set all fuelRangeMultiplier to 1
-            // this keeps save game compatibility with official version
-            // but does not allow high range multipliers
-            // BR: restored Fuel Ranges
-            case FUEL_RANGE_HIGH: return 2; // original: return 2
+            case FUEL_RANGE_HIGH:   return 2; // original: return 2
             case FUEL_RANGE_HIGHER: return 3; // original: return 3
             case FUEL_RANGE_HIGHEST: return 5; // original: return 5
             default: return 1;

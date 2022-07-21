@@ -1163,7 +1163,9 @@ SETUP_OPPONENTS_HEADER_1          | %1 vs.
 SETUP_OPPONENTS_HEADER_2          | Rival Empires
 SETUP_OPPONENT_RANDOM             | ???
 SETUP_OPPONENT_AI                 | Play against:
-SETUP_OPPONENT_AI_BASE            | AI: Rookie
+SETUP_OPPONENT_AI_BASE            | AI: Base
+SETUP_OPPONENT_AI_MODNAR          | AI: Modnar
+SETUP_OPPONENT_AI_ROOKIE          | AI: Rookie
 SETUP_OPPONENT_AI_XILMI           | AI: Advanced
 SETUP_OPPONENT_AI_CRUEL           | AI: Legacy
 SETUP_OPPONENT_AI_UNFAIR          | AI: Unfair
@@ -1171,7 +1173,9 @@ SETUP_OPPONENT_AI_RANDOM          | AI: Random
 SETUP_OPPONENT_AI_ALLRANDOM       | AI: Random+
 SETUP_OPPONENT_AI_SELECT          | AI: Selectable
 SETUP_AUTOPLAY_OFF                | Off
-SETUP_AUTOPLAY_AI_BASE            | AI: Rookie
+SETUP_AUTOPLAY_AI_BASE            | AI: Base
+SETUP_AUTOPLAY_AI_MODNAR          | AI: Modnar
+SETUP_AUTOPLAY_AI_ROOKIE          | AI: Rookie
 SETUP_AUTOPLAY_AI_XILMI           | AI: Advanced
 SETUP_AUTOPLAY_AI_CRUEL           | AI: Legacy
 SETUP_AUTOPLAY_AI_RANDOM          | AI: Random
@@ -1232,6 +1236,8 @@ SETUP_TERRAFORMING_REDUCED        | Reduced
 SETUP_TERRAFORMING_NONE           | None
 SETUP_COLONIZING_NORMAL           | Normal
 SETUP_COLONIZING_RESTRICTED       | Restricted
+SETUP_FUEL_RANGE_CUT              | Cut
+SETUP_FUEL_RANGE_LOW              | Low
 SETUP_FUEL_RANGE_NORMAL           | Normal
 SETUP_FUEL_RANGE_HIGH             | High
 SETUP_FUEL_RANGE_HIGHER           | Higher
@@ -1366,6 +1372,7 @@ SETTINGS_AI_HOSTILITY_DESC        | Increase or decrease the general level of ho
 SETTINGS_MOD_TITLE                   | modnar MOD Options
 SETTINGS_MOD_ALWAYS_STARGATES        | Always Star Gates: %1
 SETTINGS_MOD_ALWAYS_THORIUM          | Always Thorium: %1
+SETTINGS_MOD_ALWAYS_IRRADIATED       | Always Irradiated: %1
 SETTINGS_MOD_CHALLENGE_MODE          | Challenge Mode: %1
 SETTINGS_MOD_BATLLE_SCOUT            | Battle Scout: %1
 SETTINGS_MOD_COMPANION_WORLDS        | Companion Worlds: %1
@@ -1381,6 +1388,7 @@ SETTINGS_MOD_RETREAT_BOTH            | Both
 SETTINGS_MOD_RETREAT_RESTRICTION_TURNS | Retreat restricted turns: %1
 SETTINGS_MOD_ALWAYS_STARGATES_DESC   | Always include "Intergalactic Star Gates" in the Tech Tree for ALL Empires. Selecting NO leaves Tech availability up to chance.
 SETTINGS_MOD_ALWAYS_THORIUM_DESC     | Always include "Thorium Cells" in the Tech Tree for ALL Empires. Selecting NO leaves Tech availability up to chance.
+SETTINGS_MOD_ALWAYS_IRRADIATED_DESC  | Always include "Irradiated Control" in the Tech Tree for ALL Empires. Selecting NO leaves Tech availability up to chance.
 SETTINGS_MOD_CHALLENGE_MODE_DESC     | Give AI Empires additional starting resources (more Population, Factories, and Ships).
 SETTINGS_MOD_BATTLE_SCOUT_DESC       | Medium-Hull armed Scout Design for the Player at start of game. Buildable despite breaking Ship Space limitations.
 SETTINGS_MOD_COMPANION_WORLDS_DESC   | Give 0 to 6 additional Colonies around ALL Empire Homeworlds at start of game. (Negative value for original disposition)

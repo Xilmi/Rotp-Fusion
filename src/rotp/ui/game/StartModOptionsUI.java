@@ -21,7 +21,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Stroke;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -54,6 +53,7 @@ public class StartModOptionsUI extends BasePanel implements MouseListener, Mouse
     BasePanel parent;
     BaseText alwaysStarGatesText;
     BaseText alwaysThoriumText;
+    BaseText alwaysIrradiatedText;
     BaseText challengeModeText;
     BaseText battleScoutText;
     BaseText companionWorldsText;
@@ -72,6 +72,7 @@ public class StartModOptionsUI extends BasePanel implements MouseListener, Mouse
         Color textC = SystemPanel.whiteText;
         alwaysStarGatesText = new BaseText(this, false, 20, 20,-78,  textC, textC, hoverC, depressedC, textC, 0, 0, 0);
         alwaysThoriumText = new BaseText(this, false, 20, 20,-78,  textC, textC, hoverC, depressedC, textC, 0, 0, 0);
+        alwaysIrradiatedText = new BaseText(this, false, 20, 20,-78,  textC, textC, hoverC, depressedC, textC, 0, 0, 0);
         challengeModeText = new BaseText(this, false, 20, 20,-78,  textC, textC, hoverC, depressedC, textC, 0, 0, 0);
         battleScoutText = new BaseText(this, false, 20, 20,-78,  textC, textC, hoverC, depressedC, textC, 0, 0, 0);
         companionWorldsText = new BaseText(this, false, 20, 20,-78,  textC, textC, hoverC, depressedC, textC, 0, 0, 0);
@@ -88,6 +89,7 @@ public class StartModOptionsUI extends BasePanel implements MouseListener, Mouse
     public void init() {
         alwaysStarGatesText.displayText(alwaysStarGatesStr());
         alwaysThoriumText.displayText(alwaysThoriumStr());
+        alwaysIrradiatedText.displayText(alwaysIrradiatedStr());
         challengeModeText.displayText(challengeModeStr());
         battleScoutText.displayText(battleScoutStr());
         companionWorldsText.displayText(companionWorldsStr());
@@ -191,24 +193,24 @@ public class StartModOptionsUI extends BasePanel implements MouseListener, Mouse
             y3 += lineH;
             drawString(g,line, x2+s20, y3);
         }       
-       
+        // BR: 
         y2 += (h2+s20);
         g.setColor(SystemPanel.blackText);
         g.drawRect(x2, y2, w2, h2);
         g.setPaint(GameUI.settingsSetupBackground(w));
-        g.fillRect(x2+s10, y2-s10, challengeModeText.stringWidth(g)+s10,s30);
-        challengeModeText.setScaledXY(x2+s20, y2+s7);
-        challengeModeText.draw(g);
-        desc = text("SETTINGS_MOD_CHALLENGE_MODE_DESC");
-         g.setColor(SystemPanel.blackText);
+        g.fillRect(x2+s10, y2-s10, alwaysIrradiatedText.stringWidth(g)+s10,s30);
+        alwaysIrradiatedText.setScaledXY(x2+s20, y2+s7);
+        alwaysIrradiatedText.draw(g);
+        desc = text("SETTINGS_MOD_ALWAYS_IRRADIATED_DESC");
+        g.setColor(SystemPanel.blackText);
         g.setFont(descFont);
         lines = this.wrappedLines(g,desc, w2-s30);
         y3 = y2+s10;
         for (String line: lines) {
             y3 += lineH;
             drawString(g,line, x2+s20, y3);
-        }
-        
+        }       
+       
         y2 += (h2+s20);
         g.setColor(SystemPanel.blackText);
         g.drawRect(x2, y2, w2, h2);
@@ -350,6 +352,22 @@ public class StartModOptionsUI extends BasePanel implements MouseListener, Mouse
             y3 += lineH;
             drawString(g,line, x2+s20, y3);
         }
+        y2 += (h2+s20);
+        g.setColor(SystemPanel.blackText);
+        g.drawRect(x2, y2, w2, h2);
+        g.setPaint(GameUI.settingsSetupBackground(w));
+        g.fillRect(x2+s10, y2-s10, challengeModeText.stringWidth(g)+s10,s30);
+        challengeModeText.setScaledXY(x2+s20, y2+s7);
+        challengeModeText.draw(g);
+        desc = text("SETTINGS_MOD_CHALLENGE_MODE_DESC");
+         g.setColor(SystemPanel.blackText);
+        g.setFont(descFont);
+        lines = this.wrappedLines(g,desc, w2-s30);
+        y3 = y2+s10;
+        for (String line: lines) {
+            y3 += lineH;
+            drawString(g,line, x2+s20, y3);
+        }      
         g.setStroke(prev);
 
         // draw settings button
@@ -395,6 +413,10 @@ public class StartModOptionsUI extends BasePanel implements MouseListener, Mouse
     private String alwaysThoriumStr() {
         String opt = text(yesOrNo(UserPreferences.alwaysThorium()));
         return text("SETTINGS_MOD_ALWAYS_THORIUM", opt)+"   ";
+    }
+    private String alwaysIrradiatedStr() {
+        String opt = text(yesOrNo(UserPreferences.alwaysIrradiated()));
+        return text("SETTINGS_MOD_ALWAYS_IRRADIATED", opt)+"   ";
     }
     private String challengeModeStr() {
         String opt = text(yesOrNo(UserPreferences.challengeMode()));
@@ -470,6 +492,11 @@ public class StartModOptionsUI extends BasePanel implements MouseListener, Mouse
         softClick();
         UserPreferences.toggleAlwaysThorium();
         alwaysThoriumText.repaint(alwaysThoriumStr());
+    }
+    private void toggleAlwaysIrradiated() {
+        softClick();
+        UserPreferences.toggleAlwaysIrradiated();
+        alwaysIrradiatedText.repaint(alwaysIrradiatedStr());
     }
     private void toggleChallengeMode() {
         softClick();
@@ -551,6 +578,7 @@ public class StartModOptionsUI extends BasePanel implements MouseListener, Mouse
             			options(), newGameOptions())) {
             		alwaysStarGatesText.repaint(alwaysStarGatesStr());
             		alwaysThoriumText.repaint(alwaysThoriumStr());
+            		alwaysIrradiatedText.repaint(alwaysIrradiatedStr());
             		challengeModeText.repaint(challengeModeStr());
                     battleScoutText.repaint(battleScoutStr());
                     companionWorldsText.repaint(companionWorldsStr());
@@ -566,6 +594,7 @@ public class StartModOptionsUI extends BasePanel implements MouseListener, Mouse
             			options(), newGameOptions())) {
             		alwaysStarGatesText.repaint(alwaysStarGatesStr());
             		alwaysThoriumText.repaint(alwaysThoriumStr());
+            		alwaysIrradiatedText.repaint(alwaysIrradiatedStr());
             		challengeModeText.repaint(challengeModeStr());
                     battleScoutText.repaint(battleScoutStr());
                     companionWorldsText.repaint(companionWorldsStr());
@@ -591,6 +620,8 @@ public class StartModOptionsUI extends BasePanel implements MouseListener, Mouse
             hoverBox = alwaysStarGatesText.bounds();
         else if (alwaysThoriumText.contains(x,y))
             hoverBox = alwaysThoriumText.bounds();
+        else if (alwaysIrradiatedText.contains(x,y))
+            hoverBox = alwaysIrradiatedText.bounds();
         else if (challengeModeText.contains(x,y))
             hoverBox = challengeModeText.bounds();
         else if (battleScoutText.contains(x,y))
@@ -619,6 +650,8 @@ public class StartModOptionsUI extends BasePanel implements MouseListener, Mouse
                 alwaysStarGatesText.mouseExit();
             else if (prevHover == alwaysThoriumText.bounds())
                 alwaysThoriumText.mouseExit();
+            else if (prevHover == alwaysIrradiatedText.bounds())
+                alwaysIrradiatedText.mouseExit();
             else if (prevHover == challengeModeText.bounds())
                 challengeModeText.mouseExit();
             else if (prevHover == battleScoutText.bounds())
@@ -641,6 +674,8 @@ public class StartModOptionsUI extends BasePanel implements MouseListener, Mouse
                 alwaysStarGatesText.mouseEnter();
             else if (hoverBox == alwaysThoriumText.bounds())
                 alwaysThoriumText.mouseEnter();
+            else if (hoverBox == alwaysIrradiatedText.bounds())
+                alwaysIrradiatedText.mouseEnter();
             else if (hoverBox == challengeModeText.bounds())
                 challengeModeText.mouseEnter();
             else if (hoverBox == battleScoutText.bounds())
@@ -706,6 +741,8 @@ public class StartModOptionsUI extends BasePanel implements MouseListener, Mouse
             toggleAlwaysStarGates();
         else if (hoverBox == alwaysThoriumText.bounds())
             toggleAlwaysThorium();
+        else if (hoverBox == alwaysIrradiatedText.bounds())
+            toggleAlwaysIrradiated();
         else if (hoverBox == challengeModeText.bounds())
             toggleChallengeMode();
         else if (hoverBox == battleScoutText.bounds())

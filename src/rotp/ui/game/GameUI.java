@@ -664,11 +664,11 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         int k = e.getKeyCode();
         switch (k) {
             case KeyEvent.VK_MINUS:
-                if ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)
+                if ((e.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0) // BR: updated deprecated
                     shrinkFrame(); 
                 return;
             case KeyEvent.VK_EQUALS: 
-                if ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)
+                if ((e.getModifiersEx() & KeyEvent.CTRL_DOWN_MASK) != 0) // BR: updated deprecated
                     expandFrame(); 
                 return;
             case KeyEvent.VK_Z:  hideText = true; repaint(); return;
@@ -689,6 +689,10 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             	if (e.isShiftDown()) {
             		RotPUI.instance().surpriseStart(); return;
             	}
+            	break;
+            // BR: Load Profiles
+            case KeyEvent.VK_P:
+            	Profiles.processKey(k, true, "Race", options(), options());
         }
     }
     private void shrinkFrame() {

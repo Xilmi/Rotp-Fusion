@@ -43,14 +43,15 @@ import rotp.ui.notifications.BombardSystemNotification;
 import rotp.ui.notifications.ColonizeSystemNotification;
 import rotp.util.Base;
 
-public class AI implements Base {
-    public static final int BASE = 0;
-    public static final int MODNAR = 1;
-    public static final int XILMI = 2;
-    public static final int CRUEL = 3;
-    public static final int UNFAIR = 4;
-    public static final int RANDOM = 5;
-    public static final int ALLRANDOM = 6;
+public class AI implements Base { // BR: Tentative
+    public static final int BASE = 0;   // Base
+    public static final int MODNAR = 1; // MODNAR
+    public static final int ROOKIE = 2; // ROOkie
+    public static final int XILMI  = 3; // Advanced
+    public static final int CRUEL  = 4; // Legacy
+    public static final int UNFAIR = 5; // unfair
+    public static final int RANDOM = 6;
+    public static final int ALLRANDOM = 7;
    
     private final Empire empire;
 
@@ -69,10 +70,10 @@ public class AI implements Base {
         
         switch (aiType) {
             case RANDOM:
-                aiType = random.nextInt(4);
+                aiType = random.nextInt(UNFAIR); // BR:
                 break;
             case ALLRANDOM:
-                aiType = random.nextInt(5);
+                aiType = random.nextInt(RANDOM); // BR:
                 break;
             default:
                 break;
@@ -80,16 +81,38 @@ public class AI implements Base {
         if(empire.selectedAI < 0)
             empire.selectedAI = aiType;
         switch(aiType) {
-            case BASE:
+            case BASE: // BR: Tentative
+                general =        new rotp.model.ai.base.AIGeneral(empire);
+                captain =        new rotp.model.ai.base.AIShipCaptain(empire);
+                governor =       new rotp.model.ai.base.AIGovernor(empire);
+                scientist =      new rotp.model.ai.base.AIScientist(empire);
+                diplomat =       new rotp.model.ai.base.AIDiplomat(empire);
+                shipDesigner =   new rotp.model.ai.base.AIShipDesigner(empire);
+                fleetCommander = new rotp.model.ai.base.AIFleetCommander(empire);
+                spyMaster =      new rotp.model.ai.base.AISpyMaster(empire);
+                treasurer =      new rotp.model.ai.base.AITreasurer(empire);
+                break;
+            case MODNAR: // BR: Tentative
                 general =        new rotp.model.ai.modnar.AIGeneral(empire);
                 captain =        new rotp.model.ai.modnar.AIShipCaptain(empire);
                 governor =       new rotp.model.ai.modnar.AIGovernor(empire);
                 scientist =      new rotp.model.ai.modnar.AIScientist(empire);
-                diplomat =       new rotp.model.ai.base.AIDiplomat(empire);
+                diplomat =       new rotp.model.ai.modnar.AIDiplomat(empire);
                 shipDesigner =   new rotp.model.ai.modnar.AIShipDesigner(empire);
                 fleetCommander = new rotp.model.ai.modnar.AIFleetCommander(empire);
-                spyMaster =      new rotp.model.ai.base.AISpyMaster(empire);
-                treasurer =      new rotp.model.ai.base.AITreasurer(empire);
+                spyMaster =      new rotp.model.ai.modnar.AISpyMaster(empire);
+                treasurer =      new rotp.model.ai.modnar.AITreasurer(empire);
+                break;
+            case ROOKIE: // BR: Tentative
+                general =        new rotp.model.ai.rookie.AIGeneral(empire);
+                captain =        new rotp.model.ai.rookie.AIShipCaptain(empire);
+                governor =       new rotp.model.ai.rookie.AIGovernor(empire);
+                scientist =      new rotp.model.ai.rookie.AIScientist(empire);
+                diplomat =       new rotp.model.ai.rookie.AIDiplomat(empire);
+                shipDesigner =   new rotp.model.ai.rookie.AIShipDesigner(empire);
+                fleetCommander = new rotp.model.ai.rookie.AIFleetCommander(empire);
+                spyMaster =      new rotp.model.ai.rookie.AISpyMaster(empire);
+                treasurer =      new rotp.model.ai.rookie.AITreasurer(empire);
                 break;
             case XILMI:
                 general =        new rotp.model.ai.xilmi.AIGeneral(empire);

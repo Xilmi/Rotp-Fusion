@@ -22,8 +22,12 @@ import static br.profileManager.src.main.java.Validation.History.Default;
 import br.profileManager.src.main.java.AbstractGroup;
 import br.profileManager.src.main.java.AbstractParameter;
 import br.profileManager.src.main.java.AbstractT;
+import br.profileManager.src.main.java.PMutil;
+import br.profileManager.src.main.java.T_Integer;
 import br.profileManager.src.main.java.T_String;
 import br.profileManager.src.main.java.Validation;
+import rotp.model.events.RandomEvents;
+import rotp.model.game.IGameOptions;
 
 /**
  * @author BrokenRegistry
@@ -47,7 +51,8 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 		addParameter(new Nebulae(go));
 		addParameter(new PlanetQuality(go));
 		addParameter(new Terraforming(go));
-		addParameter(new RandomEvents(go));
+		addParameter(new RandomEventsOptions(go));
+		addParameter(new RandomEventsStartingYear(go));
 		addParameter(new AIHostility(go));
 		addParameter(new Council(go));
 		addParameter(new RandomizeAI(go));
@@ -73,24 +78,22 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 
 			setHistory(Default, "Normal"); // Ray
 			}
-		
+
 		@Override public AbstractT<String> getFromGame (ClientClasses go) {
 			return new T_String(go.newOptions().selectedGalaxyAge());
 		}
-		
-		@Override public void putToGame(ClientClasses gs, AbstractT<String> value) {
 
-		}
-		
+		@Override public void putToGame(ClientClasses gs, AbstractT<String> value) {}
+
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
 			return new T_String(go.newOptions().selectedGalaxyAge());
 		}
-		
+
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
 			go.newOptions().selectedGalaxyAge(value.getCodeView());
 			go.options().selectedGalaxyAge(value.getCodeView());
 		}
-		
+
 		@Override public void initComments() {}
 	}
  	// ==============================================================
@@ -112,9 +115,7 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 			return new T_String(go.newOptions().selectedStarDensityOption());
 		}
 		
-		@Override public void putToGame(ClientClasses gs, AbstractT<String> value) {
-
-		}
+		@Override public void putToGame(ClientClasses gs, AbstractT<String> value) {}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
 			return new T_String(go.newOptions().selectedStarDensityOption());
@@ -146,9 +147,7 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 			return new T_String(go.newOptions().selectedNebulaeOption());
 		}
 		
-		@Override public void putToGame(ClientClasses gs, AbstractT<String> value) {
-
-		}
+		@Override public void putToGame(ClientClasses gs, AbstractT<String> value) {}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
 			return new T_String(go.newOptions().selectedNebulaeOption());
@@ -180,9 +179,7 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 			return new T_String(go.newOptions().selectedPlanetQualityOption());
 		}
 		
-		@Override public void putToGame(ClientClasses gs, AbstractT<String> value) {
-
-		}
+		@Override public void putToGame(ClientClasses gs, AbstractT<String> value) {}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
 			return new T_String(go.newOptions().selectedPlanetQualityOption());
@@ -214,8 +211,8 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 			return new T_String(go.newOptions().selectedTerraformingOption());
 		}
 		
-		@Override public void putToGame(ClientClasses gs, AbstractT<String> value) {
-//			gs.getGuiObject().selectedTerraformingOption(value.getCodeView());
+		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {
+			go.newOptions().selectedTerraformingOption(value.getCodeView());
 		}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
@@ -228,16 +225,16 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 		}
 		
 		@Override public void initComments() {
-//			setBottomComments(PMconfig.availableForChange());
+			setBottomComments(availableForChange());
 	   	}
 	}
 	// ==============================================================
 	// RANDOM EVENTS
 	//
-   static class RandomEvents extends 
+   static class RandomEventsOptions extends 
 			AbstractParameter <String, Validation<String>, ClientClasses> {
 
-		RandomEvents(ClientClasses go) {
+		RandomEventsOptions(ClientClasses go) {
 			super("RANDOM EVENTS", 
 					new Validation<String>(
 							new T_String(go.newOptions().selectedRandomEventOption()),
@@ -250,8 +247,10 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 			return new T_String(go.newOptions().selectedRandomEventOption());
 		}
 		
-		@Override public void putToGame(ClientClasses gs, AbstractT<String> value) {
-			gs.newOptions().selectedRandomEventOption(value.getCodeView());
+		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {
+			IGameOptions opts = go.newOptions();
+			opts.selectedRandomEventOption(value.getCodeView());
+			opts.disableRandomEvents(!PMutil.toBoolean(value.getCodeView()));
 		}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
@@ -261,6 +260,39 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
 			go.newOptions().selectedRandomEventOption(value.getCodeView());
 			go.options().selectedRandomEventOption(value.getCodeView());
+		}
+		
+		@Override public void initComments() {
+			setBottomComments(availableForChange());
+	   	}
+	}
+	// ==============================================================
+	// RANDOM EVENTS STARTING YEAR
+	//
+	static class RandomEventsStartingYear extends 
+			AbstractParameter <Integer, Validation<Integer>, ClientClasses> {
+
+		RandomEventsStartingYear(ClientClasses go) {
+			super("RANDOM EVENTS STARTING YEAR", 
+					new Validation<Integer>(new T_Integer(RandomEvents.START_TURN)));
+
+			setHistory(Default, new T_Integer(RandomEvents.START_TURN));
+		}
+		
+		@Override public AbstractT<Integer> getFromGame (ClientClasses go) {
+			return new T_Integer(RandomEvents.START_TURN);
+		}
+		
+		@Override public void putToGame(ClientClasses go, AbstractT<Integer> value) {
+			RandomEvents.START_TURN = value.getCodeView();
+		}
+		
+		@Override public AbstractT<Integer> getFromUI (ClientClasses go) {
+			return new T_Integer(RandomEvents.START_TURN);
+		}
+		
+		@Override public void putToGUI(ClientClasses go, AbstractT<Integer> value) {
+			RandomEvents.START_TURN = value.getCodeView();
 		}
 		
 		@Override public void initComments() {
@@ -286,8 +318,8 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 			return new T_String(go.newOptions().selectedAIHostilityOption());
 		}
 		
-		@Override public void putToGame(ClientClasses gs, AbstractT<String> value) {
-//			gs.getGuiObject().selectedAIHostilityOption(value.getCodeView());
+		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {
+			go.newOptions().selectedAIHostilityOption(value.getCodeView());
 		}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
@@ -300,7 +332,7 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 		}
 		
 		@Override public void initComments() {
-//			setBottomComments(PMconfig.availableForChange());
+			setBottomComments(availableForChange());
 	   	}
 	}
 	// ==============================================================
@@ -322,8 +354,8 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 			return new T_String(go.newOptions().selectedCouncilWinOption());
 		}
 		
-		@Override public void putToGame(ClientClasses gs, AbstractT<String> value) {
-			gs.newOptions().selectedCouncilWinOption(value.getCodeView());
+		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {
+			go.newOptions().selectedCouncilWinOption(value.getCodeView());
 		}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
@@ -358,9 +390,7 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 			return new T_String(go.newOptions().selectedRandomizeAIOption());
 		}
 		
-		@Override public void putToGame(ClientClasses gs, AbstractT<String> value) {
-
-		}
+		@Override public void putToGame(ClientClasses gs, AbstractT<String> value) {}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
 			return new T_String(go.newOptions().selectedRandomizeAIOption());
@@ -392,9 +422,7 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 			return new T_String(go.newOptions().selectedAutoplayOption());
 		}
 		
-		@Override public void putToGame(ClientClasses gs, AbstractT<String> value) {
-
-		}
+		@Override public void putToGame(ClientClasses gs, AbstractT<String> value) {}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
 			return new T_String(go.newOptions().selectedAutoplayOption());
@@ -426,8 +454,8 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 			return new T_String(go.newOptions().selectedResearchRate());
 		}
 		
-		@Override public void putToGame(ClientClasses gs, AbstractT<String> value) {
-//			gs.getGuiObject().selectedResearchRate(value.getCodeView());
+		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {
+			go.newOptions().selectedResearchRate(value.getCodeView());
 		}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
@@ -440,7 +468,7 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 		}
 		
 		@Override public void initComments() {
-//			setBottomComments(PMconfig.availableForChange());
+			setBottomComments(availableForChange());
 		}
 	}
 	// ==============================================================
@@ -462,8 +490,8 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 			return new T_String(go.newOptions().selectedWarpSpeedOption());
 		}
 		
-		@Override public void putToGame(ClientClasses gs, AbstractT<String> value) {
-//			gs.getGuiObject().selectedWarpSpeedOption(value.getCodeView());
+		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {
+			go.newOptions().selectedWarpSpeedOption(value.getCodeView());
 		}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
@@ -476,7 +504,7 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 		}
 		
 		@Override public void initComments() {
-//			setBottomComments(PMconfig.availableForChange());
+			setBottomComments(availableForChange());
 		}
 	}
 	// ==============================================================
@@ -498,8 +526,8 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 			return new T_String(go.newOptions().selectedFuelRangeOption());
 		}
 		
-		@Override public void putToGame(ClientClasses gs, AbstractT<String> value) {
-//			gs.getGuiObject().selectedFuelRangeOption(value.getCodeView());
+		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {
+			go.newOptions().selectedFuelRangeOption(value.getCodeView());
 		}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
@@ -512,7 +540,7 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 		}
 		
 		@Override public void initComments() {
-//			setBottomComments(PMconfig.availableForChange());
+			setBottomComments(availableForChange());
 		}
 	}
 	// ==============================================================
@@ -534,8 +562,8 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 			return new T_String(go.newOptions().selectedTechTradeOption());
 		}
 		
-		@Override public void putToGame(ClientClasses gs, AbstractT<String> value) {
-			gs.newOptions().selectedTechTradeOption(value.getCodeView());
+		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {
+			go.newOptions().selectedTechTradeOption(value.getCodeView());
 		}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
@@ -570,8 +598,8 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 			return new T_String(go.newOptions().selectedColonizingOption());
 		}
 		
-		@Override public void putToGame(ClientClasses gs, AbstractT<String> value) {
-			gs.newOptions().selectedColonizingOption(value.getCodeView());
+		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {
+			go.newOptions().selectedColonizingOption(value.getCodeView());
 		}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {

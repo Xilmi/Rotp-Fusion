@@ -52,6 +52,7 @@ class Group_Modnar extends  AbstractGroup <ClientClasses> {
 	}
 
 	@Override protected void initSettingList(ClientClasses go) {
+		addParameter(new AlwaysIrradiated(go));
 		addParameter(new AlwaysStarGates(go));
 		addParameter(new AlwaysThorium(go));
 		addParameter(new ChallengeMode(go));
@@ -65,6 +66,54 @@ class Group_Modnar extends  AbstractGroup <ClientClasses> {
 		addParameter(new RetreatRestrictionTurns(go));
 	}
 
+	// ==============================================================
+	// ALWAYS IRRIDIATED
+	//
+	static class AlwaysIrradiated extends 
+			AbstractParameter <Boolean, Validation<Boolean>, ClientClasses> {
+
+		private String IrradiatedId = "ControlEnvironment:6";
+		private int IrradiatedCategory = 3;
+
+		AlwaysIrradiated(ClientClasses go) {
+			super( "ALWAYS IRRIDIATED",
+					new Validation<Boolean>(
+							new T_Boolean(UserPreferences.alwaysIrradiated())));
+
+			setHistoryCodeView(Default, false);
+		}
+		
+		@Override public AbstractT<Boolean> getFromGame (ClientClasses go) {
+			for (Empire empire : go.session().galaxy().empires()) {
+				List<String> techList = empire.tech()
+						.category(IrradiatedCategory).possibleTechs();			
+				if (!techList.contains(IrradiatedId)) {
+					return new T_Boolean(false);
+				}
+			}
+			return new T_Boolean(true);
+		}
+
+		@Override public void putToGame(ClientClasses go, AbstractT<Boolean> value) {
+			if (value.getCodeView()) {
+				for (Empire empire : go.session().galaxy().empires()) {
+				empire.tech().category(IrradiatedCategory).insertPossibleTech(IrradiatedId);
+				}
+			}
+		}
+		
+		@Override public AbstractT<Boolean> getFromUI (ClientClasses go) {
+			return new T_Boolean(UserPreferences.alwaysStarGates());
+		}
+		
+		@Override public void putToGUI(ClientClasses go, AbstractT<Boolean> value) {
+			UserPreferences.setAlwaysStarGates(value.getCodeView());
+		}
+		
+		@Override public void initComments() {
+			setBottomComments(availableForChange());
+		}
+	}
 	// ==============================================================
 	// ALWAYS STAR GATES
 	//
@@ -113,7 +162,6 @@ class Group_Modnar extends  AbstractGroup <ClientClasses> {
 			setBottomComments(availableForChange());
 		}
 	}
-	
 	// ==============================================================
 	// ALWAYS THORIUM
 	//

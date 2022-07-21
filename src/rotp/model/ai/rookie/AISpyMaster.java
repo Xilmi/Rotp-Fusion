@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package rotp.model.ai.modnar;
+package rotp.model.ai.rookie;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,22 +46,18 @@ public class AISpyMaster implements Base, SpyMaster {
         int paranoia = 0;
         boolean alone = true;
         for (EmpireView cv : empire.empireViews()) {
-            if ((cv != null) && cv.embassy().contact()) {
+            if ((cv != null) && cv.embassy().contact() && cv.inEconomicRange()) {
                 alone = false;
-                // modnar: more internal security paranoia, scale with difficulty level
                 if (cv.embassy().anyWar())
-                    paranoia += (int) Math.floor(3 * options().aiProductionModifier());
+                    paranoia += 3; // modnar: more internal security paranoia
                 if (cv.embassy().noTreaty())
-                    paranoia += (int) Math.floor(2 * options().aiProductionModifier());
+                    paranoia += 2; // modnar: more internal security paranoia
             }
         }
         if ((paranoia == 0) && !alone)
             paranoia++;
         if (empire.leader().isXenophobic())
             paranoia *= 2;
-        // modnar: utilize xilmi's periodic spy-sweeps, 50% chance
-        if (random() < 0.5)
-            paranoia = 0;
         return min(10, paranoia); // modnar: change max to 10, MAX_SECURITY_TICKS = 10
     }
     @Override
@@ -83,7 +79,16 @@ public class AISpyMaster implements Base, SpyMaster {
 
         // if we are not in war preparations and we've received threats 
         // about spying, then no spending
-        if (!emb.isEnemy() && spies.threatened()) {
+        boolean shouldHide = false;
+        if (!v.embassy().anyWar() && (v.spies().maxSpies() > 0)
+        && v.otherView().embassy().timerIsActive(DiplomaticEmbassy.TIMER_SPY_WARNING)) {
+            if (!v.spies().isHide()
+            || (v.empire().leader().isXenophobic())) {
+                shouldHide = true;
+            }
+        }
+        
+        if (!emb.isEnemy() && shouldHide) {
             spies.allocation(0);
             return;
         }
@@ -103,9 +108,6 @@ public class AISpyMaster implements Base, SpyMaster {
         else if (emb.alliance()) 
             maxSpiesNeeded = 1;
 
-        // modnar: scale number of spies with difficulty level
-        maxSpiesNeeded = (int) Math.round((maxSpiesNeeded * Math.sqrt( options().aiProductionModifier() )));
-        
         if (spies.numActiveSpies() >= maxSpiesNeeded)
             spies.allocation(0);
         else
@@ -133,7 +135,16 @@ public class AISpyMaster implements Base, SpyMaster {
         }
 
         // we've been warned and they are not our enemy (i.e. no war preparations)
-        if (!emb.isEnemy() && spies.threatened()) {
+        boolean shouldHide = false;
+        if (!v.embassy().anyWar() && (v.spies().maxSpies() > 0)
+        && v.otherView().embassy().timerIsActive(DiplomaticEmbassy.TIMER_SPY_WARNING)) {
+            if (!v.spies().isHide()
+            || (v.empire().leader().isXenophobic())) {
+                shouldHide = true;
+            }
+        }
+        
+        if (!emb.isEnemy() && shouldHide) {
             spies.beginHide();
             return;
         }
@@ -182,7 +193,6 @@ public class AISpyMaster implements Base, SpyMaster {
         }
         
         // if at war, defer to war strategy: 1) steal war techs, 2) sabotage, 3) steal techs
-        // modnar: even at war, prioritize espionage, check for tech steals before sabotage
         if (emb.anyWar()) {
             List<Tech> warTechs = new ArrayList<>();
             for (String tId: v.spies().possibleTechs()) {
@@ -192,11 +202,10 @@ public class AISpyMaster implements Base, SpyMaster {
             }
             if (!warTechs.isEmpty())
                 spies.beginEspionage();
-            // modnar: prioritize espionage, roll 75% check for espionage before sabotage
-            else if ((!v.spies().possibleTechs().isEmpty()) && (random() < 0.75))
-                spies.beginEspionage();
             else if (canSabotage)
                 spies.beginSabotage();
+            else if (!v.spies().possibleTechs().isEmpty())
+                spies.beginEspionage();
             else
                 spies.beginHide();
             return;

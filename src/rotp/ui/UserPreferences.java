@@ -66,10 +66,13 @@ public class UserPreferences {
     private static boolean displayYear = false;
     private static boolean governorOnByDefault = true;
     private static boolean governorAutoSpendByDefault = false;
+    private static boolean legacyGrowth = true; // BR:
+    private static boolean governorAutoApply = true; // BR:
     private static int customDifficulty = 100; // mondar: add custom difficulty level option, in units of percent
     private static boolean dynamicDifficulty = false; // modnar: add dynamic difficulty option, change AI colony production
     private static boolean alwaysStarGates = false; // modnar: add option to always have Star Gates tech
     private static boolean alwaysThorium = false; // modnar: add option to always have Thorium Cells tech
+    private static boolean alwaysIrradiated = false; // BR: add option to always have Control Irradiated tech
     private static boolean challengeMode = false; // modnar: add option to give AI more initial resources
     private static boolean randomTechStart = false; // modnar: add option to start all Empires with 2 techs, no Artifacts
     private static boolean battleScout = false; // modnar: add battleScout option to give player super Scout design
@@ -83,7 +86,7 @@ public class UserPreferences {
     private static String autoBombardMode = AUTOBOMBARD_NO;
     private static String displayMode = BORDERLESS_MODE;
     private static String graphicsMode = GRAPHICS_HIGH;
-    private static String texturesMode = TEXTURES_MAP; // modnar: set default texture to only map, no interface
+    private static String texturesMode = TEXTURES_BOTH;
     private static String sensitivityMode = SENSITIVITY_MEDIUM;
     private static String saveDir = "";
     private static float uiTexturePct = 0.20f;
@@ -109,6 +112,7 @@ public class UserPreferences {
         dynamicDifficulty = false; // modnar: add dynamic difficulty option, change AI colony production
         alwaysStarGates = false; // modnar: add option to always have Star Gates tech
         alwaysThorium = false; // modnar: add option to always have Thorium Cells tech
+        alwaysIrradiated = false; // BR: add option to always have Control Irradiated tech
         challengeMode = false; // modnar: add option to give AI more initial resources
         randomTechStart = false; // modnar: add option to start all Empires with 2 techs, no Artifacts
         battleScout = false; // modnar: add battleScout option to give player super Scout design
@@ -133,10 +137,11 @@ public class UserPreferences {
     }
     // modnar: set MOD option to defaults, specifically for UI
     public static void setModToDefault() {
-        customDifficulty = 180; // mondar: add custom difficulty level option, in units of percent
+        customDifficulty = 100; // mondar: add custom difficulty level option, in units of percent
         dynamicDifficulty = false; // modnar: add dynamic difficulty option, change AI colony production
         alwaysStarGates = false; // modnar: add option to always have Star Gates tech
         alwaysThorium = false; // modnar: add option to always have Thorium Cells tech
+        alwaysIrradiated = false; // BR: add option to always have Control Irradiated tech
         challengeMode = false; // modnar: add option to give AI more initial resources
         randomTechStart = false; // modnar: add option to start all Empires with 2 techs, no Artifacts
         battleScout = false; // modnar: add battleScout option to give player super Scout design
@@ -262,6 +267,9 @@ public class UserPreferences {
     // \BR
 
     // BR setters for modnar parameters
+    public static void setAlwaysIrradiated(boolean newValue) {
+    	alwaysIrradiated = newValue;
+    }
     public static void setAlwaysStarGates(boolean newValue) {
     	alwaysStarGates = newValue;
     }
@@ -302,6 +310,7 @@ public class UserPreferences {
     	dynamicDifficulty = newValue; 
     } // \BR
 
+    public static void toggleAlwaysIrradiated() { alwaysIrradiated = !alwaysIrradiated; save(); } // BR
     // modnar: MOD option toggles, specifically for UI
     public static void toggleAlwaysStarGates()       { alwaysStarGates = !alwaysStarGates; save(); }
     public static void toggleAlwaysThorium()         { alwaysThorium = !alwaysThorium; save(); }
@@ -314,7 +323,7 @@ public class UserPreferences {
 	        else
 	            companionWorlds++;
     	} else {
-	        if ((companionWorlds >= 6) || (companionWorlds < -4)) // BR: changed to 6; default = 4
+	        if ((companionWorlds > 6) || (companionWorlds <= -4)) // BR: changed to 6; default = 4
 	            companionWorlds = 6; // BR: changed to -4; default = 0
 	        else
 	            companionWorlds--;    		
@@ -452,6 +461,7 @@ public class UserPreferences {
     public static int customDifficulty()     { return customDifficulty; } // mondar: add custom difficulty level option, in units of percent
     public static boolean dynamicDifficulty() { return dynamicDifficulty; } // modnar: add dynamic difficulty option, change AI colony production
     public static boolean alwaysStarGates()  { return alwaysStarGates; } // modnar: add option to always have Star Gates tech
+    public static boolean alwaysIrradiated() { return alwaysIrradiated; } // BR: add option to always Control irradiated tech
     public static boolean alwaysThorium()    { return alwaysThorium; } // modnar: add option to always have Thorium Cells tech
     public static boolean challengeMode()    { return challengeMode; } // modnar: add option to give AI more initial resources
     public static boolean randomTechStart()  { return randomTechStart; } // modnar: add option to start all Empires with 2 techs, no Artifacts
@@ -502,6 +512,10 @@ public class UserPreferences {
     public static boolean governorOnByDefault() { return governorOnByDefault; }
     public static void setAutoSpendOn(boolean autospendOn)  { governorAutoSpendByDefault = autospendOn; save(); }
     public static boolean governorAutoSpendByDefault() { return governorAutoSpendByDefault; }
+    public static void setLegacyGrowth(boolean legacy_Growth)  { legacyGrowth = legacy_Growth; save(); } // BR:
+    public static boolean legacyGrowth() { return legacyGrowth; } // BR:
+    public static void setGovernorAutoApply(boolean auto_Apply)  { governorAutoApply = auto_Apply; save(); } // BR:
+    public static boolean governorAutoApply() { return governorAutoApply; } // BR:
     public static void setDivertColonyExcessToResearch(boolean divertOn)  {divertColonyExcessToResearch = divertOn; save(); }
     public static boolean divertColonyExcessToResearch()  { return divertColonyExcessToResearch; }
     public static boolean disableAdvisor() { return disableAdvisor; }
@@ -553,6 +567,8 @@ public class UserPreferences {
             out.println(keyFormat("GOVERNOR_ON_BY_DEFAULT") + yesOrNo(governorOnByDefault));
             out.println(keyFormat("AUTOSPEND_ON_BY_DEFAULT") + yesOrNo(governorAutoSpendByDefault));
             out.println(keyFormat("DIVERT_COLONY_EXCESS_TO_RESEARCH")+ yesOrNo(divertColonyExcessToResearch));
+            out.println(keyFormat("LEGACY_GROWTH") + yesOrNo(legacyGrowth)); // BR:
+            out.println(keyFormat("GOVERNOR_AUTO_APPLY") + yesOrNo(governorAutoApply)); // BR:
             out.println(keyFormat("DISABLE_ADVISOR")+ yesOrNo(disableAdvisor));
             out.println(keyFormat("SCREEN_SIZE_PCT")+ screenSizePct());
             out.println(keyFormat("UI_TEXTURE_LEVEL")+(int) (uiTexturePct()*100));
@@ -560,6 +576,7 @@ public class UserPreferences {
             out.println(keyFormat("DYNAMIC_DIFFICULTY")+ yesOrNo(dynamicDifficulty)); // modnar: add dynamic difficulty option, change AI colony production
             out.println(keyFormat("ALWAYS_STAR_GATES")+ yesOrNo(alwaysStarGates)); // modnar: add option to always have Star Gates tech
             out.println(keyFormat("ALWAYS_THORIUM")+ yesOrNo(alwaysThorium)); // modnar: add option to always have Thorium Cells tech
+            out.println(keyFormat("ALWAYS_IRRADIATED")+ yesOrNo(alwaysIrradiated)); // BR: add option to always have Control Irradiated tech
             out.println(keyFormat("CHALLENGE_MODE")+ yesOrNo(challengeMode)); // modnar: add option to give AI more initial resources
             out.println(keyFormat("RANDOM_TECH_START")+ yesOrNo(randomTechStart)); // modnar: add option to start all Empires with 2 techs, no Artifacts
             out.println(keyFormat("BATTLE_SCOUT")+ yesOrNo(battleScout)); // modnar: add battleScout option to give player super Scout design
@@ -621,6 +638,8 @@ public class UserPreferences {
             case "GOVERNOR_ON_BY_DEFAULT": governorOnByDefault = yesOrNo(val); return;
             case "AUTOSPEND_ON_BY_DEFAULT": governorAutoSpendByDefault = yesOrNo(val); return;
             case "DIVERT_COLONY_EXCESS_TO_RESEARCH": divertColonyExcessToResearch = yesOrNo(val); return;
+            case "LEGACY_GROWTH": legacyGrowth = yesOrNo(val); return; // BR:
+            case "GOVERNOR_AUTO_APPLY": governorAutoApply = yesOrNo(val); return; // BR:
             case "DISABLE_ADVISOR": disableAdvisor = yesOrNo(val); return;
             case "SCREEN_SIZE_PCT": screenSizePct(Integer.valueOf(val)); return;
             case "UI_TEXTURE_LEVEL": uiTexturePct(Integer.valueOf(val)); return;
@@ -628,6 +647,7 @@ public class UserPreferences {
             case "DYNAMIC_DIFFICULTY": dynamicDifficulty = yesOrNo(val); return; // modnar: add dynamic difficulty option, change AI colony production
             case "ALWAYS_STAR_GATES": alwaysStarGates = yesOrNo(val); return; // modnar: add option to always have Star Gates tech
             case "ALWAYS_THORIUM": alwaysThorium = yesOrNo(val); return; // modnar: add option to always have Thorium Cells tech
+            case "ALWAYS_IRRADIATED": alwaysIrradiated = yesOrNo(val); return; // BR: add option to always have Control Irradiated tech
             case "CHALLENGE_MODE": challengeMode = yesOrNo(val); return; // modnar: add option to give AI more initial resources
             case "RANDOM_TECH_START": randomTechStart = yesOrNo(val); return; // modnar: add option to start all Empires with 2 techs, no Artifacts
             case "BATTLE_SCOUT": battleScout = yesOrNo(val); return; // modnar: add battleScout option to give player super Scout design

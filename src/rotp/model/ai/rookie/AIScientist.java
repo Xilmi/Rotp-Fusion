@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package rotp.model.ai.modnar;
+package rotp.model.ai.rookie;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -635,7 +635,7 @@ public class AIScientist implements Base, Scientist {
         // obsolete?
         if (t.environment() <= empire.tech().minColonyLevel())
             return 0;
-        List<StarSystem> possible = empire.uncolonizedPlanetsInShipRange((int)empire.tech().minColonyLevel());
+        List<StarSystem> possible = empire.uncolonizedPlanetsInRange(empire.shipRange());
         List<StarSystem> newPossible = empire.uncolonizedPlanetsInShipRange(t.environment());
         float newPlanets = newPossible.size() - possible.size();
         if (newPlanets < 1)

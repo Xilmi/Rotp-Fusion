@@ -1040,7 +1040,7 @@ public class PMutil {
 	 * @param string 
 	 * @return the {@code Boolean} value, {@code null} if none
 	 */
-	static Boolean toBoolean(String string) {
+	public static Boolean toBoolean(String string) {
 		if (string != null) {
 	    	if (YES_LIST.contains(toKey(string))) {
 	    		return true;

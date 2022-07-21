@@ -16,16 +16,12 @@ public class GovernorOptions implements Serializable {
     }
     // keep backwards compatibility with system properties
     private boolean governorOnByDefault = UserPreferences.governorOnByDefault();
-    private boolean legacyGrowthMode = "true".equalsIgnoreCase(System.getProperty("legacygrowth", "false"));
+    private boolean legacyGrowthMode = UserPreferences.legacyGrowth(); // BR: moved to remnant.cfg
     private boolean autotransport = "true".equalsIgnoreCase(System.getProperty("autotransport", "false"));
     private boolean autotransportXilmi = "true".equalsIgnoreCase(System.getProperty("autotransportXilmi", "false"));
     private boolean autotransportUngoverned = "true".equalsIgnoreCase(System.getProperty("autotransportUngoverned", "false"));
     private GatesGovernor gates = "false".equalsIgnoreCase(System.getProperty("autogate", "true")) ? GatesGovernor.None : GatesGovernor.Rich;
 
-    @Deprecated
-    private int transportPopulation = 10;
-    @Deprecated
-    private int transportMaxPercent = 10;
     // 1.5x for destinations inside nebulae
     private int transportMaxTurns = 5;
     private boolean transportRichDisabled = true;
@@ -34,6 +30,7 @@ public class GovernorOptions implements Serializable {
     private int minimumMissileBases = 0;
     private boolean shieldWithoutBases = false;
     private boolean autospend = UserPreferences.governorAutoSpendByDefault();
+    private boolean autoApply = UserPreferences.governorAutoApply();
     private boolean autoInfiltrate = "true".equalsIgnoreCase(System.getProperty("autoInfiltrate", "true"));
     private boolean autoSpy = "true".equalsIgnoreCase(System.getProperty("autoSpy", "false"));
     private int reserve = 1000;
@@ -87,6 +84,7 @@ public class GovernorOptions implements Serializable {
     
     public void setLegacyGrowthMode(boolean legacyGrowthMode) {
         this.legacyGrowthMode = legacyGrowthMode;
+        UserPreferences.setLegacyGrowth(legacyGrowthMode);
     }
 
     public void setAutotransport(boolean autotransport) {
@@ -133,6 +131,10 @@ public class GovernorOptions implements Serializable {
         return autospend;
     }
 
+    public boolean isAutoApply() {
+        return autoApply;
+    }
+
     public boolean isAutoInfiltrate() {
         return autoInfiltrate;
     }
@@ -140,6 +142,12 @@ public class GovernorOptions implements Serializable {
     public boolean isAutoSpy() {
         return autoSpy;
     }
+
+    public void setAutoApply(boolean autoApply) {
+        this.autoApply = autoApply;
+        UserPreferences.setGovernorAutoApply(autoApply);
+    }
+
     public void setAutospend(boolean autospend) {
         this.autospend = autospend;
         UserPreferences.setAutoSpendOn(autospend);

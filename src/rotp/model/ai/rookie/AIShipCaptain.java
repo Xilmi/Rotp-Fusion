@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package rotp.model.ai.base;
+package rotp.model.ai.rookie;
 
 import java.awt.*;
 import java.util.*;
@@ -343,7 +343,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
         
         // if stack is pacted with colony and doesn't want war, then retreat
         // modnar: change condition to only "doesn't want war"
-        if ((colView != null) && !colView.embassy().wantWar())  
+        if ((colView != null) && !empire.enemies().contains(colView.empire()))  
             return true;
 
         // if stack has ward still in combat, don't retreat
@@ -351,11 +351,10 @@ public class AIShipCaptain implements Base, ShipCaptain {
             if (activeStacks.contains(currStack.ward())) 
                 return false;
         }
-        
+
         // if we are out of ammo, bail
         if (!currStack.isArmed())
             return true;
-
         // don't retreat if all enemies can only target planets
         boolean canBeTargeted = false;
         for (CombatStack st: activeStacks) {

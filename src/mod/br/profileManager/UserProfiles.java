@@ -65,7 +65,7 @@ public class UserProfiles extends AbstractProfiles<ClientClasses> {
 			String group, ClientClasses clientObject) {
 		boolean refresh = false;
 		switch (key) {
-		case KeyEvent.VK_B: // "B" = Load Broken Registry User Presets
+		case KeyEvent.VK_B: // "B" = Load Broken Registry User Profiles
 			if(global) { // For Random
 				loadSurpriseGroupSettings(clientObject, group, false);
 			} else {
@@ -73,27 +73,28 @@ public class UserProfiles extends AbstractProfiles<ClientClasses> {
 			}
 			refresh = true;
 			break;
-		case KeyEvent.VK_D: // "D" = Reload Default Presets
+		case KeyEvent.VK_D: // "D" = Reload Default Profiles
 			loadHistoryOptions(clientObject, group, Default, global);
 			refresh = true;
 			break;
-		case KeyEvent.VK_F: // "F" = Reload History Former (Last) Presets
+		case KeyEvent.VK_F: // "F" = Reload History Former (Last) Profiles
 			loadHistoryOptions(clientObject, group, Last, global);
 			refresh = true;
 			break;
-		case KeyEvent.VK_G: // "G" = Reload History Game Presets
+		case KeyEvent.VK_G: // "G" = Reload History Game Profiles
 			loadHistoryOptions(clientObject, group, Game, global);
 			refresh = true;
 			break;
-		case KeyEvent.VK_I: // "I" = Reload Initial Presets
+		case KeyEvent.VK_I: // "I" = Reload Initial Profiles
 			loadHistoryOptions(clientObject, group, Initial, global);
 			refresh = true;
 			break;
-		case KeyEvent.VK_L: // "L" = Load GUI User Presets
+		case KeyEvent.VK_L: // "L" = Load GUI User Profiles
+		case KeyEvent.VK_P: // "P" = Load GUI User Profiles
 			loadGroupSettings(clientObject, group, global);
 			refresh = true;
 			break;
-		case KeyEvent.VK_R: // "R" = Load GUI Surprise Presets
+		case KeyEvent.VK_R: // "R" = Load GUI Surprise Profiles
 			loadSurpriseGroupSettings(clientObject, group, global);
 			refresh = true;
 			break;
