@@ -228,10 +228,10 @@ public class Rotp {
             System.out.println("Running as GraalVM Native image");
             return false;
         }
-        long memorySize = ((com.sun.management.OperatingSystemMXBean) ManagementFactory 
-                        .getOperatingSystemMXBean()).getTotalMemorySize(); // BR: updated deprecated
+        long memorySize = ((com.sun.management.OperatingSystemMXBean) ManagementFactory
+                        .getOperatingSystemMXBean()).getTotalPhysicalMemorySize();
         long freeMemory = ((com.sun.management.OperatingSystemMXBean) ManagementFactory
-        				.getOperatingSystemMXBean()).getFreeMemorySize();
+                        .getOperatingSystemMXBean()).getFreePhysicalMemorySize();
         int maxMb = (int) (memorySize / MB);
         long allocMb = Runtime.getRuntime().maxMemory() / MB;
         int freeMb = (int) (freeMemory / MB);
