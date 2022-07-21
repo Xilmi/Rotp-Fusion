@@ -345,7 +345,7 @@
 								<txtFileVersion>${project.version}</txtFileVersion>
 								<fileDescription>Remnants of the Precursors</fileDescription>
 								<copyright>Copyright Ray Fowler</copyright>
-								<productVersion>${project.version}.1</productVersion>
+								<productVersion>${project.version}</productVersion>
 								<txtProductVersion>${project.version}</txtProductVersion>
 								<productName>Remnants of the Precursors</productName>
 								<internalName>rotp</internalName>
