@@ -202,10 +202,8 @@ public class Rotp {
     public static boolean memoryLow() {
         // returns true if total memory allocated to the JVM is within 100 MB of maximum allowed
         long max = Runtime.getRuntime().maxMemory() / 1048576;
-        long memorySize = ((com.sun.management.OperatingSystemMXBean) ManagementFactory
-                        .getOperatingSystemMXBean()).getTotalPhysicalMemorySize();
-        long freeMemory = ((com.sun.management.OperatingSystemMXBean) ManagementFactory
-                        .getOperatingSystemMXBean()).getFreePhysicalMemorySize();
+        long total = Runtime.getRuntime().totalMemory() / 1048576;
+        long free = Runtime.getRuntime().freeMemory() / 1048576;
         return (max == total) && (free < 300);
     }
     public static void restart() {
@@ -230,10 +228,10 @@ public class Rotp {
             System.out.println("Running as GraalVM Native image");
             return false;
         }
-        long memorySize = ((com.sun.management.OperatingSystemMXBean) ManagementFactory 
-                        .getOperatingSystemMXBean()).getTotalMemorySize(); // BR: updated deprecated
+        long memorySize = ((com.sun.management.OperatingSystemMXBean) ManagementFactory
+                        .getOperatingSystemMXBean()).getTotalPhysicalMemorySize();
         long freeMemory = ((com.sun.management.OperatingSystemMXBean) ManagementFactory
-        				.getOperatingSystemMXBean()).getFreeMemorySize();
+                        .getOperatingSystemMXBean()).getFreePhysicalMemorySize();
         int maxMb = (int) (memorySize / MB);
         long allocMb = Runtime.getRuntime().maxMemory() / MB;
         int freeMb = (int) (freeMemory / MB);
