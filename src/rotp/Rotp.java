@@ -202,8 +202,10 @@ public class Rotp {
     public static boolean memoryLow() {
         // returns true if total memory allocated to the JVM is within 100 MB of maximum allowed
         long max = Runtime.getRuntime().maxMemory() / 1048576;
-        long total = Runtime.getRuntime().totalMemory() / 1048576;
-        long free = Runtime.getRuntime().freeMemory() / 1048576;
+        long memorySize = ((com.sun.management.OperatingSystemMXBean) ManagementFactory
+                        .getOperatingSystemMXBean()).getTotalPhysicalMemorySize();
+        long freeMemory = ((com.sun.management.OperatingSystemMXBean) ManagementFactory
+                        .getOperatingSystemMXBean()).getFreePhysicalMemorySize();
         return (max == total) && (free < 300);
     }
     public static void restart() {
