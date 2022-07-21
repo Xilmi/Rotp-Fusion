@@ -13,7 +13,7 @@
 	<!-- Variables Declaration -->
 	<properties>
 		<!-- Personal -->
-		<maven.build.timestamp.format>yyyy.MM.dd</maven.build.timestamp.format>
+		<maven.build.timestamp.format>yyyy.MM.dd.HH</maven.build.timestamp.format>
 		<revision>${maven.build.timestamp}</revision>
 		<RepoId>Rotp-C-M-X-BR</RepoId>
 		<AuthorId>BrokenRegistry</AuthorId>

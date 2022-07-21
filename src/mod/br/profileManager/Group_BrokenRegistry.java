@@ -47,9 +47,6 @@ import mod.br.AddOns.StarsOptions.ProbabilityModifier;
  */
 public class Group_BrokenRegistry extends  AbstractGroup <ClientClasses> {
 	
-//	private static List<String> planetTypeList =
-//			PMutil.suggestedUserViewFromCodeView(PLANET_TYPES);
-	
 	Group_BrokenRegistry(ClientClasses go) {
 	   super(go, getHeadComments());
 	}
@@ -269,11 +266,10 @@ public class Group_BrokenRegistry extends  AbstractGroup <ClientClasses> {
 	/**
 	 *  Base class for star and planets probability modifier
 	 */
-	public static class BaseProbabilityModifier extends 
+	static class BaseProbabilityModifier extends 
 			AbstractParameter <Float, Valid_ProbabilityDensity, ClientClasses> {
 
 		private final ProbabilityModifier pMod;
-		private final String comment;
 	    // ========== Constructors and initializer ==========
 	    //
 		BaseProbabilityModifier(ClientClasses go
@@ -283,10 +279,10 @@ public class Group_BrokenRegistry extends  AbstractGroup <ClientClasses> {
 				, String settingComment)
 		{
 			super(Name, new Valid_ProbabilityDensity(
-					ProbabilityModifier.DefaultProbabilityModifier, options));
+					ProbabilityModifier.DefaultProbabilityModifier, options)
+					, settingComment);
 
 			pMod = modifier;
-			comment = settingComment;
 			setHistoryCodeView(Initial, pMod.defaultModifierList());
 			setHistoryCodeView(Default, pMod.defaultModifierList());
 			setHistoryCodeView(Current, pMod.defaultModifierList());
@@ -309,8 +305,6 @@ public class Group_BrokenRegistry extends  AbstractGroup <ClientClasses> {
 			pMod.selectedModifierList(value.getCodeList());
 		}
 		
-		@Override public void initComments() {
-			setSettingComments(comment);
-		}
+		@Override public void initComments() {}
 	}
 }

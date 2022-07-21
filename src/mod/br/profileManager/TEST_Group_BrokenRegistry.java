@@ -26,7 +26,7 @@ class TEST_Group_BrokenRegistry {
 			+ "Random          :\r\n"
 			+ "\r\n"
 			+ "";
-
+//  add static to BaseProbabilityModifier for test
 	@Test void StarProbability_ClientClasses() {
 		BaseProbabilityModifier param;
 		param = new BaseProbabilityModifier(cct, "STAR TYPE PROBABILITY"

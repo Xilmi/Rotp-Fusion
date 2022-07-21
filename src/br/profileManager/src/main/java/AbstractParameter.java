@@ -60,15 +60,21 @@ public abstract class AbstractParameter<
 	// Constructors and helpers
 	//
 	protected AbstractParameter(String parameterName,
-				  Validation<T> valueValidationData) {
+			  Validation<T> valueValidationData) {
 		setParameterName(parameterName);
 		validation = valueValidationData;
 		resetUserProfiles();
 		initComments ();
 	}
-	
+
+	protected AbstractParameter(String parameterName,
+			  Validation<T> valueValidationData, String settingComment) {
+		this(parameterName, valueValidationData);
+		setSettingComments(settingComment);
+	}
+
 	void resetUserProfiles() {
- 	userProfiles = new Block<T, V>(validation);
+		userProfiles = new Block<T, V>(validation);
 	}
 	
 	public static void newConfig(PMconfig PM) {

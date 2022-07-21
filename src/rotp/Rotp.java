@@ -43,7 +43,7 @@ import rotp.util.ImageManager;
 
 public class Rotp {
     private static final int MB = 1048576;
-    public static final String version = "22.07.21";
+    public static final String version = RotpGovernor.governorVersion();
     public static int IMG_W = 1229;
     public static int IMG_H = 768;
 
