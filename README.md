@@ -23,7 +23,8 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 ## What'New
 
 2022.07.22
-  - Minor bugs correction
+  - Minor bugs correction.
+  - Auto generated Profiles.cfg: Removed the "surprise"-action from "MyRandom" for a better feeling in initial random testing!
 
 2022.07.21
   - Made Rookie AI independent of Base and Modnar AI.

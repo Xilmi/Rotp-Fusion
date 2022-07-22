@@ -157,7 +157,7 @@ public class UserProfiles extends AbstractProfiles<ClientClasses> {
 						+ " to also allow it to be loaded with \"L\"");
 
 		parameterProfileAction().addLine("MyRandom"
-				, ACTION_RANDOM
+				, ""
 				, "For your customized random!, add "
 						+ ACTION_RANDOM 
 						+ " to override the \"FullRandom\" and Load by pressing \"R\", add or replace with "
