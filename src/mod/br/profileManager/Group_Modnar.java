@@ -456,14 +456,15 @@ class Group_Modnar extends  AbstractGroup <ClientClasses> {
 			super("RETREAT RESTRICTIONS", 
 					new Valid_IntegerWithList(
 							UserPreferences.retreatRestrictions()
-							, StartModOptionsUI.getRetreatRestrictionOptions()));	
+							, StartModOptionsUI.getRetreatRestrictionOptions()));
+			
 			setHistoryCodeView(Initial, UserPreferences.retreatRestrictions());
 			setHistoryCodeView(Default, 0);
 			setHistory(Current, Initial);
 		}
 
 		@Override public AbstractT<Integer> getFromGame (ClientClasses go) { // BR: Validate Dynamic 
-			return new T_Integer(UserPreferences.retreatRestrictions()); // Dynamic: Same as UserPreferences
+			return getValidation().newValue(UserPreferences.retreatRestrictions()); // Dynamic: Same as UserPreferences
 		}
 
 		@Override public void putToGame(ClientClasses go, AbstractT<Integer> value) {
@@ -471,7 +472,7 @@ class Group_Modnar extends  AbstractGroup <ClientClasses> {
 		}		
 
 		@Override public AbstractT<Integer> getFromUI (ClientClasses go) {
-			return new T_Integer(UserPreferences.retreatRestrictions());
+			return getValidation().newValue(UserPreferences.retreatRestrictions());
 		}
 
 		@Override public void putToGUI(ClientClasses go, AbstractT<Integer> value) {

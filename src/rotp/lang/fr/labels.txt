@@ -294,8 +294,8 @@ GAME_TITLE_LINE_3                 | PRÉCURSEURS
 GAME_DISCUSS_ONLINE               | Discutions en ligne
 GAME_MENU_CONTINUE                | Continuer
 GAME_MENU_NEW_GAME                | Nouvelle Partie
-GAME_MENU_LOAD_GAME               | Charger une Partie
-GAME_MENU_SAVE_GAME               | Enregistrer la Partie
+GAME_MENU_LOAD_GAME               | Charger
+GAME_MENU_SAVE_GAME               | Enregistrer
 GAME_MENU_SETTINGS                | Paramètres
 GAME_MENU_OPEN_MANUAL             | Mode d'emploi
 GAME_MENU_EXIT                    | Quitter
@@ -392,7 +392,7 @@ SAVE_GAME_OK                      | Sauvegarder
 INTRO_BEGIN                       | Commencer
 
 // MAIN UI - Bottom Navigation options
-MAIN_NAVIGATION_GAME              | Jeu
+MAIN_NAVIGATION_GAME              | Menu
 MAIN_NAVIGATION_DESIGN            | Conceptions
 MAIN_NAVIGATION_FLEETS            | Flottes
 MAIN_NAVIGATION_SYSTEMS           | Systèmes
@@ -568,8 +568,8 @@ MAIN_TRANSPORT_NO_ROOM            | Attention - La planète cible a atteint sa p
 MAIN_TRANSPORT_SIZE_WARNING       | Attention - La planète cible ne peut supporter que %1 million !
 MAIN_TRANSPORT_NO_SELECTION       | Pas de Sélection
 MAIN_TRANSPORT_CANCEL             | Annuler
-MAIN_TRANSPORT_SEND               | Envoyer des Transports
-MAIN_TRANSPORT_ABANDON            | Abandonner
+MAIN_TRANSPORT_SEND               | Envoyer des Troupes
+MAIN_TRANSPORT_ABANDON            | Annuler
 MAIN_TRANSPORT_CLEAR              | Effacer les Transports
 MAIN_TRANSPORT_SURRENDER          | Capitulation Automatique à l'Arrivée
 
@@ -579,10 +579,10 @@ MAIN_COLONY_FOUNDED               | Colonie %1
 MAIN_COLONY_POPULATION            | Population
 MAIN_COLONY_FACTORIES             | Usines
 MAIN_COLONY_VALUE+                | %1+
-MAIN_COLONY_SHIELD                | Niveau des Boucliers
+MAIN_COLONY_SHIELD                | Boucliers
 MAIN_COLONY_BASES                 | Bases
 MAIN_COLONY_PRODUCTION            | Production - Nette (Brute)
-MAIN_COLONY_SHIP                  | Vaisseau
+MAIN_COLONY_SHIP                  | Flotte
 MAIN_COLONY_DEFENSE               | Def
 MAIN_COLONY_INDUSTRY              | Ind
 MAIN_COLONY_ECOLOGY               | Eco
@@ -600,7 +600,7 @@ MAIN_COLONY_SPENDING_ATMOSPHERE   | Atmo
 MAIN_COLONY_SPENDING_ENRICH_SOIL  | Sol
 MAIN_COLONY_SPENDING_TERRAFORM    | T-form
 MAIN_COLONY_SPENDING_CLEANUP      | Nettoyage
-MAIN_COLONY_SPENDING_GROWTH       | Croissance
+MAIN_COLONY_SPENDING_GROWTH       | Croître
 MAIN_COLONY_SPENDING_SHIELD       | Boucliers
 MAIN_COLONY_SPENDING_UPG_BASES    | Améliorations
 MAIN_COLONY_SPENDING_PLAGUE       | Pandémies
@@ -613,7 +613,7 @@ MAIN_COLONY_COMPLETION_PER_YEAR   | %1/An
 MAIN_COLONY_SHIPYARD_COMPLETED    | Complété : %1
 MAIN_COLONY_SHIPYARD_LIMIT        | Limite :
 MAIN_COLONY_SHIPYARD_LIMIT_NONE   | Aucune
-MAIN_COLONY_SHIPYARD_CONSTRUCTION | File d'Attente de Construction de navires
+MAIN_COLONY_SHIPYARD_CONSTRUCTION | Flotte en Construction
 MAIN_COLONY_RELOCATE_LABEL        | Définir Pt. Ralliement
 MAIN_COLONY_TRANSPORTS_LABEL      | Envoyer des Transports
 MAIN_COLONY_ABANDON_LABEL         | Abandonner
@@ -726,7 +726,7 @@ PLANETS_VIEW_INDUSTRY             | Vue Industrielle
 PLANETS_VIEW_MILITARY             | Vue Militaire
 PLANETS_SPENDING_COSTS            | Dépenses de l'Empire
 PLANETS_COSTS_DESC                | Chaque colonie paie un pour cent de sa production pour soutenir les dépenses de l'empire.
-PLANETS_COSTS_SHIPS               | Entretien des Navires
+PLANETS_COSTS_SHIPS               | Entretien de la Flotte
 PLANETS_COSTS_BASES               | Bases de Missiles
 PLANETS_COSTS_STARGATES           | Portes des Étoiles
 PLANETS_COSTS_SPYING              | Espionnage
@@ -1034,10 +1034,10 @@ ERROR_EMAIL                       | E-mail: rayfowler@fastmail.com
 ERROR_REDDIT                      | Reddit: www.Reddit.com/r/rotp
 
 // Setup UI
-SETUP_SELECT_RACE                 | Sélectionnez votre race
-SETUP_SELECT_OPPONENTS            | Sélectionnez vos adversaires
-SETUP_SELECT_GALAXY               | Configurez la Galaxie
-SETUP_SELECT_GALAXY_OPTIONS       | Sélectionnez les options
+SETUP_SELECT_RACE                 | Sélection de la Race
+SETUP_SELECT_OPPONENTS            | Sélection des adversaires
+SETUP_SELECT_GALAXY               | Configuration de la Galaxie
+SETUP_SELECT_GALAXY_OPTIONS       | Sélection les options
 SETUP_GALAXY_RULESET_LABEL        | Ensemble de règles
 SETUP_INSUFFICIENT_MEMORY         | Mémoire insuffisante
 SETUP_CREATING_GALAXY             | Création de la galaxie...
@@ -1051,20 +1051,20 @@ SETUP_GALAXY_SIZE_TINY            | Minuscule
 SETUP_GALAXY_SIZE_SMALL           | Très petite
 SETUP_GALAXY_SIZE_SMALL2          | Petite
 SETUP_GALAXY_SIZE_AVERAGE         | Moyenne
-SETUP_GALAXY_SIZE_AVERAGE2        | Moyenne
+SETUP_GALAXY_SIZE_AVERAGE2        | Intermédiaire
 SETUP_GALAXY_SIZE_LARGE           | Grande
-SETUP_GALAXY_SIZE_LARGE2          | Grande
-SETUP_GALAXY_SIZE_HUGE            | Énorme
+SETUP_GALAXY_SIZE_LARGE2          | Très Grande
+SETUP_GALAXY_SIZE_HUGE            | Super Grande
 SETUP_GALAXY_SIZE_HUGE2           | Énorme
 SETUP_GALAXY_SIZE_MASSIVE         | Massive
-SETUP_GALAXY_SIZE_MASSIVE2        | Massive
-SETUP_GALAXY_SIZE_MASSIVE3        | Massive
-SETUP_GALAXY_SIZE_MASSIVE4        | Colossale
+SETUP_GALAXY_SIZE_MASSIVE2        | Immense
+SETUP_GALAXY_SIZE_MASSIVE3        | Démesurée
+SETUP_GALAXY_SIZE_MASSIVE4        | Gigantesque
 SETUP_GALAXY_SIZE_MASSIVE5        | Colossale
-SETUP_GALAXY_SIZE_INSANE          | Folle
+SETUP_GALAXY_SIZE_INSANE          | Insensée
 SETUP_GALAXY_SIZE_LUDICROUS       | Ridicule
 SETUP_GALAXY_SIZE_MAXIMUM         | Maximal
-SETUP_GALAXY_SHAPE_RECTANGLE      | Champ d'étoiles
+SETUP_GALAXY_SHAPE_RECTANGLE      | Rectangulaire
 SETUP_GALAXY_SHAPE_CIRCULAR       | Circulaire
 SETUP_GALAXY_SHAPE_RING           | Anneau
 SETUP_GALAXY_SHAPE_ELLIPSE        | Ellipse
@@ -1072,8 +1072,8 @@ SETUP_GALAXY_SHAPE_SPIRAL         | Spirale
 SETUP_GALAXY_SHAPE_STAR           | Étoile
 SETUP_GALAXY_SHAPE_BARSPIRAL      | Spirale barrée
 SETUP_GALAXY_SHAPE_TEXT           | Texte
-SETUP_GALAXY_SHAPE_CLUSTER        | Amas galactique
-SETUP_GALAXY_SHAPE_SWIRLCLUSTERS  | Grappes tourbillonnantes
+SETUP_GALAXY_SHAPE_CLUSTER        | Amas
+SETUP_GALAXY_SHAPE_SWIRLCLUSTERS  | Tourbillons
 SETUP_GALAXY_SHAPE_GRID           | Grille
 SETUP_GALAXY_SHAPE_SPIRALARMS     | Bras spiraux
 SETUP_GALAXY_SHAPE_MAZE           | Labyrinthe
@@ -1110,13 +1110,13 @@ SETUP_AUTOPLAY_AI_BASE            | AI: Base
 SETUP_AUTOPLAY_AI_MODNAR          | AI: Modnar
 SETUP_AUTOPLAY_AI_XILMI           | AI: Xilmi
 SETUP_GAME_DIFFICULTY_LABEL       | Difficulté
-SETUP_DIFFICULTY_EASIEST          | Le plus facile
-SETUP_DIFFICULTY_EASIER           | Plus facile
+SETUP_DIFFICULTY_EASIEST          | Trop facile
+SETUP_DIFFICULTY_EASIER           | Très facile
 SETUP_DIFFICULTY_EASY             | Facile
 SETUP_DIFFICULTY_NORMAL           | Normale
 SETUP_DIFFICULTY_HARD             | Difficile
-SETUP_DIFFICULTY_HARDER           | Plus difficile
-SETUP_DIFFICULTY_HARDEST          | Le plus difficile
+SETUP_DIFFICULTY_HARDER           | Très difficile
+SETUP_DIFFICULTY_HARDEST          | Trop difficile
 SETUP_RESEARCH_RATE_NORMAL        | Normale
 SETUP_RESEARCH_RATE_SLOW          | Lent
 SETUP_RESEARCH_RATE_SLOWER        | Plus lent
@@ -1169,7 +1169,7 @@ SETUP_RANDOMIZE_AI_PERSONALITY    | Personnalité
 SETUP_RANDOMIZE_AI_ABILITY        | Capacité
 SETUP_RANDOMIZE_AI_BOTH           | Les deux
 SETUP_RACE_LABEL                  | Races disponibles
-SETUP_RACE_COLOR                  | Couleur de l'empire
+SETUP_RACE_COLOR                  | Votre Couleur
 SETUP_HOMEWORLD_NAME_LABEL        | Planète :
 SETUP_LEADER_NAME_LABEL           | Dirigeant :
 SETUP_FLAG_LABEL                  | Bannière
@@ -1187,7 +1187,7 @@ SETUP_SPIRAL_6_ARMS               | Six bras
 SETUP_SPIRAL_7_ARMS               | Sept bras
 SETUP_SPIRAL_8_ARMS               | Huit bras
 SETUP_SPIRAL_SYMMETRIC            | Symétrique
-SETUP_SPIRAL_ROTATION_0           | Pas de rotation
+SETUP_SPIRAL_ROTATION_0           | Sans rotation
 SETUP_SPIRAL_ROTATION_1           | Rotation 1
 SETUP_SPIRAL_ROTATION_2           | Rotation 2
 SETUP_SPIRAL_ROTATION_3           | Rotation 3
@@ -1200,12 +1200,13 @@ SETUP_ELLIPSE_2                   | Ellipse 2
 SETUP_ELLIPSE_3                   | Ellipse 3
 SETUP_ELLIPSE_4                   | Ellipse 4
 SETUP_ELLIPSE_SYMMETRIC           | Symétrique
-SETUP_VOID_0                      | Pas de vide
-SETUP_VOID_1                      | Vide 1
-SETUP_VOID_2                      | Vide 2
-SETUP_VOID_3                      | Vide 3
-SETUP_VOID_4                      | Vide 4
-SETUP_TEXT_0                      | votre planète
+SETUP_VOID_0                      | Sans vide
+SETUP_VOID_1                      | Vide * 1
+SETUP_VOID_2                      | Vide * 2
+SETUP_VOID_3                      | Vide * 3
+SETUP_VOID_4                      | Vide * 4
+SETUP_VOID_5                      | Vide * 5
+SETUP_TEXT_0                      | Votre planète
 SETUP_TEXT_1                      | ROTP
 SETUP_TEXT_2                      | MoO1
 SETUP_1_LINE                      | Simple Ligne
@@ -1214,14 +1215,14 @@ SETUP_3_LINE                      | Triple Ligne
 SETUP_BULLSEYE_0                  | Cible
 SETUP_BULLSEYE_1                  | Anneaux
 SETUP_BULLSEYE_2                  | Carrés
-SETUP_CLUSTER_0                   | 4 Groupes
-SETUP_CLUSTER_1                   | 6 Groupes
-SETUP_CLUSTER_2                   | 8 Groupes
+SETUP_CLUSTER_0                   | 4 Amas
+SETUP_CLUSTER_1                   | 6 Amas
+SETUP_CLUSTER_2                   | 8 Amas
 SETUP_FRACTAL_0                   | Sierpinski
 SETUP_FRACTAL_1                   | Jeux du Chaos
-SETUP_GRID_0                      | Quelques Groupes
-SETUP_GRID_1                      | Que des Groupes
-SETUP_GRID_2                      | Aucuns Groupes
+SETUP_GRID_0                      | Quelques Amas
+SETUP_GRID_1                      | Remplis d'Amas
+SETUP_GRID_2                      | Sans Amas
 SETUP_LORENZ_0                    | Lorenz-1
 SETUP_LORENZ_1                    | Lorenz-2
 SETUP_VIEW_0                      | Vue A
@@ -1241,30 +1242,30 @@ SETUP_SPIRALARMS_3                | Normal
 SETUP_SPIRALARMS_4                | Serré
 SETUP_SPIRALARMS_NORMAL           | Normal
 SETUP_SPIRALARMS_SYMMETRIC        | Symmetric
-SETUP_SWIRLCLUSTERS_0             | Groupé en long
-SETUP_SWIRLCLUSTERS_1             | Groupé en croix
-SETUP_SWIRLCLUSTERS_2             | Aucuns Groupes
+SETUP_SWIRLCLUSTERS_0             | Sur le fil
+SETUP_SWIRLCLUSTERS_1             | Imbriqués
+SETUP_SWIRLCLUSTERS_2             | Sans Amas
 SETUP_NOT_AVAILABLE               | N/A
 
 // Advanced Settings
-SETTINGS_TITLE                    | Options de jeu avancées
-SETTINGS_DESCRIPTION              | Cliquez pour basculer chaque paramètre de jeu.
+SETTINGS_TITLE                    | Options Avancées
+SETTINGS_DESCRIPTION              | Cliquez pour changer les paramètres.
 SETTINGS_EXIT                     | Quitter
-SETTINGS_DEFAULT                  | Définir par défaut
-SETTINGS_STAR_DENSITY             | Densité d'étoiles : %1
+SETTINGS_DEFAULT                  | Valeurs par défaut
+SETTINGS_STAR_DENSITY             | Densité des étoiles : %1
 SETTINGS_RANDOM_EVENTS            | Événements aléatoires : %1
-SETTINGS_RESEARCH_RATE            | Taux de recherche : %1
-SETTINGS_COUNCIL_WIN              | Victoire du conseil : %1
-SETTINGS_RANDOMIZE_AI             | Randomiser l'IA : %1
-SETTINGS_AUTOPLAY                 | Lecture automatique : %1
-SETTINGS_TECH_TRADING             | Commerce de technologie : %1
+SETTINGS_RESEARCH_RATE            | Vitesse de la recherche : %1
+SETTINGS_COUNCIL_WIN              | Victoire par élection : %1
+SETTINGS_RANDOMIZE_AI             | IA aléatoire : %1
+SETTINGS_AUTOPLAY                 | Seulement les IA : %1
+SETTINGS_TECH_TRADING             | Échanges de technologies : %1
 SETTINGS_GALAXY_AGE               | Âge de la galaxie : %1
 SETTINGS_WARP_SPEED               | Vitesse de distorsion : %1
-SETTINGS_NEBULAE                  | Nébuleuse : %1
-SETTINGS_PLANET_QUALITY           | qualité de la planète : %1
-SETTINGS_TERRAFORMING             | Terraformation hostile : %1
+SETTINGS_NEBULAE                  | Nébuleuses : %1
+SETTINGS_PLANET_QUALITY           | Qualité des planètes : %1
+SETTINGS_TERRAFORMING             | Terraformation : %1
 SETTINGS_COLONIZING               | Colonisation : %1
-SETTINGS_FUEL_RANGE               | Portée de carburants : %1
+SETTINGS_FUEL_RANGE               | Autonomie : %1
 SETTINGS_AI_HOSTILITY             | Hostilité : %1
 SETTINGS_RANDOM_EVENTS_DESC       | Les monstres spatiaux sont des événements aléatoires et des menaces considérables en milieu de partie. Désactiver les monstres spatiaux ou tous les événements aléatoires. 
 SETTINGS_WARP_SPEED_DESC          | Augmenter la vitesse des technologies de distorsion plus avancées. Cela peut être souhaitable sur de très grandes cartes.
@@ -1284,11 +1285,11 @@ SETTINGS_FUEL_RANGE_DESC          | Augmenter la gamme des technologies de port�
 SETTINGS_AI_HOSTILITY_DESC        | Augmenter ou diminuez le niveau général d'hostilité entre les races extraterrestres.
 
 // Tech UI labels
-TECH_RESEARCH                     | Recherche technologique
+TECH_RESEARCH                     | Technologies Recherchées
 TECH_RESEARCH_POINTS              | Points de recherche
-TECH_EMPIRE_SPENDING              | Dépenses technologiques de l'Empire
+TECH_EMPIRE_SPENDING              | Budget de Recherce
 TECH_EMPIRE_SPENDING_DESC         | Somme des dépenses technologiques de toutes les colonies. 
-TECH_EMPIRE_TECH_RESERVE_OPT      | Détourner les dépenses excédentaires de la colonie de la réserve du Trésor vers la recherche
+TECH_EMPIRE_TECH_RESERVE_OPT      | Transférer les dépenses excédentaires de la colonie de la réserve du Trésor vers la recherche
 TECH_EMPIRE_BALANCED_DESC         | Des dépenses équilibrées augmentent les points de recherche globaux.
 TECH_EMPIRE_DETAIL_1              | %1 BC pour
 TECH_EMPIRE_DETAIL_2              | %2 RP / Année
@@ -1302,7 +1303,7 @@ TECH_FUTURE_TIER_DESC             | Apprenez toutes les technologies des niveaux
 TECH_ALLOCATE_POINTS              | Attribuer des points de recherche
 TECH_EQUALIZE                     | Égaliser les allocations
 TECH_RESEARCH_COMPLETED           | Recherche terminée
-TECH_RESEARCHING                  | En recherche :
+TECH_RESEARCHING                  | En cours :
 TECH_NONE_RESEARCHED              | Aucun
 TECH_PLANETARY_SHIELDS            | Boucliers planétaires
 TECH_PLANETARY_SHIELDS_NONE       | Aucun
@@ -1310,18 +1311,18 @@ TECH_PLANETARY_SHIELDS_CLASS      | Classe %1
 TECH_GROUND_COMBAT                | Combat au sol
 TECH_GROUND_COMBAT_NO_BONUS       | Aucun bonus
 TECH_GROUND_COMBAT_BONUS          | +%1%
-TECH_TERRAFORM                    | Terraforme
+TECH_TERRAFORM                    | Terraformation
 TECH_TERRAFORM_NO_BONUS           | Aucun bonus
 TECH_TERRAFORM_BONUS              | +%1 Pop Max.
 TECH_FACTORY_CONTROLS             | Contrôles d'usine
 TECH_FACTORY_CONTROLS_BONUS       | %1 par colon
-TECH_PLANET_SCANNER               | Portée de scanner
+TECH_PLANET_SCANNER               | Portée des scanners
 TECH_PLANET_SCANNER_NONE          | Aucun
 TECH_PLANET_SCANNER_RANGE         | %1 A.L.
 TECH_WASTE_REDUCTION              | Réduction des déchets
 TECH_WASTE_REDUCTION_NONE         | Aucune
 TECH_WASTE_REDUCTION_AMT          | -%1%
-TECH_WASTE_CLEANUP                | Nettoyage des déchets
+TECH_WASTE_CLEANUP                | Décontamination
 TECH_WASTE_CLEANUP_BONUS          | %1 Déchets/BC
 TECH_SHIP_RANGE                   | Portée de navires
 TECH_SHIP_RANGE_AMT               | %1 A.L.
@@ -1385,17 +1386,17 @@ SHIP_DESIGN_BEAM_DEF_LABEL        | Défense de Faisceau
 SHIP_DESIGN_ATTACK_LEVEL_LABEL    | Niveau d'attaque
 SHIP_DESIGN_COMBAT_SPEED_LABEL    | Vitesse de combat
 SHIP_DESIGN_COMBAT_SPEED_VALUE    | %1 carré(s)
-SHIP_DESIGN_ENGINES_TITLE         | Moteurs
+SHIP_DESIGN_ENGINES_TITLE         | Propulsion
 SHIP_DESIGN_ENGINES_DESC          | Propulse votre vaisseau et ses composants.
 SHIP_DESIGN_ENGINE_TYPE           | Type
 SHIP_DESIGN_ENGINE_SPEED          | Vitesse
-SHIP_DESIGN_ENGINE_COST1          | Coût, par moteur
-SHIP_DESIGN_ENGINE_SIZE1          | Taille, par moteur
-SHIP_DESIGN_ENGINE_POWER1         | Puiss., par moteur
-SHIP_DESIGN_POWER_REQUIREMENTS    | Exigences d'alimentation
-SHIP_DESIGN_ENGINES_REQUIRED      | Moteurs requis
-SHIP_DESIGN_ENGINES_SIZE          | Taille totale du moteur
-SHIP_DESIGN_ENGINES_COST          | Coût total du moteur
+SHIP_DESIGN_ENGINE_COST1          | Coût, par unité
+SHIP_DESIGN_ENGINE_SIZE1          | Taille, par unité
+SHIP_DESIGN_ENGINE_POWER1         | Puiss., par unité
+SHIP_DESIGN_POWER_REQUIREMENTS    | Requis de puissance
+SHIP_DESIGN_ENGINES_REQUIRED      | Unités requises
+SHIP_DESIGN_ENGINES_SIZE          | Taille totale
+SHIP_DESIGN_ENGINES_COST          | Coût total
 SHIP_DESIGN_COPY_BUTTON           | Copier
 SHIP_DESIGN_CLEAR_BUTTON          | Effacer
 SHIP_DESIGN_RENAME_BUTTON         | Renommer
@@ -1419,8 +1420,8 @@ SHIP_DESIGN_COMPONENT_NONE        | Aucun
 // ship design selection dialogs
 SHIP_DESIGN_STARGATE_NAME         | Porte des étoiles
 SHIP_DESIGN_1ST_SCOUT_NAME        | Éclaireur
-SHIP_DESIGN_1ST_FIGHTER_NAME      | Chasser
-SHIP_DESIGN_1ST_DESTROYER_NAME    | Destructeer
+SHIP_DESIGN_1ST_FIGHTER_NAME      | Chasseur
+SHIP_DESIGN_1ST_DESTROYER_NAME    | Destructeur
 SHIP_DESIGN_1ST_BOMBER_NAME       | Bombardier
 SHIP_DESIGN_1ST_COLONY_NAME       | Navire colonial
 SHIP_DESIGN_COMPUTER_TITLE        | Ordinateurs
@@ -1488,7 +1489,7 @@ SHIP_DESIGN_HELP_1G               | Points de vie - dégâts nécessaires pour d
 SHIP_DESIGN_HELP_1H               | Défense antimissile - niveau de défense contre les armes de missiles au combat.
 SHIP_DESIGN_HELP_1I               | Défense de faisceau - niveau de défense contre les armes à faisceau au combat.
 SHIP_DESIGN_HELP_1J               | Niveau d'attaque - niveau d'attaque des armes en combat. 
-SHIP_DESIGN_HELP_1K               | Vitesse de combat - distance que le vaisseau peut parcourir en combat, par tour.
+SHIP_DESIGN_HELP_1K               | manœuvrabilité - distance que le vaisseau peut parcourir en combat, par tour.
 SHIP_DESIGN_HELP_1L               | Teinte - modifie la couleur du navire.
 SHIP_DESIGN_HELP_2A               | Type de moteur - le type de moteur utilisé pour propulser cette conception de vaisseau.
 SHIP_DESIGN_HELP_2B               | Vitesse - vitesse de déplacement fournie par le moteur.
@@ -1505,7 +1506,7 @@ SHIP_DESIGN_HELP_3A               | Ordinateurs - affectent le niveau d'attaque 
 SHIP_DESIGN_HELP_3B               | Armure - affecte les points de vie de votre vaisseau. L'armure lourde l'augmente de 50 %.
 SHIP_DESIGN_HELP_3C               | Boucliers - réduisent les dégâts des attaques entrantes.
 SHIP_DESIGN_HELP_3D               | les contre-mesures électroniques améliorent votre défense antimissile. - les contre-mesures électroniques améliorent votre défense antimissile.
-SHIP_DESIGN_HELP_3E               | Manœuvre - augmente la vitesse de combat et les défenses du navire.
+SHIP_DESIGN_HELP_3E               | Manœuvre - augmente la manœuvrabilité et les défenses du navire.
 SHIP_DESIGN_HELP_3F               | Armes - peuvent infliger des dégâts aux navires et colonies ennemis. Jusqu'à quatre types d'armes différents peuvent être ajoutés à une conception de navire.
 SHIP_DESIGN_HELP_3G               | Spéciaux - appareils qui offrent des capacités uniques à votre vaisseau. Jusqu'à trois dispositifs spéciaux peuvent être ajoutés à une conception de navire.
 SHIP_DESIGN_HELP_4A               | Renommer - vous permet de renommer un dessin existant.
@@ -1746,11 +1747,11 @@ RACES_MILITARY_ATTACK_LEVEL       | Niveau d'attaque
 RACES_MILITARY_MISSILE_DEFENSE    | Défense antimissile
 RACES_MILITARY_BEAM_DEFENSE       | Défense contre faisceau
 RACES_MILITARY_SHIELD             | Classe de bouclier
-RACES_MILITARY_COMBAT_SPEED       | Vitesse de combat
-RACES_MILITARY_TRAVEL_SPEED       | Vitesse de voyage
+RACES_MILITARY_COMBAT_SPEED       | Manœuvrabilité
+RACES_MILITARY_TRAVEL_SPEED       | Vitesse
 RACES_MILITARY_WEAPON_CNT         | %2 x%1
-RACES_MILITARY_NO_WEAPONS         | Pas d'armes
-RACES_MILITARY_NO_SPECIALS        | Pas de speciaux
+RACES_MILITARY_NO_WEAPONS         | Sans armes
+RACES_MILITARY_NO_SPECIALS        | Sans speciaux
 RACES_MILITARY_ACTIVE             | Actif
 RACES_MILITARY_INACTIVE           | Inactif
 RACES_MILITARY_LAST_SEEN          | Vu pour la dernière fois
@@ -1899,7 +1900,7 @@ SYSTEMS_TAB_EXPLORE               | Explorer
 SYSTEMS_TAB_EXPAND                | Étendre
 SYSTEMS_TAB_EXPLOIT               | Exploiter
 SYSTEMS_TAB_EXTERMINATE           | Exterminer
-SYSTEMS_RANGE                     | %1 ly
+SYSTEMS_RANGE                     | %1 al
 SYSTEMS_ENVIRONMENT_SIZE          | %1 %2
 SYSTEMS_ENVIRONMENT_TYPE          | %1 %2
 SYSTEMS_SHIELD                    | Bouclier %1
@@ -1908,20 +1909,20 @@ SYSTEMS_ENTER_NOTES               | Mettez vos notes système ici.
 SYSTEMS_ALERT                     | Alerte système
 SYSTEMS_NO_ALERTS                 | Aucune alerte pour le moment.
 SYSTEMS_HISTORY                   | Historique du système
-SYSTEMS_UNSCOUTED                 | Le système est sans surveillance mais est à portée de nos vaisseaux éclaireurs.
-SYSTEMS_UNSCOUTED_NEED_TECH       | Le système est sans surveillance et sera atteignable une fois la recherche de "%1" terminée.
-SYSTEMS_UNSCOUTED_COLONIZED       | Le système est sans surveillance et contrôlé par un empire qui n'est pas un allié.
-SYSTEMS_UNSCOUTED_ENEMY           | Le système est sans surveillance et contrôlé par un empire ennemi.
-SYSTEMS_UNSCOUTED_GUARDED         | Impossible d'effectuer une reconnaissance tant que le système est protégé.
-SYSTEMS_UNSCOUTED_UNREACHABLE     | Le système est sans surveillance et est actuellement inaccessible.
-SYSTEMS_CAN_COLONIZE              | Le système est atteignable et colonisable avec notre technologie actuelle.
-SYSTEMS_CAN_COLONIZE_EN_ROUTE     | Un vaisseau colonial est en route vers ce système. la date d'arrivée est estimée à %1 tours.
-SYSTEMS_CAN_COLONIZE_ENEMY        | Le système est atteignable et colonisable, mais une flotte [alien_raceadjecF] hostile est en orbite.
-SYSTEMS_UNCOLONIZED_NEED_TECH     | Ce système sera colonisable une fois la recherche dans "%1" terminée.
-SYSTEMS_UNCOLONIZED_NEED_TECHS    | Ce système sera colonisable une fois la recherche dans « %1 » et « %2 » terminée.
+SYSTEMS_UNSCOUTED                 | Système sans surveillance, atteignable par nos vaisseaux éclaireurs.
+SYSTEMS_UNSCOUTED_NEED_TECH       | Système sans surveillance, sera atteignable après la recherche de "%1" terminée.
+SYSTEMS_UNSCOUTED_COLONIZED       | Système sans surveillance, contrôlé par un empire non allié.
+SYSTEMS_UNSCOUTED_ENEMY           | Système sans surveillance, contrôlé par un empire ennemi.
+SYSTEMS_UNSCOUTED_GUARDED         | Impossible d'effectuer une reconnaissance tant que le système sera protégé.
+SYSTEMS_UNSCOUTED_UNREACHABLE     | Système sans surveillance, actuellement inaccessible.
+SYSTEMS_CAN_COLONIZE              | Système atteignable et colonisable avec notre technologie actuelle.
+SYSTEMS_CAN_COLONIZE_EN_ROUTE     | Une colonie est en route vers ce système. La date d'arrivée est estimée à %1 tours.
+SYSTEMS_CAN_COLONIZE_ENEMY        | Système atteignable et colonisable, mais une flotte [alien_raceadjecF] hostile est en orbite.
+SYSTEMS_UNCOLONIZED_NEED_TECH     | Ce système sera colonisable lorsque la recherche de "%1" sera terminée.
+SYSTEMS_UNCOLONIZED_NEED_TECHS    | Ce système sera colonisable lorsque les recherches de « %1 » et « %2 » seront terminées.
 SYSTEMS_UNCOLONIZEABLE            | Ce système n'est pas colonisable.
 SYSTEMS_EXPLOIT_PCT               | Colonie à %1 % de capacité de production totale.
-SYSTEMS_EXPLOIT_WASTE             | La colonie crée des déchets industriels.
+SYSTEMS_EXPLOIT_WASTE             | La colonie produit des déchets industriels.
 SYSTEMS_EXPLOIT_COMPLETE          | La colonie est à sa capacité de production maximale.
 SYSTEMS_EXPLOIT_TRANSPORTS        | %1 transports sont en transit.
 SYSTEMS_EXT_ENEMY                 | Colonie ennemie.

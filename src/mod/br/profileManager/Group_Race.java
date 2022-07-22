@@ -26,8 +26,6 @@ import java.util.List;
 import br.profileManager.src.main.java.AbstractGroup;
 import br.profileManager.src.main.java.AbstractParameter;
 import br.profileManager.src.main.java.AbstractT;
-import br.profileManager.src.main.java.PMutil;
-import br.profileManager.src.main.java.T_Integer;
 import br.profileManager.src.main.java.T_String;
 import br.profileManager.src.main.java.Valid_IntegerWithList;
 import br.profileManager.src.main.java.Validation;
@@ -130,7 +128,8 @@ public class Group_Race extends AbstractGroup <ClientClasses> {
 	    // ========== Overriders ==========
 	    //
 		@Override public AbstractT<Integer> getFromGame (ClientClasses go) {
-			return new T_Integer(go.newOptions().selectedPlayerColor());
+//			return new T_Integer(go.newOptions().selectedPlayerColor());
+			return getValidation().newValue(go.newOptions().selectedPlayerColor());
 		}
 		
 		@Override public void putToGame(ClientClasses go, AbstractT<Integer> value) {

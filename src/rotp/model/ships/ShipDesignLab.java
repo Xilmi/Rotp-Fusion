@@ -332,7 +332,7 @@ public class ShipDesignLab implements Base, Serializable {
         design.computer(computers().get(1));
         design.shield(shields().get(1));
         design.addWeapon(beamWeapon(0, true), 1); // HEAVY LASER
-        ShipSpecial spBattleScanner = specialNamed("Battle Scanner");
+        ShipSpecial spBattleScanner = specialBattleScanner();
         design.special(0, spBattleScanner);
         design.special(1, specialReserveFuel());
         design.name(text("Battle Scout"));
