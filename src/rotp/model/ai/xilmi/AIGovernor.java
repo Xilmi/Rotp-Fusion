@@ -574,10 +574,7 @@ public class AIGovernor implements Base, Governor {
             //Systems that are building colony-ships should keep their population
             float factoryTgt = tgtPercentage;
             tgtPercentage = max(factoryTgt, tgtPercentage);
-            if(tgtPercentage <= 1)
-                tgtPercentage = min(0.9f, tgtPercentage);
-            else
-                tgtPercentage = 1;
+            tgtPercentage = min(0.9f, tgtPercentage);
             //we don't want to bolster systems in a war-zone but also not send their pop away
             float currentPercentage = tgtPercentage;
             if(sv.system().colony() != null)
