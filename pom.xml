@@ -341,7 +341,7 @@
 								<maxHeapSize>3500</maxHeapSize>
 							</jre>
 							<versionInfo>
-								<fileVersion>${project.version}.1</fileVersion>
+								<fileVersion>${project.version}</fileVersion>
 								<txtFileVersion>${project.version}</txtFileVersion>
 								<fileDescription>Remnants of the Precursors</fileDescription>
 								<copyright>Copyright Ray Fowler</copyright>
