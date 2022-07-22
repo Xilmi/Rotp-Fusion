@@ -22,7 +22,10 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
-2026.07.21
+2022.07.22
+  - Minor bugs correction
+
+2022.07.21
   - Made Rookie AI independent of Base and Modnar AI.
   - Restored original Base and Modnar AI.
   - Added Low fuel range. (to compensate companion bonus!)
@@ -36,12 +39,12 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
   - Added Option to always have the Control Irradiated in Tech tree
   - Added Always Irradiated to Modnar GUI
 
-2026.07.15
+2022.07.15
   - Changing Player Race: Fixed Technology tree re-generation.
   - Minor bugs Fix
   - Added total mouse control to Modnar and Advanced GUI
 
-2026.07.13
+2022.07.13
   - Restored Fuel Range.
   - Added randomness in the distribution of companion worlds.
     - Up to 6 companions worlds are now available.
@@ -53,18 +56,18 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
       - Added Straigth and Very Loose options to Spiral Arms Galaxies.
   - Updated to Xilmi Fusion 2022-07-13.
 
-2026.07.05
+2022.07.05
   - Added AI filters for individual filling option.
   - Added secondary options for Galaxy shapes.
   - Added possibility to hide parameters in Profiles.cfg
 
-2026.07.01
+2022.07.01
   - Junit test integration to github
   - Pom file normalization
   - Minor bugs solved
   - Updated to ROTP Fusion-MOD v2022.06.29
 
-2026.06.29
+2022.06.29
   - Copy of Fusion-MOD v2022.06.25
   - Merged with 1.02a_modnar_MOD39_newRaces
   - Merged with Profiles Manager
