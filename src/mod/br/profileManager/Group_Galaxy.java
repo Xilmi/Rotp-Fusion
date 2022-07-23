@@ -172,7 +172,7 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		for (int i=0; i<lim; i++) {
 			race = options.selectedOpponentRace(i);
 			if (race == null) {
-				race = IGameOptions.OPPONENT_AI_BASE;
+				race = "null";
 			}
 			list .add(race);
 		}

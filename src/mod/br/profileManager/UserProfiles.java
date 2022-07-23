@@ -23,6 +23,7 @@ import br.profileManager.src.main.java.AbstractGroup;
 import br.profileManager.src.main.java.AbstractParameter;
 import br.profileManager.src.main.java.AbstractProfiles;
 import br.profileManager.src.main.java.Valid_LocalEnable;
+import mod.br.AddOns.RaceFilter;
 import rotp.Rotp;
 import rotp.ui.UserPreferences;
 
@@ -51,6 +52,17 @@ public class UserProfiles extends AbstractProfiles<ClientClasses> {
 	// ========================================================================
 	//  Public Methods
 	//
+	/**
+   	 * Load the profile file and memorize first options
+	 * @param clientObject The class that manage GUI parameters
+   	 */
+	@Override public void initAndLoadProfiles(ClientClasses co) {
+		// These filters needs to be loaded before other races 
+		RaceFilter.newRacesOnList(co.newOptions().startingRaceOptions());
+		RaceFilter.newRacesOffList(co.newOptions().newRacesOffOptions());
+		super.initAndLoadProfiles(co);
+	}
+
 	/**
    	 * Load the configuration file to update the Action
    	 * Update with last Loaded Game options values

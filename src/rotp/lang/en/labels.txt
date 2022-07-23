@@ -1373,6 +1373,7 @@ SETTINGS_MOD_TITLE                   | modnar MOD Options
 SETTINGS_MOD_ALWAYS_STARGATES        | Always Star Gates: %1
 SETTINGS_MOD_ALWAYS_THORIUM          | Always Thorium: %1
 SETTINGS_MOD_ALWAYS_IRRADIATED       | Always Irradiated: %1
+SETTINGS_MOD_NEW_RACES_ON            | Include New Races: %1
 SETTINGS_MOD_CHALLENGE_MODE          | Challenge Mode: %1
 SETTINGS_MOD_BATLLE_SCOUT            | Battle Scout: %1
 SETTINGS_MOD_COMPANION_WORLDS        | Companion Worlds: %1
@@ -1390,6 +1391,7 @@ SETTINGS_MOD_ALWAYS_STARGATES_DESC   | Always include "Intergalactic Star Gates"
 SETTINGS_MOD_ALWAYS_THORIUM_DESC     | Always include "Thorium Cells" in the Tech Tree for ALL Empires. Selecting NO leaves Tech availability up to chance.
 SETTINGS_MOD_ALWAYS_IRRADIATED_DESC  | Always include "Irradiated Control" in the Tech Tree for ALL Empires. Selecting NO leaves Tech availability up to chance.
 SETTINGS_MOD_CHALLENGE_MODE_DESC     | Give AI Empires additional starting resources (more Population, Factories, and Ships).
+SETTINGS_MOD_NEW_RACES_ON_DESC       | Include the new races as potential opponents
 SETTINGS_MOD_BATTLE_SCOUT_DESC       | Medium-Hull armed Scout Design for the Player at start of game. Buildable despite breaking Ship Space limitations.
 SETTINGS_MOD_COMPANION_WORLDS_DESC   | Give 0 to 6 additional Colonies around ALL Empire Homeworlds at start of game. (Negative value for original disposition)
 SETTINGS_MOD_RANDOM_TECH_START_DESC  | Give ALL Empires 2 random first Tier Techs at start of game. No Artifact Planets will be generated in the Galaxy. (Techs can differ from Empire to Empire.)

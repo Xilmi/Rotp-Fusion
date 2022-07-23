@@ -35,6 +35,12 @@ public class RacesOptions {
 	/**
 	 * @return the Gui Race Filter
 	 */
+    public static List<String> getNewRacesOnOffList() {
+         return RaceFilter.defaultRaceList();
+    }
+	/**
+	 * @return the Gui Race Filter
+	 */
     public static List<String> getGuiFilteredRaceList() {
          return RaceFilter.selectedGuiRaceFilter();
     }

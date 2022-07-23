@@ -1004,8 +1004,6 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
             return;
         if (hoverBox == null)
             return;
-        int x = e.getX();
-        int y = e.getY();
         if (hoverBox == backBox)
             goToRaceSetup();
         else if (hoverBox == settingsBox)

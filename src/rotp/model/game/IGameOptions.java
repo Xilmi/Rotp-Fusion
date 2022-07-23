@@ -18,6 +18,7 @@ package rotp.model.game;
 import java.awt.Color;
 import java.util.List;
 
+import mod.br.AddOns.RaceFilter;
 import rotp.mod.br.AddOns.RacesOptions;
 import rotp.mod.br.profiles.Profiles; // BR:
 import rotp.model.ai.AI;
@@ -254,6 +255,7 @@ public interface IGameOptions {
     public int maximumOpponentsOptions();
     public int defaultOpponentsOptions();
     public List<String> startingRaceOptions();
+    public List<String> newRacesOffOptions();
 
     public String selectedGalaxySize();
     public void selectedGalaxySize(String s);
@@ -592,12 +594,11 @@ public interface IGameOptions {
     default void nextOpponent(int i) {
         String player = selectedPlayerRace();
         // BR: Race filtration
-        // List<String> allOpps = startingRaceOptions();
         List<String> allOpps;
         if (Profiles.isGuiOpponentRaceListEnabled()) {
         	allOpps = RacesOptions.getGuiFilteredRaceList();
         } else {
-        	allOpps = startingRaceOptions();
+        	allOpps = RacesOptions.getNewRacesOnOffList();
         } // \BR
         String[] selectedOpps = selectedOpponentRaces();
         String currOpp = this.selectedOpponentRace(i);
@@ -629,7 +630,7 @@ public interface IGameOptions {
         if (Profiles.isGuiOpponentRaceListEnabled()) {
         	allOpps = RacesOptions.getGuiFilteredRaceList();
         } else {
-        	allOpps = startingRaceOptions();
+        	allOpps = RacesOptions.getNewRacesOnOffList();
         } // \BR
         String[] selectedOpps = selectedOpponentRaces();
         String currOpp = selectedOpponentRace(i);

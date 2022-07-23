@@ -17,7 +17,11 @@
 
 package mod.br.AddOns;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import rotp.ui.UserPreferences;
 
 /**
  * @author BrokenRegistry
@@ -25,6 +29,8 @@ import java.util.List;
  */
 public class RaceFilter {
 
+	private static List<String> newRacesOnList;
+	private static List<String> newRacesOffList = new ArrayList<String>();
 	private static List<String> defaultRaceList;
 	private static List<String> selectedGameRaceFilter;
 	private static List<String> selectedGuiRaceFilter;
@@ -40,6 +46,18 @@ public class RaceFilter {
 
     // ========== Setters ==========
     //
+	/**
+	 * @param newRaceList the new  newRaceOn List to set
+	 */
+	public static void newRacesOnList(List<String> newRaceList) {
+		newRacesOnList = newRaceList;
+	}
+	/**
+	 * @param newRaceList the new newRacesOff List to set
+	 */
+	public static void newRacesOffList(List<String> newRaceList) {
+		newRacesOffList = newRaceList;
+	}
 	/**
 	 * @param newRaceList the new default raceList to set
 	 */
@@ -99,10 +117,22 @@ public class RaceFilter {
     // ========== Getters ==========
     //
 	/**
+	 * @return the newRacesOff List
+	 */
+	public static List<String> newRacesOnList() {
+		return newRacesOnList;
+	}
+	/**
+	 * @return the newRacesOff List
+	 */
+	public static List<String> newRacesOffList() {
+		return newRacesOffList;
+	}
+	/**
 	 * @return the Default Race List
 	 */
 	public static List<String> defaultRaceList() {
-		return defaultRaceList;
+			return raceFilter(defaultRaceList);
 	}
 	/**
 	 * @return the race List
@@ -110,9 +140,9 @@ public class RaceFilter {
 	public static List<String> selectedGameRaceFilter() {
 		if (selectedGameRaceFilter == null 
 				|| selectedGameRaceFilter.toString().isBlank()) {
-			return defaultRaceList;
+			return defaultRaceList();
 		}
-		return selectedGameRaceFilter;
+		return raceFilter(selectedGameRaceFilter);
 	}
 	/**
 	 * @return the Race Filter
@@ -120,9 +150,9 @@ public class RaceFilter {
 	public static List<String> selectedGuiRaceFilter() {
 		if (selectedGuiRaceFilter == null 
 				|| selectedGuiRaceFilter.toString().isBlank()) {
-			return defaultRaceList;
+			return defaultRaceList();
 		}
-		return selectedGuiRaceFilter;
+		return raceFilter(selectedGuiRaceFilter);
 	}
 	/**
 	 * @return the Preset Opponents
@@ -182,4 +212,16 @@ public class RaceFilter {
 	}
     // ========== Other Methods ==========
     //
+	/**
+	 * @param raceList the List to filter
+	 * @return The filtered list in conformity with UserPreferences
+	 */
+	public static List<String> raceFilter (List<String> raceList) {
+		if (UserPreferences.newRacesOn()) {
+			return raceList;
+		}
+		return raceList.stream()
+				.filter(newRacesOffList::contains)
+				.collect(Collectors.toList());
+	}
 }

@@ -1000,7 +1000,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         return list;
     }
     @Override
-    public List<String> startingRaceOptions() {
+    public List<String> newRacesOffOptions() {
         List<String> list = new ArrayList<>();
         list.add("RACE_HUMAN");
         list.add("RACE_ALKARI");
@@ -1012,12 +1012,17 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add("RACE_DARLOK");
         list.add("RACE_SAKKRA");
         list.add("RACE_BULRATHI");
-        list.add("RACE_NEOHUMAN"); // modnar: add races
-		list.add("RACE_MONOCLE"); // modnar: add races
+        return list;
+    }
+    @Override
+    public List<String> startingRaceOptions() {
+        List<String> list = newRacesOffOptions();
+        list.add("RACE_NEOHUMAN");   // modnar: add races
+		list.add("RACE_MONOCLE");    // modnar: add races
 		list.add("RACE_JACKTRADES"); // modnar: add races
-		list.add("RACE_EARLYGAME"); // modnar: add races
-		list.add("RACE_WARDEMON"); // modnar: add races
-        list.add("RACE_GEARHEAD"); // modnar: add races
+		list.add("RACE_EARLYGAME");  // modnar: add races
+		list.add("RACE_WARDEMON");   // modnar: add races
+        list.add("RACE_GEARHEAD");   // modnar: add races
         return list;
     }
     @Override

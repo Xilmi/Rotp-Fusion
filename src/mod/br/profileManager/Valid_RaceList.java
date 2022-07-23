@@ -15,6 +15,8 @@
 
 package mod.br.profileManager;
 
+import static mod.br.AddOns.RaceFilter.raceFilter;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -53,6 +55,7 @@ class Valid_RaceList extends Validation<String> {
 		private List<String> startingList;	 // The original List
 		private List<String> allRaceOptions; // The full Scrambled list
 		private List<String> optionList;	 // The remaining List
+		
 		private String[] selectedOpponents;
 		private int maxOpponentType;
 		private int index;
@@ -64,8 +67,8 @@ class Valid_RaceList extends Validation<String> {
 			this.maxOpponentType = maxOpponentType;
 			initOptions(go);
 
-			List<String> randomGui  = RaceFilter.selectedGuiRaceFilter();
-			List<String> randomGame = RaceFilter.selectedGameRaceFilter();
+			List<String> randomGui  = RaceFilter.selectedGuiRaceFilter(); // Already filtered
+			List<String> randomGame = RaceFilter.selectedGameRaceFilter(); // Already filtered
 			int iMax = selectedOpponents.length;
 			int iMaxList = userEntry.size()-1;
 			int iList;
@@ -207,7 +210,7 @@ class Valid_RaceList extends Validation<String> {
 				maxOpponentType = IGameOptions.MAX_OPPONENT_TYPE;
 			}
 			// init allRaceOptions
-			startingList = go.newOptions().startingRaceOptions();
+			startingList = raceFilter(go.newOptions().startingRaceOptions());
 			allRaceOptions = new ArrayList<String>();
 			for (int i=0; i<maxOpponentType; i++) {
 				allRaceOptions.addAll(startingList);

@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+
+import rotp.mod.br.AddOns.RacesOptions;
 import rotp.model.empires.Empire;
 import rotp.model.empires.Race;
 import rotp.model.galaxy.GalaxyShape.EmpireSystem;
@@ -178,7 +180,8 @@ public class GalaxyFactory implements Base {
     private List<String> buildAlienRaces() {
         List<String> raceList = new ArrayList<>();
         List<String> allRaceOptions = new ArrayList<>();
-        List<String> options = options().startingRaceOptions();
+//        List<String> options = options().startingRaceOptions();
+        List<String> options = RacesOptions.getNewRacesOnOffList(); // BR:
         int maxRaces = options().selectedNumberOpponents();
         int mult = IGameOptions.MAX_OPPONENT_TYPE;
 
