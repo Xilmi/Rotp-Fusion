@@ -64,7 +64,8 @@ public class UserPreferences {
     private static int soundVolume = 10;
     private static int defaultMaxBases = 0;
     private static boolean displayYear = false;
-    private static boolean governorOnByDefault = true;
+    private static boolean newRacesOnByDefault = true;
+    private static boolean governorOnByDefault = true; // BR:
     private static boolean governorAutoSpendByDefault = false;
     private static boolean legacyGrowth = true; // BR:
     private static boolean governorAutoApply = true; // BR:
@@ -508,7 +509,9 @@ public class UserPreferences {
     public static boolean displayYear()       { return displayYear; }
     public static void setDefaultMaxBases(int bases)    { defaultMaxBases = bases; }
     public static int defaultMaxBases()    { return defaultMaxBases; }
-    public static void setGovernorOn(boolean governorOn)    { governorOnByDefault = governorOn; save(); }
+    public static void setnewRacesOn(boolean newRacesOn)    { newRacesOnByDefault = newRacesOn; save(); } // BR:
+    public static boolean newRacesOnByDefault() { return newRacesOnByDefault; }
+    public static void setGovernorOn(boolean governorOn)    { governorOnByDefault = governorOn; save(); } // BR:
     public static boolean governorOnByDefault() { return governorOnByDefault; }
     public static void setAutoSpendOn(boolean autospendOn)  { governorAutoSpendByDefault = autospendOn; save(); }
     public static boolean governorAutoSpendByDefault() { return governorAutoSpendByDefault; }
@@ -564,6 +567,7 @@ public class UserPreferences {
             out.println(keyFormat("SHOW_MEMORY")+ yesOrNo(showMemory));
             out.println(keyFormat("DISPLAY_YEAR")+ yesOrNo(displayYear));
             out.println(keyFormat("DEFAULT_MAX_BASES") + defaultMaxBases);
+            out.println(keyFormat("NEW_RACES_ON_BY_DEFAULT") + yesOrNo(newRacesOnByDefault)); // BR:
             out.println(keyFormat("GOVERNOR_ON_BY_DEFAULT") + yesOrNo(governorOnByDefault));
             out.println(keyFormat("AUTOSPEND_ON_BY_DEFAULT") + yesOrNo(governorAutoSpendByDefault));
             out.println(keyFormat("DIVERT_COLONY_EXCESS_TO_RESEARCH")+ yesOrNo(divertColonyExcessToResearch));
@@ -635,6 +639,7 @@ public class UserPreferences {
             case "SHOW_MEMORY":  showMemory = yesOrNo(val); return;
             case "DISPLAY_YEAR": displayYear = yesOrNo(val); return;
             case "DEFAULT_MAX_BASES": defaultMaxBases = Integer.valueOf(val); return;
+            case "NEW_RACES_ON_BY_DEFAULT": newRacesOnByDefault = yesOrNo(val); return; // BR:
             case "GOVERNOR_ON_BY_DEFAULT": governorOnByDefault = yesOrNo(val); return;
             case "AUTOSPEND_ON_BY_DEFAULT": governorAutoSpendByDefault = yesOrNo(val); return;
             case "DIVERT_COLONY_EXCESS_TO_RESEARCH": divertColonyExcessToResearch = yesOrNo(val); return;
