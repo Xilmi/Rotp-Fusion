@@ -22,6 +22,10 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
+2022.07.23
+  - Added easy control to switch ON/OFF the new races.
+  - Xilmi improvement for the new races with Ultra-Rich Home World.
+
 2022.07.22
   - Retreat Restriction Current value now displayed as text instead of integer.
   - The other languages are available again.
