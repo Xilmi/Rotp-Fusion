@@ -395,7 +395,7 @@ public class StartModOptionsUI extends BasePanel implements MouseListener, Mouse
 
         // draw settings button
 //        int y4 = scaled(480)+s100; // modnar: adjust button y position, related to panel vertical extent
-        int y4 = scaled(690); // BR: increased size // TODO
+        int y4 = scaled(690); // BR: increased size
         int cnr = s5;
         int smallButtonH = s30;
         int smallButtonW = scaled(180);

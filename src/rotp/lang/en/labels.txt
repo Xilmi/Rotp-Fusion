@@ -1159,6 +1159,9 @@ SETUP_RANDOM_EVENTS_NO_MONSTERS   | No Monsters
 SETUP_GALAXY_NUMBER_EMPIRES       | Total Empires: %1
 SETUP_GALAXY_NUMBER_SYSTEMS       | Total Systems: %1
 SETUP_GALAXY_MAX_OPPONENTS        | Maximum Opponents: %1
+SETUP_NEW_RACES_HEADER            | Race List
+SETUP_NEW_RACES_ON                | All Races
+SETUP_NEW_RACES_OFF               | Original
 SETUP_OPPONENTS_HEADER_1          | %1 vs.
 SETUP_OPPONENTS_HEADER_2          | Rival Empires
 SETUP_OPPONENT_RANDOM             | ???

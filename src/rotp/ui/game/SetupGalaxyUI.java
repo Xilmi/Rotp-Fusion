@@ -80,6 +80,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
     Rectangle aiBox = new Rectangle();
     Polygon  aiBoxL = new Polygon();
     Polygon aiBoxR = new Polygon();
+    Rectangle newRacesBox = new Rectangle(); // BR:
 
     Rectangle[] oppSet = new Rectangle[MAX_DISPLAY_OPPS];
     Rectangle[] oppAI = new Rectangle[MAX_DISPLAY_OPPS];
@@ -222,8 +223,8 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
         }
         else if ((hoverBox == shapeBox) || (hoverBox == sizeBox)
             || (hoverBox == mapOption1Box) || (hoverBox == mapOption2Box) 
-            || (hoverBox == aiBox)
-            || (hoverBox == diffBox)   || (hoverBox == oppBox)) {
+            || (hoverBox == aiBox)   || (hoverBox == newRacesBox)
+            || (hoverBox == diffBox) || (hoverBox == oppBox)) {
             Stroke prev = g.getStroke();
             g.setStroke(stroke2);
             g.setColor(Color.yellow);
@@ -263,6 +264,15 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
         int x4b =aiBox.x+((aiBox.width-aiSW)/2);
         int y4b = aiBox.y+aiBox.height-s4;
         drawString(g,aiLbl, x4b, y4b);
+
+        // draw New Races ON/OFF text
+        g.setColor(Color.black);
+        g.setFont(narrowFont(17));
+        String newRacesLbl = newRacesOnStr();
+        int newRacesSW = g.getFontMetrics().stringWidth(newRacesLbl);
+        int x4c = newRacesBox.x+((newRacesBox.width-newRacesSW)/2);
+        int y4c = newRacesBox.y+newRacesBox.height-s4;
+        drawString(g, newRacesLbl, x4c, y4c);
 
         // draw galaxy options text
         int y5 = shapeBox.y+shapeBox.height-s4;
@@ -372,6 +382,11 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
             drawNotice(g, 30);
         }
     }
+    private String newRacesOnStr() {
+    	if (UserPreferences.newRacesOn()) return text("SETUP_NEW_RACES_ON");
+    	else return text("SETUP_NEW_RACES_OFF");
+    }
+
     private void drawGalaxyShape(Graphics g, GalaxyShape sh, int x, int y, int w, int h) {
         float factor = min((float)h/sh.height(), (float)w/sh.width());
         int dispH = (int) (sh.height()*factor);
@@ -486,6 +501,11 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
     public void prevOpponentAI(boolean click) {
         if (click) softClick();
         newGameOptions().selectedOpponentAIOption(newGameOptions().prevOpponentAI());
+        repaint();
+    }
+    public void toggleNewRaces(boolean click) {
+        if (click) softClick();
+        UserPreferences.toggleNewRacesOn();
         repaint();
     }
     public void increaseOpponents(boolean click) {
@@ -649,11 +669,12 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
         // draw player vs opponent text
         int x2 = leftBoxX+s25+mugW+s15;
         int y2 = boxY+s25+mugH-s42;
+        int yho = s5; // BR: a little space for new races on/off 
         g.setFont(narrowFont(28));
         String header1 = text("SETUP_OPPONENTS_HEADER_1", race.setupName());
         String header2 = text("SETUP_OPPONENTS_HEADER_2", race.setupName());
         int swHdr = g.getFontMetrics().stringWidth(header1);
-        drawBorderedString(g, header1, 1, x2, y2, Color.black, Color.white);
+        drawBorderedString(g, header1, 1, x2, y2-yho, Color.black, Color.white);
 
         // draw opponent count box and arrows
         int x2b = x2+swHdr+s5;
@@ -674,7 +695,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
         g.fill(oppBoxU);
 
         int x2d = x2c+s20;
-        drawBorderedString(g, header2, 1, x2d, y2, Color.black, Color.white);
+        drawBorderedString(g, header2, 1, x2d, y2-yho, Color.black, Color.white);
         
         // draw ai selection
         String header3 = text("SETUP_OPPONENT_AI");
@@ -703,6 +724,18 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
         g.fill(aiBoxR);
         aiBox.setBounds(sliderX, sliderY, sliderW, sliderH);
         g.fill(aiBox);
+
+        // draw New Races selection
+        String header4 = text("SETUP_NEW_RACES_HEADER");
+        g.setFont(narrowFont(18));
+        int swHdr4 = g.getFontMetrics().stringWidth(header4);
+        g.setColor(SystemPanel.blackText);
+        int y4 = y3;
+        int x4 = sliderX + sliderW + s40;  // TODO BR:
+        drawString(g, header4, x4+s10, y4-sliderH);
+        g.setColor(GameUI.setupFrame());
+        newRacesBox.setBounds(x4, y4-sliderH+s5, swHdr4+s20, sliderH);
+        g.fill(newRacesBox);
 
         // draw galaxy shading
         g.setColor(GameUI.setupShade());
@@ -965,6 +998,8 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
             hoverBox = aiBoxR;
         else if (aiBox.contains(x,y))
             hoverBox = aiBox;
+        else if (newRacesBox.contains(x,y))
+        	hoverBox = newRacesBox;
         else if (diffBoxL.contains(x,y))
             hoverBox = diffBoxL;
         else if (diffBoxR.contains(x,y))
@@ -999,11 +1034,12 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
     @Override
     public void mousePressed(MouseEvent e) { }
     @Override
-    public void mouseReleased(MouseEvent e) {
+    public void mouseReleased(MouseEvent e) { // BR: added full mouse control
         if (e.getButton() > 3)
             return;
         if (hoverBox == null)
             return;
+        boolean up = !SwingUtilities.isRightMouseButton(e);
         if (hoverBox == backBox)
             goToRaceSetup();
         else if (hoverBox == settingsBox)
@@ -1016,53 +1052,64 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
         else if (hoverBox == shapeBoxL)
             prevGalaxyShape(true);
         else if (hoverBox == shapeBox)
-            nextGalaxyShape(true);
+        	if(up) nextGalaxyShape(true);
+        	else prevGalaxyShape(true);
         else if (hoverBox == shapeBoxR)
             nextGalaxyShape(true);		
 	else if (hoverBox == mapOption1BoxL)
             prevMapOption1(true);
         else if (hoverBox == mapOption1Box)
-            nextMapOption1(true);
+        	if(up) nextMapOption1(true);
+        	else prevMapOption1(true);
         else if (hoverBox == mapOption1BoxR)
             nextMapOption1(true);
 	else if (hoverBox == mapOption2BoxL)
             prevMapOption2(true);
         else if (hoverBox == mapOption2Box)
-            nextMapOption2(true);
+        	if(up) nextMapOption2(true);
+        	else prevMapOption2(true);
         else if (hoverBox == mapOption2BoxR)
             nextMapOption2(true);
         else if (hoverBox == sizeBoxL)
             prevGalaxySize(false, true);
         else if (hoverBox == sizeBox)
-            nextGalaxySize(false, true);
+        	if(up) nextGalaxySize(false, true);
+        	else prevGalaxySize(false, true);
         else if (hoverBox == sizeBoxR)
             nextGalaxySize(false, true);
         else if (hoverBox == aiBoxL)
             prevOpponentAI(true);
         else if (hoverBox == aiBox)
-            nextOpponentAI(true);
+        	if(up) nextOpponentAI(true);
+        	else prevOpponentAI(true);
         else if (hoverBox == aiBoxR)
             nextOpponentAI(true);
+        else if (hoverBox == newRacesBox)
+            toggleNewRaces(true);
         else if (hoverBox == diffBoxL)
             prevGameDifficulty(true);
         else if (hoverBox == diffBox)
-            nextGameDifficulty(true);
+        	if(up) nextGameDifficulty(true);
+        	else prevGameDifficulty(true);
         else if (hoverBox == diffBoxR)
             nextGameDifficulty(true);
         else if (hoverBox == oppBoxU)
             increaseOpponents(true);
         else if (hoverBox == oppBox)
-            increaseOpponents(true);
+        	if(up) increaseOpponents(true);
+        	else decreaseOpponents(true);
         else if (hoverBox == oppBoxD)
             decreaseOpponents(true);
         else {
             for (int i=0;i<oppSet.length;i++) {
                 if (hoverBox == oppSet[i]) {
-                    nextOpponent(i, true);
+                	if(up) nextOpponent(i, true);
+                	else prevOpponent(i, true);
                     break;
                 }
                 else if (hoverBox == oppAI[i]) {
-                    nextSpecificOpponentAI(i, true);
+                	if(up) nextSpecificOpponentAI(i, true);
+                	else prevSpecificOpponentAI(i, true);
                     break;
                 }
             }
@@ -1110,6 +1157,9 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
                 prevOpponentAI(false);
             else
                 nextOpponentAI(false);
+        }
+        else if (hoverBox == newRacesBox) {
+        	toggleNewRaces(false);
         }
         else if (hoverBox == diffBox) {
             if (up)
