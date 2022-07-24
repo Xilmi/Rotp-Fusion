@@ -21,6 +21,10 @@ Community subreddit: https://www.reddit.com/r/rotp/<br/>
 Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
+
+2022.07.24
+  - Added GridCircularDisplay to Remnant.cfg.
+
 2022.07.24
   - Added full mouse controlto Galaxy Options GUI.
   - Added new races on/off on Galaxy Options GUI.
