@@ -23,6 +23,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 ## What'New
 
 2022.07.24
+  - Replaced Modnar Ships colors settings with last Ray's settings.
+
+2022.07.24
   - Restored default language management.
 
 2022.07.24
