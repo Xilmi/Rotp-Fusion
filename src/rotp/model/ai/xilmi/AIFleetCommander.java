@@ -105,7 +105,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                         || empire.tech().topBaseMissileTech().quintile() > 1 
                         || empire.tech().topBaseScatterPackTech() != null) 
                         && empire.tech().topSpeed() > 1
-                        && empire.contactedEmpires().size() < 2)))
+                        && (empire.contactedEmpires().size() < 2) || empire.diplomatAI().techLevelRank() == 1)))
                 maxMaintenance = min(max(empire.generalAI().gameProgress(), enemyMaintenance()), 0.8f);
             else
                 maxMaintenance = min(empire.generalAI().gameProgress(), enemyMaintenance());
