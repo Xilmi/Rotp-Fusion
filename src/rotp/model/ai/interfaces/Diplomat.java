@@ -126,6 +126,7 @@ public interface Diplomat {
     //Xilmi-AI:
     default int popCapRank(Empire etc, boolean inAttackRange) { return 1; }
     default int techLevelRank() { return 1; }
+    default float facCapPct(Empire emp, boolean ignorePoor) { return 1; }
     default int facCapRank() { return 1; }
     default int militaryRank(Empire etc, boolean inAttackRange) { return 1; }
     default int popLossToTriggerWar() { return 1; }

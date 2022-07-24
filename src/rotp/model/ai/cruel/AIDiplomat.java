@@ -1412,32 +1412,30 @@ public class AIDiplomat implements Base, Diplomat {
                 victimPower += ally.powerLevel(ally);
                 victimMilitaryPower += ally.militaryPowerLevel();
             }
-            //System.out.println(galaxy().currentTurn()+" "+empire.name()+" my power: "+enemyPower+" "+victim.name()+" power: "+victim.powerLevel(victim)+" my military: "+enemyMilitaryPower+" their military: "+victimMilitaryPower+" colonize: "+empire.generalAI().additionalColonizersToBuild(false));
-            float victimPowerMod = 1.0f; //default for Kholdan, Cryslonoid, Ssslaura and Nazlok
-            if(empire.race().robotControlsAdj > 0 || empire.race().researchBonusPct() > 1.0f)
-                victimPowerMod = 0.75f;
-            if(empire.race().tradePctBonus() > 0)
-                victimPowerMod = 0.5f;
-            if(enemyPower <= empire.powerLevel(empire) && victimPower > victimPowerMod * enemyPower && victimMilitaryPower >= victimPowerMod * enemyMilitaryPower)
-                warAllowed = false;
-            if(enemyPower > empire.powerLevel(empire) && victimPower > enemyPower && victimMilitaryPower >= enemyMilitaryPower)
-                warAllowed = false;
-            if(empire.race().groundAttackBonus() > 0)
-                warAllowed = true;
-            if(empire.race().shipAttackBonus() > 0 || empire.race().shipDefenseBonus() > 0) {
-                if ((empire.tech().topShipWeaponTech().quintile() > 1 
-                            || empire.tech().topBaseMissileTech().quintile() > 1 
-                            || empire.tech().topBaseScatterPackTech() != null) 
-                            && empire.tech().topSpeed() > 1)
-                    warAllowed = true;
+            for(Empire contact : empire.contactedEmpires()) {
+                if(contact == victim)
+                    continue;
+                if(contact.warEnemies().contains(victim) || contact.warEnemies().contains(empire))
+                    continue;
+                float chanceOfContactToBackstabMe = empire.generalAI().predictEmpireChanceToDeclareWarIfIDeclaredWarOn(contact, victim, true);
+                float chanceOfContactToBackstabVictim = empire.generalAI().predictEmpireChanceToDeclareWarIfIDeclaredWarOn(contact, victim, false);
+                enemyPower += contact.powerLevel(contact) * chanceOfContactToBackstabVictim;
+                enemyMilitaryPower += contact.militaryPowerLevel() * chanceOfContactToBackstabVictim;
+                victimPower += contact.powerLevel(contact) * chanceOfContactToBackstabMe;
+                victimMilitaryPower += contact.militaryPowerLevel() * chanceOfContactToBackstabMe;
+                //System.out.println(galaxy().currentTurn()+" "+empire.name()+" thinks "+contact.name()+" would backstab "+empire.name()+" with a chance of: "+chanceOfContactToBackstabMe+" and "+victim.name()+" with a chance of: "+chanceOfContactToBackstabVictim);
             }
+            float aggressiveness = aggressiveness(victim);
+            //System.out.println(galaxy().currentTurn()+" "+empire.name()+" my power: "+enemyPower+" "+victim.name()+" power: "+victim.powerLevel(victim)+" my military: "+enemyMilitaryPower+" their military: "+victimMilitaryPower+" colonize: "+empire.generalAI().additionalColonizersToBuild(false)+" aggressiveness: "+aggressiveness);
+            if(victimPower > aggressiveness * enemyPower && victimMilitaryPower >= aggressiveness * enemyMilitaryPower)
+                warAllowed = false;
+            if(empire.generalAI().additionalColonizersToBuild(false) > 0 && !empire.atWar())
+                warAllowed = false;
+            //Ail: If there's only two empires left, there's no time for preparation. We cannot allow them the first-strike-advantage!
+            if(galaxy().numActiveEmpires() < 3)
+                warAllowed = true;
+            System.out.println(galaxy().currentTurn()+" "+empire.name()+" war allowed against "+victim.name()+": "+warAllowed);
         }
-        if(empire.generalAI().additionalColonizersToBuild(false) > 0 && !empire.atWar())
-            warAllowed = false;
-        //Ail: If there's only two empires left, there's no time for preparation. We cannot allow them the first-strike-advantage!
-        if(galaxy().numActiveEmpires() < 3)
-            warAllowed = true;
-        //System.out.println(galaxy().currentTurn()+" "+empire.name()+" war allowed against "+victim.name()+": "+warAllowed);
         //System.out.println(galaxy().currentTurn()+" "+empire.name()+" col: "+empire.generalAI().additionalColonizersToBuild(false)+" tech: "+techIsAdequateForWar());
         return warAllowed;
     }
@@ -1958,6 +1956,7 @@ public class AIDiplomat implements Base, Diplomat {
         //System.out.print("\n"+empire.galaxy().currentTurn()+" "+empire.name()+" my facCapRank: "+rank);
         return rank;
     }
+    @Override
     public float facCapPct(Empire emp, boolean ignorePoor)
     {
         float factories = 0;
@@ -2030,6 +2029,28 @@ public class AIDiplomat implements Base, Diplomat {
     @Override
     public boolean wantsToReviewCounterOffers() {
         return true;
+    }
+    public float aggressiveness(Empire victim) {
+        float aggressiveness = this.facCapPct(empire, false);
+        float racialMod = 1.0f;
+        if(empire.race().tradePctBonus() > 0 || empire.race().researchBonusPct() > 1.0f)
+            racialMod *= 2f / 3f;
+        if(empire.race().groundAttackBonus() > 0 || empire.race().shipAttackBonus() > 0 || empire.race().shipDefenseBonus() > 0 || empire.race().growthRateMod() > 1.0f)
+            racialMod *= 3f / 2f;
+        float personalityMod = 1.0f;
+        if(empire.leader().isAggressive() || empire.leader().isRuthless())
+            personalityMod *= 4f / 3f;
+        if(empire.leader().isPacifist() || (empire.leader().isHonorable() && empire.tradingWith(victim)))
+            personalityMod *= 3f / 4f;
+        if(empire.leader().isErratic())
+            personalityMod *= random(4f / 3f - 3f / 4f) + 3f / 4f;
+        if(empire.leader().isExpansionist() || empire.leader().isMilitarist())
+            personalityMod *= 4f / 3f;
+        if(empire.leader().isDiplomat() || empire.leader().isTechnologist())
+            personalityMod *= 3f / 4f;
+        aggressiveness *= racialMod;
+        aggressiveness *= personalityMod;
+        return aggressiveness;
     }
 }
 
