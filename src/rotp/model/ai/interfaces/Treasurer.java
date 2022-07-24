@@ -17,4 +17,6 @@ package rotp.model.ai.interfaces;
 
 public interface Treasurer {
     void allocateReserve();
+    //Xilmi-AI
+    default float maxReserveNeeded() { return 0; }
 }

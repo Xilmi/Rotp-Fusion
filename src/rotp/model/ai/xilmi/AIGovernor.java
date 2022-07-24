@@ -458,7 +458,7 @@ public class AIGovernor implements Base, Governor {
             shiftResearchToIndustry = false;
         
         if (shiftResearchToIndustry) {
-            float rsvAmt = col.pct(RESEARCH);
+            float rsvAmt = min(empire.ai().treasurer().maxReserveNeeded() / (col.totalIncome() * col.planet().productionAdj()), col.pct(RESEARCH));
             col.addPct(RESEARCH, -rsvAmt);
             col.addPct(INDUSTRY, rsvAmt);
         }
@@ -570,7 +570,8 @@ public class AIGovernor implements Base, Governor {
         {
             float tgtPercentage = empire.totalEmpirePopulation() / empire.generalAI().totalEmpirePopulationCapacity(empire);
             Planet p = sv.system().planet();
-            tgtPercentage *= p.productionAdj() * p.researchAdj();
+            tgtPercentage = 1 - (tgtPercentage / p.productionAdj() / p.researchAdj());
+            tgtPercentage = 1 - tgtPercentage;
             //Systems that are building colony-ships should keep their population
             float factoryTgt = tgtPercentage;
             tgtPercentage = max(factoryTgt, tgtPercentage);
