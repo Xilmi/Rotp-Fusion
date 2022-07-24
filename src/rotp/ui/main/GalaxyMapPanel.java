@@ -210,7 +210,9 @@ public class GalaxyMapPanel extends BasePanel implements ActionListener, MouseLi
             }
         }
     }
-    public void toggleGridCircularDisplay()     { showGridCircular = !showGridCircular; }
+    public void toggleGridCircularDisplay() { // BR: added memorization
+    	showGridCircular = UserPreferences.toggleGridCircularDisplay();
+    }
     public boolean showGridCircular()           { return showGridCircular; }
     public boolean showFleetsOnly()             { return flightPathDisplay == SHOW_NO_FLIGHTPATHS; }
     public boolean showImportantFlightPaths()   { return flightPathDisplay != SHOW_NO_FLIGHTPATHS; }

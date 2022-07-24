@@ -66,6 +66,7 @@ public class UserPreferences {
     private static boolean displayYear = false;
     private static boolean newRacesOnByDefault = true; // BR: add option to get or reject the new races
     private static boolean governorOnByDefault = true; // BR:
+    private static boolean gridCircularDisplay = true; // BR: add option to memorize the grid state
     private static boolean governorAutoSpendByDefault = false;
     private static boolean legacyGrowth = true; // BR:
     private static boolean governorAutoApply = true; // BR:
@@ -115,6 +116,7 @@ public class UserPreferences {
         alwaysThorium = false; // modnar: add option to always have Thorium Cells tech
         alwaysIrradiated = false; // BR: add option to always have Control Irradiated tech
         newRacesOnByDefault = true; // BR: add option to get or reject the new races
+        gridCircularDisplay = true; // BR: add option to memorize the grid state
         challengeMode = false; // modnar: add option to give AI more initial resources
         randomTechStart = false; // modnar: add option to start all Empires with 2 techs, no Artifacts
         battleScout = false; // modnar: add battleScout option to give player super Scout design
@@ -145,6 +147,7 @@ public class UserPreferences {
         alwaysThorium = false; // modnar: add option to always have Thorium Cells tech
         alwaysIrradiated = false; // BR: add option to always have Control Irradiated tech
         newRacesOnByDefault = true; // BR: add option to get or reject the new races
+        gridCircularDisplay = true; // BR: add option to memorize the grid state
         challengeMode = false; // modnar: add option to give AI more initial resources
         randomTechStart = false; // modnar: add option to start all Empires with 2 techs, no Artifacts
         battleScout = false; // modnar: add battleScout option to give player super Scout design
@@ -276,6 +279,9 @@ public class UserPreferences {
     public static void setNewRacesOn(boolean newValue) {
     	newRacesOnByDefault = newValue;
     }
+    public static void setgridCircularDisplay(boolean newValue) {
+    	gridCircularDisplay = newValue;
+    }
     public static void setAlwaysStarGates(boolean newValue) {
     	alwaysStarGates = newValue;
     }
@@ -318,6 +324,11 @@ public class UserPreferences {
 
     public static void toggleAlwaysIrradiated() { alwaysIrradiated = !alwaysIrradiated; save(); } // BR
     public static void toggleNewRacesOn()       { newRacesOnByDefault = !newRacesOnByDefault; save(); } // BR
+    public static boolean toggleGridCircularDisplay() {  // BR
+    	gridCircularDisplay = !gridCircularDisplay;
+    	save();
+    	return gridCircularDisplay;
+    }
     // modnar: MOD option toggles, specifically for UI
     public static void toggleAlwaysStarGates()  { alwaysStarGates = !alwaysStarGates; save(); }
     public static void toggleAlwaysThorium()    { alwaysThorium = !alwaysThorium; save(); }
@@ -470,6 +481,7 @@ public class UserPreferences {
     public static boolean alwaysStarGates()  { return alwaysStarGates; } // modnar: add option to always have Star Gates tech
     public static boolean alwaysIrradiated() { return alwaysIrradiated; } // BR: add option to always Control irradiated tech
     public static boolean newRacesOn()       { return newRacesOnByDefault; } // BR: add option to get or reject the new races
+    public static boolean gridCircularDisplay() { return gridCircularDisplay; } // BR: add option to memorize the grid state
     public static boolean alwaysThorium()    { return alwaysThorium; } // modnar: add option to always have Thorium Cells tech
     public static boolean challengeMode()    { return challengeMode; } // modnar: add option to give AI more initial resources
     public static boolean randomTechStart()  { return randomTechStart; } // modnar: add option to start all Empires with 2 techs, no Artifacts
@@ -586,6 +598,7 @@ public class UserPreferences {
             out.println(keyFormat("ALWAYS_THORIUM")+ yesOrNo(alwaysThorium)); // modnar: add option to always have Thorium Cells tech
             out.println(keyFormat("ALWAYS_IRRADIATED")+ yesOrNo(alwaysIrradiated)); // BR: add option to always have Control Irradiated tech
             out.println(keyFormat("NEW_RACES_ON_BY_DEFAULT") + yesOrNo(newRacesOnByDefault)); // BR: add option to get or reject the new races
+            out.println(keyFormat("GRID_CIRCULAR_DISPLAY") + yesOrNo(gridCircularDisplay)); // BR: add option to memorize the grid state
             out.println(keyFormat("CHALLENGE_MODE")+ yesOrNo(challengeMode)); // modnar: add option to give AI more initial resources
             out.println(keyFormat("RANDOM_TECH_START")+ yesOrNo(randomTechStart)); // modnar: add option to start all Empires with 2 techs, no Artifacts
             out.println(keyFormat("BATTLE_SCOUT")+ yesOrNo(battleScout)); // modnar: add battleScout option to give player super Scout design
@@ -657,7 +670,8 @@ public class UserPreferences {
             case "ALWAYS_STAR_GATES": alwaysStarGates = yesOrNo(val); return; // modnar: add option to always have Star Gates tech
             case "ALWAYS_THORIUM": alwaysThorium = yesOrNo(val); return; // modnar: add option to always have Thorium Cells tech
             case "ALWAYS_IRRADIATED": alwaysIrradiated = yesOrNo(val); return; // BR: add option to always have Control Irradiated tech
-            case "NEW_RACES_ON_BY_DEFAULT": newRacesOnByDefault = yesOrNo(val); return; // BR:
+            case "NEW_RACES_ON_BY_DEFAULT": newRacesOnByDefault = yesOrNo(val); return; // BR: add option to get or reject the new races
+            case "GRID_CIRCULAR_DISPLAY": gridCircularDisplay = yesOrNo(val); return; // BR: add option to memorize the grid state
             case "CHALLENGE_MODE": challengeMode = yesOrNo(val); return; // modnar: add option to give AI more initial resources
             case "RANDOM_TECH_START": randomTechStart = yesOrNo(val); return; // modnar: add option to start all Empires with 2 techs, no Artifacts
             case "BATTLE_SCOUT": battleScout = yesOrNo(val); return; // modnar: add battleScout option to give player super Scout design
