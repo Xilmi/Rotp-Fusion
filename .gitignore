@@ -2,8 +2,9 @@ dist
 nbproject
 build
 build.xml
-pom.xml
 manifest.mf
+pom.xml
+src/rotp-version.properties
 launch4j/Remnants/
 target/
 .idea/
