@@ -1070,9 +1070,9 @@ public class AIDiplomat implements Base, Diplomat {
             if(!empire.inShipRange(v.empId()))
                 v.embassy().endWarPreparations();
         }
-        if(v.embassy().diplomatGone()) {
+        /*if(v.embassy().diplomatGone()) {
             v.embassy().openEmbassy();
-        }
+        }*/
             
         if (v.embassy().unity() || v.embassy().finalWar())
             return;
@@ -1434,7 +1434,7 @@ public class AIDiplomat implements Base, Diplomat {
             //Ail: If there's only two empires left, there's no time for preparation. We cannot allow them the first-strike-advantage!
             if(galaxy().numActiveEmpires() < 3)
                 warAllowed = true;
-            System.out.println(galaxy().currentTurn()+" "+empire.name()+" war allowed against "+victim.name()+": "+warAllowed);
+            //System.out.println(galaxy().currentTurn()+" "+empire.name()+" war allowed against "+victim.name()+": "+warAllowed);
         }
         //System.out.println(galaxy().currentTurn()+" "+empire.name()+" col: "+empire.generalAI().additionalColonizersToBuild(false)+" tech: "+techIsAdequateForWar());
         return warAllowed;
@@ -1755,17 +1755,8 @@ public class AIDiplomat implements Base, Diplomat {
         boolean scared = false;
         if(empire.generalAI().smartPowerLevel() < enemyPower)
         {
-            //ail: If we are not fighting our preferred target, we don't really want a war
-            if(v.empire() != empire.generalAI().bestVictim())
-                return true;
-            //ail: If I have more than one war, we try to go to peace with everyone of our multiple enemies to increase the likelyness of at least one saying yes
-            if(empire.warEnemies().size() > 1)
-                return true;
             scared = true;
         }
-        //ail: If I'm outteched by others I also don't really want to stick to a war anymore, except for aggressive leader as that would lead to contradictory behavior
-        if(!readyForWar())
-            return true;
         boolean everythingUnderSiege = true;
         for(StarSystem sys : empire.allColonizedSystems())
         {
