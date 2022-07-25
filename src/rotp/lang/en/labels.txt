@@ -1169,8 +1169,8 @@ SETUP_OPPONENT_AI                 | Play against:
 SETUP_OPPONENT_AI_BASE            | AI: Base
 SETUP_OPPONENT_AI_MODNAR          | AI: Modnar
 SETUP_OPPONENT_AI_ROOKIE          | AI: Rookie
-SETUP_OPPONENT_AI_XILMI           | AI: Advanced
-SETUP_OPPONENT_AI_CRUEL           | AI: Legacy
+SETUP_OPPONENT_AI_XILMI           | AI: Roleplay
+SETUP_OPPONENT_AI_CRUEL           | AI: Fusion
 SETUP_OPPONENT_AI_UNFAIR          | AI: Unfair
 SETUP_OPPONENT_AI_RANDOM          | AI: Random
 SETUP_OPPONENT_AI_ALLRANDOM       | AI: Random+
@@ -1179,8 +1179,8 @@ SETUP_AUTOPLAY_OFF                | Off
 SETUP_AUTOPLAY_AI_BASE            | AI: Base
 SETUP_AUTOPLAY_AI_MODNAR          | AI: Modnar
 SETUP_AUTOPLAY_AI_ROOKIE          | AI: Rookie
-SETUP_AUTOPLAY_AI_XILMI           | AI: Advanced
-SETUP_AUTOPLAY_AI_CRUEL           | AI: Legacy
+SETUP_AUTOPLAY_AI_XILMI           | AI: Roleplay
+SETUP_AUTOPLAY_AI_CRUEL           | AI: Fusion
 SETUP_AUTOPLAY_AI_RANDOM          | AI: Random
 SETUP_GAME_DIFFICULTY_LABEL       | Difficulty
 SETUP_DIFFICULTY_EASIEST          | Easiest
