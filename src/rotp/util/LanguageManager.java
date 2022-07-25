@@ -120,7 +120,7 @@ public class LanguageManager implements Base {
         if (selectedLanguage() == i)
             return;
 
-        //Language defLang = languages().get(DEFAULT_LANGUAGE);
+        Language defLang = languages().get(DEFAULT_LANGUAGE); // BR: Uncommented
         Language newLang = languages().get(i);
 
         // load fonts for selected language
@@ -131,22 +131,23 @@ public class LanguageManager implements Base {
         RaceFactory.current().resetRaceLangFiles();
 
         // reload default labels, since that is assured of completeness
-        //String currDir = baseDir+defLang.directory+"/";
-        //labels().loadLabelFile(currDir);
-        //labels().loadDialogueFile(currDir);
-        //labels().loadTechsFile(currDir);
-        //RaceFactory.current().loadRaceLangFiles(defLang.directory);
+        String currDir;
+        currDir = baseDir+defLang.directory+"/"; // BR: Uncommented
+        labels().loadLabelFile(currDir); // BR: Uncommented
+        labels().loadDialogueFile(currDir); // BR: Uncommented
+        labels().loadTechsFile(currDir); // BR: Uncommented
+        RaceFactory.current().loadRaceLangFiles(defLang.directory); // BR: Uncommented
 
         // now overwrite those with labels for the selected language
         selectedLanguage(i);
         
         customDigits = newLang.digits;
 
-        //if (i != DEFAULT_LANGUAGE) {
-            String currDir = baseDir+newLang.directory+"/";
+        if (i != DEFAULT_LANGUAGE) {  // BR: Uncommented
+            currDir = baseDir+newLang.directory+"/";
             labels().load(currDir);
             RaceFactory.current().loadRaceLangFiles(newLang.directory);
-        //}
+        }
     } 
     public String defaultLangDir()    { return langDir(DEFAULT_LANGUAGE); }
     public String currentLanguage()   { return language(selectedLanguage()); }
