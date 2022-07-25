@@ -2,6 +2,7 @@ dist
 nbproject
 build
 build.xml
+pom.xml
 manifest.mf
 launch4j/Remnants/
 target/
