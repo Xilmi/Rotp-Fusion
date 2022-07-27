@@ -4,7 +4,7 @@ build
 build.xml
 manifest.mf
 pom.xml
-src/rotp-version.properties
+**/rotp-version.properties
 launch4j/Remnants/
 target/
 .idea/
