@@ -29,7 +29,10 @@ import rotp.util.Base;
 
 public class AITreasurer implements Base, Treasurer {
     private final Empire empire;
-
+    private float maxReserveNeeded = 0;
+    public float maxReserveNeeded() {
+        return maxReserveNeeded;
+    }
     public AITreasurer (Empire c) {
         empire = c;
     }
@@ -51,6 +54,7 @@ public class AITreasurer implements Base, Treasurer {
         // instead remove rich/ultra-rich from receiving reserves
         float reserveGoal = 0;
         List<StarSystem> systems = new ArrayList<>(allSystems);
+        maxReserveNeeded = 0;
         for (StarSystem sys: allSystems) {
             if (sys.colony().inRebellion())
                 systems.remove(sys);
@@ -58,6 +62,8 @@ public class AITreasurer implements Base, Treasurer {
                 if (sys.colony().research().hasProject())
                     needToSolveEvent = true;
                 Planet pl = sys.planet();
+                if(sys.planet().productionAdj() <= 1)
+                    maxReserveNeeded += sys.colony().maxReserveUseable();
                 if(!galaxy().options().selectedRandomEventOption().equals(RANDOM_EVENTS_OFF) && sys.colony().maxReserveUseable() > reserveGoal)
                     reserveGoal = sys.colony().maxReserveUseable();
                 if (pl.isResourcePoor() || pl.isResourceUltraPoor()) {

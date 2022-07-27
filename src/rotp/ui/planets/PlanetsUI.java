@@ -1019,6 +1019,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             if (mode != selectedMode) {
                 softClick();
                 selectedMode = mode;
+                listingUI.selectedSystem(listingUI.lastSelectedSystem(), true);
                 instance.repaint();
             }
         }

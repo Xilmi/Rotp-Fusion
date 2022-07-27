@@ -781,6 +781,54 @@ public class AIGeneral implements Base, General {
         return bestVictim;
     }
     @Override
+    public float predictEmpireChanceToDeclareWarIfIDeclaredWarOn(Empire subject, Empire object, boolean chanceToDeclareWarOnMeInstead) {
+        float subjectPower = subject.powerLevel(subject);
+        float subjectMilitaryPower = subject.militaryPowerLevel();
+        float subjectCurrentEnemyPower = 0;
+        float subjectCurrentEnemyMilitaryPower = 0;
+        for(Empire currentEnemyOfSubject : subject.warEnemies()) {
+            subjectCurrentEnemyPower += currentEnemyOfSubject.powerLevel(currentEnemyOfSubject);
+            subjectCurrentEnemyMilitaryPower += currentEnemyOfSubject.militaryPowerLevel();
+            if(currentEnemyOfSubject == object || currentEnemyOfSubject == empire) //they wouldn't backstab one of them because they already are at war
+                return 0;
+        }
+        if(subjectCurrentEnemyPower > subjectPower || subjectCurrentEnemyMilitaryPower > subjectMilitaryPower) //they are at war and losing so they won't won't be able to pick another target
+            return 0;
+        float victimScoreSumForSubject = 0;
+        float victimScoreObjectForSubject = 0;
+        float victimScoreMeForSubject = 0;
+        for(Empire contactOfSubject : subject.contactedEmpires()) {
+            if(!subject.inShipRange(contactOfSubject.id))
+                continue;
+            float currentScore = totalEmpirePopulationCapacity(contactOfSubject) / (fleetCenter(subject).distanceTo(colonyCenter(contactOfSubject)) + colonyCenter(subject).distanceTo(colonyCenter(contactOfSubject)));
+            float powerRatio = subject.powerLevel(subject) / contactOfSubject.powerLevel(contactOfSubject);
+            float milPowerRatio = 0;
+            if(contactOfSubject.militaryPowerLevel() > 0)
+                milPowerRatio = smartPowerLevel() / contactOfSubject.militaryPowerLevel();
+            powerRatio = max(powerRatio, milPowerRatio);
+            currentScore *= powerRatio;
+            float enemyMultiplyer = 1.0f;
+            for(Empire theirFoe : contactOfSubject.warEnemies()) {
+                enemyMultiplyer += theirFoe.powerLevel(theirFoe) / (contactOfSubject.powerLevel(contactOfSubject) + theirFoe.powerLevel(theirFoe));
+            }
+            if(contactOfSubject == object && !contactOfSubject.warEnemies().contains(empire))
+                enemyMultiplyer += empire.powerLevel(empire) / (contactOfSubject.powerLevel(contactOfSubject) + empire.powerLevel(empire));
+            if(contactOfSubject == empire && !empire.warEnemies().contains(object))
+                enemyMultiplyer += object.powerLevel(object) / (contactOfSubject.powerLevel(contactOfSubject) + object.powerLevel(object));
+            currentScore *= enemyMultiplyer;
+            if(contactOfSubject == empire)
+                victimScoreMeForSubject = currentScore;
+            if(contactOfSubject == object)
+                victimScoreObjectForSubject = currentScore;
+            victimScoreSumForSubject += currentScore;
+        }
+        if(victimScoreSumForSubject <= 0)
+            return 0;
+        if(chanceToDeclareWarOnMeInstead)
+            return victimScoreMeForSubject / victimScoreSumForSubject;
+        return victimScoreObjectForSubject / victimScoreSumForSubject;
+    }
+    @Override
     public float totalEmpirePopulationCapacity(Empire emp)
     {
         if(totalEmpirePopulationCapacity >= 0 && emp == empire && emp.isAIControlled())

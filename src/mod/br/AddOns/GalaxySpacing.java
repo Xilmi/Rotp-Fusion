@@ -95,7 +95,7 @@ public class GalaxySpacing {
 	/**
 	 * Default value for "PREFERED STARS PER EMPIRE" Mod
 	 */
-	public static final int DEFAULT_PREFERRED_STARS_PER_EMPIRE = 16;
+	public static final int DEFAULT_PREFERRED_STARS_PER_EMPIRE = 10;
 	private static final int MIN_PREF_ALLOWED = 1;
 
 	private static int preferredStarsPerEmpire = DEFAULT_PREFERRED_STARS_PER_EMPIRE;
@@ -120,7 +120,7 @@ public class GalaxySpacing {
 	/**
 	 * Default value for "MIN STARS PER EMPIRE" Mod
 	 */
-	public static final int DEFAULT_MIN_STARS_PER_EMPIRE = 8;
+	public static final int DEFAULT_MIN_STARS_PER_EMPIRE = 3;
 	private static final int MIN_MIN_ALLOWED = 1;
 
 	private static int minStarsPerEmpire  = DEFAULT_MIN_STARS_PER_EMPIRE;

@@ -27,7 +27,7 @@ import rotp.ui.UserPreferences;
  * @author BrokenRegistry
  * Control the race allowed when randomly selected
  */
-public class RaceFilter {
+public class RaceOptions {
 
 	private static List<String> newRacesOnList;
 	private static List<String> newRacesOffList = new ArrayList<String>();
@@ -43,11 +43,11 @@ public class RaceFilter {
 	private static List<String> selectedGameAIFilter;
 	private static List<String> selectedGuiAIFilter;
 	private static String[]     startOpponentAI;
-
+	
     // ========== Setters ==========
     //
 	/**
-	 * @param newRaceList the new  newRaceOn List to set
+	 * @param newRaceList the new newRaceOn List to set
 	 */
 	public static void newRacesOnList(List<String> newRaceList) {
 		newRacesOnList = newRaceList;

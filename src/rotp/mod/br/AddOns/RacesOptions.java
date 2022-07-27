@@ -19,7 +19,7 @@ package rotp.mod.br.AddOns;
 
 import java.util.List;
 
-import mod.br.AddOns.RaceFilter;
+import mod.br.AddOns.RaceOptions;
 import mod.br.profileManager.ClientClasses;
 import mod.br.profileManager.Group_Galaxy.StartPresetAI;
 import mod.br.profileManager.Group_Galaxy.StartPresetOpponent;
@@ -35,32 +35,38 @@ public class RacesOptions {
 	/**
 	 * @return the Gui Race Filter
 	 */
+    public static List<String> getRaceFullList() {
+         return RaceOptions.newRacesOnList();
+    }
+	/**
+	 * @return the Gui Race Filter
+	 */
     public static List<String> getNewRacesOnOffList() {
-         return RaceFilter.defaultRaceList();
+         return RaceOptions.defaultRaceList();
     }
 	/**
 	 * @return the Gui Race Filter
 	 */
     public static List<String> getGuiFilteredRaceList() {
-         return RaceFilter.selectedGuiRaceFilter();
+         return RaceOptions.selectedGuiRaceFilter();
     }
     /**
 	 * @return Race Filter
 	 */
 	public static List<String> getFilteredRaceList() {
-         return RaceFilter.selectedGameRaceFilter();
+         return RaceOptions.selectedGameRaceFilter();
     }
 	/**
 	 * @return the Gui AI Filter
 	 */
     public static List<String> getGuiFilteredAIList() {
-         return RaceFilter.selectedGuiAIFilter();
+         return RaceOptions.selectedGuiAIFilter();
     }
     /**
 	 * @return AI Filter
 	 */
 	public static List<String> getFilteredAIList() {
-         return RaceFilter.selectedGameAIFilter();
+         return RaceOptions.selectedGameAIFilter();
     }
 	/**
 	 * Set the starting opponents

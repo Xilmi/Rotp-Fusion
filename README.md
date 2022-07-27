@@ -22,16 +22,30 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
-2022.07.24
+2022.07.27 (BR)
+  - Extended Build automation.
+  - Added Player Ship Set selection.
+
+2022.07.25 (XILMI)
+  - Changed version-string from to "Rotp-C-M-X-BR" to "Fusion-Mod"
+  - Renamed AI's Legacy => Fusion, Advanced => Roleplay
+  - Restored default- and maximum empire-count from Fusion-Mod
+  - Improved AIs ability to deal with starting with a rich or artifact-homeworld
+  - AI with superior technology more likely to build bigger fleets
+  - Fusion AI considers backstab-potential of other races before declaring war
+  - Fusion AI now uses an aggressiveness model to determine whether to go to war. Aggressiveness also depends on leader-personality.
+  - Fusion AI war-weariness no longer depends on aggressiveness in order to reduce hit&run-exploits against less aggressive races
+
+2022.07.24 (BR)
   - Replaced Modnar Ships colors settings with last Ray's settings.
 
-2022.07.24
+2022.07.24 (BR)
   - Restored default language management.
 
-2022.07.24
+2022.07.24 (BR)
   - Added GridCircularDisplay to Remnant.cfg.
 
-2022.07.24
+2022.07.24 (BR)
   - Added full mouse control to Galaxy Options GUI.
   - Added new races on/off on Galaxy Options GUI.
 

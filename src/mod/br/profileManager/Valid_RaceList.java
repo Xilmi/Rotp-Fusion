@@ -15,7 +15,7 @@
 
 package mod.br.profileManager;
 
-import static mod.br.AddOns.RaceFilter.raceFilter;
+import static mod.br.AddOns.RaceOptions.raceFilter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 import br.profileManager.src.main.java.AbstractT;
 import br.profileManager.src.main.java.PMutil;
 import br.profileManager.src.main.java.Validation;
-import mod.br.AddOns.RaceFilter;
+import mod.br.AddOns.RaceOptions;
 import rotp.model.game.IGameOptions;
 
 /**
@@ -67,8 +67,8 @@ class Valid_RaceList extends Validation<String> {
 			this.maxOpponentType = maxOpponentType;
 			initOptions(go);
 
-			List<String> randomGui  = RaceFilter.selectedGuiRaceFilter(); // Already filtered
-			List<String> randomGame = RaceFilter.selectedGameRaceFilter(); // Already filtered
+			List<String> randomGui  = RaceOptions.selectedGuiRaceFilter(); // Already filtered
+			List<String> randomGame = RaceOptions.selectedGameRaceFilter(); // Already filtered
 			int iMax = selectedOpponents.length;
 			int iMaxList = userEntry.size()-1;
 			int iList;
