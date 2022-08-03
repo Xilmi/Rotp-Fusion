@@ -1262,7 +1262,9 @@ SETUP_BUTTON_NEXT                 | Next
 SETUP_BUTTON_START                | Start
 SETUP_BUTTON_SETTINGS             | Advanced Options
 // modnar: add UI panel for modnar MOD game options
-SETUP_BUTTON_MOD_SETTINGS         | MOD Options
+SETUP_BUTTON_MOD_SETTINGS         | MOD Options A
+SETUP_BUTTON_MOD_B_SETTINGS       | MOD Options B
+SETUP_BUTTON_MOD_VIEW_SETTINGS    | Display Options
 
 SETUP_SPIRAL_2_ARMS               | Two Arms
 SETUP_SPIRAL_3_ARMS               | Three Arms
@@ -1334,10 +1336,9 @@ SETUP_SWIRLCLUSTERS_1             | Clusters Across
 SETUP_SWIRLCLUSTERS_2             | No Clusters
 SETUP_NOT_AVAILABLE               | N/A
 
-
 // Advanced Settings
 SETTINGS_TITLE                    | Advanced Game Options
-SETTINGS_DESCRIPTION              | Click to toggle each game setting.
+SETTINGS_DESCRIPTION              | Click, Right-Click, or Scroll to toggle each game setting.
 SETTINGS_EXIT                     | Exit
 SETTINGS_DEFAULT                  | Set to Default
 SETTINGS_STAR_DENSITY             | Star Density: %1
@@ -1373,11 +1374,9 @@ SETTINGS_AUTOPLAY_DESC            | Completely automate the game by having an AI
 SETTINGS_AUTOPLAY_WARNING         | Warning! Autoplay is currently enabled which will prevent user gameplay. Use "Advanced Options" to disable.
 SETTINGS_FUEL_RANGE_DESC          | Increase the range of fuel range technologies and reserve fuel tanks. [Deactivated in modnar MOD]
 SETTINGS_AI_HOSTILITY_DESC        | Increase or decrease the general level of hostility between alien races.
+
 // modnar: add UI panel for modnar MOD game options
 SETTINGS_MOD_TITLE                   | modnar MOD Options
-SETTINGS_MOD_ALWAYS_STARGATES        | Always Star Gates: %1
-SETTINGS_MOD_ALWAYS_THORIUM          | Always Thorium: %1
-SETTINGS_MOD_ALWAYS_IRRADIATED       | Always Irradiated: %1
 SETTINGS_MOD_NEW_RACES_ON            | Include New Races: %1
 SETTINGS_MOD_CHALLENGE_MODE          | Challenge Mode: %1
 SETTINGS_MOD_BATLLE_SCOUT            | Battle Scout: %1
@@ -1392,9 +1391,10 @@ SETTINGS_MOD_RETREAT_AI              | AI
 SETTINGS_MOD_RETREAT_PLAYER          | Player
 SETTINGS_MOD_RETREAT_BOTH            | Both
 SETTINGS_MOD_RETREAT_RESTRICTION_TURNS | Retreat restricted turns: %1
-SETTINGS_MOD_ALWAYS_STARGATES_DESC   | Always include "Intergalactic Star Gates" in the Tech Tree for ALL Empires. Selecting NO leaves Tech availability up to chance.
-SETTINGS_MOD_ALWAYS_THORIUM_DESC     | Always include "Thorium Cells" in the Tech Tree for ALL Empires. Selecting NO leaves Tech availability up to chance.
-SETTINGS_MOD_ALWAYS_IRRADIATED_DESC  | Always include "Irradiated Control" in the Tech Tree for ALL Empires. Selecting NO leaves Tech availability up to chance.
+SETTINGS_MOD_HOME_ARTIFACT           | Get Artifact HomeWorld: %1
+SETTINGS_MOD_HOME_FERTILE            | Get Fertile HomeWorld: %1
+SETTINGS_MOD_HOME_RICH               | Get Rich HomeWorld: %1
+SETTINGS_MOD_HOME_ULTRA_RICH         | Get Ultra-Rich HomeWorld: %1
 SETTINGS_MOD_CHALLENGE_MODE_DESC     | Give AI Empires additional starting resources (more Population, Factories, and Ships).
 SETTINGS_MOD_NEW_RACES_ON_DESC       | Include the new races as potential opponents
 SETTINGS_MOD_BATTLE_SCOUT_DESC       | Medium-Hull armed Scout Design for the Player at start of game. Buildable despite breaking Ship Space limitations.
@@ -1405,6 +1405,64 @@ SETTINGS_MOD_DYNAMIC_DIFFICULTY_DESC | Scales the AI Production up/down when wea
 SETTINGS_MOD_MISSILE_SIZE_MODIFIER_DESC | Sets size, cost and power-consuption of missiles as well as cost of missile-bases from 10% to 100%. (Hold down Shift/Ctrl, then scroll the mouse wheel to change in units of 5%/20%.)
 SETTINGS_MOD_RETREAT_RESTRICTIONS_DESC | Sets for whom retreating shall be restricted. (scroll the mouse wheel to change)
 SETTINGS_MOD_RETREAT_RESTRICTION_TURNS_DESC | Sets for how many turns someone who's retreating is restricted must remain in combat. (Hold down Shift/Ctrl, then scroll the mouse wheel to change in units of 5/20.)
+SETTINGS_MOD_HOME_ARTIFACT_DESC      | {Always, Never, Auto} Gives Player/AI Artifact HomeWorld
+SETTINGS_MOD_HOME_FERTILE_DESC       | {Always, Never, Auto} Gives Player/AI Fertile HomeWorld
+SETTINGS_MOD_HOME_RICH_DESC          | {Always, Never, Auto} Gives Player/AI Rich HomeWorld
+SETTINGS_MOD_HOME_ULTRA_RICH_DESC    | {Always, Never, Auto} Gives Player/AI Ultra-Rich HomeWorld
+
+// BR: Second UI panel for MOD game options
+SETTINGS_MOD_TITLE_B                     | Secondary MOD Options
+SETTINGS_MOD_OPTION_NEVER                | Never
+SETTINGS_MOD_OPTION_AUTO                 | Auto
+SETTINGS_MOD_OPTION_ALWAYS               | Always
+SETTINGS_MOD_OPTION_NEVER_NEVER          | Never
+SETTINGS_MOD_OPTION_NEVER_AUTO           | Never/Always
+SETTINGS_MOD_OPTION_NEVER_ALWAYS         | Never/Always
+SETTINGS_MOD_OPTION_AUTO_NEVER           | Auto/Never
+SETTINGS_MOD_OPTION_AUTO_AUTO            | Auto
+SETTINGS_MOD_OPTION_AUTO_ALWAYS          | Auto/Always
+SETTINGS_MOD_OPTION_ALWAYS_NEVER         | Always/Never
+SETTINGS_MOD_OPTION_ALWAYS_AUTO          | Always/Auto
+SETTINGS_MOD_OPTION_ALWAYS_ALWAYS        | Always
+SETTINGS_MOD_MAX_SPACINGS_DESC           | Attempts to maximize the distance between empires, but always randomly.
+SETTINGS_MOD_MAX_SPACINGS                | Maximize Spacing: %1
+SETTINGS_MOD_MAX_SPACINGS_LIM_DESC       | Base spacing multiplier Security limit for Spacing maximization.
+SETTINGS_MOD_MAX_SPACINGS_LIM            | Max Spacing Multiplier: %1
+SETTINGS_MOD_MIN_STARS_PER_EMPIRE_DESC   | To help defining the maximun opponent number from the size of the galaxy.
+SETTINGS_MOD_MIN_STARS_PER_EMPIRE        | Min Stars per Empire: %1
+SETTINGS_MOD_PREF_STARS_PER_EMPIRE_DESC  | To help defining the default opponent number from the size of the galaxy.
+SETTINGS_MOD_PREF_STARS_PER_EMPIRE       | Favored Stars Number: %1
+SETTINGS_MOD_TECH_IRRADIATED_DESC        | (Level 18){Always, Never, Auto} Include "Irradiated Control"  in the Tech Tree for Player/AI.
+SETTINGS_MOD_TECH_IRRADIATED             | Tech Irradiated Control: %1
+SETTINGS_MOD_TECH_CLOAKING_DESC          | (Level 27) {Always, Never, Auto} Include "Hyperspace Communication" in the Tech Tree for Player/AI.
+SETTINGS_MOD_TECH_CLOAKING               | Tech Cloaking: %1
+SETTINGS_MOD_TECH_STARGATES_DESC         | (Level 27) {Always, Never, Auto} Include "Intergalactic Star Gates" in the Tech Tree for Player/AI.
+SETTINGS_MOD_TECH_STARGATES              | Tech Star Gates: %1
+SETTINGS_MOD_TECH_HYPERSPACE_DESC        | (Level 34) {Always, Never, Auto} Include "Cloaking Device" in the Tech Tree for Player/AI.
+SETTINGS_MOD_TECH_HYPERSPACE             | Tech Hyperspace Comm: %1
+SETTINGS_MOD_TECH_INDUSTRY_2_DESC        | (Level 38) {Always, Never, Auto} Include "Improved Industrial 2" in the Tech Tree for Player/AI.
+SETTINGS_MOD_TECH_INDUSTRY_2             | Tech Factory cost 2: %1
+SETTINGS_MOD_TECH_THORIUM_DESC           | (Level 41) {Always, Never, Auto} Include "Thorium Cells" in the Tech Tree for Player/AI.
+SETTINGS_MOD_TECH_THORIUM                | Tech Thorium Cells: %1
+SETTINGS_MOD_TECH_TRANSPORTERS_DESC      | (Level 45) {Always, Never, Auto} Include "SubSpace Teleporter" in the Tech Tree for Player/AI.
+SETTINGS_MOD_TECH_TRANSPORTERS           | Tech SubSpace Teleporter: %1
+SETTINGS_MOD_TECH_TERRAFORM_120_DESC     | (Level 50) {Always, Never, Auto} Include "Improved Terraforming 120" in the Tech Tree for Player/AI.
+SETTINGS_MOD_TECH_TERRAFORM_120          | Tech Terraforming 120: %1
+
+// BR: View Settings UI panel for MOD game options
+SETTINGS_MOD_TITLE_VIEW                  | Display Settings MOD Options
+SETTINGS_MOD_SHOW_FLEET_FACTOR_DESC      | To adjust the galaxy map fleets disappearance while zooming. Bigger factor means stay longer to the screen.
+SETTINGS_MOD_SHOW_FLEET_FACTOR           | Show Fleet Factor: %1
+SETTINGS_MOD_SHOW_FLAG_FACTOR_DESC       | To adjust the galaxy map flags disappearance while zooming. Bigger factor means stay longer to the screen.
+SETTINGS_MOD_SHOW_FLAG_FACTOR            | Show Flag Factor: %1
+SETTINGS_MOD_SHOW_PATH_FACTOR_DESC       | To adjust the galaxy map paths disappearance while zooming. Bigger factor means stay longer to the screen.
+SETTINGS_MOD_SHOW_PATH_FACTOR            | Show Path Factor: %1
+SETTINGS_MOD_SHOW_NAME_MIN_FONT_DESC     | To adjust the galaxy map star name disappearance. Smaller value means stay longer to the screen.
+SETTINGS_MOD_SHOW_NAME_MIN_FONT          | Star Name Min Font: %1
+SETTINGS_MOD_SHOW_INFO_FONT_RATIO_DESC   | To adjust the galaxy map swap info to name only. Bigger ratio means stay longer to the screen.
+SETTINGS_MOD_SHOW_INFO_FONT_RATIO        | System Info Font Ratio: %1
+SETTINGS_MOD_MAP_FONT_FACTOR_DESC        | To adjust the galaxy map font size. Bigger factor means bigger fonts.
+SETTINGS_MOD_MAP_FONT_FACTOR             | Map Font Ratio: %1
 
 // Tech UI labels
 TECH_RESEARCH                     | Technology Research
