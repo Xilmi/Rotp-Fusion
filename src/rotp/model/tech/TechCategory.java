@@ -15,13 +15,22 @@
  */
 package rotp.model.tech;
 
+import static rotp.ui.UserPreferences.techIrradiated;
+import static rotp.ui.UserPreferences.techCloaking;
+import static rotp.ui.UserPreferences.techStargate;
+import static rotp.ui.UserPreferences.techHyperspace;
+import static rotp.ui.UserPreferences.techIndustry2;
+import static rotp.ui.UserPreferences.techThorium;
+import static rotp.ui.UserPreferences.techTransport;
+import static rotp.ui.UserPreferences.techTerra120;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import rotp.model.empires.Empire;
 import rotp.util.Base;
-import rotp.ui.UserPreferences;
 
 public final class TechCategory implements Base, Serializable {
     private static final long serialVersionUID = 1L;
@@ -60,7 +69,7 @@ public final class TechCategory implements Base, Serializable {
     // possible techs are what remains of the normal research tree
     private final List<String> possibleTechs = new ArrayList<>();
     // bonus techs are special techs that can be researched regardless of their
-// location on the research tree. Typically granted by artifact planets.
+    // location on the research tree. Typically granted by artifact planets.
     private final List<String> bonusTechs = new ArrayList<>();
     private TechTree tree;
     private float discoveryPct = 1;
@@ -200,28 +209,38 @@ public final class TechCategory implements Base, Serializable {
         // knownTechs.clear(); // The cost of changing races!!!
     	buildResearchList();
     }
-    private void buildResearchList() {
+    @SuppressWarnings("unchecked")
+	private void buildResearchList() {
         TechCategory baseCat = TechLibrary.baseCategory[index];
 
         Empire emp = tree.empire();
         possibleTechs.clear();
 
-        Object[] techsByQuintile =new Object[MAX_QUINTILES];
+        Object[] techsByQuintile =new Object[MAX_QUINTILES]; // List<String>[]
         for (int i=0;i<MAX_QUINTILES;i++) 
             techsByQuintile[i] = new ArrayList<String>();      
 
         for (int i=0;i<baseCat.possibleTechs.size();i++) {
             String id = baseCat.possibleTechs.get(i);
             Tech t = tech(id);
-            if (!t.restricted && emp.canResearch(t) && !t.free ) {
-                List<String> techs = (List<String>) techsByQuintile[t.quintile()-1];
+            if (!t.restricted && emp.canResearch(t) && !t.free
+            		&& !techIrradiated.isNever(id, emp.isPlayer())
+            		&& !techCloaking.isNever(id, emp.isPlayer())
+            		&& !techStargate.isNever(id, emp.isPlayer())
+            		&& !techHyperspace.isNever(id, emp.isPlayer())
+            		&& !techIndustry2.isNever(id, emp.isPlayer())
+            		&& !techThorium.isNever(id, emp.isPlayer())
+            		&& !techTransport.isNever(id, emp.isPlayer())
+            		&& !techTerra120.isNever(id, emp.isPlayer())
+            		) {
+				List<String> techs = (List<String>) techsByQuintile[t.quintile()-1];
                 techs.add(id);
             }
         }
 
         for (int i=0;i<MAX_QUINTILES;i++) {
             boolean found = false;
-            List<String> techs = (List<String>) techsByQuintile[i];
+			List<String> techs = (List<String>) techsByQuintile[i];
             for (String id: techs) {
                 if (random() <= discoveryPct()) {
                     addPossibleTech(id);
@@ -229,31 +248,37 @@ public final class TechCategory implements Base, Serializable {
                 }
             }
 			
-			// modnar: always add in Star Gates Tech
-			// if the ALWAYS_STAR_GATES option in UserPreferences (Remnants.cfg) is set to YES
-			// for tech category Propulsion, index = 4
-			// tech level 27, quintile i = 5
-			if ((index == 4) && (i == 5) && UserPreferences.alwaysStarGates()) {
-				String StarGateId = "Stargate:0";
-				addPossibleTech(StarGateId);
+            // BR: always add in some Technologies
+			if (techIrradiated.isAlways(index, i, emp.isPlayer())) {
+				addPossibleTech(techIrradiated.techId());
                 found = true;
 			}
-            // modnar: always add in Thorium Cells Tech
-			// if the ALWAYS_THORIUM option in UserPreferences (Remnants.cfg) is set to YES
-			// for tech category Propulsion, index = 4
-			// tech level 41, quintile i = 8
-			if ((index == 4) && (i == 8) && UserPreferences.alwaysThorium()) {
-				String ThoriumCellId = "FuelRange:8";
-				addPossibleTech(ThoriumCellId);
+			if (techCloaking.isAlways(index, i, emp.isPlayer())) {
+				addPossibleTech(techCloaking.techId());
                 found = true;
 			}
-            // BR: always add in Control Irradiated Tech
-			// if the ALWAYS_IRRIDIATED option in UserPreferences (Remnants.cfg) is set to YES
-			// for tech category Planetary, index = 3
-			// tech level 18, quintile i = 6
-			if ((index == 3) && (i == 6) && UserPreferences.alwaysIrradiated()) {
-				String IrradiatedId = "ControlEnvironment:6";
-				addPossibleTech(IrradiatedId);
+			if (techStargate.isAlways(index, i, emp.isPlayer())) {
+				addPossibleTech(techStargate.techId());
+                found = true;
+			}
+			if (techHyperspace.isAlways(index, i, emp.isPlayer())) {
+				addPossibleTech(techHyperspace.techId());
+                found = true;
+			}
+			if (techIndustry2.isAlways(index, i, emp.isPlayer())) {
+				addPossibleTech(techIndustry2.techId());
+                found = true;
+			}
+			if (techThorium.isAlways(index, i, emp.isPlayer())) {
+				addPossibleTech(techThorium.techId());
+                found = true;
+			}
+			if (techTransport.isAlways(index, i, emp.isPlayer())) {
+				addPossibleTech(techTransport.techId());
+                found = true;
+			}
+			if (techTerra120.isAlways(index, i, emp.isPlayer())) {
+				addPossibleTech(techTerra120.techId());
                 found = true;
 			}
 			
