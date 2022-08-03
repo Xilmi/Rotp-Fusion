@@ -241,7 +241,7 @@ public final class GameSession implements Base, Serializable {
     public GameSession() {
         options(RulesetManager.current().defaultRuleset());
     }
-    public void startGame(IGameOptions newGameOptions) {
+    public void startGame(IGameOptions newGameOptions) { // TODO BR: copy and modify this method
         stopCurrentGame();
         
         options = newGameOptions;
@@ -916,7 +916,7 @@ public final class GameSession implements Base, Serializable {
             // BR:
             // if asked, Change the game parameters
             if (Profiles.ChangeGameFile) {
-            	Profiles.ChangeGameFile = false;
+            	Profiles.ChangeGameFile = false;  // TODO BR: Check if race change for special restart
             	Profiles.changeGameSettings(instance);
             }
             // Save the last loaded game parameters
@@ -925,7 +925,12 @@ public final class GameSession implements Base, Serializable {
 
             newSession.validate();
             newSession.validateOnLoadOnly();
-            loadPreviousSession(newSession, startUp);
+            //
+            // TODO BR: new race = new call a method based on loadPreviousSession 
+            // copy systems position as a new galaxy shape class
+            // and call a method based on startGame forcing the new galaxy
+            //
+            loadPreviousSession(newSession, startUp); 
             // do not autosave the current session if that is the file we are trying to reload
             if (!filename.equals(RECENT_SAVEFILE))
                 saveRecentSession(false); 

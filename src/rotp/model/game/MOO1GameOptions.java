@@ -15,40 +15,44 @@
  */
 package rotp.model.game;
 
+import static rotp.ui.UserPreferences.minStarsPerEmpire;
+import static rotp.ui.UserPreferences.prefStarsPerEmpire;
+
 import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import rotp.mod.br.AddOns.GalaxyOptions; // BR:
+import rotp.mod.br.profiles.Profiles; // BR:
 import rotp.model.ai.AI;
 import rotp.model.empires.Empire;
 import rotp.model.empires.Race;
 import rotp.model.events.RandomEvent;
+import rotp.model.galaxy.GalaxyBullseyeShape; // modnar, custom shape, long generation times
+import rotp.model.galaxy.GalaxyClusterShape; // modnar, custom shape
 import rotp.model.galaxy.GalaxyEllipticalShape;
+import rotp.model.galaxy.GalaxyFractalShape; // modnar, custom shape, long generation times
+import rotp.model.galaxy.GalaxyGridShape; // modnar, custom shape
+import rotp.model.galaxy.GalaxyLorenzShape; // modnar, custom shape, long generation times
+import rotp.model.galaxy.GalaxyMazeShape; // modnar, custom shape
 import rotp.model.galaxy.GalaxyRectangularShape;
 import rotp.model.galaxy.GalaxyShape;
+import rotp.model.galaxy.GalaxyShurikenShape; // modnar, custom shape, long generation times
+import rotp.model.galaxy.GalaxySpiralArmsShape; // modnar, custom shape
 import rotp.model.galaxy.GalaxySpiralShape;
+import rotp.model.galaxy.GalaxySwirlClustersShape; // modnar, custom shape
 // mondar: add new map shapes
 import rotp.model.galaxy.GalaxyTextShape; // modnar, custom shape
-import rotp.model.galaxy.GalaxyClusterShape; // modnar, custom shape
-import rotp.model.galaxy.GalaxySwirlClustersShape; // modnar, custom shape
-import rotp.model.galaxy.GalaxyGridShape; // modnar, custom shape
-import rotp.model.galaxy.GalaxySpiralArmsShape; // modnar, custom shape
-import rotp.model.galaxy.GalaxyMazeShape; // modnar, custom shape
-import rotp.model.galaxy.GalaxyShurikenShape; // modnar, custom shape, long generation times
-import rotp.model.galaxy.GalaxyBullseyeShape; // modnar, custom shape, long generation times
-import rotp.model.galaxy.GalaxyLorenzShape; // modnar, custom shape, long generation times
-import rotp.model.galaxy.GalaxyFractalShape; // modnar, custom shape, long generation times
 import rotp.model.galaxy.StarSystem;
 import rotp.model.galaxy.StarType;
 import rotp.model.planet.Planet;
 import rotp.model.planet.PlanetType;
 import rotp.model.tech.TechEngineWarp;
-import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.UserPreferences;
+import rotp.ui.game.SetupGalaxyUI;
 import rotp.util.Base;
-import rotp.mod.br.AddOns.GalaxyOptions; // BR:
-import rotp.mod.br.profiles.Profiles; // BR:
 
 public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private static final long serialVersionUID = 1L;
@@ -251,13 +255,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
     @Override
     public int maximumOpponentsOptions() {
-        // xilmi: change maxEmpires to be ~3 stars/empire, original ~8 stars/empire
     	// BR: customize min Star per empire
-    	int minStarsPerEmpire = 3;
-    	if (Profiles.isMinStarsPerEmpireEnabled()) {
-    		minStarsPerEmpire = GalaxyOptions.getMinStarsPerEmpire();
-    	}
-        int maxEmpires = min(numberStarSystems()/minStarsPerEmpire
+        int maxEmpires = min(numberStarSystems() / minStarsPerEmpire.get()
         		, colors.size(), MAX_OPPONENT_TYPE*startingRaceOptions().size());
         // \BR:
         int maxOpponents = min(SetupGalaxyUI.MAX_DISPLAY_OPPS);
@@ -266,18 +265,14 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override
     public int defaultOpponentsOptions() {
     	// BR: customize preferred Star per empire
-    	float prefStarsPerEmpire = 10f;
-    	if (Profiles.isPreferredStarsPerEmpireEnabled()) {
-    		prefStarsPerEmpire = GalaxyOptions.getPreferredStarsPerEmpire();
-    	}
-        int maxEmpires = min((int)Math.ceil(numberStarSystems()/prefStarsPerEmpire)
+        int maxEmpires = min((int)Math.ceil(numberStarSystems()/prefStarsPerEmpire.get())
         		, colors.size(), MAX_OPPONENT_TYPE*startingRaceOptions().size());
         // \BR:
         int maxOpponents = min(SetupGalaxyUI.MAX_DISPLAY_OPPS);
         return min(maxOpponents, maxEmpires-1);
     }
     @Override
-    public String name()                 { return "SETUP_RULESET_ORION"; }
+    public String name() { return "SETUP_RULESET_ORION"; }
     @Override
     public void copyOptions(IGameOptions o) { 
         if (!(o instanceof MOO1GameOptions))

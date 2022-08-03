@@ -4,7 +4,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     https://www.gnu.org/licenses/gpl-3.0.html
+ *	 https://www.gnu.org/licenses/gpl-3.0.html
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,12 +26,16 @@ import br.profileManager.src.main.java.Valid_LocalEnable;
 import mod.br.AddOns.RaceOptions;
 import rotp.Rotp;
 import rotp.ui.UserPreferences;
+import rotp.ui.game.StartModAOptionsUI;
+import rotp.ui.game.StartModBOptionsUI;
+import rotp.util.sound.SoundClip;
+import rotp.util.sound.SoundManager;
 
 /**
  * <ClientClass> The class that have to go thru the profile manager
  */
 public class UserProfiles extends AbstractProfiles<ClientClasses> {
-    
+	
 	static enum BaseMod {
 		Original, Governor, Modnar, Xilmi, BrokenRegistry
 	}
@@ -83,45 +87,58 @@ public class UserProfiles extends AbstractProfiles<ClientClasses> {
 			} else {
 				loadGroupSettings(clientObject, BR_GROUP_NAME, false);
 			}
+			click();
 			refresh = true;
 			break;
 		case KeyEvent.VK_D: // "D" = Reload Default Profiles
 			loadHistoryOptions(clientObject, group, Default, global);
 			refresh = true;
+			click();
 			break;
 		case KeyEvent.VK_F: // "F" = Reload History Former (Last) Profiles
 			loadHistoryOptions(clientObject, group, Last, global);
 			refresh = true;
+			click();
 			break;
 		case KeyEvent.VK_G: // "G" = Reload History Game Profiles
 			loadHistoryOptions(clientObject, group, Game, global);
 			refresh = true;
+			click();
 			break;
 		case KeyEvent.VK_I: // "I" = Reload Initial Profiles
 			loadHistoryOptions(clientObject, group, Initial, global);
 			refresh = true;
+			click();
 			break;
 		case KeyEvent.VK_L: // "L" = Load GUI User Profiles
 		case KeyEvent.VK_P: // "P" = Load GUI User Profiles
 			loadGroupSettings(clientObject, group, global);
 			refresh = true;
+			click();
 			break;
 		case KeyEvent.VK_R: // "R" = Load GUI Surprise Profiles
 			loadSurpriseGroupSettings(clientObject, group, global);
 			refresh = true;
+			click();
 			break;
 		case KeyEvent.VK_S: // "S = Save Remnant.cfg
 			UserPreferences.save();
+			click();
 			break;
 		case KeyEvent.VK_U: // "U" = Update User Presets
 			saveGuiToFile(clientObject);
+			click();
 			break;
 		}
 		if (refresh) {
 			UserPreferences.save();
+			click();
 		}
 		return refresh;
-	}	
+	}
+	private SoundClip click() {
+		return SoundManager.current().playAudioClip("ButtonClick");
+	}
 	// ========================================================================
 	//  Abstract Methods
 	//
@@ -137,13 +154,14 @@ public class UserProfiles extends AbstractProfiles<ClientClasses> {
 	 * Add all the groups to the Map with an easy key
 	 */
 	@Override protected void initGroupMap(ClientClasses options) {
-      groupMap = new LinkedHashMap<String, AbstractGroup<ClientClasses>>();
-      groupMap.put("RACE",        new Group_Race(options));
-      groupMap.put("GALAXY",      new Group_Galaxy(options));
-      groupMap.put("ADVANCED",    new Group_Advanced(options));
-      groupMap.put("MODNAR",      new Group_Modnar(options));
-      groupMap.put("GOVERNOR",    new Group_Governor(options));
-      groupMap.put(BR_GROUP_NAME, new Group_BrokenRegistry(options));
+		groupMap = new LinkedHashMap<String, AbstractGroup<ClientClasses>>();
+		groupMap.put("RACE",		new Group_Race(options));
+		groupMap.put("GALAXY",		new Group_Galaxy(options));
+		groupMap.put("ADVANCED",	new Group_Advanced(options));
+		groupMap.put(StartModAOptionsUI.guiTitleID,	new Group_Mod_A(options));
+		groupMap.put(StartModBOptionsUI.guiTitleID,	new Group_Mod_B(options));
+		groupMap.put("GOVERNOR",	new Group_Governor(options));
+		groupMap.put(BR_GROUP_NAME,	new Group_BrokenRegistry(options));
 	}
 
 	@Override protected void createDefaultUserProfiles() {

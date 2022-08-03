@@ -31,12 +31,8 @@ import java.util.List;
 import br.profileManager.src.main.java.AbstractGroup;
 import br.profileManager.src.main.java.AbstractParameter;
 import br.profileManager.src.main.java.AbstractT;
-import br.profileManager.src.main.java.T_Boolean;
 import br.profileManager.src.main.java.T_Float;
-import br.profileManager.src.main.java.T_Integer;
 import br.profileManager.src.main.java.Valid_IntegerWithList;
-import br.profileManager.src.main.java.Validation;
-import mod.br.AddOns.GalaxySpacing;
 import mod.br.AddOns.Miscellaneous;
 import mod.br.AddOns.StarsOptions.ProbabilityModifier;
 
@@ -59,9 +55,6 @@ public class Group_BrokenRegistry extends  AbstractGroup <ClientClasses> {
 	
 	@Override protected void initSettingList(ClientClasses go) {
 		addParameter(new FlagColorOrder(go));
-		addParameter(new MaximizeEmpiresSpacing(go));
-		addParameter(new PreferredStarsPerEmpire(go));
-		addParameter(new MinStarsPerEmpire(go));
 		addParameter(new BaseProbabilityModifier(go, "STAR TYPE PROBABILITY"
 				, probabilityModifier(STARS_KEY), STAR_TYPES
 				, " " + NL
@@ -140,124 +133,6 @@ public class Group_BrokenRegistry extends  AbstractGroup <ClientClasses> {
 					+ "If you remove the \"None\" one, it will still be available on reset"
 					+ NL);
 		}	
-	}
-
-	// ========================================================================
-	// MAXIMIZE EMPIRES SPACING
-	//
-	static class MaximizeEmpiresSpacing extends 
-			AbstractParameter <Boolean, Validation<Boolean>, ClientClasses> {
-	 
-		MaximizeEmpiresSpacing(ClientClasses go) {
-			super( "MAXIMIZE EMPIRES SPACING",
-					new Validation<Boolean>(
-							new T_Boolean(GalaxySpacing.DEFAULT_MAXIMIZE_EMPIRES_SPACING)));
-
-			setHistoryCodeView(Default, false); // BR DEFAULT
-		}
-	    // ========== Overriders ==========
-	    //
-		@Override public AbstractT<Boolean> getFromGame (ClientClasses go) {
-			return new T_Boolean(GalaxySpacing.isMaximizeEmpiresSpacing());
-		}
-		
-		@Override public void putToGame(ClientClasses go, AbstractT<Boolean> value) {}
-		
-		@Override public AbstractT<Boolean> getFromUI (ClientClasses go) {
-			return new T_Boolean(GalaxySpacing.isMaximizeEmpiresSpacing());
-		}
-		
-		@Override public void putToGUI(ClientClasses go, AbstractT<Boolean> value) {
-			GalaxySpacing.setMaximizeEmpiresSpacing(value.getCodeView());
-		}
-		
-		@Override public void initComments() {
-			setSettingComments(" " + NL
-					+ "I don’t like being squeezed in a corned in big map with few opponents..." + NL
-					+ "With this option activated, the space between every empire will be maximized."
-					+ NL);
-		}
-	}
-
-	// ========================================================================
-	// PREF STARS PER EMPIRE
-	//
-	static class PreferredStarsPerEmpire extends 
-			AbstractParameter <Integer, Validation<Integer>, ClientClasses> {
-
-		PreferredStarsPerEmpire(ClientClasses go) { 
-			super( "PREF STARS PER EMPIRE",
-					new Validation<Integer>(
-							new T_Integer(GalaxySpacing.DEFAULT_PREFERRED_STARS_PER_EMPIRE)));
-
-			setHistoryCodeView(Default, 16); // BR DEFAULT
-			setLimits(0 , 1000000);
-			setDefaultRandomLimits(16 , 24);
-		}
-	    // ========== Overriders ==========
-	    //
-		@Override public AbstractT<Integer> getFromGame (ClientClasses go) {
-			return new T_Integer(GalaxySpacing.getPreferredStarsPerEmpire());
-		}
-		
-		@Override public void putToGame(ClientClasses go, AbstractT<Integer> value) {}
-		
-		@Override public AbstractT<Integer> getFromUI (ClientClasses go) {
-			return new T_Integer(GalaxySpacing.getPreferredStarsPerEmpire());
-		}
-		
-		@Override public void putToGUI(ClientClasses go, AbstractT<Integer> value) {
-			GalaxySpacing.setPreferredStarsPerEmpire(value.getCodeView());
-		}
-		
-		@Override public void initComments() {
-			setSettingComments(" " + NL
-					+ "Preferred number of stars around every empires."
-					+ " This parameter will affect the default selected number of opponents,"
-					+ " also depend on the size of the galaxy." + NL
-					+ "This parameter will be disabled as soon as a number of opponents is chosen."
-					+ NL);
-		}
-	}
-	
-	// ========================================================================
-	// MIN STARS PER EMPIRE
-	//
-	static class MinStarsPerEmpire extends 
-			AbstractParameter <Integer, Validation<Integer>, ClientClasses> {
-
-		MinStarsPerEmpire(ClientClasses go) {
-			super( "MIN STARS PER EMPIRE",
-					new Validation<Integer>(
-							new T_Integer(GalaxySpacing.DEFAULT_MIN_STARS_PER_EMPIRE)));
-
-			setHistoryCodeView(Default, 8); // BR DEFAULT
-			setLimits(0 , 1000000);
-			setDefaultRandomLimits(4 , 16);
-		}
-	    // ========== Overriders ==========
-	    //
-		@Override public AbstractT<Integer> getFromGame (ClientClasses go) {
-			return new T_Integer(GalaxySpacing.getMinStarsPerEmpire());
-		}
-		
-		@Override public void putToGame(ClientClasses go, AbstractT<Integer> value) {}
-		
-		@Override public AbstractT<Integer> getFromUI (ClientClasses go) {
-			return new T_Integer(GalaxySpacing.getMinStarsPerEmpire());
-		}
-		
-		@Override public void putToGUI(ClientClasses go, AbstractT<Integer> value) {
-			GalaxySpacing.setMinStarsPerEmpire(value.getCodeView());
-		}
-		
-		@Override public void initComments() {
-			setSettingComments(" " + NL
-					+ "Minimum number of stars around every empires." + NL
-					+ " This parameter will affect the maximum number of allowed opponents,"
-					+ " also depend on the size of the galaxy."
-					+ NL);
-		}
 	}
 
 	// ==============================================================

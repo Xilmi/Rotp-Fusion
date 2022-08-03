@@ -20,7 +20,6 @@ package rotp.mod.br.profiles;
 import mod.br.profileManager.ClientClasses;
 import mod.br.profileManager.UserProfiles;
 import rotp.Rotp;
-import rotp.mod.br.AddOns.GalaxyOptions;
 import rotp.model.game.GameSession;
 import rotp.model.game.IGameOptions;
 
@@ -125,29 +124,6 @@ public class Profiles {
 	 */
 	public static boolean isFlagColorOrderEnabled() {
 		return userProfiles.hasValidUserValueForNewGame("FLAG COLOR ORDER");
-//		return userProfiles.isParameterEnabled("FLAG COLOR ORDER");
-	}
-	/**
-  	 * Check if it is OK to use Spacing
-	 * @return status
-	 */
-	public static boolean isPreferredStarsPerEmpireEnabled() {
-		return userProfiles.hasValidUserValueForNewGame("PREF STARS PER EMPIRE");
-	}
-	/**
-  	 * Check if it is OK to use Spacing
-	 * @return status
-	 */
-	public static boolean isMinStarsPerEmpireEnabled() {
-		return userProfiles.hasValidUserValueForNewGame("MIN STARS PER EMPIRE");
-	}
-	/**
-  	 * Check if it is OK to use Spacing
-	 * @return status
-	 */
-	public static boolean isMaximizeSpacingEnabled() {
-		return userProfiles.hasValidUserValueForNewGame("MAXIMIZE EMPIRES SPACING")
-				&& GalaxyOptions.isMaximizeEmpiresSpacing();
 	}
 	/**
   	 * Check if it is OK to use OpponentRaceList (for Random)

@@ -15,12 +15,13 @@
  */
 package rotp.model.galaxy;
 
+import static rotp.ui.UserPreferences.maximizeSpacing;
+
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-import rotp.mod.br.profiles.Profiles;
 import rotp.model.game.IGameOptions;
 
 // modnar: custom map shape, Spiral Arms
@@ -70,7 +71,7 @@ public class GalaxySpiralArmsShape extends GalaxyShape {
     }
 	@Override public CtrPoint getPlayerSymmetricHomeWorld() {
     	double minHomeRay = Math.sqrt(empireBuffer * numEmpires / twoPI / galaxyRay());
-    	if (Profiles.isMaximizeSpacingEnabled()) {
+    	if (maximizeSpacing.get()) {
     		minHomeRay = Math.max(minHomeRay, (galaxyRay() - sysBuffer)/galaxyRay()) ;
     	}
     	return getRandomSymmetric(minHomeRay);
@@ -157,40 +158,8 @@ public class GalaxySpiralArmsShape extends GalaxyShape {
     }
     @Override
     public void setRandom(Point.Float pt) {
-		
-        int option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
-        //int option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
-        
+		       
 		float gW = (float) galaxyWidthLY();
-		float gH = (float) galaxyHeightLY();
-		
-//		float numSwirls = (float) 2.0f;
-//		float armRadius = (float) max(1.5f, 0.03f*gW);
-		
-		// choose spiral swirl size and max spiral arm width with options1
-		// // maybe (?) scale up the spiral swirl size with size of map (?)
-		// // Math.round(Math.sqrt(Math.sqrt(Math.sqrt(opts.numberStarSystems()))));
-		// scale max spiral arm width (2*armRadius) with map size
-//		switch(option1) {
-//            case 0: {
-//                // normal swirls, medium swirl arm width
-//                numSwirls = (float) 2.0f;
-//                armRadius = (float) max(1.5f, 0.03f*gW);
-//                break;
-//            }
-//            case 1: {
-//                // loose swirls, large swirl arm width
-//                numSwirls = (float) 1.0f;
-//                armRadius = (float) max(1.5f, 0.05f*gW);
-//                break;
-//            }
-//            case 2: {
-//                // tight swirls, small swirl arm width
-//                numSwirls = (float) 3.0f;
-//                armRadius = (float) max(1.5f, 0.02f*gW);
-//                break;
-//            }
-//        }
 		
 		// scale up the number of spirals with size of map
 		int numSpirals = (int) Math.floor(Math.sqrt(Math.sqrt(opts.numberStarSystems())));

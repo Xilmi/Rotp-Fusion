@@ -40,9 +40,8 @@ public class GalaxyFactory implements Base {
     public static GalaxyFactory current()   { return instance; }
     /**
      * Companion world greek letter prefix
-     * // BR : added two possibilities
      */
-    public static final String[] compSysName = new String[]{"α", "β", "γ", "δ", "ε", "ζ"};
+    public static final String[] compSysName = new String[]{"α", "β", "γ", "δ", "ε", "ζ"};// BR : added two possibilities
     public Galaxy newGalaxy() {
         for (Race r: Race.races()) {
             r.loadNameList();
@@ -61,7 +60,6 @@ public class GalaxyFactory implements Base {
         Galaxy g = new Galaxy(shape);
         GameSession.instance().galaxy(g);
         Race playerRace = Race.keyed(opts.selectedPlayerRace());
-        // TODO BR: Add Ship design choice
         if(!ShipSetAddOns.isOriginalShipSet())
         	playerRace.preferredShipSet = ShipSetAddOns.playerShipSet();
 

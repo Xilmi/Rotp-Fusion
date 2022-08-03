@@ -22,6 +22,21 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
+2022.08. (BR)
+  - Made tools to simplify setting addition to user preferences: Only two lines are needed.
+  - Made tools to simplify setting addition to MOD Options GUI: Only two lines are needed (Using above tools). Compatible with traditionnal settings.
+  - On these new settings the middle button will now reset the setting to its default value.
+  - The GUI auto resize up to 4 columns and 6 rows.
+  - Added two GUI: MOD Options B and Display Options.
+  - Display option GUI: Added all the galaxy Map zooming settings already added to Remnant.cfg.
+  - MOD Options B GUI: Added the galaxy spacing options
+  - Maximum Spacing Limit is now under your control.
+  - MOD Options B GUI: Added 8 key Technology control with Always/Never/Auto options; For Player or AI.
+  - Technologies: Irradiated Irradiated Stargate Hyperspace Industry2 Thorium Transport Terraforming120.
+  - MOD Options A GUI: Added option to give Artifact, Fertile, Rich or Ultra-Rich Home World to Player/AI.
+  - Added all the new things to Profiles Manager.
+  
+
 2022.07.27 (BR)
   - Extended Build automation.
   - Added Player Ship Set selection.

@@ -51,14 +51,16 @@ public class StarSystemFactory implements Base {
             type = opts.randomRaceStarType(r);
         }
         StarSystem sys = StarSystem.create(type, gal);
-        sys.planet(PlanetFactory.createHomeworld(r, sys, session().populationBonus()));
+        // BR: added player identification
+        sys.planet(PlanetFactory.createHomeworld(r, sys, session().populationBonus(), false));
         return sys;
     }
     public StarSystem newSystemForPlayer(Race r, Galaxy gal) {
         IGameOptions opts = GameSession.instance().options();
         String type = opts.randomPlayerStarType(r);
         StarSystem sys = StarSystem.create(type, gal);
-        sys.planet(PlanetFactory.createHomeworld(r, sys, session().populationBonus()));
+        // BR: added player identification
+        sys.planet(PlanetFactory.createHomeworld(r, sys, session().populationBonus(), true));
         return sys;
     }
     // modnar: add option to start game with additional colonies
