@@ -33,6 +33,9 @@ public class ParamBoolean extends AbstractParam<Boolean> {
 	@Override public String getCfgValue() {
 		return yesOrNo(value);
 	}
+	@Override public String getGuiValue() {
+		return yesOrNo(value);
+	}
 	@Override public Boolean next() {
 		return setAndSave(!value); 
 	}
