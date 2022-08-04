@@ -22,7 +22,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
-2022.08. (BR)
+2022.08.04 (BR)
   - Made tools to simplify setting addition to user preferences: Only two lines are needed.
   - Made tools to simplify setting addition to MOD Options GUI: Only two lines are needed (Using above tools). Compatible with traditionnal settings.
   - On these new settings the middle button will now reset the setting to its default value.
