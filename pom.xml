@@ -15,8 +15,8 @@
 		<!-- Personal -->
 		<maven.build.timestamp.format>yyyy.MM.dd.HH</maven.build.timestamp.format>
 		<revision>${maven.build.timestamp}</revision>
-		<RepoId>Rotp-Fusion</RepoId>
-		<AuthorId>BrokenRegistry</AuthorId>
+		<RepoId>Rotp-C-M-X-BR</RepoId>
+		<AuthorId>Xilmi</AuthorId>
 		<BaseFileName>rotp-${project.version}</BaseFileName>
 	 	<!-- Maven Standard -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
