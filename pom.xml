@@ -15,14 +15,14 @@
 		<!-- Personal -->
 		<maven.build.timestamp.format>yyyy.MM.dd.HH</maven.build.timestamp.format>
 		<revision>${maven.build.timestamp}</revision>
-		<RepoId>Rotp-C-M-X-BR</RepoId>
-		<AuthorId>Xilmi</AuthorId>
+		<RepoId>Rotp-Fusion</RepoId>
+		<AuthorId>BrokenRegistry</AuthorId>
 		<BaseFileName>rotp-${project.version}</BaseFileName>
 	 	<!-- Maven Standard -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>8</java.version>
-		<junit.jupiter.version>5.8.2</junit.jupiter.version>
-		<junit.platform.version>1.8.2</junit.platform.version>
+		<junit.jupiter.version>5.9.0</junit.jupiter.version>
+		<junit.platform.version>1.9.0</junit.platform.version>
 		<GITHUB_TOKEN></GITHUB_TOKEN>
 	</properties>
 

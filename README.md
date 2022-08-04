@@ -22,7 +22,23 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
-2022.07.25
+2022.08.04 (BR)
+  - Made tools to simplify setting addition to user preferences: Only two lines are needed.
+  - Made tools to simplify setting addition to MOD Options GUI: Only two lines are needed (Using above tools). Compatible with traditionnal settings.
+  - On these new settings the middle button will now reset the setting to its default value.
+  - The GUI auto resize up to 4 columns and 6 rows.
+  - Added two GUI: MOD Options B and Display Options.
+  - Display option GUI: Added all the galaxy Map zooming settings already added to Remnant.cfg.
+  - MOD Options B GUI: Added the galaxy spacing options
+  - Maximum Spacing Limit is now under your control.
+  - MOD Options B GUI: Added 8 key Technology control with Always/Never/Auto options; For Player or AI.
+  - Technologies: Irradiated Irradiated Stargate Hyperspace Industry2 Thorium Transport Terraforming120.
+  - MOD Options A GUI: Added option to give Artifact, Fertile, Rich or Ultra-Rich Home World to Player/AI.
+  - Added all these new things to Profiles Manager.
+  - Removed the useless double call to options() and newOptions().
+  
+
+2022.07.25 (Xilmi)
   - Changed version-string from to "Rotp-C-M-X-BR" to "Fusion-Mod"
   - Renamed AI's Legacy => Fusion, Advanced => Roleplay
   - Restored default- and maximum empire-count from Fusion-Mod
@@ -32,32 +48,32 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
   - Fusion AI now uses an aggressiveness model to determine whether to go to war. Aggressiveness also depends on leader-personality.
   - Fusion AI war-weariness no longer depends on aggressiveness in order to reduce hit&run-exploits against less aggressive races
 
-2022.07.24
+2022.07.24 (BR)
   - Replaced Modnar Ships colors settings with last Ray's settings.
 
-2022.07.24
+2022.07.24 (BR)
   - Restored default language management.
 
-2022.07.24
+2022.07.24 (BR)
   - Added GridCircularDisplay to Remnant.cfg.
 
-2022.07.24
+2022.07.24 (BR)
   - Added full mouse control to Galaxy Options GUI.
   - Added new races on/off on Galaxy Options GUI.
 
-2022.07.23
+2022.07.23 (BR)
   - Added easy control to switch ON/OFF the new races.
   - Xilmi improvement for the new races with Ultra-Rich Home World.
 
-2022.07.22
+2022.07.22 (BR)
   - Retreat Restriction Current value now displayed as text instead of integer.
   - The other languages are available again.
 
-2022.07.22
+2022.07.22 (BR)
   - Minor bugs correction.
   - Auto generated Profiles.cfg: Removed the "surprise"-action from "MyRandom" for a better feeling in initial random testing!
 
-2022.07.21
+2022.07.21 (BR)
   - Made Rookie AI independent of Base and Modnar AI.
   - Restored original Base and Modnar AI.
   - Added Low fuel range. (to compensate companion bonus!)
@@ -71,12 +87,12 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
   - Added Option to always have the Control Irradiated in Tech tree
   - Added Always Irradiated to Modnar GUI
 
-2022.07.15
+2022.07.15 (BR)
   - Changing Player Race: Fixed Technology tree re-generation.
   - Minor bugs Fix
   - Added total mouse control to Modnar and Advanced GUI
 
-2022.07.13
+2022.07.13 (BR)
   - Restored Fuel Range.
   - Added randomness in the distribution of companion worlds.
     - Up to 6 companions worlds are now available.
@@ -88,18 +104,18 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
       - Added Straigth and Very Loose options to Spiral Arms Galaxies.
   - Updated to Xilmi Fusion 2022-07-13.
 
-2022.07.05
+2022.07.05 (BR)
   - Added AI filters for individual filling option.
   - Added secondary options for Galaxy shapes.
   - Added possibility to hide parameters in Profiles.cfg
 
-2022.07.01
+2022.07.01 (BR)
   - Junit test integration to github
   - Pom file normalization
   - Minor bugs solved
   - Updated to ROTP Fusion-MOD v2022.06.29
 
-2022.06.29
+2022.06.29 (BR)
   - Copy of Fusion-MOD v2022.06.25
   - Merged with 1.02a_modnar_MOD39_newRaces
   - Merged with Profiles Manager
