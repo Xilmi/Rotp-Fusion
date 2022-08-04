@@ -976,8 +976,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
             goToMainMenu();
             break;
         default: // BR:
-        	if (Profiles.processKey(k, e.isShiftDown(), "Galaxy",
-        							options(), newGameOptions())) {
+        	if (Profiles.processKey(k, e.isShiftDown(), "Galaxy", newGameOptions())) {
             	buttonClick();
                 playerRaceImg = null;
                 playerRaceImg = playerRaceImg();
@@ -986,8 +985,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
         	}
         	// Needs to be done twice for the case both Galaxy size
         	// and the number of opponents were changed !?
-        	if (Profiles.processKey(k, e.isShiftDown(), "Galaxy",
-					options(), newGameOptions())) {
+        	if (Profiles.processKey(k, e.isShiftDown(), "Galaxy", newGameOptions())) {
 				buttonClick();
 			    playerRaceImg = null;
 			    playerRaceImg = playerRaceImg();
@@ -1002,12 +1000,10 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
      * Load Profiles with option "Surprise" and start Game
      */
     public void surpriseStart() {
-    	Profiles.processKey(KeyEvent.VK_R, true, "Galaxy",
-				options(), newGameOptions());
+    	Profiles.processKey(KeyEvent.VK_R, true, "Galaxy", newGameOptions());
 		buttonClick();
 	    repaint();
-    	Profiles.processKey(KeyEvent.VK_R, true, "Galaxy",
-				options(), newGameOptions());
+    	Profiles.processKey(KeyEvent.VK_R, true, "Galaxy", newGameOptions());
 	    repaint();
 	    startGame();
     }

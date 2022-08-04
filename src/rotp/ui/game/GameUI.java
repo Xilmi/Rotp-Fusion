@@ -692,7 +692,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             	break;
             // BR: Load Profiles
             case KeyEvent.VK_P:
-            	Profiles.processKey(k, true, "Race", options(), options());
+            	Profiles.processKey(k, true, "Race", options());
         }
     }
     private void shrinkFrame() {

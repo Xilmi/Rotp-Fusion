@@ -121,7 +121,6 @@ public class Group_BrokenRegistry extends  AbstractGroup <ClientClasses> {
 		@Override public void putToGUI(ClientClasses go, AbstractT<Integer> value) {
 			Miscellaneous.selectedFlagColorOrder(value);
 
-			go.newOptions().selectedPlayerColor(value.getCodeView());
 			go.options().selectedPlayerColor(value.getCodeView());
 		}
 		

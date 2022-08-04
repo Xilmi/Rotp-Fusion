@@ -278,13 +278,11 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 				parent.advanceHelp();
 				break;
 			default: // BR:
-				if(Profiles.processKey(k, e.isShiftDown(), guiTitleID,
-						options(), newGameOptions())) {
+				if(Profiles.processKey(k, e.isShiftDown(), guiTitleID, newGameOptions())) {
 				};
 				// Needs to be done twice for the case both Galaxy size
 				// and the number of opponents were changed !?
-				if(Profiles.processKey(k, e.isShiftDown(), guiTitleID,
-						options(), newGameOptions())) {
+				if(Profiles.processKey(k, e.isShiftDown(), guiTitleID, newGameOptions())) {
 					for (int i=0; i<paramList.size(); i++) {
 						btList.get(i).repaint(paramList.get(i).getGuiDisplay());
 					}

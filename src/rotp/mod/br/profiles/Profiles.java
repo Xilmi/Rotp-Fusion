@@ -103,9 +103,9 @@ public class Profiles {
 	 * @return <b>true</b> if something has been changed
    	 */
 	public static boolean processKey(int key, boolean global,
-			String group, IGameOptions options, IGameOptions newOptions) {
+			String group, IGameOptions options) {
 		return userProfiles.processKey(key, global, group,
-							new ClientClasses(options, newOptions));
+							new ClientClasses(options));
 	}
 	/**
    	 * Load The Profile Manager configuration file,
