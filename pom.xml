@@ -15,7 +15,7 @@
 		<!-- Personal -->
 		<maven.build.timestamp.format>yyyy.MM.dd.HH</maven.build.timestamp.format>
 		<revision>${maven.build.timestamp}</revision>
-		<RepoId>Rotp-C-M-X-BR</RepoId>
+		<RepoId>Rotp-Fusion</RepoId>
 		<AuthorId>Xilmi</AuthorId>
 		<BaseFileName>rotp-${project.version}</BaseFileName>
 	 	<!-- Maven Standard -->

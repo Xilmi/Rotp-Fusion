@@ -22,7 +22,11 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
-2022.07.25
+2022.07.27 (BR)
+  - Extended Build automation.
+  - Added Player Ship Set selection.
+
+2022.07.25 (XILMI)
   - Changed version-string from to "Rotp-C-M-X-BR" to "Fusion-Mod"
   - Renamed AI's Legacy => Fusion, Advanced => Roleplay
   - Restored default- and maximum empire-count from Fusion-Mod
@@ -35,13 +39,13 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 2022.07.24
   - Replaced Modnar Ships colors settings with last Ray's settings.
 
-2022.07.24
+2022.07.24 (BR)
   - Restored default language management.
 
-2022.07.24
+2022.07.24 (BR)
   - Added GridCircularDisplay to Remnant.cfg.
 
-2022.07.24
+2022.07.24 (BR)
   - Added full mouse control to Galaxy Options GUI.
   - Added new races on/off on Galaxy Options GUI.
 

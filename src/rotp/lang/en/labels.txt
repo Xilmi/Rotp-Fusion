@@ -1253,6 +1253,8 @@ SETUP_RACE_LABEL                  | Available Races
 SETUP_RACE_COLOR                  | Empire Color:
 SETUP_HOMEWORLD_NAME_LABEL        | Homeworld:
 SETUP_LEADER_NAME_LABEL           | Leader:
+SETUP_SHIP_SET_LABEL              | Ship Set:
+SETUP_SHIPSET_ORIGINAL            | Original
 SETUP_FLAG_LABEL                  | Banner
 SETUP_BUTTON_CANCEL               | Cancel
 SETUP_BUTTON_BACK                 | Back

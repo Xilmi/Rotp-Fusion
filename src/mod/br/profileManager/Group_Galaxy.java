@@ -43,7 +43,7 @@ import br.profileManager.src.main.java.Options;
 import br.profileManager.src.main.java.T_Integer;
 import br.profileManager.src.main.java.T_String;
 import br.profileManager.src.main.java.Validation;
-import mod.br.AddOns.RaceFilter;
+import mod.br.AddOns.RaceOptions;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.GalaxyBullseyeShape;
 import rotp.model.galaxy.GalaxyClusterShape;
@@ -473,7 +473,7 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 			List<String> defaultValue = go.newOptions().startingRaceOptions();
 			setHistoryCodeView(Initial, defaultValue); // set Current too
 			setHistoryCodeView(Default, defaultValue);
-			RaceFilter.defaultRaceList(defaultValue);
+			RaceOptions.defaultRaceList(defaultValue);
 		}
 		
 		// ========== Overriders ==========
@@ -485,11 +485,11 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String().setFromCodeView(RaceFilter.selectedGuiRaceFilter());
+			return new T_String().setFromCodeView(RaceOptions.selectedGuiRaceFilter());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
-			RaceFilter.selectedGuiRaceFilter(value.getCodeList());
+			RaceOptions.selectedGuiRaceFilter(value.getCodeList());
 		}
 		
 		@Override public void initComments() {
@@ -523,7 +523,7 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 			List<String> defaultValue = go.newOptions().startingRaceOptions();
 			setHistoryCodeView(Initial, defaultValue); // set Current too
 			setHistoryCodeView(Default, defaultValue);
-			RaceFilter.defaultRaceList(defaultValue);
+			RaceOptions.defaultRaceList(defaultValue);
 		}
 		
 	    // ========== Overriders ==========
@@ -535,11 +535,11 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String().setFromCodeView(RaceFilter.selectedGameRaceFilter());
+			return new T_String().setFromCodeView(RaceOptions.selectedGameRaceFilter());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
-			RaceFilter.selectedGameRaceFilter(value.getCodeList());
+			RaceOptions.selectedGameRaceFilter(value.getCodeList());
 		}
 		
 		@Override public void initComments() {
@@ -685,7 +685,7 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 										.analyze(go, value.getUserList()
 												, IGameOptions.MAX_OPPONENT_TYPE
 												, true);
-			RaceFilter.startOpponentRace(selectedOpponents);
+			RaceOptions.startOpponentRace(selectedOpponents);
 		}
 		
 		@Override public void initComments() {
@@ -713,7 +713,7 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		 * @param go the ClientClass
 		 */
 		public void loadOpponents(ClientClasses go) {
-			String[] selectedOpponents = RaceFilter.startOpponentRace();
+			String[] selectedOpponents = RaceOptions.startOpponentRace();
 			if (selectedOpponents != null) {
 				int i=0;
 				for (String race : selectedOpponents) {
@@ -742,7 +742,7 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 			List<String> defaultValue = go.newOptions().specificOpponentAIOptions();
 			setHistoryCodeView(Initial, defaultValue); // set Current too
 			setHistoryCodeView(Default, defaultValue);
-			RaceFilter.defaultGuiAIList(defaultValue);
+			RaceOptions.defaultGuiAIList(defaultValue);
 		}
 		
 		// ========== Overriders ==========
@@ -754,11 +754,11 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String().setFromUserView(RaceFilter.selectedGuiAIFilter());
+			return new T_String().setFromUserView(RaceOptions.selectedGuiAIFilter());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
-			RaceFilter.selectedGuiAIFilter(value.getUserList());
+			RaceOptions.selectedGuiAIFilter(value.getUserList());
 		}
 		
 		@Override public void initComments() {
@@ -793,7 +793,7 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 //			.specificOpponentAIOptions().subList(0, AI.AI_LAST_ID);
 			setHistoryCodeView(Initial, defaultValue); // set Current too
 			setHistoryCodeView(Default, defaultValue);
-			RaceFilter.defaultGameAIList(defaultValue);
+			RaceOptions.defaultGameAIList(defaultValue);
 		}
 		
 	    // ========== Overriders ==========
@@ -805,11 +805,11 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String().setFromUserView(RaceFilter.selectedGameAIFilter());
+			return new T_String().setFromUserView(RaceOptions.selectedGameAIFilter());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
-			RaceFilter.selectedGameAIFilter(value.getUserList());
+			RaceOptions.selectedGameAIFilter(value.getUserList());
 		}
 		
 		@Override public void initComments() {
@@ -940,7 +940,7 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
 			String[] selectedAIs = ((Valid_AIList) getValidation())
 										.analyze(go, value.getUserList(), true);
-			RaceFilter.startOpponentAI(selectedAIs);
+			RaceOptions.startOpponentAI(selectedAIs);
 		}
 		
 		@Override public void initComments() {
@@ -965,7 +965,7 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		 * @param go the ClientClass
 		 */
 		public void loadAIs(ClientClasses go) {
-			String[] selectedAIs = RaceFilter.startOpponentAI();
+			String[] selectedAIs = RaceOptions.startOpponentAI();
 			if (selectedAIs != null) {
 				int i=0;
 				for (String ai : selectedAIs) {

@@ -25,6 +25,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import rotp.Rotp;
+import rotp.mod.br.AddOns.ShipSetAddOns;
 import rotp.model.game.GameSession;
 import rotp.util.LanguageManager;
 import rotp.util.sound.SoundManager;
@@ -322,9 +323,9 @@ public class UserPreferences {
     	dynamicDifficulty = newValue; 
     } // \BR
 
-    public static void toggleAlwaysIrradiated() { alwaysIrradiated = !alwaysIrradiated; save(); } // BR
-    public static void toggleNewRacesOn()       { newRacesOnByDefault = !newRacesOnByDefault; save(); } // BR
-    public static boolean toggleGridCircularDisplay() {  // BR
+    public static void toggleAlwaysIrradiated() { alwaysIrradiated = !alwaysIrradiated; save(); } // BR:
+    public static void toggleNewRacesOn()       { newRacesOnByDefault = !newRacesOnByDefault; save(); } // BR:
+    public static boolean toggleGridCircularDisplay() {  // BR:
     	gridCircularDisplay = !gridCircularDisplay;
     	save();
     	return gridCircularDisplay;
@@ -607,6 +608,7 @@ public class UserPreferences {
             out.println(keyFormat("RETREAT_RESTRICTIONS")+ retreatRestrictions);
             out.println(keyFormat("RETREAT_RESTRICTION_TURNS")+ retreatRestrictionTurns);
             out.println(keyFormat("LANGUAGE")+ languageDir());
+            out.println(keyFormat("PLAYER_SHIP_SET")      + ShipSetAddOns.playerShipSet()); // BR: add option to select Player Ship Set
             out.println(keyFormat("SHOW_FLEET_FACTOR")    + getShowFleetFactor().toString());   // BR:
             out.println(keyFormat("SHOW_FLAG_FACTOR")     + getShowFlagFactor().toString());    // BR:
             out.println(keyFormat("SHOW_PATH_FACTOR")     + getShowPathFactor().toString());    // BR:
@@ -680,6 +682,7 @@ public class UserPreferences {
             case "RETREAT_RESTRICTIONS": setRetreatRestrictions(val); return;
             case "RETREAT_RESTRICTION_TURNS": setRetreatRestrictionTurns(val); return;
             case "LANGUAGE":     selectLanguage(val); return;
+            case "PLAYER_SHIP_SET":      ShipSetAddOns.playerShipSet(val); return; // BR: add option to select Player Ship Set
             case "SHOW_FLEET_FACTOR":    setShowFleetFactor(stringToFloat(val));   return; // BR:
             case "SHOW_FLAG_FACTOR":     setShowFlagFactor(stringToFloat(val));    return; // BR:
             case "SHOW_PATH_FACTOR":     setShowPathFactor(stringToFloat(val));    return; // BR:

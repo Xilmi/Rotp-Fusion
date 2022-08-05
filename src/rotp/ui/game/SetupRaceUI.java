@@ -29,37 +29,54 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTextField;
-
+import rotp.mod.br.AddOns.ShipSetAddOns;
 import rotp.mod.br.profiles.Profiles;
 import rotp.model.empires.Race;
+import rotp.model.ships.ShipImage;
+import rotp.model.ships.ShipLibrary;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 
-public final class SetupRaceUI extends BasePanel implements MouseListener, MouseMotionListener {
+public final class SetupRaceUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
     private static final long serialVersionUID = 1L;
-    static final int MAX_RACES = 16; // modnar: increase MAX_RACES to add new Races
-    int MAX_COLORS = 16; // modnar: add new colors
+    public static final int MAX_RACES  = 16; // modnar: increase MAX_RACES to add new Races
+    static final int MAX_COLORS = 16; // modnar: add new colors
+    static final int MAX_SHIP   = ShipLibrary.designsPerSize; // BR:
     int FIELD_W;
     int FIELD_H;
     BufferedImage backImg;
     public static BufferedImage raceBackImg;
+    public static BufferedImage shipBackImg;
     BufferedImage raceImg;
     Rectangle hoverBox;
     Rectangle cancelBox = new Rectangle();
     Rectangle nextBox = new Rectangle();
     Rectangle leaderBox = new Rectangle();
     Rectangle homeWorldBox = new Rectangle();
+    private Rectangle shipSetBox = new Rectangle(); // BR:
     Rectangle[] raceBox = new Rectangle[MAX_RACES];
     Rectangle[] colorBox = new Rectangle[MAX_COLORS];
+    private Rectangle[] shipBox = new Rectangle[MAX_SHIP]; // BR:
 
     public static BufferedImage[] racemugs = new BufferedImage[MAX_RACES];
     JTextField leaderName = new JTextField("");
     JTextField homeWorld = new JTextField("");
+    private JTextField shipSetTxt = new JTextField(""); // BR: 
+    private int shipSetId = 0; // The index from the list
+    private int shipSize = 2;
+    private int shipId = 0;
+    private static int shipW = 0;
+    private static int shipH = 0;
+    @SuppressWarnings("unchecked")
+	private List<BufferedImage>[] shipImages = new ArrayList[MAX_SHIP];
 
     public SetupRaceUI() {
         init0();
@@ -67,19 +84,25 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     private void init0() {
         addMouseListener(this);
         addMouseMotionListener(this);
+        addMouseWheelListener(this);
         for (int i=0;i<raceBox.length;i++)
             raceBox[i] = new Rectangle();
         for (int i=0;i<colorBox.length;i++)
             colorBox[i] = new Rectangle();
-
+        for (int i=0;i<shipBox.length;i++)
+        	shipBox[i] = new Rectangle();
+        for (int i=0;i<shipImages.length;i++)
+        	shipImages[i] = new ArrayList<BufferedImage>();
         FIELD_W = scaled(160);
         FIELD_H = s24;
         initTextField(homeWorld);
         initTextField(leaderName);
+        initTextField(shipSetTxt); // BR:
     }
     public void init() {
         leaderName.setFont(narrowFont(20));
         homeWorld.setFont(narrowFont(20));
+        shipSetTxt.setFont(narrowFont(20)); // BR:
 
         createNewGameOptions();
         newGameOptions().copyOptions(options());
@@ -87,24 +110,35 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     }
     @Override
     public void paintComponent(Graphics g0) {
-        int x = colorBox[0].x;
-        int y = colorBox[0].y;
-        leaderName.setCaretPosition(leaderName.getText().length());
-        leaderName.setLocation(x, y-s53);
-        leaderBox.setBounds(x-s1, y-s53, FIELD_W+s2, FIELD_H+s2);
-        homeWorld.setCaretPosition(homeWorld.getText().length());
-        homeWorld.setLocation(x, y-s100-s10);
-		// modnar: test hover text
-		homeWorld.setToolTipText("<html> Homeworld Name is used as <br> the Galaxy Map when selecting <br> Map Shape [Text]. <br><br> (Unicode characters allowed)");
-        homeWorldBox.setBounds(x-s1, y-s100-s10, FIELD_W+s2, FIELD_H+s2);
-
         super.paintComponent(g0);
         Graphics2D g = (Graphics2D) g0;
+    	
+        int x = colorBox[0].x;
+        int y = colorBox[0].y;
+
+        shipSetTxt.setCaretPosition(shipSetTxt.getText().length());
+        shipSetTxt.getCaret().setVisible(false);
+        shipSetTxt.setFocusable(false);
+        shipSetTxt.setLocation(x, y-s100-s44);
+        shipSetBox.setBounds(x-s1, y-s100-s44, FIELD_W+s2, FIELD_H+s2);
+        leaderName.setCaretPosition(leaderName.getText().length());
+//         leaderName.setLocation(x, y-s53);
+        leaderName.setLocation(x, y-s50); // BR: squeezed
+//        leaderBox.setBounds(x-s1, y-s53, FIELD_W+s2, FIELD_H+s2);
+        leaderBox.setBounds(x-s1, y-s50, FIELD_W+s2, FIELD_H+s2); // BR: squeezed
+        homeWorld.setCaretPosition(homeWorld.getText().length());
+//        homeWorld.setLocation(x, y-s100-s10);
+        homeWorld.setLocation(x, y-s97); // BR: squeezed
+		// modnar: test hover text
+		homeWorld.setToolTipText("<html> Homeworld Name is used as <br> the Galaxy Map when selecting <br> Map Shape [Text]. <br><br> (Unicode characters allowed)");
+//        homeWorldBox.setBounds(x-s1, y-s100-s10, FIELD_W+s2, FIELD_H+s2);
+        homeWorldBox.setBounds(x-s1, y-s97, FIELD_W+s2, FIELD_H+s2); // BR: squeezed
+
 		// modnar: use (slightly) better upsampling
 		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-        int w = getWidth();
-        int h = getHeight();
+        int w = getWidth(); // Full screen width
+        int h = getHeight(); // Full screen height
 
         // background image
         g.drawImage(backImg(), 0, 0, w, h, this);
@@ -144,7 +178,8 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 
         // race icon
         Race race = Race.keyed(newGameOptions().selectedPlayerRace());
-        int iconH = scaled(115);
+//        int iconH = scaled(115);
+        int iconH = scaled(95); // BR: squeezed
         BufferedImage icon = newBufferedImage(race.flagNorm());
         int imgX = scaled(868); // modnar: right side extended, shift race icon
         int imgY = scaled(120);
@@ -152,13 +187,15 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         g.drawImage(icon, imgX, imgY, imgX+iconH, imgY+iconH, 0, 0, icon.getWidth(), icon.getHeight(), null);
 
         // draw race name
-        int y0 = scaled(260);
+//        int y0 = scaled(260);
+        int y0 = scaled(240); // BR: squeezed
         g.setFont(font(30));
         this.drawBorderedString(g0, race.setupName(), 1, x0, y0, Color.black, Color.white);
 
         // draw race desc #1
         int maxLineW = scaled(185); // modnar: right side extended, increase maxLineW
-        y0 += s25;
+//        y0 += s25;
+        y0 += s20; // BR: squeezed
         g.setFont(narrowFont(16));
         g.setColor(Color.black);
         List<String> desc1Lines = this.wrappedLines(g, race.description1, maxLineW);
@@ -189,7 +226,8 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         }
         
         // draw race desc #3
-        y0 += s12;
+//        y0 += s12;
+        y0 += s3;  // BR: squeezed
         String desc3 = race.description3.replace("[race]", race.setupName());
         List<String> desc3Lines = scaledNarrowWrappedLines(g0, desc3, maxLineW+s8, 5, 16, 13);
         for (String line: desc3Lines) {
@@ -197,10 +235,33 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
             y0 += s16;
         }
 
+        // BR: draw Ship Set label
+        String shipSetLbl = text("SETUP_SHIP_SET_LABEL");
+        int x3 = colorBox[0].x;
+        int y3 = colorBox[0].y-scaled(148);
+        g.setFont(narrowFont(20));
+        g.setColor(Color.black);
+        drawString(g,shipSetLbl, x, y3);
+
+        if (hoverBox == shipSetBox) {
+            Stroke prev = g.getStroke();
+            g.setStroke(stroke4);
+            g.setColor(Color.yellow);
+            g.draw(hoverBox);
+            g.setStroke(prev);
+        }
+        
+//        int y5 = shipSetBox.y+shipSetBox.height-s4;
+//        String shipSetTxt = ShipSetAddOns.playerShipSet();
+//        int shipSetSW = g.getFontMetrics().stringWidth(shipSetTxt);
+//        int x5a =shipSetBox.x+s5;
+//        drawString(g, shipSetTxt, x5a, y5);
+
         // draw homeword label
         String homeLbl = text("SETUP_HOMEWORLD_NAME_LABEL");
-        int x3 = colorBox[0].x;
-        int y3 = colorBox[0].y-s100-s14;
+        x3 = colorBox[0].x;
+//        y3 = colorBox[0].y-s100-s14;
+        y3 = colorBox[0].y-scaled(101); // BR: squeezed
         g.setFont(narrowFont(20));
         g.setColor(Color.black);
         drawString(g,homeLbl, x3, y3);
@@ -216,7 +277,8 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         // draw leader name label
         String nameLbl = text("SETUP_LEADER_NAME_LABEL");
         x3 = colorBox[0].x;
-        y3 = colorBox[0].y-s60;
+//        y3 = colorBox[0].y-s60;
+        y3 = colorBox[0].y-s54; // BR: squeezed
         g.setFont(narrowFont(20));
         g.setColor(Color.black);
         drawString(g,nameLbl, x3, y3);
@@ -261,6 +323,21 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
                 g.setStroke(prev);
             }
         }
+        // selected ship box
+        redrawShipBox(g);
+
+        // hovering ship box outline
+        for (int i=0;i<shipBox.length;i++) {
+            if (shipBox[i] == hoverBox) {
+                Stroke prev = g.getStroke();
+                g.setStroke(stroke2);
+                g.setColor(Color.yellow);
+                g.draw(shipBox[i]);
+                g.setStroke(prev);
+                break;
+            }
+        }
+
 
         // left button
         int cnr = s5;
@@ -311,10 +388,16 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
             }
         }
     }
+    public void shipSetChanged() {
+    	shipSetTxt.setText(ShipSetAddOns.playerShipSet());
+    	shipSetId = ShipSetAddOns.realShipSetId(Race.keyed(
+    			newGameOptions().selectedPlayerRace()).preferredShipSet);
+    }
     public void raceChanged() {
         Race r =  Race.keyed(newGameOptions().selectedPlayerRace());
         r.resetMugshot();
         r.resetSetupImage();
+        shipSetChanged();
         leaderName.setText(r.randomLeaderName());
         newGameOptions().selectedLeaderName(leaderName.getText());
         homeWorld.setText(r.defaultHomeworldName());
@@ -330,7 +413,9 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     }
     private void initTextField(JTextField value) {
         value.setBackground(GameUI.setupFrame());
-        value.setBorder(newEmptyBorder(5,5,0,0));
+//        value.setBorder(newEmptyBorder(5,5,0,0));
+      value.setBorder(newEmptyBorder(3,3,0,0));
+//        value.setBorder(null);
         value.setPreferredSize(new Dimension(FIELD_W, FIELD_H));
         value.setFont(narrowFont(20));
         value.setForeground(Color.black);
@@ -347,6 +432,11 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         }
         return raceImg;
     }
+    public static BufferedImage shipBackImg() {
+        if (shipBackImg == null)
+            initShipBackImg();
+        return shipBackImg;
+    }
     public static BufferedImage raceBackImg() {
         if (raceBackImg == null)
             initRaceBackImg();
@@ -356,6 +446,21 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         if (backImg == null)
             initBackImg();
         return backImg;
+    }
+    private static void initShipBackImg() {
+        shipH = s65;
+        shipW = (int) (shipH * 1.3314f);
+        shipBackImg = gc().createCompatibleImage(shipW, shipH);
+
+        Point2D center = new Point2D.Float(shipW/2, shipH/2);
+        float radius = s100;
+        float[] dist = {0.0f, 0.1f, 0.5f, 1.0f};
+        Color[] colors = {GameUI.raceCenterColor(), GameUI.raceCenterColor(), GameUI.raceEdgeColor(), GameUI.raceEdgeColor()};
+        RadialGradientPaint p = new RadialGradientPaint(center, radius, dist, colors);
+        Graphics2D g = (Graphics2D) shipBackImg.getGraphics();
+        g.setPaint(p);
+        g.fillRect(0, 0, shipW, shipH);
+        g.dispose();
     }
     private static void initRaceBackImg() {
         int w = s76;
@@ -399,7 +504,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         // draw shading, modnar: extend right side
 		// modnar: extend out for new Races
         g.setColor(GameUI.setupShade());
-        g.fillRect(scaled(125), s95, scaled(930), scaled(515));
+        g.fillRect(scaled(125), s95, scaled(1040), scaled(515)); // BR: adjusted Shading right position
 
         // draw race frame
         g.setColor(GameUI.setupFrame());
@@ -412,7 +517,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 
         // draw race right gradient, modnar: extend right side
         g.setPaint(GameUI.raceRightBackground());
-        g.fillRect(scaled(815), scaled(110), scaled(225), scaled(485));
+        g.fillRect(scaled(815), scaled(110), scaled(335), scaled(485)); // BR: adjusted gradient right position
 
         int cnr = s5;
         int buttonH = s45;
@@ -455,6 +560,8 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
             if (i%2 == 1)
                 xC += (wC+s5); // modnar: add new colors, less separation between color boxes
         }
+        // draw Ship frames on right panel
+        redrawShipBox(g);
 
         // draw left button
         cancelBox.setBounds(scaled(710), scaled(685), buttonW, buttonH);
@@ -497,6 +604,72 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         g.drawImage(mug, x,y,w,h, null);
         g.setComposite(prevC);
     }
+    private void redrawShipBox(Graphics2D g) {
+        int xS = scaled(830) + scaled(220);        
+//        Graphics2D g = (Graphics2D) backImg.getGraphics();
+        Composite comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER , 1.0f);
+        drawShipBox(g, 0, xS, scaled(120), comp);
+        drawShipBox(g, 1, xS, scaled(200), comp);
+        drawShipBox(g, 2, xS, scaled(280), comp);
+        drawShipBox(g, 3, xS, scaled(360), comp);
+        drawShipBox(g, 4, xS, scaled(440), comp);
+        drawShipBox(g, 5, xS, scaled(520), comp);
+    }
+    private void drawShipBox(Graphics2D g, int num, int x, int y, Composite comp) {
+        shipBox[num].setBounds(0,0,0,0);
+        BufferedImage back = shipBackImg();
+        int w = back.getWidth();
+        int h = back.getHeight();
+        g.drawImage(back, x, y, w, h, null);
+        if (num >= MAX_SHIP)
+            return;
+        loadShipImages(num);
+        shipBox[num].setBounds(x,y,w,h);
+        g.drawImage(shipImages[num].get(shipId), x,y,w,h, null);
+    }
+    private void loadShipImages(int num) {
+        shipImages[num].clear();
+        ShipImage images = ShipLibrary.current().shipImage(shipSetId, shipSize, num);;
+        for (String key: images.icons()) {
+            Image img = icon(key).getImage();
+            int w0 = img.getWidth(null);
+            int h0 = img.getHeight(null);
+            float scale = min((float)(shipW-s20)/w0, (float)(shipH-s20)/h0);
+
+            int w1 = (int)(scale*w0);
+            int h1 = (int)(scale*h0);
+            BufferedImage resizedImg = new BufferedImage(w1,h1, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g = resizedImg.createGraphics();
+			// modnar: one-step progressive image downscaling, mostly for Sakkra ships (higher-res image files)
+			// there should be better methods
+			if (scale < 0.5) {
+				BufferedImage tmp = new BufferedImage(w0/2, h0/2, BufferedImage.TYPE_INT_ARGB);
+				Graphics2D g2D = tmp.createGraphics();
+				g2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+				//g2D.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+				g2D.drawImage(img, 0, 0, w0/2, h0/2, 0, 0, w0, h0, this);
+				g2D.dispose();
+				img = tmp;
+				w0 = img.getWidth(null);
+				h0 = img.getHeight(null);
+				scale = scale*2;
+			}
+			// modnar: use (slightly) better downsampling
+			// NOTE: drawing current ship design on upper-left of Design screen
+			// https://docs.oracle.com/javase/tutorial/2d/advanced/quality.html
+			// should be possible to be even better
+            //g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            //g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+            //g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+            g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+            g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+			g.drawImage(img, 0, 0, w1, h1, 0, 0, w0, h0, null);
+            //g.drawImage(img, 0, 0, w1, h1, null);
+            g.dispose();
+            shipImages[num].add(resizedImg);
+        }
+    }
+    
     @Override
     public String ambienceSoundKey() { 
         return GameUI.AMBIENCE_KEY;
@@ -547,6 +720,8 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
             hoverBox = leaderBox;
         else if (homeWorldBox.contains(x,y))
             hoverBox = homeWorldBox;
+        else if (shipSetBox.contains(x,y))
+            hoverBox = shipSetBox;
         else {
             for (int i=0;i<raceBox.length;i++) {
                 if (raceBox[i].contains(x,y)) {
@@ -574,17 +749,21 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
             return;
         if (hoverBox == null)
             return;
-        int x = e.getX();
-        int y = e.getY();
         search:
         if (hoverBox == cancelBox)
             goToMainMenu();
         else if (hoverBox == nextBox)
             goToGalaxySetup();
+        else if (hoverBox == shipSetBox) {
+        	ShipSetAddOns.togglePlayerShipSet(e.getButton());
+        	shipSetChanged();
+        	repaint();
+        }
         else {
             for (int i=0;i<raceBox.length;i++) {
                 if (hoverBox == raceBox[i]) {
                     selectRace(i);
+                    shipSetChanged();
                     break search;
                 }
             }
@@ -608,6 +787,11 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
             hoverBox = homeWorldBox;
             repaint();
         }
+        else if (e.getComponent() == shipSetTxt) {
+        	shipSetTxt.requestFocus();
+            hoverBox = shipSetBox;
+            repaint();
+        }
     }
     @Override
     public void mouseExited(MouseEvent e) {
@@ -619,9 +803,22 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
             newGameOptions().selectedHomeWorldName(homeWorld.getText());
             RotPUI.instance().requestFocus();
         }
+        else if (e.getComponent() == shipSetTxt) {
+            RotPUI.instance().requestFocus();
+        }
         if (hoverBox != null) {
             hoverBox = null;
             repaint();
         }
     }
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        boolean up = e.getWheelRotation() < 0;
+        if (hoverBox == shipSetBox) {
+        	ShipSetAddOns.togglePlayerShipSet(up);
+        	shipSetChanged();
+        	repaint();
+        }
+    }
+
 }

@@ -44,6 +44,7 @@ import rotp.util.ImageManager;
 public class Rotp {
     private static final int MB = 1048576;
     public static final String version = RotpGovernor.governorVersion();
+    public static final String modId = RotpGovernor.governorModId();
     public static int IMG_W = 1229;
     public static int IMG_H = 768;
 

@@ -3,6 +3,8 @@ nbproject
 build
 build.xml
 manifest.mf
+pom.xml
+**/rotp-version.properties
 launch4j/Remnants/
 target/
 .idea/

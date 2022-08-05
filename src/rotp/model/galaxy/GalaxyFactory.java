@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Objects;
 
 import rotp.mod.br.AddOns.RacesOptions;
+import rotp.mod.br.AddOns.ShipSetAddOns;
 import rotp.model.empires.Empire;
 import rotp.model.empires.Race;
 import rotp.model.galaxy.GalaxyShape.EmpireSystem;
@@ -60,6 +61,9 @@ public class GalaxyFactory implements Base {
         Galaxy g = new Galaxy(shape);
         GameSession.instance().galaxy(g);
         Race playerRace = Race.keyed(opts.selectedPlayerRace());
+        // TODO BR: Add Ship design choice
+        if(!ShipSetAddOns.isOriginalShipSet())
+        	playerRace.preferredShipSet = ShipSetAddOns.playerShipSet();
 
         List<String> alienRaces = buildAlienRaces();
 

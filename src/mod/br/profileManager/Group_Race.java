@@ -29,6 +29,7 @@ import br.profileManager.src.main.java.AbstractT;
 import br.profileManager.src.main.java.T_String;
 import br.profileManager.src.main.java.Valid_IntegerWithList;
 import br.profileManager.src.main.java.Validation;
+import mod.br.AddOns.ShipSetOptions;
 
 /**
  * @author BrokenRegistry
@@ -51,6 +52,7 @@ public class Group_Race extends AbstractGroup <ClientClasses> {
 			addParameter(new PlayerColor(go));
 			addParameter(new PlayerHomeWorld(go));
 			addParameter(new PlayerName(go));
+			addParameter(new PlayerPreferedChipSet(go));
 	}
 
 	// ==============================================================
@@ -238,6 +240,51 @@ public class Group_Race extends AbstractGroup <ClientClasses> {
 					+ "The best would be to let the game choose this value!"
 					+ NL);
 			setBottomComments(availableForChange());
+		}
+	}
+	// ==============================================================
+	// PLAYER PREFERED CHIP SET
+	// 
+	static class PlayerPreferedChipSet extends
+			AbstractParameter <String, Validation<String>, ClientClasses> {
+
+		// ==================================================
+		// Constructors and initializers
+		//
+		PlayerPreferedChipSet(ClientClasses go) { 
+			super("PLAYER PREFERED CHIP SET",
+					new Validation<String>(
+							new T_String(go.newOptions().selectedPlayerRace())
+							, ShipSetOptions.shipSetOptions()
+					)
+			);
+			ShipSetOptions.init(go.newOptions().startingRaceOptions());
+			setHistoryCodeView(Default, "");
+		}
+		// ========== Overriders ==========
+		//
+		@Override public AbstractT<String> getFromGame (ClientClasses go) {
+			return new T_String(go.session().player().race().preferredShipSet);
+		}
+		
+		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {
+			// May be later
+		}
+		
+		@Override public AbstractT<String> getFromUI (ClientClasses go) {
+			return new T_String().setFromCodeView(ShipSetOptions.playerShipSet());
+		}
+		
+		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
+			ShipSetOptions.playerShipSet(value.getCodeView());
+		}
+		
+		@Override public void initComments() {
+			setSettingComments(" " + NL
+					+ "This will change the player Ship Set." + NL
+					+ "Ship sets are identified by a name that looks like the the race "
+					+ "that originally owned them, but is from a different list that may be growing!" + NL
+					+ NL);
 		}
 	}
 }

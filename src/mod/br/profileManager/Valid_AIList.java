@@ -23,7 +23,7 @@ import java.util.List;
 import br.profileManager.src.main.java.AbstractT;
 import br.profileManager.src.main.java.PMutil;
 import br.profileManager.src.main.java.Validation;
-import mod.br.AddOns.RaceFilter;
+import mod.br.AddOns.RaceOptions;
 import rotp.model.game.IGameOptions;
 
 /**
@@ -185,12 +185,12 @@ class Valid_AIList extends Validation<String> {
 		}
 
 		private void initOptions() {
-			randomGuiList   = RaceFilter.selectedGuiAIFilter();
-			randomGameList  = RaceFilter.selectedGameAIFilter();
-			randomList      = RaceFilter.randomAIList();
-			allRandomList   = RaceFilter.allRandomAIList();
-			defaultGuiList  = RaceFilter.defaultGuiAIList();
-			defaultGameList = RaceFilter.defaultGameAIList();
+			randomGuiList   = RaceOptions.selectedGuiAIFilter();
+			randomGameList  = RaceOptions.selectedGameAIFilter();
+			randomList      = RaceOptions.randomAIList();
+			allRandomList   = RaceOptions.allRandomAIList();
+			defaultGuiList  = RaceOptions.defaultGuiAIList();
+			defaultGameList = RaceOptions.defaultGameAIList();
 			selectedAIs     = new String[MAX_OPPONENTS+1];
 			maxArray        = selectedAIs.length;
 		}

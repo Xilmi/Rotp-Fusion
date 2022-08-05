@@ -16,9 +16,9 @@
 package rotp.model.game;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 
-import mod.br.AddOns.RaceFilter;
 import rotp.mod.br.AddOns.RacesOptions;
 import rotp.mod.br.profiles.Profiles; // BR:
 import rotp.model.ai.AI;
@@ -172,7 +172,7 @@ public interface IGameOptions {
     public static final String AUTOPLAY_AI_XILMI      = "SETUP_AUTOPLAY_AI_XILMI";
     public static final String AUTOPLAY_AI_CRUEL      = "SETUP_AUTOPLAY_AI_CRUEL";
     public static final String AUTOPLAY_AI_RANDOM     = "SETUP_AUTOPLAY_AI_RANDOM";
-
+    
     public default boolean isAutoPlay()          { return !selectedAutoplayOption().equals(AUTOPLAY_OFF); }
     public default boolean communityAI()         { return false; }
     public default boolean selectableAI()        { return selectedOpponentAIOption().equals(OPPONENT_AI_SELECTABLE); }

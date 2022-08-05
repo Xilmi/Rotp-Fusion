@@ -23,7 +23,7 @@ import br.profileManager.src.main.java.AbstractGroup;
 import br.profileManager.src.main.java.AbstractParameter;
 import br.profileManager.src.main.java.AbstractProfiles;
 import br.profileManager.src.main.java.Valid_LocalEnable;
-import mod.br.AddOns.RaceFilter;
+import mod.br.AddOns.RaceOptions;
 import rotp.Rotp;
 import rotp.ui.UserPreferences;
 
@@ -58,8 +58,8 @@ public class UserProfiles extends AbstractProfiles<ClientClasses> {
    	 */
 	@Override public void initAndLoadProfiles(ClientClasses co) {
 		// These filters needs to be loaded before other races 
-		RaceFilter.newRacesOnList(co.newOptions().startingRaceOptions());
-		RaceFilter.newRacesOffList(co.newOptions().newRacesOffOptions());
+		RaceOptions.newRacesOnList(co.newOptions().startingRaceOptions());
+		RaceOptions.newRacesOffList(co.newOptions().newRacesOffOptions());
 		super.initAndLoadProfiles(co);
 	}
 
@@ -79,9 +79,9 @@ public class UserProfiles extends AbstractProfiles<ClientClasses> {
 		switch (key) {
 		case KeyEvent.VK_B: // "B" = Load Broken Registry User Profiles
 			if(global) { // For Random
-				loadSurpriseGroupSettings(clientObject, group, false);
+				loadSurpriseGroupSettings(clientObject, BR_GROUP_NAME, false);
 			} else {
-				loadGroupSettings(clientObject, group, false);
+				loadGroupSettings(clientObject, BR_GROUP_NAME, false);
 			}
 			refresh = true;
 			break;
