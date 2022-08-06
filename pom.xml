@@ -13,7 +13,7 @@
 	<!-- Variables Declaration -->
 	<properties>
 		<!-- Personal -->
-		<maven.build.timestamp.format>yyyy.MM.dd.HH</maven.build.timestamp.format>
+		<maven.build.timestamp.format>yy.MM.dd.HH</maven.build.timestamp.format>
 		<revision>${maven.build.timestamp}</revision>
 		<RepoId>Rotp-Fusion</RepoId>
 		<AuthorId>BrokenRegistry</AuthorId>
@@ -385,7 +385,7 @@
 							<owner>${AuthorId}</owner>
 							<repository>${RepoId}</repository>
 							<authToken>${GITHUB_TOKEN}</authToken>
-							<tagName>${project.version}</tagName>
+							<tagName>20${project.version}</tagName>
 							<name>${BaseFileName}</name>
 							<targetCommitish>main</targetCommitish>
 							<releaseNotes>target/classes/README.md</releaseNotes>
