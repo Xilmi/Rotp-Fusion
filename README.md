@@ -22,7 +22,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
-2022.08.05 (BR)
+2022.08.06 (BR)
   - Removed the useless double call to options() and newOptions().
   - Rewrote "Restart with a new race". It's now a "Start" allowing to load an old save and copy galaxy and opponents.  
 
