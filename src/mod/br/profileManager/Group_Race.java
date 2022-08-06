@@ -77,8 +77,8 @@ public class Group_Race extends AbstractGroup <ClientClasses> {
 		}
 		
 		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {
-			go.options().selectedPlayer().race = value.getCodeView(); // Direct to avoid reseting opponents
-			go.session().galaxy().empire(0).setRace(value.getCodeView());
+//			go.options().selectedPlayer().race = value.getCodeView(); // Direct to avoid reseting opponents
+//			go.session().galaxy().empire(0).setRace(value.getCodeView());
 		}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {

@@ -59,7 +59,7 @@ public class StarSystemFactory implements Base {
         IGameOptions opts = GameSession.instance().options();
         String type = opts.randomPlayerStarType(r);
         StarSystem sys = StarSystem.create(type, gal);
-        // BR: added player identification
+        // BR: added player identification for extra
         sys.planet(PlanetFactory.createHomeworld(r, sys, session().populationBonus(), true));
         return sys;
     }

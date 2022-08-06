@@ -94,6 +94,7 @@ public class UserPreferences {
 			, 3, 3, null, false, 1, 5, 20);
 	public static final ParamFloat prefStarsPerEmpire = new ParamFloat(MOD_UI, "PREF_STARS_PER_EMPIRE"
 			, 10f, 3.0f, null, false, 1f, 5f, 20f, "0.#", "0.#");
+	public static final ParamBoolean loadWithNewOptions = new ParamBoolean(MOD_UI, "LOAD_WITH_NEW_OPTIONS", false);
 	public static final ParamTech techIrradiated = new 
 			ParamTech("TECH_IRRADIATED",	3, "ControlEnvironment",	6); // level 18
 	public static final ParamTech techCloaking	 = new 
@@ -115,7 +116,7 @@ public class UserPreferences {
 		maximizeSpacing, spacingLimit, minStarsPerEmpire, prefStarsPerEmpire,
 		techIrradiated, techCloaking, techStargate, techHyperspace,
 		techIndustry2, techThorium, techTransport, techTerra120
-		));
+		)); // don't add loadWithNewOptions: no save and auto reset
 
 	// BR: ===== Viewing settings Mod GUI:
 	public static final ParamFloat showFleetFactor = new ParamFloat(MOD_UI, "SHOW_FLEET_FACTOR"

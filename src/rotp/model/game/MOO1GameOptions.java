@@ -274,6 +274,22 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override
     public String name() { return "SETUP_RULESET_ORION"; }
     @Override
+    public void copyForRestart(IGameOptions o) { // BR for Restart with new options
+        if (!(o instanceof MOO1GameOptions))
+            return;
+        MOO1GameOptions opt = (MOO1GameOptions) o;
+        selectedGalaxySize			= opt.selectedGalaxySize;
+        selectedGalaxyShape			= opt.selectedGalaxyShape;
+        selectedGalaxyShapeOption1	= opt.selectedGalaxyShapeOption1;
+        selectedGalaxyShapeOption2	= opt.selectedGalaxyShapeOption2;
+        selectedNebulaeOption		= opt.selectedNebulaeOption;
+        selectedNumberOpponents		= opt.selectedNumberOpponents;
+        setGalaxyShape(); 
+        selectedGalaxyShapeOption1 = opt.selectedGalaxyShapeOption1;
+        selectedGalaxyShapeOption2 = opt.selectedGalaxyShapeOption2;
+//        generateGalaxy();     	
+    }
+    @Override
     public void copyOptions(IGameOptions o) { 
         if (!(o instanceof MOO1GameOptions))
             return;

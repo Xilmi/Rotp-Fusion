@@ -22,6 +22,10 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
+2022.08.05 (BR)
+  - Removed the useless double call to options() and newOptions().
+  - Rewrote "Restart with a new race". It's now a "Start" allowing to load an old save and copy galaxy and opponents.  
+
 2022.08.04 (BR)
   - Made tools to simplify setting addition to user preferences: Only two lines are needed.
   - Made tools to simplify setting addition to MOD Options GUI: Only two lines are needed (Using above tools). Compatible with traditionnal settings.
@@ -35,7 +39,6 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
   - Technologies: Irradiated Irradiated Stargate Hyperspace Industry2 Thorium Transport Terraforming120.
   - MOD Options A GUI: Added option to give Artifact, Fertile, Rich or Ultra-Rich Home World to Player/AI.
   - Added all these new things to Profiles Manager.
-  - Removed the useless double call to options() and newOptions().
   
 
 2022.07.25 (Xilmi)

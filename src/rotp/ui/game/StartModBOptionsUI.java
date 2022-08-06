@@ -15,6 +15,7 @@
  */
 package rotp.ui.game;
 
+import static rotp.ui.UserPreferences.loadWithNewOptions;
 import static rotp.ui.UserPreferences.maximizeSpacing;
 import static rotp.ui.UserPreferences.minStarsPerEmpire;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
@@ -44,6 +45,7 @@ public class StartModBOptionsUI extends AbstractOptionsUI {
 	protected BaseText spacingLimitText;
 	protected BaseText minStarsPerEmpireText;
 	protected BaseText prefStarsPerEmpireText;
+	protected BaseText loadWithNewOptionsText;
 	// Second column
 	protected BaseText techIrradiatedText;
 	protected BaseText techCloakingText;
@@ -64,6 +66,7 @@ public class StartModBOptionsUI extends AbstractOptionsUI {
 		// Complete this table... Et Voilà!
 		// For Mixed Setup keep "paintComponent" up to date
 		// First column (left)
+		btList.add(loadWithNewOptionsText	= newBT()); paramList.add(loadWithNewOptions);
 		btList.add(maximizeSpacingText		= newBT()); paramList.add(maximizeSpacing);
 		btList.add(spacingLimitText			= newBT()); paramList.add(spacingLimit);
 		btList.add(minStarsPerEmpireText	= newBT()); paramList.add(minStarsPerEmpire);

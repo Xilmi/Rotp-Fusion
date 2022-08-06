@@ -40,6 +40,7 @@ import rotp.model.combat.ShipCombatManager;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EspionageMission;
 import rotp.model.empires.SabotageMission;
+import rotp.model.galaxy.GalaxyCopy;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.Transport;
 import rotp.model.game.IGameOptions;
@@ -344,11 +345,16 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     public void surpriseStart()        { setupGalaxyUI.surpriseStart(); } // BR:
     // To avoid reset options while returning to Race panel
     public void returnToSetupRacePanel() { selectPanel(SETUP_RACE_PANEL, setupRaceUI);  }  // BR:
-    public void selectSetupRacePanel() { setupRaceUI.init(); selectPanel(SETUP_RACE_PANEL, setupRaceUI);  }
+    public void selectSetupRacePanel()	 { setupRaceUI.init(); selectPanel(SETUP_RACE_PANEL, setupRaceUI);  }
     public void selectSetupGalaxyPanel() { setupGalaxyUI.init(); selectPanel(SETUP_GALAXY_PANEL, setupGalaxyUI);  }
-    public void selectLoadGamePanel()  { loadGameUI.init(); selectPanel(LOAD_PANEL, loadGameUI);  }
-    public void selectSaveGamePanel()  { saveGameUI.init(); selectPanel(SAVE_PANEL, saveGameUI);  }
-    public void selectIntroPanel()     {
+    public void selectLoadGamePanel() { loadGameUI.init(); selectPanel(LOAD_PANEL, loadGameUI); }
+    // BR: for restarting with new options
+    public void selectReloadGamePanel(IGameOptions newOptions, GalaxyCopy oldGalaxy) {
+    	loadGameUI.init(newOptions, oldGalaxy);
+    	selectPanel(LOAD_PANEL, loadGameUI);
+    }
+    public void selectSaveGamePanel()	{ saveGameUI.init(); selectPanel(SAVE_PANEL, saveGameUI);  }
+    public void selectIntroPanel() {
         mainUI.init(false);
         selectPanel(MAIN_PANEL, mainUI());
         enableGlassPane(raceIntroUI);

@@ -1260,6 +1260,7 @@ SETUP_BUTTON_CANCEL               | Cancel
 SETUP_BUTTON_BACK                 | Back
 SETUP_BUTTON_NEXT                 | Next
 SETUP_BUTTON_START                | Start
+SETUP_BUTTON_RESTART              | Restart
 SETUP_BUTTON_SETTINGS             | Advanced Options
 // modnar: add UI panel for modnar MOD game options
 SETUP_BUTTON_MOD_SETTINGS         | MOD Options A
@@ -1432,6 +1433,8 @@ SETTINGS_MOD_MIN_STARS_PER_EMPIRE_DESC   | To help defining the maximun opponent
 SETTINGS_MOD_MIN_STARS_PER_EMPIRE        | Min Stars per Empire: %1
 SETTINGS_MOD_PREF_STARS_PER_EMPIRE_DESC  | To help defining the default opponent number from the size of the galaxy.
 SETTINGS_MOD_PREF_STARS_PER_EMPIRE       | Favored Stars Number: %1
+SETTINGS_MOD_LOAD_WITH_NEW_OPTIONS_DESC  | When choosing "Restart" Use the new GUI Options or only the new player Race. 
+SETTINGS_MOD_LOAD_WITH_NEW_OPTIONS       | Restart with new Options: %1
 SETTINGS_MOD_TECH_IRRADIATED_DESC        | (Level 18){Always, Never, Auto} Include "Irradiated Control"  in the Tech Tree for Player/AI.
 SETTINGS_MOD_TECH_IRRADIATED             | Tech Irradiated Control: %1
 SETTINGS_MOD_TECH_CLOAKING_DESC          | (Level 27) {Always, Never, Auto} Include "Hyperspace Communication" in the Tech Tree for Player/AI.
