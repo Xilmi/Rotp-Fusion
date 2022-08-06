@@ -15,16 +15,18 @@
  */
 package rotp.model.galaxy;
 
+import static rotp.ui.UserPreferences.maximizeSpacing;
+import static rotp.ui.UserPreferences.spacingLimit;
+import static rotp.ui.UserPreferences.minStarsPerEmpire;
+
 import java.awt.Point;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import rotp.mod.br.AddOns.GalaxyOptions;
-import rotp.mod.br.profiles.Profiles;
 import rotp.model.game.IGameOptions;
-import rotp.util.Base;
 import rotp.ui.UserPreferences; // modnar: add option to start game with additional colonies
+import rotp.util.Base;
 
 // BR: Added symmetric galaxies functionalities
 // moved modnar companion worlds here with some more random positioning
@@ -282,11 +284,18 @@ public abstract class GalaxyShape implements Base, Serializable {
 		float minOrionBuffer = 5*sysBuffer; // modnar: increase spacing between empires and orion
 
 		// BR: not optimized for symmetric
-		if (Profiles.isMaximizeSpacingEnabled() && !isSymmetric()) {
-			GalaxyOptions.initMaximizeSpacing(maxStars, numEmpires, sysBuffer);
-			minEmpireBuffer	= GalaxyOptions.getMinEmpireBuffer();
-			maxMinEmpireBuffer = GalaxyOptions.getMaxMinEmpireBuffer();
-			minOrionBuffer	 = GalaxyOptions.getMinOrionBuffer();
+    	if (maximizeSpacing.get() && !isSymmetric()) {		
+    		int minStars = minStarsPerEmpire.get();
+	    	if (maximizeSpacing.get())
+				minStars = maxStars/numEmpires;
+			float maxMinEmpireFactor = spacingLimit.get(); // To avoid problems with strange galaxy shapes
+			                                // Maybe To-Do Make this a new setting
+			float minEmpireFactor = (minStars + 1) / 3; // 8 spe -> 3; 12 spe -> 4;
+			if (minEmpireFactor >= (maxMinEmpireFactor - 2))
+				minEmpireFactor = maxMinEmpireFactor - 2;
+			minEmpireBuffer    = sysBuffer * minEmpireFactor;
+			maxMinEmpireBuffer = sysBuffer * maxMinEmpireFactor;
+			minOrionBuffer     = sysBuffer * minEmpireFactor + 1;
 		}
 		// \BR:
 
@@ -521,6 +530,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 	// ========================================================================
 	// Nested Classes
 	//
+	@SuppressWarnings("serial")
 	private class ShapeRegion implements Serializable {
 		int num = 0;
 		float[] x;
@@ -543,6 +553,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 			num++;
 		}
 	}
+	@SuppressWarnings("serial")
 	public final class EmpireSystem implements Serializable {
 		float[] x = new float[3];
 		float[] y = new float[3];

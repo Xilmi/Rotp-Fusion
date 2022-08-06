@@ -66,27 +66,26 @@ public class Group_Race extends AbstractGroup <ClientClasses> {
 		PlayerRace(ClientClasses go) { 
 			super("PLAYER RACE", 
 					new Validation<String>(
-							new T_String(go.newOptions().selectedPlayerRace()),
-							go.newOptions().startingRaceOptions()));			
+							new T_String(go.options().selectedPlayerRace()),
+							go.options().startingRaceOptions()));			
 		}
 		
 	    // ========== Overriders ==========
 	    //
 		@Override public AbstractT<String> getFromGame (ClientClasses go) {
-			return new T_String(go.newOptions().selectedPlayerRace());
+			return new T_String(go.options().selectedPlayerRace());
 		}
 		
 		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {
-			go.newOptions().selectedPlayer().race = value.getCodeView(); // Direct to avoid reseting opponents
-			go.session().galaxy().empire(0).setRace(value.getCodeView());
+//			go.options().selectedPlayer().race = value.getCodeView(); // Direct to avoid reseting opponents
+//			go.session().galaxy().empire(0).setRace(value.getCodeView());
 		}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String(go.newOptions().selectedPlayerRace());
+			return new T_String(go.options().selectedPlayerRace());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
-			go.newOptions().selectedPlayerRace(value.getCodeView());
 			go.options().selectedPlayerRace(value.getCodeView());
 		}
 		
@@ -120,9 +119,9 @@ public class Group_Race extends AbstractGroup <ClientClasses> {
 		PlayerColor(ClientClasses go) {
 			super("PLAYER COLOR"
 					, new Valid_IntegerWithList(
-							go.newOptions().selectedPlayerColor()
+							go.options().selectedPlayerColor()
 							, getEmpireColors()));
-			setHistoryCodeView(Initial, go.newOptions().selectedPlayerColor());
+			setHistoryCodeView(Initial, go.options().selectedPlayerColor());
 			setHistoryCodeView(Default, 0);
 			setHistory(Current, Initial);
 		}
@@ -130,21 +129,20 @@ public class Group_Race extends AbstractGroup <ClientClasses> {
 	    // ========== Overriders ==========
 	    //
 		@Override public AbstractT<Integer> getFromGame (ClientClasses go) {
-//			return new T_Integer(go.newOptions().selectedPlayerColor());
-			return getValidation().newValue(go.newOptions().selectedPlayerColor());
+//			return new T_Integer(go.options().selectedPlayerColor());
+			return getValidation().newValue(go.options().selectedPlayerColor());
 		}
 		
 		@Override public void putToGame(ClientClasses go, AbstractT<Integer> value) {
-			go.newOptions().selectedPlayerColor(value.getCodeView());
+			go.options().selectedPlayerColor(value.getCodeView());
 			go.session().galaxy().empire(0).changeColorId(value.getCodeView());
 		}
 		
 		@Override public AbstractT<Integer> getFromUI (ClientClasses go) {
-			return getValidation().newValue(go.newOptions().selectedPlayerColor());
+			return getValidation().newValue(go.options().selectedPlayerColor());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<Integer> value) {
-			go.newOptions().selectedPlayerColor(value.getCodeView());
 			go.options().selectedPlayerColor(value.getCodeView());
 		}
 		
@@ -164,7 +162,7 @@ public class Group_Race extends AbstractGroup <ClientClasses> {
 		PlayerHomeWorld(ClientClasses go) { 
 			super("PLAYER HOMEWORLD", 
 					new Validation<String>(
-							new T_String(go.newOptions().selectedHomeWorldName())));			
+							new T_String(go.options().selectedHomeWorldName())));			
 		
 			getValidation().getCriteria().isRandomAllowed(false);
 			getValidation().getCriteria().showOptions(false);
@@ -177,16 +175,15 @@ public class Group_Race extends AbstractGroup <ClientClasses> {
 		}
 		
 		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {
-			go.newOptions().selectedHomeWorldName(value.getCodeView());
+			go.options().selectedHomeWorldName(value.getCodeView());
 			go.session().galaxy().empire(0).setHomeWorldName(value.getCodeView());
 		}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String(go.newOptions().selectedHomeWorldName());
+			return new T_String(go.options().selectedHomeWorldName());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
-			go.newOptions().selectedHomeWorldName(value.getCodeView());
 			go.options().selectedHomeWorldName(value.getCodeView());
 		}
 		
@@ -209,7 +206,7 @@ public class Group_Race extends AbstractGroup <ClientClasses> {
 		PlayerName(ClientClasses go) { 
 			super("PLAYER NAME", 
 					new Validation<String>(
-							new T_String(go.newOptions().selectedLeaderName())));			
+							new T_String(go.options().selectedLeaderName())));			
 
 			getValidation().getCriteria().isRandomAllowed(false);
 			getValidation().getCriteria().showOptions(false);
@@ -222,16 +219,15 @@ public class Group_Race extends AbstractGroup <ClientClasses> {
 		}
 		
 		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {
-			go.newOptions().selectedLeaderName(value.getCodeView());
+			go.options().selectedLeaderName(value.getCodeView());
 			go.session().galaxy().empire(0).leader().setName(value.getCodeView());
 		}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String(go.newOptions().selectedLeaderName());
+			return new T_String(go.options().selectedLeaderName());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
-			go.newOptions().selectedLeaderName(value.getCodeView());
 			go.options().selectedLeaderName(value.getCodeView());
 		}
 		
@@ -254,11 +250,11 @@ public class Group_Race extends AbstractGroup <ClientClasses> {
 		PlayerPreferedChipSet(ClientClasses go) { 
 			super("PLAYER PREFERED CHIP SET",
 					new Validation<String>(
-							new T_String(go.newOptions().selectedPlayerRace())
+							new T_String(go.options().selectedPlayerRace())
 							, ShipSetOptions.shipSetOptions()
 					)
 			);
-			ShipSetOptions.init(go.newOptions().startingRaceOptions());
+			ShipSetOptions.init(go.options().startingRaceOptions());
 			setHistoryCodeView(Default, "");
 		}
 		// ========== Overriders ==========

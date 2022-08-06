@@ -42,17 +42,13 @@ import rotp.util.Base;
  */
 public class TEST_ClientClasses extends ClientClasses{
 	private IGameOptions options = new Gui();
-	private IGameOptions option2 = options;
 	private GameSession  session;
 
 	/**
 	 * @return the guiObject
 	 */
-	@Override public IGameOptions newOptions() {
-		return options;
-	}
 	@Override public IGameOptions options() {
-		return option2;
+		return options;
 	}
 	@Override public GameSession session() {
 		return session;

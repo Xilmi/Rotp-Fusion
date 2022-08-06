@@ -40,6 +40,7 @@ import rotp.model.combat.ShipCombatManager;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EspionageMission;
 import rotp.model.empires.SabotageMission;
+import rotp.model.galaxy.GalaxyCopy;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.Transport;
 import rotp.model.game.IGameOptions;
@@ -64,8 +65,10 @@ import rotp.ui.game.RaceIntroUI;
 import rotp.ui.game.SaveGameUI;
 import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.game.SetupRaceUI;
+import rotp.ui.game.StartModBOptionsUI;
+import rotp.ui.game.StartModViewOptionsUI;
 import rotp.ui.game.StartOptionsUI;
-import rotp.ui.game.StartModOptionsUI; // modnar: add UI panel for modnar MOD game options
+import rotp.ui.game.StartModAOptionsUI; // modnar: add UI panel for modnar MOD game options
 import rotp.ui.history.HistoryUI;
 import rotp.ui.main.MainUI;
 import rotp.ui.notifications.DiplomaticNotification;
@@ -226,7 +229,11 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     private final HelpUI helpUI = new HelpUI();
     private final StartOptionsUI startOptionsUI = new StartOptionsUI();
     // modnar: add UI panel for modnar MOD game options
-    private final StartModOptionsUI startModOptionsUI = new StartModOptionsUI();
+    private final StartModAOptionsUI startModOptionsUI = new StartModAOptionsUI();
+    // BR: Second UI panel for MOD game options
+    private final StartModBOptionsUI startModBOptionsUI = new StartModBOptionsUI();
+    // BR: Display UI panel for MOD game options
+    private final StartModViewOptionsUI startModViewOptionsUI = new StartModViewOptionsUI();
     private final GameSettingsUI gameSettingsUI = new GameSettingsUI();
     private final LargeDialogPane dialogPane = new LargeDialogPane();
 
@@ -307,7 +314,11 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     public static HelpUI helpUI()                    { return instance.helpUI; }
     public static StartOptionsUI startOptionsUI()    { return instance.startOptionsUI; }
     // modnar: add UI panel for modnar MOD game options
-    public static StartModOptionsUI startModOptionsUI()    { return instance.startModOptionsUI; }
+    public static StartModAOptionsUI startModOptionsUI()    { return instance.startModOptionsUI; }
+    // BR: Second UI panel for MOD game options
+    public static StartModBOptionsUI startModBOptionsUI()    { return instance.startModBOptionsUI; }
+    // BR: Display UI panel for MOD game options
+    public static StartModViewOptionsUI startModViewOptionsUI() { return instance.startModViewOptionsUI; }
     public static GameSettingsUI gameSettingsUI()    { return instance.gameSettingsUI; }
 
     @Override
@@ -334,11 +345,16 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     public void surpriseStart()        { setupGalaxyUI.surpriseStart(); } // BR:
     // To avoid reset options while returning to Race panel
     public void returnToSetupRacePanel() { selectPanel(SETUP_RACE_PANEL, setupRaceUI);  }  // BR:
-    public void selectSetupRacePanel() { setupRaceUI.init(); selectPanel(SETUP_RACE_PANEL, setupRaceUI);  }
+    public void selectSetupRacePanel()	 { setupRaceUI.init(); selectPanel(SETUP_RACE_PANEL, setupRaceUI);  }
     public void selectSetupGalaxyPanel() { setupGalaxyUI.init(); selectPanel(SETUP_GALAXY_PANEL, setupGalaxyUI);  }
-    public void selectLoadGamePanel()  { loadGameUI.init(); selectPanel(LOAD_PANEL, loadGameUI);  }
-    public void selectSaveGamePanel()  { saveGameUI.init(); selectPanel(SAVE_PANEL, saveGameUI);  }
-    public void selectIntroPanel()     {
+    public void selectLoadGamePanel() { loadGameUI.init(); selectPanel(LOAD_PANEL, loadGameUI); }
+    // BR: for restarting with new options
+    public void selectReloadGamePanel(IGameOptions newOptions, GalaxyCopy oldGalaxy) {
+    	loadGameUI.init(newOptions, oldGalaxy);
+    	selectPanel(LOAD_PANEL, loadGameUI);
+    }
+    public void selectSaveGamePanel()	{ saveGameUI.init(); selectPanel(SAVE_PANEL, saveGameUI);  }
+    public void selectIntroPanel() {
         mainUI.init(false);
         selectPanel(MAIN_PANEL, mainUI());
         enableGlassPane(raceIntroUI);
