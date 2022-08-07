@@ -25,6 +25,7 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.util.List;
+import java.util.Vector;
 
 import rotp.ui.BaseText;
 import rotp.ui.UserPreferences;
@@ -275,11 +276,12 @@ public class StartModAOptionsUI extends AbstractOptionsUI {
 	 * @return Retreat Restriction Option List // BR:
 	 */
 	public static List<String> getRetreatRestrictionOptions() {
-		return List.of(
-				"SETTINGS_MOD_RETREAT_NONE"
-				, "SETTINGS_MOD_RETREAT_AI"
-				, "SETTINGS_MOD_RETREAT_PLAYER"
-				, "SETTINGS_MOD_RETREAT_BOTH");
+            List<String> list = new Vector<String>();
+            list.add("SETTINGS_MOD_RETREAT_NONE");
+            list.add("SETTINGS_MOD_RETREAT_AI");
+            list.add("SETTINGS_MOD_RETREAT_PLAYER");
+            list.add("SETTINGS_MOD_RETREAT_BOTH");
+            return list;
 	} // \BR:
 	private void toggleChallengeMode() {
 		softClick();
