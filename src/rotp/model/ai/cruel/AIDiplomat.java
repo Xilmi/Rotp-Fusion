@@ -2039,6 +2039,9 @@ public class AIDiplomat implements Base, Diplomat {
             personalityMod *= 4f / 3f;
         if(empire.leader().isDiplomat() || empire.leader().isTechnologist())
             personalityMod *= 3f / 4f;
+        float optionsMod = 1.0f;
+        optionsMod *= Math.pow(4d / 3d, galaxy().options().baseAIRelationsAdj() / -10d);
+        aggressiveness *= optionsMod;
         aggressiveness *= racialMod;
         aggressiveness *= personalityMod;
         return aggressiveness;
