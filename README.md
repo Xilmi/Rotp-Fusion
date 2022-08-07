@@ -22,6 +22,10 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
+2022.08.07 (BR)
+  - Removed every calls to Java 9 and Java 11. Now only Java 8.
+  - Initial Profiles.cfg generation: removed call to the updated "Always Stargates"
+
 2022.08.06 (BR)
   - Removed the useless double call to options() and newOptions().
   - Rewrote "Restart with a new race". It's now a "Start" allowing to load an old save and copy galaxy and opponents.  
