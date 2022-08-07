@@ -570,11 +570,12 @@ public class AIGovernor implements Base, Governor {
         {
             float tgtPercentage = empire.totalEmpirePopulation() / empire.generalAI().totalEmpirePopulationCapacity(empire);
             Planet p = sv.system().planet();
-            tgtPercentage = 1 - (tgtPercentage / p.productionAdj() / p.researchAdj());
-            tgtPercentage = 1 - tgtPercentage;
-            //Systems that are building colony-ships should keep their population
-            float factoryTgt = tgtPercentage;
-            tgtPercentage = max(factoryTgt, tgtPercentage);
+            float boni = p.productionAdj() * p.researchAdj();
+            if(boni < 1)
+                tgtPercentage = tgtPercentage * boni;
+            if(boni > 1)
+                tgtPercentage = 1 - (1 - tgtPercentage) / boni;
+            //System.out.println(galaxy().currentTurn()+" "+empire.name()+" "+sv.system().name()+" pop-target %: "+tgtPercentage);
             tgtPercentage = min(0.9f, tgtPercentage);
             //we don't want to bolster systems in a war-zone but also not send their pop away
             float currentPercentage = tgtPercentage;
