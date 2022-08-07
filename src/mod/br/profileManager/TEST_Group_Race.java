@@ -2,6 +2,7 @@ package mod.br.profileManager;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -46,7 +47,7 @@ class TEST_Group_Race {
 	@Test void PlayerRace_ClientClasses() {
 		PlayerRace param;
 		param = new PlayerRace(cct);
-		String out = param.toString(List.of("Profile 1", "Random"));
+		String out = param.toString(Arrays.asList("Profile 1", "Random"));
 		String shouldBe = racePrt;
 		assertEquals(shouldBe, out, "should have been equals");
 	}
@@ -54,7 +55,7 @@ class TEST_Group_Race {
 	@Test void PlayerColor_ClientClasses() {
 		PlayerColor param;
 		param = new PlayerColor(cct);
-		String out = param.toString(List.of("Profile 1", "Random"));
+		String out = param.toString(Arrays.asList("Profile 1", "Random"));
 		String shouldBe = colorPrt;
 		assertEquals(shouldBe, out, "should have been equals");
 	}

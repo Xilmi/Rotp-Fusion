@@ -77,7 +77,7 @@ class Valid_RaceList extends Validation<String> {
 			// loop thru the list
 			for (index=0; index<iMax; index++) {
 				iList = Math.min(index, iMaxList);
-				entry = userEntry.get(iList).strip().toUpperCase();
+				entry = userEntry.get(iList).trim().toUpperCase();
 				switch(entry) {
 				case "NULL":
 					setNull();

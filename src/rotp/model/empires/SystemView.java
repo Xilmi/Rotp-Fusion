@@ -20,6 +20,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import rotp.mod.br.AddOns.MiscellaneousOptions;
@@ -91,7 +92,7 @@ public class SystemView implements IMappedObject, Base, Serializable {
      * @return Ordered List of Flag Colors // BR:
      */
     public static List<String> getFlagList() {
-    	return List.of("NONE", "WHITE", "RED", "BLUE", "GREEN", "YELLOW"
+    	return Arrays.asList("NONE", "WHITE", "RED", "BLUE", "GREEN", "YELLOW"
     				 , "AQUA", "ORANGE", "LIGHT BLUE", "PURPLE", "PINK");
     }
     public List<ShipFleet> orbitingFleets()  { return vOrbitingFleets; }

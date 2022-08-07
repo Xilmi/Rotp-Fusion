@@ -13,16 +13,18 @@
 	<!-- Variables Declaration -->
 	<properties>
 		<!-- Personal -->
-		<maven.build.timestamp.format>yyyy.MM.dd.HH</maven.build.timestamp.format>
+		<maven.build.timestamp.format>yyyy.M.d.H</maven.build.timestamp.format>
 		<revision>${maven.build.timestamp}</revision>
 		<RepoId>Rotp-Fusion</RepoId>
-		<AuthorId>Xilmi</AuthorId>
+		<AuthorId>BrokenRegistry</AuthorId>
 		<BaseFileName>rotp-${project.version}</BaseFileName>
 	 	<!-- Maven Standard -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>8</java.version>
-		<junit.jupiter.version>5.8.2</junit.jupiter.version>
-		<junit.platform.version>1.8.2</junit.platform.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<junit.jupiter.version>5.9.0</junit.jupiter.version>
+		<junit.platform.version>1.9.0</junit.platform.version>
 		<GITHUB_TOKEN></GITHUB_TOKEN>
 	</properties>
 
@@ -294,18 +296,18 @@
 				</executions>
 				<configuration>
 					<url>
-						https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.13%2B8/OpenJDK11U-jre_x64_windows_hotspot_11.0.13_8.zip
+						https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.3%2B7/OpenJDK17U-jre_x64_windows_hotspot_17.0.3_7.zip
 					</url>
 					<unpack>true</unpack>
 					<outputDirectory>${project.build.directory}/jre-win</outputDirectory>
-					<sha256>7b0c07a068506b8539408cfe60e3120f54610af463a2dbd3b2ca42b572dd567e</sha256>
+					<sha256>d77745fdb57b51116f7b8fabd7d251067edbe3c94ea18fa224f64d9584b41a97</sha256>
 				</configuration>
 			</plugin>
 			<!-- Windows executable creation -->
 			<plugin>
 				<groupId>com.akathist.maven.plugins.launch4j</groupId>
 				<artifactId>launch4j-maven-plugin</artifactId>
-				<version>2.1.2</version>
+				<!-- <version>2.1.2</version> -->
 				<executions>
 					<execution>
 						<phase>package</phase>
@@ -322,6 +324,7 @@
 							</splash>
 							<headerType>gui</headerType>
 							<outfile>target/${BaseFileName}.exe</outfile>
+							<!-- <jar>target/rotp-${project.version}-mini.jar</jar> -->
 							<jar>target/${BaseFileName}-mini.jar</jar>
 							<errTitle>ROTP</errTitle>
 							<classPath>
@@ -333,6 +336,7 @@
 								<path>jre</path>
 								<minVersion>11</minVersion>
 								<bundledJre64Bit>true</bundledJre64Bit>
+								<bundledJreAsFallback>true</bundledJreAsFallback>
 								<runtimeBits>64</runtimeBits>
 								<jdkPreference>preferJre</jdkPreference>
 								<initialHeapSize>2000</initialHeapSize>

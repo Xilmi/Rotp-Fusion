@@ -201,7 +201,7 @@ public abstract class AbstractParameter<
 	private void overrideGuiParameters(
 	 		O clientObject, AbstractT<T> value) {
 	 	// if one valid value is found: set it
-	 	if (!PMutil.neverNull(value).isBlank()) {
+	 	if (!isBlank(PMutil.neverNull(value))) {
 	 		putToGUI(clientObject, value);
 	 		// reload GUI and set History Current Value
 	 		setFromGuiCodeView(clientObject);
@@ -435,11 +435,11 @@ public abstract class AbstractParameter<
 					Lines.getValueAsString(line).split(historyElementsSeparator)) {
 				// Split key and value
 				String[] keyValue = historyElement.split(historyNameValueSeparator);
-				key = keyValue[0].strip();
+				key = keyValue[0].trim();
 				value = "";
 				if (keyValue.length >= 2
-						&& !keyValue[1].isBlank()) {
-					value = keyValue[1].strip();
+						&& !isBlank(keyValue[1])) {
+					value = keyValue[1].trim();
 					// The past history "Current" value become the Last
 					if (key.equalsIgnoreCase(Current.toString())) {
 						setHistory(Last, value);

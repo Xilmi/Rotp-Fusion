@@ -2,6 +2,7 @@ package mod.br.profileManager;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ class TEST_Group_Galaxy {
 	@Test void GalaxyShape_ClientClasses() {
 		GalaxyShape param;
 		param = new GalaxyShape(cct);
-		String out = param.toString(List.of("Profile 1", "Random"));
+		String out = param.toString(Arrays.asList("Profile 1", "Random"));
 		String shouldBe = galaxyShapePrt;
 		assertEquals(shouldBe, out, "should have been equals");
 	}

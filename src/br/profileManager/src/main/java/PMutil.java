@@ -16,6 +16,7 @@
 package br.profileManager.src.main.java;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -29,17 +30,17 @@ public class PMutil {
 	 * Upper case value accepted as true entry
 	 */
 	static final 
-	List<String> YES_LIST = List.of("YES", "TRUE");
+	List<String> YES_LIST = Arrays.asList("YES", "TRUE");
 	/**
 	 * Upper case value accepted as false entry
 	 */
 	static final 
-	List<String> NO_LIST = List.of("NO", "FALSE");
+	List<String> NO_LIST = Arrays.asList("NO", "FALSE");
 	/**
 	 * All Upper case value accepted as {@code Boolean} entry
 	 */
 	static final 
-	List<String> BOOLEAN_LIST = List.of("YES", "NO", "TRUE", "FALSE");
+	List<String> BOOLEAN_LIST = Arrays.asList("YES", "NO", "TRUE", "FALSE");
 	/**
 	 * Word Splitter REGEX
 	 */
@@ -332,7 +333,7 @@ public class PMutil {
 		if (obj == null) { 
 			return "";
 		}
-		return obj.toString().strip(); 
+		return obj.toString().trim(); 
     }
 	/**
 	 * Strip and convert to upper case
@@ -357,7 +358,7 @@ public class PMutil {
 				result += s.substring(1);
 			}
 		}
-		return result.strip();
+		return result.trim();
 	}
 	/**
 	 * Strip and return every word capitalized, never null
@@ -959,7 +960,7 @@ public class PMutil {
 	 * @return true if Blank, Empty or null
 	 */
 	static boolean isBlank(String source) {
-	    return (source == null || source.isBlank());
+	    return (WriteUtil.isBlank(source));
     }
 
 	/**

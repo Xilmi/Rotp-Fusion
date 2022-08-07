@@ -232,6 +232,5 @@ public class UserProfiles extends AbstractProfiles<ClientClasses> {
 				, "Range = Rare .. Common (first option = 0)");	
 		getParameter("AI HOSTILITY").addLine("MyRandom"
 				, random + " 0, 3");
-		getParameter("ALWAYS STAR GATES").addLine("MyRandom", "Yes", "Not Random!");
 	}
 }

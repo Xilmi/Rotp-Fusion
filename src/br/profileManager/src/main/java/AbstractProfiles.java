@@ -30,6 +30,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -46,8 +47,9 @@ public abstract class AbstractProfiles<C> extends WriteUtil {
 	private static String commentKey    = ";";
 	private static String hiddenKey     = "HIDE";
 	private static String hideSeparator = "-";
-	
-	private List<String> defaultUserSettingKeys = new ArrayList<String>(List.of("User", "LastWord"));
+
+	private List<String> defaultUserSettingKeys = Arrays.asList("User", "LastWord");
+
 	private boolean firstInit = true;
 
 	private LinkedHashMap<String, AbstractParameter<?, ?, C>> parameterNameMap;
@@ -419,9 +421,9 @@ public abstract class AbstractProfiles<C> extends WriteUtil {
 			return line1;
 		}
 		if (line2.contains(commentKey)) {
-			return line1 + line2.strip().split(commentKey, 2)[1];
+			return line1 + line2.trim().split(commentKey, 2)[1];
 		}
-		return (line1 + line2).strip();
+		return (line1 + line2).trim();
 	}
 	
 	private void processLine(String line) {
@@ -435,7 +437,7 @@ public abstract class AbstractProfiles<C> extends WriteUtil {
 		}
 		// Test for new setting
 		String key = Lines.getKey(line);
-		if (key.isBlank()) {
+		if (isBlank(key)) {
 			return;
 		}
 		// Test for New Setting Section
@@ -444,9 +446,9 @@ public abstract class AbstractProfiles<C> extends WriteUtil {
 			currentParameterIsHidden = false;
 			String[] elements = Lines.getValueAsString(line)
 					.toUpperCase().split(hideSeparator, 2);
-			currentParameterName = elements[0].strip();
+			currentParameterName = elements[0].trim();
 			if (elements.length == 2) {
-				local = elements[1].strip();
+				local = elements[1].trim();
 				if (local.equalsIgnoreCase(hiddenKey)) {
 					currentParameterIsHidden = true;
 				}

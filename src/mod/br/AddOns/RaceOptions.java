@@ -17,6 +17,8 @@
 
 package mod.br.AddOns;
 
+import static br.profileManager.src.main.java.WriteUtil.isBlank;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -139,7 +141,7 @@ public class RaceOptions {
 	 */
 	public static List<String> selectedGameRaceFilter() {
 		if (selectedGameRaceFilter == null 
-				|| selectedGameRaceFilter.toString().isBlank()) {
+				|| isBlank(selectedGameRaceFilter.toString())) {
 			return defaultRaceList();
 		}
 		return raceFilter(selectedGameRaceFilter);
@@ -149,7 +151,7 @@ public class RaceOptions {
 	 */
 	public static List<String> selectedGuiRaceFilter() {
 		if (selectedGuiRaceFilter == null 
-				|| selectedGuiRaceFilter.toString().isBlank()) {
+				|| isBlank(selectedGuiRaceFilter.toString())) {
 			return defaultRaceList();
 		}
 		return raceFilter(selectedGuiRaceFilter);
@@ -189,7 +191,7 @@ public class RaceOptions {
 	 */
 	public static List<String> selectedGameAIFilter() {
 		if (selectedGameAIFilter == null 
-				|| selectedGameAIFilter.toString().isBlank()) {
+				|| isBlank(selectedGameAIFilter.toString())) {
 			return defaultGameAIList;
 		}
 		return selectedGameAIFilter;
@@ -199,7 +201,7 @@ public class RaceOptions {
 	 */
 	public static List<String> selectedGuiAIFilter() {
 		if (selectedGuiAIFilter == null 
-				|| selectedGuiAIFilter.toString().isBlank()) {
+				|| isBlank(selectedGuiAIFilter.toString())) {
 			return defaultGuiAIList;
 		}
 		return selectedGuiAIFilter;

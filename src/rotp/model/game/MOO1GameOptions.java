@@ -18,6 +18,7 @@ package rotp.model.game;
 import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import rotp.model.ai.AI;
@@ -616,7 +617,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
      * @return the list
      */
     public static List<String> starTypeColors() {
-    	return List.of("RED", "ORANGE", "YELLOW"
+    	return Arrays.asList("RED", "ORANGE", "YELLOW"
     				 , "BLUE", "WHITE", "PURPLE"); 
     }
 

@@ -15,6 +15,8 @@
 
 package br.profileManager.src.main.java;
 
+import static br.profileManager.src.main.java.WriteUtil.isBlank;
+
 /**
  * @author BrokenRegistry
  * For basic User Entry Lines
@@ -152,7 +154,7 @@ class LineString {
 	protected String value()   { return value; }
 	protected String comment() { return comment; }
 	
-	protected boolean isBlankValue() { return value.isBlank(); }
+	protected boolean isBlankValue() { return isBlank(value); }
 
    	// ==========================================================
     // Overriders
@@ -161,7 +163,7 @@ class LineString {
 		String out = "";
 		out += String.format(keyFormat(), key);
 		out += value;
-		if (!comment.isBlank()) {
+		if (!isBlank(comment)) {
 			out = String.format(keyValueFormat(), out);
 			if (!" ".equals(PMutil.getLastChar(out))) {
 				out += " ";

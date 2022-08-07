@@ -4,7 +4,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     https://www.gnu.org/licenses/gpl-3.0.html
+ *	 https://www.gnu.org/licenses/gpl-3.0.html
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,15 +24,15 @@ import java.util.List;
 public class WriteUtil {
 
 	// Keep the initializations for Junit test
-	private static int    maxLineLength = 80;
-	private static String commentKey    = ";";
+	private static int	maxLineLength = 80;
+	private static String commentKey	= ";";
 	private static String commentSpacer = " ";
 	/**
 	 * To be notified the config has been updated
 	 */
 	static void newConfig(PMconfig PM) {
 		maxLineLength = PM.getIntConfig("maxLineLength");
-		commentKey    = PM.getConfig("commentKey");
+		commentKey	= PM.getConfig("commentKey");
 		commentSpacer = PM.getConfig("commentSpacer");
 	}
 	/**
@@ -49,8 +49,8 @@ public class WriteUtil {
 	 * @param quantity the number of empty comment lines
 	 * @return a batch of empty comment lines
 	 */
-	protected static String emptyCommentLines(int quantity) {
-		return emptyCommentLines().repeat(quantity);
+	protected static String emptyCommentLines(int count) {
+		return repeat(emptyCommentLines(), count);
 	}
 	/**
 	 * @return an empty comment lines
@@ -62,7 +62,7 @@ public class WriteUtil {
 	// Methods using the Abstract methods (Former)
 	//
 	/**
-     * Format the element as Comment
+	 * Format the element as Comment
 	 * @return the {@code String} formated element
 	 */
 	String toComment() {
@@ -70,8 +70,8 @@ public class WriteUtil {
 	}
 
 	/**
-     * Format the element as Comment
-     * @param onEmpty {@code Boolean} what to return if the object is <b>null</b> or <i>empty</i>
+	 * Format the element as Comment
+	 * @param onEmpty {@code Boolean} what to return if the object is <b>null</b> or <i>empty</i>
 	 * <ul><ul>
 	 * <b> true </b> = Comment Key <br>
 	 * <b> false </b> = <i>empty</i> <br>
@@ -87,8 +87,8 @@ public class WriteUtil {
 	// Static Methods
 	//
 	/**
-     * split the string over several lines, using firstHeader
-     * on the first line then otherHeader on the following ones
+	 * split the string over several lines, using firstHeader
+	 * on the first line then otherHeader on the following ones
  	 * @param string the {@code String} to be formated
  	 * @param splitter the {@code String} where the line could be cut
 	 * @param firstHeader the Header for the first line
@@ -101,12 +101,12 @@ public class WriteUtil {
 							String firstHeader, String otherHeader,
 							String endOfLine, boolean addNewLine) {
 		string = PMutil.neverNull(string);
-		if (string.isBlank()) {
+		if (isBlank(string)) {
 			return "";
 		}
 		firstHeader = PMutil.neverNull(firstHeader);
 		otherHeader = PMutil.neverNull(otherHeader);
-		splitter    = PMutil.neverNull(splitter);
+		splitter	= PMutil.neverNull(splitter);
 		if (splitter.isEmpty()) {
 			splitter = " ";
 		}
@@ -149,8 +149,8 @@ public class WriteUtil {
 		return String.join(NL, lines);
 	}
 	/**
-     * split the string over several lines, using firstHeader
-     * on the first line then otherHeader on the following ones
+	 * split the string over several lines, using firstHeader
+	 * on the first line then otherHeader on the following ones
  	 * @param string the {@code String} to be formated
  	 * @param splitter the {@code String} where the line could be cut
 	 * @param firstHeader the Header for the first line
@@ -162,9 +162,9 @@ public class WriteUtil {
 		return multiLines(string, splitter, firstHeader, otherHeader, "", false);
 	}
 	/**
-     * split the string over several lines, using firstHeader
-     * on the first line then otherHeader on the following ones,
-     * String is only split on " "
+	 * split the string over several lines, using firstHeader
+	 * on the first line then otherHeader on the following ones,
+	 * String is only split on " "
  	 * @param string the {@code String} to be formated
 	 * @param firstHeader the Header for the first line
 	 * @param otherHeader the Header for the other lines
@@ -175,8 +175,8 @@ public class WriteUtil {
 	}
 
 	/**
-     * Format the object.toString() as Comment
-     * Split with {@code System.lineSeparator()} and comment each lines
+	 * Format the object.toString() as Comment
+	 * Split with {@code System.lineSeparator()} and comment each lines
 	 * @param object {@code Object} to be formated
 	 * @return the {@code String} formated object, <i>empty</i> if <b>null</b>
 	 */
@@ -191,7 +191,7 @@ public class WriteUtil {
  		String[] lines = element.split(System.lineSeparator());
  		String out = "";
  		for (String line : lines) {
-			if (out.isBlank()) {
+			if (isBlank(out)) {
  				out = commentPrt() + line;
  			} else {
  				out += NL + commentPrt() + line;
@@ -201,9 +201,9 @@ public class WriteUtil {
 	}
 
 	/**
-     * Format the object.toString() as Comment,
-     * with leading and following empty comment lines.
-     * Split with {@code System.lineSeparator()} and comment each lines.
+	 * Format the object.toString() as Comment,
+	 * with leading and following empty comment lines.
+	 * Split with {@code System.lineSeparator()} and comment each lines.
 	 * @param object {@code Object} to be formated
 	 * @return the {@code String} formated object, <i>empty</i> if <b>null</b> or empty
 	 */
@@ -219,8 +219,8 @@ public class WriteUtil {
  	}
 
 	/**
-     * Format the object.toString() as Comment and terminate by new line.
-     * Split with {@code System.lineSeparator()} and comment each lines.
+	 * Format the object.toString() as Comment and terminate by new line.
+	 * Split with {@code System.lineSeparator()} and comment each lines.
 	 * @param object {@code Object} to be formated
 	 * @return the {@code String} formated object, <i>empty</i> if <b>null</b> or empty
 	 */
@@ -234,7 +234,7 @@ public class WriteUtil {
  	}
 
 	/**
-     * Format the object.toString() as Comment
+	 * Format the object.toString() as Comment
 	 * @param object {@code Object} to be formated
 	 * @return the {@code String} formated object, <i>empty</i> if <b>null</b>
 	 */
@@ -244,7 +244,7 @@ public class WriteUtil {
  		}
  		String out = "";
  		for (String element : list) {
- 			if (out.isBlank()) {
+ 			if (isBlank(out)) {
  				out = toComment(element);
  			} else {
  				out += NL + toComment(element);
@@ -254,7 +254,7 @@ public class WriteUtil {
 	}
 
  	/**
-     * Format the object.toString() as Comment
+	 * Format the object.toString() as Comment
  	 * @param object {@code Object} to be formated
 	 * @param onEmpty {@code Boolean} what to return if the object is <b>null</b> or <i>empty</i>
 	 * <ul><ul>
@@ -285,7 +285,7 @@ public class WriteUtil {
 
   	/**
  	 * Check if the object.toString() is a comment
-     * @param object the {@code Object} to be analyzed
+	 * @param object the {@code Object} to be analyzed
  	 * @return true if the stripped {@code Object} Start with a COMMENT KEY
  	 */
 	static boolean isComment(Object object) {
@@ -296,12 +296,12 @@ public class WriteUtil {
  		if (element == null) {
  			return false;
  		}
- 	    return element.strip().startsWith(commentKey);
+ 		return element.trim().startsWith(commentKey);
  	}
 
 	/**
  	 * Check if the object.toString() contains a comment
-     * @param object the {@code Object} to be analyzed
+	 * @param object the {@code Object} to be analyzed
  	 * @return true if the {@code Object} contains at least one commentKey
  	 */
  	static boolean containsComment(Object object) {
@@ -312,12 +312,12 @@ public class WriteUtil {
  		if (element == null) {
  			return false;
  		}
-	    return element.contains(commentKey);
+		return element.contains(commentKey);
  	}
 
  	/**
 	 * Remove the comment from the object.toString()
-     * @param object the {@code Object} to be formated
+	 * @param object the {@code Object} to be formated
  	 * @return a stripped {@code String} without the comment element
 	 */
 	static String removeComment(Object object) {
@@ -328,7 +328,7 @@ public class WriteUtil {
  		if (element == null) {
  			return null;
  		}
-  		return (" " + element).split(commentKey, 2)[0].strip();
+  		return (" " + element).split(commentKey, 2)[0].trim();
 	}
 
 	/**
@@ -345,7 +345,7 @@ public class WriteUtil {
 			return null;
 		}
 		if (containsComment(element)) {
-			return element.strip().split(commentKey, 2)[1].strip();
+			return element.trim().split(commentKey, 2)[1].trim();
 		}
 		// No comment!
 		return "";
@@ -353,7 +353,7 @@ public class WriteUtil {
 
 	/**
 	 * Convert the {@code Object} as String, strip it and split it
-     * @param object the {@code Object} to be formated
+	 * @param object the {@code Object} to be formated
 	 * @return Return a {@code String Array} with both part
 	 * <br> {@code String[0]} The part from the left, stripped
 	 * <br> {@code String[1]} The part from the right (not stripped)
@@ -368,22 +368,22 @@ public class WriteUtil {
 		}
 		if (isComment(element)) {
 			return new String[] { "", PMutil.removeFirstSpace(
-					element.strip().split(commentKey, 2)[1]) };
+					element.trim().split(commentKey, 2)[1]) };
 		}
 		if (containsComment(element)) {
 			String[] s = (" " + element).split(commentKey, 2);
-			s[0] = s[0].strip();
+			s[0] = s[0].trim();
 			s[1] = PMutil.removeFirstSpace(s[1]);
 			return s;
 		}
 		// No comment!
-		return new String[] {element.strip(), ""};
+		return new String[] {element.trim(), ""};
 	}
 
 	/**
 	 * Convert the {@code Object} as String
 	 * and split the comment (no stripping)
-     * @param object the {@code Object} to be formated
+	 * @param object the {@code Object} to be formated
 	 * @return Return a {@code String Array} with both part
 	 * <br> null for null {@code Object}, null {@code String}
 	 * <br> {@code String[0]} The part from the left
@@ -403,5 +403,23 @@ public class WriteUtil {
  			return new String[] {element, null};
  		}
 		return element.split(commentKey, 2);
+	}
+	public static String repeat(String string, int count) {
+		if (string == null) return "";
+		String res = "";
+		for (int i=0; i<count; i++) {
+			res += string;
+		}
+		return res;
+	}
+	/**
+	 * test if null, empty or blank
+	 * @param string the String to test
+	 * @return is null, empty or blank
+	 */
+	public static boolean isBlank(String string) {
+		if (string == null || string.isEmpty()) return true;
+		string.replace(" ", "");
+		return string.isEmpty();
 	}
 }

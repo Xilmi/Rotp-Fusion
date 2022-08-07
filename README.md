@@ -22,11 +22,29 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
-2022.07.27 (BR)
-  - Extended Build automation.
-  - Added Player Ship Set selection.
+2022.08.07 (BR)
+  - Removed every calls to Java 9 and Java 11. Now only Java 8.
+  - Initial Profiles.cfg generation: removed call to the updated "Always Stargates"
 
-2022.07.25 (XILMI)
+2022.08.06 (BR)
+  - Removed the useless double call to options() and newOptions().
+  - Rewrote "Restart with a new race". It's now a "Start" allowing to load an old save and copy galaxy and opponents.  
+
+2022.08.04 (BR)
+  - Made tools to simplify setting addition to user preferences: Only two lines are needed.
+  - Made tools to simplify setting addition to MOD Options GUI: Only two lines are needed (Using above tools). Compatible with traditionnal settings.
+  - On these new settings the middle button will now reset the setting to its default value.
+  - The GUI auto resize up to 4 columns and 6 rows.
+  - Added two GUI: MOD Options B and Display Options.
+  - Display option GUI: Added all the galaxy Map zooming settings already added to Remnant.cfg.
+  - MOD Options B GUI: Added the galaxy spacing options
+  - Maximum Spacing Limit is now under your control.
+  - MOD Options B GUI: Added 8 key Technology control with Always/Never/Auto options; For Player or AI.
+  - Technologies: Irradiated Cloaking Stargate Hyperspace Industry2 Thorium Transport Terraforming120.
+  - MOD Options A GUI: Added option to give Artifact, Fertile, Rich or Ultra-Rich Home World to Player/AI.
+  - Added all these new things to Profiles Manager.
+  
+2022.07.25 (Xilmi)
   - Changed version-string from to "Rotp-C-M-X-BR" to "Fusion-Mod"
   - Renamed AI's Legacy => Fusion, Advanced => Roleplay
   - Restored default- and maximum empire-count from Fusion-Mod
