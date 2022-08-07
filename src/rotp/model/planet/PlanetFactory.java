@@ -15,11 +15,6 @@
  */
 package rotp.model.planet;
 
-import static rotp.ui.UserPreferences.artifactHomeworld;
-import static rotp.ui.UserPreferences.fertileHomeworld;
-import static rotp.ui.UserPreferences.richHomeworld;
-import static rotp.ui.UserPreferences.ultraRichHomeworld;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
@@ -78,30 +73,18 @@ public class PlanetFactory implements Base {
         p.baseSize(120*bonus);
         return p;
     }
-    public static Planet createHomeworld(Race r, StarSystem sys,
-    		float bonus, boolean isPlayer) { // BR: added player info
+    public static Planet createHomeworld(Race r, StarSystem sys, float bonus) {
         Planet p = instance.options().randomPlayerPlanet(r, sys);
         p.baseSize(r.homeworldSize*bonus);
         if (r.homeworldKey() > 0)
             p.terrainSeed(r.homeworldKey());
 		// modnar: add option for changing Race homeworld type
-        // BR: User control over these settings
-		if (richHomeworld.isAlways(isPlayer)
-				|| (!richHomeworld.isNever(isPlayer)
-						&& r.homeworldKey() == 888))
+		if (r.homeworldKey() == 888)
 			p.setResourceRich();
-		if (ultraRichHomeworld.isAlways(isPlayer)
-				|| (!ultraRichHomeworld.isNever(isPlayer)
-						&&r.homeworldKey() == 8888))
+		if (r.homeworldKey() == 8888)
 			p.setResourceUltraRich();
-		if (artifactHomeworld.isAlways(isPlayer)
-				|| (!artifactHomeworld.isNever(isPlayer)
-						&&r.homeworldKey() == 1337)) {
+		if (r.homeworldKey() == 1337) {
 			p.setArtifactRace();
-		}
-		if (fertileHomeworld.isAlways(isPlayer)
-				|| (!fertileHomeworld.isNever(isPlayer)
-						&&r.homeworldKey() == 1337)) {
 			p.makeEnvironmentFertile();
 		}
         return p;

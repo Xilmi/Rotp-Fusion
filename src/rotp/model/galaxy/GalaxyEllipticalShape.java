@@ -15,8 +15,6 @@
  */
 package rotp.model.galaxy;
 
-import static rotp.ui.UserPreferences.maximizeSpacing;
-
 import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.Area;
@@ -24,6 +22,7 @@ import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import rotp.mod.br.profiles.Profiles;
 import rotp.model.game.IGameOptions;
 
 public class GalaxyEllipticalShape extends GalaxyShape {
@@ -73,9 +72,11 @@ public class GalaxyEllipticalShape extends GalaxyShape {
     }
 	@Override public CtrPoint getPlayerSymmetricHomeWorld() {
     	double minHomeRay = Math.pow(empireBuffer * numEmpires / twoPI / galaxyRay(), 2);
-    	if (maximizeSpacing.get()) {
+    	if (Profiles.isMaximizeSpacingEnabled()) {
     		minHomeRay = Math.max(minHomeRay, (galaxyRay() - sysBuffer)/galaxyRay()) ;
     	}
+//    	double ray = galaxyRay() * Math.sqrt(rand.randX(minHomeRay2, 1));
+//    	return new CtrPoint(ray).rotate(randomOrientation);
     	return getRandomSymmetric(minHomeRay);
 	}
 	@Override public boolean isSymmetric() {

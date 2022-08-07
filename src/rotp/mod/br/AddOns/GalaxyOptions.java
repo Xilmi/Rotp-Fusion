@@ -17,6 +17,7 @@
 
 package rotp.mod.br.AddOns;
 
+import mod.br.AddOns.GalaxySpacing;
 import mod.br.AddOns.StarsOptions;
 
 /**
@@ -24,7 +25,51 @@ import mod.br.AddOns.StarsOptions;
  * Some tools to optimize empires spacing
  */
 public class GalaxyOptions {
-
+	
+	/**
+	 * @param maxStars the {@code Integer} maximum number of stars per empire
+	 * @param numOpps the {@code Integer} number of opponents
+	 * @param sysBuffer the {@code float} some space reserve factor
+	 */
+	public static void initMaximizeSpacing(int maxStars, int numOpps, float sysBuffer) {
+		GalaxySpacing.initMaximizeSpacing(maxStars, numOpps, sysBuffer);
+	}
+	/**
+	 * @return isMaximizeEmpiresSpacing {@code boolean} value
+	 */
+	public static boolean isMaximizeEmpiresSpacing() {
+		 return GalaxySpacing.isMaximizeEmpiresSpacing();
+	}
+	/**
+	 * @return minEmpireBuffer {@code float} value
+	 */
+	public static float getMinEmpireBuffer() {
+		 return GalaxySpacing.getMinEmpireBuffer();
+	}
+	/**
+	 * @return maxMinEmpireBuffer {@code float} value
+	 */
+	public static float getMaxMinEmpireBuffer() {
+		 return GalaxySpacing.getMaxMinEmpireBuffer();
+	}
+	/**
+	 * @return minOrionBuffer {@code float} value
+	 */
+	public static float getMinOrionBuffer() {
+		return GalaxySpacing.getMinOrionBuffer();
+	}
+	/**
+	 * @return getMinStarsPerEmpire {@code float} value
+	 */
+	public static int getMinStarsPerEmpire() {
+		return GalaxySpacing.getMinStarsPerEmpire();
+	}
+	/**
+	 * @return getPreferedStarsPerEmpire {@code float} value
+	 */
+	public static int getPreferredStarsPerEmpire() {
+		return GalaxySpacing.getPreferredStarsPerEmpire();
+	}
 	/**
 	 * Adjust Star Probability to the user preference
 	 * @param pcts the original cumulative distribution

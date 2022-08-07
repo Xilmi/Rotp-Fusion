@@ -93,7 +93,6 @@ public class Galaxy implements Base, Serializable {
     @Override
     public boolean isPlayer(Empire d)        { return playerEmpire == d; }
     public void initNebulas(int size)        { nebulas = new ArrayList<>(size); }
-    public void initNebulas(List<Nebula> nebulas) { this.nebulas = nebulas; } // BR: For Restart with new options
     public ShipCombatManager shipCombat() {
         if (shipCombat == null)
             shipCombat = new ShipCombatManager();
@@ -117,12 +116,6 @@ public class Galaxy implements Base, Serializable {
         empires = new Empire[options().selectedNumberOpponents()+1];
     }
     public void advanceTime() { currentTime += TIME_PER_TURN; }
- // BR: For Restart with new options
-    public void addNebula(Nebula nebula, float nebSize) {
-    	Nebula neb = nebula.copy();
-        neb.setXY(nebula.x(), nebula.y());
-        nebulas.add(neb);    	
-    }
     public boolean addNebula(GalaxyShape shape, float nebSize) {
         // each nebula creates a buffered image for display
         // after we have created 5 nebulas, start cloning

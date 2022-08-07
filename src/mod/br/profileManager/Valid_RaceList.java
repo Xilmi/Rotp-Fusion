@@ -210,16 +210,16 @@ class Valid_RaceList extends Validation<String> {
 				maxOpponentType = IGameOptions.MAX_OPPONENT_TYPE;
 			}
 			// init allRaceOptions
-			startingList = raceFilter(go.options().startingRaceOptions());
+			startingList = raceFilter(go.newOptions().startingRaceOptions());
 			allRaceOptions = new ArrayList<String>();
 			for (int i=0; i<maxOpponentType; i++) {
 				allRaceOptions.addAll(startingList);
 			}
 			// remove the player from the list and shuffle
-			allRaceOptions.remove(go.options().selectedPlayerRace());
+			allRaceOptions.remove(go.newOptions().selectedPlayerRace());
 			Collections.shuffle(allRaceOptions);
 			// load already set opponents
-	        selectedOpponents = go.options().selectedOpponentRaces().clone();
+	        selectedOpponents = go.newOptions().selectedOpponentRaces().clone();
 			maxArray = selectedOpponents.length;
 		}
 	}

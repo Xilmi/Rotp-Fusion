@@ -45,10 +45,7 @@ import javax.swing.SwingUtilities;
 import rotp.Rotp;
 
 import rotp.mod.br.profiles.Profiles;
-import rotp.model.empires.Race;
-import rotp.model.galaxy.GalaxyCopy;
 import rotp.model.game.GameSession;
-import rotp.model.game.IGameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.NoticeMessage;
 import rotp.ui.RotPUI;
@@ -78,9 +75,6 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
     int selectIndex;
     int start = 0;
     int end = 0;
-    IGameOptions newOptions; // BR: For restarting with new options
-    GalaxyCopy oldGalaxy;
-    boolean restart;
     
     int sortOrder = SORT_DT_UP;
     int buttonW, button1X, button2X;
@@ -104,13 +98,6 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
     public LoadGameUI() {
         current = this;
         initModel();
-    }
-    // BR: for restarting with new options
-    public void init(IGameOptions newOptions, GalaxyCopy oldGalaxy) {
-     	this.newOptions = newOptions;
-     	this.oldGalaxy	= oldGalaxy;
-    	restart = true;
-    	init();
     }
     public void init() {
         saveFiles.clear();
@@ -383,39 +370,10 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
         repaint();
         buttonClick();
         String dirName = showingBackups ? session().backupDir() : session().saveDir();
-
-        if (restart) { // BR: for restarting with new options
-            Race r = Race.keyed(newGameOptions().selectedPlayerRace());
-            GameSession.instance().loadSession(dirName, s, false, newOptions, oldGalaxy);
-    		GameUI.gameName = r.setupName() + " - "
-			+ text(oldGalaxy.selectedGalaxySize())
-			+ " - "+text(newGameOptions().selectedGameDifficulty());
-			// modnar: add custom difficulty level option, set in Remnants.cfg
-			// append this custom difficulty percentage to gameName if selected
-			if (text(newGameOptions().selectedGameDifficulty()).equals("Custom")) {
-				GameUI.gameName = GameUI.gameName 
-						+ " (" + Integer.toString(UserPreferences.customDifficulty()) + "%)";
-			}
-			final Runnable save = () -> {
-				long start = System.currentTimeMillis();
-				GameSession.instance().restartGame(newGameOptions(), oldGalaxy);
-				RotPUI.instance().mainUI().checkMapInitialized();
-				RotPUI.instance().selectIntroPanel();
-				log("TOTAL GAME START TIME:" +(System.currentTimeMillis()-start));
-				log("Game Name; "+GameUI.gameName);
-				restart = false;
-		     	newOptions = null;
-		     	oldGalaxy  = null;
-			};
-			SwingUtilities.invokeLater(save);		
-           
-            return;
-        }
-
         final Runnable load = () -> {           
             GameSession.instance().loadSession(dirName, s, false);
-        };        	
-        SwingUtilities.invokeLater(load);        	
+        };
+        SwingUtilities.invokeLater(load);
     }
     public void cancelLoad() {
         buttonClick();

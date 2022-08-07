@@ -15,10 +15,6 @@
  */
 package rotp.model.galaxy;
 
-import static rotp.ui.UserPreferences.mapFontFactor;
-import static rotp.ui.UserPreferences.showInfoFontRatio;
-import static rotp.ui.UserPreferences.showNameMinFont;
-
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Composite;
@@ -37,7 +33,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
 import rotp.model.Sprite;
 import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
@@ -49,19 +44,19 @@ import rotp.model.ships.Design;
 import rotp.model.ships.ShipDesign;
 import rotp.model.ships.ShipLibrary;
 import rotp.ui.BasePanel;
-import rotp.ui.UserPreferences; // modnar: use for shield display selection
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.sprites.ShipRelocationSprite;
 import rotp.ui.sprites.SystemTransportSprite;
+import rotp.ui.UserPreferences; // modnar: use for shield display selection
 import rotp.util.Base;
 
 public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
     private static final long serialVersionUID = 1L;
-    private static final int  minFont  = showNameMinFont.get(); // BR:
+    private static final int  minFont  = UserPreferences.getShowNameMinFont(); // BR:
     private static final int  fontPct  = 
-    		Math.round(mapFontFactor.get() * 100); // BR:
+    		Math.round(UserPreferences.getMapFontFactor() * 100); // BR:
     private static final int  minFont2 = 
-    		Math.round(minFont / showInfoFontRatio.get()); // BR:
+    		Math.round(minFont / UserPreferences.getShowInfoFontRatio()); // BR:
 	// modnar: change shield colors to color-coded loot rarity
 	// shield-5 --> shield-10 --> shield-15 --> shield-20
 	//    green -->      blue -->    purple --> orange

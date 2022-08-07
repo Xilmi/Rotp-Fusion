@@ -146,7 +146,7 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 	// ========== Common Methods ==========
 	//
 	private static List<String> getRaceOptionList(ClientClasses go) {
-		List<String> list = go.options().startingRaceOptions();
+		List<String> list = go.newOptions().startingRaceOptions();
 		list.add("null");
 		list.add("gui");
 		list.add("game");
@@ -154,14 +154,14 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 	}
 
 	private static List<String> getAIOptionList(ClientClasses go) {
-		List<String> list = go.options().specificOpponentAIOptions();
+		List<String> list = go.newOptions().specificOpponentAIOptions();
 		list.add("gui");
 		list.add("game");
 		return list;
 	}
 
 	private static String getInitialAI(ClientClasses go) {
-		List<String> list = go.options().specificOpponentAIOptions();
+		List<String> list = go.newOptions().specificOpponentAIOptions();
 		return list.get(list.size()-2);
 	}
 
@@ -217,23 +217,25 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		}
 		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {}
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			if (go.options().selectedGalaxyShape() == shapeCodeView) {
+			if (go.newOptions().selectedGalaxyShape() == shapeCodeView) {
 				switch (optionLevel) {
 				case 1:
-					return new T_String(go.options().selectedGalaxyShapeOption1());
+					return new T_String(go.newOptions().selectedGalaxyShapeOption1());
 				case 2:
-					return new T_String(go.options().selectedGalaxyShapeOption2());
+					return new T_String(go.newOptions().selectedGalaxyShapeOption2());
 				}
 			}
 			return new T_String("");
 		}
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
-			if (go.options().selectedGalaxyShape() == shapeCodeView) {
+			if (go.newOptions().selectedGalaxyShape() == shapeCodeView) {
 				switch (optionLevel) {
 				case 1:
+					go.newOptions().selectedGalaxyShapeOption1(value.getCodeView());
 					go.options().selectedGalaxyShapeOption1(value.getCodeView());
 					return;
 				case 2:
+					go.newOptions().selectedGalaxyShapeOption2(value.getCodeView());
 					go.options().selectedGalaxyShapeOption2(value.getCodeView());
 					return;
 				}
@@ -252,8 +254,8 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		GalaxyShape(ClientClasses go) { 
 			super("GALAXY SHAPE",
 					new Validation<String>(
-							new T_String(go.options().selectedGalaxyShape()),
-							go.options().galaxyShapeOptions()));			
+							new T_String(go.newOptions().selectedGalaxyShape()),
+							go.newOptions().galaxyShapeOptions()));			
 
 			setHistory(Default, "Rectangle"); // Ray Choice
 		}
@@ -261,7 +263,7 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		// ========== Overriders ==========
 		//
 		@Override public AbstractT<String> getFromGame (ClientClasses go) {
-			return new T_String(go.options().selectedGalaxyShape());
+			return new T_String(go.newOptions().selectedGalaxyShape());
 		}
 		
 		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {
@@ -269,10 +271,11 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String(go.options().selectedGalaxyShape());
+			return new T_String(go.newOptions().selectedGalaxyShape());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
+			go.newOptions().selectedGalaxyShape(value.getCodeView());
 			go.options().selectedGalaxyShape(value.getCodeView());
 		}
 		
@@ -289,15 +292,15 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		GalaxySize(ClientClasses go) {
 			super("GALAXY SIZE",
 					new Validation<String>(
-							new T_String(go.options().selectedGalaxySize()),
-							go.options().galaxySizeOptions()));			
+							new T_String(go.newOptions().selectedGalaxySize()),
+							go.newOptions().galaxySizeOptions()));			
 
 			setHistory(Default, "Small"); // Ray Choice
 			
 			// Get the size to build the description, for comments purpose
 			List<String> sizeList = new ArrayList<String>();
-			for (String size: go.options().galaxySizeOptions()) {
-				sizeList.add("" + go.options().numberStarSystems(size));
+			for (String size: go.newOptions().galaxySizeOptions()) {
+				sizeList.add("" + go.newOptions().numberStarSystems(size));
 			}
 			getValidation().setDescriptions(sizeList);
 		}
@@ -305,16 +308,17 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		// ========== Overriders ==========
 		//
 		@Override public AbstractT<String> getFromGame (ClientClasses go) {
-			return new T_String(go.options().selectedGalaxySize());
+			return new T_String(go.newOptions().selectedGalaxySize());
 		}
 		
 		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String(go.options().selectedGalaxySize());
+			return new T_String(go.newOptions().selectedGalaxySize());
 		}
 		@Override
 		public void putToGUI(ClientClasses go, AbstractT<String> value) {
+			go.newOptions().selectedGalaxySize(value.getCodeView());
 			go.options().selectedGalaxySize(value.getCodeView());
 		}
 		
@@ -338,8 +342,8 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		Difficulty(ClientClasses go) {
 			super("DIFFICULTY",
 					new Validation<String>(
-							new T_String(go.options().selectedGameDifficulty()),
-							go.options().gameDifficultyOptions()));			
+							new T_String(go.newOptions().selectedGameDifficulty()),
+							go.newOptions().gameDifficultyOptions()));			
 
 		setHistory(Default, "Easy"); // Ray Choice
 		}
@@ -347,7 +351,7 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		// ========== Overriders ==========
 		//
 		@Override public AbstractT<String> getFromGame (ClientClasses go) {
-			return new T_String(go.options().selectedGameDifficulty());
+			return new T_String(go.newOptions().selectedGameDifficulty());
 		}
 		
 		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {
@@ -355,10 +359,11 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String(go.options().selectedGameDifficulty());
+			return new T_String(go.newOptions().selectedGameDifficulty());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
+			go.newOptions().selectedGameDifficulty(value.getCodeView());
 			go.options().selectedGameDifficulty(value.getCodeView());
 		}
 		
@@ -377,8 +382,8 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		OpponentAI(ClientClasses go) {
 			super("OPPONENT AI", 
 					new Validation<String>(
-							new T_String(go.options().selectedOpponentAIOption()),
-							go.options().opponentAIOptions()));			
+							new T_String(go.newOptions().selectedOpponentAIOption()),
+							go.newOptions().opponentAIOptions()));			
 
 			setHistory(Default, "Base"); // Ray Choice
 		}
@@ -386,7 +391,7 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		// ========== Overriders ==========
 		//
 		@Override public AbstractT<String> getFromGame (ClientClasses go) {
-			return new T_String(go.options().selectedOpponentAIOption());
+			return new T_String(go.newOptions().selectedOpponentAIOption());
 		}
 		
 		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {
@@ -394,10 +399,11 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String(go.options().selectedOpponentAIOption());
+			return new T_String(go.newOptions().selectedOpponentAIOption());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
+			go.newOptions().selectedOpponentAIOption(value.getCodeView());
 			go.options().selectedOpponentAIOption(value.getCodeView());
 		}
 		
@@ -415,11 +421,11 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		NbOpponent(ClientClasses go) {
 			super("NB OPPONENTS", 
 					new Validation<Integer>(
-							new T_Integer(go.options().selectedNumberOpponents())));			
+							new T_Integer(go.newOptions().selectedNumberOpponents())));			
 
 			setHistoryCodeView(Default, 3); // Ray Choice
 			Integer min = 0;
-			Integer max = go.options().maximumOpponentsOptions();
+			Integer max = go.newOptions().maximumOpponentsOptions();
 			setLimits(min, max);
 			setDefaultRandomLimits(1, max);
 		}
@@ -427,21 +433,22 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		// ========== Overriders ==========
 		//
 		@Override public AbstractT<Integer> getFromGame (ClientClasses go) {
-			return new T_Integer(go.options().selectedNumberOpponents());
+			return new T_Integer(go.newOptions().selectedNumberOpponents());
 		}
 		
 		@Override public void putToGame(ClientClasses go, AbstractT<Integer> value) {}
 		
 		@Override public AbstractT<Integer> getFromUI (ClientClasses go) {
-			return new T_Integer(go.options().selectedNumberOpponents());
+			return new T_Integer(go.newOptions().selectedNumberOpponents());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<Integer> value) {
 			// the limits may have changed from previous settings
 			Integer min = 0;
-			Integer max = go.options().maximumOpponentsOptions();
+			Integer max = go.newOptions().maximumOpponentsOptions();
 			setLimits(min, max);
 			setDefaultRandomLimits(1, max);
+			go.newOptions().selectedNumberOpponents(Math.min(max, value.getCodeView()));
 			go.options().selectedNumberOpponents(Math.min(max, value.getCodeView()));
 		}
 
@@ -460,10 +467,10 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		GuiRaceFilter(ClientClasses go) { 
 			super("GUI RACE FILTER",
 					new Validation<String>(
-							new T_String(go.options().selectedPlayerRace()), 
-							go.options().startingRaceOptions()));
+							new T_String(go.newOptions().selectedPlayerRace()), 
+							go.newOptions().startingRaceOptions()));
 			
-			List<String> defaultValue = go.options().startingRaceOptions();
+			List<String> defaultValue = go.newOptions().startingRaceOptions();
 			setHistoryCodeView(Initial, defaultValue); // set Current too
 			setHistoryCodeView(Default, defaultValue);
 			RaceOptions.defaultRaceList(defaultValue);
@@ -510,10 +517,10 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		GameRaceFilter(ClientClasses go) { 
 			super("GAME RACE FILTER",
 					new Validation<String>(
-							new T_String(go.options().selectedPlayerRace()), 
-							go.options().startingRaceOptions()));
+							new T_String(go.newOptions().selectedPlayerRace()), 
+							go.newOptions().startingRaceOptions()));
 			
-			List<String> defaultValue = go.options().startingRaceOptions();
+			List<String> defaultValue = go.newOptions().startingRaceOptions();
 			setHistoryCodeView(Initial, defaultValue); // set Current too
 			setHistoryCodeView(Default, defaultValue);
 			RaceOptions.defaultRaceList(defaultValue);
@@ -561,12 +568,12 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		GuiPresetOpponent(ClientClasses go) { 
 			super("GUI PRESET OPPONENT",
 					new Valid_RaceList(
-							new T_String(go.options().selectedPlayerRace())
+							new T_String(go.newOptions().selectedPlayerRace())
 							, getRaceOptionList(go)
 					)
 			);
 			
-			List<String> defaultValue = go.options().startingRaceOptions();
+			List<String> defaultValue = go.newOptions().startingRaceOptions();
 			setHistoryCodeView(Initial, defaultValue); // set Current too
 			setHistoryCodeView(Default, defaultValue);
 			// remove the "null" from randomize
@@ -590,7 +597,7 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String().setFromCodeView(getRaceFromGUI(go.options()));
+			return new T_String().setFromCodeView(getRaceFromGUI(go.newOptions()));
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
@@ -600,6 +607,7 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 												, false);
 			int i=0;
 			for (String race : selectedOpponents) {
+				go.newOptions().selectedOpponentRace(i, race);
 				go.options().selectedOpponentRace(i, race);
 				i++;
 			}
@@ -640,12 +648,12 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		StartPresetOpponent(ClientClasses go) { 
 			super("START PRESET OPPONENT",
 					new Valid_RaceList(
-							new T_String(go.options().selectedPlayerRace())
+							new T_String(go.newOptions().selectedPlayerRace())
 							, getRaceOptionList(go)
 					)
 			);
 			
-			List<String> defaultValue = go.options().startingRaceOptions();
+			List<String> defaultValue = go.newOptions().startingRaceOptions();
 			setHistoryCodeView(Initial, defaultValue); // set Current too
 			setHistoryCodeView(Default, defaultValue);
 			// remove the "null" from randomize
@@ -669,7 +677,7 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String().setFromCodeView(getRaceFromGUI(go.options()));
+			return new T_String().setFromCodeView(getRaceFromGUI(go.newOptions()));
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
@@ -709,6 +717,7 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 			if (selectedOpponents != null) {
 				int i=0;
 				for (String race : selectedOpponents) {
+					go.newOptions().selectedOpponentRace(i, race);
 					go.options().selectedOpponentRace(i, race);
 					i++;
 				}
@@ -728,9 +737,9 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 			super("GUI AI FILTER",
 					new Validation<String>(
 							new T_String(getInitialAI(go))
-							, go.options().specificOpponentAIOptions()));
+							, go.newOptions().specificOpponentAIOptions()));
 			
-			List<String> defaultValue = go.options().specificOpponentAIOptions();
+			List<String> defaultValue = go.newOptions().specificOpponentAIOptions();
 			setHistoryCodeView(Initial, defaultValue); // set Current too
 			setHistoryCodeView(Default, defaultValue);
 			RaceOptions.defaultGuiAIList(defaultValue);
@@ -778,9 +787,9 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 			super("GAME AI FILTER",
 					new Validation<String>(
 							new T_String(getInitialAI(go))
-							, go.options().specificOpponentAIOptions()));
+							, go.newOptions().specificOpponentAIOptions()));
 			
-			List<String> defaultValue = go.options().specificOpponentAIOptions();
+			List<String> defaultValue = go.newOptions().specificOpponentAIOptions();
 //			.specificOpponentAIOptions().subList(0, AI.AI_LAST_ID);
 			setHistoryCodeView(Initial, defaultValue); // set Current too
 			setHistoryCodeView(Default, defaultValue);
@@ -834,7 +843,7 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 					)
 			);
 			
-			List<String> defaultValue = go.options().specificOpponentAIOptions();
+			List<String> defaultValue = go.newOptions().specificOpponentAIOptions();
 			setHistoryCodeView(Initial, defaultValue); // set Current too
 			setHistoryCodeView(Default, defaultValue);
 		}
@@ -853,7 +862,7 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String().setFromCodeView(getAIFromGUI(go.options()));
+			return new T_String().setFromCodeView(getAIFromGUI(go.newOptions()));
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
@@ -861,6 +870,7 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 										.analyze(go, value.getUserList(), false);
 			int i=0;
 			for (String ai : selectedAIs) {
+				go.newOptions().specificOpponentAIOption(ai, i);
 				go.options().specificOpponentAIOption(ai, i);
 				i++;
 			}
@@ -904,7 +914,7 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 					)
 			);
 			
-			List<String> defaultValue = go.options().specificOpponentAIOptions();
+			List<String> defaultValue = go.newOptions().specificOpponentAIOptions();
 			setHistoryCodeView(Initial, defaultValue); // set Current too
 			setHistoryCodeView(Default, defaultValue);
 		}
@@ -912,7 +922,7 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		// ========== Overriders ==========
 		//
 		@Override public AbstractT<String> getFromGame (ClientClasses go) {
-			List<String> ai = go.options().specificOpponentAIOptions();
+			List<String> ai = go.newOptions().specificOpponentAIOptions();
 			List<String> list = new ArrayList<String>();
 			for (Empire empire : go.session().galaxy().empires()) {
 				list.add(ai.get(empire.selectedAI));
@@ -924,7 +934,7 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String().setFromCodeView(getAIFromGUI(go.options()));
+			return new T_String().setFromCodeView(getAIFromGUI(go.newOptions()));
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
@@ -959,6 +969,7 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 			if (selectedAIs != null) {
 				int i=0;
 				for (String ai : selectedAIs) {
+					go.newOptions().specificOpponentAIOption(ai, i);
 					go.options().specificOpponentAIOption(ai, i);
 					i++;
 				}

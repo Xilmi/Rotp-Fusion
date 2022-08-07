@@ -19,6 +19,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
 import rotp.Rotp;
+import rotp.mod.br.AddOns.ShipSetAddOns;
 import rotp.util.AnimationManager;
 import rotp.util.Base;
 import rotp.util.ImageManager;
@@ -72,6 +73,9 @@ public enum RaceFactory implements Base {
         catch (IOException e) {
             err("RaceFactory.loadRaceDataFile(", filename, ") -- IOException: ", e.toString());
         }
+        // TODO BR: Add Ship design choice
+//        if(!ShipSetAddOns.isOriginalShipSet())
+//        	newRace.preferredShipSet = ShipSetAddOns.playerShipSet();
         Race.addRace(newRace);
     }
     public void resetRaceLangFiles() {

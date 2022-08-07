@@ -20,10 +20,8 @@ package mod.br.profileManager;
 import static br.profileManager.src.main.java.Validation.History.Current;
 import static br.profileManager.src.main.java.Validation.History.Default;
 import static br.profileManager.src.main.java.Validation.History.Initial;
-import static rotp.ui.UserPreferences.artifactHomeworld;
-import static rotp.ui.UserPreferences.fertileHomeworld;
-import static rotp.ui.UserPreferences.richHomeworld;
-import static rotp.ui.UserPreferences.ultraRichHomeworld;
+
+import java.util.List;
 
 import br.profileManager.src.main.java.AbstractGroup;
 import br.profileManager.src.main.java.AbstractParameter;
@@ -33,30 +31,30 @@ import br.profileManager.src.main.java.T_Float;
 import br.profileManager.src.main.java.T_Integer;
 import br.profileManager.src.main.java.Valid_IntegerWithList;
 import br.profileManager.src.main.java.Validation;
+import rotp.model.empires.Empire;
 import rotp.ui.UserPreferences;
-import rotp.ui.game.StartModAOptionsUI;
+import rotp.ui.game.StartModOptionsUI;
 
 /**
  * @author BrokenRegistry
  * For Parameters in Modnar GUI
  */
-class Group_Mod_A extends  AbstractGroup <ClientClasses> {
+class Group_Modnar extends  AbstractGroup <ClientClasses> {
 
-	Group_Mod_A(ClientClasses go) {
+	Group_Modnar(ClientClasses go) {
 		super(go, getHeadComments());
 	}
 	
 	private static String getHeadComments() {
 		return  " " + NL
-				+ "------------- Modder's Options A -------------" + NL
+				+ "------------- Modnar's Options -------------" + NL
 				+ "";
 	}
 
 	@Override protected void initSettingList(ClientClasses go) {
-		addParameter(new AAN2Param(go, artifactHomeworld));
-		addParameter(new AAN2Param(go, fertileHomeworld));
-		addParameter(new AAN2Param(go, richHomeworld));
-		addParameter(new AAN2Param(go, ultraRichHomeworld));
+		addParameter(new AlwaysIrradiated(go));
+		addParameter(new AlwaysStarGates(go));
+		addParameter(new AlwaysThorium(go));
 		addParameter(new ChallengeMode(go));
 		addParameter(new BattleScouts(go));
 		addParameter(new CompanionWorlds(go));
@@ -68,6 +66,151 @@ class Group_Mod_A extends  AbstractGroup <ClientClasses> {
 		addParameter(new RetreatRestrictionTurns(go));
 	}
 
+	// ==============================================================
+	// ALWAYS IRRIDIATED
+	//
+	static class AlwaysIrradiated extends 
+			AbstractParameter <Boolean, Validation<Boolean>, ClientClasses> {
+
+		private String IrradiatedId = "ControlEnvironment:6";
+		private int IrradiatedCategory = 3;
+
+		AlwaysIrradiated(ClientClasses go) {
+			super( "ALWAYS IRRIDIATED",
+					new Validation<Boolean>(
+							new T_Boolean(UserPreferences.alwaysIrradiated())));
+
+			setHistoryCodeView(Default, false);
+		}
+		
+		@Override public AbstractT<Boolean> getFromGame (ClientClasses go) {
+			for (Empire empire : go.session().galaxy().empires()) {
+				List<String> techList = empire.tech()
+						.category(IrradiatedCategory).possibleTechs();			
+				if (!techList.contains(IrradiatedId)) {
+					return new T_Boolean(false);
+				}
+			}
+			return new T_Boolean(true);
+		}
+
+		@Override public void putToGame(ClientClasses go, AbstractT<Boolean> value) {
+			if (value.getCodeView()) {
+				for (Empire empire : go.session().galaxy().empires()) {
+				empire.tech().category(IrradiatedCategory).insertPossibleTech(IrradiatedId);
+				}
+			}
+		}
+		
+		@Override public AbstractT<Boolean> getFromUI (ClientClasses go) {
+			return new T_Boolean(UserPreferences.alwaysStarGates());
+		}
+		
+		@Override public void putToGUI(ClientClasses go, AbstractT<Boolean> value) {
+			UserPreferences.setAlwaysStarGates(value.getCodeView());
+		}
+		
+		@Override public void initComments() {
+			setBottomComments(availableForChange());
+		}
+	}
+	// ==============================================================
+	// ALWAYS STAR GATES
+	//
+	static class AlwaysStarGates extends 
+			AbstractParameter <Boolean, Validation<Boolean>, ClientClasses> {
+
+		private String StarGateId = "Stargate:0";
+		private int StarGateCategory = 4;
+
+		AlwaysStarGates(ClientClasses go) {
+			super( "ALWAYS STAR GATES",
+					new Validation<Boolean>(
+							new T_Boolean(UserPreferences.alwaysStarGates())));
+
+			setHistoryCodeView(Default, false); // MODNAR DEFAULT
+		}
+		
+		@Override public AbstractT<Boolean> getFromGame (ClientClasses go) {
+			for (Empire empire : go.session().galaxy().empires()) {
+				List<String> techList = empire.tech()
+						.category(StarGateCategory).possibleTechs();			
+				if (!techList.contains(StarGateId)) {
+					return new T_Boolean(false);
+				}
+			}
+			return new T_Boolean(true);
+		}
+
+		@Override public void putToGame(ClientClasses go, AbstractT<Boolean> value) {
+			if (value.getCodeView()) {
+				for (Empire empire : go.session().galaxy().empires()) {
+				empire.tech().category(StarGateCategory).insertPossibleTech(StarGateId);
+				}
+			}
+		}
+		
+		@Override public AbstractT<Boolean> getFromUI (ClientClasses go) {
+			return new T_Boolean(UserPreferences.alwaysStarGates());
+		}
+		
+		@Override public void putToGUI(ClientClasses go, AbstractT<Boolean> value) {
+			UserPreferences.setAlwaysStarGates(value.getCodeView());
+		}
+		
+		@Override public void initComments() {
+			setBottomComments(availableForChange());
+		}
+	}
+	// ==============================================================
+	// ALWAYS THORIUM
+	//
+	static class AlwaysThorium extends 
+			AbstractParameter <Boolean, Validation<Boolean>, ClientClasses> {
+
+		private String ThoriumCellId = "FuelRange:8";
+		private int ThoriumCellCategory = 4;
+
+		AlwaysThorium(ClientClasses go) { 
+			super("ALWAYS THORIUM",
+					new Validation<Boolean>(
+							new T_Boolean(UserPreferences.alwaysThorium())));
+
+			setHistoryCodeView(Default, false); // MODNAR DEFAULT
+		}
+		
+		@Override public AbstractT<Boolean> getFromGame (ClientClasses go) {
+			for (Empire empire : go.session().galaxy().empires()) {
+				List<String> techList = empire.tech()
+						.category(ThoriumCellCategory).possibleTechs();
+				if (!techList.contains(ThoriumCellId)) {
+					return new T_Boolean(false);
+				}
+			}
+			return new T_Boolean(true);
+		}
+		
+		@Override public void putToGame(ClientClasses go, AbstractT<Boolean> value) {
+			if (value.getCodeView()) {
+				for (Empire empire : go.session().galaxy().empires()) {
+					empire.tech().category(ThoriumCellCategory).insertPossibleTech(ThoriumCellId);
+				}
+			}
+		}
+		
+		@Override public AbstractT<Boolean> getFromUI (ClientClasses go) {
+			return new T_Boolean(UserPreferences.alwaysThorium());
+		}
+		
+		@Override public void putToGUI(ClientClasses go, AbstractT<Boolean> value) {
+			UserPreferences.setAlwaysThorium(value.getCodeView());
+		}
+		
+		@Override public void initComments() {
+			setBottomComments(availableForChange());
+		}
+	}
+	
 	// ==============================================================
 	// CHALLENGE MODE
 	//
@@ -313,7 +456,7 @@ class Group_Mod_A extends  AbstractGroup <ClientClasses> {
 			super("RETREAT RESTRICTIONS", 
 					new Valid_IntegerWithList(
 							UserPreferences.retreatRestrictions()
-							, StartModAOptionsUI.getRetreatRestrictionOptions()));
+							, StartModOptionsUI.getRetreatRestrictionOptions()));
 			
 			setHistoryCodeView(Initial, UserPreferences.retreatRestrictions());
 			setHistoryCodeView(Default, 0);

@@ -21,6 +21,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Stroke;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -625,7 +626,8 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
                 goToMainMenu();
                 break;
             default: // BR:
-            	if (Profiles.processKey(k, e.isShiftDown(), "Advanced", newGameOptions())) {
+            	if (Profiles.processKey(k, e.isShiftDown(), "Advanced",
+            			options(), newGameOptions())) {
                     buttonClick();
                     galaxyAgeText.repaint(galaxyAgeStr());
                     starDensityText.repaint(starDensityStr());
@@ -645,7 +647,8 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
             	}
             	// Needs to be done twice for the case both Galaxy size
             	// and the number of opponents were changed !?
-            	if (Profiles.processKey(k, e.isShiftDown(), "Advanced", newGameOptions())) {
+            	if (Profiles.processKey(k, e.isShiftDown(), "Advanced",
+            			options(), newGameOptions())) {
                     buttonClick();
                     galaxyAgeText.repaint(galaxyAgeStr());
                     starDensityText.repaint(starDensityStr());
