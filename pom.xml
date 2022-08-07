@@ -385,7 +385,7 @@
 							<owner>${AuthorId}</owner>
 							<repository>${RepoId}</repository>
 							<authToken>${GITHUB_TOKEN}</authToken>
-							<tagName>20${project.version}</tagName>
+							<tagName>${project.version}</tagName>
 							<name>${BaseFileName}</name>
 							<targetCommitish>main</targetCommitish>
 							<releaseNotes>target/classes/README.md</releaseNotes>
