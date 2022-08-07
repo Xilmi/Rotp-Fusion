@@ -109,7 +109,7 @@ public class Entry<
 	 * @return {@code boolean}
 	 */
 	boolean isBlankUserEntry() { 
-		return userEntry == null || userEntry.isBlank();
+		return userEntry == null || isBlank(userEntry);
 	}
 	/**
 	 * Ask if about the value state (code view)

@@ -239,14 +239,14 @@ public abstract class AbstractT <T> {
 	// ===== Public Testers =====
 	boolean isBlankUser() {
 		return userList.size() == 0
-				|| getUserView().isBlank();
+				|| WriteUtil.isBlank(getUserView());
 	}
 	boolean isBlankCode() {
 		return codeList.size() == 0 
 				|| getCodeView() == null
 				|| equals(getCodeView(), blankCodeView());
 	}
-	boolean isBlank() {
+	public boolean isBlank() {
 		return isBlankUser() && isBlankCode();
 	}
 	

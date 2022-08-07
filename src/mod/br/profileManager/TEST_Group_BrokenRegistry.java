@@ -4,6 +4,7 @@ import static mod.br.AddOns.StarsOptions.STAR_TYPES;
 import static mod.br.AddOns.StarsOptions.probabilityModifier;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -31,7 +32,7 @@ class TEST_Group_BrokenRegistry {
 		BaseProbabilityModifier param;
 		param = new BaseProbabilityModifier(cct, "STAR TYPE PROBABILITY"
 				, probabilityModifier("STARS"), STAR_TYPES, "");
-		String out = param.toString(List.of("Profile 1", "Random"));
+		String out = param.toString(Arrays.asList("Profile 1", "Random"));
 		String shouldBe = StarProbabilityPrt;
 		assertEquals(shouldBe, out, "should have been equals");
 	}

@@ -24,6 +24,7 @@ import static rotp.ui.util.AbstractParam.yesOrNo;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import java.util.Arrays;
 import java.util.List;
 
 import rotp.ui.BaseText;
@@ -275,7 +276,7 @@ public class StartModAOptionsUI extends AbstractOptionsUI {
 	 * @return Retreat Restriction Option List // BR:
 	 */
 	public static List<String> getRetreatRestrictionOptions() {
-		return List.of(
+		return Arrays.asList(
 				"SETTINGS_MOD_RETREAT_NONE"
 				, "SETTINGS_MOD_RETREAT_AI"
 				, "SETTINGS_MOD_RETREAT_PLAYER"

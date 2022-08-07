@@ -238,7 +238,7 @@ class Block<T, V extends Validation<T>> extends WriteUtil {
 	@Override public String toString() {
 		String out = "";
 		for (Lines<T, Validation<T>> line : lineList) {
-			if (out.isBlank()) {
+			if (isBlank(out)) {
 				out = line.toString();
 			} else {
 				out += System.lineSeparator() + line.toString();
@@ -273,7 +273,7 @@ class Block<T, V extends Validation<T>> extends WriteUtil {
 				add(profile, "");       // add the missing one as empty
 				line = get(profile);
 			}
-			if (out.isBlank()) {
+			if (isBlank(out)) {
 				out = line.toString();
 			} else {
 				out += System.lineSeparator() + line.toString();

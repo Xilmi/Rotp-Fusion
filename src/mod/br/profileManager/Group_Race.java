@@ -21,6 +21,7 @@ import static br.profileManager.src.main.java.Validation.History.Current;
 import static br.profileManager.src.main.java.Validation.History.Default;
 import static br.profileManager.src.main.java.Validation.History.Initial;
 
+import java.util.Arrays;
 import java.util.List;
 
 import br.profileManager.src.main.java.AbstractGroup;
@@ -105,11 +106,11 @@ public class Group_Race extends AbstractGroup <ClientClasses> {
 			case BrokenRegistry:
 			case Modnar:
 			case Xilmi:
-				return List.of ("Red", "Green", "Yellow", "Blue", "Orange", "Purple",
+				return Arrays.asList ("Red", "Green", "Yellow", "Blue", "Orange", "Purple",
 								"Aqua", "Fuchsia", "Brown", "White", "Lime", "Grey",
 								"Plum", "Light Blue", "Mint", "Olive");
 			default:
-				return List.of ("Blue", "Brown", "Green",  "Orange", "Pink",
+				return Arrays.asList ("Blue", "Brown", "Green",  "Orange", "Pink",
 								"Purple", "Red", "Teal", "Yellow", "White");
 			}
 		}

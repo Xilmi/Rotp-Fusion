@@ -72,7 +72,7 @@ class Valid_AIList extends Validation<String> {
 			// loop thru the list
 			for (index=0; index<iMax; index++) {
 				iList = Math.min(index, iMaxList);
-				entry = userEntry.get(iList).strip().toUpperCase();
+				entry = userEntry.get(iList).trim().toUpperCase();
 				selectedAIs[index] = go.options().specificOpponentAIOption(index);
 				switch(entry) {
 				case "NULL":

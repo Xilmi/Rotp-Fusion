@@ -2,6 +2,7 @@ package mod.br.profileManager;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -30,7 +31,7 @@ class TEST_Group_Advanced {
 	@Test void GalaxyAge_ClientClasses() {
 		GalaxyAge param;
 		param = new GalaxyAge(cct);
-		String out = param.toString(List.of("Profile 1", "Random"));
+		String out = param.toString(Arrays.asList("Profile 1", "Random"));
 		String shouldBe = galaxyAgePrt;
 		assertEquals(shouldBe, out, "should have been equals");
 	}

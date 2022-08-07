@@ -410,7 +410,7 @@ class OptionValidation<T> extends WriteUtil {
 		String line;
 		for (Options<T> element : optionList) {
 			line = element.toString();
-			if (!line.isBlank()) {
+			if (!isBlank(line)) {
 				result += line + NL;
 			}
 		}

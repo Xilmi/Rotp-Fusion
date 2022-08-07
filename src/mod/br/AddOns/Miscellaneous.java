@@ -23,6 +23,7 @@ import java.util.List;
 
 import br.profileManager.src.main.java.AbstractT;
 import br.profileManager.src.main.java.T_Integer;
+import br.profileManager.src.main.java.WriteUtil;
 import rotp.model.empires.SystemView;
 
 /**
@@ -98,7 +99,7 @@ public class Miscellaneous {
 	 */
 	public static T_Integer selectedFlagColorOrder() {
 		if (selectedFlagColorOrder == null 
-				|| selectedFlagColorOrder.toString().isBlank()) {
+				|| WriteUtil.isBlank(selectedFlagColorOrder.toString())) {
 			return defaultFlagColorOrder;
 		}
 		return selectedFlagColorOrder;

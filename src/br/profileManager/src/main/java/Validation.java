@@ -349,7 +349,7 @@ public class Validation<T> extends OptionValidation<T> {
 	 * @return <b>true</b> if has extra parameters
 	 */
 	private static boolean hasExtraParameters(String userEntry) {
-		return !removeRandomId(userEntry).isBlank();
+		return !isBlank(removeRandomId(userEntry));
 	}
 	/**
 	 * Remove the Random word and return the extra parameters
@@ -358,11 +358,11 @@ public class Validation<T> extends OptionValidation<T> {
 	 */
 	public static String removeRandomId(String userEntry) {
 		userEntry = PMutil.clean(userEntry);
-		userEntry = userEntry.substring(randomId.length()).strip();
+		userEntry = userEntry.substring(randomId.length()).trim();
 		// Check for misplaced parametersSeparator()
 		if (!userEntry.isEmpty() &&
 				userEntry.charAt(0) == parametersSeparator.charAt(0)) {
-			userEntry = userEntry.substring(1).strip();
+			userEntry = userEntry.substring(1).trim();
 		}
 		return userEntry;
 	}
@@ -472,7 +472,7 @@ public class Validation<T> extends OptionValidation<T> {
 	AbstractT<T> entryValidation(String userEntry) {
 		userEntry = PMutil.clean(userEntry);
 		// First Check for blank values
-		if (userEntry.isBlank()) {
+		if (isBlank(userEntry)) {
 			if (getCriteria().isBlankAllowed()) {
 				return newValue(getBlankCodeView());
 			}

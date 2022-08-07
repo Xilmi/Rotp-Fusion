@@ -360,7 +360,7 @@ public class Lines<T, V extends Validation<T>>
 			comment = getValidationData().getOptionsRange();
 		}
 		// Check for comment
-		if (comment != null && !comment.isBlank()) {
+		if (comment != null && !isBlank(comment)) {
 			hasComment = true;
 			// format to position comments
 			out = String.format(keyValueFormat, out);
@@ -390,10 +390,10 @@ public class Lines<T, V extends Validation<T>>
 	 */
 	static String getKey(String line) {
 		line = PMutil.clean(line);
-		if (line.isBlank()) {
+		if (isBlank(line)) {
 			return "";
 		}
-		return line.split(keyValueSeparator, 2)[0].strip();
+		return line.split(keyValueSeparator, 2)[0].trim();
 	}
 	/**
 	 * Test if the {@code String} has a value and extract it
@@ -402,10 +402,10 @@ public class Lines<T, V extends Validation<T>>
 	 */
 	static String getValueAsString(String line) {
 		line = PMutil.clean(line);
-		if (!line.isBlank()) {
+		if (!isBlank(line)) {
 			String[] list = WriteUtil.removeComment(line).split(keyValueSeparator, 2);
 			if (list.length == 2) {
-				return list[1].strip();
+				return list[1].trim();
 			}
 		}
 		return "";

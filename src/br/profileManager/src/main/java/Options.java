@@ -155,12 +155,12 @@ public class Options<T> extends WriteUtil {
 	 * or empty if no description
 	 */
 	@Override public String toString() {
-		if (description.isBlank()) {
+		if (isBlank(description)) {
 			return "";
 		}
 		return multiLines(description,
 				String.format(keyFormat(), userView),
-				String.format(extFormat(), " ".repeat(userView.length())));
+				String.format(extFormat(), repeat(" ", userView.length())));
 	}
 	// ------------------------------------------------
     // Getters

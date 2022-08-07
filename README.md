@@ -36,11 +36,10 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
   - MOD Options B GUI: Added the galaxy spacing options
   - Maximum Spacing Limit is now under your control.
   - MOD Options B GUI: Added 8 key Technology control with Always/Never/Auto options; For Player or AI.
-  - Technologies: Irradiated Irradiated Stargate Hyperspace Industry2 Thorium Transport Terraforming120.
+  - Technologies: Irradiated Cloaking Stargate Hyperspace Industry2 Thorium Transport Terraforming120.
   - MOD Options A GUI: Added option to give Artifact, Fertile, Rich or Ultra-Rich Home World to Player/AI.
   - Added all these new things to Profiles Manager.
   
-
 2022.07.25 (Xilmi)
   - Changed version-string from to "Rotp-C-M-X-BR" to "Fusion-Mod"
   - Renamed AI's Legacy => Fusion, Advanced => Roleplay
