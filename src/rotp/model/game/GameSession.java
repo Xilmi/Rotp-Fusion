@@ -25,11 +25,9 @@ import java.io.InputStream;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.FileWriter;
-import java.io.BufferedWriter;
-import java.io.PrintWriter;
+//import java.io.FileWriter;
+//import java.io.BufferedWriter;
+//import java.io.PrintWriter;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -250,6 +248,30 @@ public final class GameSession implements Base, Serializable {
         synchronized(ONE_GAME_AT_A_TIME) {
             id = (long) (Long.MAX_VALUE*random());
             GalaxyFactory.current().newGalaxy();
+            log("Galaxy complete");
+            status().startGame();
+            clearScoutedSystems();
+            systemsToAllocate().clear();
+            shipsConstructed().clear();
+            spyActivity = false;
+            galaxy().startGame();
+            // BR: Save the last loaded game parameters
+            Profiles.saveGameOptionsToFile(this);
+            // \BR
+            saveRecentSession(false);
+            saveBackupSession(1);
+            clearNewGameOptions();
+        }
+    }
+    // BR: For Restart with new options
+    public void restartGame(IGameOptions newGameOptions, GalaxyCopy gc) { 
+    	stopCurrentGame();
+        options = gc.options();
+        startExecutors();
+        
+        synchronized(ONE_GAME_AT_A_TIME) {
+            id = (long) (Long.MAX_VALUE*random());
+            GalaxyFactory.current().newGalaxy(gc);
             log("Galaxy complete");
             status().startGame();
             clearScoutedSystems();
@@ -891,7 +913,13 @@ public final class GameSession implements Base, Serializable {
     public void loadRecentSession(boolean startUp) {
         loadSession(saveDir(), RECENT_SAVEFILE, startUp);
     }
+    // BR: added option to restart with new options 
     public void loadSession(String dir, String filename, boolean startUp) {
+    	loadSession(dir, filename, startUp, null, null);
+    }
+    // BR: For restarting with new options
+    public void loadSession(String dir, String filename, boolean startUp,
+    						IGameOptions newOptions, GalaxyCopy oldGalaxy) {
         try {
             log("Loading game from file: ", filename);
             File saveFile = dir.isEmpty() ? new File(filename) : new File(dir, filename);
@@ -925,11 +953,17 @@ public final class GameSession implements Base, Serializable {
 
             newSession.validate();
             newSession.validateOnLoadOnly();
-            loadPreviousSession(newSession, startUp);
-            // do not autosave the current session if that is the file we are trying to reload
-            if (!filename.equals(RECENT_SAVEFILE))
-                saveRecentSession(false); 
-        }
+
+            if (newOptions != null) {
+            	oldGalaxy.copy(newSession);
+            	return;
+            } else {
+                loadPreviousSession(newSession, startUp); 
+                // do not autosave the current session if that is the file we are trying to reload
+                if (!filename.equals(RECENT_SAVEFILE))
+                    saveRecentSession(false);            	
+            }
+         }
         catch(IOException e) {
             throw new RuntimeException(text("LOAD_GAME_BAD_VERSION", filename));
         }

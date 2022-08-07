@@ -54,7 +54,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
   - Fusion AI now uses an aggressiveness model to determine whether to go to war. Aggressiveness also depends on leader-personality.
   - Fusion AI war-weariness no longer depends on aggressiveness in order to reduce hit&run-exploits against less aggressive races
 
-2022.07.24
+2022.07.24 (BR)
   - Replaced Modnar Ships colors settings with last Ray's settings.
 
 2022.07.24 (BR)
@@ -67,19 +67,19 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
   - Added full mouse control to Galaxy Options GUI.
   - Added new races on/off on Galaxy Options GUI.
 
-2022.07.23
+2022.07.23 (BR)
   - Added easy control to switch ON/OFF the new races.
   - Xilmi improvement for the new races with Ultra-Rich Home World.
 
-2022.07.22
+2022.07.22 (BR)
   - Retreat Restriction Current value now displayed as text instead of integer.
   - The other languages are available again.
 
-2022.07.22
+2022.07.22 (BR)
   - Minor bugs correction.
   - Auto generated Profiles.cfg: Removed the "surprise"-action from "MyRandom" for a better feeling in initial random testing!
 
-2022.07.21
+2022.07.21 (BR)
   - Made Rookie AI independent of Base and Modnar AI.
   - Restored original Base and Modnar AI.
   - Added Low fuel range. (to compensate companion bonus!)
@@ -93,12 +93,12 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
   - Added Option to always have the Control Irradiated in Tech tree
   - Added Always Irradiated to Modnar GUI
 
-2022.07.15
+2022.07.15 (BR)
   - Changing Player Race: Fixed Technology tree re-generation.
   - Minor bugs Fix
   - Added total mouse control to Modnar and Advanced GUI
 
-2022.07.13
+2022.07.13 (BR)
   - Restored Fuel Range.
   - Added randomness in the distribution of companion worlds.
     - Up to 6 companions worlds are now available.
@@ -110,18 +110,18 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
       - Added Straigth and Very Loose options to Spiral Arms Galaxies.
   - Updated to Xilmi Fusion 2022-07-13.
 
-2022.07.05
+2022.07.05 (BR)
   - Added AI filters for individual filling option.
   - Added secondary options for Galaxy shapes.
   - Added possibility to hide parameters in Profiles.cfg
 
-2022.07.01
+2022.07.01 (BR)
   - Junit test integration to github
   - Pom file normalization
   - Minor bugs solved
   - Updated to ROTP Fusion-MOD v2022.06.29
 
-2022.06.29
+2022.06.29 (BR)
   - Copy of Fusion-MOD v2022.06.25
   - Merged with 1.02a_modnar_MOD39_newRaces
   - Merged with Profiles Manager

@@ -73,24 +73,23 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 		GalaxyAge(ClientClasses go) { 
 			super("GALAXY AGE", 
 					new Validation<String>(
-							new T_String(go.newOptions().selectedGalaxyAge()),
-							go.newOptions().galaxyAgeOptions()));
+							new T_String(go.options().selectedGalaxyAge()),
+							go.options().galaxyAgeOptions()));
 
 			setHistory(Default, "Normal"); // Ray
 			}
 
 		@Override public AbstractT<String> getFromGame (ClientClasses go) {
-			return new T_String(go.newOptions().selectedGalaxyAge());
+			return new T_String(go.options().selectedGalaxyAge());
 		}
 
 		@Override public void putToGame(ClientClasses gs, AbstractT<String> value) {}
 
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String(go.newOptions().selectedGalaxyAge());
+			return new T_String(go.options().selectedGalaxyAge());
 		}
 
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
-			go.newOptions().selectedGalaxyAge(value.getCodeView());
 			go.options().selectedGalaxyAge(value.getCodeView());
 		}
 
@@ -105,24 +104,23 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 		StarDensity(ClientClasses go) {
 			super("STAR DENSITY",
 					new Validation<String>(
-							new T_String(go.newOptions().selectedStarDensityOption()),
-							go.newOptions().starDensityOptions()));
+							new T_String(go.options().selectedStarDensityOption()),
+							go.options().starDensityOptions()));
 
 			setHistory(Default, "Normal"); // Ray
 		}
 		
 		@Override public AbstractT<String> getFromGame (ClientClasses go) {
-			return new T_String(go.newOptions().selectedStarDensityOption());
+			return new T_String(go.options().selectedStarDensityOption());
 		}
 		
 		@Override public void putToGame(ClientClasses gs, AbstractT<String> value) {}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String(go.newOptions().selectedStarDensityOption());
+			return new T_String(go.options().selectedStarDensityOption());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
-			go.newOptions().selectedStarDensityOption(value.getCodeView());
 			go.options().selectedStarDensityOption(value.getCodeView());
 		}
 		
@@ -137,24 +135,23 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 		Nebulae(ClientClasses go) {
 			super("NEBULAE",
 					new Validation<String>(
-							new T_String(go.newOptions().selectedNebulaeOption()),
-							go.newOptions().nebulaeOptions()));
+							new T_String(go.options().selectedNebulaeOption()),
+							go.options().nebulaeOptions()));
 
 			setHistory(Default, "Normal"); // Ray
 		}
 		
 		@Override public AbstractT<String> getFromGame (ClientClasses go) {
-			return new T_String(go.newOptions().selectedNebulaeOption());
+			return new T_String(go.options().selectedNebulaeOption());
 		}
 		
 		@Override public void putToGame(ClientClasses gs, AbstractT<String> value) {}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String(go.newOptions().selectedNebulaeOption());
+			return new T_String(go.options().selectedNebulaeOption());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
-			go.newOptions().selectedNebulaeOption(value.getCodeView());
 			go.options().selectedNebulaeOption(value.getCodeView());
 		}
 		
@@ -169,24 +166,23 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 		PlanetQuality(ClientClasses go) {
 			super("PLANET QUALITY",
 					new Validation<String>(
-							new T_String(go.newOptions().selectedPlanetQualityOption()),
-							go.newOptions().planetQualityOptions()));
+							new T_String(go.options().selectedPlanetQualityOption()),
+							go.options().planetQualityOptions()));
 
 			setHistory(Default, "Normal"); // Ray
 		}
 		
 		@Override public AbstractT<String> getFromGame (ClientClasses go) {
-			return new T_String(go.newOptions().selectedPlanetQualityOption());
+			return new T_String(go.options().selectedPlanetQualityOption());
 		}
 		
 		@Override public void putToGame(ClientClasses gs, AbstractT<String> value) {}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String(go.newOptions().selectedPlanetQualityOption());
+			return new T_String(go.options().selectedPlanetQualityOption());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
-			go.newOptions().selectedPlanetQualityOption(value.getCodeView());
 			go.options().selectedPlanetQualityOption(value.getCodeView());
 		}
 		
@@ -201,26 +197,25 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 		Terraforming(ClientClasses go) {
 			super("TERRAFORMING", 
 					new Validation<String>(
-							new T_String(go.newOptions().selectedTerraformingOption()),
-							go.newOptions().terraformingOptions()));
+							new T_String(go.options().selectedTerraformingOption()),
+							go.options().terraformingOptions()));
 
 			setHistory(Default, "Normal"); // Ray
 		}
 		
 		@Override public AbstractT<String> getFromGame (ClientClasses go) {
-			return new T_String(go.newOptions().selectedTerraformingOption());
+			return new T_String(go.options().selectedTerraformingOption());
 		}
 		
 		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {
-			go.newOptions().selectedTerraformingOption(value.getCodeView());
+			go.options().selectedTerraformingOption(value.getCodeView());
 		}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String(go.newOptions().selectedTerraformingOption());
+			return new T_String(go.options().selectedTerraformingOption());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
-			go.newOptions().selectedTerraformingOption(value.getCodeView());
 			go.options().selectedTerraformingOption(value.getCodeView());
 		}
 		
@@ -237,28 +232,27 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 		RandomEventsOptions(ClientClasses go) {
 			super("RANDOM EVENTS", 
 					new Validation<String>(
-							new T_String(go.newOptions().selectedRandomEventOption()),
-							go.newOptions().randomEventOptions()));
+							new T_String(go.options().selectedRandomEventOption()),
+							go.options().randomEventOptions()));
 
 			setHistory(Default, "On"); // Ray
 		}
 		
 		@Override public AbstractT<String> getFromGame (ClientClasses go) {
-			return new T_String(go.newOptions().selectedRandomEventOption());
+			return new T_String(go.options().selectedRandomEventOption());
 		}
 		
 		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {
-			IGameOptions opts = go.newOptions();
+			IGameOptions opts = go.options();
 			opts.selectedRandomEventOption(value.getCodeView());
 			opts.disableRandomEvents(!PMutil.toBoolean(value.getCodeView()));
 		}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String(go.newOptions().selectedRandomEventOption());
+			return new T_String(go.options().selectedRandomEventOption());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
-			go.newOptions().selectedRandomEventOption(value.getCodeView());
 			go.options().selectedRandomEventOption(value.getCodeView());
 		}
 		
@@ -308,26 +302,25 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 		AIHostility(ClientClasses go) {
 			super("AI HOSTILITY", 
 					new Validation<String>(
-							new T_String(go.newOptions().selectedAIHostilityOption()),
-							go.newOptions().aiHostilityOptions()));
+							new T_String(go.options().selectedAIHostilityOption()),
+							go.options().aiHostilityOptions()));
 
 			setHistory(Default, "Normal"); // Ray
 		}
 		
 		@Override public AbstractT<String> getFromGame (ClientClasses go) {
-			return new T_String(go.newOptions().selectedAIHostilityOption());
+			return new T_String(go.options().selectedAIHostilityOption());
 		}
 		
 		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {
-			go.newOptions().selectedAIHostilityOption(value.getCodeView());
+			go.options().selectedAIHostilityOption(value.getCodeView());
 		}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String(go.newOptions().selectedAIHostilityOption());
+			return new T_String(go.options().selectedAIHostilityOption());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
-			go.newOptions().selectedAIHostilityOption(value.getCodeView());
 			go.options().selectedAIHostilityOption(value.getCodeView());
 		}
 		
@@ -344,26 +337,25 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 		Council(ClientClasses go) {
 			super("COUNCIL", 
 					new Validation<String>(
-							new T_String(go.newOptions().selectedCouncilWinOption()),
-							go.newOptions().councilWinOptions()));
+							new T_String(go.options().selectedCouncilWinOption()),
+							go.options().councilWinOptions()));
 
 			setHistory(Default, "Rebels"); // Ray
 		}
 		
 		@Override public AbstractT<String> getFromGame (ClientClasses go) {
-			return new T_String(go.newOptions().selectedCouncilWinOption());
+			return new T_String(go.options().selectedCouncilWinOption());
 		}
 		
 		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {
-			go.newOptions().selectedCouncilWinOption(value.getCodeView());
+			go.options().selectedCouncilWinOption(value.getCodeView());
 		}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String(go.newOptions().selectedCouncilWinOption());
+			return new T_String(go.options().selectedCouncilWinOption());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
-			go.newOptions().selectedCouncilWinOption(value.getCodeView());
 			go.options().selectedCouncilWinOption(value.getCodeView());
 		}
 		
@@ -380,24 +372,23 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 		RandomizeAI(ClientClasses go) {
 			super("RANDOMIZE AI",
 					new Validation<String>(
-							new T_String(go.newOptions().selectedRandomizeAIOption()),
-							go.newOptions().randomizeAIOptions()));
+							new T_String(go.options().selectedRandomizeAIOption()),
+							go.options().randomizeAIOptions()));
 
 			setHistory(Default, "None"); // Ray
 		}
 		
 		@Override public AbstractT<String> getFromGame (ClientClasses go) {
-			return new T_String(go.newOptions().selectedRandomizeAIOption());
+			return new T_String(go.options().selectedRandomizeAIOption());
 		}
 		
 		@Override public void putToGame(ClientClasses gs, AbstractT<String> value) {}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String(go.newOptions().selectedRandomizeAIOption());
+			return new T_String(go.options().selectedRandomizeAIOption());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
-			go.newOptions().selectedRandomizeAIOption(value.getCodeView());
 			go.options().selectedRandomizeAIOption(value.getCodeView());
 		}
 		
@@ -412,24 +403,23 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 		AutoPlay(ClientClasses go) {
 			super("AUTOPLAY", 
 					new Validation<String>(
-							new T_String(go.newOptions().selectedAutoplayOption()),
-							go.newOptions().autoplayOptions()));
+							new T_String(go.options().selectedAutoplayOption()),
+							go.options().autoplayOptions()));
 
 			setHistory(Default, "Off"); // Ray
 		}
 		
 		@Override public AbstractT<String> getFromGame (ClientClasses go) {
-			return new T_String(go.newOptions().selectedAutoplayOption());
+			return new T_String(go.options().selectedAutoplayOption());
 		}
 		
 		@Override public void putToGame(ClientClasses gs, AbstractT<String> value) {}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String(go.newOptions().selectedAutoplayOption());
+			return new T_String(go.options().selectedAutoplayOption());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
-			go.newOptions().selectedAutoplayOption(value.getCodeView());
 			go.options().selectedAutoplayOption(value.getCodeView());
 		}
 		
@@ -444,26 +434,25 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 		Research(ClientClasses go) { 
 			super("RESEARCH", 
 					new Validation<String>(
-							new T_String(go.newOptions().selectedResearchRate()),
-							go.newOptions().researchRateOptions()));
+							new T_String(go.options().selectedResearchRate()),
+							go.options().researchRateOptions()));
 
 			setHistory(Default, "Normal"); // Ray
 		}
 		
 		@Override public AbstractT<String> getFromGame (ClientClasses go) {
-			return new T_String(go.newOptions().selectedResearchRate());
+			return new T_String(go.options().selectedResearchRate());
 		}
 		
 		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {
-			go.newOptions().selectedResearchRate(value.getCodeView());
+			go.options().selectedResearchRate(value.getCodeView());
 		}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String(go.newOptions().selectedResearchRate());
+			return new T_String(go.options().selectedResearchRate());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
-			go.newOptions().selectedResearchRate(value.getCodeView());
 			go.options().selectedResearchRate(value.getCodeView());
 		}
 		
@@ -480,26 +469,25 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 		WarpSpeed(ClientClasses go) { 
 			super("WARP SPEED", 
 					new Validation<String>(
-							new T_String(go.newOptions().selectedWarpSpeedOption()),
-							go.newOptions().warpSpeedOptions()));
+							new T_String(go.options().selectedWarpSpeedOption()),
+							go.options().warpSpeedOptions()));
 
 			setHistory(Default, "Normal"); // Ray
 		}
 		
 		@Override public AbstractT<String> getFromGame (ClientClasses go) {
-			return new T_String(go.newOptions().selectedWarpSpeedOption());
+			return new T_String(go.options().selectedWarpSpeedOption());
 		}
 		
 		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {
-			go.newOptions().selectedWarpSpeedOption(value.getCodeView());
+			go.options().selectedWarpSpeedOption(value.getCodeView());
 		}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String(go.newOptions().selectedWarpSpeedOption());
+			return new T_String(go.options().selectedWarpSpeedOption());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
-			go.newOptions().selectedWarpSpeedOption(value.getCodeView());
 			go.options().selectedWarpSpeedOption(value.getCodeView());
 		}
 		
@@ -516,26 +504,25 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 		FuelRange(ClientClasses go) { 
 			super("FUEL RANGE", 
 					new Validation<String>(
-							new T_String(go.newOptions().selectedFuelRangeOption()),
-							go.newOptions().fuelRangeOptions()));
+							new T_String(go.options().selectedFuelRangeOption()),
+							go.options().fuelRangeOptions()));
 
 			setHistory(Default, "Normal"); // Ray
 		}
 		
 		@Override public AbstractT<String> getFromGame (ClientClasses go) {
-			return new T_String(go.newOptions().selectedFuelRangeOption());
+			return new T_String(go.options().selectedFuelRangeOption());
 		}
 		
 		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {
-			go.newOptions().selectedFuelRangeOption(value.getCodeView());
+			go.options().selectedFuelRangeOption(value.getCodeView());
 		}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String(go.newOptions().selectedFuelRangeOption());
+			return new T_String(go.options().selectedFuelRangeOption());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
-			go.newOptions().selectedFuelRangeOption(value.getCodeView());
 			go.options().selectedFuelRangeOption(value.getCodeView());
 		}
 		
@@ -552,26 +539,25 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 		TechTrading(ClientClasses go) { 
 			super("TECH TRADING", 
 					new Validation<String>(
-							new T_String(go.newOptions().selectedTechTradeOption()),
-							go.newOptions().techTradingOptions()));
+							new T_String(go.options().selectedTechTradeOption()),
+							go.options().techTradingOptions()));
 
 			setHistory(Default, "Yes"); // Ray
 		}
 		
 		@Override public AbstractT<String> getFromGame (ClientClasses go) {
-			return new T_String(go.newOptions().selectedTechTradeOption());
+			return new T_String(go.options().selectedTechTradeOption());
 		}
 		
 		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {
-			go.newOptions().selectedTechTradeOption(value.getCodeView());
+			go.options().selectedTechTradeOption(value.getCodeView());
 		}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String(go.newOptions().selectedTechTradeOption());
+			return new T_String(go.options().selectedTechTradeOption());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
-			go.newOptions().selectedTechTradeOption(value.getCodeView());
 			go.options().selectedTechTradeOption(value.getCodeView());
 		}
 		
@@ -588,26 +574,25 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 		Colonizing(ClientClasses go) { 
 			super("COLONIZING", 
 					new Validation<String>(
-							new T_String(go.newOptions().selectedColonizingOption()),			
-							go.newOptions().colonizingOptions()));
+							new T_String(go.options().selectedColonizingOption()),			
+							go.options().colonizingOptions()));
 
 			setHistory(Default, "Normal"); // Ray
 		}
 		
 		@Override public AbstractT<String> getFromGame (ClientClasses go) {
-			return new T_String(go.newOptions().selectedColonizingOption());
+			return new T_String(go.options().selectedColonizingOption());
 		}
 		
 		@Override public void putToGame(ClientClasses go, AbstractT<String> value) {
-			go.newOptions().selectedColonizingOption(value.getCodeView());
+			go.options().selectedColonizingOption(value.getCodeView());
 		}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String(go.newOptions().selectedColonizingOption());
+			return new T_String(go.options().selectedColonizingOption());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
-			go.newOptions().selectedColonizingOption(value.getCodeView());
 			go.options().selectedColonizingOption(value.getCodeView());
 		}
 		
