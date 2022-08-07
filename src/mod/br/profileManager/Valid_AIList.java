@@ -72,11 +72,7 @@ class Valid_AIList extends Validation<String> {
 			// loop thru the list
 			for (index=0; index<iMax; index++) {
 				iList = Math.min(index, iMaxList);
-<<<<<<< HEAD
-				entry = userEntry.get(iList).trim().toUpperCase();
-=======
 				entry = userEntry.get(iList).strip().toUpperCase();
->>>>>>> parent of c582249 (Revert "Merge remote-tracking branch 'br/main'")
 				selectedAIs[index] = go.options().specificOpponentAIOption(index);
 				switch(entry) {
 				case "NULL":

@@ -22,6 +22,12 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
+2022.08.07 (Xilmi)
+  - Fixed issues with AI tech-selection
+  - AI will not focus on computer techs before it has the techs it needs for a rush
+  - Fixed an issue present in both governor and AI that would send more people from rich and fewer people from poor systems than intended
+  - Fixed an issue where AI started building too many military-ships too early in the game
+
 2022.08.07 (BR)
   - Removed every calls to Java 9 and Java 11. Now only Java 8.
   - Initial Profiles.cfg generation: removed call to the updated "Always Stargates"
