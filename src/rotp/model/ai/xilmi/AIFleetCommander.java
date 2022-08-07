@@ -93,6 +93,13 @@ public class AIFleetCommander implements Base, FleetCommander {
         threatCenter = empire.generalAI().colonyCenter(empire.generalAI().biggestThreat());
         return threatCenter;
     }
+    public boolean minimalTechForRush()
+    {
+        return (empire.tech().topShipWeaponTech().quintile() > 1 
+                || empire.tech().topBaseMissileTech().quintile() > 1 
+                || empire.tech().topBaseScatterPackTech() != null) 
+                && empire.tech().topSpeed() > 1;
+    }
     @Override
     public float maxShipMaintainance() {
         if (maxMaintenance < 0) 
@@ -101,15 +108,12 @@ public class AIFleetCommander implements Base, FleetCommander {
                 maxMaintenance = 0.8f;
             else if(incomingInvasion() ||
                     ((underSiege() || !empire.enemies().isEmpty())
-                    && ((empire.tech().topShipWeaponTech().quintile() > 1 
-                        || empire.tech().topBaseMissileTech().quintile() > 1 
-                        || empire.tech().topBaseScatterPackTech() != null) 
-                        && empire.tech().topSpeed() > 1
-                        && (empire.contactedEmpires().size() < 2) || empire.diplomatAI().techLevelRank() == 1)))
+                        && minimalTechForRush()
+                        && (empire.contactedEmpires().size() < 2 || empire.diplomatAI().techLevelRank() == 1)))
                 maxMaintenance = min(max(empire.generalAI().gameProgress(), enemyMaintenance()), 0.8f);
             else
                 maxMaintenance = min(empire.generalAI().gameProgress(), enemyMaintenance());
-            //System.out.println(galaxy().currentTurn()+" "+empire.name()+" maxMaintenance: "+maxMaintenance+ " enemyMaintenance(): "+enemyMaintenance()+" progress: "+empire.generalAI().gameProgress());
+            //System.out.println(galaxy().currentTurn()+" "+empire.name()+" maxMaintenance: "+maxMaintenance+ " enemyMaintenance(): "+enemyMaintenance()+" progress: "+empire.generalAI().gameProgress()+" incomingInvasion: "+incomingInvasion()+" underSiege: "+underSiege()+" minimalTechForRush: "+minimalTechForRush()+" techLevelRank: "+empire.diplomatAI().techLevelRank()+" enemies: "+empire.enemies().size());
         }
         return maxMaintenance;
     }
