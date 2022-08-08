@@ -18,7 +18,6 @@ package rotp.model.galaxy;
 import static rotp.ui.UserPreferences.loadWithNewOptions;
 
 import java.awt.geom.Point2D.Float;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,7 +26,6 @@ import rotp.model.empires.Leader.Objective;
 import rotp.model.empires.Leader.Personality;
 import rotp.model.game.GameSession;
 import rotp.model.game.IGameOptions;
-import rotp.ui.game.SetupRaceUI;
 
 // BR: Added symmetric galaxies functionalities
 // moved modnar companion worlds here with some more random positioning

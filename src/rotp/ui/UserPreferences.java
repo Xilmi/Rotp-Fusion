@@ -113,10 +113,10 @@ public class UserPreferences {
 			ParamTech("TECH_TERRAFORM_120",	3, "ImprovedTerraforming",	8); // level 50
 	
 	public static final LinkedList<AbstractParam<?>> modB = new LinkedList<AbstractParam<?>>(Arrays.asList(
-		maximizeSpacing, spacingLimit, minStarsPerEmpire, prefStarsPerEmpire,
+		loadWithNewOptions, maximizeSpacing, spacingLimit, minStarsPerEmpire, prefStarsPerEmpire,
 		techIrradiated, techCloaking, techStargate, techHyperspace,
 		techIndustry2, techThorium, techTransport, techTerra120
-		)); // don't add loadWithNewOptions: no save and auto reset
+		));
 
 	// BR: ===== Viewing settings Mod GUI:
 	public static final ParamFloat showFleetFactor = new ParamFloat(MOD_UI, "SHOW_FLEET_FACTOR"
