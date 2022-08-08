@@ -22,6 +22,10 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
+2022.08.08 (Xilmi)
+  - Hostily from Advanced Options now impacts Fusion-AI
+  - Added "Smart-Resolve" (like Auto-Resolve but allowed to retreat) to the ship-combat-prompt-options
+
 2022.08.07 (Xilmi)
   - Fixed issues with AI tech-selection
   - AI will not focus on computer techs before it has the techs it needs for a rush
