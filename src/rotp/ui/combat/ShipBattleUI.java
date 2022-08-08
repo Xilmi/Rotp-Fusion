@@ -46,6 +46,7 @@ public class ShipBattleUI extends FadeInPanel implements Base, MouseListener, Mo
     public static final int ENTER_COMBAT = 0;
     public static final int AUTO_RESOLVE = 1;
     public static final int RETREAT_ALL = 2;
+    public static final int SMART_RESOLVE = 4;
     private enum Display { INTRO, RESULT }
     static final Color shipCountTextC = new Color(255,240,78);
     static final Color grayBackC = new Color(123,123,123);
@@ -297,7 +298,11 @@ public class ShipBattleUI extends FadeInPanel implements Base, MouseListener, Mo
             initFleetStacks(rightEmpire, rightFleet);
         
         if (combatFlag == AUTO_RESOLVE) {
-            autoResolve();
+            autoResolve(false);
+            return true;
+        }
+        if (combatFlag == SMART_RESOLVE) {
+            autoResolve(true);
             return true;
         }
         if (combatFlag == RETREAT_ALL) {
@@ -2012,10 +2017,11 @@ public class ShipBattleUI extends FadeInPanel implements Base, MouseListener, Mo
         rightGrayActionBackC = null;
         moveBackC = null;
     }
-    private void autoResolve() {
+    private void autoResolve(boolean allowRetreat) {
         mgr.autoComplete = true;
         mgr.autoResolve = true;
         mgr.showAnimations = false;
+        mgr.allowRetreat = allowRetreat;
         paintAllImmediately();
         finish();
     }
@@ -2155,7 +2161,7 @@ public class ShipBattleUI extends FadeInPanel implements Base, MouseListener, Mo
 
         if (hoverBox == resolveBox) {
             if (!mgr.autoResolve) 
-                autoResolve();
+                autoResolve(false);
         }
         else if (hoverBox == retreatBox) 
             retreatAllPlayerShips(true);

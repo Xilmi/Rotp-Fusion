@@ -763,7 +763,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
         // when auto-resolving, retreat player stacks ONLY when not
         // retreating would violate a pact, or when the stack is unarmed
         // armed stacks will otherwise fight to the death, per player expectations
-        if (!currStack.usingAI())
+        if (!currStack.usingAI() && !currStack.mgr.allowRetreat)
         {
             boolean atLeastOneStackStillArmed = false;
             for(CombatStack cst : currStack.mgr.allStacks())

@@ -44,6 +44,7 @@ public class ShipCombatManager implements Base {
     private boolean interdiction = false;
     public boolean autoComplete = false;
     public boolean autoResolve = false;
+    public boolean allowRetreat = false;
     public boolean performingStackTurn = false;
     public boolean showAnimations = true;
     public boolean playerInBattle = false;
