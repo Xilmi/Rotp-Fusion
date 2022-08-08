@@ -22,6 +22,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
+2022.08.09 (Xilmi)
+  - Healthbar of currently selected stack now matches border-color to make it easier to tell which stack is currently selected
+
 2022.08.08 (Xilmi)
   - Hostily from Advanced Options now impacts Fusion-AI
   - Added "Smart-Resolve" (like Auto-Resolve but allowed to retreat) to the ship-combat-prompt-options
