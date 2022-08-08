@@ -320,10 +320,16 @@ public class CombatStackColony extends CombatStack {
                 g.setColor(healthBarBackC);
                 g.fillRect(x4, y4, w4, barH);
                 int w4a = (int)(w4*hits/maxHits);
-                g.setColor(healthBarC);
+                if(mgr.currentStack() == this)
+                    g.setColor(ShipBattleUI.currentBorderC);
+                else
+                    g.setColor(healthBarC);
                 g.fillRect(x4, y4, w4a, barH);
                 // draw ship count
-                g.setColor(healthBarC);
+                if(mgr.currentStack() == this)
+                    g.setColor(ShipBattleUI.currentBorderC);
+                else
+                    g.setColor(healthBarC);
                 String numStr = str(num);
                 g.setFont(narrowFont(20));
                 int numW = g.getFontMetrics().stringWidth(numStr);
