@@ -69,7 +69,7 @@ public class GalaxyFactory implements Base {
 		addUnsettledSystemsForGalaxy(g, gc);		
 		init(g, System.currentTimeMillis());
 		
-		showEmp(g); // TODO BR: remove
+//		showEmp(g);
 		return g;
 	}
 	public Galaxy newGalaxy() {
@@ -127,9 +127,10 @@ public class GalaxyFactory implements Base {
 		log(str(g.numStarSystems()) ," Systems, ",str(Planet.COUNT)," Planets: "+(tm2-tm1)+"ms");
 
 		init(g, tm2);
-		showEmp(g); // TODO BR: remove
+//		showEmp(g);
 		return g;
 	}
+	@SuppressWarnings("unused")
 	private void showEmp(Galaxy g) {
 		for (Empire emp : g.empires()) {
 			int id = emp.homeSysId();
