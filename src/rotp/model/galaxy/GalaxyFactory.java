@@ -18,11 +18,13 @@ package rotp.model.galaxy;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import rotp.mod.br.AddOns.RacesOptions;
 import rotp.mod.br.AddOns.ShipSetAddOns;
 import rotp.model.empires.Empire;
+import rotp.model.empires.Leader;
 import rotp.model.empires.Race;
 import rotp.model.galaxy.GalaxyShape.EmpireSystem;
 import rotp.model.game.GameSession;
@@ -57,7 +59,7 @@ public class GalaxyFactory implements Base {
 		if(!ShipSetAddOns.isOriginalShipSet())
 			playerRace.preferredShipSet = ShipSetAddOns.playerShipSet();
 
-		List<String> alienRaces = buildAlienRaces();
+		LinkedList<String> alienRaces = gc.alienRaces();
 		addNebulas(g, gc);
 		List<String> systemNames = playerRace.systemNames;
 		Collections.shuffle(systemNames);
@@ -66,6 +68,8 @@ public class GalaxyFactory implements Base {
 		addAlienRaceSystemsForGalaxy(g, 1, gc, alienRaces);
 		addUnsettledSystemsForGalaxy(g, gc);		
 		init(g, System.currentTimeMillis());
+		
+		showEmp(g); // TODO BR: remove
 		return g;
 	}
 	public Galaxy newGalaxy() {
@@ -89,7 +93,7 @@ public class GalaxyFactory implements Base {
 		if(!ShipSetAddOns.isOriginalShipSet())
 			playerRace.preferredShipSet = ShipSetAddOns.playerShipSet();
 
-		List<String> alienRaces = buildAlienRaces();
+		LinkedList<String> alienRaces = buildAlienRaces();
 
 		log("Creating Galaxy size: ", fmt(g.width(),2), "@", fmt(g.height(),2));
 		long tm0 = System.currentTimeMillis();
@@ -123,7 +127,29 @@ public class GalaxyFactory implements Base {
 		log(str(g.numStarSystems()) ," Systems, ",str(Planet.COUNT)," Planets: "+(tm2-tm1)+"ms");
 
 		init(g, tm2);
+		showEmp(g); // TODO BR: remove
 		return g;
+	}
+	private void showEmp(Galaxy g) {
+		for (Empire emp : g.empires()) {
+			int id = emp.homeSysId();
+			Race r = emp.race();
+			StarSystem sys = g.system(id);
+			Leader boss = emp.leader();
+			System.out.println(
+					String.format("%-16s", r.name())
+					+ String.format("%-12s", sys.name())
+					+ String.format("%-16s", emp.dataRace().name())
+					+ String.format("%-12s", boss.personality())
+					+ String.format("%-15s", boss.objective())
+					+ String.format("%-22sID=", emp.diplomatAI())
+					+ String.format("%-4sx=", id)
+					+ String.format("%-11sy=", sys.x())
+					+ String.format("%-11sAI=", sys.y())
+					+ String.format("%-4s", emp.selectedAI)
+					);
+		}
+		System.out.println();
 	}
 	// BR: Common part of "Restart" standard "Start"
 	public void init(Galaxy g, long tm2) {
@@ -209,8 +235,8 @@ public class GalaxyFactory implements Base {
 
 		PlanetImager.current().finished();
 	}
-	private List<String> buildAlienRaces() {
-		List<String> raceList = new ArrayList<>();
+	private LinkedList<String> buildAlienRaces() {
+		LinkedList<String> raceList = new LinkedList<>();
 		List<String> allRaceOptions = new ArrayList<>();
 //		List<String> options = options().startingRaceOptions();
 		List<String> options = RacesOptions.getNewRacesOnOffList(); // BR:
@@ -345,7 +371,8 @@ public class GalaxyFactory implements Base {
 			g.addStarSystem(sys0);
 		}
 	}
-	private void addAlienRaceSystemsForGalaxy(Galaxy g, int startId, GalaxyCopy gc, List<String> alienRaces) {
+	private void addAlienRaceSystemsForGalaxy(Galaxy g, int startId,
+						GalaxyCopy gc, LinkedList<String> alienRaces) {
 		IGameOptions opts = GameSession.instance().options();
 		// creates a star system for each race, and then additional star
 		// systems based on the galaxy size selected at startup
@@ -362,7 +389,6 @@ public class GalaxyFactory implements Base {
 		};
 
 		// possible the galaxy shape could not fit in all of the races
-//		int maxRaces = min(alienRaces.size(), empSystems.size());
 		int maxRaces = gc.empires().length-1;
 		int empId	= startId;
 		Empire oldE;
@@ -398,7 +424,7 @@ public class GalaxyFactory implements Base {
 			}
 			// modnar: add option to start game with additional colonies
 			// modnar: compSysId is the System ID array for these additional colonies
-			Empire emp = new Empire(g, empId, r.id, sys, compSysId, colorId, null);
+			Empire emp = new Empire(g, empId, r.id, sys, compSysId, colorId, null, gc, h);
 			g.addEmpire(emp);
 			empId++;
 			// create two nearby system within 3 light-years (required to be at least 1 habitable)
@@ -410,7 +436,7 @@ public class GalaxyFactory implements Base {
 			}
 		}
 	}
-	private void addAlienRaceSystemsForGalaxy(Galaxy g, int startId, List<EmpireSystem> empSystems, List<String> alienRaces) {
+	private void addAlienRaceSystemsForGalaxy(Galaxy g, int startId, List<EmpireSystem> empSystems, LinkedList<String> alienRaces) {
 		IGameOptions opts = GameSession.instance().options();
 		// creates a star system for each race, and then additional star
 		// systems based on the galaxy size selected at startup

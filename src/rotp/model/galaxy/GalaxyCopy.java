@@ -18,9 +18,13 @@ package rotp.model.galaxy;
 import static rotp.ui.UserPreferences.loadWithNewOptions;
 
 import java.awt.geom.Point2D.Float;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import rotp.model.empires.Empire;
+import rotp.model.empires.Leader.Objective;
+import rotp.model.empires.Leader.Personality;
 import rotp.model.game.GameSession;
 import rotp.model.game.IGameOptions;
 import rotp.ui.game.SetupRaceUI;
@@ -38,6 +42,11 @@ public class GalaxyCopy extends GalaxyShape {
 	private List<Nebula> nebulas;
 	private Empire[] empires;
 	private StarSystem[] starSystem;
+	private LinkedList<String> alienRaces;
+	private LinkedList<String> dataRace;
+	private LinkedList<Integer> raceAI;
+	private LinkedList<Personality> personality;
+	private LinkedList<Objective> objective;
 
 	// ========== Constructors and Initializers ==========
 	//
@@ -59,8 +68,9 @@ public class GalaxyCopy extends GalaxyShape {
 		}
 		selectedGalaxySize = s.options().selectedGalaxySize();
 		copyGalaxy(s.galaxy());
+		copyRaces(s.galaxy());
 		// Check total number of player race
-		if (countRace(newRace) >= SetupRaceUI.MAX_RACES) {
+		if (countRace(newRace) >= IGameOptions.MAX_OPPONENT_TYPE) {
 			// replace first occurrence with old player race
 			swapRaces(newRace, oldRace);
 		}
@@ -76,22 +86,25 @@ public class GalaxyCopy extends GalaxyShape {
 		// Copy what's needed from old options
 		IGameOptions oldO = s.options();
 		options.copyForRestart(oldO);
-		copyRaces(oldO);
 	}
 	// ========== Public Getters ==========
 	//
-	@Override public float maxScaleAdj()	{ return maxScaleAdj; }
-	@Override public int totalStarSystems()	{ return numStarSystems; }
-	@Override public IGameOptions options() { return options; }
-
-	public List<Nebula> nebulas()		{ return nebulas; }
-	public Empire[] empires()			{ return empires; }
-	public Empire empires(int i)		{ return empires[i]; }
-	public StarSystem[] starSystem()	{ return starSystem; }
-	public StarSystem starSystem(int i)	{ return starSystem[i]; }
-	public String selectedGalaxySize()	{ return selectedGalaxySize; }
-	public float nebulaSizeMult()		{ return nebulaSizeMult; }
-	public int numNearBySystem()		{ return 2; }
+	@Override public float maxScaleAdj()		{ return maxScaleAdj; }
+	@Override public int totalStarSystems()		{ return numStarSystems; }
+	@Override public IGameOptions options() 	{ return options; }
+	public StarSystem[] starSystem()			{ return starSystem; }
+	public StarSystem starSystem(int i)			{ return starSystem[i]; }
+	public String selectedGalaxySize()			{ return selectedGalaxySize; }
+	public LinkedList<String> alienRaces()		{ return alienRaces; }
+	public LinkedList<String> dataRace()		{ return dataRace; }
+	public LinkedList<Integer> raceAI()			{ return raceAI; }
+	public LinkedList<Personality> personality(){ return personality; }
+	public LinkedList<Objective> objective()	{ return objective; }
+	public List<Nebula> nebulas()				{ return nebulas; }
+	public Empire[] empires()					{ return empires; }
+	public Empire empires(int i)				{ return empires[i]; }
+	public float nebulaSizeMult()				{ return nebulaSizeMult; }
+	public int numNearBySystem()				{ return 2; }
 	
 	// ========== Private Methods ==========
 	private void copyGalaxy(Galaxy g) {
@@ -104,25 +117,34 @@ public class GalaxyCopy extends GalaxyShape {
 		empires			= g.empires();
 		starSystem		= g.starSystems();
 	}
-	private void copyRaces (IGameOptions oldO) {
-		int i=0;
-		while (oldO.selectedOpponentRace(i) != null) {
-			options.selectedOpponentRace(i, oldO.selectedOpponentRace(i));
-			i++;
-		}		
+	private void copyRaces (Galaxy g) {
+		dataRace	= new LinkedList<>();
+		alienRaces	= new LinkedList<>();
+		raceAI		= new LinkedList<>();
+		personality	= new LinkedList<>();
+		objective	= new LinkedList<>();
+		for (Empire emp : g.empires()) {
+			if (emp != null && emp.id!=0) {
+				alienRaces.add(emp.race().name());
+				dataRace.add(emp.dataRace().name());
+				raceAI.add(emp.selectedAI);
+				personality.add(emp.leader().personality);
+				objective.add(emp.leader().objective);
+			}
+		}
 	}
 	private int countRace (String race) {
 		int count = 0;
-		for (String r : options().selectedOpponentRaces()) {
+		for (String r : alienRaces) {
 			if (r != null && r.equalsIgnoreCase(race)) count++;
 		}
 		return count;
 	}
 	private void swapRaces (String rSearch, String rReplace) {
-		String[] races = options().selectedOpponentRaces();
-		for (int i=0; i<races.length; i++) {
-			if (races[i] != null && races[i].equalsIgnoreCase(rSearch)) {
-				races[i] = rReplace;
+		for (int i=0; i<alienRaces.size(); i++) {
+			String race = alienRaces.get(i);
+			if (race != null && race.equalsIgnoreCase(rSearch)) {
+				alienRaces.add(i, rReplace);
 				return;
 			}
 		}

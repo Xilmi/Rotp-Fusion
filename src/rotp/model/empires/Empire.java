@@ -56,6 +56,7 @@ import rotp.model.game.GameSession;
 import rotp.model.game.GovernorOptions;
 import rotp.ui.notifications.*;
 import rotp.model.galaxy.Galaxy;
+import rotp.model.galaxy.GalaxyCopy;
 import rotp.model.galaxy.GalaxyFactory;
 import rotp.model.galaxy.IMappedObject;
 import rotp.model.galaxy.Location;
@@ -390,14 +391,22 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
         return reachColor;
     }
+   // BR: For Restart with new options 
+   public Empire(Galaxy g, int empId, String rk, StarSystem s, int[] compId, Integer cId, String name) {
+    	this(g, empId, rk, s, compId, cId, name, null, 0);
+    }
     // modnar: add option to start game with additional colonies
     // modnar: compId is the System ID array for these additional colonies
-    public Empire(Galaxy g, int empId, String rk, StarSystem s, int[] compId, Integer cId, String name) {
+    public Empire(Galaxy g, int empId, String rk, StarSystem s,
+    		int[] compId, Integer cId, String name, GalaxyCopy gc, int opp) {
         log("creating empire for ",  rk);
         id = empId;
         raceKey = rk;
         homeSysId = capitalSysId = s.id;
         compSysId = compId; // modnar: add option to start game with additional colonies
+        if (gc != null) { // BR: For Restart with new options 
+        	selectedAI = gc.raceAI().get(opp);
+        }
         empireViews = new EmpireView[options().selectedNumberOpponents()+1];
         status = new EmpireStatus(this);
         sv = new SystemInfo(this);
@@ -407,10 +416,15 @@ public final class Empire implements Base, NamedObject, Serializable {
             g.player(this);
         }
 
-        // if not the player, we may randomize the race ability
-        if ((empId != Empire.PLAYER_ID) && options().randomizeAIAbility())
-            dataRaceKey = random(options().startingRaceOptions());
-        else
+        // if not the player, we may give or randomize the race ability
+        if (empId != Empire.PLAYER_ID) {
+            if (gc != null) // BR: For Restart with new options 
+            	dataRaceKey = gc.dataRace().get(opp);
+            else if (options().randomizeAIAbility())
+                dataRaceKey = random(options().startingRaceOptions());
+            else
+                dataRaceKey = raceKey;
+        } else
             dataRaceKey = raceKey;
         
         colorId(cId);
@@ -419,6 +433,10 @@ public final class Empire implements Base, NamedObject, Serializable {
         raceNameIndex = r.nameIndex(raceName);
         String leaderName = name == null ? r.nextAvailableLeader() : name;
         leader = new Leader(this, leaderName);
+        if (gc != null) { // BR: For Restart with new options 
+        	leader.personality = gc.personality().get(opp);
+        	leader.objective = gc.objective().get(opp);
+        }
         shipLab = new ShipDesignLab();
     }
     public void setBounds(float x1, float x2, float y1, float y2) {
