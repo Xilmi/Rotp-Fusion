@@ -28,7 +28,6 @@ import static rotp.ui.UserPreferences.techHyperspace;
 import static rotp.ui.UserPreferences.techIndustry2;
 import static rotp.ui.UserPreferences.techIrradiated;
 import static rotp.ui.UserPreferences.techStargate;
-import static rotp.ui.UserPreferences.techTerra120;
 import static rotp.ui.UserPreferences.techThorium;
 import static rotp.ui.UserPreferences.techTransport;
 
@@ -72,7 +71,6 @@ class Group_Mod_B extends  AbstractGroup <ClientClasses> {
 		addParameter(new Tech(go, techIndustry2));
 		addParameter(new Tech(go, techThorium));
 		addParameter(new Tech(go, techTransport));
-		addParameter(new Tech(go, techTerra120));
 	}
 	// ==============================================================
 	// RANDOM EVENTS STARTING YEAR

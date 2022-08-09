@@ -28,7 +28,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 import rotp.Rotp;
-import rotp.mod.br.AddOns.EventsStartTurn;
 import rotp.mod.br.AddOns.ShipSetAddOns;
 import rotp.model.events.RandomEvents;
 import rotp.model.game.GameSession;
@@ -36,6 +35,7 @@ import rotp.ui.game.StartModBOptionsUI;
 import rotp.ui.game.StartModViewOptionsUI;
 import rotp.ui.game.StartModAOptionsUI;
 import rotp.ui.util.AbstractParam;
+import rotp.ui.util.EventsStartTurn;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
@@ -84,7 +84,7 @@ public class UserPreferences {
 	public static final ParamAAN2 richHomeworld 		= new ParamAAN2("HOME_RICH");
 	public static final ParamAAN2 ultraRichHomeworld = new ParamAAN2("HOME_ULTRA_RICH");
 
-	public static final LinkedList<AbstractParam<?>> modA = new LinkedList<AbstractParam<?>>(Arrays.asList(
+	public static final LinkedList<AbstractParam<?>> modA = new LinkedList<>(Arrays.asList(
 			artifactHomeworld, fertileHomeworld, richHomeworld,ultraRichHomeworld
 			));
 
@@ -113,13 +113,15 @@ public class UserPreferences {
 			ParamTech("TECH_THORIUM",		4, "FuelRange",				8); // level 41
 	public static final ParamTech techTransport  = new 
 			ParamTech("TECH_TRANSPORTERS",	4, "CombatTransporter",		0); // level 45
-	public static final ParamTech techTerra120	 = new 
-			ParamTech("TECH_TERRAFORM_120",	3, "ImprovedTerraforming",	8); // level 50
 	
-	public static final LinkedList<AbstractParam<?>> modB = new LinkedList<AbstractParam<?>>(Arrays.asList(
+	public static final LinkedList<ParamTech> techModList = new LinkedList<>(Arrays.asList(
+			techIrradiated, techCloaking, techStargate, techHyperspace,
+			techIndustry2, techThorium, techTransport
+			));
+	public static final LinkedList<AbstractParam<?>> modB = new LinkedList<>(Arrays.asList(
 		loadWithNewOptions, maximizeSpacing, spacingLimit, minStarsPerEmpire, prefStarsPerEmpire,
 		techIrradiated, techCloaking, techStargate, techHyperspace, eventsStartTurn,
-		techIndustry2, techThorium, techTransport, techTerra120
+		techIndustry2, techThorium, techTransport
 		));
 
 	// BR: ===== Viewing settings Mod GUI:
@@ -136,7 +138,7 @@ public class UserPreferences {
 	public static final ParamFloat mapFontFactor = new ParamFloat(MOD_UI, "MAP_FONT_FACTOR"
 			, 1.0f, 0.3f, 3f, false, 0.02f, 0.1f, 0.5f, "%", "%");
 
-	public static final LinkedList<AbstractParam<?>> modView = new LinkedList<AbstractParam<?>>(Arrays.asList(
+	public static final LinkedList<AbstractParam<?>> modView = new LinkedList<>(Arrays.asList(
 			showFleetFactor, showFlagFactor, showPathFactor,
 			showNameMinFont, showInfoFontRatio, mapFontFactor
 			));

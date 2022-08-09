@@ -15,21 +15,14 @@
  */
 package rotp.model.tech;
 
-import static rotp.ui.UserPreferences.techIrradiated;
-import static rotp.ui.UserPreferences.techCloaking;
-import static rotp.ui.UserPreferences.techStargate;
-import static rotp.ui.UserPreferences.techHyperspace;
-import static rotp.ui.UserPreferences.techIndustry2;
-import static rotp.ui.UserPreferences.techThorium;
-import static rotp.ui.UserPreferences.techTransport;
-import static rotp.ui.UserPreferences.techTerra120;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import rotp.model.empires.Empire;
+import rotp.ui.UserPreferences;
+import rotp.ui.util.ParamTech;
 import rotp.util.Base;
 
 public final class TechCategory implements Base, Serializable {
@@ -179,7 +172,8 @@ public final class TechCategory implements Base, Serializable {
     public String randomKnownTech() {
         return random(knownTechs());
     }
-    public Tech randomUnknownTech(int minLevel, int levelDiff) {
+    // BR: modified for the "Never" tech
+    public Tech randomUnknownTech(int minLevel, int levelDiff, boolean isPlayer) {
         // find level of highest known tech
         int highestLevel = 0;
         for (String id: knownTechs()) {
@@ -194,7 +188,11 @@ public final class TechCategory implements Base, Serializable {
         List<Tech> techList = new ArrayList<>();
         for (String id: allTechs()) {
             Tech t = tech(id);
-            if (!knownTechs().contains(id) && !t.restricted && (t.level() >= minLevel) && (t.level() <= maxLevel))
+            if (!knownTechs().contains(id) 
+            		&& !t.restricted
+            		&& (t.level() >= minLevel)
+            		&& (t.level() <= maxLevel)
+            		&& isAllowed(id, isPlayer))
                 techList.add(t);
         }
         return random(techList);
@@ -203,11 +201,13 @@ public final class TechCategory implements Base, Serializable {
     public List<String> possibleTechs()  { return possibleTechs; }
     public List<String> allTechs()       { return TechLibrary.baseCategory[index].possibleTechs(); }
 
-    void reBuild(TechTree tr, float p) { // BR: to allow changing race
-        tree = tr;
-        discoveryPct = p;
-        // knownTechs.clear(); // The cost of changing races!!!
-    	buildResearchList();
+    // BR: never add in some Technologies
+    private boolean isAllowed(String id, boolean isPlayer) {
+    	boolean allowed = true;
+        for (ParamTech tech : UserPreferences.techModList) {
+        	allowed = allowed && !tech.isNever(id, isPlayer);
+        }
+    	return allowed;
     }
     @SuppressWarnings("unchecked")
 	private void buildResearchList() {
@@ -224,15 +224,7 @@ public final class TechCategory implements Base, Serializable {
             String id = baseCat.possibleTechs.get(i);
             Tech t = tech(id);
             if (!t.restricted && emp.canResearch(t) && !t.free
-            		&& !techIrradiated.isNever(id, emp.isPlayer())
-            		&& !techCloaking.isNever(id, emp.isPlayer())
-            		&& !techStargate.isNever(id, emp.isPlayer())
-            		&& !techHyperspace.isNever(id, emp.isPlayer())
-            		&& !techIndustry2.isNever(id, emp.isPlayer())
-            		&& !techThorium.isNever(id, emp.isPlayer())
-            		&& !techTransport.isNever(id, emp.isPlayer())
-            		&& !techTerra120.isNever(id, emp.isPlayer())
-            		) {
+            		&& isAllowed(id, emp.isPlayer())) { // BR: never add in some Technologies
 				List<String> techs = (List<String>) techsByQuintile[t.quintile()-1];
                 techs.add(id);
             }
@@ -247,41 +239,15 @@ public final class TechCategory implements Base, Serializable {
                     found = true;
                 }
             }
-			
             // BR: always add in some Technologies
-			if (techIrradiated.isAlways(index, i, emp.isPlayer())) {
-				addPossibleTech(techIrradiated.techId());
-                found = true;
-			}
-			if (techCloaking.isAlways(index, i, emp.isPlayer())) {
-				addPossibleTech(techCloaking.techId());
-                found = true;
-			}
-			if (techStargate.isAlways(index, i, emp.isPlayer())) {
-				addPossibleTech(techStargate.techId());
-                found = true;
-			}
-			if (techHyperspace.isAlways(index, i, emp.isPlayer())) {
-				addPossibleTech(techHyperspace.techId());
-                found = true;
-			}
-			if (techIndustry2.isAlways(index, i, emp.isPlayer())) {
-				addPossibleTech(techIndustry2.techId());
-                found = true;
-			}
-			if (techThorium.isAlways(index, i, emp.isPlayer())) {
-				addPossibleTech(techThorium.techId());
-                found = true;
-			}
-			if (techTransport.isAlways(index, i, emp.isPlayer())) {
-				addPossibleTech(techTransport.techId());
-                found = true;
-			}
-			if (techTerra120.isAlways(index, i, emp.isPlayer())) {
-				addPossibleTech(techTerra120.techId());
-                found = true;
-			}
-			
+            for (ParamTech tech : UserPreferences.techModList) {
+    			if (tech.isAlways(index, i, emp.isPlayer())) {
+    				addPossibleTech(tech.techId());
+                    found = true;
+                    return;
+    			}
+            }
+            
             if (!found)
                 addPossibleTech(random(techs));
         }

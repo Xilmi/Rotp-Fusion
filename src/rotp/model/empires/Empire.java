@@ -3123,7 +3123,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         s.planet().plunderBonusTech();
         
         for (int i=0;i<numTechs;i++) {
-            Tech t = tech().randomUnknownTech(minLevel, levelDiff);
+            Tech t = tech().randomUnknownTech(minLevel, levelDiff, isPlayerControlled());
             if (t == null) // if none found, then break out of loop
                 break;
             boolean newTech = tech().learnTech(t.id);

@@ -25,7 +25,6 @@ import static rotp.ui.UserPreferences.techHyperspace;
 import static rotp.ui.UserPreferences.techIndustry2;
 import static rotp.ui.UserPreferences.techIrradiated;
 import static rotp.ui.UserPreferences.techStargate;
-import static rotp.ui.UserPreferences.techTerra120;
 import static rotp.ui.UserPreferences.techThorium;
 import static rotp.ui.UserPreferences.techTransport;
 import static rotp.ui.UserPreferences.eventsStartTurn;
@@ -84,7 +83,6 @@ public class StartModBOptionsUI extends AbstractOptionsUI {
 		btList.add(techIndustry2Text	= newBT()); paramList.add(techIndustry2);
 		btList.add(techThoriumText		= newBT()); paramList.add(techThorium);
 		btList.add(techTransportText	= newBT()); paramList.add(techTransport);
-		btList.add(techTerra120Text		= newBT()); paramList.add(techTerra120);
 		endOfColumn();
 		// Fourth column
 		// endOfColumn();

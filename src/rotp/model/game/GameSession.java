@@ -659,7 +659,7 @@ public final class GameSession implements Base, Serializable {
             err("Each empire randomly learning 10 unknown techs to facilitate TechExchange testing");
             for (Empire emp: galaxy().empires()) {
                 for (int i=0;i<10;i++)
-                    emp.tech().learnTech(emp.tech().randomUnknownTech(1,20).id());
+                    emp.tech().learnTech(emp.tech().randomUnknownTech(1,20, emp.isPlayer()).id()); // BR: always add in some Technologies
             }
             err("Each empire spying on each other");
             for (Empire emp1: galaxy().empires()) {
