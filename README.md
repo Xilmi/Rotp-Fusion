@@ -23,6 +23,10 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 ## What'New
 
 2022.08.09 (BR)
+  - Technology Always/Never: Never affect Artifacts Planets Too.
+  - Technology Always/Never: Removed Terraform120 as it's already Always, and selecting Never crash the game!
+
+2022.08.09 (BR)
   - Restart: Debuged the random placement of alien races.
   - Restart: If opponents were set to random, the initial realization will be taken. For race, AI, personality and objective
   - Removed old "Race change"-option
