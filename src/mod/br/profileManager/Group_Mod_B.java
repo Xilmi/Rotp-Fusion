@@ -18,10 +18,11 @@
 package mod.br.profileManager;
 
 import static br.profileManager.src.main.java.Validation.History.Default;
+import static rotp.ui.UserPreferences.eventsStartTurn;
 import static rotp.ui.UserPreferences.maximizeSpacing;
-import static rotp.ui.UserPreferences.spacingLimit;
 import static rotp.ui.UserPreferences.minStarsPerEmpire;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
+import static rotp.ui.UserPreferences.spacingLimit;
 import static rotp.ui.UserPreferences.techCloaking;
 import static rotp.ui.UserPreferences.techHyperspace;
 import static rotp.ui.UserPreferences.techIndustry2;
@@ -59,7 +60,9 @@ class Group_Mod_B extends  AbstractGroup <ClientClasses> {
 	}
 
 	@Override protected void initSettingList(ClientClasses go) {
+		addParameter(new RandomEventsStartingYear(go));
 		addParameter(new MaximizeEmpiresSpacing(go));
+		addParameter(new MaxSpacingLimit(go));
 		addParameter(new PreferredStarsPerEmpire(go));
 		addParameter(new MinStarsPerEmpire(go));
 		addParameter(new Tech(go, techIrradiated));
@@ -71,7 +74,39 @@ class Group_Mod_B extends  AbstractGroup <ClientClasses> {
 		addParameter(new Tech(go, techTransport));
 		addParameter(new Tech(go, techTerra120));
 	}
+	// ==============================================================
+	// RANDOM EVENTS STARTING YEAR
+	//
+	static class RandomEventsStartingYear extends 
+			AbstractParameter <Integer, Validation<Integer>, ClientClasses> {
 
+		RandomEventsStartingYear(ClientClasses go) {
+			super("RANDOM EVENTS STARTING YEAR", 
+					new Validation<Integer>(
+							new T_Integer(eventsStartTurn.get())));
+
+			setHistoryCodeView(Default, eventsStartTurn.defaultValue());
+			setHistory(Default, new T_Integer(eventsStartTurn.get()));
+			setLimits(1 , 1000000);
+			setDefaultRandomLimits(50 , 200);
+		}
+		
+		@Override public AbstractT<Integer> getFromGame (ClientClasses go) {
+			return new T_Integer(eventsStartTurn.get());
+		}
+		
+		@Override public void putToGame(ClientClasses go, AbstractT<Integer> value) {}
+		
+		@Override public AbstractT<Integer> getFromUI (ClientClasses go) {
+			return new T_Integer(eventsStartTurn.get());
+		}
+		
+		@Override public void putToGUI(ClientClasses go, AbstractT<Integer> value) {
+			eventsStartTurn.setAndSave(value.getCodeView());
+		}
+		
+		@Override public void initComments() {}
+	}
 	// ========================================================================
 	// MAXIMIZE EMPIRES SPACING
 	//

@@ -1425,6 +1425,8 @@ SETTINGS_MOD_OPTION_AUTO_ALWAYS          | Auto/Always
 SETTINGS_MOD_OPTION_ALWAYS_NEVER         | Always/Never
 SETTINGS_MOD_OPTION_ALWAYS_AUTO          | Always/Auto
 SETTINGS_MOD_OPTION_ALWAYS_ALWAYS        | Always
+SETTINGS_MOD_EVENTS_STARS_TURN_DESC      | To adjust the starting turn of random events. If an event has already been started, it will not be stopped.
+SETTINGS_MOD_EVENTS_STARS_TURN           | Random Events Starting Turn: %1
 SETTINGS_MOD_MAX_SPACINGS_DESC           | Attempts to maximize the distance between empires, but always randomly.
 SETTINGS_MOD_MAX_SPACINGS                | Maximize Spacing: %1
 SETTINGS_MOD_MAX_SPACINGS_LIM_DESC       | Base spacing multiplier Security limit for Spacing maximization.

@@ -26,7 +26,8 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
   - Restart: Debuged the random placement of alien races.
   - Restart: If opponents were set to random, the initial realization will be taken. For race, AI, personality and objective
   - Removed old "Race change"-option
-  - added Restart options to Remnants.cfg
+  - Added Restart options to Remnants.cfg
+  - Added "Random Events Starting Turn" to "MOD Options B". This setting was already available in Profiles.cfg
 
 2022.08.09 (Xilmi)
   - Healthbar of currently selected stack now matches border-color to make it easier to tell which stack is currently selected

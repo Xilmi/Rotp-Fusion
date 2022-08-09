@@ -28,6 +28,7 @@ import static rotp.ui.UserPreferences.techStargate;
 import static rotp.ui.UserPreferences.techTerra120;
 import static rotp.ui.UserPreferences.techThorium;
 import static rotp.ui.UserPreferences.techTransport;
+import static rotp.ui.UserPreferences.eventsStartTurn;
 
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
@@ -73,10 +74,11 @@ public class StartModBOptionsUI extends AbstractOptionsUI {
 		btList.add(prefStarsPerEmpireText	= newBT()); paramList.add(prefStarsPerEmpire);
 		endOfColumn();
 		// Second column
-		btList.add(techIrradiatedText	= newBT()); paramList.add(techIrradiated);
-		btList.add(techCloakingText		= newBT()); paramList.add(techCloaking);
-		btList.add(techStargateText		= newBT()); paramList.add(techStargate);
-		btList.add(techHyperspaceText	= newBT()); paramList.add(techHyperspace);
+		btList.add(techIrradiatedText		= newBT()); paramList.add(techIrradiated);
+		btList.add(techCloakingText			= newBT()); paramList.add(techCloaking);
+		btList.add(techStargateText			= newBT()); paramList.add(techStargate);
+		btList.add(techHyperspaceText		= newBT()); paramList.add(techHyperspace);
+		btList.add(loadWithNewOptionsText	= newBT()); paramList.add(eventsStartTurn);
 		endOfColumn();
 		// Third column
 		btList.add(techIndustry2Text	= newBT()); paramList.add(techIndustry2);

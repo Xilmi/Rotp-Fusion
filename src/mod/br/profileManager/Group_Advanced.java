@@ -23,10 +23,8 @@ import br.profileManager.src.main.java.AbstractGroup;
 import br.profileManager.src.main.java.AbstractParameter;
 import br.profileManager.src.main.java.AbstractT;
 import br.profileManager.src.main.java.PMutil;
-import br.profileManager.src.main.java.T_Integer;
 import br.profileManager.src.main.java.T_String;
 import br.profileManager.src.main.java.Validation;
-import rotp.model.events.RandomEvents;
 import rotp.model.game.IGameOptions;
 
 /**
@@ -52,7 +50,6 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 		addParameter(new PlanetQuality(go));
 		addParameter(new Terraforming(go));
 		addParameter(new RandomEventsOptions(go));
-		addParameter(new RandomEventsStartingYear(go));
 		addParameter(new AIHostility(go));
 		addParameter(new Council(go));
 		addParameter(new RandomizeAI(go));
@@ -254,39 +251,6 @@ public class Group_Advanced extends  AbstractGroup <ClientClasses> {
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
 			go.options().selectedRandomEventOption(value.getCodeView());
-		}
-		
-		@Override public void initComments() {
-			setBottomComments(availableForChange());
-	   	}
-	}
-	// ==============================================================
-	// RANDOM EVENTS STARTING YEAR
-	//
-	static class RandomEventsStartingYear extends 
-			AbstractParameter <Integer, Validation<Integer>, ClientClasses> {
-
-		RandomEventsStartingYear(ClientClasses go) {
-			super("RANDOM EVENTS STARTING YEAR", 
-					new Validation<Integer>(new T_Integer(RandomEvents.START_TURN)));
-
-			setHistory(Default, new T_Integer(RandomEvents.START_TURN));
-		}
-		
-		@Override public AbstractT<Integer> getFromGame (ClientClasses go) {
-			return new T_Integer(RandomEvents.START_TURN);
-		}
-		
-		@Override public void putToGame(ClientClasses go, AbstractT<Integer> value) {
-			RandomEvents.START_TURN = value.getCodeView();
-		}
-		
-		@Override public AbstractT<Integer> getFromUI (ClientClasses go) {
-			return new T_Integer(RandomEvents.START_TURN);
-		}
-		
-		@Override public void putToGUI(ClientClasses go, AbstractT<Integer> value) {
-			RandomEvents.START_TURN = value.getCodeView();
 		}
 		
 		@Override public void initComments() {

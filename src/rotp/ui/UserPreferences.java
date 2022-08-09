@@ -28,7 +28,9 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 import rotp.Rotp;
+import rotp.mod.br.AddOns.EventsStartTurn;
 import rotp.mod.br.AddOns.ShipSetAddOns;
+import rotp.model.events.RandomEvents;
 import rotp.model.game.GameSession;
 import rotp.ui.game.StartModBOptionsUI;
 import rotp.ui.game.StartModViewOptionsUI;
@@ -95,6 +97,8 @@ public class UserPreferences {
 	public static final ParamFloat prefStarsPerEmpire = new ParamFloat(MOD_UI, "PREF_STARS_PER_EMPIRE"
 			, 10f, 3.0f, null, false, 1f, 5f, 20f, "0.#", "0.#");
 	public static final ParamBoolean loadWithNewOptions = new ParamBoolean(MOD_UI, "LOAD_WITH_NEW_OPTIONS", false);
+	public static final EventsStartTurn eventsStartTurn = new EventsStartTurn(MOD_UI, "EVENTS_STARS_TURN"
+			, RandomEvents.START_TURN, 1, null, false, 1, 5, 20);
 	public static final ParamTech techIrradiated = new 
 			ParamTech("TECH_IRRADIATED",	3, "ControlEnvironment",	6); // level 18
 	public static final ParamTech techCloaking	 = new 
@@ -114,7 +118,7 @@ public class UserPreferences {
 	
 	public static final LinkedList<AbstractParam<?>> modB = new LinkedList<AbstractParam<?>>(Arrays.asList(
 		loadWithNewOptions, maximizeSpacing, spacingLimit, minStarsPerEmpire, prefStarsPerEmpire,
-		techIrradiated, techCloaking, techStargate, techHyperspace,
+		techIrradiated, techCloaking, techStargate, techHyperspace, eventsStartTurn,
 		techIndustry2, techThorium, techTransport, techTerra120
 		));
 
