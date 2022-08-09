@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package rotp.mod.br.AddOns;
+package rotp.ui.util;
 
 import rotp.model.events.RandomEvents;
-import rotp.ui.util.ParamInteger;
 
 public class EventsStartTurn extends ParamInteger {
 	
