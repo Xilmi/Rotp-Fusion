@@ -387,6 +387,7 @@ public class ShipCombatManager implements Base {
         performingStackTurn = false;
         autoComplete = false;
         autoResolve = false;
+        allowRetreat = false;
         showAnimations = true;
         redrawMap = true;
         initCombatStacks(emp1, emp2);
