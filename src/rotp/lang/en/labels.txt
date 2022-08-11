@@ -1439,18 +1439,18 @@ SETTINGS_MOD_LOAD_WITH_NEW_OPTIONS_DESC  | When choosing "Restart" Use the new G
 SETTINGS_MOD_LOAD_WITH_NEW_OPTIONS       | Restart with new Options: %1
 SETTINGS_MOD_TECH_IRRADIATED_DESC        | (Level 18){Always, Never, Auto} Include "Irradiated Control"  in the Tech Tree for Player/AI.
 SETTINGS_MOD_TECH_IRRADIATED             | Tech Irradiated Control: %1
-SETTINGS_MOD_TECH_CLOAKING_DESC          | (Level 27) {Always, Never, Auto} Include "Hyperspace Communication" in the Tech Tree for Player/AI.
+SETTINGS_MOD_TECH_CLOAKING_DESC          | (Level 27) {Always, Never, Auto} Include "Cloaking Device" in the Tech Tree for Player/AI.
 SETTINGS_MOD_TECH_CLOAKING               | Tech Cloaking: %1
 SETTINGS_MOD_TECH_STARGATES_DESC         | (Level 27) {Always, Never, Auto} Include "Intergalactic Star Gates" in the Tech Tree for Player/AI.
 SETTINGS_MOD_TECH_STARGATES              | Tech Star Gates: %1
-SETTINGS_MOD_TECH_HYPERSPACE_DESC        | (Level 34) {Always, Never, Auto} Include "Cloaking Device" in the Tech Tree for Player/AI.
+SETTINGS_MOD_TECH_HYPERSPACE_DESC        | (Level 34) {Always, Never, Auto} Include "Hyperspace Communication" in the Tech Tree for Player/AI.
 SETTINGS_MOD_TECH_HYPERSPACE             | Tech Hyperspace Comm: %1
 SETTINGS_MOD_TECH_INDUSTRY_2_DESC        | (Level 38) {Always, Never, Auto} Include "Improved Industrial 2" in the Tech Tree for Player/AI.
 SETTINGS_MOD_TECH_INDUSTRY_2             | Tech Factory cost 2: %1
 SETTINGS_MOD_TECH_THORIUM_DESC           | (Level 41) {Always, Never, Auto} Include "Thorium Cells" in the Tech Tree for Player/AI.
 SETTINGS_MOD_TECH_THORIUM                | Tech Thorium Cells: %1
-SETTINGS_MOD_TECH_TRANSPORTERS_DESC      | (Level 45) {Always, Never, Auto} Include "SubSpace Teleporter" in the Tech Tree for Player/AI.
-SETTINGS_MOD_TECH_TRANSPORTERS           | Tech SubSpace Teleporter: %1
+SETTINGS_MOD_TECH_TRANSPORTERS_DESC      | (Level 45) {Always, Never, Auto} Include "Combat Transporter" in the Tech Tree for Player/AI.
+SETTINGS_MOD_TECH_TRANSPORTERS           | Tech Combat Transporter: %1
 SETTINGS_MOD_TECH_TERRAFORM_120_DESC     | (Level 50) {Always, Never, Auto} Include "Improved Terraforming 120" in the Tech Tree for Player/AI.
 SETTINGS_MOD_TECH_TERRAFORM_120          | Tech Terraforming 120: %1
 
