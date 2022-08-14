@@ -435,6 +435,8 @@ public class AIShipCaptain implements Base, ShipCaptain {
                 {
                     CombatStackColony csCol = (CombatStackColony) target;
                     valueMod = csCol.colony.population() * csCol.colony.empire().tech().populationCost() + csCol.colony.industry().factories() * csCol.colony.empire().tech().baseFactoryCost();
+                    if(killPct > 0.9f && !empire.generalAI().allowedToBomb(target.mgr.system()) && !facingOverwhelmingForce(stack, false, true))
+                        valueMod = 0;
                 }
                 if(adjustedKillPct > 0)
                     desirability = adjustedKillPct * max(1, target.num) * valueMod * rangeAdj;
@@ -467,7 +469,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
                     desirability = Float.MIN_VALUE;
                 if(stack.maxFiringRange(target) <= target.repulsorRange() && stack.movePointsTo(target) > 1)
                     desirability = -1;
-                if (desirability > maxDesirability) {  // this might be a better target, adjust desirability for pathing
+                if (desirability > maxDesirability && valueMod > 0) {  // this might be a better target, adjust desirability for pathing
                     if (stack.mgr.autoResolve) {
                         bestTarget = target;
                         maxDesirability = desirability;
@@ -797,7 +799,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
         for (CombatStack st: activeStacks) {
             for (CombatStackMissile miss: st.missiles()) {
                 if (miss.owner == currStack) 
-                    return facingOverwhelmingForce(currStack, true);
+                    return facingOverwhelmingForce(currStack, true, false);
                 if (miss.target == currStack && st.isShip())
                 {
                     float hitPct;
@@ -836,14 +838,14 @@ public class AIShipCaptain implements Base, ShipCaptain {
         if(!canTarget)
             return true;
         
-        if (facingOverwhelmingForce(currStack, false)) {
+        if (facingOverwhelmingForce(currStack, false, false)) {
             log(currStack.toString()+" retreating from overwhelming force");
             return true;
         }
 
         return false;
     }
-    public boolean facingOverwhelmingForce(CombatStack stack, boolean missileShooterMode) {
+    public boolean facingOverwhelmingForce(CombatStack stack, boolean missileShooterMode, boolean skipColonyBombCheck) {
         // build list of allies & enemies
         allies().clear(); enemies().clear();
         for (CombatStack st : combat().activeStacks()) {
@@ -1005,8 +1007,9 @@ public class AIShipCaptain implements Base, ShipCaptain {
         
         /*if(dpsOnColony > 0)
             System.out.print("\n"+stack.mgr.system().name()+" "+stack.fullName()+" allyKillTime: "+allyKillTime+" enemyKillTime: "+enemyKillTime+" bomberKillTime: "+bomberKillTime+" dpsOnColony: "+dpsOnColony+" col dies in: "+1 / dpsOnColony+" foesBlockPlanet: "+foesBlockPlanet);*/
-        if(dpsOnColony * bomberKillTime > 1 && (!enemyHasRepulsor || weCounterRepulsor) && foesBlockPlanet < 5)
-            return false;
+        if(!skipColonyBombCheck)
+            if(dpsOnColony * bomberKillTime > 1 && (!enemyHasRepulsor || weCounterRepulsor) && foesBlockPlanet < 5)
+                return false;
         
         //System.out.print("\n"+stack.mgr.system().name()+" "+stack.fullName()+" allyKillTime: "+allyKillTime+" enemyKillTime: "+enemyKillTime+" enemyKillTimeWithoutHeal: "+enemyKillTimeWithoutHeal);
         if (enemyKillTime == allyKillTime)
