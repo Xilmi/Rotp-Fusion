@@ -23,6 +23,10 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 ## What'New
 
 2022.08.14 (Xilmi)
+  - Fixed an issue where AI would continue to build huge colony-ships when it shouldn't
+  - Improved selection of systems where Fusion-AI builds colony-ships to allow faster expansion
+  - Fusion-AI will now avoid attacking undefended planets in tactical-combat when it would destroy a colony it still wants to invade
+  - Fixed issue where Fusion-AI would sometimes bombard planets it shouldn't bombard
   - Fusion-AI invasion-logic is now completely driven by cost-benefit analysis including the troops expected to be shot down
   - Fusion-AI no longer refitting factories when there's an urgent threat like an invasion or a siege
 
