@@ -22,6 +22,10 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
+2022.08.14 (Xilmi)
+  - Fusion-AI invasion-logic is now completely driven by cost-benefit analysis including the troops expected to be shot down
+  - Fusion-AI no longer refitting factories when there's an urgent threat like an invasion or a siege
+
 2022.08.09 (BR)
   - Technology Always/Never: Never affect Artifacts Planets Too.
   - Technology Always/Never: Removed Terraform120 as it's already Always, and selecting Never crash the game!
