@@ -48,6 +48,8 @@ public class AIGeneral implements Base, General {
     //better buffer values in private-members instead of recalculating every time
     private Empire bestVictim = null;
     private boolean searchedVictimThisTurn = false;
+    private Location uncolonizedCenter;
+    private boolean updatedUncolonizedCenterThisTurn = false;
     private float defenseRatio = -1;
     private float totalArmedFleetCost = -1;
     private int additionalColonizersToBuild = -1;
@@ -83,6 +85,7 @@ public class AIGeneral implements Base, General {
         rushShipSystems.clear();
         bestVictim = null;
         searchedVictimThisTurn = false;
+        updatedUncolonizedCenterThisTurn = false;
         defenseRatio = -1;
         additionalColonizersToBuild = -1;
         totalArmedFleetCost = -1;
@@ -1248,6 +1251,8 @@ public class AIGeneral implements Base, General {
     }
     public Location uncolonizedCenter(Empire emp)
     {
+        if(updatedUncolonizedCenterThisTurn)
+            return uncolonizedCenter;
         float x = 0;
         float y = 0;
         float totalPopCap = 0;
@@ -1262,6 +1267,8 @@ public class AIGeneral implements Base, General {
         Location center = new Location(x, y);
         if(center.x() == 0 && center.y() == 0)
             center = colonyCenter(emp);
+        uncolonizedCenter = center;
+        updatedUncolonizedCenterThisTurn = true;
         return center; 
     }
     @Override
