@@ -143,11 +143,10 @@ public class AIGeneral implements Base, General {
                 Colony col = sys.colony();
                 if(col.currentProductionCapacity() <= 0.5f && col.production() < design.cost() && col.shipyard().desiredShips() > 0)
                     continue;
-                float score = empire.ai().governor().productionScore(sys);
-                if(col.production() > design.cost())
-                    score = 1;
-                score /= sys.distanceTo(uncolonizedCenter);
-                //System.out.println(empire.name()+" "+col.name()+" score: "+score);
+                float turnsToBuild = max(1f, col.shipyard().turnsToBuild(design));
+                float turnsToMove = max(1f, (float)Math.ceil(max(1, sys.distanceTo(uncolonizedCenter)) / design.warpSpeed()));
+                float score = 1f / (turnsToBuild + turnsToMove);
+                //System.out.println(empire.name()+" "+col.name()+" score: "+score+" turnsToBuild: "+turnsToBuild+" turnsToMove: "+turnsToMove+" uncolonizedCenter: x: "+uncolonizedCenter.x()+" y: "+uncolonizedCenter.y());
                 if(col.shipyard().building())
                     continue;
                 if(score > highestScore)
@@ -1262,8 +1261,11 @@ public class AIGeneral implements Base, General {
             y += sys.y() * sys.planet().currentSize();
             totalPopCap += sys.planet().currentSize();
         }
-        x /= totalPopCap;
-        y /= totalPopCap;
+        if(totalPopCap > 0)
+        {
+            x /= totalPopCap;
+            y /= totalPopCap;
+        }
         Location center = new Location(x, y);
         if(center.x() == 0 && center.y() == 0)
             center = colonyCenter(emp);
