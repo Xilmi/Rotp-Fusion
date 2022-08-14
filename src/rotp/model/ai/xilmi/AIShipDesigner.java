@@ -43,6 +43,7 @@ public class AIShipDesigner implements Base, ShipDesigner {
     private static final int OBS_BOMBER_TURNS = 24;
     private static final int OBS_COLONY_TURNS = 8;
     private static final int OBS_SCOUT_TURNS = 1;
+    private ShipDesign bestDesignToFight = null;
 
     private final Empire empire;
     private int[] shipCounts;
@@ -59,6 +60,7 @@ public class AIShipDesigner implements Base, ShipDesigner {
     @Override
     public void nextTurn() {
         if (empire.isAIControlled()) {
+            bestDesignToFight = null;
             log(this+": nextTurn");
             shipCounts = galaxy().ships.shipDesignCounts(empire.id);
             // designs are updated in a specific order in order to prioritize
@@ -72,6 +74,7 @@ public class AIShipDesigner implements Base, ShipDesigner {
             boolean wantHybrid = wantHybrid();
             MarkObsolete();
             updateFighterDesign();
+            bestDesignToFight = null;
             if(!wantHybrid || !BestDesignToBomb().active())
                 updateBomberDesign();
             updateColonyDesign();
@@ -540,40 +543,8 @@ public class AIShipDesigner implements Base, ShipDesigner {
         design.mission(ShipDesign.COLONY);
         design.maxUnusedTurns(OBS_COLONY_TURNS);
 
-        boolean allowHuge = false;
-        boolean unexploredInRange = false;
+        boolean allowHuge = allowHugeColonizer();
         
-        for(StarSystem unexplored:empire.unexploredSystems())
-        {
-            if(unexplored.monster() != null)
-                continue;
-            if(empire.sv.inShipRange(unexplored.id))
-            {
-                unexploredInRange = true;
-                break;
-            }
-        }
-        
-        float rangeTechLevelThreshold = 9;
-        
-        rangeTechLevelThreshold /= max(1.0f, session().researchMapSizeAdjustment());
-        
-        //System.out.print("\n"+empire.name()+" rangeTechLevelThreshold for galaxysize/empires: "+rangeTechLevelThreshold);
-        
-        if(session().options().selectedResearchRate().equals(RESEARCH_SLOW))
-            rangeTechLevelThreshold /= sqrt(9/3.0f);
-        else if(session().options().selectedResearchRate().equals(RESEARCH_SLOWER))
-            rangeTechLevelThreshold /= sqrt(9);
-        else if(session().options().selectedResearchRate().equals(RESEARCH_SLOWEST))
-            rangeTechLevelThreshold /= sqrt(9*5);
-            
-        if(empire.uncolonizedPlanetsInRange(empire.shipRange()).isEmpty() 
-                && empire.enemies().isEmpty()
-                && !unexploredInRange
-                && !empire.uncolonizedPlanetsInRange(empire.scoutRange()).isEmpty()
-                && (empire.tech().propulsion().techLevel() >= rangeTechLevelThreshold && empire.tech().researchingShipRange() <= empire.shipRange() || empire.tech().propulsion().techLevel() >= 2 * rangeTechLevelThreshold))
-            allowHuge = true;
-            
         //System.out.print("\n"+empire.name()+" colonizable in normal range: "+empire.uncolonizedPlanetsInRange(empire.shipRange()).size()+" colonizable in extended-range: "+empire.uncolonizedPlanetsInRange(empire.scoutRange()).size()+" unexplored in range: "+unexploredInRange+" huge allowed: "+allowHuge+" rtlt: "+rangeTechLevelThreshold+" prop-lvl: "+empire.tech().propulsion().techLevel()+" res-Range: "+empire.tech().researchingShipRange()+" unexplored in range: "+unexploredInRange+" uncolonized in range: "+empire.uncolonizedPlanetsInRange(empire.scoutRange()).size());
         // if we don't need regular-range colony ship
         if (extendedRangeNeeded) {
@@ -816,6 +787,8 @@ public class AIShipDesigner implements Base, ShipDesigner {
     @Override
     public ShipDesign BestDesignToFight()
     {
+        if(bestDesignToFight != null)
+            return bestDesignToFight;
         ShipDesignLab lab = lab();
         ShipDesign fighter = null;
         float fightScore = 0;
@@ -823,12 +796,8 @@ public class AIShipDesigner implements Base, ShipDesigner {
         for (int slot=0;slot<ShipDesignLab.MAX_DESIGNS;slot++) {
             ShipDesign d = lab.design(slot);
             float fightingAdapted = fightingAdapted(d);
-            float score = fightingAdapted * (1 - d.availableSpace() / d.totalSpace()) * d.warpSpeed();
-            if(fightingAdapted > 0.5f)
-            {
-                score = (fightingAdapted + bombingAdapted(d)) * (1 - d.availableSpace() / d.totalSpace()) * d.warpSpeed();
-            }
-            //System.out.print("\n"+empire.name()+" BestDesignToFight "+d.name()+" score: "+score);
+            float score = (fightingAdapted + bombingAdapted(d)) * (1 - d.availableSpace() / d.totalSpace()) * d.warpSpeed();
+            //System.out.print("\n"+galaxy().currentTurn()+" "+empire.name()+" BestDesignToFight "+d.name()+" score: "+score+ " adapted: "+(fightingAdapted + bombingAdapted(d))+ " remaining usefullness: "+(1 - d.availableSpace() / d.totalSpace())+" fa: "+fightingAdapted+" ba: "+bombingAdapted(d));
             if(score > fightScore)
             {
                 fightScore = score;
@@ -845,6 +814,7 @@ public class AIShipDesigner implements Base, ShipDesigner {
                 }
             }
         }
+        bestDesignToFight = fighter;
         return fighter;
     }
     @Override
@@ -893,6 +863,8 @@ public class AIShipDesigner implements Base, ShipDesigner {
             float score = d.warpSpeed() * d.range() * d.colonySpecial().tech().level();
             score *= 1 + fightingAdapted(d);
             score /= d.size() + 1;
+            if(!allowHugeColonizer() && d.size() > 2)
+                score = 0;
             if(score > colScore)
             {
                 colScore = score;
@@ -940,4 +912,37 @@ public class AIShipDesigner implements Base, ShipDesigner {
         }
         return weaponWithMostSpace;
     }
+    boolean allowHugeColonizer() {
+        boolean unexploredInRange = false;
+        for(StarSystem unexplored:empire.unexploredSystems())
+        {
+            if(unexplored.monster() != null)
+                continue;
+            if(empire.sv.inShipRange(unexplored.id))
+            {
+                unexploredInRange = true;
+                break;
+            }
+        }
+        float rangeTechLevelThreshold = 9;
+        
+        rangeTechLevelThreshold /= max(1.0f, session().researchMapSizeAdjustment());
+        
+        //System.out.print("\n"+empire.name()+" rangeTechLevelThreshold for galaxysize/empires: "+rangeTechLevelThreshold);
+        
+        if(session().options().selectedResearchRate().equals(RESEARCH_SLOW))
+            rangeTechLevelThreshold /= sqrt(9/3.0f);
+        else if(session().options().selectedResearchRate().equals(RESEARCH_SLOWER))
+            rangeTechLevelThreshold /= sqrt(9);
+        else if(session().options().selectedResearchRate().equals(RESEARCH_SLOWEST))
+            rangeTechLevelThreshold /= sqrt(9*5);
+        if(empire.uncolonizedPlanetsInRange(empire.shipRange()).isEmpty() 
+            && empire.enemies().isEmpty()
+            && !unexploredInRange
+            && !empire.uncolonizedPlanetsInRange(empire.scoutRange()).isEmpty()
+            && (empire.tech().propulsion().techLevel() >= rangeTechLevelThreshold && empire.tech().researchingShipRange() <= empire.shipRange() || empire.tech().propulsion().techLevel() >= 2 * rangeTechLevelThreshold))
+            return true;
+        return false;
+    }
+            
 }
