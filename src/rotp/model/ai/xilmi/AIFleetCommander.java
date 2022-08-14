@@ -59,10 +59,8 @@ class AISystemInfo {
 
 public class AIFleetCommander implements Base, FleetCommander {
     private static final int DEFAULT_SIZE = 25;
-    private static final float MAX_ALLOWED_SHIP_MAINT = 0.35f;
     private final Empire empire;
 
-    private boolean sendColonyMissions;
     private final List<FleetPlan> fleetPlans;
     private final List<Integer> systems;
     private final List<Integer> systemsCommitted;
@@ -77,7 +75,6 @@ public class AIFleetCommander implements Base, FleetCommander {
     private List<Integer> systemsCommitted()  {return systemsCommitted;  }
     public AIFleetCommander (Empire c) {
         empire = c;
-        sendColonyMissions = true; 
         fleetPlans = new ArrayList<>(DEFAULT_SIZE);
         systems = new ArrayList<>(DEFAULT_SIZE);
         systemsCommitted = new ArrayList<>(DEFAULT_SIZE);
@@ -127,7 +124,6 @@ public class AIFleetCommander implements Base, FleetCommander {
             bridgeHeadConfidenceBuffer.clear();
             maxMaintenance = -1;
             threatCenter = new Location(0,0);
-            sendColonyMissions = !empire.shipLab().colonyDesign().obsolete();
             canBuildShips = true; //since we build only colonizers and scouts here, this should always be possible
             NoticeMessage.setSubstatus(text("TURN_FLEET_PLANS"));
             handleTransports();
