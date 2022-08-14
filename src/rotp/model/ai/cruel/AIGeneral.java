@@ -308,7 +308,15 @@ public class AIGeneral implements Base, General {
     public float invasionCost(EmpireView v, StarSystem sys)
     {
         float needed = troopsNecessaryToTakePlanet(v, sys);
-        needed += empire.sv.currentSize(sys.id) * 0.25f * (1 - empire.fleetCommanderAI().bridgeHeadConfidence(sys));
+        float combatTransport = empire.combatTransportPct();
+        if(sys.empire().tech().subspaceInterdiction())
+            combatTransport /= 2;
+        float additional = expectedEnemyTransportKillPower(sys) * (1 - empire.fleetCommanderAI().bridgeHeadConfidence(sys));
+        if(combatTransport > 0)
+            needed = max(needed + additional, needed / combatTransport);
+        else
+            needed += additional;
+        //System.out.println(galaxy().currentTurn()+" "+empire.name()+": Considering invasion of "+sys.name()+" bridgeHeadConfidence: "+empire.fleetCommanderAI().bridgeHeadConfidence(sys)+" expected shot down: "+additional * (1 - empire.fleetCommanderAI().bridgeHeadConfidence(sys)));
         float invasionCost = needed * empire.tech().populationCost() / empire.race().growthRateMod();
         return invasionCost;
     }
@@ -329,7 +337,6 @@ public class AIGeneral implements Base, General {
         float techCaptureCountEstimate = min(6, techCount, 0.02f * empire.sv.factories(sys.id));
         float techCaputureGain = techCaptureCountEstimate * avgTechCost;
         invasionGain += techCaputureGain;
-        //System.out.println(galaxy().currentTurn()+" "+empire.name()+": Considering invasion of "+sys.name()+" potential techs: "+techCaptureCountEstimate+" avg cost: "+avgTechCost+" techCaptureGain: "+techCaputureGain+" bridgeHeadConfidence: "+empire.fleetCommanderAI().bridgeHeadConfidence(sys)+" invasionGain: "+invasionGain);
         return invasionGain;
     }
     public boolean willingToInvade(EmpireView v, StarSystem sys) {
@@ -339,7 +346,6 @@ public class AIGeneral implements Base, General {
             return false;
         //we gain factories, save us from building a colonizer and killing enemy-population also has value to us of half of what they pay for it
         float invasionGain = invasionGain(v, sys) + empire.shipDesignerAI().BestDesignToColonize().cost();
-        invasionGain *= empire.fleetCommanderAI().bridgeHeadConfidence(sys);
         //System.out.println(galaxy().currentTurn()+" "+empire.name()+": Considering invasion of "+sys.name()+" cost: "+invasionCost(v, sys)+" gain: "+invasionGain+" cs: "+empire.shipLab().colonyDesign().cost()+" bridgeHeadConfidence: "+empire.fleetCommanderAI().bridgeHeadConfidence(sys));
         return invasionCost(v, sys) <= invasionGain;
     }
@@ -347,51 +353,22 @@ public class AIGeneral implements Base, General {
         launchRebellionTroops(sys);
     }
     public void orderInvasionFleet(EmpireView v, StarSystem sys) {
-        float expectedDefenders = 0;
-        float attackers = 0;
-        float allowableTurns = (float) (1 + Math.min(7, Math.floor(22 / empire.tech().topSpeed())));
-        float nonBioBombardDamage = 0;
-        if(sys.colony() != null)
-            expectedDefenders += allowableTurns * sys.colony().totalProductionIncome() * sys.planet().productionAdj() + sys.colony().defense().bases() * sys.colony().defense().missileBase().cost(sys.empire());
-        for(ShipFleet orbiting : sys.orbitingFleets())
-        {
-            if(!orbiting.isArmed())
-                continue;
-            if(orbiting.empire() == empire)
-            {
-                attackers += empire.ai().fleetCommander().bcValue(orbiting, false, true, false, false);
-                if(sys.colony() != null && sys.colony().defense().bases() > 0)
-                    nonBioBombardDamage += empire.governorAI().expectedBombardDamageAsIfBasesWereThere(orbiting, sys);
-            }
-            else if (orbiting.empire().aggressiveWith(empire.id) && empire.visibleShips().contains(orbiting))
-                expectedDefenders += empire.ai().fleetCommander().bcValue(orbiting, false, true, false, false);
-        }
-        for(ShipFleet incoming : sys.incomingFleets())
-        {
-            if(!incoming.isArmed())
-                continue;
-            if(incoming.empire() == empire)
-            {
-                attackers += empire.ai().fleetCommander().bcValue(incoming, false, true, false, false);
-                if(sys.colony() != null && sys.colony().defense().bases() > 0)
-                    nonBioBombardDamage += empire.governorAI().expectedBombardDamageAsIfBasesWereThere(incoming, sys);
-            }
-            else if (incoming.empire().aggressiveWith(empire.id) && empire.visibleShips().contains(incoming))
-                expectedDefenders += empire.ai().fleetCommander().bcValue(incoming, false, true, false, false);
-        }
-        if(sys.colony() != null && sys.colony().defense().bases() > 0 && nonBioBombardDamage < sys.colony().defense().bases() * sys.colony().defense().missileBase().maxHits())
-            return;
-        //ail: old check would also be positive when our fleet is retreating
-        //System.out.println(galaxy().currentTurn()+" "+empire.name()+" invading "+sys.name()+" nonBioBombardDamage: "+nonBioBombardDamage+" base-health: "+sys.colony().defense().bases() * sys.colony().defense().missileBase().maxHits());
-        if (attackers > expectedDefenders && attackers > troopsNecessaryToTakePlanet(v, sys) * empire.tech().populationCost())
-            launchGroundTroops(v, sys, 1);
+        launchGroundTroops(v, sys, 1);
     }
     
     public void launchGroundTroops(EmpireView v, StarSystem target, float mult) {
         //float troops0 = troopsNecessaryToBypassBases(target);
-        float troops1 = mult*troopsNecessaryToTakePlanet(v, target);
+        float needed = mult*troopsNecessaryToTakePlanet(v, target);
+        float combatTransport = empire.combatTransportPct();
+        if(target.empire().tech().subspaceInterdiction())
+            combatTransport /= 2;
+        float additional = expectedEnemyTransportKillPower(target) * (1 - empire.fleetCommanderAI().bridgeHeadConfidence(target));
+        if(combatTransport > 0)
+            needed = max(needed + additional, needed / combatTransport);
+        else
+            needed += additional;
         int alreadySent = empire.transportsInTransit(target);
-        float troopsDesired = troops1 + empire.sv.currentSize(target.id) * 0.25f - alreadySent;
+        float troopsDesired = needed + empire.sv.currentSize(target.id) * 0.25f - alreadySent;
         //System.out.println(galaxy().currentTurn()+" "+empire.name()+" invading "+target.name()+" troops desired: "+troopsDesired);
         if (troopsDesired < 1)
             return;
@@ -429,7 +406,7 @@ public class AIGeneral implements Base, General {
         }
 
         //not enough troops to take planet! switch to defense
-        if (troopsAvailable < troops1)
+        if (troopsAvailable < needed)
             return;
 
         for (StarSystem sys: launchPoints)
@@ -502,6 +479,39 @@ public class AIGeneral implements Base, General {
             float killRatio = (float) ((Math.pow(100-atkAdv,2)/2) / (Math.pow(100,2) - Math.pow(100-atkAdv,2)/2));
             return empire.sv.population(id) * killRatio;
         }
+    }
+    public int transportGauntletRounds(float speed) {
+        switch((int)speed) {
+            case 0: case 1: case 2: case 3: case 4:
+                return 4;
+            case 5: case 6:
+                return 3;
+            case 7: case 8:
+                return 2;
+            case 9: default:
+                return 1;
+        }
+    }
+    public float expectedEnemyTransportKillPower(StarSystem sys) {
+        float damage = 0;
+        for(ShipFleet fl : sys.empire().allFleets()) {
+            damage += fl.firepower(0);
+        }
+        for(ShipFleet otherFleet : sys.orbitingFleets()) {
+            if(otherFleet.empire() == empire || otherFleet.empire().allies().contains(empire) || otherFleet.empire() == sys.empire())
+                continue;
+            damage += otherFleet.firepower(0);
+        }
+        for(ShipFleet otherFleet : sys.incomingFleets()) {
+            if(otherFleet.empire() == empire || otherFleet.empire().allies().contains(empire) || otherFleet.empire() == sys.empire())
+                continue;
+            damage += otherFleet.firepower(0);
+        }
+        if(sys.colony() != null)
+            damage += sys.colony().defense().firepower(0);
+        damage *= transportGauntletRounds(max(1, empire.tech().topEngineWarpTech().baseWarp() - 1));
+        damage /= empire.tech().topArmorTech().transportHP;
+        return damage;
     }
     public void orderBombardmentFleet(EmpireView v, StarSystem sys, float fleetSize) {
         
