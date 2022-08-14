@@ -419,7 +419,7 @@ public class AIGovernor implements Base, Governor {
             viableForShipProduction = false;
         if(!techsLeft)
             viableForShipProduction = true;
-        //System.out.print("\n"+empire.name()+" "+col.name()+" production-score "+productionScore(col.starSystem())+" needToMilitarize: "+needToMilitarize+" viableForShipProduction: "+viableForShipProduction+" Mil-Rank: "+empire.diplomatAI().militaryRank(empire, false)+" Pop-Rank: "+empire.diplomatAI().popCapRank(empire, false));
+        //System.out.print("\n"+empire.name()+" "+col.name()+" production-score "+productionScore(col.starSystem())+" viableForShipProduction: "+viableForShipProduction+" Mil-Rank: "+empire.diplomatAI().militaryRank(empire, false)+" Pop-Rank: "+empire.diplomatAI().popCapRank(empire, false));
         //System.out.print("\n"+empire.name()+" "+col.name()+" col.allocation(SHIP): "+col.allocation(SHIP));
         if(col.allocation(SHIP) == 0 && viableForShipProduction)
         {
