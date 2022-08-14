@@ -128,6 +128,7 @@ public class AIGeneral implements Base, General {
             //System.out.println(galaxy().currentTurn()+" "+empire.name()+" col-need after: "+additionalColonizersToBuild);
         }
         ShipDesign design = empire.shipDesignerAI().BestDesignToColonize();
+        Location uncolonizedCenter = uncolonizedCenter(empire);
         while (additionalColonizersToBuild > 0)
         {
             float highestScore = 0;
@@ -140,6 +141,9 @@ public class AIGeneral implements Base, General {
                 if(col.currentProductionCapacity() <= 0.5f && col.production() < design.cost() && col.shipyard().desiredShips() > 0)
                     continue;
                 float score = empire.ai().governor().productionScore(sys);
+                if(col.production() > design.cost())
+                    score = 1;
+                score /= sys.distanceTo(uncolonizedCenter);
                 //System.out.println(empire.name()+" "+col.name()+" score: "+score);
                 if(col.shipyard().building())
                     continue;
@@ -1157,15 +1161,9 @@ public class AIGeneral implements Base, General {
         Empire emp = sys.empire();
         if(empire.enemies().contains(emp))
         {
-            if(empire.transportsInTransit(sys) > troopsNecessaryToTakePlanet(empire.viewForEmpire(emp), sys))
-            {
-                float cost = invasionCost(empire.viewForEmpire(emp), sys);
-                float gain = invasionGain(empire.viewForEmpire(emp), sys);
-                if(cost > gain)
-                    return true;
-            }
-            else
-                return true;
+            if(empire.transportsInTransit(sys) > troopsNecessaryToTakePlanet(empire.viewForEmpire(emp), sys) + expectedEnemyTransportKillPower(sys) * (1 - empire.fleetCommanderAI().bridgeHeadConfidence(sys)))
+                return false;
+            return true;
         }
         return false;
     }
@@ -1247,6 +1245,24 @@ public class AIGeneral implements Base, General {
         y /= totalPopCap;
         Location center = new Location(x, y);
         return center;
+    }
+    public Location uncolonizedCenter(Empire emp)
+    {
+        float x = 0;
+        float y = 0;
+        float totalPopCap = 0;
+        for(StarSystem sys: emp.uncolonizedPlanetsInRange(empire.shipDesignerAI().BestDesignToColonize().range()))
+        {
+            x += sys.x() * sys.planet().currentSize();
+            y += sys.y() * sys.planet().currentSize();
+            totalPopCap += sys.planet().currentSize();
+        }
+        x /= totalPopCap;
+        y /= totalPopCap;
+        Location center = new Location(x, y);
+        if(center.x() == 0 && center.y() == 0)
+            center = colonyCenter(emp);
+        return center; 
     }
     @Override
     public boolean needScoutRepellers(boolean potential)
