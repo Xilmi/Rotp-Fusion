@@ -18,6 +18,7 @@ package rotp.model.colony;
 import java.io.Serializable;
 import rotp.model.empires.Empire;
 import rotp.model.ships.ShipWeaponMissileType;
+import rotp.model.tech.TechMissileWeapon;
 import rotp.util.Base;
 import rotp.ui.UserPreferences;
 
@@ -54,7 +55,14 @@ public class MissileBase implements Base, Serializable {
         return missileShield == null ? 0 : missileShield.interceptPct(missile);
     }
     public float firepower(float shield) {
-        return max(missile.warhead().firepower(shield),scatterPack.warhead().firepower(shield));
+        float missileDmg = 0;
+        TechMissileWeapon scatter = scatterPack() == null ? null : scatterPack().tech();
+        TechMissileWeapon msl = missile().tech();
+        if (scatter != null)
+            missileDmg = 3*max(msl.damage() - shield, scatter.damage() - shield * scatter.scatterAttacks());
+        else 
+            missileDmg = 3*msl.damage() - shield;
+        return missileDmg;
     }
     public float cost(Empire emp) {
         float cost = MINIMUM_COST;
