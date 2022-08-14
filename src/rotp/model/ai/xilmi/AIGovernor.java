@@ -241,6 +241,11 @@ public class AIGovernor implements Base, Governor {
         workerGoal -= empire.transportsInTransit(col.starSystem());
         
         //float colShipTime = empire.shipLab().colonyDesign().cost() / (col.totalIncome() - col.minimumCleanupCost()) / col.planet().productionAdj();
+        boolean haltFactoriesForNow = false;
+        if(needRefit 
+            && col.industry().factories() >= col.industry().effectiveRobotControls() * col.workingPopulation()
+            && (empire.fleetCommanderAI().underSiege() || empire.fleetCommanderAI().incomingInvasion()))
+            haltFactoriesForNow = true;
         
         boolean buildingVitalShip = false;
         //Mostly for Sakkra and Meklar, so they expand quicker when they can 72% pop is where the growth drops below 80%
@@ -314,7 +319,8 @@ public class AIGovernor implements Base, Governor {
         if((col.industry().factories() < col.maxUseableFactories() + (col.normalPopGrowth() + empire.transportsInTransit(col.starSystem())) * empire.maxRobotControls())
             && enemyBombardPower == 0
             && ((col.ecology().terraformCompleted() && needRefit)
-                || col.industry().effectiveRobotControls() * (col.population() + col.normalPopGrowth() + empire.transportsInTransit(col.starSystem())) > col.industry().factories()))
+                || col.industry().effectiveRobotControls() * (col.population() + col.normalPopGrowth() + empire.transportsInTransit(col.starSystem())) > col.industry().factories())
+            && !haltFactoriesForNow)
         {
             float prodCost = min(netProd, col.industry().maxSpendingNeeded(), factoriesNeeded * empire.tech().newFactoryCost(col.industry().robotControls()) / col.planet().productionAdj());
             int alloc = (int)Math.ceil(prodCost/totalProd*MAX_TICKS);
