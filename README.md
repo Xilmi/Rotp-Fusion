@@ -22,6 +22,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
+2022.08.15 (Xilmi)
+  - Fixed an issue where AI would consider potential enemy missile-bases as more dangerous than they actually are during invasion-calculations
+
 2022.08.14 (Xilmi)
   - Fixed an issue where AI would continue to build huge colony-ships when it shouldn't
   - Improved selection of systems where Fusion-AI builds colony-ships to allow faster expansion
