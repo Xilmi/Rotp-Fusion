@@ -455,6 +455,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public boolean isAI()                { return id != PLAYER_ID; };
     public boolean isPlayerControlled()  { return !isAIControlled(); }
     public boolean isAIControlled()      { return isAI() || options().isAutoPlay(); }
+    //public boolean isAIControlled()      { return true; } //for quick switch to test how the AI would have fared in a game
     public Color color()                 { return options().color(bannerColor); }
     public int shipColorId()             { return colorId(); }
     @Override

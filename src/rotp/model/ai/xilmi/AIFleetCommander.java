@@ -1402,19 +1402,16 @@ public class AIFleetCommander implements Base, FleetCommander {
     public float bridgeHeadPower(StarSystem sys)
     {
         float biggestFleetPower = 0;
-        float enemyBaseBC = 0;
+        float enemyBaseHP = 0;
         if(empire.sv.empire(sys.id) != null)
-            enemyBaseBC = max(1, empire.sv.bases(sys.id))*empire.sv.empire(sys.id).tech().newMissileBaseCost()*(empire.sv.empire(sys.id).tech().avgTechLevel()+10);
+            enemyBaseHP = max(1, empire.sv.bases(sys.id))*empire.sv.empire(sys.id).tech().newMissileBase().maxHits();
         for(ShipFleet orbiting : sys.orbitingFleets())
         {
             if(orbiting.empire() == empire)
             {
-                float ourEffectiveBombBC = bcValue(orbiting, false, false, true, false);
-                ourEffectiveBombBC *= (1 + 0.125f * empire.shipAttackBonus() + 0.2f * empire.shipDefenseBonus()) * (empire.tech().avgTechLevel()+10);
-                if(empire.governorAI().expectedBombardDamageAsIfBasesWereThere(orbiting, sys) == 0)
-                    ourEffectiveBombBC = 0;
-                //System.out.println(galaxy().currentTurn()+" "+empire.name()+" "+sys.name()+" ourEffectiveBombBC: "+ourEffectiveBombBC+" enemyBaseBC: "+enemyBaseBC);
-                if(ourEffectiveBombBC >= enemyBaseBC)
+                float ourEffectiveBombDamage = empire.governorAI().expectedBombardDamageAsIfBasesWereThere(orbiting, sys);
+                //System.out.println(galaxy().currentTurn()+" "+empire.name()+" "+sys.name()+" bombard-Damage: "+ourEffectiveBombDamage+" base-HP: "+enemyBaseHP);
+                if(ourEffectiveBombDamage >= enemyBaseHP)
                 {
                     float myFightingBc = bcValue(orbiting, false, true, false, false);
                     if(myFightingBc > biggestFleetPower)
@@ -1426,16 +1423,13 @@ public class AIFleetCommander implements Base, FleetCommander {
         {
             if(incoming.empire() == empire)
             {
-                float ourEffectiveBombBC = bcValue(incoming, false, false, true, false);
-                ourEffectiveBombBC *= (1 + 0.125f * empire.shipAttackBonus() + 0.2f * empire.shipDefenseBonus()) * (empire.tech().avgTechLevel()+10);
-                if(empire.governorAI().expectedBombardDamageAsIfBasesWereThere(incoming, sys) == 0)
-                    ourEffectiveBombBC = 0;
-                //System.out.println(galaxy().currentTurn()+" "+empire.name()+" "+sys.name()+" ourEffectiveBombBC: "+ourEffectiveBombBC+" enemyBaseBC: "+enemyBaseBC);
-                if(ourEffectiveBombBC >= enemyBaseBC)
+                float ourEffectiveBombDamage = empire.governorAI().expectedBombardDamageAsIfBasesWereThere(incoming, sys);
+                //System.out.println(galaxy().currentTurn()+" "+empire.name()+" "+sys.name()+" bombard-Damage: "+ourEffectiveBombDamage+" base-HP: "+enemyBaseHP);
+                if(ourEffectiveBombDamage >= enemyBaseHP)
                 {
                     float myFightingBc = bcValue(incoming, false, true, false, false);
                     if(myFightingBc > biggestFleetPower)
-                        biggestFleetPower = myFightingBc;
+                        biggestFleetPower = bcValue(incoming, false, true, false, false);
                 }
             }
         }
