@@ -679,7 +679,7 @@ public class AIFleetCommander implements Base, FleetCommander {
 
         // if not scouted and owner still using scouts, send a scout
         // if it has no known missile bases or if it is an ally 
-        if (!empire.sv.isScouted(sysId) && empire.shipLab().needScouts) { //once we no longer use scouts, we do this in another way
+        if (!empire.sv.isScouted(sysId) && empire.shipDesignerAI().BestDesignToScout().range() >= empire.tech().scoutRange()) { //once we no longer use scouts, we do this in another way
             if (empire.alliedWith(empire.sv.empId(sysId))
             || (empire.sv.bases(sysId) == 0)) 
                 setScoutFleetPlan(sysId);
@@ -721,7 +721,7 @@ public class AIFleetCommander implements Base, FleetCommander {
             float closeRangeBonus = 100 - empire.sv.distance(id)/10;
             plan.priority = FleetPlan.SCOUT_TO_UNEXPLORED + closeRangeBonus;
         }
-        if (empire.shipLab().needScouts)
+        if (empire.shipDesignerAI().BestDesignToScout().range() >= empire.tech().scoutRange())
             plan.addShips(empire.shipDesignerAI().BestDesignToScout(), 1);
     }
     private void handleTransports()
