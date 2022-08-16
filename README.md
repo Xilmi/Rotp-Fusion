@@ -22,6 +22,11 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
+2022.08.16 (Xilmi)
+  - You can now review each races' ability in the diplomacy-tab in the races-screen
+  - AI will now continue to use already existing scout-designs when it doesn't want scouts anymore rather than having them idle until they are scrapped (primarily impacts NeoHumans)
+  - When the AI designs ships where the primary weapon is 2-shot-missiles it will not use shields or defensive specials at the same time in favor of more fire-power
+
 2022.08.15 (Xilmi)
   - Fixed an issue where AI would consider potential enemy missile-bases as more dangerous than they actually are during invasion-calculations
 
