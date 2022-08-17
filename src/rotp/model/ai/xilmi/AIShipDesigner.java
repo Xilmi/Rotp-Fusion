@@ -744,6 +744,8 @@ public class AIShipDesigner implements Base, ShipDesigner {
         float cheapestCost = Float.MAX_VALUE;
         for (int slot=0;slot<ShipDesignLab.MAX_DESIGNS;slot++) {
             ShipDesign d = lab.design(slot);
+            if(d.hasColonySpecial())
+                continue;
             float currCost = d.cost();
             if(d.range() == empire.scoutRange())
                 currCost /= 2;
