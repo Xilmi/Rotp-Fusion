@@ -22,6 +22,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
+2022.08.17 (Xilmi)
+  - The scout-fix from yesterdays version could cause AI to spam lots of colony-ships. This has been fixed.
+
 2022.08.16 (Xilmi)
   - You can now review each races' ability in the diplomacy-tab in the races-screen
   - AI will now continue to use already existing scout-designs when it doesn't want scouts anymore rather than having them idle until they are scrapped (primarily impacts NeoHumans)
