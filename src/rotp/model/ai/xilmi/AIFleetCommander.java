@@ -842,7 +842,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                         if(fleet.system().empire() == empire || empire.enemies().contains(fleet.system().empire()))
                             transportsToDealWith = systemInfoBuffer.get(fleet.sysId()).enemyIncomingTransports;
                         if(empire.enemies().contains(fleet.system().empire())) 
-                            transportsToDealWith = max(transportsToDealWith, systemInfoBuffer.get(fleet.sysId()).myIncomingTransports);
+                            transportsToDealWith = max(transportsToDealWith, min(systemInfoBuffer.get(fleet.sysId()).myIncomingTransports, empire.generalAI().troopsNecessaryToTakePlanet(empire.viewForEmpire(fleet.system().empId()), fleet.system())));
                         if(transportsToDealWith > 0)
                         {
                             float TransportKills = fleet.firepowerAntiShip(0) * transportGauntletRounds(max(1, empire.tech().topEngineWarpTech().baseWarp() - 1)) / empire.tech().topArmorTech().transportHP;
@@ -970,7 +970,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                                     float locationBonus = 0;
                                     if(systemInfoBuffer.containsKey(target.id)){
                                         float BonusPerSystem = 0;
-                                        if(empire.allColonizedSystems().size() > 0)
+                                        if(!empire.allColonizedSystems().isEmpty())
                                             BonusPerSystem = 200 * empire.totalPlanetaryPopulation() / empire.allColonizedSystems().size();
                                         locationBonus = BonusPerSystem * systemInfoBuffer.get(target.id).additionalSystemsInRangeWhenColonized;
                                     }
@@ -1507,6 +1507,7 @@ public class AIFleetCommander implements Base, FleetCommander {
         bridgeHeadConfidenceBuffer.put(sys.id, confidence);
         return confidence;
     }
+    @Override
     public boolean incomingInvasion()
     {
         for(Ship sh : empire.visibleShips())
@@ -1518,6 +1519,7 @@ public class AIFleetCommander implements Base, FleetCommander {
         }
         return false;
     }
+    @Override
     public boolean underSiege()
     {
         boolean underSiege = false;

@@ -17,6 +17,7 @@ package rotp.model.ai.interfaces;
 
 import java.util.List;
 import rotp.model.empires.Empire;
+import rotp.model.empires.EmpireView;
 import rotp.model.galaxy.Location;
 import rotp.model.galaxy.StarSystem;
 
@@ -53,4 +54,5 @@ public interface General {
     default float highestProdScore() { return 1f; }
     default float gameProgress() { return 0f; }
     default float predictEmpireChanceToDeclareWarIfIDeclaredWarOn(Empire subject, Empire object, boolean chanceToDeclareWarOnMeInstead) { return 0f; }
+    default float troopsNecessaryToTakePlanet(EmpireView ev, StarSystem sys) { return 0f; }
 }

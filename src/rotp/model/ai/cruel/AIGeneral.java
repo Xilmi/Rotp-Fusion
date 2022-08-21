@@ -466,6 +466,7 @@ public class AIGeneral implements Base, General {
         EmpireView ev = empire.viewForEmpire(empire.sv.empire(id));
         return ev.spies().tech().weapon().techLevel() / empire.tech().construction().techLevel();
     }
+    @Override
     public float troopsNecessaryToTakePlanet(EmpireView ev, StarSystem sys) {
         int id = sys.id;
         
