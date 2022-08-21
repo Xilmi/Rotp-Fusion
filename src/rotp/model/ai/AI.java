@@ -313,7 +313,7 @@ public class AI implements Base { // BR: Tentative
         float killRatio = empire.troopKillRatio(sys);
 
         // if troops in transit CANNOT capture planet and will die anyway, then bombs away!
-        if ((transports * killRatio) < sysPop)
+        if ((transports / killRatio) < sysPop)
             return true;
 
         // else don't bomb
