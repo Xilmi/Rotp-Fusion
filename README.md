@@ -22,6 +22,11 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
+2022.08.21 (Xilmi)
+  - Fixed an issue that could cause AI to bomb when it shouldn't and not bomb when it should.
+  - The amount of ships that cover for an incoming invasion of an enemy planet will be reduced in some cases.
+  - You can now create rally-points by right-clicking a system while having another system selected. This will also shift all rallies going towards the selected system to the right-clicked system. This is a fast and convenient way to quickly reorganize rally-points.
+
 2022.08.17 (Xilmi)
   - The scout-fix from yesterdays version could cause AI to spam lots of colony-ships. This has been fixed.
 
