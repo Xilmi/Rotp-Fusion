@@ -458,9 +458,17 @@ public class MainUI extends BasePanel implements IMapHandler {
             o.click(map, count, rightClick, click);
             if (o.persistOnClick()) {
                 hoveringSprite(null);
-                clickedSprite(o);
+                if(rightClick == true)
+                    handleRightClick(o);
+                else
+                    clickedSprite(o);
             }
             o.repaint(map);
+        }
+    }
+    public void handleRightClick(Sprite s) {
+        if (s instanceof StarSystem && clickedSprite() instanceof StarSystem) {
+            player().changeRalliesFromAToB((StarSystem)clickedSprite(), (StarSystem)s);
         }
     }
     @Override
