@@ -22,6 +22,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
+2022.08.23 (Xilmi)
+  - Fixed a bug that would break tech-trees when using the "Always" option for techs in the "MOD Options B"-menu.
+
 2022.08.21 (Xilmi)
   - Fixed an issue that could cause AI to bomb when it shouldn't and not bomb when it should.
   - The amount of ships that cover for an incoming invasion of an enemy planet will be reduced in some cases.
