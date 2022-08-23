@@ -210,9 +210,8 @@ public final class TechCategory implements Base, Serializable {
     	return allowed;
     }
     @SuppressWarnings("unchecked")
-	private void buildResearchList() {
+    private void buildResearchList() {
         TechCategory baseCat = TechLibrary.baseCategory[index];
-
         Empire emp = tree.empire();
         possibleTechs.clear();
 
@@ -224,15 +223,15 @@ public final class TechCategory implements Base, Serializable {
             String id = baseCat.possibleTechs.get(i);
             Tech t = tech(id);
             if (!t.restricted && emp.canResearch(t) && !t.free
-            		&& isAllowed(id, emp.isPlayer())) { // BR: never add in some Technologies
-				List<String> techs = (List<String>) techsByQuintile[t.quintile()-1];
+                && isAllowed(id, emp.isPlayer())) { // BR: never add in some Technologies
+                List<String> techs = (List<String>) techsByQuintile[t.quintile()-1];
                 techs.add(id);
             }
         }
 
         for (int i=0;i<MAX_QUINTILES;i++) {
             boolean found = false;
-			List<String> techs = (List<String>) techsByQuintile[i];
+            List<String> techs = (List<String>) techsByQuintile[i];
             for (String id: techs) {
                 if (random() <= discoveryPct()) {
                     addPossibleTech(id);
@@ -241,11 +240,11 @@ public final class TechCategory implements Base, Serializable {
             }
             // BR: always add in some Technologies
             for (ParamTech tech : UserPreferences.techModList) {
-    			if (tech.isAlways(index, i, emp.isPlayer())) {
-    				addPossibleTech(tech.techId());
+                if (tech.isAlways(index, i, emp.isPlayer())) {
+                    addPossibleTech(tech.techId());
                     found = true;
-                    return;
-    			}
+                    break;
+                }
             }
             
             if (!found)
