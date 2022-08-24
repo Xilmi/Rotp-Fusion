@@ -1727,7 +1727,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         float indBC = 0;
         int ecoAll = 0;
         int indAll = 0;
-        boolean refit = industry().effectiveRobotControls() < empire().maxRobotControls() && !empire.race().ignoresFactoryRefit;
+        boolean refit = industry().effectiveRobotControls() < empire().maxRobotControls() && !empire.dataRace().ignoresFactoryRefit;
 
         /*
         System.out.println("balance "+this.name()+" popTarget "+popTarget);

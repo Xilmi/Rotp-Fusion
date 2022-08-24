@@ -22,6 +22,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
+2022.08.24 (BR)
+  - Fixed an old bug where "race" and "dataRace" were mixed, affecting the "randomized race abilities"-option.
+
 2022.08.23 (Xilmi)
   - Fixed a bug that would break tech-trees when using the "Always" option for techs in the "MOD Options B"-menu.
 

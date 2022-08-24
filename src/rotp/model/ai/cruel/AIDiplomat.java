@@ -2024,9 +2024,9 @@ public class AIDiplomat implements Base, Diplomat {
     public float aggressiveness(Empire victim) {
         float aggressiveness = this.facCapPct(empire, false);
         float racialMod = 1.0f;
-        if(empire.race().tradePctBonus() > 0 || empire.race().researchBonusPct() > 1.0f)
+        if(empire.dataRace().tradePctBonus() > 0 || empire.dataRace().researchBonusPct() > 1.0f)
             racialMod *= 2f / 3f;
-        if(empire.race().groundAttackBonus() > 0 || empire.race().shipAttackBonus() > 0 || empire.race().shipDefenseBonus() > 0 || empire.race().growthRateMod() > 1.0f)
+        if(empire.dataRace().groundAttackBonus() > 0 || empire.dataRace().shipAttackBonus() > 0 || empire.dataRace().shipDefenseBonus() > 0 || empire.dataRace().growthRateMod() > 1.0f)
             racialMod *= 3f / 2f;
         float personalityMod = 1.0f;
         if(empire.leader().isAggressive() || empire.leader().isRuthless())
