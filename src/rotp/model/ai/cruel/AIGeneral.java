@@ -313,7 +313,7 @@ public class AIGeneral implements Base, General {
     }
     public float invasionCost(EmpireView v, StarSystem sys)
     {
-        float needed = troopsNecessaryToTakePlanet(v, sys);
+        float needed = troopsNecessaryToTakePlanet(v, sys, false);
         float combatTransport = empire.combatTransportPct();
         if(sys.empire().tech().subspaceInterdiction())
             combatTransport /= 2;
@@ -361,10 +361,32 @@ public class AIGeneral implements Base, General {
     public void orderInvasionFleet(EmpireView v, StarSystem sys) {
         launchGroundTroops(v, sys, 1);
     }
-    
+    public float expectedTimeTillInvasion(EmpireView v, StarSystem target)
+    {
+        List<StarSystem> allSystems = empire.allColonizedSystems();
+        float troopsDesired = troopsNecessaryToTakePlanet(v, target, true);
+        float troopsAvailable = 0;
+        float maxTravelTime = 0;
+        float topSpeed = empire.tech().topSpeed();
+        float allowableTurns = (float) (1 + Math.min(7, Math.floor(22 / topSpeed)));
+        for (StarSystem sys : allSystems) {
+            float travelTime = sys.colony().transport().travelTime(target);
+            if (troopsAvailable < troopsDesired) {
+                if ((travelTime <= allowableTurns) && sys.colony().canTransport()) {
+                    maxTravelTime = max(maxTravelTime, travelTime);
+                    // modnar: keep planets at least 60% full
+                    // to prevent complete draining of planets
+                    // TODO: modify with leader personality and source planet fertility
+                    //troopsAvailable += sys.colony().maxTransportsAllowed();
+                    troopsAvailable += Math.max(0.0f, sys.colony().population() - 0.6f*sys.colony().planet().currentSize());
+                }
+            }
+        }
+        return maxTravelTime;
+    }
     public void launchGroundTroops(EmpireView v, StarSystem target, float mult) {
         //float troops0 = troopsNecessaryToBypassBases(target);
-        float needed = mult*troopsNecessaryToTakePlanet(v, target);
+        float needed = mult*troopsNecessaryToTakePlanet(v, target, false);
         float combatTransport = empire.combatTransportPct();
         if(target.empire().tech().subspaceInterdiction())
             combatTransport /= 2;
@@ -386,7 +408,9 @@ public class AIGeneral implements Base, General {
 
         float troopsAvailable = 0;
         float maxTravelTime = 0;
-
+        float topSpeed = empire.tech().topSpeed();
+        float allowableTurns = (float) (1 + Math.min(7, Math.floor(22 / topSpeed)));
+        
         for (StarSystem sys : allSystems) {
             if (troopsAvailable < troopsDesired) {
                 float travelTime = sys.colony().transport().travelTime(target);
@@ -397,8 +421,6 @@ public class AIGeneral implements Base, General {
                 // transport speed: 1, 1, 2, 3, 4, 5, 6, 7, 8
                 // allowableTurns:  8, 8, 8, 6 ,5, 4, 4, 3, 3
                 // max distance:    8, 8,16,18,20,20,24,21,24
-                float topSpeed = empire.tech().topSpeed();
-                float allowableTurns = (float) (1 + Math.min(7, Math.floor(22 / topSpeed)));
                 if ((travelTime <= allowableTurns) && sys.colony().canTransport()) {
                     launchPoints.add(sys);
                     maxTravelTime = max(maxTravelTime, travelTime);
@@ -466,25 +488,49 @@ public class AIGeneral implements Base, General {
         EmpireView ev = empire.viewForEmpire(empire.sv.empire(id));
         return ev.spies().tech().weapon().techLevel() / empire.tech().construction().techLevel();
     }
-    @Override
-    public float troopsNecessaryToTakePlanet(EmpireView ev, StarSystem sys) {
+    public float troopsNecessaryToTakePlanet(EmpireView ev, StarSystem sys, boolean atCurrentPop) {
         int id = sys.id;
         
         // modnar: (?) this old estimate gives completely wrong results for ground combat
         //return empire.sv.population(id) * (50 + ev.spies().tech().troopCombatAdj(true)) / (50 + empire.tech().troopCombatAdj(false));
-        
+        float expectedTargetPopulation = empire.sv.population(id);
+        // xilmi: we can't just assume the population won't change until our troops arrive. We most likely will be bombarding and killing quite a bunch.
+        if(!atCurrentPop) {
+            // xilmi: first we need to make an assumption about how many turns will pass until our invasion will arrive
+            float turnsTillInvasion = expectedTimeTillInvasion(ev, sys);
+            float killed = 0;
+            for(ShipFleet fl : sys.orbitingFleets())
+            {
+                if(fl.empire() == empire)
+                    killed += Math.round(fl.expectedBombardDamage() / 200f) * turnsTillInvasion;
+            }
+            for(ShipFleet fl : sys.incomingFleets())
+            {
+                if(fl.empire() == empire)
+                    killed += Math.round(fl.expectedBombardDamage() / 200f) * (turnsTillInvasion - fl.travelTurnsRemaining());
+            }
+            killed *= empire.fleetCommanderAI().bridgeHeadConfidence(sys); //multiply with bridge-head-confidence to take into account we might be shooed away
+            float born = 0;
+            born += sys.colony().normalPopGrowth() * turnsTillInvasion;
+            born += (sys.colony().totalIncome() / ev.empire().tech().populationCost()) * turnsTillInvasion;
+            //System.out.println(galaxy().currentTurn()+" "+empire.name()+" considering invasion of "+sys.name()+" born per year: "+(sys.colony().normalPopGrowth()+(sys.colony().totalIncome() / ev.empire().tech().populationCost()))+" in "+turnsTillInvasion+" years resulting in total born: "+born);
+            expectedTargetPopulation += born;
+            expectedTargetPopulation -= killed;
+            expectedTargetPopulation = max(0, min(expectedTargetPopulation, sys.planet().maxSize()));
+            //System.out.println(galaxy().currentTurn()+" "+empire.name()+" considering invasion of "+sys.name()+" expect "+born+" to be born, "+killed+" to be killed and thus a population of "+expectedTargetPopulation);
+        }
         // modnar: correct ground combat ratio estimates for troopsNecessary
         if (ev.spies().tech().troopCombatAdj(true) >= empire.tech().troopCombatAdj(false)) {
             float defAdv = ev.spies().tech().troopCombatAdj(true) - empire.tech().troopCombatAdj(false);
             // killRatio = attackerCasualties / defenderCasualties
             float killRatio = (float) ((Math.pow(100,2) - Math.pow(100-defAdv,2)/2) / (Math.pow(100-defAdv,2)/2));
-            return empire.sv.population(id) * killRatio;
+            return expectedTargetPopulation * killRatio;
         }
         else {
             float atkAdv = empire.tech().troopCombatAdj(false) - ev.spies().tech().troopCombatAdj(true);
             // killRatio = attackerCasualties / defenderCasualties
             float killRatio = (float) ((Math.pow(100-atkAdv,2)/2) / (Math.pow(100,2) - Math.pow(100-atkAdv,2)/2));
-            return empire.sv.population(id) * killRatio;
+            return expectedTargetPopulation * killRatio;
         }
     }
     public int transportGauntletRounds(float speed) {
@@ -1164,7 +1210,7 @@ public class AIGeneral implements Base, General {
         Empire emp = sys.empire();
         if(empire.enemies().contains(emp))
         {
-            if(empire.transportsInTransit(sys) > troopsNecessaryToTakePlanet(empire.viewForEmpire(emp), sys) + expectedEnemyTransportKillPower(sys) * (1 - empire.fleetCommanderAI().bridgeHeadConfidence(sys)))
+            if(empire.transportsInTransit(sys) > troopsNecessaryToTakePlanet(empire.viewForEmpire(emp), sys, true) + expectedEnemyTransportKillPower(sys) * (1 - empire.fleetCommanderAI().bridgeHeadConfidence(sys)))
                 return false;
             return true;
         }
