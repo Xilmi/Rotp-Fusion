@@ -27,6 +27,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
   - Better integration of Modnar races abilities thru Race and RaceFactory classes (will be needed later).
   - Corrected Misnamed folders starting with a capital letter.
   - Corrected a syntax error in a property name.
+  - Some more "race" to "dataRace" correction.
 
 2022.08.23 (Xilmi)
   - Fixed a bug that would break tech-trees when using the "Always" option for techs in the "MOD Options B"-menu.

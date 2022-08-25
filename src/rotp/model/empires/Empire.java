@@ -923,8 +923,8 @@ public final class Empire implements Base, NamedObject, Serializable {
             col.nextTurn();
         }
         // modnar: newRace GearHead gets 0.25 BC directly from 1.0 POP
-        if (race().homeworldKey() == 10101)
-            addToTreasury(0.25f*totalPlanetaryPopulation());
+        // BR: direct call to Race
+        addToTreasury(dataRace().bCBonus() * totalPlanetaryPopulation());
         recalcPlanetaryProduction();
     }
     public void postNextTurn() {
@@ -1653,7 +1653,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
 
         BiPredicate<ShipDesign, Integer> designFitForSystem =
-            (sd, si) -> race().ignoresPlanetEnvironment() ||
+            (sd, si) -> dataRace().ignoresPlanetEnvironment() ||
                     (canColonize(si) && sd.colonySpecial().canColonize(sv.system(si).planet().type()));
 
         boolean extendedRange = hasExtendedRange(designs);
@@ -1666,7 +1666,7 @@ public final class Empire implements Base, NamedObject, Serializable {
 
                 // if we don't have tech or ships to colonize this planet, ignore it.
                 // Since 2.15, for a game with restricted colonization option, we have to check each design if it can colonize
-                if (!race().ignoresPlanetEnvironment()) {
+                if (!dataRace().ignoresPlanetEnvironment()) {
                     boolean canColonize = false;
                     for (ShipDesign sd: designs) {
                         if (this.canColonize(i) && sd.colonySpecial().canColonize(sv.system(i).planet().type())) {
@@ -3409,9 +3409,8 @@ public final class Empire implements Base, NamedObject, Serializable {
             int[] counts = galaxy().ships.shipDesignCounts(id);
             float cost = 0;
             // modnar: newRace GearHead gets 50% ship maintenance cost
-            float raceBonus = 1.0f;
-            if (race().homeworldKey() == 10101)
-                raceBonus = 0.5f;
+            // BR: Made dataRace call
+            float raceBonus = dataRace().maintenanceFactor();
             for (int i=0;i<counts.length;i++) 
                 cost += (counts[i] * shipLab.design(i).cost());      
             totalEmpireShipMaintenanceCost = cost * SHIP_MAINTENANCE_PCT * raceBonus;
@@ -3423,9 +3422,8 @@ public final class Empire implements Base, NamedObject, Serializable {
         if (totalEmpireStargateCost < 0) {
             float totalCostBC = 0;
             // modnar: newRace GearHead gets 50% stargate maintenance cost
-            float raceBonus = 1.0f;
-            if (race().homeworldKey() == 10101)
-                raceBonus = 0.5f;
+             // BR: Made dataRace call
+           float raceBonus = dataRace().maintenanceFactor();
             List<StarSystem> allSystems = new ArrayList<>(allColonizedSystems());
             for (StarSystem sys: allSystems)
                 totalCostBC += sys.colony().shipyard().stargateMaintenanceCost();
@@ -3437,9 +3435,8 @@ public final class Empire implements Base, NamedObject, Serializable {
         if (totalEmpireMissileBaseCost < 0) {
             float totalCostBC = 0;
             // modnar: newRace GearHead gets 50% base maintenance cost
-            float raceBonus = 1.0f;
-            if (race().homeworldKey() == 10101)
-                raceBonus = 0.5f;
+            // BR: Made dataRace call
+            float raceBonus = dataRace().maintenanceFactor();
             List<StarSystem> allSystems = new ArrayList<>(allColonizedSystems());
             Map<MissileBase, Float> baseCosts = new HashMap<>();
             for (StarSystem sys: allSystems)
