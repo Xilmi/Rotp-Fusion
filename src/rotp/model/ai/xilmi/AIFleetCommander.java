@@ -842,7 +842,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                         if(fleet.system().empire() == empire || empire.enemies().contains(fleet.system().empire()))
                             transportsToDealWith = systemInfoBuffer.get(fleet.sysId()).enemyIncomingTransports;
                         if(empire.enemies().contains(fleet.system().empire())) 
-                            transportsToDealWith = max(transportsToDealWith, min(systemInfoBuffer.get(fleet.sysId()).myIncomingTransports, empire.generalAI().troopsNecessaryToTakePlanet(empire.viewForEmpire(fleet.system().empId()), fleet.system())));
+                            transportsToDealWith = max(transportsToDealWith, systemInfoBuffer.get(fleet.sysId()).myIncomingTransports);
                         if(transportsToDealWith > 0)
                         {
                             float TransportKills = fleet.firepowerAntiShip(0) * transportGauntletRounds(max(1, empire.tech().topEngineWarpTech().baseWarp() - 1)) / empire.tech().topArmorTech().transportHP;
