@@ -15,7 +15,7 @@
  */
 package rotp.ui.game;
 
-import static rotp.ui.UserPreferences.artifactHomeworld;
+import static rotp.ui.UserPreferences.artifactsHomeworld;
 import static rotp.ui.UserPreferences.fertileHomeworld;
 import static rotp.ui.UserPreferences.richHomeworld;
 import static rotp.ui.UserPreferences.ultraRichHomeworld;
@@ -67,7 +67,7 @@ public class StartModAOptionsUI extends AbstractOptionsUI {
 		// Complete this table... Et Voilà!
 		// For Mixed Setup keep "paintComponent" up to date
 		// First column (left)
-		btList.add(artifactHomeworldText	= newBT()); paramList.add(artifactHomeworld);
+		btList.add(artifactHomeworldText	= newBT()); paramList.add(artifactsHomeworld);
 		btList.add(fertileHomeworldText		= newBT()); paramList.add(fertileHomeworld);
 		btList.add(richHomeworldText		= newBT()); paramList.add(richHomeworld);
 		btList.add(ultraRichHomeworldText	= newBT()); paramList.add(ultraRichHomeworld);

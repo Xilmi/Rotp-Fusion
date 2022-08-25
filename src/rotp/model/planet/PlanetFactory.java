@@ -15,7 +15,7 @@
  */
 package rotp.model.planet;
 
-import static rotp.ui.UserPreferences.artifactHomeworld;
+import static rotp.ui.UserPreferences.artifactsHomeworld;
 import static rotp.ui.UserPreferences.fertileHomeworld;
 import static rotp.ui.UserPreferences.richHomeworld;
 import static rotp.ui.UserPreferences.ultraRichHomeworld;
@@ -94,8 +94,8 @@ public class PlanetFactory implements Base {
 				|| (!ultraRichHomeworld.isNever(isPlayer)
 						&&r.homeworldKey() == 8888))
 			p.setResourceUltraRich();
-		if (artifactHomeworld.isAlways(isPlayer)
-				|| (!artifactHomeworld.isNever(isPlayer)
+		if (artifactsHomeworld.isAlways(isPlayer)
+				|| (!artifactsHomeworld.isNever(isPlayer)
 						&&r.homeworldKey() == 1337)) {
 			p.setArtifactRace();
 		}

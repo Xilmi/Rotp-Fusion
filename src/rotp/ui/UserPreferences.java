@@ -79,13 +79,13 @@ public class UserPreferences {
 
 	// MOD GUI OPTIONS: I don't likes informations spread everywhere... Then here they are!
 	// BR: ===== First Mod GUI: 
-	public static final ParamAAN2 artifactHomeworld	= new ParamAAN2("HOME_ARTIFACT");
-	public static final ParamAAN2 fertileHomeworld = new ParamAAN2("HOME_FERTILE");
-	public static final ParamAAN2 richHomeworld 		= new ParamAAN2("HOME_RICH");
+	public static final ParamAAN2 artifactsHomeworld = new ParamAAN2("HOME_ARTIFACT");
+	public static final ParamAAN2 fertileHomeworld	 = new ParamAAN2("HOME_FERTILE");
+	public static final ParamAAN2 richHomeworld 	 = new ParamAAN2("HOME_RICH");
 	public static final ParamAAN2 ultraRichHomeworld = new ParamAAN2("HOME_ULTRA_RICH");
 
 	public static final LinkedList<AbstractParam<?>> modA = new LinkedList<>(Arrays.asList(
-			artifactHomeworld, fertileHomeworld, richHomeworld,ultraRichHomeworld
+			artifactsHomeworld, fertileHomeworld, richHomeworld,ultraRichHomeworld
 			));
 
 	// BR: ===== Second Mod GUI:

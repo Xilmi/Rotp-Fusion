@@ -20,7 +20,7 @@ package mod.br.profileManager;
 import static br.profileManager.src.main.java.Validation.History.Current;
 import static br.profileManager.src.main.java.Validation.History.Default;
 import static br.profileManager.src.main.java.Validation.History.Initial;
-import static rotp.ui.UserPreferences.artifactHomeworld;
+import static rotp.ui.UserPreferences.artifactsHomeworld;
 import static rotp.ui.UserPreferences.fertileHomeworld;
 import static rotp.ui.UserPreferences.richHomeworld;
 import static rotp.ui.UserPreferences.ultraRichHomeworld;
@@ -53,7 +53,7 @@ class Group_Mod_A extends  AbstractGroup <ClientClasses> {
 	}
 
 	@Override protected void initSettingList(ClientClasses go) {
-		addParameter(new AAN2Param(go, artifactHomeworld));
+		addParameter(new AAN2Param(go, artifactsHomeworld));
 		addParameter(new AAN2Param(go, fertileHomeworld));
 		addParameter(new AAN2Param(go, richHomeworld));
 		addParameter(new AAN2Param(go, ultraRichHomeworld));
