@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package mod.br.AddOns;
+package mod.br.addOns;
 
 import static br.profileManager.src.main.java.WriteUtil.isBlank;
 

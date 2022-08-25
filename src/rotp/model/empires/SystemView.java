@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import rotp.mod.br.AddOns.MiscellaneousOptions;
+import rotp.mod.br.addOns.MiscellaneousOptions;
 import rotp.mod.br.profiles.Profiles;
 import rotp.model.ai.FleetPlan;
 import rotp.model.colony.Colony;

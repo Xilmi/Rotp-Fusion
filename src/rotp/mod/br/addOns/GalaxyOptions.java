@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-package rotp.mod.br.AddOns;
+package rotp.mod.br.addOns;
 
-import mod.br.AddOns.StarsOptions;
+import mod.br.addOns.StarsOptions;
 
 /**
  * @author BrokenRegistry

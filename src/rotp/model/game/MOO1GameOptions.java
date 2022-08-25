@@ -25,7 +25,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import rotp.mod.br.AddOns.GalaxyOptions; // BR:
+import rotp.mod.br.addOns.GalaxyOptions;
 import rotp.mod.br.profiles.Profiles; // BR:
 import rotp.model.ai.AI;
 import rotp.model.empires.Empire;

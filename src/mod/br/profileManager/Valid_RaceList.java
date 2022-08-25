@@ -15,7 +15,7 @@
 
 package mod.br.profileManager;
 
-import static mod.br.AddOns.RaceOptions.raceFilter;
+import static mod.br.addOns.RaceOptions.raceFilter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 import br.profileManager.src.main.java.AbstractT;
 import br.profileManager.src.main.java.PMutil;
 import br.profileManager.src.main.java.Validation;
-import mod.br.AddOns.RaceOptions;
+import mod.br.addOns.RaceOptions;
 import rotp.model.game.IGameOptions;
 
 /**

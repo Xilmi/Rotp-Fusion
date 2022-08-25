@@ -20,11 +20,11 @@ package mod.br.profileManager;
 import static br.profileManager.src.main.java.Validation.History.Current;
 import static br.profileManager.src.main.java.Validation.History.Default;
 import static br.profileManager.src.main.java.Validation.History.Initial;
-import static mod.br.AddOns.StarsOptions.ALL_PLANETS_KEY;
-import static mod.br.AddOns.StarsOptions.PLANET_TYPES;
-import static mod.br.AddOns.StarsOptions.STARS_KEY;
-import static mod.br.AddOns.StarsOptions.STAR_TYPES;
-import static mod.br.AddOns.StarsOptions.probabilityModifier;
+import static mod.br.addOns.StarsOptions.ALL_PLANETS_KEY;
+import static mod.br.addOns.StarsOptions.PLANET_TYPES;
+import static mod.br.addOns.StarsOptions.STARS_KEY;
+import static mod.br.addOns.StarsOptions.STAR_TYPES;
+import static mod.br.addOns.StarsOptions.probabilityModifier;
 
 import java.util.List;
 
@@ -33,8 +33,8 @@ import br.profileManager.src.main.java.AbstractParameter;
 import br.profileManager.src.main.java.AbstractT;
 import br.profileManager.src.main.java.T_Float;
 import br.profileManager.src.main.java.Valid_IntegerWithList;
-import mod.br.AddOns.Miscellaneous;
-import mod.br.AddOns.StarsOptions.ProbabilityModifier;
+import mod.br.addOns.Miscellaneous;
+import mod.br.addOns.StarsOptions.ProbabilityModifier;
 
 
 /**

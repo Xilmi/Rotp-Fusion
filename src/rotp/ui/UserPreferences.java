@@ -28,7 +28,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 import rotp.Rotp;
-import rotp.mod.br.AddOns.ShipSetAddOns;
+import rotp.mod.br.addOns.ShipSetAddOns;
 import rotp.model.events.RandomEvents;
 import rotp.model.game.GameSession;
 import rotp.ui.game.StartModBOptionsUI;

@@ -43,7 +43,7 @@ import br.profileManager.src.main.java.Options;
 import br.profileManager.src.main.java.T_Integer;
 import br.profileManager.src.main.java.T_String;
 import br.profileManager.src.main.java.Validation;
-import mod.br.AddOns.RaceOptions;
+import mod.br.addOns.RaceOptions;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.GalaxyBullseyeShape;
 import rotp.model.galaxy.GalaxyClusterShape;

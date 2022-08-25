@@ -23,7 +23,7 @@ import br.profileManager.src.main.java.AbstractGroup;
 import br.profileManager.src.main.java.AbstractParameter;
 import br.profileManager.src.main.java.AbstractProfiles;
 import br.profileManager.src.main.java.Valid_LocalEnable;
-import mod.br.AddOns.RaceOptions;
+import mod.br.addOns.RaceOptions;
 import rotp.Rotp;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.StartModAOptionsUI;

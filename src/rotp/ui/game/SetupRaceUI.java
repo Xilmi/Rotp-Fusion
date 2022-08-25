@@ -37,7 +37,8 @@ import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTextField;
-import rotp.mod.br.AddOns.ShipSetAddOns;
+
+import rotp.mod.br.addOns.ShipSetAddOns;
 import rotp.mod.br.profiles.Profiles;
 import rotp.model.empires.Race;
 import rotp.model.ships.ShipImage;

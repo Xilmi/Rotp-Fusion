@@ -30,7 +30,7 @@ import br.profileManager.src.main.java.AbstractT;
 import br.profileManager.src.main.java.T_String;
 import br.profileManager.src.main.java.Valid_IntegerWithList;
 import br.profileManager.src.main.java.Validation;
-import mod.br.AddOns.ShipSetOptions;
+import mod.br.addOns.ShipSetOptions;
 
 /**
  * @author BrokenRegistry

@@ -19,7 +19,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import rotp.mod.br.AddOns.RacesOptions;
+import rotp.mod.br.addOns.RacesOptions;
 import rotp.mod.br.profiles.Profiles; // BR:
 import rotp.model.ai.AI;
 import rotp.model.empires.Empire;

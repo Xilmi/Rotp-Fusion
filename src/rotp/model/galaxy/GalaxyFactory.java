@@ -21,8 +21,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import rotp.mod.br.AddOns.RacesOptions;
-import rotp.mod.br.AddOns.ShipSetAddOns;
+import rotp.mod.br.addOns.RacesOptions;
+import rotp.mod.br.addOns.ShipSetAddOns;
 import rotp.model.empires.Empire;
 import rotp.model.empires.Leader;
 import rotp.model.empires.Race;

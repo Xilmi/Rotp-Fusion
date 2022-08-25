@@ -23,7 +23,7 @@ import java.util.List;
 import br.profileManager.src.main.java.AbstractT;
 import br.profileManager.src.main.java.PMutil;
 import br.profileManager.src.main.java.Validation;
-import mod.br.AddOns.RaceOptions;
+import mod.br.addOns.RaceOptions;
 import rotp.model.game.IGameOptions;
 
 /**
