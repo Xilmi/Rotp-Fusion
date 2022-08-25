@@ -128,7 +128,8 @@ public enum RaceFactory implements Base {
         if (key.equalsIgnoreCase("year"))             { r.startingYear = parseInt(value); return; }
         if (key.equalsIgnoreCase("homestarType"))     { r.homeworldStarType = value; return; }
         if (key.equalsIgnoreCase("homeworldType"))    { r.homeworldPlanetType = value; return; }
-        if (key.equalsIgnoreCase("homeworldKey"))     { r.homeworldKey(parseInt(value)); return; }
+//        if (key.equalsIgnoreCase("homeworldKey"))     { r.homeworldKey(parseInt(value)); return; }
+        if (key.equalsIgnoreCase("homeworldKey"))     { parseHomeWorlKey(r, value); return; }
         if (key.equalsIgnoreCase("homeworldSize"))    { r.homeworldSize = parseInt(value); return; }
         if (key.equalsIgnoreCase("mugshot"))          { r.mugshotKey = value; return; }
         if (key.equalsIgnoreCase("diploProfile"))     { r.wideMugshotKey = value; return; }
@@ -268,6 +269,28 @@ public enum RaceFactory implements Base {
         if (key.equalsIgnoreCase("ship4"))         { r.shipNamesHuge.clear(); r.shipNamesHuge.addAll(substrings(value, ',')); return wc; }
         err("unknown key->", input);
         return 0;
+    }
+    private void parseHomeWorlKey(Race r, String value) {
+    	int key = parseInt(value);
+    	r.homeworldKey(key);
+    	switch (key) {
+    	case 888:
+    		r.hPFactor(0.666f);
+    		r.shipSpaceFactor(1.4f);
+    		r.planetRessource("Rich");
+    		return;
+    	case 1337:
+    		r.planetRessource("Artifacts");
+    		r.planetEnvironment("Fertile");
+    		return;
+    	case 8888:
+    		r.planetRessource("UltraRich");
+    		return;
+    	case 10101:
+    		r.bCBonus(0.25f);
+    		r.maintenanceFactor(0.5f);
+    		return;
+    	}
     }
     private void parseDialogTextMargins(Race r, List<String> vals) {
         if (vals.size() < 2)

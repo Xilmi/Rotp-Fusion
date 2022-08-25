@@ -20,10 +20,14 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 import rotp.model.empires.Leader.Objective;
 import rotp.model.empires.Leader.Personality;
 import rotp.model.planet.PlanetType;
@@ -132,6 +136,15 @@ public class Race implements Base, Serializable {
     private final HashMap<String, Integer> raceRelations = new HashMap<>();
     private LabelManager labels;
 
+    // BR: Settings that where encoded in "HomeworldKey"
+    private float bCBonus = 0f;
+    private float hPFactor = 1f;
+    private float maintenanceFactor = 1f;
+    private float shipSpaceFactor = 1f;
+    private String planetType = PlanetType.TERRAN;
+    private String planetRessource = "Normal";
+    private String planetEnvironment = "Normal";
+    // \BR:
     public int startingYear;
     public int speciesType;
     public String homeworldStarType;
@@ -305,6 +318,46 @@ public class Race implements Base, Serializable {
     public void title(String s)               { title = s; }
     public String fullTitle()                 { return fullTitle; }
     public void fullTitle(String s)           { fullTitle = s; }
+    // BR: Get the values encoded in HomeworldKey
+    public float bCBonus()                    { return bCBonus; }
+    public void  bCBonus(float val)           { bCBonus = val; }
+    public float hPFactor()                   { return hPFactor;  }
+    public void  hPFactor(float val)          { hPFactor = val; }
+    public float maintenanceFactor()          { return maintenanceFactor; }
+    public void  maintenanceFactor(float val) { maintenanceFactor = val; }
+    public float shipSpaceFactor()            { return shipSpaceFactor; }
+    public void  shipSpaceFactor(float val)   { shipSpaceFactor = val; }
+    public String planetType()                { return planetType; }
+    public void   planetType(String s)        { planetType = s; }
+    public String planetRessource()           { return planetRessource; }
+    public void   planetRessource(String s)   { planetRessource = s; }
+    public String planetEnvironment()         { return planetEnvironment; }
+    public void   planetEnvironment(String s) { planetEnvironment = s; }
+
+    public boolean raceWithUltraPoorHomeworld() {
+        return planetRessource.equalsIgnoreCase("UltraPoor");
+    }
+    public boolean raceWithPoorHomeworld() {
+        return planetRessource.equalsIgnoreCase("Poor");
+    }
+    public boolean raceWithRichHomeworld() {
+        return planetRessource.equalsIgnoreCase("Rich");
+    }
+    public boolean raceWithUltraRichHomeworld() {
+        return planetRessource.equalsIgnoreCase("UltraRich");
+    }
+    public boolean raceWithArtifactsHomeworld() {
+        return planetRessource.equalsIgnoreCase("Artifacts");
+    }
+    public boolean raceWithHostileHomeworld() {
+        return planetEnvironment.equalsIgnoreCase("Hostile");
+    }
+    public boolean raceWithFertileHomeworld() {
+        return planetEnvironment.equalsIgnoreCase("Fertile");
+    }
+    public boolean raceWithGaiaHomeworld() {
+        return planetEnvironment.equalsIgnoreCase("Gaia");
+    }
 
     public float defaultRaceRelations()       { return defaultRaceRelations; }
     public void defaultRaceRelations(int d)   { defaultRaceRelations = d; }
