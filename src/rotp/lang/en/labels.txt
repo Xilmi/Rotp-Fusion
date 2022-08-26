@@ -11,6 +11,9 @@ NUM_FORMAT_THOUSANDS              | %1K
 NUM_FORMAT_MILLIONS               | %1M
 NUM_FORMAT_BILLIONS               | %1B
 
+// Basic Boolean Display
+BOOLEAN_YES                       | Yes
+BOOLEAN_NO                        | No
 // Star descriptions
 RED_STAR_DESCRIPTION              | Red stars are old and dull stars that commonly have poor planets.
 YELLOW_STAR_DESCRIPTION           | Yellow stars offer the best chance of discovering terran and sub-terran planets.
@@ -1336,6 +1339,62 @@ SETUP_SWIRLCLUSTERS_0             | Clusters Along
 SETUP_SWIRLCLUSTERS_1             | Clusters Across
 SETUP_SWIRLCLUSTERS_2             | No Clusters
 SETUP_NOT_AVAILABLE               | N/A
+// BR: config Player Race
+SETUP_BUTTON_CUSTOM_PLAYER_RACE   | Customize Player Race
+
+// BR: Customize Player Race
+CUSTOM_RACE_GUI_TITLE    		  | Player Race Customization
+CUSTOM_RACE_GUI_COST    		  | Total Cost: %1
+CUSTOM_RACE_GUI_SELECT    		  | Select
+CUSTOM_RACE_GUI_RANDOM    		  | Randomize
+CUSTOM_RACE_RANDOM_MEAN    		  | Total Cost Target
+CUSTOM_RACE_RANDOM_STDEV    	  | Standard Deviation
+CUSTOM_RACE_BASE_DATARACE         | Base Data Race
+CUSTOM_RACE_HOME_TYPE             | Planet Type
+CUSTOM_RACE_HOME_SIZE             | Planet Size
+CUSTOM_RACE_HOME_RESOURCES        | Planet Ressources
+CUSTOM_RACE_HOME_ENVIRONMENT      | Planet Environment
+CUSTOM_RACE_RACE_TYPE             | Species Type
+CUSTOM_RACE_RACE_TERRAN           | Terran
+CUSTOM_RACE_RACE_AQUATIC          | Aquatic
+CUSTOM_RACE_RACE_SILICATE         | Silicate
+CUSTOM_RACE_RACE_ROBOTIC          | Robotic
+CUSTOM_RACE_IGNORES_ECO           | Race Ignores Eco
+CUSTOM_RACE_PROPERTIE             | Race Propertie
+CUSTOM_RACE_CREDIT                | Credits Bonus
+CUSTOM_RACE_HIT_POINTS            | Hit Point Factor
+CUSTOM_RACE_MAINTENANCE           | Maintenance Factor
+CUSTOM_RACE_SHIP_SPACE            | Ship Space Factor
+CUSTOM_RACE_SHIP_ATTACK           | Ship Attack Bonus
+CUSTOM_RACE_SHIP_DEFENSE          | Ship Defense Bonus
+CUSTOM_RACE_SHIP_INITIATIVE       | Ship Initiative Bonus
+CUSTOM_RACE_GROUND_ATTACK         | Ground Attack Bonus
+CUSTOM_RACE_SPY_COST              | Spy Cost
+CUSTOM_RACE_SPY_SECURITY          | Spy Security
+CUSTOM_RACE_SPY_INFILTRATION      | Spy Infiltration
+CUSTOM_RACE_SPY_TELEPATHY         | Spy Telepathy
+CUSTOM_RACE_SPY_RELATIONS         | Spy Relations
+CUSTOM_RACE_PROD_WORKER           | Worker Production
+CUSTOM_RACE_PROD_CONTROL          | Factory Control
+CUSTOM_RACE_PROD_REFIT_COST       | Ignores Refit Cost
+CUSTOM_RACE_TECH_DISCOVERY        | Tech Discovery
+CUSTOM_RACE_TECH_RESEARCH         | Tech Research
+CUSTOM_RACE_POP_GROW_RATE         | Population Grow Rate
+CUSTOM_RACE_DIPLOMACY_TRADE       | Trade Bonus
+CUSTOM_RACE_DIPLO_POS_DP          | Diplo Pos DP
+CUSTOM_RACE_DIPLOMACY_BONUS       | Diplomacy Bonus
+CUSTOM_RACE_DIPLOMACY_COUNCIL     | Council Bonus
+CUSTOM_RACE_RELATION_DEFAULT      | Default Race Relation
+CUSTOM_RACE_RESEARCH_COMPUTER     | Study Cost Computer
+CUSTOM_RACE_RESEARCH_CONSTRUCTION | Study Cost Construction
+CUSTOM_RACE_RESEARCH_FORCEFIELD   | Study Cost Force Field
+CUSTOM_RACE_RESEARCH_PLANET       | Study Cost Planet
+CUSTOM_RACE_RESEARCH_PROPULSION   | Study Cost Propulsion
+CUSTOM_RACE_RESEARCH_WEAPON       | Study Cost Weapon
+
+
+CUSTOM_RACE_RESOURCES_NORMAL      | Normal
+CUSTOM_RACE_ENVIRONMENT_NORMAL    | Normal
 
 // Advanced Settings
 SETTINGS_TITLE                    | Advanced Game Options
@@ -1453,6 +1512,12 @@ SETTINGS_MOD_TECH_TRANSPORTERS_DESC      | (Level 45) {Always, Never, Auto} Incl
 SETTINGS_MOD_TECH_TRANSPORTERS           | Tech Combat Transporter: %1
 SETTINGS_MOD_TECH_TERRAFORM_120_DESC     | (Level 50) {Always, Never, Auto} Include "Improved Terraforming 120" in the Tech Tree for Player/AI.
 SETTINGS_MOD_TECH_TERRAFORM_120          | Tech Terraforming 120: %1
+SETTINGS_MOD_RACES_RAND_AVG_DESC         | Targeted average value for Alien races randomization (Total)
+SETTINGS_MOD_RACES_RAND_AVG              | Average: %1
+SETTINGS_MOD_RACES_RAND_STDEV_DESC       | Targeted standard deviation value for Alien races randomization (per setting)
+SETTINGS_MOD_RACES_RAND_STDEV            | Standard Deviation: %1
+SETTINGS_MOD_RACES_ARE_RANDOM_DESC       | Alien races settings are randomized
+SETTINGS_MOD_RACES_ARE_RANDOM            | Aliens Are Random: %1
 
 // BR: View Settings UI panel for MOD game options
 SETTINGS_MOD_TITLE_VIEW                  | Display Settings MOD Options

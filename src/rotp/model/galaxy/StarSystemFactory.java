@@ -40,7 +40,7 @@ public class StarSystemFactory implements Base {
         sys.name(text("PLANET_ORION"));
         return sys;
     }
-    public StarSystem newSystemForRace(Race r, Galaxy gal) {
+    public StarSystem newSystemForRace(Race r, Race dr, Galaxy gal) { // BR: added dataRace
         IGameOptions opts = GameSession.instance().options();
         String type;
         // BR: if symmetric all race have same home system type
@@ -52,15 +52,15 @@ public class StarSystemFactory implements Base {
         }
         StarSystem sys = StarSystem.create(type, gal);
         // BR: added player identification
-        sys.planet(PlanetFactory.createHomeworld(r, sys, session().populationBonus(), false));
+        sys.planet(PlanetFactory.createHomeworld(r, dr, sys, session().populationBonus(), false));
         return sys;
     }
-    public StarSystem newSystemForPlayer(Race r, Galaxy gal) {
+    public StarSystem newSystemForPlayer(Race r, Race dr, Galaxy gal) { // BR: added dataRace
         IGameOptions opts = GameSession.instance().options();
-        String type = opts.randomPlayerStarType(r);
+        String type = opts.randomPlayerStarType(dr);
         StarSystem sys = StarSystem.create(type, gal);
         // BR: added player identification for extra
-        sys.planet(PlanetFactory.createHomeworld(r, sys, session().populationBonus(), true));
+        sys.planet(PlanetFactory.createHomeworld(r, dr, sys, session().populationBonus(), true));
         return sys;
     }
     // modnar: add option to start game with additional colonies

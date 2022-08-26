@@ -31,7 +31,7 @@ public class BaseText implements Base {
 
 
     private final BasePanel panel;
-    private final Color enabledC, disabledC, hoverC, depressedC, shadeC;
+    private Color enabledC, disabledC, hoverC, depressedC, shadeC; // BR not final
     private final int topLBdr, btmRBdr, bdrStep;
     private final Rectangle bounds = new Rectangle();
     private String text, hoverText;
@@ -49,6 +49,21 @@ public class BaseText implements Base {
     private int yOrig;
     BaseText preceder;
 
+    /**
+     * @param p		BasePanel
+     * @param logo	logoFont
+     * @param fSize	fontSize
+     * @param x1	xOrig
+     * @param y1	yOrig
+     * @param c1	enabledC
+     * @param c2	disabledC
+     * @param c3	hoverC
+     * @param c4	depressedC
+     * @param c5	shadeC
+     * @param i1	bdrStep
+     * @param i2	topLBdr
+     * @param i3	btmRBdr
+     */
     public BaseText(BasePanel p, boolean logo, int fSize, int x1, int y1, Color c1, Color c2, Color c3, Color c4, Color c5, int i1, int i2, int i3) {
         panel = p;
         
@@ -66,6 +81,9 @@ public class BaseText implements Base {
         bdrStep = i1;
         topLBdr = i2;
         btmRBdr = i3;
+    }
+    public void enabledC(Color newColor) { // BR: for triple-color management
+    	enabledC = newColor;
     }
     public void setScaledXY(int x1, int y1) {
         xOrig = unscaled(x1);

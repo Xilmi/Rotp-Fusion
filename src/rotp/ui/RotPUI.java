@@ -61,6 +61,7 @@ import rotp.ui.game.GameOverUI;
 import rotp.ui.game.GameSettingsUI;
 import rotp.ui.game.GameUI;
 import rotp.ui.game.LoadGameUI;
+import rotp.ui.game.PlayerRaceCustomizationUI;
 import rotp.ui.game.RaceIntroUI;
 import rotp.ui.game.SaveGameUI;
 import rotp.ui.game.SetupGalaxyUI;
@@ -234,6 +235,8 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     private final StartModBOptionsUI startModBOptionsUI = new StartModBOptionsUI();
     // BR: Display UI panel for MOD game options
     private final StartModViewOptionsUI startModViewOptionsUI = new StartModViewOptionsUI();
+	// BR: Display UI panel for Player Race Customization
+    private final PlayerRaceCustomizationUI playerRaceCustomizationUI = new PlayerRaceCustomizationUI();
     private final GameSettingsUI gameSettingsUI = new GameSettingsUI();
     private final LargeDialogPane dialogPane = new LargeDialogPane();
 
@@ -319,6 +322,8 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     public static StartModBOptionsUI startModBOptionsUI()    { return instance.startModBOptionsUI; }
     // BR: Display UI panel for MOD game options
     public static StartModViewOptionsUI startModViewOptionsUI() { return instance.startModViewOptionsUI; }
+	// BR: Display UI panel for Player Race Customization
+    public static PlayerRaceCustomizationUI startPlayerRaceCustomizationUI() { return instance.playerRaceCustomizationUI; }
     public static GameSettingsUI gameSettingsUI()    { return instance.gameSettingsUI; }
 
     @Override

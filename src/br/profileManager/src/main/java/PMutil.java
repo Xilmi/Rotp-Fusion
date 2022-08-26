@@ -403,10 +403,10 @@ public class PMutil {
 	/**
 	 * Convert a {@code String} with several "_" to a more user friendly one
 	 * @param option the {@code String} Option 
-	 * @param minLength the minimal length of the two las elements String
+	 * @param minLength the minimal length of the two last elements String
 	 * @return  the capitalized last element of the {@code String} (after "_")
 	 */
-	static String suggestedUserViewFromCodeView (Object value, int minLength) {
+	public static String suggestedUserViewFromCodeView (Object value, int minLength) {
 		if (value == null) {
 			return "null";
 		}
@@ -428,7 +428,7 @@ public class PMutil {
 	 * @param option the {@code String} Option 
 	 * @return  the capitalized last element of the {@code String} (after "_")
 	 */
-	static String suggestedUserViewFromCodeView (Object value) {
+	public static String suggestedUserViewFromCodeView (Object value) {
 		return suggestedUserViewFromCodeView (value, 1);
 	}
 	/**

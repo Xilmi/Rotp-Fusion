@@ -61,9 +61,9 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	Rectangle startBox		= new Rectangle();
 	Rectangle settingsBox	= new Rectangle();
 	Rectangle newRacesBox	= new Rectangle(); // BR:
-	Rectangle ModSettingsBox	= new Rectangle(); // modnar: add UI panel for modnar MOD game options
-	Rectangle ModBSettingsBox	= new Rectangle(); // BR: Second UI panel for MOD game options
-	Rectangle ModViewSettingsBox = new Rectangle(); // BR: Display UI panel for MOD game options
+	Rectangle modSettingsBox	= new Rectangle(); // modnar: add UI panel for modnar MOD game options
+	Rectangle modBSettingsBox	= new Rectangle(); // BR: Second UI panel for MOD game options
+	Rectangle modViewSettingsBox = new Rectangle(); // BR: Display UI panel for MOD game options
 	Rectangle shapeBox		= new Rectangle();
 	Polygon shapeBoxL		= new Polygon();
 	Polygon shapeBoxR		= new Polygon();
@@ -347,39 +347,39 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		// MOD settings button
 		String textMOD = text("SETUP_BUTTON_MOD_SETTINGS");
 		int swMOD = g.getFontMetrics().stringWidth(textMOD);
-		int xMOD = ModSettingsBox.x+((ModSettingsBox.width-swMOD)/2);
-		int yMOD = ModSettingsBox.y+ModSettingsBox.height-s8;
-		Color cMOD = hoverBox == ModSettingsBox ? Color.yellow : GameUI.borderBrightColor();
+		int xMOD = modSettingsBox.x+((modSettingsBox.width-swMOD)/2);
+		int yMOD = modSettingsBox.y+modSettingsBox.height-s8;
+		Color cMOD = hoverBox == modSettingsBox ? Color.yellow : GameUI.borderBrightColor();
 		drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), cMOD);
 		prev = g.getStroke();
 		g.setStroke(stroke1);
-		g.drawRoundRect(ModSettingsBox.x, ModSettingsBox.y, ModSettingsBox.width, ModSettingsBox.height, cnr, cnr);
+		g.drawRoundRect(modSettingsBox.x, modSettingsBox.y, modSettingsBox.width, modSettingsBox.height, cnr, cnr);
 		g.setStroke(prev);
 
 		// BR: second UI panel for MOD game options
 		// MOD settings button
 		String textModB = text("SETUP_BUTTON_MOD_B_SETTINGS");
 		int swModB = g.getFontMetrics().stringWidth(textModB);
-		int xModB = ModBSettingsBox.x+((ModBSettingsBox.width-swModB)/2);
-		int yModB = ModBSettingsBox.y+ModBSettingsBox.height-s8;
-		Color cModB = hoverBox == ModBSettingsBox ? Color.yellow : GameUI.borderBrightColor();
+		int xModB = modBSettingsBox.x+((modBSettingsBox.width-swModB)/2);
+		int yModB = modBSettingsBox.y+modBSettingsBox.height-s8;
+		Color cModB = hoverBox == modBSettingsBox ? Color.yellow : GameUI.borderBrightColor();
 		drawShadowedString(g, textModB, 2, xModB, yModB, GameUI.borderDarkColor(), cModB);
 		prev = g.getStroke();
 		g.setStroke(stroke1);
-		g.drawRoundRect(ModBSettingsBox.x, ModBSettingsBox.y, ModBSettingsBox.width, ModBSettingsBox.height, cnr, cnr);
+		g.drawRoundRect(modBSettingsBox.x, modBSettingsBox.y, modBSettingsBox.width, modBSettingsBox.height, cnr, cnr);
 		g.setStroke(prev);
 		// BR: Display settings UI panel for MOD game options
 		// MOD settings button
 		String textModView = text("SETUP_BUTTON_MOD_VIEW_SETTINGS");
 		int swModView = g.getFontMetrics().stringWidth(textModView);
-		int xModView = ModViewSettingsBox.x+((ModViewSettingsBox.width-swModView)/2);
-		int yModView = ModViewSettingsBox.y+ModViewSettingsBox.height-s8;
-		Color cModView = hoverBox == ModViewSettingsBox ? Color.yellow : GameUI.borderBrightColor();
+		int xModView = modViewSettingsBox.x+((modViewSettingsBox.width-swModView)/2);
+		int yModView = modViewSettingsBox.y+modViewSettingsBox.height-s8;
+		Color cModView = hoverBox == modViewSettingsBox ? Color.yellow : GameUI.borderBrightColor();
 		drawShadowedString(g, textModView, 2, xModView, yModView, GameUI.borderDarkColor(), cModView);
 		prev = g.getStroke();
 		g.setStroke(stroke1);
-		g.drawRoundRect(ModViewSettingsBox.x, ModViewSettingsBox.y,
-				ModViewSettingsBox.width, ModViewSettingsBox.height, cnr, cnr);
+		g.drawRoundRect(modViewSettingsBox.x, modViewSettingsBox.y,
+				modViewSettingsBox.width, modViewSettingsBox.height, cnr, cnr);
 		g.setStroke(prev);
 
 		g.setFont(narrowFont(30));
@@ -923,7 +923,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		// draw settings button
 		int smallButtonH = s30; // 27 for 3 buttons
 		int smallButtonW = scaled(180); // 150 for 3 buttons
-		// int smallButton2W = scaled(135); // for the two smaller buttons whon 3 buttons
+		// int smallButton2W = scaled(135); // for the two smaller buttons when 3 buttons
 		// BR: buttons positioning
 		int yb = 610; // 615 for 3 buttons (1 row)
 		int xb = 960; // 966 for 3 buttons // 960 for 2 buttons 1 row // 948 for centered
@@ -935,19 +935,19 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		
 		// modnar: add UI panel for modnar MOD game options // BR: Squeezed a little
 		// draw MOD settings button
-		ModSettingsBox.setBounds(scaled(xb-dx), scaled(yb), smallButtonW, smallButtonH);
+		modSettingsBox.setBounds(scaled(xb-dx), scaled(yb), smallButtonW, smallButtonH);
 		g.setPaint(GameUI.buttonLeftBackground());
-		g.fillRoundRect(ModSettingsBox.x, ModSettingsBox.y, smallButtonW, smallButtonH, cnr, cnr);
+		g.fillRoundRect(modSettingsBox.x, modSettingsBox.y, smallButtonW, smallButtonH, cnr, cnr);
 		// BR: second UI panel for MOD game options
 		// draw MOD settings button
-		ModBSettingsBox.setBounds(scaled(xb-dx), scaled(yb+dy), smallButtonW, smallButtonH);
+		modBSettingsBox.setBounds(scaled(xb-dx), scaled(yb+dy), smallButtonW, smallButtonH);
 		g.setPaint(GameUI.buttonLeftBackground());
-		g.fillRoundRect(ModBSettingsBox.x, ModBSettingsBox.y, smallButtonW, smallButtonH, cnr, cnr);
+		g.fillRoundRect(modBSettingsBox.x, modBSettingsBox.y, smallButtonW, smallButtonH, cnr, cnr);
 		// BR: Display Settings UI panel for MOD game options
 		// draw MOD settings button
-		ModViewSettingsBox.setBounds(scaled(xb), scaled(yb+dy), smallButtonW, smallButtonH);
+		modViewSettingsBox.setBounds(scaled(xb), scaled(yb+dy), smallButtonW, smallButtonH);
 		g.setPaint(GameUI.buttonLeftBackground());
-		g.fillRoundRect(ModViewSettingsBox.x, ModViewSettingsBox.y, smallButtonW, smallButtonH, cnr, cnr);
+		g.fillRoundRect(modViewSettingsBox.x, modViewSettingsBox.y, smallButtonW, smallButtonH, cnr, cnr);
 
 		int buttonH = s45;
 		int buttonW = scaled(220);
@@ -1059,14 +1059,14 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		else if (settingsBox.contains(x,y))
 			hoverBox = settingsBox;
 		// modnar: add UI panel for modnar MOD game options
-		else if (ModSettingsBox.contains(x,y))
-			hoverBox = ModSettingsBox;
+		else if (modSettingsBox.contains(x,y))
+			hoverBox = modSettingsBox;
 		// BR: Second UI panel for MOD game options
-		else if (ModBSettingsBox.contains(x,y))
-			hoverBox = ModBSettingsBox;
+		else if (modBSettingsBox.contains(x,y))
+			hoverBox = modBSettingsBox;
 		// BR: Display UI panel for MOD game options
-		else if (ModViewSettingsBox.contains(x,y))
-			hoverBox = ModViewSettingsBox;
+		else if (modViewSettingsBox.contains(x,y))
+			hoverBox = modViewSettingsBox;
 		else if (shapeBoxL.contains(x,y))
 			hoverBox = shapeBoxL;
 		else if (shapeBoxR.contains(x,y))
@@ -1144,13 +1144,13 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		else if (hoverBox == settingsBox)
 			goToOptions();
 		// modnar: add UI panel for modnar MOD game options
-		else if (hoverBox == ModSettingsBox)
+		else if (hoverBox == modSettingsBox)
 			goToModOptions();
 		// BR: second UI panel for MOD game options
-		else if (hoverBox == ModBSettingsBox)
+		else if (hoverBox == modBSettingsBox)
 			goToMod2Options();
 		// BR: Display UI panel for MOD game options
-		else if (hoverBox == ModViewSettingsBox)
+		else if (hoverBox == modViewSettingsBox)
 			goToModViewOptions();
 		else if (hoverBox == startBox)
 			startGame();

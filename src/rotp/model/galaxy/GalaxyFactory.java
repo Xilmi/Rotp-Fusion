@@ -23,6 +23,7 @@ import java.util.List;
 
 import rotp.mod.br.addOns.RacesOptions;
 import rotp.mod.br.addOns.ShipSetAddOns;
+import rotp.model.empires.CustomRace;
 import rotp.model.empires.Empire;
 import rotp.model.empires.Leader;
 import rotp.model.empires.Race;
@@ -33,6 +34,7 @@ import rotp.model.planet.Planet;
 import rotp.model.tech.Tech; // modnar: add game mode to start all Empires with 2 random techs
 import rotp.model.tech.TechTree; // modnar: add game mode to start all Empires with 2 random techs
 import rotp.ui.UserPreferences; // modnar: add game mode to start all Empires with 2 random techs
+import rotp.ui.game.PlayerRaceCustomizationUI;
 import rotp.ui.util.planets.PlanetImager;
 import rotp.util.Base;
 
@@ -64,8 +66,8 @@ public class GalaxyFactory implements Base {
 		List<String> systemNames = playerRace.systemNames;
 		Collections.shuffle(systemNames);
 
-		addPlayerSystemForGalaxy(g, 0, gc);
-		addAlienRaceSystemsForGalaxy(g, 1, gc, alienRaces);
+		addPlayerSystemForGalaxy(g, 0, null, gc);
+		addAlienRaceSystemsForGalaxy(g, 1, null, gc, alienRaces);
 		addUnsettledSystemsForGalaxy(g, gc);		
 		init(g, System.currentTimeMillis());
 		
@@ -106,9 +108,9 @@ public class GalaxyFactory implements Base {
 		Collections.shuffle(systemNames);
 
 		List<EmpireSystem> empires = shape.empireSystems();
-		addPlayerSystemForGalaxy(g, 0, empires);
+		addPlayerSystemForGalaxy(g, 0, empires, null);
 		empires.remove(empires.get(0));
-		addAlienRaceSystemsForGalaxy(g, 1, empires, alienRaces);
+		addAlienRaceSystemsForGalaxy(g, 1, empires, null, alienRaces);
 		addUnsettledSystemsForGalaxy(g, shape);
 		
 		// remove empty nebula
@@ -268,8 +270,7 @@ public class GalaxyFactory implements Base {
 		}
 		return raceList;
 	}
-	// BR: For Restart with new options
-	private void addPlayerSystemForGalaxy(Galaxy g, int id, GalaxyCopy gc) {
+	private void addPlayerSystemForGalaxy(Galaxy g, int id, List<EmpireSystem> empSystems, GalaxyCopy gc) {
 		// creates a star system for player, using selected options
 		IGameOptions opts = GameSession.instance().options();
 		String raceKey = opts.selectedPlayerRace();
@@ -281,232 +282,214 @@ public class GalaxyFactory implements Base {
 		String leaderName = opts.selectedLeaderName();
 		Integer color = options().selectedPlayerColor();
 
+		// Create DataRace
+		String dataRaceKey = raceKey;
+		if (UserPreferences.customPlayerRace.get()) {
+			dataRaceKey = PlayerRaceCustomizationUI.cr.getKey();
+		}
+		Race playerDataRace = Race.keyed(dataRaceKey);
+		
 		// create home system for player
-		Empire oldE		= gc.empires(id);
-		StarSystem ref	= gc.starSystem(oldE.capitalSysId());
-		StarSystem sys	= StarSystemFactory.current().copySystem(g, ref);
-		sys.setXY(ref.x(), ref.y());
+		StarSystem sys;
+		EmpireSystem empSystem = null;
+		sys = StarSystemFactory.current().newSystemForPlayer(playerRace, playerDataRace , g);
+		
+		if (gc == null) { // Start
+			empSystem = empSystems.get(id);
+			sys.setXY(empSystem.colonyX(), empSystem.colonyY());
+		} else { // Restart
+			StarSystem ref = gc.starSystem(gc.empires(id).capitalSysId());
+			sys.setXY(ref.x(), ref.y());
+		}
 		sys.name(systemName);
 		g.addStarSystem(sys);
 
 		// modnar: add option to start game with additional colonies
 		// between 0 to 6 additional colonies, set in UserPreferences
-		int numCompWorlds = oldE.getCompanionWorldsNumber();
-		int[] compSysId = new int[numCompWorlds];
-		if (numCompWorlds > 0) {
-			for (int i=0; i<numCompWorlds; i++) {
-				ref = gc.starSystem(oldE.compSysId(i));
-				StarSystem sysComp = StarSystemFactory.current().copySystem(g, ref);
-				sysComp.setXY(ref.x(), ref.y());
-				sysComp.name(compSysName[i]+" "+sys.name()); // companion world greek letter prefix
-				g.addStarSystem(sysComp);
-				compSysId[i] = sysComp.id;
-			}
-		}
-		// add Empire to galaxy
-		// modnar: add option to start game with additional colonies
-		// modnar: compSysId is the System ID array for these additional colonies
-		Empire emp = new Empire(g, id, raceKey, sys, compSysId, color, leaderName);
-		g.addEmpire(emp);
-
-		// add other systems in this EmpireSystem
-		for (int i=1;i<=gc.numNearBySystem();i++) {
-			ref = gc.starSystem(g.numStarSystems());
-			StarSystem sys0 = StarSystemFactory.current().copySystem(g, ref);
-			sys0.setXY(ref.x(), ref.y());
-			g.addStarSystem(sys0);
-		}
-	}
-	private void addPlayerSystemForGalaxy(Galaxy g, int id, List<EmpireSystem> empSystems) {
-		EmpireSystem empSystem = empSystems.get(id);
-		// creates a star system for player, using selected options
-		IGameOptions opts = GameSession.instance().options();
-		String raceKey = opts.selectedPlayerRace();
-		Race playerRace = Race.keyed(raceKey);
-		String defaultName = playerRace.nextAvailableHomeworld();
-		String systemName = options().selectedHomeWorldName();
-		if (systemName.isEmpty())
-			systemName = defaultName;
-		String leaderName = opts.selectedLeaderName();
-		Integer color = options().selectedPlayerColor();
-
-		// create home system for player
-		StarSystem sys = StarSystemFactory.current().newSystemForPlayer(playerRace, g);
-		sys.setXY(empSystem.colonyX(), empSystem.colonyY());
-		sys.name(systemName);
-		g.addStarSystem(sys);
-
-		// modnar: add option to start game with additional colonies
-		// between 0 to 4 additional colonies, set in UserPreferences
-		int numCompWorlds = UserPreferences.companionWorlds();
-		int[] compSysId = new int[numCompWorlds];
-		if (numCompWorlds > 0) {
-			for (int i=0; i<numCompWorlds; i++) { // BR: Symmetry management
-				StarSystem sysComp = StarSystemFactory.current().newCompanionSystemForRace(g, 0);
-				Point.Float pt = opts.galaxyShape().getCompanion(0, i);
-				sysComp.setXY(pt.x, pt.y);
-				sysComp.name(compSysName[i]+" "+sys.name()); // companion world greek letter prefix
-				g.addStarSystem(sysComp);
-				compSysId[i] = sysComp.id;
-			}
-		}
-		// add Empire to galaxy
-		// modnar: add option to start game with additional colonies
-		// modnar: compSysId is the System ID array for these additional colonies
-		Empire emp = new Empire(g, id, raceKey, sys, compSysId, color, leaderName);
-		g.addEmpire(emp);
-
-		//log("Adding star system: ", sys.name(), " - ", playerRace.id, " : ", fmt(sys.x(),2), "@", fmt(sys.y(),2));
-
-		// add other systems in this EmpireSystem
-		// ensure 1st nearby system is colonizable
-		boolean needHabitable = true;
-		for (int i=1;i<empSystem.numSystems();i++) {
-			StarSystem sys0 = StarSystemFactory.current().newSystem(g);
-			if (needHabitable) {
-				while ((sys0 == null) || !sys0.planet().isEnvironmentFriendly())
-					sys0 = StarSystemFactory.current().newSystem(g);
-				needHabitable = false;
-			}
-			sys0.setXY(empSystem.x(i), empSystem.y(i));
-			g.addStarSystem(sys0);
-		}
-	}
-	private void addAlienRaceSystemsForGalaxy(Galaxy g, int startId,
-						GalaxyCopy gc, LinkedList<String> alienRaces) {
-		IGameOptions opts = GameSession.instance().options();
-		// creates a star system for each race, and then additional star
-		// systems based on the galaxy size selected at startup
-
-		// get possible banner colors, remove player's color, then randomize
-		List<Integer> raceColors = new ArrayList<>();
-		Integer playerC = options().selectedPlayerColor();
-		boolean playerCExcluded = false;
-		for (Integer i : opts.possibleColors()) {
-			if ((i == playerC) && !playerCExcluded)
-				playerCExcluded = true;
-			else
-				raceColors.add(i);
-		};
-
-		// possible the galaxy shape could not fit in all of the races
-		int maxRaces = gc.empires().length-1;
-		int empId	= startId;
-		Empire oldE;
-		StarSystem ref;
-
-		// since we may have more races than colors we will need to reset the
-		// color list each time we run out. 
-		for (int h=0;h<maxRaces;h++) {
-			Race r	= Race.keyed(alienRaces.get(h));
-			oldE	= gc.empires(empId);
-			ref		= gc.starSystem(oldE.capitalSysId());
-			if (raceColors.isEmpty()) 
-				raceColors = opts.possibleColors();
-			Integer colorId = raceColors.remove(0);
-			StarSystem sys	= StarSystemFactory.current().copySystem(g, ref);
-			sys.setXY(ref.x(), ref.y());
-			sys.name(r.nextAvailableHomeworld());
-			g.addStarSystem(sys);
-			
-			// modnar: add option to start game with additional colonies
-			// between 0 to 6 additional colonies, set in UserPreferences
-			int numCompWorlds = oldE.getCompanionWorldsNumber();
-			int[] compSysId = new int[numCompWorlds];
-			if (numCompWorlds > 0) {
-				for (int i=0; i<numCompWorlds; i++) {
-					ref = gc.starSystem(oldE.compSysId(i));
-					StarSystem sysComp = StarSystemFactory.current().copySystem(g, ref);
-					sysComp.setXY(ref.x(), ref.y());
-					sysComp.name(compSysName[i]+" "+sys.name()); // companion world greek letter prefix
-					g.addStarSystem(sysComp);
-					compSysId[i] = sysComp.id;
-				}
-			}
-			// modnar: add option to start game with additional colonies
-			// modnar: compSysId is the System ID array for these additional colonies
-			Empire emp = new Empire(g, empId, r.id, sys, compSysId, colorId, null, gc, h);
-			g.addEmpire(emp);
-			empId++;
-			// create two nearby system within 3 light-years (required to be at least 1 habitable)
-			for (int i=1;i<=gc.numNearBySystem();i++) {
-				ref = gc.starSystem(g.numStarSystems());
-				StarSystem sys0 = StarSystemFactory.current().copySystem(g, ref);
-				sys0.setXY(ref.x(), ref.y());
-				g.addStarSystem(sys0);
-			}
-		}
-	}
-	private void addAlienRaceSystemsForGalaxy(Galaxy g, int startId, List<EmpireSystem> empSystems, LinkedList<String> alienRaces) {
-		IGameOptions opts = GameSession.instance().options();
-		// creates a star system for each race, and then additional star
-		// systems based on the galaxy size selected at startup
-
-		// get possible banner colors, remove player's color, then randomize
-		List<Integer> raceColors = new ArrayList<>();
-		Integer playerC = options().selectedPlayerColor();
-		boolean playerCExcluded = false;
-		for (Integer i : opts.possibleColors()) {
-			if ((i == playerC) && !playerCExcluded)
-				playerCExcluded = true;
-			else
-				raceColors.add(i);
-		};
-
-		// possible the galaxy shape could not fit in all of the races
-		int maxRaces = min(alienRaces.size(), empSystems.size());
-
-		int empId = startId;
-		
-		// since we may have more races than colors we will need to reset the
-		// color list each time we run out. 
-		for (int h=0;h<maxRaces;h++) {
-			Race r = Race.keyed(alienRaces.get(h));
-			EmpireSystem empSystem = empSystems.get(h);
-			if (raceColors.isEmpty()) 
-				raceColors = opts.possibleColors();
-			Integer colorId = raceColors.remove(0);
-			StarSystem sys = StarSystemFactory.current().newSystemForRace(r,g);
-			sys.setXY(empSystem.colonyX(), empSystem.colonyY());
-			sys.name(r.nextAvailableHomeworld());
-			g.addStarSystem(sys);
-			
-			// modnar: add option to start game with additional colonies
-			// between 0 to 4 additional colonies, set in UserPreferences
-			int numCompWorlds = UserPreferences.companionWorlds();
-			int[] compSysId = new int[numCompWorlds];
+		int numCompWorlds;
+		int[] compSysId;
+		if (gc == null) { // Start
+			numCompWorlds = UserPreferences.companionWorlds();
+			compSysId = new int[numCompWorlds];
 			if (numCompWorlds > 0) {
 				for (int i=0; i<numCompWorlds; i++) { // BR: Symmetry management
-					StarSystem sysComp = StarSystemFactory.current().newCompanionSystemForRace(g, i+1);
-					Point.Float pt = opts.galaxyShape().getCompanion(h+1, i);
+					StarSystem sysComp = StarSystemFactory.current().newCompanionSystemForRace(g, 0);
+					Point.Float pt = opts.galaxyShape().getCompanion(0, i);
 					sysComp.setXY(pt.x, pt.y);
 					sysComp.name(compSysName[i]+" "+sys.name()); // companion world greek letter prefix
 					g.addStarSystem(sysComp);
 					compSysId[i] = sysComp.id;
 				}
 			}
-			// modnar: add option to start game with additional colonies
-			// modnar: compSysId is the System ID array for these additional colonies
-			Empire emp = new Empire(g, empId, r.id, sys, compSysId, colorId, null);
-			g.addEmpire(emp);
-			empId++;
-			// create two nearby system within 3 light-years (required to be at least 1 habitable)
+		} else { // Restart
+			numCompWorlds = gc.empires(id).getCompanionWorldsNumber();
+			compSysId = new int[numCompWorlds];
+			if (numCompWorlds > 0) {
+				for (int i=0; i<numCompWorlds; i++) {
+					StarSystem ref		= gc.starSystem(gc.empires(id).compSysId(i));
+					StarSystem sysComp	= StarSystemFactory.current().copySystem(g, ref);
+					sysComp.setXY(ref.x(), ref.y());
+					sysComp.name(compSysName[i]+" "+sys.name()); // companion world greek letter prefix
+					g.addStarSystem(sysComp);
+					compSysId[i] = sysComp.id;
+				}
+			}
+		}
+		// add Empire to galaxy
+		// modnar: add option to start game with additional colonies
+		// modnar: compSysId is the System ID array for these additional colonies
+		// BR: Added dataRaceKey
+		Empire emp = new Empire(g, id, raceKey, dataRaceKey, sys, compSysId, color, leaderName, gc);
+		g.addEmpire(emp);
+
+		//log("Adding star system: ", sys.name(), " - ", playerRace.id, " : ", fmt(sys.x(),2), "@", fmt(sys.y(),2));
+
+		// add other systems in this EmpireSystem
+		// ensure 1st nearby system is colonizable
+		if (gc == null) { // Start
 			boolean needHabitable = true;
 			for (int i=1;i<empSystem.numSystems();i++) {
 				StarSystem sys0 = StarSystemFactory.current().newSystem(g);
-				if (opts.galaxyShape().isSymmetric()) { // BR: Symmetry management
-					// BR: Symmetric Galaxy: copy Player nearby systems
-					StarSystem refStar = g.starSystems()[numCompWorlds + i];
-					sys0 = StarSystemFactory.current().copySystem(g, refStar);
-				} else {
-					if (needHabitable) {
-						while ((sys0 == null) || !sys0.planet().isEnvironmentFriendly())
-							sys0 = StarSystemFactory.current().newSystem(g);
-						needHabitable = false;
-					}
+				if (needHabitable) {
+					while ((sys0 == null) || !sys0.planet().isEnvironmentFriendly())
+						sys0 = StarSystemFactory.current().newSystem(g);
+					needHabitable = false;
 				}
 				sys0.setXY(empSystem.x(i), empSystem.y(i));
 				g.addStarSystem(sys0);
+			}
+		} else { // Restart
+			for (int i=1;i<=gc.numNearBySystem();i++) {
+				StarSystem ref	= gc.starSystem(g.numStarSystems());
+				StarSystem sys0	= StarSystemFactory.current().copySystem(g, ref);
+				sys0.setXY(ref.x(), ref.y());
+				g.addStarSystem(sys0);
+			}
+		}
+	}
+	private void addAlienRaceSystemsForGalaxy(Galaxy g, int startId,
+			List<EmpireSystem> empSystems, GalaxyCopy gc, LinkedList<String> alienRaces) {
+		IGameOptions opts = GameSession.instance().options();
+		// creates a star system for each race, and then additional star
+		// systems based on the galaxy size selected at startup
+
+		// get possible banner colors, remove player's color, then randomize
+		List<Integer> raceColors = new ArrayList<>();
+		Integer playerC = options().selectedPlayerColor();
+		boolean playerCExcluded = false;
+		for (Integer i : opts.possibleColors()) {
+			if ((i == playerC) && !playerCExcluded)
+				playerCExcluded = true;
+			else
+				raceColors.add(i);
+		};
+
+		// possible the galaxy shape could not fit in all of the races
+		int empId = startId;
+		int maxRaces;
+		if (gc == null) // Start
+			maxRaces = min(alienRaces.size(), empSystems.size());
+		else // Restart
+			maxRaces = gc.empires().length-1;		
+		// since we may have more races than colors we will need to reset the
+		// color list each time we run out. 
+		for (int h=0; h<maxRaces; h++) {
+			StarSystem sys;
+			String raceKey = alienRaces.get(h);
+			Race race = Race.keyed(raceKey);
+			if (raceColors.isEmpty()) 
+				raceColors = opts.possibleColors();
+			Integer colorId = raceColors.remove(0);
+
+			// Create DataRace
+			String dataRaceKey;
+            if (gc != null) // BR: For Restart with new options 
+            	dataRaceKey = gc.dataRace().get(h);
+            else if (options().randomizeAIAbility())
+                dataRaceKey = random(options().startingRaceOptions());
+            else
+                dataRaceKey = raceKey;
+            if (UserPreferences.randomAlienRaces.get()) {
+            	dataRaceKey = CustomRace.getRandomAlienRaceKey();
+            }
+			Race dataRace = Race.keyed(dataRaceKey);
+
+			EmpireSystem empSystem = null;
+			sys = StarSystemFactory.current().newSystemForRace(race, dataRace, g);
+			if (gc == null) { // Start
+				empSystem = empSystems.get(h);
+				sys.setXY(empSystem.colonyX(), empSystem.colonyY());
+			} else { // Restart
+				StarSystem ref = gc.starSystem(gc.empires(empId).capitalSysId());
+				sys.setXY(ref.x(), ref.y());
+			}			
+			sys.name(race.nextAvailableHomeworld());
+			g.addStarSystem(sys);
+			
+			// modnar: add option to start game with additional colonies
+			// between 0 to 6 additional colonies, set in UserPreferences
+			int numCompWorlds;
+			int[] compSysId;
+			if (gc == null) { // Start
+				numCompWorlds = UserPreferences.companionWorlds();
+				compSysId = new int[numCompWorlds];
+				if (numCompWorlds > 0) {
+					for (int i=0; i<numCompWorlds; i++) { // BR: Symmetry management
+						StarSystem sysComp = StarSystemFactory.current().newCompanionSystemForRace(g, i+1);
+						Point.Float pt = opts.galaxyShape().getCompanion(h+1, i);
+						sysComp.setXY(pt.x, pt.y);
+						sysComp.name(compSysName[i]+" "+sys.name()); // companion world greek letter prefix
+						g.addStarSystem(sysComp);
+						compSysId[i] = sysComp.id;
+					}
+				}
+			} else { // Restart
+				numCompWorlds = gc.empires(empId).getCompanionWorldsNumber();
+				compSysId = new int[numCompWorlds];
+				if (numCompWorlds > 0) {
+					for (int i=0; i<numCompWorlds; i++) {
+						StarSystem ref		= gc.starSystem(gc.empires(empId).compSysId(i));
+						StarSystem sysComp	= StarSystemFactory.current().copySystem(g, ref);
+						sysComp.setXY(ref.x(), ref.y());
+						sysComp.name(compSysName[i]+" "+sys.name()); // companion world greek letter prefix
+						g.addStarSystem(sysComp);
+						compSysId[i] = sysComp.id;
+					}
+				}
+			}
+
+			// modnar: add option to start game with additional colonies
+			// modnar: compSysId is the System ID array for these additional colonies
+			Empire emp = new Empire(g, empId, raceKey, dataRaceKey, sys, compSysId, colorId, null, gc);
+			g.addEmpire(emp);
+			empId++;
+			
+			// create two nearby system within 3 light-years (required to be at least 1 habitable)
+			if (gc == null) { // Start
+				boolean needHabitable = true;
+				for (int i=1;i<empSystem.numSystems();i++) {
+					StarSystem sys0 = StarSystemFactory.current().newSystem(g);
+					if (opts.galaxyShape().isSymmetric()) { // BR: Symmetry management
+						// BR: Symmetric Galaxy: copy Player nearby systems
+						StarSystem refStar = g.starSystems()[numCompWorlds + i];
+						sys0 = StarSystemFactory.current().copySystem(g, refStar);
+					} else {
+						if (needHabitable) {
+							while ((sys0 == null) || !sys0.planet().isEnvironmentFriendly())
+								sys0 = StarSystemFactory.current().newSystem(g);
+							needHabitable = false;
+						}
+					}
+					sys0.setXY(empSystem.x(i), empSystem.y(i));
+					g.addStarSystem(sys0);
+				}
+			} else { // Restart
+				for (int i=1;i<=gc.numNearBySystem();i++) {
+					StarSystem ref = gc.starSystem(g.numStarSystems());
+					StarSystem sys0 = StarSystemFactory.current().copySystem(g, ref);
+					sys0.setXY(ref.x(), ref.y());
+					g.addStarSystem(sys0);
+				}
 			}
 		}
 	}

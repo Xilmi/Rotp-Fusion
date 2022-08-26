@@ -16,30 +16,38 @@
 
 package rotp.ui.util;
 
-import static rotp.ui.UserPreferences.save;
 import static rotp.util.Base.textSubs;
+import static rotp.ui.util.AbstractParam.CostFormula.*;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import java.text.DecimalFormat;
 
 import javax.swing.SwingUtilities;
 
+import rotp.ui.UserPreferences;
 import rotp.util.LabelManager;
 
 public abstract class AbstractParam <T> {
+	
+	public enum CostFormula {DIFFERENCE, RELATIVE}
 
 	private static final String LABEL_DESCRIPTION = "_DESC";
 	private static final String END = "   ";
 	private final String name;
 	private final String gui;
-	protected T value;
-	protected T defaultValue;
-	protected T minValue = null;
-	protected T maxValue = null;
-	protected T baseInc = null;
-	private T shiftInc = null;
-	private T ctrlInc = null;
-	protected boolean loop = true;
+	private T value;
+	private T defaultValue;
+	private T minValue	= null;
+	private T maxValue	= null;
+	private T baseInc	= null;
+	private T shiftInc	= null;
+	private T ctrlInc	= null;
+	private boolean saveAllowed = true; // To allow the parameter to be saved in Remnants.cfg
+	private boolean isBullet	= false;
+	private float[] costFactor;
+	private CostFormula costFormula = RELATIVE;
+
 	// ========== constructors ==========
 	//
 	/**
@@ -47,7 +55,7 @@ public abstract class AbstractParam <T> {
 	 * @param name The name
 	 * @param defaultValue The default value
 	 */
-	public AbstractParam(String gui, String name, T defaultValue) {
+	AbstractParam(String gui, String name, T defaultValue) {
 		this.gui = gui;
 		this.name = name;
 		this.defaultValue = defaultValue;
@@ -59,14 +67,12 @@ public abstract class AbstractParam <T> {
 	 * @param defaultValue The default value
 	 * @param minValue The minimum value
 	 * @param maxValue The maximum value
-	 * @param loop     what to do when reaching the limits
 	 */
-	public AbstractParam(String gui, String name, T defaultValue
-			, T minValue, T maxValue, boolean loop) {
+	private AbstractParam(String gui, String name, T defaultValue
+			, T minValue, T maxValue) {
 		this(gui, name, defaultValue);
 		this.minValue = minValue;
 		this.maxValue = maxValue;
-		this.loop     = loop;
 	}
 	/**
 	 * @param gui  The label header
@@ -77,12 +83,11 @@ public abstract class AbstractParam <T> {
 	 * @param baseInc  The base increment
 	 * @param shiftInc The increment when Shift is hold
 	 * @param ctrlInc  The increment when Ctrl is hold
-	 * @param loop     what to do when reaching the limits
 	 */
-	public AbstractParam(String gui, String name, T defaultValue
-			, T minValue, T maxValue, boolean loop 
+	AbstractParam(String gui, String name, T defaultValue
+			, T minValue, T maxValue
 			, T baseInc, T shiftInc, T ctrlInc) {
-		this(gui, name, defaultValue, minValue, maxValue, loop);
+		this(gui, name, defaultValue, minValue, maxValue);
 		this.baseInc  = baseInc;
 		this.shiftInc = shiftInc;
 		this.ctrlInc  = ctrlInc;
@@ -90,7 +95,7 @@ public abstract class AbstractParam <T> {
 
 	// ========== Public Abstract ==========
 	//
-	public abstract T setFromCfg(String val);
+	public abstract T setFromCfgValue(String val);
 	public abstract T next();
 	public abstract T prev();
 	public abstract T toggle(MouseWheelEvent e);
@@ -99,13 +104,89 @@ public abstract class AbstractParam <T> {
 	@Override public String toString() {
 		return getCfgLabel() + " = " + getCfgValue();
 	}
-	// ========== Public Getters ==========
+	// ========== Public Methods to be overridden ==========
 	//
+	void setOption() {}
+	void getOption() {}
+	T value(T value) 		{ this.value = value; return value;}
+	public int getIndex()	{ return 0; }
+	float getBaseCost()		{ return 0f; }
+	float[] costFactor()	{ return costFactor; }
+	public T setFromIndex(int i) { return null; }
+	public float getCost() {
+		float baseCost = getBaseCost();
+		if (costFactor() == null)
+			return baseCost;
+		
+		float cost = 0;
+		for (int i=0; i<costFactor.length; i++) {
+			cost += costFactor[i] * Math.pow(baseCost, i);
+		}
+		return cost;
+	}
+	public float getCost(int idx) {
+		return 0f;
+	}
+	public String getCostString() {
+		return getCostString(1);
+	}
+	private String getCostStringIdx(int idx, int dec) {
+		return getCostString(getCost(idx), dec);
+	}
+	private String getCostString(int dec) {
+		return getCostString(getCost(), dec);
+	}
+	private String getCostString(float cost, int dec) {
+		String str = "(";
+		switch (dec) {
+		case 0:
+			str += "" + Math.round(cost);
+			break;
+		case 2:
+			str +=  new DecimalFormat("0.00").format(cost);
+			break;
+		case 3:
+			str +=  new DecimalFormat("0.000").format(cost);
+			break;
+		default:
+			str +=  new DecimalFormat("0.0").format(cost);
+			break;
+		}
+		return str + ")";
+	}
+	public boolean isBullet() {
+		return isBullet;
+	}
+	public int getBoxSize() {
+		return 1;
+	}
 	public String getCfgValue() {
 		return String.valueOf(value);
 	}
 	public String getGuiValue() {
 		return String.valueOf(value);
+	}
+	public String getGuiValue(int idx) { // For List
+		return getGuiValue();
+	}
+	public String getGuiSettingLabelCostStr() {
+		return getLabel() + ": " + getCostString();
+	}
+	public String getGuiSettingLabelValueCostStr() {
+		return getLabel() + ": " + getGuiValue() + " " + getCostString();
+	}
+	String getGuiCostOptionStr(int idx) {
+		return getGuiCostOptionStr(idx, 0);
+	}
+	private String getGuiCostOptionStr(int idx, int dec) {
+		String cost = String.format("%5s ",  getCostStringIdx(idx, dec));
+		String txt = cost + getGuiValue(idx);
+		return txt;
+	}
+	// ========== Public Getters ==========
+	//
+	CostFormula costFormula() {
+		return costFormula;
 	}
 	public String getCfgLabel() {
 		return name;
@@ -122,11 +203,31 @@ public abstract class AbstractParam <T> {
 	public T defaultValue() {
 		return defaultValue;
 	}
+	T minValue() {
+		return minValue;
+	}	
+	T maxValue() {
+		return maxValue;
+	}	
 	public T get() {
 		return value;
 	}	
-	public T toggle() {
-		return next();
+	public T baseInc() {
+		return baseInc;
+	}	
+	public T shiftInc() {
+		return shiftInc;
+	}	
+	public T ctrlInc() {
+		return ctrlInc;
+	}	
+	// ========== Public Setters ==========
+	//
+	void setCostFormula(CostFormula formula) {
+		costFormula = formula;
+	}
+	void setCostFactor(float... cost) {
+	costFactor = cost;
 	}
 	public T setToDefault(boolean save) {
 		value = defaultValue;
@@ -138,19 +239,36 @@ public abstract class AbstractParam <T> {
 		value = newValue;
 		return value;
 	}	
+	T setFromIndexAndSave(int i){
+		setFromIndex(i);
+		save();
+		return value;
+	}
 	public T setAndSave(T newValue) {
-		set(newValue); save();
+		set(newValue);
+		save();
 		return value;
 	}	
-	public T toggle(MouseEvent e, MouseWheelEvent w) {
+	T toggle(MouseEvent e, MouseWheelEvent w) {
 		if (e == null)
 			return toggle(w);
 		else
 			return toggle(e);
 	}
+	public AbstractParam<?> allowSave(boolean allow) {
+		saveAllowed = allow;
+		return this;
+	}
+	public AbstractParam<?> isBullet(boolean bullet) {
+		isBullet = bullet;
+		return this;
+	}
 	// ========== Private Methods ==========
 	//
-	private String labelId() {
+	private void save() {
+		if (saveAllowed()) UserPreferences.save();
+	}
+	String labelId() {
 		return gui + name;
 	}
 	private String descriptionId() {
@@ -158,6 +276,9 @@ public abstract class AbstractParam <T> {
 	}
 	// ========== Protected Methods ==========
 	//
+	private boolean saveAllowed() {
+		return saveAllowed;
+	}
 	protected T getInc(MouseEvent e) {
 		if (e.isShiftDown()) 
 			return shiftInc;
@@ -190,7 +311,7 @@ public abstract class AbstractParam <T> {
 	 * @param string Source of Float
 	 * @return Float value, or <b>null</b> on error
 	 */
-	public static Float stringToFloat(String string) {
+	static Float stringToFloat(String string) {
 		try {
 			return Float.valueOf(string.trim());
 		}
@@ -203,7 +324,7 @@ public abstract class AbstractParam <T> {
 	 * @param string Source of Integer
 	 * @return Integer value, or <b>null</b> on error
 	 */
-	public static Integer stringToInteger(String string) {
+	static Integer stringToInteger(String string) {
 		try {
 			return Integer.valueOf(string.trim());
 		}
@@ -220,27 +341,27 @@ public abstract class AbstractParam <T> {
 	protected static String text(String key) {
 		return LabelManager.current().label(key);
 	}
-	protected static String text(String key, String... vals) {
+	private static String text(String key, String... vals) {
 		String str = text(key);
 		for (int i=0;i<vals.length;i++)
 			str = str.replace(textSubs[i], vals[i]);
 		return str;
 	}
-	protected static String text(String key, int... vals) {
-		String str = text(key);
-		for (int i=0;i<vals.length;i++)
-			str = str.replace(textSubs[i],String.valueOf(vals[i]));
-		return str;
-	}
-	protected static String text(String key, String val1, int val2) {
-		String str = text(key);
-		str = str.replace(textSubs[0], val1);
-		return str.replace(textSubs[1], String.valueOf(val2));
-	}
-	protected static String text(String key, String val1, String val2, int val3) {
-		String str = text(key);
-		str = str.replace(textSubs[0], val1);
-		str = str.replace(textSubs[1], val2);
-		return str.replace(textSubs[2], String.valueOf(val3));
-	}
+//	protected static String text(String key, int... vals) {
+//		String str = text(key);
+//		for (int i=0;i<vals.length;i++)
+//			str = str.replace(textSubs[i],String.valueOf(vals[i]));
+//		return str;
+//	}
+//	protected static String text(String key, String val1, int val2) {
+//		String str = text(key);
+//		str = str.replace(textSubs[0], val1);
+//		return str.replace(textSubs[1], String.valueOf(val2));
+//	}
+//	protected static String text(String key, String val1, String val2, int val3) {
+//		String str = text(key);
+//		str = str.replace(textSubs[0], val1);
+//		str = str.replace(textSubs[1], val2);
+//		return str.replace(textSubs[2], String.valueOf(val3));
+//	}
 }

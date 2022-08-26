@@ -78,31 +78,34 @@ public class PlanetFactory implements Base {
         p.baseSize(120*bonus);
         return p;
     }
-    public static Planet createHomeworld(Race r, StarSystem sys,
-    		float bonus, boolean isPlayer) { // BR: added player info
+    public static Planet createHomeworld(Race r, Race dr, StarSystem sys,
+    		float bonus, boolean isPlayer) { // BR: added player info and datarace
         Planet p = instance.options().randomPlayerPlanet(r, sys);
-        p.baseSize(r.homeworldSize*bonus);
+        p.baseSize(dr.homeworldSize*bonus);
         if (r.homeworldKey() > 0)
             p.terrainSeed(r.homeworldKey());
 		// modnar: add option for changing Race homeworld type
         // BR: User control over these settings
 		if (richHomeworld.isAlways(isPlayer)
 				|| (!richHomeworld.isNever(isPlayer)
-						&& r.homeworldKey() == 888))
+						&& dr.raceWithRichHomeworld()))
 			p.setResourceRich();
 		if (ultraRichHomeworld.isAlways(isPlayer)
 				|| (!ultraRichHomeworld.isNever(isPlayer)
-						&&r.homeworldKey() == 8888))
+						&& dr.raceWithUltraRichHomeworld()))
 			p.setResourceUltraRich();
 		if (artifactsHomeworld.isAlways(isPlayer)
 				|| (!artifactsHomeworld.isNever(isPlayer)
-						&&r.homeworldKey() == 1337)) {
+						&& dr.raceWithArtifactsHomeworld())) {
 			p.setArtifactRace();
 		}
 		if (fertileHomeworld.isAlways(isPlayer)
 				|| (!fertileHomeworld.isNever(isPlayer)
-						&&r.homeworldKey() == 1337)) {
+						&& dr.raceWithFertileHomeworld())) {
 			p.makeEnvironmentFertile();
+		}
+		if (dr.raceWithGaiaHomeworld()) {
+			p.makeEnvironmentGaia();
 		}
         return p;
     }

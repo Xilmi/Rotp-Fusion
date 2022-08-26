@@ -297,7 +297,6 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
         return canSeeShips[empId];
     }
-
     public Race race() {
         if (race == null)
             race = Race.keyed(raceKey);
@@ -391,20 +390,23 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
         return reachColor;
     }
-   // BR: For Restart with new options 
-   public Empire(Galaxy g, int empId, String rk, StarSystem s, int[] compId, Integer cId, String name) {
-    	this(g, empId, rk, s, compId, cId, name, null, 0);
+
+   public Empire(Galaxy g, int empId, String rk, String drk, StarSystem s, int[] compId, Integer cId, String name) {
+    	this(g, empId, rk, drk, s, compId, cId, name, null);
     }
     // modnar: add option to start game with additional colonies
     // modnar: compId is the System ID array for these additional colonies
-    public Empire(Galaxy g, int empId, String rk, StarSystem s,
-    		int[] compId, Integer cId, String name, GalaxyCopy gc, int opp) {
+    // BR: For Restart with new options and random races
+    public Empire(Galaxy g, int empId, String rk, String drk, StarSystem s,
+    		int[] compId, Integer cId, String name, GalaxyCopy gc) {
+    	int opp = empId-1;
         log("creating empire for ",  rk);
         id = empId;
         raceKey = rk;
+        dataRaceKey = drk;
         homeSysId = capitalSysId = s.id;
         compSysId = compId; // modnar: add option to start game with additional colonies
-        if (gc != null) { // BR: For Restart with new options 
+        if (gc != null && empId != Empire.PLAYER_ID) { // BR: For Restart with new options 
         	selectedAI = gc.raceAI().get(opp);
         }
         empireViews = new EmpireView[options().selectedNumberOpponents()+1];
@@ -415,17 +417,6 @@ public final class Empire implements Base, NamedObject, Serializable {
             divertColonyExcessToResearch = UserPreferences.divertColonyExcessToResearch();
             g.player(this);
         }
-
-        // if not the player, we may give or randomize the race ability
-        if (empId != Empire.PLAYER_ID) {
-            if (gc != null) // BR: For Restart with new options 
-            	dataRaceKey = gc.dataRace().get(opp);
-            else if (options().randomizeAIAbility())
-                dataRaceKey = random(options().startingRaceOptions());
-            else
-                dataRaceKey = raceKey;
-        } else
-            dataRaceKey = raceKey;
         
         colorId(cId);
         Race r = race();
@@ -433,7 +424,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         raceNameIndex = r.nameIndex(raceName);
         String leaderName = name == null ? r.nextAvailableLeader() : name;
         leader = new Leader(this, leaderName);
-        if (gc != null) { // BR: For Restart with new options 
+        if (gc != null && empId != Empire.PLAYER_ID) { // BR: For Restart with new options 
         	leader.personality = gc.personality().get(opp);
         	leader.objective = gc.objective().get(opp);
         }

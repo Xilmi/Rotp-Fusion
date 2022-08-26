@@ -18,8 +18,6 @@ package rotp.ui.util;
 
 import static rotp.ui.UserPreferences.MOD_UI;
 
-import java.util.LinkedHashMap;
-
 public class ParamAAN2 extends ParamList {
 	
 	public static final String HUMBLE	= "Never Always";
@@ -32,8 +30,7 @@ public class ParamAAN2 extends ParamList {
 	public static final String PLAYER	= "Always Auto";
 	public static final String SELFISH  = "Always Never";
 	
-	private static final LinkedHashMap<String, String> labelsAlwaysAutoNever =
-							new LinkedHashMap<String, String>();
+	private static final IndexableMap labelsAlwaysAutoNever = new IndexableMap();
 	static {
 		labelsAlwaysAutoNever.put(HUMBLE,	MOD_UI + "OPTION_NEVER_ALWAYS");
 		labelsAlwaysAutoNever.put(RIVALS,	MOD_UI + "OPTION_NEVER_AUTO");
@@ -76,13 +73,13 @@ public class ParamAAN2 extends ParamList {
 	//
 	public boolean isAlways(boolean isPlayer) {
 		if (isPlayer) 
-			switch(value) {
+			switch(get()) {
 				case ALWAYS: case PLAYER: case SELFISH:
 					return true;
 				default:
 					return false;
 			}
-		else switch(value) {
+		else switch(get()) {
 				case HUMBLE: case RISKY: case ALWAYS:
 					return true;
 				default:
@@ -91,13 +88,13 @@ public class ParamAAN2 extends ParamList {
 	}
 	public boolean isNever(boolean isPlayer) {
 		if (isPlayer) 
-			switch(value) {
+			switch(get()) {
 				case HUMBLE: case RIVALS: case NEVER:
 					return true;
 				default:
 					return false;
 			}
-		else switch(value) {
+		else switch(get()) {
 				case NEVER: case MAYBE: case SELFISH:
 					return true;
 				default:
@@ -106,13 +103,13 @@ public class ParamAAN2 extends ParamList {
 	}
 	public boolean isAuto(boolean isPlayer) {
 		if (isPlayer) 
-			switch(value) {
+			switch(get()) {
 				case MAYBE: case AUTO: case RISKY:
 					return true;
 				default:
 					return false;
 			}
-		else switch(value) {
+		else switch(get()) {
 				case RIVALS: case AUTO: case PLAYER:
 					return true;
 				default:

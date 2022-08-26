@@ -18,16 +18,13 @@ package rotp.ui.util;
 
 import static rotp.ui.UserPreferences.MOD_UI;
 
-import java.util.LinkedHashMap;
-
 public class ParamAAN extends ParamList {
 	
 	public static final String NEVER	= "Never";
 	public static final String AUTO		= "Auto";
 	public static final String ALWAYS	= "Always";
 	
-	private static final LinkedHashMap<String, String> labelsAlwaysAutoNever =
-							new LinkedHashMap<String, String>();
+	private static final IndexableMap labelsAlwaysAutoNever = new IndexableMap();
 	static {
 		labelsAlwaysAutoNever.put(NEVER,	MOD_UI + "OPTION_NEVER");
 		labelsAlwaysAutoNever.put(AUTO,		MOD_UI + "OPTION_AUTO");
@@ -63,13 +60,13 @@ public class ParamAAN extends ParamList {
 	// ===== Specific Public Methods =====
 	//
 	public boolean isAlways() {
-		return value.equalsIgnoreCase(ALWAYS);
+		return get().equalsIgnoreCase(ALWAYS);
 	}
 	public boolean isNever() {
-		return value.equalsIgnoreCase(NEVER);
+		return get().equalsIgnoreCase(NEVER);
 
 	}
 	public boolean isAuto() {
-		return value.equalsIgnoreCase(AUTO);
+		return get().equalsIgnoreCase(AUTO);
 	}
 }

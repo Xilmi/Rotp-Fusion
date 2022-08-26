@@ -29,17 +29,15 @@ public class EventsStartTurn extends ParamInteger {
 	 * @param baseInc  The base increment
 	 * @param shiftInc The increment when Shift is hold
 	 * @param ctrlInc  The increment when Ctrl is hold
-	 * @param loop     what to do when reaching the limits
 	 */
 	public EventsStartTurn(String gui, String name, Integer defaultValue
-			, Integer minValue, Integer maxValue, boolean loop
+			, Integer minValue, Integer maxValue
 			, Integer baseInc, Integer shiftInc, Integer ctrlInc) {
-		super(gui, name, defaultValue, minValue, maxValue, loop, baseInc, shiftInc, ctrlInc);
+		super(gui, name, defaultValue, minValue, maxValue, baseInc, shiftInc, ctrlInc);
 	}
 
 	@Override public Integer set(Integer newValue) {
-		value = newValue;
-		RandomEvents.START_TURN = value;
-		return value;
+		RandomEvents.START_TURN = newValue;
+		return super.set(newValue);
 	}	
 }

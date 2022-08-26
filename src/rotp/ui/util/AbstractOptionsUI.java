@@ -185,6 +185,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 			if (hoverBox == btList.get(i).bounds()) {
 				paramList.get(i).toggle(e, w);
 				btList.get(i).repaint(paramList.get(i).getGuiDisplay());
+				return;
 			}			
 		}
 		customMouseCommon(up, mid, shiftPressed, ctrlPressed, e, w);

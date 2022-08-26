@@ -91,14 +91,14 @@ public class UserPreferences {
 	// BR: ===== Second Mod GUI:
 	public static final ParamBoolean maximizeSpacing = new ParamBoolean(MOD_UI, "MAX_SPACINGS", false);
 	public static final ParamFloat spacingLimit = new ParamFloat(MOD_UI, "MAX_SPACINGS_LIM"
-			, 16f, 3.0f, null, false, 1f, 5f, 20f, "0.#", "0.#");
+			, 16f, 3.0f, null, 1f, 5f, 20f, "0.#", "0.#");
 	public static final ParamInteger minStarsPerEmpire = new ParamInteger(MOD_UI, "MIN_STARS_PER_EMPIRE"
-			, 3, 3, null, false, 1, 5, 20);
+			, 3, 3, null, 1, 5, 20);
 	public static final ParamFloat prefStarsPerEmpire = new ParamFloat(MOD_UI, "PREF_STARS_PER_EMPIRE"
-			, 10f, 3.0f, null, false, 1f, 5f, 20f, "0.#", "0.#");
+			, 10f, 3.0f, null, 1f, 5f, 20f, "0.#", "0.#");
 	public static final ParamBoolean loadWithNewOptions = new ParamBoolean(MOD_UI, "LOAD_WITH_NEW_OPTIONS", false);
 	public static final EventsStartTurn eventsStartTurn = new EventsStartTurn(MOD_UI, "EVENTS_STARS_TURN"
-			, RandomEvents.START_TURN, 1, null, false, 1, 5, 20);
+			, RandomEvents.START_TURN, 1, null, 1, 5, 20);
 	public static final ParamTech techIrradiated = new 
 			ParamTech("TECH_IRRADIATED",	3, "ControlEnvironment",	6); // level 18
 	public static final ParamTech techCloaking	 = new 
@@ -113,35 +113,44 @@ public class UserPreferences {
 			ParamTech("TECH_THORIUM",		4, "FuelRange",				8); // level 41
 	public static final ParamTech techTransport  = new 
 			ParamTech("TECH_TRANSPORTERS",	4, "CombatTransporter",		0); // level 45
+	public static final ParamInteger randomAlienRacesAvg = new ParamInteger(MOD_UI, "RACES_RAND_AVG"
+			, 0, null, null, 1, 5, 20);
+	public static final ParamInteger randomAlienRacesStDev = new ParamInteger(MOD_UI, "RACES_RAND_STDEV"
+			, 0, 0, null, 1, 5, 20);
+	public static final ParamBoolean randomAlienRaces = new ParamBoolean(MOD_UI, "RACES_ARE_RANDOM", false);
 	
 	public static final LinkedList<ParamTech> techModList = new LinkedList<>(Arrays.asList(
 			techIrradiated, techCloaking, techStargate, techHyperspace,
 			techIndustry2, techThorium, techTransport
 			));
 	public static final LinkedList<AbstractParam<?>> modB = new LinkedList<>(Arrays.asList(
-		loadWithNewOptions, maximizeSpacing, spacingLimit, minStarsPerEmpire, prefStarsPerEmpire,
-		techIrradiated, techCloaking, techStargate, techHyperspace, eventsStartTurn,
-		techIndustry2, techThorium, techTransport
+		maximizeSpacing, spacingLimit, minStarsPerEmpire, prefStarsPerEmpire,
+		loadWithNewOptions, randomAlienRaces, randomAlienRacesAvg, randomAlienRacesStDev,
+		techIrradiated, techCloaking, techStargate, techHyperspace,
+		techIndustry2, techThorium, techTransport, eventsStartTurn
 		));
 
 	// BR: ===== Viewing settings Mod GUI:
 	public static final ParamFloat showFleetFactor = new ParamFloat(MOD_UI, "SHOW_FLEET_FACTOR"
-			, 1.0f, 0.3f, 3f, false, 0.02f, 0.1f, 0.5f, "%", "%");
+			, 1.0f, 0.3f, 3f, 0.02f, 0.1f, 0.5f, "%", "%");
 	public static final ParamFloat showFlagFactor = new ParamFloat(MOD_UI, "SHOW_FLAG_FACTOR"
-			, 1.0f, 0.3f, 3f, false, 0.02f, 0.1f, 0.5f, "%", "%");
+			, 1.0f, 0.3f, 3f, 0.02f, 0.1f, 0.5f, "%", "%");
 	public static final ParamFloat showPathFactor = new ParamFloat(MOD_UI, "SHOW_PATH_FACTOR"
-			, 1.0f, 0.3f, 3f, false, 0.02f, 0.1f, 0.5f, "%", "%");
+			, 1.0f, 0.3f, 3f, 0.02f, 0.1f, 0.5f, "%", "%");
 	public static final ParamInteger showNameMinFont = new ParamInteger(MOD_UI, "SHOW_NAME_MIN_FONT"
-			, 8, 2, 24, false, 1, 2, 5);
+			, 8, 2, 24, 1, 2, 5);
 	public static final ParamFloat showInfoFontRatio = new ParamFloat(MOD_UI, "SHOW_INFO_FONT_RATIO"
-			, 0.7f, 0.2f, 3f, false, 0.02f, 0.1f, 0.5f, "%", "%");
+			, 0.7f, 0.2f, 3f, 0.02f, 0.1f, 0.5f, "%", "%");
 	public static final ParamFloat mapFontFactor = new ParamFloat(MOD_UI, "MAP_FONT_FACTOR"
-			, 1.0f, 0.3f, 3f, false, 0.02f, 0.1f, 0.5f, "%", "%");
+			, 1.0f, 0.3f, 3f, 0.02f, 0.1f, 0.5f, "%", "%");
 
 	public static final LinkedList<AbstractParam<?>> modView = new LinkedList<>(Arrays.asList(
 			showFleetFactor, showFlagFactor, showPathFactor,
 			showNameMinFont, showInfoFontRatio, mapFontFactor
 			));
+	// BR: Player customRace
+	public static final ParamBoolean customPlayerRace = new ParamBoolean(
+			BASE_UI, "BUTTON_CUSTOM_PLAYER_RACE", false, false);
 
 	private static boolean showMemory = false;
 	private static boolean playMusic = true;
@@ -694,15 +703,15 @@ public class UserPreferences {
 			// BR: Second Mod GUI
 				for (AbstractParam<?> param : modA) {
 					if (key.equalsIgnoreCase(param.getCfgLabel()))
-						param.setFromCfg(val);
+						param.setFromCfgValue(val);
 				}
 				for (AbstractParam<?> param : modB) {
 					if (key.equalsIgnoreCase(param.getCfgLabel()))
-						param.setFromCfg(val);
+						param.setFromCfgValue(val);
 				}
 				for (AbstractParam<?> param : modView) {
 					if (key.equalsIgnoreCase(param.getCfgLabel()))
-						param.setFromCfg(val);
+						param.setFromCfgValue(val);
 				}
 				break;
 		}

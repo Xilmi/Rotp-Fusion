@@ -28,6 +28,12 @@ import static rotp.ui.UserPreferences.techStargate;
 import static rotp.ui.UserPreferences.techThorium;
 import static rotp.ui.UserPreferences.techTransport;
 import static rotp.ui.UserPreferences.eventsStartTurn;
+import static rotp.ui.UserPreferences.techThorium;
+import static rotp.ui.UserPreferences.techTransport;
+import static rotp.ui.UserPreferences.eventsStartTurn;
+import static rotp.ui.UserPreferences.randomAlienRacesStDev;
+import static rotp.ui.UserPreferences.randomAlienRacesAvg;
+import static rotp.ui.UserPreferences.randomAlienRaces;
 
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
@@ -45,18 +51,21 @@ public class StartModBOptionsUI extends AbstractOptionsUI {
 	protected BaseText spacingLimitText;
 	protected BaseText minStarsPerEmpireText;
 	protected BaseText prefStarsPerEmpireText;
-	protected BaseText loadWithNewOptionsText;
 	// Second column
+	protected BaseText loadWithNewOptionsText;
+	protected BaseText randomAlienRacesText;
+	protected BaseText randomAlienRacesAvgText;
+	protected BaseText randomAlienRacesStDevText;
+	// Third column
 	protected BaseText techIrradiatedText;
 	protected BaseText techCloakingText;
 	protected BaseText techStargateText;
 	protected BaseText techHyperspaceText;
-	// Third column
+	// Fourth column
 	protected BaseText techIndustry2Text;
 	protected BaseText techThoriumText;
 	protected BaseText techTransportText;
-	protected BaseText techTerra120Text;
-	// Fourth column
+	protected BaseText eventsStartTurnText;
 	
 	public StartModBOptionsUI() {
 		super(guiTitleID);
@@ -66,26 +75,29 @@ public class StartModBOptionsUI extends AbstractOptionsUI {
 		// Complete this table... Et Voilà!
 		// For Mixed Setup keep "paintComponent" up to date
 		// First column (left)
-		btList.add(loadWithNewOptionsText	= newBT()); paramList.add(loadWithNewOptions);
 		btList.add(maximizeSpacingText		= newBT()); paramList.add(maximizeSpacing);
 		btList.add(spacingLimitText			= newBT()); paramList.add(spacingLimit);
 		btList.add(minStarsPerEmpireText	= newBT()); paramList.add(minStarsPerEmpire);
 		btList.add(prefStarsPerEmpireText	= newBT()); paramList.add(prefStarsPerEmpire);
 		endOfColumn();
 		// Second column
-		btList.add(techIrradiatedText		= newBT()); paramList.add(techIrradiated);
-		btList.add(techCloakingText			= newBT()); paramList.add(techCloaking);
-		btList.add(techStargateText			= newBT()); paramList.add(techStargate);
-		btList.add(techHyperspaceText		= newBT()); paramList.add(techHyperspace);
-		btList.add(loadWithNewOptionsText	= newBT()); paramList.add(eventsStartTurn);
+		btList.add(loadWithNewOptionsText		= newBT()); paramList.add(loadWithNewOptions);
+		btList.add(randomAlienRacesText			= newBT()); paramList.add(randomAlienRaces);
+		btList.add(randomAlienRacesAvgText		= newBT()); paramList.add(randomAlienRacesAvg);
+		btList.add(randomAlienRacesStDevText	= newBT()); paramList.add(randomAlienRacesStDev);
 		endOfColumn();
 		// Third column
+		btList.add(techIrradiatedText	= newBT()); paramList.add(techIrradiated);
+		btList.add(techCloakingText		= newBT()); paramList.add(techCloaking);
+		btList.add(techStargateText		= newBT()); paramList.add(techStargate);
+		btList.add(techHyperspaceText	= newBT()); paramList.add(techHyperspace);
+		endOfColumn();
+		// Fourth column
 		btList.add(techIndustry2Text	= newBT()); paramList.add(techIndustry2);
 		btList.add(techThoriumText		= newBT()); paramList.add(techThorium);
 		btList.add(techTransportText	= newBT()); paramList.add(techTransport);
+		btList.add(eventsStartTurnText	= newBT()); paramList.add(eventsStartTurn);
 		endOfColumn();
-		// Fourth column
-		// endOfColumn();
 	}
 	@Override protected void initCustom() {}
 	@Override protected void paintCustomComponent(Graphics2D g) {}

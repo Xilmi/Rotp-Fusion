@@ -15,6 +15,8 @@
  */
 package rotp.ui.game;
 
+import static rotp.ui.UserPreferences.customPlayerRace;
+
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Composite;
@@ -24,6 +26,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RadialGradientPaint;
 import java.awt.Rectangle;
+import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
 import java.awt.Stroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -33,9 +36,9 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
-import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JTextField;
 
 import rotp.mod.br.addOns.ShipSetAddOns;
@@ -45,6 +48,7 @@ import rotp.model.ships.ShipImage;
 import rotp.model.ships.ShipLibrary;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
+import rotp.ui.main.SystemPanel;
 
 public final class SetupRaceUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
     private static final long serialVersionUID = 1L;
@@ -62,15 +66,18 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     Rectangle nextBox = new Rectangle();
     Rectangle leaderBox = new Rectangle();
     Rectangle homeWorldBox = new Rectangle();
-    private Rectangle shipSetBox = new Rectangle(); // BR:
+    private Rectangle playerRaceSettingBox = new Rectangle(); // BR: Player Race Customization
+    private Rectangle checkBox = new Rectangle(); // BR: Player Race Customization
+    private final Color checkBoxC = new Color(178,124,87);
+    private Rectangle shipSetBox = new Rectangle(); // BR: ShipSet Selection
     Rectangle[] raceBox = new Rectangle[MAX_RACES];
     Rectangle[] colorBox = new Rectangle[MAX_COLORS];
-    private Rectangle[] shipBox = new Rectangle[MAX_SHIP]; // BR:
+    private Rectangle[] shipBox = new Rectangle[MAX_SHIP]; // BR: ShipSet Selection
 
     public static BufferedImage[] racemugs = new BufferedImage[MAX_RACES];
     JTextField leaderName = new JTextField("");
     JTextField homeWorld = new JTextField("");
-    private JTextField shipSetTxt = new JTextField(""); // BR: 
+    private JTextField shipSetTxt = new JTextField(""); // BR: ShipSet Selection
     private int shipSetId = 0; // The index from the list
     private int shipSize = 2;
     private int shipId = 0;
@@ -113,7 +120,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     public void paintComponent(Graphics g0) {
         super.paintComponent(g0);
         Graphics2D g = (Graphics2D) g0;
-    	
+        
         int x = colorBox[0].x;
         int y = colorBox[0].y;
 
@@ -123,16 +130,16 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         shipSetTxt.setLocation(x, y-s100-s44);
         shipSetBox.setBounds(x-s1, y-s100-s44, FIELD_W+s2, FIELD_H+s2);
         leaderName.setCaretPosition(leaderName.getText().length());
-//         leaderName.setLocation(x, y-s53);
+//       leaderName.setLocation(x, y-s53);
         leaderName.setLocation(x, y-s50); // BR: squeezed
-//        leaderBox.setBounds(x-s1, y-s53, FIELD_W+s2, FIELD_H+s2);
+//      leaderBox.setBounds(x-s1, y-s53, FIELD_W+s2, FIELD_H+s2);
         leaderBox.setBounds(x-s1, y-s50, FIELD_W+s2, FIELD_H+s2); // BR: squeezed
         homeWorld.setCaretPosition(homeWorld.getText().length());
-//        homeWorld.setLocation(x, y-s100-s10);
+//      homeWorld.setLocation(x, y-s100-s10);
         homeWorld.setLocation(x, y-s97); // BR: squeezed
 		// modnar: test hover text
 		homeWorld.setToolTipText("<html> Homeworld Name is used as <br> the Galaxy Map when selecting <br> Map Shape [Text]. <br><br> (Unicode characters allowed)");
-//        homeWorldBox.setBounds(x-s1, y-s100-s10, FIELD_W+s2, FIELD_H+s2);
+//      homeWorldBox.setBounds(x-s1, y-s100-s10, FIELD_W+s2, FIELD_H+s2);
         homeWorldBox.setBounds(x-s1, y-s97, FIELD_W+s2, FIELD_H+s2); // BR: squeezed
 
 		// modnar: use (slightly) better upsampling
@@ -179,7 +186,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 
         // race icon
         Race race = Race.keyed(newGameOptions().selectedPlayerRace());
-//        int iconH = scaled(115);
+//      int iconH = scaled(115);
         int iconH = scaled(95); // BR: squeezed
         BufferedImage icon = newBufferedImage(race.flagNorm());
         int imgX = scaled(868); // modnar: right side extended, shift race icon
@@ -188,14 +195,14 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         g.drawImage(icon, imgX, imgY, imgX+iconH, imgY+iconH, 0, 0, icon.getWidth(), icon.getHeight(), null);
 
         // draw race name
-//        int y0 = scaled(260);
+//      int y0 = scaled(260);
         int y0 = scaled(240); // BR: squeezed
         g.setFont(font(30));
         this.drawBorderedString(g0, race.setupName(), 1, x0, y0, Color.black, Color.white);
 
         // draw race desc #1
         int maxLineW = scaled(185); // modnar: right side extended, increase maxLineW
-//        y0 += s25;
+//      y0 += s25;
         y0 += s20; // BR: squeezed
         g.setFont(narrowFont(16));
         g.setColor(Color.black);
@@ -227,7 +234,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         }
         
         // draw race desc #3
-//        y0 += s12;
+//      y0 += s12;
         y0 += s3;  // BR: squeezed
         String desc3 = race.description3.replace("[race]", race.setupName());
         List<String> desc3Lines = scaledNarrowWrappedLines(g0, desc3, maxLineW+s8, 5, 16, 13);
@@ -251,17 +258,11 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
             g.draw(hoverBox);
             g.setStroke(prev);
         }
-        
-//        int y5 = shipSetBox.y+shipSetBox.height-s4;
-//        String shipSetTxt = ShipSetAddOns.playerShipSet();
-//        int shipSetSW = g.getFontMetrics().stringWidth(shipSetTxt);
-//        int x5a =shipSetBox.x+s5;
-//        drawString(g, shipSetTxt, x5a, y5);
 
-        // draw homeword label
+        // draw homeworld label
         String homeLbl = text("SETUP_HOMEWORLD_NAME_LABEL");
         x3 = colorBox[0].x;
-//        y3 = colorBox[0].y-s100-s14;
+//      y3 = colorBox[0].y-s100-s14;
         y3 = colorBox[0].y-scaled(101); // BR: squeezed
         g.setFont(narrowFont(20));
         g.setColor(Color.black);
@@ -278,7 +279,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         // draw leader name label
         String nameLbl = text("SETUP_LEADER_NAME_LABEL");
         x3 = colorBox[0].x;
-//        y3 = colorBox[0].y-s60;
+//      y3 = colorBox[0].y-s60;
         y3 = colorBox[0].y-s54; // BR: squeezed
         g.setFont(narrowFont(20));
         g.setColor(Color.black);
@@ -339,7 +340,6 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
             }
         }
 
-
         // left button
         int cnr = s5;
         g.setFont(narrowFont(30));
@@ -365,6 +365,41 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         g.setStroke(stroke1);
         g.drawRoundRect(nextBox.x, nextBox.y, nextBox.width, nextBox.height, cnr, cnr);
         g.setStroke(prev);
+
+        // BR: Player Race Customization
+        // far left button
+        g.setFont(narrowFont(20));
+        String text4 = text("SETUP_BUTTON_CUSTOM_PLAYER_RACE");
+        int sw4= g.getFontMetrics().stringWidth(text4);
+        int x4 = playerRaceSettingBox.x + ((playerRaceSettingBox.width-sw4)/2);
+        int y4 = playerRaceSettingBox.y + playerRaceSettingBox.height-s8;
+        Color c4 = hoverBox == playerRaceSettingBox ? Color.yellow : GameUI.borderBrightColor();
+        drawShadowedString(g, text4, 2, x4, y4, GameUI.borderDarkColor(), c4);
+        prev = g.getStroke();
+        g.setStroke(stroke1);
+        g.drawRoundRect(playerRaceSettingBox.x, playerRaceSettingBox.y, playerRaceSettingBox.width, playerRaceSettingBox.height, cnr, cnr);
+        g.setStroke(prev);
+        
+        // BR: Race customization check box
+        int checkW = s16;
+        int checkX = playerRaceSettingBox.x + playerRaceSettingBox.width + s10;    
+        int checkY = playerRaceSettingBox.y + playerRaceSettingBox.height - s7;
+        checkBox.setBounds(checkX, checkY-checkW, checkW, checkW);
+        prev = g.getStroke();
+        g.setStroke(stroke3);
+        g.setColor(checkBoxC);
+        g.fill(checkBox);
+        if (hoverBox == checkBox) {
+            g.setColor(Color.yellow);
+            g.draw(checkBox);
+        }
+        if (customPlayerRace.get()) {
+            g.setColor(SystemPanel.whiteText);
+            g.drawLine(checkX-s1, checkY-s8, checkX+s4, checkY-s4);
+            g.drawLine(checkX+s4, checkY-s4, checkX+checkW, checkY-s16);
+        }
+        g.setStroke(prev);
+
     }
     public void goToMainMenu() {
         buttonClick();
@@ -389,10 +424,16 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
             }
         }
     }
-    public void shipSetChanged() {
+    private void shipSetChanged() {
     	shipSetTxt.setText(ShipSetAddOns.playerShipSet());
     	shipSetId = ShipSetAddOns.realShipSetId(Race.keyed(
     			newGameOptions().selectedPlayerRace()).preferredShipSet);
+    }
+    private void checkBoxChanged() { // BR: checkBoxChanged
+        if (PlayerRaceCustomizationUI.cr.isEmpty() 
+                && customPlayerRace.get())
+            goToPlayerRaceCustomization();
+        repaint();
     }
     public void raceChanged() {
         Race r =  Race.keyed(newGameOptions().selectedPlayerRace());
@@ -414,9 +455,9 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     }
     private void initTextField(JTextField value) {
         value.setBackground(GameUI.setupFrame());
-//        value.setBorder(newEmptyBorder(5,5,0,0));
-      value.setBorder(newEmptyBorder(3,3,0,0));
-//        value.setBorder(null);
+//      value.setBorder(newEmptyBorder(5,5,0,0));
+        value.setBorder(newEmptyBorder(3,3,0,0));
+//      value.setBorder(null);
         value.setPreferredSize(new Dimension(FIELD_W, FIELD_H));
         value.setFont(narrowFont(20));
         value.setForeground(Color.black);
@@ -574,6 +615,14 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         g.setPaint(GameUI.buttonRightBackground());
         g.fillRoundRect(nextBox.x, nextBox.y, buttonW, buttonH, cnr, cnr);
 
+        // BR: Player Race Customization
+        // far left button
+        int smallButtonH = s30;
+        int smallButtonW = scaled(180);
+        playerRaceSettingBox.setBounds(scaled(140), scaled(615), smallButtonW, smallButtonH);
+        g.setPaint(GameUI.buttonLeftBackground());
+        g.fillRoundRect(playerRaceSettingBox.x, playerRaceSettingBox.y, smallButtonW, smallButtonH, cnr, cnr);
+
         g.dispose();
     }
     private void drawRaceBox(Graphics2D g, int num, int x, int y, Composite comp) {
@@ -607,7 +656,6 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     }
     private void redrawShipBox(Graphics2D g) {
         int xS = scaled(830) + scaled(220);        
-//        Graphics2D g = (Graphics2D) backImg.getGraphics();
         Composite comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER , 1.0f);
         drawShipBox(g, 0, xS, scaled(120), comp);
         drawShipBox(g, 1, xS, scaled(200), comp);
@@ -670,7 +718,14 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
             shipImages[num].add(resizedImg);
         }
     }
-    
+    // BR: Display UI panel for Player Race Customization
+    public void goToPlayerRaceCustomization() {
+        buttonClick();
+        PlayerRaceCustomizationUI playerRaceCustomizationUI = RotPUI.startPlayerRaceCustomizationUI();
+        playerRaceCustomizationUI.open(this);
+        backImg = null;
+        raceImg = null;
+    }
     @Override
     public String ambienceSoundKey() { 
         return GameUI.AMBIENCE_KEY;
@@ -719,8 +774,14 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
             hoverBox = leaderBox;
         else if (homeWorldBox.contains(x,y))
             hoverBox = homeWorldBox;
+        // BR: Ship Set Selection
         else if (shipSetBox.contains(x,y))
             hoverBox = shipSetBox;
+        // BR: Player Race customization
+        else if (playerRaceSettingBox.contains(x,y))
+            hoverBox = playerRaceSettingBox;
+        else if (checkBox.contains(x,y))
+            hoverBox = checkBox;
         else {
             for (int i=0;i<raceBox.length;i++) {
                 if (raceBox[i].contains(x,y)) {
@@ -753,6 +814,14 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
             goToMainMenu();
         else if (hoverBox == nextBox)
             goToGalaxySetup();
+        // BR: Player Race customization
+        else if (hoverBox == playerRaceSettingBox)
+            goToPlayerRaceCustomization();
+        else if (hoverBox == checkBox) {
+            customPlayerRace.toggle(e);
+            checkBoxChanged();
+        }
+        // BR: Player Ship Set Selection
         else if (hoverBox == shipSetBox) {
         	ShipSetAddOns.togglePlayerShipSet(e.getButton());
         	shipSetChanged();
@@ -817,7 +886,9 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         	ShipSetAddOns.togglePlayerShipSet(up);
         	shipSetChanged();
         	repaint();
+        } else if (hoverBox == checkBox) {
+            customPlayerRace.toggle(e);
+            checkBoxChanged();
         }
     }
-
 }

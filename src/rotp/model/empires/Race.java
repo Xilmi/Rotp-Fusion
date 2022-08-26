@@ -28,6 +28,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
+
 import rotp.model.empires.Leader.Objective;
 import rotp.model.empires.Leader.Personality;
 import rotp.model.planet.PlanetType;
@@ -38,10 +39,16 @@ import rotp.util.LabelManager;
 
 public class Race implements Base, Serializable {
     private static final long serialVersionUID = 1L;
+    
     private static Map<String, Race> raceMap = new HashMap<>();
-    public static Race keyed(String s)   { return raceMap.get(s); }
-    public static void addRace(Race r)   { raceMap.put(r.id, r); }
-    public static List<Race> races()  {
+    public static Race keyed(String s) {
+        Race race = raceMap.get(s);
+        if (race == null) // BR: Add custom race if missing
+            race = CustomRace.keyToRace(s);
+        return race;
+    }
+    public static void addRace(Race r) { raceMap.put(r.id, r);}
+    public static List<Race> races() {
         List<Race> races = new ArrayList<>();
         races.addAll(raceMap.values());
         return races;
@@ -219,6 +226,11 @@ public class Race implements Base, Serializable {
     public Race(String dirPath) {
         directoryName = dirPath;
         labels = new LabelManager();
+    }
+    // BR: for race customization
+    // Get a Copy the current race
+    protected Race copy() {
+        return RaceFactory.current().reloadRaceDataFile(directoryName);
     }
     public void loadNameList()  {
         List<String> secondaryNames =  new ArrayList<>(raceNames);

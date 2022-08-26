@@ -47,6 +47,28 @@ public enum RaceFactory implements Base {
             err("RaceFactory.loadRaces -- IOException: ", e.toString());
         }
     }
+    // BR: The safest way to copy a race!
+    public Race reloadRaceDataFile(String raceDirPath) {
+        String filename = raceDirPath+"/definition.txt";
+        BufferedReader in = reader(filename);
+        if (in == null) {
+            err("Could not open file: ", filename);
+            return null;
+        }
+        Race newRace = new Race(raceDirPath);
+        try {
+            String input;
+            while ((input = in.readLine()) != null)
+                loadRaceDataLine(newRace, input);
+            in.close();
+            ImageManager.current().loadImageList(raceDirPath+"/images.txt");
+            AnimationManager.current().loadAnimationList(raceDirPath+"/animations.txt");
+        }
+        catch (IOException e) {
+            err("RaceFactory.loadRaceDataFile(", filename, ") -- IOException: ", e.toString());
+        }
+        return newRace;
+    }
     private void loadRaceDataFile(String raceDirName) {
         if (isComment(raceDirName))
             return;
@@ -291,6 +313,7 @@ public enum RaceFactory implements Base {
     		r.maintenanceFactor(0.5f);
     		return;
     	}
+        
     }
     private void parseDialogTextMargins(Race r, List<String> vals) {
         if (vals.size() < 2)

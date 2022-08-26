@@ -23,6 +23,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import rotp.mod.br.addOns.GalaxyOptions;
@@ -1011,9 +1012,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add(OPPONENT_AI_ALLRANDOM);
         return list;
     }
-    @Override
-    public List<String> newRacesOffOptions() {
-        List<String> list = new ArrayList<>();
+    // BR: Made static method option
+    public static LinkedList<String> baseRacesOptions() {
+    	LinkedList<String> list = new LinkedList<>();
         list.add("RACE_HUMAN");
         list.add("RACE_ALKARI");
         list.add("RACE_SILICOID");
@@ -1026,9 +1027,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add("RACE_BULRATHI");
         return list;
     }
-    @Override
-    public List<String> startingRaceOptions() {
-        List<String> list = newRacesOffOptions();
+    public static LinkedList<String> allRaceOptions() {
+    	LinkedList<String> list = baseRacesOptions();
         list.add("RACE_NEOHUMAN");   // modnar: add races
 		list.add("RACE_MONOCLE");    // modnar: add races
 		list.add("RACE_JACKTRADES"); // modnar: add races
@@ -1036,6 +1036,14 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 		list.add("RACE_WARDEMON");   // modnar: add races
         list.add("RACE_GEARHEAD");   // modnar: add races
         return list;
+    }
+    @Override
+    public List<String> newRacesOffOptions() {
+        return baseRacesOptions();
+    }
+    @Override
+    public List<String> startingRaceOptions() {
+        return allRaceOptions();
     }
     @Override
     public List<Integer> possibleColors() {
