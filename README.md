@@ -22,6 +22,10 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
+2022.08.26 (BR)
+  - Added Player Race Customization.
+  - Added Alien Race Randomization.
+
 2022.08.24 (BR)
   - Fixed an old bug where "race" and "dataRace" were mixed, affecting the "randomized race abilities"-option.
   - Better integration of Modnar races abilities thru Race and RaceFactory classes (will be needed later).
