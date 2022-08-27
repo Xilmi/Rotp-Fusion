@@ -32,6 +32,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
   - Changed the font size for Modnar Races with too long description.
   - Fixed list randomization in custom Race.
   - Cleaned UserPreferences from removed parameters.
+  - Fixed Hostile, Poor and UltraPoor not bein set.
 
 2022.08.26 (BR)
   - Added Player Race Customization.
