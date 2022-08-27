@@ -1002,7 +1002,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
             st1.cloaked = previousCloakingState;
         }
         //If we have an invulnerable friend, we should retreat and let him do the work. Due to the rule-change we will even stay where we are.
-        if(invulnerableFriend != null && invulnerableFriend != stack)
+        if(invulnerableFriend != null && invulnerableFriend != stack && friends.size() > 2)
             return true;
         
         /*if(dpsOnColony > 0)
