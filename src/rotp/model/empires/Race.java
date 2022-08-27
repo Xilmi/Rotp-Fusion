@@ -43,8 +43,10 @@ public class Race implements Base, Serializable {
     private static Map<String, Race> raceMap = new HashMap<>();
     public static Race keyed(String s) {
         Race race = raceMap.get(s);
-        if (race == null) // BR: Add custom race if missing
+        if (race == null) { // BR: Add custom race if missing
             race = CustomRace.keyToRace(s);
+            race.isCustomRace(true);
+        }
         return race;
     }
     public static void addRace(Race r) { raceMap.put(r.id, r);}
@@ -151,6 +153,8 @@ public class Race implements Base, Serializable {
     private String planetType = PlanetType.TERRAN;
     private String planetRessource = "Normal";
     private String planetEnvironment = "Normal";
+    // Custom Races
+    private boolean isCustomRace = false;
     // \BR:
     public int startingYear;
     public int speciesType;
@@ -330,6 +334,9 @@ public class Race implements Base, Serializable {
     public void title(String s)               { title = s; }
     public String fullTitle()                 { return fullTitle; }
     public void fullTitle(String s)           { fullTitle = s; }
+    // BR: Custom Races
+    public boolean isCustomRace()             { return isCustomRace; }
+    private void   isCustomRace(boolean val)  { isCustomRace = val; }
     // BR: Get the values encoded in HomeworldKey
     public float bCBonus()                    { return bCBonus; }
     public void  bCBonus(float val)           { bCBonus = val; }

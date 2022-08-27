@@ -219,7 +219,6 @@ public class SettingBase<T> {
 			rand = (maxi + mini + (maxi-mini) * (float) random.nextGaussian())/2;
 		else
 			rand = mini + (maxi-mini) * (float) random.nextFloat();
-		System.out.println("Rand = " + rand);
 		return randomize(rand);
 	}
 //	public T randomize(float mean, float stDev) {

@@ -3134,6 +3134,17 @@ public final class Empire implements Base, NamedObject, Serializable {
             }
         }
     }
+    // BR: Custom Races
+    public boolean isCustomRace()              { return dataRace().isCustomRace(); }
+    // Modnar added features
+    public float bCBonus()                     { return dataRace().bCBonus(); }
+    public float hPFactor()                    { return dataRace().hPFactor();  }
+    public float maintenanceFactor()           { return dataRace().maintenanceFactor(); }
+    public float shipSpaceFactor()             { return dataRace().shipSpaceFactor(); }
+    public String planetType()                 { return dataRace().planetType(); }
+    public String planetRessource()            { return dataRace().planetRessource(); }
+    public String planetEnvironment()          { return dataRace().planetEnvironment(); }
+    // \BR:
     public int preferredShipSize()             { return dataRace().preferredShipSize(); }
     public int diplomacyBonus()                { return dataRace().diplomacyBonus(); }
     public int robotControlsAdj()              { return dataRace().robotControlsAdj(); }
