@@ -461,6 +461,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         if (e.isPlayer()) {
             switch(selectedAutoplayOption()) {
                 case AUTOPLAY_AI_BASE:   return AI.BASE;
+                case AUTOPLAY_AI_MODNAR:   return AI.MODNAR;
+                case AUTOPLAY_AI_ROOKIE:   return AI.ROOKIE;
                 case AUTOPLAY_AI_XILMI:  return AI.XILMI;
                 case AUTOPLAY_AI_CRUEL: return AI.CRUEL;
                 case AUTOPLAY_AI_RANDOM:  return AI.RANDOM;
@@ -472,6 +474,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         else {
             switch(selectedOpponentAIOption()) {
                 case OPPONENT_AI_BASE:   return AI.BASE;
+                case OPPONENT_AI_MODNAR:   return AI.MODNAR;
+                case OPPONENT_AI_ROOKIE:   return AI.ROOKIE;
                 case OPPONENT_AI_XILMI:  return AI.XILMI;
                 case OPPONENT_AI_CRUEL: return AI.CRUEL;
                 case OPPONENT_AI_UNFAIR: return AI.UNFAIR;
@@ -481,6 +485,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
                     String specificAI = specificOpponentAIOption(e.id);
                     switch(specificAI) {
                         case OPPONENT_AI_BASE:   return AI.BASE;
+                        case OPPONENT_AI_MODNAR:   return AI.MODNAR;
+                        case OPPONENT_AI_ROOKIE:   return AI.ROOKIE;
                         case OPPONENT_AI_XILMI:  return AI.XILMI;
                         case OPPONENT_AI_CRUEL: return AI.CRUEL;
                         case OPPONENT_AI_UNFAIR: return AI.UNFAIR;
