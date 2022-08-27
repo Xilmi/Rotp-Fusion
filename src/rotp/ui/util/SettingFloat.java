@@ -147,8 +147,14 @@ public class SettingFloat extends SettingBase<Float> {
 
 	// ===== Overriders =====
 	//
-	@Override public Float randomize(float avg, float stDev) {
-		float rand = avg + (stDev * (float) random.nextGaussian());
+	@Override protected Float randomize(float rand) {
+		float lim1 = settingCost(maxValue);
+		float lim2 = settingCost(minValue);
+		if (rand > 0)
+			rand *= Math.max(lim1, lim2);
+		else
+			rand *= -Math.min(lim1, lim2);
+			
 		float step = Math.abs(maxValue - minValue) / (randCount - 1);
 		float bestVal = defaultValue();
 		float bestDev = Math.abs(rand - settingCost(bestVal));

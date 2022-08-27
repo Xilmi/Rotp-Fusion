@@ -52,6 +52,7 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 	private static final String randomKey		= "CUSTOM_RACE_GUI_RANDOM";
 	private static final LinkedList<Integer> colSettingsCount   = new LinkedList<>();
 	private static final LinkedList<SettingBase<?>> settingList = new LinkedList<>();
+	private static final LinkedList<SettingBase<?>> guiList		= new LinkedList<>();
 	public	static final CustomRace cr = new CustomRace();
 	
 	private static final Color textC		= SystemPanel.whiteText;
@@ -97,10 +98,15 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 	private static final int optionH		= s15;
 	private static final int optionIndent	= s15;
 
-	private static final SettingInteger randomMean = new SettingInteger(ROOT, "RANDOM_MEAN",
-			0, null, null, 5, 20, 100);
-	private static final SettingInteger randomStDev = new SettingInteger(ROOT, "RANDOM_STDEV",
-			0, 0, null, 1, 5, 20);
+//	private static final SettingInteger randomMean = new SettingInteger(ROOT, "RANDOM_MEAN",
+//			0, null, null, 5, 20, 100);
+//	private static final SettingInteger randomStDev = new SettingInteger(ROOT, "RANDOM_STDEV",
+//			0, 0, null, 1, 5, 20);
+	private static final SettingInteger randomMax = new SettingInteger(ROOT, "RANDOM_MAX",
+			0, -100, 100, 1, 5, 20);
+	private static final SettingInteger randomMin = new SettingInteger(ROOT, "RANDOM_MIN",
+			0, -100, 100, 1, 5, 20);
+	private static final SettingBoolean randomSmoothEdges = new SettingBoolean(ROOT, "RANDOM_EDGES", false);
 
 	private static int numColumns	= 0;
 	private static int columnsMaxH	= 0;
@@ -139,14 +145,25 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 	    if (settingList.size() == 0)
 	    	init0();
 
-		randomMean.saveAllowed(false);
-		randomMean.hasNoCost(true);
-		randomMean.settingText(new BaseText(this, false, labelFontSize, 0, 0,
-				labelC, labelC, hoverC, depressedC, textC, 0, 0, 0));
-		randomStDev.saveAllowed(false);
-		randomStDev.hasNoCost(true);
-		randomStDev.settingText(new BaseText(this, false, labelFontSize, 0, 0,
-				labelC, labelC, hoverC, depressedC, textC, 0, 0, 0));
+	    guiList.add(randomMax);
+	    guiList.add(randomMin);
+	    guiList.add(randomSmoothEdges);
+	    
+	    for(SettingBase<?> setting : guiList) {
+	    	setting.saveAllowed(false);
+	    	setting.hasNoCost(true);
+	    	setting.settingText(new BaseText(this, false, labelFontSize, 0, 0,
+					labelC, labelC, hoverC, depressedC, textC, 0, 0, 0));
+	    	
+	    }
+//		randomMean.saveAllowed(false);
+//		randomMean.hasNoCost(true);
+//		randomMean.settingText(new BaseText(this, false, labelFontSize, 0, 0,
+//				labelC, labelC, hoverC, depressedC, textC, 0, 0, 0));
+//		randomStDev.saveAllowed(false);
+//		randomStDev.hasNoCost(true);
+//		randomStDev.settingText(new BaseText(this, false, labelFontSize, 0, 0,
+//				labelC, labelC, hoverC, depressedC, textC, 0, 0, 0));
 
 		addMouseListener(this);
 		addMouseMotionListener(this);
@@ -233,9 +250,8 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		close();
 	}
 	private void randomizeRace() {
-		float avg = randomMean.settingValue();
-		float std = randomStDev.settingValue();
-		cr.randomizeRace(avg, std);
+		cr.randomizeRace(randomMin.settingValue(),
+				randomMax.settingValue(), randomSmoothEdges.settingValue());
 		totalCostText.repaint(totalCostStr());
 	}
 	private void paintSetting(Graphics2D g, SettingBase<?> setting) {
@@ -325,13 +341,12 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 				return;
 			}
 		}
-		if (hoverBox == randomMean.settingText().bounds()) {
-			randomMean.toggle(e, w);
-			randomMean.settingText().repaint();
-		}
-		else if (hoverBox == randomStDev.settingText().bounds()) {
-			randomStDev.toggle(e, w);
-			randomStDev.settingText().repaint();
+		for (SettingBase<?> setting : guiList) {
+			if (hoverBox == setting.settingText().bounds()) {
+				setting.toggle(e, w);
+				setting.settingText().repaint();
+				return;
+			}
 		}
 	}
 	// ========== Overriders ==========
@@ -440,14 +455,20 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		// Randomize Options
 		xLine = xButton + labelPad;
 		yLine = yButton - labelPad;
-		BaseText bt = randomStDev.settingText();
-		bt.displayText(randomStDev.guiSettingDisplayStr());
+		BaseText bt = randomSmoothEdges.settingText();
+		bt.displayText(randomSmoothEdges.guiSettingDisplayStr());
 		bt.setScaledXY(xLine, yLine);
 		bt.draw(g);
 		
 		yLine -= labelH;
-		bt = randomMean.settingText();
-		bt.displayText(randomMean.guiSettingDisplayStr());
+		bt = randomMin.settingText();
+		bt.displayText(randomMin.guiSettingDisplayStr());
+		bt.setScaledXY(xLine, yLine);
+		bt.draw(g);
+
+		yLine -= labelH;
+		bt = randomMax.settingText();
+		bt.displayText(randomMax.guiSettingDisplayStr());
 		bt.setScaledXY(xLine, yLine);
 		bt.draw(g);
 	}
@@ -486,11 +507,10 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 			hoverBox = selectBox;
 		else if (randomBox.contains(x,y))
 			hoverBox = randomBox;
-		else if (randomMean.settingText().contains(x,y))
-			hoverBox = randomMean.settingText().bounds();
-		else if (randomStDev.settingText().contains(x,y))
-			hoverBox = randomStDev.settingText().bounds();
 		else {
+			for (SettingBase<?> setting : guiList)
+				if (setting.settingText().contains(x,y))
+					hoverBox = setting.settingText().bounds();
 			outerLoop1:
 			for ( SettingBase<?> setting : settingList) {
 				if (setting.isSpacer())
@@ -510,10 +530,9 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 			}
 		}
 		if (hoverBox != prevHover) {
-			if (prevHover == randomMean.settingText().bounds())
-				randomMean.settingText().mouseExit();
-			else if (prevHover == randomStDev.settingText().bounds())
-				randomStDev.settingText().mouseExit();
+			for (SettingBase<?> setting : guiList)
+				if (prevHover == setting.settingText().bounds())
+					setting.settingText().mouseExit();
 			outerLoop2:
 			for ( SettingBase<?> setting : settingList) {
 				if (setting.isSpacer())
@@ -531,10 +550,9 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 					}
 				}
 			}
-			if (hoverBox == randomMean.settingText().bounds())
-				randomMean.settingText().mouseEnter();
-			else if (hoverBox == randomStDev.settingText().bounds())
-				randomStDev.settingText().mouseEnter();
+			for (SettingBase<?> setting : guiList)
+				if (hoverBox == setting.settingText().bounds())
+					setting.settingText().mouseEnter();
 			outerLoop3:
 			for ( SettingBase<?> setting : settingList) {
 				if (setting.isSpacer())
@@ -573,7 +591,7 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		else if (hoverBox == selectBox)
 			selectRace();
 		else if (hoverBox == randomBox)
-			randomizeRace();
+			randomizeRace();			
 	}
 	@Override public void mouseEntered(MouseEvent e) { }
 	@Override public void mouseExited(MouseEvent e) {

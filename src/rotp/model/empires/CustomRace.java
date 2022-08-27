@@ -17,8 +17,9 @@
 package rotp.model.empires;
 
 import static rotp.ui.util.SettingBase.CostFormula.DIFFERENCE;
-import static rotp.ui.UserPreferences.randomAlienRacesAvg;
-import static rotp.ui.UserPreferences.randomAlienRacesStDev;
+import static rotp.ui.UserPreferences.randomAlienRacesSmoothEdges;
+import static rotp.ui.UserPreferences.randomAlienRacesMin;
+import static rotp.ui.UserPreferences.randomAlienRacesMax;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -36,11 +37,6 @@ public class CustomRace {
 	public static final String PLANET = "PLANET_";
 	private static final boolean booleansAreBullet = true;
 	private static final boolean saveNotAllowed = false;
-
-	private static final int studyCostMin = 50;
-	private static final int studyCostMax = 200;
-	private static final float researchC1pos = -.1f;
-	private static final float researchC1neg = -.2f;
 
 	private Race race;
 	private LinkedList<SettingBase<?>> settingList;
@@ -92,11 +88,19 @@ public class CustomRace {
 		}
 		return count;
 	}
-	public void randomizeRace(float avg, float stDev) {
-		avg /= getCount();
+//	public void randomizeRace(float avg, float stDev) {
+//		avg /= getCount();
+//		for (SettingBase<?> setting : settingList) {
+//			if (!setting.isSpacer()) {
+//				setting.setRandom(avg, stDev);
+//				setting.guiSelect();
+//			}
+//		}
+//	}
+	public void randomizeRace(float min, float max, boolean gaussian) {
 		for (SettingBase<?> setting : settingList) {
 			if (!setting.isSpacer()) {
-				setting.setRandom(avg, stDev);
+				setting.setRandom(min, max, gaussian);
 				setting.guiSelect();
 			}
 		}
@@ -180,11 +184,10 @@ public class CustomRace {
 	public static String getRandomAlienRaceKey() {
 		CustomRace cr = new CustomRace();
 		cr.getFullList();
-		float avg = randomAlienRacesAvg.get() / cr.getCount();
-		float stDev = randomAlienRacesStDev.get();
 		for (SettingBase<?> setting : cr.settingList) {
 			if (!setting.isSpacer()) {
-				setting.setRandom(avg, stDev);
+				setting.setRandom(randomAlienRacesMin.get(),
+						randomAlienRacesMax.get(), randomAlienRacesSmoothEdges.get());
 			}
 		}
 		return cr.getKey();
@@ -275,7 +278,7 @@ public class CustomRace {
 	public class CreditsBonus extends SettingInteger {
 		// big = good
 		public CreditsBonus() {
-			super(ROOT, "CREDIT", 0, -35, 35, 1, 5, 20, saveNotAllowed,
+			super(ROOT, "CREDIT", 0, 0, 35, 1, 5, 20, saveNotAllowed,
 					DIFFERENCE, new float[]{0f, .8f}, new float[]{0f, .8f});
 		}
 		@Override public void pushSetting() {
@@ -449,7 +452,7 @@ public class CustomRace {
 		private static final boolean defaultValue = false;
 		
 		public IgnoresEco() {
-			super(ROOT, "IGNORES_ECO", defaultValue, 40f, 0f);
+			super(ROOT, "IGNORES_ECO", defaultValue, 50f, 0f);
 			isBullet(booleansAreBullet);
 			saveAllowed(false);
 			initOptionsText();
@@ -467,7 +470,7 @@ public class CustomRace {
 		
 		public PopGrowRate() {
 			super(ROOT, "POP_GROW_RATE", 100, 50, 200, 1, 5, 20, saveNotAllowed,
-					DIFFERENCE, new float[]{0f, .25f}, new float[]{0f, .3f});
+					DIFFERENCE, new float[]{0f, .3f, .003f}, new float[]{0f, .3f});
 		}
 		@Override public void pushSetting() {
 			race.growthRateMod = (float) settingValue()/100;
@@ -482,7 +485,7 @@ public class CustomRace {
 		
 		public ShipAttack() {
 			super(ROOT, "SHIP_ATTACK", 0, -1, 5, 1, 1, 1, saveNotAllowed,
-					DIFFERENCE, new float[]{0f, 2f}, new float[]{0f, 10f});
+					DIFFERENCE, new float[]{0f, .75f, .75f}, new float[]{0f, 10f});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
@@ -498,7 +501,7 @@ public class CustomRace {
 		
 		public ShipDefense() {
 			super(ROOT, "SHIP_DEFENSE", 0, -1, 5, 1, 1, 1, saveNotAllowed,
-					DIFFERENCE, new float[]{0f, 3f}, new float[]{0f, 6f});
+					DIFFERENCE, new float[]{0f, 1.5f, 1.5f}, new float[]{0f, 6f});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
@@ -514,7 +517,7 @@ public class CustomRace {
 		
 		public ShipInitiative() {
 			super(ROOT, "SHIP_INITIATIVE", 0, -1, 5, 1, 1, 1, saveNotAllowed,
-					DIFFERENCE, new float[]{0f, 3f}, new float[]{0f, 6f});
+					DIFFERENCE, new float[]{0f, .75f, .75f}, new float[]{0f, 6f});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
@@ -530,7 +533,7 @@ public class CustomRace {
 		
 		public GroundAttack() {
 			super(ROOT, "GROUND_ATTACK", 0, -20, 30, 1, 5, 20, saveNotAllowed,
-					DIFFERENCE, new float[]{5f, .5f}, new float[]{0f, .5f});
+					DIFFERENCE, new float[]{5f, 1.5f}, new float[]{0f, 1.5f});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
@@ -562,7 +565,7 @@ public class CustomRace {
 		
 		public SpySecurity() {
 			super(ROOT, "SPY_SECURITY", 0, -20, 40, 1, 5, 20, saveNotAllowed,
-					DIFFERENCE, new float[]{0f, .5f}, new float[]{0f, 1f});
+					DIFFERENCE, new float[]{0f, 1f}, new float[]{0f, 2f});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
@@ -578,7 +581,7 @@ public class CustomRace {
 		
 		public SpyInfiltration() {
 			super(ROOT, "SPY_INFILTRATION", 0, -20, 40, 1, 5, 20, saveNotAllowed,
-					DIFFERENCE, new float[]{0f, .5f}, new float[]{0f, .1f});
+					DIFFERENCE, new float[]{0f, 1.25f}, new float[]{0f, 2.5f});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
@@ -611,7 +614,7 @@ public class CustomRace {
 		
 		public DiplomacyTrade() {
 			super(ROOT, "DIPLOMACY_TRADE", 0, -30, 30, 1, 5, 20, saveNotAllowed,
-					DIFFERENCE, new float[]{0f, .3f}, new float[]{0f, .3f});
+					DIFFERENCE, new float[]{0f, .4f}, new float[]{0f, .3f});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
@@ -643,7 +646,7 @@ public class CustomRace {
 		
 		public DiplomacyBonus() {
 			super(ROOT, "DIPLOMACY_BONUS", 0, -50, 100, 1, 5, 20, saveNotAllowed,
-					DIFFERENCE, new float[]{0f, .2f}, new float[]{0f, .4f});
+					DIFFERENCE, new float[]{0f, .25f}, new float[]{0f, .4f});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
@@ -691,7 +694,7 @@ public class CustomRace {
 		// bigger = better
 		public ProdWorker() {
 			super(ROOT, "PROD_WORKER", 100, 70, 200, 1, 5, 20, saveNotAllowed,
-					DIFFERENCE, new float[]{0f, .5f}, new float[]{0f, 1f});
+					DIFFERENCE, new float[]{0f, .3f, 0.003f}, new float[]{0f, 0.8f, 0.006f});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
@@ -707,7 +710,7 @@ public class CustomRace {
 		
 		public ProdControl() {
 			super(ROOT, "PROD_CONTROL", 0, -1, 4, 1, 1, 1, saveNotAllowed,
-					DIFFERENCE, new float[]{0f, 10f}, new float[]{0f, 30f});
+					DIFFERENCE, new float[]{0f, 15f}, new float[]{0f, 30f});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
@@ -723,7 +726,7 @@ public class CustomRace {
 		private static final boolean defaultValue = false;
 		
 		public IgnoresFactoryRefit() {
-			super(ROOT, "PROD_REFIT_COST", defaultValue, 10f, 0f);
+			super(ROOT, "PROD_REFIT_COST", defaultValue, 20f, 0f);
 			isBullet(booleansAreBullet);
 			initOptionsText();
 		}
@@ -740,7 +743,7 @@ public class CustomRace {
 		// bigger = better
 		public TechDiscovery() {
 			super(ROOT, "TECH_DISCOVERY", 50, 30, 100, 1, 5, 20, saveNotAllowed,
-					DIFFERENCE, new float[]{0f, .8f}, new float[]{0f, 2f});
+					DIFFERENCE, new float[]{0f, .5f}, new float[]{0f, 1f});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
@@ -756,7 +759,8 @@ public class CustomRace {
 		// bigger = better
 		public TechResearch() {
 			super(ROOT, "TECH_RESEARCH", 100, 60, 200, 1, 5, 20, saveNotAllowed, DIFFERENCE,
-					new float[]{0f, -5f * researchC1pos}, new float[]{0f, 5f * -researchC1neg});
+					new float[]{0f, 0.7f, 0.004f},
+					new float[]{0f, 1.0f, 0.01f});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
@@ -768,12 +772,20 @@ public class CustomRace {
 	}
 	// ==================== ResearchComputer ====================
 	//
+	private static final int studyCostMin = 50;
+	private static final int studyCostMax = 200;
+	private static final float researchC1pos = -.0f;
+	private static final float researchC1neg = -.0f;
+	private static final float researchC2pos = -.003f;
+	private static final float researchC2neg = -.005f;
+
 	public class ResearchComputer extends SettingInteger {
 		// smaller = better
 		public ResearchComputer() {
 			super(ROOT, "RESEARCH_COMPUTER", 100, studyCostMin, studyCostMax,
 					1, 5, 20, saveNotAllowed, DIFFERENCE, 
-					new float[]{0f, researchC1pos}, new float[]{0f, researchC1neg});
+					new float[]{0f, researchC1pos, researchC2pos},
+					new float[]{0f, researchC1neg, researchC2neg});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
@@ -790,7 +802,8 @@ public class CustomRace {
 		public ResearchConstruction() {
 			super(ROOT, "RESEARCH_CONSTRUCTION", 100, studyCostMin, studyCostMax,
 					1, 5, 20, saveNotAllowed, DIFFERENCE, 
-					new float[]{0f, researchC1pos}, new float[]{0f, researchC1neg});
+					new float[]{0f, researchC1pos, researchC2pos},
+					new float[]{0f, researchC1neg, researchC2neg});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
@@ -807,7 +820,8 @@ public class CustomRace {
 		public ResearchForceField() {
 			super(ROOT, "RESEARCH_FORCEFIELD", 100, studyCostMin, studyCostMax,
 					1, 5, 20, saveNotAllowed, DIFFERENCE, 
-					new float[]{0f, researchC1pos}, new float[]{0f, researchC1neg});
+					new float[]{0f, researchC1pos, researchC2pos},
+					new float[]{0f, researchC1neg, researchC2neg});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
@@ -824,7 +838,8 @@ public class CustomRace {
 		public ResearchPlanet() {
 			super(ROOT, "RESEARCH_PLANET", 100, studyCostMin, studyCostMax,
 					1, 5, 20, saveNotAllowed, DIFFERENCE, 
-					new float[]{0f, researchC1pos}, new float[]{0f, researchC1neg});
+					new float[]{0f, researchC1pos, researchC2pos},
+					new float[]{0f, researchC1neg, researchC2neg});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
@@ -841,7 +856,8 @@ public class CustomRace {
 		public ResearchPropulsion() {
 			super(ROOT, "RESEARCH_PROPULSION", 100, studyCostMin, studyCostMax,
 					1, 5, 20, saveNotAllowed, DIFFERENCE, 
-					new float[]{0f, researchC1pos}, new float[]{0f, researchC1neg});
+					new float[]{0f, researchC1pos, researchC2pos},
+					new float[]{0f, researchC1neg, researchC2neg});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
@@ -858,7 +874,8 @@ public class CustomRace {
 		public ResearchWeapon() {
 			super(ROOT, "RESEARCH_WEAPON", 100, studyCostMin, studyCostMax,
 					1, 5, 20, saveNotAllowed, DIFFERENCE, 
-					new float[]{0f, researchC1pos}, new float[]{0f, researchC1neg});
+					new float[]{0f, researchC1pos, researchC2pos},
+					new float[]{0f, researchC1neg, researchC2neg});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {

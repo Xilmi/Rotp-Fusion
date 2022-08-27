@@ -21,6 +21,7 @@ import static rotp.util.Base.random;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.text.DecimalFormat;
+import java.util.Collections;
 import java.util.LinkedList;
 
 import javax.swing.SwingUtilities;
@@ -172,18 +173,19 @@ public class SettingBase<T> {
 			optionText(optionIdx).repaint();
 		}
 	}
-	public void setRandom(float mean, float stDev) {
-		set(randomize(mean, stDev));
+//	public void setRandom(float mean, float stDev) {
+//		set(randomize(mean, stDev));
+//	}
+	public void setRandom(float min, float max, boolean gaussian) {
+		set(randomize(min, max, gaussian));
 	}
-	public T randomize(float mean, float stDev) {
-		if (this.isSpacer)
-			return null;
-		if (hasNoCost && isList && !valueList.isEmpty()) {
-			int rand = random.nextInt(valueList.size());
-			return valueList.get(rand);
-		}
-		float rand = mean + stDev * (float) random.nextGaussian();
+	protected T randomize(float rand) {
 		if (isList) {
+			if (rand > 0)
+				rand *= Collections.max(costList);
+			else
+				rand *= Collections.min(costList);
+				
 			int bestIdx = 0;
 			float bestDev =  Math.abs(rand - costList.getFirst());
 			for (int i=1; i<costList.size(); i++) {
@@ -197,6 +199,39 @@ public class SettingBase<T> {
 		}
 		return null; // Should be overridden
 	}
+	/**
+	 * @param min Limit Value in %
+	 * @param max Limit Value in %
+	 * @param gaussian yes = smooth edges
+	 * @return a randomized value
+	 */
+	public T randomize(float min, float max, boolean gaussian) {
+		if (this.isSpacer)
+			return null;
+		if (hasNoCost && isList && !valueList.isEmpty()) {
+			int rand = random.nextInt(valueList.size());
+			return valueList.get(rand);
+		}
+		float rand;
+		float mini = Math.min(min, max)/100;
+		float maxi = Math.max(min, max)/100;
+		if (gaussian)
+			rand = (maxi + mini + (maxi-mini) * (float) random.nextGaussian())/2;
+		else
+			rand = mini + (maxi-mini) * (float) random.nextFloat();
+		System.out.println("Rand = " + rand);
+		return randomize(rand);
+	}
+//	public T randomize(float mean, float stDev) {
+//		if (this.isSpacer)
+//			return null;
+//		if (hasNoCost && isList && !valueList.isEmpty()) {
+//			int rand = random.nextInt(valueList.size());
+//			return valueList.get(rand);
+//		}
+//		float rand = mean + stDev * (float) random.nextGaussian();
+//		return randomize(rand);
+//	}
 	public void toggle(MouseWheelEvent e) {
 		if (getDir(e) > 0)
 			next();

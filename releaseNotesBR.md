@@ -6,3 +6,6 @@ Randomization is available: You select a total cost target and standard deviatio
 In the "Option MOD B" GUI, you can also set the opponents to be randomized. A standard deviation of "0" means identical alien races, and as sigma increases, the difference between the races increases. With extreme standard deviations, the settings will rarely be average!
 
 And updated to last Xilmi changes
+
+Tuned the cost from the Xilmi statistic list.
+Made the randomization based on a window applied on each setting.

@@ -22,6 +22,10 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
+2022.08.27 (BR)
+  - Adjusted Race Customization setting cost.
+  - Changed the randomizetion limits with Min, Max and Smooth Edges
+
 2022.08.26 (BR)
   - Added Player Race Customization.
   - Added Alien Race Randomization.

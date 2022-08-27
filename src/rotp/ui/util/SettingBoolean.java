@@ -34,6 +34,19 @@ public class SettingBoolean extends SettingBase<Boolean> {
 	 * @param costTrue 
 	 * @param costFalse 
 	 */
+	public SettingBoolean(String guiLangLabel, String nameLangLabel, Boolean defaultValue) {
+		this(guiLangLabel, nameLangLabel, defaultValue, 0f, 0f,
+				defaultBooleanYes, defaultBooleanNo,
+				defaultIsBullet, defaultLabelsAreFinals, defaultSaveAllowed);
+		this.hasNoCost(true);
+	}
+	/**
+	 * @param guiLangLabel  The label header
+	 * @param nameLangLabel The nameLangLabel
+	 * @param defaultvalue The default value
+	 * @param costTrue 
+	 * @param costFalse 
+	 */
 	public SettingBoolean(String guiLangLabel, String nameLangLabel, Boolean defaultValue,
 			float costTrue, float costFalse) {
 		this(guiLangLabel, nameLangLabel, defaultValue, costTrue, costFalse,

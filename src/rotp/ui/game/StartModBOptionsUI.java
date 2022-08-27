@@ -15,10 +15,15 @@
  */
 package rotp.ui.game;
 
+import static rotp.ui.UserPreferences.eventsStartTurn;
 import static rotp.ui.UserPreferences.loadWithNewOptions;
 import static rotp.ui.UserPreferences.maximizeSpacing;
 import static rotp.ui.UserPreferences.minStarsPerEmpire;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
+import static rotp.ui.UserPreferences.randomAlienRaces;
+import static rotp.ui.UserPreferences.randomAlienRacesMax;
+import static rotp.ui.UserPreferences.randomAlienRacesMin;
+import static rotp.ui.UserPreferences.randomAlienRacesSmoothEdges;
 import static rotp.ui.UserPreferences.spacingLimit;
 import static rotp.ui.UserPreferences.techCloaking;
 import static rotp.ui.UserPreferences.techHyperspace;
@@ -27,13 +32,6 @@ import static rotp.ui.UserPreferences.techIrradiated;
 import static rotp.ui.UserPreferences.techStargate;
 import static rotp.ui.UserPreferences.techThorium;
 import static rotp.ui.UserPreferences.techTransport;
-import static rotp.ui.UserPreferences.eventsStartTurn;
-import static rotp.ui.UserPreferences.techThorium;
-import static rotp.ui.UserPreferences.techTransport;
-import static rotp.ui.UserPreferences.eventsStartTurn;
-import static rotp.ui.UserPreferences.randomAlienRacesStDev;
-import static rotp.ui.UserPreferences.randomAlienRacesAvg;
-import static rotp.ui.UserPreferences.randomAlienRaces;
 
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
@@ -54,8 +52,9 @@ public class StartModBOptionsUI extends AbstractOptionsUI {
 	// Second column
 	protected BaseText loadWithNewOptionsText;
 	protected BaseText randomAlienRacesText;
-	protected BaseText randomAlienRacesAvgText;
-	protected BaseText randomAlienRacesStDevText;
+	protected BaseText randomAlienRacesSmoothEdgesText;
+	protected BaseText randomAlienRacesMaxText;
+	protected BaseText randomAlienRacesMinText;
 	// Third column
 	protected BaseText techIrradiatedText;
 	protected BaseText techCloakingText;
@@ -81,10 +80,11 @@ public class StartModBOptionsUI extends AbstractOptionsUI {
 		btList.add(prefStarsPerEmpireText	= newBT()); paramList.add(prefStarsPerEmpire);
 		endOfColumn();
 		// Second column
-		btList.add(loadWithNewOptionsText		= newBT()); paramList.add(loadWithNewOptions);
-		btList.add(randomAlienRacesText			= newBT()); paramList.add(randomAlienRaces);
-		btList.add(randomAlienRacesAvgText		= newBT()); paramList.add(randomAlienRacesAvg);
-		btList.add(randomAlienRacesStDevText	= newBT()); paramList.add(randomAlienRacesStDev);
+		btList.add(loadWithNewOptionsText			= newBT()); paramList.add(loadWithNewOptions);
+		btList.add(randomAlienRacesText				= newBT()); paramList.add(randomAlienRaces);
+		btList.add(randomAlienRacesSmoothEdgesText	= newBT()); paramList.add(randomAlienRacesSmoothEdges);
+		btList.add(randomAlienRacesMaxText			= newBT()); paramList.add(randomAlienRacesMax);
+		btList.add(randomAlienRacesMinText			= newBT()); paramList.add(randomAlienRacesMin);
 		endOfColumn();
 		// Third column
 		btList.add(techIrradiatedText	= newBT()); paramList.add(techIrradiated);
