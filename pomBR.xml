@@ -15,9 +15,11 @@
 		<!-- Personal -->
 		<maven.build.timestamp.format>yyyy.M.d.H</maven.build.timestamp.format>
 		<revision>${maven.build.timestamp}</revision>
+		<versionTXT>${current.time}</versionTXT>
 		<RepoId>Rotp-Fusion</RepoId>
 		<AuthorId>BrokenRegistry</AuthorId>
-		<BaseFileName>rotp-${project.version}</BaseFileName>
+		<BaseFileName>rotp-${versionTXT}</BaseFileName>
+<!--		<BaseFileName>rotp-${project.version}</BaseFileName> -->
 	 	<!-- Maven Standard -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>8</java.version>
@@ -144,6 +146,25 @@
 
 		<!-- Building tools -->
 		<plugins>
+			<!-- Second time stamp for sorting purpose -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>3.3.0</version>
+				<executions>
+					<execution>
+						<id>timestamp-property</id>
+						<goals>
+							<goal>timestamp-property</goal>
+						</goals>
+						<configuration>
+							<name>current.time</name>
+							<pattern>yyyy-MM-dd'T'HH</pattern>
+							<timeZone>GMT</timeZone>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.1</version>
@@ -340,11 +361,12 @@
 							</jre>
 							<versionInfo>
 								<fileVersion>${project.version}</fileVersion>
-								<txtFileVersion>${project.version}</txtFileVersion>
+								<!-- <txtFileVersion>${project.version}</txtFileVersion> -->
+								<txtFileVersion>${versionTXT}</txtFileVersion>
 								<fileDescription>Remnants of the Precursors</fileDescription>
 								<copyright>Copyright Ray Fowler</copyright>
 								<productVersion>${project.version}</productVersion>
-								<txtProductVersion>${project.version}</txtProductVersion>
+								<txtProductVersion>${versionTXT}</txtProductVersion>
 								<productName>Remnants of the Precursors</productName>
 								<internalName>rotp</internalName>
 								<originalFilename>${BaseFileName}.exe</originalFilename>
@@ -383,7 +405,7 @@
 							<owner>${AuthorId}</owner>
 							<repository>${RepoId}</repository>
 							<authToken>${GITHUB_TOKEN}</authToken>
-							<tagName>${project.version}</tagName>
+							<tagName>${versionTXT}</tagName>
 							<name>${BaseFileName}</name>
 							<targetCommitish>main</targetCommitish>
 							<releaseNotes>releaseNotesBR.md</releaseNotes>
