@@ -7,7 +7,7 @@
 	<!-- Project Declaration -->
 	<groupId>com.rayfowler</groupId>
 	<artifactId>rotp</artifactId>
-	<version>${revision}</version>
+	<version>${revisionTXT}</version>
 	<packaging>jar</packaging>
 	
 	<!-- Variables Declaration -->
@@ -153,7 +153,6 @@
 				<version>3.3.0</version>
 				<executions>
 					<execution>
-						<phase>process-resources</phase>
 						<id>timestamp-property</id>
 						<goals>
 							<goal>timestamp-property</goal>
