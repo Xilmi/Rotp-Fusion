@@ -179,11 +179,10 @@ public class NewShipTemplate implements Base {
             //System.out.print("\n"+ai.empire().name()+" "+design.name()+" Role: "+role+" size: "+design.size()+" score wo. costlimit: "+score+" costlimit-dividor: "+design.cost() / costLimit+" dmgPerCostLimit: "+dmgPerCostLimit+" HP: "+design.hits());
             if(design.cost() > costLimit)
                 score /= design.cost() / costLimit;
-            if(dmgPerCostLimit < design.hits())
-                score *= 2;
-            
             float spaceWpnSize = 0;
             float bombWpnSize = 0;
+            float twoRackSpace = 0;
+            float restSpace = 0;
             for (int j=0; j<maxWeapons(); j++)
             {
                 if(design.weapon(j).groundAttacksOnly())
@@ -196,7 +195,19 @@ public class NewShipTemplate implements Base {
                     if(design.weapon(j).space(design) > spaceWpnSize)
                         spaceWpnSize = design.weapon(j).space(design);
                 }
+                if(design.weapon(j).isMissileWeapon() && design.weapon(j).shots() <= 2)
+                    twoRackSpace +=  design.weapon(j).space(design) * design.wpnCount(j);
+                else
+                    restSpace +=  design.weapon(j).space(design) * design.wpnCount(j);
             }
+            
+            boolean isMissileBoat = false;
+            if(twoRackSpace > restSpace)
+                isMissileBoat = true;
+
+            if(dmgPerCostLimit < design.hits() && !isMissileBoat) //doesn't apply for missile-boats as they will retreat after shooting twice anyways
+                score *= 2;
+
             float specialsMod = 1;
             for (int s=0; s<maxSpecials(); s++)
             {
@@ -380,6 +391,8 @@ public class NewShipTemplate implements Base {
         float armorSpace = modulesSpace * armorWeight / weightsSum;
         float specialsSpace = modulesSpace * specialsWeight / weightsSum;
         
+        shieldSpace *= 1 - ai.empire().generalAI().nebulaRatio();
+        //System.out.print("\n"+ai.empire().name()+" "+d.name()+" shieldSpace: "+shieldSpace+" nebulaRatio: "+ai.empire().generalAI().nebulaRatio());
         // ail: removed leftovers. The impact isn't minor at all. Even at a weight of 0 they usually crammed in the max-level ECM, leaving much less space for weapons
         // branches made in the ugly way for clarity
         // specials will be skipped for smaller hulls in the early game, bringing a bit more allowance to the second fitting
@@ -833,6 +846,7 @@ public class NewShipTemplate implements Base {
         if(!mustTargetShips)
             shield = ai.empire().bestEnemyPlanetaryShieldLevel() + ai.empire().bestEnemyShieldLevel();
         float startingShield = shield;
+        spaceAllowed = min(spaceAllowed, d.availableSpace());
         //System.out.print("\n"+ai.empire().name()+" "+d.name()+" air: "+mustTargetShips+" ranged: "+mustBeRanged+" beams: "+prohibitMissiles);
         while(bestWeapon == null)
         {

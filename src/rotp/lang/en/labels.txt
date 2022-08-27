@@ -1662,6 +1662,7 @@ SHIP_DESIGN_RENAME_BUTTON         | Rename
 SHIP_DESIGN_DEPLOY_BUTTON         | Deploy Design
 SHIP_DESIGN_DEPLOY_DESC           | Once deployed, you can construct this ship on your colonies and this design can only be renamed or scrapped.
 SHIP_DESIGN_SCRAP_BUTTON          | Scrap Design
+SHIP_DESIGN_AUTO_BUTTON           | Auto
 SHIP_DESIGN_SCRAP_CONFIRM1        | Are you sure you want to scrap the %1 design?
 SHIP_DESIGN_SCRAP_CONFIRM2        | This will destroy %1 ships in your fleet and place %2 BC into the planetary reserve.
 SHIP_DESIGN_SCRAP_CONFIRM3        | You currently have no constructed ships of this design.

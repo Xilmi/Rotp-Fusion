@@ -2024,11 +2024,19 @@ public class AIDiplomat implements Base, Diplomat {
     public float aggressiveness(Empire victim) {
         float aggressiveness = this.facCapPct(empire, false);
         float racialMod = 1.0f;
-        if(empire.tradePctBonus() > 0 || empire.researchBonusPct() > 1.0f)
-            racialMod *= 2f / 3f;
-        if(empire.groundAttackBonus() > 0 || empire.shipAttackBonus() > 0 || empire.shipDefenseBonus() > 0 || empire.growthRateMod() > 1.0f)
-            racialMod *= 3f / 2f;
-        float personalityMod = 1.0f;
+        if(!empire.race().isCustomRace()) { //Xilmi: For custom-races we need something better than this
+            if(empire.tradePctBonus() > 0)
+                racialMod *= 2f / 3f;
+            if(empire.researchBonusPct() > 1.0f)
+                racialMod *= 5f / 6f;
+            if(empire.groundAttackBonus() > 0 || empire.shipAttackBonus() > 0 || empire.shipDefenseBonus() > 0)
+                racialMod *= 3f / 2f;
+            if(empire.growthRateMod() > 1.0f)
+                racialMod *= 5f / 4f;
+            if(empire.groundAttackBonus() > 0 || empire.growthRateMod() > 1.0f)
+                aggressiveness = empire.totalPlanetaryPopulation() / empire.generalAI().totalEmpirePopulationCapacity(empire);
+        }
+        /*float personalityMod = 1.0f;
         if(empire.leader().isAggressive() || empire.leader().isRuthless())
             personalityMod *= 4f / 3f;
         if(empire.leader().isPacifist() || (empire.leader().isHonorable() && empire.tradingWith(victim)))
@@ -2038,12 +2046,12 @@ public class AIDiplomat implements Base, Diplomat {
         if(empire.leader().isExpansionist() || empire.leader().isMilitarist())
             personalityMod *= 4f / 3f;
         if(empire.leader().isDiplomat() || empire.leader().isTechnologist())
-            personalityMod *= 3f / 4f;
+            personalityMod *= 3f / 4f;*/
         float optionsMod = 1.0f;
         optionsMod *= Math.pow(4d / 3d, galaxy().options().baseAIRelationsAdj() / -10d);
         aggressiveness *= optionsMod;
         aggressiveness *= racialMod;
-        aggressiveness *= personalityMod;
+        //aggressiveness *= personalityMod;
         return aggressiveness;
     }
 }
