@@ -468,7 +468,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
                 case AUTOPLAY_AI_RANDOM:  return AI.RANDOM;
                 case AUTOPLAY_OFF:
                 default:
-                    return AI.XILMI;  // it does matter both for spending reallocation and for ship-captain
+                    return AI.CRUEL;  // it does matter both for spending reallocation and for ship-captain
             }
         }
         else {
@@ -495,7 +495,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
                     }
             }
         }
-        return AI.XILMI;
+        return AI.CRUEL;
     }
     @Override
     public float hostileTerraformingPct() { 
