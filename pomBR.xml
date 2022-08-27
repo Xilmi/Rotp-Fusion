@@ -383,7 +383,7 @@
 							<owner>${AuthorId}</owner>
 							<repository>${RepoId}</repository>
 							<authToken>${GITHUB_TOKEN}</authToken>
-							<tagName>v${revision}</tagName>
+							<tagName>${project.version}</tagName>
 							<name>${BaseFileName}</name>
 							<targetCommitish>main</targetCommitish>
 							<releaseNotes>releaseNotesBR.md</releaseNotes>
