@@ -34,6 +34,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
   - Cleaned UserPreferences from removed parameters.
   - Fixed Hostile, Poor and UltraPoor not bein set.
   - Balanced the cost according to Xilmi's recommendations.
+  - Preselected opponent won't be set as customized race.
 
 2022.08.26 (BR)
   - Added Player Race Customization.
