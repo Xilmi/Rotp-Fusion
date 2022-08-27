@@ -277,8 +277,14 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
         sw = g.getFontMetrics().stringWidth(s);
         drawString(g,s, x+w-s20-sw, y4);
         
-        s = emp.race().description4;
+        s = emp.description4();
         sw = g.getFontMetrics().stringWidth(s);
+        if (s.length()>50) { // Modnar races have a too long description!
+            g.setFont(narrowFont(18));
+            if (s.length()>70)
+            	g.setFont(narrowFont(15));
+            sw = g.getFontMetrics().stringWidth(s);       	
+        }
         drawString(g,s, x+w-s20-sw, y5);
     }
     private void drawAIBaseInfo(Graphics2D g, Empire emp, int x, int y, int w, int h) {
@@ -328,8 +334,14 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
             int x1 = x+w-s20-offset+s5;
             parent.drawAllianceStars(g,x1,y4-s3,alliance.standing(player()),starW);
         }
-        s = emp.race().description4;
+        s = emp.description4();
         sw = g.getFontMetrics().stringWidth(s);
+        if (s.length()>50) { // Modnar races have a too long description!
+            g.setFont(narrowFont(18));
+            if (s.length()>70)
+            	g.setFont(narrowFont(15));
+            sw = g.getFontMetrics().stringWidth(s);       	
+        }
         drawString(g,s, x+w-s20-offset-sw, y5);
     }
     private void drawRelationsMeter(Graphics2D g, Empire emp, int x, int y, int w, int h) {

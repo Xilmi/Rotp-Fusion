@@ -3136,6 +3136,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     }
     // BR: Custom Races
     public boolean isCustomRace()              { return dataRace().isCustomRace(); }
+    public String  description4()              { return dataRace().description4(); }
     // Modnar added features
     public float bCBonus()                     { return dataRace().bCBonus(); }
     public float hPFactor()                    { return dataRace().hPFactor();  }

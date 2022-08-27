@@ -39,6 +39,7 @@ import rotp.util.LabelManager;
 
 public class Race implements Base, Serializable {
     private static final long serialVersionUID = 1L;
+    private static final String customRaceDescription = "Customized Race";
     
     private static Map<String, Race> raceMap = new HashMap<>();
     public static Race keyed(String s) {
@@ -46,6 +47,7 @@ public class Race implements Base, Serializable {
         if (race == null) { // BR: Add custom race if missing
             race = CustomRace.keyToRace(s);
             race.isCustomRace(true);
+            race.description4 = customRaceDescription;
         }
         return race;
     }
@@ -335,6 +337,7 @@ public class Race implements Base, Serializable {
     public String fullTitle()                 { return fullTitle; }
     public void fullTitle(String s)           { fullTitle = s; }
     // BR: Custom Races
+    public String  description4()             { return description4; }
     public boolean isCustomRace()             { return isCustomRace; }
     private void   isCustomRace(boolean val)  { isCustomRace = val; }
     // BR: Get the values encoded in HomeworldKey

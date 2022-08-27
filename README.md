@@ -28,6 +28,8 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
   - Added "boolean Empire.isCustomRace()"
   - Added to Empire methods for every modnar feature.
   - Replaced the direct call to dataRace by the Empires ones.
+  - Set description4 for the customized races.
+  - Changed the font size for Modnar Races with too long description.
 
 2022.08.26 (BR)
   - Added Player Race Customization.
