@@ -361,12 +361,12 @@
 								<maxHeapSize>3500</maxHeapSize>
 							</jre>
 							<versionInfo>
-								<fileVersion>${project.version}</fileVersion>
+								<fileVersion>${revision}</fileVersion>
 								<!-- <txtFileVersion>${project.version}</txtFileVersion> -->
 								<txtFileVersion>${versionTXT}</txtFileVersion>
 								<fileDescription>Remnants of the Precursors</fileDescription>
 								<copyright>Copyright Ray Fowler</copyright>
-								<productVersion>${project.version}</productVersion>
+								<productVersion>${revision}</productVersion>
 								<txtProductVersion>${versionTXT}</txtProductVersion>
 								<productName>Remnants of the Precursors</productName>
 								<internalName>rotp</internalName>
