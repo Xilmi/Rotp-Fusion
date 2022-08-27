@@ -85,6 +85,18 @@ public class NewShipTemplate implements Base {
         instance.nameDesign(ai, d);
     }
     
+    public ShipDesign autoDestroyerDesign(ShipDesigner ai, int size) {
+        return newDesign(ai, DesignType.DESTROYER, size);
+    }
+    
+    public ShipDesign autoFighterDesign(ShipDesigner ai, int size) {
+        return newDesign(ai, DesignType.FIGHTER, size);
+    }
+    
+    public ShipDesign autoBomberDesign(ShipDesigner ai, int size) {
+        return newDesign(ai, DesignType.BOMBER, size);
+    }
+    
     public static ShipDesign newFighterDesign(ShipDesigner ai) {
         return instance.bestDesign(ai, DesignType.FIGHTER);
     }
@@ -466,6 +478,7 @@ public class NewShipTemplate implements Base {
                 break;
             case DESTROYER:
                 bestNonBomb = setOptimalWeapon(ai, d, d.availableSpace(), 4, needRange, true, false, topSpeed, avgECM, bestSHD, antiDote, true, avgHP, false); // uses slots 0-3
+                break;
             case FIGHTER:
             default:
                 setOptimalWeapon(ai, d, max(minBombSpace, d.availableSpace() * hybridBombRatio), 1, false, false, false, topSpeed, avgECM, bestSHD, antiDote, false, avgHP, false);

@@ -151,17 +151,25 @@ public class ShipDesignLab implements Base, Serializable {
         colonyDesignId = 4;
         
         ShipDesign design;
+        rotp.model.ai.xilmi.NewShipTemplate nst = new rotp.model.ai.xilmi.NewShipTemplate();
 
         design = startingScoutDesign();
         setScoutDesign(design, 0);
 
-        design = startingFighterDesign();
-        setFighterDesign(design, 1);
+        design = nst.autoDestroyerDesign(empire.shipDesignerAI(), 0);
+        if (empire.isPlayer())
+            design.name(text("SHIP_DESIGN_1ST_FIGHTER_NAME"));
+        if(design.isArmed())
+            setFighterDesign(design, 1);
 
-        design = startingBomberDesign();
+        design = nst.autoBomberDesign(empire.shipDesignerAI(), 1);
+        if (empire.isPlayer())
+            design.name(text("SHIP_DESIGN_1ST_BOMBER_NAME"));
         setBomberDesign(design, 2);
 
-        design = startingDestroyerDesign();
+        design = nst.autoDestroyerDesign(empire.shipDesignerAI(), 1);
+        if (empire.isPlayer())
+            design.name(text("SHIP_DESIGN_1ST_DESTROYER_NAME"));
         setDestroyerDesign(design, 3);
 
         design = startingColonyDesign();
