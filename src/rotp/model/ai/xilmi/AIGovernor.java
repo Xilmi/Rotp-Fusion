@@ -234,7 +234,7 @@ public class AIGovernor implements Base, Governor {
         float prodScore = productionScore(col.starSystem());
         float factoriesNeeded = max(0, col.maxUseableFactories() + col.normalPopGrowth() * empire.maxRobotControls() - col.industry().factories());
         float workerGoal = max(0, col.industry().factories() / empire.maxRobotControls() - col.workingPopulation() - col.normalPopGrowth());
-        boolean needRefit = col.industry().effectiveRobotControls() < empire.maxRobotControls() && !empire.dataRace().ignoresFactoryRefit;
+        boolean needRefit = col.industry().effectiveRobotControls() < empire.maxRobotControls() && !empire.ignoresFactoryRefit();
         if(popGrowthROI > workerROI)
             workerGoal = col.maxSize() - col.workingPopulation();
         

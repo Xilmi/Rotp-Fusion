@@ -306,7 +306,7 @@ public class AIGeneral implements Base, General {
     {
         float needed = troopsNecessaryToTakePlanet(v, sys);
         needed += empire.sv.currentSize(sys.id) * 0.25f * (1 - empire.fleetCommanderAI().bridgeHeadConfidence(sys));
-        float invasionCost = needed * empire.tech().populationCost() / empire.dataRace().growthRateMod();
+        float invasionCost = needed * empire.tech().populationCost() / empire.growthRateMod();
         return invasionCost;
     }
     public float invasionGain(EmpireView v, StarSystem sys)
@@ -1140,7 +1140,7 @@ public class AIGeneral implements Base, General {
     @Override
     public boolean isInvader()
     {
-        if(empire.dataRace().groundAttackBonus() > 0 || empire.dataRace().growthRateMod() > 1)
+        if(empire.groundAttackBonus() > 0 || empire.growthRateMod() > 1)
             return true;
         return false;
     }
@@ -1154,21 +1154,21 @@ public class AIGeneral implements Base, General {
     @Override
     public boolean isExpander()
     {
-        if(empire.dataRace().ignoresPlanetEnvironment() || empire.dataRace().growthRateMod() > 1)
+        if(empire.ignoresPlanetEnvironment() || empire.growthRateMod() > 1)
             return true;
         return false;
     }
     @Override
     public boolean isSpy()
     {
-        if(empire.dataRace().spyInfiltrationAdj() > 0 || empire.leader().isTechnologist() || empire.leader().isPacifist())
+        if(empire.spyInfiltrationAdj() > 0 || empire.leader().isTechnologist() || empire.leader().isPacifist())
             return true;
         return false;
     }
     @Override
     public boolean isTrader()
     {
-        if(empire.dataRace().tradePctBonus() > 0 || empire.leader().isDiplomat() || empire.leader().isPacifist())
+        if(empire.tradePctBonus() > 0 || empire.leader().isDiplomat() || empire.leader().isPacifist())
             return true;
         return false;
     }

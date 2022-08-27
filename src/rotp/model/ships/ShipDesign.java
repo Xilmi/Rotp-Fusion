@@ -300,7 +300,7 @@ public final class ShipDesign extends Design {
         float techBonus = 1 + (.02f * empire().tech().construction().techLevel());
         // modnar: change total ship space for new races // modnar: NeoHumans, +40% space
         // BR: Made dataRace call
-        float raceSpaceBonus = empire().dataRace().shipSpaceFactor(); 
+        float raceSpaceBonus = empire().shipSpaceFactor(); 
         switch(s) {
             case SMALL  : return 40 * techBonus * raceSpaceBonus; // modnar: change total ship space for new races
             case MEDIUM : return 200 * techBonus * raceSpaceBonus; // modnar: change total ship space for new races
@@ -479,7 +479,7 @@ public final class ShipDesign extends Design {
     	// modnar: change base ship HP for new races
     	// modnar: NeoHumans, 66.6% HP
     	// BR: put the method in Race
-        float raceHPBonus = empire().dataRace().hPFactor();
+        float raceHPBonus = empire().hPFactor();
         switch(size()) {
             case SMALL  : return (int) Math.round(3 * raceHPBonus);
             case MEDIUM : return (int) Math.round(18 * raceHPBonus);

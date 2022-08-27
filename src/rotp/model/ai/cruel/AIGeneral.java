@@ -323,7 +323,7 @@ public class AIGeneral implements Base, General {
         else
             needed += additional;
         //System.out.println(galaxy().currentTurn()+" "+empire.name()+": Considering invasion of "+sys.name()+" bridgeHeadConfidence: "+empire.fleetCommanderAI().bridgeHeadConfidence(sys)+" expected shot down: "+additional * (1 - empire.fleetCommanderAI().bridgeHeadConfidence(sys)));
-        float invasionCost = needed * empire.tech().populationCost() / empire.dataRace().growthRateMod();
+        float invasionCost = needed * empire.tech().populationCost() / empire.growthRateMod();
         return invasionCost;
     }
     public float invasionGain(EmpireView v, StarSystem sys)
@@ -1219,38 +1219,38 @@ public class AIGeneral implements Base, General {
     @Override
     public boolean isInvader()
     {
-        if(empire.dataRace().groundAttackBonus() > 0 || empire.dataRace().growthRateMod() > 1)
+        if(empire.groundAttackBonus() > 0 || empire.growthRateMod() > 1)
             return true;
         return false;
     }
     @Override
     public boolean isRusher()
     {
-        if(empire.dataRace().shipAttackBonus() > 0 
-                || empire.dataRace().shipDefenseBonus() > 0 
+        if(empire.shipAttackBonus() > 0 
+                || empire.shipDefenseBonus() > 0 
                 || isInvader()
-                || empire.dataRace().spyInfiltrationAdj() > 0)
+                || empire.spyInfiltrationAdj() > 0)
             return true;
         return false;
     }
     @Override
     public boolean isExpander()
     {
-        if(empire.dataRace().ignoresPlanetEnvironment() || empire.dataRace().growthRateMod() > 1)
+        if(empire.ignoresPlanetEnvironment() || empire.growthRateMod() > 1)
             return true;
         return false;
     }
     @Override
     public boolean isSpy()
     {
-        if(empire.dataRace().spyInfiltrationAdj() > 0 || empire.leader().isTechnologist() || empire.leader().isPacifist())
+        if(empire.spyInfiltrationAdj() > 0 || empire.leader().isTechnologist() || empire.leader().isPacifist())
             return true;
         return false;
     }
     @Override
     public boolean isTrader()
     {
-        if(empire.dataRace().tradePctBonus() > 0 || empire.leader().isDiplomat() || empire.leader().isPacifist())
+        if(empire.tradePctBonus() > 0 || empire.leader().isDiplomat() || empire.leader().isPacifist())
             return true;
         return false;
     }

@@ -27,6 +27,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
   - Changed the randomizetion limits with Min, Max and Smooth Edges
   - Added "boolean Empire.isCustomRace()"
   - Added to Empire methods for every modnar feature.
+  - Replaced the direct call to dataRace by the Empires ones.
 
 2022.08.26 (BR)
   - Added Player Race Customization.
