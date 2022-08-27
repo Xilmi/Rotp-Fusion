@@ -153,6 +153,7 @@
 				<version>3.3.0</version>
 				<executions>
 					<execution>
+						<phase>process-resources</phase>
 						<id>timestamp-property</id>
 						<goals>
 							<goal>timestamp-property</goal>
