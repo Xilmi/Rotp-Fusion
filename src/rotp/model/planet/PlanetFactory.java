@@ -86,6 +86,10 @@ public class PlanetFactory implements Base {
             p.terrainSeed(r.homeworldKey());
 		// modnar: add option for changing Race homeworld type
         // BR: User control over these settings
+		if (dr.raceWithUltraPoorHomeworld())
+			p.setResourceUltraPoor();
+		if (dr.raceWithPoorHomeworld())
+			p.setResourcePoor();
 		if (richHomeworld.isAlways(isPlayer)
 				|| (!richHomeworld.isNever(isPlayer)
 						&& dr.raceWithRichHomeworld()))
@@ -99,6 +103,8 @@ public class PlanetFactory implements Base {
 						&& dr.raceWithArtifactsHomeworld())) {
 			p.setArtifactRace();
 		}
+		if (dr.raceWithHostileHomeworld())
+			p.makeEnvironmentHostile();
 		if (fertileHomeworld.isAlways(isPlayer)
 				|| (!fertileHomeworld.isNever(isPlayer)
 						&& dr.raceWithFertileHomeworld())) {

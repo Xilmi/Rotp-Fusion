@@ -118,10 +118,6 @@ public class UserPreferences {
 	public static final ParamInteger randomAlienRacesMax = new ParamInteger(MOD_UI, "RACES_RAND_MAX"
 			, 0, -100, 100, 1, 5, 20);
 	public static final ParamBoolean randomAlienRacesSmoothEdges = new ParamBoolean(MOD_UI, "RACES_RAND_EDGES", false);
-	public static final ParamInteger randomAlienRacesAvg = new ParamInteger(MOD_UI, "RACES_RAND_AVG"
-			, 0, null, null, 1, 5, 20);
-	public static final ParamInteger randomAlienRacesStDev = new ParamInteger(MOD_UI, "RACES_RAND_STDEV"
-			, 0, 0, null, 1, 5, 20);
 	public static final ParamBoolean randomAlienRaces = new ParamBoolean(MOD_UI, "RACES_ARE_RANDOM", false);
 	
 	public static final LinkedList<ParamTech> techModList = new LinkedList<>(Arrays.asList(
@@ -130,8 +126,7 @@ public class UserPreferences {
 			));
 	public static final LinkedList<AbstractParam<?>> modB = new LinkedList<>(Arrays.asList(
 		maximizeSpacing, spacingLimit, minStarsPerEmpire, prefStarsPerEmpire,
-		loadWithNewOptions, randomAlienRaces, randomAlienRacesAvg, randomAlienRacesStDev,
-		randomAlienRacesMax, randomAlienRacesMin, randomAlienRacesSmoothEdges,
+		loadWithNewOptions, randomAlienRaces, randomAlienRacesMax, randomAlienRacesMin, randomAlienRacesSmoothEdges,
 		techIrradiated, techCloaking, techStargate, techHyperspace,
 		techIndustry2, techThorium, techTransport, eventsStartTurn
 		));

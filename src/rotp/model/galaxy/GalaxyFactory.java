@@ -45,6 +45,7 @@ public class GalaxyFactory implements Base {
 	 * Companion world greek letter prefix
 	 */
 	public static final String[] compSysName = new String[]{"α", "β", "γ", "δ", "ε", "ζ"};// BR : added two possibilities
+	private static boolean[] isRandomOpponent; // BR: only Random Races will be customized
 
 	public Galaxy newGalaxy(GalaxyCopy gc) { // BR: For restarting with new options
 		for (Race r: Race.races()) {
@@ -254,11 +255,16 @@ public class GalaxyFactory implements Base {
 
 		// next, remove from that list the player and any selected opponents
 		String[] selectedOpponents = options().selectedOpponentRaces();
+		isRandomOpponent = new boolean[selectedOpponents.length]; // BR: only Random Races will be customized
 		allRaceOptions.remove(options().selectedPlayerRace());
 		
 		for (int i=0;i<maxRaces;i++) {
-			if (selectedOpponents[i] != null)
+			if (selectedOpponents[i] != null) {
 				allRaceOptions.remove(selectedOpponents[i]);
+				isRandomOpponent[i] = false;
+			} else {
+				isRandomOpponent[i] = true;
+			}
 		}
 		// build alien race list, replacing unselected opponents (null)
 		// with remaining options
@@ -409,9 +415,11 @@ public class GalaxyFactory implements Base {
                 dataRaceKey = random(options().startingRaceOptions());
             else
                 dataRaceKey = raceKey;
-            if (UserPreferences.randomAlienRaces.get()) {
+            if (UserPreferences.randomAlienRaces.get()
+            		&& isRandomOpponent[h]) {
             	dataRaceKey = CustomRace.getRandomAlienRaceKey();
             }
+            System.out.println("RO = " + isRandomOpponent[h] + "  Key = " + dataRaceKey);
 			Race dataRace = Race.keyed(dataRaceKey);
 
 			EmpireSystem empSystem = null;

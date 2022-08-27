@@ -173,9 +173,6 @@ public class SettingBase<T> {
 			optionText(optionIdx).repaint();
 		}
 	}
-//	public void setRandom(float mean, float stDev) {
-//		set(randomize(mean, stDev));
-//	}
 	public void setRandom(float min, float max, boolean gaussian) {
 		set(randomize(min, max, gaussian));
 	}
@@ -184,7 +181,7 @@ public class SettingBase<T> {
 			if (rand > 0)
 				rand *= Collections.max(costList);
 			else
-				rand *= Collections.min(costList);
+				rand *= -Collections.min(costList);
 				
 			int bestIdx = 0;
 			float bestDev =  Math.abs(rand - costList.getFirst());
@@ -221,16 +218,6 @@ public class SettingBase<T> {
 			rand = mini + (maxi-mini) * (float) random.nextFloat();
 		return randomize(rand);
 	}
-//	public T randomize(float mean, float stDev) {
-//		if (this.isSpacer)
-//			return null;
-//		if (hasNoCost && isList && !valueList.isEmpty()) {
-//			int rand = random.nextInt(valueList.size());
-//			return valueList.get(rand);
-//		}
-//		float rand = mean + stDev * (float) random.nextGaussian();
-//		return randomize(rand);
-//	}
 	public void toggle(MouseWheelEvent e) {
 		if (getDir(e) > 0)
 			next();

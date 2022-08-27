@@ -1,11 +1,14 @@
-Added ability to customize player race and randomize Alien races.
+Changes in this release:
 
-A cost is associated with each parameter to help balance the process, but no limit is set.
-Any suggestion to improve this cost balance is welcome.
-Randomization is available: You select a total cost target and standard deviation that will apply to each parameter. Statistically, the resulting cost should be +/- 12 sigma 95% of the time.
-In the "Option MOD B" GUI, you can also set the opponents to be randomized. A standard deviation of "0" means identical alien races, and as sigma increases, the difference between the races increases. With extreme standard deviations, the settings will rarely be average!
+  - Fine tuned the cost customized races settings with the help of Xilmi.
+  - Made the Random Generation more user friendly. You select the random range with Min and Max. and the possiblity to go a lillte bit outside the range with "Smooth Edges"
+    - To have "full average" set min and max to 0 and randomize.
+    - To have "full Power" set min and max to 100 and randomize.
+    - To be "full Weak" set min and max to -100 and randomize.
+  - Preselected opponent won't be set as customized race, only the "Blank" ones.
+  - Minor bug corrections.
 
-And updated to last Xilmi changes
+And of course it includes all the recent Xilmi Changes:
+  - Fixed the Rookie and Modnar AI as mentionned in a recent post.
+  - The initial ships design are now customized by the AI. 
 
-Tuned the cost from the Xilmi statistic list.
-Made the randomization based on a window applied on each setting.

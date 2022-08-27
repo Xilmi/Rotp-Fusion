@@ -310,7 +310,7 @@ public class CustomRace {
 		// big = good
 		public ShipSpaceBonus() {
 			super(ROOT, "SHIP_SPACE", 100, 80, 175, 1, 5, 20, saveNotAllowed,
-					DIFFERENCE, new float[]{0f, .75f}, new float[]{0f, 1f});
+					DIFFERENCE, new float[]{0f, 1f}, new float[]{0f, 2f});
 		}
 		@Override public void pushSetting() {
 			race.shipSpaceFactor((float) settingValue()/100);
@@ -344,12 +344,12 @@ public class CustomRace {
 			isBullet(true);
 			saveAllowed(false);
 			labelsAreFinals(true);
-			put("UltraPoor",	PLANET + "ULTRA_POOR",		-30f, "UltraPoor");
-			put("Poor",			PLANET + "POOR",			-15f, "Poor");
+			put("UltraPoor",	PLANET + "ULTRA_POOR",		-50f, "UltraPoor");
+			put("Poor",			PLANET + "POOR",			-25f, "Poor");
 			put("Normal",		ROOT   + "RESOURCES_NORMAL",  0f, "Normal");
-			put("Rich",			PLANET + "RICH",			 10f, "Rich");
-			put("UltraRich",	PLANET + "ULTRA_RICH",		 20f, "UltraRich");
-			put("Artifacts",	PLANET + "ARTIFACTS",		 15f, "Artifacts");
+			put("Rich",			PLANET + "RICH",			 20f, "Rich");
+			put("UltraRich",	PLANET + "ULTRA_RICH",		 40f, "UltraRich");
+			put("Artifacts",	PLANET + "ARTIFACTS",		 30f, "Artifacts");
 			defaultCfgValue(defaultValue);
 			initOptionsText();
 		}
@@ -470,7 +470,7 @@ public class CustomRace {
 		
 		public PopGrowRate() {
 			super(ROOT, "POP_GROW_RATE", 100, 50, 200, 1, 5, 20, saveNotAllowed,
-					DIFFERENCE, new float[]{0f, .3f, .003f}, new float[]{0f, .3f});
+					DIFFERENCE, new float[]{0f, .2f, .003f}, new float[]{0f, .3f});
 		}
 		@Override public void pushSetting() {
 			race.growthRateMod = (float) settingValue()/100;
@@ -485,7 +485,7 @@ public class CustomRace {
 		
 		public ShipAttack() {
 			super(ROOT, "SHIP_ATTACK", 0, -1, 5, 1, 1, 1, saveNotAllowed,
-					DIFFERENCE, new float[]{0f, .75f, .75f}, new float[]{0f, 10f});
+					DIFFERENCE, new float[]{0f, 3f}, new float[]{0f, 5f});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
@@ -517,7 +517,7 @@ public class CustomRace {
 		
 		public ShipInitiative() {
 			super(ROOT, "SHIP_INITIATIVE", 0, -1, 5, 1, 1, 1, saveNotAllowed,
-					DIFFERENCE, new float[]{0f, .75f, .75f}, new float[]{0f, 6f});
+					DIFFERENCE, new float[]{5f, 1f}, new float[]{0f, 6f});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
@@ -533,7 +533,7 @@ public class CustomRace {
 		
 		public GroundAttack() {
 			super(ROOT, "GROUND_ATTACK", 0, -20, 30, 1, 5, 20, saveNotAllowed,
-					DIFFERENCE, new float[]{5f, 1.5f}, new float[]{0f, 1.5f});
+					DIFFERENCE, new float[]{10f, 0.75f}, new float[]{0f, 0.75f});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
@@ -646,7 +646,7 @@ public class CustomRace {
 		
 		public DiplomacyBonus() {
 			super(ROOT, "DIPLOMACY_BONUS", 0, -50, 100, 1, 5, 20, saveNotAllowed,
-					DIFFERENCE, new float[]{0f, .25f}, new float[]{0f, .4f});
+					DIFFERENCE, new float[]{0f, .1f}, new float[]{0f, .2f});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
@@ -662,7 +662,7 @@ public class CustomRace {
 		
 		public DiplomacyCouncil() {
 			super(ROOT, "DIPLOMACY_COUNCIL", 0, -25, 25, 1, 5, 20, saveNotAllowed,
-					DIFFERENCE, new float[]{0f, .4f}, new float[]{0f, .4f});
+					DIFFERENCE, new float[]{0f, .2f}, new float[]{0f, .2f});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
@@ -678,7 +678,7 @@ public class CustomRace {
 		
 		public RelationDefault() {
 			super(ROOT, "RELATION_DEFAULT", 0, -10, 10, 1, 2, 4, saveNotAllowed,
-					DIFFERENCE, new float[]{0f, 1f}, new float[]{0f, 1f});
+					DIFFERENCE, new float[]{0f, .4f}, new float[]{0f, .4f});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {

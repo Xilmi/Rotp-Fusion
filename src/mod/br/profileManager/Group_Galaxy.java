@@ -708,8 +708,9 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 			String[] selectedOpponents = RaceOptions.startOpponentRace();
 			if (selectedOpponents != null) {
 				int i=0;
-				for (String race : selectedOpponents) {
-					go.options().selectedOpponentRace(i, race);
+				for (String race : go.options().selectedOpponentRaces()) {
+					if (race == null)
+						go.options().selectedOpponentRace(i, selectedOpponents[i]);
 					i++;
 				}
 			}

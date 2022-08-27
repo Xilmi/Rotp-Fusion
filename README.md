@@ -30,6 +30,11 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
   - Replaced the direct call to dataRace by the Empires ones.
   - Set description4 for the customized races.
   - Changed the font size for Modnar Races with too long description.
+  - Fixed list randomization in custom Race.
+  - Cleaned UserPreferences from removed parameters.
+  - Fixed Hostile, Poor and UltraPoor not bein set.
+  - Balanced the cost according to Xilmi's recommendations.
+  - Preselected opponent won't be set as customized race.
 
 2022.08.26 (BR)
   - Added Player Race Customization.
