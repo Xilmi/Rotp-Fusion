@@ -6,7 +6,7 @@ Changes in this release:
     - To have "full Power" set min and max to 100 and randomize.
     - To be "full Weak" set min and max to -100 and randomize.
   - Preselected opponent won't be set as customized race, only the "Blank" ones.
-  - Minor bug corrections.
+  - The Ultra-Poor, Poor and Hostile planets wil now be correctly set.
 
 And of course it includes all the recent Xilmi Changes:
   - Fixed the Rookie and Modnar AI as mentionned in a recent post.
