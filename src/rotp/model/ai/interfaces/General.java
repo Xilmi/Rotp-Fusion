@@ -54,4 +54,5 @@ public interface General {
     default float highestProdScore() { return 1f; }
     default float gameProgress() { return 0f; }
     default float predictEmpireChanceToDeclareWarIfIDeclaredWarOn(Empire subject, Empire object, boolean chanceToDeclareWarOnMeInstead) { return 0f; }
+    default float nebulaRatio() { return 0f; }
 }
