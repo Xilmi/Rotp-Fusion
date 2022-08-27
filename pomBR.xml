@@ -13,12 +13,12 @@
 	<!-- Variables Declaration -->
 	<properties>
 		<!-- Personal -->
-		<maven.build.timestamp.format>yyyy.M.d.H</maven.build.timestamp.format>
-		<revision>${maven.build.timestamp}</revision>
-		<versionTXT>${current.time}</versionTXT>
+		<maven.build.timestamp.format>yyyy-MM-dd'T'HH</maven.build.timestamp.format>
+		<revisionTXT>${maven.build.timestamp}</revisionTXT>
+		<revision>${current.time}</revision>
 		<RepoId>Rotp-Fusion</RepoId>
 		<AuthorId>BrokenRegistry</AuthorId>
-		<BaseFileName>rotp-${versionTXT}</BaseFileName>
+		<BaseFileName>rotp-${revisionTXT}</BaseFileName>
 <!--		<BaseFileName>rotp-${project.version}</BaseFileName> -->
 	 	<!-- Maven Standard -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -160,7 +160,7 @@
 						</goals>
 						<configuration>
 							<name>current.time</name>
-							<pattern>yyyy-MM-dd'T'HH</pattern>
+							<pattern>yyyy.M.d.H</pattern>
 							<timeZone>GMT</timeZone>
 						</configuration>
 					</execution>
@@ -363,11 +363,11 @@
 							<versionInfo>
 								<fileVersion>${revision}</fileVersion>
 								<!-- <txtFileVersion>${project.version}</txtFileVersion> -->
-								<txtFileVersion>${versionTXT}</txtFileVersion>
+								<txtFileVersion>${revisionTXT}</txtFileVersion>
 								<fileDescription>Remnants of the Precursors</fileDescription>
 								<copyright>Copyright Ray Fowler</copyright>
 								<productVersion>${revision}</productVersion>
-								<txtProductVersion>${versionTXT}</txtProductVersion>
+								<txtProductVersion>${revisionTXT}</txtProductVersion>
 								<productName>Remnants of the Precursors</productName>
 								<internalName>rotp</internalName>
 								<originalFilename>${BaseFileName}.exe</originalFilename>
@@ -406,7 +406,7 @@
 							<owner>${AuthorId}</owner>
 							<repository>${RepoId}</repository>
 							<authToken>${GITHUB_TOKEN}</authToken>
-							<tagName>${versionTXT}</tagName>
+							<tagName>${revisionTXT}</tagName>
 							<name>${BaseFileName}</name>
 							<targetCommitish>main</targetCommitish>
 							<releaseNotes>releaseNotesBR.md</releaseNotes>
