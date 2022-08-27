@@ -83,6 +83,7 @@ public class DesignUI extends BasePanel {
     List<BufferedImage> shipImages = new ArrayList<>();
 
     private Shape hoverTarget;
+    private final Rectangle autoButtonArea = new Rectangle();
     private final Rectangle clearButtonArea = new Rectangle();
     private final Rectangle renameButtonArea = new Rectangle();
     private final Rectangle scrapButtonArea = new Rectangle();
@@ -1159,6 +1160,16 @@ public class DesignUI extends BasePanel {
             addMouseListener(this);
             addMouseWheelListener(this);
         }
+        public void autoDesign() {
+        if(shipDesign() != null) {
+            ShipDesignLab lab = player().shipLab();
+            rotp.model.ai.xilmi.NewShipTemplate nst = new rotp.model.ai.xilmi.NewShipTemplate();
+            ShipDesign auto = nst.autoFighterDesign(player().shipDesignerAI(), shipDesign().size());
+            if(!auto.isArmed())
+                auto = nst.autoDestroyerDesign(player().shipDesignerAI(), shipDesign().size()); //will not use shields or computer if no weapon fits
+            shipDesign().copyFrom(auto);
+        }
+    }
         private ShipDesign shipDesign()   { 
             ShipDesignLab lab = player().shipLab();
             return selectedSlot < 0 ? lab.prototypeDesign() : lab.design(selectedSlot); 
@@ -1780,6 +1791,28 @@ public class DesignUI extends BasePanel {
                 g.setStroke(prevStr);
                 int x2a = buttonX + ((buttonW - sw) / 2);
                 drawBorderedString(g, str, x2a, buttonY + buttonH - s7, SystemPanel.textShadowC, c0);
+                
+                // draw auto button
+                g.setFont(narrowFont(18));
+                str = text("SHIP_DESIGN_AUTO_BUTTON");
+                sw = g.getFontMetrics().stringWidth(str);
+                buttonW = sw + s20;
+                buttonH = s25;
+                buttonX = clearButtonArea.x + clearButtonArea.width + s10;
+                buttonY = y + h - s30;
+                autoButtonArea.setBounds(buttonX, buttonY, buttonW, buttonH);
+                
+                hovering = hoverTarget == autoButtonArea;
+                g.setPaint(clearBackground);
+                g.fillRoundRect(buttonX, buttonY, buttonW, buttonH, s3, s3);
+                c0 = des.validConfiguration() ? (hovering ? SystemPanel.yellowText : SystemPanel.whiteText) : SystemPanel.grayText;
+                g.setColor(c0);
+                prevStr = g.getStroke();
+                g.setStroke(BasePanel.stroke1);
+                g.drawRoundRect(buttonX, buttonY, buttonW, buttonH, s3, s3);
+                g.setStroke(prevStr);
+                x2a = buttonX + ((buttonW - sw) / 2);
+                drawBorderedString(g, str, x2a, buttonY + buttonH - s7, SystemPanel.textShadowC, c0);
 
                 int firstAvailable = -1;
                 for (int i=0;i<ShipDesignLab.MAX_DESIGNS;i++) {
@@ -1841,6 +1874,7 @@ public class DesignUI extends BasePanel {
             else if (des.active()) {
                 clearButtonArea.setBounds(0,0,0,0);
                 createButtonArea.setBounds(0,0,0,0);
+                autoButtonArea.setBounds(0,0,0,0);
                 // draw rename button
                 g.setFont(narrowFont(18));
                 str = text("SHIP_DESIGN_RENAME_BUTTON");
@@ -1936,7 +1970,29 @@ public class DesignUI extends BasePanel {
                 g.setStroke(prevStr);
                 int x2a = buttonX + ((buttonW - sw) / 2);
                 drawBorderedString(g, str, x2a, buttonY + buttonH - s7, SystemPanel.textShadowC, c0);
-
+                
+                // draw auto button
+                g.setFont(narrowFont(18));
+                str = text("SHIP_DESIGN_AUTO_BUTTON");
+                sw = g.getFontMetrics().stringWidth(str);
+                buttonW = sw + s20;
+                buttonH = s25;
+                buttonX = clearButtonArea.x + clearButtonArea.width + s10;
+                buttonY = y + h - s30;
+                autoButtonArea.setBounds(buttonX, buttonY, buttonW, buttonH);
+                
+                hovering = hoverTarget == autoButtonArea;
+                g.setPaint(clearBackground);
+                g.fillRoundRect(buttonX, buttonY, buttonW, buttonH, s3, s3);
+                c0 = des.validConfiguration() ? (hovering ? SystemPanel.yellowText : SystemPanel.whiteText) : SystemPanel.grayText;
+                g.setColor(c0);
+                prevStr = g.getStroke();
+                g.setStroke(BasePanel.stroke1);
+                g.drawRoundRect(buttonX, buttonY, buttonW, buttonH, s3, s3);
+                g.setStroke(prevStr);
+                x2a = buttonX + ((buttonW - sw) / 2);
+                drawBorderedString(g, str, x2a, buttonY + buttonH - s7, SystemPanel.textShadowC, c0);
+                
                 // draw deploy button
                 g.setFont(narrowFont(18));
                 str = text("SHIP_DESIGN_DEPLOY_BUTTON");
@@ -3174,6 +3230,8 @@ public class DesignUI extends BasePanel {
                 hoverTarget = scrapButtonArea;
             else if (createButtonArea.contains(x,y))
                 hoverTarget = createButtonArea;
+            else if (autoButtonArea.contains(x, y))
+                hoverTarget = autoButtonArea;
             else if (renameButtonArea.contains(x,y))
                 hoverTarget = renameButtonArea;
             else if (clearButtonArea.contains(x,y))
@@ -3311,6 +3369,9 @@ public class DesignUI extends BasePanel {
             }
             else if (hoverTarget == createButtonArea) {
                 softClick(); openCreateDialog(); return;
+            }
+            else if (hoverTarget == autoButtonArea) {
+                softClick(); configPanel.autoDesign(); repaint(); return;
             }
             else if (hoverTarget == renameButtonArea) {
                 softClick(); openRenameDialog(); return;
