@@ -511,7 +511,7 @@ public class AIGovernor implements Base, Governor {
             {
                 if(!empire.visibleShips().contains(fl))
                     continue;
-                enemyBombardDamage += expectedBombardDamageAsIfBasesWereThere(fl, col.starSystem());
+                enemyBombardDamage += expectedBombardDamageAsIfBasesWereThere(fl, col.starSystem(), 1);
                 if(fl.isArmed())
                     enemyBc += fl.bcValue();
             }
@@ -522,7 +522,7 @@ public class AIGovernor implements Base, Governor {
             {
                 if(!empire.visibleShips().contains(fl))
                     continue;
-                enemyBombardDamage += expectedBombardDamageAsIfBasesWereThere(fl, col.starSystem());
+                enemyBombardDamage += expectedBombardDamageAsIfBasesWereThere(fl, col.starSystem(), 1);
                 if(fl.isArmed())
                     enemyBc += fl.bcValue();
             }
@@ -655,21 +655,20 @@ public class AIGovernor implements Base, Governor {
         return 0;
     }
     @Override
-    public float expectedBombardDamageAsIfBasesWereThere(ShipFleet fl, StarSystem sys) {
+    public float expectedBombardDamageAsIfBasesWereThere(ShipFleet fl, StarSystem sys, int baseCount) {
         if (!sys.isColonized())
             return 0;
 
         float damage = 0;
         ShipCombatManager mgr = galaxy().shipCombat();
         CombatStackColony planetStack = new CombatStackColony(sys.colony(), mgr);
-        planetStack.num = 1;
+        planetStack.num = baseCount;
 
         for (int i=0;i<fl.num.length;i++) {
             if (fl.num[i] > 0) {
                 ShipDesign d = fl.empire().shipLab().design(i);
                 for (int j=0;j<ShipDesign.maxWeapons();j++)
-                    if(!d.weapon(j).isBioWeapon())
-                        damage += (fl.num[i] * d.wpnCount(j) * d.weapon(j).estimatedBombardDamage(d, planetStack));
+                    damage += (fl.num[i] * d.wpnCount(j) * d.weapon(j).estimatedBombardDamage(d, planetStack));
                 for (int j=0;j<ShipDesign.maxSpecials();j++)
                     damage += d.special(j).estimatedBombardDamage(d, planetStack);
             }

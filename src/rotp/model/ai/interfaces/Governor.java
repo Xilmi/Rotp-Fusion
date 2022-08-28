@@ -31,5 +31,5 @@ public interface Governor {
     
     // specific to Xilmi AI
     default float productionScore(StarSystem sys) { return 0; }
-    default float expectedBombardDamageAsIfBasesWereThere(ShipFleet fl, StarSystem sys) { return 0; }
+    default float expectedBombardDamageAsIfBasesWereThere(ShipFleet fl, StarSystem sys, int bases) { return 0; }
 }
