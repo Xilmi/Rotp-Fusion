@@ -13,7 +13,7 @@
         <fileSet>
             <directory>${basedir}/target</directory>
             <includes>
-                <include>rotp-*.exe</include>
+                <include>rotp*.exe</include>
             </includes>
             <outputDirectory>/</outputDirectory>
         </fileSet>
