@@ -48,8 +48,8 @@ public class Rotp {
     public static int IMG_W = 1229;
     public static int IMG_H = 768;
 
-    public static String jarFileName = "rotp-fusion-" + version + RotpGovernor.miniSuffix() + ".jar";
-    public static String exeFileName = "rotp-fusion-" + version + ".exe";
+    public static String jarFileName = "rotp-" + version + RotpGovernor.miniSuffix() + ".jar";
+    public static String exeFileName = "rotp-" + version + ".exe";
     public static boolean countWords = false;
     private static String startupDir;
     private static JFrame frame;
