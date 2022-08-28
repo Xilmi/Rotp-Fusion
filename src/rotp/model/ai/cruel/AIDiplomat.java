@@ -486,14 +486,6 @@ public class AIDiplomat implements Base, Diplomat {
         }
         return true;
     }
-    private float baseChanceForTrade(EmpireView v) {
-        // -50 relations is minimum allowed to accept trade
-        float adjustedRelations = v.embassy().relations()+50;
-        float leaderMod = leaderAcceptTradeMod();
-        float raceBonusMod = v.empire().tradePctBonus();
-        float allianceMod = v.embassy().alliedWithEnemy() ? -50 : 0;
-        return adjustedRelations+leaderMod+raceBonusMod+allianceMod;
-    }
     private String declineReasonText(EmpireView v) {
         DialogueManager dlg = DialogueManager.current();
         DiplomaticIncident inc = worstWarnableIncident(v.embassy().allIncidents());
@@ -544,13 +536,7 @@ public class AIDiplomat implements Base, Diplomat {
             return null;
         }
 
-        int bonus = requestor.diplomacyBonus();
         EmpireView v = empire.viewForEmpire(requestor);
-        if ((bonus+random(100)) < leaderDiplomacyAnnoyanceMod(v)) {
-            //v.embassy().withdrawAmbassador();
-            return v.refuse(DialogueManager.DECLINE_ANNOYED);
-        }
-
         v.embassy().noteRequest();
 
         if (!v.embassy().readyForPeace())
