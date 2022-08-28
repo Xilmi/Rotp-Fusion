@@ -271,6 +271,7 @@ public class NewShipTemplate implements Base {
         //ail: looking at the stats of our enemies
         boolean needRange = false;
         boolean boostInertial = false;
+        boolean needDefenses = false;
         float topSpeed = 0;
         float antiDote = 0;
         float avgECM = 0;
@@ -285,6 +286,8 @@ public class NewShipTemplate implements Base {
         {
             if(ev.spies().tech().antidoteLevel() > antiDote)
                 antiDote = ev.spies().tech().antidoteLevel();
+            if(ev.spies().tech().bestMissileBase().scatterPack() != null || ev.spies().tech().topPlanetaryShieldTech() != null)
+               needDefenses = true; 
             for(ShipDesign enemyDesign : ev.empire().shipLab().designs())
             {
                 if(enemyDesign.scrapped())
@@ -379,7 +382,7 @@ public class NewShipTemplate implements Base {
         // however, unless it isn't 1.0 or close to it of available space after engines and BC, it doesn't matter
         int weightsSum = shieldWeight + ecmWeight + maneuverWeight + armorWeight + specialsWeight;
         boolean missileBoat = false;
-        ShipWeapon wantedWeapon = setOptimalWeapon(ai, d, d.availableSpace() / 2.0f, 4, needRange, true, false, topSpeed, avgECM, bestSHD, antiDote, false, avgHP, true); // dry run to see what we'd like
+        ShipWeapon wantedWeapon = setOptimalWeapon(ai, d, d.availableSpace() / 2.0f, 4, needRange, true, false, needDefenses, topSpeed, avgECM, bestSHD, antiDote, false, avgHP, true); // dry run to see what we'd like
         if(wantedWeapon != null && wantedWeapon.isMissileWeapon() && wantedWeapon.shots() < 5) {
             missileBoat = true;
             reinforcedArmorAllowed = false;
@@ -486,16 +489,16 @@ public class NewShipTemplate implements Base {
         ShipWeapon bestNonBomb = null;
         switch (role) {
             case BOMBER:
-                setOptimalWeapon(ai, d, d.availableSpace(), 1, false, false, false, topSpeed, avgECM, bestSHD, antiDote, false, avgHP, false);
-                bestNonBomb = setOptimalWeapon(ai, d, d.availableSpace(), 3, needRange, true, false, topSpeed, avgECM, bestSHD, antiDote, true, avgHP, false); // even though bombs should use all space, this is run in case of it running into the max-required-bombs per design-limit
+                setOptimalWeapon(ai, d, d.availableSpace(), 1, false, false, false, needDefenses, topSpeed, avgECM, bestSHD, antiDote, false, avgHP, false);
+                bestNonBomb = setOptimalWeapon(ai, d, d.availableSpace(), 3, needRange, true, false, needDefenses, topSpeed, avgECM, bestSHD, antiDote, true, avgHP, false); // even though bombs should use all space, this is run in case of it running into the max-required-bombs per design-limit
                 break;
             case DESTROYER:
-                bestNonBomb = setOptimalWeapon(ai, d, d.availableSpace(), 4, needRange, true, false, topSpeed, avgECM, bestSHD, antiDote, true, avgHP, false); // uses slots 0-3
+                bestNonBomb = setOptimalWeapon(ai, d, d.availableSpace(), 4, needRange, true, false, needDefenses, topSpeed, avgECM, bestSHD, antiDote, true, avgHP, false); // uses slots 0-3
                 break;
             case FIGHTER:
             default:
-                setOptimalWeapon(ai, d, max(minBombSpace, d.availableSpace() * hybridBombRatio), 1, false, false, false, topSpeed, avgECM, bestSHD, antiDote, false, avgHP, false);
-                bestNonBomb = setOptimalWeapon(ai, d, d.availableSpace(), 4, needRange, true, false, topSpeed, avgECM, bestSHD, antiDote, false, avgHP, false); // uses slots 0-3
+                setOptimalWeapon(ai, d, max(minBombSpace, d.availableSpace() * hybridBombRatio), 1, false, false, false, needDefenses, topSpeed, avgECM, bestSHD, antiDote, false, avgHP, false);
+                bestNonBomb = setOptimalWeapon(ai, d, d.availableSpace(), 4, needRange, true, false, needDefenses, topSpeed, avgECM, bestSHD, antiDote, false, avgHP, false); // uses slots 0-3
                 break;
         }
         //Since destroyer is always tiny and we want to make sure we have a weapon, the computer is added afterwards
@@ -516,10 +519,10 @@ public class NewShipTemplate implements Base {
         switch(role)
         {
             case BOMBER:
-                setOptimalWeapon(ai, d, d.availableSpace(), 1, false, false, false, topSpeed, avgECM, bestSHD, antiDote, true, avgHP, false);
+                setOptimalWeapon(ai, d, d.availableSpace(), 1, false, false, false, needDefenses, topSpeed, avgECM, bestSHD, antiDote, true, avgHP, false);
                 break;
             default:
-                setOptimalWeapon(ai, d, d.availableSpace(), 4, needRange, true, false, topSpeed, avgECM, bestSHD, antiDote, true, avgHP, false);
+                setOptimalWeapon(ai, d, d.availableSpace(), 4, needRange, true, false, needDefenses, topSpeed, avgECM, bestSHD, antiDote, true, avgHP, false);
         }
         return d;
     }
@@ -838,7 +841,7 @@ public class NewShipTemplate implements Base {
     
 // ********* FUNCTIONS SETTING ANTI-SHIP AND ANTI-PLANET WEAPONS ********** //
 
-    private ShipWeapon setOptimalWeapon(ShipDesigner ai, ShipDesign d, float spaceAllowed, int numSlotsToUse, boolean mustBeRanged, boolean mustTargetShips, boolean prohibitMissiles, float missileSpeedMinimum, float avgECM, float avgSHD, float antiDote, boolean downSize, float avgHP, boolean dryRun) {
+    private ShipWeapon setOptimalWeapon(ShipDesigner ai, ShipDesign d, float spaceAllowed, int numSlotsToUse, boolean mustBeRanged, boolean mustTargetShips, boolean prohibitMissiles, boolean prohibitTwoRackMissiles, float missileSpeedMinimum, float avgECM, float avgSHD, float antiDote, boolean downSize, float avgHP, boolean dryRun) {
         List<ShipWeapon> allWeapons = ai.lab().weapons();
         ShipWeapon bestWeapon = null;
         float bestScore = 0.0f;
@@ -868,6 +871,8 @@ public class NewShipTemplate implements Base {
                         ShipWeaponMissileType swm = (ShipWeaponMissileType)wpn;
                         //System.out.print("\n"+ai.empire().name()+" "+d.name()+" wpn: "+wpn.name()+" speed: "+swm.speed());
                         if(swm.speed() <= missileSpeedMinimum)
+                            continue;
+                        if(prohibitTwoRackMissiles && swm.shots() < 5)
                             continue;
                         avgECM -= swm.computerLevel();
                         missileDamageMod = max(0.0f, 1.0f - 0.1f * avgECM);

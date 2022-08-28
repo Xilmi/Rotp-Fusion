@@ -443,6 +443,7 @@ public class AIShipDesigner implements Base, ShipDesigner {
         boolean newHasBHG = false;
         boolean maintenanceLimitReached = MaintenanceLimitReached(currDesign);
         boolean sameWeapon = MainWeapon(currDesign) == MainWeapon(newDesign);
+        boolean sameBomb = BombWeapon(currDesign) == BombWeapon(newDesign);
         
         boolean betterShield = false;
         if(currDesign.size() == newDesign.size())
@@ -474,7 +475,7 @@ public class AIShipDesigner implements Base, ShipDesigner {
         //System.out.print("\n"+galaxy().currentYear()+" "+empire.name()+" Fighter upgrade "+currDesign.name()+" val: "+upgradeChance+" better-Engine: "+betterEngine+" betterArmor: "+betterArmor+" curr-id: "+currDesign.id());
         
         //System.out.print("\n"+empire.name()+" designed new fighter which is "+upgradeChance+" better and should go to slot: "+slot);
-        if (sameWeapon && !betterShield && !maintenanceLimitReached && !betterSpecial && !betterComputer && !betterEngine && !betterArmor && (upgradeChance < upgradeThreshold) && !needRange && currDesign.active())
+        if (sameBomb && sameWeapon && !betterShield && !maintenanceLimitReached && !betterSpecial && !betterComputer && !betterEngine && !betterArmor && (upgradeChance < upgradeThreshold) && !needRange && currDesign.active())
             return;
         //System.out.print("\n"+empire.name()+" designed new fighter and it went through.");
 
@@ -899,6 +900,17 @@ public class AIShipDesigner implements Base, ShipDesigner {
             //System.out.print("\n"+empire.name()+" "+d.name()+" is marked obsolete.");
             d.obsolete(true);
         }
+    }
+    ShipWeapon BombWeapon(ShipDesign d)
+    {
+        ShipWeapon bombWeapon = null;
+        float highestWeaponSpace = 0;
+        for (int i=0; i<maxWeapons(); i++)
+        {
+            if(d.weapon(i).groundAttacksOnly())
+                bombWeapon = d.weapon(i);
+        }
+        return bombWeapon;
     }
     ShipWeapon MainWeapon(ShipDesign d)
     {
