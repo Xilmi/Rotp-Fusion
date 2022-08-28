@@ -257,6 +257,9 @@ public class AIFleetCommander implements Base, FleetCommander {
                 continue;
             if(current.enemyShipsInOrbit(empire))
                 continue;
+            //skip empty systems when we already are at war. This usually means we are outranged and thus shall defend our border-colonies
+            if(currEmp == null && empire.atWar())
+                continue;
             UpdateSystemInfo(id);
             if(!systemInfoBuffer.get(id).inScannerRange)
                 continue;
