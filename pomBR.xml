@@ -17,7 +17,7 @@
 		<revision>Fusion-${maven.build.timestamp}</revision>
 		<!-- EXE converter Format yyyy.M.d.H -->
 		<exeVersion>${current.time}</exeVersion>
-		<!-- Tag Format yyyy/MM/dd/HH -->
+		<!-- Tag Format yyyy/MM/dd/HH/mm -->
 		<gitHubTag>${build.date}</gitHubTag>
 		<RepoId>Rotp-Fusion</RepoId>
 		<AuthorId>BrokenRegistry</AuthorId>
@@ -180,7 +180,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<timestampFormat>yyyy/MM/dd/HH</timestampFormat>
+					<timestampFormat>yyyy/MM/dd/HH/mm</timestampFormat>
 					<timestampPropertyName>build.date</timestampPropertyName>
 				</configuration>
 			</plugin>
