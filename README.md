@@ -22,6 +22,14 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
+2022.08.28 (Xilmi)
+  - The growth-speed of trade routes has been normalized and is no longer affected by how much one empire likes the other.
+  - The racial diplomacy-bonus now impacts trade-route-growth-speed.
+  - Removed an unintentional way of Fusion-AI rejecting peace-treaties.
+  - Fixed an issue where the AI considered bio-weapons to always do no damage when there was at least one missile base on the strategical map. This makes them way stronger in mid-game-bio-weapon-elimination-wars.
+  - Fixed an issue where the AI would always try and sometimes fail to find an alternative target for a fleet too small take on an enemy siege-fleet. This issue was especially problematic when they were outranged. And this fix should make the AI much better at defending.
+  - During war AI will only use their own colonies as gatherpoints.
+
 2022.08.27 (Xilmi)
   - Fixed an issue causing Modnar- and Rookie-AI to be replaced by Roleplay-AI.
   - The starting ship-designs for Fighter, Bomber and Destroyer are now procedurally generated to make sure they work correctly with Neo-Humans and custom-races that change the space on their ships.

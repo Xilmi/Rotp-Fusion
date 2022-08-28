@@ -1,9 +1,6 @@
-  - Fixed an issue causing Modnar- and Rookie-AI to be replaced by Roleplay-AI.
-  - The starting ship-designs for Fighter, Bomber and Destroyer are now procedurally generated to make sure they work correctly with Neo-Humans and custom-races that change the space on their ships.
-  - There now is an Auto-button on the ship-design-screen that will automatically generate a design for the selected size.
-  - Fixed an issue that could cause missile-boats to be designed with sizes that weren't intended for missile-boats.
-  - Further improved invasion-logic of Fusion-AI.
-  - Fusion-AI will now adapt the usage of shields depending on how many of the systems they can reach are in nebulae.
-  - Fusion-AI now uses a more optimistic logic to determine whether its fleets should be able to handle enemy missile-bases during decision-making where to send their fleets.
-  - Fusion-AI will no longer retreat defending ships when they are the last stack other than their planet and the missile-bases would beat the opponent all alone.
-  - Fusion-AI will no longer consider personality to determine how aggressive it should be. However, there is now a bigger variance in how the race impacts aggressivness. This also means the extremes of extremely aggressive and extremely passive have been removed and everyone is within a range of 67-150% of the default. Note that for now all custom-races played by the AI will use default-aggressivenes instead of something appropriate to their modifiers.
+  - The growth-speed of trade routes has been normalized and is no longer affected by how much one empire likes the other.
+  - The racial diplomacy-bonus now impacts trade-route-growth-speed.
+  - Removed an unintentional way of Fusion-AI rejecting peace-treaties.
+  - Fixed an issue where the AI considered bio-weapons to always do no damage when there was at least one missile base on the strategical map. This makes them way stronger in mid-game-bio-weapon-elimination-wars.
+  - Fixed an issue where the AI would always try and sometimes fail to find an alternative target for a fleet too small take on an enemy siege-fleet. This issue was especially problematic when they were outranged. And this fix should make the AI much better at defending.
+  - During war AI will only use their own colonies as gatherpoints.
