@@ -24,6 +24,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import rotp.Rotp;
+import rotp.model.empires.EmpireView;
 import rotp.model.galaxy.Ships;
 import rotp.model.ships.*;
 import rotp.ui.*;
@@ -1162,12 +1163,26 @@ public class DesignUI extends BasePanel {
         }
         public void autoDesign() {
         if(shipDesign() != null) {
-            ShipDesignLab lab = player().shipLab();
             rotp.model.ai.xilmi.NewShipTemplate nst = new rotp.model.ai.xilmi.NewShipTemplate();
-            ShipDesign auto = nst.autoFighterDesign(player().shipDesignerAI(), shipDesign().size());
-            if(!auto.isArmed())
-                auto = nst.autoDestroyerDesign(player().shipDesignerAI(), shipDesign().size()); //will not use shields or computer if no weapon fits
+            ShipDesign auto ;
+            if(!shipDesign().hasColonySpecial() && shipDesign().range() == player().tech().scoutRange())
+                auto = player().shipDesignerAI().newScoutDesign();
+            else if(shipDesign().hasColonySpecial())
+                auto = player().shipDesignerAI().newColonyDesign();
+            else if(player().shipDesignerAI().bombingAdapted(shipDesign()) > 0.5f)
+                auto = nst.autoBomberDesign(player().shipDesignerAI(), shipDesign().size());
+            else {
+                auto = nst.autoFighterDesign(player().shipDesignerAI(), shipDesign().size());
+                if(!auto.isArmed())
+                    auto = nst.autoDestroyerDesign(player().shipDesignerAI(), shipDesign().size()); //will not use shields or computer if no weapon fits
+            }
+            String name = shipDesign().name();
+            String iconKey = shipDesign().iconKey();
+            int color = shipDesign().shipColor();
             shipDesign().copyFrom(auto);
+            shipDesign().name(name);
+            shipDesign().iconKey(iconKey);
+            shipDesign().shipColor(color);
         }
     }
         private ShipDesign shipDesign()   { 

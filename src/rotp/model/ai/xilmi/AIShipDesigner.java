@@ -227,22 +227,8 @@ public class AIShipDesigner implements Base, ShipDesigner {
     public void updateColonyDesign() {
         ShipDesignLab lab = lab();
         ShipDesign currDesign = BestDesignToColonize();
-        
-        // weapons needed on colony ships if we've made AI contact
-        boolean weaponsNeeded = false;
-        for(EmpireView emp : empire.contacts())
-        {
-            if(empire.inShipRange(emp.empId()))
-            {
-                weaponsNeeded = true;
-                break;
-            }
-        }
-        // current design is "properlyArmed" if it is armed &weapons needed or unarmed & weapons unneeded
-        //always try to make extended, if possible, additional-cost is worth it and once it fits on large, the costs won't matter much anyways
-        boolean extendedFuelNeeded = !empire.tech().topFuelRangeTech().unlimited;
 
-        ShipDesign newDesign = newColonyDesign(weaponsNeeded, extendedFuelNeeded);
+        ShipDesign newDesign = newColonyDesign();
         
         if(currDesign == null)
         {
@@ -530,8 +516,23 @@ public class AIShipDesigner implements Base, ShipDesigner {
         lab.iconifyDesign(design);
         return design;
     }
+    @Override
     public ShipDesign newColonyDesign() {
-        return newColonyDesign(!empire.contactedEmpires().isEmpty(), false);
+        // weapons needed on colony ships if we've made AI contact
+        boolean weaponsNeeded = false;
+        for(EmpireView emp : empire.contacts())
+        {
+            if(empire.inShipRange(emp.empId()))
+            {
+                weaponsNeeded = true;
+                break;
+            }
+        }
+        // current design is "properlyArmed" if it is armed &weapons needed or unarmed & weapons unneeded
+        //always try to make extended, if possible, additional-cost is worth it and once it fits on large, the costs won't matter much anyways
+        boolean extendedFuelNeeded = !empire.tech().topFuelRangeTech().unlimited;
+        ShipDesign newDesign = newColonyDesign(weaponsNeeded, extendedFuelNeeded);
+        return newDesign;
     }
     public ShipDesign newColonyDesign(boolean weaponNeeded, boolean extendedRangeNeeded) {
         ShipDesignLab lab = lab();

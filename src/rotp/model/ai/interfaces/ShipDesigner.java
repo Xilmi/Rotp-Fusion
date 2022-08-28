@@ -36,6 +36,7 @@ public interface ShipDesigner {
     ShipDesign newFighterDesign(int size);
     ShipDesign newBomberDesign(int size);
     ShipDesign newDestroyerDesign(int size);
+    ShipDesign newColonyDesign();
     ShipDesign bestDesignToColonize(ShipFleet fl, StarSystem sys);
     
     //xilmi-AI-specific
