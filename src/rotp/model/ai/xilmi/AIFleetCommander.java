@@ -773,7 +773,6 @@ public class AIFleetCommander implements Base, FleetCommander {
             else
             {
                 boolean canStillSend = true;
-                boolean notEnoughFighters = false;
                 float keepBc = 0;
                 StarSystem previousBest = null;
                 StarSystem previousAttacked = null;
@@ -785,18 +784,15 @@ public class AIFleetCommander implements Base, FleetCommander {
                     float sendAmount = 1.0f;
                     float sendBombAmount = 1.0f;
                     float keepAmount = 0.0f;
-                    boolean onlyBomberTargets = false;
                     boolean onlyColonizerTargets = false;
                     boolean targetIsGatherPoint = false;
                     boolean onlyAllowRealTarget = false;
                     boolean targetIsPreviousBest = false;
                     
-                    if(fleet.numFighters() == 0 || notEnoughFighters)
-                        onlyBomberTargets = true;
                     if(fleet.numFighters() == 0 && fleet.numBombers() == 0)
                         onlyColonizerTargets = true;
                     
-                    StarSystem target = findBestTarget(fleet, onlyBomberTargets, onlyColonizerTargets);
+                    StarSystem target = findBestTarget(fleet, false, onlyColonizerTargets);
                     if(previousBest == target)
                        targetIsPreviousBest = true;
                     previousBest = target;
@@ -825,7 +821,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                         if(onlyColonizerTargets == false && fleet.hasColonyShip())
                         {
                             onlyColonizerTargets = true;
-                            target = findBestTarget(fleet, onlyBomberTargets, onlyColonizerTargets);
+                            target = findBestTarget(fleet, false, onlyColonizerTargets);
                         }
                         if(target == null)
                         {
@@ -1107,16 +1103,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                         }
                         else
                         {
-                            //Fleet too small to attack and no staging-point found either.
-                            //System.out.print("\n"+empire.name()+" fleet at "+fleet.system().name()+" not sent to "+target.name()+" cause too small.");
-                            if(allowBombers == false &&  notEnoughFighters == false)
-                            {
-                                notEnoughFighters = true;
-                            }
-                            else
-                            {
-                                canStillSend = false;
-                            }
+                            canStillSend = false;
                         }
                     }
                     else
