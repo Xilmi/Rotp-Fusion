@@ -7,21 +7,21 @@
 	<!-- Project Declaration -->
 	<groupId>com.rayfowler</groupId>
 	<artifactId>rotp</artifactId>
-	<version>${revisionTXT}</version>
+	<version>${revision}</version>
 	<packaging>jar</packaging>
 	
 	<!-- Variables Declaration -->
 	<properties>
 		<!-- File Name Format -->
 		<maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
-		<revisionTXT>fusion-${maven.build.timestamp}</revisionTXT>
+		<revision>fusion-${maven.build.timestamp}</revision>
 		<!-- EXE converter Format yyyy.M.d.H -->
-		<revision>${current.time}</revision>
-		<!-- Tag Format yyyy/MM/dd/HH:mm -->
+		<exeVersion>${current.time}</exeVersion>
+		<!-- Tag Format yyyy/MM/dd/HH -->
 		<gitHubTag>${build.date}</gitHubTag>
 		<RepoId>Rotp-Fusion</RepoId>
 		<AuthorId>BrokenRegistry</AuthorId>
-		<BaseFileName>rotp-${revisionTXT}</BaseFileName>
+		<BaseFileName>rotp-${revision}</BaseFileName>
 	 	<!-- Maven Standard -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>8</java.version>
@@ -170,7 +170,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>buildnumber-maven-plugin</artifactId>
-				<version>1.2</version>
+				<version>3.0.0</version>
 				<executions>
 					<execution>
 						<phase>validate</phase>
@@ -379,13 +379,13 @@
 								<maxHeapSize>3500</maxHeapSize>
 							</jre>
 							<versionInfo>
-								<fileVersion>${revision}</fileVersion>
+								<fileVersion>${exeVersion}</fileVersion>
 								<!-- <txtFileVersion>${project.version}</txtFileVersion> -->
-								<txtFileVersion>${revisionTXT}</txtFileVersion>
+								<txtFileVersion>${revision}</txtFileVersion>
 								<fileDescription>Remnants of the Precursors</fileDescription>
 								<copyright>Copyright Ray Fowler</copyright>
-								<productVersion>${revision}</productVersion>
-								<txtProductVersion>${revisionTXT}</txtProductVersion>
+								<productVersion>${exeVersion}</productVersion>
+								<txtProductVersion>${revision}</txtProductVersion>
 								<productName>Remnants of the Precursors</productName>
 								<internalName>rotp</internalName>
 								<originalFilename>${BaseFileName}.exe</originalFilename>
