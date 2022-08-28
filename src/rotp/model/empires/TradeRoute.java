@@ -46,7 +46,7 @@ public class TradeRoute implements Base, Serializable {
             stopRoute();
             return;
         }
-        float relationBonus = view.empire().diplomacyBonus();
+        float relationBonus = max(view.owner().diplomacyBonus(), view.empire().diplomacyBonus());
         float pct = (roll(1,200) + relationBonus + 25) / 6000.0f;
         civProd = view.empire().totalPlanetaryProduction();
         ownerProd = view.owner().totalPlanetaryProduction();
