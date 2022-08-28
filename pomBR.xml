@@ -180,7 +180,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<timestampFormat>yyyy/MM/dd/HH/mm</timestampFormat>
+					<timestampFormat>yyyy/MM/dd/HH</timestampFormat>
 					<timestampPropertyName>build.date</timestampPropertyName>
 				</configuration>
 			</plugin>
