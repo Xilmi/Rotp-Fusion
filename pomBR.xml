@@ -14,14 +14,14 @@
 	<properties>
 		<!-- File Name Format -->
 		<maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
-		<revisionTXT>${maven.build.timestamp}</revisionTXT>
+		<revisionTXT>fusion-${maven.build.timestamp}</revisionTXT>
 		<!-- EXE converter Format yyyy.M.d.H -->
 		<revision>${current.time}</revision>
 		<!-- Tag Format yyyy/MM/dd/HH:mm -->
 		<gitHubTag>${build.date}</gitHubTag>
 		<RepoId>Rotp-Fusion</RepoId>
 		<AuthorId>BrokenRegistry</AuthorId>
-		<BaseFileName>rotp-fusion-${revisionTXT}</BaseFileName>
+		<BaseFileName>rotp-${revisionTXT}</BaseFileName>
 	 	<!-- Maven Standard -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>8</java.version>
