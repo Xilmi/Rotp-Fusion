@@ -180,7 +180,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<timestampFormat>yyyy/MM/dd/HH:mm</timestampFormat>
+					<timestampFormat>yyyy/MM/dd/HH</timestampFormat>
 					<timestampPropertyName>build.date</timestampPropertyName>
 				</configuration>
 			</plugin>
@@ -424,7 +424,7 @@
 							<owner>${AuthorId}</owner>
 							<repository>${RepoId}</repository>
 							<authToken>${GITHUB_TOKEN}</authToken>
-							<tagName>${gitHubTag}</tagName>
+							<tagName>${build.date}</tagName>
 							<name>${BaseFileName}</name>
 							<targetCommitish>main</targetCommitish>
 							<releaseNotes>releaseNotesBR.md</releaseNotes>
