@@ -288,6 +288,7 @@ public class AIFleetCommander implements Base, FleetCommander {
             Galaxy gal = galaxy();
             float ourFightingBC = bcValue(fleet, false, true, false, false);
             float ourBombing = fleet.expectedBombardDamage(target);
+            float ourKilling = empire.governorAI().expectedBombardDamageAsIfBasesWereThere(fleet, target, 0) / 200;
             float civTech = empire.tech().avgTechLevel();
             float targetTech = civTech;
             //We smart-path towards the gather-point to be more flexible
@@ -326,7 +327,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                     targetTech = currEmp.tech().avgTechLevel();
                 if(enemyFightingBc * (targetTech+10.0f) * 2 > ourFightingBC * (civTech+10.0f))
                     continue;
-                if(enemyMissileHP * 2 > ourBombing)
+                if(enemyMissileHP * 2 > ourBombing && empire.sv.population(current.id) * 2 > ourKilling)
                     continue;
                 if(fleet.distanceTo(current) < smallestDistance)
                 {
