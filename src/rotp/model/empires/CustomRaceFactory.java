@@ -61,7 +61,9 @@ public class CustomRaceFactory {
 	 * @return this for chaining purpose
 	 */
 	public void setRace(String raceKey) {
-		if (race == null
+		if (raceKey == null)
+			race = null;
+		else if (race == null
 				|| !race.name().equalsIgnoreCase(raceKey)) {
 			race = Race.keyed(raceKey).copy();
 		}
@@ -69,7 +71,7 @@ public class CustomRaceFactory {
 	public Race getRace() {
 		return race;
 	}
-	public void setKey(String keyString) {
+	private void setKey(String keyString) {
 		String[] list = keyString.split(",");
 		for (int i=0; i<list.length; i+=2) {
 			settingsValues.put(list[i], list[i+1]);

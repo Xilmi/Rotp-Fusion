@@ -16,17 +16,19 @@
 package rotp.ui.game;
 
 import static rotp.model.empires.CustomRaceFactory.ROOT;
-import rotp.ui.BaseText;
+
+import rotp.ui.races.RacesUI;
 import rotp.ui.util.AbstractCRUI;
-import rotp.ui.util.SettingBase;
 
 public class PlayerRaceCustomizationUI extends AbstractCRUI {
 	private static final long serialVersionUID = 1L;
+	private static final PlayerRaceCustomizationUI instance = new PlayerRaceCustomizationUI();
 	public static final String guiTitleID = ROOT + "GUI_TITLE";
 	
 	public PlayerRaceCustomizationUI() {
 		super(guiTitleID);
 	}
+	public static PlayerRaceCustomizationUI instance() { return instance; }
 	
 	@Override protected void init0() {
 		// First column (left)
