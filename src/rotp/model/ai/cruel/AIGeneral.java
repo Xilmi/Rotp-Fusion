@@ -978,7 +978,6 @@ public class AIGeneral implements Base, General {
         StarSystem dummySys = null;
         float dummyScore = 0.0f;
         boolean empireInRange = false;
-        float enemyOneTurnProd = 0.0f;
         for(Empire enemy : empire.contactedEmpires())
         {
             if(!empireInRange && empire.inShipRange(enemy.id))
@@ -988,8 +987,6 @@ public class AIGeneral implements Base, General {
             if(enemy.militaryPowerLevel() > highestPower)
                 highestPower = enemy.militaryPowerLevel();
             float thisOnesPop = 0.0f;
-            if(empire.enemies().contains(enemy))
-                enemyOneTurnProd += enemy.totalPlanetaryProduction();
             for(StarSystem sys : enemy.allColonizedSystems())
             {
                 if(sys.colony() != null)
@@ -1033,7 +1030,7 @@ public class AIGeneral implements Base, General {
         {
             dr = min(dr, totalShipCost / (totalMissileBaseCost+totalShipCost));
         }
-        if(myFighterCost() < visibleEnemyFighterCost() + enemyOneTurnProd || !empireInRange)
+        if(!empireInRange)
             dr = 1.0f;
         dr = max(0.5f, dr);
         //System.out.print("\n"+galaxy().currentTurn()+" "+empire.name()+" dr: "+dr+" myFighterCost: "+myFighterCost()+" visibleEnemyFighterCost: "+visibleEnemyFighterCost());
