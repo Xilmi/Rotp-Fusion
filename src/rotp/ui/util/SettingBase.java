@@ -61,6 +61,8 @@ public class SettingBase<T> {
 	private BaseText settingText;
 	private BaseText[] optionsText;
 	
+	private float lastRandomSource;
+	
 	// ========== Constructors and initializers ==========
 	//
 	/**
@@ -158,6 +160,18 @@ public class SettingBase<T> {
 	//
 	public void pushSetting() {}
 	public void pullSetting() {}
+	public float maxValueCostFactor() {
+		if (isList) {
+			return Collections.max(costList);
+		}
+		return 0f;
+	}
+	public float minValueCostFactor() {
+		if (isList) {
+			return Collections.min(costList);
+		}
+		return 0f;
+	}
 	public void guiSelect() {
 		if (isSpacer())
 			return;
@@ -173,20 +187,34 @@ public class SettingBase<T> {
 			optionText(optionIdx).repaint();
 		}
 	}
-	public void setRandom(float min, float max, boolean gaussian) {
-		set(randomize(min, max, gaussian));
+	protected T smooth(float lastRand, float newRand, float costAdj, float min, float max) {
+		if (isList) {
+			float rand = lastRand+newRand;
+			if (rand > 0)
+				rand *= Collections.max(costList);
+			else
+				rand *= -Collections.min(costList);				
+			return getValueFromCost(rand);
+		}
+		return null; // Should be overridden
 	}
+	
 	protected T randomize(float rand) {
 		if (isList) {
 			if (rand > 0)
 				rand *= Collections.max(costList);
 			else
-				rand *= -Collections.min(costList);
-				
+				rand *= -Collections.min(costList);				
+			return getValueFromCost(rand);
+		}
+		return null; // Should be overridden
+	}
+	protected T getValueFromCost(float cost) {
+		if (isList) {
 			int bestIdx = 0;
-			float bestDev =  Math.abs(rand - costList.getFirst());
+			float bestDev =  Math.abs(cost - costList.getFirst());
 			for (int i=1; i<costList.size(); i++) {
-				float dev = Math.abs(rand - costList.get(i));
+				float dev = Math.abs(cost - costList.get(i));
 				if (dev < bestDev) {
 					bestIdx = i;
 					bestDev = dev;
@@ -195,28 +223,6 @@ public class SettingBase<T> {
 			return valueList.get(bestIdx);
 		}
 		return null; // Should be overridden
-	}
-	/**
-	 * @param min Limit Value in %
-	 * @param max Limit Value in %
-	 * @param gaussian yes = smooth edges
-	 * @return a randomized value
-	 */
-	public T randomize(float min, float max, boolean gaussian) {
-		if (this.isSpacer)
-			return null;
-		if (hasNoCost && isList && !valueList.isEmpty()) {
-			int rand = random.nextInt(valueList.size());
-			return valueList.get(rand);
-		}
-		float rand;
-		float mini = Math.min(min, max)/100;
-		float maxi = Math.max(min, max)/100;
-		if (gaussian)
-			rand = (maxi + mini + (maxi-mini) * (float) random.nextGaussian())/2;
-		else
-			rand = mini + (maxi-mini) * (float) random.nextFloat();
-		return randomize(rand);
 	}
 	public void toggle(MouseWheelEvent e) {
 		if (getDir(e) > 0)
@@ -260,6 +266,67 @@ public class SettingBase<T> {
 	}
 	// ========== Setter ==========
 	//
+	public void setRandom(float min, float max, boolean gaussian) {
+		set(randomize(min, max, gaussian));
+	}
+	public void setRandom(float rand) {
+		lastRandomSource = rand;
+		set(randomize(rand));
+	}
+	public void setSmooth(float min, float max, boolean gaussian, float costAdj) {
+		set(smooth(min, max, gaussian));		
+	}
+	/**
+	 * @param min Limit Value in %
+	 * @param max Limit Value in %
+	 * @param gaussian yes = smooth edges
+	 * @param costAdj value adjustment request
+	 * @return a randomized value
+	 */
+	protected T smooth(float min, float max, boolean gaussian) {
+		if (this.isSpacer)
+			return null;
+		if (hasNoCost) {
+			return settingValue();
+		}
+		float rand;
+		float minValidated = Math.min(min, max);
+		float maxValidated = Math.max(min, max);
+		float mini = minValidated/100;
+		float maxi = maxValidated/100;
+		if (gaussian)
+			rand = (maxi + mini + (maxi-mini) * (float) random.nextGaussian())/2;
+		else
+			rand = mini + (maxi-mini) * (float) random.nextFloat();
+		lastRandomSource = lastRandomSource+rand;
+		return randomize(lastRandomSource);
+	}
+	/**
+	 * @param min Limit Value in %
+	 * @param max Limit Value in %
+	 * @param gaussian yes = smooth edges
+	 * @return a randomized value
+	 */
+	protected T randomize(float min, float max, boolean gaussian) {
+		if (this.isSpacer)
+			return null;
+		if (hasNoCost && isList && !valueList.isEmpty()) {
+			int rand = random.nextInt(valueList.size());
+			return valueList.get(rand);
+		}
+		float rand;
+		float mini = Math.min(min, max)/100;
+		float maxi = Math.max(min, max)/100;
+		if (gaussian)
+			rand = (maxi + mini + (maxi-mini) * (float) random.nextGaussian())/2;
+		else
+			rand = mini + (maxi-mini) * (float) random.nextFloat();
+		lastRandomSource = rand;
+		return randomize(rand);
+	}
+	public void setValueFromCost(float cost) {
+		set(getValueFromCost(cost));
+	}
 	public void newCost(int index, float newCost) {
 		costList.set(index, newCost);
 	}
@@ -340,6 +407,7 @@ public class SettingBase<T> {
 	public boolean isSpacer()		{ return isSpacer; }
 	public boolean hasNoCost()		{ return hasNoCost; }
 	public boolean isBullet()		{ return isBullet; }
+	public float lastRandomSource()	{ return lastRandomSource; }
 	public int index()				{ return cfgValidIndex(); }
 	public T optionValue(int index) { return valueList.get(valueValidIndex(index)); }
 	public BaseText settingText()	{ return settingText; }
@@ -352,7 +420,19 @@ public class SettingBase<T> {
 	public String cfgName()			{ return nameLabel; }
 	public String labelId()			{ return guiLabel + nameLabel; }
 	public boolean isDefaultIndex()	{ return cfgValidIndex() == defaultIndex; }
-	public String cfgValue()		{
+	public float costFactor() {
+		if (isList) {
+			if (lastRandomSource<0)
+				return -Collections.min(costList);
+			else
+				return Collections.max(costList);
+		}
+		if (settingCost()<0)
+			return -Math.min(maxValueCostFactor(), minValueCostFactor());
+		else
+			return Math.max(maxValueCostFactor(), minValueCostFactor());
+	}
+	public String cfgValue() {
 		if (isList)
 			return cfgValueList.get(cfgValidIndex());
 		return String.valueOf(settingValue());

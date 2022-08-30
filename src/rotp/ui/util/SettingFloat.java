@@ -17,10 +17,10 @@
 package rotp.ui.util;
 
 import static rotp.ui.util.SettingBase.CostFormula.RELATIVE;
-import static rotp.util.Base.random;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import java.util.Collections;
 
 public class SettingFloat extends SettingBase<Float> {
 
@@ -31,7 +31,7 @@ public class SettingFloat extends SettingBase<Float> {
 	private static final Float defaultBaseInc	= 1f;
 	private static final Float defaultShiftInc	= 1f;
 	private static final Float defaultCtrlInc	= 1f;
-	private static final int   randCount		= 50;
+	private static final int   randCount		= 201;
 	
 	private boolean loop	= false;
 	private Float minValue	= null;
@@ -147,6 +147,12 @@ public class SettingFloat extends SettingBase<Float> {
 
 	// ===== Overriders =====
 	//
+	@Override public float maxValueCostFactor() {
+		return settingCost(maxValue);
+	}
+	@Override public float minValueCostFactor() {
+		return settingCost(minValue);
+	}
 	@Override protected Float randomize(float rand) {
 		float lim1 = settingCost(maxValue);
 		float lim2 = settingCost(minValue);
@@ -154,13 +160,15 @@ public class SettingFloat extends SettingBase<Float> {
 			rand *= Math.max(lim1, lim2);
 		else
 			rand *= -Math.min(lim1, lim2);
-			
+		return getValueFromCost(rand);
+	}
+	@Override protected Float getValueFromCost(float cost) {	
 		float step = Math.abs(maxValue - minValue) / (randCount - 1);
-		float bestVal = defaultValue();
-		float bestDev = Math.abs(rand - settingCost(bestVal));
+		Float bestVal = defaultValue();
+		float bestDev = Math.abs(cost - settingCost(bestVal));
 		float limVal  = maxValue + step/2;
-		for (float testVal=minValue; testVal<limVal; testVal+=step) {
-			float dev = Math.abs(rand - settingCost(testVal));
+		for (Float testVal=minValue; testVal<limVal; testVal+=step) {
+			float dev = Math.abs(cost - settingCost(testVal));
 			if (dev < bestDev) {
 				bestVal = testVal;
 				bestDev = dev;
@@ -178,10 +186,18 @@ public class SettingFloat extends SettingBase<Float> {
 		 next(-baseInc);
 	}
 	@Override public void toggle(MouseEvent e) {
-		next(getInc(e) * getDir(e));
+		Float inc = getInc(e) * getDir(e);
+		if (inc == 0)
+			this.setToDefault(true);
+		else
+			next(getInc(e) * getDir(e));
 	}
 	@Override public void toggle(MouseWheelEvent e) {
-		next(getInc(e) * getDir(e));
+		Float inc = getInc(e) * getDir(e);
+		if (inc == 0)
+			this.setToDefault(true);
+		else
+			next(getInc(e) * getDir(e));
 	}
 	@Override public float settingCost() {
 		return settingCost(settingValue());

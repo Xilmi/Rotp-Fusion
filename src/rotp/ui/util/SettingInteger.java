@@ -17,7 +17,6 @@
 package rotp.ui.util;
 
 import static rotp.ui.util.SettingBase.CostFormula.RELATIVE;
-import static rotp.util.Base.random;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -31,7 +30,7 @@ public class SettingInteger extends SettingBase<Integer> {
 	private static final Integer defaultBaseInc			= 1;
 	private static final Integer defaultShiftInc		= 1;
 	private static final Integer defaultCtrlInc			= 1;
-	private static final int     randCount				= 100;
+	private static final int     randCount				= 201;
 
 	private boolean loop	 = false;
 	private Integer minValue = null;
@@ -148,6 +147,12 @@ public class SettingInteger extends SettingBase<Integer> {
 
 	// ===== Overriders =====
 	//
+	@Override public float maxValueCostFactor() {
+		return settingCost(maxValue);
+	}
+	@Override public float minValueCostFactor() {
+		return settingCost(minValue);
+	}
 	@Override protected Integer randomize(float rand) {
 		float lim1 = settingCost(maxValue);
 		float lim2 = settingCost(minValue);
@@ -155,17 +160,19 @@ public class SettingInteger extends SettingBase<Integer> {
 			rand *= Math.max(lim1, lim2);
 		else
 			rand *= -Math.min(lim1, lim2);
-
+		return getValueFromCost(rand);
+	}
+	@Override protected Integer getValueFromCost(float cost) {
 		int   step = Math.max(1, (maxValue - minValue) / (randCount - 1));
-		int   bestVal = defaultValue();
-		float bestDev = Math.abs(rand - settingCost(bestVal));
-		float dev = Math.abs(rand - settingCost(maxValue));		
+		Integer   bestVal = defaultValue();
+		float bestDev = Math.abs(cost - settingCost(bestVal));
+		float dev = Math.abs(cost - settingCost(maxValue));		
 		if (dev < bestDev) {
 			bestVal = maxValue;
 			bestDev = dev;
 		}
-		for (int testVal=minValue; testVal<maxValue; testVal+=step) {
-			dev = Math.abs(rand - settingCost(testVal));
+		for (Integer testVal=minValue; testVal<maxValue; testVal+=step) {
+			dev = Math.abs(cost - settingCost(testVal));
 			if (dev < bestDev) {
 				bestVal = testVal;
 				bestDev = dev;
@@ -187,10 +194,18 @@ public class SettingInteger extends SettingBase<Integer> {
 		 next(-baseInc);
 	}
 	@Override public void toggle(MouseEvent e) {
-		next(getInc(e) * getDir(e));
+		Integer inc = getInc(e) * getDir(e);
+		if (inc == 0)
+			this.setToDefault(true);
+		else
+			next(getInc(e) * getDir(e));
 	}
 	@Override public void toggle(MouseWheelEvent e) {
-		next(getInc(e) * getDir(e));
+		Integer inc = getInc(e) * getDir(e);
+		if (inc == 0)
+			this.setToDefault(true);
+		else
+			next(getInc(e) * getDir(e));
 	}
 	@Override public float settingCost() {
 		return settingCost(settingValue());

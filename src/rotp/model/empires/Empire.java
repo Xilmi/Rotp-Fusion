@@ -3142,7 +3142,6 @@ public final class Empire implements Base, NamedObject, Serializable {
     public float hPFactor()                    { return dataRace().hPFactor();  }
     public float maintenanceFactor()           { return dataRace().maintenanceFactor(); }
     public float shipSpaceFactor()             { return dataRace().shipSpaceFactor(); }
-    public String planetType()                 { return dataRace().planetType(); }
     public String planetRessource()            { return dataRace().planetRessource(); }
     public String planetEnvironment()          { return dataRace().planetEnvironment(); }
     // \BR:

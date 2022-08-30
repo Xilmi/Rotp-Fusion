@@ -20,14 +20,10 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 import rotp.model.empires.Leader.Objective;
 import rotp.model.empires.Leader.Personality;
@@ -45,7 +41,7 @@ public class Race implements Base, Serializable {
     public static Race keyed(String s) {
         Race race = raceMap.get(s);
         if (race == null) { // BR: Add custom race if missing
-            race = CustomRace.keyToRace(s);
+            race = CustomRaceFactory.keyToRace(s);
             race.isCustomRace(true);
             race.description4 = customRaceDescription;
         }
@@ -152,7 +148,6 @@ public class Race implements Base, Serializable {
     private float hPFactor = 1f;
     private float maintenanceFactor = 1f;
     private float shipSpaceFactor = 1f;
-    private String planetType = PlanetType.TERRAN;
     private String planetRessource = "Normal";
     private String planetEnvironment = "Normal";
     // Custom Races
@@ -349,8 +344,6 @@ public class Race implements Base, Serializable {
     public void  maintenanceFactor(float val) { maintenanceFactor = val; }
     public float shipSpaceFactor()            { return shipSpaceFactor; }
     public void  shipSpaceFactor(float val)   { shipSpaceFactor = val; }
-    public String planetType()                { return planetType; }
-    public void   planetType(String s)        { planetType = s; }
     public String planetRessource()           { return planetRessource; }
     public void   planetRessource(String s)   { planetRessource = s; }
     public String planetEnvironment()         { return planetEnvironment; }

@@ -40,6 +40,7 @@ import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamTech;
+import rotp.ui.util.RandomAlienRaces;
 import rotp.ui.util.ParamAAN2;
 import rotp.util.LanguageManager;
 import rotp.util.sound.SoundManager;
@@ -114,21 +115,27 @@ public class UserPreferences {
 	public static final ParamTech techTransport  = new 
 			ParamTech("TECH_TRANSPORTERS",	4, "CombatTransporter",		0); // level 45
 	public static final ParamInteger randomAlienRacesMin = new ParamInteger(MOD_UI, "RACES_RAND_MIN"
-			, 0, -100, 100, 1, 5, 20);
+			, -50, -100, 100, 1, 5, 20);
 	public static final ParamInteger randomAlienRacesMax = new ParamInteger(MOD_UI, "RACES_RAND_MAX"
-			, 0, -100, 100, 1, 5, 20);
-	public static final ParamBoolean randomAlienRacesSmoothEdges = new ParamBoolean(MOD_UI, "RACES_RAND_EDGES", false);
-	public static final ParamBoolean randomAlienRaces = new ParamBoolean(MOD_UI, "RACES_ARE_RANDOM", false);
+			, 50, -100, 100, 1, 5, 20);
+	public static final ParamInteger randomAlienRacesTargetMax = new ParamInteger(MOD_UI, "RACES_RAND_TARGET_MAX"
+			, 75, null, null, 1, 10, 0);
+	public static final ParamInteger randomAlienRacesTargetMin = new ParamInteger(MOD_UI, "RACES_RAND_TARGET_MIN"
+			, 0, null, null, 1, 10, 0);
+	public static final ParamBoolean randomAlienRacesSmoothEdges = new ParamBoolean(MOD_UI, "RACES_RAND_EDGES", true);
+//	public static final ParamBoolean randomAlienRacesUseTarget = new ParamBoolean(MOD_UI, "RACES_RAND_USE_TARGET", false);
+//	public static final ParamBoolean randomAlienRaces = new ParamBoolean(MOD_UI, "RACES_ARE_RANDOM", false);
+	public static final RandomAlienRaces randomAlienRaces = new RandomAlienRaces (MOD_UI, "RACES_ARE_RANDOM", "No");
 	
 	public static final LinkedList<ParamTech> techModList = new LinkedList<>(Arrays.asList(
 			techIrradiated, techCloaking, techStargate, techHyperspace,
 			techIndustry2, techThorium, techTransport
 			));
 	public static final LinkedList<AbstractParam<?>> modB = new LinkedList<>(Arrays.asList(
-		maximizeSpacing, spacingLimit, minStarsPerEmpire, prefStarsPerEmpire,
-		loadWithNewOptions, randomAlienRaces, randomAlienRacesMax, randomAlienRacesMin, randomAlienRacesSmoothEdges,
-		techIrradiated, techCloaking, techStargate, techHyperspace,
-		techIndustry2, techThorium, techTransport, eventsStartTurn
+		maximizeSpacing, spacingLimit, randomAlienRacesTargetMax, randomAlienRacesTargetMin, randomAlienRaces,
+		minStarsPerEmpire, prefStarsPerEmpire, randomAlienRacesMax, randomAlienRacesMin, randomAlienRacesSmoothEdges,
+		loadWithNewOptions, techIrradiated, techCloaking, techStargate, techHyperspace,
+		eventsStartTurn, techIndustry2, techThorium, techTransport
 		));
 
 	// BR: ===== Viewing settings Mod GUI:

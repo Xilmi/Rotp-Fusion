@@ -15,7 +15,7 @@
  */
 package rotp.ui.game;
 
-import static rotp.model.empires.CustomRace.ROOT;
+import static rotp.model.empires.CustomRaceFactory.ROOT;
 import rotp.ui.BaseText;
 import rotp.ui.util.AbstractCRUI;
 import rotp.ui.util.SettingBase;

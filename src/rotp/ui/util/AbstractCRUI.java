@@ -15,7 +15,7 @@
  */
 package rotp.ui.util;
 
-import static rotp.model.empires.CustomRace.ROOT;
+import static rotp.model.empires.CustomRaceFactory.ROOT;
 import static rotp.ui.UserPreferences.customPlayerRace;
 
 import java.awt.Color;
@@ -30,13 +30,12 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.text.DecimalFormat;
 import java.util.LinkedList;
 
 import javax.swing.SwingUtilities;
 
 import rotp.mod.br.profiles.Profiles;
-import rotp.model.empires.CustomRace;
+import rotp.model.empires.CustomRaceFactory;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.game.GameUI;
@@ -53,7 +52,7 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 	private static final LinkedList<Integer> colSettingsCount   = new LinkedList<>();
 	private static final LinkedList<SettingBase<?>> settingList = new LinkedList<>();
 	private static final LinkedList<SettingBase<?>> guiList		= new LinkedList<>();
-	public	static final CustomRace cr = new CustomRace();
+	public	static final CustomRaceFactory cr = new CustomRaceFactory();
 	
 	private static final Color textC		= SystemPanel.whiteText;
 	private		   final Font buttonFont	= narrowFont(20);
@@ -98,15 +97,16 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 	private static final int optionH		= s15;
 	private static final int optionIndent	= s15;
 
-//	private static final SettingInteger randomMean = new SettingInteger(ROOT, "RANDOM_MEAN",
-//			0, null, null, 5, 20, 100);
-//	private static final SettingInteger randomStDev = new SettingInteger(ROOT, "RANDOM_STDEV",
-//			0, 0, null, 1, 5, 20);
+	private static final SettingInteger randomTargetMax = new SettingInteger(ROOT, "RANDOM_TARGET_MAX",
+			75, null, null, 1, 5, 20);
+	private static final SettingInteger randomTargetMin = new SettingInteger(ROOT, "RANDOM_TARGET_MIN",
+			0, null, null, 1, 5, 20);
 	private static final SettingInteger randomMax = new SettingInteger(ROOT, "RANDOM_MAX",
-			0, -100, 100, 1, 5, 20);
+			50, -100, 100, 1, 5, 20);
 	private static final SettingInteger randomMin = new SettingInteger(ROOT, "RANDOM_MIN",
-			0, -100, 100, 1, 5, 20);
-	private static final SettingBoolean randomSmoothEdges = new SettingBoolean(ROOT, "RANDOM_EDGES", false);
+			-50, -100, 100, 1, 5, 20);
+	private static final SettingBoolean randomUseTarget	  = new SettingBoolean(ROOT, "RANDOM_USE_TARGET", false);
+	private static final SettingBoolean randomSmoothEdges = new SettingBoolean(ROOT, "RANDOM_EDGES", true);
 
 	private static int numColumns	= 0;
 	private static int columnsMaxH	= 0;
@@ -145,25 +145,19 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 	    if (settingList.size() == 0)
 	    	init0();
 
-	    guiList.add(randomMax);
-	    guiList.add(randomMin);
 	    guiList.add(randomSmoothEdges);
+	    guiList.add(randomMin);
+	    guiList.add(randomMax);
+	    guiList.add(randomTargetMin);
+	    guiList.add(randomTargetMax);
+	    guiList.add(randomUseTarget);
 	    
 	    for(SettingBase<?> setting : guiList) {
 	    	setting.saveAllowed(false);
 	    	setting.hasNoCost(true);
 	    	setting.settingText(new BaseText(this, false, labelFontSize, 0, 0,
 					labelC, labelC, hoverC, depressedC, textC, 0, 0, 0));
-	    	
 	    }
-//		randomMean.saveAllowed(false);
-//		randomMean.hasNoCost(true);
-//		randomMean.settingText(new BaseText(this, false, labelFontSize, 0, 0,
-//				labelC, labelC, hoverC, depressedC, textC, 0, 0, 0));
-//		randomStDev.saveAllowed(false);
-//		randomStDev.hasNoCost(true);
-//		randomStDev.settingText(new BaseText(this, false, labelFontSize, 0, 0,
-//				labelC, labelC, hoverC, depressedC, textC, 0, 0, 0));
 
 		addMouseListener(this);
 		addMouseMotionListener(this);
@@ -197,7 +191,8 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 	// ========== Other Methods ==========
 	//
 	private  String totalCostStr() {
-		return text(totalCostKey, new DecimalFormat("0.0").format(cr.getTotalCost()));
+		return text(totalCostKey, Math.round(cr.getTotalCost()));
+//		return text(totalCostKey, new DecimalFormat("0.0").format(cr.getTotalCost()));
 	}
 	private  BaseText settingBT() {
 		return new BaseText(this, false, settingFont, 0, 0,
@@ -250,8 +245,9 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		close();
 	}
 	private void randomizeRace() {
-		cr.randomizeRace(randomMin.settingValue(),
-				randomMax.settingValue(), randomSmoothEdges.settingValue());
+		cr.randomizeRace(randomMin.settingValue(), randomMax.settingValue(),
+				randomTargetMin.settingValue(), randomTargetMax.settingValue(),
+				randomUseTarget.settingValue(), randomSmoothEdges.settingValue(), true);
 		totalCostText.repaint(totalCostStr());
 	}
 	private void paintSetting(Graphics2D g, SettingBase<?> setting) {
@@ -455,22 +451,14 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		// Randomize Options
 		xLine = xButton + labelPad;
 		yLine = yButton - labelPad;
-		BaseText bt = randomSmoothEdges.settingText();
-		bt.displayText(randomSmoothEdges.guiSettingDisplayStr());
-		bt.setScaledXY(xLine, yLine);
-		bt.draw(g);
-		
-		yLine -= labelH;
-		bt = randomMin.settingText();
-		bt.displayText(randomMin.guiSettingDisplayStr());
-		bt.setScaledXY(xLine, yLine);
-		bt.draw(g);
-
-		yLine -= labelH;
-		bt = randomMax.settingText();
-		bt.displayText(randomMax.guiSettingDisplayStr());
-		bt.setScaledXY(xLine, yLine);
-		bt.draw(g);
+		BaseText bt;
+	    for(SettingBase<?> setting : guiList) {
+			bt = setting.settingText();
+			bt.displayText(setting.guiSettingDisplayStr());
+			bt.setScaledXY(xLine, yLine);
+			bt.draw(g);
+			yLine -= labelH;
+	    }
 	}
 	@Override public void keyPressed(KeyEvent e) {
 		int k = e.getKeyCode();  // BR:
@@ -483,15 +471,15 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 				parent.advanceHelp();
 				break;
 			default: // BR:
-				if(Profiles.processKey(k, e.isShiftDown(), guiTitleID, newGameOptions())) {
-				};
+//				if(Profiles.processKey(k, e.isShiftDown(), guiTitleID, newGameOptions())) {
+//				};
 				// Needs to be done twice for the case both Galaxy size
 				// and the number of opponents were changed !?
-				if(Profiles.processKey(k, e.isShiftDown(), guiTitleID, newGameOptions())) {
+//				if(Profiles.processKey(k, e.isShiftDown(), guiTitleID, newGameOptions())) {
 //					for (int i=0; i<paramList.size(); i++) {
 //						btList.get(i).repaint(paramList.get(i).getGuiDisplay());
 //					} TODO BR: processKey
-				};
+//				};
 				return;
 		}
 	}

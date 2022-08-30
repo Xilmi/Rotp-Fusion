@@ -16,13 +16,20 @@
 
 package rotp.model.empires;
 
-import static rotp.ui.util.SettingBase.CostFormula.DIFFERENCE;
-import static rotp.ui.UserPreferences.randomAlienRacesSmoothEdges;
-import static rotp.ui.UserPreferences.randomAlienRacesMin;
 import static rotp.ui.UserPreferences.randomAlienRacesMax;
+import static rotp.ui.UserPreferences.randomAlienRacesMin;
+import static rotp.ui.UserPreferences.randomAlienRacesSmoothEdges;
+import static rotp.ui.UserPreferences.randomAlienRacesTargetMax;
+import static rotp.ui.UserPreferences.randomAlienRacesTargetMin;
+import static rotp.ui.UserPreferences.randomAlienRaces;
+import static rotp.ui.util.SettingBase.CostFormula.DIFFERENCE;
+import static rotp.util.Base.random;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.List;
 
 import br.profileManager.src.main.java.PMutil;
 import rotp.model.game.MOO1GameOptions;
@@ -31,7 +38,7 @@ import rotp.ui.util.SettingBase;
 import rotp.ui.util.SettingBoolean;
 import rotp.ui.util.SettingInteger;
 
-public class CustomRace {
+public class CustomRaceFactory {
 	
 	public static final String ROOT = "CUSTOM_RACE_";
 	public static final String PLANET = "PLANET_";
@@ -42,7 +49,7 @@ public class CustomRace {
 	private LinkedList<SettingBase<?>> settingList;
 	private LinkedHashMap<String, String> settingsValues = new LinkedHashMap<>();
 	
-	public CustomRace() {}
+	public CustomRaceFactory() {}
 	public void init(LinkedList<SettingBase<?>> newSettingList) {
 		settingList = newSettingList;
 	}
@@ -88,22 +95,83 @@ public class CustomRace {
 		}
 		return count;
 	}
-//	public void randomizeRace(float avg, float stDev) {
-//		avg /= getCount();
-//		for (SettingBase<?> setting : settingList) {
-//			if (!setting.isSpacer()) {
-//				setting.setRandom(avg, stDev);
-//				setting.guiSelect();
-//			}
-//		}
-//	}
-	public void randomizeRace(float min, float max, boolean gaussian) {
+	private void randomizeRace(float min, float max,
+			float targetMin, float targetMax, boolean gaussian, boolean updateGui) {
+		float target	= (targetMax + targetMin)/2;
+		float maxDiff	= Math.max(0.04f, Math.abs(targetMax-targetMin)/2);
+		float maxChange	= Math.max(0.1f, Math.abs(max-min));
+		
+		List<SettingBase<?>> shuffledSettingList = new ArrayList<>(settingList);
+		// first pass full random
+		float cost = randomizeRace(min, max, gaussian, updateGui);
+		
+		// second pass going smoothly to the target
+		for (int i=0; i<10; i++) {
+			Collections.shuffle(shuffledSettingList);
+			for (SettingBase<?> setting : shuffledSettingList) {
+				if (!setting.isSpacer() &&!setting.hasNoCost()) {
+					float difference = target - cost;
+					if (Math.abs(difference) <= maxDiff)
+						return;
+					float costFactor = setting.costFactor();
+					float changeRequest = difference/costFactor;
+					cost -= setting.settingCost();
+					if (Math.abs(changeRequest) <= maxChange) {
+						float maxRequest = changeRequest + maxDiff/costFactor;
+						if (maxRequest > 0)
+							maxRequest = Math.min(maxChange, maxRequest);
+						else
+							maxRequest =  Math.max(-maxChange, maxRequest);						
+						float minRequest = changeRequest - maxDiff/costFactor;
+						if (maxRequest > 0)
+							minRequest = Math.min(maxChange, minRequest);
+						else
+							minRequest =  Math.max(-maxChange, minRequest);
+						float request = minRequest + random.nextFloat() * (maxRequest-minRequest);
+
+						setting.setValueFromCost(setting.settingCost()+request*costFactor);
+					} else {
+						setting.setRandom(setting.lastRandomSource()
+								+ maxChange*Math.signum(changeRequest));
+					}
+					cost += setting.settingCost();
+					if (updateGui)
+						setting.guiSelect();
+				}
+			}				
+		}
+		// third pass forcing the target
+		for (int i=0; i<5; i++) {
+			Collections.shuffle(shuffledSettingList);
+			for (SettingBase<?> setting : shuffledSettingList) {
+				if (!setting.isSpacer() &&!setting.hasNoCost()) {
+					cost -= setting.settingCost();
+					setting.setValueFromCost(target - cost);
+					cost += setting.settingCost();
+					if (updateGui)
+						setting.guiSelect();
+					if (Math.abs(cost-target) <= maxDiff)
+						return;
+				}
+			}				
+		}
+	}
+	private float randomizeRace(float min, float max, boolean gaussian, boolean updateGui) {
 		for (SettingBase<?> setting : settingList) {
 			if (!setting.isSpacer()) {
 				setting.setRandom(min, max, gaussian);
-				setting.guiSelect();
+				if (updateGui)
+					setting.guiSelect();
 			}
 		}
+		return getTotalCost();
+	}
+	public void randomizeRace(float min, float max, float targetMin, float targetMax, 
+			boolean useTarget, boolean gaussian, boolean updateGui) {
+		if (useTarget)
+			randomizeRace(min, max, targetMin, targetMax, gaussian, updateGui);
+		else
+			randomizeRace(min, max, gaussian, updateGui);
 	}
 	public  float getTotalCost() {
 		float totalCost = 0;
@@ -182,25 +250,22 @@ public class CustomRace {
 	// -------------------- Static Methods --------------------
 	// 
 	public static String getRandomAlienRaceKey() {
-		CustomRace cr = new CustomRace();
+		CustomRaceFactory cr = new CustomRaceFactory();
 		cr.getFullList();
-		for (SettingBase<?> setting : cr.settingList) {
-			if (!setting.isSpacer()) {
-				setting.setRandom(randomAlienRacesMin.get(),
-						randomAlienRacesMax.get(), randomAlienRacesSmoothEdges.get());
-			}
-		}
+		cr.randomizeRace(randomAlienRacesMin.get(), randomAlienRacesMax.get(),
+				randomAlienRacesTargetMin.get(), randomAlienRacesTargetMax.get(),
+				randomAlienRacesSmoothEdges.get(), randomAlienRaces.isTarget(), false);
 		return cr.getKey();
 	}
 	public static String raceToKey(Race race) {
-		CustomRace cr = new CustomRace();
+		CustomRaceFactory cr = new CustomRaceFactory();
 		cr.getFullList();
 		cr.setRace(race.name());
 		cr.pullSettings();
 		return cr.getKey();
 	}
 	public static Race keyToRace(String raceKey) {
-		CustomRace cr = new CustomRace();
+		CustomRaceFactory cr = new CustomRaceFactory();
 		cr.getFullList();
 		cr.setKey(raceKey);
 		return cr.race;
@@ -347,9 +412,9 @@ public class CustomRace {
 			put("UltraPoor",	PLANET + "ULTRA_POOR",		-50f, "UltraPoor");
 			put("Poor",			PLANET + "POOR",			-25f, "Poor");
 			put("Normal",		ROOT   + "RESOURCES_NORMAL",  0f, "Normal");
-			put("Rich",			PLANET + "RICH",			 20f, "Rich");
-			put("UltraRich",	PLANET + "ULTRA_RICH",		 40f, "UltraRich");
-			put("Artifacts",	PLANET + "ARTIFACTS",		 30f, "Artifacts");
+			put("Rich",			PLANET + "RICH",			 30f, "Rich");
+			put("UltraRich",	PLANET + "ULTRA_RICH",		 50f, "UltraRich");
+			put("Artifacts",	PLANET + "ARTIFACTS",		 40f, "Artifacts");
 			defaultCfgValue(defaultValue);
 			initOptionsText();
 		}
@@ -372,8 +437,8 @@ public class CustomRace {
 			labelsAreFinals(true);
 			put("Hostile", PLANET + "HOSTILE",			  -20f, "Hostile");
 			put("Normal",  ROOT   + "ENVIRONMENT_NORMAL",	0f, "Normal");
-			put("Fertile", PLANET + "FERTILE",			   10f, "Fertile");
-			put("Gaia",	   PLANET + "GAIA",				   20f, "Gaia");
+			put("Fertile", PLANET + "FERTILE",			   15f, "Fertile");
+			put("Gaia",	   PLANET + "GAIA",				   30f, "Gaia");
 			defaultCfgValue(defaultValue);
 			initOptionsText();
 		}
@@ -401,10 +466,10 @@ public class CustomRace {
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
-			race.planetType(settingValue());
+			race.homeworldPlanetType = settingValue();
 		}
 		@Override public void pullSetting() {
-			set(race.planetType());
+			set(race.homeworldPlanetType);
 		}
 	}
 	// ==================== HomeworldSize ====================
@@ -743,7 +808,7 @@ public class CustomRace {
 		// bigger = better
 		public TechDiscovery() {
 			super(ROOT, "TECH_DISCOVERY", 50, 30, 100, 1, 5, 20, saveNotAllowed,
-					DIFFERENCE, new float[]{0f, .5f}, new float[]{0f, 1f});
+					DIFFERENCE, new float[]{0f, .5f}, new float[]{0f, 0.5f});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
@@ -760,7 +825,7 @@ public class CustomRace {
 		public TechResearch() {
 			super(ROOT, "TECH_RESEARCH", 100, 60, 200, 1, 5, 20, saveNotAllowed, DIFFERENCE,
 					new float[]{0f, 0.7f, 0.004f},
-					new float[]{0f, 1.0f, 0.01f});
+					new float[]{0f, 1.0f, 0.006f});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
@@ -776,7 +841,7 @@ public class CustomRace {
 	private static final int studyCostMax = 200;
 	private static final float researchC1pos = -.0f;
 	private static final float researchC1neg = -.0f;
-	private static final float researchC2pos = -.003f;
+	private static final float researchC2pos = -.0012f;
 	private static final float researchC2neg = -.005f;
 
 	public class ResearchComputer extends SettingInteger {
@@ -885,5 +950,4 @@ public class CustomRace {
 			set(Math.round(race.techMod[5] * 100));
 		}
 	}
-
 }

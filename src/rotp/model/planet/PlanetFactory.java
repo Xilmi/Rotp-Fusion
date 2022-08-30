@@ -79,8 +79,8 @@ public class PlanetFactory implements Base {
         return p;
     }
     public static Planet createHomeworld(Race r, Race dr, StarSystem sys,
-    		float bonus, boolean isPlayer) { // BR: added player info and datarace
-        Planet p = instance.options().randomPlayerPlanet(r, sys);
+    		float bonus, boolean isPlayer) { // BR: added player info and dataRace
+        Planet p = instance.options().randomPlayerPlanet(dr, sys);
         p.baseSize(dr.homeworldSize*bonus);
         if (r.homeworldKey() > 0)
             p.terrainSeed(r.homeworldKey());
@@ -113,6 +113,7 @@ public class PlanetFactory implements Base {
 		if (dr.raceWithGaiaHomeworld()) {
 			p.makeEnvironmentGaia();
 		}
+		
         return p;
     }
     // modnar: add option to start game with additional colonies

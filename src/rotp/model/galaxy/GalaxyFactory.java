@@ -15,6 +15,7 @@
  */
 package rotp.model.galaxy;
 
+import static rotp.ui.UserPreferences.randomAlienRaces;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,7 +24,7 @@ import java.util.List;
 
 import rotp.mod.br.addOns.RacesOptions;
 import rotp.mod.br.addOns.ShipSetAddOns;
-import rotp.model.empires.CustomRace;
+import rotp.model.empires.CustomRaceFactory;
 import rotp.model.empires.Empire;
 import rotp.model.empires.Leader;
 import rotp.model.empires.Race;
@@ -46,6 +47,7 @@ public class GalaxyFactory implements Base {
 	 */
 	public static final String[] compSysName = new String[]{"α", "β", "γ", "δ", "ε", "ζ"};// BR : added two possibilities
 	private static boolean[] isRandomOpponent; // BR: only Random Races will be customized
+	private static String playerDataRaceKey;   // BR: in case Alien races are a copy of player race
 
 	public Galaxy newGalaxy(GalaxyCopy gc) { // BR: For restarting with new options
 		for (Race r: Race.races()) {
@@ -289,11 +291,11 @@ public class GalaxyFactory implements Base {
 		Integer color = options().selectedPlayerColor();
 
 		// Create DataRace
-		String dataRaceKey = raceKey;
+		playerDataRaceKey = raceKey;
 		if (UserPreferences.customPlayerRace.get()) {
-			dataRaceKey = PlayerRaceCustomizationUI.cr.getKey();
+			playerDataRaceKey = PlayerRaceCustomizationUI.cr.getKey();
 		}
-		Race playerDataRace = Race.keyed(dataRaceKey);
+		Race playerDataRace = Race.keyed(playerDataRaceKey);
 		
 		// create home system for player
 		StarSystem sys;
@@ -345,7 +347,7 @@ public class GalaxyFactory implements Base {
 		// modnar: add option to start game with additional colonies
 		// modnar: compSysId is the System ID array for these additional colonies
 		// BR: Added dataRaceKey
-		Empire emp = new Empire(g, id, raceKey, dataRaceKey, sys, compSysId, color, leaderName, gc);
+		Empire emp = new Empire(g, id, raceKey, playerDataRaceKey, sys, compSysId, color, leaderName, gc);
 		g.addEmpire(emp);
 
 		//log("Adding star system: ", sys.name(), " - ", playerRace.id, " : ", fmt(sys.x(),2), "@", fmt(sys.y(),2));
@@ -415,9 +417,11 @@ public class GalaxyFactory implements Base {
                 dataRaceKey = random(options().startingRaceOptions());
             else
                 dataRaceKey = raceKey;
-            if (UserPreferences.randomAlienRaces.get()
-            		&& isRandomOpponent[h]) {
-            	dataRaceKey = CustomRace.getRandomAlienRaceKey();
+            if (randomAlienRaces.isRandom() && isRandomOpponent[h]) {
+            	if (randomAlienRaces.isPlayerCopy())
+            		dataRaceKey = playerDataRaceKey;
+            	else
+            		dataRaceKey = CustomRaceFactory.getRandomAlienRaceKey();
             }
             System.out.println("RO = " + isRandomOpponent[h] + "  Key = " + dataRaceKey);
 			Race dataRace = Race.keyed(dataRaceKey);

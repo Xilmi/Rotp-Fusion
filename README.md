@@ -22,6 +22,12 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
+2022.08.30 (BR)
+  - Added Target Range for race customization.
+  - Alien Races can be set to copy the player race.
+  - Fixed Ocean and Jungle not being set.
+  - Ranamed CustomRace to CustomRaceFactory to match the naming philosophy.
+
 2022.08.28 (Xilmi)
   - The growth-speed of trade routes has been normalized and is no longer affected by how much one empire likes the other.
   - The racial diplomacy-bonus now impacts trade-route-growth-speed.
