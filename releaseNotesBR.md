@@ -17,10 +17,14 @@ The limits "Setting Min" and "Setting Max" define the spread of each setting:
   - The initial spread of the settings should be fairly well preserved.
   - Best results are obtained when the initial setting range overlaps the final target range.
 
-In "MOD Options B" thes setting can be attributed to the Alien Races:
+In "MOD Options B" thes setting can be assigned to the Alien Races:
   - "Settings Window" means only the first randomization pass will be used.
-  - "Target Range" means the second pass will be used to reach the targeted range.
-  - "Player Copy" means Aliens settings will match the player ones, even if the player has a standard race.
+  - "Target Range" means the second pass will be used to reach the target range.
+  - "Player Copy" means Alien settings will match the player's, even if the player has a standard race.
 
-Combined with a symetric galaxy, the "player copy" will offer a very fair game. You will see who is the boss!
+Combined with a symetrical galaxy, the "player copy" will offer a very fair game. You'll see who's the boss!
+
+Also fixed Ocean and Jungle Homeworld not being set.
+
+And of course all the last Xilmi additions.
 
