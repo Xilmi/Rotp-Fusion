@@ -461,11 +461,15 @@ public class CustomRaceFactory {
 			isBullet(true);
 			saveAllowed(false);
 			labelsAreFinals(true);
-			put("Ocean",	PlanetType.OCEAN,	-8f, PlanetType.OCEAN);
-			put("Jungle",	PlanetType.JUNGLE,	-5f, PlanetType.JUNGLE);
-			put("Terran",	PlanetType.TERRAN,	 0f, PlanetType.TERRAN);
+//			put("Ocean",	PlanetType.OCEAN,	-8f, PlanetType.OCEAN);
+//			put("Jungle",	PlanetType.JUNGLE,	-5f, PlanetType.JUNGLE);
+//			put("Terran",	PlanetType.TERRAN,	 0f, PlanetType.TERRAN);
+			put("Ocean",	PlanetType.OCEAN,	0f, PlanetType.OCEAN);
+			put("Jungle",	PlanetType.JUNGLE,	0f, PlanetType.JUNGLE);
+			put("Terran",	PlanetType.TERRAN,	0f, PlanetType.TERRAN);
 			defaultCfgValue(defaultValue);
 			initOptionsText();
+			hasNoCost(true); // to be removed
 		}
 		@Override public void pushSetting() {
 			race.homeworldPlanetType = settingValue();

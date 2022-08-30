@@ -21,6 +21,9 @@ Community subreddit: https://www.reddit.com/r/rotp/<br/>
 Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
+2022.08.31 (BR)
+  - Diplomacy panel: Added show all abilities by clicking on "Ability".
+  - Removed the values of the planet type.
 
 2022.08.30 (BR)
   - Added Target Range for race customization.
