@@ -454,9 +454,7 @@ public final class TechCategory implements Base, Serializable {
         return techsAvailableForResearch(true);
     }
     public List<Tech> techsAvailableForResearch(boolean lookAhead) {
-        int q = maxKnownQuintile();
-        if (lookAhead)
-            q++;
+        int q = maxResearchableQuintile();
         List<Tech> r = new ArrayList<>();
         Tech first = null;
 
