@@ -128,8 +128,6 @@ public class AIGeneral implements Base, General {
                 additionalColonizersToBuild--;
                 colonizerCost -= empire.shipDesignerAI().BestDesignToColonize().cost();
             }
-            if(empire.diplomatAI().militaryRank(empire, false) > empire.diplomatAI().popCapRank(empire, false))
-                additionalColonizersToBuild = 0;
             //System.out.println(galaxy().currentTurn()+" "+empire.name()+" col-need after: "+additionalColonizersToBuild);
         }
         ShipDesign design = empire.shipDesignerAI().BestDesignToColonize();
