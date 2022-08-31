@@ -236,7 +236,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     // BR: Display UI panel for MOD game options
     private final StartModViewOptionsUI startModViewOptionsUI = new StartModViewOptionsUI();
 	// BR: Display UI panel for Player Race Customization
-    private final PlayerRaceCustomizationUI playerRaceCustomizationUI = new PlayerRaceCustomizationUI();
+    private final PlayerRaceCustomizationUI playerRaceCustomizationUI = PlayerRaceCustomizationUI.instance();
     private final GameSettingsUI gameSettingsUI = new GameSettingsUI();
     private final LargeDialogPane dialogPane = new LargeDialogPane();
 

@@ -16,6 +16,7 @@
 package rotp.model.galaxy;
 
 import static rotp.ui.UserPreferences.randomAlienRaces;
+
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -417,13 +418,13 @@ public class GalaxyFactory implements Base {
                 dataRaceKey = random(options().startingRaceOptions());
             else
                 dataRaceKey = raceKey;
-            if (randomAlienRaces.isRandom() && isRandomOpponent[h]) {
+            if (gc == null && randomAlienRaces.isRandom() && isRandomOpponent[h]) {
             	if (randomAlienRaces.isPlayerCopy())
             		dataRaceKey = playerDataRaceKey;
             	else
             		dataRaceKey = CustomRaceFactory.getRandomAlienRaceKey();
             }
-            System.out.println("RO = " + isRandomOpponent[h] + "  Key = " + dataRaceKey);
+//            System.out.println("RO = " + isRandomOpponent[h] + "  Key = " + dataRaceKey);
 			Race dataRace = Race.keyed(dataRaceKey);
 
 			EmpireSystem empSystem = null;

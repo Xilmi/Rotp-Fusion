@@ -21,6 +21,9 @@ Community subreddit: https://www.reddit.com/r/rotp/<br/>
 Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
+2022.08.31 (BR)
+  - Diplomacy panel: Added show all abilities by clicking on "Ability".
+  - Removed the values of the planet type.
 
 2022.09.01 (Xilmi)
   - Both trade-partners now gain faster trade-route-growth if one of them has a diplomacy-bonus.

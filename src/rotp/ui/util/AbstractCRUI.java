@@ -34,12 +34,12 @@ import java.util.LinkedList;
 
 import javax.swing.SwingUtilities;
 
-import rotp.mod.br.profiles.Profiles;
 import rotp.model.empires.CustomRaceFactory;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.game.GameUI;
 import rotp.ui.main.SystemPanel;
+import rotp.ui.races.RacesUI;
 
 // modnar: add UI panel for modnar MOD game options, based on StartOptionsUI.java
 public abstract class AbstractCRUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
@@ -68,6 +68,7 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 
 	private static final Color costC		= SystemPanel.blackText;
 	private		   final String guiTitleID;
+	private		   final String showTitleID;
 	private		   final Font titleFont		= narrowFont(30);
 	private	static final int costFontSize	= 18;
 	private static final int titleOffset	= s30; // Offset from Margin
@@ -127,43 +128,61 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 	private Rectangle okBox 	= new Rectangle();
 	private Rectangle selectBox	= new Rectangle();
 	private Rectangle randomBox	= new Rectangle();
-	private BaseText totalCostText;
+	private static BaseText totalCostText;
+	private RacesUI  raceUI;
+	private boolean  showOnly = false;
+	private static boolean initialized = false;
 	
 	// ========== Constructors and initializers ==========
 	//
+
 	public AbstractCRUI(String guiTitle_ID) {
 		guiTitleID = guiTitle_ID;
+		showTitleID = ROOT + "SHOW_TITLE";
+		showOnly   = false;
 		init_0();
 	}
 	private void init_0() {
 		setOpaque(false);
-		cr.init(settingList);
-	    totalCostText = new BaseText(this, false, costFontSize, 0, 0, 
-	    		costC, costC, hoverC, depressedC, costC, 0, 0, 0);
+		if (!initialized ) {
+			cr.init(settingList);
+		    totalCostText = new BaseText(this, false, costFontSize, 0, 0, 
+		    		costC, costC, hoverC, depressedC, costC, 0, 0, 0);
 
-	    // Call for filling the settings
-	    if (settingList.size() == 0)
-	    	init0();
+		    // Call for filling the settings
+		    if (settingList.size() == 0)
+		    	init0();
 
-	    guiList.add(randomSmoothEdges);
-	    guiList.add(randomMin);
-	    guiList.add(randomMax);
-	    guiList.add(randomTargetMin);
-	    guiList.add(randomTargetMax);
-	    guiList.add(randomUseTarget);
-	    
-	    for(SettingBase<?> setting : guiList) {
-	    	setting.saveAllowed(false);
-	    	setting.hasNoCost(true);
-	    	setting.settingText(new BaseText(this, false, labelFontSize, 0, 0,
-					labelC, labelC, hoverC, depressedC, textC, 0, 0, 0));
-	    }
-
+		    guiList.add(randomSmoothEdges);
+		    guiList.add(randomMin);
+		    guiList.add(randomMax);
+		    guiList.add(randomTargetMin);
+		    guiList.add(randomTargetMax);
+		    guiList.add(randomUseTarget);
+		    
+		    for(SettingBase<?> setting : guiList) {
+		    	setting.saveAllowed(false);
+		    	setting.hasNoCost(true);
+		    	setting.settingText(new BaseText(this, false, labelFontSize, 0, 0,
+						labelC, labelC, hoverC, depressedC, textC, 0, 0, 0));
+		    }			
+		}
 		addMouseListener(this);
 		addMouseMotionListener(this);
 		addMouseWheelListener(this);
+		initialized = true;
 	}
-	private void init() {
+	public void loadRace() {
+		showOnly = true;		
+		cr.setRace(raceUI.selectedEmpire().abilitiesKey());
+		cr.pullSettings();
+	}
+	public void init(RacesUI p) {
+		raceUI     = p;
+		showOnly   = true;		
+	}
+	public void init() {
+		showOnly   = false;
 		if (cr.getRace() == null) {
 			cr.setRace(newGameOptions().selectedPlayerRace());
 			cr.pullSettings();
@@ -357,6 +376,9 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		yTop	= topM + titlePad; // First setting top position
 		wBG		= (wSetting + columnPad) * numColumns;
 		leftM	= (w - wBG)/2;
+		if (showOnly) {
+			leftM = Math.min(leftM, scaled(100));
+		}
 		yTitle	= topM + titleOffset;
 		yButton	= topM + hBG - yButtonOffset;
 		yCost	= yTitle + costOffset;
@@ -372,11 +394,18 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		g.setPaint(GameUI.settingsSetupBackground(w));
 		g.fillRect(leftM, topM, wBG, hBG);
 		g.setFont(titleFont);
-		String title = text(guiTitleID);
+		String title;
+		if (showOnly)
+			title = text(showTitleID);
+		else
+			title = text(guiTitleID);
+
 		int sw = g.getFontMetrics().stringWidth(title);
-		int xTitle = (w-sw)/2;
+//		int xTitle = (w-sw)/2;
+		int xTitle = leftM +(wBG-sw)/2;
 		drawBorderedString(g, title, 1, xTitle, yTitle, Color.black, Color.white);
 		
+		totalCostText.displayText(totalCostStr());
 		totalCostText.setScaledXY(xCost, yCost);
 		totalCostText.draw(g);
 		
@@ -415,6 +444,8 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		g.setStroke(prev);
 
 		// Select Button
+		if (showOnly)
+			return;
 		text = text(selectKey);
 		xButton -= (buttonW + buttonPad);
 		sw = g.getFontMetrics().stringWidth(text);
@@ -491,72 +522,78 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		hoverBox = null;
 		if (okBox.contains(x,y))
 			hoverBox = okBox;
-		else if (selectBox.contains(x,y))
-			hoverBox = selectBox;
-		else if (randomBox.contains(x,y))
-			hoverBox = randomBox;
-		else {
-			for (SettingBase<?> setting : guiList)
-				if (setting.settingText().contains(x,y))
-					hoverBox = setting.settingText().bounds();
-			outerLoop1:
-			for ( SettingBase<?> setting : settingList) {
-				if (setting.isSpacer())
-					continue;
-				if (setting.settingText().contains(x,y)) {
-					hoverBox = setting.settingText().bounds();
-					break outerLoop1;
-				}
-				if (setting.isBullet()) {					
-					for (BaseText txt : setting.optionsText()) {
-						if (txt.contains(x,y)) {
-							hoverBox = txt.bounds();
-							break outerLoop1;
+
+		if (!showOnly) {
+			if (selectBox.contains(x,y))
+				hoverBox = selectBox;
+			else if (randomBox.contains(x,y))
+				hoverBox = randomBox;
+			else {
+				for (SettingBase<?> setting : guiList)
+					if (setting.settingText().contains(x,y))
+						hoverBox = setting.settingText().bounds();
+				outerLoop1:
+				for ( SettingBase<?> setting : settingList) {
+					if (setting.isSpacer())
+						continue;
+					if (setting.settingText().contains(x,y)) {
+						hoverBox = setting.settingText().bounds();
+						break outerLoop1;
+					}
+					if (setting.isBullet()) {					
+						for (BaseText txt : setting.optionsText()) {
+							if (txt.contains(x,y)) {
+								hoverBox = txt.bounds();
+								break outerLoop1;
+							}
 						}
 					}
 				}
 			}
 		}
+
 		if (hoverBox != prevHover) {
-			for (SettingBase<?> setting : guiList)
-				if (prevHover == setting.settingText().bounds())
-					setting.settingText().mouseExit();
-			outerLoop2:
-			for ( SettingBase<?> setting : settingList) {
-				if (setting.isSpacer())
-					continue;
-				if (prevHover == setting.settingText().bounds()) {
-					setting.settingText().mouseExit();
-					break outerLoop2;
-				}
-				if (setting.isBullet()) {					
-					for (BaseText txt : setting.optionsText()) {
-						if (prevHover == txt.bounds()) {
-							txt.mouseExit();
-							break outerLoop2;
+			if (!showOnly) {
+				for (SettingBase<?> setting : guiList)
+					if (prevHover == setting.settingText().bounds())
+						setting.settingText().mouseExit();
+				outerLoop2:
+				for ( SettingBase<?> setting : settingList) {
+					if (setting.isSpacer())
+						continue;
+					if (prevHover == setting.settingText().bounds()) {
+						setting.settingText().mouseExit();
+						break outerLoop2;
+					}
+					if (setting.isBullet()) {					
+						for (BaseText txt : setting.optionsText()) {
+							if (prevHover == txt.bounds()) {
+								txt.mouseExit();
+								break outerLoop2;
+							}
 						}
 					}
 				}
-			}
-			for (SettingBase<?> setting : guiList)
-				if (hoverBox == setting.settingText().bounds())
-					setting.settingText().mouseEnter();
-			outerLoop3:
-			for ( SettingBase<?> setting : settingList) {
-				if (setting.isSpacer())
-					continue;
-				if (hoverBox == setting.settingText().bounds()) {
-					setting.settingText().mouseEnter();
-					break outerLoop3;
-				}
-				if (setting.isBullet()) {					
-					for (BaseText txt : setting.optionsText()) {
-						if (hoverBox == txt.bounds()) {
-							txt.mouseEnter();
-							break outerLoop3;
+				for (SettingBase<?> setting : guiList)
+					if (hoverBox == setting.settingText().bounds())
+						setting.settingText().mouseEnter();
+				outerLoop3:
+				for ( SettingBase<?> setting : settingList) {
+					if (setting.isSpacer())
+						continue;
+					if (hoverBox == setting.settingText().bounds()) {
+						setting.settingText().mouseEnter();
+						break outerLoop3;
+					}
+					if (setting.isBullet()) {					
+						for (BaseText txt : setting.optionsText()) {
+							if (hoverBox == txt.bounds()) {
+								txt.mouseEnter();
+								break outerLoop3;
+							}
 						}
 					}
-				}
+				}				
 			}
 			if (prevHover != null) repaint(prevHover);
 			if (hoverBox != null)  repaint(hoverBox);
@@ -569,17 +606,23 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 			return;
 		if (hoverBox == null)
 			return;
+		if (hoverBox == okBox) {
+			close();
+			return;
+		}
+		if (showOnly)
+			return;
+		if (hoverBox == selectBox) {
+			selectRace();
+			return;
+		}
+		if (hoverBox == randomBox)
+			randomizeRace();			
 		boolean up	= !SwingUtilities.isRightMouseButton(e); // BR: added bidirectional
 		boolean mid	= !SwingUtilities.isMiddleMouseButton(e); // BR: added reset click
 		boolean shiftPressed = e.isShiftDown();
 		boolean ctrlPressed = e.isControlDown();
 		mouseCommon(up, mid, shiftPressed, ctrlPressed, e, null);
-		if (hoverBox == okBox)
-			close();
-		else if (hoverBox == selectBox)
-			selectRace();
-		else if (hoverBox == randomBox)
-			randomizeRace();			
 	}
 	@Override public void mouseEntered(MouseEvent e) { }
 	@Override public void mouseExited(MouseEvent e) {
@@ -589,6 +632,8 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		}
 	}
 	@Override public void mouseWheelMoved(MouseWheelEvent e) {
+		if (showOnly)
+			return;
 		boolean shiftPressed = e.isShiftDown();
 		boolean ctrlPressed = e.isControlDown();
 		boolean up = e.getWheelRotation() < 0;
