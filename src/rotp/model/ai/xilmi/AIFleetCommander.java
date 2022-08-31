@@ -891,6 +891,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                         StarSystem stagingPoint = StageSystem(fleet, target);
                         float enemyFightingBC = 0.0f;
                         float enemyBaseHP = 0.0f;
+                        float enemyBaseDamage = 0.0f;
                         float enemyPop = 0.0f;
                         float targetTech = civTech;
                         for(ShipFleet orbiting : target.orbitingFleets())
@@ -969,6 +970,8 @@ public class AIFleetCommander implements Base, FleetCommander {
                                 {
                                     targetTech = ev.spies().tech().avgTechLevel(); // modnar: target tech level
                                     enemyBaseHP = empire.sv.bases(target.id)*ev.empire().tech().newMissileBase().maxHits();
+                                    enemyBaseDamage = empire.sv.bases(target.id)*ev.empire().tech().newMissileBase().firepower(avgFleetShield(fleet)) * 10;
+                                    //System.out.print("\n"+galaxy().currentTurn()+" "+fleet.empire().name()+" Fleet at "+fleet.system().name()+" => "+empire.sv.name(target.id)+" avgShield: "+avgFleetShield(fleet)+" missile-bases at target deal damage: "+enemyBaseDamage+" Fleet-Health: "+totalFleetHealth(fleet));
                                     enemyPop = empire.sv.population(target.id);
                                 }
                                 if(killPower > 0)
@@ -1046,7 +1049,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                         /*if(stagingPoint != null)
                             System.out.print("\n"+fleet.empire().name()+" Fleet at "+fleet.system().name()+" => "+empire.sv.name(target.id)+" should stage at "+empire.sv.name(stagingPoint.id));*/
                         if(((ourEffectiveBC - keepBc) * (civTech+10.0f) >= enemyFightingBC * (targetTech+10.0f)
-                                && (bombardDamage > enemyBaseHP || killPower > enemyPop))
+                                && (bombardDamage > enemyBaseHP || killPower > enemyPop) && enemyBaseDamage < totalFleetHealth(fleet))
                                 || (previousAttacked == target))
                         {
                             StarSystem targetBeforeSmartPath = target;
@@ -1546,5 +1549,35 @@ public class AIFleetCommander implements Base, FleetCommander {
                 highest = enemy.shipMaintCostPerBC();
         }
         return highest;
+    }
+    float avgFleetShield(ShipFleet fl) {
+        float totalShield = 0;
+        float totalVal = 0;
+        for (int i=0;i<fl.num.length;i++) {
+            int num = fl.num(i);
+            if (num > 0) {
+                ShipDesign des = empire.shipLab().design(i);
+                if(des == null)
+                    continue;
+                totalVal += num * des.cost();
+                totalShield += num * des.shieldLevel() * des.cost();
+            }
+        }
+        if(totalVal > 0)
+            return totalShield / totalVal;
+        return 0;
+    }
+    float totalFleetHealth(ShipFleet fl) {
+        float totalHP = 0;
+        for (int i=0;i<fl.num.length;i++) {
+            int num = fl.num(i);
+            if (num > 0) {
+                ShipDesign des = empire.shipLab().design(i);
+                if(des == null)
+                    continue;
+                totalHP += num * des.hits();
+            }
+        }
+        return totalHP;
     }
 }
