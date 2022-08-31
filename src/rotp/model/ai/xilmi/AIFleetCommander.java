@@ -973,7 +973,10 @@ public class AIFleetCommander implements Base, FleetCommander {
                                 {
                                     targetTech = ev.spies().tech().avgTechLevel(); // modnar: target tech level
                                     enemyBaseHP = empire.sv.bases(target.id)*ev.empire().tech().newMissileBase().maxHits();
-                                    enemyBaseDamage = empire.sv.bases(target.id)*ev.empire().tech().newMissileBase().firepower(avgFleetShield(fleet)) * 10;
+                                    float ourShield = avgFleetShield(fleet);
+                                    if(target.inNebula())
+                                        ourShield = 0;
+                                    enemyBaseDamage = empire.sv.bases(target.id)*ev.empire().tech().newMissileBase().firepower(ourShield) * 10;
                                     //System.out.print("\n"+galaxy().currentTurn()+" "+fleet.empire().name()+" Fleet at "+fleet.system().name()+" => "+empire.sv.name(target.id)+" avgShield: "+avgFleetShield(fleet)+" missile-bases at target deal damage: "+enemyBaseDamage+" Fleet-Health: "+totalFleetHealth(fleet));
                                     enemyPop = empire.sv.population(target.id);
                                 }
