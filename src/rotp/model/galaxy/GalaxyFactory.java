@@ -16,6 +16,7 @@
 package rotp.model.galaxy;
 
 import static rotp.ui.UserPreferences.randomAlienRaces;
+
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,10 +35,8 @@ import rotp.model.game.IGameOptions;
 import rotp.model.planet.Planet;
 import rotp.model.tech.Tech; // modnar: add game mode to start all Empires with 2 random techs
 import rotp.model.tech.TechTree; // modnar: add game mode to start all Empires with 2 random techs
-import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences; // modnar: add game mode to start all Empires with 2 random techs
 import rotp.ui.game.PlayerRaceCustomizationUI;
-import rotp.ui.game.SelectRestartEmpireUI;
 import rotp.ui.util.planets.PlanetImager;
 import rotp.util.Base;
 
