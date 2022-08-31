@@ -108,10 +108,11 @@ public class PlanetFactory implements Base {
 		if (fertileHomeworld.isAlways(isPlayer)
 				|| (!fertileHomeworld.isNever(isPlayer)
 						&& dr.raceWithFertileHomeworld())) {
-			p.makeEnvironmentFertile();
+			p.enrichSoil();
 		}
 		if (dr.raceWithGaiaHomeworld()) {
-			p.makeEnvironmentGaia();
+			p.enrichSoil();
+                        p.enrichSoil();
 		}
 		
         return p;

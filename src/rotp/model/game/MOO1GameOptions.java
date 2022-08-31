@@ -1192,7 +1192,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             case PlanetType.JUNGLE:
             case PlanetType.TERRAN:
                 if (random() < .083333)
-                    p.makeEnvironmentFertile();  // become fertile
+                    p.enrichSoil();  // become fertile
                 break;
         }
     }

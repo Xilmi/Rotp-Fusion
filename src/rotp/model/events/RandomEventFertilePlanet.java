@@ -56,7 +56,7 @@ public String notificationText()    {
         sysId = targetSystem.id;
         
         targetSystem.addEvent(new SystemTerraformingEvent("SYSEVENT_SOIL_ENRICHED"));
-        targetSystem.planet().makeEnvironmentFertile();
+        targetSystem.planet().enrichSoil();
         if (player().knowsOf(empId)
         && !player().sv.name(sysId).isEmpty())
             GNNNotification.notifyRandomEvent(notificationText(), "GNN_Event_Fertile");
