@@ -423,6 +423,9 @@ public class AIFleetCommander implements Base, FleetCommander {
             {
                 score = 10;
                 baseBc = empire.sv.bases(current.id)*currEmp.tech().newMissileBaseCost();
+                float popBc = empire.sv.population(current.id) * empire.sv.empire(current.id).tech().populationCost();
+                score /= (baseBc + popBc) / popBc;
+                //System.out.print("\n"+fleet.empire().name()+" Fleet at "+empire.sv.name(fleet.system().id)+" => "+empire.sv.name(current.id)+" score: "+score);
                 if(onlyColonizerTargets && !(empire.generalAI().allowedToBomb(current) && bombardDamage > 0))
                 {
                     continue;
