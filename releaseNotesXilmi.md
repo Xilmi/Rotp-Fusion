@@ -1,6 +1,6 @@
-  - The growth-speed of trade routes has been normalized and is no longer affected by how much one empire likes the other.
-  - The racial diplomacy-bonus now impacts trade-route-growth-speed.
-  - Removed an unintentional way of Fusion-AI rejecting peace-treaties.
-  - Fixed an issue where the AI considered bio-weapons to always do no damage when there was at least one missile base on the strategical map. This makes them way stronger in mid-game-bio-weapon-elimination-wars.
-  - Fixed an issue where the AI would always try and sometimes fail to find an alternative target for a fleet too small take on an enemy siege-fleet. This issue was especially problematic when they were outranged. And this fix should make the AI much better at defending.
-  - During war AI will only use their own colonies as gatherpoints.
+  - Both trade-partners now gain faster trade-route-growth if one of them has a diplomacy-bonus.
+  - Auto-ship-design now recognizes the role of the previous design in that slot and will create a design fulfilling that same role.
+  - Fixed an issue that caused AI being able to research Future-Tech before it had all other techs in the respective category.
+  - Fusion-AI less willing to resort to designs with almost no bombs when fighting multi-frontier-wars.
+  - Removed a condition that could lead to Fusion-AI not to build colony-ships.
+  - A bunch of improvements of how Fusion-AI reacts to their opponents building many missile-bases.

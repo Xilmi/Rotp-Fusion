@@ -22,6 +22,14 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
+2022.09.01 (Xilmi)
+  - Both trade-partners now gain faster trade-route-growth if one of them has a diplomacy-bonus.
+  - Auto-ship-design now recognizes the role of the previous design in that slot and will create a design fulfilling that same role.
+  - Fixed an issue that caused AI being able to research Future-Tech before it had all other techs in the respective category.
+  - Fusion-AI less willing to resort to designs with almost no bombs when fighting multi-frontier-wars.
+  - Removed a condition that could lead to Fusion-AI not to build colony-ships.
+  - A bunch of improvements of how Fusion-AI reacts to their opponents building many missile-bases.
+
 2022.08.30 (BR)
   - Added Target Range for race customization.
   - Alien Races can be set to copy the player race.
