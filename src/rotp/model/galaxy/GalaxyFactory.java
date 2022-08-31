@@ -34,8 +34,10 @@ import rotp.model.game.IGameOptions;
 import rotp.model.planet.Planet;
 import rotp.model.tech.Tech; // modnar: add game mode to start all Empires with 2 random techs
 import rotp.model.tech.TechTree; // modnar: add game mode to start all Empires with 2 random techs
+import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences; // modnar: add game mode to start all Empires with 2 random techs
 import rotp.ui.game.PlayerRaceCustomizationUI;
+import rotp.ui.game.SelectRestartEmpireUI;
 import rotp.ui.util.planets.PlanetImager;
 import rotp.util.Base;
 
@@ -417,13 +419,13 @@ public class GalaxyFactory implements Base {
                 dataRaceKey = random(options().startingRaceOptions());
             else
                 dataRaceKey = raceKey;
-            if (randomAlienRaces.isRandom() && isRandomOpponent[h]) {
+            if (gc == null && randomAlienRaces.isRandom() && isRandomOpponent[h]) {
             	if (randomAlienRaces.isPlayerCopy())
             		dataRaceKey = playerDataRaceKey;
             	else
             		dataRaceKey = CustomRaceFactory.getRandomAlienRaceKey();
             }
-            System.out.println("RO = " + isRandomOpponent[h] + "  Key = " + dataRaceKey);
+//            System.out.println("RO = " + isRandomOpponent[h] + "  Key = " + dataRaceKey);
 			Race dataRace = Race.keyed(dataRaceKey);
 
 			EmpireSystem empSystem = null;
