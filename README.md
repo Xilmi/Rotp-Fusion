@@ -21,9 +21,9 @@ Community subreddit: https://www.reddit.com/r/rotp/<br/>
 Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
+
 2022.08.31 (BR)
-  - Diplomacy panel: Added show all abilities by clicking on "Ability".
-  - Removed the values of the planet type.
+  - Addition of the Xilmi help file in pdf format, on each release, alongside the jar files.
 
 2022.09.01 (Xilmi)
   - Both trade-partners now gain faster trade-route-growth if one of them has a diplomacy-bonus.
@@ -32,6 +32,10 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
   - Fusion-AI less willing to resort to designs with almost no bombs when fighting multi-frontier-wars.
   - Removed a condition that could lead to Fusion-AI not to build colony-ships.
   - A bunch of improvements of how Fusion-AI reacts to their opponents building many missile-bases.
+
+2022.08.31 (BR)
+  - Diplomacy panel: Added show all abilities by clicking on "Ability".
+  - Removed the values of the planet type.
 
 2022.08.30 (BR)
   - Added Target Range for race customization.

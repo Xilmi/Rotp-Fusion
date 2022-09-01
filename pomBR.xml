@@ -21,6 +21,7 @@
 		<gitHubTag>${build.date}</gitHubTag>
 		<RepoId>Rotp-Fusion</RepoId>
 		<AuthorId>BrokenRegistry</AuthorId>
+		<pdfFileName>Differences between Fusion-Mod and Vanilla-RotP.pdfn</pdfFileName>
 		<BaseFileName>rotp-${revision}</BaseFileName>
 	 	<!-- Maven Standard -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -432,6 +433,7 @@
 								<asset>target/${BaseFileName}.jar</asset>
 								<asset>target/${BaseFileName}-mini.jar</asset>
 								<asset>target/${BaseFileName}-windows.zip</asset>
+								<asset>target/${pdfFileName}</asset>
 								<!-- <asset>Profiles.pdf</asset> -->
 							</assets>
 						</configuration>
