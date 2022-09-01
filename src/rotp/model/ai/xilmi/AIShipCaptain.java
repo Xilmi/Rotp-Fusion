@@ -1013,7 +1013,12 @@ public class AIShipCaptain implements Base, ShipCaptain {
         
         //System.out.print("\n"+stack.mgr.system().name()+" "+stack.fullName()+" allyKillTime: "+allyKillTime+" enemyKillTime: "+enemyKillTime+" enemyKillTimeWithoutHeal: "+enemyKillTimeWithoutHeal);
         if (enemyKillTime == allyKillTime)
-            return false;
+        {
+            if(col.empire == empire)
+                return false;
+            else
+                return true;
+        }
         else if (stack.num == 1 && friends.size() == 1 || missileShooterMode)
             return enemyKillTimeWithoutHeal < 2;
         else
