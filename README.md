@@ -22,8 +22,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
-2022.08.31 (BR)
+2022.09.01 (BR)
   - Addition of the Xilmi help file in pdf format, on each release, alongside the jar files.
+  - Fixed Show abilities.
 
 2022.09.01 (Xilmi)
   - Both trade-partners now gain faster trade-route-growth if one of them has a diplomacy-bonus.

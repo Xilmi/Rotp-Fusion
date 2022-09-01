@@ -35,6 +35,7 @@ import java.util.LinkedList;
 import javax.swing.SwingUtilities;
 
 import rotp.model.empires.CustomRaceFactory;
+import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.game.GameUI;
@@ -53,6 +54,7 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 	private static final LinkedList<SettingBase<?>> settingList = new LinkedList<>();
 	private static final LinkedList<SettingBase<?>> guiList		= new LinkedList<>();
 	public	static final CustomRaceFactory cr = new CustomRaceFactory();
+	private static final String initialRace	= MOO1GameOptions.baseRacesOptions().getFirst();
 	
 	private static final Color textC		= SystemPanel.whiteText;
 	private		   final Font buttonFont	= narrowFont(20);
@@ -173,13 +175,13 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		initialized = true;
 	}
 	public void loadRace() {
-		showOnly = true;		
-		cr.setRace(raceUI.selectedEmpire().abilitiesKey());
-		cr.pullSettings();
+		showOnly = true;
+		cr.initShowRace(raceUI.selectedEmpire().abilitiesKey());
 	}
 	public void init(RacesUI p) {
 		raceUI     = p;
-		showOnly   = true;		
+		showOnly   = true;
+		cr.initShowRace(initialRace);
 	}
 	public void init() {
 		showOnly   = false;

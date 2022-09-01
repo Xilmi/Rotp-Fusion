@@ -68,6 +68,10 @@ public class CustomRaceFactory {
 			race = Race.keyed(raceKey).copy();
 		}
 	}
+	public void initShowRace(String raceKey) {
+		race = Race.keyed(raceKey);
+		pullSettings();
+	}
 	public Race getRace() {
 		return race;
 	}
