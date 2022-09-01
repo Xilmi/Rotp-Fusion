@@ -1343,7 +1343,7 @@ SETUP_NOT_AVAILABLE               | N/A
 SETUP_BUTTON_CUSTOM_PLAYER_RACE   | Customize Player Race
 
 // BR: Customize Player Race
-CUSTOM_RACE_GUI_TITLE    		  | Player Race Customization
+CUSTOM_RACE_GUI_TITLE    		  | Player Race Abilities Customization
 CUSTOM_RACE_SHOW_TITLE   		  | Specie's Abilities
 CUSTOM_RACE_GUI_COST    		  | Total Value: %1
 CUSTOM_RACE_GUI_SELECT    		  | Select
@@ -1354,7 +1354,7 @@ CUSTOM_RACE_RANDOM_EDGES   		  | Smooth Edges
 CUSTOM_RACE_RANDOM_TARGET_MAX     | Total Value Max
 CUSTOM_RACE_RANDOM_TARGET_MIN     | Total Value Min
 CUSTOM_RACE_RANDOM_USE_TARGET     | Force Target
-CUSTOM_RACE_BASE_DATARACE         | Base Data Race
+CUSTOM_RACE_BASE_DATARACE         | Base Abilities
 CUSTOM_RACE_HOME_TYPE             | Planet Type
 CUSTOM_RACE_HOME_SIZE             | Planet Size
 CUSTOM_RACE_HOME_RESOURCES        | Planet Ressources

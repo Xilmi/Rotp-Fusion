@@ -433,7 +433,7 @@
 								<asset>target/${BaseFileName}.jar</asset>
 								<asset>target/${BaseFileName}-mini.jar</asset>
 								<asset>target/${BaseFileName}-windows.zip</asset>
-								<asset>target/${pdfFileName}</asset>
+								<asset>${pdfFileName}</asset>
 								<!-- <asset>Profiles.pdf</asset> -->
 							</assets>
 						</configuration>
