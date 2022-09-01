@@ -21,7 +21,7 @@
 		<gitHubTag>${build.date}</gitHubTag>
 		<RepoId>Rotp-Fusion</RepoId>
 		<AuthorId>BrokenRegistry</AuthorId>
-		<pdfFileName>Differences between Fusion-Mod and Vanilla-RotP.pdfn</pdfFileName>
+		<pdfFileName>Fusion-Mod_vs_Vanilla-RotP.pdf</pdfFileName>
 		<BaseFileName>rotp-${revision}</BaseFileName>
 	 	<!-- Maven Standard -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -417,7 +417,7 @@
 			<plugin>
 				<groupId>com.ragedunicorn.tools.maven</groupId>
 				<artifactId>github-release-maven-plugin</artifactId>
-				<version>1.0.2</version>
+				<version>1.0.5</version>
 				<executions>
 					<execution>
 						<id>default-cli</id>
