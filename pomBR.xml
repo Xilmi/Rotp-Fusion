@@ -21,7 +21,7 @@
 		<gitHubTag>${build.date}</gitHubTag>
 		<RepoId>Rotp-Fusion</RepoId>
 		<AuthorId>BrokenRegistry</AuthorId>
-		<pdfFileName>Fusion-Mod_vs_Vanilla-RotP.pdf</pdfFileName>
+		<pdfFileName>Description</pdfFileName>
 		<BaseFileName>rotp-${revision}</BaseFileName>
 	 	<!-- Maven Standard -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
