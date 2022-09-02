@@ -615,7 +615,7 @@ public class CustomRaceFactory {
 		
 		public GroundAttack() {
 			super(ROOT, "GROUND_ATTACK", 0, -20, 30, 1, 5, 20, saveNotAllowed,
-					DIFFERENCE, new float[]{10f, 0.75f}, new float[]{0f, 0.75f});
+					DIFFERENCE, new float[]{0f, 1.25f}, new float[]{0f, 0.75f});
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
