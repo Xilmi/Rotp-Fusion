@@ -1014,7 +1014,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
         //System.out.print("\n"+stack.mgr.system().name()+" "+stack.fullName()+" allyKillTime: "+allyKillTime+" enemyKillTime: "+enemyKillTime+" enemyKillTimeWithoutHeal: "+enemyKillTimeWithoutHeal);
         if (enemyKillTime == allyKillTime)
         {
-            if(col.empire == empire)
+            if(col != null && col.empire == empire)
                 return false;
             else
                 return true;
