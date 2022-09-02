@@ -38,6 +38,7 @@ public class GalaxyCopy extends GalaxyShape {
 	private int numStarSystems;
 	private String selectedGalaxySize;
 	private List<Nebula> nebulas;
+	private int selectedEmpire = 0;
 	private Empire[] empires;
 	private StarSystem[] starSystem;
 	private LinkedList<String> alienRaces;
@@ -85,6 +86,26 @@ public class GalaxyCopy extends GalaxyShape {
 		IGameOptions oldO = s.options();
 		options.copyForRestart(oldO);
 	}
+	// ========== Public Setters ==========
+	//
+	public void selectedEmpire(int index) {
+		selectedEmpire	= index;
+		if (index == 0) // Selected current player: do nothing
+			return;
+		// No needs to swap the systems, they referenced in the empires
+		Empire	empSwap	= empires[index];
+		empires[index]	= empires[0];
+		empires[0]		= empSwap;
+		dataRace.set(index-1, empires[0].abilitiesKey());
+		if (loadWithNewOptions.get()) {
+			// Nothing to do, already the good player
+		} else {
+			options().selectedPlayer().race = empires[0].raceKey();
+			options().selectedHomeWorldName	("");
+			options().selectedLeaderName	(starSystem(empires[0].homeSysId()).name());
+		}
+	}
+
 	// ========== Public Getters ==========
 	//
 	@Override public float maxScaleAdj()		{ return maxScaleAdj; }
@@ -103,6 +124,7 @@ public class GalaxyCopy extends GalaxyShape {
 	public Empire empires(int i)				{ return empires[i]; }
 	public float nebulaSizeMult()				{ return nebulaSizeMult; }
 	public int numNearBySystem()				{ return 2; }
+	public int selectedEmpire()					{ return selectedEmpire; }
 	
 	// ========== Private Methods ==========
 	private void copyGalaxy(Galaxy g) {

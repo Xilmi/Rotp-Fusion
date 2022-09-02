@@ -81,7 +81,7 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
     private final Rectangle relationsScroller = new Rectangle();
     private final Rectangle manageDiplomatsBox = new Rectangle();
     private final Rectangle manageSpiesBox = new Rectangle();
-    private final Rectangle showAbilitiesBox = new Rectangle(); // TODO BR: Show full race abilities
+    private final Rectangle showAbilitiesBox = new Rectangle();
     Polygon buttonIncr = new Polygon();
     Polygon buttonDecr = new Polygon();
     Rectangle buttonSlider = new Rectangle();
@@ -1311,7 +1311,6 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
     }
     public void openShowAbilitiesPane() {
         softClick();
-        // TODO BR:
         showRaceAbilitiesPane.loadRace();
         enableGlassPane(showRaceAbilitiesPane);
         return;

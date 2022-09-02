@@ -15,6 +15,7 @@
  */
 package rotp.model.galaxy;
 
+import static rotp.ui.UserPreferences.loadWithNewOptions;
 import static rotp.ui.UserPreferences.randomAlienRaces;
 
 import java.awt.Point;
@@ -295,6 +296,11 @@ public class GalaxyFactory implements Base {
 		playerDataRaceKey = raceKey;
 		if (UserPreferences.customPlayerRace.get()) {
 			playerDataRaceKey = PlayerRaceCustomizationUI.cr.getKey();
+		}
+		if (gc != null) { // Restart
+			if (!loadWithNewOptions.get()) {
+				playerDataRaceKey = gc.empires(0).abilitiesKey();
+			}
 		}
 		Race playerDataRace = Race.keyed(playerDataRaceKey);
 		

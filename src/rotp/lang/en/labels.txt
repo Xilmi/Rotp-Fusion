@@ -1269,6 +1269,15 @@ SETUP_BUTTON_SETTINGS             | Advanced Options
 SETUP_BUTTON_MOD_SETTINGS         | MOD Options A
 SETUP_BUTTON_MOD_B_SETTINGS       | MOD Options B
 SETUP_BUTTON_MOD_VIEW_SETTINGS    | Display Options
+// BR: Restart swap empire
+SETUP_SELECT_EMPIRE_TITLE         | Select Player Empire
+SETUP_SELECT_EMPIRE_SELECT_BUTTON | Select
+SETUP_SELECT_EMPIRE_CANCEL_BUTTON | Cancel
+SETUP_SELECT_EMPIRE_EMPIRE        | Empire
+SETUP_SELECT_EMPIRE_HOME          | HomeWorld
+SETUP_SELECT_EMPIRE_RACE          | Race
+SETUP_SELECT_EMPIRE_ABILITIES     | Abilities
+SETUP_SELECT_EMPIRE_VALUE         | Value
 
 SETUP_SPIRAL_2_ARMS               | Two Arms
 SETUP_SPIRAL_3_ARMS               | Three Arms
@@ -1343,7 +1352,7 @@ SETUP_NOT_AVAILABLE               | N/A
 SETUP_BUTTON_CUSTOM_PLAYER_RACE   | Customize Player Race
 
 // BR: Customize Player Race
-CUSTOM_RACE_GUI_TITLE    		  | Player Race Abilities Customization
+CUSTOM_RACE_GUI_TITLE    		  | Player Race Customization
 CUSTOM_RACE_SHOW_TITLE   		  | Specie's Abilities
 CUSTOM_RACE_GUI_COST    		  | Total Value: %1
 CUSTOM_RACE_GUI_SELECT    		  | Select

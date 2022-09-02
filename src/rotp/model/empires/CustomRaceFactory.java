@@ -276,6 +276,13 @@ public class CustomRaceFactory {
 		cr.setKey(raceKey);
 		return cr.race;
 	}
+	public static int keyToValue(String raceKey) {
+		CustomRaceFactory cr = new CustomRaceFactory();
+		cr.getFullList();
+		cr.setRace(raceKey);
+		cr.pullSettings();
+		return Math.round(cr.getTotalCost()); 
+	}
 	// ==================== Nested Classes ====================
 	//
 	// ==================== Spacer ====================

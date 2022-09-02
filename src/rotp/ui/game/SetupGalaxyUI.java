@@ -638,7 +638,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		GalaxyCopy oldGalaxy = new GalaxyCopy(newGameOptions());
 		UserPreferences.setForNewGame();
 		// Get the old galaxy parameters
-        RotPUI.instance().selectReloadGamePanel(newGameOptions(), oldGalaxy);
+        RotPUI.instance().selectReloadGamePanel(oldGalaxy);
 		starting = false;
 		release();
 	}

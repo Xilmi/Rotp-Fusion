@@ -354,8 +354,8 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     public void selectSetupGalaxyPanel() { setupGalaxyUI.init(); selectPanel(SETUP_GALAXY_PANEL, setupGalaxyUI);  }
     public void selectLoadGamePanel() { loadGameUI.init(); selectPanel(LOAD_PANEL, loadGameUI); }
     // BR: for restarting with new options
-    public void selectReloadGamePanel(IGameOptions newOptions, GalaxyCopy oldGalaxy) {
-    	loadGameUI.init(newOptions, oldGalaxy);
+    public void selectReloadGamePanel(GalaxyCopy oldGalaxy) {
+    	loadGameUI.init(oldGalaxy);
     	selectPanel(LOAD_PANEL, loadGameUI);
     }
     public void selectSaveGamePanel()	{ saveGameUI.init(); selectPanel(SAVE_PANEL, saveGameUI);  }

@@ -32,23 +32,29 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 import java.awt.geom.RoundRectangle2D;
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FilenameFilter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 import javax.swing.SwingUtilities;
 import rotp.Rotp;
 
 import rotp.mod.br.profiles.Profiles;
-import rotp.model.empires.Race;
 import rotp.model.galaxy.GalaxyCopy;
 import rotp.model.game.GameSession;
-import rotp.model.game.IGameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.NoticeMessage;
 import rotp.ui.RotPUI;
@@ -78,9 +84,8 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
     int selectIndex;
     int start = 0;
     int end = 0;
-    IGameOptions newOptions; // BR: For restarting with new options
-    GalaxyCopy oldGalaxy;
-    boolean restart;
+    private GalaxyCopy oldGalaxy;
+    private boolean restart;
     
     int sortOrder = SORT_DT_UP;
     int buttonW, button1X, button2X;
@@ -106,8 +111,7 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
         initModel();
     }
     // BR: for restarting with new options
-    public void init(IGameOptions newOptions, GalaxyCopy oldGalaxy) {
-     	this.newOptions = newOptions;
+    public void init(GalaxyCopy oldGalaxy) {
      	this.oldGalaxy	= oldGalaxy;
     	restart = true;
     	init();
@@ -375,6 +379,64 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
         };
         SwingUtilities.invokeLater(load);
     }
+
+    private GameSession loadObjectData(InputStream is) { // BR: copy from GameSession
+        try {
+            GameSession newSession;
+            try (InputStream buffer = new BufferedInputStream(is)) {
+                ObjectInput input = new ObjectInputStream(buffer);
+                newSession = (GameSession) input.readObject();
+            }
+            return newSession;
+        }
+        catch (IOException | ClassNotFoundException e) {
+            return null;
+        }
+    }
+
+    private GameSession preloadGame(String dir, String filename) { // BR: partial copy from GameSession
+        GameSession newSession;    	
+        try {
+            log("preLoading game from file: ", filename);
+            File saveFile = dir.isEmpty() ? new File(filename) : new File(dir, filename);
+            // assume the file is not zipped, load it directly
+            try (InputStream file = new FileInputStream(saveFile)) {
+                newSession = loadObjectData(file);
+            }
+            
+            // if newSession is null, see if it is zipped
+            if (newSession == null) {
+                try (ZipFile zipFile = new ZipFile(saveFile)) {
+                    ZipEntry ze = zipFile.entries().nextElement();
+                    InputStream zis = zipFile.getInputStream(ze);
+                    newSession = loadObjectData(zis);
+                    if (newSession == null) 
+                        throw new RuntimeException(text("LOAD_GAME_BAD_VERSION", filename));
+                }
+            }
+            oldGalaxy.copy(newSession);
+         }
+        catch(IOException e) {
+            throw new RuntimeException(text("LOAD_GAME_BAD_VERSION", filename));
+        }
+        return newSession;
+    }
+    private void restartGame(String dirName, String s) {
+        loading = true;
+        repaint();
+
+        final Runnable load = () -> {
+        	GameSession newSession; 
+            newSession = preloadGame(dirName, s);
+            SelectRestartEmpireUI selectRestartEmpireUI = SelectRestartEmpireUI.instance();
+            selectRestartEmpireUI.init(oldGalaxy, newSession);
+    		disableGlassPane();
+    		selectRestartEmpireUI.open();
+            restart		= false;
+            oldGalaxy	= null;
+        };        	
+        SwingUtilities.invokeLater(load);        	
+    }
     public void loadGame(String s) {
         if (!canLoad())
             return;
@@ -384,32 +446,9 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
         buttonClick();
         String dirName = showingBackups ? session().backupDir() : session().saveDir();
 
-        if (restart) { // BR: for restarting with new options
-            Race r = Race.keyed(newGameOptions().selectedPlayerRace());
-            GameSession.instance().loadSession(dirName, s, false, newOptions, oldGalaxy);
-    		GameUI.gameName = r.setupName() + " - "
-			+ text(oldGalaxy.selectedGalaxySize())
-			+ " - "+text(newGameOptions().selectedGameDifficulty());
-			// modnar: add custom difficulty level option, set in Remnants.cfg
-			// append this custom difficulty percentage to gameName if selected
-			if (text(newGameOptions().selectedGameDifficulty()).equals("Custom")) {
-				GameUI.gameName = GameUI.gameName 
-						+ " (" + Integer.toString(UserPreferences.customDifficulty()) + "%)";
-			}
-			final Runnable save = () -> {
-				long start = System.currentTimeMillis();
-				GameSession.instance().restartGame(newGameOptions(), oldGalaxy);
-				RotPUI.instance().mainUI().checkMapInitialized();
-				RotPUI.instance().selectIntroPanel();
-				log("TOTAL GAME START TIME:" +(System.currentTimeMillis()-start));
-				log("Game Name; "+GameUI.gameName);
-				restart = false;
-		     	newOptions = null;
-		     	oldGalaxy  = null;
-			};
-			SwingUtilities.invokeLater(save);		
-           
-            return;
+        if (restart) {
+        	restartGame(dirName, s);
+        	return;
         }
 
         final Runnable load = () -> {           
@@ -419,7 +458,10 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
     }
     public void cancelLoad() {
         buttonClick();
-        RotPUI.instance().selectGamePanel();
+        if (restart)
+        	RotPUI.instance().selectSetupGalaxyPanel();
+        else
+        	RotPUI.instance().selectGamePanel();
     }
     class LoadListingPanel extends BasePanel implements MouseListener, MouseMotionListener {
         private static final long serialVersionUID = 1L;
@@ -745,7 +787,6 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
                         selectIndex = i;
                 }
                 if (!saveFiles.isEmpty()) {
-                    int fileIndex = start+selectIndex;
                     selectedFile = selectedFileName(selectIndex);
                 }
                 current.repaint();

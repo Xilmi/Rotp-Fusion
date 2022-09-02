@@ -3135,9 +3135,11 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
     }
     // BR: Custom Races
-    public boolean isCustomRace()              { return dataRace().isCustomRace(); }
-    public String  description4()              { return dataRace().description4(); }
-    public String  abilitiesKey()              { 
+    public String  raceKey()      { return raceKey; }
+    public String  dataRaceKey()  { return dataRaceKey; }
+    public boolean isCustomRace() { return dataRace().isCustomRace(); }
+    public String  description4() { return dataRace().description4(); }
+    public String  abilitiesKey() { 
     	System.out.println("dataRaceKey = " + dataRaceKey);
     	System.out.println("dataRace.id = " + dataRace().id);
     	return this.dataRaceKey;

@@ -915,11 +915,7 @@ public final class GameSession implements Base, Serializable {
     }
     // BR: added option to restart with new options 
     public void loadSession(String dir, String filename, boolean startUp) {
-    	loadSession(dir, filename, startUp, null, null);
-    }
-    // BR: For restarting with new options
-    public void loadSession(String dir, String filename, boolean startUp,
-    						IGameOptions newOptions, GalaxyCopy oldGalaxy) {
+ //   	loadSession(dir, filename, startUp, null, null);
         try {
             log("Loading game from file: ", filename);
             File saveFile = dir.isEmpty() ? new File(filename) : new File(dir, filename);
@@ -950,23 +946,34 @@ public final class GameSession implements Base, Serializable {
             // Save the last loaded game parameters
             Profiles.saveGameOptionsToFile(instance);
             // \BR:
-
             newSession.validate();
             newSession.validateOnLoadOnly();
 
-            if (newOptions != null) {
-            	oldGalaxy.copy(newSession);
-            	return;
-            } else {
-                loadPreviousSession(newSession, startUp); 
-                // do not autosave the current session if that is the file we are trying to reload
-                if (!filename.equals(RECENT_SAVEFILE))
-                    saveRecentSession(false);            	
-            }
+            loadPreviousSession(newSession, startUp); 
+            // do not autosave the current session if that is the file we are trying to reload
+            if (!filename.equals(RECENT_SAVEFILE))
+                saveRecentSession(false);            	
          }
         catch(IOException e) {
             throw new RuntimeException(text("LOAD_GAME_BAD_VERSION", filename));
         }
+
+    }
+    // BR: For restarting with new options
+    public void loadSession(GameSession newSession) {
+        GameSession.instance = newSession;
+        // BR:
+        // if asked, Change the game parameters
+        if (Profiles.ChangeGameFile) {
+        	Profiles.ChangeGameFile = false;
+        	Profiles.changeGameSettings(instance);
+        }
+        // Save the last loaded game parameters
+        Profiles.saveGameOptionsToFile(instance);
+        // \BR:
+        newSession.validate();
+        newSession.validateOnLoadOnly();
+    	return;
     }
     private GameSession loadObjectData(InputStream is) {
         try {

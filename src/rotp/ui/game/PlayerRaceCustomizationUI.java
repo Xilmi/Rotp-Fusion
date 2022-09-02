@@ -17,13 +17,12 @@ package rotp.ui.game;
 
 import static rotp.model.empires.CustomRaceFactory.ROOT;
 
-import rotp.ui.races.RacesUI;
 import rotp.ui.util.AbstractCRUI;
 
 public class PlayerRaceCustomizationUI extends AbstractCRUI {
 	private static final long serialVersionUID = 1L;
 	private static final PlayerRaceCustomizationUI instance = new PlayerRaceCustomizationUI();
-	public static final String guiTitleID = ROOT + "GUI_TITLE";
+	private static final String guiTitleID = ROOT + "GUI_TITLE";
 	
 	public PlayerRaceCustomizationUI() {
 		super(guiTitleID);
@@ -56,7 +55,7 @@ public class PlayerRaceCustomizationUI extends AbstractCRUI {
 // 		newSetting(cr.new DiploPosDP()); // Not used in Game
 		newSetting(cr.new DiplomacyBonus());
 		newSetting(cr.new DiplomacyCouncil());
-		newSetting(cr.new RelationDefault());	// TODO BR: Maybe All the races
+		newSetting(cr.new RelationDefault());	// BR: Maybe All the races
 		endOfColumn(); // ====================
 
 		// Third column
