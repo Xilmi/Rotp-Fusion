@@ -80,8 +80,8 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 	private static final int columnPad		= s20;
 	
 	private static final Color frameC		= SystemPanel.blackText; // Setting frame color
-	private static final Color settingPosC	= SystemPanel.redText; // Setting name color
-	private static final Color settingNegC	= SystemPanel.limeText; // Setting name color
+	private static final Color settingPosC	= SystemPanel.limeText; // Setting name color
+	private static final Color settingNegC	= SystemPanel.redText; // Setting name color
 	private static final Color settingC		= SystemPanel.whiteText; // Setting name color
 	private static final int settingFont	= 16;
 	private static final int settingH		= s16;

@@ -22,6 +22,11 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
+2022.09.02 (BR)
+  - Restart: You can now choose the empire.
+  - Custom Races Menu: Fixed ground attack cost.
+  - Custom Races Menu: Swapped colors.
+
 2022.09.01 (BR)
   - Addition of the Xilmi help file in pdf format, on each release, alongside the jar files.
   - Fixed Show abilities.
