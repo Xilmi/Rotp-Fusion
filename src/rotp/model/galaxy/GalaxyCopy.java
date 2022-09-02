@@ -146,7 +146,7 @@ public class GalaxyCopy extends GalaxyShape {
 		for (Empire emp : g.empires()) {
 			if (emp != null && emp.id!=0) {
 				alienRaces.add(emp.race().name());
-				dataRace.add(emp.dataRace().name());
+				dataRace.add(emp.abilitiesKey());
 				raceAI.add(emp.selectedAI);
 				personality.add(emp.leader().personality);
 				objective.add(emp.leader().objective);

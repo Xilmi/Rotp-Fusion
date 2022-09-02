@@ -407,7 +407,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         homeSysId = capitalSysId = s.id;
         compSysId = compId; // modnar: add option to start game with additional colonies
         if (gc != null && empId != Empire.PLAYER_ID) { // BR: For Restart with new options 
-        	selectedAI = gc.raceAI().get(opp);
+        	selectedAI = gc.raceAI().get(opp); // TODO BR: Restart choose empire
         }
         empireViews = new EmpireView[options().selectedNumberOpponents()+1];
         status = new EmpireStatus(this);
