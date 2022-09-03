@@ -46,6 +46,7 @@ public class GalaxyCopy extends GalaxyShape {
 	private LinkedList<Integer> raceAI;
 	private LinkedList<Personality> personality;
 	private LinkedList<Objective> objective;
+	private int numCompWorlds;
 
 	// ========== Constructors and Initializers ==========
 	//
@@ -73,6 +74,7 @@ public class GalaxyCopy extends GalaxyShape {
 			// replace first occurrence with old player race
 			swapRaces(newRace, oldRace);
 		}
+		numCompWorlds = empires[0].getCompanionWorldsNumber();
 	}
 	private void initForOldOptions(GameSession s) {
 		// Copy what's needed from new options
@@ -92,11 +94,20 @@ public class GalaxyCopy extends GalaxyShape {
 		selectedEmpire	= index;
 		if (index == 0) // Selected current player: do nothing
 			return;
-		// No needs to swap the systems, they referenced in the empires
 		Empire	empSwap	= empires[index];
 		empires[index]	= empires[0];
 		empires[0]		= empSwap;
 		dataRace.set(index-1, empires[0].abilitiesKey());
+		// Swap near by systems for the AI
+		int PlayerNbId	= firstNearbySystem(0);
+		int SwapNbId	= firstNearbySystem(index);
+		StarSystem sysSwap;
+		for (int i=0; i<numNearBySystem(); i++) {
+			sysSwap	= starSystem[SwapNbId+i];
+			starSystem[SwapNbId+i]	 = starSystem[PlayerNbId+i];
+			starSystem[PlayerNbId+i] = sysSwap;			
+		}
+
 		if (loadWithNewOptions.get()) {
 			// Nothing to do, already the good player
 		} else {
@@ -127,6 +138,9 @@ public class GalaxyCopy extends GalaxyShape {
 	public int selectedEmpire()					{ return selectedEmpire; }
 	
 	// ========== Private Methods ==========
+	private int firstNearbySystem(int empId) {
+		return empId * (1 + numCompWorlds + numNearBySystem()) + numCompWorlds + 1;
+	}
 	private void copyGalaxy(Galaxy g) {
 		width	= g.width();
 		height	= g.height();

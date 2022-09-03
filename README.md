@@ -21,6 +21,9 @@ Community subreddit: https://www.reddit.com/r/rotp/<br/>
 Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
+2022.09.03 (BR)
+  - Restart: Fixed nearby system order; Not important to the player, but the AI was fooled.
+  - Restart: Fixed Swapped opponent randomly generated.
 
 2022.09.02 (BR)
   - Restart: You can now choose the empire.

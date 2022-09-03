@@ -406,11 +406,16 @@ public class GalaxyFactory implements Base {
 			maxRaces = min(alienRaces.size(), empSystems.size());
 		else // Restart
 			maxRaces = gc.empires().length-1;		
+
 		// since we may have more races than colors we will need to reset the
 		// color list each time we run out. 
 		for (int h=0; h<maxRaces; h++) {
 			StarSystem sys;
-			String raceKey = alienRaces.get(h);
+			String raceKey;
+            if (gc != null) // BR: For Restart with new options
+            	raceKey = gc.empires(h+1).raceKey();
+            else
+            	raceKey = alienRaces.get(h);
 			Race race = Race.keyed(raceKey);
 			if (raceColors.isEmpty()) 
 				raceColors = opts.possibleColors();
@@ -419,7 +424,7 @@ public class GalaxyFactory implements Base {
 			// Create DataRace
 			String dataRaceKey;
             if (gc != null) // BR: For Restart with new options 
-            	dataRaceKey = gc.dataRace().get(h);
+            	dataRaceKey = gc.empires(h+1).abilitiesKey();
             else if (options().randomizeAIAbility())
                 dataRaceKey = random(options().startingRaceOptions());
             else
@@ -430,7 +435,6 @@ public class GalaxyFactory implements Base {
             	else
             		dataRaceKey = CustomRaceFactory.getRandomAlienRaceKey();
             }
-//            System.out.println("RO = " + isRandomOpponent[h] + "  Key = " + dataRaceKey);
 			Race dataRace = Race.keyed(dataRaceKey);
 
 			EmpireSystem empSystem = null;

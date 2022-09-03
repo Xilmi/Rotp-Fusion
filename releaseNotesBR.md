@@ -9,7 +9,8 @@ Restart Option:
   - If you choose to swap empire, the races will be swapped too, except if you choose to start with new options, in this case the new race will be applied as well.
   - Fixed some Aliens races badly set.
   - Fixed The values in the Restart menu.
-
+  - Fixed nearby system order; Not important to the player, but the AI was fooled.
+  - Fixed Swapped opponent randomly generated.
 
 Custom Races Menu:
   - Fixed ground combat cost.
