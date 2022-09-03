@@ -69,8 +69,12 @@ public class CustomRaceFactory {
 		}
 	}
 	public void initShowRace(String raceKey) {
-		race = Race.keyed(raceKey);
-		pullSettings();
+		if (raceKey.length() > 50) {
+			setKey(raceKey);
+		} else {
+			race = Race.keyed(raceKey);
+			pullSettings();
+		}
 	}
 	public Race getRace() {
 		return race;
@@ -279,7 +283,7 @@ public class CustomRaceFactory {
 	public static int keyToValue(String raceKey) {
 		CustomRaceFactory cr = new CustomRaceFactory();
 		cr.getFullList();
-		cr.setKey(raceKey);
+		cr.initShowRace(raceKey);
 		float cost = cr.getTotalCost();
 		return Math.round(cost); 
 	}
