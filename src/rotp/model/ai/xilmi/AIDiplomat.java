@@ -2308,5 +2308,9 @@ public class AIDiplomat implements Base, Diplomat {
     public boolean wantsToReviewCounterOffers() {
         return true;
     }
+    @Override
+    public boolean useExtendedIncidents() { 
+        return true; 
+    }
 }
 

@@ -724,10 +724,6 @@ public class DiplomaticEmbassy implements Base, Serializable {
 
         List<DiplomaticIncident> newEventsAll = new ArrayList<>();
         addIncident(ParanoiaIncident.create(view));
-        if(!incidents.containsKey("Erratic"))
-            addIncident(ErraticIncident.create(view));
-        else
-            incidents.get("Erratic").update();
         owner().diplomatAI().noticeNoRelationIncident(view, newEventsAll);
         owner().diplomatAI().noticeAtWarWithAllyIncidents(view, newEventsAll);
         owner().diplomatAI().noticeAlliedWithEnemyIncidents(view, newEventsAll);
@@ -738,10 +734,17 @@ public class DiplomaticEmbassy implements Base, Serializable {
         for (DiplomaticIncident ev: newEventsAll)
             addIncident(ev);
         
-        if(!incidents.containsKey("Coexist"))
-            addIncident(CoexistIncident.create(view));
-        else
-            incidents.get("Coexist").update();
+        if(owner().diplomatAI().useExtendedIncidents()) {
+            if(!incidents.containsKey("Erratic"))
+                addIncident(ErraticIncident.create(view));
+            else
+                incidents.get("Erratic").update();
+
+            if(!incidents.containsKey("Coexist"))
+                addIncident(CoexistIncident.create(view));
+            else
+                incidents.get("Coexist").update();
+        }
 
         // make special list of incidents added in this turn
         for (DiplomaticIncident ev: incidents.values()) {

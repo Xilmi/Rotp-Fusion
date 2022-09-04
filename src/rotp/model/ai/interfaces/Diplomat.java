@@ -135,4 +135,5 @@ public interface Diplomat {
     default boolean wantToDeclareWarOfDesperation(EmpireView v) { return false; }
     default boolean willingToTradeTech(Tech t, Empire tradeParnet) { return true; }
     default boolean wantsToReviewCounterOffers() { return false; }
+    default boolean useExtendedIncidents() { return false; }
 }
