@@ -1177,11 +1177,12 @@ public class DesignUI extends BasePanel {
                     auto = nst.autoDestroyerDesign(player().shipDesignerAI(), shipDesign().size()); //will not use shields or computer if no weapon fits
             }
             String name = shipDesign().name();
-            String iconKey = shipDesign().iconKey();
+            int seq = shipDesign().seq();
             int color = shipDesign().shipColor();
             shipDesign().copyFrom(auto);
             shipDesign().name(name);
-            shipDesign().iconKey(iconKey);
+            shipDesign().seq(seq);
+            shipDesign().setIconKey();
             shipDesign().shipColor(color);
         }
     }
