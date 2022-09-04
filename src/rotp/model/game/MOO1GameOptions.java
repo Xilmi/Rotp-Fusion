@@ -464,6 +464,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
                 case AUTOPLAY_AI_MODNAR:   return AI.MODNAR;
                 case AUTOPLAY_AI_ROOKIE:   return AI.ROOKIE;
                 case AUTOPLAY_AI_XILMI:  return AI.XILMI;
+                case AUTOPLAY_AI_HYBRID:  return AI.HYBRID;
                 case AUTOPLAY_AI_CRUEL: return AI.CRUEL;
                 case AUTOPLAY_AI_RANDOM:  return AI.RANDOM;
                 case AUTOPLAY_OFF:
@@ -477,6 +478,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
                 case OPPONENT_AI_MODNAR:   return AI.MODNAR;
                 case OPPONENT_AI_ROOKIE:   return AI.ROOKIE;
                 case OPPONENT_AI_XILMI:  return AI.XILMI;
+                case OPPONENT_AI_HYBRID:  return AI.HYBRID;
                 case OPPONENT_AI_CRUEL: return AI.CRUEL;
                 case OPPONENT_AI_UNFAIR: return AI.UNFAIR;
                 case OPPONENT_AI_RANDOM:  return AI.RANDOM;
@@ -488,6 +490,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
                         case OPPONENT_AI_MODNAR:   return AI.MODNAR;
                         case OPPONENT_AI_ROOKIE:   return AI.ROOKIE;
                         case OPPONENT_AI_XILMI:  return AI.XILMI;
+                        case OPPONENT_AI_HYBRID:  return AI.HYBRID;
                         case OPPONENT_AI_CRUEL: return AI.CRUEL;
                         case OPPONENT_AI_UNFAIR: return AI.UNFAIR;
                         case OPPONENT_AI_RANDOM:  return AI.RANDOM;
@@ -987,6 +990,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add(AUTOPLAY_AI_MODNAR);
         list.add(AUTOPLAY_AI_ROOKIE);
         list.add(AUTOPLAY_AI_XILMI);
+        list.add(AUTOPLAY_AI_HYBRID);
         list.add(AUTOPLAY_AI_CRUEL);
         list.add(AUTOPLAY_AI_RANDOM);
         return list;
@@ -998,6 +1002,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add(OPPONENT_AI_MODNAR);
         list.add(OPPONENT_AI_ROOKIE);
         list.add(OPPONENT_AI_XILMI);
+        list.add(OPPONENT_AI_HYBRID);
         list.add(OPPONENT_AI_CRUEL);
         list.add(OPPONENT_AI_UNFAIR);
         list.add(OPPONENT_AI_RANDOM);
@@ -1012,6 +1017,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add(OPPONENT_AI_MODNAR);
         list.add(OPPONENT_AI_ROOKIE);
         list.add(OPPONENT_AI_XILMI);
+        list.add(OPPONENT_AI_HYBRID);
         list.add(OPPONENT_AI_CRUEL);
         list.add(OPPONENT_AI_UNFAIR);
         list.add(OPPONENT_AI_RANDOM);

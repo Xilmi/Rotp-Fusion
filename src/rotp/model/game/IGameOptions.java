@@ -159,6 +159,7 @@ public interface IGameOptions {
     public static final String OPPONENT_AI_MODNAR     = "SETUP_OPPONENT_AI_MODNAR";
     public static final String OPPONENT_AI_ROOKIE     = "SETUP_OPPONENT_AI_ROOKIE";
     public static final String OPPONENT_AI_XILMI      = "SETUP_OPPONENT_AI_XILMI";
+    public static final String OPPONENT_AI_HYBRID     = "SETUP_OPPONENT_AI_HYBRID";
     public static final String OPPONENT_AI_CRUEL      = "SETUP_OPPONENT_AI_CRUEL";
     public static final String OPPONENT_AI_UNFAIR     = "SETUP_OPPONENT_AI_UNFAIR";
     public static final String OPPONENT_AI_RANDOM     = "SETUP_OPPONENT_AI_RANDOM";
@@ -170,6 +171,7 @@ public interface IGameOptions {
     public static final String AUTOPLAY_AI_MODNAR     = "SETUP_AUTOPLAY_AI_MODNAR";
     public static final String AUTOPLAY_AI_ROOKIE     = "SETUP_AUTOPLAY_AI_ROOKIE";
     public static final String AUTOPLAY_AI_XILMI      = "SETUP_AUTOPLAY_AI_XILMI";
+    public static final String AUTOPLAY_AI_HYBRID     = "SETUP_AUTOPLAY_AI_HYBRID";
     public static final String AUTOPLAY_AI_CRUEL      = "SETUP_AUTOPLAY_AI_CRUEL";
     public static final String AUTOPLAY_AI_RANDOM     = "SETUP_AUTOPLAY_AI_RANDOM";
     

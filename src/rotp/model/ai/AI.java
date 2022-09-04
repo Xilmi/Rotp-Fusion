@@ -48,10 +48,11 @@ public class AI implements Base { // BR: Tentative
     public static final int MODNAR = 1; // MODNAR
     public static final int ROOKIE = 2; // ROOkie
     public static final int XILMI  = 3; // Advanced
-    public static final int CRUEL  = 4; // Legacy
-    public static final int UNFAIR = 5; // unfair
-    public static final int RANDOM = 6;
-    public static final int ALLRANDOM = 7;
+    public static final int HYBRID = 4;
+    public static final int CRUEL  = 5; // Legacy
+    public static final int UNFAIR = 6; // unfair
+    public static final int RANDOM = 7;
+    public static final int ALLRANDOM = 8;
    
     private final Empire empire;
 
@@ -123,6 +124,17 @@ public class AI implements Base { // BR: Tentative
                 shipDesigner =   new rotp.model.ai.xilmi.AIShipDesigner(empire);
                 fleetCommander = new rotp.model.ai.xilmi.AIFleetCommander(empire);
                 spyMaster =      new rotp.model.ai.xilmi.AISpyMaster(empire);
+                treasurer =      new rotp.model.ai.xilmi.AITreasurer(empire);
+                break;
+            case HYBRID:
+                general =        new rotp.model.ai.xilmi.AIGeneral(empire);
+                captain =        new rotp.model.ai.xilmi.AIShipCaptain(empire);
+                governor =       new rotp.model.ai.xilmi.AIGovernor(empire);
+                scientist =      new rotp.model.ai.xilmi.AIScientist(empire);
+                diplomat =       new rotp.model.ai.rookie.AIDiplomat(empire);
+                shipDesigner =   new rotp.model.ai.xilmi.AIShipDesigner(empire);
+                fleetCommander = new rotp.model.ai.xilmi.AIFleetCommander(empire);
+                spyMaster =      new rotp.model.ai.rookie.AISpyMaster(empire);
                 treasurer =      new rotp.model.ai.xilmi.AITreasurer(empire);
                 break;
             case UNFAIR:
