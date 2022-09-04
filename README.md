@@ -21,6 +21,13 @@ Community subreddit: https://www.reddit.com/r/rotp/<br/>
 Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
+2022.09.04 (Xilmi)
+  - Introduced new AI-type: Hybrid. Hybrid-AI is based on Fusion-AI but uses the same Diplomacy- and Espionage-logic as Rookie-AI.
+  - Planets initially spawned as fertile were lacking the associated size-increase. This is fixed now.
+  - Fixed that confirming a design after using Auto would change the icon of the design.
+  - Fixed that Incidents meant exclusively for the Roleplay-AI were also taken into consideration by other AI-types.
+  - Fusion-AI will now retreat from enemy colonies it can't do damage to even if their fleet would survive aswell. This is to prevent useless losses if one stack has auto-repair but the colony would target another other.
+
 2022.09.03 (BR)
   - Restart: Fixed nearby system order; Not important to the player, but the AI was fooled.
   - Restart: Fixed Swapped opponent randomly generated.

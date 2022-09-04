@@ -1,6 +1,5 @@
-  - Both trade-partners now gain faster trade-route-growth if one of them has a diplomacy-bonus.
-  - Auto-ship-design now recognizes the role of the previous design in that slot and will create a design fulfilling that same role.
-  - Fixed an issue that caused AI being able to research Future-Tech before it had all other techs in the respective category.
-  - Fusion-AI less willing to resort to designs with almost no bombs when fighting multi-frontier-wars.
-  - Removed a condition that could lead to Fusion-AI not to build colony-ships.
-  - A bunch of improvements of how Fusion-AI reacts to their opponents building many missile-bases.
+  - Introduced new AI-type: Hybrid. Hybrid-AI is based on Fusion-AI but uses the same Diplomacy- and Espionage-logic as Rookie-AI.
+  - Planets initially spawned as fertile were lacking the associated size-increase. This is fixed now.
+  - Fixed that confirming a design after using Auto would change the icon of the design.
+  - Fixed that Incidents meant exclusively for the Roleplay-AI were also taken into consideration by other AI-types.
+  - Fusion-AI will now retreat from enemy colonies it can't do damage to even if their fleet would survive aswell. This is to prevent useless losses if one stack has auto-repair but the colony would target another other.
