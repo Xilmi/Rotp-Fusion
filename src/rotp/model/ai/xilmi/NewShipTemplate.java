@@ -528,6 +528,8 @@ public class NewShipTemplate implements Base {
         for (int i=0; i<maxWeapons(); i++)
         {
             ShipWeapon weapon = d.weapon(i);
+            if(weapon.noWeapon())
+                continue;
             while(d.availableSpace() > weapon.space(d))
                 d.wpnCount(i, d.wpnCount(i) + 1);
         }
