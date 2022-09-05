@@ -12,7 +12,7 @@
 	
 	<!-- Variables Declaration -->
 	<properties>
-		<!-- Personal -->
+		<!-- Personal --> 
 		<maven.build.timestamp.format>yyyy.M.d.H</maven.build.timestamp.format>
 		<revision>${maven.build.timestamp}</revision>
 		<RepoId>Rotp-Fusion</RepoId>
