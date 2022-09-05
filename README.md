@@ -21,6 +21,11 @@ Community subreddit: https://www.reddit.com/r/rotp/<br/>
 Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
+2022.09.05 (Xilmi)
+  - Fixed width-issue in races-screen and replaced short text describing racial abilities with a more prominent hint to click the text to get full information about a species' abilities.
+  - Autodesign as well as AI now try to fill up the design better when there's still some space left.
+  - Some refactoring considering the Roleplay-AI. Roleplay-AI now uses the same AI-General as Fusion-AI. This shall bring some lacking aspects of it's play to Fusion-AI's level. All important distinctions are in it's AI-Diplomat.
+
 2022.09.04 (Xilmi)
   - Introduced new AI-type: Hybrid. Hybrid-AI is based on Fusion-AI but uses the same Diplomacy- and Espionage-logic as Rookie-AI.
   - Planets initially spawned as fertile were lacking the associated size-increase. This is fixed now.
