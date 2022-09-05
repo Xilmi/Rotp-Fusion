@@ -40,7 +40,9 @@ public abstract class AbstractParam <T> {
 	private T shiftInc	= null;
 	private T ctrlInc	= null;
 	private boolean saveAllowed = true; // To allow the parameter to be saved in Remnants.cfg
-//	private boolean isBullet	= false;
+	private boolean globalSave	= true; // For Global settings
+	private boolean lastSave	= false;
+	private boolean userSave	= false;
 
 	// ========== constructors ==========
 	//
@@ -179,8 +181,19 @@ public abstract class AbstractParam <T> {
 	}
 	// ========== Private Methods ==========
 	//
+	private void save(boolean global, boolean last) {
+		if (saveAllowed()) 
+			if (global)
+				UserPreferences.save();
+			else if (last)
+				UserPreferences.save(); // TODO BR: save last 
+			else
+				UserPreferences.save(); // TODO BR: save User 
+	}
 	private void save() {
-		if (saveAllowed()) UserPreferences.save();
+		if (saveAllowed()) 
+			if (globalSave)
+				UserPreferences.save();
 	}
 	String labelId() {
 		return gui + name;
