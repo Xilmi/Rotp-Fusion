@@ -38,7 +38,6 @@ public abstract class AbstractParameter<
 	private static String parameterKey   = "¦==== Parameter";
 	private static String hiddenKey      = "HIDE";
 	private static String hideSeparator  = "-";
-//	protected static String listSeparator  = "/";
 	private static String historyElementsSeparator  = " ¦ ";
 	private static String historyNameValueSeparator = ": ";
 	private static String availableForChange = "---- Available for changes in game saves";
@@ -86,7 +85,6 @@ public abstract class AbstractParameter<
 		parameterKey   = PM.getConfig("parameterKey");
 		hiddenKey      = PM.getConfig("hiddenKey");
 		hideSeparator  = PM.getConfig("hideSeparator");
-//		listSeparator  = PM.getConfig("listSeparator");
 		historyElementsSeparator  = PM.getConfig("historyElementsSeparator");
 		historyNameValueSeparator = PM.getConfig("historyNameValueSeparator");
 		availableForChange = PM.getConfig("availableForChange");

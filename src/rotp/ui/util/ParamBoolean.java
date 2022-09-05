@@ -21,9 +21,7 @@ import java.awt.event.MouseWheelEvent;
 
 public class ParamBoolean extends AbstractParam<Boolean> {
 	
-	private float costTrue;
-	private float costFalse;
-	
+
 	// ===== Constructors =====
 	//
 	/**
@@ -44,43 +42,8 @@ public class ParamBoolean extends AbstractParam<Boolean> {
 		super(gui, name, defaultValue);
 		allowSave(allowSave);
 	}
-	/**
-	 * @param gui  The label header
-	 * @param name The name
-	 * @param defaultValue The default value
-	 * @param costTrue  Cost if the setting is true
-	 * @param costFalse Cost if the setting is false
-	 * @param allowSave To allow the parameter to be saved in Remnants.cfg
-	 */
-	public ParamBoolean(String gui, String name, Boolean defaultValue
-			,float costTrue, float costFalse, boolean allowSave) {
-		super(gui, name, defaultValue);
-		allowSave(allowSave);
-		this.costTrue	= costTrue;
-		this.costFalse	= costFalse;
-	}
-	/**
-	 * @param gui  The label header
-	 * @param name The name
-	 * @param defaultValue The default value
-	 * @param costTrue  Cost if the setting is true
-	 * @param costFalse Cost if the setting is false
-	 * @param allowSave To allow the parameter to be saved in Remnants.cfg
-	 */
-	public ParamBoolean(String gui, String name, Boolean defaultValue
-			,int costTrue, int costFalse, boolean allowSave) {
-		super(gui, name, defaultValue);
-		allowSave(allowSave);
-		this.costTrue	= costTrue;
-		this.costFalse	= costFalse;
-	}
 	// ===== Overriders =====
 	//
-	@Override public float getCost() {
-		if (get())
-			return costTrue;
-		return costFalse;
-	}
 	@Override public String getCfgValue() {
 		return yesOrNo(get());
 	}

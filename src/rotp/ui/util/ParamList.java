@@ -50,32 +50,6 @@ public class ParamList extends AbstractParam<String> {
 	 * @param gui  The label header
 	 * @param name The name
 	 * @param defaultCfgLabel The default CfgLabel
-	 * @param allowSave To allow the parameter to be saved in Remnants.cfg
-	 */
-	public ParamList(String gui, String name, String defaultCfgLabel, boolean isBullet, boolean allowSave) {
-		this(gui, name, defaultCfgLabel);
-		isBullet(isBullet);
-		finalLabels = !isBullet;
-		allowSave(allowSave);
-	}
-	/**
-	 * @param gui  The label header
-	 * @param name The name
-	 * @param defaultCfgLabel The default CfgLabel
-	 * @param allowSave To allow the parameter to be saved in Remnants.cfg
-	 * @param finalLabels when false: Labels are combined withName and Gui Label
-	 */
-	public ParamList(String gui, String name, String defaultCfgLabel
-			, boolean isBullet, boolean allowSave, boolean finalLabels) {
-		this(gui, name, defaultCfgLabel);
-		isBullet(isBullet);
-		this.finalLabels = finalLabels;
-		allowSave(allowSave);
-	}
-	/**
-	 * @param gui  The label header
-	 * @param name The name
-	 * @param defaultCfgLabel The default CfgLabel
 	 * @param optionLabelMap  existing IndexableMap
 	 */
 	public ParamList(String gui, String name, String defaultCfgLabel, IndexableMap optionLabelMap) {
@@ -84,12 +58,6 @@ public class ParamList extends AbstractParam<String> {
 	}
 	// ===== Overriders =====
 	//
-	@Override public float getCost() {
-		return optValCostPtrMap.getCost(get());
-	}
-	@Override public float getCost(int idx) {
-		return optValCostPtrMap.getCost(idx);
-	}
 	@Override public int getBoxSize() {
 		return optValCostPtrMap.getBoxSize();
 	}
@@ -133,10 +101,6 @@ public class ParamList extends AbstractParam<String> {
 	}
 	@Override public String getGuiValue(int idx) {
 		return text(optValCostPtrMap.getLangLabel(idx));
-	}
-	@Override public ParamList isBullet(boolean isBullet) {
-		super.isBullet(isBullet);
-		return this;
 	}
 	// ===== Other Public Methods =====
 	//
@@ -256,18 +220,6 @@ public class ParamList extends AbstractParam<String> {
 		//
 		public int getBoxSize() {
 			return costList.size();
-		}
-		private float getCost(String CfgLabel) {
-			return costList.get(getCfgLabelIndexIgnoreCase(CfgLabel));
-		}
-		private float getCost(int idx) {
-			return costList.get(idx);
-		}
-		private float getPointer(String CfgLabel) {
-			return pointerList.get(getCfgLabelIndexIgnoreCase(CfgLabel));
-		}
-		private float getPointer(int idx) {
-			return pointerList.get(idx);
 		}
 		private String getCfgValue(int idx) {
 			return cfgValueList.get(idx);

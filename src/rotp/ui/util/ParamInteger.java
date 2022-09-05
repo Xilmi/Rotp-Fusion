@@ -72,44 +72,9 @@ public class ParamInteger extends AbstractParam<Integer> {
 			, Integer baseInc, Integer shiftInc, Integer ctrlInc) {
 		super(gui, name, defaultValue, minValue, maxValue, baseInc, shiftInc, ctrlInc);
 	}
-	/**
-	 * @param gui  The label header
-	 * @param name The name
-	 * @param defaultvalue() The default value
-	 * @param minValue() The minimum value() (null = none)
-	 * @param maxValue() The maximum value() (null = none)
-	 * @param baseInc  The base increment
-	 * @param shiftInc The increment when Shift is hold
-	 * @param ctrlInc  The increment when Ctrl is hold
-	 * @param allowSave  To allow the parameter to be saved in Remnants.cfg
-	 * @param costFormula Formula type to establish a cost
-	 * @param costFactor To establish a cost
-	 */
-	public ParamInteger(String gui, String name, Integer defaultValue
-			, Integer minValue, Integer maxValue
-			, Integer baseInc, Integer shiftInc, Integer ctrlInc
-			, boolean allowSave, CostFormula costFormula, float... costFactor) {
-		super(gui, name, defaultValue, minValue, maxValue, baseInc, shiftInc, ctrlInc);
-		setCostFormula(costFormula);
-		setCostFactor(costFactor);
-		allowSave(allowSave);
-	}
 
 	// ===== Overriders =====
 	//
-	@Override public float getBaseCost() {
-		switch (costFormula()) {
-		case DIFFERENCE:
-			return Math.abs(get() - defaultValue());
-		case RELATIVE:
-			float ratio = Math.abs((float)get() / defaultValue());
-			if (ratio > 1f)
-				return ratio-1;
-			else
-				return (1/ratio)-1;
-		}
-		return Math.abs(get() - defaultValue());
-	}
 	@Override public Integer setFromCfgValue(String newValue) {
 		return set(stringToInteger(newValue));
 	}	
