@@ -59,6 +59,7 @@ import rotp.model.galaxy.GalaxySpiralShape;
 import rotp.model.galaxy.GalaxySwirlClustersShape;
 import rotp.model.galaxy.GalaxyTextShape;
 import rotp.model.game.IGameOptions;
+import rotp.ui.game.SetupGalaxyUI;
 
 /**
  * @author BrokenRegistry
@@ -419,7 +420,7 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 
 			setHistoryCodeView(Default, 3); // Ray Choice
 			Integer min = 0;
-			Integer max = go.options().maximumOpponentsOptions();
+ 			Integer max = SetupGalaxyUI.MAX_DISPLAY_OPPS;
 			setLimits(min, max);
 			setDefaultRandomLimits(1, max);
 		}
@@ -438,10 +439,7 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<Integer> value) {
 			// the limits may have changed from previous settings
-			Integer min = 0;
 			Integer max = go.options().maximumOpponentsOptions();
-			setLimits(min, max);
-			setDefaultRandomLimits(1, max);
 			go.options().selectedNumberOpponents(Math.min(max, value.getCodeView()));
 		}
 

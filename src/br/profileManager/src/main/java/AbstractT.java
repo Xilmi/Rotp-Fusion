@@ -29,7 +29,7 @@ import java.util.List;
 public abstract class AbstractT <T> {
 
 	// Keep the initializations for Junit test
-	private static String listSeparator = "/";
+	private static String listSeparator = " / ";
 
 	private T blankCodeView = null;
 	private List<T> codeList;
@@ -69,7 +69,7 @@ public abstract class AbstractT <T> {
 	 * To be notified that config has been updated
 	 */
 	static void newConfig(PMconfig PM) {
-		listSeparator = PM.getConfig("listSeparator");
+		listSeparator = " " + PM.getConfig("listSeparator") + " ";
 	}
 	private void init(T value) {
 		codeView(value);
