@@ -1346,4 +1346,32 @@ public class AIGeneral implements Base, General {
         highestProdScore = highest;
         return highestProdScore;
     }
+    @Override
+    public float gameProgress()
+    {
+        float fastestVictory = Float.MAX_VALUE;
+        float myOwnedPerc = 0;
+        float highestOwnedPerc = 0;
+        for(Empire emp: galaxy().activeEmpires())
+        {
+            if(emp == empire || empire.contacts().contains(empire.viewForEmpire(emp)))
+            {
+                float ownedPerc = (float)emp.numColonies() / (float)galaxy().systemCount;
+                ownedPerc *= 3.0f/2.0f;
+                if(emp == empire)
+                    myOwnedPerc = ownedPerc;
+                if(ownedPerc > highestOwnedPerc)
+                    highestOwnedPerc = ownedPerc;
+                float victoryTurn = galaxy().currentTurn() / ownedPerc;
+                //System.out.println(galaxy().currentTurn()+" "+empire.name()+" thinks "+emp.name()+" will win at turn "+victoryTurn);
+                if(victoryTurn < fastestVictory)
+                    fastestVictory = victoryTurn;
+            }
+        }
+        float defeatTurn = fastestVictory * myOwnedPerc / highestOwnedPerc;
+        float gameEndTurn = min(fastestVictory, defeatTurn);
+        float progress = galaxy().currentTurn() / gameEndTurn;
+        //System.out.println(galaxy().currentTurn()+" "+empire.name()+" thinks the game will end at turn "+gameEndTurn+" current Progress: "+progress);
+        return progress;
+    }
 }
