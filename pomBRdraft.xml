@@ -12,12 +12,17 @@
 	
 	<!-- Variables Declaration -->
 	<properties>
-		<!-- Personal -->
-		<maven.build.timestamp.format>yyyy.M.d.H</maven.build.timestamp.format>
-		<revision>${maven.build.timestamp}</revision>
+		<!-- File Name Format -->
+		<maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
+		<revision>Fusion-${maven.build.timestamp}</revision>
+		<!-- EXE converter Format yyyy.M.d.H -->
+		<exeVersion>${current.time}</exeVersion>
+		<!-- Tag Format yyyy/MM/dd/HH/mm -->
+		<gitHubTag>${build.date}</gitHubTag>
 		<RepoId>Rotp-Fusion</RepoId>
-		<AuthorId>Xilmi</AuthorId>
-		<BaseFileName>rotp-${project.version}</BaseFileName>
+		<AuthorId>BrokenRegistry</AuthorId>
+		<pdfFileName>Description.pdf</pdfFileName>
+		<BaseFileName>rotp-${revision}</BaseFileName>
 	 	<!-- Maven Standard -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>8</java.version>
@@ -144,6 +149,42 @@
 
 		<!-- Building tools -->
 		<plugins>
+			<!-- Second time stamp for sorting purpose -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>3.3.0</version>
+				<executions>
+					<execution>
+						<id>timestamp-property</id>
+						<goals>
+							<goal>timestamp-property</goal>
+						</goals>
+						<configuration>
+							<name>current.time</name>
+							<pattern>yyyy.M.d.H</pattern>
+							<timeZone>GMT</timeZone>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>buildnumber-maven-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>create-timestamp</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<timestampFormat>yyyy/MM/dd/HHmm</timestampFormat>
+					<timestampPropertyName>build.date</timestampPropertyName>
+				</configuration>
+			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.1</version>
@@ -339,12 +380,13 @@
 								<maxHeapSize>3500</maxHeapSize>
 							</jre>
 							<versionInfo>
-								<fileVersion>${project.version}</fileVersion>
-								<txtFileVersion>${project.version}</txtFileVersion>
+								<fileVersion>${exeVersion}</fileVersion>
+								<!-- <txtFileVersion>${project.version}</txtFileVersion> -->
+								<txtFileVersion>${revision}</txtFileVersion>
 								<fileDescription>Remnants of the Precursors</fileDescription>
 								<copyright>Copyright Ray Fowler</copyright>
-								<productVersion>${project.version}</productVersion>
-								<txtProductVersion>${project.version}</txtProductVersion>
+								<productVersion>${exeVersion}</productVersion>
+								<txtProductVersion>${revision}</txtProductVersion>
 								<productName>Remnants of the Precursors</productName>
 								<internalName>rotp</internalName>
 								<originalFilename>${BaseFileName}.exe</originalFilename>
@@ -375,7 +417,7 @@
 			<plugin>
 				<groupId>com.ragedunicorn.tools.maven</groupId>
 				<artifactId>github-release-maven-plugin</artifactId>
-				<version>1.0.2</version>
+				<version>1.0.5</version>
 				<executions>
 					<execution>
 						<id>default-cli</id>
@@ -383,14 +425,16 @@
 							<owner>${AuthorId}</owner>
 							<repository>${RepoId}</repository>
 							<authToken>${GITHUB_TOKEN}</authToken>
-							<tagName>${project.version}</tagName>
+							<tagName>${build.date}</tagName>
 							<name>${BaseFileName}</name>
-							<targetCommitish>main</targetCommitish>
-							<releaseNotes>releaseNotesXilmi.md</releaseNotes>
+							<targetCommitish>UpdateFactoryMenu</targetCommitish>
+							<releaseNotes>releaseNotesBR.md</releaseNotes>
+							<draft>true</draft>
 							<assets>
 								<asset>target/${BaseFileName}.jar</asset>
 								<asset>target/${BaseFileName}-mini.jar</asset>
 								<asset>target/${BaseFileName}-windows.zip</asset>
+								<asset>${pdfFileName}</asset>
 								<!-- <asset>Profiles.pdf</asset> -->
 							</assets>
 						</configuration>
