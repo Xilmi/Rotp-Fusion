@@ -1270,7 +1270,7 @@ SETUP_BUTTON_SETTINGS             | Advanced Options
 // modnar: add UI panel for modnar MOD game options
 SETUP_BUTTON_MOD_SETTINGS         | MOD Options A
 SETUP_BUTTON_MOD_B_SETTINGS       | MOD Options B
-SETUP_BUTTON_MOD_VIEW_SETTINGS    | Display Options
+SETUP_BUTTON_MOD_GLOBAL_SETTINGS  | MOD Global Options
 // BR: Restart swap empire
 SETUP_SELECT_EMPIRE_TITLE         | Select Player Empire
 SETUP_SELECT_EMPIRE_SELECT_BUTTON | Select
@@ -1547,8 +1547,8 @@ SETTINGS_MOD_RACES_ARE_RANDOM_SETTING    | Settings Window
 SETTINGS_MOD_RACES_ARE_RANDOM_TARGET     | Target Range
 SETTINGS_MOD_RACES_ARE_RANDOM_PLAYER     | Player Copy
 
-// BR: View Settings UI panel for MOD game options
-SETTINGS_MOD_TITLE_VIEW                  | Display Settings MOD Options
+// BR: Global Settings UI panel for MOD game options
+SETTINGS_MOD_TITLE_GLOBAL                | Display Settings MOD Global Options
 SETTINGS_MOD_SHOW_FLEET_FACTOR_DESC      | To adjust the galaxy map fleets disappearance while zooming. Bigger factor means stay longer to the screen.
 SETTINGS_MOD_SHOW_FLEET_FACTOR           | Show Fleet Factor: %1
 SETTINGS_MOD_SHOW_FLAG_FACTOR_DESC       | To adjust the galaxy map flags disappearance while zooming. Bigger factor means stay longer to the screen.
@@ -1561,6 +1561,16 @@ SETTINGS_MOD_SHOW_INFO_FONT_RATIO_DESC   | To adjust the galaxy map swap info to
 SETTINGS_MOD_SHOW_INFO_FONT_RATIO        | System Info Font Ratio: %1
 SETTINGS_MOD_MAP_FONT_FACTOR_DESC        | To adjust the galaxy map font size. Bigger factor means bigger fonts.
 SETTINGS_MOD_MAP_FONT_FACTOR             | Map Font Ratio: %1
+SETTINGS_MOD_MENU_STARTUP_DESC           | How should the menu be initialized on startup?
+SETTINGS_MOD_MENU_STARTUP                | Startup Initialization: %1
+SETTINGS_MOD_STARTUP_DEFAULT             | Default Values
+SETTINGS_MOD_STARTUP_LAST                | Last Values
+SETTINGS_MOD_STARTUP_VANILLA             | Old Ways
+SETTINGS_MOD_MENU_LOAD_GAME_DESC         | How should the menu be initialized when loading a game?
+SETTINGS_MOD_MENU_LOAD_GAME              | Menus on loading: %1
+SETTINGS_MOD_LOAD_GAME_UPDATE            | All updates
+SETTINGS_MOD_LOAD_GAME_VANILLA           | Old Ways
+
 
 // Tech UI labels
 TECH_RESEARCH                     | Technology Research

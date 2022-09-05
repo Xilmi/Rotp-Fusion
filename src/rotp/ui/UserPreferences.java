@@ -32,13 +32,14 @@ import rotp.mod.br.addOns.ShipSetAddOns;
 import rotp.model.events.RandomEvents;
 import rotp.model.game.GameSession;
 import rotp.ui.game.StartModBOptionsUI;
-import rotp.ui.game.StartModViewOptionsUI;
+import rotp.ui.game.ModGlobalOptionsUI;
 import rotp.ui.game.StartModAOptionsUI;
 import rotp.ui.util.AbstractParam;
 import rotp.ui.util.EventsStartTurn;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
+import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamTech;
 import rotp.ui.util.RandomAlienRaces;
 import rotp.ui.util.ParamAAN2;
@@ -138,7 +139,7 @@ public class UserPreferences {
 		eventsStartTurn, techIndustry2, techThorium, techTransport
 		));
 
-	// BR: ===== Viewing settings Mod GUI:
+	// BR: ===== Global settings Mod GUI:
 	public static final ParamFloat showFleetFactor = new ParamFloat(MOD_UI, "SHOW_FLEET_FACTOR"
 			, 1.0f, 0.3f, 3f, 0.02f, 0.1f, 0.5f, "%", "%");
 	public static final ParamFloat showFlagFactor = new ParamFloat(MOD_UI, "SHOW_FLAG_FACTOR"
@@ -151,8 +152,16 @@ public class UserPreferences {
 			, 0.7f, 0.2f, 3f, 0.02f, 0.1f, 0.5f, "%", "%");
 	public static final ParamFloat mapFontFactor = new ParamFloat(MOD_UI, "MAP_FONT_FACTOR"
 			, 1.0f, 0.3f, 3f, 0.02f, 0.1f, 0.5f, "%", "%");
+	public static final ParamList menuStartup = new ParamList(MOD_UI, "MENU_STARTUP", "Last")
+			.put("Default",	MOD_UI + "STARTUP_DEFAULT")
+			.put("Last",	MOD_UI + "STARTUP_LAST")
+			.put("Vanilla",	MOD_UI + "STARTUP_VANILLA");
+	public static final ParamList menuLoadGame = new ParamList(MOD_UI, "MENU_LOAD_GAME", "LoadAll")
+			.put("LoadAll",	MOD_UI + "LOAD_GAME_UPDATE")
+			.put("Vanilla",	MOD_UI + "LOAD_GAME_VANILLA");
 
-	public static final LinkedList<AbstractParam<?>> modView = new LinkedList<>(Arrays.asList(
+	public static final LinkedList<AbstractParam<?>> modGlobal = new LinkedList<>(Arrays.asList(
+			menuStartup, menuLoadGame,
 			showFleetFactor, showFlagFactor, showPathFactor,
 			showNameMinFont, showInfoFontRatio, mapFontFactor
 			));
@@ -207,7 +216,7 @@ public class UserPreferences {
 			setMod2ToDefault();
 			return;
 		}
-		if (guiTitleID.equalsIgnoreCase(StartModViewOptionsUI.guiTitleID)) {
+		if (guiTitleID.equalsIgnoreCase(ModGlobalOptionsUI.guiTitleID)) {
 			setModViewToDefault();
 			return;
 		}
@@ -285,7 +294,7 @@ public class UserPreferences {
 	public static void setModViewToDefault() {
 		// Old settings
 		// New settings
-		for (AbstractParam<?> param : modView) {
+		for (AbstractParam<?> param : modGlobal) {
 			param.setToDefault(false);
 		}
 		save();
@@ -638,7 +647,7 @@ public class UserPreferences {
 			out.println();
 			out.println("===== MOD Display GUI Settings =====");
 			out.println();
-			for (AbstractParam<?> param : modView) {
+			for (AbstractParam<?> param : modGlobal) {
 				out.println(keyFormat(param.getCfgLabel()) + param.getCfgValue());
 			}
 			return 0;
@@ -717,7 +726,7 @@ public class UserPreferences {
 					if (key.equalsIgnoreCase(param.getCfgLabel()))
 						param.setFromCfgValue(val);
 				}
-				for (AbstractParam<?> param : modView) {
+				for (AbstractParam<?> param : modGlobal) {
 					if (key.equalsIgnoreCase(param.getCfgLabel()))
 						param.setFromCfgValue(val);
 				}

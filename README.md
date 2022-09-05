@@ -22,8 +22,10 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
-2022.09.04 (BR)
+2022.09.05 (BR)
   - Profile Manager: Fixed Number of opponents being limited by previous smaller galaxies.
+  - Renamed Mod View menu To Mod Global
+  - Added menuStartup and MenuLoadGame to Mod Global Menu
 
 2022.09.05 (Xilmi)
   - Fixed width-issue in races-screen and replaced short text describing racial abilities with a more prominent hint to click the text to get full information about a species' abilities.

@@ -16,6 +16,8 @@
 package rotp.ui.game;
 
 import static rotp.ui.UserPreferences.mapFontFactor;
+import static rotp.ui.UserPreferences.menuLoadGame;
+import static rotp.ui.UserPreferences.menuStartup;
 import static rotp.ui.UserPreferences.showFlagFactor;
 import static rotp.ui.UserPreferences.showFleetFactor;
 import static rotp.ui.UserPreferences.showInfoFontRatio;
@@ -30,21 +32,23 @@ import rotp.ui.BaseText;
 import rotp.ui.util.AbstractOptionsUI;
 
 // modnar: add UI panel for modnar MOD game options, based on StartOptionsUI.java
-public class StartModViewOptionsUI extends AbstractOptionsUI {
+public class ModGlobalOptionsUI extends AbstractOptionsUI {
 	private static final long serialVersionUID = 1L;
-	public static final String guiTitleID = "SETTINGS_MOD_TITLE_VIEW";
+	public static final String guiTitleID = "SETTINGS_MOD_TITLE_GLOBAL";
 	// First column (left)
+	protected BaseText menuStartupText;
+	protected BaseText menuLoadGameText;
+	// Second column
 	protected BaseText showFleetFactorText;
 	protected BaseText showFlagFactorText;
 	protected BaseText showPathFactorText;
-	// Second column
+	// Third column
 	protected BaseText showNameMinFontText;
 	protected BaseText showInfoFontRatioText;
 	protected BaseText mapFontFactorText;
-	// Third column
 	// Fourth column
 
-	public StartModViewOptionsUI() {
+	public ModGlobalOptionsUI() {
 		super(guiTitleID);
 	}
 	
@@ -53,16 +57,19 @@ public class StartModViewOptionsUI extends AbstractOptionsUI {
 		// Complete this table... Et Voilà!
 		// For Mixed Setup keep "paintComponent" up to date
 		// First column (left)
+		btList.add(menuStartupText	= newBT()); paramList.add(menuStartup);
+		btList.add(menuLoadGameText	= newBT()); paramList.add(menuLoadGame);
+		endOfColumn();
+		// Second column
 		btList.add(showFleetFactorText	= newBT()); paramList.add(showFleetFactor);
 		btList.add(showFlagFactorText	= newBT()); paramList.add(showFlagFactor);
 		btList.add(showPathFactorText	= newBT()); paramList.add(showPathFactor);
 		endOfColumn();
-		// Second column
+		// Third column
 		btList.add(showNameMinFontText		= newBT()); paramList.add(showNameMinFont);
 		btList.add(showInfoFontRatioText	= newBT()); paramList.add(showInfoFontRatio);
 		btList.add(mapFontFactorText		= newBT()); paramList.add(mapFontFactor);
 		endOfColumn();
-		// Third column
 		// endOfColumn();
 		// Fourth column
 		// endOfColumn();

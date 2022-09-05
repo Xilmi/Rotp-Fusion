@@ -67,7 +67,7 @@ import rotp.ui.game.SaveGameUI;
 import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.game.SetupRaceUI;
 import rotp.ui.game.StartModBOptionsUI;
-import rotp.ui.game.StartModViewOptionsUI;
+import rotp.ui.game.ModGlobalOptionsUI;
 import rotp.ui.game.StartOptionsUI;
 import rotp.ui.game.StartModAOptionsUI; // modnar: add UI panel for modnar MOD game options
 import rotp.ui.history.HistoryUI;
@@ -234,7 +234,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     // BR: Second UI panel for MOD game options
     private final StartModBOptionsUI startModBOptionsUI = new StartModBOptionsUI();
     // BR: Display UI panel for MOD game options
-    private final StartModViewOptionsUI startModViewOptionsUI = new StartModViewOptionsUI();
+    private final ModGlobalOptionsUI startModViewOptionsUI = new ModGlobalOptionsUI();
 	// BR: Display UI panel for Player Race Customization
     private final PlayerRaceCustomizationUI playerRaceCustomizationUI = PlayerRaceCustomizationUI.instance();
     private final GameSettingsUI gameSettingsUI = new GameSettingsUI();
@@ -321,7 +321,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     // BR: Second UI panel for MOD game options
     public static StartModBOptionsUI startModBOptionsUI()    { return instance.startModBOptionsUI; }
     // BR: Display UI panel for MOD game options
-    public static StartModViewOptionsUI startModViewOptionsUI() { return instance.startModViewOptionsUI; }
+    public static ModGlobalOptionsUI startModViewOptionsUI() { return instance.startModViewOptionsUI; }
 	// BR: Display UI panel for Player Race Customization
     public static PlayerRaceCustomizationUI startPlayerRaceCustomizationUI() { return instance.playerRaceCustomizationUI; }
     public static GameSettingsUI gameSettingsUI()    { return instance.gameSettingsUI; }

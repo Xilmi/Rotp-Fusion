@@ -370,7 +370,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		g.setStroke(prev);
 		// BR: Display settings UI panel for MOD game options
 		// MOD settings button
-		String textModView = text("SETUP_BUTTON_MOD_VIEW_SETTINGS");
+		String textModView = text("SETUP_BUTTON_MOD_GLOBAL_SETTINGS");
 		int swModView = g.getFontMetrics().stringWidth(textModView);
 		int xModView = modViewSettingsBox.x+((modViewSettingsBox.width-swModView)/2);
 		int yModView = modViewSettingsBox.y+modViewSettingsBox.height-s8;
@@ -613,7 +613,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	// BR: Display UI panel for MOD game options
 	public void goToModViewOptions() {
 		buttonClick();
-		StartModViewOptionsUI modViewOptionsUI = RotPUI.startModViewOptionsUI();
+		ModGlobalOptionsUI modViewOptionsUI = RotPUI.startModViewOptionsUI();
 		modViewOptionsUI.open(this);
 		release();
 	}
