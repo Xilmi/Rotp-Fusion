@@ -172,7 +172,7 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
         int w1 = scaled(279);
 
         drawRaceIconBase(g, emp, s55, s25, s210, s210);
-        drawPlayerBaseInfo(g, emp, s260, s80, scaled(507), scaled(152));
+        drawPlayerBaseInfo(g, emp, s260, s80, s370, scaled(152));
         drawPlayerDiplomaticEvents(g, emp, x0, s245, w0, h-s245-s10);
         drawPlayerDiplomacyBureau(g, emp, x1, s10, w1, s200);
         drawPlayerCounterIntelligenceBureau(g, emp, x1, s215, w1, s215);
@@ -204,7 +204,7 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
         int w1 = scaled(279);
 
         drawRaceIconBase(g, emp, s55, s25, s210, s210);
-        drawAIBaseInfo(g, emp, s260, s80, scaled(507), scaled(152));
+        drawAIBaseInfo(g, emp, s260, s80, s370, scaled(152));
         drawRelationsMeter(g, emp, x0, s245, w0, s40);
         drawAIDiplomaticEvents(g, emp, x0, s295, w0, h-s295-s10);
         drawAIDiplomacyBureau(g, emp, x1, s10, w1, s135);
@@ -261,7 +261,7 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
         drawShadowedString(g, text("RACES_DIPLOMACY_CURRENT_TRADE"), 1, x0, y3, SystemPanel.blackText, textC);
         drawShadowedString(g, text("RACES_DIPLOMACY_TOTAL_TRADE"), 1, x0, y4, SystemPanel.blackText, textC);
 //        drawShadowedString(g, text("RACES_DIPLOMACY_ABILITY"), 1, x0, y5, SystemPanel.blackText, textC);
-        drawShowAbilitiesButton(g, x0-s10,y5-s15,s20,s23);
+        drawShowAbilitiesButton(g, x0-s10,y5-s15,s20,s22);
 
         g.setFont(narrowFont(20));
         g.setColor(SystemPanel.blackText);
@@ -283,16 +283,6 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
         s = text("RACES_DIPLOMACY_TRADE_AMT", str(amt));
         sw = g.getFontMetrics().stringWidth(s);
         drawString(g,s, x+w-s20-sw, y4);
-        
-        s = emp.description4();
-        sw = g.getFontMetrics().stringWidth(s);
-        if (s.length()>50) { // Modnar races have a too long description!
-            g.setFont(narrowFont(18));
-            if (s.length()>70)
-            	g.setFont(narrowFont(15));
-            sw = g.getFontMetrics().stringWidth(s);       	
-        }
-        drawString(g,s, x+w-s20-sw, y5);
     }
     private void drawAIBaseInfo(Graphics2D g, Empire emp, int x, int y, int w, int h) {
         g.setColor(RacesUI.darkBrown);
@@ -312,7 +302,7 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
         drawShadowedString(g, text("RACES_DIPLOMACY_CHARACTER"), 1, x0, y3, SystemPanel.blackText, textC);
         drawShadowedString(g, text("RACES_DIPLOMACY_STATUS"), 1, x0, y4, SystemPanel.blackText, textC);
 //        drawShadowedString(g, text("RACES_DIPLOMACY_ABILITY"), 1, x0, y5, SystemPanel.blackText, textC);
-        drawShowAbilitiesButton(g, x0-s10,y5-s15,s20,s23);
+        drawShowAbilitiesButton(g, x0-s10,y5-s15,s20,s22);
 
         g.setFont(narrowFont(20));
         g.setColor(SystemPanel.blackText);
@@ -342,15 +332,6 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
             int x1 = x+w-s20-offset+s5;
             parent.drawAllianceStars(g,x1,y4-s3,alliance.standing(player()),starW);
         }
-        s = emp.description4();
-        sw = g.getFontMetrics().stringWidth(s);
-        if (s.length()>50) { // Modnar races have a too long description!
-            g.setFont(narrowFont(18));
-            if (s.length()>70)
-            	g.setFont(narrowFont(15));
-            sw = g.getFontMetrics().stringWidth(s);       	
-        }
-        drawString(g,s, x+w-s20-offset-sw, y5);
     }
     private void drawRelationsMeter(Graphics2D g, Empire emp, int x, int y, int w, int h) {
         g.setColor(RacesUI.darkBrown);
