@@ -524,6 +524,13 @@ public class NewShipTemplate implements Base {
             default:
                 setOptimalWeapon(ai, d, d.availableSpace(), 4, needRange, true, false, needDefenses, topSpeed, avgECM, bestSHD, antiDote, true, avgHP, false);
         }
+        //All slots full - try to add additional stuff in the already used slots (if we have big weapons in slots 2-4 and small ones in 1, we might fit more into slot 1)
+        for (int i=0; i<maxWeapons(); i++)
+        {
+            ShipWeapon weapon = d.weapon(i);
+            while(d.availableSpace() > weapon.space(d))
+                d.wpnCount(i, d.wpnCount(i) + 1);
+        }
         return d;
     }
 ////////////////////////////////////////////////////
