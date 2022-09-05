@@ -150,7 +150,7 @@ public class AI implements Base { // BR: Tentative
                 break;
             case CRUEL:
             default:
-                general =        new rotp.model.ai.cruel.AIGeneral(empire);
+                general =        new rotp.model.ai.xilmi.AIGeneral(empire);
                 captain =        new rotp.model.ai.xilmi.AIShipCaptain(empire);
                 governor =       new rotp.model.ai.xilmi.AIGovernor(empire);
                 scientist =      new rotp.model.ai.xilmi.AIScientist(empire);

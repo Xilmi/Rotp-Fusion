@@ -1511,6 +1511,7 @@ public class AIDiplomat implements Base, Diplomat {
         }
         return everyoneMet;
     }
+    @Override
     public boolean readyForWar(EmpireView v, boolean considerBestVictim) {
         boolean warAllowed = true;
         if(empire.generalAI().additionalColonizersToBuild(false) > 0)
