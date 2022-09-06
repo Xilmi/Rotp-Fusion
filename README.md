@@ -22,6 +22,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
+2022.09.06 (BR)
+  - Added tools to load and save options.
+
 2022.09.05 (BR)
   - Profile Manager: Fixed Number of opponents being limited by previous smaller galaxies.
   - Renamed Mod View menu To Mod Global

@@ -19,12 +19,25 @@ import static rotp.ui.UserPreferences.minStarsPerEmpire;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
 
 import java.awt.Color;
+import java.beans.XMLEncoder;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.NotSerializableException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import rotp.mod.br.addOns.GalaxyOptions;
 import rotp.mod.br.profiles.Profiles; // BR:
@@ -103,6 +116,18 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         initOpponentRaces();
         randomizeColors();
         setDefaultOptionValues();
+    }
+    @Override public void saveOptions(String path, String fileName) {
+		File file = new File(path, fileName);
+	    try(ObjectOutputStream write= new ObjectOutputStream (new FileOutputStream(file))) {
+	        write.writeObject(this);
+	    }
+	    catch(NotSerializableException nse) {
+	    	nse.printStackTrace();
+	    }
+	    catch(IOException eio) {
+	    	System.err.println("newGameOptions.save -- IOException: "+ eio.toString());
+	    }
     }
     private void resetSelectedOpponentRaces() {
         for (int i=0;i<opponentRaces.length;i++)

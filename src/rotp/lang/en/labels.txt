@@ -1564,7 +1564,8 @@ SETTINGS_MOD_MAP_FONT_FACTOR             | Map Font Ratio: %1
 SETTINGS_MOD_MENU_STARTUP_DESC           | How should the menu be initialized on startup?
 SETTINGS_MOD_MENU_STARTUP                | Startup Initialization: %1
 SETTINGS_MOD_STARTUP_DEFAULT             | Default Values
-SETTINGS_MOD_STARTUP_LAST                | Last Values
+SETTINGS_MOD_STARTUP_USER                | User's Values
+SETTINGS_MOD_STARTUP_LAST                | Latest Values
 SETTINGS_MOD_STARTUP_VANILLA             | Old Ways
 SETTINGS_MOD_MENU_LOAD_GAME_DESC         | How should the menu be initialized when loading a game?
 SETTINGS_MOD_MENU_LOAD_GAME              | Menus on loading: %1

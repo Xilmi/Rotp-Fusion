@@ -325,7 +325,9 @@ public interface IGameOptions {
     public String selectedOpponentRace(int i);
     public void selectedOpponentRace(int i, String s);
 
-    default void copyForRestart(IGameOptions opt) { } // BR for Restart with new options
+    public void saveOptions(String path, String fileName); // BR:
+
+    default void copyForRestart(IGameOptions opt) { } // BR: for Restart with new options
     default void copyOptions(IGameOptions opt) { }
     default boolean immediateCouncilWin()    { return selectedCouncilWinOption().equals(COUNCIL_IMMEDIATE); }
     default boolean noGalacticCouncil()      { return selectedCouncilWinOption().equals(COUNCIL_NONE); }

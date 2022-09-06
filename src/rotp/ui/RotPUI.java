@@ -26,12 +26,23 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.NotSerializableException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.LinkedHashMap;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import rotp.Rotp;
 import rotp.mod.br.profiles.BR_Main;
@@ -304,8 +315,63 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
             createNewOptions();
         return newGameOptions;
     }
-    public static void createNewOptions()               { newGameOptions = new MOO1GameOptions(); }
-    public static void clearNewOptions()                { newGameOptions = null; }
+    private static void initOptionFile(String path, String fileName) {
+		MOO1GameOptions newOptions;
+    	newOptions = new MOO1GameOptions();
+    	newOptions.saveOptions(path, fileName);			
+		newGameOptions = newOptions;    	
+    }
+    private static void loadOptions(String path, String fileName) {
+		File file = new File(path, fileName);
+		if (file.exists()) {
+		    try(ObjectInputStream inFile = new ObjectInputStream(new FileInputStream(file)))
+		    {
+		    	newGameOptions = (MOO1GameOptions) inFile.readObject();
+		    }
+		    catch(ClassNotFoundException cnfe)
+		    {
+		    	System.err.println(file.getAbsolutePath() + " not valid.");
+		    	initOptionFile(path, fileName);
+				return;
+		    }
+		    catch(FileNotFoundException fnfe)
+		    {
+				System.err.println(file.getAbsolutePath() + " not found.");
+		    	initOptionFile(path, fileName);
+				return;
+		    }
+		    catch(IOException e)
+		    {
+		    	System.err.println(file.getAbsolutePath() + " not valid.");
+		    	initOptionFile(path, fileName);
+				return;
+		    }
+		    return;
+		} else {
+			System.err.println(file.getAbsolutePath() + " not found.");
+	    	initOptionFile(path, fileName);
+			return;
+		}
+    }
+    public static void createNewOptions() {
+    	System.out.println(UserPreferences.menuStartup.get());
+    	if (UserPreferences.menuStartup.get().equalsIgnoreCase("Default")) {
+    		newGameOptions = new MOO1GameOptions();
+    	}
+    	else if (UserPreferences.menuStartup.get().equalsIgnoreCase("Last")) {
+    		String path		= Rotp.jarPath();
+    		String fileName	= UserPreferences.LAST_OPTIONS_FILE;
+    		loadOptions(path, fileName);
+    	}
+    	else if (UserPreferences.menuStartup.get().equalsIgnoreCase("User")) {
+    		String path		= Rotp.jarPath();
+    		String fileName	= UserPreferences.USER_OPTIONS_FILE;
+    		loadOptions(path, fileName);
+    	}
+    	else // Vanilla
+    	newGameOptions = new MOO1GameOptions();
+    }
+    public static void clearNewOptions() { newGameOptions = null; }
 
     public void toggleAnimations() {
         if (playAnimations())

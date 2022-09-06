@@ -70,7 +70,9 @@ public class UserPreferences {
 	private static final String SENSITIVITY_MEDIUM = "GAME_SETTINGS_SENSITIVITY_MEDIUM";
 	private static final String SENSITIVITY_LOW = "GAME_SETTINGS_SENSITIVITY_LOW";
 
-	private static final String PREFERENCES_FILE = "Remnants.cfg";
+	private static final String PREFERENCES_FILE  = "Remnants.cfg";
+	public  static final String LAST_OPTIONS_FILE = "Last.options";
+	public  static final String USER_OPTIONS_FILE = "User.options";
 	private static final int MAX_BACKUP_TURNS = 20; // modnar: change max turns between backups to 20
 	private static final String keyFormat = "%-25s: "; // BR: from 20 to 25 for a better alignment
 
@@ -155,6 +157,7 @@ public class UserPreferences {
 	public static final ParamList menuStartup = new ParamList(MOD_UI, "MENU_STARTUP", "Last")
 			.put("Default",	MOD_UI + "STARTUP_DEFAULT")
 			.put("Last",	MOD_UI + "STARTUP_LAST")
+			.put("User",	MOD_UI + "STARTUP_USER")
 			.put("Vanilla",	MOD_UI + "STARTUP_VANILLA");
 	public static final ParamList menuLoadGame = new ParamList(MOD_UI, "MENU_LOAD_GAME", "LoadAll")
 			.put("LoadAll",	MOD_UI + "LOAD_GAME_UPDATE")
@@ -217,7 +220,7 @@ public class UserPreferences {
 			return;
 		}
 		if (guiTitleID.equalsIgnoreCase(ModGlobalOptionsUI.guiTitleID)) {
-			setModViewToDefault();
+			setModGlobalToDefault();
 			return;
 		}
 	}
@@ -291,7 +294,7 @@ public class UserPreferences {
 	/**
 	 * Second Mod GUI Default Button Action
 	 */
-	public static void setModViewToDefault() {
+	public static void setModGlobalToDefault() {
 		// Old settings
 		// New settings
 		for (AbstractParam<?> param : modGlobal) {
