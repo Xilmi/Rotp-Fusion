@@ -22,7 +22,7 @@ import rotp.ui.util.AbstractCRUI;
 public class PlayerRaceCustomizationUI extends AbstractCRUI {
 	private static final long serialVersionUID = 1L;
 	private static final PlayerRaceCustomizationUI instance = new PlayerRaceCustomizationUI();
-	private static final String guiTitleID = ROOT + "GUI_TITLE";
+	public  static final String guiTitleID = ROOT + "GUI_TITLE";
 	
 	public PlayerRaceCustomizationUI() {
 		super(guiTitleID);

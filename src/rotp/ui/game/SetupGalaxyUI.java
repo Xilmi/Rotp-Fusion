@@ -50,12 +50,19 @@ import rotp.ui.NoticeMessage;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
+import rotp.ui.util.AbstractOptionsUI;
 
 public final class SetupGalaxyUI  extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
 	private static final long serialVersionUID = 1L;
+	public  static final String guiTitleID	= "SETUP_GALAXY";
+	private static final String setUserKey	= AbstractOptionsUI.setUserKey;
+	private static final String saveUserKey	= AbstractOptionsUI.saveUserKey;
 	public static int MAX_DISPLAY_OPPS = 49;
 	BufferedImage backImg, playerRaceImg;
 	BufferedImage smBackImg;
+    private Rectangle defaultBox = new Rectangle();
+    private Rectangle userBox	 = new Rectangle();
+	private boolean ctrlPressed	 = false;
 	Rectangle backBox		= new Rectangle();
 	Rectangle restartBox	= new Rectangle(); // BR:
 	Rectangle startBox		= new Rectangle();
@@ -111,6 +118,34 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	private void release() {
 		backImg = null;
 		playerRaceImg = null;
+	}
+	private String userButtonKey() {
+		if (ctrlPressed)
+			return saveUserKey;
+		else
+			return setUserKey;			
+	}
+    private void setToDefault() {
+    	// TODO BR: setToDefault
+//        newGameOptions().setToDefault();
+//        init();
+//        repaint();
+    }
+	private void doUserBoxAction() {
+		if (ctrlPressed)
+			newGameOptions().setUserOptions(guiTitleID);
+		else
+			newGameOptions().saveUserOptions(guiTitleID);
+		// TODO BR: doUserBoxAction
+//		UserPreferences.setToDefault(guiTitleID);
+//		init();
+//		repaint();
+	}
+	private void checkCtrlKey(boolean pressed) {
+		if (pressed != ctrlPressed) {
+			ctrlPressed = pressed;
+			repaint();
+		}
 	}
 	@Override
 	public void paintComponent(Graphics g0) {
@@ -420,6 +455,44 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		g.drawRoundRect(restartBox.x, restartBox.y, restartBox.width, restartBox.height, cnr, cnr);
 		g.setStroke(prev);
 		
+        // BR: Default and User Buttons 
+        String text7 = text("SETTINGS_DEFAULT");
+        int sw7 = g.getFontMetrics().stringWidth(text7);
+        int smallButtonW = sw7+s30;
+        int y4 = restartBox.y;
+        int xSep = s15;
+        int smallButtonH = s30;
+        defaultBox.setBounds(backBox.x-smallButtonW-xSep, y4, smallButtonW, smallButtonH);
+		g.setPaint(GameUI.buttonLeftBackground());
+//        g.setColor(GameUI.buttonBackgroundColor());
+        g.fillRoundRect(defaultBox.x, defaultBox.y, smallButtonW, smallButtonH, cnr, cnr);
+        g.setFont(narrowFont(20));
+        int x7 = defaultBox.x+((defaultBox.width-sw7)/2);
+        int y7 = defaultBox.y+defaultBox.height-s8;
+        Color c7 = hoverBox == defaultBox ? Color.yellow : GameUI.borderBrightColor();
+        drawShadowedString(g, text7, 2, x7, y7, GameUI.borderDarkColor(), c7);
+        prev = g.getStroke();
+        g.setStroke(stroke1);
+        g.drawRoundRect(defaultBox.x, defaultBox.y, defaultBox.width, defaultBox.height, cnr, cnr);
+        g.setStroke(prev);
+
+        String text8 = text(userButtonKey());
+		int sw8 = g.getFontMetrics().stringWidth(text8);
+		smallButtonW = sw8+s30;
+		userBox.setBounds(defaultBox.x-smallButtonW-xSep, y4, smallButtonW, smallButtonH);
+		g.setPaint(GameUI.buttonLeftBackground());
+//		g.setColor(GameUI.buttonBackgroundColor());
+		g.fillRoundRect(userBox.x, userBox.y, smallButtonW, smallButtonH, cnr, cnr);
+		g.setFont(narrowFont(20));
+		int x8 = userBox.x+((userBox.width-sw8)/2);
+		int y8 = userBox.y+userBox.height-s8;
+		Color c8 = hoverBox == userBox ? Color.yellow : GameUI.borderBrightColor();
+		drawShadowedString(g, text8, 2, x8, y8, GameUI.borderDarkColor(), c8);
+		prev = g.getStroke();
+		g.setStroke(stroke1);
+		g.drawRoundRect(userBox.x, userBox.y, userBox.width, userBox.height, cnr, cnr);
+		g.setStroke(prev);
+
 		if (starting) {
 			NoticeMessage.setStatus(text("SETUP_CREATING_GALAXY"));
 			drawNotice(g, 30);
@@ -997,8 +1070,12 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	public String ambienceSoundKey() { 
 		return GameUI.AMBIENCE_KEY;
 	}
+	@Override public void keyReleased(KeyEvent e) {
+		checkCtrlKey(e.isControlDown());		
+	}
 	@Override
 	public void keyPressed(KeyEvent e) {
+		checkCtrlKey(e.isControlDown());		
 		int k = e.getKeyCode();
 		switch(k) {
 		case KeyEvent.VK_ESCAPE:
@@ -1046,6 +1123,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	public void mouseDragged(MouseEvent e) {  }
 	@Override
 	public void mouseMoved(MouseEvent e) {
+		checkCtrlKey(e.isControlDown());		
 		int x = e.getX();
 		int y = e.getY();
 		Shape prevHover = hoverBox;
@@ -1056,6 +1134,10 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			hoverBox = restartBox;
 		else if (backBox.contains(x,y))
 			hoverBox = backBox;
+        else if (defaultBox.contains(x,y))
+            hoverBox = defaultBox;
+        else if (userBox.contains(x,y))
+            hoverBox = userBox;
 		else if (settingsBox.contains(x,y))
 			hoverBox = settingsBox;
 		// modnar: add UI panel for modnar MOD game options
@@ -1073,13 +1155,13 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			hoverBox = shapeBoxR;
 		else if (shapeBox.contains(x,y))
 			hoverBox = shapeBox;
-	else if (mapOption1BoxL.contains(x,y))
+		else if (mapOption1BoxL.contains(x,y))
 			hoverBox = mapOption1BoxL;
 		else if (mapOption1BoxR.contains(x,y))
 			hoverBox = mapOption1BoxR;
 		else if (mapOption1Box.contains(x,y))
 			hoverBox = mapOption1Box;		
-	else if (mapOption2BoxL.contains(x,y))
+		else if (mapOption2BoxL.contains(x,y))
 			hoverBox = mapOption2BoxL;
 		else if (mapOption2BoxR.contains(x,y))
 			hoverBox = mapOption2BoxR;
@@ -1141,6 +1223,10 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		boolean up = !SwingUtilities.isRightMouseButton(e);
 		if (hoverBox == backBox)
 			goToRaceSetup();
+        else if (hoverBox == defaultBox)
+            setToDefault();
+        else if (hoverBox == userBox)
+			doUserBoxAction();
 		else if (hoverBox == settingsBox)
 			goToOptions();
 		// modnar: add UI panel for modnar MOD game options
@@ -1163,14 +1249,14 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			else prevGalaxyShape(true);
 		else if (hoverBox == shapeBoxR)
 			nextGalaxyShape(true);		
-	else if (hoverBox == mapOption1BoxL)
+		else if (hoverBox == mapOption1BoxL)
 			prevMapOption1(true);
 		else if (hoverBox == mapOption1Box)
 			if(up) nextMapOption1(true);
 			else prevMapOption1(true);
 		else if (hoverBox == mapOption1BoxR)
 			nextMapOption1(true);
-	else if (hoverBox == mapOption2BoxL)
+		else if (hoverBox == mapOption2BoxL)
 			prevMapOption2(true);
 		else if (hoverBox == mapOption2Box)
 			if(up) nextMapOption2(true);

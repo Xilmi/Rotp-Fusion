@@ -35,10 +35,14 @@ import rotp.mod.br.profiles.Profiles;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.main.SystemPanel;
+import rotp.ui.util.AbstractOptionsUI;
 
 public class StartOptionsUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
     private static final long serialVersionUID = 1L;
     private static final Color backgroundHaze = new Color(0,0,0,160);
+	public  static final String guiTitleID	= "SETTINGS_TITLE";
+	private static final String setUserKey	= AbstractOptionsUI.setUserKey;
+	private static final String saveUserKey	= AbstractOptionsUI.saveUserKey;
     
     public static final Color lightBrown = new Color(178,124,87);
     public static final Color brown = new Color(141,101,76);
@@ -48,6 +52,8 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
     Rectangle hoverBox;
     Rectangle okBox = new Rectangle();
     Rectangle defaultBox = new Rectangle();
+    private Rectangle userBox	= new Rectangle();
+	private boolean ctrlPressed	= false;
     BasePanel parent;
     BaseText galaxyAgeText;
     BaseText starDensityText;
@@ -120,6 +126,28 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
         init();
         repaint();
     }
+	private String userButtonKey() {
+		if (ctrlPressed)
+			return saveUserKey;
+		else
+			return setUserKey;			
+	}
+	private void doUserBoxAction() {
+		if (ctrlPressed)
+			newGameOptions().setUserOptions(guiTitleID);
+		else
+			newGameOptions().saveUserOptions(guiTitleID);
+		// TODO BR: doUserBoxAction
+//		UserPreferences.setToDefault(guiTitleID);
+//		init();
+//		repaint();
+	}
+	private void checkCtrlKey(boolean pressed) {
+		if (pressed != ctrlPressed) {
+			ctrlPressed = pressed;
+			repaint();
+		}
+	}
     @Override
     public void paintComponent(Graphics g0) {
         super.paintComponent(g0);
@@ -144,7 +172,7 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
         int h1 = h-topM-s45;
         g.setPaint(GameUI.settingsSetupBackground(w));
         g.fillRect(leftM, topM, w1, h1);
-        String title = text("SETTINGS_TITLE");
+        String title = text(guiTitleID);
         g.setFont(narrowFont(30));
         int sw = g.getFontMetrics().stringWidth(title);
         int x1 = leftM+((w1-sw)/numColumns);
@@ -467,6 +495,22 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
         g.setStroke(stroke1);
         g.drawRoundRect(defaultBox.x, defaultBox.y, defaultBox.width, defaultBox.height, cnr, cnr);
         g.setStroke(prev);
+
+        String text8 = text(userButtonKey());
+		int sw8 = g.getFontMetrics().stringWidth(text8);
+		smallButtonW = sw8+s30;
+		userBox.setBounds(defaultBox.x-smallButtonW-s30, y4, smallButtonW, smallButtonH);
+		g.setColor(GameUI.buttonBackgroundColor());
+		g.fillRoundRect(userBox.x, userBox.y, smallButtonW, smallButtonH, cnr, cnr);
+		g.setFont(narrowFont(20));
+		int x8 = userBox.x+((userBox.width-sw8)/2);
+		int y8 = userBox.y+userBox.height-s8;
+		Color c8 = hoverBox == userBox ? Color.yellow : GameUI.borderBrightColor();
+		drawShadowedString(g, text8, 2, x8, y8, GameUI.borderDarkColor(), c8);
+		prev = g.getStroke();
+		g.setStroke(stroke1);
+		g.drawRoundRect(userBox.x, userBox.y, userBox.width, userBox.height, cnr, cnr);
+		g.setStroke(prev);
     }
     private String galaxyAgeStr() {
         String opt = text(newGameOptions().selectedGalaxyAge());
@@ -610,8 +654,12 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
         close();
         rotp.ui.RotPUI.instance().selectGamePanel();
     } // \ BR:
+	@Override public void keyReleased(KeyEvent e) {
+		checkCtrlKey(e.isControlDown());		
+	}
     @Override
     public void keyPressed(KeyEvent e) {
+		checkCtrlKey(e.isControlDown());		
         int k = e.getKeyCode(); // BR:
         switch(k) {
             case KeyEvent.VK_ESCAPE:
@@ -670,6 +718,7 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
     public void mouseDragged(MouseEvent e) {  }
     @Override
     public void mouseMoved(MouseEvent e) {
+		checkCtrlKey(e.isControlDown());		
         int x = e.getX();
         int y = e.getY();
         Rectangle prevHover = hoverBox;
@@ -708,6 +757,8 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
             hoverBox = okBox;
         else if (defaultBox.contains(x,y))
             hoverBox = defaultBox;
+        else if (userBox.contains(x,y))
+            hoverBox = userBox;
 		
         if (hoverBox != prevHover) {
             if (prevHover == galaxyAgeText.bounds())
@@ -792,6 +843,8 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
             close();
         else if (hoverBox == defaultBox)
             setToDefault();
+        else if (hoverBox == userBox)
+			doUserBoxAction();
     }
     @Override
     public void mouseEntered(MouseEvent e) { }

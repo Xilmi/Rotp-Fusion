@@ -45,7 +45,9 @@ import rotp.ui.races.RacesUI;
 // modnar: add UI panel for modnar MOD game options, based on StartOptionsUI.java
 public abstract class AbstractCRUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
 	private static final long serialVersionUID	= 1L;
-	private static final Color backgroundHaze	= new Color(0,0,0,160);
+	private static final String setUserKey		= AbstractOptionsUI.setUserKey;
+	private static final String saveUserKey		= AbstractOptionsUI.saveUserKey;
+	private static final Color  backgroundHaze	= new Color(0,0,0,160);
 	private static final String totalCostKey	= "CUSTOM_RACE_GUI_COST";
 	private static final String exitKey			= "SETTINGS_EXIT";
 	private static final String selectKey		= "CUSTOM_RACE_GUI_SELECT";
@@ -130,6 +132,8 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 	private Rectangle okBox 	= new Rectangle();
 	private Rectangle selectBox	= new Rectangle();
 	private Rectangle randomBox	= new Rectangle();
+    private Rectangle userBox	= new Rectangle();
+	private boolean ctrlPressed	= false;
 	private static BaseText totalCostText;
 	private RacesUI  raceUI;
 	private boolean  showOnly = false;
@@ -366,6 +370,28 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 			}
 		}
 	}
+	private String userButtonKey() {
+		if (ctrlPressed)
+			return saveUserKey;
+		else
+			return setUserKey;			
+	}
+	private void doUserBoxAction() {
+		if (ctrlPressed)
+			newGameOptions().setUserOptions(guiTitleID);
+		else
+			newGameOptions().saveUserOptions(guiTitleID);
+		// TODO BR: doUserBoxAction
+//		UserPreferences.setToDefault(guiTitleID);
+//		init();
+//		repaint();
+	}
+	private void checkCtrlKey(boolean pressed) {
+		if (pressed != ctrlPressed) {
+			ctrlPressed = pressed;
+			repaint();
+		}
+	}
 	// ========== Overriders ==========
 	//
 	@Override public void paintComponent(Graphics g0) {
@@ -464,6 +490,25 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		g.drawRoundRect(selectBox.x, selectBox.y, selectBox.width, selectBox.height, cnr, cnr);
 		g.setStroke(prev);
 
+		// User preference Button
+        String text8 = text(userButtonKey());
+		int sw8 = g.getFontMetrics().stringWidth(text8);
+		int smallButtonW = sw8+s30;
+		int y4 = yButton;
+		int smallButtonH = buttonH;
+		userBox.setBounds(selectBox.x-smallButtonW-buttonPad, y4, smallButtonW, smallButtonH);
+		g.setColor(GameUI.buttonBackgroundColor());
+		g.fillRoundRect(userBox.x, userBox.y, smallButtonW, smallButtonH, cnr, cnr);
+		g.setFont(narrowFont(20));
+		int x8 = userBox.x+((userBox.width-sw8)/2);
+		int y8 = userBox.y+userBox.height-s8;
+		Color c8 = hoverBox == userBox ? Color.yellow : GameUI.borderBrightColor();
+		drawShadowedString(g, text8, 2, x8, y8, GameUI.borderDarkColor(), c8);
+		prev = g.getStroke();
+		g.setStroke(stroke1);
+		g.drawRoundRect(userBox.x, userBox.y, userBox.width, userBox.height, cnr, cnr);
+		g.setStroke(prev);
+
 		// Randomize Button
 		text = text(randomKey);
 		xButton = leftM + buttonPad;
@@ -493,7 +538,11 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 			yLine -= labelH;
 	    }
 	}
+	@Override public void keyReleased(KeyEvent e) {
+		checkCtrlKey(e.isControlDown());		
+	}
 	@Override public void keyPressed(KeyEvent e) {
+		checkCtrlKey(e.isControlDown());		
 		int k = e.getKeyCode();  // BR:
 		switch(k) {
 			case KeyEvent.VK_ESCAPE:
@@ -518,12 +567,15 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 	}
 	@Override public void mouseDragged(MouseEvent e) {  }
 	@Override public void mouseMoved(MouseEvent e) {
+		checkCtrlKey(e.isControlDown());		
 		int x = e.getX();
 		int y = e.getY();
 		Rectangle prevHover = hoverBox;
 		hoverBox = null;
 		if (okBox.contains(x,y))
 			hoverBox = okBox;
+		else if (userBox.contains(x,y))
+			hoverBox = userBox;
 
 		if (!showOnly) {
 			if (selectBox.contains(x,y))
@@ -618,7 +670,9 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 			selectRace();
 			return;
 		}
-		if (hoverBox == randomBox)
+		if (hoverBox == userBox)
+			doUserBoxAction();
+		else if (hoverBox == randomBox)
 			randomizeRace();			
 		boolean up	= !SwingUtilities.isRightMouseButton(e); // BR: added bidirectional
 		boolean mid	= !SwingUtilities.isMiddleMouseButton(e); // BR: added reset click

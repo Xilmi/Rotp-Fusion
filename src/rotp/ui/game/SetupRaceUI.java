@@ -49,9 +49,13 @@ import rotp.model.ships.ShipLibrary;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.main.SystemPanel;
+import rotp.ui.util.AbstractOptionsUI;
 
 public final class SetupRaceUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
     private static final long serialVersionUID = 1L;
+	public  static final String guiTitleID	= "SETUP_SELECT_RACE";
+	private static final String setUserKey	= AbstractOptionsUI.setUserKey;
+	private static final String saveUserKey	= AbstractOptionsUI.saveUserKey;
     public static final int MAX_RACES  = 16; // modnar: increase MAX_RACES to add new Races
     static final int MAX_COLORS = 16; // modnar: add new colors
     static final int MAX_SHIP   = ShipLibrary.designsPerSize; // BR:
@@ -66,6 +70,9 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     Rectangle nextBox = new Rectangle();
     Rectangle leaderBox = new Rectangle();
     Rectangle homeWorldBox = new Rectangle();
+    private Rectangle defaultBox = new Rectangle();
+    private Rectangle userBox	 = new Rectangle();
+	private boolean ctrlPressed	 = false;
     private Rectangle playerRaceSettingBox = new Rectangle(); // BR: Player Race Customization
     private Rectangle checkBox = new Rectangle(); // BR: Player Race Customization
     private final Color checkBoxC = new Color(178,124,87);
@@ -116,7 +123,35 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         newGameOptions().copyOptions(options());
         raceChanged();
     }
-    @Override
+	private String userButtonKey() {
+		if (ctrlPressed)
+			return saveUserKey;
+		else
+			return setUserKey;			
+	}
+    private void setToDefault() {
+    	// TODO BR: setToDefault
+//        newGameOptions().setToDefault();
+//        init();
+//        repaint();
+    }
+	private void doUserBoxAction() {
+		if (ctrlPressed)
+			newGameOptions().setUserOptions(guiTitleID);
+		else
+			newGameOptions().saveUserOptions(guiTitleID);
+		// TODO BR: doUserBoxAction
+//		UserPreferences.setToDefault(guiTitleID);
+//		init();
+//		repaint();
+	}
+	private void checkCtrlKey(boolean pressed) {
+		if (pressed != ctrlPressed) {
+			ctrlPressed = pressed;
+			repaint();
+		}
+	}
+	@Override
     public void paintComponent(Graphics g0) {
         super.paintComponent(g0);
         Graphics2D g = (Graphics2D) g0;
@@ -400,7 +435,42 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         }
         g.setStroke(prev);
 
-    }
+        // BR: Default and User Buttons 
+        String text7 = text("SETTINGS_DEFAULT");
+        int sw7 = g.getFontMetrics().stringWidth(text7);
+        int smallButtonW = sw7+s30;
+        int smallButtonH = s30;
+        y4 = cancelBox.y + s15;
+        int xSep = s15;
+        defaultBox.setBounds(cancelBox.x-smallButtonW-xSep, y4, smallButtonW, smallButtonH);
+		g.setPaint(GameUI.buttonLeftBackground());
+        g.fillRoundRect(defaultBox.x, defaultBox.y, smallButtonW, smallButtonH, cnr, cnr);
+        g.setFont(narrowFont(20));
+        int x7 = defaultBox.x+((defaultBox.width-sw7)/2);
+        int y7 = defaultBox.y+defaultBox.height-s8;
+        Color c7 = hoverBox == defaultBox ? Color.yellow : GameUI.borderBrightColor();
+        drawShadowedString(g, text7, 2, x7, y7, GameUI.borderDarkColor(), c7);
+        prev = g.getStroke();
+        g.setStroke(stroke1);
+        g.drawRoundRect(defaultBox.x, defaultBox.y, defaultBox.width, defaultBox.height, cnr, cnr);
+        g.setStroke(prev);
+
+        String text8 = text(userButtonKey());
+		int sw8 = g.getFontMetrics().stringWidth(text8);
+		smallButtonW = sw8+s30;
+		userBox.setBounds(defaultBox.x-smallButtonW-xSep, y4, smallButtonW, smallButtonH);
+		g.setPaint(GameUI.buttonLeftBackground());
+		g.fillRoundRect(userBox.x, userBox.y, smallButtonW, smallButtonH, cnr, cnr);
+		g.setFont(narrowFont(20));
+		int x8 = userBox.x+((userBox.width-sw8)/2);
+		int y8 = userBox.y+userBox.height-s8;
+		Color c8 = hoverBox == userBox ? Color.yellow : GameUI.borderBrightColor();
+		drawShadowedString(g, text8, 2, x8, y8, GameUI.borderDarkColor(), c8);
+		prev = g.getStroke();
+		g.setStroke(stroke1);
+		g.drawRoundRect(userBox.x, userBox.y, userBox.width, userBox.height, cnr, cnr);
+		g.setStroke(prev);
+	}
     public void goToMainMenu() {
         buttonClick();
         RotPUI.instance().selectGamePanel();
@@ -536,7 +606,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         g.drawImage(back, 0, 0, w, h, 0, 0, imgW, imgH, this);
 
         // draw title
-        String title = text("SETUP_SELECT_RACE");
+        String title = text(guiTitleID);
         g.setFont(narrowFont(50));
         int sw = g.getFontMetrics().stringWidth(title);
         int x0 = (w - sw) / 2;
@@ -730,8 +800,12 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     public String ambienceSoundKey() { 
         return GameUI.AMBIENCE_KEY;
     }
+	@Override public void keyReleased(KeyEvent e) {
+		checkCtrlKey(e.isControlDown());		
+	}
     @Override
     public void keyPressed(KeyEvent e) {
+		checkCtrlKey(e.isControlDown());		
         int k = e.getKeyCode();
         switch(k) {
             case KeyEvent.VK_M: // BR: "M" = Go to Main Menu
@@ -761,6 +835,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     public void mouseDragged(MouseEvent e) {  }
     @Override
     public void mouseMoved(MouseEvent e) {
+		checkCtrlKey(e.isControlDown());		
         int x = e.getX();
         int y = e.getY();
         Rectangle prevHover = hoverBox;
@@ -782,6 +857,10 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
             hoverBox = playerRaceSettingBox;
         else if (checkBox.contains(x,y))
             hoverBox = checkBox;
+        else if (defaultBox.contains(x,y))
+            hoverBox = defaultBox;
+        else if (userBox.contains(x,y))
+            hoverBox = userBox;
         else {
             for (int i=0;i<raceBox.length;i++) {
                 if (raceBox[i].contains(x,y)) {
@@ -814,6 +893,10 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
             goToMainMenu();
         else if (hoverBox == nextBox)
             goToGalaxySetup();
+        else if (hoverBox == defaultBox)
+            setToDefault();
+        else if (hoverBox == userBox)
+			doUserBoxAction();
         // BR: Player Race customization
         else if (hoverBox == playerRaceSettingBox)
             goToPlayerRaceCustomization();

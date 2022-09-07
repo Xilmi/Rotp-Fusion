@@ -43,8 +43,8 @@ import rotp.ui.main.SystemPanel;
 public abstract class AbstractOptionsUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
 	private static final long serialVersionUID = 1L;
 	protected static final Color backgroundHaze = new Color(0,0,0,160);
-	private static final String setUserKey	= "SETTINGS_USER_SET";
-	private static final String saveUserKey	= "SETTINGS_USER_SAVE";
+	public    static final String setUserKey	= "SETTINGS_USER_SET";
+	public    static final String saveUserKey	= "SETTINGS_USER_SAVE";
 	private final String guiTitleID;
 	
 	protected Font descFont    = narrowFont(15);
@@ -164,7 +164,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		else
 			return setUserKey;			
 	}
-	private void doUserBoxAction(boolean ctrlPressed) {
+	private void doUserBoxAction() {
 		if (ctrlPressed)
 			newGameOptions().setUserOptions(guiTitleID);
 		else
@@ -309,7 +309,6 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		g.setStroke(stroke1);
 		g.drawRoundRect(userBox.x, userBox.y, userBox.width, userBox.height, cnr, cnr);
 		g.setStroke(prev);
-
 	}
 	@Override public void keyReleased(KeyEvent e) {
 		checkCtrlKey(e.isControlDown());		
@@ -339,9 +338,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 				return;
 		}
 	}
-	@Override public void mouseDragged(MouseEvent e) {
-		checkCtrlKey(e.isControlDown());
-	}
+	@Override public void mouseDragged(MouseEvent e) {}
 	@Override public void mouseMoved(MouseEvent e) {
 		checkCtrlKey(e.isControlDown());
 		int x = e.getX();
@@ -377,12 +374,8 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 			if (hoverBox != null)  repaint(hoverBox);
 		}
 	}
-	@Override public void mouseClicked(MouseEvent e) {
-		checkCtrlKey(e.isControlDown());
-	}
-	@Override public void mousePressed(MouseEvent e) {
-		checkCtrlKey(e.isControlDown());
-	}
+	@Override public void mouseClicked(MouseEvent e) {}
+	@Override public void mousePressed(MouseEvent e) {}
 	@Override public void mouseReleased(MouseEvent e) {
 		checkCtrlKey(e.isControlDown());
 		if (e.getButton() > 3)
@@ -398,22 +391,21 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		else if (hoverBox == defaultBox)
 			setToDefault();
 		else if (hoverBox == userBox)
-			doUserBoxAction(ctrlPressed);
+			doUserBoxAction();
 	}
-	@Override public void mouseEntered(MouseEvent e) {
-		checkCtrlKey(e.isControlDown());
-	}
+	@Override public void mouseEntered(MouseEvent e) {}
 	@Override public void mouseExited(MouseEvent e) {
-		checkCtrlKey(e.isControlDown());
+//		checkCtrlKey(e.isControlDown());
 		if (hoverBox != null) {
 			hoverBox = null;
 			repaint();
 		}
 	}
 	@Override public void mouseWheelMoved(MouseWheelEvent e) {
+		checkCtrlKey(e.isControlDown());
 		// modnar: mouse scroll for custom difficulty, with Shift/Ctrl modifiers
 		boolean shiftPressed = e.isShiftDown(); // BR: updated deprecated method
-		boolean ctrlPressed = e.isControlDown();
+//		boolean ctrlPressed = e.isControlDown();
 		boolean up = e.getWheelRotation() < 0;
 		mouseCommon(up, false, shiftPressed, ctrlPressed, null, e);
 	}
