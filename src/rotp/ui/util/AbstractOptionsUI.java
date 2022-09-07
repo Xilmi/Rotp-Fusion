@@ -43,6 +43,8 @@ import rotp.ui.main.SystemPanel;
 public abstract class AbstractOptionsUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
 	private static final long serialVersionUID = 1L;
 	protected static final Color backgroundHaze = new Color(0,0,0,160);
+	private static final String setUserKey	= "SETTINGS_USER_SET";
+	private static final String saveUserKey	= "SETTINGS_USER_SAVE";
 	private final String guiTitleID;
 	
 	protected Font descFont    = narrowFont(15);
@@ -66,7 +68,9 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	protected Rectangle hoverBox;
 	protected Rectangle okBox 		= new Rectangle();
 	protected Rectangle defaultBox	= new Rectangle();
+	protected Rectangle userBox		= new Rectangle();
 	protected BasePanel parent;
+	private   boolean ctrlPressed	= false;
 	
 	// ========== Constructors and initializers ==========
 	//
@@ -153,6 +157,28 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		UserPreferences.setToDefault(guiTitleID);
 		init();
 		repaint();
+	}
+	private String userButtonKey() {
+		if (ctrlPressed)
+			return saveUserKey;
+		else
+			return setUserKey;			
+	}
+	private void doUserBoxAction(boolean ctrlPressed) {
+		if (ctrlPressed)
+			newGameOptions().setUserOptions(guiTitleID);
+		else
+			newGameOptions().saveUserOptions(guiTitleID);
+		// TODO BR: doUserBoxAction
+//		UserPreferences.setToDefault(guiTitleID);
+//		init();
+//		repaint();
+	}
+	private void checkCtrlKey(boolean pressed) {
+		if (pressed != ctrlPressed) {
+			ctrlPressed = pressed;
+			repaint();
+		}
 	}
 	protected void paintSetting(Graphics2D g, BaseText txt, String desc) {
 		g.setColor(SystemPanel.blackText);
@@ -267,8 +293,29 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		g.setStroke(stroke1);
 		g.drawRoundRect(defaultBox.x, defaultBox.y, defaultBox.width, defaultBox.height, cnr, cnr);
 		g.setStroke(prev);
+
+		String text8 = text(userButtonKey());
+		int sw8 = g.getFontMetrics().stringWidth(text8);
+		smallButtonW = sw8+s30;
+		userBox.setBounds(defaultBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
+		g.setColor(GameUI.buttonBackgroundColor());
+		g.fillRoundRect(userBox.x, userBox.y, smallButtonW, smallButtonH, cnr, cnr);
+		g.setFont(narrowFont(20));
+		int x8 = userBox.x+((userBox.width-sw8)/2);
+		int y8 = userBox.y+userBox.height-s8;
+		Color c8 = hoverBox == userBox ? Color.yellow : GameUI.borderBrightColor();
+		drawShadowedString(g, text8, 2, x8, y8, GameUI.borderDarkColor(), c8);
+		prev = g.getStroke();
+		g.setStroke(stroke1);
+		g.drawRoundRect(userBox.x, userBox.y, userBox.width, userBox.height, cnr, cnr);
+		g.setStroke(prev);
+
+	}
+	@Override public void keyReleased(KeyEvent e) {
+		checkCtrlKey(e.isControlDown());		
 	}
 	@Override public void keyPressed(KeyEvent e) {
+		checkCtrlKey(e.isControlDown());
 		int k = e.getKeyCode();  // BR:
 		switch(k) {
 			case KeyEvent.VK_ESCAPE:
@@ -292,8 +339,11 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 				return;
 		}
 	}
-	@Override public void mouseDragged(MouseEvent e) {  }
+	@Override public void mouseDragged(MouseEvent e) {
+		checkCtrlKey(e.isControlDown());
+	}
 	@Override public void mouseMoved(MouseEvent e) {
+		checkCtrlKey(e.isControlDown());
 		int x = e.getX();
 		int y = e.getY();
 		Rectangle prevHover = hoverBox;
@@ -302,6 +352,8 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 			hoverBox = okBox;
 		else if (defaultBox.contains(x,y))
 			hoverBox = defaultBox;
+		else if (userBox.contains(x,y))
+			hoverBox = userBox;
 		else for (BaseText txt : btList) {
 			if (txt.contains(x,y)) {
 				hoverBox = txt.bounds();
@@ -325,9 +377,14 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 			if (hoverBox != null)  repaint(hoverBox);
 		}
 	}
-	@Override public void mouseClicked(MouseEvent e) { }
-	@Override public void mousePressed(MouseEvent e) { }
+	@Override public void mouseClicked(MouseEvent e) {
+		checkCtrlKey(e.isControlDown());
+	}
+	@Override public void mousePressed(MouseEvent e) {
+		checkCtrlKey(e.isControlDown());
+	}
 	@Override public void mouseReleased(MouseEvent e) {
+		checkCtrlKey(e.isControlDown());
 		if (e.getButton() > 3)
 			return;
 		if (hoverBox == null)
@@ -335,15 +392,19 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		boolean up	= !SwingUtilities.isRightMouseButton(e); // BR: added bidirectional
 		boolean mid	= !SwingUtilities.isMiddleMouseButton(e); // BR: added reset click
 		boolean shiftPressed = e.isShiftDown();
-		boolean ctrlPressed = e.isControlDown();
 		mouseCommon(up, mid, shiftPressed, ctrlPressed, e, null);
 		if (hoverBox == okBox)
 			close();
 		else if (hoverBox == defaultBox)
 			setToDefault();
+		else if (hoverBox == userBox)
+			doUserBoxAction(ctrlPressed);
 	}
-	@Override public void mouseEntered(MouseEvent e) { }
+	@Override public void mouseEntered(MouseEvent e) {
+		checkCtrlKey(e.isControlDown());
+	}
 	@Override public void mouseExited(MouseEvent e) {
+		checkCtrlKey(e.isControlDown());
 		if (hoverBox != null) {
 			hoverBox = null;
 			repaint();

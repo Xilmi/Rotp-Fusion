@@ -325,6 +325,8 @@ public interface IGameOptions {
     public String selectedOpponentRace(int i);
     public void selectedOpponentRace(int i, String s);
 
+    public void setUserOptions(String gui); // BR:
+    public void saveUserOptions(String gui); // BR:
     public void saveOptions(String path, String fileName); // BR:
 
     default void copyForRestart(IGameOptions opt) { } // BR: for Restart with new options

@@ -19,16 +19,14 @@ import static rotp.ui.UserPreferences.minStarsPerEmpire;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
 
 import java.awt.Color;
-import java.beans.XMLEncoder;
-import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.NotSerializableException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,9 +34,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
+import rotp.Rotp;
 import rotp.mod.br.addOns.GalaxyOptions;
 import rotp.mod.br.profiles.Profiles; // BR:
 import rotp.model.ai.AI;
@@ -65,8 +61,11 @@ import rotp.model.galaxy.StarType;
 import rotp.model.planet.Planet;
 import rotp.model.planet.PlanetType;
 import rotp.model.tech.TechEngineWarp;
+import rotp.ui.BaseText;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.SetupGalaxyUI;
+import rotp.ui.game.StartModAOptionsUI;
+import rotp.ui.game.StartModBOptionsUI;
 import rotp.util.Base;
 
 public class MOO1GameOptions implements Base, IGameOptions, Serializable {
@@ -75,38 +74,79 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private final String[] opponentRaces = new String[MAX_OPPONENTS];
     private final List<Integer> colors = new ArrayList<>();
     private final List<Color> empireColors = new ArrayList<>();
+
+    // Race UI
     private final NewPlayer player = new NewPlayer();
 
+    // GalaxyUI
     private String selectedGalaxySize;
     private String selectedGalaxyShape;
     private String selectedGalaxyShapeOption1;
     private String selectedGalaxyShapeOption2;
-    
-    private String selectedGalaxyAge;
-	// modnar: random tech start
-    private boolean randomTechStart = UserPreferences.randomTechStart();
     private String selectedGameDifficulty;
+    private int selectedNumberOpponents;
+    private String selectedStarDensityOption;
+    private String selectedOpponentAIOption;
+    private final String[] specificOpponentAIOption = new String[MAX_OPPONENTS+1];
+
+    @SuppressWarnings("unused")
+	private boolean communityAI = false;  // unused
+    @SuppressWarnings("unused")
+	private boolean disableColonizePrompt = false; // unused
+   
+    // Advanced Options UI
+    private String selectedGalaxyAge;
     private String selectedResearchRate;
     private String selectedTechTradeOption;
     private String selectedRandomEventOption;
     private String selectedWarpSpeedOption;
     private String selectedNebulaeOption;
     private String selectedCouncilWinOption;
-    private int selectedNumberOpponents;
-    private boolean communityAI = false;  // unused
     private boolean disableRandomEvents = false;
-    private boolean disableColonizePrompt = false; // unused
-    private String selectedStarDensityOption;
     private String selectedPlanetQualityOption;
     private String selectedTerraformingOption;
     private String selectedFuelRangeOption;
     private String selectedRandomizeAIOption;
     private String selectedAIHostilityOption;
     private String selectedColonizingOption;
-    private String selectedOpponentAIOption;
-    private final String[] specificOpponentAIOption = new String[MAX_OPPONENTS+1];
     private String selectedAutoplayOption;
     
+    // Mod A Option UI
+    private String selectedArtifactHomeworld;
+    private String selectedFertileHomeworld;
+    private String selectedRichHomeworld;
+    private String selectedUltraRichHomeworld;
+    private String selectedBattleScout;
+    private String selectedCompanionWorlds;
+    private boolean selectedRandomTechStart = UserPreferences.randomTechStart();
+    private String selectedRetreatRestrictions;
+    private String selectedRetreatRestrictionTurns;
+    private String selectedCustomDifficulty;
+    private String selectedDynamicDifficulty;
+    private String selectedMissileSizeModifier;
+    private String selectedChallengeMode;
+
+    // Mod B Option UI
+	private String selectedMaximizeSpacing;
+	private String selectedSpacingLimit;
+	private String selectedMinStarsPerEmpire;
+	private String selectedPrefStarsPerEmpire;
+	private String selectedRandomAlienRacesTargetMax;
+	private String selectedRandomAlienRacesTargetMin;
+	private String selectedRandomAlienRaces;
+	private String selectedRandomAlienRacesMax;
+	private String selectedRandomAlienRacesMin;
+	private String selectedRandomAlienRacesSmoothEdges;
+	private String selectedTechIrradiated;
+	private String selectedTechCloaking;
+	private String selectedTechStargate;
+	private String selectedTechHyperspace;
+	private String selectedTechIndustry2;
+	private String selectedTechThorium;
+	private String selectedTechTransport;
+	private String selectedLoadWithNewOptions;
+	private String selectedEventsStartTurn;
+
     private transient GalaxyShape galaxyShape;
 
     public MOO1GameOptions() {
@@ -116,6 +156,71 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         initOpponentRaces();
         randomizeColors();
         setDefaultOptionValues();
+    }
+    static MOO1GameOptions initOptionFile(String path, String fileName) {
+		MOO1GameOptions newOptions;
+    	newOptions = new MOO1GameOptions();
+    	newOptions.saveOptions(path, fileName);			
+		return newOptions;    	
+    }
+    public static MOO1GameOptions loadOptions(String path, String fileName) {
+    	MOO1GameOptions options;
+		File file = new File(path, fileName);
+		if (file.exists()) {
+		    try(ObjectInputStream inFile = new ObjectInputStream(new FileInputStream(file)))
+		    {
+		    	options = (MOO1GameOptions) inFile.readObject();
+		    }
+		    catch(ClassNotFoundException cnfe)
+		    {
+		    	System.err.println(file.getAbsolutePath() + " not valid.");
+		    	options = initOptionFile(path, fileName);
+				return options;
+		    }
+		    catch(FileNotFoundException fnfe)
+		    {
+				System.err.println(file.getAbsolutePath() + " not found.");
+				options = initOptionFile(path, fileName);
+				return options;
+		    }
+		    catch(IOException e)
+		    {
+		    	System.err.println(file.getAbsolutePath() + " not valid.");
+		    	options = initOptionFile(path, fileName);
+				return options;
+		    }
+		    return options;
+		} else {
+			System.err.println(file.getAbsolutePath() + " not found.");
+			options = initOptionFile(path, fileName);
+			return options;
+		}
+    }
+    @Override public void setUserOptions(String gui) {
+		String path		= Rotp.jarPath();
+		String fileName	= UserPreferences.USER_OPTIONS_FILE;
+		MOO1GameOptions userOptions = loadOptions(path, fileName);
+		
+		switch (gui) {
+		case StartModAOptionsUI.guiTitleID:
+			
+			break;
+		case StartModBOptionsUI.guiTitleID:
+			break;
+		}
+
+    }
+    @Override public void saveUserOptions(String gui) {
+		String path		= Rotp.jarPath();
+		String fileName	= UserPreferences.USER_OPTIONS_FILE;
+		File file = new File(path, fileName);
+		switch (gui) {
+		case StartModAOptionsUI.guiTitleID:
+			break;
+		case StartModBOptionsUI.guiTitleID:
+			break;
+		}
+
     }
     @Override public void saveOptions(String path, String fileName) {
 		File file = new File(path, fileName);
@@ -1348,7 +1453,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             case PLANET_QUALITY_NORMAL:   break;
             default:    break;
         }
-        if (randomTechStart) {
+        if (selectedRandomTechStart) {
             rArtifact *= 0.0f; // modnar: no Artifact planets if randomTechStart selected
         }
         switch(p.type().key()) {
