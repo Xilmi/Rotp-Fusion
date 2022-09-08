@@ -47,6 +47,8 @@ public class GalaxyCopy extends GalaxyShape {
 	private LinkedList<Personality> personality;
 	private LinkedList<Objective> objective;
 	private int numCompWorlds;
+	private String newRace;
+	private String oldRace;
 
 	// ========== Constructors and Initializers ==========
 	//
@@ -55,8 +57,8 @@ public class GalaxyCopy extends GalaxyShape {
 	}
 	public void copy (GameSession s) {
 		IGameOptions oldO = s.options();
-		String newRace	= options.selectedPlayerRace();
-		String oldRace	= oldO.selectedPlayerRace();
+		newRace			= options.selectedPlayerRace();
+		oldRace			= oldO.selectedPlayerRace();
 		numOpponents	= oldO.selectedNumberOpponents();
 		numEmpires		= numOpponents + 1;
 		nebulaSizeMult	= oldO.nebulaSizeMult();
@@ -69,12 +71,11 @@ public class GalaxyCopy extends GalaxyShape {
 		selectedGalaxySize = s.options().selectedGalaxySize();
 		copyGalaxy(s.galaxy());
 		copyRaces(s.galaxy());
-		// Check total number of player race
-		if (countRace(newRace) >= IGameOptions.MAX_OPPONENT_TYPE) {
-			// replace first occurrence with old player race
-			swapRaces(newRace, oldRace);
-		}
 		numCompWorlds = empires[0].getCompanionWorldsNumber();
+//		System.out.println();
+//		System.out.println("====================================================================");
+//		System.out.println();
+//		System.out.println("copy checkIdentique = " + checkIdentique());
 	}
 	private void initForOldOptions(GameSession s) {
 		// Copy what's needed from new options
@@ -88,12 +89,57 @@ public class GalaxyCopy extends GalaxyShape {
 		IGameOptions oldO = s.options();
 		options.copyForRestart(oldO);
 	}
+	@SuppressWarnings("unused")
+	private boolean checkIdentique() {
+		System.out.println("num Star Systems = " + numStarSystems + "num Empire = " + numEmpires);
+		for (int i=0; i<numStarSystems; i++) {
+			System.out.println("Systems " + i
+					+ "	x = " + starSystem[i].x()
+					+ "	y = " + starSystem[i].y());			
+		}
+		boolean identique = false;
+		int lim = starSystem.length-1;
+		for (int i=0; i<lim; i++) {
+			float x1 = starSystem[i].x();
+			float y1 = starSystem[i].y();
+			for (int k=i+1; k<=lim; k++) {
+				float x2 = starSystem[k].x();
+				float y2 = starSystem[k].y();
+				double distSq = Math.pow(x2-x1, 2.0) + Math.pow(y2-y1, 2.0);
+				if (distSq < 0.5) {
+					System.out.println("========== i = " + i + "  k = " + k + "  distSq = " + distSq);
+					identique = true;
+				}
+			}
+		}
+		lim = numOpponents;
+		for (int i=0; i<lim; i++) {
+			int h1 = empires[i].homeSysId();
+			for (int k=i+1; k<=lim; k++) {
+				int h2 = empires[k].homeSysId();
+				if (h1 == h2) {
+					System.out.println("========== i = " + i + "  k = " + k + "  Home World ID = " + h1);
+					identique = true;
+				}
+			}
+		}
+		return identique;
+	}
 	// ========== Public Setters ==========
 	//
 	public void selectedEmpire(int index) {
+//		System.out.println("selected empire index = " + index);
 		selectedEmpire	= index;
-		if (index == 0) // Selected current player: do nothing
-			return;
+		if (index == 0) { // Selected current player:
+			// Check total number of player race
+			if (countRace(newRace) >= IGameOptions.MAX_OPPONENT_TYPE) {
+//				System.out.println(" count race = " + countRace(newRace));
+				// replace first occurrence with old player race
+				swapRaces(newRace, oldRace);
+			}
+//			System.out.println("selectedEmpire = 0 checkIdentique = " + checkIdentique());
+			return;	
+		}
 		Empire	empSwap	= empires[index];
 		empires[index]	= empires[0];
 		empires[0]		= empSwap;
@@ -115,6 +161,7 @@ public class GalaxyCopy extends GalaxyShape {
 			options().selectedHomeWorldName	("");
 			options().selectedLeaderName	(starSystem(empires[0].homeSysId()).name());
 		}
+//		System.out.println("selectedEmpire checkIdentique = " + checkIdentique());
 	}
 
 	// ========== Public Getters ==========

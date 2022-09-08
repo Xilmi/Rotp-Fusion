@@ -21,6 +21,10 @@ Community subreddit: https://www.reddit.com/r/rotp/<br/>
 Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
+
+2022.09.08 (BR)
+  - Fixed restart issue for late game when an empire as lost his home world. 
+
 2022.09.05 (Xilmi)
   - Fixed width-issue in races-screen and replaced short text describing racial abilities with a more prominent hint to click the text to get full information about a species' abilities.
   - Autodesign as well as AI now try to fill up the design better when there's still some space left.
