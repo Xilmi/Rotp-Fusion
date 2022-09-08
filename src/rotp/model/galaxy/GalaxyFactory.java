@@ -159,6 +159,50 @@ public class GalaxyFactory implements Base {
 		}
 		System.out.println();
 	}
+	@SuppressWarnings("unused")
+	private boolean checkIdentique(Galaxy g) {
+		System.out.println("num Star Systems = " + g.systemCount + "num Empire = " + g.empires().length);
+		for (int i=0; i<g.systemCount; i++) {
+			System.out.println("Systems " + i
+					+ "	x = " + g.system(i).x()
+					+ "	y = " + g.system(i).y()
+					+ "	name = " + g.system(i).name()
+					);
+		}
+		boolean identique = false;
+		int lim = g.systemCount-1;
+		for (int i=0; i<lim; i++) {
+			float x1 = g.starSystems()[i].x();
+			float y1 = g.starSystems()[i].y();
+			for (int k=i+1; k<=lim; k++) {
+				float x2 = g.starSystems()[k].x();
+				float y2 = g.starSystems()[k].y();
+				double distSq = Math.pow(x2-x1, 2.0) + Math.pow(y2-y1, 2.0);
+				if (distSq < 0.5) {
+					System.out.println("========== i = " + i + "  k = " + k + "  distSq = " + distSq);
+					identique = true;
+				}
+			}
+		}
+		lim = g.empires().length-1;
+		for (int i=0; i<lim; i++) {
+			Empire e = g.empires()[i];
+			if (e == null) 
+				return identique;
+			int h1 = e.homeSysId();
+			for (int k=i+1; k<=lim; k++) {
+				e = g.empires()[k];
+				if (e == null) 
+					return identique;
+				int h2 = e.homeSysId();
+				if (h1 == h2) {
+					System.out.println("========== i = " + i + "  k = " + k + "  Home World ID = " + h1);
+					identique = true;
+				}
+			}
+		}
+		return identique;
+	}
 	// BR: Common part of "Restart" standard "Start"
 	public void init(Galaxy g, long tm2) {
 		// after systems created, add system views for each empire
@@ -313,7 +357,7 @@ public class GalaxyFactory implements Base {
 			empSystem = empSystems.get(id);
 			sys.setXY(empSystem.colonyX(), empSystem.colonyY());
 		} else { // Restart
-			StarSystem ref = gc.starSystem(gc.empires(id).capitalSysId());
+			StarSystem ref = gc.starSystem(gc.empires(id).homeSysId());
 			sys.setXY(ref.x(), ref.y());
 		}
 		sys.name(systemName);
@@ -381,6 +425,7 @@ public class GalaxyFactory implements Base {
 				g.addStarSystem(sys0);
 			}
 		}
+//		System.out.println("End Player checkIdentique = " + checkIdentique(g));
 	}
 	private void addAlienRaceSystemsForGalaxy(Galaxy g, int startId,
 			List<EmpireSystem> empSystems, GalaxyCopy gc, LinkedList<String> alienRaces) {
@@ -443,7 +488,7 @@ public class GalaxyFactory implements Base {
 				empSystem = empSystems.get(h);
 				sys.setXY(empSystem.colonyX(), empSystem.colonyY());
 			} else { // Restart
-				StarSystem ref = gc.starSystem(gc.empires(empId).capitalSysId());
+				StarSystem ref = gc.starSystem(gc.empires(empId).homeSysId());
 				sys.setXY(ref.x(), ref.y());
 			}			
 			sys.name(race.nextAvailableHomeworld());
@@ -514,6 +559,7 @@ public class GalaxyFactory implements Base {
 					g.addStarSystem(sys0);
 				}
 			}
+//			System.out.println("End alien " + h + "  checkIdentique = " + checkIdentique(g));
 		}
 	}
 	private void addUnsettledSystemsForGalaxy(Galaxy g, GalaxyCopy gc) {

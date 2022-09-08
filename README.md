@@ -22,6 +22,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
+2022.09.08 (BR)
+  - Fixed restart issue for late game when an empire as lost his home world. 
+
 2022.09.06 (BR)
   - Added tools to load and save options.
   - Added some load/save buttons.
