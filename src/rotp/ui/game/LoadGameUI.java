@@ -432,8 +432,8 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
             selectRestartEmpireUI.init(oldGalaxy, newSession);
     		disableGlassPane();
     		selectRestartEmpireUI.open();
-            restart		= false;
-            oldGalaxy	= null;
+            restart	  = false;
+            oldGalaxy = null;
         };        	
         SwingUtilities.invokeLater(load);        	
     }
@@ -458,8 +458,11 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
     }
     public void cancelLoad() {
         buttonClick();
-        if (restart)
+        if (restart) {
+            restart	  = false;
+            oldGalaxy = null;
         	RotPUI.instance().selectSetupGalaxyPanel();
+        }
         else
         	RotPUI.instance().selectGamePanel();
     }

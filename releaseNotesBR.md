@@ -11,6 +11,7 @@ Restart Option:
   - Fixed The values in the Restart menu.
   - Fixed nearby system order; Not important to the player, but the AI was fooled.
   - Fixed Swapped opponent randomly generated.
+  - Fixed restart issue for late game when an empire as lost his home world.
 
 Custom Races Menu:
   - Fixed ground combat cost.
