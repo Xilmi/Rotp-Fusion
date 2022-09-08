@@ -71,6 +71,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	protected Rectangle userBox		= new Rectangle();
 	protected BasePanel parent;
 	private   boolean ctrlPressed	= false;
+	protected boolean global		= false; // No preferred button
 	
 	// ========== Constructors and initializers ==========
 	//
@@ -294,6 +295,8 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		g.drawRoundRect(defaultBox.x, defaultBox.y, defaultBox.width, defaultBox.height, cnr, cnr);
 		g.setStroke(prev);
 
+		if (global)
+			return;  // No preferred button
 		String text8 = text(userButtonKey());
 		int sw8 = g.getFontMetrics().stringWidth(text8);
 		smallButtonW = sw8+s30;

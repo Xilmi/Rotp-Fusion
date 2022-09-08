@@ -53,6 +53,7 @@ public class ModGlobalOptionsUI extends AbstractOptionsUI {
 	}
 	
 	@Override protected void init0() {
+		global = true; // No preferred button
 		// For "ParamX" class Settings (Starting with ParamX for the automation to work)
 		// Complete this table... Et Voilà!
 		// For Mixed Setup keep "paintComponent" up to date
