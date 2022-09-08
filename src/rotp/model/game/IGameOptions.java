@@ -325,6 +325,74 @@ public interface IGameOptions {
     public String selectedOpponentRace(int i);
     public void selectedOpponentRace(int i, String s);
 
+    // Mod A Option UI
+    public String selectedArtifactHomeworld();
+    public void selectedArtifactHomeworld(String s);
+    public String selectedFertileHomeworld();
+    public void selectedFertileHomeworld(String s);
+    public String selectedRichHomeworld();
+    public void selectedRichHomeworld(String s);
+    public String selectedUltraRichHomeworld();
+    public void selectedUltraRichHomeworld(String s);
+    public String selectedBattleScout();
+    public void selectedBattleScout(String s);
+    public String selectedCompanionWorlds();
+    public void selectedCompanionWorlds(String s);
+    public boolean selectedRandomTechStart();
+    public void selectedRandomTechStart(boolean b);
+    public String selectedRetreatRestrictions();
+    public void selectedRetreatRestrictions(String s);
+    public String selectedRetreatRestrictionTurns();
+    public void selectedRetreatRestrictionTurns(String s);
+    public String selectedCustomDifficulty();
+    public void selectedCustomDifficulty(String s);
+    public String selectedDynamicDifficulty();
+    public void selectedDynamicDifficulty(String s);
+    public String selectedMissileSizeModifier();
+    public void selectedMissileSizeModifier(String s);
+    public String selectedChallengeMode();
+    public void selectedChallengeMode(String s);
+
+    // Mod B Option UI
+    public String selectedMaximizeSpacing();
+    public void selectedMaximizeSpacing(String s);
+    public String selectedSpacingLimit();
+    public void selectedSpacingLimit(String s);
+    public String selectedMinStarsPerEmpire();
+    public void selectedMinStarsPerEmpire(String s);
+    public String selectedPrefStarsPerEmpire();
+    public void selectedPrefStarsPerEmpire(String s);
+    public String selectedRandomAlienRacesTargetMax();
+    public void selectedRandomAlienRacesTargetMax(String s);
+    public String selectedRandomAlienRacesTargetMin();
+    public void selectedRandomAlienRacesTargetMin(String s);
+    public String selectedRandomAlienRaces();
+    public void selectedRandomAlienRaces(String s);
+    public String selectedRandomAlienRacesMax();
+    public void selectedRandomAlienRacesMax(String s);
+    public String selectedRandomAlienRacesMin();
+    public void selectedRandomAlienRacesMin(String s);
+    public String selectedRandomAlienRacesSmoothEdges();
+    public void selectedRandomAlienRacesSmoothEdges(String s);
+    public String selectedTechIrradiated();
+    public void selectedTechIrradiated(String s);
+    public String selectedTechCloaking();
+    public void selectedTechCloaking(String s);
+    public String selectedTechStargate();
+    public void selectedTechStargate(String s);
+    public String selectedTechHyperspace();
+    public void selectedTechHyperspace(String s);
+    public String selectedTechIndustry2();
+    public void selectedTechIndustry2(String s);
+    public String selectedTechThorium();
+    public void selectedTechThorium(String s);
+    public String selectedTechTransport();
+    public void selectedTechTransport(String s);
+    public String selectedLoadWithNewOptions();
+    public void selectedLoadWithNewOptions(String s);
+    public String selectedEventsStartTurn();
+    public void selectedEventsStartTurn(String s);
+
     public void setUserOptions(String gui); // BR:
     public void saveUserOptions(String gui); // BR:
     public void saveOptions(String path, String fileName); // BR:

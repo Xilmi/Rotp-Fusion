@@ -385,6 +385,75 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         if (i < opponentRaces.length)
             opponentRaces[i] = s;
     }
+    
+    // Mod A Option UI
+    @Override public String selectedArtifactHomeworld()		 { return selectedArtifactHomeworld; }
+    @Override public void selectedArtifactHomeworld(String s)		{ selectedArtifactHomeworld = s; }
+    @Override public String selectedFertileHomeworld()		 { return selectedFertileHomeworld; }
+    @Override public void selectedFertileHomeworld(String s)		{ selectedFertileHomeworld = s; }
+    @Override public String selectedRichHomeworld()			 { return selectedRichHomeworld; }
+    @Override public void selectedRichHomeworld(String s)			{ selectedRichHomeworld = s; }
+    @Override public String selectedUltraRichHomeworld()	 { return selectedUltraRichHomeworld; }
+    @Override public void selectedUltraRichHomeworld(String s)		{ selectedUltraRichHomeworld = s; }
+    @Override public String selectedBattleScout()			 { return selectedBattleScout; }
+    @Override public void selectedBattleScout(String s)				{ selectedBattleScout = s; }
+    @Override public String selectedCompanionWorlds()		 { return selectedCompanionWorlds; }
+    @Override public void selectedCompanionWorlds(String s)			{ selectedCompanionWorlds = s; }
+    @Override public boolean selectedRandomTechStart()		 { return selectedRandomTechStart; }
+    @Override public void selectedRandomTechStart(boolean b)		{ selectedRandomTechStart = b; }
+    @Override public String selectedRetreatRestrictions()	 { return selectedRetreatRestrictions; }
+    @Override public void selectedRetreatRestrictions(String s)		{ selectedRetreatRestrictions = s; }
+    @Override public String selectedRetreatRestrictionTurns(){ return selectedRetreatRestrictionTurns; }
+    @Override public void selectedRetreatRestrictionTurns(String s)	{ selectedRetreatRestrictionTurns = s; }
+    @Override public String selectedCustomDifficulty()		 { return selectedCustomDifficulty; }
+    @Override public void selectedCustomDifficulty(String s)		{ selectedCustomDifficulty = s; }
+    @Override public String selectedDynamicDifficulty()		 { return selectedDynamicDifficulty; }
+    @Override public void selectedDynamicDifficulty(String s)		{ selectedDynamicDifficulty = s; }
+    @Override public String selectedMissileSizeModifier()	 { return selectedMissileSizeModifier; }
+    @Override public void selectedMissileSizeModifier(String s)		{ selectedMissileSizeModifier = s; }
+    @Override public String selectedChallengeMode()			 { return selectedChallengeMode; }
+    @Override public void selectedChallengeMode(String s)			{ selectedChallengeMode = s; }
+
+    // Mod B Option UI
+    @Override public String selectedMaximizeSpacing()			 { return selectedMaximizeSpacing; }
+    @Override public void selectedMaximizeSpacing(String s)				{ selectedMaximizeSpacing = s; }
+    @Override public String selectedSpacingLimit()				 { return selectedSpacingLimit; }
+    @Override public void selectedSpacingLimit(String s)				{ selectedSpacingLimit = s; }
+    @Override public String selectedMinStarsPerEmpire()			 { return selectedMinStarsPerEmpire; }
+    @Override public void selectedMinStarsPerEmpire(String s)			{ selectedMinStarsPerEmpire = s; }
+    @Override public String selectedPrefStarsPerEmpire()		 { return selectedPrefStarsPerEmpire; }
+    @Override public void selectedPrefStarsPerEmpire(String s)			{ selectedPrefStarsPerEmpire = s; }
+    @Override public String selectedRandomAlienRacesTargetMax()	 { return selectedRandomAlienRacesTargetMax; }
+    @Override public void selectedRandomAlienRacesTargetMax(String s)	{ selectedRandomAlienRacesTargetMax = s; }
+    @Override public String selectedRandomAlienRacesTargetMin()	 { return selectedRandomAlienRacesTargetMin; }
+    @Override public void selectedRandomAlienRacesTargetMin(String s)	{ selectedRandomAlienRacesTargetMin = s; }
+    @Override public String selectedRandomAlienRaces()			 { return selectedRandomAlienRaces; }
+    @Override public void selectedRandomAlienRaces(String s)			{ selectedRandomAlienRaces = s; }
+    @Override public String selectedRandomAlienRacesMax()		 { return selectedRandomAlienRacesMax; }
+    @Override public void selectedRandomAlienRacesMax(String s)			{ selectedRandomAlienRacesMin = s; }
+    @Override public String selectedRandomAlienRacesMin()		 { return selectedRandomAlienRacesMin; }
+    @Override public void selectedRandomAlienRacesMin(String s)			{ selectedRandomAlienRacesMin = s; }
+    @Override public String selectedRandomAlienRacesSmoothEdges(){ return selectedRandomAlienRacesSmoothEdges; }
+    @Override public void selectedRandomAlienRacesSmoothEdges(String s)	{ selectedRandomAlienRacesSmoothEdges = s; }
+    @Override public String selectedTechIrradiated()			 { return selectedTechIrradiated; }
+    @Override public void selectedTechIrradiated(String s)				{ selectedTechIrradiated = s; }
+    @Override public String selectedTechCloaking()				 { return selectedTechCloaking; }
+    @Override public void selectedTechCloaking(String s)				{ selectedTechCloaking = s; }
+    @Override public String selectedTechStargate()				 { return selectedTechStargate; }
+    @Override public void selectedTechStargate(String s)				{ selectedTechStargate = s; }
+    @Override public String selectedTechHyperspace()			 { return selectedTechHyperspace; }
+    @Override public void selectedTechHyperspace(String s)				{ selectedTechHyperspace = s; }
+    @Override public String selectedTechIndustry2()				 { return selectedTechIndustry2; }
+    @Override public void selectedTechIndustry2(String s)				{ selectedTechIndustry2 = s; }
+    @Override public String selectedTechThorium()				 { return selectedTechThorium; }
+    @Override public void selectedTechThorium(String s)					{ selectedTechThorium = s; }
+    @Override public String selectedTechTransport()				 { return selectedTechTransport; }
+    @Override public void selectedTechTransport(String s)				{ selectedTechTransport = s; }
+    @Override public String selectedLoadWithNewOptions()		 { return selectedLoadWithNewOptions; }
+    @Override public void selectedLoadWithNewOptions(String s)			{ selectedLoadWithNewOptions = s; }
+    @Override public String selectedEventsStartTurn()			 { return selectedEventsStartTurn; }
+    @Override public void selectedEventsStartTurn(String s)				{ selectedEventsStartTurn = s; }
+
     @Override
     public int maximumOpponentsOptions() {
     	// BR: customize min Star per empire
