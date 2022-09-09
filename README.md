@@ -22,6 +22,11 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
+2022.09.09 (Xilmi)
+  - The bombardment-prompt now includes an estimate of how many factories will be destroyed.
+  - AI no longer assumes that producing population to man all already existing factories is always worth it. Instead the return of investment of workers working factories is compared to the savings of letting population grow naturally.
+  - AI cost-benefit-analysis for invasions now takes lost-productivity into account on the cost-side and how many factories will likely be destroyed until the invasion arrives on the benefit-side.
+
 2022.09.08 (BR)
   - Fixed restart issue for late game when an empire as lost his home world. 
 
