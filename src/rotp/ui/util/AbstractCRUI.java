@@ -187,7 +187,7 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		showOnly   = true;
 		cr.initShowRace(initialRace);
 	}
-	public void init() {
+	private void init() {
 		showOnly   = false;
 		if (cr.getRace() == null) {
 			cr.setRace(newGameOptions().selectedPlayerRace());

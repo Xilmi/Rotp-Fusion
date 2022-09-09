@@ -42,34 +42,34 @@ import rotp.ui.main.SystemPanel;
 // modnar: add UI panel for modnar MOD game options, based on StartOptionsUI.java
 public abstract class AbstractOptionsUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
 	private static final long serialVersionUID = 1L;
-	protected static final Color backgroundHaze = new Color(0,0,0,160);
+	private static final Color backgroundHaze = new Color(0,0,0,160);
 	public    static final String setUserKey	= "SETTINGS_USER_SET";
 	public    static final String saveUserKey	= "SETTINGS_USER_SAVE";
 	private final String guiTitleID;
 	
-	protected Font descFont    = narrowFont(15);
-	protected int columnPad    = s20;
-	protected int smallButtonH = s30;
-	protected int hSetting 	 = s90;
-	protected int lineH		 = s17;
-	protected int rowPad		 = s20;
-	protected int hDistSetting = hSetting + rowPad; // distance between two setting top corner
-	protected int leftM, rightM,topM, yTop;
-	protected int w, wBG, h, hBG;
-	protected int numColumns, numRows;
-	protected int yTitle, xDesc, yDesc, yButton;
-	protected int xSetting, ySetting, wSetting; // settings var
-	protected int index, column;
+	private Font descFont    = narrowFont(15);
+	private int columnPad    = s20;
+	private int smallButtonH = s30;
+	private int hSetting 	 = s90;
+	private int lineH		 = s17;
+	private int rowPad		 = s20;
+	private int hDistSetting = hSetting + rowPad; // distance between two setting top corner
+	private int leftM, rightM,topM, yTop;
+	private int w, wBG, h, hBG;
+	private int numColumns, numRows;
+	private int yTitle, xDesc, yDesc, yButton;
+	private int xSetting, ySetting, wSetting; // settings var
+	private int index, column;
 	
-	protected Color textC = SystemPanel.whiteText;
-	protected LinkedList<Integer>	lastRowList = new LinkedList<Integer>();
+	private Color textC = SystemPanel.whiteText;
+	private LinkedList<Integer>	lastRowList = new LinkedList<Integer>();
 	protected LinkedList<BaseText>	btList		= new LinkedList<BaseText>();
 	protected LinkedList<AbstractParam<?>> paramList = new LinkedList<AbstractParam<?>>();
 	protected Rectangle hoverBox;
-	protected Rectangle okBox 		= new Rectangle();
-	protected Rectangle defaultBox	= new Rectangle();
-	protected Rectangle userBox		= new Rectangle();
-	protected BasePanel parent;
+	private Rectangle okBox 		= new Rectangle();
+	private Rectangle defaultBox	= new Rectangle();
+	private Rectangle userBox		= new Rectangle();
+	private BasePanel parent;
 	private   boolean ctrlPressed	= false;
 	protected boolean global		= false; // No preferred button
 	
@@ -123,7 +123,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		addMouseMotionListener(this);
 		addMouseWheelListener(this);
 	}
-	public void init() {
+	private void init() {
 		for (int i=0; i<paramList.size(); i++)
 			btList.get(i).displayText(paramList.get(i).getGuiDisplay());
 		initCustom();
@@ -151,10 +151,10 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		init();
 		enableGlassPane(this);
 	}
-	public void close() {
+	private void close() {
 		disableGlassPane();
 	}
-	public void setToDefault() {
+	private void setToDefault() {
 		UserPreferences.setToDefault(guiTitleID);
 		init();
 		repaint();
@@ -206,7 +206,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		} else
 			ySetting += hDistSetting;
 	}
-	protected void mouseCommon(boolean up, boolean mid, boolean shiftPressed, boolean ctrlPressed
+	private void mouseCommon(boolean up, boolean mid, boolean shiftPressed, boolean ctrlPressed
 			, MouseEvent e, MouseWheelEvent w) {
 		for (int i=0; i<paramList.size(); i++) {
 			if (hoverBox == btList.get(i).bounds()) {
