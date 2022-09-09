@@ -22,6 +22,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
+2022.09.09 (BR)
+  - Moved restart button to the left side, to be visible in windowed mode too. 
+  
 2022.09.09 (Xilmi)
   - The bombardment-prompt now includes an estimate of how many factories will be destroyed.
   - AI no longer assumes that producing population to man all already existing factories is always worth it. Instead the return of investment of workers working factories is compared to the savings of letting population grow naturally.
