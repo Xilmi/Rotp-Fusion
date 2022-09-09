@@ -63,6 +63,8 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
     private Rectangle defaultBox = new Rectangle();
     private Rectangle userBox	 = new Rectangle();
 	private boolean ctrlPressed	 = false;
+    private int bSep = s15;
+
 	Rectangle backBox		= new Rectangle();
 	Rectangle restartBox	= new Rectangle(); // BR:
 	Rectangle startBox		= new Rectangle();
@@ -459,12 +461,11 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
         String text7 = text("SETTINGS_DEFAULT");
         int sw7 = g.getFontMetrics().stringWidth(text7);
         int smallButtonW = sw7+s30;
-        int y4 = restartBox.y;
-        int xSep = s15;
+        int yB = restartBox.y;
+        int xB = restartBox.x - smallButtonW - bSep;
         int smallButtonH = s30;
-        defaultBox.setBounds(backBox.x-smallButtonW-xSep, y4, smallButtonW, smallButtonH);
+        defaultBox.setBounds(xB, yB, smallButtonW, smallButtonH);
 		g.setPaint(GameUI.buttonLeftBackground());
-//        g.setColor(GameUI.buttonBackgroundColor());
         g.fillRoundRect(defaultBox.x, defaultBox.y, smallButtonW, smallButtonH, cnr, cnr);
         g.setFont(narrowFont(20));
         int x7 = defaultBox.x+((defaultBox.width-sw7)/2);
@@ -479,9 +480,9 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
         String text8 = text(userButtonKey());
 		int sw8 = g.getFontMetrics().stringWidth(text8);
 		smallButtonW = sw8+s30;
-		userBox.setBounds(defaultBox.x-smallButtonW-xSep, y4, smallButtonW, smallButtonH);
+		xB = defaultBox.x-smallButtonW-bSep;
+		userBox.setBounds(xB, yB, smallButtonW, smallButtonH);
 		g.setPaint(GameUI.buttonLeftBackground());
-//		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(userBox.x, userBox.y, smallButtonW, smallButtonH, cnr, cnr);
 		g.setFont(narrowFont(20));
 		int x8 = userBox.x+((userBox.width-sw8)/2);
@@ -1027,20 +1028,26 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		int yB = 685+10; // 2 Button's Rows Offset, was 685
 		xb = 950; // was 950 // 1080 for 3 buttons
 		dx = 241;
-		// draw left button
+		// draw BACK button
 		backBox.setBounds(scaled(xb-dx), scaled(yB), buttonW, buttonH);
 		g.setPaint(GameUI.buttonLeftBackground());
 		g.fillRoundRect(backBox.x, backBox.y, buttonW, buttonH, cnr, cnr);
 
-		// draw middle button
+		// draw START button
 		startBox.setBounds(scaled(xb), scaled(yB), buttonW, buttonH);
 		g.setPaint(GameUI.buttonRightBackground());
 		g.fillRoundRect(startBox.x, startBox.y, buttonW, buttonH, cnr, cnr);
 
+		int bw = 160;
 		buttonH = s30;
 		buttonW = scaled(160);
+<<<<<<< Updated upstream
 		// draw far left button
 		restartBox.setBounds(scaled(xb-dx-181), scaled(yB+15), buttonW, buttonH);
+=======
+		// draw RESTART button
+		restartBox.setBounds(scaled(xb-dx)-buttonW-bSep, scaled(yB+15), buttonW, buttonH);
+>>>>>>> Stashed changes
 		g.setPaint(GameUI.buttonRightBackground());
 		g.fillRoundRect(restartBox.x, restartBox.y, buttonW, buttonH, cnr, cnr);
 
