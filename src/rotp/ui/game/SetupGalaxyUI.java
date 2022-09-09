@@ -407,7 +407,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		g.drawRoundRect(startBox.x, startBox.y, startBox.width, startBox.height, cnr, cnr);
 		g.setStroke(prev);
 
-		// far right button
+		// far left button
 		g.setFont(narrowFont(20));
 		String text2r = text("SETUP_BUTTON_RESTART");
 		int sw2r= g.getFontMetrics().stringWidth(text2r);
@@ -966,8 +966,8 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 
 		buttonH = s30;
 		buttonW = scaled(160);
-		// draw far right button
-		restartBox.setBounds(scaled(xb+dx), scaled(yB+15), buttonW, buttonH);
+		// draw far left button
+		restartBox.setBounds(scaled(xb-dx-181), scaled(yB+15), buttonW, buttonH);
 		g.setPaint(GameUI.buttonRightBackground());
 		g.fillRoundRect(restartBox.x, restartBox.y, buttonW, buttonH, cnr, cnr);
 
