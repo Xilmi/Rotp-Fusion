@@ -124,11 +124,6 @@ public interface Diplomat {
     default boolean setSeverityAndDuration(TradeIncomeIncident inc)  { return false; }
     
     //Xilmi-AI:
-    default int popCapRank(Empire etc, boolean inAttackRange) { return 1; }
-    default int techLevelRank() { return 1; }
-    default float facCapPct(Empire emp, boolean ignorePoor) { return 1; }
-    default int facCapRank() { return 1; }
-    default int militaryRank(Empire etc, boolean inAttackRange) { return 1; }
     default int popLossToTriggerWar() { return 1; }
     default boolean masksDiplomacy() { return false; }
     default boolean readyForWar(EmpireView v, boolean considerBestVictim) { return true; }

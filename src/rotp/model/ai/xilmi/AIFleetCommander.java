@@ -106,7 +106,7 @@ public class AIFleetCommander implements Base, FleetCommander {
             else if(incomingInvasion() ||
                     ((underSiege() || !empire.enemies().isEmpty())
                         && minimalTechForRush()
-                        && (empire.contactedEmpires().size() < 2 || empire.diplomatAI().techLevelRank() == 1)))
+                        && (empire.contactedEmpires().size() < 2 || empire.generalAI().techLevelRank() == 1)))
                 maxMaintenance = min(max(empire.generalAI().gameProgress(), enemyMaintenance()), 0.8f);
             else
                 maxMaintenance = min(empire.generalAI().gameProgress(), enemyMaintenance());
@@ -287,7 +287,7 @@ public class AIFleetCommander implements Base, FleetCommander {
         {
             Galaxy gal = galaxy();
             float ourFightingBC = bcValue(fleet, false, true, false, false);
-            float ourBombing = fleet.expectedBombardDamage(target);
+            float ourBombing = fleet.expectedBombardDamage(target, false);
             float ourKilling = empire.governorAI().expectedBombardDamageAsIfBasesWereThere(fleet, target, 0) / 200;
             float civTech = empire.tech().avgTechLevel();
             float targetTech = civTech;
@@ -701,7 +701,7 @@ public class AIFleetCommander implements Base, FleetCommander {
             int sysId = fl.sysId();
             if (!empire.sv.withinRange(sysId, range))  {
                 //ail: no retreating, if I can still bomb the enemy
-                if(empire.enemies().contains(fl.system().empire()) && fl.expectedBombardDamage() > 0)
+                if(empire.enemies().contains(fl.system().empire()) && fl.expectedBombardDamage(false) > 0)
                 {
                     continue;
                 }
@@ -810,7 +810,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                         {
                             requiredBombardDamage *= 0.9f;
                         }
-                        float expectedBombardDamage = fleet.expectedBombardDamage();
+                        float expectedBombardDamage = fleet.expectedBombardDamage(false);
                         //System.out.print("\n"+fleet.empire().name()+" Fleet at "+fleet.system().name()+" raw keepAmount: "+requiredBombardDamage / expectedBombardDamage+" expected: "+expectedBombardDamage+" required: "+requiredBombardDamage);
                         if(expectedBombardDamage > 0)
                             keepAmount = min(1, requiredBombardDamage / expectedBombardDamage);
@@ -840,7 +840,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                     if(target != null)
                     {
                         //System.out.print("\n"+galaxy().currentTurn()+" "+fleet.empire().name()+" Fleet at "+empire.sv.name(fleet.system().id)+" wants to go for "+empire.sv.name(target.id));
-                        float bombardDamage = fleet.expectedBombardDamage(target);
+                        float bombardDamage = fleet.expectedBombardDamage(target, false);
                         float killPower = empire.governorAI().expectedBombardDamageAsIfBasesWereThere(fleet, target, 0) / 200;
                         UpdateSystemInfo(fleet.sysId());
                         Empire tgtEmpire = empire.sv.empire(target.id);
@@ -1320,7 +1320,7 @@ public class AIFleetCommander implements Base, FleetCommander {
         float bombardPower = 0;
         for(ShipFleet fleet:empire.allFleets())
         {
-            bombardPower+=fleet.expectedBombardDamage(galaxy().system(empire.homeSysId()));
+            bombardPower+=fleet.expectedBombardDamage(galaxy().system(empire.homeSysId()), false);
         }
         return bombardPower;
     }

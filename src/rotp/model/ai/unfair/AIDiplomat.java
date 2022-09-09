@@ -1295,7 +1295,7 @@ public class AIDiplomat implements Base, Diplomat {
             {
                 if(orbiting.empId != v.empId())
                     continue;
-                totalPotentialBombard += orbiting.expectedBombardDamage() / (200 * current.colony().maxSize());
+                totalPotentialBombard += orbiting.expectedBombardDamage(false) / (200 * current.colony().maxSize());
             }
             for(ShipFleet incoming : current.incomingFleets())
             {
@@ -1303,7 +1303,7 @@ public class AIDiplomat implements Base, Diplomat {
                     continue;
                 if(!empire.visibleShips().contains(incoming))
                     continue;
-                totalPotentialBombard += incoming.expectedBombardDamage(current) / (200 * current.colony().maxSize());
+                totalPotentialBombard += incoming.expectedBombardDamage(current, false) / (200 * current.colony().maxSize());
             }
         }
         return totalPotentialBombard >= 1.0f;
@@ -1367,7 +1367,7 @@ public class AIDiplomat implements Base, Diplomat {
         boolean warAllowed = true;
         if(empire.generalAI().additionalColonizersToBuild(false) > 0)
             warAllowed = false;
-        int popCapRank = popCapRank(empire, false);
+        int popCapRank = empire.generalAI().popCapRank(empire, false);
         /*if(!everyoneMet() && popCapRank < 3)
             warAllowed = false;*/
         boolean reseachHasGoodROI = false;
@@ -1382,13 +1382,13 @@ public class AIDiplomat implements Base, Diplomat {
                 break;
             }
         }
-        if(reseachHasGoodROI && techLevelRank() > 1)
+        if(reseachHasGoodROI && empire.generalAI().techLevelRank() > 1)
             warAllowed = false;
-        if(techLevelRank() > popCapRank)
+        if(empire.generalAI().techLevelRank() > popCapRank)
         {
             warAllowed = false;
         }
-        if(!empire.generalAI().isRusher() && facCapRank() > 1)
+        if(!empire.generalAI().isRusher() && empire.generalAI().facCapRank() > 1)
             warAllowed = false;
         //Ail: If there's only two empires left, there's no time for preparation. We cannot allow them the first-strike-advantage!
         if(galaxy().numActiveEmpires() < 3)
@@ -1693,7 +1693,7 @@ public class AIDiplomat implements Base, Diplomat {
         if(empire.warEnemies().size() > 1)
             return true;
         //ail: If I'm outteched by others I also don't really want to stick to a war anymore, except for aggressive leader as that would lead to contradictory behavior
-        if(techLevelRank() > popCapRank(empire, false))
+        if(empire.generalAI().techLevelRank() > empire.generalAI().popCapRank(empire, false))
             return true;
         boolean everythingUnderSiege = true;
         for(StarSystem sys : empire.allColonizedSystems())
@@ -1803,91 +1803,6 @@ public class AIDiplomat implements Base, Diplomat {
     }
     @Override
     public  boolean leaderHatesAllSpies() { return false; }
-    @Override
-    public int popCapRank(Empire etc, boolean inAttackRange)
-    {
-        int rank = 1;
-        float myPopCap = empire.generalAI().totalEmpirePopulationCapacity(empire);
-        float etcPopCap = empire.generalAI().totalEmpirePopulationCapacity(etc);
-        if(empire != etc && myPopCap > etcPopCap)
-            rank++;
-        for(Empire emp:empire.contactedEmpires())
-        {
-            if(!empire.inEconomicRange(emp.id))
-                continue;
-            if(inAttackRange && !empire.inShipRange(emp.id))
-                continue;
-            //System.out.println(galaxy().currentTurn()+" "+empire.name()+" looking at: "+emp.name()+" "+empire.generalAI().totalEmpirePopulationCapacity(emp)+" mine: "+myPopCap);
-            if(empire.generalAI().totalEmpirePopulationCapacity(emp) > etcPopCap)
-                rank++;
-        }
-        return rank;
-    }
-    @Override
-    public int techLevelRank()
-    {
-        int rank = 1;
-        float myTechLevel = empire.tech().avgTechLevel();
-        for(Empire emp:empire.contactedEmpires())
-        {
-            if(!empire.inEconomicRange(emp.id))
-                continue;
-            if(emp.tech().avgTechLevel() > myTechLevel)
-                rank++;
-        }
-        if(myTechLevel >= 99)
-            rank = 1;
-        return rank;
-    }
-    @Override
-    public int militaryRank(Empire etc, boolean inAttackRange)
-    {
-        int rank = 1;
-        float myMilitaryPower = empire.militaryPowerLevel();
-        float etcMilitaryPower = etc.militaryPowerLevel();
-        if(empire != etc && myMilitaryPower > etcMilitaryPower)
-            rank++;
-        for(Empire emp:empire.contactedEmpires())
-        {
-            if(!empire.inEconomicRange(emp.id))
-                continue;
-            if(inAttackRange && !empire.inShipRange(emp.id))
-                continue;
-            //System.out.print("\n"+empire.galaxy().currentTurn()+" "+etc.name()+" power: "+etcMilitaryPower+" "+emp.name()+" power: "+emp.militaryPowerLevel(emp));
-            if(emp.militaryPowerLevel() > etcMilitaryPower)
-                rank++;
-        }
-        return rank;
-    }
-    @Override
-    public int facCapRank()
-    {
-        int rank = 1;
-        float myFacCap = facCapPct(empire, true);
-        for(Empire emp:empire.contactedEmpires())
-        {
-            if(!empire.inEconomicRange(emp.id))
-                continue;
-            if(facCapPct(emp, true) > myFacCap)
-                rank++;
-        }
-        if(myFacCap >= 1)
-            rank = 1;
-        return rank;
-    }
-    public float facCapPct(Empire emp, boolean ignorePoor)
-    {
-        float factories = 0;
-        float factoryCap = 0;
-        for (StarSystem sys: emp.allColonizedSystems())
-        {
-            if(sys.planet().productionAdj() < 1 && ignorePoor)
-                continue;
-            factories += sys.colony().industry().factories();
-            factoryCap += sys.colony().industry().maxFactories();
-        }
-        return factories / factoryCap;
-    }
     @Override
     public int popLossToTriggerWar()
     {

@@ -858,8 +858,8 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
         empire().sv.refreshFullScan(sysId);
         victim.sv.refreshFullScan(sysId);
     }
-    public float expectedBombardDamage() {  return expectedBombardDamage(system());  }
-    public float expectedBombardDamage(StarSystem sys) {
+    public float expectedBombardDamage(boolean ignoreBio) {  return expectedBombardDamage(system(), ignoreBio);  }
+    public float expectedBombardDamage(StarSystem sys, boolean ignoreBio) {
         if (!sys.isColonized())
             return 0;
 
@@ -870,8 +870,11 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
         for (int i=0;i<num.length;i++) {
             if (num[i] > 0) {
                 ShipDesign d = design(i);
-                for (int j=0;j<ShipDesign.maxWeapons();j++)
+                for (int j=0;j<ShipDesign.maxWeapons();j++) {
+                    if(d.weapon(j).isBioWeapon() && ignoreBio)
+                        continue;
                     damage += (num[i] * d.wpnCount(j) * d.weapon(j).estimatedBombardDamage(d, planetStack));
+                }
                 for (int j=0;j<ShipDesign.maxSpecials();j++)
                     damage += d.special(j).estimatedBombardDamage(d, planetStack);
             }

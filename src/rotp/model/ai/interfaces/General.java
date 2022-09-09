@@ -55,4 +55,9 @@ public interface General {
     default float gameProgress() { return 0f; }
     default float predictEmpireChanceToDeclareWarIfIDeclaredWarOn(Empire subject, Empire object, boolean chanceToDeclareWarOnMeInstead) { return 0f; }
     default float nebulaRatio() { return 0f; }
+    default int popCapRank(Empire etc, boolean inAttackRange) { return 1; }
+    default int techLevelRank() { return 1; }
+    default float facCapPct(Empire emp, boolean ignorePoor) { return 1; }
+    default int facCapRank() { return 1; }
+    default int militaryRank(Empire etc, boolean inAttackRange) { return 1; }
 }
