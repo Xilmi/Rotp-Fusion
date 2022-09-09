@@ -306,7 +306,7 @@ public class AI implements Base { // BR: Tentative
             return false;
         
         // estimate bombardment damage and resulting population loss
-        float damage = fl.expectedBombardDamage();
+        float damage = fl.expectedBombardDamage(false);
         float popLoss = damage / 200;
         float sysPop = empire.sv.population(id(sys));
 

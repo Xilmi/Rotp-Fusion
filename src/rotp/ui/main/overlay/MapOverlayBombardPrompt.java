@@ -47,7 +47,7 @@ public class MapOverlayBombardPrompt extends MapOverlay {
     boolean bombarded = false;
     int sysId;
     ShipFleet fleet;
-    int pop, endPop, estKills, bases, endBases, fact, endFact, shield, transports;
+    int pop, endPop, estKills, estFactoryKills, bases, endBases, fact, endFact, shield, transports;
     boolean drawSprites = false;
     ClickToContinueSprite clickSprite;
     BombardNoSprite noButton = new BombardNoSprite();
@@ -80,7 +80,8 @@ public class MapOverlayBombardPrompt extends MapOverlay {
         parent.mapFocus(sys);
         parent.clickedSprite(sys);
         parent.repaint();
-        estKills = Math.round(fl.expectedBombardDamage() / 200f);
+        estKills = Math.round(fl.expectedBombardDamage(false) / 200f);
+        estFactoryKills = Math.round(fl.expectedBombardDamage(true) / 50f);
     }
     private StarSystem starSystem() {
         return galaxy().system(sysId);
@@ -328,6 +329,10 @@ public class MapOverlayBombardPrompt extends MapOverlay {
         if (endFact < fact) {
             dmgStr = text("MAIN_BOMBARD_DMG", str(endFact-fact));
             drawBorderedString(g, dmgStr, 1, x0a+p1, y0a, Color.black, Color.red);
+        } else if(!bombarded)
+        {
+            dmgStr = text("MAIN_BOMBARD_DMG", -estFactoryKills);
+            drawBorderedString(g, dmgStr, 1, x0a+p1, y0a, Color.black, Color.yellow);
         }
         x0a += dmgW;
         x0a += pad;

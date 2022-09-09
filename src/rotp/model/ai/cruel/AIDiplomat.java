@@ -1309,7 +1309,7 @@ public class AIDiplomat implements Base, Diplomat {
             {
                 if(orbiting.empId != v.empId())
                     continue;
-                totalPotentialBombard += orbiting.expectedBombardDamage() / (200 * current.colony().maxSize());
+                totalPotentialBombard += orbiting.expectedBombardDamage(false) / (200 * current.colony().maxSize());
             }
             for(ShipFleet incoming : current.incomingFleets())
             {
@@ -1317,7 +1317,7 @@ public class AIDiplomat implements Base, Diplomat {
                     continue;
                 if(!empire.visibleShips().contains(incoming))
                     continue;
-                totalPotentialBombard += incoming.expectedBombardDamage(current) / (200 * current.colony().maxSize());
+                totalPotentialBombard += incoming.expectedBombardDamage(current, false) / (200 * current.colony().maxSize());
             }
         }
         return totalPotentialBombard >= 1.0f;
@@ -1858,96 +1858,6 @@ public class AIDiplomat implements Base, Diplomat {
     @Override
     public  boolean leaderHatesAllSpies() { return false; }
     @Override
-    public int popCapRank(Empire etc, boolean inAttackRange)
-    {
-        int rank = 1;
-        float myPopCap = empire.generalAI().totalEmpirePopulationCapacity(empire);
-        float etcPopCap = empire.generalAI().totalEmpirePopulationCapacity(etc);
-        if(empire != etc && myPopCap > etcPopCap)
-            rank++;
-        for(Empire emp:empire.contactedEmpires())
-        {
-            if(!empire.inEconomicRange(emp.id))
-                continue;
-            if(inAttackRange && !empire.inShipRange(emp.id))
-                continue;
-            //System.out.println(galaxy().currentTurn()+" "+empire.name()+" looking at: "+emp.name()+" "+empire.generalAI().totalEmpirePopulationCapacity(emp)+" mine: "+myPopCap);
-            if(empire.generalAI().totalEmpirePopulationCapacity(emp) > etcPopCap)
-                rank++;
-        }
-        return rank;
-    }
-    @Override
-    public int techLevelRank()
-    {
-        int rank = 1;
-        float myTechLevel = empire.tech().avgTechLevel();
-        for(Empire emp:empire.contactedEmpires())
-        {
-            if(!empire.inEconomicRange(emp.id))
-                continue;
-            //System.out.println(galaxy().currentTurn()+" "+empire.name()+" myTechLevel: " +myTechLevel+" their TechLevel: "+emp.tech().avgTechLevel());
-            if(emp.tech().avgTechLevel() > myTechLevel)
-                rank++;
-        }
-        if(myTechLevel >= 99)
-            rank = 1;
-        return rank;
-    }
-    @Override
-    public int militaryRank(Empire etc, boolean inAttackRange)
-    {
-        int rank = 1;
-        float myMilitaryPower = empire.militaryPowerLevel();
-        float etcMilitaryPower = etc.militaryPowerLevel();
-        if(empire != etc && myMilitaryPower > etcMilitaryPower)
-            rank++;
-        for(Empire emp:empire.contactedEmpires())
-        {
-            if(!empire.inEconomicRange(emp.id))
-                continue;
-            if(inAttackRange && !empire.inShipRange(emp.id))
-                continue;
-            //System.out.print("\n"+empire.galaxy().currentTurn()+" "+etc.name()+" power: "+etcMilitaryPower+" "+emp.name()+" power: "+emp.militaryPowerLevel(emp));
-            if(emp.militaryPowerLevel() > etcMilitaryPower)
-                rank++;
-        }
-        return rank;
-    }
-    @Override
-    public int facCapRank()
-    {
-        int rank = 1;
-        float myFacCap = facCapPct(empire, true);
-        //System.out.print("\n"+empire.galaxy().currentTurn()+" "+empire.name()+" my Fac Cap: "+myFacCap);
-        for(Empire emp:empire.contactedEmpires())
-        {
-            if(!empire.inEconomicRange(emp.id))
-                continue;
-            //System.out.print("\n"+empire.galaxy().currentTurn()+" "+empire.name()+" Fac cap of "+emp.name()+": "+facCapPct(emp, true));
-            if(facCapPct(emp, true) > myFacCap)
-                rank++;
-        }
-        if(myFacCap >= 1)
-            rank = 1;
-        //System.out.print("\n"+empire.galaxy().currentTurn()+" "+empire.name()+" my facCapRank: "+rank);
-        return rank;
-    }
-    @Override
-    public float facCapPct(Empire emp, boolean ignorePoor)
-    {
-        float factories = 0;
-        float factoryCap = 0;
-        for (StarSystem sys: emp.allColonizedSystems())
-        {
-            if(sys.planet().productionAdj() < 1 && ignorePoor)
-                continue;
-            factories += sys.colony().industry().factories();
-            factoryCap += sys.colony().industry().maxFactories();
-        }
-        return factories / factoryCap;
-    }
-    @Override
     public int popLossToTriggerWar()
     {
         return 1;
@@ -2008,7 +1918,7 @@ public class AIDiplomat implements Base, Diplomat {
         return true;
     }
     public float aggressiveness(Empire victim) {
-        float aggressiveness = this.facCapPct(empire, false);
+        float aggressiveness = empire.generalAI().facCapPct(empire, false);
         float racialMod = 1.0f;
         if(!empire.race().isCustomRace()) { //Xilmi: For custom-races we need something better than this
             if(empire.tradePctBonus() > 0)
