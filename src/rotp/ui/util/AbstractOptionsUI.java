@@ -43,17 +43,20 @@ import rotp.ui.main.SystemPanel;
 public abstract class AbstractOptionsUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
 	private static final long serialVersionUID = 1L;
 	private static final Color backgroundHaze = new Color(0,0,0,160);
-	public    static final String setUserKey	= "SETTINGS_USER_SET";
-	public    static final String saveUserKey	= "SETTINGS_USER_SAVE";
+	public  static final String setDefaultKey = "SETTINGS_DEFAULT";
+	public  static final String setLastKey	  = "SETTINGS_LAST_SET";
+	public  static final String setUserKey	  = "SETTINGS_USER_SET";
+	public  static final String saveUserKey	  = "SETTINGS_USER_SAVE";
 	private final String guiTitleID;
 	
 	private Font descFont    = narrowFont(15);
-	private int columnPad    = s20;
-	private int smallButtonH = s30;
-	private int hSetting 	 = s90;
-	private int lineH		 = s17;
-	private int rowPad		 = s20;
-	private int hDistSetting = hSetting + rowPad; // distance between two setting top corner
+	private static int columnPad    = s20;
+	private static int smallButtonH = s30;
+	private static int smallButtonM = s30; // Margin for all GUI
+	private static int hSetting 	 = s90;
+	private static int lineH		 = s17;
+	private static int rowPad		 = s20;
+	private static int hDistSetting = hSetting + rowPad; // distance between two setting top corner
 	private int leftM, rightM,topM, yTop;
 	private int w, wBG, h, hBG;
 	private int numColumns, numRows;
@@ -66,10 +69,10 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	protected LinkedList<BaseText>	btList		= new LinkedList<BaseText>();
 	protected LinkedList<AbstractParam<?>> paramList = new LinkedList<AbstractParam<?>>();
 	protected Rectangle hoverBox;
-	private Rectangle okBox 		= new Rectangle();
-	private Rectangle defaultBox	= new Rectangle();
-	private Rectangle userBox		= new Rectangle();
-	private BasePanel parent;
+	private   Rectangle okBox 		= new Rectangle();
+	private   Rectangle defaultBox	= new Rectangle();
+	private   Rectangle userBox		= new Rectangle();
+	private   BasePanel parent;
 	private   boolean ctrlPressed	= false;
 	protected boolean global		= false; // No preferred button
 	
@@ -159,11 +162,27 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		init();
 		repaint();
 	}
-	private String userButtonKey() {
+	public static String userButtonKey(boolean ctrlPressed) {
 		if (ctrlPressed)
 			return saveUserKey;
 		else
 			return setUserKey;			
+	}
+	public static String defaultButtonKey(boolean ctrlPressed) {
+		if (ctrlPressed)
+			return setLastKey;
+		else
+			return setDefaultKey;			
+	}
+	public static int userButtonWidth(Graphics2D g) {
+        return Math.max(g.getFontMetrics().stringWidth(saveUserKey),
+        				g.getFontMetrics().stringWidth(setUserKey))
+        		+ smallButtonM;
+	}
+	public static int defaultButtonWidth(Graphics2D g) {
+        return Math.max(g.getFontMetrics().stringWidth(setDefaultKey),
+        				g.getFontMetrics().stringWidth(setLastKey))
+        		+ smallButtonM;
 	}
 	private void doUserBoxAction() {
 		if (ctrlPressed)
@@ -279,9 +298,9 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		g.drawRoundRect(okBox.x, okBox.y, okBox.width, okBox.height, cnr, cnr);
 		g.setStroke(prev);
 
-		String text7 = text("SETTINGS_DEFAULT");
-		int sw7 = g.getFontMetrics().stringWidth(text7);
-		smallButtonW = sw7+s30;
+		String text7 = text(defaultButtonKey(ctrlPressed));
+        int sw7		 = g.getFontMetrics().stringWidth(text7);
+		smallButtonW = defaultButtonWidth(g) + s30;
 		defaultBox.setBounds(okBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(defaultBox.x, defaultBox.y, smallButtonW, smallButtonH, cnr, cnr);
@@ -297,9 +316,9 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 
 		if (global)
 			return;  // No preferred button
-		String text8 = text(userButtonKey());
-		int sw8 = g.getFontMetrics().stringWidth(text8);
-		smallButtonW = sw8+s30;
+		String text8 = text(userButtonKey(ctrlPressed));
+        int sw8 	 = g.getFontMetrics().stringWidth(text8);
+		smallButtonW = userButtonWidth(g) + s30;
 		userBox.setBounds(defaultBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(userBox.x, userBox.y, smallButtonW, smallButtonH, cnr, cnr);

@@ -1417,6 +1417,7 @@ SETTINGS_TITLE                    | Advanced Game Options
 SETTINGS_DESCRIPTION              | Click, Right-Click, or Scroll to toggle each game setting.
 SETTINGS_EXIT                     | Exit
 SETTINGS_DEFAULT                  | Set to Default
+SETTINGS_LAST_SET                 | Set to Last
 SETTINGS_USER_SET                 | Set to Preferred
 SETTINGS_USER_SAVE                | Save Preferred
 SETTINGS_STAR_DENSITY             | Star Density: %1

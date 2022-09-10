@@ -15,6 +15,11 @@
  */
 package rotp.ui.game;
 
+import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
+import static rotp.ui.util.AbstractOptionsUI.defaultButtonWidth;
+import static rotp.ui.util.AbstractOptionsUI.userButtonKey;
+import static rotp.ui.util.AbstractOptionsUI.userButtonWidth;
+
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Composite;
@@ -53,10 +58,8 @@ import rotp.ui.main.SystemPanel;
 import rotp.ui.util.AbstractOptionsUI;
 
 public final class SetupGalaxyUI  extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
-	private static final long serialVersionUID = 1L;
-	public  static final String guiTitleID	= "SETUP_GALAXY";
-	private static final String setUserKey	= AbstractOptionsUI.setUserKey;
-	private static final String saveUserKey	= AbstractOptionsUI.saveUserKey;
+	private static final long serialVersionUID	= 1L;
+	public  static final String guiTitleID		= "SETUP_GALAXY";
 	public static int MAX_DISPLAY_OPPS = 49;
 	BufferedImage backImg, playerRaceImg;
 	BufferedImage smBackImg;
@@ -120,12 +123,6 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	private void release() {
 		backImg = null;
 		playerRaceImg = null;
-	}
-	private String userButtonKey() {
-		if (ctrlPressed)
-			return saveUserKey;
-		else
-			return setUserKey;			
 	}
     private void setToDefault() {
     	// TODO BR: setToDefault
@@ -458,10 +455,10 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		g.setStroke(prev);
 		
         // BR: Default and User Buttons 
-        String text7 = text("SETTINGS_DEFAULT");
-        int sw7 = g.getFontMetrics().stringWidth(text7);
-        int smallButtonW = sw7+s30;
-        int yB = restartBox.y;
+		String text7 = text(defaultButtonKey(ctrlPressed));
+        int sw7		 = g.getFontMetrics().stringWidth(text7);
+		int smallButtonW = defaultButtonWidth(g);
+         int yB = restartBox.y;
         int xB = restartBox.x - smallButtonW - bSep;
         int smallButtonH = s30;
         defaultBox.setBounds(xB, yB, smallButtonW, smallButtonH);
@@ -477,9 +474,9 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
         g.drawRoundRect(defaultBox.x, defaultBox.y, defaultBox.width, defaultBox.height, cnr, cnr);
         g.setStroke(prev);
 
-        String text8 = text(userButtonKey());
-		int sw8 = g.getFontMetrics().stringWidth(text8);
-		smallButtonW = sw8+s30;
+		String text8 = text(userButtonKey(ctrlPressed));
+        int sw8 	 = g.getFontMetrics().stringWidth(text8);
+		smallButtonW = userButtonWidth(g);
 		xB = defaultBox.x-smallButtonW-bSep;
 		userBox.setBounds(xB, yB, smallButtonW, smallButtonH);
 		g.setPaint(GameUI.buttonLeftBackground());

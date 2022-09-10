@@ -16,6 +16,10 @@
 package rotp.ui.game;
 
 import static rotp.ui.UserPreferences.customPlayerRace;
+import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
+import static rotp.ui.util.AbstractOptionsUI.defaultButtonWidth;
+import static rotp.ui.util.AbstractOptionsUI.userButtonKey;
+import static rotp.ui.util.AbstractOptionsUI.userButtonWidth;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -49,13 +53,10 @@ import rotp.model.ships.ShipLibrary;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.main.SystemPanel;
-import rotp.ui.util.AbstractOptionsUI;
 
 public final class SetupRaceUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
-    private static final long serialVersionUID = 1L;
-	public  static final String guiTitleID	= "SETUP_SELECT_RACE";
-	private static final String setUserKey	= AbstractOptionsUI.setUserKey;
-	private static final String saveUserKey	= AbstractOptionsUI.saveUserKey;
+    private static final long serialVersionUID	= 1L;
+	public  static final String guiTitleID		= "SETUP_SELECT_RACE";
     public static final int MAX_RACES  = 16; // modnar: increase MAX_RACES to add new Races
     static final int MAX_COLORS = 16; // modnar: add new colors
     static final int MAX_SHIP   = ShipLibrary.designsPerSize; // BR:
@@ -123,13 +124,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         newGameOptions().copyOptions(options());
         raceChanged();
     }
-	private String userButtonKey() {
-		if (ctrlPressed)
-			return saveUserKey;
-		else
-			return setUserKey;			
-	}
-    private void setToDefault() {
+     private void setToDefault() {
     	// TODO BR: setToDefault
 //        newGameOptions().setToDefault();
 //        init();
@@ -436,9 +431,9 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         g.setStroke(prev);
 
         // BR: Default and User Buttons 
-        String text7 = text("SETTINGS_DEFAULT");
-        int sw7 = g.getFontMetrics().stringWidth(text7);
-        int smallButtonW = sw7+s30;
+		String text7 = text(defaultButtonKey(ctrlPressed));
+        int sw7		 = g.getFontMetrics().stringWidth(text7);
+		int smallButtonW = defaultButtonWidth(g);
         int smallButtonH = s30;
         y4 = cancelBox.y + s15;
         int xSep = s15;
@@ -455,9 +450,9 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         g.drawRoundRect(defaultBox.x, defaultBox.y, defaultBox.width, defaultBox.height, cnr, cnr);
         g.setStroke(prev);
 
-        String text8 = text(userButtonKey());
-		int sw8 = g.getFontMetrics().stringWidth(text8);
-		smallButtonW = sw8+s30;
+		String text8 = text(userButtonKey(ctrlPressed));
+        int sw8 	 = g.getFontMetrics().stringWidth(text8);
+		smallButtonW = userButtonWidth(g);
 		userBox.setBounds(defaultBox.x-smallButtonW-xSep, y4, smallButtonW, smallButtonH);
 		g.setPaint(GameUI.buttonLeftBackground());
 		g.fillRoundRect(userBox.x, userBox.y, smallButtonW, smallButtonH, cnr, cnr);

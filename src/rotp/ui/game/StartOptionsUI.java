@@ -15,6 +15,11 @@
  */
 package rotp.ui.game;
 
+import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
+import static rotp.ui.util.AbstractOptionsUI.defaultButtonWidth;
+import static rotp.ui.util.AbstractOptionsUI.userButtonKey;
+import static rotp.ui.util.AbstractOptionsUI.userButtonWidth;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -35,14 +40,11 @@ import rotp.mod.br.profiles.Profiles;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.main.SystemPanel;
-import rotp.ui.util.AbstractOptionsUI;
 
 public class StartOptionsUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
-    private static final long serialVersionUID = 1L;
-    private static final Color backgroundHaze = new Color(0,0,0,160);
-	public  static final String guiTitleID	= "SETTINGS_TITLE";
-	private static final String setUserKey	= AbstractOptionsUI.setUserKey;
-	private static final String saveUserKey	= AbstractOptionsUI.saveUserKey;
+    private static final long serialVersionUID	= 1L;
+    private static final Color backgroundHaze	= new Color(0,0,0,160);
+	public  static final String guiTitleID		= "SETTINGS_TITLE";
     
     public static final Color lightBrown = new Color(178,124,87);
     public static final Color brown = new Color(141,101,76);
@@ -126,12 +128,6 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
         init();
         repaint();
     }
-	private String userButtonKey() {
-		if (ctrlPressed)
-			return saveUserKey;
-		else
-			return setUserKey;			
-	}
 	private void doUserBoxAction() {
 		if (ctrlPressed)
 			newGameOptions().setUserOptions(guiTitleID);
@@ -480,9 +476,9 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
         g.drawRoundRect(okBox.x, okBox.y, okBox.width, okBox.height, cnr, cnr);
         g.setStroke(prev);
 
-        String text7 = text("SETTINGS_DEFAULT");
-        int sw7 = g.getFontMetrics().stringWidth(text7);
-        smallButtonW = sw7+s30;
+		String text7 = text(defaultButtonKey(ctrlPressed));
+        int sw7		 = g.getFontMetrics().stringWidth(text7);
+		smallButtonW = defaultButtonWidth(g);
         defaultBox.setBounds(okBox.x-smallButtonW-s30, y4, smallButtonW, smallButtonH);
         g.setColor(GameUI.buttonBackgroundColor());
         g.fillRoundRect(defaultBox.x, defaultBox.y, smallButtonW, smallButtonH, cnr, cnr);
@@ -496,9 +492,9 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
         g.drawRoundRect(defaultBox.x, defaultBox.y, defaultBox.width, defaultBox.height, cnr, cnr);
         g.setStroke(prev);
 
-        String text8 = text(userButtonKey());
-		int sw8 = g.getFontMetrics().stringWidth(text8);
-		smallButtonW = sw8+s30;
+		String text8 = text(userButtonKey(ctrlPressed));
+        int sw8 	 = g.getFontMetrics().stringWidth(text8);
+		smallButtonW = userButtonWidth(g);
 		userBox.setBounds(defaultBox.x-smallButtonW-s30, y4, smallButtonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(userBox.x, userBox.y, smallButtonW, smallButtonH, cnr, cnr);
