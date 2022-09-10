@@ -427,7 +427,9 @@ public class AIShipCaptain implements Base, ShipCaptain {
                 float adjustedKillPct = killPct - incomingMissileKillPct(target);
                 float desirability = 0;
                 float valueMod = 0;
-                if(target.isShip())
+                if(target.isMonster())
+                    valueMod = 1; //Real value of monster doesn't matter. It just mustn't be 0!
+                else if(target.isShip())
                     valueMod = target.designCost();
                 else if(target.num > 0)
                     valueMod = target.designCost();
