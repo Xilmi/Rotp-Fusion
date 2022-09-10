@@ -667,13 +667,13 @@ public final class RacesMilitaryUI extends BasePanel implements MouseListener, M
         drawString(g,label,  x0, y3);
              
         g.setFont(narrowFont(15));
-        String val = view.computerKnown() ? str((int)d.attackLevel()) : unk;
+        String val = view.computerKnown() ? str((int)d.attackLevel()+d.empire().shipAttackBonus()) : unk;
         int sw = g.getFontMetrics().stringWidth(val);
         drawString(g,val, x+w-sw-s10, y0);
-        val = view.maneuverKnown() ? str(d.missileDefense()) : unk;
+        val = view.maneuverKnown() ? str(d.missileDefense()+d.empire().shipDefenseBonus()) : unk;
         sw = g.getFontMetrics().stringWidth(val);
         drawString(g,val, x+w-sw-s10, y1);
-        val = view.maneuverKnown() ? str(d.beamDefense()) : unk;
+        val = view.maneuverKnown() ? str(d.beamDefense()+d.empire().shipDefenseBonus()) : unk;
         sw = g.getFontMetrics().stringWidth(val);
         drawString(g,val, x+w-sw-s10, y2);
         val = view.maneuverKnown() ? str(d.combatSpeed()) : unk;
