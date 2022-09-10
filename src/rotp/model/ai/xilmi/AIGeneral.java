@@ -15,6 +15,7 @@
  */
 package rotp.model.ai.xilmi;
 
+import rotp.model.ai.FleetStats;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -42,6 +43,7 @@ public class AIGeneral implements Base, General {
     private final Empire empire;
     private float civProd = 0;
     private final HashMap<StarSystem, List<Ship>> targetedSystems;
+    private final HashMap<Empire, FleetStats> empireFleetStats;
     private final List<StarSystem> rushDefenseSystems;
     private final List<StarSystem> rushShipSystems;
     private float civTech = 0;
@@ -61,14 +63,24 @@ public class AIGeneral implements Base, General {
     private float smartPower = -1;
     private float highestProdScore = -1;
     private float nebulaRatio = -1;
+    private boolean FleetStatsUpdatedThisTurn = false;
 
     public AIGeneral (Empire c) {
         empire = c;
         targetedSystems = new HashMap<>();
+        empireFleetStats = new HashMap<>();
         rushDefenseSystems = new ArrayList<>();
         rushShipSystems = new ArrayList<>();
     }
     private HashMap<StarSystem, List<Ship>> targetedSystems() { return targetedSystems; }
+    @Override
+    public FleetStats getFleetStatsForEmpire(Empire emp) {
+        resetEmpireFleetStats();
+        if(empireFleetStats.containsKey(emp))
+            return empireFleetStats.get(emp);
+        else
+            return new FleetStats();
+    }
     @Override
     public List<StarSystem> rushDefenseSystems() { return rushDefenseSystems; }
     @Override
@@ -82,6 +94,7 @@ public class AIGeneral implements Base, General {
         civProd = empire.totalPlanetaryProduction();
         civTech = empire.tech().avgTechLevel();
         resetTargetedSystems();
+        resetEmpireFleetStats();
         rushDefenseSystems.clear();
         rushShipSystems.clear();
         bestVictim = null;
@@ -98,6 +111,7 @@ public class AIGeneral implements Base, General {
         smartPower = -1;
         highestProdScore = -1;
         nebulaRatio = -1;
+        FleetStatsUpdatedThisTurn = false;
         
         //empire.tech().learnAll();
         //System.out.println(galaxy().currentTurn()+" "+empire.name()+" "+empire.leader().name()+" personality: "+empire.leader().personality()+" objective: "+empire.leader().objective());
@@ -730,6 +744,22 @@ public class AIGeneral implements Base, General {
         fp.addShips(empire.shipLab().destroyerDesign(), destroyersNeeded);
         fp.addShips(empire.shipLab().fighterDesign(), fightersNeeded);
     }
+    private void resetEmpireFleetStats() {
+        if(FleetStatsUpdatedThisTurn)
+            return;
+        empireFleetStats.clear();
+        empireFleetStats.put(empire, new FleetStats());
+        for(ShipFleet fl : empire.allFleets()) {
+            empireFleetStats.get(empire).merge(empire.fleetCommanderAI().getFleetStats(fl));
+        }
+        for(ShipFleet fl : empire.enemyFleets()) {
+            if(!empireFleetStats.containsKey(fl.empire()))
+                empireFleetStats.put(fl.empire(), new FleetStats());
+            empireFleetStats.get(fl.empire()).merge(empire.fleetCommanderAI().getFleetStats(fl));
+        }
+        FleetStatsUpdatedThisTurn = true;
+    }
+    
     private void resetTargetedSystems() {
         Set<StarSystem> systems = targetedSystems().keySet(); // re-inits
         for (StarSystem s: systems)

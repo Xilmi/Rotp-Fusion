@@ -639,14 +639,26 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
         }
         return maxSpeed;
     }
-	// modnar: add firepowerAntiShip to only count weapons that can attack ships
-	public float firepowerAntiShip(float shield) {
+    // modnar: add firepowerAntiShip to only count weapons that can attack ships
+    public float firepowerAntiShip(float shield) {
         float dmg = 0;
         for (int i=0;i<num.length;i++) {
             if (num[i]>0) {
                 ShipDesign des = design(i);
                 if (des != null)
                     dmg += (num[i] * des.firepowerAntiShip(shield));
+            }
+        }
+        return dmg;
+    }
+    // modnar: add firepowerAntiShip to only count weapons that can attack ships
+    public float firepowerAntiShip(float shield, float defense, float missileDefense) {
+        float dmg = 0;
+        for (int i=0;i<num.length;i++) {
+            if (num[i]>0) {
+                ShipDesign des = design(i);
+                if (des != null)
+                    dmg += (num[i] * des.firepowerAntiShip(shield, defense, missileDefense));
             }
         }
         return dmg;

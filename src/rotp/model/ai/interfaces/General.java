@@ -15,9 +15,10 @@
  */
 package rotp.model.ai.interfaces;
 
+import java.util.HashMap;
 import java.util.List;
+import rotp.model.ai.FleetStats;
 import rotp.model.empires.Empire;
-import rotp.model.empires.EmpireView;
 import rotp.model.galaxy.Location;
 import rotp.model.galaxy.StarSystem;
 
@@ -60,4 +61,5 @@ public interface General {
     default float facCapPct(Empire emp, boolean ignorePoor) { return 1; }
     default int facCapRank() { return 1; }
     default int militaryRank(Empire etc, boolean inAttackRange) { return 1; }
+    default FleetStats getFleetStatsForEmpire(Empire emp) { return new FleetStats(); }
 }

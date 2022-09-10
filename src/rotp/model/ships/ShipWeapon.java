@@ -93,7 +93,7 @@ public class ShipWeapon extends ShipComponent {
         float shieldMod = des.targetShieldMod(this);
         float shieldLevel = shieldMod * target.shieldLevel();
         float beamMod = 1;
-        float pct = (5 + des.attackLevel() - target.bombDefense()) / 10;
+        float pct = (5 + des.attackLevel() + des.empire().shipAttackBonus() - target.bombDefense()) / 10;
         pct = max(.05f, pct);
         if(isBeamWeapon())
         {

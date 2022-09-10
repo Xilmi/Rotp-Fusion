@@ -23,6 +23,7 @@ import rotp.model.combat.CombatStack;
 import rotp.model.galaxy.Galaxy;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.planet.PlanetType;
+import rotp.model.tech.TechShipWeapon;
 import rotp.util.Base;
 
 public final class ShipDesign extends Design {
@@ -409,6 +410,22 @@ public final class ShipDesign extends Design {
             }
         return dmg;
     }
+    public float firepowerAntiShip(float shield, float defense, float missileDefense) {
+        float dmg = 0;
+        for (int i=0;i<maxWeapons();i++)
+            if (weapon(i).canAttackShips()) {
+                float attack = attackLevel() + weapon(i).computerLevel() + empire().shipAttackBonus();
+                float hitPct = 1;
+                if(weapon(i).isBeamWeapon())
+                    hitPct = (5 + attack - defense) / 10;
+                if(weapon(i).isMissileWeapon())
+                    hitPct = (5 + attack - missileDefense) / 10;
+                hitPct = max(.05f, hitPct);
+                hitPct = min(hitPct, 1.0f);
+                dmg += (wpnCount(i) * weapon(i).firepower(shield) * hitPct * weapon(i).bombardAttacks());
+            }
+        return dmg;
+    }
     public float firepower(float shield) {
         float dmg = 0;
         for (int i=0;i<maxWeapons();i++)
@@ -677,5 +694,17 @@ public final class ShipDesign extends Design {
 
     public void setAutoAttack(boolean autoAttack) {
         this.autoAttack = autoAttack;
+    }
+    
+    public int getSpecialCount(boolean ignoreNonCombatAndStats) {
+        int specialCount = 0;
+        for(ShipSpecial spec : special) {
+            if(spec.isNone())
+                continue;
+            if(ignoreNonCombatAndStats && (spec.isFuelRange() || spec.isColonySpecial() || spec.allowsScanning() || spec.isInertial()))
+                continue;
+            ++specialCount;
+        }
+        return specialCount;
     }
 }
