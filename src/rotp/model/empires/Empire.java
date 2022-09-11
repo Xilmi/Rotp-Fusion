@@ -1064,7 +1064,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         NoticeMessage.setSubstatus(text("TURN_COLONY_SPENDING"));
         for (int n=0; n<sv.count(); n++) {
             if (sv.empId(n) == id)
-                if(!sv.colony(n).isGovernor() || isAIControlled() || sv.colony(n).shipyard().shipLimitReached()) //do not overrule the governor if it is enabled, except it's for ship-limit-reached
+                if(!sv.colony(n).isGovernor() || isAIControlled() || sv.colony(n).shipyard().shipLimitReached() || sv.colony(n).shipyard().stargateCompleted()) //do not overrule the governor if it is enabled, except it's for ship-limit-reached
                     governorAI().setColonyAllocations(sv.colony(n));
         }
     }
@@ -1147,9 +1147,9 @@ public final class Empire implements Base, NamedObject, Serializable {
 
         Collections.sort(colonies,
                 (Colony o1, Colony o2) -> (int)Math.signum(o1.expectedPopPct() - o2.expectedPopPct()));
-        for (Colony c: colonies) {
+        /*for (Colony c: colonies) {
             System.out.println("Transport Recipient "+c.expectedPopPct()+" "+c.expectedPopulation()+"/"+c.planet().currentSize()+" "+c.name());
-        }
+        }*/
 
         List<Colony> donors = new LinkedList<>();
         for (int i = 0; i < this.sv.count(); ++i) {
@@ -1181,9 +1181,9 @@ public final class Empire implements Base, NamedObject, Serializable {
                 donors.add(c);
             }
         }
-        for (Colony c: donors) {
+        /*for (Colony c: donors) {
             System.out.println("Transport Donor "+c.expectedPopulation()+"/"+c.planet().currentSize()+" "+c.name());
-        }
+        }*/
         // no potential donors- no reason to do any of this.
         if (donors.isEmpty()) {
             return;
@@ -1225,7 +1225,7 @@ public final class Empire implements Base, NamedObject, Serializable {
                 // if we expect transports in excess of maximum population, ship that away too.
                 int expectedOverPopulation = Math.round(donor.expectedPopulation() - donor.planet().currentSize());
                 int growth = Math.max(1, Math.round(donor.unrestrictedPopGrowth()));
-                System.out.println("Donor "+donor.name()+" overPopulation="+expectedOverPopulation+" growth="+growth);
+                //System.out.println("Donor "+donor.name()+" overPopulation="+expectedOverPopulation+" growth="+growth);
                 int populationToTransport = Math.max(expectedOverPopulation, growth);
                 // if this option is set, transport 2x population from poor planets
                 if (options.isTransportPoorDouble() && (donor.planet().isResourcePoor() || donor.planet().isResourceUltraPoor()) ) {
