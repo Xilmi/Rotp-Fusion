@@ -35,6 +35,7 @@ import rotp.ui.SystemViewer;
 import rotp.util.ImageManager;
 
 import javax.swing.*;
+import static rotp.model.colony.Colony.ECOLOGY;
 import static rotp.model.colony.ColonySpendingCategory.MAX_TICKS;
 
 public class EmpireColonySpendingPane extends BasePanel {
@@ -370,11 +371,15 @@ public class EmpireColonySpendingPane extends BasePanel {
             Colony colony = sys.colony();
             if (colony == null)
                 return;
-            colony.clearUnlockedSpending();
-            colony.setAllocation(this.category, colony.allocationRemaining());
-            colony.checkEcoAtClean();
+            if(!colony.locked(category)) {
+                colony.clearUnlockedSpending();
+                colony.setAllocation(this.category, colony.allocationRemaining());
+                if(category != ECOLOGY)
+                    colony.checkEcoAtClean();
+            }
             if (click)
                 softClick();
+            parent.repaint();
         }
         public void increment(boolean click) {
             StarSystem sys = parent.systemViewToDisplay();

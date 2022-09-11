@@ -1762,13 +1762,13 @@ public class DesignUI extends BasePanel {
             str = ""+(int)des.hits();
             sw = g.getFontMetrics().stringWidth(str);
             drawString(g,str, x3-sw, y2);
-            str = ""+des.missileDefense();
+            str = ""+(des.missileDefense()+des.empire().shipDefenseBonus());
             sw = g.getFontMetrics().stringWidth(str);
             drawString(g,str, x3-sw, y3);
-            str = ""+des.beamDefense();
+            str = ""+(des.beamDefense()+des.empire().shipDefenseBonus());
             sw = g.getFontMetrics().stringWidth(str);
             drawString(g,str, x3-sw, y4);
-            str = ""+ (int)des.attackLevel();
+            str = ""+ (int)(des.attackLevel()+des.empire().shipAttackBonus());
             sw = g.getFontMetrics().stringWidth(str);
             drawString(g,str, x3-sw, y5);
             str = ""+ des.combatSpeed();

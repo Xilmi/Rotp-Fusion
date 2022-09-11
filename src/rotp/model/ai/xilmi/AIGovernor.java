@@ -15,7 +15,6 @@
  */
 package rotp.model.ai.xilmi;
 
-import rotp.model.ai.FleetPlan;
 import rotp.model.ai.ShipPlan;
 import rotp.model.ai.interfaces.Governor;
 import rotp.model.colony.Colony;
@@ -26,14 +25,11 @@ import rotp.model.combat.ShipCombatManager;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
 import rotp.model.empires.SystemView;
-import rotp.model.galaxy.IMappedObject;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.planet.Planet;
 import rotp.model.ships.ShipDesign;
 import rotp.model.ships.ShipDesignLab;
-import rotp.model.tech.TechTree;
-import rotp.ui.UserPreferences;
 import rotp.util.Base;
 
 public class AIGovernor implements Base, Governor {
@@ -67,6 +63,7 @@ public class AIGovernor implements Base, Governor {
             //System.out.print("\n"+galaxy().currentTurn()+" "+empire.name()+" "+col.name()+" col.pct(SHIP): "+col.pct(SHIP)+" col.pct(DEFENSE): "+col.pct(DEFENSE)+" col.pct(INDUSTRY): "+col.pct(INDUSTRY)+" col.pct(ECOLOGY): "+col.pct(ECOLOGY)+" col.pct(TECH): "+col.pct(RESEARCH)+" yard: "+col.shipyardProject());
             return;
         }
+        //System.out.println(galaxy().currentTurn()+" "+empire.name()+" "+col.name()+" called setColonyAllocations.");
         StarSystem sys = col.starSystem();
         String name = empire.sv.name(sys.id);
         boolean cleanupOK = ensureMinimumCleanup(col);
@@ -108,7 +105,8 @@ public class AIGovernor implements Base, Governor {
             session().addSystemToAllocate(sys, text("MAIN_ALLOCATE_PROJECT_ENDED", name, col.research().completedProject().projectKey()));
             
         if (col.hasNewOrders() || (col.allocationRemaining() != 0) || session().awaitingAllocation(sys)) {
-            baseSetPlayerAllocations(col);
+            if(!col.isGovernor())
+                baseSetPlayerAllocations(col);
             col.validate();
         }
     }

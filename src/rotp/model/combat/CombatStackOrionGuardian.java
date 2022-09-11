@@ -287,5 +287,9 @@ public class CombatStackOrionGuardian extends CombatStack {
         brighten = 0;
         mgr.ui.paintAllImmediately();
     }
+    @Override
+    public int wpnCount(int i) { 
+        return weaponCount[i];
+    }
 }
         

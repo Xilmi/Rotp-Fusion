@@ -329,25 +329,41 @@ public final class TechTree implements Base, Serializable {
             if (cat.locked()) {
                 freeAlloc -= cat.allocation();
                 numLocks++;
+            } else {
+                cat.allocation(0);
             }
         }
         // if every category is locked, don't try to equalize
         if (category.length == numLocks)
             return;
-        int allocPerCategory = freeAlloc / (category.length - numLocks);
-        int categoriesSet = numLocks;
-
-        for (TechCategory cat: category) {
-            if (!cat.locked()) {
-                categoriesSet++;
-                if (categoriesSet == category.length)
-                    // last unlocked category gets all remaining allocation
-                    cat.allocation(freeAlloc);
-                else {
-                    cat.allocation(allocPerCategory);
-                    freeAlloc -= allocPerCategory;
+        redistributeRemainingAlloc(freeAlloc);
+    }
+    public void redistributeRemainingAlloc(int freeAlloc) {
+        while(freeAlloc > 0)
+        {
+            int unlockedCategories = 0;
+            for (TechCategory cat: category) {
+                if (!cat.locked()) {
+                    cat.adjustAllocation(1);
+                    freeAlloc--;
+                    unlockedCategories++;
+                }
+                if(freeAlloc <= 0)
+                    break;
+            }
+            if(unlockedCategories == 0) {
+                for (TechCategory cat: category) {
+                    if (!cat.researchCompleted()) {
+                        cat.adjustAllocation(1);
+                        freeAlloc--;
+                        unlockedCategories++;
+                    }
+                    if(freeAlloc <= 0)
+                        break;
                 }
             }
+            if(unlockedCategories == 0) //Neither unlocked categories nor categories that still can research something were found
+                return;
         }
     }
     public boolean canColonize(PlanetType pt) {
@@ -591,9 +607,9 @@ public final class TechTree implements Base, Serializable {
         totalResearchThisTurn = empire().totalPlanetaryResearch();
     }
     public void allocateResearch() {
-        for (int j=0; j<category.length; j++)
-            category[j].allocateResearchBC();
-        
+        for (TechCategory cat : category) {
+            cat.allocateResearchBC();
+        }
         // if all categories are completed, no need to check
         // for reallocation of completed categories
         if (researchCompleted())
@@ -601,10 +617,13 @@ public final class TechTree implements Base, Serializable {
         
         // check to see if any categories are completed but
         // still have spending (not reallocated yet, so do it now)
+        int freeAlloc = 60;
         for (TechCategory cat: category) {
-            if (cat.researchCompleted() && (cat.allocation() > 0)) 
+            if (cat.researchCompleted() && (cat.allocation() > 0))
                 adjustTechAllocation(cat.index(), 0-cat.allocation(), true);
+            freeAlloc -= cat.allocation();
         }
+        redistributeRemainingAlloc(freeAlloc);
     }
     public String randomKnownTech() {
         return random(category).randomKnownTech();

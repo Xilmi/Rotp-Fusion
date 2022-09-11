@@ -15,6 +15,7 @@
  */
 package rotp.model.ai.interfaces;
 
+import rotp.model.ai.FleetStats;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 
@@ -29,4 +30,5 @@ public interface FleetCommander {
     default float bridgeHeadConfidence(StarSystem sys) { return 1; }
     default boolean underSiege() { return false; }
     default boolean incomingInvasion() { return false; }
+    default FleetStats getFleetStats(ShipFleet fl) { return new FleetStats(); }
 }

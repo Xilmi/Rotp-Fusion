@@ -571,7 +571,6 @@ public final class Colony implements Base, IMappedObject, Serializable {
         industry().assessTurn();
         ecology().assessTurn();
         research().assessTurn();
-        
         checkEcoAtClean();
         
         if (reallocationRequired)
@@ -921,7 +920,6 @@ public final class Colony implements Base, IMappedObject, Serializable {
         if (recalcSpendingForNewTaxRate) 
         {
             checkEcoAtClean();
-            governIfNeeded();
         }
     }
     public float totalProductionIncome() {
@@ -1582,7 +1580,6 @@ public final class Colony implements Base, IMappedObject, Serializable {
         for (int i = 0; i < spending.length; i++)
             if (spending[i] == null || spending[i].colony() == null)
                 return;
-
         // Set max missile bases if minimum is set
         if (session().getGovernorOptions().getMinimumMissileBases() > 0) {
             if (defense().maxBases() < session().getGovernorOptions().getMinimumMissileBases()) {
@@ -1601,7 +1598,6 @@ public final class Colony implements Base, IMappedObject, Serializable {
         // if we just finished building a stargate, we're not building ships
         boolean buildingShips = allocation[SHIP] > 0 &&
                 !shipyard().design().equals(empire.shipLab().stargateDesign()) &&
-                !shipyard().stargateCompleted() &&
                 !buildingStargate;
         
         // start from scratch
@@ -1640,31 +1636,29 @@ public final class Colony implements Base, IMappedObject, Serializable {
             buildStargate(buildingStargate);
         }
 
-        // if all sliders are set to 0, increase research.
-        boolean noSpending = true;
-        for (int i = Colony.SHIP; i <= Colony.RESEARCH; i++) {
-            if (allocation[i] > 0) {
-                noSpending = false;
-                break;
-            }
-        }
-        if (noSpending) {
-//            System.out.println("NO SPENDING "+this.name());
+        // put rest into research.
+        if(allocationRemaining() > 0)
             allocation(RESEARCH, allocationRemaining());
-        }
+
         // if we were building ships, or a stargate, keep 1 tick in shipbuilding
         if ((buildingShips && session().getGovernorOptions().isShipbuilding()) ||
             (buildingStargate && session().getGovernorOptions().getGates() != GovernorOptions.GatesGovernor.None)) {
-            increment(SHIP, 1);
+            if(allocation(SHIP) < 1) //only do it if we aren't already spending into ship as we otherwise could get waste
+                increment(SHIP, 1);
         }
-        // if we finished building stargate, don't build any ships.
-        if (!shipyard().stargateCompleted() && (buildingStargate || buildingShips)
+        if ((buildingStargate || buildingShips)
                 && session().getGovernorOptions().isShipbuilding() && allocation[RESEARCH] > 0) {
             // if we were building ships, push all research into shipbuilding.
             locked(Colony.SHIP, false);
             increment(Colony.SHIP, allocation[RESEARCH]);
         }
         locked(Colony.ECOLOGY, true);
+        /*System.out.println(galaxy().currentTurn()+" "+empire.name()+" "+name()+" After Govern:");
+        System.out.println(galaxy().currentTurn()+" "+empire.name()+" Ship: "+allocation(SHIP));
+        System.out.println(galaxy().currentTurn()+" "+empire.name()+" Def : "+allocation(DEFENSE));
+        System.out.println(galaxy().currentTurn()+" "+empire.name()+" Ind : "+allocation(INDUSTRY));
+        System.out.println(galaxy().currentTurn()+" "+empire.name()+" Eco : "+allocation(ECOLOGY));
+        System.out.println(galaxy().currentTurn()+" "+empire.name()+" Res : "+allocation(RESEARCH));*/
     }
 
     /**
@@ -1854,9 +1848,9 @@ public final class Colony implements Base, IMappedObject, Serializable {
         //xilmi: We need to reset ecology-spending because totalIncome conditionally calls a function that sets eco to clean, if we don't we can end up having twice the eco-spending we want
         allocation(ECOLOGY, 0);
         locked(Colony.ECOLOGY, false);
-        increment(Colony.ECOLOGY, ecoAll);
+        allocation(Colony.ECOLOGY, ecoAll);
         locked(Colony.ECOLOGY, true);
-        increment(Colony.INDUSTRY, indAll);
+        allocation(Colony.INDUSTRY, indAll);
         locked(Colony.INDUSTRY, true);
     }
 
@@ -1919,15 +1913,18 @@ public final class Colony implements Base, IMappedObject, Serializable {
         }
         if (this.empire.shipLab().stargateDesign().equals(current)) {
             locked(Colony.SHIP, false);
-            allocation(SHIP, allocationRemaining() + allocation(RESEARCH));
+            int needed = shipyard().maxAllocationNeeded();
+            needed = min(needed, allocationRemaining() + allocation(RESEARCH));
+            allocation(SHIP, needed);
+            allocation(RESEARCH, allocationRemaining());
         }
     }
 
     // BR:
     /**
-	 * @return the Challenge Mod State
-	 */
-	public boolean isChallengeMode() {
+    * @return the Challenge Mod State
+    */
+    public boolean isChallengeMode() {
         return challengeMode;
-	} // \BR
+    } // \BR
 }
