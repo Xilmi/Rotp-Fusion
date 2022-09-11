@@ -15,6 +15,7 @@
  */
 package rotp.ui;
 
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,6 +32,7 @@ import rotp.Rotp;
 import rotp.mod.br.addOns.ShipSetAddOns;
 import rotp.model.events.RandomEvents;
 import rotp.model.game.GameSession;
+import rotp.model.game.IGameOptions;
 import rotp.ui.game.StartModBOptionsUI;
 import rotp.ui.game.ModGlobalOptionsUI;
 import rotp.ui.game.StartModAOptionsUI;
@@ -88,7 +90,7 @@ public class UserPreferences {
 	public static final ParamAAN2 richHomeworld 	 = new ParamAAN2("HOME_RICH");
 	public static final ParamAAN2 ultraRichHomeworld = new ParamAAN2("HOME_ULTRA_RICH");
 
-	public static final LinkedList<AbstractParam<?>> modA = new LinkedList<>(Arrays.asList(
+	private static final LinkedList<AbstractParam<?>> modA = new LinkedList<>(Arrays.asList(
 			artifactsHomeworld, fertileHomeworld, richHomeworld,ultraRichHomeworld
 			));
 
@@ -134,7 +136,7 @@ public class UserPreferences {
 			techIrradiated, techCloaking, techStargate, techHyperspace,
 			techIndustry2, techThorium, techTransport
 			));
-	public static final LinkedList<AbstractParam<?>> modB = new LinkedList<>(Arrays.asList(
+	private static final LinkedList<AbstractParam<?>> modB = new LinkedList<>(Arrays.asList(
 		maximizeSpacing, spacingLimit, randomAlienRacesTargetMax, randomAlienRacesTargetMin, randomAlienRaces,
 		minStarsPerEmpire, prefStarsPerEmpire, randomAlienRacesMax, randomAlienRacesMin, randomAlienRacesSmoothEdges,
 		loadWithNewOptions, techIrradiated, techCloaking, techStargate, techHyperspace,
@@ -163,7 +165,7 @@ public class UserPreferences {
 			.put("LoadAll",	MOD_UI + "LOAD_GAME_UPDATE")
 			.put("Vanilla",	MOD_UI + "LOAD_GAME_VANILLA");
 
-	public static final LinkedList<AbstractParam<?>> modGlobal = new LinkedList<>(Arrays.asList(
+	private static final LinkedList<AbstractParam<?>> modGlobal = new LinkedList<>(Arrays.asList(
 			menuStartup, menuLoadGame,
 			showFleetFactor, showFlagFactor, showPathFactor,
 			showNameMinFont, showInfoFontRatio, mapFontFactor
@@ -210,19 +212,19 @@ public class UserPreferences {
 	/**
 	 * setting GUI Default Button Action
 	 */
-	public static void setToDefault(String guiTitleID) {
-		if (guiTitleID.equalsIgnoreCase(StartModAOptionsUI.guiTitleID)) {
-			setModToDefault();
-			return;
-		}
-		if (guiTitleID.equalsIgnoreCase(StartModBOptionsUI.guiTitleID)) {
-			setMod2ToDefault();
-			return;
-		}
-		if (guiTitleID.equalsIgnoreCase(ModGlobalOptionsUI.guiTitleID)) {
-			setModGlobalToDefault();
-			return;
-		}
+	private static void setToDefault(String guiTitleID) {
+//		if (guiTitleID.equalsIgnoreCase(StartModAOptionsUI.guiTitleID)) {
+//			setModToDefault();
+//			return;
+//		}
+//		if (guiTitleID.equalsIgnoreCase(StartModBOptionsUI.guiTitleID)) {
+//			setToDefault(modB);
+//			return;
+//		}
+//		if (guiTitleID.equalsIgnoreCase(ModGlobalOptionsUI.guiTitleID)) {
+//			setModGlobalToDefault();
+//			return;
+//		}
 	}
 	/**
 	 * Advanced setting GUI Default Button Action
@@ -258,7 +260,7 @@ public class UserPreferences {
 	/**
 	 * First Mod GUI Default Button Action
 	 */
-	public static void setModToDefault() {
+	private static void setModToDefault() {
 		// Old settings
 		customDifficulty = 100; // mondar: add custom difficulty level option, in units of percent
 		dynamicDifficulty = false; // modnar: add dynamic difficulty option, change AI colony production
@@ -271,34 +273,34 @@ public class UserPreferences {
 		retreatRestrictions = 0;
 		retreatRestrictionTurns = 100;
 		for (AbstractParam<?> param : modA) {
-			param.setToDefault(false);
+			param.setFromDefault(false);
 		}
 		save();
 	}
+//	/**
+//	 * Second Mod GUI Default Button Action
+//	 */
+//	public static void setMod2ToDefault() {
+//		// Old settings
+//		dynamicDifficulty = false; // modnar: add dynamic difficulty option, change AI colony production
+//		missileSizeModifier = 2.0f/3.0f;
+//		retreatRestrictions = 0;
+//		retreatRestrictionTurns = 100;
+//		newRacesOnByDefault = true; // BR: add option to get or reject the new races
+//		// New settings
+//		for (AbstractParam<?> param : modB) {
+//			param.setToDefault(false);
+//		}
+//		save();
+//	}
 	/**
-	 * Second Mod GUI Default Button Action
+	 * Global Mod GUI Default Button Action
 	 */
-	public static void setMod2ToDefault() {
-		// Old settings
-		dynamicDifficulty = false; // modnar: add dynamic difficulty option, change AI colony production
-		missileSizeModifier = 2.0f/3.0f;
-		retreatRestrictions = 0;
-		retreatRestrictionTurns = 100;
-		newRacesOnByDefault = true; // BR: add option to get or reject the new races
-		// New settings
-		for (AbstractParam<?> param : modB) {
-			param.setToDefault(false);
-		}
-		save();
-	}
-	/**
-	 * Second Mod GUI Default Button Action
-	 */
-	public static void setModGlobalToDefault() {
+	private static void setModGlobalToDefault() {
 		// Old settings
 		// New settings
 		for (AbstractParam<?> param : modGlobal) {
-			param.setToDefault(false);
+			param.setFromDefault(false);
 		}
 		save();
 	}
@@ -644,9 +646,9 @@ public class UserPreferences {
 			out.println();
 			out.println("===== MOD B GUI Settings =====");
 			out.println();
-			for (AbstractParam<?> param : modB) {
-				out.println(keyFormat(param.getCfgLabel()) + param.getCfgValue());
-			}
+//			for (AbstractParam<?> param : modB) {
+//				out.println(keyFormat(param.getCfgLabel()) + param.toSelected());
+//			}
 			out.println();
 			out.println("===== MOD Display GUI Settings =====");
 			out.println();
@@ -725,10 +727,10 @@ public class UserPreferences {
 					if (key.equalsIgnoreCase(param.getCfgLabel()))
 						param.setFromCfgValue(val);
 				}
-				for (AbstractParam<?> param : modB) {
-					if (key.equalsIgnoreCase(param.getCfgLabel()))
-						param.setFromCfgValue(val);
-				}
+//				for (AbstractParam<?> param : modB) {
+//					if (key.equalsIgnoreCase(param.getCfgLabel()))
+//						param.fromSelected(val);
+//				}
 				for (AbstractParam<?> param : modGlobal) {
 					if (key.equalsIgnoreCase(param.getCfgLabel()))
 						param.setFromCfgValue(val);
@@ -903,4 +905,34 @@ public class UserPreferences {
 		SoundManager.current().resetSoundVolumes();
 		save();
 	}
+	// ==================== New option setter/Getters Method ====================
+	//
+	/**
+	 * Set the parameters to their default values
+	 * @param paramList The parameter list to reset
+	 */
+	public static void setFromDefault(LinkedList<AbstractParam<?>> paramList) {
+		for (AbstractParam<?> param : paramList) {
+			param.setFromDefault(false);
+		}
+	}
+	/**
+	 * Set the options to the parameters values
+	 * @param paramList The parameter list to use
+	 */
+	public static void setOptions(IGameOptions options, LinkedList<AbstractParam<?>> paramList) {
+		for (AbstractParam<?> param : paramList) {
+			param.setOptions(options);
+		}
+	}
+	/**
+	 * Set the parameters from the current options values
+	 * @param paramList The parameter list to set
+	 */
+	public static void setFromOptions(IGameOptions options, LinkedList<AbstractParam<?>> paramList) {
+		for (AbstractParam<?> param : paramList) {
+			param.setFromOptions(options);
+		}
+	}
+	
 }

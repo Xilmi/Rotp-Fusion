@@ -61,8 +61,8 @@ public class ParamList extends AbstractParam<String> {
 	@Override public int getBoxSize() {
 		return optValCostPtrMap.getBoxSize();
 	}
-	@Override public String getCfgValue() {
-		return validateKey(get());
+	@Override protected String getCfgValue(String value) {
+		return validateKey(value);
 	}
 	@Override public String getGuiValue() {
 		return text(optValCostPtrMap.getLangLabelFromCfgValue(validateKey(get())));
@@ -81,7 +81,7 @@ public class ParamList extends AbstractParam<String> {
 	}
 	@Override public String toggle(MouseEvent e) {
 		if (getDir(e) == 0) 
-			return setToDefault(true);
+			return setFromDefault(true);
 		else if (getDir(e) > 0)
 			return next();
 		else 

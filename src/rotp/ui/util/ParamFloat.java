@@ -84,11 +84,11 @@ public class ParamFloat extends AbstractParam<Float> {
 	}
 	// ========== Overriders ==========
 	//
-	@Override public String getCfgValue() {
+	@Override protected String getCfgValue(Float value) {
 		if (isCfgPercent()) {
-			return String.format("%d", (int) (get() * 100f));
+			return String.format("%d", (int) (value * 100f));
 		}
-		return new DecimalFormat(cfgFormat).format(get());
+		return new DecimalFormat(cfgFormat).format(value);
 	}
 	@Override public String getGuiValue() {
 		if (isGuiPercent()) {
@@ -122,7 +122,7 @@ public class ParamFloat extends AbstractParam<Float> {
 	// ========== Other Methods ==========
 	//
 	public Float next(float i) {
-		if (i == 0) return setToDefault(true);
+		if (i == 0) return setFromDefault(true);
 		Float value = get() + i;
 		if (maxValue() != null && value > maxValue()) {
 			if (loop && minValue() != null)

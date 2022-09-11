@@ -93,7 +93,7 @@ public class ParamInteger extends AbstractParam<Integer> {
 	// ===== Other Methods =====
 	//
 	public int next(int i) {
-		if (i == 0) return setToDefault(true);
+		if (i == 0) return setFromDefault(true);
 		Integer value = get() + i;
 		if (maxValue() != null && value > maxValue()) {
 			if (loop && minValue() != null)

@@ -23,6 +23,7 @@ import java.awt.event.MouseWheelEvent;
 
 import javax.swing.SwingUtilities;
 
+import rotp.model.game.IGameOptions;
 import rotp.ui.UserPreferences;
 import rotp.util.LabelManager;
 
@@ -104,12 +105,11 @@ public abstract class AbstractParam <T> {
 	//
 	T value(T value) 		{ this.value = value; return value;}
 	public int getIndex()	{ return 0; }
-	float getBaseCost()		{ return 0f; }
 	public T setFromIndex(int i) { return null; }
 	public int getBoxSize() {
 		return 1;
 	}
-	public String getCfgValue() {
+	protected String getCfgValue(T value) {
 		return String.valueOf(value);
 	}
 	public String getGuiValue() {
@@ -118,8 +118,19 @@ public abstract class AbstractParam <T> {
 	public String getGuiValue(int idx) { // For List
 		return getGuiValue();
 	}
+	// ========== Game Options Getter and setter ==========
+	//
+	public void setFromOptions(IGameOptions options) {
+		setFromCfgValue(options.getExtendedOptions(name, getCfgValue(defaultValue())));
+	}
+	public void setOptions(IGameOptions options) {
+		options.setExtendedOptions(name, getCfgValue());
+	}
 	// ========== Public Getters ==========
 	//
+	public String getCfgValue() {
+		return getCfgValue(value);
+	}
 	public String getCfgLabel() {
 		return name;
 	}
@@ -149,7 +160,7 @@ public abstract class AbstractParam <T> {
 	}	
 	// ========== Public Setters ==========
 	//
-	public T setToDefault(boolean save) {
+	public T setFromDefault(boolean save) {
 		value = defaultValue;
 		if (save) 
 			save();
@@ -159,7 +170,7 @@ public abstract class AbstractParam <T> {
 		value = newValue;
 		return value;
 	}	
-	T setFromIndexAndSave(int i){
+	private T setFromIndexAndSave(int i){
 		setFromIndex(i);
 		save();
 		return value;
@@ -175,7 +186,7 @@ public abstract class AbstractParam <T> {
 		else
 			return toggle(e);
 	}
-	public AbstractParam<?> allowSave(boolean allow) {
+	AbstractParam<?> allowSave(boolean allow) {
 		saveAllowed = allow;
 		return this;
 	}

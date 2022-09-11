@@ -157,10 +157,33 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	private void close() {
 		disableGlassPane();
 	}
-	private void setToDefault() {
-		UserPreferences.setToDefault(guiTitleID);
-		init();
-		repaint();
+	private void doOkBoxAction() {
+		if (ctrlPressed) { // Exit without saving
+			close();
+		} else { // save and exit
+			newGameOptions().saveLastOptions(paramList); // TODO BR: Non param options
+			close();
+		}
+	}
+	private void doDefaultBoxAction() {
+		if (ctrlPressed) { // set to last
+			newGameOptions().setUserOptions(paramList); // TODO BR: Non param options
+			init();
+			repaint();
+		} else { // set to default
+			UserPreferences.setFromDefault(paramList); // TODO BR: Non param options
+			init();
+			repaint();
+		}
+	}
+	private void doUserBoxAction() {
+		if (ctrlPressed) { // set
+			newGameOptions().setUserOptions(paramList); // TODO BR: Non param options
+			init();
+			repaint();
+		} else { // Save
+			newGameOptions().saveUserOptions(paramList); // TODO BR: Non param options
+		}
 	}
 	public static String userButtonKey(boolean ctrlPressed) {
 		if (ctrlPressed)
@@ -183,16 +206,6 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
         return Math.max(g.getFontMetrics().stringWidth(setDefaultKey),
         				g.getFontMetrics().stringWidth(setLastKey))
         		+ smallButtonM;
-	}
-	private void doUserBoxAction() {
-		if (ctrlPressed)
-			newGameOptions().setUserOptions(guiTitleID);
-		else
-			newGameOptions().saveUserOptions(guiTitleID);
-		// TODO BR: doUserBoxAction
-//		UserPreferences.setToDefault(guiTitleID);
-//		init();
-//		repaint();
 	}
 	private void checkCtrlKey(boolean pressed) {
 		if (pressed != ctrlPressed) {
@@ -409,9 +422,9 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		boolean shiftPressed = e.isShiftDown();
 		mouseCommon(up, mid, shiftPressed, ctrlPressed, e, null);
 		if (hoverBox == okBox)
-			close();
+			doOkBoxAction();
 		else if (hoverBox == defaultBox)
-			setToDefault();
+			doDefaultBoxAction();
 		else if (hoverBox == userBox)
 			doUserBoxAction();
 	}
