@@ -1459,7 +1459,7 @@ SETTINGS_AI_HOSTILITY_DESC        | Increase or decrease the general level of ho
 SETTINGS_MOD_TITLE                   | modnar MOD Options
 SETTINGS_MOD_NEW_RACES_ON            | Include New Races: %1
 SETTINGS_MOD_CHALLENGE_MODE          | Challenge Mode: %1
-SETTINGS_MOD_BATLLE_SCOUT            | Battle Scout: %1
+SETTINGS_MOD_BATTLE_SCOUT            | Battle Scout: %1
 SETTINGS_MOD_COMPANION_WORLDS        | Companion Worlds: %1
 SETTINGS_MOD_RANDOM_TECH_START       | Random Tech Start: %1
 SETTINGS_MOD_CUSTOM_DIFFICULTY       | Custom Difficulty: %1%

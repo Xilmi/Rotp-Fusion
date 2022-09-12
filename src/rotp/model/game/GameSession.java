@@ -864,7 +864,7 @@ public final class GameSession implements Base, Serializable {
         // modnar: add custom difficulty level option, set in Remnants.cfg
         // append this custom difficulty percentage to backup save file name if selected
         if (diff.equals("Custom")) {
-            diff = diff + " (" + Integer.toString(UserPreferences.customDifficulty()) + "%)";
+            diff = diff + " (" + Integer.toString(UserPreferences.customDifficulty.get()) + "%)";
         }
         String turn = "T"+pad4.format(num);
         String opp = "vs"+options().selectedNumberOpponents();

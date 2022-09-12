@@ -683,7 +683,7 @@ public interface IGameOptions {
             case DIFFICULTY_HARD:    return 1.1f;
             case DIFFICULTY_HARDER:  return 1.25f;
             case DIFFICULTY_HARDEST: return 1.45f;
-            case DIFFICULTY_CUSTOM:  return (float)(0.01f*UserPreferences.customDifficulty());
+            case DIFFICULTY_CUSTOM:  return (float)(0.01f*UserPreferences.customDifficulty.get());
             default: return 1.0f;
         }
     }
@@ -694,7 +694,7 @@ public interface IGameOptions {
             case DIFFICULTY_EASIEST: return 0.55f;
             case DIFFICULTY_EASIER:  return 0.75f;
             case DIFFICULTY_EASY:    return 0.9f;
-            case DIFFICULTY_CUSTOM:  return (float)(Math.min(1.0f, 0.01f*UserPreferences.customDifficulty()));
+            case DIFFICULTY_CUSTOM:  return (float)(Math.min(1.0f, 0.01f*UserPreferences.customDifficulty.get()));
             default: return 1.0f;
         }
     }

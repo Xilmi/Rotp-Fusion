@@ -35,18 +35,15 @@ import rotp.model.events.RandomEvents;
 import rotp.model.game.GameSession;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.MOO1GameOptions;
-import rotp.ui.game.StartModBOptionsUI;
-import rotp.ui.game.ModGlobalOptionsUI;
-import rotp.ui.game.StartModAOptionsUI;
 import rotp.ui.util.AbstractParam;
 import rotp.ui.util.EventsStartTurn;
+import rotp.ui.util.ParamAAN2;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamTech;
 import rotp.ui.util.RandomAlienRaces;
-import rotp.ui.util.ParamAAN2;
 import rotp.util.LanguageManager;
 import rotp.util.sound.SoundManager;
 
@@ -92,7 +89,27 @@ public class UserPreferences {
 	public static final ParamAAN2 richHomeworld 	 = new ParamAAN2("HOME_RICH");
 	public static final ParamAAN2 ultraRichHomeworld = new ParamAAN2("HOME_ULTRA_RICH");
 
-	private static final LinkedList<AbstractParam<?>> modA = new LinkedList<>(Arrays.asList(
+	public static final ParamBoolean battleScout	 = new ParamBoolean(MOD_UI, "BATTLE_SCOUT", false);
+	public static final ParamBoolean randomTechStart = new ParamBoolean(MOD_UI, "RANDOM_TECH_START", false);
+	public static final ParamInteger companionWorlds = new ParamInteger(MOD_UI, "COMPANION_WORLDS"
+			, 0, -4, 6, true);
+	public static final ParamInteger retreatRestrictionTurns = new ParamInteger(MOD_UI, "RETREAT_RESTRICTION_TURNS"
+			, 100, 0, 100, 1, 5, 20);
+	public static final ParamList retreatRestrictions = new ParamList(MOD_UI, "RETREAT_RESTRICTIONS", "0")
+			.put("None",	MOD_UI + "RETREAT_NONE")
+			.put("AI",		MOD_UI + "RETREAT_AI")
+			.put("Player",	MOD_UI + "RETREAT_PLAYER")
+			.put("Both",	MOD_UI + "RETREAT_BOTH");
+
+	public static final ParamInteger customDifficulty = new ParamInteger(MOD_UI, "CUSTOM_DIFFICULTY"
+			, 100, 20, 500, 1, 5, 20);
+	public static final ParamBoolean dynamicDifficulty = new ParamBoolean(MOD_UI, "DYNAMIC_DIFFICULTY", false);
+	public static final ParamFloat missileSizeModifier = new ParamFloat(MOD_UI, "MISSILE_SIZE_MODIFIER"
+			, 2f/3f, 0.1f, 1f, 0.01f, 0.05f, 0.2f, "0.##", "0.##");
+	public static final ParamBoolean challengeMode = new ParamBoolean(MOD_UI, "CHALLENGE_MODE", false);
+
+	
+	private static final LinkedList<AbstractParam<?>> modA = new LinkedList<>(Arrays.asList( // TODO BR: Remove
 			artifactsHomeworld, fertileHomeworld, richHomeworld,ultraRichHomeworld
 			));
 
@@ -130,8 +147,6 @@ public class UserPreferences {
 	public static final ParamInteger randomAlienRacesTargetMin = new ParamInteger(MOD_UI, "RACES_RAND_TARGET_MIN"
 			, 0, null, null, 1, 10, 0);
 	public static final ParamBoolean randomAlienRacesSmoothEdges = new ParamBoolean(MOD_UI, "RACES_RAND_EDGES", true);
-//	public static final ParamBoolean randomAlienRacesUseTarget = new ParamBoolean(MOD_UI, "RACES_RAND_USE_TARGET", false);
-//	public static final ParamBoolean randomAlienRaces = new ParamBoolean(MOD_UI, "RACES_ARE_RANDOM", false);
 	public static final RandomAlienRaces randomAlienRaces = new RandomAlienRaces (MOD_UI, "RACES_ARE_RANDOM", "No");
 	
 	public static final LinkedList<ParamTech> techModList = new LinkedList<>(Arrays.asList(
@@ -189,15 +204,6 @@ public class UserPreferences {
 	private static boolean governorAutoSpendByDefault = false;
 	private static boolean legacyGrowth = true; // BR:
 	private static boolean governorAutoApply = true; // BR:
-	private static int customDifficulty = 100; // mondar: add custom difficulty level option, in units of percent
-	private static boolean dynamicDifficulty = false; // modnar: add dynamic difficulty option, change AI colony production
-	private static boolean challengeMode = false; // modnar: add option to give AI more initial resources
-	private static boolean randomTechStart = false; // modnar: add option to start all Empires with 2 techs, no Artifacts
-	private static boolean battleScout = false; // modnar: add battleScout option to give player super Scout design
-	private static int companionWorlds = 0; // modnar: add option to start game with additional colonies
-	private static float missileSizeModifier = 2.0f/3.0f; //xilmi: add option to buff missiles by making them take less space and cost
-	private static int retreatRestrictions = 0; //xilmi: add option to restrict retreating 0 - none, 1 - ai only, 2 - player only, 3 - everyone
-	private static int retreatRestrictionTurns = 100; //xilmi: When retreat-restrictions are enabled for how many turns
 	private static boolean autoColonize = false;
 	private static boolean divertColonyExcessToResearch = true;
 	private static boolean disableAdvisor = true;
@@ -240,12 +246,6 @@ public class UserPreferences {
 		sensitivityMode = SENSITIVITY_MEDIUM;
 		screenSizePct = 93;
 		backupTurns = 5; // modnar: change default turns between backups to 5
-		customDifficulty = 100; // mondar: add custom difficulty level option, in units of percent
-		dynamicDifficulty = false; // modnar: add dynamic difficulty option, change AI colony production
-		challengeMode = false; // modnar: add option to give AI more initial resources
-		randomTechStart = false; // modnar: add option to start all Empires with 2 techs, no Artifacts
-		battleScout = false; // modnar: add battleScout option to give player super Scout design
-		companionWorlds = 0; // modnar: add option to start game with additional colonies
 		saveDir = "";
 		uiTexturePct = 0.20f;
 		showMemory = false;
@@ -264,37 +264,12 @@ public class UserPreferences {
 	 */
 	private static void setModToDefault() {
 		// Old settings
-		customDifficulty = 100; // mondar: add custom difficulty level option, in units of percent
-		dynamicDifficulty = false; // modnar: add dynamic difficulty option, change AI colony production
 		newRacesOnByDefault = true; // BR: add option to get or reject the new races
-		challengeMode = false; // modnar: add option to give AI more initial resources
-		randomTechStart = false; // modnar: add option to start all Empires with 2 techs, no Artifacts
-		battleScout = false; // modnar: add battleScout option to give player super Scout design
-		companionWorlds = 0; // modnar: add option to start game with additional colonies
-		missileSizeModifier = 2.0f/3.0f;
-		retreatRestrictions = 0;
-		retreatRestrictionTurns = 100;
 		for (AbstractParam<?> param : modA) {
 			param.setFromDefault(false);
 		}
 		save();
 	}
-//	/**
-//	 * Second Mod GUI Default Button Action
-//	 */
-//	public static void setMod2ToDefault() {
-//		// Old settings
-//		dynamicDifficulty = false; // modnar: add dynamic difficulty option, change AI colony production
-//		missileSizeModifier = 2.0f/3.0f;
-//		retreatRestrictions = 0;
-//		retreatRestrictionTurns = 100;
-//		newRacesOnByDefault = true; // BR: add option to get or reject the new races
-//		// New settings
-//		for (AbstractParam<?> param : modB) {
-//			param.setToDefault(false);
-//		}
-//		save();
-//	}
 	/**
 	 * Global Mod GUI Default Button Action
 	 */
@@ -311,45 +286,12 @@ public class UserPreferences {
 		autoColonize = false;
 		autoBombardMode = AUTOBOMBARD_NO;
 	}
-//	// BR setters for GUI MOD parameters
+	// BR setters for GUI MOD parameters
 	public static void setNewRacesOn(boolean newValue) {
 		newRacesOnByDefault = newValue;
 	}
 	public static void setgridCircularDisplay(boolean newValue) {
 		gridCircularDisplay = newValue;
-	}
-	public static void setChallengeMode(boolean newValue) {
-		challengeMode = newValue;
-	}
-	public static void setBattleScout(boolean newValue) {
-		battleScout = newValue;
-	}
-	public static void setCompanionWorlds(int newValue) {
-		companionWorlds = newValue;
-		if (companionWorlds > 6) { // BR: changed to 6; default = 4
-			companionWorlds = 6;
-		}
-		else if (companionWorlds < -4) { // BR: changed to -4; default = 0
-			companionWorlds = -4;
-		}
-	}
-	public static void setRandomTechStart(boolean newValue) {
-		randomTechStart = newValue; 
-	}
-	public static void setCustomDifficulty(int newValue) {
-		customDifficulty = newValue;
-		if (customDifficulty >= 500) {
-			customDifficulty = 500;
-		}
-		else if (customDifficulty < 20) {
-			customDifficulty = 20;
-		}
-	}
-	public static void setMissileSizeModifier(float newValue) {
-		missileSizeModifier = Math.max(0.1f, Math.min(1, newValue));
-	}
-	public static void setDynamicDifficulty(boolean newValue) {
-		dynamicDifficulty = newValue; 
 	}
 	// \BR:
 
@@ -358,69 +300,7 @@ public class UserPreferences {
 		gridCircularDisplay = !gridCircularDisplay;
 		save();
 		return gridCircularDisplay;
-	}
-	// modnar: MOD option toggles, specifically for UI
-	public static void toggleChallengeMode()   { challengeMode = !challengeMode; save(); }
-	public static void toggleBattleScout()     { battleScout = !battleScout; save(); }
-	public static void toggleCompanionWorlds(boolean up) {// BR: made bidirectional
-		if (up) {
-			if ((companionWorlds >= 6) || (companionWorlds < -4)) // BR: changed to 6; default = 4
-				companionWorlds = -4; // BR: changed to -4; default = 0
-			else
-				companionWorlds++;
-		} else {
-			if ((companionWorlds > 6) || (companionWorlds <= -4)) // BR: changed to 6; default = 4
-				companionWorlds = 6; // BR: changed to -4; default = 0
-			else
-				companionWorlds--;			
-		}
-		save();
-	}
-	public static void toggleRandomTechStart() { randomTechStart = !randomTechStart; save(); }
-	public static void toggleCustomDifficulty(int i) {
-		if (customDifficulty+i >= 500)
-			customDifficulty = 500;
-		else if (customDifficulty+i < 20)
-			customDifficulty = 20;
-		else
-			customDifficulty += i;
-		save();
-	}
-	public static void toggleMissileSizeModifier(float f) {
-		float newVal = missileSizeModifier + f;
-		missileSizeModifier = Math.max(0.1f, Math.min(1, newVal));
-		save();
-	}
-	public static void toggleRetreatRestrictions(int i) {
-		// BR: modified to make it roll at the ends
-		if (retreatRestrictions == 3 && i>0) 
-			retreatRestrictions = 0;
-		else if (retreatRestrictions == 0 && i<0) 
-			retreatRestrictions = 3;
-		else if (retreatRestrictions+i >= 3)
-			retreatRestrictions = 3;
-		else if (retreatRestrictions+i < 0)
-			retreatRestrictions = 0;
-		else
-			retreatRestrictions += i;
-		save();
-	}
-	public static void toggleRetreatRestrictionTurns(int i) {
-		// BR: modified to make it roll at the ends
-		if (retreatRestrictionTurns == 100 && i>0) 
-			retreatRestrictionTurns = 0;
-		else if (retreatRestrictionTurns == 0 && i<0) 
-			retreatRestrictionTurns = 100;
-		else if (retreatRestrictionTurns+i >= 100)
-			retreatRestrictionTurns = 100;
-		else if (retreatRestrictionTurns+i < 0)
-			retreatRestrictionTurns = 0;
-		else
-			retreatRestrictionTurns += i;
-		save();
-	}
-	public static void toggleDynamicDifficulty() { dynamicDifficulty = !dynamicDifficulty; save(); }
-  
+	}  
 	public static int musicVolume()		   { return musicVolume; }
 	public static int soundVolume()		   { return soundVolume; }
 	public static boolean showMemory()	   { return showMemory; }
@@ -504,18 +384,15 @@ public class UserPreferences {
 	public static void toggleSounds()    { playSounds = !playSounds;	save(); }
 	public static boolean playMusic()    { return playMusic; }
 	public static void toggleMusic()     { playMusic = !playMusic; save();  }
-	public static int customDifficulty() { return customDifficulty; } // mondar: add custom difficulty level option, in units of percent
-	public static boolean dynamicDifficulty() { return dynamicDifficulty; } // modnar: add dynamic difficulty option, change AI colony production
-	public static boolean newRacesOn()        { return newRacesOnByDefault; } // BR: add option to get or reject the new races
-	public static boolean gridCircularDisplay() { return gridCircularDisplay; } // BR: add option to memorize the grid state
-	public static boolean challengeMode()   { return challengeMode; } // modnar: add option to give AI more initial resources
-	public static boolean randomTechStart() { return randomTechStart; } // modnar: add option to start all Empires with 2 techs, no Artifacts
-	public static boolean battleScout()     { return battleScout; } // modnar: add battleScout option to give player super Scout design
-	public static int companionWorlds()     { return Math.abs(companionWorlds); } // modnar: add option to start game with additional colonies
-	public static int companionWorldsSigned() { return companionWorlds; } // BR: to manage old and new distribution
-	public static float missileSizeModifier() { return missileSizeModifier; } 
-	public static int retreatRestrictions()   { return retreatRestrictions; }
-	public static int retreatRestrictionTurns() { return retreatRestrictionTurns; }
+	public static boolean newRacesOn()			{ return newRacesOnByDefault; } // BR: add option to get or reject the new races
+	public static boolean gridCircularDisplay()	{ return gridCircularDisplay; } // BR: add option to memorize the grid state
+	// BR: redirection for compatibility
+	public static int companionWorlds()			{ return Math.abs(companionWorlds.get()); } // modnar: add option to start game with additional colonies
+	public static int companionWorldsSigned()	{ return companionWorlds.get(); } // BR: to manage old and new distribution
+	public static float missileSizeModifier()	{ return missileSizeModifier.get(); } 
+	public static int retreatRestrictions()		{ return retreatRestrictions.getIndex(); }
+	public static int retreatRestrictionTurns()	{ return retreatRestrictionTurns.get(); }
+	// \BR:
 	public static int screenSizePct()       { return screenSizePct; }
 	public static void screenSizePct(int i) { setScreenSizePct(i); }
 	public static String saveDirectoryPath() {
@@ -625,32 +502,10 @@ public class UserPreferences {
 			out.println(keyFormat("DIVERT_COLONY_EXCESS_TO_RESEARCH")+ yesOrNo(divertColonyExcessToResearch));
 			out.println(keyFormat("LEGACY_GROWTH") + yesOrNo(legacyGrowth)); // BR:
 			out.println(keyFormat("GOVERNOR_AUTO_APPLY") + yesOrNo(governorAutoApply)); // BR:
+			// TODO BR: Move to global in standard way
 			out.println(keyFormat("GRID_CIRCULAR_DISPLAY") + yesOrNo(gridCircularDisplay)); // BR: add option to memorize the grid state
-			// BR: First Mod GUI (Modnar)
-			out.println();
-			out.println("===== MOD A GUI Settings =====");
-			out.println();
-			for (AbstractParam<?> param : modA) {
-				out.println(keyFormat(param.getCfgLabel()) + param.getCfgValue());
-			}
-			out.println(keyFormat("CUSTOM_DIFFICULTY")+ customDifficulty); // mondar: add custom difficulty level option, in units of percent
-			out.println(keyFormat("DYNAMIC_DIFFICULTY")+ yesOrNo(dynamicDifficulty)); // modnar: add dynamic difficulty option, change AI colony production
 			out.println(keyFormat("NEW_RACES_ON_BY_DEFAULT") + yesOrNo(newRacesOnByDefault)); // BR: add option to get or reject the new races
-			out.println(keyFormat("CHALLENGE_MODE")+ yesOrNo(challengeMode)); // modnar: add option to give AI more initial resources
-			out.println(keyFormat("RANDOM_TECH_START")+ yesOrNo(randomTechStart)); // modnar: add option to start all Empires with 2 techs, no Artifacts
-			out.println(keyFormat("BATTLE_SCOUT")+ yesOrNo(battleScout)); // modnar: add battleScout option to give player super Scout design
-			out.println(keyFormat("COMPANION_WORLDS")+ companionWorlds); // modnar: add option to start game with additional colonies
-			out.println(keyFormat("MISSILE_SIZE_MODIFIER")+ missileSizeModifier);
-			out.println(keyFormat("RETREAT_RESTRICTIONS")+ retreatRestrictions);
-			out.println(keyFormat("RETREAT_RESTRICTION_TURNS")+ retreatRestrictionTurns);
 			out.println(keyFormat("PLAYER_SHIP_SET")	  + ShipSetAddOns.playerShipSet()); 
-			// BR: Second Mod GUI
-			out.println();
-			out.println("===== MOD B GUI Settings =====");
-			out.println();
-//			for (AbstractParam<?> param : modB) {
-//				out.println(keyFormat(param.getCfgLabel()) + param.toSelected());
-//			}
 			out.println();
 			out.println("===== MOD Display GUI Settings =====");
 			out.println();
@@ -710,29 +565,13 @@ public class UserPreferences {
 			case "DISABLE_ADVISOR": disableAdvisor = yesOrNo(val); return;
 			case "SCREEN_SIZE_PCT": screenSizePct(Integer.valueOf(val)); return;
 			case "UI_TEXTURE_LEVEL": uiTexturePct(Integer.valueOf(val)); return;
-			case "CUSTOM_DIFFICULTY": setCustomDifficulty(val); return; // mondar: add custom difficulty level option, in units of percent
-			case "DYNAMIC_DIFFICULTY": dynamicDifficulty = yesOrNo(val); return; // modnar: add dynamic difficulty option, change AI colony production
+			// TODO BR: Move to global in standard way
 			case "NEW_RACES_ON_BY_DEFAULT": newRacesOnByDefault = yesOrNo(val); return; // BR: add option to get or reject the new races
 			case "GRID_CIRCULAR_DISPLAY": gridCircularDisplay = yesOrNo(val); return; // BR: add option to memorize the grid state
-			case "CHALLENGE_MODE": challengeMode = yesOrNo(val); return; // modnar: add option to give AI more initial resources
-			case "RANDOM_TECH_START": randomTechStart = yesOrNo(val); return; // modnar: add option to start all Empires with 2 techs, no Artifacts
-			case "BATTLE_SCOUT": battleScout = yesOrNo(val); return; // modnar: add battleScout option to give player super Scout design
-			case "COMPANION_WORLDS": setNumCompanionWorlds(val); return; // modnar: add option to start game with additional colonies
-			case "MISSILE_SIZE_MODIFIER": setMissileSizeModifier(val); return;
-			case "RETREAT_RESTRICTIONS": setRetreatRestrictions(val); return;
-			case "RETREAT_RESTRICTION_TURNS": setRetreatRestrictionTurns(val); return;
 			case "PLAYER_SHIP_SET": ShipSetAddOns.playerShipSet(val); return; // BR: add option to select Player Ship Set
 			case "LANGUAGE": selectLanguage(val); return;
 			default:
-			// BR: Second Mod GUI
-				for (AbstractParam<?> param : modA) {
-					if (key.equalsIgnoreCase(param.getCfgLabel()))
-						param.setFromCfgValue(val);
-				}
-//				for (AbstractParam<?> param : modB) {
-//					if (key.equalsIgnoreCase(param.getCfgLabel()))
-//						param.fromSelected(val);
-//				}
+			// BR: Global Mod GUI
 				for (AbstractParam<?> param : modGlobal) {
 					if (key.equalsIgnoreCase(param.getCfgLabel()))
 						param.setFromCfgValue(val);
@@ -748,34 +587,6 @@ public class UserPreferences {
 	}
 	private static void selectLanguage(String s) {
 		LanguageManager.selectLanguage(s);
-	}
-	// modnar: add option to start game with additional colonies
-	private static void setNumCompanionWorlds(String s) {
-		int val = Integer.valueOf(s); // BR: changed limits; was 0 & 4
-		companionWorlds = Math.max(-4, Math.min(6, val)); // max number of companion worlds is 4
-	}
-	// modnar: add custom difficulty level option, in units of percent
-	private static void setCustomDifficulty(String s) {
-		int val = Integer.valueOf(s);
-		customDifficulty = Math.max(20, Math.min(500, val)); // custom difficulty range: 20% to 500%
-	}
-	private static void setMissileSizeModifier(String s) {
-		float val = Float.valueOf(s);
-		missileSizeModifier = Math.max(0.1f, Math.min(1, val));
-	}
-	public static void setRetreatRestrictions(int val) { // BR: For Profile Manager
-		retreatRestrictions = Math.max(0, Math.min(3, val));
-	}
-	private static void setRetreatRestrictions(String s) {
-		int val = Integer.valueOf(s);
-		retreatRestrictions = Math.max(0, Math.min(3, val));
-	}
-	public static void setRetreatRestrictionTurns(int val) { // BR: For Profile Manager
-		retreatRestrictionTurns = Math.max(0, Math.min(100, val));
-	}
-	private static void setRetreatRestrictionTurns(String s) {
-		int val = Integer.valueOf(s);
-		retreatRestrictionTurns = Math.max(0, Math.min(100, val));
 	}
 	private static void setMusicVolume(String s) {
 		int val = Integer.valueOf(s);

@@ -136,7 +136,7 @@ public class ParamList extends AbstractParam<String> {
 	 * @param cost
 	 * @return this for chaining purpose
 	 */
-	public ParamList put(String option, String label, Float cost) {
+	private ParamList put(String option, String label, Float cost) {
 		optValCostPtrMap.put(option, label, cost);
 		return this;
 	}
@@ -148,7 +148,7 @@ public class ParamList extends AbstractParam<String> {
 	 * @param pointer
 	 * @return this for chaining purpose
 	 */
-	public ParamList put(String option, String label, Float cost, Integer pointer) {
+	private ParamList put(String option, String label, Float cost, Integer pointer) {
 		if (finalLabels)
 			optValCostPtrMap.put(option, label, cost, pointer);
 		else
@@ -163,7 +163,7 @@ public class ParamList extends AbstractParam<String> {
 	 * @param index The index of the in game option
 	 * @return this for chaining purpose
 	 */
-	public ParamList put(String option, String label, Integer cost, Integer pointer) {
+	private ParamList put(String option, String label, Integer cost, Integer pointer) {
 		optValCostPtrMap.put(option, label, cost.floatValue(), pointer);
 		return this;
 	}

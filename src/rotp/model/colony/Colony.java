@@ -386,7 +386,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     }
 
     // modnar: add challengeMode option from UserPreferences to give AI more initial resources
-	private boolean challengeMode = UserPreferences.challengeMode();
+	private boolean challengeMode = UserPreferences.challengeMode.get();
 	
 	public void setHomeworldValues() {
         Empire emp = empire();
@@ -824,7 +824,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         // modnar: add dynamic difficulty option, change AI colony production
         float dynaMod = 1.0f;
         float scaleMod = 1.0f;
-        if (UserPreferences.dynamicDifficulty() && !(galaxy().currentTurn() < 5)) {
+        if (UserPreferences.dynamicDifficulty.get() && !(galaxy().currentTurn() < 5)) {
             // scale with relative empire industrialPowerLevel (production*tech) compared with player
             // use custom created nonDynaIndPowerLevel, to avoid infinite recursion
             float empIndPowerLevel = empire().nonDynaIndPowerLevel();

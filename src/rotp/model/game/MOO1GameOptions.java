@@ -115,7 +115,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private LinkedHashMap<String, String> extendedOptions = new LinkedHashMap<>();
     
     // Mod A Option UI
-    private boolean selectedRandomTechStart = UserPreferences.randomTechStart(); // TODO BR: switch to param
+    private boolean selectedRandomTechStart = UserPreferences.randomTechStart.get(); // TODO BR: switch to param
  
 
     private transient GalaxyShape galaxyShape;

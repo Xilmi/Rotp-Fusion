@@ -341,7 +341,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		// modnar: add custom difficulty level option, set in Remnants.cfg
 		// append this custom difficulty percentage to diffLbl if selected
 		if (diffLbl.equals("Custom")) {
-			diffLbl = diffLbl + " (" + Integer.toString(UserPreferences.customDifficulty()) + "%)";
+			diffLbl = diffLbl + " (" + Integer.toString(UserPreferences.customDifficulty.get()) + "%)";
 		} else {
 			diffLbl = diffLbl + " (" + Integer.toString(Math.round(100 * newGameOptions().aiProductionModifier())) + "%)";
 		}
@@ -730,7 +730,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		// append this custom difficulty percentage to gameName if selected
 		if (text(newGameOptions().selectedGameDifficulty()).equals("Custom")) {
 			GameUI.gameName = GameUI.gameName 
-					+ " (" + Integer.toString(UserPreferences.customDifficulty()) + "%)";
+					+ " (" + Integer.toString(UserPreferences.customDifficulty.get()) + "%)";
 		}
 		repaint();
 		buttonClick();

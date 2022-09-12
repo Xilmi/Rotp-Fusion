@@ -272,7 +272,7 @@ final class SelectRestartEmpireUI  extends BasePanel implements MouseListener, M
 		if (text(newGameOptions().selectedGameDifficulty()).equals("Custom")) {
 			GameUI.gameName = GameUI.gameName 
 					+ " ("
-					+ Integer.toString(UserPreferences.customDifficulty())
+					+ Integer.toString(UserPreferences.customDifficulty.get())
 					+ "%)";
 		}
 		loading = true;

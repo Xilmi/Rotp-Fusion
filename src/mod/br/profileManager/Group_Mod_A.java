@@ -77,7 +77,7 @@ class Group_Mod_A extends  AbstractGroup <ClientClasses> {
 		ChallengeMode(ClientClasses go) {
 			super("CHALLENGE MODE", 
 					new Validation<Boolean>(
-							new T_Boolean(UserPreferences.challengeMode())));
+							new T_Boolean(UserPreferences.challengeMode.get())));
 
 			setHistoryCodeView(Default, false); // MODNAR DEFAULT
 		}
@@ -89,11 +89,11 @@ class Group_Mod_A extends  AbstractGroup <ClientClasses> {
 		@Override public void putToGame(ClientClasses go, AbstractT<Boolean> value) {}
 		
 		@Override public AbstractT<Boolean> getFromUI (ClientClasses go) {
-			return new T_Boolean(UserPreferences.challengeMode());
+			return new T_Boolean(UserPreferences.challengeMode.get());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<Boolean> value) {
-			UserPreferences.setChallengeMode(value.getCodeView());
+			UserPreferences.challengeMode.set(value.getCodeView());
 		}
 		
 		@Override public void initComments() {}
@@ -108,7 +108,7 @@ class Group_Mod_A extends  AbstractGroup <ClientClasses> {
 		BattleScouts(ClientClasses go) {
 			super("BATTLE SCOUT", 
 					new Validation<Boolean>(
-							new T_Boolean(UserPreferences.battleScout())));
+							new T_Boolean(UserPreferences.battleScout.get())));
 
 			setHistoryCodeView(Default, false); // MODNAR DEFAULT
 		}
@@ -120,11 +120,11 @@ class Group_Mod_A extends  AbstractGroup <ClientClasses> {
 		@Override public void putToGame(ClientClasses go, AbstractT<Boolean> value) {}		
 		
 		@Override public AbstractT<Boolean> getFromUI (ClientClasses go) {
-			return new T_Boolean(UserPreferences.battleScout());
+			return new T_Boolean(UserPreferences.battleScout.get());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<Boolean> value) {
-			UserPreferences.setBattleScout(value.getCodeView());
+			UserPreferences.battleScout.set(value.getCodeView());
 		}
 		
 		@Override public void initComments() {}
@@ -157,7 +157,7 @@ class Group_Mod_A extends  AbstractGroup <ClientClasses> {
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<Integer> value) {
-			UserPreferences.setCompanionWorlds(value.getCodeView());
+			UserPreferences.companionWorlds.set(value.getCodeView());
 		}
 
 		@Override public void initComments() {}
@@ -172,7 +172,7 @@ class Group_Mod_A extends  AbstractGroup <ClientClasses> {
 		RandomTechStart(ClientClasses go) { 
 			super("RANDOM TECH START", 
 					new Validation<Boolean>(
-							new T_Boolean(UserPreferences.randomTechStart())));
+							new T_Boolean(UserPreferences.randomTechStart.get())));
 
 			setHistoryCodeView(Default, false); // MODNAR DEFAULT
 		}
@@ -184,11 +184,11 @@ class Group_Mod_A extends  AbstractGroup <ClientClasses> {
 		@Override public void putToGame(ClientClasses go, AbstractT<Boolean> value) {}
 		
 		@Override public AbstractT<Boolean> getFromUI (ClientClasses go) {
-			return new T_Boolean(UserPreferences.randomTechStart());
+			return new T_Boolean(UserPreferences.randomTechStart.get());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<Boolean> value) {
-			UserPreferences.setRandomTechStart(value.getCodeView());
+			UserPreferences.randomTechStart.set(value.getCodeView());
 		}
 		
 		@Override public void initComments() {}
@@ -203,28 +203,28 @@ class Group_Mod_A extends  AbstractGroup <ClientClasses> {
 		CustomDifficulty(ClientClasses go) { 
 			super("CUSTOM DIFFICULTY", 
 					new Validation<Integer>(
-							new T_Integer(UserPreferences.customDifficulty())));
+							new T_Integer(UserPreferences.customDifficulty.get())));
 
-			setHistoryCodeView(Initial, UserPreferences.customDifficulty());
+			setHistoryCodeView(Initial, UserPreferences.customDifficulty.get());
 			setHistoryCodeView(Default, 100); // MODNAR DEFAULT
 			setLimits(20 , 500);
 			setDefaultRandomLimits(20 , 500);
 		}
 
 		@Override public AbstractT<Integer> getFromGame (ClientClasses go) {
-			return new T_Integer(UserPreferences.customDifficulty()); // Dynamic: Same as UserPreferences
+			return new T_Integer(UserPreferences.customDifficulty.get()); // Dynamic: Same as UserPreferences
 		}
 
 		@Override public void putToGame(ClientClasses go, AbstractT<Integer> value) {
-			UserPreferences.setCustomDifficulty(value.getCodeView()); // Dynamic: Same as UserPreferences
+			UserPreferences.customDifficulty.set(value.getCodeView()); // Dynamic: Same as UserPreferences
 		}		
 
 		@Override public AbstractT<Integer> getFromUI (ClientClasses go) {
-			return new T_Integer(UserPreferences.customDifficulty());
+			return new T_Integer(UserPreferences.customDifficulty.get());
 		}
 
 		@Override public void putToGUI(ClientClasses go, AbstractT<Integer> value) {
-			UserPreferences.setCustomDifficulty(value.getCodeView());
+			UserPreferences.customDifficulty.set(value.getCodeView());
 		}
 
 		@Override public void initComments() {
@@ -241,25 +241,25 @@ class Group_Mod_A extends  AbstractGroup <ClientClasses> {
 		DynamicDifficulty(ClientClasses go) {
 			super("DYNAMIC DIFFICULTY", 
 					new Validation<Boolean>(
-							new T_Boolean(UserPreferences.dynamicDifficulty())));
+							new T_Boolean(UserPreferences.dynamicDifficulty.get())));
 
 			setHistoryCodeView(Default, false); // MODNAR DEFAULT
 		}
 		
 		@Override public AbstractT<Boolean> getFromGame (ClientClasses go) {
-			return new T_Boolean(UserPreferences.dynamicDifficulty()); // Dynamic: Same as UserPreferences
+			return new T_Boolean(UserPreferences.dynamicDifficulty.get()); // Dynamic: Same as UserPreferences
 		}
 		
 		@Override public void putToGame(ClientClasses go, AbstractT<Boolean> value) {
-			UserPreferences.setDynamicDifficulty(value.getCodeView()); // Dynamic: Same as UserPreferences
+			UserPreferences.dynamicDifficulty.set(value.getCodeView()); // Dynamic: Same as UserPreferences
 		}
 		
 		@Override public AbstractT<Boolean> getFromUI (ClientClasses go) {
-			return new T_Boolean(UserPreferences.dynamicDifficulty());
+			return new T_Boolean(UserPreferences.dynamicDifficulty.get());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<Boolean> value) {
-			UserPreferences.setDynamicDifficulty(value.getCodeView());
+			UserPreferences.dynamicDifficulty.set(value.getCodeView());
 		}
 
 		@Override public void initComments() {
@@ -276,7 +276,7 @@ class Group_Mod_A extends  AbstractGroup <ClientClasses> {
 		MissileSizeModifier(ClientClasses go) { 
 			super("MISSILE SIZE MODIFIER", 
 					new Validation<Float>(
-							new T_Float(UserPreferences.missileSizeModifier())));
+							new T_Float(UserPreferences.missileSizeModifier.get())));
 			
 			setHistoryCodeView(Default, 0.66f); // XILMI DEFAULT
 			setLimits(0.1f , 1.0f);
@@ -284,19 +284,19 @@ class Group_Mod_A extends  AbstractGroup <ClientClasses> {
 		}
 
 		@Override public AbstractT<Float> getFromGame (ClientClasses go) {
-			return new T_Float(UserPreferences.missileSizeModifier()); // Dynamic: Same as UserPreferences
+			return new T_Float(UserPreferences.missileSizeModifier.get()); // Dynamic: Same as UserPreferences
 		}
 
 		@Override public void putToGame(ClientClasses go, AbstractT<Float> value) {
-			UserPreferences.setMissileSizeModifier(value.getCodeView()); // Dynamic: Same as UserPreferences
+			UserPreferences.missileSizeModifier.set(value.getCodeView()); // Dynamic: Same as UserPreferences
 		}		
 
 		@Override public AbstractT<Float> getFromUI (ClientClasses go) {
-			return new T_Float(UserPreferences.missileSizeModifier());
+			return new T_Float(UserPreferences.missileSizeModifier.get());
 		}
 
 		@Override public void putToGUI(ClientClasses go, AbstractT<Float> value) {
-			UserPreferences.setMissileSizeModifier(value.getCodeView());
+			UserPreferences.missileSizeModifier.set(value.getCodeView());
 		}
 
 		@Override public void initComments() {
@@ -312,28 +312,28 @@ class Group_Mod_A extends  AbstractGroup <ClientClasses> {
 		RetreatRestrictions(ClientClasses go) { 
 			super("RETREAT RESTRICTIONS", 
 					new Valid_IntegerWithList(
-							UserPreferences.retreatRestrictions()
-							, StartModAOptionsUI.getRetreatRestrictionOptions()));
+							UserPreferences.retreatRestrictions.getIndex()
+							, UserPreferences.retreatRestrictions.getOptions()));
 			
-			setHistoryCodeView(Initial, UserPreferences.retreatRestrictions());
+			setHistoryCodeView(Initial, UserPreferences.retreatRestrictions.getIndex());
 			setHistoryCodeView(Default, 0);
 			setHistory(Current, Initial);
 		}
 
 		@Override public AbstractT<Integer> getFromGame (ClientClasses go) { // BR: Validate Dynamic 
-			return getValidation().newValue(UserPreferences.retreatRestrictions()); // Dynamic: Same as UserPreferences
+			return getValidation().newValue(UserPreferences.retreatRestrictions.getIndex()); // Dynamic: Same as UserPreferences
 		}
 
 		@Override public void putToGame(ClientClasses go, AbstractT<Integer> value) {
-			UserPreferences.setRetreatRestrictions(value.getCodeView()); // Dynamic: Same as UserPreferences
+			UserPreferences.retreatRestrictions.setFromIndex(value.getCodeView()); // Dynamic: Same as UserPreferences
 		}		
 
 		@Override public AbstractT<Integer> getFromUI (ClientClasses go) {
-			return getValidation().newValue(UserPreferences.retreatRestrictions());
+			return getValidation().newValue(UserPreferences.retreatRestrictions.getIndex());
 		}
 
 		@Override public void putToGUI(ClientClasses go, AbstractT<Integer> value) {
-			UserPreferences.setRetreatRestrictions(value.getCodeView());
+			UserPreferences.retreatRestrictions.setFromIndex(value.getCodeView());
 		}
 
 		@Override public void initComments() {
@@ -349,7 +349,7 @@ class Group_Mod_A extends  AbstractGroup <ClientClasses> {
 		RetreatRestrictionTurns(ClientClasses go) { 
 			super("RETREAT RESTRICTION TURNS", 
 					new Validation<Integer>(
-							new T_Integer(UserPreferences.retreatRestrictionTurns())));
+							new T_Integer(UserPreferences.retreatRestrictionTurns.get())));
 			
 			setHistoryCodeView(Default, 100); // XILMI DEFAULT
 			setLimits(0 , 100);
@@ -357,19 +357,19 @@ class Group_Mod_A extends  AbstractGroup <ClientClasses> {
 		}
 
 		@Override public AbstractT<Integer> getFromGame (ClientClasses go) {
-			return new T_Integer(UserPreferences.retreatRestrictionTurns()); // Dynamic: Same as UserPreferences
+			return new T_Integer(UserPreferences.retreatRestrictionTurns.get()); // Dynamic: Same as UserPreferences
 		}
 
 		@Override public void putToGame(ClientClasses go, AbstractT<Integer> value) {
-			UserPreferences.setRetreatRestrictionTurns(value.getCodeView()); // Dynamic: Same as UserPreferences
+			UserPreferences.retreatRestrictionTurns.set(value.getCodeView()); // Dynamic: Same as UserPreferences
 		}		
 
 		@Override public AbstractT<Integer> getFromUI (ClientClasses go) {
-			return new T_Integer(UserPreferences.retreatRestrictionTurns());
+			return new T_Integer(UserPreferences.retreatRestrictionTurns.get());
 		}
 
 		@Override public void putToGUI(ClientClasses go, AbstractT<Integer> value) {
-			UserPreferences.setRetreatRestrictionTurns(value.getCodeView());
+			UserPreferences.retreatRestrictionTurns.set(value.getCodeView());
 		}
 
 		@Override public void initComments() {

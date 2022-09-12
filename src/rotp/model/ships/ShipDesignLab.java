@@ -111,7 +111,7 @@ public class ShipDesignLab implements Base, Serializable {
         loadInitialDesigns();
         
         // modnar: add battleScout option to give player super Scout design
-        if ( c.isPlayerControlled() && UserPreferences.battleScout() ) { 
+        if ( c.isPlayerControlled() && UserPreferences.battleScout.get() ) { 
             ShipDesign design;
             design = battleScoutDesign();
             setFighterDesign(design, 5);

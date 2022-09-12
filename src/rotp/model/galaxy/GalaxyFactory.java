@@ -210,7 +210,7 @@ public class GalaxyFactory implements Base {
 			e.loadStartingTechs();
 			
 			// modnar: add game mode to start all Empires with 2 random techs
-			if (UserPreferences.randomTechStart()) {
+			if (UserPreferences.randomTechStart.get()) {
 				// randomUnknownTech, somewhat awkward to use in succession
 				//e.tech().learnTech(e.tech().randomUnknownTech(1,4).id());
 				//e.tech().learnTech(e.tech().randomUnknownTech(1,4).id());
