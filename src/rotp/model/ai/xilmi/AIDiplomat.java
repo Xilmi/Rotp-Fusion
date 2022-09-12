@@ -465,8 +465,6 @@ public class AIDiplomat implements Base, Diplomat {
         if ((v.trade().level() > 0)
             && (v.trade().profit() <= 0))
             return false;
-        if (!v.trade().atFullLevel())
-            return false;
         
         // if asking player, check that we don't spam him
         if (v.empire().isPlayerControlled()) {
@@ -476,7 +474,7 @@ public class AIDiplomat implements Base, Diplomat {
 
         float currentTrade = v.trade().level();
         float maxTrade = v.trade().maxLevel();
-        if (maxTrade < (currentTrade * 1.5))
+        if (maxTrade < (currentTrade * 1.5) && !v.trade().atFullLevel())
             return false;
 
         if(wantToBreakTrade(v))
@@ -487,14 +485,6 @@ public class AIDiplomat implements Base, Diplomat {
             return false;
         }
         return true;
-    }
-    private float baseChanceForTrade(EmpireView v) {
-        // -50 relations is minimum allowed to accept trade
-        float adjustedRelations = v.embassy().relations()+50;
-        float leaderMod = leaderAcceptTradeMod();
-        float raceBonusMod = v.empire().tradePctBonus();
-        float allianceMod = v.embassy().alliedWithEnemy() ? -50 : 0;
-        return adjustedRelations+leaderMod+raceBonusMod+allianceMod;
     }
     private String declineReasonText(EmpireView v) {
         DialogueManager dlg = DialogueManager.current();
