@@ -1575,6 +1575,10 @@ SETTINGS_MOD_MENU_LOAD_GAME_DESC         | How should the menu be initialized wh
 SETTINGS_MOD_MENU_LOAD_GAME              | Menus on loading: %1
 SETTINGS_MOD_LOAD_GAME_UPDATE            | All updates
 SETTINGS_MOD_LOAD_GAME_VANILLA           | Old Ways
+SETTINGS_MOD_SHOW_NEW_RACES_DESC         | Show the new races in the opponents list?
+SETTINGS_MOD_SHOW_NEW_RACES              | Show new races: %1
+SETTINGS_MOD_SHOW_GRID_CIRCULAR_DESC     | Show the circular grid on the galaxy map? (Dynamic)
+SETTINGS_MOD_SHOW_GRID_CIRCULAR          | Show circular grid: %1
 
 
 // Tech UI labels

@@ -88,7 +88,6 @@ public class UserPreferences {
 	public static final ParamAAN2 fertileHomeworld	 = new ParamAAN2("HOME_FERTILE");
 	public static final ParamAAN2 richHomeworld 	 = new ParamAAN2("HOME_RICH");
 	public static final ParamAAN2 ultraRichHomeworld = new ParamAAN2("HOME_ULTRA_RICH");
-
 	public static final ParamBoolean battleScout	 = new ParamBoolean(MOD_UI, "BATTLE_SCOUT", false);
 	public static final ParamBoolean randomTechStart = new ParamBoolean(MOD_UI, "RANDOM_TECH_START", false);
 	public static final ParamInteger companionWorlds = new ParamInteger(MOD_UI, "COMPANION_WORLDS"
@@ -100,18 +99,12 @@ public class UserPreferences {
 			.put("AI",		MOD_UI + "RETREAT_AI")
 			.put("Player",	MOD_UI + "RETREAT_PLAYER")
 			.put("Both",	MOD_UI + "RETREAT_BOTH");
-
 	public static final ParamInteger customDifficulty = new ParamInteger(MOD_UI, "CUSTOM_DIFFICULTY"
 			, 100, 20, 500, 1, 5, 20);
 	public static final ParamBoolean dynamicDifficulty = new ParamBoolean(MOD_UI, "DYNAMIC_DIFFICULTY", false);
 	public static final ParamFloat missileSizeModifier = new ParamFloat(MOD_UI, "MISSILE_SIZE_MODIFIER"
 			, 2f/3f, 0.1f, 1f, 0.01f, 0.05f, 0.2f, "0.##", "0.##");
 	public static final ParamBoolean challengeMode = new ParamBoolean(MOD_UI, "CHALLENGE_MODE", false);
-
-	
-	private static final LinkedList<AbstractParam<?>> modA = new LinkedList<>(Arrays.asList( // TODO BR: Remove
-			artifactsHomeworld, fertileHomeworld, richHomeworld,ultraRichHomeworld
-			));
 
 	// BR: ===== Second Mod GUI:
 	public static final ParamBoolean maximizeSpacing = new ParamBoolean(MOD_UI, "MAX_SPACINGS", false);
@@ -153,12 +146,6 @@ public class UserPreferences {
 			techIrradiated, techCloaking, techStargate, techHyperspace,
 			techIndustry2, techThorium, techTransport
 			));
-	private static final LinkedList<AbstractParam<?>> modB = new LinkedList<>(Arrays.asList(
-		maximizeSpacing, spacingLimit, randomAlienRacesTargetMax, randomAlienRacesTargetMin, randomAlienRaces,
-		minStarsPerEmpire, prefStarsPerEmpire, randomAlienRacesMax, randomAlienRacesMin, randomAlienRacesSmoothEdges,
-		loadWithNewOptions, techIrradiated, techCloaking, techStargate, techHyperspace,
-		eventsStartTurn, techIndustry2, techThorium, techTransport
-		));
 
 	// BR: ===== Global settings Mod GUI:
 	public static final ParamFloat showFleetFactor = new ParamFloat(MOD_UI, "SHOW_FLEET_FACTOR"
@@ -181,12 +168,15 @@ public class UserPreferences {
 	public static final ParamList menuLoadGame = new ParamList(MOD_UI, "MENU_LOAD_GAME", "LoadAll")
 			.put("LoadAll",	MOD_UI + "LOAD_GAME_UPDATE")
 			.put("Vanilla",	MOD_UI + "LOAD_GAME_VANILLA");
+	public static final ParamBoolean showNewRaces 	  = new ParamBoolean(MOD_UI, "SHOW_NEW_RACES", false);
+	public static final ParamBoolean showGridCircular = new ParamBoolean(MOD_UI, "SHOW_GRID_CIRCULAR", false);
 
 	private static final LinkedList<AbstractParam<?>> modGlobal = new LinkedList<>(Arrays.asList(
-			menuStartup, menuLoadGame,
+			menuStartup, menuLoadGame, showNewRaces, showGridCircular,
 			showFleetFactor, showFlagFactor, showPathFactor,
 			showNameMinFont, showInfoFontRatio, mapFontFactor
 			));
+
 	// BR: Player customRace
 	public static final ParamBoolean customPlayerRace = new ParamBoolean(
 			BASE_UI, "BUTTON_CUSTOM_PLAYER_RACE", false, false);
@@ -198,9 +188,7 @@ public class UserPreferences {
 	private static int soundVolume = 10;
 	private static int defaultMaxBases = 0;
 	private static boolean displayYear = false;
-	private static boolean newRacesOnByDefault = true; // BR: add option to get or reject the new races
 	private static boolean governorOnByDefault = true; // BR:
-	private static boolean gridCircularDisplay = true; // BR: add option to memorize the grid state
 	private static boolean governorAutoSpendByDefault = false;
 	private static boolean legacyGrowth = true; // BR:
 	private static boolean governorAutoApply = true; // BR:
@@ -217,23 +205,6 @@ public class UserPreferences {
 	private static int screenSizePct = 93;
 	private static int backupTurns = 5; // modnar: change default turns between backups to 5
 
-	/**
-	 * setting GUI Default Button Action
-	 */
-	private static void setToDefault(String guiTitleID) {
-//		if (guiTitleID.equalsIgnoreCase(StartModAOptionsUI.guiTitleID)) {
-//			setModToDefault();
-//			return;
-//		}
-//		if (guiTitleID.equalsIgnoreCase(StartModBOptionsUI.guiTitleID)) {
-//			setToDefault(modB);
-//			return;
-//		}
-//		if (guiTitleID.equalsIgnoreCase(ModGlobalOptionsUI.guiTitleID)) {
-//			setModGlobalToDefault();
-//			return;
-//		}
-	}
 	/**
 	 * Advanced setting GUI Default Button Action
 	 */
@@ -258,49 +229,10 @@ public class UserPreferences {
 		SoundManager.current().resetSoundVolumes();
 		save();
 	}
-	// modnar: set MOD option to defaults, specifically for UI
-	/**
-	 * First Mod GUI Default Button Action
-	 */
-	private static void setModToDefault() {
-		// Old settings
-		newRacesOnByDefault = true; // BR: add option to get or reject the new races
-		for (AbstractParam<?> param : modA) {
-			param.setFromDefault(false);
-		}
-		save();
-	}
-	/**
-	 * Global Mod GUI Default Button Action
-	 */
-	private static void setModGlobalToDefault() {
-		// Old settings
-		// New settings
-		for (AbstractParam<?> param : modGlobal) {
-			param.setFromDefault(false);
-		}
-		save();
-	}
-
 	public static void setForNewGame() {
 		autoColonize = false;
 		autoBombardMode = AUTOBOMBARD_NO;
 	}
-	// BR setters for GUI MOD parameters
-	public static void setNewRacesOn(boolean newValue) {
-		newRacesOnByDefault = newValue;
-	}
-	public static void setgridCircularDisplay(boolean newValue) {
-		gridCircularDisplay = newValue;
-	}
-	// \BR:
-
-	public static void toggleNewRacesOn()	    { newRacesOnByDefault = !newRacesOnByDefault; save(); } // BR:
-	public static boolean toggleGridCircularDisplay() {  // BR:
-		gridCircularDisplay = !gridCircularDisplay;
-		save();
-		return gridCircularDisplay;
-	}  
 	public static int musicVolume()		   { return musicVolume; }
 	public static int soundVolume()		   { return soundVolume; }
 	public static boolean showMemory()	   { return showMemory; }
@@ -384,8 +316,6 @@ public class UserPreferences {
 	public static void toggleSounds()    { playSounds = !playSounds;	save(); }
 	public static boolean playMusic()    { return playMusic; }
 	public static void toggleMusic()     { playMusic = !playMusic; save();  }
-	public static boolean newRacesOn()			{ return newRacesOnByDefault; } // BR: add option to get or reject the new races
-	public static boolean gridCircularDisplay()	{ return gridCircularDisplay; } // BR: add option to memorize the grid state
 	// BR: redirection for compatibility
 	public static int companionWorlds()			{ return Math.abs(companionWorlds.get()); } // modnar: add option to start game with additional colonies
 	public static int companionWorldsSigned()	{ return companionWorlds.get(); } // BR: to manage old and new distribution
@@ -494,7 +424,7 @@ public class UserPreferences {
 			out.println(keyFormat("LANGUAGE")+ languageDir());
 			// BR: Governors GUI
 			out.println();
-			out.println("===== In Game Settings =====");
+			out.println("===== Governor Settings =====");
 			out.println();
 			out.println(keyFormat("DEFAULT_MAX_BASES") + defaultMaxBases);
 			out.println(keyFormat("GOVERNOR_ON_BY_DEFAULT") + yesOrNo(governorOnByDefault));
@@ -502,12 +432,10 @@ public class UserPreferences {
 			out.println(keyFormat("DIVERT_COLONY_EXCESS_TO_RESEARCH")+ yesOrNo(divertColonyExcessToResearch));
 			out.println(keyFormat("LEGACY_GROWTH") + yesOrNo(legacyGrowth)); // BR:
 			out.println(keyFormat("GOVERNOR_AUTO_APPLY") + yesOrNo(governorAutoApply)); // BR:
-			// TODO BR: Move to global in standard way
-			out.println(keyFormat("GRID_CIRCULAR_DISPLAY") + yesOrNo(gridCircularDisplay)); // BR: add option to memorize the grid state
-			out.println(keyFormat("NEW_RACES_ON_BY_DEFAULT") + yesOrNo(newRacesOnByDefault)); // BR: add option to get or reject the new races
-			out.println(keyFormat("PLAYER_SHIP_SET")	  + ShipSetAddOns.playerShipSet()); 
+			// TODO BR: Change to new standard GUI way
+			out.println(keyFormat("PLAYER_SHIP_SET") + ShipSetAddOns.playerShipSet()); 
 			out.println();
-			out.println("===== MOD Display GUI Settings =====");
+			out.println("===== MOD Global GUI Settings =====");
 			out.println();
 			for (AbstractParam<?> param : modGlobal) {
 				out.println(keyFormat(param.getCfgLabel()) + param.getCfgValue());
@@ -565,9 +493,7 @@ public class UserPreferences {
 			case "DISABLE_ADVISOR": disableAdvisor = yesOrNo(val); return;
 			case "SCREEN_SIZE_PCT": screenSizePct(Integer.valueOf(val)); return;
 			case "UI_TEXTURE_LEVEL": uiTexturePct(Integer.valueOf(val)); return;
-			// TODO BR: Move to global in standard way
-			case "NEW_RACES_ON_BY_DEFAULT": newRacesOnByDefault = yesOrNo(val); return; // BR: add option to get or reject the new races
-			case "GRID_CIRCULAR_DISPLAY": gridCircularDisplay = yesOrNo(val); return; // BR: add option to memorize the grid state
+			// TODO BR: Change to new standard GUI way
 			case "PLAYER_SHIP_SET": ShipSetAddOns.playerShipSet(val); return; // BR: add option to select Player Ship Set
 			case "LANGUAGE": selectLanguage(val); return;
 			default:

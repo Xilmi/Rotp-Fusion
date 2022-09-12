@@ -23,6 +23,9 @@ import static rotp.ui.UserPreferences.showFleetFactor;
 import static rotp.ui.UserPreferences.showInfoFontRatio;
 import static rotp.ui.UserPreferences.showNameMinFont;
 import static rotp.ui.UserPreferences.showPathFactor;
+import static rotp.ui.UserPreferences.showNewRaces;
+import static rotp.ui.UserPreferences.showGridCircular;
+import static rotp.ui.UserPreferences.showPathFactor;
 
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
@@ -38,6 +41,8 @@ public class ModGlobalOptionsUI extends AbstractOptionsUI {
 	// First column (left)
 	protected BaseText menuStartupText;
 	protected BaseText menuLoadGameText;
+	protected BaseText newRacesOnByDefaultText;
+	protected BaseText gridCircularDisplayText;
 	// Second column
 	protected BaseText showFleetFactorText;
 	protected BaseText showFlagFactorText;
@@ -58,8 +63,10 @@ public class ModGlobalOptionsUI extends AbstractOptionsUI {
 		// Complete this table... Et Voilà!
 		// For Mixed Setup keep "paintComponent" up to date
 		// First column (left)
-		btList.add(menuStartupText	= newBT()); paramList.add(menuStartup);
-		btList.add(menuLoadGameText	= newBT()); paramList.add(menuLoadGame);
+		btList.add(menuStartupText			= newBT()); paramList.add(menuStartup);
+		btList.add(menuLoadGameText			= newBT()); paramList.add(menuLoadGame);
+		btList.add(newRacesOnByDefaultText	= newBT()); paramList.add(showNewRaces);
+		btList.add(gridCircularDisplayText	= newBT()); paramList.add(showGridCircular);
 		endOfColumn();
 		// Second column
 		btList.add(showFleetFactorText	= newBT()); paramList.add(showFleetFactor);

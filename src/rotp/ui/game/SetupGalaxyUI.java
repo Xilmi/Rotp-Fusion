@@ -497,7 +497,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		}
 	}
 	private String newRacesOnStr() {
-		if (UserPreferences.newRacesOn()) return text("SETUP_NEW_RACES_ON");
+		if (UserPreferences.showNewRaces.get()) return text("SETUP_NEW_RACES_ON");
 		else return text("SETUP_NEW_RACES_OFF");
 	}
 
@@ -619,7 +619,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	}
 	public void toggleNewRaces(boolean click) {
 		if (click) softClick();
-		UserPreferences.toggleNewRacesOn();
+		UserPreferences.showNewRaces.toggle();
 		repaint();
 	}
 	public void increaseOpponents(boolean click) {

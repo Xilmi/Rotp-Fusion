@@ -219,7 +219,7 @@ public class RaceOptions {
 	 * @return The filtered list in conformity with UserPreferences
 	 */
 	public static List<String> raceFilter (List<String> raceList) {
-		if (UserPreferences.newRacesOn()) {
+		if (UserPreferences.showNewRaces.get()) {
 			return raceList;
 		}
 		return raceList.stream()

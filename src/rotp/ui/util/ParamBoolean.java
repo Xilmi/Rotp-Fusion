@@ -66,4 +66,9 @@ public class ParamBoolean extends AbstractParam<Boolean> {
 		return value(yesOrNo(newValue));
 	}	
 	@Override public Boolean prev() { return next(); }
+	// ===== Other Methods =====
+	//
+	public Boolean toggle() {
+		return next(); 
+	}
 }
