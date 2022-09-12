@@ -22,7 +22,10 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
-2022.09.11 (Xilmi
+2022.09.12 (Xilmi)
+  - Fixed issue introduced in last version that prevented the governor from building defensive structures.
+
+2022.09.11 (Xilmi)
   - The player is now informed when a stargate is finished even if it was built using governor.
   - When the governor is active and the player is informed about being able to change allocations the part that readjused allocations on it's own differently from how the governor would have behaved is no longer executed.
   - The "Equalize Allocations"-button in the Tech-screen now uses a more equal algorithm for it's equalization.
