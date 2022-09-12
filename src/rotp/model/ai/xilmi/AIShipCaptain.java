@@ -871,6 +871,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
         float dpsOnColony = 0;
         boolean enemyHasRepulsor = false;
         boolean weCounterRepulsor = false;
+        boolean enemyHasWarpDissipator = false;
         
         List<CombatStack> friends = new ArrayList<>();
         for (CombatStack ally: allies()) {
@@ -903,6 +904,8 @@ public class AIShipCaptain implements Base, ShipCaptain {
         for (CombatStack st1 : foes) {
             if(st1.repulsorRange() > 0)
                 enemyHasRepulsor = true;
+            if(st1.isShip() && st1.design().hasWarpDissipator())
+                enemyHasWarpDissipator = true;
             if(col != null && col.empire == st1.empire && col.mgr.currentStack() != null)
                 if(col.movePointsTo(st1) == 1)
                     foesBlockPlanet++;
@@ -1021,7 +1024,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
             else
                 return true;
         }
-        else if (stack.num == 1 && friends.size() == 1 || missileShooterMode)
+        else if ((stack.num == 1 && friends.size() == 1 && !enemyHasWarpDissipator) || missileShooterMode)
             return enemyKillTimeWithoutHeal < 2;
         else
             return allyKillTime > enemyKillTime;

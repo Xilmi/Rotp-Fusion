@@ -628,6 +628,12 @@ public final class ShipDesign extends Design {
         return engine().warp();
     }
     public boolean hasColonySpecial() { return colonySpecial() != null; }
+    public boolean hasWarpDissipator() {
+        for (ShipSpecial spec: special)
+            if(spec.tech().isWarpDissipator())
+                return true;
+        return false;
+    }
     public float missPct() {
         float pct = 0.0f;
         for (ShipSpecial spec: special)
