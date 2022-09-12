@@ -43,6 +43,8 @@ import rotp.ui.main.SystemPanel;
 public abstract class AbstractOptionsUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
 	private static final long serialVersionUID = 1L;
 	private static final Color backgroundHaze = new Color(0,0,0,160);
+	private static final String exitKey		  = "SETTINGS_EXIT";
+	public  static final String cancelKey	  = "SETTINGS_CANCEL";
 	public  static final String setDefaultKey = "SETTINGS_DEFAULT";
 	public  static final String setLastKey	  = "SETTINGS_LAST_SET";
 	public  static final String setUserKey	  = "SETTINGS_USER_SET";
@@ -185,6 +187,12 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 			newGameOptions().saveUserOptions(paramList); // TODO BR: Non param options
 		}
 	}
+	public static String okButtonKey(boolean ctrlPressed) {
+		if (ctrlPressed)
+			return cancelKey;
+		else
+			return exitKey;			
+	}
 	public static String userButtonKey(boolean ctrlPressed) {
 		if (ctrlPressed)
 			return saveUserKey;
@@ -300,7 +308,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(okBox.x, okBox.y, smallButtonW, smallButtonH, cnr, cnr);
 		g.setFont(narrowFont(20));
-		String text6 = text("SETTINGS_EXIT");
+		String text6 = text(okButtonKey(ctrlPressed));
 		int sw6 = g.getFontMetrics().stringWidth(text6);
 		int x6 = okBox.x+((okBox.width-sw6)/2);
 		int y6 = okBox.y+okBox.height-s8;

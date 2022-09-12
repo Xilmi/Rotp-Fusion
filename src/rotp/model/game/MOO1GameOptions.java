@@ -128,13 +128,22 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         randomizeColors();
         setDefaultOptionValues();
     }
-    static MOO1GameOptions initOptionFile(String path, String fileName) {
+    private static MOO1GameOptions initOptionFile(String path, String fileName) {
 		MOO1GameOptions newOptions;
     	newOptions = new MOO1GameOptions();
     	newOptions.saveOptions(path, fileName);			
 		return newOptions;    	
     }
-    public static MOO1GameOptions loadOptions(String path, String fileName) {
+    // TODO BR:  Remove -- Load saved options
+    private static MOO1GameOptions loadOptions(String name) {
+ 		String path	= Rotp.jarPath();
+		String fileName = UserPreferences.LAST_OPTIONS_FILE;
+    	if (UserPreferences.menuStartup.get().equalsIgnoreCase("User"))
+    		fileName = UserPreferences.USER_OPTIONS_FILE;
+   		return loadOptions(path, fileName);
+     }
+    // BR: Load saved options
+    private static MOO1GameOptions loadOptions(String path, String fileName) {
     	MOO1GameOptions options;
 		File file = new File(path, fileName);
 		if (file.exists()) {

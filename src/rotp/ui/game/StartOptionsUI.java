@@ -17,6 +17,7 @@ package rotp.ui.game;
 
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonWidth;
+import static rotp.ui.util.AbstractOptionsUI.okButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.userButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.userButtonWidth;
 
@@ -39,6 +40,7 @@ import javax.swing.SwingUtilities;
 import rotp.mod.br.profiles.Profiles;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
+import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
 
 public class StartOptionsUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
@@ -123,11 +125,25 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
     public void close() {
         disableGlassPane();
     }
-    public void setToDefault() {
-        newGameOptions().setToDefault();
-        init();
-        repaint();
-    }
+	private void doOkBoxAction() {
+		if (ctrlPressed) { // Exit without saving
+			close();
+		} else { // save and exit
+//			newGameOptions().saveLastOptions(paramList); // TODO BR: Non param options
+			close();
+		}
+	}
+	private void doDefaultBoxAction() {
+		if (ctrlPressed) { // set to last
+//			newGameOptions().setUserOptions(paramList); // TODO BR: Non param options
+			init();
+			repaint();
+		} else { // set to default
+			newGameOptions().setToDefault();
+			init();
+			repaint();
+		}
+	}
 	private void doUserBoxAction() {
 		if (ctrlPressed)
 			newGameOptions().setUserOptions(guiTitleID);
@@ -465,7 +481,7 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
         g.setColor(GameUI.buttonBackgroundColor());
         g.fillRoundRect(okBox.x, okBox.y, smallButtonW, smallButtonH, cnr, cnr);
         g.setFont(narrowFont(20));
-        String text6 = text("SETTINGS_EXIT");
+        String text6 = text(okButtonKey(ctrlPressed));
         int sw6 = g.getFontMetrics().stringWidth(text6);
         int x6 = okBox.x+((okBox.width-sw6)/2);
         int y6 = okBox.y+okBox.height-s8;
@@ -836,9 +852,9 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
         boolean up = !SwingUtilities.isRightMouseButton(e);
         mouseCommon(up);
         if (hoverBox == okBox)
-            close();
+        	doOkBoxAction(); // BR: added Ctrl function
         else if (hoverBox == defaultBox)
-            setToDefault();
+        	doDefaultBoxAction();
         else if (hoverBox == userBox)
 			doUserBoxAction();
     }
