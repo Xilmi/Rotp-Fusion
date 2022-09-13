@@ -46,11 +46,11 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	private static final long serialVersionUID = 1L;
 	private static final Color backgroundHaze = new Color(0,0,0,160);
 	private static final String exitKey		  = "SETTINGS_EXIT";
-	public  static final String cancelKey	  = "SETTINGS_CANCEL";
-	public  static final String setDefaultKey = "SETTINGS_DEFAULT";
-	public  static final String setLastKey	  = "SETTINGS_LAST_SET";
-	public  static final String setUserKey	  = "SETTINGS_USER_SET";
-	public  static final String saveUserKey	  = "SETTINGS_USER_SAVE";
+	private static final String cancelKey	  = "SETTINGS_CANCEL";
+	private static final String setDefaultKey = "SETTINGS_DEFAULT";
+	private static final String setLastKey	  = "SETTINGS_LAST_SET";
+	static final String setUserKey	= "SETTINGS_USER_SET";
+	static final String saveUserKey	= "SETTINGS_USER_SAVE";
 	private final String guiTitleID;
 	
 	private Font descFont    = narrowFont(15);
@@ -70,14 +70,14 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	
 	private Color textC = SystemPanel.whiteText;
 	private LinkedList<Integer>	lastRowList = new LinkedList<Integer>();
-	protected LinkedList<BaseText>	btList		= new LinkedList<BaseText>();
-	public	  LinkedList<AbstractParam<?>> paramList = new LinkedList<AbstractParam<?>>();
-	protected Rectangle hoverBox;
-	private   Rectangle okBox 		= new Rectangle();
-	private   Rectangle defaultBox	= new Rectangle();
-	private   Rectangle userBox		= new Rectangle();
-	private   BasePanel parent;
-	private   boolean ctrlPressed	= false;
+	private LinkedList<BaseText> btList		= new LinkedList<BaseText>();
+	public	LinkedList<AbstractParam<?>> paramList = new LinkedList<AbstractParam<?>>();
+	private Rectangle hoverBox;
+	private Rectangle okBox 		= new Rectangle();
+	private Rectangle defaultBox	= new Rectangle();
+	private Rectangle userBox		= new Rectangle();
+	private BasePanel parent;
+	private boolean   ctrlPressed	= false;
 	protected boolean globalOptions	= false; // No preferred button and Saved to remnant.cfg
 	
 	// ========== Constructors and initializers ==========
@@ -147,14 +147,14 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	// ========== Former Abstract Methods Request ==========
 	//
 	// These may be left empty by full Auto GUI
-	protected void initCustom() {}
-	protected void paintCustomComponent(Graphics2D g) {}
-	protected void repaintCustomComponent() {}
-	protected void customMouseCommon(boolean up, boolean mid,
+	private void initCustom() {}
+	private void paintCustomComponent(Graphics2D g) {}
+	private void repaintCustomComponent() {}
+	private void customMouseCommon(boolean up, boolean mid,
 			boolean shiftPressed, boolean ctrlPressed, MouseEvent e, MouseWheelEvent w) {}
 	// ========== Other Methods ==========
 	//
-	protected  BaseText newBT() { 
+	private  BaseText newBT() { 
 		return new BaseText(this, false, 20, 20,-78,  textC, textC, hoverC, depressedC, textC, 0, 0, 0);
 	}
 	protected  void endOfColumn() {
@@ -248,7 +248,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 			repaint();
 		}
 	}
-	protected void paintSetting(Graphics2D g, BaseText txt, String desc) {
+	private void paintSetting(Graphics2D g, BaseText txt, String desc) {
 		g.setColor(SystemPanel.blackText);
 		g.drawRect(xSetting, ySetting, wSetting, hSetting);
 		g.setPaint(GameUI.settingsSetupBackground(w));
@@ -264,7 +264,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 			drawString(g,line, xSetting+columnPad, y3);
 		}		
 	}
-	protected void goToNextSetting() {
+	private void goToNextSetting() {
 		index++;
 		if (index >= lastRowList.get(column)) {
 			column++;

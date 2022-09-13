@@ -23,7 +23,6 @@ import java.util.LinkedList;
 public class ParamList extends AbstractParam<String> {
 
 	private final IndexableMap optValCostPtrMap;
-	private boolean finalLabels = true;
 	
 	// ===== Constructors =====
 	//
@@ -58,9 +57,6 @@ public class ParamList extends AbstractParam<String> {
 	}
 	// ===== Overriders =====
 	//
-	@Override public int getBoxSize() {
-		return optValCostPtrMap.getBoxSize();
-	}
 	@Override protected String getCfgValue(String value) {
 		return validateKey(value);
 	}
@@ -68,10 +64,10 @@ public class ParamList extends AbstractParam<String> {
 		return text(optValCostPtrMap.getLangLabelFromCfgValue(validateKey(get())));
 	}
 	@Override public String next() { 
-		return setAndSave(optValCostPtrMap.getNextCfgLabelIgnoreCase(get()));
+		return set(optValCostPtrMap.getNextCfgLabelIgnoreCase(get()));
 	}
 	@Override public String prev() {
-		return setAndSave(optValCostPtrMap.getPrevCfgLabelIgnoreCase(get())); 
+		return set(optValCostPtrMap.getPrevCfgLabelIgnoreCase(get())); 
 	}
 	@Override public String toggle(MouseWheelEvent e) {
 		if (getDir(e) > 0)
@@ -130,44 +126,6 @@ public class ParamList extends AbstractParam<String> {
 		return this;
 	}
 	/**
-	 * Add a new Option with its Label
-	 * @param option
-	 * @param label
-	 * @param cost
-	 * @return this for chaining purpose
-	 */
-	private ParamList put(String option, String label, Float cost) {
-		optValCostPtrMap.put(option, label, cost);
-		return this;
-	}
-	/**
-	 * Add a new Option with its Label
-	 * @param option
-	 * @param label
-	 * @param cost
-	 * @param pointer
-	 * @return this for chaining purpose
-	 */
-	private ParamList put(String option, String label, Float cost, Integer pointer) {
-		if (finalLabels)
-			optValCostPtrMap.put(option, label, cost, pointer);
-		else
-			optValCostPtrMap.put(option, labelId() +"_"+ label, cost, pointer);
-		return this;
-	}
-	/**
-	 * Add a new Option with its Label
-	 * @param option
-	 * @param label
-	 * @param cost The cost of this option
-	 * @param index The index of the in game option
-	 * @return this for chaining purpose
-	 */
-	private ParamList put(String option, String label, Integer cost, Integer pointer) {
-		optValCostPtrMap.put(option, label, cost.floatValue(), pointer);
-		return this;
-	}
-	/**
 	 * Check if the entry is valid and return a valid value
 	 * @param key the entry to check
 	 * @return a valid value, preferably the value to test
@@ -185,8 +143,6 @@ public class ParamList extends AbstractParam<String> {
 		
 		private final LinkedList<String>  cfgValueList	= new LinkedList<>(); // also key list
 		private final LinkedList<String>  langLabelList	= new LinkedList<>();
-		private final LinkedList<Float>	  costList		= new LinkedList<>();
-		private final LinkedList<Integer> pointerList	= new LinkedList<>();
 
 		
 		// ========== Constructors ==========
@@ -196,8 +152,6 @@ public class ParamList extends AbstractParam<String> {
 		public IndexableMap(IndexableMap map) {
 			cfgValueList.addAll(map.cfgValueList);
 			langLabelList.addAll(map.langLabelList);
-			costList.addAll(map.costList);
-			pointerList.addAll(map.pointerList);
 		}
 		// ========== Setters ==========
 		//
@@ -205,22 +159,8 @@ public class ParamList extends AbstractParam<String> {
 			cfgValueList.add(key);
 			langLabelList.add(value);
 		}
-		public void put(String key, String value, Float cost) {
-			cfgValueList.add(key);
-			langLabelList.add(value);
-			costList.add(cost);
-		}
-		public void put(String key, String value, Float cost, Integer pointer) {
-			cfgValueList.add(key);
-			langLabelList.add(value);
-			costList.add(cost);
-			pointerList.add(pointer);
-		}
 		// ========== Getters ==========
 		//
-		public int getBoxSize() {
-			return costList.size();
-		}
 		private String getCfgValue(int idx) {
 			return cfgValueList.get(idx);
 		}

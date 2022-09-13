@@ -100,7 +100,7 @@ class Group_Mod_B extends  AbstractGroup <ClientClasses> {
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<Integer> value) {
-			eventsStartTurn.setAndSave(value.getCodeView());
+			eventsStartTurn.set(value.getCodeView());
 		}
 		
 		@Override public void initComments() {}
@@ -131,7 +131,7 @@ class Group_Mod_B extends  AbstractGroup <ClientClasses> {
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<Boolean> value) {
-			maximizeSpacing.setAndSave(value.getCodeView());
+			maximizeSpacing.set(value.getCodeView());
 		}
 		
 		@Override public void initComments() {
@@ -169,7 +169,7 @@ class Group_Mod_B extends  AbstractGroup <ClientClasses> {
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<Float> value) {
-			spacingLimit.setAndSave(value.getCodeView());
+			spacingLimit.set(value.getCodeView());
 		}
 		
 		@Override public void initComments() {
@@ -207,7 +207,7 @@ class Group_Mod_B extends  AbstractGroup <ClientClasses> {
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<Float> value) {
-			prefStarsPerEmpire.setAndSave(value.getCodeView());
+			prefStarsPerEmpire.set(value.getCodeView());
 		}
 		
 		@Override public void initComments() {
@@ -247,7 +247,7 @@ class Group_Mod_B extends  AbstractGroup <ClientClasses> {
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<Integer> value) {
-			minStarsPerEmpire.setAndSave(value.getCodeView());
+			minStarsPerEmpire.set(value.getCodeView());
 		}
 		
 		@Override public void initComments() {

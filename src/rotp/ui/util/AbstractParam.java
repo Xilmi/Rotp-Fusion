@@ -23,7 +23,6 @@ import java.awt.event.MouseWheelEvent;
 
 import javax.swing.SwingUtilities;
 
-import rotp.model.game.IGameOptions;
 import rotp.model.game.MOO1GameOptions;
 import rotp.ui.UserPreferences;
 import rotp.util.LabelManager;
@@ -43,8 +42,6 @@ public abstract class AbstractParam <T> {
 	private T ctrlInc	= null;
 	private boolean saveAllowed = true; // To allow the parameter to be saved in Remnants.cfg
 	private boolean globalSave	= true; // For Global settings
-	private boolean lastSave	= false;
-	private boolean userSave	= false;
 
 	// ========== constructors ==========
 	//
@@ -107,9 +104,6 @@ public abstract class AbstractParam <T> {
 	T value(T value) 		{ this.value = value; return value;}
 	public int getIndex()	{ return 0; }
 	public T setFromIndex(int i) { return null; }
-	public int getBoxSize() {
-		return 1;
-	}
 	protected String getCfgValue(T value) {
 		return String.valueOf(value);
 	}
@@ -161,7 +155,7 @@ public abstract class AbstractParam <T> {
 	}	
 	// ========== Public Setters ==========
 	//
-	public T setFromDefault(boolean save) {
+	T setFromDefault(boolean save) {
 		value = defaultValue;
 		if (save) 
 			save();
@@ -169,16 +163,6 @@ public abstract class AbstractParam <T> {
 	}
 	public T set(T newValue) {
 		value = newValue;
-		return value;
-	}	
-	private T setFromIndexAndSave(int i){
-		setFromIndex(i);
-		save();
-		return value;
-	}
-	public T setAndSave(T newValue) {
-		set(newValue);
-		save();
 		return value;
 	}	
 	T toggle(MouseEvent e, MouseWheelEvent w) {
@@ -193,21 +177,12 @@ public abstract class AbstractParam <T> {
 	}
 	// ========== Private Methods ==========
 	//
-	private void save(boolean global, boolean last) {
-		if (saveAllowed()) 
-			if (global)
-				UserPreferences.save();
-			else if (last)
-				UserPreferences.save(); // TODO BR: save last 
-			else
-				UserPreferences.save(); // TODO BR: save User 
-	}
 	private void save() {
 		if (saveAllowed()) 
 			if (globalSave)
 				UserPreferences.save();
 	}
-	String labelId() {
+	private String labelId() {
 		return gui + name;
 	}
 	private String descriptionId() {
@@ -271,10 +246,10 @@ public abstract class AbstractParam <T> {
 			return null; // silent error!
 		}
 	}
-	public static String yesOrNo(boolean b) { // BR it's already used everywhere!!!
+	static String yesOrNo(boolean b) { // BR it's already used everywhere!!!
 		return b ? "YES" : "NO";
 	}
-	public static boolean yesOrNo(String s) {
+	static boolean yesOrNo(String s) {
 		return s.equalsIgnoreCase("YES");
 	}
 	protected static String text(String key) {

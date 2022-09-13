@@ -51,7 +51,7 @@ public class ParamBoolean extends AbstractParam<Boolean> {
 		return yesOrNo(get());
 	}
 	@Override public Boolean next() {
-		return setAndSave(!get()); 
+		return set(!get()); 
 	}
 	@Override public Boolean toggle(MouseWheelEvent e) {
 		return next(); 

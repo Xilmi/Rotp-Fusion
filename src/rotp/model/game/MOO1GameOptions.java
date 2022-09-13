@@ -68,7 +68,6 @@ import rotp.model.tech.TechEngineWarp;
 import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.game.StartModAOptionsUI;
 import rotp.ui.game.StartModBOptionsUI;
-import rotp.ui.util.AbstractParam;
 import rotp.util.Base;
 
 public class MOO1GameOptions implements Base, IGameOptions, Serializable {

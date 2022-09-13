@@ -126,17 +126,17 @@ public class ParamFloat extends AbstractParam<Float> {
 		Float value = get() + i;
 		if (maxValue() != null && value > maxValue()) {
 			if (loop && minValue() != null)
-				return setAndSave(minValue());
+				return set(minValue());
 			else
-				return setAndSave(maxValue());
+				return set(maxValue());
 		}
 		else if (minValue() != null && value < minValue()) {
 			if (loop && maxValue() != null)
-				return setAndSave(maxValue());
+				return set(maxValue());
 			else
-				return setAndSave(minValue());
+				return set(minValue());
 		}
-		return setAndSave(value);
+		return set(value);
 	}
 	private boolean isGuiPercent() {
 		return guiFormat.equals("%");
