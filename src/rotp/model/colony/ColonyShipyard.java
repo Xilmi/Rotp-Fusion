@@ -435,7 +435,7 @@ public class ColonyShipyard extends ColonySpendingCategory {
         if (buildingStargate)
             totalCost = max(0, design.cost() - stargateBC);
         else {
-            float shipCost = design.cost() * desiredShips;
+            float shipCost = design.cost() * max(desiredShips, buildLimit);
             if (design == prevDesign)
                 shipCost -= shipBC;
 
