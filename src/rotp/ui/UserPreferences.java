@@ -23,7 +23,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.Arrays;
@@ -33,8 +32,6 @@ import rotp.Rotp;
 import rotp.mod.br.addOns.ShipSetAddOns;
 import rotp.model.events.RandomEvents;
 import rotp.model.game.GameSession;
-import rotp.model.game.IGameOptions;
-import rotp.model.game.MOO1GameOptions;
 import rotp.ui.util.AbstractParam;
 import rotp.ui.util.EventsStartTurn;
 import rotp.ui.util.ParamAAN2;
@@ -103,7 +100,7 @@ public class UserPreferences {
 			, 100, 20, 500, 1, 5, 20);
 	public static final ParamBoolean dynamicDifficulty = new ParamBoolean(MOD_UI, "DYNAMIC_DIFFICULTY", false);
 	public static final ParamFloat missileSizeModifier = new ParamFloat(MOD_UI, "MISSILE_SIZE_MODIFIER"
-			, 2f/3f, 0.1f, 1f, 0.01f, 0.05f, 0.2f, "0.##", "0.##");
+			, 2f/3f, 0.1f, 1f, 0.01f, 0.05f, 0.2f, "0.##", "%");
 	public static final ParamBoolean challengeMode = new ParamBoolean(MOD_UI, "CHALLENGE_MODE", false);
 
 	// BR: ===== Second Mod GUI:
@@ -645,85 +642,4 @@ public class UserPreferences {
 		SoundManager.current().resetSoundVolumes();
 		save();
 	}
-	// ==================== New option setter/Getters Method ====================
-	//
-	/**
-	 * Set the parameters to their default values
-	 * @param paramList The parameter list to reset
-	 */
-	public static void setFromDefault(LinkedList<AbstractParam<?>> paramList) {
-		for (AbstractParam<?> param : paramList) {
-			param.setFromDefault(false);
-		}
-	}
-	/**
-	 * Set the options to the parameters values
-	 * @param paramList The parameter list to use
-	 */
-	public static void setOptions(IGameOptions options, LinkedList<AbstractParam<?>> paramList) {
-		for (AbstractParam<?> param : paramList) {
-			param.setOptions(options);
-		}
-	}
-	/**
-	 * Set the parameters from the current options values
-	 * @param paramList The parameter list to set
-	 */
-	public static void setFromOptions(IGameOptions options, LinkedList<AbstractParam<?>> paramList) {
-		for (AbstractParam<?> param : paramList) {
-			param.setFromOptions(options);
-		}
-	}
-	/**
-	 * Load saved options from shortName
-	 * @param shortName either "Last" or "User"
-	 */
-    public static MOO1GameOptions loadOptions(String shortName) {
- 		String path	= Rotp.jarPath();
-		String fileName = LAST_OPTIONS_FILE;
-    	if (shortName.equalsIgnoreCase("User"))
-    		fileName = USER_OPTIONS_FILE;
-   		return loadOptions(path, fileName);
-    }
-    // BR: Options files initialization
-    private static MOO1GameOptions initMissingOptionFile(String path, String fileName) {
-		MOO1GameOptions newOptions;
-    	newOptions = new MOO1GameOptions();
-    	newOptions.saveOptions(path, fileName);			
-		return newOptions;    	
-    }
-    // BR: Load options from file
-    private static MOO1GameOptions loadOptions(String path, String fileName) {
-    	MOO1GameOptions options;
-		File file = new File(path, fileName);
-		if (file.exists()) {
-		    try(ObjectInputStream inFile = new ObjectInputStream(new FileInputStream(file)))
-		    {
-		    	options = (MOO1GameOptions) inFile.readObject();
-		    }
-		    catch(ClassNotFoundException cnfe)
-		    {
-		    	System.err.println(file.getAbsolutePath() + " not valid.");
-		    	options = initMissingOptionFile(path, fileName);
-				return options;
-		    }
-		    catch(FileNotFoundException fnfe)
-		    {
-				System.err.println(file.getAbsolutePath() + " not found.");
-				options = initMissingOptionFile(path, fileName);
-				return options;
-		    }
-		    catch(IOException e)
-		    {
-		    	System.err.println(file.getAbsolutePath() + " not valid.");
-		    	options = initMissingOptionFile(path, fileName);
-				return options;
-		    }
-		    return options;
-		} else {
-			System.err.println(file.getAbsolutePath() + " not found.");
-			options = initMissingOptionFile(path, fileName);
-			return options;
-		}
-    }
 }

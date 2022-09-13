@@ -311,14 +311,16 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     	System.out.println("initOption = " + initOption); // TODO BR: disable it
     	switch (initOption) {
 	    	case "LAST":
+	    		newGameOptions = MOO1GameOptions.loadLastOptions();
+	    		return;
 	    	case "USER":
-	    		newGameOptions = UserPreferences.loadOptions(initOption);
+	    		newGameOptions = MOO1GameOptions.loadUserOptions();
 	    		return;
 	    	case "DEFAULT":
 	    		newGameOptions = new MOO1GameOptions();
 	    		// TODO BR: Set default options
 	    		return;
-     	} // Vanilla
+     	} // Vanilla, as before
    		newGameOptions = new MOO1GameOptions();
     }
     public static void clearNewOptions() { newGameOptions = null; }

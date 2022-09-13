@@ -50,6 +50,7 @@ import rotp.model.empires.Race;
 import rotp.model.galaxy.GalaxyCopy;
 import rotp.model.galaxy.GalaxyShape;
 import rotp.model.game.GameSession;
+import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.NoticeMessage;
 import rotp.ui.RotPUI;
@@ -132,9 +133,9 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
     }
 	private void doUserBoxAction() {
 		if (ctrlPressed)
-			newGameOptions().setUserOptions(guiTitleID);
+			MOO1GameOptions.setUserOptions(newGameOptions(), guiTitleID);
 		else
-			newGameOptions().saveUserOptions(guiTitleID);
+			MOO1GameOptions.saveUserOptions(newGameOptions(), guiTitleID);
 		// TODO BR: doUserBoxAction
 //		UserPreferences.setToDefault(guiTitleID);
 //		init();

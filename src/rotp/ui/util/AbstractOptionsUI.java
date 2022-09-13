@@ -34,6 +34,7 @@ import java.util.List;
 import javax.swing.SwingUtilities;
 
 import rotp.mod.br.profiles.Profiles;
+import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.UserPreferences;
@@ -175,28 +176,40 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 			UserPreferences.save();
 			close();
 		} else { // save and exit
-			newGameOptions().saveLastOptions(paramList); // TODO BR: Non param options
+			MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
+			for (AbstractParam<?> param : paramList)
+				param.setOptions(fileOptions);
+			MOO1GameOptions.saveLastOptions(fileOptions);
 			close();			
 		}
 	}
 	private void doDefaultBoxAction() {
 		if (ctrlPressed) { // set to last
-			newGameOptions().setUserOptions(paramList);
+			MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
+			for (AbstractParam<?> param : paramList)
+				param.setFromOptions(fileOptions);
 			init();
 			repaint();
 		} else { // set to default
-			UserPreferences.setFromDefault(paramList);
+			for (AbstractParam<?> param : paramList) {
+				param.setFromDefault(false);
+			}
 			init();
 			repaint();
 		}
 	}
 	private void doUserBoxAction() {
-		if (ctrlPressed) { // set
-			newGameOptions().setUserOptions(paramList);
+		if (ctrlPressed) { // Save
+			MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
+			for (AbstractParam<?> param : paramList)
+				param.setOptions(fileOptions);
+			MOO1GameOptions.saveUserOptions(fileOptions);
+		} else { // Set
+			MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
+			for (AbstractParam<?> param : paramList)
+				param.setFromOptions(fileOptions);
 			init();
 			repaint();
-		} else { // Save
-			newGameOptions().saveUserOptions(paramList);
 		}
 	}
 	public static String okButtonKey(boolean ctrlPressed) {

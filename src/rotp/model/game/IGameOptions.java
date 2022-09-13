@@ -16,7 +16,6 @@
 package rotp.model.game;
 
 import java.awt.Color;
-import java.util.LinkedList;
 import java.util.List;
 
 import rotp.mod.br.addOns.RacesOptions;
@@ -30,7 +29,6 @@ import rotp.model.galaxy.StarSystem;
 import rotp.model.planet.Planet;
 import rotp.model.tech.TechEngineWarp;
 import rotp.ui.game.SetupGalaxyUI;
-import rotp.ui.util.AbstractParam;
 import rotp.ui.UserPreferences; // modnar: add custom difficulty level option
 
 public interface IGameOptions {
@@ -329,15 +327,10 @@ public interface IGameOptions {
     public String setExtendedOptions(String id, String value); // BR:
     public String getExtendedOptions(String id); // BR:
     public String getExtendedOptions(String id, String defaultValue); // BR:
+    public Object setOtherOptions(String id, Object value); // BR:
+    public Object getOtherOptions(String id); // BR:
+    public Object getOtherOptions(String id, Object defaultValue); // BR:
     
-    public void setUserOptions(String gui); // TODO BR: maybe remove
-    public void setUserOptions(LinkedList<AbstractParam<?>> modList); // BR:
-    public void saveUserOptions(String gui); // BR:
-    public void saveUserOptions(LinkedList<AbstractParam<?>> modList); // BR:
-    public void setLastOptions(LinkedList<AbstractParam<?>> modList); // BR:
-    public void saveLastOptions(LinkedList<AbstractParam<?>> modList); // BR:
-    public void saveOptions(String path, String fileName); // BR:
-
     default void copyForRestart(IGameOptions opt) { } // BR: for Restart with new options
     default void copyOptions(IGameOptions opt) { }
     default boolean immediateCouncilWin()    { return selectedCouncilWinOption().equals(COUNCIL_IMMEDIATE); }

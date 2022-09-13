@@ -15,8 +15,11 @@
  */
 package rotp.model.game;
 
+import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
+import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.minStarsPerEmpire;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
+import static rotp.ui.UserPreferences.randomTechStart;
 
 import java.awt.Color;
 import java.io.File;
@@ -62,7 +65,6 @@ import rotp.model.galaxy.StarType;
 import rotp.model.planet.Planet;
 import rotp.model.planet.PlanetType;
 import rotp.model.tech.TechEngineWarp;
-import rotp.ui.UserPreferences;
 import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.game.StartModAOptionsUI;
 import rotp.ui.game.StartModBOptionsUI;
@@ -111,12 +113,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private String selectedAIHostilityOption;
     private String selectedColonizingOption;
     private String selectedAutoplayOption;
-    
     private LinkedHashMap<String, String> extendedOptions = new LinkedHashMap<>();
-    
-    // Mod A Option UI
-    private boolean selectedRandomTechStart = UserPreferences.randomTechStart.get(); // TODO BR: switch to param
- 
+    private LinkedHashMap<String, Object> otherOptions = new LinkedHashMap<>(); // For future use
 
     private transient GalaxyShape galaxyShape;
 
@@ -128,54 +126,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         randomizeColors();
         setDefaultOptionValues();
     }
-    private static MOO1GameOptions initOptionFile(String path, String fileName) {
-		MOO1GameOptions newOptions;
-    	newOptions = new MOO1GameOptions();
-    	newOptions.saveOptions(path, fileName);			
-		return newOptions;    	
-    }
-    // TODO BR:  Remove -- Load saved options
-    private static MOO1GameOptions loadOptions(String name) {
- 		String path	= Rotp.jarPath();
-		String fileName = UserPreferences.LAST_OPTIONS_FILE;
-    	if (UserPreferences.menuStartup.get().equalsIgnoreCase("User"))
-    		fileName = UserPreferences.USER_OPTIONS_FILE;
-   		return loadOptions(path, fileName);
-     }
-    // BR: Load saved options
-    private static MOO1GameOptions loadOptions(String path, String fileName) {
-    	MOO1GameOptions options;
-		File file = new File(path, fileName);
-		if (file.exists()) {
-		    try(ObjectInputStream inFile = new ObjectInputStream(new FileInputStream(file)))
-		    {
-		    	options = (MOO1GameOptions) inFile.readObject();
-		    }
-		    catch(ClassNotFoundException cnfe)
-		    {
-		    	System.err.println(file.getAbsolutePath() + " not valid.");
-		    	options = initOptionFile(path, fileName);
-				return options;
-		    }
-		    catch(FileNotFoundException fnfe)
-		    {
-				System.err.println(file.getAbsolutePath() + " not found.");
-				options = initOptionFile(path, fileName);
-				return options;
-		    }
-		    catch(IOException e)
-		    {
-		    	System.err.println(file.getAbsolutePath() + " not valid.");
-		    	options = initOptionFile(path, fileName);
-				return options;
-		    }
-		    return options;
-		} else {
-			System.err.println(file.getAbsolutePath() + " not found.");
-			options = initOptionFile(path, fileName);
-			return options;
-		}
-    }
 	@Override public String setExtendedOptions(String id, String value) {
 		return extendedOptions.put(id, value);
 	}
@@ -185,58 +135,15 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	@Override public String getExtendedOptions(String id, String defaultValue) {
 		return extendedOptions.getOrDefault(id, defaultValue);
 	}
-   @Override public void setUserOptions(String gui) {
-		String path		= Rotp.jarPath();
-		String fileName	= UserPreferences.USER_OPTIONS_FILE;
-		MOO1GameOptions userOptions = loadOptions(path, fileName);
-		
-		switch (gui) {
-		case StartModAOptionsUI.guiTitleID:
-			// TODO BR: setUserOptions
-			break;
-		case StartModBOptionsUI.guiTitleID:
-			// TODO BR: setUserOptions			
-			break;
-		}
-    }
-    @Override public void saveUserOptions(String gui) {
-		String path		= Rotp.jarPath();
-		String fileName	= UserPreferences.USER_OPTIONS_FILE;
-		File file = new File(path, fileName);
-		switch (gui) {
-		case StartModAOptionsUI.guiTitleID:
-			// TODO BR: saveUserOptions			
-			break;
-		case StartModBOptionsUI.guiTitleID:
-			// TODO BR: saveUserOptions			
-			break;
-		}
-    }
-	@Override public void setUserOptions(LinkedList<AbstractParam<?>> modList) {
-		// TODO BR: setUserOptions
+	@Override public Object setOtherOptions(String id, Object value) {
+		return otherOptions.put(id, value);
 	}
-	@Override public void saveUserOptions(LinkedList<AbstractParam<?>> modList) {
-		// TODO BR: saveUserOptions
+	@Override public Object getOtherOptions(String id) {
+		return otherOptions.get(id);
 	}
-	@Override public void setLastOptions(LinkedList<AbstractParam<?>> modList) {
-		// TODO BR: setUserOptions
+	@Override public Object getOtherOptions(String id, Object defaultValue) {
+		return otherOptions.getOrDefault(id, defaultValue);
 	}
-	@Override public void saveLastOptions(LinkedList<AbstractParam<?>> modList) {
-		// TODO BR: saveUserOptions
-	}
-	// Common save method
-   @Override public void saveOptions(String path, String fileName) {
-		File file = new File(path, fileName);
-	    try(ObjectOutputStream write= new ObjectOutputStream (new FileOutputStream(file))) {
-	        write.writeObject(this);
-	    }
-	    catch(NotSerializableException nse) {
-	    	nse.printStackTrace();
-	    }
-	    catch(IOException eio) {
-	    	System.err.println("newGameOptions.save -- IOException: "+ eio.toString());
-	    }
-    }
     private void resetSelectedOpponentRaces() {
         for (int i=0;i<opponentRaces.length;i++)
             selectedOpponentRace(i,null);
@@ -1194,7 +1101,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     public List<Integer> possibleColors() {
         return new ArrayList<>(colors);
     }
-    protected void setDefaultOptionValues() {
+    private void setDefaultOptionValues() {
         selectedGalaxySize = SIZE_SMALL;
         selectedGalaxyShape = galaxyShapeOptions().get(0);
         selectedGalaxyAge = galaxyAgeOptions().get(1);
@@ -1456,7 +1363,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             case PLANET_QUALITY_NORMAL:   break;
             default:    break;
         }
-        if (selectedRandomTechStart) {
+        if (randomTechStart.get()) {
             rArtifact *= 0.0f; // modnar: no Artifact planets if randomTechStart selected
         }
         switch(p.type().key()) {
@@ -1468,5 +1375,107 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
                 if (random() <= 0.10 * rArtifact) // modnar: change artifact ratio for testing, original 0.10
                     p.setArtifact();
         }
+    }
+    // ==================== New Options management methods ====================
+    //
+	public static void setUserOptions(IGameOptions options, String gui) {
+		MOO1GameOptions fileOptions = loadUserOptions();
+		
+		switch (gui) {
+		case StartModAOptionsUI.guiTitleID:
+			// TODO BR: setUserOptions
+			break;
+		case StartModBOptionsUI.guiTitleID:
+			// TODO BR: setUserOptions			
+			break;
+		}
+    }
+    public static void saveUserOptions(IGameOptions options, String gui) {
+		MOO1GameOptions fileOptions = loadUserOptions();
+		switch (gui) {
+		case StartModAOptionsUI.guiTitleID:
+			// TODO BR: saveUserOptions			
+			break;
+		case StartModBOptionsUI.guiTitleID:
+			// TODO BR: saveUserOptions			
+			break;
+		}
+    }
+	/**
+	 * Save User Preferred options to file
+	 */
+    public static void saveUserOptions(MOO1GameOptions options) {
+    	saveOptions(options, Rotp.jarPath(), USER_OPTIONS_FILE);
+    }
+	/**
+	 * Save Last options to file
+	 */
+    public static void saveLastOptions(MOO1GameOptions options) {
+    	saveOptions(options, Rotp.jarPath(), LAST_OPTIONS_FILE);
+    }
+    /**
+	 * Load User Preferred options from file
+	 */
+    public static MOO1GameOptions loadUserOptions() {
+   		return loadOptions(Rotp.jarPath(), USER_OPTIONS_FILE);
+    }
+	/**
+	 * Load Last options from file
+	 */
+    public static MOO1GameOptions loadLastOptions() {
+   		return loadOptions(Rotp.jarPath(), LAST_OPTIONS_FILE);
+    }
+    // BR: save options to file
+    private static void saveOptions(MOO1GameOptions options, String path, String fileName) {
+		File file = new File(path, fileName);
+	    try(ObjectOutputStream write= new ObjectOutputStream (new FileOutputStream(file))) {
+	        write.writeObject(options);
+	    }
+	    catch(NotSerializableException nse) {
+	    	nse.printStackTrace();
+	    }
+	    catch(IOException eio) {
+	    	System.err.println("newGameOptions.save -- IOException: "+ eio.toString());
+	    }
+    }
+    // BR: Options files initialization
+    private static MOO1GameOptions initMissingOptionFile(String path, String fileName) {
+		MOO1GameOptions newOptions = new MOO1GameOptions();
+    	saveOptions(new MOO1GameOptions(), path, fileName);			
+		return newOptions;    	
+    }
+    // BR: Load options from file
+    private static MOO1GameOptions loadOptions(String path, String fileName) {
+    	MOO1GameOptions options;
+		File file = new File(path, fileName);
+		if (file.exists()) {
+		    try(ObjectInputStream inFile = new ObjectInputStream(new FileInputStream(file)))
+		    {
+		    	options = (MOO1GameOptions) inFile.readObject();
+		    }
+		    catch(ClassNotFoundException cnfe)
+		    {
+		    	System.err.println(file.getAbsolutePath() + " not valid.");
+		    	options = initMissingOptionFile(path, fileName);
+				return options;
+		    }
+		    catch(FileNotFoundException fnfe)
+		    {
+				System.err.println(file.getAbsolutePath() + " not found.");
+				options = initMissingOptionFile(path, fileName);
+				return options;
+		    }
+		    catch(IOException e)
+		    {
+		    	System.err.println(file.getAbsolutePath() + " not valid.");
+		    	options = initMissingOptionFile(path, fileName);
+				return options;
+		    }
+		    return options;
+		} else {
+			System.err.println(file.getAbsolutePath() + " not found.");
+			options = initMissingOptionFile(path, fileName);
+			return options;
+		}
     }
 }

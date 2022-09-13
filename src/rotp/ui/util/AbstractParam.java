@@ -24,6 +24,7 @@ import java.awt.event.MouseWheelEvent;
 import javax.swing.SwingUtilities;
 
 import rotp.model.game.IGameOptions;
+import rotp.model.game.MOO1GameOptions;
 import rotp.ui.UserPreferences;
 import rotp.util.LabelManager;
 
@@ -120,10 +121,10 @@ public abstract class AbstractParam <T> {
 	}
 	// ========== Game Options Getter and setter ==========
 	//
-	public void setFromOptions(IGameOptions options) {
+	public void setFromOptions(MOO1GameOptions options) {
 		setFromCfgValue(options.getExtendedOptions(name, getCfgValue(defaultValue())));
 	}
-	public void setOptions(IGameOptions options) {
+	public void setOptions(MOO1GameOptions options) {
 		options.setExtendedOptions(name, getCfgValue());
 	}
 	// ========== Public Getters ==========

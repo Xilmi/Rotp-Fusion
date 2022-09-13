@@ -38,6 +38,7 @@ import java.util.List;
 import javax.swing.SwingUtilities;
 
 import rotp.mod.br.profiles.Profiles;
+import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.UserPreferences;
@@ -146,9 +147,9 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
 	}
 	private void doUserBoxAction() {
 		if (ctrlPressed)
-			newGameOptions().setUserOptions(guiTitleID);
+			MOO1GameOptions.setUserOptions(newGameOptions(), guiTitleID);
 		else
-			newGameOptions().saveUserOptions(guiTitleID);
+			MOO1GameOptions.saveUserOptions(newGameOptions(), guiTitleID);
 		// TODO BR: doUserBoxAction
 //		UserPreferences.setToDefault(guiTitleID);
 //		init();

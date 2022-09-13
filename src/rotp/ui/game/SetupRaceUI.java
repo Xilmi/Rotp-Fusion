@@ -48,6 +48,7 @@ import javax.swing.JTextField;
 import rotp.mod.br.addOns.ShipSetAddOns;
 import rotp.mod.br.profiles.Profiles;
 import rotp.model.empires.Race;
+import rotp.model.game.MOO1GameOptions;
 import rotp.model.ships.ShipImage;
 import rotp.model.ships.ShipLibrary;
 import rotp.ui.BasePanel;
@@ -132,9 +133,9 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     }
 	private void doUserBoxAction() {
 		if (ctrlPressed)
-			newGameOptions().setUserOptions(guiTitleID);
+			MOO1GameOptions.setUserOptions(newGameOptions(), guiTitleID);
 		else
-			newGameOptions().saveUserOptions(guiTitleID);
+			MOO1GameOptions.saveUserOptions(newGameOptions(), guiTitleID);
 		// TODO BR: doUserBoxAction
 //		UserPreferences.setToDefault(guiTitleID);
 //		init();
