@@ -185,18 +185,20 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	}
 	private void doDefaultBoxAction() {
 		if (ctrlPressed) { // set to last
-			MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
-			for (AbstractParam<?> param : paramList)
-				param.setFromOptions(fileOptions);
-			init();
-			repaint();
+			if (globalOptions){ // set to last the old ways
+				UserPreferences.load();
+			} else { // set to last
+				MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
+				for (AbstractParam<?> param : paramList)
+					param.setFromOptions(fileOptions);
+			}
 		} else { // set to default
 			for (AbstractParam<?> param : paramList) {
 				param.setFromDefault(false);
 			}
-			init();
-			repaint();
 		}
+		init();
+		repaint();
 	}
 	private void doUserBoxAction() {
 		if (ctrlPressed) { // Save
