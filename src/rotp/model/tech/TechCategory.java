@@ -229,6 +229,15 @@ public final class TechCategory implements Base, Serializable {
             }
         }
 
+        // BR: always add in some Technologies
+        //Xilmi: Why the heck was this in the loop through the quintiles?
+        //quintile != techSeqNum
+        for (ParamTech tech : UserPreferences.techModList) {
+            if (tech.isAlways(index, tech.techSeqNum, emp.isPlayer())) {
+                addPossibleTech(tech.techId());
+            }
+        }
+        
         for (int i=0;i<MAX_QUINTILES;i++) {
             boolean found = false;
             List<String> techs = (List<String>) techsByQuintile[i];
@@ -237,19 +246,14 @@ public final class TechCategory implements Base, Serializable {
                     addPossibleTech(id);
                     found = true;
                 }
-            }
-            // BR: always add in some Technologies
-            for (ParamTech tech : UserPreferences.techModList) {
-                if (tech.isAlways(index, i, emp.isPlayer())) {
-                    addPossibleTech(tech.techId());
+                else if(possibleTechs.contains(id))
                     found = true;
-                    break;
-                }
             }
-            
             if (!found)
                 addPossibleTech(random(techs));
         }
+        /*for(String t : possibleTechs)
+            System.out.println(t + " is in "+key()+" for "+emp.name());*/
     }
     public void learnFreeTechs() {
         TechCategory baseCat = TechLibrary.baseCategory[index];
