@@ -20,11 +20,10 @@ import static rotp.ui.UserPreferences.menuLoadGame;
 import static rotp.ui.UserPreferences.menuStartup;
 import static rotp.ui.UserPreferences.showFlagFactor;
 import static rotp.ui.UserPreferences.showFleetFactor;
+import static rotp.ui.UserPreferences.showGridCircular;
 import static rotp.ui.UserPreferences.showInfoFontRatio;
 import static rotp.ui.UserPreferences.showNameMinFont;
-import static rotp.ui.UserPreferences.showPathFactor;
 import static rotp.ui.UserPreferences.showNewRaces;
-import static rotp.ui.UserPreferences.showGridCircular;
 import static rotp.ui.UserPreferences.showPathFactor;
 
 import java.awt.Graphics2D;
@@ -59,9 +58,10 @@ public class ModGlobalOptionsUI extends AbstractOptionsUI {
 
 	@Override protected void init0() {
 		globalOptions = true; // No preferred button
-		// For "ParamX" class Settings (Starting with ParamX for the automation to work)
-		// Complete this table... Et Voilà!
-		// For Mixed Setup keep "paintComponent" up to date
+		// !!! Static initialization priority problem
+		// !!! ModGlobalOptionsUI.paramList should have 
+		// !!! the same content as UserPreferences.modGlobal
+
 		// First column (left)
 		btList.add(menuStartupText			= newBT()); paramList.add(menuStartup);
 		btList.add(menuLoadGameText			= newBT()); paramList.add(menuLoadGame);

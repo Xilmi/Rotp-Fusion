@@ -149,17 +149,17 @@ public class UserPreferences {
 
 	// BR: ===== Global settings Mod GUI:
 	public static final ParamFloat showFleetFactor = new ParamFloat(MOD_UI, "SHOW_FLEET_FACTOR"
-			, 1.0f, 0.3f, 3f, 0.02f, 0.1f, 0.5f, "%", "%");
+			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%");
 	public static final ParamFloat showFlagFactor = new ParamFloat(MOD_UI, "SHOW_FLAG_FACTOR"
-			, 1.0f, 0.3f, 3f, 0.02f, 0.1f, 0.5f, "%", "%");
+			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%");
 	public static final ParamFloat showPathFactor = new ParamFloat(MOD_UI, "SHOW_PATH_FACTOR"
-			, 1.0f, 0.3f, 3f, 0.02f, 0.1f, 0.5f, "%", "%");
+			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%");
 	public static final ParamInteger showNameMinFont = new ParamInteger(MOD_UI, "SHOW_NAME_MIN_FONT"
 			, 8, 2, 24, 1, 2, 5);
 	public static final ParamFloat showInfoFontRatio = new ParamFloat(MOD_UI, "SHOW_INFO_FONT_RATIO"
-			, 0.7f, 0.2f, 3f, 0.02f, 0.1f, 0.5f, "%", "%");
+			, 0.7f, 0.2f, 3f, 0.01f, 0.05f, 0.2f, "%", "%");
 	public static final ParamFloat mapFontFactor = new ParamFloat(MOD_UI, "MAP_FONT_FACTOR"
-			, 1.0f, 0.3f, 3f, 0.02f, 0.1f, 0.5f, "%", "%");
+			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%");
 	public static final ParamList menuStartup = new ParamList(MOD_UI, "MENU_STARTUP", "Last")
 			.put("Default",	MOD_UI + "STARTUP_DEFAULT")
 			.put("Last",	MOD_UI + "STARTUP_LAST")
@@ -171,6 +171,9 @@ public class UserPreferences {
 	public static final ParamBoolean showNewRaces 	  = new ParamBoolean(MOD_UI, "SHOW_NEW_RACES", false);
 	public static final ParamBoolean showGridCircular = new ParamBoolean(MOD_UI, "SHOW_GRID_CIRCULAR", false);
 
+	// !!! Static initialization priority problem
+	// !!! ModGlobalOptionsUI.paramList should have 
+	// !!! the same content as UserPreferences.modGlobal
 	private static final LinkedList<AbstractParam<?>> modGlobal = new LinkedList<>(Arrays.asList(
 			menuStartup, menuLoadGame, showNewRaces, showGridCircular,
 			showFleetFactor, showFlagFactor, showPathFactor,
