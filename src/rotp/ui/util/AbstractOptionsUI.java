@@ -27,6 +27,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -90,6 +91,9 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		numColumns = 0;
 		// Call for filling the settings
 		init0();
+		for (int i=0; i<paramList.size(); i++) {
+			btList.add(newBT());
+		}
 
 		// numRows = Max column length
 		numRows	 = lastRowList.getFirst();
@@ -133,15 +137,20 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 			btList.get(i).displayText(paramList.get(i).getGuiDisplay());
 		initCustom();
 	}
+	protected void numColumns(int num) { numColumns = num; }
+	protected void lastRowList(Integer[] is) { Collections.addAll(lastRowList, is); }
+
 	// ========== Abstract Methods Request ==========
 	//
 	protected abstract void init0();
+	// ========== Former Abstract Methods Request ==========
+	//
 	// These may be left empty by full Auto GUI
-	protected abstract void initCustom();
-	protected abstract void paintCustomComponent(Graphics2D g);
-	protected abstract void repaintCustomComponent();
-	protected abstract void customMouseCommon(boolean up, boolean mid,
-			boolean shiftPressed, boolean ctrlPressed, MouseEvent e, MouseWheelEvent w);
+	protected void initCustom() {}
+	protected void paintCustomComponent(Graphics2D g) {}
+	protected void repaintCustomComponent() {}
+	protected void customMouseCommon(boolean up, boolean mid,
+			boolean shiftPressed, boolean ctrlPressed, MouseEvent e, MouseWheelEvent w) {}
 	// ========== Other Methods ==========
 	//
 	protected  BaseText newBT() { 
@@ -149,7 +158,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	}
 	protected  void endOfColumn() {
 		numColumns++;
-		lastRowList.add(btList.size());
+		lastRowList.add(paramList.size());
 	}
 	public void open(BasePanel p) {
 		parent = p;

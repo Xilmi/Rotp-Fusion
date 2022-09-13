@@ -29,37 +29,12 @@ import static rotp.ui.UserPreferences.retreatRestrictions;
 import static rotp.ui.UserPreferences.richHomeworld;
 import static rotp.ui.UserPreferences.ultraRichHomeworld;
 
-import java.awt.Graphics2D;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
-
-import rotp.ui.BaseText;
 import rotp.ui.util.AbstractOptionsUI;
 
 // modnar: add UI panel for modnar MOD game options, based on StartOptionsUI.java
 public class StartModAOptionsUI extends AbstractOptionsUI {
 	private static final long serialVersionUID = 1L;
 	public static final String guiTitleID = "SETTINGS_MOD_TITLE";
-	//
-	// Text Box creation: Add your parameter Here then go to init0
-	//	
-	// First column (left)
-	protected BaseText artifactHomeworldText;
-	protected BaseText fertileHomeworldText;
-	protected BaseText richHomeworldText;
-	protected BaseText ultraRichHomeworldText;
-	// Second column
-	protected BaseText battleScoutText;
-	protected BaseText companionWorldsText;
-	protected BaseText randomTechStartText;
-	protected BaseText retreatRestrictionsText;
-	protected BaseText retreatRestrictionTurnsText;
-	// Third column
-	protected BaseText customDifficultyText;
-	protected BaseText dynamicDifficultyText;
-	protected BaseText missileSizeModifierText;
-	protected BaseText challengeModeText;
-	// Fourth column
 	
 	// Just call the "super" with GUI Title Label ID
 	public StartModAOptionsUI() {
@@ -68,35 +43,27 @@ public class StartModAOptionsUI extends AbstractOptionsUI {
 	// ========== Abstract Overriders ==========
 	//
 	@Override protected void init0() {
-		// For "ParamX" class Settings (Starting with ParamX for the automation to work)
-		// Complete this table... Et Voilà!
-		// For Mixed Setup keep "paintComponent" up to date
 		// First column (left)
-		btList.add(artifactHomeworldText	= newBT()); paramList.add(artifactsHomeworld);
-		btList.add(fertileHomeworldText		= newBT()); paramList.add(fertileHomeworld);
-		btList.add(richHomeworldText		= newBT()); paramList.add(richHomeworld);
-		btList.add(ultraRichHomeworldText	= newBT()); paramList.add(ultraRichHomeworld);
+		paramList.add(artifactsHomeworld);
+		paramList.add(fertileHomeworld);
+		paramList.add(richHomeworld);
+		paramList.add(ultraRichHomeworld);
 		endOfColumn();
 		// Second column
-		btList.add(companionWorldsText			= newBT()); paramList.add(companionWorlds);
-		btList.add(battleScoutText				= newBT()); paramList.add(battleScout);
-		btList.add(randomTechStartText			= newBT()); paramList.add(randomTechStart);
-		btList.add(retreatRestrictionsText		= newBT()); paramList.add(retreatRestrictions);
-		btList.add(retreatRestrictionTurnsText	= newBT()); paramList.add(retreatRestrictionTurns);
+		paramList.add(companionWorlds);
+		paramList.add(battleScout);
+		paramList.add(randomTechStart);
+		paramList.add(retreatRestrictions);
+		paramList.add(retreatRestrictionTurns);
 		endOfColumn();
 		// Third column
-		btList.add(customDifficultyText		= newBT()); paramList.add(customDifficulty);
-		btList.add(dynamicDifficultyText	= newBT()); paramList.add(dynamicDifficulty);
-		btList.add(missileSizeModifierText	= newBT()); paramList.add(missileSizeModifier);
-		btList.add(challengeModeText	 	= newBT()); paramList.add(challengeMode);
+		paramList.add(customDifficulty);
+		paramList.add(dynamicDifficulty);
+		paramList.add(missileSizeModifier);
+		paramList.add(challengeMode);
 		endOfColumn();
 		// Fourth column
 		// None yet
 		// endOfColumn();
 	}
-	@Override protected void initCustom() {}
-	@Override protected void paintCustomComponent(Graphics2D g) {}
-	@Override protected void repaintCustomComponent() {}
-	@Override protected void customMouseCommon(boolean up, boolean mid, 
-			boolean shiftPressed, boolean ctrlPressed, MouseEvent e, MouseWheelEvent w) {}
 }

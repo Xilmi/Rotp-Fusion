@@ -35,79 +35,43 @@ import static rotp.ui.UserPreferences.techStargate;
 import static rotp.ui.UserPreferences.techThorium;
 import static rotp.ui.UserPreferences.techTransport;
 
-import java.awt.Graphics2D;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
-
-import rotp.ui.BaseText;
 import rotp.ui.util.AbstractOptionsUI;
 
 // modnar: add UI panel for modnar MOD game options, based on StartOptionsUI.java
 public class StartModBOptionsUI extends AbstractOptionsUI {
 	private static final long serialVersionUID = 1L;
 	public static final String guiTitleID = "SETTINGS_MOD_TITLE_B";
-	// First column (left)
-	protected BaseText maximizeSpacingText;
-	protected BaseText spacingLimitText;
-	protected BaseText randomAlienRacesTargetMaxText;
-	protected BaseText randomAlienRacesTargetMinText;
-	protected BaseText randomAlienRacesText;
-	// Second column
-	protected BaseText minStarsPerEmpireText;
-	protected BaseText prefStarsPerEmpireText;
-	protected BaseText randomAlienRacesMaxText;
-	protected BaseText randomAlienRacesMinText;
-	protected BaseText randomAlienRacesSmoothEdgesText;
-	// Third column
-	protected BaseText loadWithNewOptionsText;
-	protected BaseText techIrradiatedText;
-	protected BaseText techCloakingText;
-	protected BaseText techStargateText;
-	protected BaseText techHyperspaceText;
-	// Fourth column
-	protected BaseText eventsStartTurnText;
-	protected BaseText techIndustry2Text;
-	protected BaseText techThoriumText;
-	protected BaseText techTransportText;
-	
+
 	public StartModBOptionsUI() {
 		super(guiTitleID);
 	}
 	@Override protected void init0() {
-		// For "ParamX" class Settings (Starting with ParamX for the automation to work)
-		// Complete this table... Et Voilà!
-		// For Mixed Setup keep "paintComponent" up to date
 		// First column (left)
-		btList.add(maximizeSpacingText				= newBT()); paramList.add(maximizeSpacing);
-		btList.add(spacingLimitText					= newBT()); paramList.add(spacingLimit);
-		btList.add(randomAlienRacesTargetMaxText	= newBT()); paramList.add(randomAlienRacesTargetMax);
-		btList.add(randomAlienRacesTargetMinText	= newBT()); paramList.add(randomAlienRacesTargetMin);
-		btList.add(randomAlienRacesText				= newBT()); paramList.add(randomAlienRaces);
+		paramList.add(maximizeSpacing);
+		paramList.add(spacingLimit);
+		paramList.add(randomAlienRacesTargetMax);
+		paramList.add(randomAlienRacesTargetMin);
+		paramList.add(randomAlienRaces);
 		endOfColumn();
 		// Second column
-		btList.add(minStarsPerEmpireText			= newBT()); paramList.add(minStarsPerEmpire);
-		btList.add(prefStarsPerEmpireText			= newBT()); paramList.add(prefStarsPerEmpire);
-		btList.add(randomAlienRacesMaxText			= newBT()); paramList.add(randomAlienRacesMax);
-		btList.add(randomAlienRacesMinText			= newBT()); paramList.add(randomAlienRacesMin);
-		btList.add(randomAlienRacesSmoothEdgesText	= newBT()); paramList.add(randomAlienRacesSmoothEdges);
+		paramList.add(minStarsPerEmpire);
+		paramList.add(prefStarsPerEmpire);
+		paramList.add(randomAlienRacesMax);
+		paramList.add(randomAlienRacesMin);
+		paramList.add(randomAlienRacesSmoothEdges);
 		endOfColumn();
 		// Third column
-		btList.add(loadWithNewOptionsText	= newBT()); paramList.add(loadWithNewOptions);
-		btList.add(techIrradiatedText		= newBT()); paramList.add(techIrradiated);
-		btList.add(techCloakingText			= newBT()); paramList.add(techCloaking);
-		btList.add(techStargateText			= newBT()); paramList.add(techStargate);
-		btList.add(techHyperspaceText		= newBT()); paramList.add(techHyperspace);
+		paramList.add(loadWithNewOptions);
+		paramList.add(techIrradiated);
+		paramList.add(techCloaking);
+		paramList.add(techStargate);
+		paramList.add(techHyperspace);
 		endOfColumn();
 		// Fourth column
-		btList.add(eventsStartTurnText	= newBT()); paramList.add(eventsStartTurn);
-		btList.add(techIndustry2Text	= newBT()); paramList.add(techIndustry2);
-		btList.add(techThoriumText		= newBT()); paramList.add(techThorium);
-		btList.add(techTransportText	= newBT()); paramList.add(techTransport);
+		paramList.add(eventsStartTurn);
+		paramList.add(techIndustry2);
+		paramList.add(techThorium);
+		paramList.add(techTransport);
 		endOfColumn();
 	}
-	@Override protected void initCustom() {}
-	@Override protected void paintCustomComponent(Graphics2D g) {}
-	@Override protected void repaintCustomComponent() {}
-	@Override protected void customMouseCommon(boolean up, boolean mid, boolean shiftPressed,
-			boolean ctrlPressed, MouseEvent e, MouseWheelEvent w) {}
 }

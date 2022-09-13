@@ -171,10 +171,8 @@ public class UserPreferences {
 	public static final ParamBoolean showNewRaces 	  = new ParamBoolean(MOD_UI, "SHOW_NEW_RACES", false);
 	public static final ParamBoolean showGridCircular = new ParamBoolean(MOD_UI, "SHOW_GRID_CIRCULAR", false);
 
-	// !!! Static initialization priority problem
-	// !!! ModGlobalOptionsUI.paramList should have 
-	// !!! the same content as UserPreferences.modGlobal
-	private static final LinkedList<AbstractParam<?>> modGlobal = new LinkedList<>(Arrays.asList(
+	// This list is used as is by the ModGlobalOptionsUI menu
+	public static final LinkedList<AbstractParam<?>> modGlobalOptionsUI = new LinkedList<>(Arrays.asList(
 			menuStartup, menuLoadGame, showNewRaces, showGridCircular,
 			showFleetFactor, showFlagFactor, showPathFactor,
 			showNameMinFont, showInfoFontRatio, mapFontFactor
@@ -440,7 +438,7 @@ public class UserPreferences {
 			out.println();
 			out.println("===== MOD Global GUI Settings =====");
 			out.println();
-			for (AbstractParam<?> param : modGlobal) {
+			for (AbstractParam<?> param : modGlobalOptionsUI) {
 				out.println(keyFormat(param.getCfgLabel()) + param.getCfgValue());
 			}
 			return 0;
@@ -501,7 +499,7 @@ public class UserPreferences {
 			case "LANGUAGE": selectLanguage(val); return;
 			default:
 			// BR: Global Mod GUI
-				for (AbstractParam<?> param : modGlobal) {
+				for (AbstractParam<?> param : modGlobalOptionsUI) {
 					if (key.equalsIgnoreCase(param.getCfgLabel()))
 						param.setFromCfgValue(val);
 				}

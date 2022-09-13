@@ -15,42 +15,13 @@
  */
 package rotp.ui.game;
 
-import static rotp.ui.UserPreferences.mapFontFactor;
-import static rotp.ui.UserPreferences.menuLoadGame;
-import static rotp.ui.UserPreferences.menuStartup;
-import static rotp.ui.UserPreferences.showFlagFactor;
-import static rotp.ui.UserPreferences.showFleetFactor;
-import static rotp.ui.UserPreferences.showGridCircular;
-import static rotp.ui.UserPreferences.showInfoFontRatio;
-import static rotp.ui.UserPreferences.showNameMinFont;
-import static rotp.ui.UserPreferences.showNewRaces;
-import static rotp.ui.UserPreferences.showPathFactor;
-
-import java.awt.Graphics2D;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
-
-import rotp.ui.BaseText;
+import rotp.ui.UserPreferences;
 import rotp.ui.util.AbstractOptionsUI;
 
 // modnar: add UI panel for modnar MOD game options, based on StartOptionsUI.java
 public class ModGlobalOptionsUI extends AbstractOptionsUI {
 	private static final long serialVersionUID = 1L;
 	public  static final String guiTitleID = "SETTINGS_MOD_TITLE_GLOBAL";
-	// First column (left)
-	protected BaseText menuStartupText;
-	protected BaseText menuLoadGameText;
-	protected BaseText newRacesOnByDefaultText;
-	protected BaseText gridCircularDisplayText;
-	// Second column
-	protected BaseText showFleetFactorText;
-	protected BaseText showFlagFactorText;
-	protected BaseText showPathFactorText;
-	// Third column
-	protected BaseText showNameMinFontText;
-	protected BaseText showInfoFontRatioText;
-	protected BaseText mapFontFactorText;
-	// Fourth column
 
 	public ModGlobalOptionsUI() {
 		super(guiTitleID);
@@ -58,33 +29,8 @@ public class ModGlobalOptionsUI extends AbstractOptionsUI {
 
 	@Override protected void init0() {
 		globalOptions = true; // No preferred button
-		// !!! Static initialization priority problem
-		// !!! ModGlobalOptionsUI.paramList should have 
-		// !!! the same content as UserPreferences.modGlobal
-
-		// First column (left)
-		btList.add(menuStartupText			= newBT()); paramList.add(menuStartup);
-		btList.add(menuLoadGameText			= newBT()); paramList.add(menuLoadGame);
-		btList.add(newRacesOnByDefaultText	= newBT()); paramList.add(showNewRaces);
-		btList.add(gridCircularDisplayText	= newBT()); paramList.add(showGridCircular);
-		endOfColumn();
-		// Second column
-		btList.add(showFleetFactorText	= newBT()); paramList.add(showFleetFactor);
-		btList.add(showFlagFactorText	= newBT()); paramList.add(showFlagFactor);
-		btList.add(showPathFactorText	= newBT()); paramList.add(showPathFactor);
-		endOfColumn();
-		// Third column
-		btList.add(showNameMinFontText		= newBT()); paramList.add(showNameMinFont);
-		btList.add(showInfoFontRatioText	= newBT()); paramList.add(showInfoFontRatio);
-		btList.add(mapFontFactorText		= newBT()); paramList.add(mapFontFactor);
-		endOfColumn();
-		// endOfColumn();
-		// Fourth column
-		// endOfColumn();
+		paramList	  = UserPreferences.modGlobalOptionsUI;
+		numColumns(3);
+		lastRowList(new Integer[]{4, 7, 10});
 	}
-	@Override protected void initCustom() {}
-	@Override protected void paintCustomComponent(Graphics2D g) {}
-	@Override protected void repaintCustomComponent() {}
-	@Override protected void customMouseCommon(boolean up, boolean mid, boolean shiftPressed,
-			boolean ctrlPressed, MouseEvent e, MouseWheelEvent w) {}
 }
