@@ -1590,13 +1590,14 @@ public final class Colony implements Base, IMappedObject, Serializable {
         for (int i = 0; i <= 4; i++) {
             locked(i, false);
         }
+        int shipAllocNeeded = shipyard().maxAllocationNeeded();
         // remember if the planet was building a stargate (might have been manually started by the player)
         boolean buildingStargate = allocation[SHIP] > 0 &&
                 shipyard().design().equals(empire.shipLab().stargateDesign()) &&
                 !shipyard().stargateCompleted();
         // remember if this planet was building ships. Stargate doesn't count
         // if we just finished building a stargate, we're not building ships
-        boolean buildingShips = allocation[SHIP] > 0 &&
+        boolean buildingShips = (allocation[SHIP] > 0 || shipyard().maxAllocationNeeded() > 0) &&
                 !shipyard().design().equals(empire.shipLab().stargateDesign()) &&
                 !buildingStargate;
         
@@ -1643,14 +1644,17 @@ public final class Colony implements Base, IMappedObject, Serializable {
         // if we were building ships, or a stargate, keep 1 tick in shipbuilding
         if ((buildingShips && session().getGovernorOptions().isShipbuilding()) ||
             (buildingStargate && session().getGovernorOptions().getGates() != GovernorOptions.GatesGovernor.None)) {
-            if(allocation(SHIP) < 1) //only do it if we aren't already spending into ship as we otherwise could get waste
+            if(allocation(SHIP) < 1 && shipAllocNeeded < 1) //only do it if we aren't already spending into ship as we otherwise could get waste
                 increment(SHIP, 1);
         }
         if ((buildingStargate || buildingShips)
                 && session().getGovernorOptions().isShipbuilding() && allocation[RESEARCH] > 0) {
             // if we were building ships, push all research into shipbuilding.
             locked(Colony.SHIP, false);
-            increment(Colony.SHIP, allocation[RESEARCH]);
+            int allocForShips = allocation(RESEARCH);
+            if(shipAllocNeeded > 0)
+                allocForShips = min(allocForShips, shipAllocNeeded);
+            increment(Colony.SHIP, allocForShips);
         }
         locked(Colony.ECOLOGY, true);
         /*System.out.println(galaxy().currentTurn()+" "+empire.name()+" "+name()+" After Govern:");
