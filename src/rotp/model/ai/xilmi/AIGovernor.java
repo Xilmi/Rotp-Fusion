@@ -105,8 +105,7 @@ public class AIGovernor implements Base, Governor {
             session().addSystemToAllocate(sys, text("MAIN_ALLOCATE_PROJECT_ENDED", name, col.research().completedProject().projectKey()));
             
         if (col.hasNewOrders() || (col.allocationRemaining() != 0) || session().awaitingAllocation(sys)) {
-            if(!col.isGovernor())
-                baseSetPlayerAllocations(col);
+            baseSetPlayerAllocations(col);
             col.validate();
         }
     }

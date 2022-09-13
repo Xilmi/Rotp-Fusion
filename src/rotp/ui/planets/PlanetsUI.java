@@ -1609,8 +1609,10 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             currBuildLimit++;
             List<Colony> colonies = colonies();
             softClick();
-            for (Colony c: colonies)
+            for (Colony c: colonies) {
                 c.shipyard().buildLimit(currBuildLimit);
+                c.governIfNeeded();
+            }
             
             parent.repaint();
         }
@@ -1620,8 +1622,10 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             currBuildLimit--;
             List<Colony> colonies = colonies();
             softClick();
-            for (Colony c: colonies)
+            for (Colony c: colonies) {
                 c.shipyard().buildLimit(currBuildLimit);
+                c.governIfNeeded();
+            }
             
             parent.repaint();
         }

@@ -581,6 +581,7 @@ public class EmpireSystemPanel extends SystemPanel {
                 return;
             boolean updated = col.shipyard().incrementBuildLimit(amt);
             if (updated) {
+                col.governIfNeeded();
                 softClick();
                 parent.repaint();
             }
@@ -594,6 +595,7 @@ public class EmpireSystemPanel extends SystemPanel {
                 return;
             boolean updated = col.shipyard().decrementBuildLimit(amt);
             if (updated) {
+                col.governIfNeeded();
                 softClick();
                 parent.repaint();
             }

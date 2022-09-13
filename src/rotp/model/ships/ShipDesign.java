@@ -630,7 +630,7 @@ public final class ShipDesign extends Design {
     public boolean hasColonySpecial() { return colonySpecial() != null; }
     public boolean hasWarpDissipator() {
         for (ShipSpecial spec: special)
-            if(spec.tech().isWarpDissipator())
+            if(!spec.isNone() && spec.tech().isWarpDissipator())
                 return true;
         return false;
     }
