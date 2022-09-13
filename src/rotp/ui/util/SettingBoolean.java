@@ -34,7 +34,7 @@ public class SettingBoolean extends SettingBase<Boolean> {
 	 * @param costTrue 
 	 * @param costFalse 
 	 */
-	public SettingBoolean(String guiLangLabel, String nameLangLabel, Boolean defaultValue) {
+	SettingBoolean(String guiLangLabel, String nameLangLabel, Boolean defaultValue) {
 		this(guiLangLabel, nameLangLabel, defaultValue, 0f, 0f,
 				defaultBooleanYes, defaultBooleanNo,
 				defaultIsBullet, defaultLabelsAreFinals, defaultSaveAllowed);
@@ -65,7 +65,7 @@ public class SettingBoolean extends SettingBase<Boolean> {
 	 * @param labelsAreFinals when false: Labels are combined withName and Gui Label
 	 * @param saveAllowed	To allow the parameter to be saved in Remnants.cfg
 	 */
-	public SettingBoolean(String guiLangLabel, String nameLangLabel, Boolean defaultValue,
+	private SettingBoolean(String guiLangLabel, String nameLangLabel, Boolean defaultValue,
 			float costTrue, float costFalse, String langLabelYes, String langLabelNo,
 			boolean isBullet, boolean labelsAreFinals, boolean saveAllowed) {
 		super(guiLangLabel, nameLangLabel, defaultValue, defaultIsList, isBullet, labelsAreFinals, saveAllowed);

@@ -20,7 +20,6 @@ import static rotp.ui.util.SettingBase.CostFormula.RELATIVE;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
-import java.util.Collections;
 
 public class SettingFloat extends SettingBase<Float> {
 
@@ -216,19 +215,19 @@ public class SettingFloat extends SettingBase<Float> {
 		Float value = settingValue() + i;
 		if (maxValue != null && value > maxValue) {
 			if (loop && minValue != null)
-				setAndSave(minValue);
+				set(minValue);
 			else
-				setAndSave(maxValue);
+				set(maxValue);
 			return;
 		}
 		else if (minValue != null && value < minValue) {
 			if (loop && maxValue != null)
-				setAndSave(maxValue);
+				set(maxValue);
 			else
-				setAndSave(minValue);
+				set(minValue);
 			return;
 		}
-		setAndSave(value);
+		set(value);
 	}
 	private float settingCost(Float value) {
 		float baseCost = getBaseCost(value);
@@ -242,9 +241,6 @@ public class SettingFloat extends SettingBase<Float> {
 			for (int i=0; i<posCostFactor.length; i++)
 				cost += posCostFactor[i] * Math.pow(baseCost, i);			
 		return cost;
-	}
-	private float getBaseCost() {
-		return getBaseCost(settingValue());
 	}
 	private float getBaseCost(Float value) {
 		switch (costFormula) {

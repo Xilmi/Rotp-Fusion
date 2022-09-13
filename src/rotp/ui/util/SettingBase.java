@@ -34,8 +34,6 @@ public class SettingBase<T> {
 	
 	public enum CostFormula {DIFFERENCE, RELATIVE}
 
-	private static final String LABEL_DESCRIPTION = "_DESC";
-	private static final String END = "   ";
 	private static final boolean defaultIsList			= true;
 	private static final boolean defaultIsBullet		= false;
 	private static final boolean defaultLabelsAreFinals	= false;
@@ -74,7 +72,7 @@ public class SettingBase<T> {
 	 * @param labelsAreFinals when false: Labels are combined withName and Gui Label
 	 * @param saveAllowed	To allow the parameter to be saved in Remnants.cfg
 	 */
-	public SettingBase(String guiLabel, String nameLabel, T defaultValue,
+	SettingBase(String guiLabel, String nameLabel, T defaultValue,
 			boolean isList, boolean isBullet, boolean labelsAreFinals, boolean saveAllowed) {
 		this(guiLabel, nameLabel);
 		this.defaultValue	= defaultValue;
@@ -82,24 +80,6 @@ public class SettingBase<T> {
 		this.isBullet		= isBullet;
 		this.labelsAreFinals= labelsAreFinals;
 		this.saveAllowed	= saveAllowed;
-	}
-	/**
-	 * @param guiLabel  The label header
-	 * @param nameLabel The nameLabel
-	 * @param defaultIndex  The default list index
-	 */
-	public SettingBase(String guiLabel, String nameLabel, int defaultIndex) {
-		this(guiLabel, nameLabel);
-		setDefaultIndex(defaultIndex);
-	}
-	/**
-	 * @param guiLabel  The label header
-	 * @param nameLabel The nameLabel
-	 * @param defaultValue The default Value
-	 */
-	public SettingBase(String guiLabel, String nameLabel, T defaultValue) {
-		this(guiLabel, nameLabel);
-		this.defaultValue = defaultValue;
 	}
 	/**
 	 * @param guiLabel  The label header
@@ -114,22 +94,18 @@ public class SettingBase<T> {
 		saveAllowed = allowed;
 		return this;
 	}
-	public void settingText(BaseText settingText) {
+	void settingText(BaseText settingText) {
 		this.settingText = settingText;
 	}
-	public void optionsText(BaseText[] optionsText) {
+	private void optionsText(BaseText[] optionsText) {
 		this.optionsText = optionsText;
 	}
-	public void optionText(BaseText optionText, int i) {
+	void optionText(BaseText optionText, int i) {
 		optionsText[i] = optionText;
 	}
 	public SettingBase<?> initOptionsText() {
 		if (boxSize() > 0)
 			optionsText(new BaseText[boxSize()]);
-		return this;
-	}
-	public SettingBase<?> isList(boolean isList) {
-		this.isList = isList;
 		return this;
 	}
 	public SettingBase<?> isSpacer(boolean isSpacer) {
@@ -146,13 +122,6 @@ public class SettingBase<T> {
 	}
 	public SettingBase<?> labelsAreFinals(boolean labelsAreFinals) {
 		this.labelsAreFinals = labelsAreFinals;
-		return this;
-	}
-	SettingBase<?> clearLists(){
-		cfgValueList.clear();
-		labelList.clear();
-		costList.clear();
-		valueList.clear();
 		return this;
 	}
 
@@ -187,18 +156,6 @@ public class SettingBase<T> {
 			optionText(optionIdx).repaint();
 		}
 	}
-	protected T smooth(float lastRand, float newRand, float costAdj, float min, float max) {
-		if (isList) {
-			float rand = lastRand+newRand;
-			if (rand > 0)
-				rand *= Collections.max(costList);
-			else
-				rand *= -Collections.min(costList);				
-			return getValueFromCost(rand);
-		}
-		return null; // Should be overridden
-	}
-	
 	protected T randomize(float rand) {
 		if (isList) {
 			if (rand > 0)
@@ -258,7 +215,7 @@ public class SettingBase<T> {
 	public T settingValue() {
 		return valueList.get(valueValidIndex());
 	}
-	public String guiSettingDisplayStr() {
+	String guiSettingDisplayStr() {
 		if (isBullet) 
 			return guiSettingLabelCostStr();
 		else
@@ -273,41 +230,13 @@ public class SettingBase<T> {
 		lastRandomSource = rand;
 		set(randomize(rand));
 	}
-	public void setSmooth(float min, float max, boolean gaussian, float costAdj) {
-		set(smooth(min, max, gaussian));		
-	}
-	/**
-	 * @param min Limit Value in %
-	 * @param max Limit Value in %
-	 * @param gaussian yes = smooth edges
-	 * @param costAdj value adjustment request
-	 * @return a randomized value
-	 */
-	protected T smooth(float min, float max, boolean gaussian) {
-		if (this.isSpacer)
-			return null;
-		if (hasNoCost) {
-			return settingValue();
-		}
-		float rand;
-		float minValidated = Math.min(min, max);
-		float maxValidated = Math.max(min, max);
-		float mini = minValidated/100;
-		float maxi = maxValidated/100;
-		if (gaussian)
-			rand = (maxi + mini + (maxi-mini) * (float) random.nextGaussian())/2;
-		else
-			rand = mini + (maxi-mini) * (float) random.nextFloat();
-		lastRandomSource = lastRandomSource+rand;
-		return randomize(lastRandomSource);
-	}
 	/**
 	 * @param min Limit Value in %
 	 * @param max Limit Value in %
 	 * @param gaussian yes = smooth edges
 	 * @return a randomized value
 	 */
-	protected T randomize(float min, float max, boolean gaussian) {
+	private T randomize(float min, float max, boolean gaussian) {
 		if (this.isSpacer)
 			return null;
 		if (hasNoCost && isList && !valueList.isEmpty()) {
@@ -338,23 +267,11 @@ public class SettingBase<T> {
 		setDefaultIndex(cfgValidIndex(indexOfIgnoreCase(defaultCfgValue, cfgValueList)));
 		return this;
 	}
-	public SettingBase<?> defaultValue(T defaultValue) {
-		this.defaultValue = defaultValue;
-		if (isList) {
-			setDefaultIndex(valueValidIndex(valueList.indexOf(defaultValue)));
-		}
-		return this;
-	}
 	public SettingBase<?> index(int newIndex) {
 		selectedIndex = cfgValidIndex(newIndex);
 		return this;
 	}
-	public SettingBase<?> setAndSave(T newValue) {
-		set(newValue);
-		save();
-		return this;
-	}
-	public SettingBase<?> setFromIndexAndSave(int index) {
+	SettingBase<?> setFromIndexAndSave(int index) {
 		index(index);
 		save();
 		return this;
@@ -379,7 +296,7 @@ public class SettingBase<T> {
 		selectedIndex = valueValidIndex(valueList.indexOf(defaultValue));
 		return this;
 	}
-	public void toggle(MouseEvent e, MouseWheelEvent w) {
+	void toggle(MouseEvent e, MouseWheelEvent w) {
 		if (e == null)
 			toggle(w);
 		else
@@ -403,22 +320,22 @@ public class SettingBase<T> {
 	}
 	// ===== Getters =====
 	//
-	public T defaultValue()			{ return defaultValue; }
+	T defaultValue()			{ return defaultValue; }
 	public boolean isSpacer()		{ return isSpacer; }
 	public boolean hasNoCost()		{ return hasNoCost; }
 	public boolean isBullet()		{ return isBullet; }
 	public float lastRandomSource()	{ return lastRandomSource; }
-	public int index()				{ return cfgValidIndex(); }
-	public T optionValue(int index) { return valueList.get(valueValidIndex(index)); }
-	public BaseText settingText()	{ return settingText; }
-	public BaseText[] optionsText()	{ return optionsText; }
-	public BaseText optionText(int i)	{ return optionsText[i]; }
-	public float optionCost(int index)	{ return costList.get(index); }
-	public String guiOptionLabel()	{ return guiOptionLabel(index()); }
-	public String optionLabel()		{ return optionLabel(index()); }
+	int index()				{ return cfgValidIndex(); }
+	private T optionValue(int index) { return valueList.get(valueValidIndex(index)); }
+	BaseText settingText()	{ return settingText; }
+	BaseText[] optionsText()	{ return optionsText; }
+	BaseText optionText(int i)	{ return optionsText[i]; }
+	private float optionCost(int index)	{ return costList.get(index); }
+	String guiOptionLabel()	{ return guiOptionLabel(index()); }
+//	public String optionLabel()		{ return optionLabel(index()); }
 	public String getLabel()		{ return text(labelId()); }
 	public String cfgName()			{ return nameLabel; }
-	public String labelId()			{ return guiLabel + nameLabel; }
+	private String labelId()			{ return guiLabel + nameLabel; }
 	public boolean isDefaultIndex()	{ return cfgValidIndex() == defaultIndex; }
 	public float costFactor() {
 		if (isList) {
@@ -443,10 +360,10 @@ public class SettingBase<T> {
 		else
 			return 0;
 	}
-	public String optionLabel(int index) {
-		return labelList.get(cfgValidIndex(index));
-	}
-	public String guiOptionLabel(int index) {
+//	private String optionLabel(int index) {
+//		return labelList.get(cfgValidIndex(index));
+//	}
+	String guiOptionLabel(int index) {
 		return text(labelList.get(cfgValidIndex(index)));
 	}
 	public LinkedList<String> getOptions(){
@@ -454,7 +371,7 @@ public class SettingBase<T> {
 		list.addAll(cfgValueList);
 		return list;
 	}
-	public String settingCostString() {
+	private String settingCostString() {
 		return settingCostString(1); // default decimal number
 	}
 	private String settingCostString(int dec) {
@@ -487,28 +404,6 @@ public class SettingBase<T> {
 	 * Add a new Option with its Label
 	 * @param cfgValue
 	 * @param langLabel
-	 * @return this for chaining purpose
-	 */
-	public void put(String cfgValue, String langLabel) {
-		cfgValueList.add(cfgValue);
-		labelList.add(langLabel);
-	}
-	/**
-	 * Add a new Option with its Label
-	 * @param cfgValue
-	 * @param langLabel
-	 * @param cost
-	 * @return this for chaining purpose
-	 */
-	public void put(String cfgValue, String langLabel, float cost) {
-		cfgValueList.add(cfgValue);
-		labelList.add(langLabel);
-		costList.add(cost);
-	}
-	/**
-	 * Add a new Option with its Label
-	 * @param cfgValue
-	 * @param langLabel
 	 * @param cost
 	 * @param value
 	 * @return this for chaining purpose
@@ -521,17 +416,6 @@ public class SettingBase<T> {
 			labelList.add(langLabel);
 		else
 			labelList.add(labelId() +"_"+ langLabel);
-	}
-	/**
-	 * Add a new Option with its Label
-	 * @param cfgValue
-	 * @param langLabel
-	 * @param cost The cost of this option
-	 * @param value
-	 * @return this for chaining purpose
-	 */
-	public void put(String cfgValue, String langLabel, Integer cost, T value) {
-		put(cfgValue, langLabel, cost.floatValue(), value);
 	}
 	protected int getDir(MouseEvent e) {
 		if (SwingUtilities.isRightMouseButton(e)) return -1;
@@ -617,23 +501,5 @@ public class SettingBase<T> {
 			index++;
 		}
 		return -1;
-	}
-	/**
-     * Test if a {@code List<String>} contains a {@code String}
-     * the case not being important
-     * @param list      the containing {@code List<String>}
-     * @param element   the contained {@code String}
-     * @return true if the conditions are verified
-     */
-	private static Boolean containsIgnoreCase(Iterable<String> set, String element) {
-		if (set == null || element == null) {
-			return false;
-		}
-		for (String entry : set) {
-			if (entry.equalsIgnoreCase(element)) {
-				return true;
-			}
-		}
-		return false;
 	}
 }

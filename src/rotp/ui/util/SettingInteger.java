@@ -53,7 +53,7 @@ public class SettingInteger extends SettingBase<Integer> {
 	 * @param minValue() The minimum value() (null = none)
 	 * @param maxValue() The maximum value() (null = none)
 	 */
-	public SettingInteger(String guiLangLabel, String nameLangLabel, Integer defaultValue
+	private SettingInteger(String guiLangLabel, String nameLangLabel, Integer defaultValue
 			, Integer minValue, Integer maxValue) {
 		super(guiLangLabel, nameLangLabel, defaultValue,
 				defaultIsList, defaultIsBullet, defaultLabelsAreFinals, defaultSaveAllowed);
@@ -65,60 +65,19 @@ public class SettingInteger extends SettingBase<Integer> {
 	 * @param guiLangLabel  The label header
 	 * @param nameLangLabel The nameLangLabel
 	 * @param defaultvalue() The default value
-	 */
-	public SettingInteger(String guiLangLabel, String nameLangLabel, Integer defaultValue) {
-		this(guiLangLabel, nameLangLabel, defaultValue, null, null);
-	}
-	/**
-	 * @param guiLangLabel  The label header
-	 * @param nameLangLabel The nameLangLabel
-	 * @param defaultvalue() The default value
-	 * @param minValue() The minimum value() (null = none)
-	 * @param maxValue() The maximum value() (null = none)
-	 * @param loop Once an end is reached, go to the other end
-	 */
-	public SettingInteger(String guiLangLabel, String nameLangLabel, Integer defaultValue
-			, Integer minValue, Integer maxValue, boolean loop) {
-		this(guiLangLabel, nameLangLabel, defaultValue, minValue, maxValue);
-		this.loop = loop;
-	}
-	/**
-	 * @param guiLangLabel  The label header
-	 * @param nameLangLabel The nameLangLabel
-	 * @param defaultvalue() The default value
 	 * @param minValue() The minimum value() (null = none)
 	 * @param maxValue() The maximum value() (null = none)
 	 * @param baseInc  The base increment
 	 * @param shiftInc The increment when Shift is hold
 	 * @param ctrlInc  The increment when Ctrl is hold
 	 */
-	public SettingInteger(String guiLangLabel, String nameLangLabel, Integer defaultValue
+	SettingInteger(String guiLangLabel, String nameLangLabel, Integer defaultValue
 			, Integer minValue, Integer maxValue
 			, Integer baseInc, Integer shiftInc, Integer ctrlInc) {
 		this(guiLangLabel, nameLangLabel, defaultValue, minValue, maxValue);
 		this.baseInc	= baseInc;
 		this.shiftInc	= shiftInc;
 		this.ctrlInc	= ctrlInc;
-	}
-	/**
-	 * @param guiLangLabel  The label header
-	 * @param nameLangLabel The nameLangLabel
-	 * @param defaultvalue() The default value
-	 * @param minValue() The minimum value() (null = none)
-	 * @param maxValue() The maximum value() (null = none)
-	 * @param baseInc  The base increment
-	 * @param shiftInc The increment when Shift is hold
-	 * @param ctrlInc  The increment when Ctrl is hold
-	 * @param saveAllowed  To allow the parameter to be saved in Remnants.cfg
-	 * @param costFormula Formula type to establish a cost
-	 * @param costFactor To establish a cost
-	 */
-	public SettingInteger(String guiLangLabel, String nameLangLabel, Integer defaultValue
-			, Integer minValue, Integer maxValue
-			, Integer baseInc, Integer shiftInc, Integer ctrlInc
-			, boolean saveAllowed, CostFormula costFormula, float... costFactor) {
-		this(guiLangLabel, nameLangLabel, defaultValue, minValue, maxValue, baseInc, shiftInc, ctrlInc,
-				saveAllowed, costFormula, costFactor, costFactor);
 	}
 	/**
 	 * @param guiLangLabel  The label header
@@ -220,19 +179,19 @@ public class SettingInteger extends SettingBase<Integer> {
 		Integer value = settingValue() + i;
 		if (maxValue != null && value > maxValue) {
 			if (loop && minValue != null)
-				setAndSave(minValue);
+				set(minValue);
 			else
-				setAndSave(maxValue);
+				set(maxValue);
 			return;
 		}
 		else if (minValue != null && value < minValue) {
 			if (loop && maxValue != null)
-				setAndSave(maxValue);
+				set(maxValue);
 			else
-				setAndSave(minValue);
+				set(minValue);
 			return;
 		}
-		setAndSave(value);
+		set(value);
 	}
 	private float settingCost(Integer value) {
 		float baseCost = getBaseCost(value);
@@ -246,9 +205,6 @@ public class SettingInteger extends SettingBase<Integer> {
 			for (int i=0; i<posCostFactor.length; i++)
 				cost += posCostFactor[i] * Math.pow(baseCost, i);			
 		return cost;
-	}
-	private float getBaseCost() {
-		return getBaseCost(settingValue());
 	}
 	private float getBaseCost(Integer value) {
 		switch (costFormula) {
@@ -288,7 +244,7 @@ public class SettingInteger extends SettingBase<Integer> {
 	 * @param string Source of Integer
 	 * @return Integer value, or <b>null</b> on error
 	 */
-	static Integer stringToInteger(String string) {
+	private static Integer stringToInteger(String string) {
 		try {
 			return Integer.valueOf(string.trim());
 		}
