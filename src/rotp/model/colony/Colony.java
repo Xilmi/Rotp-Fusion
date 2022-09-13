@@ -1702,7 +1702,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         // ECO allocation to clean up + everything else
         // I compute it here instead of adding maxSpendingAllocation + cleanupAllocationNeeded because that could produce
         // a result too high by 1 due to rounding.
-        int maxEcoAll = Math.min((int) Math.ceil((cleanupCost + ecology().maxSpendingNeeded()) / totalBC * MAX_TICKS), MAX_TICKS);
+        int maxEcoAll = ecology().maxAllocationNeeded();
         int maxIndAll = industry().maxAllocationNeeded();
         // Factor for industry spending based on planet adjustmen (rich, poor, etc.).  Reserve
         // spending doesn't get adjusted, so we calculate an overall factor here.
@@ -1847,8 +1847,8 @@ public final class Colony implements Base, IMappedObject, Serializable {
             ecoAll = Math.max(MAX_TICKS - indAll, minEcoAll);
             indAll = Math.max(MAX_TICKS - ecoAll, 0);
         }
-        //System.out.println("balance "+this.name()+" indAll final "+indAll);
-        //System.out.println("balance "+this.name()+" ecoAll final "+ecoAll);
+        //System.out.println("balance "+this.name()+" indAll final "+indAll+" maxIndAll "+maxIndAll);
+        //System.out.println("balance "+this.name()+" ecoAll final "+ecoAll+" maxEcoAll "+maxEcoAll);
         //xilmi: We need to reset ecology-spending because totalIncome conditionally calls a function that sets eco to clean, if we don't we can end up having twice the eco-spending we want
         allocation(ECOLOGY, 0);
         locked(Colony.ECOLOGY, false);
