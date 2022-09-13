@@ -69,14 +69,14 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	private Color textC = SystemPanel.whiteText;
 	private LinkedList<Integer>	lastRowList = new LinkedList<Integer>();
 	protected LinkedList<BaseText>	btList		= new LinkedList<BaseText>();
-	protected LinkedList<AbstractParam<?>> paramList = new LinkedList<AbstractParam<?>>();
+	public	  LinkedList<AbstractParam<?>> paramList = new LinkedList<AbstractParam<?>>();
 	protected Rectangle hoverBox;
 	private   Rectangle okBox 		= new Rectangle();
 	private   Rectangle defaultBox	= new Rectangle();
 	private   Rectangle userBox		= new Rectangle();
 	private   BasePanel parent;
 	private   boolean ctrlPressed	= false;
-	protected boolean global		= false; // No preferred button
+	protected boolean globalOptions	= false; // No preferred button and Saved to remnant.cfg
 	
 	// ========== Constructors and initializers ==========
 	//
@@ -162,29 +162,32 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	private void doOkBoxAction() {
 		if (ctrlPressed) { // Exit without saving
 			close();
+		} else if (globalOptions){ // save old ways and exit
+			UserPreferences.save();
+			close();
 		} else { // save and exit
 			newGameOptions().saveLastOptions(paramList); // TODO BR: Non param options
-			close();
+			close();			
 		}
 	}
 	private void doDefaultBoxAction() {
 		if (ctrlPressed) { // set to last
-			newGameOptions().setUserOptions(paramList); // TODO BR: Non param options
+			newGameOptions().setUserOptions(paramList);
 			init();
 			repaint();
 		} else { // set to default
-			UserPreferences.setFromDefault(paramList); // TODO BR: Non param options
+			UserPreferences.setFromDefault(paramList);
 			init();
 			repaint();
 		}
 	}
 	private void doUserBoxAction() {
 		if (ctrlPressed) { // set
-			newGameOptions().setUserOptions(paramList); // TODO BR: Non param options
+			newGameOptions().setUserOptions(paramList);
 			init();
 			repaint();
 		} else { // Save
-			newGameOptions().saveUserOptions(paramList); // TODO BR: Non param options
+			newGameOptions().saveUserOptions(paramList);
 		}
 	}
 	public static String okButtonKey(boolean ctrlPressed) {
@@ -335,7 +338,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		g.drawRoundRect(defaultBox.x, defaultBox.y, defaultBox.width, defaultBox.height, cnr, cnr);
 		g.setStroke(prev);
 
-		if (global)
+		if (globalOptions)
 			return;  // No preferred button
 		String text8 = text(userButtonKey(ctrlPressed));
         int sw8 	 = g.getFontMetrics().stringWidth(text8);

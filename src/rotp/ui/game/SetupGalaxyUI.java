@@ -670,7 +670,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	// modnar: add UI panel for modnar MOD game options
 	public void goToModOptions() {
 		buttonClick();
-		StartModAOptionsUI modOptionsUI = RotPUI.startModOptionsUI();
+		StartModAOptionsUI modOptionsUI = RotPUI.startModAOptionsUI();
 		modOptionsUI.open(this);
 		release();
 	}
@@ -684,7 +684,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	// BR: Display UI panel for MOD game options
 	public void goToModViewOptions() {
 		buttonClick();
-		ModGlobalOptionsUI modViewOptionsUI = RotPUI.startModViewOptionsUI();
+		ModGlobalOptionsUI modViewOptionsUI = RotPUI.modGlobalOptionsUI();
 		modViewOptionsUI.open(this);
 		release();
 	}

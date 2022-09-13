@@ -231,11 +231,11 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     private final HelpUI helpUI = new HelpUI();
     private final StartOptionsUI startOptionsUI = new StartOptionsUI();
     // modnar: add UI panel for modnar MOD game options
-    private final StartModAOptionsUI startModOptionsUI = new StartModAOptionsUI();
+    private final StartModAOptionsUI startModAOptionsUI = new StartModAOptionsUI();
     // BR: Second UI panel for MOD game options
     private final StartModBOptionsUI startModBOptionsUI = new StartModBOptionsUI();
     // BR: Display UI panel for MOD game options
-    private final ModGlobalOptionsUI startModViewOptionsUI = new ModGlobalOptionsUI();
+    private final ModGlobalOptionsUI modGlobalOptionsUI = new ModGlobalOptionsUI();
 	// BR: Display UI panel for Player Race Customization
     private final PlayerRaceCustomizationUI playerRaceCustomizationUI = PlayerRaceCustomizationUI.instance();
     private final GameSettingsUI gameSettingsUI = new GameSettingsUI();
@@ -333,11 +333,11 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     public static HelpUI helpUI()                    { return instance.helpUI; }
     public static StartOptionsUI startOptionsUI()    { return instance.startOptionsUI; }
     // modnar: add UI panel for modnar MOD game options
-    public static StartModAOptionsUI startModOptionsUI()    { return instance.startModOptionsUI; }
+    public static StartModAOptionsUI startModAOptionsUI() { return instance.startModAOptionsUI; }
     // BR: Second UI panel for MOD game options
-    public static StartModBOptionsUI startModBOptionsUI()    { return instance.startModBOptionsUI; }
+    public static StartModBOptionsUI startModBOptionsUI() { return instance.startModBOptionsUI; }
     // BR: Display UI panel for MOD game options
-    public static ModGlobalOptionsUI startModViewOptionsUI() { return instance.startModViewOptionsUI; }
+    public static ModGlobalOptionsUI modGlobalOptionsUI() { return instance.modGlobalOptionsUI; }
 	// BR: Display UI panel for Player Race Customization
     public static PlayerRaceCustomizationUI startPlayerRaceCustomizationUI() { return instance.playerRaceCustomizationUI; }
     public static GameSettingsUI gameSettingsUI()    { return instance.gameSettingsUI; }

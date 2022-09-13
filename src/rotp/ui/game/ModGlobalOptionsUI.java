@@ -37,7 +37,7 @@ import rotp.ui.util.AbstractOptionsUI;
 // modnar: add UI panel for modnar MOD game options, based on StartOptionsUI.java
 public class ModGlobalOptionsUI extends AbstractOptionsUI {
 	private static final long serialVersionUID = 1L;
-	public static final String guiTitleID = "SETTINGS_MOD_TITLE_GLOBAL";
+	public  static final String guiTitleID = "SETTINGS_MOD_TITLE_GLOBAL";
 	// First column (left)
 	protected BaseText menuStartupText;
 	protected BaseText menuLoadGameText;
@@ -56,9 +56,9 @@ public class ModGlobalOptionsUI extends AbstractOptionsUI {
 	public ModGlobalOptionsUI() {
 		super(guiTitleID);
 	}
-	
+
 	@Override protected void init0() {
-		global = true; // No preferred button
+		globalOptions = true; // No preferred button
 		// For "ParamX" class Settings (Starting with ParamX for the automation to work)
 		// Complete this table... Et Voilà!
 		// For Mixed Setup keep "paintComponent" up to date
