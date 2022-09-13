@@ -56,10 +56,10 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	private Font descFont    = narrowFont(15);
 	private static int columnPad    = s20;
 	private static int smallButtonH = s30;
-	private static int smallButtonM = s30; // Margin for all GUI
-	private static int hSetting 	 = s90;
-	private static int lineH		 = s17;
-	private static int rowPad		 = s20;
+	private static int smallButtonM = s20; // Margin for all GUI
+	private static int hSetting 	= s90;
+	private static int lineH		= s17;
+	private static int rowPad		= s20;
 	private static int hDistSetting = hSetting + rowPad; // distance between two setting top corner
 	private int leftM, rightM,topM, yTop;
 	private int w, wBG, h, hBG;
@@ -348,7 +348,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 
 		String text7 = text(defaultButtonKey(ctrlPressed));
         int sw7		 = g.getFontMetrics().stringWidth(text7);
-		smallButtonW = defaultButtonWidth(g) + s30;
+		smallButtonW = defaultButtonWidth(g);
 		defaultBox.setBounds(okBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(defaultBox.x, defaultBox.y, smallButtonW, smallButtonH, cnr, cnr);
@@ -366,7 +366,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 			return;  // No preferred button
 		String text8 = text(userButtonKey(ctrlPressed));
         int sw8 	 = g.getFontMetrics().stringWidth(text8);
-		smallButtonW = userButtonWidth(g) + s30;
+		smallButtonW = userButtonWidth(g);
 		userBox.setBounds(defaultBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(userBox.x, userBox.y, smallButtonW, smallButtonH, cnr, cnr);
