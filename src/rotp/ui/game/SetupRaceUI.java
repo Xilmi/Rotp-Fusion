@@ -94,6 +94,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     private static int shipH = 0;
     @SuppressWarnings("unchecked")
 	private List<BufferedImage>[] shipImages = new ArrayList[MAX_SHIP];
+    private MOO1GameOptions initialOptions; // To be restored if "cancel"
 
     public SetupRaceUI() {
         init0();
@@ -123,24 +124,54 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 
         createNewGameOptions();
         newGameOptions().copyOptions(options());
+        initialOptions = new MOO1GameOptions(); // Any content will do
+        saveOptions(initialOptions);
+        
         raceChanged();
     }
-     private void setToDefault() {
-    	// TODO BR: setToDefault
-//        newGameOptions().setToDefault();
-//        init();
-//        repaint();
+    private void copyOptions(MOO1GameOptions src, MOO1GameOptions dest) {
+    	MOO1GameOptions.setRaceOptions(src, dest);
     }
-	private void doUserBoxAction() {
-		if (ctrlPressed)
-			MOO1GameOptions.setUserOptions(newGameOptions(), guiTitleID);
-		else
-			MOO1GameOptions.saveUserOptions(newGameOptions(), guiTitleID);
-		// TODO BR: doUserBoxAction
-//		UserPreferences.setToDefault(guiTitleID);
-//		init();
-//		repaint();
+	private void saveOptions(MOO1GameOptions destination) {
+		copyOptions((MOO1GameOptions)newGameOptions(), destination);
 	}
+	private void getOptions(MOO1GameOptions source) {
+		copyOptions(source, (MOO1GameOptions)newGameOptions());
+	}
+    private void doCancelBoxAction() {
+    	if (ctrlPressed)
+    		getOptions(initialOptions);
+		goToMainMenu();
+ 	}
+   private void doNextBoxAction() { // save and continue
+		MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
+		saveOptions(fileOptions);
+		MOO1GameOptions.saveLastOptions(fileOptions);
+ 		goToGalaxySetup();
+ 	}
+ 	private void doDefaultBoxAction() {
+ 		if (ctrlPressed) { // set to last
+ 			MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
+ 			getOptions(fileOptions);
+ 		} else { // set to default
+ 			MOO1GameOptions.setDefaultRaceOptions((MOO1GameOptions)newGameOptions());
+ 		}
+ 		init();
+ 		repaint();
+ 	}
+ 	private void doUserBoxAction() {
+ 		if (ctrlPressed) { // Save
+ 			MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
+ 			saveOptions(fileOptions);
+ 			MOO1GameOptions.saveUserOptions(fileOptions);
+ 			return;
+ 		} else { // Load
+ 			MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
+ 			getOptions(fileOptions);
+ 			init();
+ 			repaint();
+ 		}
+ 	}
 	private void checkCtrlKey(boolean pressed) {
 		if (pressed != ctrlPressed) {
 			ctrlPressed = pressed;
@@ -886,11 +917,11 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
             return;
         search:
         if (hoverBox == cancelBox)
-            goToMainMenu();
+        	doCancelBoxAction();
         else if (hoverBox == nextBox)
-            goToGalaxySetup();
+        	doNextBoxAction();
         else if (hoverBox == defaultBox)
-            setToDefault();
+        	doDefaultBoxAction();
         else if (hoverBox == userBox)
 			doUserBoxAction();
         // BR: Player Race customization

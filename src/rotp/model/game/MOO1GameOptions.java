@@ -331,7 +331,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 //        generateGalaxy();     	
     }
     @Override
-    public void copyOptions(IGameOptions o) { 
+    public void copyOptions(IGameOptions o) {  // TODO
         if (!(o instanceof MOO1GameOptions))
             return;
         
@@ -1100,6 +1100,44 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     public List<Integer> possibleColors() {
         return new ArrayList<>(colors);
     }
+    public static void setRaceOptions(MOO1GameOptions src, MOO1GameOptions dest) {
+    	// TODO BR: setRaceOptions
+    }
+    public static void setGalaxyOptions(MOO1GameOptions src, MOO1GameOptions dest) {
+    	// TODO BR: setGalaxyOptions
+    }
+    public static void setDefaultRaceOptions(MOO1GameOptions dest) {
+    	dest.selectedPlayerRace(dest.random(dest.startingRaceOptions()));
+    	// TODO BR: setDefaultRaceOptions
+    }
+    public static void setDefaultGalaxyOptions(MOO1GameOptions dest) {
+    	dest.selectedGalaxySize = SIZE_SMALL;
+    	dest.selectedGalaxyShape = dest.galaxyShapeOptions().get(0);
+    	dest.selectedGalaxyAge = dest.galaxyAgeOptions().get(1);
+    	dest.selectedNumberOpponents = dest.defaultOpponentsOptions();
+    	dest.selectedGameDifficulty = DIFFICULTY_NORMAL;
+    	dest.selectedOpponentAIOption = OPPONENT_AI_CRUEL;
+        for (int i=0;i<dest.specificOpponentAIOption.length;i++)
+        	dest.specificOpponentAIOption[i] = OPPONENT_AI_CRUEL;
+        // TODO BR: setDefaultGalaxyOptions
+    }
+    public static void setAdvancedOptions(MOO1GameOptions src, MOO1GameOptions dest) {
+        dest.selectedGalaxyAge			= src.selectedGalaxyAge;
+        dest.selectedPlanetQualityOption = src.selectedPlanetQualityOption;
+        dest.selectedTerraformingOption = src.selectedTerraformingOption;
+        dest.selectedColonizingOption	= src.selectedColonizingOption;
+        dest.selectedResearchRate		= src.selectedResearchRate;
+        dest.selectedTechTradeOption	= src.selectedTechTradeOption;
+        dest.selectedRandomEventOption	= src.selectedRandomEventOption;
+        dest.selectedWarpSpeedOption	= src.selectedWarpSpeedOption;
+        dest.selectedFuelRangeOption	= src.selectedFuelRangeOption;
+        dest.selectedNebulaeOption		= src.selectedNebulaeOption;
+        dest.selectedCouncilWinOption	= src.selectedCouncilWinOption;
+        dest.selectedStarDensityOption	= src.selectedStarDensityOption;
+        dest.selectedRandomizeAIOption	= src.selectedRandomizeAIOption;
+        dest.selectedAutoplayOption		= src.selectedAutoplayOption;
+        dest.selectedAIHostilityOption	= src.selectedAIHostilityOption;
+   }
     private void setDefaultOptionValues() {
         selectedGalaxySize = SIZE_SMALL;
         selectedGalaxyShape = galaxyShapeOptions().get(0);
@@ -1382,10 +1420,10 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 		
 		switch (gui) {
 		case StartModAOptionsUI.guiTitleID:
-			// TODO BR: setUserOptions
+			// TODO BR: setUserOptions	--- TO Remove
 			break;
 		case StartModBOptionsUI.guiTitleID:
-			// TODO BR: setUserOptions			
+			// TODO BR: setUserOptions	--- TO Remove
 			break;
 		}
     }
@@ -1393,10 +1431,10 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 		MOO1GameOptions fileOptions = loadUserOptions();
 		switch (gui) {
 		case StartModAOptionsUI.guiTitleID:
-			// TODO BR: saveUserOptions			
+			// TODO BR: saveUserOptions	--- TO Remove
 			break;
 		case StartModBOptionsUI.guiTitleID:
-			// TODO BR: saveUserOptions			
+			// TODO BR: saveUserOptions	--- TO Remove
 			break;
 		}
     }

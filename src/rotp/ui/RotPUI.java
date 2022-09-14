@@ -308,7 +308,6 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     // BR: Added initialization choice
     public static void createNewOptions() {
     	String initOption = UserPreferences.menuStartup.get().toUpperCase();
-    	System.out.println("initOption = " + initOption); // TODO BR: disable it
     	switch (initOption) {
 	    	case "LAST":
 	    		newGameOptions = MOO1GameOptions.loadLastOptions();
@@ -318,7 +317,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
 	    		return;
 	    	case "DEFAULT":
 	    		newGameOptions = new MOO1GameOptions();
-	    		// TODO BR: Set default options
+	    		// TODO BR: createNewOptions() Set default options
 	    		return;
      	} // Vanilla, as before
    		newGameOptions = new MOO1GameOptions();

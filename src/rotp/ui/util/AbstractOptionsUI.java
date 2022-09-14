@@ -53,8 +53,8 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	static final String saveUserKey	= "SETTINGS_USER_SAVE";
 	private final String guiTitleID;
 	
-	private Font descFont    = narrowFont(15);
-	private static int columnPad    = s20;
+	private Font descFont	= narrowFont(15);
+	private static int columnPad	= s20;
 	private static int smallButtonH = s30;
 	private static int smallButtonM = s20; // Margin for all GUI
 	private static int hSetting 	= s90;
@@ -79,6 +79,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	private BasePanel parent;
 	private boolean   ctrlPressed	= false;
 	protected boolean globalOptions	= false; // No preferred button and Saved to remnant.cfg
+	private MOO1GameOptions initialOptions; // To be restored if "cancel"
 	
 	// ========== Constructors and initializers ==========
 	//
@@ -163,25 +164,33 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	}
 	public void open(BasePanel p) {
 		parent = p;
+		initialOptions = new MOO1GameOptions(); // Any content will do
+		saveOptions(initialOptions);
 		init();
 		enableGlassPane(this);
 	}
 	private void close() {
 		disableGlassPane();
 	}
+	private void saveOptions(MOO1GameOptions destination) {
+		for (AbstractParam<?> param : paramList)
+			param.setOptions(destination);
+	}
+	private void getOptions(MOO1GameOptions source) {
+		for (AbstractParam<?> param : paramList)
+			param.setFromOptions(source);
+	}
 	private void doOkBoxAction() {
-		if (ctrlPressed) { // Exit without saving
-			close();
-		} else if (globalOptions){ // save old ways and exit
+		if (ctrlPressed) // Cancel = set to initial and close
+			getOptions(initialOptions);
+		else if (globalOptions) // save old ways and exit
 			UserPreferences.save();
-			close();
-		} else { // save and exit
+		else { // save and exit
 			MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
-			for (AbstractParam<?> param : paramList)
-				param.setOptions(fileOptions);
+			saveOptions(fileOptions);
 			MOO1GameOptions.saveLastOptions(fileOptions);
-			close();			
 		}
+		close();			
 	}
 	private void doDefaultBoxAction() {
 		if (ctrlPressed) { // set to last
@@ -189,8 +198,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 				UserPreferences.load();
 			} else { // set to last
 				MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
-				for (AbstractParam<?> param : paramList)
-					param.setFromOptions(fileOptions);
+				getOptions(fileOptions);
 			}
 		} else { // set to default
 			for (AbstractParam<?> param : paramList) {
@@ -203,13 +211,11 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	private void doUserBoxAction() {
 		if (ctrlPressed) { // Save
 			MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
-			for (AbstractParam<?> param : paramList)
-				param.setOptions(fileOptions);
+			saveOptions(fileOptions);
 			MOO1GameOptions.saveUserOptions(fileOptions);
 		} else { // Set
 			MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
-			for (AbstractParam<?> param : paramList)
-				param.setFromOptions(fileOptions);
+			getOptions(fileOptions);
 			init();
 			repaint();
 		}
@@ -233,14 +239,14 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 			return setDefaultKey;			
 	}
 	public static int userButtonWidth(Graphics2D g) {
-        return Math.max(g.getFontMetrics().stringWidth(saveUserKey),
-        				g.getFontMetrics().stringWidth(setUserKey))
-        		+ smallButtonM;
+		return Math.max(g.getFontMetrics().stringWidth(saveUserKey),
+						g.getFontMetrics().stringWidth(setUserKey))
+				+ smallButtonM;
 	}
 	public static int defaultButtonWidth(Graphics2D g) {
-        return Math.max(g.getFontMetrics().stringWidth(setDefaultKey),
-        				g.getFontMetrics().stringWidth(setLastKey))
-        		+ smallButtonM;
+		return Math.max(g.getFontMetrics().stringWidth(setDefaultKey),
+						g.getFontMetrics().stringWidth(setLastKey))
+				+ smallButtonM;
 	}
 	private void checkCtrlKey(boolean pressed) {
 		if (pressed != ctrlPressed) {
@@ -347,7 +353,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		g.setStroke(prev);
 
 		String text7 = text(defaultButtonKey(ctrlPressed));
-        int sw7		 = g.getFontMetrics().stringWidth(text7);
+		int sw7		 = g.getFontMetrics().stringWidth(text7);
 		smallButtonW = defaultButtonWidth(g);
 		defaultBox.setBounds(okBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
@@ -365,7 +371,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		if (globalOptions)
 			return;  // No preferred button
 		String text8 = text(userButtonKey(ctrlPressed));
-        int sw8 	 = g.getFontMetrics().stringWidth(text8);
+		int sw8 	 = g.getFontMetrics().stringWidth(text8);
 		smallButtonW = userButtonWidth(g);
 		userBox.setBounds(defaultBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());

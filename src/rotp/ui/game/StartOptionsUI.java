@@ -43,6 +43,7 @@ import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
+import rotp.ui.util.AbstractParam;
 
 public class StartOptionsUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
     private static final long serialVersionUID	= 1L;
@@ -75,6 +76,7 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
     BaseText fuelRangeText;
     BaseText techTradingText;
     BaseText aiHostilityText;
+    private MOO1GameOptions initialOptions; // BR: To be restored if "cancel"
     
     public StartOptionsUI() {
         init0();
@@ -120,40 +122,55 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
     }
     public void open(BasePanel p) {
         parent = p;
+        initialOptions = new MOO1GameOptions(); // Any content will do
+        copyOptions((MOO1GameOptions)newGameOptions(), initialOptions);
         init();
         enableGlassPane(this);
     }
     public void close() {
         disableGlassPane();
     }
-	private void doOkBoxAction() {
-		if (ctrlPressed) { // Exit without saving
-			close();
-		} else { // save and exit
-//			newGameOptions().saveLastOptions(paramList); // TODO BR: Non param options
-			close();
+    private void copyOptions(MOO1GameOptions src, MOO1GameOptions dest) {
+    	MOO1GameOptions.setAdvancedOptions(src, dest);
+    }
+	private void saveOptions(MOO1GameOptions destination) {
+		copyOptions((MOO1GameOptions)newGameOptions(), destination);
+	}
+	private void getOptions(MOO1GameOptions source) {
+		copyOptions(source, (MOO1GameOptions)newGameOptions());
+	}
+    private void doOkBoxAction() {
+		if (ctrlPressed) // Cancel = set to initial and close
+			getOptions(initialOptions);
+		else { // save and exit
+			MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
+			saveOptions(fileOptions);
+			MOO1GameOptions.saveLastOptions(fileOptions);
 		}
+		close();
 	}
 	private void doDefaultBoxAction() {
 		if (ctrlPressed) { // set to last
-//			newGameOptions().setUserOptions(paramList); // TODO BR: Non param options
-			init();
-			repaint();
+			MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
+			getOptions(fileOptions);
 		} else { // set to default
 			newGameOptions().setToDefault();
+		}
+			init();
+			repaint();
+	}
+	private void doUserBoxAction() {
+		if (ctrlPressed) { // Save
+			MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
+			saveOptions(fileOptions);
+			MOO1GameOptions.saveUserOptions(fileOptions);
+			return;
+		} else { // Load
+			MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
+			getOptions(fileOptions);
 			init();
 			repaint();
 		}
-	}
-	private void doUserBoxAction() {
-		if (ctrlPressed)
-			MOO1GameOptions.setUserOptions(newGameOptions(), guiTitleID);
-		else
-			MOO1GameOptions.saveUserOptions(newGameOptions(), guiTitleID);
-		// TODO BR: doUserBoxAction
-//		UserPreferences.setToDefault(guiTitleID);
-//		init();
-//		repaint();
 	}
 	private void checkCtrlKey(boolean pressed) {
 		if (pressed != ctrlPressed) {
