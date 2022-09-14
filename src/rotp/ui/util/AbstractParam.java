@@ -24,7 +24,6 @@ import java.awt.event.MouseWheelEvent;
 import javax.swing.SwingUtilities;
 
 import rotp.model.game.MOO1GameOptions;
-import rotp.ui.UserPreferences;
 import rotp.util.LabelManager;
 
 public abstract class AbstractParam <T> {
@@ -40,8 +39,6 @@ public abstract class AbstractParam <T> {
 	private T baseInc	= null;
 	private T shiftInc	= null;
 	private T ctrlInc	= null;
-	private boolean saveAllowed = true; // To allow the parameter to be saved in Remnants.cfg
-	private boolean globalSave	= true; // For Global settings
 
 	// ========== constructors ==========
 	//
@@ -155,10 +152,8 @@ public abstract class AbstractParam <T> {
 	}	
 	// ========== Public Setters ==========
 	//
-	T setFromDefault(boolean save) {
+	public T setFromDefault() {
 		value = defaultValue;
-		if (save) 
-			save();
 		return value;
 	}
 	public T set(T newValue) {
@@ -171,17 +166,8 @@ public abstract class AbstractParam <T> {
 		else
 			return toggle(e);
 	}
-	AbstractParam<?> allowSave(boolean allow) {
-		saveAllowed = allow;
-		return this;
-	}
 	// ========== Private Methods ==========
 	//
-	private void save() {
-		if (saveAllowed()) 
-			if (globalSave)
-				UserPreferences.save();
-	}
 	private String labelId() {
 		return gui + name;
 	}
@@ -190,9 +176,6 @@ public abstract class AbstractParam <T> {
 	}
 	// ========== Protected Methods ==========
 	//
-	private boolean saveAllowed() {
-		return saveAllowed;
-	}
 	protected T getInc(MouseEvent e) {
 		if (e.isShiftDown()) 
 			return shiftInc;

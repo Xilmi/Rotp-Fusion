@@ -53,11 +53,14 @@ import rotp.model.ships.ShipImage;
 import rotp.model.ships.ShipLibrary;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
+import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
 
 public final class SetupRaceUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
-    private static final long serialVersionUID	= 1L;
-	public  static final String guiTitleID		= "SETUP_SELECT_RACE";
+    private static final long serialVersionUID = 1L;
+	public  static final String guiTitleID	= "SETUP_SELECT_RACE";
+	private static final String cancelKey	= "SETUP_BUTTON_CANCEL";
+	private static final String restoreKey	= "SETUP_BUTTON_RESTORE";
     public static final int MAX_RACES  = 16; // modnar: increase MAX_RACES to add new Races
     static final int MAX_COLORS = 16; // modnar: add new colors
     static final int MAX_SHIP   = ShipLibrary.designsPerSize; // BR:
@@ -134,14 +137,19 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     }
 	private void saveOptions(MOO1GameOptions destination) {
 		copyOptions((MOO1GameOptions)newGameOptions(), destination);
+		customPlayerRace.setOptions(destination);
+//    	ShipSetAddOns.playerShipSet(src.ex); // TODO BR: playerShipSet
 	}
 	private void getOptions(MOO1GameOptions source) {
 		copyOptions(source, (MOO1GameOptions)newGameOptions());
+    	customPlayerRace.setFromOptions(source);;
+//    	ShipSetAddOns.playerShipSet(src.ex); // TODO BR: playerShipSet
 	}
     private void doCancelBoxAction() {
-    	if (ctrlPressed)
+    	if (ctrlPressed) // Restore
     		getOptions(initialOptions);
-		goToMainMenu();
+    	else // Back
+    		goToMainMenu();
  	}
    private void doNextBoxAction() { // save and continue
 		MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
@@ -155,6 +163,8 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
  			getOptions(fileOptions);
  		} else { // set to default
  			MOO1GameOptions.setDefaultRaceOptions((MOO1GameOptions)newGameOptions());
+ 	    	ShipSetAddOns.setToDefault();
+ 	    	UserPreferences.customPlayerRace.setFromDefault();
  		}
  		init();
  		repaint();
@@ -172,6 +182,12 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
  			repaint();
  		}
  	}
+	public static String cancelButtonKey(boolean ctrlPressed) {
+		if (ctrlPressed)
+			return restoreKey;
+		else
+			return cancelKey;			
+	}
 	private void checkCtrlKey(boolean pressed) {
 		if (pressed != ctrlPressed) {
 			ctrlPressed = pressed;
@@ -405,7 +421,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         // left button
         int cnr = s5;
         g.setFont(narrowFont(30));
-        String text1 = text("SETUP_BUTTON_CANCEL");
+        String text1 = text(cancelButtonKey(ctrlPressed));
         int sw1 = g.getFontMetrics().stringWidth(text1);
         int x1 = cancelBox.x+((cancelBox.width-sw1)/2);
         int y1 = cancelBox.y+cancelBox.height-s12;

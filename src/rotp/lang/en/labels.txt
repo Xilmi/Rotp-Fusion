@@ -1262,6 +1262,7 @@ SETUP_SHIP_SET_LABEL              | Ship Set:
 SETUP_SHIPSET_ORIGINAL            | Original
 SETUP_FLAG_LABEL                  | Banner
 SETUP_BUTTON_CANCEL               | Cancel
+SETUP_BUTTON_RESTORE              | Restore
 SETUP_BUTTON_BACK                 | Back
 SETUP_BUTTON_NEXT                 | Next
 SETUP_BUTTON_START                | Start

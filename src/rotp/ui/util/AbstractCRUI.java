@@ -377,10 +377,10 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 			return setUserKey;			
 	}
 	private void doUserBoxAction() {
-		if (ctrlPressed)
-			MOO1GameOptions.setUserOptions(newGameOptions(), guiTitleID);
-		else
-			MOO1GameOptions.saveUserOptions(newGameOptions(), guiTitleID);
+//		if (ctrlPressed)
+//			MOO1GameOptions.setUserOptions(newGameOptions(), guiTitleID);
+//		else
+//			MOO1GameOptions.saveUserOptions(newGameOptions(), guiTitleID);
 		// TODO BR: doUserBoxAction
 //		UserPreferences.setToDefault(guiTitleID);
 //		init();

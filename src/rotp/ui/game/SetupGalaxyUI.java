@@ -15,6 +15,7 @@
  */
 package rotp.ui.game;
 
+import static rotp.ui.UserPreferences.showNewRaces;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonWidth;
 import static rotp.ui.util.AbstractOptionsUI.userButtonKey;
@@ -30,6 +31,7 @@ import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.RadialGradientPaint;
 import java.awt.Rectangle;
+import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.KeyEvent;
@@ -40,8 +42,8 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
-import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
 import java.util.List;
+
 import javax.swing.SwingUtilities;
 
 import rotp.mod.br.addOns.RacesOptions;
@@ -56,11 +58,12 @@ import rotp.ui.NoticeMessage;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
-import rotp.ui.util.AbstractOptionsUI;
 
 public final class SetupGalaxyUI  extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
-	private static final long serialVersionUID	= 1L;
-	public  static final String guiTitleID		= "SETUP_GALAXY";
+	private static final long serialVersionUID = 1L;
+	public  static final String guiTitleID	= "SETUP_GALAXY";
+	private static final String backKey		= "SETUP_BUTTON_BACK";
+	private static final String restoreKey	= "SETUP_BUTTON_RESTORE";
 	public static int MAX_DISPLAY_OPPS = 49;
 	BufferedImage backImg, playerRaceImg;
 	BufferedImage smBackImg;
@@ -106,6 +109,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	boolean starting = false;
 	int leftBoxX, rightBoxX, boxW, boxY, leftBoxH, rightBoxH;
 	int galaxyX, galaxyY, galaxyW, galaxyH;
+    private MOO1GameOptions initialOptions; // To be restored if "cancel"
 
 	public SetupGalaxyUI() {
 		init0();
@@ -120,26 +124,59 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			oppAI[i] = new Rectangle();
 	}
 	public void init() {
+        initialOptions = new MOO1GameOptions(); // Any content will do
+        saveOptions(initialOptions);
 	}
 	private void release() {
 		backImg = null;
 		playerRaceImg = null;
 	}
-    private void setToDefault() {
-    	// TODO BR: setToDefault
-//        newGameOptions().setToDefault();
-//        init();
-//        repaint();
+    private void copyOptions(MOO1GameOptions src, MOO1GameOptions dest) {
+    	MOO1GameOptions.setGalaxyOptions(src, dest);
     }
-	private void doUserBoxAction() {
+	private void saveOptions(MOO1GameOptions destination) {
+		copyOptions((MOO1GameOptions)newGameOptions(), destination);
+		showNewRaces.setOptions(destination);
+	}
+	private void getOptions(MOO1GameOptions source) {
+		copyOptions(source, (MOO1GameOptions)newGameOptions());
+		showNewRaces.setFromOptions(source);
+	}
+    private void doBackBoxAction() {
+    	if (ctrlPressed) // Restore
+    		getOptions(initialOptions);
+    	else // Back
+    		goToRaceSetup();
+ 	}
+ 	private void doDefaultBoxAction() {
+ 		if (ctrlPressed) { // set to last
+ 			MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
+ 			getOptions(fileOptions);
+ 		} else { // set to default
+ 			MOO1GameOptions.setDefaultGalaxyOptions((MOO1GameOptions)newGameOptions());
+ 	        showNewRaces.setFromDefault();
+ 		}
+ 		init();
+ 		repaint();
+ 	}
+ 	private void doUserBoxAction() {
+ 		if (ctrlPressed) { // Save
+ 			MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
+ 			saveOptions(fileOptions);
+ 			MOO1GameOptions.saveUserOptions(fileOptions);
+ 			return;
+ 		} else { // Load
+ 			MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
+ 			getOptions(fileOptions);
+ 			init();
+ 			repaint();
+ 		}
+ 	}
+	public static String cancelButtonKey(boolean ctrlPressed) {
 		if (ctrlPressed)
-			MOO1GameOptions.setUserOptions(newGameOptions(), guiTitleID);
+			return restoreKey;
 		else
-			MOO1GameOptions.saveUserOptions(newGameOptions(), guiTitleID);
-		// TODO BR: doUserBoxAction
-//		UserPreferences.setToDefault(guiTitleID);
-//		init();
-//		repaint();
+			return backKey;			
 	}
 	private void checkCtrlKey(boolean pressed) {
 		if (pressed != ctrlPressed) {
@@ -419,7 +456,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 
 		g.setFont(narrowFont(30));
 		// left button
-		String text1 = text("SETUP_BUTTON_BACK");
+		String text1 = text(cancelButtonKey(ctrlPressed));
 		int sw1 = g.getFontMetrics().stringWidth(text1);
 		int x1 = backBox.x+((backBox.width-sw1)/2);
 		int y1 = backBox.y+backBox.height-s12;
@@ -1221,9 +1258,9 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			return;
 		boolean up = !SwingUtilities.isRightMouseButton(e);
 		if (hoverBox == backBox)
-			goToRaceSetup();
+			doBackBoxAction();
         else if (hoverBox == defaultBox)
-            setToDefault();
+        	doDefaultBoxAction();
         else if (hoverBox == userBox)
 			doUserBoxAction();
 		else if (hoverBox == settingsBox)

@@ -28,6 +28,12 @@ import mod.br.addOns.ShipSetOptions;
 public class ShipSetAddOns {
 	
 	/**
+	 * @param newlist the new raceList to set
+	 */
+	public static void setToDefault() {
+		ShipSetOptions.setToDefault();
+	}
+	/**
 	 * @return ShipSet index translating Original option
 	 */
 	public static int realShipSetId(String original) {

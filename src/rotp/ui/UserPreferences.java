@@ -165,19 +165,20 @@ public class UserPreferences {
 	public static final ParamList menuLoadGame = new ParamList(MOD_UI, "MENU_LOAD_GAME", "LoadAll")
 			.put("LoadAll",	MOD_UI + "LOAD_GAME_UPDATE")
 			.put("Vanilla",	MOD_UI + "LOAD_GAME_VANILLA");
-	public static final ParamBoolean showNewRaces 	  = new ParamBoolean(MOD_UI, "SHOW_NEW_RACES", false);
 	public static final ParamBoolean showGridCircular = new ParamBoolean(MOD_UI, "SHOW_GRID_CIRCULAR", false);
 
 	// This list is used as is by the ModGlobalOptionsUI menu
 	public static final LinkedList<AbstractParam<?>> modGlobalOptionsUI = new LinkedList<>(Arrays.asList(
-			menuStartup, menuLoadGame, showNewRaces, showGridCircular,
+			menuStartup, menuLoadGame, showGridCircular,
 			showFleetFactor, showFlagFactor, showPathFactor,
 			showNameMinFont, showInfoFontRatio, mapFontFactor
 			));
+	// BR: Galaxy Menu addition
+	public static final ParamBoolean showNewRaces = new ParamBoolean(MOD_UI, "SHOW_NEW_RACES", false);
 
 	// BR: Player customRace
 	public static final ParamBoolean customPlayerRace = new ParamBoolean(
-			BASE_UI, "BUTTON_CUSTOM_PLAYER_RACE", false, false);
+			BASE_UI, "BUTTON_CUSTOM_PLAYER_RACE", false);
 
 	private static boolean showMemory = false;
 	private static boolean playMusic = true;

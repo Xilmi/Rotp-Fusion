@@ -32,16 +32,6 @@ public class ParamBoolean extends AbstractParam<Boolean> {
 	public ParamBoolean(String gui, String name, Boolean defaultValue) {
 		super(gui, name, defaultValue);
 	}
-	/**
-	 * @param gui  The label header
-	 * @param name The name
-	 * @param defaultValue The default value
-	 * @param allowSave To allow the parameter to be saved in Remnants.cfg
-	 */
-	public ParamBoolean(String gui, String name, Boolean defaultValue, boolean allowSave) {
-		super(gui, name, defaultValue);
-		allowSave(allowSave);
-	}
 	// ===== Overriders =====
 	//
 	@Override protected String getCfgValue(Boolean value) {
@@ -58,7 +48,7 @@ public class ParamBoolean extends AbstractParam<Boolean> {
 	}
 	@Override public Boolean toggle(MouseEvent e) {
 		if (getDir(e) == 0)
-			return setFromDefault(true);
+			return setFromDefault();
 		else
 			return next();
 	}

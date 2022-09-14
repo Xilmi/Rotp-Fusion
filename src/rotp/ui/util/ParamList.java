@@ -39,16 +39,6 @@ public class ParamList extends AbstractParam<String> {
 	 * @param gui  The label header
 	 * @param name The name
 	 * @param defaultCfgLabel The default CfgLabel
-	 * @param allowSave To allow the parameter to be saved in Remnants.cfg
-	 */
-	public ParamList(String gui, String name, String defaultCfgLabel, boolean allowSave) {
-		this(gui, name, defaultCfgLabel);
-		allowSave(allowSave);
-	}
-	/**
-	 * @param gui  The label header
-	 * @param name The name
-	 * @param defaultCfgLabel The default CfgLabel
 	 * @param optionLabelMap  existing IndexableMap
 	 */
 	public ParamList(String gui, String name, String defaultCfgLabel, IndexableMap optionLabelMap) {
@@ -77,7 +67,7 @@ public class ParamList extends AbstractParam<String> {
 	}
 	@Override public String toggle(MouseEvent e) {
 		if (getDir(e) == 0) 
-			return setFromDefault(true);
+			return setFromDefault();
 		else if (getDir(e) > 0)
 			return next();
 		else 

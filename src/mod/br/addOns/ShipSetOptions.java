@@ -115,6 +115,12 @@ public class ShipSetOptions {
 	/**
 	 * @param newlist the new raceList to set
 	 */
+	public static void setToDefault() {
+		playerShipSet = ORIGINAL;
+	}
+	/**
+	 * @param newlist the new raceList to set
+	 */
 	public static void raceList(List<String> newlist) {
 		raceList = newlist;
 	}

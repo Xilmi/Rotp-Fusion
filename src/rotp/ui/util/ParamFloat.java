@@ -122,7 +122,7 @@ public class ParamFloat extends AbstractParam<Float> {
 	// ========== Other Methods ==========
 	//
 	public Float next(float i) {
-		if (i == 0) return setFromDefault(true);
+		if (i == 0) return setFromDefault();
 		Float value = get() + i;
 		if (maxValue() != null && value > maxValue()) {
 			if (loop && minValue() != null)

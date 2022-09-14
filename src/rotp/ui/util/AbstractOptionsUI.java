@@ -140,8 +140,13 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		initCustom();
 	}
 	protected void numColumns(int num) { numColumns = num; }
-	protected void lastRowList(Integer[] is) { Collections.addAll(lastRowList, is); }
-
+	protected void rowCountList(Integer... rows) {
+		Integer id = 0;
+		for (Integer row : rows) {
+			id+= row;
+			lastRowList.add(id);
+		}
+	}
 	// ========== Abstract Methods Request ==========
 	//
 	protected abstract void init0();
@@ -202,7 +207,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 			}
 		} else { // set to default
 			for (AbstractParam<?> param : paramList) {
-				param.setFromDefault(false);
+				param.setFromDefault();
 			}
 		}
 		init();

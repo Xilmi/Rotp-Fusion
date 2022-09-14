@@ -66,8 +66,6 @@ import rotp.model.planet.Planet;
 import rotp.model.planet.PlanetType;
 import rotp.model.tech.TechEngineWarp;
 import rotp.ui.game.SetupGalaxyUI;
-import rotp.ui.game.StartModAOptionsUI;
-import rotp.ui.game.StartModBOptionsUI;
 import rotp.util.Base;
 
 public class MOO1GameOptions implements Base, IGameOptions, Serializable {
@@ -331,7 +329,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 //        generateGalaxy();     	
     }
     @Override
-    public void copyOptions(IGameOptions o) {  // TODO
+    public void copyOptions(IGameOptions o) {
         if (!(o instanceof MOO1GameOptions))
             return;
         
@@ -1101,25 +1099,32 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         return new ArrayList<>(colors);
     }
     public static void setRaceOptions(MOO1GameOptions src, MOO1GameOptions dest) {
-    	// TODO BR: setRaceOptions
+    	dest.selectedPlayerRace(src.selectedPlayerRace());
+    	dest.selectedPlayerColor(src.selectedPlayerColor());
     }
     public static void setGalaxyOptions(MOO1GameOptions src, MOO1GameOptions dest) {
-    	// TODO BR: setGalaxyOptions
+    	dest.selectedGalaxySize			= src.selectedGalaxySize;
+    	dest.selectedGalaxyShape		= src.selectedGalaxyShape;
+    	dest.selectedGalaxyAge			= src.selectedGalaxyAge;
+    	dest.selectedNumberOpponents	= src.selectedNumberOpponents;
+    	dest.selectedGameDifficulty		= src.selectedGameDifficulty;
+    	dest.selectedOpponentAIOption	= src.selectedOpponentAIOption;
+        for (int i=0;i<dest.specificOpponentAIOption.length;i++)
+        	dest.specificOpponentAIOption[i] = src.specificOpponentAIOption[i];
     }
     public static void setDefaultRaceOptions(MOO1GameOptions dest) {
     	dest.selectedPlayerRace(dest.random(dest.startingRaceOptions()));
-    	// TODO BR: setDefaultRaceOptions
+    	dest.selectedPlayerColor(0);
     }
     public static void setDefaultGalaxyOptions(MOO1GameOptions dest) {
-    	dest.selectedGalaxySize = SIZE_SMALL;
-    	dest.selectedGalaxyShape = dest.galaxyShapeOptions().get(0);
-    	dest.selectedGalaxyAge = dest.galaxyAgeOptions().get(1);
-    	dest.selectedNumberOpponents = dest.defaultOpponentsOptions();
-    	dest.selectedGameDifficulty = DIFFICULTY_NORMAL;
-    	dest.selectedOpponentAIOption = OPPONENT_AI_CRUEL;
+    	dest.selectedGalaxySize			= SIZE_SMALL;
+    	dest.selectedGalaxyShape		= dest.galaxyShapeOptions().get(0);
+    	dest.selectedGalaxyAge			= dest.galaxyAgeOptions().get(1);
+    	dest.selectedNumberOpponents	= dest.defaultOpponentsOptions();
+    	dest.selectedGameDifficulty		= DIFFICULTY_NORMAL;
+    	dest.selectedOpponentAIOption	= OPPONENT_AI_CRUEL;
         for (int i=0;i<dest.specificOpponentAIOption.length;i++)
         	dest.specificOpponentAIOption[i] = OPPONENT_AI_CRUEL;
-        // TODO BR: setDefaultGalaxyOptions
     }
     public static void setAdvancedOptions(MOO1GameOptions src, MOO1GameOptions dest) {
         dest.selectedGalaxyAge			= src.selectedGalaxyAge;
@@ -1415,29 +1420,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
     // ==================== New Options management methods ====================
     //
-	public static void setUserOptions(IGameOptions options, String gui) {
-		MOO1GameOptions fileOptions = loadUserOptions();
-		
-		switch (gui) {
-		case StartModAOptionsUI.guiTitleID:
-			// TODO BR: setUserOptions	--- TO Remove
-			break;
-		case StartModBOptionsUI.guiTitleID:
-			// TODO BR: setUserOptions	--- TO Remove
-			break;
-		}
-    }
-    public static void saveUserOptions(IGameOptions options, String gui) {
-		MOO1GameOptions fileOptions = loadUserOptions();
-		switch (gui) {
-		case StartModAOptionsUI.guiTitleID:
-			// TODO BR: saveUserOptions	--- TO Remove
-			break;
-		case StartModBOptionsUI.guiTitleID:
-			// TODO BR: saveUserOptions	--- TO Remove
-			break;
-		}
-    }
 	/**
 	 * Save User Preferred options to file
 	 */
