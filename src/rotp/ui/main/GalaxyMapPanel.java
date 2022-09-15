@@ -15,8 +15,9 @@
  */
 package rotp.ui.main;
 
-import static rotp.ui.UserPreferences.showFleetFactor;
+import static rotp.model.galaxy.Ship.EMPIRE_ID;
 import static rotp.ui.UserPreferences.showFlagFactor;
+import static rotp.ui.UserPreferences.showFleetFactor;
 import static rotp.ui.UserPreferences.showPathFactor;
 
 import java.awt.AlphaComposite;
@@ -40,12 +41,15 @@ import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.function.Function;
-import java.util.stream.Collectors;
+
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
-import org.apache.commons.math3.util.Pair;
+
 import rotp.model.Sprite;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.Galaxy;
@@ -53,7 +57,6 @@ import rotp.model.galaxy.IMappedObject;
 import rotp.model.galaxy.Location;
 import rotp.model.galaxy.Nebula;
 import rotp.model.galaxy.Ship;
-import static rotp.model.galaxy.Ship.EMPIRE_ID;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.tech.TechCategory;
 import rotp.ui.BasePanel;
@@ -103,7 +106,7 @@ public class GalaxyMapPanel extends BasePanel implements ActionListener, MouseLi
     public static final int MAX_FLEET_HUGE_SCALE = (int) (100 * showFleetFactor.get());
 	// \BR:
     
-    private static final Color unreachableBackground = new Color(0,0,0);
+//    private static final Color unreachableBackground = new Color(0,0,0);
 
     public static Color gridLight = new Color(160,160,160);
     public static Color gridDark = new Color(64,64,64);
@@ -124,7 +127,7 @@ public class GalaxyMapPanel extends BasePanel implements ActionListener, MouseLi
 
     private float desiredScale;
     private Image mapBuffer;
-    private Image rangeMapBuffer;
+//    private Image rangeMapBuffer;
     public static BufferedImage sharedStarBackground;
     public static BufferedImage sharedNebulaBackground;
     private final float zoomBase = 1.1f;
@@ -215,7 +218,8 @@ public class GalaxyMapPanel extends BasePanel implements ActionListener, MouseLi
         }
     }
     public void toggleGridCircularDisplay() { // BR: added memorization
-    	showGridCircular = UserPreferences.showGridCircular.toggle();
+    	UserPreferences.showGridCircular.toggle();
+    	showGridCircular = UserPreferences.showGridCircular.get();
     }
     public boolean showGridCircular()           { return showGridCircular; }
     public boolean showFleetsOnly()             { return flightPathDisplay == SHOW_NO_FLIGHTPATHS; }
@@ -413,7 +417,7 @@ public class GalaxyMapPanel extends BasePanel implements ActionListener, MouseLi
         int w = getWidth();
         int h = getHeight();
         mapBuffer = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-        rangeMapBuffer = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+//        rangeMapBuffer = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         if (sharedStarBackground == null) {
             sharedStarBackground = new BufferedImage(RotPUI.instance().getWidth(), RotPUI.instance().getHeight(), BufferedImage.TYPE_INT_ARGB);
             drawBackgroundStars(sharedStarBackground, this);
@@ -488,21 +492,22 @@ public class GalaxyMapPanel extends BasePanel implements ActionListener, MouseLi
         
         setScale(parentStartingScale);
     }
-    private void drawBackground(Graphics2D g) {
-        if (showShipRanges()) {
-            if (redrawRangeMap) {
-                redrawRangeMap = false;
-                Graphics2D g0 =  (Graphics2D) rangeMapBuffer.getGraphics();
-                setFontHints(g0);
-                g0.setColor(unreachableBackground);
-                g0.fillRect(0,0,getWidth(),getHeight());
-                if (parent.showShipRanges())
-                    drawExtendedRangeDisplay(g0);
-                drawOwnershipDisplay(g0);
-            }
-            g.drawImage(rangeMapBuffer,0,0,null);
-        }
-    }
+    // BR: modnar commented the only call to this method
+//    private void drawBackground(Graphics2D g) {
+//        if (showShipRanges()) {
+//            if (redrawRangeMap) {
+//                redrawRangeMap = false;
+//                Graphics2D g0 =  (Graphics2D) rangeMapBuffer.getGraphics();
+//                setFontHints(g0);
+//                g0.setColor(unreachableBackground);
+//                g0.fillRect(0,0,getWidth(),getHeight());
+//                if (parent.showShipRanges())
+//                    drawExtendedRangeDisplay(g0);
+//                drawOwnershipDisplay(g0);
+//            }
+//            g.drawImage(rangeMapBuffer,0,0,null);
+//        }
+//    }
 	// modnar: make regular ship fuel range cover starry background
 	private void drawShipRanges(Graphics2D g) {
 		if (showShipRanges()) {
@@ -610,7 +615,7 @@ public class GalaxyMapPanel extends BasePanel implements ActionListener, MouseLi
         float baseR = shipRange*scale;
         Area tmpRangeArea = scoutRangeArea;
         if (tmpRangeArea == null) {
-            long time1 = System.nanoTime();
+//            long time1 = System.nanoTime();
             List<Area> toAdd = new ArrayList<>();
             for (StarSystem sv: alliedSystems)
                 toAdd.add(new Area( new Ellipse2D.Float(fMapX(sv.x())-extR, fMapY(sv.y())-extR, 2*extR, 2*extR) )); 
@@ -618,8 +623,8 @@ public class GalaxyMapPanel extends BasePanel implements ActionListener, MouseLi
                 toAdd.add(new Area( new Ellipse2D.Float(fMapX(sv.x())-extR, fMapY(sv.y())-extR, 2*extR, 2*extR) )); 
             tmpRangeArea = parallelAdd(toAdd);
             scoutRangeArea = tmpRangeArea;
-            long time2 = System.nanoTime();
-            double ms = (time2-time1) / 1_000_000.0;
+//            long time2 = System.nanoTime();
+//            double ms = (time2-time1) / 1_000_000.0;
 //            System.out.format("RRR scout %.2f ms\n", ms);
         }
         g.setColor(extendedBorder);
@@ -629,7 +634,7 @@ public class GalaxyMapPanel extends BasePanel implements ActionListener, MouseLi
 
         tmpRangeArea = shipRangeArea;
         if (tmpRangeArea == null) {
-            long time1 = System.nanoTime();
+//            long time1 = System.nanoTime();
             List<Area> toAdd = new ArrayList<>();
             for (StarSystem sv: alliedSystems)
                 toAdd.add(new Area( new Ellipse2D.Float(fMapX(sv.x())-baseR, fMapY(sv.y())-baseR, 2*baseR, 2*baseR) )); 
@@ -637,8 +642,8 @@ public class GalaxyMapPanel extends BasePanel implements ActionListener, MouseLi
                 toAdd.add(new Area( new Ellipse2D.Float(fMapX(sv.x())-baseR, fMapY(sv.y())-baseR, 2*baseR, 2*baseR) ));
             tmpRangeArea = parallelAdd(toAdd);
             shipRangeArea = tmpRangeArea;
-            long time2 = System.nanoTime();
-            double ms = (time2-time1) / 1_000_000.0;
+//            long time2 = System.nanoTime();
+//            double ms = (time2-time1) / 1_000_000.0;
 //            System.out.format("RRR base %.2f ms\n", ms);
         }
         
@@ -1142,8 +1147,8 @@ public class GalaxyMapPanel extends BasePanel implements ActionListener, MouseLi
         
         int clicks = e.getClickCount();
         boolean rightClick = SwingUtilities.isRightMouseButton(e);
-        int x1 = e.getX();
-        int y1 = e.getY();
+//        int x1 = e.getX();
+//        int y1 = e.getY();
         Sprite newSelection = hoverSprite;
 
         if (newSelection == null) 

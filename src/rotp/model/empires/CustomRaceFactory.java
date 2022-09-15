@@ -89,8 +89,8 @@ public class CustomRaceFactory {
 		LinkedList<String> list = new LinkedList<>();
 		for (SettingBase<?> setting : settingList) {
 			if (!setting.isSpacer()) {
-				list.add(setting.cfgName());
-				list.add(setting.cfgValue());
+				list.add(setting.getCfgLabel());
+				list.add(setting.getCfgValue());
 			}
 		}
 		return String.join(",", list);
@@ -210,7 +210,7 @@ public class CustomRaceFactory {
 	private void setValues() {
 		for (SettingBase<?> setting : settingList) {
 			if (!setting.isSpacer()) {
-				String value = settingsValues.get(setting.cfgName());
+				String value = settingsValues.get(setting.getCfgLabel());
 				if (value != null)
 					setting.setFromCfgValue(value);
 			}

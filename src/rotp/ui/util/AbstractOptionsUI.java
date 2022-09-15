@@ -70,7 +70,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	private Color textC = SystemPanel.whiteText;
 	private LinkedList<Integer>	lastRowList = new LinkedList<>();
 	private LinkedList<BaseText> btList		= new LinkedList<>();
-	public	LinkedList<InterfaceParam<?>> paramList = new LinkedList<>();
+	public	LinkedList<InterfaceParam> paramList = new LinkedList<>();
 	private Rectangle hoverBox;
 	private Rectangle okBox 		= new Rectangle();
 	private Rectangle defaultBox	= new Rectangle();

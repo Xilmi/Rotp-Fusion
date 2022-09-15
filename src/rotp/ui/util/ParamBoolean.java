@@ -34,33 +34,19 @@ public class ParamBoolean extends AbstractParam<Boolean> {
 	}
 	// ===== Overriders =====
 	//
-	@Override protected String getCfgValue(Boolean value) {
-		return yesOrNo(value);
-	}
-	@Override public String getGuiValue() {
-		return yesOrNo(get());
-	}
-	@Override public Boolean next() {
-		return set(!get()); 
-	}
-	@Override public Boolean toggle(MouseWheelEvent e) {
-		return next(); 
-	}
-	@Override public Boolean toggle(MouseEvent e) {
-		if (getDir(e) == 0) {
+	@Override protected String getCfgValue(Boolean value)	{ return yesOrNo(value); }
+	@Override public void setFromCfgValue(String newValue)	{ value(yesOrNo(newValue)); }	
+	@Override public String getGuiValue()	{ return yesOrNo(get()); }
+	@Override public void prev()			{ next(); }
+	@Override public void next()			{ set(!get()); }
+	@Override public void toggle(MouseWheelEvent e)	{ next(); }
+	@Override public void toggle(MouseEvent e) {
+		if (getDir(e) == 0)
 			setFromDefault();
-			return get();
-		}
 		else
-			return next();
+			next();
 	}
-	@Override public Boolean setFromCfgValue(String newValue) {
-		return value(yesOrNo(newValue));
-	}	
-	@Override public Boolean prev() { return next(); }
 	// ===== Other Methods =====
 	//
-	public Boolean toggle() {
-		return next(); 
-	}
+	public void toggle() { next(); }
 }

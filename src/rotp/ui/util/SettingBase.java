@@ -17,6 +17,7 @@
 package rotp.ui.util;
 
 import static rotp.util.Base.random;
+import static rotp.util.Base.textSubs;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -30,7 +31,7 @@ import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BaseText;
 import rotp.util.LabelManager;
 
-public class SettingBase<T> implements InterfaceOptions {
+public class SettingBase<T> implements InterfaceParam {
 	
 	public enum CostFormula {DIFFERENCE, RELATIVE}
 
@@ -117,32 +118,32 @@ public class SettingBase<T> implements InterfaceOptions {
 	}
 	// ========== Public Interfaces ==========
 	//
-	public void setFromCfgValue(String cfgValue) {
+	@Override public void setFromCfgValue(String cfgValue) {
 		selectedIndex = cfgValidIndex(indexOfIgnoreCase(cfgValue, cfgValueList));
 	}
-	public void next() {
+	@Override public void next() {
 		selectedIndex = cfgValidIndex()+1;
 		if (selectedIndex >= cfgValueList.size())
 			selectedIndex = 0;
 	}
-	public void prev() {
+	@Override public void prev() {
 		selectedIndex = cfgValidIndex()-1;
 		if (selectedIndex < 0)
 			selectedIndex = cfgValueList.size()-1;
 	}
-	public void toggle(MouseEvent e, MouseWheelEvent w) {
+	@Override public void toggle(MouseEvent e, MouseWheelEvent w) {
 		if (e == null)
 			toggle(w);
 		else
 			toggle(e);
 	}
-	public void toggle(MouseWheelEvent e) {
+	@Override public void toggle(MouseWheelEvent e) {
 		if (getDir(e) > 0)
 			next();
 		else 
 			prev();
 	}
-	public void toggle(MouseEvent e) {
+	@Override public void toggle(MouseEvent e) {
 		if (getDir(e) == 0) 
 			setFromDefault();
 		else if (getDir(e) > 0)
@@ -154,11 +155,20 @@ public class SettingBase<T> implements InterfaceOptions {
 		selectedIndex = cfgValidDefaultIndex();
 	}
 	@Override public void setOptions(MOO1GameOptions options) {
-		// TODO BR: setOptions
+		options.setExtendedOptions(labelId(), getCfgValue());
 	}
 	@Override public void setFromOptions(MOO1GameOptions options) {
-		// TODO BR: setFromOptions
+		setFromCfgValue(options.getExtendedOptions(labelId(), getDefaultCfgValue()));
 	}
+	@Override public String getCfgValue() {
+		if (isList)
+			return cfgValueList.get(cfgValidIndex());
+		return String.valueOf(settingValue());
+	}
+	@Override public String getCfgLabel()		{ return nameLabel; }
+	@Override public String getGuiDescription() { return text(descriptionId()); }
+	@Override public String getGuiDisplay()		{ return text(labelId(), guiSettingValue()) + END; }
+
 	// ========== Overridable Methods ==========
 	//
 	public void pushSetting() {}
@@ -175,12 +185,6 @@ public class SettingBase<T> implements InterfaceOptions {
 		}
 		return 0f;
 	}
-	public void guiSelect() {
-		if (isSpacer())
-			return;
-		pushSetting();
-		updateGui();
-	}
 	public void updateGui() { 
 		if (isSpacer())
 			return;
@@ -189,6 +193,14 @@ public class SettingBase<T> implements InterfaceOptions {
 			optionText(optionIdx).disabled(optionIdx == selectedIndex);
 			optionText(optionIdx).repaint();
 		}
+	}
+	public float settingCost() {
+		if (isSpacer() || hasNoCost)
+			return 0f;;
+		return costList.get(costValidIndex());
+	}
+	public T settingValue() {
+		return valueList.get(valueValidIndex());
 	}
 	protected T randomize(float rand) {
 		if (isList) {
@@ -215,20 +227,6 @@ public class SettingBase<T> implements InterfaceOptions {
 		}
 		return null; // Should be overridden
 	}
-	public float settingCost() {
-		if (isSpacer() || hasNoCost)
-			return 0f;;
-		return costList.get(costValidIndex());
-	}
-	public T settingValue() {
-		return valueList.get(valueValidIndex());
-	}
-	String guiSettingDisplayStr() {
-		if (isBullet) 
-			return guiSettingLabelCostStr();
-		else
-			return guiSettingLabelValueCostStr();		
-	}
 	// ========== Setter ==========
 	//
 	public void setRandom(float min, float max, boolean gaussian) {
@@ -237,29 +235,6 @@ public class SettingBase<T> implements InterfaceOptions {
 	public void setRandom(float rand) {
 		lastRandomSource = rand;
 		set(randomize(rand));
-	}
-	/**
-	 * @param min Limit Value in %
-	 * @param max Limit Value in %
-	 * @param gaussian yes = smooth edges
-	 * @return a randomized value
-	 */
-	private T randomize(float min, float max, boolean gaussian) {
-		if (this.isSpacer)
-			return null;
-		if (hasNoCost && isList && !valueList.isEmpty()) {
-			int rand = random.nextInt(valueList.size());
-			return valueList.get(rand);
-		}
-		float rand;
-		float mini = Math.min(min, max)/100;
-		float maxi = Math.max(min, max)/100;
-		if (gaussian)
-			rand = (maxi + mini + (maxi-mini) * (float) random.nextGaussian())/2;
-		else
-			rand = mini + (maxi-mini) * (float) random.nextFloat();
-		lastRandomSource = rand;
-		return randomize(rand);
 	}
 	public void setValueFromCost(float cost) {
 		set(getValueFromCost(cost));
@@ -310,22 +285,24 @@ public class SettingBase<T> implements InterfaceOptions {
 	}
 	// ===== Getters =====
 	//
+	String guiSettingDisplayStr() {
+		if (isBullet) 
+			return guiSettingLabelCostStr();
+		else
+			return guiSettingLabelValueCostStr();		
+	}
 	T defaultValue()				{ return defaultValue; }
 	public boolean isSpacer()		{ return isSpacer; }
 	public boolean hasNoCost()		{ return hasNoCost; }
 	public boolean isBullet()		{ return isBullet; }
 	public float lastRandomSource()	{ return lastRandomSource; }
 	int index()						{ return cfgValidIndex(); }
-	private T optionValue(int index) { return valueList.get(valueValidIndex(index)); }
 	BaseText settingText()		{ return settingText; }
 	BaseText[] optionsText()	{ return optionsText; }
 	BaseText optionText(int i)	{ return optionsText[i]; }
-	private float optionCost(int index)	{ return costList.get(index); }
 	String guiOptionLabel()	{ return guiOptionLabel(index()); }
 //	public String optionLabel()		{ return optionLabel(index()); }
 	public String getLabel()		{ return text(labelId()); }
-	public String cfgName()			{ return nameLabel; }
-	private String labelId()		{ return guiLabel + nameLabel; }
 	public boolean isDefaultIndex()	{ return cfgValidIndex() == defaultIndex; }
 	public float costFactor() {
 		if (isList) {
@@ -338,11 +315,6 @@ public class SettingBase<T> implements InterfaceOptions {
 			return -Math.min(maxValueCostFactor(), minValueCostFactor());
 		else
 			return Math.max(maxValueCostFactor(), minValueCostFactor());
-	}
-	public String cfgValue() {
-		if (isList)
-			return cfgValueList.get(cfgValidIndex());
-		return String.valueOf(settingValue());
 	}
 	public int boxSize() {
 		if (isBullet())
@@ -361,35 +333,17 @@ public class SettingBase<T> implements InterfaceOptions {
 		list.addAll(cfgValueList);
 		return list;
 	}
-	private String settingCostString() {
-		return settingCostString(1); // default decimal number
-	}
-	private String settingCostString(int dec) {
-		return costString(settingCost(), dec);
-	}
-	private String optionCostStringIdx(int idx, int dec) {
-		return costString(optionCost(idx), dec);
-	}
-	private String guiSettingLabelCostStr() {
-		if (hasNoCost)
-			return getLabel();
-		return getLabel() + ": " + settingCostString();
-	}
-	private String guiSettingLabelValueCostStr() {
-		if (hasNoCost)
-			return getLabel() + ": " + guiSettingValue();
-		return getLabel() + ": " + guiSettingValue() + " " + settingCostString();
-	}
 	String guiCostOptionStr(int idx) {
 		return guiCostOptionStr(idx, 0);
 	}
-	private String guiCostOptionStr(int idx, int dec) {
-		String cost = String.format(costFormat,  optionCostStringIdx(idx, dec));
-		String txt = cost + guiOptionLabel(idx);
-		return txt;
-	}
 	// ===== Other Public Methods =====
 	//
+	public void guiSelect() {
+		if (isSpacer())
+			return;
+		pushSetting();
+		updateGui();
+	}
 	/**
 	 * Add a new Option with its Label
 	 * @param cfgValue
@@ -418,6 +372,62 @@ public class SettingBase<T> implements InterfaceOptions {
 	}
 	// ========== Private Methods ==========
 	//
+	/**
+	 * @param min Limit Value in %
+	 * @param max Limit Value in %
+	 * @param gaussian yes = smooth edges
+	 * @return a randomized value
+	 */
+	private T randomize(float min, float max, boolean gaussian) {
+		if (this.isSpacer)
+			return null;
+		if (hasNoCost && isList && !valueList.isEmpty()) {
+			int rand = random.nextInt(valueList.size());
+			return valueList.get(rand);
+		}
+		float rand;
+		float mini = Math.min(min, max)/100;
+		float maxi = Math.max(min, max)/100;
+		if (gaussian)
+			rand = (maxi + mini + (maxi-mini) * (float) random.nextGaussian())/2;
+		else
+			rand = mini + (maxi-mini) * (float) random.nextFloat();
+		lastRandomSource = rand;
+		return randomize(rand);
+	}
+	private T optionValue(int index)	{ return valueList.get(valueValidIndex(index)); }
+	private float optionCost(int index)	{ return costList.get(index); }
+	private String labelId()			{ return guiLabel + nameLabel; }
+	private String descriptionId()		{ return labelId() + LABEL_DESCRIPTION; }
+	private String getDefaultCfgValue() {
+		if (isList)
+			return cfgValueList.get(this.defaultIndex);
+		return String.valueOf(defaultValue);
+	}
+	private String settingCostString() {
+		return settingCostString(1); // default decimal number
+	}
+	private String settingCostString(int dec) {
+		return costString(settingCost(), dec);
+	}
+	private String optionCostStringIdx(int idx, int dec) {
+		return costString(optionCost(idx), dec);
+	}
+	private String guiSettingLabelCostStr() {
+		if (hasNoCost)
+			return getLabel();
+		return getLabel() + ": " + settingCostString();
+	}
+	private String guiSettingLabelValueCostStr() {
+		if (hasNoCost)
+			return getLabel() + ": " + guiSettingValue();
+		return getLabel() + ": " + guiSettingValue() + " " + settingCostString();
+	}
+	private String guiCostOptionStr(int idx, int dec) {
+		String cost = String.format(costFormat,  optionCostStringIdx(idx, dec));
+		String txt = cost + guiOptionLabel(idx);
+		return txt;
+	}
 	private void setDefaultIndex(int index) {
 		defaultIndex = index;
 		if (selectedIndex == -1)
@@ -479,6 +489,12 @@ public class SettingBase<T> implements InterfaceOptions {
 	}
 	protected static String text(String key) {
 		return LabelManager.current().label(key);
+	}
+	private static String text(String key, String... vals) {
+		String str = text(key);
+		for (int i=0;i<vals.length;i++)
+			str = str.replace(textSubs[i], vals[i]);
+		return str;
 	}
 	private int indexOfIgnoreCase(String string, LinkedList<String> list) {
 		int index = 0;

@@ -75,41 +75,37 @@ public class ParamInteger extends AbstractParam<Integer> {
 
 	// ===== Overriders =====
 	//
-	@Override public Integer setFromCfgValue(String newValue) {
-		return set(stringToInteger(newValue));
-	}	
-	@Override public Integer next() {
-		return next(baseInc());
-	}
-	@Override public Integer toggle(MouseEvent e) {
-		return next(getInc(e) * getDir(e));
-	}
-	@Override public Integer toggle(MouseWheelEvent e) {
-		return next(getInc(e) * getDir(e));
-	}
-	@Override public Integer prev() {
-		return next(-baseInc());
-	}
+	@Override public void setFromCfgValue(String newValue) { set(stringToInteger(newValue)); }	
+	@Override public void prev()					{ next(-baseInc()); }
+	@Override public void next()					{ next(baseInc()); }
+	@Override public void toggle(MouseEvent e)		{ next(getInc(e) * getDir(e)); }
+	@Override public void toggle(MouseWheelEvent e)	{ next(getInc(e) * getDir(e)); }
 	// ===== Other Methods =====
 	//
-	public int next(int i) {
+	public void next(int i) {
 		if (i == 0) {
 			setFromDefault();
-			return get();
+			return;
 		}
 		Integer value = get() + i;
 		if (maxValue() != null && value > maxValue()) {
-			if (loop && minValue() != null)
-				return set(minValue());
-			else
-				return set(maxValue());
+			if (loop && minValue() != null) {
+				set(minValue());
+				return;
+			} else {
+				set(maxValue());
+				return;
+			}
 		}
 		else if (minValue() != null && value < minValue()) {
-			if (loop && maxValue() != null)
-				return set(maxValue());
-			else
-				return set(minValue());
+			if (loop && maxValue() != null) {
+				set(maxValue());
+				return;
+			} else {
+				set(minValue());
+				return;
+			}
 		}
-		return set(value);
+		set(value);
 	}
 }

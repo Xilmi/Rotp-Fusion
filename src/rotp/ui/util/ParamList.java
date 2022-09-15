@@ -53,30 +53,28 @@ public class ParamList extends AbstractParam<String> {
 	@Override public String getGuiValue() {
 		return text(valueLabelMap.getLangLabelFromCfgValue(validateKey(get())));
 	}
-	@Override public String next() { 
-		return set(valueLabelMap.getNextCfgLabelIgnoreCase(get()));
+	@Override public void next() {
+		set(valueLabelMap.getNextCfgLabelIgnoreCase(get()));
 	}
-	@Override public String prev() {
-		return set(valueLabelMap.getPrevCfgLabelIgnoreCase(get())); 
+	@Override public void prev() {
+		set(valueLabelMap.getPrevCfgLabelIgnoreCase(get())); 
 	}
-	@Override public String toggle(MouseWheelEvent e) {
+	@Override public void toggle(MouseWheelEvent e) {
 		if (getDir(e) > 0)
-			return next();
+			next();
 		else 
-			return prev();
+			prev();
 	}
-	@Override public String toggle(MouseEvent e) {
-		if (getDir(e) == 0) {
+	@Override public void toggle(MouseEvent e) {
+		if (getDir(e) == 0)
 			setFromDefault();
-			return get();
-		}
 		else if (getDir(e) > 0)
-			return next();
+			next();
 		else 
-			return prev();
+			prev();
 	}
-	@Override public String setFromCfgValue(String newCfgLabel) {
-		return super.set(validateKey(newCfgLabel));
+	@Override public void setFromCfgValue(String newCfgLabel) {
+		super.set(validateKey(newCfgLabel));
 	}
 	@Override public String set(String newCfgLabel) {
 		return super.set(newCfgLabel);

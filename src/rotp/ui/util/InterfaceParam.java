@@ -19,15 +19,16 @@ package rotp.ui.util;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
-import rotp.model.game.MOO1GameOptions;
-
-public interface InterfaceParam <T> extends InterfaceOptions{
-	public T setFromCfgValue(String val);
-	public T next();
-	public T prev();
-	public T toggle(MouseWheelEvent e);
-	public T toggle(MouseEvent e);
-	public T toggle(MouseEvent e, MouseWheelEvent w);
+public interface InterfaceParam extends InterfaceOptions{
+	public static final String LABEL_DESCRIPTION = "_DESC";
+	public static final String END = "   ";
+	
+	public void setFromCfgValue(String val);
+	public void next();
+	public void prev();
+	public void toggle(MouseWheelEvent e);
+	public void toggle(MouseEvent e);
+	public void toggle(MouseEvent e, MouseWheelEvent w);
 	public String getCfgValue();
 	public String getCfgLabel();
 	public String getGuiDisplay();

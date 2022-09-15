@@ -96,50 +96,46 @@ public class ParamFloat extends AbstractParam<Float> {
 		}
 		return new DecimalFormat(guiFormat).format(get());
 	}
-	@Override public Float setFromCfgValue(String newValue) {
+	@Override public void setFromCfgValue(String newValue) {
 		if (isCfgPercent()) {
 			Integer val = stringToInteger(newValue.replace("%", ""));
 			if (val == null) 
-				return set(stringToFloat(newValue));
+				set(stringToFloat(newValue));
 			else
-				return set(val/100f);
-		} else {
-			return set(stringToFloat(newValue));
-		}
+				set(val/100f);
+		} else
+			set(stringToFloat(newValue));
 	}	
-	@Override public Float next() {
-		return next(baseInc());
-	}
-	@Override public Float prev() {
-		return next(-baseInc()); 
-	}
-	@Override public Float toggle(MouseEvent e)	{
-		return next(getInc(e) * getDir(e));
-	}
-	@Override public Float toggle(MouseWheelEvent e) {
-		return next(getInc(e) * getDir(e));
-	}
+	@Override public void next() { next(baseInc()); }
+	@Override public void prev() { next(-baseInc()); }
+	@Override public void toggle(MouseEvent e)		{ next(getInc(e) * getDir(e)); }
+	@Override public void toggle(MouseWheelEvent e) { next(getInc(e) * getDir(e)); }
 	// ========== Other Methods ==========
 	//
-	public Float next(float i) {
+	public void next(float i) {
 		if (i == 0) {
 			setFromDefault();
-			return get();
+			return;
 		}
 		Float value = get() + i;
 		if (maxValue() != null && value > maxValue()) {
-			if (loop && minValue() != null)
-				return set(minValue());
-			else
-				return set(maxValue());
+			if (loop && minValue() != null) {
+				set(minValue());
+				return;
+			} else {
+				set(maxValue());
+				return;
+			}
+		} else if (minValue() != null && value < minValue()) {
+			if (loop && maxValue() != null) {
+				set(maxValue());
+				return;
+			} else {
+				set(minValue());
+				return;
+			}
 		}
-		else if (minValue() != null && value < minValue()) {
-			if (loop && maxValue() != null)
-				return set(maxValue());
-			else
-				return set(minValue());
-		}
-		return set(value);
+		set(value);
 	}
 	private boolean isGuiPercent() {
 		return guiFormat.equals("%");

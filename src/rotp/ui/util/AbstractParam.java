@@ -26,10 +26,8 @@ import javax.swing.SwingUtilities;
 import rotp.model.game.MOO1GameOptions;
 import rotp.util.LabelManager;
 
-public abstract class AbstractParam <T> implements InterfaceParam <T>{
+public abstract class AbstractParam <T> implements InterfaceParam{
 	
-	private static final String LABEL_DESCRIPTION = "_DESC";
-	private static final String END = "   ";
 	private final String name;
 	private final String gui;
 	private T value;
@@ -87,11 +85,11 @@ public abstract class AbstractParam <T> implements InterfaceParam <T>{
 
 	// ========== Public Interfaces ==========
 	//
-	//	public abstract T setFromCfgValue(String val);
-	//	public abstract T next();
-	//	public abstract T prev();
-	//	public abstract T toggle(MouseWheelEvent e);
-	//	public abstract T toggle(MouseEvent e);
+	//	public abstract void setFromCfgValue(String val);
+	//	public abstract void next();
+	//	public abstract void prev();
+	//	public abstract void toggle(MouseWheelEvent e);
+	//	public abstract void toggle(MouseEvent e);
 
 	@Override public String toString() {
 		return getCfgLabel() + " = " + getCfgValue();
@@ -107,11 +105,11 @@ public abstract class AbstractParam <T> implements InterfaceParam <T>{
 	@Override public String getGuiDescription() { return text(descriptionId()); }
 	@Override public String getGuiDisplay()	{ return text(labelId(), getGuiValue()) + END; }
 	@Override public void setFromDefault()	{ value = defaultValue; }
-	@Override public T toggle(MouseEvent e, MouseWheelEvent w) {
+	@Override public void toggle(MouseEvent e, MouseWheelEvent w) {
 		if (e == null)
-			return toggle(w);
+			toggle(w);
 		else
-			return toggle(e);
+			toggle(e);
 	}
 	// ========== Methods to be overridden ==========
 	//
