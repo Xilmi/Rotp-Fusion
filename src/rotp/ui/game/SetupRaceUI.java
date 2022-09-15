@@ -16,6 +16,7 @@
 package rotp.ui.game;
 
 import static rotp.ui.UserPreferences.customPlayerRace;
+import static rotp.ui.UserPreferences.playerShipSet;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonWidth;
 import static rotp.ui.util.AbstractOptionsUI.userButtonKey;
@@ -45,7 +46,6 @@ import java.util.List;
 
 import javax.swing.JTextField;
 
-import rotp.mod.br.addOns.ShipSetAddOns;
 import rotp.mod.br.profiles.Profiles;
 import rotp.model.empires.Race;
 import rotp.model.game.MOO1GameOptions;
@@ -138,12 +138,12 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 	private void saveOptions(MOO1GameOptions destination) {
 		copyOptions((MOO1GameOptions)newGameOptions(), destination);
 		customPlayerRace.setOptions(destination);
-//    	ShipSetAddOns.playerShipSet(src.ex); // TODO BR: playerShipSet
+//    	playerShipSet.playerShipSet(); // TODO BR: playerShipSet
 	}
 	private void getOptions(MOO1GameOptions source) {
 		copyOptions(source, (MOO1GameOptions)newGameOptions());
     	customPlayerRace.setFromOptions(source);;
-//    	ShipSetAddOns.playerShipSet(src.ex); // TODO BR: playerShipSet
+//    	playerShipSet.playerShipSet(src.ex); // TODO BR: playerShipSet
 	}
     private void doCancelBoxAction() {
     	if (ctrlPressed) // Restore
@@ -163,7 +163,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
  			getOptions(fileOptions);
  		} else { // set to default
  			MOO1GameOptions.setDefaultRaceOptions((MOO1GameOptions)newGameOptions());
- 	    	ShipSetAddOns.setToDefault();
+ 	    	playerShipSet.setFromDefault();
  	    	UserPreferences.customPlayerRace.setFromDefault();
  		}
  		init();
@@ -538,8 +538,8 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         }
     }
     private void shipSetChanged() {
-    	shipSetTxt.setText(ShipSetAddOns.playerShipSet());
-    	shipSetId = ShipSetAddOns.realShipSetId(Race.keyed(
+    	shipSetTxt.setText(playerShipSet.get());
+    	shipSetId = playerShipSet.realShipSetId(Race.keyed(
     			newGameOptions().selectedPlayerRace()).preferredShipSet);
     }
     private void checkBoxChanged() { // BR: checkBoxChanged
@@ -949,7 +949,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         }
         // BR: Player Ship Set Selection
         else if (hoverBox == shipSetBox) {
-        	ShipSetAddOns.togglePlayerShipSet(e.getButton());
+        	playerShipSet.toggle(e);
         	shipSetChanged();
         	repaint();
         }
@@ -1007,9 +1007,8 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     }
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
-        boolean up = e.getWheelRotation() < 0;
         if (hoverBox == shipSetBox) {
-        	ShipSetAddOns.togglePlayerShipSet(up);
+        	playerShipSet.toggle(e);
         	shipSetChanged();
         	repaint();
         } else if (hoverBox == checkBox) {

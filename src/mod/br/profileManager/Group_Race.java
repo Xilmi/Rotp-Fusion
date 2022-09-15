@@ -20,6 +20,7 @@ package mod.br.profileManager;
 import static br.profileManager.src.main.java.Validation.History.Current;
 import static br.profileManager.src.main.java.Validation.History.Default;
 import static br.profileManager.src.main.java.Validation.History.Initial;
+import static rotp.ui.UserPreferences.playerShipSet;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,7 +31,6 @@ import br.profileManager.src.main.java.AbstractT;
 import br.profileManager.src.main.java.T_String;
 import br.profileManager.src.main.java.Valid_IntegerWithList;
 import br.profileManager.src.main.java.Validation;
-import mod.br.addOns.ShipSetOptions;
 
 /**
  * @author BrokenRegistry
@@ -247,10 +247,9 @@ public class Group_Race extends AbstractGroup <ClientClasses> {
 			super("PLAYER PREFERED CHIP SET",
 					new Validation<String>(
 							new T_String(go.options().selectedPlayerRace())
-							, ShipSetOptions.shipSetOptions()
+							, playerShipSet.getOptions()
 					)
 			);
-			ShipSetOptions.init(go.options().startingRaceOptions());
 			setHistoryCodeView(Default, "");
 		}
 		// ========== Overriders ==========
@@ -264,11 +263,11 @@ public class Group_Race extends AbstractGroup <ClientClasses> {
 		}
 		
 		@Override public AbstractT<String> getFromUI (ClientClasses go) {
-			return new T_String().setFromCodeView(ShipSetOptions.playerShipSet());
+			return new T_String().setFromCodeView(playerShipSet.get());
 		}
 		
 		@Override public void putToGUI(ClientClasses go, AbstractT<String> value) {
-			ShipSetOptions.playerShipSet(value.getCodeView());
+			playerShipSet.set(value.getCodeView());
 		}
 		
 		@Override public void initComments() {

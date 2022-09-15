@@ -16,6 +16,7 @@
 package rotp.model.galaxy;
 
 import static rotp.ui.UserPreferences.loadWithNewOptions;
+import static rotp.ui.UserPreferences.playerShipSet;
 import static rotp.ui.UserPreferences.randomAlienRaces;
 
 import java.awt.Point;
@@ -25,7 +26,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import rotp.mod.br.addOns.RacesOptions;
-import rotp.mod.br.addOns.ShipSetAddOns;
 import rotp.model.empires.CustomRaceFactory;
 import rotp.model.empires.Empire;
 import rotp.model.empires.Leader;
@@ -63,8 +63,8 @@ public class GalaxyFactory implements Base {
 
 		GameSession.instance().galaxy(g);
 		Race playerRace = Race.keyed(opts.selectedPlayerRace());
-		if(!ShipSetAddOns.isOriginalShipSet())
-			playerRace.preferredShipSet = ShipSetAddOns.playerShipSet();
+		if(!playerShipSet.isOriginal())
+			playerRace.preferredShipSet = playerShipSet.get();
 
 		LinkedList<String> alienRaces = gc.alienRaces();
 		addNebulas(g, gc);
@@ -97,8 +97,8 @@ public class GalaxyFactory implements Base {
 		Galaxy g = new Galaxy(shape);
 		GameSession.instance().galaxy(g);
 		Race playerRace = Race.keyed(opts.selectedPlayerRace());
-		if(!ShipSetAddOns.isOriginalShipSet())
-			playerRace.preferredShipSet = ShipSetAddOns.playerShipSet();
+		if(!playerShipSet.isOriginal())
+			playerRace.preferredShipSet = playerShipSet.get();
 
 		LinkedList<String> alienRaces = buildAlienRaces();
 

@@ -29,7 +29,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 import rotp.Rotp;
-import rotp.mod.br.addOns.ShipSetAddOns;
 import rotp.model.events.RandomEvents;
 import rotp.model.game.GameSession;
 import rotp.ui.util.AbstractParam;
@@ -40,6 +39,7 @@ import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamTech;
+import rotp.ui.util.PlayerShipSet;
 import rotp.ui.util.RandomAlienRaces;
 import rotp.util.LanguageManager;
 import rotp.util.sound.SoundManager;
@@ -175,8 +175,8 @@ public class UserPreferences {
 			));
 	// BR: Galaxy Menu addition
 	public static final ParamBoolean showNewRaces = new ParamBoolean(MOD_UI, "SHOW_NEW_RACES", false);
-
-	// BR: Player customRace
+	// BR: Race Menu addition
+	public static final PlayerShipSet playerShipSet = new PlayerShipSet(MOD_UI, "PLAYER_SHIP_SET");
 	public static final ParamBoolean customPlayerRace = new ParamBoolean(
 			BASE_UI, "BUTTON_CUSTOM_PLAYER_RACE", false);
 
@@ -431,8 +431,7 @@ public class UserPreferences {
 			out.println(keyFormat("DIVERT_COLONY_EXCESS_TO_RESEARCH")+ yesOrNo(divertColonyExcessToResearch));
 			out.println(keyFormat("LEGACY_GROWTH") + yesOrNo(legacyGrowth)); // BR:
 			out.println(keyFormat("GOVERNOR_AUTO_APPLY") + yesOrNo(governorAutoApply)); // BR:
-			// TODO BR: Change to new standard GUI way
-			out.println(keyFormat("PLAYER_SHIP_SET") + ShipSetAddOns.playerShipSet()); 
+
 			out.println();
 			out.println("===== MOD Global GUI Settings =====");
 			out.println();
@@ -492,8 +491,6 @@ public class UserPreferences {
 			case "DISABLE_ADVISOR": disableAdvisor = yesOrNo(val); return;
 			case "SCREEN_SIZE_PCT": screenSizePct(Integer.valueOf(val)); return;
 			case "UI_TEXTURE_LEVEL": uiTexturePct(Integer.valueOf(val)); return;
-			// TODO BR: Change to new standard GUI way
-			case "PLAYER_SHIP_SET": ShipSetAddOns.playerShipSet(val); return; // BR: add option to select Player Ship Set
 			case "LANGUAGE": selectLanguage(val); return;
 			default:
 			// BR: Global Mod GUI

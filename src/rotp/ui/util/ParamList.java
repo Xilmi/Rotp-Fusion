@@ -22,7 +22,7 @@ import java.util.LinkedList;
 
 public class ParamList extends AbstractParam<String> {
 
-	private final IndexableMap optValCostPtrMap;
+	private final IndexableMap valueLabelMap;
 	
 	// ===== Constructors =====
 	//
@@ -33,7 +33,7 @@ public class ParamList extends AbstractParam<String> {
 	 */
 	public ParamList(String gui, String name, String defaultCfgLabel) {
 		super(gui, name, defaultCfgLabel);
-		optValCostPtrMap = new IndexableMap();
+		valueLabelMap = new IndexableMap();
 	}
 	/**
 	 * @param gui  The label header
@@ -43,7 +43,7 @@ public class ParamList extends AbstractParam<String> {
 	 */
 	public ParamList(String gui, String name, String defaultCfgLabel, IndexableMap optionLabelMap) {
 		super(gui, name, defaultCfgLabel);
-		this.optValCostPtrMap = optionLabelMap;
+		this.valueLabelMap = optionLabelMap;
 	}
 	// ===== Overriders =====
 	//
@@ -51,13 +51,13 @@ public class ParamList extends AbstractParam<String> {
 		return validateKey(value);
 	}
 	@Override public String getGuiValue() {
-		return text(optValCostPtrMap.getLangLabelFromCfgValue(validateKey(get())));
+		return text(valueLabelMap.getLangLabelFromCfgValue(validateKey(get())));
 	}
 	@Override public String next() { 
-		return set(optValCostPtrMap.getNextCfgLabelIgnoreCase(get()));
+		return set(valueLabelMap.getNextCfgLabelIgnoreCase(get()));
 	}
 	@Override public String prev() {
-		return set(optValCostPtrMap.getPrevCfgLabelIgnoreCase(get())); 
+		return set(valueLabelMap.getPrevCfgLabelIgnoreCase(get())); 
 	}
 	@Override public String toggle(MouseWheelEvent e) {
 		if (getDir(e) > 0)
@@ -80,30 +80,35 @@ public class ParamList extends AbstractParam<String> {
 		return super.set(newCfgLabel);
 	}
 	@Override public int getIndex(){
-		return optValCostPtrMap.getCfgLabelIndexIgnoreCase(get());
+		return valueLabelMap.getCfgLabelIndexIgnoreCase(get());
 	}
 	@Override public String setFromIndex(int idx) {
-		return super.set(value(optValCostPtrMap.getCfgValue(idx)));
+		return super.set(value(valueLabelMap.getCfgValue(idx)));
 	}
 	@Override public String getGuiValue(int idx) {
-		return text(optValCostPtrMap.getLangLabel(idx));
+		return text(valueLabelMap.getLangLabel(idx));
 	}
-	// ===== Other Public Methods =====
+	// ===== Other Protected Methods =====
 	//
+	protected int getIndex(String value) {
+		return valueLabelMap.getCfgLabelIndexIgnoreCase(value);
+	}
 	protected void setFromValue(String newValue) {
-		String newCfgLabel = optValCostPtrMap.getCfgLabelFromValue(newValue);
+		String newCfgLabel = valueLabelMap.getCfgLabelFromValue(newValue);
 		super.set(newCfgLabel);
 	}
 	protected String getValue() {
-		return optValCostPtrMap.getLangLabelFromCfgValue(validateKey(get()));
+		return valueLabelMap.getLangLabelFromCfgValue(validateKey(get()));
 	}
+	// ===== Other Public Methods =====
+	//
 	public LinkedList<String> getOptions(){
 		LinkedList<String> list = new LinkedList<String>();
-		list.addAll(optValCostPtrMap.cfgValueList);
+		list.addAll(valueLabelMap.cfgValueList);
 		return list;
 	}
 	public IndexableMap getOptionLabelMap() {
-		return optValCostPtrMap;
+		return valueLabelMap;
 	}
 	/**
 	 * Add a new Option with its Label
@@ -112,7 +117,7 @@ public class ParamList extends AbstractParam<String> {
 	 * @return this for chaining purpose
 	 */
 	public ParamList put(String option, String label) {
-		optValCostPtrMap.put(option, label);
+		valueLabelMap.put(option, label);
 		return this;
 	}
 	/**
@@ -121,11 +126,11 @@ public class ParamList extends AbstractParam<String> {
 	 * @return a valid value, preferably the value to test
 	 */
 	private String validateKey(String key) {
-		if (optValCostPtrMap.cfgValuesContainsIgnoreCase(key))
+		if (valueLabelMap.cfgValuesContainsIgnoreCase(key))
 			return key;
-		if (optValCostPtrMap.cfgValuesContainsIgnoreCase(defaultValue()))
+		if (valueLabelMap.cfgValuesContainsIgnoreCase(defaultValue()))
 			return defaultValue();
-		return optValCostPtrMap.getCfgValue(0);
+		return valueLabelMap.getCfgValue(0);
 	}
 	//========== Nested class ==========
 	//
