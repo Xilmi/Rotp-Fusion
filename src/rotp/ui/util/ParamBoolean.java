@@ -47,8 +47,10 @@ public class ParamBoolean extends AbstractParam<Boolean> {
 		return next(); 
 	}
 	@Override public Boolean toggle(MouseEvent e) {
-		if (getDir(e) == 0)
-			return setFromDefault();
+		if (getDir(e) == 0) {
+			setFromDefault();
+			return get();
+		}
 		else
 			return next();
 	}

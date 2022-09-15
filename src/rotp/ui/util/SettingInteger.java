@@ -143,19 +143,19 @@ public class SettingInteger extends SettingBase<Integer> {
 		next(baseInc);
 	}
 	@Override public void prev() {
-		 next(-baseInc);
+		next(-baseInc);
 	}
 	@Override public void toggle(MouseEvent e) {
 		Integer inc = getInc(e) * getDir(e);
 		if (inc == 0)
-			this.setToDefault(true);
+			setFromDefault();
 		else
 			next(getInc(e) * getDir(e));
 	}
 	@Override public void toggle(MouseWheelEvent e) {
 		Integer inc = getInc(e) * getDir(e);
 		if (inc == 0)
-			this.setToDefault(true);
+			setFromDefault();
 		else
 			next(getInc(e) * getDir(e));
 	}
@@ -166,7 +166,7 @@ public class SettingInteger extends SettingBase<Integer> {
 	//
 	private void next(Integer i) {
 		if (i == 0) {
-			setToDefault(true);
+			setFromDefault();
 			return;
 		}
 		Integer value = settingValue() + i;

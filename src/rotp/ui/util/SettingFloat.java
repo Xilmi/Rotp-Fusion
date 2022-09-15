@@ -183,14 +183,14 @@ public class SettingFloat extends SettingBase<Float> {
 	@Override public void toggle(MouseEvent e) {
 		Float inc = getInc(e) * getDir(e);
 		if (inc == 0)
-			this.setToDefault(true);
+			setFromDefault();
 		else
 			next(getInc(e) * getDir(e));
 	}
 	@Override public void toggle(MouseWheelEvent e) {
 		Float inc = getInc(e) * getDir(e);
 		if (inc == 0)
-			this.setToDefault(true);
+			setFromDefault();
 		else
 			next(getInc(e) * getDir(e));
 	}
@@ -201,7 +201,7 @@ public class SettingFloat extends SettingBase<Float> {
 	//
 	private void next(Float i) {
 		if (i == 0) {
-			setToDefault(true);
+			setFromDefault();
 			return;
 		}
 		Float value = settingValue() + i;

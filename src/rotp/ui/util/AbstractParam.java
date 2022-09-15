@@ -106,10 +106,7 @@ public abstract class AbstractParam <T> implements InterfaceParam <T>{
 	@Override public String getCfgLabel() { return name; }
 	@Override public String getGuiDescription() { return text(descriptionId()); }
 	@Override public String getGuiDisplay()	{ return text(labelId(), getGuiValue()) + END; }
-	@Override public T setFromDefault() {
-		value = defaultValue;
-		return value;
-	}
+	@Override public void setFromDefault()	{ value = defaultValue; }
 	@Override public T toggle(MouseEvent e, MouseWheelEvent w) {
 		if (e == null)
 			return toggle(w);

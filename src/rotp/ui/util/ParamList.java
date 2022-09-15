@@ -66,8 +66,10 @@ public class ParamList extends AbstractParam<String> {
 			return prev();
 	}
 	@Override public String toggle(MouseEvent e) {
-		if (getDir(e) == 0) 
-			return setFromDefault();
+		if (getDir(e) == 0) {
+			setFromDefault();
+			return get();
+		}
 		else if (getDir(e) > 0)
 			return next();
 		else 

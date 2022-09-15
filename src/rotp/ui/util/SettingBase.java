@@ -26,10 +26,11 @@ import java.util.LinkedList;
 
 import javax.swing.SwingUtilities;
 
+import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BaseText;
 import rotp.util.LabelManager;
 
-public class SettingBase<T> {
+public class SettingBase<T> implements InterfaceOptions {
 	
 	public enum CostFormula {DIFFERENCE, RELATIVE}
 
@@ -114,7 +115,50 @@ public class SettingBase<T> {
 		this.labelsAreFinals = labelsAreFinals;
 		return this;
 	}
-
+	// ========== Public Interfaces ==========
+	//
+	public void setFromCfgValue(String cfgValue) {
+		selectedIndex = cfgValidIndex(indexOfIgnoreCase(cfgValue, cfgValueList));
+	}
+	public void next() {
+		selectedIndex = cfgValidIndex()+1;
+		if (selectedIndex >= cfgValueList.size())
+			selectedIndex = 0;
+	}
+	public void prev() {
+		selectedIndex = cfgValidIndex()-1;
+		if (selectedIndex < 0)
+			selectedIndex = cfgValueList.size()-1;
+	}
+	public void toggle(MouseEvent e, MouseWheelEvent w) {
+		if (e == null)
+			toggle(w);
+		else
+			toggle(e);
+	}
+	public void toggle(MouseWheelEvent e) {
+		if (getDir(e) > 0)
+			next();
+		else 
+			prev();
+	}
+	public void toggle(MouseEvent e) {
+		if (getDir(e) == 0) 
+			setFromDefault();
+		else if (getDir(e) > 0)
+			next();
+		else 
+			prev();
+	}
+	@Override public void setFromDefault() {
+		selectedIndex = cfgValidDefaultIndex();
+	}
+	@Override public void setOptions(MOO1GameOptions options) {
+		// TODO BR: setOptions
+	}
+	@Override public void setFromOptions(MOO1GameOptions options) {
+		// TODO BR: setFromOptions
+	}
 	// ========== Overridable Methods ==========
 	//
 	public void pushSetting() {}
@@ -170,30 +214,6 @@ public class SettingBase<T> {
 			return valueList.get(bestIdx);
 		}
 		return null; // Should be overridden
-	}
-	public void toggle(MouseWheelEvent e) {
-		if (getDir(e) > 0)
-			next();
-		else 
-			prev();
-	}
-	public void toggle(MouseEvent e) {
-		if (getDir(e) == 0) 
-			setToDefault(true);
-		else if (getDir(e) > 0)
-			next();
-		else 
-			prev();
-	}
-	public void next() {
-		selectedIndex = cfgValidIndex()+1;
-		if (selectedIndex >= cfgValueList.size())
-			selectedIndex = 0;
-	}
-	public void prev() {
-		selectedIndex = cfgValidIndex()-1;
-		if (selectedIndex < 0)
-			selectedIndex = cfgValueList.size()-1;
 	}
 	public float settingCost() {
 		if (isSpacer() || hasNoCost)
@@ -279,18 +299,6 @@ public class SettingBase<T> {
 		selectedIndex = valueValidIndex(valueList.indexOf(defaultValue));
 		return this;
 	}
-	void toggle(MouseEvent e, MouseWheelEvent w) {
-		if (e == null)
-			toggle(w);
-		else
-			toggle(e);
-	}
-	public void setToDefault(boolean save) {
-		selectedIndex = cfgValidDefaultIndex();
-	}
-	public void setFromCfgValue(String cfgValue) {
-		selectedIndex = cfgValidIndex(indexOfIgnoreCase(cfgValue, cfgValueList));
-	}
 	public void setFromLabel(String langLabel) {
 		selectedIndex = cfgValidIndex(indexOfIgnoreCase(langLabel, labelList));
 	}
@@ -302,14 +310,14 @@ public class SettingBase<T> {
 	}
 	// ===== Getters =====
 	//
-	T defaultValue()			{ return defaultValue; }
+	T defaultValue()				{ return defaultValue; }
 	public boolean isSpacer()		{ return isSpacer; }
 	public boolean hasNoCost()		{ return hasNoCost; }
 	public boolean isBullet()		{ return isBullet; }
 	public float lastRandomSource()	{ return lastRandomSource; }
-	int index()				{ return cfgValidIndex(); }
+	int index()						{ return cfgValidIndex(); }
 	private T optionValue(int index) { return valueList.get(valueValidIndex(index)); }
-	BaseText settingText()	{ return settingText; }
+	BaseText settingText()		{ return settingText; }
 	BaseText[] optionsText()	{ return optionsText; }
 	BaseText optionText(int i)	{ return optionsText[i]; }
 	private float optionCost(int index)	{ return costList.get(index); }
@@ -317,7 +325,7 @@ public class SettingBase<T> {
 //	public String optionLabel()		{ return optionLabel(index()); }
 	public String getLabel()		{ return text(labelId()); }
 	public String cfgName()			{ return nameLabel; }
-	private String labelId()			{ return guiLabel + nameLabel; }
+	private String labelId()		{ return guiLabel + nameLabel; }
 	public boolean isDefaultIndex()	{ return cfgValidIndex() == defaultIndex; }
 	public float costFactor() {
 		if (isList) {

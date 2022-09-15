@@ -177,11 +177,11 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		disableGlassPane();
 	}
 	private void saveOptions(MOO1GameOptions destination) {
-		for (InterfaceParam<?> param : paramList)
+		for (InterfaceOptions param : paramList)
 			param.setOptions(destination);
 	}
 	private void getOptions(MOO1GameOptions source) {
-		for (InterfaceParam<?> param : paramList)
+		for (InterfaceOptions param : paramList)
 			param.setFromOptions(source);
 	}
 	private void doOkBoxAction() {
@@ -210,7 +210,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		repaint();
 	}
 	public void setToDefault() {
-		for (InterfaceParam<?> param : paramList)
+		for (InterfaceOptions param : paramList)
 			param.setFromDefault();
 	}
 	private void doUserBoxAction() {
