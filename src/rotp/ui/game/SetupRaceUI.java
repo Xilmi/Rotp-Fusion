@@ -138,12 +138,12 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 	private void saveOptions(MOO1GameOptions destination) {
 		copyOptions((MOO1GameOptions)newGameOptions(), destination);
 		customPlayerRace.setOptions(destination);
-//    	playerShipSet.playerShipSet(); // TODO BR: playerShipSet
+    	playerShipSet.setOptions(destination);
 	}
 	private void getOptions(MOO1GameOptions source) {
 		copyOptions(source, (MOO1GameOptions)newGameOptions());
-    	customPlayerRace.setFromOptions(source);;
-//    	playerShipSet.playerShipSet(src.ex); // TODO BR: playerShipSet
+    	customPlayerRace.setFromOptions(source);
+    	playerShipSet.setFromOptions(source);
 	}
     private void doCancelBoxAction() {
     	if (ctrlPressed) // Restore
@@ -163,8 +163,8 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
  			getOptions(fileOptions);
  		} else { // set to default
  			MOO1GameOptions.setDefaultRaceOptions((MOO1GameOptions)newGameOptions());
+ 	    	customPlayerRace.setFromDefault();
  	    	playerShipSet.setFromDefault();
- 	    	UserPreferences.customPlayerRace.setFromDefault();
  		}
  		init();
  		repaint();

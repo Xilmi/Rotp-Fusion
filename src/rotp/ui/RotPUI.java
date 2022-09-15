@@ -317,7 +317,8 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
 	    		return;
 	    	case "DEFAULT":
 	    		newGameOptions = new MOO1GameOptions();
-	    		// TODO BR: createNewOptions() Set default options
+	    		instance.startModAOptionsUI.setToDefault();
+	    		instance.startModBOptionsUI.setToDefault();
 	    		return;
      	} // Vanilla, as before
    		newGameOptions = new MOO1GameOptions();

@@ -1109,6 +1109,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	dest.selectedNumberOpponents	= src.selectedNumberOpponents;
     	dest.selectedGameDifficulty		= src.selectedGameDifficulty;
     	dest.selectedOpponentAIOption	= src.selectedOpponentAIOption;
+        for (int i=0;i<dest.opponentRaces.length;i++)
+        	dest.opponentRaces[i] = src.opponentRaces[i];
         for (int i=0;i<dest.specificOpponentAIOption.length;i++)
         	dest.specificOpponentAIOption[i] = src.specificOpponentAIOption[i];
     }
@@ -1123,6 +1125,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	dest.selectedNumberOpponents	= dest.defaultOpponentsOptions();
     	dest.selectedGameDifficulty		= DIFFICULTY_NORMAL;
     	dest.selectedOpponentAIOption	= OPPONENT_AI_CRUEL;
+        for (int i=0;i<dest.opponentRaces.length;i++)
+        	dest.opponentRaces[i] = null;
         for (int i=0;i<dest.specificOpponentAIOption.length;i++)
         	dest.specificOpponentAIOption[i] = OPPONENT_AI_CRUEL;
     }
