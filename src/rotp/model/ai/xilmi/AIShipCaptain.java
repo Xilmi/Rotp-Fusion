@@ -928,7 +928,8 @@ public class AIShipCaptain implements Base, ShipCaptain {
                 {
                     float mySpeedRange = st2.maxMove + maxFiringRange(st2, st1, true);
                     float enemySpeedRange = st1.maxMove + maxFiringRange(st1, st2, true);
-                    killPct *= max(0, (2 * mySpeedRange - enemySpeedRange) / mySpeedRange);
+                    if(st2.initiative() <= st1.initiative() || maxFiringRange(st2, st1, true) < maxFiringRange(st1, st2, true))
+                        killPct *= max(0, (2 * mySpeedRange - enemySpeedRange) / mySpeedRange);
                 }
                 damagePerTurn += killPct;
             }
@@ -972,7 +973,8 @@ public class AIShipCaptain implements Base, ShipCaptain {
                 {
                     float mySpeedRange = st2.maxMove + maxFiringRange(st2, st1, true);
                     float enemySpeedRange = st1.maxMove + maxFiringRange(st1, st2, true);
-                    killPct *= max(0, (2 * mySpeedRange - enemySpeedRange) / mySpeedRange);
+                    if(st2.initiative() <= st1.initiative() || maxFiringRange(st2, st1, true) < maxFiringRange(st1, st2, true))
+                        killPct *= max(0, (2 * mySpeedRange - enemySpeedRange) / mySpeedRange);
                 }
                 damagePerTurn += killPct;
             }
@@ -1264,6 +1266,8 @@ public class AIShipCaptain implements Base, ShipCaptain {
             if (!attacker.shipComponentIsOutOfMissiles(i))
                 maxRange = max(maxRange,wpn.range());
         }
+        if(maxRange <= defender.repulsorRange())
+            maxRange = 0;
         return maxRange;
     }
     //If the enemy has repulsors that we can't counter, they could mess with us so we'd rather just go straight for the closest target
