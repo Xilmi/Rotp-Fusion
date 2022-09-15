@@ -26,7 +26,7 @@ import javax.swing.SwingUtilities;
 import rotp.model.game.MOO1GameOptions;
 import rotp.util.LabelManager;
 
-public abstract class AbstractParam <T> {
+public abstract class AbstractParam <T> implements InterfaceParam <T>{
 	
 	private static final String LABEL_DESCRIPTION = "_DESC";
 	private static final String END = "   ";
@@ -87,11 +87,11 @@ public abstract class AbstractParam <T> {
 
 	// ========== Public Abstract ==========
 	//
-	public abstract T setFromCfgValue(String val);
-	public abstract T next();
-	public abstract T prev();
-	public abstract T toggle(MouseWheelEvent e);
-	public abstract T toggle(MouseEvent e);
+	//	public abstract T setFromCfgValue(String val);
+	//	public abstract T next();
+	//	public abstract T prev();
+	//	public abstract T toggle(MouseWheelEvent e);
+	//	public abstract T toggle(MouseEvent e);
 
 	@Override public String toString() {
 		return getCfgLabel() + " = " + getCfgValue();
@@ -112,27 +112,27 @@ public abstract class AbstractParam <T> {
 	}
 	// ========== Game Options Getter and setter ==========
 	//
-	public void setFromOptions(MOO1GameOptions options) {
+	@Override public void setFromOptions(MOO1GameOptions options) {
 		setFromCfgValue(options.getExtendedOptions(name, getCfgValue(defaultValue())));
 	}
-	public void setOptions(MOO1GameOptions options) {
+	@Override public void setOptions(MOO1GameOptions options) {
 		options.setExtendedOptions(name, getCfgValue());
 	}
 	// ========== Public Getters ==========
 	//
-	public String getCfgValue() {
+	@Override public String getCfgValue() {
 		return getCfgValue(value);
 	}
-	public String getCfgLabel() {
+	@Override public String getCfgLabel() {
 		return name;
 	}
-	public String getGuiDescription() {
+	@Override public String getGuiDescription() {
 		return text(descriptionId());
 	}
 	public String getLabel() {
 		return text(labelId());
 	}
-	public String getGuiDisplay() {
+	@Override public String getGuiDisplay() {
 		return text(labelId(), getGuiValue()) + END; 
 	}
 	public T defaultValue() {
@@ -152,7 +152,7 @@ public abstract class AbstractParam <T> {
 	}	
 	// ========== Public Setters ==========
 	//
-	public T setFromDefault() {
+	@Override public T setFromDefault() {
 		value = defaultValue;
 		return value;
 	}
@@ -160,7 +160,7 @@ public abstract class AbstractParam <T> {
 		value = newValue;
 		return value;
 	}	
-	T toggle(MouseEvent e, MouseWheelEvent w) {
+	@Override public T toggle(MouseEvent e, MouseWheelEvent w) {
 		if (e == null)
 			return toggle(w);
 		else

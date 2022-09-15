@@ -53,7 +53,6 @@ import rotp.model.ships.ShipImage;
 import rotp.model.ships.ShipLibrary;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
-import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
 
 public final class SetupRaceUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {

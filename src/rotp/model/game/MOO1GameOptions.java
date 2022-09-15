@@ -1103,16 +1103,18 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	dest.selectedPlayerColor(src.selectedPlayerColor());
     }
     public static void setGalaxyOptions(MOO1GameOptions src, MOO1GameOptions dest) {
-    	dest.selectedGalaxySize			= src.selectedGalaxySize;
-    	dest.selectedGalaxyShape		= src.selectedGalaxyShape;
-    	dest.selectedGalaxyAge			= src.selectedGalaxyAge;
-    	dest.selectedNumberOpponents	= src.selectedNumberOpponents;
-    	dest.selectedGameDifficulty		= src.selectedGameDifficulty;
-    	dest.selectedOpponentAIOption	= src.selectedOpponentAIOption;
+    	dest.selectedGalaxySize	(src.selectedGalaxySize);
+    	dest.selectedGalaxyShape(src.selectedGalaxyShape);
+    	dest.selectedGalaxyShapeOption1 = src.selectedGalaxyShapeOption1;
+    	dest.selectedGalaxyShapeOption2 = src.selectedGalaxyShapeOption2;
+    	dest.selectedNumberOpponents(src.selectedNumberOpponents);
+    	dest.selectedGameDifficulty	(src.selectedGameDifficulty);
+    	dest.selectedOpponentAIOption(src.selectedOpponentAIOption);
         for (int i=0;i<dest.opponentRaces.length;i++)
         	dest.opponentRaces[i] = src.opponentRaces[i];
         for (int i=0;i<dest.specificOpponentAIOption.length;i++)
         	dest.specificOpponentAIOption[i] = src.specificOpponentAIOption[i];
+        dest.generateGalaxy();
     }
     public static void setDefaultRaceOptions(MOO1GameOptions dest) {
     	dest.selectedPlayerRace(dest.random(dest.startingRaceOptions()));
@@ -1120,15 +1122,15 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
     public static void setDefaultGalaxyOptions(MOO1GameOptions dest) {
     	dest.selectedGalaxySize			= SIZE_SMALL;
-    	dest.selectedGalaxyShape		= dest.galaxyShapeOptions().get(0);
-    	dest.selectedGalaxyAge			= dest.galaxyAgeOptions().get(1);
-    	dest.selectedNumberOpponents	= dest.defaultOpponentsOptions();
+    	dest.selectedGalaxyShape(dest.galaxyShapeOptions().get(0));
+    	dest.selectedNumberOpponents(dest.defaultOpponentsOptions());
     	dest.selectedGameDifficulty		= DIFFICULTY_NORMAL;
     	dest.selectedOpponentAIOption	= OPPONENT_AI_CRUEL;
         for (int i=0;i<dest.opponentRaces.length;i++)
         	dest.opponentRaces[i] = null;
         for (int i=0;i<dest.specificOpponentAIOption.length;i++)
         	dest.specificOpponentAIOption[i] = OPPONENT_AI_CRUEL;
+        dest.generateGalaxy();
     }
     public static void setAdvancedOptions(MOO1GameOptions src, MOO1GameOptions dest) {
         dest.selectedGalaxyAge			= src.selectedGalaxyAge;

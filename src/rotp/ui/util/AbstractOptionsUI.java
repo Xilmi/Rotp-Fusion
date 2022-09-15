@@ -68,9 +68,9 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	private int index, column;
 	
 	private Color textC = SystemPanel.whiteText;
-	private LinkedList<Integer>	lastRowList = new LinkedList<Integer>();
-	private LinkedList<BaseText> btList		= new LinkedList<BaseText>();
-	public	LinkedList<AbstractParam<?>> paramList = new LinkedList<AbstractParam<?>>();
+	private LinkedList<Integer>	lastRowList = new LinkedList<>();
+	private LinkedList<BaseText> btList		= new LinkedList<>();
+	public	LinkedList<InterfaceParam<?>> paramList = new LinkedList<>();
 	private Rectangle hoverBox;
 	private Rectangle okBox 		= new Rectangle();
 	private Rectangle defaultBox	= new Rectangle();
@@ -177,11 +177,11 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		disableGlassPane();
 	}
 	private void saveOptions(MOO1GameOptions destination) {
-		for (AbstractParam<?> param : paramList)
+		for (InterfaceParam<?> param : paramList)
 			param.setOptions(destination);
 	}
 	private void getOptions(MOO1GameOptions source) {
-		for (AbstractParam<?> param : paramList)
+		for (InterfaceParam<?> param : paramList)
 			param.setFromOptions(source);
 	}
 	private void doOkBoxAction() {
@@ -210,7 +210,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		repaint();
 	}
 	public void setToDefault() {
-		for (AbstractParam<?> param : paramList)
+		for (InterfaceParam<?> param : paramList)
 			param.setFromDefault();
 	}
 	private void doUserBoxAction() {

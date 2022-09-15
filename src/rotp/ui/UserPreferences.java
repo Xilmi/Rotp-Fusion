@@ -31,8 +31,8 @@ import java.util.LinkedList;
 import rotp.Rotp;
 import rotp.model.events.RandomEvents;
 import rotp.model.game.GameSession;
-import rotp.ui.util.AbstractParam;
 import rotp.ui.util.EventsStartTurn;
+import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.ParamAAN2;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamFloat;
@@ -168,7 +168,7 @@ public class UserPreferences {
 	public static final ParamBoolean showGridCircular = new ParamBoolean(MOD_UI, "SHOW_GRID_CIRCULAR", false);
 
 	// This list is used as is by the ModGlobalOptionsUI menu
-	public static final LinkedList<AbstractParam<?>> modGlobalOptionsUI = new LinkedList<>(Arrays.asList(
+	public static final LinkedList<InterfaceParam<?>> modGlobalOptionsUI = new LinkedList<>(Arrays.asList(
 			menuStartup, menuLoadGame, showGridCircular,
 			showFleetFactor, showFlagFactor, showPathFactor,
 			showNameMinFont, showInfoFontRatio, mapFontFactor
@@ -435,7 +435,7 @@ public class UserPreferences {
 			out.println();
 			out.println("===== MOD Global GUI Settings =====");
 			out.println();
-			for (AbstractParam<?> param : modGlobalOptionsUI) {
+			for (InterfaceParam<?> param : modGlobalOptionsUI) {
 				out.println(keyFormat(param.getCfgLabel()) + param.getCfgValue());
 			}
 			return 0;
@@ -494,7 +494,7 @@ public class UserPreferences {
 			case "LANGUAGE": selectLanguage(val); return;
 			default:
 			// BR: Global Mod GUI
-				for (AbstractParam<?> param : modGlobalOptionsUI) {
+				for (InterfaceParam<?> param : modGlobalOptionsUI) {
 					if (key.equalsIgnoreCase(param.getCfgLabel()))
 						param.setFromCfgValue(val);
 				}
