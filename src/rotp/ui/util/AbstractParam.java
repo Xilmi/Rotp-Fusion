@@ -85,7 +85,7 @@ public abstract class AbstractParam <T> implements InterfaceParam <T>{
 		this.ctrlInc  = ctrlInc;
 	}
 
-	// ========== Public Abstract ==========
+	// ========== Public Interfaces ==========
 	//
 	//	public abstract T setFromCfgValue(String val);
 	//	public abstract T next();
@@ -96,84 +96,52 @@ public abstract class AbstractParam <T> implements InterfaceParam <T>{
 	@Override public String toString() {
 		return getCfgLabel() + " = " + getCfgValue();
 	}
-	// ========== Public Methods to be overridden ==========
-	//
-	T value(T value) 		{ this.value = value; return value;}
-	public int getIndex()	{ return 0; }
-	public T setFromIndex(int i) { return null; }
-	protected String getCfgValue(T value) {
-		return String.valueOf(value);
-	}
-	public String getGuiValue() {
-		return String.valueOf(value);
-	}
-	public String getGuiValue(int idx) { // For List
-		return getGuiValue();
-	}
-	// ========== Game Options Getter and setter ==========
-	//
 	@Override public void setFromOptions(MOO1GameOptions options) {
 		setFromCfgValue(options.getExtendedOptions(name, getCfgValue(defaultValue())));
 	}
 	@Override public void setOptions(MOO1GameOptions options) {
 		options.setExtendedOptions(name, getCfgValue());
 	}
-	// ========== Public Getters ==========
-	//
-	@Override public String getCfgValue() {
-		return getCfgValue(value);
-	}
-	@Override public String getCfgLabel() {
-		return name;
-	}
-	@Override public String getGuiDescription() {
-		return text(descriptionId());
-	}
-	public String getLabel() {
-		return text(labelId());
-	}
-	@Override public String getGuiDisplay() {
-		return text(labelId(), getGuiValue()) + END; 
-	}
-	public T defaultValue() {
-		return defaultValue;
-	}
-	T minValue() {
-		return minValue;
-	}	
-	T maxValue() {
-		return maxValue;
-	}	
-	public T get() {
-		return value;
-	}	
-	T baseInc() {
-		return baseInc;
-	}	
-	// ========== Public Setters ==========
-	//
+	@Override public String getCfgValue() { return getCfgValue(value); }
+	@Override public String getCfgLabel() { return name; }
+	@Override public String getGuiDescription() { return text(descriptionId()); }
+	@Override public String getGuiDisplay()	{ return text(labelId(), getGuiValue()) + END; }
 	@Override public T setFromDefault() {
 		value = defaultValue;
 		return value;
 	}
-	public T set(T newValue) {
-		value = newValue;
-		return value;
-	}	
 	@Override public T toggle(MouseEvent e, MouseWheelEvent w) {
 		if (e == null)
 			return toggle(w);
 		else
 			return toggle(e);
 	}
+	// ========== Methods to be overridden ==========
+	//
+	T value(T value) 		{ this.value = value; return value;}
+	public int getIndex()	{ return 0; }
+	public T setFromIndex(int i)		  { return null; }
+	protected String getCfgValue(T value) { return String.valueOf(value); }
+	public String getGuiValue()			  { return String.valueOf(value); }
+	public String getGuiValue(int idx)	  { return getGuiValue(); } // For List
+	// ========== Public Getters ==========
+	//
+	public String getLabel(){ return text(labelId()); }
+	public T defaultValue() { return defaultValue; }
+	public T get()	{ return value; }	
+	T minValue()	{ return minValue; }	
+	T maxValue()	{ return maxValue; }	
+	T baseInc()		{ return baseInc; }	
+	// ========== Public Setters ==========
+	//
+	public T set(T newValue) {
+		value = newValue;
+		return value;
+	}	
 	// ========== Private Methods ==========
 	//
-	private String labelId() {
-		return gui + name;
-	}
-	private String descriptionId() {
-		return labelId() + LABEL_DESCRIPTION;
-	}
+	private String labelId()		{ return gui + name; }
+	private String descriptionId()	{ return labelId() + LABEL_DESCRIPTION; }
 	// ========== Protected Methods ==========
 	//
 	protected T getInc(MouseEvent e) {
