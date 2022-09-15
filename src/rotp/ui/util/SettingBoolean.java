@@ -21,7 +21,6 @@ public class SettingBoolean extends SettingBase<Boolean> {
 	private static final boolean defaultIsList			= true;
 	private static final boolean defaultIsBullet		= false;
 	private static final boolean defaultLabelsAreFinals	= true;
-	private static final boolean defaultSaveAllowed		= true;
 	private static final String  defaultBooleanYes		= "BOOLEAN_YES";
 	private static final String  defaultBooleanNo		= "BOOLEAN_NO";
 
@@ -37,7 +36,7 @@ public class SettingBoolean extends SettingBase<Boolean> {
 	SettingBoolean(String guiLangLabel, String nameLangLabel, Boolean defaultValue) {
 		this(guiLangLabel, nameLangLabel, defaultValue, 0f, 0f,
 				defaultBooleanYes, defaultBooleanNo,
-				defaultIsBullet, defaultLabelsAreFinals, defaultSaveAllowed);
+				defaultIsBullet, defaultLabelsAreFinals);
 		this.hasNoCost(true);
 	}
 	/**
@@ -51,7 +50,7 @@ public class SettingBoolean extends SettingBase<Boolean> {
 			float costTrue, float costFalse) {
 		this(guiLangLabel, nameLangLabel, defaultValue, costTrue, costFalse,
 				defaultBooleanYes, defaultBooleanNo,
-				defaultIsBullet, defaultLabelsAreFinals, defaultSaveAllowed);
+				defaultIsBullet, defaultLabelsAreFinals);
 	}
 	/**
 	 * @param guiLangLabel  The label header
@@ -63,29 +62,20 @@ public class SettingBoolean extends SettingBase<Boolean> {
 	 * @param langLabelNo
 	 * @param isBullet		To be displayed as bullet list
 	 * @param labelsAreFinals when false: Labels are combined withName and Gui Label
-	 * @param saveAllowed	To allow the parameter to be saved in Remnants.cfg
 	 */
 	private SettingBoolean(String guiLangLabel, String nameLangLabel, Boolean defaultValue,
 			float costTrue, float costFalse, String langLabelYes, String langLabelNo,
-			boolean isBullet, boolean labelsAreFinals, boolean saveAllowed) {
-		super(guiLangLabel, nameLangLabel, defaultValue, defaultIsList, isBullet, labelsAreFinals, saveAllowed);
+			boolean isBullet, boolean labelsAreFinals) {
+		super(guiLangLabel, nameLangLabel, defaultValue, defaultIsList, isBullet, labelsAreFinals);
 		put("No",  langLabelNo,  costFalse, false);
 		put("Yes", langLabelYes, costTrue,  true);		
 	}
-
 	// ===== Overriders =====
 	//
-	@Override public SettingBoolean saveAllowed(boolean allowed){
-		super.saveAllowed(allowed);
-		return this;
-	}
 	@Override public String guiSettingValue() {
 		return text(guiOptionLabel());
 	}
 	@Override public String guiOptionValue(int index) {
 		return text(guiOptionLabel(index));
 	}
-	// ===== Other Methods =====
-	//
-
 }

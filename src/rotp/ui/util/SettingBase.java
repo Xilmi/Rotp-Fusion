@@ -27,7 +27,6 @@ import java.util.LinkedList;
 import javax.swing.SwingUtilities;
 
 import rotp.ui.BaseText;
-import rotp.ui.UserPreferences;
 import rotp.util.LabelManager;
 
 public class SettingBase<T> {
@@ -37,7 +36,6 @@ public class SettingBase<T> {
 	private static final boolean defaultIsList			= true;
 	private static final boolean defaultIsBullet		= false;
 	private static final boolean defaultLabelsAreFinals	= false;
-	private static final boolean defaultSaveAllowed		= true;
 	private static final String  costFormat				= "%6s ";
 
 	private final LinkedList<String> cfgValueList = new LinkedList<>();
@@ -50,7 +48,6 @@ public class SettingBase<T> {
 	private boolean labelsAreFinals = defaultLabelsAreFinals;
 	private boolean isList			= defaultIsList;
 	private boolean isBullet		= defaultIsBullet;
-	private boolean saveAllowed		= defaultSaveAllowed;
 	private int selectedIndex = -1;
 	private int defaultIndex  = -1;
 	private T defaultValue	  = null;
@@ -70,16 +67,14 @@ public class SettingBase<T> {
 	 * @param isList		Either a list or simple value
 	 * @param isBullet		To be displayed as bullet list
 	 * @param labelsAreFinals when false: Labels are combined withName and Gui Label
-	 * @param saveAllowed	To allow the parameter to be saved in Remnants.cfg
 	 */
 	SettingBase(String guiLabel, String nameLabel, T defaultValue,
-			boolean isList, boolean isBullet, boolean labelsAreFinals, boolean saveAllowed) {
+			boolean isList, boolean isBullet, boolean labelsAreFinals) {
 		this(guiLabel, nameLabel);
 		this.defaultValue	= defaultValue;
 		this.isList			= isList;
 		this.isBullet		= isBullet;
 		this.labelsAreFinals= labelsAreFinals;
-		this.saveAllowed	= saveAllowed;
 	}
 	/**
 	 * @param guiLabel  The label header
@@ -88,11 +83,6 @@ public class SettingBase<T> {
 	public SettingBase(String guiLabel, String nameLabel) {
 		this.guiLabel	= guiLabel;
 		this.nameLabel	= nameLabel;
-	}
-
-	public SettingBase<?> saveAllowed(boolean allowed){
-		saveAllowed = allowed;
-		return this;
 	}
 	void settingText(BaseText settingText) {
 		this.settingText = settingText;
@@ -199,13 +189,11 @@ public class SettingBase<T> {
 		selectedIndex = cfgValidIndex()+1;
 		if (selectedIndex >= cfgValueList.size())
 			selectedIndex = 0;
-		save();
 	}
 	public void prev() {
 		selectedIndex = cfgValidIndex()-1;
 		if (selectedIndex < 0)
 			selectedIndex = cfgValueList.size()-1;
-		save();
 	}
 	public float settingCost() {
 		if (isSpacer() || hasNoCost)
@@ -271,11 +259,6 @@ public class SettingBase<T> {
 		selectedIndex = cfgValidIndex(newIndex);
 		return this;
 	}
-	SettingBase<?> setFromIndexAndSave(int index) {
-		index(index);
-		save();
-		return this;
-	}
 	public SettingBase<?> set(T newValue) {
 		if (valueList.size()==0) { // List empty; then create one
 			valueList.add(newValue);
@@ -304,7 +287,6 @@ public class SettingBase<T> {
 	}
 	public void setToDefault(boolean save) {
 		selectedIndex = cfgValidDefaultIndex();
-		save();
 	}
 	public void setFromCfgValue(String cfgValue) {
 		selectedIndex = cfgValidIndex(indexOfIgnoreCase(cfgValue, cfgValueList));
@@ -450,9 +432,6 @@ public class SettingBase<T> {
 			break;
 		}
 		return str + ")";
-	}
-	private void save() {
-		if (saveAllowed) UserPreferences.save();
 	}
 	private int bounds(int low, int val, int hi) {
 		return Math.min(Math.max(low, val), hi);

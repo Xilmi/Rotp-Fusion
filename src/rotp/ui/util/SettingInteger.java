@@ -26,7 +26,6 @@ public class SettingInteger extends SettingBase<Integer> {
 	private static final boolean defaultIsList			= false;
 	private static final boolean defaultIsBullet		= false;
 	private static final boolean defaultLabelsAreFinals	= false;
-	private static final boolean defaultSaveAllowed		= true;
 	private static final Integer defaultBaseInc			= 1;
 	private static final Integer defaultShiftInc		= 1;
 	private static final Integer defaultCtrlInc			= 1;
@@ -56,7 +55,7 @@ public class SettingInteger extends SettingBase<Integer> {
 	private SettingInteger(String guiLangLabel, String nameLangLabel, Integer defaultValue
 			, Integer minValue, Integer maxValue) {
 		super(guiLangLabel, nameLangLabel, defaultValue,
-				defaultIsList, defaultIsBullet, defaultLabelsAreFinals, defaultSaveAllowed);
+				defaultIsList, defaultIsBullet, defaultLabelsAreFinals);
 		put("-", "-", 0f, defaultValue);
 		this.minValue	= minValue;
 		this.maxValue	= maxValue;
@@ -88,7 +87,6 @@ public class SettingInteger extends SettingBase<Integer> {
 	 * @param baseInc  The base increment
 	 * @param shiftInc The increment when Shift is hold
 	 * @param ctrlInc  The increment when Ctrl is hold
-	 * @param saveAllowed  To allow the parameter to be saved in Remnants.cfg
 	 * @param costFormula Formula type to establish a cost
 	 * @param posCostFactor To establish a cost
 	 * @param negCostFactor To establish a cost
@@ -96,12 +94,11 @@ public class SettingInteger extends SettingBase<Integer> {
 	public SettingInteger(String guiLangLabel, String nameLangLabel, Integer defaultValue
 			, Integer minValue, Integer maxValue
 			, Integer baseInc, Integer shiftInc, Integer ctrlInc
-			, boolean saveAllowed, CostFormula costFormula, float[] posCostFactor, float[] negCostFactor) {
+			, CostFormula costFormula, float[] posCostFactor, float[] negCostFactor) {
 		this(guiLangLabel, nameLangLabel, defaultValue, minValue, maxValue, baseInc, shiftInc, ctrlInc);
 		this.costFormula	= costFormula;
 		this.posCostFactor	= posCostFactor;
 		this.negCostFactor	= negCostFactor;
-		saveAllowed(saveAllowed);
 	}
 
 	// ===== Overriders =====
@@ -138,10 +135,6 @@ public class SettingInteger extends SettingBase<Integer> {
 			}
 		}
 		return bestVal;
-	}
-	@Override public SettingInteger saveAllowed(boolean allowed){
-		super.saveAllowed(allowed);
-		return this;
 	}
 	@Override public void setFromCfgValue(String newValue) {
 		set(stringToInteger(newValue));

@@ -167,7 +167,6 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		    guiList.add(randomUseTarget);
 		    
 		    for(SettingBase<?> setting : guiList) {
-		    	setting.saveAllowed(false);
 		    	setting.hasNoCost(true);
 		    	setting.settingText(new BaseText(this, false, labelFontSize, 0, 0,
 						labelC, labelC, hoverC, depressedC, textC, 0, 0, 0));
@@ -349,7 +348,7 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 					int optionCount	= setting.boxSize(); // 1 for the setting
 					for (int optionIdx=0; optionIdx < optionCount; optionIdx++) {
 						if (hoverBox == setting.optionText(optionIdx).bounds()) {
-							setting.setFromIndexAndSave(optionIdx);
+							setting.index(optionIdx);
 							updateBulletSetting(setting);
 							return;
 						}

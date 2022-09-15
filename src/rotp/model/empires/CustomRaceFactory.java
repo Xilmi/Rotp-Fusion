@@ -43,7 +43,6 @@ public class CustomRaceFactory {
 	public static final String ROOT = "CUSTOM_RACE_";
 	public static final String PLANET = "PLANET_";
 	private static final boolean booleansAreBullet = true;
-	private static final boolean saveNotAllowed = false;
 
 	private Race race;
 	private LinkedList<SettingBase<?>> settingList;
@@ -292,11 +291,9 @@ public class CustomRaceFactory {
 	// ==================== Spacer ====================
 	//
 	public class Spacer extends SettingBase<String> {
-		
 		public Spacer() {
 			super("", "");
 			isSpacer(true);
-			saveAllowed(false);
 		}
 	}
 	// ==================== BaseDataRace ====================
@@ -308,7 +305,6 @@ public class CustomRaceFactory {
 		public BaseDataRace() {
 			super(ROOT, "BASE_DATARACE");
 			isBullet(true);
-			saveAllowed(false);
 			labelsAreFinals(true);
 			hasNoCost(true);
 			for (String race : MOO1GameOptions.allRaceOptions()) {
@@ -360,7 +356,7 @@ public class CustomRaceFactory {
 	public class CreditsBonus extends SettingInteger {
 		// big = good
 		public CreditsBonus() {
-			super(ROOT, "CREDIT", 0, 0, 35, 1, 5, 20, saveNotAllowed,
+			super(ROOT, "CREDIT", 0, 0, 35, 1, 5, 20,
 					DIFFERENCE, new float[]{0f, .8f}, new float[]{0f, .8f});
 		}
 		@Override public void pushSetting() {
@@ -375,7 +371,7 @@ public class CustomRaceFactory {
 	public class HitPointsBonus extends SettingInteger {
 		// big = good
 		public HitPointsBonus() {
-			super(ROOT, "HIT_POINTS", 100, 50, 200, 1, 5, 20, saveNotAllowed,
+			super(ROOT, "HIT_POINTS", 100, 50, 200, 1, 5, 20,
 					DIFFERENCE, new float[]{0f, .4f}, new float[]{0f, .6f});
 		}
 		@Override public void pushSetting() {
@@ -391,7 +387,7 @@ public class CustomRaceFactory {
 	public class ShipSpaceBonus extends SettingInteger {
 		// big = good
 		public ShipSpaceBonus() {
-			super(ROOT, "SHIP_SPACE", 100, 80, 175, 1, 5, 20, saveNotAllowed,
+			super(ROOT, "SHIP_SPACE", 100, 80, 175, 1, 5, 20,
 					DIFFERENCE, new float[]{0f, 1f}, new float[]{0f, 2f});
 		}
 		@Override public void pushSetting() {
@@ -406,7 +402,7 @@ public class CustomRaceFactory {
 	public class MaintenanceBonus extends SettingInteger {
 		// Big = bad
 		public MaintenanceBonus() {
-			super(ROOT, "MAINTENANCE", 100, 50, 200, 1, 5, 20, saveNotAllowed,
+			super(ROOT, "MAINTENANCE", 100, 50, 200, 1, 5, 20,
 					DIFFERENCE, new float[]{0f, -.2f}, new float[]{0f, -.4f});
 		}
 		@Override public void pushSetting() {
@@ -424,7 +420,6 @@ public class CustomRaceFactory {
 		public PlanetRessources() {
 			super(ROOT, "HOME_RESOURCES");
 			isBullet(true);
-			saveAllowed(false);
 			labelsAreFinals(true);
 			put("UltraPoor",	PLANET + "ULTRA_POOR",		-50f, "UltraPoor");
 			put("Poor",			PLANET + "POOR",			-25f, "Poor");
@@ -450,7 +445,6 @@ public class CustomRaceFactory {
 		public PlanetEnvironment() {
 			super(ROOT, "HOME_ENVIRONMENT");
 			isBullet(true);
-			saveAllowed(false);
 			labelsAreFinals(true);
 			put("Hostile", PLANET + "HOSTILE",			  -20f, "Hostile");
 			put("Normal",  ROOT   + "ENVIRONMENT_NORMAL",	0f, "Normal");
@@ -474,7 +468,6 @@ public class CustomRaceFactory {
 		public RacePlanetType() {
 			super(ROOT, "HOME_TYPE");
 			isBullet(true);
-			saveAllowed(false);
 			labelsAreFinals(true);
 //			put("Ocean",	PlanetType.OCEAN,	-8f, PlanetType.OCEAN);
 //			put("Jungle",	PlanetType.JUNGLE,	-5f, PlanetType.JUNGLE);
@@ -498,7 +491,7 @@ public class CustomRaceFactory {
 	public class HomeworldSize extends SettingInteger {
 		
 		public HomeworldSize() {
-			super(ROOT, "HOME_SIZE", 100, 70, 150, 1, 5, 20, saveNotAllowed,
+			super(ROOT, "HOME_SIZE", 100, 70, 150, 1, 5, 20,
 					DIFFERENCE, new float[]{0f, .4f}, new float[]{0f, .7f});
 		}
 		@Override public void pushSetting() {
@@ -516,7 +509,6 @@ public class CustomRaceFactory {
 		public SpeciesType() {
 			super(ROOT, "RACE_TYPE");
 			isBullet(true);
-			saveAllowed(false);
 			labelsAreFinals(true);
 			put("Terran",	"RACE_TERRAN",   0f, 1);
 			put("Aquatic",	"RACE_AQUATIC",  2f, 2);
@@ -540,7 +532,6 @@ public class CustomRaceFactory {
 		public IgnoresEco() {
 			super(ROOT, "IGNORES_ECO", defaultValue, 50f, 0f);
 			isBullet(booleansAreBullet);
-			saveAllowed(false);
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
@@ -555,7 +546,7 @@ public class CustomRaceFactory {
 	public class PopGrowRate extends SettingInteger {
 		
 		public PopGrowRate() {
-			super(ROOT, "POP_GROW_RATE", 100, 50, 200, 1, 5, 20, saveNotAllowed,
+			super(ROOT, "POP_GROW_RATE", 100, 50, 200, 1, 5, 20,
 					DIFFERENCE, new float[]{0f, .2f, .003f}, new float[]{0f, .3f});
 		}
 		@Override public void pushSetting() {
@@ -570,7 +561,7 @@ public class CustomRaceFactory {
 	public class ShipAttack extends SettingInteger {
 		
 		public ShipAttack() {
-			super(ROOT, "SHIP_ATTACK", 0, -1, 5, 1, 1, 1, saveNotAllowed,
+			super(ROOT, "SHIP_ATTACK", 0, -1, 5, 1, 1, 1,
 					DIFFERENCE, new float[]{0f, 3f}, new float[]{0f, 5f});
 			initOptionsText();
 		}
@@ -586,7 +577,7 @@ public class CustomRaceFactory {
 	public class ShipDefense extends SettingInteger {
 		
 		public ShipDefense() {
-			super(ROOT, "SHIP_DEFENSE", 0, -1, 5, 1, 1, 1, saveNotAllowed,
+			super(ROOT, "SHIP_DEFENSE", 0, -1, 5, 1, 1, 1,
 					DIFFERENCE, new float[]{0f, 1.5f, 1.5f}, new float[]{0f, 6f});
 			initOptionsText();
 		}
@@ -602,7 +593,7 @@ public class CustomRaceFactory {
 	public class ShipInitiative extends SettingInteger {
 		
 		public ShipInitiative() {
-			super(ROOT, "SHIP_INITIATIVE", 0, -1, 5, 1, 1, 1, saveNotAllowed,
+			super(ROOT, "SHIP_INITIATIVE", 0, -1, 5, 1, 1, 1,
 					DIFFERENCE, new float[]{5f, 1f}, new float[]{0f, 6f});
 			initOptionsText();
 		}
@@ -618,7 +609,7 @@ public class CustomRaceFactory {
 	public class GroundAttack extends SettingInteger {
 		
 		public GroundAttack() {
-			super(ROOT, "GROUND_ATTACK", 0, -20, 30, 1, 5, 20, saveNotAllowed,
+			super(ROOT, "GROUND_ATTACK", 0, -20, 30, 1, 5, 20,
 					DIFFERENCE, new float[]{0f, 1.25f}, new float[]{0f, 0.75f});
 			initOptionsText();
 		}
@@ -634,7 +625,7 @@ public class CustomRaceFactory {
 	public class SpyCost extends SettingInteger {
 		
 		public SpyCost() {
-			super(ROOT, "SPY_COST", 100, 50, 200, 1, 5, 20, saveNotAllowed,
+			super(ROOT, "SPY_COST", 100, 50, 200, 1, 5, 20,
 					DIFFERENCE, new float[]{0f, -.1f}, new float[]{0f, -.2f});
 			initOptionsText();
 		}
@@ -650,7 +641,7 @@ public class CustomRaceFactory {
 	public class SpySecurity extends SettingInteger {
 		
 		public SpySecurity() {
-			super(ROOT, "SPY_SECURITY", 0, -20, 40, 1, 5, 20, saveNotAllowed,
+			super(ROOT, "SPY_SECURITY", 0, -20, 40, 1, 5, 20,
 					DIFFERENCE, new float[]{0f, 1f}, new float[]{0f, 2f});
 			initOptionsText();
 		}
@@ -666,7 +657,7 @@ public class CustomRaceFactory {
 	public class SpyInfiltration extends SettingInteger {
 		
 		public SpyInfiltration() {
-			super(ROOT, "SPY_INFILTRATION", 0, -20, 40, 1, 5, 20, saveNotAllowed,
+			super(ROOT, "SPY_INFILTRATION", 0, -20, 40, 1, 5, 20,
 					DIFFERENCE, new float[]{0f, 1.25f}, new float[]{0f, 2.5f});
 			initOptionsText();
 		}
@@ -699,7 +690,7 @@ public class CustomRaceFactory {
 	public class DiplomacyTrade extends SettingInteger {
 		
 		public DiplomacyTrade() {
-			super(ROOT, "DIPLOMACY_TRADE", 0, -30, 30, 1, 5, 20, saveNotAllowed,
+			super(ROOT, "DIPLOMACY_TRADE", 0, -30, 30, 1, 5, 20,
 					DIFFERENCE, new float[]{0f, .4f}, new float[]{0f, .3f});
 			initOptionsText();
 		}
@@ -715,7 +706,7 @@ public class CustomRaceFactory {
 	public class DiploPosDP extends SettingInteger {
 		
 		public DiploPosDP() {
-			super(ROOT, "DIPLO_POS_DP", 100, 70, 200, 1, 5, 20, saveNotAllowed,
+			super(ROOT, "DIPLO_POS_DP", 100, 70, 200, 1, 5, 20,
 					DIFFERENCE, new float[]{0f, .3f}, new float[]{0f, .8f});
 			initOptionsText();
 		}
@@ -731,7 +722,7 @@ public class CustomRaceFactory {
 	public class DiplomacyBonus extends SettingInteger {
 		
 		public DiplomacyBonus() {
-			super(ROOT, "DIPLOMACY_BONUS", 0, -50, 100, 1, 5, 20, saveNotAllowed,
+			super(ROOT, "DIPLOMACY_BONUS", 0, -50, 100, 1, 5, 20,
 					DIFFERENCE, new float[]{0f, .1f}, new float[]{0f, .2f});
 			initOptionsText();
 		}
@@ -747,7 +738,7 @@ public class CustomRaceFactory {
 	public class DiplomacyCouncil extends SettingInteger {
 		
 		public DiplomacyCouncil() {
-			super(ROOT, "DIPLOMACY_COUNCIL", 0, -25, 25, 1, 5, 20, saveNotAllowed,
+			super(ROOT, "DIPLOMACY_COUNCIL", 0, -25, 25, 1, 5, 20,
 					DIFFERENCE, new float[]{0f, .2f}, new float[]{0f, .2f});
 			initOptionsText();
 		}
@@ -763,7 +754,7 @@ public class CustomRaceFactory {
 	public class RelationDefault extends SettingInteger {
 		
 		public RelationDefault() {
-			super(ROOT, "RELATION_DEFAULT", 0, -10, 10, 1, 2, 4, saveNotAllowed,
+			super(ROOT, "RELATION_DEFAULT", 0, -10, 10, 1, 2, 4,
 					DIFFERENCE, new float[]{0f, .4f}, new float[]{0f, .4f});
 			initOptionsText();
 		}
@@ -779,7 +770,7 @@ public class CustomRaceFactory {
 	public class ProdWorker extends SettingInteger {
 		// bigger = better
 		public ProdWorker() {
-			super(ROOT, "PROD_WORKER", 100, 70, 200, 1, 5, 20, saveNotAllowed,
+			super(ROOT, "PROD_WORKER", 100, 70, 200, 1, 5, 20,
 					DIFFERENCE, new float[]{0f, .3f, 0.003f}, new float[]{0f, 0.8f, 0.006f});
 			initOptionsText();
 		}
@@ -795,7 +786,7 @@ public class CustomRaceFactory {
 	public class ProdControl extends SettingInteger {
 		
 		public ProdControl() {
-			super(ROOT, "PROD_CONTROL", 0, -1, 4, 1, 1, 1, saveNotAllowed,
+			super(ROOT, "PROD_CONTROL", 0, -1, 4, 1, 1, 1,
 					DIFFERENCE, new float[]{0f, 15f}, new float[]{0f, 30f});
 			initOptionsText();
 		}
@@ -828,7 +819,7 @@ public class CustomRaceFactory {
 	public class TechDiscovery extends SettingInteger {
 		// bigger = better
 		public TechDiscovery() {
-			super(ROOT, "TECH_DISCOVERY", 50, 30, 100, 1, 5, 20, saveNotAllowed,
+			super(ROOT, "TECH_DISCOVERY", 50, 30, 100, 1, 5, 20,
 					DIFFERENCE, new float[]{0f, .5f}, new float[]{0f, 0.5f});
 			initOptionsText();
 		}
@@ -844,7 +835,7 @@ public class CustomRaceFactory {
 	public class TechResearch extends SettingInteger {
 		// bigger = better
 		public TechResearch() {
-			super(ROOT, "TECH_RESEARCH", 100, 60, 200, 1, 5, 20, saveNotAllowed, DIFFERENCE,
+			super(ROOT, "TECH_RESEARCH", 100, 60, 200, 1, 5, 20, DIFFERENCE,
 					new float[]{0f, 0.7f, 0.004f},
 					new float[]{0f, 1.0f, 0.006f});
 			initOptionsText();
@@ -869,7 +860,7 @@ public class CustomRaceFactory {
 		// smaller = better
 		public ResearchComputer() {
 			super(ROOT, "RESEARCH_COMPUTER", 100, studyCostMin, studyCostMax,
-					1, 5, 20, saveNotAllowed, DIFFERENCE, 
+					1, 5, 20, DIFFERENCE, 
 					new float[]{0f, researchC1pos, researchC2pos},
 					new float[]{0f, researchC1neg, researchC2neg});
 			initOptionsText();
@@ -887,7 +878,7 @@ public class CustomRaceFactory {
 		
 		public ResearchConstruction() {
 			super(ROOT, "RESEARCH_CONSTRUCTION", 100, studyCostMin, studyCostMax,
-					1, 5, 20, saveNotAllowed, DIFFERENCE, 
+					1, 5, 20, DIFFERENCE, 
 					new float[]{0f, researchC1pos, researchC2pos},
 					new float[]{0f, researchC1neg, researchC2neg});
 			initOptionsText();
@@ -905,7 +896,7 @@ public class CustomRaceFactory {
 		
 		public ResearchForceField() {
 			super(ROOT, "RESEARCH_FORCEFIELD", 100, studyCostMin, studyCostMax,
-					1, 5, 20, saveNotAllowed, DIFFERENCE, 
+					1, 5, 20, DIFFERENCE, 
 					new float[]{0f, researchC1pos, researchC2pos},
 					new float[]{0f, researchC1neg, researchC2neg});
 			initOptionsText();
@@ -923,7 +914,7 @@ public class CustomRaceFactory {
 		
 		public ResearchPlanet() {
 			super(ROOT, "RESEARCH_PLANET", 100, studyCostMin, studyCostMax,
-					1, 5, 20, saveNotAllowed, DIFFERENCE, 
+					1, 5, 20, DIFFERENCE, 
 					new float[]{0f, researchC1pos, researchC2pos},
 					new float[]{0f, researchC1neg, researchC2neg});
 			initOptionsText();
@@ -941,7 +932,7 @@ public class CustomRaceFactory {
 		
 		public ResearchPropulsion() {
 			super(ROOT, "RESEARCH_PROPULSION", 100, studyCostMin, studyCostMax,
-					1, 5, 20, saveNotAllowed, DIFFERENCE, 
+					1, 5, 20, DIFFERENCE, 
 					new float[]{0f, researchC1pos, researchC2pos},
 					new float[]{0f, researchC1neg, researchC2neg});
 			initOptionsText();
@@ -959,7 +950,7 @@ public class CustomRaceFactory {
 		
 		public ResearchWeapon() {
 			super(ROOT, "RESEARCH_WEAPON", 100, studyCostMin, studyCostMax,
-					1, 5, 20, saveNotAllowed, DIFFERENCE, 
+					1, 5, 20, DIFFERENCE, 
 					new float[]{0f, researchC1pos, researchC2pos},
 					new float[]{0f, researchC1neg, researchC2neg});
 			initOptionsText();

@@ -26,7 +26,6 @@ public class SettingFloat extends SettingBase<Float> {
 	private static final boolean defaultIsList			= false;
 	private static final boolean defaultIsBullet		= false;
 	private static final boolean defaultLabelsAreFinals	= false;
-	private static final boolean defaultSaveAllowed		= true;
 	private static final Float defaultBaseInc	= 1f;
 	private static final Float defaultShiftInc	= 1f;
 	private static final Float defaultCtrlInc	= 1f;
@@ -56,7 +55,7 @@ public class SettingFloat extends SettingBase<Float> {
 	public SettingFloat(String guiLangLabel, String nameLangLabel, Float defaultValue
 			, Float minValue, Float maxValue) {
 		super(guiLangLabel, nameLangLabel, defaultValue,
-				defaultIsList, defaultIsBullet, defaultLabelsAreFinals, defaultSaveAllowed);
+				defaultIsList, defaultIsBullet, defaultLabelsAreFinals);
 		put("-", "-", 0f, defaultValue);
 		this.minValue	= minValue;
 		this.maxValue	= maxValue;
@@ -109,16 +108,15 @@ public class SettingFloat extends SettingBase<Float> {
 	 * @param baseInc  The base increment
 	 * @param shiftInc The increment when Shift is hold
 	 * @param ctrlInc  The increment when Ctrl is hold
-	 * @param saveAllowed  To allow the parameter to be saved in Remnants.cfg
 	 * @param costFormula Formula type to establish a cost
 	 * @param costFactor To establish a cost
 	 */
 	public SettingFloat(String guiLangLabel, String nameLangLabel, Float defaultValue
 			, Float minValue, Float maxValue
 			, Float baseInc, Float shiftInc, Float ctrlInc
-			, boolean saveAllowed, CostFormula costFormula, float... costFactor) {
+			, CostFormula costFormula, float... costFactor) {
 		this(guiLangLabel, nameLangLabel, defaultValue, minValue, maxValue, baseInc, shiftInc, ctrlInc,
-				saveAllowed, costFormula, costFactor, costFactor);
+				costFormula, costFactor, costFactor);
 	}
 	/**
 	 * @param guiLangLabel  The label header
@@ -129,19 +127,17 @@ public class SettingFloat extends SettingBase<Float> {
 	 * @param baseInc  The base increment
 	 * @param shiftInc The increment when Shift is hold
 	 * @param ctrlInc  The increment when Ctrl is hold
-	 * @param saveAllowed  To allow the parameter to be saved in Remnants.cfg
 	 * @param costFormula Formula type to establish a cost
 	 * @param costFactor To establish a cost
 	 */
 	public SettingFloat(String guiLangLabel, String nameLangLabel, Float defaultValue
 			, Float minValue, Float maxValue
 			, Float baseInc, Float shiftInc, Float ctrlInc
-			, boolean saveAllowed, CostFormula costFormula, float[] posCostFactor, float[] negCostFactor) {
+			, CostFormula costFormula, float[] posCostFactor, float[] negCostFactor) {
 		this(guiLangLabel, nameLangLabel, defaultValue, minValue, maxValue, baseInc, shiftInc, ctrlInc);
 		this.costFormula = costFormula;
 		this.posCostFactor	= posCostFactor;
 		this.negCostFactor	= negCostFactor;
-		saveAllowed(saveAllowed);
 	}
 
 	// ===== Overriders =====
@@ -200,10 +196,6 @@ public class SettingFloat extends SettingBase<Float> {
 	}
 	@Override public float settingCost() {
 		return settingCost(settingValue());
-	}
-	@Override public SettingFloat saveAllowed(boolean allowed){
-		super.saveAllowed(allowed);
-		return this;
 	}
 	// ===== Other Methods =====
 	//
