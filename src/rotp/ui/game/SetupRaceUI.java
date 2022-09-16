@@ -99,6 +99,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     @SuppressWarnings("unchecked")
 	private List<BufferedImage>[] shipImages = new ArrayList[MAX_SHIP];
     private MOO1GameOptions initialOptions; // To be restored if "cancel"
+    private int bSep = s15;
 
     public SetupRaceUI() {
         init0();
@@ -479,17 +480,10 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         }
         g.setStroke(prev);
 
-        // BR: Default and User Buttons 
+        g.setFont(narrowFont(20));
+        // BR: DEFAULT Button 
 		String text7 = text(defaultButtonKey(ctrlPressed));
         int sw7		 = g.getFontMetrics().stringWidth(text7);
-		int smallButtonW = defaultButtonWidth(g);
-        int smallButtonH = s30;
-        y4 = cancelBox.y + s15;
-        int xSep = s15;
-        defaultBox.setBounds(cancelBox.x-smallButtonW-xSep, y4, smallButtonW, smallButtonH);
-		g.setPaint(GameUI.buttonLeftBackground());
-        g.fillRoundRect(defaultBox.x, defaultBox.y, smallButtonW, smallButtonH, cnr, cnr);
-        g.setFont(narrowFont(20));
         int x7 = defaultBox.x+((defaultBox.width-sw7)/2);
         int y7 = defaultBox.y+defaultBox.height-s8;
         Color c7 = hoverBox == defaultBox ? Color.yellow : GameUI.borderBrightColor();
@@ -499,13 +493,9 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         g.drawRoundRect(defaultBox.x, defaultBox.y, defaultBox.width, defaultBox.height, cnr, cnr);
         g.setStroke(prev);
 
+        // BR: USER Button 
 		String text8 = text(userButtonKey(ctrlPressed));
         int sw8 	 = g.getFontMetrics().stringWidth(text8);
-		smallButtonW = userButtonWidth(g);
-		userBox.setBounds(defaultBox.x-smallButtonW-xSep, y4, smallButtonW, smallButtonH);
-		g.setPaint(GameUI.buttonLeftBackground());
-		g.fillRoundRect(userBox.x, userBox.y, smallButtonW, smallButtonH, cnr, cnr);
-		g.setFont(narrowFont(20));
 		int x8 = userBox.x+((userBox.width-sw8)/2);
 		int y8 = userBox.y+userBox.height-s8;
 		Color c8 = hoverBox == userBox ? Color.yellow : GameUI.borderBrightColor();
@@ -729,7 +719,25 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         g.setPaint(GameUI.buttonRightBackground());
         g.fillRoundRect(nextBox.x, nextBox.y, buttonW, buttonH, cnr, cnr);
 
-        // BR: Player Race Customization
+		// draw DEFAULT button
+        g.setFont(narrowFont(20));
+		buttonH = s30;
+		buttonW = defaultButtonWidth(g);
+		int xB	= cancelBox.x - (buttonW + bSep);
+		int yB	= cancelBox.y + s15;
+		defaultBox.setBounds(xB, yB, buttonW, buttonH);
+		g.setPaint(GameUI.buttonLeftBackground());
+		g.fillRoundRect(defaultBox.x, defaultBox.y, buttonW, buttonH, cnr, cnr);
+
+		// draw USER button
+		buttonH = s30;
+		buttonW = userButtonWidth(g);
+		xB -= (buttonW + bSep);
+		userBox.setBounds(xB, yB, buttonW, buttonH);
+		g.setPaint(GameUI.buttonLeftBackground());
+		g.fillRoundRect(userBox.x, userBox.y, buttonW, buttonH, cnr, cnr);
+
+		// BR: Player Race Customization
         // far left button
         g.setFont(narrowFont(20));
         int smallButtonH = s30;
