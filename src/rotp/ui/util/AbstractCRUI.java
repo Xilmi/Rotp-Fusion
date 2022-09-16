@@ -319,12 +319,12 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		for (InterfaceOptions param : settingList)
 			param.setFromDefault();
 	}
-	public void saveUserOptions() {
+	private void saveUserOptions() {
 		MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
 		saveOptions(fileOptions);
 		MOO1GameOptions.saveUserOptions(fileOptions);
 	}
-	public void saveLastOptions() {
+	private void saveLastOptions() {
 		MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
 		saveOptions(fileOptions);
 		MOO1GameOptions.saveLastOptions(fileOptions);
@@ -604,12 +604,12 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		int k = e.getKeyCode();  // BR:
 		switch(k) {
 			case KeyEvent.VK_ESCAPE:
-				close();
-				break;
+				doExitBoxAction();
+				return;
 			case KeyEvent.VK_SPACE:
 			case KeyEvent.VK_ENTER:
 				parent.advanceHelp();
-				break;
+				return;
 			default: // BR:
 //				if(Profiles.processKey(k, e.isShiftDown(), guiTitleID, newGameOptions())) {
 //				};

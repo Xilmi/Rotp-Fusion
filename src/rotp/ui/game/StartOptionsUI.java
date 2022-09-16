@@ -681,7 +681,7 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
     // BR:
     private void goToMainMenu() {
         buttonClick();
-        close();
+        doOkBoxAction();
         rotp.ui.RotPUI.instance().selectGamePanel();
     } // \ BR:
 	@Override public void keyReleased(KeyEvent e) {
@@ -693,8 +693,8 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
         int k = e.getKeyCode(); // BR:
         switch(k) {
             case KeyEvent.VK_ESCAPE:
-                close();
-                break;
+            	doOkBoxAction();
+				return;
             case KeyEvent.VK_SPACE:
             case KeyEvent.VK_ENTER:
                 parent.advanceHelp();
@@ -724,7 +724,6 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
             	// Needs to be done twice for the case both Galaxy size
             	// and the number of opponents were changed !?
             	if (Profiles.processKey(k, e.isShiftDown(), "Advanced", newGameOptions())) {
-                    buttonClick();
                     galaxyAgeText.repaint(galaxyAgeStr());
                     starDensityText.repaint(starDensityStr());
                     aiHostilityText.repaint(aiHostilityStr());

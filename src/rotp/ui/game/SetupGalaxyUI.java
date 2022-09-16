@@ -18,6 +18,7 @@ package rotp.ui.game;
 import static rotp.ui.UserPreferences.showNewRaces;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonWidth;
+import static rotp.ui.util.AbstractOptionsUI.smallButtonM;
 import static rotp.ui.util.AbstractOptionsUI.userButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.userButtonWidth;
 
@@ -64,6 +65,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	public  static final String guiTitleID	= "SETUP_GALAXY";
 	private static final String backKey		= "SETUP_BUTTON_BACK";
 	private static final String restoreKey	= "SETUP_BUTTON_RESTORE";
+	private static final String restartKey	= "SETUP_BUTTON_RESTART";
 	public static int MAX_DISPLAY_OPPS = 49;
 	BufferedImage backImg, playerRaceImg;
 	BufferedImage smBackImg;
@@ -143,12 +145,17 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		showNewRaces.setFromOptions(source);
 	}
     private void doBackBoxAction() {
+		buttonClick();
     	if (ctrlPressed) // Restore
     		getOptions(initialOptions);
-    	else // Back
-    		goToRaceSetup();
+    	else // Save
+    		saveLastOptions();
+    	// Go back to Race Panel
+		RotPUI.instance().returnToSetupRacePanel();
+		release();
  	}
  	private void doDefaultBoxAction() {
+		buttonClick();
  		if (ctrlPressed) { // set to last
  			MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
  			getOptions(fileOptions);
@@ -160,10 +167,9 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
  		repaint();
  	}
  	private void doUserBoxAction() {
+		buttonClick();
  		if (ctrlPressed) { // Save
- 			MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
- 			saveOptions(fileOptions);
- 			MOO1GameOptions.saveUserOptions(fileOptions);
+ 			saveUserOptions();
  			return;
  		} else { // Load
  			MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
@@ -172,6 +178,16 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
  			repaint();
  		}
  	}
+ 	private void saveUserOptions() {
+		MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
+		saveOptions(fileOptions);
+		MOO1GameOptions.saveUserOptions(fileOptions);
+	}
+	private void saveLastOptions() {
+		MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
+		saveOptions(fileOptions);
+		MOO1GameOptions.saveLastOptions(fileOptions);
+	}
 	public static String cancelButtonKey(boolean ctrlPressed) {
 		if (ctrlPressed)
 			return restoreKey;
@@ -481,7 +497,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 
 		// far left button
 		g.setFont(narrowFont(20));
-		String text2r = text("SETUP_BUTTON_RESTART");
+		String text2r = text(restartKey);
 		int sw2r= g.getFontMetrics().stringWidth(text2r);
 		int x2r = restartBox.x + ((restartBox.width-sw2r)/2);
 		int y2r = restartBox.y + restartBox.height-s8;
@@ -496,7 +512,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		String text7 = text(defaultButtonKey(ctrlPressed));
         int sw7		 = g.getFontMetrics().stringWidth(text7);
 		int smallButtonW = defaultButtonWidth(g);
-         int yB = restartBox.y;
+        int yB = restartBox.y;
         int xB = restartBox.x - smallButtonW - bSep;
         int smallButtonH = s30;
         defaultBox.setBounds(xB, yB, smallButtonW, smallButtonH);
@@ -726,16 +742,13 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		modViewOptionsUI.open(this);
 		release();
 	}
-	public void goToRaceSetup() {
-		buttonClick();
-//		RotPUI.instance().selectSetupRacePanel();
-		// BR: To avoid reset options while returning to Race panel
-		RotPUI.instance().returnToSetupRacePanel();
-		release();
-	}
 	// BR: Add option to return to the main menu
 	private void goToMainMenu() {
 		buttonClick();
+    	if (ctrlPressed) // Restore
+    		getOptions(initialOptions);
+    	else // Save
+    		saveLastOptions();
 		RotPUI.instance().selectGamePanel();
 		release();
 	}
@@ -744,6 +757,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		starting = true;
 		buttonClick();
 		repaint();
+   		saveLastOptions();
 		GalaxyCopy oldGalaxy = new GalaxyCopy(newGameOptions());
 		UserPreferences.setForNewGame();
 		// Get the old galaxy parameters
@@ -752,7 +766,10 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		release();
 	}
 	public void startGame() {
-		starting = true;
+ 		starting = true;
+		repaint();
+		buttonClick();
+  		saveLastOptions();
 		// BR:
 		if (Profiles.isStartOpponentRaceListEnabled()) {
 			RacesOptions.loadStartingOpponents(newGameOptions());
@@ -770,8 +787,6 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			GameUI.gameName = GameUI.gameName 
 					+ " (" + Integer.toString(UserPreferences.customDifficulty.get()) + "%)";
 		}
-		repaint();
-		buttonClick();
 		UserPreferences.setForNewGame();
 		final Runnable save = () -> {
 			long start = System.currentTimeMillis();
@@ -1075,7 +1090,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 
 		// draw RESTART button
 		buttonH = s30;
-		buttonW = scaled(160);
+		buttonW = g.getFontMetrics().stringWidth(text(restartKey)) + smallButtonM;
 		restartBox.setBounds(scaled(xb-dx)-buttonW-bSep, scaled(yB+15), buttonW, buttonH);
 		g.setPaint(GameUI.buttonLeftBackground());
 		g.fillRoundRect(restartBox.x, restartBox.y, buttonW, buttonH, cnr, cnr);
@@ -1115,14 +1130,14 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		int k = e.getKeyCode();
 		switch(k) {
 		case KeyEvent.VK_ESCAPE:
-			goToRaceSetup();
+			doBackBoxAction();
 			return;
 		case KeyEvent.VK_ENTER:
 			startGame();
 			return;
 		case KeyEvent.VK_M: // BR: "M" = Go to Main Menu
 			goToMainMenu();
-			break;
+			return;
 		default: // BR:
 			if (Profiles.processKey(k, e.isShiftDown(), "Galaxy", newGameOptions())) {
 				buttonClick();
@@ -1134,7 +1149,6 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			// Needs to be done twice for the case both Galaxy size
 			// and the number of opponents were changed !?
 			if (Profiles.processKey(k, e.isShiftDown(), "Galaxy", newGameOptions())) {
-				buttonClick();
 				playerRaceImg = null;
 				playerRaceImg = playerRaceImg();
 				backImg = null;

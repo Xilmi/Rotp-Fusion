@@ -19,6 +19,7 @@ import static rotp.ui.UserPreferences.customPlayerRace;
 import static rotp.ui.UserPreferences.playerShipSet;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonWidth;
+import static rotp.ui.util.AbstractOptionsUI.smallButtonM;
 import static rotp.ui.util.AbstractOptionsUI.userButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.userButtonWidth;
 
@@ -56,10 +57,11 @@ import rotp.ui.RotPUI;
 import rotp.ui.main.SystemPanel;
 
 public final class SetupRaceUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
-    private static final long serialVersionUID = 1L;
-	public  static final String guiTitleID	= "SETUP_SELECT_RACE";
-	private static final String cancelKey	= "SETUP_BUTTON_CANCEL";
-	private static final String restoreKey	= "SETUP_BUTTON_RESTORE";
+    private static final long serialVersionUID	= 1L;
+	public  static final String guiTitleID		= "SETUP_SELECT_RACE";
+	private static final String cancelKey		= "SETUP_BUTTON_CANCEL";
+	private static final String restoreKey		= "SETUP_BUTTON_RESTORE";
+	private static final String customRaceKey	= "SETUP_BUTTON_CUSTOM_PLAYER_RACE";
     public static final int MAX_RACES  = 16; // modnar: increase MAX_RACES to add new Races
     static final int MAX_COLORS = 16; // modnar: add new colors
     static final int MAX_SHIP   = ShipLibrary.designsPerSize; // BR:
@@ -446,7 +448,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         // BR: Player Race Customization
         // far left button
         g.setFont(narrowFont(20));
-        String text4 = text("SETUP_BUTTON_CUSTOM_PLAYER_RACE");
+        String text4 = text(customRaceKey);
         int sw4= g.getFontMetrics().stringWidth(text4);
         int x4 = playerRaceSettingBox.x + ((playerRaceSettingBox.width-sw4)/2);
         int y4 = playerRaceSettingBox.y + playerRaceSettingBox.height-s8;
@@ -729,8 +731,9 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 
         // BR: Player Race Customization
         // far left button
+        g.setFont(narrowFont(20));
         int smallButtonH = s30;
-        int smallButtonW = scaled(180);
+        int smallButtonW = g.getFontMetrics().stringWidth(text(customRaceKey)) + smallButtonM;
         playerRaceSettingBox.setBounds(scaled(140), scaled(615), smallButtonW, smallButtonH);
         g.setPaint(GameUI.buttonLeftBackground());
         g.fillRoundRect(playerRaceSettingBox.x, playerRaceSettingBox.y, smallButtonW, smallButtonH, cnr, cnr);

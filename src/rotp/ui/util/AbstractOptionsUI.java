@@ -49,8 +49,8 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	private static final String cancelKey	  = "SETTINGS_CANCEL";
 	private static final String setDefaultKey = "SETTINGS_DEFAULT";
 	private static final String setLastKey	  = "SETTINGS_LAST_SET";
-	static final String setUserKey	= "SETTINGS_USER_SET";
-	static final String saveUserKey	= "SETTINGS_USER_SAVE";
+	public	static final String setUserKey	  = "SETTINGS_USER_SET";
+	public	static final String saveUserKey	  = "SETTINGS_USER_SAVE";
 	private final String guiTitleID;
 	
 	private Font descFont	= narrowFont(15);
@@ -250,7 +250,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		else
 			return setDefaultKey;			
 	}
-	public static int exitButtonWidth(Graphics2D g) { // TODO BR: Add call to text()
+	public static int exitButtonWidth(Graphics2D g) {
 		return Math.max(g.getFontMetrics().stringWidth(LabelManager.current().label(cancelKey)),
 						g.getFontMetrics().stringWidth(LabelManager.current().label(exitKey)))
 				+ smallButtonM;
@@ -411,12 +411,12 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		int k = e.getKeyCode();  // BR:
 		switch(k) {
 			case KeyEvent.VK_ESCAPE:
-				close();
-				break;
+				doOkBoxAction();
+				return;
 			case KeyEvent.VK_SPACE:
 			case KeyEvent.VK_ENTER:
 				parent.advanceHelp();
-				break;
+				return;
 			default: // BR:
 				if(Profiles.processKey(k, e.isShiftDown(), guiTitleID, newGameOptions())) {
 				};
