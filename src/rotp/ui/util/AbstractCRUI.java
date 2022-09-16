@@ -17,6 +17,12 @@ package rotp.ui.util;
 
 import static rotp.model.empires.CustomRaceFactory.ROOT;
 import static rotp.ui.UserPreferences.customPlayerRace;
+import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
+import static rotp.ui.util.AbstractOptionsUI.defaultButtonWidth;
+import static rotp.ui.util.AbstractOptionsUI.exitButtonKey;
+import static rotp.ui.util.AbstractOptionsUI.exitButtonWidth;
+import static rotp.ui.util.AbstractOptionsUI.userButtonKey;
+import static rotp.ui.util.AbstractOptionsUI.userButtonWidth;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -45,11 +51,8 @@ import rotp.ui.races.RacesUI;
 // modnar: add UI panel for modnar MOD game options, based on StartOptionsUI.java
 public abstract class AbstractCRUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
 	private static final long serialVersionUID	= 1L;
-	private static final String setUserKey		= AbstractOptionsUI.setUserKey;
-	private static final String saveUserKey		= AbstractOptionsUI.saveUserKey;
 	private static final Color  backgroundHaze	= new Color(0,0,0,160);
 	private static final String totalCostKey	= "CUSTOM_RACE_GUI_COST";
-	private static final String exitKey			= "SETTINGS_EXIT";
 	private static final String selectKey		= "CUSTOM_RACE_GUI_SELECT";
 	private static final String randomKey		= "CUSTOM_RACE_GUI_RANDOM";
 	private static final LinkedList<Integer> colSettingsCount   = new LinkedList<>();
@@ -60,9 +63,9 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 	
 	private static final Color textC		= SystemPanel.whiteText;
 	private		   final Font buttonFont	= narrowFont(20);
-	private static final int buttonW		= s100+s80;
 	private static final int buttonH		= s30;
-	private static final int buttonPad		= s20;
+	private static final int buttonMargin	= AbstractOptionsUI.smallButtonM;
+	private static final int buttonPad		= s15;
 	private static final int xButtonOffset	= s30;
 	private static final int yButtonOffset	= s40;
 	private static final Color labelC		= SystemPanel.orangeText;
@@ -129,15 +132,17 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 
 	private BasePanel parent;
 	private Rectangle hoverBox;
-	private Rectangle okBox 	= new Rectangle();
-	private Rectangle selectBox	= new Rectangle();
-	private Rectangle randomBox	= new Rectangle();
-    private Rectangle userBox	= new Rectangle();
-	private boolean ctrlPressed	= false;
+	private Rectangle exitBox 	 = new Rectangle();
+	private Rectangle selectBox	 = new Rectangle();
+    private Rectangle defaultBox = new Rectangle();
+    private Rectangle userBox	 = new Rectangle();
+	private Rectangle randomBox	 = new Rectangle();
+	private boolean ctrlPressed	 = false;
 	private static BaseText totalCostText;
 	private RacesUI  raceUI;
 	private boolean  showOnly = false;
 	private static boolean initialized = false;
+	private MOO1GameOptions initialOptions; // To be restored if "cancel"
 	
 	// ========== Constructors and initializers ==========
 	//
@@ -216,7 +221,6 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 	//
 	private  String totalCostStr() {
 		return text(totalCostKey, Math.round(cr.getTotalCost()));
-//		return text(totalCostKey, new DecimalFormat("0.0").format(cr.getTotalCost()));
 	}
 	private  BaseText settingBT() {
 		return new BaseText(this, false, settingFont, 0, 0,
@@ -257,16 +261,79 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 	}
 	public void open(BasePanel p) {
 		parent = p;
+		initialOptions = new MOO1GameOptions(); // Any content will do
+		saveOptions(initialOptions);
 		init();
 		enableGlassPane(this);
 	}
 	private void close() {
 		disableGlassPane();
 	}
-	private void selectRace() {
+	private void saveOptions(MOO1GameOptions destination) {
+		for (InterfaceOptions param : settingList)
+			param.setOptions(destination);
+		customPlayerRace.setOptions(destination);
+	}
+	private void getOptions(MOO1GameOptions source) {
+		for (InterfaceOptions param : settingList)
+			param.setFromOptions(source);
+		customPlayerRace.setFromOptions(source);
+	}
+	private void doExitBoxAction() {
+		if (showOnly) {
+			close();
+			return;
+		}
+		if (ctrlPressed) // cancel = set to initial and close
+			getOptions(initialOptions);
+		else // save and exit
+			saveLastOptions();
+		close();			
+	}
+	private void doSelectBoxAction() {
 		cr.pushSettings();
 		customPlayerRace.set(true);
+		saveLastOptions();
 		close();
+	}
+	private void doDefaultBoxAction() {
+		if (ctrlPressed) { // set to last
+			MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
+			getOptions(fileOptions);
+		} else
+			setToDefault();
+		init();
+		repaint();
+	}
+	private void doUserBoxAction() {
+		if (ctrlPressed)
+			saveUserOptions();
+		else { // Set
+			MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
+			getOptions(fileOptions);
+			init();
+			repaint();
+		}
+	}	
+	public void setToDefault() {
+		for (InterfaceOptions param : settingList)
+			param.setFromDefault();
+	}
+	public void saveUserOptions() {
+		MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
+		saveOptions(fileOptions);
+		MOO1GameOptions.saveUserOptions(fileOptions);
+	}
+	public void saveLastOptions() {
+		MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
+		saveOptions(fileOptions);
+		MOO1GameOptions.saveLastOptions(fileOptions);
+	}
+	private void checkCtrlKey(boolean pressed) {
+		if (pressed != ctrlPressed) {
+			ctrlPressed = pressed;
+			repaint();
+		}
 	}
 	private void randomizeRace() {
 		cr.randomizeRace(randomMin.settingValue(), randomMax.settingValue(),
@@ -369,40 +436,18 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 			}
 		}
 	}
-	private String userButtonKey() {
-		if (ctrlPressed)
-			return saveUserKey;
-		else
-			return setUserKey;			
-	}
-	private void doUserBoxAction() {
-//		if (ctrlPressed)
-//			MOO1GameOptions.setUserOptions(newGameOptions(), guiTitleID);
-//		else
-//			MOO1GameOptions.saveUserOptions(newGameOptions(), guiTitleID);
-		// TODO BR: doUserBoxAction
-//		UserPreferences.setToDefault(guiTitleID);
-//		init();
-//		repaint();
-	}
-	private void checkCtrlKey(boolean pressed) {
-		if (pressed != ctrlPressed) {
-			ctrlPressed = pressed;
-			repaint();
-		}
-	}
 	// ========== Overriders ==========
 	//
 	@Override public void paintComponent(Graphics g0) {
 		super.paintComponent(g0);
 		Graphics2D g = (Graphics2D) g0;
-		w		= getWidth();
-		h		= getHeight();
-		hBG		= titlePad + columnsMaxH + bottomPad;
-		topM	= (h - hBG)/2;
-		yTop	= topM + titlePad; // First setting top position
-		wBG		= (wSetting + columnPad) * numColumns;
-		leftM	= (w - wBG)/2;
+		w	  = getWidth();
+		h	  = getHeight();
+		hBG	  = titlePad + columnsMaxH + bottomPad;
+		topM  = (h - hBG)/2;
+		yTop  = topM + titlePad; // First setting top position
+		wBG	  = (wSetting + columnPad) * numColumns;
+		leftM = (w - wBG)/2;
 		if (showOnly) {
 			leftM = Math.min(leftM, scaled(100));
 		}
@@ -410,7 +455,6 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		yButton	= topM + hBG - yButtonOffset;
 		yCost	= yTitle + costOffset;
 		xCost	= leftM + columnPad/2;
-
 		xLine	= leftM + columnPad/2;
 		yLine	= yTop;
 
@@ -428,7 +472,6 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 			title = text(guiTitleID);
 
 		int sw = g.getFontMetrics().stringWidth(title);
-//		int xTitle = (w-sw)/2;
 		int xTitle = leftM +(wBG-sw)/2;
 		drawBorderedString(g, title, 1, xTitle, yTitle, Color.black, Color.white);
 		
@@ -453,33 +496,34 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		g.setStroke(prev);
 
 		int cnr = s5;
-		// Exit Button
-		xButton = leftM + wBG - buttonW - xButtonOffset;
-		okBox.setBounds(xButton, yButton, buttonW, buttonH);
-		g.setColor(GameUI.buttonBackgroundColor());
-		g.fillRoundRect(okBox.x, okBox.y, buttonW, buttonH, cnr, cnr);
 		g.setFont(buttonFont);
-		String text = text(exitKey);
+		// Exit Button
+		String text = text(exitButtonKey(ctrlPressed));
 		sw = g.getFontMetrics().stringWidth(text);
-		int xT = okBox.x+((okBox.width-sw)/2);
-		int yT = okBox.y+okBox.height-s8;
-		Color cB = hoverBox == okBox ? Color.yellow : GameUI.borderBrightColor();
+		int buttonW	= exitButtonWidth(g);
+		xButton = leftM + wBG - buttonW - xButtonOffset;
+		exitBox.setBounds(xButton, yButton, buttonW, buttonH);
+		g.setColor(GameUI.buttonBackgroundColor());
+		g.fillRoundRect(exitBox.x, exitBox.y, buttonW, buttonH, cnr, cnr);
+		int xT = exitBox.x+((exitBox.width-sw)/2);
+		int yT = exitBox.y+exitBox.height-s8;
+		Color cB = hoverBox == exitBox ? Color.yellow : GameUI.borderBrightColor();
 		drawShadowedString(g, text, 2, xT, yT, GameUI.borderDarkColor(), cB);
 		prev = g.getStroke();
 		g.setStroke(stroke1);
-		g.drawRoundRect(okBox.x, okBox.y, okBox.width, okBox.height, cnr, cnr);
+		g.drawRoundRect(exitBox.x, exitBox.y, exitBox.width, exitBox.height, cnr, cnr);
 		g.setStroke(prev);
 
 		// Select Button
 		if (showOnly)
 			return;
-		text = text(selectKey);
+		text	 = text(selectKey);
+		sw		 = g.getFontMetrics().stringWidth(text);
+		buttonW	 = sw + buttonMargin;
 		xButton -= (buttonW + buttonPad);
-		sw = g.getFontMetrics().stringWidth(text);
 		selectBox.setBounds(xButton, yButton, buttonW, buttonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(selectBox.x, selectBox.y, buttonW, buttonH, cnr, cnr);
-		g.setFont(buttonFont);
 		xT = selectBox.x+((selectBox.width-sw)/2);
 		yT = selectBox.y+selectBox.height-s8;
 		cB = hoverBox == selectBox ? Color.yellow : GameUI.borderBrightColor();
@@ -489,20 +533,35 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		g.drawRoundRect(selectBox.x, selectBox.y, selectBox.width, selectBox.height, cnr, cnr);
 		g.setStroke(prev);
 
-		// User preference Button
-        String text8 = text(userButtonKey());
-		int sw8 = g.getFontMetrics().stringWidth(text8);
-		int smallButtonW = sw8+s30;
-		int y4 = yButton;
-		int smallButtonH = buttonH;
-		userBox.setBounds(selectBox.x-smallButtonW-buttonPad, y4, smallButtonW, smallButtonH);
+		// Default Button
+		text	 = text(defaultButtonKey(ctrlPressed));
+		sw		 = g.getFontMetrics().stringWidth(text);
+		buttonW	 = defaultButtonWidth(g);
+		xButton -= (buttonW + buttonPad);
+		defaultBox.setBounds(xButton, yButton, buttonW, buttonH);
 		g.setColor(GameUI.buttonBackgroundColor());
-		g.fillRoundRect(userBox.x, userBox.y, smallButtonW, smallButtonH, cnr, cnr);
-		g.setFont(narrowFont(20));
-		int x8 = userBox.x+((userBox.width-sw8)/2);
-		int y8 = userBox.y+userBox.height-s8;
-		Color c8 = hoverBox == userBox ? Color.yellow : GameUI.borderBrightColor();
-		drawShadowedString(g, text8, 2, x8, y8, GameUI.borderDarkColor(), c8);
+		g.fillRoundRect(defaultBox.x, defaultBox.y, buttonW, buttonH, cnr, cnr);
+		xT = defaultBox.x+((defaultBox.width-sw)/2);
+		yT = defaultBox.y+defaultBox.height-s8;
+		cB = hoverBox == defaultBox ? Color.yellow : GameUI.borderBrightColor();
+		drawShadowedString(g, text, 2, xT, yT, GameUI.borderDarkColor(), cB);
+		prev = g.getStroke();
+		g.setStroke(stroke1);
+		g.drawRoundRect(defaultBox.x, defaultBox.y, defaultBox.width, defaultBox.height, cnr, cnr);
+		g.setStroke(prev);
+
+		// User preference Button
+        text	 = text(userButtonKey(ctrlPressed));
+		sw		 = g.getFontMetrics().stringWidth(text);
+		buttonW	 = userButtonWidth(g);
+		xButton -= (buttonW + buttonPad);
+		userBox.setBounds(xButton, yButton, buttonW, buttonH);
+		g.setColor(GameUI.buttonBackgroundColor());
+		g.fillRoundRect(userBox.x, userBox.y, buttonW, buttonH, cnr, cnr);
+		xT = userBox.x+((userBox.width-sw)/2);
+		yT = userBox.y+userBox.height-s8;
+		cB = hoverBox == userBox ? Color.yellow : GameUI.borderBrightColor();
+		drawShadowedString(g, text, 2, xT, yT, GameUI.borderDarkColor(), cB);
 		prev = g.getStroke();
 		g.setStroke(stroke1);
 		g.drawRoundRect(userBox.x, userBox.y, userBox.width, userBox.height, cnr, cnr);
@@ -512,10 +571,10 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		text = text(randomKey);
 		xButton = leftM + buttonPad;
 		sw = g.getFontMetrics().stringWidth(text);
+		buttonW = g.getFontMetrics().stringWidth(text) + buttonMargin;
 		randomBox.setBounds(xButton, yButton, buttonW, buttonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(randomBox.x, randomBox.y, buttonW, buttonH, cnr, cnr);
-		g.setFont(buttonFont);
 		xT = randomBox.x+((randomBox.width-sw)/2);
 		yT = randomBox.y+randomBox.height-s8;
 		cB = hoverBox == randomBox ? Color.yellow : GameUI.borderBrightColor();
@@ -571,14 +630,16 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		int y = e.getY();
 		Rectangle prevHover = hoverBox;
 		hoverBox = null;
-		if (okBox.contains(x,y))
-			hoverBox = okBox;
+		if (exitBox.contains(x,y))
+			hoverBox = exitBox;
 		else if (userBox.contains(x,y))
 			hoverBox = userBox;
 
 		if (!showOnly) {
 			if (selectBox.contains(x,y))
 				hoverBox = selectBox;
+			else if (defaultBox.contains(x,y))
+				hoverBox = defaultBox;
 			else if (randomBox.contains(x,y))
 				hoverBox = randomBox;
 			else {
@@ -659,20 +720,28 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 			return;
 		if (hoverBox == null)
 			return;
-		if (hoverBox == okBox) {
-			close();
+		if (hoverBox == exitBox) {
+			doExitBoxAction();
 			return;
 		}
 		if (showOnly)
 			return;
 		if (hoverBox == selectBox) {
-			selectRace();
+			doSelectBoxAction();
 			return;
 		}
-		if (hoverBox == userBox)
+		if (hoverBox == userBox) {
 			doUserBoxAction();
-		else if (hoverBox == randomBox)
+			return;
+		}
+		if (hoverBox == defaultBox) {
+			doDefaultBoxAction();			
+			return;
+		}
+		if (hoverBox == randomBox) {
 			randomizeRace();			
+			return;
+		}
 		boolean up	= !SwingUtilities.isRightMouseButton(e); // BR: added bidirectional
 		boolean mid	= !SwingUtilities.isMiddleMouseButton(e); // BR: added reset click
 		boolean shiftPressed = e.isShiftDown();

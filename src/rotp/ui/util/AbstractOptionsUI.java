@@ -39,6 +39,7 @@ import rotp.ui.BaseText;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.GameUI;
 import rotp.ui.main.SystemPanel;
+import rotp.util.LabelManager;
 
 // modnar: add UI panel for modnar MOD game options, based on StartOptionsUI.java
 public abstract class AbstractOptionsUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
@@ -55,7 +56,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	private Font descFont	= narrowFont(15);
 	private static int columnPad	= s20;
 	private static int smallButtonH = s30;
-	private static int smallButtonM = s20; // Margin for all GUI
+	public  static int smallButtonM = s50; // Margin for all GUI
 	private static int hSetting 	= s90;
 	private static int lineH		= s17;
 	private static int rowPad		= s20;
@@ -225,6 +226,12 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 			repaint();
 		}
 	}
+	public static String exitButtonKey(boolean ctrlPressed) {
+		if (ctrlPressed)
+			return cancelKey;
+		else
+			return exitKey;			
+	}
 	public static String okButtonKey(boolean ctrlPressed) {
 		if (ctrlPressed)
 			return cancelKey;
@@ -243,14 +250,19 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		else
 			return setDefaultKey;			
 	}
+	public static int exitButtonWidth(Graphics2D g) { // TODO BR: Add call to text()
+		return Math.max(g.getFontMetrics().stringWidth(LabelManager.current().label(cancelKey)),
+						g.getFontMetrics().stringWidth(LabelManager.current().label(exitKey)))
+				+ smallButtonM;
+	}
 	public static int userButtonWidth(Graphics2D g) {
-		return Math.max(g.getFontMetrics().stringWidth(saveUserKey),
-						g.getFontMetrics().stringWidth(setUserKey))
+		return Math.max(g.getFontMetrics().stringWidth(LabelManager.current().label(saveUserKey)),
+						g.getFontMetrics().stringWidth(LabelManager.current().label(setUserKey)))
 				+ smallButtonM;
 	}
 	public static int defaultButtonWidth(Graphics2D g) {
-		return Math.max(g.getFontMetrics().stringWidth(setDefaultKey),
-						g.getFontMetrics().stringWidth(setLastKey))
+		return Math.max(g.getFontMetrics().stringWidth(LabelManager.current().label(setDefaultKey)),
+						g.getFontMetrics().stringWidth(LabelManager.current().label(setLastKey)))
 				+ smallButtonM;
 	}
 	private void checkCtrlKey(boolean pressed) {
