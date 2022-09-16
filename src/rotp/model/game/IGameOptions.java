@@ -324,12 +324,18 @@ public interface IGameOptions {
     public String selectedOpponentRace(int i);
     public void selectedOpponentRace(int i, String s);
 
-    public String setExtendedOptions(String id, String value); // BR:
-    public String getExtendedOptions(String id); // BR:
-    public String getExtendedOptions(String id, String defaultValue); // BR:
-    public Object setOtherOptions(String id, Object value); // BR:
-    public Object getOtherOptions(String id); // BR:
-    public Object getOtherOptions(String id, Object defaultValue); // BR:
+    public String setStringOptions(String id, String value); // BR:
+    public String getStringOptions(String id); // BR:
+    public String getStringOptions(String id, String defaultValue); // BR:
+    public Float  setFloatOptions(String id, Float value); // BR:
+    public Float  getFloatOptions(String id); // BR:
+    public Float  getFloatOptions(String id, Float defaultValue); // BR:
+    public Integer setIntegerOptions(String id, Integer value); // BR:
+    public Integer getIntegerOptions(String id); // BR:
+    public Integer getIntegerOptions(String id, Integer defaultValue); // BR:
+    public Object setObjectOptions(String id, Object value); // BR:
+    public Object getObjectOptions(String id); // BR:
+    public Object getObjectOptions(String id, Object defaultValue); // BR:
     
     default void copyForRestart(IGameOptions opt) { } // BR: for Restart with new options
     default void copyOptions(IGameOptions opt) { }

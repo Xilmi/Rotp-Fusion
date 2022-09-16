@@ -95,10 +95,10 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 		return getCfgLabel() + " = " + getCfgValue();
 	}
 	@Override public void setFromOptions(MOO1GameOptions options) {
-		setFromCfgValue(options.getExtendedOptions(name, getCfgValue(defaultValue())));
+		setFromCfgValue(options.getStringOptions(name, getCfgValue(defaultValue())));
 	}
 	@Override public void setOptions(MOO1GameOptions options) {
-		options.setExtendedOptions(name, getCfgValue());
+		options.setStringOptions(name, getCfgValue());
 	}
 	@Override public String getCfgValue() { return getCfgValue(value); }
 	@Override public String getCfgLabel() { return name; }

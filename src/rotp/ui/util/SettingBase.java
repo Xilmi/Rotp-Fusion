@@ -156,11 +156,11 @@ public class SettingBase<T> implements InterfaceParam {
 	}
 	@Override public void setOptions(MOO1GameOptions options) {
 		if (!isSpacer)
-			options.setExtendedOptions(labelId(), getCfgValue());
+			options.setStringOptions(labelId(), getCfgValue());
 	}
 	@Override public void setFromOptions(MOO1GameOptions options) {
 		if (!isSpacer)
-			setFromCfgValue(options.getExtendedOptions(labelId(), getDefaultCfgValue()));
+			setFromCfgValue(options.getStringOptions(labelId(), getDefaultCfgValue()));
 	}
 	@Override public String getCfgValue() {
 		if (isList)

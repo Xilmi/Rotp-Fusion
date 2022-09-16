@@ -29,6 +29,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -141,7 +142,13 @@ public final class Empire implements Base, NamedObject, Serializable {
     private NamedObject lastAttacker;
     private int defaultMaxBases = UserPreferences.defaultMaxBases();
     private final String dataRaceKey;
-    
+
+    // BR: Dynamic options
+	private final LinkedHashMap<String, String>	stringOptions	= new LinkedHashMap<>(); // For future use
+	private final LinkedHashMap<String, Integer>integerOptions	= new LinkedHashMap<>(); // For future use
+	private final LinkedHashMap<String, Float>	floatOptions	= new LinkedHashMap<>(); // For future use
+	private final LinkedHashMap<String, Object>	objectOptions	= new LinkedHashMap<>(); // For future use
+
     private transient float avgX, avgY, nameX1, nameX2;
 
     private transient AI ai;
@@ -168,6 +175,12 @@ public final class Empire implements Base, NamedObject, Serializable {
     private transient int inRange;
     public transient int numColoniesHistory;
     private transient String empireName;
+
+    // BR: Dynamic options
+    public LinkedHashMap<String, String>  stringOptions()  { return stringOptions; }
+    public LinkedHashMap<String, Integer> integerOptions() { return integerOptions; }
+    public LinkedHashMap<String, Float>	  floatOptions()   { return floatOptions; }
+    public LinkedHashMap<String, Object>  objectOptions()  { return objectOptions; }
 
     public AI ai() {
         if (ai == null) {
@@ -1933,7 +1946,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         int[] nearbySysIds = this.sv.galaxy().system(sid).nearbySystems();
         for (int nearSysId : nearbySysIds) {
             int nearEmpId = this.sv.empId(nearSysId);
-            if (nearEmpId != this.NULL_ID) {
+            if (nearEmpId != NULL_ID) {
                 if (nearEmpId == this.id)
                     value += 5;
                 else
@@ -3595,7 +3608,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         return drawShape(g,x,y,w,h,color());
     }
     public Shape drawShape(Graphics2D g, int x, int y, int w, int h, Color c) {
-        Color c1 = new Color(c.getRed(),c.getGreen(),c.getBlue(),192);
+        // Color c1 = new Color(c.getRed(),c.getGreen(),c.getBlue(),192);
         g.setColor(c);
         int m = w/10;
         switch(shape()) {

@@ -110,8 +110,11 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private String selectedAIHostilityOption;
     private String selectedColonizingOption;
     private String selectedAutoplayOption;
-    private LinkedHashMap<String, String> extendedOptions = new LinkedHashMap<>();
-    private LinkedHashMap<String, Object> otherOptions = new LinkedHashMap<>(); // For future use
+    // BR: Dynamic options
+    private final LinkedHashMap<String, String>	stringOptions	= new LinkedHashMap<>();
+	private final LinkedHashMap<String, Integer>integerOptions	= new LinkedHashMap<>(); // For future use
+	private final LinkedHashMap<String, Float>	floatOptions	= new LinkedHashMap<>(); // For future use
+    private final LinkedHashMap<String, Object>	objectOptions	= new LinkedHashMap<>(); // For future use
 
     private transient GalaxyShape galaxyShape;
 
@@ -123,23 +126,41 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         randomizeColors();
         setDefaultOptionValues();
     }
-	@Override public String setExtendedOptions(String id, String value) {
-		return extendedOptions.put(id, value);
+	@Override public String setStringOptions(String id, String value) {
+		return stringOptions.put(id, value);
 	}
-	@Override public String getExtendedOptions(String id) {
-		return extendedOptions.get(id);
+	@Override public String getStringOptions(String id) {
+		return stringOptions.get(id);
 	}
-	@Override public String getExtendedOptions(String id, String defaultValue) {
-		return extendedOptions.getOrDefault(id, defaultValue);
+	@Override public String getStringOptions(String id, String defaultValue) {
+		return stringOptions.getOrDefault(id, defaultValue);
 	}
-	@Override public Object setOtherOptions(String id, Object value) {
-		return otherOptions.put(id, value);
+	@Override public Integer setIntegerOptions(String id, Integer value) {
+		return integerOptions.put(id, value);
 	}
-	@Override public Object getOtherOptions(String id) {
-		return otherOptions.get(id);
+	@Override public Integer getIntegerOptions(String id) {
+		return integerOptions.get(id);
 	}
-	@Override public Object getOtherOptions(String id, Object defaultValue) {
-		return otherOptions.getOrDefault(id, defaultValue);
+	@Override public Integer getIntegerOptions(String id, Integer defaultValue) {
+		return integerOptions.getOrDefault(id, defaultValue);
+	}
+	@Override public Float setFloatOptions(String id, Float value) {
+		return floatOptions.put(id, value);
+	}
+	@Override public Float getFloatOptions(String id) {
+		return floatOptions.get(id);
+	}
+	@Override public Float getFloatOptions(String id, Float defaultValue) {
+		return floatOptions.getOrDefault(id, defaultValue);
+	}
+	@Override public Object setObjectOptions(String id, Object value) {
+		return objectOptions.put(id, value);
+	}
+	@Override public Object getObjectOptions(String id) {
+		return objectOptions.get(id);
+	}
+	@Override public Object getObjectOptions(String id, Object defaultValue) {
+		return objectOptions.getOrDefault(id, defaultValue);
 	}
     private void resetSelectedOpponentRaces() {
         for (int i=0;i<opponentRaces.length;i++)

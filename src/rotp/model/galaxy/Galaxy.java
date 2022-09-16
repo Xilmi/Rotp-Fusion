@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import rotp.model.colony.Colony;
@@ -52,15 +53,28 @@ public class Galaxy implements Base, Serializable {
     private final List<StarSystem> abandonedSystems = new ArrayList<>();
 
     private Empire playerEmpire;
-    private Empire orionEmpire; //unused
+    @SuppressWarnings("unused")
+	private Empire orionEmpire; //unused
     private final int widthLY;
     private final int heightLY;
     private float maxScaleAdj = 1.0f;
     public int systemCount = 0;
 
+    // BR: Dynamic options
+    private LinkedHashMap<String, String>	stringOptions	= new LinkedHashMap<>(); // For future use
+    private LinkedHashMap<String, Integer>	integerOptions	= new LinkedHashMap<>(); // For future use
+    private LinkedHashMap<String, Float>	floatOptions	= new LinkedHashMap<>(); // For future use
+    private LinkedHashMap<String, Object>	objectOptions	= new LinkedHashMap<>(); // For future use
+
     private transient ShipCombatManager shipCombat = new ShipCombatManager();
     private transient Map<String, List<String>> raceSystemNames = new HashMap<>();
     private transient Map<String, Integer> raceSystemCtr = new HashMap<>();
+
+    // BR: Dynamic options
+    public LinkedHashMap<String, String>  stringOptions()  { return stringOptions; }
+    public LinkedHashMap<String, Integer> integerOptions() { return integerOptions; }
+    public LinkedHashMap<String, Float>	  floatOptions()   { return floatOptions; }
+    public LinkedHashMap<String, Object>  objectOptions()  { return objectOptions; }
 
     public int beginningYear()               { return player().race().startingYear; }
     public float currentTime()               { return currentTime; }
@@ -178,7 +192,8 @@ public class Galaxy implements Base, Serializable {
         }
         return systems;
     }
-    private float randomLocation(float max, float leftBuff, float rightBuff) {
+    @SuppressWarnings("unused")
+	private float randomLocation(float max, float leftBuff, float rightBuff) {
         return leftBuff + (random() * (max-leftBuff-rightBuff));
     }
     public void addAdviceGiven(String key) {
