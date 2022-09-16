@@ -54,6 +54,7 @@ import rotp.model.ships.ShipImage;
 import rotp.model.ships.ShipLibrary;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
+import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
 
 public final class SetupRaceUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
@@ -128,11 +129,19 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         shipSetTxt.setFont(narrowFont(20)); // BR:
 
         createNewGameOptions();
-        newGameOptions().copyOptions(options());
+    	String initOption = UserPreferences.menuStartup.get().toUpperCase();
+    	switch (initOption) {
+	    	case "LAST":
+	    	case "USER":
+	    	case "DEFAULT":
+	    		// Initialization already done
+	    		break;
+	    	default: // Vanilla, as before
+	    		newGameOptions().copyOptions(options());	
+     	}
+        raceChanged();
         initialOptions = new MOO1GameOptions(); // Any content will do
         saveOptions(initialOptions);
-        
-        raceChanged();
     }
     private void copyOptions(MOO1GameOptions src, MOO1GameOptions dest) {
     	MOO1GameOptions.setRaceOptions(src, dest);
@@ -148,15 +157,19 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     	playerShipSet.setFromOptions(source);
 	}
     private void doCancelBoxAction() {
+        buttonClick();
     	if (ctrlPressed) // Restore
     		getOptions(initialOptions);
-    	else // Back
-    		goToMainMenu();
+    	else // save
+    		saveLastOptions();
+    	goToMainMenu();
  	}
-   private void doNextBoxAction() { // save and continue
-		MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
-		saveOptions(fileOptions);
-		MOO1GameOptions.saveLastOptions(fileOptions);
+    private void doNextBoxAction() { // save and continue
+        buttonClick();
+    	if (ctrlPressed) // Restore
+    		getOptions(initialOptions);
+    	else // save
+    		saveLastOptions();
  		goToGalaxySetup();
  	}
  	private void doDefaultBoxAction() {
@@ -173,9 +186,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
  	}
  	private void doUserBoxAction() {
  		if (ctrlPressed) { // Save
- 			MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
- 			saveOptions(fileOptions);
- 			MOO1GameOptions.saveUserOptions(fileOptions);
+ 			saveUserOptions();
  			return;
  		} else { // Load
  			MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
@@ -184,6 +195,16 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
  			repaint();
  		}
  	}
+ 	private void saveUserOptions() {
+		MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
+		saveOptions(fileOptions);
+		MOO1GameOptions.saveUserOptions(fileOptions);
+	}
+	private void saveLastOptions() {
+		MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
+		saveOptions(fileOptions);
+		MOO1GameOptions.saveLastOptions(fileOptions);
+	}
 	public static String cancelButtonKey(boolean ctrlPressed) {
 		if (ctrlPressed)
 			return restoreKey;
@@ -863,10 +884,10 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         switch(k) {
             case KeyEvent.VK_M: // BR: "M" = Go to Main Menu
             case KeyEvent.VK_ESCAPE:
-                goToMainMenu();
+            	doCancelBoxAction();
                 return;
             case KeyEvent.VK_ENTER:
-                goToGalaxySetup();
+            	doNextBoxAction();
                 return;
             default: // BR:
             	if (Profiles.processKey(k, e.isShiftDown(), "Race", newGameOptions())) {

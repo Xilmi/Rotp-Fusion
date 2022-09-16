@@ -57,7 +57,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	private static int columnPad	= s20;
 	private static int smallButtonH = s30;
 	public  static int smallButtonM = s50; // Margin for all GUI
-	private static int hSetting 	= s90;
+	private static int hSetting	= s90;
 	private static int lineH		= s17;
 	private static int rowPad		= s20;
 	private static int hDistSetting = hSetting + rowPad; // distance between two setting top corner
@@ -73,7 +73,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	private LinkedList<BaseText> btList		= new LinkedList<>();
 	public	LinkedList<InterfaceParam> paramList = new LinkedList<>();
 	private Rectangle hoverBox;
-	private Rectangle okBox 		= new Rectangle();
+	private Rectangle okBox		= new Rectangle();
 	private Rectangle defaultBox	= new Rectangle();
 	private Rectangle userBox		= new Rectangle();
 	private BasePanel parent;
@@ -119,7 +119,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		// Special positioning for 6 rows
 		if (numRows == 6) {
 			// Shift the top
-			topM 		-= s30; // Margin reduction
+			topM		-= s30; // Margin reduction
 			topPad		-= s40; // Push the settings up
 			shiftTitle	-= s10; // Shift the title a little
 			// Move the description to the buttons level
@@ -191,9 +191,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		else if (globalOptions) // save old ways and exit
 			UserPreferences.save();
 		else { // save and exit
-			MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
-			saveOptions(fileOptions);
-			MOO1GameOptions.saveLastOptions(fileOptions);
+			saveLastOptions();
 		}
 		close();			
 	}
@@ -216,15 +214,23 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	}
 	private void doUserBoxAction() {
 		if (ctrlPressed) { // Save
-			MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
-			saveOptions(fileOptions);
-			MOO1GameOptions.saveUserOptions(fileOptions);
+			saveUserOptions();
 		} else { // Set
 			MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
 			getOptions(fileOptions);
 			init();
 			repaint();
 		}
+	}
+	private void saveUserOptions() {
+		MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
+		saveOptions(fileOptions);
+		MOO1GameOptions.saveUserOptions(fileOptions);
+	}
+	private void saveLastOptions() {
+		MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
+		saveOptions(fileOptions);
+		MOO1GameOptions.saveLastOptions(fileOptions);
 	}
 	public static String exitButtonKey(boolean ctrlPressed) {
 		if (ctrlPressed)
@@ -388,7 +394,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		if (globalOptions)
 			return;  // No preferred button
 		String text8 = text(userButtonKey(ctrlPressed));
-		int sw8 	 = g.getFontMetrics().stringWidth(text8);
+		int sw8		 = g.getFontMetrics().stringWidth(text8);
 		smallButtonW = userButtonWidth(g);
 		userBox.setBounds(defaultBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());

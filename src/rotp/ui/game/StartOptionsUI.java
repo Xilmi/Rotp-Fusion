@@ -143,9 +143,7 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
 		if (ctrlPressed) // Cancel = set to initial and close
 			getOptions(initialOptions);
 		else { // save and exit
-			MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
-			saveOptions(fileOptions);
-			MOO1GameOptions.saveLastOptions(fileOptions);
+			saveLastOptions();
 		}
 		close();
 	}
@@ -156,21 +154,28 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
 		} else { // set to default
 			newGameOptions().setToDefault();
 		}
-			init();
-			repaint();
+		init();
+		repaint();
 	}
 	private void doUserBoxAction() {
-		if (ctrlPressed) { // Save
-			MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
-			saveOptions(fileOptions);
-			MOO1GameOptions.saveUserOptions(fileOptions);
-			return;
-		} else { // Load
+		if (ctrlPressed) // Save
+			saveUserOptions();
+		else { // Load
 			MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
 			getOptions(fileOptions);
 			init();
 			repaint();
 		}
+	}
+ 	private void saveUserOptions() {
+		MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
+		saveOptions(fileOptions);
+		MOO1GameOptions.saveUserOptions(fileOptions);
+	}
+	private void saveLastOptions() {
+		MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
+		saveOptions(fileOptions);
+		MOO1GameOptions.saveLastOptions(fileOptions);
 	}
 	private void checkCtrlKey(boolean pressed) {
 		if (pressed != ctrlPressed) {
