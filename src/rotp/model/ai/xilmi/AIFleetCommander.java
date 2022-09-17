@@ -1045,9 +1045,9 @@ public class AIFleetCommander implements Base, FleetCommander {
                         }
                         //System.out.println(galaxy().currentTurn()+" "+fleet.empire().name()+" Fleet at "+empire.sv.name(fleet.sysId())+" => "+empire.sv.name(target.id)+" "+ourFleetPower+":"+enemyFleetPower+" bombardDamage: "+bombardDamage+" enemyBaseHP: "+enemyBaseHP+" killPower: "+killPower+" pop: "+enemyPop+" sendAmount: "+sendAmount+" sendBombAmount: "+sendBombAmount+" targetIsPreviousBest: "+targetIsPreviousBest+" KeepPower: "+keepPower+" KeepAmount: "+ keepAmount);
                         /*if(stagingPoint != null)
-                            System.out.print("\n"+fleet.empire().name()+" Fleet at "+fleet.system().name()+" => "+empire.sv.name(target.id)+" should stage at "+empire.sv.name(stagingPoint.id));*/
+                            System.out.println(fleet.empire().name()+" Fleet at "+fleet.system().name()+" => "+empire.sv.name(target.id)+" should stage at "+empire.sv.name(stagingPoint.id));*/
                         if((ourFleetPower * sendAmount >= enemyFleetPower
-                                && (bombardDamage > enemyBaseHP || killPower > enemyPop) && enemyBaseDamage < totalFleetHealth(fleet))
+                                && (bombardDamage > enemyBaseHP || killPower > enemyPop || target.colony() == null) && enemyBaseDamage < totalFleetHealth(fleet))
                                 || (previousAttacked == target))
                         {
                             StarSystem targetBeforeSmartPath = target;
@@ -1066,10 +1066,10 @@ public class AIFleetCommander implements Base, FleetCommander {
                                 previousAttacked = target;
                                 if((sendAmount >= 1.0f && sendBombAmount >= 1.0f) || numBeforeSend == fleet.numShips())
                                 {
-                                    //System.out.print("\n"+fleet.empire().name()+" Fleet at "+fleet.system().name()+" should attack "+target.name()+" allowBombers: "+allowBombers);
+                                    //System.out.println(fleet.empire().name()+" Fleet at "+fleet.system().name()+" should attack "+target.name()+" allowBombers: "+allowBombers);
                                     canStillSend = false;
                                 }
-                                //System.out.print("\n"+fleet.empire().name()+" Fleet at "+fleet.system().name()+" has been sent "+target.name()+" sent: "+sendAmount);
+                                //System.out.println(fleet.empire().name()+" Fleet at "+fleet.system().name()+" has been sent "+target.name()+" sent: "+sendAmount);
                             }
                             else
                             {
