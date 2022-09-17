@@ -16,6 +16,7 @@
 package rotp.model.empires;
 
 import java.io.Serializable;
+import static rotp.model.tech.Tech.miniFastRate;
 import rotp.util.Base;
 
 public class EmpireStatus implements Base, Serializable {
@@ -130,7 +131,7 @@ public class EmpireStatus implements Base, Serializable {
         return (int)Math.ceil(empire.tech().avgTechLevel());
     }
     private int currentPowerValue() {
-        float tech = empire.tech().avgTechLevel();
+        float tech = (float)Math.pow(1 / miniFastRate, empire.tech().avgTechLevel());
         float industrialPower = tech * empire.totalPlanetaryProduction();
         float militaryPower = tech * empire.totalFleetSize();
         return (int)Math.ceil(industrialPower+militaryPower);

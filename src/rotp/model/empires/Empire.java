@@ -73,6 +73,7 @@ import rotp.model.ships.ShipDesign;
 import rotp.model.ships.ShipDesignLab;
 import rotp.model.ships.ShipLibrary;
 import rotp.model.tech.Tech;
+import static rotp.model.tech.Tech.miniFastRate;
 import rotp.model.tech.TechRoboticControls;
 import rotp.model.tech.TechTree;
 import rotp.ui.NoticeMessage;
@@ -2396,25 +2397,25 @@ public final class Empire implements Base, NamedObject, Serializable {
     public float militaryPowerLevel(Empire e) {
         TechTree t0 = e == this ? tech() : viewForEmpire(e).spies().tech();
         float fleet = totalFleetSize(e);
-        float techLvl = t0.avgTechLevel();
+        float techLvl = (float)Math.pow(1 / miniFastRate, tech().avgTechLevel());
         return fleet*techLvl;
     }
     public float militaryPowerLevel() {
         float fleet = totalArmedFleetSize();
-        float techLvl = tech().avgTechLevel();
+        float techLvl = (float)Math.pow(1 / miniFastRate, tech().avgTechLevel());
         return fleet*techLvl;
     }
     public float industrialPowerLevel(Empire e) {
         TechTree t0 = e == this ? tech() : viewForEmpire(e).spies().tech();
         float prod = totalPlanetaryProduction(e);
-        float techLvl = t0.avgTechLevel();
+        float techLvl = (float)Math.pow(1 / miniFastRate, tech().avgTechLevel());
         return prod*techLvl;
     }
     // modnar: add dynamic difficulty option, change AI colony production
     // create unscaled production power level, to avoid infinite recursion
     public float nonDynaIndPowerLevel() {
         float prod = nonDynaTotalProd();
-        float techLvl = tech().avgTechLevel();
+        float techLvl = (float)Math.pow(1 / miniFastRate, tech().avgTechLevel());
         return prod*techLvl;
     }
     public void clearDataForExtinctEmpire(int empId) {
