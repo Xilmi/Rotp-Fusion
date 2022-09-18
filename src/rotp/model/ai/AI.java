@@ -49,8 +49,8 @@ public class AI implements Base { // BR: Tentative
     public static final int ROOKIE = 2; // ROOkie
     public static final int XILMI  = 3; // Advanced
     public static final int HYBRID = 4;
-    public static final int CRUEL  = 5; // Legacy
-    public static final int UNFAIR = 6; // unfair
+    public static final int FUSION  = 5; // Legacy
+    public static final int FUN = 6; // Fun
     public static final int RANDOM = 7;
     public static final int ALLRANDOM = 8;
    
@@ -71,7 +71,7 @@ public class AI implements Base { // BR: Tentative
         
         switch (aiType) {
             case RANDOM:
-                aiType = random.nextInt(UNFAIR); // BR:
+                aiType = random.nextInt(FUN); // BR:
                 break;
             case ALLRANDOM:
                 aiType = random.nextInt(RANDOM); // BR:
@@ -137,24 +137,24 @@ public class AI implements Base { // BR: Tentative
                 spyMaster =      new rotp.model.ai.rookie.AISpyMaster(empire);
                 treasurer =      new rotp.model.ai.xilmi.AITreasurer(empire);
                 break;
-            case UNFAIR:
+            case FUN:
                 general =        new rotp.model.ai.xilmi.AIGeneral(empire);
                 captain =        new rotp.model.ai.xilmi.AIShipCaptain(empire);
                 governor =       new rotp.model.ai.xilmi.AIGovernor(empire);
                 scientist =      new rotp.model.ai.xilmi.AIScientist(empire);
-                diplomat =       new rotp.model.ai.unfair.AIDiplomat(empire);
+                diplomat =       new rotp.model.ai.fun.AIDiplomat(empire);
                 shipDesigner =   new rotp.model.ai.xilmi.AIShipDesigner(empire);
                 fleetCommander = new rotp.model.ai.xilmi.AIFleetCommander(empire);
                 spyMaster =      new rotp.model.ai.xilmi.AISpyMaster(empire);
                 treasurer =      new rotp.model.ai.xilmi.AITreasurer(empire);
                 break;
-            case CRUEL:
+            case FUSION:
             default:
                 general =        new rotp.model.ai.xilmi.AIGeneral(empire);
                 captain =        new rotp.model.ai.xilmi.AIShipCaptain(empire);
                 governor =       new rotp.model.ai.xilmi.AIGovernor(empire);
                 scientist =      new rotp.model.ai.xilmi.AIScientist(empire);
-                diplomat =       new rotp.model.ai.cruel.AIDiplomat(empire);
+                diplomat =       new rotp.model.ai.fusion.AIDiplomat(empire);
                 shipDesigner =   new rotp.model.ai.xilmi.AIShipDesigner(empire);
                 fleetCommander = new rotp.model.ai.xilmi.AIFleetCommander(empire);
                 spyMaster =      new rotp.model.ai.xilmi.AISpyMaster(empire);

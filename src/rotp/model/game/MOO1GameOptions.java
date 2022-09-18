@@ -465,11 +465,12 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
                 case AUTOPLAY_AI_ROOKIE:   return AI.ROOKIE;
                 case AUTOPLAY_AI_XILMI:  return AI.XILMI;
                 case AUTOPLAY_AI_HYBRID:  return AI.HYBRID;
-                case AUTOPLAY_AI_CRUEL: return AI.CRUEL;
+                case AUTOPLAY_AI_CRUEL: return AI.FUSION;
                 case AUTOPLAY_AI_RANDOM:  return AI.RANDOM;
+                case AUTOPLAY_AI_UNFAIR: return AI.FUN;
                 case AUTOPLAY_OFF:
                 default:
-                    return AI.CRUEL;  // it does matter both for spending reallocation and for ship-captain
+                    return AI.FUSION;  // it does matter both for spending reallocation and for ship-captain
             }
         }
         else {
@@ -479,8 +480,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
                 case OPPONENT_AI_ROOKIE:   return AI.ROOKIE;
                 case OPPONENT_AI_XILMI:  return AI.XILMI;
                 case OPPONENT_AI_HYBRID:  return AI.HYBRID;
-                case OPPONENT_AI_CRUEL: return AI.CRUEL;
-                case OPPONENT_AI_UNFAIR: return AI.UNFAIR;
+                case OPPONENT_AI_CRUEL: return AI.FUSION;
+                case OPPONENT_AI_UNFAIR: return AI.FUN;
                 case OPPONENT_AI_RANDOM:  return AI.RANDOM;
                 case OPPONENT_AI_ALLRANDOM:  return AI.ALLRANDOM;
                 case OPPONENT_AI_SELECTABLE:
@@ -491,14 +492,14 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
                         case OPPONENT_AI_ROOKIE:   return AI.ROOKIE;
                         case OPPONENT_AI_XILMI:  return AI.XILMI;
                         case OPPONENT_AI_HYBRID:  return AI.HYBRID;
-                        case OPPONENT_AI_CRUEL: return AI.CRUEL;
-                        case OPPONENT_AI_UNFAIR: return AI.UNFAIR;
+                        case OPPONENT_AI_CRUEL: return AI.FUSION;
+                        case OPPONENT_AI_UNFAIR: return AI.FUN;
                         case OPPONENT_AI_RANDOM:  return AI.RANDOM;
                         case OPPONENT_AI_ALLRANDOM:  return AI.ALLRANDOM;
                     }
             }
         }
-        return AI.CRUEL;
+        return AI.FUSION;
     }
     @Override
     public float hostileTerraformingPct() { 
@@ -992,6 +993,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add(AUTOPLAY_AI_XILMI);
         list.add(AUTOPLAY_AI_HYBRID);
         list.add(AUTOPLAY_AI_CRUEL);
+        list.add(AUTOPLAY_AI_UNFAIR);
         list.add(AUTOPLAY_AI_RANDOM);
         return list;
     }

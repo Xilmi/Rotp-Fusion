@@ -1175,7 +1175,7 @@ SETUP_OPPONENT_AI_ROOKIE          | AI: Rookie
 SETUP_OPPONENT_AI_XILMI           | AI: Roleplay
 SETUP_OPPONENT_AI_HYBRID          | AI: Hybrid
 SETUP_OPPONENT_AI_CRUEL           | AI: Fusion
-SETUP_OPPONENT_AI_UNFAIR          | AI: Unfair
+SETUP_OPPONENT_AI_UNFAIR          | AI: Fun
 SETUP_OPPONENT_AI_RANDOM          | AI: Random
 SETUP_OPPONENT_AI_ALLRANDOM       | AI: Random+
 SETUP_OPPONENT_AI_SELECT          | AI: Selectable
@@ -1186,6 +1186,7 @@ SETUP_AUTOPLAY_AI_ROOKIE          | AI: Rookie
 SETUP_AUTOPLAY_AI_XILMI           | AI: Roleplay
 SETUP_AUTOPLAY_AI_HYBRID          | AI: Hybrid
 SETUP_AUTOPLAY_AI_CRUEL           | AI: Fusion
+SETUP_AUTOPLAY_AI_UNFAIR          | AI: Fun
 SETUP_AUTOPLAY_AI_RANDOM          | AI: Random
 SETUP_GAME_DIFFICULTY_LABEL       | Difficulty
 SETUP_DIFFICULTY_EASIEST          | Easiest

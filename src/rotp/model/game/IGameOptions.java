@@ -173,6 +173,7 @@ public interface IGameOptions {
     public static final String AUTOPLAY_AI_XILMI      = "SETUP_AUTOPLAY_AI_XILMI";
     public static final String AUTOPLAY_AI_HYBRID     = "SETUP_AUTOPLAY_AI_HYBRID";
     public static final String AUTOPLAY_AI_CRUEL      = "SETUP_AUTOPLAY_AI_CRUEL";
+    public static final String AUTOPLAY_AI_UNFAIR      = "SETUP_AUTOPLAY_AI_UNFAIR";
     public static final String AUTOPLAY_AI_RANDOM     = "SETUP_AUTOPLAY_AI_RANDOM";
     
     public default boolean isAutoPlay()          { return !selectedAutoplayOption().equals(AUTOPLAY_OFF); }
@@ -184,7 +185,7 @@ public interface IGameOptions {
     public default float hostileTerraformingPct() { return 1.0f; }
     public default boolean restrictedColonization() { return selectedColonizingOption().equals(COLONIZING_RESTRICTED); }
     public default int baseAIRelationsAdj()       { return 0; }
-    public default int selectedAI(Empire e)       { return AI.CRUEL; }
+    public default int selectedAI(Empire e)       { return AI.FUSION; }
     public default boolean randomizeAIPersonality()  {
         switch (selectedRandomizeAIOption()) {
             case RANDOMIZE_AI_PERSONALITY:
