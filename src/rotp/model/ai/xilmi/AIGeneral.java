@@ -120,31 +120,6 @@ public class AIGeneral implements Base, General {
         for (int id=0;id<empire.sv.count();id++) 
             reviseFleetPlan(gal.system(id));
         additionalColonizersToBuild = additionalColonizersToBuild(false);
-        if(empire.atWar() || sensePotentialAttack())
-        {
-            int[] counts = galaxy().ships.shipDesignCounts(empire.id);
-            ShipDesignLab lab = empire.shipLab();
-            float fighterCost = 0.0f;
-            float colonizerCost = 0.0f;
-            for (int i=0;i<counts.length;i++) 
-            {
-                if(lab.design(i).hasColonySpecial())
-                {
-                    colonizerCost += lab.design(i).cost() * counts[i];
-                    //System.out.println(galaxy().currentTurn()+" "+empire.name()+" "+lab.design(i).name()+" cost: "+lab.design(i).cost()+" count: "+counts[i]);
-                    continue;
-                }
-                fighterCost += lab.design(i).cost() * counts[i] * empire.shipDesignerAI().fightingAdapted(lab.design(i));
-            }
-            colonizerCost += additionalColonizersToBuild * empire.shipDesignerAI().BestDesignToColonize().cost();
-            //System.out.println(galaxy().currentTurn()+" "+empire.name()+" fightercost: "+fighterCost+" col-cost: "+colonizerCost+" col-need before: "+additionalColonizersToBuild+" at war: "+empire.atWar()+" sense potential attack: "+sensePotentialAttack());
-            while(colonizerCost > fighterCost && additionalColonizersToBuild > 0)
-            {
-                additionalColonizersToBuild--;
-                colonizerCost -= empire.shipDesignerAI().BestDesignToColonize().cost();
-            }
-            //System.out.println(galaxy().currentTurn()+" "+empire.name()+" col-need after: "+additionalColonizersToBuild);
-        }
         ShipDesign design = empire.shipDesignerAI().BestDesignToColonize();
         Location colonyShipGoalCenter = uncolonizedCenter(empire);
         while (additionalColonizersToBuild > 0)
@@ -312,8 +287,17 @@ public class AIGeneral implements Base, General {
         // for our systems
         if (empire == empire.sv.empire(sysId)) {
             float value = invasionPriority(sys);
-            if (sys.colony().inRebellion())
-                orderRebellionFleet(sys);
+            if (sys.colony().inRebellion()) {
+                boolean hasEnemyFleet = false;
+                for(ShipFleet fl : sys.orbitingFleets()) {
+                    if(fl.isArmed() && fl.empire().aggressiveWith(empire.id)) {
+                        hasEnemyFleet = true;
+                        break;
+                    }
+                }
+                if(!hasEnemyFleet)
+                    orderRebellionFleet(sys);
+            }
             return;
         }
 
@@ -434,7 +418,7 @@ public class AIGeneral implements Base, General {
         else
             needed += additional;
         int alreadySent = empire.transportsInTransit(target);
-        float troopsDesired = max(needed * 1.25f, 1) - alreadySent;
+        float troopsDesired = max(needed * 1.25f, target.planet().maxSize() * 0.25f) - alreadySent;
         //System.out.println(galaxy().currentTurn()+" "+empire.name()+" invading "+target.name()+" troops desired: "+troopsDesired+" needed: "+needed+" sent: "+alreadySent);
         if (troopsDesired < 1)
             return;

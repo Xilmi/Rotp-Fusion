@@ -1590,7 +1590,6 @@ public final class Colony implements Base, IMappedObject, Serializable {
         for (int i = 0; i <= 4; i++) {
             locked(i, false);
         }
-        int shipAllocNeeded = shipyard().maxAllocationNeeded();
         // remember if the planet was building a stargate (might have been manually started by the player)
         boolean buildingStargate = allocation[SHIP] > 0 &&
                 shipyard().design().equals(empire.shipLab().stargateDesign()) &&
@@ -1600,7 +1599,8 @@ public final class Colony implements Base, IMappedObject, Serializable {
         boolean buildingShips = (allocation[SHIP] > 0 || shipyard().maxAllocationNeeded() > 0) &&
                 !shipyard().design().equals(empire.shipLab().stargateDesign()) &&
                 !buildingStargate;
-        
+
+        int shipAllocNeeded = shipyard().maxAllocationNeeded();        
         // start from scratch
         clearSpending();
         /**

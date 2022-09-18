@@ -325,10 +325,19 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
         int count = e.getUnitsToScroll();
-        if (count < 0)
-            scrollUp();
-        else
-            scrollDown();
+        int absCount = Math.abs(count);
+        if (count < 0) {
+            while (absCount > 0) {
+                scrollUp();
+                absCount--;
+            }
+        }
+        else  {
+            while (absCount > 0) {
+                scrollDown();
+                absCount--;
+            }
+        }
     }
     @Override
     public void mouseClicked(MouseEvent e) {}

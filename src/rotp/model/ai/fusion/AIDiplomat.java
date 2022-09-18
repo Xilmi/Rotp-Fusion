@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package rotp.model.ai.cruel;
+package rotp.model.ai.fusion;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -71,9 +71,15 @@ import rotp.util.Base;
 public class AIDiplomat implements Base, Diplomat {
     private final Empire empire;
     private float cumulativeSeverity = 0;
+    private final int variant;
 
     public AIDiplomat (Empire c) {
         empire = c;
+        variant = 0;
+    }
+    public AIDiplomat (Empire c, int var) {
+        empire = c;
+        variant = var;
     }
     @Override
     public String toString()   { return concat("Diplomat: ", empire.raceName()); }
@@ -1366,29 +1372,30 @@ public class AIDiplomat implements Base, Diplomat {
     }
     public boolean readyForWar() {
         boolean warAllowed = true;
-        float enemyPower = empire.powerLevel(empire);
-        float enemyMilitaryPower = 0;
+        float myPower = empire.powerLevel(empire);
+        float ourPower = myPower;
+        float ourMilitaryPower = 0;
         Empire victim = empire.generalAI().bestVictim();
         if(victim != null)
         {
             if(empire.generalAI().smartPowerLevel() > victim.totalIncome())
-                enemyMilitaryPower = empire.generalAI().smartPowerLevel();
+                ourMilitaryPower = empire.generalAI().smartPowerLevel();
             float victimPower = victim.powerLevel(victim);
             float victimMilitaryPower = victim.militaryPowerLevel();
             for(Empire enemy : victim.warEnemies())
             {
                 if(enemy == empire)
                     continue;
-                enemyPower += enemy.powerLevel(enemy);
-                enemyMilitaryPower += enemy.militaryPowerLevel();
+                ourPower += enemy.powerLevel(enemy);
+                ourMilitaryPower += enemy.militaryPowerLevel();
             }
             for(Empire ally : empire.allies())
             {
                 //avoid counting our allies twice when they are already counted
                 if(!victim.warEnemies().contains(ally))
                 {
-                    enemyPower += ally.powerLevel(ally);
-                    enemyMilitaryPower += ally.militaryPowerLevel();
+                    ourPower += ally.powerLevel(ally);
+                    ourMilitaryPower += ally.militaryPowerLevel();
                 }
             }
             for(Empire ally : victim.allies())
@@ -1403,20 +1410,20 @@ public class AIDiplomat implements Base, Diplomat {
                     continue;
                 float chanceOfContactToBackstabMe = empire.generalAI().predictEmpireChanceToDeclareWarIfIDeclaredWarOn(contact, victim, true);
                 float chanceOfContactToBackstabVictim = empire.generalAI().predictEmpireChanceToDeclareWarIfIDeclaredWarOn(contact, victim, false);
-                enemyPower += contact.powerLevel(contact) * chanceOfContactToBackstabVictim;
-                enemyMilitaryPower += contact.militaryPowerLevel() * chanceOfContactToBackstabVictim;
+                ourPower += contact.powerLevel(contact) * chanceOfContactToBackstabVictim;
+                ourMilitaryPower += contact.militaryPowerLevel() * chanceOfContactToBackstabVictim;
                 victimPower += contact.powerLevel(contact) * chanceOfContactToBackstabMe;
                 victimMilitaryPower += contact.militaryPowerLevel() * chanceOfContactToBackstabMe;
                 //System.out.println(galaxy().currentTurn()+" "+empire.name()+" thinks "+contact.name()+" would backstab "+empire.name()+" with a chance of: "+chanceOfContactToBackstabMe+" and "+victim.name()+" with a chance of: "+chanceOfContactToBackstabVictim);
             }
             float aggressiveness = aggressiveness(victim);
             //System.out.println(galaxy().currentTurn()+" "+empire.name()+" my power: "+enemyPower+" "+victim.name()+" power: "+victim.powerLevel(victim)+" my military: "+enemyMilitaryPower+" their military: "+victimMilitaryPower+" colonize: "+empire.generalAI().additionalColonizersToBuild(false)+" aggressiveness: "+aggressiveness);
-            if(victimPower > aggressiveness * enemyPower && victimMilitaryPower >= aggressiveness * enemyMilitaryPower)
+            if(victimPower > aggressiveness * ourPower && victimMilitaryPower >= aggressiveness * ourMilitaryPower)
                 warAllowed = false;
             if(empire.generalAI().additionalColonizersToBuild(false) > 0 && !empire.atWar())
                 warAllowed = false;
             //Ail: If there's only two empires left, there's no time for preparation. We cannot allow them the first-strike-advantage!
-            if(galaxy().numActiveEmpires() < 3)
+            if(galaxy().numActiveEmpires() < 3 || empire.tech().researchCompleted())
                 warAllowed = true;
             //System.out.println(galaxy().currentTurn()+" "+empire.name()+" war allowed against "+victim.name()+": "+warAllowed);
         }
@@ -1930,22 +1937,26 @@ public class AIDiplomat implements Base, Diplomat {
             if(empire.groundAttackBonus() > 0 || empire.growthRateMod() > 1.0f)
                 aggressiveness = empire.totalPlanetaryPopulation() / empire.generalAI().totalEmpirePopulationCapacity(empire);
         }
-        /*float personalityMod = 1.0f;
-        if(empire.leader().isAggressive() || empire.leader().isRuthless())
-            personalityMod *= 4f / 3f;
-        if(empire.leader().isPacifist() || (empire.leader().isHonorable() && empire.tradingWith(victim)))
-            personalityMod *= 3f / 4f;
-        if(empire.leader().isErratic())
-            personalityMod *= random(4f / 3f - 3f / 4f) + 3f / 4f;
-        if(empire.leader().isExpansionist() || empire.leader().isMilitarist())
-            personalityMod *= 4f / 3f;
-        if(empire.leader().isDiplomat() || empire.leader().isTechnologist())
-            personalityMod *= 3f / 4f;*/
+        float personalityMod = 1.0f;
+        if(variant == 1) {
+            if(empire.leader().isAggressive() || empire.leader().isRuthless())
+                personalityMod *= 4f / 3f;
+            if(empire.leader().isPacifist() || (empire.leader().isHonorable() && empire.tradingWith(victim)))
+                personalityMod *= 3f / 4f;
+            if(empire.leader().isErratic())
+                personalityMod *= random(4f / 3f - 3f / 4f) + 3f / 4f;
+            if(empire.leader().isExpansionist() || empire.leader().isMilitarist())
+                personalityMod *= 4f / 3f;
+            if(empire.leader().isDiplomat() || empire.leader().isTechnologist())
+                personalityMod *= 3f / 4f;
+        } else {
+            personalityMod = 0.5f;
+        }
         float optionsMod = 1.0f;
         optionsMod *= Math.pow(4d / 3d, galaxy().options().baseAIRelationsAdj() / -10d);
         aggressiveness *= optionsMod;
         aggressiveness *= racialMod;
-        //aggressiveness *= personalityMod;
+        aggressiveness *= personalityMod;
         return aggressiveness;
     }
 }

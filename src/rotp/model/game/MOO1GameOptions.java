@@ -523,11 +523,16 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
                 case AUTOPLAY_AI_ROOKIE:   return AI.ROOKIE;
                 case AUTOPLAY_AI_XILMI:  return AI.XILMI;
                 case AUTOPLAY_AI_HYBRID:  return AI.HYBRID;
-                case AUTOPLAY_AI_CRUEL: return AI.CRUEL;
+                case AUTOPLAY_AI_CRUEL: return AI.FUSION;
+                case AUTOPLAY_AI_FUN: return AI.FUN;
+                case AUTOPLAY_AI_PERSONALITY: return AI.PERSONALITY;
                 case AUTOPLAY_AI_RANDOM:  return AI.RANDOM;
+                case AUTOPLAY_AI_RANDOM_BASIC:  return AI.RANDOM_BASIC;
+                case AUTOPLAY_AI_RANDOM_ADV:  return AI.RANDOM_ADVANCED;
+                case AUTOPLAY_AI_RANDOM_NOBAR:  return AI.RANDOM_NO_RELATIONBAR;
                 case AUTOPLAY_OFF:
                 default:
-                    return AI.CRUEL;  // it does matter both for spending reallocation and for ship-captain
+                    return AI.FUSION;  // it does matter both for spending reallocation and for ship-captain
             }
         }
         else {
@@ -537,10 +542,13 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
                 case OPPONENT_AI_ROOKIE:   return AI.ROOKIE;
                 case OPPONENT_AI_XILMI:  return AI.XILMI;
                 case OPPONENT_AI_HYBRID:  return AI.HYBRID;
-                case OPPONENT_AI_CRUEL: return AI.CRUEL;
-                case OPPONENT_AI_UNFAIR: return AI.UNFAIR;
+                case OPPONENT_AI_CRUEL: return AI.FUSION;
+                case OPPONENT_AI_FUN: return AI.FUN;
+                case OPPONENT_AI_PERSONALITY: return AI.PERSONALITY;
                 case OPPONENT_AI_RANDOM:  return AI.RANDOM;
-                case OPPONENT_AI_ALLRANDOM:  return AI.ALLRANDOM;
+                case OPPONENT_AI_RANDOM_BASIC:  return AI.RANDOM_BASIC;
+                case OPPONENT_AI_RANDOM_ADV:  return AI.RANDOM_ADVANCED;
+                case OPPONENT_AI_RANDOM_NOBAR:  return AI.RANDOM_NO_RELATIONBAR;
                 case OPPONENT_AI_SELECTABLE:
                     String specificAI = specificOpponentAIOption(e.id);
                     switch(specificAI) {
@@ -549,14 +557,17 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
                         case OPPONENT_AI_ROOKIE:   return AI.ROOKIE;
                         case OPPONENT_AI_XILMI:  return AI.XILMI;
                         case OPPONENT_AI_HYBRID:  return AI.HYBRID;
-                        case OPPONENT_AI_CRUEL: return AI.CRUEL;
-                        case OPPONENT_AI_UNFAIR: return AI.UNFAIR;
+                        case OPPONENT_AI_CRUEL: return AI.FUSION;
+                        case OPPONENT_AI_FUN: return AI.FUN;
+                        case OPPONENT_AI_PERSONALITY: return AI.PERSONALITY;
                         case OPPONENT_AI_RANDOM:  return AI.RANDOM;
-                        case OPPONENT_AI_ALLRANDOM:  return AI.ALLRANDOM;
+                        case OPPONENT_AI_RANDOM_BASIC:  return AI.RANDOM_BASIC;
+                        case OPPONENT_AI_RANDOM_ADV:  return AI.RANDOM_ADVANCED;
+                        case OPPONENT_AI_RANDOM_NOBAR:  return AI.RANDOM_NO_RELATIONBAR;
                     }
             }
         }
-        return AI.CRUEL;
+        return AI.FUSION;
     }
     @Override
     public float hostileTerraformingPct() { 
@@ -1048,9 +1059,13 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add(AUTOPLAY_AI_MODNAR);
         list.add(AUTOPLAY_AI_ROOKIE);
         list.add(AUTOPLAY_AI_XILMI);
-        list.add(AUTOPLAY_AI_HYBRID);
+        list.add(AUTOPLAY_AI_FUN);
+        list.add(AUTOPLAY_AI_PERSONALITY);
         list.add(AUTOPLAY_AI_CRUEL);
         list.add(AUTOPLAY_AI_RANDOM);
+        list.add(AUTOPLAY_AI_RANDOM_BASIC);
+        list.add(AUTOPLAY_AI_RANDOM_ADV);
+        list.add(AUTOPLAY_AI_RANDOM_NOBAR);
         return list;
     }
     @Override
@@ -1061,10 +1076,13 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add(OPPONENT_AI_ROOKIE);
         list.add(OPPONENT_AI_XILMI);
         list.add(OPPONENT_AI_HYBRID);
+        list.add(OPPONENT_AI_FUN);
+        list.add(OPPONENT_AI_PERSONALITY);
         list.add(OPPONENT_AI_CRUEL);
-        list.add(OPPONENT_AI_UNFAIR);
         list.add(OPPONENT_AI_RANDOM);
-        list.add(OPPONENT_AI_ALLRANDOM);
+        list.add(OPPONENT_AI_RANDOM_BASIC);
+        list.add(OPPONENT_AI_RANDOM_ADV);
+        list.add(OPPONENT_AI_RANDOM_NOBAR);
         list.add(OPPONENT_AI_SELECTABLE);
         return list;
     }
@@ -1076,10 +1094,13 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add(OPPONENT_AI_ROOKIE);
         list.add(OPPONENT_AI_XILMI);
         list.add(OPPONENT_AI_HYBRID);
+        list.add(OPPONENT_AI_FUN);
+        list.add(OPPONENT_AI_PERSONALITY);
         list.add(OPPONENT_AI_CRUEL);
-        list.add(OPPONENT_AI_UNFAIR);
         list.add(OPPONENT_AI_RANDOM);
-        list.add(OPPONENT_AI_ALLRANDOM);
+        list.add(OPPONENT_AI_RANDOM_BASIC);
+        list.add(OPPONENT_AI_RANDOM_ADV);
+        list.add(OPPONENT_AI_RANDOM_NOBAR);
         return list;
     }
     // BR: Made static method option
@@ -1177,9 +1198,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         selectedNumberOpponents = defaultOpponentsOptions();
         selectedPlayerRace(random(startingRaceOptions()));
         selectedGameDifficulty = DIFFICULTY_NORMAL;
-        selectedOpponentAIOption = OPPONENT_AI_CRUEL;
+        selectedOpponentAIOption = OPPONENT_AI_FUN;
         for (int i=0;i<specificOpponentAIOption.length;i++)
-            specificOpponentAIOption[i] = OPPONENT_AI_CRUEL;
+            specificOpponentAIOption[i] = OPPONENT_AI_FUN;
         setToDefault();
         generateGalaxy();
     }
