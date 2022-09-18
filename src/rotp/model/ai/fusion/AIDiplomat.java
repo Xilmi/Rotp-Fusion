@@ -71,9 +71,15 @@ import rotp.util.Base;
 public class AIDiplomat implements Base, Diplomat {
     private final Empire empire;
     private float cumulativeSeverity = 0;
+    private final int variant;
 
     public AIDiplomat (Empire c) {
         empire = c;
+        variant = 0;
+    }
+    public AIDiplomat (Empire c, int var) {
+        empire = c;
+        variant = var;
     }
     @Override
     public String toString()   { return concat("Diplomat: ", empire.raceName()); }
@@ -1931,23 +1937,27 @@ public class AIDiplomat implements Base, Diplomat {
             if(empire.groundAttackBonus() > 0 || empire.growthRateMod() > 1.0f)
                 aggressiveness = empire.totalPlanetaryPopulation() / empire.generalAI().totalEmpirePopulationCapacity(empire);
         }
-        /*float personalityMod = 1.0f;
-        if(empire.leader().isAggressive() || empire.leader().isRuthless())
-            personalityMod *= 4f / 3f;
-        if(empire.leader().isPacifist() || (empire.leader().isHonorable() && empire.tradingWith(victim)))
-            personalityMod *= 3f / 4f;
-        if(empire.leader().isErratic())
-            personalityMod *= random(4f / 3f - 3f / 4f) + 3f / 4f;
-        if(empire.leader().isExpansionist() || empire.leader().isMilitarist())
-            personalityMod *= 4f / 3f;
-        if(empire.leader().isDiplomat() || empire.leader().isTechnologist())
-            personalityMod *= 3f / 4f;*/
+        float personalityMod = 1.0f;
+        if(variant == 1) {
+            if(empire.leader().isAggressive() || empire.leader().isRuthless())
+                personalityMod *= 4f / 3f;
+            if(empire.leader().isPacifist() || (empire.leader().isHonorable() && empire.tradingWith(victim)))
+                personalityMod *= 3f / 4f;
+            if(empire.leader().isErratic())
+                personalityMod *= random(4f / 3f - 3f / 4f) + 3f / 4f;
+            if(empire.leader().isExpansionist() || empire.leader().isMilitarist())
+                personalityMod *= 4f / 3f;
+            if(empire.leader().isDiplomat() || empire.leader().isTechnologist())
+                personalityMod *= 3f / 4f;
+        } else {
+            personalityMod = 0.5f;
+        }
         float optionsMod = 1.0f;
         optionsMod *= Math.pow(4d / 3d, galaxy().options().baseAIRelationsAdj() / -10d);
         aggressiveness *= optionsMod;
         aggressiveness *= racialMod;
-        //aggressiveness *= personalityMod;
-        return aggressiveness / 2;
+        aggressiveness *= personalityMod;
+        return aggressiveness;
     }
 }
 
