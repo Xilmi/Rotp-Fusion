@@ -111,10 +111,10 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private String selectedColonizingOption;
     private String selectedAutoplayOption;
     // BR: Dynamic options
-    private final LinkedHashMap<String, String>	stringOptions	= new LinkedHashMap<>();
-	private final LinkedHashMap<String, Integer>integerOptions	= new LinkedHashMap<>(); // For future use
-	private final LinkedHashMap<String, Float>	floatOptions	= new LinkedHashMap<>(); // For future use
-    private final LinkedHashMap<String, Object>	objectOptions	= new LinkedHashMap<>(); // For future use
+    private final LinkedHashMap<String, String>	 stringOptions	= new LinkedHashMap<>();
+	private final LinkedHashMap<String, Integer> integerOptions	= new LinkedHashMap<>(); // For future use
+	private final LinkedHashMap<String, Float>	 floatOptions	= new LinkedHashMap<>(); // For future use
+    private final LinkedHashMap<String, Object>	 objectOptions	= new LinkedHashMap<>(); // For future use
 
     private transient GalaxyShape galaxyShape;
 
@@ -1487,6 +1487,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     // BR: Options files initialization
     private static MOO1GameOptions initMissingOptionFile(String path, String fileName) {
 		MOO1GameOptions newOptions = new MOO1GameOptions();
+		newOptions.generateGalaxy();
     	saveOptions(new MOO1GameOptions(), path, fileName);			
 		return newOptions;    	
     }
@@ -1498,6 +1499,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 		    try(ObjectInputStream inFile = new ObjectInputStream(new FileInputStream(file)))
 		    {
 		    	options = (MOO1GameOptions) inFile.readObject();
+		    	options.generateGalaxy();
+			    return options;
 		    }
 		    catch(ClassNotFoundException cnfe)
 		    {
@@ -1517,7 +1520,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 		    	options = initMissingOptionFile(path, fileName);
 				return options;
 		    }
-		    return options;
 		} else {
 			System.err.println(file.getAbsolutePath() + " not found.");
 			options = initMissingOptionFile(path, fileName);

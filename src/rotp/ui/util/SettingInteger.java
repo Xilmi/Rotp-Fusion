@@ -56,7 +56,6 @@ public class SettingInteger extends SettingBase<Integer> {
 			, Integer minValue, Integer maxValue) {
 		super(guiLangLabel, nameLangLabel, defaultValue,
 				defaultIsList, defaultIsBullet, defaultLabelsAreFinals);
-		put("-", "-", 0f, defaultValue);
 		this.minValue	= minValue;
 		this.maxValue	= maxValue;
 	}

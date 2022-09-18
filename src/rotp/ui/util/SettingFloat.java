@@ -20,6 +20,7 @@ import static rotp.ui.util.SettingBase.CostFormula.RELATIVE;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import java.text.DecimalFormat;
 
 public class SettingFloat extends SettingBase<Float> {
 
@@ -42,6 +43,7 @@ public class SettingFloat extends SettingBase<Float> {
 	private CostFormula costFormula = RELATIVE;
 	private boolean useNegFormula	= false;
 	private float	rawBaseCost		= 0f;
+	private String cfgFormat = "0.00##";
 
 	// ========== constructors ==========
 	//
@@ -56,7 +58,6 @@ public class SettingFloat extends SettingBase<Float> {
 			, Float minValue, Float maxValue) {
 		super(guiLangLabel, nameLangLabel, defaultValue,
 				defaultIsList, defaultIsBullet, defaultLabelsAreFinals);
-		put("-", "-", 0f, defaultValue);
 		this.minValue	= minValue;
 		this.maxValue	= maxValue;
 	}
@@ -171,6 +172,12 @@ public class SettingFloat extends SettingBase<Float> {
 		}
 		return bestVal;
 	}
+	@Override protected String getCfgValue(Float value) {
+		if (isCfgPercent()) {
+			return String.format("%d", (int) (value * 100f));
+		}
+		return new DecimalFormat(cfgFormat).format(value);
+	}
 	@Override public void setFromCfgValue(String newValue) {
 		set(stringToFloat(newValue));
 	}	
@@ -199,6 +206,7 @@ public class SettingFloat extends SettingBase<Float> {
 	}
 	// ===== Other Methods =====
 	//
+	private boolean isCfgPercent() { return cfgFormat.equals("%"); }
 	private void next(Float i) {
 		if (i == 0) {
 			setFromDefault();

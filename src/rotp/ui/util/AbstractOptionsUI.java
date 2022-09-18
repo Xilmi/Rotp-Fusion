@@ -494,7 +494,6 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	}
 	@Override public void mouseEntered(MouseEvent e) {}
 	@Override public void mouseExited(MouseEvent e) {
-//		checkCtrlKey(e.isControlDown());
 		if (hoverBox != null) {
 			hoverBox = null;
 			repaint();
@@ -502,9 +501,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	}
 	@Override public void mouseWheelMoved(MouseWheelEvent e) {
 		checkCtrlKey(e.isControlDown());
-		// modnar: mouse scroll for custom difficulty, with Shift/Ctrl modifiers
-		boolean shiftPressed = e.isShiftDown(); // BR: updated deprecated method
-//		boolean ctrlPressed = e.isControlDown();
+		boolean shiftPressed = e.isShiftDown();
 		boolean up = e.getWheelRotation() < 0;
 		mouseCommon(up, false, shiftPressed, ctrlPressed, null, e);
 	}

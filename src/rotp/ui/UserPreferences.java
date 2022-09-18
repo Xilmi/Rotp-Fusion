@@ -133,9 +133,9 @@ public class UserPreferences {
 	public static final ParamInteger randomAlienRacesMax = new ParamInteger(MOD_UI, "RACES_RAND_MAX"
 			, 50, -100, 100, 1, 5, 20);
 	public static final ParamInteger randomAlienRacesTargetMax = new ParamInteger(MOD_UI, "RACES_RAND_TARGET_MAX"
-			, 75, null, null, 1, 10, 0);
+			, 75, null, null, 1, 10, 100);
 	public static final ParamInteger randomAlienRacesTargetMin = new ParamInteger(MOD_UI, "RACES_RAND_TARGET_MIN"
-			, 0, null, null, 1, 10, 0);
+			, 0, null, null, 1, 10, 100);
 	public static final ParamBoolean randomAlienRacesSmoothEdges = new ParamBoolean(MOD_UI, "RACES_RAND_EDGES", true);
 	public static final RandomAlienRaces randomAlienRaces = new RandomAlienRaces (MOD_UI, "RACES_ARE_RANDOM", "No");
 	

@@ -1533,19 +1533,19 @@ SETTINGS_MOD_TECH_TRANSPORTERS_DESC      | (Level 45) {Always, Never, Auto} Incl
 SETTINGS_MOD_TECH_TRANSPORTERS           | Tech Combat Transporter: %1
 SETTINGS_MOD_TECH_TERRAFORM_120_DESC     | (Level 50) {Always, Never, Auto} Include "Improved Terraforming 120" in the Tech Tree for Player/AI.
 SETTINGS_MOD_TECH_TERRAFORM_120          | Tech Terraforming 120: %1
-SETTINGS_MOD_RACES_RAND_MIN_DESC         | Lower limit for the settings relative randomization window.
+SETTINGS_MOD_RACES_RAND_MIN_DESC         | Alien races randomization: Lower limit for the settings relative randomization window.
 SETTINGS_MOD_RACES_RAND_MIN              | Settings % Min: %1
-SETTINGS_MOD_RACES_RAND_MAX_DESC         | Upper limit for the settings relative randomization window.
+SETTINGS_MOD_RACES_RAND_MAX_DESC         | Alien races randomization: Upper limit for the settings relative randomization window.
 SETTINGS_MOD_RACES_RAND_MAX              | Settings % Max: %1
-SETTINGS_MOD_RACES_RAND_EDGES_DESC       | Smooth edges allow 1/6 of settings being over the window and 1/6 of settings being below the window. (Gaussian window)
+SETTINGS_MOD_RACES_RAND_EDGES_DESC       | Alien races randomization: Smooth edges allow 1/6 of settings being over the window and 1/6 of settings being below the window. (Gaussian window)
 SETTINGS_MOD_RACES_RAND_EDGES            | Smooth Edges: %1
-SETTINGS_MOD_RACES_RAND_TARGET_MIN_DESC  | Lower limit for the Targeted total value for Alien races randomization.
+SETTINGS_MOD_RACES_RAND_TARGET_MIN_DESC  | Alien races randomization: Lower limit for the Targeted total value.
 SETTINGS_MOD_RACES_RAND_TARGET_MIN       | Target Min: %1
-SETTINGS_MOD_RACES_RAND_TARGET_MAX_DESC  | Upper limit for the Targeted total value for Alien races randomization.
+SETTINGS_MOD_RACES_RAND_TARGET_MAX_DESC  | Alien races randomization: Upper limit for the Targeted total value.
 SETTINGS_MOD_RACES_RAND_TARGET_MAX       | Target Max: %1
-SETTINGS_MOD_RACES_RAND_USE_TARGET_DESC  | Force or ignore targeted value.
+SETTINGS_MOD_RACES_RAND_USE_TARGET_DESC  | Alien races randomization: Force or ignore targeted value.
 SETTINGS_MOD_RACES_RAND_USE_TARGET       | Force Target Value: %1
-SETTINGS_MOD_RACES_ARE_RANDOM_DESC       | Alien races settings are randomized, select the way.
+SETTINGS_MOD_RACES_ARE_RANDOM_DESC       | Alien races randomization: Select the way.
 SETTINGS_MOD_RACES_ARE_RANDOM            | Custom Aliens: %1
 SETTINGS_MOD_RACES_ARE_RANDOM_NO         | No
 SETTINGS_MOD_RACES_ARE_RANDOM_SETTING    | Settings Window

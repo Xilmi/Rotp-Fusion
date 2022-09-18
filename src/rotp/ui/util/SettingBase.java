@@ -50,8 +50,8 @@ public class SettingBase<T> implements InterfaceParam {
 	private boolean labelsAreFinals = defaultLabelsAreFinals;
 	private boolean isList			= defaultIsList;
 	private boolean isBullet		= defaultIsBullet;
-	private int selectedIndex = -1;
-	private int defaultIndex  = -1;
+	private T selectedValue	  = null;
+//	private int selectedIndex = -1;
 	private T defaultValue	  = null;
 	private boolean isSpacer  = false;
 	private boolean hasNoCost = false;
@@ -119,17 +119,20 @@ public class SettingBase<T> implements InterfaceParam {
 	// ========== Public Interfaces ==========
 	//
 	@Override public void setFromCfgValue(String cfgValue) {
-		selectedIndex = cfgValidIndex(indexOfIgnoreCase(cfgValue, cfgValueList));
+		int index = cfgValidIndex(indexOfIgnoreCase(cfgValue, cfgValueList));
+		selectedValue = valueList.get(index);
 	}
 	@Override public void next() {
-		selectedIndex = cfgValidIndex()+1;
+		int selectedIndex = cfgValidIndex()+1;
 		if (selectedIndex >= cfgValueList.size())
 			selectedIndex = 0;
+		selectedValue = valueList.get(selectedIndex);		
 	}
 	@Override public void prev() {
-		selectedIndex = cfgValidIndex()-1;
+		int selectedIndex = cfgValidIndex()-1;
 		if (selectedIndex < 0)
 			selectedIndex = cfgValueList.size()-1;
+		selectedValue = valueList.get(selectedIndex);		
 	}
 	@Override public void toggle(MouseEvent e, MouseWheelEvent w) {
 		if (e == null)
@@ -152,7 +155,7 @@ public class SettingBase<T> implements InterfaceParam {
 			prev();
 	}
 	@Override public void setFromDefault() {
-		selectedIndex = cfgValidDefaultIndex();
+		selectedValue = defaultValue;		
 	}
 	@Override public void setOptions(MOO1GameOptions options) {
 		if (!isSpacer)
@@ -162,17 +165,20 @@ public class SettingBase<T> implements InterfaceParam {
 		if (!isSpacer)
 			setFromCfgValue(options.getStringOptions(labelId(), getDefaultCfgValue()));
 	}
-	@Override public String getCfgValue() {
-		if (isList)
-			return cfgValueList.get(cfgValidIndex());
-		return String.valueOf(settingValue());
-	}
+	@Override public String getCfgValue() 		{ return getCfgValue(settingValue()); }
 	@Override public String getCfgLabel()		{ return nameLabel; }
 	@Override public String getGuiDescription() { return text(descriptionId()); }
 	@Override public String getGuiDisplay()		{ return text(labelId(), guiSettingValue()) + END; }
 
 	// ========== Overridable Methods ==========
 	//
+	protected String getCfgValue(T value) {
+		if (isList) {
+			int index = valueValidIndex(valueList.indexOf(value));
+			return cfgValueList.get(index);
+		}
+		return String.valueOf(value);
+	}
 	public void pushSetting() {}
 	public void pullSetting() {}
 	public float maxValueCostFactor() {
@@ -191,6 +197,7 @@ public class SettingBase<T> implements InterfaceParam {
 		if (isSpacer())
 			return;
 		settingText().repaint();
+		int selectedIndex = cfgValidIndex();
 		for (int optionIdx=0; optionIdx < boxSize(); optionIdx++) {
 			optionText(optionIdx).disabled(optionIdx == selectedIndex);
 			optionText(optionIdx).repaint();
@@ -202,7 +209,10 @@ public class SettingBase<T> implements InterfaceParam {
 		return costList.get(costValidIndex());
 	}
 	public T settingValue() {
-		return valueList.get(valueValidIndex());
+		if (selectedValue == null)
+			return defaultValue;
+		else
+			return selectedValue;
 	}
 	protected T randomize(float rand) {
 		if (isList) {
@@ -253,31 +263,17 @@ public class SettingBase<T> implements InterfaceParam {
 		return this;
 	}
 	public SettingBase<?> index(int newIndex) {
-		selectedIndex = cfgValidIndex(newIndex);
+		selectedValue = valueList.get(cfgValidIndex(newIndex));
 		return this;
 	}
 	public SettingBase<?> set(T newValue) {
-		if (valueList.size()==0) { // List empty; then create one
-			valueList.add(newValue);
-			selectedIndex = 0;
-			return this;
-		}
-		if (!isList) {
-			valueList.set(0, newValue);
-			return this;
-		}
-		selectedIndex = valueList.indexOf(newValue);
-		if (selectedIndex>=0)
-			return this;
-		if (defaultValue == null) {
-			selectedIndex = valueValidDefaultIndex();
-			return this;
-		}
-		selectedIndex = valueValidIndex(valueList.indexOf(defaultValue));
+		selectedValue = newValue;
+		if (isList)
+			selectedValue = valueList.get(valueValidIndex());
 		return this;
 	}
 	public void setFromLabel(String langLabel) {
-		selectedIndex = cfgValidIndex(indexOfIgnoreCase(langLabel, labelList));
+		selectedValue = valueList.get(cfgValidIndex(indexOfIgnoreCase(langLabel, labelList)));
 	}
 	public String guiSettingValue() {
 		return String.valueOf(settingValue());
@@ -305,7 +301,7 @@ public class SettingBase<T> implements InterfaceParam {
 	String guiOptionLabel()	{ return guiOptionLabel(index()); }
 //	public String optionLabel()		{ return optionLabel(index()); }
 	public String getLabel()		{ return text(labelId()); }
-	public boolean isDefaultIndex()	{ return cfgValidIndex() == defaultIndex; }
+	public boolean isDefaultIndex()	{ return cfgValidIndex() == rawDefaultIndex(); }
 	public float costFactor() {
 		if (isList) {
 			if (lastRandomSource<0)
@@ -401,17 +397,9 @@ public class SettingBase<T> implements InterfaceParam {
 	private float optionCost(int index)	{ return costList.get(index); }
 	private String labelId()			{ return guiLabel + nameLabel; }
 	private String descriptionId()		{ return labelId() + LABEL_DESCRIPTION; }
-	private String getDefaultCfgValue() {
-		if (isList)
-			return cfgValueList.get(this.defaultIndex);
-		return String.valueOf(defaultValue);
-	}
-	private String settingCostString() {
-		return settingCostString(1); // default decimal number
-	}
-	private String settingCostString(int dec) {
-		return costString(settingCost(), dec);
-	}
+	private String getDefaultCfgValue() { return getCfgValue(defaultValue); }
+	private String settingCostString()	{ return settingCostString(1); } // default decimal number
+	private String settingCostString(int dec) { return costString(settingCost(), dec); }
 	private String optionCostStringIdx(int idx, int dec) {
 		return costString(optionCost(idx), dec);
 	}
@@ -431,9 +419,7 @@ public class SettingBase<T> implements InterfaceParam {
 		return txt;
 	}
 	private void setDefaultIndex(int index) {
-		defaultIndex = index;
-		if (selectedIndex == -1)
-			selectedIndex = defaultIndex;
+		defaultValue = valueList.get(cfgValidIndex(index));
 	}
 	private String costString(float cost, int dec) {
 		String str = "(";
@@ -456,11 +442,8 @@ public class SettingBase<T> implements InterfaceParam {
 	private int bounds(int low, int val, int hi) {
 		return Math.min(Math.max(low, val), hi);
 	}
-	private int cfgValidDefaultIndex() {
-		return bounds(0, defaultIndex, cfgValueList.size()-1);
-	}
 	private int cfgValidIndex() {
-		return cfgValidIndex(selectedIndex);
+		return cfgValidIndex(rawSelectedIndex());
 	}
 	private int cfgValidIndex(int index) {
 		if (index<0 || index>cfgValueList.size())
@@ -468,10 +451,10 @@ public class SettingBase<T> implements InterfaceParam {
 		return index;
 	}
 	private int valueValidDefaultIndex() {
-		return bounds(0, defaultIndex, valueList.size()-1);
+		return bounds(0, rawDefaultIndex(), valueList.size()-1);
 	}
 	private int valueValidIndex() {
-		return valueValidIndex(selectedIndex);
+		return valueValidIndex(rawSelectedIndex());
 	}	
 	private int valueValidIndex(int index) {
 		if (index<0 || index>valueList.size())
@@ -479,10 +462,16 @@ public class SettingBase<T> implements InterfaceParam {
 		return index;
 	}	
 	private int costValidDefaultIndex() {
-		return bounds(0, defaultIndex, costList.size()-1);
+		return bounds(0, rawDefaultIndex(), costList.size()-1);
+	}
+	private int rawSelectedIndex() {
+		return valueList.indexOf(selectedValue);
+	}
+	private int rawDefaultIndex() {
+		return valueList.indexOf(defaultValue);
 	}
 	private int costValidIndex() {
-		return costValidIndex(selectedIndex);
+		return costValidIndex(rawSelectedIndex());
 	}
 	private int costValidIndex(int index) {
 		if (index<0 || index>costList.size())
