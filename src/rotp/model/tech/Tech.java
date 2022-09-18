@@ -27,8 +27,8 @@ import rotp.ui.combat.ShipBattleUI;
 import rotp.util.Base;
 
 public class Tech implements Base {
-    private static final float miniSlowRate = .97164f;
-    private static final float miniFastRate = .933033f;
+    public static final float miniSlowRate = .97164f;
+    public static final float miniFastRate = .933033f;
 
     public static final int ARMOR = 1;
     public static final int ATMOSPHERE_ENRICHMENT = 2;

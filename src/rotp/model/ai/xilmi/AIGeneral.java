@@ -36,6 +36,7 @@ import rotp.model.incidents.DiplomaticIncident;
 import rotp.model.ships.ShipDesign;
 import rotp.model.ships.ShipDesignLab;
 import rotp.model.tech.Tech;
+import static rotp.model.tech.Tech.miniFastRate;
 import rotp.model.tech.TechBombWeapon;
 import rotp.util.Base;
 
@@ -145,7 +146,7 @@ public class AIGeneral implements Base, General {
             //System.out.println(galaxy().currentTurn()+" "+empire.name()+" col-need after: "+additionalColonizersToBuild);
         }
         ShipDesign design = empire.shipDesignerAI().BestDesignToColonize();
-        Location uncolonizedCenter = uncolonizedCenter(empire);
+        Location colonyShipGoalCenter = uncolonizedCenter(empire);
         while (additionalColonizersToBuild > 0)
         {
             float highestScore = 0;
@@ -158,7 +159,7 @@ public class AIGeneral implements Base, General {
                 if(col.currentProductionCapacity() <= 0.5f && col.production() < design.cost() && col.shipyard().desiredShips() > 0)
                     continue;
                 float turnsToBuild = max(1f, col.shipyard().turnsToBuild(design));
-                float turnsToMove = max(1f, (float)Math.ceil(max(1, sys.distanceTo(uncolonizedCenter)) / design.warpSpeed()));
+                float turnsToMove = max(1f, (float)Math.ceil(max(1, sys.distanceTo(colonyShipGoalCenter)) / design.warpSpeed()));
                 float score = 1f / (turnsToBuild + turnsToMove);
                 //System.out.println(empire.name()+" "+col.name()+" score: "+score+" turnsToBuild: "+turnsToBuild+" turnsToMove: "+turnsToMove+" uncolonizedCenter: x: "+uncolonizedCenter.x()+" y: "+uncolonizedCenter.y());
                 if(col.shipyard().building())
@@ -1496,7 +1497,8 @@ public class AIGeneral implements Base, General {
                 power += (counts[i] *d.hullPoints() * keepScore);
             }
         }
-        power *= empire.tech().avgTechLevel();
+        float techLvl = (float)Math.pow(1 / miniFastRate, empire.tech().avgTechLevel());
+        power *= techLvl;
         smartPower = power;
         return smartPower;
     }
