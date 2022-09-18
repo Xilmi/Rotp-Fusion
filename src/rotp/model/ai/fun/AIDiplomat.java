@@ -1882,7 +1882,7 @@ public class AIDiplomat implements Base, Diplomat {
                 continue;
             if(!empire.inShipRange(emp.id))
                 continue;
-            float enemyPower = empire.powerLevel(empire);
+            float enemyPower = 0;
             float unknownEnemies = 0;
             for(Empire theirFoe : emp.warEnemies()) {
                 if(empire.contactedEmpires().contains(theirFoe)) //I mustn't cheat, even if it helps to make it more fair. I can only take into account what I know
@@ -1891,6 +1891,7 @@ public class AIDiplomat implements Base, Diplomat {
                     unknownEnemies++; //I still know it from checking their diplo. So I can take guesses about these.
             }
             float currentScore = emp.powerLevel(emp) - enemyPower - unknownEnemies * empire.powerLevel(empire);
+            //System.out.println(galaxy().currentTurn()+" "+empire.name()+" victim-score for "+emp.name()+": "+currentScore);
             if(currentScore > bestScore) {
                 fairestVictim = emp;
                 bestScore = currentScore;
