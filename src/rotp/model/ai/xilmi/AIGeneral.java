@@ -120,31 +120,6 @@ public class AIGeneral implements Base, General {
         for (int id=0;id<empire.sv.count();id++) 
             reviseFleetPlan(gal.system(id));
         additionalColonizersToBuild = additionalColonizersToBuild(false);
-        if(empire.atWar() || sensePotentialAttack())
-        {
-            int[] counts = galaxy().ships.shipDesignCounts(empire.id);
-            ShipDesignLab lab = empire.shipLab();
-            float fighterCost = 0.0f;
-            float colonizerCost = 0.0f;
-            for (int i=0;i<counts.length;i++) 
-            {
-                if(lab.design(i).hasColonySpecial())
-                {
-                    colonizerCost += lab.design(i).cost() * counts[i];
-                    //System.out.println(galaxy().currentTurn()+" "+empire.name()+" "+lab.design(i).name()+" cost: "+lab.design(i).cost()+" count: "+counts[i]);
-                    continue;
-                }
-                fighterCost += lab.design(i).cost() * counts[i] * empire.shipDesignerAI().fightingAdapted(lab.design(i));
-            }
-            colonizerCost += additionalColonizersToBuild * empire.shipDesignerAI().BestDesignToColonize().cost();
-            //System.out.println(galaxy().currentTurn()+" "+empire.name()+" fightercost: "+fighterCost+" col-cost: "+colonizerCost+" col-need before: "+additionalColonizersToBuild+" at war: "+empire.atWar()+" sense potential attack: "+sensePotentialAttack());
-            while(colonizerCost > fighterCost && additionalColonizersToBuild > 0)
-            {
-                additionalColonizersToBuild--;
-                colonizerCost -= empire.shipDesignerAI().BestDesignToColonize().cost();
-            }
-            //System.out.println(galaxy().currentTurn()+" "+empire.name()+" col-need after: "+additionalColonizersToBuild);
-        }
         ShipDesign design = empire.shipDesignerAI().BestDesignToColonize();
         Location colonyShipGoalCenter = uncolonizedCenter(empire);
         while (additionalColonizersToBuild > 0)
