@@ -409,7 +409,7 @@ public class AIGeneral implements Base, General {
         else
             needed += additional;
         int alreadySent = empire.transportsInTransit(target);
-        float troopsDesired = max(needed * 1.25f, 1) - alreadySent;
+        float troopsDesired = max(needed * 1.25f, target.planet().maxSize() * 0.25f) - alreadySent;
         //System.out.println(galaxy().currentTurn()+" "+empire.name()+" invading "+target.name()+" troops desired: "+troopsDesired+" needed: "+needed+" sent: "+alreadySent);
         if (troopsDesired < 1)
             return;
