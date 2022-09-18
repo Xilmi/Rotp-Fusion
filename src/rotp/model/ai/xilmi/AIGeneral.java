@@ -287,8 +287,17 @@ public class AIGeneral implements Base, General {
         // for our systems
         if (empire == empire.sv.empire(sysId)) {
             float value = invasionPriority(sys);
-            if (sys.colony().inRebellion())
-                orderRebellionFleet(sys);
+            if (sys.colony().inRebellion()) {
+                boolean hasEnemyFleet = false;
+                for(ShipFleet fl : sys.orbitingFleets()) {
+                    if(fl.isArmed() && fl.empire().aggressiveWith(empire.id)) {
+                        hasEnemyFleet = true;
+                        break;
+                    }
+                }
+                if(!hasEnemyFleet)
+                    orderRebellionFleet(sys);
+            }
             return;
         }
 
