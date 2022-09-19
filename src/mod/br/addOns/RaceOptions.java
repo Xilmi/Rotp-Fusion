@@ -89,8 +89,8 @@ public class RaceOptions {
 	 */
 	public static void defaultGameAIList(List<String> newAIList) {
 		defaultGameAIList = newAIList;
-		allRandomAIList = newAIList.subList(0, newAIList.size()-2);
-		randomAIList = newAIList.subList(0, newAIList.size()-3);
+		allRandomAIList = newAIList.subList(0, newAIList.size()-5);
+		randomAIList = newAIList.subList(0, newAIList.size()-5);
 	}
 	/**
 	 * @param newAIList the new default Gui AIList to set
