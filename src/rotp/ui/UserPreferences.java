@@ -164,6 +164,7 @@ public class UserPreferences {
 			.put("Vanilla",	MOD_UI + "STARTUP_VANILLA");
 	public static final ParamList menuLoadGame = new ParamList(MOD_UI, "MENU_LOAD_GAME", "LoadAll")
 			.put("LoadAll",	MOD_UI + "LOAD_GAME_UPDATE")
+			.put("Last",	MOD_UI + "LOAD_GAME_LAST")
 			.put("Vanilla",	MOD_UI + "LOAD_GAME_VANILLA");
 	public static final ParamBoolean showGridCircular = new ParamBoolean(MOD_UI, "SHOW_GRID_CIRCULAR", false);
 

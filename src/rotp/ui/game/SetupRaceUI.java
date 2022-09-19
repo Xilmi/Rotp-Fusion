@@ -128,7 +128,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         homeWorld.setFont(narrowFont(20));
         shipSetTxt.setFont(narrowFont(20)); // BR:
 
-        createNewGameOptions();
+        createNewGameOptions(); // Following the UserPreferences.menuStartup
     	String initOption = UserPreferences.menuStartup.get().toUpperCase();
     	switch (initOption) {
 	    	case "LAST":
@@ -136,8 +136,9 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 	    	case "DEFAULT":
 	    		// Initialization already done
 	    		break;
+	    	case "VANILLA":
 	    	default: // Vanilla, as before
-	    		newGameOptions().copyOptions(options());	
+	    		newGameOptions().copyOptions(options()); // Following the UserPreferences.menuLoadGame
      	}
         raceChanged();
         initialOptions = new MOO1GameOptions(); // Any content will do
@@ -865,7 +866,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     // BR: Display UI panel for Player Race Customization
     public void goToPlayerRaceCustomization() {
         buttonClick();
-        PlayerRaceCustomizationUI playerRaceCustomizationUI = RotPUI.startPlayerRaceCustomizationUI();
+        PlayerRaceCustomizationUI playerRaceCustomizationUI = RotPUI.playerRaceCustomizationUI();
         playerRaceCustomizationUI.open(this);
         backImg = null;
         raceImg = null;

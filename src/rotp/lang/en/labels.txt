@@ -1571,6 +1571,7 @@ SETTINGS_MOD_STARTUP_VANILLA             | Old Ways
 SETTINGS_MOD_MENU_LOAD_GAME_DESC         | How should the menu be initialized when loading a game?
 SETTINGS_MOD_MENU_LOAD_GAME              | Menus on loading: %1
 SETTINGS_MOD_LOAD_GAME_UPDATE            | All updates
+SETTINGS_MOD_LOAD_GAME_LAST              | Last state
 SETTINGS_MOD_LOAD_GAME_VANILLA           | Old Ways
 SETTINGS_MOD_SHOW_NEW_RACES_DESC         | Show the new races in the opponents list?
 SETTINGS_MOD_SHOW_NEW_RACES              | Show new races: %1

@@ -320,8 +320,10 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
 	    		instance.startModAOptionsUI.setToDefault();
 	    		instance.startModBOptionsUI.setToDefault();
 	    		return;
-     	} // Vanilla, as before
-   		newGameOptions = new MOO1GameOptions();
+	    	case "VANILLA":
+	    	default: // Vanilla, as before
+	    		newGameOptions = new MOO1GameOptions();
+     	}
     }
     public static void clearNewOptions() { newGameOptions = null; }
 
@@ -341,7 +343,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     // BR: Display UI panel for MOD game options
     public static ModGlobalOptionsUI modGlobalOptionsUI() { return instance.modGlobalOptionsUI; }
 	// BR: Display UI panel for Player Race Customization
-    public static PlayerRaceCustomizationUI startPlayerRaceCustomizationUI() { return instance.playerRaceCustomizationUI; }
+    public static PlayerRaceCustomizationUI playerRaceCustomizationUI() { return instance.playerRaceCustomizationUI; }
     public static GameSettingsUI gameSettingsUI()    { return instance.gameSettingsUI; }
 
     @Override

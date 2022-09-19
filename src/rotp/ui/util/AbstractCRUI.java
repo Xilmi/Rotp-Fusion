@@ -58,7 +58,7 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 	private static final LinkedList<Integer> colSettingsCount	= new LinkedList<>();
 	private static final LinkedList<SettingBase<?>> settingList	= new LinkedList<>();
 	private static final LinkedList<SettingBase<?>> guiList		= new LinkedList<>();
-	private static final LinkedList<SettingBase<?>> commonList	= new LinkedList<>();
+	public  static final LinkedList<SettingBase<?>> commonList	= new LinkedList<>();
 	public	static final CustomRaceFactory cr = new CustomRaceFactory();
 	private static final String initialRace	= MOO1GameOptions.baseRacesOptions().getFirst();
 	
