@@ -6,8 +6,12 @@ Remnants of the Precursors is a Java-based modernization of the original Master 
 ### With BrokenRegistry Profiles Manager. <br/>
 ... and some more features
 
-The decription of the additions/changes by Xilmi can be found there: <br/>
-	[https://github.com/Xilmi/rotp-coder/releases/](https://github.com/Xilmi/rotp-coder/releases/) <br/>
+Summary of the differences of Fusion-Mod to the base-game:
+        [https://www.reddit.com/r/rotp/comments/x2ia8x/differences_between_fusionmod_and_vanillarotp/](https://www.reddit.com/r/rotp/comments/x2ia8x/differences_between_fusionmod_and_vanillarotp/) <br/>
+
+Description of the different AI-options in Fusion-Mod:
+        [https://www.reddit.com/r/rotp/comments/xhsjdr/some_more_details_about_the_different_aioptions/](https://www.reddit.com/r/rotp/comments/xhsjdr/some_more_details_about_the_different_aioptions/) <br/>
+
 The decription of the additions/changes by Modnar can be found there: <br/>
 	[https://github.com/modnar-hajile/rotp/releases](https://github.com/modnar-hajile/rotp/releases) <br/>
 
@@ -21,6 +25,12 @@ Community subreddit: https://www.reddit.com/r/rotp/<br/>
 Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
+
+2022.09.20 (Xilmi)
+  - Fixed a rare issue that could cause the governor to forget it was supposed to be building ships.
+  - Fixed that the bombardment-preview would display too high of a kill-count when the attack-level exceeded 10.
+  - AI no longer tries to reinvade rebelling colonies when they are under siege by their enemies.
+  - AI now uses actual travel-turns for the scoring of where to send their ships. Previously this was extrapolated by distance:speed with a modifier for nebulae. This change likely will increase AI-processing-time on big maps but should help the AI to make better decisions when nebulae are involved.
 
 2022.09.18 (Xilmi)
   - Removed AI: Unfair and added two new AI's instead: AI: Fun and AI: Character. The diplomatic behaviour of AI: Fusion has also been reworked.
