@@ -21,6 +21,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Stroke;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -48,6 +49,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	private static final String exitKey		  = "SETTINGS_EXIT";
 	private static final String cancelKey	  = "SETTINGS_CANCEL";
 	private static final String setDefaultKey = "SETTINGS_DEFAULT";
+	private static final String setGameKey	  = "SETTINGS_LAST_GAME";
 	private static final String setLastKey	  = "SETTINGS_LAST_SET";
 	public	static final String setUserKey	  = "SETTINGS_USER_SET";
 	public	static final String saveUserKey	  = "SETTINGS_USER_SAVE";
@@ -74,10 +76,9 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	public	LinkedList<InterfaceParam> paramList = new LinkedList<>();
 	private Rectangle hoverBox;
 	private Rectangle okBox		= new Rectangle();
-	private Rectangle defaultBox	= new Rectangle();
-	private Rectangle userBox		= new Rectangle();
+	private Rectangle defaultBox= new Rectangle();
+	private Rectangle userBox	= new Rectangle();
 	private BasePanel parent;
-	private boolean   ctrlPressed	= false;
 	protected boolean globalOptions	= false; // No preferred button and Saved to remnant.cfg
 	private MOO1GameOptions initialOptions; // To be restored if "cancel"
 	
@@ -186,25 +187,39 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 			param.setFromOptions(source);
 	}
 	private void doOkBoxAction() {
-		if (ctrlPressed) // Cancel = set to initial and close
+		buttonClick();
+		switch (Modifier2KeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT: // Restore
 			getOptions(initialOptions);
-		else if (globalOptions) // save old ways and exit
-			UserPreferences.save();
-		else { // save and exit
-			saveLastOptions();
+			break;
+		default: // Save
+			if (globalOptions) // The old ways
+				UserPreferences.save();
+			else // The new ways
+				saveLastOptions();
+			break; 
 		}
 		close();			
 	}
 	private void doDefaultBoxAction() {
-		if (ctrlPressed) // set to last
-			if (globalOptions) // set to last the old ways
+		buttonClick();
+		switch (Modifier2KeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT: // set to last
+			if (globalOptions) // The old ways
 				UserPreferences.load();
-			else { // set to last
-				MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
-				getOptions(fileOptions);
-			}
-		else
+			else // The new ways
+				getOptions(MOO1GameOptions.loadLastOptions());
+			break;
+		case SHIFT: // set to last game options
+			if (options() != null)
+				getOptions(MOO1GameOptions.loadGameOptions());			
+			break;
+		default: // set to default
 			setToDefault();
+			break; 
+		}
 		init();
 		repaint();
 	}
@@ -213,11 +228,14 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 			param.setFromDefault();
 	}
 	private void doUserBoxAction() {
-		if (ctrlPressed) { // Save
+		buttonClick();
+		switch (Modifier2KeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT: // Save
 			saveUserOptions();
-		} else { // Set
-			MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
-			getOptions(fileOptions);
+			break;
+		default: // Set
+			getOptions(MOO1GameOptions.loadUserOptions());
 			init();
 			repaint();
 		}
@@ -232,29 +250,43 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		saveOptions(fileOptions);
 		MOO1GameOptions.saveLastOptions(fileOptions);
 	}
-	public static String exitButtonKey(boolean ctrlPressed) {
-		if (ctrlPressed)
+	public static String exitButtonKey() {
+		switch (Modifier2KeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT:
 			return cancelKey;
-		else
-			return exitKey;			
+		default:
+			return exitKey;	
+		}
 	}
-	public static String okButtonKey(boolean ctrlPressed) {
-		if (ctrlPressed)
+	public static String okButtonKey() {
+		switch (Modifier2KeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT:
 			return cancelKey;
-		else
-			return exitKey;			
+		default:
+			return exitKey;
+		}
 	}
-	public static String userButtonKey(boolean ctrlPressed) {
-		if (ctrlPressed)
+	public static String userButtonKey() {
+		switch (Modifier2KeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT:
 			return saveUserKey;
-		else
-			return setUserKey;			
+		default:
+			return setUserKey;
+		}
 	}
-	public static String defaultButtonKey(boolean ctrlPressed) {
-		if (ctrlPressed)
+	public static String defaultButtonKey() {
+		switch (Modifier2KeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT:
 			return setLastKey;
-		else
-			return setDefaultKey;			
+		case SHIFT:
+			return setGameKey;
+		default:
+			return setDefaultKey;
+		}
 	}
 	public static int exitButtonWidth(Graphics2D g) {
 		return Math.max(g.getFontMetrics().stringWidth(LabelManager.current().label(cancelKey)),
@@ -271,9 +303,8 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 						g.getFontMetrics().stringWidth(LabelManager.current().label(setLastKey)))
 				+ smallButtonM;
 	}
-	private void checkCtrlKey(boolean pressed) {
-		if (pressed != ctrlPressed) {
-			ctrlPressed = pressed;
+	private void checkModifierKey(InputEvent e) {
+		if (Modifier2KeysState.checkForChange(e)) {
 			repaint();
 		}
 	}
@@ -364,7 +395,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(okBox.x, okBox.y, smallButtonW, smallButtonH, cnr, cnr);
 		g.setFont(narrowFont(20));
-		String text6 = text(okButtonKey(ctrlPressed));
+		String text6 = text(okButtonKey());
 		int sw6 = g.getFontMetrics().stringWidth(text6);
 		int x6 = okBox.x+((okBox.width-sw6)/2);
 		int y6 = okBox.y+okBox.height-s8;
@@ -375,7 +406,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		g.drawRoundRect(okBox.x, okBox.y, okBox.width, okBox.height, cnr, cnr);
 		g.setStroke(prev);
 
-		String text7 = text(defaultButtonKey(ctrlPressed));
+		String text7 = text(defaultButtonKey());
 		int sw7		 = g.getFontMetrics().stringWidth(text7);
 		smallButtonW = defaultButtonWidth(g);
 		defaultBox.setBounds(okBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
@@ -393,7 +424,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 
 		if (globalOptions)
 			return;  // No preferred button
-		String text8 = text(userButtonKey(ctrlPressed));
+		String text8 = text(userButtonKey());
 		int sw8		 = g.getFontMetrics().stringWidth(text8);
 		smallButtonW = userButtonWidth(g);
 		userBox.setBounds(defaultBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
@@ -410,10 +441,10 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		g.setStroke(prev);
 	}
 	@Override public void keyReleased(KeyEvent e) {
-		checkCtrlKey(e.isControlDown());		
+		checkModifierKey(e);		
 	}
 	@Override public void keyPressed(KeyEvent e) {
-		checkCtrlKey(e.isControlDown());
+		checkModifierKey(e);
 		int k = e.getKeyCode();  // BR:
 		switch(k) {
 			case KeyEvent.VK_ESCAPE:
@@ -439,7 +470,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	}
 	@Override public void mouseDragged(MouseEvent e) {}
 	@Override public void mouseMoved(MouseEvent e) {
-		checkCtrlKey(e.isControlDown());
+		checkModifierKey(e);
 		int x = e.getX();
 		int y = e.getY();
 		Rectangle prevHover = hoverBox;
@@ -476,7 +507,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	@Override public void mouseClicked(MouseEvent e) {}
 	@Override public void mousePressed(MouseEvent e) {}
 	@Override public void mouseReleased(MouseEvent e) {
-		checkCtrlKey(e.isControlDown());
+		checkModifierKey(e);
 		if (e.getButton() > 3)
 			return;
 		if (hoverBox == null)
@@ -484,6 +515,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		boolean up	= !SwingUtilities.isRightMouseButton(e); // BR: added bidirectional
 		boolean mid	= !SwingUtilities.isMiddleMouseButton(e); // BR: added reset click
 		boolean shiftPressed = e.isShiftDown();
+		boolean ctrlPressed  = e.isControlDown();
 		mouseCommon(up, mid, shiftPressed, ctrlPressed, e, null);
 		if (hoverBox == okBox)
 			doOkBoxAction();
@@ -500,8 +532,9 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		}
 	}
 	@Override public void mouseWheelMoved(MouseWheelEvent e) {
-		checkCtrlKey(e.isControlDown());
+		checkModifierKey(e);
 		boolean shiftPressed = e.isShiftDown();
+		boolean ctrlPressed  = e.isControlDown();
 		boolean up = e.getWheelRotation() < 0;
 		mouseCommon(up, false, shiftPressed, ctrlPressed, null, e);
 	}

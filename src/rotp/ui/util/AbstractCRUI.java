@@ -30,6 +30,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Stroke;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -138,7 +139,6 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
     private Rectangle defaultBox = new Rectangle();
     private Rectangle userBox	 = new Rectangle();
 	private Rectangle randomBox	 = new Rectangle();
-	private boolean ctrlPressed	 = false;
 	private static BaseText totalCostText;
 	private RacesUI  raceUI;
 	private boolean  showOnly = false;
@@ -200,21 +200,6 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 			cr.setRace(newGameOptions().selectedPlayerRace());
 			cr.pullSettings();
 		}
-//		// Display text Initialization
-//		for (SettingBase<?> setting : settingList) { // Loop thru the setting list
-//			if (setting.isSpacer())
-//				continue;
-//			if (setting.isBullet()) {
-//				setting.settingText().displayText(setting.guiSettingDisplayStr()); // The setting
-//				int optionCount = setting.boxSize();
-//				for (int optionIdx=0; optionIdx <  optionCount; optionIdx++) {
-//					setting.optionText(optionIdx).displayText(setting.guiCostOptionStr(optionIdx)); // The options
-//				}
-//			} else {
-//				setting.settingText().displayText(setting.guiSettingDisplayStr());			
-//			}
-//		}
-		// TODO BR: Mix the two list
 		for (SettingBase<?> setting : commonList) { // Loop thru the setting list
 			if (setting.isSpacer())
 				continue;
@@ -287,15 +272,11 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		disableGlassPane();
 	}
 	private void saveOptions(MOO1GameOptions destination) {
-//		for (InterfaceOptions param : settingList)
-//			param.setOptions(destination);
 		for (InterfaceOptions param : commonList)
 			param.setOptions(destination);
 		customPlayerRace.setOptions(destination);
 	}
 	private void getOptions(MOO1GameOptions source) {
-//		for (InterfaceOptions param : settingList)
-//			param.setFromOptions(source);
 		for (InterfaceOptions param : commonList)
 			param.setFromOptions(source);
 		customPlayerRace.setFromOptions(source);
@@ -305,10 +286,15 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 			close();
 			return;
 		}
-		if (ctrlPressed) // cancel = set to initial and close
+		switch (Modifier2KeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT: // Restore
 			getOptions(initialOptions);
-		else // save and exit
+			break;
+		default: // Save
 			saveLastOptions();
+			break; 
+		}
 		close();			
 	}
 	private void doSelectBoxAction() {
@@ -318,18 +304,29 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		close();
 	}
 	private void doDefaultBoxAction() {
-		if (ctrlPressed) { // set to last
-			MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
-			getOptions(fileOptions);
-		} else
+		switch (Modifier2KeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT: // set to last
+			getOptions(MOO1GameOptions.loadLastOptions());
+			break;
+		case SHIFT: // set to last game options
+			if (options() != null)
+				getOptions(MOO1GameOptions.loadGameOptions());			
+			break;
+		default: // set to default
 			setToDefault();
+			break; 
+		}
 		init();
 		repaint();
 	}
 	private void doUserBoxAction() {
-		if (ctrlPressed)
+		switch (Modifier2KeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT: // Save
 			saveUserOptions();
-		else { // Set
+			break;
+		default: // Set
 			MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
 			getOptions(fileOptions);
 			init();
@@ -337,8 +334,6 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		}
 	}	
 	public void setToDefault() {
-//		for (InterfaceOptions param : settingList)
-//			param.setFromDefault();
 		for (InterfaceOptions param : commonList)
 			param.setFromDefault();
 	}
@@ -352,9 +347,8 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		saveOptions(fileOptions);
 		MOO1GameOptions.saveLastOptions(fileOptions);
 	}
-	private void checkCtrlKey(boolean pressed) {
-		if (pressed != ctrlPressed) {
-			ctrlPressed = pressed;
+	private void checkModifierKey(InputEvent e) {
+		if (Modifier2KeysState.checkForChange(e)) {
 			repaint();
 		}
 	}
@@ -523,7 +517,7 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		int cnr = s5;
 		g.setFont(buttonFont);
 		// Exit Button
-		String text = text(exitButtonKey(ctrlPressed));
+		String text = text(exitButtonKey());
 		sw = g.getFontMetrics().stringWidth(text);
 		int buttonW	= exitButtonWidth(g);
 		xButton = leftM + wBG - buttonW - xButtonOffset;
@@ -559,7 +553,7 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		g.setStroke(prev);
 
 		// Default Button
-		text	 = text(defaultButtonKey(ctrlPressed));
+		text	 = text(defaultButtonKey());
 		sw		 = g.getFontMetrics().stringWidth(text);
 		buttonW	 = defaultButtonWidth(g);
 		xButton -= (buttonW + buttonPad);
@@ -576,7 +570,7 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		g.setStroke(prev);
 
 		// User preference Button
-        text	 = text(userButtonKey(ctrlPressed));
+		text	 = text(userButtonKey());
 		sw		 = g.getFontMetrics().stringWidth(text);
 		buttonW	 = userButtonWidth(g);
 		xButton -= (buttonW + buttonPad);
@@ -622,10 +616,10 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 	    }
 	}
 	@Override public void keyReleased(KeyEvent e) {
-		checkCtrlKey(e.isControlDown());		
+		checkModifierKey(e);
 	}
 	@Override public void keyPressed(KeyEvent e) {
-		checkCtrlKey(e.isControlDown());		
+		checkModifierKey(e);
 		int k = e.getKeyCode();  // BR:
 		switch(k) {
 			case KeyEvent.VK_ESCAPE:
@@ -650,7 +644,7 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 	}
 	@Override public void mouseDragged(MouseEvent e) {  }
 	@Override public void mouseMoved(MouseEvent e) {
-		checkCtrlKey(e.isControlDown());		
+		checkModifierKey(e);
 		int x = e.getX();
 		int y = e.getY();
 		Rectangle prevHover = hoverBox;
@@ -668,11 +662,7 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 			else if (randomBox.contains(x,y))
 				hoverBox = randomBox;
 			else {
-//				for (SettingBase<?> setting : guiList)
-//					if (setting.settingText().contains(x,y))
-//						hoverBox = setting.settingText().bounds();
 				outerLoop1:
-//				for ( SettingBase<?> setting : settingList) {
 				for ( SettingBase<?> setting : commonList) {
 					if (setting.isSpacer())
 						continue;
@@ -691,15 +681,10 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 				}
 			}
 		}
-
 		if (hoverBox != prevHover) {
 			if (!showOnly) {
-//				for (SettingBase<?> setting : guiList)
-//					if (prevHover == setting.settingText().bounds())
-//						setting.settingText().mouseExit();
 				outerLoop2:
 				for ( SettingBase<?> setting : commonList) {
-//				for ( SettingBase<?> setting : settingList) {
 					if (setting.isSpacer())
 						continue;
 					if (prevHover == setting.settingText().bounds()) {
@@ -715,12 +700,8 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 						}
 					}
 				}
-//				for (SettingBase<?> setting : guiList)
-//					if (hoverBox == setting.settingText().bounds())
-//						setting.settingText().mouseEnter();
 				outerLoop3:
 				for ( SettingBase<?> setting : commonList) {
-//				for ( SettingBase<?> setting : settingList) {
 					if (setting.isSpacer())
 						continue;
 					if (hoverBox == setting.settingText().bounds()) {

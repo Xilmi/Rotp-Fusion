@@ -15,6 +15,7 @@
  */
 package rotp.model.game;
 
+import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.minStarsPerEmpire;
@@ -69,9 +70,7 @@ import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.PlayerRaceCustomizationUI;
 import rotp.ui.game.SetupGalaxyUI;
-import rotp.ui.game.StartModAOptionsUI;
 import rotp.ui.util.InterfaceOptions;
-import rotp.ui.util.InterfaceParam;
 import rotp.util.Base;
 
 public class MOO1GameOptions implements Base, IGameOptions, Serializable {
@@ -1498,6 +1497,12 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     // ==================== New Options management methods ====================
     //
 	/**
+	 * Save last Loaded Game options to file
+	 */
+    public static void saveGameOptions(MOO1GameOptions options) {
+    	saveOptions(options, Rotp.jarPath(), GAME_OPTIONS_FILE);
+    }
+	/**
 	 * Save User Preferred options to file
 	 */
     public static void saveUserOptions(MOO1GameOptions options) {
@@ -1508,6 +1513,12 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	 */
     public static void saveLastOptions(MOO1GameOptions options) {
     	saveOptions(options, Rotp.jarPath(), LAST_OPTIONS_FILE);
+    }
+    /**
+	 * Load last Loaded Game options from file
+	 */
+    public static MOO1GameOptions loadGameOptions() {
+   		return loadOptions(Rotp.jarPath(), GAME_OPTIONS_FILE);
     }
     /**
 	 * Load User Preferred options from file

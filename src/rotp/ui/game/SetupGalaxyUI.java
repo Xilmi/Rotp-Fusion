@@ -35,6 +35,7 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
 import java.awt.Shape;
 import java.awt.Stroke;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -59,6 +60,7 @@ import rotp.ui.NoticeMessage;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
+import rotp.ui.util.Modifier2KeysState;
 
 public final class SetupGalaxyUI  extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
 	private static final long serialVersionUID = 1L;
@@ -71,7 +73,6 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	BufferedImage smBackImg;
     private Rectangle defaultBox = new Rectangle();
     private Rectangle userBox	 = new Rectangle();
-	private boolean ctrlPressed	 = false;
     private int bSep = s15;
 
 	Rectangle modASettingsBox		= new Rectangle(); // modnar: add UI panel for modnar MOD game options
@@ -146,37 +147,50 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	}
     private void doBackBoxAction() {
 		buttonClick();
-    	if (ctrlPressed) // Restore
-    		getOptions(initialOptions);
-    	else // Save
-    		saveLastOptions();
+		switch (Modifier2KeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT: // Restore
+			getOptions(initialOptions);
+			break;
+		default: // Save
+			saveLastOptions();
+			break; 
+		}
     	// Go back to Race Panel
 		RotPUI.instance().returnToSetupRacePanel();
 		release();
  	}
  	private void doDefaultBoxAction() {
 		buttonClick();
- 		if (ctrlPressed) { // set to last
- 			MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
- 			getOptions(fileOptions);
- 		} else { // set to default
- 			MOO1GameOptions.setDefaultGalaxyOptions((MOO1GameOptions)newGameOptions());
+		switch (Modifier2KeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT: // set to last
+ 			getOptions(MOO1GameOptions.loadLastOptions());
+			break;
+		case SHIFT: // set to last game options
+			if (options() != null)
+				getOptions(MOO1GameOptions.loadGameOptions());			
+			break;
+		default: // set to default
+			MOO1GameOptions.setDefaultGalaxyOptions((MOO1GameOptions)newGameOptions());
  	        showNewRaces.setFromDefault();
- 		}
- 		init();
- 		repaint();
+			break; 
+		}
+		init();
+		repaint();
  	}
  	private void doUserBoxAction() {
 		buttonClick();
- 		if (ctrlPressed) { // Save
- 			saveUserOptions();
- 			return;
- 		} else { // Load
- 			MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
- 			getOptions(fileOptions);
- 			init();
- 			repaint();
- 		}
+		switch (Modifier2KeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT: // Save
+			saveUserOptions();
+			break;
+		default: // Set
+			getOptions(MOO1GameOptions.loadUserOptions());
+			init();
+			repaint();
+		}
  	}
  	private void saveUserOptions() {
 		MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
@@ -188,15 +202,17 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		saveOptions(fileOptions);
 		MOO1GameOptions.saveLastOptions(fileOptions);
 	}
-	public static String cancelButtonKey(boolean ctrlPressed) {
-		if (ctrlPressed)
+	public static String cancelButtonKey() {
+		switch (Modifier2KeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT:
 			return restoreKey;
-		else
-			return backKey;			
+		default:
+			return backKey;
+		}
 	}
-	private void checkCtrlKey(boolean pressed) {
-		if (pressed != ctrlPressed) {
-			ctrlPressed = pressed;
+	private void checkModifierKey(InputEvent e) {
+		if (Modifier2KeysState.checkForChange(e)) {
 			repaint();
 		}
 	}
@@ -472,7 +488,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 
 		g.setFont(narrowFont(30));
 		// left button
-		String text1 = text(cancelButtonKey(ctrlPressed));
+		String text1 = text(cancelButtonKey());
 		int sw1 = g.getFontMetrics().stringWidth(text1);
 		int x1 = backBox.x+((backBox.width-sw1)/2);
 		int y1 = backBox.y+backBox.height-s12;
@@ -510,7 +526,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		
         g.setFont(narrowFont(20));
         // BR: Default Button 
-		String text7 = text(defaultButtonKey(ctrlPressed));
+		String text7 = text(defaultButtonKey());
         int sw7		 = g.getFontMetrics().stringWidth(text7);
         int x7 = defaultBox.x+((defaultBox.width-sw7)/2);
         int y7 = defaultBox.y+defaultBox.height-s8;
@@ -523,7 +539,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 
         // BR: User Button 
 		g.setFont(narrowFont(20));
-		String text8 = text(userButtonKey(ctrlPressed));
+		String text8 = text(userButtonKey());
         int sw8 	 = g.getFontMetrics().stringWidth(text8);
 		int x8 = userBox.x+((userBox.width-sw8)/2);
 		int y8 = userBox.y+userBox.height-s8;
@@ -734,10 +750,15 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	// BR: Add option to return to the main menu
 	private void goToMainMenu() {
 		buttonClick();
-    	if (ctrlPressed) // Restore
-    		getOptions(initialOptions);
-    	else // Save
-    		saveLastOptions();
+		switch (Modifier2KeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT: // Restore
+			getOptions(initialOptions);
+			break;
+		default:
+			saveLastOptions();
+			break;
+		}
 		RotPUI.instance().selectGamePanel();
 		release();
 	}
@@ -1128,11 +1149,11 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		return GameUI.AMBIENCE_KEY;
 	}
 	@Override public void keyReleased(KeyEvent e) {
-		checkCtrlKey(e.isControlDown());		
+		checkModifierKey(e);		
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {
-		checkCtrlKey(e.isControlDown());		
+		checkModifierKey(e);		
 		int k = e.getKeyCode();
 		switch(k) {
 		case KeyEvent.VK_ESCAPE:
@@ -1179,7 +1200,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	public void mouseDragged(MouseEvent e) {  }
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		checkCtrlKey(e.isControlDown());		
+		checkModifierKey(e);		
 		int x = e.getX();
 		int y = e.getY();
 		Shape prevHover = hoverBox;

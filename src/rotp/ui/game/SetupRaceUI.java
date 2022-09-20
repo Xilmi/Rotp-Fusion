@@ -34,6 +34,7 @@ import java.awt.RadialGradientPaint;
 import java.awt.Rectangle;
 import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
 import java.awt.Stroke;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -56,6 +57,7 @@ import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
+import rotp.ui.util.Modifier2KeysState;
 
 public final class SetupRaceUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
     private static final long serialVersionUID	= 1L;
@@ -79,7 +81,6 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     Rectangle homeWorldBox = new Rectangle();
     private Rectangle defaultBox = new Rectangle();
     private Rectangle userBox	 = new Rectangle();
-	private boolean ctrlPressed	 = false;
     private Rectangle playerRaceSettingBox = new Rectangle(); // BR: Player Race Customization
     private Rectangle checkBox = new Rectangle(); // BR: Player Race Customization
     private final Color checkBoxC = new Color(178,124,87);
@@ -158,43 +159,63 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     	playerShipSet.setFromOptions(source);
 	}
     private void doCancelBoxAction() {
-        buttonClick();
-    	if (ctrlPressed) // Restore
-    		getOptions(initialOptions);
-    	else // save
-    		saveLastOptions();
+		buttonClick();
+		switch (Modifier2KeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT: // Restore
+			getOptions(initialOptions);
+			break;
+		default: // Save
+			saveLastOptions();
+			break; 
+		}
     	goToMainMenu();
  	}
     private void doNextBoxAction() { // save and continue
-        buttonClick();
-    	if (ctrlPressed) // Restore
-    		getOptions(initialOptions);
-    	else // save
-    		saveLastOptions();
+		buttonClick();
+		switch (Modifier2KeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT: // Restore
+			getOptions(initialOptions);
+			break;
+		default: // Save
+			saveLastOptions();
+			break; 
+		}
  		goToGalaxySetup();
  	}
  	private void doDefaultBoxAction() {
- 		if (ctrlPressed) { // set to last
- 			MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
- 			getOptions(fileOptions);
- 		} else { // set to default
- 			MOO1GameOptions.setDefaultRaceOptions((MOO1GameOptions)newGameOptions());
+		buttonClick();
+		switch (Modifier2KeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT: // set to last
+			getOptions(MOO1GameOptions.loadLastOptions());
+			break;
+		case SHIFT: // set to last game options
+			if (options() != null)
+				getOptions(MOO1GameOptions.loadGameOptions());			
+			break;
+		default: // set to default
+			MOO1GameOptions.setDefaultRaceOptions((MOO1GameOptions)newGameOptions());
  	    	customPlayerRace.setFromDefault();
  	    	playerShipSet.setFromDefault();
- 		}
- 		init();
- 		repaint();
+			break; 
+		}
+		init();
+		repaint();
  	}
  	private void doUserBoxAction() {
- 		if (ctrlPressed) { // Save
- 			saveUserOptions();
- 			return;
- 		} else { // Load
- 			MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
- 			getOptions(fileOptions);
- 			init();
- 			repaint();
- 		}
+		buttonClick();
+		switch (Modifier2KeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT: // Save
+			saveUserOptions();
+			break;
+		default: // Set
+			getOptions(MOO1GameOptions.loadUserOptions());
+			init();
+			repaint();
+		}
  	}
  	private void saveUserOptions() {
 		MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
@@ -206,15 +227,17 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 		saveOptions(fileOptions);
 		MOO1GameOptions.saveLastOptions(fileOptions);
 	}
-	public static String cancelButtonKey(boolean ctrlPressed) {
-		if (ctrlPressed)
+	public static String cancelButtonKey() {
+		switch (Modifier2KeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT:
 			return restoreKey;
-		else
-			return cancelKey;			
+		default:
+			return cancelKey;
+		}
 	}
-	private void checkCtrlKey(boolean pressed) {
-		if (pressed != ctrlPressed) {
-			ctrlPressed = pressed;
+	private void checkModifierKey(InputEvent e) {
+		if (Modifier2KeysState.checkForChange(e)) {
 			repaint();
 		}
 	}
@@ -445,7 +468,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         // left button
         int cnr = s5;
         g.setFont(narrowFont(30));
-        String text1 = text(cancelButtonKey(ctrlPressed));
+        String text1 = text(cancelButtonKey());
         int sw1 = g.getFontMetrics().stringWidth(text1);
         int x1 = cancelBox.x+((cancelBox.width-sw1)/2);
         int y1 = cancelBox.y+cancelBox.height-s12;
@@ -504,7 +527,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 
         g.setFont(narrowFont(20));
         // BR: DEFAULT Button 
-		String text7 = text(defaultButtonKey(ctrlPressed));
+		String text7 = text(defaultButtonKey());
         int sw7		 = g.getFontMetrics().stringWidth(text7);
         int x7 = defaultBox.x+((defaultBox.width-sw7)/2);
         int y7 = defaultBox.y+defaultBox.height-s8;
@@ -516,7 +539,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         g.setStroke(prev);
 
         // BR: USER Button 
-		String text8 = text(userButtonKey(ctrlPressed));
+		String text8 = text(userButtonKey());
         int sw8 	 = g.getFontMetrics().stringWidth(text8);
 		int x8 = userBox.x+((userBox.width-sw8)/2);
 		int y8 = userBox.y+userBox.height-s8;
@@ -876,12 +899,12 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         return GameUI.AMBIENCE_KEY;
     }
 	@Override public void keyReleased(KeyEvent e) {
-		checkCtrlKey(e.isControlDown());		
+    	checkModifierKey(e);
 	}
     @Override
     public void keyPressed(KeyEvent e) {
-		checkCtrlKey(e.isControlDown());		
-        int k = e.getKeyCode();
+    	checkModifierKey(e);
+       int k = e.getKeyCode();
         switch(k) {
             case KeyEvent.VK_M: // BR: "M" = Go to Main Menu
             case KeyEvent.VK_ESCAPE:
@@ -910,7 +933,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     public void mouseDragged(MouseEvent e) {  }
     @Override
     public void mouseMoved(MouseEvent e) {
-		checkCtrlKey(e.isControlDown());		
+    	checkModifierKey(e);
         int x = e.getX();
         int y = e.getY();
         Rectangle prevHover = hoverBox;

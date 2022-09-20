@@ -69,6 +69,7 @@ public class UserPreferences {
 	private static final String SENSITIVITY_LOW = "GAME_SETTINGS_SENSITIVITY_LOW";
 
 	private static final String PREFERENCES_FILE  = "Remnants.cfg";
+	public  static final String GAME_OPTIONS_FILE = "Game.options";
 	public  static final String LAST_OPTIONS_FILE = "Last.options";
 	public  static final String USER_OPTIONS_FILE = "User.options";
 	private static final int MAX_BACKUP_TURNS = 20; // modnar: change max turns between backups to 20

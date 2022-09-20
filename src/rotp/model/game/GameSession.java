@@ -257,6 +257,7 @@ public final class GameSession implements Base, Serializable {
             galaxy().startGame();
             // BR: Save the last loaded game parameters
             Profiles.saveGameOptionsToFile(this);
+    		MOO1GameOptions.saveGameOptions((MOO1GameOptions) options);
             // \BR
             saveRecentSession(false);
             saveBackupSession(1);
@@ -281,6 +282,7 @@ public final class GameSession implements Base, Serializable {
             galaxy().startGame();
             // BR: Save the last loaded game parameters
             Profiles.saveGameOptionsToFile(this);
+    		MOO1GameOptions.saveGameOptions((MOO1GameOptions) options);
             // \BR
             saveRecentSession(false);
             saveBackupSession(1);
@@ -557,7 +559,7 @@ public final class GameSession implements Base, Serializable {
         StarSystem sys = galaxy().system(pl.homeSysId());
         sys.colony().defense().bases(3);
 
-        ShipDesign plSc = pl.shipLab().scoutDesign();
+        // ShipDesign plSc = pl.shipLab().scoutDesign();
         ShipDesign plSh = pl.shipLab().fighterDesign();
         ShipFleet plFl = sys.orbitingFleetForEmpire(pl);
         if (plFl != null) {
@@ -833,6 +835,8 @@ public final class GameSession implements Base, Serializable {
     private void loadPreviousSession(GameSession gs, boolean startUp) {
         stopCurrentGame();
         instance = gs;
+        // Save the last loaded game parameters
+		MOO1GameOptions.saveGameOptions((MOO1GameOptions) instance.options);
         startExecutors();
         RotPUI.instance().mainUI().checkMapInitialized();
         if (!startUp) {
