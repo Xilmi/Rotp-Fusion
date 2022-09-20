@@ -273,8 +273,6 @@ public class AIFleetCommander implements Base, FleetCommander {
             currentScore = 1 / getThreatCenter().distanceTo(current);
             //distance to our fleet also plays a role but it's importance is heavily scince we are at peace and have time to travel
             //currentScore /= max(1, fleet.travelTurns(current));
-            if(current.inNebula())
-                currentScore *= 1 / fleet.slowestStackSpeed();
             if(fleet.system() != current && fleet.destination() != current)
                 currentScore *= 1 - (systemInfoBuffer.get(id).myTotalPower / myTotalPower());
             //System.out.print("\n"+fleet.empire().name()+" "+empire.sv.name(fleet.system().id)+" score to gather at: "+empire.sv.name(current.id)+" score: "+currentScore);
@@ -477,7 +475,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                         handleEvent = true;
                     }
                 }
-                if(current.colony() != null && enemyBombardDamage > current.colony().untargetedHitPoints() && fleet.distanceTo(current) / fleet.slowestStackSpeed() > 1)
+                if(current.colony() != null && enemyBombardDamage > current.colony().untargetedHitPoints() && fleet.travelTurns(current) > 1)
                 {
                     score = 1.0f;
                 }
@@ -542,10 +540,7 @@ public class AIFleetCommander implements Base, FleetCommander {
             }
             if(!ignoreTravelTime)
             {
-                float speed = fleet.slowestStackSpeed();
-                if(current.inNebula())
-                    speed = 1;
-                score /= pow(max(1, fleet.distanceTo(current) / speed), 2) + 1;
+                score /= pow(max(1, fleet.travelTurns(current)), 2) + 1;
             }
             /*if(score > 0)
                 System.out.println(galaxy().currentTurn()+" "+fleet.empire().name()+" Fleet at "+empire.sv.name(fleet.system().id)+" => "+empire.sv.name(current.id)+" score: "+score+" enemy-transports: "+transports+" colonizerEnroute: "+colonizerEnroute);*/
