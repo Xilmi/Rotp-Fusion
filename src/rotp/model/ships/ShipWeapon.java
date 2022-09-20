@@ -74,6 +74,7 @@ public class ShipWeapon extends ShipComponent {
         float beamMod = 1;
         float pct = (5 + source.attackLevel() - target.bombDefense()) / 10;
         pct = max(.05f, pct);
+        pct = min(pct, 1); //cannot hit for more than 100%
         if(isBeamWeapon())
         {
             shieldLevel /= planetDamageMod(); 
@@ -95,6 +96,7 @@ public class ShipWeapon extends ShipComponent {
         float beamMod = 1;
         float pct = (5 + des.attackLevel() + des.empire().shipAttackBonus() - target.bombDefense()) / 10;
         pct = max(.05f, pct);
+        pct = min(pct, 1); //cannot hit for more than 100%
         if(isBeamWeapon())
         {
             shieldLevel /= planetDamageMod(); 
