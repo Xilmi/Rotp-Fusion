@@ -26,6 +26,10 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What'New
 
+2022.09.21 (Xilmi)
+  - Fixed a crash reportet by /u/Thor1Noak that could occur when the AI wanted to check the range of their current colonizer during diplomatic negotiations, while only having a huge colonizer-design but now no longer wanting a huge design for colonizers but hasn't had the chance to design a new non-huge colony-ship yet because diplomacy is processed before ship-designing!
+  - Changed e-mail-address for the bug-report-prompt to my own.
+
 2022.09.20 (Xilmi)
   - Fixed a rare issue that could cause the governor to forget it was supposed to be building ships.
   - Fixed that the bombardment-preview would display too high of a kill-count when the attack-level exceeded 10.
