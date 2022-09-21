@@ -53,6 +53,7 @@ import rotp.mod.br.profiles.Profiles;
 import rotp.model.empires.Race;
 import rotp.model.galaxy.GalaxyCopy;
 import rotp.model.galaxy.GalaxyShape;
+import rotp.model.galaxy.GalaxyShape.EmpireSystem;
 import rotp.model.game.GameSession;
 import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BasePanel;
@@ -573,6 +574,16 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			int y0 = yOff + (int) (pt.y*factor);
 			g.setColor(starColor(i));
 			g.fillRect(x0, y0, s2, s2);
+		}
+		// BR: add empires stars to avoid lonely star
+		int i = 0;
+		for (EmpireSystem emp : sh.empireSystems()) {
+			for (int j=0; j<emp.numSystems();j++) {
+				int x0 = xOff + (int) (emp.x(j)*factor);
+				int y0 = yOff + (int) (emp.y(j)*factor);
+				g.setColor(starColor(i)); i++;
+				g.fillRect(x0, y0, s2, s2);
+			}
 		}
 	}
 	private Color starColor(int i) {
