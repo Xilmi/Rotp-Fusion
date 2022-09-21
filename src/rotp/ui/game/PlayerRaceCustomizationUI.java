@@ -21,13 +21,15 @@ import rotp.ui.util.AbstractCRUI;
 
 public class PlayerRaceCustomizationUI extends AbstractCRUI {
 	private static final long serialVersionUID = 1L;
-	private static final PlayerRaceCustomizationUI instance = new PlayerRaceCustomizationUI();
+	private static final PlayerRaceCustomizationUI playerInstance  = new PlayerRaceCustomizationUI();
+	private static final PlayerRaceCustomizationUI displayInstance = new PlayerRaceCustomizationUI();
 	public  static final String guiTitleID = ROOT + "GUI_TITLE";
 	
 	public PlayerRaceCustomizationUI() {
 		super(guiTitleID);
 	}
-	public static PlayerRaceCustomizationUI instance() { return instance; }
+	public static PlayerRaceCustomizationUI playerInstance()  { return playerInstance; }
+	public static PlayerRaceCustomizationUI displayInstance() { return displayInstance; }
 	
 	@Override protected void init0() {
 		// First column (left)

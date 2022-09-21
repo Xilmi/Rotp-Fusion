@@ -21,6 +21,8 @@ import static rotp.ui.util.SettingBase.CostFormula.RELATIVE;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
+import rotp.model.game.MOO1GameOptions;
+
 public class SettingInteger extends SettingBase<Integer> {
 
 	private static final boolean defaultIsList			= false;
@@ -160,6 +162,14 @@ public class SettingInteger extends SettingBase<Integer> {
 	}
 	@Override public float settingCost() {
 		return settingCost(settingValue());
+	}
+	@Override public void setOptions(MOO1GameOptions options) {
+		if (!isSpacer())
+			options.setIntegerOptions(labelId(), settingValue());
+	}
+	@Override public void setFromOptions(MOO1GameOptions options) {
+		if (!isSpacer())
+			set(options.getIntegerOptions(labelId(), defaultValue()));
 	}
 	// ===== Other Methods =====
 	//

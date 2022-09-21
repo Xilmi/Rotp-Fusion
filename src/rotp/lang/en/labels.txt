@@ -1565,14 +1565,18 @@ SETTINGS_MOD_MAP_FONT_FACTOR_DESC        | To adjust the galaxy map font size. B
 SETTINGS_MOD_MAP_FONT_FACTOR             | Map Font Ratio: %1
 SETTINGS_MOD_MENU_STARTUP_DESC           | How should the menu be initialized on startup?
 SETTINGS_MOD_MENU_STARTUP                | Startup Initialization: %1
-SETTINGS_MOD_STARTUP_DEFAULT             | Default Values
-SETTINGS_MOD_STARTUP_USER                | User's Values
-SETTINGS_MOD_STARTUP_LAST                | Latest Values
+SETTINGS_MOD_STARTUP_DEFAULT             | Default Settings
+SETTINGS_MOD_STARTUP_GAME                | Last Game Settings
+SETTINGS_MOD_STARTUP_LAST                | Last Gui Settings
+SETTINGS_MOD_STARTUP_USER                | User's Settings
 SETTINGS_MOD_STARTUP_VANILLA             | Old Ways
 SETTINGS_MOD_MENU_LOAD_GAME_DESC         | How should the menu be initialized when loading a game?
 SETTINGS_MOD_MENU_LOAD_GAME              | Menus on loading: %1
-SETTINGS_MOD_LOAD_GAME_UPDATE            | All updates
-SETTINGS_MOD_LOAD_GAME_LAST              | Last state
+SETTINGS_MOD_LOAD_GAME_DEFAULT           | Default Settings
+SETTINGS_MOD_LOAD_GAME_LAST              | Last Settings
+SETTINGS_MOD_LOAD_GAME_STARTUP           | Startup Settings
+SETTINGS_MOD_LOAD_GAME_UPDATE            | Game Settings
+SETTINGS_MOD_LOAD_GAME_USER              | User's Settings
 SETTINGS_MOD_LOAD_GAME_VANILLA           | Old Ways
 SETTINGS_MOD_SHOW_NEW_RACES_DESC         | Show the new races in the opponents list?
 SETTINGS_MOD_SHOW_NEW_RACES              | Show new races: %1

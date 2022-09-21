@@ -178,7 +178,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	private void close() {
 		disableGlassPane();
 	}
-	private void saveOptions(MOO1GameOptions destination) {
+	public void saveOptions(MOO1GameOptions destination) {
 		for (InterfaceOptions param : paramList)
 			param.setOptions(destination);
 	}

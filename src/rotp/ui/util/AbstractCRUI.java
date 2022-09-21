@@ -56,11 +56,6 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 	private static final String totalCostKey	= "CUSTOM_RACE_GUI_COST";
 	private static final String selectKey		= "CUSTOM_RACE_GUI_SELECT";
 	private static final String randomKey		= "CUSTOM_RACE_GUI_RANDOM";
-	private static final LinkedList<Integer> colSettingsCount	= new LinkedList<>();
-	private static final LinkedList<SettingBase<?>> settingList	= new LinkedList<>();
-	private static final LinkedList<SettingBase<?>> guiList		= new LinkedList<>();
-	public  static final LinkedList<SettingBase<?>> commonList	= new LinkedList<>();
-	public	static final CustomRaceFactory cr = new CustomRaceFactory();
 	private static final String initialRace	= MOO1GameOptions.baseRacesOptions().getFirst();
 	
 	private static final Color textC		= SystemPanel.whiteText;
@@ -76,8 +71,6 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 	private static final int labelPad		= s8;
 
 	private static final Color costC		= SystemPanel.blackText;
-	private		   final String guiTitleID;
-	private		   final String showTitleID;
 	private		   final Font titleFont		= narrowFont(30);
 	private	static final int costFontSize	= 18;
 	private static final int titleOffset	= s30; // Offset from Margin
@@ -107,19 +100,28 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 	private static final int optionH		= s15;
 	private static final int optionIndent	= s15;
 
-	private static final SettingInteger randomTargetMax = new SettingInteger(ROOT, "RANDOM_TARGET_MAX",
+	private final SettingInteger randomTargetMax = new SettingInteger(ROOT, "RANDOM_TARGET_MAX",
 			75, null, null, 1, 5, 20);
-	private static final SettingInteger randomTargetMin = new SettingInteger(ROOT, "RANDOM_TARGET_MIN",
+	private final SettingInteger randomTargetMin = new SettingInteger(ROOT, "RANDOM_TARGET_MIN",
 			0, null, null, 1, 5, 20);
-	private static final SettingInteger randomMax = new SettingInteger(ROOT, "RANDOM_MAX",
+	private final SettingInteger randomMax = new SettingInteger(ROOT, "RANDOM_MAX",
 			50, -100, 100, 1, 5, 20);
-	private static final SettingInteger randomMin = new SettingInteger(ROOT, "RANDOM_MIN",
+	private final SettingInteger randomMin = new SettingInteger(ROOT, "RANDOM_MIN",
 			-50, -100, 100, 1, 5, 20);
-	private static final SettingBoolean randomUseTarget	  = new SettingBoolean(ROOT, "RANDOM_USE_TARGET", false);
-	private static final SettingBoolean randomSmoothEdges = new SettingBoolean(ROOT, "RANDOM_EDGES", true);
+	private final SettingBoolean randomUseTarget	  = new SettingBoolean(ROOT, "RANDOM_USE_TARGET", false);
+	private final SettingBoolean randomSmoothEdges = new SettingBoolean(ROOT, "RANDOM_EDGES", true);
 
-	private static int numColumns	= 0;
-	private static int columnsMaxH	= 0;
+	private final LinkedList<Integer> colSettingsCount	= new LinkedList<>();
+	private final LinkedList<SettingBase<?>> settingList= new LinkedList<>();
+	private final LinkedList<SettingBase<?>> guiList	= new LinkedList<>();
+	public  final LinkedList<SettingBase<?>> commonList	= new LinkedList<>();
+	public	final CustomRaceFactory cr = new CustomRaceFactory();
+	private	final String guiTitleID;
+	private	final String showTitleID;
+
+	private int numColumns	= 0;
+	private int columnsMaxH	= 0;
+	private boolean	initialized = false;
 
 	private int xButton, yButton;
 	private int yTitle;
@@ -139,19 +141,18 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
     private Rectangle defaultBox = new Rectangle();
     private Rectangle userBox	 = new Rectangle();
 	private Rectangle randomBox	 = new Rectangle();
-	private static BaseText totalCostText;
-	private RacesUI  raceUI;
-	private boolean  showOnly = false;
-	private static boolean initialized = false;
+	private BaseText totalCostText;
+	private RacesUI	raceUI;
+	private boolean	showOnly = false;
 	private MOO1GameOptions initialOptions; // To be restored if "cancel"
 	
 	// ========== Constructors and initializers ==========
 	//
 
 	public AbstractCRUI(String guiTitle_ID) {
-		guiTitleID = guiTitle_ID;
-		showTitleID = ROOT + "SHOW_TITLE";
-		showOnly   = false;
+		guiTitleID 	= guiTitle_ID;
+		showTitleID	= ROOT + "SHOW_TITLE";
+		showOnly	= false;
 		init_0();
 	}
 	private void init_0() {
@@ -271,7 +272,7 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 	private void close() {
 		disableGlassPane();
 	}
-	private void saveOptions(MOO1GameOptions destination) {
+	public void saveOptions(MOO1GameOptions destination) {
 		for (InterfaceOptions param : commonList)
 			param.setOptions(destination);
 		customPlayerRace.setOptions(destination);

@@ -162,11 +162,16 @@ public class UserPreferences {
 			.put("Default",	MOD_UI + "STARTUP_DEFAULT")
 			.put("Last",	MOD_UI + "STARTUP_LAST")
 			.put("User",	MOD_UI + "STARTUP_USER")
+			.put("Game",	MOD_UI + "STARTUP_GAME")
 			.put("Vanilla",	MOD_UI + "STARTUP_VANILLA");
 	public static final ParamList menuLoadGame = new ParamList(MOD_UI, "MENU_LOAD_GAME", "LoadAll")
-			.put("LoadAll",	MOD_UI + "LOAD_GAME_UPDATE")
+			.put("Game",	MOD_UI + "LOAD_GAME_UPDATE")
 			.put("Last",	MOD_UI + "LOAD_GAME_LAST")
-			.put("Vanilla",	MOD_UI + "LOAD_GAME_VANILLA");
+			.put("User",	MOD_UI + "LOAD_GAME_USER")
+			.put("Startup",	MOD_UI + "LOAD_GAME_STARTUP")
+			.put("Vanilla",	MOD_UI + "LOAD_GAME_VANILLA")
+			.put("Default",	MOD_UI + "STARTUP_DEFAULT");
+	
 	public static final ParamBoolean showGridCircular = new ParamBoolean(MOD_UI, "SHOW_GRID_CIRCULAR", false);
 
 	// This list is used as is by the ModGlobalOptionsUI menu

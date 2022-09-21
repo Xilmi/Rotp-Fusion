@@ -61,20 +61,22 @@ public class Galaxy implements Base, Serializable {
     public int systemCount = 0;
 
     // BR: Dynamic options
-    private LinkedHashMap<String, String>	stringOptions	= new LinkedHashMap<>(); // For future use
-    private LinkedHashMap<String, Integer>	integerOptions	= new LinkedHashMap<>(); // For future use
-    private LinkedHashMap<String, Float>	floatOptions	= new LinkedHashMap<>(); // For future use
-    private LinkedHashMap<String, Object>	objectOptions	= new LinkedHashMap<>(); // For future use
+	private final LinkedHashMap<String, Boolean> booleanOptions	= new LinkedHashMap<>(); // For future use
+	private final LinkedHashMap<String, Float>	 floatOptions	= new LinkedHashMap<>(); // For future use
+	private final LinkedHashMap<String, Integer> integerOptions	= new LinkedHashMap<>(); // For future use
+    private final LinkedHashMap<String, Object>	 objectOptions	= new LinkedHashMap<>(); // For future use
+	private final LinkedHashMap<String, String>	 stringOptions	= new LinkedHashMap<>(); // For future use
 
     private transient ShipCombatManager shipCombat = new ShipCombatManager();
     private transient Map<String, List<String>> raceSystemNames = new HashMap<>();
     private transient Map<String, Integer> raceSystemCtr = new HashMap<>();
 
     // BR: Dynamic options
-    public LinkedHashMap<String, String>  stringOptions()  { return stringOptions; }
-    public LinkedHashMap<String, Integer> integerOptions() { return integerOptions; }
+    public LinkedHashMap<String, Boolean> booleanOptions() { return booleanOptions; }
     public LinkedHashMap<String, Float>	  floatOptions()   { return floatOptions; }
+    public LinkedHashMap<String, Integer> integerOptions() { return integerOptions; }
     public LinkedHashMap<String, Object>  objectOptions()  { return objectOptions; }
+    public LinkedHashMap<String, String>  stringOptions()  { return stringOptions; }
 
     public int beginningYear()               { return player().race().startingYear; }
     public float currentTime()               { return currentTime; }

@@ -19,6 +19,8 @@ package rotp.ui.util;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
+import rotp.model.game.MOO1GameOptions;
+
 public class ParamBoolean extends AbstractParam<Boolean> {
 	
 
@@ -34,17 +36,23 @@ public class ParamBoolean extends AbstractParam<Boolean> {
 	}
 	// ===== Overriders =====
 	//
-	@Override protected String getCfgValue(Boolean value)	{ return yesOrNo(value); }
+	@Override protected	  String getCfgValue(Boolean value)	{ return yesOrNo(value); }
 	@Override public void setFromCfgValue(String newValue)	{ value(yesOrNo(newValue)); }	
-	@Override public String getGuiValue()	{ return yesOrNo(get()); }
-	@Override public void prev()			{ next(); }
-	@Override public void next()			{ set(!get()); }
+	@Override public 	  String getGuiValue()	{ return yesOrNo(get()); }
+	@Override public void prev() { next(); }
+	@Override public void next() { set(!get()); }
 	@Override public void toggle(MouseWheelEvent e)	{ next(); }
 	@Override public void toggle(MouseEvent e) {
 		if (getDir(e) == 0)
 			setFromDefault();
 		else
 			next();
+	}
+	@Override public void setFromOptions(MOO1GameOptions options) {
+		set(options.getBooleanOptions(labelId(), defaultValue()));
+	}
+	@Override public void setOptions(MOO1GameOptions options) {
+		options.setBooleanOptions(labelId(), get());
 	}
 	// ===== Other Methods =====
 	//

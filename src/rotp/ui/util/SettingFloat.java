@@ -22,6 +22,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.text.DecimalFormat;
 
+import rotp.model.game.MOO1GameOptions;
+
 public class SettingFloat extends SettingBase<Float> {
 
 	private static final boolean defaultIsList			= false;
@@ -203,6 +205,14 @@ public class SettingFloat extends SettingBase<Float> {
 	}
 	@Override public float settingCost() {
 		return settingCost(settingValue());
+	}
+	@Override public void setOptions(MOO1GameOptions options) {
+		if (!isSpacer())
+			options.setFloatOptions(labelId(), settingValue());
+	}
+	@Override public void setFromOptions(MOO1GameOptions options) {
+		if (!isSpacer())
+			set(options.getFloatOptions(labelId(), defaultValue()));
 	}
 	// ===== Other Methods =====
 	//

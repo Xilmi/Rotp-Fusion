@@ -395,7 +395,7 @@ public class SettingBase<T> implements InterfaceParam {
 	}
 	private T optionValue(int index)	{ return valueList.get(valueValidIndex(index)); }
 	private float optionCost(int index)	{ return costList.get(index); }
-	private String labelId()			{ return guiLabel + nameLabel; }
+	protected String labelId()			{ return guiLabel + nameLabel; }
 	private String descriptionId()		{ return labelId() + LABEL_DESCRIPTION; }
 	private String getDefaultCfgValue() { return getCfgValue(defaultValue); }
 	private String settingCostString()	{ return settingCostString(1); } // default decimal number

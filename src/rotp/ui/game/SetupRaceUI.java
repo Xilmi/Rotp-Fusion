@@ -55,7 +55,6 @@ import rotp.model.ships.ShipImage;
 import rotp.model.ships.ShipLibrary;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
-import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.util.Modifier2KeysState;
 
@@ -130,18 +129,10 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         shipSetTxt.setFont(narrowFont(20)); // BR:
 
         createNewGameOptions(); // Following the UserPreferences.menuStartup
-    	String initOption = UserPreferences.menuStartup.get().toUpperCase();
-    	switch (initOption) {
-	    	case "LAST":
-	    	case "USER":
-	    	case "DEFAULT":
-	    		// Initialization already done
-	    		break;
-	    	case "VANILLA":
-	    	default: // Vanilla, as before
-	    		newGameOptions().copyOptions(options()); // Following the UserPreferences.menuLoadGame
-     	}
+    	if (options() != null) // A game has already been loaded
+    		newGameOptions().copyOptions(options()); // Follow the UserPreferences.menuLoadGame
         raceChanged();
+        // Save initial options
         initialOptions = new MOO1GameOptions(); // Any content will do
         saveOptions(initialOptions);
     }
@@ -157,6 +148,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 		copyOptions(source, (MOO1GameOptions)newGameOptions());
     	customPlayerRace.setFromOptions(source);
     	playerShipSet.setFromOptions(source);
+        raceChanged();
 	}
     private void doCancelBoxAction() {
 		buttonClick();
@@ -201,7 +193,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
  	    	playerShipSet.setFromDefault();
 			break; 
 		}
-		init();
+        raceChanged();
 		repaint();
  	}
  	private void doUserBoxAction() {
@@ -213,7 +205,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 			break;
 		default: // Set
 			getOptions(MOO1GameOptions.loadUserOptions());
-			init();
+	        raceChanged();
 			repaint();
 		}
  	}
@@ -579,7 +571,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     			newGameOptions().selectedPlayerRace()).preferredShipSet);
     }
     private void checkBoxChanged() { // BR: checkBoxChanged
-        if (PlayerRaceCustomizationUI.cr.isEmpty() 
+        if (RotPUI.playerRaceCustomizationUI().cr.isEmpty() 
                 && customPlayerRace.get())
             goToPlayerRaceCustomization();
         repaint();

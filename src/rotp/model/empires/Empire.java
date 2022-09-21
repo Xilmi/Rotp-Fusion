@@ -145,10 +145,11 @@ public final class Empire implements Base, NamedObject, Serializable {
     private final String dataRaceKey;
 
     // BR: Dynamic options
-	private final LinkedHashMap<String, String>	stringOptions	= new LinkedHashMap<>(); // For future use
-	private final LinkedHashMap<String, Integer>integerOptions	= new LinkedHashMap<>(); // For future use
-	private final LinkedHashMap<String, Float>	floatOptions	= new LinkedHashMap<>(); // For future use
-	private final LinkedHashMap<String, Object>	objectOptions	= new LinkedHashMap<>(); // For future use
+	private final LinkedHashMap<String, Boolean> booleanOptions	= new LinkedHashMap<>(); // For future use
+	private final LinkedHashMap<String, Float>	 floatOptions	= new LinkedHashMap<>(); // For future use
+	private final LinkedHashMap<String, Integer> integerOptions	= new LinkedHashMap<>(); // For future use
+    private final LinkedHashMap<String, Object>	 objectOptions	= new LinkedHashMap<>(); // For future use
+	private final LinkedHashMap<String, String>	 stringOptions	= new LinkedHashMap<>(); // For future use
 
     private transient float avgX, avgY, nameX1, nameX2;
 
@@ -178,10 +179,11 @@ public final class Empire implements Base, NamedObject, Serializable {
     private transient String empireName;
 
     // BR: Dynamic options
-    public LinkedHashMap<String, String>  stringOptions()  { return stringOptions; }
-    public LinkedHashMap<String, Integer> integerOptions() { return integerOptions; }
+    public LinkedHashMap<String, Boolean> booleanOptions() { return booleanOptions; }
     public LinkedHashMap<String, Float>	  floatOptions()   { return floatOptions; }
+    public LinkedHashMap<String, Integer> integerOptions() { return integerOptions; }
     public LinkedHashMap<String, Object>  objectOptions()  { return objectOptions; }
+    public LinkedHashMap<String, String>  stringOptions()  { return stringOptions; }
 
     public AI ai() {
         if (ai == null) {

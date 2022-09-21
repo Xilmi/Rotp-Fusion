@@ -332,18 +332,23 @@ public interface IGameOptions {
     public String selectedOpponentRace(int i);
     public void selectedOpponentRace(int i, String s);
 
-    public String setStringOptions(String id, String value); // BR:
-    public String getStringOptions(String id); // BR:
-    public String getStringOptions(String id, String defaultValue); // BR:
-    public Float  setFloatOptions(String id, Float value); // BR:
-    public Float  getFloatOptions(String id); // BR:
-    public Float  getFloatOptions(String id, Float defaultValue); // BR:
-    public Integer setIntegerOptions(String id, Integer value); // BR:
-    public Integer getIntegerOptions(String id); // BR:
-    public Integer getIntegerOptions(String id, Integer defaultValue); // BR:
-    public Object setObjectOptions(String id, Object value); // BR:
-    public Object getObjectOptions(String id); // BR:
-    public Object getObjectOptions(String id, Object defaultValue); // BR:
+    // BR: Options management
+    public Boolean setBooleanOptions(String id, Boolean value);
+    public Boolean getBooleanOptions(String id);
+    public Boolean getBooleanOptions(String id, Boolean defaultValue);
+    public Float   setFloatOptions  (String id, Float value);
+    public Float   getFloatOptions  (String id);
+    public Float   getFloatOptions  (String id, Float defaultValue);
+    public Integer setIntegerOptions(String id, Integer value);
+    public Integer getIntegerOptions(String id);
+    public Integer getIntegerOptions(String id, Integer defaultValue);
+    public Object  setObjectOptions (String id, Object value);
+    public Object  getObjectOptions (String id);
+    public Object  getObjectOptions (String id, Object defaultValue);
+    public String  setStringOptions (String id, String value);
+    public String  getStringOptions (String id);
+    public String  getStringOptions (String id, String defaultValue);
+    // \BR:
     
     default void copyForRestart(IGameOptions opt) { } // BR: for Restart with new options
     default void copyOptions(IGameOptions opt) { }

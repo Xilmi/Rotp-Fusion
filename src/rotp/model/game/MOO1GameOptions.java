@@ -116,10 +116,11 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private String selectedColonizingOption;
     private String selectedAutoplayOption;
     // BR: Dynamic options
-    private final LinkedHashMap<String, String>	 stringOptions	= new LinkedHashMap<>();
-	private final LinkedHashMap<String, Integer> integerOptions	= new LinkedHashMap<>(); // For future use
+	private final LinkedHashMap<String, Boolean> booleanOptions	= new LinkedHashMap<>(); // For future use
 	private final LinkedHashMap<String, Float>	 floatOptions	= new LinkedHashMap<>(); // For future use
+	private final LinkedHashMap<String, Integer> integerOptions	= new LinkedHashMap<>(); // For future use
     private final LinkedHashMap<String, Object>	 objectOptions	= new LinkedHashMap<>(); // For future use
+    private final LinkedHashMap<String, String>	 stringOptions	= new LinkedHashMap<>();
 
     private transient GalaxyShape galaxyShape;
 
@@ -131,23 +132,14 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         randomizeColors();
         setDefaultOptionValues();
     }
-	@Override public String setStringOptions(String id, String value) {
-		return stringOptions.put(id, value);
+	@Override public Boolean setBooleanOptions(String id, Boolean value) {
+		return booleanOptions.put(id, value);
 	}
-	@Override public String getStringOptions(String id) {
-		return stringOptions.get(id);
+	@Override public Boolean getBooleanOptions(String id) {
+		return booleanOptions.get(id);
 	}
-	@Override public String getStringOptions(String id, String defaultValue) {
-		return stringOptions.getOrDefault(id, defaultValue);
-	}
-	@Override public Integer setIntegerOptions(String id, Integer value) {
-		return integerOptions.put(id, value);
-	}
-	@Override public Integer getIntegerOptions(String id) {
-		return integerOptions.get(id);
-	}
-	@Override public Integer getIntegerOptions(String id, Integer defaultValue) {
-		return integerOptions.getOrDefault(id, defaultValue);
+	@Override public Boolean getBooleanOptions(String id, Boolean defaultValue) {
+		return booleanOptions.getOrDefault(id, defaultValue);
 	}
 	@Override public Float setFloatOptions(String id, Float value) {
 		return floatOptions.put(id, value);
@@ -158,6 +150,15 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	@Override public Float getFloatOptions(String id, Float defaultValue) {
 		return floatOptions.getOrDefault(id, defaultValue);
 	}
+	@Override public Integer setIntegerOptions(String id, Integer value) {
+		return integerOptions.put(id, value);
+	}
+	@Override public Integer getIntegerOptions(String id) {
+		return integerOptions.get(id);
+	}
+	@Override public Integer getIntegerOptions(String id, Integer defaultValue) {
+		return integerOptions.getOrDefault(id, defaultValue);
+	}
 	@Override public Object setObjectOptions(String id, Object value) {
 		return objectOptions.put(id, value);
 	}
@@ -166,6 +167,15 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	}
 	@Override public Object getObjectOptions(String id, Object defaultValue) {
 		return objectOptions.getOrDefault(id, defaultValue);
+	}
+	@Override public String setStringOptions(String id, String value) {
+		return stringOptions.put(id, value);
+	}
+	@Override public String getStringOptions(String id) {
+		return stringOptions.get(id);
+	}
+	@Override public String getStringOptions(String id, String defaultValue) {
+		return stringOptions.getOrDefault(id, defaultValue);
 	}
     private void resetSelectedOpponentRaces() {
         for (int i=0;i<opponentRaces.length;i++)
@@ -355,23 +365,38 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 //        generateGalaxy();     	
     }
     @Override
-    public void copyOptions(IGameOptions o) {
-        if (!(o instanceof MOO1GameOptions))
+    public void copyOptions(IGameOptions gameOptions) {
+        if (!(gameOptions instanceof MOO1GameOptions))
             return;
-        MOO1GameOptions opt = (MOO1GameOptions) o;
+        MOO1GameOptions gOpt = (MOO1GameOptions) gameOptions;
         
     	String initOption = UserPreferences.menuLoadGame.get().toUpperCase();
     	switch (initOption) {
-	    	case "LAST":
-	    		opt = loadLastOptions(); // continue with Load All
-	    	case "LOADALL":
-	    		copyVanillaOptions(opt);
-	    		copyAllOtherOptions(opt);
-	    		break;
+    		case "LAST":
+    			gOpt = loadLastOptions(); // continue with Load All
+    			break;
+    		case "USER":
+    			gOpt = loadUserOptions(); // continue with Load All
+    			break;
+    		case "GAME":
+    			// gOpt already set
+    			break;
+	    	case "DEFAULT":
+	    		gOpt = new MOO1GameOptions();
+	    		RotPUI.startModAOptionsUI().setToDefault();
+	    		RotPUI.startModBOptionsUI().setToDefault();
+	    		generateGalaxy();
+	    		return;
+	    	case "STARTUP":
+	    		gOpt = RotPUI.createStartupOptions();
 	    	case "VANILLA":
 	    	default: // Vanilla, as before
-	    		copyVanillaOptions(opt);
+	    		copyVanillaOptions(gOpt);
+	    		generateGalaxy();
+	    		return;
      	}
+    	copyVanillaOptions(gOpt);
+		copyAllOtherOptions(gOpt);
         generateGalaxy(); 
     }
     public void copyAllOtherOptions(MOO1GameOptions source) { // BR:
@@ -382,7 +407,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 		for (InterfaceOptions param : RotPUI.startModBOptionsUI().paramList)
 			param.setFromOptions(source);
     	// Copy CustomRaces
-		for (InterfaceOptions param : PlayerRaceCustomizationUI.commonList)
+		for (InterfaceOptions param : RotPUI.playerRaceCustomizationUI().commonList)
 			param.setFromOptions(source);
 	    setGalaxyShape(); 
 	    selectedGalaxyShapeOption1 = source.selectedGalaxyShapeOption1;
