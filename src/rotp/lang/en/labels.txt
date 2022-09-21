@@ -1563,15 +1563,15 @@ SETTINGS_MOD_SHOW_INFO_FONT_RATIO_DESC   | To adjust the galaxy map swap info to
 SETTINGS_MOD_SHOW_INFO_FONT_RATIO        | System Info Font Ratio: %1
 SETTINGS_MOD_MAP_FONT_FACTOR_DESC        | To adjust the galaxy map font size. Bigger factor means bigger fonts.
 SETTINGS_MOD_MAP_FONT_FACTOR             | Map Font Ratio: %1
-SETTINGS_MOD_MENU_STARTUP_DESC           | How should the menu be initialized on startup?
+SETTINGS_MOD_MENU_STARTUP_DESC           | How should the starting menus be initialized on startup?
 SETTINGS_MOD_MENU_STARTUP                | Startup Initialization: %1
 SETTINGS_MOD_STARTUP_DEFAULT             | Default Settings
 SETTINGS_MOD_STARTUP_GAME                | Last Game Settings
 SETTINGS_MOD_STARTUP_LAST                | Last Gui Settings
 SETTINGS_MOD_STARTUP_USER                | User's Settings
 SETTINGS_MOD_STARTUP_VANILLA             | Old Ways
-SETTINGS_MOD_MENU_LOAD_GAME_DESC         | How should the menu be initialized when loading a game?
-SETTINGS_MOD_MENU_LOAD_GAME              | Menus on loading: %1
+SETTINGS_MOD_MENU_LOAD_GAME_DESC         | How should the starting menus be initialized after a game was loaded?
+SETTINGS_MOD_MENU_LOAD_GAME              | Gui after Game: %1
 SETTINGS_MOD_LOAD_GAME_DEFAULT           | Default Settings
 SETTINGS_MOD_LOAD_GAME_LAST              | Last Settings
 SETTINGS_MOD_LOAD_GAME_STARTUP           | Startup Settings
