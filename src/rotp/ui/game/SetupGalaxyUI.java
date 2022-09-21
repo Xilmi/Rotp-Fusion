@@ -18,7 +18,6 @@ package rotp.ui.game;
 import static rotp.ui.UserPreferences.showNewRaces;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonWidth;
-import static rotp.ui.util.AbstractOptionsUI.smallButtonM;
 import static rotp.ui.util.AbstractOptionsUI.userButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.userButtonWidth;
 
@@ -69,6 +68,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	private static final String backKey		= "SETUP_BUTTON_BACK";
 	private static final String restoreKey	= "SETUP_BUTTON_RESTORE";
 	private static final String restartKey	= "SETUP_BUTTON_RESTART";
+	private static final String startKey	= "SETUP_BUTTON_START";
 	public static int MAX_DISPLAY_OPPS = 49;
 	BufferedImage backImg, playerRaceImg;
 	BufferedImage smBackImg;
@@ -80,7 +80,6 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	Rectangle modBSettingsBox		= new Rectangle(); // BR: Second UI panel for MOD game options
 	Rectangle globalModSettingsBox	= new Rectangle(); // BR: Display UI panel for MOD game options
 	Rectangle backBox		= new Rectangle();
-	Rectangle restartBox	= new Rectangle(); // BR:
 	Rectangle startBox		= new Rectangle();
 	Rectangle settingsBox	= new Rectangle();
 	Rectangle newRacesBox	= new Rectangle(); // BR:
@@ -146,6 +145,18 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		copyOptions(source, (MOO1GameOptions)newGameOptions());
 		showNewRaces.setFromOptions(source);
 	}
+    private void doStartBoxAction() {
+		buttonClick();
+		switch (Modifier2KeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT: // Restore
+			restartGame();
+			return;
+		default: // Save
+			startGame();
+			return; 
+		}
+ 	}
     private void doBackBoxAction() {
 		buttonClick();
 		switch (Modifier2KeysState.get()) {
@@ -210,6 +221,15 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			return restoreKey;
 		default:
 			return backKey;
+		}
+	}
+	public static String startButtonKey() {
+		switch (Modifier2KeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT:
+			return restartKey;
+		default:
+			return startKey;
 		}
 	}
 	private void checkModifierKey(InputEvent e) {
@@ -501,7 +521,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		g.setStroke(prev);
 
 		// middle button
-		String text2 = text("SETUP_BUTTON_START");
+		String text2 = text(startButtonKey());
 		int sw2= g.getFontMetrics().stringWidth(text2);
 		int x2 = startBox.x+((startBox.width-sw2)/2);
 		int y2 = startBox.y+startBox.height-s12;
@@ -512,19 +532,6 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		g.drawRoundRect(startBox.x, startBox.y, startBox.width, startBox.height, cnr, cnr);
 		g.setStroke(prev);
 
-		// far left button
-		g.setFont(narrowFont(20));
-		String text2r = text(restartKey);
-		int sw2r= g.getFontMetrics().stringWidth(text2r);
-		int x2r = restartBox.x + ((restartBox.width-sw2r)/2);
-		int y2r = restartBox.y + restartBox.height-s8;
-		Color c2r = hoverBox == restartBox ? Color.yellow : GameUI.borderBrightColor();
-		drawShadowedString(g, text2r, 2, x2r, y2r, GameUI.borderDarkColor(), c2r);
-		prev = g.getStroke();
-		g.setStroke(stroke1);
-		g.drawRoundRect(restartBox.x, restartBox.y, restartBox.width, restartBox.height, cnr, cnr);
-		g.setStroke(prev);
-		
         g.setFont(narrowFont(20));
         // BR: Default Button 
 		String text7 = text(defaultButtonKey());
@@ -575,7 +582,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			g.setColor(starColor(i));
 			g.fillRect(x0, y0, s2, s2);
 		}
-		// BR: add empires stars to avoid lonely star
+		// BR: add empires stars to avoid lonely Orion star
 		int i = 0;
 		for (EmpireSystem emp : sh.empireSystems()) {
 			for (int j=0; j<emp.numSystems();j++) {
@@ -1110,18 +1117,11 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		g.setPaint(GameUI.buttonLeftBackground());
 		g.fillRoundRect(backBox.x, backBox.y, buttonW, buttonH, cnr, cnr);
 
-		// draw RESTART button
-		buttonH = s30;
-		buttonW = g.getFontMetrics().stringWidth(text(restartKey)) + smallButtonM;
-		xb = scaled(xb)-buttonW-bSep;
-		yb = scaled(yB+15);
-		restartBox.setBounds(xb, yb, buttonW, buttonH);
-		g.setPaint(GameUI.buttonLeftBackground());
-		g.fillRoundRect(restartBox.x, restartBox.y, buttonW, buttonH, cnr, cnr);
-
 		// draw DEFAULT button
+		buttonH = s30;
 		buttonW = defaultButtonWidth(g);
-		xb -= (buttonW + bSep);
+		yb = scaled(yB+15);
+		xb = scaled(xb)-buttonW-bSep;
 		defaultBox.setBounds(xb, yb, buttonW, buttonH);
 		g.setPaint(GameUI.buttonLeftBackground());
 		g.fillRoundRect(defaultBox.x, defaultBox.y, buttonW, buttonH, cnr, cnr);
@@ -1171,7 +1171,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			doBackBoxAction();
 			return;
 		case KeyEvent.VK_ENTER:
-			startGame();
+			doStartBoxAction();
 			return;
 		case KeyEvent.VK_M: // BR: "M" = Go to Main Menu
 			goToMainMenu();
@@ -1218,8 +1218,6 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		hoverBox = null;
 		if (startBox.contains(x,y))
 			hoverBox = startBox;
-		else if (restartBox.contains(x,y))
-			hoverBox = restartBox;
 		else if (backBox.contains(x,y))
 			hoverBox = backBox;
         else if (defaultBox.contains(x,y))
@@ -1327,9 +1325,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		else if (hoverBox == globalModSettingsBox)
 			goToModViewOptions();
 		else if (hoverBox == startBox)
-			startGame();
-		else if (hoverBox == restartBox)
-			restartGame(); 
+			doStartBoxAction();
 		else if (hoverBox == shapeBoxL)
 			prevGalaxyShape(true);
 		else if (hoverBox == shapeBox)
