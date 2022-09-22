@@ -299,23 +299,36 @@ public class AIScientist implements Base, Scientist {
                 empire.tech().category(i).allocationPct((totalTechCost / empire.tech().category(i).baseResearchCost(Math.round(empire.tech().category(i).techLevel()))) / totalInverse);
         
         if (empire.fleetCommanderAI().inExpansionMode()) {
-            if(empire.ignoresPlanetEnvironment())
+            Tech currentPlanetology = empire.tech().tech(empire.tech().planetology().currentTech());
+            Tech currentPropulsion = empire.tech().tech(empire.tech().propulsion().currentTech());
+            boolean needPlanetology = false;
+            boolean needPropulsion = false;
+            if(currentPlanetology != null && currentPlanetology.isControlEnvironmentTech() && baseValue((TechControlEnvironment)currentPlanetology) > 1)
+                needPlanetology = true;
+            if(currentPropulsion != null && currentPropulsion.isFuelRangeTech() && baseValue((TechFuelRange)currentPropulsion) > 2)
+                needPropulsion = true;
+            empire.tech().computer().allocation(0);
+            empire.tech().construction().allocation(0);
+            empire.tech().forceField().allocation(0);
+            empire.tech().weapon().allocation(0);
+
+            if(needPlanetology || needPropulsion)
             {
-                empire.tech().computer().adjustAllocation(-3);
-                empire.tech().construction().adjustAllocation(-3);
-                empire.tech().forceField().adjustAllocation(-9);
-                empire.tech().planetology().adjustAllocation(-3);
-                empire.tech().propulsion().adjustAllocation(27);
-                empire.tech().weapon().adjustAllocation(-9);
+                if(needPlanetology && needPropulsion) {
+                    empire.tech().planetology().allocation(30);
+                    empire.tech().propulsion().allocation(30);
+                } else if (needPlanetology) {
+                    empire.tech().planetology().allocation(60);
+                } else {
+                    empire.tech().propulsion().allocation(60);
+                }
             }
             else
             {
-                empire.tech().computer().adjustAllocation(-3);
-                empire.tech().construction().adjustAllocation(-3);
-                empire.tech().forceField().adjustAllocation(-9);
-                empire.tech().planetology().adjustAllocation(6);
-                empire.tech().propulsion().adjustAllocation(18);
-                empire.tech().weapon().adjustAllocation(-9);
+                //we don't directly benefit from range or planetology... we want to get a mix of construction, planetology and propulsion to get to extended-fuel-range-designs quicker
+                empire.tech().construction().allocation(20);
+                empire.tech().planetology().allocation(20);
+                empire.tech().propulsion().allocation(20);
             }
         }
         else if(stealableTechs() > 0 && minimalTechForRush())
@@ -751,7 +764,10 @@ public class AIScientist implements Base, Scientist {
     @Override
     public float baseValue(TechFuelRange t) {
         float val = 2;
-        if(empire.fleetCommanderAI().inExpansionMode())
+        List<StarSystem> possible = empire.uncolonizedPlanetsInRange(empire.shipRange());
+        List<StarSystem> newPossible = empire.uncolonizedPlanetsInRange((int)t.range());
+        float newPlanets = newPossible.size() - possible.size();
+        if (newPlanets > 0 && empire.fleetCommanderAI().inExpansionMode())
         {
             val += 1;
         }
