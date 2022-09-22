@@ -868,7 +868,7 @@ public class AIShipDesigner implements Base, ShipDesigner {
             score *= 1 + fightingAdapted(d);
             score /= d.size() + 1;
             if(!allowHugeColonizer() && d.size() > 2)
-                score = 0;
+                score /= 100;
             if(score > colScore)
             {
                 colScore = score;

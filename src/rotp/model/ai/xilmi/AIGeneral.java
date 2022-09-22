@@ -1097,7 +1097,9 @@ public class AIGeneral implements Base, General {
         if(additionalColonizersToBuild >= 0 && !returnPotentialUncolonizedInstead)
             return additionalColonizersToBuild;
         double additional = 0;
-        int colonizerRange = empire.shipDesignerAI().BestDesignToColonize().range();
+        int colonizerRange = (int) empire.tech().shipRange();
+        if(empire.shipDesignerAI().BestDesignToColonize() != null)
+            colonizerRange = empire.shipDesignerAI().BestDesignToColonize().range();
         List<StarSystem> alreadyCounted = new ArrayList<>();
         for(StarSystem sys : empire.uncolonizedPlanetsInRange(colonizerRange))
         {
@@ -1123,7 +1125,7 @@ public class AIGeneral implements Base, General {
         }
         //System.out.print("\n"+empire.name()+" "+additional+" from uncolonized scouted without en-route.");
         //ail: when we have huge colonizer, don't count the unlocks for how many we need since we don't want to spam them like normal one's
-        if(empire.shipDesignerAI().BestDesignToColonize().size() < 3)
+        if(empire.shipDesignerAI().BestDesignToColonize() != null && empire.shipDesignerAI().BestDesignToColonize().size() < 3)
         {
             for(ShipFleet fleet:empire.allFleets())
             {
@@ -1174,7 +1176,7 @@ public class AIGeneral implements Base, General {
         {
             if(empire.shipLab().design(i).hasColonySpecial())
             {
-                if(empire.shipLab().design(i).range() < empire.shipDesignerAI().BestDesignToColonize().range())
+                if(empire.shipLab().design(i).range() < colonizerRange)
                     continue;
                 //ail: no idea how this can be null, but I have a savegame from /u/Elkad, where this is the case
                 if(empire.tech().topControlEnvironmentTech() == null)
