@@ -82,6 +82,7 @@ public final class GameSession implements Base, Serializable {
     private static GameSession instance = new GameSession();
     public static GameSession instance()  { return instance; }
 
+	private static final boolean showAI	 = true; // BR: for debug
     private static final int MINIMUM_NEXT_TURN_TIME = 500;
     private static Thread nextTurnThread;
     private static volatile boolean suspendNextTurn = false;
@@ -257,6 +258,7 @@ public final class GameSession implements Base, Serializable {
             galaxy().startGame();
             // BR: Save the last loaded game parameters
             Profiles.saveGameOptionsToFile(this);
+//            options.setObjectOptions(SetupGalaxyUI.aliensKey, this.galaxy().emp);
     		MOO1GameOptions.saveGameOptions((MOO1GameOptions) options);
             // \BR
             saveRecentSession(false);
@@ -837,12 +839,32 @@ public final class GameSession implements Base, Serializable {
         instance = gs;
         // Save the last loaded game parameters
 		MOO1GameOptions.saveGameOptions((MOO1GameOptions) instance.options);
+		if (showAI)  showAI(gs.galaxy());
         startExecutors();
         RotPUI.instance().mainUI().checkMapInitialized();
         if (!startUp) {
             RotPUI.instance().selectMainPanelLoadGame();
         }
     }
+	private void showAI(Galaxy g) { // BR: for debug
+		System.out.println("=======================================================================");
+		System.out.println();
+		for (Empire emp : g.empires()) {
+			int id = emp.homeSysId();
+			int ai = emp.selectedAI;
+			String name	  = emp.race().name();
+			String home	  = g.system(id).name();
+			String aiName = emp.getAiName(); 
+			System.out.println(
+					String.format("%-4sName = ",     id)
+					+ String.format("%-16sHome = ",  name)
+					+ String.format("%-12sAI id = ", home)
+					+ String.format("%-4sAI Name = ", ai)
+					+ aiName
+					);
+		}
+		System.out.println();
+	}
     public String saveDir() {
         return UserPreferences.saveDirectoryPath();
     }
@@ -919,7 +941,6 @@ public final class GameSession implements Base, Serializable {
     }
     // BR: added option to restart with new options 
     public void loadSession(String dir, String filename, boolean startUp) {
- //   	loadSession(dir, filename, startUp, null, null);
         try {
             log("Loading game from file: ", filename);
             File saveFile = dir.isEmpty() ? new File(filename) : new File(dir, filename);

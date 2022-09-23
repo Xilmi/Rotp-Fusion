@@ -15,7 +15,9 @@
  */
 package rotp.model.galaxy;
 
-import static rotp.ui.UserPreferences.loadWithNewOptions;
+import static rotp.ui.UserPreferences.restartApplySettings;
+import static rotp.ui.UserPreferences.restartChangeAI;
+import static rotp.ui.UserPreferences.restartChangePlayer;
 
 import java.awt.geom.Point2D.Float;
 import java.util.LinkedList;
@@ -32,7 +34,9 @@ import rotp.model.game.IGameOptions;
 // added some comments to help my understanding of this class
 public class GalaxyCopy extends GalaxyShape {
 	private static final long serialVersionUID = 1L;
-	private IGameOptions options;
+	private static final boolean debug = false;
+	private IGameOptions newOptions;
+	private IGameOptions oldOptions;
 	private float maxScaleAdj;
 	private float nebulaSizeMult;
 	private int numStarSystems;
@@ -53,41 +57,69 @@ public class GalaxyCopy extends GalaxyShape {
 	// ========== Constructors and Initializers ==========
 	//
 	public GalaxyCopy (IGameOptions newO) {
-		options	= newO;
+		newOptions	= newO;
 	}
-	public void copy (GameSession s) {
-		IGameOptions oldO = s.options();
-		newRace			= options.selectedPlayerRace();
-		oldRace			= oldO.selectedPlayerRace();
-		numOpponents	= oldO.selectedNumberOpponents();
+	public void copy (GameSession oldS) { // Copy from the old session
+		oldOptions		= oldS.options();
+		numOpponents	= oldOptions.selectedNumberOpponents();
 		numEmpires		= numOpponents + 1;
-		nebulaSizeMult	= oldO.nebulaSizeMult();
+		nebulaSizeMult	= oldOptions.nebulaSizeMult();
+		oldRace			= oldOptions.selectedPlayerRace();
+		selectedGalaxySize	= oldOptions.selectedGalaxySize();
 
-		if (loadWithNewOptions.get()) {
-			initForNewOptions(s);
-		} else {
-			initForOldOptions(s);
+		if (restartChangePlayer.get())
+			newRace	= newOptions.selectedPlayerRace();
+		else
+			newRace	= oldRace;
+
+		// Copy Galaxy
+		Galaxy oldG = oldS.galaxy();
+		width	= oldG.width();
+		height	= oldG.height();
+		nebulas	= oldG.nebulas();
+		empires	= oldG.empires();
+		maxScaleAdj	= oldG.maxScaleAdj();
+		starSystem	= oldG.originalStarSystem();
+		numStarSystems	= oldG.numStarSystems();
+		numCompWorlds	= empires[0].getCompanionWorldsNumber();
+
+		// Copy Races
+		dataRace	= new LinkedList<>();
+		alienRaces	= new LinkedList<>();
+		raceAI		= new LinkedList<>();
+		personality	= new LinkedList<>();
+		objective	= new LinkedList<>();
+		for (Empire emp : oldG.empires()) {
+			if (emp != null && emp.id!=0) {
+				alienRaces.add(emp.race().name());
+				dataRace.add(emp.abilitiesKey());
+				personality.add(emp.leader().personality);
+				objective.add(emp.leader().objective);
+				if (!restartChangeAI.get())
+					raceAI.add(emp.selectedAI);
+				else
+					raceAI.add(newOptions.selectedAI(emp));
+			}
 		}
-		selectedGalaxySize = s.options().selectedGalaxySize();
-		copyGalaxy(s.galaxy());
-		copyRaces(s.galaxy());
-		numCompWorlds = empires[0].getCompanionWorldsNumber();
-//		System.out.println();
-//		System.out.println("====================================================================");
-//		System.out.println();
-//		System.out.println("copy checkIdentique = " + checkIdentique());
-	}
-	private void initForOldOptions(GameSession s) {
-		// Copy what's needed from new options
-		s.options().selectedPlayer().race = options.selectedPlayerRace();
-		s.options().selectedHomeWorldName(options.selectedHomeWorldName());
-		s.options().selectedLeaderName	 (options.selectedLeaderName());
-		options = s.options();
-	}
-	private void initForNewOptions(GameSession s) {
-		// Copy what's needed from old options
-		IGameOptions oldO = s.options();
-		options.copyForRestart(oldO);
+		
+		// Set the Options
+		if (restartApplySettings.get()) {
+			newOptions.copyForRestart(oldOptions); // Copy what's needed from old options
+		} else {
+			// Copy what's needed from new options
+			if (restartChangePlayer.get()) {
+				oldOptions.selectedPlayer().race = newOptions.selectedPlayerRace();
+				oldOptions.selectedHomeWorldName(newOptions.selectedHomeWorldName());
+				oldOptions.selectedLeaderName	 (newOptions.selectedLeaderName());
+			}
+			newOptions = oldOptions;
+		}
+		if (debug) {
+			System.out.println();
+			System.out.println("====================================================================");
+			System.out.println();
+			System.out.println("copy checkIdentique = " + checkIdentique());
+		}
 	}
 	@SuppressWarnings("unused")
 	private boolean checkIdentique() {
@@ -128,16 +160,19 @@ public class GalaxyCopy extends GalaxyShape {
 	// ========== Public Setters ==========
 	//
 	public void selectedEmpire(int index) {
-//		System.out.println("selected empire index = " + index);
+		if (debug)
+			System.out.println("selected empire index = " + index);
 		selectedEmpire	= index;
 		if (index == 0) { // Selected current player:
 			// Check total number of player race
 			if (countRace(newRace) >= IGameOptions.MAX_OPPONENT_TYPE) {
-//				System.out.println(" count race = " + countRace(newRace));
+				if (debug)
+					System.out.println(" count race = " + countRace(newRace));
 				// replace first occurrence with old player race
 				swapRaces(newRace, oldRace);
 			}
-//			System.out.println("selectedEmpire = 0 checkIdentique = " + checkIdentique());
+			if (debug)
+				System.out.println("selectedEmpire = 0 checkIdentique = " + checkIdentique());
 			return;
 		}
 		Empire	empSwap	= empires[index];
@@ -154,21 +189,22 @@ public class GalaxyCopy extends GalaxyShape {
 			starSystem[PlayerNbId+i] = sysSwap;			
 		}
 
-		if (loadWithNewOptions.get()) {
+		if (applyNewOptions()) {
 			// Nothing to do, already the good player
 		} else {
 			options().selectedPlayer().race = empires[0].raceKey();
 			options().selectedHomeWorldName	("");
-			options().selectedLeaderName	(starSystem(empires[0].homeSysId()).name());
+			options().selectedLeaderName (starSystem(empires[0].homeSysId()).name());
 		}
-//		System.out.println("selectedEmpire checkIdentique = " + checkIdentique());
+		if (debug)
+			System.out.println("selectedEmpire checkIdentique = " + checkIdentique());
 	}
 
 	// ========== Public Getters ==========
 	//
 	@Override public float maxScaleAdj()		{ return maxScaleAdj; }
 	@Override public int totalStarSystems()		{ return numStarSystems; }
-	@Override public IGameOptions options() 	{ return options; }
+	@Override public IGameOptions options() 	{ return newOptions; }
 	public StarSystem[] starSystem()			{ return starSystem; }
 	public StarSystem starSystem(int i)			{ return starSystem[i]; }
 	public String selectedGalaxySize()			{ return selectedGalaxySize; }
@@ -185,34 +221,11 @@ public class GalaxyCopy extends GalaxyShape {
 	public int selectedEmpire()					{ return selectedEmpire; }
 	
 	// ========== Private Methods ==========
+	private boolean applyNewOptions() {
+		return restartApplySettings.get();
+	}
 	private int firstNearbySystem(int empId) {
 		return empId * (1 + numCompWorlds + numNearBySystem()) + numCompWorlds + 1;
-	}
-	private void copyGalaxy(Galaxy g) {
-		width	= g.width();
-		height	= g.height();
-		
-		maxScaleAdj		= g.maxScaleAdj();
-		numStarSystems	= g.numStarSystems();
-		nebulas			= g.nebulas();
-		empires			= g.empires();
-		starSystem		= g.starSystems();
-	}
-	private void copyRaces (Galaxy g) {
-		dataRace	= new LinkedList<>();
-		alienRaces	= new LinkedList<>();
-		raceAI		= new LinkedList<>();
-		personality	= new LinkedList<>();
-		objective	= new LinkedList<>();
-		for (Empire emp : g.empires()) {
-			if (emp != null && emp.id!=0) {
-				alienRaces.add(emp.race().name());
-				dataRace.add(emp.abilitiesKey());
-				raceAI.add(emp.selectedAI);
-				personality.add(emp.leader().personality);
-				objective.add(emp.leader().objective);
-			}
-		}
 	}
 	private int countRace (String race) {
 		int count = 0;

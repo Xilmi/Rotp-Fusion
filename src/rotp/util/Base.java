@@ -28,8 +28,6 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.Transparency;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.BufferedOutputStream;
@@ -716,7 +714,7 @@ public interface Base {
     public default boolean readerExists(String n) {
         String fullString = "../rotp/" +n;
         FileInputStream fis = null;
-        InputStreamReader in = null;
+        // InputStreamReader in = null;
         InputStream zipStream = null;
 
         try {
@@ -1179,9 +1177,9 @@ public interface Base {
         g.fillRect(0,0,w,h);
         int count = w*h;
         int p = 0;
-        Color dimmest = newColor(32,32,32);
-        Color dimmer = newColor(48,48,48);
-        Color dim = newColor(64,64,64);
+        // Color dimmest = newColor(32,32,32);
+        // Color dimmer = newColor(48,48,48);
+        // Color dim = newColor(64,64,64);
         Color avg = newColor(96,96,96);
         Color bright = newColor(144,144,144);
         Color brighter = newColor(196,196,196);
@@ -1239,7 +1237,7 @@ public interface Base {
 
         int s1 = BasePanel.s1;
         int s2 = BasePanel.s2;
-		int s4 = BasePanel.s4;
+		// int s4 = BasePanel.s4;
 
         while (p < count) {
             p += (minDist + (int) Math.ceil(random()*varDist));
@@ -1328,10 +1326,10 @@ public interface Base {
             int pixel = fImg.getRGB(x, y);
             int landLevel = pixel & 0xff;
             landLevel = (int) (256*((float)(landLevel-floor)/(ceiling-floor)));
-            int distFromEdgeX = min(x, w-x);
-            int distFromEdgeY = min(y, h-y);
+            // int distFromEdgeX = min(x, w-x);
+            // int distFromEdgeY = min(y, h-y);
             //int distFromEdge = min(distFromEdgeX, distFromEdgeY);
-            float pctFromEdge = min((float)distFromEdgeX/w, (float)distFromEdgeY/h);
+            // float pctFromEdge = min((float)distFromEdgeX/w, (float)distFromEdgeY/h);
             //int distFromCenter = (int) Math.min(128,Math.sqrt(((x-centerX)*(x-centerX))+((y-centerY)*(y-centerY))));
             //int alpha = min(distFromEdge/2, landLevel*3/5);
             int alpha = landLevel/4;

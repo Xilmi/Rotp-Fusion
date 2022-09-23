@@ -92,7 +92,7 @@ public class UserPreferences {
 			, 0, -4, 6, true);
 	public static final ParamInteger retreatRestrictionTurns = new ParamInteger(MOD_UI, "RETREAT_RESTRICTION_TURNS"
 			, 100, 0, 100, 1, 5, 20);
-	public static final ParamList retreatRestrictions = new ParamList(MOD_UI, "RETREAT_RESTRICTIONS", "0")
+	public static final ParamList retreatRestrictions = new ParamList(MOD_UI, "RETREAT_RESTRICTIONS", "None")
 			.put("None",	MOD_UI + "RETREAT_NONE")
 			.put("AI",		MOD_UI + "RETREAT_AI")
 			.put("Player",	MOD_UI + "RETREAT_PLAYER")
@@ -112,7 +112,11 @@ public class UserPreferences {
 			, 3, 3, null, 1, 5, 20);
 	public static final ParamFloat prefStarsPerEmpire = new ParamFloat(MOD_UI, "PREF_STARS_PER_EMPIRE"
 			, 10f, 3.0f, null, 1f, 5f, 20f, "0.#", "0.#");
-	public static final ParamBoolean loadWithNewOptions = new ParamBoolean(MOD_UI, "LOAD_WITH_NEW_OPTIONS", false);
+	public static final ParamBoolean restartChangePlayer = new ParamBoolean(MOD_UI, "RESTART_CHANGE_PLAYER", false);
+	public static final ParamBoolean restartChangeAI	 = new ParamBoolean(MOD_UI, "RESTART_CHANGE_AI",	 false);
+//	public static final ParamBoolean restartChangeAliens = new ParamBoolean(MOD_UI, "RESTART_CHANGE_ALIENS", false);
+	public static final ParamBoolean restartApplySettings= new ParamBoolean(MOD_UI, "RESTART_APPLY_SETTINGS",false);
+
 	public static final EventsStartTurn eventsStartTurn = new EventsStartTurn(MOD_UI, "EVENTS_STARS_TURN"
 			, RandomEvents.START_TURN, 1, null, 1, 5, 20);
 	public static final ParamTech techIrradiated = new 

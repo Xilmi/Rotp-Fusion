@@ -15,9 +15,9 @@
  */
 package rotp.model.galaxy;
 
-import static rotp.ui.UserPreferences.loadWithNewOptions;
 import static rotp.ui.UserPreferences.playerShipSet;
 import static rotp.ui.UserPreferences.randomAlienRaces;
+import static rotp.ui.UserPreferences.restartChangePlayer;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -33,6 +33,7 @@ import rotp.model.empires.Race;
 import rotp.model.galaxy.GalaxyShape.EmpireSystem;
 import rotp.model.game.GameSession;
 import rotp.model.game.IGameOptions;
+import rotp.model.game.MOO1GameOptions;
 import rotp.model.planet.Planet;
 import rotp.model.tech.Tech; // modnar: add game mode to start all Empires with 2 random techs
 import rotp.model.tech.TechTree; // modnar: add game mode to start all Empires with 2 random techs
@@ -48,6 +49,8 @@ public class GalaxyFactory implements Base {
 	 * Companion world greek letter prefix
 	 */
 	public static final String[] compSysName = new String[]{"α", "β", "γ", "δ", "ε", "ζ"};// BR : added two possibilities
+	private static final boolean showEmp = false; // BR: for debug
+	private static final boolean showAI	 = true; // BR: for debug
 	private static boolean[] isRandomOpponent; // BR: only Random Races will be customized
 	private static String playerDataRaceKey;   // BR: in case Alien races are a copy of player race
 
@@ -74,9 +77,7 @@ public class GalaxyFactory implements Base {
 		addPlayerSystemForGalaxy(g, 0, null, gc);
 		addAlienRaceSystemsForGalaxy(g, 1, null, gc, alienRaces);
 		addUnsettledSystemsForGalaxy(g, gc);		
-		init(g, System.currentTimeMillis());
-		
-//		showEmp(g);
+		init(g, System.currentTimeMillis());		
 		return g;
 	}
 	public Galaxy newGalaxy() {
@@ -132,12 +133,27 @@ public class GalaxyFactory implements Base {
 
 		long tm2 = System.currentTimeMillis();
 		log(str(g.numStarSystems()) ," Systems, ",str(Planet.COUNT)," Planets: "+(tm2-tm1)+"ms");
-
 		init(g, tm2);
-//		showEmp(g);
 		return g;
 	}
-	@SuppressWarnings("unused")
+	private void showAI(Galaxy g) {
+		System.out.println("========================================================");
+		for (Empire emp : g.empires()) {
+			int id = emp.homeSysId();
+			int ai = emp.selectedAI;
+			String name	  = emp.race().name();
+			String home	  = g.system(id).name();
+			String aiName = emp.getAiName(); 
+			System.out.println(
+					String.format("%-4sName = ",     id)
+					+ String.format("%-16sHome = ",  name)
+					+ String.format("%-12sAI id = ", home)
+					+ String.format("%-4sAI Name =", ai)
+					+ aiName
+					);
+		}
+		System.out.println();
+	}
 	private void showEmp(Galaxy g) {
 		for (Empire emp : g.empires()) {
 			int id = emp.homeSysId();
@@ -286,6 +302,14 @@ public class GalaxyFactory implements Base {
 		log("Next Turn Decision: "+(tm5-tm4)+"ms");
 
 		PlanetImager.current().finished();
+		
+		MOO1GameOptions opts = (MOO1GameOptions) GameSession.instance().options();
+		opts.setObjectOptions(Galaxy.EMPIRES_KEY, g.empires());
+		// Save initial state
+		g.backupStarSystem();
+
+		if (showEmp) showEmp(g);
+		if (showAI)  showAI(g);
 	}
 	private LinkedList<String> buildAlienRaces() {
 		LinkedList<String> raceList = new LinkedList<>();
@@ -342,7 +366,7 @@ public class GalaxyFactory implements Base {
 			playerDataRaceKey = RotPUI.playerRaceCustomizationUI().cr.getKey();
 		}
 		if (gc != null) { // Restart
-			if (!loadWithNewOptions.get()) {
+			if (!restartChangePlayer.get()) {
 				playerDataRaceKey = gc.empires(0).abilitiesKey();
 			}
 		}

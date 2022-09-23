@@ -21,14 +21,17 @@ import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.minStarsPerEmpire;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
 import static rotp.ui.UserPreferences.randomTechStart;
+import static rotp.util.ObjectCloner.deepCopy;
 
 import java.awt.Color;
+import java.awt.Toolkit;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.NotSerializableException;
+import java.io.InputStream;
+import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -38,6 +41,9 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+import java.util.zip.ZipOutputStream;
 
 import rotp.Rotp;
 import rotp.mod.br.addOns.GalaxyOptions;
@@ -68,7 +74,6 @@ import rotp.model.planet.PlanetType;
 import rotp.model.tech.TechEngineWarp;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
-import rotp.ui.game.PlayerRaceCustomizationUI;
 import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.util.InterfaceOptions;
 import rotp.util.Base;
@@ -160,7 +165,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 		return integerOptions.getOrDefault(id, defaultValue);
 	}
 	@Override public Object setObjectOptions(String id, Object value) {
-		return objectOptions.put(id, value);
+		return objectOptions.put(id, deepCopy(value));
 	}
 	@Override public Object getObjectOptions(String id) {
 		return objectOptions.get(id);
@@ -349,10 +354,10 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override
     public String name() { return "SETUP_RULESET_ORION"; }
     @Override
-    public void copyForRestart(IGameOptions o) { // BR for Restart with new options
-        if (!(o instanceof MOO1GameOptions))
+    public void copyForRestart(IGameOptions oldOpt) { // BR for Restart with new options
+        if (!(oldOpt instanceof MOO1GameOptions))
             return;
-        MOO1GameOptions opt = (MOO1GameOptions) o;
+        MOO1GameOptions opt = (MOO1GameOptions) oldOpt;
         selectedGalaxySize			= opt.selectedGalaxySize;
         selectedGalaxyShape			= opt.selectedGalaxyShape;
         selectedGalaxyShapeOption1	= opt.selectedGalaxyShapeOption1;
@@ -362,7 +367,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         setGalaxyShape(); 
         selectedGalaxyShapeOption1 = opt.selectedGalaxyShapeOption1;
         selectedGalaxyShapeOption2 = opt.selectedGalaxyShapeOption2;
-//        generateGalaxy();     	
     }
     @Override
     public void copyOptions(IGameOptions gameOptions) {
@@ -1557,21 +1561,45 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     public static MOO1GameOptions loadLastOptions() {
    		return loadOptions(Rotp.jarPath(), LAST_OPTIONS_FILE);
     }
-    // BR: save options to file
+    // BR: save options to zip file
     private static void saveOptions(MOO1GameOptions options, String path, String fileName) {
-		File file = new File(path, fileName);
-	    try(ObjectOutputStream write= new ObjectOutputStream (new FileOutputStream(file))) {
-	        write.writeObject(options);
-	    }
-	    catch(NotSerializableException nse) {
-	    	nse.printStackTrace();
-	    }
-	    catch(IOException eio) {
-	    	System.err.println("newGameOptions.save -- IOException: "+ eio.toString());
-	    }
+		File saveFile = new File(path, fileName);
+		try {
+			saveOptionsTE(options, saveFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+           	System.err.println("Options.save -- IOException: "+ ex.toString());
+		}
+    }
+    // BR: save options to zip  file
+    private static void saveOptionsTE(MOO1GameOptions options, File saveFile) throws IOException {
+        ZipOutputStream out = new ZipOutputStream(new FileOutputStream(saveFile));
+        ZipEntry e = new ZipEntry("GameSession.dat");
+        out.putNextEntry(e);
+        
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutputStream objOut = null;
+        try {
+            objOut = new ObjectOutputStream(bos);
+            objOut.writeObject(options);
+            objOut.flush();
+            byte[] data = bos.toByteArray();
+            out.write(data, 0, data.length);
+        }
+        finally {
+            try {
+            bos.close();
+            out.close();
+            }
+            catch(IOException ex) {
+    			ex.printStackTrace();
+            	System.err.println("Options.save -- IOException: "+ ex.toString());
+            }            
+        }
     }
     // BR: Options files initialization
     private static MOO1GameOptions initMissingOptionFile(String path, String fileName) {
+    	Toolkit.getDefaultToolkit().beep();
 		MOO1GameOptions newOptions = new MOO1GameOptions();
 		newOptions.generateGalaxy();
     	saveOptions(new MOO1GameOptions(), path, fileName);			
@@ -1579,37 +1607,48 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
     // BR: Load options from file
     private static MOO1GameOptions loadOptions(String path, String fileName) {
-    	MOO1GameOptions options;
-		File file = new File(path, fileName);
-		if (file.exists()) {
-		    try(ObjectInputStream inFile = new ObjectInputStream(new FileInputStream(file)))
-		    {
-		    	options = (MOO1GameOptions) inFile.readObject();
-		    	options.generateGalaxy();
-			    return options;
-		    }
-		    catch(ClassNotFoundException cnfe)
-		    {
-		    	System.err.println(file.getAbsolutePath() + " not valid.");
-		    	options = initMissingOptionFile(path, fileName);
-				return options;
-		    }
-		    catch(FileNotFoundException fnfe)
-		    {
-				System.err.println(file.getAbsolutePath() + " not found.");
-				options = initMissingOptionFile(path, fileName);
-				return options;
-		    }
-		    catch(IOException e)
-		    {
-		    	System.err.println(file.getAbsolutePath() + " not valid.");
-		    	options = initMissingOptionFile(path, fileName);
-				return options;
-		    }
-		} else {
-			System.err.println(file.getAbsolutePath() + " not found.");
-			options = initMissingOptionFile(path, fileName);
-			return options;
+       	MOO1GameOptions newOptions;
+		File saveFile = new File(path, fileName);
+		if (saveFile.exists()) {
+			newOptions = loadOptionsTE(saveFile);
+            if (newOptions == null) {
+            	System.err.println("Bad option version: " + saveFile.getAbsolutePath());
+            	newOptions = initMissingOptionFile(path, fileName);
+            }
+    	} else {
+			System.err.println("File not found: " + saveFile.getAbsolutePath());
+			newOptions = initMissingOptionFile(path, fileName);
 		}
+		return newOptions;
+    }
+    // BR: Load options from file
+    private static MOO1GameOptions loadOptionsTE(File saveFile) {
+       	MOO1GameOptions newOptions;
+        try {
+            // assume the file is not zipped, load it directly
+        	try (ZipFile zipFile = new ZipFile(saveFile)) {
+                ZipEntry ze = zipFile.entries().nextElement();
+                InputStream zis = zipFile.getInputStream(ze);
+                newOptions = loadObjectData(zis);
+            }
+        }
+        catch(IOException e) {
+        	System.err.println("Bad option version " + saveFile.getAbsolutePath());
+        	newOptions = null;
+        }
+		return newOptions;
+    }
+    private static MOO1GameOptions loadObjectData(InputStream is) {
+        try {
+        	MOO1GameOptions newOptions;
+            try (InputStream buffer = new BufferedInputStream(is)) {
+                ObjectInput input = new ObjectInputStream(buffer);
+                newOptions = (MOO1GameOptions) input.readObject();
+            }
+            return newOptions;
+        }
+        catch (IOException | ClassNotFoundException e) {
+            return null;
+        }
     }
 }

@@ -15,6 +15,8 @@
  */
 package rotp.model.galaxy;
 
+import static rotp.util.ObjectCloner.deepCopy;
+
 import java.awt.Point;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -40,6 +42,8 @@ public class Galaxy implements Base, Serializable {
     private static final long serialVersionUID = 1L;
     public static Galaxy current()   { return GameSession.instance().galaxy(); }
     private static final float TIME_PER_TURN = 1;
+    public	static final String EMPIRES_KEY	= "SETUP_EMPIRE_LIST";
+    public	static final String SYSTEMS_KEY	= "SETUP_SYSTEM_LIST";
 
     private float currentTime = 0;
     private final GalacticCouncil council = new GalacticCouncil();
@@ -77,6 +81,12 @@ public class Galaxy implements Base, Serializable {
     public LinkedHashMap<String, Integer> integerOptions() { return integerOptions; }
     public LinkedHashMap<String, Object>  objectOptions()  { return objectOptions; }
     public LinkedHashMap<String, String>  stringOptions()  { return stringOptions; }
+    public void backupStarSystem() {
+    	objectOptions.put(SYSTEMS_KEY, deepCopy(starSystems));
+    }
+    public StarSystem[] originalStarSystem() {
+    	return (StarSystem[]) objectOptions.get(SYSTEMS_KEY);
+    }
 
     public int beginningYear()               { return player().race().startingYear; }
     public float currentTime()               { return currentTime; }

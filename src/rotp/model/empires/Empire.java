@@ -83,6 +83,7 @@ import rotp.ui.diplomacy.DialogueManager;
 import rotp.ui.diplomacy.DiplomaticReply;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.util.Base;
+import rotp.util.LabelManager;
 
 public final class Empire implements Base, NamedObject, Serializable {
     private static final long serialVersionUID = 1L;
@@ -194,6 +195,8 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
         return ai;
     }
+    public String getAiKey()  { return AI.sortedAiKeys().get(selectedAI); } // BR:
+    public String getAiName() { return LabelManager.current().label(getAiKey()); } // BR:
     public Diplomat diplomatAI()                  { return ai().diplomat(); }
     public FleetCommander fleetCommanderAI()      { return ai().fleetCommander(); }
     public ShipCaptain shipCaptainAI()            { return ai().shipCaptain(); }
