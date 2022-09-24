@@ -848,7 +848,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                     if(target != null)
                     {
                         int travelTurns = fleet.travelTurns(target);                    
-                        //System.out.print("\n"+galaxy().currentTurn()+" "+fleet.empire().name()+" Fleet at "+empire.sv.name(fleet.system().id)+" wants to go for "+empire.sv.name(target.id));
+                        //System.out.println(galaxy().currentTurn()+" "+fleet.empire().name()+" Fleet at "+empire.sv.name(fleet.system().id)+" wants to go for "+empire.sv.name(target.id));
                         float bombardDamage = fleet.expectedBombardDamage(target, false);
                         float killPower = empire.governorAI().expectedBombardDamageAsIfBasesWereThere(fleet, target, 0) / 200;
                         float combatPower = combatPower(fleet);
@@ -1014,7 +1014,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                                 }
                             }
                         }
-                        if(!empire.sv.isScouted(target.id) && !empire.sv.system(target.id).isColonized())
+                        if(!empire.sv.isScouted(target.id) && !empire.sv.isColonized(target.id))
                         {
                             sendAmount = 0.01f;
                             sendBombAmount = 0.01f;
@@ -1042,7 +1042,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                         /*if(stagingPoint != null)
                             System.out.println(fleet.empire().name()+" Fleet at "+fleet.system().name()+" => "+empire.sv.name(target.id)+" should stage at "+empire.sv.name(stagingPoint.id));*/
                         if((ourFleetPower * sendAmount >= enemyFleetPower
-                                && (bombardDamage > enemyBaseHP || killPower > enemyPop || target.colony() == null) && enemyBaseDamage < totalFleetHealth(fleet))
+                                && ((bombardDamage > enemyBaseHP || killPower > enemyPop) && enemyBaseDamage < totalFleetHealth(fleet)) || !empire.sv.isColonized(target.id))
                                 || (previousAttacked == target))
                         {
                             StarSystem targetBeforeSmartPath = target;
@@ -1274,7 +1274,7 @@ public class AIFleetCommander implements Base, FleetCommander {
         return bc;
     }
     public float designBombardDamage(ShipDesign d, StarSystem sys) {
-        if (!sys.isColonized())
+        if (!empire.sv.isColonized(sys.id))
             return 0;
 
         float damage = 0;
