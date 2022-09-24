@@ -339,8 +339,11 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         int maxEmpires = min(numberStarSystems() / minStarsPerEmpire.get()
         		, colors.size(), MAX_OPPONENT_TYPE*startingRaceOptions().size());
         // \BR:
-        int maxOpponents = min(SetupGalaxyUI.MAX_DISPLAY_OPPS);
-        return min(maxOpponents, maxEmpires-1);
+        int maxOpponents = SetupGalaxyUI.MAX_DISPLAY_OPPS;
+        if (selectedGalaxySize.equals(SIZE_DYNAMIC))
+            return min(maxOpponents, maxEmpires); // give +1 to allow dynamic increase
+        else
+        	return min(maxOpponents, maxEmpires-1);
     }
     @Override
     public int defaultOpponentsOptions() {
@@ -514,6 +517,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
     */
     switch (size) {
+        case SIZE_MICRO:      return 24; // BR: added original moo small size
         case SIZE_TINY:       return 33;
         case SIZE_SMALL:      return 50;
         case SIZE_SMALL2:     return 70;
@@ -531,8 +535,13 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         case SIZE_INSANE:     return 10000;
         case SIZE_LUDICROUS:  return 100000;
         case SIZE_MAXIMUM:    return maximumSystems();
+
+        case SIZE_DYNAMIC: // BR: Added an option to select from the opponents number
+        default:
+        	return min(maximumSystems(), 
+        			1 + Math.round(UserPreferences.prefStarsPerEmpire.get() // +1 for Orion
+        					* (selectedNumberOpponents()+1))); // +1 for player
     }
-    return 8*(selectedNumberOpponents()+1);
 }
     @Override
     public int numberNebula() {
@@ -900,6 +909,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     public List<String> galaxySizeOptions() {
         int max = maximumSystems();
         List<String> list = new ArrayList<>();
+        list.add(SIZE_DYNAMIC);
+        list.add(SIZE_MICRO);
         list.add(SIZE_TINY);
         if (max > 50)
             list.add(SIZE_SMALL);

@@ -1112,6 +1112,8 @@ SETUP_RULESET_SIRIUS              | Sirius
 SETUP_GALAXY_SIZE_LABEL           | Size
 SETUP_RACE_MULTIPLIER             | x%1
 SETUP_GALAXY_SHAPE_LABEL          | Shape
+SETUP_GALAXY_SIZE_DYNAMIC         | Dynamic
+SETUP_GALAXY_SIZE_MICRO           | Micro
 SETUP_GALAXY_SIZE_TINY            | Tiny
 SETUP_GALAXY_SIZE_SMALL           | Small
 SETUP_GALAXY_SIZE_SMALL2          | Small

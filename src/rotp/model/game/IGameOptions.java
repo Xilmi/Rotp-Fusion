@@ -34,6 +34,8 @@ import rotp.ui.UserPreferences; // modnar: add custom difficulty level option
 public interface IGameOptions {
     public static final int MAX_OPPONENTS = SetupGalaxyUI.MAX_DISPLAY_OPPS;
     public static final int MAX_OPPONENT_TYPE = 5;
+    public static final String SIZE_DYNAMIC = "SETUP_GALAXY_SIZE_DYNAMIC";
+    public static final String SIZE_MICRO = "SETUP_GALAXY_SIZE_MICRO";
     public static final String SIZE_TINY = "SETUP_GALAXY_SIZE_TINY";
     public static final String SIZE_SMALL = "SETUP_GALAXY_SIZE_SMALL";
     public static final String SIZE_SMALL2 = "SETUP_GALAXY_SIZE_SMALL2";

@@ -176,6 +176,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		enableGlassPane(this);
 	}
 	private void close() {
+		newGameOptions().galaxyShape().quickGenerate(); // BR: to get correct map preview 
 		disableGlassPane();
 	}
 	public void saveOptions(MOO1GameOptions destination) {
