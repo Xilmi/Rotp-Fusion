@@ -1653,7 +1653,7 @@ public final class Empire implements Base, NamedObject, Serializable {
             // only colonize scouted systems, systems with planets, unguarded systems.
             // don't attempt to colonize systems already owned by someone
             // TODO: Exclude systems that have enemy fleets orbiting?
-            if (!sv.view(i).isColonized() && sv.view(i).scouted() && !PlanetType.NONE.equals(sv.view(i).planetType().key())
+            if (!sv.view(i).isColonized() && sv.view(i).scouted() && canColonize(i)
                     && !sv.isGuarded(i) && sv.view(i).empire() == null ) {
 
                 // if we don't have tech or ships to colonize this planet, ignore it.
