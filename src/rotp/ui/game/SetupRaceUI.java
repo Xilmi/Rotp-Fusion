@@ -55,6 +55,7 @@ import rotp.model.ships.ShipImage;
 import rotp.model.ships.ShipLibrary;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
+import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.util.Modifier2KeysState;
 
@@ -129,8 +130,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         shipSetTxt.setFont(narrowFont(20)); // BR:
 
         createNewGameOptions(); // Following the UserPreferences.menuStartup
-    	if (options() != null) // A game has already been loaded
-    		newGameOptions().copyOptions(options()); // Follow the UserPreferences.menuLoadGame
+       	newGameOptions().copyOptions(options()); // Follow the UserPreferences.menuLoadGame
         raceChanged();
         // Save initial options
         initialOptions = new MOO1GameOptions(); // Any content will do

@@ -18,7 +18,9 @@ package rotp.model.game;
 import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
+import static rotp.ui.UserPreferences.customPlayerRace;
 import static rotp.ui.UserPreferences.minStarsPerEmpire;
+import static rotp.ui.UserPreferences.playerShipSet;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
 import static rotp.ui.UserPreferences.randomTechStart;
 import static rotp.util.ObjectCloner.deepCopy;
@@ -377,31 +379,33 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             return;
         MOO1GameOptions gOpt = (MOO1GameOptions) gameOptions;
         
-    	String initOption = UserPreferences.menuLoadGame.get().toUpperCase();
-    	switch (initOption) {
-    		case "LAST":
-    			gOpt = loadLastOptions(); // continue with Load All
-    			break;
-    		case "USER":
-    			gOpt = loadUserOptions(); // continue with Load All
-    			break;
-    		case "GAME":
-    			// gOpt already set
-    			break;
-	    	case "DEFAULT":
-	    		gOpt = new MOO1GameOptions();
-	    		RotPUI.startModAOptionsUI().setToDefault();
-	    		RotPUI.startModBOptionsUI().setToDefault();
-	    		generateGalaxy();
-	    		return;
-	    	case "STARTUP":
-	    		gOpt = RotPUI.createStartupOptions();
-	    	case "VANILLA":
-	    	default: // Vanilla, as before
-	    		copyVanillaOptions(gOpt);
-	    		generateGalaxy();
-	    		return;
-     	}
+        if (UserPreferences.gamePlayed()) {
+        	String initOption = UserPreferences.menuLoadGame.get().toUpperCase();
+        	switch (initOption) {
+        		case "LAST":
+        			gOpt = loadLastOptions(); // continue with Load All
+        			break;
+        		case "USER":
+        			gOpt = loadUserOptions(); // continue with Load All
+        			break;
+        		case "GAME":
+        			// gOpt already set
+        			break;
+    	    	case "DEFAULT":
+    	    		gOpt = new MOO1GameOptions();
+    	    		RotPUI.startModAOptionsUI().setToDefault();
+    	    		RotPUI.startModBOptionsUI().setToDefault();
+    	    		generateGalaxy();
+    	    		return;
+    	    	case "STARTUP":
+    	    		gOpt = RotPUI.createStartupOptions();
+    	    	case "VANILLA":
+    	    	default: // Vanilla, as before
+    	    		copyVanillaOptions(gOpt);
+    	    		generateGalaxy();
+    	    		return;
+         	}
+        }
     	copyVanillaOptions(gOpt);
 		copyAllOtherOptions(gOpt);
         generateGalaxy(); 
@@ -449,7 +453,14 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             for (int i=0;i<specificOpponentAIOption.length;i++)
                 specificOpponentAIOption[i] = opt.specificOpponentAIOption[i];
         }
-        if (opt.player != null) 
+        
+    	// Copy CustomRaces as part of Race UI
+		for (InterfaceOptions param : RotPUI.playerRaceCustomizationUI().commonList)
+			param.setFromOptions(opt);
+    	customPlayerRace.setFromOptions(opt);
+    	playerShipSet.setFromOptions(opt);
+
+    	if (opt.player != null) 
             player.copy(opt.player);
 
         setGalaxyShape(); 
@@ -1541,6 +1552,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	 */
     public static void saveGameOptions(MOO1GameOptions options) {
     	saveOptions(options, Rotp.jarPath(), GAME_OPTIONS_FILE);
+    	UserPreferences.gamePlayed(true);
     }
 	/**
 	 * Save User Preferred options to file

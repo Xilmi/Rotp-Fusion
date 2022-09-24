@@ -18,12 +18,15 @@ package rotp.model.game;
 import java.util.ArrayList;
 import java.util.List;
 
+import rotp.ui.RotPUI;
+
 public enum RulesetManager {
     INSTANCE;
     public static RulesetManager current() { return INSTANCE; }
     private final List<IGameOptions> rulesets = new ArrayList<>();	
     private RulesetManager() {
-        rulesets.add(new MOO1GameOptions());
+//        rulesets.add(new MOO1GameOptions());
+        rulesets.add(RotPUI.createStartupOptions());
     }
     public List<String> availableRulesets() {
         List<String> rules = new ArrayList<>();

@@ -150,6 +150,7 @@ public class UserPreferences {
 			));
 
 	// BR: ===== Global settings Mod GUI:
+	private static boolean gamePlayed = false; // to differentiate startup from loaded game
 	public static final ParamFloat showFleetFactor = new ParamFloat(MOD_UI, "SHOW_FLEET_FACTOR"
 			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%");
 	public static final ParamFloat showFlagFactor = new ParamFloat(MOD_UI, "SHOW_FLAG_FACTOR"
@@ -383,6 +384,8 @@ public class UserPreferences {
 	public static boolean disableAdvisor() { return disableAdvisor; }
 	public static void uiTexturePct(int i)	{ uiTexturePct = i / 100.0f; }
 	public static float uiTexturePct()		{ return uiTexturePct; }
+	public static boolean gamePlayed()		{return gamePlayed; }
+	public static void gamePlayed(boolean played) { gamePlayed = played; }
 	
 	public static void loadAndSave() {
 		load();
