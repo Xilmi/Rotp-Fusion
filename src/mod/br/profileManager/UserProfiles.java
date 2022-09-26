@@ -63,7 +63,7 @@ public class UserProfiles extends AbstractProfiles<ClientClasses> {
 	@Override public void initAndLoadProfiles(ClientClasses co) {
 		// These filters needs to be loaded before other races 
 		RaceOptions.newRacesOnList(co.options().startingRaceOptions());
-		RaceOptions.newRacesOffList(co.options().newRacesOffOptions());
+		RaceOptions.newRacesOffList(co.options().newRaceOffOptions());
 		super.initAndLoadProfiles(co);
 	}
 

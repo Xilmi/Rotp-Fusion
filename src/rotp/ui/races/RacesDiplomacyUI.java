@@ -67,7 +67,7 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
     private final RacesUI parent;
     private final ManageDiplomatsUI manageDiplomatsPane;
     private final ManageSpiesUI manageSpiesPane;
-    private final PlayerRaceCustomizationUI showRaceAbilitiesPane;
+    private PlayerRaceCustomizationUI showRaceAbilitiesPane;
     int incidentY, incidentYMax;
     int relationsY, relationsYMax;
     int dragY;
@@ -97,8 +97,8 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
         parent = p;
         manageDiplomatsPane = new ManageDiplomatsUI(p);
         manageSpiesPane = new ManageSpiesUI(p);
-        showRaceAbilitiesPane = PlayerRaceCustomizationUI.displayInstance();
-        showRaceAbilitiesPane.init(p);
+//        showRaceAbilitiesPane = PlayerRaceCustomizationUI.displayInstance();
+//        showRaceAbilitiesPane.init(p); TODO BR: remove
 
         initModel();
     }
@@ -612,7 +612,7 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
         g.setFont(narrowFont(18));
         String spending = text("RACES_DIPLOMACY_RECALLED_DIPLOMAT");
         drawString(g,spending, x+s20, y2);
-        int amt = (int) 0;
+        // int amt = (int) 0;
         
         g.setFont(narrowFont(16));
         str2 = str(recalls);
@@ -1292,6 +1292,10 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
     }
     public void openShowAbilitiesPane() {
         softClick();
+        if (showRaceAbilitiesPane == null) {
+            showRaceAbilitiesPane = PlayerRaceCustomizationUI.displayInstance();
+            showRaceAbilitiesPane.init(parent);
+        }
         showRaceAbilitiesPane.loadRace();
         enableGlassPane(showRaceAbilitiesPane);
         return;

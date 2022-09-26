@@ -378,7 +378,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         if (!(gameOptions instanceof MOO1GameOptions))
             return;
         MOO1GameOptions gOpt = (MOO1GameOptions) gameOptions;
-        
+    	
         if (UserPreferences.gamePlayed()) {
         	String initOption = UserPreferences.menuLoadGame.get().toUpperCase();
         	switch (initOption) {
@@ -395,6 +395,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	    		gOpt = new MOO1GameOptions();
     	    		RotPUI.startModAOptionsUI().setToDefault();
     	    		RotPUI.startModBOptionsUI().setToDefault();
+    	    		RotPUI.playerRaceCustomizationUI().setToDefault();
     	    		generateGalaxy();
     	    		return;
     	    	case "STARTUP":
@@ -405,21 +406,18 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	    		generateGalaxy();
     	    		return;
          	}
+        } else {
+        	gOpt = RotPUI.createStartupOptions();
         }
     	copyVanillaOptions(gOpt);
 		copyAllOtherOptions(gOpt);
         generateGalaxy(); 
     }
     public void copyAllOtherOptions(MOO1GameOptions source) { // BR:
-    	// Copy ModA
-		for (InterfaceOptions param : RotPUI.startModAOptionsUI().paramList)
-			param.setFromOptions(source);
-    	// Copy ModB
-		for (InterfaceOptions param : RotPUI.startModBOptionsUI().paramList)
-			param.setFromOptions(source);
-    	// Copy CustomRaces
-		for (InterfaceOptions param : RotPUI.playerRaceCustomizationUI().commonList)
-			param.setFromOptions(source);
+		RotPUI.startModAOptionsUI().getOptions(source);
+		RotPUI.startModBOptionsUI().getOptions(source);
+		RotPUI.playerRaceCustomizationUI().getOptions(source);
+		
 	    setGalaxyShape(); 
 	    selectedGalaxyShapeOption1 = source.selectedGalaxyShapeOption1;
 	    selectedGalaxyShapeOption2 = source.selectedGalaxyShapeOption2;
@@ -1183,7 +1181,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         return list;
     }
     // BR: Made static method option
-    public static LinkedList<String> baseRacesOptions() {
+    public static LinkedList<String> baseRaceOptions() {
     	LinkedList<String> list = new LinkedList<>();
         list.add("RACE_HUMAN");
         list.add("RACE_ALKARI");
@@ -1198,7 +1196,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         return list;
     }
     public static LinkedList<String> allRaceOptions() {
-    	LinkedList<String> list = baseRacesOptions();
+    	LinkedList<String> list = baseRaceOptions();
         list.add("RACE_NEOHUMAN");   // modnar: add races
 		list.add("RACE_MONOCLE");    // modnar: add races
 		list.add("RACE_JACKTRADES"); // modnar: add races
@@ -1208,8 +1206,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         return list;
     }
     @Override
-    public List<String> newRacesOffOptions() {
-        return baseRacesOptions();
+    public List<String> newRaceOffOptions() {
+        return baseRaceOptions();
     }
     @Override
     public List<String> startingRaceOptions() {
@@ -1238,7 +1236,10 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         dest.generateGalaxy();
     }
     public static void setDefaultRaceOptions(MOO1GameOptions dest) { // BR:
-    	dest.selectedPlayerRace(dest.random(dest.startingRaceOptions()));
+        if (UserPreferences.showNewRaces.get()) // BR: limit randomness
+        	dest.selectedPlayerRace(dest.random(baseRaceOptions()));
+        else
+        	dest.selectedPlayerRace(dest.random(allRaceOptions()));
     	dest.selectedPlayerColor(0);
     }
     public static void setDefaultGalaxyOptions(MOO1GameOptions dest) { // BR:
@@ -1275,7 +1276,10 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         selectedGalaxyShape = galaxyShapeOptions().get(0);
         selectedGalaxyAge = galaxyAgeOptions().get(1);
         selectedNumberOpponents = defaultOpponentsOptions();
-        selectedPlayerRace(random(startingRaceOptions()));
+        if (UserPreferences.showNewRaces.get()) // BR: limit randomness
+        	selectedPlayerRace(random(baseRaceOptions()));
+        else
+        	selectedPlayerRace(random(allRaceOptions()));
         selectedGameDifficulty = DIFFICULTY_NORMAL;
         selectedOpponentAIOption = OPPONENT_AI_FUN;
         for (int i=0;i<specificOpponentAIOption.length;i++)

@@ -219,6 +219,7 @@ public class GalaxyMapPanel extends BasePanel implements ActionListener, MouseLi
     }
     public void toggleGridCircularDisplay() { // BR: added memorization
     	UserPreferences.showGridCircular.toggle();
+    	UserPreferences.save();
     	showGridCircular = UserPreferences.showGridCircular.get();
     }
     public boolean showGridCircular()           { return showGridCircular; }

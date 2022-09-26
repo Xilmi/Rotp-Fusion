@@ -56,7 +56,7 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 	private static final String totalCostKey	= "CUSTOM_RACE_GUI_COST";
 	private static final String selectKey		= "CUSTOM_RACE_GUI_SELECT";
 	private static final String randomKey		= "CUSTOM_RACE_GUI_RANDOM";
-	private static final String initialRace	= MOO1GameOptions.baseRacesOptions().getFirst();
+	private static final String initialRace	= MOO1GameOptions.baseRaceOptions().getFirst();
 	
 	private static final Color textC		= SystemPanel.whiteText;
 	private		   final Font buttonFont	= narrowFont(20);
@@ -180,13 +180,15 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		    
 		    commonList.addAll(settingList);
 		    commonList.addAll(guiList);
+		    cr.setRace(MOO1GameOptions.baseRaceOptions().getFirst());
+		    cr.pullSettings();
 		}
 		addMouseListener(this);
 		addMouseMotionListener(this);
 		addMouseWheelListener(this);
 		initialized = true;
 	}
-	public void loadRace() {
+	public void loadRace() { // For Race Diplomatic UI Panel
 		showOnly = true;
 		cr.initShowRace(raceUI.selectedEmpire().abilitiesKey());
 	}
@@ -268,6 +270,7 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		saveOptions(initialOptions);
 		init();
 		enableGlassPane(this);
+		repaint();
 	}
 	private void close() {
 		disableGlassPane();
@@ -277,10 +280,11 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 			param.setOptions(destination);
 		customPlayerRace.setOptions(destination);
 	}
-	private void getOptions(MOO1GameOptions source) {
+	public void getOptions(MOO1GameOptions source) {
 		for (InterfaceOptions param : commonList)
 			param.setFromOptions(source);
 		customPlayerRace.setFromOptions(source);
+		init();
 	}
 	private void doExitBoxAction() {
 		if (showOnly) {
@@ -318,7 +322,6 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 			setToDefault();
 			break; 
 		}
-		init();
 		repaint();
 	}
 	private void doUserBoxAction() {
@@ -330,13 +333,13 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 		default: // Set
 			MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
 			getOptions(fileOptions);
-			init();
 			repaint();
 		}
 	}	
 	public void setToDefault() {
 		for (InterfaceOptions param : commonList)
 			param.setFromDefault();
+		init();
 	}
 	private void saveUserOptions() {
 		MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
