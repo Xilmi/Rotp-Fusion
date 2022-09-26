@@ -34,6 +34,7 @@ import static rotp.model.empires.Leader.Personality.XENOPHOBIC;
 import rotp.model.empires.TreatyWar;
 import rotp.model.events.StarSystemEvent;
 import rotp.model.galaxy.Galaxy;
+import rotp.model.galaxy.Location;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.galaxy.Transport;
@@ -1032,7 +1033,7 @@ public class AIDiplomat implements Base, Diplomat {
             return false;
         if (willingToOfferAlliance(v.empire()))
             return false;
-        if(empire.generalAI().bestVictim() == v.empire())
+        if(getVictim() == v.empire())
             return true;
         return false;
     }
@@ -1370,14 +1371,21 @@ public class AIDiplomat implements Base, Diplomat {
             System.out.println(empire.name()+" best ally for me would be "+best.name()+" with score: "+highestMatchScore);*/
         return best;
     }
-    public boolean readyForWar() {
+    public boolean readyForWar(EmpireView v) {
         boolean warAllowed = true;
         float myPower = empire.powerLevel(empire);
         float ourPower = myPower;
         float ourMilitaryPower = 0;
-        Empire victim = empire.generalAI().bestVictim();
+        boolean skipAggressionCheck = false;
+        Empire victim = getVictim();
+        if(victim != v.empire())
+            return false;
         if(victim != null)
         {
+            float victimPowerLevel = victim.powerLevel(victim);
+            float myPowerLevel = empire.powerLevel(empire);
+            if(victim.atWar() && victimPowerLevel > myPowerLevel)
+                skipAggressionCheck = true;
             if(empire.generalAI().smartPowerLevel() > victim.totalIncome())
                 ourMilitaryPower = empire.generalAI().smartPowerLevel();
             float victimPower = victim.powerLevel(victim);
@@ -1417,15 +1425,18 @@ public class AIDiplomat implements Base, Diplomat {
                 //System.out.println(galaxy().currentTurn()+" "+empire.name()+" thinks "+contact.name()+" would backstab "+empire.name()+" with a chance of: "+chanceOfContactToBackstabMe+" and "+victim.name()+" with a chance of: "+chanceOfContactToBackstabVictim);
             }
             float aggressiveness = aggressiveness(victim);
-            //System.out.println(galaxy().currentTurn()+" "+empire.name()+" my power: "+enemyPower+" "+victim.name()+" power: "+victim.powerLevel(victim)+" my military: "+enemyMilitaryPower+" their military: "+victimMilitaryPower+" colonize: "+empire.generalAI().additionalColonizersToBuild(false)+" aggressiveness: "+aggressiveness);
-            if(victimPower > aggressiveness * ourPower && victimMilitaryPower >= aggressiveness * ourMilitaryPower)
-                warAllowed = false;
+            //System.out.println(galaxy().currentTurn()+" "+empire.name()+" ourPower: "+ourPower+" "+victim.name()+" power: "+victimPower+" my military: "+ourMilitaryPower+" their military: "+victimMilitaryPower+" colonize: "+empire.generalAI().additionalColonizersToBuild(false)+" aggressiveness: "+aggressiveness+" variant: "+variant);
+            if(!skipAggressionCheck)
+                if(victimPower > aggressiveness * ourPower && victimMilitaryPower >= aggressiveness * ourMilitaryPower)
+                    warAllowed = false;
             if(empire.generalAI().additionalColonizersToBuild(false) > 0 && !empire.atWar())
                 warAllowed = false;
             //Ail: If there's only two empires left, there's no time for preparation. We cannot allow them the first-strike-advantage!
             if(galaxy().numActiveEmpires() < 3 || empire.tech().researchCompleted())
                 warAllowed = true;
             //System.out.println(galaxy().currentTurn()+" "+empire.name()+" war allowed against "+victim.name()+": "+warAllowed);
+        } else {
+           warAllowed = false; //we don't have a victim, we definitely don't want war
         }
         //System.out.println(galaxy().currentTurn()+" "+empire.name()+" col: "+empire.generalAI().additionalColonizersToBuild(false)+" tech: "+techIsAdequateForWar());
         return warAllowed;
@@ -1442,12 +1453,8 @@ public class AIDiplomat implements Base, Diplomat {
             return true;
         if (!empire.enemies().isEmpty())
             return false;
-        if(readyForWar())
-            if(v.empire() == empire.generalAI().bestVictim())
-            {
-                //System.out.println(galaxy().currentTurn()+" "+empire.name()+" war against " +empire.generalAI().bestVictim()+" should be allowed.");
-                return true;
-            }
+        if(readyForWar(v))
+            return true;
         return false;
     }
     private DiplomaticIncident worstWarnableIncident(Collection<DiplomaticIncident> incidents) {
@@ -1738,15 +1745,33 @@ public class AIDiplomat implements Base, Diplomat {
         if(galaxy().options().baseAIRelationsAdj() <= -30)
             return false;
         //new: If we are strong enough, we are okay with fighting the wrong target or several enemies at once
-        float enemyPower = 0;
-        for(Empire enemy : empire.enemies())
-        {
-            enemyPower+= enemy.militaryPowerLevel();
-        }
-        boolean scared = false;
-        if(empire.generalAI().smartPowerLevel() < enemyPower)
-        {
-            scared = true;
+        if(v.embassy().treaty() != null && v.embassy().treaty().isWar()) {
+            TreatyWar treaty = (TreatyWar) v.embassy().treaty();
+            float enemyPower = 0;
+            for(Empire enemy : empire.enemies())
+            {
+                enemyPower+= enemy.militaryPowerLevel();
+            }
+            boolean scared = false;
+            if(empire.generalAI().smartPowerLevel() < enemyPower)
+            {
+                scared = true;
+            }
+            //System.out.println(galaxy().currentTurn()+" "+empire.name()+" scared of "+v.empire().name()+": "+scared+" "+treaty.colonyChange(empire));
+            if(scared)
+            {
+                if (treaty.colonyChange(empire) < 1.0f) {
+                    //System.out.println(galaxy().currentTurn()+" "+empire.name()+" is war-weary because "+v.empire().name()+" seems to be winning. Our losses:"+treaty.colonyChange(empire));
+                    return true;
+                }
+            }
+            /*if(v.empire() != getVictim()) {
+                //when we have taken something from someone who we don't consider our main-victim, we see if they want peace now
+                if (treaty.colonyChange(empire) > 1.0f && treaty.colonyChange(v.empire()) < 1.0f) {
+                    //System.out.println(galaxy().currentTurn()+" "+empire.name()+" is war-weary because "+v.empire().name()+" is not who we want to fight. our gains: "+treaty.colonyChange(empire)+" their losses: "+treaty.colonyChange(v.empire()));
+                    return true;
+                }
+            }*/
         }
         boolean everythingUnderSiege = true;
         for(StarSystem sys : empire.allColonizedSystems())
@@ -1758,12 +1783,6 @@ public class AIDiplomat implements Base, Diplomat {
                 everythingUnderSiege = false;
                 break;
             }
-        }
-        if(scared && v.embassy().treaty() != null && v.embassy().treaty().isWar())
-        {
-            TreatyWar treaty = (TreatyWar) v.embassy().treaty();
-            if (treaty.colonyChange(empire) < 1.0f)
-                return true;
         }
         if(everythingUnderSiege)
             return true;
@@ -1949,8 +1968,6 @@ public class AIDiplomat implements Base, Diplomat {
                 personalityMod *= 4f / 3f;
             if(empire.leader().isDiplomat() || empire.leader().isTechnologist())
                 personalityMod *= 3f / 4f;
-        } else {
-            personalityMod = 0.5f;
         }
         float optionsMod = 1.0f;
         optionsMod *= Math.pow(4d / 3d, galaxy().options().baseAIRelationsAdj() / -10d);
@@ -1958,6 +1975,94 @@ public class AIDiplomat implements Base, Diplomat {
         aggressiveness *= racialMod;
         aggressiveness *= personalityMod;
         return aggressiveness;
+    }
+    Empire balanceVictim() {
+        float bestScore = 0;
+        Empire fairestVictim = null;
+        for(Empire emp : empire.contactedEmpires())
+        {
+            if(empire.allies().contains(emp))
+                continue;
+            if(!empire.inShipRange(emp.id))
+                continue;
+            if(emp.powerLevel(emp) < empire.powerLevel(empire)) //we don't want to balance when we are already the strongest
+                continue;
+            float enemyPower = 0;
+            float unknownEnemies = 0;
+            for(Empire theirFoe : emp.warEnemies()) {
+                if(empire.contactedEmpires().contains(theirFoe)) //I mustn't cheat, even if it helps to make it more fair. I can only take into account what I know
+                    enemyPower += theirFoe.powerLevel(theirFoe);
+                else
+                    unknownEnemies++; //I still know it from checking their diplo. So I can take guesses about these.
+            }
+            float currentScore = emp.powerLevel(emp) - enemyPower - unknownEnemies * empire.powerLevel(empire);
+            if(currentScore < 0)
+                continue;
+            currentScore /= (empire.generalAI().fleetCenter(empire).distanceTo(empire.generalAI().colonyCenter(emp)) + empire.generalAI().colonyCenter(empire).distanceTo(empire.generalAI().colonyCenter(emp)));
+            //System.out.println(galaxy().currentTurn()+" "+empire.name()+" victim-score for "+emp.name()+": "+currentScore);
+            if(currentScore > bestScore) {
+                fairestVictim = emp;
+                bestScore = currentScore;
+            }
+        }
+        return fairestVictim;
+    }
+    Empire systemVictim() {
+        Location fleet = empire.generalAI().fleetCenter(empire);
+        float bestScore = 0;
+        Empire bestVictim = null;
+        StarSystem bestSystem = null;
+        float myFleetPower = empire.totalFleetCost();
+        for(StarSystem sys : empire.systemsInShipRange(null)) {
+            if(!empire.sv.isColonized(sys.id))
+                continue;
+            if(sys.empire() == empire)
+                continue;
+            if(empire.allies().contains(empire.sv.empire(sys.id)))
+                continue;
+            if(!empire.canColonize(sys))
+                continue;
+            float score = empire.sv.currentSize(sys.id) * sys.planet().productionAdj() * sys.planet().researchAdj();
+            Empire owner = empire.sv.empire(sys.id);
+            float fleetPower = empire.sv.bases(sys.id) * owner.tech().bestMissileBase().cost(owner);
+            float fleetPresent = 0;
+            if(empire.canScanTo(sys)) {
+                ShipFleet fl = empire.sv.orbitingFleet(sys.id);
+                if(fl != null) {
+                    for (int i=0;i<fl.num.length;i++) {
+                        int num = fl.num(i);
+                        if (num > 0) {
+                            ShipDesign des = empire.shipLab().design(i);
+                            if(des == null)
+                                continue;
+                            fleetPresent += num * des.cost();
+                        }
+                    }
+                }
+            }
+            fleetPower += fleetPresent;
+            fleetPower += (owner.totalFleetCost() - fleetPresent) / owner.allColonizedSystems().size();
+            if(fleetPower > myFleetPower)
+                continue;
+            if(fleetPower > 0)
+                score /= fleetPower;
+            score /= fleet.distanceTo(sys);
+            //System.out.println(galaxy().currentTurn()+" "+empire.name()+" system: "+empire.sv.name(sys.id)+" score: "+score);
+            if(score > bestScore) {
+                bestScore = score;
+                bestVictim = owner;
+                bestSystem = sys;
+            }
+        }
+        /*if(bestVictim != null)
+            System.out.println(galaxy().currentTurn()+" "+empire.name()+" best Victim: "+bestVictim.name()+" due to "+empire.sv.name(bestSystem.id)+" with score: "+bestScore);*/
+        return bestVictim;
+    }
+    Empire getVictim() {
+        Empire victim = balanceVictim();
+        if(victim == null)
+            victim = systemVictim();
+        return victim;
     }
 }
 
