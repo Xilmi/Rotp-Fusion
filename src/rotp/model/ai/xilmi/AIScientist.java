@@ -310,6 +310,8 @@ public class AIScientist implements Base, Scientist {
             empire.tech().computer().allocation(0);
             empire.tech().construction().allocation(0);
             empire.tech().forceField().allocation(0);
+            empire.tech().planetology().allocation(0);
+            empire.tech().propulsion().allocation(0);
             empire.tech().weapon().allocation(0);
 
             if(needPlanetology || needPropulsion)
