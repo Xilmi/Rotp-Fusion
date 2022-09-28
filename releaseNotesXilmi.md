@@ -1,7 +1,4 @@
-## What'New
+## What's New
 
-2022.09.27 (Xilmi)
-  - AI follows a more adaptive research-strategy in the expansion phase.
-  - Fixed an issue where in certain cases the AI accidentally knew whether a system was colonized or not when it shouldn't be able to know it.
-  - Fixed an issue where the governor wouldn't realize that planets became colonizable after the event that turns uncolonizable planets into colonizable ones.
-  - Reworked diplomatic decision-making of Fusion-AI. It should be a lot more aggressive and also try to stop empires that are getting too strong.
+2022.09.28 (Xilmi)
+  - Fixed a bug reported by /u/Thor1Noak where the robotics-control-bonus of the Meklonar was not being taken into consideration for calculating how many alien factories could be converted within one turn and thus lead to neither building nor converting any factories at all.

@@ -131,7 +131,7 @@ public class ColonyIndustry extends ColonySpendingCategory {
             }          
             // first, try to convert existing alien factories to our max build limit
             if ((newFactories+factories) < buildableFactories) {
-                while (hasAlienFactories() && (newBC > factoryConversionCost()) && (newFactories + factories < buildableFactories)) {
+                while (convertableAlienFactories() > 0 && (newBC > factoryConversionCost()) && (newFactories + factories < buildableFactories)) {
                     convertRandomAlienFactory();
                     newBC -= factoryConversionCost();
                 }
