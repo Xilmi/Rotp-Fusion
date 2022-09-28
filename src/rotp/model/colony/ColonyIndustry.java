@@ -379,7 +379,7 @@ public class ColonyIndustry extends ColonySpendingCategory {
     }
     private int convertableAlienFactories(int rc) { 
         float alienFactories = planet().numAlienFactories();
-        return (int) max(0, min(alienFactories,maxFactories(rc)-factories)); 
+        return (int) max(0, min(alienFactories,maxBuildableFactories(rc)-factories)); 
     }
     private void convertRandomAlienFactory() {
         float num = convertableAlienFactories();
