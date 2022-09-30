@@ -71,9 +71,9 @@ public final class ShipWeaponBiological extends ShipWeapon {
             }
         }
         if (totalDamage > 0)
-            drawSuccessfulAttack(source, target, totalDamage);
+            drawSuccessfulAttack(source, target, totalDamage, count);
         else
-            drawIneffectiveAttack(source, target);
+            drawIneffectiveAttack(source, target, count);
         target.takeBioweaponDamage(totalDamage);
     }
 }

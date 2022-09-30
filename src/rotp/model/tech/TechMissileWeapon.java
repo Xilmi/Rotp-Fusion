@@ -332,7 +332,7 @@ public final class TechMissileWeapon extends Tech {
         }
     }
     @Override
-    public void drawSuccessfulAttack(CombatStack nullStack, CombatStack target, int wpnNum, float dmg) {
+    public void drawSuccessfulAttack(CombatStack nullStack, CombatStack target, int wpnNum, float dmg, int count) {
         ShipBattleUI ui = target.mgr.ui;
         if (ui == null)
             return;

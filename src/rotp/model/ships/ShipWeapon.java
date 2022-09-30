@@ -126,21 +126,21 @@ public class ShipWeapon extends ShipComponent {
         }
         return "";
     }
-    public void drawIneffectiveAttack(CombatStack source, CombatStack target) {
+    public void drawIneffectiveAttack(CombatStack source, CombatStack target, int count) {
         try {
-            tech().drawIneffectiveAttack(source, target, source.weaponNum(this));
+            tech().drawIneffectiveAttack(source, target, source.weaponNum(this), count);
         }
         catch(Exception e) { }
     }
-    public void drawUnsuccessfulAttack(CombatStack source, CombatStack target) {
+    public void drawUnsuccessfulAttack(CombatStack source, CombatStack target, int count) {
         try {
-            tech().drawUnsuccessfulAttack(source, target, source.weaponNum(this));
+            tech().drawUnsuccessfulAttack(source, target, source.weaponNum(this), count);
         }
         catch(Exception e) { }
     }
-    public void drawSuccessfulAttack(CombatStack source, CombatStack target, float dmg) {
+    public void drawSuccessfulAttack(CombatStack source, CombatStack target, float dmg, int count) {
         try {
-            tech().drawSuccessfulAttack(source, target, source.weaponNum(this), dmg);
+            tech().drawSuccessfulAttack(source, target, source.weaponNum(this), dmg, count);
         }
         catch(Exception e) { }              
     }

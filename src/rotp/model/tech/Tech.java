@@ -170,9 +170,9 @@ public class Tech implements Base {
 
     public boolean reducesEcoSpending()    { return false; }
 
-    public void drawIneffectiveAttack(CombatStack source, CombatStack target, int wpnNum) {  }
-    public void drawUnsuccessfulAttack(CombatStack source, CombatStack target, int wpnNum) {  }
-    public void drawSuccessfulAttack(CombatStack source, CombatStack target, int wpnNum, float dmg) { }
+    public void drawIneffectiveAttack(CombatStack source, CombatStack target, int wpnNum, int count) {  }
+    public void drawUnsuccessfulAttack(CombatStack source, CombatStack target, int wpnNum, int count) {  }
+    public void drawSuccessfulAttack(CombatStack source, CombatStack target, int wpnNum, float dmg, int count) { }
 
     public float researchCost()            { return cat.costForTech(this); }
     public int maxMiniaturizationLevels()   { return 50; }

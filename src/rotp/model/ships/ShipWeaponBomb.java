@@ -70,10 +70,10 @@ public final class ShipWeaponBomb extends ShipWeapon {
             }
         }
         if (totalDamage > 0)
-            drawSuccessfulAttack(source, target, totalDamage);
+            drawSuccessfulAttack(source, target, totalDamage, count);
         else if (successfullyHit)
-            drawIneffectiveAttack(source, target);
+            drawIneffectiveAttack(source, target, count);
         else
-            drawUnsuccessfulAttack(source, target);
+            drawUnsuccessfulAttack(source, target, count);
     }
 }
