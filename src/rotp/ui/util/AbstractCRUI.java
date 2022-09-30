@@ -15,7 +15,7 @@
  */
 package rotp.ui.util;
 
-import static rotp.model.empires.CustomRaceFactory.ROOT;
+import static rotp.model.empires.CustomAbilitiesFactory.ROOT;
 import static rotp.ui.UserPreferences.customPlayerRace;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonWidth;
@@ -41,7 +41,7 @@ import java.util.LinkedList;
 
 import javax.swing.SwingUtilities;
 
-import rotp.model.empires.CustomRaceFactory;
+import rotp.model.empires.CustomAbilitiesFactory;
 import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
@@ -115,7 +115,7 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 	private final LinkedList<SettingBase<?>> settingList= new LinkedList<>();
 	private final LinkedList<SettingBase<?>> guiList	= new LinkedList<>();
 	public  final LinkedList<SettingBase<?>> commonList	= new LinkedList<>();
-	public	final CustomRaceFactory cr = new CustomRaceFactory();
+	public	final CustomAbilitiesFactory cr = new CustomAbilitiesFactory();
 	private	final String guiTitleID;
 	private	final String showTitleID;
 

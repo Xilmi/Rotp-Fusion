@@ -16,15 +16,16 @@
 
 package rotp.model.empires;
 
+import static rotp.ui.UserPreferences.randomAlienRaces;
 import static rotp.ui.UserPreferences.randomAlienRacesMax;
 import static rotp.ui.UserPreferences.randomAlienRacesMin;
 import static rotp.ui.UserPreferences.randomAlienRacesSmoothEdges;
 import static rotp.ui.UserPreferences.randomAlienRacesTargetMax;
 import static rotp.ui.UserPreferences.randomAlienRacesTargetMin;
-import static rotp.ui.UserPreferences.randomAlienRaces;
 import static rotp.ui.util.SettingBase.CostFormula.DIFFERENCE;
 import static rotp.util.Base.random;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -38,19 +39,32 @@ import rotp.ui.util.SettingBase;
 import rotp.ui.util.SettingBoolean;
 import rotp.ui.util.SettingInteger;
 
-public class CustomRaceFactory {
+public class CustomRaceDefinitions  {
 	
 	public static final String ROOT = "CUSTOM_RACE_";
 	public static final String PLANET = "PLANET_";
 	private static final boolean booleansAreBullet = true;
 
 	private Race race;
-	private LinkedList<SettingBase<?>> settingList;
 	private LinkedHashMap<String, String> settingsValues = new LinkedHashMap<>();
+	private LinkedList<SettingBase<?>> settingList;
+	private LinkedList<Integer> spacerList;
+	private LinkedList<Integer> columnList;
 	
-	public CustomRaceFactory() {}
+	public CustomRaceDefinitions() {}
 	public void init(LinkedList<SettingBase<?>> newSettingList) {
 		settingList = newSettingList;
+	}
+	public Race race() { return race; }
+	public LinkedList<SettingBase<?>> settingList() { return settingList; }
+	public LinkedList<Integer> spacerList() { return spacerList; }
+	public LinkedList<Integer> columnList() { return columnList; }
+
+	public void save(File file) {
+		
+	}
+	public void load(File file) {
+		
 	}
 	public boolean isEmpty() {
 		return settingList == null;
@@ -74,9 +88,6 @@ public class CustomRaceFactory {
 			race = Race.keyed(raceKey);
 			pullSettings();
 		}
-	}
-	public Race getRace() {
-		return race;
 	}
 	private void setKey(String keyString) {
 		String[] list = keyString.split(",");
@@ -217,71 +228,95 @@ public class CustomRaceFactory {
 		}
 		pushSettings();
 	}
-	private void getFullList() {
+
+	protected void newSettingList() {
 		settingList = new LinkedList<>();
+		spacerList  = new LinkedList<>();
+		columnList  = new LinkedList<>();
+		
+		// First column (left)
 		settingList.add(new BaseDataRace());
+		endOfColumn(); // ====================
+
+		// Second column
 		settingList.add(new RacePlanetType());
 		settingList.add(new HomeworldSize());
 //		settingList.add(new SpeciesType()); // Not used in Game
 		settingList.add(new PopGrowRate());
 		settingList.add(new IgnoresEco());
+		spacer();
 		settingList.add(new ShipAttack());
 		settingList.add(new ShipDefense());
 		settingList.add(new ShipInitiative());
 		settingList.add(new GroundAttack());
+		spacer();
 		settingList.add(new SpyCost());
 		settingList.add(new SpySecurity());
 		settingList.add(new SpyInfiltration());
 //		settingList.add(new SpyTelepathy()); // Not used in Game
+		spacer();
 		settingList.add(new DiplomacyTrade());
 // 		settingList.add(new DiploPosDP()); // Not used in Game
 		settingList.add(new DiplomacyBonus());
 		settingList.add(new DiplomacyCouncil());
 		settingList.add(new RelationDefault());	// BR: Maybe All the races
+		endOfColumn(); // ====================
+
+		// Third column
 		settingList.add(new ProdWorker());
 		settingList.add(new ProdControl());
 		settingList.add(new IgnoresFactoryRefit());
 		settingList.add(new TechDiscovery());
 		settingList.add(new TechResearch());
+		spacer();
 		settingList.add(new ResearchComputer());
 		settingList.add(new ResearchConstruction());
 		settingList.add(new ResearchForceField());
 		settingList.add(new ResearchPlanet());
 		settingList.add(new ResearchPropulsion());
 		settingList.add(new ResearchWeapon());
+		spacer();
+		
+		endOfColumn(); // ====================
+		// Fourth column
 		settingList.add(new PlanetRessources());
 		settingList.add(new PlanetEnvironment());
 		settingList.add(new CreditsBonus());
 		settingList.add(new HitPointsBonus());
 		settingList.add(new MaintenanceBonus());
 		settingList.add(new ShipSpaceBonus());
+		endOfColumn(); // ====================
+		// Fifth column
+		// endOfColumn(); // ====================
 	}
+	protected void endOfColumn() { columnList.add(settingList.size()); }
+	protected void spacer()		 { spacerList.add(settingList.size()); }
 	// -------------------- Static Methods --------------------
 	// 
 	public static String getRandomAlienRaceKey() {
-		CustomRaceFactory cr = new CustomRaceFactory();
-		cr.getFullList();
+		CustomRaceDefinitions cr = new CustomRaceDefinitions();
+		cr.newSettingList();
 		cr.randomizeRace(randomAlienRacesMin.get(), randomAlienRacesMax.get(),
 				randomAlienRacesTargetMin.get(), randomAlienRacesTargetMax.get(),
 				randomAlienRacesSmoothEdges.get(), randomAlienRaces.isTarget(), false);
 		return cr.getKey();
 	}
 	public static String raceToKey(Race race) {
-		CustomRaceFactory cr = new CustomRaceFactory();
-		cr.getFullList();
+		CustomRaceDefinitions cr = new CustomRaceDefinitions();
+		cr.newSettingList();
 		cr.setRace(race.name());
 		cr.pullSettings();
 		return cr.getKey();
 	}
 	public static Race keyToRace(String raceKey) {
-		CustomRaceFactory cr = new CustomRaceFactory();
-		cr.getFullList();
+		CustomRaceDefinitions cr = new CustomRaceDefinitions();
+		cr.newSettingList();
 		cr.setKey(raceKey);
 		return cr.race;
 	}
 	public static int keyToValue(String raceKey) {
-		CustomRaceFactory cr = new CustomRaceFactory();
-		cr.getFullList();
+		CustomRaceDefinitions cr = new CustomRaceDefinitions();
+		cr.newSettingList();
 		cr.initShowRace(raceKey);
 		float cost = cr.getTotalCost();
 		return Math.round(cost); 

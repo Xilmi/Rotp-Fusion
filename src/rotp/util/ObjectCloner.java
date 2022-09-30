@@ -4,12 +4,13 @@
  * 
  * JAVA TIPS
  * By Dave Miller, JavaWorld | AUG 6, 1999 12:00 AM PST
+ * 
+ * For serializable objects
  */
 package rotp.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 

@@ -26,7 +26,7 @@ import static rotp.ui.UserPreferences.missileSizeModifier;
 import static rotp.ui.UserPreferences.randomTechStart;
 import static rotp.ui.UserPreferences.restartApplySettings;
 import static rotp.ui.UserPreferences.restartChangeAI;
-import static rotp.ui.UserPreferences.restartChangePlayer;
+import static rotp.ui.UserPreferences.restartApplyPlayer;
 import static rotp.ui.UserPreferences.retreatRestrictionTurns;
 import static rotp.ui.UserPreferences.retreatRestrictions;
 import static rotp.ui.UserPreferences.richHomeworld;
@@ -66,7 +66,7 @@ public class StartModAOptionsUI extends AbstractOptionsUI {
 		paramList.add(challengeMode);
 		endOfColumn();
 		// Fourth column
-		paramList.add(restartChangePlayer);
+		paramList.add(restartApplyPlayer);
 		paramList.add(restartChangeAI);
 		paramList.add(restartApplySettings);
 		endOfColumn();

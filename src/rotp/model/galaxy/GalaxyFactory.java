@@ -17,7 +17,7 @@ package rotp.model.galaxy;
 
 import static rotp.ui.UserPreferences.playerShipSet;
 import static rotp.ui.UserPreferences.randomAlienRaces;
-import static rotp.ui.UserPreferences.restartChangePlayer;
+import static rotp.ui.UserPreferences.restartApplyPlayer;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import rotp.mod.br.addOns.RacesOptions;
-import rotp.model.empires.CustomRaceFactory;
+import rotp.model.empires.CustomAbilitiesFactory;
 import rotp.model.empires.Empire;
 import rotp.model.empires.Leader;
 import rotp.model.empires.Race;
@@ -366,7 +366,7 @@ public class GalaxyFactory implements Base {
 			playerDataRaceKey = RotPUI.playerRaceCustomizationUI().cr.getKey();
 		}
 		if (gc != null) { // Restart
-			if (!restartChangePlayer.get()) {
+			if (!restartApplyPlayer.get()) {
 				playerDataRaceKey = gc.empires(0).abilitiesKey();
 			}
 		}
@@ -502,7 +502,7 @@ public class GalaxyFactory implements Base {
             	if (randomAlienRaces.isPlayerCopy())
             		dataRaceKey = playerDataRaceKey;
             	else
-            		dataRaceKey = CustomRaceFactory.getRandomAlienRaceKey();
+            		dataRaceKey = CustomAbilitiesFactory.getRandomAlienRaceKey();
             }
 			Race dataRace = Race.keyed(dataRaceKey);
 

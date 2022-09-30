@@ -23,7 +23,7 @@ import java.awt.event.MouseWheelEvent;
 
 import javax.swing.SwingUtilities;
 
-import rotp.model.game.MOO1GameOptions;
+import rotp.model.game.DynamicOptions;
 import rotp.util.LabelManager;
 
 public abstract class AbstractParam <T> implements InterfaceParam{
@@ -94,10 +94,10 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	@Override public String toString() {
 		return getCfgLabel() + " = " + getCfgValue();
 	}
-	@Override public void setFromOptions(MOO1GameOptions options) {
+	@Override public void setFromOptions(DynamicOptions options) {
 		setFromCfgValue(options.getStringOptions(labelId(), getCfgValue(defaultValue())));
 	}
-	@Override public void setOptions(MOO1GameOptions options) {
+	@Override public void setOptions(DynamicOptions options) {
 		options.setStringOptions(labelId(), getCfgValue());
 	}
 	@Override public String getCfgValue() { return getCfgValue(value); }

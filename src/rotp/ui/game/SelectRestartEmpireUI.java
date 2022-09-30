@@ -35,7 +35,7 @@ import java.util.LinkedList;
 
 import javax.swing.SwingUtilities;
 
-import rotp.model.empires.CustomRaceFactory;
+import rotp.model.empires.CustomAbilitiesFactory;
 import rotp.model.empires.Empire;
 import rotp.model.empires.Race;
 import rotp.model.galaxy.GalaxyCopy;
@@ -138,7 +138,7 @@ final class SelectRestartEmpireUI  extends BasePanel implements MouseListener, M
 			else 
 				abilities = e.dataRace().setupName();
 			String dataKey = e.abilitiesKey();
-			Integer value = CustomRaceFactory.keyToValue(dataKey);
+			Integer value = CustomAbilitiesFactory.keyToValue(dataKey);
 			empireList.add(name);
 			valueList.add(value);
 			raceList.add(race);

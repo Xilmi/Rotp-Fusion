@@ -80,7 +80,7 @@ import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.util.InterfaceOptions;
 import rotp.util.Base;
 
-public class MOO1GameOptions implements Base, IGameOptions, Serializable {
+public class MOO1GameOptions implements Base, IGameOptions, DynamicOptions, Serializable {
     private static final long serialVersionUID = 1L;
     private static final float BASE_RESEARCH_MOD = 30f;
     private final String[] opponentRaces = new String[MAX_OPPONENTS];
@@ -123,10 +123,10 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private String selectedColonizingOption;
     private String selectedAutoplayOption;
     // BR: Dynamic options
-	private final LinkedHashMap<String, Boolean> booleanOptions	= new LinkedHashMap<>(); // For future use
-	private final LinkedHashMap<String, Float>	 floatOptions	= new LinkedHashMap<>(); // For future use
-	private final LinkedHashMap<String, Integer> integerOptions	= new LinkedHashMap<>(); // For future use
-    private final LinkedHashMap<String, Object>	 objectOptions	= new LinkedHashMap<>(); // For future use
+	private final LinkedHashMap<String, Boolean> booleanOptions	= new LinkedHashMap<>();
+	private final LinkedHashMap<String, Float>	 floatOptions	= new LinkedHashMap<>();
+	private final LinkedHashMap<String, Integer> integerOptions	= new LinkedHashMap<>();
+    private final LinkedHashMap<String, Object>	 objectOptions	= new LinkedHashMap<>();
     private final LinkedHashMap<String, String>	 stringOptions	= new LinkedHashMap<>();
 
     private transient GalaxyShape galaxyShape;
@@ -1221,6 +1221,11 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	dest.selectedPlayerRace(src.selectedPlayerRace());
     	dest.selectedPlayerColor(src.selectedPlayerColor());
     }
+    public static void setAIOptions(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
+    	dest.selectedOpponentAIOption(src.selectedOpponentAIOption);
+        for (int i=0;i<dest.specificOpponentAIOption.length;i++)
+        	dest.specificOpponentAIOption[i] = src.specificOpponentAIOption[i];
+    }
     public static void setGalaxyOptions(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
     	dest.selectedGalaxySize	(src.selectedGalaxySize);
     	dest.selectedGalaxyShape(src.selectedGalaxyShape);
@@ -1228,11 +1233,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	dest.selectedGalaxyShapeOption2 = src.selectedGalaxyShapeOption2;
     	dest.selectedNumberOpponents(src.selectedNumberOpponents);
     	dest.selectedGameDifficulty	(src.selectedGameDifficulty);
-    	dest.selectedOpponentAIOption(src.selectedOpponentAIOption);
         for (int i=0;i<dest.opponentRaces.length;i++)
         	dest.opponentRaces[i] = src.opponentRaces[i];
-        for (int i=0;i<dest.specificOpponentAIOption.length;i++)
-        	dest.specificOpponentAIOption[i] = src.specificOpponentAIOption[i];
+    	setAIOptions(src, dest);
         dest.generateGalaxy();
     }
     public static void setDefaultRaceOptions(MOO1GameOptions dest) { // BR:
@@ -1601,7 +1604,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     // BR: save options to zip  file
     private static void saveOptionsTE(MOO1GameOptions options, File saveFile) throws IOException {
         ZipOutputStream out = new ZipOutputStream(new FileOutputStream(saveFile));
-        ZipEntry e = new ZipEntry("GameSession.dat");
+        ZipEntry e = new ZipEntry("GameOptions.dat");
         out.putNextEntry(e);
         
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -1651,13 +1654,10 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     // BR: Load options from file
     private static MOO1GameOptions loadOptionsTE(File saveFile) {
        	MOO1GameOptions newOptions;
-        try {
-            // assume the file is not zipped, load it directly
-        	try (ZipFile zipFile = new ZipFile(saveFile)) {
-                ZipEntry ze = zipFile.entries().nextElement();
-                InputStream zis = zipFile.getInputStream(ze);
-                newOptions = loadObjectData(zis);
-            }
+    	try (ZipFile zipFile = new ZipFile(saveFile)) {
+            ZipEntry ze = zipFile.entries().nextElement();
+            InputStream zis = zipFile.getInputStream(ze);
+            newOptions = loadObjectData(zis);
         }
         catch(IOException e) {
         	System.err.println("Bad option version " + saveFile.getAbsolutePath());

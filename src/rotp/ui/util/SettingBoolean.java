@@ -16,7 +16,7 @@
 
 package rotp.ui.util;
 
-import rotp.model.game.MOO1GameOptions;
+import rotp.model.game.DynamicOptions;
 
 public class SettingBoolean extends SettingBase<Boolean> {
 	
@@ -80,11 +80,11 @@ public class SettingBoolean extends SettingBase<Boolean> {
 	@Override public String guiOptionValue(int index) {
 		return text(guiOptionLabel(index));
 	}
-	@Override public void setOptions(MOO1GameOptions options) {
+	@Override public void setOptions(DynamicOptions options) {
 		if (!isSpacer())
 			options.setBooleanOptions(labelId(), settingValue());
 	}
-	@Override public void setFromOptions(MOO1GameOptions options) {
+	@Override public void setFromOptions(DynamicOptions options) {
 		if (!isSpacer())
 			set(options.getBooleanOptions(labelId(), defaultValue()));
 	}

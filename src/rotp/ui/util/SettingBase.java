@@ -27,7 +27,8 @@ import java.util.LinkedList;
 
 import javax.swing.SwingUtilities;
 
-import rotp.model.game.MOO1GameOptions;
+import rotp.model.empires.Race;
+import rotp.model.game.DynamicOptions;
 import rotp.ui.BaseText;
 import rotp.util.LabelManager;
 
@@ -51,7 +52,6 @@ public class SettingBase<T> implements InterfaceParam {
 	private boolean isList			= defaultIsList;
 	private boolean isBullet		= defaultIsBullet;
 	private T selectedValue	  = null;
-//	private int selectedIndex = -1;
 	private T defaultValue	  = null;
 	private boolean isSpacer  = false;
 	private boolean hasNoCost = false;
@@ -157,11 +157,11 @@ public class SettingBase<T> implements InterfaceParam {
 	@Override public void setFromDefault() {
 		selectedValue = defaultValue;		
 	}
-	@Override public void setOptions(MOO1GameOptions options) {
+	@Override public void setOptions(DynamicOptions options) {
 		if (!isSpacer)
 			options.setStringOptions(labelId(), getCfgValue());
 	}
-	@Override public void setFromOptions(MOO1GameOptions options) {
+	@Override public void setFromOptions(DynamicOptions options) {
 		if (!isSpacer)
 			setFromCfgValue(options.getStringOptions(labelId(), getDefaultCfgValue()));
 	}
@@ -299,7 +299,6 @@ public class SettingBase<T> implements InterfaceParam {
 	BaseText[] optionsText()	{ return optionsText; }
 	BaseText optionText(int i)	{ return optionsText[i]; }
 	String guiOptionLabel()	{ return guiOptionLabel(index()); }
-//	public String optionLabel()		{ return optionLabel(index()); }
 	public String getLabel()		{ return text(labelId()); }
 	public boolean isDefaultIndex()	{ return cfgValidIndex() == rawDefaultIndex(); }
 	public float costFactor() {
@@ -320,9 +319,6 @@ public class SettingBase<T> implements InterfaceParam {
 		else
 			return 0;
 	}
-//	private String optionLabel(int index) {
-//		return labelList.get(cfgValidIndex(index));
-//	}
 	String guiOptionLabel(int index) {
 		return text(labelList.get(cfgValidIndex(index)));
 	}

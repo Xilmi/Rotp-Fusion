@@ -19,7 +19,7 @@ package rotp.ui.util;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
-import rotp.model.game.MOO1GameOptions;
+import rotp.model.game.DynamicOptions;
 
 public class ParamObject extends AbstractParam<Object> {
 	
@@ -41,10 +41,10 @@ public class ParamObject extends AbstractParam<Object> {
 	@Override public void next() {}
 	@Override public void toggle(MouseWheelEvent e)	{}
 	@Override public void toggle(MouseEvent e) {}
-	@Override public void setFromOptions(MOO1GameOptions options) {
+	@Override public void setFromOptions(DynamicOptions options) {
 		set(options.getObjectOptions(labelId(), defaultValue()));
 	}
-	@Override public void setOptions(MOO1GameOptions options) {
+	@Override public void setOptions(DynamicOptions options) {
 		options.setObjectOptions(labelId(), get());
 	}
 	// ===== Other Methods =====

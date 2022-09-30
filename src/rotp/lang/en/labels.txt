@@ -1514,8 +1514,8 @@ SETTINGS_MOD_MIN_STARS_PER_EMPIRE_DESC   | To help defining the maximun opponent
 SETTINGS_MOD_MIN_STARS_PER_EMPIRE        | Min Stars per Empire: %1
 SETTINGS_MOD_PREF_STARS_PER_EMPIRE_DESC  | To help defining the default opponent number from the size of the galaxy.
 SETTINGS_MOD_PREF_STARS_PER_EMPIRE       | Favored Stars Number: %1
-SETTINGS_MOD_RESTART_CHANGE_PLAYER_DESC  | Should "Restart" Change the Player race? 
-SETTINGS_MOD_RESTART_CHANGE_PLAYER       | Restart Change Player: %1 
+SETTINGS_MOD_RESTART_APPLY_PLAYER_DESC   | Should "Restart" Use the new Player race? 
+SETTINGS_MOD_RESTART_APPLY_PLAYER        | Restart Change Player: %1 
 SETTINGS_MOD_RESTART_CHANGE_AI_DESC      | Should "Restart" Change the Aliens AI? 
 SETTINGS_MOD_RESTART_CHANGE_AI           | Restart Change AI: %1 
 SETTINGS_MOD_RESTART_CHANGE_ALIENS_DESC  | Should "Restart" Change the Aliens race and AI? 

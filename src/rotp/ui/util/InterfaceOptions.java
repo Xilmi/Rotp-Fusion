@@ -16,10 +16,10 @@
 
 package rotp.ui.util;
 
-import rotp.model.game.MOO1GameOptions;
+import rotp.model.game.DynamicOptions;
 
 public interface InterfaceOptions {
-	public void setOptions(MOO1GameOptions options);
-	public void setFromOptions(MOO1GameOptions options);
+	public void setOptions(DynamicOptions options);
+	public void setFromOptions(DynamicOptions options);
 	public void setFromDefault();
 }

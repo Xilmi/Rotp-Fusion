@@ -112,7 +112,7 @@ public class UserPreferences {
 			, 3, 3, null, 1, 5, 20);
 	public static final ParamFloat prefStarsPerEmpire = new ParamFloat(MOD_UI, "PREF_STARS_PER_EMPIRE"
 			, 10f, 3.0f, null, 1f, 5f, 20f, "0.#", "0.#");
-	public static final ParamBoolean restartChangePlayer = new ParamBoolean(MOD_UI, "RESTART_CHANGE_PLAYER", false);
+	public static final ParamBoolean restartApplyPlayer	 = new ParamBoolean(MOD_UI, "RESTART_APPLY_PLAYER", false);
 	public static final ParamBoolean restartChangeAI	 = new ParamBoolean(MOD_UI, "RESTART_CHANGE_AI",	 false);
 //	public static final ParamBoolean restartChangeAliens = new ParamBoolean(MOD_UI, "RESTART_CHANGE_ALIENS", false);
 	public static final ParamBoolean restartApplySettings= new ParamBoolean(MOD_UI, "RESTART_APPLY_SETTINGS",false);

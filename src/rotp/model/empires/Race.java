@@ -41,7 +41,7 @@ public class Race implements Base, Serializable {
     public static Race keyed(String s) {
         Race race = raceMap.get(s);
         if (race == null) { // BR: Add custom race if missing
-            race = CustomRaceFactory.keyToRace(s);
+            race = CustomAbilitiesFactory.keyToRace(s);
             race.isCustomRace(true);
             race.description4 = customRaceDescription;
         }

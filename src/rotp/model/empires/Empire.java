@@ -2413,7 +2413,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         return militaryPowerLevel(e) + industrialPowerLevel(e);
     }
     public float militaryPowerLevel(Empire e) {
-        TechTree t0 = e == this ? tech() : viewForEmpire(e).spies().tech();
+        // TechTree t0 = e == this ? tech() : viewForEmpire(e).spies().tech();
         float fleet = totalFleetSize(e);
         float techLvl = (float)Math.pow(1 / miniFastRate, tech().avgTechLevel());
         return fleet*techLvl;
@@ -2424,7 +2424,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         return fleet*techLvl;
     }
     public float industrialPowerLevel(Empire e) {
-        TechTree t0 = e == this ? tech() : viewForEmpire(e).spies().tech();
+        // TechTree t0 = e == this ? tech() : viewForEmpire(e).spies().tech();
         float prod = totalPlanetaryProduction(e);
         float techLvl = (float)Math.pow(1 / miniFastRate, tech().avgTechLevel());
         return prod*techLvl;
@@ -3161,7 +3161,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public String  abilitiesKey() { 
 //    	System.out.println("dataRaceKey = " + dataRaceKey);
 //    	System.out.println("dataRace.id = " + dataRace().id);
-    	return this.dataRaceKey;
+    	return dataRaceKey;
     }
     // Modnar added features
     public float bCBonus()                     { return dataRace().bCBonus(); }
