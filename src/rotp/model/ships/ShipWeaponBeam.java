@@ -119,8 +119,4 @@ public final class ShipWeaponBeam extends ShipWeapon {
     public int weaponWidth()          { return heavy ? tech().weaponSpread+1 : tech().weaponSpread; }
     @Override
     public int weaponSpread()         { return heavy ? tech().weaponSpread+1 : tech().weaponSpread; }
-    @Override
-    public boolean pellets()          { return tech().pellets; }
-    @Override
-    public boolean waves()            { return tech().waves; }
 }
