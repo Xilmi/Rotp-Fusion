@@ -27,7 +27,6 @@ import java.util.LinkedList;
 
 import javax.swing.SwingUtilities;
 
-import rotp.model.empires.Race;
 import rotp.model.game.DynamicOptions;
 import rotp.ui.BaseText;
 import rotp.util.LabelManager;
@@ -86,13 +85,13 @@ public class SettingBase<T> implements InterfaceParam {
 		this.guiLabel	= guiLabel;
 		this.nameLabel	= nameLabel;
 	}
-	void settingText(BaseText settingText) {
+	public void settingText(BaseText settingText) {
 		this.settingText = settingText;
 	}
 	private void optionsText(BaseText[] optionsText) {
 		this.optionsText = optionsText;
 	}
-	void optionText(BaseText optionText, int i) {
+	public void optionText(BaseText optionText, int i) {
 		optionsText[i] = optionText;
 	}
 	public SettingBase<?> initOptionsText() {
@@ -157,13 +156,13 @@ public class SettingBase<T> implements InterfaceParam {
 	@Override public void setFromDefault() {
 		selectedValue = defaultValue;		
 	}
-	@Override public void setOptions(DynamicOptions options) {
+	@Override public void setOptions(DynamicOptions destOptions) {
 		if (!isSpacer)
-			options.setStringOptions(labelId(), getCfgValue());
+			destOptions.setStringOptions(labelId(), getCfgValue());
 	}
-	@Override public void setFromOptions(DynamicOptions options) {
+	@Override public void setFromOptions(DynamicOptions srcOptions) {
 		if (!isSpacer)
-			setFromCfgValue(options.getStringOptions(labelId(), getDefaultCfgValue()));
+			setFromCfgValue(srcOptions.getStringOptions(labelId(), getDefaultCfgValue()));
 	}
 	@Override public String getCfgValue() 		{ return getCfgValue(settingValue()); }
 	@Override public String getCfgLabel()		{ return nameLabel; }
@@ -283,25 +282,28 @@ public class SettingBase<T> implements InterfaceParam {
 	}
 	// ===== Getters =====
 	//
-	String guiSettingDisplayStr() {
+	T		defaultValue()		{ return defaultValue; }
+	String	guiOptionLabel()	{ return guiOptionLabel(index()); }
+	String	guiOptionLabel(int index) {
+		return text(labelList.get(cfgValidIndex(index)));
+	}
+	public String guiSettingDisplayStr() {
 		if (isBullet) 
 			return guiSettingLabelCostStr();
 		else
 			return guiSettingLabelValueCostStr();		
 	}
-	T defaultValue()				{ return defaultValue; }
-	public boolean isSpacer()		{ return isSpacer; }
-	public boolean hasNoCost()		{ return hasNoCost; }
-	public boolean isBullet()		{ return isBullet; }
-	public float lastRandomSource()	{ return lastRandomSource; }
-	int index()						{ return cfgValidIndex(); }
-	BaseText settingText()		{ return settingText; }
-	BaseText[] optionsText()	{ return optionsText; }
-	BaseText optionText(int i)	{ return optionsText[i]; }
-	String guiOptionLabel()	{ return guiOptionLabel(index()); }
-	public String getLabel()		{ return text(labelId()); }
-	public boolean isDefaultIndex()	{ return cfgValidIndex() == rawDefaultIndex(); }
-	public float costFactor() {
+	public	boolean	isSpacer()	{ return isSpacer; }
+	public	boolean	hasNoCost()	{ return hasNoCost; }
+	public	boolean	isBullet()	{ return isBullet; }
+	public	int		index()		{ return cfgValidIndex(); }
+	public	String	getLabel()	{ return text(labelId()); }
+	public	float	lastRandomSource()	{ return lastRandomSource; }
+	public	boolean	isDefaultIndex()	{ return cfgValidIndex() == rawDefaultIndex(); }
+	public	BaseText	settingText()	{ return settingText; }
+	public	BaseText[]	optionsText()	{ return optionsText; }
+	public	BaseText optionText(int i)	{ return optionsText[i]; }
+	public	float	costFactor() {
 		if (isList) {
 			if (lastRandomSource<0)
 				return -Collections.min(costList);
@@ -319,15 +321,12 @@ public class SettingBase<T> implements InterfaceParam {
 		else
 			return 0;
 	}
-	String guiOptionLabel(int index) {
-		return text(labelList.get(cfgValidIndex(index)));
-	}
 	public LinkedList<String> getOptions(){
 		LinkedList<String> list = new LinkedList<String>();
 		list.addAll(cfgValueList);
 		return list;
 	}
-	String guiCostOptionStr(int idx) {
+	public String guiCostOptionStr(int idx) {
 		return guiCostOptionStr(idx, 0);
 	}
 	// ===== Other Public Methods =====

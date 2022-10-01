@@ -25,7 +25,6 @@ import static rotp.ui.UserPreferences.randomAlienRacesTargetMin;
 import static rotp.ui.util.SettingBase.CostFormula.DIFFERENCE;
 import static rotp.util.Base.random;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -33,6 +32,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import br.profileManager.src.main.java.PMutil;
+import rotp.model.game.DynOptions;
 import rotp.model.game.MOO1GameOptions;
 import rotp.model.planet.PlanetType;
 import rotp.ui.util.SettingBase;
@@ -47,25 +47,50 @@ public class CustomRaceDefinitions  {
 
 	private Race race;
 	private LinkedHashMap<String, String> settingsValues = new LinkedHashMap<>();
-	private LinkedList<SettingBase<?>> settingList;
-	private LinkedList<Integer> spacerList;
-	private LinkedList<Integer> columnList;
+	private final LinkedList<SettingBase<?>> settingList = new LinkedList<>();
+	private LinkedList<Integer> spacerList; // For UI
+	private LinkedList<Integer> columnList; // For UI
 	
-	public CustomRaceDefinitions() {}
-	public void init(LinkedList<SettingBase<?>> newSettingList) {
-		settingList = newSettingList;
+	// ========== Constructors and Initializers ==========
+	//
+	public CustomRaceDefinitions() {
+		newSettingList();
 	}
-	public Race race() { return race; }
-	public LinkedList<SettingBase<?>> settingList() { return settingList; }
-	public LinkedList<Integer> spacerList() { return spacerList; }
-	public LinkedList<Integer> columnList() { return columnList; }
+	public CustomRaceDefinitions(String path, String fileName) {
+		this();
+		loadSettingList(path, fileName);
+	}
+	public CustomRaceDefinitions(DynOptions srcOptions) {
+		this();
+		setFromOptions(srcOptions);
+	}
+	// ========== Options Management ==========
+	//
+	public DynOptions getAsOptions() {
+		DynOptions options = new DynOptions();
+		for (SettingBase<?> setting : settingList)
+			setting.setOptions(options);
+		return options;
+	}
+	public void setFromOptions(DynOptions srcOptions) {
+		for (SettingBase<?> setting : settingList)
+			setting.setFromOptions(srcOptions);
+	}
+	public void saveSettingList(String path, String fileName) {
+		getAsOptions().save(path, fileName);
+	}
+	private void loadSettingList(String path, String fileName) {
+		setFromOptions(DynOptions.loadOptions(path, fileName));
+	}
+	// ========== Main Getters ==========
+	//
+	public Race						  race()		{ return race; }
+	public LinkedList<SettingBase<?>> settingList()	{ return settingList; }
+	public LinkedList<Integer>		  spacerList()	{ return spacerList; }
+	public LinkedList<Integer>		  columnList()	{ return columnList; }
 
-	public void save(File file) {
-		
-	}
-	public void load(File file) {
-		
-	}
+	// ========== Other Methods ==========
+	//
 	public boolean isEmpty() {
 		return settingList == null;
 	}
@@ -229,8 +254,7 @@ public class CustomRaceDefinitions  {
 		pushSettings();
 	}
 
-	protected void newSettingList() {
-		settingList = new LinkedList<>();
+	private void newSettingList() {
 		spacerList  = new LinkedList<>();
 		columnList  = new LinkedList<>();
 		
@@ -289,13 +313,12 @@ public class CustomRaceDefinitions  {
 		// Fifth column
 		// endOfColumn(); // ====================
 	}
-	protected void endOfColumn() { columnList.add(settingList.size()); }
-	protected void spacer()		 { spacerList.add(settingList.size()); }
+	private void endOfColumn()	{ columnList.add(settingList.size()); }
+	private void spacer()		{ spacerList.add(settingList.size()); }
 	// -------------------- Static Methods --------------------
 	// 
 	public static String getRandomAlienRaceKey() {
 		CustomRaceDefinitions cr = new CustomRaceDefinitions();
-		cr.newSettingList();
 		cr.randomizeRace(randomAlienRacesMin.get(), randomAlienRacesMax.get(),
 				randomAlienRacesTargetMin.get(), randomAlienRacesTargetMax.get(),
 				randomAlienRacesSmoothEdges.get(), randomAlienRaces.isTarget(), false);
@@ -303,20 +326,17 @@ public class CustomRaceDefinitions  {
 	}
 	public static String raceToKey(Race race) {
 		CustomRaceDefinitions cr = new CustomRaceDefinitions();
-		cr.newSettingList();
 		cr.setRace(race.name());
 		cr.pullSettings();
 		return cr.getKey();
 	}
 	public static Race keyToRace(String raceKey) {
 		CustomRaceDefinitions cr = new CustomRaceDefinitions();
-		cr.newSettingList();
 		cr.setKey(raceKey);
 		return cr.race;
 	}
 	public static int keyToValue(String raceKey) {
 		CustomRaceDefinitions cr = new CustomRaceDefinitions();
-		cr.newSettingList();
 		cr.initShowRace(raceKey);
 		float cost = cr.getTotalCost();
 		return Math.round(cost); 
@@ -325,15 +345,15 @@ public class CustomRaceDefinitions  {
 	//
 	// ==================== Spacer ====================
 	//
-	public class Spacer extends SettingBase<String> {
-		public Spacer() {
-			super("", "");
-			isSpacer(true);
-		}
-	}
+//	private class Spacer extends SettingBase<String> {
+//		public Spacer() {
+//			super("", "");
+//			isSpacer(true);
+//		}
+//	}
 	// ==================== BaseDataRace ====================
 	//
-	public class BaseDataRace extends SettingBase<String> {
+	private class BaseDataRace extends SettingBase<String> {
 		private boolean updateAllowed	= true;
 		private boolean pullAllowed		= true;
 		private boolean costInitialized	= false;
@@ -388,7 +408,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== CreditsBonus ====================
 	//
-	public class CreditsBonus extends SettingInteger {
+	private class CreditsBonus extends SettingInteger {
 		// big = good
 		public CreditsBonus() {
 			super(ROOT, "CREDIT", 0, 0, 35, 1, 5, 20,
@@ -403,7 +423,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== HitPointsBonus ====================
 	//
-	public class HitPointsBonus extends SettingInteger {
+	private class HitPointsBonus extends SettingInteger {
 		// big = good
 		public HitPointsBonus() {
 			super(ROOT, "HIT_POINTS", 100, 50, 200, 1, 5, 20,
@@ -419,7 +439,7 @@ public class CustomRaceDefinitions  {
 	// ==================== ShipSpaceBonus ====================
 	//
 	// Absolute min = ? .75 not OK for colony building!
-	public class ShipSpaceBonus extends SettingInteger {
+	private class ShipSpaceBonus extends SettingInteger {
 		// big = good
 		public ShipSpaceBonus() {
 			super(ROOT, "SHIP_SPACE", 100, 80, 175, 1, 5, 20,
@@ -434,7 +454,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== MaintenanceBonus ====================
 	//
-	public class MaintenanceBonus extends SettingInteger {
+	private class MaintenanceBonus extends SettingInteger {
 		// Big = bad
 		public MaintenanceBonus() {
 			super(ROOT, "MAINTENANCE", 100, 50, 200, 1, 5, 20,
@@ -449,7 +469,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== PlanetRessources ====================
 	//
-	public class PlanetRessources extends SettingBase<String> {
+	private class PlanetRessources extends SettingBase<String> {
 		private static final String defaultValue = "Normal";
 		
 		public PlanetRessources() {
@@ -474,7 +494,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== PlanetEnvironment ====================
 	//
-	public class PlanetEnvironment extends SettingBase<String> {
+	private class PlanetEnvironment extends SettingBase<String> {
 		private static final String defaultValue = "Normal";
 		
 		public PlanetEnvironment() {
@@ -497,7 +517,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== PlanetType ====================
 	//
-	public class RacePlanetType extends SettingBase<String> {
+	private class RacePlanetType extends SettingBase<String> {
 		private static final String defaultValue = "Terran";
 		
 		public RacePlanetType() {
@@ -523,7 +543,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== HomeworldSize ====================
 	//
-	public class HomeworldSize extends SettingInteger {
+	private class HomeworldSize extends SettingInteger {
 		
 		public HomeworldSize() {
 			super(ROOT, "HOME_SIZE", 100, 70, 150, 1, 5, 20,
@@ -538,7 +558,8 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== SpeciesType ====================
 	//
-	public class SpeciesType extends SettingBase<Integer> {
+	@SuppressWarnings("unused")
+	private class SpeciesType extends SettingBase<Integer> {
 		private static final String defaultValue = "Terran";
 		
 		public SpeciesType() {
@@ -561,7 +582,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== IgnoreEco ====================
 	//
-	public class IgnoresEco extends SettingBoolean {
+	private class IgnoresEco extends SettingBoolean {
 		private static final boolean defaultValue = false;
 		
 		public IgnoresEco() {
@@ -578,7 +599,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== PopGrowRate ====================
 	//
-	public class PopGrowRate extends SettingInteger {
+	private class PopGrowRate extends SettingInteger {
 		
 		public PopGrowRate() {
 			super(ROOT, "POP_GROW_RATE", 100, 50, 200, 1, 5, 20,
@@ -593,7 +614,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== ShipAttack ====================
 	//
-	public class ShipAttack extends SettingInteger {
+	private class ShipAttack extends SettingInteger {
 		
 		public ShipAttack() {
 			super(ROOT, "SHIP_ATTACK", 0, -1, 5, 1, 1, 1,
@@ -609,7 +630,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== ShipDefense ====================
 	//
-	public class ShipDefense extends SettingInteger {
+	private class ShipDefense extends SettingInteger {
 		
 		public ShipDefense() {
 			super(ROOT, "SHIP_DEFENSE", 0, -1, 5, 1, 1, 1,
@@ -625,7 +646,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== ShipInitiative ====================
 	//
-	public class ShipInitiative extends SettingInteger {
+	private class ShipInitiative extends SettingInteger {
 		
 		public ShipInitiative() {
 			super(ROOT, "SHIP_INITIATIVE", 0, -1, 5, 1, 1, 1,
@@ -641,7 +662,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== GroundAttack ====================
 	//
-	public class GroundAttack extends SettingInteger {
+	private class GroundAttack extends SettingInteger {
 		
 		public GroundAttack() {
 			super(ROOT, "GROUND_ATTACK", 0, -20, 30, 1, 5, 20,
@@ -657,7 +678,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== SpyCost ====================
 	//
-	public class SpyCost extends SettingInteger {
+	private class SpyCost extends SettingInteger {
 		
 		public SpyCost() {
 			super(ROOT, "SPY_COST", 100, 50, 200, 1, 5, 20,
@@ -673,7 +694,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== SpySecurity ====================
 	//
-	public class SpySecurity extends SettingInteger {
+	private class SpySecurity extends SettingInteger {
 		
 		public SpySecurity() {
 			super(ROOT, "SPY_SECURITY", 0, -20, 40, 1, 5, 20,
@@ -689,7 +710,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== SpyInfiltration ====================
 	//
-	public class SpyInfiltration extends SettingInteger {
+	private class SpyInfiltration extends SettingInteger {
 		
 		public SpyInfiltration() {
 			super(ROOT, "SPY_INFILTRATION", 0, -20, 40, 1, 5, 20,
@@ -705,7 +726,8 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== SpyTelepathy ====================
 	//
-	public class SpyTelepathy extends SettingBoolean {
+	@SuppressWarnings("unused")
+	private class SpyTelepathy extends SettingBoolean {
 		private static final boolean defaultValue = false;
 		
 		public SpyTelepathy() {
@@ -722,7 +744,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== DiplomacyTrade ====================
 	//
-	public class DiplomacyTrade extends SettingInteger {
+	private class DiplomacyTrade extends SettingInteger {
 		
 		public DiplomacyTrade() {
 			super(ROOT, "DIPLOMACY_TRADE", 0, -30, 30, 1, 5, 20,
@@ -738,7 +760,8 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== DiploPosDP ====================
 	//
-	public class DiploPosDP extends SettingInteger {
+	@SuppressWarnings("unused")
+	private class DiploPosDP extends SettingInteger {
 		
 		public DiploPosDP() {
 			super(ROOT, "DIPLO_POS_DP", 100, 70, 200, 1, 5, 20,
@@ -754,7 +777,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== DiplomacyBonus ====================
 	//
-	public class DiplomacyBonus extends SettingInteger {
+	private class DiplomacyBonus extends SettingInteger {
 		
 		public DiplomacyBonus() {
 			super(ROOT, "DIPLOMACY_BONUS", 0, -50, 100, 1, 5, 20,
@@ -770,7 +793,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== DiplomacyCouncil ====================
 	//
-	public class DiplomacyCouncil extends SettingInteger {
+	private class DiplomacyCouncil extends SettingInteger {
 		
 		public DiplomacyCouncil() {
 			super(ROOT, "DIPLOMACY_COUNCIL", 0, -25, 25, 1, 5, 20,
@@ -786,7 +809,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== RelationDefault ====================
 	//
-	public class RelationDefault extends SettingInteger {
+	private class RelationDefault extends SettingInteger {
 		
 		public RelationDefault() {
 			super(ROOT, "RELATION_DEFAULT", 0, -10, 10, 1, 2, 4,
@@ -802,7 +825,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== ProdWorker ====================
 	//
-	public class ProdWorker extends SettingInteger {
+	private class ProdWorker extends SettingInteger {
 		// bigger = better
 		public ProdWorker() {
 			super(ROOT, "PROD_WORKER", 100, 70, 200, 1, 5, 20,
@@ -818,7 +841,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== ProdControl ====================
 	//
-	public class ProdControl extends SettingInteger {
+	private class ProdControl extends SettingInteger {
 		
 		public ProdControl() {
 			super(ROOT, "PROD_CONTROL", 0, -1, 4, 1, 1, 1,
@@ -834,7 +857,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== IgnoresFactoryRefit ====================
 	//
-	public class IgnoresFactoryRefit extends SettingBoolean {
+	private class IgnoresFactoryRefit extends SettingBoolean {
 		private static final boolean defaultValue = false;
 		
 		public IgnoresFactoryRefit() {
@@ -851,7 +874,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== TechDiscovery ====================
 	//
-	public class TechDiscovery extends SettingInteger {
+	private class TechDiscovery extends SettingInteger {
 		// bigger = better
 		public TechDiscovery() {
 			super(ROOT, "TECH_DISCOVERY", 50, 30, 100, 1, 5, 20,
@@ -867,7 +890,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== TechResearch ====================
 	//
-	public class TechResearch extends SettingInteger {
+	private class TechResearch extends SettingInteger {
 		// bigger = better
 		public TechResearch() {
 			super(ROOT, "TECH_RESEARCH", 100, 60, 200, 1, 5, 20, DIFFERENCE,
@@ -891,7 +914,7 @@ public class CustomRaceDefinitions  {
 	private static final float researchC2pos = -.0012f;
 	private static final float researchC2neg = -.005f;
 
-	public class ResearchComputer extends SettingInteger {
+	private class ResearchComputer extends SettingInteger {
 		// smaller = better
 		public ResearchComputer() {
 			super(ROOT, "RESEARCH_COMPUTER", 100, studyCostMin, studyCostMax,
@@ -909,7 +932,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== ResearchConstruction ====================
 	//
-	public class ResearchConstruction extends SettingInteger {
+	private class ResearchConstruction extends SettingInteger {
 		
 		public ResearchConstruction() {
 			super(ROOT, "RESEARCH_CONSTRUCTION", 100, studyCostMin, studyCostMax,
@@ -927,7 +950,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== ResearchForceField ====================
 	//
-	public class ResearchForceField extends SettingInteger {
+	private class ResearchForceField extends SettingInteger {
 		
 		public ResearchForceField() {
 			super(ROOT, "RESEARCH_FORCEFIELD", 100, studyCostMin, studyCostMax,
@@ -945,7 +968,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== ResearchPlanet ====================
 	//
-	public class ResearchPlanet extends SettingInteger {
+	private class ResearchPlanet extends SettingInteger {
 		
 		public ResearchPlanet() {
 			super(ROOT, "RESEARCH_PLANET", 100, studyCostMin, studyCostMax,
@@ -963,7 +986,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== ResearchPropulsion ====================
 	//
-	public class ResearchPropulsion extends SettingInteger {
+	private class ResearchPropulsion extends SettingInteger {
 		
 		public ResearchPropulsion() {
 			super(ROOT, "RESEARCH_PROPULSION", 100, studyCostMin, studyCostMax,
@@ -981,7 +1004,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== ResearchWeapon ====================
 	//
-	public class ResearchWeapon extends SettingInteger {
+	private class ResearchWeapon extends SettingInteger {
 		
 		public ResearchWeapon() {
 			super(ROOT, "RESEARCH_WEAPON", 100, studyCostMin, studyCostMax,

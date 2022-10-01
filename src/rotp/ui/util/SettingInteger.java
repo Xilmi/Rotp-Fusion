@@ -71,7 +71,7 @@ public class SettingInteger extends SettingBase<Integer> {
 	 * @param shiftInc The increment when Shift is hold
 	 * @param ctrlInc  The increment when Ctrl is hold
 	 */
-	SettingInteger(String guiLangLabel, String nameLangLabel, Integer defaultValue
+	public SettingInteger(String guiLangLabel, String nameLangLabel, Integer defaultValue
 			, Integer minValue, Integer maxValue
 			, Integer baseInc, Integer shiftInc, Integer ctrlInc) {
 		this(guiLangLabel, nameLangLabel, defaultValue, minValue, maxValue);
