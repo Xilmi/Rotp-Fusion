@@ -100,7 +100,7 @@ public final class TechBiologicalWeapon extends Tech {
         return 0;
     }
     @Override
-    public void drawIneffectiveAttack(CombatStack source, CombatStack target, int wpnNum) {
+    public void drawIneffectiveAttack(CombatStack source, CombatStack target, int wpnNum, int count) {
         ShipBattleUI ui = source.mgr.ui;
         if (ui == null)
             return;
@@ -119,7 +119,7 @@ public final class TechBiologicalWeapon extends Tech {
         drawAttack(source, target, x0, y0, x1, y1, wpnNum, -1);
     }
     @Override
-    public void drawUnsuccessfulAttack(CombatStack source, CombatStack target, int wpnNum) {
+    public void drawUnsuccessfulAttack(CombatStack source, CombatStack target, int wpnNum, int count) {
          if (!source.mgr.showAnimations())
             return;
         ShipBattleUI ui = source.mgr.ui;
@@ -142,7 +142,7 @@ public final class TechBiologicalWeapon extends Tech {
         drawAttack(source, target, x0, y0, x1, y1, wpnNum, 0);
     }
     @Override
-    public void drawSuccessfulAttack(CombatStack source, CombatStack target, int wpnNum, float dmg) {
+    public void drawSuccessfulAttack(CombatStack source, CombatStack target, int wpnNum, float dmg, int count) {
          if (!source.mgr.showAnimations())
             return;
         ShipBattleUI ui = source.mgr.ui;

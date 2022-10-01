@@ -67,7 +67,7 @@ public final class ShipWeaponBeam extends ShipWeapon {
     @Override
     public void fireUpon(CombatStack source, CombatStack target, int count) {
         if (random() < target.autoMissPct()) {
-            drawUnsuccessfulAttack(source, target);
+            drawUnsuccessfulAttack(source, target, count);
             return;
         }
         float totalDamage = 0;
@@ -95,11 +95,11 @@ public final class ShipWeaponBeam extends ShipWeapon {
             }
         }
         if (totalDamage > 0)
-            drawSuccessfulAttack(source, target, totalDamage);
+            drawSuccessfulAttack(source, target, totalDamage, count);
         else if (successfullyHit)
-            drawIneffectiveAttack(source, target);
+            drawIneffectiveAttack(source, target, count);
         else
-            drawUnsuccessfulAttack(source, target);
+            drawUnsuccessfulAttack(source, target, count);
     }
     @Override
     public int range()                { return heavy ? tech().heavyRange : tech().range; }
@@ -116,11 +116,7 @@ public final class ShipWeaponBeam extends ShipWeapon {
     @Override
     public String name()              { return heavy ? tech().item2() : tech().item(); }
     @Override
-    public int weaponWidth()          { return heavy ? tech().weaponWidth+1 : tech().weaponWidth; }
+    public int weaponWidth()          { return heavy ? tech().weaponSpread+1 : tech().weaponSpread; }
     @Override
     public int weaponSpread()         { return heavy ? tech().weaponSpread+1 : tech().weaponSpread; }
-    @Override
-    public boolean pellets()          { return tech().pellets; }
-    @Override
-    public boolean waves()            { return tech().waves; }
 }

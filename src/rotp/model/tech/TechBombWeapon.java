@@ -103,7 +103,7 @@ public final class TechBombWeapon extends Tech {
         c.shipLab().addWeapon(sh);
     }
     @Override
-    public void drawIneffectiveAttack(CombatStack source, CombatStack target, int wpnNum) {
+    public void drawIneffectiveAttack(CombatStack source, CombatStack target, int wpnNum, int count) {
         if (!source.mgr.showAnimations())
             return;
 
@@ -124,7 +124,7 @@ public final class TechBombWeapon extends Tech {
         drawAttack(source, target, x0, y0, x1, y1, wpnNum, -1);
     }
     @Override
-    public void drawUnsuccessfulAttack(CombatStack source, CombatStack target, int wpnNum) {
+    public void drawUnsuccessfulAttack(CombatStack source, CombatStack target, int wpnNum, int count) {
         ShipBattleUI ui = source.mgr.ui;
         if (!source.mgr.showAnimations())
             return;
@@ -143,7 +143,7 @@ public final class TechBombWeapon extends Tech {
         drawAttack(source, target, x0, y0, x1, y1, wpnNum, 0);
     }
     @Override
-    public void drawSuccessfulAttack(CombatStack source, CombatStack target, int wpnNum, float dmg) {
+    public void drawSuccessfulAttack(CombatStack source, CombatStack target, int wpnNum, float dmg, int count) {
         if (!source.mgr.showAnimations())
             return;
 

@@ -54,13 +54,13 @@ public class ShipWeaponMissileType extends ShipWeapon {
         if (random() < target.autoMissPct())
         {
             if(target.mgr.showAnimations())
-                drawUnsuccessfulAttack(source, target);
+                drawUnsuccessfulAttack(source, target, count);
             return;
         }
         if (target.interceptsMissile(this))
         {
             if(target.mgr.showAnimations())
-                drawUnsuccessfulAttack(source, target);
+                drawUnsuccessfulAttack(source, target, count);
             return;
         }
 
@@ -94,11 +94,11 @@ public class ShipWeaponMissileType extends ShipWeapon {
         if (target.mgr.showAnimations())
         {
             if(totalDamage >0)
-                tech().drawSuccessfulAttack(null, target, 0, totalDamage);
+                tech().drawSuccessfulAttack(null, target, 0, totalDamage, count);
             else if (successfullyHit)
-                drawIneffectiveAttack(source, target);
+                drawIneffectiveAttack(source, target, count);
             else
-                drawUnsuccessfulAttack(source, target);
+                drawUnsuccessfulAttack(source, target, count);
         }
     }
 }
