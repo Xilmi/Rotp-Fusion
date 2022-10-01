@@ -15,6 +15,8 @@
  */
 package rotp.model.empires;
 
+import static rotp.model.tech.Tech.miniFastRate;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
@@ -29,7 +31,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -53,9 +54,6 @@ import rotp.model.colony.MissileBase;
 import rotp.model.empires.SpyNetwork.FleetView;
 import rotp.model.events.SystemColonizedEvent;
 import rotp.model.events.SystemHomeworldEvent;
-import rotp.model.game.GameSession;
-import rotp.model.game.GovernorOptions;
-import rotp.ui.notifications.*;
 import rotp.model.galaxy.Galaxy;
 import rotp.model.galaxy.GalaxyCopy;
 import rotp.model.galaxy.GalaxyFactory;
@@ -67,6 +65,9 @@ import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.Ships;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.galaxy.Transport;
+import rotp.model.game.DynOptions;
+import rotp.model.game.GameSession;
+import rotp.model.game.GovernorOptions;
 import rotp.model.incidents.DiplomaticIncident;
 import rotp.model.incidents.GenocideIncident;
 import rotp.model.planet.PlanetType;
@@ -74,7 +75,6 @@ import rotp.model.ships.ShipDesign;
 import rotp.model.ships.ShipDesignLab;
 import rotp.model.ships.ShipLibrary;
 import rotp.model.tech.Tech;
-import static rotp.model.tech.Tech.miniFastRate;
 import rotp.model.tech.TechRoboticControls;
 import rotp.model.tech.TechTree;
 import rotp.ui.NoticeMessage;
@@ -82,6 +82,11 @@ import rotp.ui.UserPreferences;
 import rotp.ui.diplomacy.DialogueManager;
 import rotp.ui.diplomacy.DiplomaticReply;
 import rotp.ui.main.GalaxyMapPanel;
+import rotp.ui.notifications.DiscoverTechNotification;
+import rotp.ui.notifications.GNNGenocideNotice;
+import rotp.ui.notifications.GNNNotification;
+import rotp.ui.notifications.PlunderShipTechNotification;
+import rotp.ui.notifications.PlunderTechNotification;
 import rotp.util.Base;
 import rotp.util.LabelManager;
 
@@ -146,11 +151,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     private final String dataRaceKey;
 
     // BR: Dynamic options
-	private final LinkedHashMap<String, Boolean> booleanOptions	= new LinkedHashMap<>(); // For future use
-	private final LinkedHashMap<String, Float>	 floatOptions	= new LinkedHashMap<>(); // For future use
-	private final LinkedHashMap<String, Integer> integerOptions	= new LinkedHashMap<>(); // For future use
-    private final LinkedHashMap<String, Object>	 objectOptions	= new LinkedHashMap<>(); // For future use
-	private final LinkedHashMap<String, String>	 stringOptions	= new LinkedHashMap<>(); // For future use
+    private final DynOptions dynamicOptions = new DynOptions();
 
     private transient float avgX, avgY, nameX1, nameX2;
 
@@ -178,13 +179,6 @@ public final class Empire implements Base, NamedObject, Serializable {
     private transient int inRange;
     public transient int numColoniesHistory;
     private transient String empireName;
-
-    // BR: Dynamic options
-    public LinkedHashMap<String, Boolean> booleanOptions() { return booleanOptions; }
-    public LinkedHashMap<String, Float>	  floatOptions()   { return floatOptions; }
-    public LinkedHashMap<String, Integer> integerOptions() { return integerOptions; }
-    public LinkedHashMap<String, Object>  objectOptions()  { return objectOptions; }
-    public LinkedHashMap<String, String>  stringOptions()  { return stringOptions; }
 
     public AI ai() {
         if (ai == null) {
@@ -3163,6 +3157,7 @@ public final class Empire implements Base, NamedObject, Serializable {
 //    	System.out.println("dataRace.id = " + dataRace().id);
     	return dataRaceKey;
     }
+    public DynOptions dynamicOptions() { return dynamicOptions; }
     // Modnar added features
     public float bCBonus()                     { return dataRace().bCBonus(); }
     public float hPFactor()                    { return dataRace().hPFactor();  }

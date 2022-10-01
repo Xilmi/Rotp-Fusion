@@ -18,10 +18,11 @@ package rotp.ui.util;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import java.io.Serializable;
 
 import rotp.model.game.DynamicOptions;
 
-public class ParamObject extends AbstractParam<Object> {
+public class ParamObject extends AbstractParam<Serializable> {
 	
 
 	// ===== Constructors =====

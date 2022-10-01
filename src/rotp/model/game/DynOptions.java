@@ -37,11 +37,11 @@ import rotp.util.ObjectCloner;
 
 public class DynOptions implements DynamicOptions, Serializable {
 	private static final long serialVersionUID = 1L;
-	private LinkedHashMap<String, Boolean>	booleanOptions	= new LinkedHashMap<>();
-	private LinkedHashMap<String, Float>	floatOptions	= new LinkedHashMap<>();
-	private LinkedHashMap<String, Integer>	integerOptions	= new LinkedHashMap<>();
-    private LinkedHashMap<String, Object>	objectOptions	= new LinkedHashMap<>();
-    private LinkedHashMap<String, String>	stringOptions	= new LinkedHashMap<>();
+	private LinkedHashMap<String, Boolean>		booleanOptions	= new LinkedHashMap<>();
+	private LinkedHashMap<String, Float>		floatOptions	= new LinkedHashMap<>();
+	private LinkedHashMap<String, Integer>		integerOptions	= new LinkedHashMap<>();
+    private LinkedHashMap<String, Serializable>	objectOptions	= new LinkedHashMap<>();
+    private LinkedHashMap<String, String>		stringOptions	= new LinkedHashMap<>();
 
     // -------------------- Overriders --------------------
     //
@@ -72,13 +72,13 @@ public class DynOptions implements DynamicOptions, Serializable {
 	@Override public Integer getIntegerOptions(String id, Integer defaultValue) {
 		return integerOptions.getOrDefault(id, defaultValue);
 	}
-	@Override public Object setObjectOptions(String id, Object value) {
+	@Override public Serializable setObjectOptions(String id, Serializable value) {
 		return objectOptions.put(id, deepCopy(value));
 	}
-	@Override public Object getObjectOptions(String id) {
+	@Override public Serializable getObjectOptions(String id) {
 		return objectOptions.get(id);
 	}
-	@Override public Object getObjectOptions(String id, Object defaultValue) {
+	@Override public Serializable getObjectOptions(String id, Serializable defaultValue) {
 		return objectOptions.getOrDefault(id, defaultValue);
 	}
 	@Override public String setStringOptions(String id, String value) {

@@ -55,7 +55,6 @@ import rotp.model.ships.ShipImage;
 import rotp.model.ships.ShipLibrary;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
-import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.util.Modifier2KeysState;
 
@@ -141,13 +140,13 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     }
 	private void saveOptions(MOO1GameOptions destination) {
 		copyOptions((MOO1GameOptions)newGameOptions(), destination);
-		customPlayerRace.setOptions(destination);
-    	playerShipSet.setOptions(destination);
+		customPlayerRace.setOptions(destination.dynamicOptions());
+    	playerShipSet.setOptions(destination.dynamicOptions());
 	}
 	private void getOptions(MOO1GameOptions source) {
 		copyOptions(source, (MOO1GameOptions)newGameOptions());
-    	customPlayerRace.setFromOptions(source);
-    	playerShipSet.setFromOptions(source);
+    	customPlayerRace.setFromOptions(source.dynamicOptions());
+    	playerShipSet.setFromOptions(source.dynamicOptions());
         raceChanged();
 	}
     private void doCancelBoxAction() {

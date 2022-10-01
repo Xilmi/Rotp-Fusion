@@ -23,7 +23,6 @@ import static rotp.ui.UserPreferences.minStarsPerEmpire;
 import static rotp.ui.UserPreferences.playerShipSet;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
 import static rotp.ui.UserPreferences.randomTechStart;
-import static rotp.util.ObjectCloner.deepCopy;
 
 import java.awt.Color;
 import java.awt.Toolkit;
@@ -40,7 +39,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -80,7 +78,8 @@ import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.util.InterfaceOptions;
 import rotp.util.Base;
 
-public class MOO1GameOptions implements Base, IGameOptions, DynamicOptions, Serializable {
+//public class MOO1GameOptions implements Base, IGameOptions, DynamicOptions, Serializable {
+public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private static final long serialVersionUID = 1L;
     private static final float BASE_RESEARCH_MOD = 30f;
     private final String[] opponentRaces = new String[MAX_OPPONENTS];
@@ -123,11 +122,7 @@ public class MOO1GameOptions implements Base, IGameOptions, DynamicOptions, Seri
     private String selectedColonizingOption;
     private String selectedAutoplayOption;
     // BR: Dynamic options
-	private final LinkedHashMap<String, Boolean> booleanOptions	= new LinkedHashMap<>();
-	private final LinkedHashMap<String, Float>	 floatOptions	= new LinkedHashMap<>();
-	private final LinkedHashMap<String, Integer> integerOptions	= new LinkedHashMap<>();
-    private final LinkedHashMap<String, Object>	 objectOptions	= new LinkedHashMap<>();
-    private final LinkedHashMap<String, String>	 stringOptions	= new LinkedHashMap<>();
+    private final DynOptions dynamicOptions = new DynOptions();
 
     private transient GalaxyShape galaxyShape;
 
@@ -139,55 +134,11 @@ public class MOO1GameOptions implements Base, IGameOptions, DynamicOptions, Seri
         randomizeColors();
         setDefaultOptionValues();
     }
-	@Override public Boolean setBooleanOptions(String id, Boolean value) {
-		return booleanOptions.put(id, value);
-	}
-	@Override public Boolean getBooleanOptions(String id) {
-		return booleanOptions.get(id);
-	}
-	@Override public Boolean getBooleanOptions(String id, Boolean defaultValue) {
-		return booleanOptions.getOrDefault(id, defaultValue);
-	}
-	@Override public Float setFloatOptions(String id, Float value) {
-		return floatOptions.put(id, value);
-	}
-	@Override public Float getFloatOptions(String id) {
-		return floatOptions.get(id);
-	}
-	@Override public Float getFloatOptions(String id, Float defaultValue) {
-		return floatOptions.getOrDefault(id, defaultValue);
-	}
-	@Override public Integer setIntegerOptions(String id, Integer value) {
-		return integerOptions.put(id, value);
-	}
-	@Override public Integer getIntegerOptions(String id) {
-		return integerOptions.get(id);
-	}
-	@Override public Integer getIntegerOptions(String id, Integer defaultValue) {
-		return integerOptions.getOrDefault(id, defaultValue);
-	}
-	@Override public Object setObjectOptions(String id, Object value) {
-		return objectOptions.put(id, deepCopy(value));
-	}
-	@Override public Object getObjectOptions(String id) {
-		return objectOptions.get(id);
-	}
-	@Override public Object getObjectOptions(String id, Object defaultValue) {
-		return objectOptions.getOrDefault(id, defaultValue);
-	}
-	@Override public String setStringOptions(String id, String value) {
-		return stringOptions.put(id, value);
-	}
-	@Override public String getStringOptions(String id) {
-		return stringOptions.get(id);
-	}
-	@Override public String getStringOptions(String id, String defaultValue) {
-		return stringOptions.getOrDefault(id, defaultValue);
-	}
     private void resetSelectedOpponentRaces() {
         for (int i=0;i<opponentRaces.length;i++)
             selectedOpponentRace(i,null);
     }
+	@Override public DynOptions dynamicOptions() { return dynamicOptions; } // BR:
     @Override
     public int numPlayers()                      { return 1; }
     @Override
@@ -454,9 +405,9 @@ public class MOO1GameOptions implements Base, IGameOptions, DynamicOptions, Seri
         
     	// Copy CustomRaces as part of Race UI
 		for (InterfaceOptions param : RotPUI.playerRaceCustomizationUI().commonList)
-			param.setFromOptions(opt);
-    	customPlayerRace.setFromOptions(opt);
-    	playerShipSet.setFromOptions(opt);
+			param.setFromOptions(opt.dynamicOptions);
+    	customPlayerRace.setFromOptions(opt.dynamicOptions);
+    	playerShipSet.setFromOptions(opt.dynamicOptions);
 
     	if (opt.player != null) 
             player.copy(opt.player);

@@ -22,15 +22,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
 import rotp.model.colony.Colony;
 import rotp.model.combat.ShipCombatManager;
 import rotp.model.empires.Empire;
 import rotp.model.empires.GalacticCouncil;
 import rotp.model.empires.Race;
 import rotp.model.events.RandomEvents;
+import rotp.model.game.DynOptions;
 import rotp.model.game.GameSession;
 import rotp.ui.NoticeMessage;
 import rotp.ui.UserPreferences;
@@ -65,29 +66,19 @@ public class Galaxy implements Base, Serializable {
     public int systemCount = 0;
 
     // BR: Dynamic options
-	private final LinkedHashMap<String, Boolean> booleanOptions	= new LinkedHashMap<>(); // For future use
-	private final LinkedHashMap<String, Float>	 floatOptions	= new LinkedHashMap<>(); // For future use
-	private final LinkedHashMap<String, Integer> integerOptions	= new LinkedHashMap<>(); // For future use
-    private final LinkedHashMap<String, Object>	 objectOptions	= new LinkedHashMap<>(); // For future use
-	private final LinkedHashMap<String, String>	 stringOptions	= new LinkedHashMap<>(); // For future use
+    private final DynOptions dynamicOptions = new DynOptions();
 
     private transient ShipCombatManager shipCombat = new ShipCombatManager();
     private transient Map<String, List<String>> raceSystemNames = new HashMap<>();
     private transient Map<String, Integer> raceSystemCtr = new HashMap<>();
 
-    // BR: Dynamic options
-    public LinkedHashMap<String, Boolean> booleanOptions() { return booleanOptions; }
-    public LinkedHashMap<String, Float>	  floatOptions()   { return floatOptions; }
-    public LinkedHashMap<String, Integer> integerOptions() { return integerOptions; }
-    public LinkedHashMap<String, Object>  objectOptions()  { return objectOptions; }
-    public LinkedHashMap<String, String>  stringOptions()  { return stringOptions; }
     public void backupStarSystem() {
-    	objectOptions.put(SYSTEMS_KEY, deepCopy(starSystems));
+    	dynamicOptions.setObjectOptions(SYSTEMS_KEY, deepCopy(starSystems));
     }
     public StarSystem[] originalStarSystem() {
-    	return (StarSystem[]) objectOptions.get(SYSTEMS_KEY);
+    	return (StarSystem[]) dynamicOptions.getObjectOptions(SYSTEMS_KEY);
     }
-
+    public DynOptions dynamicOptions()		 { return dynamicOptions; } // BR:
     public int beginningYear()               { return player().race().startingYear; }
     public float currentTime()               { return currentTime; }
     public GalacticCouncil council()         { return council; }

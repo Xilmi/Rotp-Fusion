@@ -13,14 +13,23 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 public class ObjectCloner {
 	// so that nobody can accidentally create an ObjectCloner object
 	private ObjectCloner(){}
 	// returns a deep copy of an object
-	static public Object deepCopy(Object oldObj) {
+//	static public Object deepCopy(Object oldObj) {
+//		try {
+//			return deepCopyTE(oldObj);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return null;
+//		}
+//	}
+	static public Serializable deepCopy(Serializable oldObj) {
 		try {
-			return deepCopyTE(oldObj);
+			return (Serializable) deepCopyTE(oldObj);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

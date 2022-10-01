@@ -277,13 +277,13 @@ public abstract class AbstractCRUI extends BasePanel implements MouseListener, M
 	}
 	public void saveOptions(MOO1GameOptions destination) {
 		for (InterfaceOptions param : commonList)
-			param.setOptions(destination);
-		customPlayerRace.setOptions(destination);
+			param.setOptions(destination.dynamicOptions());
+		customPlayerRace.setOptions(destination.dynamicOptions());
 	}
 	public void getOptions(MOO1GameOptions source) {
 		for (InterfaceOptions param : commonList)
-			param.setFromOptions(source);
-		customPlayerRace.setFromOptions(source);
+			param.setFromOptions(source.dynamicOptions());
+		customPlayerRace.setFromOptions(source.dynamicOptions());
 		init();
 	}
 	private void doExitBoxAction() {

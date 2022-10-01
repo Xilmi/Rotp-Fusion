@@ -139,11 +139,11 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
     }
 	private void saveOptions(MOO1GameOptions destination) {
 		copyOptions((MOO1GameOptions)newGameOptions(), destination);
-		showNewRaces.setOptions(destination);
+		showNewRaces.setOptions(destination.dynamicOptions());
 	}
 	private void getOptions(MOO1GameOptions source) {
 		copyOptions(source, (MOO1GameOptions)newGameOptions());
-		showNewRaces.setFromOptions(source);
+		showNewRaces.setFromOptions(source.dynamicOptions());
 	}
     private void doStartBoxAction() {
 		buttonClick();

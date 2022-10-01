@@ -118,8 +118,8 @@ public abstract class EditCustomRaceUI extends ShowCustomRaceUI implements Mouse
 	//
 	public void saveOptions(MOO1GameOptions destination) {
 		for (InterfaceOptions param : commonList)
-			param.setOptions(destination);
-		customPlayerRace.setOptions(destination);
+			param.setOptions(destination.dynamicOptions());
+		customPlayerRace.setOptions(destination.dynamicOptions());
 	}
 	private void doExitBoxAction() {
 		switch (Modifier2KeysState.get()) {

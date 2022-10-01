@@ -181,11 +181,11 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	}
 	public void saveOptions(MOO1GameOptions destination) {
 		for (InterfaceOptions param : paramList)
-			param.setOptions(destination);
+			param.setOptions(destination.dynamicOptions());
 	}
 	public void getOptions(MOO1GameOptions source) {
 		for (InterfaceOptions param : paramList)
-			param.setFromOptions(source);
+			param.setFromOptions(source.dynamicOptions());
 	}
 	private void doOkBoxAction() {
 		buttonClick();

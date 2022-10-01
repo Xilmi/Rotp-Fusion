@@ -15,21 +15,23 @@
  */
 package rotp.model.game;
 
+import java.io.Serializable;
+
 public interface DynamicOptions {
 
-    public Boolean setBooleanOptions(String id, Boolean value);
-    public Boolean getBooleanOptions(String id);
-    public Boolean getBooleanOptions(String id, Boolean defaultValue);
-    public Float   setFloatOptions  (String id, Float value);
-    public Float   getFloatOptions  (String id);
-    public Float   getFloatOptions  (String id, Float defaultValue);
-    public Integer setIntegerOptions(String id, Integer value);
-    public Integer getIntegerOptions(String id);
-    public Integer getIntegerOptions(String id, Integer defaultValue);
-    public Object  setObjectOptions (String id, Object value);
-    public Object  getObjectOptions (String id);
-    public Object  getObjectOptions (String id, Object defaultValue);
-    public String  setStringOptions (String id, String value);
-    public String  getStringOptions (String id);
-    public String  getStringOptions (String id, String defaultValue);
+    public Boolean		setBooleanOptions(String id, Boolean value);
+    public Boolean		getBooleanOptions(String id);
+    public Boolean		getBooleanOptions(String id, Boolean defaultValue);
+    public Float		setFloatOptions  (String id, Float value);
+    public Float		getFloatOptions  (String id);
+    public Float		getFloatOptions  (String id, Float defaultValue);
+    public Integer		setIntegerOptions(String id, Integer value);
+    public Integer		getIntegerOptions(String id);
+    public Integer		getIntegerOptions(String id, Integer defaultValue);
+    public Serializable setObjectOptions (String id, Serializable value);
+    public Serializable getObjectOptions (String id);
+    public Serializable	getObjectOptions (String id, Serializable defaultValue);
+    public String		setStringOptions (String id, String value);
+    public String		getStringOptions (String id);
+    public String		getStringOptions (String id, String defaultValue);
 }

@@ -242,8 +242,8 @@ public abstract class ShowCustomRaceUI extends BasePanel implements MouseListene
 //	}
 	public void getOptions(MOO1GameOptions source) {
 		for (InterfaceOptions param : commonList)
-			param.setFromOptions(source);
-		customPlayerRace.setFromOptions(source);
+			param.setFromOptions(source.dynamicOptions());
+		customPlayerRace.setFromOptions(source.dynamicOptions());
 		init();
 	}
 	private void doExitBoxAction() {
