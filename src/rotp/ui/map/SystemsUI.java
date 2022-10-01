@@ -916,14 +916,14 @@ public final class SystemsUI extends BasePanel implements IMapHandler, ActionLis
                 String distStr = df1.format(Math.ceil(10*dist)/10);
                 return (dist > 0) && (dist < rng+rng) ? text("SYSTEMS_RANGE", distStr) : "";
             case expandTab:
+                //FALL_THROUGH
+            case exploitTab:
                 if (!sv.scouted())
                     return "";
                 else if (sv.currentSize() == 0)
-                    return text("SYSTEMS_ENVIRONMENT_SIZE", sv.planetType().name(), "");
+                    return text("SYSTEMS_ENVIRONMENT_SIZE", sv.planetType().name(), "") + " "+  text("SYSTEMS_ENVIRONMENT_TYPE", text(sv.resourceType()), text(sv.ecologyType()));
                 else
-                    return text("SYSTEMS_ENVIRONMENT_SIZE", sv.planetType().name(), str(sv.currentSize()));
-            case exploitTab: 
-                return text("SYSTEMS_ENVIRONMENT_TYPE", text(sv.resourceType()), text(sv.ecologyType()));
+                    return text("SYSTEMS_ENVIRONMENT_SIZE", sv.planetType().name(), str(sv.currentSize())) + " "+ text("SYSTEMS_ENVIRONMENT_TYPE", text(sv.resourceType()), text(sv.ecologyType()));
             case exterminateTab: 
                 int bases = sv.bases();
                 int shield = sv.shieldLevel();
