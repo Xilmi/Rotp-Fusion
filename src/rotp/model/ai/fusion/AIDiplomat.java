@@ -774,6 +774,8 @@ public class AIDiplomat implements Base, Diplomat {
         // or targets we are preparing for war with
         // only ask people who we are in real contact with
         //xilmi: It is possible to be in range but not have contact
+        if(friend == target)
+            return false;
         if(!friend.hasContact(target))
             return false;
         if (!empire.inEconomicRange(friend.id))
@@ -837,6 +839,9 @@ public class AIDiplomat implements Base, Diplomat {
         
         if(!empire.enemies().isEmpty())
             return v.refuse(DialogueManager.DECLINE_OFFER, target);
+        
+        if(target == balanceVictim())
+            return agreeToJointWar(requestor, target);
 
         //ail: refuse offer if we like the target more than the one who asks
         if(empire.viewForEmpire(target).embassy().relations() > v.embassy().relations())
@@ -1100,6 +1105,13 @@ public class AIDiplomat implements Base, Diplomat {
         
         // build a priority list for Joint War offers:
         for (Empire target: empire.enemies()) {
+            if (willingToOfferJointWar(v.empire(), target)) {
+                //System.out.println(empire.galaxy().currentTurn()+" "+ empire.name()+" asks "+v.empire().name()+" to declare war on "+target.name());
+                v.empire().diplomatAI().receiveOfferJointWar(v.owner(), target); 
+            }
+        }
+        Empire target = getVictim();
+        if(!empire.atWar() && target == balanceVictim()) {
             if (willingToOfferJointWar(v.empire(), target)) {
                 //System.out.println(empire.galaxy().currentTurn()+" "+ empire.name()+" asks "+v.empire().name()+" to declare war on "+target.name());
                 v.empire().diplomatAI().receiveOfferJointWar(v.owner(), target); 
