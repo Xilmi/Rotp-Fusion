@@ -525,6 +525,8 @@ public final class TechShipWeapon extends Tech {
             }
         }
         SortedMap<Integer, ArrayList<Line2D.Double>> partLines = new TreeMap<>();
+        windUpFrames = source.mgr.autoComplete ? 1 : windUpFrames;
+        holdFrames = source.mgr.autoComplete ? 0 : holdFrames;
         for(int i = 0; i < windUpFrames; ++i) {
             ArrayList<Line2D.Double> pl = new ArrayList<>();
             for(Line2D.Double line : lines) {
