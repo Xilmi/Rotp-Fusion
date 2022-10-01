@@ -168,6 +168,7 @@ public final class TechBiologicalWeapon extends Tech {
         Graphics2D g = (Graphics2D) ui.getGraphics();
         Stroke prev = g.getStroke();
 
+        int FRAMES = source.mgr.autoComplete ? 1 : 4;
         int lineSpacing = BasePanel.s3;
         int ySpacing = source.x != target.x ? lineSpacing : 0;
         int xSpacing = source.y != target.y ? lineSpacing : 0;
@@ -182,7 +183,7 @@ public final class TechBiologicalWeapon extends Tech {
         int bombLinePhase = BasePanel.s2 + BasePanel.s20;
         // "bombing" is 5 parallel and randomly staggered dash lines
         // animation is doing this 4 times
-        for (int n=0;n<10;n++) {
+        for (int n=0;n<FRAMES;n++) {
             ui.paintAllImmediately();
             for (int i = -2; i < 3; i++) {
                 int xAdj = i * xSpacing;
