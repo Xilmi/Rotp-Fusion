@@ -38,6 +38,7 @@ import rotp.model.tech.TechBiologicalWeapon;
 import rotp.model.tech.TechBlackHole;
 import rotp.model.tech.TechBombWeapon;
 import rotp.model.tech.TechCategory;
+import static rotp.model.tech.TechCategory.COMPUTER;
 import static rotp.model.tech.TechCategory.PROPULSION;
 import static rotp.model.tech.TechCategory.WEAPON;
 import rotp.model.tech.TechCloaking;
@@ -278,25 +279,89 @@ public class AIScientist implements Base, Scientist {
 
         float totalTechCost = 0;
         
-        for(int i = 0; i < 6; ++i)
+        float computerMod = 1.0f;
+        float constructionMod = 1.0f;
+        float forcefieldMod = 1.0f;
+        float planetologyMod = 1.0f;
+        float propulsionMod = 1.0f;
+        float weaponMod = 1.0f;
+        
+        if(empire.diplomatAI().getVariant() == 1) {
+            if(empire.leader().isDiplomat())
+                forcefieldMod = 0.5f;
+            if(empire.leader().isEcologist())
+                planetologyMod = 0.5f;
+            if(empire.leader().isExpansionist())
+                propulsionMod = 0.5f;
+            if(empire.leader().isIndustrialist())
+                constructionMod = 0.5f;
+            if(empire.leader().isMilitarist())
+                weaponMod = 0.5f;
+            if(empire.leader().isTechnologist())
+                computerMod = 0.5f;
+        }
+        
+        for(int i = 0; i < 6; ++i) {
+            float currentMod = 1.0f;
+            if(empire.tech().category(i).id().equals("TECH_COMPUTERS"))
+                currentMod = computerMod;
+            if(empire.tech().category(i).id().equals("TECH_CONSTRUCTION"))
+                currentMod = constructionMod;
+            if(empire.tech().category(i).id().equals("TECH_FORCE_FIELDS"))
+                currentMod = forcefieldMod;
+            if(empire.tech().category(i).id().equals("TECH_PLANETOLOGY"))
+                currentMod = planetologyMod;
+            if(empire.tech().category(i).id().equals("TECH_PROPULSION"))
+                currentMod = propulsionMod;
+            if(empire.tech().category(i).id().equals("TECH_WEAPONS"))
+                currentMod = weaponMod;
             if(tech(empire.tech().category(i).currentTech()) != null)
-                totalTechCost += tech(empire.tech().category(i).currentTech()).researchCost();
+                totalTechCost += tech(empire.tech().category(i).currentTech()).researchCost() * currentMod;
             else
                 totalTechCost += empire.tech().category(i).baseResearchCost(Math.round(empire.tech().category(i).techLevel()));
+        }
         
         float totalInverse = 0;
         
-        for(int i = 0; i < 6; ++i)
+        for(int i = 0; i < 6; ++i) {
+            float currentMod = 1.0f;
+            if(empire.tech().category(i).id().equals("TECH_COMPUTERS"))
+                currentMod = computerMod;
+            if(empire.tech().category(i).id().equals("TECH_CONSTRUCTION"))
+                currentMod = constructionMod;
+            if(empire.tech().category(i).id().equals("TECH_FORCE_FIELDS"))
+                currentMod = forcefieldMod;
+            if(empire.tech().category(i).id().equals("TECH_PLANETOLOGY"))
+                currentMod = planetologyMod;
+            if(empire.tech().category(i).id().equals("TECH_PROPULSION"))
+                currentMod = propulsionMod;
+            if(empire.tech().category(i).id().equals("TECH_WEAPONS"))
+                currentMod = weaponMod;
             if(tech(empire.tech().category(i).currentTech()) != null)
-                totalInverse += totalTechCost / tech(empire.tech().category(i).currentTech()).researchCost();
+                totalInverse += totalTechCost / (tech(empire.tech().category(i).currentTech()).researchCost() * currentMod);
             else
                 totalInverse += totalTechCost / empire.tech().category(i).baseResearchCost(Math.round(empire.tech().category(i).techLevel()));
+        }
         
-        for(int i = 0; i < 6; ++i)
+        for(int i = 0; i < 6; ++i) {
+            float currentMod = 1.0f;
+            if(empire.tech().category(i).id().equals("TECH_COMPUTERS"))
+                currentMod = computerMod;
+            if(empire.tech().category(i).id().equals("TECH_CONSTRUCTION"))
+                currentMod = constructionMod;
+            if(empire.tech().category(i).id().equals("TECH_FORCE_FIELDS"))
+                currentMod = forcefieldMod;
+            if(empire.tech().category(i).id().equals("TECH_PLANETOLOGY"))
+                currentMod = planetologyMod;
+            if(empire.tech().category(i).id().equals("TECH_PROPULSION"))
+                currentMod = propulsionMod;
+            if(empire.tech().category(i).id().equals("TECH_WEAPONS"))
+                currentMod = weaponMod;
             if(tech(empire.tech().category(i).currentTech()) != null)
-                empire.tech().category(i).allocationPct((totalTechCost / tech(empire.tech().category(i).currentTech()).researchCost()) / totalInverse);
+                empire.tech().category(i).allocationPct((totalTechCost / (tech(empire.tech().category(i).currentTech()).researchCost() * currentMod)) / totalInverse);
             else
                 empire.tech().category(i).allocationPct((totalTechCost / empire.tech().category(i).baseResearchCost(Math.round(empire.tech().category(i).techLevel()))) / totalInverse);
+        }
         
         if (empire.fleetCommanderAI().inExpansionMode()) {
             Tech currentPlanetology = empire.tech().tech(empire.tech().planetology().currentTech());
