@@ -204,15 +204,17 @@ public class SettingFloat extends SettingBase<Float> {
 			next(getInc(e) * getDir(e));
 	}
 	@Override public float settingCost() {
+		if (isSpacer() || hasNoCost())
+			return 0f;;
 		return settingCost(settingValue());
 	}
 	@Override public void setOptions(DynamicOptions options) {
 		if (!isSpacer())
-			options.setFloatOptions(labelId(), settingValue());
+			options.setFloat(labelId(), settingValue());
 	}
 	@Override public void setFromOptions(DynamicOptions options) {
 		if (!isSpacer())
-			set(options.getFloatOptions(labelId(), defaultValue()));
+			set(options.getFloat(labelId(), defaultValue()));
 	}
 	// ===== Other Methods =====
 	//

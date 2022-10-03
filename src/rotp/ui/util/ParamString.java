@@ -42,10 +42,10 @@ public class ParamString extends AbstractParam<String> {
 	@Override public void toggle(MouseWheelEvent e)	{}
 	@Override public void toggle(MouseEvent e) {}
 	@Override public void setFromOptions(DynamicOptions options) {
-		set(options.getStringOptions(labelId(), defaultValue()));
+		set(options.getString(labelId(), defaultValue()));
 	}
 	@Override public void setOptions(DynamicOptions options) {
-		options.setStringOptions(labelId(), get());
+		options.setString(labelId(), get());
 	}
 	// ===== Other Methods =====
 	//

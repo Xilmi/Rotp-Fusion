@@ -19,19 +19,19 @@ import java.io.Serializable;
 
 public interface DynamicOptions {
 
-    public Boolean		setBooleanOptions(String id, Boolean value);
-    public Boolean		getBooleanOptions(String id);
-    public Boolean		getBooleanOptions(String id, Boolean defaultValue);
-    public Float		setFloatOptions  (String id, Float value);
-    public Float		getFloatOptions  (String id);
-    public Float		getFloatOptions  (String id, Float defaultValue);
-    public Integer		setIntegerOptions(String id, Integer value);
-    public Integer		getIntegerOptions(String id);
-    public Integer		getIntegerOptions(String id, Integer defaultValue);
-    public Serializable setObjectOptions (String id, Serializable value);
-    public Serializable getObjectOptions (String id);
-    public Serializable	getObjectOptions (String id, Serializable defaultValue);
-    public String		setStringOptions (String id, String value);
-    public String		getStringOptions (String id);
-    public String		getStringOptions (String id, String defaultValue);
+    public Boolean	setBoolean(String id, Boolean value);
+    public Boolean	getBoolean(String id);
+    public Boolean	getBoolean(String id, Boolean defaultValue);
+    public Float	setFloat  (String id, Float value);
+    public Float	getFloat  (String id);
+    public Float	getFloat  (String id, Float defaultValue);
+    public Integer	setInteger(String id, Integer value);
+    public Integer	getInteger(String id);
+    public Integer	getInteger(String id, Integer defaultValue);
+    public Object	setObject (String id, Serializable value);
+    public Object	getObject (String id);
+    public Object	getObject (String id, Serializable defaultValue);
+    public String	setString (String id, String value);
+    public String	getString (String id);
+    public String	getString (String id, String defaultValue);
 }

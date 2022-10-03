@@ -15,7 +15,7 @@
  */
 package rotp.ui.game;
 
-import static rotp.model.empires.CustomAbilitiesFactory.ROOT;
+import static rotp.model.empires.CustomRaceDefinitions.ROOT;
 import static rotp.ui.UserPreferences.customPlayerRace;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonWidth;
@@ -41,70 +41,43 @@ import rotp.ui.BaseText;
 import rotp.ui.util.InterfaceOptions;
 import rotp.ui.util.Modifier2KeysState;
 import rotp.ui.util.SettingBase;
-import rotp.ui.util.SettingBoolean;
-import rotp.ui.util.SettingInteger;
 
-// modnar: add UI panel for modnar MOD game options, based on StartOptionsUI.java
-public abstract class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelListener {
+public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelListener {
 	private static final long serialVersionUID	= 1L;
 	private static final String selectKey		= "CUSTOM_RACE_GUI_SELECT";
 	private static final String randomKey		= "CUSTOM_RACE_GUI_RANDOM";
+	public	static final EditCustomRaceUI instance = new EditCustomRaceUI().init0();
 	
-	private final SettingInteger randomTargetMax = new SettingInteger(ROOT, "RANDOM_TARGET_MAX",
-			75, null, null, 1, 5, 20);
-	private final SettingInteger randomTargetMin = new SettingInteger(ROOT, "RANDOM_TARGET_MIN",
-			0, null, null, 1, 5, 20);
-	private final SettingInteger randomMax = new SettingInteger(ROOT, "RANDOM_MAX",
-			50, -100, 100, 1, 5, 20);
-	private final SettingInteger randomMin = new SettingInteger(ROOT, "RANDOM_MIN",
-			-50, -100, 100, 1, 5, 20);
-	private final SettingBoolean randomUseTarget = new SettingBoolean(ROOT, "RANDOM_USE_TARGET", false);
-	private final SettingBoolean randomSmoothEdges = new SettingBoolean(ROOT, "RANDOM_EDGES", true);
-	private final LinkedList<SettingBase<?>> guiList = new LinkedList<>();
+	private final Rectangle selectBox	= new Rectangle();
+    private final Rectangle defaultBox	= new Rectangle();
+    private final Rectangle userBox		= new Rectangle();
+	private final Rectangle randomBox	= new Rectangle();
 
-	private final Rectangle selectBox	 = new Rectangle();
-    private final Rectangle defaultBox = new Rectangle();
-    private final Rectangle userBox	 = new Rectangle();
-	private final Rectangle randomBox	 = new Rectangle();
+	private LinkedList<SettingBase<?>> guiList;
 	private MOO1GameOptions initialOptions; // To be restored if "cancel"
 	
 	// ========== Constructors and initializers ==========
 	//
-	public EditCustomRaceUI() {
+	private EditCustomRaceUI() {}
+
+	private EditCustomRaceUI init0() {
 		maxLeftM	= scaled(999);
 		guiTitleID	= ROOT + "GUI_TITLE";
-		init_0();
-	}
-	private void init_0() {
-		setOpaque(false);
 
-	    totalCostText = new BaseText(this, false, costFontSize, 0, 0, 
-	    		costC, costC, hoverC, depressedC, costC, 0, 0, 0);
-
-	    // Call for filling the settings
-	    if (colSettingsCount == null)
-	    	initGUI();
-
-	    guiList.add(randomSmoothEdges);
-	    guiList.add(randomMin);
-	    guiList.add(randomMax);
-	    guiList.add(randomTargetMin);
-	    guiList.add(randomTargetMax);
-	    guiList.add(randomUseTarget);	    
-	    for(SettingBase<?> setting : guiList) {
-	    	setting.hasNoCost(true);
+		guiList = cr.guiList();
+	    for(SettingBase<?> setting : guiList)
 	    	setting.settingText(new BaseText(this, false, labelFontSize, 0, 0,
 					labelC, labelC, hoverC, depressedC, textC, 0, 0, 0));
-	    }
-	    
+
+	    commonList = new LinkedList<>();
 	    commonList.addAll(settingList);
 	    commonList.addAll(guiList);
 	    cr.setRace(MOO1GameOptions.baseRaceOptions().getFirst());
 	    cr.pullSettings();
-	    
 		addMouseListener(this);
 		addMouseMotionListener(this);
 		addMouseWheelListener(this);
+		return this;
 	}
 	@Override public void open(BasePanel p) {
 		parent = p;
@@ -183,9 +156,7 @@ public abstract class EditCustomRaceUI extends ShowCustomRaceUI implements Mouse
 		MOO1GameOptions.saveLastOptions(fileOptions);
 	}
 	private void randomizeRace() {
-		cr.randomizeRace(randomMin.settingValue(), randomMax.settingValue(),
-				randomTargetMin.settingValue(), randomTargetMax.settingValue(),
-				randomUseTarget.settingValue(), randomSmoothEdges.settingValue(), true);
+		cr.randomizeRace(true);
 		totalCostText.repaint(totalCostStr());
 	}
 

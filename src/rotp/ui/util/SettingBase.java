@@ -158,11 +158,11 @@ public class SettingBase<T> implements InterfaceParam {
 	}
 	@Override public void setOptions(DynamicOptions destOptions) {
 		if (!isSpacer)
-			destOptions.setStringOptions(labelId(), getCfgValue());
+			destOptions.setString(labelId(), getCfgValue());
 	}
 	@Override public void setFromOptions(DynamicOptions srcOptions) {
 		if (!isSpacer)
-			setFromCfgValue(srcOptions.getStringOptions(labelId(), getDefaultCfgValue()));
+			setFromCfgValue(srcOptions.getString(labelId(), getDefaultCfgValue()));
 	}
 	@Override public String getCfgValue() 		{ return getCfgValue(settingValue()); }
 	@Override public String getCfgLabel()		{ return nameLabel; }

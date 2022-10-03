@@ -26,7 +26,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import rotp.mod.br.addOns.RacesOptions;
-import rotp.model.empires.CustomAbilitiesFactory;
+import rotp.model.empires.CustomRaceDefinitions;
 import rotp.model.empires.Empire;
 import rotp.model.empires.Leader;
 import rotp.model.empires.Race;
@@ -304,7 +304,7 @@ public class GalaxyFactory implements Base {
 		PlanetImager.current().finished();
 		
 		MOO1GameOptions opts = (MOO1GameOptions) GameSession.instance().options();
-		opts.dynamicOptions().setObjectOptions(Galaxy.EMPIRES_KEY, g.empires());
+		opts.dynamicOptions().setObject(Galaxy.EMPIRES_KEY, g.empires());
 		// Save initial state
 		g.backupStarSystem();
 
@@ -363,7 +363,8 @@ public class GalaxyFactory implements Base {
 		// Create DataRace
 		playerDataRaceKey = raceKey;
 		if (UserPreferences.customPlayerRace.get()) {
-			playerDataRaceKey = RotPUI.playerRaceCustomizationUI().cr.getKey();
+//			playerDataRaceKey = RotPUI.playerRaceCustomizationUI().cr.getKey();
+			playerDataRaceKey = CustomRaceDefinitions.CUSTOM_RACE_KEY;
 		}
 		if (gc != null) { // Restart
 			if (!restartApplyPlayer.get()) {
@@ -422,7 +423,7 @@ public class GalaxyFactory implements Base {
 		// modnar: add option to start game with additional colonies
 		// modnar: compSysId is the System ID array for these additional colonies
 		// BR: Added dataRaceKey
-		Empire emp = new Empire(g, id, raceKey, playerDataRaceKey, sys, compSysId, color, leaderName, gc);
+		Empire emp = new Empire(g, id, playerRace, playerDataRace, sys, compSysId, color, leaderName, gc);
 		g.addEmpire(emp);
 
 		//log("Adding star system: ", sys.name(), " - ", playerRace.id, " : ", fmt(sys.x(),2), "@", fmt(sys.y(),2));
@@ -499,10 +500,12 @@ public class GalaxyFactory implements Base {
             else
                 dataRaceKey = raceKey;
             if (gc == null && randomAlienRaces.isRandom() && isRandomOpponent[h]) {
-            	if (randomAlienRaces.isPlayerCopy())
+            	if (randomAlienRaces.isPlayerCopy()) {
             		dataRaceKey = playerDataRaceKey;
+            	}
             	else
-            		dataRaceKey = CustomAbilitiesFactory.getRandomAlienRaceKey();
+            		dataRaceKey = CustomRaceDefinitions.RANDOM_RACE_KEY;
+//            		dataRaceKey = CustomAbilitiesFactory.getRandomAlienRaceKey();
             }
 			Race dataRace = Race.keyed(dataRaceKey);
 
@@ -552,7 +555,7 @@ public class GalaxyFactory implements Base {
 
 			// modnar: add option to start game with additional colonies
 			// modnar: compSysId is the System ID array for these additional colonies
-			Empire emp = new Empire(g, empId, raceKey, dataRaceKey, sys, compSysId, colorId, null, gc);
+			Empire emp = new Empire(g, empId, race, dataRace, sys, compSysId, colorId, null, gc);
 			g.addEmpire(emp);
 			empId++;
 			

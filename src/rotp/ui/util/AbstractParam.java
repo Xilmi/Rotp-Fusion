@@ -95,10 +95,10 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 		return getCfgLabel() + " = " + getCfgValue();
 	}
 	@Override public void setFromOptions(DynamicOptions options) {
-		setFromCfgValue(options.getStringOptions(labelId(), getCfgValue(defaultValue())));
+		setFromCfgValue(options.getString(labelId(), getCfgValue(defaultValue())));
 	}
 	@Override public void setOptions(DynamicOptions options) {
-		options.setStringOptions(labelId(), getCfgValue());
+		options.setString(labelId(), getCfgValue());
 	}
 	@Override public String getCfgValue() { return getCfgValue(value); }
 	@Override public String getCfgLabel() { return name; }

@@ -37,58 +37,66 @@ import rotp.util.ObjectCloner;
 
 public class DynOptions implements DynamicOptions, Serializable {
 	private static final long serialVersionUID = 1L;
-	private LinkedHashMap<String, Boolean>		booleanOptions	= new LinkedHashMap<>();
-	private LinkedHashMap<String, Float>		floatOptions	= new LinkedHashMap<>();
-	private LinkedHashMap<String, Integer>		integerOptions	= new LinkedHashMap<>();
-    private LinkedHashMap<String, Serializable>	objectOptions	= new LinkedHashMap<>();
-    private LinkedHashMap<String, String>		stringOptions	= new LinkedHashMap<>();
+	private LinkedHashMap<String, Boolean>		booleanList	= new LinkedHashMap<>();
+	private LinkedHashMap<String, Float>		floatList	= new LinkedHashMap<>();
+	private LinkedHashMap<String, Integer>		integerList	= new LinkedHashMap<>();
+    private LinkedHashMap<String, Serializable>	objectList	= new LinkedHashMap<>();
+    private LinkedHashMap<String, String>		stringList	= new LinkedHashMap<>();
+
+    // -------------------- Basic Getters --------------------
+    //
+    public LinkedHashMap<String, Boolean>	   booleanList() { return booleanList; }
+    public LinkedHashMap<String, Float>		   floatList()	 { return floatList; }
+    public LinkedHashMap<String, Integer>	   integerList() { return integerList; }
+    public LinkedHashMap<String, Serializable> objectList()	 { return objectList; }
+    public LinkedHashMap<String, String>	   stringList()	 { return stringList; }
 
     // -------------------- Overriders --------------------
     //
-	@Override public Boolean setBooleanOptions(String id, Boolean value) {
-		return booleanOptions.put(id, value);
+	@Override public Boolean setBoolean(String id, Boolean value) {
+		return booleanList.put(id, value);
 	}
-	@Override public Boolean getBooleanOptions(String id) {
-		return booleanOptions.get(id);
+	@Override public Boolean getBoolean(String id) {
+		return booleanList.get(id);
 	}
-	@Override public Boolean getBooleanOptions(String id, Boolean defaultValue) {
-		return booleanOptions.getOrDefault(id, defaultValue);
+	@Override public Boolean getBoolean(String id, Boolean defaultValue) {
+		return booleanList.getOrDefault(id, defaultValue);
 	}
-	@Override public Float setFloatOptions(String id, Float value) {
-		return floatOptions.put(id, value);
+	@Override public Float setFloat(String id, Float value) {
+		return floatList.put(id, value);
 	}
-	@Override public Float getFloatOptions(String id) {
-		return floatOptions.get(id);
+	@Override public Float getFloat(String id) {
+		return floatList.get(id);
 	}
-	@Override public Float getFloatOptions(String id, Float defaultValue) {
-		return floatOptions.getOrDefault(id, defaultValue);
+	@Override public Float getFloat(String id, Float defaultValue) {
+		return floatList.getOrDefault(id, defaultValue);
 	}
-	@Override public Integer setIntegerOptions(String id, Integer value) {
-		return integerOptions.put(id, value);
+	@Override public Integer setInteger(String id, Integer value) {
+		return integerList.put(id, value);
 	}
-	@Override public Integer getIntegerOptions(String id) {
-		return integerOptions.get(id);
+	@Override public Integer getInteger(String id) {
+		return integerList.get(id);
 	}
-	@Override public Integer getIntegerOptions(String id, Integer defaultValue) {
-		return integerOptions.getOrDefault(id, defaultValue);
+	@Override public Integer getInteger(String id, Integer defaultValue) {
+		return integerList.getOrDefault(id, defaultValue);
 	}
-	@Override public Serializable setObjectOptions(String id, Serializable value) {
-		return objectOptions.put(id, deepCopy(value));
+	@Override public Serializable setObject(String id, Serializable value) {
+		return objectList.put(id, (Serializable) deepCopy(value));
 	}
-	@Override public Serializable getObjectOptions(String id) {
-		return objectOptions.get(id);
+	@Override public Serializable getObject(String id) {
+		return objectList.get(id);
 	}
-	@Override public Serializable getObjectOptions(String id, Serializable defaultValue) {
-		return objectOptions.getOrDefault(id, defaultValue);
+	@Override public Serializable getObject(String id, Serializable defaultValue) {
+		return objectList.getOrDefault(id, defaultValue);
 	}
-	@Override public String setStringOptions(String id, String value) {
-		return stringOptions.put(id, value);
+	@Override public String setString(String id, String value) {
+		return stringList.put(id, value);
 	}
-	@Override public String getStringOptions(String id) {
-		return stringOptions.get(id);
+	@Override public String getString(String id) {
+		return stringList.get(id);
 	}
-	@Override public String getStringOptions(String id, String defaultValue) {
-		return stringOptions.getOrDefault(id, defaultValue);
+	@Override public String getString(String id, String defaultValue) {
+		return stringList.getOrDefault(id, defaultValue);
 	}
 	// -------------------- File Management --------------------
 	//
@@ -97,11 +105,11 @@ public class DynOptions implements DynamicOptions, Serializable {
 	}
 	public void load(String path, String fileName) {
 		DynOptions opts	= loadOptions(path, fileName);
-		booleanOptions	= opts.booleanOptions;
-		floatOptions	= opts.floatOptions;
-		integerOptions	= opts.integerOptions;
-	    objectOptions	= opts.objectOptions;
-	    stringOptions	= opts.stringOptions;
+		booleanList	= opts.booleanList;
+		floatList	= opts.floatList;
+		integerList	= opts.integerList;
+	    objectList	= opts.objectList;
+	    stringList	= opts.stringList;
 	}
 	public DynOptions copy() {
 		return (DynOptions) ObjectCloner.deepCopy(this);

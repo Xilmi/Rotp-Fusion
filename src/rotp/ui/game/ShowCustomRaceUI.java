@@ -15,7 +15,7 @@
  */
 package rotp.ui.game;
 
-import static rotp.model.empires.CustomAbilitiesFactory.ROOT;
+import static rotp.model.empires.CustomRaceDefinitions.ROOT;
 import static rotp.ui.UserPreferences.customPlayerRace;
 import static rotp.ui.util.AbstractOptionsUI.exitButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.exitButtonWidth;
@@ -45,24 +45,24 @@ import rotp.ui.util.InterfaceOptions;
 import rotp.ui.util.Modifier2KeysState;
 import rotp.ui.util.SettingBase;
 
-// modnar: add UI panel for modnar MOD game options, based on StartOptionsUI.java
-public abstract class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseMotionListener {
+public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseMotionListener {
 	private static final long serialVersionUID	= 1L;
 	private static final Color  backgroundHaze	= new Color(0,0,0,160);
 	private static final String totalCostKey	= "CUSTOM_RACE_GUI_COST";
 	private static final String initialRace	= MOO1GameOptions.baseRaceOptions().getFirst();
+	public	static final ShowCustomRaceUI instance = new ShowCustomRaceUI().init0();
 	
-	protected static final Color textC		= SystemPanel.whiteText;
+	protected static final Color textC			= SystemPanel.whiteText;
 	protected		   final Font buttonFont	= narrowFont(20);
-	protected static final int buttonH		= s30;
-	protected static final int buttonMargin	= AbstractOptionsUI.smallButtonM;
+	protected static final int buttonH			= s30;
+	protected static final int buttonMargin		= AbstractOptionsUI.smallButtonM;
 	protected static final int buttonPad		= s15;
 	protected static final int xButtonOffset	= s30;
 	protected static final int yButtonOffset	= s40;
-	protected static final Color labelC		= SystemPanel.orangeText;
+	protected static final Color labelC			= SystemPanel.orangeText;
 	protected	static final int labelFontSize	= 14;
 	protected static final int labelH			= s16;
-	protected static final int labelPad		= s8;
+	protected static final int labelPad			= s8;
 
 	protected static final Color costC		= SystemPanel.blackText;
 	protected static final int costFontSize	= 18;
@@ -86,7 +86,9 @@ public abstract class ShowCustomRaceUI extends BasePanel implements MouseListene
 	private static final int frameSizePad	= s10;
 	private static final int frameEndPad	= s4;
 	private static final int settingIndent	= s10;
+	private static final int wFirstColumn	= s100+s50;
 	private static final int wSetting		= s100+s100+s20;
+	private int currentWith = wFirstColumn;
 
 	private static final Color optionC		= SystemPanel.blackText; // Unselected option Color
 	private static final Color selectC		= SystemPanel.whiteText;  // Selected option color
@@ -125,25 +127,22 @@ public abstract class ShowCustomRaceUI extends BasePanel implements MouseListene
 	
 	// ========== Constructors and initializers ==========
 	//
-	public ShowCustomRaceUI() {
-		maxLeftM	= scaled(100);
-		guiTitleID	= ROOT + "SHOW_TITLE";
-		init_0();
-	}
-	private void init_0() {
+	protected ShowCustomRaceUI() {
 		setOpaque(false);
 	    totalCostText = new BaseText(this, false, costFontSize, 0, 0, 
 	    		costC, costC, hoverC, depressedC, costC, 0, 0, 0);
+	    initGUI();		
+	}
 
-	    // Call for filling the settings
-	    if (colSettingsCount == null)
-	    	initGUI();
-
-	    commonList = settingList;
+	private ShowCustomRaceUI init0() {
+		maxLeftM	= scaled(100);
+		guiTitleID	= ROOT + "SHOW_TITLE";
+	    commonList	= settingList;
 	    cr.setRace(MOO1GameOptions.baseRaceOptions().getFirst());
 	    cr.pullSettings();
 		addMouseListener(this);
 		addMouseMotionListener(this);
+		return this;
 	}
 	public void loadRace() { // For Race Diplomatic UI Panel
 		cr.initShowRace(raceUI.selectedEmpire().abilitiesKey());
@@ -153,6 +152,7 @@ public abstract class ShowCustomRaceUI extends BasePanel implements MouseListene
 		cr.initShowRace(initialRace);
 	}
 	protected void initGUI() {
+		colSettingsCount = new LinkedList<>();
 		columnList	= cr.columnList();
 		spacerList	= cr.spacerList();
 		settingList	= cr.settingList();
@@ -235,11 +235,6 @@ public abstract class ShowCustomRaceUI extends BasePanel implements MouseListene
 	protected void close() {
 		disableGlassPane();
 	}
-//	public void saveOptions(MOO1GameOptions destination) {
-//		for (InterfaceOptions param : commonList)
-//			param.setOptions(destination);
-//		customPlayerRace.setOptions(destination);
-//	}
 	public void getOptions(MOO1GameOptions source) {
 		for (InterfaceOptions param : commonList)
 			param.setFromOptions(source.dynamicOptions());
@@ -249,55 +244,6 @@ public abstract class ShowCustomRaceUI extends BasePanel implements MouseListene
 	private void doExitBoxAction() {
 		close();			
 	}
-//	private void doSelectBoxAction() {
-//		cr.pushSettings();
-//		customPlayerRace.set(true);
-//		saveLastOptions();
-//		close();
-//	}
-//	private void doDefaultBoxAction() {
-//		switch (Modifier2KeysState.get()) {
-//		case CTRL:
-//		case CTRL_SHIFT: // set to last
-//			getOptions(MOO1GameOptions.loadLastOptions());
-//			break;
-//		case SHIFT: // set to last game options
-//			if (options() != null)
-//				getOptions(MOO1GameOptions.loadGameOptions());			
-//			break;
-//		default: // set to default
-//			setToDefault();
-//			break; 
-//		}
-//		repaint();
-//	}
-//	private void doUserBoxAction() {
-//		switch (Modifier2KeysState.get()) {
-//		case CTRL:
-//		case CTRL_SHIFT: // Save
-//			saveUserOptions();
-//			break;
-//		default: // Set
-//			MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
-//			getOptions(fileOptions);
-//			repaint();
-//		}
-//	}	
-//	public void setToDefault() {
-//		for (InterfaceOptions param : commonList)
-//			param.setFromDefault();
-//		init();
-//	}
-//	private void saveUserOptions() {
-//		MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
-//		saveOptions(fileOptions);
-//		MOO1GameOptions.saveUserOptions(fileOptions);
-//	}
-//	private void saveLastOptions() {
-//		MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
-//		saveOptions(fileOptions);
-//		MOO1GameOptions.saveLastOptions(fileOptions);
-//	}
 	protected void checkModifierKey(InputEvent e) {
 		if (Modifier2KeysState.checkForChange(e)) {
 			repaint();
@@ -318,7 +264,7 @@ public abstract class ShowCustomRaceUI extends BasePanel implements MouseListene
 		settingBoxH	= optNum * optionH + sizePad;
 		// frame
 		g.setColor(frameC);
-		g.drawRect(xLine, yLine - frameShift, wSetting, settingBoxH);
+		g.drawRect(xLine, yLine - frameShift, currentWith, settingBoxH);
 		g.setPaint(GameUI.settingsSetupBackground(w));
 		bt.displayText(setting.guiSettingDisplayStr());
 		g.fillRect(xLine + settingIndent/2, yLine -s12 + frameShift,
@@ -380,12 +326,13 @@ public abstract class ShowCustomRaceUI extends BasePanel implements MouseListene
 	@Override public void paintComponent(Graphics g0) {
 		super.paintComponent(g0);
 		Graphics2D g = (Graphics2D) g0;
+		currentWith	 = wFirstColumn;
 		w	  = getWidth();
 		h	  = getHeight();
 		hBG	  = titlePad + columnsMaxH + bottomPad;
 		topM  = (h - hBG)/2;
 		yTop  = topM + titlePad; // First setting top position
-		wBG	  = (wSetting + columnPad) * numColumns;
+		wBG	  = wFirstColumn+columnPad + (wSetting+columnPad) * (numColumns-1);
 		leftM = Math.min((w - wBG)/2, maxLeftM);
 		yTitle	= topM + titleOffset;
 		yButton	= topM + hBG - yButtonOffset;
@@ -424,7 +371,8 @@ public abstract class ShowCustomRaceUI extends BasePanel implements MouseListene
 			if (spacerList.contains(i))
 				yLine += spacerH;
 			if (columnList.contains(i)) {
-				xLine = xLine + wSetting + columnPad;
+				xLine = xLine + currentWith + columnPad;
+				currentWith = wSetting;
 				yLine = yTop;
 			}
 			paintSetting(g, settingList.get(i));

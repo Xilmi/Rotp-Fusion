@@ -16,6 +16,7 @@
 package rotp.model.game;
 
 import java.awt.Color;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import rotp.mod.br.addOns.RacesOptions;
@@ -336,6 +337,7 @@ public interface IGameOptions {
 
     // BR: Options management
     public DynOptions dynamicOptions();
+    public LinkedHashMap<String, DynOptions> customRaces();
     
     default void copyForRestart(IGameOptions opt) { } // BR: for Restart with new options
     default void copyOptions(IGameOptions opt) { }

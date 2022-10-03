@@ -49,10 +49,10 @@ public class ParamBoolean extends AbstractParam<Boolean> {
 			next();
 	}
 	@Override public void setFromOptions(DynamicOptions options) {
-		set(options.getBooleanOptions(labelId(), defaultValue()));
+		set(options.getBoolean(labelId(), defaultValue()));
 	}
 	@Override public void setOptions(DynamicOptions options) {
-		options.setBooleanOptions(labelId(), get());
+		options.setBoolean(labelId(), get());
 	}
 	// ===== Other Methods =====
 	//

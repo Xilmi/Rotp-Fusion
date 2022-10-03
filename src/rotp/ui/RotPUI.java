@@ -57,15 +57,16 @@ import rotp.ui.diplomacy.DialogueManager;
 import rotp.ui.diplomacy.DiplomacyRequestReply;
 import rotp.ui.fleets.FleetUI;
 import rotp.ui.map.SystemsUI;
+import rotp.ui.game.EditCustomRaceUI;
 import rotp.ui.game.GameOverUI;
 import rotp.ui.game.GameSettingsUI;
 import rotp.ui.game.GameUI;
 import rotp.ui.game.LoadGameUI;
-import rotp.ui.game.PlayerRaceCustomizationUI;
 import rotp.ui.game.RaceIntroUI;
 import rotp.ui.game.SaveGameUI;
 import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.game.SetupRaceUI;
+import rotp.ui.game.ShowCustomRaceUI;
 import rotp.ui.game.StartModBOptionsUI;
 import rotp.ui.game.ModGlobalOptionsUI;
 import rotp.ui.game.StartOptionsUI;
@@ -237,11 +238,8 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     // BR: Display UI panel for MOD game options
     private final ModGlobalOptionsUI modGlobalOptionsUI = new ModGlobalOptionsUI();
 	// BR: Display UI panel for Player Race Customization
-    private final PlayerRaceCustomizationUI playerRaceCustomizationUI =
-    		PlayerRaceCustomizationUI.playerInstance();
-    private final PlayerRaceCustomizationUI raceCustomizationUI =
-    		PlayerRaceCustomizationUI.displayInstance();
-    // TODO BR: Duplicate for view race
+    private final EditCustomRaceUI editCustomRaceUI = EditCustomRaceUI.instance;
+    private final ShowCustomRaceUI showCustomRaceUI = ShowCustomRaceUI.instance;
     private final GameSettingsUI gameSettingsUI = new GameSettingsUI();
     private final LargeDialogPane dialogPane = new LargeDialogPane();
 
@@ -310,9 +308,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         return newGameOptions;
     }
     // BR: Added initialization choice
-    public static void createNewOptions() {
-    	newGameOptions = createStartupOptions();
-    }
+    public static void createNewOptions() { newGameOptions = createStartupOptions(); }
     // BR: Added for initialization choice
     public static MOO1GameOptions createStartupOptions() {
     	MOO1GameOptions newOptions;
@@ -330,8 +326,8 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
 	    		instance.startModAOptionsUI.saveOptions(newOptions);
 	    		instance.startModBOptionsUI.setToDefault();
 	    		instance.startModBOptionsUI.saveOptions(newOptions);
-	    		instance.playerRaceCustomizationUI.setToDefault();
-	    		instance.playerRaceCustomizationUI.saveOptions(newOptions);
+	    		instance.editCustomRaceUI.setToDefault();
+	    		instance.editCustomRaceUI.saveOptions(newOptions);
 	    		return newOptions;
 	    	case "VANILLA":
 	    	default: // Vanilla, as before
@@ -356,10 +352,8 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     // BR: Display UI panel for MOD game options
     public static ModGlobalOptionsUI modGlobalOptionsUI() { return instance.modGlobalOptionsUI; }
 	// BR: Display UI panel for Player Race Customization
-    public static PlayerRaceCustomizationUI playerRaceCustomizationUI() {
-    	return instance.playerRaceCustomizationUI; }
-    public static PlayerRaceCustomizationUI raceCustomizationUI() { // to show settings
-    	return instance.raceCustomizationUI; }
+    public static EditCustomRaceUI editCustomRaceUI()	  { return instance.editCustomRaceUI; }
+    public static ShowCustomRaceUI showCustomRaceUI()	  { return instance.showCustomRaceUI; }
     public static GameSettingsUI gameSettingsUI()    { return instance.gameSettingsUI; }
 
     @Override

@@ -43,10 +43,10 @@ public class ParamObject extends AbstractParam<Serializable> {
 	@Override public void toggle(MouseWheelEvent e)	{}
 	@Override public void toggle(MouseEvent e) {}
 	@Override public void setFromOptions(DynamicOptions options) {
-		set(options.getObjectOptions(labelId(), defaultValue()));
+		set((Serializable) options.getObject(labelId(), defaultValue()));
 	}
 	@Override public void setOptions(DynamicOptions options) {
-		options.setObjectOptions(labelId(), get());
+		options.setObject(labelId(), get());
 	}
 	// ===== Other Methods =====
 	//

@@ -570,8 +570,8 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     			newGameOptions().selectedPlayerRace()).preferredShipSet);
     }
     private void checkBoxChanged() { // BR: checkBoxChanged
-        if (RotPUI.playerRaceCustomizationUI().cr.isEmpty() 
-                && customPlayerRace.get())
+        if (RotPUI.editCustomRaceUI().cr.isEmpty() // BR: TODO Check isEmpty!
+               && customPlayerRace.get())
             goToPlayerRaceCustomization();
         repaint();
     }
@@ -880,8 +880,8 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     // BR: Display UI panel for Player Race Customization
     public void goToPlayerRaceCustomization() {
         buttonClick();
-        PlayerRaceCustomizationUI playerRaceCustomizationUI = RotPUI.playerRaceCustomizationUI();
-        playerRaceCustomizationUI.open(this);
+        EditCustomRaceUI editCustomRaceUI = RotPUI.editCustomRaceUI();
+        editCustomRaceUI.open(this);
         backImg = null;
         raceImg = null;
     }

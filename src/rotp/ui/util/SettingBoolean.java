@@ -82,10 +82,10 @@ public class SettingBoolean extends SettingBase<Boolean> {
 	}
 	@Override public void setOptions(DynamicOptions options) {
 		if (!isSpacer())
-			options.setBooleanOptions(labelId(), settingValue());
+			options.setBoolean(labelId(), settingValue());
 	}
 	@Override public void setFromOptions(DynamicOptions options) {
 		if (!isSpacer())
-			set(options.getBooleanOptions(labelId(), defaultValue()));
+			set(options.getBoolean(labelId(), defaultValue()));
 	}
 }

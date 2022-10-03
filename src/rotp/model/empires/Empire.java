@@ -403,20 +403,16 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
         return reachColor;
     }
-
-   public Empire(Galaxy g, int empId, String rk, String drk, StarSystem s, int[] compId, Integer cId, String name) {
-    	this(g, empId, rk, drk, s, compId, cId, name, null);
-    }
     // modnar: add option to start game with additional colonies
     // modnar: compId is the System ID array for these additional colonies
     // BR: For Restart with new options and random races
-    public Empire(Galaxy g, int empId, String rk, String drk, StarSystem s,
+    public Empire(Galaxy g, int empId, Race r, Race dr, StarSystem s,
     		int[] compId, Integer cId, String name, GalaxyCopy gc) {
     	int opp = empId-1;
-        log("creating empire for ",  rk);
+        log("creating empire for ",  r.id);
         id = empId;
-        raceKey = rk;
-        dataRaceKey = drk;
+        raceKey = r.id;
+        dataRaceKey = dr.id;
         homeSysId = capitalSysId = s.id;
         compSysId = compId; // modnar: add option to start game with additional colonies
         if (gc != null && empId != Empire.PLAYER_ID) { // BR: For Restart with new options 
@@ -432,7 +428,8 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
         
         colorId(cId);
-        Race r = race();
+        race = r;
+        dataRace = dr;
         String raceName = r.nextAvailableName();
         raceNameIndex = r.nameIndex(raceName);
         String leaderName = name == null ? r.nextAvailableLeader() : name;

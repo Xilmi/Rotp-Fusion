@@ -39,6 +39,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -123,6 +124,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private String selectedAutoplayOption;
     // BR: Dynamic options
     private final DynOptions dynamicOptions = new DynOptions();
+    private final LinkedHashMap<String, DynOptions> customRaces = new LinkedHashMap<>();
 
     private transient GalaxyShape galaxyShape;
 
@@ -139,6 +141,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             selectedOpponentRace(i,null);
     }
 	@Override public DynOptions dynamicOptions() { return dynamicOptions; } // BR:
+	@Override public LinkedHashMap<String, DynOptions> customRaces() { return customRaces; } // BR:
     @Override
     public int numPlayers()                      { return 1; }
     @Override
@@ -346,7 +349,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	    		gOpt = new MOO1GameOptions();
     	    		RotPUI.startModAOptionsUI().setToDefault();
     	    		RotPUI.startModBOptionsUI().setToDefault();
-    	    		RotPUI.playerRaceCustomizationUI().setToDefault();
+    	    		RotPUI.editCustomRaceUI().setToDefault();
     	    		generateGalaxy();
     	    		return;
     	    	case "STARTUP":
@@ -367,7 +370,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     public void copyAllOtherOptions(MOO1GameOptions source) { // BR:
 		RotPUI.startModAOptionsUI().getOptions(source);
 		RotPUI.startModBOptionsUI().getOptions(source);
-		RotPUI.playerRaceCustomizationUI().getOptions(source);
+		RotPUI.editCustomRaceUI().getOptions(source);
 		
 	    setGalaxyShape(); 
 	    selectedGalaxyShapeOption1 = source.selectedGalaxyShapeOption1;
@@ -404,7 +407,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         }
         
     	// Copy CustomRaces as part of Race UI
-		for (InterfaceOptions param : RotPUI.playerRaceCustomizationUI().commonList)
+		for (InterfaceOptions param : RotPUI.editCustomRaceUI().commonList)
 			param.setFromOptions(opt.dynamicOptions);
     	customPlayerRace.setFromOptions(opt.dynamicOptions);
     	playerShipSet.setFromOptions(opt.dynamicOptions);

@@ -73,10 +73,10 @@ public class Galaxy implements Base, Serializable {
     private transient Map<String, Integer> raceSystemCtr = new HashMap<>();
 
     public void backupStarSystem() {
-    	dynamicOptions.setObjectOptions(SYSTEMS_KEY, deepCopy(starSystems));
+    	dynamicOptions.setObject(SYSTEMS_KEY, (Serializable) deepCopy(starSystems));
     }
     public StarSystem[] originalStarSystem() {
-    	return (StarSystem[]) dynamicOptions.getObjectOptions(SYSTEMS_KEY);
+    	return (StarSystem[]) dynamicOptions.getObject(SYSTEMS_KEY);
     }
     public DynOptions dynamicOptions()		 { return dynamicOptions; } // BR:
     public int beginningYear()               { return player().race().startingYear; }
@@ -134,7 +134,7 @@ public class Galaxy implements Base, Serializable {
         empires = new Empire[options().selectedNumberOpponents()+1];
     }
     public void advanceTime() { currentTime += TIME_PER_TURN; }
- // BR: For Restart with new options
+    // BR: For Restart with new options
     public void addNebula(Nebula nebula, float nebSize) {
     	Nebula neb = nebula.copy();
         neb.setXY(nebula.x(), nebula.y());

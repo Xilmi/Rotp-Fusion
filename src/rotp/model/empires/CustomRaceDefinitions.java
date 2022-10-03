@@ -33,8 +33,11 @@ import java.util.List;
 
 import br.profileManager.src.main.java.PMutil;
 import rotp.model.game.DynOptions;
+import rotp.model.game.GameSession;
+import rotp.model.game.IGameOptions;
 import rotp.model.game.MOO1GameOptions;
 import rotp.model.planet.PlanetType;
+import rotp.ui.game.EditCustomRaceUI;
 import rotp.ui.util.SettingBase;
 import rotp.ui.util.SettingBoolean;
 import rotp.ui.util.SettingInteger;
@@ -43,11 +46,26 @@ public class CustomRaceDefinitions  {
 	
 	public static final String ROOT = "CUSTOM_RACE_";
 	public static final String PLANET = "PLANET_";
+	public static final String RANDOM_RACE_KEY = "RANDOM_RACE_KEY";
+	public static final String CUSTOM_RACE_KEY = "CUSTOM_RACE_KEY";
 	private static final boolean booleansAreBullet = true;
 
 	private Race race;
 	private LinkedHashMap<String, String> settingsValues = new LinkedHashMap<>();
 	private final LinkedList<SettingBase<?>> settingList = new LinkedList<>();
+	private final LinkedList<SettingBase<?>> guiList	 = new LinkedList<>();
+
+	private final SettingInteger randomTargetMax = new SettingInteger(ROOT, "RANDOM_TARGET_MAX",
+			75, null, null, 1, 5, 20);
+	private final SettingInteger randomTargetMin = new SettingInteger(ROOT, "RANDOM_TARGET_MIN",
+			0, null, null, 1, 5, 20);
+	private final SettingInteger randomMax = new SettingInteger(ROOT, "RANDOM_MAX",
+			50, -100, 100, 1, 5, 20);
+	private final SettingInteger randomMin = new SettingInteger(ROOT, "RANDOM_MIN",
+			-50, -100, 100, 1, 5, 20);
+	private final SettingBoolean randomUseTarget = new SettingBoolean(ROOT, "RANDOM_USE_TARGET", false);
+	private final SettingBoolean randomSmoothEdges = new SettingBoolean(ROOT, "RANDOM_EDGES", true);
+
 	private LinkedList<Integer> spacerList; // For UI
 	private LinkedList<Integer> columnList; // For UI
 	
@@ -60,9 +78,14 @@ public class CustomRaceDefinitions  {
 		this();
 		loadSettingList(path, fileName);
 	}
-	public CustomRaceDefinitions(DynOptions srcOptions) {
+	private CustomRaceDefinitions(DynOptions srcOptions) {
 		this();
 		setFromOptions(srcOptions);
+	}
+	public CustomRaceDefinitions(Race race) {
+		this();
+		setRace(race.name());
+		pullSettings();
 	}
 	// ========== Options Management ==========
 	//
@@ -70,10 +93,14 @@ public class CustomRaceDefinitions  {
 		DynOptions options = new DynOptions();
 		for (SettingBase<?> setting : settingList)
 			setting.setOptions(options);
+		for (SettingBase<?> setting : guiList)
+			setting.setOptions(options);
 		return options;
 	}
 	public void setFromOptions(DynOptions srcOptions) {
 		for (SettingBase<?> setting : settingList)
+			setting.setFromOptions(srcOptions);
+		for (SettingBase<?> setting : guiList)
 			setting.setFromOptions(srcOptions);
 	}
 	public void saveSettingList(String path, String fileName) {
@@ -86,11 +113,17 @@ public class CustomRaceDefinitions  {
 	//
 	public Race						  race()		{ return race; }
 	public LinkedList<SettingBase<?>> settingList()	{ return settingList; }
+	public LinkedList<SettingBase<?>> guiList()		{ return guiList; }
 	public LinkedList<Integer>		  spacerList()	{ return spacerList; }
 	public LinkedList<Integer>		  columnList()	{ return columnList; }
 
 	// ========== Other Methods ==========
 	//
+	private Race returnRace() {
+		race.raceOptions(getAsOptions());
+		race.isCustomRace(true);
+		return race;
+	}
 	public boolean isEmpty() {
 		return settingList == null;
 	}
@@ -211,6 +244,12 @@ public class CustomRaceDefinitions  {
 		}
 		return getTotalCost();
 	}
+	public void randomizeRace(boolean updateGui) {
+		randomizeRace(randomMin.settingValue(), randomMax.settingValue(),
+			randomTargetMin.settingValue(), randomTargetMax.settingValue(),
+			randomUseTarget.settingValue(), randomSmoothEdges.settingValue(), updateGui);
+
+	}
 	public void randomizeRace(float min, float max, float targetMin, float targetMax, 
 			boolean useTarget, boolean gaussian, boolean updateGui) {
 		if (useTarget)
@@ -312,28 +351,53 @@ public class CustomRaceDefinitions  {
 		endOfColumn(); // ====================
 		// Fifth column
 		// endOfColumn(); // ====================
+
+		guiList.add(randomSmoothEdges);
+	    guiList.add(randomMin);
+	    guiList.add(randomMax);
+	    guiList.add(randomTargetMin);
+	    guiList.add(randomTargetMax);
+	    guiList.add(randomUseTarget);	    
+	    for(SettingBase<?> setting : guiList)
+	    	setting.hasNoCost(true);
 	}
 	private void endOfColumn()	{ columnList.add(settingList.size()); }
 	private void spacer()		{ spacerList.add(settingList.size()); }
 	// -------------------- Static Methods --------------------
 	// 
-	public static String getRandomAlienRaceKey() {
+	private static Race getRandomAlienRace() {
 		CustomRaceDefinitions cr = new CustomRaceDefinitions();
 		cr.randomizeRace(randomAlienRacesMin.get(), randomAlienRacesMax.get(),
 				randomAlienRacesTargetMin.get(), randomAlienRacesTargetMax.get(),
 				randomAlienRacesSmoothEdges.get(), randomAlienRaces.isTarget(), false);
-		return cr.getKey();
+		return cr.returnRace();
 	}
-	public static String raceToKey(Race race) {
-		CustomRaceDefinitions cr = new CustomRaceDefinitions();
-		cr.setRace(race.name());
-		cr.pullSettings();
-		return cr.getKey();
-	}
-	public static Race keyToRace(String raceKey) {
-		CustomRaceDefinitions cr = new CustomRaceDefinitions();
-		cr.setKey(raceKey);
-		return cr.race;
+//	public static DynOptions getRandomAlienRaceKey() {
+//		CustomRaceDefinitions cr = new CustomRaceDefinitions();
+//		cr.randomizeRace(randomAlienRacesMin.get(), randomAlienRacesMax.get(),
+//				randomAlienRacesTargetMin.get(), randomAlienRacesTargetMax.get(),
+//				randomAlienRacesSmoothEdges.get(), randomAlienRaces.isTarget(), false);
+//		return cr.getAsOptions();
+//	}
+//	public static DynOptions raceToOptions(Race race) {
+//		CustomRaceDefinitions cr = new CustomRaceDefinitions(race);
+//		return cr.getAsOptions();
+//	}
+//	public static Race keyToRace(DynOptions options) {
+//		CustomRaceDefinitions cr = new CustomRaceDefinitions(options);
+//		return cr.race;
+//	}
+	static Race keyToRace(String raceKey) {
+		if (raceKey.equalsIgnoreCase(RANDOM_RACE_KEY)) {
+			return getRandomAlienRace();
+		}
+		if (raceKey.equalsIgnoreCase(CUSTOM_RACE_KEY)) {
+			return EditCustomRaceUI.instance.cr.race;
+		}
+		IGameOptions opts		 = GameSession.instance().options();
+		DynOptions options		 = opts.customRaces().get(raceKey);
+		CustomRaceDefinitions cr = new CustomRaceDefinitions(options);
+		return cr.returnRace();
 	}
 	public static int keyToValue(String raceKey) {
 		CustomRaceDefinitions cr = new CustomRaceDefinitions();

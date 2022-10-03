@@ -44,7 +44,7 @@ import rotp.ui.BasePanel;
 import rotp.ui.UserPreferences;
 import rotp.ui.diplomacy.DialogueManager;
 import rotp.ui.diplomacy.DiplomaticMessage;
-import rotp.ui.game.PlayerRaceCustomizationUI;
+import rotp.ui.game.ShowCustomRaceUI;
 import rotp.ui.main.MainUI;
 import rotp.ui.main.SystemPanel;
 import static rotp.ui.races.RacesIntelligenceUI.sliderC;
@@ -67,7 +67,8 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
     private final RacesUI parent;
     private final ManageDiplomatsUI manageDiplomatsPane;
     private final ManageSpiesUI manageSpiesPane;
-    private PlayerRaceCustomizationUI showRaceAbilitiesPane;
+    private ShowCustomRaceUI showRaceAbilitiesPane;
+//    private PlayerRaceCustomizationUI showRaceAbilitiesPane;
     int incidentY, incidentYMax;
     int relationsY, relationsYMax;
     int dragY;
@@ -1293,7 +1294,8 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
     public void openShowAbilitiesPane() {
         softClick();
         if (showRaceAbilitiesPane == null) {
-            showRaceAbilitiesPane = PlayerRaceCustomizationUI.displayInstance();
+//            showRaceAbilitiesPane = PlayerRaceCustomizationUI.displayInstance();
+            showRaceAbilitiesPane = ShowCustomRaceUI.instance;
             showRaceAbilitiesPane.init(parent);
         }
         showRaceAbilitiesPane.loadRace();

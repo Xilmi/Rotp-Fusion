@@ -161,15 +161,17 @@ public class SettingInteger extends SettingBase<Integer> {
 			next(getInc(e) * getDir(e));
 	}
 	@Override public float settingCost() {
+		if (isSpacer() || hasNoCost())
+			return 0f;;
 		return settingCost(settingValue());
 	}
 	@Override public void setOptions(DynamicOptions options) {
 		if (!isSpacer())
-			options.setIntegerOptions(labelId(), settingValue());
+			options.setInteger(labelId(), settingValue());
 	}
 	@Override public void setFromOptions(DynamicOptions options) {
 		if (!isSpacer())
-			set(options.getIntegerOptions(labelId(), defaultValue()));
+			set(options.getInteger(labelId(), defaultValue()));
 	}
 	// ===== Other Methods =====
 	//
@@ -215,6 +217,7 @@ public class SettingInteger extends SettingBase<Integer> {
 			useNegFormula = rawBaseCost < 0f;
 			return Math.abs(rawBaseCost);
 		case RELATIVE:
+			System.out.println(this.labelId());
 			rawBaseCost   = Math.abs((float)value / defaultValue());
 			useNegFormula = rawBaseCost < 1f;
 			if (rawBaseCost > 1f)

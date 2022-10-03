@@ -27,6 +27,7 @@ import java.util.Map;
 
 import rotp.model.empires.Leader.Objective;
 import rotp.model.empires.Leader.Personality;
+import rotp.model.game.DynOptions;
 import rotp.model.planet.PlanetType;
 import rotp.model.ships.ShipDesign;
 import rotp.util.Base;
@@ -41,7 +42,7 @@ public class Race implements Base, Serializable {
     public static Race keyed(String s) {
         Race race = raceMap.get(s);
         if (race == null) { // BR: Add custom race if missing
-            race = CustomAbilitiesFactory.keyToRace(s);
+        	race = CustomRaceDefinitions.keyToRace(s);
             race.isCustomRace(true);
             race.description4 = customRaceDescription;
         }
@@ -151,7 +152,8 @@ public class Race implements Base, Serializable {
     private String planetRessource = "Normal";
     private String planetEnvironment = "Normal";
     // Custom Races
-    private boolean isCustomRace = false;
+    private boolean	   isCustomRace	= false;
+    private DynOptions raceOptions	= null;
     // \BR:
     public int startingYear;
     public int speciesType;
@@ -334,7 +336,9 @@ public class Race implements Base, Serializable {
     // BR: Custom Races
     public String  description4()             { return description4; }
     public boolean isCustomRace()             { return isCustomRace; }
-    private void   isCustomRace(boolean val)  { isCustomRace = val; }
+    void   isCustomRace(boolean val)          { isCustomRace = val; }
+    public DynOptions raceOptions()           { return raceOptions; }
+    void   raceOptions(DynOptions val)        { raceOptions = val; }
     // BR: Get the values encoded in HomeworldKey
     public float bCBonus()                    { return bCBonus; }
     public void  bCBonus(float val)           { bCBonus = val; }
