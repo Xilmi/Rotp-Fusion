@@ -230,7 +230,7 @@ public interface Base {
         }
         catch(Exception e) { e.printStackTrace(); }
     }
-    public default int maximumSystems()                { return (int) (240*(Rotp.maxHeapMemory-250)); }
+    public default int maximumSystems()                { return (int) (120*(Rotp.maxHeapMemory-250)); }
     public default boolean veryLowMemory() {
         return (Rotp.maxHeapMemory < 500)
             || (galaxy() != null) && (galaxy().numStarSystems() > (maximumSystems()*3/4));
