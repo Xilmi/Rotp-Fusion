@@ -1090,8 +1090,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add(AUTOPLAY_AI_MODNAR);
         list.add(AUTOPLAY_AI_ROOKIE);
         list.add(AUTOPLAY_AI_XILMI);
-        list.add(AUTOPLAY_AI_FUN);
+        list.add(AUTOPLAY_AI_HYBRID);
         list.add(AUTOPLAY_AI_PERSONALITY);
+        list.add(AUTOPLAY_AI_FUN);
         list.add(AUTOPLAY_AI_CRUEL);
         list.add(AUTOPLAY_AI_RANDOM);
         list.add(AUTOPLAY_AI_RANDOM_BASIC);
@@ -1107,8 +1108,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add(OPPONENT_AI_ROOKIE);
         list.add(OPPONENT_AI_XILMI);
         list.add(OPPONENT_AI_HYBRID);
-        list.add(OPPONENT_AI_FUN);
         list.add(OPPONENT_AI_PERSONALITY);
+        list.add(OPPONENT_AI_FUN);
         list.add(OPPONENT_AI_CRUEL);
         list.add(OPPONENT_AI_RANDOM);
         list.add(OPPONENT_AI_RANDOM_BASIC);
@@ -1125,8 +1126,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add(OPPONENT_AI_ROOKIE);
         list.add(OPPONENT_AI_XILMI);
         list.add(OPPONENT_AI_HYBRID);
-        list.add(OPPONENT_AI_FUN);
         list.add(OPPONENT_AI_PERSONALITY);
+        list.add(OPPONENT_AI_FUN);
         list.add(OPPONENT_AI_CRUEL);
         list.add(OPPONENT_AI_RANDOM);
         list.add(OPPONENT_AI_RANDOM_BASIC);
@@ -1238,9 +1239,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         else
         	selectedPlayerRace(random(allRaceOptions()));
         selectedGameDifficulty = DIFFICULTY_NORMAL;
-        selectedOpponentAIOption = OPPONENT_AI_CRUEL;
+        selectedOpponentAIOption = OPPONENT_AI_PERSONALITY;
         for (int i=0;i<specificOpponentAIOption.length;i++)
-            specificOpponentAIOption[i] = OPPONENT_AI_CRUEL;
+            specificOpponentAIOption[i] = OPPONENT_AI_PERSONALITY;
         setToDefault();
         generateGalaxy();
     }
