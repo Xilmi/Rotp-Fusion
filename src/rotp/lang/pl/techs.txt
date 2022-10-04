@@ -509,7 +509,7 @@ FUELRANGE_0_DETAIL | Rezerwy paliwa pozwalają statkom podróżować na odległo
 FUELRANGE_1_NAME   | Ogniwa Paliwa Wodorowego
 FUELRANGE_1_DETAIL | Rezerwy paliwa pozwalają statkom podróżować na odległość do %1 lat świetlnych od najbliższej kolonii.
 
-FUELRANGE_2_NAME   | Ogniwa Paliwa Irydowego
+FUELRANGE_2_NAME   | Ogniwa Paliwa Deuter
 FUELRANGE_2_DETAIL | Rezerwy paliwa pozwalają statkom podróżować na odległość do %1 lat świetlnych od najbliższej kolonii.
 
 FUELRANGE_3_NAME   | Ogniwa Paliwa Irydowego
