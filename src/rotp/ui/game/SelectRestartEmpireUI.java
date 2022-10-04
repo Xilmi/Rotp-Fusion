@@ -137,8 +137,9 @@ final class SelectRestartEmpireUI  extends BasePanel implements MouseListener, M
 				abilities = "Custom Race";
 			else 
 				abilities = e.dataRace().setupName();
-			String dataKey = e.abilitiesKey();
-			Integer value = CustomRaceDefinitions.keyToValue(dataKey);
+//			String dataKey = e.abilitiesKey();
+			int value = Math.round(new CustomRaceDefinitions(e.dataRace()).getTotalCost());
+//			Integer value = CustomRaceDefinitions.keyToValue(dataKey);
 			empireList.add(name);
 			valueList.add(value);
 			raceList.add(race);

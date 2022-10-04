@@ -37,7 +37,6 @@ import rotp.model.game.MOO1GameOptions;
 import rotp.model.planet.Planet;
 import rotp.model.tech.Tech; // modnar: add game mode to start all Empires with 2 random techs
 import rotp.model.tech.TechTree; // modnar: add game mode to start all Empires with 2 random techs
-import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences; // modnar: add game mode to start all Empires with 2 random techs
 import rotp.ui.util.planets.PlanetImager;
 import rotp.util.Base;

@@ -111,8 +111,16 @@ public class SettingBase<T> implements InterfaceParam {
 		this.isBullet = isBullet;
 		return this;
 	}
+	public SettingBase<?> isList(boolean isList) {
+		this.isList = isList;
+		return this;
+	}
 	public SettingBase<?> labelsAreFinals(boolean labelsAreFinals) {
 		this.labelsAreFinals = labelsAreFinals;
+		return this;
+	}
+	public SettingBase<?> defaultValue(T value) {
+		defaultValue = value;
 		return this;
 	}
 	// ========== Public Interfaces ==========
@@ -346,6 +354,7 @@ public class SettingBase<T> implements InterfaceParam {
 	 * @return this for chaining purpose
 	 */
 	public void put(String cfgValue, String langLabel, float cost, T value) {
+		isList(true);
 		cfgValueList.add(cfgValue);
 		costList.add(cost);
 		valueList.add(value);

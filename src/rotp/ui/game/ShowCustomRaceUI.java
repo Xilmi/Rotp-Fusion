@@ -38,35 +38,35 @@ import rotp.model.empires.CustomRaceDefinitions;
 import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
+import rotp.ui.RotPUI;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.races.RacesUI;
 import rotp.ui.util.AbstractOptionsUI;
 import rotp.ui.util.InterfaceOptions;
 import rotp.ui.util.Modifier2KeysState;
 import rotp.ui.util.SettingBase;
+import rotp.util.FontManager;
 
 public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseMotionListener {
 	private static final long serialVersionUID	= 1L;
 	private static final Color  backgroundHaze	= new Color(0,0,0,160);
 	private static final String totalCostKey	= "CUSTOM_RACE_GUI_COST";
-	private static final String initialRace	= MOO1GameOptions.baseRaceOptions().getFirst();
-	public	static final ShowCustomRaceUI instance = new ShowCustomRaceUI().init0();
 	
-	protected static final Color textC			= SystemPanel.whiteText;
-	protected		   final Font buttonFont	= narrowFont(20);
-	protected static final int buttonH			= s30;
-	protected static final int buttonMargin		= AbstractOptionsUI.smallButtonM;
-	protected static final int buttonPad		= s15;
-	protected static final int xButtonOffset	= s30;
-	protected static final int yButtonOffset	= s40;
-	protected static final Color labelC			= SystemPanel.orangeText;
-	protected	static final int labelFontSize	= 14;
-	protected static final int labelH			= s16;
-	protected static final int labelPad			= s8;
+	protected static final Color textC		= SystemPanel.whiteText;
+	protected static final Font buttonFont	= FontManager.current().narrowFont(20);
+	protected static final int buttonH		= s30;
+	protected static final int buttonMargin	= AbstractOptionsUI.smallButtonM;
+	protected static final int buttonPad	= s15;
+	protected static final int xButtonOffset= s30;
+	protected static final int yButtonOffset= s40;
+	protected static final Color labelC		= SystemPanel.orangeText;
+	protected static final int labelFontSize= 14;
+	protected static final int labelH		= s16;
+	protected static final int labelPad		= s8;
 
 	protected static final Color costC		= SystemPanel.blackText;
 	protected static final int costFontSize	= 18;
-	private		   final Font titleFont		= narrowFont(30);
+	private	static final Font titleFont		= FontManager.current().narrowFont(30);
 	private static final int titleOffset	= s30; // Offset from Margin
 	private static final int costOffset		= s25; // Offset from title
 	private static final int titlePad		= s75;
@@ -86,8 +86,10 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	private static final int frameSizePad	= s10;
 	private static final int frameEndPad	= s4;
 	private static final int settingIndent	= s10;
-	private static final int wFirstColumn	= s100+s50;
-	private static final int wSetting		= s100+s100+s20;
+	private static final int wFirstColumn	= RotPUI.scaledSize(150);
+	private static final int wSetting		= RotPUI.scaledSize(220);
+//	private static final int wFirstColumn	= s100+s50;
+//	private static final int wSetting		= s100+s100+s20;
 	private int currentWith = wFirstColumn;
 
 	private static final Color optionC		= SystemPanel.blackText; // Unselected option Color
@@ -96,23 +98,25 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	private static final int optionH		= s15;
 	private static final int optionIndent	= s15;
 
+	// This should be the last static to be initialized
+	public	static final ShowCustomRaceUI instance = new ShowCustomRaceUI().init0();
+
 	protected LinkedList<Integer> colSettingsCount;
 	private	  LinkedList<Integer> spacerList;
 	private   LinkedList<Integer> columnList;
 	protected LinkedList<SettingBase<?>> settingList;
 	public    LinkedList<SettingBase<?>> commonList;
 	protected String guiTitleID;
-	public final CustomRaceDefinitions cr = new CustomRaceDefinitions();
 
 	protected int numColumns	= 0;
 	protected int columnsMaxH	= 0;
+	protected int columnH		= 0;
+	protected int numSettings	= 0;
 
 	protected int xButton, yButton;
 	protected int yTitle;
 	protected int xCost, yCost;
 	protected int w, wBG, h, hBG;
-	protected int columnH		= 0;
-	protected int numSettings	= 0;
 	protected int settingSize;
 	protected int settingBoxH;
 	protected int leftM, topM, yTop;
@@ -122,12 +126,14 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	protected Rectangle hoverBox;
 	protected final Rectangle exitBox = new Rectangle();
 	protected BaseText totalCostText;
-	private RacesUI	raceUI; // Parent panel
+	private	  RacesUI  raceUI; // Parent panel
 	protected int maxLeftM;
+	public final CustomRaceDefinitions cr;
 	
 	// ========== Constructors and initializers ==========
 	//
 	protected ShowCustomRaceUI() {
+		cr = new CustomRaceDefinitions();
 		setOpaque(false);
 	    totalCostText = new BaseText(this, false, costFontSize, 0, 0, 
 	    		costC, costC, hoverC, depressedC, costC, 0, 0, 0);
@@ -145,11 +151,10 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		return this;
 	}
 	public void loadRace() { // For Race Diplomatic UI Panel
-		cr.initShowRace(raceUI.selectedEmpire().abilitiesKey());
+		cr.setFromRaceToShow(raceUI.selectedEmpire().dataRace());
 	}
 	public void init(RacesUI p) { // For Race Diplomatic UI Panel
-		raceUI     = p;
-		cr.initShowRace(initialRace);
+		raceUI = p;
 	}
 	protected void initGUI() {
 		colSettingsCount = new LinkedList<>();
@@ -444,7 +449,9 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 			return;
 		}
 	}
-	@Override public void mouseEntered(MouseEvent e) { }
+	@Override public void mouseEntered(MouseEvent e) {
+		
+	}
 	@Override public void mouseExited(MouseEvent e) {
 		if (hoverBox != null) {
 			hoverBox = null;

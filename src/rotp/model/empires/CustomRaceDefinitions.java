@@ -27,7 +27,6 @@ import static rotp.util.Base.random;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,17 +40,17 @@ import rotp.ui.game.EditCustomRaceUI;
 import rotp.ui.util.SettingBase;
 import rotp.ui.util.SettingBoolean;
 import rotp.ui.util.SettingInteger;
+import rotp.ui.util.SettingString;
 
 public class CustomRaceDefinitions  {
 	
 	public static final String ROOT = "CUSTOM_RACE_";
-	public static final String PLANET = "PLANET_";
+	private static final String PLANET = "PLANET_";
 	public static final String RANDOM_RACE_KEY = "RANDOM_RACE_KEY";
 	public static final String CUSTOM_RACE_KEY = "CUSTOM_RACE_KEY";
 	private static final boolean booleansAreBullet = true;
 
 	private Race race;
-	private LinkedHashMap<String, String> settingsValues = new LinkedHashMap<>();
 	private final LinkedList<SettingBase<?>> settingList = new LinkedList<>();
 	private final LinkedList<SettingBase<?>> guiList	 = new LinkedList<>();
 
@@ -103,6 +102,10 @@ public class CustomRaceDefinitions  {
 		for (SettingBase<?> setting : guiList)
 			setting.setFromOptions(srcOptions);
 	}
+	public void setFromRaceToShow(Race race) {
+		this.race = race;
+		pullSettings();
+	}
 	public void saveSettingList(String path, String fileName) {
 		getAsOptions().save(path, fileName);
 	}
@@ -138,31 +141,6 @@ public class CustomRaceDefinitions  {
 				|| !race.name().equalsIgnoreCase(raceKey)) {
 			race = Race.keyed(raceKey).copy();
 		}
-	}
-	public void initShowRace(String raceKey) {
-		if (raceKey.length() > 50) {
-			setKey(raceKey);
-		} else {
-			race = Race.keyed(raceKey);
-			pullSettings();
-		}
-	}
-	private void setKey(String keyString) {
-		String[] list = keyString.split(",");
-		for (int i=0; i<list.length; i+=2) {
-			settingsValues.put(list[i], list[i+1]);
-		}
-		setValues();
-	}
-	public String getKey() {
-		LinkedList<String> list = new LinkedList<>();
-		for (SettingBase<?> setting : settingList) {
-			if (!setting.isSpacer()) {
-				list.add(setting.getCfgLabel());
-				list.add(setting.getCfgValue());
-			}
-		}
-		return String.join(",", list);
 	}
 	public int getCount() {
 		int count = 0;
@@ -248,9 +226,8 @@ public class CustomRaceDefinitions  {
 		randomizeRace(randomMin.settingValue(), randomMax.settingValue(),
 			randomTargetMin.settingValue(), randomTargetMax.settingValue(),
 			randomUseTarget.settingValue(), randomSmoothEdges.settingValue(), updateGui);
-
 	}
-	public void randomizeRace(float min, float max, float targetMin, float targetMax, 
+	private void randomizeRace(float min, float max, float targetMin, float targetMax, 
 			boolean useTarget, boolean gaussian, boolean updateGui) {
 		if (useTarget)
 			randomizeRace(min, max, targetMin, targetMax, gaussian, updateGui);
@@ -282,22 +259,13 @@ public class CustomRaceDefinitions  {
 		}
 		return getTotalCost();
 	}
-	private void setValues() {
-		for (SettingBase<?> setting : settingList) {
-			if (!setting.isSpacer()) {
-				String value = settingsValues.get(setting.getCfgLabel());
-				if (value != null)
-					setting.setFromCfgValue(value);
-			}
-		}
-		pushSettings();
-	}
 
 	private void newSettingList() {
 		spacerList  = new LinkedList<>();
 		columnList  = new LinkedList<>();
 		
 		// First column (left)
+		settingList.add(new RaceName());
 		settingList.add(new BaseDataRace());
 		endOfColumn(); // ====================
 
@@ -372,21 +340,6 @@ public class CustomRaceDefinitions  {
 				randomAlienRacesSmoothEdges.get(), randomAlienRaces.isTarget(), false);
 		return cr.returnRace();
 	}
-//	public static DynOptions getRandomAlienRaceKey() {
-//		CustomRaceDefinitions cr = new CustomRaceDefinitions();
-//		cr.randomizeRace(randomAlienRacesMin.get(), randomAlienRacesMax.get(),
-//				randomAlienRacesTargetMin.get(), randomAlienRacesTargetMax.get(),
-//				randomAlienRacesSmoothEdges.get(), randomAlienRaces.isTarget(), false);
-//		return cr.getAsOptions();
-//	}
-//	public static DynOptions raceToOptions(Race race) {
-//		CustomRaceDefinitions cr = new CustomRaceDefinitions(race);
-//		return cr.getAsOptions();
-//	}
-//	public static Race keyToRace(DynOptions options) {
-//		CustomRaceDefinitions cr = new CustomRaceDefinitions(options);
-//		return cr.race;
-//	}
 	static Race keyToRace(String raceKey) {
 		if (raceKey.equalsIgnoreCase(RANDOM_RACE_KEY)) {
 			return getRandomAlienRace();
@@ -394,27 +347,19 @@ public class CustomRaceDefinitions  {
 		if (raceKey.equalsIgnoreCase(CUSTOM_RACE_KEY)) {
 			return EditCustomRaceUI.instance.cr.race;
 		}
-		IGameOptions opts		 = GameSession.instance().options();
-		DynOptions options		 = opts.customRaces().get(raceKey);
-		CustomRaceDefinitions cr = new CustomRaceDefinitions(options);
-		return cr.returnRace();
-	}
-	public static int keyToValue(String raceKey) {
-		CustomRaceDefinitions cr = new CustomRaceDefinitions();
-		cr.initShowRace(raceKey);
-		float cost = cr.getTotalCost();
-		return Math.round(cost); 
+		IGameOptions opts  = GameSession.instance().options();
+		DynOptions options = opts.customRaces().get(raceKey);
+		return new CustomRaceDefinitions(options).returnRace();
 	}
 	// ==================== Nested Classes ====================
 	//
-	// ==================== Spacer ====================
+	// ==================== RaceName ====================
 	//
-//	private class Spacer extends SettingBase<String> {
-//		public Spacer() {
-//			super("", "");
-//			isSpacer(true);
-//		}
-//	}
+	private class RaceName extends SettingString {
+		public RaceName() {
+			super(ROOT, "RACE_NAME", "CustomRace");
+		}
+	}
 	// ==================== BaseDataRace ====================
 	//
 	private class BaseDataRace extends SettingBase<String> {

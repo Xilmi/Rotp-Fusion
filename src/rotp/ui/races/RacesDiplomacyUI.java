@@ -1294,7 +1294,6 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
     public void openShowAbilitiesPane() {
         softClick();
         if (showRaceAbilitiesPane == null) {
-//            showRaceAbilitiesPane = PlayerRaceCustomizationUI.displayInstance();
             showRaceAbilitiesPane = ShowCustomRaceUI.instance;
             showRaceAbilitiesPane.init(parent);
         }
