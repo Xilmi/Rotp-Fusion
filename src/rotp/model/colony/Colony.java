@@ -902,7 +902,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
             return production() * empire.tradeIncomePerBC();
     }
     public float totalIncome() {
-        return totalProductionIncome() + maxReserveIncome();
+        return max(0.1f, totalProductionIncome() + maxReserveIncome());
     }
     public float colonyTaxPct() {
         if (embargoed())
