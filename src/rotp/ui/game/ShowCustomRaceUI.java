@@ -71,12 +71,12 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	protected static final Color costC		= SystemPanel.blackText;
 	protected static final int costFontSize	= 18;
 	protected static final Font raceNameFont= FontManager.current().narrowFont(16);
-	protected static final int raceNameH	= s18;
+	protected static final int raceNameH	= s20;
 	protected static final int raceNameW	= RotPUI.scaledSize(150);
 	private	static final Font titleFont		= FontManager.current().narrowFont(30);
 	private static final int titleOffset	= s30; // Offset from Margin
 	private static final int costOffset		= s25; // Offset from title
-	private static final int titlePad		= s75;
+	private static final int titlePad		= s80; // Offset of first setting
 	private static final int bottomPad		= s40;
 	private static final int columnPad		= s20;
 	
@@ -367,7 +367,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		yTitle	= topM + titleOffset;
 		yButton	= topM + hBG - yButtonOffset;
 		yCost 	= yTitle + costOffset;
-		yRace	= yCost - raceNameH + s4;
+		yRace	= yCost - raceNameH + s6;
 		xRace	= leftM + columnPad/2;
 		xLine	= leftM + columnPad/2;
 		yLine	= yTop;
@@ -389,16 +389,11 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		// Race Name
 		g.setFont(narrowFont(costFontSize));
 		g.setColor(Color.black);
-		sw = g.getFontMetrics().stringWidth(raceNameTxt) + s2;
+		sw = g.getFontMetrics().stringWidth(raceNameTxt) + s4;
 		drawString(g, raceNameTxt, xRace, yCost); // Yes yCost!
         xRace += sw;
         raceName.setCaretPosition(raceName.getText().length());
-		raceName.setLocation(xRace, yRace); // BR: squeezed
-		raceName.setToolTipText("<html> Tool Tip Test Long, Long, Long, Long, Long, Long, Long, Long, Long, Long, Long, Long, Long, "
-				+ "<br> over 2 lines "
-				+ "<br> over 3 lines "
-				+ "<br> over 4 lines "
- 				+ "<br> over 5 lines");
+		raceName.setLocation(xRace, yRace);
 
 		// Total cost
 		xCost = xRace + raceNameW + columnPad;

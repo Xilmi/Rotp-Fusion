@@ -324,8 +324,48 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 				}
 			}
 		}
-        if (hoverBox != prevHover)
-            repaint();
+
+
+		if (hoverBox != prevHover) {
+			outerLoop2: // Check exit settings
+			for ( SettingBase<?> setting : commonList) {
+				if (setting.isSpacer())
+					continue;
+				if (prevHover == setting.settingText().bounds()) {
+					setting.settingText().mouseExit();
+					break outerLoop2;
+				}
+				if (setting.isBullet()) {					
+					for (BaseText txt : setting.optionsText()) {
+						if (prevHover == txt.bounds()) {
+							txt.mouseExit();
+							break outerLoop2;
+						}
+					}
+				}
+			}
+			
+			outerLoop3: // Check enter settings
+			for ( SettingBase<?> setting : commonList) {
+				if (setting.isSpacer())
+					continue;
+				if (hoverBox == setting.settingText().bounds()) {
+					setting.settingText().mouseEnter();
+					break outerLoop3;
+				}
+				if (setting.isBullet()) {					
+					for (BaseText txt : setting.optionsText()) {
+						if (hoverBox == txt.bounds()) {
+							txt.mouseEnter();
+							break outerLoop3;
+						}
+					}
+				}
+			}
+
+			if (prevHover != null) repaint(prevHover);
+			if (hoverBox != null)  repaint(hoverBox);
+		}
 	}
 	@Override public void mouseReleased(MouseEvent e) {
 		if (e.getButton() > 3)
@@ -360,12 +400,10 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	}
 	@Override public void mouseEntered(MouseEvent e) { // TODO
 		if (e.getComponent() == raceName) {
-//        	repaint();
 			raceName.requestFocus();
         }
 	}
 	@Override public void mouseExited(MouseEvent e) {
-//		System.out.println("EDIT mouseExited : " + e.toString());
 		if (e.getComponent() == raceName) {
 			cr.raceName().set(raceName.getText());
 			RotPUI.instance().requestFocus();
