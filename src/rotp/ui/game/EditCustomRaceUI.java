@@ -23,6 +23,7 @@ import static rotp.ui.util.AbstractOptionsUI.userButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.userButtonWidth;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -33,11 +34,13 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.LinkedList;
 
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
+import rotp.ui.RotPUI;
 import rotp.ui.util.InterfaceOptions;
 import rotp.ui.util.Modifier2KeysState;
 import rotp.ui.util.SettingBase;
@@ -60,9 +63,26 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	//
 	private EditCustomRaceUI() {}
 
+	private void initTextField(JTextField value) {
+		value.setBackground(GameUI.setupFrame());
+		value.setBorder(newEmptyBorder(3,3,0,0));
+		value.setPreferredSize(new Dimension(raceNameW, raceNameH));
+		value.setFont(raceNameFont);
+		value.setForeground(Color.black);
+		value.setCaretColor(Color.black);
+		value.putClientProperty("caretWidth", s3);
+		value.setVisible(true);
+		value.addMouseListener(this);
+		add(value);
+	}
 	private EditCustomRaceUI init0() {
+		addMouseListener(this);
+		addMouseMotionListener(this);
+		addMouseWheelListener(this);
 		maxLeftM	= scaled(999);
 		guiTitleID	= ROOT + "GUI_TITLE";
+	    initTextField(raceName);
+	    initGUI();		
 
 		guiList = cr.guiList();
 	    for(SettingBase<?> setting : guiList)
@@ -74,9 +94,6 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	    commonList.addAll(guiList);
 	    cr.setRace(MOO1GameOptions.baseRaceOptions().getFirst());
 	    cr.pullSettings();
-		addMouseListener(this);
-		addMouseMotionListener(this);
-		addMouseWheelListener(this);
 		return this;
 	}
 	@Override public void open(BasePanel p) {
@@ -246,6 +263,9 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			bt.draw(g);
 			yLine -= labelH;
 	    }
+	    
+		g.setFont(raceNameFont);
+		g.setColor(Color.black);
 	}
 	@Override public void keyPressed(KeyEvent e) {
 		checkModifierKey(e);
@@ -277,20 +297,19 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		int y = e.getY();
 		Rectangle prevHover = hoverBox;
 		hoverBox = null;
+		outerLoop1:
 		if (exitBox.contains(x,y))
 			hoverBox = exitBox;
 		else if (userBox.contains(x,y))
 			hoverBox = userBox;
-
-		if (selectBox.contains(x,y))
+		else if (selectBox.contains(x,y))
 			hoverBox = selectBox;
 		else if (defaultBox.contains(x,y))
 			hoverBox = defaultBox;
 		else if (randomBox.contains(x,y))
 			hoverBox = randomBox;
 		else {
-			outerLoop1:
-			for ( SettingBase<?> setting : commonList) {
+			for (SettingBase<?> setting : commonList) {
 				if (setting.settingText().contains(x,y)) {
 					hoverBox = setting.settingText().bounds();
 					break outerLoop1;
@@ -305,40 +324,8 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 				}
 			}
 		}
-		if (hoverBox != prevHover) {
-			outerLoop2:
-				for ( SettingBase<?> setting : commonList) {
-					if (prevHover == setting.settingText().bounds()) {
-						setting.settingText().mouseExit();
-						break outerLoop2;
-					}
-					if (setting.isBullet()) {					
-						for (BaseText txt : setting.optionsText()) {
-							if (prevHover == txt.bounds()) {
-								txt.mouseExit();
-								break outerLoop2;
-							}
-						}
-					}
-				}
-			outerLoop3:
-				for ( SettingBase<?> setting : commonList) {
-					if (hoverBox == setting.settingText().bounds()) {
-						setting.settingText().mouseEnter();
-						break outerLoop3;
-					}
-					if (setting.isBullet()) {					
-						for (BaseText txt : setting.optionsText()) {
-							if (hoverBox == txt.bounds()) {
-								txt.mouseEnter();
-								break outerLoop3;
-							}
-						}
-					}
-				}	
-			if (prevHover != null) repaint(prevHover);
-			if (hoverBox != null)  repaint(hoverBox);
-		}
+        if (hoverBox != prevHover)
+            repaint();
 	}
 	@Override public void mouseReleased(MouseEvent e) {
 		if (e.getButton() > 3)
@@ -370,6 +357,23 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		boolean shiftPressed = e.isShiftDown();
 		boolean ctrlPressed = e.isControlDown();
 		mouseCommon(up, mid, shiftPressed, ctrlPressed, e, null);
+	}
+	@Override public void mouseEntered(MouseEvent e) { // TODO
+		if (e.getComponent() == raceName) {
+//        	repaint();
+			raceName.requestFocus();
+        }
+	}
+	@Override public void mouseExited(MouseEvent e) {
+//		System.out.println("EDIT mouseExited : " + e.toString());
+		if (e.getComponent() == raceName) {
+			cr.raceName().set(raceName.getText());
+			RotPUI.instance().requestFocus();
+		}
+		if (hoverBox != null) {
+			hoverBox = null;
+			repaint();
+		}
 	}
 	@Override public void mouseWheelMoved(MouseWheelEvent e) {
 		boolean shiftPressed = e.isShiftDown();

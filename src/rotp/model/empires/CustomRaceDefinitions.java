@@ -32,6 +32,7 @@ import java.util.List;
 
 import br.profileManager.src.main.java.PMutil;
 import rotp.model.game.DynOptions;
+import rotp.model.game.DynamicOptions;
 import rotp.model.game.GameSession;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.MOO1GameOptions;
@@ -51,6 +52,7 @@ public class CustomRaceDefinitions  {
 	private static final boolean booleansAreBullet = true;
 
 	private Race race;
+	private RaceName raceName = new RaceName();
 	private final LinkedList<SettingBase<?>> settingList = new LinkedList<>();
 	private final LinkedList<SettingBase<?>> guiList	 = new LinkedList<>();
 
@@ -89,18 +91,20 @@ public class CustomRaceDefinitions  {
 	// ========== Options Management ==========
 	//
 	public DynOptions getAsOptions() {
-		DynOptions options = new DynOptions();
+		DynOptions destOptions = new DynOptions();
 		for (SettingBase<?> setting : settingList)
-			setting.setOptions(options);
+			setting.setOptions(destOptions);
 		for (SettingBase<?> setting : guiList)
-			setting.setOptions(options);
-		return options;
+			setting.setOptions(destOptions);
+		raceName.setOptions(destOptions);
+		return destOptions;
 	}
 	public void setFromOptions(DynOptions srcOptions) {
 		for (SettingBase<?> setting : settingList)
 			setting.setFromOptions(srcOptions);
 		for (SettingBase<?> setting : guiList)
 			setting.setFromOptions(srcOptions);
+		raceName.setFromOptions(srcOptions);
 	}
 	public void setFromRaceToShow(Race race) {
 		this.race = race;
@@ -115,6 +119,7 @@ public class CustomRaceDefinitions  {
 	// ========== Main Getters ==========
 	//
 	public Race						  race()		{ return race; }
+	public RaceName					  raceName()	{ return raceName; }
 	public LinkedList<SettingBase<?>> settingList()	{ return settingList; }
 	public LinkedList<SettingBase<?>> guiList()		{ return guiList; }
 	public LinkedList<Integer>		  spacerList()	{ return spacerList; }
@@ -265,7 +270,7 @@ public class CustomRaceDefinitions  {
 		columnList  = new LinkedList<>();
 		
 		// First column (left)
-		settingList.add(new RaceName());
+//		settingList.add(raceName); // TODO remove
 		settingList.add(new BaseDataRace());
 		endOfColumn(); // ====================
 
@@ -355,11 +360,54 @@ public class CustomRaceDefinitions  {
 	//
 	// ==================== RaceName ====================
 	//
-	private class RaceName extends SettingString {
+	public class RaceName extends SettingString {
 		public RaceName() {
 			super(ROOT, "RACE_NAME", "CustomRace");
 		}
+		@Override public void pushSetting() { // TODO
+		race.id = settingValue();
+		}
+		@Override public void pullSetting() { // TODO
+			set(race.id);
+		}
 	}
+//	public class RaceName extends SettingBase<String> {
+//		private static final String defaultValue = "CustomRace";
+//		public RaceName() {
+//			super(ROOT, "RACE_NAME");
+//			isBullet(true);
+//			labelsAreFinals(true);
+//			hasNoCost(true);
+//			put("Value", "-", 0f, defaultValue);
+//			defaultIndex(0);
+//			initOptionsText();
+//		}
+//		@Override public void setOptions(DynamicOptions destOptions) {
+//			destOptions.setString(labelId(), settingValue());
+//		}
+//		@Override public void setFromOptions(DynamicOptions srcOptions) {
+//			set(srcOptions.getString(labelId(), defaultValue()));
+//		}
+//		@Override public String getGuiDisplay()	{ return text(labelId()); }
+//
+////		@Override public void pushSetting() { // TODO
+////			race.planetRessource(settingValue());
+////		}
+////		@Override public void pullSetting() { // TODO
+////			set(race.planetRessource());
+////		}
+//		@Override public SettingBase<?> set(String newValue) {
+//			return selectedValue(newValue);
+//		}
+//		@Override public void updateGui() { 
+//			settingText().repaint();
+//			optionText(0).disabled(true);
+//			optionText(0).repaint();
+//		}
+//		@Override public String guiCostOptionStr(int idx) {
+//			return settingValue();
+//		}
+//	}
 	// ==================== BaseDataRace ====================
 	//
 	private class BaseDataRace extends SettingBase<String> {

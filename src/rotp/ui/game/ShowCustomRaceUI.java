@@ -21,6 +21,7 @@ import static rotp.ui.util.AbstractOptionsUI.exitButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.exitButtonWidth;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -33,6 +34,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.util.LinkedList;
+
+import javax.swing.JTextField;
 
 import rotp.model.empires.CustomRaceDefinitions;
 import rotp.model.game.MOO1GameOptions;
@@ -50,7 +53,8 @@ import rotp.util.FontManager;
 public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseMotionListener {
 	private static final long serialVersionUID	= 1L;
 	private static final Color  backgroundHaze	= new Color(0,0,0,160);
-	private static final String totalCostKey	= "CUSTOM_RACE_GUI_COST";
+	private static final String totalCostKey	= ROOT + "GUI_COST";
+	private static final String raceNameKey		= ROOT + "RACE_NAME";
 	
 	protected static final Color textC		= SystemPanel.whiteText;
 	protected static final Font buttonFont	= FontManager.current().narrowFont(20);
@@ -66,6 +70,9 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 
 	protected static final Color costC		= SystemPanel.blackText;
 	protected static final int costFontSize	= 18;
+	protected static final Font raceNameFont= FontManager.current().narrowFont(16);
+	protected static final int raceNameH	= s18;
+	protected static final int raceNameW	= RotPUI.scaledSize(150);
 	private	static final Font titleFont		= FontManager.current().narrowFont(30);
 	private static final int titleOffset	= s30; // Offset from Margin
 	private static final int costOffset		= s25; // Offset from title
@@ -88,8 +95,6 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	private static final int settingIndent	= s10;
 	private static final int wFirstColumn	= RotPUI.scaledSize(150);
 	private static final int wSetting		= RotPUI.scaledSize(220);
-//	private static final int wFirstColumn	= s100+s50;
-//	private static final int wSetting		= s100+s100+s20;
 	private int currentWith = wFirstColumn;
 
 	private static final Color optionC		= SystemPanel.blackText; // Unselected option Color
@@ -115,7 +120,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 
 	protected int xButton, yButton;
 	protected int yTitle;
-	protected int xCost, yCost;
+	protected int xCost, yCost, xRace, yRace;
 	protected int w, wBG, h, hBG;
 	protected int settingSize;
 	protected int settingBoxH;
@@ -130,6 +135,10 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	protected int maxLeftM;
 	public final CustomRaceDefinitions cr;
 	
+	protected final JTextField	raceName	= new JTextField("");
+	protected final String		raceNameTxt	= text(raceNameKey);
+
+	
 	// ========== Constructors and initializers ==========
 	//
 	protected ShowCustomRaceUI() {
@@ -137,9 +146,19 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		setOpaque(false);
 	    totalCostText = new BaseText(this, false, costFontSize, 0, 0, 
 	    		costC, costC, hoverC, depressedC, costC, 0, 0, 0);
-	    initGUI();		
 	}
-
+	private void initTextField(JTextField value) {
+		value.setBackground(GameUI.setupFrame());
+		value.setBorder(newEmptyBorder(3,3,0,0));
+		value.setPreferredSize(new Dimension(raceNameW, raceNameH));
+		value.setFont(raceNameFont);
+		value.setForeground(Color.black);
+		value.setCaretColor(Color.black);
+		value.putClientProperty("caretWidth", s3);
+		value.setVisible(true);
+//		value.addMouseListener(this);
+//		add(value);
+	}
 	private ShowCustomRaceUI init0() {
 		maxLeftM	= scaled(100);
 		guiTitleID	= ROOT + "SHOW_TITLE";
@@ -148,6 +167,8 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	    cr.pullSettings();
 		addMouseListener(this);
 		addMouseMotionListener(this);
+	    initTextField(raceName);
+	    initGUI();		
 		return this;
 	}
 	public void loadRace() { // For Race Diplomatic UI Panel
@@ -173,6 +194,8 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 			numSettings++;
 		}
 		endOfColumn();
+		raceName.setFont(raceNameFont);
+		raceName.setText(cr.raceName().settingValue());
 	}
 	private void initSetting(SettingBase<?> setting) {
 		if (setting.isBullet()) {
@@ -214,6 +237,8 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 				setting.settingText().displayText(setting.guiSettingDisplayStr());			
 			}
 		}
+		raceName.setFont(raceNameFont);
+		raceName.setText(cr.raceName().settingValue());
 		totalCostText.displayText(totalCostStr());
 		totalCostText.disabled(true);
 	}
@@ -341,8 +366,9 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		leftM = Math.min((w - wBG)/2, maxLeftM);
 		yTitle	= topM + titleOffset;
 		yButton	= topM + hBG - yButtonOffset;
-		yCost	= yTitle + costOffset;
-		xCost	= leftM + columnPad/2;
+		yCost 	= yTitle + costOffset;
+		yRace	= yCost - raceNameH + s4;
+		xRace	= leftM + columnPad/2;
 		xLine	= leftM + columnPad/2;
 		yLine	= yTop;
 
@@ -352,13 +378,30 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		
 		g.setPaint(GameUI.settingsSetupBackground(w));
 		g.fillRect(leftM, topM, wBG, hBG);
+		
+		// Title
 		g.setFont(titleFont);
 		String title = text(guiTitleID);
-
 		int sw = g.getFontMetrics().stringWidth(title);
 		int xTitle = leftM +(wBG-sw)/2;
 		drawBorderedString(g, title, 1, xTitle, yTitle, Color.black, Color.white);
 		
+		// Race Name
+		g.setFont(narrowFont(costFontSize));
+		g.setColor(Color.black);
+		sw = g.getFontMetrics().stringWidth(raceNameTxt) + s2;
+		drawString(g, raceNameTxt, xRace, yCost); // Yes yCost!
+        xRace += sw;
+        raceName.setCaretPosition(raceName.getText().length());
+		raceName.setLocation(xRace, yRace); // BR: squeezed
+		raceName.setToolTipText("<html> Tool Tip Test Long, Long, Long, Long, Long, Long, Long, Long, Long, Long, Long, Long, Long, "
+				+ "<br> over 2 lines "
+				+ "<br> over 3 lines "
+				+ "<br> over 4 lines "
+ 				+ "<br> over 5 lines");
+
+		// Total cost
+		xCost = xRace + raceNameW + columnPad;
 		totalCostText.displayText(totalCostStr());
 		totalCostText.setScaledXY(xCost, yCost);
 		totalCostText.draw(g);
@@ -403,7 +446,6 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		g.setStroke(stroke1);
 		g.drawRoundRect(exitBox.x, exitBox.y, exitBox.width, exitBox.height, cnr, cnr);
 		g.setStroke(prev);
-
 	}
 	@Override public void keyReleased(KeyEvent e) {
 		checkModifierKey(e);
@@ -449,13 +491,6 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 			return;
 		}
 	}
-	@Override public void mouseEntered(MouseEvent e) {
-		
-	}
-	@Override public void mouseExited(MouseEvent e) {
-		if (hoverBox != null) {
-			hoverBox = null;
-			repaint();
-		}
-	}
+	@Override public void mouseEntered(MouseEvent e) {}
+	@Override public void mouseExited(MouseEvent e) {}
 }

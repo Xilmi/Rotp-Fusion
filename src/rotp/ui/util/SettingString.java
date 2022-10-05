@@ -26,8 +26,6 @@ public class SettingString extends SettingBase<String> {
 	 * @param guiLangLabel  The label header
 	 * @param nameLangLabel The nameLangLabel
 	 * @param defaultvalue The default value
-	 * @param costTrue 
-	 * @param costFalse 
 	 */
 	public SettingString(String guiLangLabel, String nameLangLabel, String defaultValue) {
 		super(guiLangLabel, nameLangLabel, defaultValue, false, false, true);
@@ -38,12 +36,12 @@ public class SettingString extends SettingBase<String> {
 	@Override public void setFromCfgValue(String cfgValue) {
 		set(cfgValue);
 	}
-	@Override public void setOptions(DynamicOptions options) {
+	@Override public void setOptions(DynamicOptions destOptions) {
 		if (!isSpacer())
-			options.setString(labelId(), settingValue());
+			destOptions.setString(labelId(), settingValue());
 	}
-	@Override public void setFromOptions(DynamicOptions options) {
+	@Override public void setFromOptions(DynamicOptions srcOptions) {
 		if (!isSpacer())
-			set(options.getString(labelId(), defaultValue()));
+			set(srcOptions.getString(labelId(), defaultValue()));
 	}
 }

@@ -246,6 +246,15 @@ public class SettingBase<T> implements InterfaceParam {
 		}
 		return null; // Should be overridden
 	}
+	public SettingBase<?> set(T newValue) {
+		selectedValue = newValue;
+		if (isList)
+			selectedValue = valueList.get(valueValidIndex());
+		return this;
+	}
+	public String guiCostOptionStr(int idx) {
+		return guiCostOptionStr(idx, 0);
+	}
 	// ========== Setter ==========
 	//
 	public void setRandom(float min, float max, boolean gaussian) {
@@ -273,10 +282,9 @@ public class SettingBase<T> implements InterfaceParam {
 		selectedValue = valueList.get(cfgValidIndex(newIndex));
 		return this;
 	}
-	public SettingBase<?> set(T newValue) {
+	protected SettingBase<?> selectedValue(T newValue) {
 		selectedValue = newValue;
-		if (isList)
-			selectedValue = valueList.get(valueValidIndex());
+		valueList.set(0, newValue);
 		return this;
 	}
 	public void setFromLabel(String langLabel) {
@@ -290,7 +298,7 @@ public class SettingBase<T> implements InterfaceParam {
 	}
 	// ===== Getters =====
 	//
-	T		defaultValue()		{ return defaultValue; }
+	protected T	defaultValue()	{ return defaultValue; }
 	String	guiOptionLabel()	{ return guiOptionLabel(index()); }
 	String	guiOptionLabel(int index) {
 		return text(labelList.get(cfgValidIndex(index)));
@@ -333,9 +341,6 @@ public class SettingBase<T> implements InterfaceParam {
 		LinkedList<String> list = new LinkedList<String>();
 		list.addAll(cfgValueList);
 		return list;
-	}
-	public String guiCostOptionStr(int idx) {
-		return guiCostOptionStr(idx, 0);
 	}
 	// ===== Other Public Methods =====
 	//
