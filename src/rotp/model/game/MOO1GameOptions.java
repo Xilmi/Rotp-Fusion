@@ -292,14 +292,15 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override
     public int maximumOpponentsOptions() {
     	// BR: customize min Star per empire
-        int maxEmpires = min(numberStarSystems() / minStarsPerEmpire.get()
-        		, colors.size(), MAX_OPPONENT_TYPE*startingRaceOptions().size());
+    	int maxEmpires;
+        if (selectedGalaxySize.equals(SIZE_DYNAMIC))
+        	maxEmpires = (int) ((maximumSystems()-1) / prefStarsPerEmpire.get());
+        else
+        	maxEmpires = min(numberStarSystems() / minStarsPerEmpire.get()
+        		, colors.size(), MAX_OPPONENT_TYPE * startingRaceOptions().size());
         // \BR:
         int maxOpponents = SetupGalaxyUI.MAX_DISPLAY_OPPS;
-        if (selectedGalaxySize.equals(SIZE_DYNAMIC))
-            return min(maxOpponents, maxEmpires); // give +1 to allow dynamic increase
-        else
-        	return min(maxOpponents, maxEmpires-1);
+       	return min(maxOpponents, maxEmpires-1);
     }
     @Override
     public int defaultOpponentsOptions() {

@@ -123,16 +123,18 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	//
 	public String getLabel(){ return text(labelId()); }
 	public T defaultValue() { return defaultValue; }
-	public T get()	{ return value; }	
-	T minValue()	{ return minValue; }	
-	T maxValue()	{ return maxValue; }	
+	public T get()		{ return value; }	
+	public T minValue()	{ return minValue; }	
+	public T maxValue()	{ return maxValue; }	
 	T baseInc()		{ return baseInc; }	
 	// ========== Public Setters ==========
 	//
 	public T set(T newValue) {
 		value = newValue;
 		return value;
-	}	
+	}
+	public void maxValue (T newValue) { maxValue = newValue;}
+	public void minValue (T newValue) { minValue = newValue;}
 	// ========== Private Methods ==========
 	//
 	protected String labelId()		{ return gui + name; }

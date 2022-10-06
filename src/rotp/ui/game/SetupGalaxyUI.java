@@ -15,6 +15,7 @@
  */
 package rotp.ui.game;
 
+import static rotp.ui.UserPreferences.prefStarsPerEmpire;
 import static rotp.ui.UserPreferences.showNewRaces;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonWidth;
@@ -54,6 +55,7 @@ import rotp.model.galaxy.GalaxyCopy;
 import rotp.model.galaxy.GalaxyShape;
 import rotp.model.galaxy.GalaxyShape.EmpireSystem;
 import rotp.model.game.GameSession;
+import rotp.model.game.IGameOptions;
 import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.NoticeMessage;
@@ -92,6 +94,9 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	Rectangle mapOption2Box	= new Rectangle();
 	Polygon mapOption2BoxL	= new Polygon();
 	Polygon mapOption2BoxR	= new Polygon();			 
+	Rectangle sizeOptionBox	= new Rectangle(); // BR:
+	Polygon sizeOptionBoxL	= new Polygon(); // BR:
+	Polygon sizeOptionBoxR	= new Polygon(); // BR:
 	Rectangle sizeBox	= new Rectangle();
 	Polygon sizeBoxL	= new Polygon();
 	Polygon sizeBoxR	= new Polygon();
@@ -140,10 +145,13 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	private void saveOptions(MOO1GameOptions destination) {
 		copyOptions((MOO1GameOptions)newGameOptions(), destination);
 		showNewRaces.setOptions(destination.dynamicOptions());
+		prefStarsPerEmpire.setOptions(destination.dynamicOptions());
+
 	}
 	private void getOptions(MOO1GameOptions source) {
 		copyOptions(source, (MOO1GameOptions)newGameOptions());
 		showNewRaces.setFromOptions(source.dynamicOptions());
+		prefStarsPerEmpire.setFromOptions(source.dynamicOptions());
 	}
     private void doStartBoxAction() {
 		buttonClick();
@@ -346,12 +354,14 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			||  (hoverBox == aiBoxL)  || (hoverBox == aiBoxR)
 			||  (hoverBox == mapOption1BoxL)  || (hoverBox == mapOption1BoxR)
 			||  (hoverBox == mapOption2BoxL)  || (hoverBox == mapOption2BoxR)
+			||  (hoverBox == sizeOptionBoxL)  || (hoverBox == sizeOptionBoxR)
 			||  (hoverBox == oppBoxU)   || (hoverBox == oppBoxD)) {
 			g.setColor(Color.yellow);
 			g.fill(hoverBox);
 		}
 		else if ((hoverBox == shapeBox) || (hoverBox == sizeBox)
-			|| (hoverBox == mapOption1Box) || (hoverBox == mapOption2Box) 
+			|| (hoverBox == mapOption1Box) || (hoverBox == mapOption2Box)
+			|| (hoverBox == sizeOptionBox) 
 			|| (hoverBox == aiBox)   || (hoverBox == newRacesBox)
 			|| (hoverBox == diffBox) || (hoverBox == oppBox)) {
 			Stroke prev = g.getStroke();
@@ -422,12 +432,19 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 				drawString(g,label2, x5e, y5+s40);		   
 			}		 
 		}
-
+		
 		String sizeLbl = text(newGameOptions().selectedGalaxySize());
 		int sizeSW = g.getFontMetrics().stringWidth(sizeLbl);
 		int x5b =sizeBox.x+((sizeBox.width-sizeSW)/2);
 		drawString(g,sizeLbl, x5b, y5);
 
+		if (isDynamic()) { // BR:
+			String label = prefStarsPerEmpire.getGuiValue() + " s/e";
+			int sw2 = g.getFontMetrics().stringWidth(label);
+			int x5b1 =sizeOptionBox.x+((sizeOptionBox.width-sw2)/2);
+			drawString(g,label, x5b1, y5+s20);		   
+		}
+		
 		String diffLbl = text(newGameOptions().selectedGameDifficulty());
 		// modnar: add custom difficulty level option, set in Remnants.cfg
 		// append this custom difficulty percentage to diffLbl if selected
@@ -564,10 +581,12 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		}
 	}
 	private String newRacesOnStr() {
-		if (UserPreferences.showNewRaces.get()) return text("SETUP_NEW_RACES_ON");
+		if (showNewRaces.get()) return text("SETUP_NEW_RACES_ON");
 		else return text("SETUP_NEW_RACES_OFF");
 	}
-
+	private boolean isDynamic() {
+		return newGameOptions().selectedGalaxySize().equals(IGameOptions.SIZE_DYNAMIC);
+	}
 	private void drawGalaxyShape(Graphics g, GalaxyShape sh, int x, int y, int w, int h) {
 		float factor = min((float)h/sh.height(), (float)w/sh.width());
 		int dispH = (int) (sh.height()*factor);
@@ -617,6 +636,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		if (click) softClick();
 		newGameOptions().selectedGalaxySize(newGameOptions().nextGalaxySize(bounded));
 		newGameOptions().galaxyShape().quickGenerate(); // modnar: do a quickgen to get correct map preview
+		backImg = null; // BR: to show/hide system per empire
 		repaint();
 	}
 	public void prevGalaxySize(boolean bounded, boolean click) {
@@ -633,6 +653,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			newGameOptions().selectedNumberOpponents(maxOpps);
 		}
 		newGameOptions().galaxyShape().quickGenerate(); // modnar: do a quickgen to get correct map preview
+		backImg = null; // BR: to show/hide system per empire
 		repaint();
 	}
 	public void nextGalaxyShape(boolean click) {
@@ -649,7 +670,6 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		backImg = null;
 		repaint();
 	}
-	
 	public void nextMapOption1(boolean click) {
 		if (click) softClick();
 		newGameOptions().selectedGalaxyShapeOption1(newGameOptions().nextGalaxyShapeOption1());
@@ -696,7 +716,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	}
 	public void toggleNewRaces(boolean click) {
 		if (click) softClick();
-		UserPreferences.showNewRaces.toggle();
+		showNewRaces.toggle();
 		repaint();
 	}
 	public void increaseOpponents(boolean click) {
@@ -1056,6 +1076,22 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		sizeBox.setBounds(sliderX, sliderY, sliderW, sliderH);
 		g.fill(sizeBox);
 
+	sizeOptionBoxL.reset();
+		sizeOptionBoxR.reset();
+		sizeOptionBox.setBounds(0,0,0,0);
+		if (isDynamic()) {
+			sizeOptionBoxL.addPoint(sliderX-s4,sliderY+s1+s20);
+			sizeOptionBoxL.addPoint(sliderX-s4,sliderY+sliderH-s2+s20);
+			sizeOptionBoxL.addPoint(sliderX-s13,sliderY+(sliderH/2)+s20);
+			g.fill(sizeOptionBoxL);
+			sizeOptionBoxR.addPoint(sliderX+sliderW+s4,sliderY+s1+s20);
+			sizeOptionBoxR.addPoint(sliderX+sliderW+s4,sliderY+sliderH-s2+s20);
+			sizeOptionBoxR.addPoint(sliderX+sliderW+s13,sliderY+(sliderH/2)+s20);
+			g.fill(sizeOptionBoxR);
+			sizeOptionBox.setBounds(sliderX, sliderY+s20, sliderW, sliderH);
+			g.fill(sizeOptionBox);
+		}
+
 		sliderX += sectionW;
 		diffBoxL.reset();
 		diffBoxL.addPoint(sliderX-s4,sliderY+s1);
@@ -1259,6 +1295,12 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			hoverBox = sizeBoxR;
 		else if (sizeBox.contains(x,y))
 			hoverBox = sizeBox;
+		else if (sizeOptionBoxL.contains(x,y))
+			hoverBox = sizeOptionBoxL;
+		else if (sizeOptionBoxR.contains(x,y))
+			hoverBox = sizeOptionBoxR;
+		else if (sizeOptionBox.contains(x,y))
+			hoverBox = sizeOptionBox;		
 		else if (aiBoxL.contains(x,y))
 			hoverBox = aiBoxL;
 		else if (aiBoxR.contains(x,y))
@@ -1354,6 +1396,24 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			else prevGalaxySize(false, true);
 		else if (hoverBox == sizeBoxR)
 			nextGalaxySize(false, true);
+		else if (hoverBox == sizeOptionBoxL) {
+			softClick();
+			prefStarsPerEmpire.prev(e);
+			newGameOptions().galaxyShape().quickGenerate();
+			repaint();
+		}
+		else if (hoverBox == sizeOptionBox) {
+			softClick();
+			prefStarsPerEmpire.toggle(e);
+			newGameOptions().galaxyShape().quickGenerate(); 
+			repaint();
+		}
+		else if (hoverBox == sizeOptionBoxR) {
+			softClick();
+			prefStarsPerEmpire.next(e);
+			newGameOptions().galaxyShape().quickGenerate(); 
+			repaint();
+		}
 		else if (hoverBox == aiBoxL)
 			prevOpponentAI(true);
 		else if (hoverBox == aiBox)
@@ -1428,6 +1488,11 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 				prevGalaxySize(true, false);
 			else
 				nextGalaxySize(true, false);
+		}
+		else if (hoverBox == sizeOptionBox) {
+			prefStarsPerEmpire.toggle(e);
+			newGameOptions().galaxyShape().quickGenerate(); 
+			repaint();
 		}
 		else if (hoverBox == aiBox) {
 			if (up)

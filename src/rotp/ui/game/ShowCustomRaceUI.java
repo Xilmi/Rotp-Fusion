@@ -154,10 +154,11 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		value.setFont(raceNameFont);
 		value.setForeground(Color.black);
 		value.setCaretColor(Color.black);
+		value.getCaret().setVisible(false);
 		value.putClientProperty("caretWidth", s3);
 		value.setVisible(true);
-//		value.addMouseListener(this);
-//		add(value);
+		value.setFocusable(false);
+		add(value);
 	}
 	private ShowCustomRaceUI init0() {
 		maxLeftM	= scaled(100);

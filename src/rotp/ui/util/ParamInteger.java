@@ -90,6 +90,8 @@ public class ParamInteger extends AbstractParam<Integer> {
 	}
 	// ===== Other Methods =====
 	//
+	public void next(MouseEvent e) { next(Math.abs(getInc(e))); }
+	public void prev(MouseEvent e) { next(-Math.abs(getInc(e))); }
 	public void next(int i) {
 		if (i == 0) {
 			setFromDefault();

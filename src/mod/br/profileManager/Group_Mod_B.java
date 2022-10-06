@@ -145,30 +145,30 @@ class Group_Mod_B extends  AbstractGroup <ClientClasses> {
 	// MAXIMIZE SPACING LIMIT
 	//
 	static class MaxSpacingLimit extends 
-			AbstractParameter <Float, Validation<Float>, ClientClasses> {
+			AbstractParameter <Integer, Validation<Integer>, ClientClasses> {
 
 		MaxSpacingLimit(ClientClasses go) { 
 			super( "MAXIMIZE SPACING LIMIT",
-					new Validation<Float>(
-							new T_Float(spacingLimit.get())));
+					new Validation<Integer>(
+							new T_Integer(spacingLimit.get())));
 
 			setHistoryCodeView(Default, spacingLimit.defaultValue());
-			setLimits(3f , 1000000f);
-			setDefaultRandomLimits(10f , 30f);
+			setLimits(spacingLimit.minValue(), spacingLimit.maxValue());
+			setDefaultRandomLimits(10 , 30);
 		}
 	    // ========== Overriders ==========
 	    //
-		@Override public AbstractT<Float> getFromGame (ClientClasses go) {
-			return new T_Float();
+		@Override public AbstractT<Integer> getFromGame (ClientClasses go) {
+			return new T_Integer();
 		}
 		
-		@Override public void putToGame(ClientClasses go, AbstractT<Float> value) {}
+		@Override public void putToGame(ClientClasses go, AbstractT<Integer> value) {}
 		
-		@Override public AbstractT<Float> getFromUI (ClientClasses go) {
-			return new T_Float(spacingLimit.get());
+		@Override public AbstractT<Integer> getFromUI (ClientClasses go) {
+			return new T_Integer(spacingLimit.get());
 		}
 		
-		@Override public void putToGUI(ClientClasses go, AbstractT<Float> value) {
+		@Override public void putToGUI(ClientClasses go, AbstractT<Integer> value) {
 			spacingLimit.set(value.getCodeView());
 		}
 		
@@ -183,30 +183,30 @@ class Group_Mod_B extends  AbstractGroup <ClientClasses> {
 	// PREF STARS PER EMPIRE
 	//
 	static class PreferredStarsPerEmpire extends 
-			AbstractParameter <Float, Validation<Float>, ClientClasses> {
+			AbstractParameter <Integer, Validation<Integer>, ClientClasses> {
 
 		PreferredStarsPerEmpire(ClientClasses go) { 
 			super( "PREF STARS PER EMPIRE",
-					new Validation<Float>(
-							new T_Float(prefStarsPerEmpire.get())));
+					new Validation<Integer>(
+							new T_Integer(prefStarsPerEmpire.get())));
 
 			setHistoryCodeView(Default, prefStarsPerEmpire.defaultValue());
-			setLimits(3f , 1000000f);
-			setDefaultRandomLimits(10f , 30f);
+			setLimits(prefStarsPerEmpire.minValue(), prefStarsPerEmpire.maxValue());
+			setDefaultRandomLimits(10 , 30);
 		}
 	    // ========== Overriders ==========
 	    //
-		@Override public AbstractT<Float> getFromGame (ClientClasses go) {
-			return new T_Float();
+		@Override public AbstractT<Integer> getFromGame (ClientClasses go) {
+			return new T_Integer();
 		}
 		
-		@Override public void putToGame(ClientClasses go, AbstractT<Float> value) {}
+		@Override public void putToGame(ClientClasses go, AbstractT<Integer> value) {}
 		
-		@Override public AbstractT<Float> getFromUI (ClientClasses go) {
-			return new T_Float(prefStarsPerEmpire.get());
+		@Override public AbstractT<Integer> getFromUI (ClientClasses go) {
+			return new T_Integer(prefStarsPerEmpire.get());
 		}
 		
-		@Override public void putToGUI(ClientClasses go, AbstractT<Float> value) {
+		@Override public void putToGUI(ClientClasses go, AbstractT<Integer> value) {
 			prefStarsPerEmpire.set(value.getCodeView());
 		}
 		
@@ -231,7 +231,7 @@ class Group_Mod_B extends  AbstractGroup <ClientClasses> {
 							new T_Integer(minStarsPerEmpire.get())));
 
 			setHistoryCodeView(Default, minStarsPerEmpire.defaultValue());
-			setLimits(0 , 1000000);
+			setLimits(minStarsPerEmpire.minValue(), minStarsPerEmpire.maxValue());
 			setDefaultRandomLimits(3 , 20);
 		}
 	    // ========== Overriders ==========
