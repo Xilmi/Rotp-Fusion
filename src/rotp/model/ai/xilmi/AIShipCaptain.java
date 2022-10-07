@@ -96,6 +96,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
                 stack.target = currentTarget;
                 mgr.performAttackTarget(stack);
                 mgr.turnDone(stack);
+                return;
             }
             //ail: if our target to move to is not the same as the target we can currently shoot at, we shoot before moving
             // check for retreating

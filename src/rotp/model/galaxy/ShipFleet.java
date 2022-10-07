@@ -852,7 +852,7 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
                     CombatStackShip shipStack = new CombatStackShip(this, i, mgr);
                     for (int j=0;j<ShipDesign.maxWeapons();j++) {
                         int wpnCount = d.wpnCount(j);
-                        int attackCount = d.weapon(j).attacksPerRound();
+                        int attackCount = d.weapon(j).attacksPerRound() * d.weapon(j).scatterAttacks();
                         int bombAtt = d.weapon(j).bombardAttacks() - bombardCount(i);
                         int numAttacks = num[i] * attackCount * wpnCount * bombAtt;
                         for (int k=0;k<numAttacks && system().isColonized();k++)
