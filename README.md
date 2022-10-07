@@ -26,6 +26,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2022.10.06 (Xilmi)
+  - Fixed an issue that prevented you from switching off ship-building when the governor was enabled on planets that were captured while building ships. Thanks again to /u/Mjoelnir77 for reporting.
+
 2022.10.04 (Xilmi)
   - Halfed the numner of systems for the biggest possible map-size. I wanted to do more trial&error to see what the biggest is that I could go but I couldn't be bothered to sit another several minutes through galaxy-creation-time.
   - Fixed polish translation of Deuterium Fuel Cells to be the same as the translation of Iridium Fuel Cells.

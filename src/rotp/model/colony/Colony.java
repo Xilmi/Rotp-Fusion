@@ -1596,7 +1596,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
                 !shipyard().stargateCompleted();
         // remember if this planet was building ships. Stargate doesn't count
         // if we just finished building a stargate, we're not building ships
-        boolean buildingShips = (allocation[SHIP] > 0 || shipyard().maxAllocationNeeded() > 0) &&
+        boolean buildingShips = (allocation[SHIP] > 0 || shipyard().buildLimit() > 0) &&
                 !shipyard().design().equals(empire.shipLab().stargateDesign()) &&
                 !buildingStargate;
 

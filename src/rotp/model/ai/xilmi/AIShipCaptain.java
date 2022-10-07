@@ -446,6 +446,9 @@ public class AIShipCaptain implements Base, ShipCaptain {
                     desirability = killPct * max(1, target.num) * valueMod * rangeAdj / 100;
                 if(stack.isColony())
                     desirability *= 1 + target.estimatedKillPct(stack) * stack.designCost();
+                if(target.totalHits() > 0 && killPct > target.hits / target.totalHits())
+                    desirability *= 2;
+                //System.out.print("\n"+stack.fullName()+" onlyships: "+onlyShips+" onlyInAttackRange: "+onlyInAttackRange+" looking at "+target.fullName()+" killPct: "+killPct+"target.hits / target.totalHits(): "+target.hits / target.totalHits()+" rangeAdj: "+rangeAdj+" cnt: "+target.num+" target.designCost(): "+target.designCost()+" desirability: "+desirability);
                 if(target.isShip() && stack.isShip())
                 {
                     boolean shouldPerformKiting = false;

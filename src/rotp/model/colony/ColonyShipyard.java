@@ -268,6 +268,7 @@ public class ColonyShipyard extends ColonySpendingCategory {
         shipReserveBC = 0;
         newShips = 0;
         buildLimit = 0;
+        resetQueueData();
         shipLimitReached = false;
         rallyFleet = null;
         maxAllowedShipBCProd = -1;

@@ -232,7 +232,10 @@ public class CombatStackShip extends CombatStack {
             {
                 if(empire.ai().shipCaptain().useSmartRangeForBeams())
                 {
-                    if(tgt.maxFiringRange(this) > repulsorRange()) //If our enemy has a bigger range than our repulsors we close in no matter what
+                    int targetRange = tgt.maxFiringRange(this);
+                    if(initiativeRank() < tgt.initiativeRank() && targetRange < weaponRange(wpn))
+                        weaponRange = max(weaponRange, min(weaponRange(wpn), targetRange + 1));
+                    else if(targetRange > repulsorRange()) //If our enemy has a bigger range than our repulsors we close in no matter what
                         weaponRange = 1;
                     else
                         weaponRange = min(repulsorRange() + 1, max(weaponRange, weaponRange(wpn))); //ail: optimal firing-range for beam-weapons should be as close as possible but still take advantage of repulsor
