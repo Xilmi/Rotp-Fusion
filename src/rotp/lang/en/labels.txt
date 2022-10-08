@@ -1356,7 +1356,14 @@ SETUP_BUTTON_CUSTOM_PLAYER_RACE   | Customize Player Race
 CUSTOM_RACE_GUI_TITLE             | Player Race Customization
 CUSTOM_RACE_SHOW_TITLE            | Species' Abilities
 CUSTOM_RACE_GUI_COST              | Total Value: %1
-CUSTOM_RACE_GUI_SELECT_TIP        | Save Current Race, Select it as Player Race, Save as Last Settings and exit Panel
+CUSTOM_RACE_CANCEL_TIP            | Cancel settings changes and Exit Panel.
+CUSTOM_RACE_EXIT_TIP              | Save as Last Settings and Exit Panel.
+CUSTOM_RACE_DEFAULT_TIP           | Load default options values.
+CUSTOM_RACE_LAST_GAME_TIP         | Get options values from last played game.
+CUSTOM_RACE_LAST_SET_TIP          | Get options values from last Gui (From File).
+CUSTOM_RACE_USER_SET_TIP          | Get user preferred options values (From File).
+CUSTOM_RACE_USER_SAVE_TIP         | Save current options values as user preferred options (To File).
+CUSTOM_RACE_GUI_SELECT_TIP        | Save Current Race, Select it as Player Race, Save as Last Settings and Exit Panel
 CUSTOM_RACE_GUI_SELECT    	      | Select
 CUSTOM_RACE_GUI_RANDOM_TIP 	      | Randomize the race following the above settings
 CUSTOM_RACE_GUI_RANDOM    	      | Randomize
@@ -1598,6 +1605,8 @@ SETTINGS_MOD_SHOW_NEW_RACES_DESC         | Show the new races in the opponents l
 SETTINGS_MOD_SHOW_NEW_RACES              | Show new races: %1
 SETTINGS_MOD_SHOW_GRID_CIRCULAR_DESC     | Show the circular grid on the galaxy map? (Dynamic)
 SETTINGS_MOD_SHOW_GRID_CIRCULAR          | Show circular grid: %1
+SETTINGS_MOD_SHOW_TOOLTIPS_DESC          | Show the lower box with Tooltips?
+SETTINGS_MOD_SHOW_TOOLTIPS               | Show Tooltips: %1
 
 // Tech UI labels
 TECH_RESEARCH                     | Technology Research

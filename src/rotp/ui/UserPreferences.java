@@ -176,12 +176,12 @@ public class UserPreferences {
 			.put("Startup",	MOD_UI + "LOAD_GAME_STARTUP")
 			.put("Vanilla",	MOD_UI + "LOAD_GAME_VANILLA")
 			.put("Default",	MOD_UI + "STARTUP_DEFAULT");
-	
 	public static final ParamBoolean showGridCircular = new ParamBoolean(MOD_UI, "SHOW_GRID_CIRCULAR", false);
+	public static final ParamBoolean showTooltips = new ParamBoolean(MOD_UI, "SHOW_TOOLTIPS", true);
 
 	// This list is used as is by the ModGlobalOptionsUI menu
 	public static final LinkedList<InterfaceParam> modGlobalOptionsUI = new LinkedList<>(Arrays.asList(
-			menuStartup, menuLoadGame, showGridCircular,
+			menuStartup, menuLoadGame, showGridCircular, showTooltips,
 			showFleetFactor, showFlagFactor, showPathFactor,
 			showNameMinFont, showInfoFontRatio, mapFontFactor
 			));

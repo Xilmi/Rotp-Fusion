@@ -31,6 +31,6 @@ public class ModGlobalOptionsUI extends AbstractOptionsUI {
 		globalOptions = true; // No preferred button
 		paramList	  = UserPreferences.modGlobalOptionsUI;
 		numColumns(3);
-		rowCountList(3, 3, 3);
+		rowCountList(4, 3, 3);
 	}
 }

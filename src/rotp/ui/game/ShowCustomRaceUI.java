@@ -17,6 +17,7 @@ package rotp.ui.game;
 
 import static rotp.model.empires.CustomRaceDefinitions.ROOT;
 import static rotp.ui.UserPreferences.customPlayerRace;
+import static rotp.ui.UserPreferences.showTooltips;
 import static rotp.ui.util.AbstractOptionsUI.exitButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.exitButtonWidth;
 
@@ -57,7 +58,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	private static final String raceNameKey		= ROOT + "RACE_NAME";
 	protected static final String exitTipKey	= ROOT + "EXIT_TIP";
 	
-	private	static final int tooltipPadH	= s10;
+	private	static final int tooltipPadV	= s10;
 	private	static final int tooltipPadM	= s10;
 	private static final Color tooltipC		= SystemPanel.blackText;
 	private static final int tooltipLineH	= 18;
@@ -67,6 +68,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	private	  static final Font buttonFont	= FontManager.current().narrowFont(20);
 	protected static final int buttonH		= s30;
 	protected static final int buttonMargin	= AbstractOptionsUI.smallButtonM;
+	protected static final int buttonPadV	= tooltipPadV;
 	protected static final int buttonPad	= s15;
 	private static final int xButtonOffset	= s30;
 	protected static final Color labelC		= SystemPanel.orangeText;
@@ -358,20 +360,30 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		h	= getHeight();
 		wBG	= wFirstColumn+columnPad + (wSetting+columnPad) * (numColumns-1);
 		wTT	= wBG - 2 * columnPad;
+
 		g.setFont(tooltipFont);
-		// Set the base top Margin
 		List<String> lines = wrappedLines(g, tooltipText, wTT-2*tooltipPadM);
-		int tooltipH = 2 * tooltipLineH + tooltipPadM;		
-		hBG	 = titlePad + columnsMaxH + buttonH + tooltipH + 3 *tooltipPadH;
-		topM = (h - hBG)/2;
-		// Set the final High
-		tooltipH = max(1, lines.size()) * tooltipLineH + tooltipPadM;
-		hBG		= titlePad + columnsMaxH + buttonH + tooltipH + 3 *tooltipPadH;
+		int tooltipH = 0;
+		if (showTooltips.get()) {
+			// Set the base top Margin
+			tooltipH = 2 * tooltipLineH + tooltipPadM;		
+			hBG	 = titlePad + columnsMaxH + buttonPadV + buttonH + tooltipPadV + tooltipH + tooltipPadV;
+			topM = (h - hBG)/2;
+			// Set the final High
+			tooltipH = max(1, lines.size()) * tooltipLineH + tooltipPadM;
+			hBG		= titlePad + columnsMaxH + buttonPadV + buttonH + tooltipPadV + tooltipH + tooltipPadV;
+			yTT		= topM + hBG - tooltipPadV - tooltipH;
+		} else {
+			// Set the final High
+			hBG	 = titlePad + columnsMaxH + buttonPadV + buttonH + buttonPadV;
+			topM = (h - hBG)/2;
+			yTT		= topM + hBG;
+		}
+		
 		yTop	= topM + titlePad; // First setting top position
 		leftM	= Math.min((w - wBG)/2, maxLeftM);
 		yTitle	= topM + titleOffset;
-		yTT		= topM + hBG - tooltipPadH - tooltipH;
-		yButton	= yTT - tooltipPadH - buttonH;
+		yButton	= yTT - tooltipPadV - buttonH;
 		yCost 	= yTitle + costOffset;
 		yRace	= yCost - raceNameH + s6;
 		xRace	= leftM + columnPad/2;
@@ -387,14 +399,16 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		g.fillRect(leftM, topM, wBG, hBG);
 		
 		// Tool tip
-		g.setColor(tooltipC);
-		g.drawRect(xTT, yTT, wTT, tooltipH);
-		g.setFont(tooltipFont);
-		yTT += s4;
-		for (String line: lines) {
-			yTT += tooltipLineH;
-			drawString(g,line, xTT+tooltipPadM, yTT);
-		}		
+		if (showTooltips.get()) {
+			g.setColor(tooltipC);
+			g.drawRect(xTT, yTT, wTT, tooltipH);
+			g.setFont(tooltipFont);
+			yTT += s4;
+			for (String line: lines) {
+				yTT += tooltipLineH;
+				drawString(g,line, xTT+tooltipPadM, yTT);
+			}		
+		}
 		
 		// Title
 		g.setFont(titleFont);
