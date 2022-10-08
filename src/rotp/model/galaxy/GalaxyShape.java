@@ -271,7 +271,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 	//
 	public void singleInit() {
 		// common symmetric and non symmetric initializer for generation
-		numOpponents = opts.selectedNumberOpponents();
+		numOpponents = max(0, opts.selectedNumberOpponents());
 		numEmpires = numOpponents + 1;
 		log("Galaxy shape: "+maxStars+ " stars"+ "  regionScale: "+regionScale+"   emps:"+numEmpires);
 		tm0 = System.currentTimeMillis();

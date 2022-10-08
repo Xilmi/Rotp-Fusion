@@ -58,7 +58,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	private Font descFont	= narrowFont(15);
 	private static int columnPad	= s20;
 	private static int smallButtonH = s30;
-	public  static int smallButtonM = s50; // Margin for all GUI
+	public  static int smallButtonM = s30; // Margin for all GUI
 	private static int hSetting	= s90;
 	private static int lineH		= s17;
 	private static int rowPad		= s20;
@@ -318,7 +318,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		txt.draw(g);
 		g.setColor(SystemPanel.blackText);
 		g.setFont(descFont);
-		List<String> lines = this.wrappedLines(g, desc, wSetting-s30);
+		List<String> lines = wrappedLines(g, desc, wSetting-s30);
 		int y3 = ySetting+s10;
 		for (String line: lines) {
 			y3 += lineH;

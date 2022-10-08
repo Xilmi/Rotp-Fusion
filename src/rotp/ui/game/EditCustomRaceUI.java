@@ -44,17 +44,32 @@ import rotp.ui.RotPUI;
 import rotp.ui.util.InterfaceOptions;
 import rotp.ui.util.Modifier2KeysState;
 import rotp.ui.util.SettingBase;
+import rotp.util.LabelManager;
 
 public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelListener {
 	private static final long serialVersionUID	= 1L;
-	private static final String selectKey		= "CUSTOM_RACE_GUI_SELECT";
-	private static final String randomKey		= "CUSTOM_RACE_GUI_RANDOM";
+	private static final String selectKey		= ROOT + "GUI_SELECT";
+	private static final String randomKey		= ROOT + "GUI_RANDOM";
+	private static final String saveCurrentKey	= ROOT + "GUI_SAVE";
+	private static final String loadCurrentKey	= ROOT + "GUI_LOAD";
+	private static final String setDefaultTipKey= ROOT + "DEFAULT_TIP";
+	private static final String setGameTipKey	= ROOT + "LAST_GAME_TIP";
+	private static final String setLastTipKey	= ROOT + "LAST_SET_TIP";
+	private	static final String setUserTipKey	= ROOT + "USER_SET_TIP";
+	private	static final String saveUserTipKey	= ROOT + "USER_SAVE_TIP";
+	private	static final String selectTipKey	= ROOT + "GUI_SELECT_TIP";
+	private static final String randomTipKey	= ROOT + "GUI_RANDOM_TIP";
+	private static final String saveTipKey		= ROOT + "GUI_SAVE_TIP";
+	private static final String loadTipKey		= ROOT + "GUI_LOAD_TIP";
+	private static final String cancelTipKey	= ROOT + "CANCEL_TIP";
+
 	public	static final EditCustomRaceUI instance = new EditCustomRaceUI().init0();
 	
 	private final Rectangle selectBox	= new Rectangle();
     private final Rectangle defaultBox	= new Rectangle();
     private final Rectangle userBox		= new Rectangle();
 	private final Rectangle randomBox	= new Rectangle();
+	private final Rectangle loadBox		= new Rectangle();
 
 	private LinkedList<SettingBase<?>> guiList;
 	private MOO1GameOptions initialOptions; // To be restored if "cancel"
@@ -111,7 +126,24 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			param.setOptions(destination.dynamicOptions());
 		customPlayerRace.setOptions(destination.dynamicOptions());
 	}
+
+	private void saveCurrentRace() { cr.saveRace(); }
+	private void loadCurrentRace() { cr.loadRace(); }
+	private void doLoadBoxAction() {
+		buttonClick();
+		switch (Modifier2KeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT: // Save
+			saveCurrentRace();
+			break;
+		default: // Load
+			loadCurrentRace();
+			repaint();
+			break; 
+		}
+	}
 	private void doExitBoxAction() {
+		buttonClick();
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Restore
@@ -124,20 +156,21 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		close();			
 	}
 	private void doSelectBoxAction() {
+		buttonClick();
 		cr.pushSettings();
 		customPlayerRace.set(true);
 		saveLastOptions();
 		close();
 	}
 	private void doDefaultBoxAction() {
+		buttonClick();
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // set to last
 			getOptions(MOO1GameOptions.loadLastOptions());
 			break;
 		case SHIFT: // set to last game options
-			if (options() != null)
-				getOptions(MOO1GameOptions.loadGameOptions());			
+			getOptions(MOO1GameOptions.loadGameOptions());
 			break;
 		default: // set to default
 			setToDefault();
@@ -146,6 +179,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		repaint();
 	}
 	private void doUserBoxAction() {
+		buttonClick();
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Save
@@ -176,7 +210,189 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		cr.randomizeRace(true);
 		totalCostText.repaint(totalCostStr());
 	}
+	private String selectButtonTipKey() {
+			return selectTipKey;
+	}
+	private String randomButtonTipKey() {
+			return randomTipKey;
+	}
+	private String exitButtonTipKey() {
+		switch (Modifier2KeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT: // Restore
+			return cancelTipKey;
+		default: // Save
+			return exitTipKey;
+		}
+	}
+	private String userButtonTipKey() {
+		switch (Modifier2KeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT:
+			return saveUserTipKey;
+		default:
+			return setUserTipKey;
+		}
+	}
+	private String defaultButtonTipKey() {
+		switch (Modifier2KeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT:
+			return setLastTipKey;
+		case SHIFT:
+			return setGameTipKey;
+		default:
+			return setDefaultTipKey;
+		}
+	}
+	private String loadButtonTipKey() {
+		switch (Modifier2KeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT:
+			return saveTipKey;
+		default:
+			return loadTipKey;
+		}
+	}
+	private String loadButtonKey() {
+		switch (Modifier2KeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT:
+			return saveCurrentKey;
+		default:
+			return loadCurrentKey;
+		}
+	}
+	private int loadButtonWidth(Graphics2D g) {
+		return Math.max(g.getFontMetrics().stringWidth(LabelManager.current().label(saveCurrentKey)),
+						g.getFontMetrics().stringWidth(LabelManager.current().label(loadCurrentKey)))
+				+ buttonMargin;
+	}
+	private void updateBulletSetting(SettingBase<?> setting) {
+		setting.guiSelect();
+		totalCostText.repaint(totalCostStr());
+	}
+	private void mouseCommon(boolean up, boolean mid, boolean shiftPressed, boolean ctrlPressed
+			, MouseEvent e, MouseWheelEvent w) {
+		for (int settingIdx=0; settingIdx < commonList.size(); settingIdx++) {
+			SettingBase<?> setting = commonList.get(settingIdx);
+			if (setting.isBullet()) {
+				if (hoverBox == setting.settingText().bounds()) { // Check Setting
+					setting.toggle(e, w);
+					updateBulletSetting(setting);
+					return;
+				} else { // Check options
+					int optionCount	= setting.boxSize(); // 1 for the setting
+					for (int optionIdx=0; optionIdx < optionCount; optionIdx++) {
+						if (hoverBox == setting.optionText(optionIdx).bounds()) {
+							setting.index(optionIdx);
+							updateBulletSetting(setting);
+							return;
+						}
+					}
+				}
+			} else if (hoverBox == setting.settingText().bounds()) {
+				setting.toggle(e, w);
+				setting.settingText().repaint();
+				totalCostText.repaint(totalCostStr());
+				return;
+			}
+		}
+	}
+	@Override protected void hoverAndTooltip(boolean repaint) {
+		String tip = tooltipText;
+		Rectangle prevHover = hoverBox;
+		hoverBox = null;
+		if (exitBox.contains(x,y)) {
+			hoverBox = exitBox;
+			tooltipText = text(exitButtonTipKey());
+		}
+		else if (userBox.contains(x,y)) {
+			hoverBox = userBox;
+			tooltipText = text(userButtonTipKey());
+		}
+		else if (selectBox.contains(x,y)) {
+			hoverBox = selectBox;
+			tooltipText = text(selectButtonTipKey());
+		}
+		else if (defaultBox.contains(x,y)) {
+			hoverBox = defaultBox;
+			tooltipText = text(defaultButtonTipKey());
+		}
+		else if (loadBox.contains(x,y)) {
+			hoverBox = loadBox;
+			tooltipText = text(loadButtonTipKey());
+		}
+		else if (randomBox.contains(x,y)) {
+			hoverBox = randomBox;
+			tooltipText = text(randomButtonTipKey());
+		}
+		else {
+			outerLoop1:
+			for (SettingBase<?> setting : commonList) {
+				if (setting.settingText().contains(x,y)) {
+					hoverBox = setting.settingText().bounds();
+					break outerLoop1;
+				}
+				if (setting.isBullet()) {					
+					for (BaseText txt : setting.optionsText()) {
+						if (txt.contains(x,y)) {
+							hoverBox = txt.bounds();
+							break outerLoop1;
+						}
+					}
+				}
+			}
+		}
 
+		if (hoverBox != prevHover) {
+			outerLoop2: // Check exit settings
+			for ( SettingBase<?> setting : commonList) {
+				if (setting.isSpacer())
+					continue;
+				if (prevHover == setting.settingText().bounds()) {
+					setting.settingText().mouseExit();
+					break outerLoop2;
+				}
+				if (setting.isBullet()) {					
+					for (BaseText txt : setting.optionsText()) {
+						if (prevHover == txt.bounds()) {
+							txt.mouseExit();
+							break outerLoop2;
+						}
+					}
+				}
+			}
+			
+			outerLoop3: // Check enter settings
+			for ( SettingBase<?> setting : commonList) {
+				if (setting.isSpacer())
+					continue;
+				if (hoverBox == setting.settingText().bounds()) {
+					setting.settingText().mouseEnter();
+					break outerLoop3;
+				}
+				if (setting.isBullet()) {					
+					for (BaseText txt : setting.optionsText()) {
+						if (hoverBox == txt.bounds()) {
+							txt.mouseEnter();
+							break outerLoop3;
+						}
+					}
+				}
+			}
+			if (repaint)
+				repaint();
+			else if (!tooltipText.equals(tip))
+				repaint();
+			else {
+				if (prevHover != null) repaint(prevHover);
+				if (hoverBox != null)  repaint(hoverBox);
+			}
+		}
+		else if (repaint || !tooltipText.equals(tip))
+			repaint();		
+	}
 	// ========== Overriders ==========
 	//
 	@Override public void paintComponent(Graphics g0) {
@@ -192,8 +408,8 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		selectBox.setBounds(xButton, yButton, buttonW, buttonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(selectBox.x, selectBox.y, buttonW, buttonH, cnr, cnr);
-		int xT = selectBox.x+((selectBox.width-sw)/2);
-		int yT = selectBox.y+selectBox.height-s8;
+		int xT = selectBox.x + ((selectBox.width-sw)/2);
+		int yT = selectBox.y + selectBox.height-s8;
 		Color cB = hoverBox == selectBox ? Color.yellow : GameUI.borderBrightColor();
 		drawShadowedString(g, text, 2, xT, yT, GameUI.borderDarkColor(), cB);
 		Stroke prev = g.getStroke();
@@ -209,8 +425,8 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		defaultBox.setBounds(xButton, yButton, buttonW, buttonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(defaultBox.x, defaultBox.y, buttonW, buttonH, cnr, cnr);
-		xT = defaultBox.x+((defaultBox.width-sw)/2);
-		yT = defaultBox.y+defaultBox.height-s8;
+		xT = defaultBox.x + ((defaultBox.width-sw)/2);
+		yT = defaultBox.y + defaultBox.height-s8;
 		cB = hoverBox == defaultBox ? Color.yellow : GameUI.borderBrightColor();
 		drawShadowedString(g, text, 2, xT, yT, GameUI.borderDarkColor(), cB);
 		prev = g.getStroke();
@@ -226,8 +442,8 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		userBox.setBounds(xButton, yButton, buttonW, buttonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(userBox.x, userBox.y, buttonW, buttonH, cnr, cnr);
-		xT = userBox.x+((userBox.width-sw)/2);
-		yT = userBox.y+userBox.height-s8;
+		xT = userBox.x + ((userBox.width-sw)/2);
+		yT = userBox.y + userBox.height-s8;
 		cB = hoverBox == userBox ? Color.yellow : GameUI.borderBrightColor();
 		drawShadowedString(g, text, 2, xT, yT, GameUI.borderDarkColor(), cB);
 		prev = g.getStroke();
@@ -235,10 +451,27 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		g.drawRoundRect(userBox.x, userBox.y, userBox.width, userBox.height, cnr, cnr);
 		g.setStroke(prev);
 
+		// Load / Save Button
+		text	 = text(loadButtonKey());
+		sw		 = g.getFontMetrics().stringWidth(text);
+		buttonW	 = loadButtonWidth(g);
+		xButton -= (buttonW + buttonPad);
+		loadBox.setBounds(xButton, yButton, buttonW, buttonH);
+		g.setColor(GameUI.buttonBackgroundColor());
+		g.fillRoundRect(loadBox.x, loadBox.y, buttonW, buttonH, cnr, cnr);
+		xT = loadBox.x + ((loadBox.width-sw)/2);
+		yT = loadBox.y + loadBox.height-s8;
+		cB = hoverBox == loadBox ? Color.yellow : GameUI.borderBrightColor();
+		drawShadowedString(g, text, 2, xT, yT, GameUI.borderDarkColor(), cB);
+		prev = g.getStroke();
+		g.setStroke(stroke1);
+		g.drawRoundRect(loadBox.x, loadBox.y, loadBox.width, loadBox.height, cnr, cnr);
+		g.setStroke(prev);
+
 		// Randomize Button
-		text = text(randomKey);
+		text	= text(randomKey);
 		xButton = leftM + buttonPad;
-		sw = g.getFontMetrics().stringWidth(text);
+		sw		= g.getFontMetrics().stringWidth(text);
 		buttonW = g.getFontMetrics().stringWidth(text) + buttonMargin;
 		randomBox.setBounds(xButton, yButton, buttonW, buttonH);
 		g.setColor(GameUI.buttonBackgroundColor());
@@ -291,82 +524,6 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 				return;
 		}
 	}
-	@Override public void mouseMoved(MouseEvent e) {
-		checkModifierKey(e);
-		int x = e.getX();
-		int y = e.getY();
-		Rectangle prevHover = hoverBox;
-		hoverBox = null;
-		outerLoop1:
-		if (exitBox.contains(x,y))
-			hoverBox = exitBox;
-		else if (userBox.contains(x,y))
-			hoverBox = userBox;
-		else if (selectBox.contains(x,y))
-			hoverBox = selectBox;
-		else if (defaultBox.contains(x,y))
-			hoverBox = defaultBox;
-		else if (randomBox.contains(x,y))
-			hoverBox = randomBox;
-		else {
-			for (SettingBase<?> setting : commonList) {
-				if (setting.settingText().contains(x,y)) {
-					hoverBox = setting.settingText().bounds();
-					break outerLoop1;
-				}
-				if (setting.isBullet()) {					
-					for (BaseText txt : setting.optionsText()) {
-						if (txt.contains(x,y)) {
-							hoverBox = txt.bounds();
-							break outerLoop1;
-						}
-					}
-				}
-			}
-		}
-
-
-		if (hoverBox != prevHover) {
-			outerLoop2: // Check exit settings
-			for ( SettingBase<?> setting : commonList) {
-				if (setting.isSpacer())
-					continue;
-				if (prevHover == setting.settingText().bounds()) {
-					setting.settingText().mouseExit();
-					break outerLoop2;
-				}
-				if (setting.isBullet()) {					
-					for (BaseText txt : setting.optionsText()) {
-						if (prevHover == txt.bounds()) {
-							txt.mouseExit();
-							break outerLoop2;
-						}
-					}
-				}
-			}
-			
-			outerLoop3: // Check enter settings
-			for ( SettingBase<?> setting : commonList) {
-				if (setting.isSpacer())
-					continue;
-				if (hoverBox == setting.settingText().bounds()) {
-					setting.settingText().mouseEnter();
-					break outerLoop3;
-				}
-				if (setting.isBullet()) {					
-					for (BaseText txt : setting.optionsText()) {
-						if (hoverBox == txt.bounds()) {
-							txt.mouseEnter();
-							break outerLoop3;
-						}
-					}
-				}
-			}
-
-			if (prevHover != null) repaint(prevHover);
-			if (hoverBox != null)  repaint(hoverBox);
-		}
-	}
 	@Override public void mouseReleased(MouseEvent e) {
 		if (e.getButton() > 3)
 			return;
@@ -386,6 +543,10 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		}
 		if (hoverBox == defaultBox) {
 			doDefaultBoxAction();			
+			return;
+		}
+		if (hoverBox == loadBox) {
+			doLoadBoxAction();			
 			return;
 		}
 		if (hoverBox == randomBox) {

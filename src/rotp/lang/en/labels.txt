@@ -1353,11 +1353,17 @@ SETUP_NOT_AVAILABLE               | N/A
 SETUP_BUTTON_CUSTOM_PLAYER_RACE   | Customize Player Race
 
 // BR: Customize Player Race
-CUSTOM_RACE_GUI_TITLE    		  | Player Race Customization
-CUSTOM_RACE_SHOW_TITLE   		  | Species' Abilities
-CUSTOM_RACE_GUI_COST    		  | Total Value: %1
-CUSTOM_RACE_GUI_SELECT    		  | Select
-CUSTOM_RACE_GUI_RANDOM    		  | Randomize
+CUSTOM_RACE_GUI_TITLE             | Player Race Customization
+CUSTOM_RACE_SHOW_TITLE            | Species' Abilities
+CUSTOM_RACE_GUI_COST              | Total Value: %1
+CUSTOM_RACE_GUI_SELECT_TIP        | Save Current Race, Select it as Player Race, Save as Last Settings and exit Panel
+CUSTOM_RACE_GUI_SELECT    	      | Select
+CUSTOM_RACE_GUI_RANDOM_TIP 	      | Randomize the race following the above settings
+CUSTOM_RACE_GUI_RANDOM    	      | Randomize
+CUSTOM_RACE_GUI_LOAD_TIP          | Load the settings from the file specified in "Name" Field, if none, create an empty one.
+CUSTOM_RACE_GUI_LOAD              | Load
+CUSTOM_RACE_GUI_SAVE_TIP          | Save the settings to the file specified in "Name" Field, existing files will be overwritten.
+CUSTOM_RACE_GUI_SAVE              | Save
 CUSTOM_RACE_RANDOM_MAX    		  | Setting Max in %
 CUSTOM_RACE_RANDOM_MIN    		  | Setting Min in %
 CUSTOM_RACE_RANDOM_EDGES   		  | Smooth Edges

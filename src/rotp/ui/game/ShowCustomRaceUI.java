@@ -32,8 +32,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseWheelEvent;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.JTextField;
 
@@ -55,21 +55,27 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	private static final Color  backgroundHaze	= new Color(0,0,0,160);
 	private static final String totalCostKey	= ROOT + "GUI_COST";
 	private static final String raceNameKey		= ROOT + "RACE_NAME";
+	protected static final String exitTipKey	= ROOT + "EXIT_TIP";
 	
+	private	static final int tooltipPadH	= s10;
+	private	static final int tooltipPadM	= s10;
+	private static final Color tooltipC		= SystemPanel.blackText;
+	private static final int tooltipLineH	= 18;
+	private	static final Font tooltipFont	= FontManager.current().narrowFont(14);
+
 	protected static final Color textC		= SystemPanel.whiteText;
-	protected static final Font buttonFont	= FontManager.current().narrowFont(20);
+	private	  static final Font buttonFont	= FontManager.current().narrowFont(20);
 	protected static final int buttonH		= s30;
 	protected static final int buttonMargin	= AbstractOptionsUI.smallButtonM;
 	protected static final int buttonPad	= s15;
-	protected static final int xButtonOffset= s30;
-	protected static final int yButtonOffset= s40;
+	private static final int xButtonOffset	= s30;
 	protected static final Color labelC		= SystemPanel.orangeText;
 	protected static final int labelFontSize= 14;
 	protected static final int labelH		= s16;
 	protected static final int labelPad		= s8;
 
-	protected static final Color costC		= SystemPanel.blackText;
-	protected static final int costFontSize	= 18;
+	private static final Color costC		= SystemPanel.blackText;
+	private static final int costFontSize	= 18;
 	protected static final Font raceNameFont= FontManager.current().narrowFont(16);
 	protected static final int raceNameH	= s20;
 	protected static final int raceNameW	= RotPUI.scaledSize(150);
@@ -77,7 +83,6 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	private static final int titleOffset	= s30; // Offset from Margin
 	private static final int costOffset		= s25; // Offset from title
 	private static final int titlePad		= s80; // Offset of first setting
-	private static final int bottomPad		= s40;
 	private static final int columnPad		= s20;
 	
 	private static final Color frameC		= SystemPanel.blackText; // Setting frame color
@@ -104,39 +109,42 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	private static final int optionIndent	= s15;
 
 	// This should be the last static to be initialized
-	public	static final ShowCustomRaceUI instance = new ShowCustomRaceUI().init0();
+	public static final ShowCustomRaceUI instance = new ShowCustomRaceUI().init0();
 
-	protected LinkedList<Integer> colSettingsCount;
-	private	  LinkedList<Integer> spacerList;
-	private   LinkedList<Integer> columnList;
+	private LinkedList<Integer> colSettingsCount;
+	private	LinkedList<Integer> spacerList;
+	private LinkedList<Integer> columnList;
+	public  LinkedList<SettingBase<?>> commonList;
 	protected LinkedList<SettingBase<?>> settingList;
-	public    LinkedList<SettingBase<?>> commonList;
 	protected String guiTitleID;
 
-	protected int numColumns	= 0;
-	protected int columnsMaxH	= 0;
-	protected int columnH		= 0;
-	protected int numSettings	= 0;
+	private int numColumns	= 0;
+	private int columnsMaxH	= 0;
+	private int columnH		= 0;
+	private int numSettings	= 0;
 
-	protected int xButton, yButton;
-	protected int yTitle;
-	protected int xCost, yCost, xRace, yRace;
-	protected int w, wBG, h, hBG;
-	protected int settingSize;
-	protected int settingBoxH;
-	protected int leftM, topM, yTop;
+	private int yTitle;
+	private int xCost, yCost, xRace, yRace;
+	private int w, wBG, h, hBG;
+	private int settingSize;
+	private int settingBoxH;
+	private int topM, yTop;
+	protected int xButton, yButton, xTT, yTT, wTT;
+	protected int leftM;
 	protected int xLine, yLine; // settings var
+	protected int x, y; // mouse position
 
 	protected BasePanel parent;
 	protected Rectangle hoverBox;
 	protected final Rectangle exitBox = new Rectangle();
+	protected String tooltipText = "";
 	protected BaseText totalCostText;
 	private	  RacesUI  raceUI; // Parent panel
 	protected int maxLeftM;
 	public final CustomRaceDefinitions cr;
 	
 	protected final JTextField	raceName	= new JTextField("");
-	protected final String		raceNameTxt	= text(raceNameKey);
+	private	  final String		raceNameTxt	= text(raceNameKey);
 
 	
 	// ========== Constructors and initializers ==========
@@ -190,7 +198,6 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 				columnH += settingH;
 			if (columnList.contains(i))
 				endOfColumn();
-			columnH += settingHPad;
 			initSetting(settingList.get(i));
 			numSettings++;
 		}
@@ -242,45 +249,35 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		raceName.setText(cr.raceName().settingValue());
 		totalCostText.displayText(totalCostStr());
 		totalCostText.disabled(true);
+		tooltipText = "This is where Tool tips are displayed";
 	}
 	// ========== Other Methods ==========
 	//
-	protected  String totalCostStr() {
-		return text(totalCostKey, Math.round(cr.getTotalCost()));
-	}
-	protected  BaseText settingBT() {
-		return new BaseText(this, false, settingFont, 0, 0,
-				settingC, settingNegC, hoverC, depressedC, textC, 0, 0, 0);
-	}
-	protected  BaseText optionBT() {
-		return new BaseText(this, false, optionFont, 0, 0,
-				optionC, selectC, hoverC, depressedC, textC, 0, 0, 0);
-	}
-	protected void endOfColumn() {
-		columnsMaxH = max(columnsMaxH, columnH);
-		colSettingsCount.add(numSettings);
-		numColumns++;
-		numSettings	= 0;
-		columnH		= 0;
-	}
-	protected void close() {
-		disableGlassPane();
-	}
 	public void getOptions(MOO1GameOptions source) {
 		for (InterfaceOptions param : commonList)
 			param.setFromOptions(source.dynamicOptions());
 		customPlayerRace.setFromOptions(source.dynamicOptions());
 		init();
 	}
-	private void doExitBoxAction() {
-		close();			
+	private  BaseText settingBT() {
+		return new BaseText(this, false, settingFont, 0, 0,
+				settingC, settingNegC, hoverC, depressedC, textC, 0, 0, 0);
 	}
-	protected void checkModifierKey(InputEvent e) {
-		if (Modifier2KeysState.checkForChange(e)) {
-			repaint();
-		}
+	private  BaseText optionBT() {
+		return new BaseText(this, false, optionFont, 0, 0,
+				optionC, selectC, hoverC, depressedC, textC, 0, 0, 0);
 	}
-	protected void paintSetting(Graphics2D g, SettingBase<?> setting) {
+	private void endOfColumn() {
+		columnH += settingH;
+		columnsMaxH = max(columnsMaxH, columnH);
+		colSettingsCount.add(numSettings);
+		numColumns++;
+		numSettings	= 0;
+		columnH		= 0;
+	}
+	private String exitButtonTipKey() { return exitTipKey; }
+	private void doExitBoxAction() { close(); }
+	private void paintSetting(Graphics2D g, SettingBase<?> setting) {
 		int sizePad	= frameSizePad;
 		int endPad 	= frameEndPad;
 		int optNum	= setting.boxSize();;
@@ -321,57 +318,66 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		}				
 		yLine += endPad;
 	}
-	protected void updateBulletSetting(SettingBase<?> setting) {
-		setting.guiSelect();
-		totalCostText.repaint(totalCostStr());
+	protected void displayTooltip(String tip) {
+		if (!tooltipText.equals(tip)) {
+			tooltipText = tip;
+			repaint();
+		}
 	}
-	protected void mouseCommon(boolean up, boolean mid, boolean shiftPressed, boolean ctrlPressed
-			, MouseEvent e, MouseWheelEvent w) {
-		for (int settingIdx=0; settingIdx < commonList.size(); settingIdx++) {
-			SettingBase<?> setting = commonList.get(settingIdx);
-			if (setting.isBullet()) {
-				if (hoverBox == setting.settingText().bounds()) { // Check Setting
-					setting.toggle(e, w);
-					updateBulletSetting(setting);
-					return;
-				} else { // Check options
-					int optionCount	= setting.boxSize(); // 1 for the setting
-					for (int optionIdx=0; optionIdx < optionCount; optionIdx++) {
-						if (hoverBox == setting.optionText(optionIdx).bounds()) {
-							setting.index(optionIdx);
-							updateBulletSetting(setting);
-							return;
-						}
-					}
-				}
-			} else if (hoverBox == setting.settingText().bounds()) {
-				setting.toggle(e, w);
-				setting.settingText().repaint();
-				totalCostText.repaint(totalCostStr());
-				return;
-			}
+	protected void close() { disableGlassPane(); }
+	protected void checkModifierKey(InputEvent e) {
+		hoverAndTooltip(Modifier2KeysState.checkForChange(e));
+	}
+	protected  String totalCostStr() {
+		return text(totalCostKey, Math.round(cr.getTotalCost()));
+	}
+	protected void hoverAndTooltip(boolean repaint) {
+		String tip = tooltipText;
+		Rectangle prevHover = hoverBox;
+		hoverBox = null;
+		if (exitBox.contains(x,y)) {
+			hoverBox = exitBox;
+			tip = text(exitButtonTipKey());
+		}
+		
+		if (repaint || !tooltipText.equals(tip))
+			repaint();
+		else if (hoverBox != prevHover) {
+			if (prevHover != null) repaint(prevHover);
+			if (hoverBox != null)  repaint(hoverBox);
 		}
 	}
 	// ========== Overriders ==========
 	//
+	
 	@Override public void paintComponent(Graphics g0) {
 		super.paintComponent(g0);
 		Graphics2D g = (Graphics2D) g0;
 		currentWith	 = wFirstColumn;
-		w	  = getWidth();
-		h	  = getHeight();
-		hBG	  = titlePad + columnsMaxH + bottomPad;
-		topM  = (h - hBG)/2;
-		yTop  = topM + titlePad; // First setting top position
-		wBG	  = wFirstColumn+columnPad + (wSetting+columnPad) * (numColumns-1);
-		leftM = Math.min((w - wBG)/2, maxLeftM);
+		w	= getWidth();
+		h	= getHeight();
+		wBG	= wFirstColumn+columnPad + (wSetting+columnPad) * (numColumns-1);
+		wTT	= wBG - 2 * columnPad;
+		g.setFont(tooltipFont);
+		// Set the base top Margin
+		List<String> lines = wrappedLines(g, tooltipText, wTT-2*tooltipPadM);
+		int tooltipH = 2 * tooltipLineH + tooltipPadM;		
+		hBG	 = titlePad + columnsMaxH + buttonH + tooltipH + 3 *tooltipPadH;
+		topM = (h - hBG)/2;
+		// Set the final High
+		tooltipH = max(1, lines.size()) * tooltipLineH + tooltipPadM;
+		hBG		= titlePad + columnsMaxH + buttonH + tooltipH + 3 *tooltipPadH;
+		yTop	= topM + titlePad; // First setting top position
+		leftM	= Math.min((w - wBG)/2, maxLeftM);
 		yTitle	= topM + titleOffset;
-		yButton	= topM + hBG - yButtonOffset;
+		yTT		= topM + hBG - tooltipPadH - tooltipH;
+		yButton	= yTT - tooltipPadH - buttonH;
 		yCost 	= yTitle + costOffset;
 		yRace	= yCost - raceNameH + s6;
 		xRace	= leftM + columnPad/2;
 		xLine	= leftM + columnPad/2;
 		yLine	= yTop;
+		xTT		= leftM + columnPad;
 
 		// draw background "haze"
 		g.setColor(backgroundHaze);
@@ -379,6 +385,16 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		
 		g.setPaint(GameUI.settingsSetupBackground(w));
 		g.fillRect(leftM, topM, wBG, hBG);
+		
+		// Tool tip
+		g.setColor(tooltipC);
+		g.drawRect(xTT, yTT, wTT, tooltipH);
+		g.setFont(tooltipFont);
+		yTT += s4;
+		for (String line: lines) {
+			yTT += tooltipLineH;
+			drawString(g,line, xTT+tooltipPadM, yTT);
+		}		
 		
 		// Title
 		g.setFont(titleFont);
@@ -463,17 +479,9 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	}
 	@Override public void mouseDragged(MouseEvent e) {  }
 	@Override public void mouseMoved(MouseEvent e) {
+		x = e.getX();
+		y = e.getY();
 		checkModifierKey(e);
-		int x = e.getX();
-		int y = e.getY();
-		Rectangle prevHover = hoverBox;
-		hoverBox = null;
-		if (exitBox.contains(x,y))
-			hoverBox = exitBox;
-		if (hoverBox != prevHover) {
-			if (prevHover != null) repaint(prevHover);
-			if (hoverBox != null)  repaint(hoverBox);
-		}
 	}
 	@Override public void mouseClicked(MouseEvent e) { }
 	@Override public void mousePressed(MouseEvent e) { }

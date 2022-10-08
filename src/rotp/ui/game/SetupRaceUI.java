@@ -570,8 +570,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     			newGameOptions().selectedPlayerRace()).preferredShipSet);
     }
     private void checkBoxChanged() { // BR: checkBoxChanged
-        if (RotPUI.editCustomRaceUI().cr.isEmpty() // BR: TODO Check isEmpty!
-               && customPlayerRace.get())
+        if (customPlayerRace.get())
             goToPlayerRaceCustomization();
         repaint();
     }
