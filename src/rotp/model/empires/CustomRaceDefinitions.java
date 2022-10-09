@@ -16,6 +16,7 @@
 
 package rotp.model.empires;
 
+import static rotp.model.game.DynOptions.loadOptions;
 import static rotp.ui.UserPreferences.randomAlienRaces;
 import static rotp.ui.UserPreferences.randomAlienRacesMax;
 import static rotp.ui.UserPreferences.randomAlienRacesMin;
@@ -33,8 +34,6 @@ import java.util.List;
 import br.profileManager.src.main.java.PMutil;
 import rotp.Rotp;
 import rotp.model.game.DynOptions;
-import rotp.model.game.GameSession;
-import rotp.model.game.IGameOptions;
 import rotp.model.game.MOO1GameOptions;
 import rotp.model.planet.PlanetType;
 import rotp.ui.game.EditCustomRaceUI;
@@ -76,14 +75,36 @@ public class CustomRaceDefinitions  {
 	public CustomRaceDefinitions() {
 		newSettingList();
 	}
-	private CustomRaceDefinitions(DynOptions srcOptions) {
-		this();
-		setFromOptions(srcOptions);
-	}
 	public CustomRaceDefinitions(Race race) {
 		this();
 		setRace(race.name());
 		pullSettings();
+	}
+	private CustomRaceDefinitions(DynOptions srcOptions) {
+		this();
+		setFromOptions(srcOptions);
+	}
+	private CustomRaceDefinitions(String name) {
+		this(loadOptions(Rotp.jarPath(), name + EXT));
+	}
+	// -------------------- Static Methods --------------------
+	// 
+	private static Race getRandomAlienRace() {
+		CustomRaceDefinitions cr = new CustomRaceDefinitions();
+		cr.randomizeRace(randomAlienRacesMin.get(), randomAlienRacesMax.get(),
+				randomAlienRacesTargetMin.get(), randomAlienRacesTargetMax.get(),
+				randomAlienRacesSmoothEdges.get(), randomAlienRaces.isTarget(), false);
+		return cr.returnRace();
+	}
+	static Race keyToRace(String raceKey) {
+		if (raceKey.equalsIgnoreCase(RANDOM_RACE_KEY)) {
+			return getRandomAlienRace();
+		}
+		if (raceKey.equalsIgnoreCase(CUSTOM_RACE_KEY)) {
+			return EditCustomRaceUI.instance.cr.race;
+		}
+		// load from file
+		return new CustomRaceDefinitions(raceKey).returnRace();
 	}
 	// ========== Options Management ==========
 	//
@@ -111,7 +132,7 @@ public class CustomRaceDefinitions  {
 		getAsOptions().save(path, fileName);
 	}
 	private void loadSettingList(String path, String fileName) {
-		setFromOptions(DynOptions.loadOptions(path, fileName));
+		setFromOptions(loadOptions(path, fileName));
 	}
 	private String fileName() { return raceName().settingValue() + EXT; }
 	public void saveRace() { saveSettingList(Rotp.jarPath(), fileName()); }
@@ -140,7 +161,7 @@ public class CustomRaceDefinitions  {
 		if (raceKey == null)
 			race = null;
 		else if (race == null
-				|| !race.name().equalsIgnoreCase(raceKey)) {
+				|| !raceKey.equalsIgnoreCase(race.name())) {
 			race = Race.keyed(raceKey).copy();
 		}
 	}
@@ -333,26 +354,6 @@ public class CustomRaceDefinitions  {
 	}
 	private void endOfColumn()	{ columnList.add(settingList.size()); }
 	private void spacer()		{ spacerList.add(settingList.size()); }
-	// -------------------- Static Methods --------------------
-	// 
-	private static Race getRandomAlienRace() {
-		CustomRaceDefinitions cr = new CustomRaceDefinitions();
-		cr.randomizeRace(randomAlienRacesMin.get(), randomAlienRacesMax.get(),
-				randomAlienRacesTargetMin.get(), randomAlienRacesTargetMax.get(),
-				randomAlienRacesSmoothEdges.get(), randomAlienRaces.isTarget(), false);
-		return cr.returnRace();
-	}
-	static Race keyToRace(String raceKey) {
-		if (raceKey.equalsIgnoreCase(RANDOM_RACE_KEY)) {
-			return getRandomAlienRace();
-		}
-		if (raceKey.equalsIgnoreCase(CUSTOM_RACE_KEY)) {
-			return EditCustomRaceUI.instance.cr.race;
-		}
-		IGameOptions opts  = GameSession.instance().options();
-		DynOptions options = opts.customRaces().get(raceKey);
-		return new CustomRaceDefinitions(options).returnRace();
-	}
 	// ==================== Nested Classes ====================
 	//
 	// ==================== RaceName ====================

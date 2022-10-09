@@ -17,6 +17,7 @@ package rotp.model.empires;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import rotp.Rotp;
 import rotp.util.AnimationManager;
@@ -48,8 +49,120 @@ public enum RaceFactory implements Base {
         }
     }
     // BR: The safest way to copy a race!
+    private static List<String> reloadedSettings() {
+    	List<String> list = new ArrayList<>();
+    	list.add("key");
+    	list.add("langKey");
+    	list.add("homestarType");
+    	list.add("homeworldType");
+    	list.add("homeworldKey");
+    	list.add("homeworldSize");
+    	list.add("species");
+    	list.add("preferredship");
+    	list.add("shipmod");
+    	list.add("groundmod");
+    	list.add("spymod");
+    	list.add("prodmod");
+    	list.add("techmod");
+    	list.add("popmod");
+    	list.add("diplomod");
+    	list.add("research");
+    	list.add("personality");
+    	list.add("objective");
+    	list.add("relations");
+    	list.add("shipdesign");
+    	list.add("available");    	
+
+//    	list.add("year");
+//    	list.add("mugshot");
+//    	list.add("diploProfile");
+//    	list.add("setupImage");
+//    	list.add("spyMug");
+//    	list.add("soldierMug");
+//    	list.add("advisorMug");
+//    	list.add("advisorScout");
+//    	list.add("advisorTransport");
+//    	list.add("advisorDiplomacy");
+//    	list.add("advisorShip");
+//    	list.add("advisorRally");
+//    	list.add("advisorMissile");
+//    	list.add("advisorWeapon");
+//    	list.add("advisorCouncil");
+//    	list.add("advisorRebellion");
+//    	list.add("advisorResistCouncil");
+//    	list.add("advisorCouncilResisted");
+//    	list.add("council");
+//    	list.add("lab");
+//    	list.add("embassy");
+//    	list.add("holograph");
+//    	list.add("diplomat");
+//    	list.add("scientist");
+//    	list.add("trooper");
+//    	list.add("spy");
+//    	list.add("leader");
+//    	list.add("diploTheme");
+//    	list.add("gnn");
+//    	list.add("gnnHost");
+//    	list.add("gnnColor");
+//    	list.add("gnnTextColor");
+//    	list.add("diplomatXform");
+//    	list.add("winSplash");
+//    	list.add("lossSplash");
+//    	list.add("flagSize");
+//    	list.add("flagWar");
+//    	list.add("flagNormal");
+//    	list.add("flagPact");
+//    	list.add("dialogWar");
+//    	list.add("dialogNormal");
+//    	list.add("dialogPact");
+//    	list.add("troopIcon");
+//    	list.add("troopFireXY");
+//    	list.add("troopScale");
+//    	list.add("troopHIcon");
+//    	list.add("troopHFireXY");
+//    	list.add("troopDeath1");
+//    	list.add("troopDeath2");
+//    	list.add("troopDeath3");
+//    	list.add("troopDeath4");
+//    	list.add("troopDeath1H");
+//    	list.add("troopDeath2H");
+//    	list.add("troopDeath3H");
+//    	list.add("troopDeath4H");
+//    	list.add("landingAudio");
+//    	list.add("transport");
+//    	list.add("transportDesc");
+//    	list.add("transportOpen");
+//    	list.add("transportW");
+//    	list.add("transportYOff");
+//    	list.add("transportLandingFrames");
+//    	list.add("colonistWalk");
+//    	list.add("labFlagX");
+//    	list.add("spyFactories");
+//    	list.add("spyMissiles");
+//    	list.add("spyRebellion");
+//    	list.add("espionageXY");
+//    	list.add("dialogTextX");
+//    	list.add("dialogTextY");
+//    	list.add("fortress");
+//    	list.add("shield");
+//    	list.add("introTextX");
+//    	list.add("councilDiplo");
+//    	list.add("homeworld");
+//    	list.add("voice");
+//    	list.add("ambience");
+    	return list;
+    }
+    // BR: The safest way to copy a race!
+    private boolean isInList(String val, List<String> list) {
+    	for (String s : list)
+    		if (s.equalsIgnoreCase(val))
+    			return true;
+    	return false;
+    }
+    // BR: The safest way to copy a race!
     public Race reloadRaceDataFile(String raceDirPath) {
         String filename = raceDirPath+"/definition.txt";
+        List<String> loadList = reloadedSettings();
         BufferedReader in = reader(filename);
         if (in == null) {
             err("Could not open file: ", filename);
@@ -58,8 +171,16 @@ public enum RaceFactory implements Base {
         Race newRace = new Race(raceDirPath);
         try {
             String input;
-            while ((input = in.readLine()) != null)
-                loadRaceDataLine(newRace, input);
+            while ((input = in.readLine()) != null) {
+            	// load only what is mandatory 
+            	if (isComment(input))
+            		continue;
+                List<String> vals = substrings(input, ':');
+                if (vals.size() < 2)
+                	continue;
+                if (isInList(vals.get(1), loadList))
+                	loadRaceDataLine(newRace, input);
+            }
             in.close();
             ImageManager.current().loadImageList(raceDirPath+"/images.txt");
             AnimationManager.current().loadAnimationList(raceDirPath+"/animations.txt");
@@ -67,6 +188,18 @@ public enum RaceFactory implements Base {
         catch (IOException e) {
             err("RaceFactory.loadRaceDataFile(", filename, ") -- IOException: ", e.toString());
         }
+        // useless for abilities
+        newRace.troopNormal  = null;
+        newRace.troopHostile = null;
+        newRace.troopDeath1  = null;
+        newRace.troopDeath2  = null;
+        newRace.troopDeath3  = null;
+        newRace.troopDeath4  = null;
+        newRace.troopDeath1H = null;
+        newRace.troopDeath2H = null;
+        newRace.troopDeath3H = null;
+        newRace.troopDeath4H = null;
+
         return newRace;
     }
     private void loadRaceDataFile(String raceDirName) {
