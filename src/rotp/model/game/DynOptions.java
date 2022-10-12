@@ -118,6 +118,15 @@ public class DynOptions implements DynamicOptions, Serializable {
 		return (DynOptions) ObjectCloner.deepCopy(options);
 	}
     // Save options to zip file
+    public static void saveOptions(DynOptions options, File saveFile) {
+		try {
+			saveOptionsTE(options, saveFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+           	System.err.println("Options.save -- IOException: "+ ex.toString());
+		}
+    }
+    // Save options to zip file
     public static void saveOptions(DynOptions options, String path, String fileName) {
 		File saveFile = new File(path, fileName);
 		try {
@@ -126,6 +135,21 @@ public class DynOptions implements DynamicOptions, Serializable {
 			ex.printStackTrace();
            	System.err.println("Options.save -- IOException: "+ ex.toString());
 		}
+    }
+    // Load options from file
+    public static DynOptions loadOptions(File saveFile) {
+    	DynOptions newOptions;
+		if (saveFile.exists()) {
+			newOptions = loadOptionsTE(saveFile);
+            if (newOptions == null) {
+            	System.err.println("Bad option version: " + saveFile.getAbsolutePath());
+            	newOptions = initMissingOptionFile(saveFile);
+            }
+    	} else {
+			System.err.println("File not found: " + saveFile.getAbsolutePath());
+			newOptions = initMissingOptionFile(saveFile);
+		}
+		return newOptions;
     }
     // Load options from file
     public static DynOptions loadOptions(String path, String fileName) {
@@ -167,6 +191,13 @@ public class DynOptions implements DynamicOptions, Serializable {
             	System.err.println("Options.save -- IOException: "+ ex.toString());
             }            
         }
+    }
+    // Options files initialization
+    private static DynOptions initMissingOptionFile(File saveFile) {
+    	Toolkit.getDefaultToolkit().beep();
+    	DynOptions newOptions = new DynOptions();
+    	saveOptions(new DynOptions(), saveFile);			
+		return newOptions;    	
     }
     // Options files initialization
     private static DynOptions initMissingOptionFile(String path, String fileName) {

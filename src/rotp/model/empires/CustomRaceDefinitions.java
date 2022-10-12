@@ -17,6 +17,7 @@
 package rotp.model.empires;
 
 import static rotp.model.game.DynOptions.loadOptions;
+import static rotp.ui.UserPreferences.playerCustomRace;
 import static rotp.ui.UserPreferences.randomAlienRaces;
 import static rotp.ui.UserPreferences.randomAlienRacesMax;
 import static rotp.ui.UserPreferences.randomAlienRacesMin;
@@ -26,6 +27,8 @@ import static rotp.ui.UserPreferences.randomAlienRacesTargetMin;
 import static rotp.ui.util.SettingBase.CostFormula.DIFFERENCE;
 import static rotp.util.Base.random;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -34,9 +37,10 @@ import java.util.List;
 import br.profileManager.src.main.java.PMutil;
 import rotp.Rotp;
 import rotp.model.game.DynOptions;
+import rotp.model.game.DynamicOptions;
 import rotp.model.game.MOO1GameOptions;
 import rotp.model.planet.PlanetType;
-import rotp.ui.game.EditCustomRaceUI;
+import rotp.ui.UserPreferences;
 import rotp.ui.util.SettingBase;
 import rotp.ui.util.SettingBoolean;
 import rotp.ui.util.SettingInteger;
@@ -46,14 +50,14 @@ public class CustomRaceDefinitions  {
 	
 	public static final String ROOT = "CUSTOM_RACE_";
 	private static final String PLANET = "PLANET_";
-	private static final String EXT = ".race";
+	public static final String EXT = ".race";
 	public static final String RANDOM_RACE_KEY = "RANDOM_RACE_KEY";
 	public static final String CUSTOM_RACE_KEY = "CUSTOM_RACE_KEY";
 	private static final boolean booleansAreBullet = true;
 
-	private Race race;
-	private RaceName raceName = new RaceName();
-	private final LinkedList<SettingBase<?>> settingList = new LinkedList<>();
+	private Race race; // !!! To be kept up to date !!!
+//	private RaceKey raceKey = new RaceKey();
+	private final LinkedList<SettingBase<?>> settingList = new LinkedList<>(); // !!! To be kept up to date !!!
 	private final LinkedList<SettingBase<?>> guiList	 = new LinkedList<>();
 
 	private final SettingInteger randomTargetMax = new SettingInteger(ROOT, "RANDOM_TARGET_MAX",
@@ -69,20 +73,23 @@ public class CustomRaceDefinitions  {
 
 	private LinkedList<Integer> spacerList; // For UI
 	private LinkedList<Integer> columnList; // For UI
+	private RaceList raceList;
 	
 	// ========== Constructors and Initializers ==========
 	//
 	public CustomRaceDefinitions() {
 		newSettingList();
+		pushSettings();
 	}
 	public CustomRaceDefinitions(Race race) {
-		this();
+		newSettingList();
 		setRace(race.name());
 		pullSettings();
 	}
-	private CustomRaceDefinitions(DynOptions srcOptions) {
-		this();
-		setFromOptions(srcOptions);
+	public CustomRaceDefinitions(DynOptions srcOptions) {
+		newSettingList();
+		fromOptions(srcOptions);
+		pushSettings();
 	}
 	private CustomRaceDefinitions(String name) {
 		this(loadOptions(Rotp.jarPath(), name + EXT));
@@ -94,36 +101,50 @@ public class CustomRaceDefinitions  {
 		cr.randomizeRace(randomAlienRacesMin.get(), randomAlienRacesMax.get(),
 				randomAlienRacesTargetMin.get(), randomAlienRacesTargetMax.get(),
 				randomAlienRacesSmoothEdges.get(), randomAlienRaces.isTarget(), false);
-		return cr.returnRace();
+		return cr.getRace();
 	}
 	static Race keyToRace(String raceKey) {
 		if (raceKey.equalsIgnoreCase(RANDOM_RACE_KEY)) {
 			return getRandomAlienRace();
 		}
 		if (raceKey.equalsIgnoreCase(CUSTOM_RACE_KEY)) {
-			return EditCustomRaceUI.instance.cr.race;
+			DynOptions opt = (DynOptions) playerCustomRace.get();
+			return new CustomRaceDefinitions(opt).getRace();
 		}
 		// load from file
-		return new CustomRaceDefinitions(raceKey).returnRace();
+		return new CustomRaceDefinitions(raceKey).getRace();
+	}
+	public static DynOptions getDefaultOptions() {
+		return new CustomRaceDefinitions().getAsOptions();
 	}
 	// ========== Options Management ==========
 	//
+	/**
+	 * Settings to DynOptions
+	 * @return DynOptions
+	 */
 	public DynOptions getAsOptions() {
 		DynOptions destOptions = new DynOptions();
 		for (SettingBase<?> setting : settingList)
 			setting.setOptions(destOptions);
 		for (SettingBase<?> setting : guiList)
 			setting.setOptions(destOptions);
-		raceName.setOptions(destOptions);
 		return destOptions;
 	}
-	public void setFromOptions(DynOptions srcOptions) {
+	/**
+	 * DynOptions to settings and race
+	 * @param srcOptions
+	 */
+	public void fromOptions(DynOptions srcOptions) {
 		for (SettingBase<?> setting : settingList)
 			setting.setFromOptions(srcOptions);
 		for (SettingBase<?> setting : guiList)
 			setting.setFromOptions(srcOptions);
-		raceName.setFromOptions(srcOptions);
+		pushSettings();
 	}
+	/**
+	 * race to settings
+	 */
 	public void setFromRaceToShow(Race race) {
 		this.race = race;
 		pullSettings();
@@ -131,39 +152,40 @@ public class CustomRaceDefinitions  {
 	private void saveSettingList(String path, String fileName) {
 		getAsOptions().save(path, fileName);
 	}
+	/**
+	 * DynOptions to settings and race
+	 */
 	private void loadSettingList(String path, String fileName) {
-		setFromOptions(loadOptions(path, fileName));
+		fromOptions(loadOptions(path, fileName));
 	}
-	private String fileName() { return raceName().settingValue() + EXT; }
+	private String fileName() { return race.id + EXT; }
 	public void saveRace() { saveSettingList(Rotp.jarPath(), fileName()); }
 	public void loadRace() { loadSettingList(Rotp.jarPath(), fileName()); }
 	// ========== Main Getters ==========
 	//
-	public Race						  race()		{ return race; }
-	public RaceName					  raceName()	{ return raceName; }
 	public LinkedList<SettingBase<?>> settingList()	{ return settingList; }
 	public LinkedList<SettingBase<?>> guiList()		{ return guiList; }
 	public LinkedList<Integer>		  spacerList()	{ return spacerList; }
 	public LinkedList<Integer>		  columnList()	{ return columnList; }
-
-	// ========== Other Methods ==========
-	//
-	private Race returnRace() {
+	public RaceList initRaceList()	{ 
+		raceList = new RaceList();
+		return raceList;
+	}
+	public Race getRace() {
+		pushSettings();
 		race.raceOptions(getAsOptions());
 		race.isCustomRace(true);
 		return race;
 	}
+
+	// ========== Other Methods ==========
+	//
 	/**
 	 * @param raceKey the new race
-	 * @return this for chaining purpose
 	 */
 	public void setRace(String raceKey) {
-		if (raceKey == null)
-			race = null;
-		else if (race == null
-				|| !raceKey.equalsIgnoreCase(race.name())) {
-			race = Race.keyed(raceKey).copy();
-		}
+		race = Race.keyed(raceKey).copy();
+//		pushSettings();
 	}
 	public int getCount() {
 		int count = 0;
@@ -174,6 +196,9 @@ public class CustomRaceDefinitions  {
 		}
 		return count;
 	}
+	/**
+	 * race is not up to date
+	 */
 	private void randomizeRace(float min, float max,
 			float targetMin, float targetMax, boolean gaussian, boolean updateGui) {
 		float target	= (targetMax + targetMin)/2;
@@ -182,7 +207,8 @@ public class CustomRaceDefinitions  {
 		
 		List<SettingBase<?>> shuffledSettingList = new ArrayList<>(settingList);
 		// first pass full random
-		float cost = randomizeRace(min, max, gaussian, updateGui);
+		randomizeRace(min, max, gaussian, updateGui);
+		float cost = getTotalCost();
 		
 		// second pass going smoothly to the target
 		for (int i=0; i<10; i++) {
@@ -235,7 +261,10 @@ public class CustomRaceDefinitions  {
 			}				
 		}
 	}
-	private float randomizeRace(float min, float max, boolean gaussian, boolean updateGui) {
+	/**
+	 * race is not up to date
+	 */
+	private void randomizeRace(float min, float max, boolean gaussian, boolean updateGui) {
 		for (SettingBase<?> setting : settingList) {
 			if (!setting.isSpacer()) {
 				setting.setRandom(min, max, gaussian);
@@ -243,13 +272,16 @@ public class CustomRaceDefinitions  {
 					setting.guiSelect();
 			}
 		}
-		return getTotalCost();
 	}
 	public void randomizeRace(boolean updateGui) {
 		randomizeRace(randomMin.settingValue(), randomMax.settingValue(),
 			randomTargetMin.settingValue(), randomTargetMax.settingValue(),
 			randomUseTarget.settingValue(), randomSmoothEdges.settingValue(), updateGui);
+		pushSettings();
 	}
+	/**
+	 * race is not up to date
+	 */
 	private void randomizeRace(float min, float max, float targetMin, float targetMax, 
 			boolean useTarget, boolean gaussian, boolean updateGui) {
 		if (useTarget)
@@ -293,16 +325,26 @@ public class CustomRaceDefinitions  {
 		endOfColumn(); // ====================
 
 		// Second column
+		settingList.add(new RaceKey());
+		settingList.add(new RaceName());
+		settingList.add(new RaceDescription1());
+		settingList.add(new RaceDescription2());
+		settingList.add(new RaceDescription4());
+		settingList.add(new RaceDescription3());
+		spacer();
 		settingList.add(new RacePlanetType());
 		settingList.add(new HomeworldSize());
 //		settingList.add(new SpeciesType()); // Not used in Game
 		settingList.add(new PopGrowRate());
 		settingList.add(new IgnoresEco());
-		spacer();
-		settingList.add(new ShipAttack());
-		settingList.add(new ShipDefense());
-		settingList.add(new ShipInitiative());
-		settingList.add(new GroundAttack());
+		endOfColumn(); // ====================
+
+		// Third column
+		settingList.add(new ProdWorker());
+		settingList.add(new ProdControl());
+		settingList.add(new IgnoresFactoryRefit());
+		settingList.add(new TechDiscovery());
+		settingList.add(new TechResearch());
 		spacer();
 		settingList.add(new SpyCost());
 		settingList.add(new SpySecurity());
@@ -314,14 +356,6 @@ public class CustomRaceDefinitions  {
 		settingList.add(new DiplomacyBonus());
 		settingList.add(new DiplomacyCouncil());
 		settingList.add(new RelationDefault());	// BR: Maybe All the races
-		endOfColumn(); // ====================
-
-		// Third column
-		settingList.add(new ProdWorker());
-		settingList.add(new ProdControl());
-		settingList.add(new IgnoresFactoryRefit());
-		settingList.add(new TechDiscovery());
-		settingList.add(new TechResearch());
 		spacer();
 		settingList.add(new ResearchComputer());
 		settingList.add(new ResearchConstruction());
@@ -339,6 +373,11 @@ public class CustomRaceDefinitions  {
 		settingList.add(new HitPointsBonus());
 		settingList.add(new MaintenanceBonus());
 		settingList.add(new ShipSpaceBonus());
+		spacer();
+		settingList.add(new ShipAttack());
+		settingList.add(new ShipDefense());
+		settingList.add(new ShipInitiative());
+		settingList.add(new GroundAttack());
 		endOfColumn(); // ====================
 		// Fifth column
 		// endOfColumn(); // ====================
@@ -356,17 +395,181 @@ public class CustomRaceDefinitions  {
 	private void spacer()		{ spacerList.add(settingList.size()); }
 	// ==================== Nested Classes ====================
 	//
+	// ==================== RaceList ====================
+	//
+	public class RaceList extends SettingBase<String> {
+		
+		private boolean newValue = false;
+		private boolean reload	 = false;
+
+		public RaceList() {
+			super(ROOT, "RACE_LIST");
+			isBullet(true);
+			labelsAreFinals(true);
+			hasNoCost(true);
+			reload();
+		}
+		// ---------- Initializers ----------
+		//
+		public void reload() {
+			String currentValue = settingValue();
+			clearLists();
+			add((DynOptions) playerCustomRace.get());
+			defaultIndex(0);
+			File[] fileList = loadListing();
+			if (fileList != null)
+				for (File file : fileList)
+					add(DynOptions.loadOptions(file));
+			initOptionsText();
+			reload = true;
+			set(currentValue);
+		}
+	    private File[] loadListing() {
+	        String path	= Rotp.jarPath();
+	        File saveDir = new File(path);
+	        FilenameFilter filter = (File dir, String name1) -> name1.toLowerCase().endsWith(EXT);
+	        File[] fileList = saveDir.listFiles(filter);
+	        return fileList;
+	    }
+	    private void add(DynOptions opt) { // TODO BR: complete
+	    	CustomRaceDefinitions cr = new CustomRaceDefinitions(opt);
+	    	Race dr = cr.getRace();
+	    	String cfgValue	 = dr.setupName;
+	    	String langLabel = dr.id;
+	    	String tooltipKey = dr.description3;
+	    	float cost = cr.getTotalCost();
+	    	put(cfgValue, langLabel, cost, langLabel, tooltipKey);
+	    }
+	    public boolean newValue() {
+	    	if (newValue) {
+	    		newValue = false;
+	    		return true;
+	    	}
+	    	return false;
+	    }
+		// ---------- Overriders ----------
+		//
+		@Override public String guiSettingValue() {
+			return lmText(guiOptionLabel());
+		}
+		@Override public String guiOptionValue(int index) {
+			return lmText(guiOptionLabel(index));
+		}
+		@Override protected void selectedValue(String value) {
+			super.selectedValue(value);
+			if (reload) { // No need to load options on reload
+				reload = false;
+				return;
+			}
+			if (index() == 0) {
+				fromOptions((DynOptions) playerCustomRace.get());
+				newValue = true;
+				return;
+			}
+			File file = new File(Rotp.jarPath(), settingValue()+EXT);
+			if (file.exists()) {
+				fromOptions(DynOptions.loadOptions(file));
+				newValue = true;
+			}
+		}
+//		@Override public SettingBase<?> index(int newIndex) {
+//			super.index(newIndex);
+//			selectedValue(valueList.get(cfgValidIndex(newIndex)));
+//			return this;
+//		}
+
+	}
 	// ==================== RaceName ====================
 	//
-	public class RaceName extends SettingString {
+	private class RaceName extends SettingString {
 		private RaceName() {
-			super(ROOT, "RACE_NAME", "CustomRace");
+			super(ROOT, "RACE_NAME", "Custom Race", 1);
+			inputMessage("Enter the Race Name");
+			randomStr("");
 		}
-		@Override public void pushSetting() { // TODO BR: complete
-		race.id = settingValue();
+		@Override public void pushSetting() {
+			race.setupName = settingValue();
 		}
-		@Override public void pullSetting() { // TODO BR: complete
+		@Override public void pullSetting() {
+			if (race.setupName == null)
+				set(race.name());
+			else
+				set(race.setupName);				
+		}
+	}
+	// ==================== RaceKey ====================
+	//
+	private class RaceKey extends SettingString {
+		private RaceKey() {
+			super(ROOT, "RACE_KEY", "CustomRace", 1);
+			inputMessage("Enter the Race File Name");
+			randomStr("Randomized");
+		}
+		@Override public void pushSetting() {
+			race.id = settingValue();
+		}
+		@Override public void pullSetting() {
 			set(race.id);
+		}
+	}
+	// ==================== RaceDescription1 ====================
+	//
+	private class RaceDescription1 extends SettingString {
+		private RaceDescription1() {
+			super(ROOT, "RACE_DESC_1", "Description 1", 2);
+			inputMessage("Enter the Description");
+			randomStr("Randomized");
+		}
+		@Override public void pushSetting() {
+			race.description1 = settingValue();
+		}
+		@Override public void pullSetting() {
+			set(race.description1);		
+		}
+	}
+	// ==================== RaceDescription2 ====================
+	//
+	private class RaceDescription2 extends SettingString {
+		private RaceDescription2() {
+			super(ROOT, "RACE_DESC_2", "Description 2", 2);
+			inputMessage("Enter the Description");
+			randomStr("Randomized");
+		}
+		@Override public void pushSetting() {
+			race.description2 = settingValue();
+		}
+		@Override public void pullSetting() {
+			set(race.description2);		
+		}
+	}
+	// ==================== RaceDescription3 ====================
+	//
+	private class RaceDescription3 extends SettingString {
+		private RaceDescription3() {
+			super(ROOT, "RACE_DESC_3", "Description 3", 3);
+			inputMessage("Enter the Description");
+			randomStr("Randomized");
+		}
+		@Override public void pushSetting() {
+			race.description3 = settingValue();
+		}
+		@Override public void pullSetting() {
+			set(race.description3);		
+		}
+	}
+	// ==================== RaceDescription4 ====================
+	//
+	private class RaceDescription4 extends SettingString {
+		private RaceDescription4() {
+			super(ROOT, "RACE_DESC_4", "Description 4", 3);
+			inputMessage("Enter the Description");
+			randomStr("Randomized");
+		}
+		@Override public void pushSetting() {
+			race.description4 = settingValue();
+		}
+		@Override public void pullSetting() {
+			set(race.description4);		
 		}
 	}
 	// ==================== BaseDataRace ====================

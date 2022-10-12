@@ -16,14 +16,14 @@
 package rotp.ui.game;
 
 import static rotp.model.empires.CustomRaceDefinitions.ROOT;
-import static rotp.ui.UserPreferences.customPlayerRace;
+import static rotp.ui.UserPreferences.playerCustomRace;
+import static rotp.ui.UserPreferences.playerIsCustom;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonWidth;
 import static rotp.ui.util.AbstractOptionsUI.userButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.userButtonWidth;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -34,9 +34,10 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.LinkedList;
 
-import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import rotp.model.empires.CustomRaceDefinitions.RaceList;
+import rotp.model.game.DynOptions;
 import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
@@ -73,50 +74,58 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 
 	private LinkedList<SettingBase<?>> guiList;
 	private MOO1GameOptions initialOptions; // To be restored if "cancel"
+	private RaceList raceList;
+	private static final int raceListW = RotPUI.scaledSize(180);
+	private LinkedList<SettingBase<?>> mouseList;
 	
 	// ========== Constructors and initializers ==========
 	//
 	private EditCustomRaceUI() {}
 
-	private void initTextField(JTextField value) {
-		value.setBackground(GameUI.setupFrame());
-		value.setBorder(newEmptyBorder(3,3,0,0));
-		value.setPreferredSize(new Dimension(raceNameW, raceNameH));
-		value.setFont(raceNameFont);
-		value.setForeground(Color.black);
-		value.setCaretColor(Color.black);
-		value.putClientProperty("caretWidth", s3);
-		value.setVisible(true);
-		value.addMouseListener(this);
-		add(value);
-	}
 	private EditCustomRaceUI init0() {
 		addMouseListener(this);
 		addMouseMotionListener(this);
 		addMouseWheelListener(this);
 		maxLeftM	= scaled(999);
 		guiTitleID	= ROOT + "GUI_TITLE";
-	    initTextField(raceName);
 	    initGUI();		
 
 		guiList = cr.guiList();
 	    for(SettingBase<?> setting : guiList)
 	    	setting.settingText(new BaseText(this, false, labelFontSize, 0, 0,
 					labelC, labelC, hoverC, depressedC, textC, 0, 0, 0));
+	    raceList = cr.initRaceList();
+	    initSetting(raceList);
 
 	    commonList = new LinkedList<>();
 	    commonList.addAll(settingList);
 	    commonList.addAll(guiList);
+	    
+	    mouseList = new LinkedList<>();
+	    mouseList.addAll(commonList);
+	    mouseList.add(raceList);
+	    
 	    cr.setRace(MOO1GameOptions.baseRaceOptions().getFirst());
 	    cr.pullSettings();
 		return this;
 	}
+	private void reloadRaceList() {
+		raceList.reload();
+		int optionCount = raceList.boxSize(); // +1 for the setting
+		int paramIdx	= raceList.index();
+		for (int optionIdx=0; optionIdx < optionCount; optionIdx++) {
+			raceList.optionText(optionBT(), optionIdx);
+			raceList.optionText(optionIdx).disabled(optionIdx == paramIdx);
+		}
+	}
 	@Override public void open(BasePanel p) {
 		parent = p;
+		cr.fromOptions((DynOptions) playerCustomRace.get());
 		initialOptions = new MOO1GameOptions(); // Any content will do
 		saveOptions(initialOptions);
 		init();
 		enableGlassPane(this);
+		reloadRaceList();
 		repaint();
 	}
 	// ========== Other Methods ==========
@@ -124,7 +133,15 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	public void saveOptions(MOO1GameOptions destination) {
 		for (InterfaceOptions param : commonList)
 			param.setOptions(destination.dynamicOptions());
-		customPlayerRace.setOptions(destination.dynamicOptions());
+		playerIsCustom.setOptions(destination.dynamicOptions());
+//		playerCustomRace.setOptions(destination.dynamicOptions());
+	}
+	@Override public void getOptions(MOO1GameOptions source) {
+		for (InterfaceOptions param : commonList)
+			param.setFromOptions(source.dynamicOptions());
+		playerIsCustom.setFromOptions(source.dynamicOptions());
+//		playerCustomRace.setFromOptions(source.dynamicOptions());
+		init();
 	}
 
 	private void saveCurrentRace() { cr.saveRace(); }
@@ -138,9 +155,10 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			break;
 		default: // Load
 			loadCurrentRace();
-			repaint();
 			break; 
 		}
+		reloadRaceList();
+		repaint();
 	}
 	private void doExitBoxAction() {
 		buttonClick();
@@ -150,6 +168,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			getOptions(initialOptions);
 			break;
 		default: // Save
+			playerCustomRace.set(cr.getAsOptions());
 			saveLastOptions();
 			break; 
 		}
@@ -157,8 +176,9 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	}
 	private void doSelectBoxAction() {
 		buttonClick();
-		cr.pushSettings();
-		customPlayerRace.set(true);
+		cr.pushSettings(); // TODO BR: may be not necessary
+		playerCustomRace.set(cr.getAsOptions());
+		playerIsCustom.set(true);
 		saveLastOptions();
 		close();
 	}
@@ -176,6 +196,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			setToDefault();
 			break; 
 		}
+		reloadRaceList();
 		repaint();
 	}
 	private void doUserBoxAction() {
@@ -188,8 +209,9 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		default: // Set
 			MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
 			getOptions(fileOptions);
-			repaint();
 		}
+		reloadRaceList();
+		repaint();
 	}	
 	public void setToDefault() {
 		for (InterfaceOptions param : commonList)
@@ -270,12 +292,15 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	}
 	private void updateBulletSetting(SettingBase<?> setting) {
 		setting.guiSelect();
-		totalCostText.repaint(totalCostStr());
+		if (raceList.newValue())
+			repaint();
+		else
+			totalCostText.repaint(totalCostStr());
 	}
 	private void mouseCommon(boolean up, boolean mid, boolean shiftPressed, boolean ctrlPressed
 			, MouseEvent e, MouseWheelEvent w) {
-		for (int settingIdx=0; settingIdx < commonList.size(); settingIdx++) {
-			SettingBase<?> setting = commonList.get(settingIdx);
+		for (int settingIdx=0; settingIdx < mouseList.size(); settingIdx++) {
+			SettingBase<?> setting = mouseList.get(settingIdx);
 			if (setting.isBullet()) {
 				if (hoverBox == setting.settingText().bounds()) { // Check Setting
 					setting.toggle(e, w);
@@ -296,8 +321,18 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 				setting.settingText().repaint();
 				totalCostText.repaint(totalCostStr());
 				return;
-			}
+			} 
 		}
+	}
+	// ========== Overriders ==========
+	//
+	@Override protected void close() {
+		((SetupRaceUI) parent).raceChanged();
+		disableGlassPane();
+		((SetupRaceUI) parent).repaint();
+	}
+	@Override protected int getBackGroundWidth() {
+		return super.getBackGroundWidth() + columnPad + raceListW;
 	}
 	@Override protected void hoverAndTooltip(boolean repaint) {
 		String tip = tooltipText;
@@ -329,17 +364,24 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		}
 		else {
 			outerLoop1:
-			for (SettingBase<?> setting : commonList) {
+			for (SettingBase<?> setting : mouseList) {
 				if (setting.settingText().contains(x,y)) {
 					hoverBox = setting.settingText().bounds();
+					tooltipText = setting.getToolTip();
 					break outerLoop1;
 				}
-				if (setting.isBullet()) {					
+				if (setting.isBullet()) {
+					int idx = 0;
 					for (BaseText txt : setting.optionsText()) {
+						if (txt == null) {
+							System.out.println();
+						}
 						if (txt.contains(x,y)) {
 							hoverBox = txt.bounds();
+							tooltipText = setting.getToolTip(idx);
 							break outerLoop1;
 						}
+						idx += 1;
 					}
 				}
 			}
@@ -347,7 +389,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 
 		if (hoverBox != prevHover) {
 			outerLoop2: // Check exit settings
-			for ( SettingBase<?> setting : commonList) {
+			for ( SettingBase<?> setting : mouseList) {
 				if (setting.isSpacer())
 					continue;
 				if (prevHover == setting.settingText().bounds()) {
@@ -365,7 +407,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			}
 			
 			outerLoop3: // Check enter settings
-			for ( SettingBase<?> setting : commonList) {
+			for ( SettingBase<?> setting : mouseList) {
 				if (setting.isSpacer())
 					continue;
 				if (hoverBox == setting.settingText().bounds()) {
@@ -393,13 +435,20 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		else if (repaint || !tooltipText.equals(tip))
 			repaint();		
 	}
-	// ========== Overriders ==========
-	//
+	@Override protected String raceAITxt() { return ""; }
 	@Override public void paintComponent(Graphics g0) {
 		super.paintComponent(g0); // call ShowUI
 		Graphics2D g = (Graphics2D) g0;
 		int cnr = s5;
 
+		// Custom Race List
+		currentWith = raceListW;
+		Stroke prev = g.getStroke();
+		g.setStroke(stroke2);
+		paintSetting(g, raceList);
+		g.setStroke(prev);
+		
+		g.setFont(buttonFont);
 		// Select Button
 		String text	 = text(selectKey);
 		int sw = g.getFontMetrics().stringWidth(text);
@@ -412,7 +461,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		int yT = selectBox.y + selectBox.height-s8;
 		Color cB = hoverBox == selectBox ? Color.yellow : GameUI.borderBrightColor();
 		drawShadowedString(g, text, 2, xT, yT, GameUI.borderDarkColor(), cB);
-		Stroke prev = g.getStroke();
+		prev = g.getStroke();
 		g.setStroke(stroke1);
 		g.drawRoundRect(selectBox.x, selectBox.y, selectBox.width, selectBox.height, cnr, cnr);
 		g.setStroke(prev);
@@ -560,15 +609,15 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		mouseCommon(up, mid, shiftPressed, ctrlPressed, e, null);
 	}
 	@Override public void mouseEntered(MouseEvent e) { // TODO
-		if (e.getComponent() == raceName) {
-			raceName.requestFocus();
-        }
+//		if (e.getComponent() == raceKey) {
+//			raceKey.requestFocus();
+//        }
 	}
 	@Override public void mouseExited(MouseEvent e) {
-		if (e.getComponent() == raceName) {
-			cr.raceName().set(raceName.getText());
-			RotPUI.instance().requestFocus();
-		}
+//		if (e.getComponent() == raceKey) {
+//			cr.raceKey().set(raceKey.getText());
+//			RotPUI.instance().requestFocus();
+//		}
 		if (hoverBox != null) {
 			hoverBox = null;
 			repaint();

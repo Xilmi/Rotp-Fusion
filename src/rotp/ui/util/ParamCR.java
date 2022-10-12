@@ -16,14 +16,13 @@
 
 package rotp.ui.util;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
 import java.io.Serializable;
 
-import rotp.model.game.DynamicOptions;
+import rotp.model.empires.CustomRaceDefinitions;
+import rotp.model.empires.Race;
+import rotp.model.game.DynOptions;
 
-public class ParamObject extends AbstractParam<Serializable> {
-	
+public class ParamCR extends ParamObject {
 
 	// ===== Constructors =====
 	//
@@ -32,22 +31,25 @@ public class ParamObject extends AbstractParam<Serializable> {
 	 * @param name The name
 	 * @param defaultValue The default value
 	 */
-	public ParamObject(String gui, String name, Serializable defaultValue) {
-		super(gui, name, defaultValue);
+	public ParamCR(String gui, String name) {
+		super(gui, name, null);
 	}
 	// ===== Overriders =====
 	//
-	@Override public void setFromCfgValue(String newValue)	{ value(newValue); }	
-	@Override public void prev() {}
-	@Override public void next() {}
-	@Override public void toggle(MouseWheelEvent e)	{}
-	@Override public void toggle(MouseEvent e) {}
-	@Override public void setFromOptions(DynamicOptions options) {
-		set((Serializable) options.getObject(labelId(), defaultValue()));
+	@Override public Serializable defaultValue() {
+		return CustomRaceDefinitions.getDefaultOptions();
 	}
-	@Override public void setOptions(DynamicOptions options) {
-		options.setObject(labelId(), get());
+	@Override public Serializable get() {
+		if (super.get() == null)
+			return CustomRaceDefinitions.getDefaultOptions();
+		return super.get();
 	}
 	// ===== Other Methods =====
 	//
+	public Race getRace() {
+		return getCustomRace().getRace();
+	}
+	public CustomRaceDefinitions getCustomRace() {
+		return new CustomRaceDefinitions((DynOptions) get());
+	}
 }

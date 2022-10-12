@@ -15,7 +15,8 @@
  */
 package rotp.ui.game;
 
-import static rotp.ui.UserPreferences.customPlayerRace;
+import static rotp.ui.UserPreferences.playerCustomRace;
+import static rotp.ui.UserPreferences.playerIsCustom;
 import static rotp.ui.UserPreferences.playerShipSet;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonWidth;
@@ -101,6 +102,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 	private List<BufferedImage>[] shipImages = new ArrayList[MAX_SHIP];
     private MOO1GameOptions initialOptions; // To be restored if "cancel"
     private int bSep = s15;
+    private Race dataRace;
 
     public SetupRaceUI() {
         init0();
@@ -127,10 +129,9 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         leaderName.setFont(narrowFont(20));
         homeWorld.setFont(narrowFont(20));
         shipSetTxt.setFont(narrowFont(20)); // BR:
-
         createNewGameOptions(); // Following the UserPreferences.menuStartup
        	newGameOptions().copyOptions(options()); // Follow the UserPreferences.menuLoadGame
-        raceChanged();
+       	getOptions((MOO1GameOptions) newGameOptions());
         // Save initial options
         initialOptions = new MOO1GameOptions(); // Any content will do
         saveOptions(initialOptions);
@@ -140,13 +141,15 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     }
 	private void saveOptions(MOO1GameOptions destination) {
 		copyOptions((MOO1GameOptions)newGameOptions(), destination);
-		customPlayerRace.setOptions(destination.dynamicOptions());
+		playerIsCustom.setOptions(destination.dynamicOptions());
     	playerShipSet.setOptions(destination.dynamicOptions());
+    	playerCustomRace.setOptions(destination.dynamicOptions());
 	}
 	private void getOptions(MOO1GameOptions source) {
 		copyOptions(source, (MOO1GameOptions)newGameOptions());
-    	customPlayerRace.setFromOptions(source.dynamicOptions());
+    	playerIsCustom.setFromOptions(source.dynamicOptions());
     	playerShipSet.setFromOptions(source.dynamicOptions());
+    	playerCustomRace.setFromOptions(source.dynamicOptions());
         raceChanged();
 	}
     private void doCancelBoxAction() {
@@ -188,7 +191,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 			break;
 		default: // set to default
 			MOO1GameOptions.setDefaultRaceOptions((MOO1GameOptions)newGameOptions());
- 	    	customPlayerRace.setFromDefault();
+ 	    	playerIsCustom.setFromDefault();
  	    	playerShipSet.setFromDefault();
 			break; 
 		}
@@ -314,7 +317,24 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 //      int y0 = scaled(260);
         int y0 = scaled(240); // BR: squeezed
         g.setFont(font(30));
-        this.drawBorderedString(g0, race.setupName(), 1, x0, y0, Color.black, Color.white);
+        // BR: show custom race name and descriptions
+        String raceName, desc1, desc2, desc3, desc4;
+        if (playerIsCustom.get()) {
+        	raceName = dataRace.setupName;
+        	desc1 = dataRace.description1;
+        	desc2 = dataRace.description2;
+        	desc3 = dataRace.description3.replace("[race]", raceName);
+        	desc4 = dataRace.description4;
+        }
+        else {
+        	raceName = race.setupName();
+        	desc1 = race.description1;
+        	desc2 = race.description2;
+        	desc3 = race.description3.replace("[race]", raceName);
+        	desc4 = race.description4;
+        }
+        // \BR:
+        drawBorderedString(g0, raceName, 1, x0, y0, Color.black, Color.white);
 
         // draw race desc #1
         int maxLineW = scaled(185); // modnar: right side extended, increase maxLineW
@@ -322,7 +342,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         y0 += s20; // BR: squeezed
         g.setFont(narrowFont(16));
         g.setColor(Color.black);
-        List<String> desc1Lines = this.wrappedLines(g, race.description1, maxLineW);
+        List<String> desc1Lines = wrappedLines(g, desc1, maxLineW); // BR:
         g.fillOval(x0, y0-s8, s5, s5);
         for (String line: desc1Lines) {
             drawString(g,line, x0+s8, y0);
@@ -331,7 +351,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 
         // draw race desc #2
         y0 += s3;
-        List<String> desc2Lines = wrappedLines(g, race.description2, maxLineW);
+        List<String> desc2Lines = wrappedLines(g, desc2, maxLineW); // BR:
         g.fillOval(x0, y0-s8, s5, s5);
         for (String line: desc2Lines) {
             drawString(g,line, x0+s8, y0);
@@ -339,9 +359,9 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         }
 
         // modnar: draw race desc #4, with 'if' check
-        if (race.description4 != null) {
+        if (desc4 != null) {
             y0 += s3;
-            List<String> desc4Lines = wrappedLines(g, race.description4, maxLineW);
+            List<String> desc4Lines = wrappedLines(g, desc4, maxLineW); // BR:
             g.fillOval(x0, y0-s8, s5, s5);
             for (String line: desc4Lines) {
                 drawString(g,line, x0+s8, y0);
@@ -352,7 +372,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         // draw race desc #3
 //      y0 += s12;
         y0 += s3;  // BR: squeezed
-        String desc3 = race.description3.replace("[race]", race.setupName());
+//        String desc3 = race.description3.replace("[race]", race.setupName());
         List<String> desc3Lines = scaledNarrowWrappedLines(g0, desc3, maxLineW+s8, 5, 16, 13);
         for (String line: desc3Lines) {
             drawString(g,line, x0, y0);
@@ -509,7 +529,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
             g.setColor(Color.yellow);
             g.draw(checkBox);
         }
-        if (customPlayerRace.get()) {
+        if (playerIsCustom.get()) {
             g.setColor(SystemPanel.whiteText);
             g.drawLine(checkX-s1, checkY-s8, checkX+s4, checkY-s4);
             g.drawLine(checkX+s4, checkY-s4, checkX+checkW, checkY-s16);
@@ -570,12 +590,13 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     			newGameOptions().selectedPlayerRace()).preferredShipSet);
     }
     private void checkBoxChanged() { // BR: checkBoxChanged
-        if (customPlayerRace.get())
-            goToPlayerRaceCustomization();
+//        if (playerIsCustom.get())
+//            goToPlayerRaceCustomization();
         repaint();
     }
     public void raceChanged() {
         Race r =  Race.keyed(newGameOptions().selectedPlayerRace());
+      	dataRace = playerCustomRace.getRace(); // BR:
         r.resetMugshot();
         r.resetSetupImage();
         shipSetChanged();
@@ -989,7 +1010,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         else if (hoverBox == playerRaceSettingBox)
             goToPlayerRaceCustomization();
         else if (hoverBox == checkBox) {
-            customPlayerRace.toggle(e);
+            playerIsCustom.toggle(e);
             checkBoxChanged();
         }
         // BR: Player Ship Set Selection
@@ -1057,7 +1078,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         	shipSetChanged();
         	repaint();
         } else if (hoverBox == checkBox) {
-            customPlayerRace.toggle(e);
+            playerIsCustom.toggle(e);
             checkBoxChanged();
         }
     }

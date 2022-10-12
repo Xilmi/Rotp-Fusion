@@ -75,10 +75,10 @@ public class SettingBoolean extends SettingBase<Boolean> {
 	// ===== Overriders =====
 	//
 	@Override public String guiSettingValue() {
-		return text(guiOptionLabel());
+		return lmText(guiOptionLabel());
 	}
 	@Override public String guiOptionValue(int index) {
-		return text(guiOptionLabel(index));
+		return lmText(guiOptionLabel(index));
 	}
 	@Override public void setOptions(DynamicOptions options) {
 		if (!isSpacer())

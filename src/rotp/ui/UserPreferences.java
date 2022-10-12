@@ -35,6 +35,7 @@ import rotp.ui.util.EventsStartTurn;
 import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.ParamAAN2;
 import rotp.ui.util.ParamBoolean;
+import rotp.ui.util.ParamCR;
 import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
@@ -189,8 +190,9 @@ public class UserPreferences {
 	public static final ParamBoolean showNewRaces = new ParamBoolean(MOD_UI, "SHOW_NEW_RACES", false);
 	// BR: Race Menu addition
 	public static final PlayerShipSet playerShipSet = new PlayerShipSet(MOD_UI, "PLAYER_SHIP_SET");
-	public static final ParamBoolean customPlayerRace = new ParamBoolean(
+	public static final ParamBoolean playerIsCustom = new ParamBoolean(
 			BASE_UI, "BUTTON_CUSTOM_PLAYER_RACE", false);
+	public static final ParamCR  playerCustomRace = new ParamCR(MOD_UI, "PLAYER_CR");
 
 	private static boolean showMemory = false;
 	private static boolean playMusic = true;

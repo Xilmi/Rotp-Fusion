@@ -71,6 +71,7 @@ public enum RaceFactory implements Base {
     	list.add("objective");
     	list.add("relations");
     	list.add("shipdesign");
+    	list.add("homeworld");
     	list.add("available");    	
 
 //    	list.add("year");
@@ -147,7 +148,6 @@ public enum RaceFactory implements Base {
 //    	list.add("shield");
 //    	list.add("introTextX");
 //    	list.add("councilDiplo");
-//    	list.add("homeworld");
 //    	list.add("voice");
 //    	list.add("ambience");
     	return list;

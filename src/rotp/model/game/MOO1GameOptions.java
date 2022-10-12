@@ -18,7 +18,7 @@ package rotp.model.game;
 import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
-import static rotp.ui.UserPreferences.customPlayerRace;
+import static rotp.ui.UserPreferences.playerIsCustom;
 import static rotp.ui.UserPreferences.minStarsPerEmpire;
 import static rotp.ui.UserPreferences.playerShipSet;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
@@ -410,7 +410,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	// Copy CustomRaces as part of Race UI
 		for (InterfaceOptions param : RotPUI.editCustomRaceUI().commonList)
 			param.setFromOptions(opt.dynamicOptions);
-    	customPlayerRace.setFromOptions(opt.dynamicOptions);
+    	playerIsCustom.setFromOptions(opt.dynamicOptions);
     	playerShipSet.setFromOptions(opt.dynamicOptions);
 
     	if (opt.player != null) 

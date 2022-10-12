@@ -16,20 +16,43 @@
 
 package rotp.ui.util;
 
-import rotp.model.game.DynamicOptions;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.util.List;
 
-public class SettingString extends SettingBase<String> {
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+
+import rotp.model.game.DynamicOptions;
+import rotp.util.Base;
+
+public class SettingString extends SettingBase<String> implements Base{
 	
-	// ========== constructors ==========
+	private String randomStr = "Randomized";
+	private String inputMessage = "Enter the value";
+	
+	// ========== constructors  and Initializers ==========
 	//
 	/**
 	 * @param guiLangLabel  The label header
 	 * @param nameLangLabel The nameLangLabel
 	 * @param defaultvalue The default value
 	 */
-	public SettingString(String guiLangLabel, String nameLangLabel, String defaultValue) {
-		super(guiLangLabel, nameLangLabel, defaultValue, false, false, true);
+	public SettingString(String guiLangLabel, String nameLangLabel, String defaultValue, int lineNum) {
+		super(guiLangLabel, nameLangLabel, defaultValue, false, true, true);
 		hasNoCost(true);
+		bulletHeightFactor(lineNum);
+		// Fake list needed for bullet aspect
+		for (int i=0; i<lineNum; i++)
+			put("", "");
+		defaultIndex(0);
+		initOptionsText();
+	}
+	protected void inputMessage(String inputMessage) {
+		this.inputMessage = inputMessage;
+	}
+	protected void randomStr(String randomStr) {
+		this.randomStr = randomStr;
 	}
 	// ===== Overriders =====
 	//
@@ -44,4 +67,47 @@ public class SettingString extends SettingBase<String> {
 		if (!isSpacer())
 			set(srcOptions.getString(labelId(), defaultValue()));
 	}
+	@Override public void next() {
+		Object prev = UIManager.get("OptionPane.minimumSize");
+		UIManager.put("OptionPane.minimumSize", new Dimension(800,90)); 
+		String input;
+		input = JOptionPane.showInputDialog(inputMessage, settingValue());
+		UIManager.put("OptionPane.minimumSize", prev); 
+		if (input == null)
+			return; // cancelled
+		set(input);
+		pushSetting();
+		updateGui();
+	}
+	@Override public void setRandom(float min, float max, boolean gaussian) {
+		set(randomStr);
+	}
+	@Override protected String randomize(float rand) { return randomStr; }
+	@Override public int index()			{ return -1; } // to get default color
+	@Override public void setFromDefault()	{ set(defaultValue()); }
+	@Override public void prev()			{ next(); }
+//	@Override public void guiSelect()		{ next(); }
+	@Override public String getGuiDisplay()	{ return getLabel() + END; }
+	@Override public String guiCostOptionStr(int idx) {
+		return optionValue(idx);
+	}
+	@Override public void settingToolTip(String settingToolTip) {
+		super.settingToolTip(settingToolTip);
+		clearLists();
+		for (int i=0; i<bulletHeightFactor(); i++) {
+			put("", getToolTip());
+		}		
+	}
+	@Override public void formatData(Graphics g, int maxWidth) {
+		List<String> lines = wrappedLines(g, settingValue(), maxWidth);
+		clearLists();
+		int lim = min(lines.size(), bulletHeightFactor());
+		for (int i=0; i<lim; i++) {
+			put(lines.get(i), getToolTip());
+		}
+		for (int i=lim; i<bulletHeightFactor(); i++) {
+			put("", getToolTip());
+		}		
+	}
+	@Override public SettingBase<?> index(int newIndex) { return this; }
 }

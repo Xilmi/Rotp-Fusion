@@ -1364,16 +1364,17 @@ CUSTOM_RACE_LAST_SET_TIP          | Get options values from last Gui (From File)
 CUSTOM_RACE_USER_SET_TIP          | Get user preferred options values (From File).
 CUSTOM_RACE_USER_SAVE_TIP         | Save current options values as user preferred options (To File).
 CUSTOM_RACE_GUI_SELECT_TIP        | Save Current Race, Select it as Player Race, Save as Last Settings and Exit Panel
-CUSTOM_RACE_GUI_SELECT    	      | Select
-CUSTOM_RACE_GUI_RANDOM_TIP 	      | Randomize the race following the above settings
-CUSTOM_RACE_GUI_RANDOM    	      | Randomize
+CUSTOM_RACE_GUI_SELECT            | Select
+CUSTOM_RACE_GUI_RANDOM_TIP        | Randomize the race following the above settings
+CUSTOM_RACE_GUI_RANDOM            | Randomize
 CUSTOM_RACE_GUI_LOAD_TIP          | Load the settings from the file specified in "Name" Field, if none, create an empty one.
 CUSTOM_RACE_GUI_LOAD              | Load
 CUSTOM_RACE_GUI_SAVE_TIP          | Save the settings to the file specified in "Name" Field, existing files will be overwritten.
 CUSTOM_RACE_GUI_SAVE              | Save
-CUSTOM_RACE_RANDOM_MAX    		  | Setting Max in %
-CUSTOM_RACE_RANDOM_MIN    		  | Setting Min in %
-CUSTOM_RACE_RANDOM_EDGES   		  | Smooth Edges
+CUSTOM_RACE_RACE_LIST             | FileList
+CUSTOM_RACE_RANDOM_MAX            | Setting Max in %
+CUSTOM_RACE_RANDOM_MIN            | Setting Min in %
+CUSTOM_RACE_RANDOM_EDGES          | Smooth Edges
 CUSTOM_RACE_RANDOM_TARGET_MAX     | Total Value Max
 CUSTOM_RACE_RANDOM_TARGET_MIN     | Total Value Min
 CUSTOM_RACE_RANDOM_USE_TARGET     | Force Target
@@ -1382,7 +1383,8 @@ CUSTOM_RACE_HOME_TYPE             | Planet Type
 CUSTOM_RACE_HOME_SIZE             | Planet Size
 CUSTOM_RACE_HOME_RESOURCES        | Planet Ressources
 CUSTOM_RACE_HOME_ENVIRONMENT      | Planet Environment
-CUSTOM_RACE_RACE_NAME             | Name
+CUSTOM_RACE_RACE_KEY              | File Name
+CUSTOM_RACE_RACE_NAME             | Race Name
 CUSTOM_RACE_RACE_TYPE             | Species Type
 CUSTOM_RACE_RACE_TERRAN           | Terran
 CUSTOM_RACE_RACE_AQUATIC          | Aquatic
@@ -1419,8 +1421,10 @@ CUSTOM_RACE_RESEARCH_CONSTRUCTION | Study Cost Construction
 CUSTOM_RACE_RESEARCH_FORCEFIELD   | Study Cost Force Field
 CUSTOM_RACE_RESEARCH_PLANET       | Study Cost Planet
 CUSTOM_RACE_RESEARCH_PROPULSION   | Study Cost Propulsion
-CUSTOM_RACE_RESEARCH_WEAPON       | Study Cost Weapon
-
+CUSTOM_RACE_RACE_DESC_1           | Race mood description
+CUSTOM_RACE_RACE_DESC_2           | Race abilities description
+CUSTOM_RACE_RACE_DESC_3           | Race global description
+CUSTOM_RACE_RACE_DESC_4           | Race specific description
 
 CUSTOM_RACE_RESOURCES_NORMAL      | Normal
 CUSTOM_RACE_ENVIRONMENT_NORMAL    | Normal

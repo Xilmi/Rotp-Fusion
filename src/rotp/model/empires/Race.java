@@ -226,14 +226,73 @@ public class Race implements Base, Serializable {
         for (int i=0;i<objectivePct.length;i++)
             objectivePct[i] = 1;
     }
+
     public Race(String dirPath) {
         directoryName = dirPath;
         labels = new LabelManager();
     }
     // BR: for race customization
     // Get a Copy the current race
-    protected Race copy() {
-        return RaceFactory.current().reloadRaceDataFile(directoryName);
+//    protected Race copy() {
+//        return RaceFactory.current().reloadRaceDataFile(directoryName);
+//    }
+	Race copy() {
+    	Race newRace = new Race(directoryName);
+    	newRace.id   = id;
+     	newRace.langKey      = langKey;
+//     	newRace.setupName    = setupName;
+    	newRace.setupName    = setupName();
+    	newRace.description1 = description1;
+    	newRace.description2 = description2;
+    	newRace.description3 = description3;
+    	newRace.description4 = description4;
+    	newRace.homeworldStarType   = homeworldStarType;
+    	newRace.homeworldPlanetType = homeworldPlanetType;
+    	newRace.homeworldSize       = homeworldSize;
+    	newRace.homeworldKey        = homeworldKey;
+    	newRace.speciesType         = speciesType;
+    	newRace.ignoresPlanetEnvironment = ignoresPlanetEnvironment;
+    	newRace.preferredShipSet      = preferredShipSet;
+    	newRace.preferredShipSize     = preferredShipSize;
+    	newRace.shipAttackBonus       = shipAttackBonus;
+    	newRace.shipDefenseBonus      = shipDefenseBonus;
+    	newRace.shipInitiativeBonus   = shipInitiativeBonus;
+    	newRace.spyCostMod            = spyCostMod;
+    	newRace.internalSecurityAdj   = internalSecurityAdj;
+    	newRace.spyInfiltrationAdj    = spyInfiltrationAdj;
+    	newRace.telepathic            = telepathic;
+    	newRace.masksDiplomacy        = masksDiplomacy;
+    	newRace.workerProductivityMod = workerProductivityMod;
+    	newRace.robotControlsAdj      = robotControlsAdj;
+    	newRace.ignoresFactoryRefit   = ignoresFactoryRefit;
+    	newRace.techDiscoveryPct      = techDiscoveryPct;
+    	newRace.researchBonusPct      = researchBonusPct;
+    	newRace.growthRateMod         = growthRateMod;
+    	newRace.tradePctBonus         = tradePctBonus;
+    	newRace.positiveDPMod         = positiveDPMod;
+    	newRace.diplomacyBonus        = diplomacyBonus;
+    	newRace.councilBonus          = councilBonus;
+    	newRace.techMod               = techMod.clone();
+    	newRace.personalityPct        = personalityPct.clone();
+    	newRace.objectivePct          = objectivePct.clone();
+    	newRace.defaultRaceRelations  = defaultRaceRelations;
+    	newRace.shipDesignMods        = shipDesignMods.clone();
+    	newRace.availablePlayer       = availablePlayer;
+    	newRace.availableAI           = availableAI;
+    	newRace.raceRelations.putAll(raceRelations);
+
+        // useless for abilities
+    	newRace.troopNormal  = null;
+        newRace.troopHostile = null;
+        newRace.troopDeath1  = null;
+        newRace.troopDeath2  = null;
+        newRace.troopDeath3  = null;
+        newRace.troopDeath4  = null;
+        newRace.troopDeath1H = null;
+        newRace.troopDeath2H = null;
+        newRace.troopDeath3H = null;
+        newRace.troopDeath4H = null;
+    	return newRace;
     }
     public void loadNameList()  {
         List<String> secondaryNames =  new ArrayList<>(raceNames);

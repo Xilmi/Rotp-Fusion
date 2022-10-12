@@ -33,4 +33,7 @@ public interface InterfaceParam extends InterfaceOptions{
 	public String getCfgLabel();
 	public String getGuiDisplay();
 	public String getGuiDescription();
+	public default String getToolTip() { return ""; }
+	public default String getToolTip(int idx) { return ""; }
+	
 }

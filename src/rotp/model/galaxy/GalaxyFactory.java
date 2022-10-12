@@ -361,7 +361,7 @@ public class GalaxyFactory implements Base {
 
 		// Create DataRace
 		playerDataRaceKey = raceKey;
-		if (UserPreferences.customPlayerRace.get()) {
+		if (UserPreferences.playerIsCustom.get()) {
 //			playerDataRaceKey = RotPUI.playerRaceCustomizationUI().cr.getKey();
 			playerDataRaceKey = CustomRaceDefinitions.CUSTOM_RACE_KEY;
 		}

@@ -19,6 +19,7 @@ package rotp.ui.util;
 import static rotp.util.Base.random;
 import static rotp.util.Base.textSubs;
 
+import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.text.DecimalFormat;
@@ -44,6 +45,7 @@ public class SettingBase<T> implements InterfaceParam {
 	private final LinkedList<String> labelList	  = new LinkedList<>();
 	private final LinkedList<Float>	 costList	  = new LinkedList<>();
 	private final LinkedList<T> 	 valueList	  = new LinkedList<>();
+	private final LinkedList<String> tooltipList  = new LinkedList<>();
 	private final String nameLabel;
 	private final String guiLabel;
 
@@ -56,7 +58,8 @@ public class SettingBase<T> implements InterfaceParam {
 	private boolean hasNoCost = false;
 	private BaseText settingText;
 	private BaseText[] optionsText;
-	
+	private String settingToolTip  = "";
+	private int bulletHeightFactor = 1;
 	private float lastRandomSource;
 	
 	// ========== Constructors and initializers ==========
@@ -87,6 +90,9 @@ public class SettingBase<T> implements InterfaceParam {
 	}
 	public void settingText(BaseText settingText) {
 		this.settingText = settingText;
+	}
+	public void settingToolTip(String settingToolTip) {
+		this.settingToolTip = settingToolTip;
 	}
 	private void optionsText(BaseText[] optionsText) {
 		this.optionsText = optionsText;
@@ -123,23 +129,27 @@ public class SettingBase<T> implements InterfaceParam {
 		defaultValue = value;
 		return this;
 	}
+	protected SettingBase<T> bulletHeightFactor(int bulletHeightFactor) {
+		this.bulletHeightFactor = bulletHeightFactor;
+		return this;
+	}
 	// ========== Public Interfaces ==========
 	//
 	@Override public void setFromCfgValue(String cfgValue) {
 		int index = cfgValidIndex(indexOfIgnoreCase(cfgValue, cfgValueList));
-		selectedValue = valueList.get(index);
+		selectedValue(valueList.get(index));
 	}
 	@Override public void next() {
 		int selectedIndex = cfgValidIndex()+1;
 		if (selectedIndex >= cfgValueList.size())
 			selectedIndex = 0;
-		selectedValue = valueList.get(selectedIndex);		
+		selectedValue(valueList.get(selectedIndex));		
 	}
 	@Override public void prev() {
 		int selectedIndex = cfgValidIndex()-1;
 		if (selectedIndex < 0)
 			selectedIndex = cfgValueList.size()-1;
-		selectedValue = valueList.get(selectedIndex);		
+		selectedValue(valueList.get(selectedIndex));		
 	}
 	@Override public void toggle(MouseEvent e, MouseWheelEvent w) {
 		if (e == null)
@@ -162,7 +172,7 @@ public class SettingBase<T> implements InterfaceParam {
 			prev();
 	}
 	@Override public void setFromDefault() {
-		selectedValue = defaultValue;		
+		selectedValue(defaultValue);		
 	}
 	@Override public void setOptions(DynamicOptions destOptions) {
 		if (!isSpacer)
@@ -174,8 +184,17 @@ public class SettingBase<T> implements InterfaceParam {
 	}
 	@Override public String getCfgValue() 		{ return getCfgValue(settingValue()); }
 	@Override public String getCfgLabel()		{ return nameLabel; }
-	@Override public String getGuiDescription() { return text(descriptionId()); }
+	@Override public String getGuiDescription() { return lmText(descriptionId()); }
 	@Override public String getGuiDisplay()		{ return text(labelId(), guiSettingValue()) + END; }
+	@Override public String getToolTip() 		{ return settingToolTip; }
+	@Override public String getToolTip(int idx) {
+		if (idx >= tooltipList.size())
+			return "";
+		String tt = tooltipList.get(idx);
+		if (tt == null)
+			return "";
+		return tt;
+	}
 
 	// ========== Overridable Methods ==========
 	//
@@ -188,6 +207,7 @@ public class SettingBase<T> implements InterfaceParam {
 	}
 	public void pushSetting() {}
 	public void pullSetting() {}
+	public void formatData(Graphics g, int maxWidth) {}
 	public float maxValueCostFactor() {
 		if (isList) {
 			return Collections.max(costList);
@@ -247,19 +267,33 @@ public class SettingBase<T> implements InterfaceParam {
 		return null; // Should be overridden
 	}
 	public SettingBase<?> set(T newValue) {
-		selectedValue = newValue;
-		if (isList)
-			selectedValue = valueList.get(valueValidIndex());
+		if (isList) {
+			selectedValue = newValue;
+			selectedValue(valueList.get(valueValidIndex()));
+		} else
+			selectedValue(newValue);
 		return this;
 	}
 	public String guiCostOptionStr(int idx) {
 		return guiCostOptionStr(idx, 0);
 	}
-	// ========== Setter ==========
-	//
+	public int index() { return cfgValidIndex(); }
+	public void guiSelect() {
+		if (isSpacer())
+			return;
+		pushSetting();
+		updateGui();
+	}
 	public void setRandom(float min, float max, boolean gaussian) {
 		set(randomize(min, max, gaussian));
 	}
+	protected void selectedValue(T newValue) { selectedValue = newValue; }
+	public SettingBase<?> index(int newIndex) {
+		selectedValue(valueList.get(cfgValidIndex(newIndex)));
+		return this;
+	}
+	// ========== Setter ==========
+	//
 	public void setRandom(float rand) {
 		lastRandomSource = rand;
 		set(randomize(rand));
@@ -278,30 +312,27 @@ public class SettingBase<T> implements InterfaceParam {
 		setDefaultIndex(cfgValidIndex(indexOfIgnoreCase(defaultCfgValue, cfgValueList)));
 		return this;
 	}
-	public SettingBase<?> index(int newIndex) {
-		selectedValue = valueList.get(cfgValidIndex(newIndex));
-		return this;
-	}
-	protected SettingBase<?> selectedValue(T newValue) {
-		selectedValue = newValue;
-		valueList.set(0, newValue);
-		return this;
-	}
-	public void setFromLabel(String langLabel) {
-		selectedValue = valueList.get(cfgValidIndex(indexOfIgnoreCase(langLabel, labelList)));
-	}
 	public String guiSettingValue() {
 		return String.valueOf(settingValue());
 	}
 	public String guiOptionValue(int index) { // For List
 		return String.valueOf(optionValue(index));
 	}
+	protected void setFromLabel(String langLabel) {
+		int index = cfgValidIndex(indexOfIgnoreCase(langLabel, labelList));
+		// don't call selectedValue(T value) 
+		// it'll mess with CustomRaceDefinitions.RaceList
+		selectedValue = valueList.get(index);
+	}
 	// ===== Getters =====
 	//
-	protected T	defaultValue()	{ return defaultValue; }
-	String	guiOptionLabel()	{ return guiOptionLabel(index()); }
-	String	guiOptionLabel(int index) {
-		return text(labelList.get(cfgValidIndex(index)));
+	protected T	defaultValue() { return defaultValue; }
+	protected String guiOptionLabel() { return guiOptionLabel(index()); }
+	protected String guiOptionLabel(int index) {
+		return lmText(labelList.get(cfgValidIndex(index)));
+	}
+	protected String labelList(int index) {
+		return labelList.get(cfgValidIndex(index));
 	}
 	public String guiSettingDisplayStr() {
 		if (isBullet) 
@@ -312,9 +343,9 @@ public class SettingBase<T> implements InterfaceParam {
 	public	boolean	isSpacer()	{ return isSpacer; }
 	public	boolean	hasNoCost()	{ return hasNoCost; }
 	public	boolean	isBullet()	{ return isBullet; }
-	public	int		index()		{ return cfgValidIndex(); }
-	public	String	getLabel()	{ return text(labelId()); }
+	public	String	getLabel()	{ return lmText(labelId()); }
 	public	float	lastRandomSource()	{ return lastRandomSource; }
+	public	int bulletHeightFactor()	{ return bulletHeightFactor; }
 	public	boolean	isDefaultIndex()	{ return cfgValidIndex() == rawDefaultIndex(); }
 	public	BaseText	settingText()	{ return settingText; }
 	public	BaseText[]	optionsText()	{ return optionsText; }
@@ -344,12 +375,6 @@ public class SettingBase<T> implements InterfaceParam {
 	}
 	// ===== Other Public Methods =====
 	//
-	public void guiSelect() {
-		if (isSpacer())
-			return;
-		pushSetting();
-		updateGui();
-	}
 	/**
 	 * Add a new Option with its Label
 	 * @param cfgValue
@@ -367,6 +392,35 @@ public class SettingBase<T> implements InterfaceParam {
 			labelList.add(langLabel);
 		else
 			labelList.add(labelId() +"_"+ langLabel);
+		tooltipList.add("");
+	}
+	public void put(String cfgValue, String langLabel, float cost, T value, String tooltipKey) {
+		isList(true);
+		cfgValueList.add(cfgValue);
+		costList.add(cost);
+		valueList.add(value);
+		if (labelsAreFinals)
+			labelList.add(langLabel);			
+		else
+			labelList.add(labelId() +"_"+ langLabel);
+		if (tooltipKey == null || tooltipKey.isEmpty())
+			tooltipList.add("");
+		else if (labelsAreFinals)
+			tooltipList.add(lmText(tooltipKey));			
+		else
+			tooltipList.add(lmText(labelId() +"_"+ tooltipKey));
+	}
+	public void put(T value, String tooltipKey) {
+		cfgValueList.add("");
+		costList.add(0f);
+		valueList.add(value);
+		labelList.add("");
+		if (tooltipKey == null || tooltipKey.isEmpty())
+			tooltipList.add("");
+		else if (labelsAreFinals)
+			tooltipList.add(lmText(tooltipKey));			
+		else
+			tooltipList.add(lmText(labelId() +"_"+ tooltipKey));
 	}
 	protected int getDir(MouseEvent e) {
 		if (SwingUtilities.isRightMouseButton(e)) return -1;
@@ -377,6 +431,15 @@ public class SettingBase<T> implements InterfaceParam {
 		if (e.getWheelRotation() < 0) return 1;
 		return -1;
 	}
+	protected void clearLists() {
+		cfgValueList.clear();
+		labelList.clear();
+		costList.clear();
+		valueList.clear();
+		tooltipList.clear();
+	}
+	protected T optionValue(int index)	{ return valueList.get(valueValidIndex(index)); }
+	protected String labelId()			{ return guiLabel + nameLabel; }
 	// ========== Private Methods ==========
 	//
 	/**
@@ -402,9 +465,7 @@ public class SettingBase<T> implements InterfaceParam {
 		lastRandomSource = rand;
 		return randomize(rand);
 	}
-	private T optionValue(int index)	{ return valueList.get(valueValidIndex(index)); }
 	private float optionCost(int index)	{ return costList.get(index); }
-	protected String labelId()			{ return guiLabel + nameLabel; }
 	private String descriptionId()		{ return labelId() + LABEL_DESCRIPTION; }
 	private String getDefaultCfgValue() { return getCfgValue(defaultValue); }
 	private String settingCostString()	{ return settingCostString(1); } // default decimal number
@@ -487,11 +548,11 @@ public class SettingBase<T> implements InterfaceParam {
 			return costValidDefaultIndex();
 		return index;
 	}
-	protected static String text(String key) {
+	protected static String lmText(String key) {
 		return LabelManager.current().label(key);
 	}
 	private static String text(String key, String... vals) {
-		String str = text(key);
+		String str = lmText(key);
 		for (int i=0;i<vals.length;i++)
 			str = str.replace(textSubs[i], vals[i]);
 		return str;

@@ -104,7 +104,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	@Override public String getCfgLabel() { return name; }
 	@Override public String getGuiDescription() { return text(descriptionId()); }
 	@Override public String getGuiDisplay()	{ return text(labelId(), getGuiValue()) + END; }
-	@Override public void setFromDefault()	{ value = defaultValue; }
+	@Override public void setFromDefault()	{ value = defaultValue(); }
 	@Override public void toggle(MouseEvent e, MouseWheelEvent w) {
 		if (e == null)
 			toggle(w);
@@ -115,18 +115,18 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	//
 	T value(T value) 		{ this.value = value; return value;}
 	public int getIndex()	{ return 0; }
+	public T defaultValue()	{ return defaultValue; }
+	public T get()			{ return value; }	
 	public T setFromIndex(int i)		  { return null; }
 	protected String getCfgValue(T value) { return String.valueOf(value); }
-	public String getGuiValue()			  { return String.valueOf(value); }
-	public String getGuiValue(int idx)	  { return getGuiValue(); } // For List
+	public	  String getGuiValue()		  { return String.valueOf(value); }
+	public	  String getGuiValue(int idx) { return getGuiValue(); } // For List
 	// ========== Public Getters ==========
 	//
 	public String getLabel(){ return text(labelId()); }
-	public T defaultValue() { return defaultValue; }
-	public T get()		{ return value; }	
 	public T minValue()	{ return minValue; }	
 	public T maxValue()	{ return maxValue; }	
-	T baseInc()		{ return baseInc; }	
+	T baseInc()			{ return baseInc; }	
 	// ========== Public Setters ==========
 	//
 	public T set(T newValue) {
