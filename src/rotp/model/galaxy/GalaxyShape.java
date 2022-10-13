@@ -124,7 +124,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 		}
 		return 1.9f;
 	}
-	protected Point.Float getCompanion(int empId, int compId) {
+	public Point.Float getCompanion(int empId, int compId) {
 		return this.companionWorlds[empId].cW[compId].get();
 	}
 	// BR: ========== Very symmetry specific Methods ==========

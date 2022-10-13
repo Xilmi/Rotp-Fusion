@@ -66,57 +66,58 @@ import rotp.ui.util.Modifier2KeysState;
 
 public final class SetupGalaxyUI  extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
 	private static final long serialVersionUID = 1L;
-	public  static final String guiTitleID	= "SETUP_GALAXY";
+	//public  static final String guiTitleID	= "SETUP_GALAXY";
 	private static final String backKey		= "SETUP_BUTTON_BACK";
 	private static final String restoreKey	= "SETUP_BUTTON_RESTORE";
 	private static final String restartKey	= "SETUP_BUTTON_RESTART";
 	private static final String startKey	= "SETUP_BUTTON_START";
+	private static final String sizeOptKey	= "SETUP_GALAXY_SIZE_STAR_PER_EMPIRE";
 	public static int MAX_DISPLAY_OPPS = 49;
-	BufferedImage backImg, playerRaceImg;
-	BufferedImage smBackImg;
+	private BufferedImage backImg, playerRaceImg;
+	private BufferedImage smBackImg;
     private Rectangle defaultBox = new Rectangle();
     private Rectangle userBox	 = new Rectangle();
     private int bSep = s15;
 
-	Rectangle modASettingsBox		= new Rectangle(); // modnar: add UI panel for modnar MOD game options
-	Rectangle modBSettingsBox		= new Rectangle(); // BR: Second UI panel for MOD game options
-	Rectangle globalModSettingsBox	= new Rectangle(); // BR: Display UI panel for MOD game options
-	Rectangle backBox		= new Rectangle();
-	Rectangle startBox		= new Rectangle();
-	Rectangle settingsBox	= new Rectangle();
-	Rectangle newRacesBox	= new Rectangle(); // BR:
-	Rectangle shapeBox		= new Rectangle();
-	Polygon shapeBoxL		= new Polygon();
-	Polygon shapeBoxR		= new Polygon();
-	Rectangle mapOption1Box	= new Rectangle();
-	Polygon mapOption1BoxL	= new Polygon();
-	Polygon mapOption1BoxR	= new Polygon();			 
-	Rectangle mapOption2Box	= new Rectangle();
-	Polygon mapOption2BoxL	= new Polygon();
-	Polygon mapOption2BoxR	= new Polygon();			 
-	Rectangle sizeOptionBox	= new Rectangle(); // BR:
-	Polygon sizeOptionBoxL	= new Polygon(); // BR:
-	Polygon sizeOptionBoxR	= new Polygon(); // BR:
-	Rectangle sizeBox	= new Rectangle();
-	Polygon sizeBoxL	= new Polygon();
-	Polygon sizeBoxR	= new Polygon();
-	Rectangle diffBox	= new Rectangle();
-	Polygon diffBoxL	= new Polygon();
-	Polygon diffBoxR	= new Polygon();
-	Rectangle oppBox	= new Rectangle();
-	Polygon  oppBoxU	= new Polygon();
-	Polygon oppBoxD		= new Polygon();
-	Rectangle aiBox		= new Rectangle();
-	Polygon  aiBoxL		= new Polygon();
-	Polygon aiBoxR		= new Polygon();
+	private Rectangle modASettingsBox		= new Rectangle(); // modnar: add UI panel for modnar MOD game options
+	private Rectangle modBSettingsBox		= new Rectangle(); // BR: Second UI panel for MOD game options
+	private Rectangle globalModSettingsBox	= new Rectangle(); // BR: Display UI panel for MOD game options
+	private Rectangle backBox		= new Rectangle();
+	private Rectangle startBox		= new Rectangle();
+	private Rectangle settingsBox	= new Rectangle();
+	private Rectangle newRacesBox	= new Rectangle(); // BR:
+	private Rectangle shapeBox		= new Rectangle();
+	private Polygon shapeBoxL		= new Polygon();
+	private Polygon shapeBoxR		= new Polygon();
+	private Rectangle mapOption1Box	= new Rectangle();
+	private Polygon mapOption1BoxL	= new Polygon();
+	private Polygon mapOption1BoxR	= new Polygon();			 
+	private Rectangle mapOption2Box	= new Rectangle();
+	private Polygon mapOption2BoxL	= new Polygon();
+	private Polygon mapOption2BoxR	= new Polygon();			 
+	private Rectangle sizeOptionBox	= new Rectangle(); // BR:
+	private Polygon sizeOptionBoxL	= new Polygon(); // BR:
+	private Polygon sizeOptionBoxR	= new Polygon(); // BR:
+	private Rectangle sizeBox	= new Rectangle();
+	private Polygon sizeBoxL	= new Polygon();
+	private Polygon sizeBoxR	= new Polygon();
+	private Rectangle diffBox	= new Rectangle();
+	private Polygon diffBoxL	= new Polygon();
+	private Polygon diffBoxR	= new Polygon();
+	private Rectangle oppBox	= new Rectangle();
+	private Polygon  oppBoxU	= new Polygon();
+	private Polygon oppBoxD		= new Polygon();
+	private Rectangle aiBox		= new Rectangle();
+	private Polygon  aiBoxL		= new Polygon();
+	private Polygon aiBoxR		= new Polygon();
 
-	Rectangle[] oppSet = new Rectangle[MAX_DISPLAY_OPPS];
-	Rectangle[] oppAI = new Rectangle[MAX_DISPLAY_OPPS];
+	private Rectangle[] oppSet = new Rectangle[MAX_DISPLAY_OPPS];
+	private Rectangle[] oppAI = new Rectangle[MAX_DISPLAY_OPPS];
 
-	Shape hoverBox;
-	boolean starting = false;
-	int leftBoxX, rightBoxX, boxW, boxY, leftBoxH, rightBoxH;
-	int galaxyX, galaxyY, galaxyW, galaxyH;
+	private Shape hoverBox;
+	private boolean starting = false;
+	private int leftBoxX, rightBoxX, boxW, boxY, leftBoxH, rightBoxH;
+	private int galaxyX, galaxyY, galaxyW, galaxyH;
     private MOO1GameOptions initialOptions; // To be restored if "cancel"
 
 	public SetupGalaxyUI() {
@@ -222,7 +223,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		saveOptions(fileOptions);
 		MOO1GameOptions.saveLastOptions(fileOptions);
 	}
-	public static String cancelButtonKey() {
+	private static String cancelButtonKey() {
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT:
@@ -231,7 +232,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			return backKey;
 		}
 	}
-	public static String startButtonKey() {
+	private static String startButtonKey() {
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT:
@@ -439,7 +440,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		drawString(g,sizeLbl, x5b, y5);
 
 		if (isDynamic()) { // BR:
-			String label = prefStarsPerEmpire.getGuiValue() + " s/e";
+			String label = text(sizeOptKey, prefStarsPerEmpire.getGuiValue());
 			int sw2 = g.getFontMetrics().stringWidth(label);
 			int x5b1 =sizeOptionBox.x+((sizeOptionBox.width-sw2)/2);
 			drawString(g,label, x5b1, y5+s20);		   
@@ -602,14 +603,26 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			g.fillRect(x0, y0, s2, s2);
 		}
 		// BR: add empires stars to avoid lonely Orion star
-		int i = 0;
+		int numCompWorlds = UserPreferences.companionWorlds();
+		int iColor = 0;
+		int iEmp = 0;
 		for (EmpireSystem emp : sh.empireSystems()) {
-			for (int j=0; j<emp.numSystems();j++) {
-				int x0 = xOff + (int) (emp.x(j)*factor);
-				int y0 = yOff + (int) (emp.y(j)*factor);
-				g.setColor(starColor(i)); i++;
+			for (int iSys=0; iSys<emp.numSystems();iSys++) {
+				int x0 = xOff + (int) (emp.x(iSys)*factor);
+				int y0 = yOff + (int) (emp.y(iSys)*factor);
+				g.setColor(starColor(iColor)); iColor++;
 				g.fillRect(x0, y0, s2, s2);
+				if (numCompWorlds > 0) {
+					for (int iCW=0; iCW<numCompWorlds; iCW++) {
+						pt = sh.getCompanion(iEmp, iCW);
+						x0 = xOff + (int) (pt.x*factor);
+						y0 = yOff + (int) (pt.y*factor);
+						g.setColor(starColor(iColor)); iColor++;
+						g.fillRect(x0, y0, s2, s2);
+					}
+				}
 			}
+			iEmp++;
 		}
 	}
 	private Color starColor(int i) {
@@ -629,7 +642,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		}
 		return playerRaceImg;
 	}
-	public void nextGalaxySize(boolean bounded, boolean click) {
+	private void nextGalaxySize(boolean bounded, boolean click) {
 		String nextSize = newGameOptions().nextGalaxySize(bounded);
 		if (nextSize.equals(newGameOptions().selectedGalaxySize()))
 			return;
@@ -639,7 +652,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		backImg = null; // BR: to show/hide system per empire
 		repaint();
 	}
-	public void prevGalaxySize(boolean bounded, boolean click) {
+	private void prevGalaxySize(boolean bounded, boolean click) {
 		String prevSize = newGameOptions().prevGalaxySize(bounded);
 		if (prevSize.equals(newGameOptions().selectedGalaxySize()))
 			return;
@@ -656,70 +669,70 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		backImg = null; // BR: to show/hide system per empire
 		repaint();
 	}
-	public void nextGalaxyShape(boolean click) {
+	private void nextGalaxyShape(boolean click) {
 		if (click) softClick();
 		newGameOptions().selectedGalaxyShape(newGameOptions().nextGalaxyShape());
 		newGameOptions().galaxyShape().quickGenerate(); 
 		backImg = null;
 		repaint();
 	}
-	public void prevGalaxyShape(boolean click) {
+	private void prevGalaxyShape(boolean click) {
 		if (click) softClick();
 		newGameOptions().selectedGalaxyShape(newGameOptions().prevGalaxyShape());
 		newGameOptions().galaxyShape().quickGenerate(); 
 		backImg = null;
 		repaint();
 	}
-	public void nextMapOption1(boolean click) {
+	private void nextMapOption1(boolean click) {
 		if (click) softClick();
 		newGameOptions().selectedGalaxyShapeOption1(newGameOptions().nextGalaxyShapeOption1());
 		newGameOptions().galaxyShape().quickGenerate(); 
 		repaint();
 	}
-	public void prevMapOption1(boolean click) {
+	private void prevMapOption1(boolean click) {
 		if (click) softClick();
 		newGameOptions().selectedGalaxyShapeOption1(newGameOptions().prevGalaxyShapeOption1());
 		newGameOptions().galaxyShape().quickGenerate(); 
 		repaint();
 	}
-	public void nextMapOption2(boolean click) {
+	private void nextMapOption2(boolean click) {
 		if (click) softClick();
 		newGameOptions().selectedGalaxyShapeOption2(newGameOptions().nextGalaxyShapeOption2());
 		newGameOptions().galaxyShape().quickGenerate(); 
 		repaint();
 	}
-	public void prevMapOption2(boolean click) {
+	private void prevMapOption2(boolean click) {
 		if (click) softClick();
 		newGameOptions().selectedGalaxyShapeOption2(newGameOptions().prevGalaxyShapeOption2());
 		newGameOptions().galaxyShape().quickGenerate(); 
 		repaint();
 	}
-	public void nextGameDifficulty(boolean click) {
+	private void nextGameDifficulty(boolean click) {
 		if (click) softClick();
 		newGameOptions().selectedGameDifficulty(newGameOptions().nextGameDifficulty());
 		repaint();
 	}
-	public void prevGameDifficulty(boolean click) {
+	private void prevGameDifficulty(boolean click) {
 		if (click) softClick();
 		newGameOptions().selectedGameDifficulty(newGameOptions().prevGameDifficulty());
 		repaint();
 	}
-	public void nextOpponentAI(boolean click) {
+	private void nextOpponentAI(boolean click) {
 		if (click) softClick();
 		newGameOptions().selectedOpponentAIOption(newGameOptions().nextOpponentAI());
 		repaint();
 	}
-	public void prevOpponentAI(boolean click) {
+	private void prevOpponentAI(boolean click) {
 		if (click) softClick();
 		newGameOptions().selectedOpponentAIOption(newGameOptions().prevOpponentAI());
 		repaint();
 	}
-	public void toggleNewRaces(boolean click) {
+	private void toggleNewRaces(boolean click) {
 		if (click) softClick();
 		showNewRaces.toggle();
 		repaint();
 	}
-	public void increaseOpponents(boolean click) {
+	private void increaseOpponents(boolean click) {
 		int numOpps = newGameOptions().selectedNumberOpponents();
 		if (numOpps >= newGameOptions().maximumOpponentsOptions())
 			return;
@@ -728,7 +741,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		newGameOptions().galaxyShape().quickGenerate(); // modnar: do a quickgen to get correct map preview
 		repaint();
 	}
-	public void decreaseOpponents(boolean click) {
+	private void decreaseOpponents(boolean click) {
 		int numOpps = newGameOptions().selectedNumberOpponents();
 		if (numOpps <= 0)
 			return;
@@ -738,48 +751,48 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		newGameOptions().galaxyShape().quickGenerate(); // modnar: do a quickgen to get correct map preview
 		repaint();
 	}
-	public void nextSpecificOpponentAI(int i, boolean click) {
+	private void nextSpecificOpponentAI(int i, boolean click) {
 		if (click) softClick();
 		newGameOptions().nextSpecificOpponentAI(i+1);
 		repaint();
 	}
-	public void prevSpecificOpponentAI(int i, boolean click) {
+	private void prevSpecificOpponentAI(int i, boolean click) {
 		if (click) softClick();
 		newGameOptions().prevSpecificOpponentAI(i+1);
 		repaint();
 	}
-	public void nextOpponent(int i, boolean click) {
+	private void nextOpponent(int i, boolean click) {
 		if (click) softClick();
 		newGameOptions().nextOpponent(i);
 		repaint();
 	}
-	public void prevOpponent(int i, boolean click) {
+	private void prevOpponent(int i, boolean click) {
 		if (click) softClick();
 		newGameOptions().prevOpponent(i);
 		repaint();
 	}
-	public void goToOptions() {
+	private void goToOptions() {
 		buttonClick();
 		StartOptionsUI optionsUI = RotPUI.startOptionsUI();
 		optionsUI.open(this);
 		release();
 	}
 	// modnar: add UI panel for modnar MOD game options
-	public void goToModOptions() {
+	private void goToModOptions() {
 		buttonClick();
 		StartModAOptionsUI modOptionsUI = RotPUI.startModAOptionsUI();
 		modOptionsUI.open(this);
 		release();
 	}
 	// BR: Second UI panel for MOD game options
-	public void goToMod2Options() {
+	private void goToMod2Options() {
 		buttonClick();
 		StartModBOptionsUI modBOptionsUI = RotPUI.startModBOptionsUI();
 		modBOptionsUI.open(this);
 		release();
 	}
 	// BR: Display UI panel for MOD game options
-	public void goToModViewOptions() {
+	private void goToModViewOptions() {
 		buttonClick();
 		ModGlobalOptionsUI modViewOptionsUI = RotPUI.modGlobalOptionsUI();
 		modViewOptionsUI.open(this);
@@ -801,7 +814,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		release();
 	}
 	// BR: For restarting with new options
-	public void restartGame() {     
+	private void restartGame() {     
 		starting = true;
 		buttonClick();
 		repaint();
@@ -813,7 +826,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		starting = false;
 		release();
 	}
-	public void startGame() {
+	private void startGame() {
  		starting = true;
 		repaint();
 		buttonClick();
@@ -1171,7 +1184,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 
 		g.dispose();
 	}
-	public BufferedImage smallRaceBackImg() {
+	private BufferedImage smallRaceBackImg() {
 		if (smBackImg == null)
 			initSmallBackImg();
 		return smBackImg;
