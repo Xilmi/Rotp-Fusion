@@ -1126,12 +1126,27 @@ public interface Base {
         }
         return wrappedLines;
     }
+    /**
+     * scaled narrow Font
+     */
     public default int scaledFont(Graphics g, String text, int maxWidth, int desiredFont, int minFont) {
         int fontSize = desiredFont;
         g.setFont(narrowFont(fontSize));
         while ((g.getFontMetrics().stringWidth(text) > maxWidth) && (fontSize > minFont)) {
             fontSize--;
             g.setFont(narrowFont(fontSize));
+        }
+        return fontSize;
+    }
+    /**
+     * scaled normal Font
+     */
+    public default int scaledFontSize(Graphics g, String text, int maxWidth, int desiredFont, int minFont) {
+        int fontSize = desiredFont;
+        g.setFont(font(fontSize));
+        while ((g.getFontMetrics().stringWidth(text) > maxWidth) && (fontSize > minFont)) {
+            fontSize--;
+            g.setFont(font(fontSize));
         }
         return fontSize;
     }

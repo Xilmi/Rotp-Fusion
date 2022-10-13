@@ -104,7 +104,6 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	    mouseList.add(raceList);
 	    
 	    cr.setRace(MOO1GameOptions.baseRaceOptions().getFirst());
-	    cr.pullSettings();
 		return this;
 	}
 	private void reloadRaceList() {
@@ -375,7 +374,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 							tooltipText = setting.getToolTip(idx);
 							break outerLoop1;
 						}
-						idx += 1;
+						idx++;
 					}
 				}
 			}
@@ -553,17 +552,6 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			case KeyEvent.VK_SPACE:
 			case KeyEvent.VK_ENTER:
 				parent.advanceHelp();
-				return;
-			default: // BR:
-//				if(Profiles.processKey(k, e.isShiftDown(), guiTitleID, newGameOptions())) {
-//				};
-				// Needs to be done twice for the case both Galaxy size
-				// and the number of opponents were changed !?
-//				if(Profiles.processKey(k, e.isShiftDown(), guiTitleID, newGameOptions())) {
-//					for (int i=0; i<paramList.size(); i++) {
-//						btList.get(i).repaint(paramList.get(i).getGuiDisplay());
-//					} TODO BR: processKey
-//				};
 				return;
 		}
 	}

@@ -61,7 +61,7 @@ import rotp.ui.util.Modifier2KeysState;
 
 public final class SetupRaceUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
     private static final long serialVersionUID	= 1L;
-	public  static final String guiTitleID		= "SETUP_SELECT_RACE";
+	private  static final String guiTitleID		= "SETUP_SELECT_RACE";
 	private static final String cancelKey		= "SETUP_BUTTON_CANCEL";
 	private static final String restoreKey		= "SETUP_BUTTON_RESTORE";
 	private static final String customRaceKey	= "SETUP_BUTTON_CUSTOM_PLAYER_RACE";
@@ -221,7 +221,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 		saveOptions(fileOptions);
 		MOO1GameOptions.saveLastOptions(fileOptions);
 	}
-	public static String cancelButtonKey() {
+	private static String cancelButtonKey() {
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT:
@@ -316,7 +316,6 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         // draw race name
 //      int y0 = scaled(260);
         int y0 = scaled(240); // BR: squeezed
-        g.setFont(font(30));
         // BR: show custom race name and descriptions
         String raceName, desc1, desc2, desc3, desc4;
         if (playerIsCustom.get()) {
@@ -334,6 +333,8 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         	desc4 = race.description4;
         }
         // \BR:
+        int fs = scaledFontSize(g, raceName, scaled(200), 30, 10);
+        g.setFont(font(fs));
         drawBorderedString(g0, raceName, 1, x0, y0, Color.black, Color.white);
 
         // draw race desc #1
@@ -898,7 +899,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         }
     }
     // BR: Display UI panel for Player Race Customization
-    public void goToPlayerRaceCustomization() {
+    private void goToPlayerRaceCustomization() {
         buttonClick();
         EditCustomRaceUI editCustomRaceUI = RotPUI.editCustomRaceUI();
         editCustomRaceUI.open(this);

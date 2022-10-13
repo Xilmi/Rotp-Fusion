@@ -64,8 +64,8 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	protected static final Font buttonFont	= FontManager.current().narrowFont(20);
 	protected static final int buttonH		= s30;
 	protected static final int buttonMargin	= AbstractOptionsUI.smallButtonM;
-	protected static final int buttonPadV	= tooltipPadV;
 	protected static final int buttonPad	= s15;
+	private static final int buttonPadV		= tooltipPadV;
 	private static final int xButtonOffset	= s30;
 	protected static final Color labelC		= SystemPanel.orangeText;
 	protected static final int labelFontSize= 14;
@@ -75,9 +75,9 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	private static final Color costC		= SystemPanel.blackText;
 	private static final int costFontSize	= 18;
 	protected static final Font raceNameFont= FontManager.current().narrowFont(16);
-	protected static final int raceNameH	= s20;
-	protected static final int raceNameW	= RotPUI.scaledSize(150);
 	protected static final int columnPad	= s20;
+	private static final int raceNameH		= s20;
+	private static final int raceNameW		= RotPUI.scaledSize(150);
 	private	static final Font titleFont		= FontManager.current().narrowFont(30);
 	private static final int titleOffset	= s30; // Offset from Margin
 	private static final int costOffset		= s25; // Offset from title
@@ -128,13 +128,13 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	private int xCost, yCost, xRace, yRace;
 	private int w;
 	private int h;
-	private int hBG;
+	private int hBG, wBG;
 	private int settingSize;
 	private int settingBoxH;
 	private int topM;
-	protected int yTop;
-	protected int xButton, yButton, xTT, yTT, wTT;
-	protected int wBG;
+	private int yTop;
+	private int xTT, yTT, wTT;
+	protected int xButton, yButton;
 	protected int leftM;
 	protected int xLine, yLine; // settings var
 	protected int x, y; // mouse position
@@ -144,10 +144,10 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	protected final Rectangle exitBox = new Rectangle();
 	protected String tooltipText = "";
 	protected BaseText totalCostText;
-	protected BaseText raceAI;
+	private BaseText raceAI;
 	private	  RacesUI  raceUI; // Parent panel
 	protected int maxLeftM;
-	public final CustomRaceDefinitions cr;
+	protected final CustomRaceDefinitions cr;
 	
 	// ========== Constructors and initializers ==========
 	//
@@ -164,7 +164,6 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		guiTitleID	= ROOT + "SHOW_TITLE";
 	    commonList	= settingList;
 	    cr.setRace(MOO1GameOptions.baseRaceOptions().getFirst());
-	    cr.pullSettings();
 		addMouseListener(this);
 		addMouseMotionListener(this);
 	    initGUI();		

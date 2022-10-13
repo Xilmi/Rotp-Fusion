@@ -98,9 +98,6 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
         parent = p;
         manageDiplomatsPane = new ManageDiplomatsUI(p);
         manageSpiesPane = new ManageSpiesUI(p);
-//        showRaceAbilitiesPane = PlayerRaceCustomizationUI.displayInstance();
-//        showRaceAbilitiesPane.init(p); TODO BR: remove
-
         initModel();
     }
     @Override

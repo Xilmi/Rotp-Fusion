@@ -112,13 +112,13 @@ public class Miscellaneous {
 	public static int getNextFlagColor(int colorIndex, boolean reverse) {
 		int selectedIndex = converter.indexOf(colorIndex); // -1 if none... OK!
 		if (reverse) {		 
-			selectedIndex -= 1;
+			selectedIndex--;
 			if (selectedIndex < 0) {
 				selectedIndex = selectedSize-1;
 			}
 			return converter.get(selectedIndex);
 		} 
-		selectedIndex += 1;	
+		selectedIndex++;	
 		if (selectedIndex > selectedSize-1) {
 			selectedIndex = 0;
 		}

@@ -46,11 +46,11 @@ import rotp.ui.util.SettingString;
 
 public class CustomRaceDefinitions  {
 	
-	public static final String ROOT = "CUSTOM_RACE_";
-	private static final String PLANET = "PLANET_";
-	public static final String EXT = ".race";
-	public static final String RANDOM_RACE_KEY = "RANDOM_RACE_KEY";
-	public static final String CUSTOM_RACE_KEY = "CUSTOM_RACE_KEY";
+	public	static final String ROOT	= "CUSTOM_RACE_";
+	private	static final String PLANET	= "PLANET_";
+	private	static final String EXT		= ".race";
+	public	static final String RANDOM_RACE_KEY = "RANDOM_RACE_KEY";
+	public	static final String CUSTOM_RACE_KEY = "CUSTOM_RACE_KEY";
 	private static final boolean booleansAreBullet = true;
 
 	private Race race; // !!! To be kept up to date !!!
@@ -58,16 +58,18 @@ public class CustomRaceDefinitions  {
 	private final LinkedList<SettingBase<?>> settingList = new LinkedList<>(); // !!! To be kept up to date !!!
 	private final LinkedList<SettingBase<?>> guiList	 = new LinkedList<>();
 
-	private final SettingInteger randomTargetMax = new SettingInteger(ROOT, "RANDOM_TARGET_MAX",
-			75, null, null, 1, 5, 20);
-	private final SettingInteger randomTargetMin = new SettingInteger(ROOT, "RANDOM_TARGET_MIN",
-			0, null, null, 1, 5, 20);
-	private final SettingInteger randomMax = new SettingInteger(ROOT, "RANDOM_MAX",
-			50, -100, 100, 1, 5, 20);
-	private final SettingInteger randomMin = new SettingInteger(ROOT, "RANDOM_MIN",
-			-50, -100, 100, 1, 5, 20);
-	private final SettingBoolean randomUseTarget = new SettingBoolean(ROOT, "RANDOM_USE_TARGET", false);
-	private final SettingBoolean randomSmoothEdges = new SettingBoolean(ROOT, "RANDOM_EDGES", true);
+	private final SettingInteger randomTargetMax = new SettingInteger(
+			ROOT, "RANDOM_TARGET_MAX", 75, null, null, 1, 5, 20);
+	private final SettingInteger randomTargetMin = new SettingInteger(
+			ROOT, "RANDOM_TARGET_MIN", 0, null, null, 1, 5, 20);
+	private final SettingInteger randomMax = new SettingInteger(
+			ROOT, "RANDOM_MAX", 50, -100, 100, 1, 5, 20);
+	private final SettingInteger randomMin = new SettingInteger(
+			ROOT, "RANDOM_MIN", -50, -100, 100, 1, 5, 20);
+	private final SettingBoolean randomUseTarget = new SettingBoolean(
+			ROOT, "RANDOM_USE_TARGET", false);
+	private final SettingBoolean randomSmoothEdges = new SettingBoolean(
+			ROOT, "RANDOM_EDGES", true);
 
 	private LinkedList<Integer> spacerList; // For UI
 	private LinkedList<Integer> columnList; // For UI
@@ -82,7 +84,6 @@ public class CustomRaceDefinitions  {
 	public CustomRaceDefinitions(Race race) {
 		newSettingList();
 		setRace(race.name());
-		pullSettings();
 	}
 	public CustomRaceDefinitions(DynOptions srcOptions) {
 		newSettingList();
@@ -183,7 +184,7 @@ public class CustomRaceDefinitions  {
 	 */
 	public void setRace(String raceKey) {
 		race = Race.keyed(raceKey).copy();
-//		pushSettings();
+		pullSettings();
 	}
 	public int getCount() {
 		int count = 0;
@@ -296,7 +297,7 @@ public class CustomRaceDefinitions  {
 		}
 		return totalCost;
 	}
-	public void pushSettings() {
+	private void pushSettings() {
 		for (SettingBase<?> setting : settingList) {
 			setting.pushSetting();
 		}
@@ -318,7 +319,6 @@ public class CustomRaceDefinitions  {
 		columnList  = new LinkedList<>();
 		
 		// First column (left)
-//		settingList.add(raceName); // TODO remove
 		settingList.add(new BaseDataRace());
 		endOfColumn(); // ====================
 
@@ -429,7 +429,7 @@ public class CustomRaceDefinitions  {
 	        File[] fileList = saveDir.listFiles(filter);
 	        return fileList;
 	    }
-	    private void add(DynOptions opt) { // TODO BR: complete
+	    private void add(DynOptions opt) {
 	    	CustomRaceDefinitions cr = new CustomRaceDefinitions(opt);
 	    	Race dr = cr.getRace();
 	    	String cfgValue	 = dr.setupName;
@@ -593,7 +593,6 @@ public class CustomRaceDefinitions  {
 			if (updateAllowed) {
 				String raceKey = settingValue();
 				setRace(raceKey);
-				pullSettings();
 				super.updateGui();
 				updateAllowed = false;
 				pullSettings();
@@ -602,7 +601,7 @@ public class CustomRaceDefinitions  {
 			}
 		}
 		@Override public void pushSetting() {
-			setRace(settingValue());
+			race = Race.keyed(settingValue()).copy();
 		}
 		@Override public void pullSetting() {
 			if (!pullAllowed)

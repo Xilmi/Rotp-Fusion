@@ -49,7 +49,7 @@ public class BaseText implements Base {
     private int xOrig;
     private int yOrig;
     BaseText preceder;
-    // BR: fixed Width
+    // BR: fixed Width for scrolling
     private int width  = 200;
     private boolean fixedWidth = false;
     public void setFixedWidth(boolean b, int w) {
@@ -142,7 +142,7 @@ public class BaseText implements Base {
         displayText(s);
         int newW = stringWidth(g);
         g.dispose();
-        if (!fixedWidth)
+        if (!fixedWidth) // BR: fixed Width for scrolling
         	bounds.width = max(oldW, newW)+scaled(5);
         repaint();
     }
@@ -153,7 +153,7 @@ public class BaseText implements Base {
         hoverText(s2);
         int newW = stringWidth(g);
         g.dispose();
-        if (!fixedWidth)
+        if (!fixedWidth) // BR: fixed Width for scrolling
         	bounds.width = max(oldW, newW)+scaled(5);
         repaint();
     }
@@ -213,7 +213,7 @@ public class BaseText implements Base {
         g.setColor(textColor());
         int sw = stringWidth(g);
         int fontH = g.getFontMetrics().getHeight();
-        // BR: fixed Size
+     // BR: fixed Width for scrolling
         if (!fixedWidth)
         	setBounds(x1,y1-fontH,sw+scaled(5),fontH+(fontH/5));
         else
