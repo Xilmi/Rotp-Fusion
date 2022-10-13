@@ -195,14 +195,16 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	}
 	protected void initSetting(SettingBase<?> setting) {
 		if (setting.isBullet()) {
-			int optionCount = setting.boxSize(); // +1 for the setting
-			int paramIdx	= setting.index();
 			setting.settingText(settingBT());
 			columnH += settingH;
 			columnH += frameTopPad;
-			for (int optionIdx=0; optionIdx < optionCount; optionIdx++) {
-				setting.optionText(optionBT(), optionIdx);
-				setting.optionText(optionIdx).disabled(optionIdx == paramIdx);
+			int paramIdx	= setting.index();
+			int bulletStart	= setting.bulletStart();
+			int bulletSize	= setting.bulletBoxSize();
+			for (int bulletIdx=0; bulletIdx < bulletSize; bulletIdx++) {
+				int optionIdx = bulletStart + bulletIdx;
+				setting.optionText(optionBT(), bulletIdx);
+				setting.optionText(bulletIdx).disabled(optionIdx == paramIdx);
 				columnH	+= optionH;
 			}
 			columnH += frameEndPad;
@@ -226,10 +228,13 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		for (SettingBase<?> setting : commonList) {
 			if (setting.isBullet()) {
 				setting.settingText().displayText(setting.guiSettingDisplayStr()); // The setting
-				int optionCount = setting.boxSize();
-				for (int optionIdx=0; optionIdx <  optionCount; optionIdx++) { // The options
-					setting.optionText(optionIdx).displayText(setting.guiCostOptionStr(optionIdx));
+				int bulletStart	= setting.bulletStart();
+				int bulletSize	= setting.bulletBoxSize();
+				for (int bulletIdx=0; bulletIdx < bulletSize; bulletIdx++) {
+					int optionIdx = bulletStart + bulletIdx;
+					setting.optionText(bulletIdx).displayText(setting.guiCostOptionStr(optionIdx));
 				}
+
 			} else {
 				setting.settingText().displayText(setting.guiSettingDisplayStr());			
 			}
@@ -269,7 +274,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	protected void paintSetting(Graphics2D g, SettingBase<?> setting) {
 		int sizePad	= frameSizePad;
 		int endPad 	= frameEndPad;
-		int optNum	= setting.boxSize();;
+		int optNum	= setting.bulletBoxSize();;
 		float cost 	= setting.settingCost();
 		BaseText bt	= setting.settingText();
 		int paramId	= setting.index();
@@ -298,11 +303,15 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		yLine += frameTopPad;
 		// Options
 		setting.formatData(g, wSetting - 2*optionIndent);
-		for (int optionId=0; optionId < optNum; optionId++) {
-			bt = setting.optionText(optionId);
-			bt.disabled(optionId == paramId);
-			bt.displayText(setting.guiCostOptionStr(optionId));
+		int bulletStart	= setting.bulletStart();
+		int bulletSize	= setting.bulletBoxSize();
+		for (int bulletIdx=0; bulletIdx < bulletSize; bulletIdx++) {
+			int optionIdx = bulletStart + bulletIdx;
+			bt = setting.optionText(bulletIdx);
+			bt.disabled(optionIdx == paramId);
+			bt.displayText(setting.guiCostOptionStr(optionIdx));
 			bt.setScaledXY(xLine + optionIndent, yLine);
+			bt.setFixedWidth(true, wSetting-2*optionIndent);
 			bt.draw(g);
 			yLine += optionH;
 		}				
@@ -410,15 +419,6 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		int xTitle = leftM +(wBG-sw)/2;
 		drawBorderedString(g, title, 1, xTitle, yTitle, Color.black, Color.white);
 		
-		// Race Name
-//		g.setFont(narrowFont(costFontSize));
-//		g.setColor(costC);
-//		sw = g.getFontMetrics().stringWidth(raceKeyTxt) + s4;
-//		drawString(g, raceKeyTxt, xRace, yCost); // Yes yCost!
-//        xRace += sw;
-//        raceKey.setCaretPosition(raceKey.getText().length());
-//		raceKey.setLocation(xRace, yRace);
-
 		// Total cost
 		xCost = xRace + raceNameW + columnPad;
 		totalCostText.displayText(totalCostStr());

@@ -37,10 +37,8 @@ import java.util.List;
 import br.profileManager.src.main.java.PMutil;
 import rotp.Rotp;
 import rotp.model.game.DynOptions;
-import rotp.model.game.DynamicOptions;
 import rotp.model.game.MOO1GameOptions;
 import rotp.model.planet.PlanetType;
-import rotp.ui.UserPreferences;
 import rotp.ui.util.SettingBase;
 import rotp.ui.util.SettingBoolean;
 import rotp.ui.util.SettingInteger;
@@ -612,7 +610,7 @@ public class CustomRaceDefinitions  {
 			if(!costInitialized) {
 				String raceKey = race.name();
 				pullAllowed = false;
-				for (int i=0; i<boxSize(); i++) {
+				for (int i=0; i<listSize(); i++) {
 					index(i);
 					race = Race.keyed(settingValue()).copy();
 					pullSettings();

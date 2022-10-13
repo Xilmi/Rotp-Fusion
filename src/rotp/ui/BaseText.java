@@ -32,7 +32,8 @@ public class BaseText implements Base {
 
     private final BasePanel panel;
     private Color enabledC, disabledC, hoverC, depressedC, shadeC; // BR not final
-    private final int topLBdr, btmRBdr, bdrStep;
+    @SuppressWarnings("unused")
+	private final int topLBdr, btmRBdr, bdrStep;
     private final Rectangle bounds = new Rectangle();
     private String text, hoverText;
     private int x,y;
@@ -48,6 +49,13 @@ public class BaseText implements Base {
     private int xOrig;
     private int yOrig;
     BaseText preceder;
+    // BR: fixed Width
+    private int width  = 200;
+    private boolean fixedWidth = false;
+    public void setFixedWidth(boolean b, int w) {
+    	fixedWidth = b;
+    	width = w;
+    }
 
     /**
      * @param p		BasePanel
@@ -98,7 +106,8 @@ public class BaseText implements Base {
     private Font font() {
         return logoFont ? logoFont(fontSize) : narrowFont(fontSize);
     }
-    private boolean centered() {  return (xOrig == 0) && (preceder == null); }
+    @SuppressWarnings("unused")
+	private boolean centered() {  return (xOrig == 0) && (preceder == null); }
     @Override
     public String toString()  { return concat("Text:", text, "  at:", bounds.toString()); }
     public void displayText(String s) { text = s; }
@@ -133,7 +142,8 @@ public class BaseText implements Base {
         displayText(s);
         int newW = stringWidth(g);
         g.dispose();
-        bounds.width = max(oldW, newW)+scaled(5);
+        if (!fixedWidth)
+        	bounds.width = max(oldW, newW)+scaled(5);
         repaint();
     }
     public void repaint(String s1, String s2) {
@@ -143,7 +153,8 @@ public class BaseText implements Base {
         hoverText(s2);
         int newW = stringWidth(g);
         g.dispose();
-        bounds.width = max(oldW, newW)+scaled(5);
+        if (!fixedWidth)
+        	bounds.width = max(oldW, newW)+scaled(5);
         repaint();
     }
     public void repaint() {
@@ -202,7 +213,11 @@ public class BaseText implements Base {
         g.setColor(textColor());
         int sw = stringWidth(g);
         int fontH = g.getFontMetrics().getHeight();
-        setBounds(x1,y1-fontH,sw+scaled(5),fontH+(fontH/5));
+        // BR: fixed Size
+        if (!fixedWidth)
+        	setBounds(x1,y1-fontH,sw+scaled(5),fontH+(fontH/5));
+        else
+        	setBounds(x1,y1-fontH-1,width,fontH+(fontH/5)+2);
         if (bordered)
             drawBorderedString(g,displayText(), x1, y1, Color.black,textColor());
         else 

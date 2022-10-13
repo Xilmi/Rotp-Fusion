@@ -86,7 +86,7 @@ public class SettingString extends SettingBase<String> implements Base{
 	@Override public int index()			{ return -1; } // to get default color
 	@Override public void setFromDefault()	{ set(defaultValue()); }
 	@Override public void prev()			{ next(); }
-//	@Override public void guiSelect()		{ next(); }
+	@Override public void optionalInput()	{ next(); }
 	@Override public String getGuiDisplay()	{ return getLabel() + END; }
 	@Override public String guiCostOptionStr(int idx) {
 		return optionValue(idx);

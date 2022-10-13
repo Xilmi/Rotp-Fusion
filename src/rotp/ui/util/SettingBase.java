@@ -60,6 +60,9 @@ public class SettingBase<T> implements InterfaceParam {
 	private BaseText[] optionsText;
 	private String settingToolTip  = "";
 	private int bulletHeightFactor = 1;
+//	private int bulletSide  = 2;
+	private int bulletMax   = 25;
+	private int bulletStart = 0;
 	private float lastRandomSource;
 	
 	// ========== Constructors and initializers ==========
@@ -101,8 +104,8 @@ public class SettingBase<T> implements InterfaceParam {
 		optionsText[i] = optionText;
 	}
 	public SettingBase<?> initOptionsText() {
-		if (boxSize() > 0)
-			optionsText(new BaseText[boxSize()]);
+		if (bulletBoxSize() > 0)
+			optionsText(new BaseText[bulletBoxSize()]);
 		return this;
 	}
 	public SettingBase<?> isSpacer(boolean isSpacer) {
@@ -157,8 +160,8 @@ public class SettingBase<T> implements InterfaceParam {
 		else
 			toggle(e);
 	}
-	@Override public void toggle(MouseWheelEvent e) {
-		if (getDir(e) > 0)
+	@Override public void toggle(MouseWheelEvent w) {
+		if (getDir(w) > 0)
 			next();
 		else 
 			prev();
@@ -195,7 +198,6 @@ public class SettingBase<T> implements InterfaceParam {
 			return "";
 		return tt;
 	}
-
 	// ========== Overridable Methods ==========
 	//
 	protected String getCfgValue(T value) {
@@ -205,8 +207,33 @@ public class SettingBase<T> implements InterfaceParam {
 		}
 		return String.valueOf(value);
 	}
-	public void pushSetting() {}
-	public void pullSetting() {}
+	public boolean toggle(MouseEvent e, MouseWheelEvent w, int idx) { // For bullet
+		if (e == null) { // Mouse Wheel Event
+			if (getDir(w) > 0) { // prev
+				if (bulletStart > 0) {
+					bulletStart(bulletStart-1);
+					repaint();
+					return true;
+				}
+				return false;
+			} else { // next
+				if (listSize() > bulletEnd()) {
+					bulletStart(bulletStart+1);
+					repaint();
+					return true;
+				}
+			}
+			return false;
+		} else { // Mouse Click
+			optionalInput();
+			index(idx);
+			guiSelect();
+			return false;
+		}
+	}
+	public void optionalInput()	{}
+	public void pushSetting()	{}
+	public void pullSetting()	{}
 	public void formatData(Graphics g, int maxWidth) {}
 	public float maxValueCostFactor() {
 		if (isList) {
@@ -220,14 +247,17 @@ public class SettingBase<T> implements InterfaceParam {
 		}
 		return 0f;
 	}
-	public void updateGui() { 
+	public void updateGui() {  repaint(); }
+	public void repaint() { 
 		if (isSpacer())
 			return;
 		settingText().repaint();
 		int selectedIndex = cfgValidIndex();
-		for (int optionIdx=0; optionIdx < boxSize(); optionIdx++) {
-			optionText(optionIdx).disabled(optionIdx == selectedIndex);
-			optionText(optionIdx).repaint();
+		int bulletSize	= bulletBoxSize();
+		for (int bulletIdx=0; bulletIdx < bulletSize; bulletIdx++) {
+			int optionIdx = bulletStart + bulletIdx;
+			optionText(bulletIdx).disabled(optionIdx == selectedIndex);
+			optionText(bulletIdx).repaint();
 		}
 	}
 	public float settingCost() {
@@ -240,6 +270,31 @@ public class SettingBase<T> implements InterfaceParam {
 			return defaultValue;
 		else
 			return selectedValue;
+	}
+	public SettingBase<?> set(T newValue) {
+		if (isList) {
+			selectedValue = newValue;
+			selectedValue(valueList.get(valueValidIndex()));
+		} else
+			selectedValue(newValue);
+		return this;
+	}
+	public String guiCostOptionStr(int idx) {
+		return guiCostOptionStr(idx, 0);
+	}
+	public int index() { return cfgValidIndex(); }
+	public void guiSelect() {
+		if (isSpacer())
+			return;
+		pushSetting();
+		updateGui();
+	}
+	public void setRandom(float min, float max, boolean gaussian) {
+		set(randomize(min, max, gaussian));
+	}
+	public SettingBase<?> index(int newIndex) {
+		selectedValue(valueList.get(cfgValidIndex(newIndex)));
+		return this;
 	}
 	protected T randomize(float rand) {
 		if (isList) {
@@ -266,31 +321,15 @@ public class SettingBase<T> implements InterfaceParam {
 		}
 		return null; // Should be overridden
 	}
-	public SettingBase<?> set(T newValue) {
-		if (isList) {
-			selectedValue = newValue;
-			selectedValue(valueList.get(valueValidIndex()));
-		} else
-			selectedValue(newValue);
-		return this;
-	}
-	public String guiCostOptionStr(int idx) {
-		return guiCostOptionStr(idx, 0);
-	}
-	public int index() { return cfgValidIndex(); }
-	public void guiSelect() {
-		if (isSpacer())
-			return;
-		pushSetting();
-		updateGui();
-	}
-	public void setRandom(float min, float max, boolean gaussian) {
-		set(randomize(min, max, gaussian));
-	}
-	protected void selectedValue(T newValue) { selectedValue = newValue; }
-	public SettingBase<?> index(int newIndex) {
-		selectedValue(valueList.get(cfgValidIndex(newIndex)));
-		return this;
+	protected void selectedValue(T newValue) {
+		selectedValue = newValue;
+		if (isBullet && listSize()>bulletBoxSize()) {
+			// center the value
+			int boxSize	= bulletBoxSize();
+			int start	= Math.max(0, index()-boxSize/2);
+			int end		= Math.min(listSize(), start + boxSize);
+			bulletStart(end - boxSize);
+		}
 	}
 	// ========== Setter ==========
 	//
@@ -340,17 +379,19 @@ public class SettingBase<T> implements InterfaceParam {
 		else
 			return guiSettingLabelValueCostStr();		
 	}
-	public	boolean	isSpacer()	{ return isSpacer; }
-	public	boolean	hasNoCost()	{ return hasNoCost; }
-	public	boolean	isBullet()	{ return isBullet; }
-	public	String	getLabel()	{ return lmText(labelId()); }
-	public	float	lastRandomSource()	{ return lastRandomSource; }
-	public	int bulletHeightFactor()	{ return bulletHeightFactor; }
-	public	boolean	isDefaultIndex()	{ return cfgValidIndex() == rawDefaultIndex(); }
-	public	BaseText	settingText()	{ return settingText; }
-	public	BaseText[]	optionsText()	{ return optionsText; }
-	public	BaseText optionText(int i)	{ return optionsText[i]; }
-	public	float	costFactor() {
+	public boolean isSpacer()	{ return isSpacer; }
+	public boolean hasNoCost()	{ return hasNoCost; }
+	public boolean isBullet()	{ return isBullet; }
+	public String  getLabel()	{ return lmText(labelId()); }
+	public int bulletStart()	{ return bulletStart; }
+	public int bulletEnd()		{ return bulletStart + bulletBoxSize(); }
+	public int bulletHeightFactor()	{ return bulletHeightFactor; }
+	public float lastRandomSource()	{ return lastRandomSource; }
+	public boolean isDefaultIndex()	{ return cfgValidIndex() == rawDefaultIndex(); }
+	public BaseText	settingText()	{ return settingText; }
+	public BaseText[] optionsText()	{ return optionsText; }
+	public BaseText optionText(int i) { return optionsText[i]; }
+	public float	costFactor() {
 		if (isList) {
 			if (lastRandomSource<0)
 				return -Collections.min(costList);
@@ -362,9 +403,10 @@ public class SettingBase<T> implements InterfaceParam {
 		else
 			return Math.max(maxValueCostFactor(), minValueCostFactor());
 	}
-	public int boxSize() {
+	public int listSize() { return valueList.size(); }
+	public int bulletBoxSize() {
 		if (isBullet())
-			return costList.size();
+			return Math.min(listSize(), bulletMax);
 		else
 			return 0;
 	}
@@ -442,6 +484,17 @@ public class SettingBase<T> implements InterfaceParam {
 	protected String labelId()			{ return guiLabel + nameLabel; }
 	// ========== Private Methods ==========
 	//
+	private void bulletStart(int start) {
+		bulletStart = start;
+		int idx = index();
+		if(optionsText==null || optionsText[0]==null)
+			return;
+		for (int bulletIdx=0; bulletIdx < bulletBoxSize(); bulletIdx++) {
+			int optionIdx = bulletStart + bulletIdx;
+			optionText(bulletIdx).disabled(optionIdx == idx);
+			optionText(bulletIdx).displayText(guiCostOptionStr(optionIdx));
+		}
+	}
 	/**
 	 * @param min Limit Value in %
 	 * @param max Limit Value in %
