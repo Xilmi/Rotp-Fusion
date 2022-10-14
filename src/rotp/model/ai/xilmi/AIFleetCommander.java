@@ -437,6 +437,10 @@ public class AIFleetCommander implements Base, FleetCommander {
             else if(!empire.sv.isScouted(id) && myPower == 0 )
             {
                 score = 5.0f;
+                if(current.starType().key().equals("YELLOW"))
+                    score *= 2;
+                else if(current.starType().key().equals("ORANGE") || current.starType().key().equals("RED"))
+                    score *= 1.5;
                 if(onlyColonizerTargets || fleet.hasColonyShip())
                 {
                     score += colonizationBonus * 5;
@@ -731,12 +735,32 @@ public class AIFleetCommander implements Base, FleetCommander {
     private void setRetreatFleetPlan(int id) {
         empire.sv.fleetPlan(id).priority = FleetPlan.RETREAT;
     }
+    private float getClosestDistanceToShip(int id, ShipDesign des) {
+        float closestDist = Float.MAX_VALUE;
+        StarSystem sys = empire.sv.system(id);
+        for(ShipFleet fleet:empire.allFleets())
+        {
+            if(!fleet.hasShip(des))
+                continue;
+            if(!fleet.canSend() || fleet.deployed() || fleet.retreating())
+                continue;
+            float currentDist = sys.distanceTo(fleet);
+            if(currentDist < closestDist)
+                closestDist = currentDist;
+        }
+        if(closestDist == Float.MAX_VALUE)
+            return empire.distanceTo(sys);
+        return closestDist;
+    }
     private void setScoutFleetPlan (int id) {
+        if(systemInfoBuffer.containsKey(id) && systemInfoBuffer.get(id).colonizersEnroute > 0)
+            return;
         FleetPlan plan = empire.sv.fleetPlan(id);
         if (empire.sv.isScouted(id))
             plan.priority = FleetPlan.SCOUT_TO_EXPLORED;
         else {
-            float closeRangeBonus = 100 - empire.sv.distance(id)/10;
+            float closeRangeBonus = 100 - getClosestDistanceToShip(id, empire.shipDesignerAI().BestDesignToScout())/10;
+            //float closeRangeBonus = 100 - empire.sv.distance(id)/10;
             plan.priority = FleetPlan.SCOUT_TO_UNEXPLORED + closeRangeBonus;
         }
         if (empire.shipDesignerAI().BestDesignToScout().range() >= empire.tech().scoutRange())
@@ -848,7 +872,7 @@ public class AIFleetCommander implements Base, FleetCommander {
                     if(target != null)
                     {
                         int travelTurns = fleet.travelTurns(target);                    
-                        //System.out.println(galaxy().currentTurn()+" "+fleet.empire().name()+" Fleet at "+empire.sv.name(fleet.system().id)+" wants to go for "+empire.sv.name(target.id));
+                        //System.out.println(galaxy().currentTurn()+" "+fleet.empire().name()+" Fleet at "+empire.sv.name(fleet.system().id)+" wants to go for "+empire.sv.name(target.id)+" id: "+target.id);
                         float bombardDamage = fleet.expectedBombardDamage(target, false);
                         float killPower = empire.governorAI().expectedBombardDamageAsIfBasesWereThere(fleet, target, 0) / 200;
                         float combatPower = combatPower(fleet);
