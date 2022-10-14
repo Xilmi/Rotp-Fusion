@@ -676,6 +676,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public void validate() {
         recalcPlanetaryProduction();
         validateColonizedSystems();
+        validateFleets();
         for (StarSystem sys: colonizedSystems)
             sys.colony().validate();
     }
@@ -689,6 +690,14 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
         colonizedSystems.clear();
         colonizedSystems.addAll(good);
+    }
+    private void validateFleets() {
+        for(ShipFleet fl : galaxy().ships.allFleets(id)) {
+            if(fl.bcValue() == 0) {
+                fl.clear();
+                galaxy().ships.deleteFleet(fl);
+            }
+        }
     }
     public void cancelTransports(List<StarSystem> fromSystems) {
         for (StarSystem from: fromSystems)
