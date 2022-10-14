@@ -15,6 +15,8 @@
  */
 package rotp.ui.game;
 
+import static rotp.ui.UserPreferences.playerCustomRace;
+import static rotp.ui.UserPreferences.playerIsCustom;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
 import static rotp.ui.UserPreferences.showNewRaces;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
@@ -838,8 +840,12 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		if (Profiles.isStartOpponentAIListEnabled()) {
 			RacesOptions.loadStartingAIs(newGameOptions());
 		} // \BR:
-		Race r = Race.keyed(newGameOptions().selectedPlayerRace());
-		GameUI.gameName = r.setupName() + " - "
+		String name;
+		if (playerIsCustom.get())
+			name = playerCustomRace.getRace().setupName;
+		else
+			name = Race.keyed(newGameOptions().selectedPlayerRace()).setupName();
+		GameUI.gameName = name + " - "
 				+ text(newGameOptions().selectedGalaxySize())
 				+ " - "+text(newGameOptions().selectedGameDifficulty());
 		// modnar: add custom difficulty level option, set in Remnants.cfg

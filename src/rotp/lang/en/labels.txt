@@ -1422,6 +1422,8 @@ CUSTOM_RACE_RESEARCH_CONSTRUCTION | Study Cost Construction
 CUSTOM_RACE_RESEARCH_FORCEFIELD   | Study Cost Force Field
 CUSTOM_RACE_RESEARCH_PLANET       | Study Cost Planet
 CUSTOM_RACE_RESEARCH_PROPULSION   | Study Cost Propulsion
+CUSTOM_RACE_RESEARCH_WEAPON       | Study Cost Weapon
+CUSTOM_RACE_RACE_EMPIRE_NAME      | Empire Designation
 CUSTOM_RACE_RACE_DESC_1           | Race mood description
 CUSTOM_RACE_RACE_DESC_2           | Race abilities description
 CUSTOM_RACE_RACE_DESC_3           | Race global description

@@ -257,7 +257,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 //      homeWorld.setLocation(x, y-s100-s10);
         homeWorld.setLocation(x, y-s97); // BR: squeezed
 		// modnar: test hover text
-		homeWorld.setToolTipText("<html> Homeworld Name is used as <br> the Galaxy Map when selecting <br> Map Shape [Text]. <br><br> (Unicode characters allowed)");
+//		homeWorld.setToolTipText("<html> Homeworld Name is used as <br> the Galaxy Map when selecting <br> Map Shape [Text]. <br><br> (Unicode characters allowed)");
 //      homeWorldBox.setBounds(x-s1, y-s100-s10, FIELD_W+s2, FIELD_H+s2);
         homeWorldBox.setBounds(x-s1, y-s97, FIELD_W+s2, FIELD_H+s2); // BR: squeezed
 
@@ -918,7 +918,6 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     	checkModifierKey(e);
        int k = e.getKeyCode();
         switch(k) {
-            case KeyEvent.VK_M: // BR: "M" = Go to Main Menu
             case KeyEvent.VK_ESCAPE:
             	doCancelBoxAction();
                 return;

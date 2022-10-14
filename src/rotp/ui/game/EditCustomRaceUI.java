@@ -332,6 +332,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	}
 	@Override protected void hoverAndTooltip(boolean repaint) {
 		String tip = tooltipText;
+		tooltipText = "";
 		Rectangle prevHover = hoverBox;
 		hoverBox = null;
 		if (exitBox.contains(x,y)) {

@@ -206,8 +206,16 @@ public final class Empire implements Base, NamedObject, Serializable {
     public int homeSysId()                        { return homeSysId; }
     public int capitalSysId()                     { return capitalSysId; }
     public int compSysId(int i)                   { return compSysId[i]; } // modnar: add option to start game with additional colonies
-    public String unparsedRaceName()              { return race().nameVariant(raceNameIndex); }
-    public String raceName()                      { return raceName(0); }
+    public String unparsedRaceName() {
+    	if (isPlayer() && isCustomRace())
+    		return dataRace().setupName;
+    	return race().nameVariant(raceNameIndex);
+    }
+    public String raceName() { // TODO BR: manage custom race
+    	if (isPlayer() && isCustomRace())
+    		return dataRace().setupName;
+    	return raceName(0);
+    }
     public String raceName(int i) {
         List<String> names = substrings(unparsedRaceName(), '|');
         if (i >= names.size() || names.get(i).isEmpty())
@@ -460,9 +468,12 @@ public final class Empire implements Base, NamedObject, Serializable {
     public Color color()                 { return options().color(bannerColor); }
     public int shipColorId()             { return colorId(); }
     @Override
-    public String name()                 { 
+    public String name()                 {  // TODO BR: manage custom race
         if (empireName == null)
-            empireName = replaceTokens("[this_empire]", "this");
+        	if (isPlayer() && isCustomRace())
+        		empireName = dataRace().empireName;
+        	else
+        		empireName = replaceTokens("[this_empire]", "this");
         return empireName;
     }
     public DiplomaticReply respond(String reason, Empire listener) {
@@ -528,6 +539,10 @@ public final class Empire implements Base, NamedObject, Serializable {
                 s1 = s1.replace(replString, leader().name());
             else if (token.equals("_home"))
                 s1 = s1.replace(replString, sv.name(capitalSysId()));              
+            else if (isPlayer() && token.equals("_race"))
+                s1 = s1.replace(replString, dataRace().setupName);              
+            else if (isPlayer() && token.equals("_empire"))
+                s1 = s1.replace(replString, dataRace().empireName);              
             else {
                 List<String> values = substrings(race().text(token), ',');
                 String value = raceNameIndex < values.size() ? values.get(raceNameIndex) : values.get(0);

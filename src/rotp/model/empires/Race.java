@@ -70,6 +70,7 @@ public class Race implements Base, Serializable {
 
     public String id;
     public String setupName;
+    public String empireName; // BR: for custom Races
     public String langKey;
     public String description1, description2, description3, description4; // modnar: add desc4
     public String directoryName;
@@ -361,7 +362,7 @@ public class Race implements Base, Serializable {
         return labels().dialogue(key);
     }
     public String name()                      { return text(id); }
-    public String setupName()                 {
+    public String setupName() {
         return text(substrings(raceNames.get(0), '|').get(0));
     }
     public int shipAttackBonus()              { return shipAttackBonus; }

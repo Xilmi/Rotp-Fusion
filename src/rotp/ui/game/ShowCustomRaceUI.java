@@ -195,7 +195,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	protected void initSetting(SettingBase<?> setting) {
 		if (setting.isBullet()) {
 			setting.settingText(settingBT());
-			columnH += settingH;
+			columnH += settingH + frameSizePad;
 			columnH += frameTopPad;
 			int paramIdx	= setting.index();
 			int bulletStart	= setting.bulletStart();
@@ -331,6 +331,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	}
 	protected void hoverAndTooltip(boolean repaint) {
 		String tip = tooltipText;
+		tooltipText = "";
 		Rectangle prevHover = hoverBox;
 		hoverBox = null;
 		if (exitBox.contains(x,y)) {
@@ -338,12 +339,75 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 			tooltipText = text(exitButtonTipKey());
 		}
 		
-		if (repaint || !tooltipText.equals(tip))
-			repaint();
-		else if (hoverBox != prevHover) {
-			if (prevHover != null) repaint(prevHover);
-			if (hoverBox != null)  repaint(hoverBox);
+		else {
+			outerLoop1:
+			for (SettingBase<?> setting : settingList) {
+				if (setting.settingText().contains(x,y)) {
+					hoverBox = setting.settingText().bounds();
+					tooltipText = setting.getToolTip();
+					break outerLoop1;
+				}
+				if (setting.isBullet()) {
+					int idx = 0;
+					for (BaseText txt : setting.optionsText()) {
+						if (txt.contains(x,y)) {
+							hoverBox = txt.bounds();
+							tooltipText = setting.getToolTip(idx);
+							break outerLoop1;
+						}
+						idx++;
+					}
+				}
+			}
 		}
+
+		if (hoverBox != prevHover) {
+			outerLoop2: // Check exit settings
+			for ( SettingBase<?> setting : settingList) {
+				if (setting.isSpacer())
+					continue;
+				if (prevHover == setting.settingText().bounds()) {
+					setting.settingText().mouseExit();
+					break outerLoop2;
+				}
+				if (setting.isBullet()) {					
+					for (BaseText txt : setting.optionsText()) {
+						if (prevHover == txt.bounds()) {
+							txt.mouseExit();
+							break outerLoop2;
+						}
+					}
+				}
+			}
+			
+			outerLoop3: // Check enter settings
+			for ( SettingBase<?> setting : settingList) {
+				if (setting.isSpacer())
+					continue;
+				if (hoverBox == setting.settingText().bounds()) {
+					setting.settingText().mouseEnter();
+					break outerLoop3;
+				}
+				if (setting.isBullet()) {					
+					for (BaseText txt : setting.optionsText()) {
+						if (hoverBox == txt.bounds()) {
+							txt.mouseEnter();
+							break outerLoop3;
+						}
+					}
+				}
+			}
+			if (repaint)
+				repaint();
+			else if (!tooltipText.equals(tip))
+				repaint();
+			else {
+				if (prevHover != null) repaint(prevHover);
+				if (hoverBox != null)  repaint(hoverBox);
+			}
+		}
+		else if (repaint || !tooltipText.equals(tip))
+			repaint();
 	}
 	protected String raceAITxt() {
 		return raceUI.selectedEmpire().getAiName();

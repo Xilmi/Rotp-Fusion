@@ -320,24 +320,27 @@ public class CustomRaceDefinitions  {
 		
 		// First column (left)
 		settingList.add(new BaseDataRace());
-		endOfColumn(); // ====================
+		endOfColumn();
 
+		// ====================
 		// Second column
 		settingList.add(new RaceKey());
 		settingList.add(new RaceName());
+		settingList.add(new EmpireName());
 		settingList.add(new RaceDescription1());
 		settingList.add(new RaceDescription2());
 		settingList.add(new RaceDescription4());
 		settingList.add(new RaceDescription3());
-		spacer();
+		endOfColumn();
+
+		// ====================
+		// Third column
 		settingList.add(new RacePlanetType());
 		settingList.add(new HomeworldSize());
 //		settingList.add(new SpeciesType()); // Not used in Game
 		settingList.add(new PopGrowRate());
 		settingList.add(new IgnoresEco());
-		endOfColumn(); // ====================
-
-		// Third column
+		spacer();
 		settingList.add(new ProdWorker());
 		settingList.add(new ProdControl());
 		settingList.add(new IgnoresFactoryRefit());
@@ -355,15 +358,9 @@ public class CustomRaceDefinitions  {
 		settingList.add(new DiplomacyCouncil());
 		settingList.add(new RelationDefault());	// BR: Maybe All the races
 		spacer();
-		settingList.add(new ResearchComputer());
-		settingList.add(new ResearchConstruction());
-		settingList.add(new ResearchForceField());
-		settingList.add(new ResearchPlanet());
-		settingList.add(new ResearchPropulsion());
-		settingList.add(new ResearchWeapon());
-		spacer();
-		
-		endOfColumn(); // ====================
+		endOfColumn();
+
+		// ====================
 		// Fourth column
 		settingList.add(new PlanetRessources());
 		settingList.add(new PlanetEnvironment());
@@ -376,10 +373,20 @@ public class CustomRaceDefinitions  {
 		settingList.add(new ShipDefense());
 		settingList.add(new ShipInitiative());
 		settingList.add(new GroundAttack());
-		endOfColumn(); // ====================
-		// Fifth column
-		// endOfColumn(); // ====================
+		spacer();
+		settingList.add(new ResearchComputer());
+		settingList.add(new ResearchConstruction());
+		settingList.add(new ResearchForceField());
+		settingList.add(new ResearchPlanet());
+		settingList.add(new ResearchPropulsion());
+		settingList.add(new ResearchWeapon());
+		spacer();
+		endOfColumn();
 
+		// ====================
+		// Fifth column
+		// endOfColumn();
+		// ====================
 		guiList.add(randomSmoothEdges);
 	    guiList.add(randomMin);
 	    guiList.add(randomMax);
@@ -477,6 +484,21 @@ public class CustomRaceDefinitions  {
 //		}
 
 	}
+	// ==================== RaceKey ====================
+	//
+	private class RaceKey extends SettingString {
+		private RaceKey() {
+			super(ROOT, "RACE_KEY", "CustomRace", 1);
+			inputMessage("Enter the Race File Name");
+			randomStr("Randomized");
+		}
+		@Override public void pushSetting() {
+			race.id = settingValue();
+		}
+		@Override public void pullSetting() {
+			set(race.id);
+		}
+	}
 	// ==================== RaceName ====================
 	//
 	private class RaceName extends SettingString {
@@ -495,19 +517,22 @@ public class CustomRaceDefinitions  {
 				set(race.setupName);				
 		}
 	}
-	// ==================== RaceKey ====================
+	// ==================== EmpireName ====================
 	//
-	private class RaceKey extends SettingString {
-		private RaceKey() {
-			super(ROOT, "RACE_KEY", "CustomRace", 1);
-			inputMessage("Enter the Race File Name");
-			randomStr("Randomized");
+	private class EmpireName extends SettingString {
+		private EmpireName() {
+			super(ROOT, "RACE_EMPIRE_NAME", "Custom Empire", 1);
+			inputMessage("Enter the Empire Designation");
+			randomStr("Random Empire");
 		}
 		@Override public void pushSetting() {
-			race.id = settingValue();
+			race.empireName = settingValue();
 		}
 		@Override public void pullSetting() {
-			set(race.id);
+			if (race.empireName == null)
+				set(race.name());
+			else
+				set(race.empireName);				
 		}
 	}
 	// ==================== RaceDescription1 ====================
