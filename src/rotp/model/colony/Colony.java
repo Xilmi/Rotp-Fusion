@@ -1118,6 +1118,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         for (int j = 0; j < t.gauntletRounds(); j++)
             lost += (int) (defenderDmg / t.hitPoints());
         passed += max(0, (num - lost));
+        lost = min(lost, num);
         t.size(passed);
         if (lost > 0) {
             log(concat(str(t.launchSize()), " ", t.empire().raceName(), " transports perished at ", name()));
@@ -1153,6 +1154,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         for (int j = 0; j < tr.gauntletRounds(); j++)
             lost += (int) (defenderDmg / tr.hitPoints());
         passed += max(0, (num - lost));
+        lost = min(lost, num);
         tr.size(passed);
         if (lost > 0) {
             log(concat(str(tr.launchSize()), " ", tr.empire().raceName(), " transports perished at ", name()));
@@ -1261,6 +1263,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
             lost += (int) (defenderDmg / tr.hitPoints());
 
         passed += max(0, (num - lost));
+        lost = min(lost, num);
 
         tr.size(passed);
 
