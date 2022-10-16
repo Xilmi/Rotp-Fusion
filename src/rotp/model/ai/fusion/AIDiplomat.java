@@ -1131,8 +1131,8 @@ public class AIDiplomat implements Base, Diplomat {
         }
         
         decidedToExchangeTech(v);
-
-        if(empire.allies().contains(v.empire()))
+        
+        if(considerAlly(v))
         {
             //System.out.println(empire.galaxy().currentTurn()+" "+ empire.name()+" considers "+v.empire().name()+" an ally.");
             while(canOfferTechnology(v.empire()))
@@ -2023,7 +2023,7 @@ public class AIDiplomat implements Base, Diplomat {
         if(!empire.isAIControlled())
             return true;
         //If it's our ally we will trade everything with them
-        if(empire.alliedWith(tradePartner.id))
+        if(considerAlly(empire.viewForEmpire(tradePartner)))
             return true;
         if(!tech.isObsolete(empire) && !empire.alliedWith(tradePartner.id))
             return false;
@@ -2282,6 +2282,16 @@ public class AIDiplomat implements Base, Diplomat {
         y /= totalIndustry;
         Location center = new Location(x, y);
         return center;
+    }
+    public boolean considerAlly(EmpireView v) {
+        boolean considerAlly = false;
+        for(Empire myEnemy : empire.enemies()) {
+            if(myEnemy == balanceVictim() && v.empire().enemies().contains(myEnemy))
+                considerAlly = true;
+        }
+        if(empire.allies().contains(v.empire()))
+            considerAlly = true;
+        return considerAlly;
     }
 }
 
