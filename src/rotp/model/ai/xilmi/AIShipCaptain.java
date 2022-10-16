@@ -814,8 +814,8 @@ public class AIShipCaptain implements Base, ShipCaptain {
                     hitPct = min(hitPct, 1.0f);
                     killPct += ((miss.maxDamage()-miss.target.shieldLevel())*miss.num*hitPct)/(miss.target.maxHits*miss.target.num);
                     maxHit += (miss.maxDamage() - currStack.shieldLevel()) * miss.num; //don't use hitPct for max-hit as we have to expect the worst in this case
-                    //System.out.print("\n"+currStack.fullName()+" will be hit by missiles for approx "+killPct+" dmg: "+maxHit+" hp: "+currStack.hits);
-                    if((killPct > 0.2f && maxHit >= currStack.hits) || (currStack.num == 1 && maxHit >= currStack.hits))
+                    //System.out.print("\n"+currStack.fullName()+" will be hit by missiles for approx "+killPct+" dmg: "+maxHit+" hp: "+currStack.hits+" threshold: "+(1.0f / miss.missile.shots()));
+                    if((killPct > 1.0f / miss.missile.shots() && maxHit >= currStack.hits) || (currStack.num == 1 && maxHit >= currStack.hits))
                     {
                         retreatImmediately = true; //when we have incoming missiles we can't do damage first
                         return true;
