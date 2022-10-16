@@ -2284,12 +2284,14 @@ public class AIDiplomat implements Base, Diplomat {
         return center;
     }
     public boolean considerAlly(EmpireView v) {
+        if(v == null)
+            return false;
         boolean considerAlly = false;
         for(Empire myEnemy : empire.enemies()) {
             if(myEnemy == balanceVictim() && v.empire().enemies().contains(myEnemy))
                 considerAlly = true;
         }
-        if(empire.allies().contains(v.empire()))
+        if(v.empire() != null && empire.allies().contains(v.empire()))
             considerAlly = true;
         return considerAlly;
     }
