@@ -590,7 +590,11 @@ public class AIGovernor implements Base, Governor {
                 for(Empire warEnemy : empire.warEnemies())
                 {
                     if(warEnemy.sv.inShipRange(sysId))
-                        return currentPercentage;
+                    {
+                        float adjPct = min(tgtPercentage, currentPercentage) + (tgtPercentage - min(tgtPercentage, currentPercentage)) * empire.fleetCommanderAI().bridgeHeadConfidence(sv.system());
+                        //System.out.println(galaxy().currentTurn()+" "+empire.name()+" "+sv.system().name()+" pop-target %: "+tgtPercentage+" adjusted: "+adjPct);
+                        return adjPct;
+                    }
                 }
             }
             for(ShipFleet fl : sv.system().orbitingFleets())
