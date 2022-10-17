@@ -2132,6 +2132,7 @@ public class AIDiplomat implements Base, Diplomat {
         }
         return warAllowed;
     }
+    @Override
     public boolean willingToTradeTech(Tech tech, Empire tradePartner)
     {
         //The player can decide for themselves what they want to give away!
