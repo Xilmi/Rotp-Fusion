@@ -317,6 +317,8 @@ public class AIGeneral implements Base, General {
         if(sys.empire().tech().subspaceInterdiction())
             combatTransport /= 2;
         float additional = expectedEnemyTransportKillPower(sys) * (1 - empire.fleetCommanderAI().bridgeHeadConfidence(sys));
+        if(additional > sys.planet().currentSize())
+            return Float.MAX_VALUE;
         if(combatTransport > 0)
             needed = max(needed + additional, needed / combatTransport);
         else
@@ -331,7 +333,7 @@ public class AIGeneral implements Base, General {
         float opportunityCost = expectedTimeTillInvasion(v, sys) * needed * workerProductivity;
         invasionCost += opportunityCost;
         invasionCost /= empire.growthRateMod();
-        //System.out.println(galaxy().currentTurn()+" "+empire.name()+": Considering invasion of "+sys.name()+" invasionCost: "+invasionCost+ " needed: "+needed+" opportunityCost: "+opportunityCost);
+        //System.out.println(galaxy().currentTurn()+" "+empire.name()+": Considering invasion of "+sys.name()+" invasionCost: "+invasionCost+ " needed: "+needed+" from additional: "+additional+" opportunityCost: "+opportunityCost);
         return invasionCost;
     }
     public float invasionGain(EmpireView v, StarSystem sys)
@@ -394,11 +396,12 @@ public class AIGeneral implements Base, General {
     {
         //xilmi: for the purpose we use this the shortest possible time is relevant otherwise we might underestimate the amount of troops needed due to thinking we can bombard longer
         List<StarSystem> allSystems = empire.allColonizedSystems();
-        float minTravelTime = Float.MAX_VALUE;
+        float topSpeed = empire.tech().topSpeed();
+        float allowableTurns = (float) (1 + Math.min(7, Math.floor(22 / topSpeed)));
+        float minTravelTime = allowableTurns;
         for (StarSystem sys : allSystems) {
             float travelTime = sys.colony().transport().travelTime(target);
-            float troopsAvailable = Math.max(0.0f, sys.colony().population() - 0.6f * sys.colony().planet().currentSize());
-            if ((travelTime < minTravelTime) && sys.colony().canTransport() && troopsAvailable > 0) {
+            if ((travelTime < minTravelTime) && sys.colony().canTransport()) {
                 minTravelTime = min(minTravelTime, travelTime);
                 if(minTravelTime <= 1)
                     break;
@@ -534,7 +537,7 @@ public class AIGeneral implements Base, General {
             {
                 if(fl.empire() == empire)
                 {
-                    killed += Math.round(fl.expectedBombardDamage(false) / 200f) * (turnsTillInvasion - fl.travelTurnsRemaining());
+                    killed += Math.round(fl.expectedBombardDamage(false) / 200f) * max(0, (turnsTillInvasion - fl.travelTurnsRemaining()));
                     killedInOneTurn = max(killedInOneTurn, Math.round(fl.expectedBombardDamage(false) / 200f));
                 }
             }
