@@ -37,6 +37,7 @@ import rotp.util.LabelManager;
 public class Race implements Base, Serializable {
     private static final long serialVersionUID = 1L;
     private static final String customRaceDescription = "Customized Race";
+    public static final String crEmpireNameRandom = "Randomized";
     
     private static Map<String, Race> raceMap = new HashMap<>();
     public static Race keyed(String s) {
@@ -69,8 +70,8 @@ public class Race implements Base, Serializable {
     }
 
     public String id;
-    public String setupName;
-    public String empireName; // BR: for custom Races
+    public String setupName; // BR: was never used
+    public String empireTitle; // BR: for custom Races
     public String langKey;
     public String description1, description2, description3, description4; // modnar: add desc4
     public String directoryName;
@@ -126,7 +127,7 @@ public class Race implements Base, Serializable {
     public String dlgWarKey, dlgNormKey,dlgPactKey;
     public String winSplashKey, lossSplashKey;
     public Color winTextC, lossTextC;
-    public ImageTransformer diplomacyTransformer;
+    public ImageTransformer diplomacyTransformer; // BR: Never Used!
     public List<String> raceNames = new ArrayList<>();
     public List<String> homeSystemNames = new ArrayList<>();
     public List<String> leaderNames = new ArrayList<>();
@@ -152,8 +153,9 @@ public class Race implements Base, Serializable {
     private float shipSpaceFactor = 1f;
     private String planetRessource = "Normal";
     private String planetEnvironment = "Normal";
-    // Custom Races
-    private boolean	   isCustomRace	= false;
+    // Custom Races:
+    private boolean isCustomRace = false;
+//    private boolean isRandomized = false; // only used for custom race display
     private DynOptions raceOptions	= null;
     // \BR:
     public int startingYear;
@@ -183,8 +185,8 @@ public class Race implements Base, Serializable {
     public float[] techMod = new float[] { 1, 1, 1, 1, 1, 1 };
     public boolean ignoresPlanetEnvironment = false;
     public boolean ignoresFactoryRefit = false;
-    public boolean availablePlayer = true;
-    public boolean availableAI = true;
+    public boolean availablePlayer = true;  // BR: never used!
+    public boolean availableAI = true;		// BR: Never used!
     public boolean masksDiplomacy = false;
     private float labFlagX = 0;
     public int espionageX, espionageY;
@@ -232,69 +234,104 @@ public class Race implements Base, Serializable {
         directoryName = dirPath;
         labels = new LabelManager();
     }
+    String empireTitle() { // TODO BR: for race customization
+        String s = "[this_empire]";
+        String key = "this";
+        List<String> tokens = varTokens(s, key);
+        String s1 = s;
+        for (String token: tokens) {
+            String replString = concat("[",key, token,"]");
+            List<String> values = substrings(text(token), ',');
+            s1 = s1.replace(replString, values.get(0));
+        }
+        if (s.equalsIgnoreCase(s1))
+        	return this.empireTitle();
+        return s1;
+    }
     // BR: for race customization
     // Get a Copy the current race
-//    protected Race copy() {
-//        return RaceFactory.current().reloadRaceDataFile(directoryName);
-//    }
-	Race copy() {
-    	Race newRace = new Race(directoryName);
-    	newRace.id   = id;
-     	newRace.langKey      = langKey;
-//     	newRace.setupName    = setupName;
-    	newRace.setupName    = setupName();
-    	newRace.description1 = description1;
-    	newRace.description2 = description2;
-    	newRace.description3 = description3;
-    	newRace.description4 = description4;
-    	newRace.homeworldStarType   = homeworldStarType;
-    	newRace.homeworldPlanetType = homeworldPlanetType;
-    	newRace.homeworldSize       = homeworldSize;
-    	newRace.homeworldKey        = homeworldKey;
-    	newRace.speciesType         = speciesType;
-    	newRace.ignoresPlanetEnvironment = ignoresPlanetEnvironment;
-    	newRace.preferredShipSet      = preferredShipSet;
-    	newRace.preferredShipSize     = preferredShipSize;
-    	newRace.shipAttackBonus       = shipAttackBonus;
-    	newRace.shipDefenseBonus      = shipDefenseBonus;
-    	newRace.shipInitiativeBonus   = shipInitiativeBonus;
-    	newRace.spyCostMod            = spyCostMod;
-    	newRace.internalSecurityAdj   = internalSecurityAdj;
-    	newRace.spyInfiltrationAdj    = spyInfiltrationAdj;
-    	newRace.telepathic            = telepathic;
-    	newRace.masksDiplomacy        = masksDiplomacy;
-    	newRace.workerProductivityMod = workerProductivityMod;
-    	newRace.robotControlsAdj      = robotControlsAdj;
-    	newRace.ignoresFactoryRefit   = ignoresFactoryRefit;
-    	newRace.techDiscoveryPct      = techDiscoveryPct;
-    	newRace.researchBonusPct      = researchBonusPct;
-    	newRace.growthRateMod         = growthRateMod;
-    	newRace.tradePctBonus         = tradePctBonus;
-    	newRace.positiveDPMod         = positiveDPMod;
-    	newRace.diplomacyBonus        = diplomacyBonus;
-    	newRace.councilBonus          = councilBonus;
-    	newRace.techMod               = techMod.clone();
-    	newRace.personalityPct        = personalityPct.clone();
-    	newRace.objectivePct          = objectivePct.clone();
-    	newRace.defaultRaceRelations  = defaultRaceRelations;
-    	newRace.shipDesignMods        = shipDesignMods.clone();
-    	newRace.availablePlayer       = availablePlayer;
-    	newRace.availableAI           = availableAI;
-    	newRace.raceRelations.putAll(raceRelations);
+    protected Race copy() {
+    	Race race = RaceFactory.current().reloadRaceDataFile(directoryName);
+    	race.labels	= labels;
+    	race.setupName	 = setupName();
+    	race.empireTitle = empireTitle();
+    	race.description1 = description1;
+    	race.description2 = description2;
+    	race.description3 = description3;
+    	race.description4 = description4;
 
-        // useless for abilities
-    	newRace.troopNormal  = null;
-        newRace.troopHostile = null;
-        newRace.troopDeath1  = null;
-        newRace.troopDeath2  = null;
-        newRace.troopDeath3  = null;
-        newRace.troopDeath4  = null;
-        newRace.troopDeath1H = null;
-        newRace.troopDeath2H = null;
-        newRace.troopDeath3H = null;
-        newRace.troopDeath4H = null;
-    	return newRace;
+    	// useless for abilities
+    	race.troopNormal  = null;
+    	race.troopHostile = null;
+    	race.troopDeath1  = null;
+    	race.troopDeath2  = null;
+    	race.troopDeath3  = null;
+    	race.troopDeath4  = null;
+    	race.troopDeath1H = null;
+    	race.troopDeath2H = null;
+    	race.troopDeath3H = null;
+    	race.troopDeath4H = null;
+    	return race;
     }
+//	Race copy() { // TODO BR:
+//    	Race newRace = new Race(directoryName);
+//    	newRace.id   = id;
+//     	newRace.langKey      = langKey;
+//     	newRace.empireTitle  = empireTitle();
+////     	newRace.setupName    = setupName;
+//    	newRace.setupName    = setupName();
+//    	newRace.description1 = description1;
+//    	newRace.description2 = description2;
+//    	newRace.description3 = description3;
+//    	newRace.description4 = description4;
+//    	newRace.homeworldStarType   = homeworldStarType;
+//    	newRace.homeworldPlanetType = homeworldPlanetType;
+//    	newRace.homeworldSize       = homeworldSize;
+//    	newRace.homeworldKey        = homeworldKey;
+//    	newRace.speciesType         = speciesType;
+//    	newRace.ignoresPlanetEnvironment = ignoresPlanetEnvironment;
+//    	newRace.preferredShipSet      = preferredShipSet;
+//    	newRace.preferredShipSize     = preferredShipSize;
+//    	newRace.shipAttackBonus       = shipAttackBonus;
+//    	newRace.shipDefenseBonus      = shipDefenseBonus;
+//    	newRace.shipInitiativeBonus   = shipInitiativeBonus;
+//    	newRace.spyCostMod            = spyCostMod;
+//    	newRace.internalSecurityAdj   = internalSecurityAdj;
+//    	newRace.spyInfiltrationAdj    = spyInfiltrationAdj;
+//    	newRace.telepathic            = telepathic;
+//    	newRace.masksDiplomacy        = masksDiplomacy;
+//    	newRace.workerProductivityMod = workerProductivityMod;
+//    	newRace.robotControlsAdj      = robotControlsAdj;
+//    	newRace.ignoresFactoryRefit   = ignoresFactoryRefit;
+//    	newRace.techDiscoveryPct      = techDiscoveryPct;
+//    	newRace.researchBonusPct      = researchBonusPct;
+//    	newRace.growthRateMod         = growthRateMod;
+//    	newRace.tradePctBonus         = tradePctBonus;
+//    	newRace.positiveDPMod         = positiveDPMod;
+//    	newRace.diplomacyBonus        = diplomacyBonus;
+//    	newRace.councilBonus          = councilBonus;
+//    	newRace.techMod               = techMod.clone();
+//    	newRace.personalityPct        = personalityPct.clone();
+//    	newRace.objectivePct          = objectivePct.clone();
+//    	newRace.defaultRaceRelations  = defaultRaceRelations;
+//    	newRace.shipDesignMods        = shipDesignMods.clone();
+//    	newRace.availablePlayer       = availablePlayer;
+//    	newRace.availableAI           = availableAI;
+//    	newRace.raceRelations.putAll(raceRelations);
+//
+//        // useless for abilities
+//    	newRace.troopNormal  = null;
+//        newRace.troopHostile = null;
+//        newRace.troopDeath1  = null;
+//        newRace.troopDeath2  = null;
+//        newRace.troopDeath3  = null;
+//        newRace.troopDeath4  = null;
+//        newRace.troopDeath1H = null;
+//        newRace.troopDeath2H = null;
+//        newRace.troopDeath3H = null;
+//        newRace.troopDeath4H = null;
+//    	return newRace;
+//    }
     public void loadNameList()  {
         List<String> secondaryNames =  new ArrayList<>(raceNames);
         remainingRaceNames.clear();
@@ -340,7 +377,7 @@ public class Race implements Base, Serializable {
     public String toString()                      { return concat("Race:", id); }
 
     @Override
-    public String text(String key) {
+    public String text(String key) { // TODO BR: Check and study
         if (raceLabels().hasLabel(key))
             return raceLabels().label(key);
         return labels().label(key);
@@ -396,8 +433,11 @@ public class Race implements Base, Serializable {
     // BR: Custom Races
     public String  description4()             { return description4; }
     public boolean isCustomRace()             { return isCustomRace; }
-    void   isCustomRace(boolean val)          { isCustomRace = val; }
-    public DynOptions raceOptions()           { return raceOptions; }
+    Race   isCustomRace(boolean val)          { isCustomRace = val; return this;}
+    public boolean isRandomized() { return crEmpireNameRandom.equalsIgnoreCase(empireTitle); }
+//    public boolean isRandomized()           { return isRandomized; }
+//    Race   isRandomized(boolean val)        { isRandomized = val; return this; }
+    DynOptions raceOptions()           	      { return raceOptions; }
     void   raceOptions(DynOptions val)        { raceOptions = val; }
     // BR: Get the values encoded in HomeworldKey
     public float bCBonus()                    { return bCBonus; }

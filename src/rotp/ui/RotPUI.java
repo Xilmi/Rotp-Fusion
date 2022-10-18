@@ -41,6 +41,7 @@ import rotp.model.empires.Empire;
 import rotp.model.empires.EspionageMission;
 import rotp.model.empires.SabotageMission;
 import rotp.model.galaxy.GalaxyCopy;
+import rotp.model.galaxy.GalaxyFactory.NewGalaxyCopy;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.Transport;
 import rotp.model.game.IGameOptions;
@@ -237,9 +238,9 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     private final StartModBOptionsUI startModBOptionsUI = new StartModBOptionsUI();
     // BR: Display UI panel for MOD game options
     private final ModGlobalOptionsUI modGlobalOptionsUI = new ModGlobalOptionsUI();
-	// BR: Display UI panel for Player Race Customization
-    private final EditCustomRaceUI editCustomRaceUI = EditCustomRaceUI.instance;
-    private final ShowCustomRaceUI showCustomRaceUI = ShowCustomRaceUI.instance;
+	// TODO BR: REMOVE Display UI panel for Player Race Customization
+//    private final EditCustomRaceUI editCustomRaceUI = EditCustomRaceUI.instance;
+//    private final ShowCustomRaceUI showCustomRaceUI = ShowCustomRaceUI.instance;
     private final GameSettingsUI gameSettingsUI = new GameSettingsUI();
     private final LargeDialogPane dialogPane = new LargeDialogPane();
 
@@ -322,12 +323,12 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
 	    		return MOO1GameOptions.loadGameOptions();
 	    	case "DEFAULT":
 	    		newOptions = new MOO1GameOptions();
-	    		instance.startModAOptionsUI.setToDefault();
-	    		instance.startModAOptionsUI.saveOptions(newOptions);
-	    		instance.startModBOptionsUI.setToDefault();
-	    		instance.startModBOptionsUI.saveOptions(newOptions);
-	    		instance.editCustomRaceUI.setToDefault();
-	    		instance.editCustomRaceUI.saveOptions(newOptions);
+	    		startModAOptionsUI().setToDefault();
+	    		startModAOptionsUI().saveOptions(newOptions);
+	    		startModBOptionsUI().setToDefault();
+	    		startModBOptionsUI().saveOptions(newOptions);
+	    		editCustomRaceUI().setToDefault();
+	    		editCustomRaceUI().saveOptions(newOptions);
 	    		return newOptions;
 	    	case "VANILLA":
 	    	default: // Vanilla, as before
@@ -352,8 +353,10 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     // BR: Display UI panel for MOD game options
     public static ModGlobalOptionsUI modGlobalOptionsUI() { return instance.modGlobalOptionsUI; }
 	// BR: Display UI panel for Player Race Customization
-    public static EditCustomRaceUI editCustomRaceUI()	  { return instance.editCustomRaceUI; }
-    public static ShowCustomRaceUI showCustomRaceUI()	  { return instance.showCustomRaceUI; }
+//    public static EditCustomRaceUI editCustomRaceUI()	  { return instance.editCustomRaceUI; }
+//    public static ShowCustomRaceUI showCustomRaceUI()	  { return instance.showCustomRaceUI; }
+    public static EditCustomRaceUI editCustomRaceUI() { return EditCustomRaceUI.instance(); }
+    public static ShowCustomRaceUI showCustomRaceUI() { return ShowCustomRaceUI.instance(); }
     public static GameSettingsUI gameSettingsUI()    { return instance.gameSettingsUI; }
 
     @Override
@@ -384,10 +387,14 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     public void selectSetupGalaxyPanel() { setupGalaxyUI.init(); selectPanel(SETUP_GALAXY_PANEL, setupGalaxyUI);  }
     public void selectLoadGamePanel() { loadGameUI.init(); selectPanel(LOAD_PANEL, loadGameUI); }
     // BR: for restarting with new options
-    public void selectReloadGamePanel(GalaxyCopy oldGalaxy) {
+    public void selectReloadGamePanel(NewGalaxyCopy oldGalaxy) {
     	loadGameUI.init(oldGalaxy);
     	selectPanel(LOAD_PANEL, loadGameUI);
     }
+//    public void selectReloadGamePanel(GalaxyCopy oldGalaxy) { // TODO BR: Remove
+//    	loadGameUI.init(oldGalaxy);
+//    	selectPanel(LOAD_PANEL, loadGameUI);
+//    }
     public void selectSaveGamePanel()	{ saveGameUI.init(); selectPanel(SAVE_PANEL, saveGameUI);  }
     public void selectIntroPanel() {
         mainUI.init(false);

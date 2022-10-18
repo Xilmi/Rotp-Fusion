@@ -15,9 +15,12 @@
  */
 package rotp.model.galaxy;
 
+import static rotp.model.game.MOO1GameOptions.setAIOptions;
 import static rotp.ui.UserPreferences.playerShipSet;
 import static rotp.ui.UserPreferences.randomAlienRaces;
-import static rotp.ui.UserPreferences.restartApplyPlayer;
+import static rotp.ui.UserPreferences.restartApplySettings;
+import static rotp.ui.UserPreferences.restartPlayerRace;
+import static rotp.ui.UserPreferences.restartChangeAI;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -28,9 +31,12 @@ import java.util.List;
 import rotp.mod.br.addOns.RacesOptions;
 import rotp.model.empires.CustomRaceDefinitions;
 import rotp.model.empires.Empire;
+import rotp.model.empires.Empire.EmpireBaseData;
 import rotp.model.empires.Leader;
 import rotp.model.empires.Race;
+import rotp.model.galaxy.Galaxy.GalaxyBaseData;
 import rotp.model.galaxy.GalaxyShape.EmpireSystem;
+import rotp.model.galaxy.StarSystem.SystemBaseData;
 import rotp.model.game.GameSession;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.MOO1GameOptions;
@@ -52,33 +58,73 @@ public class GalaxyFactory implements Base {
 	private static final boolean showAI	 = true; // BR: for debug
 	private static boolean[] isRandomOpponent; // BR: only Random Races will be customized
 	private static String playerDataRaceKey;   // BR: in case Alien races are a copy of player race
+	// Source Data for restart, replace GalaxyShape!
+	// never call GalaxyShape to avoid its initialization!!!)
+//	public static NewGalaxyCopy src;
 
-	public Galaxy newGalaxy(GalaxyCopy gc) { // BR: For restarting with new options
+	public Galaxy newGalaxy(NewGalaxyCopy src) { // TODO BR: For restarting with new options
 		for (Race r: Race.races()) {
 			r.loadNameList();
 			r.loadLeaderList();
 			r.loadHomeworldList();
 		}
-		IGameOptions opts = gc.options();
-		opts.randomizeColors();
-		Galaxy g = new Galaxy(gc);
+   		System.out.println("inside newGalaxy(src)");
+		System.out.println("0 " + src.galSrc.empires[0].raceKey + "  " + src.galSrc.empires[0].raceAI);
+		System.out.println("" + 1 + " " + src.galSrc.empires[1].raceKey + "  " + src.galSrc.empires[1].raceAI);
 
+		IGameOptions opts = src.options();
+		opts.randomizeColors();
+		Galaxy g = new Galaxy(src.galSrc);
+		
 		GameSession.instance().galaxy(g);
-		Race playerRace = Race.keyed(opts.selectedPlayerRace());
-		if(!playerShipSet.isOriginal())
+		
+		
+//		Race playerRace = Race.keyed(opts.selectedPlayerRace());
+		Race playerRace = Race.keyed(src.galSrc.empires[0].raceKey);
+		if(!playerShipSet.isOriginal()) // TODO BR: Add Ship Set to custom races
+			// Select ShipSet shown in Race UI Panel
 			playerRace.preferredShipSet = playerShipSet.get();
 
-		LinkedList<String> alienRaces = gc.alienRaces();
-		addNebulas(g, gc);
+		LinkedList<String> alienRaces = src.alienRaces();
+		addNebulas(g, src);
 		List<String> systemNames = playerRace.systemNames;
 		Collections.shuffle(systemNames);
-
-		addPlayerSystemForGalaxy(g, 0, null, gc);
-		addAlienRaceSystemsForGalaxy(g, 1, null, gc, alienRaces);
-		addUnsettledSystemsForGalaxy(g, gc);		
+		
+		addPlayerSystemForGalaxy(g, 0, null, src);
+		addAlienRaceSystemsForGalaxy(g, 1, null, src, alienRaces);
+		addUnsettledSystemsForGalaxy(g, src.galSrc);		
 		init(g, System.currentTimeMillis());		
+		// TODO BR: continue;
+		
 		return g;
 	}
+
+//	public Galaxy newGalaxy(GalaxyCopy gc) { // TODO BR: remove For restarting with new options
+//		for (Race r: Race.races()) {
+//			r.loadNameList();
+//			r.loadLeaderList();
+//			r.loadHomeworldList();
+//		}
+//		IGameOptions opts = gc.options();
+//		opts.randomizeColors();
+//		Galaxy g = new Galaxy(gc);
+//
+//		GameSession.instance().galaxy(g);
+//		Race playerRace = Race.keyed(opts.selectedPlayerRace());
+//		if(!playerShipSet.isOriginal())
+//			playerRace.preferredShipSet = playerShipSet.get();
+//
+//		LinkedList<String> alienRaces = gc.alienRaces();
+//		addNebulas(g, gc);
+//		List<String> systemNames = playerRace.systemNames;
+//		Collections.shuffle(systemNames);
+//
+//		addPlayerSystemForGalaxy(g, 0, null, gc);
+//		addAlienRaceSystemsForGalaxy(g, 1, null, gc, alienRaces);
+//		addUnsettledSystemsForGalaxy(g, gc);		
+//		init(g, System.currentTimeMillis());		
+//		return g;
+//	}
 	public Galaxy newGalaxy() {
 		for (Race r: Race.races()) {
 			r.loadNameList();
@@ -113,9 +159,9 @@ public class GalaxyFactory implements Base {
 		Collections.shuffle(systemNames);
 
 		List<EmpireSystem> empires = shape.empireSystems();
-		addPlayerSystemForGalaxy(g, 0, empires, null);
+		addPlayerSystemForGalaxy(g, 0, empires, (GalaxyCopy)null);
 		empires.remove(empires.get(0));
-		addAlienRaceSystemsForGalaxy(g, 1, empires, null, alienRaces);
+		addAlienRaceSystemsForGalaxy(g, 1, empires, (GalaxyCopy)null, alienRaces);
 		addUnsettledSystemsForGalaxy(g, shape);
 		
 		// remove empty nebula
@@ -347,6 +393,112 @@ public class GalaxyFactory implements Base {
 		}
 		return raceList;
 	}
+	private void addPlayerSystemForGalaxy(Galaxy g, int id, List<EmpireSystem> empSystems, NewGalaxyCopy src) {
+		// creates a star system for player, using selected options
+		GalaxyBaseData galSrc = null; // Used for Restart
+		EmpireBaseData empSrc = null; // Used for Restart
+		if (src != null) {
+			galSrc = src.galSrc;
+			empSrc = galSrc.empires[id];
+		}
+		
+		IGameOptions opts = GameSession.instance().options();
+		String raceKey = opts.selectedPlayerRace();
+		Race playerRace = Race.keyed(raceKey);
+		String defaultName = playerRace.nextAvailableHomeworld();
+		String systemName = options().selectedHomeWorldName();
+		if (systemName.isEmpty())
+			systemName = defaultName;
+		String leaderName = opts.selectedLeaderName();
+		Integer color = options().selectedPlayerColor();
+
+		// Create DataRace
+		playerDataRaceKey = raceKey;
+		if (UserPreferences.playerIsCustom.get())
+			playerDataRaceKey = CustomRaceDefinitions.CUSTOM_RACE_KEY;
+		if (src != null) // Restart
+			playerDataRaceKey = empSrc.dataRaceKey;
+		Race playerDataRace = Race.keyed(playerDataRaceKey);
+		
+		// create home system for player
+		StarSystem sys;
+		EmpireSystem empSystem = null;
+		sys = StarSystemFactory.current().newSystemForPlayer(playerRace, playerDataRace , g);
+		
+		if (src == null) { // Start
+			empSystem = empSystems.get(id);
+			sys.setXY(empSystem.colonyX(), empSystem.colonyY());
+		} else { // Restart
+			SystemBaseData ref = empSrc.homeSys;
+			sys.setXY(ref.x, ref.y);
+		}
+		sys.name(systemName);
+		g.addStarSystem(sys);
+
+		// modnar: add option to start game with additional colonies
+		// between 0 to 6 additional colonies, set in UserPreferences
+		int numCompWorlds;
+		int[] compSysId;
+		if (src == null) { // Start
+			numCompWorlds = UserPreferences.companionWorlds();
+			compSysId = new int[numCompWorlds];
+			if (numCompWorlds > 0) {
+				for (int i=0; i<numCompWorlds; i++) { // BR: Symmetry management
+					StarSystem sysComp = StarSystemFactory.current().newCompanionSystemForRace(g, 0);
+					Point.Float pt = opts.galaxyShape().getCompanion(0, i);
+					sysComp.setXY(pt.x, pt.y);
+					sysComp.name(compSysName[i]+" "+sys.name()); // companion world greek letter prefix
+					g.addStarSystem(sysComp);
+					compSysId[i] = sysComp.id;
+				}
+			}
+		} else { // Restart
+			numCompWorlds = galSrc.numCompWorlds;
+			compSysId = new int[numCompWorlds];
+			if (numCompWorlds > 0) {
+				for (int i=0; i<numCompWorlds; i++) {
+					SystemBaseData ref = empSrc.companions[i];
+					StarSystem sysComp = StarSystemFactory.current().copySystem(g, ref);
+					sysComp.setXY(ref.x, ref.y);
+					sysComp.name(compSysName[i]+" "+sys.name()); // companion world greek letter prefix
+					g.addStarSystem(sysComp);
+					compSysId[i] = sysComp.id;
+				}
+			}
+		}
+		// add Empire to galaxy
+		// modnar: add option to start game with additional colonies
+		// modnar: compSysId is the System ID array for these additional colonies
+		// BR: Added dataRaceKey
+		Empire emp = new Empire(g, id, playerRace, playerDataRace, sys, compSysId, color, leaderName, empSrc);
+		g.addEmpire(emp);
+
+		//log("Adding star system: ", sys.name(), " - ", playerRace.id, " : ", fmt(sys.x(),2), "@", fmt(sys.y(),2));
+
+		// add other systems in this EmpireSystem
+		// ensure 1st nearby system is colonizable
+		if (src == null) { // Start
+			boolean needHabitable = true;
+			for (int i=1;i<empSystem.numSystems();i++) {
+				StarSystem sys0 = StarSystemFactory.current().newSystem(g);
+				if (needHabitable) {
+					while ((sys0 == null) || !sys0.planet().isEnvironmentFriendly())
+						sys0 = StarSystemFactory.current().newSystem(g);
+					needHabitable = false;
+				}
+				sys0.setXY(empSystem.x(i), empSystem.y(i));
+				g.addStarSystem(sys0);
+			}
+		} else { // Restart
+			for (int i=1;i<=src.numNearBySystem();i++) {
+				SystemBaseData ref = galSrc.starSystems[g.numStarSystems()];
+				StarSystem sys0	= StarSystemFactory.current().copySystem(g, ref);
+				sys0.setXY(ref.x, ref.y);
+				g.addStarSystem(sys0);
+			}
+		}
+//		System.out.println("End Player checkIdentique = " + checkIdentique(g));
+	}
 	private void addPlayerSystemForGalaxy(Galaxy g, int id, List<EmpireSystem> empSystems, GalaxyCopy gc) {
 		// creates a star system for player, using selected options
 		IGameOptions opts = GameSession.instance().options();
@@ -365,11 +517,11 @@ public class GalaxyFactory implements Base {
 //			playerDataRaceKey = RotPUI.playerRaceCustomizationUI().cr.getKey();
 			playerDataRaceKey = CustomRaceDefinitions.CUSTOM_RACE_KEY;
 		}
-		if (gc != null) { // Restart
-			if (!restartApplyPlayer.get()) {
-				playerDataRaceKey = gc.empires(0).abilitiesKey();
-			}
-		}
+//		if (gc != null) { // Restart
+//			if (!restartApplyPlayer.get()) {
+//				playerDataRaceKey = gc.empires(0).dataRaceKey();
+//			}
+//		}
 		Race playerDataRace = Race.keyed(playerDataRaceKey);
 		
 		// create home system for player
@@ -452,6 +604,147 @@ public class GalaxyFactory implements Base {
 //		System.out.println("End Player checkIdentique = " + checkIdentique(g));
 	}
 	private void addAlienRaceSystemsForGalaxy(Galaxy g, int startId,
+			List<EmpireSystem> empSystems, NewGalaxyCopy src, LinkedList<String> alienRaces) {
+		IGameOptions opts = GameSession.instance().options();
+		// creates a star system for each race, and then additional star
+		// systems based on the galaxy size selected at startup
+		GalaxyBaseData galSrc = null; // Used for Restart
+		EmpireBaseData empSrc[] = null; // Used for Restart
+		if (src != null) {
+			galSrc = src.galSrc;
+			empSrc = galSrc.empires;
+		}
+		// get possible banner colors, remove player's color, then randomize
+		List<Integer> raceColors = new ArrayList<>();
+		Integer playerC = options().selectedPlayerColor();
+		boolean playerCExcluded = false;
+		for (Integer i : opts.possibleColors()) {
+			if ((i == playerC) && !playerCExcluded)
+				playerCExcluded = true;
+			else
+				raceColors.add(i);
+		}
+
+		// possible the galaxy shape could not fit in all of the races
+		int empId = startId;
+		int maxRaces;
+		if (src == null) // Start
+			maxRaces = min(alienRaces.size(), empSystems.size());
+		else // Restart
+			maxRaces = empSrc.length-1;		
+
+		// since we may have more races than colors we will need to reset the
+		// color list each time we run out. 
+		for (int h=0; h<maxRaces; h++) {
+			StarSystem sys;
+			String raceKey;
+            if (src != null) // BR: For Restart with new options
+            	raceKey = empSrc[h+1].raceKey;
+            else // Start
+            	raceKey = alienRaces.get(h);
+			Race race = Race.keyed(raceKey);
+			if (raceColors.isEmpty()) 
+				raceColors = opts.possibleColors();
+			Integer colorId = raceColors.remove(0);
+
+			// Create DataRace
+			String dataRaceKey;
+            if (src != null) // BR: For Restart with new options 
+            	dataRaceKey = empSrc[h+1].dataRaceKey;
+            else if (options().randomizeAIAbility())
+                dataRaceKey = random(options().startingRaceOptions());
+            else
+                dataRaceKey = raceKey;
+            if (src == null && randomAlienRaces.isRandom() && isRandomOpponent[h]) {
+            	if (randomAlienRaces.isPlayerCopy()) {
+            		dataRaceKey = playerDataRaceKey;
+            	}
+            	else
+            		dataRaceKey = CustomRaceDefinitions.RANDOM_RACE_KEY;
+            }
+			Race dataRace = Race.keyed(dataRaceKey);
+
+			EmpireSystem empSystem = null;
+			sys = StarSystemFactory.current().newSystemForRace(race, dataRace, g);
+			if (src == null) { // Start
+				empSystem = empSystems.get(h);
+				sys.setXY(empSystem.colonyX(), empSystem.colonyY());
+			} else { // Restart
+				SystemBaseData ref = empSrc[empId].homeSys;
+				sys.setXY(ref.x, ref.y);
+			}			
+			sys.name(race.nextAvailableHomeworld());
+			g.addStarSystem(sys);
+			
+			// modnar: add option to start game with additional colonies
+			// between 0 to 6 additional colonies, set in UserPreferences
+			int numCompWorlds;
+			int[] compSysId;
+			if (src == null) { // Start
+				numCompWorlds = UserPreferences.companionWorlds();
+				compSysId = new int[numCompWorlds];
+				if (numCompWorlds > 0) {
+					for (int i=0; i<numCompWorlds; i++) { // BR: Symmetry management
+						StarSystem sysComp = StarSystemFactory.current().newCompanionSystemForRace(g, i+1);
+						Point.Float pt = opts.galaxyShape().getCompanion(h+1, i);
+						sysComp.setXY(pt.x, pt.y);
+						sysComp.name(compSysName[i]+" "+sys.name()); // companion world greek letter prefix
+						g.addStarSystem(sysComp);
+						compSysId[i] = sysComp.id;
+					}
+				}
+			} else { // Restart
+				numCompWorlds = galSrc.numCompWorlds;
+				compSysId = new int[numCompWorlds];
+				if (numCompWorlds > 0) {
+					for (int i=0; i<numCompWorlds; i++) {
+						SystemBaseData ref = empSrc[empId].companions[i];
+						StarSystem sysComp = StarSystemFactory.current().copySystem(g, ref);
+						sysComp.setXY(ref.x, ref.y);
+						sysComp.name(compSysName[i]+" "+sys.name()); // companion world greek letter prefix
+						g.addStarSystem(sysComp);
+						compSysId[i] = sysComp.id;
+					}
+				}
+			}
+
+			// modnar: add option to start game with additional colonies
+			// modnar: compSysId is the System ID array for these additional colonies
+			Empire emp = new Empire(g, empId, race, dataRace, sys, compSysId, colorId, null, empSrc[empId]);
+			g.addEmpire(emp);
+			empId++;
+			
+			// create two nearby system within 3 light-years (required to be at least 1 habitable)
+			if (src == null) { // Start
+				boolean needHabitable = true;
+				for (int i=1;i<empSystem.numSystems();i++) {
+					StarSystem sys0 = StarSystemFactory.current().newSystem(g);
+					if (opts.galaxyShape().isSymmetric()) { // BR: Symmetry management
+						// BR: Symmetric Galaxy: copy Player nearby systems
+						StarSystem refStar = g.starSystems()[numCompWorlds + i];
+						sys0 = StarSystemFactory.current().copySystem(g, refStar);
+					} else {
+						if (needHabitable) {
+							while ((sys0 == null) || !sys0.planet().isEnvironmentFriendly())
+								sys0 = StarSystemFactory.current().newSystem(g);
+							needHabitable = false;
+						}
+					}
+					sys0.setXY(empSystem.x(i), empSystem.y(i));
+					g.addStarSystem(sys0);
+				}
+			} else { // Restart
+				for (int i=1; i<=src.numNearBySystem(); i++) {
+					SystemBaseData ref = galSrc.starSystems[g.numStarSystems()];
+					StarSystem sys0 = StarSystemFactory.current().copySystem(g, ref);
+					sys0.setXY(ref.x, ref.y);
+					g.addStarSystem(sys0);
+				}
+			}
+//			System.out.println("End alien " + h + "  checkIdentique = " + checkIdentique(g));
+		}
+	}
+	private void addAlienRaceSystemsForGalaxy(Galaxy g, int startId, // TODO BR: to be removed
 			List<EmpireSystem> empSystems, GalaxyCopy gc, LinkedList<String> alienRaces) {
 		IGameOptions opts = GameSession.instance().options();
 		// creates a star system for each race, and then additional star
@@ -493,7 +786,7 @@ public class GalaxyFactory implements Base {
 			// Create DataRace
 			String dataRaceKey;
             if (gc != null) // BR: For Restart with new options 
-            	dataRaceKey = gc.empires(h+1).abilitiesKey();
+            	dataRaceKey = gc.empires(h+1).dataRaceKey();
             else if (options().randomizeAIAbility())
                 dataRaceKey = random(options().startingRaceOptions());
             else
@@ -588,7 +881,25 @@ public class GalaxyFactory implements Base {
 //			System.out.println("End alien " + h + "  checkIdentique = " + checkIdentique(g));
 		}
 	}
-	private void addUnsettledSystemsForGalaxy(Galaxy g, GalaxyCopy gc) {
+	private void addUnsettledSystemsForGalaxy(Galaxy g, GalaxyBaseData galSrc) {
+		// add Orion
+		SystemBaseData ref = galSrc.starSystems[g.numStarSystems()];
+		StarSystem orion = StarSystemFactory.current().newOrionSystem(g);
+		orion.setXY(ref.x, ref.y);
+		orion.name(text("PLANET_ORION"));
+		g.addStarSystem(orion);
+		
+		// add all other systems
+		int lim = galSrc.numStarSystems;
+		for (int i=g.numStarSystems(); i<lim; i++) {
+			ref = galSrc.starSystems[i];
+			StarSystem sys0 = StarSystemFactory.current().copySystem(g, ref);
+			sys0.setXY(ref.x, ref.y);
+			g.addStarSystem(sys0);
+		}
+		log("total systems created: ", str(g.numStarSystems()));
+	}
+	private void addUnsettledSystemsForGalaxy(Galaxy g, GalaxyCopy gc) { // TODO BR: to be removed
 		// add Orion
 		StarSystem ref = gc.starSystem(g.numStarSystems());
 		StarSystem orion = StarSystemFactory.current().newOrionSystem(g);
@@ -642,6 +953,14 @@ public class GalaxyFactory implements Base {
 		}
 		log("total systems created: ", str(g.numStarSystems()));
 	}
+	private void addNebulas(Galaxy g, NewGalaxyCopy src) { // BR: For Restart with new options
+		int numNebula = src.galSrc.nebulas.size();
+		float nebSize = src.nebulaSizeMult;
+		g.initNebulas(numNebula);
+		for (Nebula nebula : src.galSrc.nebulas) {
+			g.addNebula(nebula, nebSize);
+		}
+	}
 	private void addNebulas(Galaxy g, GalaxyCopy gc) { // BR: For Restart with new options
 		int numNebula = gc.nebulas().size();
 		float nebSize = gc.nebulaSizeMult();
@@ -673,5 +992,63 @@ public class GalaxyFactory implements Base {
 				}
 			}
 		}
+	}
+
+	public static class NewGalaxyCopy {
+		private IGameOptions newOptions;
+		private IGameOptions oldOptions;
+		public GalaxyBaseData galSrc;
+		private int selectedEmpire;
+		private float nebulaSizeMult;
+
+		public NewGalaxyCopy (IGameOptions newOpts) {
+			newOptions = newOpts;
+		}
+		public void copy (GameSession oldS) { // Copy from the old session
+			galSrc			= new GalaxyBaseData(oldS.galaxy());
+			oldOptions		= oldS.options();
+			nebulaSizeMult	= oldOptions.nebulaSizeMult();
+			newOptions.copyForRestart(oldOptions); // Copy galaxy settings from old options
+		}
+		public void selectEmpire(int index) { // TODO BR:
+			selectedEmpire	= index;
+			galSrc.swapPlayer(index);
+			
+			// Change player if required and
+			// Set the Options
+			if (!restartApplySettings.get()) { // Keeps old Settings
+				// Old options replace new options
+				// Copy what's needed from new options
+				switch (restartPlayerRace.get()) {
+					case "Gui":
+						// set Gui Player
+						oldOptions.selectedPlayer().race = newOptions.selectedPlayerRace();
+						oldOptions.selectedHomeWorldName(newOptions.selectedHomeWorldName());
+						oldOptions.selectedLeaderName	(newOptions.selectedLeaderName());
+						break;
+					case "Last":// Swap Race
+						oldOptions.selectedPlayer().race = empires(index).raceKey;
+						oldOptions.selectedHomeWorldName(empires(index).homeSys.starName);
+						oldOptions.selectedLeaderName	(empires(index).leaderName);
+						break;
+					case "Swap":
+					default: // Swap Race
+						oldOptions.selectedPlayer().race = empires(0).raceKey;
+						oldOptions.selectedHomeWorldName(empires(0).homeSys.starName);
+						oldOptions.selectedLeaderName	(empires(0).leaderName);
+				}
+				if (restartChangeAI.get()) {
+					setAIOptions((MOO1GameOptions) newOptions, (MOO1GameOptions) oldOptions);
+				} 
+				newOptions = oldOptions;
+			}
+		}
+		public IGameOptions options() { return newOptions; }
+		private int numNearBySystem() { return 2; }
+		private LinkedList<String> alienRaces() {  // TODO BR:
+			return new LinkedList<>();
+		}
+		public EmpireBaseData[] empires()	  { return galSrc.empires; }
+		public EmpireBaseData empires(int id) { return galSrc.empires[id]; }
 	}
 }

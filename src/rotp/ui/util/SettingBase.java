@@ -207,6 +207,7 @@ public class SettingBase<T> implements InterfaceParam {
 		}
 		return String.valueOf(value);
 	}
+	// return true if needs to repaint
 	public boolean toggle(MouseEvent e, MouseWheelEvent w, int idx) { // For bullet
 		if (e == null) { // Mouse Wheel Event
 			if (getDir(w) > 0) { // prev

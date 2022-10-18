@@ -16,6 +16,7 @@
 package rotp.model.galaxy;
 
 import rotp.model.empires.Race;
+import rotp.model.galaxy.StarSystem.SystemBaseData;
 import rotp.model.game.GameSession;
 import rotp.model.game.IGameOptions;
 import rotp.model.planet.PlanetFactory;
@@ -85,11 +86,18 @@ public class StarSystemFactory implements Base {
         sys.planet(PlanetFactory.createCompanionWorld(sys, session().populationBonus()));
         return sys;
     }
-    // BR: For symmetric galaxies copy player characteristics
+    // TODO BR: For symmetric galaxies copy player characteristics // To be removed
     public StarSystem copySystem(Galaxy gal, StarSystem refStar) {
     	String type = refStar.starType().key();
     	StarSystem sys = StarSystem.create(type, gal);
     	sys.planet(PlanetFactory.copyPlanet(sys, refStar.planet()));
+    	return sys;
+    }
+    // BR: For symmetric galaxies copy player characteristics And Restart
+    public StarSystem copySystem(Galaxy gal, SystemBaseData refStar) {
+    	String type = refStar.starType;
+    	StarSystem sys = StarSystem.create(type, gal);
+    	sys.planet(PlanetFactory.copyPlanet(sys, refStar.planetBaseData));
     	return sys;
     }
 }

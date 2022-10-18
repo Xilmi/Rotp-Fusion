@@ -255,7 +255,9 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
         g.setFont(narrowFont(22));
         Color textC = SystemPanel.whiteText;
         drawShadowedString(g, text("RACES_DIPLOMACY_HOMEWORLD"), 1, x0, y1, SystemPanel.blackText, textC);
-        drawShadowedString(g, text("RACES_DIPLOMACY_LEADER"), 1, x0, y2, SystemPanel.blackText, textC);
+        String leader = text("RACES_DIPLOMACY_LEADER");
+        int swL = g.getFontMetrics().stringWidth(leader);
+        drawShadowedString(g, leader, 1, x0, y2, SystemPanel.blackText, textC);
         drawShadowedString(g, text("RACES_DIPLOMACY_CURRENT_TRADE"), 1, x0, y3, SystemPanel.blackText, textC);
         drawShadowedString(g, text("RACES_DIPLOMACY_TOTAL_TRADE"), 1, x0, y4, SystemPanel.blackText, textC);
 //        drawShadowedString(g, text("RACES_DIPLOMACY_ABILITY"), 1, x0, y5, SystemPanel.blackText, textC);
@@ -271,9 +273,13 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
         if(emp.isAIControlled())
             s += ", " + emp.leader().personality() + " " + emp.leader().objective();
         s = emp.replaceTokens(s, "alien");
+        // BR: to avoid too long lines with extra AI text
+        int fs = scaledFont(g, s, w-s20-swL-s5-s20, 20, 10);
+        g.setFont(narrowFont(fs));
         sw = g.getFontMetrics().stringWidth(s);
         drawString(g,s, x+w-s20-sw, y2);
 
+        g.setFont(narrowFont(20));
         int amt = (int) player().totalTradeIncome();
         s = text("RACES_DIPLOMACY_TRADE_AMT", str(amt));
         sw = g.getFontMetrics().stringWidth(s);
@@ -1293,7 +1299,7 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
     public void openShowAbilitiesPane() {
         softClick();
         if (showRaceAbilitiesPane == null) {
-            showRaceAbilitiesPane = ShowCustomRaceUI.instance;
+            showRaceAbilitiesPane = ShowCustomRaceUI.instance();
             showRaceAbilitiesPane.init(parent);
         }
         showRaceAbilitiesPane.loadRace();

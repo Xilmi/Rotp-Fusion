@@ -16,7 +16,6 @@
 package rotp.model.game;
 
 import java.awt.Color;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import rotp.mod.br.addOns.RacesOptions;
@@ -29,8 +28,8 @@ import rotp.model.galaxy.GalaxyShape;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.planet.Planet;
 import rotp.model.tech.TechEngineWarp;
-import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.UserPreferences; // modnar: add custom difficulty level option
+import rotp.ui.game.SetupGalaxyUI;
 
 public interface IGameOptions {
     public static final int MAX_OPPONENTS = SetupGalaxyUI.MAX_DISPLAY_OPPS;
@@ -337,7 +336,8 @@ public interface IGameOptions {
 
     // BR: Options management
     public DynOptions dynamicOptions();
-    public LinkedHashMap<String, DynOptions> customRaces();
+    public DynOptions selectedPlayerAbilities();
+    public void selectedPlayerAbilities(DynOptions abilities);
     
     default void copyForRestart(IGameOptions opt) { } // BR: for Restart with new options
     default void copyOptions(IGameOptions opt) { }

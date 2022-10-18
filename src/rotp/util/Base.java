@@ -17,6 +17,12 @@ package rotp.util;
 
 import org.apache.commons.math3.util.FastMath;
 import rotp.util.sound.SoundManager;
+
+import static rotp.model.game.IGameOptions.DIFFICULTY_CUSTOM;
+import static rotp.ui.UserPreferences.customDifficulty;
+import static rotp.ui.UserPreferences.playerCustomRace;
+import static rotp.ui.UserPreferences.playerIsCustom;
+
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Composite;
@@ -58,6 +64,7 @@ import javax.swing.border.Border;
 
 import rotp.Rotp;
 import rotp.model.empires.Empire;
+import rotp.model.empires.Race;
 import rotp.model.galaxy.Galaxy;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.game.GameSession;
@@ -1359,5 +1366,20 @@ public interface Base {
         
         Graphics g = img.getGraphics();
         g.drawImage(back, 0, 0, imgW, imgH, null);
+    }
+    public default String generateGameName() {
+		String name;
+		if (playerIsCustom.get())
+			name = playerCustomRace.getRace().setupName;
+		else
+			name = Race.keyed(newGameOptions().selectedPlayerRace()).setupName();
+		name +=   " - " + text(newGameOptions().selectedGalaxySize())
+				+ " - " + text(newGameOptions().selectedGameDifficulty());
+		// modnar: add custom difficulty level option, set in Remnants.cfg
+		// append this custom difficulty percentage to gameName if selected
+		if (newGameOptions().selectedGameDifficulty().equals(DIFFICULTY_CUSTOM)) {
+			name += " (" + Integer.toString(customDifficulty.get()) + "%)";
+		}
+		return name;
     }
 }

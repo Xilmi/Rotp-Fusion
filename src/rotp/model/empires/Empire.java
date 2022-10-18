@@ -51,6 +51,8 @@ import rotp.model.ai.interfaces.SpyMaster;
 import rotp.model.colony.Colony;
 import rotp.model.colony.ColonyShipyard;
 import rotp.model.colony.MissileBase;
+import rotp.model.empires.Leader.Objective;
+import rotp.model.empires.Leader.Personality;
 import rotp.model.empires.SpyNetwork.FleetView;
 import rotp.model.events.SystemColonizedEvent;
 import rotp.model.events.SystemHomeworldEvent;
@@ -64,6 +66,7 @@ import rotp.model.galaxy.Ship;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.Ships;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.galaxy.StarSystem.SystemBaseData;
 import rotp.model.galaxy.Transport;
 import rotp.model.game.DynOptions;
 import rotp.model.game.GameSession;
@@ -415,7 +418,41 @@ public final class Empire implements Base, NamedObject, Serializable {
     // modnar: compId is the System ID array for these additional colonies
     // BR: For Restart with new options and random races
     public Empire(Galaxy g, int empId, Race r, Race dr, StarSystem s,
-    		int[] compId, Integer cId, String name, GalaxyCopy gc) {
+    		int[] compId, Integer cId, String name, EmpireBaseData empSrc) {
+    	int opp = empId-1;
+        log("creating empire for ",  r.id);
+        id = empId;
+        raceKey = r.id;
+        dataRaceKey = dr.id;
+        homeSysId = capitalSysId = s.id;
+        compSysId = compId; // modnar: add option to start game with additional colonies
+        if (empSrc != null && empId != Empire.PLAYER_ID) // BR: For Restart with new options 
+        	selectedAI = empSrc.raceAI();
+
+        empireViews = new EmpireView[options().selectedNumberOpponents()+1];
+        status = new EmpireStatus(this);
+        sv = new SystemInfo(this);
+        // many things need to know if this is the player civ, so set it early
+        if (empId == Empire.PLAYER_ID) {
+            divertColonyExcessToResearch = UserPreferences.divertColonyExcessToResearch();
+            g.player(this);
+        }
+        
+        colorId(cId);
+        race = r;
+        dataRace = dr;
+        String raceName = r.nextAvailableName();
+        raceNameIndex = r.nameIndex(raceName);
+        String leaderName = name == null ? r.nextAvailableLeader() : name;
+        leader = new Leader(this, leaderName);
+        if (empSrc != null && empId != Empire.PLAYER_ID) { // BR: For Restart with new options 
+        	leader.personality = empSrc.personality;
+        	leader.objective   = empSrc.objective;
+        }
+        shipLab = new ShipDesignLab();
+    }
+   public Empire(Galaxy g, int empId, Race r, Race dr, StarSystem s,
+    		int[] compId, Integer cId, String name, GalaxyCopy gc) { // TODO BR: To be removed
     	int opp = empId-1;
         log("creating empire for ",  r.id);
         id = empId;
@@ -444,7 +481,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         leader = new Leader(this, leaderName);
         if (gc != null && empId != Empire.PLAYER_ID) { // BR: For Restart with new options 
         	leader.personality = gc.personality().get(opp);
-        	leader.objective = gc.objective().get(opp);
+        	leader.objective   = gc.objective().get(opp);
         }
         shipLab = new ShipDesignLab();
     }
@@ -471,7 +508,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public String name()                 {  // TODO BR: manage custom race
         if (empireName == null)
         	if (isPlayer() && isCustomRace())
-        		empireName = dataRace().empireName;
+        		empireName = dataRace().empireTitle;
         	else
         		empireName = replaceTokens("[this_empire]", "this");
         return empireName;
@@ -529,7 +566,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     @Override
     public String toString()   { return concat("Empire: ", raceName()); }
 
-    public String replaceTokens(String s, String key) {
+    public String replaceTokens(String s, String key) { // TODO BR: complete
         List<String> tokens = this.varTokens(s, key);
         String s1 = s;
         for (String token: tokens) {
@@ -538,11 +575,11 @@ public final class Empire implements Base, NamedObject, Serializable {
             if (token.equals("_name")) 
                 s1 = s1.replace(replString, leader().name());
             else if (token.equals("_home"))
-                s1 = s1.replace(replString, sv.name(capitalSysId()));              
-            else if (isPlayer() && token.equals("_race"))
-                s1 = s1.replace(replString, dataRace().setupName);              
-            else if (isPlayer() && token.equals("_empire"))
-                s1 = s1.replace(replString, dataRace().empireName);              
+                s1 = s1.replace(replString, sv.name(capitalSysId()));   
+            else if (isCustomPlayer() && !isRandomized() && token.equals("_race"))
+                    s1 = s1.replace(replString, dataRace().setupName);              
+            else if (isCustomPlayer() && !isRandomized() && token.equals("_empire"))
+                    s1 = s1.replace(replString, dataRace().empireTitle);
             else {
                 List<String> values = substrings(race().text(token), ',');
                 String value = raceNameIndex < values.size() ? values.get(raceNameIndex) : values.get(0);
@@ -3169,16 +3206,14 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
     }
     // BR: Custom Races
-    public String  raceKey()      { return raceKey; }
-    public String  dataRaceKey()  { return dataRaceKey; }
-    public boolean isCustomRace() { return dataRace().isCustomRace(); }
-    public String  description4() { return dataRace().description4(); }
-    public String  abilitiesKey() { 
-//    	System.out.println("dataRaceKey = " + dataRaceKey);
-//    	System.out.println("dataRace.id = " + dataRace().id);
-    	return dataRaceKey;
-    }
-    public DynOptions dynamicOptions() { return dynamicOptions; }
+    public String  raceKey()			{ return raceKey; }
+    public String  dataRaceKey()		{ return dataRaceKey; }
+    public boolean isCustomRace()		{ return dataRace().isCustomRace(); }
+    public boolean isCustomPlayer()		{ return isPlayer() && isCustomRace(); }
+    public boolean isRandomized()		{ return dataRace().isRandomized(); }
+    public DynOptions raceOptions()		{ return dataRace().raceOptions(); }
+    public String  description4()		{ return dataRace().description4(); }
+    public DynOptions dynamicOptions()	{ return dynamicOptions; }
     // Modnar added features
     public float bCBonus()                     { return dataRace().bCBonus(); }
     public float hPFactor()                    { return dataRace().hPFactor();  }
@@ -3933,6 +3968,62 @@ public final class Empire implements Base, NamedObject, Serializable {
     public static Comparator<Empire> TOTAL_PRODUCTION = (Empire o1, Empire o2) -> o2.totalPlanetaryProduction().compareTo(o1.totalPlanetaryProduction());
     public static Comparator<Empire> AVG_TECH_LEVEL   = (Empire o1, Empire o2) -> o2.tech.avgTechLevel().compareTo(o1.tech.avgTechLevel());
     public static Comparator<Empire> TOTAL_FLEET_SIZE = (Empire o1, Empire o2) -> o2.totalFleetSize().compareTo(o1.totalFleetSize());
-    public static Comparator<Empire> RACE_NAME        = (Empire o1,   Empire o2)   -> o1.raceName().compareTo(o2.raceName());
+    public static Comparator<Empire> RACE_NAME        = (Empire o1, Empire o2) -> o1.raceName().compareTo(o2.raceName());
     public static Comparator<Empire> HISTORICAL_SIZE  = (Empire o1, Empire o2) -> Base.compare(o2.numColoniesHistory, o1.numColoniesHistory);
+	// ==================== EmpireBaseData ====================
+	//
+	public static class EmpireBaseData {
+		public String raceKey;
+		public String dataRaceKey;
+		public String empireName;
+		public String dataName; // TODO BR: Validate for custom Races
+		public String raceName;  // TODO BR: Validate for custom Races
+		public String leaderName;
+		public boolean isCustomRace;
+		public DynOptions raceOptions;
+		public int raceAI;
+		public Personality personality;
+		public Objective objective;
+
+		public SystemBaseData homeSys;
+		public int[] compSysId;
+		public SystemBaseData[] companions;
+		
+		public EmpireBaseData(Empire src, SystemBaseData[] systems) {
+			raceKey		 = src.raceKey;
+			dataRaceKey	 = src.dataRaceKey;
+			empireName	 = src.name();
+			raceName	 = src.raceName();
+			leaderName	 = src.leader().name();
+			isCustomRace = src.isCustomRace();
+			if (isCustomRace)
+				dataName = src.dataRace().setupName;
+			else 
+				dataName = src.dataRace().setupName();
+			raceOptions	 = src.raceOptions();
+			raceAI		 = src.selectedAI;
+			personality	 = src.leader().personality;
+			objective	 = src.leader().objective;
+
+			homeSys 	= systems[src.homeSysId()];
+			compSysId	= src.compSysId;
+			int compNum = src.getCompanionWorldsNumber();
+			if(compSysId != null) {
+				companions = new SystemBaseData[compNum];
+				for (int i=0; i<compNum; i++)
+					companions[i] = systems[i];
+			}
+		}
+		public void setRace(String r, String dr, boolean isCR,
+				DynOptions options, int ai) {
+			raceKey		 = r;
+			dataRaceKey	 = dr;
+			isCustomRace = isCR;
+			raceOptions	 = options;
+			raceAI		 = ai;
+		}
+		public void raceAI(int ai)	{ raceAI = ai; }
+		public int  raceAI()		{ return raceAI; }
+		
+	}
 }

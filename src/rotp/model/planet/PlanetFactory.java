@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.util.List;
 import rotp.model.empires.Race;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.planet.Planet.PlanetBaseData;
 import rotp.util.Base;
 
 public class PlanetFactory implements Base {
@@ -35,7 +36,14 @@ public class PlanetFactory implements Base {
 
     static { instance.loadDataFiles(); }
 
-    // BR: For Symmetric galaxies
+    // BR: For Symmetric galaxies and Restart
+    public static Planet copyPlanet(StarSystem sys, PlanetBaseData src) {
+    	Planet p = new Planet(sys);
+        p.initPlanetType(src.planetTypeKey);
+        p.copy(src);
+        return p;
+    }
+    // BR: For Symmetric galaxies // TODO BR: will be removed
     public static Planet copyPlanet(StarSystem sys, Planet src) {
     	Planet p = new Planet(sys);
         p.initPlanetType(src.type().key());

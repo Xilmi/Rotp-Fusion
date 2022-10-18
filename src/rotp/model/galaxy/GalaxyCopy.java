@@ -15,9 +15,10 @@
  */
 package rotp.model.galaxy;
 
+import static rotp.model.game.MOO1GameOptions.setAIOptions;
+//import static rotp.ui.UserPreferences.restartApplyPlayer;
 import static rotp.ui.UserPreferences.restartApplySettings;
 import static rotp.ui.UserPreferences.restartChangeAI;
-import static rotp.ui.UserPreferences.restartApplyPlayer;
 
 import java.awt.geom.Point2D.Float;
 import java.util.LinkedList;
@@ -36,14 +37,11 @@ import rotp.model.game.MOO1GameOptions;
 public class GalaxyCopy extends GalaxyShape {
 	private static final long serialVersionUID = 1L;
 	private static final boolean debug = false;
-	private IGameOptions newOptions;
-	private IGameOptions oldOptions;
 	private float maxScaleAdj;
 	private float nebulaSizeMult;
 	private int numStarSystems;
 	private String selectedGalaxySize;
 	private List<Nebula> nebulas;
-	private int selectedEmpire = 0;
 	private Empire[] empires;
 	private StarSystem[] starSystem;
 	private LinkedList<String> alienRaces;
@@ -57,10 +55,16 @@ public class GalaxyCopy extends GalaxyShape {
 	private String newDataRaceKey;
 	private String oldDataRaceKey;
 
+	// New
+	private IGameOptions newOptions;
+	private IGameOptions oldOptions;
+
+	private int selectedEmpire = 0;
+	
 	// ========== Constructors and Initializers ==========
 	//
-	public GalaxyCopy (IGameOptions newO) {
-		newOptions	= newO;
+	public GalaxyCopy (IGameOptions newOpts) {
+		newOptions = newOpts;
 	}
 	public void copy (GameSession oldS) { // Copy from the old session
 		// Copy Galaxy
@@ -79,7 +83,7 @@ public class GalaxyCopy extends GalaxyShape {
 		numEmpires		= numOpponents + 1;
 		nebulaSizeMult	= oldOptions.nebulaSizeMult();
 		oldRaceKey		= empires[0].raceKey();
-		oldDataRaceKey	= empires[0].abilitiesKey();
+		oldDataRaceKey	= empires[0].dataRaceKey();
 		selectedGalaxySize	= oldOptions.selectedGalaxySize();
 
 //		if (restartApplyPlayer.get())
@@ -96,7 +100,7 @@ public class GalaxyCopy extends GalaxyShape {
 		for (Empire emp : oldG.empires()) {
 			if (emp != null && emp.id!=0) {
 				alienRaces.add(emp.race().name());
-				dataRace.add(emp.abilitiesKey());
+				dataRace.add(emp.dataRaceKey());
 				personality.add(emp.leader().personality);
 				objective.add(emp.leader().objective);
 				if (!restartChangeAI.get())
@@ -111,14 +115,13 @@ public class GalaxyCopy extends GalaxyShape {
 			newOptions.copyForRestart(oldOptions); // Copy what's needed from old options
 		} else {
 			// Copy what's needed from new options
-			if (restartApplyPlayer.get()) {
-				oldOptions.selectedPlayer().race = newOptions.selectedPlayerRace();
-				oldOptions.selectedHomeWorldName(newOptions.selectedHomeWorldName());
-				oldOptions.selectedLeaderName	(newOptions.selectedLeaderName());
-			}
+//			if (restartApplyPlayer.get()) {
+//				oldOptions.selectedPlayer().race = newOptions.selectedPlayerRace();
+//				oldOptions.selectedHomeWorldName(newOptions.selectedHomeWorldName());
+//				oldOptions.selectedLeaderName	(newOptions.selectedLeaderName());
+//			}
 			if (restartChangeAI.get()) {
-				MOO1GameOptions.setAIOptions((MOO1GameOptions) newOptions,
-											 (MOO1GameOptions) oldOptions);
+				setAIOptions((MOO1GameOptions) newOptions, (MOO1GameOptions) oldOptions);
 			}
 			newOptions = oldOptions;
 		}
@@ -136,7 +139,7 @@ public class GalaxyCopy extends GalaxyShape {
 		Empire	empSwap	= empires[index];
 		empires[index]	= empires[0];
 		empires[0]		= empSwap;
-		dataRace.set(index-1, empires[0].abilitiesKey());
+		dataRace.set(index-1, empires[0].dataRaceKey());
 		
 		// Swap near by systems (for the AI scouting)
 		
@@ -148,6 +151,7 @@ public class GalaxyCopy extends GalaxyShape {
 		
 		if (debug)
 			System.out.println("selected empire index = " + index);
+
 		selectedEmpire	= index;
 		if (index == 0) { // Selected current player:
 			// Check total number of player race
@@ -264,5 +268,4 @@ public class GalaxyCopy extends GalaxyShape {
 	@Override public void setRandom(Float p)	{}
 	@Override public boolean valid(float x, float y)	{ return false; }
 	@Override protected float sizeFactor(String size)	{ return 0; }
-
 }

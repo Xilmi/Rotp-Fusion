@@ -45,6 +45,7 @@ import rotp.model.empires.SystemView;
 import rotp.model.events.StarSystemEvent;
 import rotp.model.planet.Planet;
 import rotp.model.planet.PlanetFactory;
+import rotp.model.planet.Planet.PlanetBaseData;
 import rotp.model.ships.Design;
 import rotp.model.ships.ShipDesign;
 import rotp.model.ships.ShipLibrary;
@@ -553,7 +554,7 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
             return;
 
         Empire pl = player();
-        int s7 = BasePanel.s7;
+        //int s7 = BasePanel.s7;
 
         displayed = true;
         int x0 = mapX(map);
@@ -745,7 +746,8 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
 //        if (canShowDetail(map)) 
 //            RotPUI.instance().selectDisplaySystemPanel(this);
     }
-    private boolean canShowDetail(GalaxyMapPanel map)   { return map.parent().isClicked(this) && player().sv.isScouted(id); }
+    @SuppressWarnings("unused")
+	private boolean canShowDetail(GalaxyMapPanel map)   { return map.parent().isClicked(this) && player().sv.isScouted(id); }
     @Override
     public void mouseEnter(GalaxyMapPanel map) {
         hovering = true;
@@ -809,7 +811,7 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
         g2.setComposite(prev);
     }
     private void drawSelection(Graphics2D g, GalaxyMapPanel map, Empire emp, int x, int y) {
-        int r = map.scale(1.0f);
+        //int r = map.scale(1.0f);
 
         Stroke prev = g.getStroke();
         int mod = map.animationCount()%15/5;
@@ -968,4 +970,20 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
         int minFont = 4;
         return bounds(minFont, (int)(maxFont * 10 / map.scaleX()), maxFont);
     }
+	// ==================== SystemBaseData ====================
+	//
+	public static class SystemBaseData {
+		float x, y;
+		String starType;
+		public String starName;
+		PlanetBaseData planetBaseData;
+
+		SystemBaseData(StarSystem src) {
+			x = src.x;
+			y = src.y;
+			starType = src.starType().key();
+			starName = src.name();
+			planetBaseData = new PlanetBaseData(src.planet());
+		}
+	}
 }

@@ -16,6 +16,7 @@
 
 package rotp.model.empires;
 
+import static rotp.model.empires.Race.crEmpireNameRandom;
 import static rotp.model.game.DynOptions.loadOptions;
 import static rotp.ui.UserPreferences.playerCustomRace;
 import static rotp.ui.UserPreferences.randomAlienRaces;
@@ -74,6 +75,7 @@ public class CustomRaceDefinitions  {
 	private LinkedList<Integer> spacerList; // For UI
 	private LinkedList<Integer> columnList; // For UI
 	private RaceList raceList;
+//	private boolean newValue = false;
 	
 	// ========== Constructors and Initializers ==========
 	//
@@ -90,8 +92,8 @@ public class CustomRaceDefinitions  {
 		fromOptions(srcOptions);
 		pushSettings();
 	}
-	private CustomRaceDefinitions(String name) {
-		this(loadOptions(Rotp.jarPath(), name + EXT));
+	private CustomRaceDefinitions(String fileName) {
+		this(loadOptions(Rotp.jarPath(), fileName + EXT));
 	}
 	// -------------------- Static Methods --------------------
 	// 
@@ -100,7 +102,7 @@ public class CustomRaceDefinitions  {
 		cr.randomizeRace(randomAlienRacesMin.get(), randomAlienRacesMax.get(),
 				randomAlienRacesTargetMin.get(), randomAlienRacesTargetMax.get(),
 				randomAlienRacesSmoothEdges.get(), randomAlienRaces.isTarget(), false);
-		return cr.getRace();
+		return cr.getRace().isCustomRace(true);
 	}
 	static Race keyToRace(String raceKey) {
 		if (raceKey.equalsIgnoreCase(RANDOM_RACE_KEY)) {
@@ -176,7 +178,13 @@ public class CustomRaceDefinitions  {
 		race.isCustomRace(true);
 		return race;
 	}
-
+//    public boolean newValue() {
+//    	if (newValue) {
+//    		newValue = false;
+//    		return true;
+//    	}
+//    	return false;
+//    }
 	// ========== Other Methods ==========
 	//
 	/**
@@ -512,7 +520,7 @@ public class CustomRaceDefinitions  {
 		}
 		@Override public void pullSetting() {
 			if (race.setupName == null)
-				set(race.name());
+				set(race.setupName());
 			else
 				set(race.setupName);				
 		}
@@ -523,16 +531,17 @@ public class CustomRaceDefinitions  {
 		private EmpireName() {
 			super(ROOT, "RACE_EMPIRE_NAME", "Custom Empire", 1);
 			inputMessage("Enter the Empire Designation");
-			randomStr("Random Empire");
+			randomStr(crEmpireNameRandom);
 		}
 		@Override public void pushSetting() {
-			race.empireName = settingValue();
+			race.empireTitle = settingValue();
 		}
 		@Override public void pullSetting() {
-			if (race.empireName == null)
-				set(race.name());
+//			set(race.empireTitle());
+			if (race.empireTitle == null)
+				set(race.empireTitle());
 			else
-				set(race.empireName);				
+				set(race.empireTitle);				
 		}
 	}
 	// ==================== RaceDescription1 ====================
@@ -627,6 +636,9 @@ public class CustomRaceDefinitions  {
 		}
 		@Override public void pushSetting() {
 			race = Race.keyed(settingValue()).copy();
+//			pullSettings();
+//			newValue = true;
+//			updateGui();
 		}
 		@Override public void pullSetting() {
 			if (!pullAllowed)

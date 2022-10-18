@@ -34,6 +34,7 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.LinkedList;
 
+import rotp.model.empires.CustomRaceDefinitions;
 import rotp.model.empires.CustomRaceDefinitions.RaceList;
 import rotp.model.game.DynOptions;
 import rotp.model.game.MOO1GameOptions;
@@ -62,7 +63,8 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	private static final String loadTipKey		= ROOT + "GUI_LOAD_TIP";
 	private static final String cancelTipKey	= ROOT + "CANCEL_TIP";
 
-	public	static final EditCustomRaceUI instance = new EditCustomRaceUI().init0();
+//	public	static final EditCustomRaceUI instance = new EditCustomRaceUI().init0();
+	private	static final EditCustomRaceUI instance = new EditCustomRaceUI();
 	
 	private final Rectangle selectBox	= new Rectangle();
     private final Rectangle defaultBox	= new Rectangle();
@@ -79,8 +81,15 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	// ========== Constructors and initializers ==========
 	//
 	private EditCustomRaceUI() {}
+	public static EditCustomRaceUI instance() {
+		return instance.init0();
+	}
 
-	private EditCustomRaceUI init0() {
+	public EditCustomRaceUI init0() {
+		if (initialized)
+			return this;
+		initialized = true;
+		cr = new CustomRaceDefinitions();		
 		addMouseListener(this);
 		addMouseMotionListener(this);
 		addMouseWheelListener(this);
@@ -287,6 +296,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 					setting.toggle(e, w);
 					setting.guiSelect();
 					if (raceList.newValue())
+//					if (cr.newValue())
 						repaint();
 					else
 						totalCostText.repaint(totalCostStr());
@@ -298,9 +308,11 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 						int optionIdx = bulletStart + bulletIdx;
 						if (hoverBox == setting.optionText(bulletIdx).bounds()) {
 							if (setting.toggle(e, w, optionIdx) || raceList.newValue())
+//							if (setting.toggle(e, w, optionIdx) || cr.newValue())
 								repaint();
 							else
 								totalCostText.repaint(totalCostStr());
+//							repaint();
 							return;
 						}
 					}

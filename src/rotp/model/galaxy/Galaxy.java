@@ -15,6 +15,7 @@
  */
 package rotp.model.galaxy;
 
+import static rotp.ui.UserPreferences.restartChangeAI;
 import static rotp.util.ObjectCloner.deepCopy;
 
 import java.awt.Point;
@@ -22,15 +23,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import rotp.model.colony.Colony;
 import rotp.model.combat.ShipCombatManager;
 import rotp.model.empires.Empire;
+import rotp.model.empires.Empire.EmpireBaseData;
 import rotp.model.empires.GalacticCouncil;
 import rotp.model.empires.Race;
 import rotp.model.events.RandomEvents;
+import rotp.model.galaxy.GalaxyFactory.NewGalaxyCopy;
+import rotp.model.galaxy.StarSystem.SystemBaseData;
 import rotp.model.game.DynOptions;
 import rotp.model.game.GameSession;
 import rotp.ui.NoticeMessage;
@@ -125,6 +130,13 @@ public class Galaxy implements Base, Serializable {
         if (raceSystemCtr == null)
             raceSystemCtr = new HashMap<>();
         return raceSystemCtr;
+    }
+    public Galaxy(GalaxyBaseData src) { // BR: For Restart
+        widthLY		= src.width;
+        heightLY	= src.height;
+        maxScaleAdj	= src.maxScaleAdj;
+        starSystems	= new StarSystem[src.numStarSystems];
+        empires		= new Empire[options().selectedNumberOpponents()+1];
     }
     public Galaxy(GalaxyShape sh) {
         widthLY = sh.width();
@@ -581,5 +593,56 @@ public class Galaxy implements Base, Serializable {
         Collections.shuffle(names);
         raceSystemNames().put(rId, names);
         raceSystemCtr().put(rId, i);
+    }
+    // ==================== GalaxyBaseData ====================
+    //
+	public static class GalaxyBaseData {
+		int width;
+		int height;
+		List<Nebula> nebulas;
+		private float maxScaleAdj;
+		int numCompWorlds;
+		int numStarSystems;
+		SystemBaseData[] starSystems;
+		private int numEmpires;
+		public EmpireBaseData[] empires;
+		
+		GalaxyBaseData(Galaxy src) {
+			width		= src.width();
+			height		= src.height();
+			nebulas		= src.nebulas();
+			maxScaleAdj	= src.maxScaleAdj();
+			numCompWorlds	= src.empire(0).getCompanionWorldsNumber();
+
+			numStarSystems = src.numStarSystems();
+			starSystems	   = new SystemBaseData[numStarSystems];
+			for (int i=0; i<src.systemCount; i++ )
+				starSystems[i] = new SystemBaseData(src.system(i));
+
+			numEmpires = src.numEmpires();
+			empires	   = new EmpireBaseData[numEmpires];
+			for (int i=0; i<numEmpires; i++ )
+				empires[i] = new EmpireBaseData(src.empire(i), starSystems);
+		}
+		void swapPlayer(int id) {
+			// Swap empires, but keeps AI
+			EmpireBaseData empireSwap;
+			empireSwap	= empires[id];
+			empires[id]	= empires[0];
+			empires[0]	= empireSwap;
+			int aiSwap	= empires[id].raceAI();
+			empires[id].raceAI(empires[0].raceAI());
+			empires[0].raceAI(aiSwap);
+		}
+		void playerRace(String r, String dr, boolean isCR,
+				DynOptions options, int ai) {
+			empires[0].setRace(r, dr, isCR, options, ai);
+		}
+		LinkedList<String> alienRaces() {
+			LinkedList<String> list = new LinkedList<>();
+			for (int i=1; i<numEmpires; i++)
+				list.add(empires[i].raceKey);
+			return list;
+		}
     }
 }

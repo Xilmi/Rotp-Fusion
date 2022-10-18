@@ -53,11 +53,88 @@ public enum RaceFactory implements Base {
     	List<String> list = new ArrayList<>();
     	list.add("key");
     	list.add("langKey");
+    	list.add("year");
     	list.add("homestarType");
     	list.add("homeworldType");
-    	list.add("homeworldKey");
     	list.add("homeworldSize");
+    	list.add("homeworldKey");
+    	list.add("mugshot");
+		// list.add("setupImage");
+		// list.add("spyMug");
+		// list.add("soldierMug");
+		// list.add("diploProfile");
+		// list.add("lab");
+		// list.add("embassy");
+		// list.add("holograph");
+		// list.add("diplomat");
+		// list.add("scientist");
+		// list.add("trooper");
+		// list.add("spy");
+		// list.add("leader");
+		// list.add("diploTheme");
+		// list.add("gnn");
+		// list.add("gnnHost");
+		// list.add("gnnColor");
+		// list.add("gnnTextColor");
+		// list.add("winSplash");
+		// list.add("lossSplash");
+		// list.add("advisorMug");
+		// list.add("advisorScout");
+		// list.add("advisorTransport");
+		// list.add("advisorDiplomacy");
+		// list.add("advisorShip");
+		// list.add("advisorRally");
+		// list.add("advisorMissile");
+		// list.add("advisorWeapon");
+		// list.add("advisorCouncil");
+		// list.add("advisorRebellion");
+		// list.add("advisorResistCouncil");
+		// list.add("advisorCouncilResisted");
+		// list.add("transport");
+		// list.add("transportDesc");
+		// list.add("transportOpen");
+		// list.add("transportW");
+		// list.add("transportYOff");
+		// list.add("transportLandingFrames");
+		// list.add("colonistWalk");
+		// list.add("landingAudio");
+		// list.add("troopIcon");
+		// list.add("troopHIcon");
+		// list.add("troopDeath1");
+		// list.add("troopDeath2");
+		// list.add("troopDeath3");
+		// list.add("troopDeath4");
+		// list.add("troopDeath1H");
+		// list.add("troopDeath2H");
+		// list.add("troopDeath3H");
+		// list.add("troopDeath4H");
+		// list.add("troopScale");
+		// list.add("troopFireXY");
+		// list.add("troopHFireXY");
+		// list.add("fortress");
+		// list.add("council");
+		// list.add("shield");
+		// list.add("introTextX");
+		// list.add("espionageXY");
+		// list.add("spyFactories");
+		// list.add("spyMissiles");
+		// list.add("spyRebellion");
+		// list.add("dialogTextX");
+		// list.add("dialogTextY");
+		// list.add("councilDiplo");
+		// list.add("labFlagX");
+		list.add("flagSize");
+    	list.add("flagWar");
+    	list.add("flagNormal");
+    	list.add("flagPact");
+		// list.add("dialogWar");
+		// list.add("dialogNormal");
+		// list.add("dialogPact");
+		// list.add("voice");
+		// list.add("ambience");
     	list.add("species");
+    	list.add("personality");
+    	list.add("objective");
     	list.add("preferredship");
     	list.add("shipmod");
     	list.add("groundmod");
@@ -67,89 +144,13 @@ public enum RaceFactory implements Base {
     	list.add("popmod");
     	list.add("diplomod");
     	list.add("research");
-    	list.add("personality");
-    	list.add("objective");
     	list.add("relations");
     	list.add("shipdesign");
-    	list.add("homeworld");
-    	list.add("available");    	
 
-//    	list.add("year");
-//    	list.add("mugshot");
-//    	list.add("diploProfile");
-//    	list.add("setupImage");
-//    	list.add("spyMug");
-//    	list.add("soldierMug");
-//    	list.add("advisorMug");
-//    	list.add("advisorScout");
-//    	list.add("advisorTransport");
-//    	list.add("advisorDiplomacy");
-//    	list.add("advisorShip");
-//    	list.add("advisorRally");
-//    	list.add("advisorMissile");
-//    	list.add("advisorWeapon");
-//    	list.add("advisorCouncil");
-//    	list.add("advisorRebellion");
-//    	list.add("advisorResistCouncil");
-//    	list.add("advisorCouncilResisted");
-//    	list.add("council");
-//    	list.add("lab");
-//    	list.add("embassy");
-//    	list.add("holograph");
-//    	list.add("diplomat");
-//    	list.add("scientist");
-//    	list.add("trooper");
-//    	list.add("spy");
-//    	list.add("leader");
-//    	list.add("diploTheme");
-//    	list.add("gnn");
-//    	list.add("gnnHost");
-//    	list.add("gnnColor");
-//    	list.add("gnnTextColor");
-//    	list.add("diplomatXform");
-//    	list.add("winSplash");
-//    	list.add("lossSplash");
-//    	list.add("flagSize");
-//    	list.add("flagWar");
-//    	list.add("flagNormal");
-//    	list.add("flagPact");
-//    	list.add("dialogWar");
-//    	list.add("dialogNormal");
-//    	list.add("dialogPact");
-//    	list.add("troopIcon");
-//    	list.add("troopFireXY");
-//    	list.add("troopScale");
-//    	list.add("troopHIcon");
-//    	list.add("troopHFireXY");
-//    	list.add("troopDeath1");
-//    	list.add("troopDeath2");
-//    	list.add("troopDeath3");
-//    	list.add("troopDeath4");
-//    	list.add("troopDeath1H");
-//    	list.add("troopDeath2H");
-//    	list.add("troopDeath3H");
-//    	list.add("troopDeath4H");
-//    	list.add("landingAudio");
-//    	list.add("transport");
-//    	list.add("transportDesc");
-//    	list.add("transportOpen");
-//    	list.add("transportW");
-//    	list.add("transportYOff");
-//    	list.add("transportLandingFrames");
-//    	list.add("colonistWalk");
-//    	list.add("labFlagX");
-//    	list.add("spyFactories");
-//    	list.add("spyMissiles");
-//    	list.add("spyRebellion");
-//    	list.add("espionageXY");
-//    	list.add("dialogTextX");
-//    	list.add("dialogTextY");
-//    	list.add("fortress");
-//    	list.add("shield");
-//    	list.add("introTextX");
-//    	list.add("councilDiplo");
-//    	list.add("voice");
-//    	list.add("ambience");
+    	// -- None in current races
+    	// list.add("diplomatXform"); // never used
+    	// list.add("homeworld"); // = "homeworldKey"
+    	// list.add("available"); // Available player | Available AI // never used
     	return list;
     }
     // BR: The safest way to copy a race!
@@ -160,7 +161,7 @@ public enum RaceFactory implements Base {
     	return false;
     }
     // BR: The safest way to copy a race!
-    public Race reloadRaceDataFile(String raceDirPath) {
+    Race reloadRaceDataFile(String raceDirPath) {
         String filename = raceDirPath+"/definition.txt";
         List<String> loadList = reloadedSettings();
         BufferedReader in = reader(filename);
@@ -178,12 +179,12 @@ public enum RaceFactory implements Base {
                 List<String> vals = substrings(input, ':');
                 if (vals.size() < 2)
                 	continue;
-                if (isInList(vals.get(1), loadList))
+                if (isInList(vals.get(0), loadList))
                 	loadRaceDataLine(newRace, input);
             }
             in.close();
-            ImageManager.current().loadImageList(raceDirPath+"/images.txt");
-            AnimationManager.current().loadAnimationList(raceDirPath+"/animations.txt");
+            //ImageManager.current().loadImageList(raceDirPath+"/images.txt");
+            //AnimationManager.current().loadAnimationList(raceDirPath+"/animations.txt");
         }
         catch (IOException e) {
             err("RaceFactory.loadRaceDataFile(", filename, ") -- IOException: ", e.toString());

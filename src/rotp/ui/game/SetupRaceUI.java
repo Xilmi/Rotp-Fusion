@@ -564,12 +564,14 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 	}
     public void goToMainMenu() {
         buttonClick();
+        initialOptions = null;
         RotPUI.instance().selectGamePanel();
         backImg = null;
         raceImg = null;
     }
     public void goToGalaxySetup() {
         buttonClick();
+        initialOptions = null;
         RotPUI.instance().selectSetupGalaxyPanel();
         backImg = null;
         raceImg = null;

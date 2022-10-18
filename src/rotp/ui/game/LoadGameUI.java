@@ -54,6 +54,7 @@ import rotp.Rotp;
 
 import rotp.mod.br.profiles.Profiles;
 import rotp.model.galaxy.GalaxyCopy;
+import rotp.model.galaxy.GalaxyFactory.NewGalaxyCopy;
 import rotp.model.game.GameSession;
 import rotp.ui.BasePanel;
 import rotp.ui.NoticeMessage;
@@ -84,7 +85,8 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
     int selectIndex;
     int start = 0;
     int end = 0;
-    private GalaxyCopy oldGalaxy;
+    private NewGalaxyCopy oldGalaxy;
+    private GalaxyCopy oldGalaxyX;
     private boolean restart;
     
     int sortOrder = SORT_DT_UP;
@@ -111,11 +113,17 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
         initModel();
     }
     // BR: for restarting with new options
-    public void init(GalaxyCopy oldGalaxy) {
+    public void init(NewGalaxyCopy oldGalaxy) {
      	this.oldGalaxy	= oldGalaxy;
     	restart = true;
     	init();
     }
+    // TODO BR: Remove for restarting with new options
+//    public void init(GalaxyCopy oldGalaxy) {
+//     	this.oldGalaxyX	= oldGalaxy;
+//    	restart = true;
+//    	init();
+//    }
     public void init() {
         saveFiles.clear();
         saveDates.clear();
@@ -148,7 +156,7 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
         FilenameFilter filter = (File dir, String name1) -> name1.toLowerCase().endsWith(ext);
         File[] fileList = saveDir.listFiles(filter);
         
-          // fileList = null if prefs pointing to an invalid folder...default to jarPath 
+        // fileList = null if prefs pointing to an invalid folder...default to jarPath 
         if (fileList == null) {
             saveDirPath = Rotp.jarPath();
             saveDir = new File(saveDirPath);
@@ -439,7 +447,7 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
             newSession = preloadGame(dirName, s);
             SelectRestartEmpireUI selectRestartEmpireUI = SelectRestartEmpireUI.instance();
             selectRestartEmpireUI.init(oldGalaxy, newSession);
-    		disableGlassPane();
+    		disableGlassPane(); // TODO BR: Try move up
     		selectRestartEmpireUI.open();
             restart	  = false;
             oldGalaxy = null;

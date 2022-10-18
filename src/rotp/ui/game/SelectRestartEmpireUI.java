@@ -37,8 +37,10 @@ import javax.swing.SwingUtilities;
 
 import rotp.model.empires.CustomRaceDefinitions;
 import rotp.model.empires.Empire;
+import rotp.model.empires.Empire.EmpireBaseData;
 import rotp.model.empires.Race;
 import rotp.model.galaxy.GalaxyCopy;
+import rotp.model.galaxy.GalaxyFactory.NewGalaxyCopy;
 import rotp.model.game.GameSession;
 import rotp.ui.BasePanel;
 import rotp.ui.NoticeMessage;
@@ -64,7 +66,8 @@ final class SelectRestartEmpireUI  extends BasePanel implements MouseListener, M
 	private int selectIndex;
 	private int start = 0;
 	private int end   = 0;
-	private GalaxyCopy oldGalaxy;
+	private GalaxyCopy oldGalaxyX;
+	private NewGalaxyCopy oldGalaxy;
 	
 	private int buttonW, button1X, button2X;
     private boolean loading = false;
@@ -95,9 +98,29 @@ final class SelectRestartEmpireUI  extends BasePanel implements MouseListener, M
 		return instance;
 	}
 	// BR: for restarting with new options
-	void init(GalaxyCopy oG, GameSession newSession) {
+	void init(NewGalaxyCopy oG, GameSession newSession) {
 		this.newSession = newSession;
 	 	oldGalaxy = oG;
+		empireList.clear();
+		valueList.clear();
+		raceList.clear();
+		empireList.clear();
+		abilitiesList.clear();
+		homeworldList.clear();
+		
+		hoverBox = null;
+		selectBox = null;
+		selectIndex = -1;
+		start = 0;
+		end = 0;
+		selectedOpponent = -1;
+
+		loadListing();
+	}
+	// TODO BR: for restarting with new options Remove
+	void init(GalaxyCopy oG, GameSession newSession) {
+		this.newSession = newSession;
+	 	oldGalaxyX = oG;
 		empireList.clear();
 		valueList.clear();
 		raceList.clear();
@@ -127,21 +150,20 @@ final class SelectRestartEmpireUI  extends BasePanel implements MouseListener, M
 		empireList.clear();
 		abilitiesList.clear();
 		homeworldList.clear();
+		CustomRaceDefinitions cr;
 
-		for (Empire e : oldGalaxy.empires()){
-			String name = e.name();
-			String home = oldGalaxy.starSystem(e.homeSysId()).name();
-			String race = e.race().setupName();
-			String abilities;
-			if (e.isCustomRace())
-				abilities = "Custom Race";
-			else 
-				abilities = e.dataRace().setupName();
-//			String dataKey = e.abilitiesKey();
-			int value = Math.round(new CustomRaceDefinitions(e.dataRace()).getTotalCost());
-//			Integer value = CustomRaceDefinitions.keyToValue(dataKey);
+		for (EmpireBaseData e : oldGalaxy.empires()){
+			String name = e.empireName;
+			String home = e.homeSys.starName;
+			String race = e.raceName;
+			String abilities = e.dataName;
+			if (e.isCustomRace)
+				cr = new CustomRaceDefinitions(e.raceOptions);
+			else
+				cr = new CustomRaceDefinitions(Race.keyed(e.dataRaceKey));
+			
 			empireList.add(name);
-			valueList.add(value);
+			valueList.add(Math.round(cr.getTotalCost()));
 			raceList.add(race);
 			abilitiesList.add(abilities);
 			homeworldList.add(home);
@@ -151,6 +173,37 @@ final class SelectRestartEmpireUI  extends BasePanel implements MouseListener, M
 			selectedOpponent = start+selectIndex;
 		}
 	}
+//	private void loadListing() {
+//		empireList.clear();
+//		valueList.clear();
+//		raceList.clear();
+//		empireList.clear();
+//		abilitiesList.clear();
+//		homeworldList.clear();
+//
+//		for (Empire e : oldGalaxy.empires()){
+//			String name = e.name();
+//			String home = oldGalaxy.starSystem(e.homeSysId()).name();
+//			String race = e.race().setupName();
+//			String abilities;
+//			if (e.isCustomRace())
+//				abilities = "Custom Race";
+//			else 
+//				abilities = e.dataRace().setupName();
+////			String dataKey = e.abilitiesKey();
+//			int value = Math.round(new CustomRaceDefinitions(e.dataRace()).getTotalCost());
+////			Integer value = CustomRaceDefinitions.keyToValue(dataKey);
+//			empireList.add(name);
+//			valueList.add(value);
+//			raceList.add(race);
+//			abilitiesList.add(abilities);
+//			homeworldList.add(home);
+//		}
+//		if (!homeworldList.isEmpty()) {
+//			selectIndex = 0;
+//			selectedOpponent = start+selectIndex;
+//		}
+//	}
 	private int selectedEmpire(int index) {
 		return start+index;
 	}
@@ -256,31 +309,16 @@ final class SelectRestartEmpireUI  extends BasePanel implements MouseListener, M
 	}
 	private boolean canSelect()	{ return selectIndex >= 0; }
 	private boolean canLoad()	  { return selectedOpponent>=0; }
-	public void setOpponent(int idx) {
+	public void setOpponent(int idx) { // TODO BR:
 		buttonClick();
-		oldGalaxy.selectedEmpire(idx);
-		Race r = Race.keyed(newGameOptions().selectedPlayerRace());
+		oldGalaxy.selectEmpire(idx);
 		GameSession.instance().loadSession(newSession);
-		
-		GameUI.gameName = r.setupName()
-				+ " - "
-				+ text(oldGalaxy.selectedGalaxySize())
-				+ " - "
-				+ text(newGameOptions().selectedGameDifficulty());
-		
-		// modnar: add custom difficulty level option, set in Remnants.cfg
-		// append this custom difficulty percentage to gameName if selected
-		if (text(newGameOptions().selectedGameDifficulty()).equals("Custom")) {
-			GameUI.gameName = GameUI.gameName 
-					+ " ("
-					+ Integer.toString(UserPreferences.customDifficulty.get())
-					+ "%)";
-		}
 		loading = true;
 		repaint();
 
 		final Runnable load = () -> {
 			long start = System.currentTimeMillis();
+			GameUI.gameName = generateGameName();
 			GameSession.instance().restartGame(newGameOptions(), oldGalaxy);
 			RotPUI.instance().mainUI().checkMapInitialized();
 			RotPUI.instance().selectIntroPanel();
@@ -297,6 +335,47 @@ final class SelectRestartEmpireUI  extends BasePanel implements MouseListener, M
 		disableGlassPane();
 		RotPUI.instance().selectSetupGalaxyPanel();
 	}
+//	public void setOpponent(int idx) { // TODO BR: to be removed
+//		buttonClick();
+//		oldGalaxy.selectedEmpire(idx);
+//		Race r = Race.keyed(newGameOptions().selectedPlayerRace());
+//		GameSession.instance().loadSession(newSession);
+//		
+//		GameUI.gameName = r.setupName()
+//				+ " - "
+//				+ text(oldGalaxy.selectedGalaxySize())
+//				+ " - "
+//				+ text(newGameOptions().selectedGameDifficulty());
+//		
+//		// modnar: add custom difficulty level option, set in Remnants.cfg
+//		// append this custom difficulty percentage to gameName if selected
+//		if (text(newGameOptions().selectedGameDifficulty()).equals("Custom")) {
+//			GameUI.gameName = GameUI.gameName 
+//					+ " ("
+//					+ Integer.toString(UserPreferences.customDifficulty.get())
+//					+ "%)";
+//		}
+//		loading = true;
+//		repaint();
+//
+//		final Runnable load = () -> {
+//			long start = System.currentTimeMillis();
+//			GameSession.instance().restartGame(newGameOptions(), oldGalaxy);
+//			RotPUI.instance().mainUI().checkMapInitialized();
+//			RotPUI.instance().selectIntroPanel();
+//			log("TOTAL GAME START TIME:" +(System.currentTimeMillis()-start));
+//			log("Game Name; "+GameUI.gameName);
+//	     	oldGalaxy  = null;
+//	     	newSession = null;
+//		};
+//		SwingUtilities.invokeLater(load);
+//		disableGlassPane();
+//	}
+//	private void cancelSelect() {
+//		buttonClick();
+//		disableGlassPane();
+//		RotPUI.instance().selectSetupGalaxyPanel();
+//	}
 	// ==================== Nested Class ====================
 	//
 	private class LoadListingPanel extends BasePanel implements MouseListener, MouseMotionListener {

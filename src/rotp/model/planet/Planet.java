@@ -646,7 +646,8 @@ public class Planet implements Base, IMappedObject, Serializable {
         else
             return buffer1;
     }
-    // BR: For Symmetric galaxies
+
+    // BR: For Symmetric galaxies  // TODO BR: will be removed
     public void copy(Planet src) {
     	this.environment = src.environment();
     	this.resources   = src.resources();
@@ -654,4 +655,36 @@ public class Planet implements Base, IMappedObject, Serializable {
     	this.bonusTechs  = src.bonusTechs();
     	this.baseSize    = src.baseSize();
     }
+    // BR: For Symmetric galaxies and Restart
+    public void copy(PlanetBaseData src) {
+    	baseSize		= src.baseSize;
+    	terraformLevel	= src.terraformLevel;
+    	environment		= src.environment;
+    	resources		= src.resources;
+    	artifacts		= src.artifacts;
+    	bonusTechs		= src.bonusTechs;
+    	// waste		= src.waste; // for future option: starting with random waste!
+    }
+	// ==================== PlanetBaseData ====================
+	//
+	public static class PlanetBaseData {
+		public String planetTypeKey;
+		public float baseSize;
+		public int terraformLevel;
+		public int environment;
+		public int resources;
+		public int artifacts;
+		public int bonusTechs;
+		// public float waste; // for future option: starting with random waste!
+		public PlanetBaseData(Planet src) {
+			planetTypeKey	= src.planetTypeKey;
+			baseSize		= src.baseSize;
+			terraformLevel	= src.terraformLevel;
+			environment		= src.environment;
+			resources		= src.resources;
+			artifacts		= src.artifacts;
+			bonusTechs		= src.bonusTechs;
+			// waste		= src.waste;
+		}
+	}
 }

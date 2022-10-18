@@ -49,6 +49,7 @@ import rotp.model.empires.EspionageMission;
 import rotp.model.empires.SabotageMission;
 import rotp.model.empires.Spy;
 import rotp.model.galaxy.*;
+import rotp.model.galaxy.GalaxyFactory.NewGalaxyCopy;
 import rotp.model.ships.ShipManeuver;
 import rotp.model.ships.ShipSpecial;
 import rotp.ui.notifications.GNNExpansionEvent;
@@ -60,6 +61,7 @@ import rotp.model.tech.TechTree;
 import rotp.ui.NoticeMessage;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
+import rotp.ui.game.GameUI;
 import rotp.ui.notifications.GameAlert;
 import rotp.ui.notifications.SabotageNotification;
 import rotp.ui.notifications.ShipConstructionNotification;
@@ -266,15 +268,21 @@ public final class GameSession implements Base, Serializable {
             clearNewGameOptions();
         }
     }
-    // BR: For Restart with new options
-    public void restartGame(IGameOptions newGameOptions, GalaxyCopy gc) { 
+    // TODO BR: For Restart with new options
+    public void restartGame(IGameOptions newGameOptions, NewGalaxyCopy src) { 
     	stopCurrentGame();
-        options = gc.options();
+        options = src.options();
         startExecutors();
         
         synchronized(ONE_GAME_AT_A_TIME) {
             id = (long) (Long.MAX_VALUE*random());
-            GalaxyFactory.current().newGalaxy(gc);
+    		System.out.println("Before newGalaxy(src)");
+    		System.out.println("0 " + src.galSrc.empires[0].raceKey + "  " + src.galSrc.empires[0].raceAI);
+    		System.out.println("" + 1 + " " + src.galSrc.empires[1].raceKey + "  " + src.galSrc.empires[1].raceAI);
+            GalaxyFactory.current().newGalaxy(src);
+    		System.out.println("After newGalaxy(src)");
+    		System.out.println("0 " + src.galSrc.empires[0].raceKey + "  " + src.galSrc.empires[0].raceAI);
+    		System.out.println("" + 1 + " " + src.galSrc.empires[1].raceKey + "  " + src.galSrc.empires[1].raceAI);
             log("Galaxy complete");
             status().startGame();
             clearScoutedSystems();
@@ -286,11 +294,37 @@ public final class GameSession implements Base, Serializable {
             Profiles.saveGameOptionsToFile(this);
     		MOO1GameOptions.saveGameOptions((MOO1GameOptions) options);
             // \BR
+    		GameUI.gameName = generateGameName();
             saveRecentSession(false);
             saveBackupSession(1);
             clearNewGameOptions();
         }
     }
+    // TODO BR: For Restart with new options // To be removed
+//    public void restartGame(IGameOptions newGameOptions, GalaxyCopy gc) { 
+//    	stopCurrentGame();
+//        options = gc.options();
+//        startExecutors();
+//        
+//        synchronized(ONE_GAME_AT_A_TIME) {
+//            id = (long) (Long.MAX_VALUE*random());
+//            GalaxyFactory.current().newGalaxy(gc);
+//            log("Galaxy complete");
+//            status().startGame();
+//            clearScoutedSystems();
+//            systemsToAllocate().clear();
+//            shipsConstructed().clear();
+//            spyActivity = false;
+//            galaxy().startGame();
+//            // BR: Save the last loaded game parameters
+//            Profiles.saveGameOptionsToFile(this);
+//    		MOO1GameOptions.saveGameOptions((MOO1GameOptions) options);
+//            // \BR
+//            saveRecentSession(false);
+//            saveBackupSession(1);
+//            clearNewGameOptions();
+//        }
+//    }
     private void  startExecutors() {
         smallSphereService = Executors.newSingleThreadExecutor();
     }

@@ -18,8 +18,8 @@ package rotp.model.game;
 import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
-import static rotp.ui.UserPreferences.playerIsCustom;
 import static rotp.ui.UserPreferences.minStarsPerEmpire;
+import static rotp.ui.UserPreferences.playerIsCustom;
 import static rotp.ui.UserPreferences.playerShipSet;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
 import static rotp.ui.UserPreferences.randomTechStart;
@@ -39,7 +39,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -124,7 +123,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private String selectedAutoplayOption;
     // BR: Dynamic options
     private final DynOptions dynamicOptions = new DynOptions();
-    private final LinkedHashMap<String, DynOptions> customRaces = new LinkedHashMap<>();
+    private DynOptions selectedPlayerAbilities;
 
     private transient GalaxyShape galaxyShape;
 
@@ -141,7 +140,10 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             selectedOpponentRace(i,null);
     }
 	@Override public DynOptions dynamicOptions() { return dynamicOptions; } // BR:
-	@Override public LinkedHashMap<String, DynOptions> customRaces() { return customRaces; } // BR:
+	@Override public DynOptions selectedPlayerAbilities() { return selectedPlayerAbilities; } // BR:
+	@Override public void selectedPlayerAbilities(DynOptions abilities) { // TODO BR: probably remove
+		selectedPlayerAbilities = abilities;
+	}
     @Override
     public int numPlayers()                      { return 1; }
     @Override

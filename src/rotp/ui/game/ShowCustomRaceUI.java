@@ -110,7 +110,8 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	private static final int optionIndent	= s15;
 
 	// This should be the last static to be initialized
-	public static final ShowCustomRaceUI instance = new ShowCustomRaceUI().init0();
+//	public static final ShowCustomRaceUI instance = new ShowCustomRaceUI().init0();
+	private static final ShowCustomRaceUI instance = new ShowCustomRaceUI();
 
 	private LinkedList<Integer> colSettingsCount;
 	private	LinkedList<Integer> spacerList;
@@ -144,22 +145,30 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	protected final Rectangle exitBox = new Rectangle();
 	protected String tooltipText = "";
 	protected BaseText totalCostText;
-	private BaseText raceAI;
+	private   BaseText raceAI;
 	private	  RacesUI  raceUI; // Parent panel
 	protected int maxLeftM;
-	protected final CustomRaceDefinitions cr;
+	protected CustomRaceDefinitions cr;
+	protected boolean initialized = false;
 	
 	// ========== Constructors and initializers ==========
 	//
 	protected ShowCustomRaceUI() {
-		cr = new CustomRaceDefinitions();
+		// cr = new CustomRaceDefinitions();
 		setOpaque(false);
 	    totalCostText = new BaseText(this, false, costFontSize, 0, 0, 
 	    		costC, costC, hoverC, depressedC, costC, 0, 0, 0);
 	    raceAI = new BaseText(this, false, raceAIFontSize, 0, 0, 
 	    		costC, costC, hoverC, depressedC, costC, 0, 0, 0);
 	}
+	public static ShowCustomRaceUI instance() {
+		return instance.init0();
+	}
 	private ShowCustomRaceUI init0() {
+		if (initialized)
+			return this;
+		initialized = true;
+		cr = new CustomRaceDefinitions();		
 		maxLeftM	= scaled(50);
 		guiTitleID	= ROOT + "SHOW_TITLE";
 	    commonList	= settingList;
@@ -450,8 +459,9 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		yTitle	= topM + titleOffset;
 		yButton	= yTT - tooltipPadV - buttonH;
 		yCost 	= yTitle + costOffset;
-		yRace	= yCost - raceNameH + s6;
-		xRace	= leftM + columnPad/2;
+//		yRace	= yCost - raceNameH + s6;
+//		xRace	= leftM + columnPad/2;
+		xCost	= leftM + columnPad/2;
 		xLine	= leftM + columnPad/2;
 		yLine	= yTop;
 		xTT		= leftM + columnPad;
@@ -483,7 +493,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		drawBorderedString(g, title, 1, xTitle, yTitle, Color.black, Color.white);
 		
 		// Total cost
-		xCost = xRace + raceNameW + columnPad;
+//		xCost = xRace + raceNameW + columnPad;
 		totalCostText.displayText(totalCostStr());
 		totalCostText.setScaledXY(xCost, yCost);
 		totalCostText.draw(g);

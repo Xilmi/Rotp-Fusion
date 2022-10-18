@@ -113,10 +113,14 @@ public class UserPreferences {
 			, 3, 3, Rotp.maximumSystems-1, 1, 5, 20);
 	public static final ParamInteger prefStarsPerEmpire	= new ParamInteger(MOD_UI, "PREF_STARS_PER_EMPIRE"
 			, 10, 3, Rotp.maximumSystems-1, 1, 10, 100);
-	public static final ParamBoolean restartApplyPlayer	= new ParamBoolean(MOD_UI, "RESTART_APPLY_PLAYER", false);
+//	public static final ParamBoolean restartApplyPlayer	= new ParamBoolean(MOD_UI, "RESTART_APPLY_PLAYER", false);
 	public static final ParamBoolean restartChangeAI	= new ParamBoolean(MOD_UI, "RESTART_CHANGE_AI",	 false);
 //	public static final ParamBoolean restartChangeAliens = new ParamBoolean(MOD_UI, "RESTART_CHANGE_ALIENS", false);
 	public static final ParamBoolean restartApplySettings = new ParamBoolean(MOD_UI, "RESTART_APPLY_SETTINGS",false);
+	public static final ParamList restartPlayerRace	= new ParamList(MOD_UI, "RESTART_PLAYER_RACE", "Swap")
+			.put("Gui",	 MOD_UI + "RESTART_PLAYER_RACE_GUI")
+			.put("Last", MOD_UI + "RESTART_PLAYER_RACE_LAST")
+			.put("Swap", MOD_UI + "RESTART_PLAYER_RACE_SWAP");
 
 	public static final EventsStartTurn eventsStartTurn	= new EventsStartTurn(MOD_UI, "EVENTS_STARS_TURN"
 			, RandomEvents.START_TURN, 1, null, 1, 5, 20);
