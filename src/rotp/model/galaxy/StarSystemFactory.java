@@ -41,7 +41,7 @@ public class StarSystemFactory implements Base {
         sys.name(text("PLANET_ORION"));
         return sys;
     }
-    public StarSystem newSystemForRace(Race r, Race dr, Galaxy gal) { // BR: added dataRace
+    StarSystem newSystemForRace(Race r, Race dr, Galaxy gal) { // BR: added dataRace
         IGameOptions opts = GameSession.instance().options();
         String type;
         // BR: if symmetric all race have same home system type
@@ -56,7 +56,7 @@ public class StarSystemFactory implements Base {
         sys.planet(PlanetFactory.createHomeworld(r, dr, sys, session().populationBonus(), false));
         return sys;
     }
-    public StarSystem newSystemForPlayer(Race r, Race dr, Galaxy gal) { // BR: added dataRace
+    StarSystem newSystemForPlayer(Race r, Race dr, Galaxy gal) { // BR: added dataRace
         IGameOptions opts = GameSession.instance().options();
         String type = opts.randomPlayerStarType(dr);
         StarSystem sys = StarSystem.create(type, gal);
@@ -67,7 +67,7 @@ public class StarSystemFactory implements Base {
     // modnar: add option to start game with additional colonies
     // modnar: use orion star type (red, orange, yellow)
     // BR: for symmetric galaxies add option to copy player characteristics
-    public StarSystem newCompanionSystemForRace(Galaxy gal, int colonyId) {
+    StarSystem newCompanionSystemForRace(Galaxy gal, int colonyId) {
         IGameOptions opts = GameSession.instance().options();
         String type;
         if (opts.galaxyShape().isSymmetric()
@@ -81,20 +81,14 @@ public class StarSystemFactory implements Base {
         return sys;
     }
     // BR: For symmetric galaxies copy player characteristics
-    public StarSystem newCompanionSystemForRace(Galaxy gal, String type) {
-        StarSystem sys = StarSystem.create(type, gal);
-        sys.planet(PlanetFactory.createCompanionWorld(sys, session().populationBonus()));
-        return sys;
-    }
-    // TODO BR: For symmetric galaxies copy player characteristics // To be removed
-    public StarSystem copySystem(Galaxy gal, StarSystem refStar) {
+    StarSystem copySystem(Galaxy gal, StarSystem refStar) {
     	String type = refStar.starType().key();
     	StarSystem sys = StarSystem.create(type, gal);
     	sys.planet(PlanetFactory.copyPlanet(sys, refStar.planet()));
     	return sys;
     }
     // BR: For symmetric galaxies copy player characteristics And Restart
-    public StarSystem copySystem(Galaxy gal, SystemBaseData refStar) {
+    StarSystem copySystem(Galaxy gal, SystemBaseData refStar) {
     	String type = refStar.starType;
     	StarSystem sys = StarSystem.create(type, gal);
     	sys.planet(PlanetFactory.copyPlanet(sys, refStar.planetBaseData));

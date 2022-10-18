@@ -68,7 +68,6 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
     private final ManageDiplomatsUI manageDiplomatsPane;
     private final ManageSpiesUI manageSpiesPane;
     private ShowCustomRaceUI showRaceAbilitiesPane;
-//    private PlayerRaceCustomizationUI showRaceAbilitiesPane;
     int incidentY, incidentYMax;
     int relationsY, relationsYMax;
     int dragY;
@@ -260,7 +259,7 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
         drawShadowedString(g, leader, 1, x0, y2, SystemPanel.blackText, textC);
         drawShadowedString(g, text("RACES_DIPLOMACY_CURRENT_TRADE"), 1, x0, y3, SystemPanel.blackText, textC);
         drawShadowedString(g, text("RACES_DIPLOMACY_TOTAL_TRADE"), 1, x0, y4, SystemPanel.blackText, textC);
-//        drawShadowedString(g, text("RACES_DIPLOMACY_ABILITY"), 1, x0, y5, SystemPanel.blackText, textC);
+        // drawShadowedString(g, text("RACES_DIPLOMACY_ABILITY"), 1, x0, y5, SystemPanel.blackText, textC);
         drawShowAbilitiesButton(g, x0-s10,y5-s15,s20,s22);
 
         g.setFont(narrowFont(20));
@@ -307,7 +306,7 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
         drawShadowedString(g, text("RACES_DIPLOMACY_LEADER"), 1, x0, y2, SystemPanel.blackText, textC);
         drawShadowedString(g, text("RACES_DIPLOMACY_CHARACTER"), 1, x0, y3, SystemPanel.blackText, textC);
         drawShadowedString(g, text("RACES_DIPLOMACY_STATUS"), 1, x0, y4, SystemPanel.blackText, textC);
-//        drawShadowedString(g, text("RACES_DIPLOMACY_ABILITY"), 1, x0, y5, SystemPanel.blackText, textC);
+        // drawShadowedString(g, text("RACES_DIPLOMACY_ABILITY"), 1, x0, y5, SystemPanel.blackText, textC);
         drawShowAbilitiesButton(g, x0-s10,y5-s15,s20,s22);
 
         g.setFont(narrowFont(20));
@@ -1296,7 +1295,7 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
         enableGlassPane(manageSpiesPane);
         return;
     }
-    public void openShowAbilitiesPane() {
+    private void openShowAbilitiesPane() {
         softClick();
         if (showRaceAbilitiesPane == null) {
             showRaceAbilitiesPane = ShowCustomRaceUI.instance();

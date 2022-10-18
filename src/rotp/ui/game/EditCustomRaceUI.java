@@ -63,7 +63,6 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	private static final String loadTipKey		= ROOT + "GUI_LOAD_TIP";
 	private static final String cancelTipKey	= ROOT + "CANCEL_TIP";
 
-//	public	static final EditCustomRaceUI instance = new EditCustomRaceUI().init0();
 	private	static final EditCustomRaceUI instance = new EditCustomRaceUI();
 	
 	private final Rectangle selectBox	= new Rectangle();
@@ -174,7 +173,6 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	}
 	private void doSelectBoxAction() {
 		buttonClick();
-//		cr.pushSettings(); // TODO BR: may be not necessary
 		playerCustomRace.set(cr.getAsOptions());
 		playerIsCustom.set(true);
 		saveLastOptions();
@@ -296,7 +294,6 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 					setting.toggle(e, w);
 					setting.guiSelect();
 					if (raceList.newValue())
-//					if (cr.newValue())
 						repaint();
 					else
 						totalCostText.repaint(totalCostStr());
@@ -308,11 +305,9 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 						int optionIdx = bulletStart + bulletIdx;
 						if (hoverBox == setting.optionText(bulletIdx).bounds()) {
 							if (setting.toggle(e, w, optionIdx) || raceList.newValue())
-//							if (setting.toggle(e, w, optionIdx) || cr.newValue())
 								repaint();
 							else
 								totalCostText.repaint(totalCostStr());
-//							repaint();
 							return;
 						}
 					}

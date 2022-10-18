@@ -34,7 +34,7 @@ import rotp.model.empires.Empire.EmpireBaseData;
 import rotp.model.empires.GalacticCouncil;
 import rotp.model.empires.Race;
 import rotp.model.events.RandomEvents;
-import rotp.model.galaxy.GalaxyFactory.NewGalaxyCopy;
+import rotp.model.galaxy.GalaxyFactory.GalaxyCopy;
 import rotp.model.galaxy.StarSystem.SystemBaseData;
 import rotp.model.game.DynOptions;
 import rotp.model.game.GameSession;

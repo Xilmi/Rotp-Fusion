@@ -74,6 +74,7 @@ import rotp.model.planet.PlanetType;
 import rotp.model.tech.TechEngineWarp;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
+import rotp.ui.game.EditCustomRaceUI;
 import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.util.InterfaceOptions;
 import rotp.util.Base;
@@ -123,7 +124,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private String selectedAutoplayOption;
     // BR: Dynamic options
     private final DynOptions dynamicOptions = new DynOptions();
-    private DynOptions selectedPlayerAbilities;
 
     private transient GalaxyShape galaxyShape;
 
@@ -140,10 +140,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             selectedOpponentRace(i,null);
     }
 	@Override public DynOptions dynamicOptions() { return dynamicOptions; } // BR:
-	@Override public DynOptions selectedPlayerAbilities() { return selectedPlayerAbilities; } // BR:
-	@Override public void selectedPlayerAbilities(DynOptions abilities) { // TODO BR: probably remove
-		selectedPlayerAbilities = abilities;
-	}
     @Override
     public int numPlayers()                      { return 1; }
     @Override
@@ -352,7 +348,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	    		gOpt = new MOO1GameOptions();
     	    		RotPUI.startModAOptionsUI().setToDefault();
     	    		RotPUI.startModBOptionsUI().setToDefault();
-    	    		RotPUI.editCustomRaceUI().setToDefault();
+    	    		EditCustomRaceUI.instance().setToDefault();
     	    		generateGalaxy();
     	    		return;
     	    	case "STARTUP":
@@ -373,7 +369,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     public void copyAllOtherOptions(MOO1GameOptions source) { // BR:
 		RotPUI.startModAOptionsUI().getOptions(source);
 		RotPUI.startModBOptionsUI().getOptions(source);
-		RotPUI.editCustomRaceUI().getOptions(source);
+		EditCustomRaceUI.instance().getOptions(source);
 		
 	    setGalaxyShape(); 
 	    selectedGalaxyShapeOption1 = source.selectedGalaxyShapeOption1;
@@ -410,7 +406,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         }
         
     	// Copy CustomRaces as part of Race UI
-		for (InterfaceOptions param : RotPUI.editCustomRaceUI().commonList)
+		for (InterfaceOptions param : EditCustomRaceUI.instance().commonList)
 			param.setFromOptions(opt.dynamicOptions);
     	playerIsCustom.setFromOptions(opt.dynamicOptions);
     	playerShipSet.setFromOptions(opt.dynamicOptions);

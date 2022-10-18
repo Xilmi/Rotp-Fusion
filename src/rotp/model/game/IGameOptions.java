@@ -336,8 +336,6 @@ public interface IGameOptions {
 
     // BR: Options management
     public DynOptions dynamicOptions();
-    public DynOptions selectedPlayerAbilities();
-    public void selectedPlayerAbilities(DynOptions abilities);
     
     default void copyForRestart(IGameOptions opt) { } // BR: for Restart with new options
     default void copyOptions(IGameOptions opt) { }

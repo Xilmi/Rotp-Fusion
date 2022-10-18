@@ -903,8 +903,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     // BR: Display UI panel for Player Race Customization
     private void goToPlayerRaceCustomization() {
         buttonClick();
-        EditCustomRaceUI editCustomRaceUI = RotPUI.editCustomRaceUI();
-        editCustomRaceUI.open(this);
+        EditCustomRaceUI.instance().open(this);
         backImg = null;
         raceImg = null;
     }

@@ -49,7 +49,7 @@ import rotp.model.empires.EspionageMission;
 import rotp.model.empires.SabotageMission;
 import rotp.model.empires.Spy;
 import rotp.model.galaxy.*;
-import rotp.model.galaxy.GalaxyFactory.NewGalaxyCopy;
+import rotp.model.galaxy.GalaxyFactory.GalaxyCopy;
 import rotp.model.ships.ShipManeuver;
 import rotp.model.ships.ShipSpecial;
 import rotp.ui.notifications.GNNExpansionEvent;
@@ -260,7 +260,6 @@ public final class GameSession implements Base, Serializable {
             galaxy().startGame();
             // BR: Save the last loaded game parameters
             Profiles.saveGameOptionsToFile(this);
-//            options.setObjectOptions(SetupGalaxyUI.aliensKey, this.galaxy().emp);
     		MOO1GameOptions.saveGameOptions((MOO1GameOptions) options);
             // \BR
             saveRecentSession(false);
@@ -268,8 +267,8 @@ public final class GameSession implements Base, Serializable {
             clearNewGameOptions();
         }
     }
-    // TODO BR: For Restart with new options
-    public void restartGame(IGameOptions newGameOptions, NewGalaxyCopy src) { 
+    // BR: For Restart with new options
+    public void restartGame(IGameOptions newGameOptions, GalaxyCopy src) { 
     	stopCurrentGame();
         options = src.options();
         startExecutors();
@@ -300,31 +299,6 @@ public final class GameSession implements Base, Serializable {
             clearNewGameOptions();
         }
     }
-    // TODO BR: For Restart with new options // To be removed
-//    public void restartGame(IGameOptions newGameOptions, GalaxyCopy gc) { 
-//    	stopCurrentGame();
-//        options = gc.options();
-//        startExecutors();
-//        
-//        synchronized(ONE_GAME_AT_A_TIME) {
-//            id = (long) (Long.MAX_VALUE*random());
-//            GalaxyFactory.current().newGalaxy(gc);
-//            log("Galaxy complete");
-//            status().startGame();
-//            clearScoutedSystems();
-//            systemsToAllocate().clear();
-//            shipsConstructed().clear();
-//            spyActivity = false;
-//            galaxy().startGame();
-//            // BR: Save the last loaded game parameters
-//            Profiles.saveGameOptionsToFile(this);
-//    		MOO1GameOptions.saveGameOptions((MOO1GameOptions) options);
-//            // \BR
-//            saveRecentSession(false);
-//            saveBackupSession(1);
-//            clearNewGameOptions();
-//        }
-//    }
     private void  startExecutors() {
         smallSphereService = Executors.newSingleThreadExecutor();
     }

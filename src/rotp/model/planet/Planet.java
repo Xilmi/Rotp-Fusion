@@ -62,24 +62,19 @@ public class Planet implements Base, IMappedObject, Serializable {
     private static final Color TERRAIN_RUST_C2 = new Color(187,111,85); // mars bright surface
     private static final Color TERRAIN_RADIATED_C1 = new Color(137,103,75); // mars bright surface
     private static final Color TERRAIN_RADIATED_C2 = new Color(132,116,93); // mars bright surface
-    // environment // BR: Made them public
-    public static final int ENVIRONMENT_NONE = -1;
-    public static final int ENVIRONMENT_HOSTILE = 0;
-    public static final int ENVIRONMENT_NORMAL = 1;
-    public static final int ENVIRONMENT_FERTILE = 2;
-    public static final int ENVIRONMENT_GAIA = 3;
-
-    // mineral constants // BR: Made them public
-    public static final int ULTRA_POOR = 1;
-    public static final int POOR = 2;
-    public static final int NORMAL = 3;
-    public static final int RICH = 4;
-    public static final int ULTRA_RICH = 5;
-
-    // artifact constants // BR: Made them public
-    public static final int NO_ARTIFACTS = 0;
-    public static final int RUINS_ANTARAN = 6;
-    public static final int RUINS_ORION = 7;
+    private static final int ENVIRONMENT_NONE = -1;
+    private static final int ENVIRONMENT_HOSTILE = 0;
+    private static final int ENVIRONMENT_NORMAL = 1;
+    private static final int ENVIRONMENT_FERTILE = 2;
+    private static final int ENVIRONMENT_GAIA = 3;
+    private static final int ULTRA_POOR = 1;
+    private static final int POOR = 2;
+    private static final int NORMAL = 3;
+    private static final int RICH = 4;
+    private static final int ULTRA_RICH = 5;
+    private static final int NO_ARTIFACTS = 0;
+    private static final int RUINS_ANTARAN = 6;
+    private static final int RUINS_ORION = 7;
 
     private String planetTypeKey;
     private final StarSystem system;
@@ -140,7 +135,7 @@ public class Planet implements Base, IMappedObject, Serializable {
     public boolean isResourceRich()        { return resources == RICH; }
     public boolean isResourceUltraRich()   { return resources == ULTRA_RICH; }
 
-    public int resources()                 { return resources; }
+    private int resources()                 { return resources; }
     public void depleteResources()         { resources = max(ULTRA_POOR, resources-1); }
     public void enrichResources()          { resources = min(ULTRA_RICH, resources+1); }
     public void setResourceUltraPoor()     { resources = ULTRA_POOR; }
@@ -647,8 +642,8 @@ public class Planet implements Base, IMappedObject, Serializable {
             return buffer1;
     }
 
-    // BR: For Symmetric galaxies  // TODO BR: will be removed
-    public void copy(Planet src) {
+    // BR: For Symmetric galaxies
+    void copy(Planet src) {
     	this.environment = src.environment();
     	this.resources   = src.resources();
     	this.artifacts   = src.artifacts();
@@ -656,7 +651,7 @@ public class Planet implements Base, IMappedObject, Serializable {
     	this.baseSize    = src.baseSize();
     }
     // BR: For Symmetric galaxies and Restart
-    public void copy(PlanetBaseData src) {
+    void copy(PlanetBaseData src) {
     	baseSize		= src.baseSize;
     	terraformLevel	= src.terraformLevel;
     	environment		= src.environment;
@@ -668,13 +663,13 @@ public class Planet implements Base, IMappedObject, Serializable {
 	// ==================== PlanetBaseData ====================
 	//
 	public static class PlanetBaseData {
-		public String planetTypeKey;
-		public float baseSize;
-		public int terraformLevel;
-		public int environment;
-		public int resources;
-		public int artifacts;
-		public int bonusTechs;
+		String planetTypeKey;
+		private float baseSize;
+		private int terraformLevel;
+		private int environment;
+		private int resources;
+		private int artifacts;
+		private int bonusTechs;
 		// public float waste; // for future option: starting with random waste!
 		public PlanetBaseData(Planet src) {
 			planetTypeKey	= src.planetTypeKey;

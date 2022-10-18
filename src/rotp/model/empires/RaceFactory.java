@@ -146,8 +146,7 @@ public enum RaceFactory implements Base {
     	list.add("research");
     	list.add("relations");
     	list.add("shipdesign");
-
-    	// -- None in current races
+    	// -- None in current races definitions
     	// list.add("diplomatXform"); // never used
     	// list.add("homeworld"); // = "homeworldKey"
     	// list.add("available"); // Available player | Available AI // never used
@@ -284,7 +283,7 @@ public enum RaceFactory implements Base {
         if (key.equalsIgnoreCase("year"))             { r.startingYear = parseInt(value); return; }
         if (key.equalsIgnoreCase("homestarType"))     { r.homeworldStarType = value; return; }
         if (key.equalsIgnoreCase("homeworldType"))    { r.homeworldPlanetType = value; return; }
-//        if (key.equalsIgnoreCase("homeworldKey"))     { r.homeworldKey(parseInt(value)); return; }
+        // if (key.equalsIgnoreCase("homeworldKey"))  { r.homeworldKey(parseInt(value)); return; }
         if (key.equalsIgnoreCase("homeworldKey"))     { parseHomeWorlKey(r, value); return; }
         if (key.equalsIgnoreCase("homeworldSize"))    { r.homeworldSize = parseInt(value); return; }
         if (key.equalsIgnoreCase("mugshot"))          { r.mugshotKey = value; return; }

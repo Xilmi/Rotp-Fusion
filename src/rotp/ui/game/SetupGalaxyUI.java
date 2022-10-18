@@ -15,8 +15,6 @@
  */
 package rotp.ui.game;
 
-import static rotp.ui.UserPreferences.playerCustomRace;
-import static rotp.ui.UserPreferences.playerIsCustom;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
 import static rotp.ui.UserPreferences.showNewRaces;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
@@ -53,8 +51,7 @@ import javax.swing.SwingUtilities;
 import rotp.mod.br.addOns.RacesOptions;
 import rotp.mod.br.profiles.Profiles;
 import rotp.model.empires.Race;
-import rotp.model.galaxy.GalaxyCopy;
-import rotp.model.galaxy.GalaxyFactory.NewGalaxyCopy;
+import rotp.model.galaxy.GalaxyFactory.GalaxyCopy;
 import rotp.model.galaxy.GalaxyShape;
 import rotp.model.galaxy.GalaxyShape.EmpireSystem;
 import rotp.model.game.GameSession;
@@ -824,25 +821,13 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		buttonClick();
 		repaint();
    		saveLastOptions();
-		NewGalaxyCopy oldGalaxy = new NewGalaxyCopy(newGameOptions());
+		GalaxyCopy oldGalaxy = new GalaxyCopy(newGameOptions());
 		UserPreferences.setForNewGame();
 		// Get the old galaxy parameters
         RotPUI.instance().selectReloadGamePanel(oldGalaxy);
 		starting = false;
 		release();
 	}
-//	private void old_restartGame() {   // TODO BR: remove  
-//		starting = true;
-//		buttonClick();
-//		repaint();
-//   		saveLastOptions();
-//		GalaxyCopy oldGalaxy = new GalaxyCopy(newGameOptions());
-//		UserPreferences.setForNewGame();
-//		// Get the old galaxy parameters
-//        RotPUI.instance().selectReloadGamePanel(oldGalaxy);
-//		starting = false;
-//		release();
-//	}
 	private void startGame() {
  		starting = true;
 		repaint();
@@ -856,20 +841,6 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			RacesOptions.loadStartingAIs(newGameOptions());
 		} // \BR:
 		GameUI.gameName = generateGameName();
-//		String name;
-//		if (playerIsCustom.get())
-//			name = playerCustomRace.getRace().setupName;
-//		else
-//			name = Race.keyed(newGameOptions().selectedPlayerRace()).setupName();
-//		GameUI.gameName = name + " - "
-//				+ text(newGameOptions().selectedGalaxySize())
-//				+ " - "+text(newGameOptions().selectedGameDifficulty());
-//		// modnar: add custom difficulty level option, set in Remnants.cfg
-//		// append this custom difficulty percentage to gameName if selected
-//		if (text(newGameOptions().selectedGameDifficulty()).equals("Custom")) {
-//			GameUI.gameName = GameUI.gameName 
-//					+ " (" + Integer.toString(UserPreferences.customDifficulty.get()) + "%)";
-//		}
 		UserPreferences.setForNewGame();
 		final Runnable save = () -> {
 			long start = System.currentTimeMillis();

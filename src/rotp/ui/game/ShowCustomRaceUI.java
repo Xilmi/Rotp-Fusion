@@ -76,8 +76,6 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	private static final int costFontSize	= 18;
 	protected static final Font raceNameFont= FontManager.current().narrowFont(16);
 	protected static final int columnPad	= s20;
-	private static final int raceNameH		= s20;
-	private static final int raceNameW		= RotPUI.scaledSize(150);
 	private	static final Font titleFont		= FontManager.current().narrowFont(30);
 	private static final int titleOffset	= s30; // Offset from Margin
 	private static final int costOffset		= s25; // Offset from title
@@ -110,7 +108,6 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	private static final int optionIndent	= s15;
 
 	// This should be the last static to be initialized
-//	public static final ShowCustomRaceUI instance = new ShowCustomRaceUI().init0();
 	private static final ShowCustomRaceUI instance = new ShowCustomRaceUI();
 
 	private LinkedList<Integer> colSettingsCount;
@@ -126,7 +123,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	private int numSettings	= 0;
 
 	private int yTitle;
-	private int xCost, yCost, xRace, yRace;
+	private int xCost, yCost;
 	private int w;
 	private int h;
 	private int hBG, wBG;
@@ -154,7 +151,6 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	// ========== Constructors and initializers ==========
 	//
 	protected ShowCustomRaceUI() {
-		// cr = new CustomRaceDefinitions();
 		setOpaque(false);
 	    totalCostText = new BaseText(this, false, costFontSize, 0, 0, 
 	    		costC, costC, hoverC, depressedC, costC, 0, 0, 0);
@@ -228,11 +224,6 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		repaint();
 	}
 	protected void init() {
-//		if (cr.race() == null) {
-//			cr.setFromOptions((DynOptions) playerCustomRace.get());
-//			cr.setRace(newGameOptions().selectedPlayerRace());
-//			cr.pullSettings();
-//		}
 		for (SettingBase<?> setting : commonList) {
 			if (setting.isBullet()) {
 				setting.settingText().displayText(setting.guiSettingDisplayStr()); // The setting
@@ -459,8 +450,6 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		yTitle	= topM + titleOffset;
 		yButton	= yTT - tooltipPadV - buttonH;
 		yCost 	= yTitle + costOffset;
-//		yRace	= yCost - raceNameH + s6;
-//		xRace	= leftM + columnPad/2;
 		xCost	= leftM + columnPad/2;
 		xLine	= leftM + columnPad/2;
 		yLine	= yTop;
@@ -493,7 +482,6 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		drawBorderedString(g, title, 1, xTitle, yTitle, Color.black, Color.white);
 		
 		// Total cost
-//		xCost = xRace + raceNameW + columnPad;
 		totalCostText.displayText(totalCostStr());
 		totalCostText.setScaledXY(xCost, yCost);
 		totalCostText.draw(g);
@@ -502,16 +490,17 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		g.setFont(raceNameFont);
 		g.setColor(costC);
 		raceAI.displayText(raceAITxt());
-		int xRaceAI = leftM + wBG - columnPad - raceAI.stringWidth(g);
-		raceAI.setScaledXY(xRaceAI, yRace + raceAIH);
+		int xAI = leftM + wBG - columnPad - raceAI.stringWidth(g);
+		int yAI	= yCost - raceAIH + s4;
+		raceAI.setScaledXY(xAI, yAI + raceAIH);
 		raceAI.draw(g);
 
 		// Loop thru the parameters
 		xLine = leftM+s10;
 		yLine = yTop;
+
 		// First column (left)
 		// Loop thru parameters
-
 		Stroke prev = g.getStroke();
 		g.setStroke(stroke2);
 		for (int i=0; i<settingSize; i++) {

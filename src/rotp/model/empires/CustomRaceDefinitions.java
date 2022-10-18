@@ -55,7 +55,6 @@ public class CustomRaceDefinitions  {
 	private static final boolean booleansAreBullet = true;
 
 	private Race race; // !!! To be kept up to date !!!
-//	private RaceKey raceKey = new RaceKey();
 	private final LinkedList<SettingBase<?>> settingList = new LinkedList<>(); // !!! To be kept up to date !!!
 	private final LinkedList<SettingBase<?>> guiList	 = new LinkedList<>();
 
@@ -75,7 +74,6 @@ public class CustomRaceDefinitions  {
 	private LinkedList<Integer> spacerList; // For UI
 	private LinkedList<Integer> columnList; // For UI
 	private RaceList raceList;
-//	private boolean newValue = false;
 	
 	// ========== Constructors and Initializers ==========
 	//
@@ -178,13 +176,6 @@ public class CustomRaceDefinitions  {
 		race.isCustomRace(true);
 		return race;
 	}
-//    public boolean newValue() {
-//    	if (newValue) {
-//    		newValue = false;
-//    		return true;
-//    	}
-//    	return false;
-//    }
 	// ========== Other Methods ==========
 	//
 	/**
@@ -343,7 +334,7 @@ public class CustomRaceDefinitions  {
 
 		// ====================
 		// Third column
-		settingList.add(new RacePlanetType());
+//		settingList.add(new RacePlanetType()); // not yet differentiated
 		settingList.add(new HomeworldSize());
 //		settingList.add(new SpeciesType()); // Not used in Game
 		settingList.add(new PopGrowRate());
@@ -485,12 +476,6 @@ public class CustomRaceDefinitions  {
 				newValue = true;
 			}
 		}
-//		@Override public SettingBase<?> index(int newIndex) {
-//			super.index(newIndex);
-//			selectedValue(valueList.get(cfgValidIndex(newIndex)));
-//			return this;
-//		}
-
 	}
 	// ==================== RaceKey ====================
 	//
@@ -537,7 +522,6 @@ public class CustomRaceDefinitions  {
 			race.empireTitle = settingValue();
 		}
 		@Override public void pullSetting() {
-//			set(race.empireTitle());
 			if (race.empireTitle == null)
 				set(race.empireTitle());
 			else
@@ -636,9 +620,6 @@ public class CustomRaceDefinitions  {
 		}
 		@Override public void pushSetting() {
 			race = Race.keyed(settingValue()).copy();
-//			pullSettings();
-//			newValue = true;
-//			updateGui();
 		}
 		@Override public void pullSetting() {
 			if (!pullAllowed)

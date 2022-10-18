@@ -57,7 +57,6 @@ import rotp.model.empires.SpyNetwork.FleetView;
 import rotp.model.events.SystemColonizedEvent;
 import rotp.model.events.SystemHomeworldEvent;
 import rotp.model.galaxy.Galaxy;
-import rotp.model.galaxy.GalaxyCopy;
 import rotp.model.galaxy.GalaxyFactory;
 import rotp.model.galaxy.IMappedObject;
 import rotp.model.galaxy.Location;
@@ -419,7 +418,6 @@ public final class Empire implements Base, NamedObject, Serializable {
     // BR: For Restart with new options and random races
     public Empire(Galaxy g, int empId, Race r, Race dr, StarSystem s,
     		int[] compId, Integer cId, String name, EmpireBaseData empSrc) {
-    	int opp = empId-1;
         log("creating empire for ",  r.id);
         id = empId;
         raceKey = r.id;
@@ -451,40 +449,6 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
         shipLab = new ShipDesignLab();
     }
-   public Empire(Galaxy g, int empId, Race r, Race dr, StarSystem s,
-    		int[] compId, Integer cId, String name, GalaxyCopy gc) { // TODO BR: To be removed
-    	int opp = empId-1;
-        log("creating empire for ",  r.id);
-        id = empId;
-        raceKey = r.id;
-        dataRaceKey = dr.id;
-        homeSysId = capitalSysId = s.id;
-        compSysId = compId; // modnar: add option to start game with additional colonies
-        if (gc != null && empId != Empire.PLAYER_ID) { // BR: For Restart with new options 
-        	selectedAI = gc.raceAI().get(opp);
-        }
-        empireViews = new EmpireView[options().selectedNumberOpponents()+1];
-        status = new EmpireStatus(this);
-        sv = new SystemInfo(this);
-        // many things need to know if this is the player civ, so set it early
-        if (empId == Empire.PLAYER_ID) {
-            divertColonyExcessToResearch = UserPreferences.divertColonyExcessToResearch();
-            g.player(this);
-        }
-        
-        colorId(cId);
-        race = r;
-        dataRace = dr;
-        String raceName = r.nextAvailableName();
-        raceNameIndex = r.nameIndex(raceName);
-        String leaderName = name == null ? r.nextAvailableLeader() : name;
-        leader = new Leader(this, leaderName);
-        if (gc != null && empId != Empire.PLAYER_ID) { // BR: For Restart with new options 
-        	leader.personality = gc.personality().get(opp);
-        	leader.objective   = gc.objective().get(opp);
-        }
-        shipLab = new ShipDesignLab();
-    }
     public void setBounds(float x1, float x2, float y1, float y2) {
         minX = x1;
         maxX = x2;
@@ -505,7 +469,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public Color color()                 { return options().color(bannerColor); }
     public int shipColorId()             { return colorId(); }
     @Override
-    public String name()                 {  // TODO BR: manage custom race
+    public String name() {  // TODO BR: manage custom race
         if (empireName == null)
         	if (isPlayer() && isCustomRace())
         		empireName = dataRace().empireTitle;

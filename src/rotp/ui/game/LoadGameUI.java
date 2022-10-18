@@ -50,11 +50,10 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import javax.swing.SwingUtilities;
-import rotp.Rotp;
 
+import rotp.Rotp;
 import rotp.mod.br.profiles.Profiles;
-import rotp.model.galaxy.GalaxyCopy;
-import rotp.model.galaxy.GalaxyFactory.NewGalaxyCopy;
+import rotp.model.galaxy.GalaxyFactory.GalaxyCopy;
 import rotp.model.game.GameSession;
 import rotp.ui.BasePanel;
 import rotp.ui.NoticeMessage;
@@ -85,8 +84,7 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
     int selectIndex;
     int start = 0;
     int end = 0;
-    private NewGalaxyCopy oldGalaxy;
-    private GalaxyCopy oldGalaxyX;
+    private GalaxyCopy oldGalaxy;
     private boolean restart;
     
     int sortOrder = SORT_DT_UP;
@@ -113,17 +111,11 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
         initModel();
     }
     // BR: for restarting with new options
-    public void init(NewGalaxyCopy oldGalaxy) {
+    public void init(GalaxyCopy oldGalaxy) {
      	this.oldGalaxy	= oldGalaxy;
     	restart = true;
     	init();
     }
-    // TODO BR: Remove for restarting with new options
-//    public void init(GalaxyCopy oldGalaxy) {
-//     	this.oldGalaxyX	= oldGalaxy;
-//    	restart = true;
-//    	init();
-//    }
     public void init() {
         saveFiles.clear();
         saveDates.clear();

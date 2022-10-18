@@ -43,7 +43,7 @@ public class PlanetFactory implements Base {
         p.copy(src);
         return p;
     }
-    // BR: For Symmetric galaxies // TODO BR: will be removed
+    // BR: For Symmetric galaxies
     public static Planet copyPlanet(StarSystem sys, Planet src) {
     	Planet p = new Planet(sys);
         p.initPlanetType(src.type().key());

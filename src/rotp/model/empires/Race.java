@@ -155,7 +155,6 @@ public class Race implements Base, Serializable {
     private String planetEnvironment = "Normal";
     // Custom Races:
     private boolean isCustomRace = false;
-//    private boolean isRandomized = false; // only used for custom race display
     private DynOptions raceOptions	= null;
     // \BR:
     public int startingYear;
@@ -273,65 +272,6 @@ public class Race implements Base, Serializable {
     	race.troopDeath4H = null;
     	return race;
     }
-//	Race copy() { // TODO BR:
-//    	Race newRace = new Race(directoryName);
-//    	newRace.id   = id;
-//     	newRace.langKey      = langKey;
-//     	newRace.empireTitle  = empireTitle();
-////     	newRace.setupName    = setupName;
-//    	newRace.setupName    = setupName();
-//    	newRace.description1 = description1;
-//    	newRace.description2 = description2;
-//    	newRace.description3 = description3;
-//    	newRace.description4 = description4;
-//    	newRace.homeworldStarType   = homeworldStarType;
-//    	newRace.homeworldPlanetType = homeworldPlanetType;
-//    	newRace.homeworldSize       = homeworldSize;
-//    	newRace.homeworldKey        = homeworldKey;
-//    	newRace.speciesType         = speciesType;
-//    	newRace.ignoresPlanetEnvironment = ignoresPlanetEnvironment;
-//    	newRace.preferredShipSet      = preferredShipSet;
-//    	newRace.preferredShipSize     = preferredShipSize;
-//    	newRace.shipAttackBonus       = shipAttackBonus;
-//    	newRace.shipDefenseBonus      = shipDefenseBonus;
-//    	newRace.shipInitiativeBonus   = shipInitiativeBonus;
-//    	newRace.spyCostMod            = spyCostMod;
-//    	newRace.internalSecurityAdj   = internalSecurityAdj;
-//    	newRace.spyInfiltrationAdj    = spyInfiltrationAdj;
-//    	newRace.telepathic            = telepathic;
-//    	newRace.masksDiplomacy        = masksDiplomacy;
-//    	newRace.workerProductivityMod = workerProductivityMod;
-//    	newRace.robotControlsAdj      = robotControlsAdj;
-//    	newRace.ignoresFactoryRefit   = ignoresFactoryRefit;
-//    	newRace.techDiscoveryPct      = techDiscoveryPct;
-//    	newRace.researchBonusPct      = researchBonusPct;
-//    	newRace.growthRateMod         = growthRateMod;
-//    	newRace.tradePctBonus         = tradePctBonus;
-//    	newRace.positiveDPMod         = positiveDPMod;
-//    	newRace.diplomacyBonus        = diplomacyBonus;
-//    	newRace.councilBonus          = councilBonus;
-//    	newRace.techMod               = techMod.clone();
-//    	newRace.personalityPct        = personalityPct.clone();
-//    	newRace.objectivePct          = objectivePct.clone();
-//    	newRace.defaultRaceRelations  = defaultRaceRelations;
-//    	newRace.shipDesignMods        = shipDesignMods.clone();
-//    	newRace.availablePlayer       = availablePlayer;
-//    	newRace.availableAI           = availableAI;
-//    	newRace.raceRelations.putAll(raceRelations);
-//
-//        // useless for abilities
-//    	newRace.troopNormal  = null;
-//        newRace.troopHostile = null;
-//        newRace.troopDeath1  = null;
-//        newRace.troopDeath2  = null;
-//        newRace.troopDeath3  = null;
-//        newRace.troopDeath4  = null;
-//        newRace.troopDeath1H = null;
-//        newRace.troopDeath2H = null;
-//        newRace.troopDeath3H = null;
-//        newRace.troopDeath4H = null;
-//    	return newRace;
-//    }
     public void loadNameList()  {
         List<String> secondaryNames =  new ArrayList<>(raceNames);
         remainingRaceNames.clear();
@@ -377,7 +317,7 @@ public class Race implements Base, Serializable {
     public String toString()                      { return concat("Race:", id); }
 
     @Override
-    public String text(String key) { // TODO BR: Check and study
+    public String text(String key) {
         if (raceLabels().hasLabel(key))
             return raceLabels().label(key);
         return labels().label(key);
@@ -435,8 +375,6 @@ public class Race implements Base, Serializable {
     public boolean isCustomRace()             { return isCustomRace; }
     Race   isCustomRace(boolean val)          { isCustomRace = val; return this;}
     public boolean isRandomized() { return crEmpireNameRandom.equalsIgnoreCase(empireTitle); }
-//    public boolean isRandomized()           { return isRandomized; }
-//    Race   isRandomized(boolean val)        { isRandomized = val; return this; }
     DynOptions raceOptions()           	      { return raceOptions; }
     void   raceOptions(DynOptions val)        { raceOptions = val; }
     // BR: Get the values encoded in HomeworldKey
