@@ -103,7 +103,7 @@ public class CustomRaceDefinitions  {
 		return cr.getRace().isCustomRace(true);
 	}
 	static Race keyToRace(String raceKey) {
-		if (raceKey.equalsIgnoreCase(RANDOM_RACE_KEY)) {
+		if (raceKey.equalsIgnoreCase(RANDOM_RACE_KEY)) { // TODO BR: Check load and save randomized
 			return getRandomAlienRace();
 		}
 		if (raceKey.equalsIgnoreCase(CUSTOM_RACE_KEY)) {

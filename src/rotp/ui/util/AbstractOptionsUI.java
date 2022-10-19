@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.LinearGradientPaint;
 import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.awt.event.InputEvent;
@@ -81,6 +82,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	private BasePanel parent;
 	protected boolean globalOptions	= false; // No preferred button and Saved to remnant.cfg
 	private MOO1GameOptions initialOptions; // To be restored if "cancel"
+	private LinearGradientPaint bg;
 	
 	// ========== Constructors and initializers ==========
 	//
@@ -170,6 +172,16 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	}
 	public void open(BasePanel p) {
 		parent = p;
+		w	= p.getWidth();
+		h	= p.getHeight();
+		wBG	= w - (leftM + rightM);
+		wSetting = (wBG/numColumns)-columnPad;
+		if (bg == null)
+			if (numColumns>3)
+				bg = GameUI.settingsSetupBackgroundW(w);
+			else
+				bg = GameUI.settingsSetupBackground(w);
+
 		initialOptions = new MOO1GameOptions(); // Any content will do
 		saveOptions(initialOptions);
 		init();
@@ -314,7 +326,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	private void paintSetting(Graphics2D g, BaseText txt, String desc) {
 		g.setColor(SystemPanel.blackText);
 		g.drawRect(xSetting, ySetting, wSetting, hSetting);
-		g.setPaint(GameUI.settingsSetupBackground(w));
+		g.setPaint(bg);
 		g.fillRect(xSetting+s10, ySetting-s10, txt.stringWidth(g)+s10,s30);
 		txt.setScaledXY(xSetting+columnPad, ySetting+s7);
 		txt.draw(g);
@@ -352,21 +364,15 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	@Override public void paintComponent(Graphics g0) {
 		super.paintComponent(g0);
 		Graphics2D g = (Graphics2D) g0;
-		w	= getWidth();
-		h	= getHeight();
-		wBG	= w - (leftM + rightM);
-		wSetting = (wBG/numColumns)-columnPad;
-		
 		// draw background "haze"
 		g.setColor(backgroundHaze);
 		g.fillRect(0, 0, w, h);
-		
-		g.setPaint(GameUI.settingsSetupBackground(w));
+		g.setPaint(bg);
 		g.fillRect(leftM, topM, wBG, hBG);
 		g.setFont(narrowFont(30));
 		String title = text(guiTitleID);
 		int sw = g.getFontMetrics().stringWidth(title);
-		int xTitle = (w-sw)/2; // BR: put it in the center
+		int xTitle = (w-sw)/2;
 		drawBorderedString(g, title, 1, xTitle, yTitle, Color.black, Color.white);
 		
 		g.setFont(narrowFont(18));

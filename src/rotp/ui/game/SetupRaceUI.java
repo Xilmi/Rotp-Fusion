@@ -638,7 +638,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         return raceImg;
     }
     public static BufferedImage shipBackImg() {
-        if (shipBackImg == null)
+//        if (shipBackImg == null)
             initShipBackImg();
         return shipBackImg;
     }
@@ -648,7 +648,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         return raceBackImg;
     }
     private BufferedImage backImg() {
-        if (backImg == null)
+        //if (backImg == null)
             initBackImg();
         return backImg;
     }
@@ -658,8 +658,8 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         shipBackImg = gc().createCompatibleImage(shipW, shipH);
 
         Point2D center = new Point2D.Float(shipW/2, shipH/2);
-        float radius = s100;
-        float[] dist = {0.0f, 0.1f, 0.5f, 1.0f};
+        float radius = s60;
+        float[] dist = {0.0f, 0.55f, 0.85f, 1.0f};
         Color[] colors = {GameUI.raceCenterColor(), GameUI.raceCenterColor(), GameUI.raceEdgeColor(), GameUI.raceEdgeColor()};
         RadialGradientPaint p = new RadialGradientPaint(center, radius, dist, colors);
         Graphics2D g = (Graphics2D) shipBackImg.getGraphics();

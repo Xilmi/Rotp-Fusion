@@ -106,6 +106,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     private static LinearGradientPaint[] opponentsSetupBackground;
     private static LinearGradientPaint[] galaxySetupBackground;
     private static LinearGradientPaint[] settingsSetupBackground;
+    private static LinearGradientPaint[] settingsSetupBackgroundW; // BR: for wide setups
 
     private static Border setupBorder;
     private static Border buttonBorder;
@@ -276,6 +277,23 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             settingsSetupBackground[1] = new LinearGradientPaint(start, end, dist, colors1);
         }
         return settingsSetupBackground[opt()];
+    }
+    public static LinearGradientPaint settingsSetupBackgroundW(int w) {
+        if (settingsSetupBackgroundW == null) {
+            settingsSetupBackgroundW = new LinearGradientPaint[2];
+            Point2D start = new Point2D.Float(BasePanel.s50, 0);
+            Point2D end = new Point2D.Float(w-BasePanel.s50, 0);
+            float[] dist = {0.0f, 0.05f, 0.95f, 1.0f};
+            Color edge0 = new Color(113,74,49);
+            Color mid0 = new Color(188,123,81);
+            Color[] colors0 = {edge0, mid0,  mid0, edge0 };
+            settingsSetupBackgroundW[0] = new LinearGradientPaint(start, end, dist, colors0);
+            Color edge1 = new Color(51,56,55);
+            Color mid1 = new Color(100,111,110);
+            Color[] colors1 = {edge1, mid1, mid1, edge1 };
+            settingsSetupBackgroundW[1] = new LinearGradientPaint(start, end, dist, colors1);
+        }
+        return settingsSetupBackgroundW[opt()];
     }
     public static LinearGradientPaint opponentsSetupBackground() {
         if (opponentsSetupBackground == null) {

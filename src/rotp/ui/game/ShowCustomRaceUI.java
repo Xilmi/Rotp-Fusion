@@ -25,6 +25,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.LinearGradientPaint;
 import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.awt.event.InputEvent;
@@ -32,6 +33,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.Point2D;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -415,6 +417,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	protected int getBackGroundWidth() {
 		return wFirstColumn+columnPad + (wSetting+columnPad) * (numColumns-1);
 	}
+
 	// ========== Overriders ==========
 	//
 	@Override public void paintComponent(Graphics g0) {
@@ -459,7 +462,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		g.setColor(backgroundHaze);
 		g.fillRect(0, 0, w, h);
 		
-		g.setPaint(GameUI.settingsSetupBackground(w));
+		g.setPaint(GameUI.settingsSetupBackgroundW(w));
 		g.fillRect(leftM, topM, wBG, hBG);
 		
 		// Tool tip

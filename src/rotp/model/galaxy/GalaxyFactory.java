@@ -510,6 +510,7 @@ public class GalaxyFactory implements Base {
 			Integer colorId = raceColors.remove(0);
 
 			// Create DataRace
+			// TODO BR: Check Random Races 
 			String dataRaceKey;
             if (src != null) // BR: For Restart with new options 
             	dataRaceKey = empSrc[h+1].dataRaceKey;
