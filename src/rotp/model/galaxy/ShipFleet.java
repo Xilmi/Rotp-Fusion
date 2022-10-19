@@ -896,6 +896,7 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
     //
     // Fleet Sprite behavior is here now
     public final static Comparator<ShipFleet> DEST_Y = (ShipFleet o1, ShipFleet o2) -> Base.compare(o1.destY(), o2.destY());
+    public final static Comparator<ShipFleet> COST = (ShipFleet o1, ShipFleet o2) -> Base.compare(o2.bcValue(), o1.bcValue());
     public FlightPathSprite pathSpriteTo(StarSystem sys) {
         return new FlightPathSprite(this, sys);
     }

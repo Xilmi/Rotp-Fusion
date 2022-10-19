@@ -26,6 +26,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2022.10.19 (BR)
+  - Fixed Randomized alien races not reaching target values. 
+
 2022.10.14 (Xilmi)
   - Fixed an issue where the report of how many transports were destroyed it would show the number of transports that the defending fleet potentially could have destroyed instead of the actual number.
   - Fixed an issue whith Autoplay being enacted at the start of the game before the views were updated which led to not taking distances into consideration.

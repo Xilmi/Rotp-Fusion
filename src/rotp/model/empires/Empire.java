@@ -3765,7 +3765,7 @@ public final class Empire implements Base, NamedObject, Serializable {
                 list.add(fl);                
             }
         }
-        Collections.sort(list, IMappedObject.MAP_ORDER);
+        Collections.sort(list, ShipFleet.COST);
         return list;
     }
     public List<ShipFleet> orderedEnemyFleets() {
