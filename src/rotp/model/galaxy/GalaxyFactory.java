@@ -15,6 +15,9 @@
  */
 package rotp.model.galaxy;
 
+import static rotp.model.empires.CustomRaceDefinitions.RANDOMiZED_RACE_KEY;
+import static rotp.model.empires.CustomRaceDefinitions.RANDOM_RACE_KEY;
+import static rotp.model.empires.CustomRaceDefinitions.getAlienRace;
 import static rotp.model.game.MOO1GameOptions.setAIOptions;
 import static rotp.ui.UserPreferences.playerShipSet;
 import static rotp.ui.UserPreferences.randomAlienRaces;
@@ -37,6 +40,7 @@ import rotp.model.empires.Race;
 import rotp.model.galaxy.Galaxy.GalaxyBaseData;
 import rotp.model.galaxy.GalaxyShape.EmpireSystem;
 import rotp.model.galaxy.StarSystem.SystemBaseData;
+import rotp.model.game.DynOptions;
 import rotp.model.game.GameSession;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.MOO1GameOptions;
@@ -470,8 +474,9 @@ public class GalaxyFactory implements Base {
 		IGameOptions opts = GameSession.instance().options();
 		// creates a star system for each race, and then additional star
 		// systems based on the galaxy size selected at startup
-		GalaxyBaseData galSrc = null; // Used for Restart
-		EmpireBaseData empSrc[] = null; // Used for Restart
+		GalaxyBaseData galSrc	= null; // Used for Restart
+		EmpireBaseData empSrc[]	= null; // Used for Restart
+		EmpireBaseData eSrc		= null; // Used for Restart
 		if (src != null) {
 			galSrc = src.galSrc;
 			empSrc = galSrc.empires;
@@ -498,10 +503,13 @@ public class GalaxyFactory implements Base {
 		// since we may have more races than colors we will need to reset the
 		// color list each time we run out. 
 		for (int h=0; h<maxRaces; h++) {
+			if (src != null)
+				eSrc = empSrc[h+1];
+
 			StarSystem sys;
 			String raceKey;
             if (src != null) // BR: For Restart with new options
-            	raceKey = empSrc[h+1].raceKey;
+            	raceKey = eSrc.raceKey;
             else // Start
             	raceKey = alienRaces.get(h);
 			Race race = Race.keyed(raceKey);
@@ -512,20 +520,27 @@ public class GalaxyFactory implements Base {
 			// Create DataRace
 			// TODO BR: Check Random Races 
 			String dataRaceKey;
-            if (src != null) // BR: For Restart with new options 
-            	dataRaceKey = empSrc[h+1].dataRaceKey;
-            else if (options().randomizeAIAbility())
-                dataRaceKey = random(options().startingRaceOptions());
-            else
-                dataRaceKey = raceKey;
-            if (src == null && randomAlienRaces.isRandom() && isRandomOpponent[h]) {
-            	if (randomAlienRaces.isPlayerCopy()) {
-            		dataRaceKey = playerDataRaceKey;
-            	}
-            	else
-            		dataRaceKey = CustomRaceDefinitions.RANDOM_RACE_KEY;
+			DynOptions options = null;
+			
+            if (src != null) { // BR: For Restart with new options
+            	dataRaceKey	= random(options().startingRaceOptions());
+            	options = eSrc.raceOptions;
             }
-			Race dataRace = Race.keyed(dataRaceKey);
+            else { // Normal Start
+            	if (randomAlienRaces.isRandom() && isRandomOpponent[h]) {
+            		// Override random opponents
+                	if (randomAlienRaces.isPlayerCopy()) {
+                		dataRaceKey	= playerDataRaceKey;
+                    	options		= g.empire(0).raceOptions();
+                	} else
+                		dataRaceKey	= RANDOM_RACE_KEY;
+                }
+                else if (options().randomizeAIAbility())
+                	dataRaceKey	= random(options().startingRaceOptions());
+                else
+                	dataRaceKey	= raceKey;
+            }
+            Race dataRace = Race.keyed(dataRaceKey, options);
 
 			EmpireSystem empSystem = null;
 			sys = StarSystemFactory.current().newSystemForRace(race, dataRace, g);
@@ -557,7 +572,7 @@ public class GalaxyFactory implements Base {
 						compSysId[i] = sysComp.id;
 					}
 				}
-				emp = new Empire(g, empId, race, dataRace, sys, compSysId, colorId, null, (EmpireBaseData) null);
+				emp = new Empire(g, empId, race, dataRace, sys, compSysId, colorId, null, null);
 			} else { // Restart
 				numCompWorlds = galSrc.numCompWorlds;
 				compSysId = new int[numCompWorlds];

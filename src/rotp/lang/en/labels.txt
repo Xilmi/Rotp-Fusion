@@ -1580,9 +1580,9 @@ SETTINGS_MOD_RACES_RAND_USE_TARGET       | Force Target Value: %1
 SETTINGS_MOD_RACES_ARE_RANDOM_DESC       | Alien races randomization: Select the way.
 SETTINGS_MOD_RACES_ARE_RANDOM            | Custom Aliens: %1
 SETTINGS_MOD_RACES_ARE_RANDOM_NO         | No
-SETTINGS_MOD_RACES_ARE_RANDOM_SETTING    | Settings Window
-SETTINGS_MOD_RACES_ARE_RANDOM_TARGET     | Target Range
-SETTINGS_MOD_RACES_ARE_RANDOM_PLAYER     | Player Copy
+SETTINGS_MOD_RACES_ARE_RANDOM_SETTING    | Yes, Settings Range
+SETTINGS_MOD_RACES_ARE_RANDOM_TARGET     | Yes, Target Range
+SETTINGS_MOD_RACES_ARE_RANDOM_PLAYER     | Yes, Player Copy
 
 // BR: Global Settings UI panel for MOD game options
 SETTINGS_MOD_TITLE_GLOBAL                | Display Settings MOD Global Options

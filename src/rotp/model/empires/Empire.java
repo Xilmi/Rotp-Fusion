@@ -154,6 +154,7 @@ public final class Empire implements Base, NamedObject, Serializable {
 
     // BR: Dynamic options
     private final DynOptions dynamicOptions = new DynOptions();
+    private DynOptions raceOptions;
 
     private transient float avgX, avgY, nameX1, nameX2;
 
@@ -325,9 +326,15 @@ public final class Empire implements Base, NamedObject, Serializable {
             race = Race.keyed(raceKey);
         return race;
     }
-    public Race dataRace() {
+    public Race dataRace() { // TODO BR: Follow dataRace reload
+    	if (!isPlayer()) {
+    		int x=1;
+    	}
         if (dataRace == null)
-            dataRace = dataRaceKey == null ? Race.keyed(raceKey) : Race.keyed(dataRaceKey);
+        	if (dataRaceKey == null)
+        		dataRace = Race.keyed(raceKey);
+        	else
+        		dataRace = Race.keyed(dataRaceKey, raceOptions());
         return dataRace;
     }
     public BufferedImage scoutImage() {
@@ -422,6 +429,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         id = empId;
         raceKey = r.id;
         dataRaceKey = dr.id;
+        raceOptions(dr.raceOptions()); // BR: for custom races
         homeSysId = capitalSysId = s.id;
         compSysId = compId; // modnar: add option to start game with additional colonies
         if (empSrc != null && empId != Empire.PLAYER_ID) // BR: For Restart with new options 
@@ -3170,14 +3178,15 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
     }
     // BR: Custom Races
-    public String  raceKey()			{ return raceKey; }
-    public String  dataRaceKey()		{ return dataRaceKey; }
-    public boolean isCustomRace()		{ return dataRace().isCustomRace(); }
-    public boolean isCustomPlayer()		{ return isPlayer() && isCustomRace(); }
-    public boolean isRandomized()		{ return dataRace().isRandomized(); }
-    public DynOptions raceOptions()		{ return dataRace().raceOptions(); }
-    public String  description4()		{ return dataRace().description4(); }
-    public DynOptions dynamicOptions()	{ return dynamicOptions; }
+    public String  raceKey()				   { return raceKey; }
+    public String  dataRaceKey()			   { return dataRaceKey; }
+    public boolean isCustomRace()			   { return dataRace().isCustomRace(); }
+    public boolean isCustomPlayer()			   { return isPlayer() && isCustomRace(); }
+    public boolean isRandomized()			   { return dataRace().isRandomized(); }
+    public DynOptions raceOptions()			   { return raceOptions; }
+    public void raceOptions(DynOptions opts)   { raceOptions = opts; }
+    public String  description4()			   { return dataRace().description4(); }
+    public DynOptions dynamicOptions()		   { return dynamicOptions; }
     // Modnar added features
     public float bCBonus()                     { return dataRace().bCBonus(); }
     public float hPFactor()                    { return dataRace().hPFactor();  }

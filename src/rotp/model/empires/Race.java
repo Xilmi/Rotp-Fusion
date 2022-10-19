@@ -15,6 +15,9 @@
  */
 package rotp.model.empires;
 
+import static rotp.model.empires.CustomRaceDefinitions.getAlienRace;
+import static rotp.model.empires.CustomRaceDefinitions.keyToRace;
+
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -43,9 +46,18 @@ public class Race implements Base, Serializable {
     public static Race keyed(String s) {
         Race race = raceMap.get(s);
         if (race == null) { // BR: Add custom race if missing
-        	race = CustomRaceDefinitions.keyToRace(s);
+        	race = keyToRace(s);
             race.isCustomRace(true);
             race.description4 = customRaceDescription;
+        }
+        return race;
+    }
+    public static Race keyed(String s, DynOptions options) {
+        Race race = raceMap.get(s);
+        if (race == null) { // BR: get the custom race
+       		race = getAlienRace(s, options);
+            race.isCustomRace(true); // TODO BR: complete info
+//            race.raceOptions(options);
         }
         return race;
     }

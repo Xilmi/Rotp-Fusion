@@ -50,9 +50,10 @@ public class CustomRaceDefinitions  {
 	public	static final String ROOT	= "CUSTOM_RACE_";
 	private	static final String PLANET	= "PLANET_";
 	private	static final String EXT		= ".race";
-	public	static final String RANDOM_RACE_KEY = "RANDOM_RACE_KEY";
-	public	static final String CUSTOM_RACE_KEY = "CUSTOM_RACE_KEY";
-	private static final boolean booleansAreBullet = true;
+	public	static final String RANDOMiZED_RACE_KEY	= "RANDOMIZED_RACE";
+	public	static final String RANDOM_RACE_KEY		= "RANDOM_RACE_KEY";
+	public	static final String CUSTOM_RACE_KEY		= "CUSTOM_RACE_KEY";
+	private static final boolean booleansAreBullet	= true;
 
 	private Race race; // !!! To be kept up to date !!!
 	private final LinkedList<SettingBase<?>> settingList = new LinkedList<>(); // !!! To be kept up to date !!!
@@ -99,8 +100,21 @@ public class CustomRaceDefinitions  {
 		CustomRaceDefinitions cr = new CustomRaceDefinitions();
 		cr.randomizeRace(randomAlienRacesMin.get(), randomAlienRacesMax.get(),
 				randomAlienRacesTargetMin.get(), randomAlienRacesTargetMax.get(),
-				randomAlienRacesSmoothEdges.get(), randomAlienRaces.isTarget(), false);
+				randomAlienRaces.isTarget(), randomAlienRacesSmoothEdges.get(), false);
 		return cr.getRace().isCustomRace(true);
+	}
+	public static Race getAlienRace(String key, DynOptions options) {
+		if (key.equalsIgnoreCase(RANDOM_RACE_KEY)) { // TODO BR: Check load and save randomized
+			return getRandomAlienRace();
+		}
+		if (key.equalsIgnoreCase(CUSTOM_RACE_KEY)) {
+			DynOptions opt = (DynOptions) playerCustomRace.get();
+			return new CustomRaceDefinitions(opt).getRace();
+		}
+		if (options == null) // load from file
+			return new CustomRaceDefinitions(key).getRace();
+		else
+			return new CustomRaceDefinitions(options).getRace();
 	}
 	static Race keyToRace(String raceKey) {
 		if (raceKey.equalsIgnoreCase(RANDOM_RACE_KEY)) { // TODO BR: Check load and save randomized
@@ -483,7 +497,7 @@ public class CustomRaceDefinitions  {
 		private RaceKey() {
 			super(ROOT, "RACE_KEY", "CustomRace", 1);
 			inputMessage("Enter the Race File Name");
-			randomStr("Randomized");
+			randomStr(RANDOMiZED_RACE_KEY);
 		}
 		@Override public void pushSetting() {
 			race.id = settingValue();
@@ -753,6 +767,7 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== PlanetType ====================
 	//
+	@SuppressWarnings("unused")
 	private class RacePlanetType extends SettingBase<String> {
 		private static final String defaultValue = "Terran";
 		
