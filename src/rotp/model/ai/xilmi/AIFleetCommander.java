@@ -55,7 +55,7 @@ class AISystemInfo {
     float myBombardDamage;
     float myIncomingTransports;
     float myTotalPower;
-    float myRetreatingBc;
+    float myRetreatingPower;
     int additionalSystemsInRangeWhenColonized;
     boolean inScannerRange;
     int colonizersEnroute;
@@ -163,7 +163,7 @@ public class AIFleetCommander implements Base, FleetCommander {
             }
             for(ShipFleet retreating : galaxy().ships.fleeingFleets(empire.id, id))
             {
-                buffy.myRetreatingBc += retreating.bcValue();
+                buffy.myRetreatingPower += combatPower(retreating, currentOwner);
                 //System.out.print("\n"+empire.name()+"  recorded "+retreating.bcValue()+" worth of ships retreating from "+current.name());
             }
             for(ShipFleet incoming : current.incomingFleets())
@@ -381,7 +381,7 @@ public class AIFleetCommander implements Base, FleetCommander {
             float enemyBombardDamage = 0.0f;
             float bombardDamage = 0.0f;
             float myPower = 0.0f;
-            float myRetreatingBc = 0.0f;
+            float myRetreatingPower = 0.0f;
             int colonizationBonus = 0;
             int colonizerEnroute = 0;
             boolean canScanTo = false;
@@ -397,11 +397,11 @@ public class AIFleetCommander implements Base, FleetCommander {
                 colonizationBonus = systemInfoBuffer.get(id).additionalSystemsInRangeWhenColonized;
                 colonizerEnroute = systemInfoBuffer.get(id).colonizersEnroute;
                 canScanTo = systemInfoBuffer.get(id).inScannerRange;
-                myRetreatingBc = systemInfoBuffer.get(id).myRetreatingBc;
+                myRetreatingPower = systemInfoBuffer.get(id).myRetreatingPower;
             }
             //When it is ourselves who are en-route, don't let that reduce the score
             //If we already sent a fleet to an enemy system out of our scanner-range we don't send more there to reinforce as long as we don't get better information
-            if((myPower > 0 || bombardDamage > 0 || myRetreatingBc > 0) && !canScanTo && empire.aggressiveWith(empire.sv.empId(id)))
+            if((myPower > 0 || bombardDamage > 0 || myRetreatingPower > 0) && !canScanTo && empire.aggressiveWith(empire.sv.empId(id)))
             {
                 //System.out.print("\n"+fleet.empire().name()+" check if I can attack "+empire.sv.name(current.id)+" out of range expected bombard: "+fleet.expectedBombardDamage(empire.sv.system(id))+" HP: "+empire.sv.system(id).colony().untargetedHitPoints());
                 if(empire.sv.system(id).colony() != null && empire.governorAI().expectedBombardDamageAsIfBasesWereThere(fleet, empire.sv.system(id), 0) < empire.sv.system(id).colony().untargetedHitPoints())
@@ -978,8 +978,8 @@ public class AIFleetCommander implements Base, FleetCommander {
                             //experimental: Prevent "trickling in" by adding what we already sent to enemyFightingBC
                             //System.out.println(galaxy().currentTurn()+" "+fleet.empire().name()+" bridgeHeadConfidence for "+target.name()+": "+bridgeHeadConfidence(target));
                             if(!empire.tech().hyperspaceCommunications() && !targetHasEvent && bridgeHeadConfidence(target) < 1)
-                                enemyFleetPower += systemInfoBuffer.get(target.id).myTotalPower;
-                            //System.out.print("\n"+galaxy().currentTurn()+" "+fleet.empire().name()+" Fleet at "+target.name()+" gets boosted by my own fighting-BC of "+systemInfoBuffer.get(target.id).myTotalBc);
+                                enemyFleetPower += systemInfoBuffer.get(target.id).myTotalPower + systemInfoBuffer.get(target.id).myRetreatingPower;
+                            //System.out.print("\n"+galaxy().currentTurn()+" "+fleet.empire().name()+" Fleet at "+target.name()+" gets boosted by my own fightingpower of "+(systemInfoBuffer.get(target.id).myTotalPower + systemInfoBuffer.get(target.id).myRetreatingPower)+" to: "+enemyFleetPower);
                             float TransportKillPowerNeeded = 0;
                             if(empire.alliedWith(tgtEmpire.id) && (enemyFleetPower > 0 || empire.unfriendlyTransportsInTransit(target) > 0))
                             {
