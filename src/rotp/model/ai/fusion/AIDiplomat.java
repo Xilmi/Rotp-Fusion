@@ -1591,9 +1591,6 @@ public class AIDiplomat implements Base, Diplomat {
         if(empire == civ2)
             return castVoteFor(civ2);
         
-        if(empire.totalPlanetaryPopulation() > 1.0f / 3.0f * max(civ2.totalPlanetaryPopulation(), civ1.totalPlanetaryPopulation()))
-            return castVoteFor(null);
-        
         float civ1Score = 0;
         float civ2Score = 0;
 
@@ -1607,6 +1604,22 @@ public class AIDiplomat implements Base, Diplomat {
         
         civ1Score /= empire.generalAI().fleetCenter(civ1).distanceTo(empire.generalAI().colonyCenter(empire)) + empire.generalAI().colonyCenter(civ1).distanceTo(empire.generalAI().colonyCenter(empire));
         civ2Score /= empire.generalAI().fleetCenter(civ2).distanceTo(empire.generalAI().colonyCenter(empire)) + empire.generalAI().colonyCenter(civ2).distanceTo(empire.generalAI().colonyCenter(empire));
+        
+        float civ1OccupiedSystems = 1;
+        float civ2OccupiedSystems = 1;
+        List<StarSystem> civ1Systems = empire.systemsForCiv(civ1);   
+        for (StarSystem sys: civ1Systems) {
+            if (sys.planet().founderId() == empire.id)
+               civ1OccupiedSystems++; 
+        }
+        List<StarSystem> civ2Systems = empire.systemsForCiv(civ1);   
+        for (StarSystem sys: civ2Systems) {
+            if (sys.planet().founderId() == empire.id)
+               civ2OccupiedSystems++; 
+        }
+        
+        civ1Score /= civ1OccupiedSystems;
+        civ2Score /= civ2OccupiedSystems;
         
         if(civ1Score > civ2Score)
             return castVoteFor(civ1);
