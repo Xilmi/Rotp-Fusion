@@ -43,6 +43,7 @@ import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 import rotp.Rotp;
 import rotp.mod.br.profiles.Profiles;
+import rotp.model.empires.CustomRaceFactory;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
 import rotp.model.empires.EspionageMission;
@@ -951,6 +952,11 @@ public final class GameSession implements Base, Serializable {
 
             loadPreviousSession(newSession, startUp); 
             // do not autosave the current session if that is the file we are trying to reload
+//            for (Empire emp : newSession.galaxy().empires()) {
+//            	float cost = CustomRaceFactory.keyToValue(emp.abilitiesKey());
+//            	String name = emp.name();
+//            	System.out.println(name + " : " + cost);
+//            }
             if (!filename.equals(RECENT_SAVEFILE))
                 saveRecentSession(false);            	
          }
