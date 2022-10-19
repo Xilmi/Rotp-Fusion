@@ -264,7 +264,7 @@ public class CustomRaceFactory {
 		cr.getFullList();
 		cr.randomizeRace(randomAlienRacesMin.get(), randomAlienRacesMax.get(),
 				randomAlienRacesTargetMin.get(), randomAlienRacesTargetMax.get(),
-				randomAlienRacesSmoothEdges.get(), randomAlienRaces.isTarget(), false);
+				randomAlienRaces.isTarget(), randomAlienRacesSmoothEdges.get(), false);
 		return cr.getKey();
 	}
 	public static String raceToKey(Race race) {
@@ -278,6 +278,7 @@ public class CustomRaceFactory {
 		CustomRaceFactory cr = new CustomRaceFactory();
 		cr.getFullList();
 		cr.setKey(raceKey);
+		System.out.println("Cost = " + cr.getTotalCost());
 		return cr.race;
 	}
 	public static int keyToValue(String raceKey) {

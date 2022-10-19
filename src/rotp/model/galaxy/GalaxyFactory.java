@@ -135,6 +135,12 @@ public class GalaxyFactory implements Base {
 
 		init(g, tm2);
 //		showEmp(g);
+//		System.out.println("========================================");
+//		for (Empire emp : g.empires()) {
+//			float cost = CustomRaceFactory.keyToValue(emp.abilitiesKey());
+//			String name = emp.name();
+//			System.out.println(name + " : " + cost);
+//		}
 		return g;
 	}
 	@SuppressWarnings("unused")
