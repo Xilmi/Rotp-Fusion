@@ -2150,6 +2150,14 @@ public class AIDiplomat implements Base, Diplomat {
             if(fleetPower > 0)
                 score /= fleetPower;
             score /= fleet.distanceTo(sys);
+            float contactMod = 1.0f;
+            for(Empire ownerContact : owner.contactedEmpires()) {
+                if(ownerContact != empire && !empire.contacts().contains(ownerContact))
+                    contactMod++;
+            }
+            score /= contactMod; //this shall help wanting to fight isolated empires
+            score /= owner.warEnemies().size() + 1; //this shall help appearing as nicer for not being so backstabby
+            score *= empire.generalAI().totalEmpirePopulationCapacity(owner); //this shall help wanting to preserve smaller empires
             //System.out.println(galaxy().currentTurn()+" "+empire.name()+" system: "+empire.sv.name(sys.id)+" score: "+score);
             if(score > bestScore) {
                 bestScore = score;
