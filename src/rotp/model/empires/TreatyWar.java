@@ -20,10 +20,12 @@ import rotp.util.Base;
 public class TreatyWar extends DiplomaticTreaty implements Base {
     private static final long serialVersionUID = 1L;
     int[] coloniesStart = new int[2];
+    int[] contactsStart = new int[2];
     float[] populationStart = new float[2];
     float[] factoriesStart = new float[2];
     float[] fleetSizeStart = new float[2];
     int[] coloniesNow = new int[2];
+    int[] contactsNow = new int[2];
     float[] populationNow = new float[2];
     float[] factoriesNow = new float[2];
     float[] fleetSizeNow = new float[2];
@@ -41,15 +43,18 @@ public class TreatyWar extends DiplomaticTreaty implements Base {
     @Override
     public int listOrder()                      { return 2; }
     public int coloniesStart(Empire e)          { return coloniesStart[index(e)]; }
+    public int contactsStart(Empire e)          { return contactsStart[index(e)]; }
     public float populationStart(Empire e)      { return populationStart[index(e)]; }
     public float productionStart(Empire e)      { return factoriesStart[index(e)]; }
     public float fleetSizeStart(Empire e)       { return fleetSizeStart[index(e)]; }
     public int coloniesNow(Empire e)            { return coloniesNow[index(e)]; }
+    public int contactsNow(Empire e)            { return contactsNow[index(e)]; }
     public float populationNow(Empire e)        { return populationNow[index(e)]; }
     public float factoriesNow(Empire e)         { return factoriesNow[index(e)]; }
     public float fleetSizeNow(Empire e)         { return fleetSizeNow[index(e)]; }
     
     public float colonyChange(Empire e)         { return (float) coloniesNow[index(e)]/coloniesStart[index(e)]; }
+    public float contactsChange(Empire e)       { return (float) contactsNow[index(e)]/contactsStart[index(e)]; }
     public float populationChange(Empire e)     { return populationNow[index(e)]/populationStart[index(e)]; }
     public float factoryChange(Empire e)        { return factoriesNow[index(e)]/factoriesStart[index(e)]; }
     public float fleetSizeChange(Empire e)      { return fleetSizeNow[index(e)]/fleetSizeStart[index(e)]; }
@@ -62,6 +67,7 @@ public class TreatyWar extends DiplomaticTreaty implements Base {
         // this will be called separately for each empire from their diplomatic
         // embassy for the other empire
         coloniesNow[index(emp)] = emp.numColonizedSystems();
+        contactsNow[index(emp)] = emp.contacts().size();
         populationNow[index(emp)] = emp.totalPlanetaryPopulation();     
         factoriesNow[index(emp)] = emp.totalPlanetaryFactories();
         fleetSizeNow[index(emp)] = emp.totalFleetSize();     
@@ -77,6 +83,9 @@ public class TreatyWar extends DiplomaticTreaty implements Base {
     private void initValues(Empire e1, Empire e2) {
         coloniesStart[0] = coloniesNow[0] = e1.numColonizedSystems();
         coloniesStart[1] = coloniesNow[1] = e2.numColonizedSystems();
+        
+        contactsStart[0] = contactsNow[0] = e1.contacts().size();
+        contactsStart[1] = contactsNow[1] = e2.contacts().size();
         
         populationStart[0] = populationNow[0] = e1.totalPlanetaryPopulation();
         populationStart[1] = populationNow[1] = e2.totalPlanetaryPopulation();     
