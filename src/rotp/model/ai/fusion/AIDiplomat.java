@@ -1507,8 +1507,11 @@ public class AIDiplomat implements Base, Diplomat {
                         continue;
                     if(contact.warEnemies().contains(victim) || contact.warEnemies().contains(empire))
                         continue;
-                    float chanceOfContactToBackstabMe = empire.generalAI().predictEmpireChanceToDeclareWarIfIDeclaredWarOn(contact, victim, true);
-                    float chanceOfContactToBackstabVictim = empire.generalAI().predictEmpireChanceToDeclareWarIfIDeclaredWarOn(contact, victim, false);
+                    /*float chanceOfContactToBackstabMe = empire.generalAI().predictEmpireChanceToDeclareWarIfIDeclaredWarOn(contact, victim, true);
+                    float chanceOfContactToBackstabVictim = empire.generalAI().predictEmpireChanceToDeclareWarIfIDeclaredWarOn(contact, victim, false);*/
+                    //Let's just assume the worst:
+                    float chanceOfContactToBackstabMe = 1.0f;
+                    float chanceOfContactToBackstabVictim = 0.0f;
                     ourPower += contact.powerLevel(contact) * chanceOfContactToBackstabVictim;
                     ourMilitaryPower += contact.militaryPowerLevel() * chanceOfContactToBackstabVictim;
                     victimPower += contact.powerLevel(contact) * chanceOfContactToBackstabMe;
@@ -1887,13 +1890,12 @@ public class AIDiplomat implements Base, Diplomat {
                     return true;
                 }
             }
-            /*if(v.empire() != getVictim()) {
-                //when we have taken something from someone who we don't consider our main-victim, we see if they want peace now
-                if (treaty.colonyChange(empire) > 1.0f && treaty.colonyChange(v.empire()) < 1.0f) {
-                    //System.out.println(galaxy().currentTurn()+" "+empire.name()+" is war-weary because "+v.empire().name()+" is not who we want to fight. our gains: "+treaty.colonyChange(empire)+" their losses: "+treaty.colonyChange(v.empire()));
+            if (treaty.contactsChange(empire) != 1.0f) {
+                if(v.empire() != getVictim()) {
+                    //System.out.println(galaxy().currentTurn()+" "+empire.name()+" is war-weary because "+v.empire().name()+" is not who we want to fight. ContactsChange: "+treaty.contactsChange(empire));
                     return true;
                 }
-            }*/
+            }
         }
         boolean everythingUnderSiege = true;
         for(StarSystem sys : empire.allColonizedSystems())
