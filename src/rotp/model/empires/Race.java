@@ -83,6 +83,7 @@ public class Race implements Base, Serializable {
 
     public String id;
     public String setupName; // BR: was never used
+    private String baseRace; // BR: for custom Races
     public String empireTitle; // BR: for custom Races
     public String langKey;
     public String description1, description2, description3, description4; // modnar: add desc4
@@ -263,6 +264,7 @@ public class Race implements Base, Serializable {
     // Get a Copy the current race
     protected Race copy() {
     	Race race = RaceFactory.current().reloadRaceDataFile(directoryName);
+    	race.baseRace = id;
     	race.labels	= labels;
     	race.setupName	 = setupName();
     	race.empireTitle = empireTitle();
@@ -386,6 +388,7 @@ public class Race implements Base, Serializable {
     public String  description4()             { return description4; }
     public boolean isCustomRace()             { return isCustomRace; }
     Race   isCustomRace(boolean val)          { isCustomRace = val; return this;}
+    String baseRace()                         { return baseRace; }
     public boolean isRandomized() { return crEmpireNameRandom.equalsIgnoreCase(empireTitle); }
     DynOptions raceOptions()           	      { return raceOptions; }
     void   raceOptions(DynOptions val)        { raceOptions = val; }

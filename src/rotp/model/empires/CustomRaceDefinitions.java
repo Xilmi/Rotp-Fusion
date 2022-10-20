@@ -615,7 +615,7 @@ public class CustomRaceDefinitions  {
 			hasNoCost(true);
 			for (String race : MOO1GameOptions.allRaceOptions()) {
 				Race r = Race.keyed(race);
-				String name = r.setupName();
+				String name = r.setupName(); // TODO BR: probably useless
 				put(PMutil.suggestedUserViewFromCodeView(race), name, 0f, race);
 			}
 			defaultIndex(0);
@@ -653,7 +653,7 @@ public class CustomRaceDefinitions  {
 				pullAllowed = true;
 				costInitialized = true;
 			}
-			set(race.name());
+			set(race.baseRace());
 		}
 	}
 	// ==================== CreditsBonus ====================

@@ -312,7 +312,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 			bt.disabled(optionIdx == paramId);
 			bt.displayText(setting.guiCostOptionStr(optionIdx));
 			bt.setScaledXY(xLine + optionIndent, yLine);
-			bt.setFixedWidth(true, wSetting-2*optionIndent);
+			bt.setFixedWidth(true, currentWith-2*optionIndent);
 			bt.draw(g);
 			yLine += optionH;
 		}				
