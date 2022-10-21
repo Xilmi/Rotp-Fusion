@@ -16,11 +16,12 @@
 package rotp.model.galaxy;
 
 import static rotp.model.empires.CustomRaceDefinitions.RANDOM_RACE_KEY;
-import static rotp.model.game.MOO1GameOptions.setAIOptions;
+import static rotp.model.game.MOO1GameOptions.setAliensAIOptions;
 import static rotp.ui.UserPreferences.playerShipSet;
 import static rotp.ui.UserPreferences.randomAlienRaces;
 import static rotp.ui.UserPreferences.restartApplySettings;
-import static rotp.ui.UserPreferences.restartChangeAI;
+import static rotp.ui.UserPreferences.restartChangeAliensAI;
+import static rotp.ui.UserPreferences.restartChangePlayerAI;
 import static rotp.ui.UserPreferences.restartPlayerRace;
 
 import java.awt.Point;
@@ -711,7 +712,7 @@ public class GalaxyFactory implements Base {
 	public static class GalaxyCopy {
 		private IGameOptions newOptions;
 		private IGameOptions oldOptions;
-		public GalaxyBaseData galSrc;
+		private GalaxyBaseData galSrc;
 		private float nebulaSizeMult;
 		private LinkedList<String> alienRaces;
 
@@ -740,19 +741,16 @@ public class GalaxyFactory implements Base {
 						oldOptions.selectedLeaderName	(newOptions.selectedLeaderName());
 						empires(0).raceKey = newOptions.selectedPlayerRace();
 						break;
-//					case "Last":// Keeps Race
-//						oldOptions.selectedPlayer().race = empires(index).raceKey;
-//						oldOptions.selectedHomeWorldName(empires(index).homeSys.starName);
-//						oldOptions.selectedLeaderName	(empires(index).leaderName);
-//						break;
-//					case "Swap":
 					default: // Swap Race
 						oldOptions.selectedPlayer().race = empires(0).raceKey;
 						oldOptions.selectedHomeWorldName(empires(0).homeSys.starName);
 						oldOptions.selectedLeaderName	(empires(0).leaderName);
 				}
-				if (restartChangeAI.get()) {
-					setAIOptions((MOO1GameOptions) newOptions, (MOO1GameOptions) oldOptions);
+				if (restartChangeAliensAI.get()) {
+					setAliensAIOptions((MOO1GameOptions) newOptions, (MOO1GameOptions) oldOptions);
+				} 
+				if (restartChangePlayerAI.get()) {
+					oldOptions.selectedAutoplayOption(newOptions.selectedAutoplayOption());
 				} 
 				newOptions = oldOptions;
 				alienRaces = new LinkedList<>();

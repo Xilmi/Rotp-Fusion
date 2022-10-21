@@ -87,68 +87,91 @@ public class UserPreferences {
 	public static final ParamAAN2 fertileHomeworld	 = new ParamAAN2("HOME_FERTILE");
 	public static final ParamAAN2 richHomeworld 	 = new ParamAAN2("HOME_RICH");
 	public static final ParamAAN2 ultraRichHomeworld = new ParamAAN2("HOME_ULTRA_RICH");
-	public static final ParamBoolean battleScout	 = new ParamBoolean(MOD_UI, "BATTLE_SCOUT", false);
-	public static final ParamBoolean randomTechStart = new ParamBoolean(MOD_UI, "RANDOM_TECH_START", false);
-	public static final ParamInteger companionWorlds = new ParamInteger(MOD_UI, "COMPANION_WORLDS"
+	public static final ParamBoolean battleScout	 = new ParamBoolean(
+			MOD_UI, "BATTLE_SCOUT", false);
+	public static final ParamBoolean randomTechStart = new ParamBoolean(
+			MOD_UI, "RANDOM_TECH_START", false);
+	public static final ParamInteger companionWorlds = new ParamInteger(
+			MOD_UI, "COMPANION_WORLDS"
 			, 0, -4, 6, true);
-	public static final ParamInteger retreatRestrictionTurns = new ParamInteger(MOD_UI, "RETREAT_RESTRICTION_TURNS"
+	public static final ParamInteger retreatRestrictionTurns = new ParamInteger(
+			MOD_UI, "RETREAT_RESTRICTION_TURNS"
 			, 100, 0, 100, 1, 5, 20);
-	public static final ParamList retreatRestrictions = new ParamList(MOD_UI, "RETREAT_RESTRICTIONS", "None")
+	public static final ParamList retreatRestrictions = new ParamList(
+			MOD_UI, "RETREAT_RESTRICTIONS", "None")
 			.put("None",	MOD_UI + "RETREAT_NONE")
 			.put("AI",		MOD_UI + "RETREAT_AI")
 			.put("Player",	MOD_UI + "RETREAT_PLAYER")
 			.put("Both",	MOD_UI + "RETREAT_BOTH");
-	public static final ParamInteger customDifficulty = new ParamInteger(MOD_UI, "CUSTOM_DIFFICULTY"
+	public static final ParamInteger customDifficulty = new ParamInteger(
+			MOD_UI, "CUSTOM_DIFFICULTY"
 			, 100, 20, 500, 1, 5, 20);
-	public static final ParamBoolean dynamicDifficulty = new ParamBoolean(MOD_UI, "DYNAMIC_DIFFICULTY", false);
-	public static final ParamFloat missileSizeModifier = new ParamFloat(MOD_UI, "MISSILE_SIZE_MODIFIER"
+	public static final ParamBoolean dynamicDifficulty = new ParamBoolean(
+			MOD_UI, "DYNAMIC_DIFFICULTY", false);
+	public static final ParamFloat missileSizeModifier = new ParamFloat(
+			MOD_UI, "MISSILE_SIZE_MODIFIER"
 			, 2f/3f, 0.1f, 1f, 0.01f, 0.05f, 0.2f, "0.##", "%");
-	public static final ParamBoolean challengeMode = new ParamBoolean(MOD_UI, "CHALLENGE_MODE", false);
+	public static final ParamBoolean challengeMode = new ParamBoolean(
+			MOD_UI, "CHALLENGE_MODE", false);
 
 	// BR: ===== Second Mod GUI:
-	public static final ParamBoolean maximizeSpacing = new ParamBoolean(MOD_UI, "MAX_SPACINGS", false);
-	public static final ParamInteger spacingLimit	 = new ParamInteger(MOD_UI, "MAX_SPACINGS_LIM"
+	public static final ParamBoolean maximizeSpacing = new ParamBoolean(
+			MOD_UI, "MAX_SPACINGS", false);
+	public static final ParamInteger spacingLimit	 = new ParamInteger(
+			MOD_UI, "MAX_SPACINGS_LIM"
 			, 16, 3, Rotp.maximumSystems-1, 1, 10, 100);
-	public static final ParamInteger minStarsPerEmpire = new ParamInteger(MOD_UI, "MIN_STARS_PER_EMPIRE"
+	public static final ParamInteger minStarsPerEmpire = new ParamInteger(
+			MOD_UI, "MIN_STARS_PER_EMPIRE"
 			, 3, 3, Rotp.maximumSystems-1, 1, 5, 20);
-	public static final ParamInteger prefStarsPerEmpire	= new ParamInteger(MOD_UI, "PREF_STARS_PER_EMPIRE"
+	public static final ParamInteger prefStarsPerEmpire	= new ParamInteger(
+			MOD_UI, "PREF_STARS_PER_EMPIRE"
 			, 10, 3, Rotp.maximumSystems-1, 1, 10, 100);
-//	public static final ParamBoolean restartApplyPlayer	= new ParamBoolean(MOD_UI, "RESTART_APPLY_PLAYER", false);
-	public static final ParamBoolean restartChangeAI	= new ParamBoolean(MOD_UI, "RESTART_CHANGE_AI",	 false);
-//	public static final ParamBoolean restartChangeAliens = new ParamBoolean(MOD_UI, "RESTART_CHANGE_ALIENS", false);
-	public static final ParamBoolean restartApplySettings = new ParamBoolean(MOD_UI, "RESTART_APPLY_SETTINGS",false);
-	public static final ParamList restartPlayerRace	= new ParamList(MOD_UI, "RESTART_PLAYER_RACE", "Swap")
+	public static final ParamBoolean restartChangeAliensAI = new ParamBoolean(
+			MOD_UI, "RESTART_CHANGES_ALIENS_AI", false);
+	public static final ParamBoolean restartChangePlayerAI = new ParamBoolean(
+			MOD_UI, "RESTART_CHANGES_PLAYER_AI", false);
+	public static final ParamBoolean restartApplySettings = new ParamBoolean(
+			MOD_UI, "RESTART_APPLY_SETTINGS",false);
+	public static final ParamList restartPlayerRace	= new ParamList(
+			MOD_UI, "RESTART_PLAYER_RACE", "Swap")
 			.put("Last", MOD_UI + "RESTART_PLAYER_RACE_LAST")
 			.put("Swap", MOD_UI + "RESTART_PLAYER_RACE_SWAP")
 			.put("GuiSwap",	 MOD_UI + "RESTART_PLAYER_RACE_GUI_SWAP")
 			.put("GuiLast",	 MOD_UI + "RESTART_PLAYER_RACE_GUI_LAST");
 
-	public static final EventsStartTurn eventsStartTurn	= new EventsStartTurn(MOD_UI, "EVENTS_STARS_TURN"
+	public static final EventsStartTurn eventsStartTurn	= new EventsStartTurn(
+			MOD_UI, "EVENTS_STARS_TURN"
 			, RandomEvents.START_TURN, 1, null, 1, 5, 20);
 	public static final ParamTech techIrradiated = new 
-			ParamTech("TECH_IRRADIATED",	3, "ControlEnvironment",	6); // level 18
+			ParamTech("TECH_IRRADIATED",	3, "ControlEnvironment",6); // level 18
 	public static final ParamTech techCloaking	 = new 
-			ParamTech("TECH_CLOAKING",		2, "Cloaking",				0); // level 27
+			ParamTech("TECH_CLOAKING",		2, "Cloaking",			0); // level 27
 	public static final ParamTech techStargate	 = new 
-			ParamTech("TECH_STARGATES",		4, "Stargate", 				0); // level 27
+			ParamTech("TECH_STARGATES",		4, "Stargate", 			0); // level 27
 	public static final ParamTech techHyperspace = new 
-			ParamTech("TECH_HYPERSPACE",	0, "HyperspaceComm",		0); // level 34
+			ParamTech("TECH_HYPERSPACE",	0, "HyperspaceComm",	0); // level 34
 	public static final ParamTech techIndustry2	 = new 
-			ParamTech("TECH_INDUSTRY_2",	1, "ImprovedIndustrial",	7); // level 38
+			ParamTech("TECH_INDUSTRY_2",	1, "ImprovedIndustrial",7); // level 38
 	public static final ParamTech techThorium	 = new 
-			ParamTech("TECH_THORIUM",		4, "FuelRange",				8); // level 41
+			ParamTech("TECH_THORIUM",		4, "FuelRange",			8); // level 41
 	public static final ParamTech techTransport  = new 
-			ParamTech("TECH_TRANSPORTERS",	4, "CombatTransporter",		0); // level 45
-	public static final ParamInteger randomAlienRacesMin = new ParamInteger(MOD_UI, "RACES_RAND_MIN"
+			ParamTech("TECH_TRANSPORTERS",	4, "CombatTransporter",	0); // level 45
+	public static final ParamInteger randomAlienRacesMin = new ParamInteger(
+			MOD_UI, "RACES_RAND_MIN"
 			, -50, -100, 100, 1, 5, 20);
-	public static final ParamInteger randomAlienRacesMax = new ParamInteger(MOD_UI, "RACES_RAND_MAX"
+	public static final ParamInteger randomAlienRacesMax = new ParamInteger(
+			MOD_UI, "RACES_RAND_MAX"
 			, 50, -100, 100, 1, 5, 20);
-	public static final ParamInteger randomAlienRacesTargetMax = new ParamInteger(MOD_UI, "RACES_RAND_TARGET_MAX"
+	public static final ParamInteger randomAlienRacesTargetMax = new ParamInteger(
+			MOD_UI, "RACES_RAND_TARGET_MAX"
 			, 75, null, null, 1, 10, 100);
-	public static final ParamInteger randomAlienRacesTargetMin = new ParamInteger(MOD_UI, "RACES_RAND_TARGET_MIN"
+	public static final ParamInteger randomAlienRacesTargetMin = new ParamInteger(
+			MOD_UI, "RACES_RAND_TARGET_MIN"
 			, 0, null, null, 1, 10, 100);
-	public static final ParamBoolean randomAlienRacesSmoothEdges = new ParamBoolean(MOD_UI, "RACES_RAND_EDGES", true);
-	public static final RandomAlienRaces randomAlienRaces = new RandomAlienRaces (MOD_UI, "RACES_ARE_RANDOM", "No");
+	public static final ParamBoolean randomAlienRacesSmoothEdges = new ParamBoolean(
+			MOD_UI, "RACES_RAND_EDGES", true);
+	public static final RandomAlienRaces randomAlienRaces = new RandomAlienRaces (
+			MOD_UI, "RACES_ARE_RANDOM", "No");
 	
 	public static final LinkedList<ParamTech> techModList = new LinkedList<>(Arrays.asList(
 			techIrradiated, techCloaking, techStargate, techHyperspace,
@@ -157,47 +180,61 @@ public class UserPreferences {
 
 	// BR: ===== Global settings Mod GUI:
 	private static boolean gamePlayed = false; // to differentiate startup from loaded game
-	public static final ParamFloat showFleetFactor = new ParamFloat(MOD_UI, "SHOW_FLEET_FACTOR"
+	public static final ParamFloat showFleetFactor = new ParamFloat(
+			MOD_UI, "SHOW_FLEET_FACTOR"
 			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%");
-	public static final ParamFloat showFlagFactor = new ParamFloat(MOD_UI, "SHOW_FLAG_FACTOR"
+	public static final ParamFloat showFlagFactor = new ParamFloat(
+			MOD_UI, "SHOW_FLAG_FACTOR"
 			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%");
-	public static final ParamFloat showPathFactor = new ParamFloat(MOD_UI, "SHOW_PATH_FACTOR"
+	public static final ParamFloat showPathFactor = new ParamFloat(
+			MOD_UI, "SHOW_PATH_FACTOR"
 			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%");
-	public static final ParamInteger showNameMinFont = new ParamInteger(MOD_UI, "SHOW_NAME_MIN_FONT"
+	public static final ParamInteger showNameMinFont = new ParamInteger(
+			MOD_UI, "SHOW_NAME_MIN_FONT"
 			, 8, 2, 24, 1, 2, 5);
-	public static final ParamFloat showInfoFontRatio = new ParamFloat(MOD_UI, "SHOW_INFO_FONT_RATIO"
+	public static final ParamFloat showInfoFontRatio = new ParamFloat(
+			MOD_UI, "SHOW_INFO_FONT_RATIO"
 			, 0.7f, 0.2f, 3f, 0.01f, 0.05f, 0.2f, "%", "%");
-	public static final ParamFloat mapFontFactor = new ParamFloat(MOD_UI, "MAP_FONT_FACTOR"
+	public static final ParamFloat mapFontFactor = new ParamFloat(
+			MOD_UI, "MAP_FONT_FACTOR"
 			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%");
-	public static final ParamList menuStartup = new ParamList(MOD_UI, "MENU_STARTUP", "Last")
+	public static final ParamList menuStartup = new ParamList(
+			MOD_UI, "MENU_STARTUP", "Last")
 			.put("Default",	MOD_UI + "STARTUP_DEFAULT")
 			.put("Last",	MOD_UI + "STARTUP_LAST")
 			.put("User",	MOD_UI + "STARTUP_USER")
 			.put("Game",	MOD_UI + "STARTUP_GAME")
 			.put("Vanilla",	MOD_UI + "STARTUP_VANILLA");
-	public static final ParamList menuLoadGame = new ParamList(MOD_UI, "MENU_LOAD_GAME", "LoadAll")
+	public static final ParamList menuLoadGame = new ParamList(
+			MOD_UI, "MENU_LOAD_GAME", "LoadAll")
 			.put("Game",	MOD_UI + "LOAD_GAME_UPDATE")
 			.put("Last",	MOD_UI + "LOAD_GAME_LAST")
 			.put("User",	MOD_UI + "LOAD_GAME_USER")
 			.put("Startup",	MOD_UI + "LOAD_GAME_STARTUP")
 			.put("Vanilla",	MOD_UI + "LOAD_GAME_VANILLA")
 			.put("Default",	MOD_UI + "STARTUP_DEFAULT");
-	public static final ParamBoolean showGridCircular = new ParamBoolean(MOD_UI, "SHOW_GRID_CIRCULAR", false);
-	public static final ParamBoolean showTooltips = new ParamBoolean(MOD_UI, "SHOW_TOOLTIPS", true);
+	public static final ParamBoolean showGridCircular = new ParamBoolean(
+			MOD_UI, "SHOW_GRID_CIRCULAR", false);
+	public static final ParamBoolean showTooltips = new ParamBoolean(
+			MOD_UI, "SHOW_TOOLTIPS", true);
 
 	// This list is used as is by the ModGlobalOptionsUI menu
-	public static final LinkedList<InterfaceParam> modGlobalOptionsUI = new LinkedList<>(Arrays.asList(
+	public static final LinkedList<InterfaceParam> modGlobalOptionsUI = new LinkedList<>(
+			Arrays.asList(
 			menuStartup, menuLoadGame, showGridCircular, showTooltips,
 			showFleetFactor, showFlagFactor, showPathFactor,
 			showNameMinFont, showInfoFontRatio, mapFontFactor
 			));
 	// BR: Galaxy Menu addition
-	public static final ParamBoolean showNewRaces = new ParamBoolean(MOD_UI, "SHOW_NEW_RACES", false);
+	public static final ParamBoolean showNewRaces = new ParamBoolean(
+			MOD_UI, "SHOW_NEW_RACES", false);
 	// BR: Race Menu addition
-	public static final PlayerShipSet playerShipSet = new PlayerShipSet(MOD_UI, "PLAYER_SHIP_SET");
+	public static final PlayerShipSet playerShipSet = new PlayerShipSet(
+			MOD_UI, "PLAYER_SHIP_SET");
 	public static final ParamBoolean playerIsCustom = new ParamBoolean(
 			BASE_UI, "BUTTON_CUSTOM_PLAYER_RACE", false);
-	public static final ParamCR  playerCustomRace = new ParamCR(MOD_UI, "PLAYER_CR");
+	public static final ParamCR  playerCustomRace = new ParamCR(
+			MOD_UI, "PLAYER_CR");
 
 	private static boolean showMemory = false;
 	private static boolean playMusic = true;

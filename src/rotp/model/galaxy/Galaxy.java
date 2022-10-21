@@ -15,7 +15,7 @@
  */
 package rotp.model.galaxy;
 
-import static rotp.ui.UserPreferences.restartChangeAI;
+import static rotp.ui.UserPreferences.restartChangeAliensAI;
 import static rotp.ui.UserPreferences.restartPlayerRace;
 import static rotp.util.ObjectCloner.deepCopy;
 

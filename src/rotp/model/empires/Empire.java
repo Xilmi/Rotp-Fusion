@@ -16,6 +16,8 @@
 package rotp.model.empires;
 
 import static rotp.model.tech.Tech.miniFastRate;
+import static rotp.ui.UserPreferences.restartApplySettings;
+import static rotp.ui.UserPreferences.restartChangeAliensAI;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -429,7 +431,9 @@ public final class Empire implements Base, NamedObject, Serializable {
         raceOptions(dr.raceOptions()); // BR: for custom races
         homeSysId = capitalSysId = s.id;
         compSysId = compId; // modnar: add option to start game with additional colonies
-        if (empSrc != null && empId != Empire.PLAYER_ID) // BR: For Restart with new options 
+        if (empSrc != null && empId != Empire.PLAYER_ID
+        		&& !restartChangeAliensAI.get()
+        		&& !restartApplySettings.get()) // BR: For Restart with new options 
         	selectedAI = empSrc.raceAI();
 
         empireViews = new EmpireView[options().selectedNumberOpponents()+1];
@@ -448,7 +452,8 @@ public final class Empire implements Base, NamedObject, Serializable {
         raceNameIndex = r.nameIndex(raceName);
         String leaderName = name == null ? r.nextAvailableLeader() : name;
         leader = new Leader(this, leaderName);
-        if (empSrc != null && empId != Empire.PLAYER_ID) { // BR: For Restart with new options 
+        if (empSrc != null && empId != Empire.PLAYER_ID
+        		&& !restartApplySettings.get()) { // BR: For Restart with new options 
         	leader.personality = empSrc.personality;
         	leader.objective   = empSrc.objective;
         }

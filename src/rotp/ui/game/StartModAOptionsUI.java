@@ -25,7 +25,8 @@ import static rotp.ui.UserPreferences.fertileHomeworld;
 import static rotp.ui.UserPreferences.missileSizeModifier;
 import static rotp.ui.UserPreferences.randomTechStart;
 import static rotp.ui.UserPreferences.restartApplySettings;
-import static rotp.ui.UserPreferences.restartChangeAI;
+import static rotp.ui.UserPreferences.restartChangeAliensAI;
+import static rotp.ui.UserPreferences.restartChangePlayerAI;
 import static rotp.ui.UserPreferences.restartPlayerRace;
 import static rotp.ui.UserPreferences.retreatRestrictionTurns;
 import static rotp.ui.UserPreferences.retreatRestrictions;
@@ -67,7 +68,8 @@ public class StartModAOptionsUI extends AbstractOptionsUI {
 		endOfColumn();
 		// Fourth column
 		paramList.add(restartPlayerRace);
-		paramList.add(restartChangeAI);
+		paramList.add(restartChangePlayerAI);
+		paramList.add(restartChangeAliensAI);
 		paramList.add(restartApplySettings);
 		endOfColumn();
 	}

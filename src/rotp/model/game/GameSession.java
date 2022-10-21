@@ -872,18 +872,6 @@ public final class GameSession implements Base, Serializable {
 					+ String.format("AI=" + "%-4s", emp.selectedAI)
 					+ emp.getAiName()
 					);
-//			int id = emp.homeSysId();
-//			int ai = emp.selectedAI;
-//			String name	  = emp.race().name();
-//			String home	  = g.system(id).name();
-//			String aiName = emp.getAiName(); 
-//			System.out.println(
-//					String.format("%-4sName = ",     id)
-//					+ String.format("%-16sHome = ",  name)
-//					+ String.format("%-12sAI id = ", home)
-//					+ String.format("%-4sAI Name = ", ai)
-//					+ aiName
-//					);
 		}
 		System.out.println();
 	}

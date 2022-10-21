@@ -1175,7 +1175,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	dest.selectedPlayerRace(src.selectedPlayerRace());
     	dest.selectedPlayerColor(src.selectedPlayerColor());
     }
-    public static void setAIOptions(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
+    public static void setAliensAIOptions(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
     	dest.selectedOpponentAIOption(src.selectedOpponentAIOption);
         for (int i=0;i<dest.specificOpponentAIOption.length;i++)
         	dest.specificOpponentAIOption[i] = src.specificOpponentAIOption[i];
@@ -1189,7 +1189,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	dest.selectedGameDifficulty	(src.selectedGameDifficulty);
         for (int i=0;i<dest.opponentRaces.length;i++)
         	dest.opponentRaces[i] = src.opponentRaces[i];
-    	setAIOptions(src, dest);
+    	setAliensAIOptions(src, dest);
         dest.generateGalaxy();
     }
     public static void setDefaultRaceOptions(MOO1GameOptions dest) { // BR:

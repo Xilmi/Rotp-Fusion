@@ -438,9 +438,8 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
         	GameSession newSession; 
             newSession = preloadGame(dirName, s);
             SelectRestartEmpireUI selectRestartEmpireUI = SelectRestartEmpireUI.instance();
-//    		disableGlassPane(); // TODO BR: Try move up
             selectRestartEmpireUI.init(oldGalaxy, newSession);
-    		disableGlassPane(); // TODO BR: Try move up
+    		disableGlassPane();
     		selectRestartEmpireUI.open();
             restart	  = false;
             oldGalaxy = null;

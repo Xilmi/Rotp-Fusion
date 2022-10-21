@@ -273,7 +273,6 @@ final class SelectRestartEmpireUI  extends BasePanel implements MouseListener, M
 	     	newSession = null;
 		};
 		SwingUtilities.invokeLater(load);
-		disableGlassPane();
 	}
 	private void cancelSelect() {
 		buttonClick();
