@@ -278,7 +278,7 @@ public enum RaceFactory implements Base {
         String key = vals.get(0);
         String value = vals.get(1);
 
-        if (key.equalsIgnoreCase("key"))              { r.id = value; return; }
+        if (key.equalsIgnoreCase("key"))              { r.id = value; r.baseRace = r.id; return; }
         if (key.equalsIgnoreCase("langKey"))          { r.langKey = value; return; }
         if (key.equalsIgnoreCase("year"))             { r.startingYear = parseInt(value); return; }
         if (key.equalsIgnoreCase("homestarType"))     { r.homeworldStarType = value; return; }

@@ -16,6 +16,7 @@
 package rotp.model.galaxy;
 
 import static rotp.ui.UserPreferences.restartChangeAI;
+import static rotp.ui.UserPreferences.restartPlayerRace;
 import static rotp.util.ObjectCloner.deepCopy;
 
 import java.awt.Point;
@@ -626,13 +627,30 @@ public class Galaxy implements Base, Serializable {
 		}
 		void swapPlayer(int id) {
 			// Swap empires, but keeps AI
-			EmpireBaseData empireSwap;
-			empireSwap	= empires[id];
-			empires[id]	= empires[0];
-			empires[0]	= empireSwap;
-			int aiSwap	= empires[id].raceAI();
-			empires[id].raceAI(empires[0].raceAI());
-			empires[0].raceAI(aiSwap);
+			EmpireBaseData player = empires[id];
+			EmpireBaseData alien  = empires[0];
+			empires[id]	= alien;
+			empires[0]	= player;
+			int aiSwap	= alien.raceAI();
+			alien.raceAI(player.raceAI());
+			player.raceAI(aiSwap);
+
+			// Switch back races if asked
+			if (restartPlayerRace.get().equalsIgnoreCase("GuiLast")
+					|| restartPlayerRace.get().equalsIgnoreCase("Last")) {
+				String playerRaceKey		 = alien.raceKey;
+				String alienRaceKey			 = player.raceKey;
+				String playerDataRaceKey	 = alien.dataRaceKey;
+				String alienDataRaceKey		 = player.dataRaceKey;
+				DynOptions playerRaceOptions = alien.raceOptions;
+				DynOptions alienRaceOptions  = player.raceOptions;
+				alien.raceKey		= alienRaceKey;
+				player.raceKey		= playerRaceKey;
+				alien.dataRaceKey	= alienDataRaceKey;
+				player.dataRaceKey	= playerDataRaceKey;
+				alien.raceOptions	= alienRaceOptions;
+				player.raceOptions	= playerRaceOptions;
+			}
 		}
 		void playerRace(String r, String dr, boolean isCR,
 				DynOptions options, int ai) {

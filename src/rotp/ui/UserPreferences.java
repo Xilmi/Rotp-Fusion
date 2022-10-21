@@ -118,9 +118,10 @@ public class UserPreferences {
 //	public static final ParamBoolean restartChangeAliens = new ParamBoolean(MOD_UI, "RESTART_CHANGE_ALIENS", false);
 	public static final ParamBoolean restartApplySettings = new ParamBoolean(MOD_UI, "RESTART_APPLY_SETTINGS",false);
 	public static final ParamList restartPlayerRace	= new ParamList(MOD_UI, "RESTART_PLAYER_RACE", "Swap")
-			.put("Gui",	 MOD_UI + "RESTART_PLAYER_RACE_GUI")
 			.put("Last", MOD_UI + "RESTART_PLAYER_RACE_LAST")
-			.put("Swap", MOD_UI + "RESTART_PLAYER_RACE_SWAP");
+			.put("Swap", MOD_UI + "RESTART_PLAYER_RACE_SWAP")
+			.put("GuiSwap",	 MOD_UI + "RESTART_PLAYER_RACE_GUI_SWAP")
+			.put("GuiLast",	 MOD_UI + "RESTART_PLAYER_RACE_GUI_LAST");
 
 	public static final EventsStartTurn eventsStartTurn	= new EventsStartTurn(MOD_UI, "EVENTS_STARS_TURN"
 			, RandomEvents.START_TURN, 1, null, 1, 5, 20);

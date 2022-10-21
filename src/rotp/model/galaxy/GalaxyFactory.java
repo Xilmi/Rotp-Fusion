@@ -15,15 +15,13 @@
  */
 package rotp.model.galaxy;
 
-import static rotp.model.empires.CustomRaceDefinitions.RANDOMiZED_RACE_KEY;
 import static rotp.model.empires.CustomRaceDefinitions.RANDOM_RACE_KEY;
-import static rotp.model.empires.CustomRaceDefinitions.getAlienRace;
 import static rotp.model.game.MOO1GameOptions.setAIOptions;
 import static rotp.ui.UserPreferences.playerShipSet;
 import static rotp.ui.UserPreferences.randomAlienRaces;
 import static rotp.ui.UserPreferences.restartApplySettings;
-import static rotp.ui.UserPreferences.restartPlayerRace;
 import static rotp.ui.UserPreferences.restartChangeAI;
+import static rotp.ui.UserPreferences.restartPlayerRace;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -58,8 +56,8 @@ public class GalaxyFactory implements Base {
 	 * Companion world greek letter prefix
 	 */
 	public static final String[] compSysName = new String[]{"α", "β", "γ", "δ", "ε", "ζ"};// BR : added two possibilities
-	private static final boolean showEmp = false; // BR: for debug
-	private static final boolean showAI	 = true; // BR: for debug
+	private static final boolean showEmp = true; // BR: for debug
+	private static final boolean showAI	 = false; // BR: for debug
 	private static boolean[] isRandomOpponent; // BR: only Random Races will be customized
 	private static String playerDataRaceKey;   // BR: in case Alien races are a copy of player race
 
@@ -166,6 +164,8 @@ public class GalaxyFactory implements Base {
 		System.out.println();
 	}
 	private void showEmp(Galaxy g) {
+		System.out.println("GalaxyFactory.showEmp = true ===========================================");
+		System.out.println();
 		for (Empire emp : g.empires()) {
 			int id = emp.homeSysId();
 			Race r = emp.race();
@@ -175,13 +175,15 @@ public class GalaxyFactory implements Base {
 					String.format("%-16s", r.name())
 					+ String.format("%-12s", sys.name())
 					+ String.format("%-16s", emp.dataRace().name())
+					+ String.format("%-16s", emp.dataRace().baseRace)
 					+ String.format("%-12s", boss.personality())
 					+ String.format("%-15s", boss.objective())
-					+ String.format("%-22sID=", emp.diplomatAI())
-					+ String.format("%-4sx=", id)
-					+ String.format("%-11sy=", sys.x())
-					+ String.format("%-11sAI=", sys.y())
-					+ String.format("%-4s", emp.selectedAI)
+					+ String.format("%-22s", emp.diplomatAI())
+//					+ String.format("ID=" + "%-4s", id)
+//					+ String.format("x=" + "%-11s", sys.x())
+//					+ String.format("y=" + "%-11s", sys.y())
+					+ String.format("AI=" + "%-4s", emp.selectedAI)
+					+ emp.getAiName()
 					);
 		}
 		System.out.println();
@@ -382,7 +384,9 @@ public class GalaxyFactory implements Base {
 		DynOptions options = null;
 		if (UserPreferences.playerIsCustom.get())
 			playerDataRaceKey = CustomRaceDefinitions.CUSTOM_RACE_KEY;
-		if (src != null) { // Restart
+		if (src != null && !restartApplySettings.get()
+				&& !restartPlayerRace.get().equals("GuiLast")
+				&& !restartPlayerRace.get().equals("GuiSwap")) { // Use Restart info
 			playerDataRaceKey = empSrc.dataRaceKey;
 			options = empSrc.raceOptions;
 		}
@@ -520,7 +524,7 @@ public class GalaxyFactory implements Base {
 			String dataRaceKey;
 			DynOptions options = null;
 			if (restartApplySettings.get()
-					|| src == null) { // Same for Start and restart
+					|| src == null) { // Then Same for Start and restart
             	if (randomAlienRaces.isRandom() && isRandomOpponent[h]) {
             		// Override random opponents
                 	if (randomAlienRaces.isPlayerCopy()) {
@@ -709,10 +713,9 @@ public class GalaxyFactory implements Base {
 		private IGameOptions oldOptions;
 		public GalaxyBaseData galSrc;
 		private float nebulaSizeMult;
+		private LinkedList<String> alienRaces;
 
-		public GalaxyCopy (IGameOptions newOpts) {
-			newOptions = newOpts;
-		}
+		public GalaxyCopy (IGameOptions newOpts) { newOptions = newOpts; }
 		public void copy (GameSession oldS) { // Copy from the old session
 			galSrc			= new GalaxyBaseData(oldS.galaxy());
 			oldOptions		= oldS.options();
@@ -725,21 +728,24 @@ public class GalaxyFactory implements Base {
 			// Change player if required and
 			// Set the Options
 			if (!restartApplySettings.get()) { // Keeps old Settings
+				String oldRace = empires(0).raceKey;
 				// Old options replace new options
 				// Copy what's needed from new options
 				switch (restartPlayerRace.get()) {
-					case "Gui":
+				case "GuiLast":
+				case "GuiSwap":
 						// set Gui Player
 						oldOptions.selectedPlayer().race = newOptions.selectedPlayerRace();
 						oldOptions.selectedHomeWorldName(newOptions.selectedHomeWorldName());
 						oldOptions.selectedLeaderName	(newOptions.selectedLeaderName());
+						empires(0).raceKey = newOptions.selectedPlayerRace();
 						break;
-					case "Last":// Swap Race
-						oldOptions.selectedPlayer().race = empires(index).raceKey;
-						oldOptions.selectedHomeWorldName(empires(index).homeSys.starName);
-						oldOptions.selectedLeaderName	(empires(index).leaderName);
-						break;
-					case "Swap":
+//					case "Last":// Keeps Race
+//						oldOptions.selectedPlayer().race = empires(index).raceKey;
+//						oldOptions.selectedHomeWorldName(empires(index).homeSys.starName);
+//						oldOptions.selectedLeaderName	(empires(index).leaderName);
+//						break;
+//					case "Swap":
 					default: // Swap Race
 						oldOptions.selectedPlayer().race = empires(0).raceKey;
 						oldOptions.selectedHomeWorldName(empires(0).homeSys.starName);
@@ -749,11 +755,34 @@ public class GalaxyFactory implements Base {
 					setAIOptions((MOO1GameOptions) newOptions, (MOO1GameOptions) oldOptions);
 				} 
 				newOptions = oldOptions;
+				alienRaces = new LinkedList<>();
+				for (EmpireBaseData e : empires())
+					alienRaces.add(e.raceKey);
+
+				// check for too many of new player race!
+				String rSearch = alienRaces.getFirst();
+				int occurrences = Collections.frequency(alienRaces, rSearch);
+				if (occurrences > IGameOptions.MAX_OPPONENT_TYPE) {
+					// Too many of new player race!
+					// Change the next one to old race
+					for (int i=1; i<alienRaces.size(); i++) {
+						String race = alienRaces.get(i);
+						if (race != null && race.equalsIgnoreCase(rSearch)) {
+							alienRaces.add(i, oldRace);
+							break;
+						}
+					}
+				}
 			}
 		}
 		public	IGameOptions options()			{ return newOptions; }
 		private	int numNearBySystem()			{ return 2; }
-		private	LinkedList<String> alienRaces()	{ return new LinkedList<>(); }
+		private	LinkedList<String> alienRaces()	{
+			LinkedList<String> list = new LinkedList<>();
+			for (EmpireBaseData e : empires())
+				list.add(e.raceKey);
+			return list;
+		}
 		public	EmpireBaseData[] empires()		{ return galSrc.empires; }
 		private	EmpireBaseData empires(int id)	{ return galSrc.empires[id]; }
 	}

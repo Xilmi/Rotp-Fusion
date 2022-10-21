@@ -40,6 +40,7 @@ import rotp.Rotp;
 import rotp.model.game.DynOptions;
 import rotp.model.game.MOO1GameOptions;
 import rotp.model.planet.PlanetType;
+import rotp.ui.util.Modifier2KeysState;
 import rotp.ui.util.SettingBase;
 import rotp.ui.util.SettingBoolean;
 import rotp.ui.util.SettingInteger;
@@ -173,7 +174,12 @@ public class CustomRaceDefinitions  {
 	}
 	private String fileName() { return race.id + EXT; }
 	public void saveRace() { saveSettingList(Rotp.jarPath(), fileName()); }
-	public void loadRace() { loadSettingList(Rotp.jarPath(), fileName()); }
+	public void loadRace() {
+		if (Race.isValidKey(race.id))
+			setRace(race.id);
+		else
+			loadSettingList(Rotp.jarPath(), fileName());
+	}
 	// ========== Main Getters ==========
 	//
 	public LinkedList<SettingBase<?>> settingList()	{ return settingList; }
@@ -632,8 +638,26 @@ public class CustomRaceDefinitions  {
 				updateAllowed = true;
 			}
 		}
+		@Override public void guiSelect() { // TODO BR: Validate
+			if (race == null) {
+				pushSetting();
+				updateGui();
+				return;
+			}
+			race.baseRace = settingValue();
+			switch (Modifier2KeysState.get()) {
+			case CTRL:
+			case CTRL_SHIFT:
+				pushSetting();
+				updateGui();
+				return;
+			default:
+				super.updateGui();
+			}
+		}
 		@Override public void pushSetting() {
 			race = Race.keyed(settingValue()).copy();
+			race.baseRace = settingValue();
 		}
 		@Override public void pullSetting() {
 			if (!pullAllowed)

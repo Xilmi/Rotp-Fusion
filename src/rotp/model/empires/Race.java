@@ -43,6 +43,9 @@ public class Race implements Base, Serializable {
     public static final String crEmpireNameRandom = "Randomized";
     
     private static Map<String, Race> raceMap = new HashMap<>();
+    public static boolean isValidKey(String s) {
+    	return raceMap.get(s) != null;
+    }
     public static Race keyed(String s) {
         Race race = raceMap.get(s);
         if (race == null) { // BR: Add custom race if missing
@@ -57,7 +60,6 @@ public class Race implements Base, Serializable {
         if (race == null) { // BR: get the custom race
        		race = getAlienRace(s, options);
             race.isCustomRace(true); // TODO BR: complete info
-//            race.raceOptions(options);
         }
         return race;
     }
@@ -83,7 +85,7 @@ public class Race implements Base, Serializable {
 
     public String id;
     public String setupName; // BR: was never used
-    private String baseRace; // BR: for custom Races
+    public String baseRace; // BR: for custom Races
     public String empireTitle; // BR: for custom Races
     public String langKey;
     public String description1, description2, description3, description4; // modnar: add desc4

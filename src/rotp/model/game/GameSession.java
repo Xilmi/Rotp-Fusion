@@ -46,6 +46,8 @@ import rotp.mod.br.profiles.Profiles;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
 import rotp.model.empires.EspionageMission;
+import rotp.model.empires.Leader;
+import rotp.model.empires.Race;
 import rotp.model.empires.SabotageMission;
 import rotp.model.empires.Spy;
 import rotp.model.galaxy.*;
@@ -84,7 +86,7 @@ public final class GameSession implements Base, Serializable {
     private static GameSession instance = new GameSession();
     public static GameSession instance()  { return instance; }
 
-	private static final boolean showAI	 = true; // BR: for debug
+	private static final boolean showInfo = true; // BR: for debug
     private static final int MINIMUM_NEXT_TURN_TIME = 500;
     private static Thread nextTurnThread;
     private static volatile boolean suspendNextTurn = false;
@@ -841,29 +843,47 @@ public final class GameSession implements Base, Serializable {
         instance = gs;
         // Save the last loaded game parameters
 		MOO1GameOptions.saveGameOptions((MOO1GameOptions) instance.options);
-		if (showAI)  showAI(gs.galaxy());
+		if (showInfo)  showInfo(gs.galaxy());
         startExecutors();
         RotPUI.instance().mainUI().checkMapInitialized();
         if (!startUp) {
             RotPUI.instance().selectMainPanelLoadGame();
         }
     }
-	private void showAI(Galaxy g) { // BR: for debug
-		System.out.println("=======================================================================");
+	private void showInfo(Galaxy g) { // BR: for debug
+		System.out.println("GameSession.showInfo = true ===========================================");
 		System.out.println();
 		for (Empire emp : g.empires()) {
 			int id = emp.homeSysId();
-			int ai = emp.selectedAI;
-			String name	  = emp.race().name();
-			String home	  = g.system(id).name();
-			String aiName = emp.getAiName(); 
+			Race r = emp.race();
+			StarSystem sys = g.system(id);
+			Leader boss = emp.leader();
 			System.out.println(
-					String.format("%-4sName = ",     id)
-					+ String.format("%-16sHome = ",  name)
-					+ String.format("%-12sAI id = ", home)
-					+ String.format("%-4sAI Name = ", ai)
-					+ aiName
+					String.format("%-16s", r.name())
+					+ String.format("%-12s", sys.name())
+					+ String.format("%-16s", emp.dataRace().name())
+					+ String.format("%-16s", emp.dataRace().baseRace)
+					+ String.format("%-12s", boss.personality())
+					+ String.format("%-15s", boss.objective())
+					+ String.format("%-22s", emp.diplomatAI())
+//					+ String.format("ID=" + "%-4s", id)
+//					+ String.format("x=" + "%-11s", sys.x())
+//					+ String.format("y=" + "%-11s", sys.y())
+					+ String.format("AI=" + "%-4s", emp.selectedAI)
+					+ emp.getAiName()
 					);
+//			int id = emp.homeSysId();
+//			int ai = emp.selectedAI;
+//			String name	  = emp.race().name();
+//			String home	  = g.system(id).name();
+//			String aiName = emp.getAiName(); 
+//			System.out.println(
+//					String.format("%-4sName = ",     id)
+//					+ String.format("%-16sHome = ",  name)
+//					+ String.format("%-12sAI id = ", home)
+//					+ String.format("%-4sAI Name = ", ai)
+//					+ aiName
+//					);
 		}
 		System.out.println();
 	}
