@@ -64,23 +64,18 @@ public class GalaxyFactory implements Base {
 	private static String playerDataRaceKey;   // BR: in case Alien races are a copy of player race
 
 	public Galaxy newGalaxy(GalaxyCopy src) {
+		GalaxyBaseData gc = src.galSrc;
 		for (Race r: Race.races()) {
 			r.loadNameList();
 			r.loadLeaderList();
 			r.loadHomeworldList();
 		}
-   		System.out.println("inside newGalaxy(src)");
-		System.out.println("0 " + src.galSrc.empires[0].raceKey + "  " + src.galSrc.empires[0].raceAI);
-		System.out.println("" + 1 + " " + src.galSrc.empires[1].raceKey + "  " + src.galSrc.empires[1].raceAI);
-
 		IGameOptions opts = src.options();
 		opts.randomizeColors();
-		Galaxy g = new Galaxy(src.galSrc);
-		
+		Galaxy g = new Galaxy(gc);
 		GameSession.instance().galaxy(g);
 		
-		
-		Race playerRace = Race.keyed(src.galSrc.empires[0].raceKey);
+		Race playerRace = Race.keyed(gc.empires[0].raceKey, gc.empires[0].raceOptions);
 		if(!playerShipSet.isOriginal()) // TODO BR: Add Ship Set to custom races
 			// Select ShipSet shown in Race UI Panel
 			playerRace.preferredShipSet = playerShipSet.get();
@@ -92,7 +87,7 @@ public class GalaxyFactory implements Base {
 		
 		addPlayerSystemForGalaxy(g, 0, null, src);
 		addAlienRaceSystemsForGalaxy(g, 1, null, src, alienRaces);
-		addUnsettledSystemsForGalaxy(g, src.galSrc);		
+		addUnsettledSystemsForGalaxy(g, gc);		
 		init(g, System.currentTimeMillis());		
 		return g;
 	}
@@ -384,11 +379,14 @@ public class GalaxyFactory implements Base {
 
 		// Create DataRace
 		playerDataRaceKey = raceKey;
+		DynOptions options = null;
 		if (UserPreferences.playerIsCustom.get())
 			playerDataRaceKey = CustomRaceDefinitions.CUSTOM_RACE_KEY;
-		if (src != null) // Restart
+		if (src != null) { // Restart
 			playerDataRaceKey = empSrc.dataRaceKey;
-		Race playerDataRace = Race.keyed(playerDataRaceKey);
+			options = empSrc.raceOptions;
+		}
+		Race playerDataRace = Race.keyed(playerDataRaceKey, options);
 		
 		// create home system for player
 		StarSystem sys;
@@ -503,15 +501,15 @@ public class GalaxyFactory implements Base {
 		// since we may have more races than colors we will need to reset the
 		// color list each time we run out. 
 		for (int h=0; h<maxRaces; h++) {
-			if (src != null)
-				eSrc = empSrc[h+1];
-
 			StarSystem sys;
 			String raceKey;
-            if (src != null) // BR: For Restart with new options
-            	raceKey = eSrc.raceKey;
-            else // Start
+
+			if (src != null) { // BR: For Restart with new options
+				eSrc = empSrc[h+1];
+				raceKey = eSrc.raceKey;
+			} else // Start
             	raceKey = alienRaces.get(h);
+
 			Race race = Race.keyed(raceKey);
 			if (raceColors.isEmpty()) 
 				raceColors = opts.possibleColors();
@@ -521,12 +519,8 @@ public class GalaxyFactory implements Base {
 			// TODO BR: Check Random Races 
 			String dataRaceKey;
 			DynOptions options = null;
-			
-            if (src != null) { // BR: For Restart with new options
-            	dataRaceKey	= random(options().startingRaceOptions());
-            	options = eSrc.raceOptions;
-            }
-            else { // Normal Start
+			if (restartApplySettings.get()
+					|| src == null) { // Same for Start and restart
             	if (randomAlienRaces.isRandom() && isRandomOpponent[h]) {
             		// Override random opponents
                 	if (randomAlienRaces.isPlayerCopy()) {
@@ -539,6 +533,9 @@ public class GalaxyFactory implements Base {
                 	dataRaceKey	= random(options().startingRaceOptions());
                 else
                 	dataRaceKey	= raceKey;
+			} else { // TODO BR: Restart keeps aliens
+				dataRaceKey	= eSrc.dataRaceKey;
+        		options = eSrc.raceOptions;
             }
             Race dataRace = Race.keyed(dataRaceKey, options);
 

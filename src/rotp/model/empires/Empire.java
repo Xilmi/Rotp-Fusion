@@ -326,10 +326,7 @@ public final class Empire implements Base, NamedObject, Serializable {
             race = Race.keyed(raceKey);
         return race;
     }
-    public Race dataRace() { // TODO BR: Follow dataRace reload
-    	if (!isPlayer()) {
-    		int x=1;
-    	}
+    public Race dataRace() {
         if (dataRace == null)
         	if (dataRaceKey == null)
         		dataRace = Race.keyed(raceKey);

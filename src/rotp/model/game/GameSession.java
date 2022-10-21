@@ -275,13 +275,7 @@ public final class GameSession implements Base, Serializable {
         
         synchronized(ONE_GAME_AT_A_TIME) {
             id = (long) (Long.MAX_VALUE*random());
-    		System.out.println("Before newGalaxy(src)");
-    		System.out.println("0 " + src.galSrc.empires[0].raceKey + "  " + src.galSrc.empires[0].raceAI);
-    		System.out.println("" + 1 + " " + src.galSrc.empires[1].raceKey + "  " + src.galSrc.empires[1].raceAI);
             GalaxyFactory.current().newGalaxy(src);
-    		System.out.println("After newGalaxy(src)");
-    		System.out.println("0 " + src.galSrc.empires[0].raceKey + "  " + src.galSrc.empires[0].raceAI);
-    		System.out.println("" + 1 + " " + src.galSrc.empires[1].raceKey + "  " + src.galSrc.empires[1].raceAI);
             log("Galaxy complete");
             status().startGame();
             clearScoutedSystems();
