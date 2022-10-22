@@ -69,7 +69,16 @@ public class GalaxyFactory implements Base {
 			r.loadLeaderList();
 			r.loadHomeworldList();
 		}
-		IGameOptions opts = src.options();
+		IGameOptions opts;
+		LinkedList<String> alienRaces;
+		if (restartApplySettings.get()) {
+			opts = GameSession.instance().options();
+			alienRaces = buildAlienRaces();
+		}
+		else {
+			opts = src.options();
+			alienRaces = null;
+		}
 		opts.randomizeColors();
 		Galaxy g = new Galaxy(gc);
 		GameSession.instance().galaxy(g);
@@ -79,7 +88,8 @@ public class GalaxyFactory implements Base {
 			// Select ShipSet shown in Race UI Panel
 			playerRace.preferredShipSet = playerShipSet.get();
 
-		LinkedList<String> alienRaces = src.alienRaces();
+//		LinkedList<String> alienRaces = src.alienRaces();
+//		LinkedList<String> alienRaces = buildAlienRaces();
 		addNebulas(g, src);
 		List<String> systemNames = playerRace.systemNames;
 		Collections.shuffle(systemNames);

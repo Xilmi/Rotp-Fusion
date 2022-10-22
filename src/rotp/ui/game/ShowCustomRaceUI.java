@@ -410,7 +410,10 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 			repaint();
 	}
 	protected String raceAITxt() {
-		return raceUI.selectedEmpire().getAiName();
+		if (raceUI.selectedEmpire().isAIControlled())
+			return raceUI.selectedEmpire().getAiName();
+		else
+			return text("SETUP_OPPONENT_AI_PLAYER");
 	}
 	protected int getBackGroundWidth() {
 		return wFirstColumn+columnPad + (wSetting+columnPad) * (numColumns-1);
