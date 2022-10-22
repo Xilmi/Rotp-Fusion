@@ -15,6 +15,8 @@
  */
 package rotp.ui.game;
 
+import static rotp.ui.UserPreferences.playerIsCustom;
+import static rotp.ui.UserPreferences.playerShipSet;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
 import static rotp.ui.UserPreferences.showNewRaces;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
@@ -194,13 +196,16 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 				getOptions(MOO1GameOptions.loadGameOptions());			
 			break;
 		default: // set to default
-			MOO1GameOptions.setDefaultGalaxyOptions((MOO1GameOptions)newGameOptions());
- 	        showNewRaces.setFromDefault();
+			setToDefault();
 			break; 
 		}
 		init();
 		repaint();
  	}
+ 	private void setToDefault() {
+ 		MOO1GameOptions.setDefaultGalaxyOptions((MOO1GameOptions)newGameOptions());
+	    showNewRaces.setFromDefault();
+    }
  	private void doUserBoxAction() {
 		buttonClick();
 		switch (Modifier2KeysState.get()) {
@@ -796,8 +801,8 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	// BR: Display UI panel for MOD game options
 	private void goToModViewOptions() {
 		buttonClick();
-		ModGlobalOptionsUI modViewOptionsUI = RotPUI.modGlobalOptionsUI();
-		modViewOptionsUI.open(this);
+		ModGlobalOptionsUI modGlobalOptionsUI = RotPUI.modGlobalOptionsUI();
+		modGlobalOptionsUI.open(this);
 		release();
 	}
 	// BR: Add option to return to the main menu

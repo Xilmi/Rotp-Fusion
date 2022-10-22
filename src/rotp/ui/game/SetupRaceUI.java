@@ -130,8 +130,8 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         homeWorld.setFont(narrowFont(20));
         shipSetTxt.setFont(narrowFont(20)); // BR:
         createNewGameOptions(); // Following the UserPreferences.menuStartup
-       	newGameOptions().copyOptions(options()); // Follow the UserPreferences.menuLoadGame
-       	getOptions((MOO1GameOptions) newGameOptions());
+        newGameOptions().copyOptions(options()); // Follow the UserPreferences.menuLoadGame
+        getOptions((MOO1GameOptions) newGameOptions());
         // Save initial options
         initialOptions = new MOO1GameOptions(); // Any content will do
         saveOptions(initialOptions);
@@ -190,14 +190,17 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 				getOptions(MOO1GameOptions.loadGameOptions());			
 			break;
 		default: // set to default
-			MOO1GameOptions.setDefaultRaceOptions((MOO1GameOptions)newGameOptions());
- 	    	playerIsCustom.setFromDefault();
- 	    	playerShipSet.setFromDefault();
+			setToDefault();
 			break; 
 		}
         raceChanged();
 		repaint();
  	}
+ 	private void setToDefault() {
+ 		MOO1GameOptions.setDefaultRaceOptions((MOO1GameOptions)newGameOptions());
+    	playerIsCustom.setFromDefault();
+    	playerShipSet.setFromDefault();
+    }
  	private void doUserBoxAction() {
 		buttonClick();
 		switch (Modifier2KeysState.get()) {

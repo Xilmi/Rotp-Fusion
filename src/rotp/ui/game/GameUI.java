@@ -15,6 +15,9 @@
  */
 package rotp.ui.game;
 
+import static rotp.ui.UserPreferences.loadRequest;
+import static rotp.ui.UserPreferences.menuSpecial;
+
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Composite;
@@ -26,6 +29,7 @@ import java.awt.Image;
 import java.awt.LinearGradientPaint;
 import java.awt.Rectangle;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -50,6 +54,8 @@ import rotp.ui.BaseText;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.sprites.RoundGradientPaint;
+import rotp.ui.util.Modifier2KeysState;
+import rotp.ui.util.ParamOptions;
 import rotp.util.FontManager;
 import rotp.util.ImageManager;
 import rotp.util.LanguageManager;
@@ -57,7 +63,7 @@ import rotp.util.ThickBevelBorder;
 
 public class GameUI  extends BasePanel implements MouseListener, MouseMotionListener, ActionListener {
     private static final long serialVersionUID = 1L;
-    public static String AMBIENCE_KEY = "IntroAmbience";
+	public static String AMBIENCE_KEY = "IntroAmbience";
     protected static RoundGradientPaint rgp;
 
     public static final int BG_DURATION = 80;
@@ -66,7 +72,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     public static String gameName = "";
     
     private static final Color langShade[] = { new Color(0,0,0,128), new Color(128,0,0,96) };
-    private static final Color menuHover[] = {  new Color(255,220,181), new Color(255,255,210) };
+    // private static final Color menuHover[] = {  new Color(255,220,181), new Color(255,255,210) };
     private static final Color menuDepressed[] = { new Color(156,96,77), new Color(110,110,110) };
     private static final Color menuEnabled[] = { new Color(255,203,133), new Color(197,197,197) };
     private static final Color menuDisabled[] = { new Color(156,96,77), new Color(110,110,110) };
@@ -333,7 +339,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         return buttonBorder;
     }
 
-    private static int opt = -1;
+    // private static int opt = -1;
     private static final String[] backImgKeys = { 
         "LANDSCAPE_RUINS_ORION", "LANDSCAPE_RUINS_ANTARAN", 
         "AlkCouncil", "AlkWin", "AlkLoss", "AlkSab01", "AlkSab02",
@@ -366,7 +372,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         Color depressedC = menuDepressed[1];
         Color shadedC = menuShade[1];
         
-        int w = getWidth();
+        // int w = getWidth();
         shrinkText      = new BaseText(this, false,20,   10,24,  enabledC, disabledC, hoverC, depressedC, shadedC, 0, 0, 0);
         enlargeText     = new BaseText(this, false,20,    0,24,  enabledC, disabledC, hoverC, depressedC, shadedC, 0, 0, 0);
         enlargeText.preceder(shrinkText);
@@ -419,11 +425,11 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     }
     private void setTextValues() {
         discussText.displayText(text("GAME_DISCUSS_ONLINE"));
-        continueText.displayText(text("GAME_MENU_CONTINUE"));
-        newGameText.displayText(text("GAME_MENU_NEW_GAME"));
-        loadGameText.displayText(text("GAME_MENU_LOAD_GAME"));
-        saveGameText.displayText(text("GAME_MENU_SAVE_GAME"));
-        settingsText.displayText(text("GAME_MENU_SETTINGS"));
+//        continueText.displayText(text("GAME_MENU_CONTINUE"));
+//        newGameText.displayText(text("GAME_MENU_NEW_GAME"));
+//        loadGameText.displayText(text("GAME_MENU_LOAD_GAME"));
+//        saveGameText.displayText(text("GAME_MENU_SAVE_GAME"));
+//        settingsText.displayText(text("GAME_MENU_SETTINGS"));
         manualText.displayText(text("GAME_MENU_OPEN_MANUAL"));
         exitText.displayText(text("GAME_MENU_EXIT"));
         restartText.displayText(text("GAME_MENU_RESTART"));
@@ -438,7 +444,35 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         translatorText.displayText(text("CREDITS_TRANSLATOR"));
         slideshowText.displayText(text("CREDITS_ILLUSTRATOR"));
         versionText.displayText(text("GAME_VERSION", str(Rotp.releaseId)));
+
+        updateTextValues();
     }
+	private void updateTextValues() {
+		switch (Modifier2KeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT:
+	        continueText.displayText(text("GAME_MENU_LAST_SETTINGS"));
+	        newGameText.displayText(text("GAME_MENU_USER_SETTINGS"));
+	        loadGameText.displayText(text("GAME_MENU_GAME_SETTINGS"));
+	        saveGameText.displayText(text("GAME_MENU_DEFAULT_SETTINGS"));
+	        settingsText.displayText(text("GAME_MENU_GLOBAL_MOD_SETTINGS"));
+	        break;
+		default:
+	        continueText.displayText(text("GAME_MENU_CONTINUE"));
+	        newGameText.displayText(text("GAME_MENU_NEW_GAME"));
+	        loadGameText.displayText(text("GAME_MENU_LOAD_GAME"));
+	        saveGameText.displayText(text("GAME_MENU_SAVE_GAME"));
+	        settingsText.displayText(text("GAME_MENU_SETTINGS"));
+		}
+	}
+	private void checkModifierKey(InputEvent e) {
+		if (Modifier2KeysState.checkForChange(e))
+			repaint();
+	}
+	private boolean isCtrlDown() {
+		return Modifier2KeysState.isCtrlDown();
+	}
+
     public void init() {
         slideshowFade = SLIDESHOW_MAX;
         resetSlideshowTimer();
@@ -483,6 +517,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         super.paintComponent(g0);
         Graphics2D g = (Graphics2D) g0;
         int w = getWidth();
+		updateTextValues();
         
         languagePanel.initFonts();
 
@@ -496,8 +531,6 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         int imgW = back.getWidth(null);
         int imgH = back.getHeight(null);
         g.drawImage(back, 0, 0, getWidth(), getHeight(), 0, 0, imgW, imgH, this);
-
-  
         
         Composite prevComp = g.getComposite();
         float textAlpha = min(1,max(0,slideshowFade));
@@ -605,13 +638,13 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         }
         else {
             restartText.reset();
-            continueText.disabled(!canContinue());
+            continueText.disabled(!canContinue() && !isCtrlDown());
             continueText.drawCentered(g);
-            newGameText.disabled(!canNewGame());
+            newGameText.disabled(!canNewGame() && !isCtrlDown());
             newGameText.drawCentered(g);
-            loadGameText.disabled(!canLoadGame());
+            loadGameText.disabled(!canLoadGame() && !isCtrlDown());
             loadGameText.drawCentered(g);
-            saveGameText.disabled(!canSaveGame());
+            saveGameText.disabled(!canSaveGame() && !isCtrlDown());
             saveGameText.drawCentered(g);
             settingsText.disabled(false);
             settingsText.drawCentered(g);
@@ -671,6 +704,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     }
     @Override
     public void keyReleased(KeyEvent e) {
+    	checkModifierKey(e);
         int k = e.getKeyCode();
         switch (k) {
             case KeyEvent.VK_Z:  hideText = false; repaint(); return;
@@ -679,6 +713,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     @Override
     public void keyPressed(KeyEvent e) {
         resetSlideshowTimer();
+    	checkModifierKey(e);
         int k = e.getKeyCode();
         switch (k) {
             case KeyEvent.VK_MINUS:
@@ -757,6 +792,12 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         } catch (IOException e) {}
     }
     public void continueGame() {
+    	if (isCtrlDown()) {
+            buttonClick();
+    		loadRequest(true);
+    		menuSpecial.set(ParamOptions.LAST);
+    		return;
+    	}
         if (canContinue()) {
             buttonClick();
             if (!session().status().inProgress()) {
@@ -767,18 +808,36 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         }
     }
     public void newGame() {
+    	if (isCtrlDown()) {
+            buttonClick();
+    		loadRequest(true);
+    		menuSpecial.set(ParamOptions.USER);
+    		return;
+    	}
         if (canNewGame()) {
             buttonClick();
             RotPUI.instance().selectSetupRacePanel();
         }
     }
     public void loadGame() {
+    	if (isCtrlDown()) {
+            buttonClick();
+    		loadRequest(true);
+    		menuSpecial.set(ParamOptions.GAME);
+    		return;
+    	}
         if (canLoadGame()) {
             buttonClick();
             RotPUI.instance().selectLoadGamePanel();
         }
     }
     public void saveGame() {
+    	if (isCtrlDown()) {
+            buttonClick();
+    		loadRequest(true);
+    		menuSpecial.set(ParamOptions.DEFAULT);
+    		return;
+    	}
         if (canSaveGame()) {
             buttonClick();
             RotPUI.instance().selectSaveGamePanel();
@@ -803,6 +862,12 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         repaint();
     }
     public void goToSettings() {
+    	if (isCtrlDown()) {
+            buttonClick();
+    		ModGlobalOptionsUI modGlobalOptionsUI = RotPUI.modGlobalOptionsUI();
+    		modGlobalOptionsUI.open(this);
+    		return;
+    	}
         buttonClick();
         GameSettingsUI settingsUI = RotPUI.gameSettingsUI();
         settingsUI.open(this);
@@ -828,6 +893,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     }
     @Override
     public void mouseReleased(MouseEvent e) {
+    	checkModifierKey(e);
         if (e.getButton() > 3)
             return;
         int x = e.getX();
@@ -1023,6 +1089,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         public void mouseDragged(MouseEvent e) { }
         @Override
         public void mouseMoved(MouseEvent e) {
+        	checkModifierKey(e);
             int x = e.getX();
             int y = e.getY();
             resetSlideshowTimer();

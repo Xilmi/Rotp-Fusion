@@ -22,7 +22,11 @@ public enum Modifier2KeysState {
 	NONE, SHIFT, CTRL, CTRL_SHIFT;
 
 	private static Modifier2KeysState lastState = Modifier2KeysState.NONE;
+	private static boolean isShiftDown;
+	private static boolean isCtrlDown;
 
+	public static boolean isShiftDown()	{ return isShiftDown; }
+	public static boolean isCtrlDown()	{ return isCtrlDown; }
 	public static Modifier2KeysState set(InputEvent e) {
 		lastState = analyze(e);
 		return lastState;
@@ -39,14 +43,19 @@ public enum Modifier2KeysState {
 	}
 
 	private static Modifier2KeysState analyze(InputEvent e) {
-		if (e == null)
+		if (e == null) {
+			isShiftDown	= false;
+			isCtrlDown	= false;
 			return Modifier2KeysState.NONE;
-		if (e.isShiftDown())
-			if (e.isControlDown())
+		}
+		isShiftDown	= e.isShiftDown();
+		isCtrlDown	= e.isControlDown();
+		if (isShiftDown)
+			if (isCtrlDown)
 				return Modifier2KeysState.CTRL_SHIFT;
 			else
 				return Modifier2KeysState.SHIFT;
-		if (e.isControlDown())
+		if (isCtrlDown)
 			return Modifier2KeysState.CTRL;
 		return Modifier2KeysState.NONE;
 	}

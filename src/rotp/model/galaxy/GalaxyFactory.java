@@ -19,10 +19,10 @@ import static rotp.model.empires.CustomRaceDefinitions.RANDOM_RACE_KEY;
 import static rotp.model.game.MOO1GameOptions.setAliensAIOptions;
 import static rotp.ui.UserPreferences.playerShipSet;
 import static rotp.ui.UserPreferences.randomAlienRaces;
-import static rotp.ui.UserPreferences.restartApplySettings;
-import static rotp.ui.UserPreferences.restartChangeAliensAI;
-import static rotp.ui.UserPreferences.restartChangePlayerAI;
-import static rotp.ui.UserPreferences.restartPlayerRace;
+import static rotp.ui.UserPreferences.restartAppliesSettings;
+import static rotp.ui.UserPreferences.restartChangesAliensAI;
+import static rotp.ui.UserPreferences.restartChangesPlayerAI;
+import static rotp.ui.UserPreferences.restartChangesPlayerRace;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -71,7 +71,7 @@ public class GalaxyFactory implements Base {
 		}
 		IGameOptions opts;
 		LinkedList<String> alienRaces;
-		if (restartApplySettings.get()) {
+		if (restartAppliesSettings.get()) {
 			opts = GameSession.instance().options();
 			alienRaces = buildAlienRaces();
 		}
@@ -395,9 +395,9 @@ public class GalaxyFactory implements Base {
 		DynOptions options = null;
 		if (UserPreferences.playerIsCustom.get())
 			playerDataRaceKey = CustomRaceDefinitions.CUSTOM_RACE_KEY;
-		if (src != null && !restartApplySettings.get()
-				&& !restartPlayerRace.get().equals("GuiLast")
-				&& !restartPlayerRace.get().equals("GuiSwap")) { // Use Restart info
+		if (src != null && !restartAppliesSettings.get()
+				&& !restartChangesPlayerRace.get().equals("GuiLast")
+				&& !restartChangesPlayerRace.get().equals("GuiSwap")) { // Use Restart info
 			playerDataRaceKey = empSrc.dataRaceKey;
 			options = empSrc.raceOptions;
 		}
@@ -534,7 +534,7 @@ public class GalaxyFactory implements Base {
 			// TODO BR: Check Random Races 
 			String dataRaceKey;
 			DynOptions options = null;
-			if (restartApplySettings.get()
+			if (restartAppliesSettings.get()
 					|| src == null) { // Then Same for Start and restart
             	if (randomAlienRaces.isRandom() && isRandomOpponent[h]) {
             		// Override random opponents
@@ -738,11 +738,11 @@ public class GalaxyFactory implements Base {
 			
 			// Change player if required and
 			// Set the Options
-			if (!restartApplySettings.get()) { // Keeps old Settings
+			if (!restartAppliesSettings.get()) { // Keeps old Settings
 				String oldRace = empires(0).raceKey;
 				// Old options replace new options
 				// Copy what's needed from new options
-				switch (restartPlayerRace.get()) {
+				switch (restartChangesPlayerRace.get()) {
 				case "GuiLast":
 				case "GuiSwap":
 						// set Gui Player
@@ -756,10 +756,10 @@ public class GalaxyFactory implements Base {
 						oldOptions.selectedHomeWorldName(empires(0).homeSys.starName);
 						oldOptions.selectedLeaderName	(empires(0).leaderName);
 				}
-				if (restartChangeAliensAI.get()) {
+				if (restartChangesAliensAI.get()) {
 					setAliensAIOptions((MOO1GameOptions) newOptions, (MOO1GameOptions) oldOptions);
 				} 
-				if (restartChangePlayerAI.get()) {
+				if (restartChangesPlayerAI.get()) {
 					oldOptions.selectedAutoplayOption(newOptions.selectedAutoplayOption());
 				} 
 				newOptions = oldOptions;

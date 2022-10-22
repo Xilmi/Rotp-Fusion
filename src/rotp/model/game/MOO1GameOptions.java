@@ -77,6 +77,7 @@ import rotp.ui.UserPreferences;
 import rotp.ui.game.EditCustomRaceUI;
 import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.util.InterfaceOptions;
+import rotp.ui.util.ParamOptions;
 import rotp.util.Base;
 
 //public class MOO1GameOptions implements Base, IGameOptions, DynamicOptions, Serializable {
@@ -327,41 +328,44 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         selectedGalaxyShapeOption2 = opt.selectedGalaxyShapeOption2;
     }
     @Override
-    public void copyOptions(IGameOptions gameOptions) {
+    public void copyOptions(IGameOptions gameOptions) { // copy from gameOptions
         if (!(gameOptions instanceof MOO1GameOptions))
             return;
         MOO1GameOptions gOpt = (MOO1GameOptions) gameOptions;
-    	
-        if (UserPreferences.gamePlayed()) {
-        	String initOption = UserPreferences.menuLoadGame.get().toUpperCase();
-        	switch (initOption) {
-        		case "LAST":
-        			gOpt = loadLastOptions(); // continue with Load All
-        			break;
-        		case "USER":
-        			gOpt = loadUserOptions(); // continue with Load All
-        			break;
-        		case "GAME":
-        			// gOpt already set
-        			break;
-    	    	case "DEFAULT":
-    	    		gOpt = new MOO1GameOptions();
-    	    		RotPUI.startModAOptionsUI().setToDefault();
-    	    		RotPUI.startModBOptionsUI().setToDefault();
-    	    		EditCustomRaceUI.instance().setToDefault();
-    	    		generateGalaxy();
-    	    		return;
-    	    	case "STARTUP":
-    	    		gOpt = RotPUI.createStartupOptions();
-    	    	case "VANILLA":
-    	    	default: // Vanilla, as before
-    	    		copyVanillaOptions(gOpt);
-    	    		generateGalaxy();
-    	    		return;
-         	}
-        } else {
-        	gOpt = RotPUI.createStartupOptions();
+    	ParamOptions action;
+
+    	if (UserPreferences.gamePlayed())
+        	action = UserPreferences.menuLoadGame;
+        else
+        	action = UserPreferences.menuStartup;
+        if (UserPreferences.loadRequest()) {
+        	action = UserPreferences.menuSpecial;
+        	UserPreferences.loadRequest(false);
         }
+       	
+    	if (action.isLast())
+    		gOpt = loadLastOptions();
+    	else if (action.isUser())
+    		gOpt = loadUserOptions();
+    	else if (action.isGame())
+    		gOpt = loadGameOptions();
+    	else if (action.isDefault()) {
+    		setDefaultRaceOptions(this);
+    		setDefaultGalaxyOptions(this);
+    		setToDefault(); // Advanced options
+    		RotPUI.startModAOptionsUI().setToDefault();
+    		RotPUI.startModAOptionsUI().saveOptions(this);
+    		RotPUI.startModBOptionsUI().setToDefault();
+    		RotPUI.startModBOptionsUI().saveOptions(this);
+    		EditCustomRaceUI.instance().setToDefault();
+    		EditCustomRaceUI.instance().saveOptions(this);
+    		generateGalaxy();
+    		return;
+    	} else { // Vanilla, as before
+    		copyVanillaOptions(gOpt);
+    		generateGalaxy();
+    		return;
+    	}       
     	copyVanillaOptions(gOpt);
 		copyAllOtherOptions(gOpt);
         generateGalaxy(); 
@@ -369,8 +373,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     public void copyAllOtherOptions(MOO1GameOptions source) { // BR:
 		RotPUI.startModAOptionsUI().getOptions(source);
 		RotPUI.startModBOptionsUI().getOptions(source);
-		EditCustomRaceUI.instance().getOptions(source);
-		
+		EditCustomRaceUI.instance().getOptions(source);		
 	    setGalaxyShape(); 
 	    selectedGalaxyShapeOption1 = source.selectedGalaxyShapeOption1;
 	    selectedGalaxyShapeOption2 = source.selectedGalaxyShapeOption2;

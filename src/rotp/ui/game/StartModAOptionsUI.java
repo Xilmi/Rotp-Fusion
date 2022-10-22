@@ -24,10 +24,10 @@ import static rotp.ui.UserPreferences.dynamicDifficulty;
 import static rotp.ui.UserPreferences.fertileHomeworld;
 import static rotp.ui.UserPreferences.missileSizeModifier;
 import static rotp.ui.UserPreferences.randomTechStart;
-import static rotp.ui.UserPreferences.restartApplySettings;
-import static rotp.ui.UserPreferences.restartChangeAliensAI;
-import static rotp.ui.UserPreferences.restartChangePlayerAI;
-import static rotp.ui.UserPreferences.restartPlayerRace;
+import static rotp.ui.UserPreferences.restartAppliesSettings;
+import static rotp.ui.UserPreferences.restartChangesAliensAI;
+import static rotp.ui.UserPreferences.restartChangesPlayerAI;
+import static rotp.ui.UserPreferences.restartChangesPlayerRace;
 import static rotp.ui.UserPreferences.retreatRestrictionTurns;
 import static rotp.ui.UserPreferences.retreatRestrictions;
 import static rotp.ui.UserPreferences.richHomeworld;
@@ -67,10 +67,10 @@ public class StartModAOptionsUI extends AbstractOptionsUI {
 		paramList.add(challengeMode);
 		endOfColumn();
 		// Fourth column
-		paramList.add(restartPlayerRace);
-		paramList.add(restartChangePlayerAI);
-		paramList.add(restartChangeAliensAI);
-		paramList.add(restartApplySettings);
+		paramList.add(restartChangesPlayerRace);
+		paramList.add(restartChangesPlayerAI);
+		paramList.add(restartChangesAliensAI);
+		paramList.add(restartAppliesSettings);
 		endOfColumn();
 	}
 }

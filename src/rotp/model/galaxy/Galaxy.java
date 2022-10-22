@@ -15,8 +15,8 @@
  */
 package rotp.model.galaxy;
 
-import static rotp.ui.UserPreferences.restartChangeAliensAI;
-import static rotp.ui.UserPreferences.restartPlayerRace;
+import static rotp.ui.UserPreferences.restartChangesAliensAI;
+import static rotp.ui.UserPreferences.restartChangesPlayerRace;
 import static rotp.util.ObjectCloner.deepCopy;
 
 import java.awt.Point;
@@ -636,8 +636,8 @@ public class Galaxy implements Base, Serializable {
 			player.raceAI(aiSwap);
 
 			// Switch back races if asked
-			if (restartPlayerRace.get().equalsIgnoreCase("GuiLast")
-					|| restartPlayerRace.get().equalsIgnoreCase("Last")) {
+			if (restartChangesPlayerRace.get().equalsIgnoreCase("GuiLast")
+					|| restartChangesPlayerRace.get().equalsIgnoreCase("Last")) {
 				String playerRaceKey		 = alien.raceKey;
 				String alienRaceKey			 = player.raceKey;
 				String playerDataRaceKey	 = alien.dataRaceKey;

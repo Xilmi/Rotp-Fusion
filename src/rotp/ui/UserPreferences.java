@@ -39,6 +39,7 @@ import rotp.ui.util.ParamCR;
 import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
+import rotp.ui.util.ParamOptions;
 import rotp.ui.util.ParamTech;
 import rotp.ui.util.PlayerShipSet;
 import rotp.ui.util.RandomAlienRaces;
@@ -126,13 +127,13 @@ public class UserPreferences {
 	public static final ParamInteger prefStarsPerEmpire	= new ParamInteger(
 			MOD_UI, "PREF_STARS_PER_EMPIRE"
 			, 10, 3, Rotp.maximumSystems-1, 1, 10, 100);
-	public static final ParamBoolean restartChangeAliensAI = new ParamBoolean(
+	public static final ParamBoolean restartChangesAliensAI	= new ParamBoolean(
 			MOD_UI, "RESTART_CHANGES_ALIENS_AI", false);
-	public static final ParamBoolean restartChangePlayerAI = new ParamBoolean(
+	public static final ParamBoolean restartChangesPlayerAI	= new ParamBoolean(
 			MOD_UI, "RESTART_CHANGES_PLAYER_AI", false);
-	public static final ParamBoolean restartApplySettings = new ParamBoolean(
+	public static final ParamBoolean restartAppliesSettings	= new ParamBoolean(
 			MOD_UI, "RESTART_APPLY_SETTINGS",false);
-	public static final ParamList restartPlayerRace	= new ParamList(
+	public static final ParamList restartChangesPlayerRace	= new ParamList(
 			MOD_UI, "RESTART_PLAYER_RACE", "Swap")
 			.put("Last", MOD_UI + "RESTART_PLAYER_RACE_LAST")
 			.put("Swap", MOD_UI + "RESTART_PLAYER_RACE_SWAP")
@@ -180,6 +181,9 @@ public class UserPreferences {
 
 	// BR: ===== Global settings Mod GUI:
 	private static boolean gamePlayed = false; // to differentiate startup from loaded game
+	private static boolean loadRequest = false; // to Load options requested in menu
+	public static final ParamOptions menuSpecial = new ParamOptions("");
+
 	public static final ParamFloat showFleetFactor = new ParamFloat(
 			MOD_UI, "SHOW_FLEET_FACTOR"
 			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%");
@@ -198,21 +202,10 @@ public class UserPreferences {
 	public static final ParamFloat mapFontFactor = new ParamFloat(
 			MOD_UI, "MAP_FONT_FACTOR"
 			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%");
-	public static final ParamList menuStartup = new ParamList(
-			MOD_UI, "MENU_STARTUP", "Last")
-			.put("Default",	MOD_UI + "STARTUP_DEFAULT")
-			.put("Last",	MOD_UI + "STARTUP_LAST")
-			.put("User",	MOD_UI + "STARTUP_USER")
-			.put("Game",	MOD_UI + "STARTUP_GAME")
-			.put("Vanilla",	MOD_UI + "STARTUP_VANILLA");
-	public static final ParamList menuLoadGame = new ParamList(
-			MOD_UI, "MENU_LOAD_GAME", "LoadAll")
-			.put("Game",	MOD_UI + "LOAD_GAME_UPDATE")
-			.put("Last",	MOD_UI + "LOAD_GAME_LAST")
-			.put("User",	MOD_UI + "LOAD_GAME_USER")
-			.put("Startup",	MOD_UI + "LOAD_GAME_STARTUP")
-			.put("Vanilla",	MOD_UI + "LOAD_GAME_VANILLA")
-			.put("Default",	MOD_UI + "STARTUP_DEFAULT");
+	public static final ParamOptions menuStartup = new ParamOptions(
+			MOD_UI, "MENU_STARTUP", ParamOptions.VANILLA);
+	public static final ParamOptions menuLoadGame = new ParamOptions(
+			MOD_UI, "MENU_LOAD_GAME", ParamOptions.VANILLA);
 	public static final ParamBoolean showGridCircular = new ParamBoolean(
 			MOD_UI, "SHOW_GRID_CIRCULAR", false);
 	public static final ParamBoolean showTooltips = new ParamBoolean(
@@ -425,11 +418,13 @@ public class UserPreferences {
 	public static boolean governorAutoApply() { return governorAutoApply; } // BR:
 	public static void setDivertColonyExcessToResearch(boolean divertOn)  {divertColonyExcessToResearch = divertOn; save(); }
 	public static boolean divertColonyExcessToResearch()  { return divertColonyExcessToResearch; }
-	public static boolean disableAdvisor() { return disableAdvisor; }
+	public static boolean disableAdvisor()	{ return disableAdvisor; }
 	public static void uiTexturePct(int i)	{ uiTexturePct = i / 100.0f; }
 	public static float uiTexturePct()		{ return uiTexturePct; }
 	public static boolean gamePlayed()		{return gamePlayed; }
 	public static void gamePlayed(boolean played) { gamePlayed = played; }
+	public static boolean loadRequest()			  {return loadRequest; }
+	public static void loadRequest(boolean load)  { loadRequest = load; }
 	
 	public static void loadAndSave() {
 		load();

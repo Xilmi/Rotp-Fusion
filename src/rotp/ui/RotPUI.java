@@ -15,6 +15,8 @@
  */
 package rotp.ui;
 
+import static rotp.ui.UserPreferences.menuStartup;
+
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -30,6 +32,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.List;
+
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
@@ -52,26 +55,26 @@ import rotp.model.tech.TechCategory;
 import rotp.model.tech.TechLibrary;
 import rotp.ui.combat.ShipBattleUI;
 import rotp.ui.design.DesignUI;
-import rotp.ui.game.HelpUI;
 import rotp.ui.diplomacy.DialogueManager;
 import rotp.ui.diplomacy.DiplomacyRequestReply;
 import rotp.ui.fleets.FleetUI;
-import rotp.ui.map.SystemsUI;
 import rotp.ui.game.EditCustomRaceUI;
 import rotp.ui.game.GameOverUI;
 import rotp.ui.game.GameSettingsUI;
 import rotp.ui.game.GameUI;
+import rotp.ui.game.HelpUI;
 import rotp.ui.game.LoadGameUI;
+import rotp.ui.game.ModGlobalOptionsUI;
 import rotp.ui.game.RaceIntroUI;
 import rotp.ui.game.SaveGameUI;
 import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.game.SetupRaceUI;
-import rotp.ui.game.StartModBOptionsUI;
-import rotp.ui.game.ModGlobalOptionsUI;
-import rotp.ui.game.StartOptionsUI;
 import rotp.ui.game.StartModAOptionsUI; // modnar: add UI panel for modnar MOD game options
+import rotp.ui.game.StartModBOptionsUI;
+import rotp.ui.game.StartOptionsUI;
 import rotp.ui.history.HistoryUI;
 import rotp.ui.main.MainUI;
+import rotp.ui.map.SystemsUI;
 import rotp.ui.notifications.DiplomaticNotification;
 import rotp.ui.notifications.TurnNotification;
 import rotp.ui.planets.ColonizePlanetUI;
@@ -308,27 +311,26 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     // BR: Added for initialization choice
     public static MOO1GameOptions createStartupOptions() {
     	MOO1GameOptions newOptions;
-    	String initOption = UserPreferences.menuStartup.get().toUpperCase();
-    	switch (initOption) {
-	    	case "LAST":
-	    		return MOO1GameOptions.loadLastOptions();
-	    	case "USER":
-	    		return MOO1GameOptions.loadUserOptions();
-	    	case "GAME":
-	    		return MOO1GameOptions.loadGameOptions();
-	    	case "DEFAULT":
-	    		newOptions = new MOO1GameOptions();
-	    		startModAOptionsUI().setToDefault();
-	    		startModAOptionsUI().saveOptions(newOptions);
-	    		startModBOptionsUI().setToDefault();
-	    		startModBOptionsUI().saveOptions(newOptions);
-	    		EditCustomRaceUI.instance().setToDefault();
-	    		EditCustomRaceUI.instance().saveOptions(newOptions);
-	    		return newOptions;
-	    	case "VANILLA":
-	    	default: // Vanilla, as before
-	    		return new MOO1GameOptions();
-     	}
+    	if (menuStartup.isLast())
+    		return MOO1GameOptions.loadLastOptions();
+    	else if (menuStartup.isUser())
+    		return MOO1GameOptions.loadUserOptions();
+    	else if (menuStartup.isGame())
+	    	return MOO1GameOptions.loadGameOptions();
+    	else if (menuStartup.isDefault()) {
+    		newOptions = new MOO1GameOptions();
+    		MOO1GameOptions.setDefaultRaceOptions(newOptions);
+    		MOO1GameOptions.setDefaultGalaxyOptions(newOptions);
+    		newOptions.setToDefault(); // Advanced options
+    		startModAOptionsUI().setToDefault();
+    		startModAOptionsUI().saveOptions(newOptions);
+    		startModBOptionsUI().setToDefault();
+    		startModBOptionsUI().saveOptions(newOptions);
+    		EditCustomRaceUI.instance().setToDefault();
+    		EditCustomRaceUI.instance().saveOptions(newOptions);
+    		return newOptions;
+    	} else // Vanilla, as before
+    		return new MOO1GameOptions();
     }
     public static void clearNewOptions() { newGameOptions = null; }
 
@@ -338,16 +340,16 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         else
             timer.stop();
     }
-    public static RotPUI instance()                  { return instance; }
-    public static HelpUI helpUI()                    { return instance.helpUI; }
-    public static StartOptionsUI startOptionsUI()    { return instance.startOptionsUI; }
+    public static RotPUI instance()               { return instance; }
+    public static HelpUI helpUI()                 { return instance.helpUI; }
+    public static StartOptionsUI startOptionsUI() { return instance.startOptionsUI; }
+    public static GameSettingsUI gameSettingsUI() { return instance.gameSettingsUI; }
     // modnar: add UI panel for modnar MOD game options
     public static StartModAOptionsUI startModAOptionsUI() { return instance.startModAOptionsUI; }
     // BR: Second UI panel for MOD game options
     public static StartModBOptionsUI startModBOptionsUI() { return instance.startModBOptionsUI; }
     // BR: Display UI panel for MOD game options
     public static ModGlobalOptionsUI modGlobalOptionsUI() { return instance.modGlobalOptionsUI; }
-    public static GameSettingsUI gameSettingsUI()    { return instance.gameSettingsUI; }
 
     @Override
     public void paint(Graphics g) {
