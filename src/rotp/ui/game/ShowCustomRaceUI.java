@@ -218,6 +218,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		}		
 	}
 	public void open(BasePanel p) {
+		Modifier2KeysState.reset();
 		parent = p;
 		init();
 		enableGlassPane(this);

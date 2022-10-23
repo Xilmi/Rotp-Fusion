@@ -124,6 +124,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		}
 	}
 	@Override public void open(BasePanel p) {
+		Modifier2KeysState.reset();
 		parent = p;
 		cr.fromOptions((DynOptions) playerCustomRace.get());
 		initialOptions = new MOO1GameOptions(); // Any content will do
@@ -331,6 +332,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	}	
 	@Override protected void close() {
 		((SetupRaceUI) parent).raceChanged();
+		Modifier2KeysState.reset();
 		disableGlassPane();
 		((SetupRaceUI) parent).repaint();
 	}

@@ -126,6 +126,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         initTextField(shipSetTxt); // BR:
     }
     public void init() {
+		Modifier2KeysState.reset();
         leaderName.setFont(narrowFont(20));
         homeWorld.setFont(narrowFont(20));
         shipSetTxt.setFont(narrowFont(20)); // BR:

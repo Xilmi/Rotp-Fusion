@@ -172,6 +172,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	}
 	public void open(BasePanel p) {
 		parent = p;
+		Modifier2KeysState.reset();
 		w	= p.getWidth();
 		h	= p.getHeight();
 		wBG	= w - (leftM + rightM);
@@ -190,6 +191,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	private void close() {
 		newGameOptions().galaxyShape().quickGenerate(); // BR: to get correct map preview 
 		initialOptions = null;
+		Modifier2KeysState.reset();
 		disableGlassPane();
 	}
 	public void saveOptions(MOO1GameOptions destination) {

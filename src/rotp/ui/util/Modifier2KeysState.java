@@ -41,6 +41,11 @@ public enum Modifier2KeysState {
 		lastState = newState;
 		return true;
 	}
+	public static void reset() {
+		lastState	= Modifier2KeysState.NONE;
+		isShiftDown	= false;
+		isCtrlDown	= false;
+	}
 
 	private static Modifier2KeysState analyze(InputEvent e) {
 		if (e == null) {

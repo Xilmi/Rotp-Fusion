@@ -84,9 +84,9 @@ public class GalaxyFactory implements Base {
 		GameSession.instance().galaxy(g);
 		
 		Race playerRace = Race.keyed(gc.empires[0].raceKey, gc.empires[0].raceOptions);
-		if(!playerShipSet.isOriginal()) // TODO BR: Add Ship Set to custom races
-			// Select ShipSet shown in Race UI Panel
-			playerRace.preferredShipSet = playerShipSet.get();
+//		if(!playerShipSet.isOriginal()) // TODO BR: Add Ship Set to custom races
+//			// Select ShipSet shown in Race UI Panel
+//			playerRace.preferredShipSet = playerShipSet.get();
 
 //		LinkedList<String> alienRaces = src.alienRaces();
 //		LinkedList<String> alienRaces = buildAlienRaces();
@@ -118,8 +118,8 @@ public class GalaxyFactory implements Base {
 		Galaxy g = new Galaxy(shape);
 		GameSession.instance().galaxy(g);
 		Race playerRace = Race.keyed(opts.selectedPlayerRace());
-		if(!playerShipSet.isOriginal())
-			playerRace.preferredShipSet = playerShipSet.get();
+//		if(!playerShipSet.isOriginal()) // TODO BR: Remove
+//			playerRace.preferredShipSet = playerShipSet.get();
 
 		LinkedList<String> alienRaces = buildAlienRaces();
 

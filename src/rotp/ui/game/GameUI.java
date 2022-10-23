@@ -476,6 +476,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     public void init() {
         slideshowFade = SLIDESHOW_MAX;
         resetSlideshowTimer();
+		Modifier2KeysState.reset();
     }
     @Override
     public void animate() {

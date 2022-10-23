@@ -15,8 +15,6 @@
  */
 package rotp.ui.game;
 
-import static rotp.ui.UserPreferences.playerIsCustom;
-import static rotp.ui.UserPreferences.playerShipSet;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
 import static rotp.ui.UserPreferences.showNewRaces;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
@@ -135,6 +133,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			oppAI[i] = new Rectangle();
 	}
 	public void init() {
+		Modifier2KeysState.reset();
         initialOptions = new MOO1GameOptions(); // Any content will do
         saveOptions(initialOptions);
 	}

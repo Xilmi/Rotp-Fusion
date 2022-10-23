@@ -1545,7 +1545,7 @@ SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_DESC | Should "Restart" Change the Aliens
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI      | Restart Changes Aliens AI: %1 
 SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_DESC | Should "Restart" Change the Player AI? 
 SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI      | Restart Changes AutoPlay: %1 
-SETTINGS_MOD_RESTART_APPLY_SETTINGS_DESC | Should "Restart" Apply the current GUI Settings? 
+SETTINGS_MOD_RESTART_APPLY_SETTINGS_DESC | Should "Restart" Apply the current GUI Settings? (Except for Galaxy and Races settings) 
 SETTINGS_MOD_RESTART_APPLY_SETTINGS      | Restart with new Settings: %1 
 SETTINGS_MOD_RESTART_PLAYER_RACE_DESC    | Player Race after "Restart" Last? or Swap? GUI & Last Alien? GUI & Swap Alien?
 SETTINGS_MOD_RESTART_PLAYER_RACE         | Restart Player Race: %1 
