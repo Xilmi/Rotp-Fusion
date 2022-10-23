@@ -54,7 +54,6 @@ public class Rotp {
     private static String startupDir;
     private static JFrame frame;
     public static String releaseId = version;
-//    public static String releaseId = modId + " " + version;
     public static long startMs = System.currentTimeMillis();
     public static long maxHeapMemory = Runtime.getRuntime().maxMemory() / 1048576;
     public static int maximumSystems = 120*(int)(Rotp.maxHeapMemory-250); // BR: needs static access

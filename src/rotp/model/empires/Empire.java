@@ -216,7 +216,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     		return dataRace().setupName;
     	return race().nameVariant(raceNameIndex);
     }
-    public String raceName() { // TODO BR: manage custom race
+    public String raceName() {
     	if (isPlayer() && isCustomRace())
     		return dataRace().setupName;
     	return raceName(0);
@@ -431,9 +431,9 @@ public final class Empire implements Base, NamedObject, Serializable {
         raceOptions(dr.raceOptions()); // BR: for custom races
         homeSysId = capitalSysId = s.id;
         compSysId = compId; // modnar: add option to start game with additional colonies
-        if (empSrc != null && empId != Empire.PLAYER_ID
-        		&& !restartChangesAliensAI.get()
-        		&& !restartAppliesSettings.get()) // BR: For Restart with new options 
+        if (empSrc != null							// Restart
+        		&& empId != Empire.PLAYER_ID		// Is Alien
+        		&& !restartChangesAliensAI.get())	// Don't changes AI
         	selectedAI = empSrc.raceAI();
 
         empireViews = new EmpireView[options().selectedNumberOpponents()+1];
@@ -479,7 +479,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public Color color()                 { return options().color(bannerColor); }
     public int shipColorId()             { return colorId(); }
     @Override
-    public String name() {  // TODO BR: manage custom race
+    public String name() {
         if (empireName == null)
         	if (isPlayer() && isCustomRace())
         		empireName = dataRace().empireTitle;
@@ -540,7 +540,8 @@ public final class Empire implements Base, NamedObject, Serializable {
     @Override
     public String toString()   { return concat("Empire: ", raceName()); }
 
-    public String replaceTokens(String s, String key) { // TODO BR: complete
+    // TODO BR: complete replaceTokens for custom races
+    public String replaceTokens(String s, String key) {
         List<String> tokens = this.varTokens(s, key);
         String s1 = s;
         for (String token: tokens) {
@@ -3951,17 +3952,17 @@ public final class Empire implements Base, NamedObject, Serializable {
 		public String raceKey;
 		public String dataRaceKey;
 		public String empireName;
-		public String dataName; // TODO BR: Validate for custom Races
-		public String raceName;  // TODO BR: Validate for custom Races
+		public String dataName; // BR: To be validate for custom Races
+		public String raceName; // BR: To be validate for custom Races
 		public String leaderName;
 		public boolean isCustomRace;
 		public DynOptions raceOptions;
-		public int raceAI;
-		public Personality personality;
-		public Objective objective;
+		private int raceAI;
+		private Personality personality;
+		private Objective objective;
 
 		public SystemBaseData homeSys;
-		public int[] compSysId;
+		private int[] compSysId;
 		public SystemBaseData[] companions;
 		
 		public EmpireBaseData(Empire src, SystemBaseData[] systems) {

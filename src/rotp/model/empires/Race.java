@@ -59,7 +59,7 @@ public class Race implements Base, Serializable {
         Race race = raceMap.get(s);
         if (race == null) { // BR: get the custom race
        		race = getAlienRace(s, options);
-            race.isCustomRace(true); // TODO BR: complete info
+            race.isCustomRace(true);
         }
         return race;
     }
@@ -248,7 +248,8 @@ public class Race implements Base, Serializable {
         directoryName = dirPath;
         labels = new LabelManager();
     }
-    String empireTitle() { // TODO BR: for race customization
+    // TODO BR: For race customization to be completed
+    String empireTitle() {
         String s = "[this_empire]";
         String key = "this";
         List<String> tokens = varTokens(s, key);

@@ -105,7 +105,7 @@ public class CustomRaceDefinitions  {
 		return cr.getRace().isCustomRace(true);
 	}
 	public static Race getAlienRace(String key, DynOptions options) {
-		if (key.equalsIgnoreCase(RANDOM_RACE_KEY)) { // TODO BR: Check load and save randomized
+		if (key.equalsIgnoreCase(RANDOM_RACE_KEY)) {
 			return getRandomAlienRace();
 		}
 		if (key.equalsIgnoreCase(CUSTOM_RACE_KEY)) {
@@ -118,7 +118,7 @@ public class CustomRaceDefinitions  {
 			return new CustomRaceDefinitions(options).getRace();
 	}
 	static Race keyToRace(String raceKey) {
-		if (raceKey.equalsIgnoreCase(RANDOM_RACE_KEY)) { // TODO BR: Check load and save randomized
+		if (raceKey.equalsIgnoreCase(RANDOM_RACE_KEY)) {
 			return getRandomAlienRace();
 		}
 		if (raceKey.equalsIgnoreCase(CUSTOM_RACE_KEY)) {
@@ -621,7 +621,7 @@ public class CustomRaceDefinitions  {
 			hasNoCost(true);
 			for (String race : MOO1GameOptions.allRaceOptions()) {
 				Race r = Race.keyed(race);
-				String name = r.setupName(); // TODO BR: probably useless
+				String name = r.setupName(); // Probably useless
 				put(PMutil.suggestedUserViewFromCodeView(race), name, 0f, race);
 			}
 			defaultIndex(0);
@@ -638,7 +638,7 @@ public class CustomRaceDefinitions  {
 				updateAllowed = true;
 			}
 		}
-		@Override public void guiSelect() { // TODO BR: Validate
+		@Override public void guiSelect() {
 			if (race == null) {
 				pushSetting();
 				updateGui();

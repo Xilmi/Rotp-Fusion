@@ -203,7 +203,6 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
  	}
  	private void setToDefault() {
  		MOO1GameOptions.setDefaultGalaxyOptions((MOO1GameOptions)newGameOptions());
-	    showNewRaces.setFromDefault();
     }
  	private void doUserBoxAction() {
 		buttonClick();

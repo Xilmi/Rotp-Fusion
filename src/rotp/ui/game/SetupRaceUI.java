@@ -199,8 +199,6 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
  	}
  	private void setToDefault() {
  		MOO1GameOptions.setDefaultRaceOptions((MOO1GameOptions)newGameOptions());
-    	playerIsCustom.setFromDefault();
-    	playerShipSet.setFromDefault();
     }
  	private void doUserBoxAction() {
 		buttonClick();

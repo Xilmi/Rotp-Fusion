@@ -23,6 +23,7 @@ import static rotp.ui.UserPreferences.playerIsCustom;
 import static rotp.ui.UserPreferences.playerShipSet;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
 import static rotp.ui.UserPreferences.randomTechStart;
+import static rotp.ui.UserPreferences.showNewRaces;
 
 import java.awt.Color;
 import java.awt.Toolkit;
@@ -1201,6 +1202,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         else
         	dest.selectedPlayerRace(dest.random(allRaceOptions()));
     	dest.selectedPlayerColor(0);
+    	playerIsCustom.setFromDefault();
+    	playerShipSet.setFromDefault();
     }
     public static void setDefaultGalaxyOptions(MOO1GameOptions dest) { // BR:
     	dest.selectedGalaxySize			= SIZE_SMALL;
@@ -1213,6 +1216,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         for (int i=0;i<dest.specificOpponentAIOption.length;i++)
         	dest.specificOpponentAIOption[i] = OPPONENT_AI_CRUEL;
         dest.generateGalaxy();
+	    showNewRaces.setFromDefault();
+	    prefStarsPerEmpire.setFromDefault();
     }
     public static void setAdvancedOptions(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
         dest.selectedGalaxyAge			= src.selectedGalaxyAge;

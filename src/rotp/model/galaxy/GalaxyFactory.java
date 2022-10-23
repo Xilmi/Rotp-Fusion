@@ -17,7 +17,6 @@ package rotp.model.galaxy;
 
 import static rotp.model.empires.CustomRaceDefinitions.RANDOM_RACE_KEY;
 import static rotp.model.game.MOO1GameOptions.setAliensAIOptions;
-import static rotp.ui.UserPreferences.playerShipSet;
 import static rotp.ui.UserPreferences.randomAlienRaces;
 import static rotp.ui.UserPreferences.restartAppliesSettings;
 import static rotp.ui.UserPreferences.restartChangesAliensAI;
@@ -84,12 +83,6 @@ public class GalaxyFactory implements Base {
 		GameSession.instance().galaxy(g);
 		
 		Race playerRace = Race.keyed(gc.empires[0].raceKey, gc.empires[0].raceOptions);
-//		if(!playerShipSet.isOriginal()) // TODO BR: Add Ship Set to custom races
-//			// Select ShipSet shown in Race UI Panel
-//			playerRace.preferredShipSet = playerShipSet.get();
-
-//		LinkedList<String> alienRaces = src.alienRaces();
-//		LinkedList<String> alienRaces = buildAlienRaces();
 		addNebulas(g, src);
 		List<String> systemNames = playerRace.systemNames;
 		Collections.shuffle(systemNames);
@@ -118,8 +111,6 @@ public class GalaxyFactory implements Base {
 		Galaxy g = new Galaxy(shape);
 		GameSession.instance().galaxy(g);
 		Race playerRace = Race.keyed(opts.selectedPlayerRace());
-//		if(!playerShipSet.isOriginal()) // TODO BR: Remove
-//			playerRace.preferredShipSet = playerShipSet.get();
 
 		LinkedList<String> alienRaces = buildAlienRaces();
 
@@ -531,7 +522,6 @@ public class GalaxyFactory implements Base {
 			Integer colorId = raceColors.remove(0);
 
 			// Create DataRace
-			// TODO BR: Check Random Races 
 			String dataRaceKey;
 			DynOptions options = null;
 			if (restartAppliesSettings.get()
@@ -548,7 +538,7 @@ public class GalaxyFactory implements Base {
                 	dataRaceKey	= random(options().startingRaceOptions());
                 else
                 	dataRaceKey	= raceKey;
-			} else { // TODO BR: Restart keeps aliens
+			} else {
 				dataRaceKey	= eSrc.dataRaceKey;
         		options = eSrc.raceOptions;
             }
@@ -785,12 +775,6 @@ public class GalaxyFactory implements Base {
 		}
 		public	IGameOptions options()			{ return newOptions; }
 		private	int numNearBySystem()			{ return 2; }
-		private	LinkedList<String> alienRaces()	{
-			LinkedList<String> list = new LinkedList<>();
-			for (EmpireBaseData e : empires())
-				list.add(e.raceKey);
-			return list;
-		}
 		public	EmpireBaseData[] empires()		{ return galSrc.empires; }
 		private	EmpireBaseData empires(int id)	{ return galSrc.empires[id]; }
 	}

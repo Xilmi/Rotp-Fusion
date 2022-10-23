@@ -429,7 +429,7 @@
 							<name>${BaseFileName}</name>
 							<targetCommitish>UpdateFactoryMenu</targetCommitish>
 							<releaseNotes>releaseNotesBR.md</releaseNotes>
-							<draft>true</draft>
+							<draft>false</draft>
 							<assets>
 								<asset>target/${BaseFileName}.jar</asset>
 								<asset>target/${BaseFileName}-mini.jar</asset>
