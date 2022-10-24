@@ -85,6 +85,7 @@ import rotp.util.Base;
 public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private static final long serialVersionUID = 1L;
     private static final float BASE_RESEARCH_MOD = 30f;
+    private static final boolean beepsOnError = false;
     private final String[] opponentRaces = new String[MAX_OPPONENTS];
     private final List<Integer> colors = new ArrayList<>();
     private final List<Color> empireColors = new ArrayList<>();
@@ -1591,7 +1592,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
     // BR: Options files initialization
     private static MOO1GameOptions initMissingOptionFile(String path, String fileName) {
-    	Toolkit.getDefaultToolkit().beep();
+    	if (beepsOnError)
+    		Toolkit.getDefaultToolkit().beep();
 		MOO1GameOptions newOptions = new MOO1GameOptions();
 		newOptions.generateGalaxy();
     	saveOptions(new MOO1GameOptions(), path, fileName);			

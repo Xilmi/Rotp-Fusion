@@ -56,7 +56,10 @@ public class Rotp {
     public static String releaseId = version;
     public static long startMs = System.currentTimeMillis();
     public static long maxHeapMemory = Runtime.getRuntime().maxMemory() / 1048576;
-    public static int maximumSystems = 120*(int)(Rotp.maxHeapMemory-250); // BR: needs static access
+    // BR: needs static access;
+    // BR: Adjusted the values for new options
+    // BR: Adjusted margin values because memory size grow as we play (events memorization)
+    public static int maximumSystems = 75*(int)(Rotp.maxHeapMemory-600); // BR: needs static access
     public static long maxUsedMemory;
     public static boolean logging = false;
     private static float resizeAmt =  -1.0f;

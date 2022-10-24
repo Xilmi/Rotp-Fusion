@@ -262,7 +262,7 @@ public final class GameSession implements Base, Serializable {
             galaxy().startGame();
             // BR: Save the last loaded game parameters
             Profiles.saveGameOptionsToFile(this);
-    		MOO1GameOptions.saveGameOptions((MOO1GameOptions) options);
+    		MOO1GameOptions.saveGameOptions((MOO1GameOptions) newGameOptions);
             // \BR
             saveRecentSession(false);
             saveBackupSession(1);
