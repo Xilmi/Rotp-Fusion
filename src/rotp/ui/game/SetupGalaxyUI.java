@@ -148,7 +148,6 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		copyOptions((MOO1GameOptions)newGameOptions(), destination);
 		showNewRaces.setOptions(destination.dynamicOptions());
 		prefStarsPerEmpire.setOptions(destination.dynamicOptions());
-
 	}
 	private void getOptions(MOO1GameOptions source) {
 		copyOptions(source, (MOO1GameOptions)newGameOptions());
@@ -835,15 +834,16 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
  		starting = true;
 		repaint();
 		buttonClick();
-  		saveLastOptions();
 		// BR:
+  		saveLastOptions();
 		if (Profiles.isStartOpponentRaceListEnabled()) {
 			RacesOptions.loadStartingOpponents(newGameOptions());
 		}
 		if (Profiles.isStartOpponentAIListEnabled()) {
 			RacesOptions.loadStartingAIs(newGameOptions());
-		} // \BR:
+		}
 		GameUI.gameName = generateGameName();
+		// \BR:
 		UserPreferences.setForNewGame();
 		final Runnable save = () -> {
 			long start = System.currentTimeMillis();

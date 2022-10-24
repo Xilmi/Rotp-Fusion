@@ -26,6 +26,37 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2022.10.24 (BR)
+  - Fixed lonely Orion in Galaxy preview. (When opponents are maxed out)
+  - Added Companions worlds in Galaxy preview.
+  - Added original moo small galaxy size: named it Micro = 24 stars.
+  - Added Dynamic Galaxy size, proportional to number of opponents and preferred number of stars per empire.
+  - Mixed Restart button with start button (ctrl+Start).
+  - Ship set: Fixed race keeping the last player preferred chip set.
+  - Fixed overlaping Leader text in Race diplomacy panel. (Adaptive font)
+  - Updated max number of star with different formula for >4GB as java seems to loose efficiency! 
+  - All the settings are now saved in the game files, and are also saved as individual files:
+    - Last.options for the last GUI settings. Saved when you exit a setup panel.
+    - Game.options for the last played game settings. Saved when a game is started or loaded.
+    - User.options for your preffered settings. Saved Panel-by-panel on-demand.
+  - On the Main menu, Control-key will give access to load all options from a file.
+  - Global Mod options are also accessible thru Control-key. There you can configure how options are loaded at launch and after a game was played: By default it's set as "Vanilla" and you won't see any changes.
+    - Vanilla Launch = Race, Galaxy, and Advanced options Panels are set to "Defaults" and mods panels are set to "Last".
+    - Vanilla After game =  Race, Galaxy, and Advanced options Panels are set to "Game" and mods panels are set to "last".
+      - Choosing "Last", "Game", or "User" will set all panels to "Last", "Game", or "User".
+  - Custom races can now be saved and reloaded. You can give them a name and description which will be displayed on the races panel when "Custom Races" is enabled.
+  - The Available race files are displayed on the right and can be loaded by clicking on them. The one on the top of the list is the last race selected.
+  - Selecting a race on the left list no longer loads them, it selects it as the base race, defining their relationship. To load them use, Ctrl-Click.
+  - On the race diplomatic panel, the show race abilities will also display the AI that controls them (Top right)
+  - Restart has been redone to manage new races and new options saving. While restarting, you can:
+    - Swap the races of the swapped empires,
+    - Keep the races of the swapped empires,
+    - Use the GUI race for the player and swap the alien race.
+    - Use the GUI race for the player and keep the alien race.
+    - Change the player AI to the new selected one.
+    - Change the aliens AI to the new selected ones.
+    - Use the other GUI settings, without changing galaxy nor aliens.
+
 2022.10.19 (BR)
   - Fixed Randomized alien races not reaching target values. 
 

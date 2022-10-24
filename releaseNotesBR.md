@@ -17,6 +17,9 @@ I'm quite confident it works well, but we are never too cautious. Please test it
 ### Race diplomacy panel:
   - Fixed overlaping Leader text in Race diplomacy panel. (Adaptive font)
 
+### Other:
+  - Updated max number of star with different formula for >4GB as java seems to loose efficiency! 
+
 ## Here are the major changes:
 
 ### Settings Load and save:
@@ -44,12 +47,12 @@ Choosing "Last", "Game", or "User" will set all panels to "Last", "Game", or "Us
 ### Restart
 Restart has been redone to manage new races and new options saving. While restarting, you can:
 
-- Swap the races of the swapped empires,
-- Keep the races of the swapped empires,
-- Use the GUI race for the player and swap the alien race.
-- Use the GUI race for the player and keep the alien race.
-- Change the player AI to the new selected one.
-- Change the aliens AI to the new selected ones.
-- Use the other GUI settings, without changing galaxy nor aliens.
+  - Swap the races of the swapped empires,
+  - Keep the races of the swapped empires,
+  - Use the GUI race for the player and swap the alien race.
+  - Use the GUI race for the player and keep the alien race.
+  - Change the player AI to the new selected one.
+  - Change the aliens AI to the new selected ones.
+  - Use the other GUI settings, without changing galaxy nor aliens.
 
 ... And of course every last Xilmi addition are there too!

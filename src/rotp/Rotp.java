@@ -59,7 +59,9 @@ public class Rotp {
     // BR: needs static access;
     // BR: Adjusted the values for new options
     // BR: Adjusted margin values because memory size grow as we play (events memorization)
-    public static int maximumSystems = 75*(int)(Rotp.maxHeapMemory-600); // BR: needs static access
+    // BR: Small memory seems to consumes less memory!
+    // BR: tested: 8GB => 75 stars/MB; 3.5GB => 100 stars/MB
+    public static int maximumSystems = (maxHeapMemory > 4096 ?  75 : 100) * (int)(maxHeapMemory-600);
     public static long maxUsedMemory;
     public static boolean logging = false;
     private static float resizeAmt =  -1.0f;

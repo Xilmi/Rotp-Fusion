@@ -249,7 +249,7 @@ public final class GameSession implements Base, Serializable {
         
         options = newGameOptions;
         startExecutors();
-        
+       
         synchronized(ONE_GAME_AT_A_TIME) {
             id = (long) (Long.MAX_VALUE*random());
             GalaxyFactory.current().newGalaxy();
@@ -262,7 +262,6 @@ public final class GameSession implements Base, Serializable {
             galaxy().startGame();
             // BR: Save the last loaded game parameters
             Profiles.saveGameOptionsToFile(this);
-    		MOO1GameOptions.saveGameOptions((MOO1GameOptions) newGameOptions);
             // \BR
             saveRecentSession(false);
             saveBackupSession(1);
@@ -287,7 +286,6 @@ public final class GameSession implements Base, Serializable {
             galaxy().startGame();
             // BR: Save the last loaded game parameters
             Profiles.saveGameOptionsToFile(this);
-    		MOO1GameOptions.saveGameOptions((MOO1GameOptions) options);
             // \BR
     		GameUI.gameName = generateGameName();
             saveRecentSession(false);
