@@ -198,6 +198,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			break; 
 		}
 		init();
+		backImg = null;
 		repaint();
  	}
  	private void setToDefault() {
@@ -213,6 +214,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		default: // Set
 			getOptions(MOO1GameOptions.loadUserOptions());
 			init();
+			backImg = null;
 			repaint();
 		}
  	}

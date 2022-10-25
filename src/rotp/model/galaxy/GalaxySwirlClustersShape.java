@@ -108,11 +108,12 @@ public class GalaxySwirlClustersShape extends GalaxyShape {
                 break;
             }
         }
+        numClusters = Math.max(1, numClusters); // BR: for very small galaxies
 		
 		int numSteps = (int) (200*numSwirls*numSwirls);
 		// drop a cluster "every" clusterSteps
 		// not quite since distance along swirl is not uniform with steps
-		int clusterSteps = (int) Math.floor(2*numSteps / (numClusters-1));
+		int clusterSteps = (int) Math.floor(2*numSteps / (max(1, numClusters-1)));
 		int stepSelect = ThreadLocalRandom.current().nextInt(2*numSteps)+1;
 		// select cluster position non-uniformally
 		int clusterRandom = ThreadLocalRandom.current().nextInt(numClusters);

@@ -84,8 +84,8 @@ public class GalaxyMazeShape extends GalaxyShape {
         }
 		
 		// determine maze size with numberStarSystems
-		int width = (int) (4*Math.ceil(1.5*Math.log(opts.numberStarSystems())-5));
-		int height = (int) (3*Math.ceil(1.5*Math.log(opts.numberStarSystems())-5));
+		int width = (int) Math.max(1, 4*Math.ceil(1.5*Math.log(opts.numberStarSystems())-5));
+		int height = (int) Math.max(1, 3*Math.ceil(1.5*Math.log(opts.numberStarSystems())-5));
 		float deltaW = (float) gW/width;
 		float deltaH = (float) gH/height;
 		boolean WALL = false;

@@ -60,11 +60,15 @@ public class GalaxyFractalShape extends GalaxyShape {
 	
     @Override
     protected int galaxyWidthLY() { 
-		return (int) (Math.sqrt(adjust_density*opts.numberStarSystems()*adjustedSizeFactor()));
+		return (int) (Math.sqrt(adjust_density
+				* Math.max(33, opts.numberStarSystems()) 
+				* adjustedSizeFactor()));
     }
     @Override
     protected int galaxyHeightLY() { 
-		return (int) (Math.sqrt(adjust_density*opts.numberStarSystems()*adjustedSizeFactor()));
+		return (int) (Math.sqrt(adjust_density
+				* Math.max(33, opts.numberStarSystems())
+				* adjustedSizeFactor()));
     }
 	
 	// returns the midpoint of point1 and point2
@@ -96,7 +100,7 @@ public class GalaxyFractalShape extends GalaxyShape {
                         // set Sierpinski dimensions
                         float triangleWidth = (float) galaxyWidthLY() - 8*galaxyEdgeBuffer();
                         float triangleHeight = (float) Math.ceil(triangleWidth * Math.sqrt(3.0f/4.0f));
-                        
+
                         // outer Sierpinski triangle vertex points
                         Point.Float p1 = new Point.Float(0.0f, triangleHeight+0.05f*galaxyHeightLY());
                         Point.Float p2 = new Point.Float(triangleWidth/2.0f, 0.0f+0.05f*galaxyHeightLY());
@@ -137,7 +141,7 @@ public class GalaxyFractalShape extends GalaxyShape {
                         // set Chaos game boundary dimensions
                         float boxWidth = (float) galaxyWidthLY() - 8*galaxyEdgeBuffer();
                         float boxHeight = (float) galaxyHeightLY() - 8*galaxyEdgeBuffer();
-                        
+
                         // box vertex points
                         Point.Float p1 = new Point.Float(0.0f, 0.0f);
                         Point.Float p2 = new Point.Float(boxWidth, 0.0f);
@@ -255,7 +259,7 @@ public class GalaxyFractalShape extends GalaxyShape {
                 // set Chaos game boundary dimensions
                 float boxWidth = (float) galaxyWidthLY() - 8*galaxyEdgeBuffer();
                 float boxHeight = (float) galaxyHeightLY() - 8*galaxyEdgeBuffer();
-                
+
                 // box vertex points
                 Point.Float p1 = new Point.Float(0.0f, 0.0f);
                 Point.Float p2 = new Point.Float(boxWidth, 0.0f);

@@ -102,9 +102,13 @@ public class GalaxyGridShape extends GalaxyShape {
                 break;
             }
         }
+		nGrid = Math.max(1, nGrid); // BR: for very small galaxies
+		nClusters = Math.max(1, nClusters); // BR: for very small galaxies
 		
 		float gW = (float) galaxyWidthLY() - 2.0f*clusterR - 2.0f*galaxyEdgeBuffer();
 		float gH = (float) galaxyHeightLY() - 2.0f*clusterR - 2.0f*galaxyEdgeBuffer();
+		gW = Math.max(5, gW); // BR: for very small galaxies
+		gH = Math.max(5, gH); // BR: for very small galaxies
 		
 		// scale the resolution of the grid with map dimensions and number of grids
 		int numSteps = (int) (10*(gW+gH)*(nGrid+1));
