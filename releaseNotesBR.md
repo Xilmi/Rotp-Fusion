@@ -9,6 +9,7 @@ I'm quite confident it works well, but we are never too cautious. Please test it
   - Added Companions worlds in Galaxy preview.
   - Added original moo small galaxy size: named it Micro = 24 stars.
   - Added Dynamic Galaxy size, proportional to number of opponents and preferred number of stars per empire.
+  - Updated Grid, Maze, and Fractal Galaxies to not crash with 4 stars...
   - Mixed Restart button with start button (ctrl+Start).
 
 ### Race setup panel:
