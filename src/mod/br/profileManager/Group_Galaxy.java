@@ -109,8 +109,8 @@ public class Group_Galaxy extends  AbstractGroup <ClientClasses> {
 //				, SHAPE_MAZE, 2, GalaxyMazeShape.options2));
 		addParameter(new ShapeOption(go, "SHAPE SHURIKEN OPTION 1"
 				, SHAPE_SHURIKEN, 1, GalaxyShurikenShape.options1));
-//		addParameter(new ShapeOption(go, "SHAPE SHURIKEN OPTION 2"
-//				, SHAPE_SHURIKEN, 2, GalaxyShurikenShape.options2));
+		addParameter(new ShapeOption(go, "SHAPE SHURIKEN OPTION 2"
+				, SHAPE_SHURIKEN, 2, GalaxyShurikenShape.options2));
 		addParameter(new ShapeOption(go, "SHAPE BULLSEYE OPTION 1"
 				, SHAPE_BULLSEYE, 1, GalaxyBullseyeShape.options1));
 //		addParameter(new ShapeOption(go, "SHAPE BULLSEYE OPTION 2"

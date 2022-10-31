@@ -27,6 +27,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 ## What's New
 
 2022.10.24 (BR)
+  - Added options to shuriken galaxies, some time better looking. 
+
+2022.10.24 (BR)
   - Fixed lonely Orion in Galaxy preview. (When opponents are maxed out)
   - Added Companions worlds in Galaxy preview.
   - Added original moo small galaxy size: named it Micro = 24 stars.

@@ -28,15 +28,21 @@ import rotp.model.game.IGameOptions;
 // modnar: custom map shape, Shuriken
 public class GalaxyShurikenShape extends GalaxyShape {
     public static final List<String> options1;
-    //public static final List<String> options2;
+    public static final List<String> options2;
     private static final long serialVersionUID = 1L;
     static {
         options1 = new ArrayList<>();
+        options1.add("SETUP_SHURIKEN_A");
         options1.add("SETUP_SHURIKEN_0");
         options1.add("SETUP_SHURIKEN_1");
         options1.add("SETUP_SHURIKEN_2");
-        //options2 = new ArrayList<>();
-        //options2.add("SETUP_NOT_AVAILABLE");
+        options1.add("SETUP_SHURIKEN_3");
+        options1.add("SETUP_SHURIKEN_4");
+
+        options2 = new ArrayList<>();
+        options2.add("SETUP_SHURIKEN_ORIGINAL");
+        options2.add("SETUP_SHURIKEN_ALTERNATIVE_FIX");
+        options2.add("SETUP_SHURIKEN_ALTERNATIVE_RAND");
     }
     
     Path2D flake;
@@ -49,18 +55,18 @@ public class GalaxyShurikenShape extends GalaxyShape {
     }
     @Override
     public List<String> options1()  { return options1; }
-    //@Override
-    //public List<String> options2()  { return options2; }
+    @Override
+    public List<String> options2()  { return options2; }
     @Override
     public String defaultOption1()  { return options1.get(0); }
-    //@Override
-    //public String defaultOption2()  { return options2.get(0); }
+    @Override
+    public String defaultOption2()  { return options2.get(0); }
     @Override
     public void init(int n) {
         super.init(n);
         
         int option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
-        //int option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
+        int option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
 		
 		float gE = (float) galaxyEdgeBuffer();
 		float gW = (float) galaxyWidthLY();
@@ -68,45 +74,94 @@ public class GalaxyShurikenShape extends GalaxyShape {
 		
 		// modnar: choose different number of points for the flake polygon with option1
 		switch(option1) {
-            case 0: {
+            case 0:
+                numPoints = 7;
+                break;
+            case 1:
                 numPoints = 9;
                 break;
-            }
-            case 1: {
+            case 2:
                 numPoints = 11;
                 break;
-            }
-            case 2: {
+            case 3:
                 numPoints = 13;
                 break;
-            }
+            case 4:
+                numPoints = 15;
+                break;
+            case 5:
+                numPoints = 17;
+                break;
         }
 		
 		Random randnum = new Random();
-		// keep same random number seed
-		// modified by numberStarSystems, UI_option, and selectedNumberOpponents
-		randnum.setSeed(opts.numberStarSystems()*numPoints + opts.selectedNumberOpponents());
 		
 		flake = new Path2D.Float();
-		// initial flake polygon start, ensure polygon extent
-		flake.moveTo(gE + 0.5f*gW, gE + 0.65f*gH);
-		flake.lineTo(gE + 0.4f*gW, gE + 0.02f*gH);
+		switch(option2) {
+			case 0: // BR: original Modnar solution
+				// keep same random number seed
+				// modified by numberStarSystems, UI_option, and selectedNumberOpponents
+				randnum.setSeed(opts.numberStarSystems()*numPoints + opts.selectedNumberOpponents());
+				// initial flake polygon start, ensure polygon extent
+				flake.moveTo(gE + 0.5f*gW, gE + 0.65f*gH);
+				flake.lineTo(gE + 0.4f*gW, gE + 0.02f*gH);
 		
-		// points to define triangular slice within which to draw flake polygon
-		Point.Float p1 = new Point.Float(gE + 0.5f*gW, gE + 0.65f*gH);
-		Point.Float p2 = new Point.Float(gE + 0.35f*gW, gE + 0.02f*gH);
-		Point.Float p3 = new Point.Float(gE + 0.65f*gW, gE + 0.02f*gH);
-		
-		// create flake polygon shape, with random points/path
-		for (int i = 0; i < numPoints; i++)
-        {
-			// uniform random point within triangle slice
-			float rand1 = randnum.nextFloat();
-			float rand2 = randnum.nextFloat();
-			float px = p1.x*(1-rand1) + p2.x*((float) Math.sqrt(rand1)*(1-rand2)) + p3.x*((float) Math.sqrt(rand1)*rand2);
-			float py = p1.y*(1-rand1) + p2.y*((float) Math.sqrt(rand1)*(1-rand2)) + p3.y*((float) Math.sqrt(rand1)*rand2);
-			flake.lineTo(px, py);
-        }
+				// points to define triangular slice within which to draw flake polygon
+				Point.Float p1 = new Point.Float(gE + 0.5f*gW, gE + 0.65f*gH);
+				Point.Float p2 = new Point.Float(gE + 0.35f*gW, gE + 0.02f*gH);
+				Point.Float p3 = new Point.Float(gE + 0.65f*gW, gE + 0.02f*gH);
+
+				// create flake polygon shape, with random points/path
+				for (int i = 0; i < numPoints; i++) {
+					// uniform random point within triangle slice
+					float rand1 = randnum.nextFloat();
+					float rand2 = randnum.nextFloat();
+					float px = p1.x*(1-rand1) + p2.x*((float) Math.sqrt(rand1)*(1-rand2)) + p3.x*((float) Math.sqrt(rand1)*rand2);
+					float py = p1.y*(1-rand1) + p2.y*((float) Math.sqrt(rand1)*(1-rand2)) + p3.y*((float) Math.sqrt(rand1)*rand2);
+					flake.lineTo(px, py);
+		        }
+				break;
+
+			case 1:
+				// keep same random number seed
+				// modified by numberStarSystems, UI_option, and selectedNumberOpponents
+				randnum.setSeed(opts.numberStarSystems()*numPoints + opts.selectedNumberOpponents());
+				// Then same as Case 2
+			case 2:
+				// initial flake polygon start, ensure polygon extent
+				flake.moveTo(gE + 0.5f*gW, gE + 0.02f*gH);
+				
+				float step	= (float) 1.8f / numPoints;
+				int size	= numPoints/2;
+				float[] yA	= new float[size];
+				float[] xA	= new float[size];
+				float ray	= 0.48f;
+				float maxX	= 0.15f;
+				float minX	= 0.02f;
+				float maxR	= 0.1f;
+				float adj	= 1f;
+				
+				for (int i = 0; i < size; i++) {
+					// uniform random point within triangle slice
+					float rand1 = randnum.nextFloat();
+					float rand2 = randnum.nextFloat();
+					ray	  = (float) (ray - rand1*step);
+					yA[i] = ray;
+					xA[i] = (maxX-minX)*rand2 + minX;
+		        }
+				if (ray > maxR)
+					adj = (0.48f-maxR) / (0.48f-ray);
+				for (int i = 0; i < size; i++) {
+					yA[i] = (0.5f-yA[i]) * adj * gH;
+					flake.lineTo((0.5f + xA[i])*gW, yA[i]);					
+				}
+				for (int i = size-1; i >= 0; i--) {
+					flake.lineTo((0.5f - xA[i])*gW, yA[i]);					
+				}
+				
+				break;
+	 	}		
+		flake.lineTo(gE + 0.5f*gW, gE + 0.02f*gH);
         flake.closePath();
 		
 		flakeArea = new Area(flake);

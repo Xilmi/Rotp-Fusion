@@ -1341,9 +1341,15 @@ SETUP_VIEW_2                      | View C
 SETUP_MAZE_0                      | Maze A
 SETUP_MAZE_1                      | Maze B
 SETUP_MAZE_2                      | Maze C
+SETUP_SHURIKEN_A                  | 7 Spikes
 SETUP_SHURIKEN_0                  | 9 Spikes
 SETUP_SHURIKEN_1                  | 11 Spikes
 SETUP_SHURIKEN_2                  | 13 Spikes
+SETUP_SHURIKEN_3                  | 15 Spikes
+SETUP_SHURIKEN_4                  | 17 Spikes
+SETUP_SHURIKEN_ORIGINAL           | Original
+SETUP_SHURIKEN_ALTERNATIVE_FIX    | Alternative
+SETUP_SHURIKEN_ALTERNATIVE_RAND   | Random
 SETUP_SHURIKEN_SYMMETRIC          | Symmetric
 SETUP_SPIRALARMS_0                | Straight
 SETUP_SPIRALARMS_1                | Very Loose
