@@ -26,7 +26,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
-2022.10.26 (BR)
+2022.10.30 (BR)
   - Added options to randomly load custom race file(MOD Option B - Custom Aliens: Yes, From Files)
 
 2022.10.26 (BR)

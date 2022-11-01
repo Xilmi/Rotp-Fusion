@@ -2,6 +2,10 @@
 This version contains many changes and does not identify itself as a full fusion mod, but more as a Beta version.
 I'm quite confident it works well, but we are never too cautious. Please test it and don't hesitate to comment the new features.
 
+### Last Changes:
+  - Added options to shuriken galaxies, some time better looking.
+  - Added options to randomly load custom race file(MOD Option B - Custom Aliens: Yes, From Files)
+
 ## Here are the minor changes:
 
 ### Galaxy setup panel:
