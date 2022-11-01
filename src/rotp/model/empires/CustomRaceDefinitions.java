@@ -51,7 +51,7 @@ public class CustomRaceDefinitions  {
 	public	static final String ROOT	= "CUSTOM_RACE_";
 	private	static final String PLANET	= "PLANET_";
 	private	static final String EXT		= ".race";
-	public	static final String RANDOMiZED_RACE_KEY	= "RANDOMIZED_RACE";
+	public	static final String RANDOMIZED_RACE_KEY	= "RANDOMIZED_RACE";
 	public	static final String RANDOM_RACE_KEY		= "RANDOM_RACE_KEY";
 	public	static final String CUSTOM_RACE_KEY		= "CUSTOM_RACE_KEY";
 	private static final boolean booleansAreBullet	= true;
@@ -105,10 +105,10 @@ public class CustomRaceDefinitions  {
 		return cr.getRace().isCustomRace(true);
 	}
 	public static Race getAlienRace(String key, DynOptions options) {
-		if (key.equalsIgnoreCase(RANDOM_RACE_KEY)) {
+		if (key.equalsIgnoreCase(RANDOM_RACE_KEY)) { // Generate random
 			return getRandomAlienRace();
 		}
-		if (key.equalsIgnoreCase(CUSTOM_RACE_KEY)) {
+		if (key.equalsIgnoreCase(CUSTOM_RACE_KEY)) { // Player Custom
 			DynOptions opt = (DynOptions) playerCustomRace.get();
 			return new CustomRaceDefinitions(opt).getRace();
 		}
@@ -130,6 +130,9 @@ public class CustomRaceDefinitions  {
 	}
 	public static DynOptions getDefaultOptions() {
 		return new CustomRaceDefinitions().getAsOptions();
+	}
+	public static LinkedList<String> getRaceFileList() {
+		return new CustomRaceDefinitions().new RaceList().getLabels();
 	}
 	// ========== Options Management ==========
 	//
@@ -448,6 +451,10 @@ public class CustomRaceDefinitions  {
 			reload = true;
 			set(currentValue);
 		}
+//		public static LinkedList<String> getList() {
+//			RaceList list = new RaceList();
+//			return list.getOptions();
+//		}
 	    private File[] loadListing() {
 	        String path	= Rotp.jarPath();
 	        File saveDir = new File(path);
@@ -503,7 +510,7 @@ public class CustomRaceDefinitions  {
 		private RaceKey() {
 			super(ROOT, "RACE_KEY", "CustomRace", 1);
 			inputMessage("Enter the Race File Name");
-			randomStr(RANDOMiZED_RACE_KEY);
+			randomStr(RANDOMIZED_RACE_KEY);
 		}
 		@Override public void pushSetting() {
 			race.id = settingValue();

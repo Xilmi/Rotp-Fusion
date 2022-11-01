@@ -1594,6 +1594,7 @@ SETTINGS_MOD_RACES_ARE_RANDOM_NO         | No
 SETTINGS_MOD_RACES_ARE_RANDOM_SETTING    | Yes, Settings Range
 SETTINGS_MOD_RACES_ARE_RANDOM_TARGET     | Yes, Target Range
 SETTINGS_MOD_RACES_ARE_RANDOM_PLAYER     | Yes, Player Copy
+SETTINGS_MOD_RACES_ARE_RANDOM_FROM_FILES | Yes, From Files
 
 // BR: Global Settings UI panel for MOD game options
 SETTINGS_MOD_TITLE_GLOBAL                | Display Settings MOD Global Options

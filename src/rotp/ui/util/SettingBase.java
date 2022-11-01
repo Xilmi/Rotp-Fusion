@@ -416,6 +416,11 @@ public class SettingBase<T> implements InterfaceParam {
 		list.addAll(cfgValueList);
 		return list;
 	}
+	public LinkedList<String> getLabels(){
+		LinkedList<String> list = new LinkedList<String>();
+		list.addAll(labelList);
+		return list;
+	}
 	// ===== Other Public Methods =====
 	//
 	/**

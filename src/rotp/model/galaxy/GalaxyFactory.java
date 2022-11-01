@@ -48,6 +48,8 @@ import rotp.model.tech.TechTree; // modnar: add game mode to start all Empires w
 import rotp.ui.UserPreferences; // modnar: add game mode to start all Empires with 2 random techs
 import rotp.ui.util.planets.PlanetImager;
 import rotp.util.Base;
+import rotp.model.empires.CustomRaceDefinitions.RaceList;
+import rotp.model.empires.CustomRaceDefinitions.RaceList;
 
 public class GalaxyFactory implements Base {
 	private static GalaxyFactory instance = new GalaxyFactory();
@@ -364,6 +366,19 @@ public class GalaxyFactory implements Base {
 		}
 		return raceList;
 	}
+	private LinkedList<String> buildAlienAbilities() { // TODO BR: buildAlienAbilities()
+		LinkedList<String> scrambledOptions = new LinkedList<>();
+		List<String> options = CustomRaceDefinitions.getRaceFileList();
+		options.remove(0); // the player choice, to avoid duplicate
+		int maxRaces = options().selectedNumberOpponents();
+		int mult = maxRaces/options.size() + 1;
+		// Build randomized list of opponent races
+		for (int i=0;i<mult;i++) {
+			Collections.shuffle(options);
+			scrambledOptions.addAll(options);
+		}
+		return scrambledOptions;
+	}
 	private void addPlayerSystemForGalaxy(Galaxy g, int id, List<EmpireSystem> empSystems, GalaxyCopy src) {
 		// creates a star system for player, using selected options
 		GalaxyBaseData galSrc = null; // Used for Restart
@@ -506,6 +521,11 @@ public class GalaxyFactory implements Base {
 		else // Restart
 			maxRaces = empSrc.length-1;		
 
+		LinkedList<String> alienAbilitiesList = null;
+		if ((restartAppliesSettings.get() || src == null)
+				&& randomAlienRaces.isFromFiles())
+			alienAbilitiesList = buildAlienAbilities();
+		
 		// since we may have more races than colors we will need to reset the
 		// color list each time we run out. 
 		for (int h=0; h<maxRaces; h++) {
@@ -533,6 +553,8 @@ public class GalaxyFactory implements Base {
                 	if (randomAlienRaces.isPlayerCopy()) {
                 		dataRaceKey	= playerDataRaceKey;
                     	options		= g.empire(0).raceOptions();
+                	} else if (randomAlienRaces.isFromFiles()) { // TODO BR: randomAlienRaces.isFromFiles()
+                		dataRaceKey	= alienAbilitiesList.removeFirst();
                 	} else
                 		dataRaceKey	= RANDOM_RACE_KEY;
                 }

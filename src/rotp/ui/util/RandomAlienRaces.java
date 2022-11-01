@@ -22,6 +22,7 @@ public class RandomAlienRaces extends ParamList {
 	public static final String SETTING	= "Setting";
 	public static final String TARGET	= "Target";
 	public static final String PLAYER	= "Player";
+	public static final String FILES	= "Files";
 
 	/**
 	 * @param gui  The label header
@@ -34,6 +35,7 @@ public class RandomAlienRaces extends ParamList {
 		put(SETTING, gui + name + "_SETTING");
 		put(TARGET,	 gui + name + "_TARGET");
 		put(PLAYER,	 gui + name + "_PLAYER");
+		put(FILES,	 gui + name + "_FROM_FILES");
 	}
 
 	public boolean isRandom() {
@@ -48,5 +50,7 @@ public class RandomAlienRaces extends ParamList {
 	public boolean isPlayerCopy() {
 		return get().equalsIgnoreCase(PLAYER);
 	}
-
+	public boolean isFromFiles() {
+		return get().equalsIgnoreCase(FILES);
+	}
 }
