@@ -52,16 +52,16 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	private static final String randomKey		= ROOT + "GUI_RANDOM";
 	private static final String saveCurrentKey	= ROOT + "GUI_SAVE";
 	private static final String loadCurrentKey	= ROOT + "GUI_LOAD";
-	private static final String setDefaultTipKey= ROOT + "DEFAULT_TIP";
-	private static final String setGameTipKey	= ROOT + "LAST_GAME_TIP";
-	private static final String setLastTipKey	= ROOT + "LAST_SET_TIP";
-	private	static final String setUserTipKey	= ROOT + "USER_SET_TIP";
-	private	static final String saveUserTipKey	= ROOT + "USER_SAVE_TIP";
-	private	static final String selectTipKey	= ROOT + "GUI_SELECT_TIP";
-	private static final String randomTipKey	= ROOT + "GUI_RANDOM_TIP";
-	private static final String saveTipKey		= ROOT + "GUI_SAVE_TIP";
-	private static final String loadTipKey		= ROOT + "GUI_LOAD_TIP";
-	private static final String cancelTipKey	= ROOT + "CANCEL_TIP";
+	private static final String setDefaultTipKey= ROOT + "DEFAULT_DESC";
+	private static final String setGameTipKey	= ROOT + "LAST_GAME_DESC";
+	private static final String setLastTipKey	= ROOT + "LAST_SET_DESC";
+	private	static final String setUserTipKey	= ROOT + "USER_SET_DESC";
+	private	static final String saveUserTipKey	= ROOT + "USER_SAVE_DESC";
+	private	static final String selectTipKey	= ROOT + "GUI_SELECT_DESC";
+	private static final String randomTipKey	= ROOT + "GUI_RANDOM_DESC";
+	private static final String saveTipKey		= ROOT + "GUI_SAVE_DESC";
+	private static final String loadTipKey		= ROOT + "GUI_LOAD_DESC";
+	private static final String cancelTipKey	= ROOT + "CANCEL_DESC";
 
 	private	static final EditCustomRaceUI instance = new EditCustomRaceUI();
 	
@@ -337,7 +337,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		((SetupRaceUI) parent).repaint();
 	}
 	@Override protected int getBackGroundWidth() {
-		return super.getBackGroundWidth() + columnPad + raceListW;
+		return super.getBackGroundWidth() + raceListW + columnPad;
 	}
 	@Override protected void hoverAndTooltip(boolean repaint) {
 		String tip = tooltipText;

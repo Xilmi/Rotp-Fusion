@@ -860,7 +860,6 @@ public final class GameSession implements Base, Serializable {
 					String.format("%-16s", r.name())
 					+ String.format("%-12s", sys.name())
 					+ String.format("%-16s", emp.dataRace().name())
-					+ String.format("%-16s", emp.dataRace().baseRace)
 					+ String.format("%-12s", boss.personality())
 					+ String.format("%-15s", boss.objective())
 					+ String.format("%-22s", emp.diplomatAI())

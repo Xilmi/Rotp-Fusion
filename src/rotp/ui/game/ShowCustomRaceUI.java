@@ -52,7 +52,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	private static final long serialVersionUID	= 1L;
 	private static final Color  backgroundHaze	= new Color(0,0,0,160);
 	private static final String totalCostKey	= ROOT + "GUI_COST";
-	protected static final String exitTipKey	= ROOT + "EXIT_TIP";
+	protected static final String exitTipKey	= ROOT + "EXIT_DESC";
 	
 	private	static final int tooltipPadV	= s10;
 	private	static final int tooltipPadM	= s10;
@@ -75,7 +75,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	private static final Color costC		= SystemPanel.blackText;
 	private static final int costFontSize	= 18;
 	protected static final Font raceNameFont= FontManager.current().narrowFont(16);
-	protected static final int columnPad	= s20;
+	protected static final int columnPad	= s12;
 	private	static final Font titleFont		= FontManager.current().narrowFont(30);
 	private static final int titleOffset	= s30; // Offset from Margin
 	private static final int costOffset		= s25; // Offset from title
@@ -88,7 +88,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	private static final Color settingPosC	= SystemPanel.limeText; // Setting name color
 	private static final Color settingNegC	= SystemPanel.redText; // Setting name color
 	private static final Color settingC		= SystemPanel.whiteText; // Setting name color
-	private static final int settingFont	= 16;
+	private static final int settingFont	= 15;
 	private static final int settingH		= s16;
 	private static final int spacerH		= s10;
 	private static final int settingHPad	= s4;
@@ -97,8 +97,8 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	private static final int frameSizePad	= s10;
 	private static final int frameEndPad	= s4;
 	private static final int settingIndent	= s10;
-	private static final int wFirstColumn	= RotPUI.scaledSize(150);
-	private static final int wSetting		= RotPUI.scaledSize(220);
+	private static final int wFirstColumn	= RotPUI.scaledSize(200);
+	private static final int wSetting		= RotPUI.scaledSize(200);
 	protected int currentWith = wFirstColumn;
 
 	private static final Color optionC		= SystemPanel.blackText; // Unselected option Color
@@ -119,7 +119,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 
 	private int numColumns	= 0;
 	private int columnsMaxH	= 0;
-	private int columnH		= 0;
+	private int columnH		= RotPUI.scaledSize(60); // For the Random options
 	private int numSettings	= 0;
 
 	private int yTitle;
@@ -287,7 +287,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		// frame
 		g.setColor(frameC);
 		g.drawRect(xLine, yLine - frameShift, currentWith, settingBoxH);
-		g.setPaint(GameUI.settingsSetupBackground(w));
+		g.setPaint(GameUI.settingsSetupBackgroundW(w));
 		bt.displayText(setting.guiSettingDisplayStr());
 		g.fillRect(xLine + settingIndent/2, yLine -s12 + frameShift,
 				bt.stringWidth(g) + settingIndent, s12);
@@ -417,7 +417,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 			return text("SETUP_OPPONENT_AI_PLAYER");
 	}
 	protected int getBackGroundWidth() {
-		return wFirstColumn+columnPad + (wSetting+columnPad) * (numColumns-1);
+		return columnPad+wFirstColumn+columnPad + (wSetting+columnPad) * (numColumns-1);
 	}
 
 	// ========== Overriders ==========

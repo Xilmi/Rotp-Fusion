@@ -47,6 +47,7 @@ public class SettingString extends SettingBase<String> implements Base{
 			put("", "");
 		defaultIndex(0);
 		initOptionsText();
+		getToolTip(); // to init the list
 	}
 	protected void inputMessage(String inputMessage) {
 		this.inputMessage = inputMessage;
@@ -91,12 +92,9 @@ public class SettingString extends SettingBase<String> implements Base{
 	@Override public String guiCostOptionStr(int idx) {
 		return optionValue(idx);
 	}
-	@Override public void settingToolTip(String settingToolTip) {
+	@Override void settingToolTip(String settingToolTip) {
 		super.settingToolTip(settingToolTip);
-		clearLists();
-		for (int i=0; i<bulletHeightFactor(); i++) {
-			put("", getToolTip());
-		}		
+		resetOptionsToolTip();
 	}
 	@Override public void formatData(Graphics g, int maxWidth) {
 		List<String> lines = wrappedLines(g, settingValue(), maxWidth);
@@ -110,4 +108,10 @@ public class SettingString extends SettingBase<String> implements Base{
 		}		
 	}
 	@Override public SettingBase<?> index(int newIndex) { return this; }
+	@Override void resetOptionsToolTip() {
+		clearLists();
+		for (int i=0; i<bulletHeightFactor(); i++) {
+			put("", getToolTip());
+		}		
+	}
 }

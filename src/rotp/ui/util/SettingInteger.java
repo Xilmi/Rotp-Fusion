@@ -50,9 +50,9 @@ public class SettingInteger extends SettingBase<Integer> {
 	/**
 	 * @param guiLangLabel  The label header
 	 * @param nameLangLabel The nameLangLabel
-	 * @param defaultvalue() The default value
-	 * @param minValue() The minimum value() (null = none)
-	 * @param maxValue() The maximum value() (null = none)
+	 * @param defaultvalue The default value
+	 * @param minValue The minimum value (null = none)
+	 * @param maxValue The maximum value (null = none)
 	 */
 	private SettingInteger(String guiLangLabel, String nameLangLabel, Integer defaultValue
 			, Integer minValue, Integer maxValue) {
@@ -64,9 +64,9 @@ public class SettingInteger extends SettingBase<Integer> {
 	/**
 	 * @param guiLangLabel  The label header
 	 * @param nameLangLabel The nameLangLabel
-	 * @param defaultvalue() The default value
-	 * @param minValue() The minimum value() (null = none)
-	 * @param maxValue() The maximum value() (null = none)
+	 * @param defaultvalue The default value
+	 * @param minValue The minimum value (null = none)
+	 * @param maxValue The maximum value (null = none)
 	 * @param baseInc  The base increment
 	 * @param shiftInc The increment when Shift is hold
 	 * @param ctrlInc  The increment when Ctrl is hold
@@ -82,9 +82,9 @@ public class SettingInteger extends SettingBase<Integer> {
 	/**
 	 * @param guiLangLabel  The label header
 	 * @param nameLangLabel The nameLangLabel
-	 * @param defaultvalue() The default value
-	 * @param minValue() The minimum value() (null = none)
-	 * @param maxValue() The maximum value() (null = none)
+	 * @param defaultvalue The default value
+	 * @param minValue The minimum value (null = none)
+	 * @param maxValue The maximum value (null = none)
 	 * @param baseInc  The base increment
 	 * @param shiftInc The increment when Shift is hold
 	 * @param ctrlInc  The increment when Ctrl is hold

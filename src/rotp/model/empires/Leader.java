@@ -71,9 +71,9 @@ public class Leader implements Base, Serializable {
             personality = random(Personality.values());
             objective = random(Objective.values());
         }
-        else {
-            personality = Personality.values()[empire.race().randomLeaderAttitude()];
-            objective = Objective.values()[empire.race().randomLeaderObjective()];
+        else { // BR: depend now on dataRace
+            personality = Personality.values()[empire.dataRace().randomLeaderAttitude()];
+            objective = Objective.values()[empire.dataRace().randomLeaderObjective()];
         }
     }
     public String objective()   { return text(objective.label); }

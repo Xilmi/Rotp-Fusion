@@ -26,6 +26,12 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2022.11.02 (BR)
+  - Added options to make race player only.
+  - Added Personality and objectives.
+  - Removed Base Data Race.
+  - Added some descriptions.
+
 2022.10.30 (BR)
   - Added options to randomly load custom race file(MOD Option B - Custom Aliens: Yes, From Files)
 

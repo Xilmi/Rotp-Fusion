@@ -1369,22 +1369,23 @@ SETUP_BUTTON_CUSTOM_PLAYER_RACE   | Customize Player Race
 CUSTOM_RACE_GUI_TITLE             | Player Race Customization
 CUSTOM_RACE_SHOW_TITLE            | Species' Abilities
 CUSTOM_RACE_GUI_COST              | Total Value: %1
-CUSTOM_RACE_CANCEL_TIP            | Cancel settings changes and Exit Panel.
-CUSTOM_RACE_EXIT_TIP              | Save as Last Settings and Exit Panel.
-CUSTOM_RACE_DEFAULT_TIP           | Load default options values.
-CUSTOM_RACE_LAST_GAME_TIP         | Get options values from last played game.
-CUSTOM_RACE_LAST_SET_TIP          | Get options values from last Gui (From File).
-CUSTOM_RACE_USER_SET_TIP          | Get user preferred options values (From File).
-CUSTOM_RACE_USER_SAVE_TIP         | Save current options values as user preferred options (To File).
-CUSTOM_RACE_GUI_SELECT_TIP        | Save Current Race, Select it as Player Race, Save as Last Settings and Exit Panel
+CUSTOM_RACE_CANCEL_DESC           | Cancel settings changes and Exit Panel.
+CUSTOM_RACE_EXIT_DESC             | Save as Last Settings and Exit Panel.
+CUSTOM_RACE_DEFAULT_DESC          | Load default options values.
+CUSTOM_RACE_LAST_GAME_DESC        | Get options values from last played game.
+CUSTOM_RACE_LAST_SET_DESC         | Get options values from last Gui (From File).
+CUSTOM_RACE_USER_SET_DESC         | Get user preferred options values (From File).
+CUSTOM_RACE_USER_SAVE_DESC        | Save current options values as user preferred options (To File).
+CUSTOM_RACE_GUI_SELECT_DESC       | Save Current Race, Select it as Player Race, Save as Last Settings and Exit Panel
 CUSTOM_RACE_GUI_SELECT            | Select
-CUSTOM_RACE_GUI_RANDOM_TIP        | Randomize the race following the above settings
+CUSTOM_RACE_GUI_RANDOM_DESC       | Randomize the race following the above settings
 CUSTOM_RACE_GUI_RANDOM            | Randomize
-CUSTOM_RACE_GUI_LOAD_TIP          | Load the settings from the file specified in "Name" Field, if none, create an empty one.
+CUSTOM_RACE_GUI_LOAD_DESC         | Load the settings from the file specified in "Name" Field, if none, create an empty one.
 CUSTOM_RACE_GUI_LOAD              | Load
-CUSTOM_RACE_GUI_SAVE_TIP          | Save the settings to the file specified in "Name" Field, existing files will be overwritten.
+CUSTOM_RACE_GUI_SAVE_DESC         | Save the settings to the file specified in "Name" Field, existing files will be overwritten.
 CUSTOM_RACE_GUI_SAVE              | Save
 CUSTOM_RACE_RACE_LIST             | FileList
+CUSTOM_RACE_RACE_LIST_DESC        | Custom race ablilities file list. Click to load. (At the top is the one when opening the GUI.) 
 CUSTOM_RACE_RANDOM_MAX            | Setting Max in %
 CUSTOM_RACE_RANDOM_MIN            | Setting Min in %
 CUSTOM_RACE_RANDOM_EDGES          | Smooth Edges
@@ -1397,6 +1398,7 @@ CUSTOM_RACE_HOME_SIZE             | Planet Size
 CUSTOM_RACE_HOME_RESOURCES        | Planet Ressources
 CUSTOM_RACE_HOME_ENVIRONMENT      | Planet Environment
 CUSTOM_RACE_RACE_KEY              | File Name
+CUSTOM_RACE_RACE_KEY_DESC         | This is the place to enter the filename, it's also used as the key for the standard race... Don't use them
 CUSTOM_RACE_RACE_NAME             | Race Name
 CUSTOM_RACE_RACE_TYPE             | Species Type
 CUSTOM_RACE_RACE_TERRAN           | Terran
@@ -1440,7 +1442,33 @@ CUSTOM_RACE_RACE_DESC_1           | Race mood description
 CUSTOM_RACE_RACE_DESC_2           | Race abilities description
 CUSTOM_RACE_RACE_DESC_3           | Race global description
 CUSTOM_RACE_RACE_DESC_4           | Race specific description
+CUSTOM_RACE_ERRATIC               | Erratic
+CUSTOM_RACE_PACIFIST              | Pacifist
+CUSTOM_RACE_HONORABLE             | Honorable
+CUSTOM_RACE_RUTHLESS              | Ruthless
+CUSTOM_RACE_AGGRESSIVE            | Aggressive
+CUSTOM_RACE_XENOPHOBIC            | Xenophobic
+CUSTOM_RACE_MILITARIST            | Militarist
+CUSTOM_RACE_ECOLOGIST             | Ecologist
+CUSTOM_RACE_DIPLOMAT              | Diplomat
+CUSTOM_RACE_INDUSTRIALIST         | Industrialist
+CUSTOM_RACE_EXPANSIONIST          | Expansionist
+CUSTOM_RACE_TECHNOLOGIST          | Technologist
+CUSTOM_RACE_ERRATIC_DESC          | Relative probability of random "Personality" being "Erratic". (Max personality is used for non random)
+CUSTOM_RACE_PACIFIST_DESC         | Relative probability of random "Personality" being "Pacifist". (Max personality is used for non random)
+CUSTOM_RACE_HONORABLE_DESC        | Relative probability of random "Personality" being "Honorable". (Max personality is used for non random)
+CUSTOM_RACE_RUTHLESS_DESC         | Relative probability of random "Personality" being "Ruthless". (Max personality is used for non random)
+CUSTOM_RACE_AGGRESSIVE_DESC       | Relative probability of random "Personality" being "Aggressive". (Max personality is used for non random)
+CUSTOM_RACE_XENOPHOBIC_DESC       | Relative probability of random "Personality" being "Xenophobic". (Max personality is used for non random)
+CUSTOM_RACE_MILITARIST_DESC       | Relative probability of random "Objective" being "Militarist". (Max objective is used for non random)
+CUSTOM_RACE_ECOLOGIST_DESC        | Relative probability of random "Objective" being "Ecologist". (Max objective is used for non random)
+CUSTOM_RACE_DIPLOMAT_DESC         | Relative probability of random "Objective" being "Diplomat". (Max objective is used for non random)
+CUSTOM_RACE_INDUSTRIALIST_DESC    | Relative probability of random "Objective" being "Industrialist". (Max objective is used for non random)
+CUSTOM_RACE_EXPANSIONIST_DESC     | Relative probability of random "Objective" being "Expansionist". (Max objective is used for non random)
+CUSTOM_RACE_TECHNOLOGIST_DESC     | Relative probability of random "Objective" being "Technologist". (Max objective is used for non random)
 
+CUSTOM_RACE_AVAILABLE_AI          | Available to AI
+CUSTOM_RACE_AVAILABLE_AI_DESC     | Should this file be available to Alien?
 CUSTOM_RACE_RESOURCES_NORMAL      | Normal
 CUSTOM_RACE_ENVIRONMENT_NORMAL    | Normal
 

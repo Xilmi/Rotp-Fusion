@@ -35,14 +35,14 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import br.profileManager.src.main.java.PMutil;
 import rotp.Rotp;
+import rotp.model.empires.Leader.Personality;
 import rotp.model.game.DynOptions;
 import rotp.model.game.MOO1GameOptions;
 import rotp.model.planet.PlanetType;
-import rotp.ui.util.Modifier2KeysState;
 import rotp.ui.util.SettingBase;
 import rotp.ui.util.SettingBoolean;
+import rotp.ui.util.SettingFloat;
 import rotp.ui.util.SettingInteger;
 import rotp.ui.util.SettingString;
 
@@ -51,6 +51,7 @@ public class CustomRaceDefinitions  {
 	public	static final String ROOT	= "CUSTOM_RACE_";
 	private	static final String PLANET	= "PLANET_";
 	private	static final String EXT		= ".race";
+	private static final String baseRace = MOO1GameOptions.baseRaceOptions().getFirst();
 	public	static final String RANDOMIZED_RACE_KEY	= "RANDOMIZED_RACE";
 	public	static final String RANDOM_RACE_KEY		= "RANDOM_RACE_KEY";
 	public	static final String CUSTOM_RACE_KEY		= "CUSTOM_RACE_KEY";
@@ -76,6 +77,10 @@ public class CustomRaceDefinitions  {
 	private LinkedList<Integer> spacerList; // For UI
 	private LinkedList<Integer> columnList; // For UI
 	private RaceList raceList;
+	private AvailableAI		availableAI	= new AvailableAI();
+	private CRPersonality	personality	= new CRPersonality();
+	private CRObjective		objective	= new CRObjective();
+	private RaceKey	  		raceKey		= new RaceKey();
 	
 	// ========== Constructors and Initializers ==========
 	//
@@ -134,6 +139,10 @@ public class CustomRaceDefinitions  {
 	public static LinkedList<String> getRaceFileList() {
 		return new CustomRaceDefinitions().new RaceList().getLabels();
 	}
+	public static LinkedList<String> getAllowedAlienRaces() {
+		return new CustomRaceDefinitions().new RaceList().getAllowedAlienRaces();
+	}
+	
 	// ========== Options Management ==========
 	//
 	/**
@@ -320,6 +329,7 @@ public class CustomRaceDefinitions  {
 		return totalCost;
 	}
 	private void pushSettings() {
+			race = Race.keyed(baseRace).copy();
 		for (SettingBase<?> setting : settingList) {
 			setting.pushSetting();
 		}
@@ -335,24 +345,38 @@ public class CustomRaceDefinitions  {
 		}
 		return getTotalCost();
 	}
-
 	private void newSettingList() {
 		spacerList  = new LinkedList<>();
 		columnList  = new LinkedList<>();
 		
-		// First column (left)
-		settingList.add(new BaseDataRace());
-		endOfColumn();
-
 		// ====================
-		// Second column
-		settingList.add(new RaceKey());
+		// First column (left)
+		settingList.add(raceKey);
 		settingList.add(new RaceName());
 		settingList.add(new EmpireName());
 		settingList.add(new RaceDescription1());
 		settingList.add(new RaceDescription2());
 		settingList.add(new RaceDescription4());
 		settingList.add(new RaceDescription3());
+		endOfColumn();
+
+		// ====================
+		// Second column
+		settingList.add(personality.erratic);
+		settingList.add(personality.pacifist);
+		settingList.add(personality.honorable);
+		settingList.add(personality.ruthless);
+		settingList.add(personality.aggressive);
+		settingList.add(personality.xenophobic);
+		spacer();
+		settingList.add(objective.militarist);
+		settingList.add(objective.ecologist);
+		settingList.add(objective.diplomat);
+		settingList.add(objective.industrialist);
+		settingList.add(objective.expansionist);
+		settingList.add(objective.technologist);
+		spacer();
+		settingList.add(availableAI);
 		endOfColumn();
 
 		// ====================
@@ -441,20 +465,23 @@ public class CustomRaceDefinitions  {
 		public void reload() {
 			String currentValue = settingValue();
 			clearLists();
+			// Add Current race
 			add((DynOptions) playerCustomRace.get());
 			defaultIndex(0);
+			// Add existing files
 			File[] fileList = loadListing();
 			if (fileList != null)
 				for (File file : fileList)
-					add(DynOptions.loadOptions(file));
+					add(loadOptions(file));
+
+			// Add Game races
+			for (String raceKey : MOO1GameOptions.allRaceOptions())
+				add(raceKey);
+
 			initOptionsText();
 			reload = true;
 			set(currentValue);
 		}
-//		public static LinkedList<String> getList() {
-//			RaceList list = new RaceList();
-//			return list.getOptions();
-//		}
 	    private File[] loadListing() {
 	        String path	= Rotp.jarPath();
 	        File saveDir = new File(path);
@@ -471,6 +498,15 @@ public class CustomRaceDefinitions  {
 	    	float cost = cr.getTotalCost();
 	    	put(cfgValue, langLabel, cost, langLabel, tooltipKey);
 	    }
+	    private void add(String raceKey) {
+	    	Race dr = Race.keyed(raceKey);	    	
+	    	String cfgValue	  = dr.id;
+	    	String langLabel  = "*" + dr.setupName();
+	    	String tooltipKey = dr.description3;
+	    	CustomRaceDefinitions cr = new CustomRaceDefinitions(dr);
+	    	float cost = cr.getTotalCost();
+	    	put(cfgValue, langLabel, cost, cfgValue, tooltipKey);
+	    }
 	    public boolean newValue() {
 	    	if (newValue) {
 	    		newValue = false;
@@ -478,13 +514,24 @@ public class CustomRaceDefinitions  {
 	    	}
 	    	return false;
 	    }
+	    public LinkedList<String> getAllowedAlienRaces() {
+	    	LinkedList<String> list = new LinkedList<>();
+			File[] fileList = loadListing();
+			if (fileList != null)
+				for (File file : fileList) {
+			    	CustomRaceDefinitions cr = new CustomRaceDefinitions(loadOptions(file));
+			    	if (cr.availableAI.settingValue())
+			    		list.add(cr.raceKey.settingValue());
+				} // availableAI
+			return list;
+	    }
 		// ---------- Overriders ----------
 		//
 		@Override public String guiSettingValue() {
-			return lmText(guiOptionLabel());
+			return guiOptionLabel();
 		}
 		@Override public String guiOptionValue(int index) {
-			return lmText(guiOptionLabel(index));
+			return guiOptionLabel();
 		}
 		@Override protected void selectedValue(String value) {
 			super.selectedValue(value);
@@ -499,9 +546,14 @@ public class CustomRaceDefinitions  {
 			}
 			File file = new File(Rotp.jarPath(), settingValue()+EXT);
 			if (file.exists()) {
-				fromOptions(DynOptions.loadOptions(file));
+				fromOptions(loadOptions(file));
 				newValue = true;
+				return;
 			}
+			// None of above: Load standard races
+	    	race = Race.keyed(value).copy();
+	    	pullSettings();
+	    	updateSettings();
 		}
 	}
 	// ==================== RaceKey ====================
@@ -615,76 +667,249 @@ public class CustomRaceDefinitions  {
 			set(race.description4);		
 		}
 	}
-	// ==================== BaseDataRace ====================
+	// ==================== AvailablePlayer ====================
 	//
-	private class BaseDataRace extends SettingBase<String> {
-		private boolean updateAllowed	= true;
-		private boolean pullAllowed		= true;
-		private boolean costInitialized	= false;
-		private BaseDataRace() {
-			super(ROOT, "BASE_DATARACE");
-			isBullet(true);
-			labelsAreFinals(true);
+	@SuppressWarnings("unused")
+	private class AvailablePlayer extends SettingBoolean {
+		private static final boolean defaultValue = true;
+		
+		private AvailablePlayer() {
+			super(ROOT, "AVAILABLE_PLAYER", defaultValue);
+			isBullet(false);
 			hasNoCost(true);
-			for (String race : MOO1GameOptions.allRaceOptions()) {
-				Race r = Race.keyed(race);
-				String name = r.setupName(); // Probably useless
-				put(PMutil.suggestedUserViewFromCodeView(race), name, 0f, race);
-			}
-			defaultIndex(0);
 			initOptionsText();
 		}
-		@Override public void updateGui() {
-			if (updateAllowed) {
-				String raceKey = settingValue();
-				setRace(raceKey);
-				super.updateGui();
-				updateAllowed = false;
-				pullSettings();
-				updateSettings();
-				updateAllowed = true;
-			}
-		}
-		@Override public void guiSelect() {
-			if (race == null) {
-				pushSetting();
-				updateGui();
-				return;
-			}
-			race.baseRace = settingValue();
-			switch (Modifier2KeysState.get()) {
-			case CTRL:
-			case CTRL_SHIFT:
-				pushSetting();
-				updateGui();
-				return;
-			default:
-				super.updateGui();
-			}
-		}
 		@Override public void pushSetting() {
-			race = Race.keyed(settingValue()).copy();
-			race.baseRace = settingValue();
+			race.availablePlayer = settingValue();
 		}
 		@Override public void pullSetting() {
-			if (!pullAllowed)
-				return;
-			if(!costInitialized) {
-				String raceKey = race.name();
-				pullAllowed = false;
-				for (int i=0; i<listSize(); i++) {
-					index(i);
-					race = Race.keyed(settingValue()).copy();
-					pullSettings();
-					newCost(i, getTotalCost());
-				}
-				set(raceKey);
-				race = Race.keyed(settingValue()).copy();
-				pullSettings();
-				pullAllowed = true;
-				costInitialized = true;
+			set(race.availablePlayer);
+		}
+	}
+	// ==================== AvailableAI ====================
+	//
+	private class AvailableAI extends SettingBoolean {
+		private static final boolean defaultValue = true;
+		
+		private AvailableAI() {
+			super(ROOT, "AVAILABLE_AI", defaultValue);
+			isBullet(true);
+			hasNoCost(true);
+			getToolTip();
+			initOptionsText();
+		}
+		@Override public void pushSetting() {
+			race.availableAI = settingValue();
+		}
+		@Override public void pullSetting() {
+			set(race.availableAI);
+		}
+	}
+	// ==================== CRObjective ====================
+	//
+	private class CRObjective {
+		float[] objectivePct	= new float[Personality.values().length];
+		Militarist		militarist		= new Militarist();
+		Ecologist		ecologist		= new Ecologist();
+		Diplomat		diplomat		= new Diplomat();
+		Industrialist	industrialist	= new Industrialist();
+		Expansionist	expansionist	= new Expansionist();
+		Technologist	technologist	= new Technologist();
+
+		private CRObjective() {}
+		void pushSetting() {
+			objectivePct[0] = militarist.settingValue();
+			objectivePct[1] = ecologist.settingValue();
+			objectivePct[2] = diplomat.settingValue();
+			objectivePct[3] = industrialist.settingValue();
+			objectivePct[4] = expansionist.settingValue();
+			objectivePct[5] = technologist.settingValue();
+			
+			// Normalization
+			float sum = 0;
+			for (float f : objectivePct)
+				sum += f;
+			if (sum == 0f) // User entry! anything is possible
+				objectivePct[0] = 1f;
+			else
+				for (int i=0; i<objectivePct.length; i++)
+					objectivePct[i] /= sum;
+
+			race.objectivePct = objectivePct;
+		}
+		void pullSetting() {
+			objectivePct = race.objectivePct;
+			militarist   .set(objectivePct[0]);
+			ecologist    .set(objectivePct[1]);
+			diplomat     .set(objectivePct[2]);
+			industrialist.set(objectivePct[3]);
+			expansionist .set(objectivePct[4]);
+			technologist .set(objectivePct[5]);
+		}
+		// ==================== Technologist ====================
+		//
+		private class Technologist extends SettingFloat {
+			// big = good
+			private Technologist() {
+				super(ROOT, "TECHNOLOGIST", 0f, 0f, 1f, .01f, .05f, .20f);
+				cfgFormat("%");
+				hasNoCost(true);
 			}
-			set(race.baseRace());
+			@Override public void pushSetting() {
+				objective.pushSetting();
+			}
+			@Override public void pullSetting() {
+				objective.pullSetting();
+			}
+		}
+		// ==================== Expansionist ====================
+		//
+		private class Expansionist extends SettingFloat {
+			private Expansionist() {
+				super(ROOT, "EXPANSIONIST", 0f, 0f, 1f, .01f, .05f, .20f);
+				cfgFormat("%");
+				hasNoCost(true);
+			}
+		}
+		// ==================== Industrialist ====================
+		//
+		private class Industrialist extends SettingFloat {
+			private Industrialist() {
+				super(ROOT, "INDUSTRIALIST", 0.2f, 0f, 1f, .01f, .05f, .20f);
+				cfgFormat("%");
+				hasNoCost(true);
+			}
+		}
+		// ==================== Diplomat ====================
+		//
+		private class Diplomat extends SettingFloat {
+			private Diplomat() {
+				super(ROOT, "DIPLOMAT", 0.5f, 0f, 1f, .01f, .05f, .20f);
+				cfgFormat("%");
+				hasNoCost(true);
+			}
+		}
+		// ==================== Ecologist ====================
+		//
+		private class Ecologist extends SettingFloat {
+			private Ecologist() {
+				super(ROOT, "ECOLOGIST", 0.2f, 0f, 1f, .01f, .05f, .20f);
+				cfgFormat("%");
+				hasNoCost(true);
+			}
+		}
+		// ==================== Militarist ====================
+		//
+		private class Militarist extends SettingFloat {
+			private Militarist() {
+				super(ROOT, "MILITARIST", 0.1f, 0f, 1f, .01f, .05f, .20f);
+				cfgFormat("%");
+				hasNoCost(true);
+			}
+		}
+	}
+
+	// ==================== CRPersonality ====================
+	//
+	private class CRPersonality {
+		float[] personalityPct	= new float[Personality.values().length];
+		Erratic		erratic		= new Erratic();
+		Pacifist	pacifist	= new Pacifist();
+		Honorable	honorable	= new Honorable();
+		Ruthless	ruthless	= new Ruthless();
+		Aggressive	aggressive	= new Aggressive();
+		Xenophobic	xenophobic	= new Xenophobic();
+
+		private CRPersonality() {}
+		void pushSetting() {
+			personalityPct[0] = erratic.settingValue();
+			personalityPct[1] = pacifist.settingValue();
+			personalityPct[2] = honorable.settingValue();
+			personalityPct[3] = ruthless.settingValue();
+			personalityPct[4] = aggressive.settingValue();
+			personalityPct[5] = xenophobic.settingValue();
+			
+			// Normalization
+			float sum = 0;
+			for (float f : personalityPct)
+				sum += f;
+			if (sum == 0f) // User entry! anything is possible
+				personalityPct[0] = 1f;
+			else
+				for (int i=0; i<personalityPct.length; i++)
+					personalityPct[i] /= sum;
+
+			race.personalityPct = personalityPct;
+		}
+		void pullSetting() {
+			personalityPct = race.personalityPct;
+			erratic   .set(personalityPct[0]);
+			pacifist  .set(personalityPct[1]);
+			honorable .set(personalityPct[2]);
+			ruthless  .set(personalityPct[3]);
+			aggressive.set(personalityPct[4]);
+			xenophobic.set(personalityPct[5]);
+		}
+		// ==================== Xenophobic ====================
+		//
+		private class Xenophobic extends SettingFloat {
+			// big = good
+			private Xenophobic() {
+				super(ROOT, "XENOPHOBIC", 0f, 0f, 1f, .01f, .05f, .20f);
+				cfgFormat("%");
+				hasNoCost(true);
+			}
+			@Override public void pushSetting() {
+				personality.pushSetting();
+			}
+			@Override public void pullSetting() {
+				personality.pullSetting();
+			}
+		}
+		// ==================== Aggressive ====================
+		//
+		private class Aggressive extends SettingFloat {
+			private Aggressive() {
+				super(ROOT, "AGGRESSIVE", 0f, 0f, 1f, .01f, .05f, .20f);
+				cfgFormat("%");
+				hasNoCost(true);
+			}
+		}
+		// ==================== Ruthless ====================
+		//
+		private class Ruthless extends SettingFloat {
+			private Ruthless() {
+				super(ROOT, "RUTHLESS", 0.2f, 0f, 1f, .01f, .05f, .20f);
+				cfgFormat("%");
+				hasNoCost(true);
+			}
+		}
+		// ==================== Honorable ====================
+		//
+		private class Honorable extends SettingFloat {
+			private Honorable() {
+				super(ROOT, "HONORABLE", 0.5f, 0f, 1f, .01f, .05f, .20f);
+				cfgFormat("%");
+				hasNoCost(true);
+			}
+		}
+		// ==================== Pacifist ====================
+		//
+		private class Pacifist extends SettingFloat {
+			private Pacifist() {
+				super(ROOT, "PACIFIST", 0.2f, 0f, 1f, .01f, .05f, .20f);
+				cfgFormat("%");
+				hasNoCost(true);
+			}
+		}
+		// ==================== Erratic ====================
+		//
+		private class Erratic extends SettingFloat {
+			private Erratic() {
+				super(ROOT, "ERRATIC", 0.1f, 0f, 1f, .01f, .05f, .20f);
+				cfgFormat("%");
+				hasNoCost(true);
+			}
 		}
 	}
 	// ==================== CreditsBonus ====================

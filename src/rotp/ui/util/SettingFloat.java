@@ -17,6 +17,7 @@
 package rotp.ui.util;
 
 import static rotp.ui.util.SettingBase.CostFormula.RELATIVE;
+import static rotp.util.Base.random;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -45,7 +46,7 @@ public class SettingFloat extends SettingBase<Float> {
 	private CostFormula costFormula = RELATIVE;
 	private boolean useNegFormula	= false;
 	private float	rawBaseCost		= 0f;
-	private String cfgFormat = "0.00##";
+	private String	cfgFormat		= "0.00##";
 
 	// ========== constructors ==========
 	//
@@ -152,6 +153,8 @@ public class SettingFloat extends SettingBase<Float> {
 		return settingCost(minValue);
 	}
 	@Override protected Float randomize(float rand) {
+		if (hasNoCost())
+			return random.nextFloat()*(maxValue-minValue) + minValue;
 		float lim1 = settingCost(maxValue);
 		float lim2 = settingCost(minValue);
 		if (rand > 0)
@@ -216,9 +219,11 @@ public class SettingFloat extends SettingBase<Float> {
 		if (!isSpacer())
 			set(options.getFloat(labelId(), defaultValue()));
 	}
+	@Override public String guiSettingValue() { return getCfgValue(); }
 	// ===== Other Methods =====
 	//
-	private boolean isCfgPercent() { return cfgFormat.equals("%"); }
+	protected void cfgFormat(String format)	{ cfgFormat = format; }
+	private boolean isCfgPercent()			{ return cfgFormat.equals("%"); }
 	private void next(Float i) {
 		if (i == 0) {
 			setFromDefault();

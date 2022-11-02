@@ -48,8 +48,6 @@ import rotp.model.tech.TechTree; // modnar: add game mode to start all Empires w
 import rotp.ui.UserPreferences; // modnar: add game mode to start all Empires with 2 random techs
 import rotp.ui.util.planets.PlanetImager;
 import rotp.util.Base;
-import rotp.model.empires.CustomRaceDefinitions.RaceList;
-import rotp.model.empires.CustomRaceDefinitions.RaceList;
 
 public class GalaxyFactory implements Base {
 	private static GalaxyFactory instance = new GalaxyFactory();
@@ -181,7 +179,6 @@ public class GalaxyFactory implements Base {
 					String.format("%-16s", r.name())
 					+ String.format("%-12s", sys.name())
 					+ String.format("%-16s", emp.dataRace().name())
-					+ String.format("%-16s", emp.dataRace().baseRace)
 					+ String.format("%-12s", boss.personality())
 					+ String.format("%-15s", boss.objective())
 					+ String.format("%-22s", emp.diplomatAI())
@@ -366,10 +363,9 @@ public class GalaxyFactory implements Base {
 		}
 		return raceList;
 	}
-	private LinkedList<String> buildAlienAbilities() { // TODO BR: buildAlienAbilities()
+	private LinkedList<String> buildAlienAbilities() {
 		LinkedList<String> scrambledOptions = new LinkedList<>();
-		List<String> options = CustomRaceDefinitions.getRaceFileList();
-		options.remove(0); // the player choice, to avoid duplicate
+		List<String> options = CustomRaceDefinitions.getAllowedAlienRaces();
 		int maxRaces = options().selectedNumberOpponents();
 		int mult = maxRaces/options.size() + 1;
 		// Build randomized list of opponent races
@@ -553,7 +549,7 @@ public class GalaxyFactory implements Base {
                 	if (randomAlienRaces.isPlayerCopy()) {
                 		dataRaceKey	= playerDataRaceKey;
                     	options		= g.empire(0).raceOptions();
-                	} else if (randomAlienRaces.isFromFiles()) { // TODO BR: randomAlienRaces.isFromFiles()
+                	} else if (randomAlienRaces.isFromFiles()) {
                 		dataRaceKey	= alienAbilitiesList.removeFirst();
                 	} else
                 		dataRaceKey	= RANDOM_RACE_KEY;

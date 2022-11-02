@@ -39,7 +39,7 @@ public class SettingBoolean extends SettingBase<Boolean> {
 		this(guiLangLabel, nameLangLabel, defaultValue, 0f, 0f,
 				defaultBooleanYes, defaultBooleanNo,
 				defaultIsBullet, defaultLabelsAreFinals);
-		this.hasNoCost(true);
+		hasNoCost(true);
 	}
 	/**
 	 * @param guiLangLabel  The label header

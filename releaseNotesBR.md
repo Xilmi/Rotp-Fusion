@@ -3,6 +3,12 @@ This version contains many changes and does not identify itself as a full fusion
 I'm quite confident it works well, but we are never too cautious. Please test it and don't hesitate to comment the new features.
 
 ### Last Changes:
+  - Added some descriptions.
+  - As suggested by u/Mr_Frosty_L : Added options to make race "player only". (Now you can keep weaker species for yourself!)
+  - Added Personality and objectives.
+  - Removed Base Data Race, it become useless as all abilities parameters can now be set!
+  - The standard races can now be loaded on the right panel.
+
   - Added options to shuriken galaxies, some time better looking.
   - Added options to randomly load custom race file(MOD Option B - Custom Aliens: Yes, From Files)
 

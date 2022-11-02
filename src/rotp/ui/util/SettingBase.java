@@ -58,7 +58,7 @@ public class SettingBase<T> implements InterfaceParam {
 	private boolean hasNoCost = false;
 	private BaseText settingText;
 	private BaseText[] optionsText;
-	private String settingToolTip  = "";
+	private String settingToolTip;
 	private int bulletHeightFactor = 1;
 //	private int bulletSide  = 2;
 	private int bulletMax   = 25;
@@ -94,8 +94,14 @@ public class SettingBase<T> implements InterfaceParam {
 	public void settingText(BaseText settingText) {
 		this.settingText = settingText;
 	}
-	public void settingToolTip(String settingToolTip) {
+	void settingToolTip(String settingToolTip) {
 		this.settingToolTip = settingToolTip;
+	}
+	private void loadSettingToolTip() {
+		String label = labelId() + LABEL_DESCRIPTION;
+		settingToolTip = text(labelId() + LABEL_DESCRIPTION);
+		if (label.equals(settingToolTip))
+			settingToolTip = "";
 	}
 	private void optionsText(BaseText[] optionsText) {
 		this.optionsText = optionsText;
@@ -189,7 +195,13 @@ public class SettingBase<T> implements InterfaceParam {
 	@Override public String getCfgLabel()		{ return nameLabel; }
 	@Override public String getGuiDescription() { return lmText(descriptionId()); }
 	@Override public String getGuiDisplay()		{ return text(labelId(), guiSettingValue()) + END; }
-	@Override public String getToolTip() 		{ return settingToolTip; }
+	@Override public String getToolTip() {
+		if (settingToolTip == null) {
+			loadSettingToolTip();
+			resetOptionsToolTip();
+		}
+		return settingToolTip;
+	}
 	@Override public String getToolTip(int idx) {
 		if (idx >= tooltipList.size())
 			return "";
@@ -200,6 +212,7 @@ public class SettingBase<T> implements InterfaceParam {
 	}
 	// ========== Overridable Methods ==========
 	//
+	void resetOptionsToolTip() {}
 	protected String getCfgValue(T value) {
 		if (isList) {
 			int index = valueValidIndex(valueList.indexOf(value));
@@ -543,9 +556,10 @@ public class SettingBase<T> implements InterfaceParam {
 		return getLabel() + ": " + guiSettingValue() + " " + settingCostString();
 	}
 	private String guiCostOptionStr(int idx, int dec) {
+		if (hasNoCost)
+			return guiOptionLabel(idx);
 		String cost = String.format(costFormat,  optionCostStringIdx(idx, dec));
-		String txt = cost + guiOptionLabel(idx);
-		return txt;
+		return cost + guiOptionLabel(idx);
 	}
 	private void setDefaultIndex(int index) {
 		defaultValue = valueList.get(cfgValidIndex(index));
