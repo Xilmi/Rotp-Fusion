@@ -2330,7 +2330,8 @@ public final class Empire implements Base, NamedObject, Serializable {
         else {
             for (int i=0; i<gal.numStarSystems(); i++) {
                 StarSystem s = gal.system(i);
-                if (alliedWith(s.empire().id))
+// TODO validate with Xilmi: if (alliedWith(s.empire().id))
+                if (s.empire() != null && alliedWith(s.empire().id))
                     distance = min(s.distanceTo(xyz), distance);
                 if (distance == 0)
                     return distance;
