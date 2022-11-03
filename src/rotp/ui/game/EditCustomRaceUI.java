@@ -116,11 +116,13 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	}
 	private void reloadRaceList() {
 		raceList.reload();
-		int optionCount = raceList.listSize(); // +1 for the setting
 		int paramIdx	= raceList.index();
-		for (int optionIdx=0; optionIdx < optionCount; optionIdx++) {
-			raceList.optionText(optionBT(), optionIdx);
-			raceList.optionText(optionIdx).disabled(optionIdx == paramIdx);
+		int bulletStart	= raceList.bulletStart();
+		int bulletSize	= raceList.bulletBoxSize();
+		for (int bulletIdx=0; bulletIdx < bulletSize; bulletIdx++) {
+			int optionIdx = bulletStart + bulletIdx;
+			raceList.optionText(optionBT(), bulletIdx);
+			raceList.optionText(bulletIdx).disabled(optionIdx == paramIdx);
 		}
 	}
 	@Override public void open(BasePanel p) {
