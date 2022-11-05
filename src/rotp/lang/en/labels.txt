@@ -1170,6 +1170,7 @@ SETUP_RANDOM_EVENTS_NO_MONSTERS   | No Monsters
 SETUP_GALAXY_NUMBER_EMPIRES       | Total Empires: %1
 SETUP_GALAXY_NUMBER_SYSTEMS       | Total Systems: %1
 SETUP_GALAXY_MAX_OPPONENTS        | Maximum Opponents: %1
+SETUP_SHOW_ABILITIES_HEADER       | Selectables
 SETUP_NEW_RACES_HEADER            | Race List
 SETUP_NEW_RACES_ON                | All Races
 SETUP_NEW_RACES_OFF               | Original
@@ -1191,6 +1192,7 @@ SETUP_OPPONENT_AI_RANDOM_ADV      | AI: R.Xilmi
 SETUP_OPPONENT_AI_RANDOM_NOBAR    | AI: R.no relat
 SETUP_OPPONENT_AI_SELECT          | AI: Selectable
 SETUP_OPPONENT_AI_PLAYER          | AI: Off
+SETUP_OPPONENT_CR                 | Abilities:
 SETUP_AUTOPLAY_OFF                | Off
 SETUP_GAME_DIFFICULTY_LABEL       | Difficulty
 SETUP_DIFFICULTY_EASIEST          | Easiest

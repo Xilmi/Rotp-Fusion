@@ -2,6 +2,11 @@
 This version contains many changes and does not identify itself as a full fusion mod, but more as a Beta version.
 I'm quite confident it works well, but we are never too cautious. Please test it and don't hesitate to comment the new features.
 
+### Very Last Changes:
+  - Added individual opponent Ability selection (The same way the AI may be selected)
+  - Added 'reworked'-option to set the ability to "raceKey.race"
+  In the race editor, when selecting a "base race" (starting with * ), saving it under the proposed file name (ex RACE_HUMAN) this race will be identified as "reworked". Subsequently, selecting this option will always replace the race abilities with the reworked one.
+
 ### Last Changes:
   - Added some descriptions.
   - As suggested by u/Mr_Frosty_L : Added options to make race "player only". (Now you can keep weaker species for yourself!)

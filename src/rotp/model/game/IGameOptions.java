@@ -30,6 +30,7 @@ import rotp.model.planet.Planet;
 import rotp.model.tech.TechEngineWarp;
 import rotp.ui.UserPreferences; // modnar: add custom difficulty level option
 import rotp.ui.game.SetupGalaxyUI;
+import rotp.ui.util.SpecificCROption;
 
 public interface IGameOptions {
     public static final int MAX_OPPONENTS = SetupGalaxyUI.MAX_DISPLAY_OPPS;
@@ -306,6 +307,8 @@ public interface IGameOptions {
     public void specificOpponentAIOption(String s, int empId);
     public String selectedAutoplayOption();
     public void selectedAutoplayOption(String s);
+    public String specificOpponentCROption(int empId);
+    public void specificOpponentCROption(String s, int empId);
 
     public String selectedGalaxyShapeOption1();
     public void selectedGalaxyShapeOption1(String s);
@@ -433,6 +436,14 @@ public interface IGameOptions {
         List<String> opts = opponentAIOptions();
         int index = opts.indexOf(selectedOpponentAIOption())-1;
         return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
+    }
+    default String nextOpponentCR() {
+    	UserPreferences.opponentCROptions.next();
+    	return UserPreferences.opponentCROptions.get();
+    }
+    default String prevOpponentCR() {
+    	UserPreferences.opponentCROptions.prev();
+    	return UserPreferences.opponentCROptions.get();
     }
     default String nextResearchRate(boolean up) { // BR: added bidirectional
         List<String> opts = researchRateOptions();
@@ -605,6 +616,30 @@ public interface IGameOptions {
 
         String nextAI = allAIs.get(nextIndex);
         specificOpponentAIOption(nextAI, i);
+    }
+    default void nextSpecificOpponentCR(int i) {
+        List<String> allCRs = SpecificCROption.options();
+        String currCR = specificOpponentCROption(i);
+
+        // if currCR not on the list: index=-1 then result=0 -> OK
+        int nextIndex = currCR == null ? 0 : allCRs.indexOf(currCR)+1;
+        if (nextIndex >= allCRs.size())
+            nextIndex = 0;
+
+        String nextCR = allCRs.get(nextIndex);
+        specificOpponentCROption(nextCR, i);
+    }
+    default void prevSpecificOpponentCR(int i) {
+        List<String> allCRs = SpecificCROption.options();
+        String currCR = specificOpponentCROption(i);
+
+        // if currCR not on the list: index=-1 then result=0 -> OK
+        int prevIndex = currCR == null ? 0 : allCRs.indexOf(currCR)-1;
+        if (prevIndex < 0)
+        	prevIndex = allCRs.size()-1;
+
+        String nextCR = allCRs.get(prevIndex);
+        specificOpponentCROption(nextCR, i);
     }
     default void nextOpponent(int i) {
         String player = selectedPlayerRace();

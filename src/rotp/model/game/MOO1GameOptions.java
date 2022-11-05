@@ -19,11 +19,13 @@ import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.minStarsPerEmpire;
+import static rotp.ui.UserPreferences.opponentCROptions;
 import static rotp.ui.UserPreferences.playerIsCustom;
 import static rotp.ui.UserPreferences.playerShipSet;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
 import static rotp.ui.UserPreferences.randomTechStart;
 import static rotp.ui.UserPreferences.showNewRaces;
+import static rotp.ui.UserPreferences.useSelectableAbilities;
 
 import java.awt.Color;
 import java.awt.Toolkit;
@@ -79,6 +81,7 @@ import rotp.ui.game.EditCustomRaceUI;
 import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.util.InterfaceOptions;
 import rotp.ui.util.ParamOptions;
+import rotp.ui.util.SpecificCROption;
 import rotp.util.Base;
 
 //public class MOO1GameOptions implements Base, IGameOptions, DynamicOptions, Serializable {
@@ -103,6 +106,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private String selectedStarDensityOption;
     private String selectedOpponentAIOption;
     private final String[] specificOpponentAIOption = new String[MAX_OPPONENTS+1];
+    private String[] specificOpponentCROption = new String[MAX_OPPONENTS+1];
 
     @SuppressWarnings("unused")
 	private boolean communityAI = false;  // unused
@@ -257,6 +261,19 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         if (n < specificOpponentAIOption.length)
             specificOpponentAIOption[n] = s;
     }
+    @Override 
+    public String specificOpponentCROption(int n)  {
+            if ((specificOpponentCROption == null) || (specificOpponentCROption.length < n))
+                return opponentCROptions.get();
+            else
+                return specificOpponentCROption[n];
+    }
+    @Override
+    public void specificOpponentCROption(String s, int n) { 
+        if (n < specificOpponentCROption.length)
+            specificOpponentCROption[n] = s;
+    }
+
     @Override
     public String selectedAIHostilityOption()       { return selectedAIHostilityOption == null ? AI_HOSTILITY_NORMAL : selectedAIHostilityOption; }
     @Override
@@ -413,6 +430,10 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	// Copy CustomRaces as part of Race UI
 		for (InterfaceOptions param : EditCustomRaceUI.instance().commonList)
 			param.setFromOptions(opt.dynamicOptions);
+		showNewRaces.setFromOptions(opt.dynamicOptions);
+		prefStarsPerEmpire.setFromOptions(opt.dynamicOptions);
+		opponentCROptions.setFromOptions(opt.dynamicOptions);
+		useSelectableAbilities.setFromOptions(opt.dynamicOptions);
     	playerIsCustom.setFromOptions(opt.dynamicOptions);
     	playerShipSet.setFromOptions(opt.dynamicOptions);
 
@@ -1138,7 +1159,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add(OPPONENT_AI_RANDOM_ADV);
         list.add(OPPONENT_AI_RANDOM_NOBAR);
         return list;
-    }
+    } 
     // BR: Made static method option
     public static LinkedList<String> baseRaceOptions() {
     	LinkedList<String> list = new LinkedList<>();
@@ -1194,6 +1215,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	dest.selectedGameDifficulty	(src.selectedGameDifficulty);
         for (int i=0;i<dest.opponentRaces.length;i++)
         	dest.opponentRaces[i] = src.opponentRaces[i];
+        for (int i=0;i<dest.specificOpponentCROption.length;i++)
+        	dest.specificOpponentCROption[i] = src.specificOpponentCROption[i];
     	setAliensAIOptions(src, dest);
         dest.generateGalaxy();
     }
@@ -1216,10 +1239,15 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         	dest.opponentRaces[i] = null;
         for (int i=0;i<dest.specificOpponentAIOption.length;i++)
         	dest.specificOpponentAIOption[i] = OPPONENT_AI_CRUEL;
+        String defVal = SpecificCROption.defaultSpecificValue().value;
+        for (int i=0;i<dest.specificOpponentCROption.length;i++)
+        	dest.specificOpponentCROption[i] = defVal;
         dest.generateGalaxy();
 	    showNewRaces.setFromDefault();
 	    prefStarsPerEmpire.setFromDefault();
-    }
+	    opponentCROptions.setFromDefault();
+	    useSelectableAbilities.setFromDefault();
+   }
     public static void setAdvancedOptions(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
         dest.selectedGalaxyAge			= src.selectedGalaxyAge;
         dest.selectedPlanetQualityOption = src.selectedPlanetQualityOption;
@@ -1635,6 +1663,12 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             try (InputStream buffer = new BufferedInputStream(is)) {
                 ObjectInput input = new ObjectInputStream(buffer);
                 newOptions = (MOO1GameOptions) input.readObject();
+            }
+            if (newOptions.specificOpponentCROption == null) {
+            	newOptions.specificOpponentCROption = new String[MAX_OPPONENTS+1];
+                String defVal = SpecificCROption.defaultSpecificValue().value;
+                for (int i=0;i<newOptions.specificOpponentCROption.length;i++)
+                	newOptions.specificOpponentCROption[i] = defVal;
             }
             return newOptions;
         }

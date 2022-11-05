@@ -55,6 +55,7 @@ public class CustomRaceDefinitions  {
 	public	static final String RANDOMIZED_RACE_KEY	= "RANDOMIZED_RACE";
 	public	static final String RANDOM_RACE_KEY		= "RANDOM_RACE_KEY";
 	public	static final String CUSTOM_RACE_KEY		= "CUSTOM_RACE_KEY";
+	public	static final String FILE_RACE_KEY		= "FILE_RACE_KEY";
 	private static final boolean booleansAreBullet	= true;
 
 	private Race race; // !!! To be kept up to date !!!
@@ -102,6 +103,17 @@ public class CustomRaceDefinitions  {
 	}
 	// -------------------- Static Methods --------------------
 	// 
+	
+	public static boolean raceFileExist(String fileName) {
+		File f = new File(Rotp.jarPath(), fileName + EXT);
+		return (f.exists() && !f.isDirectory());
+	}
+	public static Race fileToAlienRace(String fileName) {
+		return new CustomRaceDefinitions(fileName).getRace();
+	}
+	public static Race optionToAlienRace(DynOptions options) {
+		return new CustomRaceDefinitions(options).getRace();
+	}
 	private static Race getRandomAlienRace() {
 		CustomRaceDefinitions cr = new CustomRaceDefinitions();
 		cr.randomizeRace(randomAlienRacesMin.get(), randomAlienRacesMax.get(),
@@ -142,7 +154,9 @@ public class CustomRaceDefinitions  {
 	public static LinkedList<String> getAllowedAlienRaces() {
 		return new CustomRaceDefinitions().new RaceList().getAllowedAlienRaces();
 	}
-	
+	public static LinkedList<String> getAllAlienRaces() {
+		return new CustomRaceDefinitions().new RaceList().getAllAlienRaces();
+	}
 	// ========== Options Management ==========
 	//
 	/**
@@ -505,7 +519,8 @@ public class CustomRaceDefinitions  {
 	    	String tooltipKey = dr.description3;
 	    	CustomRaceDefinitions cr = new CustomRaceDefinitions(dr);
 	    	float cost = cr.getTotalCost();
-	    	put(cfgValue, langLabel, cost, cfgValue, tooltipKey);
+	    	put(cfgValue, langLabel, cost, langLabel, tooltipKey);
+//	    	put(cfgValue, langLabel, cost, cfgValue, tooltipKey);
 	    }
 	    public boolean newValue() {
 	    	if (newValue) {
@@ -522,7 +537,17 @@ public class CustomRaceDefinitions  {
 			    	CustomRaceDefinitions cr = new CustomRaceDefinitions(loadOptions(file));
 			    	if (cr.availableAI.settingValue())
 			    		list.add(cr.raceKey.settingValue());
-				} // availableAI
+				}
+			return list;
+	    }
+	    public LinkedList<String> getAllAlienRaces() {
+	    	LinkedList<String> list = new LinkedList<>();
+			File[] fileList = loadListing();
+			if (fileList != null)
+				for (File file : fileList) {
+			    	CustomRaceDefinitions cr = new CustomRaceDefinitions(loadOptions(file));
+			    	list.add(cr.raceKey.settingValue());
+				}
 			return list;
 	    }
 		// ---------- Overriders ----------
@@ -533,6 +558,9 @@ public class CustomRaceDefinitions  {
 		@Override public String guiOptionValue(int index) {
 			return guiOptionLabel();
 		}
+//		@Override public SettingBase<?> index(int newIndex) {
+//			
+//		}
 		@Override protected void selectedValue(String value) {
 			super.selectedValue(value);
 			if (reload) { // No need to load options on reload
@@ -544,16 +572,22 @@ public class CustomRaceDefinitions  {
 				newValue = true;
 				return;
 			}
+			if (index()>=listSize()-16) { // Base Race
+				race = Race.keyed(getCfgValue(settingValue())).copy();
+				pullSettings();
+		    	updateSettings();
+		    	return;
+			}
 			File file = new File(Rotp.jarPath(), settingValue()+EXT);
 			if (file.exists()) {
 				fromOptions(loadOptions(file));
 				newValue = true;
 				return;
 			}
-			// None of above: Load standard races
-	    	race = Race.keyed(value).copy();
-	    	pullSettings();
-	    	updateSettings();
+//			// None of above: Load standard races
+//	    	race = Race.keyed(value).copy();
+//	    	pullSettings();
+//	    	updateSettings();
 		}
 	}
 	// ==================== RaceKey ====================

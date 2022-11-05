@@ -195,7 +195,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 		}
 	}
 	static String yesOrNo(boolean b) { // BR it's already used everywhere!!!
-		return b ? "YES" : "NO";
+		return b ? "Yes" : "No";
 	}
 	static boolean yesOrNo(String s) {
 		return s.equalsIgnoreCase("YES");

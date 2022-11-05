@@ -26,11 +26,22 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2022.11.05 (BR)
+  - Added individual opponent Ability selection.
+  - Added "reworked" to set the ability to "raceKey.race"
+  
+2022.11.03 (BR)
+  - Fixed custom Race file list refresh.
+  - Reduced selectable AI font size to fit the box.
+  - Added custom race selection to opponent selection panel. (Not yet functionnal)
+  - Fixed Crashing bug due to null pointer! (in Empire.Java)
+
 2022.11.02 (BR)
   - Added options to make race player only.
   - Added Personality and objectives.
   - Removed Base Data Race.
   - Added some descriptions.
+  - Moved Standard races on the right panel.
 
 2022.10.30 (BR)
   - Added options to randomly load custom race file(MOD Option B - Custom Aliens: Yes, From Files)

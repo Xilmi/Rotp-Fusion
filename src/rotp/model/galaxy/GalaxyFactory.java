@@ -15,13 +15,22 @@
  */
 package rotp.model.galaxy;
 
+import static rotp.model.empires.CustomRaceDefinitions.FILE_RACE_KEY;
 import static rotp.model.empires.CustomRaceDefinitions.RANDOM_RACE_KEY;
+import static rotp.model.empires.CustomRaceDefinitions.fileToAlienRace;
+import static rotp.model.empires.CustomRaceDefinitions.getAllAlienRaces;
+import static rotp.model.empires.CustomRaceDefinitions.getAllowedAlienRaces;
+import static rotp.model.empires.CustomRaceDefinitions.getRaceFileList;
+import static rotp.model.empires.CustomRaceDefinitions.optionToAlienRace;
+import static rotp.model.empires.CustomRaceDefinitions.raceFileExist;
 import static rotp.model.game.MOO1GameOptions.setAliensAIOptions;
+import static rotp.ui.UserPreferences.opponentCROptions;
 import static rotp.ui.UserPreferences.randomAlienRaces;
 import static rotp.ui.UserPreferences.restartAppliesSettings;
 import static rotp.ui.UserPreferences.restartChangesAliensAI;
 import static rotp.ui.UserPreferences.restartChangesPlayerAI;
 import static rotp.ui.UserPreferences.restartChangesPlayerRace;
+import static rotp.ui.UserPreferences.useSelectableAbilities;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -46,6 +55,7 @@ import rotp.model.planet.Planet;
 import rotp.model.tech.Tech; // modnar: add game mode to start all Empires with 2 random techs
 import rotp.model.tech.TechTree; // modnar: add game mode to start all Empires with 2 random techs
 import rotp.ui.UserPreferences; // modnar: add game mode to start all Empires with 2 random techs
+import rotp.ui.util.SpecificCROption;
 import rotp.ui.util.planets.PlanetImager;
 import rotp.util.Base;
 
@@ -363,18 +373,18 @@ public class GalaxyFactory implements Base {
 		}
 		return raceList;
 	}
-	private LinkedList<String> buildAlienAbilities() {
-		LinkedList<String> scrambledOptions = new LinkedList<>();
-		List<String> options = CustomRaceDefinitions.getAllowedAlienRaces();
-		int maxRaces = options().selectedNumberOpponents();
-		int mult = maxRaces/options.size() + 1;
-		// Build randomized list of opponent races
-		for (int i=0;i<mult;i++) {
-			Collections.shuffle(options);
-			scrambledOptions.addAll(options);
-		}
-		return scrambledOptions;
-	}
+//	private LinkedList<String> buildAlienAbilities() {
+//		LinkedList<String> scrambledOptions = new LinkedList<>();
+//		List<String> options = CustomRaceDefinitions.getAllowedAlienRaces();
+//		int maxRaces = options().selectedNumberOpponents();
+//		int mult = maxRaces/options.size() + 1;
+//		// Build randomized list of opponent races
+//		for (int i=0;i<mult;i++) {
+//			Collections.shuffle(options);
+//			scrambledOptions.addAll(options);
+//		}
+//		return scrambledOptions;
+//	}
 	private void addPlayerSystemForGalaxy(Galaxy g, int id, List<EmpireSystem> empSystems, GalaxyCopy src) {
 		// creates a star system for player, using selected options
 		GalaxyBaseData galSrc = null; // Used for Restart
@@ -491,13 +501,7 @@ public class GalaxyFactory implements Base {
 		IGameOptions opts = GameSession.instance().options();
 		// creates a star system for each race, and then additional star
 		// systems based on the galaxy size selected at startup
-		GalaxyBaseData galSrc	= null; // Used for Restart
-		EmpireBaseData empSrc[]	= null; // Used for Restart
-		EmpireBaseData eSrc		= null; // Used for Restart
-		if (src != null) {
-			galSrc = src.galSrc;
-			empSrc = galSrc.empires;
-		}
+
 		// get possible banner colors, remove player's color, then randomize
 		List<Integer> raceColors = new ArrayList<>();
 		Integer playerC = options().selectedPlayerColor();
@@ -508,31 +512,43 @@ public class GalaxyFactory implements Base {
 			else
 				raceColors.add(i);
 		}
-
+		
 		// possible the galaxy shape could not fit in all of the races
+		GalaxyBaseData galSrc	= null; // Used for Restart
+		EmpireBaseData empSrc[]	= null; // Used for Restart
+		EmpireBaseData eSrc		= null; // Used for Restart
 		int empId = startId;
 		int maxRaces;
 		if (src == null) // Start
 			maxRaces = min(alienRaces.size(), empSystems.size());
-		else // Restart
-			maxRaces = empSrc.length-1;		
+		else  { // Restart
+			galSrc = src.galSrc;
+			empSrc = galSrc.empires;
+			maxRaces = empSrc.length-1;
+		}
 
-		LinkedList<String> alienAbilitiesList = null;
-		if ((restartAppliesSettings.get() || src == null)
-				&& randomAlienRaces.isFromFiles())
-			alienAbilitiesList = buildAlienAbilities();
+		// TODO BR: probably remove
+		// Load list if needed
+//		LinkedList<String> alienAbilitiesList = null;
+		LinkedList<String> allowedRaceList	= null;
+		LinkedList<String> alienRaceList	= null;
+		if ((restartAppliesSettings.get() || src == null)) {
+			allowedRaceList	= getAllowedAlienRaces();
+			alienRaceList	= getAllAlienRaces();
+		}
+			// alienAbilitiesList = buildAlienAbilities();
 		
 		// since we may have more races than colors we will need to reset the
 		// color list each time we run out. 
 		for (int h=0; h<maxRaces; h++) {
 			StarSystem sys;
 			String raceKey;
-
-			if (src != null) { // BR: For Restart with new options
-				eSrc = empSrc[h+1];
-				raceKey = eSrc.raceKey;
-			} else // Start
+			if (src == null) // Start
             	raceKey = alienRaces.get(h);
+			else { // Restart
+				eSrc	= empSrc[h+1];
+				raceKey = eSrc.raceKey;
+			}
 
 			Race race = Race.keyed(raceKey);
 			if (raceColors.isEmpty()) 
@@ -540,30 +556,95 @@ public class GalaxyFactory implements Base {
 			Integer colorId = raceColors.remove(0);
 
 			// Create DataRace
-			String dataRaceKey;
-			DynOptions options = null;
-			if (restartAppliesSettings.get()
-					|| src == null) { // Then Same for Start and restart
-            	if (randomAlienRaces.isRandom() && isRandomOpponent[h]) {
-            		// Override random opponents
-                	if (randomAlienRaces.isPlayerCopy()) {
-                		dataRaceKey	= playerDataRaceKey;
-                    	options		= g.empire(0).raceOptions();
-                	} else if (randomAlienRaces.isFromFiles()) {
-                		dataRaceKey	= alienAbilitiesList.removeFirst();
-                	} else
-                		dataRaceKey	= RANDOM_RACE_KEY;
-                }
-                else if (options().randomizeAIAbility())
-                	dataRaceKey	= random(options().startingRaceOptions());
-                else
-                	dataRaceKey	= raceKey;
-			} else {
-				dataRaceKey	= eSrc.dataRaceKey;
-        		options = eSrc.raceOptions;
-            }
-            Race dataRace = Race.keyed(dataRaceKey, options);
+			Race dataRace;
+//			String dataRaceKey;
+//			DynOptions options = null;
+			if (src == null || restartAppliesSettings.get()) { // Start and some restart
+				String selectedAbility = options().specificOpponentCROption(h);
+				SpecificCROption ability = SpecificCROption.set(selectedAbility);
+				if (!useSelectableAbilities.get() 
+						|| ability.isSelection()) // TODO
+					ability = opponentCROptions.getEnu();
 
+				switch (ability) {
+					case USER_CHOICE:
+						dataRace = fileToAlienRace(selectedAbility);
+						break;
+					case REWORKED:
+						if(raceFileExist(raceKey))
+							dataRace = fileToAlienRace(raceKey);
+						else
+							dataRace = Race.keyed(raceKey);
+						break;
+					case PLAYER:
+						dataRace = optionToAlienRace(g.empire(0).raceOptions());
+						break;
+					case RANDOM:
+						dataRace = Race.keyed(RANDOM_RACE_KEY);
+						break;
+					case FILES_FLT:
+						if (allowedRaceList.isEmpty())
+							dataRace = Race.keyed(raceKey);
+						else
+							dataRace = fileToAlienRace(random(allowedRaceList));
+						break;
+					case FILES_NO_FLT:
+						if (alienRaceList.isEmpty())
+							dataRace = Race.keyed(raceKey);
+						else
+							dataRace = fileToAlienRace(random(alienRaceList));
+						break;
+					case FILES_RACES:
+						if (random.nextBoolean())
+							if (allowedRaceList.isEmpty())
+								dataRace = Race.keyed(random(MOO1GameOptions.allRaceOptions()));
+							else
+								dataRace = fileToAlienRace(random(allowedRaceList));
+						else
+							dataRace = Race.keyed(random(MOO1GameOptions.allRaceOptions()));
+						break;
+					case ALL:
+						if (random.nextBoolean())
+							if (random.nextBoolean())
+								if (allowedRaceList.isEmpty())
+									dataRace = optionToAlienRace(g.empire(0).raceOptions());
+								else
+									dataRace = fileToAlienRace(random(allowedRaceList));
+							else
+								dataRace = optionToAlienRace(g.empire(0).raceOptions());
+						else if (random.nextBoolean())
+							dataRace = Race.keyed(random(MOO1GameOptions.allRaceOptions()));
+						else
+							dataRace = Race.keyed(RANDOM_RACE_KEY);
+						break;
+					case BASE_RACE:
+					default:
+						dataRace = Race.keyed(raceKey);
+						break; // TODO BR:
+				}
+				
+				
+//            	if (randomAlienRaces.isRandom() && isRandomOpponent[h]) {
+//            		// Override random opponents
+//                	if (randomAlienRaces.isPlayerCopy()) {
+//                		dataRaceKey	= playerDataRaceKey;
+//                    	options		= g.empire(0).raceOptions();
+//                	} else if (randomAlienRaces.isFromFiles()) {
+//                		dataRaceKey	= alienAbilitiesList.removeFirst();
+//                	} else
+//                		dataRaceKey	= RANDOM_RACE_KEY;
+//                }
+//                else if (options().randomizeAIAbility())
+//                	dataRaceKey	= random(options().startingRaceOptions());
+//                else
+//                	dataRaceKey	= raceKey;
+			} else {
+//				dataRaceKey	= eSrc.dataRaceKey;
+//        		options = eSrc.raceOptions;
+//        		dataRace = Race.keyed(dataRaceKey, options);
+        		dataRace = optionToAlienRace(eSrc.raceOptions);
+            }
+ 
 			EmpireSystem empSystem = null;
 			sys = StarSystemFactory.current().newSystemForRace(race, dataRace, g);
 			if (src == null) { // Start

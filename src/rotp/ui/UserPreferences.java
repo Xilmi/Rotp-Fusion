@@ -33,6 +33,7 @@ import rotp.model.events.RandomEvents;
 import rotp.model.game.GameSession;
 import rotp.ui.util.EventsStartTurn;
 import rotp.ui.util.InterfaceParam;
+import rotp.ui.util.OpponentCROptions;
 import rotp.ui.util.ParamAAN2;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamCR;
@@ -43,6 +44,7 @@ import rotp.ui.util.ParamOptions;
 import rotp.ui.util.ParamTech;
 import rotp.ui.util.PlayerShipSet;
 import rotp.ui.util.RandomAlienRaces;
+import rotp.ui.util.SpecificCROption;
 import rotp.util.LanguageManager;
 import rotp.util.sound.SoundManager;
 
@@ -172,7 +174,7 @@ public class UserPreferences {
 	public static final ParamBoolean randomAlienRacesSmoothEdges = new ParamBoolean(
 			MOD_UI, "RACES_RAND_EDGES", true);
 	public static final RandomAlienRaces randomAlienRaces = new RandomAlienRaces (
-			MOD_UI, "RACES_ARE_RANDOM", "No");
+			MOD_UI, "RACES_ARE_RANDOM", RandomAlienRaces.TARGET);
 	
 	public static final LinkedList<ParamTech> techModList = new LinkedList<>(Arrays.asList(
 			techIrradiated, techCloaking, techStargate, techHyperspace,
@@ -221,6 +223,10 @@ public class UserPreferences {
 	// BR: Galaxy Menu addition
 	public static final ParamBoolean showNewRaces = new ParamBoolean(
 			MOD_UI, "SHOW_NEW_RACES", false);
+	public static final OpponentCROptions opponentCROptions = new OpponentCROptions (
+			BASE_UI, "OPP_CR_OPTIONS", SpecificCROption.BASE_RACE.value);
+	public static final ParamBoolean useSelectableAbilities = new ParamBoolean(
+			BASE_UI, "SELECT_CR_OPTIONS", false);
 	// BR: Race Menu addition
 	public static final PlayerShipSet playerShipSet = new PlayerShipSet(
 			MOD_UI, "PLAYER_SHIP_SET");

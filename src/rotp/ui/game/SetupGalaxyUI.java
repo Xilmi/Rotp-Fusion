@@ -15,8 +15,10 @@
  */
 package rotp.ui.game;
 
+import static rotp.ui.UserPreferences.opponentCROptions;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
 import static rotp.ui.UserPreferences.showNewRaces;
+import static rotp.ui.UserPreferences.useSelectableAbilities;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonWidth;
 import static rotp.ui.util.AbstractOptionsUI.userButtonKey;
@@ -86,6 +88,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	private Rectangle startBox		= new Rectangle();
 	private Rectangle settingsBox	= new Rectangle();
 	private Rectangle newRacesBox	= new Rectangle(); // BR:
+	private Rectangle showAbilityBox= new Rectangle(); // BR:
 	private Rectangle shapeBox		= new Rectangle();
 	private Polygon shapeBoxL		= new Polygon();
 	private Polygon shapeBoxR		= new Polygon();
@@ -110,9 +113,13 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	private Rectangle aiBox		= new Rectangle();
 	private Polygon  aiBoxL		= new Polygon();
 	private Polygon aiBoxR		= new Polygon();
+	private Rectangle crBox		= new Rectangle(); // dataRace selection
+	private Polygon  crBoxL		= new Polygon(); // BR:
+	private Polygon crBoxR		= new Polygon(); // BR:
 
 	private Rectangle[] oppSet = new Rectangle[MAX_DISPLAY_OPPS];
 	private Rectangle[] oppAI = new Rectangle[MAX_DISPLAY_OPPS];
+	private Rectangle[] oppCR = new Rectangle[MAX_DISPLAY_OPPS]; // BR: dataRace selection
 
 	private Shape hoverBox;
 	private boolean starting = false;
@@ -131,6 +138,8 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			oppSet[i] = new Rectangle();
 		for (int i=0;i<oppAI.length;i++)
 			oppAI[i] = new Rectangle();
+		for (int i=0;i<oppCR.length;i++)
+			oppCR[i] = new Rectangle();
 	}
 	public void init() {
 		Modifier2KeysState.reset();
@@ -148,11 +157,15 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		copyOptions((MOO1GameOptions)newGameOptions(), destination);
 		showNewRaces.setOptions(destination.dynamicOptions());
 		prefStarsPerEmpire.setOptions(destination.dynamicOptions());
+		opponentCROptions.setOptions(destination.dynamicOptions());
+		useSelectableAbilities.setOptions(destination.dynamicOptions());
 	}
 	private void getOptions(MOO1GameOptions source) {
 		copyOptions(source, (MOO1GameOptions)newGameOptions());
 		showNewRaces.setFromOptions(source.dynamicOptions());
 		prefStarsPerEmpire.setFromOptions(source.dynamicOptions());
+		opponentCROptions.setFromOptions(source.dynamicOptions());
+		useSelectableAbilities.setFromOptions(source.dynamicOptions());
 	}
     private void doStartBoxAction() {
 		buttonClick();
@@ -266,6 +279,8 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			rect.setBounds(0,0,0,0);
 		for (Rectangle rect: oppAI)
 			rect.setBounds(0,0,0,0);
+		for (Rectangle rect: oppCR)
+			rect.setBounds(0,0,0,0);
 		// background image
 		g.drawImage(backImg(), 0, 0, w, h, this);
 
@@ -298,14 +313,18 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		Stroke prevStroke = g.getStroke();
 		Color borderC = GameUI.setupFrame();
 		boolean selectableAI = newGameOptions().selectableAI();
+		boolean selectableCR = useSelectableAbilities.get();
 		int maxDraw = min((numRows*numCols), numOpp, MAX_DISPLAY_OPPS);
 		for (int i=0;i<maxDraw;i++) {
 			int row = i/numCols;
 			int col = i%numCols;
-			int y2 = y0+s50+(row*spaceH);
+			// int y2 = y0+s50+(row*spaceH);
+			int y2 = y0+s67+(row*spaceH); // BR: Adjusted for dataRace selection
 			int x2 = leftBoxX+s30+(col*spaceW);
 			oppSet[i].setBounds(x2,y2,mugW,mugH);
-			oppAI[i].setBounds(x2,y2+mugH-s20,mugW,s20);
+			// oppAI[i].setBounds(x2,y2+mugH-s20,mugW,s20);
+			oppAI[i].setBounds(x2,y2+mugH-s16,mugW,s17); // BR: Adjusted
+			oppCR[i].setBounds(x2,y2-s1,mugW,s17);
 			g.drawImage(mugBack, x2, y2, this);
 			String selOpp = newGameOptions().selectedOpponentRace(i);
 			if (selOpp == null) {
@@ -324,10 +343,19 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			if (selectableAI) {
 				g.setColor(SystemPanel.whiteText);
 				String aiText = text(newGameOptions().specificOpponentAIOption(i+1));
-				g.setFont(narrowFont(15));
+				// g.setFont(narrowFont(15));
+				g.setFont(narrowFont(12)); // TODO BR: Adjusted to fit the box
 				int aiSW = g.getFontMetrics().stringWidth(aiText);
 				int x2b = x2+(mugW-aiSW)/2;
-				drawString(g,aiText, x2b, y2+mugH-s5);
+				drawString(g,aiText, x2b, y2+mugH-s4);
+			}
+			if (selectableCR) {
+				g.setColor(SystemPanel.whiteText);
+				String crText = text(newGameOptions().specificOpponentCROption(i+1));
+				g.setFont(narrowFont(12)); // TODO BR: Adjust
+				int crSW = g.getFontMetrics().stringWidth(crText);
+				int x2b = x2+(mugW-crSW)/2;
+				drawString(g,crText, x2b, y2+s12); // TODO BR:
 			}
 			g.setStroke(stroke1);
 			g.setColor(borderC);
@@ -359,6 +387,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			||  (hoverBox == sizeBoxL)  || (hoverBox == sizeBoxR)
 			||  (hoverBox == diffBoxL)  || (hoverBox == diffBoxR)
 			||  (hoverBox == aiBoxL)  || (hoverBox == aiBoxR)
+			||  (hoverBox == crBoxL)  || (hoverBox == crBoxR)
 			||  (hoverBox == mapOption1BoxL)  || (hoverBox == mapOption1BoxR)
 			||  (hoverBox == mapOption2BoxL)  || (hoverBox == mapOption2BoxR)
 			||  (hoverBox == sizeOptionBoxL)  || (hoverBox == sizeOptionBoxR)
@@ -368,8 +397,9 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		}
 		else if ((hoverBox == shapeBox) || (hoverBox == sizeBox)
 			|| (hoverBox == mapOption1Box) || (hoverBox == mapOption2Box)
-			|| (hoverBox == sizeOptionBox) 
-			|| (hoverBox == aiBox)   || (hoverBox == newRacesBox)
+			|| (hoverBox == sizeOptionBox) || (hoverBox == crBox)
+			|| (hoverBox == aiBox) || (hoverBox == newRacesBox)
+			|| (hoverBox == showAbilityBox)
 			|| (hoverBox == diffBox) || (hoverBox == oppBox)) {
 			Stroke prev = g.getStroke();
 			g.setStroke(stroke2);
@@ -381,6 +411,18 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			if (newGameOptions().selectableAI()) {
 				for (int i=0;i<oppAI.length;i++) {
 					if (hoverBox == oppAI[i]) {
+						Stroke prev = g.getStroke();
+						g.setStroke(stroke2);
+						g.setColor(Color.yellow);
+						g.draw(hoverBox);
+						g.setStroke(prev);
+						break;
+					}
+				}
+			}
+			if (useSelectableAbilities.get()) {
+				for (int i=0;i<oppCR.length;i++) {
+					if (hoverBox == oppCR[i]) {
 						Stroke prev = g.getStroke();
 						g.setStroke(stroke2);
 						g.setColor(Color.yellow);
@@ -404,21 +446,39 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		
 		// draw Opponent AI text
 		g.setColor(Color.black);
-		g.setFont(narrowFont(17));
+		g.setFont(narrowFont(15));
 		String aiLbl = text(newGameOptions().selectedOpponentAIOption());
 		int aiSW = g.getFontMetrics().stringWidth(aiLbl);
-		int x4b =aiBox.x+((aiBox.width-aiSW)/2);
-		int y4b = aiBox.y+aiBox.height-s4;
+		int x4b = aiBox.x+((aiBox.width-aiSW)/2);
+		int y4b = aiBox.y+aiBox.height-s3;
 		drawString(g,aiLbl, x4b, y4b);
+
+		// draw Opponent CR text
+		g.setColor(Color.black); // TODO BR:
+		g.setFont(narrowFont(15));
+		String crLbl = text(opponentCROptions.get());
+		int crSW = g.getFontMetrics().stringWidth(crLbl);
+		int x4cr = crBox.x+((aiBox.width-crSW)/2);
+		int y4cr = crBox.y+crBox.height-s3;
+		drawString(g,crLbl, x4cr, y4cr);
 
 		// draw New Races ON/OFF text
 		g.setColor(Color.black);
-		g.setFont(narrowFont(17));
+		g.setFont(narrowFont(15));
 		String newRacesLbl = newRacesOnStr();
 		int newRacesSW = g.getFontMetrics().stringWidth(newRacesLbl);
 		int x4c = newRacesBox.x+((newRacesBox.width-newRacesSW)/2);
-		int y4c = newRacesBox.y+newRacesBox.height-s4;
+		int y4c = newRacesBox.y+newRacesBox.height-s3;
 		drawString(g, newRacesLbl, x4c, y4c);
+
+		// draw Show Abilities Yes/No text
+		g.setColor(Color.black);
+		g.setFont(narrowFont(15));
+		String showAbilityLbl = showAbilityStr();
+		int showAbilitySW = g.getFontMetrics().stringWidth(showAbilityLbl);
+		int x4d = showAbilityBox.x+((showAbilityBox.width-showAbilitySW)/2);
+		int y4d = showAbilityBox.y+showAbilityBox.height-s3;
+		drawString(g, showAbilityLbl, x4d, y4d);
 
 		// draw galaxy options text
 		int y5 = shapeBox.y+shapeBox.height-s4;
@@ -591,6 +651,9 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		if (showNewRaces.get()) return text("SETUP_NEW_RACES_ON");
 		else return text("SETUP_NEW_RACES_OFF");
 	}
+	private String showAbilityStr() {
+		return useSelectableAbilities.getGuiValue();
+	}
 	private boolean isDynamic() {
 		return newGameOptions().selectedGalaxySize().equals(IGameOptions.SIZE_DYNAMIC);
 	}
@@ -733,9 +796,24 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		newGameOptions().selectedOpponentAIOption(newGameOptions().prevOpponentAI());
 		repaint();
 	}
+	private void nextOpponentCR(boolean click) {
+		if (click) softClick();
+		opponentCROptions.next();
+		repaint();
+	}
+	private void prevOpponentCR(boolean click) {
+		if (click) softClick();
+		opponentCROptions.prev();
+		repaint();
+	}
 	private void toggleNewRaces(boolean click) {
 		if (click) softClick();
 		showNewRaces.toggle();
+		repaint();
+	}
+	private void toggleShowAbility(boolean click) {
+		if (click) softClick();
+		useSelectableAbilities.toggle();
 		repaint();
 	}
 	private void increaseOpponents(boolean click) {
@@ -765,6 +843,16 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	private void prevSpecificOpponentAI(int i, boolean click) {
 		if (click) softClick();
 		newGameOptions().prevSpecificOpponentAI(i+1);
+		repaint();
+	}
+	private void nextSpecificOpponentCR(int i, boolean click) { // TODO BR: nextSpecificOpponentCR(int i, boolean click)
+		if (click) softClick();
+		newGameOptions().nextSpecificOpponentCR(i+1);
+		repaint();
+	}
+	private void prevSpecificOpponentCR(int i, boolean click) { // TODO BR: prevSpecificOpponentCR(int i, boolean click)
+		if (click) softClick();
+		newGameOptions().prevSpecificOpponentCR(i+1);
 		repaint();
 	}
 	private void nextOpponent(int i, boolean click) {
@@ -920,7 +1008,8 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 
 		// draw player vs opponent text
 		int x2 = leftBoxX+s25+mugW+s15;
-		int y2 = boxY+s25+mugH-s42;
+		// int y2 = boxY+s25+mugH-s42;
+		int y2 = boxY+s25+mugH-s52; // BR: up a little
 		int yho = s5; // BR: a little space for new races on/off 
 		g.setFont(narrowFont(28));
 		String header1 = text("SETUP_OPPONENTS_HEADER_1", race.setupName());
@@ -949,18 +1038,26 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		int x2d = x2c+s20;
 		drawBorderedString(g, header2, 1, x2d, y2-yho, Color.black, Color.white);
 		
-		// draw ai selection
-		String header3 = text("SETUP_OPPONENT_AI");
-		g.setFont(narrowFont(18));
-		int swHdr3 = g.getFontMetrics().stringWidth(header3);
+		// align AI and CR selection
+		String header3   = text("SETUP_OPPONENT_AI");
+		String header3cr = text("SETUP_OPPONENT_CR");
+		g.setFont(narrowFont(16));
+		int swHdr3   = g.getFontMetrics().stringWidth(header3);
+		int swHdr3cr = g.getFontMetrics().stringWidth(header3cr);
+		swHdr3 = max(swHdr3, swHdr3cr);
+
+		// draw AI selection
 		g.setColor(SystemPanel.blackText);
-		int y3 = y2+s32;
-		int x3 = x2+s20;
+		// int y3 = y2+s32;
+		int y3 = y2+s27; // BR: up a little
+		// int x3 = x2+s20;
+		int x3 = x2;
 		drawString(g,header3, x3, y3);
 
-		int sliderW = s100+s20;
-		int sliderH = s18;
-		int sliderY = y3-sliderH+s5;
+//		int sliderW = s100+s20;
+		int sliderW = s100;
+		int sliderH = s16;
+		int sliderY = y3-sliderH+s3; // TODO BR:
 		int sliderX = x3+swHdr3+s20;
 		g.setColor(GameUI.setupFrame());
 
@@ -979,15 +1076,54 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 
 		// draw New Races selection
 		String header4 = text("SETUP_NEW_RACES_HEADER");
-		g.setFont(narrowFont(18));
+		g.setFont(narrowFont(16));
 		int swHdr4 = g.getFontMetrics().stringWidth(header4);
 		g.setColor(SystemPanel.blackText);
 		int y4 = y3;
-		int x4 = sliderX + sliderW + s40; 
-		drawString(g, header4, x4+s10, y4-sliderH);
+		int x4 = sliderX + sliderW + s45; 
+		drawString(g, header4, x4, y4);
 		g.setColor(GameUI.setupFrame());
-		newRacesBox.setBounds(x4, y4-sliderH+s5, swHdr4+s20, sliderH);
+		int width4 = s60;
+		int bx4 = x4+swHdr4+s10;
+		newRacesBox.setBounds(bx4 , sliderY, width4, sliderH); // TODO
 		g.fill(newRacesBox);
+		
+		// draw CR selection
+		g.setColor(SystemPanel.blackText);
+		int y3cr = y3+s20;
+		int x3cr = x3;
+		drawString(g,header3cr, x3cr, y3cr);
+
+		sliderY = y3cr-sliderH+s3;
+		g.setColor(GameUI.setupFrame());
+
+		crBoxL.reset();
+		crBoxL.addPoint(sliderX-s4,sliderY+s1);
+		crBoxL.addPoint(sliderX-s4,sliderY+sliderH-s2);
+		crBoxL.addPoint(sliderX-s13,sliderY+(sliderH/2));
+		g.fill(crBoxL);
+		crBoxR.reset();
+		crBoxR.addPoint(sliderX+sliderW+s4,sliderY+s1);
+		crBoxR.addPoint(sliderX+sliderW+s4,sliderY+sliderH-s2);
+		crBoxR.addPoint(sliderX+sliderW+s13,sliderY+(sliderH/2));
+		g.fill(crBoxR);
+		crBox.setBounds(sliderX, sliderY, sliderW, sliderH);
+		g.fill(crBox);
+
+		// draw Show Selectable Abilities
+		String header4b = text("SETUP_SHOW_ABILITIES_HEADER");
+		g.setFont(narrowFont(16));
+		int swHdr4b = g.getFontMetrics().stringWidth(header4b);
+		g.setColor(SystemPanel.blackText);
+		int y4b = y3cr;
+		int x4b = x4; 
+		drawString(g, header4b, x4b, y4b);
+		g.setColor(GameUI.setupFrame());
+		int width4b = s40;
+		int bx4b = bx4 + width4 - width4b;
+		showAbilityBox.setBounds(bx4b , sliderY, width4b, sliderH); // TODO
+		g.fill(showAbilityBox);
+
 
 		// draw galaxy shading
 		g.setColor(GameUI.setupShade());
@@ -1318,8 +1454,16 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			hoverBox = aiBoxR;
 		else if (aiBox.contains(x,y))
 			hoverBox = aiBox;
+		else if (crBoxL.contains(x,y))
+			hoverBox = crBoxL;
+		else if (crBoxR.contains(x,y))
+			hoverBox = crBoxR;
+		else if (crBox.contains(x,y))
+			hoverBox = crBox;
 		else if (newRacesBox.contains(x,y))
 			hoverBox = newRacesBox;
+		else if (showAbilityBox.contains(x,y))
+			hoverBox = showAbilityBox;
 		else if (diffBoxL.contains(x,y))
 			hoverBox = diffBoxL;
 		else if (diffBoxR.contains(x,y))
@@ -1334,9 +1478,14 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			hoverBox = oppBox;
 		else {
 			boolean selectable = newGameOptions().selectableAI();
+			boolean selectableCR = useSelectableAbilities.get();
 			for (int i=0;i<oppAI.length;i++) {
 				if (selectable && oppAI[i].contains(x,y)) {
 					hoverBox = oppAI[i];
+					break;
+				}
+				else if (selectableCR && oppCR[i].contains(x,y)) {
+					hoverBox = oppCR[i];
 					break;
 				}
 				else if (oppSet[i].contains(x,y)) {
@@ -1432,8 +1581,17 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			else prevOpponentAI(true);
 		else if (hoverBox == aiBoxR)
 			nextOpponentAI(true);
+		else if (hoverBox == crBoxL)
+			prevOpponentCR(true);
+		else if (hoverBox == crBox)
+			if(up) nextOpponentCR(true);
+			else prevOpponentCR(true);
+		else if (hoverBox == crBoxR)
+			nextOpponentCR(true);
 		else if (hoverBox == newRacesBox)
 			toggleNewRaces(true);
+		else if (hoverBox == showAbilityBox)
+			toggleShowAbility(true);
 		else if (hoverBox == diffBoxL)
 			prevGameDifficulty(true);
 		else if (hoverBox == diffBox)
@@ -1458,6 +1616,11 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 				else if (hoverBox == oppAI[i]) {
 					if(up) nextSpecificOpponentAI(i, true);
 					else prevSpecificOpponentAI(i, true);
+					break;
+				}
+				else if (hoverBox == oppCR[i]) {
+					if(up) nextSpecificOpponentCR(i, true);
+					else prevSpecificOpponentCR(i, true);
 					break;
 				}
 			}
@@ -1511,8 +1674,17 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			else
 				nextOpponentAI(false);
 		}
+		else if (hoverBox == crBox) {
+			if (up)
+				prevOpponentCR(false);
+			else
+				nextOpponentCR(false);
+		}
 		else if (hoverBox == newRacesBox) {
 			toggleNewRaces(false);
+		}
+		else if (hoverBox == showAbilityBox) {
+			toggleShowAbility(false);
 		}
 		else if (hoverBox == diffBox) {
 			if (up)
@@ -1541,6 +1713,14 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 						prevSpecificOpponentAI(i, false);
 					else
 						nextSpecificOpponentAI(i, false);
+				}
+			}
+			for (int i=0;i<oppCR.length;i++) {
+				if (hoverBox == oppCR[i]) {
+					if (up)
+						prevSpecificOpponentCR(i, false);
+					else
+						nextSpecificOpponentCR(i, false);
 				}
 			}
 		}
