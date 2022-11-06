@@ -1277,7 +1277,10 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         selectedGameDifficulty = DIFFICULTY_NORMAL;
         selectedOpponentAIOption = OPPONENT_AI_CRUEL;
         for (int i=0;i<specificOpponentAIOption.length;i++)
-            specificOpponentAIOption[i] = OPPONENT_AI_CRUEL;
+		    specificOpponentAIOption[i] = OPPONENT_AI_CRUEL;
+        String defVal = SpecificCROption.defaultSpecificValue().value;
+        for (int i=0;i<specificOpponentCROption.length;i++)
+		    specificOpponentCROption[i] = defVal;
         setToDefault();
         generateGalaxy();
     }
