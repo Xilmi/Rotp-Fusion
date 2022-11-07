@@ -25,7 +25,10 @@ Community subreddit: https://www.reddit.com/r/rotp/<br/>
 Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
-
+2022.11.06 (BR)
+  - Fixed Missing initialization in "vanilla"-options.
+  - Ctrl+Click on "selectable" will reset the abilities to default
+  
 2022.11.05 (BR)
   - Added individual opponent Ability selection.
   - Added "reworked" to set the ability to "raceKey.race"

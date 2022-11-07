@@ -18,11 +18,8 @@ package rotp.ui.util;
 
 public class RandomAlienRaces extends ParamList {
 	
-//	public static final String NO		= "No";
 	public static final String SETTING	= "Setting";
 	public static final String TARGET	= "Target";
-//	public static final String PLAYER	= "Player";
-//	public static final String FILES	= "Files";
 
 	/**
 	 * @param gui  The label header
@@ -31,26 +28,14 @@ public class RandomAlienRaces extends ParamList {
 	 */
 	public RandomAlienRaces(String gui, String name, String defaultValue) {
 		super(gui, name, defaultValue);
-//		put(NO,		 gui + name + "_NO");
 		put(SETTING, gui + name + "_SETTING");
 		put(TARGET,	 gui + name + "_TARGET");
-//		put(PLAYER,	 gui + name + "_PLAYER");
-//		put(FILES,	 gui + name + "_FROM_FILES");
 	}
 
-//	public boolean isRandom() {
-//		return !get().equalsIgnoreCase(NO);
-//	}
 	public boolean isSettingWindow() {
 		return get().equalsIgnoreCase(SETTING);
 	}
 	public boolean isTarget() {
 		return get().equalsIgnoreCase(TARGET);
 	}
-//	public boolean isPlayerCopy() {
-//		return get().equalsIgnoreCase(PLAYER);
-//	}
-//	public boolean isFromFiles() {
-//		return get().equalsIgnoreCase(FILES);
-//	}
 }

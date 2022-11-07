@@ -18,17 +18,22 @@ package rotp.model.galaxy;
 import java.awt.Point;
 import java.awt.Shape;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.font.TextAttribute;
 import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 import java.util.HashMap;
 import rotp.util.Base;
 import java.util.ArrayList;
 import java.util.List;
+
+import rotp.Rotp;
 import rotp.model.game.IGameOptions;
 
 // modnar: custom map shape, Text
@@ -74,7 +79,22 @@ public class GalaxyTextShape extends GalaxyShape {
 		
 		// Monospaced font used for constant spacing
 		// but maybe other fonts have better kerning for connectivity?
-		Font font1 = new Font("Monospaced", Font.PLAIN, 96);
+		Font font1 = new Font(Font.MONOSPACED, Font.PLAIN, 96);
+//		Font.createFont(Font.TRUETYPE_FONT, new File("A.ttf"))
+//		File file = new File("U:\\\\GitHub\\Rotp-Fusion\\src\\rotp\\lang\\fonts\\unifont-15.0.01.otf");
+//		File file = new File("U:\\\\GitHub\\Rotp-Fusion\\src\\rotp\\lang\\fonts\\FreeMono.otf");
+//		File file = new File("U:\\\\GitHub\\Rotp-Fusion\\src\\rotp\\lang\\fonts\\NotoSansSC-Regular.otf");
+//		file.exists();
+//		Font font1 = null;
+//		try {
+//			font1 = Font.createFont(Font.TRUETYPE_FONT, file);
+//		} catch (FontFormatException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		Map<TextAttribute, Object> attributes = new HashMap<TextAttribute, Object>();
 		// use TextAttribute.TRACKING to cram letters together for better connectivity
 		attributes.put(TextAttribute.TRACKING, -0.15);

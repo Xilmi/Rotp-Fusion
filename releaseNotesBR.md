@@ -6,6 +6,8 @@ I'm quite confident it works well, but we are never too cautious. Please test it
   - Added individual opponent Ability selection (The same way the AI may be selected)
   - Added 'reworked'-option to set the ability to "raceKey.race"
   In the race editor, when selecting a "base race" (starting with * ), saving it under the proposed file name (ex RACE_HUMAN) this race will be identified as "reworked". Subsequently, selecting this option will always replace the race abilities with the reworked one.
+  - Ctrl+Click on "selectable" will reset the abilities to default
+
 
 ### Last Changes:
   - Added some descriptions.

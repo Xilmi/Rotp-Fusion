@@ -65,6 +65,7 @@ import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.util.Modifier2KeysState;
+import rotp.ui.util.SpecificCROption;
 
 public final class SetupGalaxyUI  extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
 	private static final long serialVersionUID = 1L;
@@ -305,6 +306,10 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		int randSW = g.getFontMetrics().stringWidth(randomOppLbl);
 		int numRows = smallImages ? 7 : 5;
 		int numCols = smallImages ? 7 : 5;
+		int fSize	= smallImages ? 12 : 15;
+		int offset1	= smallImages ? s4 : s5;
+		int offset2	= smallImages ? s12 : s15;
+		int boundH	= smallImages ? s17 : s20;
 		int spaceW = mugW+(((boxW-s60)-(numCols*mugW))/(numCols-1));
 		int spaceH = smallImages ? mugH+s10 : mugH+s15;
 		// draw opponent boxes
@@ -323,8 +328,8 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			int x2 = leftBoxX+s30+(col*spaceW);
 			oppSet[i].setBounds(x2,y2,mugW,mugH);
 			// oppAI[i].setBounds(x2,y2+mugH-s20,mugW,s20);
-			oppAI[i].setBounds(x2,y2+mugH-s16,mugW,s17); // BR: Adjusted
-			oppCR[i].setBounds(x2,y2-s1,mugW,s17);
+			oppAI[i].setBounds(x2,y2+mugH+s1-boundH,mugW,boundH); // BR: Adjusted
+			oppCR[i].setBounds(x2,y2-s1,mugW,boundH);
 			g.drawImage(mugBack, x2, y2, this);
 			String selOpp = newGameOptions().selectedOpponentRace(i);
 			if (selOpp == null) {
@@ -343,19 +348,18 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			if (selectableAI) {
 				g.setColor(SystemPanel.whiteText);
 				String aiText = text(newGameOptions().specificOpponentAIOption(i+1));
-				// g.setFont(narrowFont(15));
-				g.setFont(narrowFont(12)); // TODO BR: Adjusted to fit the box
+				g.setFont(narrowFont(fSize)); // BR: Adjusted to fit the box
 				int aiSW = g.getFontMetrics().stringWidth(aiText);
 				int x2b = x2+(mugW-aiSW)/2;
-				drawString(g,aiText, x2b, y2+mugH-s4);
+				drawString(g,aiText, x2b, y2+mugH-offset1);
 			}
 			if (selectableCR) {
 				g.setColor(SystemPanel.whiteText);
 				String crText = text(newGameOptions().specificOpponentCROption(i+1));
-				g.setFont(narrowFont(12)); // TODO BR: Adjust
+				g.setFont(narrowFont(fSize));
 				int crSW = g.getFontMetrics().stringWidth(crText);
 				int x2b = x2+(mugW-crSW)/2;
-				drawString(g,crText, x2b, y2+s12); // TODO BR:
+				drawString(g,crText, x2b, y2+offset2);
 			}
 			g.setStroke(stroke1);
 			g.setColor(borderC);
@@ -444,41 +448,37 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			}
 		}
 		
-		// draw Opponent AI text
+		// draw top opponents selections options
 		g.setColor(Color.black);
 		g.setFont(narrowFont(15));
+
+		// draw Opponent CR text
+		String crLbl = text(opponentCROptions.get());
+		int crSW = g.getFontMetrics().stringWidth(crLbl);
+		int x4cr = crBox.x+((aiBox.width-crSW)/2);
+		int y4cr = crBox.y+crBox.height-s3;
+		drawString(g,crLbl, x4cr, y4cr);
+		
+		// draw Show Abilities Yes/No text
+		String showAbilityLbl = showAbilityStr();
+		int showAbilitySW = g.getFontMetrics().stringWidth(showAbilityLbl);
+		int x4d = showAbilityBox.x+((showAbilityBox.width-showAbilitySW)/2);
+		int y4d = showAbilityBox.y+showAbilityBox.height-s3;
+		drawString(g, showAbilityLbl, x4d, y4d);
+
+		// draw Opponent AI text
 		String aiLbl = text(newGameOptions().selectedOpponentAIOption());
 		int aiSW = g.getFontMetrics().stringWidth(aiLbl);
 		int x4b = aiBox.x+((aiBox.width-aiSW)/2);
 		int y4b = aiBox.y+aiBox.height-s3;
 		drawString(g,aiLbl, x4b, y4b);
 
-		// draw Opponent CR text
-		g.setColor(Color.black); // TODO BR:
-		g.setFont(narrowFont(15));
-		String crLbl = text(opponentCROptions.get());
-		int crSW = g.getFontMetrics().stringWidth(crLbl);
-		int x4cr = crBox.x+((aiBox.width-crSW)/2);
-		int y4cr = crBox.y+crBox.height-s3;
-		drawString(g,crLbl, x4cr, y4cr);
-
 		// draw New Races ON/OFF text
-		g.setColor(Color.black);
-		g.setFont(narrowFont(15));
 		String newRacesLbl = newRacesOnStr();
 		int newRacesSW = g.getFontMetrics().stringWidth(newRacesLbl);
 		int x4c = newRacesBox.x+((newRacesBox.width-newRacesSW)/2);
 		int y4c = newRacesBox.y+newRacesBox.height-s3;
 		drawString(g, newRacesLbl, x4c, y4c);
-
-		// draw Show Abilities Yes/No text
-		g.setColor(Color.black);
-		g.setFont(narrowFont(15));
-		String showAbilityLbl = showAbilityStr();
-		int showAbilitySW = g.getFontMetrics().stringWidth(showAbilityLbl);
-		int x4d = showAbilityBox.x+((showAbilityBox.width-showAbilitySW)/2);
-		int y4d = showAbilityBox.y+showAbilityBox.height-s3;
-		drawString(g, showAbilityLbl, x4d, y4d);
 
 		// draw galaxy options text
 		int y5 = shapeBox.y+shapeBox.height-s4;
@@ -813,7 +813,13 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	}
 	private void toggleShowAbility(boolean click) {
 		if (click) softClick();
-		useSelectableAbilities.toggle();
+		if (click && Modifier2KeysState.isCtrlDown()) {
+			String defVal = SpecificCROption.defaultSpecificValue().value;
+            for (int i=0;i<oppCR.length;i++)
+            	newGameOptions().specificOpponentCROption(defVal,i+1);
+		}
+		else
+			useSelectableAbilities.toggle();
 		repaint();
 	}
 	private void increaseOpponents(boolean click) {
@@ -845,12 +851,12 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		newGameOptions().prevSpecificOpponentAI(i+1);
 		repaint();
 	}
-	private void nextSpecificOpponentCR(int i, boolean click) { // TODO BR: nextSpecificOpponentCR(int i, boolean click)
+	private void nextSpecificOpponentCR(int i, boolean click) {
 		if (click) softClick();
 		newGameOptions().nextSpecificOpponentCR(i+1);
 		repaint();
 	}
-	private void prevSpecificOpponentCR(int i, boolean click) { // TODO BR: prevSpecificOpponentCR(int i, boolean click)
+	private void prevSpecificOpponentCR(int i, boolean click) {
 		if (click) softClick();
 		newGameOptions().prevSpecificOpponentCR(i+1);
 		repaint();
@@ -1048,82 +1054,84 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 
 		// draw AI selection
 		g.setColor(SystemPanel.blackText);
-		// int y3 = y2+s32;
-		int y3 = y2+s27; // BR: up a little
 		// int x3 = x2+s20;
+		// int y3 = y2+s32;
+		int y3 = y2+s47; // BR: up a little
 		int x3 = x2;
 		drawString(g,header3, x3, y3);
-
-//		int sliderW = s100+s20;
+		// int sliderW = s100+s20;
 		int sliderW = s100;
 		int sliderH = s16;
-		int sliderY = y3-sliderH+s3; // TODO BR:
+		int sliderYAI = y3-sliderH+s3;
 		int sliderX = x3+swHdr3+s20;
 		g.setColor(GameUI.setupFrame());
 
 		aiBoxL.reset();
-		aiBoxL.addPoint(sliderX-s4,sliderY+s1);
-		aiBoxL.addPoint(sliderX-s4,sliderY+sliderH-s2);
-		aiBoxL.addPoint(sliderX-s13,sliderY+(sliderH/2));
+		aiBoxL.addPoint(sliderX-s4,sliderYAI+s1);
+		aiBoxL.addPoint(sliderX-s4,sliderYAI+sliderH-s2);
+		aiBoxL.addPoint(sliderX-s13,sliderYAI+(sliderH/2));
 		g.fill(aiBoxL);
 		aiBoxR.reset();
-		aiBoxR.addPoint(sliderX+sliderW+s4,sliderY+s1);
-		aiBoxR.addPoint(sliderX+sliderW+s4,sliderY+sliderH-s2);
-		aiBoxR.addPoint(sliderX+sliderW+s13,sliderY+(sliderH/2));
+		aiBoxR.addPoint(sliderX+sliderW+s4,sliderYAI+s1);
+		aiBoxR.addPoint(sliderX+sliderW+s4,sliderYAI+sliderH-s2);
+		aiBoxR.addPoint(sliderX+sliderW+s13,sliderYAI+(sliderH/2));
 		g.fill(aiBoxR);
-		aiBox.setBounds(sliderX, sliderY, sliderW, sliderH);
+		aiBox.setBounds(sliderX, sliderYAI, sliderW, sliderH);
 		g.fill(aiBox);
 
-		// draw New Races selection
-		String header4 = text("SETUP_NEW_RACES_HEADER");
-		g.setFont(narrowFont(16));
-		int swHdr4 = g.getFontMetrics().stringWidth(header4);
-		g.setColor(SystemPanel.blackText);
-		int y4 = y3;
-		int x4 = sliderX + sliderW + s45; 
-		drawString(g, header4, x4, y4);
-		g.setColor(GameUI.setupFrame());
-		int width4 = s60;
-		int bx4 = x4+swHdr4+s10;
-		newRacesBox.setBounds(bx4 , sliderY, width4, sliderH); // TODO
-		g.fill(newRacesBox);
-		
 		// draw CR selection
 		g.setColor(SystemPanel.blackText);
-		int y3cr = y3+s20;
-		int x3cr = x3;
+		int y3cr = y2+s27;
+		int x3cr = x2;
 		drawString(g,header3cr, x3cr, y3cr);
 
-		sliderY = y3cr-sliderH+s3;
+		int sliderYCR = y3cr-sliderH+s3;
 		g.setColor(GameUI.setupFrame());
 
 		crBoxL.reset();
-		crBoxL.addPoint(sliderX-s4,sliderY+s1);
-		crBoxL.addPoint(sliderX-s4,sliderY+sliderH-s2);
-		crBoxL.addPoint(sliderX-s13,sliderY+(sliderH/2));
+		crBoxL.addPoint(sliderX-s4,sliderYCR+s1);
+		crBoxL.addPoint(sliderX-s4,sliderYCR+sliderH-s2);
+		crBoxL.addPoint(sliderX-s13,sliderYCR+(sliderH/2));
 		g.fill(crBoxL);
 		crBoxR.reset();
-		crBoxR.addPoint(sliderX+sliderW+s4,sliderY+s1);
-		crBoxR.addPoint(sliderX+sliderW+s4,sliderY+sliderH-s2);
-		crBoxR.addPoint(sliderX+sliderW+s13,sliderY+(sliderH/2));
+		crBoxR.addPoint(sliderX+sliderW+s4,sliderYCR+s1);
+		crBoxR.addPoint(sliderX+sliderW+s4,sliderYCR+sliderH-s2);
+		crBoxR.addPoint(sliderX+sliderW+s13,sliderYCR+(sliderH/2));
 		g.fill(crBoxR);
-		crBox.setBounds(sliderX, sliderY, sliderW, sliderH);
+		crBox.setBounds(sliderX, sliderYCR, sliderW, sliderH);
 		g.fill(crBox);
 
-		// draw Show Selectable Abilities
-		String header4b = text("SETUP_SHOW_ABILITIES_HEADER");
+		// Align "New Races selection" and "Show Selectable Abilities"
+		int margin	= s40;
+		int sep		= s10;
+		int side	= leftBoxX + boxW - margin;
+		int widthNR = s60;
+		int widthSA = s40;
+		String headerNR = text("SETUP_NEW_RACES_HEADER");
+		String headerSA = text("SETUP_SHOW_ABILITIES_HEADER");
 		g.setFont(narrowFont(16));
-		int swHdr4b = g.getFontMetrics().stringWidth(header4b);
+		int swHdrNR = g.getFontMetrics().stringWidth(headerNR);
+		int swHdrSA = g.getFontMetrics().stringWidth(headerSA);
+		int x4 = side-sep - max(widthNR+swHdrNR, widthSA+swHdrSA);
+		
+		// draw New Races selection
 		g.setColor(SystemPanel.blackText);
-		int y4b = y3cr;
-		int x4b = x4; 
-		drawString(g, header4b, x4b, y4b);
+		int yNR = y3;
+		drawString(g, headerNR, x4, yNR);
 		g.setColor(GameUI.setupFrame());
-		int width4b = s40;
-		int bx4b = bx4 + width4 - width4b;
-		showAbilityBox.setBounds(bx4b , sliderY, width4b, sliderH); // TODO
-		g.fill(showAbilityBox);
+		int bxNR = side-widthNR;
+		newRacesBox.setBounds(bxNR , sliderYAI, widthNR, sliderH);
+		g.fill(newRacesBox);
 
+		// draw Show Selectable Abilities
+		g.setFont(narrowFont(16));
+		g.setColor(SystemPanel.blackText);
+		int ySA = y3cr;
+		drawString(g, headerSA, x4, ySA);
+		g.setColor(GameUI.setupFrame());
+		int bxSA = side-widthSA;
+		showAbilityBox.setBounds(bxSA , sliderYCR, widthSA, sliderH);
+		g.fill(showAbilityBox);
 
 		// draw galaxy shading
 		g.setColor(GameUI.setupShade());
@@ -1160,36 +1168,36 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 
 		sliderW = sectionW*2/3;
 		sliderH = s18;
-		sliderY = y5+s10;
+		sliderYAI = y5+s10;
 		sliderX = rightBoxX+s20+(sectionW/6);
 		g.setColor(GameUI.setupFrame());
 
 		shapeBoxL.reset();
-		shapeBoxL.addPoint(sliderX-s4,sliderY+s1);
-		shapeBoxL.addPoint(sliderX-s4,sliderY+sliderH-s2);
-		shapeBoxL.addPoint(sliderX-s13,sliderY+(sliderH/2));
+		shapeBoxL.addPoint(sliderX-s4,sliderYAI+s1);
+		shapeBoxL.addPoint(sliderX-s4,sliderYAI+sliderH-s2);
+		shapeBoxL.addPoint(sliderX-s13,sliderYAI+(sliderH/2));
 		g.fill(shapeBoxL);
 		shapeBoxR.reset();
-		shapeBoxR.addPoint(sliderX+sliderW+s4,sliderY+s1);
-		shapeBoxR.addPoint(sliderX+sliderW+s4,sliderY+sliderH-s2);
-		shapeBoxR.addPoint(sliderX+sliderW+s13,sliderY+(sliderH/2));
+		shapeBoxR.addPoint(sliderX+sliderW+s4,sliderYAI+s1);
+		shapeBoxR.addPoint(sliderX+sliderW+s4,sliderYAI+sliderH-s2);
+		shapeBoxR.addPoint(sliderX+sliderW+s13,sliderYAI+(sliderH/2));
 		g.fill(shapeBoxR);
-		shapeBox.setBounds(sliderX, sliderY, sliderW, sliderH);
+		shapeBox.setBounds(sliderX, sliderYAI, sliderW, sliderH);
 		g.fill(shapeBox);
 		
 	mapOption1BoxL.reset();
 		mapOption1BoxR.reset();
 		mapOption1Box.setBounds(0,0,0,0);
 		if (newGameOptions().numGalaxyShapeOption1() > 0) {
-			mapOption1BoxL.addPoint(sliderX-s4,sliderY+s1+s20);
-			mapOption1BoxL.addPoint(sliderX-s4,sliderY+sliderH-s2+s20);
-			mapOption1BoxL.addPoint(sliderX-s13,sliderY+(sliderH/2)+s20);
+			mapOption1BoxL.addPoint(sliderX-s4,sliderYAI+s1+s20);
+			mapOption1BoxL.addPoint(sliderX-s4,sliderYAI+sliderH-s2+s20);
+			mapOption1BoxL.addPoint(sliderX-s13,sliderYAI+(sliderH/2)+s20);
 			g.fill(mapOption1BoxL);
-			mapOption1BoxR.addPoint(sliderX+sliderW+s4,sliderY+s1+s20);
-			mapOption1BoxR.addPoint(sliderX+sliderW+s4,sliderY+sliderH-s2+s20);
-			mapOption1BoxR.addPoint(sliderX+sliderW+s13,sliderY+(sliderH/2)+s20);
+			mapOption1BoxR.addPoint(sliderX+sliderW+s4,sliderYAI+s1+s20);
+			mapOption1BoxR.addPoint(sliderX+sliderW+s4,sliderYAI+sliderH-s2+s20);
+			mapOption1BoxR.addPoint(sliderX+sliderW+s13,sliderYAI+(sliderH/2)+s20);
 			g.fill(mapOption1BoxR);
-			mapOption1Box.setBounds(sliderX, sliderY+s20, sliderW, sliderH);
+			mapOption1Box.setBounds(sliderX, sliderYAI+s20, sliderW, sliderH);
 			g.fill(mapOption1Box);
 		}
 
@@ -1197,60 +1205,60 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		mapOption2BoxR.reset();
 		mapOption2Box.setBounds(0,0,0,0);
 		if (newGameOptions().numGalaxyShapeOption2() > 0) {
-			mapOption2BoxL.addPoint(sliderX-s4,sliderY+s1+s40);
-			mapOption2BoxL.addPoint(sliderX-s4,sliderY+sliderH-s2+s40);
-			mapOption2BoxL.addPoint(sliderX-s13,sliderY+(sliderH/2)+s40);
+			mapOption2BoxL.addPoint(sliderX-s4,sliderYAI+s1+s40);
+			mapOption2BoxL.addPoint(sliderX-s4,sliderYAI+sliderH-s2+s40);
+			mapOption2BoxL.addPoint(sliderX-s13,sliderYAI+(sliderH/2)+s40);
 			g.fill(mapOption2BoxL);
-			mapOption2BoxR.addPoint(sliderX+sliderW+s4,sliderY+s1+s40);
-			mapOption2BoxR.addPoint(sliderX+sliderW+s4,sliderY+sliderH-s2+s40);
-			mapOption2BoxR.addPoint(sliderX+sliderW+s13,sliderY+(sliderH/2)+s40);
+			mapOption2BoxR.addPoint(sliderX+sliderW+s4,sliderYAI+s1+s40);
+			mapOption2BoxR.addPoint(sliderX+sliderW+s4,sliderYAI+sliderH-s2+s40);
+			mapOption2BoxR.addPoint(sliderX+sliderW+s13,sliderYAI+(sliderH/2)+s40);
 			g.fill(mapOption2BoxR);
-			mapOption2Box.setBounds(sliderX, sliderY+s40, sliderW, sliderH);
+			mapOption2Box.setBounds(sliderX, sliderYAI+s40, sliderW, sliderH);
 			g.fill(mapOption2Box);
 		}
 
 		sliderX += sectionW;
 		sizeBoxL.reset();
-		sizeBoxL.addPoint(sliderX-s4,sliderY+s1);
-		sizeBoxL.addPoint(sliderX-s4,sliderY+sliderH-s2);
-		sizeBoxL.addPoint(sliderX-s13,sliderY+(sliderH/2));
+		sizeBoxL.addPoint(sliderX-s4,sliderYAI+s1);
+		sizeBoxL.addPoint(sliderX-s4,sliderYAI+sliderH-s2);
+		sizeBoxL.addPoint(sliderX-s13,sliderYAI+(sliderH/2));
 		g.fill(sizeBoxL);
 		sizeBoxR.reset();
-		sizeBoxR.addPoint(sliderX+sliderW+s4,sliderY+s1);
-		sizeBoxR.addPoint(sliderX+sliderW+s4,sliderY+sliderH-s2);
-		sizeBoxR.addPoint(sliderX+sliderW+s13,sliderY+(sliderH/2));
+		sizeBoxR.addPoint(sliderX+sliderW+s4,sliderYAI+s1);
+		sizeBoxR.addPoint(sliderX+sliderW+s4,sliderYAI+sliderH-s2);
+		sizeBoxR.addPoint(sliderX+sliderW+s13,sliderYAI+(sliderH/2));
 		g.fill(sizeBoxR);
-		sizeBox.setBounds(sliderX, sliderY, sliderW, sliderH);
+		sizeBox.setBounds(sliderX, sliderYAI, sliderW, sliderH);
 		g.fill(sizeBox);
 
 	sizeOptionBoxL.reset();
 		sizeOptionBoxR.reset();
 		sizeOptionBox.setBounds(0,0,0,0);
 		if (isDynamic()) {
-			sizeOptionBoxL.addPoint(sliderX-s4,sliderY+s1+s20);
-			sizeOptionBoxL.addPoint(sliderX-s4,sliderY+sliderH-s2+s20);
-			sizeOptionBoxL.addPoint(sliderX-s13,sliderY+(sliderH/2)+s20);
+			sizeOptionBoxL.addPoint(sliderX-s4,sliderYAI+s1+s20);
+			sizeOptionBoxL.addPoint(sliderX-s4,sliderYAI+sliderH-s2+s20);
+			sizeOptionBoxL.addPoint(sliderX-s13,sliderYAI+(sliderH/2)+s20);
 			g.fill(sizeOptionBoxL);
-			sizeOptionBoxR.addPoint(sliderX+sliderW+s4,sliderY+s1+s20);
-			sizeOptionBoxR.addPoint(sliderX+sliderW+s4,sliderY+sliderH-s2+s20);
-			sizeOptionBoxR.addPoint(sliderX+sliderW+s13,sliderY+(sliderH/2)+s20);
+			sizeOptionBoxR.addPoint(sliderX+sliderW+s4,sliderYAI+s1+s20);
+			sizeOptionBoxR.addPoint(sliderX+sliderW+s4,sliderYAI+sliderH-s2+s20);
+			sizeOptionBoxR.addPoint(sliderX+sliderW+s13,sliderYAI+(sliderH/2)+s20);
 			g.fill(sizeOptionBoxR);
-			sizeOptionBox.setBounds(sliderX, sliderY+s20, sliderW, sliderH);
+			sizeOptionBox.setBounds(sliderX, sliderYAI+s20, sliderW, sliderH);
 			g.fill(sizeOptionBox);
 		}
 
 		sliderX += sectionW;
 		diffBoxL.reset();
-		diffBoxL.addPoint(sliderX-s4,sliderY+s1);
-		diffBoxL.addPoint(sliderX-s4,sliderY+sliderH-s2);
-		diffBoxL.addPoint(sliderX-s13,sliderY+(sliderH/2));
+		diffBoxL.addPoint(sliderX-s4,sliderYAI+s1);
+		diffBoxL.addPoint(sliderX-s4,sliderYAI+sliderH-s2);
+		diffBoxL.addPoint(sliderX-s13,sliderYAI+(sliderH/2));
 		g.fill(diffBoxL);
 		diffBoxR.reset();
-		diffBoxR.addPoint(sliderX+sliderW+s4,sliderY+s1);
-		diffBoxR.addPoint(sliderX+sliderW+s4,sliderY+sliderH-s2);
-		diffBoxR.addPoint(sliderX+sliderW+s13,sliderY+(sliderH/2));
+		diffBoxR.addPoint(sliderX+sliderW+s4,sliderYAI+s1);
+		diffBoxR.addPoint(sliderX+sliderW+s4,sliderYAI+sliderH-s2);
+		diffBoxR.addPoint(sliderX+sliderW+s13,sliderYAI+(sliderH/2));
 		g.fill(diffBoxR);
-		diffBox.setBounds(sliderX, sliderY, sliderW, sliderH);
+		diffBox.setBounds(sliderX, sliderYAI, sliderW, sliderH);
 		g.fill(diffBox);
 
 		int cnr = s5;
