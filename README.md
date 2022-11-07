@@ -25,6 +25,9 @@ Community subreddit: https://www.reddit.com/r/rotp/<br/>
 Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
+2022.11.07 (BR)
+  - Added ability files to the opponents ability list.
+
 2022.11.06 (BR)
   - Fixed Missing initialization in "vanilla"-options.
   - Ctrl+Click on "selectable" will reset the abilities to default.

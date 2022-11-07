@@ -15,6 +15,7 @@
  */
 package rotp.ui.game;
 
+import static rotp.model.empires.CustomRaceDefinitions.getAllowedAlienRaces;
 import static rotp.ui.UserPreferences.opponentCROptions;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
 import static rotp.ui.UserPreferences.showNewRaces;
@@ -46,8 +47,10 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
+import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import rotp.mod.br.addOns.RacesOptions;
@@ -127,6 +130,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	private int leftBoxX, rightBoxX, boxW, boxY, leftBoxH, rightBoxH;
 	private int galaxyX, galaxyY, galaxyW, galaxyH;
     private MOO1GameOptions initialOptions; // To be restored if "cancel"
+	private Object[] abilitiesList; // Strings 
 
 	public SetupGalaxyUI() {
 		init0();
@@ -142,10 +146,17 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		for (int i=0;i<oppCR.length;i++)
 			oppCR[i] = new Rectangle();
 	}
+	private void initAbilitiesList() {
+		LinkedList<String> list = new LinkedList<>();
+		list.addAll(SpecificCROption.options());
+		list.addAll(getAllowedAlienRaces());
+		abilitiesList = list.toArray();		
+	}
 	public void init() {
 		Modifier2KeysState.reset();
         initialOptions = new MOO1GameOptions(); // Any content will do
         saveOptions(initialOptions);
+        initAbilitiesList();
 	}
 	private void release() {
 		backImg = null;
@@ -265,6 +276,28 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		if (Modifier2KeysState.checkForChange(e)) {
 			repaint();
 		}
+	}
+	private int currentAbilityIndex(String s) {
+		for (int i=0; i<abilitiesList.length; i++) {
+			if (s.equalsIgnoreCase((String) abilitiesList[i]))
+				return i;
+		}
+		return -1;
+	}
+	// TODO BR: selectAbilityFromList()
+	private String selectAbilityFromList(int i) {
+		String initialChoice = newGameOptions().specificOpponentCROption(i);
+	    String input = (String) JOptionPane.showInputDialog(null, // Parent
+	    	"Select one abilities...",		// Message
+	        "Opponent abilities",			// Title
+	        JOptionPane.QUESTION_MESSAGE,	// Panel Type
+	        null,							// Use default icon
+	        abilitiesList,					// Array of choices
+	        initialChoice);					// Initial choice
+	    if (input == null)
+	    	return initialChoice;
+	    newGameOptions().specificOpponentCROption(input, i);
+	    return input;
 	}
 	@Override
 	public void paintComponent(Graphics g0) {
@@ -853,12 +886,34 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	}
 	private void nextSpecificOpponentCR(int i, boolean click) {
 		if (click) softClick();
-		newGameOptions().nextSpecificOpponentCR(i+1);
+		if (Modifier2KeysState.isCtrlDown())
+			selectAbilityFromList(i+1);
+		else {
+			String currCR = newGameOptions().specificOpponentCROption(i+1);
+			int nextIndex = 0;
+			if (currCR != null)
+				nextIndex = currentAbilityIndex(currCR)+1;
+			if (nextIndex >= abilitiesList.length)
+				nextIndex = 0;
+			String nextCR = (String) abilitiesList[nextIndex];
+			newGameOptions().specificOpponentCROption(nextCR, i+1);
+		}
 		repaint();
 	}
 	private void prevSpecificOpponentCR(int i, boolean click) {
 		if (click) softClick();
-		newGameOptions().prevSpecificOpponentCR(i+1);
+		if (Modifier2KeysState.isCtrlDown())
+			selectAbilityFromList(i+1);
+		else {
+			String currCR = newGameOptions().specificOpponentCROption(i+1);
+			int prevIndex = 0;
+			if (currCR != null)
+				prevIndex = currentAbilityIndex(currCR)-1;
+	        if (prevIndex < 0)
+	        	prevIndex = abilitiesList.length-1;
+	        String prevCR = (String) abilitiesList[prevIndex];
+	        newGameOptions().specificOpponentCROption(prevCR, i+1);
+		}
 		repaint();
 	}
 	private void nextOpponent(int i, boolean click) {
