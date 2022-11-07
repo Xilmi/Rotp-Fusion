@@ -373,18 +373,6 @@ public class GalaxyFactory implements Base {
 		}
 		return raceList;
 	}
-//	private LinkedList<String> buildAlienAbilities() {
-//		LinkedList<String> scrambledOptions = new LinkedList<>();
-//		List<String> options = CustomRaceDefinitions.getAllowedAlienRaces();
-//		int maxRaces = options().selectedNumberOpponents();
-//		int mult = maxRaces/options.size() + 1;
-//		// Build randomized list of opponent races
-//		for (int i=0;i<mult;i++) {
-//			Collections.shuffle(options);
-//			scrambledOptions.addAll(options);
-//		}
-//		return scrambledOptions;
-//	}
 	private void addPlayerSystemForGalaxy(Galaxy g, int id, List<EmpireSystem> empSystems, GalaxyCopy src) {
 		// creates a star system for player, using selected options
 		GalaxyBaseData galSrc = null; // Used for Restart
@@ -560,7 +548,7 @@ public class GalaxyFactory implements Base {
 //			String dataRaceKey;
 //			DynOptions options = null;
 			if (src == null || restartAppliesSettings.get()) { // Start and some restart
-				String selectedAbility = options().specificOpponentCROption(h);
+				String selectedAbility = options().specificOpponentCROption(h+1);
 				SpecificCROption ability = SpecificCROption.set(selectedAbility);
 				if (!useSelectableAbilities.get() 
 						|| ability.isSelection()) // TODO

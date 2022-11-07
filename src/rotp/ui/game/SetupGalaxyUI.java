@@ -915,10 +915,10 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	}
 	// BR: For restarting with new options
 	private void restartGame() {     
+   		saveLastOptions();
 		starting = true;
 		buttonClick();
 		repaint();
-   		saveLastOptions();
 		GalaxyCopy oldGalaxy = new GalaxyCopy(newGameOptions());
 		UserPreferences.setForNewGame();
 		// Get the old galaxy parameters
@@ -927,11 +927,10 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		release();
 	}
 	private void startGame() {
+  		saveLastOptions();
  		starting = true;
 		repaint();
 		buttonClick();
-		// BR:
-  		saveLastOptions();
 		if (Profiles.isStartOpponentRaceListEnabled()) {
 			RacesOptions.loadStartingOpponents(newGameOptions());
 		}
