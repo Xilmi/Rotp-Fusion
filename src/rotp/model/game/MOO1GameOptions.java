@@ -285,8 +285,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override
     public String selectedPlayerRace()           { return selectedPlayer().race; }
     @Override
-    public void selectedPlayerRace(String s)     { selectedPlayer().race = s;  resetSelectedOpponentRaces(); }
-    @Override
+    // public void selectedPlayerRace(String s)     { selectedPlayer().race = s;  resetSelectedOpponentRaces(); }
+    public void selectedPlayerRace(String s)     { selectedPlayer().race = s;} // TODO BR: validate
+     @Override
     public int selectedPlayerColor()             { return selectedPlayer().color; }
     @Override
     public void selectedPlayerColor(int i)       { selectedPlayer().color = i; }
@@ -1633,15 +1634,15 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     // BR: Load options from file
     private static MOO1GameOptions loadOptions(String path, String fileName) {
        	MOO1GameOptions newOptions;
-		File saveFile = new File(path, fileName);
-		if (saveFile.exists()) {
-			newOptions = loadOptionsTE(saveFile);
+		File loadFile = new File(path, fileName);
+		if (loadFile.exists()) {
+			newOptions = loadOptionsTE(loadFile);
             if (newOptions == null) {
-            	System.err.println("Bad option version: " + saveFile.getAbsolutePath());
+            	System.err.println("Bad option version: " + loadFile.getAbsolutePath());
             	newOptions = initMissingOptionFile(path, fileName);
             }
     	} else {
-			System.err.println("File not found: " + saveFile.getAbsolutePath());
+			System.err.println("File not found: " + loadFile.getAbsolutePath());
 			newOptions = initMissingOptionFile(path, fileName);
 		}
 		return newOptions;

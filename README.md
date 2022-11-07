@@ -29,6 +29,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
   - Fixed Missing initialization in "vanilla"-options.
   - Ctrl+Click on "selectable" will reset the abilities to default.
   - Fixed offset in opponent Abilities.
+  - Fixed opponent list being deleted.
   
 2022.11.05 (BR)
   - Added individual opponent Ability selection.

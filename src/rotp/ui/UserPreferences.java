@@ -554,10 +554,12 @@ public class UserPreferences {
 			default:
 			// BR: Global Mod GUI
 				for (InterfaceParam param : modGlobalOptionsUI) {
-					if (key.equalsIgnoreCase(param.getCfgLabel()))
+					if (key.equalsIgnoreCase(param.getCfgLabel())) {
 						param.setFromCfgValue(val);
+						break;
+					}
 				}
-				break;
+				return;
 		}
 	}
 	private static String yesOrNo(boolean b) {
