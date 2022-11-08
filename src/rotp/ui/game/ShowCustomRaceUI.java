@@ -22,6 +22,7 @@ import static rotp.ui.util.AbstractOptionsUI.exitButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.exitButtonWidth;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -136,6 +137,8 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	protected int leftM;
 	protected int xLine, yLine; // settings var
 	protected int x, y; // mouse position
+	protected int tooltipLines = 2;
+	protected int tooltipH = tooltipLines * tooltipLineH + tooltipPadM;
 
 	protected BasePanel parent;
 	protected Rectangle hoverBox;
@@ -317,11 +320,17 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		}				
 		yLine += endPad;
 	}
-	protected void displayTooltip(String tip) {
-		if (!tooltipText.equals(tip)) {
-			tooltipText = tip;
-			repaint();
-		}
+	protected void repaintTooltip() {
+		Graphics2D g = (Graphics2D) getGraphics();
+		setFontHints(g);
+		drawToolTips(g);
+		g.dispose();
+	}
+	protected void repaintButtons() {
+		Graphics2D g = (Graphics2D) getGraphics();
+		setFontHints(g);
+		drawButtons(g);
+		g.dispose();
 	}
 	protected void close() { disableGlassPane(); }
 	protected void checkModifierKey(InputEvent e) {
@@ -399,16 +408,30 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 				}
 			}
 			if (repaint)
-				repaint();
-			else if (!tooltipText.equals(tip))
-				repaint();
-			else {
-				if (prevHover != null) repaint(prevHover);
-				if (hoverBox != null)  repaint(hoverBox);
-			}
-		}
-		else if (repaint || !tooltipText.equals(tip))
-			repaint();
+				repaintButtons();
+			if (!tooltipText.equals(tip))
+				repaintTooltip();
+			if (prevHover != null)
+				repaint(prevHover);
+			if (hoverBox != null)
+				repaint(hoverBox);
+		} else if (repaint)
+			repaintButtons();
+		else if (!tooltipText.equals(tip))
+			repaintTooltip();
+
+//			if (repaint)
+//				repaint();
+//			else if (!tooltipText.equals(tip))
+//				repaintTooltip();
+//			else {
+//				if (prevHover != null) repaint(prevHover);
+//				if (hoverBox != null)  repaint(hoverBox);
+//			}
+//		} else if (repaint)
+//			repaint();
+//		else if (!tooltipText.equals(tip))
+//			repaintTooltip();
 	}
 	protected String raceAITxt() {
 		if (raceUI.selectedEmpire().isAIControlled())
@@ -419,7 +442,41 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	protected int getBackGroundWidth() {
 		return columnPad+wFirstColumn+columnPad + (wSetting+columnPad) * (numColumns-1);
 	}
+	protected void drawToolTips(Graphics2D g) {
+		if (showTooltips.get()) {
+			List<String> lines = wrappedLines(g, tooltipText, wTT-2*tooltipPadM);
+			g.setColor(GameUI.paneBackgroundColor());
+			g.fillRect(xTT, yTT, wTT, tooltipH);
+			g.setColor(tooltipC);
+			g.setFont(tooltipFont);
+			int yT = yTT + s4;
+			for (String line: lines) {
+				yT += tooltipLineH;
+				drawString(g,line, xTT+tooltipPadM, yT);
+			}		
+		}
+	}
+	protected void drawButtons(Graphics2D g) {
+		int cnr = s5;
+		g.setFont(buttonFont);
 
+		// Exit Button
+		String text = text(exitButtonKey());
+		int sw = g.getFontMetrics().stringWidth(text);
+		int buttonW	= exitButtonWidth(g);
+		xButton = leftM + wBG - buttonW - xButtonOffset;
+		exitBox.setBounds(xButton, yButton, buttonW, buttonH);
+		g.setColor(GameUI.buttonBackgroundColor());
+		g.fillRoundRect(exitBox.x, exitBox.y, buttonW, buttonH, cnr, cnr);
+		int xT = exitBox.x+((exitBox.width-sw)/2);
+		int yT = exitBox.y+exitBox.height-s8;
+		Color cB = hoverBox == exitBox ? Color.yellow : GameUI.borderBrightColor();
+		drawShadowedString(g, text, 2, xT, yT, GameUI.borderDarkColor(), cB);
+		Stroke prev = g.getStroke();
+		g.setStroke(stroke1);
+		g.drawRoundRect(exitBox.x, exitBox.y, exitBox.width, exitBox.height, cnr, cnr);
+		g.setStroke(prev);
+	}
 	// ========== Overriders ==========
 	//
 	@Override public void paintComponent(Graphics g0) {
@@ -432,15 +489,10 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		wTT	= wBG - 2 * columnPad;
 
 		g.setFont(tooltipFont);
-		List<String> lines = wrappedLines(g, tooltipText, wTT-2*tooltipPadM);
-		int tooltipH = 0;
 		if (showTooltips.get()) {
 			// Set the base top Margin
-			tooltipH = 2 * tooltipLineH + tooltipPadM;		
-			hBG	 = titlePad + columnsMaxH + buttonPadV + buttonH + tooltipPadV + tooltipH + tooltipPadV;
-			topM = (h - hBG)/2;
 			// Set the final High
-			tooltipH = max(1, lines.size()) * tooltipLineH + tooltipPadM;
+			topM = (h - hBG)/2;
 			hBG		= titlePad + columnsMaxH + buttonPadV + buttonH + tooltipPadV + tooltipH + tooltipPadV;
 			yTT		= topM + hBG - tooltipPadV - tooltipH;
 		} else {
@@ -468,16 +520,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		g.fillRect(leftM, topM, wBG, hBG);
 		
 		// Tool tip
-		if (showTooltips.get()) {
-			g.setColor(tooltipC);
-			g.drawRect(xTT, yTT, wTT, tooltipH);
-			g.setFont(tooltipFont);
-			yTT += s4;
-			for (String line: lines) {
-				yTT += tooltipLineH;
-				drawString(g,line, xTT+tooltipPadM, yTT);
-			}		
-		}
+		drawToolTips(g);
 		
 		// Title
 		g.setFont(titleFont);
@@ -520,28 +563,13 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 			yLine += settingHPad;
 		}
 		g.setStroke(prev);
+
+		drawButtons(g);
+		
 		// ready for extension
 		xLine = xLine + currentWith + columnPad;
 		yLine = yTop;
 
-		int cnr = s5;
-		g.setFont(buttonFont);
-		// Exit Button
-		String text = text(exitButtonKey());
-		sw = g.getFontMetrics().stringWidth(text);
-		int buttonW	= exitButtonWidth(g);
-		xButton = leftM + wBG - buttonW - xButtonOffset;
-		exitBox.setBounds(xButton, yButton, buttonW, buttonH);
-		g.setColor(GameUI.buttonBackgroundColor());
-		g.fillRoundRect(exitBox.x, exitBox.y, buttonW, buttonH, cnr, cnr);
-		int xT = exitBox.x+((exitBox.width-sw)/2);
-		int yT = exitBox.y+exitBox.height-s8;
-		Color cB = hoverBox == exitBox ? Color.yellow : GameUI.borderBrightColor();
-		drawShadowedString(g, text, 2, xT, yT, GameUI.borderDarkColor(), cB);
-		prev = g.getStroke();
-		g.setStroke(stroke1);
-		g.drawRoundRect(exitBox.x, exitBox.y, exitBox.width, exitBox.height, cnr, cnr);
-		g.setStroke(prev);
 	}
 	@Override public void keyReleased(KeyEvent e) {
 		checkModifierKey(e);

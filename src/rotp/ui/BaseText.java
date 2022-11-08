@@ -49,7 +49,9 @@ public class BaseText implements Base {
     private int xOrig;
     private int yOrig;
     BaseText preceder;
-    // BR: fixed Width for scrolling
+    // BR: fixed Width for easy scrolling 
+    // even if the text is short
+    // No need to put the mouse on the text
     private int width  = 200;
     private boolean fixedWidth = false;
     public void setFixedWidth(boolean b, int w) {

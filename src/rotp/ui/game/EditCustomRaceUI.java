@@ -429,31 +429,37 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 				}
 			}
 			if (repaint)
-				repaint();
-			else if (!tooltipText.equals(tip))
-				repaint();
-			else {
-				if (prevHover != null) repaint(prevHover);
-				if (hoverBox != null)  repaint(hoverBox);
-			}
-		}
-		else if (repaint || !tooltipText.equals(tip))
-			repaint();		
+				repaintButtons();
+			if (!tooltipText.equals(tip))
+				repaintTooltip();
+			if (prevHover != null)
+				repaint(prevHover);
+			if (hoverBox != null)
+				repaint(hoverBox);
+		} else if (repaint)
+			repaintButtons();
+		else if (!tooltipText.equals(tip))
+			repaintTooltip();
+
+//			if (repaint)
+//				repaint();
+//			else if (!tooltipText.equals(tip))
+//				repaintTooltip();
+//			else {
+//				if (prevHover != null) repaint(prevHover);
+//				if (hoverBox != null)  repaint(hoverBox);
+//			}
+//		} else if (repaint)
+//			repaint();
+//		else if (!tooltipText.equals(tip))
+//			repaintTooltip();
 	}
 	@Override protected String raceAITxt() { return ""; }
-	@Override public void paintComponent(Graphics g0) {
-		super.paintComponent(g0); // call ShowUI
-		Graphics2D g = (Graphics2D) g0;
+	@Override protected void drawButtons(Graphics2D g) {
+		super.drawButtons(g);
 		int cnr = s5;
-
-		// Custom Race List
-		currentWith = raceListW;
-		Stroke prev = g.getStroke();
-		g.setStroke(stroke2);
-		paintSetting(g, raceList);
-		g.setStroke(prev);
-		
 		g.setFont(buttonFont);
+
 		// Select Button
 		String text	 = text(selectKey);
 		int sw = g.getFontMetrics().stringWidth(text);
@@ -466,7 +472,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		int yT = selectBox.y + selectBox.height-s8;
 		Color cB = hoverBox == selectBox ? Color.yellow : GameUI.borderBrightColor();
 		drawShadowedString(g, text, 2, xT, yT, GameUI.borderDarkColor(), cB);
-		prev = g.getStroke();
+		Stroke prev = g.getStroke();
 		g.setStroke(stroke1);
 		g.drawRoundRect(selectBox.x, selectBox.y, selectBox.width, selectBox.height, cnr, cnr);
 		g.setStroke(prev);
@@ -538,7 +544,18 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		g.setStroke(stroke1);
 		g.drawRoundRect(randomBox.x, randomBox.y, randomBox.width, randomBox.height, cnr, cnr);
 		g.setStroke(prev);
-		
+	}
+	@Override public void paintComponent(Graphics g0) {
+		super.paintComponent(g0); // call ShowUI
+		Graphics2D g = (Graphics2D) g0;
+
+		// Custom Race List
+		currentWith = raceListW;
+		Stroke prev = g.getStroke();
+		g.setStroke(stroke2);
+		paintSetting(g, raceList);
+		g.setStroke(prev);
+	
 		// Randomize Options
 		xLine = xButton + labelPad;
 		yLine = yButton - labelPad;
@@ -550,9 +567,6 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			bt.draw(g);
 			yLine -= labelH;
 	    }
-	    
-		g.setFont(raceNameFont);
-		g.setColor(Color.black);
 	}
 	@Override public void keyPressed(KeyEvent e) {
 		checkModifierKey(e);

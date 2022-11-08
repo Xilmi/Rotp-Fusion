@@ -25,8 +25,16 @@ Community subreddit: https://www.reddit.com/r/rotp/<br/>
 Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
+2022.11.08 (BR)
+  - Made Race customization panel descriptions more responsive.
+  - Made Race customization panel Buttons more responsive to key modifiers.
+  - Made Galaxy startup Panel Buttons more responsive to key modifiers.
+  - Made Races startup Panel Buttons more responsive to key modifiers.
+  - Made Mod startup Panel Buttons more responsive to key modifiers.
+
 2022.11.07 (BR)
   - Added ability files to the opponents ability list.
+  - Added PopUp to select opponent ability.
 
 2022.11.06 (BR)
   - Fixed Missing initialization in "vanilla"-options.

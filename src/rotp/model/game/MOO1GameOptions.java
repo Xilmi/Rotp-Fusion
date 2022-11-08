@@ -285,8 +285,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override
     public String selectedPlayerRace()           { return selectedPlayer().race; }
     @Override
-    // public void selectedPlayerRace(String s)     { selectedPlayer().race = s;  resetSelectedOpponentRaces(); }
-    public void selectedPlayerRace(String s)     { selectedPlayer().race = s;} // TODO BR: validate
+    // public void selectedPlayerRace(String s)  { selectedPlayer().race = s;  resetSelectedOpponentRaces(); }
+    public void selectedPlayerRace(String s)     { selectedPlayer().race = s;} // BR: Rest on demand only
      @Override
     public int selectedPlayerColor()             { return selectedPlayer().color; }
     @Override

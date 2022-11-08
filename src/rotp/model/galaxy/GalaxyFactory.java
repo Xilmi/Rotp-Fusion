@@ -15,17 +15,14 @@
  */
 package rotp.model.galaxy;
 
-import static rotp.model.empires.CustomRaceDefinitions.FILE_RACE_KEY;
 import static rotp.model.empires.CustomRaceDefinitions.RANDOM_RACE_KEY;
 import static rotp.model.empires.CustomRaceDefinitions.fileToAlienRace;
 import static rotp.model.empires.CustomRaceDefinitions.getAllAlienRaces;
 import static rotp.model.empires.CustomRaceDefinitions.getAllowedAlienRaces;
-import static rotp.model.empires.CustomRaceDefinitions.getRaceFileList;
 import static rotp.model.empires.CustomRaceDefinitions.optionToAlienRace;
 import static rotp.model.empires.CustomRaceDefinitions.raceFileExist;
 import static rotp.model.game.MOO1GameOptions.setAliensAIOptions;
 import static rotp.ui.UserPreferences.opponentCROptions;
-import static rotp.ui.UserPreferences.randomAlienRaces;
 import static rotp.ui.UserPreferences.restartAppliesSettings;
 import static rotp.ui.UserPreferences.restartChangesAliensAI;
 import static rotp.ui.UserPreferences.restartChangesPlayerAI;
@@ -515,16 +512,13 @@ public class GalaxyFactory implements Base {
 			maxRaces = empSrc.length-1;
 		}
 
-		// TODO BR: probably remove
 		// Load list if needed
-//		LinkedList<String> alienAbilitiesList = null;
 		LinkedList<String> allowedRaceList	= null;
 		LinkedList<String> alienRaceList	= null;
 		if ((restartAppliesSettings.get() || src == null)) {
 			allowedRaceList	= getAllowedAlienRaces();
 			alienRaceList	= getAllAlienRaces();
 		}
-			// alienAbilitiesList = buildAlienAbilities();
 		
 		// since we may have more races than colors we will need to reset the
 		// color list each time we run out. 
@@ -545,13 +539,11 @@ public class GalaxyFactory implements Base {
 
 			// Create DataRace
 			Race dataRace;
-//			String dataRaceKey;
-//			DynOptions options = null;
 			if (src == null || restartAppliesSettings.get()) { // Start and some restart
 				String selectedAbility = options().specificOpponentCROption(h+1);
 				SpecificCROption ability = SpecificCROption.set(selectedAbility);
 				if (!useSelectableAbilities.get() 
-						|| ability.isSelection()) // TODO
+						|| ability.isSelection())
 					ability = opponentCROptions.getEnu();
 
 				switch (ability) {
@@ -608,30 +600,10 @@ public class GalaxyFactory implements Base {
 					case BASE_RACE:
 					default:
 						dataRace = Race.keyed(raceKey);
-						break; // TODO BR:
+						break;
 				}
-				
-				
-//            	if (randomAlienRaces.isRandom() && isRandomOpponent[h]) {
-//            		// Override random opponents
-//                	if (randomAlienRaces.isPlayerCopy()) {
-//                		dataRaceKey	= playerDataRaceKey;
-//                    	options		= g.empire(0).raceOptions();
-//                	} else if (randomAlienRaces.isFromFiles()) {
-//                		dataRaceKey	= alienAbilitiesList.removeFirst();
-//                	} else
-//                		dataRaceKey	= RANDOM_RACE_KEY;
-//                }
-//                else if (options().randomizeAIAbility())
-//                	dataRaceKey	= random(options().startingRaceOptions());
-//                else
-//                	dataRaceKey	= raceKey;
-			} else {
-//				dataRaceKey	= eSrc.dataRaceKey;
-//        		options = eSrc.raceOptions;
-//        		dataRace = Race.keyed(dataRaceKey, options);
+			} else // Restart
         		dataRace = optionToAlienRace(eSrc.raceOptions);
-            }
  
 			EmpireSystem empSystem = null;
 			sys = StarSystemFactory.current().newSystemForRace(race, dataRace, g);

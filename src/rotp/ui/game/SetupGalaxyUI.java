@@ -16,6 +16,7 @@
 package rotp.ui.game;
 
 import static rotp.model.empires.CustomRaceDefinitions.getAllowedAlienRaces;
+import static rotp.model.empires.CustomRaceDefinitions.getBaseRacList;
 import static rotp.ui.UserPreferences.opponentCROptions;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
 import static rotp.ui.UserPreferences.showNewRaces;
@@ -50,7 +51,6 @@ import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import rotp.mod.br.addOns.RacesOptions;
@@ -67,6 +67,7 @@ import rotp.ui.NoticeMessage;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
+import rotp.ui.util.ListDialog;
 import rotp.ui.util.Modifier2KeysState;
 import rotp.ui.util.SpecificCROption;
 
@@ -130,7 +131,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	private int leftBoxX, rightBoxX, boxW, boxY, leftBoxH, rightBoxH;
 	private int galaxyX, galaxyY, galaxyW, galaxyH;
     private MOO1GameOptions initialOptions; // To be restored if "cancel"
-	private Object[] abilitiesList; // Strings 
+	private String[] abilitiesList; 
 
 	public SetupGalaxyUI() {
 		init0();
@@ -150,7 +151,8 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		LinkedList<String> list = new LinkedList<>();
 		list.addAll(SpecificCROption.options());
 		list.addAll(getAllowedAlienRaces());
-		abilitiesList = list.toArray();		
+		list.addAll(getBaseRacList());
+		abilitiesList = list.toArray(new String[list.size()]);
 	}
 	public void init() {
 		Modifier2KeysState.reset();
@@ -274,7 +276,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	}
 	private void checkModifierKey(InputEvent e) {
 		if (Modifier2KeysState.checkForChange(e)) {
-			repaint();
+			repaintButtons();
 		}
 	}
 	private int currentAbilityIndex(String s) {
@@ -284,16 +286,17 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		}
 		return -1;
 	}
-	// TODO BR: selectAbilityFromList()
 	private String selectAbilityFromList(int i) {
 		String initialChoice = newGameOptions().specificOpponentCROption(i);
-	    String input = (String) JOptionPane.showInputDialog(null, // Parent
-	    	"Select one abilities...",		// Message
-	        "Opponent abilities",			// Title
-	        JOptionPane.QUESTION_MESSAGE,	// Panel Type
-	        null,							// Use default icon
-	        abilitiesList,					// Array of choices
-	        initialChoice);					// Initial choice
+	    String input = (String) ListDialog.showDialog(
+	    	getParent(),				// Frame component
+	    	getParent(),				// Location component
+	    	"Select one abilities...",	// Message
+	        "Opponent abilities",		// Title
+	        (String[]) abilitiesList,	// Use default icon
+	        initialChoice, 				// Initial choice
+	        "XX_RACE_JACKTRADES_XX",	// long Dialogue
+	        scaled(390), scaled(300));	// size
 	    if (input == null)
 	    	return initialChoice;
 	    newGameOptions().specificOpponentCROption(input, i);
@@ -571,6 +574,60 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			}
 		}
 
+		drawButtons(g);
+
+		if (starting) {
+			NoticeMessage.setStatus(text("SETUP_CREATING_GALAXY"));
+			drawNotice(g, 30);
+		}
+	}
+	private void repaintButtons() {
+		Graphics2D g = (Graphics2D) getGraphics();
+		setFontHints(g);
+		drawBackButtons(g);		
+		drawButtons(g);
+		g.dispose();
+	}
+	private void drawBackButtons(Graphics2D g) {
+		int cnr = s5;
+
+		// draw settings button
+		g.setPaint(GameUI.buttonLeftBackground());
+		g.fillRoundRect(settingsBox.x, settingsBox.y, settingsBox.width, settingsBox.height, cnr, cnr);
+		
+		// draw MOD settings button
+		g.setPaint(GameUI.buttonLeftBackground());
+		g.fillRoundRect(modASettingsBox.x, modASettingsBox.y,
+				modASettingsBox.width, modASettingsBox.height, cnr, cnr);
+
+		// draw MOD settings button
+		g.setPaint(GameUI.buttonLeftBackground());
+		g.fillRoundRect(modBSettingsBox.x, modBSettingsBox.y,
+				modBSettingsBox.width, modBSettingsBox.height, cnr, cnr);
+
+		// draw MOD settings button
+		g.setPaint(GameUI.buttonLeftBackground());
+		g.fillRoundRect(globalModSettingsBox.x, globalModSettingsBox.y, 
+				globalModSettingsBox.width, globalModSettingsBox.height, cnr, cnr);
+
+		// draw START button
+		g.setPaint(GameUI.buttonRightBackground());
+		g.fillRoundRect(startBox.x, startBox.y, startBox.width, startBox.height, cnr, cnr);
+
+		// draw BACK button
+		g.setPaint(GameUI.buttonLeftBackground());
+		g.fillRoundRect(backBox.x, backBox.y, backBox.width, backBox.height, cnr, cnr);
+
+		// draw DEFAULT button
+		g.setPaint(GameUI.buttonLeftBackground());
+		g.fillRoundRect(defaultBox.x, defaultBox.y, defaultBox.width, defaultBox.height, cnr, cnr);
+
+		// draw USER button
+		g.setPaint(GameUI.buttonLeftBackground());
+		g.fillRoundRect(userBox.x, userBox.y, userBox.width, userBox.height, cnr, cnr);
+
+	}
+	private void drawButtons(Graphics2D g) {
 		// settings button
 		int cnr = s5;
 		g.setFont(narrowFont(20)); // 18 for 3 buttons
@@ -674,11 +731,6 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		g.setStroke(stroke1);
 		g.drawRoundRect(userBox.x, userBox.y, userBox.width, userBox.height, cnr, cnr);
 		g.setStroke(prev);
-
-		if (starting) {
-			NoticeMessage.setStatus(text("SETUP_CREATING_GALAXY"));
-			drawNotice(g, 30);
-		}
 	}
 	private String newRacesOnStr() {
 		if (showNewRaces.get()) return text("SETUP_NEW_RACES_ON");
@@ -886,7 +938,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	}
 	private void nextSpecificOpponentCR(int i, boolean click) {
 		if (click) softClick();
-		if (Modifier2KeysState.isCtrlDown())
+		if (click || Modifier2KeysState.isCtrlDown())
 			selectAbilityFromList(i+1);
 		else {
 			String currCR = newGameOptions().specificOpponentCROption(i+1);
@@ -902,7 +954,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	}
 	private void prevSpecificOpponentCR(int i, boolean click) {
 		if (click) softClick();
-		if (Modifier2KeysState.isCtrlDown())
+		if (click || Modifier2KeysState.isCtrlDown())
 			selectAbilityFromList(i+1);
 		else {
 			String currCR = newGameOptions().specificOpponentCROption(i+1);

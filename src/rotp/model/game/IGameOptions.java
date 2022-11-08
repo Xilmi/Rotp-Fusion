@@ -617,30 +617,6 @@ public interface IGameOptions {
         String nextAI = allAIs.get(nextIndex);
         specificOpponentAIOption(nextAI, i);
     }
-    default void nextSpecificOpponentCR(int i) {
-        List<String> allCRs = SpecificCROption.options();
-        String currCR = specificOpponentCROption(i);
-
-        // if currCR not on the list: index=-1 then result=0 -> OK
-        int nextIndex = currCR == null ? 0 : allCRs.indexOf(currCR)+1;
-        if (nextIndex >= allCRs.size())
-            nextIndex = 0;
-
-        String nextCR = allCRs.get(nextIndex);
-        specificOpponentCROption(nextCR, i);
-    }
-    default void prevSpecificOpponentCR(int i) {
-        List<String> allCRs = SpecificCROption.options();
-        String currCR = specificOpponentCROption(i);
-
-        // if currCR not on the list: index=-1 then result=0 -> OK
-        int prevIndex = currCR == null ? 0 : allCRs.indexOf(currCR)-1;
-        if (prevIndex < 0)
-        	prevIndex = allCRs.size()-1;
-
-        String nextCR = allCRs.get(prevIndex);
-        specificOpponentCROption(nextCR, i);
-    }
     default void nextOpponent(int i) {
         String player = selectedPlayerRace();
         // BR: Race filtration

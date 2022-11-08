@@ -234,8 +234,125 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 	}
 	private void checkModifierKey(InputEvent e) {
 		if (Modifier2KeysState.checkForChange(e)) {
-			repaint();
+			repaintButtons();
 		}
+	}
+	private void repaintButtons() {
+		Graphics2D g = (Graphics2D) getGraphics();
+		setFontHints(g);
+		drawBackButtons(g);
+		drawButtons(g);
+		g.dispose();
+	}
+	private void drawBackButtons(Graphics2D g) {
+		int cnr = s5;
+        // draw left button
+        g.setPaint(GameUI.buttonLeftBackground());
+        g.fillRoundRect(cancelBox.x, cancelBox.y, cancelBox.width, cancelBox.height, cnr, cnr);
+
+        // draw right button
+        g.setPaint(GameUI.buttonRightBackground());
+        g.fillRoundRect(nextBox.x, nextBox.y, nextBox.width, nextBox.height, cnr, cnr);
+
+		// draw DEFAULT button
+		g.setPaint(GameUI.buttonLeftBackground());
+		g.fillRoundRect(defaultBox.x, defaultBox.y, defaultBox.width, defaultBox.height, cnr, cnr);
+
+		// draw USER button
+		g.setPaint(GameUI.buttonLeftBackground());
+		g.fillRoundRect(userBox.x, userBox.y, userBox.width, userBox.height, cnr, cnr);
+
+		// BR: Player Race Customization
+        // far left button
+        g.setPaint(GameUI.buttonLeftBackground());
+        g.fillRoundRect(playerRaceSettingBox.x, playerRaceSettingBox.y,
+        		playerRaceSettingBox.width, playerRaceSettingBox.height, cnr, cnr);
+	}
+	private void drawButtons(Graphics2D g) {
+        // left button
+        int cnr = s5;
+        g.setFont(narrowFont(30));
+        String text1 = text(cancelButtonKey());
+        int sw1 = g.getFontMetrics().stringWidth(text1);
+        int x1 = cancelBox.x+((cancelBox.width-sw1)/2);
+        int y1 = cancelBox.y+cancelBox.height-s12;
+        Color c1 = hoverBox == cancelBox ? Color.yellow : GameUI.borderBrightColor();
+        drawShadowedString(g, text1, 2, x1, y1, GameUI.borderDarkColor(), c1);
+        Stroke prev = g.getStroke();
+        g.setStroke(stroke1);
+        g.drawRoundRect(cancelBox.x, cancelBox.y, cancelBox.width, cancelBox.height, cnr, cnr);
+        g.setStroke(prev);
+
+        // right button
+        String text2 = text("SETUP_BUTTON_NEXT");
+        int sw2= g.getFontMetrics().stringWidth(text2);
+        int x2 = nextBox.x+((nextBox.width-sw2)/2);
+        int y2 = nextBox.y+nextBox.height-s12;
+        Color c2 = hoverBox == nextBox ? Color.yellow : GameUI.borderBrightColor();
+        drawShadowedString(g, text2, 2, x2, y2, GameUI.borderDarkColor(), c2);
+        prev = g.getStroke();
+        g.setStroke(stroke1);
+        g.drawRoundRect(nextBox.x, nextBox.y, nextBox.width, nextBox.height, cnr, cnr);
+        g.setStroke(prev);
+
+        // BR: Player Race Customization
+        // far left button
+        g.setFont(narrowFont(20));
+        String text4 = text(customRaceKey);
+        int sw4= g.getFontMetrics().stringWidth(text4);
+        int x4 = playerRaceSettingBox.x + ((playerRaceSettingBox.width-sw4)/2);
+        int y4 = playerRaceSettingBox.y + playerRaceSettingBox.height-s8;
+        Color c4 = hoverBox == playerRaceSettingBox ? Color.yellow : GameUI.borderBrightColor();
+        drawShadowedString(g, text4, 2, x4, y4, GameUI.borderDarkColor(), c4);
+        prev = g.getStroke();
+        g.setStroke(stroke1);
+        g.drawRoundRect(playerRaceSettingBox.x, playerRaceSettingBox.y, playerRaceSettingBox.width, playerRaceSettingBox.height, cnr, cnr);
+        g.setStroke(prev);
+        
+        // BR: Race customization check box
+        int checkW = s16;
+        int checkX = playerRaceSettingBox.x + playerRaceSettingBox.width + s10;    
+        int checkY = playerRaceSettingBox.y + playerRaceSettingBox.height - s7;
+        checkBox.setBounds(checkX, checkY-checkW, checkW, checkW);
+        prev = g.getStroke();
+        g.setStroke(stroke3);
+        g.setColor(checkBoxC);
+        g.fill(checkBox);
+        if (hoverBox == checkBox) {
+            g.setColor(Color.yellow);
+            g.draw(checkBox);
+        }
+        if (playerIsCustom.get()) {
+            g.setColor(SystemPanel.whiteText);
+            g.drawLine(checkX-s1, checkY-s8, checkX+s4, checkY-s4);
+            g.drawLine(checkX+s4, checkY-s4, checkX+checkW, checkY-s16);
+        }
+        g.setStroke(prev);
+
+        g.setFont(narrowFont(20));
+        // BR: DEFAULT Button 
+		String text7 = text(defaultButtonKey());
+        int sw7		 = g.getFontMetrics().stringWidth(text7);
+        int x7 = defaultBox.x+((defaultBox.width-sw7)/2);
+        int y7 = defaultBox.y+defaultBox.height-s8;
+        Color c7 = hoverBox == defaultBox ? Color.yellow : GameUI.borderBrightColor();
+        drawShadowedString(g, text7, 2, x7, y7, GameUI.borderDarkColor(), c7);
+        prev = g.getStroke();
+        g.setStroke(stroke1);
+        g.drawRoundRect(defaultBox.x, defaultBox.y, defaultBox.width, defaultBox.height, cnr, cnr);
+        g.setStroke(prev);
+
+        // BR: USER Button 
+		String text8 = text(userButtonKey());
+        int sw8 	 = g.getFontMetrics().stringWidth(text8);
+		int x8 = userBox.x+((userBox.width-sw8)/2);
+		int y8 = userBox.y+userBox.height-s8;
+		Color c8 = hoverBox == userBox ? Color.yellow : GameUI.borderBrightColor();
+		drawShadowedString(g, text8, 2, x8, y8, GameUI.borderDarkColor(), c8);
+		prev = g.getStroke();
+		g.setStroke(stroke1);
+		g.drawRoundRect(userBox.x, userBox.y, userBox.width, userBox.height, cnr, cnr);
+		g.setStroke(prev);
 	}
 	@Override
     public void paintComponent(Graphics g0) {
@@ -478,91 +595,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
                 break;
             }
         }
-
-        // left button
-        int cnr = s5;
-        g.setFont(narrowFont(30));
-        String text1 = text(cancelButtonKey());
-        int sw1 = g.getFontMetrics().stringWidth(text1);
-        int x1 = cancelBox.x+((cancelBox.width-sw1)/2);
-        int y1 = cancelBox.y+cancelBox.height-s12;
-        Color c1 = hoverBox == cancelBox ? Color.yellow : GameUI.borderBrightColor();
-        drawShadowedString(g, text1, 2, x1, y1, GameUI.borderDarkColor(), c1);
-        Stroke prev = g.getStroke();
-        g.setStroke(stroke1);
-        g.drawRoundRect(cancelBox.x, cancelBox.y, cancelBox.width, cancelBox.height, cnr, cnr);
-        g.setStroke(prev);
-
-        // right button
-        String text2 = text("SETUP_BUTTON_NEXT");
-        int sw2= g.getFontMetrics().stringWidth(text2);
-        int x2 = nextBox.x+((nextBox.width-sw2)/2);
-        int y2 = nextBox.y+nextBox.height-s12;
-        Color c2 = hoverBox == nextBox ? Color.yellow : GameUI.borderBrightColor();
-        drawShadowedString(g, text2, 2, x2, y2, GameUI.borderDarkColor(), c2);
-        prev = g.getStroke();
-        g.setStroke(stroke1);
-        g.drawRoundRect(nextBox.x, nextBox.y, nextBox.width, nextBox.height, cnr, cnr);
-        g.setStroke(prev);
-
-        // BR: Player Race Customization
-        // far left button
-        g.setFont(narrowFont(20));
-        String text4 = text(customRaceKey);
-        int sw4= g.getFontMetrics().stringWidth(text4);
-        int x4 = playerRaceSettingBox.x + ((playerRaceSettingBox.width-sw4)/2);
-        int y4 = playerRaceSettingBox.y + playerRaceSettingBox.height-s8;
-        Color c4 = hoverBox == playerRaceSettingBox ? Color.yellow : GameUI.borderBrightColor();
-        drawShadowedString(g, text4, 2, x4, y4, GameUI.borderDarkColor(), c4);
-        prev = g.getStroke();
-        g.setStroke(stroke1);
-        g.drawRoundRect(playerRaceSettingBox.x, playerRaceSettingBox.y, playerRaceSettingBox.width, playerRaceSettingBox.height, cnr, cnr);
-        g.setStroke(prev);
-        
-        // BR: Race customization check box
-        int checkW = s16;
-        int checkX = playerRaceSettingBox.x + playerRaceSettingBox.width + s10;    
-        int checkY = playerRaceSettingBox.y + playerRaceSettingBox.height - s7;
-        checkBox.setBounds(checkX, checkY-checkW, checkW, checkW);
-        prev = g.getStroke();
-        g.setStroke(stroke3);
-        g.setColor(checkBoxC);
-        g.fill(checkBox);
-        if (hoverBox == checkBox) {
-            g.setColor(Color.yellow);
-            g.draw(checkBox);
-        }
-        if (playerIsCustom.get()) {
-            g.setColor(SystemPanel.whiteText);
-            g.drawLine(checkX-s1, checkY-s8, checkX+s4, checkY-s4);
-            g.drawLine(checkX+s4, checkY-s4, checkX+checkW, checkY-s16);
-        }
-        g.setStroke(prev);
-
-        g.setFont(narrowFont(20));
-        // BR: DEFAULT Button 
-		String text7 = text(defaultButtonKey());
-        int sw7		 = g.getFontMetrics().stringWidth(text7);
-        int x7 = defaultBox.x+((defaultBox.width-sw7)/2);
-        int y7 = defaultBox.y+defaultBox.height-s8;
-        Color c7 = hoverBox == defaultBox ? Color.yellow : GameUI.borderBrightColor();
-        drawShadowedString(g, text7, 2, x7, y7, GameUI.borderDarkColor(), c7);
-        prev = g.getStroke();
-        g.setStroke(stroke1);
-        g.drawRoundRect(defaultBox.x, defaultBox.y, defaultBox.width, defaultBox.height, cnr, cnr);
-        g.setStroke(prev);
-
-        // BR: USER Button 
-		String text8 = text(userButtonKey());
-        int sw8 	 = g.getFontMetrics().stringWidth(text8);
-		int x8 = userBox.x+((userBox.width-sw8)/2);
-		int y8 = userBox.y+userBox.height-s8;
-		Color c8 = hoverBox == userBox ? Color.yellow : GameUI.borderBrightColor();
-		drawShadowedString(g, text8, 2, x8, y8, GameUI.borderDarkColor(), c8);
-		prev = g.getStroke();
-		g.setStroke(stroke1);
-		g.drawRoundRect(userBox.x, userBox.y, userBox.width, userBox.height, cnr, cnr);
-		g.setStroke(prev);
+        drawButtons(g);
 	}
     public void goToMainMenu() {
         buttonClick();

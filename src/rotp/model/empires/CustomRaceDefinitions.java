@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import rotp.Rotp;
 import rotp.model.empires.Leader.Personality;
@@ -56,6 +57,7 @@ public class CustomRaceDefinitions  {
 	public	static final String RANDOM_RACE_KEY		= "RANDOM_RACE_KEY";
 	public	static final String CUSTOM_RACE_KEY		= "CUSTOM_RACE_KEY";
 	public	static final String FILE_RACE_KEY		= "FILE_RACE_KEY";
+	public	static final String BASE_RACE_MARKER	= "*";
 	private static final boolean booleansAreBullet	= true;
 
 	private Race race; // !!! To be kept up to date !!!
@@ -109,6 +111,8 @@ public class CustomRaceDefinitions  {
 		return (f.exists() && !f.isDirectory());
 	}
 	public static Race fileToAlienRace(String fileName) {
+		if(fileName.startsWith(BASE_RACE_MARKER))
+			return getBaseRace(fileName);
 		return new CustomRaceDefinitions(fileName).getRace();
 	}
 	public static Race optionToAlienRace(DynOptions options) {
@@ -147,6 +151,17 @@ public class CustomRaceDefinitions  {
 	}
 	public static DynOptions getDefaultOptions() {
 		return new CustomRaceDefinitions().getAsOptions();
+	}
+	public static LinkedList<String> getBaseRacList() {
+		return getRaceFileList()
+				.stream()
+				.filter(c -> c.startsWith(BASE_RACE_MARKER))
+				.collect(Collectors.toCollection(LinkedList::new));
+	}
+	public static Race getBaseRace(String key) {
+		CustomRaceDefinitions cr = new CustomRaceDefinitions();
+		cr.setRace(cr.new RaceList().getBaseRace(key));
+		return cr.getRace();
 	}
 	public static LinkedList<String> getRaceFileList() {
 		return new CustomRaceDefinitions().new RaceList().getLabels();
@@ -515,12 +530,14 @@ public class CustomRaceDefinitions  {
 	    private void add(String raceKey) {
 	    	Race dr = Race.keyed(raceKey);	    	
 	    	String cfgValue	  = dr.id;
-	    	String langLabel  = "*" + dr.setupName();
+	    	String langLabel  = BASE_RACE_MARKER + dr.setupName();
 	    	String tooltipKey = dr.description3;
 	    	CustomRaceDefinitions cr = new CustomRaceDefinitions(dr);
 	    	float cost = cr.getTotalCost();
 	    	put(cfgValue, langLabel, cost, langLabel, tooltipKey);
-//	    	put(cfgValue, langLabel, cost, cfgValue, tooltipKey);
+	    }
+	    public String getBaseRace(String key) {
+	    	return getCfgValue(key);
 	    }
 	    public boolean newValue() {
 	    	if (newValue) {
@@ -558,9 +575,6 @@ public class CustomRaceDefinitions  {
 		@Override public String guiOptionValue(int index) {
 			return guiOptionLabel();
 		}
-//		@Override public SettingBase<?> index(int newIndex) {
-//			
-//		}
 		@Override protected void selectedValue(String value) {
 			super.selectedValue(value);
 			if (reload) { // No need to load options on reload
@@ -584,10 +598,6 @@ public class CustomRaceDefinitions  {
 				newValue = true;
 				return;
 			}
-//			// None of above: Load standard races
-//	    	race = Race.keyed(value).copy();
-//	    	pullSettings();
-//	    	updateSettings();
 		}
 	}
 	// ==================== RaceKey ====================

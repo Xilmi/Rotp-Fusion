@@ -322,8 +322,67 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	}
 	private void checkModifierKey(InputEvent e) {
 		if (Modifier2KeysState.checkForChange(e)) {
-			repaint();
+			repaintButtons();
 		}
+	}
+	private void repaintButtons() {
+		Graphics2D g = (Graphics2D) getGraphics();
+		setFontHints(g);
+		drawButtons(g);
+		g.dispose();
+	}
+	private void drawButtons(Graphics2D g) {
+		int cnr = s5;
+		// draw settings button
+		int smallButtonW = scaled(180);
+		okBox.setBounds(w-scaled(189)-rightM, yButton, smallButtonW, smallButtonH);
+		g.setColor(GameUI.buttonBackgroundColor());
+		g.fillRoundRect(okBox.x, okBox.y, smallButtonW, smallButtonH, cnr, cnr);
+		g.setFont(narrowFont(20));
+		String text6 = text(okButtonKey());
+		int sw6 = g.getFontMetrics().stringWidth(text6);
+		int x6 = okBox.x+((okBox.width-sw6)/2);
+		int y6 = okBox.y+okBox.height-s8;
+		Color c6 = hoverBox == okBox ? Color.yellow : GameUI.borderBrightColor();
+		drawShadowedString(g, text6, 2, x6, y6, GameUI.borderDarkColor(), c6);
+		Stroke prev = g.getStroke();
+		g.setStroke(stroke1);
+		g.drawRoundRect(okBox.x, okBox.y, okBox.width, okBox.height, cnr, cnr);
+		g.setStroke(prev);
+
+		String text7 = text(defaultButtonKey());
+		int sw7		 = g.getFontMetrics().stringWidth(text7);
+		smallButtonW = defaultButtonWidth(g);
+		defaultBox.setBounds(okBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
+		g.setColor(GameUI.buttonBackgroundColor());
+		g.fillRoundRect(defaultBox.x, defaultBox.y, smallButtonW, smallButtonH, cnr, cnr);
+		g.setFont(narrowFont(20));
+		int x7 = defaultBox.x+((defaultBox.width-sw7)/2);
+		int y7 = defaultBox.y+defaultBox.height-s8;
+		Color c7 = hoverBox == defaultBox ? Color.yellow : GameUI.borderBrightColor();
+		drawShadowedString(g, text7, 2, x7, y7, GameUI.borderDarkColor(), c7);
+		prev = g.getStroke();
+		g.setStroke(stroke1);
+		g.drawRoundRect(defaultBox.x, defaultBox.y, defaultBox.width, defaultBox.height, cnr, cnr);
+		g.setStroke(prev);
+
+		if (globalOptions)
+			return;  // No preferred button
+		String text8 = text(userButtonKey());
+		int sw8		 = g.getFontMetrics().stringWidth(text8);
+		smallButtonW = userButtonWidth(g);
+		userBox.setBounds(defaultBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
+		g.setColor(GameUI.buttonBackgroundColor());
+		g.fillRoundRect(userBox.x, userBox.y, smallButtonW, smallButtonH, cnr, cnr);
+		g.setFont(narrowFont(20));
+		int x8 = userBox.x+((userBox.width-sw8)/2);
+		int y8 = userBox.y+userBox.height-s8;
+		Color c8 = hoverBox == userBox ? Color.yellow : GameUI.borderBrightColor();
+		drawShadowedString(g, text8, 2, x8, y8, GameUI.borderDarkColor(), c8);
+		prev = g.getStroke();
+		g.setStroke(stroke1);
+		g.drawRoundRect(userBox.x, userBox.y, userBox.width, userBox.height, cnr, cnr);
+		g.setStroke(prev);
 	}
 	private void paintSetting(Graphics2D g, BaseText txt, String desc) {
 		g.setColor(SystemPanel.blackText);
@@ -399,57 +458,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 
 		g.setStroke(prev);
 
-		// draw settings button
-		int cnr = s5;
-		int smallButtonW = scaled(180);
-		okBox.setBounds(w-scaled(189)-rightM, yButton, smallButtonW, smallButtonH);
-		g.setColor(GameUI.buttonBackgroundColor());
-		g.fillRoundRect(okBox.x, okBox.y, smallButtonW, smallButtonH, cnr, cnr);
-		g.setFont(narrowFont(20));
-		String text6 = text(okButtonKey());
-		int sw6 = g.getFontMetrics().stringWidth(text6);
-		int x6 = okBox.x+((okBox.width-sw6)/2);
-		int y6 = okBox.y+okBox.height-s8;
-		Color c6 = hoverBox == okBox ? Color.yellow : GameUI.borderBrightColor();
-		drawShadowedString(g, text6, 2, x6, y6, GameUI.borderDarkColor(), c6);
-		prev = g.getStroke();
-		g.setStroke(stroke1);
-		g.drawRoundRect(okBox.x, okBox.y, okBox.width, okBox.height, cnr, cnr);
-		g.setStroke(prev);
-
-		String text7 = text(defaultButtonKey());
-		int sw7		 = g.getFontMetrics().stringWidth(text7);
-		smallButtonW = defaultButtonWidth(g);
-		defaultBox.setBounds(okBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
-		g.setColor(GameUI.buttonBackgroundColor());
-		g.fillRoundRect(defaultBox.x, defaultBox.y, smallButtonW, smallButtonH, cnr, cnr);
-		g.setFont(narrowFont(20));
-		int x7 = defaultBox.x+((defaultBox.width-sw7)/2);
-		int y7 = defaultBox.y+defaultBox.height-s8;
-		Color c7 = hoverBox == defaultBox ? Color.yellow : GameUI.borderBrightColor();
-		drawShadowedString(g, text7, 2, x7, y7, GameUI.borderDarkColor(), c7);
-		prev = g.getStroke();
-		g.setStroke(stroke1);
-		g.drawRoundRect(defaultBox.x, defaultBox.y, defaultBox.width, defaultBox.height, cnr, cnr);
-		g.setStroke(prev);
-
-		if (globalOptions)
-			return;  // No preferred button
-		String text8 = text(userButtonKey());
-		int sw8		 = g.getFontMetrics().stringWidth(text8);
-		smallButtonW = userButtonWidth(g);
-		userBox.setBounds(defaultBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
-		g.setColor(GameUI.buttonBackgroundColor());
-		g.fillRoundRect(userBox.x, userBox.y, smallButtonW, smallButtonH, cnr, cnr);
-		g.setFont(narrowFont(20));
-		int x8 = userBox.x+((userBox.width-sw8)/2);
-		int y8 = userBox.y+userBox.height-s8;
-		Color c8 = hoverBox == userBox ? Color.yellow : GameUI.borderBrightColor();
-		drawShadowedString(g, text8, 2, x8, y8, GameUI.borderDarkColor(), c8);
-		prev = g.getStroke();
-		g.setStroke(stroke1);
-		g.drawRoundRect(userBox.x, userBox.y, userBox.width, userBox.height, cnr, cnr);
-		g.setStroke(prev);
+		drawButtons(g);
 	}
 	@Override public void keyReleased(KeyEvent e) {
 		checkModifierKey(e);		
