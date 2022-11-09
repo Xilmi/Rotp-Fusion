@@ -8,6 +8,7 @@ I'm quite confident it works well, but we are never too cautious. Please test it
   In the race editor, when selecting a "base race" (starting with * ), saving it under the proposed file name (ex RACE_HUMAN) this race will be identified as "reworked". Subsequently, selecting this option will always replace the race abilities with the reworked one.
   - Ctrl+Click on "selectable" will reset the abilities to default
   - Added ability files to the opponents ability list.
+  - Improved responsivity of custom races panel.
 
 
 ### Last Changes:

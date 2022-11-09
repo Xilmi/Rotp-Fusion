@@ -54,6 +54,7 @@ public class BaseText implements Base {
     // No need to put the mouse on the text
     private int width  = 200;
     private boolean fixedWidth = false;
+    public BasePanel panel() { return panel; } // BR:
     public void setFixedWidth(boolean b, int w) {
     	fixedWidth = b;
     	width = w;
