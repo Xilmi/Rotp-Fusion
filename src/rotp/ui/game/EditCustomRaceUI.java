@@ -128,6 +128,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	@Override public void open(BasePanel p) {
 		Modifier2KeysState.reset();
 		parent = p;
+
 		cr.fromOptions((DynOptions) playerCustomRace.get());
 		initialOptions = new MOO1GameOptions(); // Any content will do
 		saveOptions(initialOptions);
@@ -333,10 +334,9 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		init();
 	}	
 	@Override protected void close() {
-		((SetupRaceUI) parent).raceChanged();
 		Modifier2KeysState.reset();
 		disableGlassPane();
-		((SetupRaceUI) parent).repaint();
+		RotPUI.instance().returnToSetupRacePanel();
 	}
 	@Override protected int getBackGroundWidth() {
 		return super.getBackGroundWidth() + raceListW + columnPad;
@@ -428,31 +428,23 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 					}
 				}
 			}
-			if (repaint)
-				repaintButtons();
-			if (!tooltipText.equals(tip))
-				repaintTooltip();
 			if (prevHover != null)
 				repaint(prevHover);
 			if (hoverBox != null)
 				repaint(hoverBox);
-		} else if (repaint)
+			if (repaint) {
+				repaintButtons();
+			}
+			if (!tooltipText.equals(tip)) {
+				repaint();
+			}
+		} else if (repaint) {
 			repaintButtons();
-		else if (!tooltipText.equals(tip))
 			repaintTooltip();
-
-//			if (repaint)
-//				repaint();
-//			else if (!tooltipText.equals(tip))
-//				repaintTooltip();
-//			else {
-//				if (prevHover != null) repaint(prevHover);
-//				if (hoverBox != null)  repaint(hoverBox);
-//			}
-//		} else if (repaint)
-//			repaint();
-//		else if (!tooltipText.equals(tip))
-//			repaintTooltip();
+		}
+		else if (!tooltipText.equals(tip)) {
+			repaintTooltip();
+		}
 	}
 	@Override protected String raceAITxt() { return ""; }
 	@Override protected void drawButtons(Graphics2D g) {
@@ -548,7 +540,6 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	@Override public void paintComponent(Graphics g0) {
 		super.paintComponent(g0); // call ShowUI
 		Graphics2D g = (Graphics2D) g0;
-
 		// Custom Race List
 		currentWith = raceListW;
 		Stroke prev = g.getStroke();

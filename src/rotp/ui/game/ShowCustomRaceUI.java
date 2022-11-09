@@ -407,31 +407,23 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 					}
 				}
 			}
-			if (repaint)
-				repaintButtons();
-			if (!tooltipText.equals(tip))
-				repaintTooltip();
 			if (prevHover != null)
 				repaint(prevHover);
 			if (hoverBox != null)
 				repaint(hoverBox);
-		} else if (repaint)
+			if (repaint) {
+				repaintButtons();
+			}
+			if (!tooltipText.equals(tip)) {
+				repaint();
+			}
+		} else if (repaint) {
 			repaintButtons();
-		else if (!tooltipText.equals(tip))
 			repaintTooltip();
-
-//			if (repaint)
-//				repaint();
-//			else if (!tooltipText.equals(tip))
-//				repaintTooltip();
-//			else {
-//				if (prevHover != null) repaint(prevHover);
-//				if (hoverBox != null)  repaint(hoverBox);
-//			}
-//		} else if (repaint)
-//			repaint();
-//		else if (!tooltipText.equals(tip))
-//			repaintTooltip();
+		}
+		else if (!tooltipText.equals(tip)) {
+			repaintTooltip();
+		}
 	}
 	protected String raceAITxt() {
 		if (raceUI.selectedEmpire().isAIControlled())

@@ -358,7 +358,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     public void paintComponent(Graphics g0) {
         super.paintComponent(g0);
         Graphics2D g = (Graphics2D) g0;
-        
+ 
         int x = colorBox[0].x;
         int y = colorBox[0].y;
 
@@ -938,9 +938,8 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     // BR: Display UI panel for Player Race Customization
     private void goToPlayerRaceCustomization() {
         buttonClick();
+		setVisible(false);
         EditCustomRaceUI.instance().open(this);
-        backImg = null;
-        raceImg = null;
     }
     @Override
     public String ambienceSoundKey() { 

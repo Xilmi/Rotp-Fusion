@@ -25,6 +25,10 @@ Community subreddit: https://www.reddit.com/r/rotp/<br/>
 Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
+
+2022.11.08 (BR)
+  - Fixed some responsivity issues.
+
 2022.11.08 (BR)
   - Made Race customization panel descriptions more responsive.
   - Made Race customization panel Buttons more responsive to key modifiers.
