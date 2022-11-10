@@ -26,8 +26,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
-2022.11.08 (BR)
+2022.11.09 (BR)
   - Fixed some responsivity issues.
+  - Fixed "Reworked" not being reloaded correctly.
 
 2022.11.08 (BR)
   - Made Race customization panel descriptions more responsive.

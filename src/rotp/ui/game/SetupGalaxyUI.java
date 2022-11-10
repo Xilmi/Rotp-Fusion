@@ -17,6 +17,7 @@ package rotp.ui.game;
 
 import static rotp.model.empires.CustomRaceDefinitions.getAllowedAlienRaces;
 import static rotp.model.empires.CustomRaceDefinitions.getBaseRacList;
+import static rotp.ui.RotPUI.guiOptions;
 import static rotp.ui.UserPreferences.opponentCROptions;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
 import static rotp.ui.UserPreferences.showNewRaces;
@@ -168,14 +169,14 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
     	MOO1GameOptions.setGalaxyOptions(src, dest);
     }
 	private void saveOptions(MOO1GameOptions destination) {
-		copyOptions((MOO1GameOptions)newGameOptions(), destination);
+		copyOptions(guiOptions(), destination);
 		showNewRaces.setOptions(destination.dynamicOptions());
 		prefStarsPerEmpire.setOptions(destination.dynamicOptions());
 		opponentCROptions.setOptions(destination.dynamicOptions());
 		useSelectableAbilities.setOptions(destination.dynamicOptions());
 	}
 	private void getOptions(MOO1GameOptions source) {
-		copyOptions(source, (MOO1GameOptions)newGameOptions());
+		copyOptions(source, guiOptions());
 		showNewRaces.setFromOptions(source.dynamicOptions());
 		prefStarsPerEmpire.setFromOptions(source.dynamicOptions());
 		opponentCROptions.setFromOptions(source.dynamicOptions());
@@ -229,7 +230,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		repaint();
  	}
  	private void setToDefault() {
- 		MOO1GameOptions.setDefaultGalaxyOptions((MOO1GameOptions)newGameOptions());
+ 		MOO1GameOptions.setDefaultGalaxyOptions(guiOptions());
     }
  	private void doUserBoxAction() {
 		buttonClick();

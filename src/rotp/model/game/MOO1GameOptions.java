@@ -142,10 +142,12 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         randomizeColors();
         setDefaultOptionValues();
     }
+    /*
     private void resetSelectedOpponentRaces() {
         for (int i=0;i<opponentRaces.length;i++)
             selectedOpponentRace(i,null);
     }
+    */
 	@Override public DynOptions dynamicOptions() { return dynamicOptions; } // BR:
     @Override
     public int numPlayers()                      { return 1; }

@@ -330,7 +330,9 @@ public final class Empire implements Base, NamedObject, Serializable {
     }
     public Race dataRace() {
         if (dataRace == null)
-        	if (dataRaceKey == null)
+        	if (raceOptions != null)
+        		dataRace = CustomRaceDefinitions.optionToAlienRace(raceOptions);
+        	else if (dataRaceKey == null)
         		dataRace = Race.keyed(raceKey);
         	else
         		dataRace = Race.keyed(dataRaceKey, raceOptions());

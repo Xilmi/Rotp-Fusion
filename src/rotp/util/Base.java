@@ -15,9 +15,6 @@
  */
 package rotp.util;
 
-import org.apache.commons.math3.util.FastMath;
-import rotp.util.sound.SoundManager;
-
 import static rotp.model.game.IGameOptions.DIFFICULTY_CUSTOM;
 import static rotp.ui.UserPreferences.customDifficulty;
 import static rotp.ui.UserPreferences.playerCustomRace;
@@ -56,11 +53,14 @@ import java.util.Random;
 import java.util.Set;
 import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
+
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
+
+import org.apache.commons.math3.util.FastMath;
 
 import rotp.Rotp;
 import rotp.model.empires.Empire;
@@ -76,6 +76,7 @@ import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.util.planets.PlanetImager;
 import rotp.util.sound.SoundClip;
+import rotp.util.sound.SoundManager;
 
 public interface Base {
     public static String[] monthName = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
@@ -106,9 +107,9 @@ public interface Base {
     public default Empire player()         { return galaxy().player(); }
     public default boolean isPlayer(Empire e) { return galaxy().isPlayer(e); }
     public default LabelManager labels()   { return LabelManager.current(); }
-    public default IGameOptions newGameOptions()        { return RotPUI.newOptions(); }
-    public default void createNewGameOptions()          { RotPUI.createNewOptions(); }
-    public default void clearNewGameOptions()           { RotPUI.clearNewOptions(); }
+    public default IGameOptions newGameOptions() { return RotPUI.newOptions(); }
+    public default void createNewGameOptions()   { RotPUI.createNewOptions(); }
+    public default void clearNewGameOptions()    { RotPUI.clearNewOptions(); }
 
     public default Object sessionVar(String key) {
         return session().var(key);

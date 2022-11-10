@@ -15,6 +15,7 @@
  */
 package rotp.ui.game;
 
+import static rotp.ui.RotPUI.guiOptions;
 import static rotp.ui.UserPreferences.playerCustomRace;
 import static rotp.ui.UserPreferences.playerIsCustom;
 import static rotp.ui.UserPreferences.playerShipSet;
@@ -141,13 +142,13 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     	MOO1GameOptions.setRaceOptions(src, dest);
     }
 	private void saveOptions(MOO1GameOptions destination) {
-		copyOptions((MOO1GameOptions)newGameOptions(), destination);
+		copyOptions(guiOptions(), destination);
 		playerIsCustom.setOptions(destination.dynamicOptions());
     	playerShipSet.setOptions(destination.dynamicOptions());
     	playerCustomRace.setOptions(destination.dynamicOptions());
 	}
 	private void getOptions(MOO1GameOptions source) {
-		copyOptions(source, (MOO1GameOptions)newGameOptions());
+		copyOptions(source, guiOptions());
     	playerIsCustom.setFromOptions(source.dynamicOptions());
     	playerShipSet.setFromOptions(source.dynamicOptions());
     	playerCustomRace.setFromOptions(source.dynamicOptions());
@@ -198,7 +199,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 		repaint();
  	}
  	private void setToDefault() {
- 		MOO1GameOptions.setDefaultRaceOptions((MOO1GameOptions)newGameOptions());
+ 		MOO1GameOptions.setDefaultRaceOptions(guiOptions());
     }
  	private void doUserBoxAction() {
 		buttonClick();
