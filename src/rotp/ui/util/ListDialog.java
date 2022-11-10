@@ -31,14 +31,37 @@
 
 package rotp.ui.util;
 
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.Insets;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
+import rotp.ui.RotPUI;
 import rotp.ui.game.GameUI;
 import rotp.util.Base;
-
-import java.awt.*;
-import java.awt.event.*;
 
 /*
  * ListDialog.java is meant to be used by programs such as
@@ -109,9 +132,10 @@ public class ListDialog extends JDialog
 								title,
 								possibleValues,
 								initialValue,
-								longValue);
-		if (width>0 && height>0)
-			dialog.setSize(width, height);
+								longValue,
+								width, height);
+//		if (width>0 && height>0)
+//			dialog.setSize(width, height);
 		dialog.setLocationRelativeTo(locationComp);
 		dialog.setVisible(true);
 		return value;
@@ -128,23 +152,28 @@ public class ListDialog extends JDialog
 					   String title,
 					   Object[] data,
 					   String initialValue,
-					   String longValue) {
+					   String longValue,
+					   int width, int height) {
 
 		super(frame, title, true);
-
+		int topInset  = RotPUI.scaledSize(6);
+		int sideInset = RotPUI.scaledSize(15);
 		//Create and initialize the buttons.
 		JButton cancelButton = new JButton("Cancel");
-		cancelButton.addActionListener(this);
+		cancelButton.setMargin(new Insets(topInset, sideInset, 0, sideInset));
+		cancelButton.setFont(narrowFont(15));
+		cancelButton.setVerticalAlignment(SwingConstants.TOP);
 		cancelButton.setBackground(GameUI.buttonBackgroundColor());
 		cancelButton.setForeground(GameUI.buttonTextColor());
-		cancelButton.setFont(narrowFont(15));
+		cancelButton.addActionListener(this);
 		//
 		final JButton setButton = new JButton("Set");
-		setButton.setActionCommand("Set");
-		setButton.addActionListener(this);
+		setButton.setMargin(new Insets(topInset, sideInset, 0, sideInset));
+		setButton.setFont(narrowFont(15));
 		setButton.setBackground(GameUI.buttonBackgroundColor());
 		setButton.setForeground(GameUI.buttonTextColor());
-		setButton.setFont(narrowFont(15));
+		setButton.setActionCommand("Set");
+		setButton.addActionListener(this);
 		getRootPane().setDefaultButton(setButton);
 
 		//main part of the dialog
@@ -179,6 +208,7 @@ public class ListDialog extends JDialog
 			}
 		};
 
+		list.setFont(narrowFont(14));
 		list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		if (longValue != null) {
 			list.setPrototypeCellValue(longValue); //get extra space
@@ -194,12 +224,15 @@ public class ListDialog extends JDialog
 		});
 		list.setBackground(GameUI.paneBackgroundColor());
 		list.setForeground(Color.BLACK);
-		list.setFont(narrowFont(14));
 		list.setSelectionBackground(GameUI.borderMidColor());
 		list.setSelectionForeground(Color.WHITE);
 
+		if (width<=0)
+			width = 300;
+		if (height<=0)
+			height = 150;
 		JScrollPane listScroller = new JScrollPane(list);
-		listScroller.setPreferredSize(new Dimension(300, 150));
+		listScroller.setPreferredSize(new Dimension(width, height));
 		listScroller.setAlignmentX(LEFT_ALIGNMENT);
 		listScroller.getVerticalScrollBar().setBackground(GameUI.borderMidColor());
 		listScroller.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
@@ -223,9 +256,9 @@ public class ListDialog extends JDialog
 		JPanel listPane = new JPanel();
 		listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
 		JLabel label = new JLabel(labelText);
+		label.setFont(narrowFont(15));
 		label.setLabelFor(list);
 		label.setForeground(Color.WHITE);
-		label.setFont(narrowFont(15));
 
 		listPane.setBackground(GameUI.borderMidColor());
 		listPane.setForeground(Color.WHITE);
@@ -237,11 +270,11 @@ public class ListDialog extends JDialog
 
 		//Lay out the buttons from left to right.
 		JPanel buttonPane = new JPanel();
+		buttonPane.setFont(narrowFont(15));
 		buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
 		buttonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
 		buttonPane.setBackground(GameUI.borderMidColor());
 		buttonPane.setForeground(Color.WHITE);
-		buttonPane.setFont(narrowFont(14));
 		buttonPane.add(Box.createHorizontalGlue());
 		buttonPane.add(cancelButton);
 		buttonPane.add(Box.createRigidArea(new Dimension(10, 0)));
@@ -252,6 +285,7 @@ public class ListDialog extends JDialog
 		Container contentPane = getContentPane();
 		contentPane.add(listPane, BorderLayout.CENTER);
 		contentPane.add(buttonPane, BorderLayout.PAGE_END);
+
 
 		//Initialize values.
 		setValue(initialValue);

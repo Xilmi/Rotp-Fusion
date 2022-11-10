@@ -9,6 +9,7 @@ I'm quite confident it works well, but we are never too cautious. Please test it
   - Ctrl+Click on "selectable" will reset the abilities to default
   - Added ability files to the opponents ability list.
   - Improved responsivity of custom races panel.
+  = Fixed some bugs...
 
 
 ### Last Changes:

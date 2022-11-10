@@ -170,6 +170,9 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
     }
 	private void saveOptions(MOO1GameOptions destination) {
 		copyOptions(guiOptions(), destination);
+		updateOptions(destination);
+	}
+	public void updateOptions(MOO1GameOptions destination) {
 		showNewRaces.setOptions(destination.dynamicOptions());
 		prefStarsPerEmpire.setOptions(destination.dynamicOptions());
 		opponentCROptions.setOptions(destination.dynamicOptions());
@@ -297,7 +300,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	        (String[]) abilitiesList,	// Use default icon
 	        initialChoice, 				// Initial choice
 	        "XX_RACE_JACKTRADES_XX",	// long Dialogue
-	        scaled(390), scaled(300));	// size
+	        scaled(400), scaled(300));	// size
 	    if (input == null)
 	    	return initialChoice;
 	    newGameOptions().specificOpponentCROption(input, i);

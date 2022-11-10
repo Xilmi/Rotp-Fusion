@@ -324,14 +324,21 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     		MOO1GameOptions.setDefaultGalaxyOptions(newOptions);
     		newOptions.setToDefault(); // Advanced options
     		startModAOptionsUI().setToDefault();
-    		startModAOptionsUI().saveOptions(newOptions);
+    		startModAOptionsUI().updateOptions(newOptions);
     		startModBOptionsUI().setToDefault();
-    		startModBOptionsUI().saveOptions(newOptions);
+    		startModBOptionsUI().updateOptions(newOptions);
     		EditCustomRaceUI.instance().setToDefault();
     		EditCustomRaceUI.instance().saveOptions(newOptions);
     		return newOptions;
     	} else // Vanilla, as before
     		return new MOO1GameOptions();
+    }
+    public static void updateAllOptions(MOO1GameOptions dest) {
+    	startModAOptionsUI().updateOptions(dest);
+    	startModBOptionsUI().updateOptions(dest);
+		EditCustomRaceUI.instance().saveOptions(dest);
+		instance.setupRaceUI.updateOptions(dest);
+		instance.setupGalaxyUI.updateOptions(dest);
     }
     public static void clearNewOptions() { newGameOptions = null; }
 

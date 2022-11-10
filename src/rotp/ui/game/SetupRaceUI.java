@@ -141,8 +141,11 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     private void copyOptions(MOO1GameOptions src, MOO1GameOptions dest) {
     	MOO1GameOptions.setRaceOptions(src, dest);
     }
-	private void saveOptions(MOO1GameOptions destination) {
+    private void saveOptions(MOO1GameOptions destination) {
 		copyOptions(guiOptions(), destination);
+		updateOptions(destination);
+	}
+    public void updateOptions(MOO1GameOptions destination) {
 		playerIsCustom.setOptions(destination.dynamicOptions());
     	playerShipSet.setOptions(destination.dynamicOptions());
     	playerCustomRace.setOptions(destination.dynamicOptions());

@@ -184,7 +184,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 				bg = GameUI.settingsSetupBackground(w);
 
 		initialOptions = new MOO1GameOptions(); // Any content will do
-		saveOptions(initialOptions);
+		updateOptions(initialOptions);
 		init();
 		enableGlassPane(this);
 	}
@@ -194,7 +194,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		Modifier2KeysState.reset();
 		disableGlassPane();
 	}
-	public void saveOptions(MOO1GameOptions destination) {
+	public void updateOptions(MOO1GameOptions destination) {
 		for (InterfaceOptions param : paramList)
 			param.setOptions(destination.dynamicOptions());
 	}
@@ -258,12 +258,12 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	}
 	private void saveUserOptions() {
 		MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
-		saveOptions(fileOptions);
+		updateOptions(fileOptions);
 		MOO1GameOptions.saveUserOptions(fileOptions);
 	}
 	private void saveLastOptions() {
 		MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
-		saveOptions(fileOptions);
+		updateOptions(fileOptions);
 		MOO1GameOptions.saveLastOptions(fileOptions);
 		initialOptions = null;
 	}

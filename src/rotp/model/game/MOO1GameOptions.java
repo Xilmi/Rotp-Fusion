@@ -376,9 +376,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     		setDefaultGalaxyOptions(this);
     		setToDefault(); // Advanced options
     		RotPUI.startModAOptionsUI().setToDefault();
-    		RotPUI.startModAOptionsUI().saveOptions(this);
+    		RotPUI.startModAOptionsUI().updateOptions(this);
     		RotPUI.startModBOptionsUI().setToDefault();
-    		RotPUI.startModBOptionsUI().saveOptions(this);
+    		RotPUI.startModBOptionsUI().updateOptions(this);
     		EditCustomRaceUI.instance().setToDefault();
     		EditCustomRaceUI.instance().saveOptions(this);
     		generateGalaxy();
@@ -1250,7 +1250,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	    prefStarsPerEmpire.setFromDefault();
 	    opponentCROptions.setFromDefault();
 	    useSelectableAbilities.setFromDefault();
-   }
+    }
     public static void setAdvancedOptions(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
         dest.selectedGalaxyAge			= src.selectedGalaxyAge;
         dest.selectedPlanetQualityOption = src.selectedPlanetQualityOption;
@@ -1555,6 +1555,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	 * Save last Loaded Game options to file
 	 */
     public static void saveGameOptions(MOO1GameOptions options) {
+    	RotPUI.updateAllOptions(options);
     	saveOptions(options, Rotp.jarPath(), GAME_OPTIONS_FILE);
     	UserPreferences.gamePlayed(true);
     }
