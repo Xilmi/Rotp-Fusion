@@ -26,9 +26,10 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
-2022.11.09 (BR)
+2022.11.10 (BR)
   - Fixed game options not always being saved.
   - Fixed overlapping text in race ability selection.
+  - Set Minimum Tech Discovery to 0.
 
 2022.11.09 (BR)
   - Fixed some responsivity issues.

@@ -1413,7 +1413,8 @@ public class CustomRaceDefinitions  {
 	private class TechDiscovery extends SettingInteger {
 		// bigger = better
 		private TechDiscovery() {
-			super(ROOT, "TECH_DISCOVERY", 50, 30, 100, 1, 5, 20,
+//			super(ROOT, "TECH_DISCOVERY", 50, 30, 100, 1, 5, 20,
+			super(ROOT, "TECH_DISCOVERY", 50, 0, 100, 1, 5, 20,
 					DIFFERENCE, new float[]{0f, .5f}, new float[]{0f, 0.5f});
 			initOptionsText();
 		}

@@ -10,6 +10,7 @@ I'm quite confident it works well, but we are never too cautious. Please test it
   - Added ability files to the opponents ability list.
   - Improved responsivity of custom races panel.
   = Fixed some bugs...
+  - Set Minimum Tech Discovery to 0. (Attempt)
 
 
 ### Last Changes:

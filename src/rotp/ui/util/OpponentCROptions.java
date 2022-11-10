@@ -18,16 +18,6 @@ package rotp.ui.util;
 
 public class OpponentCROptions extends ParamList {
 	
-//	public static final String BASE_RACE	= "Base Race";
-//	public static final String SELECTION	= "Selection";
-//	public static final String REWORKED		= "Reworked";
-//	public static final String PLAYER		= "Player";
-//	public static final String RANDOM		= "Random";
-//	public static final String FILES_FLT	= "Files";
-//	public static final String FILES_NO_FLT	= "Files No Filter";
-//	public static final String FILES_RACES	= "Files Races";
-//	public static final String ALL			= "All";
-
 	/**
 	 * @param gui  The label header
 	 * @param name The name
@@ -39,15 +29,6 @@ public class OpponentCROptions extends ParamList {
 			if(!opt.isSelection() && !opt.isUserChoice())
 				put(opt.value, gui + name + "_" + opt.name());
 		}
-//		put(BASE_RACE,		gui + name + "_BASE_RACE");
-//		put(SELECTION,		gui + name + "_SELECTION");
-//		put(REWORKED,		gui + name + "_REWORKED");
-//		put(PLAYER,			gui + name + "_PLAYER");
-//		put(RANDOM,			gui + name + "_RANDOM");
-//		put(FILES_FLT,		gui + name + "_FILES_FLT");
-//		put(FILES_NO_FLT,	gui + name + "_FILES_NO_FLT");
-//		put(FILES_RACES,	gui + name + "_FILES_RACES");
-//		put(ALL,	 		gui + name + "_ALL");
 	}
 	public SpecificCROption getEnu() {
 		return SpecificCROption.set(get());

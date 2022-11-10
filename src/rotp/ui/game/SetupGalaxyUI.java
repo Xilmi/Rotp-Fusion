@@ -132,7 +132,8 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	private int leftBoxX, rightBoxX, boxW, boxY, leftBoxH, rightBoxH;
 	private int galaxyX, galaxyY, galaxyW, galaxyH;
     private MOO1GameOptions initialOptions; // To be restored if "cancel"
-	private String[] abilitiesList; 
+	private String[] specificAbilitiesList; 
+	private String[] globalcAbilitiesList; 
 
 	public SetupGalaxyUI() {
 		init0();
@@ -149,11 +150,17 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			oppCR[i] = new Rectangle();
 	}
 	private void initAbilitiesList() {
+		// specific
 		LinkedList<String> list = new LinkedList<>();
 		list.addAll(SpecificCROption.options());
 		list.addAll(getAllowedAlienRaces());
 		list.addAll(getBaseRacList());
-		abilitiesList = list.toArray(new String[list.size()]);
+		specificAbilitiesList = list.toArray(new String[list.size()]);
+		// global
+		list.clear();
+		list.addAll(opponentCROptions.getOptions());
+		list.addAll(getAllowedAlienRaces());
+		list.addAll(getBaseRacList());
 	}
 	public void init() {
 		Modifier2KeysState.reset();
@@ -283,21 +290,28 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			repaintButtons();
 		}
 	}
-	private int currentAbilityIndex(String s) {
-		for (int i=0; i<abilitiesList.length; i++) {
-			if (s.equalsIgnoreCase((String) abilitiesList[i]))
+	private int currentSpecificAbilityIndex(String s) {
+		for (int i=0; i<specificAbilitiesList.length; i++) {
+			if (s.equalsIgnoreCase((String) specificAbilitiesList[i]))
 				return i;
 		}
 		return -1;
 	}
-	private String selectAbilityFromList(int i) {
+	private int currentGlobalAbilityIndex(String s) { // TODO BR:
+		for (int i=0; i<globalcAbilitiesList.length; i++) {
+			if (s.equalsIgnoreCase((String) globalcAbilitiesList[i]))
+				return i;
+		}
+		return -1;
+	}
+	private String selectSpecificAbilityFromList(int i) {
 		String initialChoice = newGameOptions().specificOpponentCROption(i);
 	    String input = (String) ListDialog.showDialog(
 	    	getParent(),				// Frame component
 	    	getParent(),				// Location component
 	    	"Select one abilities...",	// Message
 	        "Opponent abilities",		// Title
-	        (String[]) abilitiesList,	// Use default icon
+	        (String[]) specificAbilitiesList,	// List
 	        initialChoice, 				// Initial choice
 	        "XX_RACE_JACKTRADES_XX",	// long Dialogue
 	        scaled(400), scaled(300));	// size
@@ -306,6 +320,23 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	    newGameOptions().specificOpponentCROption(input, i);
 	    return input;
 	}
+	private String selectGlobalAbilityFromList() { // TODO BR:
+		String initialChoice = opponentCROptions.get();
+	    String input = (String) ListDialog.showDialog(
+	    	getParent(),				// Frame component
+	    	getParent(),				// Location component
+	    	"Select one abilities...",	// Message
+	        "Opponent abilities",		// Title
+	        (String[]) globalcAbilitiesList,	// List
+	        initialChoice, 				// Initial choice
+	        "XX_RACE_JACKTRADES_XX",	// long Dialogue
+	        scaled(400), scaled(300));	// size
+	    if (input == null)
+	    	return initialChoice;
+	    opponentCROptions.set(input);
+	    return input;
+	}
+
 	@Override
 	public void paintComponent(Graphics g0) {
 		super.paintComponent(g0);
@@ -885,12 +916,12 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		newGameOptions().selectedOpponentAIOption(newGameOptions().prevOpponentAI());
 		repaint();
 	}
-	private void nextOpponentCR(boolean click) {
+	private void nextOpponentCR(boolean click) { // TODO BR:
 		if (click) softClick();
 		opponentCROptions.next();
 		repaint();
 	}
-	private void prevOpponentCR(boolean click) {
+	private void prevOpponentCR(boolean click) { // TODO BR:
 		if (click) softClick();
 		opponentCROptions.prev();
 		repaint();
@@ -943,15 +974,15 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	private void nextSpecificOpponentCR(int i, boolean click) {
 		if (click) softClick();
 		if (click || Modifier2KeysState.isCtrlDown())
-			selectAbilityFromList(i+1);
+			selectSpecificAbilityFromList(i+1);
 		else {
 			String currCR = newGameOptions().specificOpponentCROption(i+1);
 			int nextIndex = 0;
 			if (currCR != null)
-				nextIndex = currentAbilityIndex(currCR)+1;
-			if (nextIndex >= abilitiesList.length)
+				nextIndex = currentSpecificAbilityIndex(currCR)+1;
+			if (nextIndex >= specificAbilitiesList.length)
 				nextIndex = 0;
-			String nextCR = (String) abilitiesList[nextIndex];
+			String nextCR = (String) specificAbilitiesList[nextIndex];
 			newGameOptions().specificOpponentCROption(nextCR, i+1);
 		}
 		repaint();
@@ -959,15 +990,15 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	private void prevSpecificOpponentCR(int i, boolean click) {
 		if (click) softClick();
 		if (click || Modifier2KeysState.isCtrlDown())
-			selectAbilityFromList(i+1);
+			selectSpecificAbilityFromList(i+1);
 		else {
 			String currCR = newGameOptions().specificOpponentCROption(i+1);
 			int prevIndex = 0;
 			if (currCR != null)
-				prevIndex = currentAbilityIndex(currCR)-1;
+				prevIndex = currentSpecificAbilityIndex(currCR)-1;
 	        if (prevIndex < 0)
-	        	prevIndex = abilitiesList.length-1;
-	        String prevCR = (String) abilitiesList[prevIndex];
+	        	prevIndex = specificAbilitiesList.length-1;
+	        String prevCR = (String) specificAbilitiesList[prevIndex];
 	        newGameOptions().specificOpponentCROption(prevCR, i+1);
 		}
 		repaint();
