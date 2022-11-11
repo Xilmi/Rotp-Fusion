@@ -412,7 +412,7 @@ public class CustomRaceDefinitions  {
 		settingList.add(new LeaderPrefix());
 		settingList.add(new LeaderSuffix());
 		settingList.add(new WorldsPrefix());
-		settingList.add(new LeaderSuffix());
+		settingList.add(new WorldsSuffix());
 		endOfColumn();
 
 		// ====================

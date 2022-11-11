@@ -28,6 +28,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 2022.11.11 (BR)
   - Added Prefix and suffix option to custom race name, leader names and worlds name.
   - Selection popup available for global ability selection.
+  - Fixed Missing Worlds suffix 
   
 2022.11.10 (BR)
   - Fixed game options not always being saved.
