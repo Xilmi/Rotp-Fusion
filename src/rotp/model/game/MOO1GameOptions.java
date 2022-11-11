@@ -19,7 +19,7 @@ import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.minStarsPerEmpire;
-import static rotp.ui.UserPreferences.opponentCROptions;
+import static rotp.ui.UserPreferences.globalCROptions;
 import static rotp.ui.UserPreferences.playerIsCustom;
 import static rotp.ui.UserPreferences.playerShipSet;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
@@ -266,7 +266,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override 
     public String specificOpponentCROption(int n)  {
             if ((specificOpponentCROption == null) || (specificOpponentCROption.length < n))
-                return opponentCROptions.get();
+                return globalCROptions.get();
             else
                 return specificOpponentCROption[n];
     }
@@ -435,7 +435,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 			param.setFromOptions(opt.dynamicOptions);
 		showNewRaces.setFromOptions(opt.dynamicOptions);
 		prefStarsPerEmpire.setFromOptions(opt.dynamicOptions);
-		opponentCROptions.setFromOptions(opt.dynamicOptions);
+		globalCROptions.setFromOptions(opt.dynamicOptions);
 		useSelectableAbilities.setFromOptions(opt.dynamicOptions);
     	playerIsCustom.setFromOptions(opt.dynamicOptions);
     	playerShipSet.setFromOptions(opt.dynamicOptions);
@@ -1248,7 +1248,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         dest.generateGalaxy();
 	    showNewRaces.setFromDefault();
 	    prefStarsPerEmpire.setFromDefault();
-	    opponentCROptions.setFromDefault();
+	    globalCROptions.setFromDefault();
 	    useSelectableAbilities.setFromDefault();
     }
     public static void setAdvancedOptions(MOO1GameOptions src, MOO1GameOptions dest) { // BR:

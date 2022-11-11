@@ -18,7 +18,7 @@ package rotp.ui.game;
 import static rotp.model.empires.CustomRaceDefinitions.getAllowedAlienRaces;
 import static rotp.model.empires.CustomRaceDefinitions.getBaseRacList;
 import static rotp.ui.RotPUI.guiOptions;
-import static rotp.ui.UserPreferences.opponentCROptions;
+import static rotp.ui.UserPreferences.globalCROptions;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
 import static rotp.ui.UserPreferences.showNewRaces;
 import static rotp.ui.UserPreferences.useSelectableAbilities;
@@ -133,7 +133,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	private int galaxyX, galaxyY, galaxyW, galaxyH;
     private MOO1GameOptions initialOptions; // To be restored if "cancel"
 	private String[] specificAbilitiesList; 
-	private String[] globalcAbilitiesList; 
+	private String[] globalAbilitiesList; 
 
 	public SetupGalaxyUI() {
 		init0();
@@ -158,9 +158,10 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		specificAbilitiesList = list.toArray(new String[list.size()]);
 		// global
 		list.clear();
-		list.addAll(opponentCROptions.getOptions());
+		list.addAll(globalCROptions.getBaseOptions());
 		list.addAll(getAllowedAlienRaces());
 		list.addAll(getBaseRacList());
+		globalAbilitiesList = list.toArray(new String[list.size()]);
 	}
 	public void init() {
 		Modifier2KeysState.reset();
@@ -182,14 +183,14 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	public void updateOptions(MOO1GameOptions destination) {
 		showNewRaces.setOptions(destination.dynamicOptions());
 		prefStarsPerEmpire.setOptions(destination.dynamicOptions());
-		opponentCROptions.setOptions(destination.dynamicOptions());
+		globalCROptions.setOptions(destination.dynamicOptions());
 		useSelectableAbilities.setOptions(destination.dynamicOptions());
 	}
 	private void getOptions(MOO1GameOptions source) {
 		copyOptions(source, guiOptions());
 		showNewRaces.setFromOptions(source.dynamicOptions());
 		prefStarsPerEmpire.setFromOptions(source.dynamicOptions());
-		opponentCROptions.setFromOptions(source.dynamicOptions());
+		globalCROptions.setFromOptions(source.dynamicOptions());
 		useSelectableAbilities.setFromOptions(source.dynamicOptions());
 	}
     private void doStartBoxAction() {
@@ -297,9 +298,9 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		}
 		return -1;
 	}
-	private int currentGlobalAbilityIndex(String s) { // TODO BR:
-		for (int i=0; i<globalcAbilitiesList.length; i++) {
-			if (s.equalsIgnoreCase((String) globalcAbilitiesList[i]))
+	private int currentGlobalAbilityIndex(String s) {
+		for (int i=0; i<globalAbilitiesList.length; i++) {
+			if (s.equalsIgnoreCase((String) globalAbilitiesList[i]))
 				return i;
 		}
 		return -1;
@@ -320,23 +321,22 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	    newGameOptions().specificOpponentCROption(input, i);
 	    return input;
 	}
-	private String selectGlobalAbilityFromList() { // TODO BR:
-		String initialChoice = opponentCROptions.get();
+	private String selectGlobalAbilityFromList() {
+		String initialChoice = globalCROptions.get();
 	    String input = (String) ListDialog.showDialog(
 	    	getParent(),				// Frame component
 	    	getParent(),				// Location component
 	    	"Select one abilities...",	// Message
 	        "Opponent abilities",		// Title
-	        (String[]) globalcAbilitiesList,	// List
+	        (String[]) globalAbilitiesList,	// List
 	        initialChoice, 				// Initial choice
 	        "XX_RACE_JACKTRADES_XX",	// long Dialogue
 	        scaled(400), scaled(300));	// size
 	    if (input == null)
 	    	return initialChoice;
-	    opponentCROptions.set(input);
+	    globalCROptions.set(input);
 	    return input;
 	}
-
 	@Override
 	public void paintComponent(Graphics g0) {
 		super.paintComponent(g0);
@@ -524,7 +524,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		g.setFont(narrowFont(15));
 
 		// draw Opponent CR text
-		String crLbl = text(opponentCROptions.get());
+		String crLbl = text(globalCROptions.get());
 		int crSW = g.getFontMetrics().stringWidth(crLbl);
 		int x4cr = crBox.x+((aiBox.width-crSW)/2);
 		int y4cr = crBox.y+crBox.height-s3;
@@ -916,14 +916,36 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		newGameOptions().selectedOpponentAIOption(newGameOptions().prevOpponentAI());
 		repaint();
 	}
-	private void nextOpponentCR(boolean click) { // TODO BR:
+	private void nextOpponentCR(boolean click) {
 		if (click) softClick();
-		opponentCROptions.next();
+		if (click || Modifier2KeysState.isCtrlDown())
+			selectGlobalAbilityFromList();
+		else {
+			String currCR = globalCROptions.get();
+			int nextIndex = 0;
+			if (currCR != null)
+				nextIndex = currentGlobalAbilityIndex(currCR)+1;
+			if (nextIndex >= globalAbilitiesList.length)
+				nextIndex = 0;
+			String nextCR = (String) globalAbilitiesList[nextIndex];
+			globalCROptions.set(nextCR);
+		}
 		repaint();
 	}
-	private void prevOpponentCR(boolean click) { // TODO BR:
+	private void prevOpponentCR(boolean click) {
 		if (click) softClick();
-		opponentCROptions.prev();
+		if (click || Modifier2KeysState.isCtrlDown())
+			selectGlobalAbilityFromList();
+		else {
+			String currCR = globalCROptions.get();
+			int prevIndex = 0;
+			if (currCR != null)
+				prevIndex = currentGlobalAbilityIndex(currCR)-1;
+			if (prevIndex < 0)
+				prevIndex = globalAbilitiesList.length-1;
+			String prevCR = (String) globalAbilitiesList[prevIndex];
+			globalCROptions.set(prevCR);
+		}
 		repaint();
 	}
 	private void toggleNewRaces(boolean click) {

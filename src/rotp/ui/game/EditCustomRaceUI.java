@@ -126,6 +126,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		}
 	}
 	@Override public void open(BasePanel p) {
+		enableGlassPane(this);
 		Modifier2KeysState.reset();
 		parent = p;
 
@@ -133,7 +134,6 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		initialOptions = new MOO1GameOptions(); // Any content will do
 		saveOptions(initialOptions);
 		init();
-		enableGlassPane(this);
 		reloadRaceList();
 		repaint();
 	}
@@ -336,6 +336,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	@Override protected void close() {
 		Modifier2KeysState.reset();
 		disableGlassPane();
+		((SetupRaceUI) parent).raceChanged();		
 		RotPUI.instance().returnToSetupRacePanel();
 	}
 	@Override protected int getBackGroundWidth() {
@@ -439,11 +440,11 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 				repaint();
 			}
 		} else if (repaint) {
-			repaintButtons();
-			repaintTooltip();
+			//repaintButtons();
+			repaint();
 		}
 		else if (!tooltipText.equals(tip)) {
-			repaintTooltip();
+			repaint();
 		}
 	}
 	@Override protected String raceAITxt() { return ""; }
@@ -558,6 +559,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			bt.draw(g);
 			yLine -= labelH;
 	    }
+	    g.dispose();
 	}
 	@Override public void keyPressed(KeyEvent e) {
 		checkModifierKey(e);

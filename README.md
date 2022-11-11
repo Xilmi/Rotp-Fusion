@@ -25,7 +25,10 @@ Community subreddit: https://www.reddit.com/r/rotp/<br/>
 Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
-
+2022.11.11 (BR)
+  - Added Prefix and suffix option to custom race name, leader names and worlds name.
+  - Selection popup available for global ability selection.
+  
 2022.11.10 (BR)
   - Fixed game options not always being saved.
   - Fixed overlapping text in race ability selection.

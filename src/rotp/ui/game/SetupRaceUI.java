@@ -632,8 +632,6 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     			newGameOptions().selectedPlayerRace()).preferredShipSet);
     }
     private void checkBoxChanged() { // BR: checkBoxChanged
-//        if (playerIsCustom.get())
-//            goToPlayerRaceCustomization();
         repaint();
     }
     public void raceChanged() {
@@ -942,8 +940,8 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     // BR: Display UI panel for Player Race Customization
     private void goToPlayerRaceCustomization() {
         buttonClick();
-		setVisible(false);
         EditCustomRaceUI.instance().open(this);
+		setVisible(false);      
     }
     @Override
     public String ambienceSoundKey() { 

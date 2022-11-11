@@ -406,6 +406,13 @@ public class CustomRaceDefinitions  {
 		settingList.add(objective.technologist);
 		spacer();
 		settingList.add(availableAI);
+		spacer();
+		settingList.add(new RacePrefix());
+		settingList.add(new RaceSuffix());
+		settingList.add(new LeaderPrefix());
+		settingList.add(new LeaderSuffix());
+		settingList.add(new WorldsPrefix());
+		settingList.add(new LeaderSuffix());
 		endOfColumn();
 
 		// ====================
@@ -711,6 +718,96 @@ public class CustomRaceDefinitions  {
 			set(race.description4);		
 		}
 	}
+	// ==================== RacePrefix ====================
+	//
+	private class RacePrefix extends SettingString {
+		private RacePrefix() {
+			super(ROOT, "RACE_PREFIX", "@", 1);
+			inputMessage("Enter the race Prefix");
+			randomStr("#");
+		}
+		@Override public void pushSetting() {
+			race.racePrefix = settingValue();
+		}
+		@Override public void pullSetting() {
+			set(race.racePrefix);		
+		}
+	}
+	// ==================== RaceSuffix ====================
+	//
+	private class RaceSuffix extends SettingString {
+		private RaceSuffix() {
+			super(ROOT, "RACE_SUFFIX", "", 1);
+			inputMessage("Enter the race Suffix");
+			randomStr("#");
+		}
+		@Override public void pushSetting() {
+			race.raceSuffix = settingValue();
+		}
+		@Override public void pullSetting() {
+			set(race.raceSuffix);		
+		}
+	}
+	// ==================== LeaderPrefix ====================
+	//
+	private class LeaderPrefix extends SettingString {
+		private LeaderPrefix() {
+			super(ROOT, "LEADER_PREFIX", "@", 1);
+			inputMessage("Enter the leader Prefix");
+			randomStr("#");
+		}
+		@Override public void pushSetting() {
+			race.leaderPrefix = settingValue();
+		}
+		@Override public void pullSetting() {
+			set(race.leaderPrefix);		
+		}
+	}
+	// ==================== LeaderSuffix ====================
+	//
+	private class LeaderSuffix extends SettingString {
+		private LeaderSuffix() {
+			super(ROOT, "LEADER_SUFFIX", "", 1);
+			inputMessage("Enter the leader Suffix");
+			randomStr("#");
+		}
+		@Override public void pushSetting() {
+			race.leaderSuffix = settingValue();
+		}
+		@Override public void pullSetting() {
+			set(race.leaderSuffix);		
+		}
+	}
+	// ==================== WorldsPrefix ====================
+	//
+	private class WorldsPrefix extends SettingString {
+		private WorldsPrefix() {
+			super(ROOT, "WORLDS_PREFIX", "@", 1);
+			inputMessage("Enter the worlds Prefix");
+			randomStr("#");
+		}
+		@Override public void pushSetting() {
+			race.worldsPrefix = settingValue();
+		}
+		@Override public void pullSetting() {
+			set(race.worldsPrefix);		
+		}
+	}
+	// ==================== WorldsSuffix ====================
+	//
+	private class WorldsSuffix extends SettingString {
+		private WorldsSuffix() {
+			super(ROOT, "WORLDS_SUFFIX", "", 1);
+			inputMessage("Enter the worlds Suffix");
+			randomStr("#");
+		}
+		@Override public void pushSetting() {
+			race.worldsSuffix = settingValue();
+		}
+		@Override public void pullSetting() {
+			set(race.worldsSuffix);		
+		}
+	}
 	// ==================== AvailablePlayer ====================
 	//
 	@SuppressWarnings("unused")
@@ -852,7 +949,6 @@ public class CustomRaceDefinitions  {
 			}
 		}
 	}
-
 	// ==================== CRPersonality ====================
 	//
 	private class CRPersonality {

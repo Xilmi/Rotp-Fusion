@@ -22,7 +22,6 @@ import static rotp.ui.util.AbstractOptionsUI.exitButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.exitButtonWidth;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -221,10 +220,10 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		}		
 	}
 	public void open(BasePanel p) {
+		enableGlassPane(this);
 		Modifier2KeysState.reset();
 		parent = p;
 		init();
-		enableGlassPane(this);
 		repaint();
 	}
 	protected void init() {
@@ -322,13 +321,13 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	}
 	protected void repaintTooltip() {
 		Graphics2D g = (Graphics2D) getGraphics();
-		setFontHints(g);
+		super.paintComponent(g);
 		drawToolTips(g);
 		g.dispose();
 	}
 	protected void repaintButtons() {
 		Graphics2D g = (Graphics2D) getGraphics();
-		setFontHints(g);
+		super.paintComponent(g);
 		drawButtons(g);
 		g.dispose();
 	}
@@ -418,11 +417,10 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 				repaint();
 			}
 		} else if (repaint) {
-			repaintButtons();
-			repaintTooltip();
+			repaint();
 		}
 		else if (!tooltipText.equals(tip)) {
-			repaintTooltip();
+			repaint();
 		}
 	}
 	protected String raceAITxt() {
@@ -561,7 +559,6 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		// ready for extension
 		xLine = xLine + currentWith + columnPad;
 		yLine = yTop;
-
 	}
 	@Override public void keyReleased(KeyEvent e) {
 		checkModifierKey(e);

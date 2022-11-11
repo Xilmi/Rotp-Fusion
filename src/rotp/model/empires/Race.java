@@ -86,6 +86,12 @@ public class Race implements Base, Serializable {
     public String id;
     public String setupName; // BR: was never used
     public String empireTitle; // BR: for custom Races
+    public String racePrefix = ""; // BR: for custom Races
+    public String raceSuffix = ""; // BR: for custom Races
+    public String leaderPrefix = ""; // BR: for custom Races
+    public String leaderSuffix = ""; // BR: for custom Races
+    public String worldsPrefix = ""; // BR: for custom Races
+    public String worldsSuffix = ""; // BR: for custom Races
     public String langKey;
     public String description1, description2, description3, description4; // modnar: add desc4
     public String directoryName;

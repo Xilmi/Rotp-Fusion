@@ -438,12 +438,12 @@ public interface IGameOptions {
         return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
     }
     default String nextOpponentCR() {
-    	UserPreferences.opponentCROptions.next();
-    	return UserPreferences.opponentCROptions.get();
+    	UserPreferences.globalCROptions.next();
+    	return UserPreferences.globalCROptions.get();
     }
     default String prevOpponentCR() {
-    	UserPreferences.opponentCROptions.prev();
-    	return UserPreferences.opponentCROptions.get();
+    	UserPreferences.globalCROptions.prev();
+    	return UserPreferences.globalCROptions.get();
     }
     default String nextResearchRate(boolean up) { // BR: added bidirectional
         List<String> opts = researchRateOptions();

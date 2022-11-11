@@ -222,11 +222,13 @@ public final class Empire implements Base, NamedObject, Serializable {
     	return raceName(0);
     }
     public String raceName(int i) {
+    	String rn;
         List<String> names = substrings(unparsedRaceName(), '|');
         if (i >= names.size() || names.get(i).isEmpty())
-            return names.get(0);
+        	rn = names.get(0);
         else
-            return names.get(i);
+            rn = names.get(i);
+        return dataRace().racePrefix + rn + dataRace().raceSuffix; // BR: for custom Races
     }
     public boolean masksDiplomacy()               { return race().masksDiplomacy || ai().diplomat().masksDiplomacy(); }
     public List<StarSystem> shipBuildingSystems() { return shipBuildingSystems; }
@@ -452,7 +454,9 @@ public final class Empire implements Base, NamedObject, Serializable {
         dataRace = dr;
         String raceName = r.nextAvailableName();
         raceNameIndex = r.nameIndex(raceName);
-        String leaderName = name == null ? r.nextAvailableLeader() : name;
+        String leaderName = name;
+        if (leaderName == null)
+        	leaderName = dataRace.leaderPrefix + r.nextAvailableLeader() + dataRace.leaderSuffix;
         leader = new Leader(this, leaderName);
         if (empSrc != null && empId != Empire.PLAYER_ID
         		&& !restartAppliesSettings.get()) { // BR: For Restart with new options 

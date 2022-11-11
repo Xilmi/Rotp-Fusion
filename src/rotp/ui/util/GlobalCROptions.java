@@ -16,19 +16,27 @@
 
 package rotp.ui.util;
 
-public class OpponentCROptions extends ParamList {
-	
+import java.util.LinkedList;
+
+public class GlobalCROptions extends ParamString {
+
 	/**
 	 * @param gui  The label header
 	 * @param name The name
 	 * @param defaultValue The default value
 	 */
-	public OpponentCROptions(String gui, String name, String defaultValue) {
+	public GlobalCROptions(String gui, String name, String defaultValue) {
 		super(gui, name, defaultValue);
+		
+	}
+
+	public LinkedList<String> getBaseOptions() {
+		LinkedList<String> list = new LinkedList<> ();
 		for (SpecificCROption opt : SpecificCROption.values()) {
 			if(!opt.isSelection() && !opt.isUserChoice())
-				put(opt.value, gui + name + "_" + opt.name());
+				list.add(opt.value);
 		}
+		return list;
 	}
 	public SpecificCROption getEnu() {
 		return SpecificCROption.set(get());

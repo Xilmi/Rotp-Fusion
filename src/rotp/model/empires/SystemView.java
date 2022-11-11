@@ -589,8 +589,11 @@ public class SystemView implements IMappedObject, Base, Serializable {
     private void setName() {
         if (!system().unnamed())
             vName = system().name();
-        else if (vName.isEmpty())
-            vName = owner().race().randomSystemName(owner());
+        else if (vName.isEmpty()) {  // BR: for custom Races
+        	vName = owner().dataRace().worldsPrefix
+        			+ owner().race().randomSystemName(owner())
+        			+ owner().dataRace().worldsSuffix;
+        }
     }
     private void clearHostility()                   { hostilityLevel = 0; }
 }

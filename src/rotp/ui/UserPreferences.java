@@ -32,8 +32,8 @@ import rotp.Rotp;
 import rotp.model.events.RandomEvents;
 import rotp.model.game.GameSession;
 import rotp.ui.util.EventsStartTurn;
+import rotp.ui.util.GlobalCROptions;
 import rotp.ui.util.InterfaceParam;
-import rotp.ui.util.OpponentCROptions;
 import rotp.ui.util.ParamAAN2;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamCR;
@@ -223,7 +223,9 @@ public class UserPreferences {
 	// BR: Galaxy Menu addition
 	public static final ParamBoolean showNewRaces = new ParamBoolean(
 			MOD_UI, "SHOW_NEW_RACES", false);
-	public static final OpponentCROptions opponentCROptions = new OpponentCROptions (
+//	public static final OpponentCROptions opponentCROptions = new OpponentCROptions (
+//			BASE_UI, "OPP_CR_OPTIONS", SpecificCROption.BASE_RACE.value);
+	public static final GlobalCROptions globalCROptions = new GlobalCROptions (
 			BASE_UI, "OPP_CR_OPTIONS", SpecificCROption.BASE_RACE.value);
 	public static final ParamBoolean useSelectableAbilities = new ParamBoolean(
 			BASE_UI, "SELECT_CR_OPTIONS", false);

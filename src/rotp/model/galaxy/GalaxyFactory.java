@@ -22,7 +22,7 @@ import static rotp.model.empires.CustomRaceDefinitions.getAllowedAlienRaces;
 import static rotp.model.empires.CustomRaceDefinitions.optionToAlienRace;
 import static rotp.model.empires.CustomRaceDefinitions.raceFileExist;
 import static rotp.model.game.MOO1GameOptions.setAliensAIOptions;
-import static rotp.ui.UserPreferences.opponentCROptions;
+import static rotp.ui.UserPreferences.globalCROptions;
 import static rotp.ui.UserPreferences.restartAppliesSettings;
 import static rotp.ui.UserPreferences.restartChangesAliensAI;
 import static rotp.ui.UserPreferences.restartChangesPlayerAI;
@@ -542,9 +542,12 @@ public class GalaxyFactory implements Base {
 			if (src == null || restartAppliesSettings.get()) { // Start and some restart
 				String selectedAbility = options().specificOpponentCROption(h+1);
 				SpecificCROption ability = SpecificCROption.set(selectedAbility);
+
 				if (!useSelectableAbilities.get() 
-						|| ability.isSelection())
-					ability = opponentCROptions.getEnu();
+						|| ability.isSelection()) {
+					selectedAbility = globalCROptions.get();
+					ability = globalCROptions.getEnu();
+				}
 
 				switch (ability) {
 					case USER_CHOICE:
@@ -613,8 +616,10 @@ public class GalaxyFactory implements Base {
 			} else { // Restart
 				SystemBaseData ref = empSrc[empId].homeSys;
 				sys.setXY(ref.x, ref.y);
-			}			
-			sys.name(race.nextAvailableHomeworld());
+			}
+			sys.name(dataRace.worldsPrefix +
+					race.nextAvailableHomeworld() +
+					dataRace.worldsSuffix);
 			g.addStarSystem(sys);
 			
 			// modnar: add option to start game with additional colonies

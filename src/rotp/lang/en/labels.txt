@@ -1444,6 +1444,18 @@ CUSTOM_RACE_RACE_DESC_1           | Race mood description
 CUSTOM_RACE_RACE_DESC_2           | Race abilities description
 CUSTOM_RACE_RACE_DESC_3           | Race global description
 CUSTOM_RACE_RACE_DESC_4           | Race specific description
+CUSTOM_RACE_RACE_PREFIX           | Race Prefix
+CUSTOM_RACE_RACE_SUFFIX           | Race Suffix
+CUSTOM_RACE_LEADER_PREFIX         | Leader Prefix
+CUSTOM_RACE_LEADER_SUFFIX         | Leader Suffix
+CUSTOM_RACE_WORLDS_PREFIX         | Worlds Prefix
+CUSTOM_RACE_WORLDS_SUFFIX         | Worlds Suffix
+CUSTOM_RACE_RACE_PREFIX_DESC      | Race Name Prefix, to easily recognize custom Races.
+CUSTOM_RACE_RACE_SUFFIX_DESC      | Race Name Suffix, to easily recognize custom Races.
+CUSTOM_RACE_LEADER_PREFIX_DESC    | Leader Name Prefix, to easily recognize custom Races.
+CUSTOM_RACE_LEADER_SUFFIX_DESC    | Leader Name Suffix, to easily recognize custom Races.
+CUSTOM_RACE_WORLDS_PREFIX_DESC    | Worlds Names Prefix, to easily recognize custom Races.
+CUSTOM_RACE_WORLDS_SUFFIX_DESC    | Worlds Names Suffix, to easily recognize custom Races.
 CUSTOM_RACE_ERRATIC               | Erratic
 CUSTOM_RACE_PACIFIST              | Pacifist
 CUSTOM_RACE_HONORABLE             | Honorable

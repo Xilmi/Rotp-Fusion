@@ -1,17 +1,17 @@
 ### !!! Beta Version !!!
-This version contains many changes and does not identify itself as a full fusion mod, but more as a Beta version.
-I'm quite confident it works well, but we are never too cautious. Please test it and don't hesitate to comment the new features.
+This version is compatible with previous Beta versions, but not with previous Fusion Mod...
+It's quite stable, but I want to give you a few days to comments and report bug before releasing it as a plain Fusion Mod.
+Please test it and don't hesitate to comment the new features.
 
 ### Very Last Changes:
   - Added individual opponent Ability selection (The same way the AI may be selected)
-  - Added 'reworked'-option to set the ability to "raceKey.race"
-  In the race editor, when selecting a "base race" (starting with * ), saving it under the proposed file name (ex RACE_HUMAN) this race will be identified as "reworked". Subsequently, selecting this option will always replace the race abilities with the reworked one.
+  - Added 'reworked'-option to set the ability to "raceKey.race" (ex: RACE_ALKARI.race will be used for Altairi, Aviari, Cluckari, Feathari, and Fowlari) In the race editor, when selecting a "base race" (starting with * ), saving it under the proposed file name (ex RACE_HUMAN) this race will be identified as "reworked". Subsequently, selecting this option will always replace the race abilities with the reworked one.
   - Ctrl+Click on "selectable" will reset the abilities to default
   - Added ability files to the opponents ability list.
-  - Improved responsivity of custom races panel.
   = Fixed some bugs...
-  - Set Minimum Tech Discovery to 0. (Attempt)
-
+  - Set Minimum Tech Discovery to 0. (As suggested by Mr_Frosty_L)
+  - Added Prefix and suffix option to custom race name, leader names and worlds name, to allow an easier identification.
+  - Added selection popup for opponents ability selection.
 
 ### Last Changes:
   - Added some descriptions.
