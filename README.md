@@ -28,6 +28,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 2022.11.12 (BR)
   - Fixed custom race edit / show panel display Glitch.
+  - Restored the speed of race selection Panel.
 
 2022.11.11 (BR)
   - Added Prefix and suffix option to custom race name, leader names and worlds name.

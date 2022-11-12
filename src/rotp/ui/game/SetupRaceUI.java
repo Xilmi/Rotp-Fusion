@@ -66,33 +66,33 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 	private static final String cancelKey		= "SETUP_BUTTON_CANCEL";
 	private static final String restoreKey		= "SETUP_BUTTON_RESTORE";
 	private static final String customRaceKey	= "SETUP_BUTTON_CUSTOM_PLAYER_RACE";
-    public static final int MAX_RACES  = 16; // modnar: increase MAX_RACES to add new Races
-    static final int MAX_COLORS = 16; // modnar: add new colors
-    static final int MAX_SHIP   = ShipLibrary.designsPerSize; // BR:
-    int FIELD_W;
-    int FIELD_H;
-    BufferedImage backImg;
-    public static BufferedImage raceBackImg;
-    public static BufferedImage shipBackImg;
-    BufferedImage raceImg;
-    Rectangle hoverBox;
-    Rectangle cancelBox = new Rectangle();
-    Rectangle nextBox = new Rectangle();
-    Rectangle leaderBox = new Rectangle();
-    Rectangle homeWorldBox = new Rectangle();
+    private static final int MAX_RACES  = 16; // modnar: increase MAX_RACES to add new Races
+    private static final int MAX_COLORS = 16; // modnar: add new colors
+    private static final int MAX_SHIP   = ShipLibrary.designsPerSize; // BR:
+    private int FIELD_W;
+    private int FIELD_H;
+    private BufferedImage backImg;
+    private static BufferedImage raceBackImg;
+    private BufferedImage shipBackImg;
+    private BufferedImage raceImg;
+    private Rectangle hoverBox;
+    private Rectangle cancelBox = new Rectangle();
+    private Rectangle nextBox = new Rectangle();
+    private Rectangle leaderBox = new Rectangle();
+    private Rectangle homeWorldBox = new Rectangle();
     private Rectangle defaultBox = new Rectangle();
     private Rectangle userBox	 = new Rectangle();
     private Rectangle playerRaceSettingBox = new Rectangle(); // BR: Player Race Customization
     private Rectangle checkBox = new Rectangle(); // BR: Player Race Customization
     private final Color checkBoxC = new Color(178,124,87);
     private Rectangle shipSetBox = new Rectangle(); // BR: ShipSet Selection
-    Rectangle[] raceBox = new Rectangle[MAX_RACES];
-    Rectangle[] colorBox = new Rectangle[MAX_COLORS];
+    private Rectangle[] raceBox = new Rectangle[MAX_RACES];
+    private Rectangle[] colorBox = new Rectangle[MAX_COLORS];
     private Rectangle[] shipBox = new Rectangle[MAX_SHIP]; // BR: ShipSet Selection
 
-    public static BufferedImage[] racemugs = new BufferedImage[MAX_RACES];
-    JTextField leaderName = new JTextField("");
-    JTextField homeWorld = new JTextField("");
+    private static BufferedImage[] racemugs = new BufferedImage[MAX_RACES];
+    private JTextField leaderName = new JTextField("");
+    private JTextField homeWorld = new JTextField("");
     private JTextField shipSetTxt = new JTextField(""); // BR: ShipSet Selection
     private int shipSetId = 0; // The index from the list
     private int shipSize = 2;
@@ -104,6 +104,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     private MOO1GameOptions initialOptions; // To be restored if "cancel"
     private int bSep = s15;
     private Race dataRace;
+    private boolean newShipSet = false;
 
     public SetupRaceUI() {
         init0();
@@ -396,6 +397,12 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         // selected race center img
         g.drawImage(raceImg(), scaled(425), scaled(108), scaled(385), scaled(489), null);
 
+        // draw Ship frames on the right
+        if (newShipSet) {
+        	drawShipBoxes(g);
+        	newShipSet = false;
+        }
+
         // selected race box
         List<String> races = newGameOptions().startingRaceOptions();
         String selRace = newGameOptions().selectedPlayerRace();
@@ -587,21 +594,21 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         }
         drawButtons(g);
 	}
-    public void goToMainMenu() {
+    private void goToMainMenu() {
         buttonClick();
         initialOptions = null;
         RotPUI.instance().selectGamePanel();
         backImg = null;
         raceImg = null;
     }
-    public void goToGalaxySetup() {
+    private void goToGalaxySetup() {
         buttonClick();
         initialOptions = null;
         RotPUI.instance().selectSetupGalaxyPanel();
         backImg = null;
         raceImg = null;
     }
-    public void selectRace(int i) {
+    private void selectRace(int i) {
         String selRace = newGameOptions().selectedPlayerRace();
         List<String> races = newGameOptions().startingRaceOptions();
         if (i <= races.size()) {
@@ -616,12 +623,12 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     	shipSetTxt.setText(playerShipSet.get());
     	shipSetId = playerShipSet.realShipSetId(Race.keyed(
     			newGameOptions().selectedPlayerRace()).preferredShipSet);
-    	backImg = null; // TODO BR: Optimize shipSetChanged()
+    	newShipSet = true;
     }
     private void checkBoxChanged() { // BR: checkBoxChanged
         repaint();
     }
-    public void raceChanged() {
+    void raceChanged() {
         Race r =  Race.keyed(newGameOptions().selectedPlayerRace());
       	dataRace = playerCustomRace.getRace(); // BR:
         r.resetMugshot();
@@ -632,9 +639,8 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         homeWorld.setText(r.defaultHomeworldName());
         newGameOptions().selectedHomeWorldName(homeWorld.getText());
         raceImg = null;
-//        backImg = null;
     }
-    public void selectColor(int i) {
+    private void selectColor(int i) {
         int selColor = newGameOptions().selectedPlayerColor();
         if (selColor != i) {
             newGameOptions().selectedPlayerColor(i);
@@ -662,12 +668,12 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         }
         return raceImg;
     }
-    public static BufferedImage shipBackImg() {
-//        if (shipBackImg == null)
+    private BufferedImage shipBackImg() {
+        if (shipBackImg == null)
             initShipBackImg();
         return shipBackImg;
     }
-    public static BufferedImage raceBackImg() {
+    static BufferedImage raceBackImg() {
         if (raceBackImg == null)
             initRaceBackImg();
         return raceBackImg;
@@ -677,7 +683,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
             initBackImg();
         return backImg;
     }
-    private static void initShipBackImg() {
+    private void initShipBackImg() {
         shipH = s65;
         shipW = (int) (shipH * 1.3314f);
         shipBackImg = gc().createCompatibleImage(shipW, shipH);
@@ -791,7 +797,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
                 xC += (wC+s5); // modnar: add new colors, less separation between color boxes
         }
         // draw Ship frames on right panel
-        redrawShipBoxes(g);
+        drawShipBoxes(g);
 
         // draw left button
         cancelBox.setBounds(scaled(710), scaled(685), buttonW, buttonH);
@@ -861,7 +867,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         g.drawImage(mug, x,y,w,h, null);
         g.setComposite(prevC);
     }
-    private void redrawShipBoxes(Graphics2D g) {
+    private void drawShipBoxes(Graphics2D g) {
         int xS = scaled(830) + scaled(220);        
         Composite comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER , 1.0f);
         drawShipBox(g, 0, xS, scaled(120), comp);
