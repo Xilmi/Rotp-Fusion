@@ -616,6 +616,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     	shipSetTxt.setText(playerShipSet.get());
     	shipSetId = playerShipSet.realShipSetId(Race.keyed(
     			newGameOptions().selectedPlayerRace()).preferredShipSet);
+    	backImg = null; // TODO BR: Optimize shipSetChanged()
     }
     private void checkBoxChanged() { // BR: checkBoxChanged
         repaint();
@@ -631,6 +632,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         homeWorld.setText(r.defaultHomeworldName());
         newGameOptions().selectedHomeWorldName(homeWorld.getText());
         raceImg = null;
+//        backImg = null;
     }
     public void selectColor(int i) {
         int selColor = newGameOptions().selectedPlayerColor();
@@ -671,7 +673,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         return raceBackImg;
     }
     private BufferedImage backImg() {
-        //if (backImg == null)
+        if (backImg == null)
             initBackImg();
         return backImg;
     }

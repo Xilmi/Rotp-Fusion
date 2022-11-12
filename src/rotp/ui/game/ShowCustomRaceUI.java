@@ -374,12 +374,14 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 			checkExitSettings(mouseList);
 			repaint(prevHover);
 		}
-		if ((onButton && !tooltipText.equals(preTipTxt))
-				|| (!onBox && prevHover != null)) {
-			repaint();
-		}
-		else if (keyModifierChanged) {
+		if (keyModifierChanged) {
 			repaintButtons();
+			if (!tooltipText.equals(preTipTxt))
+				repaintTooltip();
+		}
+		else if (!onBox && prevHover != null) {
+			if (!tooltipText.equals(preTipTxt))
+				repaintTooltip();
 		}
 	}
 	protected String raceAITxt() {
@@ -449,7 +451,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		paintButtons(g);
 		g.dispose();
 	}
-	private void paintToolTips(Graphics2D g) { // TODO BR:
+	private void paintToolTips(Graphics2D g) {
 		if (showTooltips.get()) {
 			List<String> lines = wrappedLines(g, tooltipText, wTT-2*tooltipPadM);
 			g.setFont(tooltipFont);
