@@ -585,20 +585,6 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
                 g.setStroke(prev);
             }
         }
-        // selected ship box
-        redrawShipBox(g);
-
-        // hovering ship box outline
-        for (int i=0;i<shipBox.length;i++) {
-            if (shipBox[i] == hoverBox) {
-                Stroke prev = g.getStroke();
-                g.setStroke(stroke2);
-                g.setColor(Color.yellow);
-                g.draw(shipBox[i]);
-                g.setStroke(prev);
-                break;
-            }
-        }
         drawButtons(g);
 	}
     public void goToMainMenu() {
@@ -803,7 +789,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
                 xC += (wC+s5); // modnar: add new colors, less separation between color boxes
         }
         // draw Ship frames on right panel
-        redrawShipBox(g);
+        redrawShipBoxes(g);
 
         // draw left button
         cancelBox.setBounds(scaled(710), scaled(685), buttonW, buttonH);
@@ -873,7 +859,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         g.drawImage(mug, x,y,w,h, null);
         g.setComposite(prevC);
     }
-    private void redrawShipBox(Graphics2D g) {
+    private void redrawShipBoxes(Graphics2D g) {
         int xS = scaled(830) + scaled(220);        
         Composite comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER , 1.0f);
         drawShipBox(g, 0, xS, scaled(120), comp);
@@ -1022,7 +1008,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
             }
         }
         if (hoverBox != prevHover)
-            repaint();
+        	repaint();
     }
     @Override
     public void mouseClicked(MouseEvent e) { }

@@ -75,7 +75,6 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	private MOO1GameOptions initialOptions; // To be restored if "cancel"
 	private RaceList raceList;
 	private static final int raceListW = RotPUI.scaledSize(180);
-	private LinkedList<SettingBase<?>> mouseList;
 	
 	// ========== Constructors and initializers ==========
 	//
@@ -342,114 +341,79 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	@Override protected int getBackGroundWidth() {
 		return super.getBackGroundWidth() + raceListW + columnPad;
 	}
-	@Override protected void hoverAndTooltip(boolean repaint) {
-		String tip = tooltipText;
-		tooltipText = "";
-		Rectangle prevHover = hoverBox;
-		hoverBox = null;
+	@Override protected boolean checkForHoveredButtons() {
 		if (exitBox.contains(x,y)) {
 			hoverBox = exitBox;
 			tooltipText = text(exitButtonTipKey());
-		}
-		else if (userBox.contains(x,y)) {
+			if (hoverBox != prevHover) {
+				if (tooltipText.equals(preTipTxt)) {
+					repaint(hoverBox);
+				} else {
+					repaint();
+				}
+			}
+			return true;
+		} else if (userBox.contains(x,y)) {
 			hoverBox = userBox;
 			tooltipText = text(userButtonTipKey());
-		}
-		else if (selectBox.contains(x,y)) {
+			if (hoverBox != prevHover) {
+				if (tooltipText.equals(preTipTxt)) {
+					repaint(hoverBox);
+				} else {
+					repaint();
+				}
+			}
+			return true;
+		} else if (selectBox.contains(x,y)) {
 			hoverBox = selectBox;
 			tooltipText = text(selectButtonTipKey());
-		}
-		else if (defaultBox.contains(x,y)) {
+			if (hoverBox != prevHover) {
+				if (tooltipText.equals(preTipTxt)) {
+					repaint(hoverBox);
+				} else {
+					repaint();
+				}
+			}
+			return true;
+		} else if (defaultBox.contains(x,y)) {
 			hoverBox = defaultBox;
 			tooltipText = text(defaultButtonTipKey());
-		}
-		else if (loadBox.contains(x,y)) {
+			if (hoverBox != prevHover) {
+				if (tooltipText.equals(preTipTxt)) {
+					repaint(hoverBox);
+				} else {
+					repaint();
+				}
+			}
+			return true;
+		} else if (loadBox.contains(x,y)) {
 			hoverBox = loadBox;
 			tooltipText = text(loadButtonTipKey());
-		}
-		else if (randomBox.contains(x,y)) {
+			if (hoverBox != prevHover) {
+				if (tooltipText.equals(preTipTxt)) {
+					repaint(hoverBox);
+				} else {
+					repaint();
+				}
+			}
+			return true;
+		} else if (randomBox.contains(x,y)) {
 			hoverBox = randomBox;
 			tooltipText = text(randomButtonTipKey());
+			if (hoverBox != prevHover) {
+				if (tooltipText.equals(preTipTxt)) {
+					repaint(hoverBox);
+				} else {
+					repaint();
+				}
+			}
+			return true;
 		}
-		else {
-			outerLoop1:
-			for (SettingBase<?> setting : mouseList) {
-				if (setting.settingText().contains(x,y)) {
-					hoverBox = setting.settingText().bounds();
-					tooltipText = setting.getToolTip();
-					break outerLoop1;
-				}
-				if (setting.isBullet()) {
-					int idx = 0;
-					for (BaseText txt : setting.optionsText()) {
-						if (txt.contains(x,y)) {
-							hoverBox = txt.bounds();
-							tooltipText = setting.getToolTip(idx);
-							break outerLoop1;
-						}
-						idx++;
-					}
-				}
-			}
-		}
-
-		if (hoverBox != prevHover) {
-			outerLoop2: // Check exit settings
-			for ( SettingBase<?> setting : mouseList) {
-				if (setting.isSpacer())
-					continue;
-				if (prevHover == setting.settingText().bounds()) {
-					setting.settingText().mouseExit();
-					break outerLoop2;
-				}
-				if (setting.isBullet()) {					
-					for (BaseText txt : setting.optionsText()) {
-						if (prevHover == txt.bounds()) {
-							txt.mouseExit();
-							break outerLoop2;
-						}
-					}
-				}
-			}
-			
-			outerLoop3: // Check enter settings
-			for ( SettingBase<?> setting : mouseList) {
-				if (setting.isSpacer())
-					continue;
-				if (hoverBox == setting.settingText().bounds()) {
-					setting.settingText().mouseEnter();
-					break outerLoop3;
-				}
-				if (setting.isBullet()) {					
-					for (BaseText txt : setting.optionsText()) {
-						if (hoverBox == txt.bounds()) {
-							txt.mouseEnter();
-							break outerLoop3;
-						}
-					}
-				}
-			}
-			if (prevHover != null)
-				repaint(prevHover);
-			if (hoverBox != null)
-				repaint(hoverBox);
-			if (repaint) {
-				repaintButtons();
-			}
-			if (!tooltipText.equals(tip)) {
-				repaint();
-			}
-		} else if (repaint) {
-			//repaintButtons();
-			repaint();
-		}
-		else if (!tooltipText.equals(tip)) {
-			repaint();
-		}
+		return false;
 	}
 	@Override protected String raceAITxt() { return ""; }
-	@Override protected void drawButtons(Graphics2D g) {
-		super.drawButtons(g);
+	@Override protected void paintButtons(Graphics2D g) {
+		super.paintButtons(g);
 		int cnr = s5;
 		g.setFont(buttonFont);
 
@@ -559,7 +523,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			bt.draw(g);
 			yLine -= labelH;
 	    }
-	    g.dispose();
+	    //g.dispose();
 	}
 	@Override public void keyPressed(KeyEvent e) {
 		checkModifierKey(e);

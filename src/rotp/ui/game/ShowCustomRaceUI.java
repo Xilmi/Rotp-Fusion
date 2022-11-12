@@ -74,7 +74,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 
 	private static final Color costC		= SystemPanel.blackText;
 	private static final int costFontSize	= 18;
-	protected static final Font raceNameFont= FontManager.current().narrowFont(16);
+	private static final Font raceNameFont= FontManager.current().narrowFont(16);
 	protected static final int columnPad	= s12;
 	private	static final Font titleFont		= FontManager.current().narrowFont(30);
 	private static final int titleOffset	= s30; // Offset from Margin
@@ -115,12 +115,16 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	private LinkedList<Integer> columnList;
 	public  LinkedList<SettingBase<?>> commonList;
 	protected LinkedList<SettingBase<?>> settingList;
+	protected LinkedList<SettingBase<?>> mouseList;
+	
 	protected String guiTitleID;
 
 	private int numColumns	= 0;
 	private int columnsMaxH	= 0;
 	private int columnH		= RotPUI.scaledSize(60); // For the Random options
 	private int numSettings	= 0;
+	private	int tooltipLines = 2;
+	private	int tooltipH = tooltipLines * tooltipLineH + tooltipPadM;
 
 	private int yTitle;
 	private int xCost, yCost;
@@ -136,13 +140,13 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	protected int leftM;
 	protected int xLine, yLine; // settings var
 	protected int x, y; // mouse position
-	protected int tooltipLines = 2;
-	protected int tooltipH = tooltipLines * tooltipLineH + tooltipPadM;
 
 	protected BasePanel parent;
-	protected Rectangle hoverBox;
-	protected final Rectangle exitBox = new Rectangle();
+	protected Rectangle hoverBox, prevHover;
+	protected final Rectangle exitBox	 = new Rectangle();
+	private	  final Rectangle toolTipBox = new Rectangle();
 	protected String tooltipText = "";
+	protected String preTipTxt = "";
 	protected BaseText totalCostText;
 	private   BaseText raceAI;
 	private	  RacesUI  raceUI; // Parent panel
@@ -167,9 +171,10 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 			return this;
 		initialized = true;
 		cr = new CustomRaceDefinitions();		
-		maxLeftM	= scaled(50);
+		maxLeftM	= scaled(80);
 		guiTitleID	= ROOT + "SHOW_TITLE";
 	    commonList	= settingList;
+	    mouseList	= settingList;
 	    cr.setRace(MOO1GameOptions.baseRaceOptions().getFirst());
 		addMouseListener(this);
 		addMouseMotionListener(this);
@@ -188,10 +193,11 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		spacerList	= cr.spacerList();
 		settingList	= cr.settingList();
 		settingSize	= settingList.size();
-		
+	    mouseList	= settingList;
+
 		for (int i=0; i<settingSize; i++) {
 			if (spacerList.contains(i))
-				columnH += settingH;
+				columnH += spacerH;
 			if (columnList.contains(i))
 				endOfColumn();
 			initSetting(settingList.get(i));
@@ -217,7 +223,8 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		} else {
 			setting.settingText(settingBT());			
 			columnH += settingH;
-		}		
+		}
+		columnH += settingHPad;
 	}
 	public void open(BasePanel p) {
 		enableGlassPane(this);
@@ -264,7 +271,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 				optionC, selectC, hoverC, depressedC, textC, 0, 0, 0);
 	}
 	private void endOfColumn() {
-		columnH += settingH;
+//		columnH += settingH;
 		columnsMaxH = max(columnsMaxH, columnH);
 		colSettingsCount.add(numSettings);
 		numColumns++;
@@ -273,6 +280,117 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	}
 	private String exitButtonTipKey() { return exitTipKey; }
 	private void doExitBoxAction() { close(); }
+	protected void close() {
+		disableGlassPane();
+	}
+	protected void checkModifierKey(InputEvent e) {
+		hoverAndTooltip(Modifier2KeysState.checkForChange(e));
+	}
+	protected  String totalCostStr() {
+		return text(totalCostKey, Math.round(cr.getTotalCost()));
+	}
+	protected boolean checkForHoveredButtons() {
+		if (exitBox.contains(x,y)) {
+			hoverBox = exitBox;
+			tooltipText = text(exitButtonTipKey());
+			if (hoverBox != prevHover) {
+				if (tooltipText.equals(preTipTxt)) {
+					repaint(hoverBox);
+				} else {
+					repaint();
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+	private boolean checkForHoveredSettings(LinkedList<SettingBase<?>> settings) {
+		for (SettingBase<?> setting : settings) {
+			if (setting.settingText().contains(x,y)) {
+				hoverBox = setting.settingText().bounds();
+				tooltipText = setting.getToolTip();
+				if (hoverBox != prevHover) {
+					setting.settingText().mouseEnter();
+					if (tooltipText.equals(preTipTxt)) { 
+						repaint(hoverBox);
+					} else {
+						repaintTooltip();
+					}
+				}
+				return true;
+			}
+			if (setting.isBullet()) {
+				int idx = 0;
+				for (BaseText txt : setting.optionsText()) {
+					if (txt.contains(x,y)) {
+						hoverBox = txt.bounds();
+						tooltipText = setting.getToolTip(idx);
+						if (hoverBox != prevHover) {
+							txt.mouseEnter();
+							if (tooltipText.equals(preTipTxt)) { 
+								repaint(hoverBox);
+							} else {
+								repaint(hoverBox);
+								repaintTooltip();
+							}
+						}
+						return true;
+					}
+					idx++;
+				}
+			}
+		}
+		return false;
+	}
+	private void checkExitSettings(LinkedList<SettingBase<?>> settings) {
+		for (SettingBase<?> setting : settings) {
+			if (prevHover == setting.settingText().bounds()) {
+				setting.settingText().mouseExit();
+				return;
+			}
+			if (setting.isBullet())				
+				for (BaseText txt : setting.optionsText()) {
+					if (prevHover == txt.bounds()) {
+						txt.mouseExit();
+						return;
+					}
+				}
+		}
+	}
+	private void hoverAndTooltip(boolean keyModifierChanged) {
+		if (mouseList == null) {
+			System.out.println("mouseList is null");
+			return;
+		}
+		preTipTxt = tooltipText;
+		tooltipText = "";
+		prevHover = hoverBox;
+		hoverBox = null;
+		// Check if cursor is in a box
+		boolean onButton = checkForHoveredButtons();
+		boolean onBox = onButton || checkForHoveredSettings(mouseList);
+
+		if (prevHover != hoverBox && prevHover != null) {
+			checkExitSettings(mouseList);
+			repaint(prevHover);
+		}
+		if ((onButton && !tooltipText.equals(preTipTxt))
+				|| (!onBox && prevHover != null)) {
+			repaint();
+		}
+		else if (keyModifierChanged) {
+			repaintButtons();
+		}
+	}
+	protected String raceAITxt() {
+		if (raceUI.selectedEmpire().isAIControlled())
+			return raceUI.selectedEmpire().getAiName();
+		else
+			return text("SETUP_OPPONENT_AI_PLAYER");
+	}
+	protected int getBackGroundWidth() {
+		return columnPad+wFirstColumn+columnPad + (wSetting+columnPad) * (numColumns-1);
+	}
 	protected void paintSetting(Graphics2D g, SettingBase<?> setting) {
 		int sizePad	= frameSizePad;
 		int endPad 	= frameEndPad;
@@ -319,134 +437,35 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		}				
 		yLine += endPad;
 	}
-	protected void repaintTooltip() {
+	private void repaintTooltip() {
 		Graphics2D g = (Graphics2D) getGraphics();
 		super.paintComponent(g);
-		drawToolTips(g);
+		paintToolTips(g);
 		g.dispose();
 	}
-	protected void repaintButtons() {
+	private void repaintButtons() {
 		Graphics2D g = (Graphics2D) getGraphics();
 		super.paintComponent(g);
-		drawButtons(g);
+		paintButtons(g);
 		g.dispose();
 	}
-	protected void close() { disableGlassPane(); }
-	protected void checkModifierKey(InputEvent e) {
-		hoverAndTooltip(Modifier2KeysState.checkForChange(e));
-	}
-	protected  String totalCostStr() {
-		return text(totalCostKey, Math.round(cr.getTotalCost()));
-	}
-	protected void hoverAndTooltip(boolean repaint) {
-		String tip = tooltipText;
-		tooltipText = "";
-		Rectangle prevHover = hoverBox;
-		hoverBox = null;
-		if (exitBox.contains(x,y)) {
-			hoverBox = exitBox;
-			tooltipText = text(exitButtonTipKey());
-		}
-		
-		else {
-			outerLoop1:
-			for (SettingBase<?> setting : settingList) {
-				if (setting.settingText().contains(x,y)) {
-					hoverBox = setting.settingText().bounds();
-					tooltipText = setting.getToolTip();
-					break outerLoop1;
-				}
-				if (setting.isBullet()) {
-					int idx = 0;
-					for (BaseText txt : setting.optionsText()) {
-						if (txt.contains(x,y)) {
-							hoverBox = txt.bounds();
-							tooltipText = setting.getToolTip(idx);
-							break outerLoop1;
-						}
-						idx++;
-					}
-				}
-			}
-		}
-
-		if (hoverBox != prevHover) {
-			outerLoop2: // Check exit settings
-			for ( SettingBase<?> setting : settingList) {
-				if (setting.isSpacer())
-					continue;
-				if (prevHover == setting.settingText().bounds()) {
-					setting.settingText().mouseExit();
-					break outerLoop2;
-				}
-				if (setting.isBullet()) {					
-					for (BaseText txt : setting.optionsText()) {
-						if (prevHover == txt.bounds()) {
-							txt.mouseExit();
-							break outerLoop2;
-						}
-					}
-				}
-			}
-			
-			outerLoop3: // Check enter settings
-			for ( SettingBase<?> setting : settingList) {
-				if (setting.isSpacer())
-					continue;
-				if (hoverBox == setting.settingText().bounds()) {
-					setting.settingText().mouseEnter();
-					break outerLoop3;
-				}
-				if (setting.isBullet()) {					
-					for (BaseText txt : setting.optionsText()) {
-						if (hoverBox == txt.bounds()) {
-							txt.mouseEnter();
-							break outerLoop3;
-						}
-					}
-				}
-			}
-			if (prevHover != null)
-				repaint(prevHover);
-			if (hoverBox != null)
-				repaint(hoverBox);
-			if (repaint) {
-				repaintButtons();
-			}
-			if (!tooltipText.equals(tip)) {
-				repaint();
-			}
-		} else if (repaint) {
-			repaint();
-		}
-		else if (!tooltipText.equals(tip)) {
-			repaint();
-		}
-	}
-	protected String raceAITxt() {
-		if (raceUI.selectedEmpire().isAIControlled())
-			return raceUI.selectedEmpire().getAiName();
-		else
-			return text("SETUP_OPPONENT_AI_PLAYER");
-	}
-	protected int getBackGroundWidth() {
-		return columnPad+wFirstColumn+columnPad + (wSetting+columnPad) * (numColumns-1);
-	}
-	protected void drawToolTips(Graphics2D g) {
+	private void paintToolTips(Graphics2D g) { // TODO BR:
 		if (showTooltips.get()) {
 			List<String> lines = wrappedLines(g, tooltipText, wTT-2*tooltipPadM);
-			g.setColor(GameUI.paneBackgroundColor());
-			g.fillRect(xTT, yTT, wTT, tooltipH);
-			g.setColor(tooltipC);
 			g.setFont(tooltipFont);
+			toolTipBox.setBounds(xTT, yTT, wTT, tooltipH);
+			g.setColor(GameUI.setupFrame());
+			g.fill(toolTipBox);
+			g.setColor(tooltipC);
+			int xT = xTT+tooltipPadM;
 			int yT = yTT + s4;
 			for (String line: lines) {
 				yT += tooltipLineH;
-				drawString(g,line, xTT+tooltipPadM, yT);
+				drawString(g,line, xT, yT);
 			}		
 		}
 	}
-	protected void drawButtons(Graphics2D g) {
+	protected void paintButtons(Graphics2D g) {
 		int cnr = s5;
 		g.setFont(buttonFont);
 
@@ -482,14 +501,14 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		if (showTooltips.get()) {
 			// Set the base top Margin
 			// Set the final High
+			hBG	 = titlePad + columnsMaxH + buttonPadV + buttonH + tooltipPadV + tooltipH + tooltipPadV;
 			topM = (h - hBG)/2;
-			hBG		= titlePad + columnsMaxH + buttonPadV + buttonH + tooltipPadV + tooltipH + tooltipPadV;
-			yTT		= topM + hBG - tooltipPadV - tooltipH;
+			yTT	 = topM + hBG - tooltipPadV - tooltipH;
 		} else {
 			// Set the final High
 			hBG	 = titlePad + columnsMaxH + buttonPadV + buttonH + buttonPadV;
 			topM = (h - hBG)/2;
-			yTT		= topM + hBG;
+			yTT	= topM + hBG;
 		}
 		
 		yTop	= topM + titlePad; // First setting top position
@@ -510,7 +529,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		g.fillRect(leftM, topM, wBG, hBG);
 		
 		// Tool tip
-		drawToolTips(g);
+		paintToolTips(g);
 		
 		// Title
 		g.setFont(titleFont);
@@ -554,7 +573,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		}
 		g.setStroke(prev);
 
-		drawButtons(g);
+		paintButtons(g);
 		
 		// ready for extension
 		xLine = xLine + currentWith + columnPad;

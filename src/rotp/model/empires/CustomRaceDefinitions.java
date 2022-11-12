@@ -492,6 +492,7 @@ public class CustomRaceDefinitions  {
 		public RaceList() {
 			super(ROOT, "RACE_LIST");
 			isBullet(true);
+			maxBullet(32);
 			labelsAreFinals(true);
 			hasNoCost(true);
 			reload();
@@ -725,6 +726,7 @@ public class CustomRaceDefinitions  {
 			super(ROOT, "RACE_PREFIX", "@", 1);
 			inputMessage("Enter the race Prefix");
 			randomStr("#");
+			isBullet(false);
 		}
 		@Override public void pushSetting() {
 			race.racePrefix = settingValue();
@@ -740,6 +742,7 @@ public class CustomRaceDefinitions  {
 			super(ROOT, "RACE_SUFFIX", "", 1);
 			inputMessage("Enter the race Suffix");
 			randomStr("#");
+			isBullet(false);
 		}
 		@Override public void pushSetting() {
 			race.raceSuffix = settingValue();
@@ -755,6 +758,7 @@ public class CustomRaceDefinitions  {
 			super(ROOT, "LEADER_PREFIX", "@", 1);
 			inputMessage("Enter the leader Prefix");
 			randomStr("#");
+			isBullet(false);
 		}
 		@Override public void pushSetting() {
 			race.leaderPrefix = settingValue();
@@ -770,6 +774,7 @@ public class CustomRaceDefinitions  {
 			super(ROOT, "LEADER_SUFFIX", "", 1);
 			inputMessage("Enter the leader Suffix");
 			randomStr("#");
+			isBullet(false);
 		}
 		@Override public void pushSetting() {
 			race.leaderSuffix = settingValue();
@@ -785,6 +790,7 @@ public class CustomRaceDefinitions  {
 			super(ROOT, "WORLDS_PREFIX", "@", 1);
 			inputMessage("Enter the worlds Prefix");
 			randomStr("#");
+			isBullet(false);
 		}
 		@Override public void pushSetting() {
 			race.worldsPrefix = settingValue();
@@ -800,6 +806,7 @@ public class CustomRaceDefinitions  {
 			super(ROOT, "WORLDS_SUFFIX", "", 1);
 			inputMessage("Enter the worlds Suffix");
 			randomStr("#");
+			isBullet(false);
 		}
 		@Override public void pushSetting() {
 			race.worldsSuffix = settingValue();

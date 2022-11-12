@@ -94,6 +94,9 @@ public class SettingBase<T> implements InterfaceParam {
 	public void settingText(BaseText settingText) {
 		this.settingText = settingText;
 	}
+	protected void maxBullet(int maxBullet) {
+		bulletMax = maxBullet;
+	}
 	void settingToolTip(String settingToolTip) {
 		this.settingToolTip = settingToolTip;
 	}
