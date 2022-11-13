@@ -202,7 +202,7 @@ public class Race implements Base, Serializable {
     public int diplomacyBonus = 0;
     public float councilBonus = 0;
     public float[] techMod = new float[] { 1, 1, 1, 1, 1, 1 };
-    public float[] discoveryMod = new float[] { 1, 1, 1, 1, 1, 1 };
+    public float[] discoveryMod = new float[] { 1, 1, 1, 1, 1, 1 }; // BR:
     public boolean ignoresPlanetEnvironment = false;
     public boolean ignoresFactoryRefit = false;
     public boolean availablePlayer = true;  // BR: never used!
@@ -378,7 +378,10 @@ public class Race implements Base, Serializable {
     public float workerProductivityMod()      { return workerProductivityMod; }
     public int robotControlsAdj()             { return robotControlsAdj; }
     public float techDiscoveryPct()           { return techDiscoveryPct; }
-    public float techDiscoveryPct(int i)      { return techDiscoveryPct * discoveryMod[i]; }
+    public float techDiscoveryPct(int i)      { 
+    	return min(1, max(0,
+    			techDiscoveryPct + discoveryMod[i]));
+    }
     public float researchBonusPct()           { return researchBonusPct; }
     public float growthRateMod()              { return growthRateMod; }
     public float tradePctBonus()              { return tradePctBonus; }

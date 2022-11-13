@@ -3,6 +3,11 @@ This version is compatible with previous Beta versions, but not with previous Fu
 It's quite stable, but I want to give you a few days to comments and report bug before releasing it as a plain Fusion Mod.
 Please test it and don't hesitate to comment the new features.
 
+### Fine Tuning:
+  - Replaced tech discovery probability product by sum.
+  - Linked global and individual discovery probability.
+  - Added cost management to tech discovery probability.
+
 ### Very Last Changes:
   - Added individual opponent Ability selection (The same way the AI may be selected)
   - Added 'reworked'-option to set the ability to "raceKey.race" (ex: RACE_ALKARI.race will be used for Altairi, Aviari, Cluckari, Feathari, and Fowlari) In the race editor, when selecting a "base race" (starting with * ), saving it under the proposed file name (ex RACE_HUMAN) this race will be identified as "reworked". Subsequently, selecting this option will always replace the race abilities with the reworked one.
@@ -16,7 +21,7 @@ Please test it and don't hesitate to comment the new features.
 
 ### Last Changes:
   - Added some descriptions.
-  - As suggested by u/Mr_Frosty_L : Added options to make race "player only". (Now you can keep weaker species for yourself!)
+  - As suggested by Mr_Frosty_L : Added options to make race "player only". (Now you can keep weaker species for yourself!)
   - Added Personality and objectives.
   - Removed Base Data Race, it become useless as all abilities parameters can now be set!
   - The standard races can now be loaded on the right panel.

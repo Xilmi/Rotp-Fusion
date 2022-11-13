@@ -30,6 +30,7 @@ import static rotp.util.Base.random;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -84,7 +85,8 @@ public class CustomRaceDefinitions  {
 	private CRPersonality	personality	= new CRPersonality();
 	private CRObjective		objective	= new CRObjective();
 	private RaceKey	  		raceKey		= new RaceKey();
-	
+	private TechDiscovery techDiscovery = new TechDiscovery();
+
 	// ========== Constructors and Initializers ==========
 	//
 	public CustomRaceDefinitions() {
@@ -417,13 +419,13 @@ public class CustomRaceDefinitions  {
 
 		// ====================
 		// Third column
-		settingList.add(new TechDiscovery());
-		settingList.add(new DiscoveryComputer());
-		settingList.add(new DiscoveryConstruction());
-		settingList.add(new DiscoveryForceField());
-		settingList.add(new DiscoveryPlanet());
-		settingList.add(new DiscoveryPropulsion());
-		settingList.add(new DiscoveryWeapon());
+		settingList.add(techDiscovery);
+		settingList.add(techDiscovery.computer);
+		settingList.add(techDiscovery.construction);
+		settingList.add(techDiscovery.forceField);
+		settingList.add(techDiscovery.planet);
+		settingList.add(techDiscovery.propulsion);
+		settingList.add(techDiscovery.weapon);
 		spacer();
 //		settingList.add(new RacePlanetType()); // not yet differentiated
 		settingList.add(new HomeworldSize());
@@ -1517,133 +1519,6 @@ public class CustomRaceDefinitions  {
 			set(race.ignoresFactoryRefit());
 		}
 	}
-	// ==================== TechDiscovery ====================
-	//
-	private class TechDiscovery extends SettingInteger {
-		// bigger = better
-		private TechDiscovery() {
-//			super(ROOT, "TECH_DISCOVERY", 50, 30, 100, 1, 5, 20,
-			super(ROOT, "TECH_DISCOVERY", 50, 0, 100, 1, 5, 20,
-					DIFFERENCE, new float[]{0f, .5f}, new float[]{0f, 0.5f});
-			initOptionsText();
-		}
-		@Override public void pushSetting() {
-			race.techDiscoveryPct = (float) settingValue()/100;
-		}
-		@Override public void pullSetting() {
-			set(Math.round(race.techDiscoveryPct * 100));
-		}
-	}
-
-	private static final int discoveryPctMin = 0;
-	private static final int discoveryPctMax = 200;
-	private static final float discoveryC1pos = .5f/6;
-	private static final float discoveryC1neg = .5f/6;
-	private static final float discoveryC2pos = 0f;
-	private static final float discoveryC2neg = 0f;
-	// ==================== DiscoveryComputer ====================
-	//
-	private class DiscoveryComputer extends SettingInteger {
-		// smaller = better
-		private DiscoveryComputer() {
-			super(ROOT, "DISCOVERY_COMPUTER", 100, discoveryPctMin, discoveryPctMax,
-					1, 5, 20, DIFFERENCE, 
-					new float[]{0f, discoveryC1pos, discoveryC2pos},
-					new float[]{0f, discoveryC1neg, discoveryC2neg});
-			initOptionsText();
-		}
-		@Override public void pushSetting() {
-			race.discoveryMod[0] = (float) settingValue()/100;
-		}
-		@Override public void pullSetting() {
-			set(Math.round(race.discoveryMod[0] * 100));
-		}
-	}
-	// ==================== DiscoveryConstruction ====================
-	//
-	private class DiscoveryConstruction extends SettingInteger {
-		private DiscoveryConstruction() {
-			super(ROOT, "DISCOVERY_CONSTRUCTION", 100, discoveryPctMin, discoveryPctMax,
-					1, 5, 20, DIFFERENCE, 
-					new float[]{0f, discoveryC1pos, discoveryC2pos},
-					new float[]{0f, discoveryC1neg, discoveryC2neg});
-			initOptionsText();
-		}
-		@Override public void pushSetting() {
-			race.discoveryMod[1] = (float) settingValue()/100;
-		}
-		@Override public void pullSetting() {
-			set(Math.round(race.discoveryMod[1] * 100));
-		}
-	}
-	// ==================== DiscoveryForceField ====================
-	//
-	private class DiscoveryForceField extends SettingInteger {
-		private DiscoveryForceField() {
-			super(ROOT, "DISCOVERY_FORCEFIELD", 100, discoveryPctMin, discoveryPctMax,
-					1, 5, 20, DIFFERENCE, 
-					new float[]{0f, discoveryC1pos, discoveryC2pos},
-					new float[]{0f, discoveryC1neg, discoveryC2neg});
-			initOptionsText();
-		}
-		@Override public void pushSetting() {
-			race.discoveryMod[2] = (float) settingValue()/100;
-		}
-		@Override public void pullSetting() {
-			set(Math.round(race.discoveryMod[2] * 100));
-		}
-	}
-	// ==================== DiscoveryPlanet ====================
-	//
-	private class DiscoveryPlanet extends SettingInteger {
-		private DiscoveryPlanet() {
-			super(ROOT, "DISCOVERY_PLANET", 100, discoveryPctMin, discoveryPctMax,
-					1, 5, 20, DIFFERENCE, 
-					new float[]{0f, discoveryC1pos, discoveryC2pos},
-					new float[]{0f, discoveryC1neg, discoveryC2neg});
-			initOptionsText();
-		}
-		@Override public void pushSetting() {
-			race.discoveryMod[3] = (float) settingValue()/100;
-		}
-		@Override public void pullSetting() {
-			set(Math.round(race.discoveryMod[3] * 100));
-		}
-	}
-	// ==================== DiscoveryPropulsion ====================
-	//
-	private class DiscoveryPropulsion extends SettingInteger {
-		private DiscoveryPropulsion() {
-			super(ROOT, "DISCOVERY_PROPULSION", 100, discoveryPctMin, discoveryPctMax,
-					1, 5, 20, DIFFERENCE, 
-					new float[]{0f, discoveryC1pos, discoveryC2pos},
-					new float[]{0f, discoveryC1neg, discoveryC2neg});
-			initOptionsText();
-		}
-		@Override public void pushSetting() {
-			race.discoveryMod[4] = (float) settingValue()/100;
-		}
-		@Override public void pullSetting() {
-			set(Math.round(race.discoveryMod[4] * 100));
-		}
-	}
-	// ==================== DiscoveryWeapon ====================
-	//
-	private class DiscoveryWeapon extends SettingInteger {
-		private DiscoveryWeapon() {
-			super(ROOT, "DISCOVERY_WEAPON", 100, discoveryPctMin, discoveryPctMax,
-					1, 5, 20, DIFFERENCE, 
-					new float[]{0f, researchC1pos, researchC2pos},
-					new float[]{0f, researchC1neg, researchC2neg});
-			initOptionsText();
-		}
-		@Override public void pushSetting() {
-			race.discoveryMod[5] = (float) settingValue()/100;
-		}
-		@Override public void pullSetting() {
-			set(Math.round(race.discoveryMod[5] * 100));
-		}
-	}
 	// ==================== TechResearch ====================
 	//
 	private class TechResearch extends SettingInteger {
@@ -1769,6 +1644,201 @@ public class CustomRaceDefinitions  {
 		}
 		@Override public void pullSetting() {
 			set(Math.round(race.techMod[5] * 100));
+		}
+	}
+
+	// ==================== TechDiscovery ====================
+	//
+	private class TechDiscovery extends SettingInteger {
+
+		DiscoveryComputer	  computer		= new DiscoveryComputer();
+		DiscoveryConstruction construction	= new DiscoveryConstruction();
+		DiscoveryForceField	  forceField	= new DiscoveryForceField();
+		DiscoveryPlanet		  planet		= new DiscoveryPlanet();
+		DiscoveryPropulsion	  propulsion	= new DiscoveryPropulsion();
+		DiscoveryWeapon		  weapon		= new DiscoveryWeapon();
+
+		private TechDiscovery() {
+			super(ROOT, "TECH_DISCOVERY", 50, 0, 100, 1, 5, 20,
+					DIFFERENCE, new float[]{0f, .5f}, new float[]{0f, 0.5f});
+			hasNoCost(true);
+			initOptionsText();
+		}
+		@Override public void pushSetting() {
+			race.techDiscoveryPct = (float) settingValue()/100;
+		}
+		@Override public void pullSetting() {
+			set(Math.round(race.techDiscoveryPct * 100));
+		}
+		@Override public String guiSettingDisplayStr() {
+			return getLabel() + ": " + guiSettingValue() + " " + costString(cost());
+		}
+		@Override protected void next(Integer i) {
+			super.next(i);
+			computer.settingText().repaint(computer.guiSettingDisplayStr());
+			construction.settingText().repaint(construction.guiSettingDisplayStr());
+			forceField.settingText().repaint(forceField.guiSettingDisplayStr());
+			planet.settingText().repaint(planet.guiSettingDisplayStr());
+			propulsion.settingText().repaint(propulsion.guiSettingDisplayStr());
+			weapon.settingText().repaint(weapon.guiSettingDisplayStr());
+		}
+		@Override public void enabledColor(float cost) {
+			super.enabledColor(cost());
+		}
+
+		private String costString(float cost) {
+			String str = "(<";
+			str +=  new DecimalFormat("0.0").format(cost);
+			return str + ">)";
+		}
+		private float cost() {
+			return computer.settingCost()
+					+ construction.settingCost()
+					+ forceField.settingCost()
+					+ planet.settingCost()
+					+ propulsion.settingCost()
+					+ weapon.settingCost();
+		}
+
+		// ==================== DiscoveryComputer ====================
+		//
+		private class DiscoveryComputer extends SettingDiscovery {
+			// smaller = better
+			private DiscoveryComputer() {
+				super("DISCOVERY_COMPUTER");
+				initOptionsText();
+			}
+			@Override public void pushSetting() {
+				race.discoveryMod[0] = (float) settingValue()/100;
+			}
+			@Override public void pullSetting() {
+				set(Math.round(race.discoveryMod[0] * 100));
+			}
+		}
+		// ==================== DiscoveryConstruction ====================
+		//
+		private class DiscoveryConstruction extends SettingDiscovery {
+			private DiscoveryConstruction() {
+				super("DISCOVERY_CONSTRUCTION");
+				initOptionsText();
+			}
+			@Override public void pushSetting() {
+				race.discoveryMod[1] = (float) settingValue()/100;
+			}
+			@Override public void pullSetting() {
+				set(Math.round(race.discoveryMod[1] * 100));
+			}
+		}
+		// ==================== DiscoveryForceField ====================
+		//
+		private class DiscoveryForceField extends SettingDiscovery {
+			private DiscoveryForceField() {
+				super("DISCOVERY_FORCEFIELD");
+				initOptionsText();
+			}
+			@Override public void pushSetting() {
+				race.discoveryMod[2] = (float) settingValue()/100;
+			}
+			@Override public void pullSetting() {
+				set(Math.round(race.discoveryMod[2] * 100));
+			}
+		}
+		// ==================== DiscoveryPlanet ====================
+		//
+		private class DiscoveryPlanet extends SettingDiscovery {
+			private DiscoveryPlanet() {
+				super("DISCOVERY_PLANET");
+				initOptionsText();
+			}
+			@Override public void pushSetting() {
+				race.discoveryMod[3] = (float) settingValue()/100;
+			}
+			@Override public void pullSetting() {
+				set(Math.round(race.discoveryMod[3] * 100));
+			}
+		}
+		// ==================== DiscoveryPropulsion ====================
+		//
+		private class DiscoveryPropulsion extends SettingDiscovery {
+			private DiscoveryPropulsion() {
+				super("DISCOVERY_PROPULSION");
+				initOptionsText();
+			}
+			@Override public void pushSetting() {
+				race.discoveryMod[4] = (float) settingValue()/100;
+			}
+			@Override public void pullSetting() {
+				set(Math.round(race.discoveryMod[4] * 100));
+			}
+		}
+		// ==================== DiscoveryWeapon ====================
+		//
+		private class DiscoveryWeapon extends SettingDiscovery {
+			private DiscoveryWeapon() {
+				super("DISCOVERY_WEAPON");
+				initOptionsText();
+			}
+			@Override public void pushSetting() {
+				race.discoveryMod[5] = (float) settingValue()/100;
+			}
+			@Override public void pullSetting() {
+				set(Math.round(race.discoveryMod[5] * 100));
+			}
+		}
+		//
+		// ==================== Discovery ====================
+		//
+		private class SettingDiscovery extends SettingInteger {
+
+			private static final float	c0 = 0;
+			private static final float	c1 = .5f/6;
+			private static final float	c2 = 0f;
+			private static final int	baseCostDefault = 50;
+
+			private SettingDiscovery(String nameLangLabel) {
+				super(ROOT, nameLangLabel, 0, -100, 100, 1, 5, 20, DIFFERENCE,
+						new float[]{c0, c1, c2},
+						new float[]{c0, c1, c2});
+			}
+			
+			@Override public float settingCost() {
+				return settingCost(combinedValue());
+			}
+			@Override protected float settingCost(Integer value) {
+				float baseCost = value - baseCostDefault;
+				boolean useNegFormula = baseCost < 0f;
+				baseCost = Math.abs(baseCost);
+				float cost = 0;
+				if (useNegFormula)
+					for (int i=0; i<negCostFactor.length; i++)
+						cost -= negCostFactor[i] * Math.pow(baseCost, i);
+				else
+					for (int i=0; i<posCostFactor.length; i++)
+						cost += posCostFactor[i] * Math.pow(baseCost, i);			
+				return cost;
+			}
+			@Override public String guiSettingDisplayStr() {
+				return getLabel() + ": " + guiSettingValue() + " " + costString(this.settingCost());
+			}
+			@Override public String guiSettingValue() {
+				String str = settingValue().toString();
+				str += " -> ";
+				str += String.valueOf(combinedValue());
+				return str;
+			}
+
+			private String costString(float cost) {
+				String str = "(";
+				str +=  new DecimalFormat("0.0").format(cost);
+				return str + ")";
+			}
+			private Integer combinedValue() {
+				return combinedValue(settingValue());
+			}
+			private Integer combinedValue(Integer value) {
+				return Math.max(0, Math.min(100, 
+						Math.round(value + techDiscovery.settingValue())));
+			}
 		}
 	}
 }

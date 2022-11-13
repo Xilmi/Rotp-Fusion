@@ -26,6 +26,11 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2022.11.13 (BR)
+  - Replaced tech discovery probability product by sum.
+  - Linked global and individual discovery probability.
+  - Added cost management to tech discovery probability.
+  
 2022.11.12 (BR)
   - Fixed custom race edit / show panel display Glitch.
   - Restored the responsivity of race selection Panel.

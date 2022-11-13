@@ -1426,7 +1426,7 @@ CUSTOM_RACE_PROD_WORKER           | Worker Production
 CUSTOM_RACE_PROD_CONTROL          | Factory Control
 CUSTOM_RACE_PROD_REFIT_COST       | Ignores Refit Cost
 CUSTOM_RACE_TECH_DISCOVERY        | Tech Discovery
-CUSTOM_RACE_TECH_DISCOVERY_DESC   | The base probability of getting a tech available.
+CUSTOM_RACE_TECH_DISCOVERY_DESC   | The base probability of getting a tech available. Displayed cost is the sum of specific tech discovery cost.
 CUSTOM_RACE_TECH_RESEARCH         | Tech Research
 CUSTOM_RACE_TECH_RESEARCH_DESC    | The base cost multiplier for reseaching technology.
 CUSTOM_RACE_POP_GROW_RATE         | Population Grow Rate
@@ -1435,18 +1435,18 @@ CUSTOM_RACE_DIPLO_POS_DP          | Diplo Pos DP
 CUSTOM_RACE_DIPLOMACY_BONUS       | Diplomacy Bonus
 CUSTOM_RACE_DIPLOMACY_COUNCIL     | Council Bonus
 CUSTOM_RACE_RELATION_DEFAULT      | Default Race Relation
-CUSTOM_RACE_DISCOVERY_COMPUTER    | Discovery Computer
-CUSTOM_RACE_DISCOVERY_CONSTRUCTION | Discovery Construction
-CUSTOM_RACE_DISCOVERY_FORCEFIELD  | Discovery Force Field
-CUSTOM_RACE_DISCOVERY_PLANET      | Discovery Planet
-CUSTOM_RACE_DISCOVERY_PROPULSION  | Discovery Propulsion
-CUSTOM_RACE_DISCOVERY_WEAPON      | Discovery Weapon
-CUSTOM_RACE_DISCOVERY_COMPUTER_DESC     | Probability multiplier of getting Computer tech available.
-CUSTOM_RACE_DISCOVERY_CONSTRUCTION_DESC | Probability multiplier of getting Construction tech available.
-CUSTOM_RACE_DISCOVERY_FORCEFIELD_DESC   | Probability multiplier of getting Force Field tech available.
-CUSTOM_RACE_DISCOVERY_PLANET_DESC       | Probability multiplier of getting Planet tech available.
-CUSTOM_RACE_DISCOVERY_PROPULSION_DESC   | Probability multiplier of getting Propulsion tech available.
-CUSTOM_RACE_DISCOVERY_WEAPON_DESC       | Probability multiplier of getting Weapon tech available.
+CUSTOM_RACE_DISCOVERY_COMPUTER    | Disc. Computer
+CUSTOM_RACE_DISCOVERY_CONSTRUCTION | Disc. Construction
+CUSTOM_RACE_DISCOVERY_FORCEFIELD  | Disc. Force Field
+CUSTOM_RACE_DISCOVERY_PLANET      | Disc. Planet
+CUSTOM_RACE_DISCOVERY_PROPULSION  | Disc. Propulsion
+CUSTOM_RACE_DISCOVERY_WEAPON      | Disc. Weapon
+CUSTOM_RACE_DISCOVERY_COMPUTER_DESC     | Probability offset of getting Computer tech available. Display: Offset -> Sum (Cost)
+CUSTOM_RACE_DISCOVERY_CONSTRUCTION_DESC | Probability offset of getting Construction tech available. Display: Offset -> Sum (Cost)
+CUSTOM_RACE_DISCOVERY_FORCEFIELD_DESC   | Probability offset of getting Force Field tech available. Display: Offset -> Sum (Cost)
+CUSTOM_RACE_DISCOVERY_PLANET_DESC       | Probability offset of getting Planet tech available. Display: Offset -> Sum (Cost)
+CUSTOM_RACE_DISCOVERY_PROPULSION_DESC   | Probability offset of getting Propulsion tech available. Display: Offset -> Sum (Cost)
+CUSTOM_RACE_DISCOVERY_WEAPON_DESC       | Probability offset of getting Weapon tech available. Display: Offset -> Sum (Cost)
 CUSTOM_RACE_RESEARCH_COMPUTER     | Study Cost Computer
 CUSTOM_RACE_RESEARCH_CONSTRUCTION | Study Cost Construction
 CUSTOM_RACE_RESEARCH_FORCEFIELD   | Study Cost Force Field

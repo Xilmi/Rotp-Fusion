@@ -39,8 +39,8 @@ public class SettingInteger extends SettingBase<Integer> {
 	private Integer baseInc	 = defaultBaseInc;
 	private Integer shiftInc = defaultShiftInc;
 	private Integer ctrlInc	 = defaultCtrlInc;
-	private float[] posCostFactor;
-	private float[] negCostFactor;
+	protected float[] posCostFactor;
+	protected float[] negCostFactor;
 	private CostFormula costFormula = RELATIVE;
 	private boolean useNegFormula	= false;
 	private float	rawBaseCost		= 0f;
@@ -175,7 +175,7 @@ public class SettingInteger extends SettingBase<Integer> {
 	}
 	// ===== Other Methods =====
 	//
-	private void next(Integer i) {
+	protected void next(Integer i) {
 		if (i == 0) {
 			setFromDefault();
 			return;
@@ -197,7 +197,7 @@ public class SettingInteger extends SettingBase<Integer> {
 		}
 		set(value);
 	}
-	private float settingCost(Integer value) {
+	protected float settingCost(Integer value) {
 		float baseCost = getBaseCost(value);
 		if (posCostFactor == null || baseCost == 0)
 			return baseCost;

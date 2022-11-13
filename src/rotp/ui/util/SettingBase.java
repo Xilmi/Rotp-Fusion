@@ -19,6 +19,7 @@ package rotp.ui.util;
 import static rotp.util.Base.random;
 import static rotp.util.Base.textSubs;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -30,11 +31,15 @@ import javax.swing.SwingUtilities;
 
 import rotp.model.game.DynamicOptions;
 import rotp.ui.BaseText;
+import rotp.ui.main.SystemPanel;
 import rotp.util.LabelManager;
 
 public class SettingBase<T> implements InterfaceParam {
 	
 	public enum CostFormula {DIFFERENCE, RELATIVE}
+	public static final Color settingPosC = SystemPanel.limeText;  // Setting name color
+	public static final Color settingNegC = SystemPanel.redText;   // Setting name color
+	public static final Color settingC	  = SystemPanel.whiteText; // Setting name color
 
 	private static final boolean defaultIsList			= true;
 	private static final boolean defaultIsBullet		= false;
@@ -215,6 +220,14 @@ public class SettingBase<T> implements InterfaceParam {
 	}
 	// ========== Overridable Methods ==========
 	//
+	public void enabledColor(float cost) {
+		if (cost == 0) 
+			settingText().enabledC(settingC);	// TODO BR: create settings.enableC()
+		else if (cost > 0)
+			settingText().enabledC(settingPosC);
+		else
+			settingText().enabledC(settingNegC);	
+	}
 	void resetOptionsToolTip() {}
 	protected String getCfgValue(T value) {
 		if (isList) {
