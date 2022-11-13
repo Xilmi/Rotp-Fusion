@@ -202,7 +202,7 @@ public class Race implements Base, Serializable {
     public int diplomacyBonus = 0;
     public float councilBonus = 0;
     public float[] techMod = new float[] { 1, 1, 1, 1, 1, 1 };
-    public float[] discoveryMod = new float[] { 1, 1, 1, 1, 1, 1 }; // BR:
+    public float[] discoveryMod = new float[] { 0, 0, 0, 0, 0, 0 }; // BR:
     public boolean ignoresPlanetEnvironment = false;
     public boolean ignoresFactoryRefit = false;
     public boolean availablePlayer = true;  // BR: never used!
