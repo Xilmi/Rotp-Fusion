@@ -12,6 +12,7 @@ Please test it and don't hesitate to comment the new features.
   - Set Minimum Tech Discovery to 0. (As suggested by Mr_Frosty_L)
   - Added Prefix and suffix option to custom race name, leader names and worlds name, to allow an easier identification.
   - Added selection popup for opponents ability selection.
+  - Added Individual tech discovery probability. (As suggested by Mr_Frosty_L)
 
 ### Last Changes:
   - Added some descriptions.

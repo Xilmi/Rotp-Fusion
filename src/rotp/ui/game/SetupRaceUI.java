@@ -104,8 +104,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     private MOO1GameOptions initialOptions; // To be restored if "cancel"
     private int bSep = s15;
     private Race dataRace;
-    private boolean newShipSet = false;
-
+ 
     public SetupRaceUI() {
         init0();
     }
@@ -398,10 +397,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         g.drawImage(raceImg(), scaled(425), scaled(108), scaled(385), scaled(489), null);
 
         // draw Ship frames on the right
-        if (newShipSet) {
-        	drawShipBoxes(g);
-        	newShipSet = false;
-        }
+        drawShipBoxes(g);
 
         // selected race box
         List<String> races = newGameOptions().startingRaceOptions();
@@ -623,7 +619,8 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     	shipSetTxt.setText(playerShipSet.get());
     	shipSetId = playerShipSet.realShipSetId(Race.keyed(
     			newGameOptions().selectedPlayerRace()).preferredShipSet);
-    	newShipSet = true;
+        for (int i=0; i<shipImages.length; i++)
+        	shipImages[i].clear();
     }
     private void checkBoxChanged() { // BR: checkBoxChanged
         repaint();
@@ -631,8 +628,8 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     void raceChanged() {
         Race r =  Race.keyed(newGameOptions().selectedPlayerRace());
       	dataRace = playerCustomRace.getRace(); // BR:
-        r.resetMugshot();
         r.resetSetupImage();
+        r.resetMugshot();
         shipSetChanged();
         leaderName.setText(r.randomLeaderName());
         newGameOptions().selectedLeaderName(leaderName.getText());
@@ -868,7 +865,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         g.setComposite(prevC);
     }
     private void drawShipBoxes(Graphics2D g) {
-        int xS = scaled(830) + scaled(220);        
+        int xS = scaled(830) + scaled(220);
         Composite comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER , 1.0f);
         drawShipBox(g, 0, xS, scaled(120), comp);
         drawShipBox(g, 1, xS, scaled(200), comp);
@@ -890,7 +887,8 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         g.drawImage(shipImages[num].get(shipId), x,y,w,h, null);
     }
     private void loadShipImages(int num) {
-        shipImages[num].clear();
+    	if (!shipImages[num].isEmpty())
+    		return;
         ShipImage images = ShipLibrary.current().shipImage(shipSetId, shipSize, num);;
         for (String key: images.icons()) {
             Image img = icon(key).getImage();

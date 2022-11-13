@@ -417,6 +417,14 @@ public class CustomRaceDefinitions  {
 
 		// ====================
 		// Third column
+		settingList.add(new TechDiscovery());
+		settingList.add(new DiscoveryComputer());
+		settingList.add(new DiscoveryConstruction());
+		settingList.add(new DiscoveryForceField());
+		settingList.add(new DiscoveryPlanet());
+		settingList.add(new DiscoveryPropulsion());
+		settingList.add(new DiscoveryWeapon());
+		spacer();
 //		settingList.add(new RacePlanetType()); // not yet differentiated
 		settingList.add(new HomeworldSize());
 //		settingList.add(new SpeciesType()); // Not used in Game
@@ -426,36 +434,21 @@ public class CustomRaceDefinitions  {
 		settingList.add(new ProdWorker());
 		settingList.add(new ProdControl());
 		settingList.add(new IgnoresFactoryRefit());
-		settingList.add(new TechDiscovery());
-		settingList.add(new TechResearch());
-		spacer();
-		settingList.add(new SpyCost());
-		settingList.add(new SpySecurity());
-		settingList.add(new SpyInfiltration());
-//		settingList.add(new SpyTelepathy()); // Not used in Game
-		spacer();
-		settingList.add(new DiplomacyTrade());
-// 		settingList.add(new DiploPosDP()); // Not used in Game
-		settingList.add(new DiplomacyBonus());
-		settingList.add(new DiplomacyCouncil());
-		settingList.add(new RelationDefault());	// BR: Maybe All the races
-		spacer();
-		endOfColumn();
-
-		// ====================
-		// Fourth column
-		settingList.add(new PlanetRessources());
-		settingList.add(new PlanetEnvironment());
-		settingList.add(new CreditsBonus());
-		settingList.add(new HitPointsBonus());
-		settingList.add(new MaintenanceBonus());
-		settingList.add(new ShipSpaceBonus());
 		spacer();
 		settingList.add(new ShipAttack());
 		settingList.add(new ShipDefense());
 		settingList.add(new ShipInitiative());
 		settingList.add(new GroundAttack());
 		spacer();
+		settingList.add(new SpyCost());
+		settingList.add(new SpySecurity());
+		settingList.add(new SpyInfiltration());
+//		settingList.add(new SpyTelepathy()); // Not used in Game
+		endOfColumn();
+
+		// ====================
+		// Fourth column
+		settingList.add(new TechResearch());
 		settingList.add(new ResearchComputer());
 		settingList.add(new ResearchConstruction());
 		settingList.add(new ResearchForceField());
@@ -463,6 +456,19 @@ public class CustomRaceDefinitions  {
 		settingList.add(new ResearchPropulsion());
 		settingList.add(new ResearchWeapon());
 		spacer();
+		settingList.add(new PlanetRessources());
+		settingList.add(new PlanetEnvironment());
+		spacer();
+		settingList.add(new CreditsBonus());
+		settingList.add(new HitPointsBonus());
+		settingList.add(new MaintenanceBonus());
+		settingList.add(new ShipSpaceBonus());
+		spacer();
+		settingList.add(new DiplomacyTrade());
+// 		settingList.add(new DiploPosDP()); // Not used in Game
+		settingList.add(new DiplomacyBonus());
+		settingList.add(new DiplomacyCouncil());
+		settingList.add(new RelationDefault());	// BR: Maybe All the races
 		endOfColumn();
 
 		// ====================
@@ -1528,6 +1534,116 @@ public class CustomRaceDefinitions  {
 			set(Math.round(race.techDiscoveryPct * 100));
 		}
 	}
+
+	private static final int discoveryPctMin = 0;
+	private static final int discoveryPctMax = 200;
+	private static final float discoveryC1pos = .5f/6;
+	private static final float discoveryC1neg = .5f/6;
+	private static final float discoveryC2pos = 0f;
+	private static final float discoveryC2neg = 0f;
+	// ==================== DiscoveryComputer ====================
+	//
+	private class DiscoveryComputer extends SettingInteger {
+		// smaller = better
+		private DiscoveryComputer() {
+			super(ROOT, "DISCOVERY_COMPUTER", 100, discoveryPctMin, discoveryPctMax,
+					1, 5, 20, DIFFERENCE, 
+					new float[]{0f, discoveryC1pos, discoveryC2pos},
+					new float[]{0f, discoveryC1neg, discoveryC2neg});
+			initOptionsText();
+		}
+		@Override public void pushSetting() {
+			race.discoveryMod[0] = (float) settingValue()/100;
+		}
+		@Override public void pullSetting() {
+			set(Math.round(race.discoveryMod[0] * 100));
+		}
+	}
+	// ==================== DiscoveryConstruction ====================
+	//
+	private class DiscoveryConstruction extends SettingInteger {
+		private DiscoveryConstruction() {
+			super(ROOT, "DISCOVERY_CONSTRUCTION", 100, discoveryPctMin, discoveryPctMax,
+					1, 5, 20, DIFFERENCE, 
+					new float[]{0f, discoveryC1pos, discoveryC2pos},
+					new float[]{0f, discoveryC1neg, discoveryC2neg});
+			initOptionsText();
+		}
+		@Override public void pushSetting() {
+			race.discoveryMod[1] = (float) settingValue()/100;
+		}
+		@Override public void pullSetting() {
+			set(Math.round(race.discoveryMod[1] * 100));
+		}
+	}
+	// ==================== DiscoveryForceField ====================
+	//
+	private class DiscoveryForceField extends SettingInteger {
+		private DiscoveryForceField() {
+			super(ROOT, "DISCOVERY_FORCEFIELD", 100, discoveryPctMin, discoveryPctMax,
+					1, 5, 20, DIFFERENCE, 
+					new float[]{0f, discoveryC1pos, discoveryC2pos},
+					new float[]{0f, discoveryC1neg, discoveryC2neg});
+			initOptionsText();
+		}
+		@Override public void pushSetting() {
+			race.discoveryMod[2] = (float) settingValue()/100;
+		}
+		@Override public void pullSetting() {
+			set(Math.round(race.discoveryMod[2] * 100));
+		}
+	}
+	// ==================== DiscoveryPlanet ====================
+	//
+	private class DiscoveryPlanet extends SettingInteger {
+		private DiscoveryPlanet() {
+			super(ROOT, "DISCOVERY_PLANET", 100, discoveryPctMin, discoveryPctMax,
+					1, 5, 20, DIFFERENCE, 
+					new float[]{0f, discoveryC1pos, discoveryC2pos},
+					new float[]{0f, discoveryC1neg, discoveryC2neg});
+			initOptionsText();
+		}
+		@Override public void pushSetting() {
+			race.discoveryMod[3] = (float) settingValue()/100;
+		}
+		@Override public void pullSetting() {
+			set(Math.round(race.discoveryMod[3] * 100));
+		}
+	}
+	// ==================== DiscoveryPropulsion ====================
+	//
+	private class DiscoveryPropulsion extends SettingInteger {
+		private DiscoveryPropulsion() {
+			super(ROOT, "DISCOVERY_PROPULSION", 100, discoveryPctMin, discoveryPctMax,
+					1, 5, 20, DIFFERENCE, 
+					new float[]{0f, discoveryC1pos, discoveryC2pos},
+					new float[]{0f, discoveryC1neg, discoveryC2neg});
+			initOptionsText();
+		}
+		@Override public void pushSetting() {
+			race.discoveryMod[4] = (float) settingValue()/100;
+		}
+		@Override public void pullSetting() {
+			set(Math.round(race.discoveryMod[4] * 100));
+		}
+	}
+	// ==================== DiscoveryWeapon ====================
+	//
+	private class DiscoveryWeapon extends SettingInteger {
+		private DiscoveryWeapon() {
+			super(ROOT, "DISCOVERY_WEAPON", 100, discoveryPctMin, discoveryPctMax,
+					1, 5, 20, DIFFERENCE, 
+					new float[]{0f, researchC1pos, researchC2pos},
+					new float[]{0f, researchC1neg, researchC2neg});
+			initOptionsText();
+		}
+		@Override public void pushSetting() {
+			race.discoveryMod[5] = (float) settingValue()/100;
+		}
+		@Override public void pullSetting() {
+			set(Math.round(race.discoveryMod[5] * 100));
+		}
+	}
 	// ==================== TechResearch ====================
 	//
 	private class TechResearch extends SettingInteger {
@@ -1545,15 +1661,15 @@ public class CustomRaceDefinitions  {
 			set(Math.round(race.researchBonusPct * 100));
 		}
 	}
-	// ==================== ResearchComputer ====================
-	//
+
 	private static final int studyCostMin = 50;
 	private static final int studyCostMax = 200;
 	private static final float researchC1pos = -.0f;
 	private static final float researchC1neg = -.0f;
 	private static final float researchC2pos = -.0012f;
 	private static final float researchC2neg = -.005f;
-
+	// ==================== ResearchComputer ====================
+	//
 	private class ResearchComputer extends SettingInteger {
 		// smaller = better
 		private ResearchComputer() {

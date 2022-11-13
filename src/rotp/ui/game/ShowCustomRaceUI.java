@@ -271,7 +271,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 				optionC, selectC, hoverC, depressedC, textC, 0, 0, 0);
 	}
 	private void endOfColumn() {
-//		columnH += settingH;
+		columnH -= 2 * settingH; // to fit the reality... Debug needed
 		columnsMaxH = max(columnsMaxH, columnH);
 		colSettingsCount.add(numSettings);
 		numColumns++;
@@ -314,6 +314,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 					if (tooltipText.equals(preTipTxt)) { 
 						repaint(hoverBox);
 					} else {
+						repaint(hoverBox);
 						repaintTooltip();
 					}
 				}

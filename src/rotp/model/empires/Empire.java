@@ -3212,6 +3212,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public float tradePctBonus()               { return dataRace().tradePctBonus(); }
     public float researchBonusPct()            { return dataRace().researchBonusPct(); }
     public float techDiscoveryPct()            { return dataRace().techDiscoveryPct(); }
+    public float techDiscoveryPct(int i)       { return dataRace().techDiscoveryPct(i); }
     public float growthRateMod()               { return dataRace().growthRateMod(); }
     public float workerProductivityMod()       { return dataRace().workerProductivityMod(); }
     public float internalSecurityAdj()         { return dataRace().internalSecurityAdj(); }
