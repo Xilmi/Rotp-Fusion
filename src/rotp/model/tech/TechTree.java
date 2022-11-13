@@ -192,7 +192,7 @@ public final class TechTree implements Base, Serializable {
         }
         return colonizableHostility;
     }
-    public void init(Empire empire, boolean spyFlag) {
+    public void init(Empire c, boolean spyFlag) {
         spy = spyFlag;
         colonizableHostility[0] = true;
         colonizableHostility[1] = true;
@@ -202,6 +202,7 @@ public final class TechTree implements Base, Serializable {
         colonizableHostility[5] = true;
         colonizableHostility[6] = true;
 
+        empire = c;
         category = new TechCategory[TechTree.NUM_CATEGORIES];
         for (int i=0; i<TechTree.NUM_CATEGORIES; i++ ) {
         	category[i] = new TechCategory(i, this, empire.techDiscoveryPct(i));
