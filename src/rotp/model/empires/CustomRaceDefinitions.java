@@ -26,6 +26,7 @@ import static rotp.ui.UserPreferences.randomAlienRacesSmoothEdges;
 import static rotp.ui.UserPreferences.randomAlienRacesTargetMax;
 import static rotp.ui.UserPreferences.randomAlienRacesTargetMin;
 import static rotp.ui.util.SettingBase.CostFormula.DIFFERENCE;
+import static rotp.ui.util.SettingBase.CostFormula.NORMALIZED;
 import static rotp.util.Base.random;
 
 import java.io.File;
@@ -81,11 +82,12 @@ public class CustomRaceDefinitions  {
 	private LinkedList<Integer> spacerList; // For UI
 	private LinkedList<Integer> columnList; // For UI
 	private RaceList raceList;
-	private AvailableAI		availableAI	= new AvailableAI();
-	private CRPersonality	personality	= new CRPersonality();
-	private CRObjective		objective	= new CRObjective();
-	private RaceKey	  		raceKey		= new RaceKey();
-	private TechDiscovery techDiscovery = new TechDiscovery();
+	private AvailableAI		availableAI		= new AvailableAI();
+	private CRPersonality	personality		= new CRPersonality();
+	private CRObjective		objective		= new CRObjective();
+	private RaceKey	  		raceKey			= new RaceKey();
+	private TechDiscovery	techDiscovery	= new TechDiscovery();
+	private TechResearch	techResearch	= new TechResearch();
 
 	// ========== Constructors and Initializers ==========
 	//
@@ -450,13 +452,13 @@ public class CustomRaceDefinitions  {
 
 		// ====================
 		// Fourth column
-		settingList.add(new TechResearch());
-		settingList.add(new ResearchComputer());
-		settingList.add(new ResearchConstruction());
-		settingList.add(new ResearchForceField());
-		settingList.add(new ResearchPlanet());
-		settingList.add(new ResearchPropulsion());
-		settingList.add(new ResearchWeapon());
+		settingList.add(techResearch);
+		settingList.add(techResearch.computer);
+		settingList.add(techResearch.construction);
+		settingList.add(techResearch.forceField);
+		settingList.add(techResearch.planet);
+		settingList.add(techResearch.propulsion);
+		settingList.add(techResearch.weapon);
 		spacer();
 		settingList.add(new PlanetRessources());
 		settingList.add(new PlanetEnvironment());
@@ -637,7 +639,7 @@ public class CustomRaceDefinitions  {
 		private RaceName() {
 			super(ROOT, "RACE_NAME", "Custom Race", 1);
 			inputMessage("Enter the Race Name");
-			randomStr("");
+			randomStr("Random Race");
 		}
 		@Override public void pushSetting() {
 			race.setupName = settingValue();
@@ -1522,11 +1524,19 @@ public class CustomRaceDefinitions  {
 	// ==================== TechResearch ====================
 	//
 	private class TechResearch extends SettingInteger {
-		// bigger = better
+
+		ResearchComputer		computer	= new ResearchComputer();
+		ResearchConstruction	construction= new ResearchConstruction();
+		ResearchForceField		forceField	= new ResearchForceField();
+		ResearchPlanet			planet		= new ResearchPlanet();
+		ResearchPropulsion		propulsion	= new ResearchPropulsion();
+		ResearchWeapon			weapon		= new ResearchWeapon();
+
 		private TechResearch() {
 			super(ROOT, "TECH_RESEARCH", 100, 60, 200, 1, 5, 20, DIFFERENCE,
 					new float[]{0f, 0.7f, 0.004f},
 					new float[]{0f, 1.0f, 0.006f});
+			hasNoCost(true);
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
@@ -1535,118 +1545,173 @@ public class CustomRaceDefinitions  {
 		@Override public void pullSetting() {
 			set(Math.round(race.researchBonusPct * 100));
 		}
-	}
 
-	private static final int studyCostMin = 50;
-	private static final int studyCostMax = 200;
-	private static final float researchC1pos = -.0f;
-	private static final float researchC1neg = -.0f;
-	private static final float researchC2pos = -.0012f;
-	private static final float researchC2neg = -.005f;
-	// ==================== ResearchComputer ====================
-	//
-	private class ResearchComputer extends SettingInteger {
-		// smaller = better
-		private ResearchComputer() {
-			super(ROOT, "RESEARCH_COMPUTER", 100, studyCostMin, studyCostMax,
-					1, 5, 20, DIFFERENCE, 
-					new float[]{0f, researchC1pos, researchC2pos},
-					new float[]{0f, researchC1neg, researchC2neg});
-			initOptionsText();
+		@Override public String guiSettingDisplayStr() {
+			return getLabel() + ": " + guiSettingValue() + " " + costString(cost());
 		}
-		@Override public void pushSetting() {
-			race.techMod[0] = (float) settingValue()/100;
+		@Override protected void next(Integer i) {
+			super.next(i);
+			computer.settingText().repaint(computer.guiSettingDisplayStr());
+			construction.settingText().repaint(construction.guiSettingDisplayStr());
+			forceField.settingText().repaint(forceField.guiSettingDisplayStr());
+			planet.settingText().repaint(planet.guiSettingDisplayStr());
+			propulsion.settingText().repaint(propulsion.guiSettingDisplayStr());
+			weapon.settingText().repaint(weapon.guiSettingDisplayStr());
 		}
-		@Override public void pullSetting() {
-			set(Math.round(race.techMod[0] * 100));
+		@Override public void enabledColor(float cost) {
+			super.enabledColor(cost());
 		}
-	}
-	// ==================== ResearchConstruction ====================
-	//
-	private class ResearchConstruction extends SettingInteger {
-		private ResearchConstruction() {
-			super(ROOT, "RESEARCH_CONSTRUCTION", 100, studyCostMin, studyCostMax,
-					1, 5, 20, DIFFERENCE, 
-					new float[]{0f, researchC1pos, researchC2pos},
-					new float[]{0f, researchC1neg, researchC2neg});
-			initOptionsText();
-		}
-		@Override public void pushSetting() {
-			race.techMod[1] = (float) settingValue()/100;
-		}
-		@Override public void pullSetting() {
-			set(Math.round(race.techMod[1] * 100));
-		}
-	}
-	// ==================== ResearchForceField ====================
-	//
-	private class ResearchForceField extends SettingInteger {
-		private ResearchForceField() {
-			super(ROOT, "RESEARCH_FORCEFIELD", 100, studyCostMin, studyCostMax,
-					1, 5, 20, DIFFERENCE, 
-					new float[]{0f, researchC1pos, researchC2pos},
-					new float[]{0f, researchC1neg, researchC2neg});
-			initOptionsText();
-		}
-		@Override public void pushSetting() {
-			race.techMod[2] = (float) settingValue()/100;
-		}
-		@Override public void pullSetting() {
-			set(Math.round(race.techMod[2] * 100));
-		}
-	}
-	// ==================== ResearchPlanet ====================
-	//
-	private class ResearchPlanet extends SettingInteger {
-		private ResearchPlanet() {
-			super(ROOT, "RESEARCH_PLANET", 100, studyCostMin, studyCostMax,
-					1, 5, 20, DIFFERENCE, 
-					new float[]{0f, researchC1pos, researchC2pos},
-					new float[]{0f, researchC1neg, researchC2neg});
-			initOptionsText();
-		}
-		@Override public void pushSetting() {
-			race.techMod[3] = (float) settingValue()/100;
-		}
-		@Override public void pullSetting() {
-			set(Math.round(race.techMod[3] * 100));
-		}
-	}
-	// ==================== ResearchPropulsion ====================
-	//
-	private class ResearchPropulsion extends SettingInteger {
-		private ResearchPropulsion() {
-			super(ROOT, "RESEARCH_PROPULSION", 100, studyCostMin, studyCostMax,
-					1, 5, 20, DIFFERENCE, 
-					new float[]{0f, researchC1pos, researchC2pos},
-					new float[]{0f, researchC1neg, researchC2neg});
-			initOptionsText();
-		}
-		@Override public void pushSetting() {
-			race.techMod[4] = (float) settingValue()/100;
-		}
-		@Override public void pullSetting() {
-			set(Math.round(race.techMod[4] * 100));
-		}
-	}
-	// ==================== ResearchWeapon ====================
-	//
-	private class ResearchWeapon extends SettingInteger {
-		private ResearchWeapon() {
-			super(ROOT, "RESEARCH_WEAPON", 100, studyCostMin, studyCostMax,
-					1, 5, 20, DIFFERENCE, 
-					new float[]{0f, researchC1pos, researchC2pos},
-					new float[]{0f, researchC1neg, researchC2neg});
-			initOptionsText();
-		}
-		@Override public void pushSetting() {
-			race.techMod[5] = (float) settingValue()/100;
-		}
-		@Override public void pullSetting() {
-			set(Math.round(race.techMod[5] * 100));
-		}
-	}
 
+		private String costString(float cost) {
+			String str = "(<";
+			str +=  new DecimalFormat("0.0").format(cost);
+			return str + ">)";
+		}
+		private float cost() {
+			return computer.settingCost()
+					+ construction.settingCost()
+					+ forceField.settingCost()
+					+ planet.settingCost()
+					+ propulsion.settingCost()
+					+ weapon.settingCost();
+		}
+
+		// ==================== ResearchComputer ====================
+		//
+		private class ResearchComputer extends SettingResearch {
+			private ResearchComputer() {
+				super("RESEARCH_COMPUTER");
+				initOptionsText();
+			}
+			@Override public void pushSetting() {
+				race.techMod[0] = (float) settingValue()/100;
+			}
+			@Override public void pullSetting() {
+				set(Math.round(race.techMod[0] * 100));
+			}
+		}
+		// ==================== ResearchConstruction ====================
+		//
+		private class ResearchConstruction extends SettingResearch {
+			private ResearchConstruction() {
+				super("RESEARCH_CONSTRUCTION");
+				initOptionsText();
+			}
+			@Override public void pushSetting() {
+				race.techMod[1] = (float) settingValue()/100;
+			}
+			@Override public void pullSetting() {
+				set(Math.round(race.techMod[1] * 100));
+			}
+		}
+		// ==================== ResearchForceField ====================
+		//
+		private class ResearchForceField extends SettingResearch {
+			private ResearchForceField() {
+				super("RESEARCH_FORCEFIELD");
+				initOptionsText();
+			}
+			@Override public void pushSetting() {
+				race.techMod[2] = (float) settingValue()/100;
+			}
+			@Override public void pullSetting() {
+				set(Math.round(race.techMod[2] * 100));
+			}
+		}
+		// ==================== ResearchPlanet ====================
+		//
+		private class ResearchPlanet extends SettingResearch {
+			private ResearchPlanet() {
+				super("RESEARCH_PLANET");
+				initOptionsText();
+			}
+			@Override public void pushSetting() {
+				race.techMod[3] = (float) settingValue()/100;
+			}
+			@Override public void pullSetting() {
+				set(Math.round(race.techMod[3] * 100));
+			}
+		}
+		// ==================== ResearchPropulsion ====================
+		//
+		private class ResearchPropulsion extends SettingResearch {
+			private ResearchPropulsion() {
+				super("RESEARCH_PROPULSION");
+				initOptionsText();
+			}
+			@Override public void pushSetting() {
+				race.techMod[4] = (float) settingValue()/100;
+			}
+			@Override public void pullSetting() {
+				set(Math.round(race.techMod[4] * 100));
+			}
+		}
+		// ==================== ResearchWeapon ====================
+		//
+		private class ResearchWeapon extends SettingResearch {
+			private ResearchWeapon() {
+				super("RESEARCH_WEAPON");
+				initOptionsText();
+			}
+			@Override public void pushSetting() {
+				race.techMod[5] = (float) settingValue()/100;
+			}
+			@Override public void pullSetting() {
+				set(Math.round(race.techMod[5] * 100));
+			}
+		}
+		//
+		// ==================== Research ====================
+		//
+		private class SettingResearch extends SettingInteger {
+			// Cost: smaller = better
+			private static final float	c0 = 0;
+			private static final float	c1 = -18.02331959f;
+			private static final float	c2 = 9.56463523f;
+			private static final float	c3 = -4.365405984f;
+			private static final float	c4 = 0.824090347f;
+			private static final int	baseCostDefault = 100;
+			private static final float	norm = 100f;
+
+			private SettingResearch(String nameLangLabel) {
+				super(ROOT, nameLangLabel, 100, 50, 200, 1, 5, 20, NORMALIZED,
+						new float[]{c0, c1, c2, c3, c4}, null);
+			}
+			
+			@Override public float settingCost() {
+				return settingCost(combinedValue());
+			}
+			@Override protected float settingCost(Integer value) {
+				float baseCost = (value - baseCostDefault)/norm;
+				float cost = 0;
+				for (int i=0; i<posCostFactor.length; i++) {
+					cost += posCostFactor[i] * Math.pow(baseCost, i);			
+				}
+				return cost;
+			}
+			@Override public String guiSettingDisplayStr() {
+				return getLabel() + ": " + guiSettingValue() + " " + costString(this.settingCost());
+			}
+			@Override public String guiSettingValue() {
+				String str = settingValue().toString();
+				str += " -> ";
+				str += String.valueOf(combinedValue());
+				return str;
+			}
+
+			private String costString(float cost) {
+				String str = "(";
+				str +=  new DecimalFormat("0.0").format(cost);
+				return str + ")";
+			}
+			private Integer combinedValue() {
+				return combinedValue(settingValue());
+			}
+			private Integer combinedValue(Integer value) {
+				return Math.round(100f * value / techResearch.settingValue());
+			}
+		}
+	}
 	// ==================== TechDiscovery ====================
 	//
 	private class TechDiscovery extends SettingInteger {
@@ -1790,31 +1855,29 @@ public class CustomRaceDefinitions  {
 		//
 		private class SettingDiscovery extends SettingInteger {
 
-			private static final float	c0 = 0;
-			private static final float	c1 = .5f/6;
-			private static final float	c2 = 0f;
+			private static final float	c0 = 0f;
+			private static final float	c1 = 4.9221976f;
+			private static final float	c2 = 1.25604100f;
+			private static final float	c3 = -2.37443919f;
+			private static final float	c4 = -0.62901149f;
+			private static final float	c5 = 0.576847553f;
 			private static final int	baseCostDefault = 50;
+			private static final float	norm = 50f;
 
 			private SettingDiscovery(String nameLangLabel) {
-				super(ROOT, nameLangLabel, 0, -100, 100, 1, 5, 20, DIFFERENCE,
-						new float[]{c0, c1, c2},
-						new float[]{c0, c1, c2});
+				super(ROOT, nameLangLabel, 0, -100, 100, 1, 5, 20, NORMALIZED,
+						new float[]{c0, c1, c2, c3, c4, c5}, null);
 			}
 			
 			@Override public float settingCost() {
 				return settingCost(combinedValue());
 			}
 			@Override protected float settingCost(Integer value) {
-				float baseCost = value - baseCostDefault;
-				boolean useNegFormula = baseCost < 0f;
-				baseCost = Math.abs(baseCost);
+				float baseCost = (value - baseCostDefault)/norm;
 				float cost = 0;
-				if (useNegFormula)
-					for (int i=0; i<negCostFactor.length; i++)
-						cost -= negCostFactor[i] * Math.pow(baseCost, i);
-				else
-					for (int i=0; i<posCostFactor.length; i++)
-						cost += posCostFactor[i] * Math.pow(baseCost, i);			
+				for (int i=0; i<posCostFactor.length; i++) {
+					cost += posCostFactor[i] * Math.pow(baseCost, i);			
+				}
 				return cost;
 			}
 			@Override public String guiSettingDisplayStr() {

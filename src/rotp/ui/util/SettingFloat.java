@@ -38,6 +38,7 @@ public class SettingFloat extends SettingBase<Float> {
 	private boolean loop	= false;
 	private Float minValue	= null;
 	private Float maxValue	= null;
+	private Float norm		= 100f;
 	private Float baseInc	= defaultBaseInc;
 	private Float shiftInc	= defaultShiftInc;
 	private Float ctrlInc	= defaultCtrlInc;
@@ -272,6 +273,12 @@ public class SettingFloat extends SettingBase<Float> {
 				return rawBaseCost-1;
 			else
 				return (1/rawBaseCost)-1;
+		case NORMALIZED:
+			rawBaseCost   = (value - defaultValue())/norm;
+			useNegFormula = false;
+			return rawBaseCost;
+		default:
+			break;
 		}
 		useNegFormula = false;
 		return 0f;

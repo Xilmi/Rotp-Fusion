@@ -26,6 +26,11 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2022.11.14 (BR)
+  - Linked the cost of Research revenue and cost multiplier.
+  - Adjusted the combined cost formula of Research cost multiplier.
+  - Adjusted the combined cost formula of Research discovery probability.
+
 2022.11.13 (BR)
   - Replaced tech discovery probability product by sum.
   - Linked global and individual discovery probability.

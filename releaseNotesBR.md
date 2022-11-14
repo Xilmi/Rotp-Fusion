@@ -7,6 +7,9 @@ Please test it and don't hesitate to comment the new features.
   - Replaced tech discovery probability product by sum.
   - Linked global and individual discovery probability.
   - Added cost management to tech discovery probability.
+  - Linked the cost of Research revenue and cost multiplier.
+  - Adjusted the combined cost formula of Research cost multiplier.
+  - Adjusted the combined cost formula of Research discovery probability. (The cost variation is slower at the extremities)
 
 ### Very Last Changes:
   - Added individual opponent Ability selection (The same way the AI may be selected)

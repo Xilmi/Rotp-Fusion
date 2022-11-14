@@ -1428,7 +1428,7 @@ CUSTOM_RACE_PROD_REFIT_COST       | Ignores Refit Cost
 CUSTOM_RACE_TECH_DISCOVERY        | Tech Discovery
 CUSTOM_RACE_TECH_DISCOVERY_DESC   | The base probability of getting a tech available. Displayed cost is the sum of specific tech discovery cost.
 CUSTOM_RACE_TECH_RESEARCH         | Tech Research
-CUSTOM_RACE_TECH_RESEARCH_DESC    | The base cost multiplier for reseaching technology.
+CUSTOM_RACE_TECH_RESEARCH_DESC    | Revenue multiplier for reseaching technology. Cost is linked to the research cost multiplier. Displayed cost is the sum of specific tech research cost.
 CUSTOM_RACE_POP_GROW_RATE         | Population Grow Rate
 CUSTOM_RACE_DIPLOMACY_TRADE       | Trade Bonus
 CUSTOM_RACE_DIPLO_POS_DP          | Diplo Pos DP
@@ -1447,18 +1447,18 @@ CUSTOM_RACE_DISCOVERY_FORCEFIELD_DESC   | Probability offset of getting Force Fi
 CUSTOM_RACE_DISCOVERY_PLANET_DESC       | Probability offset of getting Planet tech available. Display: Offset -> Sum (Cost)
 CUSTOM_RACE_DISCOVERY_PROPULSION_DESC   | Probability offset of getting Propulsion tech available. Display: Offset -> Sum (Cost)
 CUSTOM_RACE_DISCOVERY_WEAPON_DESC       | Probability offset of getting Weapon tech available. Display: Offset -> Sum (Cost)
-CUSTOM_RACE_RESEARCH_COMPUTER     | Study Cost Computer
-CUSTOM_RACE_RESEARCH_CONSTRUCTION | Study Cost Construction
-CUSTOM_RACE_RESEARCH_FORCEFIELD   | Study Cost Force Field
-CUSTOM_RACE_RESEARCH_PLANET       | Study Cost Planet
-CUSTOM_RACE_RESEARCH_PROPULSION   | Study Cost Propulsion
-CUSTOM_RACE_RESEARCH_WEAPON       | Study Cost Weapon
-CUSTOM_RACE_RESEARCH_COMPUTER_DESC     | Cost multiplier for reseaching Computer tech.
-CUSTOM_RACE_RESEARCH_CONSTRUCTION_DESC | Cost multiplier for reseaching Construction tech.
-CUSTOM_RACE_RESEARCH_FORCEFIELD_DESC   | Cost multiplier for reseaching Force Field tech.
-CUSTOM_RACE_RESEARCH_PLANET_DESC       | Cost multiplier for reseaching Planet tech.
-CUSTOM_RACE_RESEARCH_PROPULSION_DESC   | Cost multiplier for reseaching Propulsion tech.
-CUSTOM_RACE_RESEARCH_WEAPON_DESC       | Cost multiplier for reseaching Weapon tech.
+CUSTOM_RACE_RESEARCH_COMPUTER     | Cost Computer
+CUSTOM_RACE_RESEARCH_CONSTRUCTION | Cost Construction
+CUSTOM_RACE_RESEARCH_FORCEFIELD   | Cost Force Field
+CUSTOM_RACE_RESEARCH_PLANET       | Cost Planet
+CUSTOM_RACE_RESEARCH_PROPULSION   | Cost Propulsion
+CUSTOM_RACE_RESEARCH_WEAPON       | Cost Weapon
+CUSTOM_RACE_RESEARCH_COMPUTER_DESC     | Cost multiplier for reseaching Computer tech. Display: Cost multiplier -> Cost multiplier/ Revenue multiplier (Cost)
+CUSTOM_RACE_RESEARCH_CONSTRUCTION_DESC | Cost multiplier for reseaching Construction tech. Display: Cost multiplier -> Cost multiplier/ Revenue multiplier (Cost)
+CUSTOM_RACE_RESEARCH_FORCEFIELD_DESC   | Cost multiplier for reseaching Force Field tech. Display: Cost multiplier -> Cost multiplier/ Revenue multiplier (Cost)
+CUSTOM_RACE_RESEARCH_PLANET_DESC       | Cost multiplier for reseaching Planet tech. Display: Cost multiplier -> Cost multiplier/ Revenue multiplier (Cost)
+CUSTOM_RACE_RESEARCH_PROPULSION_DESC   | Cost multiplier for reseaching Propulsion tech. Display: Cost multiplier -> Cost multiplier/ Revenue multiplier (Cost)
+CUSTOM_RACE_RESEARCH_WEAPON_DESC       | Cost multiplier for reseaching Weapon tech. Display: Cost multiplier -> Cost multiplier/ Revenue multiplier (Cost)
 CUSTOM_RACE_RACE_EMPIRE_NAME      | Empire Designation
 CUSTOM_RACE_RACE_DESC_1           | Race mood description
 CUSTOM_RACE_RACE_DESC_2           | Race abilities description

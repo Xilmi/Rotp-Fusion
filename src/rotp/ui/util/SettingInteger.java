@@ -36,6 +36,7 @@ public class SettingInteger extends SettingBase<Integer> {
 	private boolean loop	 = false;
 	private Integer minValue = null;
 	private Integer maxValue = null;
+	private Float	norm	 = 100f;
 	private Integer baseInc	 = defaultBaseInc;
 	private Integer shiftInc = defaultShiftInc;
 	private Integer ctrlInc	 = defaultCtrlInc;
@@ -217,13 +218,18 @@ public class SettingInteger extends SettingBase<Integer> {
 			useNegFormula = rawBaseCost < 0f;
 			return Math.abs(rawBaseCost);
 		case RELATIVE:
-			System.out.println(this.labelId());
 			rawBaseCost   = Math.abs((float)value / defaultValue());
 			useNegFormula = rawBaseCost < 1f;
 			if (rawBaseCost > 1f)
 				return rawBaseCost-1;
 			else
 				return (1/rawBaseCost)-1;
+		case NORMALIZED:
+			rawBaseCost   = (value - defaultValue())/norm;
+			useNegFormula = false;
+			return rawBaseCost;
+		default:
+			break;
 		}
 		useNegFormula = false;
 		return 0f;

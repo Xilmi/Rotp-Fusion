@@ -36,7 +36,7 @@ import rotp.util.LabelManager;
 
 public class SettingBase<T> implements InterfaceParam {
 	
-	public enum CostFormula {DIFFERENCE, RELATIVE}
+	public enum CostFormula {DIFFERENCE, RELATIVE, NORMALIZED}
 	public static final Color settingPosC = SystemPanel.limeText;  // Setting name color
 	public static final Color settingNegC = SystemPanel.redText;   // Setting name color
 	public static final Color settingC	  = SystemPanel.whiteText; // Setting name color
