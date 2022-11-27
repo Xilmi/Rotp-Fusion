@@ -63,7 +63,7 @@ public class GalaxyFactory implements Base {
 	 * Companion world greek letter prefix
 	 */
 	public static final String[] compSysName = new String[]{"α", "β", "γ", "δ", "ε", "ζ"};// BR : added two possibilities
-	private static final boolean showEmp = true; // BR: for debug
+	private static final boolean showEmp = false; // BR: for debug
 	private static final boolean showAI	 = false; // BR: for debug
 	private static boolean[] isRandomOpponent; // BR: only Random Races will be customized
 	private static String playerDataRaceKey;   // BR: in case Alien races are a copy of player race

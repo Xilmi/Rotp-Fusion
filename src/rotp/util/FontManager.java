@@ -15,18 +15,25 @@
  */
 package rotp.util;
 
+import static rotp.ui.UserPreferences.useFusionFont;
+
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.font.TextAttribute;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import rotp.Rotp;
+
 public enum FontManager implements Base {
     INSTANCE;
     public static FontManager current()  { return INSTANCE; }
+    private static final String LOCAL_SHAPE_TEXT_FONT = "NotoFusionSimplified-Regular.otf";
 
     private static final int MAX_FONT_SIZE = 200;
     private String logoFont;
@@ -37,14 +44,22 @@ public enum FontManager implements Base {
     private final Map<String,String[]> languageFontNames = new HashMap<>(); // maps lang code to filenames of font
     private final Map<String,Font> languageFonts = new HashMap<>();       // maps filename of font to a font[]
     private final Map<String,Font[]> allFonts = new HashMap<>();
-    private int dlgSize, narrowSize, plainSize, introSize,  logoSize, languageSize;
+    private int dlgSize, narrowSize, plainSize, introSize,  logoSize; //, languageSize;
 
+    @Override public Font monoSpacedFont(int size) { // BR: MonoSpaced font for Galaxy
+		Map<TextAttribute, Object> attributes = new HashMap<TextAttribute, Object>();
+		attributes.put(TextAttribute.TRACKING, -0.15);
+		if (useFusionFont.get())
+			return loadLocalFont(size).deriveFont(attributes);
+		else
+			return loadMonoFont(size).deriveFont(attributes);
+    }
     @Override
     public Font dlgFont(int n) { return getFont(dlgFont, n, dlgSize); }
     @Override
     public Font narrowFont(int n) { return getFont(narrowFont, n, narrowSize); }
     @Override
-    public Font plainFont(int n)          { return getFont(plainFont, n, plainSize);  }
+    public Font plainFont(int n)  { return getFont(plainFont, n, plainSize);  }
     public Font languageFont(String code) {
         String filenames[] = languageFontNames.get(code);
         return languageFonts.get(filenames[5]);
@@ -99,8 +114,8 @@ public enum FontManager implements Base {
         String dir = baseDir+langDir+"/";
         log("Loading fonts - baseDir: ", baseDir, "  fontDir: ", fontDir, "  langDir: ", dir);
         String dataFile = "fonts.txt";
-
-        BufferedReader in = reader(dir+dataFile);
+        BufferedReader in;
+       	in = reader(dir+dataFile);
         if (in == null) {
             err("can't find fonts file! ", dir, dataFile);
             return;
@@ -224,5 +239,23 @@ public enum FontManager implements Base {
         catch (FontFormatException | IOException e) {
             err("FontManager.loadFont -- Exception: " + e.getMessage());
         }
+    }
+    private Font loadLocalFont(int size) {
+		String path = Rotp.jarPath();
+		String fontDir = path + "/../src/rotp/lang/fonts";
+		File file =  new File(fontDir, LOCAL_SHAPE_TEXT_FONT);
+		try {
+		    //create the font to use. Specify the size!
+			return Font.createFont(Font.TRUETYPE_FONT, file).deriveFont((float) size);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch(FontFormatException e) {
+			e.printStackTrace();
+		}
+		System.out.println("loadLocalFont() returned  loadMonoFont()");
+		return loadMonoFont(size);
+    }
+    private Font loadMonoFont(int size) {
+        return new Font(Font.MONOSPACED, Font.PLAIN, size);
     }
 }

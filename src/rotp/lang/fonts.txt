@@ -1,0 +1,9 @@
+// These are the fonts used for the 5 font types within the game.
+// These are alternative international fonts
+
+logo,         NotoSansFusion-Regular.ttf,     100
+dialogue,  NotoSansFusion-Regular.ttf,     100
+narrow,     NotoSansFusion-BoldCond.ttf, 100
+normal,     NotoSansFusion-Regular.ttf,     100
+plain,         NotoSansFusion-Cond.ttf,         100
+language,  NotoSansFusion-BoldCond.ttf, 100

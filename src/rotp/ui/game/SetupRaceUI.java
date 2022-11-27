@@ -57,6 +57,7 @@ import rotp.model.ships.ShipImage;
 import rotp.model.ships.ShipLibrary;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
+import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.util.Modifier2KeysState;
 
@@ -129,7 +130,8 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     public void init() {
 		Modifier2KeysState.reset();
         leaderName.setFont(narrowFont(20));
-        homeWorld.setFont(narrowFont(20));
+        // homeWorld.setFont(narrowFont(20));
+        setHomeWorldFont(); // BR: MonoSpaced font for Galaxy
         shipSetTxt.setFont(narrowFont(20)); // BR:
         createNewGameOptions(); // Following the UserPreferences.menuStartup
         newGameOptions().copyOptions(options()); // Follow the UserPreferences.menuLoadGame
@@ -137,6 +139,12 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         // Save initial options
         initialOptions = new MOO1GameOptions(); // Any content will do
         saveOptions(initialOptions);
+    }
+    public void setHomeWorldFont() { // BR: MonoSpaced font for Galaxy
+//    	if (UserPreferences.useInternationalFont.get())
+//    		homeWorld.setFont(monoSpacedFont(20));
+//    	else
+    		homeWorld.setFont(narrowFont(20));
     }
     private void copyOptions(MOO1GameOptions src, MOO1GameOptions dest) {
     	MOO1GameOptions.setRaceOptions(src, dest);
@@ -603,6 +611,8 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         RotPUI.instance().selectSetupGalaxyPanel();
         backImg = null;
         raceImg = null;
+        for (int i=0; i<shipImages.length; i++)
+        	shipImages[i].clear();
     }
     private void selectRace(int i) {
         String selRace = newGameOptions().selectedPlayerRace();

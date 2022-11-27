@@ -222,7 +222,7 @@ public class SettingBase<T> implements InterfaceParam {
 	//
 	public void enabledColor(float cost) {
 		if (cost == 0) 
-			settingText().enabledC(settingC);	// TODO BR: create settings.enableC()
+			settingText().enabledC(settingC);
 		else if (cost > 0)
 			settingText().enabledC(settingPosC);
 		else

@@ -839,8 +839,9 @@ public final class GameSession implements Base, Serializable {
     private void loadPreviousSession(GameSession gs, boolean startUp) {
         stopCurrentGame();
         instance = gs;
-        // Save the last loaded game parameters
+        // BR: save the last loaded game parameters
 		MOO1GameOptions.saveGameOptions((MOO1GameOptions) instance.options);
+		// TODO BR: If required, set all game options
 		if (showInfo)  showInfo(gs.galaxy());
         startExecutors();
         RotPUI.instance().mainUI().checkMapInitialized();

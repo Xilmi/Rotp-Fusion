@@ -33,52 +33,74 @@ import rotp.util.Base;
 // added some comments to help my understanding of this class
 public abstract class GalaxyShape implements Base, Serializable {
 	private static final long serialVersionUID = 1L;
-	static final int GALAXY_EDGE_BUFFER = 12;
+	private static final int GALAXY_EDGE_BUFFER = 12;
 	static final double twoPI = Math.PI * 2.0; // BR:
-	static float orionBuffer = 10;
+	private static float orionBuffer = 10;
 	static float empireBuffer = 8;	
-	float[] x;
-	float[] y;
-	CompanionWorld[] companionWorlds; // BR:
-	int numCompanions;
-	ShapeRegion[][] regions;
-	int regionScale = 16;
+	private float[] x;
+	private float[] y;
+	private CompanionWorld[] companionWorlds; // BR:
+	private int numCompanions;
+	private ShapeRegion[][] regions;
+	private int regionScale = 16;
 	int width = 0;
 	int height = 0;
 	int maxStars = 0;
-	int num = 0;
-	int homeStars = 0;
-	int genAttempt = 0;
-	boolean usingRegions = false;
-	boolean fullyInit = false;
-	List<EmpireSystem> empSystems = new ArrayList<>();
-	public Point.Float orionXY;
+	private int num = 0;
+	private int homeStars = 0;
+	private int genAttempt = 0;
+	private boolean usingRegions = false;
+	private boolean fullyInit = false;
+	private List<EmpireSystem> empSystems = new ArrayList<>();
+	private Point.Float orionXY;
 	IGameOptions opts;
 	
 	// BR: added for symmetric galaxy
-	public static float cx; // Width galaxy center
-	public static float cy; // Height galaxy center
+	private static float cx; // Width galaxy center
+	private static float cy; // Height galaxy center
 	float sysBuffer = 1.9f;
 	int numEmpires;
-	int numOpponents;
+	private int numOpponents;
 	Rand rand = new Rand(); // random number generator
-	long tm0; // for timing computation
+	private long tm0; // for timing computation
+	float growFactor = 20;
 	// \BR
 
-	public int width()		   { return width; }
-	public int height()		   { return height; }
-	public boolean fullyInit() { return fullyInit; }
+	public int width()	{ return width; }
+	public int height() { return height; }
+	boolean fullyInit() { return fullyInit; }
 	// ========== abstract and overridable methods ==========
 	protected abstract int galaxyWidthLY();
 	protected abstract int galaxyHeightLY();
 	public abstract void setRandom(Point.Float p);
 	public abstract boolean valid(float x, float y);
 	protected abstract float sizeFactor(String size);
+	protected void clean() {} // To remove big temporary data;
+	protected float settingsFactor(float shapeFactor) {
+		// shapeFactor is not used yet
+	    float adjDensity = densitySizeFactor();
+		float largeGal = 7f + 6f * (float) Math.log10(maxStars);
+		float smallGal = 1.8f * sqrt(maxStars);
+		float selected = max(4f, min(largeGal, smallGal));
+		return adjDensity * selected;
+	}
+    protected float densitySizeFactor() {
+        float adj = 1.0f;
+        switch (opts.selectedStarDensityOption()) {
+            case IGameOptions.STAR_DENSITY_LOWEST:  adj = 1.3f; break;
+            case IGameOptions.STAR_DENSITY_LOWER:   adj = 1.2f; break;
+            case IGameOptions.STAR_DENSITY_LOW:     adj = 1.1f; break;
+            case IGameOptions.STAR_DENSITY_HIGH:    adj = 0.9f; break;
+            case IGameOptions.STAR_DENSITY_HIGHER:  adj = 0.8f; break;
+            case IGameOptions.STAR_DENSITY_HIGHEST: adj = 0.7f; break;
+        }
+        return adj;
+    }
 
 	// modnar: add possibility for specific placement of homeworld/orion locations
 	// indexWorld variable will be used by setSpecific in each Map Shape for locations
 	public abstract void setSpecific(Point.Float p);
-	public int indexWorld;
+	int indexWorld;
 
 	public boolean isSymmetric()            { return false; }
 	public boolean isCircularSymmetric()    { return false; }
@@ -93,18 +115,26 @@ public abstract class GalaxyShape implements Base, Serializable {
 		// So either an empty method here or one in every non symmetric child class
 		return null;
 	}
-	protected CtrPoint[] getOtherSymmetricSystems(CtrPoint src) {
+	private CtrPoint[] getOtherSymmetricSystems(CtrPoint src) {
 		return null; // if relevant, this method should be overridden
 	}
 	// BR: ========== Getter Methods ==========
 	//
-	public int numberStarSystems()			{ return num; }
+	public int numCompanionWorld()	{return numCompanions; }
+	public int numberStarSystems()	{ return num; }
 	// modnar: add option to start game with additional colonies
 	// modnar: these colonies are in addition to number of stars chosen in galaxy
-	public int totalStarSystems()			 { return num+homeStars+UserPreferences.companionWorlds()*(opts.selectedNumberOpponents()+1);}
+	int totalStarSystems()	{
+		return num + homeStars
+			+ UserPreferences.companionWorlds()*(opts.selectedNumberOpponents()+1);
+	}
 	public List<EmpireSystem> empireSystems() { return empSystems; }
-	public int empireSystemStars()			{ return homeStars; }
-	public float adjustedSizeFactor()		{ return sizeFactor(opts.selectedGalaxySize()) + (genAttempt/3); }
+	float adjustedSizeFactor()	{ // BR: to converge more quickly
+		float factor = sizeFactor(opts.selectedGalaxySize());
+		float mult = (1f + (float)genAttempt/20f);
+		float adjFactor = factor * mult;
+		return adjFactor;
+	}
 
 	public List<String> options1()			{ return new ArrayList<>(); }
 	public List<String> options2()			{ return new ArrayList<>(); }
@@ -113,11 +143,11 @@ public abstract class GalaxyShape implements Base, Serializable {
 	public String defaultOption1()			{ return ""; }
 	public String defaultOption2()			{ return ""; }
 
-	public float systemBuffer() {
+	float systemBuffer() {
 		switch (opts.selectedStarDensityOption()) {
 			case IGameOptions.STAR_DENSITY_LOWEST:  return 2.5f;
 			case IGameOptions.STAR_DENSITY_LOWER:   return 2.3f;
-			case IGameOptions.STAR_DENSITY_LOW:	 return 2.1f;
+			case IGameOptions.STAR_DENSITY_LOW:		return 2.1f;
 			case IGameOptions.STAR_DENSITY_HIGH:	return 1.7f;
 			case IGameOptions.STAR_DENSITY_HIGHER:  return 1.5f;
 			case IGameOptions.STAR_DENSITY_HIGHEST: return 1.3f;
@@ -129,13 +159,13 @@ public abstract class GalaxyShape implements Base, Serializable {
 	}
 	// BR: ========== Very symmetry specific Methods ==========
 	//
-	protected CtrPoint[] getCircularSymmetricSystems(CtrPoint src) {
+	private CtrPoint[] getCircularSymmetricSystems(CtrPoint src) {
 		return src.rotate(twoPI/numEmpires, numOpponents);
 	}
-	protected CtrPoint[] getRectangularSymmetricSystems(CtrPoint src) {
+	private CtrPoint[] getRectangularSymmetricSystems(CtrPoint src) {
 		return null; // To be implemented later
 	}
-	protected CtrPoint[] getSymmetricSystems(CtrPoint src) {
+	private CtrPoint[] getSymmetricSystems(CtrPoint src) {
 		if (isCircularSymmetric()) {
 			return getCircularSymmetricSystems(src);
 		}
@@ -149,7 +179,7 @@ public abstract class GalaxyShape implements Base, Serializable {
     protected double galaxyRay() {
     	return cx - galaxyEdgeBuffer();
     }
-	public void generateSymmetric(boolean full) {
+	private void generateSymmetric(boolean full) {
 		genAttempt = 0;
 		// add systems needed for empires
 		while (empSystems.size() < numEmpires) { // Empires attempts loop
@@ -158,6 +188,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 			else
 				quickInit();
 			genAttempt++;
+			
 			empSystems.clear();
 			homeStars = 0;
 			num = 0;
@@ -216,7 +247,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 		long tm1 = System.currentTimeMillis();
 		log("Galaxy generation: "+(tm1-tm0)+"ms  Regions: " + usingRegions+"  Attempts: ", str(attempts), "  stars:", str(num), "/", str(maxStars));
 	}
-	protected int addUncolonizedSystemsSymmetric() {
+	private int addUncolonizedSystemsSymmetric() {
 		int maxAttempts = maxStars * 10;
 		// we've already generated 3 stars for every empire so reduce their
 		// total from the count of remaining stars to create ("too many stars" bug)
@@ -243,7 +274,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 		return attempts;
 	}
 	// \BR
-	public boolean valid(Point.Float p) { return valid(p.x, p.y); }
+	boolean valid(Point.Float p) { return valid(p.x, p.y); }
 	public float maxScaleAdj()			   { return 1.0f; }
 	public void coords(int n, Point.Float pt) {
 		int i = n;
@@ -269,7 +300,12 @@ public abstract class GalaxyShape implements Base, Serializable {
 	}
 	// BR: ========== Initialization Methods ==========
 	//
-	public void singleInit() {
+	private void singleInit(boolean full) {
+		if (full)
+			maxStars = opts.numberStarSystems();
+		else
+			maxStars = min(5000,opts.numberStarSystems());
+			
 		// common symmetric and non symmetric initializer for generation
 		numOpponents = max(0, opts.selectedNumberOpponents());
 		numEmpires = numOpponents + 1;
@@ -307,12 +343,13 @@ public abstract class GalaxyShape implements Base, Serializable {
 		empireBuffer = min(maxMinEmpireBuffer, max(minEmpireBuffer, (maxStars/(numEmpires*2))));
 		// Orion buffer is 50% greater with minimum of 8 ly.
 		orionBuffer = max(minOrionBuffer, empireBuffer*3/2);
+//		bufferRatio = empireBuffer/sysBuffer;
 	}
-	public void fullInit() {
+	private void fullInit() {
 		fullyInit = true;
 		init(opts.numberStarSystems());
 	}
-	public void quickInit() {
+	private void quickInit() {
 		fullyInit = false;
 		init(min(5000,opts.numberStarSystems()));
 	}
@@ -341,21 +378,23 @@ public abstract class GalaxyShape implements Base, Serializable {
 			y = new float[maxStars];
 		}
 	}
-	public void initWidthHeight() {
+	void initWidthHeight() {
 		width = galaxyWidthLY() + (2 * galaxyEdgeBuffer());
 		height = galaxyHeightLY() + (2 * galaxyEdgeBuffer());
 		// BR: for symmetric galaxy
 		cx = width  / 2.0f;
 		cy = height / 2.0f;
 	}
-	public void fullGenerate() {
+	void fullGenerate() {
 		generate(true);
+		clean();
 	}
 	public void quickGenerate() {
 		generate(false);
+		clean();
 	}
-	public void generate(boolean full) {
-		singleInit();
+	private void generate(boolean full) {
+		singleInit(full);
 		if (isSymmetric()) {
 			generateSymmetric(full);
 			return;
@@ -409,10 +448,10 @@ public abstract class GalaxyShape implements Base, Serializable {
 		}
 		return GALAXY_EDGE_BUFFER;
 	}
-	protected void addColonizedSystems() {
-
-	}
-	protected Point.Float addOrion() {
+//	private void addColonizedSystems() {
+//
+//	}
+	private Point.Float addOrion() {
 		Point.Float pt = new Point.Float();
 		indexWorld = 0; // modnar: explicitly set indexWorld=0 for orion
 		findSpecificValidLocation(pt); // modnar: specific placement for orion location
@@ -426,7 +465,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 			companionWorlds[i] = new CompanionWorld(empSystems.get(i), numCompanions);
 		}
 	}
-	protected int addUncolonizedSystems() {
+	private int addUncolonizedSystems() {
 		int maxAttempts = maxStars * 10;
 
 		// we've already generated 3 stars for every empire so reduce their
@@ -439,9 +478,11 @@ public abstract class GalaxyShape implements Base, Serializable {
 			if (!isTooNearExistingSystem(pt.x,pt.y,false))
 				addSystem(pt);
 		}
+		// System.out.println("addUncolonizedSystems(): attempts/maxStars = "
+		//                    + (float)attempts/maxStars);
 		return attempts;
 	}
-	public Point.Float findAnyValidLocation(Point.Float p) {
+	private Point.Float findAnyValidLocation(Point.Float p) {
 		setRandom(p);
 		while (!valid(p))
 			setRandom(p);
@@ -449,18 +490,22 @@ public abstract class GalaxyShape implements Base, Serializable {
 		return p;
 	}
 	// modnar: add specific placement of orion/homeworld locations
-	public Point.Float findSpecificValidLocation(Point.Float p) {
+	private Point.Float findSpecificValidLocation(Point.Float p) {
 		setSpecific(p);
-		indexWorld++; // modnar: increment indexWorld for subsequent homeworld locations
-		while (!valid(p)) {
+		//indexWorld++; // modnar: increment indexWorld for subsequent homeworld locations
+		while (!valid(p) && indexWorld++<1000) {
 			setSpecific(p);
 			// modnar: incrementing indexWorld here to prevent accidental infinite loop of bad locations,
 			// but need setSpecific to have some form of repeating modulo cut-off
-			indexWorld++;
+			//indexWorld++;
+		}
+		if (!valid(p)) { // to avoid infinite loop
+			p.x = cx;
+			p.y = cy;
 		}
 		return p;
 	}
-	protected void addSystem(Point.Float pt) { // BR: changed to protected
+	private void addSystem(Point.Float pt) { // BR: changed to protected
 		addSystem(pt.x, pt.y);
 	}
 	private void addSystem(float x0, float y0) {
@@ -476,7 +521,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 			num++;
 		}
 	}
-	protected boolean isTooNearExistingSystem(float x0, float y0, boolean isHomeworld) {
+	private boolean isTooNearExistingSystem(float x0, float y0, boolean isHomeworld) {
 		if (isHomeworld) {
 			if (distance(x0,y0,orionXY.x,orionXY.y) <= orionBuffer)
 				return true;
@@ -555,12 +600,12 @@ public abstract class GalaxyShape implements Base, Serializable {
 	}
 	@SuppressWarnings("serial")
 	public final class EmpireSystem implements Serializable {
-		float[] x = new float[3];
-		float[] y = new float[3];
-		int num = 0;
-		boolean valid = false;
+		private float[] x = new float[3];
+		private float[] y = new float[3];
+		private int num = 0;
+		private boolean valid = false;
 
-		public EmpireSystem(GalaxyShape sp) {
+		private EmpireSystem(GalaxyShape sp) {
 			// empire is valid if it can create a valid home system
 			// and two valid nearby stars
 			valid = addNewHomeSystem(sp);
@@ -568,14 +613,14 @@ public abstract class GalaxyShape implements Base, Serializable {
 			valid = valid && addNearbySystem(sp, colonyX(), colonyY(), 3.0f);
 		}
 		// BR: for symmetric galaxy
-		public EmpireSystem(GalaxyShape sp, Point.Float pt) {
+		private EmpireSystem(GalaxyShape sp, Point.Float pt) {
 			// create first a valid home system (pt is already validated)
 			// then from a second call two valid nearby stars
 			addSystem(pt.x,pt.y);
 		 	valid = true;
 		}
 		// BR: for symmetric galaxy
-		public boolean addNearbySystems(GalaxyShape sp, Point.Float pt) {
+		private boolean addNearbySystems(GalaxyShape sp, Point.Float pt) {
 			// if pt = null then search for a nearby system
 			// else the system is already validated... add it
 			boolean valid = false;
@@ -591,16 +636,16 @@ public abstract class GalaxyShape implements Base, Serializable {
 		public int numSystems()   { return num; }
 		public float x(int i)	{ return x[i]; }
 		public float y(int i)	{ return y[i]; }
-		public float colonyX()   { return x[0]; }
-		public float colonyY()   { return y[0]; }
+		float colonyX()   { return x[0]; }
+		float colonyY()   { return y[0]; }
 
-		public boolean inNebula(Nebula neb) {
-			for (int i=0;i<num;i++) {
-				if (neb.contains(x[i], y[i]))
-					return true;
-			}
-			return false;
-		}
+//		private boolean inNebula(Nebula neb) {
+//			for (int i=0;i<num;i++) {
+//				if (neb.contains(x[i], y[i]))
+//					return true;
+//			}
+//			return false;
+//		}
 
 		private boolean addNewHomeSystem(GalaxyShape sp) {
 			int attempts = 0;
@@ -657,7 +702,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 	 *  to avoid to spread symmetry management everywhere
 	 *  Added some diversity in their angular placement
 	 */
-	public class CompanionWorld { // BR:
+	private class CompanionWorld { // BR:
 
 		final double minRandom = twoPI / 6.0;
 		CtrPoint[] cW;
@@ -689,7 +734,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 		}
 	   	// ========== Getters ==========
 	   	//
-		CompanionWorld[] symmetric() {
+		private CompanionWorld[] symmetric() {
 			CompanionWorld[] cw = new CompanionWorld[numEmpires];
 			double angle = twoPI / numEmpires;
 			cw[0] = this;
@@ -713,13 +758,13 @@ public abstract class GalaxyShape implements Base, Serializable {
 	 * Quite similar to Point.Float for center referenced point
 	 * Not an extended Point class to prevent confusion
 	 */
-	public class CtrPoint implements Cloneable { // BR:
+	class CtrPoint implements Cloneable { // BR:
 
 		// double as all Math operation are performed in double!
 		// And this allow to differentiate centered points (double)
 		// vs non centered points (float)
-		double x = 0f;
-		double y = 0f;
+		private double x = 0f;
+		private double y = 0f;
 
 		// ========== constructors ==========
 		//
@@ -728,12 +773,12 @@ public abstract class GalaxyShape implements Base, Serializable {
 	   	 * @param x referenced to center; y=0
 	   	 */
 	   	CtrPoint(double x) { this.x = x; }
-	   	/**
+	   	private /**
 	   	 * @param xc referenced to center
 	   	 * @param yc referenced to center
 	   	 */
 	   	CtrPoint(double xc, double yc) { x = xc; y = yc; }
-	   	/**
+	   	private /**
 	   	 * @param xe referenced to the edge
 	   	 * @param ye referenced to the edge
 	   	 */
@@ -741,22 +786,22 @@ public abstract class GalaxyShape implements Base, Serializable {
 	   	/**
 	   	 * @param pt referenced to the edge
 	   	 */
-	   	CtrPoint(Point.Float pt) { x = pt.x - cx; y = pt.y - cy; }
-	   	/**
+//	   	CtrPoint(Point.Float pt) { x = pt.x - cx; y = pt.y - cy; }
+	   	private /**
 	   	 * @param pt referenced to center
 	   	 */
 	   	CtrPoint(CtrPoint pt) { x = pt.x; y = pt.y; }
 
 	   	// ========== Getters ==========
 	   	//
-	   	Point.Float get()   { return new Point.Float((float)x + cx, (float)y + cy); }   	
+	   	private Point.Float get()   { return new Point.Float((float)x + cx, (float)y + cy); }   	
 	   	float getX()        { return (float) x + cx; }   	
 	   	float getY()        { return (float) y + cy; }   	
-		double ray()        { return Math.sqrt(x*x + y*y); }
-		double angle()      { return Math.atan2(y, x); } // yes y and x in this order!!!
-		CtrPoint mirrorX()  { return new CtrPoint(-x, y); }
-		CtrPoint mirrorY()  { return new CtrPoint(x, -y); }
-		CtrPoint mirrorXY() { return new CtrPoint(-x, -y); }
+//		double ray()        { return Math.sqrt(x*x + y*y); }
+//		double angle()      { return Math.atan2(y, x); } // yes y and x in this order!!!
+//		CtrPoint mirrorX()  { return new CtrPoint(-x, y); }
+//		CtrPoint mirrorY()  { return new CtrPoint(x, -y); }
+//		CtrPoint mirrorXY() { return new CtrPoint(-x, -y); }
 		CtrPoint rotate(double angle) {
 			return new CtrPoint(Math.cos(angle) * x + Math.sin(angle) * y,
 								Math.cos(angle) * y - Math.sin(angle) * x);
@@ -764,13 +809,13 @@ public abstract class GalaxyShape implements Base, Serializable {
 		CtrPoint shift(CtrPoint shift) {
 			return new CtrPoint(x + shift.x, y + shift.y);
 		}
-		CtrPoint shift(double dx, double dy) {
-			return new CtrPoint(x + dx, y + dy);
-		}
+//		CtrPoint shift(double dx, double dy) {
+//			return new CtrPoint(x + dx, y + dy);
+//		}
 		@Override protected CtrPoint clone() { return new CtrPoint(this); }
 	   	// ========== Other Methods ==========
 	   	//
-		protected CtrPoint[] rotate(double angle, int n) {
+		private CtrPoint[] rotate(double angle, int n) {
 			CtrPoint[] result = new CtrPoint[n];
 			CtrPoint pt = this;
 			for (int i=0; i<n; i++) {
@@ -782,15 +827,15 @@ public abstract class GalaxyShape implements Base, Serializable {
 
 	   	// ========== Point.Float Methods ==========
 	   	//
-		float ray(float x, float y)   { return distance(cx, cy, x, y); }
-		float ray(Point.Float pt)     { return ray(pt.x, pt.y); }
-		float angle(float x, float y) { return (float) Math.atan2(y- cy, x - cx); }
-		float angle(Point.Float pt)   { return angle(pt.y, pt.x); }
+//		private float ray(float x, float y)   { return distance(cx, cy, x, y); }
+//		float ray(Point.Float pt)     { return ray(pt.x, pt.y); }
+//		private float angle(float x, float y) { return (float) Math.atan2(y- cy, x - cx); }
+//		float angle(Point.Float pt)   { return angle(pt.y, pt.x); }
 		Point.Float mirrorX(Point.Float pt)  { return new Point.Float(width - pt.x, pt.y); }
 		Point.Float mirrorY(Point.Float pt)  { return new Point.Float(pt.x, height - pt.y); }
 		Point.Float mirrorXY(Point.Float pt) { return new Point.Float(width - pt.x, height - pt.y); }
 	}
-	public static class Rand { // BR: based on Modnar chosen randomization
+	static class Rand { // BR: based on Modnar chosen randomization
 		// For 1 dimensional generation:
 		private static final double c0 = 0.6180339887498948482046; // inverse of golden ratio
 		// For 2 dimensional generation:
@@ -800,112 +845,118 @@ public abstract class GalaxyShape implements Base, Serializable {
 		private double lastX = Math.random();
 		private double lastY = Math.random();
 		// Base Setters
-		/**
-		 * Give a new seed and return a random value
-		 * @param seed the new seed value
-		 * @return  0 <= random value < 1
-		 */
-		public double seed (double seed) { return last  = (last  + c0)%1; }
-		/**
-		 * Give a new seed and return a random value
-		 * @param seed the new seed value
-		 * @return  0 <= random value < 1
-		 */
-		public double seedX(double seed) { return lastX = (seed  + cX)%1; }
-		/**
-		 * Give a new seed and return a random value
-		 * @param seed the new seed value
-		 * @return  0 <= random value < 1
-		 */
-		public double seedY(double seed) { return lastY = (seed  + cY)%1; }
+// TODO Remove unused code found by UCDetector
+// 		/**
+// 		 * Give a new seed and return a random value
+// 		 * @param seed the new seed value
+// 		 * @return  0 <= random value < 1
+// 		 */
+// 		public double seed (double seed) { return last  = (last  + c0)%1; }
+// TODO Remove unused code found by UCDetector
+// 		/**
+// 		 * Give a new seed and return a random value
+// 		 * @param seed the new seed value
+// 		 * @return  0 <= random value < 1
+// 		 */
+// 		public double seedX(double seed) { return lastX = (seed  + cX)%1; }
+// TODO Remove unused code found by UCDetector
+// 		/**
+// 		 * Give a new seed and return a random value
+// 		 * @param seed the new seed value
+// 		 * @return  0 <= random value < 1
+// 		 */
+// 		public double seedY(double seed) { return lastY = (seed  + cY)%1; }
 		// Base Getters
 		/**
 		 * @return  0 <= random value < 1
 		 */
-		public double rand()  { return last  = (last  + c0)%1; }
+		double rand()  { return last  = (last  + c0)%1; }
 		/**
 		 * @return  0 <= random value < 1
 		 */
-		public double randX() { return lastX = (lastX + cX)%1; }
+		double randX() { return lastX = (lastX + cX)%1; }
 		/**
 		 * @return  0 <= random value < 1
 		 */
-		public double randY() { return lastY = (lastY + cY)%1; }
+		private double randY() { return lastY = (lastY + cY)%1; }
 		// Getters with multiplier
 		/**
 		 * @return  0 <= random value < max
 		 */
-		public double rand (double max) { return max * rand();  }
+		double rand (double max) { return max * rand();  }
 		/**
 		 * @return  0 <= random value < max
 		 */
-		public double randX(double max) { return max * randX(); }
+		private double randX(double max) { return max * randX(); }
 		/**
 		 * @return  0 <= random value < max
 		 */
-		public double randY(double max) { return max * randY(); }
+		double randY(double max) { return max * randY(); }
 		// Getters with Limits
+// TODO Remove unused code found by UCDetector
+// 		/**
+// 		 * @return  min(lim1, lim2) <= random value < max(lim1, lim2)
+// 		 */
+// 		public double rand(double lim1, double lim2) {
+// 			return rand(Math.abs(lim2-lim1)) + Math.min(lim2, lim1);
+// 		}
 		/**
 		 * @return  min(lim1, lim2) <= random value < max(lim1, lim2)
 		 */
-		public double rand(double lim1, double lim2) {
-			return rand(Math.abs(lim2-lim1)) + Math.min(lim2, lim1);
-		}
-		/**
-		 * @return  min(lim1, lim2) <= random value < max(lim1, lim2)
-		 */
-		public double randX(double lim1, double lim2) {
+		double randX(double lim1, double lim2) {
 			return randX(Math.abs(lim2-lim1)) + Math.min(lim2, lim1);
 		}
-		/**
-		 * @return  min(lim1, lim2) <= random value < max(lim1, lim2)
-		 */
-		public double randY(double lim1, double lim2) {
-			return randY(Math.abs(lim2-lim1)) + Math.min(lim2, lim1);
-		}
+ 		/**
+ 		 * @return  min(lim1, lim2) <= random value < max(lim1, lim2)
+ 		 */
+// 		public double randY(double lim1, double lim2) {
+// 			return randY(Math.abs(lim2-lim1)) + Math.min(lim2, lim1);
+// 		}
 		// Base Symmetric Getters
 		/**
 		 * @return  -1 <= random value < 1
 		 */
-		public double sym()  { return rand() * 2.0 - 1.0; }
+//		private double sym()  { return rand() * 2.0 - 1.0; }
 		/**
 		 * @return  -1 <= random value < 1
 		 */
-		public double symX() { return lastX = (lastX + cX)%1; }
+//		private double symX() { return lastX = (lastX + cX)%1; }
 		/**
 		 * @return  -1 <= random value < 1
 		 */
-		public double symY() { return lastY = (lastY + cY)%1; }
+		private double symY() { return lastY = (lastY + cY)%1; }
 		// Symmetric Getters with multiplier
+// TODO Remove unused code found by UCDetector
+// 		/**
+// 		 * @return  -max1 <= random value < max
+// 		 */
+// 		public double sym (double max) { return max * sym();  }
+// TODO Remove unused code found by UCDetector
+// 		/**
+// 		 * @return  -max1 <= random value < max
+// 		 */
+// 		public double symX(double max) { return max * symX(); }
 		/**
 		 * @return  -max1 <= random value < max
 		 */
-		public double sym (double max) { return max * sym();  }
-		/**
-		 * @return  -max1 <= random value < max
-		 */
-		public double symX(double max) { return max * symX(); }
-		/**
-		 * @return  -max1 <= random value < max
-		 */
-		public double symY(double max) { return max * symY(); }
+		double symY(double max) { return max * symY(); }
 		// Symmetric Getters with Limits
 		/**
 		 * @return  ctr-width/2 <= random value < ctr+width/2
 		 */
-		public double sym(double ctr, double width) {
+		private double sym(double ctr, double width) {
 			return (rand() - 0.5) * width + ctr;
 		}
+ 		/**
+ 		 * @return  ctr-width/2 <= random value < ctr+width/2
+ 		 */
+// 		public double symX(double ctr, double width) {
+// 			return (randX() - 0.5) * width + ctr;
+// 		}
 		/**
 		 * @return  ctr-width/2 <= random value < ctr+width/2
 		 */
-		public double symX(double ctr, double width) {
-			return (randX() - 0.5) * width + ctr;
-		}
-		/**
-		 * @return  ctr-width/2 <= random value < ctr+width/2
-		 */
-		public double symY(double ctr, double width) {
+		double symY(double ctr, double width) {
 			return (randY() - 0.5) * width + ctr;
 		}
 	}

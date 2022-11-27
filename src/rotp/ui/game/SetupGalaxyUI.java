@@ -18,8 +18,10 @@ package rotp.ui.game;
 import static rotp.model.empires.CustomRaceDefinitions.getAllowedAlienRaces;
 import static rotp.model.empires.CustomRaceDefinitions.getBaseRacList;
 import static rotp.ui.RotPUI.guiOptions;
+import static rotp.ui.UserPreferences.GALAXY_TEXT_FILE;
 import static rotp.ui.UserPreferences.globalCROptions;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
+import static rotp.ui.UserPreferences.selectedGalaxyText;
 import static rotp.ui.UserPreferences.showNewRaces;
 import static rotp.ui.UserPreferences.useSelectableAbilities;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
@@ -30,6 +32,7 @@ import static rotp.ui.util.AbstractOptionsUI.userButtonWidth;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Composite;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -49,11 +52,21 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.SwingUtilities;
 
+import rotp.Rotp;
 import rotp.mod.br.addOns.RacesOptions;
 import rotp.mod.br.profiles.Profiles;
 import rotp.model.empires.Race;
@@ -134,7 +147,22 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
     private MOO1GameOptions initialOptions; // To be restored if "cancel"
 	private String[] specificAbilitiesList; 
 	private String[] globalAbilitiesList; 
-
+	private String[] galaxyTextList;
+    private Font dialogMonoFont;
+    private int dialogMonoFontSize = s20;
+    private Font boxMonoFont;
+    private int boxMonoFontSize = s15;
+	
+	private Font boxMonoFont() {
+    	if (boxMonoFont == null)
+			boxMonoFont = monoSpacedFont(boxMonoFontSize);
+    	return boxMonoFont;
+    }
+	private Font dialogMonoFont() {
+    	if (dialogMonoFont == null)
+			dialogMonoFont = monoSpacedFont(dialogMonoFontSize);
+    	return dialogMonoFont;
+    }
 	public SetupGalaxyUI() {
 		init0();
 	}
@@ -165,13 +193,18 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	}
 	public void init() {
 		Modifier2KeysState.reset();
+		newGameOptions().galaxyShape().quickGenerate(); // BR: to avoid strange galaxy display
         initialOptions = new MOO1GameOptions(); // Any content will do
         saveOptions(initialOptions);
         initAbilitiesList();
+        backImg = null;
+        repaint();
 	}
 	private void release() {
 		backImg = null;
-		playerRaceImg = null;
+		playerRaceImg  = null;
+		boxMonoFont    = null;
+		dialogMonoFont = null;
 	}
     private void copyOptions(MOO1GameOptions src, MOO1GameOptions dest) {
     	MOO1GameOptions.setGalaxyOptions(src, dest);
@@ -305,6 +338,133 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		}
 		return -1;
 	}
+	private int currentGalaxyTextIndex(String s) {
+		String[] textList = getGalaxyTextList();
+		for (int i=0; i<textList.length; i++) {
+			if (s.equalsIgnoreCase((String) textList[i]))
+				return i;
+		}
+		return -1;
+	}
+	private void initGalaxyTextFile(File file) {
+		try (FileOutputStream fout = new FileOutputStream(file);
+			// modnar: change to OutputStreamWriter, force UTF-8
+			PrintWriter out = new PrintWriter(new OutputStreamWriter(fout, "UTF-8")); ) {
+			out.println( "	List of customized Text Galaxies");
+			out.println( "	Use a \"tab\" as separator to add comments");
+			out.println();
+			out.println( "ROTP	// Initial options");
+			out.println( "ℳo○𝟏	// The precursor!");
+			out.println();
+			out.println("	A nice selection by U/dweller_below");
+			out.println();
+			out.println( "∞	Infinity feels good, but gameplay is the same as 8");
+			out.println( "☸	The wheel of Dharma also feels appropriate");
+			out.println( "༜	The Tibetan Sign Rdel Dkar Gsum gives 3 close rings. And it stacks well in multiple lines");
+			out.println( "༶	The Tibetan Mark Caret gives 4 widely spaced star fields");
+			out.println( "❖	This one gives 4 star fields with 8 to 13 light year spacing.");
+			out.println( "ⵘ	Tifinagh Letter Ayer Yagh gives 5 star fields");
+			out.println( "∴∵	You can stack or repeat these 2 characters for multiples of 3 or 6.");
+			out.println( "፨	The Ethiopic Paragraph Separator is a nice 7 star fields.");
+			out.println( "⁂");
+			out.println( "🂓");
+			out.println( "░");
+			out.println( "▒");
+			out.println( "⨌");
+			out.println( "🦌");
+			out.println( "⛄");
+			out.println( "🎅");
+			out.println( "🎄");
+			out.println();
+			out.println("	And more ...");
+			out.println();
+			out.println( "☃");
+			out.println( "👽");
+			out.println( "⌨");
+			out.println( "͏͏͏͏᪥");
+			out.println( "⸎");
+			out.println( "ꔘ");
+			out.println( "꙰");
+			out.println( "҈");
+			out.println( "҉");
+			out.println( "۞");
+			out.println( "ꙮ");
+			out.println( "𐩕");
+			out.println( "֍");
+			out.println( "֎");
+			out.println( "☷");
+			out.println( "❉");
+			out.println( "⛆");
+			out.println( "⣿");
+			out.println( "𓃑");
+			out.println( "𖡼");
+			out.println( "𖥚");
+			out.println( "፠");
+			out.println( "⁂");
+			out.println( "፤፤");
+			out.println( "𐄳");
+			out.println( "𐧾");
+			out.println( "𐮜");
+			out.println( "𑗗");
+			out.println( "𝅂");
+			out.println( "𞡜");
+			out.println();
+		}
+		catch (IOException e) {
+			System.err.println("GalaxyTextFile.save -- IOException: "+ e.toString());
+		}
+	}
+	private String[] getGalaxyTextList() {
+		if (galaxyTextList != null)
+			return galaxyTextList;
+		LinkedList<String> list = new LinkedList<>();
+		// list.add(newGameOptions().selectedHomeWorldName());
+		String path = Rotp.jarPath();
+		String galaxyfile = GALAXY_TEXT_FILE;
+		File file = new File(path, galaxyfile);
+		if (!file.exists())
+			initGalaxyTextFile(file);
+			
+		try ( BufferedReader in = new BufferedReader( new InputStreamReader( new FileInputStream(file), "UTF-8"));) {
+			String input;
+			while ((input = in.readLine()) != null) {
+				String[] args = input.split("\t");
+				String val = args[0].trim();
+				if (!val.isEmpty())
+					list.add(val);
+			}				
+		}
+		catch (FileNotFoundException e) {
+			System.err.println(path+galaxyfile+" not found.");
+		}
+		catch (IOException e) {
+			System.err.println("GalaxyTextFile.load -- IOException: "+ e.toString());
+		}
+
+		galaxyTextList = list.toArray(new String[list.size()]);
+		return galaxyTextList;
+	}
+	private String selectGalaxyTextFromList() {
+		String initialChoice = selectedGalaxyText.get();
+		String message = "Make your choice, (This list can be edited in the file) " + GALAXY_TEXT_FILE;
+	    String input = (String) ListDialog.showDialog(
+	    	getParent(),	// Frame component
+	    	getParent(),	// Location component
+	    	message,		// Message
+	        "Galaxy Text selection",	// Title
+	        (String[]) getGalaxyTextList(),	// List
+	        initialChoice, 				// Initial choice
+	        null,	// long Dialogue
+	        scaled(400), scaled(300),	// size
+	        dialogMonoFont());	// Font
+	    if (input == null)
+	    	return initialChoice;
+	    selectedGalaxyText.set(input);
+
+	    newGameOptions().galaxyShape().quickGenerate(); 
+		repaint();
+	    return input;
+	}
 	private String selectSpecificAbilityFromList(int i) {
 		String initialChoice = newGameOptions().specificOpponentCROption(i);
 	    String input = (String) ListDialog.showDialog(
@@ -315,7 +475,8 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	        (String[]) specificAbilitiesList,	// List
 	        initialChoice, 				// Initial choice
 	        "XX_RACE_JACKTRADES_XX",	// long Dialogue
-	        scaled(400), scaled(300));	// size
+	        scaled(400), scaled(300),	// size
+	        null);	// Font
 	    if (input == null)
 	    	return initialChoice;
 	    newGameOptions().specificOpponentCROption(input, i);
@@ -331,7 +492,8 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	        (String[]) globalAbilitiesList,	// List
 	        initialChoice, 				// Initial choice
 	        "XX_RACE_JACKTRADES_XX",	// long Dialogue
-	        scaled(400), scaled(300));	// size
+	        scaled(400), scaled(300),	// size
+	        null);	// Font
 	    if (input == null)
 	    	return initialChoice;
 	    globalCROptions.set(input);
@@ -559,10 +721,22 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		drawString(g,shapeLbl, x5a, y5);
 		
 		if (newGameOptions().numGalaxyShapeOption1() > 0) {
-			String label1 = text(newGameOptions().selectedGalaxyShapeOption1());
-			int sw1 = g.getFontMetrics().stringWidth(label1);
-			int x5d =mapOption1Box.x+((mapOption1Box.width-sw1)/2);
-			drawString(g,label1, x5d, y5+s20);
+			String label1;
+			if (isShapeTextGalaxy()) {
+				label1 = selectedGalaxyText.get();
+				Font prevFont = g.getFont();
+				g.setFont(boxMonoFont());
+				int sw1 = g.getFontMetrics().stringWidth(label1);
+				int x5d =mapOption1Box.x+((mapOption1Box.width-sw1)/2);
+				drawString(g,label1, x5d, y5+s20);
+				g.setFont(prevFont);				
+			}
+			else {
+				label1 = text(newGameOptions().selectedGalaxyShapeOption1());
+				int sw1 = g.getFontMetrics().stringWidth(label1);
+				int x5d =mapOption1Box.x+((mapOption1Box.width-sw1)/2);
+				drawString(g,label1, x5d, y5+s20);
+			}
 			if (newGameOptions().numGalaxyShapeOption2() > 0) {
 				String label2 = text(newGameOptions().selectedGalaxyShapeOption2());
 				int sw2 = g.getFontMetrics().stringWidth(label2);
@@ -792,7 +966,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			g.fillRect(x0, y0, s2, s2);
 		}
 		// BR: add empires stars to avoid lonely Orion star
-		int numCompWorlds = UserPreferences.companionWorlds();
+		int numCompWorlds = sh.numCompanionWorld();
 		int iColor = 0;
 		int iEmp = 0;
 		for (EmpireSystem emp : sh.empireSystems()) {
@@ -848,6 +1022,10 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		if (click) softClick();
 		newGameOptions().selectedGalaxySize(newGameOptions().prevGalaxySize(bounded));
 		int numOpps = newGameOptions().selectedNumberOpponents();
+		if(numOpps<0) {
+			newGameOptions().selectedNumberOpponents(0);
+			numOpps = 0;
+		}
 		int maxOpps = newGameOptions().maximumOpponentsOptions();
 		if (maxOpps < numOpps) {
 			for (int i=maxOpps;i<numOpps;i++)
@@ -872,15 +1050,39 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		backImg = null;
 		repaint();
 	}
+	private boolean isShapeTextGalaxy() {
+		return newGameOptions().selectedGalaxyShape().equals(IGameOptions.SHAPE_TEXT);
+	}
 	private void nextMapOption1(boolean click) {
 		if (click) softClick();
-		newGameOptions().selectedGalaxyShapeOption1(newGameOptions().nextGalaxyShapeOption1());
+		if (isShapeTextGalaxy()) {
+			String currText = selectedGalaxyText.get();
+			int nextIndex = 0;
+			if (currText != null)
+				nextIndex = currentGalaxyTextIndex(currText)+1;
+			if (nextIndex >= getGalaxyTextList().length)
+				nextIndex = 0;
+			String nextText = (String) getGalaxyTextList()[nextIndex];
+			selectedGalaxyText.set(nextText);
+		} else
+			newGameOptions().selectedGalaxyShapeOption1(newGameOptions().nextGalaxyShapeOption1());
+
 		newGameOptions().galaxyShape().quickGenerate(); 
 		repaint();
 	}
 	private void prevMapOption1(boolean click) {
 		if (click) softClick();
-		newGameOptions().selectedGalaxyShapeOption1(newGameOptions().prevGalaxyShapeOption1());
+		if (isShapeTextGalaxy()) {
+			String currText = selectedGalaxyText.get();
+			int prevIndex = 0;
+			if (currText != null)
+				prevIndex = currentGalaxyTextIndex(currText)-1;
+			if (prevIndex < 0)
+				prevIndex = getGalaxyTextList().length-1;
+			String prevText = (String) getGalaxyTextList()[prevIndex];
+			selectedGalaxyText.set(prevText);
+		} else
+			newGameOptions().selectedGalaxyShapeOption1(newGameOptions().prevGalaxyShapeOption1());
 		newGameOptions().galaxyShape().quickGenerate(); 
 		repaint();
 	}
@@ -1095,6 +1297,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
  		starting = true;
 		repaint();
 		buttonClick();
+		// BR:
 		if (Profiles.isStartOpponentRaceListEnabled()) {
 			RacesOptions.loadStartingOpponents(newGameOptions());
 		}
@@ -1709,7 +1912,9 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		else if (hoverBox == mapOption1BoxL)
 			prevMapOption1(true);
 		else if (hoverBox == mapOption1Box)
-			if(up) nextMapOption1(true);
+			if (isShapeTextGalaxy())
+				selectGalaxyTextFromList();
+			else if(up) nextMapOption1(true);
 			else prevMapOption1(true);
 		else if (hoverBox == mapOption1BoxR)
 			nextMapOption1(true);
@@ -1728,7 +1933,6 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		else if (hoverBox == sizeBoxR)
 			nextGalaxySize(false, true);
 		else if (hoverBox == sizeOptionBoxL) {
-			softClick();
 			prefStarsPerEmpire.prev(e);
 			newGameOptions().galaxyShape().quickGenerate();
 			repaint();

@@ -36,6 +36,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Insets;
 import java.awt.Point;
@@ -106,7 +107,7 @@ public class ListDialog extends JDialog
 									String initialValue,
 									String longValue) {
 		return showDialog(frameComp,  locationComp, labelText, title,
-				 possibleValues, initialValue, longValue, 0, 0);
+				 possibleValues, initialValue, longValue, 0, 0, null);
 	}
 	/**
 	 * Set up and show the dialog.  The first Component argument
@@ -124,7 +125,8 @@ public class ListDialog extends JDialog
 									String[] possibleValues,
 									String initialValue,
 									String longValue,
-									int width, int height) {
+									int width, int height,
+									Font listFont) {
 		Frame frame = JOptionPane.getFrameForComponent(frameComp);
 		dialog = new ListDialog(frame,
 								locationComp,
@@ -133,7 +135,8 @@ public class ListDialog extends JDialog
 								possibleValues,
 								initialValue,
 								longValue,
-								width, height);
+								width, height,
+								listFont);
 //		if (width>0 && height>0)
 //			dialog.setSize(width, height);
 		dialog.setLocationRelativeTo(locationComp);
@@ -153,7 +156,8 @@ public class ListDialog extends JDialog
 					   Object[] data,
 					   String initialValue,
 					   String longValue,
-					   int width, int height) {
+					   int width, int height,
+					   Font listFont) {
 
 		super(frame, title, true);
 		int topInset  = RotPUI.scaledSize(6);
@@ -208,7 +212,10 @@ public class ListDialog extends JDialog
 			}
 		};
 
-		list.setFont(narrowFont(14));
+		if (listFont == null)
+			list.setFont(narrowFont(14));
+		else
+			list.setFont(listFont);
 		list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		if (longValue != null) {
 			list.setPrototypeCellValue(longValue); //get extra space

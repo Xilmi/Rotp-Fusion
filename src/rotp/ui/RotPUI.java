@@ -358,6 +358,8 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     public static StartModBOptionsUI startModBOptionsUI() { return instance.startModBOptionsUI; }
     // BR: Display UI panel for MOD game options
     public static ModGlobalOptionsUI modGlobalOptionsUI() { return instance.modGlobalOptionsUI; }
+    // BR: Display UI panel for Race options
+    public static SetupRaceUI setupRaceUI() { return instance.setupRaceUI; }
 
     @Override
     public void paint(Graphics g) {

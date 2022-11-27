@@ -29,6 +29,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 import rotp.Rotp;
+import rotp.model.empires.GalacticCouncil;
 import rotp.model.events.RandomEvents;
 import rotp.model.game.GameSession;
 import rotp.ui.util.EventsStartTurn;
@@ -41,10 +42,12 @@ import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamOptions;
+import rotp.ui.util.ParamString;
 import rotp.ui.util.ParamTech;
 import rotp.ui.util.PlayerShipSet;
 import rotp.ui.util.RandomAlienRaces;
 import rotp.ui.util.SpecificCROption;
+import rotp.util.FontManager;
 import rotp.util.LanguageManager;
 import rotp.util.sound.SoundManager;
 
@@ -76,6 +79,7 @@ public class UserPreferences {
 	public  static final String GAME_OPTIONS_FILE = "Game.options";
 	public  static final String LAST_OPTIONS_FILE = "Last.options";
 	public  static final String USER_OPTIONS_FILE = "User.options";
+	public  static final String GALAXY_TEXT_FILE  = "Galaxy.txt";
 	private static final int MAX_BACKUP_TURNS = 20; // modnar: change max turns between backups to 20
 	private static final String keyFormat = "%-25s: "; // BR: from 20 to 25 for a better alignment
 
@@ -142,9 +146,28 @@ public class UserPreferences {
 			.put("GuiSwap",	 MOD_UI + "RESTART_PLAYER_RACE_GUI_SWAP")
 			.put("GuiLast",	 MOD_UI + "RESTART_PLAYER_RACE_GUI_LAST");
 
-	public static final EventsStartTurn eventsStartTurn	= new EventsStartTurn(
+//	public static final EventsStartTurn eventsStartTurn	= new EventsStartTurn(
+//			MOD_UI, "EVENTS_STARS_TURN"
+//			, RandomEvents.START_TURN, 1, null, 1, 5, 20);
+	public static final ParamFloat counciRequiredPct	= new ParamFloat(
+			MOD_UI, "COUNCIL_REQUIRED_PCT"
+			, GalacticCouncil.PCT_REQUIRED
+			, 0f, 0.99f, 0.01f/3f, 0.02f, 0.1f, "0.0##", "‰")
+		{
+		@Override public Float set(Float newValue) {
+			GalacticCouncil.PCT_REQUIRED = newValue;
+			return super.set(newValue);
+		}
+	};
+	public static final ParamInteger eventsStartTurn	= new ParamInteger(
 			MOD_UI, "EVENTS_STARS_TURN"
-			, RandomEvents.START_TURN, 1, null, 1, 5, 20);
+			, RandomEvents.START_TURN, 1, null, 1, 5, 20)
+		{
+		@Override public Integer set(Integer newValue) {
+			RandomEvents.START_TURN = newValue;
+			return super.set(newValue);
+		}
+	};
 	public static final ParamTech techIrradiated = new 
 			ParamTech("TECH_IRRADIATED",	3, "ControlEnvironment",6); // level 18
 	public static final ParamTech techCloaking	 = new 
@@ -212,12 +235,23 @@ public class UserPreferences {
 			MOD_UI, "SHOW_GRID_CIRCULAR", false);
 	public static final ParamBoolean showTooltips = new ParamBoolean(
 			MOD_UI, "SHOW_TOOLTIPS", true);
+//	public static final ParamBoolean useInternationalFont = new ParamBoolean(
+//			MOD_UI, "USE_INTERNATIONAL_FONT", false) {
+//		@Override public Boolean set(Boolean newValue) {
+//			Boolean value = super.set(newValue);
+//			RotPUI.setupRaceUI().setHomeWorldFont();
+//			FontManager.INSTANCE.createMonoSpacedFont(value);
+//			return value;
+//		}
+//	};
+	public static final ParamBoolean useFusionFont = new ParamBoolean(
+			MOD_UI, "USE_FUSION_FONT", false);
 
 	// This list is used as is by the ModGlobalOptionsUI menu
 	public static final LinkedList<InterfaceParam> modGlobalOptionsUI = new LinkedList<>(
 			Arrays.asList(
 			menuStartup, menuLoadGame, showGridCircular, showTooltips,
-			showFleetFactor, showFlagFactor, showPathFactor,
+			showFleetFactor, showFlagFactor, showPathFactor, useFusionFont,
 			showNameMinFont, showInfoFontRatio, mapFontFactor
 			));
 	// BR: Galaxy Menu addition
@@ -225,6 +259,8 @@ public class UserPreferences {
 			MOD_UI, "SHOW_NEW_RACES", false);
 //	public static final OpponentCROptions opponentCROptions = new OpponentCROptions (
 //			BASE_UI, "OPP_CR_OPTIONS", SpecificCROption.BASE_RACE.value);
+	public static final ParamString selectedGalaxyText = new ParamString (
+			BASE_UI, "GALAXY_TEXT", "ROTP");
 	public static final GlobalCROptions globalCROptions = new GlobalCROptions (
 			BASE_UI, "OPP_CR_OPTIONS", SpecificCROption.BASE_RACE.value);
 	public static final ParamBoolean useSelectableAbilities = new ParamBoolean(

@@ -130,6 +130,7 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
     public void close() {
 		Modifier2KeysState.reset();
         disableGlassPane();
+		newGameOptions().galaxyShape().quickGenerate(); // BR: to avoid strange galaxy display
     }
     private void copyOptions(MOO1GameOptions src, MOO1GameOptions dest) {
     	MOO1GameOptions.setAdvancedOptions(src, dest);

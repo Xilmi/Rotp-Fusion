@@ -85,7 +85,6 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	private static final int raceAIFontSize	= 16;
 	
 	private static final Color frameC		= SystemPanel.blackText; // Setting frame color
-	private static final Color settingPosC	= SettingBase.settingC; // Setting name color
 	private static final Color settingNegC	= SettingBase.settingNegC; // Setting name color
 	private static final Color settingC		= SettingBase.settingC; // Setting name color
 	private static final int settingFont	= 15;
@@ -415,12 +414,6 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		g.fillRect(xLine + settingIndent/2, yLine -s12 + frameShift,
 				bt.stringWidth(g) + settingIndent, s12);
 		setting.enabledColor(cost);
-//		if (cost == 0) 
-//			bt.enabledC(settingC);	// TODO BR: create settings.enableC()
-//		else if (cost > 0)
-//			bt.enabledC(settingPosC);
-//		else
-//			bt.enabledC(settingNegC);		
 		bt.setScaledXY(xLine + settingIndent, yLine);
 		bt.draw(g);
 		yLine += settingH;

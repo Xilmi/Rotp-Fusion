@@ -1599,6 +1599,8 @@ SETTINGS_MOD_OPTION_AUTO_ALWAYS          | Auto/Always
 SETTINGS_MOD_OPTION_ALWAYS_NEVER         | Always/Never
 SETTINGS_MOD_OPTION_ALWAYS_AUTO          | Always/Auto
 SETTINGS_MOD_OPTION_ALWAYS_ALWAYS        | Always
+SETTINGS_MOD_COUNCIL_REQUIRED_PCT_DESC   | Percentage needed to win the council vote.
+SETTINGS_MOD_COUNCIL_REQUIRED_PCT        | Council Requirement: %1%
 SETTINGS_MOD_EVENTS_STARS_TURN_DESC      | To adjust the starting turn of random events. If an event has already been started, it will not be stopped.
 SETTINGS_MOD_EVENTS_STARS_TURN           | Random Events Starting Turn: %1
 SETTINGS_MOD_MAX_SPACINGS_DESC           | Attempts to maximize the distance between empires, but always randomly.
@@ -1687,6 +1689,8 @@ SETTINGS_MOD_SHOW_GRID_CIRCULAR_DESC     | Show the circular grid on the galaxy 
 SETTINGS_MOD_SHOW_GRID_CIRCULAR          | Show circular grid: %1
 SETTINGS_MOD_SHOW_TOOLTIPS_DESC          | Show the lower box with Tooltips?
 SETTINGS_MOD_SHOW_TOOLTIPS               | Show Tooltips: %1
+SETTINGS_MOD_USE_FUSION_FONT_DESC        | Galaxy text shaped will use Fusion font.
+SETTINGS_MOD_USE_FUSION_FONT             | Use Fusion Font: %1
 
 // Tech UI labels
 TECH_RESEARCH                     | Technology Research

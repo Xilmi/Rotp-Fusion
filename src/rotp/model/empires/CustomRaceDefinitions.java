@@ -1670,7 +1670,7 @@ public class CustomRaceDefinitions  {
 			private static final float	c2 = 9.56463523f;
 			private static final float	c3 = -4.365405984f;
 			private static final float	c4 = 0.824090347f;
-			private static final int	baseCostDefault = 100;
+			private static final float	baseCostDefault = 100f;
 			private static final float	norm = 100f;
 
 			private SettingResearch(String nameLangLabel) {
@@ -1861,7 +1861,7 @@ public class CustomRaceDefinitions  {
 			private static final float	c3 = -2.37443919f;
 			private static final float	c4 = -0.62901149f;
 			private static final float	c5 = 0.576847553f;
-			private static final int	baseCostDefault = 50;
+			private static final float	baseCostDefault = 50f;
 			private static final float	norm = 50f;
 
 			private SettingDiscovery(String nameLangLabel) {

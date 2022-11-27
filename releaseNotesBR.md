@@ -1,7 +1,4 @@
-### !!! Beta Version !!!
-This version is compatible with previous Beta versions, but not with previous Fusion Mod...
-It's quite stable, but I want to give you a few days to comments and report bug before releasing it as a plain Fusion Mod.
-Please test it and don't hesitate to comment the new features.
+This version is not compatible with previous Fusion Mod... (but compatible with previous beta version)
 
 ### Fine Tuning:
   - Replaced tech discovery probability product by sum.
@@ -10,7 +7,12 @@ Please test it and don't hesitate to comment the new features.
   - Linked the cost of Research revenue and cost multiplier.
   - Adjusted the combined cost formula of Research cost multiplier.
   - Adjusted the combined cost formula of Research discovery probability. (The cost variation is slower at the extremities)
-
+  - Fixed possible crash while changing the number of companion world.
+  - Fixed some Dynamic Galaxy generation being slow withsome shapes.
+  - Text shaped Galaxy: Added option for "Fusion" font.
+  - Text shaped Galaxy: Added selection from file Galaxy.txt. (If empty rectangle are shown, you can switch to "Fusion" font in "MOD Global Options"
+  - Added option to choose percentage needed to win council vote.
+  
 ### Very Last Changes:
   - Added individual opponent Ability selection (The same way the AI may be selected)
   - Added 'reworked'-option to set the ability to "raceKey.race" (ex: RACE_ALKARI.race will be used for Altairi, Aviari, Cluckari, Feathari, and Fowlari) In the race editor, when selecting a "base race" (starting with * ), saving it under the proposed file name (ex RACE_HUMAN) this race will be identified as "reworked". Subsequently, selecting this option will always replace the race abilities with the reworked one.

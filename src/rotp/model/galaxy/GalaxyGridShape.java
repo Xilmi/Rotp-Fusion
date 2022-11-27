@@ -183,35 +183,37 @@ public class GalaxyGridShape extends GalaxyShape {
         return buff + (random() * (max-buff-buff));
     }
     @Override
-    protected float sizeFactor(String size) {
-        float adj = 1.0f;
-        switch (opts.selectedStarDensityOption()) {
-            case IGameOptions.STAR_DENSITY_LOWEST:  adj = 1.3f; break;
-            case IGameOptions.STAR_DENSITY_LOWER:   adj = 1.2f; break;
-            case IGameOptions.STAR_DENSITY_LOW:     adj = 1.1f; break;
-            case IGameOptions.STAR_DENSITY_HIGH:    adj = 0.9f; break;
-            case IGameOptions.STAR_DENSITY_HIGHER:  adj = 0.8f; break;
-            case IGameOptions.STAR_DENSITY_HIGHEST: adj = 0.7f; break;
-        }
-        switch (opts.selectedGalaxySize()) {
-            case IGameOptions.SIZE_TINY:      return adj*10; 
-            case IGameOptions.SIZE_SMALL:     return adj*15; 
-            case IGameOptions.SIZE_SMALL2:    return adj*17;
-            case IGameOptions.SIZE_MEDIUM:    return adj*19; 
-            case IGameOptions.SIZE_MEDIUM2:   return adj*20; 
-            case IGameOptions.SIZE_LARGE:     return adj*21; 
-            case IGameOptions.SIZE_LARGE2:    return adj*22; 
-            case IGameOptions.SIZE_HUGE:      return adj*23; 
-            case IGameOptions.SIZE_HUGE2:     return adj*24; 
-            case IGameOptions.SIZE_MASSIVE:   return adj*25; 
-            case IGameOptions.SIZE_MASSIVE2:  return adj*26; 
-            case IGameOptions.SIZE_MASSIVE3:  return adj*27; 
-            case IGameOptions.SIZE_MASSIVE4:  return adj*28; 
-            case IGameOptions.SIZE_MASSIVE5:  return adj*29; 
-            case IGameOptions.SIZE_INSANE:    return adj*32; 
-            case IGameOptions.SIZE_LUDICROUS: return adj*36; 
-            default:             return adj*19; 
-        }
-    }
+    protected float sizeFactor(String size) { return settingsFactor(1.0f); }
+//    @Override
+//    protected float sizeFactor(String size) {
+//        float adj = 1.0f;
+//        switch (opts.selectedStarDensityOption()) {
+//            case IGameOptions.STAR_DENSITY_LOWEST:  adj = 1.3f; break;
+//            case IGameOptions.STAR_DENSITY_LOWER:   adj = 1.2f; break;
+//            case IGameOptions.STAR_DENSITY_LOW:     adj = 1.1f; break;
+//            case IGameOptions.STAR_DENSITY_HIGH:    adj = 0.9f; break;
+//            case IGameOptions.STAR_DENSITY_HIGHER:  adj = 0.8f; break;
+//            case IGameOptions.STAR_DENSITY_HIGHEST: adj = 0.7f; break;
+//        }
+//        switch (opts.selectedGalaxySize()) {
+//            case IGameOptions.SIZE_TINY:      return adj*10; 
+//            case IGameOptions.SIZE_SMALL:     return adj*15; 
+//            case IGameOptions.SIZE_SMALL2:    return adj*17;
+//            case IGameOptions.SIZE_MEDIUM:    return adj*19; 
+//            case IGameOptions.SIZE_MEDIUM2:   return adj*20; 
+//            case IGameOptions.SIZE_LARGE:     return adj*21; 
+//            case IGameOptions.SIZE_LARGE2:    return adj*22; 
+//            case IGameOptions.SIZE_HUGE:      return adj*23; 
+//            case IGameOptions.SIZE_HUGE2:     return adj*24; 
+//            case IGameOptions.SIZE_MASSIVE:   return adj*25; 
+//            case IGameOptions.SIZE_MASSIVE2:  return adj*26; 
+//            case IGameOptions.SIZE_MASSIVE3:  return adj*27; 
+//            case IGameOptions.SIZE_MASSIVE4:  return adj*28; 
+//            case IGameOptions.SIZE_MASSIVE5:  return adj*29; 
+//            case IGameOptions.SIZE_INSANE:    return adj*32; 
+//            case IGameOptions.SIZE_LUDICROUS: return adj*36; 
+//            default:             return adj*19; 
+//        }
+//    }
 
 }

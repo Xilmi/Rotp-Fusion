@@ -88,13 +88,21 @@ public class ParamFloat extends AbstractParam<Float> {
 	//
 	@Override protected String getCfgValue(Float value) {
 		if (isCfgPercent()) {
-			return String.format("%d", (int) (value * 100f));
+			return String.format("%d", Math.round(value * 100f));
+		}
+		if (isCfgPerThousand()) {
+			return new DecimalFormat("0.0")
+						.format(Math.round(value  * 1000f) / 10f);
 		}
 		return new DecimalFormat(cfgFormat).format(value);
 	}
 	@Override public String getGuiValue() {
 		if (isGuiPercent()) {
-			return String.format("%d", (int) (get() * 100f));
+			return String.format("%d", Math.round(get() * 100f));
+		}
+		if (isGuiPerThousand()) {
+			return new DecimalFormat("0.0")
+						.format(Math.round(get() * 1000f) / 10f);
 		}
 		return new DecimalFormat(guiFormat).format(get());
 	}
@@ -147,10 +155,8 @@ public class ParamFloat extends AbstractParam<Float> {
 		}
 		set(value);
 	}
-	private boolean isGuiPercent() {
-		return guiFormat.equals("%");
-	}
-	private boolean isCfgPercent() {
-		return cfgFormat.equals("%");
-	}
+	private boolean isGuiPercent() { return guiFormat.equals("%"); }
+	private boolean isCfgPercent() { return cfgFormat.equals("%"); }
+	private boolean isGuiPerThousand() { return guiFormat.equals("‰"); }
+	private boolean isCfgPerThousand() { return cfgFormat.equals("‰"); }
 }

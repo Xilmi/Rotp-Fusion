@@ -15,6 +15,7 @@
  */
 package rotp.ui.game;
 
+import static rotp.ui.UserPreferences.counciRequiredPct;
 import static rotp.ui.UserPreferences.eventsStartTurn;
 import static rotp.ui.UserPreferences.maximizeSpacing;
 import static rotp.ui.UserPreferences.minStarsPerEmpire;
@@ -60,6 +61,7 @@ public class StartModBOptionsUI extends AbstractOptionsUI {
 		paramList.add(randomAlienRacesSmoothEdges);
 		endOfColumn();
 		// Third column
+		paramList.add(counciRequiredPct);
 		paramList.add(techIrradiated);
 		paramList.add(techCloaking);
 		paramList.add(techStargate);

@@ -42,7 +42,7 @@ public class GalacticCouncil implements Base, Serializable {
     private static final int noticeDuration = 5;
     private static final int interval = 20;
     
-    private static final float PCT_REQUIRED = 0.667f;
+    public static float PCT_REQUIRED = 2f/3f;  // BR:Made it adjustable
 
     private int nextAction = CHECK;
     private int currentStatus = INACTIVE;
@@ -148,7 +148,8 @@ public class GalacticCouncil implements Base, Serializable {
     public Empire lastVoter()  { return lastVoter; }
     public Empire lastVoted()  { return lastVoted; }
     public int totalVotes()    { return totalVotes; }
-    public int votesToElect()  { return (int) Math.ceil(totalVotes * 2 / 3.0); }
+//    public int votesToElect()  { return (int) Math.ceil(totalVotes * 2 / 3.0); }
+    public int votesToElect()  { return (int) Math.ceil(totalVotes * PCT_REQUIRED); }
     public int votes1()        { return votes1; }
     public int votes2()        { return votes2; }
     public int lastVotes()     { return lastVotes; }

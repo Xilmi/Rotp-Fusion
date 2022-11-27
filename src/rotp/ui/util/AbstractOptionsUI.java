@@ -60,7 +60,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	private static int columnPad	= s20;
 	private static int smallButtonH = s30;
 	public  static int smallButtonM = s30; // Margin for all GUI
-	private static int hSetting	= s90;
+	private static int hSetting	    = s90;
 	private static int lineH		= s17;
 	private static int rowPad		= s20;
 	private static int hDistSetting = hSetting + rowPad; // distance between two setting top corner
@@ -110,8 +110,11 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		int shiftButton	= s15;
 		int topPad		= hSetting;
 		int hSettings	= hDistSetting * numRows;
+		
+		if (numColumns == 4)
+			columnPad = s10;
 
-		leftM	= scaled(max(columnPad, 100 + (3-numColumns) * 150));
+		leftM	= max(columnPad, scaled(100 + (3-numColumns) * 150));
 		rightM	= leftM;
 		topM	= s45;
 		yTitle	= topM + shiftTitle;
@@ -166,7 +169,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	private  BaseText newBT() { 
 		return new BaseText(this, false, 20, 20,-78,  textC, textC, hoverC, depressedC, textC, 0, 0, 0);
 	}
-	protected  void endOfColumn() {
+	protected void endOfColumn() {
 		numColumns++;
 		lastRowList.add(paramList.size());
 	}
