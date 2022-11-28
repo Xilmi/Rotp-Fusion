@@ -249,8 +249,10 @@ public enum FontManager implements Base {
 			return Font.createFont(Font.TRUETYPE_FONT, file).deriveFont((float) size);
 		} catch (IOException e) {
 			e.printStackTrace();
+			err("FontManager.loadFont: could not get inputStream for:"+LOCAL_SHAPE_TEXT_FONT);
 		} catch(FontFormatException e) {
 			e.printStackTrace();
+			err("FontManager.FontFormatException:"+LOCAL_SHAPE_TEXT_FONT);
 		}
 		System.out.println("loadLocalFont() returned  loadMonoFont()");
 		return loadMonoFont(size);

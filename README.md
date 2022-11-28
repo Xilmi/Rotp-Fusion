@@ -29,6 +29,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 2022.11.27 (BR)
   - Fixed international font problems.
   - Added option to choose percentage needed to win council vote. 
+  - Added option to Display years left until next council. 
 
 2022.11.22 (BR)
   - Text shaped Galaxy: Added selection from file Galaxy.txt
@@ -36,7 +37,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 2022.11.15 (BR)
   - Fixed possible crash while changing the number of companion world.
   - Added base galaxy size for Dynamic Galaxy with a general formula, valid for all galaxy size.
-  - Text shaped Galaxy: Added option for international font.
+  - Text shaped Galaxy: Added option for "Fusion" font.
 
 2022.11.14 (BR)
   - Linked the cost of Research revenue and cost multiplier.

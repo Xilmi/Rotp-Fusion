@@ -1691,6 +1691,8 @@ SETTINGS_MOD_SHOW_TOOLTIPS_DESC          | Show the lower box with Tooltips?
 SETTINGS_MOD_SHOW_TOOLTIPS               | Show Tooltips: %1
 SETTINGS_MOD_USE_FUSION_FONT_DESC        | Galaxy text shaped will use Fusion font.
 SETTINGS_MOD_USE_FUSION_FONT             | Use Fusion Font: %1
+SETTINGS_MOD_SHOW_NEXT_COUNCIL_DESC      | Show years left until next council. (On Galaxy panel, next to the Year)
+SETTINGS_MOD_SHOW_NEXT_COUNCIL           | Show next council: %1
 
 // Tech UI labels
 TECH_RESEARCH                     | Technology Research

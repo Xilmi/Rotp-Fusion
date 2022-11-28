@@ -235,24 +235,17 @@ public class UserPreferences {
 			MOD_UI, "SHOW_GRID_CIRCULAR", false);
 	public static final ParamBoolean showTooltips = new ParamBoolean(
 			MOD_UI, "SHOW_TOOLTIPS", true);
-//	public static final ParamBoolean useInternationalFont = new ParamBoolean(
-//			MOD_UI, "USE_INTERNATIONAL_FONT", false) {
-//		@Override public Boolean set(Boolean newValue) {
-//			Boolean value = super.set(newValue);
-//			RotPUI.setupRaceUI().setHomeWorldFont();
-//			FontManager.INSTANCE.createMonoSpacedFont(value);
-//			return value;
-//		}
-//	};
 	public static final ParamBoolean useFusionFont = new ParamBoolean(
 			MOD_UI, "USE_FUSION_FONT", false);
+	public static final ParamBoolean showNextCouncil = new ParamBoolean(
+			MOD_UI, "SHOW_NEXT_COUNCIL", false);
 
 	// This list is used as is by the ModGlobalOptionsUI menu
 	public static final LinkedList<InterfaceParam> modGlobalOptionsUI = new LinkedList<>(
 			Arrays.asList(
 			menuStartup, menuLoadGame, showGridCircular, showTooltips,
 			showFleetFactor, showFlagFactor, showPathFactor, useFusionFont,
-			showNameMinFont, showInfoFontRatio, mapFontFactor
+			showNameMinFont, showInfoFontRatio, mapFontFactor, showNextCouncil
 			));
 	// BR: Galaxy Menu addition
 	public static final ParamBoolean showNewRaces = new ParamBoolean(

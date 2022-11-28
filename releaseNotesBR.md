@@ -12,6 +12,7 @@ This version is not compatible with previous Fusion Mod... (but compatible with 
   - Text shaped Galaxy: Added option for "Fusion" font.
   - Text shaped Galaxy: Added selection from file Galaxy.txt. (If empty rectangle are shown, you can switch to "Fusion" font in "MOD Global Options"
   - Added option to choose percentage needed to win council vote.
+  - Added option to Display years left until next council. 
   
 ### Very Last Changes:
   - Added individual opponent Ability selection (The same way the AI may be selected)

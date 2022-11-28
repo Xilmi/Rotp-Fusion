@@ -55,6 +55,11 @@ public class YearDisplaySprite extends MapSprite {
             return;
 
         String s = displayYearOrTurn();
+        if (UserPreferences.showNextCouncil.get()) {
+        	int nextC = galaxy().council().nextCouncil();
+        	 if (nextC > 0)
+        		 s += " (" + nextC + ")";
+        }
         g.setFont(narrowFont(24));
 
         int s5 = scaled(5);

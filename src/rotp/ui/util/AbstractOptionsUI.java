@@ -112,7 +112,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		int hSettings	= hDistSetting * numRows;
 		
 		if (numColumns == 4)
-			columnPad = s10;
+			columnPad = s12;
 
 		leftM	= max(columnPad, scaled(100 + (3-numColumns) * 150));
 		rightM	= leftM;
@@ -450,7 +450,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		// Loop thru the parameters
 		index	 = 0;
 		column	 = 0;
-		xSetting = leftM+s10;
+		xSetting = leftM + columnPad/2;
 		ySetting = yTop;
 		// First column (left)
 		while (index<paramList.size()) {

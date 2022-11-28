@@ -89,6 +89,15 @@ public class GalacticCouncil implements Base, Serializable {
         }
     }
 
+    public int nextCouncil() { // BR:
+        switch (nextAction) {
+        case CHECK:    return -1;
+        case SCHEDULE: return actionCountdown + noticeDuration;
+        case CONVENE:
+        default:
+        	return actionCountdown;
+        }
+    }
     public void nextTurn() {
         voters = null;
         empires = null;
