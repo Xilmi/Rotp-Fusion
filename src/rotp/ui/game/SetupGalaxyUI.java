@@ -155,12 +155,12 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	
 	private Font boxMonoFont() {
     	if (boxMonoFont == null)
-			boxMonoFont = monoSpacedFont(boxMonoFontSize);
+			boxMonoFont = galaxyFont(boxMonoFontSize);
     	return boxMonoFont;
     }
 	private Font dialogMonoFont() {
     	if (dialogMonoFont == null)
-			dialogMonoFont = monoSpacedFont(dialogMonoFontSize);
+			dialogMonoFont = galaxyFont(dialogMonoFontSize);
     	return dialogMonoFont;
     }
 	public SetupGalaxyUI() {

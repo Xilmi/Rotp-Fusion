@@ -59,7 +59,7 @@ public class GalaxyTextShape extends GalaxyShape {
     	if (font == null) {
 			Map<TextAttribute, Object> attributes = new HashMap<TextAttribute, Object>();
 			attributes.put(TextAttribute.TRACKING, -0.15);
-			font = monoSpacedFont(96).deriveFont(attributes);
+			font = galaxyFont(96).deriveFont(attributes);
     	}
     	return font;
     }

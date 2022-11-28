@@ -24,6 +24,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +34,7 @@ import rotp.Rotp;
 public enum FontManager implements Base {
     INSTANCE;
     public static FontManager current()  { return INSTANCE; }
-    private static final String LOCAL_SHAPE_TEXT_FONT = "NotoFusionSimplified-Regular.otf";
+    private static final String FUSION_FONT = "NotoFusionSimplified-Regular.otf";
 
     private static final int MAX_FONT_SIZE = 200;
     private String logoFont;
@@ -41,16 +42,17 @@ public enum FontManager implements Base {
     private String dlgFont;
     private String narrowFont;
     private String plainFont;
+    private String localFontDir;
     private final Map<String,String[]> languageFontNames = new HashMap<>(); // maps lang code to filenames of font
     private final Map<String,Font> languageFonts = new HashMap<>();       // maps filename of font to a font[]
     private final Map<String,Font[]> allFonts = new HashMap<>();
     private int dlgSize, narrowSize, plainSize, introSize,  logoSize; //, languageSize;
 
-    @Override public Font monoSpacedFont(int size) { // BR: MonoSpaced font for Galaxy
+    @Override public Font galaxyFont(int size) { // BR: MonoSpaced font for Galaxy
 		Map<TextAttribute, Object> attributes = new HashMap<TextAttribute, Object>();
 		attributes.put(TextAttribute.TRACKING, -0.15);
 		if (useFusionFont.get())
-			return loadLocalFont(size).deriveFont(attributes);
+			return loadFusionFont(size).deriveFont(attributes);
 		else
 			return loadMonoFont(size).deriveFont(attributes);
     }
@@ -112,6 +114,7 @@ public enum FontManager implements Base {
     public void loadFonts(String baseDir, String langDir) {
         String fontDir = baseDir+"fonts/";
         String dir = baseDir+langDir+"/";
+        localFontDir = url(fontDir).getPath(); // BR: to speed up Fusion font loading 
         log("Loading fonts - baseDir: ", baseDir, "  fontDir: ", fontDir, "  langDir: ", dir);
         String dataFile = "fonts.txt";
         BufferedReader in;
@@ -240,15 +243,23 @@ public enum FontManager implements Base {
             err("FontManager.loadFont -- Exception: " + e.getMessage());
         }
     }
-    private Font loadLocalFont(int size) {
-		String filename = LOCAL_SHAPE_TEXT_FONT;
-		String fontDir = "lang/fonts/";
-        InputStream is = fileInputStream(fontDir+filename);
-        if (is == null)
-            return loadMonoFont(size);
-
+//    private Font loadFusionFont(int size) {
+//		String filename = FUSION_FONT;
+//		String fontDir = "lang/fonts/";
+//        InputStream is = fileInputStream(fontDir+filename);
+//        if (is == null)
+//            return loadMonoFont(size);
+//
+//        try {
+//        	return Font.createFont(Font.TRUETYPE_FONT, is).deriveFont((float) size);
+//        }
+//        catch (FontFormatException | IOException e) {}
+//        return loadMonoFont(size);
+//    }
+    private Font loadFusionFont(int size) {
+		File file = new File(localFontDir, FUSION_FONT);
         try {
-        	return Font.createFont(Font.TRUETYPE_FONT, is).deriveFont((float) size);
+        	return Font.createFont(Font.TRUETYPE_FONT, file).deriveFont((float) size);
         }
         catch (FontFormatException | IOException e) {}
         return loadMonoFont(size);

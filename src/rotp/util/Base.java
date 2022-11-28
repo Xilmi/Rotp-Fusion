@@ -177,8 +177,8 @@ public interface Base {
         str = str.replace("%2", val2);
         return str.replace("%3", String.valueOf(val3));
     }
-    public default Font monoSpacedFont(int size) { // BR: MonoSpaced font for Galaxy
-        return FontManager.current().monoSpacedFont(size);
+    public default Font galaxyFont(int size) { // BR: MonoSpaced font for Galaxy
+        return FontManager.current().galaxyFont(size);
     }
     public default Font dlgFont(int size) {
         return FontManager.current().dlgFont(size);
