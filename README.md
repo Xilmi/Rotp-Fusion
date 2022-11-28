@@ -26,6 +26,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2022.11.28 (BR)
+  - Fixed Fusion Font not loading outside the IDE
+
 2022.11.27 (BR)
   - Fixed international font problems.
   - Added option to choose percentage needed to win council vote. 

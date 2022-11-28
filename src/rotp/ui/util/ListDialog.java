@@ -49,6 +49,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -214,8 +215,11 @@ public class ListDialog extends JDialog
 
 		if (listFont == null)
 			list.setFont(narrowFont(14));
-		else
+		else {
 			list.setFont(listFont);
+			DefaultListCellRenderer renderer = (DefaultListCellRenderer) list.getCellRenderer();
+			renderer.setHorizontalAlignment(SwingConstants.CENTER);
+		}
 		list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		if (longValue != null) {
 			list.setPrototypeCellValue(longValue); //get extra space

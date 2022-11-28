@@ -241,41 +241,19 @@ public enum FontManager implements Base {
         }
     }
     private Font loadLocalFont(int size) {
-		String path = Rotp.jarPath();
 		String filename = LOCAL_SHAPE_TEXT_FONT;
-//		String fontDir = path + "/../src/rotp/lang/fonts";
 		String fontDir = "lang/fonts/";
         InputStream is = fileInputStream(fontDir+filename);
-        if (is == null) {
-            err("FontManager.loadFont: could not get inputStream for:"+fontDir+filename);
-            return null;
-        }
+        if (is == null)
+            return loadMonoFont(size);
 
         try {
         	return Font.createFont(Font.TRUETYPE_FONT, is).deriveFont((float) size);
         }
-        catch (FontFormatException | IOException e) {
-            err("FontManager.loadFont -- Exception: " + e.getMessage());
-        }
-        return null;
-
-//		File file =  new File(fontDir, LOCAL_SHAPE_TEXT_FONT);
-//		try {
-//		    //create the font to use. Specify the size!
-//			return Font.createFont(Font.TRUETYPE_FONT, file).deriveFont((float) size);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//			err("FontManager.loadFont: could not get inputStream for:"+LOCAL_SHAPE_TEXT_FONT);
-//		} catch(FontFormatException e) {
-//			e.printStackTrace();
-//			err("FontManager.FontFormatException:"+LOCAL_SHAPE_TEXT_FONT);
-//		}
-//		System.out.println("loadLocalFont() returned  loadMonoFont()");
-//		return null;
-////		return loadMonoFont(size);
+        catch (FontFormatException | IOException e) {}
+        return loadMonoFont(size);
     }
     private Font loadMonoFont(int size) {
-    	return loadLocalFont(size);
- //       return new Font(Font.MONOSPACED, Font.PLAIN, size);
+        return new Font(Font.MONOSPACED, Font.PLAIN, size);
     }
 }

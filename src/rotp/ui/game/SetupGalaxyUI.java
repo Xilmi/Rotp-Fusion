@@ -205,6 +205,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		playerRaceImg  = null;
 		boxMonoFont    = null;
 		dialogMonoFont = null;
+		galaxyTextList = null;
 	}
     private void copyOptions(MOO1GameOptions src, MOO1GameOptions dest) {
     	MOO1GameOptions.setGalaxyOptions(src, dest);
@@ -381,7 +382,6 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			out.println( "☃");
 			out.println( "👽");
 			out.println( "⌨");
-			out.println( "͏͏͏͏᪥");
 			out.println( "⸎");
 			out.println( "ꔘ");
 			out.println( "꙰");
