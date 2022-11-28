@@ -163,11 +163,11 @@ public class UserPreferences {
 			MOD_UI, "EVENTS_STARS_TURN"
 			, RandomEvents.START_TURN, 1, null, 1, 5, 20)
 		{
-		@Override public Integer set(Integer newValue) {
-			RandomEvents.START_TURN = newValue;
-			return super.set(newValue);
-		}
-	};
+			@Override public Integer set(Integer newValue) {
+				RandomEvents.START_TURN = newValue;
+				return super.set(newValue);
+			}
+		};
 	public static final ParamTech techIrradiated = new 
 			ParamTech("TECH_IRRADIATED",	3, "ControlEnvironment",6); // level 18
 	public static final ParamTech techCloaking	 = new 
@@ -236,7 +236,13 @@ public class UserPreferences {
 	public static final ParamBoolean showTooltips = new ParamBoolean(
 			MOD_UI, "SHOW_TOOLTIPS", true);
 	public static final ParamBoolean useFusionFont = new ParamBoolean(
-			MOD_UI, "USE_FUSION_FONT", false);
+			MOD_UI, "USE_FUSION_FONT", false)
+		{
+			@Override public Boolean set(Boolean newValue) {
+				FontManager.INSTANCE.resetGalaxyFont();
+				return super.set(newValue);
+			}
+		};
 	public static final ParamBoolean showNextCouncil = new ParamBoolean(
 			MOD_UI, "SHOW_NEXT_COUNCIL", false);
 
@@ -250,8 +256,6 @@ public class UserPreferences {
 	// BR: Galaxy Menu addition
 	public static final ParamBoolean showNewRaces = new ParamBoolean(
 			MOD_UI, "SHOW_NEW_RACES", false);
-//	public static final OpponentCROptions opponentCROptions = new OpponentCROptions (
-//			BASE_UI, "OPP_CR_OPTIONS", SpecificCROption.BASE_RACE.value);
 	public static final ParamString selectedGalaxyText = new ParamString (
 			BASE_UI, "GALAXY_TEXT", "ROTP");
 	public static final GlobalCROptions globalCROptions = new GlobalCROptions (
