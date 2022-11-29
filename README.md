@@ -27,7 +27,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 ## What's New
 
 2022.11.28 (BR)
-  - Fixed Fusion Font not loading outside the IDE
+  - Fixed Fusion Font not loading outside the IDE.
+  - Improved the Text Shaped Galaxy preview generation speed.
+  - Removed "Beta" tag.
 
 2022.11.27 (BR)
   - Fixed international font problems.
