@@ -39,6 +39,18 @@ public class ParamList extends AbstractParam<String> {
 	 * @param gui  The label header
 	 * @param name The name
 	 * @param defaultCfgLabel The default CfgLabel
+	 * @param list keys for map table
+	 */
+	public ParamList(String gui, String name, String defaultCfgLabel, LinkedList<String> list, String mid) {
+		super(gui, name, defaultCfgLabel);
+		valueLabelMap = new IndexableMap();
+		for (String element : list)
+			put(element, mid + element.toUpperCase());
+	}
+	/**
+	 * @param gui  The label header
+	 * @param name The name
+	 * @param defaultCfgLabel The default CfgLabel
 	 * @param optionLabelMap  existing IndexableMap
 	 */
 	public ParamList(String gui, String name, String defaultCfgLabel, IndexableMap optionLabelMap) {

@@ -15,10 +15,10 @@
  */
 package rotp.ui.game;
 
-import rotp.ui.UserPreferences;
+import static rotp.ui.UserPreferences.modGlobalOptionsUI;
+import static rotp.ui.UserPreferences.rowCountList;
 import rotp.ui.util.AbstractOptionsUI;
 
-// modnar: add UI panel for modnar MOD game options, based on StartOptionsUI.java
 public class ModGlobalOptionsUI extends AbstractOptionsUI {
 	private static final long serialVersionUID = 1L;
 	public  static final String guiTitleID = "SETTINGS_MOD_TITLE_GLOBAL";
@@ -29,8 +29,7 @@ public class ModGlobalOptionsUI extends AbstractOptionsUI {
 
 	@Override protected void init0() {
 		globalOptions = true; // No preferred button
-		paramList	  = UserPreferences.modGlobalOptionsUI;
-		numColumns(3);
-		rowCountList(4, 4, 4);
+		paramList	  = modGlobalOptionsUI;
+		rowCountList(rowCountList);
 	}
 }

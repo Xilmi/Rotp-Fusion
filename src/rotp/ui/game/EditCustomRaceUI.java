@@ -20,6 +20,8 @@ import static rotp.ui.UserPreferences.playerCustomRace;
 import static rotp.ui.UserPreferences.playerIsCustom;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonWidth;
+import static rotp.ui.util.AbstractOptionsUI.exitButtonKey;
+import static rotp.ui.util.AbstractOptionsUI.exitButtonWidth;
 import static rotp.ui.util.AbstractOptionsUI.userButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.userButtonWidth;
 
@@ -411,25 +413,41 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		}
 		return false;
 	}
-	@Override protected String raceAITxt() { return ""; }
+	@Override protected String raceAIButtonTxt() { return ""; }
 	@Override protected void paintButtons(Graphics2D g) {
-		super.paintButtons(g);
 		int cnr = s5;
 		g.setFont(buttonFont);
 
-		// Select Button
-		String text	 = text(selectKey);
+		// Exit Button
+		String text = text(exitButtonKey());
 		int sw = g.getFontMetrics().stringWidth(text);
-		int buttonW	 = sw + buttonMargin;
+		int buttonW	= exitButtonWidth(g);
+		xButton = leftM + wBG - buttonW - xButtonOffset;
+		exitBox.setBounds(xButton, yButton, buttonW, buttonH);
+		g.setColor(GameUI.buttonBackgroundColor());
+		g.fillRoundRect(exitBox.x, exitBox.y, buttonW, buttonH, cnr, cnr);
+		int xT = exitBox.x+((exitBox.width-sw)/2);
+		int yT = exitBox.y+exitBox.height-s8;
+		Color cB = hoverBox == exitBox ? Color.yellow : GameUI.borderBrightColor();
+		drawShadowedString(g, text, 2, xT, yT, GameUI.borderDarkColor(), cB);
+		Stroke prev = g.getStroke();
+		g.setStroke(stroke1);
+		g.drawRoundRect(exitBox.x, exitBox.y, exitBox.width, exitBox.height, cnr, cnr);
+		g.setStroke(prev);
+
+		// Select Button
+		text	 = text(selectKey);
+		sw = g.getFontMetrics().stringWidth(text);
+		buttonW	 = sw + buttonMargin;
 		xButton -= (buttonW + buttonPad);
 		selectBox.setBounds(xButton, yButton, buttonW, buttonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(selectBox.x, selectBox.y, buttonW, buttonH, cnr, cnr);
-		int xT = selectBox.x + ((selectBox.width-sw)/2);
-		int yT = selectBox.y + selectBox.height-s8;
-		Color cB = hoverBox == selectBox ? Color.yellow : GameUI.borderBrightColor();
+		xT = selectBox.x + ((selectBox.width-sw)/2);
+		yT = selectBox.y + selectBox.height-s8;
+		cB = hoverBox == selectBox ? Color.yellow : GameUI.borderBrightColor();
 		drawShadowedString(g, text, 2, xT, yT, GameUI.borderDarkColor(), cB);
-		Stroke prev = g.getStroke();
+		prev = g.getStroke();
 		g.setStroke(stroke1);
 		g.drawRoundRect(selectBox.x, selectBox.y, selectBox.width, selectBox.height, cnr, cnr);
 		g.setStroke(prev);

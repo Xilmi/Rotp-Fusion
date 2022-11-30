@@ -32,10 +32,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import rotp.model.ai.AI;
 import rotp.model.empires.CustomRaceDefinitions;
+import rotp.model.game.IGameOptions;
 import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
@@ -44,6 +47,7 @@ import rotp.ui.main.SystemPanel;
 import rotp.ui.races.RacesUI;
 import rotp.ui.util.AbstractOptionsUI;
 import rotp.ui.util.InterfaceOptions;
+import rotp.ui.util.ListDialog;
 import rotp.ui.util.Modifier2KeysState;
 import rotp.ui.util.SettingBase;
 import rotp.util.FontManager;
@@ -52,6 +56,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	private static final long serialVersionUID	= 1L;
 	private static final Color  backgroundHaze	= new Color(0,0,0,160);
 	private static final String totalCostKey	= ROOT + "GUI_COST";
+	private static final String raceAITipKey	= ROOT + "RACE_AI_DESC";
 	protected static final String exitTipKey	= ROOT + "EXIT_DESC";
 	
 	private	static final int tooltipPadV	= s10;
@@ -66,23 +71,20 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	protected static final int buttonMargin	= AbstractOptionsUI.smallButtonM;
 	protected static final int buttonPad	= s15;
 	private static final int buttonPadV		= tooltipPadV;
-	private static final int xButtonOffset	= s30;
+	protected static final int xButtonOffset= s30;
 	protected static final Color labelC		= SystemPanel.orangeText;
 	protected static final int labelFontSize= 14;
 	protected static final int labelH		= s16;
 	protected static final int labelPad		= s8;
 
+	protected static final int columnPad	= s12;
 	private static final Color costC		= SystemPanel.blackText;
 	private static final int costFontSize	= 18;
-	private static final Font raceNameFont= FontManager.current().narrowFont(16);
-	protected static final int columnPad	= s12;
 	private	static final Font titleFont		= FontManager.current().narrowFont(30);
 	private static final int titleOffset	= s30; // Offset from Margin
 	private static final int costOffset		= s25; // Offset from title
 	private static final int titlePad		= s80; // Offset of first setting
-	private static final int raceAIW		= RotPUI.scaledSize(120);
 	private static final int raceAIH		= s18;
-	private static final int raceAIFontSize	= 16;
 	
 	private static final Color frameC		= SystemPanel.blackText; // Setting frame color
 	private static final Color settingNegC	= SettingBase.settingNegC; // Setting name color
@@ -129,7 +131,8 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	private int xCost, yCost;
 	private int w;
 	private int h;
-	private int hBG, wBG;
+	private int hBG;
+	protected int wBG;
 	private int settingSize;
 	private int settingBoxH;
 	private int topM;
@@ -144,10 +147,10 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	protected Rectangle hoverBox, prevHover;
 	protected final Rectangle exitBox	 = new Rectangle();
 	private	  final Rectangle toolTipBox = new Rectangle();
+	private	  final Rectangle raceAIBox  = new Rectangle();
 	protected String tooltipText = "";
 	protected String preTipTxt = "";
 	protected BaseText totalCostText;
-	private   BaseText raceAI;
 	private	  RacesUI  raceUI; // Parent panel
 	protected int maxLeftM;
 	protected CustomRaceDefinitions cr;
@@ -158,8 +161,6 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	protected ShowCustomRaceUI() {
 		setOpaque(false);
 	    totalCostText = new BaseText(this, false, costFontSize, 0, 0, 
-	    		costC, costC, hoverC, depressedC, costC, 0, 0, 0);
-	    raceAI = new BaseText(this, false, raceAIFontSize, 0, 0, 
 	    		costC, costC, hoverC, depressedC, costC, 0, 0, 0);
 	}
 	public static ShowCustomRaceUI instance() {
@@ -247,8 +248,6 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 				setting.settingText().displayText(setting.guiSettingDisplayStr());			
 			}
 		}
-		raceAI.setBounds(0, 0, raceAIW, raceAIH);
-		raceAI.displayText(raceAITxt());
 		totalCostText.displayText(totalCostStr());
 		totalCostText.disabled(true);
 		tooltipText = "This is where Tool tips are displayed";
@@ -277,8 +276,62 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		numSettings	= 0;
 		columnH		= 0;
 	}
-	private String exitButtonTipKey() { return exitTipKey; }
-	private void doExitBoxAction() { close(); }
+	private String exitButtonTipKey()	{ return exitTipKey; }
+	private void doExitBoxAction()		{ close(); }
+	private String raceAIButtonTipKey()	{ return raceAITipKey; }
+	private boolean isPlayer()			{ return raceUI.selectedEmpire().isPlayer(); }
+	private String selectAIFromList(String[] aiArray, String initialChoice) {
+		// String initialChoice = raceAIButtonTxt();
+		//String[] aiArray = aiList.toArray(new String[aiList.size()]);
+
+		String message = "Make your choice";
+	    String input = (String) ListDialog.showDialog(
+	    	getParent(),	// Frame component
+	    	getParent(),	// Location component
+	    	message,		// Message
+	        "Empire AI selection",	// Title
+	        aiArray,			// List
+	        initialChoice, 		// Initial choice
+	        "XXXXXXXXXXXXXXXX",	// long Dialogue
+	        scaled(200), scaled(120),	// size
+	        null);	// Font
+	    if (input == null)
+	    	return initialChoice;
+	    return input;
+	}
+	private void raceAIBoxAction() {
+		if (isPlayer()) {
+			IGameOptions opts   = raceUI.options();
+			List<String> aiKeys = MOO1GameOptions.autoplayBaseOptions();
+			List<String> aiList = new ArrayList<>();
+			for (String key : aiKeys)
+				aiList.add(text(key));
+			String[] aiArray = aiList.toArray(new String[aiList.size()]);
+			String currentAI = opts.selectedAutoplayOption();
+			int currentIndex = aiKeys.indexOf(currentAI);
+
+			String aiTxt = selectAIFromList(aiArray, aiArray[currentIndex]);
+			int aiIndex  = aiList.indexOf(aiTxt);
+			String aiKey = aiKeys.get(aiIndex);
+			
+			opts.selectedAutoplayOption(aiKey);
+		}
+		else {
+			LinkedList<String> aiKeys = AI.sortedFixedAiKeys();
+			List<String> aiList = new ArrayList<>();
+			for (String key : aiKeys)
+				aiList.add(text(key));
+			String[] aiArray = aiList.toArray(new String[aiList.size()]);
+			String currentAI = raceUI.selectedEmpire().getAiName();
+			int currentIndex = aiList.indexOf(currentAI);
+
+			String aiTxt = selectAIFromList(aiArray, aiArray[currentIndex]);
+			int aiIndex  = aiList.indexOf(aiTxt);
+
+			raceUI.selectedEmpire().changeAI(aiIndex);
+		}
+		repaint();
+	}
 	protected void close() {
 		disableGlassPane();
 	}
@@ -292,6 +345,17 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		if (exitBox.contains(x,y)) {
 			hoverBox = exitBox;
 			tooltipText = text(exitButtonTipKey());
+			if (hoverBox != prevHover) {
+				if (tooltipText.equals(preTipTxt)) {
+					repaint(hoverBox);
+				} else {
+					repaint();
+				}
+			}
+			return true;
+		} else if (raceAIBox.contains(x,y)) {
+			hoverBox = raceAIBox;
+			tooltipText = text(raceAIButtonTipKey());
 			if (hoverBox != prevHover) {
 				if (tooltipText.equals(preTipTxt)) {
 					repaint(hoverBox);
@@ -384,11 +448,14 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 				repaintTooltip();
 		}
 	}
-	protected String raceAITxt() {
-		if (raceUI.selectedEmpire().isAIControlled())
-			return raceUI.selectedEmpire().getAiName();
+	protected String raceAIButtonTxt() {
+		if (isPlayer())
+			if (raceUI.selectedEmpire().isAIControlled())
+				return text(raceUI.options().selectedAutoplayOption());
+			else
+				return text("SETUP_OPPONENT_AI_PLAYER");
 		else
-			return text("SETUP_OPPONENT_AI_PLAYER");
+			return raceUI.selectedEmpire().getAiName();
 	}
 	protected int getBackGroundWidth() {
 		return columnPad+wFirstColumn+columnPad + (wSetting+columnPad) * (numColumns-1);
@@ -482,6 +549,24 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		g.setStroke(stroke1);
 		g.drawRoundRect(exitBox.x, exitBox.y, exitBox.width, exitBox.height, cnr, cnr);
 		g.setStroke(prev);
+
+		// RaceUI Button
+		text = raceAIButtonTxt();
+		sw = g.getFontMetrics().stringWidth(text);
+		buttonW	= sw + buttonMargin;
+		int xAI = leftM + wBG - columnPad - buttonW;
+		int yAI	= yCost - raceAIH - s10;
+		raceAIBox.setBounds(xAI, yAI, buttonW, buttonH);
+		g.setColor(GameUI.buttonBackgroundColor());
+		g.fillRoundRect(raceAIBox.x, raceAIBox.y, buttonW, buttonH, cnr, cnr);
+		xT = raceAIBox.x+((raceAIBox.width-sw)/2);
+		yT = raceAIBox.y+raceAIBox.height-s8;
+		cB = hoverBox == raceAIBox ? Color.yellow : GameUI.borderBrightColor();
+		drawShadowedString(g, text, 2, xT, yT, GameUI.borderDarkColor(), cB);
+		prev = g.getStroke();
+		g.setStroke(stroke1);
+		g.drawRoundRect(raceAIBox.x, raceAIBox.y, raceAIBox.width, raceAIBox.height, cnr, cnr);
+		g.setStroke(prev);
 	}
 	// ========== Overriders ==========
 	//
@@ -540,15 +625,6 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		totalCostText.setScaledXY(xCost, yCost);
 		totalCostText.draw(g);
 		
-		// Race AI
-		g.setFont(raceNameFont);
-		g.setColor(costC);
-		raceAI.displayText(raceAITxt());
-		int xAI = leftM + wBG - columnPad - raceAI.stringWidth(g);
-		int yAI	= yCost - raceAIH + s4;
-		raceAI.setScaledXY(xAI, yAI + raceAIH);
-		raceAI.draw(g);
-
 		// Loop thru the parameters
 		xLine = leftM+s10;
 		yLine = yTop;
@@ -609,6 +685,10 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 			return;
 		if (hoverBox == exitBox) {
 			doExitBoxAction();
+			return;
+		}
+		if (hoverBox == raceAIBox) {
+			raceAIBoxAction();
 			return;
 		}
 	}

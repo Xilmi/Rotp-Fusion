@@ -145,8 +145,9 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 			btList.get(i).displayText(paramList.get(i).getGuiDisplay());
 		initCustom();
 	}
-	protected void numColumns(int num) { numColumns = num; }
+//	protected void numColumns(int num) { numColumns = num; }
 	protected void rowCountList(Integer... rows) {
+		numColumns = rows.length;
 		Integer id = 0;
 		for (Integer row : rows) {
 			id+= row;

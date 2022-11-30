@@ -44,7 +44,6 @@ import rotp.ui.UserPreferences;
 import rotp.ui.notifications.BombardSystemNotification;
 import rotp.ui.notifications.ColonizeSystemNotification;
 import rotp.util.Base;
-import rotp.util.LabelManager;
 
 public class AI implements Base { // BR: Tentative
     public static final int BASE = 0;   // Base
@@ -60,7 +59,7 @@ public class AI implements Base { // BR: Tentative
     public static final int RANDOM_ADVANCED = 10;
     public static final int RANDOM_NO_RELATIONBAR = 11;
     // BR: An easy way to retrieve the name from the id
-    public static LinkedList<String> sortedAiKeys() {
+    public static LinkedList<String> sortedFixedAiKeys() {
     	LinkedList<String> list = new LinkedList<>();
         list.add(IGameOptions.OPPONENT_AI_BASE);
         list.add(IGameOptions.OPPONENT_AI_MODNAR);
@@ -70,6 +69,10 @@ public class AI implements Base { // BR: Tentative
         list.add(IGameOptions.OPPONENT_AI_CRUEL);
         list.add(IGameOptions.OPPONENT_AI_FUN);
         list.add(IGameOptions.OPPONENT_AI_PERSONALITY);
+    	return list;
+    }
+    public static LinkedList<String> sortedAiKeys() {
+    	LinkedList<String> list = sortedFixedAiKeys();
         list.add(IGameOptions.OPPONENT_AI_RANDOM);
         list.add(IGameOptions.OPPONENT_AI_RANDOM_BASIC);
         list.add(IGameOptions.OPPONENT_AI_RANDOM_ADV);

@@ -27,6 +27,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 ## What's New
 
 2022.11.28 (BR)
+  - Added option to change AI in game, On the "species'abilities"-panel
+
+2022.11.28 (BR)
   - Fixed Fusion Font not loading outside the IDE.
   - Improved the Text Shaped Galaxy preview generation speed.
   - Removed "Beta" tag.

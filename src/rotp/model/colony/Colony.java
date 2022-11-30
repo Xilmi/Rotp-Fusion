@@ -1569,7 +1569,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
      * Govern the colony.
      * - First, send auto transports if enabled
      * - Then balance ecology and industry spending for maximum production
-     * - Then set defence to maximum.
+     * - Then set defense to maximum.
      * - Then build a stargate if applicable
      *
      * This is quite crude- works by moving slider by 1 tick until desired results happen.
@@ -1624,7 +1624,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         for (int i = 0; i <= 4; i++) {
             locked(i, false);
         }
-        // add maximum defence
+        // add maximum defense
         // don't allocate just for "upgrades" if there are no bases or if there are more bases than we want
         if (!defense().isCompleted() && (defense().maxBases() > 0 && defense().maxBases() >= defense().bases()) || session().getGovernorOptions().getShieldWithoutBases()) {
             int allocationAvailableForDefense = allocation(RESEARCH) + allocationRemaining();
@@ -1877,7 +1877,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     // we have to transport in bunches of ~10 (configurable).
     // This introduces some restrictions:
     // We only transport when planet is fully built (eco, industry, etc).
-    // (I won't wait for defences)
+    // (I won't wait for defenses)
     // We only transport limited distance.
     // Should we transport from hostile planets (?)
     // We chose targets more carefully.

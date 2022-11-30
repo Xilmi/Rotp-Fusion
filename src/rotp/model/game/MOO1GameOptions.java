@@ -18,8 +18,8 @@ package rotp.model.game;
 import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
-import static rotp.ui.UserPreferences.minStarsPerEmpire;
 import static rotp.ui.UserPreferences.globalCROptions;
+import static rotp.ui.UserPreferences.minStarsPerEmpire;
 import static rotp.ui.UserPreferences.playerIsCustom;
 import static rotp.ui.UserPreferences.playerShipSet;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
@@ -248,7 +248,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override
     public void selectedAutoplayOption(String s)    { selectedAutoplayOption = s; }
     @Override
-    public String selectedOpponentAIOption()       { return selectedOpponentAIOption == null ? OPPONENT_AI_CRUEL : selectedOpponentAIOption; } // modnar: default to modnar AI
+    public String selectedOpponentAIOption()       { 
+    	return selectedOpponentAIOption == null ? OPPONENT_AI_CRUEL : selectedOpponentAIOption; } // modnar: default to modnar AI
     @Override
     public void selectedOpponentAIOption(String s) { selectedOpponentAIOption = s; }
     @Override
@@ -1110,8 +1111,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add(RANDOMIZE_AI_BOTH);
         return list;
     }
-    @Override
-    public List<String> autoplayOptions() {
+    public static List<String> autoplayBaseOptions() {
         List<String> list = new ArrayList<>();
         list.add(AUTOPLAY_OFF);
         list.add(AUTOPLAY_AI_BASE);
@@ -1122,6 +1122,11 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add(AUTOPLAY_AI_PERSONALITY);
         list.add(AUTOPLAY_AI_FUN);
         list.add(AUTOPLAY_AI_CRUEL);
+        return list;
+    }
+    @Override
+    public List<String> autoplayOptions() {
+        List<String> list = autoplayBaseOptions();
         list.add(AUTOPLAY_AI_RANDOM);
         list.add(AUTOPLAY_AI_RANDOM_BASIC);
         list.add(AUTOPLAY_AI_RANDOM_ADV);

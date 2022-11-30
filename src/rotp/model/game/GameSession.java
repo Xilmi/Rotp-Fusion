@@ -86,7 +86,7 @@ public final class GameSession implements Base, Serializable {
     private static GameSession instance = new GameSession();
     public static GameSession instance()  { return instance; }
 
-	private static final boolean showInfo = true; // BR: for debug
+	private static final boolean showInfo = false; // BR: for debug
     private static final int MINIMUM_NEXT_TURN_TIME = 500;
     private static Thread nextTurnThread;
     private static volatile boolean suspendNextTurn = false;
@@ -841,7 +841,7 @@ public final class GameSession implements Base, Serializable {
         instance = gs;
         // BR: save the last loaded game parameters
 		MOO1GameOptions.saveGameOptions((MOO1GameOptions) instance.options);
-		// TODO BR: If required, set all game options
+		// BR: If required, set all game options
 		if (showInfo)  showInfo(gs.galaxy());
         startExecutors();
         RotPUI.instance().mainUI().checkMapInitialized();

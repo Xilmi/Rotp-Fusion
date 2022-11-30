@@ -20,6 +20,9 @@
 		<!-- Tag Format yyyy/MM/dd/HH/mm -->
 		<gitHubTag>${build.date}</gitHubTag>
 		<RepoId>Rotp-Fusion</RepoId>
+		<!-- <Branch>UpdateFactoryMenu</Branch> -->
+		<Branch>Main</Branch>
+		<Hide>true</Hide>
 		<AuthorId>BrokenRegistry</AuthorId>
 		<pdfFileName>Description.pdf</pdfFileName>
 		<BaseFileName>rotp-${revision}</BaseFileName>
@@ -427,9 +430,9 @@
 							<authToken>${GITHUB_TOKEN}</authToken>
 							<tagName>${build.date}</tagName>
 							<name>${BaseFileName}</name>
-							<targetCommitish>UpdateFactoryMenu</targetCommitish>
+							<targetCommitish>${Branch}</targetCommitish>
 							<releaseNotes>releaseNotesBR.md</releaseNotes>
-							<draft>false</draft>
+							<draft>${Hide}</draft>
 							<assets>
 								<asset>target/${BaseFileName}.jar</asset>
 								<asset>target/${BaseFileName}-mini.jar</asset>

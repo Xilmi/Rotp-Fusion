@@ -30,7 +30,6 @@ import rotp.model.planet.Planet;
 import rotp.model.tech.TechEngineWarp;
 import rotp.ui.UserPreferences; // modnar: add custom difficulty level option
 import rotp.ui.game.SetupGalaxyUI;
-import rotp.ui.util.SpecificCROption;
 
 public interface IGameOptions {
     public static final int MAX_OPPONENTS = SetupGalaxyUI.MAX_DISPLAY_OPPS;

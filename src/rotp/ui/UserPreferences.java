@@ -29,10 +29,11 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 import rotp.Rotp;
+import rotp.model.ai.AI;
 import rotp.model.empires.GalacticCouncil;
 import rotp.model.events.RandomEvents;
 import rotp.model.game.GameSession;
-import rotp.ui.util.EventsStartTurn;
+import rotp.model.game.IGameOptions;
 import rotp.ui.util.GlobalCROptions;
 import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.ParamAAN2;
@@ -253,6 +254,7 @@ public class UserPreferences {
 			showFleetFactor, showFlagFactor, showPathFactor, useFusionFont,
 			showNameMinFont, showInfoFontRatio, mapFontFactor, showNextCouncil
 			));
+	public static final Integer[] rowCountList = {4, 4, 4}; // ModGlobalOptionsUI alignment
 	// BR: Galaxy Menu addition
 	public static final ParamBoolean showNewRaces = new ParamBoolean(
 			MOD_UI, "SHOW_NEW_RACES", false);
