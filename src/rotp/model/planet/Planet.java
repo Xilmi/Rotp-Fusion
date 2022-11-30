@@ -148,6 +148,10 @@ public class Planet implements Base, IMappedObject, Serializable {
         return artifacts > 0 ? artifacts() : resources();
     }
     public int artifacts()                 { return artifacts; }
+    public void removeArtifact()           { // BR: easier to remove than to test if allowed!
+        artifacts = NO_ARTIFACTS;
+        bonusTechs = 0;
+    }
     public void setArtifact()              {
         artifacts = RUINS_ANTARAN;
         bonusTechs = 1;
@@ -161,6 +165,7 @@ public class Planet implements Base, IMappedObject, Serializable {
         bonusTechs = 3;
     }
     public boolean noArtifacts()           { return artifacts == NO_ARTIFACTS; }
+    public boolean isAntaran()             { return artifacts == RUINS_ANTARAN; } // BR:
     public boolean isArtifact()            { return (artifacts == RUINS_ORION) || (artifacts == RUINS_ANTARAN); }
     public boolean isOrionArtifact()       { return artifacts == RUINS_ORION; }
     public boolean hasBonusTechs()         { return bonusTechs > 0; }

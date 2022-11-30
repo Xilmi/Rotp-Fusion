@@ -22,6 +22,7 @@ import static rotp.ui.UserPreferences.companionWorlds;
 import static rotp.ui.UserPreferences.customDifficulty;
 import static rotp.ui.UserPreferences.dynamicDifficulty;
 import static rotp.ui.UserPreferences.fertileHomeworld;
+import static rotp.ui.UserPreferences.minDistanceArtifactPlanet;
 import static rotp.ui.UserPreferences.missileSizeModifier;
 import static rotp.ui.UserPreferences.randomTechStart;
 import static rotp.ui.UserPreferences.restartAppliesSettings;
@@ -52,6 +53,7 @@ public class StartModAOptionsUI extends AbstractOptionsUI {
 		paramList.add(fertileHomeworld);
 		paramList.add(richHomeworld);
 		paramList.add(ultraRichHomeworld);
+		paramList.add(minDistanceArtifactPlanet);
 		endOfColumn();
 		// Second column
 		paramList.add(companionWorlds);

@@ -95,6 +95,10 @@ public class UserPreferences {
 	public static final ParamAAN2 fertileHomeworld	 = new ParamAAN2("HOME_FERTILE");
 	public static final ParamAAN2 richHomeworld 	 = new ParamAAN2("HOME_RICH");
 	public static final ParamAAN2 ultraRichHomeworld = new ParamAAN2("HOME_ULTRA_RICH");
+//	public static final ParamBoolean noArtifactPlanet = new ParamBoolean(
+//			MOD_UI, "NO_ARTIFACT_PLANET", false);
+	public static final ParamFloat minDistanceArtifactPlanet = new ParamFloat(
+			MOD_UI, "DIST_ARTIFACT_PLANET", 0.0f, 0.0f, null, 0.2f, 1f, 5f, "0.0##", "0.0");
 	public static final ParamBoolean battleScout	 = new ParamBoolean(
 			MOD_UI, "BATTLE_SCOUT", false);
 	public static final ParamBoolean randomTechStart = new ParamBoolean(

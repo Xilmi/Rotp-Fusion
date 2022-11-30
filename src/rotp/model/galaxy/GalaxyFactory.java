@@ -23,6 +23,7 @@ import static rotp.model.empires.CustomRaceDefinitions.optionToAlienRace;
 import static rotp.model.empires.CustomRaceDefinitions.raceFileExist;
 import static rotp.model.game.MOO1GameOptions.setAliensAIOptions;
 import static rotp.ui.UserPreferences.globalCROptions;
+import static rotp.ui.UserPreferences.minDistanceArtifactPlanet;
 import static rotp.ui.UserPreferences.restartAppliesSettings;
 import static rotp.ui.UserPreferences.restartChangesAliensAI;
 import static rotp.ui.UserPreferences.restartChangesPlayerAI;
@@ -469,6 +470,10 @@ public class GalaxyFactory implements Base {
 					needHabitable = false;
 				}
 				sys0.setXY(empSystem.x(i), empSystem.y(i));
+				if (sys0.planet().isAntaran()
+						&& minDistanceArtifactPlanet.get() > 0.0f
+						&& galaxy().tooCloseToHomeWorld(sys0, minDistanceArtifactPlanet.get()))
+					sys0.planet().removeArtifact();
 				g.addStarSystem(sys0);
 			}
 		} else { // Restart
@@ -676,6 +681,10 @@ public class GalaxyFactory implements Base {
 						}
 					}
 					sys0.setXY(empSystem.x(i), empSystem.y(i));
+					if (sys0.planet().isAntaran()
+							&& minDistanceArtifactPlanet.get() > 0.0f
+							&& galaxy().tooCloseToHomeWorld(sys0, minDistanceArtifactPlanet.get()))
+						sys0.planet().removeArtifact();
 					g.addStarSystem(sys0);
 				}
 			} else { // Restart
@@ -689,7 +698,7 @@ public class GalaxyFactory implements Base {
 //			System.out.println("End alien " + h + "  checkIdentique = " + checkIdentique(g));
 		}
 	}
-	private void addUnsettledSystemsForGalaxy(Galaxy g, GalaxyBaseData galSrc) {
+	private void addUnsettledSystemsForGalaxy(Galaxy g, GalaxyBaseData galSrc) { // Restart
 		// add Orion
 		SystemBaseData ref = galSrc.starSystems[g.numStarSystems()];
 		StarSystem orion = StarSystemFactory.current().newOrionSystem(g);
@@ -707,7 +716,7 @@ public class GalaxyFactory implements Base {
 		}
 		log("total systems created: ", str(g.numStarSystems()));
 	}
-	private void addUnsettledSystemsForGalaxy(Galaxy g, GalaxyShape sh) {
+	private void addUnsettledSystemsForGalaxy(Galaxy g, GalaxyShape sh) { // Start
 		IGameOptions opts = GameSession.instance().options(); // BR:
 		Point.Float pt = new Point.Float();
 		// add Orion, index =0;
@@ -724,6 +733,10 @@ public class GalaxyFactory implements Base {
 				StarSystem refSys = StarSystemFactory.current().newSystem(g);
 				sh.coords(i, pt);
 				refSys.setXY(pt.x, pt.y);
+				if (refSys.planet().isAntaran()
+						&& minDistanceArtifactPlanet.get() > 0.0f
+						&& galaxy().tooCloseToHomeWorld(refSys, minDistanceArtifactPlanet.get()))
+					refSys.planet().removeArtifact();
 				g.addStarSystem(refSys);
 				// other symmetry systems
 				for (int k=i+1; k<i+sh.numEmpires; k++) {
@@ -738,6 +751,10 @@ public class GalaxyFactory implements Base {
 				StarSystem sys = StarSystemFactory.current().newSystem(g);
 				sh.coords(i, pt);
 				sys.setXY(pt.x, pt.y);
+				if (sys.planet().isAntaran()
+						&& minDistanceArtifactPlanet.get() > 0.0f
+						&& galaxy().tooCloseToHomeWorld(sys, minDistanceArtifactPlanet.get()))
+					sys.planet().removeArtifact();
 				g.addStarSystem(sys);
 			}
 		}

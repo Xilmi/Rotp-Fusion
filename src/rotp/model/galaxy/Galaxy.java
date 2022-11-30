@@ -595,6 +595,15 @@ public class Galaxy implements Base, Serializable {
         raceSystemNames().put(rId, names);
         raceSystemCtr().put(rId, i);
     }
+    public boolean tooCloseToHomeWorld(StarSystem s, float lim) {
+    	for (Empire e : empires) {
+    		if (e == null)
+    			return false;
+    		if (s.distanceTo(system(e.homeSysId())) < lim)
+    			return true;
+    	}
+    	return false;
+    }
     // ==================== GalaxyBaseData ====================
     //
 	public static class GalaxyBaseData {

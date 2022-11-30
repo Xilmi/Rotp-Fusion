@@ -1553,6 +1553,7 @@ SETTINGS_AI_HOSTILITY_DESC        | Increase or decrease the general level of ho
 
 // modnar: add UI panel for modnar MOD game options
 SETTINGS_MOD_TITLE                   | modnar MOD Options
+SETTINGS_MOD_DIST_ARTIFACT_PLANET    | Min distance: %1
 SETTINGS_MOD_NEW_RACES_ON            | Include New Races: %1
 SETTINGS_MOD_CHALLENGE_MODE          | Challenge Mode: %1
 SETTINGS_MOD_BATTLE_SCOUT            | Battle Scout: %1
@@ -1571,6 +1572,7 @@ SETTINGS_MOD_HOME_ARTIFACT           | Get Artifact HomeWorld: %1
 SETTINGS_MOD_HOME_FERTILE            | Get Fertile HomeWorld: %1
 SETTINGS_MOD_HOME_RICH               | Get Rich HomeWorld: %1
 SETTINGS_MOD_HOME_ULTRA_RICH         | Get Ultra-Rich HomeWorld: %1
+SETTINGS_MOD_DIST_ARTIFACT_PLANET_DESC | Minimal distance between Homeworlds and the nearest artifact planet.
 SETTINGS_MOD_CHALLENGE_MODE_DESC     | Give AI Empires additional starting resources (more Population, Factories, and Ships).
 SETTINGS_MOD_NEW_RACES_ON_DESC       | Include the new races as potential opponents
 SETTINGS_MOD_BATTLE_SCOUT_DESC       | Medium-Hull armed Scout Design for the Player at start of game. Buildable despite breaking Ship Space limitations.
