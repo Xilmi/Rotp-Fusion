@@ -26,6 +26,10 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2022.12.01 (BR)
+  - Map Expand Panel: Purple crosses are visible on planetless stars wathever the year's configuration.
+  - Map Expand Panel: Player's colonized planets won't have a green cross anymore.
+
 2022.11.30 (BR)
   - Added option to avoid Artifact planets being too close to Home Worlds.
 

@@ -7,4 +7,9 @@ Tested on short game only, I guess that u/pizza-knight who requested this featur
   - It change the option value and reinitialize the AI variables, those that are reinitialized when reloading a game; then it should be safe.
 
 Added option to avoid Artifact planets being too close to Home Worlds.
-	- this should help u/paablo in his ultimate symmetrical restart challenge!
+  - this should help u/paablo in his ultimate symmetrical restart challenge!
+
+Changed some Map Expand Panel display features:
+  - Purple crosses are now visible on planetless stars wathever the year's configuration.
+  - Player's colonized planets won't display a green cross anymore.
+

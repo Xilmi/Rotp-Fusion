@@ -581,11 +581,20 @@ public final class SystemsUI extends BasePanel implements IMapHandler, ActionLis
                 return MainUI.yellowAlertC;
             if ((rangeTech != null) && pl.canColonize(sv.sysId)) 
                 return MainUI.yellowAlertC;
+            if (sv.planet().isEnvironmentNone()) // BR: Purple crosses always available
+                return MainUI.purpleAlertC;
             return null; 
         }
         else {
             // modnar: show alert colors for all scouted systems
             Empire pl = player();
+            // BR: no more crosses on Player colonized planets
+            Colony sc = sv.colony();
+            if (sc != null) {
+            	Empire se = sc.empire();
+            	if (se.isPlayer())
+            		return null;
+            }
             if (pl.canColonize(sv.sysId)) {
                 return MainUI.greenAlertC;
             }
