@@ -264,6 +264,8 @@ public class UserPreferences {
 			MOD_UI, "SHOW_NEW_RACES", false);
 	public static final ParamString selectedGalaxyText = new ParamString (
 			BASE_UI, "GALAXY_TEXT", "ROTP");
+	public static final ParamString selectedGalaxyBitmap = new ParamString (
+			BASE_UI, "GALAXY_BITMAP", "");
 	public static final GlobalCROptions globalCROptions = new GlobalCROptions (
 			BASE_UI, "OPP_CR_OPTIONS", SpecificCROption.BASE_RACE.value);
 	public static final ParamBoolean useSelectableAbilities = new ParamBoolean(

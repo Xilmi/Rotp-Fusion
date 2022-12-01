@@ -55,6 +55,7 @@ import rotp.model.ai.AI;
 import rotp.model.empires.Empire;
 import rotp.model.empires.Race;
 import rotp.model.events.RandomEvent;
+import rotp.model.galaxy.GalaxyBitmapShape;
 import rotp.model.galaxy.GalaxyBullseyeShape; // modnar, custom shape, long generation times
 import rotp.model.galaxy.GalaxyClusterShape; // modnar, custom shape
 import rotp.model.galaxy.GalaxyEllipticalShape;
@@ -80,6 +81,7 @@ import rotp.ui.UserPreferences;
 import rotp.ui.game.EditCustomRaceUI;
 import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.util.InterfaceOptions;
+import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.ParamOptions;
 import rotp.ui.util.SpecificCROption;
 import rotp.util.Base;
@@ -434,10 +436,12 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	// Copy CustomRaces as part of Race UI
 		for (InterfaceOptions param : EditCustomRaceUI.instance().commonList)
 			param.setFromOptions(opt.dynamicOptions);
-		showNewRaces.setFromOptions(opt.dynamicOptions);
-		prefStarsPerEmpire.setFromOptions(opt.dynamicOptions);
-		globalCROptions.setFromOptions(opt.dynamicOptions);
-		useSelectableAbilities.setFromOptions(opt.dynamicOptions);
+		for (InterfaceParam param : RotPUI.setupGalaxyUI().paramList)
+			param.setFromOptions(opt.dynamicOptions);
+//		showNewRaces.setFromOptions(opt.dynamicOptions);
+//		prefStarsPerEmpire.setFromOptions(opt.dynamicOptions);
+//		globalCROptions.setFromOptions(opt.dynamicOptions);
+//		useSelectableAbilities.setFromOptions(opt.dynamicOptions);
     	playerIsCustom.setFromOptions(opt.dynamicOptions);
     	playerShipSet.setFromOptions(opt.dynamicOptions);
 
@@ -481,6 +485,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
                 galaxyShape = new GalaxyLorenzShape(this); break;
 			case SHAPE_FRACTAL:
                 galaxyShape = new GalaxyFractalShape(this); break;
+			case SHAPE_BITMAP:
+                galaxyShape = new GalaxyBitmapShape(this); break;
             case SHAPE_RECTANGLE:
             default:
                 galaxyShape = new GalaxyRectangularShape(this);
@@ -954,6 +960,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 		list.add(SHAPE_BULLSEYE);
 		list.add(SHAPE_LORENZ);
 		list.add(SHAPE_FRACTAL);
+// TODO BR:		list.add(SHAPE_BITMAP);
         return list;
     }
 	
@@ -1251,10 +1258,12 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         for (int i=0;i<dest.specificOpponentCROption.length;i++)
         	dest.specificOpponentCROption[i] = defVal;
         dest.generateGalaxy();
-	    showNewRaces.setFromDefault();
-	    prefStarsPerEmpire.setFromDefault();
-	    globalCROptions.setFromDefault();
-	    useSelectableAbilities.setFromDefault();
+		
+        RotPUI.setupGalaxyUI().setParamToDefault();
+//	    showNewRaces.setFromDefault();
+//	    prefStarsPerEmpire.setFromDefault();
+//	    globalCROptions.setFromDefault();
+//	    useSelectableAbilities.setFromDefault();
     }
     public static void setAdvancedOptions(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
         dest.selectedGalaxyAge			= src.selectedGalaxyAge;

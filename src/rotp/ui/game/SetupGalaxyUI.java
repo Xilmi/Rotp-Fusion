@@ -22,6 +22,7 @@ import static rotp.ui.UserPreferences.GALAXY_TEXT_FILE;
 import static rotp.ui.UserPreferences.globalCROptions;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
 import static rotp.ui.UserPreferences.selectedGalaxyText;
+import static rotp.ui.UserPreferences.selectedGalaxyBitmap;
 import static rotp.ui.UserPreferences.showNewRaces;
 import static rotp.ui.UserPreferences.useSelectableAbilities;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
@@ -81,6 +82,7 @@ import rotp.ui.NoticeMessage;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
+import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.ListDialog;
 import rotp.ui.util.Modifier2KeysState;
 import rotp.ui.util.SpecificCROption;
@@ -152,7 +154,8 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
     private int dialogMonoFontSize = s20;
     private Font boxMonoFont;
     private int boxMonoFontSize = s15;
-	
+	public	LinkedList<InterfaceParam> paramList = new LinkedList<>();
+    
 	private Font boxMonoFont() {
     	if (boxMonoFont == null)
 			boxMonoFont = galaxyFont(boxMonoFontSize);
@@ -176,6 +179,12 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			oppAI[i] = new Rectangle();
 		for (int i=0;i<oppCR.length;i++)
 			oppCR[i] = new Rectangle();
+		paramList.add(showNewRaces);
+		paramList.add(prefStarsPerEmpire);
+		paramList.add(globalCROptions);
+		paramList.add(useSelectableAbilities);
+		paramList.add(selectedGalaxyText);
+		paramList.add(selectedGalaxyBitmap);
 	}
 	private void initAbilitiesList() {
 		// specific
@@ -215,17 +224,21 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		updateOptions(destination);
 	}
 	public void updateOptions(MOO1GameOptions destination) {
-		showNewRaces.setOptions(destination.dynamicOptions());
-		prefStarsPerEmpire.setOptions(destination.dynamicOptions());
-		globalCROptions.setOptions(destination.dynamicOptions());
-		useSelectableAbilities.setOptions(destination.dynamicOptions());
+		for (InterfaceParam param : paramList)
+			param.setOptions(destination.dynamicOptions());
+//		showNewRaces.setOptions(destination.dynamicOptions());
+//		prefStarsPerEmpire.setOptions(destination.dynamicOptions());
+//		globalCROptions.setOptions(destination.dynamicOptions());
+//		useSelectableAbilities.setOptions(destination.dynamicOptions());
 	}
 	private void getOptions(MOO1GameOptions source) {
 		copyOptions(source, guiOptions());
-		showNewRaces.setFromOptions(source.dynamicOptions());
-		prefStarsPerEmpire.setFromOptions(source.dynamicOptions());
-		globalCROptions.setFromOptions(source.dynamicOptions());
-		useSelectableAbilities.setFromOptions(source.dynamicOptions());
+		for (InterfaceParam param : paramList)
+			param.setFromOptions(source.dynamicOptions());
+//		showNewRaces.setFromOptions(source.dynamicOptions());
+//		prefStarsPerEmpire.setFromOptions(source.dynamicOptions());
+//		globalCROptions.setFromOptions(source.dynamicOptions());
+//		useSelectableAbilities.setFromOptions(source.dynamicOptions());
 	}
     private void doStartBoxAction() {
 		buttonClick();
@@ -273,6 +286,10 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		init();
 		backImg = null;
 		repaint();
+ 	}
+ 	public  void setParamToDefault() {
+		for (InterfaceParam param : paramList)
+			param.setFromDefault();
  	}
  	private void setToDefault() {
  		MOO1GameOptions.setDefaultGalaxyOptions(guiOptions());
@@ -339,6 +356,13 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		}
 		return -1;
 	}
+	private String selectBitmapFromList() {
+		return null; // TODO BR: selectBitmapFromList()
+	}
+	private String selectGalaxyBitmapFromList() {
+		return null; // TODO BR: selectGalaxyBitmapFromList()
+	}
+
 	private int currentGalaxyTextIndex(String s) {
 		String[] textList = getGalaxyTextList();
 		for (int i=0; i<textList.length; i++) {
@@ -1053,6 +1077,9 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	private boolean isShapeTextGalaxy() {
 		return newGameOptions().selectedGalaxyShape().equals(IGameOptions.SHAPE_TEXT);
 	}
+	private boolean isShapeBitmapGalaxy() {
+		return newGameOptions().selectedGalaxyShape().equals(IGameOptions.SHAPE_BITMAP);
+	}
 	private void nextMapOption1(boolean click) {
 		if (click) softClick();
 		if (isShapeTextGalaxy()) {
@@ -1064,6 +1091,8 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 				nextIndex = 0;
 			String nextText = (String) getGalaxyTextList()[nextIndex];
 			selectedGalaxyText.set(nextText);
+		} else if (isShapeBitmapGalaxy()) { // TODO BR: nextMapOption1 selectedGalaxyBitmap
+			int nextIndex = 0;
 		} else
 			newGameOptions().selectedGalaxyShapeOption1(newGameOptions().nextGalaxyShapeOption1());
 
@@ -1081,6 +1110,8 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 				prevIndex = getGalaxyTextList().length-1;
 			String prevText = (String) getGalaxyTextList()[prevIndex];
 			selectedGalaxyText.set(prevText);
+		} else if (isShapeBitmapGalaxy()) { // TODO BR: prevMapOption1 selectedGalaxyBitmap
+			int nextIndex = 0;
 		} else
 			newGameOptions().selectedGalaxyShapeOption1(newGameOptions().prevGalaxyShapeOption1());
 		newGameOptions().galaxyShape().quickGenerate(); 
@@ -1914,6 +1945,8 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		else if (hoverBox == mapOption1Box)
 			if (isShapeTextGalaxy())
 				selectGalaxyTextFromList();
+			else if (isShapeBitmapGalaxy())
+				selectBitmapFromList();
 			else if(up) nextMapOption1(true);
 			else prevMapOption1(true);
 		else if (hoverBox == mapOption1BoxR)
