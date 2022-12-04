@@ -190,11 +190,13 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 			else
 				bg = GameUI.settingsSetupBackground(w);
 
-		initialOptions = new MOO1GameOptions(); // Any content will do
-		if (globalOptions) // The old ways
+		if (globalOptions)  { // The old ways
+			initialOptions = new MOO1GameOptions(); // Any content will do
 			writeOptions(initialOptions);
+		}
 		else
-			MOO1GameOptions.writeAllOptions(guiOptions(), initialOptions);
+			initialOptions = MOO1GameOptions.getInitialOptions(guiOptions());
+//			MOO1GameOptions.writeAllOptions(guiOptions(), initialOptions);
 		init();
 		enableGlassPane(this);
 	}

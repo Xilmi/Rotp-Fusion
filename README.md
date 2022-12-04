@@ -29,6 +29,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 2022.12.04 (BR)
   - Fixed Local User settings not saving correctly.
   - Forced the creation of newGameSettings before loading a game.
+  - Fixed some "initialOptions"-issues.
 
 2022.12.03 (BR)
   - Text Shaped Galaxy: Fixed text not being saved.

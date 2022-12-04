@@ -139,8 +139,9 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         createNewGameOptions(); // Following the UserPreferences.menuStartup
         readLocalOptions((MOO1GameOptions) newGameOptions());
         // Save initial options
-        initialOptions = new MOO1GameOptions(); // Any content will do
-		MOO1GameOptions.writeAllOptions(guiOptions(), initialOptions);
+		initialOptions = MOO1GameOptions.getInitialOptions(guiOptions());
+//		initialOptions = new MOO1GameOptions(); // Any content will do
+//		MOO1GameOptions.writeAllOptions(guiOptions(), initialOptions);
     }
     public void setHomeWorldFont() { // BR: MonoSpaced font for Galaxy
    		homeWorld.setFont(narrowFont(20));

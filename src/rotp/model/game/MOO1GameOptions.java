@@ -453,7 +453,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             setGalaxyShape();
         return galaxyShape;
     }
-    private void setGalaxyShape() {
+    public void setGalaxyShape() { // TODO BR: tempo Public back to private
+    	System.out.println("setGalaxyShape() : " + selectedGalaxyShape); // TODO BR: Remove
         switch(selectedGalaxyShape) {
             case SHAPE_ELLIPTICAL:
                 galaxyShape = new GalaxyEllipticalShape(this); break;
@@ -1221,6 +1222,12 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         readModOptions(source);
         writeModOptions(options);
     }
+    public static MOO1GameOptions getInitialOptions(MOO1GameOptions source) { // BR:
+    	MOO1GameOptions initialOptions = new MOO1GameOptions();
+    	writeAllOptions(source, initialOptions);
+    	writeAllOptions(source, source); // To reinitialize;
+    	return initialOptions;
+    }
     public static void writeAllOptions(MOO1GameOptions options, MOO1GameOptions destination) { //BR:
     	writeModOptions(destination);
     	copyAdvancedOptions(options, destination);
@@ -1260,6 +1267,10 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         	dest.specificOpponentAIOption[i] = src.specificOpponentAIOption[i];
     }
     public static void copyGalaxyOptions(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
+    	System.out.println("===== copyGalaxyOptions "); // TODO BR: Remove
+    	System.out.println("selectedGalaxyShape = " + src.selectedGalaxyShape); // TODO BR: Remove
+    	System.out.println("selectedGalaxySize = " + src.selectedGalaxySize); // TODO BR: Remove
+
     	dest.selectedGalaxySize	(src.selectedGalaxySize);
     	dest.selectedGalaxyShape(src.selectedGalaxyShape);
     	dest.selectedGalaxyShapeOption1 = src.selectedGalaxyShapeOption1;

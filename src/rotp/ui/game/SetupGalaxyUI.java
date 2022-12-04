@@ -198,10 +198,13 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	}
 	public void init() {
 		Modifier2KeysState.reset();
-		newGameOptions().galaxyShape().quickGenerate(); // BR: to avoid strange galaxy display
-        initialOptions = new MOO1GameOptions(); // Any content will do
-		MOO1GameOptions.writeAllOptions(guiOptions(), initialOptions);
+		initialOptions = MOO1GameOptions.getInitialOptions(guiOptions());
+//		initialOptions = new MOO1GameOptions(); // Any content will do
+//		MOO1GameOptions.writeAllOptions(guiOptions(), initialOptions);
+    	System.out.println("After set initialOptions "); // TODO BR: Remove
         initAbilitiesList();
+        ((MOO1GameOptions) newGameOptions()).setGalaxyShape();
+		newGameOptions().galaxyShape().quickGenerate(); // BR: to avoid strange galaxy display
         backImg = null;
         repaint();
 	}
@@ -267,12 +270,13 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 				MOO1GameOptions.loadLastOptions(guiOptions());
 			break;
 		case SHIFT: // set to last game options
+	    	System.out.println("set to last game options "); // TODO BR: Remove
 			if (options() != null)
 				if (loadLocalSettings.get())
 					readOptions(MOO1GameOptions.loadGameOptions());
 				else
 					MOO1GameOptions.loadGameOptions(guiOptions());
-			if (options() != null)
+	    	System.out.println("After set to last game options "); // TODO BR: Remove
 			break;
 		default: // set to default
 			if (loadLocalSettings.get())

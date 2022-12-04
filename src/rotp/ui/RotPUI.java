@@ -311,10 +311,16 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     	MOO1GameOptions newOptions;
      	ParamOptions action;
         System.out.println("==================== createNewOptions() ====================");
+		System.out.println("UserPreferences.gamePlayed() = " + UserPreferences.gamePlayed());
+		System.out.println("UserPreferences.loadRequest() = " + UserPreferences.loadRequest());
+		System.out.println("UserPreferences.menuLoadGame.get() = " + UserPreferences.menuLoadGame.get());
+		System.out.println("UserPreferences.menuStartup.get() = " + UserPreferences.menuStartup.get());
+		System.out.println("UserPreferences.menuAfterGame.get() = " + UserPreferences.menuAfterGame.get());
+		System.out.println("UserPreferences.menuSpecial.get() = " + UserPreferences.menuSpecial.get());
 
      	// Creation depend on state
     	if (UserPreferences.gamePlayed())
-        	action = UserPreferences.menuLoadGame;
+        	action = UserPreferences.menuAfterGame;
         else
         	action = UserPreferences.menuStartup;
 
@@ -323,7 +329,8 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         	action = UserPreferences.menuSpecial;
         	UserPreferences.loadRequest(false);
         }
-    	
+		System.out.println("action.get() = " + action.get());
+   	
     	if (action.isLast()) {
     		System.out.println("GUI Loaded Last.options");
        		newOptions = new MOO1GameOptions();

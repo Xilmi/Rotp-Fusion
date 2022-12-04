@@ -124,8 +124,9 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
     public void open(BasePanel p) {
         parent = p;
 		Modifier2KeysState.reset();
-        initialOptions = new MOO1GameOptions(); // Any content will do
-		MOO1GameOptions.writeAllOptions(guiOptions(), initialOptions);
+		initialOptions = MOO1GameOptions.getInitialOptions(guiOptions());
+//		initialOptions = new MOO1GameOptions(); // Any content will do
+//		MOO1GameOptions.writeAllOptions(guiOptions(), initialOptions);
         init();
         enableGlassPane(this);
     }
