@@ -846,7 +846,10 @@ public final class GameSession implements Base, Serializable {
     	if (menuLoadGame.isLast()) {
     		System.out.println("Game Loaded Current GUI options");
     		// Load the options and set the GUI
-    		MOO1GameOptions.loadLastOptions((MOO1GameOptions) instance.options);
+    		MOO1GameOptions.readAllOptions(
+    				(MOO1GameOptions) instance.options, 
+    				(MOO1GameOptions) newGameOptions());
+    		//MOO1GameOptions.loadLastOptions((MOO1GameOptions) instance.options);
     	}
     	else if (menuLoadGame.isUser()) {
     		System.out.println("Game Loaded User.options");

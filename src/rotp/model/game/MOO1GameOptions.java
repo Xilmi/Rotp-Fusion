@@ -1642,7 +1642,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	 */
     public static MOO1GameOptions loadUserOptions() {
     	MOO1GameOptions options =  loadOptions(Rotp.jarPath(), USER_OPTIONS_FILE);
-    	readModOptions(options);   		
    		return options;
     }
 	/**

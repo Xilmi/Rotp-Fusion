@@ -792,7 +792,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
                 Desktop.getDesktop().open(userManual);
         } catch (IOException e) {}
     }
-    public void continueGame() {
+    public void continueGame() { // BR:
     	if (isCtrlDown()) {
             buttonClick();
     		menuSpecial.set(ParamOptions.LAST);
@@ -808,7 +808,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             RotPUI.instance().mainUI().showDisplayPanel();
         }
     }
-    public void newGame() {
+    public void newGame() { // BR:
     	if (isCtrlDown()) {
             buttonClick();
     		menuSpecial.set(ParamOptions.USER);
@@ -820,7 +820,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             RotPUI.instance().selectSetupRacePanel();
         }
     }
-    public void loadGame() {
+    public void loadGame() { // BR:
     	if (isCtrlDown()) {
             buttonClick();
     		menuSpecial.set(ParamOptions.GAME);
@@ -830,10 +830,11 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         if (canLoadGame()) {
             buttonClick();
             loadRequest(false); // The call was not for SetupRaceUI
+            newGameOptions(); // To create one if none
             RotPUI.instance().selectLoadGamePanel();
         }
     }
-    public void saveGame() {
+    public void saveGame() { // BR:
     	if (isCtrlDown()) {
             buttonClick();
     		menuSpecial.set(ParamOptions.DEFAULT);
