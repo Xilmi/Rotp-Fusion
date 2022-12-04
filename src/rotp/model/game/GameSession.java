@@ -842,15 +842,29 @@ public final class GameSession implements Base, Serializable {
         stopCurrentGame();
         instance = gs;
 		// BR: If required, set all game options
-    	if (menuLoadGame.isLast())
-       		MOO1GameOptions.loadLastOptions((MOO1GameOptions) instance.options);
-    	else if (menuLoadGame.isUser())
-       		MOO1GameOptions.loadUserOptions((MOO1GameOptions) instance.options);
-    	else if (menuLoadGame.isDefault())
-       		MOO1GameOptions.setAllOptionsToDefault((MOO1GameOptions) instance.options);
-    	else if (menuLoadGame.isGame())
+        System.out.println("==================== loadPreviousSession ====================");
+    	if (menuLoadGame.isLast()) {
+    		System.out.println("Game Loaded Current GUI options");
+    		// Load the options and set the GUI
+    		MOO1GameOptions.loadLastOptions((MOO1GameOptions) instance.options);
+    	}
+    	else if (menuLoadGame.isUser()) {
+    		System.out.println("Game Loaded User.options");
+    		// Load the options and set the GUI
+    		MOO1GameOptions.loadUserOptions((MOO1GameOptions) instance.options);
+    	}
+    	else if (menuLoadGame.isDefault()) {
+    		System.out.println("Game Loaded Default options");
+    		// Reset the options and reset the GUI
+    		MOO1GameOptions.setAllOptionsToDefault((MOO1GameOptions) instance.options);
+    	}
+    	else if (menuLoadGame.isGame()) {
+    		System.out.println("Game Set the GUI with the Game options");
+    		// Set the GUI with the Game options
     		MOO1GameOptions.readModOptions((MOO1GameOptions) instance.options);
+    	}
     	// else vanilla Nothing special to do
+		System.out.println("Old Ways Game Loaded Nothing");
 
         // BR: save the last loaded game parameters
 		MOO1GameOptions.saveGameOptions((MOO1GameOptions) instance.options);

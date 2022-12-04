@@ -310,6 +310,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     public static MOO1GameOptions createStartupOptions() { // BR:
     	MOO1GameOptions newOptions;
      	ParamOptions action;
+        System.out.println("==================== createNewOptions() ====================");
 
      	// Creation depend on state
     	if (UserPreferences.gamePlayed())
@@ -324,26 +325,32 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         }
     	
     	if (action.isLast()) {
+    		System.out.println("GUI Loaded Last.options");
        		newOptions = new MOO1GameOptions();
     		MOO1GameOptions.loadLastOptions(newOptions);
     		return newOptions;
     	}
     	if (action.isUser()) {
+    		System.out.println("GUI Loaded User.options");
        		newOptions = new MOO1GameOptions();
     		MOO1GameOptions.loadUserOptions(newOptions);
     		return newOptions;
     	}
     	if (action.isGame()) {
+    		System.out.println("GUI Loaded Game.options");
        		newOptions = new MOO1GameOptions();
     		MOO1GameOptions.loadGameOptions(newOptions);
     		return newOptions;
     	}
     	if (action.isDefault()) {
+    		System.out.println("GUI Loaded Default options");
     		newOptions = new MOO1GameOptions();
     		MOO1GameOptions.setAllOptionsToDefault(newOptions);
     		return newOptions;
-    	} else // Vanilla, as before
-    		return new MOO1GameOptions();
+    	} // else Vanilla, as before
+    	
+		System.out.println("GUI Loaded Old Way options");
+    	return new MOO1GameOptions();
     }
     public static void clearNewOptions() { newGameOptions = null; }
 

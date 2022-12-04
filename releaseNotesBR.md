@@ -56,14 +56,22 @@ With the new configurations files:
     - Base Settings: In the game file and in files.options
     - Mod Settings: In the game file and in files.options
   - GUI Settings at launch:
-    - Base Settings: Your choice; OldWay = Default.
-    - Mod Settings: Your choice; OldWay = Last values.
+    - Base Settings: Your choice; Old Way = Default.
+    - Mod Settings: Your choice; Old Way = Last values.
   - GUI Settings after a game was played:
-    - Base Settings: Your choice; OldWay = Game Settings.
-    - Mod Settings: Your choice; OldWay = Last values.
+    - Base Settings: Your choice; Old Way = Game Settings.
+    - Mod Settings: Your choice; Old Way = Last values.
   - Settings Used by the game:
-    - Base Settings: Your choice; OldWay = Game Settings.
-    - Mod Settings: Your choice; OldWay = GUI values. (Can be quickly Changed before loading with the "Ctrl"-options)
+    - Base Settings: Your choice;
+      - Old Way = Game Settings.
+      - Game Settings = Game Settings.
+      - Last GUI Settings = Current GUI - Base Settings.
+      - User's Settings = User's Preferred Settings - Game Settings.      
+    - Mod Settings: Your choice;
+      - Old Way = Current GUI Mod Settings. (Can be quickly Changed before loading with the "Ctrl"-options)
+      - Game Settings = Current GUI is set to this Game Mod Settings.
+      - Last GUI Settings = Current GUI - Mod Settings.
+      - User's Settings = User's Preferred Settings - Mod Settings.      
 
 About the Settings Used by the game:
   - This will change the Original Settings memorized in the Game Files.
@@ -71,12 +79,12 @@ About the Settings Used by the game:
     - Trying to change the galaxy parameters is useless.
     - Trying to change the races is useless.
     - Etc...
-  - There are to many possibilities to test them all!
+  - Everything should be safe... But there are too many possibilities to test them all! Please report any issue, so I could forbid some settings to be changed.
   - Everything should be safe...
-  - Please report any issue, so I could add some limits.
+
 
 The main reasons for these change:
-  - Uniformity in the settings usage.
+  - Uniformity in the Base/Mod settings usage.
   - Game files compatibility after adding new settings.
   - Improving the "Restart" fidelity.
 
