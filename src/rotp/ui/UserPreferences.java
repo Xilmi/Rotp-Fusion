@@ -29,11 +29,9 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 import rotp.Rotp;
-import rotp.model.ai.AI;
 import rotp.model.empires.GalacticCouncil;
 import rotp.model.events.RandomEvents;
 import rotp.model.game.GameSession;
-import rotp.model.game.IGameOptions;
 import rotp.ui.util.GlobalCROptions;
 import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.ParamAAN2;
@@ -209,6 +207,26 @@ public class UserPreferences {
 			techIndustry2, techThorium, techTransport
 			));
 
+	// This list is used by the ModAOptionsUI menu
+	public static final LinkedList<InterfaceParam> optionsA = new LinkedList<>(
+			Arrays.asList(
+			artifactsHomeworld, fertileHomeworld, richHomeworld, ultraRichHomeworld, minDistanceArtifactPlanet,
+			companionWorlds, battleScout, randomTechStart, retreatRestrictions, retreatRestrictionTurns,
+			customDifficulty, dynamicDifficulty, missileSizeModifier, challengeMode,
+			restartChangesPlayerRace, restartChangesPlayerAI, restartChangesAliensAI, restartAppliesSettings
+			));
+	public static final Integer[] optionARows = {5, 5, 4, 4}; // ModAOptionsUI alignment
+
+	// This list is used by the ModAOptionsUI menu
+	public static final LinkedList<InterfaceParam> optionsB = new LinkedList<>(
+			Arrays.asList(
+			maximizeSpacing, spacingLimit, randomAlienRacesTargetMax, randomAlienRacesTargetMin, randomAlienRaces,
+			minStarsPerEmpire, prefStarsPerEmpire, randomAlienRacesMax, randomAlienRacesMin, randomAlienRacesSmoothEdges,
+			counciRequiredPct, techIrradiated, techCloaking, techStargate, techHyperspace,
+			eventsStartTurn, techIndustry2, techThorium, techTransport
+			));
+	public static final Integer[] optionBRows = {5, 5, 5, 4}; // ModBOptionsUI alignment
+
 	// BR: ===== Global settings Mod GUI:
 	private static boolean gamePlayed = false; // to differentiate startup from loaded game
 	private static boolean loadRequest = false; // to Load options requested in menu
@@ -234,8 +252,10 @@ public class UserPreferences {
 			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%");
 	public static final ParamOptions menuStartup = new ParamOptions(
 			MOD_UI, "MENU_STARTUP", ParamOptions.VANILLA);
+	public static final ParamOptions menuAfterGame = new ParamOptions(
+			MOD_UI, "MENU_AFTER_GAME", ParamOptions.VANILLA);
 	public static final ParamOptions menuLoadGame = new ParamOptions(
-			MOD_UI, "MENU_LOAD_GAME", ParamOptions.VANILLA);
+			MOD_UI, "MENU_LOADING_GAME", ParamOptions.GAME);
 	public static final ParamBoolean showGridCircular = new ParamBoolean(
 			MOD_UI, "SHOW_GRID_CIRCULAR", false);
 	public static final ParamBoolean showTooltips = new ParamBoolean(
@@ -248,28 +268,36 @@ public class UserPreferences {
 				return super.set(newValue);
 			}
 		};
-	public static final ParamBoolean showNextCouncil = new ParamBoolean(
-			MOD_UI, "SHOW_NEXT_COUNCIL", false);
+		public static final ParamBoolean showNextCouncil = new ParamBoolean(
+				MOD_UI, "SHOW_NEXT_COUNCIL", false);
+		public static final ParamBoolean loadLocalSettings = new ParamBoolean(
+				MOD_UI, "LOAD_LOCAL", true);
+		public static final ParamBoolean saveLocalSettings = new ParamBoolean(
+				MOD_UI, "SAVE_LOCAL", true);
 
-	// This list is used as is by the ModGlobalOptionsUI menu
+	// This list is used by the ModGlobalOptionsUI menu
 	public static final LinkedList<InterfaceParam> modGlobalOptionsUI = new LinkedList<>(
 			Arrays.asList(
-			menuStartup, menuLoadGame, showGridCircular, showTooltips,
+			menuStartup, menuAfterGame, menuLoadGame,
+			loadLocalSettings, saveLocalSettings, showGridCircular, showTooltips,
 			showFleetFactor, showFlagFactor, showPathFactor, useFusionFont,
 			showNameMinFont, showInfoFontRatio, mapFontFactor, showNextCouncil
 			));
-	public static final Integer[] rowCountList = {4, 4, 4}; // ModGlobalOptionsUI alignment
+	public static final Integer[] rowCountList = {3, 4, 4, 4}; // ModGlobalOptionsUI alignment
+
 	// BR: Galaxy Menu addition
 	public static final ParamBoolean showNewRaces = new ParamBoolean(
 			MOD_UI, "SHOW_NEW_RACES", false);
-	public static final ParamString selectedGalaxyText = new ParamString (
-			BASE_UI, "GALAXY_TEXT", "ROTP");
-	public static final ParamString selectedGalaxyBitmap = new ParamString (
-			BASE_UI, "GALAXY_BITMAP", "");
 	public static final GlobalCROptions globalCROptions = new GlobalCROptions (
 			BASE_UI, "OPP_CR_OPTIONS", SpecificCROption.BASE_RACE.value);
 	public static final ParamBoolean useSelectableAbilities = new ParamBoolean(
 			BASE_UI, "SELECT_CR_OPTIONS", false);
+
+	public static final LinkedList<InterfaceParam> optionsGalaxy = new LinkedList<>(
+			Arrays.asList(
+					showNewRaces, globalCROptions, useSelectableAbilities
+					));
+
 	// BR: Race Menu addition
 	public static final PlayerShipSet playerShipSet = new PlayerShipSet(
 			MOD_UI, "PLAYER_SHIP_SET");
@@ -277,6 +305,20 @@ public class UserPreferences {
 			BASE_UI, "BUTTON_CUSTOM_PLAYER_RACE", false);
 	public static final ParamCR  playerCustomRace = new ParamCR(
 			MOD_UI, "PLAYER_CR");
+
+	public static final LinkedList<InterfaceParam> optionsRace = new LinkedList<>(
+			Arrays.asList(
+					playerShipSet, playerIsCustom, playerCustomRace
+					));
+
+	// BR: All the parameters
+	public static final LinkedList<InterfaceParam> allModOptions = new LinkedList<>();
+	static {
+		allModOptions.addAll(optionsA);
+		allModOptions.addAll(optionsB);
+		allModOptions.addAll(optionsGalaxy);
+		allModOptions.addAll(optionsRace);
+	}
 
 	private static boolean showMemory = false;
 	private static boolean playMusic = true;
@@ -473,8 +515,15 @@ public class UserPreferences {
 	public static boolean gamePlayed()		{return gamePlayed; }
 	public static void gamePlayed(boolean played) { gamePlayed = played; }
 	public static boolean loadRequest()			  {return loadRequest; }
-	public static void loadRequest(boolean load)  { loadRequest = load; }
-	
+	public static void loadRequest(boolean load)  {
+		if (load) {
+			// For games launched without going to the GUI
+			// The "backGround newGameOptions() will then be set
+			loadRequest = load;
+			RotPUI.createNewOptions(); // This will reset loadRequest
+		} // not else Because SetupRaceUI will do a createNewGameOptions()
+		loadRequest = load;
+	}
 	public static void loadAndSave() {
 		load();
 		save();

@@ -15,10 +15,12 @@
  */
 package rotp.ui.game;
 
-import static rotp.ui.RotPUI.guiOptions;
+import static rotp.ui.UserPreferences.loadLocalSettings;
+import static rotp.ui.UserPreferences.optionsRace;
 import static rotp.ui.UserPreferences.playerCustomRace;
 import static rotp.ui.UserPreferences.playerIsCustom;
 import static rotp.ui.UserPreferences.playerShipSet;
+import static rotp.ui.UserPreferences.saveLocalSettings;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonWidth;
 import static rotp.ui.util.AbstractOptionsUI.smallButtonM;
@@ -57,8 +59,8 @@ import rotp.model.ships.ShipImage;
 import rotp.model.ships.ShipLibrary;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
-import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
+import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.Modifier2KeysState;
 
 public final class SetupRaceUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
@@ -133,36 +135,31 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         // homeWorld.setFont(narrowFont(20));
         setHomeWorldFont(); // BR: MonoSpaced font for Galaxy
         shipSetTxt.setFont(narrowFont(20)); // BR:
+        // TODO BR: Deep validation of this initialization
         createNewGameOptions(); // Following the UserPreferences.menuStartup
-        newGameOptions().copyOptions(options()); // Follow the UserPreferences.menuLoadGame
-        getOptions((MOO1GameOptions) newGameOptions());
+        readLocalOptions((MOO1GameOptions) newGameOptions());
         // Save initial options
         initialOptions = new MOO1GameOptions(); // Any content will do
-        saveOptions(initialOptions);
+		MOO1GameOptions.writeAllOptions(guiOptions(), initialOptions);
     }
     public void setHomeWorldFont() { // BR: MonoSpaced font for Galaxy
-//    	if (UserPreferences.useInternationalFont.get())
-//    		homeWorld.setFont(monoSpacedFont(20));
-//    	else
-    		homeWorld.setFont(narrowFont(20));
+   		homeWorld.setFont(narrowFont(20));
     }
     private void copyOptions(MOO1GameOptions src, MOO1GameOptions dest) {
-    	MOO1GameOptions.setRaceOptions(src, dest);
+    	MOO1GameOptions.copyRaceOptions(src, dest);
     }
-    private void saveOptions(MOO1GameOptions destination) {
+    private void writeOptions(MOO1GameOptions destination) {
 		copyOptions(guiOptions(), destination);
 		updateOptions(destination);
 	}
-    public void updateOptions(MOO1GameOptions destination) {
-		playerIsCustom.setOptions(destination.dynamicOptions());
-    	playerShipSet.setOptions(destination.dynamicOptions());
-    	playerCustomRace.setOptions(destination.dynamicOptions());
+    private void updateOptions(MOO1GameOptions destination) {
+    	for (InterfaceParam option : optionsRace)
+    		option.setOptions(destination.dynamicOptions());
 	}
-	private void getOptions(MOO1GameOptions source) {
+	private void readLocalOptions(MOO1GameOptions source) {
 		copyOptions(source, guiOptions());
-    	playerIsCustom.setFromOptions(source.dynamicOptions());
-    	playerShipSet.setFromOptions(source.dynamicOptions());
-    	playerCustomRace.setFromOptions(source.dynamicOptions());
+    	for (InterfaceParam option : optionsRace)
+    		option.setFromOptions(source.dynamicOptions());
         raceChanged();
 	}
     private void doCancelBoxAction() {
@@ -170,10 +167,13 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Restore
-			getOptions(initialOptions);
+			// readOptions(initialOptions);
+			MOO1GameOptions.readAllOptions(guiOptions(), initialOptions);
+	        raceChanged();
 			break;
 		default: // Save
-			saveLastOptions();
+//			saveLastOptions();
+			MOO1GameOptions.saveLastOptions(guiOptions());
 			break; 
 		}
     	goToMainMenu();
@@ -183,10 +183,12 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Restore
-			getOptions(initialOptions);
+			// readOptions(initialOptions);
+			MOO1GameOptions.readAllOptions(guiOptions(), initialOptions);
 			break;
 		default: // Save
-			saveLastOptions();
+//			saveLastOptions();
+			MOO1GameOptions.saveLastOptions(guiOptions());
 			break; 
 		}
  		goToGalaxySetup();
@@ -196,14 +198,24 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // set to last
-			getOptions(MOO1GameOptions.loadLastOptions());
+			if (loadLocalSettings.get())
+				readLocalOptions(MOO1GameOptions.loadLastOptions());
+			else
+				MOO1GameOptions.loadLastOptions(guiOptions());
 			break;
 		case SHIFT: // set to last game options
 			if (options() != null)
-				getOptions(MOO1GameOptions.loadGameOptions());			
+				if (loadLocalSettings.get())
+					readLocalOptions(MOO1GameOptions.loadGameOptions());
+				else
+					MOO1GameOptions.loadGameOptions(guiOptions());
+			if (options() != null)
 			break;
 		default: // set to default
-			setToDefault();
+			if (loadLocalSettings.get())
+				setToDefault();
+			else
+				MOO1GameOptions.setAllOptionsToDefault(guiOptions());		
 			break; 
 		}
         raceChanged();
@@ -217,24 +229,30 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Save
-			saveUserOptions();
+			if (saveLocalSettings.get())
+				saveUserOptions();
+			else
+				MOO1GameOptions.saveUserOptions(guiOptions());
 			break;
 		default: // Set
-			getOptions(MOO1GameOptions.loadUserOptions());
+			if (loadLocalSettings.get())
+				readLocalOptions(MOO1GameOptions.loadUserOptions());				
+			else
+				MOO1GameOptions.loadUserOptions(guiOptions());
 	        raceChanged();
 			repaint();
 		}
  	}
  	private void saveUserOptions() {
 		MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
-		saveOptions(fileOptions);
+		writeOptions(fileOptions);
 		MOO1GameOptions.saveUserOptions(fileOptions);
 	}
-	private void saveLastOptions() {
-		MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
-		saveOptions(fileOptions);
-		MOO1GameOptions.saveLastOptions(fileOptions);
-	}
+//	private void saveLastOptions() {
+//		MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
+//		writeOptions(fileOptions);
+//		MOO1GameOptions.saveLastOptions(fileOptions);
+//	}
 	private static String cancelButtonKey() {
 		switch (Modifier2KeysState.get()) {
 		case CTRL:

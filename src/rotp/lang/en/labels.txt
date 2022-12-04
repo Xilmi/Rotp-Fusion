@@ -1378,8 +1378,8 @@ CUSTOM_RACE_EXIT_DESC             | Save as Last Settings and Exit Panel.
 CUSTOM_RACE_DEFAULT_DESC          | Load default options values.
 CUSTOM_RACE_LAST_GAME_DESC        | Get options values from last played game.
 CUSTOM_RACE_LAST_SET_DESC         | Get options values from last Gui (From File).
-CUSTOM_RACE_USER_SET_DESC         | Get user preferred options values (From File).
-CUSTOM_RACE_USER_SAVE_DESC        | Save current options values as user preferred options (To File).
+CUSTOM_RACE_USER_SET_DESC         | Get User's preferred options values (From File).
+CUSTOM_RACE_USER_SAVE_DESC        | Save current options values as User's preferred options (To File).
 CUSTOM_RACE_GUI_SELECT_DESC       | Save Current Race, Select it as Player Race, Save as Last Settings and Exit Panel
 CUSTOM_RACE_GUI_SELECT            | Select
 CUSTOM_RACE_GUI_RANDOM_DESC       | Randomize the race following the above settings
@@ -1516,8 +1516,8 @@ SETTINGS_CANCEL                   | Cancel
 SETTINGS_DEFAULT                  | Set to Default
 SETTINGS_LAST_GAME                | Set to Last Game
 SETTINGS_LAST_SET                 | Set to Last
-SETTINGS_USER_SET                 | Set to Preferred
-SETTINGS_USER_SAVE                | Save Preferred
+SETTINGS_USER_SET                 | Load User's Settings
+SETTINGS_USER_SAVE                | Save User's Settings
 SETTINGS_STAR_DENSITY             | Star Density: %1
 SETTINGS_RANDOM_EVENTS            | Random Events: %1
 SETTINGS_RESEARCH_RATE            | Research Rate: %1
@@ -1678,15 +1678,17 @@ SETTINGS_MOD_SHOW_INFO_FONT_RATIO_DESC   | To adjust the galaxy map swap info to
 SETTINGS_MOD_SHOW_INFO_FONT_RATIO        | System Info Font Ratio: %1
 SETTINGS_MOD_MAP_FONT_FACTOR_DESC        | To adjust the galaxy map font size. Bigger factor means bigger fonts.
 SETTINGS_MOD_MAP_FONT_FACTOR             | Map Font Ratio: %1
-SETTINGS_MOD_MENU_STARTUP_DESC           | How should the starting menus be initialized on startup?
-SETTINGS_MOD_MENU_STARTUP                | Startup Initialization: %1
-SETTINGS_MOD_MENU_LOAD_GAME_DESC         | How should the starting menus be initialized after a game was loaded?
-SETTINGS_MOD_MENU_LOAD_GAME              | Gui after Game: %1
+SETTINGS_MOD_MENU_STARTUP_DESC           | How should the GUI be initialized on startup?
+SETTINGS_MOD_MENU_STARTUP                | GUI at Startup: %1
+SETTINGS_MOD_MENU_AFTER_GAME_DESC        | How should the GUI be initialized after a game was played?
+SETTINGS_MOD_MENU_AFTER_GAME             | GUI after Game: %1
+SETTINGS_MOD_MENU_LOADING_GAME_DESC      | What options should be used when loading a game?
+SETTINGS_MOD_MENU_LOADING_GAME           | Loading Game: %1
 SETTINGS_MOD_OPTIONS_DEFAULT             | Default Settings
-SETTINGS_MOD_OPTIONS_LAST                | Last Settings
+SETTINGS_MOD_OPTIONS_LAST                | Last GUI Settings
 SETTINGS_MOD_OPTIONS_GAME                | Game Settings
 SETTINGS_MOD_OPTIONS_USER                | User's Settings
-SETTINGS_MOD_OPTIONS_VANILLA             | Old Ways
+SETTINGS_MOD_OPTIONS_VANILLA             | Old Way
 SETTINGS_MOD_SHOW_NEW_RACES_DESC         | Show the new races in the opponents list?
 SETTINGS_MOD_SHOW_NEW_RACES              | Show new races: %1
 SETTINGS_MOD_SHOW_GRID_CIRCULAR_DESC     | Show the circular grid on the galaxy map? (Dynamic)
@@ -1697,6 +1699,10 @@ SETTINGS_MOD_USE_FUSION_FONT_DESC        | Galaxy text shaped will use Fusion fo
 SETTINGS_MOD_USE_FUSION_FONT             | Use Fusion Font: %1
 SETTINGS_MOD_SHOW_NEXT_COUNCIL_DESC      | Show years left until next council. (On Galaxy panel, next to the Year)
 SETTINGS_MOD_SHOW_NEXT_COUNCIL           | Show next council: %1
+SETTINGS_MOD_LOAD_LOCAL_DESC             | Settings are loaded for current panel only (Yes), or all settings are loaded alltogether (No)
+SETTINGS_MOD_LOAD_LOCAL                  | Load Local Only: %1
+SETTINGS_MOD_SAVE_LOCAL_DESC             | Settings are saved for current panel only (Yes), or all settings are saved alltogether (No)
+SETTINGS_MOD_SAVE_LOCAL                  | Save Local Only: %1
 
 // Tech UI labels
 TECH_RESEARCH                     | Technology Research

@@ -15,24 +15,8 @@
  */
 package rotp.ui.game;
 
-import static rotp.ui.UserPreferences.artifactsHomeworld;
-import static rotp.ui.UserPreferences.battleScout;
-import static rotp.ui.UserPreferences.challengeMode;
-import static rotp.ui.UserPreferences.companionWorlds;
-import static rotp.ui.UserPreferences.customDifficulty;
-import static rotp.ui.UserPreferences.dynamicDifficulty;
-import static rotp.ui.UserPreferences.fertileHomeworld;
-import static rotp.ui.UserPreferences.minDistanceArtifactPlanet;
-import static rotp.ui.UserPreferences.missileSizeModifier;
-import static rotp.ui.UserPreferences.randomTechStart;
-import static rotp.ui.UserPreferences.restartAppliesSettings;
-import static rotp.ui.UserPreferences.restartChangesAliensAI;
-import static rotp.ui.UserPreferences.restartChangesPlayerAI;
-import static rotp.ui.UserPreferences.restartChangesPlayerRace;
-import static rotp.ui.UserPreferences.retreatRestrictionTurns;
-import static rotp.ui.UserPreferences.retreatRestrictions;
-import static rotp.ui.UserPreferences.richHomeworld;
-import static rotp.ui.UserPreferences.ultraRichHomeworld;
+import static rotp.ui.UserPreferences.optionARows;
+import static rotp.ui.UserPreferences.optionsA;
 
 import rotp.ui.util.AbstractOptionsUI;
 
@@ -48,31 +32,7 @@ public class StartModAOptionsUI extends AbstractOptionsUI {
 	// ========== Abstract Overriders ==========
 	//
 	@Override protected void init0() {
-		// First column (left)
-		paramList.add(artifactsHomeworld);
-		paramList.add(fertileHomeworld);
-		paramList.add(richHomeworld);
-		paramList.add(ultraRichHomeworld);
-		paramList.add(minDistanceArtifactPlanet);
-		endOfColumn();
-		// Second column
-		paramList.add(companionWorlds);
-		paramList.add(battleScout);
-		paramList.add(randomTechStart);
-		paramList.add(retreatRestrictions);
-		paramList.add(retreatRestrictionTurns);
-		endOfColumn();
-		// Third column
-		paramList.add(customDifficulty);
-		paramList.add(dynamicDifficulty);
-		paramList.add(missileSizeModifier);
-		paramList.add(challengeMode);
-		endOfColumn();
-		// Fourth column
-		paramList.add(restartChangesPlayerRace);
-		paramList.add(restartChangesPlayerAI);
-		paramList.add(restartChangesAliensAI);
-		paramList.add(restartAppliesSettings);
-		endOfColumn();
+		paramList	  = optionsA;
+		rowCountList(optionARows);
 	}
 }

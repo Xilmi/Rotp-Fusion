@@ -15,6 +15,9 @@
  */
 package rotp.ui.util;
 
+import static rotp.ui.UserPreferences.loadLocalSettings;
+import static rotp.ui.UserPreferences.saveLocalSettings;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -188,7 +191,10 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 				bg = GameUI.settingsSetupBackground(w);
 
 		initialOptions = new MOO1GameOptions(); // Any content will do
-		updateOptions(initialOptions);
+		if (globalOptions) // The old ways
+			writeOptions(initialOptions);
+		else
+			MOO1GameOptions.writeAllOptions(guiOptions(), initialOptions);
 		init();
 		enableGlassPane(this);
 	}
@@ -198,11 +204,11 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		Modifier2KeysState.reset();
 		disableGlassPane();
 	}
-	public void updateOptions(MOO1GameOptions destination) {
+	private void writeOptions(MOO1GameOptions destination) {
 		for (InterfaceOptions param : paramList)
 			param.setOptions(destination.dynamicOptions());
 	}
-	public void getOptions(MOO1GameOptions source) {
+	private void readOptions(MOO1GameOptions source) {
 		for (InterfaceOptions param : paramList)
 			param.setFromOptions(source.dynamicOptions());
 	}
@@ -211,17 +217,23 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Restore
-			getOptions(initialOptions);
+			if (globalOptions)
+				readOptions(initialOptions);
+			else
+				MOO1GameOptions.readAllOptions(guiOptions(), initialOptions);
 			break;
 		default: // Save
 			if (globalOptions) // The old ways
 				UserPreferences.save();
 			else // The new ways
-				saveLastOptions();
+//				saveLastOptions();
+				MOO1GameOptions.saveLastOptions(guiOptions());
 			break; 
 		}
 		close();			
 	}
+// 			if (globalOptions || loadLocalSettings.get())
+
 	private void doDefaultBoxAction() {
 		buttonClick();
 		switch (Modifier2KeysState.get()) {
@@ -230,20 +242,29 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 			if (globalOptions) // The old ways
 				UserPreferences.load();
 			else // The new ways
-				getOptions(MOO1GameOptions.loadLastOptions());
+				if (loadLocalSettings.get())
+					readOptions(MOO1GameOptions.loadLastOptions());
+				else
+					MOO1GameOptions.loadLastOptions(guiOptions());
 			break;
 		case SHIFT: // set to last game options
 			if (options() != null)
-				getOptions(MOO1GameOptions.loadGameOptions());			
+				if (loadLocalSettings.get())
+					readOptions(MOO1GameOptions.loadGameOptions());
+				else
+					MOO1GameOptions.loadGameOptions(guiOptions());
 			break;
 		default: // set to default
-			setToDefault();
+			if (globalOptions || loadLocalSettings.get())
+				setToDefault();
+			else
+				MOO1GameOptions.setAllOptionsToDefault(guiOptions());		
 			break; 
 		}
 		init();
 		repaint();
 	}
-	public void setToDefault() {
+	private void setToDefault() {
 		for (InterfaceOptions param : paramList)
 			param.setFromDefault();
 	}
@@ -252,25 +273,31 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Save
-			saveUserOptions();
+			if (saveLocalSettings.get())
+				saveUserOptions();
+			else
+				MOO1GameOptions.saveUserOptions(guiOptions());
 			break;
 		default: // Set
-			getOptions(MOO1GameOptions.loadUserOptions());
+			if (loadLocalSettings.get())
+				readOptions(MOO1GameOptions.loadUserOptions());				
+			else
+				MOO1GameOptions.loadUserOptions(guiOptions());
 			init();
 			repaint();
 		}
 	}
 	private void saveUserOptions() {
 		MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
-		updateOptions(fileOptions);
+		writeOptions(fileOptions);
 		MOO1GameOptions.saveUserOptions(fileOptions);
 	}
-	private void saveLastOptions() {
-		MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
-		updateOptions(fileOptions);
-		MOO1GameOptions.saveLastOptions(fileOptions);
-		initialOptions = null;
-	}
+//	private void saveLastOptions() {
+//		MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
+//		writeOptions(fileOptions);
+//		MOO1GameOptions.saveLastOptions(fileOptions);
+//		initialOptions = null;
+//	}
 	public static String exitButtonKey() {
 		switch (Modifier2KeysState.get()) {
 		case CTRL:

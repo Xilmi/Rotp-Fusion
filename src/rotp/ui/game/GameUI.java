@@ -795,8 +795,8 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     public void continueGame() {
     	if (isCtrlDown()) {
             buttonClick();
-    		loadRequest(true);
     		menuSpecial.set(ParamOptions.LAST);
+    		loadRequest(true); // always after for SetupRaceUI createNewGameOptions() call
     		return;
     	}
         if (canContinue()) {
@@ -811,8 +811,8 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     public void newGame() {
     	if (isCtrlDown()) {
             buttonClick();
-    		loadRequest(true);
     		menuSpecial.set(ParamOptions.USER);
+    		loadRequest(true); // always after for SetupRaceUI createNewGameOptions() call
     		return;
     	}
         if (canNewGame()) {
@@ -823,20 +823,21 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     public void loadGame() {
     	if (isCtrlDown()) {
             buttonClick();
-    		loadRequest(true);
     		menuSpecial.set(ParamOptions.GAME);
+    		loadRequest(true); // always after for SetupRaceUI createNewGameOptions() call
     		return;
     	}
         if (canLoadGame()) {
             buttonClick();
+            loadRequest(false); // The call was not for SetupRaceUI
             RotPUI.instance().selectLoadGamePanel();
         }
     }
     public void saveGame() {
     	if (isCtrlDown()) {
             buttonClick();
-    		loadRequest(true);
     		menuSpecial.set(ParamOptions.DEFAULT);
+    		loadRequest(true); // always after for SetupRaceUI createNewGameOptions() call
     		return;
     	}
         if (canSaveGame()) {

@@ -15,6 +15,8 @@
  */
 package rotp.model.game;
 
+import static rotp.ui.UserPreferences.menuLoadGame;
+
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -839,9 +841,20 @@ public final class GameSession implements Base, Serializable {
     private void loadPreviousSession(GameSession gs, boolean startUp) {
         stopCurrentGame();
         instance = gs;
+		// BR: If required, set all game options
+    	if (menuLoadGame.isLast())
+       		MOO1GameOptions.loadLastOptions((MOO1GameOptions) instance.options);
+    	else if (menuLoadGame.isUser())
+       		MOO1GameOptions.loadUserOptions((MOO1GameOptions) instance.options);
+    	else if (menuLoadGame.isDefault())
+       		MOO1GameOptions.setAllOptionsToDefault((MOO1GameOptions) instance.options);
+    	else if (menuLoadGame.isGame())
+    		MOO1GameOptions.readModOptions((MOO1GameOptions) instance.options);
+    	// else vanilla Nothing special to do
+
         // BR: save the last loaded game parameters
 		MOO1GameOptions.saveGameOptions((MOO1GameOptions) instance.options);
-		// BR: If required, set all game options
+
 		if (showInfo)  showInfo(gs.galaxy());
         startExecutors();
         RotPUI.instance().mainUI().checkMapInitialized();
@@ -972,7 +985,7 @@ public final class GameSession implements Base, Serializable {
             GameSession.instance = newSession;
             // BR:
             // if asked, Change the game parameters
-            if (Profiles.ChangeGameFile) {
+            if (Profiles.ChangeGameFile) { // TODO BR: Remove Profiles.ChangeGameFile
             	Profiles.ChangeGameFile = false;
             	Profiles.changeGameSettings(instance);
             }

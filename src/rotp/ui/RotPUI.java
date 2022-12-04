@@ -15,8 +15,6 @@
  */
 package rotp.ui;
 
-import static rotp.ui.UserPreferences.menuStartup;
-
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -58,7 +56,6 @@ import rotp.ui.design.DesignUI;
 import rotp.ui.diplomacy.DialogueManager;
 import rotp.ui.diplomacy.DiplomacyRequestReply;
 import rotp.ui.fleets.FleetUI;
-import rotp.ui.game.EditCustomRaceUI;
 import rotp.ui.game.GameOverUI;
 import rotp.ui.game.GameSettingsUI;
 import rotp.ui.game.GameUI;
@@ -86,6 +83,7 @@ import rotp.ui.tech.AllocateTechUI;
 import rotp.ui.tech.DiplomaticMessageUI;
 import rotp.ui.tech.DiscoverTechUI;
 import rotp.ui.tech.SelectNewTechUI;
+import rotp.ui.util.ParamOptions;
 import rotp.ui.util.planets.PlanetImager;
 import rotp.util.AnimationManager;
 import rotp.util.ImageManager;
@@ -306,39 +304,46 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
             createNewOptions();
         return newGameOptions;
     }
-    public static MOO1GameOptions guiOptions()  { return (MOO1GameOptions) newOptions(); }
     // BR: Added initialization choice
     public static void createNewOptions() { newGameOptions = createStartupOptions(); }
     // BR: Added for initialization choice
-    public static MOO1GameOptions createStartupOptions() {
+    public static MOO1GameOptions createStartupOptions() { // BR:
     	MOO1GameOptions newOptions;
-    	if (menuStartup.isLast())
-    		return MOO1GameOptions.loadLastOptions();
-    	else if (menuStartup.isUser())
-    		return MOO1GameOptions.loadUserOptions();
-    	else if (menuStartup.isGame())
-	    	return MOO1GameOptions.loadGameOptions();
-    	else if (menuStartup.isDefault()) {
+     	ParamOptions action;
+
+     	// Creation depend on state
+    	if (UserPreferences.gamePlayed())
+        	action = UserPreferences.menuLoadGame;
+        else
+        	action = UserPreferences.menuStartup;
+
+    	// Check for special request
+    	if (UserPreferences.loadRequest()) {
+        	action = UserPreferences.menuSpecial;
+        	UserPreferences.loadRequest(false);
+        }
+    	
+    	if (action.isLast()) {
+       		newOptions = new MOO1GameOptions();
+    		MOO1GameOptions.loadLastOptions(newOptions);
+    		return newOptions;
+    	}
+    	if (action.isUser()) {
+       		newOptions = new MOO1GameOptions();
+    		MOO1GameOptions.loadUserOptions(newOptions);
+    		return newOptions;
+    	}
+    	if (action.isGame()) {
+       		newOptions = new MOO1GameOptions();
+    		MOO1GameOptions.loadGameOptions(newOptions);
+    		return newOptions;
+    	}
+    	if (action.isDefault()) {
     		newOptions = new MOO1GameOptions();
-    		MOO1GameOptions.setDefaultRaceOptions(newOptions);
-    		MOO1GameOptions.setDefaultGalaxyOptions(newOptions);
-    		newOptions.setToDefault(); // Advanced options
-    		startModAOptionsUI().setToDefault();
-    		startModAOptionsUI().updateOptions(newOptions);
-    		startModBOptionsUI().setToDefault();
-    		startModBOptionsUI().updateOptions(newOptions);
-    		EditCustomRaceUI.instance().setToDefault();
-    		EditCustomRaceUI.instance().saveOptions(newOptions);
+    		MOO1GameOptions.setAllOptionsToDefault(newOptions);
     		return newOptions;
     	} else // Vanilla, as before
     		return new MOO1GameOptions();
-    }
-    public static void updateAllOptions(MOO1GameOptions dest) {
-    	startModAOptionsUI().updateOptions(dest);
-    	startModBOptionsUI().updateOptions(dest);
-		EditCustomRaceUI.instance().saveOptions(dest);
-		instance.setupRaceUI.updateOptions(dest);
-		instance.setupGalaxyUI.updateOptions(dest);
     }
     public static void clearNewOptions() { newGameOptions = null; }
 
@@ -390,7 +395,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     public void selectSetupGalaxyPanel() { setupGalaxyUI.init(); selectPanel(SETUP_GALAXY_PANEL, setupGalaxyUI);  }
     public void selectLoadGamePanel() { loadGameUI.init(); selectPanel(LOAD_PANEL, loadGameUI); }
     // BR: for restarting with new options
-    public void selectReloadGamePanel(GalaxyCopy oldGalaxy) {
+    public void selectRestartGamePanel(GalaxyCopy oldGalaxy) {
     	loadGameUI.init(oldGalaxy);
     	selectPanel(LOAD_PANEL, loadGameUI);
     }

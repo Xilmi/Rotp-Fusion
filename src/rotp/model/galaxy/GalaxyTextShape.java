@@ -15,19 +15,14 @@
  */
 package rotp.model.galaxy;
 
-import static rotp.ui.UserPreferences.selectedGalaxyText;
-
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Shape;
-import java.awt.font.TextAttribute;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import rotp.model.game.IGameOptions;
 
@@ -38,9 +33,7 @@ public class GalaxyTextShape extends GalaxyShape {
     private static final long serialVersionUID = 1L;
     static {
         options1 = new ArrayList<>();
-        options1.add("SETUP_TEXT_0");
-        options1.add("SETUP_TEXT_1");
-        options1.add("SETUP_TEXT_2");
+        options1.add("ROTP"); // For the initial setting
         options2 = new ArrayList<>();
         options2.add("SETUP_1_LINE");
         options2.add("SETUP_2_LINE");
@@ -57,9 +50,10 @@ public class GalaxyTextShape extends GalaxyShape {
 	
 	private Font font() {
     	if (font == null) {
-			Map<TextAttribute, Object> attributes = new HashMap<TextAttribute, Object>();
-			attributes.put(TextAttribute.TRACKING, -0.15);
-			font = galaxyFont(96).deriveFont(attributes);
+//			Map<TextAttribute, Object> attributes = new HashMap<TextAttribute, Object>();
+//			attributes.put(TextAttribute.TRACKING, -0.15);
+//			font = galaxyFont(96).deriveFont(attributes);
+			font = galaxyFont(96);
     	}
     	return font;
     }
@@ -121,7 +115,8 @@ public class GalaxyTextShape extends GalaxyShape {
 //                break;
 //            }
 //        }
-		String galaxyText = selectedGalaxyText.get();
+
+		String galaxyText = opts.selectedGalaxyShapeOption1();
         if (galaxyText.trim().isEmpty())
         	galaxyText = "!!!Blank!!!";
         textShape = font().createGlyphVector(g2.getFontRenderContext(), galaxyText).getOutline();

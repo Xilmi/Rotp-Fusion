@@ -254,7 +254,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	}
 	// ========== Other Methods ==========
 	//
-	public void getOptions(MOO1GameOptions source) {
+	public void readOptions(MOO1GameOptions source) {
 		for (InterfaceOptions param : commonList)
 			param.setFromOptions(source.dynamicOptions());
 		playerIsCustom.setFromOptions(source.dynamicOptions());
@@ -294,7 +294,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	        initialChoice, 		// Initial choice
 	        "XXXXXXXXXXXXXXXX",	// long Dialogue
 	        scaled(200), scaled(120),	// size
-	        null);	// Font
+	        null, null);	// Font
 	    if (input == null)
 	    	return initialChoice;
 	    return input;

@@ -15,6 +15,8 @@
  */
 package rotp.ui.game;
 
+import static rotp.ui.UserPreferences.loadLocalSettings;
+import static rotp.ui.UserPreferences.saveLocalSettings;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonWidth;
 import static rotp.ui.util.AbstractOptionsUI.okButtonKey;
@@ -123,33 +125,34 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
         parent = p;
 		Modifier2KeysState.reset();
         initialOptions = new MOO1GameOptions(); // Any content will do
-        copyOptions((MOO1GameOptions)newGameOptions(), initialOptions);
+		MOO1GameOptions.writeAllOptions(guiOptions(), initialOptions);
         init();
         enableGlassPane(this);
     }
     public void close() {
 		Modifier2KeysState.reset();
+		initialOptions = null;
         disableGlassPane();
 		newGameOptions().galaxyShape().quickGenerate(); // BR: to avoid strange galaxy display
     }
     private void copyOptions(MOO1GameOptions src, MOO1GameOptions dest) {
-    	MOO1GameOptions.setAdvancedOptions(src, dest);
+    	MOO1GameOptions.copyAdvancedOptions(src, dest);
     }
-	private void saveOptions(MOO1GameOptions destination) {
-		copyOptions((MOO1GameOptions)newGameOptions(), destination);
+	private void writeOptions(MOO1GameOptions destination) {
+		copyOptions(guiOptions(), destination);
 	}
-	private void getOptions(MOO1GameOptions source) {
-		copyOptions(source, (MOO1GameOptions)newGameOptions());
+	private void readOptions(MOO1GameOptions source) {
+		copyOptions(source, guiOptions());
 	}
     private void doOkBoxAction() {
 		buttonClick();
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Restore
-			getOptions(initialOptions);
+			MOO1GameOptions.readAllOptions(guiOptions(), initialOptions);
 			break;
 		default: // Save
-			saveLastOptions();
+			MOO1GameOptions.saveLastOptions(guiOptions());
 			break; 
 		}
 		close();
@@ -159,14 +162,23 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // set to last
-			getOptions(MOO1GameOptions.loadLastOptions());
+			if (loadLocalSettings.get())
+				readOptions(MOO1GameOptions.loadLastOptions());
+			else
+				MOO1GameOptions.loadLastOptions(guiOptions());
 			break;
 		case SHIFT: // set to last game options
 			if (options() != null)
-				getOptions(MOO1GameOptions.loadGameOptions());			
+				if (loadLocalSettings.get())
+					readOptions(MOO1GameOptions.loadGameOptions());
+				else
+					MOO1GameOptions.loadGameOptions(guiOptions());
 			break;
 		default: // set to default
-			newGameOptions().setToDefault();
+			if (loadLocalSettings.get())
+				newGameOptions().setToDefault();
+			else
+				MOO1GameOptions.setAllOptionsToDefault(guiOptions());		
 			break; 
 		}
 		init();
@@ -177,23 +189,24 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Save
-			saveUserOptions();
+			if (saveLocalSettings.get())
+				saveUserOptions();
+			else
+				MOO1GameOptions.saveUserOptions(guiOptions());
 			break;
 		default: // Set
-			getOptions(MOO1GameOptions.loadUserOptions());
+			if (loadLocalSettings.get())
+				readOptions(MOO1GameOptions.loadUserOptions());				
+			else
+				MOO1GameOptions.loadUserOptions(guiOptions());
 			init();
 			repaint();
 		}
 	}
  	private void saveUserOptions() {
 		MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
-		saveOptions(fileOptions);
+		writeOptions(fileOptions);
 		MOO1GameOptions.saveUserOptions(fileOptions);
-	}
-	private void saveLastOptions() {
-		MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
-		saveOptions(fileOptions);
-		MOO1GameOptions.saveLastOptions(fileOptions);
 	}
 	private void checkModifierKey(InputEvent e) {
 		if (Modifier2KeysState.checkForChange(e)) {

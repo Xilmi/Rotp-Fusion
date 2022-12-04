@@ -17,12 +17,12 @@ package rotp.ui.game;
 
 import static rotp.model.empires.CustomRaceDefinitions.getAllowedAlienRaces;
 import static rotp.model.empires.CustomRaceDefinitions.getBaseRacList;
-import static rotp.ui.RotPUI.guiOptions;
 import static rotp.ui.UserPreferences.GALAXY_TEXT_FILE;
 import static rotp.ui.UserPreferences.globalCROptions;
+import static rotp.ui.UserPreferences.loadLocalSettings;
+import static rotp.ui.UserPreferences.optionsGalaxy;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
-import static rotp.ui.UserPreferences.selectedGalaxyText;
-import static rotp.ui.UserPreferences.selectedGalaxyBitmap;
+import static rotp.ui.UserPreferences.saveLocalSettings;
 import static rotp.ui.UserPreferences.showNewRaces;
 import static rotp.ui.UserPreferences.useSelectableAbilities;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
@@ -151,19 +151,19 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	private String[] globalAbilitiesList; 
 	private String[] galaxyTextList;
     private Font dialogMonoFont;
-    private int dialogMonoFontSize = s20;
+    private int dialogMonoFontSize = 20;
     private Font boxMonoFont;
-    private int boxMonoFontSize = s15;
+    private int boxMonoFontSize = 15;
 	public	LinkedList<InterfaceParam> paramList = new LinkedList<>();
     
 	private Font boxMonoFont() {
     	if (boxMonoFont == null)
-			boxMonoFont = galaxyFont(boxMonoFontSize);
+			boxMonoFont = galaxyFont(scaled(boxMonoFontSize));
     	return boxMonoFont;
     }
 	private Font dialogMonoFont() {
     	if (dialogMonoFont == null)
-			dialogMonoFont = galaxyFont(dialogMonoFontSize);
+			dialogMonoFont = galaxyFont(scaled(dialogMonoFontSize));
     	return dialogMonoFont;
     }
 	public SetupGalaxyUI() {
@@ -179,12 +179,8 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			oppAI[i] = new Rectangle();
 		for (int i=0;i<oppCR.length;i++)
 			oppCR[i] = new Rectangle();
-		paramList.add(showNewRaces);
-		paramList.add(prefStarsPerEmpire);
-		paramList.add(globalCROptions);
-		paramList.add(useSelectableAbilities);
-		paramList.add(selectedGalaxyText);
-		paramList.add(selectedGalaxyBitmap);
+		paramList.addAll(optionsGalaxy);
+		paramList.add(prefStarsPerEmpire); // duplicate
 	}
 	private void initAbilitiesList() {
 		// specific
@@ -204,7 +200,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		Modifier2KeysState.reset();
 		newGameOptions().galaxyShape().quickGenerate(); // BR: to avoid strange galaxy display
         initialOptions = new MOO1GameOptions(); // Any content will do
-        saveOptions(initialOptions);
+		MOO1GameOptions.writeAllOptions(guiOptions(), initialOptions);
         initAbilitiesList();
         backImg = null;
         repaint();
@@ -215,30 +211,23 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		boxMonoFont    = null;
 		dialogMonoFont = null;
 		galaxyTextList = null;
+		initialOptions = null;
 	}
     private void copyOptions(MOO1GameOptions src, MOO1GameOptions dest) {
-    	MOO1GameOptions.setGalaxyOptions(src, dest);
+    	MOO1GameOptions.copyGalaxyOptions(src, dest);
     }
-	private void saveOptions(MOO1GameOptions destination) {
+	private void writeOptions(MOO1GameOptions destination) {
 		copyOptions(guiOptions(), destination);
 		updateOptions(destination);
 	}
 	public void updateOptions(MOO1GameOptions destination) {
 		for (InterfaceParam param : paramList)
 			param.setOptions(destination.dynamicOptions());
-//		showNewRaces.setOptions(destination.dynamicOptions());
-//		prefStarsPerEmpire.setOptions(destination.dynamicOptions());
-//		globalCROptions.setOptions(destination.dynamicOptions());
-//		useSelectableAbilities.setOptions(destination.dynamicOptions());
 	}
-	private void getOptions(MOO1GameOptions source) {
+	private void readOptions(MOO1GameOptions source) {
 		copyOptions(source, guiOptions());
 		for (InterfaceParam param : paramList)
 			param.setFromOptions(source.dynamicOptions());
-//		showNewRaces.setFromOptions(source.dynamicOptions());
-//		prefStarsPerEmpire.setFromOptions(source.dynamicOptions());
-//		globalCROptions.setFromOptions(source.dynamicOptions());
-//		useSelectableAbilities.setFromOptions(source.dynamicOptions());
 	}
     private void doStartBoxAction() {
 		buttonClick();
@@ -257,11 +246,10 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Restore
-			getOptions(initialOptions);
-			initialOptions = null;
+			MOO1GameOptions.readAllOptions(guiOptions(), initialOptions);
 			break;
 		default: // Save
-			saveLastOptions();
+			MOO1GameOptions.saveLastOptions(guiOptions());
 			break; 
 		}
     	// Go back to Race Panel
@@ -273,36 +261,50 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // set to last
- 			getOptions(MOO1GameOptions.loadLastOptions());
+			if (loadLocalSettings.get())
+				readOptions(MOO1GameOptions.loadLastOptions());
+			else
+				MOO1GameOptions.loadLastOptions(guiOptions());
 			break;
 		case SHIFT: // set to last game options
 			if (options() != null)
-				getOptions(MOO1GameOptions.loadGameOptions());			
+				if (loadLocalSettings.get())
+					readOptions(MOO1GameOptions.loadGameOptions());
+				else
+					MOO1GameOptions.loadGameOptions(guiOptions());
+			if (options() != null)
 			break;
 		default: // set to default
-			setToDefault();
+			if (loadLocalSettings.get())
+				setToDefault();
+			else
+				MOO1GameOptions.setAllOptionsToDefault(guiOptions());		
 			break; 
 		}
 		init();
 		backImg = null;
 		repaint();
  	}
- 	public  void setParamToDefault() {
-		for (InterfaceParam param : paramList)
-			param.setFromDefault();
- 	}
  	private void setToDefault() {
  		MOO1GameOptions.setDefaultGalaxyOptions(guiOptions());
+		for (InterfaceParam param : paramList)
+			param.setFromDefault();
     }
  	private void doUserBoxAction() {
 		buttonClick();
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Save
-			saveUserOptions();
+			if (saveLocalSettings.get())
+				saveUserOptions();
+			else
+				MOO1GameOptions.saveUserOptions(guiOptions());
 			break;
 		default: // Set
-			getOptions(MOO1GameOptions.loadUserOptions());
+			if (loadLocalSettings.get())
+				readOptions(MOO1GameOptions.loadUserOptions());				
+			else
+				MOO1GameOptions.loadUserOptions(guiOptions());
 			init();
 			backImg = null;
 			repaint();
@@ -310,14 +312,8 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
  	}
  	private void saveUserOptions() {
 		MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
-		saveOptions(fileOptions);
+		writeOptions(fileOptions);
 		MOO1GameOptions.saveUserOptions(fileOptions);
-	}
-	private void saveLastOptions() {
-		MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
-		saveOptions(fileOptions);
-		MOO1GameOptions.saveLastOptions(fileOptions);
-		initialOptions = null;
 	}
 	private static String cancelButtonKey() {
 		switch (Modifier2KeysState.get()) {
@@ -469,7 +465,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		return galaxyTextList;
 	}
 	private String selectGalaxyTextFromList() {
-		String initialChoice = selectedGalaxyText.get();
+		String initialChoice = newGameOptions().selectedGalaxyShapeOption1();
 		String message = "Make your choice, (This list can be edited in the file) " + GALAXY_TEXT_FILE;
 	    String input = (String) ListDialog.showDialog(
 	    	getParent(),	// Frame component
@@ -480,15 +476,23 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	        initialChoice, 				// Initial choice
 	        null,	// long Dialogue
 	        scaled(400), scaled(300),	// size
-	        dialogMonoFont());	// Font
+	        dialogMonoFont(),		// Font
+	        this);	// for listener
 	    if (input == null)
 	    	return initialChoice;
-	    selectedGalaxyText.set(input);
-
+	    newGameOptions().selectedGalaxyShapeOption1(input);
 	    newGameOptions().galaxyShape().quickGenerate(); 
 		repaint();
 	    return input;
 	}
+	public void preview(String s) {
+		if (s == null)
+			return;
+		newGameOptions().selectedGalaxyShapeOption1(s);
+	    newGameOptions().galaxyShape().quickGenerate(); 
+		repaint();
+	}
+	
 	private String selectSpecificAbilityFromList(int i) {
 		String initialChoice = newGameOptions().specificOpponentCROption(i);
 	    String input = (String) ListDialog.showDialog(
@@ -500,7 +504,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	        initialChoice, 				// Initial choice
 	        "XX_RACE_JACKTRADES_XX",	// long Dialogue
 	        scaled(400), scaled(300),	// size
-	        null);	// Font
+	        null, null);	// Font
 	    if (input == null)
 	    	return initialChoice;
 	    newGameOptions().specificOpponentCROption(input, i);
@@ -517,7 +521,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	        initialChoice, 				// Initial choice
 	        "XX_RACE_JACKTRADES_XX",	// long Dialogue
 	        scaled(400), scaled(300),	// size
-	        null);	// Font
+	        null, null);	// Font
 	    if (input == null)
 	    	return initialChoice;
 	    globalCROptions.set(input);
@@ -747,7 +751,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		if (newGameOptions().numGalaxyShapeOption1() > 0) {
 			String label1;
 			if (isShapeTextGalaxy()) {
-				label1 = selectedGalaxyText.get();
+				label1 = newGameOptions().selectedGalaxyShapeOption1();
 				Font prevFont = g.getFont();
 				g.setFont(boxMonoFont());
 				int sw1 = g.getFontMetrics().stringWidth(label1);
@@ -1083,16 +1087,16 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	private void nextMapOption1(boolean click) {
 		if (click) softClick();
 		if (isShapeTextGalaxy()) {
-			String currText = selectedGalaxyText.get();
+			String currText = newGameOptions().selectedGalaxyShapeOption1();
 			int nextIndex = 0;
 			if (currText != null)
 				nextIndex = currentGalaxyTextIndex(currText)+1;
 			if (nextIndex >= getGalaxyTextList().length)
 				nextIndex = 0;
 			String nextText = (String) getGalaxyTextList()[nextIndex];
-			selectedGalaxyText.set(nextText);
+			newGameOptions().selectedGalaxyShapeOption1(nextText);
 		} else if (isShapeBitmapGalaxy()) { // TODO BR: nextMapOption1 selectedGalaxyBitmap
-			int nextIndex = 0;
+			int nextIndex = 0; // temporary
 		} else
 			newGameOptions().selectedGalaxyShapeOption1(newGameOptions().nextGalaxyShapeOption1());
 
@@ -1102,16 +1106,16 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	private void prevMapOption1(boolean click) {
 		if (click) softClick();
 		if (isShapeTextGalaxy()) {
-			String currText = selectedGalaxyText.get();
+			String currText = newGameOptions().selectedGalaxyShapeOption1();
 			int prevIndex = 0;
 			if (currText != null)
 				prevIndex = currentGalaxyTextIndex(currText)-1;
 			if (prevIndex < 0)
 				prevIndex = getGalaxyTextList().length-1;
 			String prevText = (String) getGalaxyTextList()[prevIndex];
-			selectedGalaxyText.set(prevText);
-		} else if (isShapeBitmapGalaxy()) { // TODO BR: prevMapOption1 selectedGalaxyBitmap
-			int nextIndex = 0;
+			newGameOptions().selectedGalaxyShapeOption1(prevText);
+		} else if (isShapeBitmapGalaxy()) {
+			int nextIndex = 0; // temporary
 		} else
 			newGameOptions().selectedGalaxyShapeOption1(newGameOptions().prevGalaxyShapeOption1());
 		newGameOptions().galaxyShape().quickGenerate(); 
@@ -1301,30 +1305,30 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Restore
-			getOptions(initialOptions);
+			MOO1GameOptions.readAllOptions(guiOptions(), initialOptions);
 			break;
 		default:
-			saveLastOptions();
+			MOO1GameOptions.saveLastOptions(guiOptions());
 			break;
 		}
 		RotPUI.instance().selectGamePanel();
 		release();
 	}
 	// BR: For restarting with new options
-	private void restartGame() {     
-   		saveLastOptions();
+	private void restartGame() { 
+		MOO1GameOptions.saveLastOptions(guiOptions());
 		starting = true;
 		buttonClick();
 		repaint();
 		GalaxyCopy oldGalaxy = new GalaxyCopy(newGameOptions());
 		UserPreferences.setForNewGame();
 		// Get the old galaxy parameters
-        RotPUI.instance().selectReloadGamePanel(oldGalaxy);
+        RotPUI.instance().selectRestartGamePanel(oldGalaxy);
 		starting = false;
 		release();
 	}
 	private void startGame() {
-  		saveLastOptions();
+		MOO1GameOptions.saveLastOptions(guiOptions());
  		starting = true;
 		repaint();
 		buttonClick();

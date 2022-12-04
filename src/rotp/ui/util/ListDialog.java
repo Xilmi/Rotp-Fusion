@@ -41,6 +41,7 @@ import java.awt.Frame;
 import java.awt.Insets;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -59,10 +60,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
 import rotp.ui.RotPUI;
 import rotp.ui.game.GameUI;
+import rotp.ui.game.SetupGalaxyUI;
 import rotp.util.Base;
 
 /*
@@ -108,7 +112,7 @@ public class ListDialog extends JDialog
 									String initialValue,
 									String longValue) {
 		return showDialog(frameComp,  locationComp, labelText, title,
-				 possibleValues, initialValue, longValue, 0, 0, null);
+				 possibleValues, initialValue, longValue, 0, 0, null, null);
 	}
 	/**
 	 * Set up and show the dialog.  The first Component argument
@@ -127,7 +131,8 @@ public class ListDialog extends JDialog
 									String initialValue,
 									String longValue,
 									int width, int height,
-									Font listFont) {
+									Font listFont,
+									SetupGalaxyUI ui) {
 		Frame frame = JOptionPane.getFrameForComponent(frameComp);
 		dialog = new ListDialog(frame,
 								locationComp,
@@ -137,10 +142,10 @@ public class ListDialog extends JDialog
 								initialValue,
 								longValue,
 								width, height,
-								listFont);
+								listFont, ui);
 //		if (width>0 && height>0)
 //			dialog.setSize(width, height);
-		dialog.setLocationRelativeTo(locationComp);
+//		dialog.setLocationRelativeTo(locationComp);
 		dialog.setVisible(true);
 		return value;
 	}
@@ -158,7 +163,8 @@ public class ListDialog extends JDialog
 					   String initialValue,
 					   String longValue,
 					   int width, int height,
-					   Font listFont) {
+					   Font listFont,
+					   SetupGalaxyUI ui) {
 
 		super(frame, title, true);
 		int topInset  = RotPUI.scaledSize(6);
@@ -219,6 +225,15 @@ public class ListDialog extends JDialog
 			list.setFont(listFont);
 			DefaultListCellRenderer renderer = (DefaultListCellRenderer) list.getCellRenderer();
 			renderer.setHorizontalAlignment(SwingConstants.CENTER);
+			list.addListSelectionListener(new ListSelectionListener() {
+			    @Override
+			    public void valueChanged(ListSelectionEvent e) {
+			      if (list.getSelectedValue() != null) {
+			    	  ui.preview((String) list.getSelectedValue());
+			    	  //Toolkit.getDefaultToolkit().beep();
+			      }
+			    }
+			  });
 		}
 		list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		if (longValue != null) {
@@ -301,8 +316,11 @@ public class ListDialog extends JDialog
 		//Initialize values.
 		setValue(initialValue);
 		pack();
-		
-		setLocationRelativeTo(locationComp);
+
+		if (listFont != null)
+			setLocation(RotPUI.scaledSize(250), RotPUI.scaledSize(200));
+		else
+			setLocationRelativeTo(locationComp);			
 	}
 
 	//Handle clicks on the Set and Cancel buttons.

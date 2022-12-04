@@ -450,9 +450,9 @@ public final class LoadGameUI  extends BasePanel implements MouseListener, Mouse
         if (!canLoad())
             return;
         loading = true;
-        GameUI.gameName = fileBaseName(s);
         repaint();
         buttonClick();
+        GameUI.gameName = fileBaseName(s);
         String dirName = showingBackups ? session().backupDir() : session().saveDir();
 
         if (restart) {

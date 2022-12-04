@@ -18,14 +18,14 @@ package rotp.model.game;
 import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
+import static rotp.ui.UserPreferences.allModOptions;
 import static rotp.ui.UserPreferences.globalCROptions;
 import static rotp.ui.UserPreferences.minStarsPerEmpire;
+import static rotp.ui.UserPreferences.optionsRace;
 import static rotp.ui.UserPreferences.playerIsCustom;
 import static rotp.ui.UserPreferences.playerShipSet;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
 import static rotp.ui.UserPreferences.randomTechStart;
-import static rotp.ui.UserPreferences.showNewRaces;
-import static rotp.ui.UserPreferences.useSelectableAbilities;
 
 import java.awt.Color;
 import java.awt.Toolkit;
@@ -82,7 +82,6 @@ import rotp.ui.game.EditCustomRaceUI;
 import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.util.InterfaceOptions;
 import rotp.ui.util.InterfaceParam;
-import rotp.ui.util.ParamOptions;
 import rotp.ui.util.SpecificCROption;
 import rotp.util.Base;
 
@@ -353,57 +352,53 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         selectedGalaxyShapeOption2 = opt.selectedGalaxyShapeOption2;
     }
     @Override
-    public void copyOptions(IGameOptions gameOptions) { // copy from gameOptions
-        if (!(gameOptions instanceof MOO1GameOptions))
+    public void copyOptions(IGameOptions o) { // BR: No more used
+        if (!(o instanceof MOO1GameOptions))
             return;
-        MOO1GameOptions gOpt = (MOO1GameOptions) gameOptions;
-    	ParamOptions action;
+        
+        // copy only the options that are immediately visible
+        // .. not the advanced options
+        MOO1GameOptions opt = (MOO1GameOptions) o;
+        
+        selectedGalaxySize = opt.selectedGalaxySize;
+        selectedGalaxyShape = opt.selectedGalaxyShape;
+        selectedGalaxyShapeOption1 = opt.selectedGalaxyShapeOption1;
+        selectedGalaxyShapeOption2 = opt.selectedGalaxyShapeOption2;
+        selectedGameDifficulty = opt.selectedGameDifficulty;
+        selectedNumberOpponents = opt.selectedNumberOpponents;
 
-    	if (UserPreferences.gamePlayed())
-        	action = UserPreferences.menuLoadGame;
-        else
-        	action = UserPreferences.menuStartup;
-        if (UserPreferences.loadRequest()) {
-        	action = UserPreferences.menuSpecial;
-        	UserPreferences.loadRequest(false);
+        selectedGalaxyAge = opt.selectedGalaxyAge;
+        selectedResearchRate = opt.selectedResearchRate;
+        selectedTechTradeOption = opt.selectedTechTradeOption;
+        selectedRandomEventOption = opt.selectedRandomEventOption;
+        selectedWarpSpeedOption = opt.selectedWarpSpeedOption;
+        selectedNebulaeOption = opt.selectedNebulaeOption;
+        selectedCouncilWinOption = opt.selectedCouncilWinOption;
+        selectedStarDensityOption = opt.selectedStarDensityOption;
+        selectedPlanetQualityOption = opt.selectedPlanetQualityOption;
+        selectedTerraformingOption = opt.selectedTerraformingOption;
+        selectedFuelRangeOption = opt.selectedFuelRangeOption;
+        selectedRandomizeAIOption = opt.selectedRandomizeAIOption;
+        selectedAutoplayOption = opt.selectedAutoplayOption;
+        selectedAIHostilityOption = opt.selectedAIHostilityOption;
+        selectedColonizingOption = opt.selectedColonizingOption;
+        selectedOpponentAIOption = opt.selectedOpponentAIOption;
+        
+        if (opt.specificOpponentAIOption != null) {
+            for (int i=0;i<specificOpponentAIOption.length;i++)
+                specificOpponentAIOption[i] = opt.specificOpponentAIOption[i];
         }
-       	
-    	if (action.isLast())
-    		gOpt = loadLastOptions();
-    	else if (action.isUser())
-    		gOpt = loadUserOptions();
-    	else if (action.isGame())
-    		gOpt = loadGameOptions();
-    	else if (action.isDefault()) {
-    		setDefaultRaceOptions(this);
-    		setDefaultGalaxyOptions(this);
-    		setToDefault(); // Advanced options
-    		RotPUI.startModAOptionsUI().setToDefault();
-    		RotPUI.startModAOptionsUI().updateOptions(this);
-    		RotPUI.startModBOptionsUI().setToDefault();
-    		RotPUI.startModBOptionsUI().updateOptions(this);
-    		EditCustomRaceUI.instance().setToDefault();
-    		EditCustomRaceUI.instance().saveOptions(this);
-    		generateGalaxy();
-    		return;
-    	} else { // Vanilla, as before
-    		copyVanillaOptions(gOpt);
-    		generateGalaxy();
-    		return;
-    	}       
-    	copyVanillaOptions(gOpt);
-		copyAllOtherOptions(gOpt);
+        
+        if (opt.player != null) 
+            player.copy(opt.player);
+        
+        setGalaxyShape(); 
+        selectedGalaxyShapeOption1 = opt.selectedGalaxyShapeOption1;
+        selectedGalaxyShapeOption2 = opt.selectedGalaxyShapeOption2;
+
         generateGalaxy(); 
     }
-    public void copyAllOtherOptions(MOO1GameOptions source) { // BR:
-		RotPUI.startModAOptionsUI().getOptions(source);
-		RotPUI.startModBOptionsUI().getOptions(source);
-		EditCustomRaceUI.instance().getOptions(source);		
-	    setGalaxyShape(); 
-	    selectedGalaxyShapeOption1 = source.selectedGalaxyShapeOption1;
-	    selectedGalaxyShapeOption2 = source.selectedGalaxyShapeOption2;
-    }
-    public void copyVanillaOptions(MOO1GameOptions opt) { // BR:
+    private void copyVanillaOptions(MOO1GameOptions opt) { // TODO BR: Should be called somewhere!!!
         selectedGalaxySize = opt.selectedGalaxySize;
         selectedGalaxyShape = opt.selectedGalaxyShape;
         selectedGalaxyShapeOption1 = opt.selectedGalaxyShapeOption1;
@@ -1212,16 +1207,59 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     public List<Integer> possibleColors() {
         return new ArrayList<>(colors);
     }
-    public static void setRaceOptions(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
+
+    public static void setAllOptionsToDefault(MOO1GameOptions options) { // BR:
+     	setModOptionsToDefault();
+     	options.setDefaultOptionValues(); // needs showNewRaces updated
+		EditCustomRaceUI.instance().setToLocalDefault();
+		EditCustomRaceUI.instance().writeLocalOptions(options);
+    }
+    public static void readAllOptions(MOO1GameOptions options, MOO1GameOptions source) { // BR:
+    	copyAdvancedOptions(source, options);
+    	copyRaceOptions(source, options);
+    	copyGalaxyOptions(source, options);
+        readModOptions(source);
+        writeModOptions(options);
+    }
+    public static void writeAllOptions(MOO1GameOptions options, MOO1GameOptions destination) { //BR:
+    	writeModOptions(destination);
+    	copyAdvancedOptions(options, destination);
+    	copyRaceOptions(options, destination);
+    	copyGalaxyOptions(options, destination);
+    }
+    public static void setModOptionsToDefault() { // BR:
+    	EditCustomRaceUI.instance().setToLocalDefault();
+    	for( InterfaceParam option : allModOptions)
+    		option.setFromDefault();   	
+    }
+    /**
+     * Read Modder's options from MOO1GameOptions dynamic parameters
+     * @param source
+     */
+    public static void readModOptions(MOO1GameOptions source) { // BR:
+    	for( InterfaceParam option : allModOptions)
+    		option.setFromOptions(source.dynamicOptions());
+        EditCustomRaceUI.instance().readLocalOptions(source);
+    }
+    /**
+     * Write Modder's options to MOO1GameOptions dynamic parameters
+     * @param destination
+     */
+    public static void writeModOptions(MOO1GameOptions destination) { // BR:
+    	for( InterfaceParam option : allModOptions)
+    		option.setOptions(destination.dynamicOptions());
+       	EditCustomRaceUI.instance().writeLocalOptions(destination);
+    }
+    public static void copyRaceOptions(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
     	dest.selectedPlayerRace(src.selectedPlayerRace());
     	dest.selectedPlayerColor(src.selectedPlayerColor());
     }
-    public static void setAliensAIOptions(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
+    public static void copyAliensAIOptions(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
     	dest.selectedOpponentAIOption(src.selectedOpponentAIOption);
         for (int i=0;i<dest.specificOpponentAIOption.length;i++)
         	dest.specificOpponentAIOption[i] = src.specificOpponentAIOption[i];
     }
-    public static void setGalaxyOptions(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
+    public static void copyGalaxyOptions(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
     	dest.selectedGalaxySize	(src.selectedGalaxySize);
     	dest.selectedGalaxyShape(src.selectedGalaxyShape);
     	dest.selectedGalaxyShapeOption1 = src.selectedGalaxyShapeOption1;
@@ -1232,8 +1270,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         	dest.opponentRaces[i] = src.opponentRaces[i];
         for (int i=0;i<dest.specificOpponentCROption.length;i++)
         	dest.specificOpponentCROption[i] = src.specificOpponentCROption[i];
-    	setAliensAIOptions(src, dest);
-        dest.generateGalaxy();
+    	copyAliensAIOptions(src, dest);
+        dest.generateGalaxy(); // TODO BR: try to remove
     }
     public static void setDefaultRaceOptions(MOO1GameOptions dest) { // BR:
         if (UserPreferences.showNewRaces.get()) // BR: limit randomness
@@ -1241,10 +1279,11 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         else
         	dest.selectedPlayerRace(dest.random(allRaceOptions()));
     	dest.selectedPlayerColor(0);
-    	playerIsCustom.setFromDefault();
-    	playerShipSet.setFromDefault();
+    	for (InterfaceParam option : optionsRace)
+    		option.setFromDefault();
+
     }
-    public static void setDefaultGalaxyOptions(MOO1GameOptions dest) { // BR:
+    public static void setDefaultGalaxyOptions(MOO1GameOptions dest) {
     	dest.selectedGalaxySize			= SIZE_SMALL;
     	dest.selectedGalaxyShape(dest.galaxyShapeOptions().get(0));
     	dest.selectedNumberOpponents(dest.defaultOpponentsOptions());
@@ -1258,14 +1297,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         for (int i=0;i<dest.specificOpponentCROption.length;i++)
         	dest.specificOpponentCROption[i] = defVal;
         dest.generateGalaxy();
-		
-        RotPUI.setupGalaxyUI().setParamToDefault();
-//	    showNewRaces.setFromDefault();
-//	    prefStarsPerEmpire.setFromDefault();
-//	    globalCROptions.setFromDefault();
-//	    useSelectableAbilities.setFromDefault();
     }
-    public static void setAdvancedOptions(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
+    public static void copyAdvancedOptions(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
         dest.selectedGalaxyAge			= src.selectedGalaxyAge;
         dest.selectedPlanetQualityOption = src.selectedPlanetQualityOption;
         dest.selectedTerraformingOption = src.selectedTerraformingOption;
@@ -1282,11 +1315,14 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         dest.selectedAutoplayOption		= src.selectedAutoplayOption;
         dest.selectedAIHostilityOption	= src.selectedAIHostilityOption;
    }
+    
     private void setDefaultOptionValues() {
         selectedGalaxySize = SIZE_SMALL;
         selectedGalaxyShape = galaxyShapeOptions().get(0);
         selectedGalaxyAge = galaxyAgeOptions().get(1);
         selectedNumberOpponents = defaultOpponentsOptions();
+        for (int i=0;i<opponentRaces.length;i++)
+        	opponentRaces[i] = null;
         if (UserPreferences.showNewRaces.get()) // BR: limit randomness
         	selectedPlayerRace(random(baseRaceOptions()));
         else
@@ -1302,7 +1338,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         generateGalaxy();
     }
     @Override
-    public void setToDefault() {
+    public void setToDefault() { // Advanced options
         selectedGalaxyAge = GALAXY_AGE_NORMAL;
         selectedPlanetQualityOption = PLANET_QUALITY_NORMAL;
         selectedTerraformingOption = TERRAFORMING_NORMAL;
@@ -1569,7 +1605,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	 * Save last Loaded Game options to file
 	 */
     public static void saveGameOptions(MOO1GameOptions options) {
-    	RotPUI.updateAllOptions(options);
+    	writeModOptions(options);
     	saveOptions(options, Rotp.jarPath(), GAME_OPTIONS_FILE);
     	UserPreferences.gamePlayed(true);
     }
@@ -1577,33 +1613,60 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	 * Save User Preferred options to file
 	 */
     public static void saveUserOptions(MOO1GameOptions options) {
+    	writeModOptions(options);
     	saveOptions(options, Rotp.jarPath(), USER_OPTIONS_FILE);
     }
 	/**
 	 * Save Last options to file
 	 */
     public static void saveLastOptions(MOO1GameOptions options) {
+    	writeModOptions(options);
     	saveOptions(options, Rotp.jarPath(), LAST_OPTIONS_FILE);
     }
     /**
 	 * Load last Loaded Game options from file
 	 */
     public static MOO1GameOptions loadGameOptions() {
-   		return loadOptions(Rotp.jarPath(), GAME_OPTIONS_FILE);
+   		MOO1GameOptions options = loadOptions(Rotp.jarPath(), GAME_OPTIONS_FILE);
+   		return options;
+    }
+	/**
+	 * Load last Loaded Game options from file
+	 */
+    public static void loadGameOptions(MOO1GameOptions options) {
+    	MOO1GameOptions source =  loadOptions(Rotp.jarPath(), GAME_OPTIONS_FILE);
+    	readAllOptions(options, source);   		
     }
     /**
-	 * Load User Preferred options from file
+	 * Load User's Preferred options from file
 	 */
     public static MOO1GameOptions loadUserOptions() {
-   		return loadOptions(Rotp.jarPath(), USER_OPTIONS_FILE);
+    	MOO1GameOptions options =  loadOptions(Rotp.jarPath(), USER_OPTIONS_FILE);
+    	readModOptions(options);   		
+   		return options;
+    }
+	/**
+	 * Load User's Preferred options from file
+	 */
+    public static void loadUserOptions(MOO1GameOptions options) {
+    	MOO1GameOptions source =  loadOptions(Rotp.jarPath(), USER_OPTIONS_FILE);
+    	readAllOptions(options, source);   		
     }
 	/**
 	 * Load Last options from file
 	 */
     public static MOO1GameOptions loadLastOptions() {
-   		return loadOptions(Rotp.jarPath(), LAST_OPTIONS_FILE);
+    	MOO1GameOptions options =  loadOptions(Rotp.jarPath(), LAST_OPTIONS_FILE);
+   		return options;
     }
-    // BR: save options to zip file
+	/**
+	 * Load Last options from file
+	 */
+    public static void loadLastOptions(MOO1GameOptions options) {
+    	MOO1GameOptions source =  loadOptions(Rotp.jarPath(), LAST_OPTIONS_FILE);
+    	readAllOptions(options, source);   		
+    }
+   // BR: save options to zip file
     private static void saveOptions(MOO1GameOptions options, String path, String fileName) {
 		File saveFile = new File(path, fileName);
 		try {

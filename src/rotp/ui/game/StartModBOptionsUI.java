@@ -15,25 +15,8 @@
  */
 package rotp.ui.game;
 
-import static rotp.ui.UserPreferences.counciRequiredPct;
-import static rotp.ui.UserPreferences.eventsStartTurn;
-import static rotp.ui.UserPreferences.maximizeSpacing;
-import static rotp.ui.UserPreferences.minStarsPerEmpire;
-import static rotp.ui.UserPreferences.prefStarsPerEmpire;
-import static rotp.ui.UserPreferences.randomAlienRaces;
-import static rotp.ui.UserPreferences.randomAlienRacesMax;
-import static rotp.ui.UserPreferences.randomAlienRacesMin;
-import static rotp.ui.UserPreferences.randomAlienRacesSmoothEdges;
-import static rotp.ui.UserPreferences.randomAlienRacesTargetMax;
-import static rotp.ui.UserPreferences.randomAlienRacesTargetMin;
-import static rotp.ui.UserPreferences.spacingLimit;
-import static rotp.ui.UserPreferences.techCloaking;
-import static rotp.ui.UserPreferences.techHyperspace;
-import static rotp.ui.UserPreferences.techIndustry2;
-import static rotp.ui.UserPreferences.techIrradiated;
-import static rotp.ui.UserPreferences.techStargate;
-import static rotp.ui.UserPreferences.techThorium;
-import static rotp.ui.UserPreferences.techTransport;
+import static rotp.ui.UserPreferences.optionBRows;
+import static rotp.ui.UserPreferences.optionsB;
 
 import rotp.ui.util.AbstractOptionsUI;
 
@@ -46,32 +29,7 @@ public class StartModBOptionsUI extends AbstractOptionsUI {
 		super(guiTitleID);
 	}
 	@Override protected void init0() {
-		// First column (left)
-		paramList.add(maximizeSpacing);
-		paramList.add(spacingLimit);
-		paramList.add(randomAlienRacesTargetMax);
-		paramList.add(randomAlienRacesTargetMin);
-		paramList.add(randomAlienRaces);
-		endOfColumn();
-		// Second column
-		paramList.add(minStarsPerEmpire);
-		paramList.add(prefStarsPerEmpire);
-		paramList.add(randomAlienRacesMax);
-		paramList.add(randomAlienRacesMin);
-		paramList.add(randomAlienRacesSmoothEdges);
-		endOfColumn();
-		// Third column
-		paramList.add(counciRequiredPct);
-		paramList.add(techIrradiated);
-		paramList.add(techCloaking);
-		paramList.add(techStargate);
-		paramList.add(techHyperspace);
-		endOfColumn();
-		// Fourth column
-		paramList.add(eventsStartTurn);
-		paramList.add(techIndustry2);
-		paramList.add(techThorium);
-		paramList.add(techTransport);
-		endOfColumn();
+		paramList	  = optionsB;
+		rowCountList(optionBRows);
 	}
 }

@@ -54,7 +54,8 @@ public enum FontManager implements Base {
     		else
     			galaxyFont = loadMonoFont(15).deriveFont(attributes);
     	}
-    	return galaxyFont.deriveFont((float) size);
+    	Font font = galaxyFont.deriveFont((float) size);
+    	return font;
     }
     @Override
     public Font dlgFont(int n) { return getFont(dlgFont, n, dlgSize); }

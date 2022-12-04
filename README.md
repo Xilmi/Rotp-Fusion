@@ -27,6 +27,11 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 ## What's New
 
 2022.12.01 (BR)
+  - Text Shaped Galaxy: Fixed text not being saved.
+  - Text Shaped Galaxy: Added Preview for popup selection window
+  - Loading Game: Added Option Selection 
+
+2022.12.01 (BR)
   - Map Expand Panel: Purple crosses are visible on planetless stars wathever the year's configuration.
   - Map Expand Panel: Player's colonized planets won't have a green cross anymore.
 
