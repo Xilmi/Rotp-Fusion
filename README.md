@@ -27,6 +27,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 ## What's New
 
 2022.12.04 (BR)
+  - Fixed loaded Game not saving Games.options correctly. (mixed with Gui parameters)
+
+2022.12.04 (BR)
   - Fixed Local User settings not saving correctly.
   - Forced the creation of newGameSettings before loading a game.
   - Fixed some "initialOptions"-issues.

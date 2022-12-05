@@ -25,6 +25,8 @@ And Some Settings configuration options:
     - Added option to chose if the Settings should be saved Locally to the panel, or Globally.
   - Added an option to let you choose which settings have to be loaded with agame
 
+Minor Fixes.
+
 ### Some explanations about the new settings management:
 
 First: How to use it:
@@ -122,7 +124,7 @@ With the new configurations files:
       - Old Way = Game Settings.
       - Game Settings = Game Settings.
       - Last GUI Settings = Current GUI - Base Settings.
-      - User's Settings = User's Preferred Settings - Game Settings.      
+      - User's Settings = User's Preferred Settings - Base Settings.      
     - Mod Settings: Your choice;
       - Old Way = Current GUI Mod Settings. (Can be quickly Changed before loading with the "Ctrl"-options)
       - Game Settings = Current GUI is set to this Game Mod Settings.

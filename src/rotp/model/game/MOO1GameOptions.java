@@ -1615,7 +1615,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	 * Save last Loaded Game options to file
 	 */
     public static void saveGameOptions(MOO1GameOptions options) {
-    	writeModOptions(options);
+    	// writeModOptions(options);
+    	// save the Game options as is
     	saveOptions(options, Rotp.jarPath(), GAME_OPTIONS_FILE);
     	UserPreferences.gamePlayed(true);
     }
