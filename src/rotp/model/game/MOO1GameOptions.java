@@ -453,8 +453,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             setGalaxyShape();
         return galaxyShape;
     }
-    public void setGalaxyShape() { // TODO BR: tempo Public back to private
-    	System.out.println("setGalaxyShape() : " + selectedGalaxyShape); // TODO BR: Remove
+    private void setGalaxyShape() {
         switch(selectedGalaxyShape) {
             case SHAPE_ELLIPTICAL:
                 galaxyShape = new GalaxyEllipticalShape(this); break;
@@ -1223,6 +1222,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         writeModOptions(options);
     }
     public static MOO1GameOptions getInitialOptions(MOO1GameOptions source) { // BR:
+    	// TODO BR: Optimize getInitialOptions(MOO1GameOptions source)
     	MOO1GameOptions initialOptions = new MOO1GameOptions();
     	writeAllOptions(source, initialOptions);
     	writeAllOptions(source, source); // To reinitialize;
@@ -1262,27 +1262,26 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	dest.selectedPlayerColor(src.selectedPlayerColor());
     }
     public static void copyAliensAIOptions(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
-    	dest.selectedOpponentAIOption(src.selectedOpponentAIOption);
-        for (int i=0;i<dest.specificOpponentAIOption.length;i++)
+    	dest.selectedOpponentAIOption = src.selectedOpponentAIOption;
+        for (int i=0; i<dest.specificOpponentAIOption.length; i++)
         	dest.specificOpponentAIOption[i] = src.specificOpponentAIOption[i];
     }
     public static void copyGalaxyOptions(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
-    	System.out.println("===== copyGalaxyOptions "); // TODO BR: Remove
-    	System.out.println("selectedGalaxyShape = " + src.selectedGalaxyShape); // TODO BR: Remove
-    	System.out.println("selectedGalaxySize = " + src.selectedGalaxySize); // TODO BR: Remove
-
-    	dest.selectedGalaxySize	(src.selectedGalaxySize);
-    	dest.selectedGalaxyShape(src.selectedGalaxyShape);
-    	dest.selectedGalaxyShapeOption1 = src.selectedGalaxyShapeOption1;
-    	dest.selectedGalaxyShapeOption2 = src.selectedGalaxyShapeOption2;
-    	dest.selectedNumberOpponents(src.selectedNumberOpponents);
-    	dest.selectedGameDifficulty	(src.selectedGameDifficulty);
-        for (int i=0;i<dest.opponentRaces.length;i++)
+    	dest.selectedGalaxySize  = src.selectedGalaxySize;
+    	dest.selectedGalaxyShape = src.selectedGalaxyShape;
+    	String option1 = src.selectedGalaxyShapeOption1;
+    	String option2 = src.selectedGalaxyShapeOption2;
+    	dest.setGalaxyShape(); // No generate
+    	dest.selectedGalaxyShapeOption1 = option1;
+    	dest.selectedGalaxyShapeOption2 = option2;
+    	dest.selectedNumberOpponents = src.selectedNumberOpponents;
+    	dest.selectedGameDifficulty	 = src.selectedGameDifficulty;
+        for (int i=0; i<dest.opponentRaces.length; i++)
         	dest.opponentRaces[i] = src.opponentRaces[i];
-        for (int i=0;i<dest.specificOpponentCROption.length;i++)
+        for (int i=0; i<dest.specificOpponentCROption.length; i++)
         	dest.specificOpponentCROption[i] = src.specificOpponentCROption[i];
     	copyAliensAIOptions(src, dest);
-        dest.generateGalaxy(); // TODO BR: try to remove
+        //dest.generateGalaxy(); // TODO BR: try to remove validate
     }
     public static void setDefaultRaceOptions(MOO1GameOptions dest) { // BR:
         if (UserPreferences.showNewRaces.get()) // BR: limit randomness

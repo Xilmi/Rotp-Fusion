@@ -135,9 +135,6 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 
 		cr.fromOptions((DynOptions) playerCustomRace.get());
 		initialOptions = MOO1GameOptions.getInitialOptions(guiOptions());
-//		initialOptions = new MOO1GameOptions(); // Any content will do
-//		MOO1GameOptions.writeAllOptions(guiOptions(), initialOptions);
-//		saveOptions(initialOptions);
 		init();
 		reloadRaceList();
 		repaint();

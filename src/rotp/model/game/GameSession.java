@@ -870,7 +870,7 @@ public final class GameSession implements Base, Serializable {
     		MOO1GameOptions.readModOptions((MOO1GameOptions) instance.options);
     	}
     	// else vanilla Nothing special to do
-		System.out.println("Old Ways Game Loaded Nothing");
+    	else System.out.println("Old Ways Game Loaded Nothing");
 
 
 		if (showInfo)  showInfo(gs.galaxy());
