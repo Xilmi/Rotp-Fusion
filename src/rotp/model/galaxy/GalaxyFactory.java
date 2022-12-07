@@ -611,7 +611,10 @@ public class GalaxyFactory implements Base {
 						break;
 				}
 			} else // Restart
-        		dataRace = optionToAlienRace(eSrc.raceOptions);
+				if(eSrc.raceOptions == null)
+					dataRace = Race.keyed(eSrc.dataRaceKey);
+				else
+					dataRace = optionToAlienRace(eSrc.raceOptions);
  
 			EmpireSystem empSystem = null;
 			sys = StarSystemFactory.current().newSystemForRace(race, dataRace, g);
