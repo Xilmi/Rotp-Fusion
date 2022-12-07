@@ -28,6 +28,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 2022.12.07 (BR)
   - Fixed Restart compatibility issues.
+  - Improved general compatibility with old game files.
 
 2022.12.05 (BR)
   - Fixed loaded Game not saving Games.options correctly. (mixed with Gui parameters)

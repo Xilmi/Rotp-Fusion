@@ -131,7 +131,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private String selectedColonizingOption;
     private String selectedAutoplayOption;
     // BR: Dynamic options
-    private final DynOptions dynamicOptions = new DynOptions();
+    private DynOptions dynamicOptions = new DynOptions();
 
     private transient GalaxyShape galaxyShape;
 
@@ -149,7 +149,11 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             selectedOpponentRace(i,null);
     }
     */
-	@Override public DynOptions dynamicOptions() { return dynamicOptions; } // BR:
+	@Override public DynOptions dynamicOptions() {
+		if (dynamicOptions == null)
+			dynamicOptions = new DynOptions();
+		return dynamicOptions;
+	} // BR:
     @Override
     public int numPlayers()                      { return 1; }
     @Override
@@ -1278,8 +1282,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	dest.selectedGameDifficulty	 = src.selectedGameDifficulty;
         for (int i=0; i<dest.opponentRaces.length; i++)
         	dest.opponentRaces[i] = src.opponentRaces[i];
-        for (int i=0; i<dest.specificOpponentCROption.length; i++)
-        	dest.specificOpponentCROption[i] = src.specificOpponentCROption[i];
+        if(dest.specificOpponentCROption != null)
+	        for (int i=0; i<dest.specificOpponentCROption.length; i++)
+	        	dest.specificOpponentCROption[i] = src.specificOpponentCROption[i];
     	copyAliensAIOptions(src, dest);
         //dest.generateGalaxy(); // TODO BR: try to remove validate
     }
@@ -1304,8 +1309,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         for (int i=0;i<dest.specificOpponentAIOption.length;i++)
         	dest.specificOpponentAIOption[i] = OPPONENT_AI_CRUEL;
         String defVal = SpecificCROption.defaultSpecificValue().value;
-        for (int i=0;i<dest.specificOpponentCROption.length;i++)
-        	dest.specificOpponentCROption[i] = defVal;
+        if(dest.specificOpponentCROption != null)
+	        for (int i=0;i<dest.specificOpponentCROption.length;i++)
+	        	dest.specificOpponentCROption[i] = defVal;
         dest.generateGalaxy();
     }
     public static void copyAdvancedOptions(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
