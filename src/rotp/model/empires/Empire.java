@@ -185,6 +185,10 @@ public final class Empire implements Base, NamedObject, Serializable {
     public transient int numColoniesHistory;
     private transient String empireName;
 
+    public void changePlayerAI(String newAI) { // BR:
+    	selectedAI = MOO1GameOptions.selectedPlayerAI(newAI);
+    	ai = null;
+    }
     public void changeOpponentAI(String newAI) { // BR:
     	selectedAI = MOO1GameOptions.selectedOpponentAI(newAI);
     	ai = null;

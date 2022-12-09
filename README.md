@@ -25,8 +25,11 @@ Community subreddit: https://www.reddit.com/r/rotp/<br/>
 Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
+2022.12.09 (BR)
+  - Fixed "Change AI" setting the wrong Player AI.
+
 2022.12.08 (BR)
-  - Fixed "Change AI" setting the wrong AI.
+  - Fixed "Change AI" setting the wrong Opponent AI.
   - Replaced AI list duplicate by a dynamic one.
 
 2022.12.07 (BR)

@@ -314,6 +314,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 			String aiNewKey  = aiKeys.get(aiNewIndex);
 			
 			opts.selectedAutoplayOption(aiNewKey);
+			raceUI.selectedEmpire().changePlayerAI(aiNewKey);
 		}
 		else { // Change Opponent AI
 			List<String> aiNameList = MOO1GameOptions.sortedOpponentAINames();
