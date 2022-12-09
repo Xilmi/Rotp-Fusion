@@ -595,13 +595,11 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	return sortedOpponentAIKeys().get(aiIndex);
     }
     public static LinkedList<String> sortedOpponentAIKeys() { // BR: To retrieve AI name from its ID
-    	LabelManager lm = LabelManager.current();
     	if (sortedOpponentAIKeys == null)
     		initAISortedList();
     	return sortedOpponentAIKeys;
     }
     public static LinkedList<String> sortedOpponentAINames() { // BR: To retrieve AI name from its ID
-    	LabelManager lm = LabelManager.current();
     	if (sortedOpponentAINames == null)
     		initAISortedList();
     	return sortedOpponentAINames;
