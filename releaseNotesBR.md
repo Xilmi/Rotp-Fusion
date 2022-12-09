@@ -26,6 +26,7 @@ And Some Settings configuration options:
   - Added an option to let you choose which settings have to be loaded with agame
 
 Minor Fixes and improved general compatibility with older game files. (should not crash!)
+  - Fixed "Change AI" setting the wrong AI.
 
 ### Some explanations about the new settings management:
 

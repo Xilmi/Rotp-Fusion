@@ -36,7 +36,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import rotp.model.ai.AI;
 import rotp.model.empires.CustomRaceDefinitions;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.MOO1GameOptions;
@@ -300,35 +299,31 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	    return input;
 	}
 	private void raceAIBoxAction() {
-		if (isPlayer()) {
-			IGameOptions opts   = raceUI.options();
-			List<String> aiKeys = MOO1GameOptions.autoplayBaseOptions();
-			List<String> aiList = new ArrayList<>();
+		if (isPlayer()) { // Change Player AI
+			IGameOptions opts   	= raceUI.options();
+			List<String> aiKeys		= MOO1GameOptions.autoplayBaseOptions();
+			List<String> aiNameList = new ArrayList<>(); // Get language version
 			for (String key : aiKeys)
-				aiList.add(text(key));
-			String[] aiArray = aiList.toArray(new String[aiList.size()]);
+				aiNameList.add(text(key));
+			String[] aiNameArray = aiNameList.toArray(new String[aiNameList.size()]);
+
 			String currentAI = opts.selectedAutoplayOption();
 			int currentIndex = aiKeys.indexOf(currentAI);
-
-			String aiTxt = selectAIFromList(aiArray, aiArray[currentIndex]);
-			int aiIndex  = aiList.indexOf(aiTxt);
-			String aiKey = aiKeys.get(aiIndex);
+			String aiNewName = selectAIFromList(aiNameArray, aiNameArray[currentIndex]);
+			int aiNewIndex   = aiNameList.indexOf(aiNewName);
+			String aiNewKey  = aiKeys.get(aiNewIndex);
 			
-			opts.selectedAutoplayOption(aiKey);
+			opts.selectedAutoplayOption(aiNewKey);
 		}
-		else {
-			LinkedList<String> aiKeys = AI.sortedFixedAiKeys();
-			List<String> aiList = new ArrayList<>();
-			for (String key : aiKeys)
-				aiList.add(text(key));
-			String[] aiArray = aiList.toArray(new String[aiList.size()]);
+		else { // Change Opponent AI
+			List<String> aiNameList = MOO1GameOptions.sortedOpponentAINames();
+			String[] aiNameArray    = aiNameList.toArray(new String[aiNameList.size()]);
+
 			String currentAI = raceUI.selectedEmpire().getAiName();
-			int currentIndex = aiList.indexOf(currentAI);
+			String aiNewName = selectAIFromList(aiNameArray, currentAI);
+			String aiNewKey  = MOO1GameOptions.getOpponentAIKey(aiNewName);
 
-			String aiTxt = selectAIFromList(aiArray, aiArray[currentIndex]);
-			int aiIndex  = aiList.indexOf(aiTxt);
-
-			raceUI.selectedEmpire().changeAI(aiIndex);
+			raceUI.selectedEmpire().changeOpponentAI(aiNewKey);
 		}
 		repaint();
 	}

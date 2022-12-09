@@ -25,6 +25,9 @@ Community subreddit: https://www.reddit.com/r/rotp/<br/>
 Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
+2022.12.07 (BR)
+  - Fixed "Change AI" setting the wrong AI.
+  - Replaced AI list duplicate by a dynamic one.
 
 2022.12.07 (BR)
   - Fixed Restart compatibility issues.

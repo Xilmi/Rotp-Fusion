@@ -84,6 +84,7 @@ import rotp.ui.util.InterfaceOptions;
 import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.SpecificCROption;
 import rotp.util.Base;
+import rotp.util.LabelManager;
 
 //public class MOO1GameOptions implements Base, IGameOptions, DynamicOptions, Serializable {
 public class MOO1GameOptions implements Base, IGameOptions, Serializable {
@@ -134,6 +135,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private DynOptions dynamicOptions = new DynOptions();
 
     private transient GalaxyShape galaxyShape;
+    private static transient LinkedList<String> sortedOpponentAINames;
+    private static transient LinkedList<String> sortedOpponentAIKeys;
 
     public MOO1GameOptions() {
         init();
@@ -577,61 +580,134 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         else 
             return min(10,sqrt(nStars/200f));
     }
+    public static void initAISortedList() { // BR: To retrieve AI name from its ID
+    	LabelManager lm       = LabelManager.current();
+		sortedOpponentAIKeys  = opponentAIBaseOptions(); // Should start with the good size
+		sortedOpponentAINames = opponentAIBaseOptions(); // Should start with the good size
+		for (String key : opponentAIBaseOptions()) {
+			int index = selectedOpponentAI(key);
+			sortedOpponentAIKeys.set(index, key);
+			sortedOpponentAINames.set(index, lm.label(key));
+		}
+    }
+    public static String getOpponentAIKey(String aiName) { // BR:
+    	int aiIndex  = sortedOpponentAINames().indexOf(aiName);
+    	return sortedOpponentAIKeys().get(aiIndex);
+    }
+    public static LinkedList<String> sortedOpponentAIKeys() { // BR: To retrieve AI name from its ID
+    	LabelManager lm = LabelManager.current();
+    	if (sortedOpponentAIKeys == null)
+    		initAISortedList();
+    	return sortedOpponentAIKeys;
+    }
+    public static LinkedList<String> sortedOpponentAINames() { // BR: To retrieve AI name from its ID
+    	LabelManager lm = LabelManager.current();
+    	if (sortedOpponentAINames == null)
+    		initAISortedList();
+    	return sortedOpponentAINames;
+    }
+    public static int selectedPlayerAI(String autoplayOption) {
+    	switch(autoplayOption) {
+	        case AUTOPLAY_AI_BASE:         return AI.BASE;
+	        case AUTOPLAY_AI_MODNAR:       return AI.MODNAR;
+	        case AUTOPLAY_AI_ROOKIE:       return AI.ROOKIE;
+	        case AUTOPLAY_AI_XILMI:        return AI.XILMI;
+	        case AUTOPLAY_AI_HYBRID:       return AI.HYBRID;
+	        case AUTOPLAY_AI_CRUEL:        return AI.FUSION;
+	        case AUTOPLAY_AI_FUN:          return AI.FUN;
+	        case AUTOPLAY_AI_PERSONALITY:  return AI.PERSONALITY;
+	        case AUTOPLAY_AI_RANDOM:       return AI.RANDOM;
+	        case AUTOPLAY_AI_RANDOM_BASIC: return AI.RANDOM_BASIC;
+	        case AUTOPLAY_AI_RANDOM_ADV:   return AI.RANDOM_ADVANCED;
+	        case AUTOPLAY_AI_RANDOM_NOBAR: return AI.RANDOM_NO_RELATIONBAR;
+	        case AUTOPLAY_OFF:
+	        default:
+	            return AI.FUSION;  // it does matter both for spending reallocation and for ship-captain
+    	}
+    }
+    public static int selectedOpponentAI(String opponentAIOption) {
+    	switch(opponentAIOption) {
+	        case OPPONENT_AI_BASE:         return AI.BASE;
+	        case OPPONENT_AI_MODNAR:       return AI.MODNAR;
+	        case OPPONENT_AI_ROOKIE:       return AI.ROOKIE;
+	        case OPPONENT_AI_XILMI:        return AI.XILMI;
+	        case OPPONENT_AI_HYBRID:       return AI.HYBRID;
+	        case OPPONENT_AI_CRUEL:        return AI.FUSION;
+	        case OPPONENT_AI_FUN:          return AI.FUN;
+	        case OPPONENT_AI_PERSONALITY:  return AI.PERSONALITY;
+	        case OPPONENT_AI_RANDOM:       return AI.RANDOM;
+	        case OPPONENT_AI_RANDOM_BASIC: return AI.RANDOM_BASIC;
+	        case OPPONENT_AI_RANDOM_ADV:   return AI.RANDOM_ADVANCED;
+	        case OPPONENT_AI_RANDOM_NOBAR: return AI.RANDOM_NO_RELATIONBAR;
+	        default:
+	            return AI.FUSION;
+        }
+    }    
     @Override
     public int selectedAI(Empire e) {
-        if (e.isPlayer()) {
-            switch(selectedAutoplayOption()) {
-                case AUTOPLAY_AI_BASE:   return AI.BASE;
-                case AUTOPLAY_AI_MODNAR:   return AI.MODNAR;
-                case AUTOPLAY_AI_ROOKIE:   return AI.ROOKIE;
-                case AUTOPLAY_AI_XILMI:  return AI.XILMI;
-                case AUTOPLAY_AI_HYBRID:  return AI.HYBRID;
-                case AUTOPLAY_AI_CRUEL: return AI.FUSION;
-                case AUTOPLAY_AI_FUN: return AI.FUN;
-                case AUTOPLAY_AI_PERSONALITY: return AI.PERSONALITY;
-                case AUTOPLAY_AI_RANDOM:  return AI.RANDOM;
-                case AUTOPLAY_AI_RANDOM_BASIC:  return AI.RANDOM_BASIC;
-                case AUTOPLAY_AI_RANDOM_ADV:  return AI.RANDOM_ADVANCED;
-                case AUTOPLAY_AI_RANDOM_NOBAR:  return AI.RANDOM_NO_RELATIONBAR;
-                case AUTOPLAY_OFF:
-                default:
-                    return AI.FUSION;  // it does matter both for spending reallocation and for ship-captain
-            }
-        }
-        else {
-            switch(selectedOpponentAIOption()) {
-                case OPPONENT_AI_BASE:   return AI.BASE;
-                case OPPONENT_AI_MODNAR:   return AI.MODNAR;
-                case OPPONENT_AI_ROOKIE:   return AI.ROOKIE;
-                case OPPONENT_AI_XILMI:  return AI.XILMI;
-                case OPPONENT_AI_HYBRID:  return AI.HYBRID;
-                case OPPONENT_AI_CRUEL: return AI.FUSION;
-                case OPPONENT_AI_FUN: return AI.FUN;
-                case OPPONENT_AI_PERSONALITY: return AI.PERSONALITY;
-                case OPPONENT_AI_RANDOM:  return AI.RANDOM;
-                case OPPONENT_AI_RANDOM_BASIC:  return AI.RANDOM_BASIC;
-                case OPPONENT_AI_RANDOM_ADV:  return AI.RANDOM_ADVANCED;
-                case OPPONENT_AI_RANDOM_NOBAR:  return AI.RANDOM_NO_RELATIONBAR;
-                case OPPONENT_AI_SELECTABLE:
-                    String specificAI = specificOpponentAIOption(e.id);
-                    switch(specificAI) {
-                        case OPPONENT_AI_BASE:   return AI.BASE;
-                        case OPPONENT_AI_MODNAR:   return AI.MODNAR;
-                        case OPPONENT_AI_ROOKIE:   return AI.ROOKIE;
-                        case OPPONENT_AI_XILMI:  return AI.XILMI;
-                        case OPPONENT_AI_HYBRID:  return AI.HYBRID;
-                        case OPPONENT_AI_CRUEL: return AI.FUSION;
-                        case OPPONENT_AI_FUN: return AI.FUN;
-                        case OPPONENT_AI_PERSONALITY: return AI.PERSONALITY;
-                        case OPPONENT_AI_RANDOM:  return AI.RANDOM;
-                        case OPPONENT_AI_RANDOM_BASIC:  return AI.RANDOM_BASIC;
-                        case OPPONENT_AI_RANDOM_ADV:  return AI.RANDOM_ADVANCED;
-                        case OPPONENT_AI_RANDOM_NOBAR:  return AI.RANDOM_NO_RELATIONBAR;
-                    }
-            }
-        }
-        return AI.FUSION;
+        if (e.isPlayer())
+        	return selectedPlayerAI(selectedAutoplayOption());
+        else
+        	if (OPPONENT_AI_SELECTABLE.equals(selectedOpponentAIOption()))
+	            return selectedOpponentAI(specificOpponentAIOption(e.id));
+	        else
+	            return selectedOpponentAI(selectedOpponentAIOption());
     }
+//    @Override
+//    public int selectedAI(Empire e) {
+//        if (e.isPlayer()) {
+//            switch(selectedAutoplayOption()) {
+//                case AUTOPLAY_AI_BASE:   return AI.BASE;
+//                case AUTOPLAY_AI_MODNAR:   return AI.MODNAR;
+//                case AUTOPLAY_AI_ROOKIE:   return AI.ROOKIE;
+//                case AUTOPLAY_AI_XILMI:  return AI.XILMI;
+//                case AUTOPLAY_AI_HYBRID:  return AI.HYBRID;
+//                case AUTOPLAY_AI_CRUEL: return AI.FUSION;
+//                case AUTOPLAY_AI_FUN: return AI.FUN;
+//                case AUTOPLAY_AI_PERSONALITY: return AI.PERSONALITY;
+//                case AUTOPLAY_AI_RANDOM:  return AI.RANDOM;
+//                case AUTOPLAY_AI_RANDOM_BASIC:  return AI.RANDOM_BASIC;
+//                case AUTOPLAY_AI_RANDOM_ADV:  return AI.RANDOM_ADVANCED;
+//                case AUTOPLAY_AI_RANDOM_NOBAR:  return AI.RANDOM_NO_RELATIONBAR;
+//                case AUTOPLAY_OFF:
+//                default:
+//                    return AI.FUSION;  // it does matter both for spending reallocation and for ship-captain
+//            }
+//        }
+//        else {
+//            switch(selectedOpponentAIOption()) {
+//                case OPPONENT_AI_BASE:   return AI.BASE;
+//                case OPPONENT_AI_MODNAR:   return AI.MODNAR;
+//                case OPPONENT_AI_ROOKIE:   return AI.ROOKIE;
+//                case OPPONENT_AI_XILMI:  return AI.XILMI;
+//                case OPPONENT_AI_HYBRID:  return AI.HYBRID;
+//                case OPPONENT_AI_CRUEL: return AI.FUSION;
+//                case OPPONENT_AI_FUN: return AI.FUN;
+//                case OPPONENT_AI_PERSONALITY: return AI.PERSONALITY;
+//                case OPPONENT_AI_RANDOM:  return AI.RANDOM;
+//                case OPPONENT_AI_RANDOM_BASIC:  return AI.RANDOM_BASIC;
+//                case OPPONENT_AI_RANDOM_ADV:  return AI.RANDOM_ADVANCED;
+//                case OPPONENT_AI_RANDOM_NOBAR:  return AI.RANDOM_NO_RELATIONBAR;
+//                case OPPONENT_AI_SELECTABLE:
+//                    String specificAI = specificOpponentAIOption(e.id);
+//                    switch(specificAI) {
+//                        case OPPONENT_AI_BASE:   return AI.BASE;
+//                        case OPPONENT_AI_MODNAR:   return AI.MODNAR;
+//                        case OPPONENT_AI_ROOKIE:   return AI.ROOKIE;
+//                        case OPPONENT_AI_XILMI:  return AI.XILMI;
+//                        case OPPONENT_AI_HYBRID:  return AI.HYBRID;
+//                        case OPPONENT_AI_CRUEL: return AI.FUSION;
+//                        case OPPONENT_AI_FUN: return AI.FUN;
+//                        case OPPONENT_AI_PERSONALITY: return AI.PERSONALITY;
+//                        case OPPONENT_AI_RANDOM:  return AI.RANDOM;
+//                        case OPPONENT_AI_RANDOM_BASIC:  return AI.RANDOM_BASIC;
+//                        case OPPONENT_AI_RANDOM_ADV:  return AI.RANDOM_ADVANCED;
+//                        case OPPONENT_AI_RANDOM_NOBAR:  return AI.RANDOM_NO_RELATIONBAR;
+//                    }
+//            }
+//        }
+//        return AI.FUSION;
+//    }
     @Override
     public float hostileTerraformingPct() { 
         switch(selectedTerraformingOption()) {
@@ -1117,8 +1193,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add(RANDOMIZE_AI_BOTH);
         return list;
     }
-    public static List<String> autoplayBaseOptions() {
-        List<String> list = new ArrayList<>();
+    public static LinkedList<String> autoplayBaseOptions() {
+    	LinkedList<String> list = new LinkedList<>();
         list.add(AUTOPLAY_OFF);
         list.add(AUTOPLAY_AI_BASE);
         list.add(AUTOPLAY_AI_MODNAR);
@@ -1139,9 +1215,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add(AUTOPLAY_AI_RANDOM_NOBAR);
         return list;
     }
-    @Override
-    public List<String> opponentAIOptions() {
-        List<String> list = new ArrayList<>();
+    public static LinkedList<String> opponentAIBaseOptions() { // BR: new access to base opponents
+    	LinkedList<String> list = new LinkedList<>();
         list.add(OPPONENT_AI_BASE);
         list.add(OPPONENT_AI_MODNAR);
         list.add(OPPONENT_AI_ROOKIE);
@@ -1150,6 +1225,11 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add(OPPONENT_AI_PERSONALITY);
         list.add(OPPONENT_AI_FUN);
         list.add(OPPONENT_AI_CRUEL);
+        return list;
+    }
+     @Override
+    public List<String> opponentAIOptions() { // BR: new access to base opponents
+        List<String> list =  opponentAIBaseOptions();
         list.add(OPPONENT_AI_RANDOM);
         list.add(OPPONENT_AI_RANDOM_BASIC);
         list.add(OPPONENT_AI_RANDOM_ADV);
@@ -1157,17 +1237,12 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add(OPPONENT_AI_SELECTABLE);
         return list;
     }
+    public static List<String> specificOpponentAIBaseOptions() { // BR: new access to base opponents
+        return opponentAIBaseOptions(); // BR: to allow any possibilities
+    } 
     @Override
-    public List<String> specificOpponentAIOptions() {
-        List<String> list = new ArrayList<>();
-        list.add(OPPONENT_AI_BASE);
-        list.add(OPPONENT_AI_MODNAR);
-        list.add(OPPONENT_AI_ROOKIE);
-        list.add(OPPONENT_AI_XILMI);
-        list.add(OPPONENT_AI_HYBRID);
-        list.add(OPPONENT_AI_PERSONALITY);
-        list.add(OPPONENT_AI_FUN);
-        list.add(OPPONENT_AI_CRUEL);
+    public List<String> specificOpponentAIOptions() { // BR: new access to base opponents
+        List<String> list = specificOpponentAIBaseOptions();
         list.add(OPPONENT_AI_RANDOM);
         list.add(OPPONENT_AI_RANDOM_BASIC);
         list.add(OPPONENT_AI_RANDOM_ADV);

@@ -72,6 +72,7 @@ import rotp.model.galaxy.Transport;
 import rotp.model.game.DynOptions;
 import rotp.model.game.GameSession;
 import rotp.model.game.GovernorOptions;
+import rotp.model.game.MOO1GameOptions;
 import rotp.model.incidents.DiplomaticIncident;
 import rotp.model.incidents.GenocideIncident;
 import rotp.model.planet.PlanetType;
@@ -92,7 +93,6 @@ import rotp.ui.notifications.GNNNotification;
 import rotp.ui.notifications.PlunderShipTechNotification;
 import rotp.ui.notifications.PlunderTechNotification;
 import rotp.util.Base;
-import rotp.util.LabelManager;
 
 public final class Empire implements Base, NamedObject, Serializable {
     private static final long serialVersionUID = 1L;
@@ -185,8 +185,8 @@ public final class Empire implements Base, NamedObject, Serializable {
     public transient int numColoniesHistory;
     private transient String empireName;
 
-    public void changeAI(int newAI) { // BR:
-    	selectedAI = newAI;
+    public void changeOpponentAI(String newAI) { // BR:
+    	selectedAI = MOO1GameOptions.selectedOpponentAI(newAI);
     	ai = null;
     	ai();
     }
@@ -199,8 +199,8 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
         return ai;
     }
-    public String getAiKey()  { return AI.sortedAiKeys().get(selectedAI); } // BR:
-    public String getAiName() { return LabelManager.current().label(getAiKey()); } // BR:
+    public String getAiKey()  { return MOO1GameOptions.sortedOpponentAIKeys().get(selectedAI); } // BR:
+    public String getAiName() { return MOO1GameOptions.sortedOpponentAINames().get(selectedAI); } // BR:
     public Diplomat diplomatAI()                  { return ai().diplomat(); }
     public FleetCommander fleetCommanderAI()      { return ai().fleetCommander(); }
     public ShipCaptain shipCaptainAI()            { return ai().shipCaptain(); }

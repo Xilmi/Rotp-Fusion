@@ -18,7 +18,6 @@ package rotp.model.ai;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.LinkedList;
 import java.util.List;
 import rotp.model.ai.interfaces.Diplomat;
 import rotp.model.ai.interfaces.FleetCommander;
@@ -37,7 +36,6 @@ import rotp.model.galaxy.IMappedObject;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.game.GameSession;
-import rotp.model.game.IGameOptions;
 import rotp.model.planet.Planet;
 import rotp.model.ships.ShipDesign;
 import rotp.ui.UserPreferences;
@@ -58,27 +56,7 @@ public class AI implements Base { // BR: Tentative
     public static final int RANDOM_BASIC = 9;
     public static final int RANDOM_ADVANCED = 10;
     public static final int RANDOM_NO_RELATIONBAR = 11;
-    // BR: An easy way to retrieve the name from the id
-    public static LinkedList<String> sortedFixedAiKeys() {
-    	LinkedList<String> list = new LinkedList<>();
-        list.add(IGameOptions.OPPONENT_AI_BASE);
-        list.add(IGameOptions.OPPONENT_AI_MODNAR);
-        list.add(IGameOptions.OPPONENT_AI_ROOKIE);
-        list.add(IGameOptions.OPPONENT_AI_XILMI);
-        list.add(IGameOptions.OPPONENT_AI_HYBRID);
-        list.add(IGameOptions.OPPONENT_AI_CRUEL);
-        list.add(IGameOptions.OPPONENT_AI_FUN);
-        list.add(IGameOptions.OPPONENT_AI_PERSONALITY);
-    	return list;
-    }
-    public static LinkedList<String> sortedAiKeys() {
-    	LinkedList<String> list = sortedFixedAiKeys();
-        list.add(IGameOptions.OPPONENT_AI_RANDOM);
-        list.add(IGameOptions.OPPONENT_AI_RANDOM_BASIC);
-        list.add(IGameOptions.OPPONENT_AI_RANDOM_ADV);
-        list.add(IGameOptions.OPPONENT_AI_RANDOM_NOBAR);
-    	return list;
-    }
+
     private final Empire empire;
 
     private final Diplomat diplomat;
