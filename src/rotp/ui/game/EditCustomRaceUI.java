@@ -18,7 +18,7 @@ package rotp.ui.game;
 import static rotp.model.empires.CustomRaceDefinitions.ROOT;
 import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
 import static rotp.model.game.MOO1GameOptions.saveOptionsToFileName;
-import static rotp.model.game.MOO1GameOptions.setAllSettingsToDefault;
+import static rotp.model.game.MOO1GameOptions.setBaseAndModSettingsToDefault;
 import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
 import static rotp.ui.UserPreferences.ALL_GUI_ID;
 import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
@@ -157,12 +157,6 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	}
 	// ========== Other Methods ==========
 	//
-	public void writeLocalOptions(MOO1GameOptions destination) {
-		for (InterfaceOptions param : commonList)
-			param.setOptions(destination.dynamicOptions());
-		playerIsCustom.setOptions(destination.dynamicOptions());
-		playerCustomRace.setOptions(destination.dynamicOptions());
-	}
 	private void saveCurrentRace() { cr.saveRace(); }
 	private void loadCurrentRace() { cr.loadRace(); }
 	private void doLoadBoxAction() { // Local to panel
@@ -215,7 +209,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			setToLocalDefault();
 			break; 
 		default: // setGlobalDefaultKey
-			setAllSettingsToDefault(guiOptions(), ALL_GUI_ID);
+			setBaseAndModSettingsToDefault(guiOptions(), ALL_GUI_ID);
 			setToLocalDefault();
 			break; 
 		}
@@ -264,9 +258,29 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		cr.updateSettings();
 		repaint();
 	}
+	public void updateCRGui(MOO1GameOptions source) {// TODO BR: Change Name to update GUI?
+        for (InterfaceOptions param : commonList)
+			param.setFromOptions(source.dynamicOptions());
+        playerIsCustom.setFromOptions(source.dynamicOptions());
+		playerCustomRace.setFromOptions(source.dynamicOptions());
+		writeLocalOptions();
+		init(); // TODO BR: validate init
+	}
+	private void writeLocalOptions() {
+		writeLocalOptions(this.guiOptions());
+//		init(); // Validate Init common here
+	}
+	
+	public void writeLocalOptions(MOO1GameOptions destination) {
+		for (InterfaceOptions param : commonList)
+			param.setOptions(destination.dynamicOptions());
+		playerIsCustom.setOptions(destination.dynamicOptions());
+		playerCustomRace.setOptions(destination.dynamicOptions());
+	}
 	public void setToLocalDefault() {
 		for (InterfaceOptions param : commonList)
 			param.setFromDefault();
+		writeLocalOptions();
 		init(); // Validate Init
 	}
 //	private void saveLocalUserOptions() {
@@ -379,19 +393,12 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			} 
 		}
 	}
-	public void readLocalOptions(MOO1GameOptions source) {
-        for (InterfaceOptions param : commonList)
-			param.setFromOptions(source.dynamicOptions());
-        playerIsCustom.setFromOptions(source.dynamicOptions());
-		playerCustomRace.setFromOptions(source.dynamicOptions());
-		init(); // TODO BR: validate init
-	}	
 	// ========== Overriders ==========
 	//
-	@Override public void readOptions(MOO1GameOptions source) {
-		readLocalOptions(source);
-//		init(); // TODO BR: validate init
-	}	
+//	@Override public void readOptions(MOO1GameOptions source) { // TODO BR: Change Name to update GUI?
+//		readLocalOptions(source);
+////		init(); // TODO BR: validate init
+//	}	
 	@Override protected void close() {
 		Modifier2KeysState.reset();
 		disableGlassPane();

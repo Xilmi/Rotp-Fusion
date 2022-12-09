@@ -113,7 +113,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	private LinkedList<Integer> colSettingsCount;
 	private	LinkedList<Integer> spacerList;
 	private LinkedList<Integer> columnList;
-	public  LinkedList<SettingBase<?>> commonList;
+	LinkedList<SettingBase<?>> commonList;
 	protected LinkedList<SettingBase<?>> settingList;
 	protected LinkedList<SettingBase<?>> mouseList;
 	
@@ -253,12 +253,12 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	}
 	// ========== Other Methods ==========
 	//
-	public void readOptions(MOO1GameOptions source) {
-		for (InterfaceOptions param : commonList)
-			param.setFromOptions(source.dynamicOptions());
-		playerIsCustom.setFromOptions(source.dynamicOptions());
-		init();
-	}
+//	public void readOptions(MOO1GameOptions source) {
+//		for (InterfaceOptions param : commonList)
+//			param.setFromOptions(source.dynamicOptions());
+//		playerIsCustom.setFromOptions(source.dynamicOptions());
+//		init();
+//	}
 	private  BaseText settingBT() {
 		return new BaseText(this, false, settingFont, 0, 0,
 				settingC, settingNegC, hoverC, depressedC, textC, 0, 0, 0);
@@ -449,7 +449,8 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 			if (raceUI.selectedEmpire().isAIControlled())
 				return text(raceUI.options().selectedAutoplayOption());
 			else
-				return text("SETUP_OPPONENT_AI_PLAYER");
+				return raceUI.selectedEmpire().getAiName();
+//				return text(raceUI.options().selectedAutoplayOption());
 		else
 			return raceUI.selectedEmpire().getAiName();
 	}

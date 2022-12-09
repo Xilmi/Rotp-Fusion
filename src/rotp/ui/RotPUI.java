@@ -359,7 +359,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     	if (action.isDefault()) {
     		System.out.println("GUI Loaded Default options");
     		newOptions = new MOO1GameOptions();
-    		MOO1GameOptions.setAllSettingsToDefault(newOptions);
+    		MOO1GameOptions.setBaseAndModSettingsToDefault(newOptions, ALL_GUI_ID);
     		return newOptions;
     	} // else Vanilla, as before
     	

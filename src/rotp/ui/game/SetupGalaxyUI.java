@@ -19,7 +19,7 @@ import static rotp.model.empires.CustomRaceDefinitions.getAllowedAlienRaces;
 import static rotp.model.empires.CustomRaceDefinitions.getBaseRacList;
 import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
 import static rotp.model.game.MOO1GameOptions.saveOptionsToFileName;
-import static rotp.model.game.MOO1GameOptions.setAllSettingsToDefault;
+import static rotp.model.game.MOO1GameOptions.setBaseAndModSettingsToDefault;
 import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
 import static rotp.ui.UserPreferences.ALL_GUI_ID;
 import static rotp.ui.UserPreferences.GALAXY_TEXT_FILE;
@@ -268,10 +268,10 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);		
 			break;
 		case SHIFT: // setLocalDefaultKey
-			setAllSettingsToDefault(guiOptions(), GUI_ID);		
+			setBaseAndModSettingsToDefault(guiOptions(), GUI_ID);		
 			break; 
 		default: // setGlobalDefaultKey
-			setAllSettingsToDefault(guiOptions(), ALL_GUI_ID);		
+			setBaseAndModSettingsToDefault(guiOptions(), ALL_GUI_ID);		
 			break; 
 		}
 		init();

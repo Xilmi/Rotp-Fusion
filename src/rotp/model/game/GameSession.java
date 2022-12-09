@@ -848,6 +848,12 @@ public final class GameSession implements Base, Serializable {
             catch(IOException ex) {}            
         }
     }
+    private void resolveOptionsDiscrepansies(GameSession gs) {
+    	// resolving AutoPlay potential issues
+    	String autoPlaySetting = gs.options().selectedAutoplayOption();
+    	if (!autoPlaySetting.equals(IGameOptions.AUTOPLAY_OFF))
+    		gs.galaxy.player().changePlayerAI(autoPlaySetting);
+    }
     private void loadPreviousSession(GameSession gs, boolean startUp) {
         stopCurrentGame();
         instance = gs;
@@ -860,7 +866,7 @@ public final class GameSession implements Base, Serializable {
     	if (menuLoadGame.isLast()) {
     		System.out.println("Game Loaded Current GUI options");
     		// Load the options and set the GUI
-    		MOO1GameOptions.setAllSettingsFromOptions(
+    		MOO1GameOptions.setBaseAndModSettingsFromOptions(
     				(MOO1GameOptions) instance.options, 
     				(MOO1GameOptions) newGameOptions());
     		//MOO1GameOptions.loadLastOptions((MOO1GameOptions) instance.options);
@@ -874,7 +880,7 @@ public final class GameSession implements Base, Serializable {
     	else if (menuLoadGame.isDefault()) {
     		System.out.println("Game Loaded Default options");
     		// Reset the options and reset the GUI
-    		MOO1GameOptions.setAllSettingsToDefault((MOO1GameOptions) instance.options);
+    		MOO1GameOptions.setBaseAndModSettingsToDefault((MOO1GameOptions) instance.options, ALL_GUI_ID);
     	}
     	else if (menuLoadGame.isGame()) {
     		System.out.println("Game Set the GUI with the Game options");
@@ -884,7 +890,8 @@ public final class GameSession implements Base, Serializable {
     	// else vanilla Nothing special to do
     	else System.out.println("Old Ways Game Loaded Nothing");
 
-
+    	resolveOptionsDiscrepansies(gs);
+    	
 		if (showInfo)  showInfo(gs.galaxy());
         startExecutors();
         RotPUI.instance().mainUI().checkMapInitialized();

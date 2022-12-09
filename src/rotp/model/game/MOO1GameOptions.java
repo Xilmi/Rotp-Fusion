@@ -1488,7 +1488,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         }
     }
     // ========== All Menu Options ==========
-    static void setAllSettingsFromOptions(MOO1GameOptions options, MOO1GameOptions source) { // BR:
+    static void setBaseAndModSettingsFromOptions(MOO1GameOptions options, MOO1GameOptions source) { // BR:
     	copyBaseSettings(source, options);
         setModSettingsFromOptions(source);
         writeModSettingsToOptions(options);
@@ -1496,13 +1496,13 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     static void setModSettingsFromOptions(MOO1GameOptions source) { // BR:
     	for( InterfaceParam param : allModOptions())
     		param.setFromOptions(source.dynamicOptions());
-        EditCustomRaceUI.instance().readLocalOptions(source);
+        EditCustomRaceUI.instance().updateCRGui(source);
     }
-    public static void setAllSettingsToDefault(MOO1GameOptions options) { // BR:
-     	setModSettingsToDefault();
-     	options.setBaseSettingsToDefault(); // needs showNewRaces updated
-     	setCRSettingsToDefault(options);
-    }
+//    public static void setBaseAndModSettingsToDefault(MOO1GameOptions options) { // BR:
+//     	setModSettingsToDefault();
+//     	options.setBaseSettingsToDefault(); // needs showNewRaces updated
+//     	setCRSettingsToDefault(options);
+//    }
 //    private static void writeAllSettingsToOptions(MOO1GameOptions options, MOO1GameOptions destination) { //BR:
 //    	writeModSettingsToOptions(destination);
 //    	copyBaseSettings(options, destination);
@@ -1525,15 +1525,15 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	copyBaseGalaxySettings(src, dest);
     	copyAdvancedOptions(src, dest);
     }
-    private static void setCRSettingsToDefault(MOO1GameOptions options) { // BR:
-		EditCustomRaceUI.instance().setToLocalDefault();
-		EditCustomRaceUI.instance().writeLocalOptions(options);
-    }
-    private static void setModSettingsToDefault() { // BR:
-    	EditCustomRaceUI.instance().setToLocalDefault();
-    	for( InterfaceParam option : allModOptions())
-    		option.setFromDefault();   	
-    }
+//    private static void setCRSettingsToDefault(MOO1GameOptions options) { // BR:
+//		EditCustomRaceUI.instance().setToLocalDefault();
+//		EditCustomRaceUI.instance().writeLocalOptions(options);
+//    }
+//    private static void setModSettingsToDefault() { // BR:
+//    	EditCustomRaceUI.instance().setToLocalDefault();
+//    	for( InterfaceParam option : allModOptions())
+//    		option.setFromDefault();   	
+//    }
     private void setBaseSettingsToDefault() {
     	setBaseGalaxySettingsToDefault();
     	setBaseRaceSettingsToDefault();
@@ -1569,7 +1569,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 //     	setModRaceSettingsToDefault();
 //     	options.setBaseRaceSettingsToDefault();
 //     }
-    public static void copyAllRaceSettings(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
+    public static void copyBaseAndModRaceSettings(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
     	copyModRaceSettings(src, dest);
     	copyBaseRaceSettings(src, dest);
     }
@@ -1746,10 +1746,11 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 //    		MOO1GameOptions src, MOO1GameOptions dest, String guiID) {
 //    	copyBaseSettings(src, dest, guiID);
 //    }
-    private static void setAllSettingsFromOptions(
+    private static void setBaseAndModSettingsFromOptions(
     		MOO1GameOptions src, MOO1GameOptions dest, String guiID) {
     	setModSettingsFromOptions(src, guiID);
     	setBaseSettingsFromOptions(src, dest, guiID);
+    	dest.setAndGenerateGalaxy();
     }
     private static void setModSettingsFromOptions(MOO1GameOptions src, String guiID) {
     	LinkedList<InterfaceParam> modOptions = getModParameterList(guiID);
@@ -1797,7 +1798,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     		break;
     	}
     }
-    public static void setAllSettingsToDefault(MOO1GameOptions options, String guiID) {
+    public static void setBaseAndModSettingsToDefault(MOO1GameOptions options, String guiID) {
     	setModSettingsToDefault(options, guiID);
     	setBaseSettingsToDefault(options, guiID);
     }
@@ -1847,7 +1848,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	    		modOptions = UserPreferences.modGlobalOptionsUI;
 	    		break;
 	    	case EditCustomRaceUI.GUI_ID:
-	    		modOptions = UserPreferences.optionsCustomRace();
+	    		modOptions = UserPreferences.optionsCustomRaceBase;
+//	    		modOptions = UserPreferences.optionsCustomRace();
 	    		break;
 	    	case UserPreferences.ALL_GUI_ID:
 	    		modOptions = UserPreferences.allModOptions();
@@ -1917,7 +1919,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	saveOptions(options, Rotp.jarPath(), fileName);
     }
     public static void loadAndUpdateFromFileName(MOO1GameOptions options, String fileName, String guiID) {
-    	setAllSettingsFromOptions(options, loadFileName(fileName), guiID);   		
+    	setBaseAndModSettingsFromOptions(options, loadFileName(fileName), guiID);   		
     }
     private static MOO1GameOptions loadFileName(String fileName) {
    		return loadOptions(Rotp.jarPath(), fileName);

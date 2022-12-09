@@ -272,12 +272,12 @@ public class UserPreferences {
 				return super.set(newValue);
 			}
 		};
-		public static final ParamBoolean showNextCouncil = new ParamBoolean(
-				MOD_UI, "SHOW_NEXT_COUNCIL", false);
-//		public static final ParamBoolean loadLocalSettings = new ParamBoolean(
-//				MOD_UI, "LOAD_LOCAL", true);
-//		public static final ParamBoolean saveLocalSettings = new ParamBoolean(
-//				MOD_UI, "SAVE_LOCAL", true);
+	public static final ParamBoolean showNextCouncil = new ParamBoolean(
+			MOD_UI, "SHOW_NEXT_COUNCIL", false);
+	public static final ParamBoolean loadLocalSettings = new ParamBoolean(
+			MOD_UI, "LOAD_LOCAL", true);
+	public static final ParamBoolean saveLocalSettings = new ParamBoolean(
+			MOD_UI, "SAVE_LOCAL", true);
 
 	// This list is used by the ModGlobalOptionsUI menu
 	public static final LinkedList<InterfaceParam> modGlobalOptionsUI = new LinkedList<>(
@@ -323,12 +323,12 @@ public class UserPreferences {
 			Arrays.asList(
 					playerIsCustom, playerCustomRace
 					));
-	public static LinkedList<InterfaceParam> optionsCustomRace() {
-		LinkedList<InterfaceParam> list = new LinkedList<>();
-		list.addAll(EditCustomRaceUI.instance().commonList);
-		list.addAll(optionsCustomRaceBase);
-		return list;
-	}
+//	public static LinkedList<InterfaceParam> optionsCustomRace() {
+//		LinkedList<InterfaceParam> list = new LinkedList<>();
+//		list.addAll(EditCustomRaceUI.instance().commonList);
+//		list.addAll(optionsCustomRaceBase);
+//		return list;
+//	}
 	
 	// BR: All the parameters
 	public static LinkedList<InterfaceParam> allModOptions() {
@@ -337,6 +337,7 @@ public class UserPreferences {
 		allModOptions.addAll(optionsB);
 		allModOptions.addAll(optionsGalaxy);
 		allModOptions.addAll(optionsRace);
+		allModOptions.addAll(optionsCustomRaceBase);
 //		allModOptions.addAll(optionsCustomRace());
 		return allModOptions;
 	}
