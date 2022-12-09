@@ -447,7 +447,8 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	protected String raceAIButtonTxt() {
 		if (isPlayer())
 			if (raceUI.selectedEmpire().isAIControlled())
-				return text(raceUI.options().selectedAutoplayOption());
+				return raceUI.selectedEmpire().getAiName();
+//				return text(raceUI.options().selectedAutoplayOption());
 			else
 				return text("SETUP_OPPONENT_AI_PLAYER");
 		else

@@ -268,12 +268,12 @@ public class UserPreferences {
 				return super.set(newValue);
 			}
 		};
-		public static final ParamBoolean showNextCouncil = new ParamBoolean(
-				MOD_UI, "SHOW_NEXT_COUNCIL", false);
-		public static final ParamBoolean loadLocalSettings = new ParamBoolean(
-				MOD_UI, "LOAD_LOCAL", true);
-		public static final ParamBoolean saveLocalSettings = new ParamBoolean(
-				MOD_UI, "SAVE_LOCAL", true);
+	public static final ParamBoolean showNextCouncil = new ParamBoolean(
+			MOD_UI, "SHOW_NEXT_COUNCIL", false);
+	public static final ParamBoolean loadLocalSettings = new ParamBoolean(
+			MOD_UI, "LOAD_LOCAL", true);
+	public static final ParamBoolean saveLocalSettings = new ParamBoolean(
+			MOD_UI, "SAVE_LOCAL", true);
 
 	// This list is used by the ModGlobalOptionsUI menu
 	public static final LinkedList<InterfaceParam> modGlobalOptionsUI = new LinkedList<>(
