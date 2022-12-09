@@ -1,12 +1,12 @@
 /*
  * Copyright 2015-2020 Ray Fowler
- *
+ * 
  * Licensed under the GNU General Public License, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *     https://www.gnu.org/licenses/gpl-3.0.html
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -88,7 +88,7 @@ import rotp.util.LabelManager;
 // Renaming:
 //   Options = setting set
 //   Setting = Options element
-//
+//  
 //public class MOO1GameOptions implements Base, IGameOptions, DynamicOptions, Serializable {
 public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private static final long serialVersionUID = 1L;
@@ -117,7 +117,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	private boolean communityAI = false;  // unused
     @SuppressWarnings("unused")
 	private boolean disableColonizePrompt = false; // unused
-
+   
     // Advanced Options UI
     private String selectedGalaxyAge;
     private String selectedResearchRate;
@@ -181,7 +181,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override
     public void selectedGalaxySize(String s)     {
         int prevNumOpp = defaultOpponentsOptions();
-        selectedGalaxySize = s;
+        selectedGalaxySize = s; 
         if (selectedNumberOpponents() == prevNumOpp)
             selectedNumberOpponents(defaultOpponentsOptions());
         generateGalaxy();
@@ -259,23 +259,23 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override
     public void selectedAutoplayOption(String s)    { selectedAutoplayOption = s; }
     @Override
-    public String selectedOpponentAIOption()       {
+    public String selectedOpponentAIOption()       { 
     	return selectedOpponentAIOption == null ? OPPONENT_AI_CRUEL : selectedOpponentAIOption; } // modnar: default to modnar AI
     @Override
     public void selectedOpponentAIOption(String s) { selectedOpponentAIOption = s; }
     @Override
-    public String specificOpponentAIOption(int n)  {
+    public String specificOpponentAIOption(int n)  { 
             if ((specificOpponentAIOption == null) || (specificOpponentAIOption.length < n))
                 return selectedOpponentAIOption();
             else
                 return specificOpponentAIOption[n];
     }
     @Override
-    public void specificOpponentAIOption(String s, int n) {
+    public void specificOpponentAIOption(String s, int n) { 
         if (n < specificOpponentAIOption.length)
             specificOpponentAIOption[n] = s;
     }
-    @Override
+    @Override 
     public String specificOpponentCROption(int n)  {
             if ((specificOpponentCROption == null) || (specificOpponentCROption.length < n))
                 return globalCROptions.get();
@@ -283,7 +283,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
                 return specificOpponentCROption[n];
     }
     @Override
-    public void specificOpponentCROption(String s, int n) {
+    public void specificOpponentCROption(String s, int n) { 
         if (n < specificOpponentCROption.length)
             specificOpponentCROption[n] = s;
     }
@@ -357,7 +357,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         selectedGalaxyShapeOption2	= opt.selectedGalaxyShapeOption2;
         selectedNebulaeOption		= opt.selectedNebulaeOption;
         selectedNumberOpponents		= opt.selectedNumberOpponents;
-        setGalaxyShape();
+        setGalaxyShape(); 
         selectedGalaxyShapeOption1 = opt.selectedGalaxyShapeOption1;
         selectedGalaxyShapeOption2 = opt.selectedGalaxyShapeOption2;
     }
@@ -365,11 +365,11 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     public void copyOptions(IGameOptions o) { // BR: No more used
         if (!(o instanceof MOO1GameOptions))
             return;
-
+        
         // copy only the options that are immediately visible
         // .. not the advanced options
         MOO1GameOptions opt = (MOO1GameOptions) o;
-
+        
         selectedGalaxySize = opt.selectedGalaxySize;
         selectedGalaxyShape = opt.selectedGalaxyShape;
         selectedGalaxyShapeOption1 = opt.selectedGalaxyShapeOption1;
@@ -393,20 +393,20 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         selectedAIHostilityOption = opt.selectedAIHostilityOption;
         selectedColonizingOption = opt.selectedColonizingOption;
         selectedOpponentAIOption = opt.selectedOpponentAIOption;
-
+        
         if (opt.specificOpponentAIOption != null) {
             for (int i=0;i<specificOpponentAIOption.length;i++)
                 specificOpponentAIOption[i] = opt.specificOpponentAIOption[i];
         }
-
-        if (opt.player != null)
+        
+        if (opt.player != null) 
             player.copy(opt.player);
-
-        setGalaxyShape();
+        
+        setGalaxyShape(); 
         selectedGalaxyShapeOption1 = opt.selectedGalaxyShapeOption1;
         selectedGalaxyShapeOption2 = opt.selectedGalaxyShapeOption2;
 
-        generateGalaxy();
+        generateGalaxy(); 
     }
 
     @Override
@@ -496,7 +496,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 
         case SIZE_DYNAMIC: // BR: Added an option to select from the opponents number
         default:
-        	return min(maximumSystems(),
+        	return min(maximumSystems(), 
         			1 + Math.round(UserPreferences.prefStarsPerEmpire.get() // +1 for Orion
         					* (selectedNumberOpponents()+1))); // +1 for player
     }
@@ -505,7 +505,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     public int numberNebula() {
         if (selectedNebulaeOption().equals(NEBULAE_NONE))
             return 0;
-
+        
         float freq = 1.0f;
         switch(selectedNebulaeOption()) {
             case NEBULAE_RARE:     freq = 0.25f; break;
@@ -527,7 +527,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         int nStars = numberStarSystems();
         float sizeMult = nebulaSizeMult();
         int nNeb = (int) nStars/20;
-
+        
         return (int) (freq*nNeb/sizeMult/sizeMult);
     }
     @Override
@@ -535,7 +535,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         int nStars = numberStarSystems();
         if (nStars < 200)
             return 1;
-        else
+        else 
             return min(10,sqrt(nStars/200f));
     }
     public static void initAISortedList() { // BR: To retrieve AI name from its ID
@@ -598,7 +598,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	        default:
 	            return AI.FUSION;
         }
-    }
+    }    
     @Override
     public int selectedAI(Empire e) {
         if (e.isPlayer())
@@ -665,7 +665,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 //        return AI.FUSION;
 //    }
     @Override
-    public float hostileTerraformingPct() {
+    public float hostileTerraformingPct() { 
         switch(selectedTerraformingOption()) {
             case TERRAFORMING_NONE:  return 0.0f;
             case TERRAFORMING_REDUCED: return 0.5f;
@@ -677,9 +677,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         // this is a flat research rate adjustment. The method that calls this to calculate
         // the research cost already factors in the tech level (squared), the map sizes, and
         // the number of opponents.
-
+        
         // the various "slowing" options increase the research cost for higher tech levels
-
+        
         // modnar: adjust research costs to asymptotically reach their original scaling
         // mainly to keep low tech level costs similar to RESEARCH_NORMAL (1.00)
         // also corrects for old_SLOW's cheaper techLevel==2 and same cost techLevel==3
@@ -691,7 +691,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         // new_SLOWER:   1.20  1.25  1.40  1.58  1.77  1.96  2.14  2.32  2.49   3.97   5.14   6.14   7.03  10.52
         // old_SLOWEST:  3.16  3.87  4.47  5.00  5.48  5.92  6.32  6.71  7.07  10.00  12.25  14.14  15.81  22.36
         // new_SLOWEST:  1.24  1.36  1.75  2.21  2.68  3.15  3.61  4.06  4.49   8.17  11.10  13.60  15.81  24.55
-
+        
         float amt = BASE_RESEARCH_MOD;                  // default adjustment
         switch(selectedResearchRate()) {
             // mondar: add fast research option
@@ -706,12 +706,12 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             case RESEARCH_SLOWEST:
                 return amt*((3.0f*techLevel*sqrt(techLevel)+5.0f)/techLevel - 5.5f); // mondar: asymptotically similar
                 //return amt*sqrt(techLevel*5); // approx. 16x slower for level 50
-            default:
-                return amt;                   // no additional slowing.
+            default:  
+                return amt;                   // no additional slowing. 
         }
     }
     @Override
-    public  int baseAIRelationsAdj()       {
+    public  int baseAIRelationsAdj()       { 
         switch(selectedAIHostilityOption()) {
             case AI_HOSTILITY_LOWEST:  return 30;
             case AI_HOSTILITY_LOWER:   return 20;
@@ -720,7 +720,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             case AI_HOSTILITY_HIGHER:  return -20;
             case AI_HOSTILITY_HIGHEST: return -30;
             default: return 0;
-        }
+        } 
     }
 
     @Override
@@ -776,7 +776,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         if (Profiles.isStarProbabilityEnabled()) {
         	pcts = GalaxyOptions.modifyStarProbability(pcts);
         } // \BR:
-
+        
         float r = random();
         for (int i=0;i<pcts.length;i++) {
             if (r <= pcts[i]) {
@@ -803,12 +803,12 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
      */
     public static List<String> starTypeColors() {
     	return Arrays.asList("RED", "ORANGE", "YELLOW"
-    				 , "BLUE", "WHITE", "PURPLE");
+    				 , "BLUE", "WHITE", "PURPLE"); 
     }
 
     // BR: Made this String Array public
     /**
-     * @return List of all planetTypes Key
+     * @return List of all planetTypes Key 
      * in the sequence used by randomPlanet()
      */
     public static String[] planetTypes() {
@@ -829,11 +829,11 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     			PlanetType.TERRAN
     			};
     } // \BR
-
+    
     @Override
     public Planet randomPlanet(StarSystem s) {
         Planet p = new Planet(s);
-
+        
         // BR: Made this String Array public
         String[] planetTypes = planetTypes();
         // String[] planetTypes = { "PLANET_NONE", "PLANET_RADIATED", "PLANET_TOXIC", "PLANET_INFERNO",
@@ -871,9 +871,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         	pcts = GalaxyOptions.modifyPlanetProbability(pcts, s.starType().key());
         }
         // \BR
-
+ 
         float r = random();
-
+        
         // modnar: change PLANET_QUALITY settings, comment out poor to great settings
         /*
         switch(selectedPlanetQualityOption()) {
@@ -884,7 +884,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             case PLANET_QUALITY_GREAT:    r = 0.2f + (random() * 0.8f); break;
         }
         */
-
+        
         for (int i=0;i<pcts.length;i++) {
             if (r <= pcts[i]) {
                 typeIndex = i;
@@ -905,22 +905,22 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override
     public String randomPlayerStarType(Race r)     { return StarType.YELLOW; }
     @Override
-    public String randomRaceStarType(Race r)       {
+    public String randomRaceStarType(Race r)       { 
         List<String> types = new ArrayList<>();
         types.add(StarType.RED);
         types.add(StarType.ORANGE);
         types.add(StarType.YELLOW);
 
-        return random(types);
+        return random(types); 
     }
     @Override
-    public String randomOrionStarType()       {
+    public String randomOrionStarType()       { 
         List<String> types = new ArrayList<>();
         types.add(StarType.RED);
         types.add(StarType.ORANGE);
         types.add(StarType.YELLOW);
 
-        return random(types);
+        return random(types); 
     }
     @Override
     public Planet orionPlanet(StarSystem s) {
@@ -994,7 +994,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 // TODO BR:		list.add(SHAPE_BITMAP);
         return list;
     }
-
+	
     @Override
     public List<String> galaxyShapeOptions1() { return galaxyShape.options1(); }
     @Override
@@ -1195,7 +1195,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
     public static List<String> specificOpponentAIBaseOptions() { // BR: new access to base opponents
         return opponentAIBaseOptions(); // BR: to allow any possibilities
-    }
+    } 
     @Override
     public List<String> specificOpponentAIOptions() { // BR: new access to base opponents
         List<String> list = specificOpponentAIBaseOptions();
@@ -1204,7 +1204,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add(OPPONENT_AI_RANDOM_ADV);
         list.add(OPPONENT_AI_RANDOM_NOBAR);
         return list;
-    }
+    } 
     // BR: Made static method option
     public static LinkedList<String> baseRaceOptions() {
     	LinkedList<String> list = new LinkedList<>();
@@ -1242,167 +1242,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     public List<Integer> possibleColors() {
         return new ArrayList<>(colors);
     }
-
-    public static void setAllOptionsToDefault(MOO1GameOptions options) { // BR:
-     	setModOptionsToDefault();
-     	options.setDefaultOptionValues(); // needs showNewRaces updated
-		EditCustomRaceUI.instance().setToLocalDefault();
-		EditCustomRaceUI.instance().writeLocalOptions(options);
-    }
-    public static void readAllOptions(MOO1GameOptions options, MOO1GameOptions source) { // BR:
-    	copyAdvancedOptions(source, options);
-    	copyRaceOptions(source, options);
-    	copyGalaxyOptions(source, options);
-        readModOptions(source);
-        writeModOptions(options);
-    }
-    public static MOO1GameOptions getInitialOptions(MOO1GameOptions source) { // BR:
-    	// TODO BR: Optimize getInitialOptions(MOO1GameOptions source)
-    	MOO1GameOptions initialOptions = new MOO1GameOptions();
-    	writeAllOptions(source, initialOptions);
-    	writeAllOptions(source, source); // To reinitialize;
-    	return initialOptions;
-    }
-    public static void writeAllOptions(MOO1GameOptions options, MOO1GameOptions destination) { //BR:
-    	writeModOptions(destination);
-    	copyAdvancedOptions(options, destination);
-    	copyRaceOptions(options, destination);
-    	copyGalaxyOptions(options, destination);
-    }
-    public static void setModOptionsToDefault() { // BR:
-    	EditCustomRaceUI.instance().setToLocalDefault();
-    	for( InterfaceParam option : allModOptions)
-    		option.setFromDefault();
-    }
-    /**
-     * Read Modder's options from MOO1GameOptions dynamic parameters
-     * @param source
-     */
-    public static void readModOptions(MOO1GameOptions source) { // BR:
-    	for( InterfaceParam option : allModOptions)
-    		option.setFromOptions(source.dynamicOptions());
-        EditCustomRaceUI.instance().readLocalOptions(source);
-    }
-    /**
-     * Write Modder's options to MOO1GameOptions dynamic parameters
-     * @param destination
-     */
-    public static void writeModOptions(MOO1GameOptions destination) { // BR:
-    	for( InterfaceParam option : allModOptions)
-    		option.setOptions(destination.dynamicOptions());
-       	EditCustomRaceUI.instance().writeLocalOptions(destination);
-    }
-    public static void copyRaceOptions(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
-    	dest.selectedPlayerRace(src.selectedPlayerRace());
-    	dest.selectedPlayerColor(src.selectedPlayerColor());
-    }
-    public static void copyAliensAIOptions(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
-    	dest.selectedOpponentAIOption = src.selectedOpponentAIOption;
-        for (int i=0; i<dest.specificOpponentAIOption.length; i++)
-        	dest.specificOpponentAIOption[i] = src.specificOpponentAIOption[i];
-    }
-    public static void copyGalaxyOptions(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
-    	dest.selectedGalaxySize  = src.selectedGalaxySize;
-    	dest.selectedGalaxyShape = src.selectedGalaxyShape;
-    	String option1 = src.selectedGalaxyShapeOption1;
-    	String option2 = src.selectedGalaxyShapeOption2;
-    	dest.setGalaxyShape(); // No generate
-    	dest.selectedGalaxyShapeOption1 = option1;
-    	dest.selectedGalaxyShapeOption2 = option2;
-    	dest.selectedNumberOpponents = src.selectedNumberOpponents;
-    	dest.selectedGameDifficulty	 = src.selectedGameDifficulty;
-        for (int i=0; i<dest.opponentRaces.length; i++)
-        	dest.opponentRaces[i] = src.opponentRaces[i];
-        if(dest.specificOpponentCROption != null)
-	        for (int i=0; i<dest.specificOpponentCROption.length; i++)
-	        	dest.specificOpponentCROption[i] = src.specificOpponentCROption[i];
-    	copyAliensAIOptions(src, dest);
-        //dest.generateGalaxy(); // TODO BR: try to remove validate
-    }
-    public static void setDefaultRaceOptions(MOO1GameOptions dest) { // BR:
-        if (UserPreferences.showNewRaces.get()) // BR: limit randomness
-        	dest.selectedPlayerRace(dest.random(baseRaceOptions()));
-        else
-        	dest.selectedPlayerRace(dest.random(allRaceOptions()));
-    	dest.selectedPlayerColor(0);
-    	for (InterfaceParam option : optionsRace)
-    		option.setFromDefault();
-
-    }
-    public static void setDefaultGalaxyOptions(MOO1GameOptions dest) {
-    	dest.selectedGalaxySize			= SIZE_SMALL;
-    	dest.selectedGalaxyShape(dest.galaxyShapeOptions().get(0));
-    	dest.selectedNumberOpponents(dest.defaultOpponentsOptions());
-    	dest.selectedGameDifficulty		= DIFFICULTY_NORMAL;
-    	dest.selectedOpponentAIOption	= OPPONENT_AI_CRUEL;
-        for (int i=0;i<dest.opponentRaces.length;i++)
-        	dest.opponentRaces[i] = null;
-        for (int i=0;i<dest.specificOpponentAIOption.length;i++)
-        	dest.specificOpponentAIOption[i] = OPPONENT_AI_CRUEL;
-        String defVal = SpecificCROption.defaultSpecificValue().value;
-        if(dest.specificOpponentCROption != null)
-	        for (int i=0;i<dest.specificOpponentCROption.length;i++)
-	        	dest.specificOpponentCROption[i] = defVal;
-        dest.generateGalaxy();
-    }
-    public static void copyAdvancedOptions(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
-        dest.selectedGalaxyAge			= src.selectedGalaxyAge;
-        dest.selectedPlanetQualityOption = src.selectedPlanetQualityOption;
-        dest.selectedTerraformingOption = src.selectedTerraformingOption;
-        dest.selectedColonizingOption	= src.selectedColonizingOption;
-        dest.selectedResearchRate		= src.selectedResearchRate;
-        dest.selectedTechTradeOption	= src.selectedTechTradeOption;
-        dest.selectedRandomEventOption	= src.selectedRandomEventOption;
-        dest.selectedWarpSpeedOption	= src.selectedWarpSpeedOption;
-        dest.selectedFuelRangeOption	= src.selectedFuelRangeOption;
-        dest.selectedNebulaeOption		= src.selectedNebulaeOption;
-        dest.selectedCouncilWinOption	= src.selectedCouncilWinOption;
-        dest.selectedStarDensityOption	= src.selectedStarDensityOption;
-        dest.selectedRandomizeAIOption	= src.selectedRandomizeAIOption;
-        dest.selectedAutoplayOption		= src.selectedAutoplayOption;
-        dest.selectedAIHostilityOption	= src.selectedAIHostilityOption;
-   }
-
-    private void setDefaultOptionValues() {
-        selectedGalaxySize = SIZE_SMALL;
-        selectedGalaxyShape = galaxyShapeOptions().get(0);
-        selectedGalaxyAge = galaxyAgeOptions().get(1);
-        selectedNumberOpponents = defaultOpponentsOptions();
-        for (int i=0;i<opponentRaces.length;i++)
-        	opponentRaces[i] = null;
-        if (UserPreferences.showNewRaces.get()) // BR: limit randomness
-        	selectedPlayerRace(random(baseRaceOptions()));
-        else
-        	selectedPlayerRace(random(allRaceOptions()));
-        selectedGameDifficulty = DIFFICULTY_NORMAL;
-        selectedOpponentAIOption = OPPONENT_AI_CRUEL;
-        for (int i=0;i<specificOpponentAIOption.length;i++)
-		    specificOpponentAIOption[i] = OPPONENT_AI_CRUEL;
-        String defVal = SpecificCROption.defaultSpecificValue().value;
-        for (int i=0;i<specificOpponentCROption.length;i++)
-		    specificOpponentCROption[i] = defVal;
-        setToDefault();
-        generateGalaxy();
-    }
-    @Override
-    public void setToDefault() { // Advanced options
-        selectedGalaxyAge = GALAXY_AGE_NORMAL;
-        selectedPlanetQualityOption = PLANET_QUALITY_NORMAL;
-        selectedTerraformingOption = TERRAFORMING_NORMAL;
-        selectedColonizingOption = COLONIZING_NORMAL;
-        selectedResearchRate = RESEARCH_NORMAL;
-        selectedTechTradeOption = TECH_TRADING_YES;
-        selectedRandomEventOption = RANDOM_EVENTS_NO_MONSTERS;
-        selectedWarpSpeedOption = WARP_SPEED_NORMAL;
-        selectedFuelRangeOption = FUEL_RANGE_NORMAL;
-        selectedNebulaeOption = NEBULAE_NORMAL;
-        selectedCouncilWinOption = COUNCIL_REBELS;
-        selectedStarDensityOption = STAR_DENSITY_NORMAL;
-        selectedRandomizeAIOption = RANDOMIZE_AI_NONE;
-        selectedAutoplayOption = AUTOPLAY_OFF;
-        selectedAIHostilityOption = AI_HOSTILITY_NORMAL;
-    }
-    private void generateGalaxy() {
+    private void setAndGenerateGalaxy() {
+       	setBaseGalaxyShape();
         galaxyShape().quickGenerate();
     }
     private void generateGalaxy() { galaxyShape().quickGenerate(); }
@@ -1429,7 +1270,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 		empireColors.add(new Color(170,255,195)); // modnar: mint*
 		empireColors.add(new Color(128,128,0));   // modnar: olive**
 		//empireColors.add(new Color(255,215,180)); // modnar: apricot*
-
+		
         //empireColors.add(new Color(9,131,214));   // blue
         //empireColors.add(new Color(132,57,20));   // brown
         //empireColors.add(new Color(0,166,81));    // green
@@ -1454,7 +1295,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list1.add(7);
         list1.add(8);
         list1.add(9);
-
+		
         //secondary color list
         List<Integer> list1a = new ArrayList<>();
         list1a.add(10);
@@ -1471,7 +1312,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         List<Integer> list3 = new ArrayList<>(list2);
         List<Integer> list4 = new ArrayList<>(list2);
         List<Integer> list5 = new ArrayList<>(list2);
-
+            
         Collections.shuffle(list1);
         Collections.shuffle(list1a);
         Collections.shuffle(list2);
@@ -1547,7 +1388,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             default:
                 throw new RuntimeException(concat("Invalid star type for options: ", s.starType().key()));
         }
-
+        
         // modnar: change PLANET_QUALITY settings, 20% more Poor with LARGER, 20% less Poor with RICHER
         switch(selectedPlanetQualityOption()) {
             case PLANET_QUALITY_LARGER:   r1 *= 1.2f; r2 *= 1.2f; break;
@@ -1555,7 +1396,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             case PLANET_QUALITY_NORMAL:   break;
             default:    break;
         }
-
+        
         float r = random();
         if (r <= r1)
             p.setResourceUltraPoor();
@@ -1616,7 +1457,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             case PLANET_QUALITY_NORMAL:   break;
             default:    break;
         }
-
+        
         float r = random();
         if (r <= r1)
             p.setResourceRich();
@@ -1691,7 +1532,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 //    private static void setModSettingsToDefault() { // BR:
 //    	EditCustomRaceUI.instance().setToLocalDefault();
 //    	for( InterfaceParam option : allModOptions())
-//    		option.setFromDefault();
+//    		option.setFromDefault();   	
 //    }
     private void setBaseSettingsToDefault() {
     	setBaseGalaxySettingsToDefault();
@@ -2029,7 +1870,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 //    	// return initialOptions;
 //    }
 //    public static void loadAndUpdateFromInitialOptions(MOO1GameOptions options) {
-//    	setAllSettingsFromOptions(options, loadLastOptions());
+//    	setAllSettingsFromOptions(options, loadLastOptions());   		
 //    }
 //    public static void saveOptionsToGameOptions(MOO1GameOptions options) {
 //    	// writeModOptions(options);
@@ -2049,13 +1890,13 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 //    	saveOptions(options, Rotp.jarPath(), LAST_OPTIONS_FILE);
 //    }
 //    public static void loadAndUpdateFromGameOptions(MOO1GameOptions options) {
-//    	setAllSettingsFromOptions(options, loadGameOptions());
+//    	setAllSettingsFromOptions(options, loadGameOptions());   		
 //    }
 //    public static void loadAndUpdateFromUserOptions(MOO1GameOptions options) {
-//    	setAllSettingsFromOptions(options, loadUserOptions());
+//    	setAllSettingsFromOptions(options, loadUserOptions());   		
 //    }
 //    public static void loadAndUpdateFromLastOptions(MOO1GameOptions options) {
-//    	setAllSettingsFromOptions(options, loadLastOptions());
+//    	setAllSettingsFromOptions(options, loadLastOptions());   		
 //    }
 //    public static MOO1GameOptions loadGameOptions() {
 //   		return loadOptions(Rotp.jarPath(), GAME_OPTIONS_FILE);
@@ -2080,7 +1921,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	saveOptions(options, Rotp.jarPath(), fileName);
     }
     public static void loadAndUpdateFromFileName(MOO1GameOptions options, String fileName, String guiID) {
-    	setBaseAndModSettingsFromOptions(options, loadFileName(fileName), guiID);
+    	setBaseAndModSettingsFromOptions(options, loadFileName(fileName), guiID);   		
     }
     private static MOO1GameOptions loadFileName(String fileName) {
    		return loadOptions(Rotp.jarPath(), fileName);
@@ -2100,7 +1941,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         ZipOutputStream out = new ZipOutputStream(new FileOutputStream(saveFile));
         ZipEntry e = new ZipEntry("GameOptions.dat");
         out.putNextEntry(e);
-
+        
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream objOut = null;
         try {
@@ -2118,7 +1959,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             catch(IOException ex) {
     			ex.printStackTrace();
             	System.err.println("Options.save -- IOException: "+ ex.toString());
-            }
+            }            
         }
     }
     // BR: Options files initialization
@@ -2127,8 +1968,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     		Toolkit.getDefaultToolkit().beep();
 		MOO1GameOptions newOptions = new MOO1GameOptions();
 		newOptions.generateGalaxy();
-    	saveOptions(new MOO1GameOptions(), path, fileName);
-		return newOptions;
+    	saveOptions(new MOO1GameOptions(), path, fileName);			
+		return newOptions;    	
     }
     // BR: Load options from file
     private static MOO1GameOptions loadOptions(String path, String fileName) {
