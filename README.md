@@ -28,6 +28,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 2022.12.09 (BR)
   - Fixed "Change AI" setting the wrong Player AI.
   - Loading File with new options: Fixed "Autoplay"-option.
+  - Fixed Player "Use New Race" Random selection being inverted
 
 2022.12.08 (BR)
   - Fixed "Change AI" setting the wrong Opponent AI.
