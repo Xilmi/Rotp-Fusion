@@ -48,6 +48,9 @@ public class ParamObject extends AbstractParam<Serializable> {
 	@Override public void setOptions(DynamicOptions options) {
 		options.setObject(labelId(), get());
 	}
+	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
+		dest.setObject(labelId(), (Serializable) src.getObject(labelId(), defaultValue()));
+	}
 	// ===== Other Methods =====
 	//
 }

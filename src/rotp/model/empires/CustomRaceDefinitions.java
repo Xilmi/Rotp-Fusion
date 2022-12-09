@@ -18,6 +18,7 @@ package rotp.model.empires;
 
 import static rotp.model.empires.Race.crEmpireNameRandom;
 import static rotp.model.game.DynOptions.loadOptions;
+import static rotp.model.game.MOO1GameOptions.baseRaceOptions;
 import static rotp.ui.UserPreferences.playerCustomRace;
 import static rotp.ui.UserPreferences.randomAlienRaces;
 import static rotp.ui.UserPreferences.randomAlienRacesMax;
@@ -54,7 +55,7 @@ public class CustomRaceDefinitions  {
 	public	static final String ROOT	= "CUSTOM_RACE_";
 	private	static final String PLANET	= "PLANET_";
 	private	static final String EXT		= ".race";
-	private static final String baseRace = MOO1GameOptions.baseRaceOptions().getFirst();
+	private static final String baseRace = baseRaceOptions().getFirst();
 	public	static final String RANDOMIZED_RACE_KEY	= "RANDOMIZED_RACE";
 	public	static final String RANDOM_RACE_KEY		= "RANDOM_RACE_KEY";
 	public	static final String CUSTOM_RACE_KEY		= "CUSTOM_RACE_KEY";
@@ -154,7 +155,7 @@ public class CustomRaceDefinitions  {
 		return new CustomRaceDefinitions(raceKey).getRace();
 	}
 	public static DynOptions getDefaultOptions() {
-		return new CustomRaceDefinitions().getAsOptions();
+		return new CustomRaceDefinitions(baseRace).getAsOptions();
 	}
 	public static LinkedList<String> getBaseRacList() {
 		return getRaceFileList()
@@ -372,7 +373,7 @@ public class CustomRaceDefinitions  {
 			setting.pullSetting();
 		}
 	}
-	private float updateSettings() {
+	public float updateSettings() {
 		for (SettingBase<?> setting : settingList) {
 			setting.updateGui();
 		}
@@ -622,7 +623,7 @@ public class CustomRaceDefinitions  {
 	//
 	private class RaceKey extends SettingString {
 		private RaceKey() {
-			super(ROOT, "RACE_KEY", "CustomRace", 1);
+			super(ROOT, "RACE_KEY", baseRace, 1);
 			inputMessage("Enter the Race File Name");
 			randomStr(RANDOMIZED_RACE_KEY);
 		}

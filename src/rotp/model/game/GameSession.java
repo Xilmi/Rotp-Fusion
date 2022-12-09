@@ -15,6 +15,11 @@
  */
 package rotp.model.game;
 
+import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
+import static rotp.model.game.MOO1GameOptions.saveOptionsToFileName;
+import static rotp.ui.UserPreferences.ALL_GUI_ID;
+import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
+import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.menuLoadGame;
 
 import java.io.BufferedInputStream;
@@ -43,6 +48,7 @@ import java.util.concurrent.ThreadFactory;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
+
 import rotp.Rotp;
 import rotp.mod.br.profiles.Profiles;
 import rotp.model.empires.Empire;
@@ -52,13 +58,15 @@ import rotp.model.empires.Leader;
 import rotp.model.empires.Race;
 import rotp.model.empires.SabotageMission;
 import rotp.model.empires.Spy;
-import rotp.model.galaxy.*;
+import rotp.model.galaxy.Galaxy;
+import rotp.model.galaxy.GalaxyFactory;
 import rotp.model.galaxy.GalaxyFactory.GalaxyCopy;
+import rotp.model.galaxy.ShipFleet;
+import rotp.model.galaxy.StarSystem;
+import rotp.model.galaxy.Transport;
+import rotp.model.ships.ShipDesign;
 import rotp.model.ships.ShipManeuver;
 import rotp.model.ships.ShipSpecial;
-import rotp.ui.notifications.GNNExpansionEvent;
-import rotp.ui.notifications.GNNRankingNoticeCheck;
-import rotp.model.ships.ShipDesign;
 import rotp.model.ships.ShipWeapon;
 import rotp.model.tech.Tech;
 import rotp.model.tech.TechTree;
@@ -66,6 +74,8 @@ import rotp.ui.NoticeMessage;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.GameUI;
+import rotp.ui.notifications.GNNExpansionEvent;
+import rotp.ui.notifications.GNNRankingNoticeCheck;
 import rotp.ui.notifications.GameAlert;
 import rotp.ui.notifications.SabotageNotification;
 import rotp.ui.notifications.ShipConstructionNotification;
@@ -842,14 +852,15 @@ public final class GameSession implements Base, Serializable {
         stopCurrentGame();
         instance = gs;
         // BR: save the last loaded game initial parameters
-		MOO1GameOptions.saveGameOptions((MOO1GameOptions) instance.options);
+		saveOptionsToFileName((MOO1GameOptions) instance.options, GAME_OPTIONS_FILE);
+
 
 		// BR: If required, set all game options
         System.out.println("==================== loadPreviousSession ====================");
     	if (menuLoadGame.isLast()) {
     		System.out.println("Game Loaded Current GUI options");
     		// Load the options and set the GUI
-    		MOO1GameOptions.readAllOptions(
+    		MOO1GameOptions.setAllSettingsFromOptions(
     				(MOO1GameOptions) instance.options, 
     				(MOO1GameOptions) newGameOptions());
     		//MOO1GameOptions.loadLastOptions((MOO1GameOptions) instance.options);
@@ -857,17 +868,18 @@ public final class GameSession implements Base, Serializable {
     	else if (menuLoadGame.isUser()) {
     		System.out.println("Game Loaded User.options");
     		// Load the options and set the GUI
-    		MOO1GameOptions.loadUserOptions((MOO1GameOptions) instance.options);
+			loadAndUpdateFromFileName((MOO1GameOptions) instance.options, USER_OPTIONS_FILE, ALL_GUI_ID);
+
     	}
     	else if (menuLoadGame.isDefault()) {
     		System.out.println("Game Loaded Default options");
     		// Reset the options and reset the GUI
-    		MOO1GameOptions.setAllOptionsToDefault((MOO1GameOptions) instance.options);
+    		MOO1GameOptions.setAllSettingsToDefault((MOO1GameOptions) instance.options);
     	}
     	else if (menuLoadGame.isGame()) {
     		System.out.println("Game Set the GUI with the Game options");
     		// Set the GUI with the Game options
-    		MOO1GameOptions.readModOptions((MOO1GameOptions) instance.options);
+    		MOO1GameOptions.setModSettingsFromOptions((MOO1GameOptions) instance.options);
     	}
     	// else vanilla Nothing special to do
     	else System.out.println("Old Ways Game Loaded Nothing");

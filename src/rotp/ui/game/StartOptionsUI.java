@@ -15,10 +15,18 @@
  */
 package rotp.ui.game;
 
-import static rotp.ui.UserPreferences.loadLocalSettings;
-import static rotp.ui.UserPreferences.saveLocalSettings;
+import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
+import static rotp.model.game.MOO1GameOptions.saveOptionsToFileName;
+import static rotp.model.game.MOO1GameOptions.setAllSettingsToDefault;
+import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
+import static rotp.ui.UserPreferences.ALL_GUI_ID;
+import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
+import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
+import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
+import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonWidth;
+import static rotp.ui.util.AbstractOptionsUI.lastButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.okButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.userButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.userButtonWidth;
@@ -41,7 +49,6 @@ import java.util.List;
 import javax.swing.SwingUtilities;
 
 import rotp.mod.br.profiles.Profiles;
-import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.main.SystemPanel;
@@ -50,34 +57,35 @@ import rotp.ui.util.Modifier2KeysState;
 public class StartOptionsUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
     private static final long serialVersionUID	= 1L;
     private static final Color backgroundHaze	= new Color(0,0,0,160);
-	public  static final String guiTitleID		= "SETTINGS_TITLE";
+	private static final String guiTitleID		= "SETTINGS_TITLE";
+	public  static final String GUI_ID          = "ADVANCED_OPTIONS";
     
-    public static final Color lightBrown = new Color(178,124,87);
-    public static final Color brown = new Color(141,101,76);
-    public static final Color darkBrown = new Color(112,85,68);
-    public static final Color darkerBrown = new Color(75,55,39);
+//    public static final Color lightBrown = new Color(178,124,87);
+//    public static final Color brown = new Color(141,101,76);
+//    public static final Color darkBrown = new Color(112,85,68);
+//    public static final Color darkerBrown = new Color(75,55,39);
     
     private Rectangle hoverBox;
     private Rectangle okBox		 = new Rectangle();
     private Rectangle defaultBox = new Rectangle();
+	private Rectangle lastBox	 = new Rectangle();
     private Rectangle userBox	 = new Rectangle();
-    BasePanel parent;
-    BaseText galaxyAgeText;
-    BaseText starDensityText;
-    BaseText nebulaeText;
-    BaseText randomEventsText;
-    BaseText planetQualityText;
-    BaseText terraformingText;
-    BaseText colonizingText;
-    BaseText councilWinText;
-    BaseText randomizeAIText;
-    BaseText autoplayText;
-    BaseText researchRateText;
-    BaseText warpSpeedText;
-    BaseText fuelRangeText;
-    BaseText techTradingText;
-    BaseText aiHostilityText;
-    private MOO1GameOptions initialOptions; // BR: To be restored if "cancel"
+    private BasePanel parent;
+    private BaseText galaxyAgeText;
+    private BaseText starDensityText;
+    private BaseText nebulaeText;
+    private BaseText randomEventsText;
+    private BaseText planetQualityText;
+    private  BaseText terraformingText;
+    private BaseText colonizingText;
+    private BaseText councilWinText;
+    private BaseText randomizeAIText;
+    private BaseText autoplayText;
+    private BaseText researchRateText;
+    private BaseText warpSpeedText;
+    private  BaseText fuelRangeText;
+    private BaseText techTradingText;
+    private BaseText aiHostilityText;
     
     public StartOptionsUI() {
         init0();
@@ -104,7 +112,7 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
         addMouseMotionListener(this);
         addMouseWheelListener(this);
     }
-    public void init() {
+    private void init() {
         galaxyAgeText.displayText(galaxyAgeStr());
         starDensityText.displayText(starDensityStr());
         nebulaeText.displayText(nebulaeStr());
@@ -121,37 +129,36 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
         warpSpeedText.displayText(warpSpeedStr());
         aiHostilityText.displayText(aiHostilityStr());
     }
-    public void open(BasePanel p) {
+    void open(BasePanel p) {
         parent = p;
 		Modifier2KeysState.reset();
-		initialOptions = MOO1GameOptions.getInitialOptions(guiOptions());
+		saveOptionsToFileName(guiOptions(), LIVE_OPTIONS_FILE);
         init();
         enableGlassPane(this);
     }
-    public void close() {
+    private void close() {
 		Modifier2KeysState.reset();
-		initialOptions = null;
         disableGlassPane();
 		newGameOptions().galaxyShape().quickGenerate(); // BR: to avoid strange galaxy display
     }
-    private void copyOptions(MOO1GameOptions src, MOO1GameOptions dest) {
-    	MOO1GameOptions.copyAdvancedOptions(src, dest);
-    }
-	private void writeOptions(MOO1GameOptions destination) {
-		copyOptions(guiOptions(), destination);
-	}
-	private void readOptions(MOO1GameOptions source) {
-		copyOptions(source, guiOptions());
-	}
+//    private void copyOptions(MOO1GameOptions src, MOO1GameOptions dest) {
+//    	MOO1GameOptions.copyAdvancedOptions(src, dest);
+//    }
+//	private void writeOptions(MOO1GameOptions destination) {
+//		copyOptions(guiOptions(), destination);
+//	}
+//	private void readOptions(MOO1GameOptions source) {
+//		copyOptions(source, guiOptions());
+//	}
     private void doOkBoxAction() {
 		buttonClick();
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Restore
-			MOO1GameOptions.readAllOptions(guiOptions(), initialOptions);
+			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 			break;
 		default: // Save
-			MOO1GameOptions.saveLastOptions(guiOptions());
+			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 			break; 
 		}
 		close();
@@ -160,24 +167,14 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
 		buttonClick();
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
-		case CTRL_SHIFT: // set to last
-			if (loadLocalSettings.get())
-				readOptions(MOO1GameOptions.loadLastOptions());
-			else
-				MOO1GameOptions.loadLastOptions(guiOptions());
+		case CTRL_SHIFT: // cancelKey
+			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);		
 			break;
-		case SHIFT: // set to last game options
-			if (options() != null)
-				if (loadLocalSettings.get())
-					readOptions(MOO1GameOptions.loadGameOptions());
-				else
-					MOO1GameOptions.loadGameOptions(guiOptions());
-			break;
-		default: // set to default
-			if (loadLocalSettings.get())
-				newGameOptions().setToDefault();
-			else
-				MOO1GameOptions.setAllOptionsToDefault(guiOptions());		
+		case SHIFT: // setLocalDefaultKey
+			setAllSettingsToDefault(guiOptions(), GUI_ID);		
+			break; 
+		default: // setGlobalDefaultKey
+			setAllSettingsToDefault(guiOptions(), ALL_GUI_ID);		
 			break; 
 		}
 		init();
@@ -186,27 +183,46 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
 	private void doUserBoxAction() {
 		buttonClick();
 		switch (Modifier2KeysState.get()) {
-		case CTRL:
-		case CTRL_SHIFT: // Save
-			if (saveLocalSettings.get())
-				saveUserOptions();
-			else
-				MOO1GameOptions.saveUserOptions(guiOptions());
-			break;
-		default: // Set
-			if (loadLocalSettings.get())
-				readOptions(MOO1GameOptions.loadUserOptions());				
-			else
-				MOO1GameOptions.loadUserOptions(guiOptions());
+		case CTRL: // saveGlobalUserKey
+			updateOptionsAndSaveToFileName(guiOptions(), USER_OPTIONS_FILE, ALL_GUI_ID);
+			return;
+		case CTRL_SHIFT: // saveLocalUserKey
+			updateOptionsAndSaveToFileName(guiOptions(), USER_OPTIONS_FILE, GUI_ID);
+			return;
+		case SHIFT: // setLocalUserKey
+			loadAndUpdateFromFileName(guiOptions(), USER_OPTIONS_FILE, GUI_ID);
+			init();
+			repaint();
+			return;
+		default: // setGlobalUserKey
+			loadAndUpdateFromFileName(guiOptions(), USER_OPTIONS_FILE, ALL_GUI_ID);
 			init();
 			repaint();
 		}
 	}
- 	private void saveUserOptions() {
-		MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
-		writeOptions(fileOptions);
-		MOO1GameOptions.saveUserOptions(fileOptions);
+	private void doLastBoxAction() {
+		buttonClick();
+		switch (Modifier2KeysState.get()) {
+		case CTRL: // setGlobalGameKey
+			loadAndUpdateFromFileName(guiOptions(), GAME_OPTIONS_FILE, ALL_GUI_ID);
+			break;
+		case CTRL_SHIFT: // setLocalGameKey
+			loadAndUpdateFromFileName(guiOptions(), GAME_OPTIONS_FILE, GUI_ID);
+			break;
+		case SHIFT: // setLocalLastKey
+			loadAndUpdateFromFileName(guiOptions(), LAST_OPTIONS_FILE, GUI_ID);
+			break;
+		default: // setGlobalLastKey
+			loadAndUpdateFromFileName(guiOptions(), LAST_OPTIONS_FILE, ALL_GUI_ID);
+		}
+		init();
+		repaint();
 	}
+//	private void saveUserOptions() {
+//		MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
+//		writeOptions(fileOptions);
+//		MOO1GameOptions.updateOptionsAndSaveToUserOptions(fileOptions);
+//	}
 	private void checkModifierKey(InputEvent e) {
 		if (Modifier2KeysState.checkForChange(e)) {
 			repaint();
@@ -533,44 +549,56 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
         g.setColor(GameUI.buttonBackgroundColor());
         g.fillRoundRect(okBox.x, okBox.y, smallButtonW, smallButtonH, cnr, cnr);
         g.setFont(narrowFont(20));
-        String text6 = text(okButtonKey());
-        int sw6 = g.getFontMetrics().stringWidth(text6);
-        int x6 = okBox.x+((okBox.width-sw6)/2);
-        int y6 = okBox.y+okBox.height-s8;
-        Color c6 = hoverBox == okBox ? Color.yellow : GameUI.borderBrightColor();
-        drawShadowedString(g, text6, 2, x6, y6, GameUI.borderDarkColor(), c6);
+        String text = text(okButtonKey());
+        sw = g.getFontMetrics().stringWidth(text);
+        int x = okBox.x+((okBox.width-sw)/2);
+        int y = okBox.y+okBox.height-s8;
+        Color c = hoverBox == okBox ? Color.yellow : GameUI.borderBrightColor();
+        drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), c);
         prev = g.getStroke();
         g.setStroke(stroke1);
         g.drawRoundRect(okBox.x, okBox.y, okBox.width, okBox.height, cnr, cnr);
         g.setStroke(prev);
 
-		String text7 = text(defaultButtonKey());
-        int sw7		 = g.getFontMetrics().stringWidth(text7);
+		text = text(defaultButtonKey());
+        sw	 = g.getFontMetrics().stringWidth(text);
 		smallButtonW = defaultButtonWidth(g);
         defaultBox.setBounds(okBox.x-smallButtonW-s30, y4, smallButtonW, smallButtonH);
         g.setColor(GameUI.buttonBackgroundColor());
         g.fillRoundRect(defaultBox.x, defaultBox.y, smallButtonW, smallButtonH, cnr, cnr);
         g.setFont(narrowFont(20));
-        int x7 = defaultBox.x+((defaultBox.width-sw7)/2);
-        int y7 = defaultBox.y+defaultBox.height-s8;
-        Color c7 = hoverBox == defaultBox ? Color.yellow : GameUI.borderBrightColor();
-        drawShadowedString(g, text7, 2, x7, y7, GameUI.borderDarkColor(), c7);
+        x = defaultBox.x+((defaultBox.width-sw)/2);
+        y = defaultBox.y+defaultBox.height-s8;
+        c = hoverBox == defaultBox ? Color.yellow : GameUI.borderBrightColor();
+        drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), c);
         prev = g.getStroke();
         g.setStroke(stroke1);
         g.drawRoundRect(defaultBox.x, defaultBox.y, defaultBox.width, defaultBox.height, cnr, cnr);
         g.setStroke(prev);
 
-		String text8 = text(userButtonKey());
-        int sw8 	 = g.getFontMetrics().stringWidth(text8);
+        // BR: Last Button 
+		text = text(lastButtonKey());
+        sw  = g.getFontMetrics().stringWidth(text);
+		x = lastBox.x+((lastBox.width-sw)/2);
+		y = lastBox.y+lastBox.height-s8;
+		c = hoverBox == lastBox ? Color.yellow : GameUI.borderBrightColor();
+		drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), c);
+		prev = g.getStroke();
+		g.setStroke(stroke1);
+		g.drawRoundRect(lastBox.x, lastBox.y, lastBox.width, lastBox.height, cnr, cnr);
+		g.setStroke(prev);
+
+		text = text(userButtonKey());
+        sw 	 = g.getFontMetrics().stringWidth(text);
 		smallButtonW = userButtonWidth(g);
 		userBox.setBounds(defaultBox.x-smallButtonW-s30, y4, smallButtonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(userBox.x, userBox.y, smallButtonW, smallButtonH, cnr, cnr);
 		g.setFont(narrowFont(20));
-		int x8 = userBox.x+((userBox.width-sw8)/2);
-		int y8 = userBox.y+userBox.height-s8;
-		Color c8 = hoverBox == userBox ? Color.yellow : GameUI.borderBrightColor();
-		drawShadowedString(g, text8, 2, x8, y8, GameUI.borderDarkColor(), c8);
+		x = userBox.x+((userBox.width-sw)/2);
+		y = userBox.y+userBox.height-s8;
+		c = hoverBox == userBox ? Color.yellow : GameUI.borderBrightColor();
+		drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), c);
 		prev = g.getStroke();
 		g.setStroke(stroke1);
 		g.drawRoundRect(userBox.x, userBox.y, userBox.width, userBox.height, cnr, cnr);
@@ -822,6 +850,8 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
             hoverBox = defaultBox;
         else if (userBox.contains(x,y))
             hoverBox = userBox;
+        else if (lastBox.contains(x,y))
+            hoverBox = lastBox;
 		
         if (hoverBox != prevHover) {
             if (prevHover == galaxyAgeText.bounds())
@@ -908,6 +938,8 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
         	doDefaultBoxAction();
         else if (hoverBox == userBox)
 			doUserBoxAction();
+        else if (hoverBox == lastBox)
+			doLastBoxAction();
     }
     @Override
     public void mouseEntered(MouseEvent e) { }

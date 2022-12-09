@@ -88,6 +88,9 @@ public class ParamInteger extends AbstractParam<Integer> {
 	@Override public void setOptions(DynamicOptions options) {
 		options.setInteger(labelId(), get());
 	}
+	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
+		dest.setInteger(labelId(), src.getInteger(labelId(), defaultValue()));
+	}
 	// ===== Other Methods =====
 	//
 	public void next(MouseEvent e) { next(Math.abs(getInc(e))); }

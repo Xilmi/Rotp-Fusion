@@ -47,6 +47,9 @@ public class ParamString extends AbstractParam<String> {
 	@Override public void setOptions(DynamicOptions options) {
 		options.setString(labelId(), get());
 	}
+	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
+		dest.setString(labelId(), src.getString(labelId(), defaultValue()));
+	}
 	// ===== Other Methods =====
 	//
 }

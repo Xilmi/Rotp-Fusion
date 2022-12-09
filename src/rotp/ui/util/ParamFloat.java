@@ -126,6 +126,9 @@ public class ParamFloat extends AbstractParam<Float> {
 	@Override public void setOptions(DynamicOptions options) {
 		options.setFloat(labelId(), get());
 	}
+	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
+		dest.setFloat(labelId(), src.getFloat(labelId(), defaultValue()));
+	}
 	// ========== Other Methods ==========
 	//
 	public void next(MouseEvent e) { next(Math.abs(getInc(e))); }

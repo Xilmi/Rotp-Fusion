@@ -54,6 +54,9 @@ public class ParamBoolean extends AbstractParam<Boolean> {
 	@Override public void setOptions(DynamicOptions options) {
 		options.setBoolean(labelId(), get());
 	}
+	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
+		dest.setBoolean(labelId(), src.getBoolean(labelId(), defaultValue()));
+	}
 	// ===== Other Methods =====
 	//
 	public void toggle() { next(); }

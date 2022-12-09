@@ -214,7 +214,7 @@ public interface IGameOptions {
         }
     }
     public String name();
-    public void setToDefault();
+    public void setAdvancedOptionsToDefault();
 
     public int numberStarSystems();
     public int numberStarSystems(String size); // BR: For Profile Manager comments

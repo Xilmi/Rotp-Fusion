@@ -24,9 +24,10 @@ import rotp.ui.util.AbstractOptionsUI;
 public class StartModBOptionsUI extends AbstractOptionsUI {
 	private static final long serialVersionUID = 1L;
 	public static final String guiTitleID = "SETTINGS_MOD_TITLE_B";
+	public static final String GUI_ID     = "START_MOD_B";
 
 	public StartModBOptionsUI() {
-		super(guiTitleID);
+		super(guiTitleID, GUI_ID);
 	}
 	@Override protected void init0() {
 		paramList	  = optionsB;

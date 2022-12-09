@@ -1375,11 +1375,16 @@ CUSTOM_RACE_SHOW_TITLE            | Species' Abilities
 CUSTOM_RACE_GUI_COST              | Total Value: %1
 CUSTOM_RACE_CANCEL_DESC           | Cancel settings changes and Exit Panel.
 CUSTOM_RACE_EXIT_DESC             | Save as Last Settings and Exit Panel.
-CUSTOM_RACE_DEFAULT_DESC          | Load default options values.
-CUSTOM_RACE_LAST_GAME_DESC        | Get options values from last played game.
-CUSTOM_RACE_LAST_SET_DESC         | Get options values from last Gui (From File).
-CUSTOM_RACE_USER_SET_DESC         | Get User's preferred options values (From File).
-CUSTOM_RACE_USER_SAVE_DESC        | Save current options values as User's preferred options (To File).
+CUSTOM_RACE_GLOBAL_DEFAULT_DESC   | Set all GUI with default options values.
+CUSTOM_RACE_LOCAL_DEFAULT_DESC    | Set only this GUI with Load default options values.
+CUSTOM_RACE_GLOBAL_LAST_GAME_DESC | Set all GUI options values from last played game.
+CUSTOM_RACE_LOCAL_LAST_GAME_DESC  | Set only this GUI options values from last played game.
+CUSTOM_RACE_GLOBAL_LAST_SET_DESC  | Set all GUI options values from last Gui (From File).
+CUSTOM_RACE_LOCAL_LAST_SET_DESC   | Set only this GUI options values from last Gui (From File).
+CUSTOM_RACE_GLOBAL_USER_SET_DESC  | Set all GUI User's preferred options values (From File).
+CUSTOM_RACE_LOCAL_USER_SET_DESC   | Set only this GUI User's preferred options values (From File).
+CUSTOM_RACE_GLOBAL_USER_SAVE_DESC | Save all GUI current options values to User's preferred options (To File).
+CUSTOM_RACE_LOCAL_USER_SAVE_DESC  | Save only this GUI current options values to User's preferred options (To File).
 CUSTOM_RACE_GUI_SELECT_DESC       | Save Current Race, Select it as Player Race, Save as Last Settings and Exit Panel
 CUSTOM_RACE_GUI_SELECT            | Select
 CUSTOM_RACE_GUI_RANDOM_DESC       | Randomize the race following the above settings
@@ -1512,12 +1517,17 @@ CUSTOM_RACE_ENVIRONMENT_NORMAL    | Normal
 SETTINGS_TITLE                    | Advanced Game Options
 SETTINGS_DESCRIPTION              | Click, Right-Click, or Scroll to toggle each game setting.
 SETTINGS_EXIT                     | Exit
-SETTINGS_CANCEL                   | Cancel
-SETTINGS_DEFAULT                  | Set to Default
-SETTINGS_LAST_GAME                | Set to Last Game
-SETTINGS_LAST_SET                 | Set to Last
-SETTINGS_USER_SET                 | Load User's Settings
-SETTINGS_USER_SAVE                | Save User's Settings
+SETTINGS_CANCEL                   | Cancel Changes
+SETTINGS_LOCAL_DEFAULT            | get Default
+SETTINGS_GLOBAL_DEFAULT           | GET Default
+SETTINGS_LOCAL_LAST_GAME          | get Last Game
+SETTINGS_GLOBAL_LAST_GAME         | GET Last Game
+SETTINGS_LOCAL_LAST_SET           | get Last settings
+SETTINGS_GLOBAL_LAST_SET          | GET Last settings
+SETTINGS_LOCAL_USER_SET           | get User's settings
+SETTINGS_GLOBAL_USER_SET          | GET User's settings
+SETTINGS_LOCAL_USER_SAVE          | save User's settings
+SETTINGS_GLOBAL_USER_SAVE         | SAVE User's settings
 SETTINGS_STAR_DENSITY             | Star Density: %1
 SETTINGS_RANDOM_EVENTS            | Random Events: %1
 SETTINGS_RESEARCH_RATE            | Research Rate: %1

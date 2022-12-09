@@ -32,6 +32,8 @@ import rotp.Rotp;
 import rotp.model.empires.GalacticCouncil;
 import rotp.model.events.RandomEvents;
 import rotp.model.game.GameSession;
+import rotp.model.game.MOO1GameOptions;
+import rotp.ui.game.EditCustomRaceUI;
 import rotp.ui.util.GlobalCROptions;
 import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.ParamAAN2;
@@ -77,6 +79,7 @@ public class UserPreferences {
 	private static final String PREFERENCES_FILE  = "Remnants.cfg";
 	public  static final String GAME_OPTIONS_FILE = "Game.options";
 	public  static final String LAST_OPTIONS_FILE = "Last.options";
+	public  static final String LIVE_OPTIONS_FILE = "Live.options";
 	public  static final String USER_OPTIONS_FILE = "User.options";
 	public  static final String GALAXY_TEXT_FILE  = "Galaxy.txt";
 	private static final int MAX_BACKUP_TURNS = 20; // modnar: change max turns between backups to 20
@@ -86,6 +89,7 @@ public class UserPreferences {
 	public static final String BASE_UI = "SETUP_";
 	public static final String ADV_UI  = "SETTINGS_";
 	public static final String MOD_UI  = "SETTINGS_MOD_";
+	public static final String ALL_GUI_ID = "ALL_GUI";
 
 	// MOD GUI OPTIONS: I don't likes informations spread everywhere... Then here they are!
 	// BR: ===== First Mod GUI: 
@@ -270,20 +274,22 @@ public class UserPreferences {
 		};
 		public static final ParamBoolean showNextCouncil = new ParamBoolean(
 				MOD_UI, "SHOW_NEXT_COUNCIL", false);
-		public static final ParamBoolean loadLocalSettings = new ParamBoolean(
-				MOD_UI, "LOAD_LOCAL", true);
-		public static final ParamBoolean saveLocalSettings = new ParamBoolean(
-				MOD_UI, "SAVE_LOCAL", true);
+//		public static final ParamBoolean loadLocalSettings = new ParamBoolean(
+//				MOD_UI, "LOAD_LOCAL", true);
+//		public static final ParamBoolean saveLocalSettings = new ParamBoolean(
+//				MOD_UI, "SAVE_LOCAL", true);
 
 	// This list is used by the ModGlobalOptionsUI menu
 	public static final LinkedList<InterfaceParam> modGlobalOptionsUI = new LinkedList<>(
 			Arrays.asList(
 			menuStartup, menuAfterGame, menuLoadGame,
-			loadLocalSettings, saveLocalSettings, showGridCircular, showTooltips,
+//			loadLocalSettings, saveLocalSettings, showGridCircular, showTooltips,
+			showGridCircular, showTooltips,
 			showFleetFactor, showFlagFactor, showPathFactor, useFusionFont,
 			showNameMinFont, showInfoFontRatio, mapFontFactor, showNextCouncil
 			));
-	public static final Integer[] rowCountList = {3, 4, 4, 4}; // ModGlobalOptionsUI alignment
+	public static final Integer[] rowCountList = {3, 2, 4, 4}; // ModGlobalOptionsUI alignment
+//	public static final Integer[] rowCountList = {3, 4, 4, 4}; // ModGlobalOptionsUI alignment
 
 	// BR: Galaxy Menu addition
 	public static final ParamBoolean showNewRaces = new ParamBoolean(
@@ -295,7 +301,8 @@ public class UserPreferences {
 
 	public static final LinkedList<InterfaceParam> optionsGalaxy = new LinkedList<>(
 			Arrays.asList(
-					showNewRaces, globalCROptions, useSelectableAbilities
+					showNewRaces, globalCROptions, useSelectableAbilities,
+					prefStarsPerEmpire // This one is a duplicate, but it helps readability
 					));
 
 	// BR: Race Menu addition
@@ -304,20 +311,34 @@ public class UserPreferences {
 	public static final ParamBoolean playerIsCustom = new ParamBoolean(
 			BASE_UI, "BUTTON_CUSTOM_PLAYER_RACE", false);
 	public static final ParamCR  playerCustomRace = new ParamCR(
-			MOD_UI, "PLAYER_CR");
+			MOD_UI, MOO1GameOptions.baseRaceOptions().getFirst());
 
 	public static final LinkedList<InterfaceParam> optionsRace = new LinkedList<>(
 			Arrays.asList(
 					playerShipSet, playerIsCustom, playerCustomRace
 					));
 
+	// BR: Custom Race Menu
+	public static final LinkedList<InterfaceParam> optionsCustomRaceBase = new LinkedList<>(
+			Arrays.asList(
+					playerIsCustom, playerCustomRace
+					));
+	public static LinkedList<InterfaceParam> optionsCustomRace() {
+		LinkedList<InterfaceParam> list = new LinkedList<>();
+		list.addAll(EditCustomRaceUI.instance().commonList);
+		list.addAll(optionsCustomRaceBase);
+		return list;
+	}
+	
 	// BR: All the parameters
-	public static final LinkedList<InterfaceParam> allModOptions = new LinkedList<>();
-	static {
+	public static LinkedList<InterfaceParam> allModOptions() {
+		LinkedList<InterfaceParam> allModOptions = new LinkedList<>();
 		allModOptions.addAll(optionsA);
 		allModOptions.addAll(optionsB);
 		allModOptions.addAll(optionsGalaxy);
 		allModOptions.addAll(optionsRace);
+//		allModOptions.addAll(optionsCustomRace());
+		return allModOptions;
 	}
 
 	private static boolean showMemory = false;

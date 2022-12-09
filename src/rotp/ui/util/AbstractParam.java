@@ -100,6 +100,9 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	@Override public void setOptions(DynamicOptions options) {
 		options.setString(labelId(), getCfgValue());
 	}
+	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
+		dest.setString(labelId(), src.getString(labelId(), getCfgValue(defaultValue())));
+	}
 	@Override public String getCfgValue() { return getCfgValue(value); }
 	@Override public String getCfgLabel() { return name; }
 	@Override public String getGuiDescription() { return text(descriptionId()); }

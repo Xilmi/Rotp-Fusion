@@ -16,14 +16,23 @@
 package rotp.ui.game;
 
 import static rotp.model.empires.CustomRaceDefinitions.ROOT;
+import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
+import static rotp.model.game.MOO1GameOptions.saveOptionsToFileName;
+import static rotp.model.game.MOO1GameOptions.setAllSettingsToDefault;
+import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
+import static rotp.ui.UserPreferences.ALL_GUI_ID;
+import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
+import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
+import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
+import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.playerCustomRace;
 import static rotp.ui.UserPreferences.playerIsCustom;
-import static rotp.ui.UserPreferences.loadLocalSettings;
-import static rotp.ui.UserPreferences.saveLocalSettings;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonWidth;
 import static rotp.ui.util.AbstractOptionsUI.exitButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.exitButtonWidth;
+import static rotp.ui.util.AbstractOptionsUI.lastButtonKey;
+import static rotp.ui.util.AbstractOptionsUI.lastButtonWidth;
 import static rotp.ui.util.AbstractOptionsUI.userButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.userButtonWidth;
 
@@ -52,15 +61,21 @@ import rotp.util.LabelManager;
 
 public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelListener {
 	private static final long serialVersionUID	= 1L;
+	public  static final String GUI_ID			= "CUSTOM_RACE";
 	private static final String selectKey		= ROOT + "GUI_SELECT";
 	private static final String randomKey		= ROOT + "GUI_RANDOM";
 	private static final String saveCurrentKey	= ROOT + "GUI_SAVE";
 	private static final String loadCurrentKey	= ROOT + "GUI_LOAD";
-	private static final String setDefaultTipKey= ROOT + "DEFAULT_DESC";
-	private static final String setGameTipKey	= ROOT + "LAST_GAME_DESC";
-	private static final String setLastTipKey	= ROOT + "LAST_SET_DESC";
-	private	static final String setUserTipKey	= ROOT + "USER_SET_DESC";
-	private	static final String saveUserTipKey	= ROOT + "USER_SAVE_DESC";
+	private static final String setGlobalDefaultTipKey	= ROOT + "GLOBAL_DEFAULT_DESC";
+	private static final String setLocalDefaultTipKey	= ROOT + "LOCAL_DEFAULT_DESC";
+	private static final String setGlobalGameTipKey		= ROOT + "GLOBAL_LAST_GAME_DESC";
+	private static final String setLocalGameTipKey		= ROOT + "LOCAL_LAST_GAME_DESC";
+	private static final String setGlobalLastTipKey		= ROOT + "GLOBAL_LAST_SET_DESC";
+	private static final String setLocalLastTipKey		= ROOT + "LOCAL_LAST_SET_DESC";
+	private	static final String setGlobalUserTipKey		= ROOT + "GLOBAL_USER_SET_DESC";
+	private	static final String setLocalUserTipKey		= ROOT + "LOCAL_USER_SET_DESC";
+	private	static final String saveGlobalUserTipKey	= ROOT + "GLOBAL_USER_SAVE_DESC";
+	private	static final String saveLocalUserTipKey		= ROOT + "LOCAL_USER_SAVE_DESC";
 	private	static final String selectTipKey	= ROOT + "GUI_SELECT_DESC";
 	private static final String randomTipKey	= ROOT + "GUI_RANDOM_DESC";
 	private static final String saveTipKey		= ROOT + "GUI_SAVE_DESC";
@@ -71,12 +86,12 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	
 	private final Rectangle selectBox	= new Rectangle();
     private final Rectangle defaultBox	= new Rectangle();
+	private final Rectangle lastBox		= new Rectangle();
     private final Rectangle userBox		= new Rectangle();
 	private final Rectangle randomBox	= new Rectangle();
 	private final Rectangle loadBox		= new Rectangle();
 
 	private LinkedList<SettingBase<?>> guiList;
-	private MOO1GameOptions initialOptions; // To be restored if "cancel"
 	private RaceList raceList;
 	private static final int raceListW = RotPUI.scaledSize(180);
 	
@@ -127,6 +142,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			raceList.optionText(optionBT(), bulletIdx);
 			raceList.optionText(bulletIdx).disabled(optionIdx == paramIdx);
 		}
+		init();
 	}
 	@Override public void open(BasePanel p) {
 		enableGlassPane(this);
@@ -134,7 +150,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		parent = p;
 
 		cr.fromOptions((DynOptions) playerCustomRace.get());
-		initialOptions = MOO1GameOptions.getInitialOptions(guiOptions());
+		saveOptionsToFileName(guiOptions(), LIVE_OPTIONS_FILE);
 		init();
 		reloadRaceList();
 		repaint();
@@ -169,12 +185,12 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		case CTRL:
 		case CTRL_SHIFT: // Restore
 			// readOptions(initialOptions);
-			MOO1GameOptions.readAllOptions(guiOptions(), initialOptions);
+			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 			break;
 		default: // Save
 			playerCustomRace.set(cr.getAsOptions());
 //			saveLastOptions();
-			MOO1GameOptions.saveLastOptions(guiOptions());
+			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 			break; 
 		}
 		close();			
@@ -184,64 +200,80 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		playerCustomRace.set(cr.getAsOptions());
 		playerIsCustom.set(true);
 //		saveLastOptions();
-		MOO1GameOptions.saveLastOptions(guiOptions());
+		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 		close();
 	}
 	private void doDefaultBoxAction() {
 		buttonClick();
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
-		case CTRL_SHIFT: // set to last
-			if (loadLocalSettings.get())
-				readOptions(MOO1GameOptions.loadLastOptions());
-			else
-				MOO1GameOptions.loadLastOptions(guiOptions());
+		case CTRL_SHIFT: // cancelKey
+			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);		
 			break;
-		case SHIFT: // set to last game options
-			if (loadLocalSettings.get())
-				readOptions(MOO1GameOptions.loadGameOptions());
-			else
-				MOO1GameOptions.loadGameOptions(guiOptions());
-			break;
-		default: // set to default
-			if (loadLocalSettings.get())
-				setToLocalDefault();
-			else
-				MOO1GameOptions.setAllOptionsToDefault(guiOptions());		
+		case SHIFT: // setLocalDefaultKey
+			// setAllSettingsToDefault(guiOptions(), GUI_ID);
+			setToLocalDefault();
+			break; 
+		default: // setGlobalDefaultKey
+			setAllSettingsToDefault(guiOptions(), ALL_GUI_ID);
+			setToLocalDefault();
 			break; 
 		}
 		reloadRaceList();
-		repaint();
+		cr.updateSettings();
+		repaint(); // ?
 	}
 	private void doUserBoxAction() {
 		buttonClick();
 		switch (Modifier2KeysState.get()) {
-		case CTRL:
-		case CTRL_SHIFT: // Save
-			if (saveLocalSettings.get())
-				saveLocalUserOptions();
-			else
-				MOO1GameOptions.saveUserOptions(guiOptions());
+		case CTRL: // saveGlobalUserKey
+			updateOptionsAndSaveToFileName(guiOptions(), USER_OPTIONS_FILE, ALL_GUI_ID);
+			return;
+		case CTRL_SHIFT: // saveLocalUserKey
+			updateOptionsAndSaveToFileName(guiOptions(), USER_OPTIONS_FILE, GUI_ID);
+			return;
+		case SHIFT: // setLocalUserKey
+			loadAndUpdateFromFileName(guiOptions(), USER_OPTIONS_FILE, GUI_ID);
+			reloadRaceList();
+			cr.updateSettings();
+			repaint();
+			return;
+		default: // setGlobalUserKey
+			loadAndUpdateFromFileName(guiOptions(), USER_OPTIONS_FILE, ALL_GUI_ID);
+			reloadRaceList();
+			cr.updateSettings();
+			repaint();
+		}
+	}	
+	private void doLastBoxAction() {
+		buttonClick();
+		switch (Modifier2KeysState.get()) {
+		case CTRL: // setGlobalGameKey
+			loadAndUpdateFromFileName(guiOptions(), GAME_OPTIONS_FILE, ALL_GUI_ID);
 			break;
-		default: // Set
-			if (loadLocalSettings.get())
-				readOptions(MOO1GameOptions.loadUserOptions());				
-			else
-				MOO1GameOptions.loadUserOptions(guiOptions());
+		case CTRL_SHIFT: // setLocalGameKey
+			loadAndUpdateFromFileName(guiOptions(), GAME_OPTIONS_FILE, GUI_ID);
+			break;
+		case SHIFT: // setLocalLastKey
+			loadAndUpdateFromFileName(guiOptions(), LAST_OPTIONS_FILE, GUI_ID);
+			break;
+		default: // setGlobalLastKey
+			loadAndUpdateFromFileName(guiOptions(), LAST_OPTIONS_FILE, ALL_GUI_ID);
 		}
 		reloadRaceList();
+		cr.updateSettings();
 		repaint();
-	}	
+	}
 	public void setToLocalDefault() {
 		for (InterfaceOptions param : commonList)
 			param.setFromDefault();
 		init(); // Validate Init
 	}
-	private void saveLocalUserOptions() {
-		MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
-		writeLocalOptions(fileOptions);
-		MOO1GameOptions.saveUserOptions(fileOptions);
-	}
+//	private void saveLocalUserOptions() {
+//		MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
+//		writeLocalOptions(fileOptions);
+//		MOO1GameOptions.updateOptionsAndSaveToUserOptions(fileOptions);
+//	}
 //	private void saveLastOptions() {
 //		MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
 //		writeLocalOptions(fileOptions);
@@ -266,24 +298,28 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			return exitTipKey;
 		}
 	}
-	private String userButtonTipKey() {
+	private static String userButtonTipKey() {
 		switch (Modifier2KeysState.get()) {
-		case CTRL:
-		case CTRL_SHIFT:
-			return saveUserTipKey;
-		default:
-			return setUserTipKey;
+		case CTRL:		 return saveGlobalUserTipKey;
+		case CTRL_SHIFT: return saveLocalUserTipKey;
+		case SHIFT:		 return setLocalUserTipKey;
+		default:		 return setGlobalUserTipKey;
 		}
 	}
-	private String defaultButtonTipKey() {
+	private static String defaultButtonTipKey() {
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
-		case CTRL_SHIFT:
-			return setLastTipKey;
-		case SHIFT:
-			return setGameTipKey;
-		default:
-			return setDefaultTipKey;
+		case CTRL_SHIFT: return cancelTipKey;
+		case SHIFT:		 return setLocalDefaultTipKey;
+		default:		 return setGlobalDefaultTipKey;
+		}
+	}
+	private static String lastButtonTipKey() {
+		switch (Modifier2KeysState.get()) {
+		case CTRL:		 return setGlobalGameTipKey;
+		case CTRL_SHIFT: return setLocalGameTipKey;
+		case SHIFT:		 return setLocalLastTipKey;
+		default:		 return setGlobalLastTipKey;
 		}
 	}
 	private String loadButtonTipKey() {
@@ -358,7 +394,6 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	}	
 	@Override protected void close() {
 		Modifier2KeysState.reset();
-		initialOptions = null;
 		disableGlassPane();
 		((SetupRaceUI) parent).raceChanged();		
 		RotPUI.instance().returnToSetupRacePanel();
@@ -381,6 +416,17 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		} else if (userBox.contains(x,y)) {
 			hoverBox = userBox;
 			tooltipText = text(userButtonTipKey());
+			if (hoverBox != prevHover) {
+				if (tooltipText.equals(preTipTxt)) {
+					repaint(hoverBox);
+				} else {
+					repaint();
+				}
+			}
+			return true;
+		} else if (lastBox.contains(x,y)) {
+			hoverBox = lastBox;
+			tooltipText = text(lastButtonTipKey());
 			if (hoverBox != prevHover) {
 				if (tooltipText.equals(preTipTxt)) {
 					repaint(hoverBox);
@@ -492,6 +538,23 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		g.drawRoundRect(defaultBox.x, defaultBox.y, defaultBox.width, defaultBox.height, cnr, cnr);
 		g.setStroke(prev);
 
+		// Last Button
+		text	 = text(lastButtonKey());
+		sw		 = g.getFontMetrics().stringWidth(text);
+		buttonW  = lastButtonWidth(g);
+		xButton -= (buttonW + buttonPad);
+		lastBox.setBounds(xButton, yButton, buttonW, buttonH);
+		g.setColor(GameUI.buttonBackgroundColor());
+		g.fillRoundRect(lastBox.x, lastBox.y, buttonW, buttonH, cnr, cnr);
+		xT = lastBox.x + ((lastBox.width-sw)/2);
+		yT = lastBox.y + lastBox.height-s8;
+		cB = hoverBox == lastBox ? Color.yellow : GameUI.borderBrightColor();
+		drawShadowedString(g, text, 2, xT, yT, GameUI.borderDarkColor(), cB);
+		prev = g.getStroke();
+		g.setStroke(stroke1);
+		g.drawRoundRect(lastBox.x, lastBox.y, lastBox.width, lastBox.height, cnr, cnr);
+		g.setStroke(prev);
+
 		// User preference Button
 		text	 = text(userButtonKey());
 		sw		 = g.getFontMetrics().stringWidth(text);
@@ -594,6 +657,10 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		}
 		if (hoverBox == userBox) {
 			doUserBoxAction();
+			return;
+		}
+		if (hoverBox == lastBox) {
+			doLastBoxAction();
 			return;
 		}
 		if (hoverBox == defaultBox) {

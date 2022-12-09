@@ -15,6 +15,12 @@
  */
 package rotp.ui;
 
+import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
+import static rotp.ui.UserPreferences.ALL_GUI_ID;
+import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
+import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
+import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
+
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -289,6 +295,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     private void init() {
         initModel();
         BR_Main.initBR(options()); // BR:
+        MOO1GameOptions.copyOptionsFromLiveToLast();
         addKeyListener(this);
         if (startupException != null)
             selectErrorPanel(startupException);
@@ -334,25 +341,25 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     	if (action.isLast()) {
     		System.out.println("GUI Loaded Last.options");
        		newOptions = new MOO1GameOptions();
-    		MOO1GameOptions.loadLastOptions(newOptions);
+    		loadAndUpdateFromFileName(newOptions, LAST_OPTIONS_FILE, ALL_GUI_ID);
     		return newOptions;
     	}
     	if (action.isUser()) {
     		System.out.println("GUI Loaded User.options");
        		newOptions = new MOO1GameOptions();
-    		MOO1GameOptions.loadUserOptions(newOptions);
+       		loadAndUpdateFromFileName(newOptions, USER_OPTIONS_FILE, ALL_GUI_ID);
     		return newOptions;
     	}
     	if (action.isGame()) {
     		System.out.println("GUI Loaded Game.options");
        		newOptions = new MOO1GameOptions();
-    		MOO1GameOptions.loadGameOptions(newOptions);
+       		loadAndUpdateFromFileName(newOptions, GAME_OPTIONS_FILE, ALL_GUI_ID);
     		return newOptions;
     	}
     	if (action.isDefault()) {
     		System.out.println("GUI Loaded Default options");
     		newOptions = new MOO1GameOptions();
-    		MOO1GameOptions.setAllOptionsToDefault(newOptions);
+    		MOO1GameOptions.setAllSettingsToDefault(newOptions);
     		return newOptions;
     	} // else Vanilla, as before
     	

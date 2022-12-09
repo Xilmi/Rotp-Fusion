@@ -24,10 +24,11 @@ import rotp.ui.util.AbstractOptionsUI;
 public class StartModAOptionsUI extends AbstractOptionsUI {
 	private static final long serialVersionUID = 1L;
 	public static final String guiTitleID = "SETTINGS_MOD_TITLE";
+	public static final String GUI_ID     = "START_MOD_A";
 	
 	// Just call the "super" with GUI Title Label ID
 	public StartModAOptionsUI() {
-		super(guiTitleID);
+		super(guiTitleID, GUI_ID);
 	}
 	// ========== Abstract Overriders ==========
 	//

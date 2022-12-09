@@ -15,14 +15,25 @@
  */
 package rotp.ui.game;
 
-import static rotp.ui.UserPreferences.loadLocalSettings;
+import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
+import static rotp.model.game.MOO1GameOptions.saveOptionsToFileName;
+import static rotp.model.game.MOO1GameOptions.setAllSettingsToDefault;
+import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
+import static rotp.ui.UserPreferences.ALL_GUI_ID;
+import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
+import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
+import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
+import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
+//import static rotp.ui.UserPreferences.loadLocalSettings;
 import static rotp.ui.UserPreferences.optionsRace;
 import static rotp.ui.UserPreferences.playerCustomRace;
 import static rotp.ui.UserPreferences.playerIsCustom;
 import static rotp.ui.UserPreferences.playerShipSet;
-import static rotp.ui.UserPreferences.saveLocalSettings;
+//import static rotp.ui.UserPreferences.saveLocalSettings;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonWidth;
+import static rotp.ui.util.AbstractOptionsUI.lastButtonKey;
+import static rotp.ui.util.AbstractOptionsUI.lastButtonWidth;
 import static rotp.ui.util.AbstractOptionsUI.smallButtonM;
 import static rotp.ui.util.AbstractOptionsUI.userButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.userButtonWidth;
@@ -65,7 +76,8 @@ import rotp.ui.util.Modifier2KeysState;
 
 public final class SetupRaceUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
     private static final long serialVersionUID	= 1L;
-	private  static final String guiTitleID		= "SETUP_SELECT_RACE";
+	private static final String guiTitleID		= "SETUP_SELECT_RACE";
+	public  static final String GUI_ID          = "START_RACE";
 	private static final String cancelKey		= "SETUP_BUTTON_CANCEL";
 	private static final String restoreKey		= "SETUP_BUTTON_RESTORE";
 	private static final String customRaceKey	= "SETUP_BUTTON_CUSTOM_PLAYER_RACE";
@@ -84,6 +96,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     private Rectangle leaderBox = new Rectangle();
     private Rectangle homeWorldBox = new Rectangle();
     private Rectangle defaultBox = new Rectangle();
+	private Rectangle lastBox	 = new Rectangle();
     private Rectangle userBox	 = new Rectangle();
     private Rectangle playerRaceSettingBox = new Rectangle(); // BR: Player Race Customization
     private Rectangle checkBox = new Rectangle(); // BR: Player Race Customization
@@ -104,7 +117,6 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     private static int shipH = 0;
     @SuppressWarnings("unchecked")
 	private List<BufferedImage>[] shipImages = new ArrayList[MAX_SHIP];
-    private MOO1GameOptions initialOptions; // To be restored if "cancel"
     private int bSep = s15;
     private Race dataRace;
  
@@ -139,22 +151,22 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         createNewGameOptions(); // Following the UserPreferences.menuStartup
         readLocalOptions((MOO1GameOptions) newGameOptions());
         // Save initial options
-		initialOptions = MOO1GameOptions.getInitialOptions(guiOptions());
+        saveOptionsToFileName(guiOptions(), LIVE_OPTIONS_FILE);
     }
-    public void setHomeWorldFont() { // BR: MonoSpaced font for Galaxy
+    private void setHomeWorldFont() { // BR: MonoSpaced font for Galaxy
    		homeWorld.setFont(narrowFont(20));
     }
     private void copyOptions(MOO1GameOptions src, MOO1GameOptions dest) {
-    	MOO1GameOptions.copyRaceOptions(src, dest);
+    	MOO1GameOptions.copyAllRaceSettings(src, dest);
     }
-    private void writeOptions(MOO1GameOptions destination) {
-		copyOptions(guiOptions(), destination);
-		updateOptions(destination);
-	}
-    private void updateOptions(MOO1GameOptions destination) {
-    	for (InterfaceParam option : optionsRace)
-    		option.setOptions(destination.dynamicOptions());
-	}
+//    private void writeOptions(MOO1GameOptions destination) {
+//		copyOptions(guiOptions(), destination);
+//		updateOptions(destination);
+//	}
+//    private void updateOptions(MOO1GameOptions destination) {
+//    	for (InterfaceParam option : optionsRace)
+//    		option.setOptions(destination.dynamicOptions());
+//	}
 	private void readLocalOptions(MOO1GameOptions source) {
 		copyOptions(source, guiOptions());
     	for (InterfaceParam option : optionsRace)
@@ -167,12 +179,12 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 		case CTRL:
 		case CTRL_SHIFT: // Restore
 			// readOptions(initialOptions);
-			MOO1GameOptions.readAllOptions(guiOptions(), initialOptions);
+			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 	        raceChanged();
 			break;
 		default: // Save
 //			saveLastOptions();
-			MOO1GameOptions.saveLastOptions(guiOptions());
+			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 			break; 
 		}
     	goToMainMenu();
@@ -183,70 +195,77 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 		case CTRL:
 		case CTRL_SHIFT: // Restore
 			// readOptions(initialOptions);
-			MOO1GameOptions.readAllOptions(guiOptions(), initialOptions);
+			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 			break;
 		default: // Save
-//			saveLastOptions();
-			MOO1GameOptions.saveLastOptions(guiOptions());
+			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 			break; 
 		}
  		goToGalaxySetup();
  	}
- 	private void doDefaultBoxAction() {
+	private void doDefaultBoxAction() {
 		buttonClick();
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
-		case CTRL_SHIFT: // set to last
-			if (loadLocalSettings.get())
-				readLocalOptions(MOO1GameOptions.loadLastOptions());
-			else
-				MOO1GameOptions.loadLastOptions(guiOptions());
+		case CTRL_SHIFT: // cancelKey
+			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);		
 			break;
-		case SHIFT: // set to last game options
-			if (options() != null)
-				if (loadLocalSettings.get())
-					readLocalOptions(MOO1GameOptions.loadGameOptions());
-				else
-					MOO1GameOptions.loadGameOptions(guiOptions());
-			if (options() != null)
-			break;
-		default: // set to default
-			if (loadLocalSettings.get())
-				setToDefault();
-			else
-				MOO1GameOptions.setAllOptionsToDefault(guiOptions());		
+		case SHIFT: // setLocalDefaultKey
+			setAllSettingsToDefault(guiOptions(), GUI_ID);		
+			break; 
+		default: // setGlobalDefaultKey
+			setAllSettingsToDefault(guiOptions(), ALL_GUI_ID);		
 			break; 
 		}
-        raceChanged();
+		raceChanged();
 		repaint();
- 	}
- 	private void setToDefault() {
- 		MOO1GameOptions.setDefaultRaceOptions(guiOptions());
-    }
- 	private void doUserBoxAction() {
+	}
+// 	private void setToDefault() {
+// 		MOO1GameOptions.setBaseRaceSettingsToDefault(guiOptions());
+//    }
+	private void doUserBoxAction() {
 		buttonClick();
 		switch (Modifier2KeysState.get()) {
-		case CTRL:
-		case CTRL_SHIFT: // Save
-			if (saveLocalSettings.get())
-				saveUserOptions();
-			else
-				MOO1GameOptions.saveUserOptions(guiOptions());
-			break;
-		default: // Set
-			if (loadLocalSettings.get())
-				readLocalOptions(MOO1GameOptions.loadUserOptions());				
-			else
-				MOO1GameOptions.loadUserOptions(guiOptions());
-	        raceChanged();
+		case CTRL: // saveGlobalUserKey
+			updateOptionsAndSaveToFileName(guiOptions(), USER_OPTIONS_FILE, ALL_GUI_ID);
+			return;
+		case CTRL_SHIFT: // saveLocalUserKey
+			updateOptionsAndSaveToFileName(guiOptions(), USER_OPTIONS_FILE, GUI_ID);
+			return;
+		case SHIFT: // setLocalUserKey
+			loadAndUpdateFromFileName(guiOptions(), USER_OPTIONS_FILE, GUI_ID);
+			raceChanged();
+			repaint();
+			return;
+		default: // setGlobalUserKey
+			loadAndUpdateFromFileName(guiOptions(), USER_OPTIONS_FILE, ALL_GUI_ID);
+			raceChanged();
 			repaint();
 		}
- 	}
- 	private void saveUserOptions() {
-		MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
-		writeOptions(fileOptions);
-		MOO1GameOptions.saveUserOptions(fileOptions);
 	}
+	private void doLastBoxAction() {
+		buttonClick();
+		switch (Modifier2KeysState.get()) {
+		case CTRL: // setGlobalGameKey
+			loadAndUpdateFromFileName(guiOptions(), GAME_OPTIONS_FILE, ALL_GUI_ID);
+			break;
+		case CTRL_SHIFT: // setLocalGameKey
+			loadAndUpdateFromFileName(guiOptions(), GAME_OPTIONS_FILE, GUI_ID);
+			break;
+		case SHIFT: // setLocalLastKey
+			loadAndUpdateFromFileName(guiOptions(), LAST_OPTIONS_FILE, GUI_ID);
+			break;
+		default: // setGlobalLastKey
+			loadAndUpdateFromFileName(guiOptions(), LAST_OPTIONS_FILE, ALL_GUI_ID);
+		}
+		raceChanged();
+		repaint();
+	}
+//	private void saveUserOptions() {
+//		MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
+//		writeOptions(fileOptions);
+//		MOO1GameOptions.updateOptionsAndSaveToUserOptions(fileOptions);
+//	}
 //	private void saveLastOptions() {
 //		MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
 //		writeOptions(fileOptions);
@@ -286,6 +305,10 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 		// draw DEFAULT button
 		g.setPaint(GameUI.buttonLeftBackground());
 		g.fillRoundRect(defaultBox.x, defaultBox.y, defaultBox.width, defaultBox.height, cnr, cnr);
+
+		// draw LAST button
+		g.setPaint(GameUI.buttonLeftBackground());
+		g.fillRoundRect(lastBox.x, lastBox.y, lastBox.width, lastBox.height, cnr, cnr);
 
 		// draw USER button
 		g.setPaint(GameUI.buttonLeftBackground());
@@ -359,29 +382,41 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         g.setStroke(prev);
 
         g.setFont(narrowFont(20));
-        // BR: DEFAULT Button 
-		String text7 = text(defaultButtonKey());
-        int sw7		 = g.getFontMetrics().stringWidth(text7);
-        int x7 = defaultBox.x+((defaultBox.width-sw7)/2);
-        int y7 = defaultBox.y+defaultBox.height-s8;
-        Color c7 = hoverBox == defaultBox ? Color.yellow : GameUI.borderBrightColor();
-        drawShadowedString(g, text7, 2, x7, y7, GameUI.borderDarkColor(), c7);
+        // BR: Default Button 
+		String text = text(defaultButtonKey());
+        int sw	 = g.getFontMetrics().stringWidth(text);
+        int x = defaultBox.x+((defaultBox.width-sw)/2);
+        int y = defaultBox.y+defaultBox.height-s8;
+        Color c = hoverBox == defaultBox ? Color.yellow : GameUI.borderBrightColor();
+        drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), c);
         prev = g.getStroke();
         g.setStroke(stroke1);
         g.drawRoundRect(defaultBox.x, defaultBox.y, defaultBox.width, defaultBox.height, cnr, cnr);
         g.setStroke(prev);
 
-        // BR: USER Button 
-		String text8 = text(userButtonKey());
-        int sw8 	 = g.getFontMetrics().stringWidth(text8);
-		int x8 = userBox.x+((userBox.width-sw8)/2);
-		int y8 = userBox.y+userBox.height-s8;
-		Color c8 = hoverBox == userBox ? Color.yellow : GameUI.borderBrightColor();
-		drawShadowedString(g, text8, 2, x8, y8, GameUI.borderDarkColor(), c8);
+        // BR: Last Button 
+		text = text(lastButtonKey());
+        sw  = g.getFontMetrics().stringWidth(text);
+		x = lastBox.x+((lastBox.width-sw)/2);
+		y = lastBox.y+lastBox.height-s8;
+		c = hoverBox == lastBox ? Color.yellow : GameUI.borderBrightColor();
+		drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), c);
+		prev = g.getStroke();
+		g.setStroke(stroke1);
+		g.drawRoundRect(lastBox.x, lastBox.y, lastBox.width, lastBox.height, cnr, cnr);
+		g.setStroke(prev);
+ 
+		// BR: User Button 
+		text = text(userButtonKey());
+        sw 	 = g.getFontMetrics().stringWidth(text);
+		x = userBox.x+((userBox.width-sw)/2);
+		y = userBox.y+userBox.height-s8;
+		c = hoverBox == userBox ? Color.yellow : GameUI.borderBrightColor();
+		drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), c);
 		prev = g.getStroke();
 		g.setStroke(stroke1);
 		g.drawRoundRect(userBox.x, userBox.y, userBox.width, userBox.height, cnr, cnr);
-		g.setStroke(prev);
+		g.setStroke(prev);        g.setFont(narrowFont(20));
 	}
 	@Override
     public void paintComponent(Graphics g0) {
@@ -617,14 +652,12 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 	}
     private void goToMainMenu() {
         buttonClick();
-        initialOptions = null;
         RotPUI.instance().selectGamePanel();
         backImg = null;
         raceImg = null;
     }
     private void goToGalaxySetup() {
         buttonClick();
-        initialOptions = null;
         RotPUI.instance().selectSetupGalaxyPanel();
         backImg = null;
         raceImg = null;
@@ -843,8 +876,15 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 		g.setPaint(GameUI.buttonLeftBackground());
 		g.fillRoundRect(defaultBox.x, defaultBox.y, buttonW, buttonH, cnr, cnr);
 
-		// draw USER button
+		// draw LAST button
 		buttonH = s30;
+		buttonW = lastButtonWidth(g);
+		xB -= (buttonW + bSep);
+		lastBox.setBounds(xB, yB, buttonW, buttonH);
+		g.setPaint(GameUI.buttonLeftBackground());
+		g.fillRoundRect(lastBox.x, lastBox.y, buttonW, buttonH, cnr, cnr);
+
+		// draw USER button
 		buttonW = userButtonWidth(g);
 		xB -= (buttonW + bSep);
 		userBox.setBounds(xB, yB, buttonW, buttonH);
@@ -1026,6 +1066,8 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
             hoverBox = defaultBox;
         else if (userBox.contains(x,y))
             hoverBox = userBox;
+        else if (lastBox.contains(x,y))
+            hoverBox = lastBox;
         else {
             for (int i=0;i<raceBox.length;i++) {
                 if (raceBox[i].contains(x,y)) {
@@ -1062,6 +1104,8 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         	doDefaultBoxAction();
         else if (hoverBox == userBox)
 			doUserBoxAction();
+        else if (hoverBox == lastBox)
+			doLastBoxAction();
         // BR: Player Race customization
         else if (hoverBox == playerRaceSettingBox)
             goToPlayerRaceCustomization();

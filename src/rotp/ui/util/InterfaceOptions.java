@@ -22,4 +22,5 @@ public interface InterfaceOptions {
 	public void setOptions(DynamicOptions options);
 	public void setFromOptions(DynamicOptions options);
 	public void setFromDefault();
+	public void copyOption(DynamicOptions src, DynamicOptions dest);
 }
