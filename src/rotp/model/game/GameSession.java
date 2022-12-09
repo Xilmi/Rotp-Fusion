@@ -1,12 +1,12 @@
 /*
  * Copyright 2015-2020 Ray Fowler
- * 
+ *
  * Licensed under the GNU General Public License, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     https://www.gnu.org/licenses/gpl-3.0.html
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -119,7 +119,7 @@ public final class GameSession implements Base, Serializable {
     private final GameStatus status = new GameStatus();
     private long id;
     private boolean spyActivity = false;
-    
+
     public GameStatus status()                   { return status; }
     public long id()                             { return id; }
     public ExecutorService smallSphereService()  { return smallSphereService; }
@@ -193,9 +193,9 @@ public final class GameSession implements Base, Serializable {
         return sqrt(stars/races/targetRatio);
     }
     public void addShipsConstructed(ShipDesign design, int newCount) {
-        if (!design.active()) 
+        if (!design.active())
             throw new RuntimeException("Constructed an inactive ship design");
-        
+
         if (shipsConstructed().isEmpty())
             addTurnNotification(new ShipConstructionNotification());
 
@@ -231,7 +231,7 @@ public final class GameSession implements Base, Serializable {
         // don't prompt to allocate systems that are in rebellion
         if (sys.isColonized() && sys.colony().inRebellion())
             return;
-        
+
         log("Re-allocate: ", sys.name(), " :", reason);
         if (!systemsToAllocate().containsKey(sys))
             systemsToAllocate().put(sys, new ArrayList<>());
@@ -251,17 +251,17 @@ public final class GameSession implements Base, Serializable {
             if (notif.key().equals(key))
                 notifications.remove(notif);
         }
-            
+
     }
     public GameSession() {
         options(RulesetManager.current().defaultRuleset());
     }
     public void startGame(IGameOptions newGameOptions) {
         stopCurrentGame();
-        
+
         options = newGameOptions;
         startExecutors();
-       
+
         synchronized(ONE_GAME_AT_A_TIME) {
             id = (long) (Long.MAX_VALUE*random());
             GalaxyFactory.current().newGalaxy();
@@ -281,11 +281,11 @@ public final class GameSession implements Base, Serializable {
         }
     }
     // BR: For Restart with new options
-    public void restartGame(IGameOptions newGameOptions, GalaxyCopy src) { 
+    public void restartGame(IGameOptions newGameOptions, GalaxyCopy src) {
     	stopCurrentGame();
         options = src.options();
         startExecutors();
-        
+
         synchronized(ONE_GAME_AT_A_TIME) {
             id = (long) (Long.MAX_VALUE*random());
             GalaxyFactory.current().newGalaxy(src);
@@ -367,7 +367,7 @@ public final class GameSession implements Base, Serializable {
                 log("Next Turn - BEGIN: ", str(galaxy.currentYear()));
                 log("Autosaving pre-turn");
                 instance.saveRecentSession(false);
-                
+
 				/*
 				// modnar: private logging
 				String LogPath = Rotp.jarPath();
@@ -382,17 +382,17 @@ public final class GameSession implements Base, Serializable {
 							EmpireView pl = e.viewForEmpire(player());
 							relationToPlayer = pl.embassy().relations();
 						}
-						
-						out.println(String.format("%10s", e.raceName()) 
-						+ String.format("%6d", e.numColonizedSystems()) 
-						+ String.format("%12.2f", e.totalPlanetaryPopulation()) 
-						+ String.format("%12.2f", e.totalPlanetaryProduction()) 
-						+ String.format("%12.0f", e.totalFleetSize()) 
-						+ String.format("%10.2f", 100*e.shipMaintCostPerBC()) + "%" 
-						+ String.format("%10.2f", 100*e.missileBaseCostPerBC()) + "%" 
-                        + String.format("%10.2f", 100*e.totalSecurityCostPct()) + "%" 
-						+ String.format("%12.2f", e.totalPlanetaryResearch()) 
-						+ String.format("%8.2f", e.tech().avgTechLevel()) 
+
+						out.println(String.format("%10s", e.raceName())
+						+ String.format("%6d", e.numColonizedSystems())
+						+ String.format("%12.2f", e.totalPlanetaryPopulation())
+						+ String.format("%12.2f", e.totalPlanetaryProduction())
+						+ String.format("%12.0f", e.totalFleetSize())
+						+ String.format("%10.2f", 100*e.shipMaintCostPerBC()) + "%"
+						+ String.format("%10.2f", 100*e.missileBaseCostPerBC()) + "%"
+                        + String.format("%10.2f", 100*e.totalSecurityCostPct()) + "%"
+						+ String.format("%12.2f", e.totalPlanetaryResearch())
+						+ String.format("%8.2f", e.tech().avgTechLevel())
 						+ String.format("%6d", e.numEnemies())
 						/*
 						+ String.format("reserve %12.2f", e.totalReserve())
@@ -410,7 +410,7 @@ public final class GameSession implements Base, Serializable {
 				}
 				// modnar: private logging
 				*/
-                
+
                 long startMs = timeMs();
                 systemsToAllocate().clear();
                 clearScoutedSystems();
@@ -420,18 +420,18 @@ public final class GameSession implements Base, Serializable {
                 RotPUI.instance().repaint();
                 processNotifications();
                 gal.preNextTurn();
-                
+
                 if (!inProgress())
                     return;
 
                 // REMOVE THIS CODE
                 //playerViewAllSystems();
                 //playerViewAllHomeSystems();
-               
+
                 // all intra-empire events: civ turns, ship movement, etc
                 gal.advanceTime();
                 gal.moveShipsInTransit();
-                
+
                 gal.events().nextTurn();
                 RotPUI.instance().selectMainPanel();
 
@@ -440,10 +440,10 @@ public final class GameSession implements Base, Serializable {
                 GNNExpansionEvent.nextTurn();
                 gal.nextEmpireTurns();
                 player().setVisibleShips();
-                
+
                 // test game over conditions
                 //randomlyEndGame();
-                
+
                 if (!inProgress())
                     return;
 
@@ -470,7 +470,7 @@ public final class GameSession implements Base, Serializable {
                 }
                 // all diplomatic fallout: praise, warnings, treaty offers, war declarations
                 gal.assessTurn();
-                
+
                 if (processNotifications()){
                     log("Notifications processed 4 - back to MainPanel");
                     RotPUI.instance().selectMainPanel();
@@ -527,10 +527,10 @@ public final class GameSession implements Base, Serializable {
     }
     public boolean processNotifications() {
         log("Processing player notifications: ", str(notifications().size()));
-        if (haveScoutedSystems()) 
+        if (haveScoutedSystems())
             session().addTurnNotification(new SystemsScoutedNotification());
 
-        
+
         if (notifications().isEmpty())
             return false;
         // received a concurrent modification here... iterate over temp array
@@ -822,7 +822,7 @@ public final class GameSession implements Base, Serializable {
     }
     public void saveSession(String filename, boolean backup) throws Exception {
         log("Saving game as file: ", filename, "  backup: "+backup);
-        GameSession currSession = GameSession.instance();        
+        GameSession currSession = GameSession.instance();
         File theDir = backup ? new File(backupDir()) : new File(saveDir());
         if (!theDir.exists())
             theDir.mkdirs();
@@ -845,7 +845,7 @@ public final class GameSession implements Base, Serializable {
             bos.close();
             out.close();
             }
-            catch(IOException ex) {}            
+            catch(IOException ex) {}
         }
     }
     private void resolveOptionsDiscrepansies(GameSession gs) {
@@ -867,7 +867,7 @@ public final class GameSession implements Base, Serializable {
     		System.out.println("Game Loaded Current GUI options");
     		// Load the options and set the GUI
     		MOO1GameOptions.setBaseAndModSettingsFromOptions(
-    				(MOO1GameOptions) instance.options, 
+    				(MOO1GameOptions) instance.options,
     				(MOO1GameOptions) newGameOptions());
     		//MOO1GameOptions.loadLastOptions((MOO1GameOptions) instance.options);
     	}
@@ -891,7 +891,8 @@ public final class GameSession implements Base, Serializable {
     	else System.out.println("Old Ways Game Loaded Nothing");
 
     	resolveOptionsDiscrepansies(gs);
-    	
+    	resolveOptionsDiscrepansies(gs);
+
 		if (showInfo)  showInfo(gs.galaxy());
         startExecutors();
         RotPUI.instance().mainUI().checkMapInitialized();
@@ -952,7 +953,7 @@ public final class GameSession implements Base, Serializable {
         }
         String turn = "T"+pad4.format(num);
         String opp = "vs"+options().selectedNumberOpponents();
-        String dash = "-";               
+        String dash = "-";
         return concat(leader,dash,race,dash,gShape,dash,gSize,dash,diff,dash,opp,dash,turn,SAVEFILE_EXTENSION);
     }
     public void saveRecentSession(boolean endOfTurn) {
@@ -983,7 +984,7 @@ public final class GameSession implements Base, Serializable {
             err("Error saving: ", filename, " - ", e.getMessage());
             RotPUI.instance().mainUI().showAutosaveFailedPrompt(e.getMessage());
         }
-        
+
     }
     public boolean hasRecentSession() {
         try {
@@ -997,7 +998,7 @@ public final class GameSession implements Base, Serializable {
     public void loadRecentSession(boolean startUp) {
         loadSession(saveDir(), RECENT_SAVEFILE, startUp);
     }
-    // BR: added option to restart with new options 
+    // BR: added option to restart with new options
     public void loadSession(String dir, String filename, boolean startUp) {
         try {
             log("Loading game from file: ", filename);
@@ -1007,18 +1008,18 @@ public final class GameSession implements Base, Serializable {
             try (InputStream file = new FileInputStream(saveFile)) {
                 newSession = loadObjectData(file);
             }
-            
+
             // if newSession is null, see if it is zipped
             if (newSession == null) {
                 try (ZipFile zipFile = new ZipFile(saveFile)) {
                     ZipEntry ze = zipFile.entries().nextElement();
                     InputStream zis = zipFile.getInputStream(ze);
                     newSession = loadObjectData(zis);
-                    if (newSession == null) 
+                    if (newSession == null)
                         throw new RuntimeException(text("LOAD_GAME_BAD_VERSION", filename));
                 }
             }
-            
+
             GameSession.instance = newSession;
             // BR:
             // if asked, Change the game parameters
@@ -1032,10 +1033,10 @@ public final class GameSession implements Base, Serializable {
             newSession.validate();
             newSession.validateOnLoadOnly();
 
-            loadPreviousSession(newSession, startUp); 
+            loadPreviousSession(newSession, startUp);
             // do not autosave the current session if that is the file we are trying to reload
             if (!filename.equals(RECENT_SAVEFILE))
-                saveRecentSession(false);            	
+                saveRecentSession(false);
          }
         catch(IOException e) {
             throw new RuntimeException(text("LOAD_GAME_BAD_VERSION", filename));
@@ -1097,7 +1098,7 @@ public final class GameSession implements Base, Serializable {
         Galaxy gal = this.galaxy();
         Empire pl = player();
         pl.setEmpireMapAvgCoordinates();
-        
+
         float minX = gal.width();
         float minY = gal.height();
         float maxX = 0;
