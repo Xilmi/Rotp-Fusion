@@ -1586,10 +1586,12 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     		param.copyOption(src.dynamicOptions, dest.dynamicOptions);;
     }
     private void setBaseRaceSettingsToDefault() { // BR:
+    	System.out.println("========== setBaseRaceSettingsToDefault()"); // TODO BR: remove
+    	System.out.println("showNewRaces.get() = " + UserPreferences.showNewRaces.get());
         if (UserPreferences.showNewRaces.get()) // BR: limit randomness
-        	selectedPlayerRace(random(baseRaceOptions()));
-        else
         	selectedPlayerRace(random(allRaceOptions()));
+        else
+        	selectedPlayerRace(random(baseRaceOptions()));
         selectedPlayerColor(0);
     }
     private static void copyBaseRaceSettings(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
@@ -1655,9 +1657,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         for (int i=0;i<opponentRaces.length;i++)
         	opponentRaces[i] = null;
         if (UserPreferences.showNewRaces.get()) // BR: limit randomness
-        	selectedPlayerRace(random(baseRaceOptions()));
-        else
         	selectedPlayerRace(random(allRaceOptions()));
+        else
+        	selectedPlayerRace(random(baseRaceOptions()));
         selectedGameDifficulty = DIFFICULTY_NORMAL;
         selectedOpponentAIOption = OPPONENT_AI_CRUEL;
         for (int i=0;i<specificOpponentAIOption.length;i++)

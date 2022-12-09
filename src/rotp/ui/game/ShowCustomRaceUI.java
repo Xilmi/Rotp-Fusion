@@ -16,7 +16,6 @@
 package rotp.ui.game;
 
 import static rotp.model.empires.CustomRaceDefinitions.ROOT;
-import static rotp.ui.UserPreferences.playerIsCustom;
 import static rotp.ui.UserPreferences.showTooltips;
 import static rotp.ui.util.AbstractOptionsUI.exitButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.exitButtonWidth;
@@ -45,7 +44,6 @@ import rotp.ui.RotPUI;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.races.RacesUI;
 import rotp.ui.util.AbstractOptionsUI;
-import rotp.ui.util.InterfaceOptions;
 import rotp.ui.util.ListDialog;
 import rotp.ui.util.Modifier2KeysState;
 import rotp.ui.util.SettingBase;

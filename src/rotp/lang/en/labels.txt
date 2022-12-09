@@ -1518,16 +1518,16 @@ SETTINGS_TITLE                    | Advanced Game Options
 SETTINGS_DESCRIPTION              | Click, Right-Click, or Scroll to toggle each game setting.
 SETTINGS_EXIT                     | Exit
 SETTINGS_CANCEL                   | Cancel Changes
-SETTINGS_LOCAL_DEFAULT            | get Default
-SETTINGS_GLOBAL_DEFAULT           | GET Default
-SETTINGS_LOCAL_LAST_GAME          | get Last Game
-SETTINGS_GLOBAL_LAST_GAME         | GET Last Game
-SETTINGS_LOCAL_LAST_SET           | get Last settings
-SETTINGS_GLOBAL_LAST_SET          | GET Last settings
-SETTINGS_LOCAL_USER_SET           | get User's settings
-SETTINGS_GLOBAL_USER_SET          | GET User's settings
-SETTINGS_LOCAL_USER_SAVE          | save User's settings
-SETTINGS_GLOBAL_USER_SAVE         | SAVE User's settings
+SETTINGS_LOCAL_DEFAULT            | Default »» Local
+SETTINGS_GLOBAL_DEFAULT           | Default »» Global
+SETTINGS_LOCAL_LAST_GAME          | Game »» Local
+SETTINGS_GLOBAL_LAST_GAME         | Game »» Global
+SETTINGS_LOCAL_LAST_SET           | Last »» Local
+SETTINGS_GLOBAL_LAST_SET          | Last »» Global
+SETTINGS_LOCAL_USER_SET           | User »» Local
+SETTINGS_GLOBAL_USER_SET          | User »» Global
+SETTINGS_LOCAL_USER_SAVE          | Local »» User
+SETTINGS_GLOBAL_USER_SAVE         | Global »» User
 SETTINGS_STAR_DENSITY             | Star Density: %1
 SETTINGS_RANDOM_EVENTS            | Random Events: %1
 SETTINGS_RESEARCH_RATE            | Research Rate: %1
