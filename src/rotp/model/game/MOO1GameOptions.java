@@ -1363,9 +1363,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
     public static void setDefaultRaceOptions(MOO1GameOptions dest) { // BR:
         if (UserPreferences.showNewRaces.get()) // BR: limit randomness
-        	dest.selectedPlayerRace(dest.random(baseRaceOptions()));
-        else
         	dest.selectedPlayerRace(dest.random(allRaceOptions()));
+        else
+        	dest.selectedPlayerRace(dest.random(baseRaceOptions()));
     	dest.selectedPlayerColor(0);
     	for (InterfaceParam option : optionsRace)
     		option.setFromDefault();
@@ -1413,9 +1413,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         for (int i=0;i<opponentRaces.length;i++)
         	opponentRaces[i] = null;
         if (UserPreferences.showNewRaces.get()) // BR: limit randomness
-        	selectedPlayerRace(random(baseRaceOptions()));
-        else
         	selectedPlayerRace(random(allRaceOptions()));
+        else
+        	selectedPlayerRace(random(baseRaceOptions()));
         selectedGameDifficulty = DIFFICULTY_NORMAL;
         selectedOpponentAIOption = OPPONENT_AI_CRUEL;
         for (int i=0;i<specificOpponentAIOption.length;i++)
