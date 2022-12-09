@@ -860,7 +860,6 @@ public final class GameSession implements Base, Serializable {
         // BR: save the last loaded game initial parameters
 		saveOptionsToFileName((MOO1GameOptions) instance.options, GAME_OPTIONS_FILE);
 
-
 		// BR: If required, set all game options
         System.out.println("==================== loadPreviousSession ====================");
     	if (menuLoadGame.isLast()) {
@@ -890,7 +889,6 @@ public final class GameSession implements Base, Serializable {
     	// else vanilla Nothing special to do
     	else System.out.println("Old Ways Game Loaded Nothing");
 
-    	resolveOptionsDiscrepansies(gs);
     	resolveOptionsDiscrepansies(gs);
 
 		if (showInfo)  showInfo(gs.galaxy());
