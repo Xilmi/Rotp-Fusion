@@ -317,13 +317,13 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     public static MOO1GameOptions createStartupOptions() { // BR:
     	MOO1GameOptions newOptions;
      	ParamOptions action;
-        System.out.println("==================== createNewOptions() ====================");
-		System.out.println("UserPreferences.gamePlayed() = " + UserPreferences.gamePlayed());
-		System.out.println("UserPreferences.loadRequest() = " + UserPreferences.loadRequest());
-		System.out.println("UserPreferences.menuLoadGame.get() = " + UserPreferences.menuLoadGame.get());
-		System.out.println("UserPreferences.menuStartup.get() = " + UserPreferences.menuStartup.get());
-		System.out.println("UserPreferences.menuAfterGame.get() = " + UserPreferences.menuAfterGame.get());
-		System.out.println("UserPreferences.menuSpecial.get() = " + UserPreferences.menuSpecial.get());
+//        System.out.println("==================== createNewOptions() ====================");
+//		System.out.println("UserPreferences.gamePlayed() = " + UserPreferences.gamePlayed());
+//		System.out.println("UserPreferences.loadRequest() = " + UserPreferences.loadRequest());
+//		System.out.println("UserPreferences.menuLoadGame.get() = " + UserPreferences.menuLoadGame.get());
+//		System.out.println("UserPreferences.menuStartup.get() = " + UserPreferences.menuStartup.get());
+//		System.out.println("UserPreferences.menuAfterGame.get() = " + UserPreferences.menuAfterGame.get());
+//		System.out.println("UserPreferences.menuSpecial.get() = " + UserPreferences.menuSpecial.get());
 
      	// Creation depend on state
     	if (UserPreferences.gamePlayed())
@@ -336,28 +336,28 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         	action = UserPreferences.menuSpecial;
         	UserPreferences.loadRequest(false);
         }
-		System.out.println("action.get() = " + action.get());
+		// System.out.println("action.get() = " + action.get());
    	
     	if (action.isLast()) {
-    		System.out.println("GUI Loaded Last.options");
+    		// System.out.println("GUI Loaded Last.options");
        		newOptions = new MOO1GameOptions();
     		loadAndUpdateFromFileName(newOptions, LAST_OPTIONS_FILE, ALL_GUI_ID);
     		return newOptions;
     	}
     	if (action.isUser()) {
-    		System.out.println("GUI Loaded User.options");
+    		// System.out.println("GUI Loaded User.options");
        		newOptions = new MOO1GameOptions();
        		loadAndUpdateFromFileName(newOptions, USER_OPTIONS_FILE, ALL_GUI_ID);
     		return newOptions;
     	}
     	if (action.isGame()) {
-    		System.out.println("GUI Loaded Game.options");
+    		// System.out.println("GUI Loaded Game.options");
        		newOptions = new MOO1GameOptions();
        		loadAndUpdateFromFileName(newOptions, GAME_OPTIONS_FILE, ALL_GUI_ID);
     		return newOptions;
     	}
     	if (action.isDefault()) {
-    		System.out.println("GUI Loaded Default options");
+    		// System.out.println("GUI Loaded Default options");
     		newOptions = new MOO1GameOptions();
     		MOO1GameOptions.setBaseAndModSettingsToDefault(newOptions, ALL_GUI_ID);
     		return newOptions;

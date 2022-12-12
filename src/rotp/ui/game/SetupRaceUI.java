@@ -16,7 +16,6 @@
 package rotp.ui.game;
 
 import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
-import static rotp.model.game.MOO1GameOptions.saveOptionsToFileName;
 import static rotp.model.game.MOO1GameOptions.setBaseAndModSettingsToDefault;
 import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
 import static rotp.ui.UserPreferences.ALL_GUI_ID;
@@ -24,12 +23,10 @@ import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
-//import static rotp.ui.UserPreferences.loadLocalSettings;
 import static rotp.ui.UserPreferences.optionsRace;
 import static rotp.ui.UserPreferences.playerCustomRace;
 import static rotp.ui.UserPreferences.playerIsCustom;
 import static rotp.ui.UserPreferences.playerShipSet;
-//import static rotp.ui.UserPreferences.saveLocalSettings;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonWidth;
 import static rotp.ui.util.AbstractOptionsUI.lastButtonKey;
@@ -147,11 +144,10 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         // homeWorld.setFont(narrowFont(20));
         setHomeWorldFont(); // BR: MonoSpaced font for Galaxy
         shipSetTxt.setFont(narrowFont(20)); // BR:
-        // TODO BR: Deep validation of this initialization
         createNewGameOptions(); // Following the UserPreferences.menuStartup
         readLocalOptions((MOO1GameOptions) newGameOptions());
         // Save initial options
-        saveOptionsToFileName(guiOptions(), LIVE_OPTIONS_FILE);
+		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
     }
     private void setHomeWorldFont() { // BR: MonoSpaced font for Galaxy
    		homeWorld.setFont(narrowFont(20));
@@ -159,14 +155,6 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     private void copyOptions(MOO1GameOptions src, MOO1GameOptions dest) {
     	MOO1GameOptions.copyBaseAndModRaceSettings(src, dest);
     }
-//    private void writeOptions(MOO1GameOptions destination) {
-//		copyOptions(guiOptions(), destination);
-//		updateOptions(destination);
-//	}
-//    private void updateOptions(MOO1GameOptions destination) {
-//    	for (InterfaceParam option : optionsRace)
-//    		option.setOptions(destination.dynamicOptions());
-//	}
 	private void readLocalOptions(MOO1GameOptions source) {
 		copyOptions(source, guiOptions());
     	for (InterfaceParam option : optionsRace)
@@ -178,12 +166,10 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Restore
-			// readOptions(initialOptions);
 			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 	        raceChanged();
 			break;
 		default: // Save
-//			saveLastOptions();
 			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 			break; 
 		}
@@ -194,7 +180,6 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Restore
-			// readOptions(initialOptions);
 			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 			break;
 		default: // Save
@@ -220,9 +205,6 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 		raceChanged();
 		repaint();
 	}
-// 	private void setToDefault() {
-// 		MOO1GameOptions.setBaseRaceSettingsToDefault(guiOptions());
-//    }
 	private void doUserBoxAction() {
 		buttonClick();
 		switch (Modifier2KeysState.get()) {
@@ -261,16 +243,6 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 		raceChanged();
 		repaint();
 	}
-//	private void saveUserOptions() {
-//		MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
-//		writeOptions(fileOptions);
-//		MOO1GameOptions.updateOptionsAndSaveToUserOptions(fileOptions);
-//	}
-//	private void saveLastOptions() {
-//		MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
-//		writeOptions(fileOptions);
-//		MOO1GameOptions.saveLastOptions(fileOptions);
-//	}
 	private static String cancelButtonKey() {
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
@@ -416,7 +388,8 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 		prev = g.getStroke();
 		g.setStroke(stroke1);
 		g.drawRoundRect(userBox.x, userBox.y, userBox.width, userBox.height, cnr, cnr);
-		g.setStroke(prev);        g.setFont(narrowFont(20));
+		g.setStroke(prev);
+		g.setFont(narrowFont(20));
 	}
 	@Override
     public void paintComponent(Graphics g0) {
@@ -491,7 +464,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 
         // race icon
         Race race = Race.keyed(newGameOptions().selectedPlayerRace());
-//      int iconH = scaled(115);
+        // int iconH = scaled(115);
         int iconH = scaled(95); // BR: squeezed
         BufferedImage icon = newBufferedImage(race.flagNorm());
         int imgX = scaled(868); // modnar: right side extended, shift race icon
@@ -500,7 +473,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         g.drawImage(icon, imgX, imgY, imgX+iconH, imgY+iconH, 0, 0, icon.getWidth(), icon.getHeight(), null);
 
         // draw race name
-//      int y0 = scaled(260);
+        // int y0 = scaled(260);
         int y0 = scaled(240); // BR: squeezed
         // BR: show custom race name and descriptions
         String raceName, desc1, desc2, desc3, desc4;
@@ -525,7 +498,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 
         // draw race desc #1
         int maxLineW = scaled(185); // modnar: right side extended, increase maxLineW
-//      y0 += s25;
+        // y0 += s25;
         y0 += s20; // BR: squeezed
         g.setFont(narrowFont(16));
         g.setColor(Color.black);
@@ -557,9 +530,9 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         }
         
         // draw race desc #3
-//      y0 += s12;
+        // y0 += s12;
         y0 += s3;  // BR: squeezed
-//        String desc3 = race.description3.replace("[race]", race.setupName());
+        // String desc3 = race.description3.replace("[race]", race.setupName());
         List<String> desc3Lines = scaledNarrowWrappedLines(g0, desc3, maxLineW+s8, 5, 16, 13);
         for (String line: desc3Lines) {
             drawString(g,line, x0, y0);
@@ -585,7 +558,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         // draw homeworld label
         String homeLbl = text("SETUP_HOMEWORLD_NAME_LABEL");
         x3 = colorBox[0].x;
-//      y3 = colorBox[0].y-s100-s14;
+        // y3 = colorBox[0].y-s100-s14;
         y3 = colorBox[0].y-scaled(101); // BR: squeezed
         g.setFont(narrowFont(20));
         g.setColor(Color.black);
@@ -602,7 +575,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         // draw leader name label
         String nameLbl = text("SETUP_LEADER_NAME_LABEL");
         x3 = colorBox[0].x;
-//      y3 = colorBox[0].y-s60;
+        // y3 = colorBox[0].y-s60;
         y3 = colorBox[0].y-s54; // BR: squeezed
         g.setFont(narrowFont(20));
         g.setColor(Color.black);
@@ -706,9 +679,9 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     }
     private void initTextField(JTextField value) {
         value.setBackground(GameUI.setupFrame());
-//      value.setBorder(newEmptyBorder(5,5,0,0));
+        // value.setBorder(newEmptyBorder(5,5,0,0));
         value.setBorder(newEmptyBorder(3,3,0,0));
-//      value.setBorder(null);
+        // value.setBorder(null);
         value.setPreferredSize(new Dimension(FIELD_W, FIELD_H));
         value.setFont(narrowFont(20));
         value.setForeground(Color.black);

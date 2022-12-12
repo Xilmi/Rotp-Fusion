@@ -18,7 +18,6 @@ package rotp.ui.game;
 import static rotp.model.empires.CustomRaceDefinitions.getAllowedAlienRaces;
 import static rotp.model.empires.CustomRaceDefinitions.getBaseRacList;
 import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
-import static rotp.model.game.MOO1GameOptions.saveOptionsToFileName;
 import static rotp.model.game.MOO1GameOptions.setBaseAndModSettingsToDefault;
 import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
 import static rotp.ui.UserPreferences.ALL_GUI_ID;
@@ -203,12 +202,22 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 	}
 	public void init() {
 		Modifier2KeysState.reset();
-		saveOptionsToFileName(guiOptions(), LIVE_OPTIONS_FILE);
+		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+		refreshGui();
+//        initAbilitiesList();
+//        guiOptions().setAndGenerateGalaxy();
+////		newGameOptions().galaxyShape().quickGenerate(); // BR: to avoid strange galaxy display
+//        backImg = null;
+//        repaint();
+	}
+	private void refreshGui() {
         initAbilitiesList();
-		newGameOptions().galaxyShape().quickGenerate(); // BR: to avoid strange galaxy display
+        guiOptions().setAndGenerateGalaxy();
+//		newGameOptions().galaxyShape().quickGenerate(); // BR: to avoid strange galaxy display
         backImg = null;
         repaint();
 	}
+	
 	private void release() {
 		backImg = null;
 		playerRaceImg  = null;
@@ -274,9 +283,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			setBaseAndModSettingsToDefault(guiOptions(), ALL_GUI_ID);		
 			break; 
 		}
-		init();
-		backImg = null;
-		repaint();
+		refreshGui();
 	}
 	private void doLastBoxAction() {
 		buttonClick();
@@ -293,9 +300,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		default: // setGlobalLastKey
 			loadAndUpdateFromFileName(guiOptions(), LAST_OPTIONS_FILE, ALL_GUI_ID);
 		}
-		init();
-		backImg = null;
-		repaint();
+		refreshGui();
 	}
 	private void doUserBoxAction() {
 		buttonClick();
@@ -308,15 +313,11 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			return;
 		case SHIFT: // setLocalUserKey
 			loadAndUpdateFromFileName(guiOptions(), USER_OPTIONS_FILE, GUI_ID);
-			init();
-			backImg = null;
-			repaint();
+			refreshGui();
 			return;
 		default: // setGlobalUserKey
 			loadAndUpdateFromFileName(guiOptions(), USER_OPTIONS_FILE, ALL_GUI_ID);
-			init();
-			backImg = null;
-			repaint();
+			refreshGui();
 		}
 	}
 // 	private void saveLocalUserOptions() {

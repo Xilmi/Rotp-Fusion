@@ -56,11 +56,10 @@ public class CustomRaceDefinitions  {
 	private	static final String PLANET	= "PLANET_";
 	private	static final String EXT		= ".race";
 	private static final String baseRace = baseRaceOptions().getFirst();
-	public	static final String RANDOMIZED_RACE_KEY	= "RANDOMIZED_RACE";
+	private	static final String RANDOMIZED_RACE_KEY	= "RANDOMIZED_RACE";
 	public	static final String RANDOM_RACE_KEY		= "RANDOM_RACE_KEY";
 	public	static final String CUSTOM_RACE_KEY		= "CUSTOM_RACE_KEY";
-	public	static final String FILE_RACE_KEY		= "FILE_RACE_KEY";
-	public	static final String BASE_RACE_MARKER	= "*";
+	private	static final String BASE_RACE_MARKER	= "*";
 	private static final boolean booleansAreBullet	= true;
 
 	private Race race; // !!! To be kept up to date !!!
@@ -110,7 +109,6 @@ public class CustomRaceDefinitions  {
 	}
 	// -------------------- Static Methods --------------------
 	// 
-	
 	public static boolean raceFileExist(String fileName) {
 		File f = new File(Rotp.jarPath(), fileName + EXT);
 		return (f.exists() && !f.isDirectory());
@@ -163,12 +161,12 @@ public class CustomRaceDefinitions  {
 				.filter(c -> c.startsWith(BASE_RACE_MARKER))
 				.collect(Collectors.toCollection(LinkedList::new));
 	}
-	public static Race getBaseRace(String key) {
+	private static Race getBaseRace(String key) {
 		CustomRaceDefinitions cr = new CustomRaceDefinitions();
 		cr.setRace(cr.new RaceList().getBaseRace(key));
 		return cr.getRace();
 	}
-	public static LinkedList<String> getRaceFileList() {
+	private static LinkedList<String> getRaceFileList() {
 		return new CustomRaceDefinitions().new RaceList().getLabels();
 	}
 	public static LinkedList<String> getAllowedAlienRaces() {
@@ -368,12 +366,12 @@ public class CustomRaceDefinitions  {
 			setting.pushSetting();
 		}
 	}
-	public void pullSettings() {
+	private void pullSettings() {
 		for (SettingBase<?> setting : settingList) {
 			setting.pullSetting();
 		}
 	}
-	public float updateSettings() {
+	private float updateSettings() {
 		for (SettingBase<?> setting : settingList) {
 			setting.updateGui();
 		}
@@ -555,7 +553,7 @@ public class CustomRaceDefinitions  {
 	    	float cost = cr.getTotalCost();
 	    	put(cfgValue, langLabel, cost, langLabel, tooltipKey);
 	    }
-	    public String getBaseRace(String key) {
+	    private String getBaseRace(String key) {
 	    	return getCfgValue(key);
 	    }
 	    public boolean newValue() {

@@ -29,7 +29,6 @@ public class ParamCR extends ParamObject {
 	/**
 	 * @param gui  The label header
 	 * @param name The name
-	 * @param defaultValue The default value
 	 */
 	public ParamCR(String gui, String name) {
 		super(gui, name, null);

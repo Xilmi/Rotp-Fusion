@@ -16,7 +16,6 @@
 package rotp.ui.util;
 
 import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
-import static rotp.model.game.MOO1GameOptions.saveOptionsToFileName;
 import static rotp.model.game.MOO1GameOptions.setBaseAndModSettingsToDefault;
 import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
 import static rotp.ui.UserPreferences.ALL_GUI_ID;
@@ -204,7 +203,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 			else
 				bg = GameUI.settingsSetupBackground(w);
 		if (!globalOptions) // The new ways
-			saveOptionsToFileName(guiOptions(), LIVE_OPTIONS_FILE);
+			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 		init();
 		enableGlassPane(this);
 	}
@@ -449,7 +448,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		text = text(lastButtonKey());
 		sw	 = g.getFontMetrics().stringWidth(text);
 		smallButtonW = defaultButtonWidth(g);
-		lastBox.setBounds(lastBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
+		lastBox.setBounds(defaultBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(lastBox.x, lastBox.y, smallButtonW, smallButtonH, cnr, cnr);
 		g.setFont(narrowFont(20));
@@ -465,7 +464,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		text = text(userButtonKey());
 		sw	 = g.getFontMetrics().stringWidth(text);
 		smallButtonW = userButtonWidth(g);
-		userBox.setBounds(defaultBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
+		userBox.setBounds(lastBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(userBox.x, userBox.y, smallButtonW, smallButtonH, cnr, cnr);
 		g.setFont(narrowFont(20));

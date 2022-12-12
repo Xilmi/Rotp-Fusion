@@ -317,16 +317,15 @@ public class UserPreferences {
 					));
 
 	// BR: Custom Race Menu
-	public static final LinkedList<InterfaceParam> optionsCustomRaceBase = new LinkedList<>(
+	private static final LinkedList<InterfaceParam> optionsCustomRaceBase = new LinkedList<>(
 			Arrays.asList(
 					playerIsCustom, playerCustomRace
 					));
-//	public static LinkedList<InterfaceParam> optionsCustomRace() {
-//		LinkedList<InterfaceParam> list = new LinkedList<>();
-//		list.addAll(EditCustomRaceUI.instance().commonList);
-//		list.addAll(optionsCustomRaceBase);
-//		return list;
-//	}
+	public static LinkedList<InterfaceParam> optionsCustomRace() {
+		LinkedList<InterfaceParam> list = new LinkedList<>();
+		list.addAll(optionsCustomRaceBase);
+		return list;
+	}
 	
 	// BR: All the parameters
 	public static LinkedList<InterfaceParam> allModOptions() {
@@ -336,7 +335,6 @@ public class UserPreferences {
 		allModOptions.addAll(optionsGalaxy);
 		allModOptions.addAll(optionsRace);
 		allModOptions.addAll(optionsCustomRaceBase);
-//		allModOptions.addAll(optionsCustomRace());
 		return allModOptions;
 	}
 

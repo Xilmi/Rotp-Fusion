@@ -137,7 +137,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     // BR: Dynamic options
     private DynOptions dynamicOptions = new DynOptions();
 
-//    public static final MOO1GameOptions initialOptions = new MOO1GameOptions(); // TODO BR: REMOVE To be restored if "cancel"
     private transient GalaxyShape galaxyShape;
     private static transient LinkedList<String> sortedOpponentAINames;
     private static transient LinkedList<String> sortedOpponentAIKeys;
@@ -287,7 +286,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         if (n < specificOpponentCROption.length)
             specificOpponentCROption[n] = s;
     }
-
     @Override
     public String selectedAIHostilityOption()       { return selectedAIHostilityOption == null ? AI_HOSTILITY_NORMAL : selectedAIHostilityOption; }
     @Override
@@ -415,6 +413,17 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             setGalaxyShape();
         return galaxyShape;
     }
+    private void setGalaxyShape(String option1, String option2) {
+    	setBaseGalaxyShape();
+    	if (option1 == null)
+    		selectedGalaxyShapeOption1 = galaxyShape.defaultOption1();
+    	else
+    		selectedGalaxyShapeOption1 = option1;
+    	if (option2 == null)
+    		selectedGalaxyShapeOption2 = galaxyShape.defaultOption2();
+    	else
+    		selectedGalaxyShapeOption2 = option2;
+    }
     private void setGalaxyShape() {
     	setBaseGalaxyShape();
         selectedGalaxyShapeOption1 = galaxyShape.defaultOption1();
@@ -493,7 +502,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         case SIZE_INSANE:     return 10000;
         case SIZE_LUDICROUS:  return 100000;
         case SIZE_MAXIMUM:    return maximumSystems();
-
         case SIZE_DYNAMIC: // BR: Added an option to select from the opponents number
         default:
         	return min(maximumSystems(), 
@@ -538,7 +546,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         else 
             return min(10,sqrt(nStars/200f));
     }
-    public static void initAISortedList() { // BR: To retrieve AI name from its ID
+    private static void initAISortedList() { // BR: To retrieve AI name from its ID
     	LabelManager lm       = LabelManager.current();
 		sortedOpponentAIKeys  = opponentAIBaseOptions(); // Should start with the good size
 		sortedOpponentAINames = opponentAIBaseOptions(); // Should start with the good size
@@ -805,7 +813,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	return Arrays.asList("RED", "ORANGE", "YELLOW"
     				 , "BLUE", "WHITE", "PURPLE"); 
     }
-
     // BR: Made this String Array public
     /**
      * @return List of all planetTypes Key 
@@ -1171,7 +1178,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add(AUTOPLAY_AI_RANDOM_NOBAR);
         return list;
     }
-    public static LinkedList<String> opponentAIBaseOptions() { // BR: new access to base opponents
+    private static LinkedList<String> opponentAIBaseOptions() { // BR: new access to base opponents
     	LinkedList<String> list = new LinkedList<>();
         list.add(OPPONENT_AI_BASE);
         list.add(OPPONENT_AI_MODNAR);
@@ -1193,7 +1200,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add(OPPONENT_AI_SELECTABLE);
         return list;
     }
-    public static List<String> specificOpponentAIBaseOptions() { // BR: new access to base opponents
+    private static List<String> specificOpponentAIBaseOptions() { // BR: new access to base opponents
         return opponentAIBaseOptions(); // BR: to allow any possibilities
     } 
     @Override
@@ -1242,9 +1249,10 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     public List<Integer> possibleColors() {
         return new ArrayList<>(colors);
     }
-    private void setAndGenerateGalaxy() {
-       	setBaseGalaxyShape();
+    public void setAndGenerateGalaxy() {
+       	setGalaxyShape(selectedGalaxyShapeOption1, selectedGalaxyShapeOption2);
         galaxyShape().quickGenerate();
+
     }
     private void generateGalaxy() { galaxyShape().quickGenerate(); }
     @Override
@@ -1498,96 +1506,31 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     		param.setFromOptions(source.dynamicOptions());
         EditCustomRaceUI.instance().updateCRGui(source);
     }
-//    public static void setBaseAndModSettingsToDefault(MOO1GameOptions options) { // BR:
-//     	setModSettingsToDefault();
-//     	options.setBaseSettingsToDefault(); // needs showNewRaces updated
-//     	setCRSettingsToDefault(options);
-//    }
-//    private static void writeAllSettingsToOptions(MOO1GameOptions options, MOO1GameOptions destination) { //BR:
-//    	writeModSettingsToOptions(destination);
-//    	copyBaseSettings(options, destination);
-//    }
     private static void writeModSettingsToOptions(MOO1GameOptions destination) { // BR:
     	for( InterfaceParam option : allModOptions())
     		option.setOptions(destination.dynamicOptions());
        	EditCustomRaceUI.instance().writeLocalOptions(destination);
     }
-// TODO Remove unused code found by UCDetector
-//     public static void copyAllSettings(MOO1GameOptions src, MOO1GameOptions dest) {
-//     	copyModSettings(src, dest);
-//     	copyBaseSettings(src, dest);
-//     }
-//    private static void copyModSettings(MOO1GameOptions src, MOO1GameOptions dest) {
-//    	dest.dynamicOptions = src.dynamicOptions.copy();
-//    }
     private static void copyBaseSettings(MOO1GameOptions src, MOO1GameOptions dest) {
     	copyBaseRaceSettings(src, dest);
     	copyBaseGalaxySettings(src, dest);
     	copyAdvancedOptions(src, dest);
     }
-//    private static void setCRSettingsToDefault(MOO1GameOptions options) { // BR:
-//		EditCustomRaceUI.instance().setToLocalDefault();
-//		EditCustomRaceUI.instance().writeLocalOptions(options);
-//    }
-//    private static void setModSettingsToDefault() { // BR:
-//    	EditCustomRaceUI.instance().setToLocalDefault();
-//    	for( InterfaceParam option : allModOptions())
-//    		option.setFromDefault();   	
-//    }
     private void setBaseSettingsToDefault() {
     	setBaseGalaxySettingsToDefault();
     	setBaseRaceSettingsToDefault();
         setAdvancedOptionsToDefault();
-//        generateGalaxy(); // TODO BR: Remove (Validate)
     }
     // ========== Race Menu Options ==========
-// TODO Remove unused code found by UCDetector
-//     public static void setBaseRaceSettingsFromOptions(MOO1GameOptions options, MOO1GameOptions source) { // BR:
-//     	copyBaseRaceSettings(source, options);
-//         setModRaceSettingsFromOptions(source);
-//         writeModRaceSettingsToOptions(options);
-//     }
-//    private static void writeAllRaceSettingsToOptions(MOO1GameOptions options, MOO1GameOptions destination) { //BR:
-//    	writeModRaceSettingsToOptions(destination);
-//    	copyBaseRaceSettings(options, destination);
-//    }
-//    private static void writeModRaceSettingsToOptions(MOO1GameOptions destination) { // BR:
-//    	for( InterfaceParam param : optionsRace)
-//    		param.setOptions(destination.dynamicOptions());
-//    }
-// TODO Remove unused code found by UCDetector
-//     public static void setAllRaceSettingsFromOptions(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
-//     	setModRaceSettingsFromOptions(src);
-//     	copyBaseRaceSettings(src, dest);
-//     }
-//    private static void setModRaceSettingsFromOptions(MOO1GameOptions src) { // BR:
-//    	for (InterfaceParam param : optionsRace)
-//    		param.setFromOptions(src.dynamicOptions);
-//    }
-// TODO Remove unused code found by UCDetector
-//     public static void setAllRaceOptionsToDefault(MOO1GameOptions options) { // BR:
-//     	setModRaceSettingsToDefault();
-//     	options.setBaseRaceSettingsToDefault();
-//     }
     public static void copyBaseAndModRaceSettings(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
     	copyModRaceSettings(src, dest);
     	copyBaseRaceSettings(src, dest);
     }
-// TODO Remove unused code found by UCDetector
-//     public static void setBaseRaceSettingsToDefault(MOO1GameOptions dest) { // BR:
-//     	dest.setBaseRaceSettingsToDefault();
-//     }
-//    private static void setModRaceSettingsToDefault() { // BR:
-//    	for (InterfaceParam param : optionsRace)
-//    		param.setFromDefault();
-//    }
     private static void copyModRaceSettings(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
     	for (InterfaceParam param : optionsRace)
     		param.copyOption(src.dynamicOptions, dest.dynamicOptions);;
     }
     private void setBaseRaceSettingsToDefault() { // BR:
-    	System.out.println("========== setBaseRaceSettingsToDefault()"); // TODO BR: remove
-    	System.out.println("showNewRaces.get() = " + UserPreferences.showNewRaces.get());
         if (UserPreferences.showNewRaces.get()) // BR: limit randomness
         	selectedPlayerRace(random(allRaceOptions()));
         else
@@ -1599,60 +1542,10 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	dest.selectedPlayerColor(src.selectedPlayerColor());
     }
     // ========== Galaxy Menu Options ==========
-// TODO Remove unused code found by UCDetector
-//     public static void setBaseGalaxySettingsFromOptions(MOO1GameOptions options, MOO1GameOptions source) { // BR:
-//     	copyBaseGalaxySettings(source, options);
-//         setModGalaxySettingsFromOptions(source);
-//         writeModGalaxySettingsToOptions(options);
-//     }
-//    private static void writeAllGalaxySettingsToOptions(MOO1GameOptions options, MOO1GameOptions destination) { //BR:
-//    	writeModGalaxySettingsToOptions(destination);
-//    	copyBaseGalaxySettings(options, destination);
-//    }
-//    private static void writeModGalaxySettingsToOptions(MOO1GameOptions destination) { // BR:
-//    	for( InterfaceParam param : optionsGalaxy)
-//    		param.setOptions(destination.dynamicOptions());
-//    }
-// TODO Remove unused code found by UCDetector
-//     public static void setAllGalaxySettingsFromOptions(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
-//     	setModGalaxySettingsFromOptions(src);
-//     	copyBaseGalaxySettings(src, dest);
-//     	dest.setAndGenerateGalaxy(); // TODO BR: VALIDATE dest.setAndGenerateGalaxy()
-//     }
-//    private static void setModGalaxySettingsFromOptions(MOO1GameOptions src) { // BR:
-//    	for (InterfaceParam param : optionsGalaxy)
-//    		param.setFromOptions(src.dynamicOptions);
-//    }
-// TODO Remove unused code found by UCDetector
-// 	/**
-// 	 * Affect the GUI
-// 	 * @param options
-// 	 */
-//     public static void setAllGalaxySettingsToDefault(MOO1GameOptions options) { // BR:
-//     	setModGalaxySettingsToDefault();
-//     	options.setBaseGalaxySettingsToDefault();
-//     }
-// TODO Remove unused code found by UCDetector
-//     public static void copyAllGalaxySettings(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
-//     	copyModGalaxySettings(src, dest);
-//     	copyBaseGalaxySettings(src, dest);
-//     }
-// TODO Remove unused code found by UCDetector
-//     public static void setBaseGalaxySettingsToDefault(MOO1GameOptions dest) {
-//     	dest.setBaseGalaxySettingsToDefault();
-// //        dest.generateGalaxy(); // TODO BR: Remove (Validate)
-//     }
-//    private static void setModGalaxySettingsToDefault() { // BR:
-//    	for (InterfaceParam param : optionsGalaxy)
-//    		param.setFromDefault();
-//    }
-//    private static void copyModGalaxySettings(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
-//    	for (InterfaceParam param : optionsGalaxy)
-//    		param.copyOption(src.dynamicOptions, dest.dynamicOptions);;
-//    }
     private void setBaseGalaxySettingsToDefault() { // BR:
         selectedGalaxySize = SIZE_SMALL;
         selectedGalaxyShape = SHAPE_RECTANGLE;
+        setGalaxyShape();
         selectedNumberOpponents = defaultOpponentsOptions();
         for (int i=0;i<opponentRaces.length;i++)
         	opponentRaces[i] = null;
@@ -1673,9 +1566,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private static void copyBaseGalaxySettings(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
     	dest.selectedGalaxySize  = src.selectedGalaxySize;
     	dest.selectedGalaxyShape = src.selectedGalaxyShape;
-    	// dest.setBaseGalaxyShape(); // TODO Validate for Copy
-    	dest.selectedGalaxyShapeOption1 = src.selectedGalaxyShapeOption1;;
-    	dest.selectedGalaxyShapeOption2 = src.selectedGalaxyShapeOption2;
+    	dest.setGalaxyShape(src.selectedGalaxyShapeOption1, src.selectedGalaxyShapeOption2);
     	dest.selectedNumberOpponents = src.selectedNumberOpponents;
     	dest.selectedGameDifficulty	 = src.selectedGameDifficulty;
         for (int i=0; i<dest.opponentRaces.length; i++)
@@ -1684,7 +1575,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         	for (int i=0; i<dest.specificOpponentCROption.length; i++)
         		dest.specificOpponentCROption[i] = src.specificOpponentCROption[i];
     	copyAliensAISettings(src, dest);
-        // dest.generateGalaxy(); // TODO BR: try to remove validate
     }
     public static void copyAliensAISettings(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
     	dest.selectedOpponentAIOption = src.selectedOpponentAIOption;
@@ -1710,7 +1600,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         selectedAutoplayOption = AUTOPLAY_OFF;
         selectedAIHostilityOption = AI_HOSTILITY_NORMAL;
     }
-    public static void copyAdvancedOptions(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
+    private static void copyAdvancedOptions(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
         dest.selectedGalaxyAge			= src.selectedGalaxyAge;
         dest.selectedPlanetQualityOption = src.selectedPlanetQualityOption;
         dest.selectedTerraformingOption = src.selectedTerraformingOption;
@@ -1727,15 +1617,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         dest.selectedAutoplayOption		= src.selectedAutoplayOption;
         dest.selectedAIHostilityOption	= src.selectedAIHostilityOption;
    }
-
     // ==================== Generalized options methods ====================
     //
-// TODO Remove unused code found by UCDetector
-//     public static void writeAllSettingsToOptions(
-//     		MOO1GameOptions src, MOO1GameOptions dest, String guiID) {
-//     	writeModSettingsToOptions(dest, guiID);
-//     	writeBaseSettingsToOptions(src, dest, guiID);
-//     }
     private static void writeModSettingsToOptions(MOO1GameOptions dest, String guiID) {
     	LinkedList<InterfaceParam> modOptions = getModParameterList(guiID);
     	if (modOptions == null)
@@ -1744,10 +1627,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
        		param.setOptions(dest.dynamicOptions());
        	}
     }
-//    private static void writeBaseSettingsToOptions(
-//    		MOO1GameOptions src, MOO1GameOptions dest, String guiID) {
-//    	copyBaseSettings(src, dest, guiID);
-//    }
     private static void setBaseAndModSettingsFromOptions(
     		MOO1GameOptions src, MOO1GameOptions dest, String guiID) {
     	setModSettingsFromOptions(src, guiID);
@@ -1766,21 +1645,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     		MOO1GameOptions src, MOO1GameOptions dest, String guiID) {
     	copyBaseSettings(src, dest, guiID);
     }
-// TODO Remove unused code found by UCDetector
-//     public static void copyAllSettings(
-//     		MOO1GameOptions src, MOO1GameOptions dest, String guiID) {
-//     	copyModSettings(src, dest, guiID);
-//     	copyBaseSettings(src, dest, guiID);
-//     }
-//    private static void copyModSettings(
-//    		MOO1GameOptions src, MOO1GameOptions dest, String guiID) {
-//    	LinkedList<InterfaceParam> modOptions = getModParameterList(guiID);
-//    	if (modOptions == null)
-//    		return;
-//       	for (InterfaceParam param : modOptions) {
-//       		param.copyOption(src.dynamicOptions, dest.dynamicOptions);
-//       	}
-//    }
     private static void copyBaseSettings(
     		MOO1GameOptions src, MOO1GameOptions dest, String guiID) {
     	switch (guiID) {
@@ -1850,8 +1714,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	    		modOptions = UserPreferences.modGlobalOptionsUI;
 	    		break;
 	    	case EditCustomRaceUI.GUI_ID:
-	    		modOptions = UserPreferences.optionsCustomRaceBase;
-//	    		modOptions = UserPreferences.optionsCustomRace();
+	    		modOptions = UserPreferences.optionsCustomRace();
 	    		break;
 	    	case UserPreferences.ALL_GUI_ID:
 	    		modOptions = UserPreferences.allModOptions();
@@ -1861,53 +1724,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
     // ==================== New Options files management methods ====================
     //
-//    public static void saveOptionsToLiveOptions(MOO1GameOptions options) { // BR: initialOptions
-//    	// TODO BR: Validate Optimize getInitialOptions(MOO1GameOptions source)
-//    	// copyAllSettings(source, initialOptions);
-//    	saveOptions(options, Rotp.jarPath(), LIVE_OPTIONS_FILE);
-//    	// writeAllOptions(source, initialOptions);
-//    	// writeAllOptions(source, source); // To reinitialize;
-//    	// return initialOptions;
-//    }
-//    public static void loadAndUpdateFromInitialOptions(MOO1GameOptions options) {
-//    	setAllSettingsFromOptions(options, loadLastOptions());   		
-//    }
-//    public static void saveOptionsToGameOptions(MOO1GameOptions options) {
-//    	// writeModOptions(options);
-//    	// save the Game options as is
-//    	saveOptions(options, Rotp.jarPath(), GAME_OPTIONS_FILE);
-//    	UserPreferences.gamePlayed(true);
-//    }
-//    public static void updateOptionsAndSaveToUserOptions(MOO1GameOptions options) {
-//    	writeModSettingsToOptions(options);
-//    	saveToUserOptions(options);
-//    }
-//    public static void saveToUserOptions(MOO1GameOptions options) {
-//    	saveOptions(options, Rotp.jarPath(), USER_OPTIONS_FILE);
-//    }
-//    public static void updateOptionsAndSaveToLastOptions(MOO1GameOptions options) {
-//    	writeModSettingsToOptions(options);
-//    	saveOptions(options, Rotp.jarPath(), LAST_OPTIONS_FILE);
-//    }
-//    public static void loadAndUpdateFromGameOptions(MOO1GameOptions options) {
-//    	setAllSettingsFromOptions(options, loadGameOptions());   		
-//    }
-//    public static void loadAndUpdateFromUserOptions(MOO1GameOptions options) {
-//    	setAllSettingsFromOptions(options, loadUserOptions());   		
-//    }
-//    public static void loadAndUpdateFromLastOptions(MOO1GameOptions options) {
-//    	setAllSettingsFromOptions(options, loadLastOptions());   		
-//    }
-//    public static MOO1GameOptions loadGameOptions() {
-//   		return loadOptions(Rotp.jarPath(), GAME_OPTIONS_FILE);
-//    }
-//    public static MOO1GameOptions loadUserOptions() {
-//   		return loadOptions(Rotp.jarPath(), USER_OPTIONS_FILE);
-//    }
-//    public static MOO1GameOptions loadLastOptions() {
-//   		return loadOptions(Rotp.jarPath(), LAST_OPTIONS_FILE);
-//    }
-
     public static void copyOptionsFromLiveToLast() {
     	saveOptionsToFileName(
     			loadFileName(UserPreferences.LIVE_OPTIONS_FILE)
@@ -1921,7 +1737,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	saveOptions(options, Rotp.jarPath(), fileName);
     }
     public static void loadAndUpdateFromFileName(MOO1GameOptions options, String fileName, String guiID) {
-    	setBaseAndModSettingsFromOptions(options, loadFileName(fileName), guiID);   		
+    	setBaseAndModSettingsFromOptions(loadFileName(fileName), options, guiID);   		
     }
     private static MOO1GameOptions loadFileName(String fileName) {
    		return loadOptions(Rotp.jarPath(), fileName);

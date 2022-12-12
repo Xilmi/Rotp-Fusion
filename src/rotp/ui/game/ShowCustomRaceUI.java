@@ -150,7 +150,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	protected BaseText totalCostText;
 	private	  RacesUI  raceUI; // Parent panel
 	protected int maxLeftM;
-	protected CustomRaceDefinitions cr;
+	CustomRaceDefinitions cr;
 	protected boolean initialized = false;
 	
 	// ========== Constructors and initializers ==========
@@ -247,16 +247,10 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		}
 		totalCostText.displayText(totalCostStr());
 		totalCostText.disabled(true);
-		tooltipText = "This is where Tool tips are displayed";
+		tooltipText = "\"Shift\" and \"Ctrl\" can be used to changes button, click and scroll functions";
 	}
 	// ========== Other Methods ==========
 	//
-//	public void readOptions(MOO1GameOptions source) {
-//		for (InterfaceOptions param : commonList)
-//			param.setFromOptions(source.dynamicOptions());
-//		playerIsCustom.setFromOptions(source.dynamicOptions());
-//		init();
-//	}
 	private  BaseText settingBT() {
 		return new BaseText(this, false, settingFont, 0, 0,
 				settingC, settingNegC, hoverC, depressedC, textC, 0, 0, 0);
@@ -278,9 +272,6 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	private String raceAIButtonTipKey()	{ return raceAITipKey; }
 	private boolean isPlayer()			{ return raceUI.selectedEmpire().isPlayer(); }
 	private String selectAIFromList(String[] aiArray, String initialChoice) {
-		// String initialChoice = raceAIButtonTxt();
-		//String[] aiArray = aiList.toArray(new String[aiList.size()]);
-
 		String message = "Make your choice";
 	    String input = (String) ListDialog.showDialog(
 	    	getParent(),	// Frame component
@@ -446,10 +437,8 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		if (isPlayer())
 			if (raceUI.selectedEmpire().isAIControlled())
 				return raceUI.selectedEmpire().getAiName();
-//				return text(raceUI.options().selectedAutoplayOption());
 			else
 				return raceUI.selectedEmpire().getAiName();
-//				return text(raceUI.options().selectedAutoplayOption());
 		else
 			return raceUI.selectedEmpire().getAiName();
 	}

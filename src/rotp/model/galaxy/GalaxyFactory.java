@@ -23,7 +23,10 @@ import static rotp.model.empires.CustomRaceDefinitions.optionToAlienRace;
 import static rotp.model.empires.CustomRaceDefinitions.raceFileExist;
 import static rotp.model.game.MOO1GameOptions.copyAliensAISettings;
 import static rotp.model.game.MOO1GameOptions.saveOptionsToFileName;
+import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
+import static rotp.ui.UserPreferences.ALL_GUI_ID;
 import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
+import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.globalCROptions;
 import static rotp.ui.UserPreferences.minDistanceArtifactPlanet;
 import static rotp.ui.UserPreferences.restartAppliesSettings;
@@ -101,7 +104,8 @@ public class GalaxyFactory implements Base {
 		addAlienRaceSystemsForGalaxy(g, 1, null, src, alienRaces);
 		addUnsettledSystemsForGalaxy(g, gc);		
 		init(g, System.currentTimeMillis());
-		saveOptionsToFileName((MOO1GameOptions)opts, GAME_OPTIONS_FILE);
+		updateOptionsAndSaveToFileName((MOO1GameOptions)opts, GAME_OPTIONS_FILE, ALL_GUI_ID);
+		//saveOptionsToFileName((MOO1GameOptions)opts, GAME_OPTIONS_FILE);
 		return g;
 	}
 	public Galaxy newGalaxy() {
@@ -156,7 +160,8 @@ public class GalaxyFactory implements Base {
 		long tm2 = System.currentTimeMillis();
 		log(str(g.numStarSystems()) ," Systems, ",str(Planet.COUNT)," Planets: "+(tm2-tm1)+"ms");
 		init(g, tm2);
-		saveOptionsToFileName((MOO1GameOptions)opts, GAME_OPTIONS_FILE);
+		// saveOptionsToFileName((MOO1GameOptions)opts, GAME_OPTIONS_FILE);
+		updateOptionsAndSaveToFileName((MOO1GameOptions)opts, GAME_OPTIONS_FILE, ALL_GUI_ID);
 		return g;
 	}
 	private void showAI(Galaxy g) {

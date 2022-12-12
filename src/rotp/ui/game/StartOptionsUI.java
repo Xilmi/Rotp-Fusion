@@ -16,7 +16,6 @@
 package rotp.ui.game;
 
 import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
-import static rotp.model.game.MOO1GameOptions.saveOptionsToFileName;
 import static rotp.model.game.MOO1GameOptions.setBaseAndModSettingsToDefault;
 import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
 import static rotp.ui.UserPreferences.ALL_GUI_ID;
@@ -27,6 +26,7 @@ import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.defaultButtonWidth;
 import static rotp.ui.util.AbstractOptionsUI.lastButtonKey;
+import static rotp.ui.util.AbstractOptionsUI.lastButtonWidth;
 import static rotp.ui.util.AbstractOptionsUI.okButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.userButtonKey;
 import static rotp.ui.util.AbstractOptionsUI.userButtonWidth;
@@ -132,7 +132,7 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
     void open(BasePanel p) {
         parent = p;
 		Modifier2KeysState.reset();
-		saveOptionsToFileName(guiOptions(), LIVE_OPTIONS_FILE);
+		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
         init();
         enableGlassPane(this);
     }
@@ -141,15 +141,6 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
         disableGlassPane();
 		newGameOptions().galaxyShape().quickGenerate(); // BR: to avoid strange galaxy display
     }
-//    private void copyOptions(MOO1GameOptions src, MOO1GameOptions dest) {
-//    	MOO1GameOptions.copyAdvancedOptions(src, dest);
-//    }
-//	private void writeOptions(MOO1GameOptions destination) {
-//		copyOptions(guiOptions(), destination);
-//	}
-//	private void readOptions(MOO1GameOptions source) {
-//		copyOptions(source, guiOptions());
-//	}
     private void doOkBoxAction() {
 		buttonClick();
 		switch (Modifier2KeysState.get()) {
@@ -218,11 +209,6 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
 		init();
 		repaint();
 	}
-//	private void saveUserOptions() {
-//		MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
-//		writeOptions(fileOptions);
-//		MOO1GameOptions.updateOptionsAndSaveToUserOptions(fileOptions);
-//	}
 	private void checkModifierKey(InputEvent e) {
 		if (Modifier2KeysState.checkForChange(e)) {
 			repaint();
@@ -231,11 +217,9 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
     @Override
     public void paintComponent(Graphics g0) {
         super.paintComponent(g0);
-        
         int w = getWidth();
         int h = getHeight();
         Graphics2D g = (Graphics2D) g0;
-        
         
         // draw background "haze"
         g.setColor(backgroundHaze);
@@ -267,7 +251,6 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
         Stroke prev = g.getStroke();
         g.setStroke(stroke3);
 
-        
         // left column
         int y2 = topM+scaled(110);
         int x2 = leftM+s10;
@@ -340,7 +323,6 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
             drawString(g,line, x2+s20, y3);
         }
         
-        
         y2 += (h2+s20);
         g.setColor(SystemPanel.blackText);
         g.drawRect(x2, y2, w2, h2);
@@ -395,7 +377,6 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
             drawString(g,line, x2+s20, y3);
         }       
        
-
         y2 += (h2+s20);
         g.setColor(SystemPanel.blackText);
         g.drawRect(x2, y2, w2, h2);
@@ -412,7 +393,6 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
             y3 += lineH;
             drawString(g,line, x2+s20, y3);
         }
- 
         
         y2 += (h2+s20);
         g.setColor(SystemPanel.blackText);
@@ -430,7 +410,6 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
             y3 += lineH;
             drawString(g,line, x2+s20, y3);
         }
-        
         
         y2 += (h2+s20);
         g.setColor(SystemPanel.blackText);
@@ -520,7 +499,6 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
             drawString(g,line, x2+s20, y3);
         }
 
-
         y2 += (h2+s20);
         g.setColor(SystemPanel.blackText);
         g.drawRect(x2, y2, w2, h2);
@@ -578,6 +556,10 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
 
         // BR: Last Button 
 		text = text(lastButtonKey());
+		smallButtonW = lastButtonWidth(g);
+		lastBox.setBounds(defaultBox.x-smallButtonW-s30, y4, smallButtonW, smallButtonH);
+		g.setColor(GameUI.buttonBackgroundColor());
+		g.fillRoundRect(lastBox.x, lastBox.y, smallButtonW, smallButtonH, cnr, cnr);
         sw  = g.getFontMetrics().stringWidth(text);
 		x = lastBox.x+((lastBox.width-sw)/2);
 		y = lastBox.y+lastBox.height-s8;
@@ -591,7 +573,7 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
 		text = text(userButtonKey());
         sw 	 = g.getFontMetrics().stringWidth(text);
 		smallButtonW = userButtonWidth(g);
-		userBox.setBounds(defaultBox.x-smallButtonW-s30, y4, smallButtonW, smallButtonH);
+		userBox.setBounds(lastBox.x-smallButtonW-s30, y4, smallButtonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(userBox.x, userBox.y, smallButtonW, smallButtonH, cnr, cnr);
 		g.setFont(narrowFont(20));
@@ -987,5 +969,4 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
         else if (hoverBox == techTradingText.bounds())
             toggleTechTrading(up);
     }
-    	 
 }
