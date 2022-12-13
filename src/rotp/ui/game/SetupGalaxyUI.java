@@ -18,24 +18,14 @@ package rotp.ui.game;
 import static rotp.model.empires.CustomRaceDefinitions.getAllowedAlienRaces;
 import static rotp.model.empires.CustomRaceDefinitions.getBaseRacList;
 import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
-import static rotp.model.game.MOO1GameOptions.setBaseAndModSettingsToDefault;
 import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
 import static rotp.ui.UserPreferences.ALL_GUI_ID;
 import static rotp.ui.UserPreferences.GALAXY_TEXT_FILE;
-import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
-import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
-import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.globalCROptions;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
 import static rotp.ui.UserPreferences.showNewRaces;
 import static rotp.ui.UserPreferences.useSelectableAbilities;
-import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
-import static rotp.ui.util.AbstractOptionsUI.defaultButtonWidth;
-import static rotp.ui.util.AbstractOptionsUI.lastButtonKey;
-import static rotp.ui.util.AbstractOptionsUI.lastButtonWidth;
-import static rotp.ui.util.AbstractOptionsUI.userButtonKey;
-import static rotp.ui.util.AbstractOptionsUI.userButtonWidth;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -51,7 +41,6 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
 import java.awt.Shape;
 import java.awt.Stroke;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -62,9 +51,11 @@ import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -72,7 +63,9 @@ import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.JFileChooser;
 import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import rotp.Rotp;
 import rotp.mod.br.addOns.RacesOptions;
@@ -83,7 +76,7 @@ import rotp.model.galaxy.GalaxyShape;
 import rotp.model.galaxy.GalaxyShape.EmpireSystem;
 import rotp.model.game.GameSession;
 import rotp.model.game.IGameOptions;
-import rotp.ui.BasePanel;
+import rotp.ui.BaseModPanel;
 import rotp.ui.NoticeMessage;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
@@ -92,21 +85,18 @@ import rotp.ui.util.ListDialog;
 import rotp.ui.util.Modifier2KeysState;
 import rotp.ui.util.SpecificCROption;
 
-public final class SetupGalaxyUI  extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
+public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
 	private static final long serialVersionUID = 1L;
-//	public  static final String guiTitleID	= "SETUP_GALAXY";
+    // public  static final String guiTitleID	= "SETUP_GALAXY";
 	public  static final String GUI_ID      = "START_GALAXY";
 	private static final String backKey		= "SETUP_BUTTON_BACK";
-	private static final String restoreKey	= "SETUP_BUTTON_RESTORE";
+	// private static final String restoreKey	= "SETUP_BUTTON_RESTORE";
 	private static final String restartKey	= "SETUP_BUTTON_RESTART";
 	private static final String startKey	= "SETUP_BUTTON_START";
 	private static final String sizeOptKey	= "SETUP_GALAXY_SIZE_STAR_PER_EMPIRE";
 	public static int MAX_DISPLAY_OPPS = 49;
 	private BufferedImage backImg, playerRaceImg;
 	private BufferedImage smBackImg;
-    private Rectangle defaultBox = new Rectangle();
-	private Rectangle lastBox	= new Rectangle();
-    private Rectangle userBox	 = new Rectangle();
     private int bSep = s15;
 
 	private Rectangle modASettingsBox		= new Rectangle(); // modnar: add UI panel for modnar MOD game options
@@ -160,7 +150,6 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
     private int dialogMonoFontSize = 20;
     private Font boxMonoFont;
     private int boxMonoFontSize = 15;
-//	public	LinkedList<InterfaceParam> paramList = optionsGalaxy; // TODO BR: Try to remove
     
 	private Font boxMonoFont() {
     	if (boxMonoFont == null)
@@ -204,20 +193,15 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		Modifier2KeysState.reset();
 		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 		refreshGui();
-//        initAbilitiesList();
-//        guiOptions().setAndGenerateGalaxy();
-////		newGameOptions().galaxyShape().quickGenerate(); // BR: to avoid strange galaxy display
-//        backImg = null;
-//        repaint();
 	}
-	private void refreshGui() {
+	@Override protected String GUI_ID() { return GUI_ID; }
+	@Override protected void refreshGui() {
         initAbilitiesList();
         guiOptions().setAndGenerateGalaxy();
-//		newGameOptions().galaxyShape().quickGenerate(); // BR: to avoid strange galaxy display
         backImg = null;
         repaint();
 	}
-	
+
 	private void release() {
 		backImg = null;
 		playerRaceImg  = null;
@@ -225,23 +209,6 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		dialogMonoFont = null;
 		galaxyTextList = null;
 	}
-//    private void copyLocalOptions(MOO1GameOptions src, MOO1GameOptions dest) {
-//    	MOO1GameOptions.copyBaseGalaxySettings(src, dest);
-//    }
-//	private void writeLocalOptions(MOO1GameOptions destination) {
-//		copyLocalOptions(guiOptions(), destination);
-//		updateLocalOptions(destination);
-//	}
-// TODO Remove unused code found by UCDetector
-// 	public void updateLocalOptions(MOO1GameOptions destination) {
-// 		for (InterfaceParam param : optionsGalaxy)
-// 			param.setOptions(destination.dynamicOptions());
-// 	}
-//	private void readLocalOptions(MOO1GameOptions source) {
-//		copyLocalOptions(source, guiOptions());
-//		for (InterfaceParam param : optionsGalaxy)
-//			param.setFromOptions(source.dynamicOptions());
-//	}
     private void doStartBoxAction() {
 		buttonClick();
 		switch (Modifier2KeysState.get()) {
@@ -259,8 +226,8 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Restore
-			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
-			break;
+			// loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+			// break;
 		default: // Save
 			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 			break; 
@@ -269,67 +236,11 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		RotPUI.instance().returnToSetupRacePanel();
 		release();
  	}
-	private void doDefaultBoxAction() {
-		buttonClick();
-		switch (Modifier2KeysState.get()) {
-		case CTRL:
-		case CTRL_SHIFT: // cancelKey
-			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);		
-			break;
-		case SHIFT: // setLocalDefaultKey
-			setBaseAndModSettingsToDefault(guiOptions(), GUI_ID);		
-			break; 
-		default: // setGlobalDefaultKey
-			setBaseAndModSettingsToDefault(guiOptions(), ALL_GUI_ID);		
-			break; 
-		}
-		refreshGui();
-	}
-	private void doLastBoxAction() {
-		buttonClick();
-		switch (Modifier2KeysState.get()) {
-		case CTRL: // setGlobalGameKey
-			loadAndUpdateFromFileName(guiOptions(), GAME_OPTIONS_FILE, ALL_GUI_ID);
-			break;
-		case CTRL_SHIFT: // setLocalGameKey
-			loadAndUpdateFromFileName(guiOptions(), GAME_OPTIONS_FILE, GUI_ID);
-			break;
-		case SHIFT: // setLocalLastKey
-			loadAndUpdateFromFileName(guiOptions(), LAST_OPTIONS_FILE, GUI_ID);
-			break;
-		default: // setGlobalLastKey
-			loadAndUpdateFromFileName(guiOptions(), LAST_OPTIONS_FILE, ALL_GUI_ID);
-		}
-		refreshGui();
-	}
-	private void doUserBoxAction() {
-		buttonClick();
-		switch (Modifier2KeysState.get()) {
-		case CTRL: // saveGlobalUserKey
-			updateOptionsAndSaveToFileName(guiOptions(), USER_OPTIONS_FILE, ALL_GUI_ID);
-			return;
-		case CTRL_SHIFT: // saveLocalUserKey
-			updateOptionsAndSaveToFileName(guiOptions(), USER_OPTIONS_FILE, GUI_ID);
-			return;
-		case SHIFT: // setLocalUserKey
-			loadAndUpdateFromFileName(guiOptions(), USER_OPTIONS_FILE, GUI_ID);
-			refreshGui();
-			return;
-		default: // setGlobalUserKey
-			loadAndUpdateFromFileName(guiOptions(), USER_OPTIONS_FILE, ALL_GUI_ID);
-			refreshGui();
-		}
-	}
-// 	private void saveLocalUserOptions() {
-//		MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
-//		writeLocalOptions(fileOptions);
-//		MOO1GameOptions.saveToUserOptions(fileOptions);
-//	}
-	private static String cancelButtonKey() {
+	private static String backButtonKey() {
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT:
-			return restoreKey;
+			// return restoreKey;
 		default:
 			return backKey;
 		}
@@ -341,11 +252,6 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			return restartKey;
 		default:
 			return startKey;
-		}
-	}
-	private void checkModifierKey(InputEvent e) {
-		if (Modifier2KeysState.checkForChange(e)) {
-			repaintButtons();
 		}
 	}
 	private int currentSpecificAbilityIndex(String s) {
@@ -362,13 +268,36 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 		}
 		return -1;
 	}
+	private void getBitmalFile() {
+        String dirPath = Rotp.jarPath();
+        FileNameExtensionFilter  filter = new FileNameExtensionFilter("Portable Network Graphics Files","png");
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setCurrentDirectory(new File(dirPath));
+		fileChooser.setAcceptAllFileFilterUsed(false);
+		fileChooser.addChoosableFileFilter(filter);
+        fileChooser.showOpenDialog(null);
+		int result = fileChooser.showOpenDialog(getParent());
+		if (result == JFileChooser.APPROVE_OPTION) {
+		    // user selects a file
+			File selectedFile = fileChooser.getSelectedFile();
+			System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+		}
+	}
+
+	private File[] getBitmapList() {
+        String ext = ".png";
+        String saveDirPath = Rotp.jarPath();
+        File saveDir = new File(saveDirPath);
+        FilenameFilter filter = (File dir, String name1) -> name1.toLowerCase().endsWith(ext);
+        File[] fileList = saveDir.listFiles(filter);
+		return fileList;
+	}
 	private String selectBitmapFromList() {
 		return null; // TODO BR: selectBitmapFromList()
 	}
 	private String selectGalaxyBitmapFromList() {
 		return null; // TODO BR: selectGalaxyBitmapFromList()
 	}
-
 	private int currentGalaxyTextIndex(String s) {
 		String[] textList = getGalaxyTextList();
 		for (int i=0; i<textList.length; i++) {
@@ -767,7 +696,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 				int sw1 = g.getFontMetrics().stringWidth(label1);
 				int x5d =mapOption1Box.x+((mapOption1Box.width-sw1)/2);
 				drawString(g,label1, x5d, y5+s20);
-				g.setFont(prevFont);				
+				g.setFont(prevFont);
 			}
 			else {
 				label1 = text(newGameOptions().selectedGalaxyShapeOption1());
@@ -828,7 +757,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			drawNotice(g, 30);
 		}
 	}
-	private void repaintButtons() {
+	@Override protected void repaintButtons() {
 		Graphics2D g = (Graphics2D) getGraphics();
 		setFontHints(g);
 		drawBackButtons(g);		
@@ -934,7 +863,7 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 
 		g.setFont(narrowFont(30));
 		// left button
-		String text = text(cancelButtonKey());
+		String text = text(backButtonKey());
 		int sw = g.getFontMetrics().stringWidth(text);
 		int x = backBox.x+((backBox.width-sw)/2);
 		int y = backBox.y+backBox.height-s12;
@@ -2083,7 +2012,6 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
 			repaint();
 		}
 	}
-
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		boolean up = e.getWheelRotation() > 0;

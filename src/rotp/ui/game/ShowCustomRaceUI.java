@@ -17,8 +17,6 @@ package rotp.ui.game;
 
 import static rotp.model.empires.CustomRaceDefinitions.ROOT;
 import static rotp.ui.UserPreferences.showTooltips;
-import static rotp.ui.util.AbstractOptionsUI.exitButtonKey;
-import static rotp.ui.util.AbstractOptionsUI.exitButtonWidth;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -38,18 +36,18 @@ import java.util.List;
 import rotp.model.empires.CustomRaceDefinitions;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.MOO1GameOptions;
+import rotp.ui.BaseModPanel;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.RotPUI;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.races.RacesUI;
-import rotp.ui.util.AbstractOptionsUI;
 import rotp.ui.util.ListDialog;
 import rotp.ui.util.Modifier2KeysState;
 import rotp.ui.util.SettingBase;
 import rotp.util.FontManager;
 
-public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseMotionListener {
+public class ShowCustomRaceUI extends BaseModPanel implements MouseListener, MouseMotionListener {
 	private static final long serialVersionUID	= 1L;
 	private static final Color  backgroundHaze	= new Color(0,0,0,160);
 	private static final String totalCostKey	= ROOT + "GUI_COST";
@@ -63,9 +61,6 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	private	static final Font tooltipFont	= FontManager.current().narrowFont(14);
 
 	protected static final Color textC		= SystemPanel.whiteText;
-	protected static final Font buttonFont	= FontManager.current().narrowFont(20);
-	protected static final int buttonH		= s30;
-	protected static final int buttonMargin	= AbstractOptionsUI.smallButtonM;
 	protected static final int buttonPad	= s15;
 	private static final int buttonPadV		= tooltipPadV;
 	protected static final int xButtonOffset= s30;
@@ -150,7 +145,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	protected BaseText totalCostText;
 	private	  RacesUI  raceUI; // Parent panel
 	protected int maxLeftM;
-	CustomRaceDefinitions cr;
+	public	  CustomRaceDefinitions cr;
 	protected boolean initialized = false;
 	
 	// ========== Constructors and initializers ==========
@@ -268,7 +263,6 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		columnH		= 0;
 	}
 	private String exitButtonTipKey()	{ return exitTipKey; }
-	private void doExitBoxAction()		{ close(); }
 	private String raceAIButtonTipKey()	{ return raceAITipKey; }
 	private boolean isPlayer()			{ return raceUI.selectedEmpire().isPlayer(); }
 	private String selectAIFromList(String[] aiArray, String initialChoice) {
@@ -316,12 +310,6 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 			raceUI.selectedEmpire().changeOpponentAI(aiNewKey);
 		}
 		repaint();
-	}
-	protected void close() {
-		disableGlassPane();
-	}
-	protected void checkModifierKey(InputEvent e) {
-		hoverAndTooltip(Modifier2KeysState.checkForChange(e));
 	}
 	protected  String totalCostStr() {
 		return text(totalCostKey, Math.round(cr.getTotalCost()));
@@ -492,12 +480,6 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		paintToolTips(g);
 		g.dispose();
 	}
-	private void repaintButtons() {
-		Graphics2D g = (Graphics2D) getGraphics();
-		super.paintComponent(g);
-		paintButtons(g);
-		g.dispose();
-	}
 	private void paintToolTips(Graphics2D g) {
 		if (showTooltips.get()) {
 			List<String> lines = wrappedLines(g, tooltipText, wTT-2*tooltipPadM);
@@ -516,16 +498,16 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	}
 	protected void paintButtons(Graphics2D g) {
 		int cnr = s5;
-		g.setFont(buttonFont);
+		g.setFont(smallButtonFont);
 
 		// Exit Button
 		String text = text(exitButtonKey());
 		int sw = g.getFontMetrics().stringWidth(text);
 		int buttonW	= exitButtonWidth(g);
 		xButton = leftM + wBG - buttonW - xButtonOffset;
-		exitBox.setBounds(xButton, yButton, buttonW, buttonH);
+		exitBox.setBounds(xButton, yButton, buttonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
-		g.fillRoundRect(exitBox.x, exitBox.y, buttonW, buttonH, cnr, cnr);
+		g.fillRoundRect(exitBox.x, exitBox.y, buttonW, smallButtonH, cnr, cnr);
 		int xT = exitBox.x+((exitBox.width-sw)/2);
 		int yT = exitBox.y+exitBox.height-s8;
 		Color cB = hoverBox == exitBox ? Color.yellow : GameUI.borderBrightColor();
@@ -538,12 +520,12 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		// RaceUI Button
 		text = raceAIButtonTxt();
 		sw = g.getFontMetrics().stringWidth(text);
-		buttonW	= sw + buttonMargin;
+		buttonW	= sw + smallButtonMargin;
 		int xAI = leftM + wBG - columnPad - buttonW;
 		int yAI	= yCost - raceAIH - s10;
-		raceAIBox.setBounds(xAI, yAI, buttonW, buttonH);
+		raceAIBox.setBounds(xAI, yAI, buttonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
-		g.fillRoundRect(raceAIBox.x, raceAIBox.y, buttonW, buttonH, cnr, cnr);
+		g.fillRoundRect(raceAIBox.x, raceAIBox.y, buttonW, smallButtonH, cnr, cnr);
 		xT = raceAIBox.x+((raceAIBox.width-sw)/2);
 		yT = raceAIBox.y+raceAIBox.height-s8;
 		cB = hoverBox == raceAIBox ? Color.yellow : GameUI.borderBrightColor();
@@ -555,6 +537,17 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 	}
 	// ========== Overriders ==========
 	//
+	@Override protected void close() { disableGlassPane(); }
+	@Override protected void checkModifierKey(InputEvent e) {
+		hoverAndTooltip(Modifier2KeysState.checkForChange(e));
+	}
+	@Override protected void repaintButtons() {
+		Graphics2D g = (Graphics2D) getGraphics();
+		super.paintComponent(g);
+		paintButtons(g);
+		g.dispose();
+	}
+	@Override protected String GUI_ID() { return ""; }
 	@Override public void paintComponent(Graphics g0) {
 		super.paintComponent(g0);
 		Graphics2D g = (Graphics2D) g0;
@@ -568,12 +561,12 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		if (showTooltips.get()) {
 			// Set the base top Margin
 			// Set the final High
-			hBG	 = titlePad + columnsMaxH + buttonPadV + buttonH + tooltipPadV + tooltipH + tooltipPadV;
+			hBG	 = titlePad + columnsMaxH + buttonPadV + smallButtonH + tooltipPadV + tooltipH + tooltipPadV;
 			topM = (h - hBG)/2;
 			yTT	 = topM + hBG - tooltipPadV - tooltipH;
 		} else {
 			// Set the final High
-			hBG	 = titlePad + columnsMaxH + buttonPadV + buttonH + buttonPadV;
+			hBG	 = titlePad + columnsMaxH + buttonPadV + smallButtonH + buttonPadV;
 			topM = (h - hBG)/2;
 			yTT	= topM + hBG;
 		}
@@ -581,7 +574,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		yTop	= topM + titlePad; // First setting top position
 		leftM	= Math.min((w - wBG)/2, maxLeftM);
 		yTitle	= topM + titleOffset;
-		yButton	= yTT - tooltipPadV - buttonH;
+		yButton	= yTT - tooltipPadV - smallButtonH;
 		yCost 	= yTitle + costOffset;
 		xCost	= leftM + columnPad/2;
 		xLine	= leftM + columnPad/2;
@@ -645,7 +638,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		int k = e.getKeyCode();  // BR:
 		switch(k) {
 			case KeyEvent.VK_ESCAPE:
-				doExitBoxAction();
+				close();
 				return;
 			case KeyEvent.VK_SPACE:
 			case KeyEvent.VK_ENTER:
@@ -669,7 +662,7 @@ public class ShowCustomRaceUI extends BasePanel implements MouseListener, MouseM
 		if (hoverBox == null)
 			return;
 		if (hoverBox == exitBox) {
-			doExitBoxAction();
+			close();
 			return;
 		}
 		if (hoverBox == raceAIBox) {

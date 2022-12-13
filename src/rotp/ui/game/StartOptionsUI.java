@@ -15,21 +15,9 @@
  */
 package rotp.ui.game;
 
-import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
-import static rotp.model.game.MOO1GameOptions.setBaseAndModSettingsToDefault;
 import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
 import static rotp.ui.UserPreferences.ALL_GUI_ID;
-import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
-import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
-import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
-import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
-import static rotp.ui.util.AbstractOptionsUI.defaultButtonWidth;
-import static rotp.ui.util.AbstractOptionsUI.lastButtonKey;
-import static rotp.ui.util.AbstractOptionsUI.lastButtonWidth;
-import static rotp.ui.util.AbstractOptionsUI.okButtonKey;
-import static rotp.ui.util.AbstractOptionsUI.userButtonKey;
-import static rotp.ui.util.AbstractOptionsUI.userButtonWidth;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -37,7 +25,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Stroke;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -49,12 +36,13 @@ import java.util.List;
 import javax.swing.SwingUtilities;
 
 import rotp.mod.br.profiles.Profiles;
+import rotp.ui.BaseModPanel;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.util.Modifier2KeysState;
 
-public class StartOptionsUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
+public class StartOptionsUI extends BaseModPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
     private static final long serialVersionUID	= 1L;
     private static final Color backgroundHaze	= new Color(0,0,0,160);
 	private static final String guiTitleID		= "SETTINGS_TITLE";
@@ -66,10 +54,7 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
 //    public static final Color darkerBrown = new Color(75,55,39);
     
     private Rectangle hoverBox;
-    private Rectangle okBox		 = new Rectangle();
-    private Rectangle defaultBox = new Rectangle();
-	private Rectangle lastBox	 = new Rectangle();
-    private Rectangle userBox	 = new Rectangle();
+    private Rectangle exitBox		 = new Rectangle();
     private BasePanel parent;
     private BaseText galaxyAgeText;
     private BaseText starDensityText;
@@ -136,83 +121,10 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
         init();
         enableGlassPane(this);
     }
-    private void close() {
-		Modifier2KeysState.reset();
-        disableGlassPane();
-		newGameOptions().galaxyShape().quickGenerate(); // BR: to avoid strange galaxy display
-    }
-    private void doOkBoxAction() {
-		buttonClick();
-		switch (Modifier2KeysState.get()) {
-		case CTRL:
-		case CTRL_SHIFT: // Restore
-			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
-			break;
-		default: // Save
-			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
-			break; 
-		}
-		close();
-	}
-	private void doDefaultBoxAction() {
-		buttonClick();
-		switch (Modifier2KeysState.get()) {
-		case CTRL:
-		case CTRL_SHIFT: // cancelKey
-			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);		
-			break;
-		case SHIFT: // setLocalDefaultKey
-			setBaseAndModSettingsToDefault(guiOptions(), GUI_ID);		
-			break; 
-		default: // setGlobalDefaultKey
-			setBaseAndModSettingsToDefault(guiOptions(), ALL_GUI_ID);		
-			break; 
-		}
+	@Override protected String GUI_ID() { return GUI_ID; }
+	@Override protected void refreshGui() {
 		init();
 		repaint();
-	}
-	private void doUserBoxAction() {
-		buttonClick();
-		switch (Modifier2KeysState.get()) {
-		case CTRL: // saveGlobalUserKey
-			updateOptionsAndSaveToFileName(guiOptions(), USER_OPTIONS_FILE, ALL_GUI_ID);
-			return;
-		case CTRL_SHIFT: // saveLocalUserKey
-			updateOptionsAndSaveToFileName(guiOptions(), USER_OPTIONS_FILE, GUI_ID);
-			return;
-		case SHIFT: // setLocalUserKey
-			loadAndUpdateFromFileName(guiOptions(), USER_OPTIONS_FILE, GUI_ID);
-			init();
-			repaint();
-			return;
-		default: // setGlobalUserKey
-			loadAndUpdateFromFileName(guiOptions(), USER_OPTIONS_FILE, ALL_GUI_ID);
-			init();
-			repaint();
-		}
-	}
-	private void doLastBoxAction() {
-		buttonClick();
-		switch (Modifier2KeysState.get()) {
-		case CTRL: // setGlobalGameKey
-			loadAndUpdateFromFileName(guiOptions(), GAME_OPTIONS_FILE, ALL_GUI_ID);
-			break;
-		case CTRL_SHIFT: // setLocalGameKey
-			loadAndUpdateFromFileName(guiOptions(), GAME_OPTIONS_FILE, GUI_ID);
-			break;
-		case SHIFT: // setLocalLastKey
-			loadAndUpdateFromFileName(guiOptions(), LAST_OPTIONS_FILE, GUI_ID);
-			break;
-		default: // setGlobalLastKey
-			loadAndUpdateFromFileName(guiOptions(), LAST_OPTIONS_FILE, ALL_GUI_ID);
-		}
-		init();
-		repaint();
-	}
-	private void checkModifierKey(InputEvent e) {
-		if (Modifier2KeysState.checkForChange(e)) {
-			repaint();
-		}
 	}
     @Override
     public void paintComponent(Graphics g0) {
@@ -523,25 +435,25 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
         int cnr = s5;
         int smallButtonH = s30;
         int smallButtonW = scaled(180);
-        okBox.setBounds(w-scaled(289), y4, smallButtonW, smallButtonH);
+        exitBox.setBounds(w-scaled(289), y4, smallButtonW, smallButtonH);
         g.setColor(GameUI.buttonBackgroundColor());
-        g.fillRoundRect(okBox.x, okBox.y, smallButtonW, smallButtonH, cnr, cnr);
+        g.fillRoundRect(exitBox.x, exitBox.y, smallButtonW, smallButtonH, cnr, cnr);
         g.setFont(narrowFont(20));
-        String text = text(okButtonKey());
+        String text = text(exitButtonKey());
         sw = g.getFontMetrics().stringWidth(text);
-        int x = okBox.x+((okBox.width-sw)/2);
-        int y = okBox.y+okBox.height-s8;
-        Color c = hoverBox == okBox ? Color.yellow : GameUI.borderBrightColor();
+        int x = exitBox.x+((exitBox.width-sw)/2);
+        int y = exitBox.y+exitBox.height-s8;
+        Color c = hoverBox == exitBox ? Color.yellow : GameUI.borderBrightColor();
         drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), c);
         prev = g.getStroke();
         g.setStroke(stroke1);
-        g.drawRoundRect(okBox.x, okBox.y, okBox.width, okBox.height, cnr, cnr);
+        g.drawRoundRect(exitBox.x, exitBox.y, exitBox.width, exitBox.height, cnr, cnr);
         g.setStroke(prev);
 
 		text = text(defaultButtonKey());
         sw	 = g.getFontMetrics().stringWidth(text);
 		smallButtonW = defaultButtonWidth(g);
-        defaultBox.setBounds(okBox.x-smallButtonW-s30, y4, smallButtonW, smallButtonH);
+        defaultBox.setBounds(exitBox.x-smallButtonW-s30, y4, smallButtonW, smallButtonH);
         g.setColor(GameUI.buttonBackgroundColor());
         g.fillRoundRect(defaultBox.x, defaultBox.y, smallButtonW, smallButtonH, cnr, cnr);
         g.setFont(narrowFont(20));
@@ -725,7 +637,7 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
     // BR:
     private void goToMainMenu() {
         buttonClick();
-        doOkBoxAction();
+        doExitBoxAction();
         rotp.ui.RotPUI.instance().selectGamePanel();
     } // \ BR:
 	@Override public void keyReleased(KeyEvent e) {
@@ -737,7 +649,7 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
         int k = e.getKeyCode(); // BR:
         switch(k) {
             case KeyEvent.VK_ESCAPE:
-            	doOkBoxAction();
+            	doExitBoxAction();
 				return;
             case KeyEvent.VK_SPACE:
             case KeyEvent.VK_ENTER:
@@ -826,8 +738,8 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
             hoverBox = fuelRangeText.bounds();
         else if (techTradingText.contains(x,y))
             hoverBox = techTradingText.bounds();
-        else if (okBox.contains(x,y))
-            hoverBox = okBox;
+        else if (exitBox.contains(x,y))
+            hoverBox = exitBox;
         else if (defaultBox.contains(x,y))
             hoverBox = defaultBox;
         else if (userBox.contains(x,y))
@@ -914,8 +826,8 @@ public class StartOptionsUI extends BasePanel implements MouseListener, MouseMot
             return;
         boolean up = !SwingUtilities.isRightMouseButton(e);
         mouseCommon(up);
-        if (hoverBox == okBox)
-        	doOkBoxAction(); // BR: added Ctrl function
+        if (hoverBox == exitBox)
+        	doExitBoxAction(); // BR: added Ctrl function
         else if (hoverBox == defaultBox)
         	doDefaultBoxAction();
         else if (hoverBox == userBox)

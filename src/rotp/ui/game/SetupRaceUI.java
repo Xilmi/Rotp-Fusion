@@ -15,25 +15,13 @@
  */
 package rotp.ui.game;
 
-import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
-import static rotp.model.game.MOO1GameOptions.setBaseAndModSettingsToDefault;
 import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
 import static rotp.ui.UserPreferences.ALL_GUI_ID;
-import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
-import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
-import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.optionsRace;
 import static rotp.ui.UserPreferences.playerCustomRace;
 import static rotp.ui.UserPreferences.playerIsCustom;
 import static rotp.ui.UserPreferences.playerShipSet;
-import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
-import static rotp.ui.util.AbstractOptionsUI.defaultButtonWidth;
-import static rotp.ui.util.AbstractOptionsUI.lastButtonKey;
-import static rotp.ui.util.AbstractOptionsUI.lastButtonWidth;
-import static rotp.ui.util.AbstractOptionsUI.smallButtonM;
-import static rotp.ui.util.AbstractOptionsUI.userButtonKey;
-import static rotp.ui.util.AbstractOptionsUI.userButtonWidth;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -46,7 +34,6 @@ import java.awt.RadialGradientPaint;
 import java.awt.Rectangle;
 import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
 import java.awt.Stroke;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -65,18 +52,19 @@ import rotp.model.empires.Race;
 import rotp.model.game.MOO1GameOptions;
 import rotp.model.ships.ShipImage;
 import rotp.model.ships.ShipLibrary;
+import rotp.ui.BaseModPanel;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.Modifier2KeysState;
 
-public final class SetupRaceUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
+public final class SetupRaceUI extends BaseModPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
     private static final long serialVersionUID	= 1L;
 	private static final String guiTitleID		= "SETUP_SELECT_RACE";
 	public  static final String GUI_ID          = "START_RACE";
 	private static final String cancelKey		= "SETUP_BUTTON_CANCEL";
-	private static final String restoreKey		= "SETUP_BUTTON_RESTORE";
+	// private static final String restoreKey		= "SETUP_BUTTON_RESTORE";
 	private static final String customRaceKey	= "SETUP_BUTTON_CUSTOM_PLAYER_RACE";
     private static final int MAX_RACES  = 16; // modnar: increase MAX_RACES to add new Races
     private static final int MAX_COLORS = 16; // modnar: add new colors
@@ -92,9 +80,6 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
     private Rectangle nextBox = new Rectangle();
     private Rectangle leaderBox = new Rectangle();
     private Rectangle homeWorldBox = new Rectangle();
-    private Rectangle defaultBox = new Rectangle();
-	private Rectangle lastBox	 = new Rectangle();
-    private Rectangle userBox	 = new Rectangle();
     private Rectangle playerRaceSettingBox = new Rectangle(); // BR: Player Race Customization
     private Rectangle checkBox = new Rectangle(); // BR: Player Race Customization
     private final Color checkBoxC = new Color(178,124,87);
@@ -166,9 +151,9 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Restore
-			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
-	        raceChanged();
-			break;
+			// loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+			// raceChanged();
+			// break;
 		default: // Save
 			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 			break; 
@@ -180,84 +165,30 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Restore
-			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
-			break;
+			// loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+			// break;
 		default: // Save
 			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 			break; 
 		}
  		goToGalaxySetup();
  	}
-	private void doDefaultBoxAction() {
-		buttonClick();
-		switch (Modifier2KeysState.get()) {
-		case CTRL:
-		case CTRL_SHIFT: // cancelKey
-			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);		
-			break;
-		case SHIFT: // setLocalDefaultKey
-			setBaseAndModSettingsToDefault(guiOptions(), GUI_ID);		
-			break; 
-		default: // setGlobalDefaultKey
-			setBaseAndModSettingsToDefault(guiOptions(), ALL_GUI_ID);		
-			break; 
-		}
+	@Override protected String GUI_ID() { return GUI_ID; }
+	@Override protected void refreshGui() {
 		raceChanged();
 		repaint();
 	}
-	private void doUserBoxAction() {
-		buttonClick();
-		switch (Modifier2KeysState.get()) {
-		case CTRL: // saveGlobalUserKey
-			updateOptionsAndSaveToFileName(guiOptions(), USER_OPTIONS_FILE, ALL_GUI_ID);
-			return;
-		case CTRL_SHIFT: // saveLocalUserKey
-			updateOptionsAndSaveToFileName(guiOptions(), USER_OPTIONS_FILE, GUI_ID);
-			return;
-		case SHIFT: // setLocalUserKey
-			loadAndUpdateFromFileName(guiOptions(), USER_OPTIONS_FILE, GUI_ID);
-			raceChanged();
-			repaint();
-			return;
-		default: // setGlobalUserKey
-			loadAndUpdateFromFileName(guiOptions(), USER_OPTIONS_FILE, ALL_GUI_ID);
-			raceChanged();
-			repaint();
-		}
-	}
-	private void doLastBoxAction() {
-		buttonClick();
-		switch (Modifier2KeysState.get()) {
-		case CTRL: // setGlobalGameKey
-			loadAndUpdateFromFileName(guiOptions(), GAME_OPTIONS_FILE, ALL_GUI_ID);
-			break;
-		case CTRL_SHIFT: // setLocalGameKey
-			loadAndUpdateFromFileName(guiOptions(), GAME_OPTIONS_FILE, GUI_ID);
-			break;
-		case SHIFT: // setLocalLastKey
-			loadAndUpdateFromFileName(guiOptions(), LAST_OPTIONS_FILE, GUI_ID);
-			break;
-		default: // setGlobalLastKey
-			loadAndUpdateFromFileName(guiOptions(), LAST_OPTIONS_FILE, ALL_GUI_ID);
-		}
-		raceChanged();
-		repaint();
-	}
+
 	private static String cancelButtonKey() {
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT:
-			return restoreKey;
+			// return restoreKey;
 		default:
 			return cancelKey;
 		}
 	}
-	private void checkModifierKey(InputEvent e) {
-		if (Modifier2KeysState.checkForChange(e)) {
-			repaintButtons();
-		}
-	}
-	private void repaintButtons() {
+	@Override protected void repaintButtons() {
 		Graphics2D g = (Graphics2D) getGraphics();
 		setFontHints(g);
 		drawBackButtons(g);
@@ -840,7 +771,7 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         g.fillRoundRect(nextBox.x, nextBox.y, buttonW, buttonH, cnr, cnr);
 
 		// draw DEFAULT button
-        g.setFont(narrowFont(20));
+        g.setFont(smallButtonFont);
 		buttonH = s30;
 		buttonW = defaultButtonWidth(g);
 		int xB	= cancelBox.x - (buttonW + bSep);
@@ -866,9 +797,9 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
 
 		// BR: Player Race Customization
         // far left button
-        g.setFont(narrowFont(20));
+        g.setFont(smallButtonFont);
         int smallButtonH = s30;
-        int smallButtonW = g.getFontMetrics().stringWidth(text(customRaceKey)) + smallButtonM;
+        int smallButtonW = g.getFontMetrics().stringWidth(text(customRaceKey)) + smallButtonMargin;
         playerRaceSettingBox.setBounds(scaled(140), scaled(615), smallButtonW, smallButtonH);
         g.setPaint(GameUI.buttonLeftBackground());
         g.fillRoundRect(playerRaceSettingBox.x, playerRaceSettingBox.y, smallButtonW, smallButtonH, cnr, cnr);

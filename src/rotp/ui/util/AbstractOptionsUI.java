@@ -15,14 +15,9 @@
  */
 package rotp.ui.util;
 
-import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
-import static rotp.model.game.MOO1GameOptions.setBaseAndModSettingsToDefault;
 import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
 import static rotp.ui.UserPreferences.ALL_GUI_ID;
-import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
-import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
-import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -31,7 +26,6 @@ import java.awt.Graphics2D;
 import java.awt.LinearGradientPaint;
 import java.awt.Rectangle;
 import java.awt.Stroke;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -44,41 +38,27 @@ import java.util.List;
 import javax.swing.SwingUtilities;
 
 import rotp.mod.br.profiles.Profiles;
+import rotp.ui.BaseModPanel;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.GameUI;
 import rotp.ui.main.SystemPanel;
-import rotp.util.LabelManager;
 
 // modnar: add UI panel for modnar MOD game options, based on StartOptionsUI.java
-public abstract class AbstractOptionsUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener {
+public abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
 	private static final long serialVersionUID = 1L;
 	private static final Color backgroundHaze = new Color(0,0,0,160);
-	private static final String exitKey		  = "SETTINGS_EXIT";
-	private static final String cancelKey	  = "SETTINGS_CANCEL";
-	private static final String setGlobalDefaultKey	= "SETTINGS_GLOBAL_DEFAULT";
-	private static final String setLocalDefaultKey	= "SETTINGS_LOCAL_DEFAULT";
-	private static final String setGlobalGameKey	= "SETTINGS_GLOBAL_LAST_GAME";
-	private static final String setLocalGameKey		= "SETTINGS_LOCAL_LAST_GAME";
-	private static final String setGlobalLastKey	= "SETTINGS_GLOBAL_LAST_SET";
-	private static final String setLocalLastKey		= "SETTINGS_LOCAL_LAST_SET";
-	private	static final String setGlobalUserKey	= "SETTINGS_GLOBAL_USER_SET";
-	private	static final String setLocalUserKey		= "SETTINGS_LOCAL_USER_SET";
-	private	static final String saveGlobalUserKey	= "SETTINGS_GLOBAL_USER_SAVE";
-	private	static final String saveLocalUserKey	= "SETTINGS_LOCAL_USER_SAVE";
 	private final String guiTitleID;
 	private final String GUI_ID;
 	
 	private Font descFont	= narrowFont(15);
 	private static int columnPad	= s20;
 	private static int smallButtonH = s30;
-	public  static int smallButtonM = s30; // Margin for all GUI
 	private static int hSetting	    = s90;
 	private static int lineH		= s17;
 	private static int rowPad		= s20;
 	private static int hDistSetting = hSetting + rowPad; // distance between two setting top corner
-	private static int exitButtonWidth, userButtonWidth, defaultButtonWidth, lastButtonWidth;
 	private int leftM, rightM,topM, yTop;
 	private int w, wBG, h, hBG;
 	private int numColumns, numRows;
@@ -91,12 +71,8 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	private LinkedList<BaseText> btList		= new LinkedList<>();
 	public	LinkedList<InterfaceParam> paramList = new LinkedList<>();
 	private Rectangle hoverBox;
-	private Rectangle okBox		= new Rectangle();
-	private Rectangle defaultBox= new Rectangle();
-	private Rectangle lastBox	= new Rectangle();
-	private Rectangle userBox	= new Rectangle();
+	private Rectangle exitBox	= new Rectangle();
 	private BasePanel parent;
-	protected boolean globalOptions	= false; // No preferred button and Saved to remnant.cfg
 	private LinearGradientPaint bg;
 	
 	// ========== Constructors and initializers ==========
@@ -161,7 +137,6 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 			btList.get(i).displayText(paramList.get(i).getGuiDisplay());
 		initCustom();
 	}
-//	protected void numColumns(int num) { numColumns = num; }
 	protected void rowCountList(Integer... rows) {
 		numColumns = rows.length;
 		Integer id = 0;
@@ -207,230 +182,29 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		init();
 		enableGlassPane(this);
 	}
-	private void close() {
-		newGameOptions().galaxyShape().quickGenerate(); // BR: to get correct map preview 
-		Modifier2KeysState.reset();
-		disableGlassPane();
-	}
-//	private void writeOptions(MOO1GameOptions destination) {
-//		for (InterfaceOptions param : paramList)
-//			param.setOptions(destination.dynamicOptions());
-//	}
-//	private void readOptions(MOO1GameOptions source) {
-//		for (InterfaceOptions param : paramList)
-//			param.setFromOptions(source.dynamicOptions());
-//	}
-	private void doOkBoxAction() {
-		buttonClick();
-		switch (Modifier2KeysState.get()) {
-		case CTRL:
-		case CTRL_SHIFT: // Restore
-			if (globalOptions) // The old ways
-				UserPreferences.load();
-			else // The new ways
-				loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);		
-			break;
-		default: // Save
-			if (globalOptions) // The old ways
-				UserPreferences.save();
-			else // The new ways
-//				saveLastOptions();
-				updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
-			break; 
-		}
-		close();			
-	}
-// 			if (globalOptions || loadLocalSettings.get())
-
-	private void doDefaultBoxAction() {
-		buttonClick();
-		switch (Modifier2KeysState.get()) {
-		case CTRL:
-		case CTRL_SHIFT: // cancelKey
-			if (globalOptions) // The old ways
-				UserPreferences.load();
-			else // The new ways
-				loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);		
-			break;
-		case SHIFT: // setLocalDefaultKey
-			if (globalOptions)
-				setGlobalToDefault();
-			else
-				setBaseAndModSettingsToDefault(guiOptions(), GUI_ID);		
-			break; 
-		default: // setGlobalDefaultKey
-			if (globalOptions)
-				setGlobalToDefault();
-			else
-				setBaseAndModSettingsToDefault(guiOptions(), ALL_GUI_ID);		
-			break; 
-		}
-		init();
-		repaint();
-	}
-	private void setGlobalToDefault() {
-		for (InterfaceOptions param : paramList)
-			param.setFromDefault();
-	}
-	private void doUserBoxAction() {
-		buttonClick();
-		switch (Modifier2KeysState.get()) {
-		case CTRL: // saveGlobalUserKey
-			updateOptionsAndSaveToFileName(guiOptions(), USER_OPTIONS_FILE, ALL_GUI_ID);
-			return;
-		case CTRL_SHIFT: // saveLocalUserKey
-			updateOptionsAndSaveToFileName(guiOptions(), USER_OPTIONS_FILE, GUI_ID);
-			return;
-		case SHIFT: // setLocalUserKey
-			loadAndUpdateFromFileName(guiOptions(), USER_OPTIONS_FILE, GUI_ID);
-			init();
-			repaint();
-			return;
-		default: // setGlobalUserKey
-			loadAndUpdateFromFileName(guiOptions(), USER_OPTIONS_FILE, ALL_GUI_ID);
-			init();
-			repaint();
-		}
-	}
-	private void doLastBoxAction() {
-		buttonClick();
-		switch (Modifier2KeysState.get()) {
-		case CTRL: // setGlobalGameKey
-			loadAndUpdateFromFileName(guiOptions(), GAME_OPTIONS_FILE, ALL_GUI_ID);
-			break;
-		case CTRL_SHIFT: // setLocalGameKey
-			loadAndUpdateFromFileName(guiOptions(), GAME_OPTIONS_FILE, GUI_ID);
-			break;
-		case SHIFT: // setLocalLastKey
-			loadAndUpdateFromFileName(guiOptions(), LAST_OPTIONS_FILE, GUI_ID);
-			break;
-		default: // setGlobalLastKey
-			loadAndUpdateFromFileName(guiOptions(), LAST_OPTIONS_FILE, ALL_GUI_ID);
-		}
-		init();
-		repaint();
-	}
-//	private void saveUserOptions() {
-//		MOO1GameOptions fileOptions = MOO1GameOptions.loadUserOptions();
-//		writeOptions(fileOptions);
-//		MOO1GameOptions.updateOptionsAndSaveToUserOptions(fileOptions);
-//	}
-//	private void saveLastOptions() {
-//		MOO1GameOptions fileOptions = MOO1GameOptions.loadLastOptions();
-//		writeOptions(fileOptions);
-//		MOO1GameOptions.saveLastOptions(fileOptions);
-//		initialOptions = null;
-//	}
-	public static String exitButtonKey() {
-		switch (Modifier2KeysState.get()) {
-		case CTRL:
-		case CTRL_SHIFT:
-			return cancelKey;
-		default:
-			return exitKey;
-		}
-	}
-	public static String okButtonKey() {
-		switch (Modifier2KeysState.get()) {
-		case CTRL:
-		case CTRL_SHIFT:
-			return cancelKey;
-		default:
-			return exitKey;
-		}
-	}
-	public static String userButtonKey() {
-		switch (Modifier2KeysState.get()) {
-		case CTRL:		 return saveGlobalUserKey;
-		case CTRL_SHIFT: return saveLocalUserKey;
-		case SHIFT:		 return setLocalUserKey;
-		default:		 return setGlobalUserKey;
-		}
-	}
-	public static String defaultButtonKey() {
-		switch (Modifier2KeysState.get()) {
-		case CTRL:
-		case CTRL_SHIFT: return cancelKey;
-		case SHIFT:		 return setLocalDefaultKey;
-		default:		 return setGlobalDefaultKey;
-		}
-	}
-	public static String lastButtonKey() {
-		switch (Modifier2KeysState.get()) {
-		case CTRL:		 return setGlobalGameKey;
-		case CTRL_SHIFT: return setLocalGameKey;
-		case SHIFT:		 return setLocalLastKey;
-		default:		 return setGlobalLastKey;
-		}
-	}
-	public static int okButtonWidth(Graphics2D g) { return exitButtonWidth(g); }
-	public static int exitButtonWidth(Graphics2D g) {
-		if (exitButtonWidth == 0)
-			exitButtonWidth = smallButtonM + Math.max(
-					g.getFontMetrics().stringWidth(LabelManager.current().label(cancelKey)),
-					g.getFontMetrics().stringWidth(LabelManager.current().label(exitKey)));
-		return exitButtonWidth;
-	}
-	public static int userButtonWidth(Graphics2D g) {
-		if (userButtonWidth == 0)
-			userButtonWidth = smallButtonM + Math.max(
-					Math.max(g.getFontMetrics().stringWidth(LabelManager.current().label(setGlobalUserKey)),
-							g.getFontMetrics().stringWidth(LabelManager.current().label(setLocalUserKey))),
-					Math.max(g.getFontMetrics().stringWidth(LabelManager.current().label(saveLocalUserKey)),
-							g.getFontMetrics().stringWidth(LabelManager.current().label(saveGlobalUserKey))));
-		return userButtonWidth;
-	}
-	public static int defaultButtonWidth(Graphics2D g) {
-		if (defaultButtonWidth == 0)
-			defaultButtonWidth = smallButtonM + Math.max(
-						g.getFontMetrics().stringWidth(LabelManager.current().label(setLocalDefaultKey)),
-					Math.max(g.getFontMetrics().stringWidth(LabelManager.current().label(setLocalDefaultKey)),
-						g.getFontMetrics().stringWidth(LabelManager.current().label(setGlobalDefaultKey))));
-		return defaultButtonWidth;
-	}
-	public static int lastButtonWidth(Graphics2D g) {
-		if (lastButtonWidth == 0)
-			lastButtonWidth = smallButtonM + Math.max(
-				Math.max(g.getFontMetrics().stringWidth(LabelManager.current().label(setGlobalGameKey)),
-						g.getFontMetrics().stringWidth(LabelManager.current().label(setLocalGameKey))),
-				Math.max(g.getFontMetrics().stringWidth(LabelManager.current().label(setLocalLastKey)),
-						g.getFontMetrics().stringWidth(LabelManager.current().label(setGlobalLastKey))));
-		return lastButtonWidth;
-	}
-	private void checkModifierKey(InputEvent e) {
-		if (Modifier2KeysState.checkForChange(e)) {
-			repaintButtons();
-		}
-	}
-	private void repaintButtons() {
-		Graphics2D g = (Graphics2D) getGraphics();
-		setFontHints(g);
-		drawButtons(g);
-		g.dispose();
-	}
 	private void drawButtons(Graphics2D g) {
 		int cnr = s5;
 		// draw settings button
 		int smallButtonW = scaled(180);
-		okBox.setBounds(w-scaled(189)-rightM, yButton, smallButtonW, smallButtonH);
+		exitBox.setBounds(w-scaled(189)-rightM, yButton, smallButtonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
-		g.fillRoundRect(okBox.x, okBox.y, smallButtonW, smallButtonH, cnr, cnr);
+		g.fillRoundRect(exitBox.x, exitBox.y, smallButtonW, smallButtonH, cnr, cnr);
 		g.setFont(narrowFont(20));
-		String text = text(okButtonKey());
+		String text = text(exitButtonKey());
 		int sw = g.getFontMetrics().stringWidth(text);
-		int x = okBox.x+((okBox.width-sw)/2);
-		int y = okBox.y+okBox.height-s8;
-		Color c = hoverBox == okBox ? Color.yellow : GameUI.borderBrightColor();
+		int x = exitBox.x+((exitBox.width-sw)/2);
+		int y = exitBox.y+exitBox.height-s8;
+		Color c = hoverBox == exitBox ? Color.yellow : GameUI.borderBrightColor();
 		drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), c);
 		Stroke prev = g.getStroke();
 		g.setStroke(stroke1);
-		g.drawRoundRect(okBox.x, okBox.y, okBox.width, okBox.height, cnr, cnr);
+		g.drawRoundRect(exitBox.x, exitBox.y, exitBox.width, exitBox.height, cnr, cnr);
 		g.setStroke(prev);
 
 		text = text(defaultButtonKey());
 		sw	 = g.getFontMetrics().stringWidth(text);
 		smallButtonW = defaultButtonWidth(g);
-		defaultBox.setBounds(okBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
+		defaultBox.setBounds(exitBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(defaultBox.x, defaultBox.y, smallButtonW, smallButtonH, cnr, cnr);
 		g.setFont(narrowFont(20));
@@ -515,6 +289,55 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 	}
 	// ========== Overriders ==========
 	//
+	@Override protected void doExitBoxAction() {
+		if (globalOptions) { // The old ways
+			buttonClick();
+			switch (Modifier2KeysState.get()) {
+			case CTRL:
+			case CTRL_SHIFT: // Restore
+				UserPreferences.load();
+				break;
+			default: // Save
+				UserPreferences.save();
+				break; 
+			}
+			close();			
+		}
+		else
+			super.doExitBoxAction();
+	}
+	@Override protected void doDefaultBoxAction() {
+		if (globalOptions) { // The old ways
+			buttonClick();
+			switch (Modifier2KeysState.get()) {
+			case CTRL:
+			case CTRL_SHIFT: // cancelKey
+				UserPreferences.load();
+				break;
+			default: // setLocalDefaultKey
+				setLocalToDefault();
+				break; 
+			}
+			refreshGui();
+		}
+		else
+			super.doDefaultBoxAction();
+	}
+	private void setLocalToDefault() {
+		for (InterfaceOptions param : paramList)
+			param.setFromDefault();
+	}
+	@Override protected void refreshGui() {
+		init();
+		repaint();
+	}
+	@Override protected void repaintButtons() {
+		Graphics2D g = (Graphics2D) getGraphics();
+		setFontHints(g);
+		drawButtons(g);
+		g.dispose();
+	}
+	@Override protected String GUI_ID() { return GUI_ID; }
 	@Override public void paintComponent(Graphics g0) {
 		super.paintComponent(g0);
 		Graphics2D g = (Graphics2D) g0;
@@ -561,7 +384,7 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		int k = e.getKeyCode();  // BR:
 		switch(k) {
 			case KeyEvent.VK_ESCAPE:
-				doOkBoxAction();
+				doExitBoxAction();
 				return;
 			case KeyEvent.VK_SPACE:
 			case KeyEvent.VK_ENTER:
@@ -588,8 +411,8 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		int y = e.getY();
 		Rectangle prevHover = hoverBox;
 		hoverBox = null;
-		if (okBox.contains(x,y))
-			hoverBox = okBox;
+		if (exitBox.contains(x,y))
+			hoverBox = exitBox;
 		else if (defaultBox.contains(x,y))
 			hoverBox = defaultBox;
 		else if (userBox.contains(x,y))
@@ -632,8 +455,8 @@ public abstract class AbstractOptionsUI extends BasePanel implements MouseListen
 		boolean shiftPressed = e.isShiftDown();
 		boolean ctrlPressed  = e.isControlDown();
 		mouseCommon(up, mid, shiftPressed, ctrlPressed, e, null);
-		if (hoverBox == okBox)
-			doOkBoxAction();
+		if (hoverBox == exitBox)
+			doExitBoxAction();
 		else if (hoverBox == defaultBox)
 			doDefaultBoxAction();
 		else if (hoverBox == userBox)

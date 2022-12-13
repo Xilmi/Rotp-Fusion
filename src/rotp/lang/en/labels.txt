@@ -1518,6 +1518,8 @@ SETTINGS_TITLE                    | Advanced Game Options
 SETTINGS_DESCRIPTION              | Click, Right-Click, or Scroll to toggle each game setting.
 SETTINGS_EXIT                     | Exit
 SETTINGS_CANCEL                   | Cancel Changes
+SETTINGS_LOCAL_RESTORE            | Restore Local
+SETTINGS_GLOBAL_RESTORE           | Restore Global
 SETTINGS_LOCAL_DEFAULT            | Default »» Local
 SETTINGS_GLOBAL_DEFAULT           | Default »» Global
 SETTINGS_LOCAL_LAST_GAME          | Game »» Local

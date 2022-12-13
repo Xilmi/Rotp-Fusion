@@ -1620,6 +1620,11 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     // ==================== Generalized options methods ====================
     //
     private static void writeModSettingsToOptions(MOO1GameOptions dest, String guiID) {
+    	switch (guiID) {
+    	case EditCustomRaceUI.GUI_ID:
+    	case UserPreferences.ALL_GUI_ID:
+    		EditCustomRaceUI.updatePlayerCustomRace();
+    	}
     	LinkedList<InterfaceParam> modOptions = getModParameterList(guiID);
     	if (modOptions == null)
     		return;

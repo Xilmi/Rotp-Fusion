@@ -20,20 +20,9 @@ import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
 import static rotp.model.game.MOO1GameOptions.setBaseAndModSettingsToDefault;
 import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
 import static rotp.ui.UserPreferences.ALL_GUI_ID;
-import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
-import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
-import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.playerCustomRace;
 import static rotp.ui.UserPreferences.playerIsCustom;
-import static rotp.ui.util.AbstractOptionsUI.defaultButtonKey;
-import static rotp.ui.util.AbstractOptionsUI.defaultButtonWidth;
-import static rotp.ui.util.AbstractOptionsUI.exitButtonKey;
-import static rotp.ui.util.AbstractOptionsUI.exitButtonWidth;
-import static rotp.ui.util.AbstractOptionsUI.lastButtonKey;
-import static rotp.ui.util.AbstractOptionsUI.lastButtonWidth;
-import static rotp.ui.util.AbstractOptionsUI.userButtonKey;
-import static rotp.ui.util.AbstractOptionsUI.userButtonWidth;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -81,12 +70,9 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	private static final String loadTipKey		= ROOT + "GUI_LOAD_DESC";
 	private static final String cancelTipKey	= ROOT + "CANCEL_DESC";
 
-	private	static final EditCustomRaceUI instance = new EditCustomRaceUI();
+	public	static final EditCustomRaceUI instance = new EditCustomRaceUI();
 	
 	private final Rectangle selectBox	= new Rectangle();
-    private final Rectangle defaultBox	= new Rectangle();
-	private final Rectangle lastBox		= new Rectangle();
-    private final Rectangle userBox		= new Rectangle();
 	private final Rectangle randomBox	= new Rectangle();
 	private final Rectangle loadBox		= new Rectangle();
 
@@ -97,10 +83,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	// ========== Constructors and initializers ==========
 	//
 	private EditCustomRaceUI() {}
-	public static EditCustomRaceUI instance() {
-		return instance.init0();
-	}
-
+	public static EditCustomRaceUI instance() { return instance.init0(); }
 	public EditCustomRaceUI init0() {
 		if (initialized)
 			return this;
@@ -143,26 +126,14 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		}
 		init();
 	}
-	@Override public void open(BasePanel p) {
-		enableGlassPane(this);
-		Modifier2KeysState.reset();
-		parent = p;
-
-		cr.fromOptions((DynOptions) playerCustomRace.get());
-		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
-		init();
-		reloadRaceList();
-		repaint();
-	}
 	// ========== Other Methods ==========
 	//
-	private void refreshGui() {
-		System.out.println("===== refreshGui()");
-		System.out.println("playerCustomRace: Race Name = " +
-				((DynOptions) playerCustomRace.get()).getString("CUSTOM_RACE_RACE_NAME"));
-		System.out.println("settingList : Race Name = " + settingList.get(1).guiSettingValue());
-		cr.fromOptions((DynOptions) playerCustomRace.get());
-		repaint();
+	public static void updatePlayerCustomRace() {
+		if (instance == null)
+			return;
+		if (instance.cr == null)
+			return;
+		playerCustomRace.set(instance.cr.getAsOptions());
 	}
 	private void saveCurrentRace() { cr.saveRace(); }
 	private void loadCurrentRace() { cr.loadRace(); }
@@ -180,86 +151,12 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		reloadRaceList();
 		repaint();
 	}
-	private void doExitBoxAction() {
-		buttonClick();
-		switch (Modifier2KeysState.get()) {
-		case CTRL:
-		case CTRL_SHIFT: // Restore
-			// readOptions(initialOptions);
-			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
-			break;
-		default: // Save
-			playerCustomRace.set(cr.getAsOptions());
-//			saveLastOptions();
-			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
-			break; 
-		}
-		close();			
-	}
 	private void doSelectBoxAction() {
 		buttonClick();
 		playerCustomRace.set(cr.getAsOptions());
 		playerIsCustom.set(true);
-//		saveLastOptions();
 		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 		close();
-	}
-	private void doDefaultBoxAction() {
-		System.out.println("Race Name = " + settingList.get(1).guiSettingValue());
-		buttonClick();
-		switch (Modifier2KeysState.get()) {
-		case CTRL:
-		case CTRL_SHIFT: // cancelKey
-			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);		
-			break;
-		case SHIFT: // setLocalDefaultKey
-			// setAllSettingsToDefault(guiOptions(), GUI_ID);
-			setToLocalDefault();
-			break; 
-		default: // setGlobalDefaultKey
-			setBaseAndModSettingsToDefault(guiOptions(), ALL_GUI_ID);
-			setToLocalDefault();
-			break; 
-		}
-		refreshGui();
-	}
-	private void doUserBoxAction() {
-		System.out.println("Race Name = " + settingList.get(1).guiSettingValue());
-		buttonClick();
-		switch (Modifier2KeysState.get()) {
-		case CTRL: // saveGlobalUserKey
-			playerCustomRace.set(cr.getAsOptions());
-			updateOptionsAndSaveToFileName(guiOptions(), USER_OPTIONS_FILE, ALL_GUI_ID);
-			return;
-		case CTRL_SHIFT: // saveLocalUserKey
-			playerCustomRace.set(cr.getAsOptions());
-			updateOptionsAndSaveToFileName(guiOptions(), USER_OPTIONS_FILE, GUI_ID);
-			return;
-		case SHIFT: // setLocalUserKey
-			loadAndUpdateFromFileName(guiOptions(), USER_OPTIONS_FILE, GUI_ID);
-			refreshGui();
-			return;
-		default: // setGlobalUserKey
-			loadAndUpdateFromFileName(guiOptions(), USER_OPTIONS_FILE, ALL_GUI_ID);
-			refreshGui();
-		}
-	}	
-	private void doLastBoxAction() {
-		buttonClick();
-		switch (Modifier2KeysState.get()) {
-		case CTRL: // setGlobalGameKey
-			loadAndUpdateFromFileName(guiOptions(), GAME_OPTIONS_FILE, ALL_GUI_ID);
-			break;
-		case CTRL_SHIFT: // setLocalGameKey
-			loadAndUpdateFromFileName(guiOptions(), GAME_OPTIONS_FILE, GUI_ID);
-			break;
-		case SHIFT: // setLocalLastKey
-			loadAndUpdateFromFileName(guiOptions(), LAST_OPTIONS_FILE, GUI_ID);
-			break;
-		default: // setGlobalLastKey
-			loadAndUpdateFromFileName(guiOptions(), LAST_OPTIONS_FILE, ALL_GUI_ID);
-		}
-		refreshGui();
 	}
 	public void updateCRGui(MOO1GameOptions source) {
         for (InterfaceOptions param : commonList)
@@ -345,7 +242,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	private int loadButtonWidth(Graphics2D g) {
 		return Math.max(g.getFontMetrics().stringWidth(LabelManager.current().label(saveCurrentKey)),
 						g.getFontMetrics().stringWidth(LabelManager.current().label(loadCurrentKey)))
-				+ buttonMargin;
+				+ smallButtonMargin;
 	}
 	private void mouseCommon(MouseEvent e, MouseWheelEvent w) {
 		for (int settingIdx=0; settingIdx < mouseList.size(); settingIdx++) {
@@ -383,6 +280,45 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	}
 	// ========== Overriders ==========
 	//
+	@Override protected void refreshGui() {
+		System.out.println("===== refreshGui()");
+		System.out.println("playerCustomRace: Race Name = " +
+				((DynOptions) playerCustomRace.get()).getString("CUSTOM_RACE_RACE_NAME"));
+		System.out.println("settingList : Race Name = " + settingList.get(1).guiSettingValue());
+		cr.fromOptions((DynOptions) playerCustomRace.get());
+		repaint();
+	}
+	@Override protected void doDefaultBoxAction() {
+		buttonClick();
+		switch (Modifier2KeysState.get()) {
+		case CTRL: // restoreGlobalKey
+			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);		
+			break;
+		case CTRL_SHIFT: // restoreLocalKey
+			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, GUI_ID());		
+			break;
+		case SHIFT: // setLocalDefaultKey
+			setToLocalDefault();
+			break; 
+		default: // setGlobalDefaultKey
+			setBaseAndModSettingsToDefault(guiOptions(), ALL_GUI_ID);
+			setToLocalDefault();
+			break; 
+		}
+		refreshGui();
+	}
+	@Override public void open(BasePanel p) {
+		enableGlassPane(this);
+		Modifier2KeysState.reset();
+		parent = p;
+
+		cr.fromOptions((DynOptions) playerCustomRace.get());
+		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+		init();
+		reloadRaceList();
+		repaint();
+	}
+	@Override protected String GUI_ID() { return GUI_ID; }
 	@Override protected void close() {
 		Modifier2KeysState.reset();
 		disableGlassPane();
@@ -476,16 +412,16 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	@Override protected String raceAIButtonTxt() { return ""; }
 	@Override protected void paintButtons(Graphics2D g) {
 		int cnr = s5;
-		g.setFont(buttonFont);
+		g.setFont(smallButtonFont);
 
 		// Exit Button
 		String text = text(exitButtonKey());
 		int sw = g.getFontMetrics().stringWidth(text);
 		int buttonW	= exitButtonWidth(g);
 		xButton = leftM + wBG - buttonW - xButtonOffset;
-		exitBox.setBounds(xButton, yButton, buttonW, buttonH);
+		exitBox.setBounds(xButton, yButton, buttonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
-		g.fillRoundRect(exitBox.x, exitBox.y, buttonW, buttonH, cnr, cnr);
+		g.fillRoundRect(exitBox.x, exitBox.y, buttonW, smallButtonH, cnr, cnr);
 		int xT = exitBox.x+((exitBox.width-sw)/2);
 		int yT = exitBox.y+exitBox.height-s8;
 		Color cB = hoverBox == exitBox ? Color.yellow : GameUI.borderBrightColor();
@@ -498,11 +434,11 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		// Select Button
 		text	 = text(selectKey);
 		sw = g.getFontMetrics().stringWidth(text);
-		buttonW	 = sw + buttonMargin;
+		buttonW	 = sw + smallButtonMargin;
 		xButton -= (buttonW + buttonPad);
-		selectBox.setBounds(xButton, yButton, buttonW, buttonH);
+		selectBox.setBounds(xButton, yButton, buttonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
-		g.fillRoundRect(selectBox.x, selectBox.y, buttonW, buttonH, cnr, cnr);
+		g.fillRoundRect(selectBox.x, selectBox.y, buttonW, smallButtonH, cnr, cnr);
 		xT = selectBox.x + ((selectBox.width-sw)/2);
 		yT = selectBox.y + selectBox.height-s8;
 		cB = hoverBox == selectBox ? Color.yellow : GameUI.borderBrightColor();
@@ -517,9 +453,9 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		sw		 = g.getFontMetrics().stringWidth(text);
 		buttonW	 = defaultButtonWidth(g);
 		xButton -= (buttonW + buttonPad);
-		defaultBox.setBounds(xButton, yButton, buttonW, buttonH);
+		defaultBox.setBounds(xButton, yButton, buttonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
-		g.fillRoundRect(defaultBox.x, defaultBox.y, buttonW, buttonH, cnr, cnr);
+		g.fillRoundRect(defaultBox.x, defaultBox.y, buttonW, smallButtonH, cnr, cnr);
 		xT = defaultBox.x + ((defaultBox.width-sw)/2);
 		yT = defaultBox.y + defaultBox.height-s8;
 		cB = hoverBox == defaultBox ? Color.yellow : GameUI.borderBrightColor();
@@ -534,9 +470,9 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		sw		 = g.getFontMetrics().stringWidth(text);
 		buttonW  = lastButtonWidth(g);
 		xButton -= (buttonW + buttonPad);
-		lastBox.setBounds(xButton, yButton, buttonW, buttonH);
+		lastBox.setBounds(xButton, yButton, buttonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
-		g.fillRoundRect(lastBox.x, lastBox.y, buttonW, buttonH, cnr, cnr);
+		g.fillRoundRect(lastBox.x, lastBox.y, buttonW, smallButtonH, cnr, cnr);
 		xT = lastBox.x + ((lastBox.width-sw)/2);
 		yT = lastBox.y + lastBox.height-s8;
 		cB = hoverBox == lastBox ? Color.yellow : GameUI.borderBrightColor();
@@ -551,9 +487,9 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		sw		 = g.getFontMetrics().stringWidth(text);
 		buttonW	 = userButtonWidth(g);
 		xButton -= (buttonW + buttonPad);
-		userBox.setBounds(xButton, yButton, buttonW, buttonH);
+		userBox.setBounds(xButton, yButton, buttonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
-		g.fillRoundRect(userBox.x, userBox.y, buttonW, buttonH, cnr, cnr);
+		g.fillRoundRect(userBox.x, userBox.y, buttonW, smallButtonH, cnr, cnr);
 		xT = userBox.x + ((userBox.width-sw)/2);
 		yT = userBox.y + userBox.height-s8;
 		cB = hoverBox == userBox ? Color.yellow : GameUI.borderBrightColor();
@@ -568,9 +504,9 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		sw		 = g.getFontMetrics().stringWidth(text);
 		buttonW	 = loadButtonWidth(g);
 		xButton -= (buttonW + buttonPad);
-		loadBox.setBounds(xButton, yButton, buttonW, buttonH);
+		loadBox.setBounds(xButton, yButton, buttonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
-		g.fillRoundRect(loadBox.x, loadBox.y, buttonW, buttonH, cnr, cnr);
+		g.fillRoundRect(loadBox.x, loadBox.y, buttonW, smallButtonH, cnr, cnr);
 		xT = loadBox.x + ((loadBox.width-sw)/2);
 		yT = loadBox.y + loadBox.height-s8;
 		cB = hoverBox == loadBox ? Color.yellow : GameUI.borderBrightColor();
@@ -584,10 +520,10 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		text	= text(randomKey);
 		xButton = leftM + buttonPad;
 		sw		= g.getFontMetrics().stringWidth(text);
-		buttonW = g.getFontMetrics().stringWidth(text) + buttonMargin;
-		randomBox.setBounds(xButton, yButton, buttonW, buttonH);
+		buttonW = g.getFontMetrics().stringWidth(text) + smallButtonMargin;
+		randomBox.setBounds(xButton, yButton, buttonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
-		g.fillRoundRect(randomBox.x, randomBox.y, buttonW, buttonH, cnr, cnr);
+		g.fillRoundRect(randomBox.x, randomBox.y, buttonW, smallButtonH, cnr, cnr);
 		xT = randomBox.x+((randomBox.width-sw)/2);
 		yT = randomBox.y+randomBox.height-s8;
 		cB = hoverBox == randomBox ? Color.yellow : GameUI.borderBrightColor();
