@@ -63,7 +63,6 @@ public abstract class GalaxyShape implements Base, Serializable {
 	private int numOpponents;
 	Rand rand = new Rand(); // random number generator
 	private long tm0; // for timing computation
-	float growFactor = 20;
 	// \BR
 
 	public int width()	{ return width; }
@@ -82,7 +81,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 		float largeGal = 7f + 6f * (float) Math.log10(maxStars);
 		float smallGal = 1.8f * sqrt(maxStars);
 		float selected = max(4f, min(largeGal, smallGal));
-		return adjDensity * selected;
+		return adjDensity * selected * shapeFactor;
 	}
     protected float densitySizeFactor() {
         float adj = 1.0f;
@@ -133,6 +132,9 @@ public abstract class GalaxyShape implements Base, Serializable {
 		float factor = sizeFactor(opts.selectedGalaxySize());
 		float mult = (1f + (float)genAttempt/20f);
 		float adjFactor = factor * mult;
+		System.out.println("factor = " + factor);
+		System.out.println("mult = " + mult);
+		System.out.println("adjFactor = " + adjFactor);
 		return adjFactor;
 	}
 
@@ -300,7 +302,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 	}
 	// BR: ========== Initialization Methods ==========
 	//
-	private void singleInit(boolean full) {
+	protected void singleInit(boolean full) {
 		if (full)
 			maxStars = opts.numberStarSystems();
 		else
@@ -878,7 +880,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 		/**
 		 * @return  0 <= random value < 1
 		 */
-		private double randY() { return lastY = (lastY + cY)%1; }
+		double randY() { return lastY = (lastY + cY)%1; }
 		// Getters with multiplier
 		/**
 		 * @return  0 <= random value < max

@@ -25,6 +25,10 @@ Community subreddit: https://www.reddit.com/r/rotp/<br/>
 Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
+
+2022.12.15 (BR)
+  - Added Galaxy Bitmap grey and invert Grey.
+
 2022.12.09 (BR)
   - Fixed "Change AI" setting the wrong Player AI.
   - Loading File with new options: Fixed "Autoplay"-option.

@@ -72,7 +72,6 @@ public class GalaxyTextShape extends GalaxyShape {
     @Override
 	public void init(int n) {
         super.init(n);
-        growFactor = 10;
         
         // int option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
         int option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
@@ -177,7 +176,6 @@ public class GalaxyTextShape extends GalaxyShape {
         double moveY = (galaxyHeightLY()-textShape.getBounds().getHeight())/2 - oldY + galaxyEdgeBuffer();
 		moveText.translate(moveX, moveY);
 		textShape = moveText.createTransformedShape(textShape);
-        
 	}
 	
     @Override
@@ -211,7 +209,7 @@ public class GalaxyTextShape extends GalaxyShape {
             // repeat thrice, 3 lines, with some in-bewteen spacing
             return (textShape.contains(x, y) || textShape.contains(x, y+textShape.getBounds().getHeight()*(adjust_line-1)/2) || textShape.contains(x, y-textShape.getBounds().getHeight()*(adjust_line-1)/2));
         }
-        // repeast once, 1 line
+        // repeat once, 1 line
         return textShape.contains(x, y);
     }
     float randomLocation(float max, float buff) {

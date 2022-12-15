@@ -27,18 +27,23 @@ import static rotp.ui.UserPreferences.prefStarsPerEmpire;
 import static rotp.ui.UserPreferences.showNewRaces;
 import static rotp.ui.UserPreferences.useSelectableAbilities;
 
+// modnar: needed for adding RenderingHints
 import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Composite;
+import java.awt.Container;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.HeadlessException;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.RadialGradientPaint;
 import java.awt.Rectangle;
-import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
+import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.KeyEvent;
@@ -49,13 +54,13 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -63,7 +68,16 @@ import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.JToggleButton;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -71,6 +85,7 @@ import rotp.Rotp;
 import rotp.mod.br.addOns.RacesOptions;
 import rotp.mod.br.profiles.Profiles;
 import rotp.model.empires.Race;
+import rotp.model.galaxy.GalaxyBitmapShape;
 import rotp.model.galaxy.GalaxyFactory.GalaxyCopy;
 import rotp.model.galaxy.GalaxyShape;
 import rotp.model.galaxy.GalaxyShape.EmpireSystem;
@@ -268,35 +283,88 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 		}
 		return -1;
 	}
-	private void getBitmalFile() {
+	@SuppressWarnings("rawtypes")
+	private void setFileChooserFont(Component[] comp) {
+		int topInset  = scaled(6);
+		int sideInset = scaled(15);
+	    for(int i=0; i<comp.length; i++)  {
+	    	if(comp[i] instanceof JPanel){
+	            ((JPanel)comp[i]).setBackground(GameUI.borderMidColor());
+	            if(((JPanel)comp[i]).getComponentCount() !=0){
+	            	setFileChooserFont(((JPanel)comp[i]).getComponents());
+	            }
+	        }
+	        if(comp[i] instanceof JTextField){
+	            ((JTextField)comp[i]).setBackground(GameUI.paneBackgroundColor());
+	        }
+	        if(comp[i] instanceof JToggleButton){
+	            ((JToggleButton)comp[i]).setBackground(GameUI.paneBackgroundColor());
+	        }
+	        if(comp[i] instanceof JButton){
+	            String txt = ((JButton)comp[i]).getText();
+	            if (txt!=null && ("Cancel".equals(txt) || "Open".equals(txt))) {
+		            ((JButton)comp[i]).setMargin(new Insets(topInset, sideInset, 0, sideInset));
+		            ((JButton)comp[i]).setBackground(GameUI.buttonBackgroundColor());
+		            ((JButton)comp[i]).setForeground(GameUI.buttonTextColor());
+		            ((JButton)comp[i]).setVerticalAlignment(SwingConstants.TOP);
+	            }
+	        }
+	        if(comp[i] instanceof JScrollPane){
+	            ((JScrollPane)comp[i]).setBackground(GameUI.borderMidColor());
+	        }
+	        if(comp[i] instanceof JList){
+	            ((JList)comp[i]).setBackground(GameUI.paneBackgroundColor());
+	            ((JList)comp[i]).setSelectionBackground(GameUI.borderMidColor());
+	        }
+	        if(comp[i] instanceof JComboBox){
+	            ((JComboBox)comp[i]).setBackground(GameUI.paneBackgroundColor());
+	        }
+	        if(comp[i] instanceof Container)
+	        	setFileChooserFont(((Container)comp[i]).getComponents());
+	        try{comp[i].setFont(narrowFont(15));}
+	        catch(Exception e){}//do nothing
+	    }
+	}
+	private String getBitmalFile() {
         String dirPath = Rotp.jarPath();
-        FileNameExtensionFilter  filter = new FileNameExtensionFilter("Portable Network Graphics Files","png");
-		JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter  filter = new FileNameExtensionFilter("Portable Network Graphics Files, *.png","png");
+		JFileChooser fileChooser = new JFileChooser() {
+			@Override
+			protected JDialog createDialog(Component parent)
+	                throws HeadlessException {
+	            JDialog dlg = super.createDialog(parent);
+	            dlg.setLocation(scaled(300), scaled(200));
+	            dlg.setSize(scaled(400), scaled(350));
+	            dlg.getContentPane().setBackground(GameUI.borderMidColor());
+	            return dlg;
+	        }
+	    };
+	    setFileChooserFont(fileChooser.getComponents());
 		fileChooser.setCurrentDirectory(new File(dirPath));
 		fileChooser.setAcceptAllFileFilterUsed(false);
 		fileChooser.addChoosableFileFilter(filter);
-        fileChooser.showOpenDialog(null);
+		// Add listener to file picking
+		fileChooser.addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+				if (fileChooser.getSelectedFile() != null) {
+					preview(fileChooser.getSelectedFile().getPath());
+				}
+            }
+        });
 		int result = fileChooser.showOpenDialog(getParent());
 		if (result == JFileChooser.APPROVE_OPTION) {
 		    // user selects a file
 			File selectedFile = fileChooser.getSelectedFile();
-			System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+			return selectedFile.getPath();
 		}
+		return GalaxyBitmapShape.options1.get(0);
 	}
-
-	private File[] getBitmapList() {
-        String ext = ".png";
-        String saveDirPath = Rotp.jarPath();
-        File saveDir = new File(saveDirPath);
-        FilenameFilter filter = (File dir, String name1) -> name1.toLowerCase().endsWith(ext);
-        File[] fileList = saveDir.listFiles(filter);
-		return fileList;
-	}
-	private String selectBitmapFromList() {
-		return null; // TODO BR: selectBitmapFromList()
-	}
-	private String selectGalaxyBitmapFromList() {
-		return null; // TODO BR: selectGalaxyBitmapFromList()
+	private void selectBitmapFromList() { // TODO BR: selectBitmapFromList()
+		String filePath = getBitmalFile();
+		newGameOptions().selectedGalaxyShapeOption1(filePath);
+		newGameOptions().galaxyShape().quickGenerate();
+		repaint();
 	}
 	private int currentGalaxyTextIndex(String s) {
 		String[] textList = getGalaxyTextList();
@@ -430,8 +498,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 		newGameOptions().selectedGalaxyShapeOption1(s);
 	    newGameOptions().galaxyShape().quickGenerate(); 
 		repaint();
-	}
-	
+	}	
 	private String selectSpecificAbilityFromList(int i) {
 		String initialChoice = newGameOptions().specificOpponentCROption(i);
 	    String input = (String) ListDialog.showDialog(
@@ -1049,8 +1116,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 				nextIndex = 0;
 			String nextText = (String) getGalaxyTextList()[nextIndex];
 			newGameOptions().selectedGalaxyShapeOption1(nextText);
-		} else if (isShapeBitmapGalaxy()) { // TODO BR: nextMapOption1 selectedGalaxyBitmap
-			int nextIndex = 0; // temporary
+		} else if (isShapeBitmapGalaxy()) {
+			selectBitmapFromList();
 		} else
 			newGameOptions().selectedGalaxyShapeOption1(newGameOptions().nextGalaxyShapeOption1());
 
@@ -1069,7 +1136,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 			String prevText = (String) getGalaxyTextList()[prevIndex];
 			newGameOptions().selectedGalaxyShapeOption1(prevText);
 		} else if (isShapeBitmapGalaxy()) {
-			int nextIndex = 0; // temporary
+			selectBitmapFromList();
 		} else
 			newGameOptions().selectedGalaxyShapeOption1(newGameOptions().prevGalaxyShapeOption1());
 		newGameOptions().galaxyShape().quickGenerate(); 

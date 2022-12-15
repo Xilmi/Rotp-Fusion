@@ -41,6 +41,7 @@ import rotp.mod.br.profiles.Profiles;
 import rotp.ui.BaseModPanel;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
+import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.GameUI;
 import rotp.ui.main.SystemPanel;
@@ -289,6 +290,10 @@ public abstract class AbstractOptionsUI extends BaseModPanel implements MouseLis
 	}
 	// ========== Overriders ==========
 	//
+	@Override protected void close() {
+		super.close();
+		RotPUI.setupGalaxyUI().repaint();
+	}
 	@Override protected void doExitBoxAction() {
 		if (globalOptions) { // The old ways
 			buttonClick();

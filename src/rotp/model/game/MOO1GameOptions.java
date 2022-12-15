@@ -998,7 +998,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 		list.add(SHAPE_BULLSEYE);
 		list.add(SHAPE_LORENZ);
 		list.add(SHAPE_FRACTAL);
-// TODO BR:		list.add(SHAPE_BITMAP);
+		list.add(SHAPE_BITMAP);
         return list;
     }
 	
