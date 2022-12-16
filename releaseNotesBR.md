@@ -10,7 +10,7 @@ This will allow you to draw your galaxy shape, the level of gray giving the prob
     - The remaining stars will be distributed according to the grey level, which is defined by the maximum color intensity.
     - If a color is missing, it will be replaced by the grey level.
     - In the worst case, a smoothed circular galaxy will be generated.
-Included: Two bitmap files as example.
+  - Two examples bitmap files are on Github.
 
 Other changes:
   - The "Global" vs "Local" options loading and saving will be clearly indicated on the buttons. (Toggle with "Shift")

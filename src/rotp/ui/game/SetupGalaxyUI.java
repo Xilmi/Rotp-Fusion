@@ -755,9 +755,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 		drawString(g,shapeLbl, x5a, y5);
 		
 		if (newGameOptions().numGalaxyShapeOption1() > 0) {
-			String label1 = newGameOptions().selectedGalaxyShapeOption1();
+			String label1;
 			if (isShapeTextGalaxy()) {
-				//label1 = newGameOptions().selectedGalaxyShapeOption1();
+				label1 = newGameOptions().selectedGalaxyShapeOption1();
 				Font prevFont = g.getFont();
 				g.setFont(boxMonoFont());
 				int sw1 = g.getFontMetrics().stringWidth(label1);
@@ -766,13 +766,16 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 				g.setFont(prevFont);
 			}
 			else if (isShapeBitmapGalaxy()) {
-				label1 = getNameFromPath(label1);
+				label1 = getNameFromPath(newGameOptions().selectedGalaxyShapeOption1());
 				int sw1 = g.getFontMetrics().stringWidth(label1);
 				int x5d =mapOption1Box.x+((mapOption1Box.width-sw1)/2);
 				drawString(g,label1, x5d, y5+s20);
 			}
 			else {
-				//label1 = text(newGameOptions().selectedGalaxyShapeOption1());
+				if (isShapeBitmapGalaxy())
+					label1 = getNameFromPath(newGameOptions().selectedGalaxyShapeOption1());
+				else
+					label1 = text(newGameOptions().selectedGalaxyShapeOption1());
 				int sw1 = g.getFontMetrics().stringWidth(label1);
 				int x5d =mapOption1Box.x+((mapOption1Box.width-sw1)/2);
 				drawString(g,label1, x5d, y5+s20);
