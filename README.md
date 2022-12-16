@@ -27,7 +27,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 ## What's New
 
 2022.12.15 (BR)
-  - Added Galaxy Bitmap grey and invert Grey.
+  - Added Galaxy Bitmap grey level.
+  - Added Galaxy Bitmap inverted grey level.
+  - Added Galaxy Bitmap color.
 
 2022.12.09 (BR)
   - Fixed "Change AI" setting the wrong Player AI.

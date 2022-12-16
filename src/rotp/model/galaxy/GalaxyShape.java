@@ -51,7 +51,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 	private int genAttempt = 0;
 	private boolean usingRegions = false;
 	private boolean fullyInit = false;
-	private List<EmpireSystem> empSystems = new ArrayList<>();
+	List<EmpireSystem> empSystems = new ArrayList<>();
 	private Point.Float orionXY;
 	IGameOptions opts;
 	
@@ -132,18 +132,18 @@ public abstract class GalaxyShape implements Base, Serializable {
 		float factor = sizeFactor(opts.selectedGalaxySize());
 		float mult = (1f + (float)genAttempt/20f);
 		float adjFactor = factor * mult;
-		System.out.println("factor = " + factor);
-		System.out.println("mult = " + mult);
-		System.out.println("adjFactor = " + adjFactor);
+//		System.out.println("factor = " + factor);
+//		System.out.println("mult = " + mult);
+//		System.out.println("adjFactor = " + adjFactor);
 		return adjFactor;
 	}
 
-	public List<String> options1()			{ return new ArrayList<>(); }
-	public List<String> options2()			{ return new ArrayList<>(); }
-	public int numOptions1()				  { return options1().size(); }
-	public int numOptions2()				  { return options2().size(); }
-	public String defaultOption1()			{ return ""; }
-	public String defaultOption2()			{ return ""; }
+	public List<String> options1()	{ return new ArrayList<>(); }
+	public List<String> options2()	{ return new ArrayList<>(); }
+	public int numOptions1()		{ return options1().size(); }
+	public int numOptions2()		{ return options2().size(); }
+	public String defaultOption1()	{ return ""; }
+	public String defaultOption2()	{ return ""; }
 
 	float systemBuffer() {
 		switch (opts.selectedStarDensityOption()) {

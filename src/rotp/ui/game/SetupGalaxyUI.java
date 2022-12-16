@@ -755,9 +755,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 		drawString(g,shapeLbl, x5a, y5);
 		
 		if (newGameOptions().numGalaxyShapeOption1() > 0) {
-			String label1;
+			String label1 = newGameOptions().selectedGalaxyShapeOption1();
 			if (isShapeTextGalaxy()) {
-				label1 = newGameOptions().selectedGalaxyShapeOption1();
+				//label1 = newGameOptions().selectedGalaxyShapeOption1();
 				Font prevFont = g.getFont();
 				g.setFont(boxMonoFont());
 				int sw1 = g.getFontMetrics().stringWidth(label1);
@@ -765,8 +765,14 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 				drawString(g,label1, x5d, y5+s20);
 				g.setFont(prevFont);
 			}
+			else if (isShapeBitmapGalaxy()) {
+				label1 = getNameFromPath(label1);
+				int sw1 = g.getFontMetrics().stringWidth(label1);
+				int x5d =mapOption1Box.x+((mapOption1Box.width-sw1)/2);
+				drawString(g,label1, x5d, y5+s20);
+			}
 			else {
-				label1 = text(newGameOptions().selectedGalaxyShapeOption1());
+				//label1 = text(newGameOptions().selectedGalaxyShapeOption1());
 				int sw1 = g.getFontMetrics().stringWidth(label1);
 				int x5d =mapOption1Box.x+((mapOption1Box.width-sw1)/2);
 				drawString(g,label1, x5d, y5+s20);
@@ -1007,33 +1013,36 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 		int xOff = x+(w-dispW)/2;
 		int yOff = y+(h-dispH)/2;
 		Point.Float pt = new Point.Float();
+		g.setColor(Color.blue); // Start with Orion
 		for (int i=0; i<sh.numberStarSystems();i++) {
 			sh.coords(i, pt);
 			int x0 = xOff + (int) (pt.x*factor);
 			int y0 = yOff + (int) (pt.y*factor);
-			g.setColor(starColor(i));
 			g.fillRect(x0, y0, s2, s2);
+			g.setColor(starColor(i));
 		}
 		// BR: add empires stars to avoid lonely Orion star
 		int numCompWorlds = sh.numCompanionWorld();
-		int iColor = 0;
+		//int iColor = 0;
 		int iEmp = 0;
+		g.setColor(Color.green); // Start with player
 		for (EmpireSystem emp : sh.empireSystems()) {
 			for (int iSys=0; iSys<emp.numSystems();iSys++) {
 				int x0 = xOff + (int) (emp.x(iSys)*factor);
 				int y0 = yOff + (int) (emp.y(iSys)*factor);
-				g.setColor(starColor(iColor)); iColor++;
+				//g.setColor(starColor(iColor)); iColor++;
 				g.fillRect(x0, y0, s2, s2);
 				if (numCompWorlds > 0) {
 					for (int iCW=0; iCW<numCompWorlds; iCW++) {
 						pt = sh.getCompanion(iEmp, iCW);
 						x0 = xOff + (int) (pt.x*factor);
 						y0 = yOff + (int) (pt.y*factor);
-						g.setColor(starColor(iColor)); iColor++;
+						//g.setColor(starColor(iColor)); iColor++;
 						g.fillRect(x0, y0, s2, s2);
 					}
 				}
 			}
+			g.setColor(Color.red);			
 			iEmp++;
 		}
 	}
@@ -1104,6 +1113,12 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 	}
 	private boolean isShapeBitmapGalaxy() {
 		return newGameOptions().selectedGalaxyShape().equals(IGameOptions.SHAPE_BITMAP);
+	}
+	private String getNameFromPath(String path) {
+		File file = new File(path);
+		if (file.exists())
+			return file.getName();
+		return path;
 	}
 	private void nextMapOption1(boolean click) {
 		if (click) softClick();
