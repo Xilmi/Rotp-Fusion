@@ -26,6 +26,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2022.12.16 (BR)
+  - Added Galaxy Bitmap Advanced.
+
 2022.12.15 (BR)
   - Added Galaxy Bitmap grey level.
   - Added Galaxy Bitmap inverted grey level.

@@ -50,16 +50,18 @@ public class GalaxyBitmapShape extends GalaxyShape {
     private float aspectRatio   = 1.0f;
     private float shapeFactor   = sqrt(aspectRatio);
     private float densityFactor = 1.0f;
-    private float[][] greyMap;
-    private float[][] redMap;
-    private float[][] greenMap;
-    private float[][] blueMap;
-    private float[][] greyMapCS;
-    private float[][] redMapCS;
-    private float[][] greenMapCS;
-    private float[][] blueMapCS;
+    private float[][] greyPD; // Star Map
+    private float[][] redPD;  // Opponent Map
+    private float[][] greenPD; // User Map
+    private float[][] bluePD;  // Orion Map
+    private float[][] starCD;
+    private float[][] userCD;
+    private float[][] orionCD;
+    private float[][] nebulaeCD;
+    private float[][][] alienCD;
 
 	private int xBM, yBM, gEB;
+	private int alienSize = 1;
 	private float offset, xMult, yMult, volume;
 	private boolean isInverted = false;
 	private boolean isColor    = false;
@@ -76,7 +78,7 @@ public class GalaxyBitmapShape extends GalaxyShape {
 		yBM = sy;
         isColor    = false;
         isMultiple = false;
-		greyMap    = new float[yBM][xBM];
+		greyPD     = new float[yBM][xBM];
 		float cx   = (-1.0f + xBM)/2.0f;
 		float cy   = (-1.0f + yBM)/2.0f;
 		float s2   = -2*sigma*sigma;
@@ -85,41 +87,41 @@ public class GalaxyBitmapShape extends GalaxyShape {
 			float dy2 = sqr(y-cy);
 			for (int x=0; x<xBM; x++) {
 				float r2 = dy2 + sqr(x-cx);
-				greyMap[y][x] = (float) Math.exp(r2/s2);
+				greyPD[y][x] = (float) Math.exp(r2/s2);
 			}
 		}
 	}
-	private void invertBitmap(float[][] bitmap) {
+	private void invertPD(float[][] pD) {
 		for (int y=0; y<yBM; y++)
 			for (int x=0; x<xBM; x++)
-				bitmap[y][x] = 1-bitmap[y][x];
-		normalizeToOne(bitmap);
+				pD[y][x] = 1-pD[y][x];
+		normalizeToOne(pD);
 	}
-	private void normalizeToOne(float[][] bitmap) {
+	private void normalizeToOne(float[][] pD) {
 		float max = 0f;
 		for (int y=0; y<yBM; y++)
 			for (int x=0; x<xBM; x++)
-				max = max(max, bitmap[y][x]);
+				max = max(max, pD[y][x]);
 		for (int y=0; y<yBM; y++)
 			for (int x=0; x<xBM; x++)
-				bitmap[y][x] /= max;
+				pD[y][x] /= max;
 	}
-	private float cumulativeSum(float[][] bitmap, float[][] mapCumSum) {
+	private float cumulativeDensity(float[][] pD, float[][] cD) {
 		float volume = 0f;
 		for (int y=0; y<yBM; y++) {
 			for (int x=0; x<xBM; x++) {
-				volume  += bitmap[y][x];
-				mapCumSum[y][x] = volume;
+				volume  += pD[y][x];
+				cD[y][x] = volume;
 			}
 		}
 		return volume;		
 	}
-	private void normalizeCumSumToOne(float[][] mapCumSum, float volume) {
+	private void normalizeCDToOne(float[][] cD, float volume) {
 		for (int y=0; y<yBM; y++)
 			for (int x=0; x<xBM; x++)
-				mapCumSum[y][x] /= volume;
+				cD[y][x] /= volume;
 	}
-	private void openFile(String path) {
+	private void openFileAndNormalize(String path) {
 		BufferedImage image;
 		try {
 			image = ImageIO.read(new File(path));
@@ -130,11 +132,15 @@ public class GalaxyBitmapShape extends GalaxyShape {
 		}
 		yBM = image.getHeight();
 		xBM = image.getWidth();
-		greyMap  = new float[yBM][xBM];
+		if (yBM == 0 || xBM == 0) {
+			genGaussian(GX, GY, GS);
+			return;
+		}
+		greyPD = new float[yBM][xBM];
 		if (isColor) {
-			redMap   = new float[yBM][xBM];
-			greenMap = new float[yBM][xBM];
-			blueMap  = new float[yBM][xBM];
+			redPD   = new float[yBM][xBM];
+			greenPD = new float[yBM][xBM];
+			bluePD  = new float[yBM][xBM];
 		}
 		
 		for (int y = 0; y < image.getHeight(); y++) {
@@ -145,22 +151,22 @@ public class GalaxyBitmapShape extends GalaxyShape {
 		        float blue  = (pixel) & 0xff;
 		        float grey  = max(blue, max(red, green));
 		        
-		        greyMap[y][x] = grey/255;
+		        greyPD[y][x] = grey/255;
 				if (isColor) {
-					redMap  [y][x] = red  /255;
-					greenMap[y][x] = green/255;
-					blueMap [y][x] = blue /255;
+					redPD  [y][x] = red  /255;
+					greenPD[y][x] = green/255;
+					bluePD [y][x] = blue /255;
 				}
 		    }
 		}
-		normalizeToOne(greyMap);
+		normalizeToOne(greyPD);
 		if (isColor) {
-			normalizeToOne(redMap);
-			normalizeToOne(greenMap);
-			normalizeToOne(blueMap);
+			normalizeToOne(redPD);
+			normalizeToOne(greenPD);
+			normalizeToOne(bluePD);
 		}
 	}
-	private void setRandom(float[][] mapCumSum, Point.Float pt) {
+	private void setRandom(float[][] cD, Point.Float pt) {
 		float src  = (float) rand.randX();
 		float srcX = (float) rand.randX();
 		float srcY = (float) rand.randX();
@@ -168,13 +174,13 @@ public class GalaxyBitmapShape extends GalaxyShape {
 		int iX = xBM-1;
 		int iY;
 		for (iY=0; iY<yBM; iY++) {
-			if(src < mapCumSum[iY][iX])
+			if(src < cD[iY][iX])
 				break;
 		}
 		if (iY == yBM) // src = 1.0
 			iY--;
 		for (iX=0; iX<xBM; iX++) {
-			if(src < mapCumSum[iY][iX])
+			if(src < cD[iY][iX])
 				break;
 		} 
 		float x = (srcX + iX) / xBM;
@@ -182,6 +188,112 @@ public class GalaxyBitmapShape extends GalaxyShape {
 		
         pt.x = offset + x * xMult;
         pt.y = offset + y * yMult;
+//        System.out.println("pt.x = " + pt.x + "    pt.y = " + pt.y);
+//        System.out.println("pt.x = " + pt.x + "    pt.y = " + pt.y);
+	}
+	private boolean initMultiple() { // TODDO BR: isMultiple
+	    float[][] greyCD = new float[yBM][xBM];
+	    
+	    float vol = cumulativeDensity(greyPD, greyCD);
+	    if (vol == 0)
+	    	return false; // Not a valid Multiple
+	    
+	    // Locate black lines
+	    List<Integer> blakLines = new ArrayList<>();
+	    blakLines.add(-1); // No black lines required at start
+	    int x = xBM-1;
+	    float lastSum = 0f;
+	    for (int y=0; y<yBM; y++) {
+	    	float cs = greyCD[y][x];
+	    	if (cs == lastSum)
+	    		blakLines.add(y); // Found a new black line
+	    	lastSum = cs;
+	    }
+	    blakLines.add(yBM);  // No black lines required at end
+
+	    // Locate blocks
+	    List<Integer> startList = new ArrayList<>();
+	    List<Integer> stopList  = new ArrayList<>();
+	    Integer lastBL = -1;
+	    for (Integer bl : blakLines) {
+	    	int diff = bl - lastBL;
+	    	if (diff > 1) { // end of block
+	    		startList.add(lastBL+1);
+	    		stopList.add(bl);
+	    	}
+	    	lastBL = bl;
+	    }
+	    int blockCount = startList.size();
+
+	    // StarMap
+	    int start = startList.get(0);
+	    yBM = stopList.get(0) - start;
+	    
+		starCD = new float[yBM][xBM];
+		float[][] map = new float[yBM][xBM];
+		for (int i=0; i<yBM; i++)
+			map[i] = greenPD[i+start];
+		volume = cumulativeDensity(map, starCD);
+		if (volume == 0)
+	    	return false; // Not a valid Multiple
+
+		normalizeCDToOne(starCD, volume);
+		alienCD    = new float[1][yBM][xBM];
+		alienCD[0] = starCD;
+		userCD     = starCD;
+		orionCD    = starCD;
+
+		// Nebulae Map
+		nebulaeCD = new float[yBM][xBM];
+		for (int i=0; i<yBM; i++)
+			map[i] = redPD[i+start];
+		float mapVol = cumulativeDensity(map, nebulaeCD);
+		if (mapVol == 0) { // Empty ==> star map
+			nebulaeCD = starCD;
+		} else
+			normalizeCDToOne(nebulaeCD, mapVol);
+		
+		// Orion Map
+		int mapId = 1;
+		if (blockCount == mapId)
+	    	return true; // Incomplete, but valid Multiple
+		orionCD = getSubMap(startList.get(mapId));
+		
+		// User Map
+		mapId = 2;
+		if (blockCount == mapId)
+	    	return true; // Incomplete, but valid Multiple
+		userCD = getSubMap(startList.get(mapId));
+
+		// alien Map
+		mapId = 3;
+		if (blockCount == mapId)
+	    	return true; // Incomplete, but valid Multiple
+		alienSize = blockCount-mapId;
+		alienCD = new float[alienSize][yBM][xBM];
+		for (int i=0; i<alienSize; i++)
+			alienCD[i] = getSubMap(startList.get(mapId+i));
+
+		return true;
+	}
+	private float[][] alienCD(int id) {
+		int idx = Math.floorMod(id, alienSize);
+		return alienCD[idx];
+	}
+	private float[][] alienCD() {
+		return alienCD[0];
+	}
+	private float[][] getSubMap(int start) {
+		float[][] mapCD = new float[yBM][xBM];
+		float[][] mapPD = new float[yBM][xBM];
+		for (int i=0; i<yBM; i++)
+			mapPD[i] = redPD[i+start];
+		float mapVol = cumulativeDensity(mapPD, mapCD);
+		if (mapVol == 0) // Empty ==> star map
+			mapCD = starCD;
+		else
+			normalizeCDToOne(mapCD, mapVol);
+		return mapCD;
 	}
 	@Override protected void singleInit(boolean full) {
 		super.singleInit(full);
@@ -201,7 +313,7 @@ public class GalaxyBitmapShape extends GalaxyShape {
 	        	break;
 	        case "SETUP_BITMAP_MULTIPLE":
 	            isInverted = false;
-	            isColor    = false;
+	            isColor    = true;
 	            isMultiple = true;
 	        	break;
 	        case "SETUP_BITMAP_GREY_NORMAL": 
@@ -216,50 +328,66 @@ public class GalaxyBitmapShape extends GalaxyShape {
 		if(option1==null || option1.equals(DEFAULT_OPTION_1))
 			genGaussian(GX, GY, GS);
 		else
-			openFile(option1); // TODO BR: Load Bitmap
-
-		if (isInverted) // only for grey Maps
-			invertBitmap(greyMap);
+			openFileAndNormalize(option1);
 
 		if (isMultiple) {
-			// TODDO BR: isMultiple
+			if (initMultiple()) { // TODDO BR: isMultiple
+				aspectRatio   = (float) yBM / xBM;
+		        shapeFactor   = sqrt(max(aspectRatio, 1/aspectRatio));
+		        float volumeFactor = 1/volume *xBM*yBM;
+		        densityFactor = (float) Math.pow(volumeFactor, 1.0/3.0);
+		        adjustDensity = sqrt(shapeFactor * densityFactor);
+				return;
+			}
+			else // Failed ==> default galaxy
+				genGaussian(GX, GY, GS);
 		}
+
+		if (isInverted) // only for grey Maps
+			invertPD(greyPD);
+
 		// Normalize and validate bitmap
-		greyMapCS = new float[yBM][xBM];
-		volume = cumulativeSum(greyMap, greyMapCS);
+		starCD = new float[yBM][xBM];
+		volume = cumulativeDensity(greyPD, starCD);
 		if (volume == 0) { // Empty ==> default shape
 			genGaussian(GX, GY, GS);
-			volume = cumulativeSum(greyMap, greyMapCS);
+			volume = cumulativeDensity(greyPD, starCD);
 		}
-		normalizeCumSumToOne(greyMapCS, volume);
+		normalizeCDToOne(starCD, volume);
+		alienCD    = new float[1][yBM][xBM];
+		alienCD[0] = starCD;
+		userCD     = starCD;
+		orionCD    = starCD;
+		nebulaeCD  = starCD;
+
 		if (isColor) {
-			redMapCS = new float[yBM][xBM];
-			float redVol = cumulativeSum(redMap, redMapCS);
-			if (redVol == 0) { // Empty ==> grey map
-				redMap   = greyMap;
-				redMapCS = greyMapCS;
+			alienCD[0] = new float[yBM][xBM];
+			float redVol = cumulativeDensity(redPD, alienCD());
+			if (redVol == 0) { // Empty ==> star map
+				redPD      = greyPD;
+				alienCD[0] = starCD;
 			} else
-				normalizeCumSumToOne(redMapCS, redVol);
+				normalizeCDToOne(alienCD(), redVol);
 
-			greenMapCS = new float[yBM][xBM];
-			float greenVol = cumulativeSum(greenMap, greenMapCS);
-			if (greenVol == 0) { // Empty ==> grey map
-				greenMap   = greyMap;
-				greenMapCS = greyMapCS;
+			userCD = new float[yBM][xBM];
+			float greenVol = cumulativeDensity(greenPD, userCD);
+			if (greenVol == 0) { // Empty ==> star map
+				greenPD = greyPD;
+				userCD  = starCD;
 			} else
-				normalizeCumSumToOne(greenMapCS, greenVol);
+				normalizeCDToOne(userCD, greenVol);
 
-			blueMapCS = new float[yBM][xBM];
-			float blueVol = cumulativeSum(blueMap, blueMapCS);
-			if (blueVol == 0) { // Empty ==> grey map
-				blueMap   = greyMap;
-				blueMapCS = greyMapCS;
+			orionCD = new float[yBM][xBM];
+			float blueVol = cumulativeDensity(bluePD, orionCD);
+			if (blueVol == 0) { // Empty ==> star map
+				bluePD  = greyPD;
+				orionCD = starCD;
 			} else
-				normalizeCumSumToOne(blueMapCS, blueVol);
+				normalizeCDToOne(orionCD, blueVol);
 		}
 
-		aspectRatio   = (float) yBM / xBM;
-        shapeFactor   = sqrt(max(aspectRatio, 1/aspectRatio));
+		aspectRatio = (float) yBM / xBM;
+        shapeFactor = sqrt(max(aspectRatio, 1/aspectRatio));
         float volumeFactor = 1/volume *xBM*yBM;
         densityFactor = (float) Math.pow(volumeFactor, 1.0/3.0);
         adjustDensity = sqrt(shapeFactor * densityFactor);
@@ -270,7 +398,13 @@ public class GalaxyBitmapShape extends GalaxyShape {
 //		System.out.println("-- adjustDensity = " + adjustDensity);
 //		System.out.println();
 	}
-	@Override public void clean() {}
+	@Override public void clean() {
+		greyPD  = null;
+		redPD   = null;
+		greenPD = null;
+		bluePD  = null;
+		starCD  = nebulaeCD;
+	}
 	@Override public List<String> options1()  { return options1; }
 	@Override public List<String> options2()  { return options2; }
 	@Override public String defaultOption1()  { return options1.get(0); }
@@ -298,23 +432,23 @@ public class GalaxyBitmapShape extends GalaxyShape {
 	@Override protected int galaxyHeightLY() { 
 		return (int) (Math.sqrt(opts.numberStarSystems()*adjustDensity*adjustedSizeFactor()));
 	}
-	@Override public void setRandom(Point.Float pt) { setRandom(greyMapCS, pt); }
+	@Override public void setRandom(Point.Float pt) { setRandom(starCD, pt); }
 	// modnar: add possibility for specific placement of homeworld/orion locations
 	@Override public void setSpecific(Point.Float pt) { // TODO BR: test isColor
-		if (!isColor) {
-			setRandom(greyMapCS, pt);
-			return;
-		}
+//		if (!isColor) {
+//			setRandom(starCD, pt);
+//			return;
+//		}
 		if (indexWorld == 0) { // orion
-			setRandom(blueMapCS, pt);
+			setRandom(orionCD, pt);
 			return;
         }
 		if (empSystems.size() == 0) { // Player homeworld
-    		setRandom(greenMapCS, pt);
+    		setRandom(userCD, pt);
     		return;
     	}
 		// Aliens homeworlds
-   		setRandom(redMapCS, pt);
+   		setRandom(alienCD(empSystems.size()-1), pt);
 	}
 	@Override public boolean valid(float x, float y)  { return true; }
 	@Override protected float sizeFactor(String size) { return settingsFactor(0.8f); }

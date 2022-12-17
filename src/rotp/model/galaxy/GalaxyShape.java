@@ -130,6 +130,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 	public List<EmpireSystem> empireSystems() { return empSystems; }
 	float adjustedSizeFactor()	{ // BR: to converge more quickly
 		float factor = sizeFactor(opts.selectedGalaxySize());
+//		float mult = (1f + (float)genAttempt);
 		float mult = (1f + (float)genAttempt/20f);
 		float adjFactor = factor * mult;
 //		System.out.println("factor = " + factor);
