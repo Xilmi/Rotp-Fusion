@@ -24,6 +24,7 @@ import static rotp.ui.UserPreferences.GALAXY_TEXT_FILE;
 import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.globalCROptions;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
+import static rotp.ui.UserPreferences.shapeOption3;
 import static rotp.ui.UserPreferences.showNewRaces;
 import static rotp.ui.UserPreferences.useSelectableAbilities;
 
@@ -85,7 +86,6 @@ import rotp.Rotp;
 import rotp.mod.br.addOns.RacesOptions;
 import rotp.mod.br.profiles.Profiles;
 import rotp.model.empires.Race;
-import rotp.model.galaxy.GalaxyBitmapShape;
 import rotp.model.galaxy.GalaxyFactory.GalaxyCopy;
 import rotp.model.galaxy.GalaxyShape;
 import rotp.model.galaxy.GalaxyShape.EmpireSystem;
@@ -103,12 +103,12 @@ import rotp.ui.util.SpecificCROption;
 public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
 	private static final long serialVersionUID = 1L;
     // public  static final String guiTitleID	= "SETUP_GALAXY";
-	public  static final String GUI_ID      = "START_GALAXY";
-	private static final String backKey		= "SETUP_BUTTON_BACK";
-	// private static final String restoreKey	= "SETUP_BUTTON_RESTORE";
-	private static final String restartKey	= "SETUP_BUTTON_RESTART";
-	private static final String startKey	= "SETUP_BUTTON_START";
-	private static final String sizeOptKey	= "SETUP_GALAXY_SIZE_STAR_PER_EMPIRE";
+	public  static final String GUI_ID       = "START_GALAXY";
+	private static final String BACK_KEY	 = "SETUP_BUTTON_BACK";
+	private static final String RESTART_KEY	 = "SETUP_BUTTON_RESTART";
+	private static final String START_KEY	 = "SETUP_BUTTON_START";
+	private static final String SIZE_OPT_KEY = "SETUP_GALAXY_SIZE_STAR_PER_EMPIRE";
+	private static final String NO_SELECTION = "SETUP_BITMAP_NO_SELECTION";
 	public static int MAX_DISPLAY_OPPS = 49;
 	private BufferedImage backImg, playerRaceImg;
 	private BufferedImage smBackImg;
@@ -131,9 +131,10 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 	private Rectangle mapOption2Box	= new Rectangle();
 	private Polygon mapOption2BoxL	= new Polygon();
 	private Polygon mapOption2BoxR	= new Polygon();			 
+	private Rectangle mapOption3Box	= new Rectangle(); // BR:
 	private Rectangle sizeOptionBox	= new Rectangle(); // BR:
-	private Polygon sizeOptionBoxL	= new Polygon(); // BR:
-	private Polygon sizeOptionBoxR	= new Polygon(); // BR:
+	private Polygon sizeOptionBoxL	= new Polygon();   // BR:
+	private Polygon sizeOptionBoxR	= new Polygon();   // BR:
 	private Rectangle sizeBox	= new Rectangle();
 	private Polygon sizeBoxL	= new Polygon();
 	private Polygon sizeBoxR	= new Polygon();
@@ -257,16 +258,16 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 		case CTRL_SHIFT:
 			// return restoreKey;
 		default:
-			return backKey;
+			return BACK_KEY;
 		}
 	}
 	private static String startButtonKey() {
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT:
-			return restartKey;
+			return RESTART_KEY;
 		default:
-			return startKey;
+			return START_KEY;
 		}
 	}
 	private int currentSpecificAbilityIndex(String s) {
@@ -325,16 +326,17 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 	        catch(Exception e){}//do nothing
 	    }
 	}
-	private String getBitmalFile() {
+	private String getBitmapFile() {
         String dirPath = Rotp.jarPath();
-        FileNameExtensionFilter  filter = new FileNameExtensionFilter("Portable Network Graphics Files, *.png","png");
+        FileNameExtensionFilter  filter = new FileNameExtensionFilter(
+        		"Portable Network Graphics Files  (*.png)", "png");
 		JFileChooser fileChooser = new JFileChooser() {
 			@Override
 			protected JDialog createDialog(Component parent)
 	                throws HeadlessException {
 	            JDialog dlg = super.createDialog(parent);
 	            dlg.setLocation(scaled(300), scaled(200));
-	            dlg.setSize(scaled(400), scaled(350));
+	            dlg.setSize(scaled(400), scaled(450));
 	            dlg.getContentPane().setBackground(GameUI.borderMidColor());
 	            return dlg;
 	        }
@@ -358,11 +360,12 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 			File selectedFile = fileChooser.getSelectedFile();
 			return selectedFile.getPath();
 		}
-		return GalaxyBitmapShape.options1.get(0);
+		return shapeOption3.defaultValue();
 	}
-	private void selectBitmapFromList() { // TODO BR: selectBitmapFromList()
-		String filePath = getBitmalFile();
-		newGameOptions().selectedGalaxyShapeOption1(filePath);
+	private void selectBitmapFromList() {
+		String filePath = getBitmapFile();
+		shapeOption3.set(filePath);
+		System.out.println("shapeOption3.set(filePath); filePath = " + filePath);
 		newGameOptions().galaxyShape().quickGenerate();
 		repaint();
 	}
@@ -495,7 +498,11 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 	public void preview(String s) {
 		if (s == null)
 			return;
-		newGameOptions().selectedGalaxyShapeOption1(s);
+		if (this.isShapeTextGalaxy())
+			newGameOptions().selectedGalaxyShapeOption1(s);
+		else {
+			shapeOption3.set(s);
+		}
 	    newGameOptions().galaxyShape().quickGenerate(); 
 		repaint();
 	}	
@@ -670,7 +677,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 			|| (hoverBox == mapOption1Box) || (hoverBox == mapOption2Box)
 			|| (hoverBox == sizeOptionBox) || (hoverBox == crBox)
 			|| (hoverBox == aiBox) || (hoverBox == newRacesBox)
-			|| (hoverBox == showAbilityBox)
+			|| (hoverBox == showAbilityBox) || (hoverBox == mapOption3Box)
 			|| (hoverBox == diffBox) || (hoverBox == oppBox)) {
 			Stroke prev = g.getStroke();
 			g.setStroke(stroke2);
@@ -755,9 +762,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 		drawString(g,shapeLbl, x5a, y5);
 		
 		if (newGameOptions().numGalaxyShapeOption1() > 0) {
-			String label1;
 			if (isShapeTextGalaxy()) {
-				label1 = newGameOptions().selectedGalaxyShapeOption1();
+				String label1 = newGameOptions().selectedGalaxyShapeOption1();
 				Font prevFont = g.getFont();
 				g.setFont(boxMonoFont());
 				int sw1 = g.getFontMetrics().stringWidth(label1);
@@ -765,26 +771,25 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 				drawString(g,label1, x5d, y5+s20);
 				g.setFont(prevFont);
 			}
-			else if (isShapeBitmapGalaxy()) {
-				label1 = getNameFromPath(newGameOptions().selectedGalaxyShapeOption1());
-				int sw1 = g.getFontMetrics().stringWidth(label1);
-				int x5d =mapOption1Box.x+((mapOption1Box.width-sw1)/2);
-				drawString(g,label1, x5d, y5+s20);
-			}
 			else {
-				if (isShapeBitmapGalaxy())
-					label1 = getNameFromPath(newGameOptions().selectedGalaxyShapeOption1());
-				else
-					label1 = text(newGameOptions().selectedGalaxyShapeOption1());
+				String label1 = text(newGameOptions().selectedGalaxyShapeOption1());
 				int sw1 = g.getFontMetrics().stringWidth(label1);
 				int x5d =mapOption1Box.x+((mapOption1Box.width-sw1)/2);
 				drawString(g,label1, x5d, y5+s20);
 			}
 			if (newGameOptions().numGalaxyShapeOption2() > 0) {
+				if (isShapeBitmapGalaxy()) {
+					String label3 = getNameFromPath(shapeOption3.get());
+					if (label3.equals(shapeOption3.defaultValue()))
+						label3 = text(NO_SELECTION);
+					int sw2 = g.getFontMetrics().stringWidth(label3);
+					int x5e =mapOption3Box.x+((mapOption3Box.width-sw2)/2);
+					drawString(g,label3, x5e, y5+s40);
+				}
 				String label2 = text(newGameOptions().selectedGalaxyShapeOption2());
 				int sw2 = g.getFontMetrics().stringWidth(label2);
 				int x5e =mapOption2Box.x+((mapOption2Box.width-sw2)/2);
-				drawString(g,label2, x5e, y5+s40);		   
+				drawString(g,label2, x5e, y5+s40);	
 			}		 
 		}
 		
@@ -794,7 +799,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 		drawString(g,sizeLbl, x5b, y5);
 
 		if (isDynamic()) { // BR:
-			String label = text(sizeOptKey, prefStarsPerEmpire.getGuiValue());
+			String label = text(SIZE_OPT_KEY, prefStarsPerEmpire.getGuiValue());
 			int sw2 = g.getFontMetrics().stringWidth(label);
 			int x5b1 =sizeOptionBox.x+((sizeOptionBox.width-sw2)/2);
 			drawString(g,label, x5b1, y5+s20);		   
@@ -1134,11 +1139,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 				nextIndex = 0;
 			String nextText = (String) getGalaxyTextList()[nextIndex];
 			newGameOptions().selectedGalaxyShapeOption1(nextText);
-		} else if (isShapeBitmapGalaxy()) {
-			selectBitmapFromList();
 		} else
 			newGameOptions().selectedGalaxyShapeOption1(newGameOptions().nextGalaxyShapeOption1());
-
 		newGameOptions().galaxyShape().quickGenerate(); 
 		repaint();
 	}
@@ -1153,8 +1155,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 				prevIndex = getGalaxyTextList().length-1;
 			String prevText = (String) getGalaxyTextList()[prevIndex];
 			newGameOptions().selectedGalaxyShapeOption1(prevText);
-		} else if (isShapeBitmapGalaxy()) {
-			selectBitmapFromList();
 		} else
 			newGameOptions().selectedGalaxyShapeOption1(newGameOptions().prevGalaxyShapeOption1());
 		newGameOptions().galaxyShape().quickGenerate(); 
@@ -1356,6 +1356,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 	// BR: For restarting with new options
 	private void restartGame() { 
 		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+		UserPreferences.gamePlayed(true);		
 		starting = true;
 		buttonClick();
 		repaint();
@@ -1368,7 +1369,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 	}
 	private void startGame() {
 		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
- 		starting = true;
+		UserPreferences.gamePlayed(true);
+		starting = true;
 		repaint();
 		buttonClick();
 		// BR:
@@ -1645,6 +1647,10 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 		mapOption2BoxR.reset();
 		mapOption2Box.setBounds(0,0,0,0);
 		if (newGameOptions().numGalaxyShapeOption2() > 0) {
+			if (this.isShapeBitmapGalaxy()) {
+				mapOption3Box.setBounds(sliderX+sectionW, sliderYAI+s40, sliderW+sectionW, sliderH);
+				g.fill(mapOption3Box);
+			}
 			mapOption2BoxL.addPoint(sliderX-s4,sliderYAI+s1+s40);
 			mapOption2BoxL.addPoint(sliderX-s4,sliderYAI+sliderH-s2+s40);
 			mapOption2BoxL.addPoint(sliderX-s13,sliderYAI+(sliderH/2)+s40);
@@ -1893,6 +1899,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 			hoverBox = mapOption2BoxR;
 		else if (mapOption2Box.contains(x,y))
 			hoverBox = mapOption2Box;		
+		else if (mapOption3Box.contains(x,y))
+			hoverBox = mapOption3Box;		
 		else if (sizeBoxL.contains(x,y))
 			hoverBox = sizeBoxL;
 		else if (sizeBoxR.contains(x,y))
@@ -1951,7 +1959,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 				}
 			}
 		}
-
 		if (hoverBox != prevHover) 
 			repaint();
 	}
@@ -1999,14 +2006,14 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 		else if (hoverBox == mapOption1Box)
 			if (isShapeTextGalaxy())
 				selectGalaxyTextFromList();
-			else if (isShapeBitmapGalaxy())
-				selectBitmapFromList();
 			else if(up) nextMapOption1(true);
 			else prevMapOption1(true);
 		else if (hoverBox == mapOption1BoxR)
 			nextMapOption1(true);
 		else if (hoverBox == mapOption2BoxL)
 			prevMapOption2(true);
+		else if (hoverBox == mapOption3Box)
+			selectBitmapFromList();
 		else if (hoverBox == mapOption2Box)
 			if(up) nextMapOption2(true);
 			else prevMapOption2(true);
@@ -2106,13 +2113,13 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 			else
 				nextGalaxyShape(false);
 		}
-	else if (hoverBox == mapOption1Box) {
+		else if (hoverBox == mapOption1Box) {
 			if (up)
 				prevMapOption1(false);
 			else
 				nextMapOption1(false);
 		}
-	else if (hoverBox == mapOption2Box) {
+		else if (hoverBox == mapOption2Box) {
 			if (up)
 				prevMapOption2(false);
 			else

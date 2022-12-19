@@ -52,7 +52,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     private static final long serialVersionUID = 1L;
     private static final int[] validationSeq = { 3, 2, 0, 1, 4 };
     private static final int[] spendingSeq = { 4, 0, 1, 2, 3 };
-    private static final int[] cleanupSeq =  { 2, 4, 1, 0, 3 };
+    // private static final int[] cleanupSeq =  { 2, 4, 1, 0, 3 };
     private static final String[] categoryNames = { "MAIN_COLONY_SHIP", "MAIN_COLONY_DEFENSE", "MAIN_COLONY_INDUSTRY",
                     "MAIN_COLONY_ECOLOGY", "MAIN_COLONY_TECHNOLOGY" };
 
@@ -1538,7 +1538,6 @@ public final class Colony implements Base, IMappedObject, Serializable {
      * Increment slider. Stop moving when results no longer contains "stopWhenDisappears".
      * Stop when results contain "stopWhenAppears".
      * If moving slider doesn't change production, stop as well.
-     */
     private void moveSlider(int category, String stopWhenDisappears, String stopWhenAppears) {
         ColonySpendingCategory cat = category(category);
         int previousAllocaton = -1;
@@ -1559,6 +1558,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
             previousAllocaton = cat.allocation();
         }
     }
+     */
 
     public void governIfNeeded() {
         if (!this.isAutopilot() && this.isGovernor()) {

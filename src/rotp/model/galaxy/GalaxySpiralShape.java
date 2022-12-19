@@ -133,6 +133,7 @@ public class GalaxySpiralShape extends GalaxyShape {
         armSeparationDistance = 2 * (float)Math.PI / numArms;
         
         circle = new Ellipse2D.Float(0,0,galaxyWidthLY(), galaxyHeightLY());
+        initWidthHeight();
     }
     @Override
     public float maxScaleAdj()               { return 1.1f; }
@@ -147,8 +148,8 @@ public class GalaxySpiralShape extends GalaxyShape {
     @Override
     public void setRandom(Point.Float pt) {
         float buff = galaxyEdgeBuffer();
-        float adjW = width-buff-buff;
-        float adjH = height-buff-buff;
+        float adjW = fullWidth-buff-buff;
+        float adjH = fullHeight-buff-buff;
         
         float dist = random();
         dist = dist * dist;
@@ -170,10 +171,10 @@ public class GalaxySpiralShape extends GalaxyShape {
     public void setSpecific(Point.Float pt) { // modnar: add possibility for specific placement of homeworld/orion locations
         setRandom(pt);
     }
-    @Override
-    public boolean valid(float x, float y) {
-        return true;
-    }
+//    @Override
+//    public boolean valid(float x, float y) {
+//        return true;
+//    }
     float randomLocation(float max, float buff) {
         return buff + (random() * (max-buff-buff));
     }

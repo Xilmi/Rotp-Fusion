@@ -15,7 +15,6 @@
  */
 package rotp.model.galaxy;
 
-import static rotp.ui.UserPreferences.restartChangesAliensAI;
 import static rotp.ui.UserPreferences.restartChangesPlayerRace;
 import static rotp.util.ObjectCloner.deepCopy;
 
@@ -35,7 +34,6 @@ import rotp.model.empires.Empire.EmpireBaseData;
 import rotp.model.empires.GalacticCouncil;
 import rotp.model.empires.Race;
 import rotp.model.events.RandomEvents;
-import rotp.model.galaxy.GalaxyFactory.GalaxyCopy;
 import rotp.model.galaxy.StarSystem.SystemBaseData;
 import rotp.model.game.DynOptions;
 import rotp.model.game.GameSession;
@@ -155,10 +153,11 @@ public class Galaxy implements Base, Serializable {
     }
     public boolean addNebula(GalaxyShape shape, float nebSize) {
         // each nebula creates a buffered image for display
-        // after we have created 5 nebulas, start cloning
-        // existing nebulas (add their images) when making
-        // new nebulas
+        // after we have created 5 nebulae, start cloning
+        // existing nebulae (add their images) when making
+        // new nebulae
         int MAX_UNIQUE_NEBULAS = 16;
+        boolean centered = true; // TODO BR: Validate addNebula center
 
         Point.Float pt = new Point.Float();
         shape.setRandom(pt);
@@ -171,6 +170,12 @@ public class Galaxy implements Base, Serializable {
             neb = new Nebula(true, nebSize);
         else
             neb = random(nebulas).copy();
+        if (centered) {
+        	pt.x -= neb.adjWidth()/2;
+        	pt.y -= neb.adjWidth()/2;
+            if (!shape.valid(pt))
+                return false;
+        }
         neb.setXY(pt.x, pt.y);
         
         float x = pt.x;
@@ -355,8 +360,9 @@ public class Galaxy implements Base, Serializable {
     }
     public void assessTurn() {
         NoticeMessage.resetSubstatus(text("TURN_RESEARCH"));
-        for (Empire e: empires)
-            e.completeResearch();
+        for (Empire e: empires) {
+        	e.completeResearch();
+        }
         // everything that can have happened in the turn has happened
         // now it's time for empires to decide what to do about it
         // warn, praise, break treaties or declare war, generally

@@ -42,6 +42,7 @@ import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamOptions;
+import rotp.ui.util.ParamString;
 import rotp.ui.util.ParamTech;
 import rotp.ui.util.PlayerShipSet;
 import rotp.ui.util.RandomAlienRaces;
@@ -95,8 +96,6 @@ public class UserPreferences {
 	public static final ParamAAN2 fertileHomeworld	 = new ParamAAN2("HOME_FERTILE");
 	public static final ParamAAN2 richHomeworld 	 = new ParamAAN2("HOME_RICH");
 	public static final ParamAAN2 ultraRichHomeworld = new ParamAAN2("HOME_ULTRA_RICH");
-//	public static final ParamBoolean noArtifactPlanet = new ParamBoolean(
-//			MOD_UI, "NO_ARTIFACT_PLANET", false);
 	public static final ParamFloat minDistanceArtifactPlanet = new ParamFloat(
 			MOD_UI, "DIST_ARTIFACT_PLANET", 0.0f, 0.0f, null, 0.2f, 1f, 5f, "0.0##", "0.0");
 	public static final ParamBoolean battleScout	 = new ParamBoolean(
@@ -272,22 +271,16 @@ public class UserPreferences {
 		};
 	public static final ParamBoolean showNextCouncil = new ParamBoolean(
 			MOD_UI, "SHOW_NEXT_COUNCIL", false);
-//	public static final ParamBoolean loadLocalSettings = new ParamBoolean(
-//			MOD_UI, "LOAD_LOCAL", true);
-//	public static final ParamBoolean saveLocalSettings = new ParamBoolean(
-//			MOD_UI, "SAVE_LOCAL", true);
 
 	// This list is used by the ModGlobalOptionsUI menu
 	public static final LinkedList<InterfaceParam> modGlobalOptionsUI = new LinkedList<>(
 			Arrays.asList(
 			menuStartup, menuAfterGame, menuLoadGame,
-//			loadLocalSettings, saveLocalSettings, showGridCircular, showTooltips,
 			showGridCircular, showTooltips,
 			showFleetFactor, showFlagFactor, showPathFactor, useFusionFont,
 			showNameMinFont, showInfoFontRatio, mapFontFactor, showNextCouncil
 			));
 	public static final Integer[] rowCountList = {3, 2, 4, 4}; // ModGlobalOptionsUI alignment
-//	public static final Integer[] rowCountList = {3, 4, 4, 4}; // ModGlobalOptionsUI alignment
 
 	// BR: Galaxy Menu addition
 	public static final ParamBoolean showNewRaces = new ParamBoolean(
@@ -296,10 +289,11 @@ public class UserPreferences {
 			BASE_UI, "OPP_CR_OPTIONS", SpecificCROption.BASE_RACE.value);
 	public static final ParamBoolean useSelectableAbilities = new ParamBoolean(
 			BASE_UI, "SELECT_CR_OPTIONS", false);
-
+	public static final ParamString shapeOption3 = new ParamString(
+			BASE_UI, "SHAPE_OPTION_3", "");
 	public static final LinkedList<InterfaceParam> optionsGalaxy = new LinkedList<>(
 			Arrays.asList(
-					showNewRaces, globalCROptions, useSelectableAbilities,
+					showNewRaces, globalCROptions, useSelectableAbilities, shapeOption3,
 					prefStarsPerEmpire // This one is a duplicate, but it helps readability
 					));
 
@@ -338,24 +332,24 @@ public class UserPreferences {
 		return allModOptions;
 	}
 
-	private static boolean showMemory = false;
-	private static boolean playMusic = true;
-	private static boolean playSounds = true;
-	private static int musicVolume = 10;
-	private static int soundVolume = 10;
+	private static boolean showMemory  = false;
+	private static boolean playMusic   = true;
+	private static boolean playSounds  = true;
+	private static int musicVolume     = 10;
+	private static int soundVolume     = 10;
 	private static int defaultMaxBases = 0;
 	private static boolean displayYear = false;
-	private static boolean governorOnByDefault = true; // BR:
+	private static boolean governorOnByDefault        = true; // BR:
 	private static boolean governorAutoSpendByDefault = false;
-	private static boolean legacyGrowth = true; // BR:
+	private static boolean legacyGrowth      = true; // BR:
 	private static boolean governorAutoApply = true; // BR:
-	private static boolean autoColonize = false;
+	private static boolean autoColonize      = false;
 	private static boolean divertColonyExcessToResearch = true;
 	private static boolean disableAdvisor = true;
 	private static String autoBombardMode = AUTOBOMBARD_NO;
-	private static String displayMode = BORDERLESS_MODE;
-	private static String graphicsMode = GRAPHICS_HIGH;
-	private static String texturesMode = TEXTURES_BOTH;
+	private static String displayMode     = BORDERLESS_MODE;
+	private static String graphicsMode    = GRAPHICS_HIGH;
+	private static String texturesMode    = TEXTURES_BOTH;
 	private static String sensitivityMode = SENSITIVITY_MEDIUM;
 	private static String saveDir = "";
 	private static float uiTexturePct = 0.20f;
@@ -440,21 +434,21 @@ public class UserPreferences {
 		}
 		save();
 	}
-	public static String sensitivityMode()	 { return sensitivityMode; }
-	public static boolean sensitivityHigh()	{ return sensitivityMode.equals(SENSITIVITY_HIGH); }
-	public static boolean sensitivityMedium()  { return sensitivityMode.equals(SENSITIVITY_MEDIUM); }
-	public static boolean sensitivityLow()	 { return sensitivityMode.equals(SENSITIVITY_LOW); }
+	public static String sensitivityMode()	  { return sensitivityMode; }
+	public static boolean sensitivityHigh()	  { return sensitivityMode.equals(SENSITIVITY_HIGH); }
+	public static boolean sensitivityMedium() { return sensitivityMode.equals(SENSITIVITY_MEDIUM); }
+	public static boolean sensitivityLow()	  { return sensitivityMode.equals(SENSITIVITY_LOW); }
 
-	public static String autoColonizeMode()	 { return autoColonize ? AUTOCOLONIZE_YES : AUTOCOLONIZE_NO; }
-	public static void toggleAutoColonize()	 { autoColonize = !autoColonize; save();  }
-	public static boolean autoColonize()		{ return autoColonize; }
+	public static String autoColonizeMode()	  { return autoColonize ? AUTOCOLONIZE_YES : AUTOCOLONIZE_NO; }
+	public static void toggleAutoColonize()	  { autoColonize = !autoColonize; save();  }
+	public static boolean autoColonize()	  { return autoColonize; }
 
-	public static void toggleAutoBombard()	 {
+	public static void toggleAutoBombard()	  {
 		switch(autoBombardMode) {
 			case AUTOBOMBARD_NO:	 autoBombardMode = AUTOBOMBARD_NEVER; break;
 			case AUTOBOMBARD_NEVER:  autoBombardMode = AUTOBOMBARD_YES; break;
-			case AUTOBOMBARD_YES:	autoBombardMode = AUTOBOMBARD_WAR; break;
-			case AUTOBOMBARD_WAR:	autoBombardMode = AUTOBOMBARD_INVADE; break;
+			case AUTOBOMBARD_YES:	 autoBombardMode = AUTOBOMBARD_WAR; break;
+			case AUTOBOMBARD_WAR:	 autoBombardMode = AUTOBOMBARD_INVADE; break;
 			case AUTOBOMBARD_INVADE: autoBombardMode = AUTOBOMBARD_NO; break;
 			default:				 autoBombardMode = AUTOBOMBARD_NO; break;
 		}

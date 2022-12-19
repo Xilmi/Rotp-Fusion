@@ -40,9 +40,9 @@ public class GalaxyTextShape extends GalaxyShape {
         options2.add("SETUP_3_LINE");
     }
 	
-    private float aspectRatio = 4.0f;
-    private float shapeFactor = sqrt(aspectRatio);
-    private float adjust_line = 1.0f;
+    private float aspectRatio;
+    private float shapeFactor;
+    private float adjust_line;
     private double textW;
     private double textH;
     private Shape textShape;
@@ -50,9 +50,6 @@ public class GalaxyTextShape extends GalaxyShape {
 	
 	private Font font() {
     	if (font == null) {
-//			Map<TextAttribute, Object> attributes = new HashMap<TextAttribute, Object>();
-//			attributes.put(TextAttribute.TRACKING, -0.15);
-//			font = galaxyFont(96).deriveFont(attributes);
 			font = galaxyFont(96);
     	}
     	return font;
@@ -122,21 +119,19 @@ public class GalaxyTextShape extends GalaxyShape {
         
         // modnar: choose number of times to repeat text string with option2
         switch(option2) {
-            case 0: {
-                // repeat once, 1 line
-                adjust_line = 1.0f;
-                break;
-            }
-            case 1: {
+            case 1:
                 // repeat twice, 2 lines, with some in-bewteen spacing
                 adjust_line = 2.05f;
                 break;
-            }
-            case 2: {
+            case 2:
                 // repeat thrice, 3 lines, with some in-bewteen spacing
                 adjust_line = 3.10f;
                 break;
-            }
+            case 0:
+            default:
+                // repeat once, 1 line
+                adjust_line = 1.0f;
+                break;
         }
         textW = textShape.getBounds().getWidth();
         textH = textShape.getBounds().getHeight() * adjust_line;
@@ -190,8 +185,8 @@ public class GalaxyTextShape extends GalaxyShape {
     }
     @Override
     public void setRandom(Point.Float pt) {
-        pt.x = randomLocation(width, galaxyEdgeBuffer());
-        pt.y = randomLocation(height, galaxyEdgeBuffer());
+        pt.x = randomLocation(fullWidth, galaxyEdgeBuffer());
+        pt.y = randomLocation(fullHeight, galaxyEdgeBuffer());
     }
     @Override
     public void setSpecific(Point.Float pt) { // modnar: add possibility for specific placement of homeworld/orion locations

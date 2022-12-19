@@ -23,7 +23,6 @@ import rotp.model.combat.CombatStack;
 import rotp.model.galaxy.Galaxy;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.planet.PlanetType;
-import rotp.model.tech.TechShipWeapon;
 import rotp.util.Base;
 
 public final class ShipDesign extends Design {
@@ -378,7 +377,7 @@ public final class ShipDesign extends Design {
                 return true;
         }
         for (int i=0;i<maxSpecials();i++) {
-            if (special(i).isWeapon())
+            if (special(i)!=null && special(i).isWeapon())
                 return true;
         }
         return false;
@@ -389,14 +388,14 @@ public final class ShipDesign extends Design {
                 return true;
         }
         for (int i=0;i<maxSpecials();i++) {
-            if (special(i).canAttackShips())
+            if (special(i)!=null && special(i).canAttackShips())
                 return true;
         }
         return false;
     }
     public boolean isExtendedRange() {
         for (int i=0;i<maxSpecials();i++) {
-            if (special(i).isFuelRange())
+            if (special(i)!=null && special(i).isFuelRange())
                 return true;
         }
         return false;
@@ -461,7 +460,7 @@ public final class ShipDesign extends Design {
         for (int i=0;i<maxSpecials();i++) {
             ShipSpecial slotSpecial = special(i);
             if ((i != slot) && !slotSpecial.isNone()) {
-                // remove any specials of the same typet that are already in other slots
+                // remove any specials of the same type that are already in other slots
                 for (ShipSpecial sp: knownSpecials) {
                     if (sp.designGroup().equals(slotSpecial.designGroup()))
                         allowedSpecials.remove(sp);

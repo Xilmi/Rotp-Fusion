@@ -190,8 +190,8 @@ public class GalaxyEllipticalShape extends GalaxyShape {
         Random rand = new Random();
         int rand_int = rand.nextInt(20*opts.numberStarSystems());
         
-        pt.x = galaxyEdgeBuffer() + (width - 2*galaxyEdgeBuffer()) * (float)( (0.5 + c1*rand_int)%1 );
-        pt.y = galaxyEdgeBuffer() + (height - 2*galaxyEdgeBuffer()) * (float)( (0.5 + c2*rand_int)%1 );
+        pt.x = galaxyEdgeBuffer() + (fullWidth - 2*galaxyEdgeBuffer()) * (float)( (0.5 + c1*rand_int)%1 );
+        pt.y = galaxyEdgeBuffer() + (fullHeight - 2*galaxyEdgeBuffer()) * (float)( (0.5 + c2*rand_int)%1 );
     }
     @Override
     public void setSpecific(Point.Float pt) { // modnar: add possibility for specific placement of homeworld/orion locations

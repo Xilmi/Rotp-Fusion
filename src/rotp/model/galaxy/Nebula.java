@@ -24,10 +24,9 @@ import java.io.Serializable;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.sprites.MapSprite;
 import rotp.ui.util.planets.PlanetImager;
-import rotp.util.Base;
 import rotp.util.FastImage;
 
-public class Nebula extends MapSprite implements Base, IMappedObject, Serializable {
+public class Nebula extends MapSprite implements IMappedObject, Serializable {
     private static final long serialVersionUID = 1L;
     private static Color labelColor = new Color(255,255,255,64);
     private Rectangle.Float shape;
@@ -60,14 +59,14 @@ public class Nebula extends MapSprite implements Base, IMappedObject, Serializab
         neb.image = image;
         return neb;
     }
-    public boolean intersects(Nebula n)    { return shape.intersects(n.shape); }
+    //public boolean intersects(Nebula n)   { return shape.intersects(n.shape); }
     @Override
     public float x()                      { return x; }
     @Override
     public float y()                      { return y; }
     
-    public float adjWidth()                { return size == 0 ? width : size*width; }
-    public float adjHeight()                { return size == 0 ? height : size*height; }
+    public float adjWidth()               { return size == 0 ? width : size*width; }
+    public float adjHeight()              { return size == 0 ? height : size*height; }
     
     public float centerX()                { return x+(adjWidth()/2); }
     public float centerY()                { return y+(adjHeight()/2); }
@@ -80,9 +79,7 @@ public class Nebula extends MapSprite implements Base, IMappedObject, Serializab
         shape = new Rectangle.Float(x, y, adjWidth(), adjHeight());
         innerShape = new Rectangle.Float(x+1, y+1, adjWidth()-2, adjHeight()-2);
     }
-    public Nebula() {
-        
-    }
+    public Nebula() {}
     public Nebula(boolean buildImage, float sizeMult) {
         size = max(1, sizeMult);
         width = random(8,14);

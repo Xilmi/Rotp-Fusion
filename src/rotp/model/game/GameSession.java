@@ -527,7 +527,7 @@ public final class GameSession implements Base, Serializable {
     }
     public boolean processNotifications() {
         log("Processing player notifications: ", str(notifications().size()));
-        if (haveScoutedSystems())
+        if (!options().isAutoPlay() && haveScoutedSystems())
             session().addTurnNotification(new SystemsScoutedNotification());
 
 
@@ -859,7 +859,7 @@ public final class GameSession implements Base, Serializable {
         instance = gs;
         // BR: save the last loaded game initial parameters
 		saveOptionsToFileName((MOO1GameOptions) instance.options, GAME_OPTIONS_FILE);
-
+		UserPreferences.gamePlayed(true);
 		// BR: If required, set all game options
         System.out.println("==================== loadPreviousSession ====================");
     	if (menuLoadGame.isLast()) {

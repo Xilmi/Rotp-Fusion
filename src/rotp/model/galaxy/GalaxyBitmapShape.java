@@ -25,6 +25,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 import rotp.model.game.IGameOptions;
+import rotp.ui.UserPreferences;
 
 // modnar: custom map shape, Spiral Arms
 public class GalaxyBitmapShape extends GalaxyShape {
@@ -34,22 +35,34 @@ public class GalaxyBitmapShape extends GalaxyShape {
 	private static final int GX = 127;
 	private static final int GY = 127;
 	private static final float GS = 127f/6f;
-	private static final String DEFAULT_OPTION_1 = "*";
+//	private static final String DEFAULT_OPTION_2 = "";
+	private static enum Option1Enum {
+		SETUP_BITMAP_GREY_NORMAL,
+		SETUP_BITMAP_GREY_INVERSE,
+		SETUP_BITMAP_COLOR,
+		SETUP_BITMAP_ADVANCED
+	}
+	private static enum Option2Enum {
+		SETUP_BITMAP_NORMAL,
+		SETUP_BITMAP_SHARP1,
+		SETUP_BITMAP_SHARP2,
+		SETUP_BITMAP_SHARP3,
+		SETUP_BITMAP_SHARP4,
+	}
 	
 	static {
-		// BR: reordered to add straight and very loose
 		options1 = new ArrayList<>();
-		options1.add(DEFAULT_OPTION_1); // Straight
+		for (Option1Enum o : Option1Enum.values())
+			options1.add(o.toString());
 		options2 = new ArrayList<>();
-		options2.add("SETUP_BITMAP_GREY_NORMAL");
-		options2.add("SETUP_BITMAP_GREY_INVERSE");
-		options2.add("SETUP_BITMAP_COLOR");
-		options2.add("SETUP_BITMAP_MULTIPLE");
+		for (Option2Enum o : Option2Enum.values())
+			options2.add(o.toString());
+//		options2.add(DEFAULT_OPTION_2); // Straight
 	}
-	private float adjustDensity = 1.0f;
-    private float aspectRatio   = 1.0f;
-    private float shapeFactor   = sqrt(aspectRatio);
-    private float densityFactor = 1.0f;
+	private float adjustDensity;
+    private float aspectRatio;
+    private float shapeFactor;
+    private float densityFactor;
     private float[][] greyPD; // Star Map
     private float[][] redPD;  // Opponent Map
     private float[][] greenPD; // User Map
@@ -60,16 +73,15 @@ public class GalaxyBitmapShape extends GalaxyShape {
     private float[][] nebulaeCD;
     private float[][][] alienCD;
 
-	private int xBM, yBM, gEB;
-	private int alienSize = 1;
+	private int xBM, yBM;
+	private int alienSize;
+	private int sharpNb;
 	private float offset, xMult, yMult, volume;
-	private boolean isInverted = false;
-	private boolean isColor    = false;
-	private boolean isMultiple = false;
+	private boolean isInverted, isColor, isMultiple;
+	private boolean isSharp;
 
 	public GalaxyBitmapShape(IGameOptions options) {
 		opts = options;
-		gEB = galaxyEdgeBuffer();
 	}
 	private float sqr(float x) { return x*x;}
 	private void genGaussian(int sx, int sy, float sigma) {
@@ -91,6 +103,11 @@ public class GalaxyBitmapShape extends GalaxyShape {
 			}
 		}
 	}
+	private void sharpenPD(float[][] pD) {
+		for (int y=0; y<yBM; y++)
+			for (int x=0; x<xBM; x++)
+				pD[y][x] *= pD[y][x];
+	}
 	private void invertPD(float[][] pD) {
 		for (int y=0; y<yBM; y++)
 			for (int x=0; x<xBM; x++)
@@ -98,7 +115,7 @@ public class GalaxyBitmapShape extends GalaxyShape {
 		normalizeToOne(pD);
 	}
 	private void normalizeToOne(float[][] pD) {
-		float max = 0f;
+		float max = Float.MIN_VALUE; // to avoid division by 0
 		for (int y=0; y<yBM; y++)
 			for (int x=0; x<xBM; x++)
 				max = max(max, pD[y][x]);
@@ -126,7 +143,7 @@ public class GalaxyBitmapShape extends GalaxyShape {
 		try {
 			image = ImageIO.read(new File(path));
 		} catch (IOException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
 			genGaussian(GX, GY, GS);
 			return;
 		}
@@ -167,33 +184,31 @@ public class GalaxyBitmapShape extends GalaxyShape {
 		}
 	}
 	private void setRandom(float[][] cD, Point.Float pt) {
-		float src  = (float) rand.randX();
-		float srcX = (float) rand.randX();
-		float srcY = (float) rand.randX();
-		
+		float source = (float) rand.randD5();
 		int iX = xBM-1;
 		int iY;
 		for (iY=0; iY<yBM; iY++) {
-			if(src < cD[iY][iX])
+			if(source < cD[iY][iX])
 				break;
 		}
-		if (iY == yBM) // src = 1.0
+		if (iY == yBM) // source = 1.0
 			iY--;
 		for (iX=0; iX<xBM; iX++) {
-			if(src < cD[iY][iX])
+			if(source < cD[iY][iX])
 				break;
 		} 
-		float x = (srcX + iX) / xBM;
-		float y = (srcY + iY) / yBM;
+		if (iX == xBM) // source = 1.0
+			iX--;
+		float x = iX + (float) rand.randD5();
+		float y = iY + (float) rand.randD5();
 		
         pt.x = offset + x * xMult;
         pt.y = offset + y * yMult;
 //        System.out.println("pt.x = " + pt.x + "    pt.y = " + pt.y);
 //        System.out.println("pt.x = " + pt.x + "    pt.y = " + pt.y);
 	}
-	private boolean initMultiple() { // TODDO BR: isMultiple
+	private boolean initMultiple() {
 	    float[][] greyCD = new float[yBM][xBM];
-	    
 	    float vol = cumulativeDensity(greyPD, greyCD);
 	    if (vol == 0)
 	    	return false; // Not a valid Multiple
@@ -230,43 +245,41 @@ public class GalaxyBitmapShape extends GalaxyShape {
 	    yBM = stopList.get(0) - start;
 	    
 		starCD = new float[yBM][xBM];
-		float[][] map = new float[yBM][xBM];
+		float[][] mapPD = new float[yBM][xBM];
 		for (int i=0; i<yBM; i++)
-			map[i] = greenPD[i+start];
-		volume = cumulativeDensity(map, starCD);
+			mapPD[i] = greenPD[i+start];
+		normalizeToOne(mapPD);
+		processOption2(mapPD);
+		volume = cumulativeDensity(mapPD, starCD);
 		if (volume == 0)
 	    	return false; // Not a valid Multiple
-
 		normalizeCDToOne(starCD, volume);
 		alienCD    = new float[1][yBM][xBM];
 		alienCD[0] = starCD;
 		userCD     = starCD;
 		orionCD    = starCD;
+		nebulaeCD  = starCD;
 
 		// Nebulae Map
-		nebulaeCD = new float[yBM][xBM];
-		for (int i=0; i<yBM; i++)
-			map[i] = redPD[i+start];
-		float mapVol = cumulativeDensity(map, nebulaeCD);
-		if (mapVol == 0) { // Empty ==> star map
-			nebulaeCD = starCD;
-		} else
-			normalizeCDToOne(nebulaeCD, mapVol);
+		int mapId = 1;
+		if (blockCount == mapId)
+	    	return true; // Incomplete, but valid Multiple
+		nebulaeCD = getSubMap(startList.get(mapId));
 		
 		// Orion Map
-		int mapId = 1;
+		mapId += 1;
 		if (blockCount == mapId)
 	    	return true; // Incomplete, but valid Multiple
 		orionCD = getSubMap(startList.get(mapId));
 		
 		// User Map
-		mapId = 2;
+		mapId += 1;
 		if (blockCount == mapId)
 	    	return true; // Incomplete, but valid Multiple
 		userCD = getSubMap(startList.get(mapId));
 
 		// alien Map
-		mapId = 3;
+		mapId += 1;
 		if (blockCount == mapId)
 	    	return true; // Incomplete, but valid Multiple
 		alienSize = blockCount-mapId;
@@ -278,6 +291,7 @@ public class GalaxyBitmapShape extends GalaxyShape {
 	}
 	private float[][] alienCD(int id) {
 		int idx = Math.floorMod(id, alienSize);
+		// System.out.println("alienCD(int id): alienSize= " + alienSize + "  id= " + id + " idx= " + idx);
 		return alienCD[idx];
 	}
 	private float[][] alienCD() {
@@ -288,6 +302,8 @@ public class GalaxyBitmapShape extends GalaxyShape {
 		float[][] mapPD = new float[yBM][xBM];
 		for (int i=0; i<yBM; i++)
 			mapPD[i] = redPD[i+start];
+		normalizeToOne(mapPD);
+		processOption2(mapPD);
 		float mapVol = cumulativeDensity(mapPD, mapCD);
 		if (mapVol == 0) // Empty ==> star map
 			mapCD = starCD;
@@ -295,56 +311,98 @@ public class GalaxyBitmapShape extends GalaxyShape {
 			normalizeCDToOne(mapCD, mapVol);
 		return mapCD;
 	}
+	private void processOption2(float[][] pD) {
+		if (isInverted)
+			invertPD(pD);
+		if (isSharp)
+			for (int i=0; i<sharpNb; i++)
+				sharpenPD(pD);
+	}
 	@Override protected void singleInit(boolean full) {
 		super.singleInit(full);
 		// System.out.println("========== GalaxyBitmapShape.singleInit()");
-
-        switch (opts.selectedGalaxyShapeOption2()) {
-	        case "SETUP_BITMAP_GREY_INVERSE":
+		alienSize = 1;
+		String option1 = opts.selectedGalaxyShapeOption1();
+		Option1Enum opt1 = Option1Enum.values()[0];
+		for (Option1Enum o1 : Option1Enum.values())
+			if(option1.endsWith(o1.toString())) {
+				opt1 = o1;
+				break;
+			}
+		switch (opt1) {
+	        case SETUP_BITMAP_GREY_INVERSE:
 	        	isInverted = true;
 	            isColor    = false;
 	            isMultiple = false;
-	        	// invertBitmap(greyMap);
 	        	break;
-	        case "SETUP_BITMAP_COLOR": 
+	        case SETUP_BITMAP_COLOR:
 	            isInverted = false;
 	            isColor    = true;
 	            isMultiple = false;
 	        	break;
-	        case "SETUP_BITMAP_MULTIPLE":
+	        case SETUP_BITMAP_ADVANCED:
 	            isInverted = false;
 	            isColor    = true;
 	            isMultiple = true;
 	        	break;
-	        case "SETUP_BITMAP_GREY_NORMAL": 
-        	default:
+	        case SETUP_BITMAP_GREY_NORMAL:
+	    	default:
 	            isInverted = false;
 	            isColor    = false;
 	            isMultiple = false;
-        }
+	    }
+		String option2 = opts.selectedGalaxyShapeOption2();
+		Option2Enum opt2 = Option2Enum.values()[0];
+		for (Option2Enum o2 : Option2Enum.values())
+			if(option2.endsWith(o2.toString())) {
+				opt2 = o2;
+				break;
+			}
+		switch (opt2) {
+	        case SETUP_BITMAP_SHARP1:
+	           	isSharp = true;
+	           	sharpNb = 1;
+	        	break;
+	        case SETUP_BITMAP_SHARP2:
+	           	isSharp = true;
+	           	sharpNb = 2;
+	        	break;
+	        case SETUP_BITMAP_SHARP3:
+	           	isSharp = true;
+	           	sharpNb = 3;
+	        	break;
+	        case SETUP_BITMAP_SHARP4:
+	           	isSharp = true;
+	           	sharpNb = 4;
+	        	break;
+	        case SETUP_BITMAP_NORMAL:
+	    	default:
+	        	isSharp = false;
+	           	sharpNb = 0;
+	    }
 
-        // Get bitmap (Normalized yo One)
-		String option1 = opts.selectedGalaxyShapeOption1();
-		if(option1==null || option1.equals(DEFAULT_OPTION_1))
+        // Get bitmap (Normalized to One)
+		String option3 = UserPreferences.shapeOption3.get();
+		if(option3==null || option3.equals(""))
 			genGaussian(GX, GY, GS);
 		else
-			openFileAndNormalize(option1);
+			openFileAndNormalize(option3);
 
 		if (isMultiple) {
 			if (initMultiple()) { // TODDO BR: isMultiple
-				aspectRatio   = (float) yBM / xBM;
-		        shapeFactor   = sqrt(max(aspectRatio, 1/aspectRatio));
-		        float volumeFactor = 1/volume *xBM*yBM;
-		        densityFactor = (float) Math.pow(volumeFactor, 1.0/3.0);
-		        adjustDensity = sqrt(shapeFactor * densityFactor);
+				postSingleInit();
 				return;
 			}
 			else // Failed ==> default galaxy
 				genGaussian(GX, GY, GS);
 		}
 
-		if (isInverted) // only for grey Maps
-			invertPD(greyPD);
+		processOption2(greyPD);
+		if (isColor) {
+			processOption2(redPD);
+			processOption2(greenPD);
+			processOption2(bluePD);
+		}
 
 		// Normalize and validate bitmap
 		starCD = new float[yBM][xBM];
@@ -386,7 +444,10 @@ public class GalaxyBitmapShape extends GalaxyShape {
 				normalizeCDToOne(orionCD, blueVol);
 		}
 
-		aspectRatio = (float) yBM / xBM;
+		postSingleInit();
+	}
+	private void postSingleInit() {
+		aspectRatio = (float) xBM / yBM;
         shapeFactor = sqrt(max(aspectRatio, 1/aspectRatio));
         float volumeFactor = 1/volume *xBM*yBM;
         densityFactor = (float) Math.pow(volumeFactor, 1.0/3.0);
@@ -397,6 +458,7 @@ public class GalaxyBitmapShape extends GalaxyShape {
 //		System.out.println("densityFactor = " + densityFactor);
 //		System.out.println("-- adjustDensity = " + adjustDensity);
 //		System.out.println();
+		
 	}
 	@Override public void clean() {
 		greyPD  = null;
@@ -411,14 +473,18 @@ public class GalaxyBitmapShape extends GalaxyShape {
 	@Override public String defaultOption2()  { return options2.get(0); }
 	@Override public void init(int n) {
 		super.init(n);
-		// System.out.println("========== GalaxyBitmapShape.init()");
+//		System.out.println("========== GalaxyBitmapShape.init()");
 		// reset w/h vars since aspect ratio may have changed
 		initWidthHeight();
-		offset = gEB;
-		xMult  = width - 2*gEB;
-		yMult  = height - 2*gEB;
+		offset = galaxyEdgeBuffer();
+		xMult  = (float) width/xBM;
+		yMult  = (float) height/yBM;
+		
+//		System.out.println("xMult = " + xMult + "    yMult = " + yMult);
 //		System.out.println("gEB = " + gEB);
+//		System.out.println("xBM = " + xBM + "  yBM = " + yBM);
 //		System.out.println("width = " + width + "  height = " + height);
+//		System.out.println("aspectRatio = " + aspectRatio);
 //		System.out.println("xMult = " + xMult + "  yMult = " + yMult);
 //		System.out.println("adjustedSizeFactor() = " + adjustedSizeFactor());
 //		System.out.println();
@@ -426,19 +492,15 @@ public class GalaxyBitmapShape extends GalaxyShape {
 	@Override public float maxScaleAdj()	{ return 1.1f; }
 	// BR: added adjust_density for the void in symmetric galaxies
 	@Override protected int galaxyWidthLY() { 
-		return (int) (Math.sqrt(opts.numberStarSystems()*adjustDensity*adjustedSizeFactor()));
+		return (int) (Math.sqrt(opts.numberStarSystems()*adjustDensity*adjustedSizeFactor()*aspectRatio));
 	}
 	// BR: added adjust_density for the void in symmetric galaxies
 	@Override protected int galaxyHeightLY() { 
-		return (int) (Math.sqrt(opts.numberStarSystems()*adjustDensity*adjustedSizeFactor()));
+		return (int) (Math.sqrt(opts.numberStarSystems()*adjustDensity*adjustedSizeFactor()/aspectRatio));
 	}
 	@Override public void setRandom(Point.Float pt) { setRandom(starCD, pt); }
 	// modnar: add possibility for specific placement of homeworld/orion locations
-	@Override public void setSpecific(Point.Float pt) { // TODO BR: test isColor
-//		if (!isColor) {
-//			setRandom(starCD, pt);
-//			return;
-//		}
+	@Override public void setSpecific(Point.Float pt) {
 		if (indexWorld == 0) { // orion
 			setRandom(orionCD, pt);
 			return;
@@ -450,6 +512,12 @@ public class GalaxyBitmapShape extends GalaxyShape {
 		// Aliens homeworlds
    		setRandom(alienCD(empSystems.size()-1), pt);
 	}
-	@Override public boolean valid(float x, float y)  { return true; }
+	@Override public boolean valid(float x, float y) {
+		if (x<0)          return false;
+		if (y<0)          return false;
+		if (x>fullWidth)  return false;
+		if (y>fullHeight) return false;
+		return true;
+	}
 	@Override protected float sizeFactor(String size) { return settingsFactor(0.8f); }
 }

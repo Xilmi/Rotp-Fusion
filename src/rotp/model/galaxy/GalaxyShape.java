@@ -43,8 +43,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 	private int numCompanions;
 	private ShapeRegion[][] regions;
 	private int regionScale = 16;
-	int width = 0;
-	int height = 0;
+	int fullWidth, fullHeight, width, height;
 	int maxStars = 0;
 	private int num = 0;
 	private int homeStars = 0;
@@ -65,15 +64,21 @@ public abstract class GalaxyShape implements Base, Serializable {
 	private long tm0; // for timing computation
 	// \BR
 
-	public int width()	{ return width; }
-	public int height() { return height; }
+	public int width()	{ return fullWidth; }
+	public int height() { return fullHeight; }
 	boolean fullyInit() { return fullyInit; }
 	// ========== abstract and overridable methods ==========
 	protected abstract int galaxyWidthLY();
 	protected abstract int galaxyHeightLY();
 	public abstract void setRandom(Point.Float p);
-	public abstract boolean valid(float x, float y);
 	protected abstract float sizeFactor(String size);
+	public boolean valid(float x, float y) {
+		if (x<0)          return false;
+		if (y<0)          return false;
+		if (x>fullWidth)  return false;
+		if (y>fullHeight) return false;
+		return true;
+	}
 	protected void clean() {} // To remove big temporary data;
 	protected float settingsFactor(float shapeFactor) {
 		// shapeFactor is not used yet
@@ -365,7 +370,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 		empSystems.clear();
 		maxStars = numStars;
 		initWidthHeight();
-		float minSize = min(width, height);
+		float minSize = min(fullWidth, fullHeight);
 		usingRegions = minSize > 100;
 		if (usingRegions) {
 			regionScale = min(64, (int) (minSize / 6.0));
@@ -382,17 +387,19 @@ public abstract class GalaxyShape implements Base, Serializable {
 		}
 	}
 	void initWidthHeight() {
-		width = galaxyWidthLY() + (2 * galaxyEdgeBuffer());
-		height = galaxyHeightLY() + (2 * galaxyEdgeBuffer());
+		width  = galaxyWidthLY();
+		height = galaxyHeightLY();
+		fullWidth  = width  + (2 * galaxyEdgeBuffer());
+		fullHeight = height + (2 * galaxyEdgeBuffer());
 		// BR: for symmetric galaxy
-		cx = width  / 2.0f;
-		cy = height / 2.0f;
+		cx = fullWidth  / 2.0f;
+		cy = fullHeight / 2.0f;
 	}
 	void fullGenerate() {
 		generate(true);
 		clean();
 	}
-	public void quickGenerate() {
+	public void quickGenerate() {	
 		generate(false);
 		clean();
 	}
@@ -433,20 +440,20 @@ public abstract class GalaxyShape implements Base, Serializable {
 	protected int galaxyEdgeBuffer() {
 		switch(opts.selectedGalaxySize()) {
 			case IGameOptions.SIZE_TINY:	  return 1;
-			case IGameOptions.SIZE_SMALL:	 return 1;
-			case IGameOptions.SIZE_SMALL2:	return 1;
-			case IGameOptions.SIZE_MEDIUM:	return 2;
+			case IGameOptions.SIZE_SMALL:	  return 1;
+			case IGameOptions.SIZE_SMALL2:	  return 1;
+			case IGameOptions.SIZE_MEDIUM:	  return 2;
 			case IGameOptions.SIZE_MEDIUM2:   return 2;
-			case IGameOptions.SIZE_LARGE:	 return 2;
-			case IGameOptions.SIZE_LARGE2:	return 2;
+			case IGameOptions.SIZE_LARGE:	  return 2;
+			case IGameOptions.SIZE_LARGE2:	  return 2;
 			case IGameOptions.SIZE_HUGE:	  return 3;
-			case IGameOptions.SIZE_HUGE2:	 return 3;
+			case IGameOptions.SIZE_HUGE2:	  return 3;
 			case IGameOptions.SIZE_MASSIVE:   return 3;
 			case IGameOptions.SIZE_MASSIVE2:  return 3;
 			case IGameOptions.SIZE_MASSIVE3:  return 3;
 			case IGameOptions.SIZE_MASSIVE4:  return 4;
 			case IGameOptions.SIZE_MASSIVE5:  return 4;
-			case IGameOptions.SIZE_INSANE:	return 5;
+			case IGameOptions.SIZE_INSANE:    return 5;
 			case IGameOptions.SIZE_LUDICROUS: return 8;
 		}
 		return GALAXY_EDGE_BUFFER;
@@ -513,8 +520,8 @@ public abstract class GalaxyShape implements Base, Serializable {
 	}
 	private void addSystem(float x0, float y0) {
 		if (usingRegions) {
-			int xRgn = (int) (regionScale*x0/width);
-			int yRgn = (int) (regionScale*y0/height);
+			int xRgn = (int) (regionScale*x0/fullWidth);
+			int yRgn = (int) (regionScale*y0/fullHeight);
 			regions[xRgn][yRgn].addSystem(x0,y0);
 			num++;
 		}
@@ -553,8 +560,8 @@ public abstract class GalaxyShape implements Base, Serializable {
 		return false;
 	}
 	private boolean isTooNearSystemsInNeighboringRegions(float x0, float y0) {
-		int xRgn = (int)(x0*regionScale/width);
-		int yRgn = (int)(y0*regionScale/height);
+		int xRgn = (int)(x0*regionScale/fullWidth);
+		int yRgn = (int)(y0*regionScale/fullHeight);
 		int yMin = max(0,yRgn-1);
 		int yMax = min(regionScale-1,yRgn+1);
 		int xMin = max(0,xRgn-1);
@@ -834,9 +841,9 @@ public abstract class GalaxyShape implements Base, Serializable {
 //		float ray(Point.Float pt)     { return ray(pt.x, pt.y); }
 //		private float angle(float x, float y) { return (float) Math.atan2(y- cy, x - cx); }
 //		float angle(Point.Float pt)   { return angle(pt.y, pt.x); }
-		Point.Float mirrorX(Point.Float pt)  { return new Point.Float(width - pt.x, pt.y); }
-		Point.Float mirrorY(Point.Float pt)  { return new Point.Float(pt.x, height - pt.y); }
-		Point.Float mirrorXY(Point.Float pt) { return new Point.Float(width - pt.x, height - pt.y); }
+		Point.Float mirrorX(Point.Float pt)  { return new Point.Float(fullWidth - pt.x, pt.y); }
+		Point.Float mirrorY(Point.Float pt)  { return new Point.Float(pt.x, fullHeight - pt.y); }
+		Point.Float mirrorXY(Point.Float pt) { return new Point.Float(fullWidth - pt.x, fullHeight - pt.y); }
 	}
 	static class Rand { // BR: based on Modnar chosen randomization
 		// For 1 dimensional generation:
@@ -870,6 +877,22 @@ public abstract class GalaxyShape implements Base, Serializable {
 // 		 */
 // 		public double seedY(double seed) { return lastY = (seed  + cY)%1; }
 		// Base Getters
+		/**
+		 * @return  0 <= random value < 1
+		 */
+		double randD5() {
+			switch (random.nextInt(5)) {
+				case 0:  return randX();
+				case 1:  return randY();
+				case 2:  return rand();
+				case 3:  return Math.random();
+				default: return random.nextDouble();
+			}
+		}
+		/**
+		 * @return  0 <= random value < 1
+		 */
+		float randF5() { return (float) randD5(); }
 		/**
 		 * @return  0 <= random value < 1
 		 */

@@ -144,8 +144,8 @@ public class GalaxyClusterShape extends GalaxyShape {
     }
     @Override
 	public void setRandom(Point.Float pt) {
-        pt.x = randomLocation(width, galaxyEdgeBuffer());
-        pt.y = randomLocation(height, galaxyEdgeBuffer());
+        pt.x = randomLocation(fullWidth, galaxyEdgeBuffer());
+        pt.y = randomLocation(fullHeight, galaxyEdgeBuffer());
     }
     @Override
     public void setSpecific(Point.Float pt) { // modnar: add possibility for specific placement of homeworld/orion locations

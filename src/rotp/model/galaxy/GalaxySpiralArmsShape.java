@@ -145,6 +145,7 @@ public class GalaxySpiralArmsShape extends GalaxyShape {
             adjust_density = max(1f, adjust_density);
             minRandRay = Math.sqrt(minRay / galaxyRay()); 
         } // \BR:
+        initWidthHeight();
     }
     @Override
     public float maxScaleAdj()               { return 1.1f; }
@@ -182,10 +183,10 @@ public class GalaxySpiralArmsShape extends GalaxyShape {
     public void setSpecific(Point.Float pt) { // modnar: add possibility for specific placement of homeworld/orion locations
         setRandom(pt);
     }
-    @Override
-    public boolean valid(float x, float y) {
-        return true;
-    }
+//    @Override
+//    public boolean valid(float x, float y) {
+//        return true;
+//    }
     float randomLocation(float max, float buff) {
         return buff + (random() * (max-buff-buff));
     }

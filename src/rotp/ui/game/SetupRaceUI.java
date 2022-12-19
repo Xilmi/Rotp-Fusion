@@ -18,7 +18,6 @@ package rotp.ui.game;
 import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
 import static rotp.ui.UserPreferences.ALL_GUI_ID;
 import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
-import static rotp.ui.UserPreferences.optionsRace;
 import static rotp.ui.UserPreferences.playerCustomRace;
 import static rotp.ui.UserPreferences.playerIsCustom;
 import static rotp.ui.UserPreferences.playerShipSet;
@@ -49,14 +48,12 @@ import javax.swing.JTextField;
 
 import rotp.mod.br.profiles.Profiles;
 import rotp.model.empires.Race;
-import rotp.model.game.MOO1GameOptions;
 import rotp.model.ships.ShipImage;
 import rotp.model.ships.ShipLibrary;
 import rotp.ui.BaseModPanel;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.main.SystemPanel;
-import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.Modifier2KeysState;
 
 public final class SetupRaceUI extends BaseModPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
@@ -130,22 +127,13 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         setHomeWorldFont(); // BR: MonoSpaced font for Galaxy
         shipSetTxt.setFont(narrowFont(20)); // BR:
         createNewGameOptions(); // Following the UserPreferences.menuStartup
-        readLocalOptions((MOO1GameOptions) newGameOptions());
+        refreshGui();
         // Save initial options
 		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
     }
     private void setHomeWorldFont() { // BR: MonoSpaced font for Galaxy
    		homeWorld.setFont(narrowFont(20));
     }
-    private void copyOptions(MOO1GameOptions src, MOO1GameOptions dest) {
-    	MOO1GameOptions.copyBaseAndModRaceSettings(src, dest);
-    }
-	private void readLocalOptions(MOO1GameOptions source) {
-		copyOptions(source, guiOptions());
-    	for (InterfaceParam option : optionsRace)
-    		option.setFromOptions(source.dynamicOptions());
-        raceChanged();
-	}
     private void doCancelBoxAction() {
 		buttonClick();
 		switch (Modifier2KeysState.get()) {
