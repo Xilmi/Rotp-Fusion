@@ -1,12 +1,22 @@
 
 ## Short description:
 
-- Added a new galaxy type: Bitmap.
-  - Grey level gives the probability of having a star system; White = most probable; Black = no star.
-  - Inverted grey level gives the probability of having a star system; Black = most probable; White = no star.
-  - Color Bitmap allows to specify the probability for Orion, Player and Aliens.
-  - Advanced color Bitmap allows to specify the probability for Star systems, Nebulae, Orion, Player and each Aliens.
-- Added colors to Galaxy preview; Blue = Orion; Green = Player; Red = Aliens; (Including the two near by stars)
+- Added a new galaxy type: Bitmap, which allows you to load an image.
+  - Real galaxies pictures give nice results.
+  - You can draw your own galaxies, in grey intensities or in colors.
+  - With the colored galaxies, you can define the regions where Orion, Player, And Aliens stars systemes shoul be.
+  - An advanced color mode allows you to define the regions of Aliens individually, as well as for the nebulae's!
+  - A few examples can be found in BitmapGalaxyExamples.zip"
+- Added an option to color to Galaxy preview;
+  - Blue for Orion.
+  - Green for the Player.
+  - Red for the Aliens. (Including the two near by stars)
+  - You can choose the size of these colored dots.
+- Fixed a very old bug placing Orion wrongly on the to left of the big maps!
+  - (Everything was in place to put this bug on the map!)
+- Fixed some odd "TextGalaxy" and "BitmapGalaxy" crashing due to array's overflow!
+  - Made these arrays dynamic
+  - Reduced their size security reserve by a factor 10.
 - The "Global" vs "Local" options loading and saving will be clearly indicated on the buttons. (Toggled with "Shift")
 - The "Last" option was only last when Launching ROTP, and then was updated when navigating from menu to menu. It won't be updated anymore.
 - The "Last" option will remain unchanged till the next session. (It was updated when navigating from menu to menu)
@@ -15,14 +25,25 @@
 
 ## Detailed description:
 
-Added a new galaxy type: Bitmap.
-- Uses small uncompressed bitmap to define the galaxy shape with variable star density.
-- A few examples can be found in "BitmapExamples.zip"
-- Grey maps, likes all other maps haves the same density of probability for lones start, orion, player, aliens, and nebulae.
-- Color maps uses the Blue for Orion, Green for Player, Red for Alien, Grey for nebulae and lones stars.
-  - Grey is defined by the max value of each colors.
-  - If one color is missing: it will be replaced by Grey.
--  Advanced color Bitmap:
+Bitmap type galaxies:
+- Uses preferably small and bitmap to define the galaxy.
+  - VGA sized is more than enough... They are still randmly generated!
+- Option 1: "Grey/Sum":
+  - Color bitmaps will be converted in grey leved by summing the three colors. (The standard ways)
+- Option 1: "Grey/Sum":
+  - Color bitmaps will be converted in grey leved with the max of the three colors. (Sometimes gives better results)
+- Option 1: "Grey Inverted":
+  - Because some nice pictures have white background.
+- Option 2: Sharp, Sharper, Sharpest, Razor like.
+  - This allows the tuning of real galaxy photography, Try it!
+- Option 1: "Color":
+  - The colors of the pictures are interpreted:
+    - Blue for Orion.
+    - Green for the Player.
+    - Red for the Aliens.
+    - The remaining stars and nebulae are spread over thes three regions.
+    - If one color is missing: it will be replaced by global grey intensity.
+- Option 1: "Advanced":
   - It uses multiple sub-bitmaps grouped vertically in one Bitmap file.
   - Start with Black as background (sub bitmap separator)
   - Fist Sub-Bitmap: Lone star systems definition:
@@ -33,21 +54,24 @@ Added a new galaxy type: Bitmap.
   - Other Sub-Bitmaps:
   	- Copy the Lone star sub-bitmap, as often as needed, keeping some black lines as separators.
   	- The Blue is still needed to fill the gap and avoid black lines in the middle of the sub-bitmap.
-  	- The Green is ignored, but you may will to keep it as repair point.
+  	- The Green color is then ignored, but you may will to keep it as repair point.
   	- The Red intensity will be used to defines the next probabilities.
   	- You may use White instead of Red, as White contains Red, and other colors are ignored.
+  	- every invalid Sub-Bitmaps will be reblaced by the first one. 
   - Second Sub-Bitmap: Nebulae's prefered location:
     - No Red = same as Lone star systems.
-    - Uses the already existing option to removes nebulae.
+    - For "No Nebulaes"use the already existing option in the good old "Advanced Options" panel.
  - Third Sub-Bitmap: Orion's prefered location:
  - Fourth Sub-Bitmap: Player's prefered location:
  - Following Sub-Bitmap: Aliens's prefered location:
    - Up to 49 Alien's sub-bitmap may be defined.
    - If there is more Aliens than sub-bitmap, the galaxy factory will loop thru the available Alien's sub-bitmap.
 
-Do not hesitate to share your Galaxies!
- 
+- Option 1: "Advanced/Mask" and "Advanced/Mask2":
+  - This allows you to define the colors' gradiens only once, on the firts sub-bitmap, and uses uniform patches to define the regions on the following maps. 
+  - The two maps are then multiplyed to define a resulting map.
+  - /Mask2 add add a sharping effect to keeps the Empire inside the "free" stars.
+  
+... You have examples, just try it!
 
-
-
-
+And do not hesitate to share your Galaxies!

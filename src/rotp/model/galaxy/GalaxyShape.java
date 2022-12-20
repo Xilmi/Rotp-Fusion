@@ -22,6 +22,7 @@ import static rotp.ui.UserPreferences.minStarsPerEmpire;
 import java.awt.Point;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import rotp.model.game.IGameOptions;
@@ -135,11 +136,11 @@ public abstract class GalaxyShape implements Base, Serializable {
 	public List<EmpireSystem> empireSystems() { return empSystems; }
 	float adjustedSizeFactor()	{ // BR: to converge more quickly
 		float factor = sizeFactor(opts.selectedGalaxySize());
-//		float mult = (1f + (float)genAttempt);
-		float mult = (1f + (float)genAttempt/20f);
+		float mult = (float) Math.pow(1.05, genAttempt);
+//		float mult = (1f + (float)genAttempt/20f);
 		float adjFactor = factor * mult;
 //		System.out.println("factor = " + factor);
-//		System.out.println("mult = " + mult);
+//		System.out.println("genAttempt = " + genAttempt + "  mult = " + mult);
 //		System.out.println("adjFactor = " + adjFactor);
 		return adjFactor;
 	}
@@ -285,8 +286,13 @@ public abstract class GalaxyShape implements Base, Serializable {
 	boolean valid(Point.Float p) { return valid(p.x, p.y); }
 	public float maxScaleAdj()			   { return 1.0f; }
 	public void coords(int n, Point.Float pt) {
-		int i = n;
+		if (n == 0) { // BR: Fixed Orion at the wrong place with regions
+			pt.x = orionXY.x;
+			pt.y = orionXY.y;
+			return;
+		}
 		if (usingRegions) {
+			int i = n-1; // BR: Fixed Orion at the wrong place with regions
 			for (int a=0;a<regionScale;a++) {
 				for (int b=0;b<regionScale;b++) {
 					if (i >= regions[a][b].num)
@@ -302,8 +308,8 @@ public abstract class GalaxyShape implements Base, Serializable {
 			throw new RuntimeException("Invalid x index requested: "+i);
 		}
 		else {
-			pt.x = x[i];
-			pt.y = y[i];
+			pt.x = x[n];
+			pt.y = y[n];
 		}
 	}
 	// BR: ========== Initialization Methods ==========
@@ -362,6 +368,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 		init(min(5000,opts.numberStarSystems()));
 	}
 	public void init(int numStars) {
+		// System.out.println("========== GalaxyShape.init(): genAttempt = " + genAttempt);
 		numOpponents = opts.selectedNumberOpponents();
 		numEmpires = numOpponents + 1;
 		numCompanions = UserPreferences.companionWorldsSigned();
@@ -375,7 +382,8 @@ public abstract class GalaxyShape implements Base, Serializable {
 		if (usingRegions) {
 			regionScale = min(64, (int) (minSize / 6.0));
 			regions = new ShapeRegion[regionScale][regionScale];
-			int regionStars = (int) (2.5*maxStars/regionScale);
+			// int regionStars = (int) (2.5*maxStars/regionScale); // BR: reserve no more needed
+			int regionStars = (int) (0.25*maxStars/regionScale); // BR: enough for dynamic arrays
 			for (int i=0;i<regionScale;i++) {
 				for (int j=0;j<regionScale;j++)
 					regions[i][j] = new ShapeRegion(regionStars);
@@ -519,6 +527,14 @@ public abstract class GalaxyShape implements Base, Serializable {
 		addSystem(pt.x, pt.y);
 	}
 	private void addSystem(float x0, float y0) {
+		if (num == 0) { // Orion: already stored in orionXY!
+			if(!usingRegions) { // To be safe, but should not be needed!
+				x[num] = x0;
+				y[num] = y0;
+			}
+			num++;
+			return;
+		}
 		if (usingRegions) {
 			int xRgn = (int) (regionScale*x0/fullWidth);
 			int yRgn = (int) (regionScale*y0/fullHeight);
@@ -588,11 +604,13 @@ public abstract class GalaxyShape implements Base, Serializable {
 	@SuppressWarnings("serial")
 	private class ShapeRegion implements Serializable {
 		int num = 0;
+		int size;
 		float[] x;
 		float[] y;
 		public ShapeRegion(int maxStars) {
-			x = new float[maxStars];
-			y = new float[maxStars];
+			size = maxStars;
+			x = new float[size];
+			y = new float[size];
 		}
 		public boolean isTooNearSystems(float x0, float y0) {
 			float buffer = systemBuffer();
@@ -603,9 +621,17 @@ public abstract class GalaxyShape implements Base, Serializable {
 			return false;
 		}
 		private void addSystem(float x0, float y0) {
+			if (num == size)
+				extendArray ();
 			x[num] = x0;
 			y[num] = y0;
 			num++;
+		}
+		private void extendArray () { // BR: To resolve overflow!
+			size *= 2;
+			// System.out.println("extendArray () size change: " + num + " ==> " + size);
+			x = Arrays.copyOf(x, size);
+			y = Arrays.copyOf(y, size);
 		}
 	}
 	@SuppressWarnings("serial")

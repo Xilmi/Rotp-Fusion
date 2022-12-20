@@ -164,7 +164,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
         playerIsCustom.setFromOptions(source.dynamicOptions());
 		playerCustomRace.setFromOptions(source.dynamicOptions());
 		writeLocalOptions(guiOptions());
-		init(); // TODO BR: validate init
+		init();
 	}
 	public void writeLocalOptions(MOO1GameOptions destination) {
 		for (InterfaceOptions param : commonList)

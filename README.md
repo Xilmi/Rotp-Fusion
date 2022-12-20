@@ -26,8 +26,17 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2022.12.20 (BR)
+  - GalaxyShape: "usingRegion"
+    - Fixed overflow with some odd "textGalaxy" and some "BitmapGalaxy".
+    - The regions' array are now dynamic.
+    - Reduced the security reserve by a factor 10.
+
 2022.12.19 (BR)
   - Galaxy Bitmap: Fix and improvements.
+  - Fixed Orion misplacement on big map (was always Top left!).
+  - Galaxy Preview:
+    - Added new "Mod Global Option" for Orion and Empires in color with bigger size.
   
 2022.12.16 (BR)
   - Added Galaxy Bitmap Advanced.

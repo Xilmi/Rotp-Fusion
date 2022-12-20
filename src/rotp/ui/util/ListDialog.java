@@ -247,7 +247,7 @@ public class ListDialog extends JDialog
 				}
 			}
 		});
-		list.setBackground(GameUI.paneBackgroundColor());
+		list.setBackground(GameUI.setupFrame());
 		list.setForeground(Color.BLACK);
 		list.setSelectionBackground(GameUI.borderMidColor());
 		list.setSelectionForeground(Color.WHITE);

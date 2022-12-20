@@ -22,6 +22,7 @@ import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
 import static rotp.ui.UserPreferences.ALL_GUI_ID;
 import static rotp.ui.UserPreferences.GALAXY_TEXT_FILE;
 import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
+import static rotp.ui.UserPreferences.galaxyPreviewColorStarsSize;
 import static rotp.ui.UserPreferences.globalCROptions;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
 import static rotp.ui.UserPreferences.shapeOption3;
@@ -296,10 +297,10 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 	            }
 	        }
 	        if(comp[i] instanceof JTextField){
-	            ((JTextField)comp[i]).setBackground(GameUI.paneBackgroundColor());
+	            ((JTextField)comp[i]).setBackground(GameUI.setupFrame());
 	        }
 	        if(comp[i] instanceof JToggleButton){
-	            ((JToggleButton)comp[i]).setBackground(GameUI.paneBackgroundColor());
+	            ((JToggleButton)comp[i]).setBackground(GameUI.setupFrame());
 	        }
 	        if(comp[i] instanceof JButton){
 	            String txt = ((JButton)comp[i]).getText();
@@ -314,11 +315,11 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 	            ((JScrollPane)comp[i]).setBackground(GameUI.borderMidColor());
 	        }
 	        if(comp[i] instanceof JList){
-	            ((JList)comp[i]).setBackground(GameUI.paneBackgroundColor());
+	            ((JList)comp[i]).setBackground(GameUI.setupFrame());
 	            ((JList)comp[i]).setSelectionBackground(GameUI.borderMidColor());
 	        }
 	        if(comp[i] instanceof JComboBox){
-	            ((JComboBox)comp[i]).setBackground(GameUI.paneBackgroundColor());
+	            ((JComboBox)comp[i]).setBackground(GameUI.setupFrame());
 	        }
 	        if(comp[i] instanceof Container)
 	        	setFileChooserFont(((Container)comp[i]).getComponents());
@@ -328,8 +329,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 	}
 	private String getBitmapFile() {
         String dirPath = Rotp.jarPath();
-        FileNameExtensionFilter  filter = new FileNameExtensionFilter(
-        		"Portable Network Graphics Files  (*.png)", "png");
+        File selectedFile = new File(shapeOption3.get());
+        if (selectedFile.exists())
+        	dirPath = selectedFile.getParentFile().getAbsolutePath();
 		JFileChooser fileChooser = new JFileChooser() {
 			@Override
 			protected JDialog createDialog(Component parent)
@@ -344,7 +346,20 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 	    setFileChooserFont(fileChooser.getComponents());
 		fileChooser.setCurrentDirectory(new File(dirPath));
 		fileChooser.setAcceptAllFileFilterUsed(false);
-		fileChooser.addChoosableFileFilter(filter);
+		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter(
+				"Images (bmp, gif, jpg, png, webp)", "bmp", "gif", "jpg", "jpeg", "png", "webp"));
+		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter(
+				"Windows Bitmap (bmp)", "bmp"));
+		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter(
+				"Compuserve GIF (gif)", "gif"));
+		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter(
+				"JPG / JPEG Format (jpg, jpeg)", "jpg", "jpeg"));
+		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter(
+				"Portable Network Graphics Files (png)", "png"));
+		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter(
+				"Wippy File Format (webp)", "webp"));
+		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter(
+				"All files (*.*", "*"));
 		// Add listener to file picking
 		fileChooser.addPropertyChangeListener(new PropertyChangeListener() {
             @Override
@@ -357,7 +372,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 		int result = fileChooser.showOpenDialog(getParent());
 		if (result == JFileChooser.APPROVE_OPTION) {
 		    // user selects a file
-			File selectedFile = fileChooser.getSelectedFile();
+			selectedFile = fileChooser.getSelectedFile();
 			return selectedFile.getPath();
 		}
 		return shapeOption3.defaultValue();
@@ -365,7 +380,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 	private void selectBitmapFromList() {
 		String filePath = getBitmapFile();
 		shapeOption3.set(filePath);
-		System.out.println("shapeOption3.set(filePath); filePath = " + filePath);
 		newGameOptions().galaxyShape().quickGenerate();
 		repaint();
 	}
@@ -1020,37 +1034,57 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 		int dispW = (int) (sh.width()*factor);
 		int xOff = x+(w-dispW)/2;
 		int yOff = y+(h-dispH)/2;
+		int starSize = s2;
+		boolean noColor = galaxyPreviewColorStarsSize.get() == 0;
+		if (noColor)
+			g.setColor(starColor(3));
+		else {
+			g.setColor(Color.blue); // Start with Orion
+			starSize = scaled(galaxyPreviewColorStarsSize.get());
+		} 
 		Point.Float pt = new Point.Float();
-		g.setColor(Color.blue); // Start with Orion
 		for (int i=0; i<sh.numberStarSystems();i++) {
 			sh.coords(i, pt);
 			int x0 = xOff + (int) (pt.x*factor);
 			int y0 = yOff + (int) (pt.y*factor);
-			g.fillRect(x0, y0, s2, s2);
+			g.fillRect(x0, y0, starSize, starSize);
 			g.setColor(starColor(i));
+			starSize = s2;
 		}
 		// BR: add empires stars to avoid lonely Orion star
 		int numCompWorlds = sh.numCompanionWorld();
-		//int iColor = 0;
-		int iEmp = 0;
-		g.setColor(Color.green); // Start with player
+		int iColor = 0;
+		int iEmp   = 0;
+		if (noColor)
+			g.setColor(starColor(iColor));
+		else {
+			g.setColor(Color.green); // Start with Player
+			starSize = scaled(galaxyPreviewColorStarsSize.get());
+		} 
 		for (EmpireSystem emp : sh.empireSystems()) {
 			for (int iSys=0; iSys<emp.numSystems();iSys++) {
 				int x0 = xOff + (int) (emp.x(iSys)*factor);
 				int y0 = yOff + (int) (emp.y(iSys)*factor);
-				//g.setColor(starColor(iColor)); iColor++;
-				g.fillRect(x0, y0, s2, s2);
+				if (noColor) {
+					g.setColor(starColor(iColor));
+					iColor++;					
+				}
+				g.fillRect(x0, y0, starSize, starSize);
 				if (numCompWorlds > 0) {
 					for (int iCW=0; iCW<numCompWorlds; iCW++) {
 						pt = sh.getCompanion(iEmp, iCW);
 						x0 = xOff + (int) (pt.x*factor);
 						y0 = yOff + (int) (pt.y*factor);
-						//g.setColor(starColor(iColor)); iColor++;
-						g.fillRect(x0, y0, s2, s2);
+						if (noColor) {
+							g.setColor(starColor(iColor));
+							iColor++;					
+						}
+						g.fillRect(x0, y0, starSize, starSize);
 					}
 				}
 			}
-			g.setColor(Color.red);			
+			if (!noColor)
+				g.setColor(Color.red); // Start with Player	
 			iEmp++;
 		}
 	}

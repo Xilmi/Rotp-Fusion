@@ -157,7 +157,7 @@ public class Galaxy implements Base, Serializable {
         // existing nebulae (add their images) when making
         // new nebulae
         int MAX_UNIQUE_NEBULAS = 16;
-        boolean centered = true; // TODO BR: Validate addNebula center
+        boolean centered = true; // BR: Needed by Bitmap Galaxies
 
         Point.Float pt = new Point.Float();
         shape.setRandom(pt);

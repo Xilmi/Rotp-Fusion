@@ -438,8 +438,7 @@
 								<asset>target/${BaseFileName}-mini.jar</asset>
 								<asset>target/${BaseFileName}-windows.zip</asset>
 								<asset>${pdfFileName}</asset>
-								<asset>ColorBlur.png</asset>
-								<asset>ColorSharp.png</asset>
+								<asset>BitmapGalaxyExamples.zip</asset>
 								<!-- <asset>Profiles.pdf</asset> -->
 							</assets>
 						</configuration>

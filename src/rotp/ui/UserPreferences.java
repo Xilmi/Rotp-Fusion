@@ -271,16 +271,19 @@ public class UserPreferences {
 		};
 	public static final ParamBoolean showNextCouncil = new ParamBoolean(
 			MOD_UI, "SHOW_NEXT_COUNCIL", false);
+	public static final ParamInteger galaxyPreviewColorStarsSize = new ParamInteger(
+			MOD_UI, "GALAXY_PREVIEW_COLOR_SIZE"
+			, 4, 0, 20, 1, 2, 5);
 
 	// This list is used by the ModGlobalOptionsUI menu
 	public static final LinkedList<InterfaceParam> modGlobalOptionsUI = new LinkedList<>(
 			Arrays.asList(
 			menuStartup, menuAfterGame, menuLoadGame,
-			showGridCircular, showTooltips,
+			showGridCircular, showTooltips, galaxyPreviewColorStarsSize,
 			showFleetFactor, showFlagFactor, showPathFactor, useFusionFont,
 			showNameMinFont, showInfoFontRatio, mapFontFactor, showNextCouncil
 			));
-	public static final Integer[] rowCountList = {3, 2, 4, 4}; // ModGlobalOptionsUI alignment
+	public static final Integer[] rowCountList = {3, 3, 4, 4}; // ModGlobalOptionsUI alignment
 
 	// BR: Galaxy Menu addition
 	public static final ParamBoolean showNewRaces = new ParamBoolean(

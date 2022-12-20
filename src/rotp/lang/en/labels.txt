@@ -1364,10 +1364,13 @@ SETUP_SPIRALARMS_SYMMETRIC        | Symmetric
 SETUP_SWIRLCLUSTERS_0             | Clusters Along
 SETUP_SWIRLCLUSTERS_1             | Clusters Across
 SETUP_SWIRLCLUSTERS_2             | No Clusters
-SETUP_BITMAP_GREY_NORMAL          | Grey
+SETUP_BITMAP_GREY_SUM             | Grey / Sum
+SETUP_BITMAP_GREY_MAX             | Grey / Max
 SETUP_BITMAP_GREY_INVERSE         | Grey Inverted
 SETUP_BITMAP_COLOR                | Color
 SETUP_BITMAP_ADVANCED             | Advanced
+SETUP_BITMAP_ADVANCED_MASK        | Advanced/Mask
+SETUP_BITMAP_ADVANCED_MASK2       | Advanced/Mask2
 SETUP_BITMAP_NORMAL               | Normal
 SETUP_BITMAP_SHARP1               | Sharp
 SETUP_BITMAP_SHARP2               | Sharper
@@ -1725,6 +1728,8 @@ SETTINGS_MOD_LOAD_LOCAL_DESC             | Settings are loaded for current panel
 SETTINGS_MOD_LOAD_LOCAL                  | Load Local Only: %1
 SETTINGS_MOD_SAVE_LOCAL_DESC             | Settings are saved for current panel only (Yes), or all settings are saved alltogether (No)
 SETTINGS_MOD_SAVE_LOCAL                  | Save Local Only: %1
+SETTINGS_MOD_GALAXY_PREVIEW_COLOR_SIZE_DESC | Galaxy preview: Orion, Player, and Aliens Star size. (0 = No Color and same size "2" as before)
+SETTINGS_MOD_GALAXY_PREVIEW_COLOR_SIZE      | Stars Size: %1
 
 // Tech UI labels
 TECH_RESEARCH                     | Technology Research
