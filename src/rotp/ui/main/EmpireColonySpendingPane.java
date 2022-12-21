@@ -36,6 +36,9 @@ import rotp.util.ImageManager;
 
 import javax.swing.*;
 import static rotp.model.colony.Colony.ECOLOGY;
+import static rotp.model.colony.Colony.SHIP;
+import static rotp.model.colony.Colony.DEFENSE;
+import static rotp.model.colony.Colony.INDUSTRY;
 import static rotp.model.colony.ColonySpendingCategory.MAX_TICKS;
 
 public class EmpireColonySpendingPane extends BasePanel {
@@ -374,8 +377,29 @@ public class EmpireColonySpendingPane extends BasePanel {
             if(!colony.locked(category)) {
                 colony.clearUnlockedSpending();
                 int allocation = colony.allocationRemaining();
-                if(category == ECOLOGY && button > 1)
-                    allocation = colony.ecology().maxAllocationNeeded();
+                if(button == 1)
+                {
+                    switch(category)
+                    {
+                        case SHIP:
+                            if(colony.shipyard().buildLimit() > 0)
+                                allocation = min(allocation, colony.shipyard().maxAllocationNeeded());
+                            break;
+                        case DEFENSE:
+                            allocation = min(allocation, colony.defense().maxAllocationNeeded());
+                            break;
+                        case INDUSTRY:
+                            allocation = min(allocation, colony.industry().maxAllocationNeeded());
+                            break;
+                        case ECOLOGY:
+                            allocation = min(allocation, colony.ecology().maxAllocationNeeded());
+                            break;
+                        default:
+                            break;
+                    }
+                    if(allocation == 0)
+                        allocation = colony.allocationRemaining();
+                }
                 colony.setAllocation(this.category, allocation);
                 if(category != ECOLOGY)
                     colony.checkEcoAtClean();

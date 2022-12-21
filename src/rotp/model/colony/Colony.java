@@ -750,12 +750,12 @@ public final class Colony implements Base, IMappedObject, Serializable {
 
         // if we are building ships and doing no research, then assume this is a shipbuilding
         // colony and put the rest of the excess in shipbuilding. Good catch, Xilmi
-        if (!locked(SHIP) && (spending[SHIP].allocation() > 0) && (spending[RESEARCH].allocation() == 0))
+        if (!locked(SHIP) && (spending[SHIP].allocation() > 0) && (spending[RESEARCH].allocation() == 0) && shipyard().buildLimit() == 0)
             adj -= spending[SHIP].adjustValue(adj);
         
         // funnel excess to industry if it's not completed
         if (!industry().isCompleted() && adj > 0)
-            adj -= spending[INDUSTRY].adjustValue(adj);
+            adj -= spending[INDUSTRY].adjustValue(min(industry().maxAllocationNeeded() - industry().allocation(), adj));
         
 
         if (adj == 0)
