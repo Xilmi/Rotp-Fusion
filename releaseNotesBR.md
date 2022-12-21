@@ -23,7 +23,10 @@
 - The "Last" option will remain unchanged till the next session. (It was updated when navigating from menu to menu)
 - Live.options will be the one that tracks the current state of the GUI, and will be set to "Last" when Launching ROTP.
 - The "Restore" Option allows you to reload the Live.options.
-
+- Xilmi last fixes
+  - When using the "Use AI to handle transports"-governor-option the "Don't send from rich/artifact planets"-option will now be considered.
+  - Fixed an issue where colonies would reduce eco-spending to clean after having manually set it to something higher with governor disabled.
+  - Right-clicking the text right of the eco-slider with governor disabled will now only put the maximum amount required to it instead of building reserve.
 ## Detailed description:
 
 Bitmap type galaxies:
