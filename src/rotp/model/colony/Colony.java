@@ -129,6 +129,9 @@ public final class Colony implements Base, IMappedObject, Serializable {
         int addMax = allocationRemaining();
         int addAmt = max(0, val-allocation(i));
         addAllocation(i,min(addMax, addAmt));
+        if(i == ECOLOGY){
+            keepEcoLockedToClean = false;
+        }
     }
     public boolean locked(int i)               { return locked[i]; }
     public void locked(int i, boolean b)       { locked[i] = b; }
