@@ -447,6 +447,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 	}
 	protected int galaxyEdgeBuffer() {
 		switch(opts.selectedGalaxySize()) {
+			case IGameOptions.SIZE_MICRO:	  return 1;
 			case IGameOptions.SIZE_TINY:	  return 1;
 			case IGameOptions.SIZE_SMALL:	  return 1;
 			case IGameOptions.SIZE_SMALL2:	  return 1;
@@ -463,6 +464,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 			case IGameOptions.SIZE_MASSIVE5:  return 4;
 			case IGameOptions.SIZE_INSANE:    return 5;
 			case IGameOptions.SIZE_LUDICROUS: return 8;
+			case IGameOptions.SIZE_DYNAMIC:   return max(1, (int) (Math.log10(maxStars)));
 		}
 		return GALAXY_EDGE_BUFFER;
 	}

@@ -946,7 +946,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         int max = maximumSystems();
         List<String> list = new ArrayList<>();
         list.add(SIZE_DYNAMIC);
+        if (max > 24)
         list.add(SIZE_MICRO);
+        if (max > 33)
         list.add(SIZE_TINY);
         if (max > 50)
             list.add(SIZE_SMALL);

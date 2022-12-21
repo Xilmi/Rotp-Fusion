@@ -1034,57 +1034,93 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 		int dispW = (int) (sh.width()*factor);
 		int xOff = x+(w-dispW)/2;
 		int yOff = y+(h-dispH)/2;
-		int starSize = s2;
-		boolean noColor = galaxyPreviewColorStarsSize.get() == 0;
-		if (noColor)
-			g.setColor(starColor(3));
-		else {
-			g.setColor(Color.blue); // Start with Orion
-			starSize = scaled(galaxyPreviewColorStarsSize.get());
-		} 
+		int starSize    = s2;
+		int worldsSize  = 0;
+		int nearSize    = 0;
+		int compSize    = 0;
+		int starShift   = s1;
+		int worldsShift = 0;
+		int nearShift   = 0;
+		int compShift   = 0;
+		boolean colored = galaxyPreviewColorStarsSize.get() != 0;
+		if (colored) {
+			xOff += starShift;
+			yOff += starShift;
+			worldsSize  = scaled(galaxyPreviewColorStarsSize.get());
+			nearSize    = worldsSize * 3/4;
+			compSize    = worldsSize/2;
+			worldsShift = worldsSize/2;
+			nearShift   = nearSize/2;
+			compShift   = compSize/2;
+		}
+
+		// Start with lone stars
 		Point.Float pt = new Point.Float();
 		for (int i=0; i<sh.numberStarSystems();i++) {
 			sh.coords(i, pt);
 			int x0 = xOff + (int) (pt.x*factor);
 			int y0 = yOff + (int) (pt.y*factor);
-			g.fillRect(x0, y0, starSize, starSize);
 			g.setColor(starColor(i));
-			starSize = s2;
+			if (colored)
+				g.fillRoundRect(x0-starShift, y0-starShift, starSize, starSize, starSize, starSize);
+			else
+				g.fillRect(x0, y0, starSize, starSize);
 		}
+		// Add orion over the other stars
+		if (colored) {
+			g.setColor(new Color(64, 64, 255)); // Start with Orion
+			sh.coords(0, pt);
+			int x0 = xOff + (int) (pt.x*factor);
+			int y0 = yOff + (int) (pt.y*factor);
+			g.fillRoundRect(x0-worldsShift, y0-worldsShift, worldsSize, worldsSize, worldsSize, worldsSize);
+		} 
+
 		// BR: add empires stars to avoid lonely Orion star
 		int numCompWorlds = sh.numCompanionWorld();
 		int iColor = 0;
 		int iEmp   = 0;
-		if (noColor)
-			g.setColor(starColor(iColor));
-		else {
+		if (colored)
 			g.setColor(Color.green); // Start with Player
-			starSize = scaled(galaxyPreviewColorStarsSize.get());
-		} 
 		for (EmpireSystem emp : sh.empireSystems()) {
-			for (int iSys=0; iSys<emp.numSystems();iSys++) {
-				int x0 = xOff + (int) (emp.x(iSys)*factor);
-				int y0 = yOff + (int) (emp.y(iSys)*factor);
-				if (noColor) {
+			// Home worlds
+			int x0 = xOff + (int) (emp.x(0)*factor);
+			int y0 = yOff + (int) (emp.y(0)*factor);
+			if (colored)
+				g.fillRoundRect(x0-worldsShift, y0-worldsShift, worldsSize, worldsSize, worldsSize, worldsSize);
+			else {
+				g.setColor(starColor(iColor));
+				iColor++;					
+				g.fillRect(x0, y0, starSize, starSize);
+			}
+			// Near Stars
+			for (int iSys=1; iSys<emp.numSystems();iSys++) {
+				x0 = xOff + (int) (emp.x(iSys)*factor);
+				y0 = yOff + (int) (emp.y(iSys)*factor);
+				if (colored)
+					g.fillRoundRect(x0-nearShift, y0-nearShift, nearSize, nearSize, nearSize, nearSize);
+				else {
 					g.setColor(starColor(iColor));
 					iColor++;					
+					g.fillRect(x0, y0, starSize, starSize);
 				}
-				g.fillRect(x0, y0, starSize, starSize);
-				if (numCompWorlds > 0) {
-					for (int iCW=0; iCW<numCompWorlds; iCW++) {
-						pt = sh.getCompanion(iEmp, iCW);
-						x0 = xOff + (int) (pt.x*factor);
-						y0 = yOff + (int) (pt.y*factor);
-						if (noColor) {
-							g.setColor(starColor(iColor));
-							iColor++;					
-						}
+			}
+			// Companions Worlds
+			if (numCompWorlds > 0) {
+				for (int iCW=0; iCW<numCompWorlds; iCW++) {
+					pt = sh.getCompanion(iEmp, iCW);
+					x0 = xOff + (int) (pt.x*factor);
+					y0 = yOff + (int) (pt.y*factor);
+					if (colored)
+						g.fillRoundRect(x0-compShift, y0-compShift, compSize, compSize, compSize, compSize);
+					else {
+						g.setColor(starColor(iColor));
+						iColor++;					
 						g.fillRect(x0, y0, starSize, starSize);
 					}
 				}
 			}
-			if (!noColor)
-				g.setColor(Color.red); // Start with Player	
+			if (colored)
+				g.setColor(Color.red); // Start with Player, continue with aliens
 			iEmp++;
 		}
 	}

@@ -31,6 +31,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
     - Fixed overflow with some odd "textGalaxy" and some "BitmapGalaxy".
     - The regions' array are now dynamic.
     - Reduced the security reserve by a factor 10.
+  - Fixed galaxyEdgeBuffer not set for Dynamic sizes.
 
 2022.12.19 (BR)
   - Galaxy Bitmap: Fix and improvements.

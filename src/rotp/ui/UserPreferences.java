@@ -273,7 +273,7 @@ public class UserPreferences {
 			MOD_UI, "SHOW_NEXT_COUNCIL", false);
 	public static final ParamInteger galaxyPreviewColorStarsSize = new ParamInteger(
 			MOD_UI, "GALAXY_PREVIEW_COLOR_SIZE"
-			, 4, 0, 20, 1, 2, 5);
+			, 5, 0, 20, 1, 2, 5);
 
 	// This list is used by the ModGlobalOptionsUI menu
 	public static final LinkedList<InterfaceParam> modGlobalOptionsUI = new LinkedList<>(
