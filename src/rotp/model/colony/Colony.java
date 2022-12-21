@@ -737,7 +737,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
             }
         }
     }
-    private void redistributeReducedEcoSpending() {
+    public void redistributeReducedEcoSpending() {
         int maxAllocation = ColonySpendingCategory.MAX_TICKS;
         // determine how much categories are over/under spent
         int spendingTotal = 0;

@@ -364,7 +364,7 @@ public class EmpireColonySpendingPane extends BasePanel {
             else if (click)
                 misClick();
         }
-        public void maxSlider(boolean click) {
+        public void maxSlider(boolean click, int button) {
             StarSystem sys = parent.systemViewToDisplay();
             if (sys == null)
                 return;
@@ -373,9 +373,14 @@ public class EmpireColonySpendingPane extends BasePanel {
                 return;
             if(!colony.locked(category)) {
                 colony.clearUnlockedSpending();
-                colony.setAllocation(this.category, colony.allocationRemaining());
+                int allocation = colony.allocationRemaining();
+                if(category == ECOLOGY && button > 1)
+                    allocation = colony.ecology().maxAllocationNeeded();
+                colony.setAllocation(this.category, allocation);
                 if(category != ECOLOGY)
                     colony.checkEcoAtClean();
+                else
+                    colony.redistributeReducedEcoSpending();
             }
             if (click)
                 softClick();
@@ -442,7 +447,7 @@ public class EmpireColonySpendingPane extends BasePanel {
             else if (rightArrow.contains(x,y))
                 increment(true);
             else if (resultBox.contains(x,y))
-                maxSlider(true);
+                maxSlider(true, e.getButton());
             else {
                 if (this.category < 0) {
 // TODO: for future use
