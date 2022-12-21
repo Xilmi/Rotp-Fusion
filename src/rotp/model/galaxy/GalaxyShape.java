@@ -384,6 +384,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 			regions = new ShapeRegion[regionScale][regionScale];
 			// int regionStars = (int) (2.5*maxStars/regionScale); // BR: reserve no more needed
 			int regionStars = (int) (0.25*maxStars/regionScale); // BR: enough for dynamic arrays
+			regionStars = max(2, regionStars); // BR: should never be a problem... But!
 			for (int i=0;i<regionScale;i++) {
 				for (int j=0;j<regionScale;j++)
 					regions[i][j] = new ShapeRegion(regionStars);

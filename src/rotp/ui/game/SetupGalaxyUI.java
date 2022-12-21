@@ -1066,7 +1066,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 			else
 				g.fillRect(x0, y0, starSize, starSize);
 		}
-		// Add orion over the other stars
+		// Add Orion over the other stars
 		if (colored) {
 			g.setColor(new Color(64, 64, 255)); // Start with Orion
 			sh.coords(0, pt);
