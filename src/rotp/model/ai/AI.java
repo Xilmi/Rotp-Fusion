@@ -237,6 +237,8 @@ public class AI implements Base { // BR: Tentative
                     needy.add(col);
                 else if ((col.maxPopToGive >= minTransportSize) && (col.maxPopToGive > col.popNeeded))
                 {
+                    if(empire.isPlayerControlled() && session().getGovernorOptions().isTransportRichDisabled() && (sys.planet().productionAdj() > 1 || sys.planet().researchAdj() > 1))
+                        continue;
                     if(empire.isAI() || sys.colony().isGovernor() || GameSession.instance().getGovernorOptions().isAutotransportUngoverned())
                         givey.add(col);
                 }
