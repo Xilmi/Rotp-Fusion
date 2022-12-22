@@ -1,5 +1,4 @@
-
-## Short description:
+### Short description:
 
 - Added a new galaxy type: Bitmap, which allows to load an image.
   - Real shots of galaxies give nice results.
@@ -31,7 +30,7 @@
   - BitmapGalaxy: The last valid image folder is now saved and will be used if the current choice is not valid.
   - Show User AI: Fixed the missng "AI: Off".
 
-## Detailed description:
+### Detailed description:
 
 Bitmap type galaxies:
 - Preferably use a small bitmap image to define the galaxy.
