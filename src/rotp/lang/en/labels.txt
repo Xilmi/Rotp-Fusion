@@ -1730,6 +1730,10 @@ SETTINGS_MOD_SAVE_LOCAL_DESC             | Settings are saved for current panel 
 SETTINGS_MOD_SAVE_LOCAL                  | Save Local Only: %1
 SETTINGS_MOD_GALAXY_PREVIEW_COLOR_SIZE_DESC | Galaxy preview: Orion, Player, and Aliens Star size. (0 = No Color and same size "2" as before)
 SETTINGS_MOD_GALAXY_PREVIEW_COLOR_SIZE      | Stars Size: %1
+// Other base menu Mod settings
+SETTINGS_MOD_PLAYER_SHIP_SET_DESC        | Select the Player Ship Set.
+SETTINGS_MOD_PLAYER_SHIP_SET             | Player Ship Set: %1
+
 
 // Tech UI labels
 TECH_RESEARCH                     | Technology Research
