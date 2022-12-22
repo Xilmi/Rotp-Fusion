@@ -50,6 +50,7 @@ import rotp.util.FontManager;
 public class ShowCustomRaceUI extends BaseModPanel implements MouseListener, MouseMotionListener {
 	private static final long serialVersionUID	= 1L;
 	private static final Color  backgroundHaze	= new Color(0,0,0,160);
+	private static final String playerAIOffKey	= "SETUP_OPPONENT_AI_PLAYER";
 	private static final String totalCostKey	= ROOT + "GUI_COST";
 	private static final String raceAITipKey	= ROOT + "RACE_AI_DESC";
 	protected static final String exitTipKey	= ROOT + "EXIT_DESC";
@@ -426,7 +427,7 @@ public class ShowCustomRaceUI extends BaseModPanel implements MouseListener, Mou
 			if (raceUI.selectedEmpire().isAIControlled())
 				return raceUI.selectedEmpire().getAiName();
 			else
-				return raceUI.selectedEmpire().getAiName();
+				return text(playerAIOffKey);
 		else
 			return raceUI.selectedEmpire().getAiName();
 	}

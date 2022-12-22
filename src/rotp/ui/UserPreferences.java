@@ -324,7 +324,7 @@ public class UserPreferences {
 		return list;
 	}
 	
-	// BR: All the parameters
+	// BR: All the dynamic parameters
 	public static LinkedList<InterfaceParam> allModOptions() {
 		LinkedList<InterfaceParam> allModOptions = new LinkedList<>();
 		allModOptions.addAll(optionsA);
@@ -333,6 +333,17 @@ public class UserPreferences {
 		allModOptions.addAll(optionsRace);
 		allModOptions.addAll(optionsCustomRaceBase);
 		return allModOptions;
+	}
+    // Other Global parameters
+	public static final ParamString bitmapGalaxyLastFolder = new ParamString(
+			BASE_UI, "BITMAP_LAST_FOLDER", Rotp.jarPath());
+	
+    // All the Global parameters
+	public static LinkedList<InterfaceParam> globalOptions() {
+		LinkedList<InterfaceParam> globalOptions = new LinkedList<>();
+		globalOptions.addAll(modGlobalOptionsUI);
+		globalOptions.add(bitmapGalaxyLastFolder);
+		return globalOptions;
 	}
 
 	private static boolean showMemory  = false;
@@ -601,7 +612,7 @@ public class UserPreferences {
 			out.println();
 			out.println("===== MOD Global GUI Settings =====");
 			out.println();
-			for (InterfaceParam param : modGlobalOptionsUI) {
+			for (InterfaceParam param : globalOptions()) {
 				out.println(keyFormat(param.getCfgLabel()) + param.getCfgValue());
 			}
 			return 0;
@@ -660,9 +671,12 @@ public class UserPreferences {
 			case "LANGUAGE": selectLanguage(val); return;
 			default:
 			// BR: Global Mod GUI
-				for (InterfaceParam param : modGlobalOptionsUI) {
+				for (InterfaceParam param : globalOptions()) {
 					if (key.equalsIgnoreCase(param.getCfgLabel())) {
-						param.setFromCfgValue(val);
+						if (param instanceof ParamString)
+							param.setFromCfgValue(fullVal.trim());
+						else
+							param.setFromCfgValue(val);
 						break;
 					}
 				}

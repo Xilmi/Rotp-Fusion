@@ -22,6 +22,7 @@ import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
 import static rotp.ui.UserPreferences.ALL_GUI_ID;
 import static rotp.ui.UserPreferences.GALAXY_TEXT_FILE;
 import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
+import static rotp.ui.UserPreferences.bitmapGalaxyLastFolder;
 import static rotp.ui.UserPreferences.galaxyPreviewColorStarsSize;
 import static rotp.ui.UserPreferences.globalCROptions;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
@@ -328,10 +329,13 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 	    }
 	}
 	private String getBitmapFile() {
-        String dirPath = Rotp.jarPath();
+        String dirPath = bitmapGalaxyLastFolder.get();
         File selectedFile = new File(shapeOption3.get());
-        if (selectedFile.exists())
+        if (selectedFile.exists()) {
         	dirPath = selectedFile.getParentFile().getAbsolutePath();
+        	bitmapGalaxyLastFolder.set(dirPath);
+        	UserPreferences.save();
+        }
 		JFileChooser fileChooser = new JFileChooser() {
 			@Override
 			protected JDialog createDialog(Component parent)
@@ -373,6 +377,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 		if (result == JFileChooser.APPROVE_OPTION) {
 		    // user selects a file
 			selectedFile = fileChooser.getSelectedFile();
+			dirPath = selectedFile.getParentFile().getAbsolutePath();
+        	bitmapGalaxyLastFolder.set(dirPath);
+        	UserPreferences.save();
 			return selectedFile.getPath();
 		}
 		return shapeOption3.defaultValue();

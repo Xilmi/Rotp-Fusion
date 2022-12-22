@@ -26,6 +26,10 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2022.12.21 (BR)
+  - BitmapGalaxy: The last valid image folder is now saved and will be used if the current choice is not valid.
+  - Show User AI: Fixed the missng "AI: Off".
+
 2022.12.21 (Xilmi)
   - When using the "Use AI to handle transports"-governor-option the "Don't send from rich/artifact planets"-option will now be considered.
   - Fixed an issue where colonies would reduce eco-spending to clean after having manually set it to something higher with governor disabled.
