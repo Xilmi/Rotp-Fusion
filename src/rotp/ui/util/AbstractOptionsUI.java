@@ -39,7 +39,6 @@ import javax.swing.SwingUtilities;
 
 import rotp.mod.br.profiles.Profiles;
 import rotp.ui.BaseModPanel;
-import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
@@ -70,10 +69,8 @@ public abstract class AbstractOptionsUI extends BaseModPanel implements MouseLis
 	private Color textC = SystemPanel.whiteText;
 	private LinkedList<Integer>	lastRowList = new LinkedList<>();
 	private LinkedList<BaseText> btList		= new LinkedList<>();
-	public	LinkedList<InterfaceParam> paramList = new LinkedList<>();
 	private Rectangle hoverBox;
 	private Rectangle exitBox	= new Rectangle();
-	private BasePanel parent;
 	private LinearGradientPaint bg;
 	
 	// ========== Constructors and initializers ==========
@@ -89,6 +86,7 @@ public abstract class AbstractOptionsUI extends BaseModPanel implements MouseLis
 		numColumns = 0;
 		// Call for filling the settings
 		init0();
+		
 		for (int i=0; i<paramList.size(); i++) {
 			btList.add(newBT());
 		}
@@ -133,11 +131,6 @@ public abstract class AbstractOptionsUI extends BaseModPanel implements MouseLis
 		addMouseMotionListener(this);
 		addMouseWheelListener(this);
 	}
-	private void init() {
-		for (int i=0; i<paramList.size(); i++)
-			btList.get(i).displayText(paramList.get(i).getGuiDisplay());
-		initCustom();
-	}
 	protected void rowCountList(Integer... rows) {
 		numColumns = rows.length;
 		Integer id = 0;
@@ -152,7 +145,6 @@ public abstract class AbstractOptionsUI extends BaseModPanel implements MouseLis
 	// ========== Former Abstract Methods Request ==========
 	//
 	// These may be left empty by full Auto GUI
-	private void initCustom() {}
 	private void paintCustomComponent(Graphics2D g) {}
 	private void repaintCustomComponent() {}
 	private void customMouseCommon(boolean up, boolean mid,
@@ -165,23 +157,6 @@ public abstract class AbstractOptionsUI extends BaseModPanel implements MouseLis
 	protected void endOfColumn() {
 		numColumns++;
 		lastRowList.add(paramList.size());
-	}
-	public void open(BasePanel p) {
-		parent = p;
-		Modifier2KeysState.reset();
-		w	= p.getWidth();
-		h	= p.getHeight();
-		wBG	= w - (leftM + rightM);
-		wSetting = (wBG/numColumns)-columnPad;
-		if (bg == null)
-			if (numColumns>3)
-				bg = GameUI.settingsSetupBackgroundW(w);
-			else
-				bg = GameUI.settingsSetupBackground(w);
-		if (!globalOptions) // The new ways
-			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
-		init();
-		enableGlassPane(this);
 	}
 	private void drawButtons(Graphics2D g) {
 		int cnr = s5;
@@ -290,9 +265,27 @@ public abstract class AbstractOptionsUI extends BaseModPanel implements MouseLis
 	}
 	// ========== Overriders ==========
 	//
+	@Override
+	public void init() {
+		super.init();
+		w	= RotPUI.setupRaceUI().getWidth();
+		h	= RotPUI.setupRaceUI().getHeight();
+		wBG	= w - (leftM + rightM);
+		wSetting = (wBG/numColumns)-columnPad;
+		if (bg == null)
+			if (numColumns>3)
+				bg = GameUI.settingsSetupBackgroundW(w);
+			else
+				bg = GameUI.settingsSetupBackground(w);
+		if (!globalOptions) // The new ways
+			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+		enableGlassPane(this);
+		refreshGui();
+	}
 	@Override protected void close() {
 		super.close();
-		RotPUI.setupGalaxyUI().repaint();
+        disableGlassPane();
+		RotPUI.setupGalaxyUI().refreshGui();
 	}
 	@Override protected void doExitBoxAction() {
 		if (globalOptions) { // The old ways
@@ -333,7 +326,9 @@ public abstract class AbstractOptionsUI extends BaseModPanel implements MouseLis
 			param.setFromDefault();
 	}
 	@Override protected void refreshGui() {
-		init();
+		super.refreshGui();
+		for (int i=0; i<paramList.size(); i++)
+			btList.get(i).displayText(paramList.get(i).getGuiDisplay());
 		repaint();
 	}
 	@Override protected void repaintButtons() {
@@ -392,9 +387,6 @@ public abstract class AbstractOptionsUI extends BaseModPanel implements MouseLis
 				doExitBoxAction();
 				return;
 			case KeyEvent.VK_SPACE:
-			case KeyEvent.VK_ENTER:
-				parent.advanceHelp();
-				return;
 			default: // BR:
 				if(Profiles.processKey(k, e.isShiftDown(), guiTitleID, newGameOptions())) {
 				};

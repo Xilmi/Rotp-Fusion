@@ -227,6 +227,7 @@ public class ShowCustomRaceUI extends BaseModPanel implements MouseListener, Mou
 		repaint();
 	}
 	protected void init() {
+		super.init();
 		for (SettingBase<?> setting : commonList) {
 			if (setting.isBullet()) {
 				setting.settingText().displayText(setting.guiSettingDisplayStr()); // The setting
@@ -276,8 +277,9 @@ public class ShowCustomRaceUI extends BaseModPanel implements MouseListener, Mou
 	        aiArray,			// List
 	        initialChoice, 		// Initial choice
 	        "XXXXXXXXXXXXXXXX",	// long Dialogue
-	        scaled(200), scaled(120),	// size
-	        null, null);	// Font
+			false,				// isVertical
+	        scaled(220), scaled(220),	// size
+	        null, null);	// Font, Preview
 	    if (input == null)
 	    	return initialChoice;
 	    return input;

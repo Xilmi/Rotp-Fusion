@@ -24,12 +24,15 @@ import java.awt.event.MouseWheelEvent;
 import javax.swing.SwingUtilities;
 
 import rotp.model.game.DynamicOptions;
+import rotp.ui.BaseModPanel;
+import rotp.ui.BasePanel;
 import rotp.util.LabelManager;
 
 public abstract class AbstractParam <T> implements InterfaceParam{
 	
 	private final String name;
 	private final String gui;
+    private BasePanel panel;
 	private T value;
 	private T defaultValue;
 	private T minValue	= null;
@@ -114,6 +117,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 		else
 			toggle(e);
 	}
+	@Override public void setPanel(BaseModPanel p) { panel = p; }
 	// ========== Methods to be overridden ==========
 	//
 	T value(T value) 		{ this.value = value; return value;}
@@ -144,6 +148,8 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	private String descriptionId()	{ return labelId() + LABEL_DESCRIPTION; }
 	// ========== Protected Methods ==========
 	//
+	protected BasePanel getPanel() { return panel; }
+	protected boolean hasPanel() { return panel != null; }
 	protected T getInc(MouseEvent e) {
 		if (e.isShiftDown()) 
 			return shiftInc;
@@ -206,7 +212,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	protected static String text(String key) {
 		return LabelManager.current().label(key);
 	}
-	private static String text(String key, String... vals) {
+	protected static String text(String key, String... vals) {
 		String str = text(key);
 		for (int i=0;i<vals.length;i++)
 			str = str.replace(textSubs[i], vals[i]);

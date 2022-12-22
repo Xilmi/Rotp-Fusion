@@ -53,6 +53,7 @@ import rotp.model.ships.ShipLibrary;
 import rotp.ui.BaseModPanel;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
+import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.util.Modifier2KeysState;
 
@@ -61,7 +62,6 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
 	private static final String guiTitleID		= "SETUP_SELECT_RACE";
 	public  static final String GUI_ID          = "START_RACE";
 	private static final String cancelKey		= "SETUP_BUTTON_CANCEL";
-	// private static final String restoreKey		= "SETUP_BUTTON_RESTORE";
 	private static final String customRaceKey	= "SETUP_BUTTON_CUSTOM_PLAYER_RACE";
     private static final int MAX_RACES  = 16; // modnar: increase MAX_RACES to add new Races
     private static final int MAX_COLORS = 16; // modnar: add new colors
@@ -119,9 +119,11 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         initTextField(homeWorld);
         initTextField(leaderName);
         initTextField(shipSetTxt); // BR:
+		paramList = UserPreferences.optionsRace;
+
     }
-    public void init() {
-		Modifier2KeysState.reset();
+    @Override public void init() {
+    	super.init();
         leaderName.setFont(narrowFont(20));
         // homeWorld.setFont(narrowFont(20));
         setHomeWorldFont(); // BR: MonoSpaced font for Galaxy
@@ -138,10 +140,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
 		buttonClick();
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
-		case CTRL_SHIFT: // Restore
-			// loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
-			// raceChanged();
-			// break;
+		case CTRL_SHIFT: 
 		default: // Save
 			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 			break; 
@@ -152,9 +151,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
 		buttonClick();
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
-		case CTRL_SHIFT: // Restore
-			// loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
-			// break;
+		case CTRL_SHIFT:
 		default: // Save
 			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 			break; 
@@ -166,7 +163,6 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
 		raceChanged();
 		repaint();
 	}
-
 	private static String cancelButtonKey() {
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
@@ -545,12 +541,15 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
     private void goToMainMenu() {
         buttonClick();
         RotPUI.instance().selectGamePanel();
-        backImg = null;
-        raceImg = null;
+        close();
     }
     private void goToGalaxySetup() {
         buttonClick();
         RotPUI.instance().selectSetupGalaxyPanel();
+        close();
+    }
+    @Override protected void close() {
+    	super.close();
         backImg = null;
         raceImg = null;
         for (int i=0; i<shipImages.length; i++)

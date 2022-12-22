@@ -98,11 +98,13 @@ import rotp.ui.NoticeMessage;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
+import rotp.ui.util.InterfacePreview;
 import rotp.ui.util.ListDialog;
 import rotp.ui.util.Modifier2KeysState;
 import rotp.ui.util.SpecificCROption;
 
-public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
+public final class SetupGalaxyUI  extends BaseModPanel
+		implements MouseListener, MouseMotionListener, MouseWheelListener, InterfacePreview {
 	private static final long serialVersionUID = 1L;
     // public  static final String guiTitleID	= "SETUP_GALAXY";
 	public  static final String GUI_ID       = "START_GALAXY";
@@ -186,6 +188,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 		addMouseListener(this);
 		addMouseMotionListener(this);
 		addMouseWheelListener(this);
+		paramList = UserPreferences.optionsGalaxy;
 		for (int i=0;i<oppSet.length;i++)
 			oppSet[i] = new Rectangle();
 		for (int i=0;i<oppAI.length;i++)
@@ -207,20 +210,20 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 		list.addAll(getBaseRacList());
 		globalAbilitiesList = list.toArray(new String[list.size()]);
 	}
-	public void init() {
-		Modifier2KeysState.reset();
+	@Override public void init() {
+		super.init();
 		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 		refreshGui();
 	}
 	@Override protected String GUI_ID() { return GUI_ID; }
-	@Override protected void refreshGui() {
+	@Override public void refreshGui() {
         initAbilitiesList();
         guiOptions().setAndGenerateGalaxy();
         backImg = null;
         repaint();
 	}
-
-	private void release() {
+	@Override protected void close() {
+		super.close();
 		backImg = null;
 		playerRaceImg  = null;
 		boxMonoFont    = null;
@@ -252,7 +255,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 		}
     	// Go back to Race Panel
 		RotPUI.instance().returnToSetupRacePanel();
-		release();
+		close();
  	}
 	private static String backButtonKey() {
 		switch (Modifier2KeysState.get()) {
@@ -342,7 +345,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 	                throws HeadlessException {
 	            JDialog dlg = super.createDialog(parent);
 	            dlg.setLocation(scaled(300), scaled(200));
-	            dlg.setSize(scaled(400), scaled(450));
+	            dlg.setSize(scaled(420), scaled(470));
 	            dlg.getContentPane().setBackground(GameUI.borderMidColor());
 	            return dlg;
 	        }
@@ -502,12 +505,13 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 	    	getParent(),	// Frame component
 	    	getParent(),	// Location component
 	    	message,		// Message
-	        "Galaxy Text selection",	// Title
+	        "Galaxy Text selection",		// Title
 	        (String[]) getGalaxyTextList(),	// List
-	        initialChoice, 				// Initial choice
+	        initialChoice, 					// Initial choice
 	        null,	// long Dialogue
-	        scaled(400), scaled(300),	// size
-	        dialogMonoFont(),		// Font
+	        false,	// isVerticalWrap
+	        scaled(420), scaled(320),	// size
+	        dialogMonoFont(),	// Font
 	        this);	// for listener
 	    if (input == null)
 	    	return initialChoice;
@@ -516,7 +520,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 		repaint();
 	    return input;
 	}
-	public void preview(String s) {
+	@Override public void preview(String s) {
 		if (s == null)
 			return;
 		if (this.isShapeTextGalaxy())
@@ -537,8 +541,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 	        (String[]) specificAbilitiesList,	// List
 	        initialChoice, 				// Initial choice
 	        "XX_RACE_JACKTRADES_XX",	// long Dialogue
-	        scaled(400), scaled(300),	// size
-	        null, null);	// Font
+	        false,						// isVerticalWrap
+	        scaled(420), scaled(320),	// size
+	        null, null);				// Font, preview
 	    if (input == null)
 	    	return initialChoice;
 	    newGameOptions().specificOpponentCROption(input, i);
@@ -554,8 +559,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 	        (String[]) globalAbilitiesList,	// List
 	        initialChoice, 				// Initial choice
 	        "XX_RACE_JACKTRADES_XX",	// long Dialogue
-	        scaled(400), scaled(300),	// size
-	        null, null);	// Font
+	        false,						// isVerticalWrap
+	        scaled(420), scaled(320),	// size
+	        null, null);				// Font, preview
 	    if (input == null)
 	    	return initialChoice;
 	    globalCROptions.set(input);
@@ -1392,28 +1398,28 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 		buttonClick();
 		StartOptionsUI optionsUI = RotPUI.startOptionsUI();
 		optionsUI.open(this);
-		release();
+		close();
 	}
 	// modnar: add UI panel for modnar MOD game options
 	private void goToModOptions() {
 		buttonClick();
 		StartModAOptionsUI modOptionsUI = RotPUI.startModAOptionsUI();
-		modOptionsUI.open(this);
-		release();
+		modOptionsUI.init();
+		close();
 	}
 	// BR: Second UI panel for MOD game options
 	private void goToMod2Options() {
 		buttonClick();
 		StartModBOptionsUI modBOptionsUI = RotPUI.startModBOptionsUI();
-		modBOptionsUI.open(this);
-		release();
+		modBOptionsUI.init();
+		close();
 	}
 	// BR: Display UI panel for MOD game options
 	private void goToModViewOptions() {
 		buttonClick();
 		ModGlobalOptionsUI modGlobalOptionsUI = RotPUI.modGlobalOptionsUI();
-		modGlobalOptionsUI.open(this);
-		release();
+		modGlobalOptionsUI.init();
+		close();
 	}
 	// BR: Add option to return to the main menu
 	private void goToMainMenu() {
@@ -1428,7 +1434,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 			break;
 		}
 		RotPUI.instance().selectGamePanel();
-		release();
+		close();
 	}
 	// BR: For restarting with new options
 	private void restartGame() { 
@@ -1442,7 +1448,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 		// Get the old galaxy parameters
         RotPUI.instance().selectRestartGamePanel(oldGalaxy);
 		starting = false;
-		release();
+		close();
 	}
 	private void startGame() {
 		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
@@ -1468,7 +1474,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseListener,
 			log("TOTAL GAME START TIME:" +(System.currentTimeMillis()-start));
 			log("Game Name; "+GameUI.gameName);
 			starting = false;
-			release();
+			close();
 		};
 		SwingUtilities.invokeLater(save);
 	}

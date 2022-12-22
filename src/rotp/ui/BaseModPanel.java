@@ -28,7 +28,9 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.InputEvent;
+import java.util.LinkedList;
 
+import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.Modifier2KeysState;
 import rotp.util.LabelManager;
 
@@ -47,12 +49,13 @@ public abstract class BaseModPanel extends BasePanel {
 	private static final String restoreGlobalKey	= "SETTINGS_GLOBAL_RESTORE";
 	private static final String restoreLocalKey		= "SETTINGS_LOCAL_RESTORE";
 	private static final String exitKey		 		= "SETTINGS_EXIT";
-	// private static final String cancelKey	 		= "SETTINGS_CANCEL";
 
 	private static int exitButtonWidth, userButtonWidth, defaultButtonWidth, lastButtonWidth;
 
 	protected static int  smallButtonMargin, smallButtonH;
 	protected static Font smallButtonFont;
+
+	public	LinkedList<InterfaceParam> paramList = new LinkedList<>();
 
 	//	protected Font smallButtonFont	= FontManager.current().narrowFont(20);
 	protected Rectangle defaultBox	= new Rectangle();
@@ -61,7 +64,7 @@ public abstract class BaseModPanel extends BasePanel {
 
 	protected boolean globalOptions	= false; // No preferred button and Saved to remnant.cfg
 
-	private void init(Graphics2D g) {
+	private void localInit(Graphics2D g) {
 		smallButtonMargin	= s30;
 		smallButtonH		= s30;
 		smallButtonFont		= narrowFont(20);
@@ -74,7 +77,7 @@ public abstract class BaseModPanel extends BasePanel {
 		initDefaultButtonWidth(g);
 		initLastButtonWidth(g);
 
-		g.setFont(prevFont);		
+		g.setFont(prevFont);
 	}
 	private int stringWidth(Graphics2D g, String key) {
 		return g.getFontMetrics().stringWidth(LabelManager.current().label(key));
@@ -95,10 +98,19 @@ public abstract class BaseModPanel extends BasePanel {
 			repaintButtons();
 		}
 	}
+	protected void init() {
+		Modifier2KeysState.reset();
+		if (paramList != null)
+			for (InterfaceParam param : paramList)
+				param.setPanel(this);
+
+	}
+
 	protected void close() {
 		Modifier2KeysState.reset();
-        disableGlassPane();
-		newGameOptions().galaxyShape().quickGenerate(); // BR: to avoid strange galaxy display
+		if (paramList != null)
+			for (InterfaceParam param : paramList)
+				param.setPanel(null);
     }
 
 	// ---------- Exit Button
@@ -115,7 +127,7 @@ public abstract class BaseModPanel extends BasePanel {
 	}
 	protected int exitButtonWidth(Graphics2D g) {
 		if (exitButtonWidth == 0)
-			init(g);
+			localInit(g);
 		return exitButtonWidth;
 	}
     protected void doExitBoxAction() {
@@ -147,7 +159,7 @@ public abstract class BaseModPanel extends BasePanel {
 	}
 	protected int userButtonWidth(Graphics2D g) {
 		if (userButtonWidth == 0) 
-			init(g);
+			localInit(g);
 		return userButtonWidth;
 	}
 	protected void doUserBoxAction() {
@@ -191,7 +203,7 @@ public abstract class BaseModPanel extends BasePanel {
 	}
 	protected int defaultButtonWidth(Graphics2D g) {
 		if (defaultButtonWidth == 0) 
-			init(g);
+			localInit(g);
 		return defaultButtonWidth;
 	}
 	protected void doDefaultBoxAction() {
@@ -228,7 +240,7 @@ public abstract class BaseModPanel extends BasePanel {
 	}
 	protected int lastButtonWidth(Graphics2D g) {
 		if (lastButtonWidth == 0) 
-			init(g);
+			localInit(g);
 		return lastButtonWidth;
 	}
 	protected void doLastBoxAction() {

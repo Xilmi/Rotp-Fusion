@@ -868,7 +868,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     	if (isCtrlDown()) {
             buttonClick();
     		ModGlobalOptionsUI modGlobalOptionsUI = RotPUI.modGlobalOptionsUI();
-    		modGlobalOptionsUI.open(this);
+    		modGlobalOptionsUI.init();
     		return;
     	}
         buttonClick();

@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     https://www.gnu.org/licenses/gpl-3.0.html
+ *	 https://www.gnu.org/licenses/gpl-3.0.html
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,9 +16,12 @@
 
 package rotp.ui.util;
 
+import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.util.LinkedList;
+
+import rotp.ui.RotPUI;
 
 public class ParamList extends AbstractParam<String> {
 
@@ -80,6 +83,8 @@ public class ParamList extends AbstractParam<String> {
 	@Override public void toggle(MouseEvent e) {
 		if (getDir(e) == 0)
 			setFromDefault();
+		else if (e.isControlDown() && hasPanel())
+			setFromList(getPanel());
 		else if (getDir(e) > 0)
 			next();
 		else 
@@ -114,7 +119,24 @@ public class ParamList extends AbstractParam<String> {
 	}
 	// ===== Other Public Methods =====
 	//
-	public LinkedList<String> getOptions(){
+	public String setFromList(Component parent) { // TODO BR: Validate setFromList()
+		String message	= "<html>" + getGuiDescription() + "</html>";
+		String title	= text(labelId(), "");
+		String[] list	= valueLabelMap.cfgValueList.toArray(
+				new String[valueLabelMap.cfgValueList.size()]);
+
+		String input = (String) ListDialog.showDialog(
+				parent,	parent,	// Frame & Location component
+				message, title,	// Message & Title
+				list, get(),	// List & Initial choice
+				null, true,		// long Dialogue & isVertical
+				RotPUI.scaledSize(360), RotPUI.scaledSize(300),	// size
+				null, null);	// Font, Preview
+		if (input != null)
+			set(input);
+		return get();
+	}
+	public LinkedList<String> getOptions() {
 		LinkedList<String> list = new LinkedList<String>();
 		list.addAll(valueLabelMap.cfgValueList);
 		return list;
@@ -247,12 +269,12 @@ public class ParamList extends AbstractParam<String> {
 		}
 	}
 	/**
-     * Test if a {@code List<String>} contains a {@code String}
-     * the case not being important
-     * @param list      the containing {@code List<String>}
-     * @param element   the contained {@code String}
-     * @return true if the conditions are verified
-     */
+	 * Test if a {@code List<String>} contains a {@code String}
+	 * the case not being important
+	 * @param list	  the containing {@code List<String>}
+	 * @param element   the contained {@code String}
+	 * @return true if the conditions are verified
+	 */
 	public static Boolean containsIgnoreCase(Iterable<String> set, String element) {
 		if (set == null || element == null) {
 			return false;

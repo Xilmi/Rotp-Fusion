@@ -39,8 +39,8 @@ import rotp.mod.br.profiles.Profiles;
 import rotp.ui.BaseModPanel;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
+import rotp.ui.RotPUI;
 import rotp.ui.main.SystemPanel;
-import rotp.ui.util.Modifier2KeysState;
 
 public class StartOptionsUI extends BaseModPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
     private static final long serialVersionUID	= 1L;
@@ -54,7 +54,7 @@ public class StartOptionsUI extends BaseModPanel implements MouseListener, Mouse
 //    public static final Color darkerBrown = new Color(75,55,39);
     
     private Rectangle hoverBox;
-    private Rectangle exitBox		 = new Rectangle();
+    private Rectangle exitBox = new Rectangle();
     private BasePanel parent;
     private BaseText galaxyAgeText;
     private BaseText starDensityText;
@@ -96,8 +96,17 @@ public class StartOptionsUI extends BaseModPanel implements MouseListener, Mouse
         addMouseListener(this);
         addMouseMotionListener(this);
         addMouseWheelListener(this);
+		paramList = null;
     }
-    private void init() {
+    void open(BasePanel p) {
+        parent = p;
+        super.init();
+		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+        enableGlassPane(this);
+        refreshGui();
+     }
+	@Override protected String GUI_ID() { return GUI_ID; }
+	@Override protected void refreshGui() {
         galaxyAgeText.displayText(galaxyAgeStr());
         starDensityText.displayText(starDensityStr());
         nebulaeText.displayText(nebulaeStr());
@@ -113,20 +122,14 @@ public class StartOptionsUI extends BaseModPanel implements MouseListener, Mouse
         techTradingText.displayText(techTradingStr());
         warpSpeedText.displayText(warpSpeedStr());
         aiHostilityText.displayText(aiHostilityStr());
-    }
-    void open(BasePanel p) {
-        parent = p;
-		Modifier2KeysState.reset();
-		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
-        init();
-        enableGlassPane(this);
-    }
-	@Override protected String GUI_ID() { return GUI_ID; }
-	@Override protected void refreshGui() {
-		init();
 		repaint();
 	}
-    @Override
+	@Override protected void close() {
+		super.close();
+        disableGlassPane();
+		RotPUI.setupGalaxyUI().refreshGui();
+	}
+	@Override
     public void paintComponent(Graphics g0) {
         super.paintComponent(g0);
         int w = getWidth();
