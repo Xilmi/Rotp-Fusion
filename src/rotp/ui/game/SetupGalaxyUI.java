@@ -529,7 +529,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	        false,	// isVerticalWrap
 	        scaled(420), scaled(320),	// size
 	        dialogMonoFont(),	// Font
-	        this);	// for listener
+	        this, null);	// for listener
 	    if (input == null)
 	    	return initialChoice;
 	    newGameOptions().selectedGalaxyShapeOption1(input);
@@ -560,7 +560,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	        "XX_RACE_JACKTRADES_XX",	// long Dialogue
 	        false,						// isVerticalWrap
 	        scaled(420), scaled(320),	// size
-	        null, null);				// Font, preview
+			null, null, null);	// Font, Preview, Alternate return
 	    if (input == null)
 	    	return initialChoice;
 	    newGameOptions().specificOpponentCROption(input, i);
@@ -578,7 +578,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	        "XX_RACE_JACKTRADES_XX",	// long Dialogue
 	        false,						// isVerticalWrap
 	        scaled(420), scaled(320),	// size
-	        null, null);				// Font, preview
+			null, null, null);	// Font, Preview, Alternate return
 	    if (input == null)
 	    	return initialChoice;
 	    globalCROptions.set(input);
@@ -2227,11 +2227,15 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		boolean up = e.getWheelRotation() > 0;
-		if (hoverBox == shapeBox) {
-			if (up)
-				prevGalaxyShape(false);
-			else
-				nextGalaxyShape(false);
+//		if (hoverBox == shapeBox) {
+//			if (up)
+//				prevGalaxyShape(false);
+//			else
+//				nextGalaxyShape(false);
+//		}
+		if (hoverBox == shapeBox)  {
+			shapeSelection.toggle(e);
+			postGalaxyShapeSelection();
 		}
 		else if (hoverBox == mapOption1Box) {
 			if (up)

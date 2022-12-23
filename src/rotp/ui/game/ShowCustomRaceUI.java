@@ -279,7 +279,7 @@ public class ShowCustomRaceUI extends BaseModPanel implements MouseListener, Mou
 	        "XXXXXXXXXXXXXXXX",	// long Dialogue
 			false,				// isVertical
 	        scaled(220), scaled(220),	// size
-	        null, null);	// Font, Preview
+			null, null, null);	// Font, Preview, Alternate return
 	    if (input == null)
 	    	return initialChoice;
 	    return input;

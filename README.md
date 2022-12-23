@@ -25,6 +25,10 @@ Community subreddit: https://www.reddit.com/r/rotp/<br/>
 Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
+
+2022.12.22 (BR)
+  - Option List Selection Panel: Fixed Bug with redundant values (Galaxy size)
+
 2022.12.22 (BR)
   - Option List Selection Panel Activation with "Ctrl-Click"
     - On mod menu options list.

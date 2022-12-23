@@ -27,6 +27,7 @@ import rotp.ui.RotPUI;
 public class ParamList extends AbstractParam<String> {
 
 	private final IndexableMap valueLabelMap;
+	
 	private boolean isDuplicate = false;
 	
 	// ===== Constructors =====
@@ -51,7 +52,7 @@ public class ParamList extends AbstractParam<String> {
 		isDuplicate = true;
 		valueLabelMap = new IndexableMap();
 		for (String element : list)
-			put(element, element);
+			put(element, element); // Temporary; needs to be further initialized
 	}
 //	/**
 //	 * @param gui  The label header
@@ -76,6 +77,10 @@ public class ParamList extends AbstractParam<String> {
 		super(gui, name, defaultCfgLabel);
 		this.valueLabelMap = optionLabelMap;
 	}
+	// ===== For duplicates to be overridden =====
+	public void setOption(String option) { }
+	public String getFromOption() { return null; }
+	
 	// ===== Overriders =====
 	//
 	@Override protected String getCfgValue(String value) {
@@ -109,8 +114,15 @@ public class ParamList extends AbstractParam<String> {
 	@Override public void setFromCfgValue(String newCfgValue) {
 		super.set(validateValue(newCfgValue));
 	}
-	@Override public String set(String newCfgLabel) {
-		return super.set(newCfgLabel);
+	@Override public String set(String newValue) {
+		setOption(newValue);
+		return super.set(newValue);
+	}
+	@Override public String get() {
+		if (isDuplicate) {
+			super.set(getFromOption());
+		}
+		return super.get();
 	}
 	@Override public int getIndex(){
 		return valueLabelMap.getValueIndexIgnoreCase(get());
@@ -128,7 +140,6 @@ public class ParamList extends AbstractParam<String> {
 	}
 	protected String getLangLabelFromValue(String newValue) {
 		String newLangLabel = valueLabelMap.getLangLabelFromValue(newValue);
-//		super.set(newLangLabel);
 		return newLangLabel;
 	}
 	protected String getValueFromLangLabel(String langLabel) {
@@ -137,6 +148,12 @@ public class ParamList extends AbstractParam<String> {
 	}
 	// ===== Other Public Methods =====
 	//
+	public void nextForDuplicates() {
+		
+	}
+	public void prevForDuplicates() {
+		
+	}
 	public void initDuplicate() {// TODO BR: Validate initDuplicate()
 		int idx = getIndex(defaultValue());
 		valueLabelMap.initDuplicate();
@@ -145,8 +162,8 @@ public class ParamList extends AbstractParam<String> {
 	private void setFromList(Component parent) { // TODO BR: Validate setFromList()
 		String message	= "<html>" + getGuiDescription() + "</html>";
 		String title	= text(labelId(), "");
-		String[] list	= valueLabelMap.cfgValueList.toArray(
-				new String[valueLabelMap.cfgValueList.size()]);
+		String[] list	= valueLabelMap.langLabelList.toArray(   // Values and labels are swap
+				new String[valueLabelMap.langLabelList.size()]); // because values may be redundant
 
 		String input = (String) ListDialog.showDialog(
 				parent,	parent,	// Frame & Location component
@@ -154,16 +171,16 @@ public class ParamList extends AbstractParam<String> {
 				list, get(),	// List & Initial choice
 				null, true,		// long Dialogue & isVertical
 				RotPUI.scaledSize(360), RotPUI.scaledSize(300),	// size
-				null, null);	// Font, Preview
+				null, null,	// Font, Preview
+				valueLabelMap.cfgValueList);	// Alternate return
 		if (input != null)
 			set(input);
 	}
 	public LinkedList<String> getOptions() {
 		LinkedList<String> list = new LinkedList<String>();
-//		if (isDuplicate)
-//			for (String label : valueLabelMap.langLabelList)
-//				list.add(text(label));
-//		else
+		if (isDuplicate) // Values and labels are swap because values may be redundant
+			list.addAll(valueLabelMap.langLabelList);
+		else
 			list.addAll(valueLabelMap.cfgValueList);
 		return list;
 	}
@@ -213,9 +230,9 @@ public class ParamList extends AbstractParam<String> {
 			langLabelList.add(label);
 		}
 		void initDuplicate() {// TODO BR: Validate initDuplicate()
-			cfgValueList.clear();
-			for (String label : langLabelList)
-				cfgValueList.add(text(label));
+			langLabelList.clear(); // Values and labels are swap because values may be redundant
+			for (String label : cfgValueList)
+				langLabelList.add(text(label));
 		}
 		// ========== Getters ==========
 		//

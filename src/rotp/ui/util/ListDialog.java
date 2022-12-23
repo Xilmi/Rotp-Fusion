@@ -45,6 +45,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -91,6 +92,7 @@ public class ListDialog extends JDialog
 						implements ActionListener, Base {
 	private static ListDialog dialog;
 	private static String value = "";
+	private static int index    = -1;
 	private JList<Object> list;
 
 	/**
@@ -110,8 +112,8 @@ public class ListDialog extends JDialog
 									String initialValue,
 									String longValue,
 									int width, int height) {
-		return showDialog(frameComp,  locationComp, labelText, title,
-				 possibleValues, initialValue, longValue, false, width, height, null, null);
+		return showDialog(frameComp,  locationComp, labelText, title, possibleValues,
+				 initialValue, longValue, false, width, height, null, null, null);
 	}
 	/**
 	 * Set up and show the dialog.  The first Component argument
@@ -132,7 +134,8 @@ public class ListDialog extends JDialog
 									boolean isVerticalWrap,
 									int width, int height,
 									Font listFont,
-									InterfacePreview panel) {
+									InterfacePreview panel,
+									List<String> alternateReturn) {
 		Frame frame = JOptionPane.getFrameForComponent(frameComp);
 		dialog = new ListDialog(frame,
 								locationComp,
@@ -143,8 +146,13 @@ public class ListDialog extends JDialog
 								longValue,
 								isVerticalWrap,
 								width, height,
-								listFont, panel);
+								listFont, panel,
+								alternateReturn);
 		dialog.setVisible(true);
+		if (alternateReturn != null) {
+			index = Math.max(0,  index);
+			value = alternateReturn.get(index);
+		}
 		return value;
 	}
 
@@ -163,7 +171,8 @@ public class ListDialog extends JDialog
 					   boolean isVerticalWrap,
 					   int width, int height,
 					   Font listFont,
-					   InterfacePreview panel) {
+					   InterfacePreview panel,
+					   List<String> alternateReturn) {
 
 		super(frame, title, true);
 		int topInset  = RotPUI.scaledSize(6);
@@ -229,8 +238,15 @@ public class ListDialog extends JDialog
 			list.addListSelectionListener(new ListSelectionListener() {
 			    @Override
 			    public void valueChanged(ListSelectionEvent e) {
-			    	if (list.getSelectedValue() != null) 
-			    		panel.preview((String) list.getSelectedValue());
+			    	if (list.getSelectedValue() != null) {
+			    		if (alternateReturn != null) {
+			    			index = Math.max(0, list.getSelectedIndex());
+			    			value = alternateReturn.get(index);
+			    			panel.preview(value);
+			    		}
+			    		else
+			    			panel.preview((String) list.getSelectedValue());
+			    	}
 			    }
 			});			
 		}
@@ -327,6 +343,7 @@ public class ListDialog extends JDialog
 	//Handle clicks on the Set and Cancel buttons.
 	@Override public void actionPerformed(ActionEvent e) {
 		if ("Set".equals(e.getActionCommand())) {
+			ListDialog.index = list.getSelectedIndex();
 			ListDialog.value = (String)(list.getSelectedValue());
 		}
 		ListDialog.dialog.setVisible(false);
