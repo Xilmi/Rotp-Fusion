@@ -294,6 +294,40 @@ public class UserPreferences {
 			BASE_UI, "SELECT_CR_OPTIONS", false);
 	public static final ParamString shapeOption3 = new ParamString(
 			BASE_UI, "SHAPE_OPTION_3", "");
+	public static final ParamList shapeSelection = new ParamList( // Duplicate Do not add the list
+			BASE_UI, "GALAXY_SHAPE", MOO1GameOptions.getGalaxyShapeOptions(), 0) {
+		@Override public String get() {
+			return RotPUI.newOptions().selectedGalaxyShape();
+		}
+		@Override public String set(String newValue) {
+			String selection = getLangLabelFromValue(newValue);
+			RotPUI.newOptions().selectedGalaxyShape(selection);
+			return selection;
+		}
+	};
+	public static final ParamList sizeSelection = new ParamList( // Duplicate Do not add the list
+			BASE_UI, "GALAXY_SIZE", MOO1GameOptions.getGalaxySizeOptions(), 3) {
+		@Override public String get() {
+			return RotPUI.newOptions().selectedGalaxySize();
+		}
+		@Override public String set(String newValue) {
+			String selection = getLangLabelFromValue(newValue);
+			RotPUI.newOptions().selectedGalaxySize(selection);
+			return selection;
+		}
+	};
+	public static final ParamList difficultySelection = new ParamList( // Duplicate Do not add the list
+			BASE_UI, "GAME_DIFFICULTY", MOO1GameOptions.getGameDifficultyOptions(), 3) {
+		@Override public String get() {
+			return RotPUI.newOptions().selectedGameDifficulty();
+		}
+		@Override public String set(String newValue) {
+			String selection = getLangLabelFromValue(newValue);
+			RotPUI.newOptions().selectedGameDifficulty(selection);
+			return selection;
+		}
+	};
+	
 	public static final LinkedList<InterfaceParam> optionsGalaxy = new LinkedList<>(
 			Arrays.asList(
 					showNewRaces, globalCROptions, useSelectableAbilities, shapeOption3,

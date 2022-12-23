@@ -941,9 +941,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         p.initPlanetType(r.homeworldPlanetType);
         return p;
     }
-    @Override
-    public List<String> galaxySizeOptions() {
-        int max = maximumSystems();
+    public static List<String> getGalaxySizeOptions() {
+//        int max = maximumSystems();
+        int max = Rotp.maximumSystems;
         List<String> list = new ArrayList<>();
         list.add(SIZE_DYNAMIC);
         if (max > 24)
@@ -984,7 +984,10 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         return list;
     }
     @Override
-    public List<String> galaxyShapeOptions() {
+    public List<String> galaxySizeOptions() {
+    	return getGalaxySizeOptions();
+    }
+    public static List<String> getGalaxyShapeOptions() {
         List<String> list = new ArrayList<>();
         list.add(SHAPE_RECTANGLE);
         list.add(SHAPE_ELLIPTICAL);
@@ -1002,8 +1005,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 		list.add(SHAPE_FRACTAL);
 		list.add(SHAPE_BITMAP);
         return list;
-    }
-	
+    }    
+    @Override
+    public List<String> galaxyShapeOptions() { return getGalaxyShapeOptions(); }
     @Override
     public List<String> galaxyShapeOptions1() { return galaxyShape.options1(); }
     @Override
@@ -1016,8 +1020,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add(GALAXY_AGE_OLD);
         return list;
     }
-    @Override
-    public List<String> gameDifficultyOptions() {
+    public static List<String> getGameDifficultyOptions() {
         List<String> list = new ArrayList<>();
         list.add(DIFFICULTY_EASIEST);
         list.add(DIFFICULTY_EASIER);
@@ -1030,6 +1033,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add(DIFFICULTY_CUSTOM);
         return list;
     }
+    @Override
+    public List<String> gameDifficultyOptions() { return getGameDifficultyOptions(); }
     @Override
     public List<String> researchRateOptions() {
         List<String> list = new ArrayList<>();

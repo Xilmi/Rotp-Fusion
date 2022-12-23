@@ -20,12 +20,14 @@ import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.util.LinkedList;
+import java.util.List;
 
 import rotp.ui.RotPUI;
 
 public class ParamList extends AbstractParam<String> {
 
 	private final IndexableMap valueLabelMap;
+	private boolean isDuplicate = false;
 	
 	// ===== Constructors =====
 	//
@@ -41,38 +43,52 @@ public class ParamList extends AbstractParam<String> {
 	/**
 	 * @param gui  The label header
 	 * @param name The name
-	 * @param defaultCfgLabel The default CfgLabel
 	 * @param list keys for map table
+	 * @param defaultIndex The label Header
 	 */
-	public ParamList(String gui, String name, String defaultCfgLabel, LinkedList<String> list, String mid) {
-		super(gui, name, defaultCfgLabel);
+	public ParamList(String gui, String name, List<String> list, int defaultIndex) {
+		super(gui, name, list.get(defaultIndex));
+		isDuplicate = true;
 		valueLabelMap = new IndexableMap();
 		for (String element : list)
-			put(element, mid + element.toUpperCase());
+			put(element, element);
 	}
+//	/**
+//	 * @param gui  The label header
+//	 * @param name The name
+//	 * @param defaultCfgLabel The default CfgLabel
+//	 * @param list keys for map table
+//	 * @param header The label Header
+//	 */
+//	public ParamList(String gui, String name, String defaultCfgLabel, LinkedList<String> list, String mid) {
+//		super(gui, name, defaultCfgLabel);
+//		valueLabelMap = new IndexableMap();
+//		for (String element : list)
+//			put(element, mid + element.toUpperCase());
+//	}
 	/**
 	 * @param gui  The label header
 	 * @param name The name
 	 * @param defaultCfgLabel The default CfgLabel
 	 * @param optionLabelMap  existing IndexableMap
 	 */
-	public ParamList(String gui, String name, String defaultCfgLabel, IndexableMap optionLabelMap) {
+	ParamList(String gui, String name, String defaultCfgLabel, IndexableMap optionLabelMap) {
 		super(gui, name, defaultCfgLabel);
 		this.valueLabelMap = optionLabelMap;
 	}
 	// ===== Overriders =====
 	//
 	@Override protected String getCfgValue(String value) {
-		return validateKey(value);
+		return validateValue(value);
 	}
 	@Override public String getGuiValue() {
-		return text(valueLabelMap.getLangLabelFromCfgValue(validateKey(get())));
+		return text(valueLabelMap.getLangLabelFromValue(validateValue(get())));
 	}
 	@Override public void next() {
-		set(valueLabelMap.getNextCfgLabelIgnoreCase(get()));
+		set(valueLabelMap.getNextLangLabelIgnoreCase(get()));
 	}
 	@Override public void prev() {
-		set(valueLabelMap.getPrevCfgLabelIgnoreCase(get())); 
+		set(valueLabelMap.getPrevValueIgnoreCase(get())); 
 	}
 	@Override public void toggle(MouseWheelEvent e) {
 		if (getDir(e) > 0)
@@ -90,14 +106,14 @@ public class ParamList extends AbstractParam<String> {
 		else 
 			prev();
 	}
-	@Override public void setFromCfgValue(String newCfgLabel) {
-		super.set(validateKey(newCfgLabel));
+	@Override public void setFromCfgValue(String newCfgValue) {
+		super.set(validateValue(newCfgValue));
 	}
 	@Override public String set(String newCfgLabel) {
 		return super.set(newCfgLabel);
 	}
 	@Override public int getIndex(){
-		return valueLabelMap.getCfgLabelIndexIgnoreCase(get());
+		return valueLabelMap.getValueIndexIgnoreCase(get());
 	}
 	@Override public String setFromIndex(int idx) {
 		return super.set(value(valueLabelMap.getCfgValue(idx)));
@@ -108,18 +124,25 @@ public class ParamList extends AbstractParam<String> {
 	// ===== Other Protected Methods =====
 	//
 	protected int getIndex(String value) {
-		return valueLabelMap.getCfgLabelIndexIgnoreCase(value);
+		return valueLabelMap.getValueIndexIgnoreCase(value);
 	}
-	protected void setFromValue(String newValue) {
-		String newCfgLabel = valueLabelMap.getCfgLabelFromValue(newValue);
-		super.set(newCfgLabel);
+	protected String getLangLabelFromValue(String newValue) {
+		String newLangLabel = valueLabelMap.getLangLabelFromValue(newValue);
+//		super.set(newLangLabel);
+		return newLangLabel;
 	}
-	protected String getValue() {
-		return valueLabelMap.getLangLabelFromCfgValue(validateKey(get()));
+	protected String getValueFromLangLabel(String langLabel) {
+		String newValue = valueLabelMap.getValueFromLangLabel(langLabel);		
+		return newValue;
 	}
 	// ===== Other Public Methods =====
 	//
-	public String setFromList(Component parent) { // TODO BR: Validate setFromList()
+	public void initDuplicate() {// TODO BR: Validate initDuplicate()
+		int idx = getIndex(defaultValue());
+		valueLabelMap.initDuplicate();
+		defaultValue(valueLabelMap.cfgValueList.get(idx));
+	}
+	private void setFromList(Component parent) { // TODO BR: Validate setFromList()
 		String message	= "<html>" + getGuiDescription() + "</html>";
 		String title	= text(labelId(), "");
 		String[] list	= valueLabelMap.cfgValueList.toArray(
@@ -134,16 +157,17 @@ public class ParamList extends AbstractParam<String> {
 				null, null);	// Font, Preview
 		if (input != null)
 			set(input);
-		return get();
 	}
 	public LinkedList<String> getOptions() {
 		LinkedList<String> list = new LinkedList<String>();
-		list.addAll(valueLabelMap.cfgValueList);
+//		if (isDuplicate)
+//			for (String label : valueLabelMap.langLabelList)
+//				list.add(text(label));
+//		else
+			list.addAll(valueLabelMap.cfgValueList);
 		return list;
 	}
-	public IndexableMap getOptionLabelMap() {
-		return valueLabelMap;
-	}
+	public IndexableMap getOptionLabelMap() { return valueLabelMap; }
 	/**
 	 * Add a new Option with its Label
 	 * @param option
@@ -159,10 +183,10 @@ public class ParamList extends AbstractParam<String> {
 	 * @param key the entry to check
 	 * @return a valid value, preferably the value to test
 	 */
-	private String validateKey(String key) {
-		if (valueLabelMap.cfgValuesContainsIgnoreCase(key))
+	private String validateValue(String key) {
+		if (valueLabelMap.valuesContainsIgnoreCase(key))
 			return key;
-		if (valueLabelMap.cfgValuesContainsIgnoreCase(defaultValue()))
+		if (valueLabelMap.valuesContainsIgnoreCase(defaultValue()))
 			return defaultValue();
 		return valueLabelMap.getCfgValue(0);
 	}
@@ -178,15 +202,20 @@ public class ParamList extends AbstractParam<String> {
 		//
 		public IndexableMap() {}
 		
-		public IndexableMap(IndexableMap map) {
-			cfgValueList.addAll(map.cfgValueList);
-			langLabelList.addAll(map.langLabelList);
-		}
+//		public IndexableMap(IndexableMap map) {
+//			cfgValueList.addAll(map.cfgValueList);
+//			langLabelList.addAll(map.langLabelList);
+//		}
 		// ========== Setters ==========
 		//
-		public void put(String key, String value) {
-			cfgValueList.add(key);
-			langLabelList.add(value);
+		public void put(String option, String label) {
+			cfgValueList.add(option);
+			langLabelList.add(label);
+		}
+		void initDuplicate() {// TODO BR: Validate initDuplicate()
+			cfgValueList.clear();
+			for (String label : langLabelList)
+				cfgValueList.add(text(label));
 		}
 		// ========== Getters ==========
 		//
@@ -196,94 +225,94 @@ public class ParamList extends AbstractParam<String> {
 		private String getLangLabel(int idx) {
 			return langLabelList.get(idx);
 		}
-		private String getCfgLabelFromValue(String value) {
+		private String getLangLabelFromValue(String value) {
 			int index = getValueIndexIgnoreCase(value);
-			return cfgValueList.get(index);
-		}
-		/**
-		 * get the value from the cfgLabel
-		 * @param cfgLabel The cfgLabel to search
-		 * @return the corresponding value
-		 */
-		private String getLangLabelFromCfgValue(String cfgValue) {
-			int index = getCfgLabelIndexIgnoreCase(cfgValue);
 			return langLabelList.get(index);
 		}
 		/**
-		 * search for cfgValue regardless of the case and return the previous key
-		 * @param cfgValue The cfgValue to search
-		 * @return the previous cfgValue, looping at the beginning, the last if string is not found
+		 * get the value from the langLabel
+		 * @param langLabel The langLabel to search
+		 * @return the corresponding value
 		 */
-		private String getPrevCfgLabelIgnoreCase(String cfgValue) {
-			int index = getCfgLabelIndexIgnoreCase(cfgValue)-1;
+		private String getValueFromLangLabel(String langLabel) {
+			int index = getLangLabelIndexIgnoreCase(langLabel);
+			return cfgValueList.get(index);
+		}
+		/**
+		 * search for value regardless of the case and return the previous key
+		 * @param value The value to search
+		 * @return the previous value, looping at the beginning, the last if string is not found
+		 */
+		private String getPrevValueIgnoreCase(String value) {
+			int index = getValueIndexIgnoreCase(value)-1;
 			if (index < 0)
 				return cfgValueList.get(cfgValueList.size()-1);
 			return cfgValueList.get(index);
 		}
 		/**
-		 * search for cfgValue regardless of the case and return the next key
-		 * @param cfgValue The cfgValue to search
-		 * @return the next cfgValue, looping at the end, the first if string is not found
+		 * search for value regardless of the case and return the next key
+		 * @param value The value to search
+		 * @return the next value, looping at the end, the first if string is not found
 		 */
-		private String getNextCfgLabelIgnoreCase(String cfgValue) {
-			int index = getCfgLabelIndexIgnoreCase(cfgValue) + 1;
+		private String getNextLangLabelIgnoreCase(String value) {
+			int index = getValueIndexIgnoreCase(value) + 1;
 			if (index >= cfgValueList.size())
 				return cfgValueList.get(0);
 			return cfgValueList.get(index);
 		}
 		/**
-		 * Test if cfgValue is part of cfgValue list regardless of the case
-		 * @param cfgValue The key to search for
-		 * @return true if cfgValue is found
+		 * Test if value is part of cfgValue list regardless of the case
+		 * @param value The key to search for
+		 * @return true if value is found
 		 */
-		private boolean cfgValuesContainsIgnoreCase(String cfgValue) {
-			return getCfgLabelIndexIgnoreCase(cfgValue) != -1;
+		private boolean valuesContainsIgnoreCase(String value) {
+			return getValueIndexIgnoreCase(value) != -1;
 		}
 		/**
-		 * search for the cfgValue position in the cfgValue list
-		 * @param cfgValue The cfgValue to search regardless of the case
-		 * @return the cfgValue index, -1 if none
-		 */
-		private int getCfgLabelIndexIgnoreCase(String cfgValue) {
-			int index = 0;
-			for (String entry : cfgValueList) {
-				if (entry.equalsIgnoreCase(cfgValue))
-					return index;
-				index++;
-			}
-			return -1;
-		}
-		/**
-		 * search for the value position in the value list
-		 * @param value The label to search regardless of the case
-		 * @return the key index, -1 if none
+		 * search for the value position in the cfgValue list
+		 * @param value The value to search regardless of the case
+		 * @return the value index, -1 if none
 		 */
 		private int getValueIndexIgnoreCase(String value) {
 			int index = 0;
-			for (String entry : langLabelList) {
+			for (String entry : cfgValueList) {
 				if (entry.equalsIgnoreCase(value))
 					return index;
 				index++;
 			}
 			return -1;
 		}
-	}
-	/**
-	 * Test if a {@code List<String>} contains a {@code String}
-	 * the case not being important
-	 * @param list	  the containing {@code List<String>}
-	 * @param element   the contained {@code String}
-	 * @return true if the conditions are verified
-	 */
-	public static Boolean containsIgnoreCase(Iterable<String> set, String element) {
-		if (set == null || element == null) {
-			return false;
-		}
-		for (String entry : set) {
-			if (entry.equalsIgnoreCase(element)) {
-				return true;
+		/**
+		 * search for the langLabel position in the langLabel list
+		 * @param langLabel The label to search regardless of the case
+		 * @return the key index, -1 if none
+		 */
+		private int getLangLabelIndexIgnoreCase(String langLabel) {
+			int index = 0;
+			for (String entry : langLabelList) {
+				if (entry.equalsIgnoreCase(langLabel))
+					return index;
+				index++;
 			}
+			return -1;
 		}
-		return false;
 	}
+//	/**
+//	 * Test if a {@code List<String>} contains a {@code String}
+//	 * the case not being important
+//	 * @param list	  the containing {@code List<String>}
+//	 * @param element   the contained {@code String}
+//	 * @return true if the conditions are verified
+//	 */
+//	public static Boolean containsIgnoreCase(Iterable<String> set, String element) {
+//		if (set == null || element == null) {
+//			return false;
+//		}
+//		for (String entry : set) {
+//			if (entry.equalsIgnoreCase(element)) {
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
 }

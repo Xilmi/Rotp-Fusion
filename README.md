@@ -25,8 +25,13 @@ Community subreddit: https://www.reddit.com/r/rotp/<br/>
 Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
-2022.12.21 (BR)
-  - Ctrl-Click on mod options with a list activate a selection panel.
+2022.12.22 (BR)
+  - Option List Selection Panel Activation with "Ctrl-Click"
+    - On mod menu options list.
+    - On Ship set selection.
+    - On galaxy shape selection.
+    - On Galaxy size selection.
+    - On Difficulty selection.
 
 2022.12.21 (BR)
   - BitmapGalaxy: The last valid image folder is now saved and will be used if the current choice is not valid.

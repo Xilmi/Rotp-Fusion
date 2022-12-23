@@ -110,7 +110,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	@Override public String getCfgLabel() { return name; }
 	@Override public String getGuiDescription() { return text(descriptionId()); }
 	@Override public String getGuiDisplay()	{ return text(labelId(), getGuiValue()) + END; }
-	@Override public void setFromDefault()	{ value = defaultValue(); }
+	@Override public void setFromDefault()	{ set(defaultValue()); }
 	@Override public void toggle(MouseEvent e, MouseWheelEvent w) {
 		if (e == null)
 			toggle(w);
@@ -120,7 +120,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	@Override public void setPanel(BaseModPanel p) { panel = p; }
 	// ========== Methods to be overridden ==========
 	//
-	T value(T value) 		{ this.value = value; return value;}
+	T value(T value) 		{ return set(value); }
 	public int getIndex()	{ return 0; }
 	public T defaultValue()	{ return defaultValue; }
 	public T get()			{ return value; }	
@@ -148,6 +148,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	private String descriptionId()	{ return labelId() + LABEL_DESCRIPTION; }
 	// ========== Protected Methods ==========
 	//
+	protected void defaultValue(T newValue)	{ defaultValue = newValue; }
 	protected BasePanel getPanel() { return panel; }
 	protected boolean hasPanel() { return panel != null; }
 	protected T getInc(MouseEvent e) {
