@@ -839,12 +839,16 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			}
 			if (newGameOptions().numGalaxyShapeOption2() > 0) {
 				if (isShapeBitmapGalaxy()) {
+					Font prevFont = g.getFont();
 					String label3 = getNameFromPath(shapeOption3.get());
 					if (label3.equals(shapeOption3.defaultValue()))
 						label3 = text(NO_SELECTION);
+			        int fs  = scaledFont(g, label3, mapOption3Box.width, 15, 10);
 					int sw2 = g.getFontMetrics().stringWidth(label3);
+					g.setFont(narrowFont(fs));
 					int x5e =mapOption3Box.x+((mapOption3Box.width-sw2)/2);
 					drawString(g,label3, x5e, y5+s40);
+					g.setFont(prevFont);
 				}
 				String label2 = text(newGameOptions().selectedGalaxyShapeOption2());
 				int sw2 = g.getFontMetrics().stringWidth(label2);
@@ -1727,7 +1731,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		mapOption3Box.setBounds(0,0,0,0);
 		if (newGameOptions().numGalaxyShapeOption2() > 0) {
 			if (this.isShapeBitmapGalaxy()) {
-				mapOption3Box.setBounds(sliderX+sectionW, sliderYAI+s40, sliderW+sectionW, sliderH);
+				mapOption3Box.setBounds(sliderX+sectionW-s13, sliderYAI+s40, sliderW+sectionW+s26, sliderH);
 				g.fill(mapOption3Box);
 			}
 			mapOption2BoxL.addPoint(sliderX-s4,sliderYAI+s1+s40);

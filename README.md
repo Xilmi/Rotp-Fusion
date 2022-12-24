@@ -27,6 +27,11 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 ## What's New
 
 2022.12.23 (BR)
+  - BitmapGalaxy filename Box:
+    - Increased width.
+    - Uses scalable font to fit.
+
+2022.12.23 (BR)
   - Option List Selection Panel: Fixed Bug with redundant values (Galaxy size).
   - BitmapGalaxy not selected: Fixed FileName box not totally hidden.
   - Option List Selection Panel Activation with "Ctrl-Click"
