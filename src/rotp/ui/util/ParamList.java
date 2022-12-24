@@ -22,7 +22,7 @@ import java.awt.event.MouseWheelEvent;
 import java.util.LinkedList;
 import java.util.List;
 
-import rotp.model.game.IGameOptions;
+import rotp.model.game.DynamicOptions;
 import rotp.ui.RotPUI;
 
 public class ParamList extends AbstractParam<String> {
@@ -110,7 +110,29 @@ public class ParamList extends AbstractParam<String> {
 	public void reInit() {}
 	public void setOption(String option) {}
 	public String getFromOption() { return null; }
-	
+	// ===== For duplicates special =====
+	@Override public String get() {
+		if (isDuplicate) {
+			super.set(getFromOption());
+		}
+		return super.get();
+	}
+	@Override public void setOptions(DynamicOptions options) {
+		if (!isDuplicate)
+			super.setOptions(options);
+	}
+	@Override public void setFromOptions(DynamicOptions options) {
+		if (!isDuplicate)
+			super.setFromOptions(options);
+	}
+//	@Override public void setFromDefault() {
+//		if (!isDuplicate)
+//			super.setFromDefault();
+//	}
+	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
+		if (!isDuplicate)
+			super.copyOption(src, dest);
+	}	
 	// ===== Overriders =====
 	//
 	@Override protected String getCfgValue(String value) {
@@ -147,12 +169,6 @@ public class ParamList extends AbstractParam<String> {
 	@Override public String set(String newValue) {
 		setOption(newValue);
 		return super.set(newValue);
-	}
-	@Override public String get() {
-		if (isDuplicate) {
-			super.set(getFromOption());
-		}
-		return super.get();
 	}
 	@Override public int getIndex(){
 		return valueLabelMap.getValueIndexIgnoreCase(get());

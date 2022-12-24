@@ -30,6 +30,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
   - BitmapGalaxy filename Box:
     - Increased width.
     - Uses scalable font to fit.
+  - Fixed Fusion Font size being wrong sometime.
 
 2022.12.23 (BR)
   - Option List Selection Panel: Fixed Bug with redundant values (Galaxy size).

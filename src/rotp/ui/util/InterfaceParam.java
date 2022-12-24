@@ -19,7 +19,7 @@ package rotp.ui.util;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
-import rotp.ui.BaseModPanel;
+import rotp.ui.game.BaseModPanel;
 
 public interface InterfaceParam extends InterfaceOptions{
 	public static final String LABEL_DESCRIPTION = "_DESC";

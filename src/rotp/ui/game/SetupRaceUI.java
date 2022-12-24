@@ -50,7 +50,6 @@ import rotp.mod.br.profiles.Profiles;
 import rotp.model.empires.Race;
 import rotp.model.ships.ShipImage;
 import rotp.model.ships.ShipLibrary;
-import rotp.ui.BaseModPanel;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;

@@ -47,7 +47,6 @@ public enum FontManager implements Base {
     public void resetGalaxyFont() { galaxyFont = null; }
     @Override public Font galaxyFont(int size) { // BR: MonoSpaced font for Galaxy
     	if (galaxyFont == null) {
-           	System.out.println("galaxyFont was null");
     		Map<TextAttribute, Object> attributes = new HashMap<TextAttribute, Object>();
     		attributes.put(TextAttribute.TRACKING, -0.15);
     		if (useFusionFont.get())
@@ -55,20 +54,7 @@ public enum FontManager implements Base {
     		else
     			galaxyFont = loadMonoFont(15).deriveFont(attributes);
     	}
-       	System.out.println("size = " + size);
-      	System.out.println("galaxyFont.getFontName() = " + galaxyFont.getFontName());
-     	System.out.println("galaxyFont.getSize() = " + galaxyFont.getSize());
-     	System.out.println("galaxyFont.getSize2D() = " + galaxyFont.getSize2D());
-     	System.out.println("galaxyFont.isTransformed() = " + galaxyFont.isTransformed());
-     	System.out.println("galaxyFont.getStyle() = " + galaxyFont.getStyle());
     	Font font = galaxyFont.deriveFont((float) size);
-		if (useFusionFont.get())
-			font = galaxyFont.deriveFont((float) size/2);
-		else
-			font = galaxyFont.deriveFont((float) size);
-    	
-    	System.out.println("font.getSize() = " + font.getSize());
-    	System.out.println("galaxyFont.getSize() = " + galaxyFont.getSize());
     	return font;
     }
     @Override

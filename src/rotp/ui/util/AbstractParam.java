@@ -24,8 +24,8 @@ import java.awt.event.MouseWheelEvent;
 import javax.swing.SwingUtilities;
 
 import rotp.model.game.DynamicOptions;
-import rotp.ui.BaseModPanel;
 import rotp.ui.BasePanel;
+import rotp.ui.game.BaseModPanel;
 import rotp.util.LabelManager;
 
 public abstract class AbstractParam <T> implements InterfaceParam{

@@ -36,7 +36,6 @@ import java.util.List;
 import javax.swing.SwingUtilities;
 
 import rotp.mod.br.profiles.Profiles;
-import rotp.ui.BaseModPanel;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.RotPUI;

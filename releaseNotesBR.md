@@ -8,6 +8,8 @@ Only a little update:
     - On galaxy shape options selection.
     - On Galaxy size selection.
     - On Difficulty selection.
-- BitmapGalaxy not selected: Fixed FileName box not totally hidden.
+- Some little fix
+  - BitmapGalaxy not selected: Fixed FileName box not totally hidden.
+  - Fixed Fusion Font size being wrong sometime.
 
 More to be done soon.

@@ -17,7 +17,6 @@ package rotp.ui.game;
 
 import static rotp.ui.UserPreferences.modGlobalOptionsUI;
 import static rotp.ui.UserPreferences.rowCountList;
-import rotp.ui.util.AbstractOptionsUI;
 
 public class ModGlobalOptionsUI extends AbstractOptionsUI {
 	private static final long serialVersionUID = 1L;

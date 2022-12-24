@@ -262,13 +262,12 @@ public class UserPreferences {
 	public static final ParamBoolean showTooltips = new ParamBoolean(
 			MOD_UI, "SHOW_TOOLTIPS", true);
 	public static final ParamBoolean useFusionFont = new ParamBoolean(
-			MOD_UI, "USE_FUSION_FONT", false)
-		{
-			@Override public Boolean set(Boolean newValue) {
-				FontManager.INSTANCE.resetGalaxyFont();
-				return super.set(newValue);
-			}
-		};
+			MOD_UI, "USE_FUSION_FONT", false) {
+		@Override public Boolean set(Boolean newValue) {
+			FontManager.INSTANCE.resetGalaxyFont();
+			return super.set(newValue);
+		}
+	};
 	public static final ParamBoolean showNextCouncil = new ParamBoolean(
 			MOD_UI, "SHOW_NEXT_COUNCIL", false);
 	public static final ParamInteger galaxyPreviewColorStarsSize = new ParamInteger(

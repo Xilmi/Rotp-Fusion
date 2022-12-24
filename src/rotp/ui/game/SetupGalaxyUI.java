@@ -98,7 +98,6 @@ import rotp.model.galaxy.GalaxyShape;
 import rotp.model.galaxy.GalaxyShape.EmpireSystem;
 import rotp.model.game.GameSession;
 import rotp.model.game.IGameOptions;
-import rotp.ui.BaseModPanel;
 import rotp.ui.NoticeMessage;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
@@ -126,43 +125,43 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	private Rectangle modASettingsBox		= new Rectangle(); // modnar: add UI panel for modnar MOD game options
 	private Rectangle modBSettingsBox		= new Rectangle(); // BR: Second UI panel for MOD game options
 	private Rectangle globalModSettingsBox	= new Rectangle(); // BR: Display UI panel for MOD game options
-	private Rectangle backBox		= new Rectangle();
-	private Rectangle startBox		= new Rectangle();
-	private Rectangle settingsBox	= new Rectangle();
-	private Rectangle newRacesBox	= new Rectangle(); // BR:
-	private Rectangle showAbilityBox= new Rectangle(); // BR:
-	private Rectangle shapeBox		= new Rectangle();
-	private Polygon shapeBoxL		= new Polygon();
-	private Polygon shapeBoxR		= new Polygon();
-	private Rectangle mapOption1Box	= new Rectangle();
-	private Polygon mapOption1BoxL	= new Polygon();
-	private Polygon mapOption1BoxR	= new Polygon();			 
-	private Rectangle mapOption2Box	= new Rectangle();
-	private Polygon mapOption2BoxL	= new Polygon();
-	private Polygon mapOption2BoxR	= new Polygon();			 
-	private Rectangle mapOption3Box	= new Rectangle(); // BR:
-	private Rectangle sizeOptionBox	= new Rectangle(); // BR:
-	private Polygon sizeOptionBoxL	= new Polygon();   // BR:
-	private Polygon sizeOptionBoxR	= new Polygon();   // BR:
+	private Rectangle backBox			= new Rectangle();
+	private Rectangle startBox			= new Rectangle();
+	private Rectangle settingsBox		= new Rectangle();
+	private Rectangle newRacesBox		= new Rectangle(); // BR:
+	private Rectangle showAbilityBox	= new Rectangle(); // BR:
+	private Rectangle shapeBox			= new Rectangle();
+	private Polygon   shapeBoxL			= new Polygon();
+	private Polygon   shapeBoxR			= new Polygon();
+	private Rectangle mapOption1Box		= new Rectangle();
+	private Polygon   mapOption1BoxL	= new Polygon();
+	private Polygon   mapOption1BoxR	= new Polygon();			 
+	private Rectangle mapOption2Box		= new Rectangle();
+	private Polygon   mapOption2BoxL	= new Polygon();
+	private Polygon   mapOption2BoxR	= new Polygon();			 
+	private Rectangle mapOption3Box		= new Rectangle(); // BR:
+	private Rectangle sizeOptionBox		= new Rectangle(); // BR:
+	private Polygon   sizeOptionBoxL	= new Polygon();   // BR:
+	private Polygon   sizeOptionBoxR	= new Polygon();   // BR:
 	private Rectangle sizeBox	= new Rectangle();
-	private Polygon sizeBoxL	= new Polygon();
-	private Polygon sizeBoxR	= new Polygon();
+	private Polygon   sizeBoxL	= new Polygon();
+	private Polygon   sizeBoxR	= new Polygon();
 	private Rectangle diffBox	= new Rectangle();
-	private Polygon diffBoxL	= new Polygon();
-	private Polygon diffBoxR	= new Polygon();
+	private Polygon   diffBoxL	= new Polygon();
+	private Polygon   diffBoxR	= new Polygon();
 	private Rectangle oppBox	= new Rectangle();
-	private Polygon  oppBoxU	= new Polygon();
-	private Polygon oppBoxD		= new Polygon();
+	private Polygon   oppBoxU	= new Polygon();
+	private Polygon   oppBoxD	= new Polygon();
 	private Rectangle aiBox		= new Rectangle();
-	private Polygon  aiBoxL		= new Polygon();
-	private Polygon aiBoxR		= new Polygon();
+	private Polygon   aiBoxL	= new Polygon();
+	private Polygon	  aiBoxR	= new Polygon();
 	private Rectangle crBox		= new Rectangle(); // dataRace selection
-	private Polygon  crBoxL		= new Polygon(); // BR:
-	private Polygon crBoxR		= new Polygon(); // BR:
+	private Polygon   crBoxL	= new Polygon(); // BR:
+	private Polygon   crBoxR	= new Polygon(); // BR:
 
-	private Rectangle[] oppSet = new Rectangle[MAX_DISPLAY_OPPS];
-	private Rectangle[] oppAI = new Rectangle[MAX_DISPLAY_OPPS];
-	private Rectangle[] oppCR = new Rectangle[MAX_DISPLAY_OPPS]; // BR: dataRace selection
+	private Rectangle[] oppSet	= new Rectangle[MAX_DISPLAY_OPPS];
+	private Rectangle[] oppAI	= new Rectangle[MAX_DISPLAY_OPPS];
+	private Rectangle[] oppCR	= new Rectangle[MAX_DISPLAY_OPPS]; // BR: dataRace selection
 
 	private Shape hoverBox;
 	private boolean starting = false;
@@ -172,23 +171,19 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	private String[] globalAbilitiesList; 
 	private String[] galaxyTextList;
     private Font dialogMonoFont;
-    private int dialogMonoFontSize = 20;
+    private int  dialogMonoFontSize = 20;
     private Font boxMonoFont;
-    private int boxMonoFontSize = 15;
+    private int  boxMonoFontSize  = 15;
     private boolean initDuplicate = true;
     
  	private Font boxMonoFont() {
-    	if (boxMonoFont == null) {
-    		System.out.println("boxMonoFont was null");
+    	if (boxMonoFont == null)
     		boxMonoFont = galaxyFont(scaled(boxMonoFontSize));
-    	}
     	return boxMonoFont;
     }
 	private Font dialogMonoFont() {
-    	if (dialogMonoFont == null) {
-    		System.out.println("boxMonoFont was null");
+    	if (dialogMonoFont == null)
     		dialogMonoFont = galaxyFont(scaled(dialogMonoFontSize));
-    	}
     	return dialogMonoFont;
     }
 	public SetupGalaxyUI() {
@@ -256,7 +251,6 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		shapeOption1.setPanel(null);
 		shapeOption2.setPanel(null);
 		backImg = null;
-		System.out.println("boxMonoFont and dialogMonoFont are set null");
 		playerRaceImg  = null;
 		boxMonoFont    = null;
 		dialogMonoFont = null;
@@ -824,7 +818,6 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			if (isShapeTextGalaxy()) {
 				String label1 = newGameOptions().selectedGalaxyShapeOption1();
 				Font prevFont = g.getFont();
-				System.out.println("PaintComponent calls boxMonoFont");
 				g.setFont(boxMonoFont());
 				int sw1 = g.getFontMetrics().stringWidth(label1);
 				int x5d = mapOption1Box.x+((mapOption1Box.width-sw1)/2);

@@ -36,7 +36,6 @@ import java.util.List;
 import rotp.model.empires.CustomRaceDefinitions;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.MOO1GameOptions;
-import rotp.ui.BaseModPanel;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.RotPUI;
