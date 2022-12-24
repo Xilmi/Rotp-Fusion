@@ -81,7 +81,7 @@ public class UserPreferences {
 	public  static final String LIVE_OPTIONS_FILE = "Live.options";
 	public  static final String USER_OPTIONS_FILE = "User.options";
 	public  static final String GALAXY_TEXT_FILE  = "Galaxy.txt";
-	private static final int MAX_BACKUP_TURNS = 20; // modnar: change max turns between backups to 20
+	private static final int    MAX_BACKUP_TURNS  = 20; // modnar: change max turns between backups to 20
 	private static final String keyFormat = "%-25s: "; // BR: from 20 to 25 for a better alignment
 
 	// BR common for All MOD entries
@@ -156,8 +156,7 @@ public class UserPreferences {
 	public static final ParamFloat counciRequiredPct	= new ParamFloat(
 			MOD_UI, "COUNCIL_REQUIRED_PCT"
 			, GalacticCouncil.PCT_REQUIRED
-			, 0f, 0.99f, 0.01f/3f, 0.02f, 0.1f, "0.0##", "‰")
-		{
+			, 0f, 0.99f, 0.01f/3f, 0.02f, 0.1f, "0.0##", "‰") {
 		@Override public Float set(Float newValue) {
 			GalacticCouncil.PCT_REQUIRED = newValue;
 			return super.set(newValue);
@@ -165,13 +164,12 @@ public class UserPreferences {
 	};
 	public static final ParamInteger eventsStartTurn	= new ParamInteger(
 			MOD_UI, "EVENTS_STARS_TURN"
-			, RandomEvents.START_TURN, 1, null, 1, 5, 20)
-		{
-			@Override public Integer set(Integer newValue) {
-				RandomEvents.START_TURN = newValue;
-				return super.set(newValue);
-			}
-		};
+			, RandomEvents.START_TURN, 1, null, 1, 5, 20) {
+		@Override public Integer set(Integer newValue) {
+			RandomEvents.START_TURN = newValue;
+			return super.set(newValue);
+		}
+	};
 	public static final ParamTech techIrradiated = new 
 			ParamTech("TECH_IRRADIATED",	3, "ControlEnvironment",6); // level 18
 	public static final ParamTech techCloaking	 = new 
@@ -336,6 +334,23 @@ public class UserPreferences {
 		}
 		@Override public void setOption(String newValue) {
 			RotPUI.newOptions().selectedGameDifficulty(newValue);
+		}
+	};
+	public static final ParamInteger aliensNumber = new ParamInteger( // Duplicate Do not add the list
+			BASE_UI, "ALIENS_NUMBER", 1, 0, 49, 1, 5, 20, true) {
+		@Override public Integer getFromOption() {
+			maxValue(RotPUI.newOptions().maximumOpponentsOptions());
+			return RotPUI.newOptions().selectedNumberOpponents();
+		}
+		@Override public void setOption(Integer newValue) {
+			RotPUI.newOptions().selectedOpponentRace(newValue, null);
+			RotPUI.newOptions().selectedNumberOpponents(newValue);
+		}
+		@Override public Integer defaultValue() {
+			int defaultValue = Math.min(RotPUI.newOptions().maximumOpponentsOptions(),
+					RotPUI.newOptions().numberStarSystems() / prefStarsPerEmpire.get() -1);
+			defaultValue(defaultValue); // TODO BR: Validate this line, may be useless... or worst
+			return defaultValue;
 		}
 	};
 	

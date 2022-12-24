@@ -27,25 +27,25 @@ public class ParamInteger extends AbstractParam<Integer> {
 
 	// ========== constructors ==========
 	//
-	/**
-	 * @param gui  The label header
-	 * @param name The name
-	 * @param defaultvalue The default value
-	 */
-	public ParamInteger(String gui, String name, Integer defaultValue) {
-		super(gui, name, defaultValue, null, null, 1, 1, 1);
-	}
-	/**
-	 * @param gui  The label header
-	 * @param name The name
-	 * @param defaultvalue The default value
-	 * @param minValue The minimum value (null = none)
-	 * @param maxValue The maximum value (null = none)
-	 */
-	public ParamInteger(String gui, String name, Integer defaultValue
-			, Integer minValue, Integer maxValue) {
-		super(gui, name, defaultValue, minValue, maxValue, 1, 1, 1);
-	}
+//	/**
+//	 * @param gui  The label header
+//	 * @param name The name
+//	 * @param defaultvalue The default value
+//	 */
+//	public ParamInteger(String gui, String name, Integer defaultValue) {
+//		super(gui, name, defaultValue, null, null, 1, 1, 1);
+//	}
+//	/**
+//	 * @param gui  The label header
+//	 * @param name The name
+//	 * @param defaultvalue The default value
+//	 * @param minValue The minimum value (null = none)
+//	 * @param maxValue The maximum value (null = none)
+//	 */
+//	public ParamInteger(String gui, String name, Integer defaultValue
+//			, Integer minValue, Integer maxValue) {
+//		super(gui, name, defaultValue, minValue, maxValue, 1, 1, 1);
+//	}
 	/**
 	 * @param gui  The label header
 	 * @param name The name
@@ -68,6 +68,24 @@ public class ParamInteger extends AbstractParam<Integer> {
 	 * @param baseInc  The base increment
 	 * @param shiftInc The increment when Shift is hold
 	 * @param ctrlInc  The increment when Ctrl is hold
+	 * @param isDuplicate  If is base option duplicate
+	 */
+	public ParamInteger(String gui, String name, Integer defaultValue
+			, Integer minValue, Integer maxValue
+			, Integer baseInc, Integer shiftInc
+			, Integer ctrlInc, boolean isDuplicate) {
+		super(gui, name, defaultValue, minValue, maxValue, baseInc, shiftInc, ctrlInc);
+		isDuplicate(isDuplicate);
+	}
+	/**
+	 * @param gui  The label header
+	 * @param name The name
+	 * @param defaultvalue The default value
+	 * @param minValue The minimum value (null = none)
+	 * @param maxValue The maximum value (null = none)
+	 * @param baseInc  The base increment
+	 * @param shiftInc The increment when Shift is hold
+	 * @param ctrlInc  The increment when Ctrl is hold
 	 */
 	public ParamInteger(String gui, String name, Integer defaultValue
 			, Integer minValue, Integer maxValue
@@ -77,25 +95,30 @@ public class ParamInteger extends AbstractParam<Integer> {
 
 	// ===== Overriders =====
 	//
-	@Override public void setFromCfgValue(String newValue) { set(stringToInteger(newValue)); }	
+	@Override public void setFromCfgValue(String newValue) {
+		if (!isDuplicate())
+			set(stringToInteger(newValue));
+	}	
 	@Override public void prev()					{ next(-baseInc()); }
 	@Override public void next()					{ next(baseInc()); }
 	@Override public void toggle(MouseEvent e)		{ next(getInc(e) * getDir(e)); }
 	@Override public void toggle(MouseWheelEvent e)	{ next(getInc(e) * getDir(e)); }
 	@Override public void setFromOptions(DynamicOptions options) {
-		set(options.getInteger(labelId(), defaultValue()));
+		if (!isDuplicate())
+			set(options.getInteger(labelId(), defaultValue()));
 	}
 	@Override public void setOptions(DynamicOptions options) {
 		options.setInteger(labelId(), get());
 	}
 	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
-		dest.setInteger(labelId(), src.getInteger(labelId(), defaultValue()));
+		if (!isDuplicate())
+			dest.setInteger(labelId(), src.getInteger(labelId(), defaultValue()));
 	}
 	// ===== Other Methods =====
 	//
 	public void next(MouseEvent e) { next(Math.abs(getInc(e))); }
 	public void prev(MouseEvent e) { next(-Math.abs(getInc(e))); }
-	public void next(int i) {
+	private void next(int i) {
 		if (i == 0) {
 			setFromDefault();
 			return;

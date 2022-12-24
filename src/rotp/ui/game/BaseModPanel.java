@@ -56,7 +56,8 @@ public abstract class BaseModPanel extends BasePanel {
 	protected static int  smallButtonMargin, smallButtonH;
 	protected static Font smallButtonFont;
 
-	LinkedList<InterfaceParam> paramList = new LinkedList<>();
+	LinkedList<InterfaceParam> paramList     = new LinkedList<>();
+	LinkedList<InterfaceParam> duplicateList = new LinkedList<>();
 
 	//	protected Font smallButtonFont	= FontManager.current().narrowFont(20);
 	protected Rectangle defaultBox	= new Rectangle();
@@ -104,6 +105,9 @@ public abstract class BaseModPanel extends BasePanel {
 		if (paramList != null)
 			for (InterfaceParam param : paramList)
 				param.setPanel(this);
+		if (duplicateList != null)
+			for (InterfaceParam param : duplicateList)
+				param.setPanel(this);
 
 	}
 
@@ -112,7 +116,10 @@ public abstract class BaseModPanel extends BasePanel {
 		if (paramList != null)
 			for (InterfaceParam param : paramList)
 				param.setPanel(null);
-    }
+ 		if (duplicateList != null)
+			for (InterfaceParam param : duplicateList)
+				param.setPanel(null);
+   }
 
 	// ---------- Exit Button
 	protected String exitButtonKey() {

@@ -26,11 +26,13 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
-2022.12.23 (BR)
+2022.12.24 (BR)
   - BitmapGalaxy filename Box:
     - Increased width.
     - Uses scalable font to fit.
   - Fixed Fusion Font size being wrong sometime.
+  - Generalized Base Options duplicate in Abstract Param.
+  - Galaxy menu: Number of opponents: added Full Control.
 
 2022.12.23 (BR)
   - Option List Selection Panel: Fixed Bug with redundant values (Galaxy size).

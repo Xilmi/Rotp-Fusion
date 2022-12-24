@@ -8,6 +8,8 @@ Only a little update:
     - On galaxy shape options selection.
     - On Galaxy size selection.
     - On Difficulty selection.
+- Galaxy menu:
+  - Number of opponents: Added Shift & Ctrl multiple increments.
 - Some little fix
   - BitmapGalaxy not selected: Fixed FileName box not totally hidden.
   - Fixed Fusion Font size being wrong sometime.

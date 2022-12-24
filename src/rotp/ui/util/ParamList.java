@@ -22,14 +22,11 @@ import java.awt.event.MouseWheelEvent;
 import java.util.LinkedList;
 import java.util.List;
 
-import rotp.model.game.DynamicOptions;
 import rotp.ui.RotPUI;
 
 public class ParamList extends AbstractParam<String> {
 
 	private final IndexableMap valueLabelMap;
-	
-	private boolean isDuplicate = false;
 	
 	// ===== Constructors =====
 	//
@@ -74,11 +71,10 @@ public class ParamList extends AbstractParam<String> {
 	 */
 	public ParamList(String gui, String name, List<String> list, int defaultIndex) {
 		super(gui, name, list.get(defaultIndex));
-		isDuplicate = true;
+		isDuplicate(true);
 		valueLabelMap = new IndexableMap();
-		if (list != null)
-			for (String element : list)
-				put(element, element); // Temporary; needs to be further initialized
+		for (String element : list)
+			put(element, element); // Temporary; needs to be further initialized
 	}
 	/**
 	 * Initializer for Duplicate Dynamic (shape options)
@@ -87,7 +83,7 @@ public class ParamList extends AbstractParam<String> {
 	 */
 	public ParamList(String gui, String name) {
 		super(gui, name, "");
-		isDuplicate = true;
+		isDuplicate(true);
 		valueLabelMap = new IndexableMap();
 	}
 	
@@ -98,41 +94,11 @@ public class ParamList extends AbstractParam<String> {
 		valueLabelMap.initDuplicate();
 		defaultValue(valueLabelMap.cfgValueList.get(idx));
 	}
-	public void reInit(List<String> list) { // TODO BR: Validate reIinit()
+	public void reInit(List<String> list) {
 		valueLabelMap.clear();
 		for (String element : list)
 			put(element, text(element)); // "text" should now be available
 	}
-	
-	
-	
-	// ===== For duplicates to be overridden =====
-	public void reInit() {}
-	public void setOption(String option) {}
-	public String getFromOption() { return null; }
-	// ===== For duplicates special =====
-	@Override public String get() {
-		if (isDuplicate) {
-			super.set(getFromOption());
-		}
-		return super.get();
-	}
-	@Override public void setOptions(DynamicOptions options) {
-		if (!isDuplicate)
-			super.setOptions(options);
-	}
-	@Override public void setFromOptions(DynamicOptions options) {
-		if (!isDuplicate)
-			super.setFromOptions(options);
-	}
-//	@Override public void setFromDefault() {
-//		if (!isDuplicate)
-//			super.setFromDefault();
-//	}
-	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
-		if (!isDuplicate)
-			super.copyOption(src, dest);
-	}	
 	// ===== Overriders =====
 	//
 	@Override protected String getCfgValue(String value) {
@@ -166,10 +132,6 @@ public class ParamList extends AbstractParam<String> {
 	@Override public void setFromCfgValue(String newCfgValue) {
 		super.set(validateValue(newCfgValue));
 	}
-	@Override public String set(String newValue) {
-		setOption(newValue);
-		return super.set(newValue);
-	}
 	@Override public int getIndex(){
 		return valueLabelMap.getValueIndexIgnoreCase(get());
 	}
@@ -194,7 +156,7 @@ public class ParamList extends AbstractParam<String> {
 	}
 	// ===== Other Public Methods =====
 	//
-	private void setFromList(Component parent) { // TODO BR: Validate setFromList()
+	private void setFromList(Component parent) {
 		String message	= "<html>" + getGuiDescription() + "</html>";
 		String title	= text(labelId(), "");
 		String[] list	= valueLabelMap.langLabelList.toArray(   // Values and labels are swap
@@ -213,7 +175,7 @@ public class ParamList extends AbstractParam<String> {
 	}
 	public LinkedList<String> getOptions() {
 		LinkedList<String> list = new LinkedList<String>();
-		if (isDuplicate) // Values and labels are swap because values may be redundant
+		if (isDuplicate()) // Values and labels are swap because values may be redundant
 			list.addAll(valueLabelMap.langLabelList);
 		else
 			list.addAll(valueLabelMap.cfgValueList);
@@ -269,7 +231,7 @@ public class ParamList extends AbstractParam<String> {
 			cfgValueList.add(option);
 			langLabelList.add(label);
 		}
-		void initDuplicate() {// TODO BR: Validate initDuplicate()
+		void initDuplicate() {
 			langLabelList.clear(); // Values and labels are swap because values may be redundant
 			for (String label : cfgValueList)
 				langLabelList.add(text(label));

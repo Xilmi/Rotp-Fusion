@@ -29,6 +29,7 @@ import rotp.ui.game.BaseModPanel;
 import rotp.util.LabelManager;
 
 public abstract class AbstractParam <T> implements InterfaceParam{
+	// Ignore UCDetector public warning!
 	
 	private final String name;
 	private final String gui;
@@ -40,6 +41,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	private T baseInc	= null;
 	private T shiftInc	= null;
 	private T ctrlInc	= null;
+	private boolean isDuplicate = false;
 
 	// ========== constructors ==========
 	//
@@ -85,6 +87,10 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 		this.shiftInc = shiftInc;
 		this.ctrlInc  = ctrlInc;
 	}
+	// ===== For duplicates to be overridden =====
+	public void reInit() {}
+	public void setOption(T option) {}
+	public T getFromOption() { return null; }
 
 	// ========== Public Interfaces ==========
 	//
@@ -98,13 +104,16 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 		return getCfgLabel() + " = " + getCfgValue();
 	}
 	@Override public void setFromOptions(DynamicOptions options) {
-		setFromCfgValue(options.getString(labelId(), getCfgValue(defaultValue())));
+		if (!isDuplicate())
+			setFromCfgValue(options.getString(labelId(), getCfgValue(defaultValue())));
 	}
 	@Override public void setOptions(DynamicOptions options) {
-		options.setString(labelId(), getCfgValue());
+		if (!isDuplicate())
+			options.setString(labelId(), getCfgValue());
 	}
 	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
-		dest.setString(labelId(), src.getString(labelId(), getCfgValue(defaultValue())));
+		if (!isDuplicate())
+			dest.setString(labelId(), src.getString(labelId(), getCfgValue(defaultValue())));
 	}
 	@Override public String getCfgValue() { return getCfgValue(value); }
 	@Override public String getCfgLabel() { return name; }
@@ -123,7 +132,12 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	T value(T value) 		{ return set(value); }
 	public int getIndex()	{ return 0; }
 	public T defaultValue()	{ return defaultValue; }
-	public T get()			{ return value; }	
+	public T get()			{
+		if (isDuplicate()) {
+			value = getFromOption();
+		}
+		return value;
+	}	
 	public T setFromIndex(int i)		  { return null; }
 	protected String getCfgValue(T value) { return String.valueOf(value); }
 	public	  String getGuiValue()		  { return String.valueOf(value); }
@@ -138,19 +152,22 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	//
 	public T set(T newValue) {
 		value = newValue;
+		setOption(newValue);
 		return value;
 	}
 	public void maxValue (T newValue) { maxValue = newValue;}
 	public void minValue (T newValue) { minValue = newValue;}
+	public void defaultValue(T newValue) { defaultValue = newValue; }
 	// ========== Private Methods ==========
 	//
-	protected String labelId()		{ return gui + name; }
 	private String descriptionId()	{ return labelId() + LABEL_DESCRIPTION; }
 	// ========== Protected Methods ==========
 	//
-	public void defaultValue(T newValue)	{ defaultValue = newValue; }
-	protected BasePanel getPanel() { return panel; }
-	protected boolean hasPanel() { return panel != null; }
+	protected void isDuplicate(boolean newValue) { isDuplicate = newValue ; }
+	protected String labelId()		{ return gui + name; }
+	protected BasePanel getPanel()	{ return panel; }
+	protected boolean hasPanel()	{ return panel != null; }
+	protected boolean isDuplicate()	{ return isDuplicate; }
 	protected T getInc(MouseEvent e) {
 		if (e.isShiftDown()) 
 			return shiftInc;
