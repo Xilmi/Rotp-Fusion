@@ -27,6 +27,8 @@ import static rotp.ui.UserPreferences.difficultySelection;
 import static rotp.ui.UserPreferences.galaxyPreviewColorStarsSize;
 import static rotp.ui.UserPreferences.globalCROptions;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
+import static rotp.ui.UserPreferences.shapeOption1;
+import static rotp.ui.UserPreferences.shapeOption2;
 import static rotp.ui.UserPreferences.shapeOption3;
 import static rotp.ui.UserPreferences.shapeSelection;
 import static rotp.ui.UserPreferences.showNewRaces;
@@ -174,16 +176,19 @@ public final class SetupGalaxyUI  extends BaseModPanel
     private Font boxMonoFont;
     private int boxMonoFontSize = 15;
     private boolean initDuplicate = true;
-
     
  	private Font boxMonoFont() {
-    	if (boxMonoFont == null)
-			boxMonoFont = galaxyFont(scaled(boxMonoFontSize));
+    	if (boxMonoFont == null) {
+    		System.out.println("boxMonoFont was null");
+    		boxMonoFont = galaxyFont(scaled(boxMonoFontSize));
+    	}
     	return boxMonoFont;
     }
 	private Font dialogMonoFont() {
-    	if (dialogMonoFont == null)
-			dialogMonoFont = galaxyFont(scaled(dialogMonoFontSize));
+    	if (dialogMonoFont == null) {
+    		System.out.println("boxMonoFont was null");
+    		dialogMonoFont = galaxyFont(scaled(dialogMonoFontSize));
+    	}
     	return dialogMonoFont;
     }
 	public SetupGalaxyUI() {
@@ -205,6 +210,8 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		difficultySelection.setPanel(this);
 		shapeSelection.setPanel(this);
 		sizeSelection.setPanel(this);
+		shapeOption1.setPanel(this);
+		shapeOption2.setPanel(this);
 		if (initDuplicate) {
 			difficultySelection.initDuplicate();
 			shapeSelection.initDuplicate();
@@ -228,6 +235,8 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	}
 	@Override public void init() {
 		super.init();
+		boxMonoFont    = null;
+		dialogMonoFont = null;
 		initDuplicates();
 		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 		refreshGui();
@@ -241,7 +250,13 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	}
 	@Override protected void close() {
 		super.close();
+		difficultySelection.setPanel(null);
+		shapeSelection.setPanel(null);
+		sizeSelection.setPanel(null);
+		shapeOption1.setPanel(null);
+		shapeOption2.setPanel(null);
 		backImg = null;
+		System.out.println("boxMonoFont and dialogMonoFont are set null");
 		playerRaceImg  = null;
 		boxMonoFont    = null;
 		dialogMonoFont = null;
@@ -809,16 +824,17 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			if (isShapeTextGalaxy()) {
 				String label1 = newGameOptions().selectedGalaxyShapeOption1();
 				Font prevFont = g.getFont();
+				System.out.println("PaintComponent calls boxMonoFont");
 				g.setFont(boxMonoFont());
 				int sw1 = g.getFontMetrics().stringWidth(label1);
-				int x5d =mapOption1Box.x+((mapOption1Box.width-sw1)/2);
+				int x5d = mapOption1Box.x+((mapOption1Box.width-sw1)/2);
 				drawString(g,label1, x5d, y5+s20);
 				g.setFont(prevFont);
 			}
 			else {
 				String label1 = text(newGameOptions().selectedGalaxyShapeOption1());
 				int sw1 = g.getFontMetrics().stringWidth(label1);
-				int x5d =mapOption1Box.x+((mapOption1Box.width-sw1)/2);
+				int x5d = mapOption1Box.x+((mapOption1Box.width-sw1)/2);
 				drawString(g,label1, x5d, y5+s20);
 			}
 			if (newGameOptions().numGalaxyShapeOption2() > 0) {
@@ -1055,9 +1071,6 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	private String showAbilityStr() {
 		return useSelectableAbilities.getGuiValue();
 	}
-	private boolean isDynamic() {
-		return newGameOptions().selectedGalaxySize().equals(IGameOptions.SIZE_DYNAMIC);
-	}
 	private void drawGalaxyShape(Graphics g, GalaxyShape sh, int x, int y, int w, int h) {
 		float factor = min((float)h/sh.height(), (float)w/sh.width());
 		int dispH = (int) (sh.height()*factor);
@@ -1171,6 +1184,21 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		}
 		return playerRaceImg;
 	}
+	private boolean isDynamic() {
+		return newGameOptions().selectedGalaxySize().equals(IGameOptions.SIZE_DYNAMIC);
+	}
+	private boolean isShapeTextGalaxy() {
+		return newGameOptions().selectedGalaxyShape().equals(IGameOptions.SHAPE_TEXT);
+	}
+	private boolean isShapeBitmapGalaxy() {
+		return newGameOptions().selectedGalaxyShape().equals(IGameOptions.SHAPE_BITMAP);
+	}
+	private String getNameFromPath(String path) {
+		File file = new File(path);
+		if (file.exists())
+			return file.getName();
+		return path;
+	}
 	private void postGalaxySizeSelection() {
 		int numOpps = newGameOptions().selectedNumberOpponents();
 		if(numOpps<0) {
@@ -1187,63 +1215,14 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		backImg = null; // BR: to show/hide system per empire
 		repaint();
 	}
-	private void nextGalaxySize(boolean bounded, boolean click) {
-		String nextSize = newGameOptions().nextGalaxySize(bounded);
-		if (nextSize.equals(newGameOptions().selectedGalaxySize()))
-			return;
-		if (click) softClick();
-		newGameOptions().selectedGalaxySize(newGameOptions().nextGalaxySize(bounded));
-		newGameOptions().galaxyShape().quickGenerate(); // modnar: do a quickgen to get correct map preview
-		backImg = null; // BR: to show/hide system per empire
-		repaint();
-	}
-	private void prevGalaxySize(boolean bounded, boolean click) {
-		String prevSize = newGameOptions().prevGalaxySize(bounded);
-		if (prevSize.equals(newGameOptions().selectedGalaxySize()))
-			return;
-		if (click) softClick();
-		newGameOptions().selectedGalaxySize(newGameOptions().prevGalaxySize(bounded));
-		int numOpps = newGameOptions().selectedNumberOpponents();
-		if(numOpps<0) {
-			newGameOptions().selectedNumberOpponents(0);
-			numOpps = 0;
-		}
-		int maxOpps = newGameOptions().maximumOpponentsOptions();
-		if (maxOpps < numOpps) {
-			for (int i=maxOpps;i<numOpps;i++)
-				newGameOptions().selectedOpponentRace(i,null);
-			newGameOptions().selectedNumberOpponents(maxOpps);
-		}
-		newGameOptions().galaxyShape().quickGenerate(); // modnar: do a quickgen to get correct map preview
-		backImg = null; // BR: to show/hide system per empire
-		repaint();
-	}
 	private void postGalaxyShapeSelection() {
-		newGameOptions().galaxyShape().quickGenerate(); 
+		newGameOptions().galaxyShape().quickGenerate();
 		backImg = null;
 		repaint();
 	}
-	private void nextGalaxyShape(boolean click) {
-		if (click) softClick();
-		newGameOptions().selectedGalaxyShape(newGameOptions().nextGalaxyShape());
-		postGalaxyShapeSelection();
-	}
-	private void prevGalaxyShape(boolean click) {
-		if (click) softClick();
-		newGameOptions().selectedGalaxyShape(newGameOptions().prevGalaxyShape());
-		postGalaxyShapeSelection();
-	}
-	private boolean isShapeTextGalaxy() {
-		return newGameOptions().selectedGalaxyShape().equals(IGameOptions.SHAPE_TEXT);
-	}
-	private boolean isShapeBitmapGalaxy() {
-		return newGameOptions().selectedGalaxyShape().equals(IGameOptions.SHAPE_BITMAP);
-	}
-	private String getNameFromPath(String path) {
-		File file = new File(path);
-		if (file.exists())
-			return file.getName();
-		return path;
+	private void postMapOptionsSelection() {
+		newGameOptions().galaxyShape().quickGenerate();
+		repaint();
 	}
 	private void nextMapOption1(boolean click) {
 		if (click) softClick();
@@ -1257,9 +1236,11 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			String nextText = (String) getGalaxyTextList()[nextIndex];
 			newGameOptions().selectedGalaxyShapeOption1(nextText);
 		} else
-			newGameOptions().selectedGalaxyShapeOption1(newGameOptions().nextGalaxyShapeOption1());
-		newGameOptions().galaxyShape().quickGenerate(); 
-		repaint();
+			shapeOption1.next();
+//			newGameOptions().selectedGalaxyShapeOption1(newGameOptions().nextGalaxyShapeOption1());
+//		newGameOptions().galaxyShape().quickGenerate(); 
+//		repaint();
+		postMapOptionsSelection();
 	}
 	private void prevMapOption1(boolean click) {
 		if (click) softClick();
@@ -1273,31 +1254,11 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			String prevText = (String) getGalaxyTextList()[prevIndex];
 			newGameOptions().selectedGalaxyShapeOption1(prevText);
 		} else
-			newGameOptions().selectedGalaxyShapeOption1(newGameOptions().prevGalaxyShapeOption1());
-		newGameOptions().galaxyShape().quickGenerate(); 
-		repaint();
-	}
-	private void nextMapOption2(boolean click) {
-		if (click) softClick();
-		newGameOptions().selectedGalaxyShapeOption2(newGameOptions().nextGalaxyShapeOption2());
-		newGameOptions().galaxyShape().quickGenerate(); 
-		repaint();
-	}
-	private void prevMapOption2(boolean click) {
-		if (click) softClick();
-		newGameOptions().selectedGalaxyShapeOption2(newGameOptions().prevGalaxyShapeOption2());
-		newGameOptions().galaxyShape().quickGenerate(); 
-		repaint();
-	}
-	private void nextGameDifficulty(boolean click) {
-		if (click) softClick();
-		newGameOptions().selectedGameDifficulty(newGameOptions().nextGameDifficulty());
-		repaint();
-	}
-	private void prevGameDifficulty(boolean click) {
-		if (click) softClick();
-		newGameOptions().selectedGameDifficulty(newGameOptions().prevGameDifficulty());
-		repaint();
+			shapeOption1.prev();
+//			newGameOptions().selectedGalaxyShapeOption1(newGameOptions().prevGalaxyShapeOption1());
+//		newGameOptions().galaxyShape().quickGenerate(); 
+//		repaint();
+		postMapOptionsSelection();
 	}
 	private void nextOpponentAI(boolean click) {
 		if (click) softClick();
@@ -1449,7 +1410,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		close();
 	}
 	// BR: Display UI panel for MOD game options
-	private void goToModViewOptions() {
+	private void goToModGlobalOptions() {
 		buttonClick();
 		ModGlobalOptionsUI modGlobalOptionsUI = RotPUI.modGlobalOptionsUI();
 		modGlobalOptionsUI.init();
@@ -1763,6 +1724,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	mapOption2BoxL.reset();
 		mapOption2BoxR.reset();
 		mapOption2Box.setBounds(0,0,0,0);
+		mapOption3Box.setBounds(0,0,0,0);
 		if (newGameOptions().numGalaxyShapeOption2() > 0) {
 			if (this.isShapeBitmapGalaxy()) {
 				mapOption3Box.setBounds(sliderX+sectionW, sliderYAI+s40, sliderW+sectionW, sliderH);
@@ -2108,44 +2070,85 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			goToMod2Options();
 		// BR: Display UI panel for MOD game options
 		else if (hoverBox == globalModSettingsBox)
-			goToModViewOptions();
+			goToModGlobalOptions();
 		else if (hoverBox == startBox)
 			doStartBoxAction();
-		else if (hoverBox == shapeBoxL)
-			prevGalaxyShape(true);
-		else if (hoverBox == shapeBox) {
-			shapeSelection.toggle(e);
+		else if (hoverBox == shapeBoxL) {
+			softClick();
+			shapeSelection.prev();
 			postGalaxyShapeSelection();
 		}
-		else if (hoverBox == shapeBoxR)
-			nextGalaxyShape(true);		
+		else if (hoverBox == shapeBox) {
+			softClick();
+			shapeSelection.toggle(e);
+			postMapOptionsSelection();
+		}
+//		{
+//			softClick();
+//			shapeSelection.toggle(e);
+//			postGalaxyShapeSelection();
+//		}
+		else if (hoverBox == shapeBoxR) {
+			softClick();
+			shapeSelection.next();
+			postMapOptionsSelection();
+		}
+//		{
+//			shapeSelection.next();
+//			postGalaxyShapeSelection();
+//		}
 		else if (hoverBox == mapOption1BoxL)
 			prevMapOption1(true);
 		else if (hoverBox == mapOption1Box)
 			if (isShapeTextGalaxy())
 				selectGalaxyTextFromList();
-			else if(up) nextMapOption1(true);
-			else prevMapOption1(true);
+			else {
+				softClick();
+				shapeOption1.toggle(e);
+				postMapOptionsSelection();
+			}
+//				if(up) nextMapOption1(true);
+//				else prevMapOption1(true);
 		else if (hoverBox == mapOption1BoxR)
 			nextMapOption1(true);
-		else if (hoverBox == mapOption2BoxL)
-			prevMapOption2(true);
+		else if (hoverBox == mapOption2BoxL) {
+			softClick();
+			shapeOption2.prev();
+			postMapOptionsSelection();
+		}
+//			prevMapOption2(true);
+		else if (hoverBox == mapOption2Box) {
+			softClick();
+			shapeOption2.toggle(e);
+			postMapOptionsSelection();
+		}
+//			if(up) nextMapOption2(true);
+//			else prevMapOption2(true);
+		else if (hoverBox == mapOption2BoxR) {
+			softClick();
+			shapeOption2.next();
+			postMapOptionsSelection();
+		}
+//			nextMapOption2(true);
 		else if (hoverBox == mapOption3Box)
 			selectBitmapFromList();
-		else if (hoverBox == mapOption2Box)
-			if(up) nextMapOption2(true);
-			else prevMapOption2(true);
-		else if (hoverBox == mapOption2BoxR)
-			nextMapOption2(true);
-		else if (hoverBox == sizeBoxL)
-			prevGalaxySize(false, true);
+		else if (hoverBox == sizeBoxL) {
+			softClick();
+			sizeSelection.prev();
+			postGalaxySizeSelection();
+		}
 		else if (hoverBox == sizeBox) {
+			softClick();
 			sizeSelection.toggle(e);
 			postGalaxySizeSelection();
 		}
-		else if (hoverBox == sizeBoxR)
-			nextGalaxySize(false, true);
+		else if (hoverBox == sizeBoxR) {
+			softClick();
+			sizeSelection.next();
+			postGalaxySizeSelection();
+		}
 		else if (hoverBox == sizeOptionBoxL) {
+			softClick();
 			prefStarsPerEmpire.prev(e);
 			newGameOptions().galaxyShape().quickGenerate();
 			repaint();
@@ -2180,14 +2183,21 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			toggleNewRaces(true);
 		else if (hoverBox == showAbilityBox)
 			toggleShowAbility(true);
-		else if (hoverBox == diffBoxL)
-			prevGameDifficulty(true);
+		else if (hoverBox == diffBoxL) {
+			softClick();
+			difficultySelection.prev();
+			repaint();
+		}
 		else if (hoverBox == diffBox) {
+			softClick();
 			difficultySelection.toggle(e);
 			repaint();
 		}
-		else if (hoverBox == diffBoxR)
-			nextGameDifficulty(true);
+		else if (hoverBox == diffBoxR) {
+			softClick();
+			difficultySelection.next();
+			repaint();
+		}
 		else if (hoverBox == oppBoxU)
 			increaseOpponents(true);
 		else if (hoverBox == oppBox)
@@ -2227,33 +2237,33 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		boolean up = e.getWheelRotation() > 0;
-//		if (hoverBox == shapeBox) {
-//			if (up)
-//				prevGalaxyShape(false);
-//			else
-//				nextGalaxyShape(false);
-//		}
 		if (hoverBox == shapeBox)  {
 			shapeSelection.toggle(e);
 			postGalaxyShapeSelection();
 		}
 		else if (hoverBox == mapOption1Box) {
-			if (up)
-				prevMapOption1(false);
-			else
-				nextMapOption1(false);
+			shapeOption1.toggle(e);
+			postMapOptionsSelection();
 		}
+//		{
+//			if (up)
+//				prevMapOption1(false);
+//			else
+//				nextMapOption1(false);
+//		}
 		else if (hoverBox == mapOption2Box) {
-			if (up)
-				prevMapOption2(false);
-			else
-				nextMapOption2(false);
+			shapeOption2.toggle(e);
+			postMapOptionsSelection();
 		}
+//		{
+//			if (up)
+//				prevMapOption2(false);
+//			else
+//				nextMapOption2(false);
+//		}
 		else if (hoverBox == sizeBox) {
-			if (up)
-				prevGalaxySize(true, false);
-			else
-				nextGalaxySize(true, false);
+			sizeSelection.toggle(e);
+			postGalaxySizeSelection();
 		}
 		else if (hoverBox == sizeOptionBox) {
 			prefStarsPerEmpire.toggle(e);
@@ -2278,11 +2288,10 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		else if (hoverBox == showAbilityBox) {
 			toggleShowAbility(false);
 		}
-		else if (hoverBox == diffBox) {
-			if (up)
-				prevGameDifficulty(false);
-			else
-				nextGameDifficulty(false);
+		else if (hoverBox == diffBox)
+		 {
+			difficultySelection.toggle(e);
+			repaint();
 		}
 		else if (hoverBox == oppBox) {
 			if (up)
@@ -2317,4 +2326,67 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			}
 		}
 	}
+//	private void nextGalaxySize(boolean bounded, boolean click) {
+//	String nextSize = newGameOptions().nextGalaxySize(bounded);
+//	if (nextSize.equals(newGameOptions().selectedGalaxySize()))
+//		return;
+//	if (click) softClick();
+//	newGameOptions().selectedGalaxySize(newGameOptions().nextGalaxySize(bounded));
+//	newGameOptions().galaxyShape().quickGenerate(); // modnar: do a quickgen to get correct map preview
+//	backImg = null; // BR: to show/hide system per empire
+//	repaint();
+//}
+//private void prevGalaxySize(boolean bounded, boolean click) {
+//	String prevSize = newGameOptions().prevGalaxySize(bounded);
+//	if (prevSize.equals(newGameOptions().selectedGalaxySize()))
+//		return;
+//	if (click) softClick();
+//	newGameOptions().selectedGalaxySize(newGameOptions().prevGalaxySize(bounded));
+//	int numOpps = newGameOptions().selectedNumberOpponents();
+//	if(numOpps<0) {
+//		newGameOptions().selectedNumberOpponents(0);
+//		numOpps = 0;
+//	}
+//	int maxOpps = newGameOptions().maximumOpponentsOptions();
+//	if (maxOpps < numOpps) {
+//		for (int i=maxOpps;i<numOpps;i++)
+//			newGameOptions().selectedOpponentRace(i,null);
+//		newGameOptions().selectedNumberOpponents(maxOpps);
+//	}
+//	newGameOptions().galaxyShape().quickGenerate(); // modnar: do a quickgen to get correct map preview
+//	backImg = null; // BR: to show/hide system per empire
+//	repaint();
+//}
+//private void nextGalaxyShape(boolean click) {
+//	if (click) softClick();
+//	newGameOptions().selectedGalaxyShape(newGameOptions().nextGalaxyShape());
+//	postGalaxyShapeSelection();
+//}
+//private void prevGalaxyShape(boolean click) {
+//	if (click) softClick();
+//	newGameOptions().selectedGalaxyShape(newGameOptions().prevGalaxyShape());
+//	postGalaxyShapeSelection();
+//}
+//	private void nextMapOption2(boolean click) {
+//	if (click) softClick();
+//	newGameOptions().selectedGalaxyShapeOption2(newGameOptions().nextGalaxyShapeOption2());
+//	newGameOptions().galaxyShape().quickGenerate(); 
+//	repaint();
+//}
+//private void prevMapOption2(boolean click) {
+//	if (click) softClick();
+//	newGameOptions().selectedGalaxyShapeOption2(newGameOptions().prevGalaxyShapeOption2());
+//	newGameOptions().galaxyShape().quickGenerate(); 
+//	repaint();
+//}
+//private void nextGameDifficulty(boolean click) {
+//	if (click) softClick();
+//	newGameOptions().selectedGameDifficulty(newGameOptions().nextGameDifficulty());
+//	repaint();
+//}
+//private void prevGameDifficulty(boolean click) {
+//	if (click) softClick();
+//	newGameOptions().selectedGameDifficulty(newGameOptions().prevGameDifficulty());
+//	repaint();
+//}
 }

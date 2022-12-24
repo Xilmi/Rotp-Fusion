@@ -22,6 +22,8 @@ import static rotp.ui.UserPreferences.optionsGalaxy;
 import static rotp.ui.UserPreferences.optionsRace;
 import static rotp.ui.UserPreferences.prefStarsPerEmpire;
 import static rotp.ui.UserPreferences.randomTechStart;
+import static rotp.ui.UserPreferences.shapeOption1;
+import static rotp.ui.UserPreferences.shapeOption2;
 
 import java.awt.Color;
 import java.awt.Toolkit;
@@ -462,6 +464,10 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             default:
                 galaxyShape = new GalaxyRectangularShape(this);
         }
+		shapeOption1.reInit(galaxyShape().options1());
+		shapeOption2.defaultValue(galaxyShape.defaultOption1());
+		shapeOption2.reInit(galaxyShape().options2());
+		shapeOption2.defaultValue(galaxyShape.defaultOption2());
     }
     @Override
     public int numGalaxyShapeOption1() {  return galaxyShape.numOptions1(); }

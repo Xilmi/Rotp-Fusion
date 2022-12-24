@@ -294,6 +294,24 @@ public class UserPreferences {
 			BASE_UI, "SELECT_CR_OPTIONS", false);
 	public static final ParamString shapeOption3 = new ParamString(
 			BASE_UI, "SHAPE_OPTION_3", "");
+	public static final ParamList shapeOption2 = new ParamList( // Duplicate Do not add the list
+			BASE_UI, "SHAPE_OPTION_2") {
+		@Override public String getFromOption() {
+			return RotPUI.newOptions().selectedGalaxyShapeOption2();
+		}
+		@Override public void setOption(String newValue) {
+			RotPUI.newOptions().selectedGalaxyShapeOption2(newValue);
+		}
+	};
+	public static final ParamList shapeOption1 = new ParamList( // Duplicate Do not add the list
+			BASE_UI, "SHAPE_OPTION_1") {
+		@Override public String getFromOption() {
+			return RotPUI.newOptions().selectedGalaxyShapeOption1();
+		}
+		@Override public void setOption(String newValue) {
+			RotPUI.newOptions().selectedGalaxyShapeOption1(newValue);
+		}
+	};
 	public static final ParamList shapeSelection = new ParamList( // Duplicate Do not add the list
 			BASE_UI, "GALAXY_SHAPE", MOO1GameOptions.getGalaxyShapeOptions(), 0) {
 		@Override public String getFromOption() {

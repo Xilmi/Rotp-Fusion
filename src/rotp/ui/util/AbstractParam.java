@@ -148,7 +148,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	private String descriptionId()	{ return labelId() + LABEL_DESCRIPTION; }
 	// ========== Protected Methods ==========
 	//
-	protected void defaultValue(T newValue)	{ defaultValue = newValue; }
+	public void defaultValue(T newValue)	{ defaultValue = newValue; }
 	protected BasePanel getPanel() { return panel; }
 	protected boolean hasPanel() { return panel != null; }
 	protected T getInc(MouseEvent e) {

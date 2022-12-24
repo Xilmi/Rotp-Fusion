@@ -1141,10 +1141,10 @@ SETUP_GALAXY_SIZE_LUDICROUS       | Ludicrous
 SETUP_GALAXY_SIZE_MAXIMUM         | Maximum
 SETUP_GALAXY_SHAPE_DESC           | Select The Galaxy Shape
 SETUP_GALAXY_SHAPE                | Galaxy Shape Selection %1
-SETUP_GALAXY_SHAPE_OPTION1_DESC   | Select The First Galaxy Shape Option
-SETUP_GALAXY_SHAPE_OPTION1        | Galaxy Shape First Option Selection %1
-SETUP_GALAXY_SHAPE_OPTION2_DESC   | Select The Second Galaxy Shape Option
-SETUP_GALAXY_SHAPE_OPTION2        | Galaxy Shape Second Option Selection %1
+SETUP_GALAXY_SHAPE_OPTION_1_DESC  | Select The First Galaxy Shape Option
+SETUP_GALAXY_SHAPE_OPTION_1       | Galaxy Shape First Option Selection %1
+SETUP_GALAXY_SHAPE_OPTION_2_DESC  | Select The Second Galaxy Shape Option
+SETUP_GALAXY_SHAPE_OPTION_2       | Galaxy Shape Second Option Selection %1
 SETUP_GALAXY_SHAPE_RECTANGLE      | Star Field
 SETUP_GALAXY_SHAPE_CIRCULAR       | Circular
 SETUP_GALAXY_SHAPE_RING           | Ring

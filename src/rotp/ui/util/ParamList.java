@@ -22,6 +22,7 @@ import java.awt.event.MouseWheelEvent;
 import java.util.LinkedList;
 import java.util.List;
 
+import rotp.model.game.IGameOptions;
 import rotp.ui.RotPUI;
 
 public class ParamList extends AbstractParam<String> {
@@ -40,19 +41,6 @@ public class ParamList extends AbstractParam<String> {
 	public ParamList(String gui, String name, String defaultCfgLabel) {
 		super(gui, name, defaultCfgLabel);
 		valueLabelMap = new IndexableMap();
-	}
-	/**
-	 * @param gui  The label header
-	 * @param name The name
-	 * @param list keys for map table
-	 * @param defaultIndex The label Header
-	 */
-	public ParamList(String gui, String name, List<String> list, int defaultIndex) {
-		super(gui, name, list.get(defaultIndex));
-		isDuplicate = true;
-		valueLabelMap = new IndexableMap();
-		for (String element : list)
-			put(element, element); // Temporary; needs to be further initialized
 	}
 //	/**
 //	 * @param gui  The label header
@@ -77,8 +65,50 @@ public class ParamList extends AbstractParam<String> {
 		super(gui, name, defaultCfgLabel);
 		this.valueLabelMap = optionLabelMap;
 	}
+	/**
+	 * Initializer for Duplicate
+	 * @param gui  The label header
+	 * @param name The name
+	 * @param list keys for map table
+	 * @param defaultIndex index to the default value
+	 */
+	public ParamList(String gui, String name, List<String> list, int defaultIndex) {
+		super(gui, name, list.get(defaultIndex));
+		isDuplicate = true;
+		valueLabelMap = new IndexableMap();
+		if (list != null)
+			for (String element : list)
+				put(element, element); // Temporary; needs to be further initialized
+	}
+	/**
+	 * Initializer for Duplicate Dynamic (shape options)
+	 * @param gui  The label header
+	 * @param name The name
+	 */
+	public ParamList(String gui, String name) {
+		super(gui, name, "");
+		isDuplicate = true;
+		valueLabelMap = new IndexableMap();
+	}
+	
+	// ===== Initializers =====
+	//
+	public void initDuplicate() {
+		int idx = getIndex(defaultValue());
+		valueLabelMap.initDuplicate();
+		defaultValue(valueLabelMap.cfgValueList.get(idx));
+	}
+	public void reInit(List<String> list) { // TODO BR: Validate reIinit()
+		valueLabelMap.clear();
+		for (String element : list)
+			put(element, text(element)); // "text" should now be available
+	}
+	
+	
+	
 	// ===== For duplicates to be overridden =====
-	public void setOption(String option) { }
+	public void reInit() {}
+	public void setOption(String option) {}
 	public String getFromOption() { return null; }
 	
 	// ===== Overriders =====
@@ -148,17 +178,6 @@ public class ParamList extends AbstractParam<String> {
 	}
 	// ===== Other Public Methods =====
 	//
-	public void nextForDuplicates() {
-		
-	}
-	public void prevForDuplicates() {
-		
-	}
-	public void initDuplicate() {// TODO BR: Validate initDuplicate()
-		int idx = getIndex(defaultValue());
-		valueLabelMap.initDuplicate();
-		defaultValue(valueLabelMap.cfgValueList.get(idx));
-	}
 	private void setFromList(Component parent) { // TODO BR: Validate setFromList()
 		String message	= "<html>" + getGuiDescription() + "</html>";
 		String title	= text(labelId(), "");
@@ -215,7 +234,7 @@ public class ParamList extends AbstractParam<String> {
 		private final LinkedList<String>  langLabelList	= new LinkedList<>();
 
 		
-		// ========== Constructors ==========
+		// ========== Constructors and Initializers ==========
 		//
 		public IndexableMap() {}
 		
@@ -223,6 +242,11 @@ public class ParamList extends AbstractParam<String> {
 //			cfgValueList.addAll(map.cfgValueList);
 //			langLabelList.addAll(map.langLabelList);
 //		}
+		
+		void clear () {
+			cfgValueList.clear();
+			langLabelList.clear();
+		}
 		// ========== Setters ==========
 		//
 		public void put(String option, String label) {

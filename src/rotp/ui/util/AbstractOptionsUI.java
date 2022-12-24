@@ -285,7 +285,8 @@ public abstract class AbstractOptionsUI extends BaseModPanel implements MouseLis
 	@Override protected void close() {
 		super.close();
         disableGlassPane();
-		RotPUI.setupGalaxyUI().refreshGui();
+//		RotPUI.setupGalaxyUI().refreshGui();
+		RotPUI.setupGalaxyUI().init();
 	}
 	@Override protected void doExitBoxAction() {
 		if (globalOptions) { // The old ways
