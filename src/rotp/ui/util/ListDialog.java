@@ -91,7 +91,7 @@ import rotp.util.Base;
 public class ListDialog extends JDialog
 						implements ActionListener, Base {
 	private static ListDialog dialog;
-	private static String value = "";
+	private static String value = null;
 	private static int index    = -1;
 	private JList<Object> list;
 
@@ -137,6 +137,8 @@ public class ListDialog extends JDialog
 									InterfacePreview panel,
 									List<String> alternateReturn) {
 		Frame frame = JOptionPane.getFrameForComponent(frameComp);
+		value = null;
+		index = -1;
 		dialog = new ListDialog(frame,
 								locationComp,
 								labelText,
@@ -149,7 +151,7 @@ public class ListDialog extends JDialog
 								listFont, panel,
 								alternateReturn);
 		dialog.setVisible(true);
-		if (alternateReturn != null) {
+		if (alternateReturn != null && index >= 0) {
 			index = Math.max(0,  index);
 			value = alternateReturn.get(index);
 		}

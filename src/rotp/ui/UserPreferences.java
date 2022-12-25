@@ -349,7 +349,7 @@ public class UserPreferences {
 		@Override public Integer defaultValue() {
 			int defaultValue = Math.min(RotPUI.newOptions().maximumOpponentsOptions(),
 					RotPUI.newOptions().numberStarSystems() / prefStarsPerEmpire.get() -1);
-			defaultValue(defaultValue); // TODO BR: Validate this line, may be useless... or worst
+			defaultValue(defaultValue);
 			return defaultValue;
 		}
 	};

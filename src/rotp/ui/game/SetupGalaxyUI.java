@@ -170,6 +170,8 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	private int galaxyX, galaxyY, galaxyW, galaxyH;
 	private String[] specificAbilitiesList; 
 	private String[] globalAbilitiesList; 
+	private String[] specificAIList; 
+	private String[] globalAIList; 
 	private String[] galaxyTextList;
     private Font dialogMonoFont;
     private int  dialogMonoFontSize = 20;
@@ -216,42 +218,47 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			initDuplicate = false;
 		}
 	}
-	private void initAbilitiesList() {
-		// specific
+	private void initAIandAbilitiesList() {
+		// specific Abilities
 		LinkedList<String> list = new LinkedList<>();
 		list.addAll(SpecificCROption.options());
 		list.addAll(getAllowedAlienRaces());
 		list.addAll(getBaseRacList());
 		specificAbilitiesList = list.toArray(new String[list.size()]);
-		// global
+		// global Abilities
 		list.clear();
 		list.addAll(globalCROptions.getBaseOptions());
 		list.addAll(getAllowedAlienRaces());
 		list.addAll(getBaseRacList());
 		globalAbilitiesList = list.toArray(new String[list.size()]);
+		// specific Abilities
+		list.clear();
+		for (String label : newGameOptions().specificOpponentAIOptions())
+			list.add(text(label));
+		specificAIList = list.toArray(new String[list.size()]);
+		// global Abilities
+		list.clear();
+		for (String label : newGameOptions().opponentAIOptions())
+			list.add(text(label));
+		globalAIList = list.toArray(new String[list.size()]);
 	}
 	@Override public void init() {
 		super.init();
 		boxMonoFont    = null;
 		dialogMonoFont = null;
 		initDuplicates();
+        initAIandAbilitiesList();
 		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 		refreshGui();
 	}
 	@Override protected String GUI_ID() { return GUI_ID; }
 	@Override public void refreshGui() {
-        initAbilitiesList();
         guiOptions().setAndGenerateGalaxy();
         backImg = null;
         repaint();
 	}
 	@Override protected void close() {
 		super.close();
-//		difficultySelection.setPanel(null);
-//		shapeSelection.setPanel(null);
-//		sizeSelection.setPanel(null);
-//		shapeOption1.setPanel(null);
-//		shapeOption2.setPanel(null);
 		backImg = null;
 		playerRaceImg  = null;
 		boxMonoFont    = null;
@@ -559,6 +566,42 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	    newGameOptions().galaxyShape().quickGenerate(); 
 		repaint();
 	}	
+	private String selectSpecificAIFromList(int i) {
+		String initialChoice = text(newGameOptions().specificOpponentAIOption(i));
+	    String input = (String) ListDialog.showDialog(
+	    	getParent(), getParent(),	// Frame & Location component
+	    	"Select one AI...",	// Message
+	        "Opponent Specific AI",		// Title
+	        specificAIList,		// List
+	        initialChoice, 		// Initial choice
+	        "XX_AI: Character_XX",	// long Dialogue
+	        true,						// isVerticalWrap
+	        scaled(320), scaled(185),	// size Width, Height
+			null, null,					// Font, Preview
+			newGameOptions().specificOpponentAIOptions());	// Alternate return
+	    if (input == null)
+	    	return initialChoice;
+	    newGameOptions().specificOpponentAIOption(input, i);
+	    return input;
+	}
+	private String selectGlobalAIFromList() {
+		String initialChoice = text(newGameOptions().selectedOpponentAIOption());
+	    String input = (String) ListDialog.showDialog(
+	    	getParent(), getParent(),	// Frame & Location component
+	    	"Select one AI...",	// Message
+	        "Opponent AI",		// Title
+	        globalAIList,		// List
+	        initialChoice, 		// Initial choice
+	        "XX_AI: Character_XX",	// long Dialogue
+	        true,						// isVerticalWrap
+	        scaled(220), scaled(250),	// size Width, Height
+			null, null,					// Font, Preview
+			newGameOptions().opponentAIOptions());	// Alternate return
+	    if (input == null)
+	    	return initialChoice;
+	    newGameOptions().selectedOpponentAIOption(input);
+	    return input;
+	}
 	private String selectSpecificAbilityFromList(int i) {
 		String initialChoice = newGameOptions().specificOpponentCROption(i);
 	    String input = (String) ListDialog.showDialog(
@@ -580,11 +623,10 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	private String selectGlobalAbilityFromList() {
 		String initialChoice = globalCROptions.get();
 	    String input = (String) ListDialog.showDialog(
-	    	getParent(),				// Frame component
-	    	getParent(),				// Location component
+		    	getParent(), getParent(),	// Frame & Location component
 	    	"Select one abilities...",	// Message
 	        "Opponent abilities",		// Title
-	        (String[]) globalAbilitiesList,	// List
+	        globalAbilitiesList,		// List
 	        initialChoice, 				// Initial choice
 	        "XX_RACE_JACKTRADES_XX",	// long Dialogue
 	        false,						// isVerticalWrap
@@ -1242,9 +1284,6 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			newGameOptions().selectedGalaxyShapeOption1(nextText);
 		} else
 			shapeOption1.next();
-//			newGameOptions().selectedGalaxyShapeOption1(newGameOptions().nextGalaxyShapeOption1());
-//		newGameOptions().galaxyShape().quickGenerate(); 
-//		repaint();
 		postSelectionMedium(click);
 	}
 	private void prevMapOption1(boolean click) {
@@ -1259,19 +1298,22 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			newGameOptions().selectedGalaxyShapeOption1(prevText);
 		} else
 			shapeOption1.prev();
-//			newGameOptions().selectedGalaxyShapeOption1(newGameOptions().prevGalaxyShapeOption1());
-//		newGameOptions().galaxyShape().quickGenerate(); 
-//		repaint();
 		postSelectionMedium(click);
 	}
 	private void nextOpponentAI(boolean click) {
 		if (click) softClick();
-		newGameOptions().selectedOpponentAIOption(newGameOptions().nextOpponentAI());
+		if (click || Modifier2KeysState.isCtrlDown())
+			selectGlobalAIFromList();
+		else 
+			newGameOptions().selectedOpponentAIOption(newGameOptions().nextOpponentAI());
 		repaint();
 	}
 	private void prevOpponentAI(boolean click) {
 		if (click) softClick();
-		newGameOptions().selectedOpponentAIOption(newGameOptions().prevOpponentAI());
+		if (click || Modifier2KeysState.isCtrlDown())
+			selectGlobalAIFromList();
+		else
+			newGameOptions().selectedOpponentAIOption(newGameOptions().prevOpponentAI());
 		repaint();
 	}
 	private void nextOpponentCR(boolean click) {
@@ -1322,33 +1364,20 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			useSelectableAbilities.toggle();
 		repaint();
 	}
-//	private void increaseOpponents(boolean click) {
-//		int numOpps = newGameOptions().selectedNumberOpponents();
-//		if (numOpps >= newGameOptions().maximumOpponentsOptions())
-//			return;
-//		if (click) softClick();
-//		newGameOptions().selectedNumberOpponents(numOpps+1);
-//		newGameOptions().galaxyShape().quickGenerate(); // modnar: do a quickgen to get correct map preview
-//		repaint();
-//	}
-//	private void decreaseOpponents(boolean click) {
-//		int numOpps = newGameOptions().selectedNumberOpponents();
-//		if (numOpps <= 0)
-//			return;
-//		if (click) softClick();
-//		newGameOptions().selectedOpponentRace(numOpps-1,null);
-//		newGameOptions().selectedNumberOpponents(numOpps-1);
-//		newGameOptions().galaxyShape().quickGenerate(); // modnar: do a quickgen to get correct map preview
-//		repaint();
-//	}
 	private void nextSpecificOpponentAI(int i, boolean click) {
 		if (click) softClick();
-		newGameOptions().nextSpecificOpponentAI(i+1);
+		if (click || Modifier2KeysState.isCtrlDown())
+			selectSpecificAIFromList(i);
+		else
+			newGameOptions().nextSpecificOpponentAI(i+1);
 		repaint();
 	}
 	private void prevSpecificOpponentAI(int i, boolean click) {
 		if (click) softClick();
-		newGameOptions().prevSpecificOpponentAI(i+1);
+		if (click || Modifier2KeysState.isCtrlDown())
+			selectSpecificAIFromList(i);
+		else
+			newGameOptions().prevSpecificOpponentAI(i+1);
 		repaint();
 	}
 	private void nextSpecificOpponentCR(int i, boolean click) {
@@ -2168,26 +2197,20 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			difficultySelection.next();
 			postSelectionLight(true);
 		}
-		else if (hoverBox == oppBoxU)
-		 {
+		else if (hoverBox == oppBoxU) {
 			aliensNumber.next();
 			postSelectionMedium(true);
 		}
-
-//			increaseOpponents(true);
 		else if (hoverBox == oppBox)
 		 {
 			aliensNumber.toggle(e);
 			postSelectionMedium(true);
 		}
-//			if(up) increaseOpponents(true);
-//			else decreaseOpponents(true);
 		else if (hoverBox == oppBoxD)
 		 {
 			aliensNumber.prev();
 			postSelectionMedium(true);
 		}
-//			decreaseOpponents(true);
 		else {
 			for (int i=0;i<oppSet.length;i++) {
 				if (hoverBox == oppSet[i]) {
@@ -2263,17 +2286,10 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			difficultySelection.toggle(e);
 			postSelectionLight(false);
 		}
-		else if (hoverBox == oppBox)
-		 {
+		else if (hoverBox == oppBox) {
 			aliensNumber.toggle(e);
 			postSelectionMedium(false);
 		}
-//		{
-//			if (up)
-//				decreaseOpponents(false);
-//			else
-//				increaseOpponents(false);
-//		}
 		else {
 			for (int i=0;i<oppSet.length;i++) {
 				if (hoverBox == oppSet[i]) {
@@ -2301,6 +2317,26 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			}
 		}
 	}
+
+//	private void increaseOpponents(boolean click) {
+//	int numOpps = newGameOptions().selectedNumberOpponents();
+//	if (numOpps >= newGameOptions().maximumOpponentsOptions())
+//		return;
+//	if (click) softClick();
+//	newGameOptions().selectedNumberOpponents(numOpps+1);
+//	newGameOptions().galaxyShape().quickGenerate(); // modnar: do a quickgen to get correct map preview
+//	repaint();
+//}
+//private void decreaseOpponents(boolean click) {
+//	int numOpps = newGameOptions().selectedNumberOpponents();
+//	if (numOpps <= 0)
+//		return;
+//	if (click) softClick();
+//	newGameOptions().selectedOpponentRace(numOpps-1,null);
+//	newGameOptions().selectedNumberOpponents(numOpps-1);
+//	newGameOptions().galaxyShape().quickGenerate(); // modnar: do a quickgen to get correct map preview
+//	repaint();
+//}
 //	private void nextGalaxySize(boolean bounded, boolean click) {
 //	String nextSize = newGameOptions().nextGalaxySize(bounded);
 //	if (nextSize.equals(newGameOptions().selectedGalaxySize()))

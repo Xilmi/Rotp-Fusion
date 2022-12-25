@@ -32,7 +32,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
     - Uses scalable font to fit.
   - Fixed Fusion Font size being wrong sometime.
   - Generalized Base Options duplicate in Abstract Param.
-  - Galaxy menu: Number of opponents: added Full Control.
+  - Galaxy menu:
+    - Number of opponents: added Full Control.
+    - Selection Panel for AI selection
 
 2022.12.23 (BR)
   - Option List Selection Panel: Fixed Bug with redundant values (Galaxy size).
