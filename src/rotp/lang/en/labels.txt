@@ -1387,6 +1387,14 @@ SETUP_BITMAP_SHARP2               | Sharper
 SETUP_BITMAP_SHARP3               | Sharpest
 SETUP_BITMAP_SHARP4               | Razor like
 SETUP_BITMAP_NO_SELECTION         | Click here to select a file
+SETUP_SPECIFIC_AI_DESC            | Select one AI...
+SETUP_SPECIFIC_AI                 | Opponent Specific AI
+SETUP_GLOBAL_AI_DESC              | Select one AI...
+SETUP_GLOBAL_AI                   | Opponents AI
+SETUP_SPECIFIC_ABILITY_DESC       | Select one ability...
+SETUP_SPECIFIC_ABILITY            | Opponent Specific Abilitiy
+SETUP_GLOBAL_ABILITIES_DESC       | Select one ability...
+SETUP_GLOBAL_ABILITIES            | Opponents Abilitiies
 SETUP_NOT_AVAILABLE               | N/A
 // BR: config Player Race
 SETUP_BUTTON_CUSTOM_PLAYER_RACE   | Customize Player Race
@@ -1740,6 +1748,10 @@ SETTINGS_MOD_SAVE_LOCAL_DESC             | Settings are saved for current panel 
 SETTINGS_MOD_SAVE_LOCAL                  | Save Local Only: %1
 SETTINGS_MOD_GALAXY_PREVIEW_COLOR_SIZE_DESC | Galaxy preview: Orion, Player, and Aliens Star size. (0 = No Color and same size "2" as before)
 SETTINGS_MOD_GALAXY_PREVIEW_COLOR_SIZE      | Stars Size: %1
+SETTINGS_MOD_MIN_LIST_SIZE_POP_UP_DESC   | Minimum List size for the selection panel to Pop-Up.
+SETTINGS_MOD_MIN_LIST_SIZE_POP_UP        | Min List Size: %1
+SETTINGS_MOD_MIN_LIST_SIZE_POP_UP_NEVER  | Never
+
 // Other base menu Mod settings
 SETTINGS_MOD_PLAYER_SHIP_SET_DESC        | Select the Player Ship Set.
 SETTINGS_MOD_PLAYER_SHIP_SET             | Player Ship Set: %1

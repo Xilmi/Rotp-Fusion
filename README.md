@@ -26,6 +26,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2022.12.26 (BR)
+  - Advanced option updated to new GUI interface.
+
 2022.12.24 (BR)
   - BitmapGalaxy filename Box:
     - Increased width.

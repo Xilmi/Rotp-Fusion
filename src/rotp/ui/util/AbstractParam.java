@@ -155,19 +155,19 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 		setOption(newValue);
 		return value;
 	}
-	public void maxValue (T newValue) { maxValue = newValue;}
-	public void minValue (T newValue) { minValue = newValue;}
+	public void maxValue (T newValue)	 { maxValue = newValue;}
+	public void minValue (T newValue)	 { minValue = newValue;}
 	public void defaultValue(T newValue) { defaultValue = newValue; }
 	// ========== Private Methods ==========
 	//
-	private String descriptionId()	{ return labelId() + LABEL_DESCRIPTION; }
 	// ========== Protected Methods ==========
 	//
 	protected void isDuplicate(boolean newValue) { isDuplicate = newValue ; }
-	protected String labelId()		{ return gui + name; }
-	protected BasePanel getPanel()	{ return panel; }
-	protected boolean hasPanel()	{ return panel != null; }
-	protected boolean isDuplicate()	{ return isDuplicate; }
+	protected String descriptionId() { return labelId() + LABEL_DESCRIPTION; }
+	protected String labelId()		 { return gui + name; }
+	protected BasePanel getPanel()	 { return panel; }
+	protected boolean hasPanel()	 { return panel != null; }
+	protected boolean isDuplicate()	 { return isDuplicate; }
 	protected T getInc(MouseEvent e) {
 		if (e.isShiftDown()) 
 			return shiftInc;

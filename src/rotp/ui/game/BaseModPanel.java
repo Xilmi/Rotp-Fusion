@@ -56,8 +56,9 @@ public abstract class BaseModPanel extends BasePanel {
 	protected static int  smallButtonMargin, smallButtonH;
 	protected static Font smallButtonFont;
 
-	LinkedList<InterfaceParam> paramList     = new LinkedList<>();
-	LinkedList<InterfaceParam> duplicateList = new LinkedList<>();
+	LinkedList<InterfaceParam> paramList;
+	LinkedList<InterfaceParam> duplicateList;
+	LinkedList<InterfaceParam> activeList;
 
 	//	protected Font smallButtonFont	= FontManager.current().narrowFont(20);
 	protected Rectangle defaultBox	= new Rectangle();
@@ -65,6 +66,8 @@ public abstract class BaseModPanel extends BasePanel {
 	protected Rectangle userBox		= new Rectangle();
 
 	protected boolean globalOptions	= false; // No preferred button and Saved to remnant.cfg
+    private boolean initGuiTextList = true;
+
 
 	private void localInit(Graphics2D g) {
 		smallButtonMargin	= s30;
@@ -102,13 +105,21 @@ public abstract class BaseModPanel extends BasePanel {
 	}
 	protected void init() {
 		Modifier2KeysState.reset();
+		if (initGuiTextList) {
+			if (paramList != null)
+				for (InterfaceParam param : paramList)
+					param.initGuiTexts();
+			if (duplicateList != null)
+				for (InterfaceParam param : duplicateList)
+					param.initGuiTexts();
+			initGuiTextList = false;
+		}
 		if (paramList != null)
 			for (InterfaceParam param : paramList)
 				param.setPanel(this);
 		if (duplicateList != null)
 			for (InterfaceParam param : duplicateList)
 				param.setPanel(this);
-
 	}
 
 	protected void close() {

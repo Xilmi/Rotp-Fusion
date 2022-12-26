@@ -72,6 +72,8 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 	private Rectangle hoverBox;
 	private Rectangle exitBox	= new Rectangle();
 	private LinearGradientPaint bg;
+//    private boolean initDuplicates = false;
+
 	
 	// ========== Constructors and initializers ==========
 	//
@@ -87,9 +89,14 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 		// Call for filling the settings
 		init0();
 		
-		for (int i=0; i<paramList.size(); i++) {
+		if (paramList == null) {
+//			initDuplicates = true;
+			activeList     = duplicateList;
+		} else
+			activeList = paramList;
+		
+		for (int i=0; i<activeList.size(); i++)
 			btList.add(newBT());
-		}
 
 		// numRows = Max column length
 		numRows	 = lastRowList.getFirst();
@@ -250,10 +257,10 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 	}
 	private void mouseCommon(boolean up, boolean mid, boolean shiftPressed, boolean ctrlPressed
 			, MouseEvent e, MouseWheelEvent w) {
-		for (int i=0; i<paramList.size(); i++) {
+		for (int i=0; i<activeList.size(); i++) {
 			if (hoverBox == btList.get(i).bounds()) {
-				paramList.get(i).toggle(e, w);
-				btList.get(i).repaint(paramList.get(i).getGuiDisplay());
+				activeList.get(i).toggle(e, w);
+				btList.get(i).repaint(activeList.get(i).getGuiDisplay());
 				return;
 			}			
 		}
@@ -264,6 +271,10 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 	@Override
 	public void init() {
 		super.init();
+// 		if (initDuplicates)
+//			for (InterfaceParam param : duplicateList)
+//				param.initGuiTexts();
+
 		w	= RotPUI.setupRaceUI().getWidth();
 		h	= RotPUI.setupRaceUI().getHeight();
 		wBG	= w - (leftM + rightM);
@@ -319,13 +330,13 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 			super.doDefaultBoxAction();
 	}
 	private void setLocalToDefault() {
-		for (InterfaceOptions param : paramList)
+		for (InterfaceOptions param : activeList)
 			param.setFromDefault();
 	}
 	@Override protected void refreshGui() {
 		super.refreshGui();
-		for (int i=0; i<paramList.size(); i++)
-			btList.get(i).displayText(paramList.get(i).getGuiDisplay());
+		for (int i=0; i<activeList.size(); i++)
+			btList.get(i).displayText(activeList.get(i).getGuiDisplay());
 		repaint();
 	}
 	@Override protected void repaintButtons() {
@@ -363,8 +374,8 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 		xSetting = leftM + columnPad/2;
 		ySetting = yTop;
 		// First column (left)
-		while (index<paramList.size()) {
-			paintSetting(g, btList.get(index), paramList.get(index).getGuiDescription());
+		while (index<activeList.size()) {
+			paintSetting(g, btList.get(index), activeList.get(index).getGuiDescription());
 			goToNextSetting();
 		}
 		paintCustomComponent(g);
@@ -390,8 +401,8 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 				// Needs to be done twice for the case both Galaxy size
 				// and the number of opponents were changed !?
 				if(Profiles.processKey(k, e.isShiftDown(), guiTitleID, newGameOptions())) {
-					for (int i=0; i<paramList.size(); i++) {
-						btList.get(i).repaint(paramList.get(i).getGuiDisplay());
+					for (int i=0; i<activeList.size(); i++) {
+						btList.get(i).repaint(activeList.get(i).getGuiDisplay());
 					}
 					repaintCustomComponent();
 				};

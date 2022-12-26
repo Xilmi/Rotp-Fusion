@@ -62,6 +62,7 @@ import rotp.ui.design.DesignUI;
 import rotp.ui.diplomacy.DialogueManager;
 import rotp.ui.diplomacy.DiplomacyRequestReply;
 import rotp.ui.fleets.FleetUI;
+import rotp.ui.game.AdvancedOptionsUI;
 import rotp.ui.game.GameOverUI;
 import rotp.ui.game.GameSettingsUI;
 import rotp.ui.game.GameUI;
@@ -74,7 +75,6 @@ import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.game.SetupRaceUI;
 import rotp.ui.game.StartModAOptionsUI; // modnar: add UI panel for modnar MOD game options
 import rotp.ui.game.StartModBOptionsUI;
-import rotp.ui.game.StartOptionsUI;
 import rotp.ui.history.HistoryUI;
 import rotp.ui.main.MainUI;
 import rotp.ui.map.SystemsUI;
@@ -236,7 +236,8 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     private final GameOverUI gameOverUI = new GameOverUI();
     private final ErrorUI errorUI = new ErrorUI();
     private final HelpUI helpUI = new HelpUI();
-    private final StartOptionsUI startOptionsUI = new StartOptionsUI();
+//    private final StartOptionsUI startOptionsUI = new StartOptionsUI();
+    private final AdvancedOptionsUI advancedOptionsUI = new AdvancedOptionsUI();
     // modnar: add UI panel for modnar MOD game options
     private final StartModAOptionsUI startModAOptionsUI = new StartModAOptionsUI();
     // BR: Second UI panel for MOD game options
@@ -376,7 +377,8 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     }
     public static RotPUI instance()               { return instance; }
     public static HelpUI helpUI()                 { return instance.helpUI; }
-    public static StartOptionsUI startOptionsUI() { return instance.startOptionsUI; }
+//    public static StartOptionsUI startOptionsUI() { return instance.startOptionsUI; }
+    public static AdvancedOptionsUI advancedOptionsUI() { return instance.advancedOptionsUI; }
     public static GameSettingsUI gameSettingsUI() { return instance.gameSettingsUI; }
     // modnar: add UI panel for modnar MOD game options
     public static StartModAOptionsUI startModAOptionsUI() { return instance.startModAOptionsUI; }

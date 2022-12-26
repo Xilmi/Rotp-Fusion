@@ -35,6 +35,7 @@ import static rotp.ui.UserPreferences.shapeSelection;
 import static rotp.ui.UserPreferences.showNewRaces;
 import static rotp.ui.UserPreferences.sizeSelection;
 import static rotp.ui.UserPreferences.useSelectableAbilities;
+import static rotp.ui.util.InterfaceParam.LABEL_DESCRIPTION;
 
 // modnar: needed for adding RenderingHints
 import java.awt.AlphaComposite;
@@ -118,6 +119,10 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	private static final String START_KEY	 = "SETUP_BUTTON_START";
 	private static final String SIZE_OPT_KEY = "SETUP_GALAXY_SIZE_STAR_PER_EMPIRE";
 	private static final String NO_SELECTION = "SETUP_BITMAP_NO_SELECTION";
+	private static final String SPECIFIC_AI  = "SETUP_SPECIFIC_AI";
+	private static final String GLOBAL_AI    = "SETUP_GLOBAL_AI";
+	private static final String SPECIFIC_ABILITY = "SETUP_SPECIFIC_ABILITY";
+	private static final String GLOBAL_ABILITIES = "SETUP_GLOBAL_ABILITIES";
 	public static int MAX_DISPLAY_OPPS = 49;
 	private BufferedImage backImg, playerRaceImg;
 	private BufferedImage smBackImg;
@@ -177,7 +182,6 @@ public final class SetupGalaxyUI  extends BaseModPanel
     private int  dialogMonoFontSize = 20;
     private Font boxMonoFont;
     private int  boxMonoFontSize  = 15;
-    private boolean initDuplicate = true;
     
  	private Font boxMonoFont() {
     	if (boxMonoFont == null)
@@ -203,20 +207,13 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			oppAI[i] = new Rectangle();
 		for (int i=0;i<oppCR.length;i++)
 			oppCR[i] = new Rectangle();
+		duplicateList = new LinkedList<>();
 		duplicateList.add(difficultySelection);
 		duplicateList.add(shapeSelection);
 		duplicateList.add(sizeSelection);
 		duplicateList.add(shapeOption1);
 		duplicateList.add(shapeOption2);
 		duplicateList.add(aliensNumber);
-	}
-	private void initDuplicates() {
-		if (initDuplicate) {
-			difficultySelection.initDuplicate();
-			shapeSelection.initDuplicate();
-			sizeSelection.initDuplicate();
-			initDuplicate = false;
-		}
 	}
 	private void initAIandAbilitiesList() {
 		// specific Abilities
@@ -246,7 +243,6 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		super.init();
 		boxMonoFont    = null;
 		dialogMonoFont = null;
-		initDuplicates();
         initAIandAbilitiesList();
 		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 		refreshGui();
@@ -567,14 +563,15 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		repaint();
 	}	
 	private String selectSpecificAIFromList(int i) {
+		String title   = text(SPECIFIC_AI);
+		String message = text(SPECIFIC_AI + LABEL_DESCRIPTION);
 		String initialChoice = text(newGameOptions().specificOpponentAIOption(i));
 	    String input = (String) ListDialog.showDialog(
 	    	getParent(), getParent(),	// Frame & Location component
-	    	"Select one AI...",	// Message
-	        "Opponent Specific AI",		// Title
-	        specificAIList,		// List
-	        initialChoice, 		// Initial choice
-	        "XX_AI: Character_XX",	// long Dialogue
+	    	message, title,				// Message, Title
+	        specificAIList,				// List
+	        initialChoice, 				// Initial choice
+	        "XX_AI: Character_XX",		// long Dialogue
 	        true,						// isVerticalWrap
 	        scaled(320), scaled(185),	// size Width, Height
 			null, null,					// Font, Preview
@@ -585,14 +582,15 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	    return input;
 	}
 	private String selectGlobalAIFromList() {
+		String title   = text(GLOBAL_AI);
+		String message = text(GLOBAL_AI + LABEL_DESCRIPTION);
 		String initialChoice = text(newGameOptions().selectedOpponentAIOption());
 	    String input = (String) ListDialog.showDialog(
 	    	getParent(), getParent(),	// Frame & Location component
-	    	"Select one AI...",	// Message
-	        "Opponent AI",		// Title
-	        globalAIList,		// List
-	        initialChoice, 		// Initial choice
-	        "XX_AI: Character_XX",	// long Dialogue
+	    	message, title,				// Message, Title
+	        globalAIList,				// List
+	        initialChoice, 				// Initial choice
+	        "XX_AI: Character_XX",		// long Dialogue
 	        true,						// isVerticalWrap
 	        scaled(220), scaled(250),	// size Width, Height
 			null, null,					// Font, Preview
@@ -603,13 +601,13 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	    return input;
 	}
 	private String selectSpecificAbilityFromList(int i) {
+		String title   = text(SPECIFIC_ABILITY);
+		String message = text(SPECIFIC_ABILITY + LABEL_DESCRIPTION);
 		String initialChoice = newGameOptions().specificOpponentCROption(i);
 	    String input = (String) ListDialog.showDialog(
-	    	getParent(),				// Frame component
-	    	getParent(),				// Location component
-	    	"Select one abilities...",	// Message
-	        "Opponent abilities",		// Title
-	        (String[]) specificAbilitiesList,	// List
+		    getParent(), getParent(),	// Frame & Location component
+	    	message, title,				// Message, Title
+	        specificAbilitiesList,		// List
 	        initialChoice, 				// Initial choice
 	        "XX_RACE_JACKTRADES_XX",	// long Dialogue
 	        false,						// isVerticalWrap
@@ -620,12 +618,13 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	    newGameOptions().specificOpponentCROption(input, i);
 	    return input;
 	}
-	private String selectGlobalAbilityFromList() {
+	private String selectAlienAbilityFromList() {
+		String title   = text(GLOBAL_ABILITIES);
+		String message = text(GLOBAL_ABILITIES + LABEL_DESCRIPTION);
 		String initialChoice = globalCROptions.get();
 	    String input = (String) ListDialog.showDialog(
-		    	getParent(), getParent(),	// Frame & Location component
-	    	"Select one abilities...",	// Message
-	        "Opponent abilities",		// Title
+		    getParent(), getParent(),	// Frame & Location component
+	    	message, title,				// Message, Title
 	        globalAbilitiesList,		// List
 	        initialChoice, 				// Initial choice
 	        "XX_RACE_JACKTRADES_XX",	// long Dialogue
@@ -1319,7 +1318,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	private void nextOpponentCR(boolean click) {
 		if (click) softClick();
 		if (click || Modifier2KeysState.isCtrlDown())
-			selectGlobalAbilityFromList();
+			selectAlienAbilityFromList();
 		else {
 			String currCR = globalCROptions.get();
 			int nextIndex = 0;
@@ -1335,7 +1334,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	private void prevOpponentCR(boolean click) {
 		if (click) softClick();
 		if (click || Modifier2KeysState.isCtrlDown())
-			selectGlobalAbilityFromList();
+			selectAlienAbilityFromList();
 		else {
 			String currCR = globalCROptions.get();
 			int prevIndex = 0;
@@ -1424,8 +1423,15 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	}
 	private void goToOptions() {
 		buttonClick();
-		StartOptionsUI optionsUI = RotPUI.startOptionsUI();
-		optionsUI.open(this);
+		AdvancedOptionsUI optionsUI = RotPUI.advancedOptionsUI();
+		optionsUI.init();
+//		if (Modifier2KeysState.isShiftDown()) {
+//			AdvancedOptionsUI optionsUI = RotPUI.advancedOptionsUI();
+//			optionsUI.init();
+//		} else {
+//			StartOptionsUI optionsUI = RotPUI.startOptionsUI();
+//			optionsUI.open(this);			
+//		}
 		close();
 	}
 	// modnar: add UI panel for modnar MOD game options

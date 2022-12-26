@@ -287,6 +287,8 @@ public abstract class GalaxyShape implements Base, Serializable {
 	public float maxScaleAdj()			   { return 1.0f; }
 	public void coords(int n, Point.Float pt) {
 		if (n == 0) { // BR: Fixed Orion at the wrong place with regions
+			if (orionXY == null) // BR: I don't know why this happen!!!
+				return;
 			pt.x = orionXY.x;
 			pt.y = orionXY.y;
 			return;

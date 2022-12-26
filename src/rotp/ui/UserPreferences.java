@@ -27,12 +27,15 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.LinkedList;
+import static rotp.model.game.IGameOptions.*;
+import static rotp.model.game.MOO1GameOptions.*;
 
 import rotp.Rotp;
 import rotp.model.empires.GalacticCouncil;
 import rotp.model.events.RandomEvents;
 import rotp.model.game.GameSession;
-import rotp.model.game.MOO1GameOptions;
+//import rotp.model.game.IGameOptions;
+//import rotp.model.game.MOO1GameOptions;
 import rotp.ui.util.GlobalCROptions;
 import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.ParamAAN2;
@@ -207,24 +210,24 @@ public class UserPreferences {
 			));
 
 	// This list is used by the ModAOptionsUI menu
-	public static final LinkedList<InterfaceParam> optionsA = new LinkedList<>(
+	public static final LinkedList<InterfaceParam> modOptionsA = new LinkedList<>(
 			Arrays.asList(
 			artifactsHomeworld, fertileHomeworld, richHomeworld, ultraRichHomeworld, minDistanceArtifactPlanet,
 			companionWorlds, battleScout, randomTechStart, retreatRestrictions, retreatRestrictionTurns,
 			customDifficulty, dynamicDifficulty, missileSizeModifier, challengeMode,
 			restartChangesPlayerRace, restartChangesPlayerAI, restartChangesAliensAI, restartAppliesSettings
 			));
-	public static final Integer[] optionARows = {5, 5, 4, 4}; // ModAOptionsUI alignment
+	public static final Integer[] modOptionARows = {5, 5, 4, 4}; // ModAOptionsUI alignment
 
 	// This list is used by the ModAOptionsUI menu
-	public static final LinkedList<InterfaceParam> optionsB = new LinkedList<>(
+	public static final LinkedList<InterfaceParam> modOptionsB = new LinkedList<>(
 			Arrays.asList(
 			maximizeSpacing, spacingLimit, randomAlienRacesTargetMax, randomAlienRacesTargetMin, randomAlienRaces,
 			minStarsPerEmpire, prefStarsPerEmpire, randomAlienRacesMax, randomAlienRacesMin, randomAlienRacesSmoothEdges,
 			counciRequiredPct, techIrradiated, techCloaking, techStargate, techHyperspace,
 			eventsStartTurn, techIndustry2, techThorium, techTransport
 			));
-	public static final Integer[] optionBRows = {5, 5, 5, 4}; // ModBOptionsUI alignment
+	public static final Integer[] modOptionBRows = {5, 5, 5, 4}; // ModBOptionsUI alignment
 
 	// BR: ===== Global settings Mod GUI:
 	private static boolean gamePlayed = false; // to differentiate startup from loaded game
@@ -269,18 +272,26 @@ public class UserPreferences {
 	public static final ParamBoolean showNextCouncil = new ParamBoolean(
 			MOD_UI, "SHOW_NEXT_COUNCIL", false);
 	public static final ParamInteger galaxyPreviewColorStarsSize = new ParamInteger(
-			MOD_UI, "GALAXY_PREVIEW_COLOR_SIZE"
-			, 5, 0, 20, 1, 2, 5);
+			MOD_UI, "GALAXY_PREVIEW_COLOR_SIZE" , 5, 0, 20, 1, 2, 5);
+	public static final ParamInteger minListSizePopUp = new ParamInteger(
+			MOD_UI, "MIN_LIST_SIZE_POP_UP" , 4, 0, 10, true) {
+		@Override public String getGuiValue() {
+			if (get() == 0)
+				return text(MOD_UI + "MIN_LIST_SIZE_POP_UP_NEVER");
+			return super.getGuiValue();
+		}
+
+	};
 
 	// This list is used by the ModGlobalOptionsUI menu
 	public static final LinkedList<InterfaceParam> modGlobalOptionsUI = new LinkedList<>(
 			Arrays.asList(
-			menuStartup, menuAfterGame, menuLoadGame,
+			menuStartup, menuAfterGame, menuLoadGame, minListSizePopUp,
 			showGridCircular, showTooltips, galaxyPreviewColorStarsSize,
 			showFleetFactor, showFlagFactor, showPathFactor, useFusionFont,
 			showNameMinFont, showInfoFontRatio, mapFontFactor, showNextCouncil
 			));
-	public static final Integer[] rowCountList = {3, 3, 4, 4}; // ModGlobalOptionsUI alignment
+	public static final Integer[] modGlobalOptionsRows = {4, 3, 4, 4}; // ModGlobalOptionsUI alignment
 
 	// BR: Galaxy Menu addition
 	public static final ParamBoolean showNewRaces = new ParamBoolean(
@@ -310,7 +321,7 @@ public class UserPreferences {
 		}
 	};
 	public static final ParamList shapeSelection = new ParamList( // Duplicate Do not add the list
-			BASE_UI, "GALAXY_SHAPE", MOO1GameOptions.getGalaxyShapeOptions(), 0) {
+			BASE_UI, "GALAXY_SHAPE", getGalaxyShapeOptions(),  SHAPE_RECTANGLE) {
 		@Override public String getFromOption() {
 			return RotPUI.newOptions().selectedGalaxyShape();
 		}
@@ -319,7 +330,7 @@ public class UserPreferences {
 		}
 	};
 	public static final ParamList sizeSelection = new ParamList( // Duplicate Do not add the list
-			BASE_UI, "GALAXY_SIZE", MOO1GameOptions.getGalaxySizeOptions(), 3) {
+			BASE_UI, "GALAXY_SIZE", getGalaxySizeOptions(), SIZE_SMALL) {
 		@Override public String getFromOption() {
 			return RotPUI.newOptions().selectedGalaxySize();
 		}
@@ -328,7 +339,7 @@ public class UserPreferences {
 		}
 	};
 	public static final ParamList difficultySelection = new ParamList( // Duplicate Do not add the list
-			BASE_UI, "GAME_DIFFICULTY", MOO1GameOptions.getGameDifficultyOptions(), 3) {
+			BASE_UI, "GAME_DIFFICULTY", getGameDifficultyOptions(), DIFFICULTY_NORMAL) {
 		@Override public String getFromOption() {
 			return RotPUI.newOptions().selectedGameDifficulty();
 		}
@@ -366,7 +377,7 @@ public class UserPreferences {
 	public static final ParamBoolean playerIsCustom = new ParamBoolean(
 			BASE_UI, "BUTTON_CUSTOM_PLAYER_RACE", false);
 	public static final ParamCR  playerCustomRace = new ParamCR(
-			MOD_UI, MOO1GameOptions.baseRaceOptions().getFirst());
+			MOD_UI, baseRaceOptions().getFirst());
 
 	public static final LinkedList<InterfaceParam> optionsRace = new LinkedList<>(
 			Arrays.asList(
@@ -387,8 +398,8 @@ public class UserPreferences {
 	// BR: All the dynamic parameters
 	public static LinkedList<InterfaceParam> allModOptions() {
 		LinkedList<InterfaceParam> allModOptions = new LinkedList<>();
-		allModOptions.addAll(optionsA);
-		allModOptions.addAll(optionsB);
+		allModOptions.addAll(modOptionsA);
+		allModOptions.addAll(modOptionsB);
 		allModOptions.addAll(optionsGalaxy);
 		allModOptions.addAll(optionsRace);
 		allModOptions.addAll(optionsCustomRaceBase);
@@ -405,6 +416,155 @@ public class UserPreferences {
 		globalOptions.add(bitmapGalaxyLastFolder);
 		return globalOptions;
 	}
+	
+	// Duplicates for Base Advanced Options
+	public static final ParamList galaxyAge = new ParamList( // Duplicate Do not add the list
+			ADV_UI, "GALAXY_AGE", getGalaxyAgeOptions(), GALAXY_AGE_NORMAL) {
+		@Override public String getFromOption() {
+			return RotPUI.newOptions().selectedGalaxyAge();
+		}
+		@Override public void setOption(String newValue) {
+			RotPUI.newOptions().selectedGalaxyAge(newValue);
+		}
+	};
+	public static final ParamList starDensity = new ParamList( // Duplicate Do not add the list
+			ADV_UI, "STAR_DENSITY", getStarDensityOptions(), STAR_DENSITY_NORMAL) {
+		@Override public String getFromOption() {
+			return RotPUI.newOptions().selectedStarDensityOption();
+		}
+		@Override public void setOption(String newValue) {
+			RotPUI.newOptions().selectedStarDensityOption(newValue);
+		}
+	};
+	public static final ParamList nebulae = new ParamList( // Duplicate Do not add the list
+			ADV_UI, "NEBULAE", getNebulaeOptions(), NEBULAE_NORMAL) {
+		@Override public String getFromOption() {
+			return RotPUI.newOptions().selectedNebulaeOption();
+		}
+		@Override public void setOption(String newValue) {
+			RotPUI.newOptions().selectedNebulaeOption(newValue);
+		}
+	};
+	public static final ParamList randomEvents = new ParamList( // Duplicate Do not add the list
+			ADV_UI, "RANDOM_EVENTS", getRandomEventOptions(), RANDOM_EVENTS_NO_MONSTERS) {
+		@Override public String getFromOption() {
+			return RotPUI.newOptions().selectedRandomEventOption();
+		}
+		@Override public void setOption(String newValue) {
+			RotPUI.newOptions().selectedRandomEventOption(newValue);
+		}
+	};
+	public static final ParamList planetQuality = new ParamList( // Duplicate Do not add the list
+			ADV_UI, "PLANET_QUALITY", getPlanetQualityOptions(), PLANET_QUALITY_NORMAL) {
+		@Override public String getFromOption() {
+			return RotPUI.newOptions().selectedPlanetQualityOption();
+		}
+		@Override public void setOption(String newValue) {
+			RotPUI.newOptions().selectedPlanetQualityOption(newValue);
+		}
+	};
+	public static final ParamList terraforming = new ParamList( // Duplicate Do not add the list
+			ADV_UI, "TERRAFORMING", getTerraformingOptions(), TERRAFORMING_NORMAL) {
+		@Override public String getFromOption() {
+			return RotPUI.newOptions().selectedTerraformingOption();
+		}
+		@Override public void setOption(String newValue) {
+			RotPUI.newOptions().selectedTerraformingOption(newValue);
+		}
+	};
+	public static final ParamList colonizing = new ParamList( // Duplicate Do not add the list
+			ADV_UI, "COLONIZING", getColonizingOptions(), COLONIZING_NORMAL) {
+		@Override public String getFromOption() {
+			return RotPUI.newOptions().selectedColonizingOption();
+		}
+		@Override public void setOption(String newValue) {
+			RotPUI.newOptions().selectedColonizingOption(newValue);
+		}
+	};
+	public static final ParamList councilWin = new ParamList( // Duplicate Do not add the list
+			ADV_UI, "COUNCIL_WIN", getCouncilWinOptions(), COUNCIL_REBELS) {
+		@Override public String getFromOption() {
+			return RotPUI.newOptions().selectedCouncilWinOption();
+		}
+		@Override public void setOption(String newValue) {
+			RotPUI.newOptions().selectedCouncilWinOption(newValue);
+		}
+		@Override protected String descriptionId() {
+			return "SETTINGS_COUNCIL_DESC";
+		}
+	};
+	public static final ParamList randomizeAI = new ParamList( // Duplicate Do not add the list
+			ADV_UI, "RANDOMIZE_AI", getRandomizeAIOptions(), RANDOMIZE_AI_NONE) {
+		@Override public String getFromOption() {
+			return RotPUI.newOptions().selectedRandomizeAIOption();
+		}
+		@Override public void setOption(String newValue) {
+			RotPUI.newOptions().selectedRandomizeAIOption(newValue);
+		}
+	};
+	public static final ParamList autoplay = new ParamList( // Duplicate Do not add the list
+			ADV_UI, "AUTOPLAY", getAutoplayOptions(), AUTOPLAY_OFF) {
+		@Override public String getFromOption() {
+			return RotPUI.newOptions().selectedAutoplayOption();
+		}
+		@Override public void setOption(String newValue) {
+			RotPUI.newOptions().selectedAutoplayOption(newValue);
+		}
+	};
+	public static final ParamList researchRate = new ParamList( // Duplicate Do not add the list
+			ADV_UI, "RESEARCH_RATE", getResearchRateOptions(), RESEARCH_NORMAL) {
+		@Override public String getFromOption() {
+			return RotPUI.newOptions().selectedResearchRate();
+		}
+		@Override public void setOption(String newValue) {
+			RotPUI.newOptions().selectedResearchRate(newValue);
+		}
+	};
+	public static final ParamList warpSpeed = new ParamList( // Duplicate Do not add the list
+			ADV_UI, "WARP_SPEED", getWarpSpeedOptions(), WARP_SPEED_NORMAL) {
+		@Override public String getFromOption() {
+			return RotPUI.newOptions().selectedWarpSpeedOption();
+		}
+		@Override public void setOption(String newValue) {
+			RotPUI.newOptions().selectedWarpSpeedOption(newValue);
+		}
+	};
+	public static final ParamList fuelRange = new ParamList( // Duplicate Do not add the list
+			ADV_UI, "AI_HOSTILITY", getFuelRangeOptions(), FUEL_RANGE_NORMAL) {
+		@Override public String getFromOption() {
+			return RotPUI.newOptions().selectedFuelRangeOption();
+		}
+		@Override public void setOption(String newValue) {
+			RotPUI.newOptions().selectedFuelRangeOption(newValue);
+		}
+	};
+	public static final ParamList techTrading = new ParamList( // Duplicate Do not add the list
+			ADV_UI, "FUEL_RANGE", getTechTradingOptions(), TECH_TRADING_YES) {
+		@Override public String getFromOption() {
+			return RotPUI.newOptions().selectedTechTradeOption();
+		}
+		@Override public void setOption(String newValue) {
+			RotPUI.newOptions().selectedTechTradeOption(newValue);
+		}
+	};
+	public static final ParamList aiHostility = new ParamList( // Duplicate Do not add the list
+			ADV_UI, "TECH_TRADING", getAiHostilityOptions(), AI_HOSTILITY_NORMAL) {
+		@Override public String getFromOption() {
+			return RotPUI.newOptions().selectedTechTradeOption();
+		}
+		@Override public void setOption(String newValue) {
+			RotPUI.newOptions().selectedTechTradeOption(newValue);
+		}
+	};
+	public static final LinkedList<InterfaceParam> advancedOptions = new LinkedList<>(
+			Arrays.asList(
+					galaxyAge, starDensity, nebulae, planetQuality, terraforming,
+					randomEvents, aiHostility, councilWin, randomizeAI, autoplay,
+					researchRate, warpSpeed, fuelRange, techTrading, colonizing
+					));
+	public static final Integer[] advancedOptionsRows = {5, 5, 5};
+
+	
 
 	private static boolean showMemory  = false;
 	private static boolean playMusic   = true;

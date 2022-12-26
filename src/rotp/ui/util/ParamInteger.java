@@ -56,7 +56,7 @@ public class ParamInteger extends AbstractParam<Integer> {
 	 */
 	public ParamInteger(String gui, String name, Integer defaultValue
 			, Integer minValue, Integer maxValue, boolean loop) {
-		super(gui, name, defaultValue, minValue, maxValue, 1, 1, 1);
+		super(gui, name, defaultValue, minValue, maxValue, 1, 2, 5);
 		this.loop = loop;
 	}
 	/**

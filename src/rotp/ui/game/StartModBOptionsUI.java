@@ -15,8 +15,8 @@
  */
 package rotp.ui.game;
 
-import static rotp.ui.UserPreferences.optionBRows;
-import static rotp.ui.UserPreferences.optionsB;
+import static rotp.ui.UserPreferences.modOptionBRows;
+import static rotp.ui.UserPreferences.modOptionsB;
 
 // modnar: add UI panel for modnar MOD game options, based on StartOptionsUI.java
 public class StartModBOptionsUI extends AbstractOptionsUI {
@@ -28,7 +28,7 @@ public class StartModBOptionsUI extends AbstractOptionsUI {
 		super(guiTitleID, GUI_ID);
 	}
 	@Override protected void init0() {
-		paramList	  = optionsB;
-		rowCountList(optionBRows);
+		paramList	  = modOptionsB;
+		rowCountList(modOptionBRows);
 	}
 }

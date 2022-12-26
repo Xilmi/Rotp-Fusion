@@ -16,7 +16,7 @@
 package rotp.ui.game;
 
 import static rotp.ui.UserPreferences.modGlobalOptionsUI;
-import static rotp.ui.UserPreferences.rowCountList;
+import static rotp.ui.UserPreferences.modGlobalOptionsRows;
 
 public class ModGlobalOptionsUI extends AbstractOptionsUI {
 	private static final long serialVersionUID = 1L;
@@ -30,6 +30,6 @@ public class ModGlobalOptionsUI extends AbstractOptionsUI {
 	@Override protected void init0() {
 		globalOptions = true; // No preferred button
 		paramList	  = modGlobalOptionsUI;
-		rowCountList(rowCountList);
+		rowCountList(modGlobalOptionsRows);
 	}
 }

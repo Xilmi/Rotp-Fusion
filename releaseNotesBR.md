@@ -1,17 +1,13 @@
 Only a little one:
 
-- Ctrl-Click on some options with a list will activate a selection panel.
-  - On all Mod Options Menu.
-  - On Race Menu: Ship Set selection.
-  - On Galaxy Menu:
-    - On galaxy shape selection.
-    - On galaxy shape options selection.
-    - On Galaxy size selection.
-    - On Difficulty selection.
+- Click on settings with list <= 4 option will pop-up the list.
+  - The min list size value can be set in Global Mod Option.
+  - The pop-up list can be disabled.
+  - The pop-up list can be forced by "Ctrl"-Click
 - Galaxy menu:
   - Number of opponents:
     - Added Shift & Ctrl multiple increments.
-  - AI Selection: Selection panel on click.
+  - AI Selection: Selection panel on click. (always)
 - Some little fix
   - BitmapGalaxy not selected: Fixed FileName box not totally hidden.
   - Fixed Fusion Font size being wrong sometime.

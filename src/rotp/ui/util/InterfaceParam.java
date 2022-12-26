@@ -38,5 +38,5 @@ public interface InterfaceParam extends InterfaceOptions{
 	public default String getToolTip() { return ""; }
 	public default String getToolTip(int idx) { return ""; }
 	public default void setPanel(BaseModPanel p) { }
-	
+	public default void initGuiTexts() {}
 }

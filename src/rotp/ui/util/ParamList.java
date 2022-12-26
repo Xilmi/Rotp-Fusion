@@ -16,6 +16,8 @@
 
 package rotp.ui.util;
 
+import static rotp.ui.UserPreferences.minListSizePopUp;
+
 import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -77,6 +79,20 @@ public class ParamList extends AbstractParam<String> {
 			put(element, element); // Temporary; needs to be further initialized
 	}
 	/**
+	 * Initializer for Duplicate
+	 * @param gui  The label header
+	 * @param name The name
+	 * @param list keys for map table
+	 * @param defaultIndex index to the default value
+	 */
+	public ParamList(String gui, String name, List<String> list, String defaultValue) {
+		super(gui, name, defaultValue);
+		isDuplicate(true);
+		valueLabelMap = new IndexableMap();
+		for (String element : list)
+			put(element, element); // Temporary; needs to be further initialized
+	}
+	/**
 	 * Initializer for Duplicate Dynamic (shape options)
 	 * @param gui  The label header
 	 * @param name The name
@@ -89,11 +105,6 @@ public class ParamList extends AbstractParam<String> {
 	
 	// ===== Initializers =====
 	//
-	public void initDuplicate() {
-		int idx = getIndex(defaultValue());
-		valueLabelMap.initDuplicate();
-		defaultValue(valueLabelMap.cfgValueList.get(idx));
-	}
 	public void reInit(List<String> list) {
 		valueLabelMap.clear();
 		for (String element : list)
@@ -101,6 +112,12 @@ public class ParamList extends AbstractParam<String> {
 	}
 	// ===== Overriders =====
 	//
+	@Override public void initGuiTexts() {
+		int idx = getIndex(defaultValue());
+		valueLabelMap.initGuiTexts();
+		if (idx >= 0)
+			defaultValue(valueLabelMap.cfgValueList.get(idx));
+	}
 	@Override protected String getCfgValue(String value) {
 		return validateValue(value);
 	}
@@ -122,7 +139,8 @@ public class ParamList extends AbstractParam<String> {
 	@Override public void toggle(MouseEvent e) {
 		if (getDir(e) == 0)
 			setFromDefault();
-		else if (e.isControlDown() && hasPanel())
+		else if (hasPanel() && 
+				(e.isControlDown() || listSize() >= minListSizePopUp.get()))
 			setFromList(getPanel());
 		else if (getDir(e) > 0)
 			next();
@@ -159,10 +177,9 @@ public class ParamList extends AbstractParam<String> {
 	private void setFromList(Component parent) {
 		String message	= "<html>" + getGuiDescription() + "</html>";
 		String title	= text(labelId(), "");
-		String[] list	= valueLabelMap.langLabelList.toArray(   // Values and labels are swap
-				new String[valueLabelMap.langLabelList.size()]); // because values may be redundant
-
-		String input = (String) ListDialog.showDialog(
+		String input;
+		String[] list= valueLabelMap.guiTextList.toArray(new String[listSize()]);
+		input  = (String) ListDialog.showDialog(
 				parent,	parent,	// Frame & Location component
 				message, title,	// Message & Title
 				list, get(),	// List & Initial choice
@@ -204,12 +221,14 @@ public class ParamList extends AbstractParam<String> {
 			return defaultValue();
 		return valueLabelMap.getCfgValue(0);
 	}
+	private int listSize() { return valueLabelMap.listSize(); }
 	//========== Nested class ==========
 	//
 	static class IndexableMap{
 		
 		private final LinkedList<String>  cfgValueList	= new LinkedList<>(); // also key list
 		private final LinkedList<String>  langLabelList	= new LinkedList<>();
+		private final LinkedList<String>  guiTextList	= new LinkedList<>();
 
 		
 		// ========== Constructors and Initializers ==========
@@ -231,13 +250,14 @@ public class ParamList extends AbstractParam<String> {
 			cfgValueList.add(option);
 			langLabelList.add(label);
 		}
-		void initDuplicate() {
-			langLabelList.clear(); // Values and labels are swap because values may be redundant
-			for (String label : cfgValueList)
-				langLabelList.add(text(label));
+		void initGuiTexts() {
+			guiTextList.clear();
+			for (String label : langLabelList)
+				guiTextList.add(text(label));
 		}
 		// ========== Getters ==========
 		//
+		private int listSize() { return cfgValueList.size(); }
 		private String getCfgValue(int idx) {
 			return cfgValueList.get(idx);
 		}
