@@ -16,7 +16,7 @@
 		<maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
 		<!-- <revision>Fusion-Beta-${maven.build.timestamp}</revision> -->
 		<!-- <revision>Fusion-${maven.build.timestamp}</revision> -->
-		<revision>Fusion-${maven.build.timestamp}</revision>
+		<revision>Fusion-Beta-${maven.build.timestamp}</revision>
 		<!-- EXE converter Format yyyy.M.d.H -->
 		<exeVersion>${current.time}</exeVersion>
 		<!-- Tag Format yyyy/MM/dd/HH/mm -->
@@ -24,7 +24,7 @@
 		<RepoId>Rotp-Fusion</RepoId>
 		<!-- <Branch>Main</Branch> -->
 		<!-- <Branch>Draft</Branch> -->
-		<Branch>Main</Branch>
+		<Branch>Draft</Branch>
 		<Hide>true</Hide>
 		<AuthorId>BrokenRegistry</AuthorId>
 		<pdfFileName>Description.pdf</pdfFileName>
