@@ -14,7 +14,9 @@
 	<properties>
 		<!-- File Name Format -->
 		<maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
-		<revision>Fusion-Beta-${maven.build.timestamp}</revision>
+		<!-- <revision>Fusion-Beta-${maven.build.timestamp}</revision> -->
+		<!-- <revision>Fusion-${maven.build.timestamp}</revision> -->
+		<revision>Fusion-${maven.build.timestamp}</revision>
 		<!-- EXE converter Format yyyy.M.d.H -->
 		<exeVersion>${current.time}</exeVersion>
 		<!-- Tag Format yyyy/MM/dd/HH/mm -->
