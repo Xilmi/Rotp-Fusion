@@ -21,7 +21,8 @@
 		<gitHubTag>${build.date}</gitHubTag>
 		<RepoId>Rotp-Fusion</RepoId>
 		<!-- <Branch>Main</Branch> -->
-		<Branch>Draft</Branch>
+		<!-- <Branch>Draft</Branch> -->
+		<Branch>Main</Branch>
 		<Hide>true</Hide>
 		<AuthorId>BrokenRegistry</AuthorId>
 		<pdfFileName>Description.pdf</pdfFileName>

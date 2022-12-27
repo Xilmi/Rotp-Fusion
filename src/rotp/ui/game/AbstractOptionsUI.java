@@ -72,7 +72,6 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 	private Rectangle hoverBox;
 	private Rectangle exitBox	= new Rectangle();
 	private LinearGradientPaint bg;
-//    private boolean initDuplicates = false;
 
 	
 	// ========== Constructors and initializers ==========
@@ -89,10 +88,9 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 		// Call for filling the settings
 		init0();
 		
-		if (paramList == null) {
-//			initDuplicates = true;
+		if (paramList == null) 
 			activeList     = duplicateList;
-		} else
+		else
 			activeList = paramList;
 		
 		for (int i=0; i<activeList.size(); i++)
@@ -298,15 +296,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 	@Override protected void doExitBoxAction() {
 		if (globalOptions) { // The old ways
 			buttonClick();
-			switch (Modifier2KeysState.get()) {
-			case CTRL:
-			case CTRL_SHIFT: // Restore
-				UserPreferences.load();
-				break;
-			default: // Save
-				UserPreferences.save();
-				break; 
-			}
+			UserPreferences.save();
 			close();			
 		}
 		else
