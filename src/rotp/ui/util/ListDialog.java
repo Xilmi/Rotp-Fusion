@@ -303,10 +303,11 @@ public class ListDialog extends JDialog
 		JLabel label = new JLabel(labelText);
 		label.setFont(narrowFont(14));
 		label.setLabelFor(list);
-		label.setForeground(Color.WHITE);
+		label.setForeground(Color.BLACK);
 
+		//listPane.setFont(narrowFont(20));
 		listPane.setBackground(GameUI.borderMidColor());
-		listPane.setForeground(Color.WHITE);
+		//listPane.setForeground(Color.BLACK);
 		listPane.add(label);
 		listPane.add(Box.createRigidArea(new Dimension(0,5)));
 		listPane.add(listScroller);

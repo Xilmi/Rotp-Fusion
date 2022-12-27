@@ -151,7 +151,10 @@ public class ParamList extends AbstractParam<String> {
 		super.set(validateValue(newCfgValue));
 	}
 	@Override public int getIndex(){
-		return valueLabelMap.getValueIndexIgnoreCase(get());
+		if (isDuplicate())
+			return valueLabelMap.getLangLabelIndexIgnoreCase(get());
+		else
+			return valueLabelMap.getValueIndexIgnoreCase(get());
 	}
 	@Override public String setFromIndex(int idx) {
 		return super.set(value(valueLabelMap.getCfgValue(idx)));
@@ -162,34 +165,23 @@ public class ParamList extends AbstractParam<String> {
 	// ===== Other Protected Methods =====
 	//
 	protected int getIndex(String value) {
-		return valueLabelMap.getValueIndexIgnoreCase(value);
+		if (isDuplicate())
+			return valueLabelMap.getLangLabelIndexIgnoreCase(value);
+		else
+			return valueLabelMap.getValueIndexIgnoreCase(value);
 	}
 	protected String getLangLabelFromValue(String newValue) {
 		String newLangLabel = valueLabelMap.getLangLabelFromValue(newValue);
 		return newLangLabel;
 	}
-	protected String getValueFromLangLabel(String langLabel) {
-		String newValue = valueLabelMap.getValueFromLangLabel(langLabel);		
-		return newValue;
-	}
+//	protected String getValueFromLangLabel(String langLabel) {
+//		if (isDuplicate())
+//			return langLabel;
+//		else
+//			return valueLabelMap.getValueFromLangLabel(langLabel);	
+//	}
 	// ===== Other Public Methods =====
 	//
-	private void setFromList(Component parent) {
-		String message	= "<html>" + getGuiDescription() + "</html>";
-		String title	= text(labelId(), "");
-		String input;
-		String[] list= valueLabelMap.guiTextList.toArray(new String[listSize()]);
-		input  = (String) ListDialog.showDialog(
-				parent,	parent,	// Frame & Location component
-				message, title,	// Message & Title
-				list, get(),	// List & Initial choice
-				null, true,		// long Dialogue & isVertical
-				RotPUI.scaledSize(360), RotPUI.scaledSize(300),	// size
-				null, null,	// Font, Preview
-				valueLabelMap.cfgValueList);	// Alternate return
-		if (input != null)
-			set(input);
-	}
 	public LinkedList<String> getOptions() {
 		LinkedList<String> list = new LinkedList<String>();
 		if (isDuplicate()) // Values and labels are swap because values may be redundant
@@ -209,6 +201,8 @@ public class ParamList extends AbstractParam<String> {
 		valueLabelMap.put(option, label);
 		return this;
 	}
+	// ===== Private Methods =====
+	//
 	/**
 	 * Check if the entry is valid and return a valid value
 	 * @param key the entry to check
@@ -222,6 +216,30 @@ public class ParamList extends AbstractParam<String> {
 		return valueLabelMap.getCfgValue(0);
 	}
 	private int listSize() { return valueLabelMap.listSize(); }
+	private String currentOption() {
+		int index = Math.max(0, getIndex());
+		return valueLabelMap.guiTextList.get(index);
+	}
+	private void setFromList(Component parent) {
+		String message	= "<html>" + getGuiDescription() + "</html>";
+		String title	= text(labelId(), "");
+		String input;
+		System.out.println("getIndex() = " + getIndex());
+		System.out.println("currentOption() = " + currentOption());
+		String[] list= valueLabelMap.guiTextList.toArray(new String[listSize()]);
+		input  = (String) ListDialog.showDialog(
+				parent,	parent,			// Frame & Location component
+				message, title,			// Message & Title
+				list, currentOption(),	// List & Initial choice
+				null, true,				// long Dialogue & isVertical
+				RotPUI.scaledSize(360), RotPUI.scaledSize(300),	// size
+				null, null,	// Font, Preview
+				valueLabelMap.cfgValueList);	// Alternate return
+		System.out.println("input = " + input);
+		if (input != null && getIndex(input) >= 0)
+			set(input);
+		System.out.println("getIndex() = " + getIndex());
+	}
 	//========== Nested class ==========
 	//
 	static class IndexableMap{
@@ -268,15 +286,15 @@ public class ParamList extends AbstractParam<String> {
 			int index = getValueIndexIgnoreCase(value);
 			return langLabelList.get(index);
 		}
-		/**
-		 * get the value from the langLabel
-		 * @param langLabel The langLabel to search
-		 * @return the corresponding value
-		 */
-		private String getValueFromLangLabel(String langLabel) {
-			int index = getLangLabelIndexIgnoreCase(langLabel);
-			return cfgValueList.get(index);
-		}
+//		/**
+//		 * get the value from the langLabel
+//		 * @param langLabel The langLabel to search
+//		 * @return the corresponding value
+//		 */
+//		private String getValueFromLangLabel(String langLabel) {
+//			int index = getLangLabelIndexIgnoreCase(langLabel);
+//			return cfgValueList.get(index);
+//		}
 		/**
 		 * search for value regardless of the case and return the previous key
 		 * @param value The value to search
@@ -307,6 +325,20 @@ public class ParamList extends AbstractParam<String> {
 		private boolean valuesContainsIgnoreCase(String value) {
 			return getValueIndexIgnoreCase(value) != -1;
 		}
+//		/**
+//		 * search for the value position in the guiText list
+//		 * @param value The value to search regardless of the case
+//		 * @return the value index, -1 if none
+//		 */
+//		private int getGuiTextIndexIgnoreCase(String value) {
+//			int index = 0;
+//			for (String entry : guiTextList) {
+//				if (entry.equalsIgnoreCase(value))
+//					return index;
+//				index++;
+//			}
+//			return -1;
+//		}
 		/**
 		 * search for the value position in the cfgValue list
 		 * @param value The value to search regardless of the case

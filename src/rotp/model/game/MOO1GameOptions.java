@@ -185,13 +185,14 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         selectedGalaxySize = s; 
         if (selectedNumberOpponents() == prevNumOpp)
             selectedNumberOpponents(defaultOpponentsOptions());
-        generateGalaxy();
+        // generateGalaxy(); // TODO BR: Validate
     }
     @Override
     public String selectedGalaxyShape()          { return selectedGalaxyShape; }
     @Override
-    public void selectedGalaxyShape(String s)    { selectedGalaxyShape = s; setGalaxyShape(); generateGalaxy(); }
-    @Override
+    public void selectedGalaxyShape(String s)    { selectedGalaxyShape = s; setGalaxyShape(); } // TODO BR: Validate
+ //   public void selectedGalaxyShape(String s)    { selectedGalaxyShape = s; setGalaxyShape(); generateGalaxy(); }
+   @Override
     public String selectedGalaxyShapeOption1()       { return selectedGalaxyShapeOption1; }
     @Override
     public void selectedGalaxyShapeOption1(String s) { selectedGalaxyShapeOption1 = s; }
@@ -295,7 +296,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override
     public int selectedNumberOpponents()         { return selectedNumberOpponents; }
     @Override
-    public void selectedNumberOpponents(int i)   { selectedNumberOpponents = i; generateGalaxy(); }
+    public void selectedNumberOpponents(int i)   { selectedNumberOpponents = i; } // TODO BR: Validate
+ //   public void selectedNumberOpponents(int i)   { selectedNumberOpponents = i; generateGalaxy(); }
     @Override
     public String selectedPlayerRace()           { return selectedPlayer().race; }
     @Override
@@ -410,7 +412,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         selectedGalaxyShapeOption1 = opt.selectedGalaxyShapeOption1;
         selectedGalaxyShapeOption2 = opt.selectedGalaxyShapeOption2;
 
-        generateGalaxy(); 
+//        generateGalaxy(); // TODO BR: Validate
     }
 
     @Override
@@ -1645,7 +1647,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     		MOO1GameOptions src, MOO1GameOptions dest, String guiID) {
     	setModSettingsFromOptions(src, guiID);
     	setBaseSettingsFromOptions(src, dest, guiID);
-    	dest.setAndGenerateGalaxy();
+    	// dest.setAndGenerateGalaxy();  // TODO BR: Validate
     }
     private static void setModSettingsFromOptions(MOO1GameOptions src, String guiID) {
     	LinkedList<InterfaceParam> modOptions = getModParameterList(guiID);
@@ -1803,7 +1805,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	if (beepsOnError)
     		Toolkit.getDefaultToolkit().beep();
 		MOO1GameOptions newOptions = new MOO1GameOptions();
-		newOptions.generateGalaxy();
+		// newOptions.generateGalaxy(); // TODO BR: Validate
     	saveOptions(new MOO1GameOptions(), path, fileName);			
 		return newOptions;    	
     }

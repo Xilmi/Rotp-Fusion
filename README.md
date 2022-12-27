@@ -26,6 +26,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2022.12.7 (BR)
+  - Fixed some new GUI interface issues.
+
 2022.12.26 (BR)
   - Advanced option updated to new GUI interface.
 

@@ -530,7 +530,7 @@ public class UserPreferences {
 		}
 	};
 	public static final ParamList fuelRange = new ParamList( // Duplicate Do not add the list
-			ADV_UI, "AI_HOSTILITY", getFuelRangeOptions(), FUEL_RANGE_NORMAL) {
+			ADV_UI, "FUEL_RANGE", getFuelRangeOptions(), FUEL_RANGE_NORMAL) {
 		@Override public String getFromOption() {
 			return RotPUI.newOptions().selectedFuelRangeOption();
 		}
@@ -539,7 +539,7 @@ public class UserPreferences {
 		}
 	};
 	public static final ParamList techTrading = new ParamList( // Duplicate Do not add the list
-			ADV_UI, "FUEL_RANGE", getTechTradingOptions(), TECH_TRADING_YES) {
+			ADV_UI, "TECH_TRADING", getTechTradingOptions(), TECH_TRADING_YES) {
 		@Override public String getFromOption() {
 			return RotPUI.newOptions().selectedTechTradeOption();
 		}
@@ -548,7 +548,7 @@ public class UserPreferences {
 		}
 	};
 	public static final ParamList aiHostility = new ParamList( // Duplicate Do not add the list
-			ADV_UI, "TECH_TRADING", getAiHostilityOptions(), AI_HOSTILITY_NORMAL) {
+			ADV_UI, "AI_HOSTILITY", getAiHostilityOptions(), AI_HOSTILITY_NORMAL) {
 		@Override public String getFromOption() {
 			return RotPUI.newOptions().selectedTechTradeOption();
 		}

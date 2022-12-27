@@ -46,13 +46,13 @@ import rotp.ui.util.InterfaceOptions;
 import rotp.ui.util.Modifier2KeysState;
 
 // modnar: add UI panel for modnar MOD game options, based on StartOptionsUI.java
-abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
+class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
 	private static final long serialVersionUID = 1L;
 	private static final Color backgroundHaze = new Color(0,0,0,160);
 	private final String guiTitleID;
 	private final String GUI_ID;
 	
-	private Font descFont = narrowFont(15);
+	private Font descFont	= narrowFont(15);
 	private static int columnPad	= s20;
 	private static int smallButtonH = s30;
 	private static int hSetting	    = s90;
@@ -76,7 +76,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 	
 	// ========== Constructors and initializers ==========
 	//
-	AbstractOptionsUI(String guiTitle_ID, String guiId) {
+	CompactOptionsUI(String guiTitle_ID, String guiId) {
 		guiTitleID = guiTitle_ID;
 		GUI_ID = guiId;
 		init_0();
@@ -146,14 +146,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 	}
 	// ========== Abstract Methods Request ==========
 	//
-	protected abstract void init0();
-	// ========== Former Abstract Methods Request ==========
-	//
-	// These may be left empty by full Auto GUI
-	private void paintCustomComponent(Graphics2D g) {}
-	private void repaintCustomComponent() {}
-	private void customMouseCommon(boolean up, boolean mid,
-			boolean shiftPressed, boolean ctrlPressed, MouseEvent e, MouseWheelEvent w) {}
+	protected void init0() { }
 	// ========== Other Methods ==========
 	//
 	private  BaseText newBT() { 
@@ -262,7 +255,6 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 				return;
 			}			
 		}
-		customMouseCommon(up, mid, shiftPressed, ctrlPressed, e, w);
 	}
 	// ========== Overriders ==========
 	//
@@ -364,8 +356,6 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 			paintSetting(g, btList.get(index), activeList.get(index).getGuiDescription());
 			goToNextSetting();
 		}
-		paintCustomComponent(g);
-
 		g.setStroke(prev);
 
 		drawButtons(g);
@@ -383,14 +373,9 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 			case KeyEvent.VK_SPACE:
 			default: // BR:
 				if(Profiles.processKey(k, e.isShiftDown(), guiTitleID, newGameOptions())) {
-				};
-				// Needs to be done twice for the case both Galaxy size
-				// and the number of opponents were changed !?
-				if(Profiles.processKey(k, e.isShiftDown(), guiTitleID, newGameOptions())) {
 					for (int i=0; i<activeList.size(); i++) {
 						btList.get(i).repaint(activeList.get(i).getGuiDisplay());
 					}
-					repaintCustomComponent();
 				};
 				return;
 		}

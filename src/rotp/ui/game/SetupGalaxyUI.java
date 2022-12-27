@@ -2118,11 +2118,11 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		}
 		else if (hoverBox == shapeBox) {
 			shapeSelection.toggle(e);
-			postSelectionMedium(true);
+			postSelectionFull(true);
 		}
 		else if (hoverBox == shapeBoxR) {
 			shapeSelection.next();
-			postSelectionMedium(true);
+			postSelectionFull(true);
 		}
 		else if (hoverBox == mapOption1BoxL)
 			prevMapOption1(true);

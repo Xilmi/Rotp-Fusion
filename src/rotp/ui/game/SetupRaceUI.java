@@ -132,6 +132,10 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         // Save initial options
 		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
     }
+    public void smallInit() {
+       	super.init();
+        refreshGui();
+    }
     private void setHomeWorldFont() { // BR: MonoSpaced font for Galaxy
    		homeWorld.setFont(narrowFont(20));
     }
