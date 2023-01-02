@@ -16,6 +16,7 @@
 package rotp.model.game;
 
 import static rotp.ui.UserPreferences.allModOptions;
+import static rotp.ui.UserPreferences.dynStarsPerEmpire;
 import static rotp.ui.UserPreferences.globalCROptions;
 import static rotp.ui.UserPreferences.minStarsPerEmpire;
 import static rotp.ui.UserPreferences.optionsGalaxy;
@@ -76,6 +77,7 @@ import rotp.model.planet.PlanetType;
 import rotp.model.tech.TechEngineWarp;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.AdvancedOptionsUI;
+import rotp.ui.game.MergedOptionsUI;
 import rotp.ui.game.EditCustomRaceUI;
 import rotp.ui.game.ModGlobalOptionsUI;
 import rotp.ui.game.SetupGalaxyUI;
@@ -185,14 +187,12 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         selectedGalaxySize = s; 
         if (selectedNumberOpponents() == prevNumOpp)
             selectedNumberOpponents(defaultOpponentsOptions());
-        // generateGalaxy(); // TODO BR: Validate
     }
     @Override
     public String selectedGalaxyShape()          { return selectedGalaxyShape; }
     @Override
-    public void selectedGalaxyShape(String s)    { selectedGalaxyShape = s; setGalaxyShape(); } // TODO BR: Validate
- //   public void selectedGalaxyShape(String s)    { selectedGalaxyShape = s; setGalaxyShape(); generateGalaxy(); }
-   @Override
+    public void selectedGalaxyShape(String s)    { selectedGalaxyShape = s; setGalaxyShape(); }
+    @Override
     public String selectedGalaxyShapeOption1()       { return selectedGalaxyShapeOption1; }
     @Override
     public void selectedGalaxyShapeOption1(String s) { selectedGalaxyShapeOption1 = s; }
@@ -296,8 +296,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override
     public int selectedNumberOpponents()         { return selectedNumberOpponents; }
     @Override
-    public void selectedNumberOpponents(int i)   { selectedNumberOpponents = i; } // TODO BR: Validate
- //   public void selectedNumberOpponents(int i)   { selectedNumberOpponents = i; generateGalaxy(); }
+    public void selectedNumberOpponents(int i)   { selectedNumberOpponents = i; }
     @Override
     public String selectedPlayerRace()           { return selectedPlayer().race; }
     @Override
@@ -333,7 +332,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	// BR: customize min Star per empire
     	int maxEmpires;
         if (selectedGalaxySize.equals(SIZE_DYNAMIC))
-        	maxEmpires = (int) ((maximumSystems()-1) / prefStarsPerEmpire.get());
+        	maxEmpires = (int) ((maximumSystems()-1) / dynStarsPerEmpire.get());
         else
         	maxEmpires = min(numberStarSystems() / minStarsPerEmpire.get()
         		, colors.size(), MAX_OPPONENT_TYPE * startingRaceOptions().size());
@@ -344,10 +343,14 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override
     public int defaultOpponentsOptions() {
     	// BR: customize preferred Star per empire
-        int maxEmpires = min((int)Math.ceil(numberStarSystems()/prefStarsPerEmpire.get())
+    	int maxEmpires;
+        if (selectedGalaxySize.equals(SIZE_DYNAMIC))
+        	maxEmpires = (int) ((maximumSystems()-1) / dynStarsPerEmpire.get());
+        else
+        	maxEmpires = min((int)Math.ceil(numberStarSystems()/prefStarsPerEmpire.get())
         		, colors.size(), MAX_OPPONENT_TYPE*startingRaceOptions().size());
         // \BR:
-        int maxOpponents = min(SetupGalaxyUI.MAX_DISPLAY_OPPS);
+        int maxOpponents = SetupGalaxyUI.MAX_DISPLAY_OPPS;
         return min(maxOpponents, maxEmpires-1);
     }
     @Override
@@ -404,15 +407,12 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             for (int i=0;i<specificOpponentAIOption.length;i++)
                 specificOpponentAIOption[i] = opt.specificOpponentAIOption[i];
         }
-        
         if (opt.player != null) 
             player.copy(opt.player);
         
         setGalaxyShape(); 
         selectedGalaxyShapeOption1 = opt.selectedGalaxyShapeOption1;
         selectedGalaxyShapeOption2 = opt.selectedGalaxyShapeOption2;
-
-//        generateGalaxy(); // TODO BR: Validate
     }
 
     @Override
@@ -517,7 +517,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         case SIZE_DYNAMIC: // BR: Added an option to select from the opponents number
         default:
         	return min(maximumSystems(), 
-        			1 + Math.round(UserPreferences.prefStarsPerEmpire.get() // +1 for Orion
+        			1 + Math.round(UserPreferences.dynStarsPerEmpire.get() // +1 for Orion
         					* (selectedNumberOpponents()+1))); // +1 for player
     }
 }
@@ -1262,8 +1262,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
     public void setAndGenerateGalaxy() {
        	setGalaxyShape(selectedGalaxyShapeOption1, selectedGalaxyShapeOption2);
-        galaxyShape().quickGenerate();
-
+       	generateGalaxy();
     }
     private void generateGalaxy() { galaxyShape().quickGenerate(); }
     @Override
@@ -1647,7 +1646,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     		MOO1GameOptions src, MOO1GameOptions dest, String guiID) {
     	setModSettingsFromOptions(src, guiID);
     	setBaseSettingsFromOptions(src, dest, guiID);
-    	// dest.setAndGenerateGalaxy();  // TODO BR: Validate
     }
     private static void setModSettingsFromOptions(MOO1GameOptions src, String guiID) {
     	LinkedList<InterfaceParam> modOptions = getModParameterList(guiID);
@@ -1732,6 +1730,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	    	case StartModBOptionsUI.GUI_ID:
 	    		modOptions = UserPreferences.modOptionsB;
 	    		break;
+	    	case MergedOptionsUI.GUI_ID:
+	    		modOptions = UserPreferences.mergedOptions;
+	    		break;
 	    	case ModGlobalOptionsUI.GUI_ID:
 	    		modOptions = UserPreferences.modGlobalOptionsUI;
 	    		break;
@@ -1805,7 +1806,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	if (beepsOnError)
     		Toolkit.getDefaultToolkit().beep();
 		MOO1GameOptions newOptions = new MOO1GameOptions();
-		// newOptions.generateGalaxy(); // TODO BR: Validate
     	saveOptions(new MOO1GameOptions(), path, fileName);			
 		return newOptions;    	
     }

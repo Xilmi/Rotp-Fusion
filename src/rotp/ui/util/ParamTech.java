@@ -18,7 +18,7 @@ package rotp.ui.util;
 
 import static rotp.ui.UserPreferences.MOD_UI;
 
-public class ParamTech extends ParamAAN2 {
+public class ParamTech extends ParamAAN2 implements InterfaceParam {
 	
 	public final int techCategory;
 	public final String techType;

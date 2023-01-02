@@ -69,7 +69,6 @@ import rotp.model.galaxy.Galaxy;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.game.GameSession;
 import rotp.model.game.IGameOptions;
-import rotp.model.game.MOO1GameOptions;
 import rotp.model.tech.Tech;
 import rotp.model.tech.TechLibrary;
 import rotp.ui.BasePanel;
@@ -109,7 +108,6 @@ public interface Base {
     public default boolean isPlayer(Empire e) { return galaxy().isPlayer(e); }
     public default LabelManager labels()   { return LabelManager.current(); }
     public default IGameOptions newGameOptions() { return RotPUI.newOptions(); }
-    public default MOO1GameOptions guiOptions()  { return (MOO1GameOptions) RotPUI.newOptions(); } // BR:
     public default void createNewGameOptions()   { RotPUI.createNewOptions(); } // BR: Only called by SetupRaceUI
     public default void clearNewGameOptions()    { RotPUI.clearNewOptions(); }
 

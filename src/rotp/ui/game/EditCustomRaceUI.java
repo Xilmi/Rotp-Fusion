@@ -54,22 +54,10 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	private static final String randomKey		= ROOT + "GUI_RANDOM";
 	private static final String saveCurrentKey	= ROOT + "GUI_SAVE";
 	private static final String loadCurrentKey	= ROOT + "GUI_LOAD";
-	private static final String setGlobalDefaultTipKey	= ROOT + "GLOBAL_DEFAULT_DESC";
-	private static final String setLocalDefaultTipKey	= ROOT + "LOCAL_DEFAULT_DESC";
-	private static final String setGlobalGameTipKey		= ROOT + "GLOBAL_LAST_GAME_DESC";
-	private static final String setLocalGameTipKey		= ROOT + "LOCAL_LAST_GAME_DESC";
-	private static final String setGlobalLastTipKey		= ROOT + "GLOBAL_LAST_SET_DESC";
-	private static final String setLocalLastTipKey		= ROOT + "LOCAL_LAST_SET_DESC";
-	private	static final String setGlobalUserTipKey		= ROOT + "GLOBAL_USER_SET_DESC";
-	private	static final String setLocalUserTipKey		= ROOT + "LOCAL_USER_SET_DESC";
-	private	static final String saveGlobalUserTipKey	= ROOT + "GLOBAL_USER_SAVE_DESC";
-	private	static final String saveLocalUserTipKey		= ROOT + "LOCAL_USER_SAVE_DESC";
 	private	static final String selectTipKey	= ROOT + "GUI_SELECT_DESC";
 	private static final String randomTipKey	= ROOT + "GUI_RANDOM_DESC";
 	private static final String saveTipKey		= ROOT + "GUI_SAVE_DESC";
 	private static final String loadTipKey		= ROOT + "GUI_LOAD_DESC";
-	private static final String cancelTipKey	= ROOT + "CANCEL_DESC";
-
 	public	static final EditCustomRaceUI instance = new EditCustomRaceUI();
 	
 	private final Rectangle selectBox	= new Rectangle();
@@ -182,46 +170,16 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		cr.randomizeRace(true);
 		totalCostText.repaint(totalCostStr());
 	}
-	private String selectButtonTipKey() {
+	private String selectButtonDescKey() {
 			return selectTipKey;
 	}
-	private String randomButtonTipKey() {
+	private String randomButtonDescKey() {
 			return randomTipKey;
 	}
-	private String exitButtonTipKey() {
-		switch (Modifier2KeysState.get()) {
-		case CTRL:
-		case CTRL_SHIFT: // Restore
-			return cancelTipKey;
-		default: // Save
-			return exitTipKey;
-		}
+	@Override protected String exitButtonDescKey() {
+		return super.exitButtonDescKey();
 	}
-	private static String userButtonTipKey() {
-		switch (Modifier2KeysState.get()) {
-		case CTRL:		 return saveGlobalUserTipKey;
-		case CTRL_SHIFT: return saveLocalUserTipKey;
-		case SHIFT:		 return setLocalUserTipKey;
-		default:		 return setGlobalUserTipKey;
-		}
-	}
-	private static String defaultButtonTipKey() {
-		switch (Modifier2KeysState.get()) {
-		case CTRL:
-		case CTRL_SHIFT: return cancelTipKey;
-		case SHIFT:		 return setLocalDefaultTipKey;
-		default:		 return setGlobalDefaultTipKey;
-		}
-	}
-	private static String lastButtonTipKey() {
-		switch (Modifier2KeysState.get()) {
-		case CTRL:		 return setGlobalGameTipKey;
-		case CTRL_SHIFT: return setLocalGameTipKey;
-		case SHIFT:		 return setLocalLastTipKey;
-		default:		 return setGlobalLastTipKey;
-		}
-	}
-	private String loadButtonTipKey() {
+	private String loadButtonDescKey() {
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT:
@@ -331,7 +289,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	@Override protected boolean checkForHoveredButtons() {
 		if (exitBox.contains(x,y)) {
 			hoverBox = exitBox;
-			tooltipText = text(exitButtonTipKey());
+			tooltipText = text(exitButtonDescKey());
 			if (hoverBox != prevHover) {
 				if (tooltipText.equals(preTipTxt)) {
 					repaint(hoverBox);
@@ -342,7 +300,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			return true;
 		} else if (userBox.contains(x,y)) {
 			hoverBox = userBox;
-			tooltipText = text(userButtonTipKey());
+			tooltipText = text(userButtonDescKey());
 			if (hoverBox != prevHover) {
 				if (tooltipText.equals(preTipTxt)) {
 					repaint(hoverBox);
@@ -353,7 +311,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			return true;
 		} else if (lastBox.contains(x,y)) {
 			hoverBox = lastBox;
-			tooltipText = text(lastButtonTipKey());
+			tooltipText = text(lastButtonDescKey());
 			if (hoverBox != prevHover) {
 				if (tooltipText.equals(preTipTxt)) {
 					repaint(hoverBox);
@@ -364,7 +322,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			return true;
 		} else if (selectBox.contains(x,y)) {
 			hoverBox = selectBox;
-			tooltipText = text(selectButtonTipKey());
+			tooltipText = text(selectButtonDescKey());
 			if (hoverBox != prevHover) {
 				if (tooltipText.equals(preTipTxt)) {
 					repaint(hoverBox);
@@ -375,7 +333,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			return true;
 		} else if (defaultBox.contains(x,y)) {
 			hoverBox = defaultBox;
-			tooltipText = text(defaultButtonTipKey());
+			tooltipText = text(defaultButtonDescKey());
 			if (hoverBox != prevHover) {
 				if (tooltipText.equals(preTipTxt)) {
 					repaint(hoverBox);
@@ -386,7 +344,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			return true;
 		} else if (loadBox.contains(x,y)) {
 			hoverBox = loadBox;
-			tooltipText = text(loadButtonTipKey());
+			tooltipText = text(loadButtonDescKey());
 			if (hoverBox != prevHover) {
 				if (tooltipText.equals(preTipTxt)) {
 					repaint(hoverBox);
@@ -397,7 +355,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			return true;
 		} else if (randomBox.contains(x,y)) {
 			hoverBox = randomBox;
-			tooltipText = text(randomButtonTipKey());
+			tooltipText = text(randomButtonDescKey());
 			if (hoverBox != prevHover) {
 				if (tooltipText.equals(preTipTxt)) {
 					repaint(hoverBox);

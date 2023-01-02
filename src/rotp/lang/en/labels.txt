@@ -1404,18 +1404,6 @@ CUSTOM_RACE_RACE_AI_DESC          | Change the empire AI
 CUSTOM_RACE_GUI_TITLE             | Player Race Customization
 CUSTOM_RACE_SHOW_TITLE            | Species' Abilities
 CUSTOM_RACE_GUI_COST              | Total Value: %1
-CUSTOM_RACE_CANCEL_DESC           | Cancel settings changes and Exit Panel.
-CUSTOM_RACE_EXIT_DESC             | Save as Last Settings and Exit Panel.
-CUSTOM_RACE_GLOBAL_DEFAULT_DESC   | Set all GUI with default options values.
-CUSTOM_RACE_LOCAL_DEFAULT_DESC    | Set only this GUI with Load default options values.
-CUSTOM_RACE_GLOBAL_LAST_GAME_DESC | Set all GUI options values from last played game.
-CUSTOM_RACE_LOCAL_LAST_GAME_DESC  | Set only this GUI options values from last played game.
-CUSTOM_RACE_GLOBAL_LAST_SET_DESC  | Set all GUI options values from last Gui (From File).
-CUSTOM_RACE_LOCAL_LAST_SET_DESC   | Set only this GUI options values from last Gui (From File).
-CUSTOM_RACE_GLOBAL_USER_SET_DESC  | Set all GUI User's preferred options values (From File).
-CUSTOM_RACE_LOCAL_USER_SET_DESC   | Set only this GUI User's preferred options values (From File).
-CUSTOM_RACE_GLOBAL_USER_SAVE_DESC | Save all GUI current options values to User's preferred options (To File).
-CUSTOM_RACE_LOCAL_USER_SAVE_DESC  | Save only this GUI current options values to User's preferred options (To File).
 CUSTOM_RACE_GUI_SELECT_DESC       | Save Current Race, Select it as Player Race, Save as Last Settings and Exit Panel
 CUSTOM_RACE_GUI_SELECT            | Select
 CUSTOM_RACE_GUI_RANDOM_DESC       | Randomize the race following the above settings
@@ -1547,19 +1535,34 @@ CUSTOM_RACE_ENVIRONMENT_NORMAL    | Normal
 // Advanced Settings
 SETTINGS_TITLE                    | Advanced Game Options
 SETTINGS_DESCRIPTION              | Click, Right-Click, or Scroll to toggle each game setting.
+SETTINGS_EXIT_DESC                | Save as Live Settings and Exit Panel.
+SETTINGS_EXIT_DESC                | Save as Live Settings and Exit Panel.
 SETTINGS_EXIT                     | Exit
+SETTINGS_CANCEL_DESC              | Cancel settings changes and Exit Panel.
 SETTINGS_CANCEL                   | Cancel Changes
+SETTINGS_LOCAL_RESTORE_DESC       | Restore only this GUI to it's state when entered.
 SETTINGS_LOCAL_RESTORE            | Restore Local
+SETTINGS_GLOBAL_RESTORE_DESC      | Restore all GUI to their state when entering this panel.
 SETTINGS_GLOBAL_RESTORE           | Restore Global
+SETTINGS_LOCAL_DEFAULT_DESC       | Set only this GUI with Load default options values.
 SETTINGS_LOCAL_DEFAULT            | Default »» Local
+SETTINGS_GLOBAL_DEFAULT_DESC      | Set all GUI with default options values.
 SETTINGS_GLOBAL_DEFAULT           | Default »» Global
+SETTINGS_LOCAL_LAST_GAME_DESC     | Set only this GUI options values from last played game.
 SETTINGS_LOCAL_LAST_GAME          | Game »» Local
+SETTINGS_GLOBAL_LAST_GAME_DESC    | Set all GUI options values from last played game.
 SETTINGS_GLOBAL_LAST_GAME         | Game »» Global
+SETTINGS_LOCAL_LAST_SET_DESC      | Set only this GUI options values from last Gui (From File).
 SETTINGS_LOCAL_LAST_SET           | Last »» Local
+SETTINGS_GLOBAL_LAST_SET_DESC     | Set all GUI options values from last Gui (From File).
 SETTINGS_GLOBAL_LAST_SET          | Last »» Global
+SETTINGS_LOCAL_USER_SET_DESC      | Set only this GUI User's preferred options values (From File).
 SETTINGS_LOCAL_USER_SET           | User »» Local
+SETTINGS_GLOBAL_USER_SET_DESC     | Set all GUI User's preferred options values (From File).
 SETTINGS_GLOBAL_USER_SET          | User »» Global
+SETTINGS_LOCAL_USER_SAVE_DESC     | Save only this GUI current options values to User's preferred options (To File).
 SETTINGS_LOCAL_USER_SAVE          | Local »» User
+SETTINGS_GLOBAL_USER_SAVE_DESC    | Save all GUI current options values to User's preferred options (To File).
 SETTINGS_GLOBAL_USER_SAVE         | Global »» User
 SETTINGS_STAR_DENSITY             | Star Density: %1
 SETTINGS_RANDOM_EVENTS            | Random Events: %1
@@ -1585,7 +1588,7 @@ SETTINGS_RESEARCH_RATE_DESC       | Slow the research rate of new technologies, 
 SETTINGS_NEBULAE_DESC             | Nebulae slow down ship travel and render shields useless. Increase or decrease their frequency.
 // modnar: change PLANET_QUALITY settings, only Normal, Larger, and Richer
 SETTINGS_PLANET_QUALITY_DESC      | [modnar MOD: "Larger" gives +50% Planet Size, +20% Poor, -20% Rich; "Richer" gives -20% Planet Size, -20% Poor, +50% Rich, +50% Artifact.]
-//SETTINGS_PLANET_QUALITY_DESC      | Increases or decreases the frequency of higher quality planets.
+//SETTINGS_PLANET_QUALITY_DESC    | Increases or decreases the frequency of higher quality planets.
 SETTINGS_TERRAFORMING_DESC        | Reduce or eliminate the benefits of the Improved Terraforming technologies on hostile planets.
 SETTINGS_COLONIZING_DESC          | Restrict the colonization of systems to only those for which you have acquired the specific technology.
 SETTINGS_COUNCIL_DESC             | Disable the council victory condition or allow enemy empires to rebel against a player victory.
@@ -1594,10 +1597,32 @@ SETTINGS_AUTOPLAY_DESC            | Completely automate the game by having an AI
 SETTINGS_AUTOPLAY_WARNING         | Warning! Autoplay is currently enabled which will prevent user gameplay. Use "Advanced Options" to disable.
 SETTINGS_FUEL_RANGE_DESC          | Increase the range of fuel range technologies and reserve fuel tanks. [Deactivated in modnar MOD]
 SETTINGS_AI_HOSTILITY_DESC        | Increase or decrease the general level of hostility between alien races.
+SETTINGS_START_GALAXY_OPTIONS_DESC | Options used for galaxy buildings. Only read when starting a new game.
+SETTINGS_START_GALAXY_OPTIONS      | ~~~ GALAXY OPTIONS ~~~%1
+SETTINGS_START_PLANET_OPTIONS_DESC | Options used for planet generation. Only read when starting a new game.
+SETTINGS_START_PLANET_OPTIONS      | ~~~ PLANETS OPTIONS ~~~%1
+SETTINGS_START_EMPIRE_OPTIONS_DESC | Options used for empire generation. Only read when starting or restarting a game.
+SETTINGS_START_EMPIRE_OPTIONS      | ~~~ EMPIRES OPTIONS ~~~%1
+SETTINGS_START_TECH_CONTROL_DESC   | Options used while generating technologies lists. Only read when starting or restarting a game.
+SETTINGS_START_TECH_CONTROL        | ~~ ALLOWED AND FORBIDDEN TECH ~~%1
+SETTINGS_START_RANDOM_ALIENS_DESC  | Options used for the generation of random races. Only read when starting or restarting a game.
+SETTINGS_START_RANDOM_ALIENS       | ~~~ RANDOM ALIENS OPTIONS ~~~%1
+SETTINGS_GAME_RELATIONS_DESC       | Options controling the relations between empires. Can be changed dynamically.
+SETTINGS_GAME_RELATIONS            | ~~~ EMPIRES RELATIONS ~~~%1
+SETTINGS_GAME_VARIOUS_DESC         | Diverses Options. Can be changed dynamically.
+SETTINGS_GAME_VARIOUS              | ~~~ VARIOUS OPTIONS ~~~%1
+SETTINGS_GAME_OTHER_DESC           | Other Options. Can be changed dynamically.
+SETTINGS_GAME_OTHER                | ~~~ OTHER OPTIONS ~~~%1
+SETTINGS_GAME_COMBAT_DESC          | Options affecting attack and defense. Can be changed dynamically.
+SETTINGS_GAME_COMBAT               | ~~~ COMBAT OPTIONS ~~~%1
+SETTINGS_GAME_DIFFICULTYL_DESC     | Options affecting the game difficulty level. Can be changed dynamically.
+SETTINGS_GAME_DIFFICULTY           | ~~~ GAME DIFFICULTY ~~~%1
+SETTINGS_RESTART_OPTIONS_DESC      | Options controlling the way a game will be restarted. Only read when restarting a game.
+SETTINGS_RESTART_OPTIONS           | ~~~ RESTART OPTIONS ~~~%1
 
 // modnar: add UI panel for modnar MOD game options
 SETTINGS_MOD_TITLE                   | modnar MOD Options
-SETTINGS_MOD_DIST_ARTIFACT_PLANET    | Min distance: %1
+SETTINGS_MOD_DIST_ARTIFACT_PLANET    | Min Artifact distance: %1
 SETTINGS_MOD_NEW_RACES_ON            | Include New Races: %1
 SETTINGS_MOD_CHALLENGE_MODE          | Challenge Mode: %1
 SETTINGS_MOD_BATTLE_SCOUT            | Battle Scout: %1
@@ -1658,6 +1683,8 @@ SETTINGS_MOD_MIN_STARS_PER_EMPIRE_DESC   | To help defining the maximun opponent
 SETTINGS_MOD_MIN_STARS_PER_EMPIRE        | Min Stars per Empire: %1
 SETTINGS_MOD_PREF_STARS_PER_EMPIRE_DESC  | To help defining the default opponent number from the size of the galaxy.
 SETTINGS_MOD_PREF_STARS_PER_EMPIRE       | Favored Stars Number: %1
+SETTINGS_MOD_DYN_STARS_PER_EMPIRE_DESC   | Number or Star per Empire for dynamic galaxy size.
+SETTINGS_MOD_DYN_STARS_PER_EMPIRE        | Dynamic Stars Number: %1
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_DESC | Should "Restart" Change the Aliens AI? 
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI      | Restart Changes Aliens AI: %1 
 SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_DESC | Should "Restart" Change the Player AI? 

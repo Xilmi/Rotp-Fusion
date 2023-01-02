@@ -26,6 +26,7 @@ import java.awt.Graphics2D;
 import java.awt.LinearGradientPaint;
 import java.awt.Rectangle;
 import java.awt.Stroke;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -35,122 +36,115 @@ import java.awt.event.MouseWheelListener;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.SwingUtilities;
-
 import rotp.mod.br.profiles.Profiles;
 import rotp.ui.BaseText;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.util.InterfaceOptions;
+import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.Modifier2KeysState;
+import rotp.util.FontManager;
 
-// modnar: add UI panel for modnar MOD game options, based on StartOptionsUI.java
 class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
 	private static final long serialVersionUID = 1L;
 	private static final Color backgroundHaze = new Color(0,0,0,160);
 	private final String guiTitleID;
 	private final String GUI_ID;
 	
-	private Font descFont	= narrowFont(15);
-	private static int columnPad	= s20;
-	private static int smallButtonH = s30;
-	private static int hSetting	    = s90;
-	private static int lineH		= s17;
-	private static int rowPad		= s20;
-	private static int hDistSetting = hSetting + rowPad; // distance between two setting top corner
-	private int leftM, rightM,topM, yTop;
-	private int w, wBG, h, hBG;
+	private static final int rowPad			= s10;
+	private	static final int descPadV		= 0;
+	private	static final int descPadM		= s10;
+	private static final int buttonPadV		= rowPad;
+	private static final Color descColor	= SystemPanel.blackText;
+	private static final Color disabledColor= GameUI.textColor();
+	private static final Color enabledColor	= GameUI.labelColor();
+//	private static final Color enabledColor	= GameUI.textColor();
+//	private static final Color disabledColor= GameUI.labelColor();
+//	private static final Color disabledColor= GameUI.disabledTextColor();
+//	private static final Color enabledColor	= SystemPanel.whiteText;
+//	private static final Color disabledColor= SystemPanel.blackText;
+	private static final int descLineH		= 18;
+	private	static final Font descFont		= FontManager.current().narrowFont(16);
+	private	static final Font titleFont		= FontManager.current().narrowFont(30);
+	private static final int titleOffset	= s40; // Offset from Margin
+	private static final int titlePad		= s70; // Offset of first setting
+	private static final int settingFont	= 20;
+	private static final int settingH		= s20;
+	private static final int settingpadH	= s6;
+	private static final int columnPad		= s12;
+	private static final int tooltipLines	= 2;
+	private static final int descHeigh		= tooltipLines * descLineH + descPadM;
+	private static final int bottomPad		= rowPad;
+	private static final int textPad		= rowPad;
+	private static final int textBoxH		= settingH;
+	private static final int hDistSetting	= settingH + settingpadH; // distance between two setting top corner
+	private static final int leftM			= columnPad;
+	private static final int rightM			= leftM;
+	private int topM, yTop;
+	private int wBG, hBG;
 	private int numColumns, numRows;
-	private int yTitle, xDesc, yDesc, yButton;
-	private int xSetting, ySetting, wSetting; // settings var
+	private int yTitle, yButton;
+	private int xSetting, ySetting, columnWidth; // settings var
 	private int index, column;
+	private int xDesc, yDesc, descWidth;
+	private int x, y; // mouse position
 	
-	private Color textC = SystemPanel.whiteText;
 	private LinkedList<Integer>	lastRowList = new LinkedList<>();
 	private LinkedList<BaseText> btList		= new LinkedList<>();
-	private Rectangle hoverBox;
-	private Rectangle exitBox	= new Rectangle();
+	private Rectangle hoverBox, prevHover;
+	private final Rectangle exitBox		= new Rectangle();
+	private final Rectangle toolTipBox	= new Rectangle();
 	private LinearGradientPaint bg;
+
+	private String tooltipText = "";
+	private String preTipTxt	 = "";
 
 	
 	// ========== Constructors and initializers ==========
 	//
-	CompactOptionsUI(String guiTitle_ID, String guiId) {
+	CompactOptionsUI(String guiTitle_ID, String guiId, LinkedList<LinkedList<InterfaceParam>> paramList) {
 		guiTitleID = guiTitle_ID;
 		GUI_ID = guiId;
+		init_Lists(paramList);
 		init_0();
+	}
+	private void init_Lists(LinkedList<LinkedList<InterfaceParam>> optionsList) {
+		activeList		= new LinkedList<>();
+		duplicateList	= new LinkedList<>();
+		paramList		= new LinkedList<>();
+		int totalRows   = 0;
+		numColumns = optionsList.size();
+		numRows    = 0;
+		for (LinkedList<InterfaceParam> list : optionsList) {
+			totalRows += list.size();
+			lastRowList.add(totalRows);
+			numRows = max(numRows, list.size());
+			for (InterfaceParam param : list) {
+				if (param != null) {
+					activeList.add(param);
+					btList.add(newBT(param.isTitle()));
+					if (param.isDuplicate())
+						duplicateList.add(param);
+					else
+						paramList.add(param);
+				}
+			}
+		}
 	}
 	private void init_0() {
 		setOpaque(false);
-		textC = SystemPanel.whiteText;
-		numColumns = 0;
-		// Call for filling the settings
-		init0();
-		
-		if (paramList == null) 
-			activeList     = duplicateList;
-		else
-			activeList = paramList;
-		
-		for (int i=0; i<activeList.size(); i++)
-			btList.add(newBT());
-
-		// numRows = Max column length
-		numRows	 = lastRowList.getFirst();
-		for (int i=1; i<lastRowList.size(); i++) {
-			numRows = max(numRows, lastRowList.get(i)-lastRowList.get(i-1));
-		}
-		// Elements positioning
-		int shiftTitle	= s40;
-		int shiftButton	= s15;
-		int topPad		= hSetting;
-		int hSettings	= hDistSetting * numRows;
-		
-		if (numColumns == 4)
-			columnPad = s12;
-
-		leftM	= max(columnPad, scaled(100 + (3-numColumns) * 150));
-		rightM	= leftM;
-		topM	= s45;
-		yTitle	= topM + shiftTitle;
-		yButton	= topM + topPad + hSettings - shiftButton;
-		xDesc	= leftM + columnPad/2;
-		yDesc	= yTitle + s20;
-		
-		// Special positioning for 6 rows
-		if (numRows == 6) {
-			// Shift the top
-			topM		-= s30; // Margin reduction
-			topPad		-= s40; // Push the settings up
-			shiftTitle	-= s10; // Shift the title a little
-			// Move the description to the buttons level
-			yTitle	= topM + shiftTitle;
-			yButton	= topM + topPad + hSettings - shiftButton;
-			yDesc	= yButton + s20;
-		}
-		yTop	= topM + topPad; // First setting top position
-		hBG		= topPad + hSettings + smallButtonH - s10;
-
 		addMouseListener(this);
 		addMouseMotionListener(this);
 		addMouseWheelListener(this);
 	}
-	protected void rowCountList(Integer... rows) {
-		numColumns = rows.length;
-		Integer id = 0;
-		for (Integer row : rows) {
-			id+= row;
-			lastRowList.add(id);
-		}
-	}
-	// ========== Abstract Methods Request ==========
-	//
-	protected void init0() { }
 	// ========== Other Methods ==========
 	//
-	private  BaseText newBT() { 
-		return new BaseText(this, false, 20, 20,-78,  textC, textC, hoverC, depressedC, textC, 0, 0, 0);
+	private  BaseText newBT(boolean disabled) {
+		BaseText bt = new BaseText(this, false, settingFont, 0, 0,
+				enabledColor, disabledColor, hoverC, depressedC, enabledColor, 0, 0, 0);
+		bt.disabled(disabled);
+		return bt;
 	}
 	private void drawButtons(Graphics2D g) {
 		int cnr = s5;
@@ -159,7 +153,7 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 		exitBox.setBounds(w-scaled(189)-rightM, yButton, smallButtonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(exitBox.x, exitBox.y, smallButtonW, smallButtonH, cnr, cnr);
-		g.setFont(narrowFont(20));
+		g.setFont(smallButtonFont);
 		String text = text(exitButtonKey());
 		int sw = g.getFontMetrics().stringWidth(text);
 		int x = exitBox.x+((exitBox.width-sw)/2);
@@ -177,7 +171,7 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 		defaultBox.setBounds(exitBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(defaultBox.x, defaultBox.y, smallButtonW, smallButtonH, cnr, cnr);
-		g.setFont(narrowFont(20));
+		g.setFont(smallButtonFont);
 		x = defaultBox.x+((defaultBox.width-sw)/2);
 		y = defaultBox.y+defaultBox.height-s8;
 		c = hoverBox == defaultBox ? Color.yellow : GameUI.borderBrightColor();
@@ -195,7 +189,7 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 		lastBox.setBounds(defaultBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(lastBox.x, lastBox.y, smallButtonW, smallButtonH, cnr, cnr);
-		g.setFont(narrowFont(20));
+		g.setFont(smallButtonFont);
 		x = lastBox.x+((lastBox.width-sw)/2);
 		y = lastBox.y+lastBox.height-s8;
 		c = hoverBox == lastBox ? Color.yellow : GameUI.borderBrightColor();
@@ -211,7 +205,7 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 		userBox.setBounds(lastBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(userBox.x, userBox.y, smallButtonW, smallButtonH, cnr, cnr);
-		g.setFont(narrowFont(20));
+		g.setFont(smallButtonFont);
 		x = userBox.x+((userBox.width-sw)/2);
 		y = userBox.y+userBox.height-s8;
 		c = hoverBox == userBox ? Color.yellow : GameUI.borderBrightColor();
@@ -221,33 +215,42 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 		g.drawRoundRect(userBox.x, userBox.y, userBox.width, userBox.height, cnr, cnr);
 		g.setStroke(prev);
 	}
-	private void paintSetting(Graphics2D g, BaseText txt, String desc) {
-		g.setColor(SystemPanel.blackText);
-		g.drawRect(xSetting, ySetting, wSetting, hSetting);
+	private void paintDescriptions(Graphics2D g) {
+		List<String> lines = wrappedLines(g, tooltipText, descWidth-2*descPadM);
+		g.setFont(descFont);
+		toolTipBox.setBounds(xDesc, yDesc, descWidth, descHeigh);
+		g.setColor(GameUI.setupFrame());
+		g.fill(toolTipBox);
+		g.setColor(descColor);
+		int xT = xDesc+descPadM;
+		int yT = yDesc + s4;
+		for (String line: lines) {
+			yT += descLineH;
+			drawString(g,line, xT, yT);
+		}		
+	}
+	private void repaintTooltip() {
+		Graphics2D g = (Graphics2D) getGraphics();
+		super.paintComponent(g);
+		paintDescriptions(g);
+		g.dispose();
+	}
+	private void paintSetting(Graphics2D g, BaseText txt) {
 		g.setPaint(bg);
-		g.fillRect(xSetting+s10, ySetting-s10, txt.stringWidth(g)+s10,s30);
+		g.fillRect(xSetting+textPad, ySetting-textPad, txt.stringWidth(g)+textPad, textBoxH);
 		txt.setScaledXY(xSetting+columnPad, ySetting+s7);
 		txt.draw(g);
-		g.setColor(SystemPanel.blackText);
-		g.setFont(descFont);
-		List<String> lines = wrappedLines(g, desc, wSetting-s30);
-		int y3 = ySetting+s10;
-		for (String line: lines) {
-			y3 += lineH;
-			drawString(g,line, xSetting+columnPad, y3);
-		}		
 	}
 	private void goToNextSetting() {
 		index++;
 		if (index >= lastRowList.get(column)) {
 			column++;
-			xSetting = xSetting + wSetting + columnPad;
+			xSetting = xSetting + columnWidth + columnPad;
 			ySetting = yTop;
 		} else
 			ySetting += hDistSetting;
 	}
-	private void mouseCommon(boolean up, boolean mid, boolean shiftPressed, boolean ctrlPressed
-			, MouseEvent e, MouseWheelEvent w) {
+	private void mouseCommon(MouseEvent e, MouseWheelEvent w) {
 		for (int i=0; i<activeList.size(); i++) {
 			if (hoverBox == btList.get(i).bounds()) {
 				activeList.get(i).toggle(e, w);
@@ -256,30 +259,147 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 			}			
 		}
 	}
+	private void setLocalToDefault() {
+		for (InterfaceOptions param : activeList)
+			param.setFromDefault();
+	}
+	private boolean checkForHoveredButtons() {
+		if (exitBox.contains(x,y)) {
+			hoverBox = exitBox;
+			tooltipText = text(exitButtonDescKey());
+			if (hoverBox != prevHover) {
+				if (tooltipText.equals(preTipTxt)) {
+					repaint(hoverBox);
+				} else {
+					repaint();
+				}
+			}
+			return true;
+		} else if (userBox.contains(x,y)) {
+			hoverBox = userBox;
+			tooltipText = text(userButtonDescKey());
+			if (hoverBox != prevHover) {
+				if (tooltipText.equals(preTipTxt)) {
+					repaint(hoverBox);
+				} else {
+					repaint();
+				}
+			}
+			return true;
+		} else if (lastBox.contains(x,y)) {
+			hoverBox = lastBox;
+			tooltipText = text(lastButtonDescKey());
+			if (hoverBox != prevHover) {
+				if (tooltipText.equals(preTipTxt)) {
+					repaint(hoverBox);
+				} else {
+					repaint();
+				}
+			}
+			return true;
+		} else if (defaultBox.contains(x,y)) {
+			hoverBox = defaultBox;
+			tooltipText = text(defaultButtonDescKey());
+			if (hoverBox != prevHover) {
+				if (tooltipText.equals(preTipTxt)) {
+					repaint(hoverBox);
+				} else {
+					repaint();
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+	private boolean checkForHoveredSettings(LinkedList<BaseText> baseTextList) {
+		BaseText bt;
+		for (int idx=0; idx<baseTextList.size(); idx++) {
+			bt = baseTextList.get(idx);
+			if (bt.contains(x,y)) {
+				hoverBox = bt.bounds();
+				tooltipText = activeList.get(idx).getGuiDescription();
+				if (hoverBox != prevHover) {
+					bt.mouseEnter();
+					if (tooltipText.equals(preTipTxt)) { 
+						repaint(hoverBox);
+					} else {
+						repaint(hoverBox);
+						repaintTooltip();
+					}
+				}
+				return true;
+			}
+		}
+		return false;
+	}
+	private void checkExitSettings(LinkedList<BaseText> baseTextList) {
+		for (BaseText setting : baseTextList) {
+			if (prevHover == setting.bounds()) {
+				setting.mouseExit();
+				return;
+			}
+		}
+	}
+	private void hoverAndTooltip(boolean keyModifierChanged) {
+		if (btList == null) {
+			System.out.println("CompactOptionsUI: btList is null");
+			return;
+		}
+		preTipTxt = tooltipText;
+		tooltipText = "";
+		prevHover = hoverBox;
+		hoverBox = null;
+		// Check if cursor is in a box
+		boolean onButton = checkForHoveredButtons();
+		boolean onBox = onButton || checkForHoveredSettings(btList);
+
+		if (prevHover != hoverBox && prevHover != null) {
+			checkExitSettings(btList);
+			repaint(prevHover);
+		}
+		if (keyModifierChanged) {
+			repaintButtons();
+			if (!tooltipText.equals(preTipTxt))
+				repaintTooltip();
+		}
+		else if (!onBox && prevHover != null) {
+			if (!tooltipText.equals(preTipTxt))
+				repaintTooltip();
+		}
+	}
 	// ========== Overriders ==========
 	//
-	@Override
-	public void init() {
+	@Override public void init() {
 		super.init();
-
-		w	= RotPUI.setupRaceUI().getWidth();
-		h	= RotPUI.setupRaceUI().getHeight();
+		int hSettingTotal = hDistSetting * numRows;
+		hBG	= titlePad + hSettingTotal + descPadV + descHeigh + buttonPadV + smallButtonH + bottomPad;
+		hBG	= titlePad + hSettingTotal + descHeigh + buttonPadV + smallButtonH + bottomPad;
 		wBG	= w - (leftM + rightM);
-		wSetting = (wBG/numColumns)-columnPad;
+		topM	= (h - hBG) / 2;
+		yTitle	= topM + titleOffset;
+		yTop	= topM + titlePad; // First setting top position
+		yButton	= topM + hBG - (smallButtonH + bottomPad);
+		descWidth	= wBG - 2 * columnPad;
+		xDesc		= leftM + columnPad;		
+		yDesc		= topM + hBG - ( descHeigh + buttonPadV + smallButtonH + bottomPad);
+		
+		columnWidth = ((wBG-columnPad)/numColumns)-columnPad;
 		if (bg == null)
-			if (numColumns>3)
-				bg = GameUI.settingsSetupBackgroundW(w);
-			else
-				bg = GameUI.settingsSetupBackground(w);
-		if (!globalOptions) // The new ways
-			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+			bg = GameUI.settingsSetupBackgroundW(w);
+		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 		enableGlassPane(this);
 		refreshGui();
+	}
+	@Override protected void checkModifierKey(InputEvent e) {
+		hoverAndTooltip(Modifier2KeysState.checkForChange(e));
 	}
 	@Override protected void close() {
 		super.close();
         disableGlassPane();
-		RotPUI.setupGalaxyUI().init();
+        if (!inGame())
+        	RotPUI.setupGalaxyUI().init();
+        else
+        	RotPUI.instance().mainUI().map().resetRangeAreas();
 	}
 	@Override protected void doExitBoxAction() {
 		if (globalOptions) { // The old ways
@@ -307,10 +427,6 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 		else
 			super.doDefaultBoxAction();
 	}
-	private void setLocalToDefault() {
-		for (InterfaceOptions param : activeList)
-			param.setFromDefault();
-	}
 	@Override protected void refreshGui() {
 		super.refreshGui();
 		for (int i=0; i<activeList.size(); i++)
@@ -332,16 +448,21 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 		g.fillRect(0, 0, w, h);
 		g.setPaint(bg);
 		g.fillRect(leftM, topM, wBG, hBG);
-		g.setFont(narrowFont(30));
+		
+		// Tool tip
+		paintDescriptions(g);
+
+		// Title
+		g.setFont(titleFont);
 		String title = text(guiTitleID);
 		int sw = g.getFontMetrics().stringWidth(title);
 		int xTitle = (w-sw)/2;
 		drawBorderedString(g, title, 1, xTitle, yTitle, Color.black, Color.white);
 		
-		g.setFont(narrowFont(18));
-		String expl = text("SETTINGS_DESCRIPTION");
-		g.setColor(SystemPanel.blackText);
-		drawString(g, expl, xDesc, yDesc);
+//		g.setFont(narrowFont(18));
+//		String expl = text("SETTINGS_DESCRIPTION");
+//		g.setColor(SystemPanel.blackText);
+//		drawString(g, expl, xDesc, yDesc);
 		
 		Stroke prev = g.getStroke();
 		g.setStroke(stroke3);
@@ -353,12 +474,13 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 		ySetting = yTop;
 		// First column (left)
 		while (index<activeList.size()) {
-			paintSetting(g, btList.get(index), activeList.get(index).getGuiDescription());
+			paintSetting(g, btList.get(index));
 			goToNextSetting();
 		}
 		g.setStroke(prev);
 
 		drawButtons(g);
+		
 	}
 	@Override public void keyReleased(KeyEvent e) {
 		checkModifierKey(e);		
@@ -382,9 +504,9 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 	}
 	@Override public void mouseDragged(MouseEvent e) {}
 	@Override public void mouseMoved(MouseEvent e) {
+		x = e.getX();
+		y = e.getY();
 		checkModifierKey(e);
-		int x = e.getX();
-		int y = e.getY();
 		Rectangle prevHover = hoverBox;
 		hoverBox = null;
 		if (exitBox.contains(x,y))
@@ -426,11 +548,7 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 			return;
 		if (hoverBox == null)
 			return;
-		boolean up	= !SwingUtilities.isRightMouseButton(e); // BR: added bidirectional
-		boolean mid	= !SwingUtilities.isMiddleMouseButton(e); // BR: added reset click
-		boolean shiftPressed = e.isShiftDown();
-		boolean ctrlPressed  = e.isControlDown();
-		mouseCommon(up, mid, shiftPressed, ctrlPressed, e, null);
+		mouseCommon(e, null);
 		if (hoverBox == exitBox)
 			doExitBoxAction();
 		else if (hoverBox == defaultBox)
@@ -449,9 +567,6 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 	}
 	@Override public void mouseWheelMoved(MouseWheelEvent e) {
 		checkModifierKey(e);
-		boolean shiftPressed = e.isShiftDown();
-		boolean ctrlPressed  = e.isControlDown();
-		boolean up = e.getWheelRotation() < 0;
-		mouseCommon(up, false, shiftPressed, ctrlPressed, null, e);
+		mouseCommon(null, e);
 	}
 }

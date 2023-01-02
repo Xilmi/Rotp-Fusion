@@ -25,9 +25,9 @@ import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.aliensNumber;
 import static rotp.ui.UserPreferences.bitmapGalaxyLastFolder;
 import static rotp.ui.UserPreferences.difficultySelection;
+import static rotp.ui.UserPreferences.dynStarsPerEmpire;
 import static rotp.ui.UserPreferences.galaxyPreviewColorStarsSize;
 import static rotp.ui.UserPreferences.globalCROptions;
-import static rotp.ui.UserPreferences.prefStarsPerEmpire;
 import static rotp.ui.UserPreferences.shapeOption1;
 import static rotp.ui.UserPreferences.shapeOption2;
 import static rotp.ui.UserPreferences.shapeOption3;
@@ -285,8 +285,8 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			break; 
 		}
     	// Go back to Race Panel
-		RotPUI.instance().returnToSetupRacePanel();
 		close();
+		RotPUI.instance().returnToSetupRacePanel();
  	}
 	private static String backButtonKey() {
 		switch (Modifier2KeysState.get()) {
@@ -899,7 +899,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		drawString(g,sizeLbl, x5b, y5);
 
 		if (isDynamic()) { // BR:
-			String label = text(SIZE_OPT_KEY, prefStarsPerEmpire.getGuiValue());
+			String label = text(SIZE_OPT_KEY, dynStarsPerEmpire.getGuiValue());
 			int sw2 = g.getFontMetrics().stringWidth(label);
 			int x5b1 =sizeOptionBox.x+((sizeOptionBox.width-sw2)/2);
 			drawString(g,label, x5b1, y5+s20);		   
@@ -1423,37 +1423,45 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	}
 	private void goToOptions() {
 		buttonClick();
-		AdvancedOptionsUI optionsUI = RotPUI.advancedOptionsUI();
-		optionsUI.init();
+//		AdvancedOptionsUI optionsUI = RotPUI.advancedOptionsUI();
+//		optionsUI.init();
+		if (Modifier2KeysState.isShiftDown()) {
+			MergedOptionsUI optionsUI = RotPUI.globalOptionsUI();
+			close();
+			optionsUI.init();
+		} else {
+			AdvancedOptionsUI optionsUI = RotPUI.advancedOptionsUI();
+			close();
+			optionsUI.init();
+		}
 //		if (Modifier2KeysState.isShiftDown()) {
-//			AdvancedOptionsUI optionsUI = RotPUI.advancedOptionsUI();
-//			optionsUI.init();
-//		} else {
-//			StartOptionsUI optionsUI = RotPUI.startOptionsUI();
-//			optionsUI.open(this);			
-//		}
-		close();
+//		AdvancedOptionsUI optionsUI = RotPUI.advancedOptionsUI();
+//		optionsUI.init();
+//	} else {
+//		StartOptionsUI optionsUI = RotPUI.startOptionsUI();
+//		optionsUI.open(this);			
+//	}
 	}
 	// modnar: add UI panel for modnar MOD game options
 	private void goToModOptions() {
 		buttonClick();
 		StartModAOptionsUI modOptionsUI = RotPUI.startModAOptionsUI();
-		modOptionsUI.init();
 		close();
+		modOptionsUI.init();
 	}
 	// BR: Second UI panel for MOD game options
 	private void goToMod2Options() {
 		buttonClick();
 		StartModBOptionsUI modBOptionsUI = RotPUI.startModBOptionsUI();
-		modBOptionsUI.init();
 		close();
+		modBOptionsUI.init();
 	}
 	// BR: Display UI panel for MOD game options
 	private void goToModGlobalOptions() {
 		buttonClick();
 		ModGlobalOptionsUI modGlobalOptionsUI = RotPUI.modGlobalOptionsUI();
-		modGlobalOptionsUI.init();
 		close();
+		modGlobalOptionsUI.init();
 	}
 	// BR: Add option to return to the main menu
 	private void goToMainMenu() {
@@ -1467,8 +1475,8 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 			break;
 		}
-		RotPUI.instance().selectGamePanel();
 		close();
+		RotPUI.instance().selectGamePanel();
 	}
 	// BR: For restarting with new options
 	private void restartGame() { 
@@ -1480,9 +1488,9 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		GalaxyCopy oldGalaxy = new GalaxyCopy(newGameOptions());
 		UserPreferences.setForNewGame();
 		// Get the old galaxy parameters
+		close();
         RotPUI.instance().selectRestartGamePanel(oldGalaxy);
 		starting = false;
-		close();
 	}
 	private void startGame() {
 		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
@@ -1500,6 +1508,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		GameUI.gameName = generateGameName();
 		// \BR:
 		UserPreferences.setForNewGame();
+		close();
 		final Runnable save = () -> {
 			long start = System.currentTimeMillis();
 			GameSession.instance().startGame(newGameOptions());
@@ -1508,7 +1517,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			log("TOTAL GAME START TIME:" +(System.currentTimeMillis()-start));
 			log("Game Name; "+GameUI.gameName);
 			starting = false;
-			close();
+//			close();
 		};
 		SwingUtilities.invokeLater(save);
 	}
@@ -2162,15 +2171,15 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			postGalaxySizeSelection(true);
 		}
 		else if (hoverBox == sizeOptionBoxL) {
-			prefStarsPerEmpire.prev(e);
+			dynStarsPerEmpire.prev(e);
 			postSelectionMedium(true);
 		}
 		else if (hoverBox == sizeOptionBox) {
-			prefStarsPerEmpire.toggle(e);
+			dynStarsPerEmpire.toggle(e);
 			postSelectionMedium(true);
 		}
 		else if (hoverBox == sizeOptionBoxR) {
-			prefStarsPerEmpire.next(e);
+			dynStarsPerEmpire.next(e);
 			postSelectionMedium(true);
 		}
 		else if (hoverBox == aiBoxL)
@@ -2266,7 +2275,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			postGalaxySizeSelection(false);
 		}
 		else if (hoverBox == sizeOptionBox) {
-			prefStarsPerEmpire.toggle(e);
+			dynStarsPerEmpire.toggle(e);
 			postSelectionMedium(false);
 		}
 		else if (hoverBox == aiBox) {

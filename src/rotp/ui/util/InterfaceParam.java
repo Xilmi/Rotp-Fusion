@@ -35,8 +35,11 @@ public interface InterfaceParam extends InterfaceOptions{
 	public String getCfgLabel();
 	public String getGuiDisplay();
 	public String getGuiDescription();
-	public default String getToolTip() { return ""; }
-	public default String getToolTip(int idx) { return ""; }
-	public default void setPanel(BaseModPanel p) { }
-	public default void initGuiTexts() {}
+
+	public default void setPanel(BaseModPanel p) {}
+	public default void initGuiTexts()			{}
+	public default String getToolTip()			{ return ""; }
+	public default String getToolTip(int idx)	{ return ""; }
+	public default boolean isDuplicate()		{ return false; }
+	public default boolean isTitle()			{ return false; }
 }

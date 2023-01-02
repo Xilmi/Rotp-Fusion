@@ -145,6 +145,10 @@ public class Galaxy implements Base, Serializable {
         empires = new Empire[options().selectedNumberOpponents()+1];
     }
     public void advanceTime() { currentTime += TIME_PER_TURN; }
+    public void resetAllAI() { // BR: needed when updating fuelRange
+    	for (Empire emp : empires)
+    		emp.resetAI();
+    }
     // BR: For Restart with new options
     public void addNebula(Nebula nebula, float nebSize) {
     	Nebula neb = nebula.copy();

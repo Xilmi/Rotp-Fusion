@@ -24,6 +24,7 @@ import java.awt.event.MouseWheelEvent;
 import javax.swing.SwingUtilities;
 
 import rotp.model.game.DynamicOptions;
+import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.game.BaseModPanel;
 import rotp.util.LabelManager;
@@ -42,6 +43,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	private T shiftInc	= null;
 	private T ctrlInc	= null;
 	private boolean isDuplicate = false;
+	private MOO1GameOptions duplicateOptions = null;
 
 	// ========== constructors ==========
 	//
@@ -119,6 +121,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	@Override public String getCfgLabel() { return name; }
 	@Override public String getGuiDescription() { return text(descriptionId()); }
 	@Override public String getGuiDisplay()	{ return text(labelId(), getGuiValue()) + END; }
+	@Override public boolean isDuplicate()	{ return isDuplicate; }
 	@Override public void setFromDefault()	{ set(defaultValue()); }
 	@Override public void toggle(MouseEvent e, MouseWheelEvent w) {
 		if (e == null)
@@ -155,6 +158,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 		setOption(newValue);
 		return value;
 	}
+	public void duplicateOptions (MOO1GameOptions options) { duplicateOptions = options;}
 	public void maxValue (T newValue)	 { maxValue = newValue;}
 	public void minValue (T newValue)	 { minValue = newValue;}
 	public void defaultValue(T newValue) { defaultValue = newValue; }
@@ -167,7 +171,6 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	protected String labelId()		 { return gui + name; }
 	protected BasePanel getPanel()	 { return panel; }
 	protected boolean hasPanel()	 { return panel != null; }
-	protected boolean isDuplicate()	 { return isDuplicate; }
 	protected T getInc(MouseEvent e) {
 		if (e.isShiftDown()) 
 			return shiftInc;

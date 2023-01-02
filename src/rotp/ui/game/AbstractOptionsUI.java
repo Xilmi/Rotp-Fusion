@@ -89,7 +89,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 		init0();
 		
 		if (paramList == null) 
-			activeList     = duplicateList;
+			activeList = duplicateList;
 		else
 			activeList = paramList;
 		

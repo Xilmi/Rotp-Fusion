@@ -26,7 +26,15 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
-2022.12.7 (BR)
+2023.01.01 (BR)
+  - Split dynamic stars per empire from preferred Stars per empire.
+
+2022.12.31 (BR)
+  - Merged Advanced options and mod options in a single compact GUI.
+  - Made the merged GUI available with "Shift-Click"-Advanced options.
+  - Made the merged GUI available while playing a game, with "Ctrl"-o on galaxy map. 
+
+2022.12.27 (BR)
   - Fixed some new GUI interface issues.
 
 2022.12.26 (BR)

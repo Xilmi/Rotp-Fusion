@@ -24,6 +24,7 @@ import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
+import rotp.ui.game.MergedOptionsUI;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
 import rotp.ui.main.TransportDeploymentPanel;
@@ -59,6 +60,7 @@ public class MapOverlayNone extends MapOverlay {
             return true;
         }
         boolean shift = e.isShiftDown();
+        boolean ctrl  = e.isControlDown();
         int s40 = BasePanel.s40;
         List<StarSystem> systems;
         List<ShipFleet> fleets;
@@ -71,7 +73,7 @@ public class MapOverlayNone extends MapOverlay {
             return true;
         }
 
-        int code = e.getModifiersEx();
+        // int code = e.getModifiersEx();
         switch(e.getKeyCode()) {
             case KeyEvent.VK_ESCAPE:
                 if (parent.displayPanel().canEscape())
@@ -213,6 +215,12 @@ public class MapOverlayNone extends MapOverlay {
                 parent.handleNextTurn();
                 session().nextTurn();
                 break;
+            case KeyEvent.VK_O: // BR:
+            	if (ctrl) {
+            		MergedOptionsUI optionsUI = RotPUI.globalOptionsUI();
+        			optionsUI.init();
+            	}
+            	break;
             case KeyEvent.VK_Y: // BR:
             	UserPreferences.toggleYearDisplay();
                 break;

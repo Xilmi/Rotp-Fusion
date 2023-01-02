@@ -57,6 +57,7 @@ import rotp.ui.BasePanel;
 import rotp.ui.ExitButton;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
+import rotp.ui.game.MergedOptionsUI;
 import rotp.ui.game.HelpUI;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
@@ -460,7 +461,8 @@ public final class SystemsUI extends BasePanel implements IMapHandler, ActionLis
         int x1 = scaled(150);
         int w1 = scaled(400);
         int y1 = scaled(300);
-        HelpUI.HelpSpec sp1 = helpUI.addBrownHelpText(x1, y1, w1, 4, text("SYSTEMS_HELP_1A"));
+        @SuppressWarnings("unused")
+		HelpUI.HelpSpec sp1 = helpUI.addBrownHelpText(x1, y1, w1, 4, text("SYSTEMS_HELP_1A"));
 
         int x2 = exploreBox.x-s90;
         int w2 = scaled(190);
@@ -951,6 +953,7 @@ public final class SystemsUI extends BasePanel implements IMapHandler, ActionLis
     @Override
     public void keyPressed(KeyEvent e) {
         boolean shift = e.isShiftDown();
+        boolean ctrl  = e.isControlDown();
         if (e.getKeyChar() == '?') {
             showHelp();
             return;
@@ -1001,6 +1004,12 @@ public final class SystemsUI extends BasePanel implements IMapHandler, ActionLis
                 return;
             case KeyEvent.VK_Y: // BR:
             	UserPreferences.toggleYearDisplay();
+                return;
+            case KeyEvent.VK_O: // BR:
+            	if (ctrl) {
+            		MergedOptionsUI optionsUI = RotPUI.globalOptionsUI();
+        			optionsUI.init();
+            	}
                 return;
         }
     }
@@ -1162,8 +1171,8 @@ public final class SystemsUI extends BasePanel implements IMapHandler, ActionLis
         public void mouseReleased(MouseEvent e) {
             if (e.getButton() > 3)
                 return;
-            int x = e.getX();
-            int y = e.getY();
+            // int x = e.getX();
+            // int y = e.getY();
             if (hoverBox == null)
                 misClick();
             else {

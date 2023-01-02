@@ -23,6 +23,7 @@ import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
+import static rotp.ui.util.InterfaceParam.LABEL_DESCRIPTION;
 
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -30,7 +31,11 @@ import java.awt.Rectangle;
 import java.awt.event.InputEvent;
 import java.util.LinkedList;
 
+import rotp.model.game.GameSession;
+import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BasePanel;
+import rotp.ui.RotPUI;
+//import rotp.ui.RotPUI;
 import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.Modifier2KeysState;
 import rotp.util.LabelManager;
@@ -52,15 +57,16 @@ public abstract class BaseModPanel extends BasePanel {
 	private static final String exitKey		 		= "SETTINGS_EXIT";
 
 	private static int exitButtonWidth, userButtonWidth, defaultButtonWidth, lastButtonWidth;
-
-	protected static int  smallButtonMargin, smallButtonH;
-	protected static Font smallButtonFont;
+	protected static int  w, h;
+	protected static int  smallButtonMargin;
+	protected static int  smallButtonH;
 
 	LinkedList<InterfaceParam> paramList;
 	LinkedList<InterfaceParam> duplicateList;
 	LinkedList<InterfaceParam> activeList;
 
 	//	protected Font smallButtonFont	= FontManager.current().narrowFont(20);
+	protected Font smallButtonFont	= narrowFont(20);
 	protected Rectangle defaultBox	= new Rectangle();
 	protected Rectangle lastBox		= new Rectangle();
 	protected Rectangle userBox		= new Rectangle();
@@ -68,12 +74,7 @@ public abstract class BaseModPanel extends BasePanel {
 	protected boolean globalOptions	= false; // No preferred button and Saved to remnant.cfg
     private boolean initGuiTextList = true;
 
-
 	private void localInit(Graphics2D g) {
-		smallButtonMargin	= s30;
-		smallButtonH		= s30;
-		smallButtonFont		= narrowFont(20);
-		
 		Font prevFont = g.getFont();
 		g.setFont(smallButtonFont);
 
@@ -96,7 +97,9 @@ public abstract class BaseModPanel extends BasePanel {
 	
 	protected abstract String GUI_ID();
 	protected void refreshGui() {}
+	protected MOO1GameOptions guiOptions() { return RotPUI.guiOptions(); }
 
+	protected boolean inGame() { return GameSession.instance().status().inProgress(); }
 	protected void repaintButtons() { repaint(); }
 	protected void checkModifierKey(InputEvent e) {
 		if (Modifier2KeysState.checkForChange(e)) {
@@ -105,6 +108,9 @@ public abstract class BaseModPanel extends BasePanel {
 	}
 	protected void init() {
 		Modifier2KeysState.reset();
+		w = RotPUI.setupRaceUI().getWidth();
+		h = RotPUI.setupRaceUI().getHeight();
+
 		if (initGuiTextList) {
 			if (paramList != null)
 				for (InterfaceParam param : paramList)
@@ -112,14 +118,30 @@ public abstract class BaseModPanel extends BasePanel {
 			if (duplicateList != null)
 				for (InterfaceParam param : duplicateList)
 					param.initGuiTexts();
-			initGuiTextList = false;
+			smallButtonMargin = s30;
+			smallButtonH	  = s30;
+			initGuiTextList	  = false;
 		}
 		if (paramList != null)
 			for (InterfaceParam param : paramList)
 				param.setPanel(this);
 		if (duplicateList != null)
-			for (InterfaceParam param : duplicateList)
-				param.setPanel(this);
+			for (InterfaceParam param : duplicateList) {
+				System.out.println("param.setPanel(this) " + param.getCfgLabel());
+				param.setPanel(this);			
+			}
+
+//		if (activeList != null)
+//			for (InterfaceParam param : activeList) // TODO BR: Remove
+//				param.setPanel(this);
+//		else {
+//			if (paramList != null)
+//				for (InterfaceParam param : paramList)
+//					param.setPanel(this);
+//			if (duplicateList != null)
+//				for (InterfaceParam param : duplicateList)
+//					param.setPanel(this);			
+//		}
 	}
 
 	protected void close() {
@@ -130,7 +152,7 @@ public abstract class BaseModPanel extends BasePanel {
  		if (duplicateList != null)
 			for (InterfaceParam param : duplicateList)
 				param.setPanel(null);
-   }
+ 	}
 
 	// ---------- Exit Button
 	protected String exitButtonKey() {
@@ -161,6 +183,9 @@ public abstract class BaseModPanel extends BasePanel {
 			break; 
 		}
 		close();
+	}
+	protected String exitButtonDescKey() {
+		return exitButtonKey() + LABEL_DESCRIPTION;
 	}
 
 	// ---------- User Button
@@ -199,6 +224,9 @@ public abstract class BaseModPanel extends BasePanel {
 			refreshGui();
 		}
 	}	
+	protected String userButtonDescKey() {
+		return userButtonKey() + LABEL_DESCRIPTION;
+	}
 
 	// ---------- Default Button
 	protected String defaultButtonKey() {
@@ -243,6 +271,9 @@ public abstract class BaseModPanel extends BasePanel {
 		}
 		refreshGui();
 	}
+	protected String defaultButtonDescKey() {
+		return defaultButtonKey() + LABEL_DESCRIPTION;
+	}
 
 	// ---------- Last Button
 	protected String lastButtonKey() {
@@ -278,5 +309,8 @@ public abstract class BaseModPanel extends BasePanel {
 			loadAndUpdateFromFileName(guiOptions(), LAST_OPTIONS_FILE, ALL_GUI_ID);
 		}
 		refreshGui();
+	}
+	protected String lastButtonDescKey() {
+		return lastButtonKey() + LABEL_DESCRIPTION;
 	}
 }

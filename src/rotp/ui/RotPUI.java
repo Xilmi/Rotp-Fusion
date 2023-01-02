@@ -50,6 +50,7 @@ import rotp.model.empires.SabotageMission;
 import rotp.model.galaxy.GalaxyFactory.GalaxyCopy;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.Transport;
+import rotp.model.game.GameSession;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.MOO1GameOptions;
 import rotp.model.planet.PlanetFactory;
@@ -66,6 +67,7 @@ import rotp.ui.game.AdvancedOptionsUI;
 import rotp.ui.game.GameOverUI;
 import rotp.ui.game.GameSettingsUI;
 import rotp.ui.game.GameUI;
+import rotp.ui.game.MergedOptionsUI;
 import rotp.ui.game.HelpUI;
 import rotp.ui.game.LoadGameUI;
 import rotp.ui.game.ModGlobalOptionsUI;
@@ -172,7 +174,13 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     private static final RotPUI instance = new RotPUI();
 
     private static PrintWriter debugFile = null;
-
+ 
+    public static MOO1GameOptions guiOptions()  {
+		if (GameSession.instance().status().inProgress())
+			return (MOO1GameOptions) GameSession.instance().options();
+		else
+			return (MOO1GameOptions) newOptions();
+	}
     public static void fps(int fps) {
         // bound arg between 10 & 60
         int actualFPS = Math.min(60, Math.max(10,fps));
@@ -238,6 +246,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     private final HelpUI helpUI = new HelpUI();
 //    private final StartOptionsUI startOptionsUI = new StartOptionsUI();
     private final AdvancedOptionsUI advancedOptionsUI = new AdvancedOptionsUI();
+    private final MergedOptionsUI globalOptionsUI = new MergedOptionsUI();
     // modnar: add UI panel for modnar MOD game options
     private final StartModAOptionsUI startModAOptionsUI = new StartModAOptionsUI();
     // BR: Second UI panel for MOD game options
@@ -379,6 +388,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     public static HelpUI helpUI()                 { return instance.helpUI; }
 //    public static StartOptionsUI startOptionsUI() { return instance.startOptionsUI; }
     public static AdvancedOptionsUI advancedOptionsUI() { return instance.advancedOptionsUI; }
+    public static MergedOptionsUI globalOptionsUI() { return instance.globalOptionsUI; }
     public static GameSettingsUI gameSettingsUI() { return instance.gameSettingsUI; }
     // modnar: add UI panel for modnar MOD game options
     public static StartModAOptionsUI startModAOptionsUI() { return instance.startModAOptionsUI; }

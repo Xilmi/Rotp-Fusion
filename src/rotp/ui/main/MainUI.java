@@ -665,7 +665,7 @@ public class MainUI extends BasePanel implements IMapHandler {
         HelpUI helpUI = RotPUI.helpUI();
 
         int w = getWidth();
-        int h = getHeight();
+        // int h = getHeight();
         helpUI.clear();
         HelpSpec s0 = helpUI.addBlueHelpText(s100, s10, scaled(350), 2, text("MAIN_HELP_ALL"));
         s0.setLine(s100, s25, s30, s25);
