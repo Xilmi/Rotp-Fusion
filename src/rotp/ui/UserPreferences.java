@@ -53,6 +53,8 @@ import static rotp.model.game.MOO1GameOptions.getStarDensityOptions;
 import static rotp.model.game.MOO1GameOptions.getTechTradingOptions;
 import static rotp.model.game.MOO1GameOptions.getTerraformingOptions;
 import static rotp.model.game.MOO1GameOptions.getWarpSpeedOptions;
+import static rotp.ui.UserPreferences.mapFontFactor;
+import static rotp.ui.UserPreferences.showInfoFontRatio;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -69,7 +71,9 @@ import java.util.LinkedList;
 import rotp.Rotp;
 import rotp.model.empires.GalacticCouncil;
 import rotp.model.events.RandomEvents;
+import rotp.model.galaxy.StarSystem;
 import rotp.model.game.GameSession;
+import rotp.ui.main.GalaxyMapPanel;
 //import rotp.model.game.IGameOptions;
 //import rotp.model.game.MOO1GameOptions;
 import rotp.ui.util.GlobalCROptions;
@@ -280,22 +284,58 @@ public class UserPreferences {
 
 	public static final ParamFloat showFleetFactor = new ParamFloat(
 			MOD_UI, "SHOW_FLEET_FACTOR"
-			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%");
+			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
+		@Override public Float set(Float newValue) {
+			GalaxyMapPanel.MAX_STARGATE_SCALE		 = (int) (40 * newValue);
+			GalaxyMapPanel.MAX_FLEET_UNARMED_SCALE	 = (int) (40 * newValue);
+			GalaxyMapPanel.MAX_FLEET_TRANSPORT_SCALE = (int) (60 *newValue);
+			GalaxyMapPanel.MAX_FLEET_SMALL_SCALE	 = (int) (60 * newValue);
+			GalaxyMapPanel.MAX_FLEET_LARGE_SCALE	 = (int) (80 * newValue);
+			GalaxyMapPanel.MAX_FLEET_HUGE_SCALE		 = (int) (100 * newValue);
+			return super.set(newValue);
+		}
+	};
 	public static final ParamFloat showFlagFactor = new ParamFloat(
 			MOD_UI, "SHOW_FLAG_FACTOR"
-			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%");
+			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
+		@Override public Float set(Float newValue) {
+			GalaxyMapPanel.MAX_FLAG_SCALE = (int) (80 * newValue);
+			return super.set(newValue);
+		}
+	};
 	public static final ParamFloat showPathFactor = new ParamFloat(
 			MOD_UI, "SHOW_PATH_FACTOR"
-			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%");
+			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
+		@Override public Float set(Float newValue) {
+			GalaxyMapPanel.MAX_RALLY_SCALE = (int) (100 * newValue);
+			return super.set(newValue);
+		}
+	};
 	public static final ParamInteger showNameMinFont = new ParamInteger(
 			MOD_UI, "SHOW_NAME_MIN_FONT"
-			, 8, 2, 24, 1, 2, 5);
+			, 8, 2, 24, 1, 2, 5) {
+		@Override public Integer set(Integer newValue) {
+			StarSystem.minFont	= newValue;
+			StarSystem.minFont2	= Math.round(newValue/showInfoFontRatio.get());
+			return super.set(newValue);
+		}
+	};
 	public static final ParamFloat showInfoFontRatio = new ParamFloat(
 			MOD_UI, "SHOW_INFO_FONT_RATIO"
-			, 0.7f, 0.2f, 3f, 0.01f, 0.05f, 0.2f, "%", "%");
+			, 0.7f, 0.2f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
+		@Override public Float set(Float newValue) {
+			StarSystem.minFont2	= Math.round(StarSystem.minFont/newValue);
+			return super.set(newValue);
+		}
+	};
 	public static final ParamFloat mapFontFactor = new ParamFloat(
 			MOD_UI, "MAP_FONT_FACTOR"
-			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%");
+			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
+		@Override public Float set(Float newValue) {
+			StarSystem.fontPct = Math.round(newValue * 100);
+			return super.set(newValue);
+		}
+	};
 	public static final ParamOptions menuStartup = new ParamOptions(
 			MOD_UI, "MENU_STARTUP", ParamOptions.VANILLA);
 	public static final ParamOptions menuAfterGame = new ParamOptions(
@@ -637,6 +677,8 @@ public class UserPreferences {
 				new ParamTitle("GAME_RELATIONS"),
 				councilWin, counciRequiredPct,
 				techTrading, aiHostility,
+				new ParamTitle("GAME_COMBAT"),
+				retreatRestrictions, retreatRestrictionTurns, missileSizeModifier,
 				new ParamTitle("GAME_VARIOUS"),
 				terraforming, colonizing, researchRate,
 				eventsStartTurn, randomEvents,
@@ -645,14 +687,16 @@ public class UserPreferences {
 				autoplay
 				)));
 		mergedOptionsMap.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle("GAME_COMBAT"),
-				retreatRestrictions, retreatRestrictionTurns, missileSizeModifier,
 				new ParamTitle("GAME_DIFFICULTY"),
 				difficultySelection, customDifficulty,
 				dynamicDifficulty, challengeMode,
 				new ParamTitle("RESTART_OPTIONS"),
 				restartChangesPlayerRace, restartChangesPlayerAI,
-				restartChangesAliensAI, restartAppliesSettings
+				restartChangesAliensAI, restartAppliesSettings,
+				new ParamTitle("ZOOM_FACTORS"),
+				showFleetFactor, showFlagFactor, showPathFactor,
+				showNameMinFont, showInfoFontRatio, mapFontFactor
+
 				)));
 		for (LinkedList<InterfaceParam> list : mergedOptionsMap) {
 			for (InterfaceParam param : list) {

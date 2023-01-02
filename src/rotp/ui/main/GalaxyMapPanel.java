@@ -95,15 +95,15 @@ public class GalaxyMapPanel extends BasePanel implements ActionListener, MouseLi
     public static final int SHOW_STARS = 2;
     public static final int SHOW_NO_STARS_AND_RANGES = 3;
 
-	 // BR:
-    public static final int MAX_FLAG_SCALE = (int) (80 * showFlagFactor.get());
-    public static final int MAX_STARGATE_SCALE = (int) (40 * showFleetFactor.get());
-    public static final int MAX_RALLY_SCALE = (int) (100 * showPathFactor.get());
-    public static final int MAX_FLEET_UNARMED_SCALE = (int) (40 * showFleetFactor.get());
-    public static final int MAX_FLEET_TRANSPORT_SCALE = (int) (60 * showFleetFactor.get());
-    public static final int MAX_FLEET_SMALL_SCALE = (int) (60 * showFleetFactor.get());
-    public static final int MAX_FLEET_LARGE_SCALE = (int) (80 * showFleetFactor.get());
-    public static final int MAX_FLEET_HUGE_SCALE = (int) (100 * showFleetFactor.get());
+	// BR:
+    public static int MAX_FLAG_SCALE = (int) (80 * showFlagFactor.get());
+    public static int MAX_STARGATE_SCALE = (int) (40 * showFleetFactor.get());
+    public static int MAX_RALLY_SCALE = (int) (100 * showPathFactor.get());
+    public static int MAX_FLEET_UNARMED_SCALE = (int) (40 * showFleetFactor.get());
+    public static int MAX_FLEET_TRANSPORT_SCALE = (int) (60 * showFleetFactor.get());
+    public static int MAX_FLEET_SMALL_SCALE = (int) (60 * showFleetFactor.get());
+    public static int MAX_FLEET_LARGE_SCALE = (int) (80 * showFleetFactor.get());
+    public static int MAX_FLEET_HUGE_SCALE = (int) (100 * showFleetFactor.get());
 	// \BR:
     
 //    private static final Color unreachableBackground = new Color(0,0,0);

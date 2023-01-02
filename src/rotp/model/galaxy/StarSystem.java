@@ -58,11 +58,9 @@ import rotp.util.Base;
 
 public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
     private static final long serialVersionUID = 1L;
-    private static final int  minFont  = showNameMinFont.get(); // BR:
-    private static final int  fontPct  = 
-    		Math.round(mapFontFactor.get() * 100); // BR:
-    private static final int  minFont2 = 
-    		Math.round(minFont / showInfoFontRatio.get()); // BR:
+    public static int  minFont  = showNameMinFont.get(); // BR:
+    public static int  fontPct  = Math.round(mapFontFactor.get() * 100); // BR:
+    public static int  minFont2 = Math.round(minFont/showInfoFontRatio.get()); // BR:
 	// modnar: change shield colors to color-coded loot rarity
 	// shield-5 --> shield-10 --> shield-15 --> shield-20
 	//    green -->      blue -->    purple --> orange

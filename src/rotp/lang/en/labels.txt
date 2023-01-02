@@ -1619,6 +1619,8 @@ SETTINGS_GAME_DIFFICULTYL_DESC     | Options affecting the game difficulty level
 SETTINGS_GAME_DIFFICULTY           | ~~~ GAME DIFFICULTY ~~~%1
 SETTINGS_RESTART_OPTIONS_DESC      | Options controlling the way a game will be restarted. Only read when restarting a game.
 SETTINGS_RESTART_OPTIONS           | ~~~ RESTART OPTIONS ~~~%1
+SETTINGS_ZOOM_FACTORS_DESC         | Options controlling the galaxy Map Zoom Factors. Can be changed dynamically. (Remnant.cfg options)
+SETTINGS_ZOOM_FACTORS              | ~~~ MAP ZOOM FACTORS ~~~%1
 
 // modnar: add UI panel for modnar MOD game options
 SETTINGS_MOD_TITLE                   | modnar MOD Options

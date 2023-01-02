@@ -181,8 +181,6 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 		g.drawRoundRect(defaultBox.x, defaultBox.y, defaultBox.width, defaultBox.height, cnr, cnr);
 		g.setStroke(prev);
 
-		if (globalOptions)
-			return;  // No User preferred button an no Last button
 		text = text(lastButtonKey());
 		sw	 = g.getFontMetrics().stringWidth(text);
 		smallButtonW = defaultButtonWidth(g);
@@ -402,30 +400,20 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
         	RotPUI.instance().mainUI().map().resetRangeAreas();
 	}
 	@Override protected void doExitBoxAction() {
-		if (globalOptions) { // The old ways
-			buttonClick();
-			UserPreferences.save();
-			close();			
-		}
-		else
-			super.doExitBoxAction();
+		UserPreferences.save();
+		super.doExitBoxAction();
 	}
 	@Override protected void doDefaultBoxAction() {
-		if (globalOptions) { // The old ways
-			buttonClick();
-			switch (Modifier2KeysState.get()) {
-			case CTRL:
-			case CTRL_SHIFT: // cancelKey
-				UserPreferences.load();
-				break;
-			default: // setLocalDefaultKey
-				setLocalToDefault();
-				break; 
-			}
-			refreshGui();
+		switch (Modifier2KeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT: // cancelKey
+			UserPreferences.load();
+			break;
+		default: // setLocalDefaultKey
+			setLocalToDefault();
+			break; 
 		}
-		else
-			super.doDefaultBoxAction();
+		super.doDefaultBoxAction();
 	}
 	@Override protected void refreshGui() {
 		super.refreshGui();
@@ -459,20 +447,13 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 		int xTitle = (w-sw)/2;
 		drawBorderedString(g, title, 1, xTitle, yTitle, Color.black, Color.white);
 		
-//		g.setFont(narrowFont(18));
-//		String expl = text("SETTINGS_DESCRIPTION");
-//		g.setColor(SystemPanel.blackText);
-//		drawString(g, expl, xDesc, yDesc);
-		
 		Stroke prev = g.getStroke();
 		g.setStroke(stroke3);
-		
 		// Loop thru the parameters
 		index	 = 0;
 		column	 = 0;
 		xSetting = leftM + columnPad/2;
 		ySetting = yTop;
-		// First column (left)
 		while (index<activeList.size()) {
 			paintSetting(g, btList.get(index));
 			goToNextSetting();
