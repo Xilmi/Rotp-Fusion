@@ -26,6 +26,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2023.01.02 (BR)
+  - Added Map zooming Factor to merged options.
+
 2023.01.01 (BR)
   - Split dynamic stars per empire from preferred Stars per empire.
 
