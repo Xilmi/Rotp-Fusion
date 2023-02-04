@@ -421,6 +421,9 @@ public class AIGeneral implements Base, General {
         else
             needed += additional;
         int alreadySent = empire.transportsInTransit(target);
+        //If we need to breach enemy fleets defending the system, we must not consider the already sent troops as helping us since they won't arrive at the same turn.
+        if(additional > 0)
+            alreadySent = 0;
         float troopsDesired = max(needed * 1.25f, target.planet().maxSize() * 0.25f) - alreadySent;
         //System.out.println(galaxy().currentTurn()+" "+empire.name()+" invading "+target.name()+" troops desired: "+troopsDesired+" needed: "+needed+" sent: "+alreadySent);
         if (troopsDesired < 1)
