@@ -1,6 +1,7 @@
 Only a little one:
 - Update:
   - Added Map zooming Factor to merged options
+  - Galaxy setup Panel: Fixed bug on Individual AI selection acting on the wrong opponent.
 
 - Click on settings with list <= 4 options will pop-up the list selection box.
   - The min list size value can be set in Global Mod Option.

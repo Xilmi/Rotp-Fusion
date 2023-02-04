@@ -13,7 +13,7 @@
 	<!-- Variables Declaration -->
 	<properties>
 		<!-- File Name Format -->
-		<maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
+		<maven.build.timestamp.format>yyyy.MM.dd</maven.build.timestamp.format>
 		<revision>Fusion-${maven.build.timestamp}</revision>
 		<!-- EXE converter Format yyyy.M.d.H -->
 		<exeVersion>${current.time}</exeVersion>
