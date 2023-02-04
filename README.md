@@ -26,6 +26,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2023.02.04 (BR)
+  - Galaxy setup Panel: Fixed bug on Individual AI selection acting on the wrong opponent.
+
 2023.01.02 (BR)
   - Added Map zooming Factor to merged options.
 

@@ -565,7 +565,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	private String selectSpecificAIFromList(int i) {
 		String title   = text(SPECIFIC_AI);
 		String message = text(SPECIFIC_AI + LABEL_DESCRIPTION);
-		String initialChoice = text(newGameOptions().specificOpponentAIOption(i));
+		String initialChoice = text(newGameOptions().specificOpponentAIOption(i+1));
 	    String input = (String) ListDialog.showDialog(
 	    	getParent(), getParent(),	// Frame & Location component
 	    	message, title,				// Message, Title
@@ -578,7 +578,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			newGameOptions().specificOpponentAIOptions());	// Alternate return
 	    if (input == null)
 	    	return initialChoice;
-	    newGameOptions().specificOpponentAIOption(input, i);
+	    newGameOptions().specificOpponentAIOption(input, i+1);
 	    return input;
 	}
 	private String selectGlobalAIFromList() {
