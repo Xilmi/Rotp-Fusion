@@ -9,6 +9,9 @@
 	<artifactId>rotp</artifactId>
 	<version>${revision}</version>
 	<packaging>jar</packaging>
+	<organization>
+		<name></name>
+	</organization>
 	
 	<!-- Variables Declaration -->
 	<properties>
