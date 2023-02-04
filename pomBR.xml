@@ -6,12 +6,12 @@
 
 	<!-- Project Declaration -->
 	<groupId>com.rayfowler</groupId>
+	<organization>
+		<name>1</name>
+	</organization>
 	<artifactId>rotp</artifactId>
 	<version>${revision}</version>
 	<packaging>jar</packaging>
-	<organization>
-		<name></name>
-	</organization>
 	
 	<!-- Variables Declaration -->
 	<properties>
