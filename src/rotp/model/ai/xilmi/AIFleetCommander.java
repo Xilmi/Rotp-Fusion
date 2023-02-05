@@ -1200,9 +1200,10 @@ public class AIFleetCommander implements Base, FleetCommander {
                 int num = fl.num(i);
                 ShipDesign d = lab.design(i); 
                 float designFirePower = d.firepowerAntiShip(d.shieldLevel(), d.beamDefense(), d.missileDefense()) * d.hits();
+                //System.out.print("\n"+empire.name()+" design in fleet: "+d.name()+" power: "+designFirePower+" is scout: "+d.isScout()+" figting adapted: "+empire.shipDesignerAI().fightingAdapted(d)+" bombing-adapted: "+empire.shipDesignerAI().bombingAdapted(d));
                 if(d.warpSpeed()!=speed && splitBySpeed)
                     continue;
-                if(d.isScout()&& !includeScouts)
+                if(!d.isArmed() && !d.hasColonySpecial() && !includeScouts)
                 {
                     continue;
                 }
@@ -1244,7 +1245,6 @@ public class AIFleetCommander implements Base, FleetCommander {
                     systemInfoBuffer.get(target.id).myTotalPower += fullPowerValue * counts[i] / num;
                     if(d.hasColonySpecial())
                         systemInfoBuffer.get(target.id).colonizersEnroute++;
-                    //System.out.print("\n"+empire.name()+" deploy "+counts[i]+" "+d.name()+" speed "+speed+" to "+target.name()+" splitBySpeed: "+splitBySpeed+" colonizersEnroute: "+systemInfoBuffer.get(target.id).colonizersEnroute+" myBC: "+systemInfoBuffer.get(target.id).myTotalBc);
                     if(fl.destination() != null)
                     {
                         UpdateSystemInfo(fl.destination().id);
