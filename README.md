@@ -26,6 +26,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2023.03.09 (BR)
+  - Fixed GUI malfunction after game played.
+
 2023.03.07 (BR)
   - Added option to show Compact Merged Advanced Option only.
   - Space Monsters will be cancelled if you turn of the option.
@@ -33,10 +36,10 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
     - Added selectable delay after standard random events.
     - Added selectable Number of visited systems befor the monster vanish.
     - Added option for reoccuring Monster.
-    - Polish language fix. 
+  - Polish language fix. 
 
 2023.02.06 (Xilmi)
- - AI now identifies scouts in the ship-sending-method by exclusion rather than the isScout-flag.
+  - AI now identifies scouts in the ship-sending-method by exclusion rather than the isScout-flag.
 This prevents an issue that after toggling on autoplay in an ongoing match ships designed by the player would falsely be identified as scouts and thus not be moved like other fleets.
 
 2023.02.04 (Xilmi)

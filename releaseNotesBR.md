@@ -10,3 +10,4 @@ Only a little one:
   - Compact options are available in Game with "Ctrl-o" in galaxy map.
 - Polish language fix.
   - Ogniwa Paliwa Deuter -> Ogniwa Paliwa Deuterowego
+- Fixed GUI malfunction after game was played.

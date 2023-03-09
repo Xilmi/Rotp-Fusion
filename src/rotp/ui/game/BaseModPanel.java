@@ -97,9 +97,9 @@ public abstract class BaseModPanel extends BasePanel {
 	
 	protected abstract String GUI_ID();
 	protected void refreshGui() {}
-	protected MOO1GameOptions guiOptions() { return RotPUI.guiOptions(); }
+	protected MOO1GameOptions guiOptions() { return RotPUI.mergedGuiOptions(); }
 
-	protected boolean inGame() { return GameSession.instance().status().inProgress(); }
+	protected boolean guiCallFromGame() { return RotPUI.guiCallFromGame(); }
 	protected void repaintButtons() { repaint(); }
 	protected void checkModifierKey(InputEvent e) {
 		if (Modifier2KeysState.checkForChange(e)) {
@@ -130,18 +130,6 @@ public abstract class BaseModPanel extends BasePanel {
 				// System.out.println("param.setPanel(this) " + param.getCfgLabel());
 				param.setPanel(this);			
 			}
-
-//		if (activeList != null)
-//			for (InterfaceParam param : activeList) // TODO BR: Remove
-//				param.setPanel(this);
-//		else {
-//			if (paramList != null)
-//				for (InterfaceParam param : paramList)
-//					param.setPanel(this);
-//			if (duplicateList != null)
-//				for (InterfaceParam param : duplicateList)
-//					param.setPanel(this);			
-//		}
 	}
 
 	protected void close() {

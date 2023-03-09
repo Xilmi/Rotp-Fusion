@@ -15,8 +15,11 @@
  */
 package rotp.ui.game;
 
+import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
 import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
 import static rotp.ui.UserPreferences.ALL_GUI_ID;
+import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
+import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
 
 import java.awt.Color;
@@ -76,7 +79,7 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 	private static final int tooltipLines	= 2;
 	private static final int descHeigh		= tooltipLines * descLineH + descPadM;
 	private static final int bottomPad		= rowPad;
-	private static final int textPad		= rowPad;
+//	private static final int textPad		= rowPad;
 	private static final int textBoxH		= settingH;
 	private static final int hDistSetting	= settingH + settingpadH; // distance between two setting top corner
 	private static final int leftM			= columnPad;
@@ -369,9 +372,8 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 				repaintTooltip();
 		}
 	}
-	// ========== Overriders ==========
-	//
-	@Override public void init() {
+	public void start(boolean callFromGame) {
+		RotPUI.guiCallFromGame(callFromGame);
 		super.init();
 		int hSettingTotal = hDistSetting * numRows;
 		hBG	= titlePad + hSettingTotal + descPadV + descHeigh + buttonPadV + smallButtonH + bottomPad;
@@ -388,24 +390,42 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 		columnWidth = ((wBG-columnPad)/numColumns)-columnPad;
 		if (bg == null)
 			bg = GameUI.settingsSetupBackgroundW(w);
-		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+		updateOptionsAndSaveToFileName(RotPUI.mergedGuiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 		enableGlassPane(this);
 		refreshGui();
 	}
+	// ========== Overriders ==========
+	//
 	@Override protected void checkModifierKey(InputEvent e) {
 		hoverAndTooltip(Modifier2KeysState.checkForChange(e));
 	}
 	@Override protected void close() {
 		super.close();
         disableGlassPane();
-        if (!inGame())
+        if (!guiCallFromGame())
         	RotPUI.setupGalaxyUI().init();
         else
         	RotPUI.instance().mainUI().map().resetRangeAreas();
 	}
 	@Override protected void doExitBoxAction() {
 		UserPreferences.save();
-		super.doExitBoxAction();
+		// super.doExitBoxAction();
+		updateOptionsAndSaveToFileName(RotPUI.mergedGuiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+		RotPUI.guiCallFromGame(false);
+		close();
+	}
+	@Override protected void doUserBoxAction() {
+		switch (Modifier2KeysState.get()) {
+		case CTRL: // saveGlobalUserKey
+		case CTRL_SHIFT: // saveLocalUserKey
+			UserPreferences.save();
+			break;
+		case SHIFT: // setLocalUserKey
+		default: // setGlobalUserKey
+			UserPreferences.load();
+			break; 
+		}
+		super.doUserBoxAction();
 	}
 	@Override protected void doDefaultBoxAction() {
 		switch (Modifier2KeysState.get()) {
@@ -418,6 +438,15 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 			break; 
 		}
 		super.doDefaultBoxAction();
+	}
+	@Override protected void doLastBoxAction() {
+		buttonClick();
+		switch (Modifier2KeysState.get()) {
+		case SHIFT: // setLocalLastKey
+		default: // setGlobalLastKey
+			UserPreferences.load();
+		}
+		super.doLastBoxAction();
 	}
 	@Override protected void refreshGui() {
 		super.refreshGui();

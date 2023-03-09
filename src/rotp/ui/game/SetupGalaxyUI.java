@@ -1439,9 +1439,9 @@ public final class SetupGalaxyUI  extends BaseModPanel
 //		AdvancedOptionsUI optionsUI = RotPUI.advancedOptionsUI();
 //		optionsUI.init();
 		if (Modifier2KeysState.isShiftDown() || compactOptionOnly.get()) {
-			MergedOptionsUI optionsUI = RotPUI.globalOptionsUI();
+			MergedOptionsUI optionsUI = RotPUI.mergedOptionsUI();
 			close();
-			optionsUI.init();
+			optionsUI.start(false); // not called from game
 		} else {
 			AdvancedOptionsUI optionsUI = RotPUI.advancedOptionsUI();
 			close();

@@ -399,64 +399,64 @@ public class UserPreferences {
 	public static final ParamList shapeOption2 = new ParamList( // Duplicate Do not add the list
 			BASE_UI, "SHAPE_OPTION_2") {
 		@Override public String getFromOption() {
-			return RotPUI.guiOptions().selectedGalaxyShapeOption2();
+			return RotPUI.mergedGuiOptions().selectedGalaxyShapeOption2();
 		}
 		@Override public void setOption(String newValue) {
-			RotPUI.guiOptions().selectedGalaxyShapeOption2(newValue);
+			RotPUI.mergedGuiOptions().selectedGalaxyShapeOption2(newValue);
 		}
 	};
 	public static final ParamList shapeOption1 = new ParamList( // Duplicate Do not add the list
 			BASE_UI, "SHAPE_OPTION_1") {
 		@Override public String getFromOption() {
-			return RotPUI.guiOptions().selectedGalaxyShapeOption1();
+			return RotPUI.mergedGuiOptions().selectedGalaxyShapeOption1();
 		}
 		@Override public void setOption(String newValue) {
-			RotPUI.guiOptions().selectedGalaxyShapeOption1(newValue);
+			RotPUI.mergedGuiOptions().selectedGalaxyShapeOption1(newValue);
 		}
 	};
 	public static final ParamList shapeSelection = new ParamList( // Duplicate Do not add the list
 			BASE_UI, "GALAXY_SHAPE", getGalaxyShapeOptions(),  SHAPE_RECTANGLE) {
 		@Override public String getFromOption() {
-			return RotPUI.guiOptions().selectedGalaxyShape();
+			return RotPUI.mergedGuiOptions().selectedGalaxyShape();
 		}
 		@Override public void setOption(String newValue) {
-			RotPUI.guiOptions().selectedGalaxyShape(newValue);
+			RotPUI.mergedGuiOptions().selectedGalaxyShape(newValue);
 		}
 	};
 	public static final ParamList sizeSelection = new ParamList( // Duplicate Do not add the list
 			BASE_UI, "GALAXY_SIZE", getGalaxySizeOptions(), SIZE_SMALL) {
 		@Override public String getFromOption() {
-			return RotPUI.guiOptions().selectedGalaxySize();
+			return RotPUI.mergedGuiOptions().selectedGalaxySize();
 		}
 		@Override public void setOption(String newValue) {
-			RotPUI.guiOptions().selectedGalaxySize(newValue);
+			RotPUI.mergedGuiOptions().selectedGalaxySize(newValue);
 		}
 	};
 	public static final ParamList difficultySelection = new ParamList( // Duplicate Do not add the list
 			BASE_UI, "GAME_DIFFICULTY", getGameDifficultyOptions(), DIFFICULTY_NORMAL) {
 		@Override public String getFromOption() {
-			return RotPUI.guiOptions().selectedGameDifficulty();
+			return RotPUI.mergedGuiOptions().selectedGameDifficulty();
 		}
 		@Override public void setOption(String newValue) {
-			RotPUI.guiOptions().selectedGameDifficulty(newValue);
+			RotPUI.mergedGuiOptions().selectedGameDifficulty(newValue);
 		}
 	};
 	public static final ParamInteger aliensNumber = new ParamInteger( // Duplicate Do not add the list
 			BASE_UI, "ALIENS_NUMBER", 1, 0, 49, 1, 5, 20, true) {
 		@Override public Integer getFromOption() {
-			maxValue(RotPUI.guiOptions().maximumOpponentsOptions());
-			return RotPUI.guiOptions().selectedNumberOpponents();
+			maxValue(RotPUI.mergedGuiOptions().maximumOpponentsOptions());
+			return RotPUI.mergedGuiOptions().selectedNumberOpponents();
 		}
 		@Override public void setOption(Integer newValue) {
-			RotPUI.guiOptions().selectedOpponentRace(newValue, null);
-			RotPUI.guiOptions().selectedNumberOpponents(newValue);
+			RotPUI.mergedGuiOptions().selectedOpponentRace(newValue, null);
+			RotPUI.mergedGuiOptions().selectedNumberOpponents(newValue);
 		}
 		@Override public Integer defaultValue() {
-//			int defaultValue = Math.min(RotPUI.guiOptions().maximumOpponentsOptions(),
-//					RotPUI.guiOptions().numberStarSystems() / prefStarsPerEmpire.get() -1);
+//			int defaultValue = Math.min(RotPUI.mergedGuiOptions().maximumOpponentsOptions(),
+//					RotPUI.mergedGuiOptions().numberStarSystems() / prefStarsPerEmpire.get() -1);
 //			defaultValue(defaultValue);
 //			return defaultValue;
-			return RotPUI.guiOptions().defaultOpponentsOptions();
+			return RotPUI.mergedGuiOptions().defaultOpponentsOptions();
 		}
 	};
 	
@@ -516,73 +516,73 @@ public class UserPreferences {
 	public static final ParamList galaxyAge = new ParamList( // Duplicate Do not add the list
 			ADV_UI, "GALAXY_AGE", getGalaxyAgeOptions(), GALAXY_AGE_NORMAL) {
 		@Override public String getFromOption() {
-			return RotPUI.guiOptions().selectedGalaxyAge();
+			return RotPUI.mergedGuiOptions().selectedGalaxyAge();
 		}
 		@Override public void setOption(String newValue) {
-			RotPUI.guiOptions().selectedGalaxyAge(newValue);
+			RotPUI.mergedGuiOptions().selectedGalaxyAge(newValue);
 		}
 	};
 	public static final ParamList starDensity = new ParamList( // Duplicate Do not add the list
 			ADV_UI, "STAR_DENSITY", getStarDensityOptions(), STAR_DENSITY_NORMAL) {
 		@Override public String getFromOption() {
-			return RotPUI.guiOptions().selectedStarDensityOption();
+			return RotPUI.mergedGuiOptions().selectedStarDensityOption();
 		}
 		@Override public void setOption(String newValue) {
-			RotPUI.guiOptions().selectedStarDensityOption(newValue);
+			RotPUI.mergedGuiOptions().selectedStarDensityOption(newValue);
 		}
 	};
 	public static final ParamList nebulae = new ParamList( // Duplicate Do not add the list
 			ADV_UI, "NEBULAE", getNebulaeOptions(), NEBULAE_NORMAL) {
 		@Override public String getFromOption() {
-			return RotPUI.guiOptions().selectedNebulaeOption();
+			return RotPUI.mergedGuiOptions().selectedNebulaeOption();
 		}
 		@Override public void setOption(String newValue) {
-			RotPUI.guiOptions().selectedNebulaeOption(newValue);
+			RotPUI.mergedGuiOptions().selectedNebulaeOption(newValue);
 		}
 	};
 	public static final ParamList randomEvents = new ParamList( // Duplicate Do not add the list
 			ADV_UI, "RANDOM_EVENTS", getRandomEventOptions(), RANDOM_EVENTS_NO_MONSTERS) {
 		@Override public String getFromOption() {
-			return RotPUI.guiOptions().selectedRandomEventOption();
+			return RotPUI.mergedGuiOptions().selectedRandomEventOption();
 		}
 		@Override public void setOption(String newValue) {
-			RotPUI.guiOptions().selectedRandomEventOption(newValue);
+			RotPUI.mergedGuiOptions().selectedRandomEventOption(newValue);
 		}
 	};
 	public static final ParamList planetQuality = new ParamList( // Duplicate Do not add the list
 			ADV_UI, "PLANET_QUALITY", getPlanetQualityOptions(), PLANET_QUALITY_NORMAL) {
 		@Override public String getFromOption() {
-			return RotPUI.guiOptions().selectedPlanetQualityOption();
+			return RotPUI.mergedGuiOptions().selectedPlanetQualityOption();
 		}
 		@Override public void setOption(String newValue) {
-			RotPUI.guiOptions().selectedPlanetQualityOption(newValue);
+			RotPUI.mergedGuiOptions().selectedPlanetQualityOption(newValue);
 		}
 	};
 	public static final ParamList terraforming = new ParamList( // Duplicate Do not add the list
 			ADV_UI, "TERRAFORMING", getTerraformingOptions(), TERRAFORMING_NORMAL) {
 		@Override public String getFromOption() {
-			return RotPUI.guiOptions().selectedTerraformingOption();
+			return RotPUI.mergedGuiOptions().selectedTerraformingOption();
 		}
 		@Override public void setOption(String newValue) {
-			RotPUI.guiOptions().selectedTerraformingOption(newValue);
+			RotPUI.mergedGuiOptions().selectedTerraformingOption(newValue);
 		}
 	};
 	public static final ParamList colonizing = new ParamList( // Duplicate Do not add the list
 			ADV_UI, "COLONIZING", getColonizingOptions(), COLONIZING_NORMAL) {
 		@Override public String getFromOption() {
-			return RotPUI.guiOptions().selectedColonizingOption();
+			return RotPUI.mergedGuiOptions().selectedColonizingOption();
 		}
 		@Override public void setOption(String newValue) {
-			RotPUI.guiOptions().selectedColonizingOption(newValue);
+			RotPUI.mergedGuiOptions().selectedColonizingOption(newValue);
 		}
 	};
 	public static final ParamList councilWin = new ParamList( // Duplicate Do not add the list
 			ADV_UI, "COUNCIL_WIN", getCouncilWinOptions(), COUNCIL_REBELS) {
 		@Override public String getFromOption() {
-			return RotPUI.guiOptions().selectedCouncilWinOption();
+			return RotPUI.mergedGuiOptions().selectedCouncilWinOption();
 		}
 		@Override public void setOption(String newValue) {
-			RotPUI.guiOptions().selectedCouncilWinOption(newValue);
+			RotPUI.mergedGuiOptions().selectedCouncilWinOption(newValue);
 		}
 		@Override protected String descriptionId() {
 			return "SETTINGS_COUNCIL_DESC";
@@ -591,46 +591,46 @@ public class UserPreferences {
 	public static final ParamList randomizeAI = new ParamList( // Duplicate Do not add the list
 			ADV_UI, "RANDOMIZE_AI", getRandomizeAIOptions(), RANDOMIZE_AI_NONE) {
 		@Override public String getFromOption() {
-			return RotPUI.guiOptions().selectedRandomizeAIOption();
+			return RotPUI.mergedGuiOptions().selectedRandomizeAIOption();
 		}
 		@Override public void setOption(String newValue) {
-			RotPUI.guiOptions().selectedRandomizeAIOption(newValue);
+			RotPUI.mergedGuiOptions().selectedRandomizeAIOption(newValue);
 		}
 	};
 	public static final ParamList autoplay = new ParamList( // Duplicate Do not add the list
 			ADV_UI, "AUTOPLAY", getAutoplayOptions(), AUTOPLAY_OFF) {
 		@Override public String getFromOption() {
-			return RotPUI.guiOptions().selectedAutoplayOption();
+			return RotPUI.mergedGuiOptions().selectedAutoplayOption();
 		}
 		@Override public void setOption(String newValue) {
-			RotPUI.guiOptions().selectedAutoplayOption(newValue);
+			RotPUI.mergedGuiOptions().selectedAutoplayOption(newValue);
 		}
 	};
 	public static final ParamList researchRate = new ParamList( // Duplicate Do not add the list
 			ADV_UI, "RESEARCH_RATE", getResearchRateOptions(), RESEARCH_NORMAL) {
 		@Override public String getFromOption() {
-			return RotPUI.guiOptions().selectedResearchRate();
+			return RotPUI.mergedGuiOptions().selectedResearchRate();
 		}
 		@Override public void setOption(String newValue) {
-			RotPUI.guiOptions().selectedResearchRate(newValue);
+			RotPUI.mergedGuiOptions().selectedResearchRate(newValue);
 		}
 	};
 	public static final ParamList warpSpeed = new ParamList( // Duplicate Do not add the list
 			ADV_UI, "WARP_SPEED", getWarpSpeedOptions(), WARP_SPEED_NORMAL) {
 		@Override public String getFromOption() {
-			return RotPUI.guiOptions().selectedWarpSpeedOption();
+			return RotPUI.mergedGuiOptions().selectedWarpSpeedOption();
 		}
 		@Override public void setOption(String newValue) {
-			RotPUI.guiOptions().selectedWarpSpeedOption(newValue);
+			RotPUI.mergedGuiOptions().selectedWarpSpeedOption(newValue);
 		}
 	};
 	public static final ParamList fuelRange = new ParamList( // Duplicate Do not add the list
 			ADV_UI, "FUEL_RANGE", getFuelRangeOptions(), FUEL_RANGE_NORMAL) {
 		@Override public String getFromOption() {
-			return RotPUI.guiOptions().selectedFuelRangeOption();
+			return RotPUI.mergedGuiOptions().selectedFuelRangeOption();
 		}
 		@Override public void setOption(String newValue) {
-			RotPUI.guiOptions().selectedFuelRangeOption(newValue);
+			RotPUI.mergedGuiOptions().selectedFuelRangeOption(newValue);
 			if (GameSession.instance().status().inProgress())
 				GameSession.instance().galaxy().resetAllAI();
 		}
@@ -638,19 +638,19 @@ public class UserPreferences {
 	public static final ParamList techTrading = new ParamList( // Duplicate Do not add the list
 			ADV_UI, "TECH_TRADING", getTechTradingOptions(), TECH_TRADING_YES) {
 		@Override public String getFromOption() {
-			return RotPUI.guiOptions().selectedTechTradeOption();
+			return RotPUI.mergedGuiOptions().selectedTechTradeOption();
 		}
 		@Override public void setOption(String newValue) {
-			RotPUI.guiOptions().selectedTechTradeOption(newValue);
+			RotPUI.mergedGuiOptions().selectedTechTradeOption(newValue);
 		}
 	};
 	public static final ParamList aiHostility = new ParamList( // Duplicate Do not add the list
 			ADV_UI, "AI_HOSTILITY", getAiHostilityOptions(), AI_HOSTILITY_NORMAL) {
 		@Override public String getFromOption() {
-			return RotPUI.guiOptions().selectedTechTradeOption();
+			return RotPUI.mergedGuiOptions().selectedTechTradeOption();
 		}
 		@Override public void setOption(String newValue) {
-			RotPUI.guiOptions().selectedTechTradeOption(newValue);
+			RotPUI.mergedGuiOptions().selectedTechTradeOption(newValue);
 		}
 	};
 	public static final LinkedList<InterfaceParam> advancedOptions = new LinkedList<>(
