@@ -69,9 +69,9 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 	private	static final Font titleFont		= FontManager.current().narrowFont(30);
 	private static final int titleOffset	= s40; // Offset from Margin
 	private static final int titlePad		= s70; // Offset of first setting
-	private static final int settingFont	= 20;
-	private static final int settingH		= s20;
-	private static final int settingpadH	= s6;
+	private static final int settingFont	= 18;
+	private static final int settingH		= s18;
+	private static final int settingpadH	= s5;
 	private static final int columnPad		= s12;
 	private static final int tooltipLines	= 2;
 	private static final int descHeigh		= tooltipLines * descLineH + descPadM;
@@ -235,8 +235,12 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 	}
 	private void paintSetting(Graphics2D g, BaseText txt) {
 		g.setPaint(bg);
-		g.fillRect(xSetting+textPad, ySetting-textPad, txt.stringWidth(g)+textPad, textBoxH);
-		txt.setScaledXY(xSetting+columnPad, ySetting+s7);
+		int sw = txt.stringWidth(g);
+		int dx = (columnWidth - sw)/2;
+		g.fillRect(xSetting, ySetting-rowPad, columnWidth, textBoxH);
+		txt.setScaledXY(xSetting+dx, ySetting+s7);
+		// g.fillRect(xSetting+textPad, ySetting-rowPad, txt.stringWidth(g)+textPad, textBoxH);
+		// txt.setScaledXY(xSetting+columnPad, ySetting+s7);
 		txt.draw(g);
 	}
 	private void goToNextSetting() {

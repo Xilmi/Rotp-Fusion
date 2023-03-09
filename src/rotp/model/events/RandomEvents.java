@@ -16,6 +16,7 @@
 package rotp.model.events;
 
 import rotp.model.empires.Empire;
+import rotp.model.game.IGameOptions;
 import rotp.util.Base;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -33,7 +34,9 @@ public class RandomEvents implements Base, Serializable {
     private float eventChance = START_CHANCE;
 
     public RandomEvents() {
-    	initEvents(); // BR: to allow later changes;
+    	activeEvents = new ArrayList<>();
+        events = new ArrayList<>();
+        loadEvents();
     }
     public void addActiveEvent(RandomEvent ev)     { activeEvents.add(ev); }
     public void removeActiveEvent(RandomEvent ev)  { activeEvents.remove(ev); }
@@ -50,31 +53,39 @@ public class RandomEvents implements Base, Serializable {
         if (turnNum < START_TURN)
             return;
 
-        if (events.isEmpty())
+        // BR: To allow RandomEventOption dynamic changes
+        if (options().selectedRandomEventOption().equals(IGameOptions.RANDOM_EVENTS_OFF))
             return;
 
         eventChance = min(MAX_CHANCE_INCR, eventChance + CHANCE_INCR);
+//        eventChance = 1.5f;
+//        System.out.println("eventChance = " + eventChance);
         if (random() > eventChance)
             return;
+//        System.out.println("Event Triggered");
 
-        RandomEvent triggeredEvent = random(events);
-        
-        if (turnNum < triggeredEvent.minimumTurn())
-            return;
+        List<RandomEvent> subList = eventSubList();
+		if (subList.isEmpty())
+		    return;
+        RandomEvent triggeredEvent = random(subList);
+        // RandomEvent triggeredEvent = random(events);
+        // if (turnNum < triggeredEvent.minimumTurn())
+        //     return;
         
 		// modnar: make random events repeatable
 		if (!triggeredEvent.repeatable()) {
 			events.remove(triggeredEvent);
 		}
-		// modnar: with random events now repeatable
-		// don't trigger the same event twice in a row
-		if (triggeredEvent == lastEvent)
-			return;
-		// don't trigger when a duplicate event is still in effect
-		for (RandomEvent ev: activeEvents) {
-            if (triggeredEvent == ev)
-                return;
-        }
+		// BR: included in sublist generator
+//		// modnar: with random events now repeatable
+//		// don't trigger the same event twice in a row
+//		if (triggeredEvent == lastEvent)
+//			return;
+//		// don't trigger when a duplicate event is still in effect
+//		for (RandomEvent ev: activeEvents) {
+//            if (triggeredEvent == ev)
+//                return;
+//        }
 		
         eventChance = START_CHANCE;
 
@@ -89,16 +100,28 @@ public class RandomEvents implements Base, Serializable {
         }
         return null;
     }
-    public void reloadEvents() {  // BR: to allow later changes;
-        events.clear();
-        loadEvents();   	
+    private List<RandomEvent> eventSubList() { // BR: To allow RandomEventOption dynamic changes
+    	List<RandomEvent> subList = new ArrayList<>();
+        for (RandomEvent ev: events)
+        	if (isValidEvent (ev))
+        		subList.add(ev);
+        return subList;	
     }
-    private void initEvents() {  // BR: to allow later changes;
-        activeEvents = new ArrayList<>();
-        events = new ArrayList<>();
-        loadEvents();
+    private boolean isValidEvent (RandomEvent event) {
+    	if (!options().allowRandomEvent(event))
+    		return false;
+    	if (galaxy().currentTurn() < event.minimumTurn())
+    		return false;
+		// don't trigger the same event twice in a row
+    	if (event == lastEvent)
+			return false;
+		// don't trigger when a duplicate event is still in effect
+		for (RandomEvent ev: activeEvents)
+            if (event == ev)
+                return false;
+		return true;
     }
-    private void loadEvents() {  // BR: to allow later changes;
+	private void loadEvents() {  // BR: To allow RandomEventOption dynamic changes
         addEvent(new RandomEventDonation());
         addEvent(new RandomEventDepletedPlanet());
         addEvent(new RandomEventEnrichedPlanet());
@@ -113,10 +136,10 @@ public class RandomEvents implements Base, Serializable {
         addEvent(new RandomEventSupernova());
         addEvent(new RandomEventPiracy());
         addEvent(new RandomEventComet());
-        addEvent(new RandomEventSpaceAmoeba());
-        addEvent(new RandomEventSpaceCrystal());
-        // modnar: add space pirate random event
-        addEvent(new RandomEventSpacePirates());
+		addEvent(new RandomEventSpaceAmoeba());
+		addEvent(new RandomEventSpaceCrystal());
+		// modnar: add space pirate random event
+		addEvent(new RandomEventSpacePirates());
         // modnar: add Precursor Relic random event
         addEvent(new RandomEventPrecursorRelic());
         // modnar: add Boost Planet baseSize random event
@@ -126,7 +149,7 @@ public class RandomEvents implements Base, Serializable {
         // addEvent(new RandomEventGenric("EventKey1"));
     }
     private void addEvent(RandomEvent ev) {
-        if (options().allowRandomEvent(ev))
+        // if (options().allowRandomEvent(ev)) // BR: To allow RandomEventOption dynamic changes
             events.add(ev);
     }
     private Empire empireForBadEvent() {

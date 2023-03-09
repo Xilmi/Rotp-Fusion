@@ -154,10 +154,12 @@ EVENT_SPACE_AMOEBA                | A monstrous biological form dubbed the "Spac
 EVENT_SPACE_AMOEBA_1              | A monstrous biological form dubbed the "Space Amoeba" has been spotted approaching the uncolonized [system] system.
 EVENT_SPACE_AMOEBA_2              | The Space Amoeba has completely consumed the [victim_race] colony in the [system] system.
 EVENT_SPACE_AMOEBA_3              | The Space Amoeba was destroyed by [victim_race] defenders in the [system] system.
+EVENT_SPACE_AMOEBA_4              | Scanners that have been tracking the progress of a Space Amoeba now show that the creature has disappeared from our galaxy.
 EVENT_SPACE_CRYSTAL               | A gigantic crystalline entity called the "Space Crystal" has been spotted approaching the [system] system. Defending [victim_race] colonists and fleets are preparing for the worst.
 EVENT_SPACE_CRYSTAL_1             | A gigantic crystalline entity called the "Space Crystal" has been spotted approaching the uncolonized [system] system.
 EVENT_SPACE_CRYSTAL_2             | The Space Crystal has completely destroyed all life on the [victim_race] colony in the [system] system.
 EVENT_SPACE_CRYSTAL_3             | The Space Crystal was destroyed by [victim_race] defenders in the [system] system.
+EVENT_SPACE_CRYSTAL_4             | The hideous Space Crystal has left our galaxy. Why did it come? Why did it leave? The galaxy may never know.
 // modnar: add space pirate random event
 EVENT_SPACE_PIRATES               | A fleet of marauding Space Pirates have been spotted approaching the [system] system. Defending [race] colonists and fleets are preparing for the worst.
 EVENT_SPACE_PIRATES_1             | A fleet of marauding Space Pirates have been spotted approaching the uncolonized [system] system.
@@ -1204,7 +1206,7 @@ SETUP_OPPONENT_AI_PLAYER          | AI: Off
 SETUP_OPPONENT_CR                 | Abilities:
 SETUP_AUTOPLAY_OFF                | Off
 SETUP_GAME_DIFFICULTY_DESC        | Select The Game Difficulty Level.
-SETUP_GAME_DIFFICULTY             | Game Difficulty Selection %1
+SETUP_GAME_DIFFICULTY             | Game Difficulty Selection: %1
 SETUP_GAME_DIFFICULTY_LABEL       | Difficulty
 SETUP_DIFFICULTY_EASIEST          | Easiest
 SETUP_DIFFICULTY_EASIER           | Easier
@@ -1609,6 +1611,8 @@ SETTINGS_START_RANDOM_ALIENS_DESC  | Options used for the generation of random r
 SETTINGS_START_RANDOM_ALIENS       | ~~~ RANDOM ALIENS OPTIONS ~~~%1
 SETTINGS_GAME_RELATIONS_DESC       | Options controling the relations between empires. Can be changed dynamically.
 SETTINGS_GAME_RELATIONS            | ~~~ EMPIRES RELATIONS ~~~%1
+SETTINGS_RANDOM_EVENTS_OPT_DESC    | Random Events Options. Can be changed dynamically.
+SETTINGS_RANDOM_EVENTS_OPT         | ~~~ RANDOM EVENTS OPTIONS ~~~%1
 SETTINGS_GAME_VARIOUS_DESC         | Diverses Options. Can be changed dynamically.
 SETTINGS_GAME_VARIOUS              | ~~~ VARIOUS OPTIONS ~~~%1
 SETTINGS_GAME_OTHER_DESC           | Other Options. Can be changed dynamically.
@@ -1621,6 +1625,8 @@ SETTINGS_RESTART_OPTIONS_DESC      | Options controlling the way a game will be 
 SETTINGS_RESTART_OPTIONS           | ~~~ RESTART OPTIONS ~~~%1
 SETTINGS_ZOOM_FACTORS_DESC         | Options controlling the galaxy Map Zoom Factors. Can be changed dynamically. (Remnant.cfg options)
 SETTINGS_ZOOM_FACTORS              | ~~~ MAP ZOOM FACTORS ~~~%1
+SETTINGS_MENU_OPTIONS_DESC         | Options controlling Menu Parameters. Can be changed dynamically. (Remnant.cfg options)
+SETTINGS_MENU_OPTIONS              | ~~~ MENU'S OPTIONS ~~~%1
 
 // modnar: add UI panel for modnar MOD game options
 SETTINGS_MOD_TITLE                   | modnar MOD Options
@@ -1675,8 +1681,24 @@ SETTINGS_MOD_OPTION_ALWAYS_AUTO          | Always/Auto
 SETTINGS_MOD_OPTION_ALWAYS_ALWAYS        | Always
 SETTINGS_MOD_COUNCIL_REQUIRED_PCT_DESC   | Percentage needed to win the council vote.
 SETTINGS_MOD_COUNCIL_REQUIRED_PCT        | Council Requirement: %1%
-SETTINGS_MOD_EVENTS_STARS_TURN_DESC      | To adjust the starting turn of random events. If an event has already been started, it will not be stopped.
-SETTINGS_MOD_EVENTS_STARS_TURN           | Random Events Starting Turn: %1
+SETTINGS_MOD_EVENTS_START_TURN_DESC      | To adjust the starting turn of random events. If an event has already been started, it will not be stopped.
+SETTINGS_MOD_EVENTS_START_TURN           | Random Events Starting Turn: %1
+SETTINGS_MOD_PIRATES_DELAY_TURN_DESC     | To adjust the starting turn of random pirates events (x2 for Easy; x3 for Easier; x4 for Easiest).
+SETTINGS_MOD_PIRATES_DELAY_TURN          | Pirates Base Delay Turns: %1
+SETTINGS_MOD_AMOEBA_DELAY_TURN_DESC      | To adjust the starting turn of random space amoeba events (x2 for Easy; x3 for Easier; x4 for Easiest).
+SETTINGS_MOD_AMOEBA_DELAY_TURN           | Amoeba Base Delay Turns: %1
+SETTINGS_MOD_CRYSTAL_DELAY_TURN_DESC     | To adjust the starting turn of random space crystal events (x2 for Easy; x3 for Easier; x4 for Easiest).
+SETTINGS_MOD_CRYSTAL_DELAY_TURN          | Crystal Base Delay Turns: %1
+SETTINGS_MOD_AMOEBA_RETURN_TURN_DESC     | To adjust the Delay between two Space Amoeba events occurence. (0 = Unique event)
+SETTINGS_MOD_AMOEBA_RETURN_TURN          | Amoeba Return Delay: %1
+SETTINGS_MOD_CRYSTAL_RETURN_TURN_DESC    | To adjust the Delay between two Space Crystal events occurence. (0 = Unique event)
+SETTINGS_MOD_CRYSTAL_RETURN_TURN         | Crystal Return Delay: %1
+SETTINGS_MOD_AMOEBA_MAX_SYSTEMS_DESC     | To adjust the Number of stars system attacked by the Space Amoeba before leaving. (0 = Not limited)
+SETTINGS_MOD_AMOEBA_MAX_SYSTEMS          | Max Amoeba Attack: %1
+SETTINGS_MOD_CRYSTAL_MAX_SYSTEMS_DESC    | To adjust the Number of stars system attacked by the Space Crystal before leaving. (0 = Not limited)
+SETTINGS_MOD_CRYSTAL_MAX_SYSTEMS         | Max Crystal Attack: %1
+
+
 SETTINGS_MOD_MAX_SPACINGS_DESC           | Attempts to maximize the distance between empires, but always randomly.
 SETTINGS_MOD_MAX_SPACINGS                | Maximize Spacing: %1
 SETTINGS_MOD_MAX_SPACINGS_LIM_DESC       | Base spacing multiplier Security limit for Spacing maximization.
@@ -1756,6 +1778,8 @@ SETTINGS_MOD_MENU_AFTER_GAME_DESC        | How should the GUI be initialized aft
 SETTINGS_MOD_MENU_AFTER_GAME             | GUI after Game: %1
 SETTINGS_MOD_MENU_LOADING_GAME_DESC      | What options should be used when loading a game?
 SETTINGS_MOD_MENU_LOADING_GAME           | Loading Game: %1
+SETTINGS_MOD_COMPACT_OPTION_ONLY_DESC    | Show multiple Options Menus at standard size, or only one compacted options menu?
+SETTINGS_MOD_COMPACT_OPTION_ONLY         | Show Compact Options: %1
 SETTINGS_MOD_OPTIONS_DEFAULT             | Default Settings
 SETTINGS_MOD_OPTIONS_LAST                | Last GUI Settings
 SETTINGS_MOD_OPTIONS_GAME                | Game Settings
@@ -1765,7 +1789,7 @@ SETTINGS_MOD_SHOW_NEW_RACES_DESC         | Show the new races in the opponents l
 SETTINGS_MOD_SHOW_NEW_RACES              | Show new races: %1
 SETTINGS_MOD_SHOW_GRID_CIRCULAR_DESC     | Show the circular grid on the galaxy map? (Dynamic)
 SETTINGS_MOD_SHOW_GRID_CIRCULAR          | Show circular grid: %1
-SETTINGS_MOD_SHOW_TOOLTIPS_DESC          | Show the lower box with Tooltips?
+SETTINGS_MOD_SHOW_TOOLTIPS_DESC          | Custom Race Menu: Show the lower box with Tooltips?
 SETTINGS_MOD_SHOW_TOOLTIPS               | Show Tooltips: %1
 SETTINGS_MOD_USE_FUSION_FONT_DESC        | Galaxy text shaped will use Fusion font.
 SETTINGS_MOD_USE_FUSION_FONT             | Use Fusion Font: %1

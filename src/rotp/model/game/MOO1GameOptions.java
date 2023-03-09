@@ -471,7 +471,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
                 galaxyShape = new GalaxyRectangularShape(this);
         }
 		shapeOption1.reInit(galaxyShape().options1());
-		shapeOption2.defaultValue(galaxyShape.defaultOption1());
+		shapeOption1.defaultValue(galaxyShape.defaultOption1());
 		shapeOption2.reInit(galaxyShape().options2());
 		shapeOption2.defaultValue(galaxyShape.defaultOption2());
     }

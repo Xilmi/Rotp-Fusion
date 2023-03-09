@@ -127,7 +127,7 @@ public abstract class BaseModPanel extends BasePanel {
 				param.setPanel(this);
 		if (duplicateList != null)
 			for (InterfaceParam param : duplicateList) {
-				System.out.println("param.setPanel(this) " + param.getCfgLabel());
+				// System.out.println("param.setPanel(this) " + param.getCfgLabel());
 				param.setPanel(this);			
 			}
 

@@ -53,8 +53,6 @@ import static rotp.model.game.MOO1GameOptions.getStarDensityOptions;
 import static rotp.model.game.MOO1GameOptions.getTechTradingOptions;
 import static rotp.model.game.MOO1GameOptions.getTerraformingOptions;
 import static rotp.model.game.MOO1GameOptions.getWarpSpeedOptions;
-import static rotp.ui.UserPreferences.mapFontFactor;
-import static rotp.ui.UserPreferences.showInfoFontRatio;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -201,9 +199,6 @@ public class UserPreferences {
 			.put("GuiSwap",	 MOD_UI + "RESTART_PLAYER_RACE_GUI_SWAP")
 			.put("GuiLast",	 MOD_UI + "RESTART_PLAYER_RACE_GUI_LAST");
 
-//	public static final EventsStartTurn eventsStartTurn	= new EventsStartTurn(
-//			MOD_UI, "EVENTS_STARS_TURN"
-//			, RandomEvents.START_TURN, 1, null, 1, 5, 20);
 	public static final ParamFloat counciRequiredPct	= new ParamFloat(
 			MOD_UI, "COUNCIL_REQUIRED_PCT"
 			, GalacticCouncil.PCT_REQUIRED
@@ -214,13 +209,27 @@ public class UserPreferences {
 		}
 	};
 	public static final ParamInteger eventsStartTurn	= new ParamInteger(
-			MOD_UI, "EVENTS_STARS_TURN"
+			MOD_UI, "EVENTS_START_TURN"
 			, RandomEvents.START_TURN, 1, null, 1, 5, 20) {
 		@Override public Integer set(Integer newValue) {
 			RandomEvents.START_TURN = newValue;
 			return super.set(newValue);
 		}
 	};
+	public static final ParamInteger piratesDelayTurn	= new ParamInteger(
+			MOD_UI, "PIRATES_DELAY_TURN",	25, 0, null, 1, 5, 20);
+	public static final ParamInteger amoebaDelayTurn	= new ParamInteger(
+			MOD_UI, "AMOEBA_DELAY_TURN",	100, 0, null, 1, 5, 20);
+	public static final ParamInteger crystalDelayTurn	= new ParamInteger(
+			MOD_UI, "CRYSTAL_DELAY_TURN",	100, 0, null, 1, 5, 20);
+	public static final ParamInteger amoebaReturnTurn	= new ParamInteger(
+			MOD_UI, "AMOEBA_RETURN_TURN",	0, 0, null, 1, 5, 20);
+	public static final ParamInteger crystalReturnTurn	= new ParamInteger(
+			MOD_UI, "CRYSTAL_RETURN_TURN",	0, 0, null, 1, 5, 20);
+	public static final ParamInteger amoebaMaxSystems	= new ParamInteger(
+			MOD_UI, "AMOEBA_MAX_SYSTEMS",	0, 0, null, 1, 5, 20);
+	public static final ParamInteger crystalMaxSystems	= new ParamInteger(
+			MOD_UI, "CRYSTAL_MAX_SYSTEMS",	0, 0, null, 1, 5, 20);
 	public static final ParamTech techIrradiated = new 
 			ParamTech("TECH_IRRADIATED",	3, "ControlEnvironment",6); // level 18
 	public static final ParamTech techCloaking	 = new 
@@ -261,21 +270,21 @@ public class UserPreferences {
 	public static final LinkedList<InterfaceParam> modOptionsA = new LinkedList<>(
 			Arrays.asList(
 			artifactsHomeworld, fertileHomeworld, richHomeworld, ultraRichHomeworld, minDistanceArtifactPlanet,
-			companionWorlds, battleScout, randomTechStart, retreatRestrictions, retreatRestrictionTurns,
-			customDifficulty, dynamicDifficulty, missileSizeModifier, challengeMode,
-			restartChangesPlayerRace, restartChangesPlayerAI, restartChangesAliensAI, restartAppliesSettings
+			companionWorlds, battleScout, randomTechStart, retreatRestrictions, retreatRestrictionTurns, challengeMode,
+			customDifficulty, dynamicDifficulty, missileSizeModifier, counciRequiredPct, maximizeSpacing, spacingLimit, 
+			restartChangesPlayerRace, restartChangesPlayerAI, restartChangesAliensAI, restartAppliesSettings, minStarsPerEmpire, prefStarsPerEmpire
 			));
-	public static final Integer[] modOptionARows = {5, 5, 4, 4}; // ModAOptionsUI alignment
+	public static final Integer[] modOptionARows = {5, 6, 6, 6}; // ModAOptionsUI alignment
 
 	// This list is used by the ModAOptionsUI menu
 	public static final LinkedList<InterfaceParam> modOptionsB = new LinkedList<>(
 			Arrays.asList(
-			maximizeSpacing, spacingLimit, randomAlienRacesTargetMax, randomAlienRacesTargetMin, randomAlienRaces,
-			minStarsPerEmpire, prefStarsPerEmpire, randomAlienRacesMax, randomAlienRacesMin, randomAlienRacesSmoothEdges,
-			counciRequiredPct, techIrradiated, techCloaking, techStargate, techHyperspace,
-			eventsStartTurn, techIndustry2, techThorium, techTransport
+			randomAlienRacesTargetMax, randomAlienRacesTargetMin, randomAlienRaces, randomAlienRacesMax, randomAlienRacesMin, randomAlienRacesSmoothEdges,
+			techIrradiated, techCloaking, techStargate, techHyperspace, techIndustry2,
+			techThorium, techTransport, eventsStartTurn, amoebaMaxSystems, crystalMaxSystems, 
+			piratesDelayTurn, amoebaDelayTurn, crystalDelayTurn, amoebaReturnTurn, crystalReturnTurn
 			));
-	public static final Integer[] modOptionBRows = {5, 5, 5, 4}; // ModBOptionsUI alignment
+	public static final Integer[] modOptionBRows = {6, 5, 5, 5}; // ModBOptionsUI alignment
 
 	// BR: ===== Global settings Mod GUI:
 	private static boolean gamePlayed = false; // to differentiate startup from loaded game
@@ -342,6 +351,8 @@ public class UserPreferences {
 			MOD_UI, "MENU_AFTER_GAME", ParamOptions.VANILLA);
 	public static final ParamOptions menuLoadGame = new ParamOptions(
 			MOD_UI, "MENU_LOADING_GAME", ParamOptions.GAME);
+	public static final ParamBoolean compactOptionOnly = new ParamBoolean(
+			MOD_UI, "COMPACT_OPTION_ONLY", false);
 	public static final ParamBoolean showGridCircular = new ParamBoolean(
 			MOD_UI, "SHOW_GRID_CIRCULAR", false);
 	public static final ParamBoolean showTooltips = new ParamBoolean(
@@ -364,18 +375,17 @@ public class UserPreferences {
 				return text(MOD_UI + "MIN_LIST_SIZE_POP_UP_NEVER");
 			return super.getGuiValue();
 		}
-
 	};
 
 	// This list is used by the ModGlobalOptionsUI menu
 	public static final LinkedList<InterfaceParam> modGlobalOptionsUI = new LinkedList<>(
 			Arrays.asList(
 			menuStartup, menuAfterGame, menuLoadGame, minListSizePopUp,
-			showGridCircular, showTooltips, galaxyPreviewColorStarsSize,
+			showGridCircular, showTooltips, galaxyPreviewColorStarsSize, compactOptionOnly,
 			showFleetFactor, showFlagFactor, showPathFactor, useFusionFont,
 			showNameMinFont, showInfoFontRatio, mapFontFactor, showNextCouncil
 			));
-	public static final Integer[] modGlobalOptionsRows = {4, 3, 4, 4}; // ModGlobalOptionsUI alignment
+	public static final Integer[] modGlobalOptionsRows = {4, 4, 4, 4}; // ModGlobalOptionsUI alignment
 
 	// BR: Galaxy Menu addition
 	public static final ParamBoolean showNewRaces = new ParamBoolean(
@@ -663,7 +673,9 @@ public class UserPreferences {
 				planetQuality, minDistanceArtifactPlanet,
 				new ParamTitle("START_EMPIRE_OPTIONS"),
 				artifactsHomeworld, fertileHomeworld, richHomeworld, ultraRichHomeworld,
-				companionWorlds, battleScout, randomTechStart, randomizeAI
+				companionWorlds, battleScout, randomTechStart, randomizeAI,
+				new ParamTitle("GAME_OTHER"),
+				autoplay
 				)));
 		mergedOptionsMap.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("START_TECH_CONTROL"),
@@ -671,32 +683,37 @@ public class UserPreferences {
 				techIndustry2, techThorium, techTransport,
 				new ParamTitle("START_RANDOM_ALIENS"),
 				randomAlienRacesTargetMax, randomAlienRacesTargetMin, randomAlienRaces,
-				randomAlienRacesMax, randomAlienRacesMin, randomAlienRacesSmoothEdges
-				)));
-		mergedOptionsMap.add(new LinkedList<>(Arrays.asList(
+				randomAlienRacesMax, randomAlienRacesMin, randomAlienRacesSmoothEdges,
 				new ParamTitle("GAME_RELATIONS"),
 				councilWin, counciRequiredPct,
 				techTrading, aiHostility,
 				new ParamTitle("GAME_COMBAT"),
-				retreatRestrictions, retreatRestrictionTurns, missileSizeModifier,
-				new ParamTitle("GAME_VARIOUS"),
-				terraforming, colonizing, researchRate,
-				eventsStartTurn, randomEvents,
-				warpSpeed, fuelRange,
-				new ParamTitle("GAME_OTHER"),
-				autoplay
+				retreatRestrictions, retreatRestrictionTurns, missileSizeModifier
 				)));
 		mergedOptionsMap.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("RANDOM_EVENTS_OPT"),
+				randomEvents, eventsStartTurn,
+				piratesDelayTurn, amoebaDelayTurn, crystalDelayTurn,
+				amoebaReturnTurn, crystalReturnTurn,
+				amoebaMaxSystems, crystalMaxSystems,
+				new ParamTitle("GAME_VARIOUS"),
+				terraforming, colonizing, researchRate,
+				warpSpeed, fuelRange,
 				new ParamTitle("GAME_DIFFICULTY"),
 				difficultySelection, customDifficulty,
-				dynamicDifficulty, challengeMode,
+				dynamicDifficulty, challengeMode
+				)));
+		mergedOptionsMap.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("RESTART_OPTIONS"),
 				restartChangesPlayerRace, restartChangesPlayerAI,
 				restartChangesAliensAI, restartAppliesSettings,
 				new ParamTitle("ZOOM_FACTORS"),
 				showFleetFactor, showFlagFactor, showPathFactor,
-				showNameMinFont, showInfoFontRatio, mapFontFactor
-
+				showNameMinFont, showInfoFontRatio, mapFontFactor,
+				new ParamTitle("MENU_OPTIONS"),
+				menuStartup, menuAfterGame, menuLoadGame,
+				compactOptionOnly, minListSizePopUp, showGridCircular,
+				showTooltips, galaxyPreviewColorStarsSize
 				)));
 		for (LinkedList<InterfaceParam> list : mergedOptionsMap) {
 			for (InterfaceParam param : list) {
@@ -704,7 +721,6 @@ public class UserPreferences {
 					mergedOptions.add(param);
 			}
 		}
-		
 	};
 
 	private static boolean showMemory  = false;

@@ -36,6 +36,7 @@ public class SpaceMonster implements Base, NamedObject, Serializable {
     public void lastAttacker(Empire c)         { lastAttackerId = c.id; }
     public void visitSystem(int sysId)         { path.add(sysId); }
     public List<Integer> vistedSystems()       { return path; }
+    public int vistedSystemsCount()            { return path.size(); }
     public List<CombatStack> combatStacks()    {
         if (combatStacks == null)
             combatStacks = new ArrayList<>();
