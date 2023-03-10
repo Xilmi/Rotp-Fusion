@@ -188,6 +188,28 @@ public class SettingBase<T> implements InterfaceParam {
 		else 
 			prev();
 	}
+	@Override public String getGuiDisplay(int idx)	{
+		String str = text(labelId()); // Get from label.txt
+		String[] strArr = str.split(textSubs[0]);
+
+		switch(idx) {
+		case 0:
+			if (strArr.length > 0)
+				return strArr[0];
+			else
+				return "";
+		case 1:
+			if (strArr.length > 1)
+				return guiSettingValue() + strArr[1];
+			else
+				return guiSettingValue();
+		default:
+			return "";
+		}
+	}
+	@Override public boolean isDefaultValue() {
+		return defaultValue() == settingValue();
+	}
 	@Override public void setFromDefault() {
 		selectedValue(defaultValue);		
 	}

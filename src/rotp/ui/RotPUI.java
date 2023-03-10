@@ -184,12 +184,12 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
 		else
 			return (MOO1GameOptions) newOptions();
 	}
-    public static MOO1GameOptions guiOptions()  {
-		if (GameSession.instance().status().inProgress())
-			return (MOO1GameOptions) GameSession.instance().options();
-		else
-			return (MOO1GameOptions) newOptions();
-	}
+//    public static MOO1GameOptions guiOptions()  {
+//		if (GameSession.instance().status().inProgress())
+//			return (MOO1GameOptions) GameSession.instance().options();
+//		else
+//			return (MOO1GameOptions) newOptions();
+//	}
     public static void fps(int fps) {
         // bound arg between 10 & 60
         int actualFPS = Math.min(60, Math.max(10,fps));

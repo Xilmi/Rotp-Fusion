@@ -647,10 +647,10 @@ public class UserPreferences {
 	public static final ParamList aiHostility = new ParamList( // Duplicate Do not add the list
 			ADV_UI, "AI_HOSTILITY", getAiHostilityOptions(), AI_HOSTILITY_NORMAL) {
 		@Override public String getFromOption() {
-			return RotPUI.mergedGuiOptions().selectedTechTradeOption();
+			return RotPUI.mergedGuiOptions().selectedAIHostilityOption();
 		}
 		@Override public void setOption(String newValue) {
-			RotPUI.mergedGuiOptions().selectedTechTradeOption(newValue);
+			RotPUI.mergedGuiOptions().selectedAIHostilityOption(newValue);
 		}
 	};
 	public static final LinkedList<InterfaceParam> advancedOptions = new LinkedList<>(

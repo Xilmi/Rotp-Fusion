@@ -36,6 +36,7 @@ public class ParamString extends AbstractParam<String> {
 	}
 	// ===== Overriders =====
 	//
+//	@Override public boolean isDefaultValue()	{ return defaultValue().equals(get()); }
 	@Override public void setFromCfgValue(String newValue)	{ value(newValue); }	
 	@Override public void prev() {}
 	@Override public void next() {}

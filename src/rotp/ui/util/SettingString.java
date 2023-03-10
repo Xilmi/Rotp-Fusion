@@ -57,6 +57,9 @@ public class SettingString extends SettingBase<String> implements Base{
 	}
 	// ===== Overriders =====
 	//
+	@Override public boolean isDefaultValue() {
+		return defaultValue().equals(settingValue());
+	}
 	@Override public void setFromCfgValue(String cfgValue) {
 		set(cfgValue);
 	}

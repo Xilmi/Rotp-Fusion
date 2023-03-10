@@ -121,6 +121,33 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	@Override public String getCfgLabel() { return name; }
 	@Override public String getGuiDescription() { return text(descriptionId()); }
 	@Override public String getGuiDisplay()	{ return text(labelId(), getGuiValue()) + END; }
+	@Override public String getGuiDisplay(int idx)	{
+		String str = text(labelId()); // Get from label.txt
+		String[] strArr = str.split(textSubs[0]);
+
+		switch(idx) {
+		case 0:
+			if (strArr.length > 0)
+				return strArr[0];
+			else
+				return "";
+		case 1:
+			if (strArr.length > 1)
+				return getGuiValue() + strArr[1];
+			else
+				return getGuiValue();
+		default:
+			return "";
+		}
+	}
+	@Override public boolean isDefaultValue()	{ 
+//		System.out.println(
+//				getGuiDisplay(0) + "	" +
+//				defaultValue.equals(get()) + "	" +
+//				defaultValue + " =?	" + get()
+//				);
+		return defaultValue.equals(get());
+	}
 	@Override public boolean isDuplicate()	{ return isDuplicate; }
 	@Override public void setFromDefault()	{ set(defaultValue()); }
 	@Override public void toggle(MouseEvent e, MouseWheelEvent w) {

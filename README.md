@@ -28,13 +28,14 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 2023.03.09 (BR)
   - Fixed GUI malfunction after game played.
+  - Added Colors to Compact Merged Advanced Options.
 
 2023.03.07 (BR)
-  - Added option to show Compact Merged Advanced Option only.
+  - Added option to show Compact Merged Advanced Options only.
   - Space Monsters will be cancelled if you turn of the option.
   - Crystal and Amoeba Monster:
     - Added selectable delay after standard random events.
-    - Added selectable Number of visited systems befor the monster vanish.
+    - Added selectable Number of visited systems before the monster vanish.
     - Added option for reoccuring Monster.
   - Polish language fix. 
 

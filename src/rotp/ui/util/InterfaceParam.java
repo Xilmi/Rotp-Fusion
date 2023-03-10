@@ -34,7 +34,9 @@ public interface InterfaceParam extends InterfaceOptions{
 	public String getCfgValue();
 	public String getCfgLabel();
 	public String getGuiDisplay();
+	public String getGuiDisplay(int idx);
 	public String getGuiDescription();
+	public boolean isDefaultValue();
 
 	public default void setPanel(BaseModPanel p) {}
 	public default void initGuiTexts()			{}
