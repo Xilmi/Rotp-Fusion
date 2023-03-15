@@ -93,6 +93,8 @@ public final class GameSession implements Base, Serializable {
     public static final String BACKUP_DIRECTORY = "backup";
     public static final String SAVEFILE_EXTENSION = ".rotp";
     public static final String RECENT_SAVEFILE = "recent"+SAVEFILE_EXTENSION;
+    // BR: to save the beginning of the turn
+    public static final String RECENT_START_SAVEFILE = "recentStart"+SAVEFILE_EXTENSION;
     public static final SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     public static final Object ONE_GAME_AT_A_TIME = new Object();
     private static GameSession instance = new GameSession();
@@ -955,6 +957,8 @@ public final class GameSession implements Base, Serializable {
         return concat(leader,dash,race,dash,gShape,dash,gSize,dash,diff,dash,opp,dash,turn,SAVEFILE_EXTENSION);
     }
     public void saveRecentSession(boolean endOfTurn) {
+    	if (!endOfTurn) // BR: Always keep a copy of starting turn
+    		saveRecentStartSession();
         String filename = RECENT_SAVEFILE;
         try {
             saveSession(filename, false);
@@ -965,6 +969,15 @@ public final class GameSession implements Base, Serializable {
             err("Error saving: ", filename, " - ", e.getMessage());
             if (endOfTurn)
                 RotPUI.instance().mainUI().showAutosaveFailedPrompt(e.getMessage());
+        }
+    }
+    public void saveRecentStartSession() {
+        String filename = RECENT_START_SAVEFILE;
+        try {
+            saveSession(filename, false);
+        }
+        catch(Exception e) {
+            err("Error saving: ", filename, " - ", e.getMessage());
         }
     }
     public void saveBackupSession(int turn) {
@@ -1035,6 +1048,8 @@ public final class GameSession implements Base, Serializable {
             // do not autosave the current session if that is the file we are trying to reload
             if (!filename.equals(RECENT_SAVEFILE))
                 saveRecentSession(false);
+            else
+            	saveRecentStartSession(); // BR: to keep a copy of the beginning of the turn
          }
         catch(IOException e) {
             throw new RuntimeException(text("LOAD_GAME_BAD_VERSION", filename));

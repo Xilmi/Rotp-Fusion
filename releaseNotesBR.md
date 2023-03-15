@@ -4,6 +4,14 @@ Update:
   - Parameters with custom values = Orange.
 - Removed some System Scouted popup when AutoPlay
 - Added option to disable GNN Alliances Info. (Very annoying with some AI)
+- Fixed some AI not proposing tech deals.
+- Add display of Turn and Year on the save panel.
+  - I like to add them in the file name, but always forgot to look at it before going to the save menu!!!
+- Save Turn Start on it's Own File: recentStart.rotp.
+  - Allows you to restart the game in case of "oopsie".
+  - To help the developper in case of bug that don't crash the game (recent.rotp being already ovewritten)
+
+
 
 Main Change: Random Monster Envents:
 - Space Monsters will be cancelled if you turn off the option.

@@ -464,6 +464,19 @@ public final class SaveGameUI extends BasePanel implements MouseListener, MouseW
                 g.drawRoundRect(button2X,buttonY,buttonW,buttonH,s5,s5);
                 g.setStroke(prev2);
             }
+            
+            // BR: draw Info: Turn and Year
+            String text3 = "Turn: " + galaxy().currentTurn();
+            g.setFont(narrowFont(20));
+            int x3 = x0;
+            drawString(g, text3, x3, buttonY+buttonH-s10);
+ 
+            String text4 = "Year: " + galaxy().currentYear();
+            g.setFont(narrowFont(20));
+            int sw4 = g.getFontMetrics().stringWidth(text3);
+            int x4 = x0 + w0 - sw4 - s25;
+            drawString(g, text4, x4, buttonY+buttonH-s10);
+
 
             if (saving) {
                 NoticeMessage.setStatus(text("SAVE_GAME_SAVING"));
