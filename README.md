@@ -29,6 +29,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 2023.03.15 (BR)
   - Add display of Turn and Year on the save panel.
   - Save Turn Start on it's Own File
+  - Add option to auto refuse tech exchange
 
 2023.03.14 (BR)
   - Fixed some AI not proposing tech deals.

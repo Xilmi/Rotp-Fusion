@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import rotp.model.empires.Empire;
 import rotp.model.tech.Tech;
+import rotp.ui.UserPreferences;
 
 public class DiplomacyTechOfferMenu extends DiplomacyRequestReply {
     private Empire requestee;
@@ -38,29 +39,32 @@ public class DiplomacyTechOfferMenu extends DiplomacyRequestReply {
     private DiplomacyTechOfferMenu() { }
     public boolean hasCounterOffers()  { return !counterOffers.isEmpty(); }
     @Override
-    public void diplomat(Empire v) { // TODO BR: Add future auto refuse option here
+    public void diplomat(Empire v) { // TODO BR: Validate auto refuse option
         super.diplomat(v); 
         List<Tech> unreviewedCounterTechs = requestee.diplomatAI().techsRequestedForCounter(diplomat(), requestedTech);
         counterOffers = new ArrayList<>(unreviewedCounterTechs.size());
         //System.out.println(galaxy().currentTurn()+" Requestee: "+requestee.name()+" Diplomat: "+diplomat().name()+" requested tech "+requestedTech.name());
-        if(diplomat().diplomatAI().wantsToReviewCounterOffers()) // Owner Diplomat
-        {
-            for (Tech t: unreviewedCounterTechs) {
-                //System.out.println(galaxy().currentTurn()+" "+diplomat().name()+" wants from "+requestee.name()+" the tech "+requestedTech.name() + " "+requestee.name()+" would like in return: "+t.name());
-                if (diplomat().diplomatAI().willingToTradeTech(t, v));
-                {
-                    //now check if I would give them something for their counter
-                    List<Tech> countersToCounter = diplomat().diplomatAI().techsRequestedForCounter(requestee, t);
-                    if(countersToCounter.contains(requestedTech))
-                    {
-                        //System.out.println(galaxy().currentTurn()+" "+diplomat().name()+" is okay with "+t.name()+" in return for "+requestedTech.name());
-                        counterOffers.add(t);
-                    }
-                }
-            }
-        }
-        else // BR: as originally: Don't return an empty list!... To validate with Xilmi ???
-        	counterOffers = unreviewedCounterTechs;
+        if(!UserPreferences.techExchangeAutoRefuse.get()) // To auto refuse, keep counterOffers empty
+	        if(diplomat().diplomatAI().wantsToReviewCounterOffers()) // Owner Diplomat
+	        {
+	            for (Tech t: unreviewedCounterTechs) {
+	                //System.out.println(galaxy().currentTurn()+" "+diplomat().name()+" wants from "+requestee.name()+" the tech "+requestedTech.name() + " "+requestee.name()+" would like in return: "+t.name());
+	                if (diplomat().diplomatAI().willingToTradeTech(t, v));
+	                {
+	                    //now check if I would give them something for their counter
+	                    List<Tech> countersToCounter = diplomat().diplomatAI().techsRequestedForCounter(requestee, t);
+	                    if(countersToCounter.contains(requestedTech))
+	                    {
+	                        //System.out.println(galaxy().currentTurn()+" "+diplomat().name()+" is okay with "+t.name()+" in return for "+requestedTech.name());
+	                        counterOffers.add(t);
+	                    }
+	                }
+	            }
+	        }
+	        else // BR: as originally: Don't return an empty list!... To validate with Xilmi ???
+	        	counterOffers = unreviewedCounterTechs;
+        else
+        	System.out.println(galaxy().currentTurn()+" Auto Refused Tech Trade from "+diplomat().name());
     }
     @Override
     public boolean showTalking()        { return false; }
