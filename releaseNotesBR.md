@@ -2,6 +2,8 @@ Update:
 - Added colors to the Compact Merged Advanced Options Menu:
   - Parameters with default values = White.
   - Parameters with custom values = Orange.
+- Removed some System Scouted popup when AutoPlay
+- Added option to disable GNN Alliances Info. (Very annoying with some AI)
 
 Main Change: Random Monster Envents:
 - Space Monsters will be cancelled if you turn off the option.

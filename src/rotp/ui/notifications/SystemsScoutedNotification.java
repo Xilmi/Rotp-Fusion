@@ -22,6 +22,11 @@ public class SystemsScoutedNotification implements TurnNotification {
     public String displayOrder() { return SYSTEMS_SCOUTED; }
     @Override
     public void notifyPlayer() {
+    	// BR: don't bother the player when AI controlled
+    	if (RotPUI.instance().options().isAutoPlay()) {
+			System.out.println("Systems Scouted Info Blocked");
+    		return;
+    	}
         RotPUI.instance().showSystemsScouted();
     }
 }

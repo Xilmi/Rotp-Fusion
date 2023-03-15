@@ -71,7 +71,8 @@ public class MapOverlaySystemsScouted extends MapOverlay {
         prevSystemButton.reset();
         nextSystemButton.reset();
         flagButton.reset();
-        if (newSystems.isEmpty())
+        if (newSystems.isEmpty() 
+        		|| options().isAutoPlay()) // BR: don't show scouting when auto-play
             advanceMap();
         else {
             // create an alphabetized list of systems

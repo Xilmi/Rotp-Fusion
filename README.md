@@ -26,6 +26,10 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2023.03.11 (BR)
+  - Fixed System Scouted popup when AutoPlay.
+  - Add option to avoid GNN Aliances info.
+
 2023.03.09 (BR)
   - Fixed GUI malfunction after game played.
   - Added Colors to Compact Merged Advanced Options.
