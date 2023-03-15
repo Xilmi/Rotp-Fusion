@@ -26,6 +26,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2023.03.14 (BR)
+  - Fixed some AI not proposing tech deals.
+
 2023.03.11 (BR)
   - Fixed System Scouted popup when AutoPlay.
   - Add option to avoid GNN Aliances info.

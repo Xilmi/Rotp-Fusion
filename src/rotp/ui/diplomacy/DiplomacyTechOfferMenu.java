@@ -38,12 +38,12 @@ public class DiplomacyTechOfferMenu extends DiplomacyRequestReply {
     private DiplomacyTechOfferMenu() { }
     public boolean hasCounterOffers()  { return !counterOffers.isEmpty(); }
     @Override
-    public void diplomat(Empire v)               { 
+    public void diplomat(Empire v) { // TODO BR: Add future auto refuse option here
         super.diplomat(v); 
         List<Tech> unreviewedCounterTechs = requestee.diplomatAI().techsRequestedForCounter(diplomat(), requestedTech);
         counterOffers = new ArrayList<>(unreviewedCounterTechs.size());
         //System.out.println(galaxy().currentTurn()+" Requestee: "+requestee.name()+" Diplomat: "+diplomat().name()+" requested tech "+requestedTech.name());
-        if(diplomat().diplomatAI().wantsToReviewCounterOffers())
+        if(diplomat().diplomatAI().wantsToReviewCounterOffers()) // Owner Diplomat
         {
             for (Tech t: unreviewedCounterTechs) {
                 //System.out.println(galaxy().currentTurn()+" "+diplomat().name()+" wants from "+requestee.name()+" the tech "+requestedTech.name() + " "+requestee.name()+" would like in return: "+t.name());
@@ -59,6 +59,8 @@ public class DiplomacyTechOfferMenu extends DiplomacyRequestReply {
                 }
             }
         }
+        else // BR: as originally: Don't return an empty list!... To validate with Xilmi ???
+        	counterOffers = unreviewedCounterTechs;
     }
     @Override
     public boolean showTalking()        { return false; }
