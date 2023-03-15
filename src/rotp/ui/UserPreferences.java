@@ -216,6 +216,8 @@ public class UserPreferences {
 			return super.set(newValue);
 		}
 	};
+	public static final ParamBoolean alternateMonsterMessages = new ParamBoolean(
+			MOD_UI, "ALT_MONSTER_MESSAGES", true);
 	public static final ParamInteger piratesDelayTurn	= new ParamInteger(
 			MOD_UI, "PIRATES_DELAY_TURN",	25, 0, null, 1, 5, 20);
 	public static final ParamInteger amoebaDelayTurn	= new ParamInteger(
@@ -276,7 +278,7 @@ public class UserPreferences {
 			));
 	public static final Integer[] modOptionARows = {5, 6, 6, 6}; // ModAOptionsUI alignment
 
-	// This list is used by the ModAOptionsUI menu
+	// This list is used by the ModBOptionsUI menu
 	public static final LinkedList<InterfaceParam> modOptionsB = new LinkedList<>(
 			Arrays.asList(
 			randomAlienRacesTargetMax, randomAlienRacesTargetMin, randomAlienRaces, randomAlienRacesMax, randomAlienRacesMin, randomAlienRacesSmoothEdges,
@@ -365,7 +367,7 @@ public class UserPreferences {
 		}
 	};
 	public static final ParamBoolean showNextCouncil = new ParamBoolean(
-			MOD_UI, "SHOW_NEXT_COUNCIL", false);
+			MOD_UI, "SHOW_NEXT_COUNCIL", false); // Show years left until next council
 	public static final ParamInteger galaxyPreviewColorStarsSize = new ParamInteger(
 			MOD_UI, "GALAXY_PREVIEW_COLOR_SIZE" , 5, 0, 20, 1, 2, 5);
 	public static final ParamInteger minListSizePopUp = new ParamInteger(
@@ -376,16 +378,20 @@ public class UserPreferences {
 			return super.getGuiValue();
 		}
 	};
+	public static final ParamBoolean showAlliancesGNN = new ParamBoolean(
+			MOD_UI, "SHOW_ALLIANCES_GNN", true);
+	public static final ParamBoolean techExchangeAutoRefuse = new ParamBoolean(
+			MOD_UI, "TECH_EXCHANGE_AUTO_NO", false);
 
 	// This list is used by the ModGlobalOptionsUI menu
 	public static final LinkedList<InterfaceParam> modGlobalOptionsUI = new LinkedList<>(
 			Arrays.asList(
-			menuStartup, menuAfterGame, menuLoadGame, minListSizePopUp,
-			showGridCircular, showTooltips, galaxyPreviewColorStarsSize, compactOptionOnly,
+			menuStartup, menuAfterGame, menuLoadGame, minListSizePopUp, showAlliancesGNN,
+			showGridCircular, showTooltips, galaxyPreviewColorStarsSize, compactOptionOnly, techExchangeAutoRefuse,
 			showFleetFactor, showFlagFactor, showPathFactor, useFusionFont,
 			showNameMinFont, showInfoFontRatio, mapFontFactor, showNextCouncil
 			));
-	public static final Integer[] modGlobalOptionsRows = {4, 4, 4, 4}; // ModGlobalOptionsUI alignment
+	public static final Integer[] modGlobalOptionsRows = {5, 5, 4, 4}; // ModGlobalOptionsUI alignment
 
 	// BR: Galaxy Menu addition
 	public static final ParamBoolean showNewRaces = new ParamBoolean(
@@ -698,7 +704,7 @@ public class UserPreferences {
 				amoebaMaxSystems, crystalMaxSystems,
 				new ParamTitle("GAME_VARIOUS"),
 				terraforming, colonizing, researchRate,
-				warpSpeed, fuelRange,
+				warpSpeed, fuelRange, showAlliancesGNN, techExchangeAutoRefuse,
 				new ParamTitle("GAME_DIFFICULTY"),
 				difficultySelection, customDifficulty,
 				dynamicDifficulty, challengeMode

@@ -224,8 +224,8 @@ public class ParamList extends AbstractParam<String> {
 		String message	= "<html>" + getGuiDescription() + "</html>";
 		String title	= text(labelId(), "");
 		String input;
-		System.out.println("getIndex() = " + getIndex());
-		System.out.println("currentOption() = " + currentOption());
+		// System.out.println("getIndex() = " + getIndex());
+		// System.out.println("currentOption() = " + currentOption());
 		String[] list= valueLabelMap.guiTextList.toArray(new String[listSize()]);
 		input  = (String) ListDialog.showDialog(
 				parent,	parent,			// Frame & Location component
@@ -235,10 +235,10 @@ public class ParamList extends AbstractParam<String> {
 				RotPUI.scaledSize(360), RotPUI.scaledSize(300),	// size
 				null, null,	// Font, Preview
 				valueLabelMap.cfgValueList);	// Alternate return
-		System.out.println("input = " + input);
+		// System.out.println("input = " + input);
 		if (input != null && getIndex(input) >= 0)
 			set(input);
-		System.out.println("getIndex() = " + getIndex());
+		// System.out.println("getIndex() = " + getIndex());
 	}
 	//========== Nested class ==========
 	//

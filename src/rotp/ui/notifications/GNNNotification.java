@@ -59,6 +59,16 @@ public class GNNNotification implements TurnNotification {
     public String displayOrder() { return GNN_NOTIFY; }
     @Override
     public void notifyPlayer() {
+    	// BR: Test if this announcement is allowed.
+    	switch (eventId) {
+			case "GNN_Alliance_Formed":
+			case "GNN_Alliance_Broken":
+				if (!rotp.ui.UserPreferences.showAlliancesGNN.get()) {
+					System.out.println("GNN Alliance Info Blocked: " + eventId);
+					return;
+				}
+	}
+
         RotPUI.instance().selectGNNPanel(message, eventId, null);
     }
 }

@@ -1697,7 +1697,8 @@ SETTINGS_MOD_AMOEBA_MAX_SYSTEMS_DESC     | To adjust the Number of stars system 
 SETTINGS_MOD_AMOEBA_MAX_SYSTEMS          | Max Amoeba Attack: %1
 SETTINGS_MOD_CRYSTAL_MAX_SYSTEMS_DESC    | To adjust the Number of stars system attacked by the Space Crystal before leaving. (0 = Not limited)
 SETTINGS_MOD_CRYSTAL_MAX_SYSTEMS         | Max Crystal Attack: %1
-
+SETTINGS_MOD_ALT_MONSTER_MESSAGES_DESC   | Randomly displays standard or alternate messages for Monster events.
+SETTINGS_MOD_ALT_MONSTER_MESSAGES        | Alternate Monster Messages: %1
 
 SETTINGS_MOD_MAX_SPACINGS_DESC           | Attempts to maximize the distance between empires, but always randomly.
 SETTINGS_MOD_MAX_SPACINGS                | Maximize Spacing: %1
@@ -1804,6 +1805,10 @@ SETTINGS_MOD_GALAXY_PREVIEW_COLOR_SIZE      | Stars Size: %1
 SETTINGS_MOD_MIN_LIST_SIZE_POP_UP_DESC   | Minimum List size for the selection panel to Pop-Up.
 SETTINGS_MOD_MIN_LIST_SIZE_POP_UP        | Min List Size: %1
 SETTINGS_MOD_MIN_LIST_SIZE_POP_UP_NEVER  | Never
+SETTINGS_MOD_SHOW_ALLIANCES_GNN_DESC     | Allow GNN Alliances announcements
+SETTINGS_MOD_SHOW_ALLIANCES_GNN          | Show GNN Alliances: %1
+SETTINGS_MOD_TECH_EXCHANGE_AUTO_NO_DESC  | Auto Refuse Tech Exchange offers.
+SETTINGS_MOD_TECH_EXCHANGE_AUTO_NO       | Auto Refuse Exchanges: %1
 
 // Other base menu Mod settings
 SETTINGS_MOD_PLAYER_SHIP_SET_DESC        | Select the Player Ship Set.

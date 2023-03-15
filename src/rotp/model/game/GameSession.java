@@ -861,9 +861,9 @@ public final class GameSession implements Base, Serializable {
 		saveOptionsToFileName((MOO1GameOptions) instance.options, GAME_OPTIONS_FILE);
 		UserPreferences.gamePlayed(true);
 		// BR: If required, set all game options
-        System.out.println("==================== loadPreviousSession ====================");
+        // System.out.println("==================== loadPreviousSession ====================");
     	if (menuLoadGame.isLast()) {
-    		System.out.println("Game Loaded Current GUI options");
+    		// System.out.println("Game Loaded Current GUI options");
     		// Load the options and set the GUI
     		MOO1GameOptions.setBaseAndModSettingsFromOptions(
     				(MOO1GameOptions) instance.options,
@@ -871,23 +871,23 @@ public final class GameSession implements Base, Serializable {
     		//MOO1GameOptions.loadLastOptions((MOO1GameOptions) instance.options);
     	}
     	else if (menuLoadGame.isUser()) {
-    		System.out.println("Game Loaded User.options");
+    		// System.out.println("Game Loaded User.options");
     		// Load the options and set the GUI
 			loadAndUpdateFromFileName((MOO1GameOptions) instance.options, USER_OPTIONS_FILE, ALL_GUI_ID);
 
     	}
     	else if (menuLoadGame.isDefault()) {
-    		System.out.println("Game Loaded Default options");
+    		// System.out.println("Game Loaded Default options");
     		// Reset the options and reset the GUI
     		MOO1GameOptions.setBaseAndModSettingsToDefault((MOO1GameOptions) instance.options, ALL_GUI_ID);
     	}
     	else if (menuLoadGame.isGame()) {
-    		System.out.println("Game Set the GUI with the Game options");
+    		// System.out.println("Game Set the GUI with the Game options");
     		// Set the GUI with the Game options
     		MOO1GameOptions.setModSettingsFromOptions((MOO1GameOptions) instance.options);
     	}
     	// else vanilla Nothing special to do
-    	else System.out.println("Old Ways Game Loaded Nothing");
+    	// else System.out.println("Old Ways Game Loaded Nothing");
 
     	resolveOptionsDiscrepansies(gs);
 
