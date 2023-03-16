@@ -267,6 +267,9 @@ public class UserPreferences {
 			techIrradiated, techCloaking, techStargate, techHyperspace,
 			techIndustry2, techThorium, techTransport
 			));
+	public static final ParamInteger bombingTarget = new ParamInteger(
+			MOD_UI, "BOMBING_TARGET"
+			, 10, null, null, 1, 5, 20);
 
 	// This list is used by the ModAOptionsUI menu
 	public static final LinkedList<InterfaceParam> modOptionsA = new LinkedList<>(
@@ -282,7 +285,7 @@ public class UserPreferences {
 	public static final LinkedList<InterfaceParam> modOptionsB = new LinkedList<>(
 			Arrays.asList(
 			randomAlienRacesTargetMax, randomAlienRacesTargetMin, randomAlienRaces, randomAlienRacesMax, randomAlienRacesMin, randomAlienRacesSmoothEdges,
-			techIrradiated, techCloaking, techStargate, techHyperspace, techIndustry2,
+			techIrradiated, techCloaking, techStargate, techHyperspace, techIndustry2, bombingTarget,
 			techThorium, techTransport, eventsStartTurn, amoebaMaxSystems, crystalMaxSystems, 
 			piratesDelayTurn, amoebaDelayTurn, crystalDelayTurn, amoebaReturnTurn, crystalReturnTurn
 			));
@@ -694,7 +697,7 @@ public class UserPreferences {
 				councilWin, counciRequiredPct,
 				techTrading, aiHostility,
 				new ParamTitle("GAME_COMBAT"),
-				retreatRestrictions, retreatRestrictionTurns, missileSizeModifier
+				retreatRestrictions, retreatRestrictionTurns, missileSizeModifier, bombingTarget
 				)));
 		mergedOptionsMap.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("RANDOM_EVENTS_OPT"),

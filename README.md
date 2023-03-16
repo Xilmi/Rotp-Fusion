@@ -27,6 +27,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 ## What's New
 
 2023.03.15 (BR)
+  - Add option to Stop Bombing when reaching a population target.
+
+2023.03.15 (BR)
   - Add display of Turn and Year on the save panel.
   - Save Turn Start on it's Own File
   - Add option to auto refuse tech exchange

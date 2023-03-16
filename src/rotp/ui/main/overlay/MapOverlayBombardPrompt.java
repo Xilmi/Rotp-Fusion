@@ -29,9 +29,11 @@ import rotp.model.empires.Empire;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
+import rotp.ui.UserPreferences;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
 import rotp.ui.main.SystemPanel;
+import rotp.ui.sprites.BombardTargetSprite;
 import rotp.ui.sprites.BombardNoSprite;
 import rotp.ui.sprites.BombardYesSprite;
 import rotp.ui.sprites.ClickToContinueSprite;
@@ -52,6 +54,7 @@ public class MapOverlayBombardPrompt extends MapOverlay {
     ClickToContinueSprite clickSprite;
     BombardNoSprite noButton = new BombardNoSprite();
     BombardYesSprite yesButton = new BombardYesSprite();
+    BombardTargetSprite targetButton = new BombardTargetSprite();
     SystemFlagSprite flagButton = new SystemFlagSprite();
     public MapOverlayBombardPrompt(MainUI p) {
         parent = p;
@@ -74,6 +77,7 @@ public class MapOverlayBombardPrompt extends MapOverlay {
         transports = player().transportsInTransit(sys);
         noButton.reset();
         yesButton.reset();
+        targetButton.reset();
         parent.hideDisplayPanel();
         parent.map().setScale(20);
         parent.map().recenterMapOn(sys);
@@ -94,6 +98,15 @@ public class MapOverlayBombardPrompt extends MapOverlay {
         player().sv.resetFlagColor(sysId);
         parent.repaint();
     }
+    public void bombardTarget() {
+        if (drawSprites) {
+            drawSprites = false;
+            mask = null;
+            targetBombard();
+            bombard();
+            parent.map().repaint();
+        }
+    }
     public void bombardYes() {
         if (drawSprites) {
             drawSprites = false;
@@ -108,6 +121,18 @@ public class MapOverlayBombardPrompt extends MapOverlay {
             drawSprites = false;
             mask = null;
             advanceMap();
+        }
+    }
+    private void targetBombard() { // BR:
+        // avoid multiple bombings triggered by
+        // repaints from animation
+        if (!bombarded) {
+            bombarded = true;
+            fleet.targetBombard();
+            Empire pl = player();
+            endPop = pl.sv.population(sysId);
+            endBases = pl.sv.bases(sysId);
+            endFact = pl.sv.factories(sysId);
         }
     }
     private void bombard() {
@@ -154,9 +179,10 @@ public class MapOverlayBombardPrompt extends MapOverlay {
         int transportH = transports > 0 ? s20 : 0;
         
         int bdrW = s7;
+        int buttonOffset = s35; // BR: adjusted for target
         int boxW = scaled(540);
-        int boxH = scaled(245)+transportH;
-        int boxH1 = BasePanel.s73+transportH;
+        int boxH = scaled(245)+transportH+buttonOffset; // BR: adjusted for target
+        int boxH1 = BasePanel.s73+transportH+buttonOffset; // BR: adjusted for target
 
         int boxX = -s40+(w/2);
         int boxY = s40+(h-boxH)/2;
@@ -223,7 +249,7 @@ public class MapOverlayBombardPrompt extends MapOverlay {
         g.setFont(narrowFont(40));
         int sw = g.getFontMetrics().stringWidth(yearStr);
         int x0 = boxX+((leftW-sw)/2);
-        int ya = boxY+boxH1-s20-(transportH/2);
+        int ya = boxY+boxH1-s20-(transportH/2)-s20; // BR: adjusted for target (-s20)
         drawBorderedString(g, yearStr, 2, x0, ya, SystemPanel.textShadowC, SystemPanel.orangeText);
 
         if (bombarded) {
@@ -258,16 +284,18 @@ public class MapOverlayBombardPrompt extends MapOverlay {
             // calc width needed for yes/no buttons
             g.setFont(narrowFont(20));
             String yesStr = text("MAIN_BOMBARD_YES");
+            String targetStr = text("MAIN_BOMBARD_TARGET", UserPreferences.bombingTarget.get());
             String noStr = text("MAIN_BOMBARD_NO");
             int swYes = g.getFontMetrics().stringWidth(yesStr);
+            int swTarget = g.getFontMetrics().stringWidth(targetStr);
             int swNo = g.getFontMetrics().stringWidth(noStr);
-            int buttonW = s20+Math.max(swYes, swNo);
+            int buttonW = s20+Math.max(Math.max(swYes, swNo), swTarget);
 
             // print prompt string
             String promptStr = text("MAIN_BOMBARD_PROMPT");
             int promptFontSize = scaledFont(g, promptStr, boxW-leftW-buttonW-buttonW-s30, 24, 20);
             g.setFont(narrowFont(promptFontSize));
-            int swPrompt = g.getFontMetrics().stringWidth(promptStr);
+            //int swPrompt = g.getFontMetrics().stringWidth(promptStr);
             int promptY = boxY+s35+transportH;
             if(fleet.empire().atWarWith(sys.empId()))
                 drawShadowedString(g, promptStr, 4, boxX+leftW, promptY+s20, SystemPanel.textShadowC, Color.white);
@@ -276,19 +304,26 @@ public class MapOverlayBombardPrompt extends MapOverlay {
 
             // draw yes/no buttons
             g.setFont(narrowFont(20));
-            int buttonY = promptY;
+            int buttonY = promptY+buttonOffset; // BR: adjusted for target
             int buttonH = s30;
-            int x2 = boxX+leftW+swPrompt+s10;
+            // int x2 = boxX+leftW+swPrompt+s10;
+            int x2 = boxX+leftW; // BR: adusted for target
             int x3 = x2+buttonW+s10;
+            int x4 = x3+buttonW+s10;
             // yes button
             parent.addNextTurnControl(yesButton);
             yesButton.parent(this);
             yesButton.setBounds(x2, buttonY, buttonW, buttonH);
             yesButton.draw(parent.map(), g);
+            // Target button
+            parent.addNextTurnControl(targetButton);
+            targetButton.parent(this);
+            targetButton.setBounds(x3, buttonY, buttonW, buttonH);
+            targetButton.draw(parent.map(), g);
             // no button
             parent.addNextTurnControl(noButton);
             noButton.parent(this);
-            noButton.setBounds(x3, buttonY, buttonW, buttonH);
+            noButton.setBounds(x4, buttonY, buttonW, buttonH);
             noButton.draw(parent.map(), g);
         }
 
@@ -478,6 +513,9 @@ public class MapOverlayBombardPrompt extends MapOverlay {
                     bombardCancel();
             case KeyEvent.VK_N:
                 bombardCancel();
+                break;
+            case KeyEvent.VK_L:
+                bombardTarget();
                 break;
             case KeyEvent.VK_Y:
                 bombardYes();

@@ -39,6 +39,7 @@ import rotp.ui.map.IMapHandler;
 import rotp.ui.sprites.FlightPathSprite;
 import rotp.ui.sprites.ShipRelocationSprite;
 import rotp.util.Base;
+import rotp.ui.UserPreferences;
 
 public class ShipFleet implements Base, Sprite, Ship, Serializable {
     private static final long serialVersionUID = 1L;
@@ -832,6 +833,44 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
     public void removeShips(ShipFleet subfleet) {
         for (int i=0;i<num.length;i++)
             num[i] = max(0, num[i]-subfleet.num(i));
+    }
+    public void targetBombard() { // BR:
+        StarSystem sys = system();
+        if (!sys.isColonized())
+            return;
+
+        Empire victim = sys.empire();
+        victim.lastAttacker(empire());
+        log(empire().name(), " fleet bombarding ", sys.name());
+        ShipCombatManager mgr = galaxy().shipCombat();
+        mgr.setupBombardment(system(), this);
+
+        CombatStackColony colonyStack = mgr.results().colonyStack;
+        float popLim = 0.5f + UserPreferences.bombingTarget.get();
+        for (int i=0;i<num.length;i++) {
+            if (num[i] > 0) {
+                ShipDesign d = design(i);
+                if (d != null) {
+                    CombatStackShip shipStack = new CombatStackShip(this, i, mgr);
+                    for (int j=0;j<ShipDesign.maxWeapons();j++) {
+                        int wpnCount = d.wpnCount(j);
+                        int attackCount = d.weapon(j).attacksPerRound() * d.weapon(j).scatterAttacks();
+                        int bombAtt = d.weapon(j).bombardAttacks() - bombardCount(i);
+                        int numAttacks = num[i] * attackCount * wpnCount * bombAtt;
+                        for (int k=0; k<numAttacks && system().population()>popLim; k++)
+                            d.weapon(j).fireUpon(shipStack, colonyStack, 1);
+                    }
+                    for (int j=0;j<ShipDesign.maxSpecials();j++) {
+                        int numAttacks = d.special(j).bombardAttacks() - bombardCount(i);
+                        for (int k=0; k<numAttacks && system().population()>popLim; k++)
+                            d.special(j).fireUpon(shipStack, colonyStack, 1);
+                    }
+                }
+            }
+        }
+        mgr.endOfCombat(true);
+        empire().sv.refreshFullScan(sysId);
+        victim.sv.refreshFullScan(sysId);
     }
     public void bombard() {
         StarSystem sys = system();

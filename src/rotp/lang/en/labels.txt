@@ -889,6 +889,7 @@ MAIN_BOMBARD_TITLE               | Our forces are orbiting an enemy [alien_race]
 NEUTRAL_BOMBARD_TITLE            | Our forces are orbiting a neutral [alien_race] colony.
 MAIN_BOMBARD_TROOPS              | %1 [alien_race] troops are orbiting or in transit to this colony.
 MAIN_BOMBARD_PROMPT              | Bombard the planet?
+MAIN_BOMBARD_TARGET              | Target (%1)
 MAIN_BOMBARD_YES                 | Yes
 MAIN_BOMBARD_NO                  | No
 MAIN_BOMBARD_POPULATION          | Population: %1
@@ -1809,6 +1810,8 @@ SETTINGS_MOD_SHOW_ALLIANCES_GNN_DESC     | Allow GNN Alliances announcements
 SETTINGS_MOD_SHOW_ALLIANCES_GNN          | Show GNN Alliances: %1
 SETTINGS_MOD_TECH_EXCHANGE_AUTO_NO_DESC  | Auto Refuse Tech Exchange offers.
 SETTINGS_MOD_TECH_EXCHANGE_AUTO_NO       | Auto Refuse Exchanges: %1
+SETTINGS_MOD_BOMBING_TARGET_DESC         | Limited Bombing: Stop Bombing when reaching this population target. !!! Powerful weapons may still annihilate the population !!!
+SETTINGS_MOD_BOMBING_TARGET              | Bombing Target: %1 pop
 
 // Other base menu Mod settings
 SETTINGS_MOD_PLAYER_SHIP_SET_DESC        | Select the Player Ship Set.
