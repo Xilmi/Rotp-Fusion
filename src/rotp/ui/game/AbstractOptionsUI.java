@@ -248,6 +248,10 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 		index++;
 		if (index >= lastRowList.get(column)) {
 			column++;
+			if (column == numColumns) {
+				System.err.println(GUI_ID + ": column > numColumns");
+				column--;
+			}
 			xSetting = xSetting + wSetting + columnPad;
 			ySetting = yTop;
 		} else
