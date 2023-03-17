@@ -302,11 +302,12 @@ public class AI implements Base { // BR: Tentative
         else
             ColonizeSystemNotification.create(sys.id, fl, bestDesign);
     }
-    public boolean promptForBombardment(StarSystem sys, ShipFleet fl) {
+    //Xilmi: return value of 1 means yes 2 means yes, but target-bombing
+    public int promptForBombardment(StarSystem sys, ShipFleet fl) {
         // if player, prompt for decision to bomb instead of deciding here
         if (empire.isPlayerControlled()) {
             if (UserPreferences.autoBombardNever())
-                return false;
+                return 0;
             boolean autoBomb = false;
             // user preference auto-bombard set to always?
             if (UserPreferences.autoBombardYes())
@@ -319,13 +320,16 @@ public class AI implements Base { // BR: Tentative
             int transports = empire.transportsInTransit(sys);
             if (UserPreferences.autoBombardInvading() && atWar && (transports == 0))
                 autoBomb = true;
-            BombardSystemNotification.create(id(sys), fl, autoBomb);
-            return false;
+            int bombTarget = 0;
+            if(UserPreferences.targetBombardAllowedForPlayer())
+                bombTarget = UserPreferences.bombingTarget.get();
+            BombardSystemNotification.create(id(sys), fl, autoBomb, bombTarget);
+            return 0;
         }
         
         // ail: asking our general for permission
         if(!empire.generalAI().allowedToBomb(sys))
-            return false;
+            return 0;
         
         // estimate bombardment damage and resulting population loss
         float damage = fl.expectedBombardDamage(false);
@@ -334,17 +338,25 @@ public class AI implements Base { // BR: Tentative
 
         // if colony will NOT be destroyed, then bombs away!
         if (popLoss < (sysPop * .9))
-            return true;
+            return 1;
 
         // determine number of troops in transit
         int transports = empire.transportsInTransit(sys);
 
         // if none in transit, then bombs away!
         if (transports < 1)
-            return true;
+            return 1;
 
         // else don't bomb
-        return false;
+        //Xilmi: Not a nice way, but a way to tell Xilmi-AIs apart from base-AIs:
+        if(empire.generalAI().absolution() != 0)
+        {
+            if(rotp.ui.UserPreferences.targetBombardAllowedForAI() == true)
+            {
+                return 2;
+            }
+        }
+        return 0;
     }
     private float targetPopPct(SystemView sv) {
         if (sv.borderSystem()) return .75f;
