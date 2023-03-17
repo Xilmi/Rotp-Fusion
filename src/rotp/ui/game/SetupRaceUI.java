@@ -55,6 +55,7 @@ import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.util.Modifier2KeysState;
+import rotp.ui.game.HelpUI.HelpSpec;
 
 public final class SetupRaceUI extends BaseModPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
     private static final long serialVersionUID	= 1L;
@@ -65,6 +66,8 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
     private static final int MAX_RACES  = 16; // modnar: increase MAX_RACES to add new Races
     private static final int MAX_COLORS = 16; // modnar: add new colors
     private static final int MAX_SHIP   = ShipLibrary.designsPerSize; // BR:
+    private final Color checkBoxC  = new Color(178,124,87);
+    private final Color darkBrownC = new Color(112,85,68);
     private int FIELD_W;
     private int FIELD_H;
     private BufferedImage backImg;
@@ -72,21 +75,21 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
     private BufferedImage shipBackImg;
     private BufferedImage raceImg;
     private Rectangle hoverBox;
+    private Rectangle helpBox = new Rectangle();
     private Rectangle cancelBox = new Rectangle();
     private Rectangle nextBox = new Rectangle();
     private Rectangle leaderBox = new Rectangle();
     private Rectangle homeWorldBox = new Rectangle();
     private Rectangle playerRaceSettingBox = new Rectangle(); // BR: Player Race Customization
-    private Rectangle checkBox = new Rectangle(); // BR: Player Race Customization
-    private final Color checkBoxC = new Color(178,124,87);
+    private Rectangle checkBox   = new Rectangle(); // BR: Player Race Customization
     private Rectangle shipSetBox = new Rectangle(); // BR: ShipSet Selection
-    private Rectangle[] raceBox = new Rectangle[MAX_RACES];
+    private Rectangle[] raceBox  = new Rectangle[MAX_RACES];
     private Rectangle[] colorBox = new Rectangle[MAX_COLORS];
-    private Rectangle[] shipBox = new Rectangle[MAX_SHIP]; // BR: ShipSet Selection
+    private Rectangle[] shipBox  = new Rectangle[MAX_SHIP]; // BR: ShipSet Selection
 
     private static BufferedImage[] racemugs = new BufferedImage[MAX_RACES];
     private JTextField leaderName = new JTextField("");
-    private JTextField homeWorld = new JTextField("");
+    private JTextField homeWorld  = new JTextField("");
     private JTextField shipSetTxt = new JTextField(""); // BR: ShipSet Selection
     private int shipSetId = 0; // The index from the list
     private int shipSize = 2;
@@ -135,6 +138,130 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
     public void smallInit() {
        	super.init();
         refreshGui();
+    }
+	@Override public void showHelp() {
+		loadHelpUI();
+	repaint();   
+	}
+    @Override public void advanceHelp() { cancelHelp(); }
+	@Override public void cancelHelp() { RotPUI.helpUI().close(); }
+	private void loadHelpUI() { // TODO BR HELP
+		int xBox, yBox, wBox;
+		int xb, xe, yb, ye;
+		int nL, hBox, lH;
+		String txt;
+		HelpSpec sp;
+		Rectangle dest;
+		int w = getWidth();
+		HelpUI helpUI = RotPUI.helpUI();
+		helpUI.clear();
+
+		txt  = text("MOD_HELP_RACE_MAIN");
+		nL   = 4;
+		xBox = scaled(350);
+		wBox = scaled(350);
+		yBox = scaled(250);
+		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+		lH   = sp.lineH();
+		
+		int yShift = s60;
+		int hShift = s40;
+		int yTab   = s15;
+		txt  = text("MOD_HELP_RACE_NEXT");
+		dest = nextBox;
+        nL   = 2;
+        wBox = dest.width - s20;
+        hBox = nL*lH;
+        xBox = dest.x + yShift;
+        yBox = dest.y-hBox-hShift;
+        sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+        xb   = xBox+wBox/2;
+        yb   = yBox+sp.height();
+        xe   = dest.x + dest.width/2;
+        ye   = dest.y;
+        sp.setLine(xb, yb, xe, ye);
+        
+		txt  = text("MOD_HELP_RACE_CANCEL");
+		dest = cancelBox;
+        nL   = 2;
+        hBox = nL*lH;
+        xBox -= wBox + yTab;
+        yBox = dest.y-hBox-hShift;
+        sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+        xb   = xBox+wBox/2;
+        yb   = yBox+sp.height();
+        xe   = dest.x + dest.width/2;
+        ye   = dest.y;
+        sp.setLine(xb, yb, xe, ye);
+        
+		txt  = text("MOD_HELP_RACE_DEFAULT");
+		dest = defaultBox;
+        nL   = 3;
+        hBox = nL*lH;
+        xBox -= wBox + yTab;
+        yBox = dest.y-hBox-hShift;
+        sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+        xb   = xBox+wBox/2;
+        yb   = yBox+sp.height();
+        xe   = dest.x + dest.width/2;
+        ye   = dest.y;
+        sp.setLine(xb, yb, xe, ye);
+        
+		txt  = text("MOD_HELP_RACE_LAST");
+		dest = lastBox;
+        nL   = 3;
+        hBox = nL*lH;
+        xBox -= wBox + yTab;
+        yBox = dest.y-hBox-hShift;
+        sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+        xb   = xBox+wBox/2;
+        yb   = yBox+sp.height();
+        xe   = dest.x + dest.width/2;
+        ye   = dest.y;
+        sp.setLine(xb, yb, xe, ye);
+        
+		txt  = text("MOD_HELP_RACE_USER");
+		dest = userBox;
+        nL   = 3;
+        hBox = nL*lH;
+        xBox = dest.x - wBox - s20;
+        yBox = playerRaceSettingBox.y+s50;
+        sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+        xb   = xBox+wBox;
+        yb   = yBox+sp.height()/2;
+        xe   = dest.x;
+        ye   = dest.y +dest.height/2;
+        sp.setLine(xb, yb, xe, ye);
+        
+		txt  = text("MOD_HELP_RACE_CUSTOM");
+		dest = playerRaceSettingBox;
+        nL   = 3;
+//        wBox = dest.width;
+        hBox = nL*lH;
+//        xBox = s20;
+        yBox = dest.y-hBox-hShift;
+        sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+        xb   = xBox+wBox/2;
+        yb   = yBox+sp.height();
+        xe   = dest.x + dest.width/2;
+        ye   = dest.y;
+        sp.setLine(xb, yb, xe, ye);
+        
+		txt  = text("MOD_HELP_RACE_CHECK_BOX");
+		dest = checkBox;
+        nL   = 3;
+//        wBox = dest.width;
+        hBox = nL*lH;
+        xBox += wBox + yTab;
+//        yBox = dest.y-hBox-hShift;
+        sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+        xb   = xBox+wBox/2;
+        yb   = yBox+sp.height();
+        xe   = dest.x + dest.width/2;
+        ye   = dest.y;
+        sp.setLine(xb, yb, xe, ye);
+
+        helpUI.open(this);
     }
     private void setHomeWorldFont() { // BR: MonoSpaced font for Galaxy
    		homeWorld.setFont(narrowFont(20));
@@ -210,8 +337,20 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         g.fillRoundRect(playerRaceSettingBox.x, playerRaceSettingBox.y,
         		playerRaceSettingBox.width, playerRaceSettingBox.height, cnr, cnr);
 	}
+    private void drawHelpButton(Graphics2D g) {
+        helpBox.setBounds(s20,s20,s20,s25);
+        g.setColor(darkBrownC);
+        g.fillOval(s20, s20, s20, s25);
+        g.setFont(narrowFont(25));
+        if (helpBox == hoverBox)
+            g.setColor(Color.yellow);
+        else
+            g.setColor(Color.white);
+
+        drawString(g,"?", s26, s40);
+    }
 	private void drawButtons(Graphics2D g) {
-        // left button
+		// left button
         int cnr = s5;
         g.setFont(narrowFont(30));
         String text1 = text(cancelButtonKey());
@@ -539,6 +678,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
                 g.setStroke(prev);
             }
         }
+		drawHelpButton(g);
         drawButtons(g);
 	}
     private void goToMainMenu() {
@@ -908,6 +1048,9 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
     	checkModifierKey(e);
        int k = e.getKeyCode();
         switch(k) {
+        	case KeyEvent.VK_F1:
+        		showHelp();
+        		return;
             case KeyEvent.VK_ESCAPE:
             	doCancelBoxAction();
                 return;
@@ -940,7 +1083,9 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         Rectangle prevHover = hoverBox;
         hoverBox = null;
         search:
-        if (nextBox.contains(x,y))
+        if (helpBox.contains(x,y))
+        	hoverBox = helpBox;
+        else if (nextBox.contains(x,y))
             hoverBox = nextBox;
         else if (cancelBox.contains(x,y))
             hoverBox = cancelBox;
@@ -989,6 +1134,10 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
             return;
         if (hoverBox == null)
             return;
+        if (hoverBox == helpBox) {
+            showHelp();
+            return;
+        }
         search:
         if (hoverBox == cancelBox)
         	doCancelBoxAction();
