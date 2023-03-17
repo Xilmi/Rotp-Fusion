@@ -156,6 +156,12 @@ public class UserPreferences {
 			.put("AI",		MOD_UI + "RETREAT_AI")
 			.put("Player",	MOD_UI + "RETREAT_PLAYER")
 			.put("Both",	MOD_UI + "RETREAT_BOTH");
+	public static final ParamList targetBombard = new ParamList(
+			MOD_UI, "TARGET_BOMBARD", "None")
+			.put("None",	MOD_UI + "RETREAT_NONE")
+			.put("AI",		MOD_UI + "RETREAT_AI")
+			.put("Player",	MOD_UI + "RETREAT_PLAYER")
+			.put("Both",	MOD_UI + "RETREAT_BOTH");
 	public static final ParamInteger customDifficulty = new ParamInteger(
 			MOD_UI, "CUSTOM_DIFFICULTY"
 			, 100, 20, 500, 1, 5, 20);
@@ -286,7 +292,7 @@ public class UserPreferences {
 			Arrays.asList(
 			randomAlienRacesTargetMax, randomAlienRacesTargetMin, randomAlienRaces, randomAlienRacesMax, randomAlienRacesMin, randomAlienRacesSmoothEdges,
 			techIrradiated, techCloaking, techStargate, techHyperspace, techIndustry2, bombingTarget,
-			techThorium, techTransport, eventsStartTurn, amoebaMaxSystems, crystalMaxSystems, 
+			techThorium, techTransport, eventsStartTurn, amoebaMaxSystems, crystalMaxSystems, targetBombard,
 			piratesDelayTurn, amoebaDelayTurn, crystalDelayTurn, amoebaReturnTurn, crystalReturnTurn
 			));
 	public static final Integer[] modOptionBRows = {6, 6, 5, 5}; // ModBOptionsUI alignment
@@ -697,7 +703,8 @@ public class UserPreferences {
 				councilWin, counciRequiredPct,
 				techTrading, aiHostility,
 				new ParamTitle("GAME_COMBAT"),
-				retreatRestrictions, retreatRestrictionTurns, missileSizeModifier, bombingTarget
+				retreatRestrictions, retreatRestrictionTurns, missileSizeModifier,
+				targetBombard, bombingTarget
 				)));
 		mergedOptionsMap.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("RANDOM_EVENTS_OPT"),
@@ -873,6 +880,24 @@ public class UserPreferences {
 	public static float missileSizeModifier()	{ return missileSizeModifier.get(); } 
 	public static int retreatRestrictions()		{ return retreatRestrictions.getIndex(); }
 	public static int retreatRestrictionTurns()	{ return retreatRestrictionTurns.get(); }
+	public static boolean targetBombardAllowedForAI() {
+		switch (targetBombard.get()) {
+			case  "Both":
+			case  "AI":
+				return true;
+			default:
+				return false;
+		}
+	}
+	public static boolean targetBombardAllowedForPlayer() {
+		switch (targetBombard.get()) {
+			case  "Both":
+			case  "Player":
+				return true;
+			default:
+				return false;
+		}
+	}
 	// \BR:
 	public static int screenSizePct()       { return screenSizePct; }
 	public static void screenSizePct(int i) { setScreenSizePct(i); }

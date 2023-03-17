@@ -39,7 +39,6 @@ import rotp.ui.map.IMapHandler;
 import rotp.ui.sprites.FlightPathSprite;
 import rotp.ui.sprites.ShipRelocationSprite;
 import rotp.util.Base;
-import rotp.ui.UserPreferences;
 
 public class ShipFleet implements Base, Sprite, Ship, Serializable {
     private static final long serialVersionUID = 1L;
@@ -834,7 +833,7 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
         for (int i=0;i<num.length;i++)
             num[i] = max(0, num[i]-subfleet.num(i));
     }
-    public void targetBombard() { // BR:
+    public void targetBombard(float popLim) { // BR:
         StarSystem sys = system();
         if (!sys.isColonized())
             return;
@@ -846,7 +845,6 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
         mgr.setupBombardment(system(), this);
 
         CombatStackColony colonyStack = mgr.results().colonyStack;
-        float popLim = 0.5f + UserPreferences.bombingTarget.get();
         for (int i=0;i<num.length;i++) {
             if (num[i] > 0) {
                 ShipDesign d = design(i);

@@ -26,6 +26,14 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2023.03.17 (BR)
+  - Option to Stop Bombing:
+    - Added option to toggle this function.
+    - This option will be available for AI.
+  - Race Setup Menu.
+    - Added Help button.
+    - "F1" = Help too.
+
 2023.03.15 (BR)
   - Add option to Stop Bombing when reaching a population target.
 

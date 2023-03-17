@@ -1,3 +1,11 @@
+Update:
+- Option to Stop Bombing:
+  - Added option to toggle this function.
+  - This option will be available for AI.
+- Race Setup Menu.
+  - Added Help button.
+  - "F1" = Help too.
+
 Minor fixes, new requests, old requests
 
 - Added colors to the Compact Merged Advanced Options Menu:

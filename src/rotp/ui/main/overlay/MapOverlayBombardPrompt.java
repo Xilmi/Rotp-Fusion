@@ -128,7 +128,7 @@ public class MapOverlayBombardPrompt extends MapOverlay {
         // repaints from animation
         if (!bombarded) {
             bombarded = true;
-            fleet.targetBombard();
+            fleet.targetBombard(0.5f + UserPreferences.bombingTarget.get());
             Empire pl = player();
             endPop = pl.sv.population(sysId);
             endBases = pl.sv.bases(sysId);
@@ -177,9 +177,9 @@ public class MapOverlayBombardPrompt extends MapOverlay {
         int h = ui.getHeight();
 
         int transportH = transports > 0 ? s20 : 0;
-        
+        boolean targetOK = rotp.ui.UserPreferences.targetBombardAllowedForPlayer();
         int bdrW = s7;
-        int buttonOffset = s35; // BR: adjusted for target
+        int buttonOffset = targetOK? s35 : 0; // BR: adjusted for target
         int boxW = scaled(540);
         int boxH = scaled(245)+transportH+buttonOffset; // BR: adjusted for target
         int boxH1 = BasePanel.s73+transportH+buttonOffset; // BR: adjusted for target
@@ -249,7 +249,7 @@ public class MapOverlayBombardPrompt extends MapOverlay {
         g.setFont(narrowFont(40));
         int sw = g.getFontMetrics().stringWidth(yearStr);
         int x0 = boxX+((leftW-sw)/2);
-        int ya = boxY+boxH1-s20-(transportH/2)-s20; // BR: adjusted for target (-s20)
+        int ya = boxY+boxH1-s20-(transportH/2)-(targetOK? s20 : 0); // BR: adjusted for target (-s20)
         drawBorderedString(g, yearStr, 2, x0, ya, SystemPanel.textShadowC, SystemPanel.orangeText);
 
         if (bombarded) {
@@ -289,13 +289,16 @@ public class MapOverlayBombardPrompt extends MapOverlay {
             int swYes = g.getFontMetrics().stringWidth(yesStr);
             int swTarget = g.getFontMetrics().stringWidth(targetStr);
             int swNo = g.getFontMetrics().stringWidth(noStr);
-            int buttonW = s20+Math.max(Math.max(swYes, swNo), swTarget);
+            int buttonW = Math.max(swYes, swNo); // BR: adjusted for target
+            if (targetOK)
+            	buttonW = Math.max(buttonW, swTarget);
+            buttonW += s20;
 
             // print prompt string
             String promptStr = text("MAIN_BOMBARD_PROMPT");
             int promptFontSize = scaledFont(g, promptStr, boxW-leftW-buttonW-buttonW-s30, 24, 20);
             g.setFont(narrowFont(promptFontSize));
-            //int swPrompt = g.getFontMetrics().stringWidth(promptStr);
+            int swPrompt = g.getFontMetrics().stringWidth(promptStr);
             int promptY = boxY+s35+transportH;
             if(fleet.empire().atWarWith(sys.empId()))
                 drawShadowedString(g, promptStr, 4, boxX+leftW, promptY+s20, SystemPanel.textShadowC, Color.white);
@@ -307,19 +310,22 @@ public class MapOverlayBombardPrompt extends MapOverlay {
             int buttonY = promptY+buttonOffset; // BR: adjusted for target
             int buttonH = s30;
             // int x2 = boxX+leftW+swPrompt+s10;
-            int x2 = boxX+leftW; // BR: adusted for target
+            int x2 = boxX+leftW+ (targetOK? 0 : swPrompt+s10); // BR: adjusted for target
             int x3 = x2+buttonW+s10;
-            int x4 = x3+buttonW+s10;
+            // int x4 = x3+buttonW+s10;
+            int x4 = targetOK? x3+buttonW+s10 : x3; // BR: adjusted for target
             // yes button
             parent.addNextTurnControl(yesButton);
             yesButton.parent(this);
             yesButton.setBounds(x2, buttonY, buttonW, buttonH);
             yesButton.draw(parent.map(), g);
-            // Target button
-            parent.addNextTurnControl(targetButton);
-            targetButton.parent(this);
-            targetButton.setBounds(x3, buttonY, buttonW, buttonH);
-            targetButton.draw(parent.map(), g);
+            // BR: Target button
+            if (targetOK) {
+	            parent.addNextTurnControl(targetButton);
+	            targetButton.parent(this);
+	            targetButton.setBounds(x3, buttonY, buttonW, buttonH);
+	            targetButton.draw(parent.map(), g);
+            }
             // no button
             parent.addNextTurnControl(noButton);
             noButton.parent(this);
