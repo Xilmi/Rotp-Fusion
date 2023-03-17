@@ -295,7 +295,7 @@ public class UserPreferences {
 			techThorium, techTransport, eventsStartTurn, amoebaMaxSystems, crystalMaxSystems, targetBombard,
 			piratesDelayTurn, amoebaDelayTurn, crystalDelayTurn, amoebaReturnTurn, crystalReturnTurn
 			));
-	public static final Integer[] modOptionBRows = {6, 6, 5, 5}; // ModBOptionsUI alignment
+	public static final Integer[] modOptionBRows = {6, 6, 6, 5}; // ModBOptionsUI alignment
 
 	// BR: ===== Global settings Mod GUI:
 	private static boolean gamePlayed = false; // to differentiate startup from loaded game
