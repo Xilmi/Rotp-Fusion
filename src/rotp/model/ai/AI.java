@@ -321,7 +321,7 @@ public class AI implements Base { // BR: Tentative
             if (UserPreferences.autoBombardInvading() && atWar && (transports == 0))
                 autoBomb = true;
             int bombTarget = 0;
-            if(UserPreferences.targetBombardAllowedForPlayer())
+            if(UserPreferences.targetBombardAllowedForPlayer() && empire.transportsInTransit(sys) > 0)
                 bombTarget = UserPreferences.bombingTarget.get();
             BombardSystemNotification.create(id(sys), fl, autoBomb, bombTarget);
             return 0;
