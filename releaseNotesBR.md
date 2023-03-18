@@ -12,6 +12,8 @@ Update:
 - Added duplicate setting in Compact Dynamic Menu: (now directly available in game)
   - Setting Auto Colony.
   - Setting Auto Bombard.
+- Added MOD info on Galaxy map Help screen. (Governor and Game options)
+
 
 Minor fixes, new requests, old requests
 

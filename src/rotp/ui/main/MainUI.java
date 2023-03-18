@@ -665,16 +665,26 @@ public class MainUI extends BasePanel implements IMapHandler {
         HelpUI helpUI = RotPUI.helpUI();
 
         int w = getWidth();
-        // int h = getHeight();
+        int h = getHeight();
+
         helpUI.clear();
         HelpSpec s0 = helpUI.addBlueHelpText(s100, s10, scaled(350), 2, text("MAIN_HELP_ALL"));
         s0.setLine(s100, s25, s30, s25);
-
+        // BR: Main Mod Help
+        // helpUI.addBrownHelpText(s50, scaled(310), scaled(350), 2, text("MAIN_HELP_MOD"));
+        helpUI.addBrownHelpText(w-scaled(334), s10, scaled(330), 2, text("MAIN_HELP_MOD"));
+        
         int x1 = w-scaled(779);
         int w1 = scaled(430);
         int y1 = scaled(140);
-        HelpSpec sp1 = helpUI.addBlueHelpText(x1, y1, w1, 4, text("MAIN_HELP_1A"));
+        
+        HelpSpec sp1 = helpUI.addBlueHelpText(x1, y1, w1, 3, text("MAIN_HELP_1A"));
         y1 += (sp1.height()+s10);
+        // BR: Moved this to make place for governor help
+        HelpSpec sp7 = helpUI.addBlueHelpText(x1, y1, w1, 4, text("MAIN_HELP_1G"));
+        sp7.setLine(x1+w1, y1+(sp7.height()/2), w-scaled(154), scaled(310));
+        y1 += (sp7.height()+s10);
+
         HelpSpec sp2 = helpUI.addBlueHelpText(x1, y1, w1, 2, text("MAIN_HELP_1B"));
         sp2.setLine(x1+w1, y1+(sp2.height()/2), w-scaled(244), scaled(312));
         y1 += (sp2.height()+s5);
@@ -690,30 +700,52 @@ public class MainUI extends BasePanel implements IMapHandler {
         HelpSpec sp6 = helpUI.addBlueHelpText(x1, y1, w1, 2, text("MAIN_HELP_1F"));
         sp6.setLine(x1+w1, y1+(sp6.height()/2), w-scaled(244), scaled(432));
 
-        int x2 = w-scaled(299);
-        int y2 = scaled(150);
-        int w2 = scaled(280);
-        HelpSpec sp7 = helpUI.addBlueHelpText(x2,y2,w2, 6, text("MAIN_HELP_1G"));
-        sp7.setLine(x2+(w2/2), y2+sp7.height(), w-scaled(154), scaled(310));
+        // BR: Moved this to make place for governor help
+		// int x2 = w-scaled(299);
+		// int y2 = scaled(150);
+		// int w2 = scaled(280);
+		// HelpSpec sp7 = helpUI.addBlueHelpText(x2,y2,w2, 6, text("MAIN_HELP_1G"));
+		// sp7.setLine(x2+(w2/2), y2+sp7.height(), w-scaled(154), scaled(310));
+        
+        // BR:
+		int x2 = w-scaled(314);
+		int y2 = scaled(120);
+		int w2 = scaled(150);
+        HelpSpec spM1 = helpUI.addBrownHelpText(x2,y2,w2, 4, text("MAIN_HELP_MOD_1A"));
+        spM1.setLine(x2+(w2*3/4), y2+spM1.height(), w-scaled(180), scaled(275));
+		x2 += scaled(160);
+        HelpSpec spM2 = helpUI.addBrownHelpText(x2,y2,w2, 4, text("MAIN_HELP_MOD_1B"));
+        spM2.setLine(x2+(w2*2/3), y2+spM2.height(), w-s40, scaled(275));
 
-        int x3 = w-scaled(304);
-        int y3 = scaled(490);
-        int w3 = scaled(300);
+        int x3 = w-scaled(304); // BR: was 304
+        int y3 = scaled(540); // BR: was 490
+        int w3 = scaled(300); // BR: was 300
         HelpSpec sp8 = helpUI.addBlueHelpText(x3,y3,w3, 4, text("MAIN_HELP_1H"));
-        sp8.setLine(x3+(w2*3/4), y3, w-scaled(54), scaled(430));        
+        sp8.setLine(x3+(w3*3/4), y3, w-scaled(54), scaled(430));        
 
+        // BR: Added Spy reports
+        int x9 = scaled(115);
+        int y9 = scaled(350);
+        int w9 = scaled(220);
+        HelpSpec sp9 = helpUI.addBlueHelpText(x9, y9, w9, 2, text("MAIN_HELP_1I"));
+        sp9.setLine(x9, y9+(sp9.height()/2), s45, h-scaled(370));
+        
         if (showTreasuryResearchBar()) {
-            int x12 = scaled(80); // modnar: TreasuryResearchBar made horizontal, change help line/box
-            int y12 = scaled(440); // modnar: TreasuryResearchBar made horizontal, change help line/box
+            // int x12 = scaled(80); // modnar: TreasuryResearchBar made horizontal, change help line/box
+            // int y12 = scaled(440); // modnar: TreasuryResearchBar made horizontal, change help line/box
+            int x12 = scaled(115); // BR restored original (As the bar are back in vertical mode!)
+            int y12 = scaled(440); // BR restored original
             int w12 = scaled(220);
             HelpSpec sp12 = helpUI.addBlueHelpText(x12, y12, w12, 3, text("MAIN_HELP_2L"));
-            sp12.setLine(x12, y12+(sp12.height()/2), s35, scaled(655)); // modnar: TreasuryResearchBar made horizontal, change help line/box
+            //sp12.setLine(x12, y12+(sp12.height()/2), s35, scaled(655)); // modnar: TreasuryResearchBar made horizontal, change help line/box
+            sp12.setLine(x12, y12+(sp12.height()/2), s45, h-scaled(298)); // BR restored original
 
             int x13 = scaled(120);
             int y13 = scaled(540);
             int w13 = scaled(220);
             HelpSpec sp13 = helpUI.addBlueHelpText(x13, y13, w13, 3, text("MAIN_HELP_2M"));
-            sp13.setLine(x13+sp13.height(), y13+sp13.height(), scaled(160), scaled(655)); // modnar: TreasuryResearchBar made horizontal, change help line/box
+            // sp13.setLine(x13+sp13.height(), y13+sp13.height(), scaled(160), scaled(655)); // modnar: TreasuryResearchBar made horizontal, change help line/box
+            sp13.setLine(x13, y13+(sp13.height()/2), s45, h-scaled(173)); // BR restored original
         }
     }
     private void loadEmpireColonyHelpFrame2() {
