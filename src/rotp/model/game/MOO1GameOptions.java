@@ -77,13 +77,16 @@ import rotp.model.planet.PlanetType;
 import rotp.model.tech.TechEngineWarp;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.AdvancedOptionsUI;
-import rotp.ui.game.MergedOptionsUI;
+import rotp.ui.game.MergedStaticOptionsUI;
 import rotp.ui.game.EditCustomRaceUI;
+import rotp.ui.game.MergedDynamicOptionsUI;
 import rotp.ui.game.ModGlobalOptionsUI;
+import rotp.ui.game.DynamicAOptionsUI;
+import rotp.ui.game.DynamicBOptionsUI;
+import rotp.ui.game.StaticAOptionsUI;
+import rotp.ui.game.StaticBOptionsUI;
 import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.game.SetupRaceUI;
-import rotp.ui.game.StartModAOptionsUI;
-import rotp.ui.game.StartModBOptionsUI;
 import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.SpecificCROption;
 import rotp.util.Base;
@@ -1652,7 +1655,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	if (modOptions == null)
     		return;
        	for (InterfaceParam param : modOptions) {
-       		param.setFromOptions(src.dynamicOptions);
+       		if (param != null)
+       			param.setFromOptions(src.dynamicOptions);
        	}
     }
     private static void setBaseSettingsFromOptions(
@@ -1724,14 +1728,23 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	    	case SetupRaceUI.GUI_ID:
 	    		modOptions = optionsRace;
 	    		break;
-	    	case StartModAOptionsUI.GUI_ID:
-	    		modOptions = UserPreferences.modOptionsA;
+	    	case StaticAOptionsUI.GUI_ID:
+	    		modOptions = UserPreferences.modOptionsStaticA;
 	    		break;
-	    	case StartModBOptionsUI.GUI_ID:
-	    		modOptions = UserPreferences.modOptionsB;
+	    	case StaticBOptionsUI.GUI_ID:
+	    		modOptions = UserPreferences.modOptionsStaticB;
 	    		break;
-	    	case MergedOptionsUI.GUI_ID:
-	    		modOptions = UserPreferences.mergedOptions;
+	    	case DynamicAOptionsUI.GUI_ID:
+	    		modOptions = UserPreferences.modOptionsDynamicA;
+	    		break;
+	    	case DynamicBOptionsUI.GUI_ID:
+	    		modOptions = UserPreferences.modOptionsDynamicB;
+	    		break;
+	    	case MergedStaticOptionsUI.GUI_ID:
+	    		modOptions = UserPreferences.mergedStaticOptions;
+	    		break;
+	    	case MergedDynamicOptionsUI.GUI_ID:
+	    		modOptions = UserPreferences.mergedDynamicOptions;
 	    		break;
 	    	case ModGlobalOptionsUI.GUI_ID:
 	    		modOptions = UserPreferences.modGlobalOptionsUI;

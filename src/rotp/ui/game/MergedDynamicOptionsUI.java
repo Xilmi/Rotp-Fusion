@@ -15,19 +15,14 @@
  */
 package rotp.ui.game;
 
-import static rotp.ui.UserPreferences.modGlobalOptionsUI;
+import rotp.ui.UserPreferences;
 
-public class ModGlobalOptionsUI extends AbstractOptionsUI {
+public class MergedDynamicOptionsUI extends CompactOptionsUI {
 	private static final long serialVersionUID = 1L;
-	public  static final String guiTitleID = "SETTINGS_MOD_TITLE_GLOBAL";
-	public  static final String GUI_ID     = "START_MOD_GLOBAL";
-
-	public ModGlobalOptionsUI() {
-		super(guiTitleID, GUI_ID);
-	}
-
-	@Override protected void init0() {
-		globalOptions = true; // No preferred button
-		paramList	  = modGlobalOptionsUI;
+	public static final String guiTitleID = "SETTINGS_MOD_DYNAMIC_TITLE";
+	public static final String GUI_ID     = "MERGED_DYNAMIC_OPTIONS";
+	
+	public MergedDynamicOptionsUI() {
+		super(guiTitleID, GUI_ID, UserPreferences.mergedDynamicOptionsMap);
 	}
 }

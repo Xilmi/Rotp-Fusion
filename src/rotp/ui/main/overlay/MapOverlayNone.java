@@ -24,7 +24,7 @@ import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
-import rotp.ui.game.MergedOptionsUI;
+import rotp.ui.game.MergedDynamicOptionsUI;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
 import rotp.ui.main.TransportDeploymentPanel;
@@ -217,7 +217,7 @@ public class MapOverlayNone extends MapOverlay {
                 break;
             case KeyEvent.VK_O: // BR:
             	if (ctrl) {
-            		MergedOptionsUI optionsUI = RotPUI.mergedOptionsUI();
+            		MergedDynamicOptionsUI optionsUI = RotPUI.mergedDynamicOptionsUI();
         			optionsUI.start(true);
             	}
             	break;

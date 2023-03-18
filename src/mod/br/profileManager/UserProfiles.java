@@ -26,8 +26,8 @@ import br.profileManager.src.main.java.Valid_LocalEnable;
 import mod.br.addOns.RaceOptions;
 import rotp.Rotp;
 import rotp.ui.UserPreferences;
-import rotp.ui.game.StartModAOptionsUI;
-import rotp.ui.game.StartModBOptionsUI;
+//import rotp.ui.game.StartModAOptionsUI;
+//import rotp.ui.game.StartModBOptionsUI;
 import rotp.util.sound.SoundClip;
 import rotp.util.sound.SoundManager;
 
@@ -158,8 +158,8 @@ public class UserProfiles extends AbstractProfiles<ClientClasses> {
 		groupMap.put("RACE",		new Group_Race(options));
 		groupMap.put("GALAXY",		new Group_Galaxy(options));
 		groupMap.put("ADVANCED",	new Group_Advanced(options));
-		groupMap.put(StartModAOptionsUI.guiTitleID,	new Group_Mod_A(options));
-		groupMap.put(StartModBOptionsUI.guiTitleID,	new Group_Mod_B(options));
+//		groupMap.put(StartModAOptionsUI.guiTitleID,	new Group_Mod_A(options));
+//		groupMap.put(StartModBOptionsUI.guiTitleID,	new Group_Mod_B(options));
 		groupMap.put("GOVERNOR",	new Group_Governor(options));
 		groupMap.put(BR_GROUP_NAME,	new Group_BrokenRegistry(options));
 	}

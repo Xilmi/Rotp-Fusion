@@ -43,6 +43,7 @@ import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.util.InterfaceOptions;
+import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.Modifier2KeysState;
 
 // modnar: add UI panel for modnar MOD game options, based on StartOptionsUI.java
@@ -93,6 +94,8 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 		else
 			activeList = paramList;
 		
+		buildRowCountList();
+		
 		for (int i=0; i<activeList.size(); i++)
 			btList.add(newBT());
 
@@ -135,6 +138,20 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 		addMouseListener(this);
 		addMouseMotionListener(this);
 		addMouseWheelListener(this);
+	}
+	private void buildRowCountList() {
+		numColumns = 1;
+		Integer numParam = 0;
+		for (InterfaceParam param : activeList) {
+			if (param == null) {
+				numColumns++;
+				lastRowList.add(numParam);
+			}
+			else
+				numParam++;
+		}
+		lastRowList.add(numParam);
+		while (activeList.remove(null));
 	}
 	protected void rowCountList(Integer... rows) {
 		numColumns = rows.length;
@@ -249,7 +266,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 		if (index >= lastRowList.get(column)) {
 			column++;
 			if (column == numColumns) {
-				System.err.println(GUI_ID + ": column > numColumns");
+				// System.err.println(GUI_ID + ": column > numColumns");
 				column--;
 			}
 			xSetting = xSetting + wSetting + columnPad;

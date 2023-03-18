@@ -129,9 +129,13 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	private BufferedImage smBackImg;
     private int bSep = s15;
 
-	private Rectangle modASettingsBox		= new Rectangle(); // modnar: add UI panel for modnar MOD game options
-	private Rectangle modBSettingsBox		= new Rectangle(); // BR: Second UI panel for MOD game options
-	private Rectangle globalModSettingsBox	= new Rectangle(); // BR: Display UI panel for MOD game options
+	private Rectangle mergedStaticBox	= new Rectangle(); // BR add UI panel for MOD game options
+	private Rectangle mergedDynamicBox	= new Rectangle(); // BR add UI panel for MOD game options
+	private Rectangle modStaticABox		= new Rectangle(); // BR add UI panel for MOD game options
+	private Rectangle modStaticBBox		= new Rectangle(); // BR add UI panel for MOD game options
+	private Rectangle modDynamicABox	= new Rectangle(); // BR add UI panel for MOD game options
+	private Rectangle modDynamicBBox	= new Rectangle(); // BR add UI panel for MOD game options
+	private Rectangle globalModSettingsBox	= new Rectangle(); // BR add UI panel for MOD game options
 	private Rectangle backBox			= new Rectangle();
 	private Rectangle startBox			= new Rectangle();
 	private Rectangle settingsBox		= new Rectangle();
@@ -955,25 +959,36 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	private void drawBackButtons(Graphics2D g) {
 		int cnr = s5;
 
-		// draw settings button
-		g.setPaint(GameUI.buttonLeftBackground());
-		g.fillRoundRect(settingsBox.x, settingsBox.y, settingsBox.width, settingsBox.height, cnr, cnr);
 		
 		if (!compactOptionOnly.get()) {
-			// draw MOD settings button
+			// draw Advanced settings button
 			g.setPaint(GameUI.buttonLeftBackground());
-			g.fillRoundRect(modASettingsBox.x, modASettingsBox.y,
-					modASettingsBox.width, modASettingsBox.height, cnr, cnr);
+			g.fillRoundRect(settingsBox.x, settingsBox.y, settingsBox.width, settingsBox.height, cnr, cnr);
 
-			// draw MOD settings button
-			g.setPaint(GameUI.buttonLeftBackground());
-			g.fillRoundRect(modBSettingsBox.x, modBSettingsBox.y,
-					modBSettingsBox.width, modBSettingsBox.height, cnr, cnr);
+			// draw MOD settings buttons
+//			g.setPaint(GameUI.buttonLeftBackground());
+			g.fillRoundRect(modStaticABox.x, modStaticABox.y,
+					modStaticABox.width, modStaticABox.height, cnr, cnr);
 
-			// draw MOD settings button
-			g.setPaint(GameUI.buttonLeftBackground());
+			g.fillRoundRect(modStaticBBox.x, modStaticBBox.y,
+					modStaticBBox.width, modStaticBBox.height, cnr, cnr);
+
+			g.fillRoundRect(modDynamicABox.x, modDynamicABox.y,
+					modDynamicABox.width, modDynamicABox.height, cnr, cnr);
+
+			g.fillRoundRect(modDynamicBBox.x, modDynamicBBox.y,
+					modDynamicBBox.width, modDynamicBBox.height, cnr, cnr);
+
 			g.fillRoundRect(globalModSettingsBox.x, globalModSettingsBox.y, 
 					globalModSettingsBox.width, globalModSettingsBox.height, cnr, cnr);			
+		} else {
+			g.setPaint(GameUI.buttonLeftBackground());
+			g.fillRoundRect(mergedStaticBox.x, mergedStaticBox.y,
+					mergedStaticBox.width, mergedStaticBox.height, cnr, cnr);
+
+			g.fillRoundRect(mergedDynamicBox.x, mergedDynamicBox.y,
+					mergedDynamicBox.width, mergedDynamicBox.height, cnr, cnr);
+			
 		}
 
 		// draw START button
@@ -998,45 +1013,73 @@ public final class SetupGalaxyUI  extends BaseModPanel
 
 	}
 	private void drawButtons(Graphics2D g) {
-		// settings button
 		int cnr = s5;
-		g.setFont(narrowFont(20)); // 18 for 3 buttons
-		String text6 = text("SETUP_BUTTON_SETTINGS");
-		int sw6 = g.getFontMetrics().stringWidth(text6);
-		int x6 = settingsBox.x+((settingsBox.width-sw6)/2);
-		int y6 = settingsBox.y+settingsBox.height-s8;
-		Color c6 = hoverBox == settingsBox ? Color.yellow : GameUI.borderBrightColor();
-		drawShadowedString(g, text6, 2, x6, y6, GameUI.borderDarkColor(), c6);
-		Stroke prev = g.getStroke();
-		g.setStroke(stroke1);
-		g.drawRoundRect(settingsBox.x, settingsBox.y, settingsBox.width, settingsBox.height, cnr, cnr);
-		g.setStroke(prev);
+		Stroke prev;
 		
 		if (!compactOptionOnly.get()) {
+			// Advanced settings button
+			g.setFont(narrowFont(18)); // 18 for 3 buttons// 20 for 2 buttons
+			String text6 = text("SETUP_BUTTON_SETTINGS");
+			int sw6 = g.getFontMetrics().stringWidth(text6);
+			int x6 = settingsBox.x+((settingsBox.width-sw6)/2);
+			int y6 = settingsBox.y+settingsBox.height-s8;
+			Color c6 = hoverBox == settingsBox ? Color.yellow : GameUI.borderBrightColor();
+			drawShadowedString(g, text6, 2, x6, y6, GameUI.borderDarkColor(), c6);
+			prev = g.getStroke();
+			g.setStroke(stroke1);
+			g.drawRoundRect(settingsBox.x, settingsBox.y, settingsBox.width, settingsBox.height, cnr, cnr);
+			g.setStroke(prev);
+
 			// modnar: add UI panel for modnar MOD game options
 			// MOD settings button
-			String textMOD = text("SETUP_BUTTON_MOD_SETTINGS");
+			String textMOD = text("SETUP_BUTTON_STATIC_A_SETTINGS");
 			int swMOD = g.getFontMetrics().stringWidth(textMOD);
-			int xMOD = modASettingsBox.x+((modASettingsBox.width-swMOD)/2);
-			int yMOD = modASettingsBox.y+modASettingsBox.height-s8;
-			Color cMOD = hoverBox == modASettingsBox ? Color.yellow : GameUI.borderBrightColor();
+			int xMOD = modStaticABox.x+((modStaticABox.width-swMOD)/2);
+			int yMOD = modStaticABox.y+modStaticABox.height-s8;
+			Color cMOD = hoverBox == modStaticABox ? Color.yellow : GameUI.borderBrightColor();
 			drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), cMOD);
 			prev = g.getStroke();
 			g.setStroke(stroke1);
-			g.drawRoundRect(modASettingsBox.x, modASettingsBox.y, modASettingsBox.width, modASettingsBox.height, cnr, cnr);
+			g.drawRoundRect(modStaticABox.x, modStaticABox.y, modStaticABox.width, modStaticABox.height, cnr, cnr);
 			g.setStroke(prev);
 
 			// BR: second UI panel for MOD game options
 			// MOD settings button
-			String textModB = text("SETUP_BUTTON_MOD_B_SETTINGS");
-			int swModB = g.getFontMetrics().stringWidth(textModB);
-			int xModB = modBSettingsBox.x+((modBSettingsBox.width-swModB)/2);
-			int yModB = modBSettingsBox.y+modBSettingsBox.height-s8;
-			Color cModB = hoverBox == modBSettingsBox ? Color.yellow : GameUI.borderBrightColor();
-			drawShadowedString(g, textModB, 2, xModB, yModB, GameUI.borderDarkColor(), cModB);
+			textMOD = text("SETUP_BUTTON_STATIC_B_SETTINGS");
+			swMOD = g.getFontMetrics().stringWidth(textMOD);
+			xMOD = modStaticBBox.x+((modStaticBBox.width-swMOD)/2);
+			yMOD = modStaticBBox.y+modStaticBBox.height-s8;
+			cMOD = hoverBox == modStaticBBox ? Color.yellow : GameUI.borderBrightColor();
+			drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), cMOD);
 			prev = g.getStroke();
 			g.setStroke(stroke1);
-			g.drawRoundRect(modBSettingsBox.x, modBSettingsBox.y, modBSettingsBox.width, modBSettingsBox.height, cnr, cnr);
+			g.drawRoundRect(modStaticBBox.x, modStaticBBox.y, modStaticBBox.width, modStaticBBox.height, cnr, cnr);
+			g.setStroke(prev);
+
+			// BR: second UI panel for MOD game options
+			// MOD settings button
+			textMOD = text("SETUP_BUTTON_DYNAMIC_A_SETTINGS");
+			swMOD = g.getFontMetrics().stringWidth(textMOD);
+			xMOD = modDynamicABox.x+((modDynamicABox.width-swMOD)/2);
+			yMOD = modDynamicABox.y+modDynamicABox.height-s8;
+			cMOD = hoverBox == modDynamicABox ? Color.yellow : GameUI.borderBrightColor();
+			drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), cMOD);
+			prev = g.getStroke();
+			g.setStroke(stroke1);
+			g.drawRoundRect(modDynamicABox.x, modDynamicABox.y, modDynamicABox.width, modDynamicABox.height, cnr, cnr);
+			g.setStroke(prev);
+
+			// BR: second UI panel for MOD game options
+			// MOD settings button
+			textMOD = text("SETUP_BUTTON_DYNAMIC_B_SETTINGS");
+			swMOD = g.getFontMetrics().stringWidth(textMOD);
+			xMOD = modDynamicBBox.x+((modDynamicBBox.width-swMOD)/2);
+			yMOD = modDynamicBBox.y+modDynamicBBox.height-s8;
+			cMOD = hoverBox == modDynamicBBox ? Color.yellow : GameUI.borderBrightColor();
+			drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), cMOD);
+			prev = g.getStroke();
+			g.setStroke(stroke1);
+			g.drawRoundRect(modDynamicBBox.x, modDynamicBBox.y, modDynamicBBox.width, modDynamicBBox.height, cnr, cnr);
 			g.setStroke(prev);
 
 			// BR: Display settings UI panel for MOD game options
@@ -1052,6 +1095,33 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			g.drawRoundRect(globalModSettingsBox.x, globalModSettingsBox.y,
 					globalModSettingsBox.width, globalModSettingsBox.height, cnr, cnr);
 			g.setStroke(prev);			
+		} else {
+			g.setFont(narrowFont(20)); // 18 for 3 buttons// 20 for 2 buttons
+			// BR: second UI panel for MOD game options
+			// MOD settings button
+			String textMOD = text("SETUP_BUTTON_MERGED_STATIC_SETTINGS");
+			int swMOD = g.getFontMetrics().stringWidth(textMOD);
+			int xMOD = mergedStaticBox.x+((mergedStaticBox.width-swMOD)/2);
+			int yMOD = mergedStaticBox.y+mergedStaticBox.height-s8;
+			Color cMOD = hoverBox == mergedStaticBox ? Color.yellow : GameUI.borderBrightColor();
+			drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), cMOD);
+			prev = g.getStroke();
+			g.setStroke(stroke1);
+			g.drawRoundRect(mergedStaticBox.x, mergedStaticBox.y, mergedStaticBox.width, mergedStaticBox.height, cnr, cnr);
+			g.setStroke(prev);
+
+			// BR: second UI panel for MOD game options
+			// MOD settings button
+			textMOD = text("SETUP_BUTTON_MERGED_DYNAMIC_SETTINGS");
+			swMOD = g.getFontMetrics().stringWidth(textMOD);
+			xMOD = mergedDynamicBox.x+((mergedDynamicBox.width-swMOD)/2);
+			yMOD = mergedDynamicBox.y+mergedDynamicBox.height-s8;
+			cMOD = hoverBox == mergedDynamicBox ? Color.yellow : GameUI.borderBrightColor();
+			drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), cMOD);
+			prev = g.getStroke();
+			g.setStroke(stroke1);
+			g.drawRoundRect(mergedDynamicBox.x, mergedDynamicBox.y, mergedDynamicBox.width, mergedDynamicBox.height, cnr, cnr);
+			g.setStroke(prev);
 		}
 
 
@@ -1435,37 +1505,53 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		repaint();
 	}
 	private void goToOptions() {
-		buttonClick();
-//		AdvancedOptionsUI optionsUI = RotPUI.advancedOptionsUI();
-//		optionsUI.init();
-		if (Modifier2KeysState.isShiftDown() || compactOptionOnly.get()) {
-			MergedOptionsUI optionsUI = RotPUI.mergedOptionsUI();
-			close();
-			optionsUI.start(false); // not called from game
-		} else {
-			AdvancedOptionsUI optionsUI = RotPUI.advancedOptionsUI();
-			close();
-			optionsUI.init();
+		if (Modifier2KeysState.isShiftDown()) {
+			goToMergedStatic();
+			return;
 		}
-//		if (Modifier2KeysState.isShiftDown()) {
-//		AdvancedOptionsUI optionsUI = RotPUI.advancedOptionsUI();
-//		optionsUI.init();
-//	} else {
-//		StartOptionsUI optionsUI = RotPUI.startOptionsUI();
-//		optionsUI.open(this);			
-//	}
-	}
-	// modnar: add UI panel for modnar MOD game options
-	private void goToModOptions() {
+		if (Modifier2KeysState.isCtrlDown()) {
+			goToMergedDynamic();
+			return;
+		}
 		buttonClick();
-		StartModAOptionsUI modOptionsUI = RotPUI.startModAOptionsUI();
+		AdvancedOptionsUI optionsUI = RotPUI.advancedOptionsUI();
+		close();
+		optionsUI.init();
+	}
+	// BR: add UI panel for MOD game options
+	private void goToMergedStatic() {
+		buttonClick();
+		MergedStaticOptionsUI modOptionsUI = RotPUI.mergedStaticOptionsUI();
+		close();
+		modOptionsUI.start(false);
+	}
+	private void goToMergedDynamic() {
+		buttonClick();
+		MergedDynamicOptionsUI modOptionsUI = RotPUI.mergedDynamicOptionsUI();
+		close();
+		modOptionsUI.start(false);
+	}
+	private void goToModStaticA() {
+		buttonClick();
+		StaticAOptionsUI modOptionsUI = RotPUI.modOptionsStaticA();
 		close();
 		modOptionsUI.init();
 	}
-	// BR: Second UI panel for MOD game options
-	private void goToMod2Options() {
+	private void goToModStaticB() {
 		buttonClick();
-		StartModBOptionsUI modBOptionsUI = RotPUI.startModBOptionsUI();
+		StaticBOptionsUI modBOptionsUI = RotPUI.modOptionsStaticB();
+		close();
+		modBOptionsUI.init();
+	}
+	private void goToModDynamicA() {
+		buttonClick();
+		DynamicAOptionsUI modOptionsUI = RotPUI.modOptionsDynamicA();
+		close();
+		modOptionsUI.init();
+	}
+	private void goToModDynamicB() {
+		buttonClick();
+		DynamicBOptionsUI modBOptionsUI = RotPUI.modOptionsDynamicB();
 		close();
 		modBOptionsUI.init();
 	}
@@ -1854,14 +1940,14 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		int cnr = s5;
 
 		// draw settings button
-		int smallButtonH = s30; // 27 for 3 buttons
-		int smallButtonW = scaled(180); // 150 for 3 buttons
-		// int smallButton2W = scaled(135); // for the two smaller buttons when 3 buttons
+		int smallButtonH = s27; // 27 for 3 buttons // 30 for 2 buttons
+		int smallButtonW = scaled(150); // 150 for 3 buttons // 180 for 2 buttons
+		int smallButton2W = scaled(135); // for the two smaller buttons when 3 buttons
 		// BR: buttons positioning
-		int yb = 610; // 615 for 3 buttons (1 row)
-		int xb = 960; // 966 for 3 buttons // 960 for 2 buttons 1 row // 948 for centered
-		int dx = 200; // 138 for 3 buttons // 200 for 2 buttons 1 row // 241 for centered
-		int dy = 35; // 30 for 3 buttons
+		int yb = 615; // 615 for 3 buttons (1 row) // 610 for 2 buttons
+		int xb = 989; // 989 for 3 buttons // 960 for 2 buttons 1 row // 948 for centered
+		int dx = 145; // 145 for 3 buttons // 200 for 2 buttons 1 row // 241 for centered
+		int dy = 30; // 30 for 3 buttons // 35 for 2 buttons
 //		settingsBox.setBounds(scaled(xb), scaled(yb), smallButtonW, smallButtonH);
 //		g.setPaint(GameUI.buttonLeftBackground());
 //		g.fillRoundRect(settingsBox.x, settingsBox.y, smallButtonW, smallButtonH, cnr, cnr);
@@ -1872,29 +1958,50 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			g.fillRoundRect(settingsBox.x, settingsBox.y, smallButtonW, smallButtonH, cnr, cnr);
 			// modnar: add UI panel for modnar MOD game options // BR: Squeezed a little
 			// draw MOD settings button
-			modASettingsBox.setBounds(scaled(xb-dx), scaled(yb), smallButtonW, smallButtonH);
-			g.setPaint(GameUI.buttonLeftBackground());
-			g.fillRoundRect(modASettingsBox.x, modASettingsBox.y, smallButtonW, smallButtonH, cnr, cnr);
+			modStaticABox.setBounds(scaled(xb-dx), scaled(yb), smallButton2W, smallButtonH);
+			g.setPaint(GameUI.buttonRightBackground());
+			g.fillRoundRect(modStaticABox.x, modStaticABox.y, smallButton2W, smallButtonH, cnr, cnr);
 			// BR: second UI panel for MOD game options
 			// draw MOD settings button
-			modBSettingsBox.setBounds(scaled(xb-dx), scaled(yb+dy), smallButtonW, smallButtonH);
-			g.setPaint(GameUI.buttonLeftBackground());
-			g.fillRoundRect(modBSettingsBox.x, modBSettingsBox.y, smallButtonW, smallButtonH, cnr, cnr);
+			modStaticBBox.setBounds(scaled(xb-2*dx), scaled(yb), smallButton2W, smallButtonH);
+			g.setPaint(GameUI.buttonRightBackground());
+			g.fillRoundRect(modStaticBBox.x, modStaticBBox.y, smallButton2W, smallButtonH, cnr, cnr);
+			// BR: second UI panel for MOD game options
+			// draw MOD settings button
+			modDynamicABox.setBounds(scaled(xb-dx), scaled(yb+dy), smallButton2W, smallButtonH);
+			g.setPaint(GameUI.buttonRightBackground());
+			g.fillRoundRect(modDynamicABox.x, modDynamicABox.y, smallButton2W, smallButtonH, cnr, cnr);
+			// BR: second UI panel for MOD game options
+			// draw MOD settings button
+			modDynamicBBox.setBounds(scaled(xb-2*dx), scaled(yb+dy), smallButton2W, smallButtonH);
+			g.setPaint(GameUI.buttonRightBackground());
+			g.fillRoundRect(modDynamicBBox.x, modDynamicBBox.y, smallButton2W, smallButtonH, cnr, cnr);
 			// BR: Display Settings UI panel for MOD game options
 			// draw MOD settings button
 			globalModSettingsBox.setBounds(scaled(xb), scaled(yb+dy), smallButtonW, smallButtonH);
 			g.setPaint(GameUI.buttonLeftBackground());
 			g.fillRoundRect(globalModSettingsBox.x, globalModSettingsBox.y, smallButtonW, smallButtonH, cnr, cnr);			
 		} else {
-			settingsBox.setBounds(scaled(xb), scaled(yb+30), smallButtonW, smallButtonH);
+			yb = 610; // 615 for 3 buttons (1 row) // 610 for 2 buttons
+			xb = 960; // 984 for 3 buttons // 960 for 2 buttons 1 row // 948 for centered
+			dx = 200; // 145 for 3 buttons // 200 for 2 buttons 1 row // 241 for centered
+			dy = 30; // for 1 row
+			smallButtonW = scaled(180); // 150 for 3 buttons // 180 for 2 buttons
+			smallButtonH = s30; // 27 for 3 buttons // 30 for 2 buttons
+			// draw Merged settings button
+			mergedStaticBox.setBounds(scaled(xb), scaled(yb+dy), smallButtonW, smallButtonH);
 			g.setPaint(GameUI.buttonLeftBackground());
-			g.fillRoundRect(settingsBox.x, settingsBox.y, smallButtonW, smallButtonH, cnr, cnr);
+			g.fillRoundRect(mergedStaticBox.x, mergedStaticBox.y, smallButtonW, smallButtonH, cnr, cnr);
+			// draw Merged settings button
+			mergedDynamicBox.setBounds(scaled(xb-dx), scaled(yb+dy), smallButtonW, smallButtonH);
+			g.setPaint(GameUI.buttonLeftBackground());
+			g.fillRoundRect(mergedDynamicBox.x, mergedDynamicBox.y, smallButtonW, smallButtonH, cnr, cnr);
 		}
 
 		int buttonH = s45;
 		int buttonW = scaled(220);
 		int yB = 685+10; // 2 Button's Rows Offset, was 685
-		xb = 950; // was 950 // 1080 for 3 buttons
+		xb = 950; // was 950
 		dx = 241;
 		// draw START button
 		startBox.setBounds(scaled(xb), scaled(yB), buttonW, buttonH);
@@ -2026,11 +2133,20 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		else if (settingsBox.contains(x,y))
 			hoverBox = settingsBox;
 		// modnar: add UI panel for modnar MOD game options
-		else if (modASettingsBox.contains(x,y))
-			hoverBox = modASettingsBox;
+		else if (modStaticABox.contains(x,y))
+			hoverBox = modStaticABox;
+		// BR: Merged UI panel for MOD game options
+		else if (mergedStaticBox.contains(x,y))
+			hoverBox = mergedStaticBox;
+		else if (mergedDynamicBox.contains(x,y))
+			hoverBox = mergedDynamicBox;
 		// BR: Second UI panel for MOD game options
-		else if (modBSettingsBox.contains(x,y))
-			hoverBox = modBSettingsBox;
+		else if (modStaticBBox.contains(x,y))
+			hoverBox = modStaticBBox;
+		else if (modDynamicABox.contains(x,y))
+			hoverBox = modDynamicABox;
+		else if (modDynamicBBox.contains(x,y))
+			hoverBox = modDynamicBBox;
 		// BR: Display UI panel for MOD game options
 		else if (globalModSettingsBox.contains(x,y))
 			hoverBox = globalModSettingsBox;
@@ -2137,11 +2253,20 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		else if (hoverBox == settingsBox)
 			goToOptions();
 		// modnar: add UI panel for modnar MOD game options
-		else if (hoverBox == modASettingsBox)
-			goToModOptions();
+		else if (hoverBox == modStaticABox)
+			goToModStaticA();
+		// BR: Merged UI panel for MOD game options
+		else if (hoverBox == mergedStaticBox)
+			goToMergedStatic();
+		else if (hoverBox == mergedDynamicBox)
+			goToMergedDynamic();
 		// BR: second UI panel for MOD game options
-		else if (hoverBox == modBSettingsBox)
-			goToMod2Options();
+		else if (hoverBox == modStaticBBox)
+			goToModStaticB();
+		else if (hoverBox == modDynamicABox)
+			goToModDynamicA();
+		else if (hoverBox == modDynamicBBox)
+			goToModDynamicB();
 		// BR: Display UI panel for MOD game options
 		else if (hoverBox == globalModSettingsBox)
 			goToModGlobalOptions();

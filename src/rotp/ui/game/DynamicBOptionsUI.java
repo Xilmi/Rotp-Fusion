@@ -15,19 +15,21 @@
  */
 package rotp.ui.game;
 
-import static rotp.ui.UserPreferences.modGlobalOptionsUI;
+import static rotp.ui.UserPreferences.modOptionsDynamicB;
 
-public class ModGlobalOptionsUI extends AbstractOptionsUI {
+// modnar: add UI panel for modnar MOD game options, based on StartOptionsUI.java
+public class DynamicBOptionsUI extends AbstractOptionsUI {
 	private static final long serialVersionUID = 1L;
-	public  static final String guiTitleID = "SETTINGS_MOD_TITLE_GLOBAL";
-	public  static final String GUI_ID     = "START_MOD_GLOBAL";
-
-	public ModGlobalOptionsUI() {
+	public static final String guiTitleID = "SETTINGS_MOD_DYNAMIC_TITLE";
+	public static final String GUI_ID     = "START_MOD_DYN_B";
+	
+	// Just call the "super" with GUI Title Label ID
+	public DynamicBOptionsUI() {
 		super(guiTitleID, GUI_ID);
 	}
-
+	// ========== Abstract Overriders ==========
+	//
 	@Override protected void init0() {
-		globalOptions = true; // No preferred button
-		paramList	  = modGlobalOptionsUI;
+		paramList = modOptionsDynamicB;
 	}
 }

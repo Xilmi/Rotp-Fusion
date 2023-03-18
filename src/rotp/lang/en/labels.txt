@@ -165,6 +165,7 @@ EVENT_SPACE_PIRATES               | A fleet of marauding Space Pirates have been
 EVENT_SPACE_PIRATES_1             | A fleet of marauding Space Pirates have been spotted approaching the uncolonized [system] system.
 EVENT_SPACE_PIRATES_2             | The dreaded Space Pirates have ravaged the population and pillaged all industry on the [race] colony in the [system] system, devastating the local ecology.
 EVENT_SPACE_PIRATES_3             | The Space Pirate fleet was destroyed by [race] defenders in the [system] system. Significant riches found in the wreckage have been seized by the [race] military to bolster their Planetary Reserve.
+EVENT_SPACE_PIRATES_4             | The powerful Space Pirate has left our insignificant galaxy! Where did it go? We don't care, good riddance!
 // modnar: add Precursor Relic random event
 EVENT_RELIC_PLANETS               | A Precursor relic has mysteriously activated in [target_empire] space. Galaxy-wide scanners report the formation of new planets in multiple previously empty Star Systems after intense asteroid coalescence events. [target_race] scientists have also harvested several Construction technologies from the relic.
 // modnar: add Gauntlet Relic random event
@@ -1289,10 +1290,14 @@ SETUP_BUTTON_NEXT                 | Next
 SETUP_BUTTON_START                | Start
 SETUP_BUTTON_RESTART              | Restart
 SETUP_BUTTON_SETTINGS             | Advanced Options
-// modnar: add UI panel for modnar MOD game options
-SETUP_BUTTON_MOD_SETTINGS         | MOD Options A
-SETUP_BUTTON_MOD_B_SETTINGS       | MOD Options B
-SETUP_BUTTON_MOD_GLOBAL_SETTINGS  | MOD Global Options
+// BR: add UI panel for modnar MOD game options
+SETUP_BUTTON_STATIC_A_SETTINGS    | Static A
+SETUP_BUTTON_STATIC_B_SETTINGS    | Static B
+SETUP_BUTTON_DYNAMIC_A_SETTINGS   | Dynamic A
+SETUP_BUTTON_DYNAMIC_B_SETTINGS   | Dynamic B
+SETUP_BUTTON_MOD_GLOBAL_SETTINGS  | Menu Options
+SETUP_BUTTON_MERGED_STATIC_SETTINGS  | Static Options
+SETUP_BUTTON_MERGED_DYNAMIC_SETTINGS | Dynamic Options
 // BR: Restart swap empire
 SETUP_SELECT_EMPIRE_TITLE         | Select Player Empire
 SETUP_SELECT_EMPIRE_SELECT_BUTTON | Select
@@ -1631,6 +1636,8 @@ SETTINGS_MENU_OPTIONS              | ~~~ MENU'S OPTIONS ~~~%1
 
 // modnar: add UI panel for modnar MOD game options
 SETTINGS_MOD_TITLE                   | modnar MOD Options
+SETTINGS_MOD_STATIC_TITLE            | Static Options
+SETTINGS_MOD_DYNAMIC_TITLE           | Dynamic Options
 SETTINGS_MOD_DIST_ARTIFACT_PLANET    | Min Artifact distance: %1
 SETTINGS_MOD_NEW_RACES_ON            | Include New Races: %1
 SETTINGS_MOD_CHALLENGE_MODE          | Challenge Mode: %1
@@ -1690,10 +1697,14 @@ SETTINGS_MOD_AMOEBA_DELAY_TURN_DESC      | To adjust the starting turn of random
 SETTINGS_MOD_AMOEBA_DELAY_TURN           | Amoeba Base Delay Turns: %1
 SETTINGS_MOD_CRYSTAL_DELAY_TURN_DESC     | To adjust the starting turn of random space crystal events (x2 for Easy; x3 for Easier; x4 for Easiest).
 SETTINGS_MOD_CRYSTAL_DELAY_TURN          | Crystal Base Delay Turns: %1
+SETTINGS_MOD_PIRATES_RETURN_TURN_DESC    | To adjust the Delay between two Space Pirates events occurence. (0 = Unique event)
+SETTINGS_MOD_PIRATES_RETURN_TURN         | Pirates Return Delay: %1
 SETTINGS_MOD_AMOEBA_RETURN_TURN_DESC     | To adjust the Delay between two Space Amoeba events occurence. (0 = Unique event)
 SETTINGS_MOD_AMOEBA_RETURN_TURN          | Amoeba Return Delay: %1
 SETTINGS_MOD_CRYSTAL_RETURN_TURN_DESC    | To adjust the Delay between two Space Crystal events occurence. (0 = Unique event)
 SETTINGS_MOD_CRYSTAL_RETURN_TURN         | Crystal Return Delay: %1
+SETTINGS_MOD_PIRATES_MAX_SYSTEMS_DESC    | To adjust the Number of stars system attacked by the Space Pirates before leaving. (0 = Not limited)
+SETTINGS_MOD_PIRATES_MAX_SYSTEMS         | Max Pirates Attack: %1
 SETTINGS_MOD_AMOEBA_MAX_SYSTEMS_DESC     | To adjust the Number of stars system attacked by the Space Amoeba before leaving. (0 = Not limited)
 SETTINGS_MOD_AMOEBA_MAX_SYSTEMS          | Max Amoeba Attack: %1
 SETTINGS_MOD_CRYSTAL_MAX_SYSTEMS_DESC    | To adjust the Number of stars system attacked by the Space Crystal before leaving. (0 = Not limited)

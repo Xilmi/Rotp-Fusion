@@ -15,14 +15,21 @@
  */
 package rotp.ui.game;
 
-import rotp.ui.UserPreferences;
+import static rotp.ui.UserPreferences.modOptionsDynamicA;
 
-public class MergedOptionsUI extends CompactOptionsUI {
+// modnar: add UI panel for modnar MOD game options, based on StartOptionsUI.java
+public class DynamicAOptionsUI extends AbstractOptionsUI {
 	private static final long serialVersionUID = 1L;
-	public static final String guiTitleID = "SETTINGS_TITLE";
-	public static final String GUI_ID     = "MERGED_OPTIONS";
+	public static final String guiTitleID = "SETTINGS_MOD_DYNAMIC_TITLE";
+	public static final String GUI_ID     = "START_MOD_DYN_A";
 	
-	public MergedOptionsUI() {
-		super(guiTitleID, GUI_ID, UserPreferences.mergedOptionsMap);
+	// Just call the "super" with GUI Title Label ID
+	public DynamicAOptionsUI() {
+		super(guiTitleID, GUI_ID);
+	}
+	// ========== Abstract Overriders ==========
+	//
+	@Override protected void init0() {
+		paramList = modOptionsDynamicA;
 	}
 }

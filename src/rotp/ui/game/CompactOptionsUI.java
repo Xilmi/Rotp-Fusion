@@ -69,8 +69,8 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 	private	static final Font titleFont		= FontManager.current().narrowFont(30);
 	private static final int titleOffset	= s40; // Offset from Margin
 	private static final int titlePad		= s70; // Offset of first setting
-	private static final int settingFont	= 18;
-	private static final int settingH		= s18;
+	private static final int settingFont	= 20;
+	private static final int settingH		= s20;
 	private static final int settingpadH	= s5;
 	private static final int columnPad		= s12;
 	private static final int tooltipLines	= 2;

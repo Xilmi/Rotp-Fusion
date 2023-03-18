@@ -15,8 +15,13 @@
  */
 package rotp.model.events;
 
+import static rotp.ui.UserPreferences.amoebaReturnTurn;
 import static rotp.ui.UserPreferences.piratesDelayTurn;
+import static rotp.ui.UserPreferences.piratesMaxSystems;
+import static rotp.ui.UserPreferences.piratesReturnTurn;
+
 import java.io.Serializable;
+
 import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.SpacePirates;
@@ -28,38 +33,47 @@ import rotp.util.Base;
 // modnar: add Space Pirates random event
 public class RandomEventSpacePirates implements Base, Serializable, RandomEvent {
     private static final long serialVersionUID = 1L;
+    private static final String NEXT_ALLOWED_TURN = "PIRATES_NEXT_ALLOWED_TURN";
     public static SpacePirates monster;
     private int empId;
     private int sysId;
     private int turnCount = 0;
+    private transient Integer nextAllowedTurn;
     
     static {
         initMonster();
     }
     @Override
-    public String statusMessage()               { return text("SYSTEMS_STATUS_SPACE_PIRATES"); }
+    public String statusMessage()       { return text("SYSTEMS_STATUS_SPACE_PIRATES"); }
     @Override
-    public String systemKey()                   { return "MAIN_PLANET_EVENT_PIRATES"; }
+    public String systemKey()           { return "MAIN_PLANET_EVENT_PIRATES"; }
     @Override
     public boolean goodEvent()    		{ return false; }
+    @Override // modnar: Space Pirates are repeatable // BR: Player Choice
+    public boolean repeatable()    		{ return piratesReturnTurn.get() != 0; } 
     @Override
-    public boolean repeatable()    		{ return true; } // modnar: Space Pirates are repeatable
-    @Override
-    public boolean monsterEvent()               { return true; } // modnar: make into monsterEvent
+    public boolean monsterEvent()       { return true; } // modnar: make into monsterEvent
     @Override
     public int minimumTurn() {
-		// modnar: Space Pirates can show up earlier than other space monsters, later than regular random events
+      	int turn = 0;
+      	 		// modnar: Space Pirates can show up earlier than other space monsters, later than regular random events
 		// but the space pirate ship stack stats will be based on galaxy empire development
 		switch (options().selectedGameDifficulty()) { // BR: added adjustable delay
             case IGameOptions.DIFFICULTY_EASIEST:
-                return RandomEvents.START_TURN + 4 * piratesDelayTurn.get();
+            	turn = RandomEvents.START_TURN + 4 * piratesDelayTurn.get();
+            	break;
             case IGameOptions.DIFFICULTY_EASIER:
-                return RandomEvents.START_TURN + 3 * piratesDelayTurn.get();
+            	turn = RandomEvents.START_TURN + 3 * piratesDelayTurn.get();
+            	break;
             case IGameOptions.DIFFICULTY_EASY:
-                return RandomEvents.START_TURN + 2 * piratesDelayTurn.get();
+            	turn = RandomEvents.START_TURN + 2 * piratesDelayTurn.get();
+            	break;
             default:
-                return RandomEvents.START_TURN + piratesDelayTurn.get();
+            	turn = RandomEvents.START_TURN + piratesDelayTurn.get();
         }
+//      System.out.println("Space Pirates next Turn = " + max(turn, nextAllowedTurn()) +
+//		" (current turn = " + galaxy().currentTurn() + ")");
+return max(turn, nextAllowedTurn()); // BR: To allow repeatable event
 	}
     @Override
     public String notificationText()    {
@@ -70,6 +84,7 @@ public class RandomEventSpacePirates implements Base, Serializable, RandomEvent 
     @Override
     public void trigger(Empire emp) {
         log("Starting Pirates event against: "+emp.raceName());
+//      System.out.println("Starting Pirates event against: "+emp.raceName());
         StarSystem targetSystem = random(emp.allColonizedSystems());
         empId = emp.id;
         sysId = targetSystem.id;
@@ -91,10 +106,25 @@ public class RandomEventSpacePirates implements Base, Serializable, RandomEvent 
     private boolean monsterAllowed() {
     	return options().selectedRandomEventOption().equals(IGameOptions.RANDOM_EVENTS_ON);
     }
-    private static void initMonster() {
+    private int nextAllowedTurn() {
+    	if (nextAllowedTurn == null)
+    		nextAllowedTurn = (Integer) galaxy().dynamicOptions().getInteger(NEXT_ALLOWED_TURN, -1);
+    	return nextAllowedTurn;
+    }
+    private void nextAllowedTurn(Integer turn) {
+    	nextAllowedTurn = turn;
+    	galaxy().dynamicOptions().setInteger(NEXT_ALLOWED_TURN, nextAllowedTurn);
+    }
+    private boolean nextSystemAllowed() { // BR: To allow disappearance
+        if (!options().selectedRandomEventOption().equals(IGameOptions.RANDOM_EVENTS_ON))
+            return false;
+    	int maxSystem = piratesMaxSystems.get();
+        return maxSystem == 0 || maxSystem > monster.vistedSystemsCount();
+    }
+     private static void initMonster() {
         monster = new SpacePirates();
     }
-    private void enterSystem() {
+   private void enterSystem() {
         monster.visitSystem(sysId);
         monster.initCombat();
         StarSystem targetSystem = galaxy().system(sysId);
@@ -109,7 +139,10 @@ public class RandomEventSpacePirates implements Base, Serializable, RandomEvent 
             if (col != null)
 				// modnar: pirates pillage colonies rather than destroy
                 pillageColony(col);
-            moveToNextSystem();
+            if (nextSystemAllowed())
+            	moveToNextSystem();
+            else
+            	monsterVanished();
         }
         else 
             piratesDestroyed();         
@@ -152,6 +185,16 @@ public class RandomEventSpacePirates implements Base, Serializable, RandomEvent 
 
         if (player().knowsOf(galaxy().empire(empId)) || !player().sv.name(sysId).isEmpty())
             GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_PIRATES_3", monster.lastAttacker()), "GNN_Event_Pirates");
+    }
+    private void monsterVanished() { // BR: To allow disappearance
+    	terminateEvent();
+        if (player().knowsOf(galaxy().empire(empId)) || !player().sv.name(sysId).isEmpty())
+            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_PIRATES_4", monster.lastAttacker()), "GNN_Event_Pirates");
+    }
+    private void terminateEvent() { // BR: To allow repeatable event
+   		galaxy().events().removeActiveEvent(this);
+    	if(repeatable())
+    		nextAllowedTurn(galaxy().currentTurn() + piratesReturnTurn.get());
     }
     private void moveToNextSystem() {
         if (!options().selectedRandomEventOption().equals(IGameOptions.RANDOM_EVENTS_ON)) {

@@ -34,7 +34,7 @@ import br.profileManager.src.main.java.T_Integer;
 import br.profileManager.src.main.java.Valid_IntegerWithList;
 import br.profileManager.src.main.java.Validation;
 import rotp.ui.UserPreferences;
-import rotp.ui.game.StartModAOptionsUI;
+//import rotp.ui.game.StartModAOptionsUI;
 
 /**
  * @author BrokenRegistry

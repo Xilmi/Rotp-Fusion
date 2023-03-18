@@ -67,16 +67,19 @@ import rotp.ui.game.AdvancedOptionsUI;
 import rotp.ui.game.GameOverUI;
 import rotp.ui.game.GameSettingsUI;
 import rotp.ui.game.GameUI;
-import rotp.ui.game.MergedOptionsUI;
+import rotp.ui.game.MergedStaticOptionsUI;
 import rotp.ui.game.HelpUI;
 import rotp.ui.game.LoadGameUI;
+import rotp.ui.game.MergedDynamicOptionsUI;
 import rotp.ui.game.ModGlobalOptionsUI;
+import rotp.ui.game.DynamicAOptionsUI;
+import rotp.ui.game.DynamicBOptionsUI;
+import rotp.ui.game.StaticAOptionsUI;
+import rotp.ui.game.StaticBOptionsUI;
 import rotp.ui.game.RaceIntroUI;
 import rotp.ui.game.SaveGameUI;
 import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.game.SetupRaceUI;
-import rotp.ui.game.StartModAOptionsUI; // modnar: add UI panel for modnar MOD game options
-import rotp.ui.game.StartModBOptionsUI;
 import rotp.ui.history.HistoryUI;
 import rotp.ui.main.MainUI;
 import rotp.ui.map.SystemsUI;
@@ -255,12 +258,14 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     private final HelpUI helpUI = new HelpUI();
 //    private final StartOptionsUI startOptionsUI = new StartOptionsUI();
     private final AdvancedOptionsUI advancedOptionsUI = new AdvancedOptionsUI();
-    private final MergedOptionsUI mergedOptionsUI = new MergedOptionsUI();
-    // modnar: add UI panel for modnar MOD game options
-    private final StartModAOptionsUI startModAOptionsUI = new StartModAOptionsUI();
-    // BR: Second UI panel for MOD game options
-    private final StartModBOptionsUI startModBOptionsUI = new StartModBOptionsUI();
-    // BR: Display UI panel for MOD game options
+    // BR: Compact Mod Game options
+    private final MergedStaticOptionsUI  mergedStaticOptionsUI  = new MergedStaticOptionsUI();
+    private final MergedDynamicOptionsUI mergedDynamicOptionsUI = new MergedDynamicOptionsUI();
+    // BR: Standard Mod Game Options
+    private final StaticAOptionsUI   staticAOptionsUI   = new StaticAOptionsUI();
+    private final StaticBOptionsUI   staticBOptionsUI   = new StaticBOptionsUI();
+    private final DynamicAOptionsUI  dynamicAOptionsUI  = new DynamicAOptionsUI();
+    private final DynamicBOptionsUI  dynamicBOptionsUI  = new DynamicBOptionsUI();
     private final ModGlobalOptionsUI modGlobalOptionsUI = new ModGlobalOptionsUI();
     private final GameSettingsUI gameSettingsUI = new GameSettingsUI();
     private final LargeDialogPane dialogPane = new LargeDialogPane();
@@ -397,13 +402,14 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     public static HelpUI helpUI()                 { return instance.helpUI; }
 //    public static StartOptionsUI startOptionsUI() { return instance.startOptionsUI; }
     public static AdvancedOptionsUI advancedOptionsUI() { return instance.advancedOptionsUI; }
-    public static MergedOptionsUI mergedOptionsUI() { return instance.mergedOptionsUI; }
+    public static MergedStaticOptionsUI mergedStaticOptionsUI() { return instance.mergedStaticOptionsUI; }
+    public static MergedDynamicOptionsUI mergedDynamicOptionsUI() { return instance.mergedDynamicOptionsUI; }
     public static GameSettingsUI gameSettingsUI() { return instance.gameSettingsUI; }
-    // modnar: add UI panel for modnar MOD game options
-    public static StartModAOptionsUI startModAOptionsUI() { return instance.startModAOptionsUI; }
-    // BR: Second UI panel for MOD game options
-    public static StartModBOptionsUI startModBOptionsUI() { return instance.startModBOptionsUI; }
-    // BR: Display UI panel for MOD game options
+    // BR: Standard Mod Game Options
+    public static StaticAOptionsUI  modOptionsStaticA()  { return instance.staticAOptionsUI; }
+    public static StaticBOptionsUI  modOptionsStaticB()  { return instance.staticBOptionsUI; }
+    public static DynamicAOptionsUI modOptionsDynamicA() { return instance.dynamicAOptionsUI; }
+    public static DynamicBOptionsUI modOptionsDynamicB() { return instance.dynamicBOptionsUI; }
     public static ModGlobalOptionsUI modGlobalOptionsUI() { return instance.modGlobalOptionsUI; }
     // BR: Display UI panel for Race options
     public static SetupRaceUI setupRaceUI() { return instance.setupRaceUI; }

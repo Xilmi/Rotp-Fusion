@@ -13,25 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package rotp.ui.game;
-
-import static rotp.ui.UserPreferences.modOptionARows;
-import static rotp.ui.UserPreferences.modOptionsA;
-
-// modnar: add UI panel for modnar MOD game options, based on StartOptionsUI.java
-public class StartModAOptionsUI extends AbstractOptionsUI {
-	private static final long serialVersionUID = 1L;
-	public static final String guiTitleID = "SETTINGS_MOD_TITLE";
-	public static final String GUI_ID     = "START_MOD_A";
-	
-	// Just call the "super" with GUI Title Label ID
-	public StartModAOptionsUI() {
-		super(guiTitleID, GUI_ID);
-	}
-	// ========== Abstract Overriders ==========
-	//
-	@Override protected void init0() {
-		paramList	  = modOptionsA;
-		rowCountList(modOptionARows);
-	}
-}
+//package rotp.ui.game;
+//
+//import static rotp.ui.UserPreferences.modOptionARows;
+//import static rotp.ui.UserPreferences.modOptionsA;
+//
+//// modnar: add UI panel for modnar MOD game options, based on StartOptionsUI.java
+//public class StartModAOptionsUI extends AbstractOptionsUI {
+//	private static final long serialVersionUID = 1L;
+//	public static final String guiTitleID = "SETTINGS_MOD_TITLE";
+//	public static final String GUI_ID     = "START_MOD_A";
+//	
+//	// Just call the "super" with GUI Title Label ID
+//	public StartModAOptionsUI() {
+//		super(guiTitleID, GUI_ID);
+//	}
+//	// ========== Abstract Overriders ==========
+//	//
+//	@Override protected void init0() {
+//		paramList	  = modOptionsA;
+////		rowCountList(modOptionARows);
+//	}
+//}

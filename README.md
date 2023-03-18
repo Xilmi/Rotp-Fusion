@@ -26,6 +26,21 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2023.03.18 (BR)
+  - Split Menu to Static and Dynamic Option.
+    - Only Dynamic options are shown in Game.
+  - Split standard looking menu, they were full.
+  - Added Options to Space Pirates (Same as other Monster).
+  - Added duplicate setting in Compact Dynamic Menu:
+    - Setting Auto Colony.
+    - Setting Auto Bombard.
+  - Simplified the Standard menu declaration:
+    - Add "null" in the list as column separator.
+    - rows array is no more required.
+
+2023.03.17 (Xilmi)
+  - Integrate Terget Bombing to AI. 
+
 2023.03.17 (BR)
   - Option to Stop Bombing:
     - Added option to toggle this function.

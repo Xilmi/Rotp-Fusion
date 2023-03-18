@@ -31,6 +31,6 @@ public class AdvancedOptionsUI extends AbstractOptionsUI {
 	//
 	@Override protected void init0() {
 		duplicateList = UserPreferences.advancedOptions;
-		rowCountList(UserPreferences.advancedOptionsRows);
+//		rowCountList(UserPreferences.advancedOptionsRows);
 	}
 }

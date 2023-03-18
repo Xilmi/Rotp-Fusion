@@ -1,10 +1,17 @@
 Update:
 - Option to Stop Bombing:
   - Added option to toggle this function.
-  - This option will be available for AI.
+  - AI has been updated to use this option.
 - Race Setup Menu.
   - Added Help button.
   - "F1" = Help too.
+- Split Menu to Static and Dynamic Option.
+  - Only Dynamic options are shown in Game.
+  - Split standard looking menu, they were full.
+- Added Options to Space Pirates (Same as other Monster).
+- Added duplicate setting in Compact Dynamic Menu: (now directly available in game)
+  - Setting Auto Colony.
+  - Setting Auto Bombard.
 
 Minor fixes, new requests, old requests
 
