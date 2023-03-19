@@ -38,6 +38,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
     - Add "null" in the list as column separator.
     - rows array is no more required.
   - Added MOD info on Galaxy map Help screen.
+  - Completed Race Setup Menu Help.
 
 2023.03.17 (Xilmi)
   - Integrate Terget Bombing to AI. 

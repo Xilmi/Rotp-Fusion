@@ -2593,3 +2593,6 @@ MOD_HELP_RACE_LAST                | Reload Last session or last Game options (Sw
 MOD_HELP_RACE_USER                | Reload Default options or Restore initial options (Switch with "Ctrl" or "Shift").
 MOD_HELP_RACE_CUSTOM              | Enter the Race Customization Menu (For Player or Aliens). 
 MOD_HELP_RACE_CHECK_BOX           | Select the defined custom race as player race.
+
+MOD_HELP_RACE_SHIPSET             | Select Shipset used by the player. "Original" = The one associated by default to the selected race.
+MOD_HELP_RACE_RACES               | The graphical representation of the player race, with its animations. and by default its abilities. (Abilities can also be randomized or customized) 

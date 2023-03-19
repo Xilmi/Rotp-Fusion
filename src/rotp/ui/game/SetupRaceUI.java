@@ -75,9 +75,9 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
     private BufferedImage shipBackImg;
     private BufferedImage raceImg;
     private Rectangle hoverBox;
-    private Rectangle helpBox = new Rectangle();
+    private Rectangle helpBox   = new Rectangle();
     private Rectangle cancelBox = new Rectangle();
-    private Rectangle nextBox = new Rectangle();
+    private Rectangle nextBox   = new Rectangle();
     private Rectangle leaderBox = new Rectangle();
     private Rectangle homeWorldBox = new Rectangle();
     private Rectangle playerRaceSettingBox = new Rectangle(); // BR: Player Race Customization
@@ -158,9 +158,9 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
 
 		txt  = text("MOD_HELP_RACE_MAIN");
 		nL   = 4;
-		xBox = scaled(350);
+		xBox = s50;
 		wBox = scaled(350);
-		yBox = scaled(250);
+		yBox = s20;
 		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
 		lH   = sp.lineH();
 		
@@ -250,15 +250,43 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
 		txt  = text("MOD_HELP_RACE_CHECK_BOX");
 		dest = checkBox;
         nL   = 3;
-//        wBox = dest.width;
-        hBox = nL*lH;
         xBox += wBox + yTab;
+        wBox = scaled(170);
+        hBox = nL*lH;
 //        yBox = dest.y-hBox-hShift;
         sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
         xb   = xBox+wBox/2;
         yb   = yBox+sp.height();
         xe   = dest.x + dest.width/2;
         ye   = dest.y;
+        sp.setLine(xb, yb, xe, ye);
+
+		txt  = text("MOD_HELP_RACE_SHIPSET"); // TODO
+		dest = shipSetBox;
+        nL   = 3;
+        wBox = scaled(235);
+        hBox = nL*lH;
+        xBox = dest.x - s15;
+        yBox = dest.y - hBox - s60;
+        sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+        xb   = xBox+wBox/2;
+        yb   = yBox+sp.height();
+        xe   = dest.x + dest.width/2;
+        ye   = dest.y;
+        sp.setLine(xb, yb, xe, ye);
+
+		txt  = text("MOD_HELP_RACE_RACES");
+		dest = new Rectangle(scaled(425), scaled(108), scaled(385), scaled(489));
+        nL   = 4;
+        wBox = scaled(300);
+        hBox = nL*lH;
+        xBox = dest.x - wBox - s25;
+        yBox = dest.y + dest.height/2 - hBox;
+        sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+        xb   = xBox+wBox;
+        yb   = yBox+sp.height()/2;
+        xe   = dest.x + s20;
+        ye   = dest.y + dest.height/2;
         sp.setLine(xb, yb, xe, ye);
 
         helpUI.open(this);
