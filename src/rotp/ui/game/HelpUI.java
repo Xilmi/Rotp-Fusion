@@ -132,7 +132,19 @@ public class HelpUI extends BasePanel implements MouseListener {
                     g.drawLine(spec.x2, spec.y2, spec.x3, spec.y3);
                 g.setStroke(prev);
             }
-        }
+            // BR: draw lines of target Array
+            if (spec.lineArr != null) {
+                Stroke prev = g.getStroke();
+                g.setStroke(stroke2);
+                g.setColor(spec.lineC);
+            	int size = spec.lineArr.length/2 - 1;
+            	for (int i=0; i<size; i++) {
+            		int k = 2*i;
+            		g.drawLine(spec.lineArr[k], spec.lineArr[k+1], spec.lineArr[k+2], spec.lineArr[k+3]);
+            	}
+                g.setStroke(prev);
+            }
+       }
     }
     @Override
     public void keyPressed(KeyEvent e) {
@@ -162,6 +174,7 @@ public class HelpUI extends BasePanel implements MouseListener {
     public class HelpSpec {
         int x, y, w;
         int lines;
+        int[] lineArr; // BR: to allow frames
         int x1 = -1;
         int y1 = -1;
         int x2 = -1;
@@ -186,6 +199,12 @@ public class HelpUI extends BasePanel implements MouseListener {
             y2 = y2a;
             x3 = x3a;
             y3 = y3a;
+        }
+        public void setLineArr(int[] arr) {
+        	lineArr = arr;
+        }
+        public int[] rect(int x, int y, int w, int h) {
+        	return new int[] {x, y, x+w, y, x+w, y+h, x, y+h, x, y};
         }
     }    
 }

@@ -286,124 +286,128 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		HelpUI helpUI = RotPUI.helpUI();
 		helpUI.clear();
 
+		// Overview = Top, Center
 		txt  = text("MOD_HELP_GALAXY_MAIN");
-		nL   = 4;
-		wBox = scaled(350);
+		nL   = 3;
+		wBox = scaled(400);
 		xBox = w/2 - wBox/2;
 		yBox = s10;
 		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
 		lH   = sp.lineH();
 		
-		int yShift = s60;
 		int hShift = s40;
-		int yTab   = s15;
+		int xTab   = s15;
 
-		txt  = text("MOD_HELP_RACE_USER");
-		dest = userBox;
-        nL   = 3;
-        hBox = nL*lH;
-        wBox = scaled(200);
-        xBox = w/2 - scaled(580);
-        yBox = dest.y - hBox - hShift;
-        sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
-        xb   = xBox + wBox/2;
-        yb   = yBox + sp.height();
-        xe   = dest.x + dest.width/2;
-        ye   = dest.y;
-        sp.setLine(xb, yb, xe, ye);
+		// Small Buttons at the bottom
+		wBox = scaled(200);
 
-		txt  = text("MOD_HELP_RACE_LAST");
-		dest = lastBox;
-        nL   = 3;
-        hBox = nL*lH;
-        xBox += wBox + yTab;
-        yBox = dest.y - hBox - hShift;
-        sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
-        xb   = xBox + wBox/2;
-        yb   = yBox + sp.height();
-        xe   = dest.x + dest.width/2;
-        ye   = dest.y;
-        sp.setLine(xb, yb, xe, ye);
-        
+		// Default button: Touch Galaxy
 		txt  = text("MOD_HELP_RACE_DEFAULT");
 		dest = defaultBox;
-        nL   = 3;
-        hBox = nL*lH;
-        xBox += wBox + yTab;
-        yBox = dest.y - hBox - hShift;
-        sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
-        xb   = xBox + wBox/2;
-        yb   = yBox + sp.height();
-        xe   = dest.x + dest.width/2;
-        ye   = dest.y;
-        sp.setLine(xb, yb, xe, ye);
-        
+		nL   = 3;
+		hBox = nL*lH;
+		xBox = rightBoxX - wBox;
+		yBox = dest.y - hBox - hShift;
+		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+		xb   = xBox + wBox*3/4;
+		yb   = yBox + sp.height();
+		xe   = dest.x + dest.width/2;
+		ye   = dest.y;
+		sp.setLine(xb, yb, xe, ye);
+		
+		// Last button: Left of Default button
+		txt  = text("MOD_HELP_RACE_LAST");
+		dest = lastBox;
+		nL   = 3;
+		hBox = nL*lH;
+		xBox -= wBox + xTab;
+		yBox = dest.y - hBox - hShift;
+		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+		xb   = xBox + wBox*3/4;
+		yb   = yBox + sp.height();
+		xe   = dest.x + dest.width/4;
+		ye   = dest.y;
+		sp.setLine(xb, yb, xe, ye);
+
+		// User button: Left of Last button
+		txt  = text("MOD_HELP_RACE_USER");
+		dest = userBox;
+		nL   = 3;
+		hBox = nL*lH;
+		xBox -= wBox + xTab;
+		yBox = dest.y - hBox - hShift;
+		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+		xb   = xBox + wBox*3/4;
+		yb   = yBox + sp.height();
+		xe   = dest.x;
+		ye   = dest.y + dest.height/2;
+		sp.setLine(xb, yb, xe, ye);
+
+		// Big buttons, bottom up
+		wBox = scaled(200);
+
+		// Back button; left Galaxy
 		txt  = text("MOD_HELP_GALAXY_BACK");
 		dest = backBox;
-        nL   = 3;
-        hBox = nL*lH;
-//        xBox += wBox + yTab;
-        yBox -= hBox + hShift;
-        sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
-        xb   = xBox + wBox;
-        yb   = yBox + sp.height()/2;
-        xe   = dest.x - s20;
-        ye   = dest.y - s5;
-        sp.setLine(xb, yb, xe, ye, dest.x, dest.y+s5);
-        
+		nL   = 3;
+		hBox = nL*lH;
+		xBox = rightBoxX - wBox;
+		yBox -= hBox + hShift;
+		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+		xb   = xBox + wBox;
+		yb   = yBox + sp.height()/2;
+		xe   = dest.x - s25;
+		ye   = dest.y;
+		sp.setLineArr(new int[] {xb, yb, xb+s15, yb, xe, ye, dest.x, dest.y+s10});
+		
+		// Back button; right Galaxy
 		txt  = text("MOD_HELP_GALAXY_START");
 		dest = startBox;
-        nL   = 4;
-        hBox = nL*lH;
-        xBox = w/2 + scaled(605) - wBox;
-        yBox = dest.y - hBox - scaled(120);
-        sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
-        xb   = xBox + wBox*3/4;
-        yb   = yBox + sp.height();
-        xe   = dest.x + dest.width - s5;
-        ye   = dest.y;
-        sp.setLine(xb, yb, xe, ye);
-        
+		nL   = 4;
+		hBox = nL*lH;
+		xBox = rightBoxX + boxW + s50 - wBox;
+		yBox = dest.y - hBox - scaled(120);
+		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+		xb   = xBox + wBox*3/4;
+		yb   = yBox + sp.height();
+		xe   = dest.x + dest.width - s5;
+		ye   = dest.y;
+		sp.setLine(xb, yb, xe, ye);
+		
 		txt  = text("");
+		int margin = s3;
  		if (compactOptionOnly.get()) {
-			nL   = 0;
-	        hBox = nL*lH+s20;
-	        wBox = mergedStaticBox.x - mergedDynamicBox.x;
-	        xBox = mergedDynamicBox.x + mergedDynamicBox.width/2;
-	        yBox = mergedStaticBox.y - hBox/2;
-	        xb = xBox + wBox/2 - scaled(80);
+			hBox = mergedStaticBox.height + 2*margin;
+			wBox = mergedStaticBox.x + mergedDynamicBox.width - mergedDynamicBox.x + 2*margin;
+			xBox = mergedDynamicBox.x - margin;
+			yBox = mergedStaticBox.y - margin;
 		} else {
- 			nL   = 0;
- 	        hBox = nL*lH+s20;
-	        wBox = settingsBox.x - modStaticBBox.x;
-	        xBox = modStaticBBox.x + modStaticBBox.width/2;
-	        yBox = (settingsBox.y + globalModSettingsBox.y)/2 + s4;
-	        xb = xBox + wBox/2 - scaled(50);
+ 			hBox = modDynamicBBox.y + modDynamicBBox.height - modStaticBBox.y + 2*margin;
+			wBox = settingsBox.x + settingsBox.width - modStaticBBox.x + 2*margin;
+			xBox = modStaticBBox.x - margin;
+			yBox = modStaticBBox.y - margin;
 		}
-		helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
-        xe = xBox + wBox/2;
-        ye = yBox;
-//        xb = xe;
-        yb = yBox - scaled(100);
-       
+		int[] lineArr = sp.rect(xBox, yBox, wBox, hBox);
+		xe = xBox + wBox/2;
+		ye = yBox;
+		yb = yBox - s80;
+	   
 		txt  = text("MOD_HELP_GALAXY_OPTIONS");
-//		dest = backBox;
-        nL   = 6;
-        hBox = nL*lH;
-        wBox = scaled(326);
-        xBox = backBox.x - s30;
-        yBox = yb - hBox;
-        sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
-        xb   = xBox + wBox/2;
-//        yb   = yBox + sp.height();
-//        xe   = dest.x + dest.width/5;
-//        ye   = dest.y;
-        sp.setLine(xb, yb, xe, ye);
-        
+		nL   = 6;
+		hBox = nL*lH;
+		wBox = scaled(326);
+		xBox = rightBoxX + xTab;
+		yBox = yb - hBox;
+		yBox = boxY + rightBoxH - hBox - scaled(170);
+		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+		xb   = xBox + wBox/2;
+		yb   = yBox + sp.height();
+		sp.setLine(xb, yb, xe, ye);
+		sp.setLineArr(lineArr);
 
-        helpUI.open(this); // TODO
-    }
-    private void doStartBoxAction() {
+		helpUI.open(this);
+	}
+	private void doStartBoxAction() {
 		buttonClick();
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
@@ -415,7 +419,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			return; 
 		}
  	}
-    private void doBackBoxAction() {
+	private void doBackBoxAction() {
 		buttonClick();
 		switch (Modifier2KeysState.get()) {
 		case CTRL:
@@ -426,7 +430,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 			break; 
 		}
-    	// Go back to Race Panel
+		// Go back to Race Panel
 		close();
 		RotPUI.instance().returnToSetupRacePanel();
  	}

@@ -175,7 +175,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         xBox = dest.x + yShift;
         yBox = dest.y-hBox-hShift;
         sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
-        xb   = xBox+wBox/2;
+        xb   = xBox+wBox/4;
         yb   = yBox+sp.height();
         xe   = dest.x + dest.width/2;
         ye   = dest.y;
@@ -188,7 +188,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         xBox -= wBox + yTab;
         yBox = dest.y-hBox-hShift;
         sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
-        xb   = xBox+wBox/2;
+        xb   = xBox+wBox/4;
         yb   = yBox+sp.height();
         xe   = dest.x + dest.width/2;
         ye   = dest.y;
@@ -201,7 +201,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         xBox -= wBox + yTab;
         yBox = dest.y-hBox-hShift;
         sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
-        xb   = xBox+wBox/2;
+        xb   = xBox+wBox/4;
         yb   = yBox+sp.height();
         xe   = dest.x + dest.width/2;
         ye   = dest.y;
@@ -243,7 +243,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
         xb   = xBox+wBox/2;
         yb   = yBox+sp.height();
-        xe   = dest.x + dest.width/2;
+        xe   = dest.x + dest.width/4;
         ye   = dest.y;
         sp.setLine(xb, yb, xe, ye);
         
