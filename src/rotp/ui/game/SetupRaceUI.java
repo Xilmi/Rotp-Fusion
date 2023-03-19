@@ -145,7 +145,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
 	}
     @Override public void advanceHelp() { cancelHelp(); }
 	@Override public void cancelHelp() { RotPUI.helpUI().close(); }
-	private void loadHelpUI() { // TODO BR HELP
+	private void loadHelpUI() {
 		int xBox, yBox, wBox;
 		int xb, xe, yb, ye;
 		int nL, hBox, lH;
@@ -261,7 +261,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         ye   = dest.y;
         sp.setLine(xb, yb, xe, ye);
 
-		txt  = text("MOD_HELP_RACE_SHIPSET"); // TODO
+		txt  = text("MOD_HELP_RACE_SHIPSET");
 		dest = shipSetBox;
         nL   = 3;
         wBox = scaled(235);

@@ -2593,6 +2593,13 @@ MOD_HELP_RACE_LAST                | Reload Last session or last Game options (Sw
 MOD_HELP_RACE_USER                | Reload Default options or Restore initial options (Switch with "Ctrl" or "Shift").
 MOD_HELP_RACE_CUSTOM              | Enter the Race Customization Menu (For Player or Aliens). 
 MOD_HELP_RACE_CHECK_BOX           | Select the defined custom race as player race.
-
 MOD_HELP_RACE_SHIPSET             | Select Shipset used by the player. "Original" = The one associated by default to the selected race.
 MOD_HELP_RACE_RACES               | The graphical representation of the player race, with its animations. and by default its abilities. (Abilities can also be randomized or customized) 
+
+MOD_HELP_GALAXY_MAIN              | OVERVIEW - This screen allows you to Select your Galaxy and your opponents. Use "Ctrl" and "Shift" to change the buttons functions. Global = All options. Local = Options from this panel.
+MOD_HELP_GALAXY_START             | Save options and Start the Game. "Ctrl" => Restart a new game based on and old game galaxy.
+MOD_HELP_GALAXY_BACK              | Cancel options and go back to the Race selection menu.
+MOD_HELP_GALAXY_DEFAULT           | Save or reload User's options (Switch with "Ctrl" or "Shift").
+MOD_HELP_GALAXY_LAST              | Reload Last session or last Game options (Switch with "Ctrl" or "Shift").
+MOD_HELP_GALAXY_USER              | Reload Default options or Restore initial options (Switch with "Ctrl" or "Shift").
+MOD_HELP_GALAXY_OPTIONS           | These buttons open Adanced options Menu. "Static" = Parameters being set once when starting or restarting a game. "Dynamic" = Parameters adjustable in game (Even if not always recommended). Either 6 standard menus or 2 compact menus. 

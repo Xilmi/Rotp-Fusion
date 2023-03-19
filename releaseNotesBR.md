@@ -13,7 +13,10 @@ Update:
   - Setting Auto Colony.
   - Setting Auto Bombard.
 - Added MOD info on Galaxy map Help screen. (Governor and Game options)
-
+- Galaxy Setup Menu.
+  - Fixed "Menu Options" sometime opening "Compact Static Options"
+  - Added Help button.
+  - "F1" = Help too.
 
 Minor fixes, new requests, old requests
 

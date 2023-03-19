@@ -26,6 +26,12 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2023.03.19 (BR)
+  - Galaxy Setup Menu.
+    - Fixed "Menu Options" sometime opening "Compact Static Options"
+    - Added Help button.
+    - "F1" = Help too.
+
 2023.03.18 (BR)
   - Split Menu to Static and Dynamic Option.
     - Only Dynamic options are shown in Game.

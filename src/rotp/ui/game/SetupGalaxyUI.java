@@ -104,6 +104,7 @@ import rotp.model.game.IGameOptions;
 import rotp.ui.NoticeMessage;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
+import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.util.InterfacePreview;
 import rotp.ui.util.ListDialog;
@@ -125,6 +126,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	private static final String SPECIFIC_ABILITY = "SETUP_SPECIFIC_ABILITY";
 	private static final String GLOBAL_ABILITIES = "SETUP_GLOBAL_ABILITIES";
 	public static int MAX_DISPLAY_OPPS = 49;
+    private final Color darkBrownC = new Color(112,85,68);
 	private BufferedImage backImg, playerRaceImg;
 	private BufferedImage smBackImg;
     private int bSep = s15;
@@ -136,6 +138,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	private Rectangle modDynamicABox	= new Rectangle(); // BR add UI panel for MOD game options
 	private Rectangle modDynamicBBox	= new Rectangle(); // BR add UI panel for MOD game options
 	private Rectangle globalModSettingsBox	= new Rectangle(); // BR add UI panel for MOD game options
+    private Rectangle helpBox   		= new Rectangle();
 	private Rectangle backBox			= new Rectangle();
 	private Rectangle startBox			= new Rectangle();
 	private Rectangle settingsBox		= new Rectangle();
@@ -266,6 +269,140 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		dialogMonoFont = null;
 		galaxyTextList = null;
 	}
+	@Override public void showHelp() {
+		loadHelpUI();
+	repaint();   
+	}
+    @Override public void advanceHelp() { cancelHelp(); }
+	@Override public void cancelHelp() { RotPUI.helpUI().close(); }
+	private void loadHelpUI() { // TODO BR HELP
+		int xBox, yBox, wBox;
+		int xb, xe, yb, ye;
+		int nL, hBox, lH;
+		String txt;
+		HelpSpec sp;
+		Rectangle dest;
+		int w = getWidth();
+		HelpUI helpUI = RotPUI.helpUI();
+		helpUI.clear();
+
+		txt  = text("MOD_HELP_GALAXY_MAIN");
+		nL   = 4;
+		wBox = scaled(350);
+		xBox = w/2 - wBox/2;
+		yBox = s10;
+		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+		lH   = sp.lineH();
+		
+		int yShift = s60;
+		int hShift = s40;
+		int yTab   = s15;
+
+		txt  = text("MOD_HELP_RACE_USER");
+		dest = userBox;
+        nL   = 3;
+        hBox = nL*lH;
+        wBox = scaled(200);
+        xBox = w/2 - scaled(580);
+        yBox = dest.y - hBox - hShift;
+        sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+        xb   = xBox + wBox/2;
+        yb   = yBox + sp.height();
+        xe   = dest.x + dest.width/2;
+        ye   = dest.y;
+        sp.setLine(xb, yb, xe, ye);
+
+		txt  = text("MOD_HELP_RACE_LAST");
+		dest = lastBox;
+        nL   = 3;
+        hBox = nL*lH;
+        xBox += wBox + yTab;
+        yBox = dest.y - hBox - hShift;
+        sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+        xb   = xBox + wBox/2;
+        yb   = yBox + sp.height();
+        xe   = dest.x + dest.width/2;
+        ye   = dest.y;
+        sp.setLine(xb, yb, xe, ye);
+        
+		txt  = text("MOD_HELP_RACE_DEFAULT");
+		dest = defaultBox;
+        nL   = 3;
+        hBox = nL*lH;
+        xBox += wBox + yTab;
+        yBox = dest.y - hBox - hShift;
+        sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+        xb   = xBox + wBox/2;
+        yb   = yBox + sp.height();
+        xe   = dest.x + dest.width/2;
+        ye   = dest.y;
+        sp.setLine(xb, yb, xe, ye);
+        
+		txt  = text("MOD_HELP_GALAXY_BACK");
+		dest = backBox;
+        nL   = 3;
+        hBox = nL*lH;
+//        xBox += wBox + yTab;
+        yBox -= hBox + hShift;
+        sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+        xb   = xBox + wBox;
+        yb   = yBox + sp.height()/2;
+        xe   = dest.x - s20;
+        ye   = dest.y - s5;
+        sp.setLine(xb, yb, xe, ye, dest.x, dest.y+s5);
+        
+		txt  = text("MOD_HELP_GALAXY_START");
+		dest = startBox;
+        nL   = 4;
+        hBox = nL*lH;
+        xBox = w/2 + scaled(605) - wBox;
+        yBox = dest.y - hBox - scaled(120);
+        sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+        xb   = xBox + wBox*3/4;
+        yb   = yBox + sp.height();
+        xe   = dest.x + dest.width - s5;
+        ye   = dest.y;
+        sp.setLine(xb, yb, xe, ye);
+        
+		txt  = text("");
+ 		if (compactOptionOnly.get()) {
+			nL   = 0;
+	        hBox = nL*lH+s20;
+	        wBox = mergedStaticBox.x - mergedDynamicBox.x;
+	        xBox = mergedDynamicBox.x + mergedDynamicBox.width/2;
+	        yBox = mergedStaticBox.y - hBox/2;
+	        xb = xBox + wBox/2 - scaled(80);
+		} else {
+ 			nL   = 0;
+ 	        hBox = nL*lH+s20;
+	        wBox = settingsBox.x - modStaticBBox.x;
+	        xBox = modStaticBBox.x + modStaticBBox.width/2;
+	        yBox = (settingsBox.y + globalModSettingsBox.y)/2 + s4;
+	        xb = xBox + wBox/2 - scaled(50);
+		}
+		helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+        xe = xBox + wBox/2;
+        ye = yBox;
+//        xb = xe;
+        yb = yBox - scaled(100);
+       
+		txt  = text("MOD_HELP_GALAXY_OPTIONS");
+//		dest = backBox;
+        nL   = 6;
+        hBox = nL*lH;
+        wBox = scaled(326);
+        xBox = backBox.x - s30;
+        yBox = yb - hBox;
+        sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+        xb   = xBox + wBox/2;
+//        yb   = yBox + sp.height();
+//        xe   = dest.x + dest.width/5;
+//        ye   = dest.y;
+        sp.setLine(xb, yb, xe, ye);
+        
+
+        helpUI.open(this); // TODO
+    }
     private void doStartBoxAction() {
 		buttonClick();
 		switch (Modifier2KeysState.get()) {
@@ -942,6 +1079,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			}
 		}
 
+		drawHelpButton(g);
 		drawButtons(g);
 
 		if (starting) {
@@ -1012,6 +1150,18 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		g.fillRoundRect(userBox.x, userBox.y, userBox.width, userBox.height, cnr, cnr);
 
 	}
+    private void drawHelpButton(Graphics2D g) {
+        helpBox.setBounds(s20,s20,s20,s25);
+        g.setColor(darkBrownC);
+        g.fillOval(s20, s20, s20, s25);
+        g.setFont(narrowFont(25));
+        if (helpBox == hoverBox)
+            g.setColor(Color.yellow);
+        else
+            g.setColor(Color.white);
+
+        drawString(g,"?", s26, s40);
+    }
 	private void drawButtons(Graphics2D g) {
 		int cnr = s5;
 		Stroke prev;
@@ -1505,14 +1655,14 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		repaint();
 	}
 	private void goToOptions() {
-		if (Modifier2KeysState.isShiftDown()) {
-			goToMergedStatic();
-			return;
-		}
-		if (Modifier2KeysState.isCtrlDown()) {
-			goToMergedDynamic();
-			return;
-		}
+//		if (Modifier2KeysState.isShiftDown()) {
+//			goToMergedStatic();
+//			return;
+//		}
+//		if (Modifier2KeysState.isCtrlDown()) {
+//			goToMergedDynamic();
+//			return;
+//		}
 		buttonClick();
 		AdvancedOptionsUI optionsUI = RotPUI.advancedOptionsUI();
 		close();
@@ -1981,6 +2131,8 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			globalModSettingsBox.setBounds(scaled(xb), scaled(yb+dy), smallButtonW, smallButtonH);
 			g.setPaint(GameUI.buttonLeftBackground());
 			g.fillRoundRect(globalModSettingsBox.x, globalModSettingsBox.y, smallButtonW, smallButtonH, cnr, cnr);			
+			mergedStaticBox.setBounds(0, 0, 0, 0);
+			mergedDynamicBox.setBounds(0, 0, 0, 0);
 		} else {
 			yb = 610; // 615 for 3 buttons (1 row) // 610 for 2 buttons
 			xb = 960; // 984 for 3 buttons // 960 for 2 buttons 1 row // 948 for centered
@@ -1996,6 +2148,12 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			mergedDynamicBox.setBounds(scaled(xb-dx), scaled(yb+dy), smallButtonW, smallButtonH);
 			g.setPaint(GameUI.buttonLeftBackground());
 			g.fillRoundRect(mergedDynamicBox.x, mergedDynamicBox.y, smallButtonW, smallButtonH, cnr, cnr);
+			settingsBox.setBounds(0, 0, 0, 0);
+			modStaticABox.setBounds(0, 0, 0, 0);
+			modStaticBBox.setBounds(0, 0, 0, 0);
+			modDynamicABox.setBounds(0, 0, 0, 0);
+			modDynamicBBox.setBounds(0, 0, 0, 0);
+			globalModSettingsBox.setBounds(0, 0, 0, 0);
 		}
 
 		int buttonH = s45;
@@ -2071,6 +2229,9 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		checkModifierKey(e);		
 		int k = e.getKeyCode();
 		switch(k) {
+		case KeyEvent.VK_F1:
+			showHelp();
+			return;
 		case KeyEvent.VK_ESCAPE:
 			doBackBoxAction();
 			return;
@@ -2120,7 +2281,9 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		int y = e.getY();
 		Shape prevHover = hoverBox;
 		hoverBox = null;
-		if (startBox.contains(x,y))
+        if (helpBox.contains(x,y))
+        	hoverBox = helpBox;
+        else if (startBox.contains(x,y))
 			hoverBox = startBox;
 		else if (backBox.contains(x,y))
 			hoverBox = backBox;
@@ -2241,6 +2404,10 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			return;
 		if (hoverBox == null)
 			return;
+		if (hoverBox == helpBox) {
+			showHelp();
+			return;
+		}
 		boolean up = !SwingUtilities.isRightMouseButton(e);
 		if (hoverBox == backBox)
 			doBackBoxAction();
