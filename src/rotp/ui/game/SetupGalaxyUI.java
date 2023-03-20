@@ -291,6 +291,8 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		nL   = 3;
 		wBox = scaled(400);
 		xBox = w/2 - wBox/2;
+		xBox = rightBoxX;
+		System.out.println(unscaled(rightBoxX-xBox));
 		yBox = s10;
 		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
 		lH   = sp.lineH();
@@ -449,15 +451,17 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		sp.setLine(xb, yb, xe, ye);
 
 		txt  = text("MOD_HELP_GALAXY_ABILITIES"); // TODO
+		wBox   = scaled(400);
 		dest = crBox;
-		nL   = 3;
+		nL   = 5;
 		hBox = nL*lH;
-		xBox = dest.x + dest.width/2 - wBox;
+		xBox = dest.x + dest.width + s70 - wBox;
+		xBox = leftBoxX;
 		yBox = dest.y - hBox - hShift;
 		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
 		xb   = xBox + wBox*3/4;
 		yb   = yBox + hBox + s20;
-		xe   = dest.x + dest.width/4;
+		xe   = dest.x + dest.width*3/4;
 		ye   = dest.y;
 		sp.setLine(xb, yb, xe, ye);
 

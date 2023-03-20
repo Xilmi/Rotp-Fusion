@@ -261,7 +261,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
 		txt  = text("MOD_HELP_RACE_SHIPSET");
 		dest = shipSetBox;
         nL   = 3;
-        wBox = scaled(235);
+        wBox = scaled(225);
         hBox = nL*lH;
         xBox = dest.x - s15;
         yBox = dest.y - hBox - s60;
@@ -271,6 +271,21 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         xe   = dest.x + dest.width/2;
         ye   = dest.y;
         sp.setLine(xb, yb, xe, ye);
+        int margin = s3;
+		dest = shipBox[0];
+		int lx = dest.x - margin;
+		int ty = dest.y - margin;
+		int rx = lx + dest.width + margin;
+		int by = shipBox[MAX_SHIP-1].y + dest.height + margin;
+        
+        sp.setLineArr(xb+s30, yBox,
+        		lx, ty + scaled(120),
+        		lx, ty,
+        		rx, ty,
+        		rx, by,
+        		lx, by,
+        		lx, ty + s100
+           	    );
 
 		txt  = text("MOD_HELP_RACE_RACES");
 		dest = new Rectangle(scaled(425), scaled(108), scaled(385), scaled(489));

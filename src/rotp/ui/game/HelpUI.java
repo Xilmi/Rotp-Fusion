@@ -200,7 +200,7 @@ public class HelpUI extends BasePanel implements MouseListener {
             x3 = x3a;
             y3 = y3a;
         }
-        public void setLineArr(int[] arr) {
+        public void setLineArr(int... arr) {
         	lineArr = arr;
         }
         public int[] rect(int x, int y, int w, int h) {
