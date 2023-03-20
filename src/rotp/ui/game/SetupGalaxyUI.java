@@ -374,6 +374,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		ye   = dest.y;
 		sp.setLine(xb, yb, xe, ye);
 		
+		// Options Buttons
 		txt  = text("");
 		int margin = s3;
  		if (compactOptionOnly.get()) {
@@ -397,13 +398,69 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		hBox = nL*lH;
 		wBox = scaled(326);
 		xBox = rightBoxX + xTab;
-		yBox = yb - hBox;
 		yBox = boxY + rightBoxH - hBox - scaled(170);
 		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
 		xb   = xBox + wBox/2;
 		yb   = yBox + sp.height();
 		sp.setLine(xb, yb, xe, ye);
 		sp.setLineArr(lineArr);
+
+		// Opponents parameters
+		wBox   = scaled(250);
+		hShift = s60;  
+
+		txt  = text("MOD_HELP_GALAXY_AGAINST");
+		dest = aiBox;
+		nL   = 4;
+		hBox = nL*lH;
+		xBox = dest.x + dest.width/2 - wBox*3/4;
+		yBox = dest.y + hShift;
+		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+		xb   = xBox + wBox*3/4;
+		yb   = yBox;
+		xe   = dest.x + dest.width/2;
+		ye   = dest.y + dest.height;
+		sp.setLine(xb, yb, xe, ye);
+
+		txt  = text("MOD_HELP_GALAXY_RACE_LIST");
+		dest = newRacesBox;
+		nL   = 4;
+		hBox = nL*lH;
+		xBox = dest.x + dest.width/2 - wBox/4;
+		yBox = dest.y + hShift;
+		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+		xb   = xBox + wBox/4;
+		yb   = yBox;
+		xe   = dest.x + dest.width/2;
+		ye   = dest.y + dest.height;
+		sp.setLine(xb, yb, xe, ye);
+
+		txt  = text("MOD_HELP_GALAXY_SELECTABLE");
+		dest = showAbilityBox;
+		nL   = 3;
+		hBox = nL*lH;
+		xBox = dest.x + dest.width + s40;
+		yBox = dest.y + dest.height/2 - hBox/2 - s10;
+		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+		xb   = xBox;
+		yb   = yBox + hBox/2 + s10;
+		xe   = dest.x + dest.width;
+		ye   = dest.y + dest.height/2;
+		sp.setLine(xb, yb, xe, ye);
+
+		txt  = text("MOD_HELP_GALAXY_ABILITIES"); // TODO
+		dest = crBox;
+		nL   = 3;
+		hBox = nL*lH;
+		xBox = dest.x + dest.width/2 - wBox;
+		yBox = dest.y - hBox - hShift;
+		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+		xb   = xBox + wBox*3/4;
+		yb   = yBox + hBox + s20;
+		xe   = dest.x + dest.width/4;
+		ye   = dest.y;
+		sp.setLine(xb, yb, xe, ye);
+
 
 		helpUI.open(this);
 	}

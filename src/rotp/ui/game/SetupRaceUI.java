@@ -236,9 +236,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
 		txt  = text("MOD_HELP_RACE_CUSTOM");
 		dest = playerRaceSettingBox;
         nL   = 3;
-//        wBox = dest.width;
         hBox = nL*lH;
-//        xBox = s20;
         yBox = dest.y-hBox-hShift;
         sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
         xb   = xBox+wBox/2;
@@ -253,7 +251,6 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         xBox += wBox + yTab;
         wBox = scaled(170);
         hBox = nL*lH;
-//        yBox = dest.y-hBox-hShift;
         sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
         xb   = xBox+wBox/2;
         yb   = yBox+sp.height();

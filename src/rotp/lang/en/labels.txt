@@ -2603,3 +2603,8 @@ MOD_HELP_GALAXY_DEFAULT           | Save or reload User's options (Switch with "
 MOD_HELP_GALAXY_LAST              | Reload Last session or last Game options (Switch with "Ctrl" or "Shift").
 MOD_HELP_GALAXY_USER              | Reload Default options or Restore initial options (Switch with "Ctrl" or "Shift").
 MOD_HELP_GALAXY_OPTIONS           | These buttons open Adanced options Menu. "Static" = Parameters being set once when starting or restarting a game. "Dynamic" = Parameters adjustable in game (Even if not always recommended). Either 6 standard menus or 2 compact menus. 
+
+MOD_HELP_GALAXY_ABILITIES         | Default abilities for alien Races: 'Base Races' = Standard abilities of the selected Race (in the Boxes below.
+MOD_HELP_GALAXY_SELECTABLE        | Yes => A selection line will appear at the top of the boxes below, allowing the selection of individual ability.
+MOD_HELP_GALAXY_RACE_LIST         | "Original" = The 6 Modnar Races are exclued. "All Races" = The 6 Modnar Races can also be selected or randomly given.
+MOD_HELP_GALAXY_AGAINST           | Aliens AI selection. "AI:Selectable" => a selection line will apear on the bottom of the Boxes bellow, allowing the selection of individual Aliens AI.

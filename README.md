@@ -30,7 +30,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
   - Galaxy Setup Menu.
     - Fixed "Menu Options" sometime opening "Compact Static Options"
     - Added Help button.
-    - "F1" = Help too.
+    - "F1" = Help too. 
+  - Completed Galaxy Setup Menu Help.
+
 
 2023.03.18 (BR)
   - Split Menu to Static and Dynamic Option.
