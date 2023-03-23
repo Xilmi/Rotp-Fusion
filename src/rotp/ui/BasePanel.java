@@ -28,6 +28,7 @@ import java.awt.Image;
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
@@ -420,4 +421,13 @@ public class BasePanel extends JPanel implements Base {
     public String ambienceSoundKey() { 
         return defaultAmbience();
     }
+    // BR:
+    public boolean checkModifierKey(InputEvent e) {
+		if (checkForChange(e)) {
+			repaintButtons();
+			return true;
+		}
+		return false;
+	}
+    public void repaintButtons() { repaint(); }
 }

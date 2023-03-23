@@ -866,6 +866,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     }
     @Override
     public void keyPressed(KeyEvent e) {
+    	setModifierKeysState(e); // BR: For the Flag color selection
         if (glassPane() != null)
             glassPane().keyPressed(e);
         else if (selectedPanel != null)
@@ -873,6 +874,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     }
     @Override
     public void keyReleased(KeyEvent e) {
+    	setModifierKeysState(e); // BR: For the Flag color selection
         if (glassPane() != null)
             glassPane().keyReleased(e);
         else if (selectedPanel != null)

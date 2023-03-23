@@ -23,6 +23,7 @@ import java.awt.Polygon;
 import java.awt.Stroke;
 import java.util.ArrayList;
 import java.util.List;
+
 import rotp.model.Sprite;
 import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
@@ -61,7 +62,8 @@ public class FlightPathSprite extends MapSprite {
         paths.add(s);
     }
     public static List<FlightPathSprite> workingPaths() {
-        List<FlightPathSprite> paths = (List<FlightPathSprite>) GameSession.instance().var("WORKING_PATHS");
+        @SuppressWarnings("unchecked")
+		List<FlightPathSprite> paths = (List<FlightPathSprite>) GameSession.instance().var("WORKING_PATHS");
         if (paths == null) {
             paths = new ArrayList<>();
             GameSession.instance().var("WORKING_PATHS", paths);
@@ -130,10 +132,10 @@ public class FlightPathSprite extends MapSprite {
     @Override
     public boolean hasDisplayPanel()            { return true; }
     @Override
-    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click) {
+    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
         // clicking on a flight path is really clicking on its fleetsprite
         if (ship() != null)
-            map.parent().clickingOnSprite(from(), count, rightClick, click);
+            map.parent().clickingOnSprite(from(), count, rightClick, click, middleClick);
     }
     private void setSelectionArea(int x1, int y1, int x2, int y2) {
         Point pt1 = new Point();

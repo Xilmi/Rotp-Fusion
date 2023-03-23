@@ -359,7 +359,9 @@ public class MapOverlayBombardedNotice  extends MapOverlay {
                 advanceMap();
                 break;
             default:
-                misClick(); break;
+            	if (!e.isShiftDown()) // BR to avoid noise when changing flag color
+            		misClick();
+                break;
         }
         return true;
     }

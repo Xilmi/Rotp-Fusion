@@ -15,6 +15,7 @@
  */
 package rotp.model.galaxy;
 
+import static rotp.ui.UserPreferences.flagColorCount;
 import static rotp.ui.UserPreferences.mapFontFactor;
 import static rotp.ui.UserPreferences.showInfoFontRatio;
 import static rotp.ui.UserPreferences.showNameMinFont;
@@ -604,7 +605,8 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
             Image flag = pl.sv.mapFlagImage(id);
             if (flag != null) {
                 int sz = BasePanel.s30;
-                g2.drawImage(flag, x0-BasePanel.s15, y0-BasePanel.s30, sz, sz,null);
+                int shX = (flagColorCount.get() == 1)? 0 : BasePanel.s4; // BR: flagColorCount
+                g2.drawImage(flag, x0-BasePanel.s15+shX, y0-BasePanel.s30, sz, sz,null);
             }
         }
 
@@ -740,7 +742,7 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
         return dist <= max(BasePanel.s2, clickR);
     }
     @Override
-    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean sound) {
+    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
 //        if (canShowDetail(map)) 
 //            RotPUI.instance().selectDisplaySystemPanel(this);
     }

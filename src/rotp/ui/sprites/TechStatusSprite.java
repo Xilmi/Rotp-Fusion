@@ -19,6 +19,7 @@ package rotp.ui.sprites;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
+
 import rotp.model.tech.Tech;
 import rotp.model.tech.TechCategory;
 import rotp.ui.BasePanel;
@@ -38,7 +39,7 @@ public class TechStatusSprite extends MapControlSprite {
         height = scaled(h);
     }
     @Override
-    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click) {
+    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
         RotPUI.instance().selectTechPanel();
         RotPUI.instance().techUI().selectTechCategory(category);
         map.parent().hoveringOverSprite(null);

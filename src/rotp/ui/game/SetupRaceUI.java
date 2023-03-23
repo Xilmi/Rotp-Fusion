@@ -54,7 +54,7 @@ import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
-import rotp.ui.util.Modifier2KeysState;
+import rotp.util.ModifierKeysState;
 import rotp.ui.game.HelpUI.HelpSpec;
 
 public final class SetupRaceUI extends BaseModPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
@@ -152,7 +152,6 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
 		String txt;
 		HelpSpec sp;
 		Rectangle dest;
-		int w = getWidth();
 		HelpUI helpUI = RotPUI.helpUI();
 		helpUI.clear();
 
@@ -308,7 +307,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
     }
     private void doCancelBoxAction() {
 		buttonClick();
-		switch (Modifier2KeysState.get()) {
+		switch (ModifierKeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: 
 		default: // Save
@@ -319,7 +318,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
  	}
     private void doNextBoxAction() { // save and continue
 		buttonClick();
-		switch (Modifier2KeysState.get()) {
+		switch (ModifierKeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT:
 		default: // Save
@@ -334,7 +333,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
 		repaint();
 	}
 	private static String cancelButtonKey() {
-		switch (Modifier2KeysState.get()) {
+		switch (ModifierKeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT:
 			// return restoreKey;
@@ -342,7 +341,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
 			return cancelKey;
 		}
 	}
-	@Override protected void repaintButtons() {
+	@Override public void repaintButtons() {
 		Graphics2D g = (Graphics2D) getGraphics();
 		setFontHints(g);
 		drawBackButtons(g);

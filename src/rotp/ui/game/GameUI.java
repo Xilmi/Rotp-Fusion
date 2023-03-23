@@ -29,7 +29,6 @@ import java.awt.Image;
 import java.awt.LinearGradientPaint;
 import java.awt.Rectangle;
 import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -54,11 +53,11 @@ import rotp.ui.BaseText;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.sprites.RoundGradientPaint;
-import rotp.ui.util.Modifier2KeysState;
 import rotp.ui.util.ParamOptions;
 import rotp.util.FontManager;
 import rotp.util.ImageManager;
 import rotp.util.LanguageManager;
+import rotp.util.ModifierKeysState;
 import rotp.util.ThickBevelBorder;
 
 public class GameUI  extends BasePanel implements MouseListener, MouseMotionListener, ActionListener {
@@ -448,7 +447,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         updateTextValues();
     }
 	private void updateTextValues() {
-		switch (Modifier2KeysState.get()) {
+		switch (ModifierKeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT:
 	        continueText.displayText(text("GAME_MENU_LAST_SETTINGS"));
@@ -465,18 +464,11 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
 	        settingsText.displayText(text("GAME_MENU_SETTINGS"));
 		}
 	}
-	private void checkModifierKey(InputEvent e) {
-		if (Modifier2KeysState.checkForChange(e))
-			repaint();
-	}
-	private boolean isCtrlDown() {
-		return Modifier2KeysState.isCtrlDown();
-	}
 
     public void init() {
         slideshowFade = SLIDESHOW_MAX;
         resetSlideshowTimer();
-		Modifier2KeysState.reset();
+		ModifierKeysState.reset();
     }
     @Override
     public void animate() {

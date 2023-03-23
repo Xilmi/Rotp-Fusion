@@ -15,6 +15,8 @@
  */
 package rotp.ui.map;
 
+import static rotp.ui.UserPreferences.flagColorCount;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -40,10 +42,6 @@ import rotp.model.empires.SystemView;
 import rotp.model.events.StarSystemEvent;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
-import static rotp.ui.BasePanel.s10;
-import static rotp.ui.BasePanel.s15;
-import static rotp.ui.BasePanel.s20;
-import static rotp.ui.BasePanel.s70;
 import rotp.ui.main.MainUI;
 import rotp.ui.main.SystemPanel;
 import rotp.util.Palette;
@@ -207,20 +205,21 @@ public class SystemInfoPanel extends SystemPanel implements MouseMotionListener 
             drawShadowedString(g, name, 2, s10, s30, MainUI.shadeBorderC(), SystemPanel.whiteLabelText);
             
             int sz = s60;
+            int shX = (flagColorCount.get() == 1)? 0 : s8; // BR: flagColorCount
             if (hoverBox == flagBox) {
                 Image hoverImage = parent.flagHover(sys);
-                g.drawImage(hoverImage, w-sz+s15, -s15, sz, sz, null);
+                g.drawImage(hoverImage, w-sz+s15-shX, -s15, sz, sz, null);
             }
             Image flagImage = parent.flagImage(sys);
-            g.drawImage(flagImage, w-sz+s15, -s15, sz, sz, null);
-            flagBox.setBounds(w-sz+s25,-s15,sz-s20,sz-s10);
+            g.drawImage(flagImage, w-sz+s15-shX, -s15, sz, sz, null);
+            flagBox.setBounds(w-sz+s25,-s15-shX,sz-s20,sz-s10);
         }
-        public void toggleFlagColor(boolean rightClick) {
+        public void toggleFlagColor(boolean rightClick) { // BR: used for "F" vs "Shift-F"
             StarSystem sys = systemViewToDisplay();
             if (rightClick)
                 player().sv.resetFlagColor(sys.id);
             else
-                player().sv.toggleFlagColor(sys.id);
+                player().sv.toggleFlagColor(sys.id, false);
             parent.repaint();
         }
         @Override
@@ -244,8 +243,21 @@ public class SystemInfoPanel extends SystemPanel implements MouseMotionListener 
         @Override
         public void mouseReleased(MouseEvent e) {
             boolean rightClick = SwingUtilities.isRightMouseButton(e);
+            boolean middleClick = SwingUtilities.isMiddleMouseButton(e);
             if (hoverBox == flagBox) {
-                toggleFlagColor(rightClick);
+            	StarSystem sys = systemViewToDisplay();
+            	// BR: if 3 buttons:
+            	//   - Middle click = Reset
+            	//   - Right click = Reverse
+                if (middleClick)
+                    player().sv.resetFlagColor(sys.id);
+                else if (rightClick)
+                	if (has3Buttons())
+                        player().sv.toggleFlagColor(sys.id, true);
+                	else
+                		player().sv.resetFlagColor(sys.id);
+                else
+                    player().sv.toggleFlagColor(sys.id, false);
            }
         }
         @Override
@@ -259,6 +271,7 @@ public class SystemInfoPanel extends SystemPanel implements MouseMotionListener 
         }
         @Override
         public void mouseWheelMoved(MouseWheelEvent e) {
+        	setModifierKeysState(e); // BR: For the Flag color selection
             if (hoverBox == flagBox) {
                 StarSystem sys = systemViewToDisplay();
                 if (e.getWheelRotation() < 0)

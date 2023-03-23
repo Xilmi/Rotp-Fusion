@@ -24,6 +24,7 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
+
 import rotp.model.Sprite;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.ShipFleet;
@@ -510,6 +511,7 @@ public class MapOverlayBombardPrompt extends MapOverlay {
     }
     @Override
     public boolean handleKeyPress(KeyEvent e) {
+    	setModifierKeysState(e); // BR: For the Flag color selection
         boolean shift = e.isShiftDown();
         switch(e.getKeyCode()) {
             case KeyEvent.VK_ESCAPE:
@@ -530,7 +532,8 @@ public class MapOverlayBombardPrompt extends MapOverlay {
                 toggleFlagColor(shift);
                 break;
             default:
-                misClick();
+            	if (!shift) // BR to avoid noise when changing flag color
+            		misClick();
                 break;
         }
         return true;
@@ -590,11 +593,19 @@ public class MapOverlayBombardPrompt extends MapOverlay {
             g.drawImage(flagImage, mapX, mapY, buttonW, buttonH, null);
         }
         @Override
-        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click) {
-            if (rightClick)
-                parent.resetFlagColor();
+        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
+        	// BR: if 3 buttons:
+        	//   - Middle click = Reset
+        	//   - Right click = Reverse
+            if (middleClick)
+            	parent.resetFlagColor();
+            else if (rightClick)
+            	if (has3Buttons())
+            		parent.toggleFlagColor(true);
+            	else
+            		parent.resetFlagColor();
             else
-                parent.toggleFlagColor(false);
+            	parent.toggleFlagColor(false);
         };
         @Override
         public void wheel(GalaxyMapPanel map, int rotation, boolean click) {

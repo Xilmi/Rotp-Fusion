@@ -18,6 +18,7 @@ package rotp.ui.map;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.event.InputEvent;
 import java.awt.event.MouseWheelEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,6 @@ import rotp.model.galaxy.Location;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.UserPreferences;
 import rotp.ui.main.GalaxyMapPanel;
-import rotp.util.ImageManager;
 
 public interface IMapHandler {
     public void repaint();
@@ -60,7 +60,8 @@ public interface IMapHandler {
     default public boolean dragSelect(int x0, int y0, int x1, int y, boolean shift) { return false; }
 
     default public void hoveringOverSprite(Sprite o)              { };
-    default public void clickingOnSprite(Sprite o, int cnt, boolean right, boolean click)       { };
+    default public void clickingOnSprite(Sprite o, int cnt, boolean right, boolean click, boolean middleClick)       { };
+    default public void clickingOnSprite(Sprite o, int cnt, boolean right, boolean click, InputEvent e) { };
     default public void clickingNull(int cnt, boolean right) {  };
     default public boolean masksMouseOver(int x, int y)       { return false; }
 
@@ -93,11 +94,13 @@ public interface IMapHandler {
     default Empire empireBoundaries()                    { return Empire.thePlayer(); }
     default public float systemClickRadius()             { return 1.0f; }
     default public boolean showYear()                    { return true; }
-    default Color flagColor(StarSystem s)                { return Empire.thePlayer().sv.flagColor(s.id); }
+//    default Color flagColor(StarSystem s)                { return Empire.thePlayer().sv.flagColor(s.id); } // BR: Not used!
     default Image flagImage(StarSystem s)                { return Empire.thePlayer().sv.flagImage(s.id); }
     default Image mapFlagImage(StarSystem s)             { return Empire.thePlayer().sv.mapFlagImage(s.id); }
-    default Image flagHover(StarSystem s)                { return ImageManager.current().image("Flag_Hover"); }
-    default Image flagHaze(StarSystem s)                 { return ImageManager.current().image("Flag_Haze"); }
+//    default Image flagHover(StarSystem s)                { return ImageManager.current().image("Flag_Hover"); } // BR: old call
+//    default Image flagHaze(StarSystem s)                 { return ImageManager.current().image("Flag_Haze"); } // BR: old call
+    default Image flagHover(StarSystem s)                { return SystemView.flagBackGround("Flag_Hover"); }
+    default Image flagHaze(StarSystem s)                 { return SystemView.flagBackGround("Flag_Haze"); }
     default boolean drawStar(StarSystem s)               { return true; }
     default boolean showOwnerReach(StarSystem s)         { return false; }
     default boolean showOwnership(StarSystem s)          { return true; }
@@ -121,5 +124,4 @@ public interface IMapHandler {
     default boolean drawBackgroundStars()                { return true; }
     default Color alertColor(SystemView sv)              { return null; }
     default Empire knownEmpire(int sysId, Empire emp)    { return emp.sv.empire(sysId); }
-
 }

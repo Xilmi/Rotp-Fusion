@@ -84,6 +84,7 @@ public class EmpireSystemPanel extends SystemPanel {
     }
     @Override
     public void keyPressed(KeyEvent e) {
+    	setModifierKeysState(e); // BR: For the Flag color selection
         int k = e.getKeyCode();
         int code = e.getModifiersEx();
         boolean shift = e.isShiftDown();

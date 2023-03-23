@@ -1004,6 +1004,7 @@ public class GalaxyMapPanel extends BasePanel implements ActionListener, MouseLi
     }
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
+    	setModifierKeysState(e); // BR: For the Flag color selection
         // if we are hovering over a sprite and it accepts mousewheel
         // then do that
         if ((hoverSprite != null) && hoverSprite.acceptWheel()) {
@@ -1133,6 +1134,7 @@ public class GalaxyMapPanel extends BasePanel implements ActionListener, MouseLi
     }
     @Override
     public void mouseReleased(MouseEvent e) {
+    	setModifierKeysState(e); // BR: For the Flag color selection
         boolean shift = e.isShiftDown();
         if (dragSelecting) {
             if ((selectX0 != selectX1) && (selectY0 != selectY1)) 
@@ -1148,6 +1150,7 @@ public class GalaxyMapPanel extends BasePanel implements ActionListener, MouseLi
         
         int clicks = e.getClickCount();
         boolean rightClick = SwingUtilities.isRightMouseButton(e);
+        boolean middleClick = SwingUtilities.isMiddleMouseButton(e);
 //        int x1 = e.getX();
 //        int y1 = e.getY();
         Sprite newSelection = hoverSprite;
@@ -1155,7 +1158,7 @@ public class GalaxyMapPanel extends BasePanel implements ActionListener, MouseLi
         if (newSelection == null) 
             parent.clickingNull(1, rightClick);
         else if ((clicks == 1) || newSelection.acceptDoubleClicks())
-            parent.clickingOnSprite(newSelection, 1, rightClick, true);
+            parent.clickingOnSprite(newSelection, 1, rightClick, true, middleClick);
             
         parent.hoveringOverSprite(newSelection);
     }

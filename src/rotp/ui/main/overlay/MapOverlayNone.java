@@ -53,6 +53,7 @@ public class MapOverlayNone extends MapOverlay {
     }
     @Override
     public boolean handleKeyPress(KeyEvent e) {
+    	setModifierKeysState(e); // BR: For the Flag color selection
         if (session().performingTurn()) {
             // allocate systems overlay should pass keystrokes
             if (parent.displayPanel().isVisible())
@@ -180,7 +181,8 @@ public class MapOverlayNone extends MapOverlay {
                         }
                     }
                 }
-                misClick();
+            	if (!e.isShiftDown()) // BR to avoid noise when changing flag color
+            		misClick();
                 break;
             case KeyEvent.VK_A:
                 if (e.getModifiersEx() == 128) {
@@ -249,7 +251,7 @@ public class MapOverlayNone extends MapOverlay {
                     index = 0;
                 if (parent.clickedSprite() instanceof SystemTransportSprite) {
                     parent.hoveringOverSprite(systems.get(index));
-                    parent.clickingOnSprite(systems.get(index), 1, false, false);
+                    parent.clickingOnSprite(systems.get(index), 1, false, false, false);
                 }
                 else if (parent.clickedSprite() instanceof ShipRelocationSprite) {
                     parent.hoveringOverSprite(systems.get(index));
@@ -282,7 +284,7 @@ public class MapOverlayNone extends MapOverlay {
                     index = systems.size()-1;
                 if (parent.clickedSprite() instanceof SystemTransportSprite) {
                     parent.hoveringOverSprite(systems.get(index));
-                    parent.clickingOnSprite(systems.get(index), 1, false, false);
+                    parent.clickingOnSprite(systems.get(index), 1, false, false, false);
                 }
                 else if (parent.clickedSprite() instanceof ShipRelocationSprite) {
                     parent.hoveringOverSprite(systems.get(index));
@@ -400,7 +402,7 @@ public class MapOverlayNone extends MapOverlay {
                     index = fleets.indexOf(currFleet)+1;
                     if (index == fleets.size())
                         index = 0;
-                    parent.clickingOnSprite(fleets.get(index), 1, false, true);
+                    parent.clickingOnSprite(fleets.get(index), 1, false, true, false);
                     parent.map().recenterMapOn(fleets.get(index));
                     parent.repaint();
                 }
@@ -417,7 +419,7 @@ public class MapOverlayNone extends MapOverlay {
                     index = fleets.indexOf(currFleet)-1;
                     if (index < 0)
                         index = fleets.size()-1;
-                    parent.clickingOnSprite(fleets.get(index), 1, false, true);
+                    parent.clickingOnSprite(fleets.get(index), 1, false, true, false);
                     parent.map().recenterMapOn(fleets.get(index));
                     parent.repaint();
                 }
@@ -434,7 +436,7 @@ public class MapOverlayNone extends MapOverlay {
                     index = fleets.indexOf(currFleet)+1;
                     if (index == fleets.size())
                         index = 0;
-                    parent.clickingOnSprite(fleets.get(index), 1, false, true);
+                    parent.clickingOnSprite(fleets.get(index), 1, false, true, false);
                     parent.map().recenterMapOn(fleets.get(index));
                     parent.repaint();
                 }
@@ -451,7 +453,7 @@ public class MapOverlayNone extends MapOverlay {
                     index = fleets.indexOf(currFleet)-1;
                     if (index < 0)
                         index = fleets.size()-1;
-                    parent.clickingOnSprite(fleets.get(index), 1, false, true);
+                    parent.clickingOnSprite(fleets.get(index), 1, false, true, false);
                     parent.map().recenterMapOn(fleets.get(index));
                     parent.repaint();
                 }
@@ -469,7 +471,7 @@ public class MapOverlayNone extends MapOverlay {
                     index = fleets.indexOf(currFleet)+1;
                     if (index == fleets.size())
                         index = 0;
-                    parent.clickingOnSprite(fleets.get(index), 1, false, true);
+                    parent.clickingOnSprite(fleets.get(index), 1, false, true, false);
                     parent.map().recenterMapOn(fleets.get(index));
                     parent.repaint();
                 }
@@ -486,7 +488,7 @@ public class MapOverlayNone extends MapOverlay {
                     index = fleets.indexOf(currFleet)-1;
                     if (index < 0)
                         index = fleets.size()-1;
-                    parent.clickingOnSprite(fleets.get(index), 1, false, true);
+                    parent.clickingOnSprite(fleets.get(index), 1, false, true, false);
                     parent.map().recenterMapOn(fleets.get(index));
                     parent.repaint();
                 }

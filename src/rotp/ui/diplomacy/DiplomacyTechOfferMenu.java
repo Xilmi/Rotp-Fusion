@@ -39,7 +39,7 @@ public class DiplomacyTechOfferMenu extends DiplomacyRequestReply {
     private DiplomacyTechOfferMenu() { }
     public boolean hasCounterOffers()  { return !counterOffers.isEmpty(); }
     @Override
-    public void diplomat(Empire v) { // TODO BR: Validate auto refuse option
+    public void diplomat(Empire v) { // BR: Added auto refuse option
         super.diplomat(v); 
         List<Tech> unreviewedCounterTechs = requestee.diplomatAI().techsRequestedForCounter(diplomat(), requestedTech);
         counterOffers = new ArrayList<>(unreviewedCounterTechs.size());

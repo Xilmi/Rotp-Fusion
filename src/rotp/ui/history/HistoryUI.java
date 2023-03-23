@@ -275,6 +275,7 @@ public final class HistoryUI extends BasePanel implements MouseListener {
     }
     @Override
     public void keyPressed(KeyEvent e) {
+    	setModifierKeysState(e); // BR: For the Flag color selection
         int k = e.getKeyCode();
         switch(k) {
             case KeyEvent.VK_EQUALS:
@@ -326,6 +327,7 @@ public final class HistoryUI extends BasePanel implements MouseListener {
     public void mousePressed(MouseEvent e) { }
     @Override
     public void mouseReleased(MouseEvent e) {
+    	setModifierKeysState(e); // BR: For the Flag color selection
         if ((e.getButton() > 3) || e.getClickCount() > 1)
             return;
     }
@@ -822,9 +824,9 @@ public final class HistoryUI extends BasePanel implements MouseListener {
             repaint();
         }
         @Override
-        public void clickingOnSprite(Sprite o, int cnt, boolean rightClick, boolean click) {
+        public void clickingOnSprite(Sprite o, int cnt, boolean rightClick, boolean click, boolean middleClick) {
             if (controls.contains(o)) {
-                o.click(map, cnt, rightClick, click);
+                o.click(map, cnt, rightClick, click, middleClick);
                 map.repaint();
             }
         }
@@ -850,7 +852,7 @@ public final class HistoryUI extends BasePanel implements MouseListener {
         @Override
         public float startingScalePct() { return galaxy().maxScaleAdj(); }
         private void selectTargetSystem(StarSystem sys) {
-            clickingOnSprite(sys, 1, false, false);
+            clickingOnSprite(sys, 1, false, false, false);
             repaint();
         }
         @Override

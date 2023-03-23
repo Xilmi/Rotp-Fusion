@@ -17,6 +17,7 @@ package rotp.ui.sprites;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+
 import rotp.model.empires.EspionageMission;
 import rotp.model.tech.Tech;
 import rotp.model.tech.TechCategory;
@@ -50,7 +51,7 @@ public class TechCategorySprite extends MapSprite {
     @Override
     public void draw(GalaxyMapPanel map, Graphics2D g2) { }
     @Override
-    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click) {
+    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
         if (click)
             softClick();
         mission.stealTech(tech());

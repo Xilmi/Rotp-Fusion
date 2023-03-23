@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.RoundRectangle2D;
+
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
 import rotp.ui.main.GalaxyMapPanel;
@@ -39,7 +40,7 @@ public class SystemNameDisplaySprite  extends MapControlSprite  {
         normColor = newColor(32,32,192,128);
     }
     @Override
-    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click) {
+    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
         map.toggleSystemNameDisplay(rightClick);
     }
     @Override
@@ -56,8 +57,8 @@ public class SystemNameDisplaySprite  extends MapControlSprite  {
         g2.fillRoundRect(startX, startY, width, height, cnr, cnr);
 
         int s1 = scaled(1);
-        int s2 = scaled(2);
-        int s4 = scaled(4);
+        //int s2 = scaled(2);
+        //int s4 = scaled(4);
         
         Shape clipArea = new RoundRectangle2D.Float(startX, startY, width, height, cnr, cnr);
         g2.setClip(clipArea);

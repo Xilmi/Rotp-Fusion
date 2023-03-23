@@ -15,6 +15,8 @@
  */
 package rotp.ui.main;
 
+import static rotp.ui.UserPreferences.flagColorCount;
+
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Composite;
@@ -92,12 +94,21 @@ public class UnexploredSystemPanel extends SystemPanel implements MouseMotionLis
     public void mousePressed(MouseEvent e) { }
     @Override
     public void mouseReleased(MouseEvent e) {
-        boolean rightClick = SwingUtilities.isRightMouseButton(e);
-        if (hoverBox == flagBox) {
-            if (rightClick)
-                resetFlagColor();
+        boolean rightClick  = SwingUtilities.isRightMouseButton(e);
+        boolean middleClick = SwingUtilities.isMiddleMouseButton(e);
+       if (hoverBox == flagBox) {
+        	// BR: if 3 buttons:
+        	//   - Middle click = Reset
+        	//   - Right click = Reverse
+            if (middleClick)
+            	resetFlagColor();
+            else if (rightClick)
+            	if (has3Buttons())
+            		toggleFlagColor(true);
+            	else
+            		resetFlagColor();
             else
-                toggleFlagColor(false);
+            	toggleFlagColor(false);
        }
     }
     @Override
@@ -154,6 +165,7 @@ public class UnexploredSystemPanel extends SystemPanel implements MouseMotionLis
             drawStar(g2, sys.starType(), s40, getWidth()/2, getHeight()/2);
 
             int sz = s60;
+            int shX = (flagColorCount.get() == 1)? 0 : s4; // BR: flagColorCount
             String label = text("MAIN_UNEXPLORED_SYSTEM");
             scaledFont(g, label, w-sz, 36, 24);
             drawBorderedString(g, label, 2, s10, s40, Color.black, SystemPanel.orangeText);
@@ -162,22 +174,22 @@ public class UnexploredSystemPanel extends SystemPanel implements MouseMotionLis
             SystemInfo sv = player().sv;
             if (hoverBox == flagBox) {
                 Image hoverImage = sv.flagHover(sys.id);
-                g.drawImage(hoverImage, w-sz+s5, 0, sz, sz, null);
+                g.drawImage(hoverImage, w-sz+s5-shX, 0, sz, sz, null);
             }
             else if (sv.flagColorId(sys.id) == SystemView.FLAG_NONE){
                 Image hoverImage = sv.flagHover(sys.id);
-                g.drawImage(hoverImage, w-sz+s5, 0, sz, sz, null);
+                g.drawImage(hoverImage, w-sz+s5-shX, 0, sz, sz, null);
                 Composite prevC = g.getComposite();
                 Composite comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.6f);
                 g.setComposite(comp);
                 g.setColor(Color.black);
-                g.fillRect(w-sz+s15, 0, sz-s10, sz-s10);
+                g.fillRect(w-sz+s5-shX, 0, sz, sz-s10);
                 g.setComposite(prevC);
             }
             
             Image flagImage = sv.mapFlagImage(sys.id);
-            g.drawImage(flagImage, w-sz+s5, 0, sz, sz, null);
-            flagBox.setBounds(w-sz+s5,0,sz-s20,sz-s10);         
+            g.drawImage(flagImage, w-sz+s5-shX, 0, sz, sz, null);
+            flagBox.setBounds(w-sz+s5-shX,0,sz-s20,sz-s10);         
             
             //g.setColor(Color.red);
             //g.fillRect(w-sz+s25,15,sz-s20,sz-s10); 

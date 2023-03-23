@@ -540,6 +540,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
     }
     @Override
     public void keyPressed(KeyEvent e) {
+    	setModifierKeysState(e); // BR: For the Flag color selection
         boolean repaint = false;
         boolean shift = e.isShiftDown();
         boolean control = e.isControlDown();

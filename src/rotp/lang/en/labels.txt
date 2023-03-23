@@ -489,6 +489,10 @@ MAIN_HELP_2H                      | Completely abandon a planet by transferring 
 MAIN_HELP_2I                      | Current and maximum planet population. 100 represents a full home planet that has not been terraformed.
 MAIN_HELP_2J                      | Current and maximum factories allowed. Maximum factories based on population and robotic controls technology.
 MAIN_HELP_2K                      | Place a flag on the system to help it stand out on the galaxy map.
+MAIN_HELP_2K_2F                   | Place two flags on the system to help it stand out on the galaxy map.
+MAIN_HELP_2K_M2                   | Left Button = Forward / Right Button = Reset.
+MAIN_HELP_2K_M3                   | Left Button = Forward / Middle Button = Reset / Right Button = Backward.
+MAIN_HELP_2K_2F_HOLD              | (Hold "Shift" to set the second flag)
 MAIN_HELP_2L                      | The amount of reserve stored in the empire treasury.
 MAIN_HELP_2M                      | The current state of research for each of the six technology areas.
 MAIN_HELP_3A                      | Game - returns to the opening menu. Allows you to adjust settings or save, load, and start games.
@@ -1829,6 +1833,8 @@ SETTINGS_MOD_BOMBING_TARGET_DESC         | Limited Bombing: Stop Bombing when re
 SETTINGS_MOD_BOMBING_TARGET              | Bombing Target: %1 pop
 SETTINGS_MOD_TARGET_BOMBARD_DESC         | Sets who is allowed to give a population target while bombing a Planet. (scroll the mouse wheel to change)
 SETTINGS_MOD_TARGET_BOMBARD              | Allow Target Bombard: %1
+SETTINGS_MOD_FLAG_COLOR_COUNT_DESC       | How may colors should appear on the Star System Flag?
+SETTINGS_MOD_FLAG_COLOR_COUNT            | Flag Color Count: %1
 
 // Other base menu Mod settings
 SETTINGS_MOD_PLAYER_SHIP_SET_DESC        | Select the Player Ship Set.

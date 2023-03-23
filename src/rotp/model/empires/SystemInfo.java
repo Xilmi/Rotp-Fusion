@@ -29,7 +29,6 @@ import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.planet.PlanetType;
 import rotp.util.Base;
-import rotp.util.ImageManager;
 
 public class SystemInfo implements Serializable, Base {
     private static final long serialVersionUID = 1L;
@@ -100,11 +99,12 @@ public class SystemInfo implements Serializable, Base {
     public boolean canSabotageFactories(int i) { return missing(i) ? false : view(i).canSabotageFactories(); }
     public boolean canInciteRebellion(int i)   { return missing(i) ? false : view(i).canInciteRebellion(); }
     public int flagColorId(int i)              { return missing(i) ? -1  : view(i).flagColorId(); }
-    public Color flagColor(int i)              { return missing(i) ? null  : view(i).flagColor(); }
+//    public Color flagColor(int i)              { return missing(i) ? null  : view(i).flagColor(); } // BR: not used!
     public Image flagImage(int i)              { return missing(i) ? null  : view(i).flagImage(); }
     public Image mapFlagImage(int i)           { return missing(i) ? null  : view(i).mapFlagImage(); }
-    public Image flagHover(int i)              { return ImageManager.current().image("Flag_Hover"); }
-    public void toggleFlagColor(int i)          { toggleFlagColor(i, false); }
+//    public Image flagHover(int i)              { return ImageManager.current().image("Flag_Hover"); } // BR: Old call
+    public Image flagHover(int i)              { return SystemView.flagBackGround("Flag_Hover"); }
+//    public void toggleFlagColor(int i)          { toggleFlagColor(i, false); } // BR: No longer used
     public void toggleFlagColor(int i, boolean b) { view(i).toggleFlagColor(b); }
     public void resetFlagColor(int i)            { view(i).resetFlagColor(); }
     public FleetPlan fleetPlan(int i)            { return view(i).fleetPlan(); }

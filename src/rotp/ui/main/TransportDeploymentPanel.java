@@ -15,6 +15,8 @@
  */
 package rotp.ui.main;
 
+import static rotp.ui.UserPreferences.flagColorCount;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GradientPaint;
@@ -635,13 +637,14 @@ public class TransportDeploymentPanel extends SystemPanel {
             
             // draw system banner
             int sz = s60;
+            int shX = (flagColorCount.get() == 1)? 0 : s8; // BR: flagColorCount
             if (hoverBox == flagBox) {
                 Image hoverImage = parentSpritePanel.parent.flagHover(sys);
-                g.drawImage(hoverImage, w-sz+s15, -s15, sz, sz, null);
+                g.drawImage(hoverImage, w-sz+s15-shX, -s15, sz, sz, null);
             }
             Image flagImage = parentSpritePanel.parent.flagImage(sys);
-            g.drawImage(flagImage, w-sz+s15, -s15, sz, sz, null);
-            flagBox.setBounds(w-sz+s25,-s15,sz-s20,sz-s10);
+            g.drawImage(flagImage, w-sz+s15-shX, -s15, sz, sz, null);
+            flagBox.setBounds(w-sz+s25-shX,-s15,sz-s20,sz-s10);
                 
             String error = null;
             if (!pl.sv.inShipRange(id))
@@ -705,14 +708,14 @@ public class TransportDeploymentPanel extends SystemPanel {
                 g.setStroke(prevStroke);
             }
         }
-        public void toggleFlagColor(boolean rightClick) {
-            StarSystem sys = destination();
-            if (rightClick)
-                player().sv.resetFlagColor(sys.id);
-            else
-                player().sv.toggleFlagColor(sys.id);
-            parentSpritePanel.repaint();
-        }
+//        public void toggleFlagColor(boolean rightClick) {
+//            StarSystem sys = destination();
+//            if (rightClick)
+//                player().sv.resetFlagColor(sys.id);
+//            else
+//                player().sv.toggleFlagColor(sys.id);
+//            parentSpritePanel.repaint();
+//        }
         @Override
         public void mouseDragged(MouseEvent e) { }
         @Override
@@ -734,8 +737,21 @@ public class TransportDeploymentPanel extends SystemPanel {
         @Override
         public void mouseReleased(MouseEvent e) {
             boolean rightClick = SwingUtilities.isRightMouseButton(e);
+            boolean middleClick = SwingUtilities.isMiddleMouseButton(e);
             if (hoverBox == flagBox) {
-                toggleFlagColor(rightClick);
+            	StarSystem sys = destination();
+            	// BR: if 3 buttons:
+            	//   - Middle click = Reset
+            	//   - Right click = Reverse
+                if (middleClick)
+                    player().sv.resetFlagColor(sys.id);
+                else if (rightClick)
+                	if (has3Buttons())
+                        player().sv.toggleFlagColor(sys.id, true);
+                	else
+                		player().sv.resetFlagColor(sys.id);
+                else
+                    player().sv.toggleFlagColor(sys.id, false);
            }
         }
         @Override
@@ -749,6 +765,7 @@ public class TransportDeploymentPanel extends SystemPanel {
         }
         @Override
         public void mouseWheelMoved(MouseWheelEvent e) {
+        	setModifierKeysState(e); // BR: For the Flag color selection
             if (hoverBox == flagBox) {
                 StarSystem sys = destination();
                 if (e.getWheelRotation() < 0)

@@ -145,7 +145,7 @@ public class MapOverlaySpies extends MapOverlay {
         if (!drawSprites)
             return;
         
-        int w = ui.getWidth()-scaled(150);
+        //int w = ui.getWidth()-scaled(150);
         int h = ui.getHeight()-BasePanel.s30;
         Empire pl = player();
         
@@ -302,6 +302,7 @@ public class MapOverlaySpies extends MapOverlay {
                 switch(theirRpt.confessedMission()) {
                     case SABOTAGE: desc = concat(desc," ", text("NOTICE_SPIES_CAUGHT_CONFESSED")); break;
                     case ESPIONAGE: desc = concat(desc," ", text("NOTICE_SPIES_CAUGHT_CONFESSED2")); break;
+					default: break;
                 }
             }
             g.setFont(narrowFont(15));
@@ -470,7 +471,7 @@ public class MapOverlaySpies extends MapOverlay {
             if (!parent.drawSprites())
                 return;
 
-            int s5 = BasePanel.s5;
+            //int s5 = BasePanel.s5;
             int cnr = scaled(fontSize/2);
             
             g.setFont(narrowFont(fontSize));
@@ -488,7 +489,7 @@ public class MapOverlaySpies extends MapOverlay {
             drawString(g,empire.raceName(), tabX+scaled(5), tabY+tabH-scaled(3));
         }
         @Override
-        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click) {
+        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
             //if (click)
             //    softClick();
             parent.selectEmpire(empire);
@@ -565,7 +566,7 @@ public class MapOverlaySpies extends MapOverlay {
 
         }
         @Override
-        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click) {
+        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
             if (click)
                 softClick();
             parent.advanceMap();
@@ -642,7 +643,7 @@ public class MapOverlaySpies extends MapOverlay {
 
         }
         @Override
-        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click) {
+        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
             if (click)
                 softClick();
             manageSpies();
@@ -718,7 +719,7 @@ public class MapOverlaySpies extends MapOverlay {
             }
         }
         @Override
-        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click) {
+        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
             if (click)
                 softClick();
             threaten();

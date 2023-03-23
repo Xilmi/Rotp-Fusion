@@ -228,6 +228,7 @@ public final class SabotageUI extends BasePanel implements MouseListener {
     }
     @Override
     public void keyPressed(KeyEvent e) {
+    	setModifierKeysState(e); // BR: For the Flag color selection
         int k = e.getKeyCode();
         if (currentState == REQUEST_MISSION) {
             if (k == KeyEvent.VK_1)
@@ -252,6 +253,7 @@ public final class SabotageUI extends BasePanel implements MouseListener {
     public void mousePressed(MouseEvent e) { }
     @Override
     public void mouseReleased(MouseEvent e) {
+    	setModifierKeysState(e); // BR: For the Flag color selection
         if ((e.getButton() > 3) || e.getClickCount() > 1)
             return;
         if (currentState != REQUEST_MISSION) {
@@ -942,9 +944,9 @@ public final class SabotageUI extends BasePanel implements MouseListener {
         @Override
         public void hoveringOverSprite(Sprite o) { }
         @Override
-        public void clickingOnSprite(Sprite o, int cnt, boolean rightClick, boolean click) {
+        public void clickingOnSprite(Sprite o, int cnt, boolean rightClick, boolean click, boolean middleClick) {
             if (controls.contains(o)) {
-                o.click(map, cnt, rightClick, click);
+                o.click(map, cnt, rightClick, click, middleClick);
                 map.repaint();
             }
             if (o instanceof StarSystem) {
@@ -968,7 +970,7 @@ public final class SabotageUI extends BasePanel implements MouseListener {
         @Override
         public float startingScalePct() { return galaxy().maxScaleAdj(); }
         private void selectTargetSystem(StarSystem sys) {
-            clickingOnSprite(sys, 1, false, false);
+            clickingOnSprite(sys, 1, false, false, false);
             repaint();
         }
         @Override

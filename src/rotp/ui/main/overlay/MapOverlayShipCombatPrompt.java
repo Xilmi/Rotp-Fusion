@@ -256,8 +256,8 @@ public class MapOverlayShipCombatPrompt extends MapOverlay {
         int lineH = s20;
         int desiredFont = 18;
         
-        HashMap<String, Integer> mySizes = new HashMap();
-        HashMap<String, Integer> aiSizes = new HashMap();
+        HashMap<String, Integer> mySizes = new HashMap<>();
+        HashMap<String, Integer> aiSizes = new HashMap<>();
         for(CombatStack st : mgr.activeStacks())
         {
             int putVal = st.num;
@@ -428,7 +428,8 @@ public class MapOverlayShipCombatPrompt extends MapOverlay {
                 toggleFlagColor(shift);
                 break;
             default:
-                misClick();
+            	if (!shift) // BR to avoid noise when changing flag color
+            		misClick();
                 break;
         }
         return true;
@@ -506,7 +507,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay {
             drawBorderedString(g, str, x2a, mapY+buttonH-s10, SystemPanel.textShadowC, c0);
         }
         @Override
-        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click) {
+        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
             startCombat(ShipBattleUI.AUTO_RESOLVE);
         };
     }
@@ -583,7 +584,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay {
             drawBorderedString(g, str, x2a, mapY+buttonH-s10, SystemPanel.textShadowC, c0);
         }
         @Override
-        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click) {
+        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
             startCombat(ShipBattleUI.SMART_RESOLVE);
         };
     }
@@ -660,7 +661,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay {
             drawBorderedString(g, str, x2a, mapY+buttonH-s10, SystemPanel.textShadowC, c0);
         }
         @Override
-        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click) {
+        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
             startCombat(ShipBattleUI.RETREAT_ALL);
         };
     }
@@ -737,7 +738,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay {
             drawBorderedString(g, str, x2a, mapY+buttonH-s10, SystemPanel.textShadowC, c0);
         }
         @Override
-        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click) {
+        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
             startCombat(ShipBattleUI.ENTER_COMBAT);
         };
     }
@@ -796,11 +797,19 @@ public class MapOverlayShipCombatPrompt extends MapOverlay {
             g.drawImage(flagImage, mapX, mapY, buttonW, buttonH, null);
         }
         @Override
-        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click) {
-            if (rightClick)
-                parent.resetFlagColor();
-            else
-                parent.toggleFlagColor(false);
+        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
+	     	// BR: if 3 buttons:
+	     	//   - Middle click = Reset
+	     	//   - Right click = Reverse
+	        if (middleClick)
+	        	parent.resetFlagColor();
+	        else if (rightClick)
+	        	if (has3Buttons())
+	        		parent.toggleFlagColor(true);
+	        	else
+	        		parent.resetFlagColor();
+	        else
+	        	parent.toggleFlagColor(false);
         };
         @Override
         public void wheel(GalaxyMapPanel map, int rotation, boolean click) {

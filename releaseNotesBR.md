@@ -1,40 +1,30 @@
-Update:
-- Option to Stop Bombing:
+New little features:
+- Target Bombing Button can now be hidden
   - Added option to toggle this function.
-  - AI has been updated to use this option.
-- Race Setup Menu.
-  - Added Help button.
-  - "F1" = Help too.
+  - AI has been updated to use this option. (Thanks to Xilmi)
+- Added Help Button On Menu ("F1" = Help too)
+  - On Race Setup Menu.
+  - On Galaxy Setup Menu.
+  - Added MOD info on Galaxy map Help screen.
+  - (The other new Options Menu already have ToolTips at the bottom)
 - Split Menu to Static and Dynamic Option.
   - Only Dynamic options are shown in Game.
   - Split standard looking menu, they were full.
+  - Static = Only used when Starting, Restarting a game.
+  - Dynamic = Can be changed along the game... (Not always recommended)
 - Added Options to Space Pirates (Same as other Monster).
+    - Selectable Number of visited systems before the Pirates vanish.
+    - Option for reoccuring Pirates.
 - Added duplicate setting in Compact Dynamic Menu: (now directly available in game)
   - Setting Auto Colony.
   - Setting Auto Bombard.
-- Added MOD info on Galaxy map Help screen. (Governor and Game options)
-- Galaxy Setup Menu.
-  - Fixed "Menu Options" sometime opening "Compact Static Options"
-  - Added Help button.
-  - "F1" = Help too.
-
-Minor fixes, new requests, old requests
-
-- Added colors to the Compact Merged Advanced Options Menu:
-  - Parameters with default values = White.
-  - Parameters with custom values = Orange.
-- Removed some System Scouted popup when AutoPlay
-- Added option to disable GNN Alliances Info. (Very annoying with some AI)
-- Fixed some AI not proposing tech deals.
-- Added display of Turn and Year on the save panel.
-  - I like to add them in the file name, but always forgot to look at it before going to the save menu!!!
-- Save Turn Start on it's Own File: recentStart.rotp.
-  - Allows you to restart the game in case of "oopsie".
-  - To help the developper in case of bug that don't crash the game (recent.rotp being already ovewritten)
-- Added option to auto refuse tech exchange.
-  - Sometimes, there is just too many bad trade request!
-- Added Bombard population target option.
-- Added option to Stop Bombing when reaching a population target.
-  - New option to chose the population target.
-  - New button in bombing window.
-  - !!! Powerful weapons may still annihilate the population !!!
+- Added Option for Dual Flags on planets.
+  - Hold Shift Key to adjust the second flag.
+- Flag color toggle uses the three mouse buttons:
+  - Two Buttons Mouse: No changes
+    - Left Buttons = Forward.
+    - Right Buttons = Reset.
+  - Three Buttons Mouse: No changes
+    - Left Buttons = Forward.
+    - Middle Buttons = Reset.
+    - Right Buttons = Backward.

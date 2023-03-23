@@ -15,6 +15,8 @@
  */
 package rotp.ui.fleets;
 
+import static rotp.ui.UserPreferences.flagColorCount;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -37,7 +39,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import rotp.model.empires.SystemView;
 import rotp.model.galaxy.StarSystem;
-import rotp.model.planet.Planet;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseTextField;
 import rotp.ui.UserPreferences;
@@ -839,9 +840,10 @@ public abstract class SystemListingUI extends BasePanel implements MouseListener
 
            SystemView sv = player().sv.view(sys.id);
             int sz = s35;
+            int shY = (flagColorCount.get() == 1)? 0 : s3; // BR: flagColorCount
             Image img = sv.flagImage();
 
-            g.drawImage(img, x+w-sz, y-sz+s3, sz, sz, null);
+            g.drawImage(img, x+w-sz+shY, y-sz+s3, sz, sz, null);
         }
     }
     public class SystemNameColumn extends SystemDataColumn {
@@ -964,7 +966,7 @@ public abstract class SystemListingUI extends BasePanel implements MouseListener
             String val = sys.getAttribute(attributeKey);
             int sw = g.getFontMetrics().stringWidth(val);
 
-            Planet p = sys.planet();
+            // Planet p = sys.planet();
             if (player().isEnvironmentFertile(sys) || player().isEnvironmentGaia(sys))
                 g.setColor(palette.green);
             else if (player().isEnvironmentHostile(sys))
@@ -1257,18 +1259,29 @@ public abstract class SystemListingUI extends BasePanel implements MouseListener
         private static final long serialVersionUID = 1L;
         @Override
         public void mouseReleased(StarSystem sys, MouseEvent e) {
+        	setModifierKeysState(e); // BR: For the Flag color selection
             if (e.getButton() > 3)
                 return;
-            boolean rightClick = SwingUtilities.isRightMouseButton(e);
-            if (rightClick)
+            boolean rightClick  = SwingUtilities.isRightMouseButton(e);
+            boolean middleClick = SwingUtilities.isMiddleMouseButton(e);            
+        	// BR: if 3 buttons:
+        	//   - Middle click = Reset
+        	//   - Right click = Reverse
+            if (middleClick)
                 player().sv.resetFlagColor(sys.id);
+            else if (rightClick)
+            	if (has3Buttons())
+                    player().sv.toggleFlagColor(sys.id, true);
+            	else
+            		player().sv.resetFlagColor(sys.id);
             else
-                player().sv.toggleFlagColor(sys.id);
+                player().sv.toggleFlagColor(sys.id, false);
             softClick();
             repaint();
         }
         @Override
         public void mouseWheelMoved(StarSystem sys, MouseWheelEvent e) {
+        	setModifierKeysState(e); // BR: For the Flag color selection
             int rot = e.getWheelRotation();
             if (rot < 0)
                 player().sv.toggleFlagColor(sys.id, true);

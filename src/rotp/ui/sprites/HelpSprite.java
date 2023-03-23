@@ -17,6 +17,7 @@ package rotp.ui.sprites;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+
 import rotp.ui.BasePanel;
 import rotp.ui.main.GalaxyMapPanel;
 
@@ -72,7 +73,7 @@ public class HelpSprite extends MapSprite {
         drawString(g,"?", x1, y1);
     }
     @Override
-    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click) {
+    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
         if (click)
             softClick();
         minMapX = min(mapX, minMapX);

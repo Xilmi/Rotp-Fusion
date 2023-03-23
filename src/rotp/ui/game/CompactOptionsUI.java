@@ -46,8 +46,8 @@ import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.util.InterfaceOptions;
 import rotp.ui.util.InterfaceParam;
-import rotp.ui.util.Modifier2KeysState;
 import rotp.util.FontManager;
+import rotp.util.ModifierKeysState;
 
 class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
 	private static final long serialVersionUID = 1L;
@@ -440,8 +440,11 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 	}
 	// ========== Overriders ==========
 	//
-	@Override protected void checkModifierKey(InputEvent e) {
-		hoverAndTooltip(Modifier2KeysState.checkForChange(e));
+	@Override public boolean checkModifierKey(InputEvent e) {
+		boolean change = checkForChange(e);
+		hoverAndTooltip(change);
+		return change;
+
 	}
 	@Override protected void close() {
 		super.close();
@@ -459,7 +462,7 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 		close();
 	}
 	@Override protected void doUserBoxAction() {
-		switch (Modifier2KeysState.get()) {
+		switch (ModifierKeysState.get()) {
 		case CTRL: // saveGlobalUserKey
 		case CTRL_SHIFT: // saveLocalUserKey
 			UserPreferences.save();
@@ -472,7 +475,7 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 		super.doUserBoxAction();
 	}
 	@Override protected void doDefaultBoxAction() {
-		switch (Modifier2KeysState.get()) {
+		switch (ModifierKeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // cancelKey
 			UserPreferences.load();
@@ -485,7 +488,7 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 	}
 	@Override protected void doLastBoxAction() {
 		buttonClick();
-		switch (Modifier2KeysState.get()) {
+		switch (ModifierKeysState.get()) {
 		case SHIFT: // setLocalLastKey
 		default: // setGlobalLastKey
 			UserPreferences.load();
@@ -501,7 +504,7 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 		}
 		repaint();
 	}
-	@Override protected void repaintButtons() {
+	@Override public void repaintButtons() {
 		Graphics2D g = (Graphics2D) getGraphics();
 		setFontHints(g);
 		drawButtons(g);

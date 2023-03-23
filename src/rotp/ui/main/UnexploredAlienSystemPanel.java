@@ -34,11 +34,9 @@ import javax.swing.SwingUtilities;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
-import static rotp.ui.BasePanel.s10;
-import static rotp.ui.BasePanel.s15;
-import static rotp.ui.BasePanel.s20;
-import static rotp.ui.BasePanel.s25;
-import static rotp.ui.BasePanel.s70;
+
+import static rotp.ui.UserPreferences.flagColorCount;
+
 import rotp.ui.RotPUI;
 
 public class UnexploredAlienSystemPanel extends SystemPanel {
@@ -133,13 +131,14 @@ public class UnexploredAlienSystemPanel extends SystemPanel {
 
            // draw system banner
             int sz = s70;
-            Image flagImage = parentSpritePanel.parent.flagImage(sys);
-            g.drawImage(flagImage, w-sz+s15, topH1-sz+s10, sz, sz, null);
-            if (hoverBox == flagBox) {
+            int shX = (flagColorCount.get() == 1)? 0 : s8; // BR: flagColorCount
+            if (hoverBox == flagBox) { // BR: swapped Hover and image
                 Image hoverImage = parentSpritePanel.parent.flagHover(sys);
-                g.drawImage(hoverImage, w-sz+s15, topH1-sz+s10, sz, sz, null);
+                g.drawImage(hoverImage, w-sz+s15-shX, topH1-sz+s10, sz, sz, null);
             }
-            flagBox.setBounds(w-sz+s25,topH1-sz+s10,sz-s20,sz-s10);
+            Image flagImage = parentSpritePanel.parent.flagImage(sys);
+            g.drawImage(flagImage, w-sz+s15-shX, topH1-sz+s10, sz, sz, null);
+            flagBox.setBounds(w-sz+s25-shX,topH1-sz+s10,sz-s20,sz-s10);
             
             // colony data
             String unknown = text("RACES_UNKNOWN_DATA");
@@ -220,13 +219,23 @@ public class UnexploredAlienSystemPanel extends SystemPanel {
         public void mousePressed(MouseEvent e) { }
         @Override
         public void mouseReleased(MouseEvent e) {
-            boolean rightClick = SwingUtilities.isRightMouseButton(e);
+        	setModifierKeysState(e); // BR: For the Flag color selection
+            boolean rightClick  = SwingUtilities.isRightMouseButton(e);
+            boolean middleClick = SwingUtilities.isMiddleMouseButton(e);
             if (hoverBox == flagBox) {
                 StarSystem sys = parentSpritePanel.systemViewToDisplay();
-                if (rightClick)
+            	// BR: if 3 buttons:
+            	//   - Middle click = Reset
+            	//   - Right click = Reverse
+                if (middleClick)
                     player().sv.resetFlagColor(sys.id);
+                else if (rightClick)
+                	if (has3Buttons())
+                        player().sv.toggleFlagColor(sys.id, true);
+                	else
+                		player().sv.resetFlagColor(sys.id);
                 else
-                    player().sv.toggleFlagColor(sys.id);
+                    player().sv.toggleFlagColor(sys.id, false);
                 parentSpritePanel.parent.repaint();
             }
             else if (hoverBox == nameBox) {
@@ -246,6 +255,7 @@ public class UnexploredAlienSystemPanel extends SystemPanel {
         }
         @Override
         public void mouseWheelMoved(MouseWheelEvent e) {
+        	setModifierKeysState(e); // BR: For the Flag color selection
             if (hoverBox == flagBox) {
                 StarSystem sys = parentSpritePanel.systemViewToDisplay();
                 if (e.getWheelRotation() < 0)

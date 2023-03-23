@@ -14,54 +14,67 @@
  * limitations under the License.
  */
 
-package rotp.ui.util;
+package rotp.util;
 
 import java.awt.event.InputEvent;
 
-public enum Modifier2KeysState {
-	NONE, SHIFT, CTRL, CTRL_SHIFT;
+public enum ModifierKeysState {
+	NONE, SHIFT, CTRL, ALT, CTRL_SHIFT, ALT_SHIFT, ALT_CTRL, ALT_CTRL_SHIFT;
 
-	private static Modifier2KeysState lastState = Modifier2KeysState.NONE;
+	private static ModifierKeysState lastState = ModifierKeysState.NONE;
 	private static boolean isShiftDown;
 	private static boolean isCtrlDown;
+	private static boolean isAltDown;
 
 	public static boolean isShiftDown()	{ return isShiftDown; }
 	public static boolean isCtrlDown()	{ return isCtrlDown; }
-	public static Modifier2KeysState set(InputEvent e) {
+	public static boolean isAltDown()	{ return isAltDown; }
+
+	public static ModifierKeysState set(InputEvent e) {
 		lastState = analyze(e);
 		return lastState;
 	}
-	public static Modifier2KeysState get() {
+	public static ModifierKeysState get() {
 		return lastState;
 	}
+	public static void reset() {
+		lastState	= ModifierKeysState.NONE;
+		isShiftDown	= false;
+		isCtrlDown	= false;
+		isAltDown	= false;
+	}
 	public static boolean checkForChange(InputEvent e) {
-		Modifier2KeysState newState = analyze(e);
+		ModifierKeysState newState = analyze(e);
 		if (newState == lastState)
 			return false;
 		lastState = newState;
 		return true;
 	}
-	public static void reset() {
-		lastState	= Modifier2KeysState.NONE;
-		isShiftDown	= false;
-		isCtrlDown	= false;
-	}
-
-	private static Modifier2KeysState analyze(InputEvent e) {
+	private static ModifierKeysState analyze(InputEvent e) {
 		if (e == null) {
-			isShiftDown	= false;
-			isCtrlDown	= false;
-			return Modifier2KeysState.NONE;
+			reset();
+			return lastState;
 		}
 		isShiftDown	= e.isShiftDown();
 		isCtrlDown	= e.isControlDown();
+		isAltDown	= e.isAltDown();
 		if (isShiftDown)
 			if (isCtrlDown)
-				return Modifier2KeysState.CTRL_SHIFT;
+				if (isAltDown)
+					return ModifierKeysState.ALT_CTRL_SHIFT;
+				else
+					return ModifierKeysState.CTRL_SHIFT;
+			else if (isAltDown)
+				return ModifierKeysState.ALT_SHIFT;
 			else
-				return Modifier2KeysState.SHIFT;
+				return ModifierKeysState.SHIFT;
 		if (isCtrlDown)
-			return Modifier2KeysState.CTRL;
-		return Modifier2KeysState.NONE;
+			if (isAltDown)
+				return ModifierKeysState.ALT_CTRL;
+			else
+				return ModifierKeysState.CTRL;
+		if (isAltDown)
+			return ModifierKeysState.ALT;
+		return ModifierKeysState.NONE;
 	}
 }

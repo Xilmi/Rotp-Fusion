@@ -712,7 +712,7 @@ public final class FleetUI extends BasePanel implements IMapHandler, ActionListe
     @Override
     public boolean canChangeMapScales()                 { return true; }
     @Override
-    public void clickingOnSprite(Sprite o, int count, boolean rightClick, boolean sound) {
+    public void clickingOnSprite(Sprite o, int count, boolean rightClick, boolean click, boolean middleClick) {
         if (mapIsMasked())
             return;
         if (o instanceof StarSystem) {
@@ -725,7 +725,7 @@ public final class FleetUI extends BasePanel implements IMapHandler, ActionListe
             repaint();
             return;
         }
-        o.click(map, count, rightClick, sound);
+        o.click(map, count, rightClick, click, middleClick);
         repaint();
     }
     public Sprite lastHoveringSprite()       { return (Sprite) sessionVar("MAINUI_LAST_HOVERING_SPRITE"); }
@@ -968,6 +968,7 @@ public final class FleetUI extends BasePanel implements IMapHandler, ActionListe
     }
     @Override
     public void keyPressed(KeyEvent e) {
+    	setModifierKeysState(e); // BR: For the Flag color selection
         if (e.getKeyChar() == '?') {
             showHelp();
             return;
@@ -1016,6 +1017,7 @@ public final class FleetUI extends BasePanel implements IMapHandler, ActionListe
     }
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
+    	setModifierKeysState(e); // BR: For the Flag color selection
         if (massTransportDialog.isVisible())
             massTransportDialog.mouseWheelMoved(e);
     }

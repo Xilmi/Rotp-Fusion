@@ -44,7 +44,7 @@ import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.util.InterfaceOptions;
 import rotp.ui.util.InterfaceParam;
-import rotp.ui.util.Modifier2KeysState;
+import rotp.util.ModifierKeysState;
 
 // modnar: add UI panel for modnar MOD game options, based on StartOptionsUI.java
 abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
@@ -322,7 +322,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 	@Override protected void doDefaultBoxAction() {
 		if (globalOptions) { // The old ways
 			buttonClick();
-			switch (Modifier2KeysState.get()) {
+			switch (ModifierKeysState.get()) {
 			case CTRL:
 			case CTRL_SHIFT: // cancelKey
 				UserPreferences.load();
@@ -346,7 +346,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 			btList.get(i).displayText(activeList.get(i).getGuiDisplay());
 		repaint();
 	}
-	@Override protected void repaintButtons() {
+	@Override public void repaintButtons() {
 		Graphics2D g = (Graphics2D) getGraphics();
 		setFontHints(g);
 		drawButtons(g);

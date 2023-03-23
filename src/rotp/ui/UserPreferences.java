@@ -281,8 +281,11 @@ public class UserPreferences {
 	public static final ParamInteger bombingTarget = new ParamInteger(
 			MOD_UI, "BOMBING_TARGET"
 			, 10, null, null, 1, 5, 20);
+	public static final ParamInteger flagColorCount = new ParamInteger(
+			MOD_UI, "FLAG_COLOR_COUNT", 1, 1, 2);
 
 	// These list are used by the ModOptionsUI menu
+	// Parameters on thes list are auto saved in dynamic list options
 	public static final LinkedList<InterfaceParam> modOptionsStaticA = new LinkedList<>(
 			Arrays.asList(
 			artifactsHomeworld, fertileHomeworld, richHomeworld, ultraRichHomeworld,
@@ -309,7 +312,7 @@ public class UserPreferences {
 				null,
 				missileSizeModifier, retreatRestrictions, retreatRestrictionTurns,
 				null,
-				bombingTarget, targetBombard
+				bombingTarget, targetBombard, flagColorCount
 			));
 	public static final LinkedList<InterfaceParam> modOptionsDynamicB = new LinkedList<>(
 			Arrays.asList(
@@ -755,7 +758,9 @@ public class UserPreferences {
 		mergedStaticOptionsMap.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("RESTART_OPTIONS"),
 				restartChangesPlayerRace, restartChangesPlayerAI,
-				restartChangesAliensAI, restartAppliesSettings
+				restartChangesAliensAI, restartAppliesSettings,
+				new ParamTitle("MENU_OPTIONS"),
+				compactOptionOnly
 				)));
 		for (LinkedList<InterfaceParam> list : mergedStaticOptionsMap) {
 			for (InterfaceParam param : list) {
@@ -800,8 +805,9 @@ public class UserPreferences {
 				showNameMinFont, showInfoFontRatio, mapFontFactor,
 				new ParamTitle("MENU_OPTIONS"),
 				menuStartup, menuAfterGame, menuLoadGame,
-				compactOptionOnly, minListSizePopUp, showGridCircular,
-				showTooltips, galaxyPreviewColorStarsSize
+				minListSizePopUp, showGridCircular,
+				showTooltips, galaxyPreviewColorStarsSize,
+				flagColorCount, compactOptionOnly
 				)));
 		for (LinkedList<InterfaceParam> list : mergedDynamicOptionsMap) {
 			for (InterfaceParam param : list) {

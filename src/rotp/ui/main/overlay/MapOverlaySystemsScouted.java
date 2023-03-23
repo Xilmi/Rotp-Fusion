@@ -410,7 +410,9 @@ public class MapOverlaySystemsScouted extends MapOverlay {
                 toggleFlagColor(shift);
                 break;
             default:
-                misClick(); break;
+            	if (!shift) // BR to avoid noise when changing flag color
+            		misClick();
+                break;
         }
         return true;
     }
@@ -478,7 +480,7 @@ public class MapOverlaySystemsScouted extends MapOverlay {
             drawBorderedString(g, str, x2a, mapY+buttonH-s10, SystemPanel.textShadowC, c0);
         }
         @Override
-        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click) {
+        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
             //if (click)
             //    softClick();
             parent.previousSystem();
@@ -548,7 +550,7 @@ public class MapOverlaySystemsScouted extends MapOverlay {
             drawBorderedString(g, str, x2a, mapY+buttonH-s10, SystemPanel.textShadowC, c0);
         }
         @Override
-        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click) {
+        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
             //if (click)
             //    softClick();
             parent.nextSystem();
@@ -627,7 +629,7 @@ public class MapOverlaySystemsScouted extends MapOverlay {
             drawBorderedString(g, str, x2a, mapY+buttonH-s10, SystemPanel.textShadowC, c0);
         }
         @Override
-        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click) {
+        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
             //if (click)
             //    softClick();
             parent.advanceMap();
@@ -688,11 +690,19 @@ public class MapOverlaySystemsScouted extends MapOverlay {
             g.drawImage(flagImage, mapX, mapY, buttonW, buttonH, null);
         }
         @Override
-        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click) {
-            if (rightClick)
-                parent.resetFlagColor();
-            else
-                parent.toggleFlagColor(false);
+        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
+	     	// BR: if 3 buttons:
+	     	//   - Middle click = Reset
+	     	//   - Right click = Reverse
+	        if (middleClick)
+	        	parent.resetFlagColor();
+	        else if (rightClick)
+	        	if (has3Buttons())
+	        		parent.toggleFlagColor(true);
+	        	else
+	        		parent.resetFlagColor();
+	        else
+	        	parent.toggleFlagColor(false);
         };
         @Override
         public void wheel(GalaxyMapPanel map, int rotation, boolean click) {

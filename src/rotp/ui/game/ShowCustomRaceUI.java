@@ -42,9 +42,9 @@ import rotp.ui.RotPUI;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.races.RacesUI;
 import rotp.ui.util.ListDialog;
-import rotp.ui.util.Modifier2KeysState;
 import rotp.ui.util.SettingBase;
 import rotp.util.FontManager;
+import rotp.util.ModifierKeysState;
 
 public class ShowCustomRaceUI extends BaseModPanel implements MouseListener, MouseMotionListener {
 	private static final long serialVersionUID	= 1L;
@@ -220,7 +220,7 @@ public class ShowCustomRaceUI extends BaseModPanel implements MouseListener, Mou
 	}
 	public void open(BasePanel p) {
 		enableGlassPane(this);
-		Modifier2KeysState.reset();
+		ModifierKeysState.reset();
 		parent = p;
 		init();
 		repaint();
@@ -540,10 +540,12 @@ public class ShowCustomRaceUI extends BaseModPanel implements MouseListener, Mou
 	// ========== Overriders ==========
 	//
 	@Override protected void close() { disableGlassPane(); }
-	@Override protected void checkModifierKey(InputEvent e) {
-		hoverAndTooltip(Modifier2KeysState.checkForChange(e));
+	@Override public boolean checkModifierKey(InputEvent e) {
+		boolean change = checkForChange(e);
+		hoverAndTooltip(change);
+		return change;
 	}
-	@Override protected void repaintButtons() {
+	@Override public void repaintButtons() {
 		Graphics2D g = (Graphics2D) getGraphics();
 		super.paintComponent(g);
 		paintButtons(g);

@@ -93,7 +93,7 @@ public class MapOverlayEspionageMission extends MapOverlay {
         if (o instanceof TechCategorySprite)
             techCategoryHoverButton = ((TechCategorySprite) o).categoryNum();
         if (prevHover != techCategoryHoverButton) {
-            Graphics2D g = (Graphics2D) parent.map().getGraphics();
+            //Graphics2D g = (Graphics2D) parent.map().getGraphics();
             parent.map().repaint();
             /*
             if (prevHover >= 0)
@@ -109,27 +109,27 @@ public class MapOverlayEspionageMission extends MapOverlay {
         switch(e.getKeyCode()) {
             case KeyEvent.VK_1:
                 if (this.canSelect(0))  
-                    categorySprites[0].click(parent.map(), 1, false, true);
+                    categorySprites[0].click(parent.map(), 1, false, true, false);
                 break;
             case KeyEvent.VK_2:
                 if (this.canSelect(1))
-                    categorySprites[1].click(parent.map(), 1, false, true);
+                    categorySprites[1].click(parent.map(), 1, false, true, false);
                 break;
             case KeyEvent.VK_3:
                 if (this.canSelect(2))
-                    categorySprites[2].click(parent.map(), 1, false, true);
+                    categorySprites[2].click(parent.map(), 1, false, true, false);
                 break;
             case KeyEvent.VK_4:
                 if (this.canSelect(3))
-                    categorySprites[3].click(parent.map(), 1, false, true);
+                    categorySprites[3].click(parent.map(), 1, false, true, false);
                 break;
             case KeyEvent.VK_5:
                 if (this.canSelect(4))
-                    categorySprites[4].click(parent.map(), 1, false, true);
+                    categorySprites[4].click(parent.map(), 1, false, true, false);
                 break;
             case KeyEvent.VK_6:
                 if (this.canSelect(5))
-                    categorySprites[5].click(parent.map(), 1, false, true);
+                    categorySprites[5].click(parent.map(), 1, false, true, false);
                 break;
             default:
                 misClick(); break;

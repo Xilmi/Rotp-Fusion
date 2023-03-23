@@ -17,6 +17,7 @@ package rotp.ui.sprites;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+
 import rotp.ui.UserPreferences;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
@@ -78,7 +79,7 @@ public class YearDisplaySprite extends MapSprite {
         drawShadowedString(g, s, 2, mapX, mapY-s5, Color.black, textC);
     }
     @Override
-    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click) {
+    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
         if (session().currentAlert() != null)
             return;
         if (click)

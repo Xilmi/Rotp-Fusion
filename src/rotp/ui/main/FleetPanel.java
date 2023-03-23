@@ -380,6 +380,7 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
     }
     @Override
     public void keyPressed(KeyEvent e) {
+    	setModifierKeysState(e); // BR: For the Flag color selection
         int k = e.getKeyCode();
         switch (k) {
             case KeyEvent.VK_ESCAPE:
@@ -406,7 +407,8 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
                 if (systems.size() > 1)
                     softClick();
                 else
-                    misClick();
+                	if (!e.isShiftDown()) // BR to avoid noise when changing flag color
+                		misClick();
                 // find next index (exploit that missing element returns -1, so set to 0)
                 int index = 0;
                 switch(e.getModifiersEx()) {
@@ -615,7 +617,7 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
                 index = (index == 0) ? fleets.size()-1 : index -1;
 
             IMapHandler topPanel = parent.parent.parent;
-            topPanel.clickingOnSprite(fleets.get(index), 1, false, true);
+            topPanel.clickingOnSprite(fleets.get(index), 1, false, true, false);
             topPanel.map().recenterMapOn(fleets.get(index));
             topPanel.repaint();
         }

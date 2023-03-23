@@ -202,7 +202,7 @@ class OKButtonSprite extends MapSprite {
         drawBorderedString(g, str, x2a, mapY+buttonH-s10, SystemPanel.textShadowC, c0);
     }
     @Override
-    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click) {
+    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
         //if (click)
         //    softClick();
         parent.ok();

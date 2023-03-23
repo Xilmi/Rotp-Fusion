@@ -108,8 +108,8 @@ import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.util.InterfacePreview;
 import rotp.ui.util.ListDialog;
-import rotp.ui.util.Modifier2KeysState;
 import rotp.ui.util.SpecificCROption;
+import rotp.util.ModifierKeysState;
 
 public final class SetupGalaxyUI  extends BaseModPanel
 		implements MouseListener, MouseMotionListener, MouseWheelListener, InterfacePreview {
@@ -275,7 +275,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	}
     @Override public void advanceHelp() { cancelHelp(); }
 	@Override public void cancelHelp() { RotPUI.helpUI().close(); }
-	private void loadHelpUI() { // TODO BR HELP
+	private void loadHelpUI() {
 		int xBox, yBox, wBox;
 		int xb, xe, yb, ye;
 		int nL, hBox, lH;
@@ -470,7 +470,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	}
 	private void doStartBoxAction() {
 		buttonClick();
-		switch (Modifier2KeysState.get()) {
+		switch (ModifierKeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT:
 			restartGame();
@@ -482,7 +482,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
  	}
 	private void doBackBoxAction() {
 		buttonClick();
-		switch (Modifier2KeysState.get()) {
+		switch (ModifierKeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Restore
 			// loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
@@ -496,7 +496,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		RotPUI.instance().returnToSetupRacePanel();
  	}
 	private static String backButtonKey() {
-		switch (Modifier2KeysState.get()) {
+		switch (ModifierKeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT:
 			// return restoreKey;
@@ -505,7 +505,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		}
 	}
 	private static String startButtonKey() {
-		switch (Modifier2KeysState.get()) {
+		switch (ModifierKeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT:
 			return RESTART_KEY;
@@ -1152,7 +1152,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			drawNotice(g, 30);
 		}
 	}
-	@Override protected void repaintButtons() {
+	@Override public void repaintButtons() {
 		Graphics2D g = (Graphics2D) getGraphics();
 		setFontHints(g);
 		drawBackButtons(g);		
@@ -1599,7 +1599,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	}
 	private void nextOpponentAI(boolean click) {
 		if (click) softClick();
-		if (click || Modifier2KeysState.isCtrlDown())
+		if (click || ModifierKeysState.isCtrlDown())
 			selectGlobalAIFromList();
 		else 
 			newGameOptions().selectedOpponentAIOption(newGameOptions().nextOpponentAI());
@@ -1607,7 +1607,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	}
 	private void prevOpponentAI(boolean click) {
 		if (click) softClick();
-		if (click || Modifier2KeysState.isCtrlDown())
+		if (click || ModifierKeysState.isCtrlDown())
 			selectGlobalAIFromList();
 		else
 			newGameOptions().selectedOpponentAIOption(newGameOptions().prevOpponentAI());
@@ -1615,7 +1615,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	}
 	private void nextOpponentCR(boolean click) {
 		if (click) softClick();
-		if (click || Modifier2KeysState.isCtrlDown())
+		if (click || ModifierKeysState.isCtrlDown())
 			selectAlienAbilityFromList();
 		else {
 			String currCR = globalCROptions.get();
@@ -1631,7 +1631,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	}
 	private void prevOpponentCR(boolean click) {
 		if (click) softClick();
-		if (click || Modifier2KeysState.isCtrlDown())
+		if (click || ModifierKeysState.isCtrlDown())
 			selectAlienAbilityFromList();
 		else {
 			String currCR = globalCROptions.get();
@@ -1652,7 +1652,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	}
 	private void toggleShowAbility(boolean click) {
 		if (click) softClick();
-		if (click && Modifier2KeysState.isCtrlDown()) {
+		if (click && ModifierKeysState.isCtrlDown()) {
 			String defVal = SpecificCROption.defaultSpecificValue().value;
             for (int i=0;i<oppCR.length;i++)
             	newGameOptions().specificOpponentCROption(defVal,i+1);
@@ -1663,7 +1663,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	}
 	private void nextSpecificOpponentAI(int i, boolean click) {
 		if (click) softClick();
-		if (click || Modifier2KeysState.isCtrlDown())
+		if (click || ModifierKeysState.isCtrlDown())
 			selectSpecificAIFromList(i);
 		else
 			newGameOptions().nextSpecificOpponentAI(i+1);
@@ -1671,7 +1671,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	}
 	private void prevSpecificOpponentAI(int i, boolean click) {
 		if (click) softClick();
-		if (click || Modifier2KeysState.isCtrlDown())
+		if (click || ModifierKeysState.isCtrlDown())
 			selectSpecificAIFromList(i);
 		else
 			newGameOptions().prevSpecificOpponentAI(i+1);
@@ -1679,7 +1679,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	}
 	private void nextSpecificOpponentCR(int i, boolean click) {
 		if (click) softClick();
-		if (click || Modifier2KeysState.isCtrlDown())
+		if (click || ModifierKeysState.isCtrlDown())
 			selectSpecificAbilityFromList(i+1);
 		else {
 			String currCR = newGameOptions().specificOpponentCROption(i+1);
@@ -1695,7 +1695,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	}
 	private void prevSpecificOpponentCR(int i, boolean click) {
 		if (click) softClick();
-		if (click || Modifier2KeysState.isCtrlDown())
+		if (click || ModifierKeysState.isCtrlDown())
 			selectSpecificAbilityFromList(i+1);
 		else {
 			String currCR = newGameOptions().specificOpponentCROption(i+1);
@@ -1720,11 +1720,11 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		repaint();
 	}
 	private void goToOptions() {
-//		if (Modifier2KeysState.isShiftDown()) {
+//		if (ModifierKeysState.isShiftDown()) {
 //			goToMergedStatic();
 //			return;
 //		}
-//		if (Modifier2KeysState.isCtrlDown()) {
+//		if (ModifierKeysState.isCtrlDown()) {
 //			goToMergedDynamic();
 //			return;
 //		}
@@ -1780,7 +1780,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	// BR: Add option to return to the main menu
 	private void goToMainMenu() {
 		buttonClick();
-		switch (Modifier2KeysState.get()) {
+		switch (ModifierKeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Restore
 			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);	

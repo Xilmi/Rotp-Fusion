@@ -20,6 +20,7 @@ import static rotp.ui.UserPreferences.customDifficulty;
 import static rotp.ui.UserPreferences.playerCustomRace;
 import static rotp.ui.UserPreferences.playerIsCustom;
 
+
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Composite;
@@ -29,8 +30,10 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.MouseInfo;
 import java.awt.RenderingHints;
 import java.awt.Transparency;
+import java.awt.event.InputEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.BufferedOutputStream;
@@ -1385,5 +1388,38 @@ public interface Base {
 			name += " (" + Integer.toString(customDifficulty.get()) + "%)";
 		}
 		return name;
+    }
+    // BR:
+    public default ModifierKeysState setModifierKeysState(InputEvent e) {
+    	return ModifierKeysState.set(e);
+    }
+    public default boolean checkForChange(InputEvent e) {
+    	return ModifierKeysState.checkForChange(e);
+    }
+    // BR: Only use if initialized first
+    /**
+     * Only valid if previously initialized in the panel or parent panel
+     * with setModifierKeysState(InputEvent e)
+     * 
+     * @return true if Shift Key is down
+     */
+    public default boolean isShiftDown() { return ModifierKeysState.isShiftDown(); }
+    /**
+     * Only valid if previously initialized in the panel or parent panel
+     * with setModifierKeysState(InputEvent e)
+     * 
+     * @return true if Ctrl Key is down
+     */
+    public default boolean isCtrlDown()  { return ModifierKeysState.isCtrlDown(); }
+    /**
+     * Only valid if previously initialized in the panel or parent panel
+     * with setModifierKeysState(InputEvent e)
+     * 
+     * @return true if Alt Key is down
+     */
+    public default boolean isAltDown()   { return ModifierKeysState.isAltDown(); }
+    public default boolean has3Buttons() {
+    	return MouseInfo.getNumberOfButtons() >= 3;
+    	//return false;
     }
 }

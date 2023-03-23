@@ -32,9 +32,8 @@ import java.util.List;
 import javax.swing.SwingUtilities;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
-import static rotp.ui.BasePanel.s10;
-import static rotp.ui.BasePanel.s20;
-import static rotp.ui.BasePanel.s70;
+import static rotp.ui.UserPreferences.flagColorCount;
+
 import rotp.ui.RotPUI;
 import rotp.ui.SystemViewer;
 import rotp.ui.map.IMapHandler;
@@ -84,13 +83,14 @@ public class EmpireColonyFoundedPane extends BasePanel implements MouseMotionLis
 
         // draw system banner
         int sz = s70;
+        int shX = (flagColorCount.get() == 1)? 0 : s8; // BR: flagColorCount
         if (hoverBox == flagBox) {
             Image hoverImage = player().sv.flagHover(sys.id);
-            g.drawImage(hoverImage, w-sz+s15, h-sz+s15, sz, sz, null);
+            g.drawImage(hoverImage, w-sz+s15-shX, h-sz+s15, sz, sz, null);
         }
         Image flagImage = player().sv.flagImage(sys.id);
-        g.drawImage(flagImage, w-sz+s15, h-sz+s15, sz, sz, null);
-        flagBox.setBounds(w-sz+s25,h-sz+s15,sz-s20,sz-s10);
+        g.drawImage(flagImage, w-sz+s15-shX, h-sz+s15, sz, sz, null);
+        flagBox.setBounds(w-sz+s25,h-sz+s15-shX,sz-s20,sz-s10);
     }
     public void toggleFlagColor(boolean reverse) {
         List<StarSystem> systems = parent.systemsToDisplay();
@@ -152,12 +152,22 @@ public class EmpireColonyFoundedPane extends BasePanel implements MouseMotionLis
     public void mousePressed(MouseEvent e) { }
     @Override
     public void mouseReleased(MouseEvent e) {
+    	setModifierKeysState(e); // BR: For the Flag color selection
         boolean rightClick = SwingUtilities.isRightMouseButton(e);
+        boolean middleClick = SwingUtilities.isMiddleMouseButton(e);
         if (hoverBox == flagBox) {
-            if (rightClick)
-                resetFlagColor();
-            else
-                toggleFlagColor(false);
+	     	// BR: if 3 buttons:
+	     	//   - Middle click = Reset
+	     	//   - Right click = Reverse
+	        if (middleClick)
+	        	resetFlagColor();
+	        else if (rightClick)
+	        	if (has3Buttons())
+	        		toggleFlagColor(true);
+	        	else
+	        		resetFlagColor();
+	        else
+	        	toggleFlagColor(false);
        }
         else if (hoverBox == nameBox) {
             RotPUI.instance().selectRacesPanel();
@@ -176,11 +186,12 @@ public class EmpireColonyFoundedPane extends BasePanel implements MouseMotionLis
     }
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
+    	setModifierKeysState(e); // BR: For the Flag color selection
         if (hoverBox == flagBox) {
             if (e.getWheelRotation() < 0)
                 toggleFlagColor(true);
             else
-                toggleFlagColor(true);
+                toggleFlagColor(false);
         }
     }
 }

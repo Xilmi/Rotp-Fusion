@@ -17,6 +17,7 @@ package rotp.ui.sprites;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+
 import rotp.ui.BasePanel;
 import rotp.ui.main.GalaxyMapPanel;
 
@@ -37,7 +38,7 @@ public class FlightPathDisplaySprite extends MapControlSprite  {
         normColor = newColor(32,32,192,128);
     }
     @Override
-    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click) {
+    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
         map.toggleFlightPathDisplay(rightClick);
     }
     @Override

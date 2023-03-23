@@ -28,17 +28,14 @@ import static rotp.ui.util.InterfaceParam.LABEL_DESCRIPTION;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.event.InputEvent;
 import java.util.LinkedList;
 
-import rotp.model.game.GameSession;
 import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
-//import rotp.ui.RotPUI;
 import rotp.ui.util.InterfaceParam;
-import rotp.ui.util.Modifier2KeysState;
 import rotp.util.LabelManager;
+import rotp.util.ModifierKeysState;
 
 public abstract class BaseModPanel extends BasePanel {
  
@@ -100,14 +97,9 @@ public abstract class BaseModPanel extends BasePanel {
 	protected MOO1GameOptions guiOptions() { return RotPUI.mergedGuiOptions(); }
 
 	protected boolean guiCallFromGame() { return RotPUI.guiCallFromGame(); }
-	protected void repaintButtons() { repaint(); }
-	protected void checkModifierKey(InputEvent e) {
-		if (Modifier2KeysState.checkForChange(e)) {
-			repaintButtons();
-		}
-	}
+	@Override public void repaintButtons() { repaint(); }
 	protected void init() {
-		Modifier2KeysState.reset();
+		ModifierKeysState.reset();
 		w = RotPUI.setupRaceUI().getWidth();
 		h = RotPUI.setupRaceUI().getHeight();
 
@@ -133,7 +125,7 @@ public abstract class BaseModPanel extends BasePanel {
 	}
 
 	protected void close() {
-		Modifier2KeysState.reset();
+		ModifierKeysState.reset();
 		if (paramList != null)
 			for (InterfaceParam param : paramList)
 				param.setPanel(null);
@@ -144,7 +136,7 @@ public abstract class BaseModPanel extends BasePanel {
 
 	// ---------- Exit Button
 	protected String exitButtonKey() {
-		switch (Modifier2KeysState.get()) {
+		switch (ModifierKeysState.get()) {
 		// case CTRL:
 		// case CTRL_SHIFT: return cancelKey;
 		default: return exitKey;
@@ -161,7 +153,7 @@ public abstract class BaseModPanel extends BasePanel {
 	}
     protected void doExitBoxAction() {
 		buttonClick();
-		switch (Modifier2KeysState.get()) {
+		switch (ModifierKeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Restore
 			// loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
@@ -178,7 +170,7 @@ public abstract class BaseModPanel extends BasePanel {
 
 	// ---------- User Button
 	protected String userButtonKey() {
-		switch (Modifier2KeysState.get()) {
+		switch (ModifierKeysState.get()) {
 		case CTRL:		 return saveGlobalUserKey;
 		case CTRL_SHIFT: return saveLocalUserKey;
 		case SHIFT:		 return setLocalUserKey;
@@ -196,7 +188,7 @@ public abstract class BaseModPanel extends BasePanel {
 	}
 	protected void doUserBoxAction() {
 		buttonClick();
-		switch (Modifier2KeysState.get()) {
+		switch (ModifierKeysState.get()) {
 		case CTRL: // saveGlobalUserKey
 			updateOptionsAndSaveToFileName(guiOptions(), USER_OPTIONS_FILE, ALL_GUI_ID);
 			return;
@@ -219,13 +211,13 @@ public abstract class BaseModPanel extends BasePanel {
 	// ---------- Default Button
 	protected String defaultButtonKey() {
 		if (globalOptions)  // The old ways
-			switch (Modifier2KeysState.get()) {
+			switch (ModifierKeysState.get()) {
 			case CTRL:
 			case CTRL_SHIFT: return restoreLocalKey;
 			default:		 return setLocalDefaultKey;
 			}
 		else
-			switch (Modifier2KeysState.get()) {
+			switch (ModifierKeysState.get()) {
 			case CTRL:		 return restoreGlobalKey;
 			case CTRL_SHIFT: return restoreLocalKey;
 			case SHIFT:		 return setLocalDefaultKey;
@@ -243,7 +235,7 @@ public abstract class BaseModPanel extends BasePanel {
 	}
 	protected void doDefaultBoxAction() {
 		buttonClick();
-		switch (Modifier2KeysState.get()) {
+		switch (ModifierKeysState.get()) {
 		case CTRL: // restoreGlobalKey
 			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);		
 			break;
@@ -265,7 +257,7 @@ public abstract class BaseModPanel extends BasePanel {
 
 	// ---------- Last Button
 	protected String lastButtonKey() {
-		switch (Modifier2KeysState.get()) {
+		switch (ModifierKeysState.get()) {
 		case CTRL:		 return setGlobalGameKey;
 		case CTRL_SHIFT: return setLocalGameKey;
 		case SHIFT:		 return setLocalLastKey;
@@ -283,7 +275,7 @@ public abstract class BaseModPanel extends BasePanel {
 	}
 	protected void doLastBoxAction() {
 		buttonClick();
-		switch (Modifier2KeysState.get()) {
+		switch (ModifierKeysState.get()) {
 		case CTRL: // setGlobalGameKey
 			loadAndUpdateFromFileName(guiOptions(), GAME_OPTIONS_FILE, ALL_GUI_ID);
 			break;

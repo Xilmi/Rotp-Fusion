@@ -18,6 +18,7 @@ package rotp.ui.sprites;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
+
 import rotp.ui.BasePanel;
 import rotp.ui.main.GalaxyMapPanel;
 
@@ -31,7 +32,7 @@ public class ZoomInWidgetSprite extends MapControlSprite {
     @Override
     public boolean acceptDoubleClicks()         { return true; }
     @Override
-    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click) {
+    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
         map.adjustZoom(-1);
     }
     @Override

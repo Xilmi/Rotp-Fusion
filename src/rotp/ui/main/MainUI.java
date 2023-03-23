@@ -15,6 +15,8 @@
  */
 package rotp.ui.main;
 
+import static rotp.ui.UserPreferences.flagColorCount;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -365,7 +367,7 @@ public class MainUI extends BasePanel implements IMapHandler {
         StarSystem sys = galaxy().system(pl.capitalSysId());
 
         // main goal here is to trigger sprite click behavior with no click sound
-        sys.click(map, 1, false, false);
+        sys.click(map, 1, false, false, false);
         hoveringSprite(null);
         clickedSprite(sys);
 
@@ -442,12 +444,12 @@ public class MainUI extends BasePanel implements IMapHandler {
         displayPanel.useNullClick(cnt, right);
     };
     @Override
-    public void clickingOnSprite(Sprite o, int count, boolean rightClick, boolean click) {
+    public void clickingOnSprite(Sprite o, int count, boolean rightClick, boolean click, boolean middleClick) {
         // if not in normal mode, then NextTurnControls are
         // the only sprites clickable
         if (overlay.consumesClicks(o)) {
             if (nextTurnControls.contains(o)) {
-                o.click(map, count, rightClick, click);
+                o.click(map, count, rightClick, click, middleClick);
                 map.repaint();
             }
             return;
@@ -455,7 +457,7 @@ public class MainUI extends BasePanel implements IMapHandler {
         boolean used = (displayPanel != null) && displayPanel.useClickedSprite(o, count, rightClick);
         hoveringOverSprite(null);
         if (!used)  {
-            o.click(map, count, rightClick, click);
+            o.click(map, count, rightClick, click, middleClick);
             if (o.persistOnClick()) {
                 hoveringSprite(null);
                 if(rightClick == true)
@@ -566,7 +568,7 @@ public class MainUI extends BasePanel implements IMapHandler {
     public List<Sprite> controlSprites()     { return baseControls; }
     @Override
     public void reselectCurrentSystem() {
-        clickingOnSprite(lastSystemSelected(), 1, false, true);
+        clickingOnSprite(lastSystemSelected(), 1, false, true, false);
         repaint();
     }
     @Override
@@ -817,12 +819,39 @@ public class MainUI extends BasePanel implements IMapHandler {
         HelpSpec sp10 = helpUI.addBlueHelpText(x10, y10, w10, 2, text("MAIN_HELP_2J"));
         sp10.setLine(x10+w10, y10+(sp10.height()/2), w-scaled(49), scaled(205));
 
-        int x11 = w-scaled(179);
-        int y11 = scaled(25);
-        int w11 = scaled(170);
-        HelpSpec sp11 = helpUI.addBlueHelpText(x11, y11, w11, 4, text("MAIN_HELP_2K"));
-        sp11.setLine(w-scaled(34), y11+sp11.height(), w-scaled(25), scaled(170));
-
+        int w11;
+        int y11;
+        int lines;
+        String txt;
+        if (flagColorCount.get() == 1) {
+        	txt   = text("MAIN_HELP_2K");
+        	lines = 4;
+        	y11   = s14;
+            if (has3Buttons()) {
+            	w11 = scaled(230);
+            	txt += " " + text("MAIN_HELP_2K_M3");
+            } else {
+            	w11 = scaled(225);
+            	txt += " " + text("MAIN_HELP_2K_M2");
+            }
+        } else {
+        	txt   = text("MAIN_HELP_2K_2F");
+        	lines = 5;
+        	y11   = s4;
+            if (has3Buttons()) {
+            	txt += " " + text("MAIN_HELP_2K_M3");
+            	w11 = scaled(225);
+            } else {
+            	txt += " " + text("MAIN_HELP_2K_M2");
+            	w11 = scaled(220);
+            }
+            txt += " " + text("MAIN_HELP_2K_2F_HOLD");
+        }
+        int x11 = w-w11-s4;
+        
+        
+        HelpSpec sp11 = helpUI.addBrownHelpText(x11, y11, w11, lines, txt);
+        sp11.setLine(w-scaled(40), y11+sp11.height(), w-scaled(25), scaled(170));
     }
     private void loadButtonBarHelpFrame() {
         HelpUI helpUI = RotPUI.helpUI();
@@ -888,6 +917,7 @@ public class MainUI extends BasePanel implements IMapHandler {
     }
     @Override
     public void keyPressed(KeyEvent e) {
+    	setModifierKeysState(e); // BR: For the Flag color selection
         if (!overlay.handleKeyPress(e))
             overlayNone.handleKeyPress(e);
     }

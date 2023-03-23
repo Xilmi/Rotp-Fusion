@@ -27,6 +27,10 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 ## What's New
 
 2023.03.19 (BR)
+  - Added Option for Dual Flag on planets.
+  - Changed Mouse control on flags
+
+2023.03.19 (BR)
   - Galaxy Setup Menu.
     - Fixed "Menu Options" sometime opening "Compact Static Options"
     - Added Help button.

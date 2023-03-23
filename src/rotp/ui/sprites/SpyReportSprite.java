@@ -38,7 +38,7 @@ public class SpyReportSprite extends MapControlSprite {
         height = scaled(h);
     }
     @Override
-    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click) {
+    public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
         RotPUI.instance().showSpyReport();
         map.parent().hoveringOverSprite(null);
     }

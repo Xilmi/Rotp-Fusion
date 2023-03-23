@@ -15,13 +15,17 @@
  */
 package rotp.model.empires;
 
-import java.awt.Color;
+import static rotp.ui.UserPreferences.flagColorCount;
+
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.swing.ImageIcon;
 
 import rotp.mod.br.addOns.MiscellaneousOptions;
 import rotp.mod.br.profiles.Profiles;
@@ -34,6 +38,8 @@ import rotp.model.galaxy.StarSystem;
 import rotp.model.planet.Planet;
 import rotp.model.planet.PlanetType;
 import rotp.util.Base;
+import rotp.util.ImageManager;
+import rotp.util.ModifierKeysState;
 
 public class SystemView implements IMappedObject, Base, Serializable {
     private static final long serialVersionUID = 1L;
@@ -53,6 +59,10 @@ public class SystemView implements IMappedObject, Base, Serializable {
     static final int FLAG_LTBLUE = 8;
     static final int FLAG_PURPLE = 9;
     static final int FLAG_PINK = 10;
+    // BR: flagColorCount
+    static final int MASK_COLOR   = 255;
+    static final int SHIFT_COLOR  = MASK_COLOR + 1;
+    static final int MASK_COLOR_2 = MASK_COLOR * SHIFT_COLOR;
 
     public static SystemView create(int sysId, int empId) {
         return new SystemView(sysId,empId);
@@ -152,17 +162,75 @@ public class SystemView implements IMappedObject, Base, Serializable {
         clearHostility();
     }
     public int flagColorId()  { return flagColor; }
-    public Color flagColor() { 
-        switch(flagColor) {
-            case FLAG_RED:    return Color.red;
-            case FLAG_WHITE:  return Color.white;
-            case FLAG_BLUE:   return Color.blue;
-            case FLAG_GREEN:  return Color.green;
-            case FLAG_YELLOW: return Color.yellow;
-        }
-        return null; 
+//    public Color flagColor() { // BR: not used!
+//        switch(flagColor) {
+//            case FLAG_RED:    return Color.red;
+//            case FLAG_WHITE:  return Color.white;
+//            case FLAG_BLUE:   return Color.blue;
+//            case FLAG_GREEN:  return Color.green;
+//            case FLAG_YELLOW: return Color.yellow;
+//        }
+//        return null; 
+//    }
+    private int getFlagColor(int id) { // BR: flagColorCount
+    	switch (id) {
+    	case 2:
+    		return (flagColor & MASK_COLOR_2) / SHIFT_COLOR;
+    	default:
+    		return flagColor & MASK_COLOR;
+    	}
     }
-    public Image flagImage() {
+    private void setFlagColor(int color, int id) {
+    	switch (id) {
+    	case 2:
+    		flagColor = (flagColor & MASK_COLOR) |
+    					((color & MASK_COLOR) * SHIFT_COLOR);
+    		return;
+    	default:
+    		flagColor = (color & MASK_COLOR) | (flagColor & MASK_COLOR_2);
+    	}
+    }
+    private static Image joinImage(Image left, Image right) { // BR: flagColorCount
+    	int side  = 133;
+    	int end  = 133;
+    	int mid1 = end/2+8;
+    	int mid2 = end - mid1;
+    	int mast = 97;
+    	int fw = mid1;
+    	BufferedImage result = new BufferedImage(
+                side, side,
+                BufferedImage.TYPE_INT_ARGB);
+    	Graphics g = result.getGraphics();
+    	g.drawImage(right, mid2, 0,  end, side, mast, 0, mast-fw, side, null);
+    	g.drawImage(left,  0,    0, mid1, side, mast-fw, 0, mast, side, null);
+    	return new ImageIcon(result).getImage();
+    }
+    public static Image flagBackGround(String name) { // BR: flagColorCount
+    	Image fh = ImageManager.current().image(name);
+    	switch (flagColorCount.get()) {
+    	case 2:
+    		return joinImage(fh, fh);
+    	default:
+    		return fh;
+    	}
+    }
+    public Image flagImage() { // BR: flagColorCount
+    	switch (flagColorCount.get()) {
+    	case 2:
+    		return joinImage(flagImage(getFlagColor(1)), flagImage(getFlagColor(2)));
+    	default:
+    		return flagImage(flagColor);
+    	}
+    }
+    public Image mapFlagImage() { // BR: flagColorCount
+    	switch (flagColorCount.get()) {
+    	case 2:
+    		return joinImage(mapFlagImage(getFlagColor(1)), flagImage(getFlagColor(2)));
+    	default:
+    		return mapFlagImage(getFlagColor(1));
+    	}
+    }
+    private Image flagImage(int flagColor) { // BR: flagColorCount
         switch(flagColor) {
             case FLAG_NONE:   return image("Flag_None");
             case FLAG_RED:    return image("Flag_Red");
@@ -175,10 +243,10 @@ public class SystemView implements IMappedObject, Base, Serializable {
             case FLAG_LTBLUE: return image("Flag_LtBlue");
             case FLAG_PURPLE: return image("Flag_Purple");
             case FLAG_PINK:   return image("Flag_Pink");
-            default:          return image("Flag_White");
+            default:          return null;
         }
     }
-    public Image mapFlagImage() {
+    private Image mapFlagImage(int flagColor) {
         switch(flagColor) {
             case FLAG_NONE:   return null;
             case FLAG_RED:    return image("Flag_RedM");
@@ -191,7 +259,7 @@ public class SystemView implements IMappedObject, Base, Serializable {
             case FLAG_LTBLUE: return image("Flag_LtBlueM");
             case FLAG_PURPLE: return image("Flag_PurpleM");
             case FLAG_PINK:   return image("Flag_PinkM");
-            default:          return image("Flag_WhiteM");
+            default:          return null;
         }
     }
     public PlanetType planetType() {
@@ -225,6 +293,9 @@ public class SystemView implements IMappedObject, Base, Serializable {
         if (!scouted()) {
             log("Orbital scan scouts new system: ", system().name());
             owner().shareSystemInfoWithAllies(this);
+            if (owner().isPlayer()) { // TODO BR: Add auto Flag
+ // TODO BR:           	System.out.println("System Scouted ready for auto Flag");
+            }
             if (owner().isPlayerControlled()) {
                 session().addSystemScouted(system());
                 if (system().empire() != player())
@@ -356,41 +427,49 @@ public class SystemView implements IMappedObject, Base, Serializable {
     public boolean environmentGaia()        { return (planet() != null) && planet().isEnvironmentGaia(); }
 
     public void resetFlagColor()            { flagColor = FLAG_NONE; }
-    public void toggleFlagColor(boolean reverse) {
+
+    public void toggleFlagColor(boolean reverse) { // BR: flagColorCount
+    	int id = 1;
+    	if(ModifierKeysState.isShiftDown())
+    		id = 2;
+    	setFlagColor(toggleFlagColor(reverse, getFlagColor(id)), id);
+    }
+    private int toggleFlagColor(boolean reverse, int flagColor) { // BR: flagColorCount
     	if (Profiles.isFlagColorOrderEnabled()) { // BR:
-    		flagColor = MiscellaneousOptions.getNextFlagColor(flagColor, reverse);
-    		return;
+    		return MiscellaneousOptions.getNextFlagColor(flagColor, reverse);
     	}
         if (reverse) {
              switch(flagColor) {
-                case FLAG_NONE:   flagColor = FLAG_PINK; return;
-                case FLAG_WHITE:  flagColor = FLAG_NONE; return;
-                case FLAG_RED:    flagColor = FLAG_WHITE; return;
-                case FLAG_BLUE:   flagColor = FLAG_RED; return;
-                case FLAG_GREEN:  flagColor = FLAG_BLUE; return;
-                case FLAG_YELLOW: flagColor = FLAG_GREEN; return;
-                case FLAG_AQUA:   flagColor = FLAG_YELLOW; return;
-                case FLAG_ORANGE: flagColor = FLAG_AQUA; return;
-                case FLAG_LTBLUE: flagColor = FLAG_ORANGE; return;
-                case FLAG_PURPLE: flagColor = FLAG_LTBLUE; return;
-                case FLAG_PINK:   flagColor = FLAG_PURPLE; return;
+                case FLAG_NONE:   return FLAG_PINK;
+                case FLAG_WHITE:  return FLAG_NONE;
+                case FLAG_RED:    return FLAG_WHITE;
+                case FLAG_BLUE:   return FLAG_RED;
+                case FLAG_GREEN:  return FLAG_BLUE;
+                case FLAG_YELLOW: return FLAG_GREEN;
+                case FLAG_AQUA:   return FLAG_YELLOW;
+                case FLAG_ORANGE: return FLAG_AQUA;
+                case FLAG_LTBLUE: return FLAG_ORANGE;
+                case FLAG_PURPLE: return FLAG_LTBLUE;
+                case FLAG_PINK:   return FLAG_PURPLE;
             }
         }
         else {
             switch(flagColor) {
-                case FLAG_NONE:   flagColor = FLAG_WHITE; return;
-                case FLAG_WHITE:  flagColor = FLAG_RED; return;
-                case FLAG_RED:    flagColor = FLAG_BLUE; return;
-                case FLAG_BLUE:   flagColor = FLAG_GREEN; return;
-                case FLAG_GREEN:  flagColor = FLAG_YELLOW; return;
-                case FLAG_YELLOW: flagColor = FLAG_AQUA; return;
-                case FLAG_AQUA:   flagColor = FLAG_ORANGE; return;
-                case FLAG_ORANGE: flagColor = FLAG_LTBLUE; return;
-                case FLAG_LTBLUE: flagColor = FLAG_PURPLE; return;
-                case FLAG_PURPLE: flagColor = FLAG_PINK; return;
-                case FLAG_PINK:   flagColor = FLAG_NONE; return;
+                case FLAG_NONE:   return FLAG_WHITE;
+                case FLAG_WHITE:  return FLAG_RED;
+                case FLAG_RED:    return FLAG_BLUE;
+                case FLAG_BLUE:   return FLAG_GREEN;
+                case FLAG_GREEN:  return FLAG_YELLOW;
+                case FLAG_YELLOW: return FLAG_AQUA;
+                case FLAG_AQUA:   return FLAG_ORANGE;
+                case FLAG_ORANGE: return FLAG_LTBLUE;
+                case FLAG_LTBLUE: return FLAG_PURPLE;
+                case FLAG_PURPLE: return FLAG_PINK;
+                case FLAG_PINK:   return FLAG_NONE;
             }
         }
+        // Should never be reached
+        return FLAG_NONE;
     }
     public String resourceType() {
         if (artifact() || orionArtifact())

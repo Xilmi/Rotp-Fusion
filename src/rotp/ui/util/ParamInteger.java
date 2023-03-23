@@ -35,17 +35,17 @@ public class ParamInteger extends AbstractParam<Integer> {
 //	public ParamInteger(String gui, String name, Integer defaultValue) {
 //		super(gui, name, defaultValue, null, null, 1, 1, 1);
 //	}
-//	/**
-//	 * @param gui  The label header
-//	 * @param name The name
-//	 * @param defaultvalue The default value
-//	 * @param minValue The minimum value (null = none)
-//	 * @param maxValue The maximum value (null = none)
-//	 */
-//	public ParamInteger(String gui, String name, Integer defaultValue
-//			, Integer minValue, Integer maxValue) {
-//		super(gui, name, defaultValue, minValue, maxValue, 1, 1, 1);
-//	}
+	/**
+	 * @param gui  The label header
+	 * @param name The name
+	 * @param defaultvalue The default value
+	 * @param minValue The minimum value (null = none)
+	 * @param maxValue The maximum value (null = none)
+	 */
+	public ParamInteger(String gui, String name, Integer defaultValue
+			, Integer minValue, Integer maxValue) {
+		super(gui, name, defaultValue, minValue, maxValue, 1, 1, 1);
+	}
 	/**
 	 * @param gui  The label header
 	 * @param name The name

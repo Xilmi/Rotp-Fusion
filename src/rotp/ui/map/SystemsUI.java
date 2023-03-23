@@ -344,14 +344,14 @@ public final class SystemsUI extends BasePanel implements IMapHandler, ActionLis
         displayPanel.useNullClick(cnt, right);
     };
     @Override
-    public void clickingOnSprite(Sprite o, int count, boolean rightClick, boolean click) {
+    public void clickingOnSprite(Sprite o, int count, boolean rightClick, boolean click, boolean middleClick) {
         if ((o instanceof ShipFleet) || (o instanceof Transport) || (o instanceof FlightPathSprite))
             return;
         
         boolean used = (displayPanel != null) && displayPanel.useClickedSprite(o, count, rightClick);
         hoveringOverSprite(null);
         if (!used)  {
-            o.click(map, count, rightClick, click);
+            o.click(map, count, rightClick, click, middleClick);
             if (o.persistOnClick()) {
                 hoveringSprite(null);
                 clickedSprite(o);
@@ -952,6 +952,7 @@ public final class SystemsUI extends BasePanel implements IMapHandler, ActionLis
     }
     @Override
     public void keyPressed(KeyEvent e) {
+    	setModifierKeysState(e); // BR: For the Flag color selection
         boolean shift = e.isShiftDown();
         boolean ctrl  = e.isControlDown();
         if (e.getKeyChar() == '?') {
@@ -1015,7 +1016,7 @@ public final class SystemsUI extends BasePanel implements IMapHandler, ActionLis
     }
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
-
+    	setModifierKeysState(e); // BR: For the Flag color selection
     }
     class MainTitlePanel extends BasePanel implements MouseMotionListener, MouseListener {
         private static final long serialVersionUID = 1L;

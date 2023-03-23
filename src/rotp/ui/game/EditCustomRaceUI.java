@@ -43,9 +43,9 @@ import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.RotPUI;
 import rotp.ui.util.InterfaceOptions;
-import rotp.ui.util.Modifier2KeysState;
 import rotp.ui.util.SettingBase;
 import rotp.util.LabelManager;
+import rotp.util.ModifierKeysState;
 
 public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelListener {
 	private static final long serialVersionUID	= 1L;
@@ -127,7 +127,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	private void loadCurrentRace() { cr.loadRace(); }
 	private void doLoadBoxAction() { // Local to panel
 		buttonClick();
-		switch (Modifier2KeysState.get()) {
+		switch (ModifierKeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Save
 			saveCurrentRace();
@@ -180,7 +180,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		return super.exitButtonDescKey();
 	}
 	private String loadButtonDescKey() {
-		switch (Modifier2KeysState.get()) {
+		switch (ModifierKeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT:
 			return saveTipKey;
@@ -189,7 +189,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		}
 	}
 	private String loadButtonKey() {
-		switch (Modifier2KeysState.get()) {
+		switch (ModifierKeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT:
 			return saveCurrentKey;
@@ -248,7 +248,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	}
 	@Override protected void doDefaultBoxAction() {
 		buttonClick();
-		switch (Modifier2KeysState.get()) {
+		switch (ModifierKeysState.get()) {
 		case CTRL: // restoreGlobalKey
 			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);		
 			break;
@@ -267,7 +267,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	}
 	@Override public void open(BasePanel p) {
 		enableGlassPane(this);
-		Modifier2KeysState.reset();
+		ModifierKeysState.reset();
 		parent = p;
 
 		cr.fromOptions((DynOptions) playerCustomRace.get());
@@ -278,7 +278,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	}
 	@Override protected String GUI_ID() { return GUI_ID; }
 	@Override protected void close() {
-		Modifier2KeysState.reset();
+		ModifierKeysState.reset();
 		disableGlassPane();
 		((SetupRaceUI) parent).raceChanged();		
 		RotPUI.instance().returnToSetupRacePanel();

@@ -24,6 +24,7 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
+
 import rotp.model.Sprite;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.ShipFleet;
@@ -347,7 +348,8 @@ public class MapOverlayColonizePrompt extends MapOverlay {
                 toggleFlagColor(shift);
                 break;
             default:
-                misClick();
+            	if (!shift) // BR to avoid noise when changing flag color
+            		misClick();
                 break;
         }
         return true;
@@ -407,11 +409,19 @@ public class MapOverlayColonizePrompt extends MapOverlay {
             g.drawImage(flagImage, mapX, mapY, buttonW, buttonH, null);
         }
         @Override
-        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click) {
-            if (rightClick)
-                parent.resetFlagColor();
-            else
-                parent.toggleFlagColor(false);
+        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
+	     	// BR: if 3 buttons:
+	     	//   - Middle click = Reset
+	     	//   - Right click = Reverse
+	        if (middleClick)
+	        	parent.resetFlagColor();
+	        else if (rightClick)
+	        	if (has3Buttons())
+	        		parent.toggleFlagColor(true);
+	        	else
+	        		parent.resetFlagColor();
+	        else
+	        	parent.toggleFlagColor(false);
         };
         @Override
         public void wheel(GalaxyMapPanel map, int rotation, boolean click) {

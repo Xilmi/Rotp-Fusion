@@ -140,7 +140,8 @@ public class MapOverlayJava32Bit extends MapOverlay {
                 ok();
                 break;
             default:
-                misClick();
+            	if (!e.isShiftDown()) // BR to avoid noise when changing flag color
+            		misClick();
                 break;
         }
         return true;
@@ -207,7 +208,7 @@ public class MapOverlayJava32Bit extends MapOverlay {
             drawBorderedString(g, str, x2a, mapY+buttonH-s10, SystemPanel.textShadowC, c0);
         }
         @Override
-        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click) {
+        public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
             //if (click)
             //    softClick();
             parent.ok();
