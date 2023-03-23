@@ -106,15 +106,15 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 		return getCfgLabel() + " = " + getCfgValue();
 	}
 	@Override public void setFromOptions(DynamicOptions options) {
-		if (!isDuplicate())
+		if (!isDuplicate() && options != null)
 			setFromCfgValue(options.getString(labelId(), getCfgValue(defaultValue())));
 	}
 	@Override public void setOptions(DynamicOptions options) {
-		if (!isDuplicate())
+		if (!isDuplicate() && options != null)
 			options.setString(labelId(), getCfgValue());
 	}
 	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
-		if (!isDuplicate())
+		if (!isDuplicate() && src != null && dest != null)
 			dest.setString(labelId(), src.getString(labelId(), getCfgValue(defaultValue())));
 	}
 	@Override public String getCfgValue() { return getCfgValue(value); }

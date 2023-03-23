@@ -26,7 +26,10 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
-2023.03.19 (BR)
+2023.03.21 (BR)
+  - Fixed crash due to unknown new options with some old save.
+
+2023.03.20 (BR)
   - Added Option for Dual Flag on planets.
   - Changed Mouse control on flags
 
