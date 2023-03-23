@@ -121,15 +121,15 @@ public class ParamFloat extends AbstractParam<Float> {
 	@Override public void toggle(MouseEvent e)		{ next(getInc(e) * getDir(e)); }
 	@Override public void toggle(MouseWheelEvent e) { next(getInc(e) * getDir(e)); }
 	@Override public void setFromOptions(DynamicOptions options) {
-		if (!isDuplicate())
+		if (!isDuplicate() && options != null)
 			set(options.getFloat(labelId(), defaultValue()));
 	}
 	@Override public void setOptions(DynamicOptions options) {
-		if (!isDuplicate())
+		if (!isDuplicate() && options != null)
 			options.setFloat(labelId(), get());
 	}
 	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
-		if (!isDuplicate())
+		if (!isDuplicate() && src != null && dest != null)
 			dest.setFloat(labelId(), src.getFloat(labelId(), defaultValue()));
 	}
 	// ========== Other Methods ==========

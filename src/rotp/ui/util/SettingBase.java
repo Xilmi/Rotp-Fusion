@@ -214,15 +214,15 @@ public class SettingBase<T> implements InterfaceParam {
 		selectedValue(defaultValue);		
 	}
 	@Override public void setOptions(DynamicOptions destOptions) {
-		if (!isSpacer)
+		if (!isSpacer && destOptions != null)
 			destOptions.setString(labelId(), getCfgValue());
 	}
 	@Override public void setFromOptions(DynamicOptions srcOptions) {
-		if (!isSpacer)
+		if (!isSpacer && srcOptions != null)
 			setFromCfgValue(srcOptions.getString(labelId(), getDefaultCfgValue()));
 	}
 	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
-		if (!isSpacer)
+		if (!isSpacer && src != null && dest != null)
 			dest.setString(labelId(), getCfgValue());
 		dest.setString(labelId(), src.getString(labelId(), getDefaultCfgValue()));
 	}

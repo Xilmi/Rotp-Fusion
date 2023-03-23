@@ -43,6 +43,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	private T shiftInc	= null;
 	private T ctrlInc	= null;
 	private boolean isDuplicate = false;
+	@SuppressWarnings("unused") // kept for save game compatibility
 	private MOO1GameOptions duplicateOptions = null;
 
 	// ========== constructors ==========

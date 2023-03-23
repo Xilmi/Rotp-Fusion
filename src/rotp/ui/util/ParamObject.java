@@ -43,13 +43,16 @@ public class ParamObject extends AbstractParam<Serializable> {
 	@Override public void toggle(MouseWheelEvent e)	{}
 	@Override public void toggle(MouseEvent e) {}
 	@Override public void setFromOptions(DynamicOptions options) {
-		set((Serializable) options.getObject(labelId(), defaultValue()));
+		if (!isDuplicate() && options != null)
+			set((Serializable) options.getObject(labelId(), defaultValue()));
 	}
 	@Override public void setOptions(DynamicOptions options) {
-		options.setObject(labelId(), get());
+		if (!isDuplicate() && options != null)
+			options.setObject(labelId(), get());
 	}
 	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
-		dest.setObject(labelId(), (Serializable) src.getObject(labelId(), defaultValue()));
+		if (!isDuplicate() && src != null && dest != null)
+			dest.setObject(labelId(), (Serializable) src.getObject(labelId(), defaultValue()));
 	}
 	// ===== Other Methods =====
 	//

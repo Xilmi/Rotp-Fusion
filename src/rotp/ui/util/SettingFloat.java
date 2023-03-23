@@ -213,11 +213,11 @@ public class SettingFloat extends SettingBase<Float> {
 		return settingCost(settingValue());
 	}
 	@Override public void setOptions(DynamicOptions options) {
-		if (!isSpacer())
+		if (!isSpacer() && options != null && options != null)
 			options.setFloat(labelId(), settingValue());
 	}
 	@Override public void setFromOptions(DynamicOptions options) {
-		if (!isSpacer())
+		if (!isSpacer() && options != null)
 			set(options.getFloat(labelId(), defaultValue()));
 	}
 	@Override public String guiSettingValue() { return getCfgValue(); }

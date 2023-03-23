@@ -43,13 +43,16 @@ public class ParamString extends AbstractParam<String> {
 	@Override public void toggle(MouseWheelEvent e)	{}
 	@Override public void toggle(MouseEvent e) {}
 	@Override public void setFromOptions(DynamicOptions options) {
-		set(options.getString(labelId(), defaultValue()));
+		if (!isDuplicate() && options != null)
+			set(options.getString(labelId(), defaultValue()));
 	}
 	@Override public void setOptions(DynamicOptions options) {
-		options.setString(labelId(), get());
+		if (!isDuplicate() && options != null)
+			options.setString(labelId(), get());
 	}
 	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
-		dest.setString(labelId(), src.getString(labelId(), defaultValue()));
+		if (!isDuplicate() && src != null && dest != null)
+			dest.setString(labelId(), src.getString(labelId(), defaultValue()));
 	}
 	// ===== Other Methods =====
 	//

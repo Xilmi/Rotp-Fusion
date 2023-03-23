@@ -81,11 +81,11 @@ public class SettingBoolean extends SettingBase<Boolean> {
 		return lmText(guiOptionLabel(index));
 	}
 	@Override public void setOptions(DynamicOptions options) {
-		if (!isSpacer())
+		if (!isSpacer() && options != null)
 			options.setBoolean(labelId(), settingValue());
 	}
 	@Override public void setFromOptions(DynamicOptions options) {
-		if (!isSpacer())
+		if (!isSpacer() && options != null)
 			set(options.getBoolean(labelId(), defaultValue()));
 	}
 }

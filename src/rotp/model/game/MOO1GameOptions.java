@@ -1541,7 +1541,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
     private static void copyModRaceSettings(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
     	for (InterfaceParam param : optionsRace)
-    		param.copyOption(src.dynamicOptions, dest.dynamicOptions);;
+    		if (param != null)
+    			param.copyOption(src.dynamicOptions, dest.dynamicOptions);;
     }
     private void setBaseRaceSettingsToDefault() { // BR:
         if (UserPreferences.showNewRaces.get()) // BR: limit randomness
@@ -1642,7 +1643,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	if (modOptions == null)
     		return;
        	for (InterfaceParam param : modOptions) {
-       		param.setOptions(dest.dynamicOptions());
+       		if (param != null)
+    			param.setOptions(dest.dynamicOptions());
        	}
     }
     private static void setBaseAndModSettingsFromOptions(
@@ -1693,10 +1695,11 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	LinkedList<InterfaceParam> modOptions = getModParameterList(guiID);
     	if (modOptions == null)
     		return;
-       	for (InterfaceParam param : modOptions) {
-       		param.setFromDefault();
-       		param.setOptions(options.dynamicOptions());
-       	}
+       	for (InterfaceParam param : modOptions)
+       		if (param != null) {
+	       		param.setFromDefault();
+	       		param.setOptions(options.dynamicOptions());
+	       	}
     }
     private static void setBaseSettingsToDefault(MOO1GameOptions options, String guiID) {
     	switch (guiID) {

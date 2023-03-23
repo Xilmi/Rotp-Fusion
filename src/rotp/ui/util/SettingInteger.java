@@ -167,11 +167,11 @@ public class SettingInteger extends SettingBase<Integer> {
 		return settingCost(settingValue());
 	}
 	@Override public void setOptions(DynamicOptions options) {
-		if (!isSpacer())
+		if (!isSpacer() && options != null)
 			options.setInteger(labelId(), settingValue());
 	}
 	@Override public void setFromOptions(DynamicOptions options) {
-		if (!isSpacer())
+		if (!isSpacer() && options != null)
 			set(options.getInteger(labelId(), defaultValue()));
 	}
 	// ===== Other Methods =====

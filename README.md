@@ -26,6 +26,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2023.03.23 (BR)
+  - Fixed crash due to unknown new options with some very old saves.
+
 2023.03.21 (BR)
   - Fixed crash due to unknown new options with some old save.
 

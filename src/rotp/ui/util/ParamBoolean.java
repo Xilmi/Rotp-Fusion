@@ -49,15 +49,15 @@ public class ParamBoolean extends AbstractParam<Boolean> {
 			next();
 	}
 	@Override public void setFromOptions(DynamicOptions options) {
-		if (!isDuplicate())
+		if (!isDuplicate() && options != null)
 			set(options.getBoolean(labelId(), defaultValue()));
 	}
 	@Override public void setOptions(DynamicOptions options) {
-		if (!isDuplicate())
+		if (!isDuplicate() && options != null)
 			options.setBoolean(labelId(), get());
 	}
 	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
-		if (!isDuplicate())
+		if (!isDuplicate() && src != null && dest != null)
 			dest.setBoolean(labelId(), src.getBoolean(labelId(), defaultValue()));
 	}
 	// ===== Other Methods =====

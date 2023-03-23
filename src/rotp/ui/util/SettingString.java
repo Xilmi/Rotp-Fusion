@@ -64,11 +64,11 @@ public class SettingString extends SettingBase<String> implements Base{
 		set(cfgValue);
 	}
 	@Override public void setOptions(DynamicOptions destOptions) {
-		if (!isSpacer())
+		if (!isSpacer() && destOptions != null)
 			destOptions.setString(labelId(), settingValue());
 	}
 	@Override public void setFromOptions(DynamicOptions srcOptions) {
-		if (!isSpacer())
+		if (!isSpacer() && srcOptions != null)
 			set(srcOptions.getString(labelId(), defaultValue()));
 	}
 	@Override public void next() {
