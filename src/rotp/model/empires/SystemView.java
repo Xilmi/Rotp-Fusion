@@ -262,7 +262,15 @@ public class SystemView implements IMappedObject, Base, Serializable {
             default:          return null;
         }
     }
+    // BR: Fix for "Precursor Relic" event; Now every one see the same thing!
     public PlanetType planetType() {
+    	if (scouted())
+    		return system().planet().type();
+    	else
+    		return planetType_(); // BR: former call
+    }
+    // BR: Fix for "Precursor Relic" event; Now every one see the same thing!
+    private PlanetType planetType_() {
         if (vPlanetTypeKey == null)
             return null;
         if (vPlanetType == null)
@@ -372,7 +380,14 @@ public class SystemView implements IMappedObject, Base, Serializable {
     private void setPlanetData() {
         vArtifacts = system().planet().artifacts();
         vPlanet = system().planet();
-        vPlanetTypeKey = system().planet().type().key();
+        // BR: Fix for "Precursor Relic" event
+        // vPlanetTypeKey = system().planet().type().key();
+        if (vPlanetTypeKey != system().planet().type().key()) {
+        	vPlanetTypeKey = system().planet().type().key();
+        	// BR: Force actualization
+        	vPlanetType = null;
+        	planetType_();
+        }
         vCurrentSize = (int) system().planet().currentSize();
     }
     private void setColonyData() {

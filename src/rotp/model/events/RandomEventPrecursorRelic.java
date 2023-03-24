@@ -17,7 +17,6 @@ package rotp.model.events;
 
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.StarSystem;
-import rotp.model.planet.Planet;
 import rotp.model.planet.PlanetFactory;
 import rotp.model.tech.TechTree;
 import rotp.ui.notifications.GNNNotification;
@@ -44,6 +43,13 @@ public class RandomEventPrecursorRelic implements Base, Serializable, RandomEven
         String s1 = text("EVENT_RELIC_PLANETS");
         s1 = galaxy().empire(empId).replaceTokens(s1, "target");
         return s1;
+    }
+    // BR: Fix for "Precursor Relic" event; Now every one has the same chance
+    private String notificationText(boolean hasContact) {
+    	if (hasContact)
+    		return notificationText();
+    	else
+    		return text("EVENT_RELIC_PLANETS_NO_CONTACT");
     }
     @Override
     public void trigger(Empire emp) {
@@ -89,8 +95,11 @@ public class RandomEventPrecursorRelic implements Base, Serializable, RandomEven
         }
 
         empId = emp.id;
-        if (emp.isPlayer() || player().hasContact(emp))
-            GNNNotification.notifyRandomEvent(notificationText(), "GNN_Event_Relic_Planets");
+        // BR: Fix for "Precursor Relic" event; Now every one has the same chance
+		// if (emp.isPlayer() || player().hasContact(emp))
+		//     GNNNotification.notifyRandomEvent(notificationText(), "GNN_Event_Relic_Planets");
+        GNNNotification.notifyRandomEvent(notificationText(emp.isPlayer() 
+        				|| player().hasContact(emp)), "GNN_Event_Relic_Planets");
 
         for (String techId: discoveredTechs)
             emp.plunderShipTech(tech(techId), -1);

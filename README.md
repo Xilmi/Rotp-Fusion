@@ -26,6 +26,12 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2023.03.24 (BR)
+- "Precursor Relic" event:
+  - Fixed SystemView.planetType() not always being up to date.
+  - AIs and Player have now the same view of the new created planets.
+  - Player is always notified of the planet creation.
+
 2023.03.23 (BR)
   - Fixed crash due to unknown new options with some very old saves.
 

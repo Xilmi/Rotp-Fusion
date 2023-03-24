@@ -168,6 +168,8 @@ EVENT_SPACE_PIRATES_3             | The Space Pirate fleet was destroyed by [rac
 EVENT_SPACE_PIRATES_4             | The powerful Space Pirate has left our insignificant galaxy! Where did it go? We don't care, good riddance!
 // modnar: add Precursor Relic random event
 EVENT_RELIC_PLANETS               | A Precursor relic has mysteriously activated in [target_empire] space. Galaxy-wide scanners report the formation of new planets in multiple previously empty Star Systems after intense asteroid coalescence events. [target_race] scientists have also harvested several Construction technologies from the relic.
+// BR: info if no contact
+EVENT_RELIC_PLANETS_NO_CONTACT    | Our astronomers are flabbergasted! Galaxy-wide scanners report the formation of new planets in multiple previously empty Star Systems after intense asteroid coalescence events.
 // modnar: add Gauntlet Relic random event
 EVENT_RELIC_GAUNTLET              | Half of all galactic life have been wiped out following the activation of a Precursor gauntlet with seven embedded gems. [target_race] scientists studying the relic have denied responsibility. Third-party investigators question the capacity increase on many [target_empire] planets and new Planetology technologies.
 // modnar: add Boost Planet baseSize random event

@@ -58,7 +58,7 @@ public class RandomEvents implements Base, Serializable {
             return;
 
         eventChance = min(MAX_CHANCE_INCR, eventChance + CHANCE_INCR);
-//        eventChance = 1.5f;
+//        eventChance = 1.5f; // TO DO BR: REMOVE or COMMENT
 //        System.out.println("eventChance = " + eventChance);
         if (random() > eventChance)
             return;
@@ -67,7 +67,9 @@ public class RandomEvents implements Base, Serializable {
         List<RandomEvent> subList = eventSubList();
 		if (subList.isEmpty())
 		    return;
+ 
         RandomEvent triggeredEvent = random(subList);
+//        triggeredEvent = new RandomEventPrecursorRelic(); // TO DO BR: REMOVE or COMMENT
         // RandomEvent triggeredEvent = random(events);
         // if (turnNum < triggeredEvent.minimumTurn())
         //     return;
