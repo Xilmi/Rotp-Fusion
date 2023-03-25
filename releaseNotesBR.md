@@ -1,8 +1,9 @@
 Update: "Precursor Relic" event:
-  - AIs and Player have now the same view of the new created planets.
-    - AIs where accidentally "cheating", to be even: now the player too!
-  - Player is always notified of the planet creation.
+- AIs and Player have now the same view of the new created planets.
+  - AIs where accidentally "cheating", to be even: now the player too!
+- Player is always notified of the planet creation.
 
+Fixed second Map Flag showing black instead of not showing.
 
 New little features:
 - Target Bombing Button can now be hidden

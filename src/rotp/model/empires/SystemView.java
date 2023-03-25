@@ -43,22 +43,64 @@ import rotp.util.ModifierKeysState;
 
 public class SystemView implements IMappedObject, Base, Serializable {
     private static final long serialVersionUID = 1L;
-    protected static final int UNIMPORTANT = 0;
-    protected static final int INNER_SYSTEM = 1;
+    protected static final int UNIMPORTANT   = 0;
+    protected static final int INNER_SYSTEM  = 1;
     protected static final int BORDER_SYSTEM = 2;
     protected static final int ATTACK_TARGET = 3;
     
-    public static final int FLAG_NONE = 0;
-    static final int FLAG_WHITE = 1;
-    static final int FLAG_RED = 2;
-    static final int FLAG_BLUE = 3;
-    static final int FLAG_GREEN = 4;
-    static final int FLAG_YELLOW = 5;
-    static final int FLAG_AQUA = 6;
-    static final int FLAG_ORANGE = 7;
-    static final int FLAG_LTBLUE = 8;
-    static final int FLAG_PURPLE = 9;
-    static final int FLAG_PINK = 10;
+    public static final String FLAG_COLOR_NONE   = "FLAG_COLOR_NONE";
+    public static final String FLAG_COLOR_WHITE  = "FLAG_COLOR_WHITE";
+    public static final String FLAG_COLOR_RED    = "FLAG_COLOR_RED";
+    public static final String FLAG_COLOR_BLUE   = "FLAG_COLOR_BLUE";
+    public static final String FLAG_COLOR_GREEN  = "FLAG_COLOR_GREEN";
+    public static final String FLAG_COLOR_YELLOW = "FLAG_COLOR_YELLOW";
+    public static final String FLAG_COLOR_AQUA   = "FLAG_COLOR_AQUA";
+    public static final String FLAG_COLOR_ORANGE = "FLAG_COLOR_ORANGE";
+    public static final String FLAG_COLOR_LTBLUE = "FLAG_COLOR_LTBLUE";
+    public static final String FLAG_COLOR_PURPLE = "FLAG_COLOR_PURPLE";
+    public static final String FLAG_COLOR_PINK   = "FLAG_COLOR_PINK";
+    public static List<String> flagColorList = Arrays.asList (
+		    FLAG_COLOR_NONE, // Don't move this one!
+		    FLAG_COLOR_WHITE,
+		    FLAG_COLOR_RED,
+		    FLAG_COLOR_BLUE,
+		    FLAG_COLOR_GREEN,
+		    FLAG_COLOR_YELLOW,
+		    FLAG_COLOR_AQUA,
+		    FLAG_COLOR_ORANGE,
+		    FLAG_COLOR_LTBLUE,
+		    FLAG_COLOR_PURPLE,
+		    FLAG_COLOR_PINK
+			);
+    private static List<String> flagImageNameList = Arrays.asList (
+			"Flag_None",
+			"Flag_Red",
+			"Flag_White",
+			"Flag_Blue",
+			"Flag_Green",
+			"Flag_Yellow",
+			"Flag_Aqua",
+			"Flag_Orange",
+			"Flag_LtBlue",
+			"Flag_Purple",
+			"Flag_Pink"
+			);
+    private static List<String> mapFlagImageNameList = Arrays.asList (
+			"Flag_NoneM",
+			"Flag_RedM",
+			"Flag_WhiteM",
+			"Flag_BlueM",
+			"Flag_GreenM",
+			"Flag_YellowM",
+			"Flag_AquaM",
+			"Flag_OrangeM",
+			"Flag_LtBlueM",
+			"Flag_PurpleM",
+			"Flag_Pink"
+			);
+
+    public  static final int FLAG_NONE = 0;
+
     // BR: flagColorCount
     static final int MASK_COLOR   = 255;
     static final int SHIFT_COLOR  = MASK_COLOR + 1;
@@ -225,42 +267,20 @@ public class SystemView implements IMappedObject, Base, Serializable {
     public Image mapFlagImage() { // BR: flagColorCount
     	switch (flagColorCount.get()) {
     	case 2:
-    		return joinImage(mapFlagImage(getFlagColor(1)), flagImage(getFlagColor(2)));
+    		return joinImage(mapFlagImage(getFlagColor(1)), mapFlagImage(getFlagColor(2)));
     	default:
     		return mapFlagImage(getFlagColor(1));
     	}
     }
     private Image flagImage(int flagColor) { // BR: flagColorCount
-        switch(flagColor) {
-            case FLAG_NONE:   return image("Flag_None");
-            case FLAG_RED:    return image("Flag_Red");
-            case FLAG_WHITE:  return image("Flag_White");
-            case FLAG_BLUE:   return image("Flag_Blue");
-            case FLAG_GREEN:  return image("Flag_Green");
-            case FLAG_YELLOW: return image("Flag_Yellow");
-            case FLAG_AQUA:   return image("Flag_Aqua");
-            case FLAG_ORANGE: return image("Flag_Orange");
-            case FLAG_LTBLUE: return image("Flag_LtBlue");
-            case FLAG_PURPLE: return image("Flag_Purple");
-            case FLAG_PINK:   return image("Flag_Pink");
-            default:          return null;
-        }
+    	if (flagColor < 0 || flagColor >= flagImageNameList.size())
+    		return null;
+    	return image(flagImageNameList.get(flagColor));
     }
-    private Image mapFlagImage(int flagColor) {
-        switch(flagColor) {
-            case FLAG_NONE:   return null;
-            case FLAG_RED:    return image("Flag_RedM");
-            case FLAG_WHITE:  return image("Flag_WhiteM");
-            case FLAG_BLUE:   return image("Flag_BlueM");
-            case FLAG_GREEN:  return image("Flag_GreenM");
-            case FLAG_YELLOW: return image("Flag_YellowM");
-            case FLAG_AQUA:   return image("Flag_AquaM");
-            case FLAG_ORANGE: return image("Flag_OrangeM");
-            case FLAG_LTBLUE: return image("Flag_LtBlueM");
-            case FLAG_PURPLE: return image("Flag_PurpleM");
-            case FLAG_PINK:   return image("Flag_PinkM");
-            default:          return null;
-        }
+    private Image mapFlagImage(int flagColor) { // BR: flagColorCount
+    	if (flagColor <= 0 || flagColor >= mapFlagImageNameList.size())
+    		return null;
+    	return image(mapFlagImageNameList.get(flagColor));
     }
     // BR: Fix for "Precursor Relic" event; Now every one see the same thing!
     public PlanetType planetType() {
@@ -453,38 +473,17 @@ public class SystemView implements IMappedObject, Base, Serializable {
     	if (Profiles.isFlagColorOrderEnabled()) { // BR:
     		return MiscellaneousOptions.getNextFlagColor(flagColor, reverse);
     	}
-        if (reverse) {
-             switch(flagColor) {
-                case FLAG_NONE:   return FLAG_PINK;
-                case FLAG_WHITE:  return FLAG_NONE;
-                case FLAG_RED:    return FLAG_WHITE;
-                case FLAG_BLUE:   return FLAG_RED;
-                case FLAG_GREEN:  return FLAG_BLUE;
-                case FLAG_YELLOW: return FLAG_GREEN;
-                case FLAG_AQUA:   return FLAG_YELLOW;
-                case FLAG_ORANGE: return FLAG_AQUA;
-                case FLAG_LTBLUE: return FLAG_ORANGE;
-                case FLAG_PURPLE: return FLAG_LTBLUE;
-                case FLAG_PINK:   return FLAG_PURPLE;
-            }
-        }
-        else {
-            switch(flagColor) {
-                case FLAG_NONE:   return FLAG_WHITE;
-                case FLAG_WHITE:  return FLAG_RED;
-                case FLAG_RED:    return FLAG_BLUE;
-                case FLAG_BLUE:   return FLAG_GREEN;
-                case FLAG_GREEN:  return FLAG_YELLOW;
-                case FLAG_YELLOW: return FLAG_AQUA;
-                case FLAG_AQUA:   return FLAG_ORANGE;
-                case FLAG_ORANGE: return FLAG_LTBLUE;
-                case FLAG_LTBLUE: return FLAG_PURPLE;
-                case FLAG_PURPLE: return FLAG_PINK;
-                case FLAG_PINK:   return FLAG_NONE;
-            }
-        }
-        // Should never be reached
-        return FLAG_NONE;
+		if (reverse) {
+			flagColor--;
+			if (flagColor < 0)
+				return flagColorList.size()-1;
+			return flagColor;
+		} else {
+			flagColor++;
+			if (flagColor >= flagColorList.size())
+				return 0;
+			return flagColor;
+		}
     }
     public String resourceType() {
         if (artifact() || orionArtifact())

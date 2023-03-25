@@ -26,6 +26,10 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2023.03.25 (BR)
+- Fixed second Map Flag showing black instead of not showing.
+- Made Flag list ready for more colors.
+
 2023.03.24 (BR)
 - "Precursor Relic" event:
   - Fixed SystemView.planetType() not always being up to date.

@@ -38,6 +38,19 @@ PLANET_TERRAN                     | Terran
 PLANET_TOXIC                      | Toxic
 PLANET_TUNDRA                     | Tundra
 
+// Planet Types
+FLAG_COLOR_NONE                   | None
+FLAG_COLOR_WHITE                  | White
+FLAG_COLOR_RED                    | Red
+FLAG_COLOR_BLUE                   | Blue
+FLAG_COLOR_GREEN                  | Green
+FLAG_COLOR_YELLOW                 | Yellow
+FLAG_COLOR_AQUA                   | Aqua
+FLAG_COLOR_ORANGE                 | Orange
+FLAG_COLOR_LTBLUE                 | Ligth Blue
+FLAG_COLOR_PURPLE                 | Purple
+FLAG_COLOR_PINK                   | Pink
+
 // Spy Missions
 SPY_HIDE                          | Hide
 SPY_ESPIONAGE                     | Espionage
