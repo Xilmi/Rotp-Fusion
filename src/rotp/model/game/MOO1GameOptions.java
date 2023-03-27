@@ -78,6 +78,7 @@ import rotp.model.tech.TechEngineWarp;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.AdvancedOptionsUI;
 import rotp.ui.game.MergedStaticOptionsUI;
+import rotp.ui.game.MergedSubListUI;
 import rotp.ui.game.EditCustomRaceUI;
 import rotp.ui.game.MergedDynamicOptionsUI;
 import rotp.ui.game.ModGlobalOptionsUI;
@@ -1754,6 +1755,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	    		break;
 	    	case EditCustomRaceUI.GUI_ID:
 	    		modOptions = UserPreferences.optionsCustomRace();
+	    		break;
+	    	case UserPreferences.AUTO_FLAG_GUI_ID:
+	    		modOptions = UserPreferences.autoFlagOptions;
 	    		break;
 	    	case UserPreferences.ALL_GUI_ID:
 	    		modOptions = UserPreferences.allModOptions();

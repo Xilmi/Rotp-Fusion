@@ -2,8 +2,15 @@ Update: "Precursor Relic" event:
 - AIs and Player have now the same view of the new created planets.
   - AIs where accidentally "cheating", to be even: now the player too!
 - Player is always notified of the planet creation.
+- Added an Auto-Flag option acting when a new system is scouted.
+  - Set a Flag function of Planet Type.
+  - Set a Flag function of Planet Environment.
+  - Set a Flag function of Planet Ressources.
 
-Fixed second Map Flag showing black instead of not showing.
+Fixes:
+- Fixed second Map Flag showing black instead of not showing.
+- Fixed text on buttons some time not following the modifier keys.
+
 
 New little features:
 - Target Bombing Button can now be hidden

@@ -60,10 +60,24 @@ public class ParamList extends AbstractParam<String> {
 	 * @param defaultCfgLabel The default CfgLabel
 	 * @param optionLabelMap  existing IndexableMap
 	 */
-	ParamList(String gui, String name, String defaultCfgLabel, IndexableMap optionLabelMap) {
+	public ParamList(String gui, String name, String defaultCfgLabel, IndexableMap optionLabelMap) {
 		super(gui, name, defaultCfgLabel);
 		this.valueLabelMap = optionLabelMap;
 	}
+//	/**
+//	 * @param gui  The label header
+//	 * @param name The name
+//	 * @param list keys for map table
+//	 * @param defaultIndex index to the default value
+//	 * @param isDuplicate if true the option already exist 
+//	 */
+//	public ParamList(String gui, String name, List<String> list, int defaultIndex, boolean isDuplicate) {
+//		super(gui, name, list.get(defaultIndex));
+//		isDuplicate(isDuplicate);
+//		valueLabelMap = new IndexableMap();
+//		for (String element : list)
+//			put(element, element); // Temporary; needs to be further initialized
+//	}
 	/**
 	 * Initializer for Duplicate
 	 * @param gui  The label header
@@ -78,6 +92,20 @@ public class ParamList extends AbstractParam<String> {
 		for (String element : list)
 			put(element, element); // Temporary; needs to be further initialized
 	}
+//	/**
+//	 * @param gui  The label header
+//	 * @param name The name
+//	 * @param list keys for map table
+//	 * @param defaultIndex index to the default value
+//	 * @param isDuplicate if true the option already exist 
+//	 */
+//	public ParamList(String gui, String name, List<String> list, String defaultValue, boolean isDuplicate) {
+//		super(gui, name, defaultValue);
+//		isDuplicate(isDuplicate);
+//		valueLabelMap = new IndexableMap();
+//		for (String element : list)
+//			put(element, element); // Temporary; needs to be further initialized
+//	}
 	/**
 	 * Initializer for Duplicate
 	 * @param gui  The label header
@@ -242,7 +270,7 @@ public class ParamList extends AbstractParam<String> {
 	}
 	//========== Nested class ==========
 	//
-	static class IndexableMap{
+	public static class IndexableMap{
 		
 		private final LinkedList<String>  cfgValueList	= new LinkedList<>(); // also key list
 		private final LinkedList<String>  langLabelList	= new LinkedList<>();

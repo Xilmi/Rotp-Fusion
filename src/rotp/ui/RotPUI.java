@@ -20,7 +20,6 @@ import static rotp.ui.UserPreferences.ALL_GUI_ID;
 import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
-
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -68,6 +67,7 @@ import rotp.ui.game.GameOverUI;
 import rotp.ui.game.GameSettingsUI;
 import rotp.ui.game.GameUI;
 import rotp.ui.game.MergedStaticOptionsUI;
+import rotp.ui.game.MergedSubListUI;
 import rotp.ui.game.HelpUI;
 import rotp.ui.game.LoadGameUI;
 import rotp.ui.game.MergedDynamicOptionsUI;
@@ -187,12 +187,6 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
 		else
 			return (MOO1GameOptions) newOptions();
 	}
-//    public static MOO1GameOptions guiOptions()  {
-//		if (GameSession.instance().status().inProgress())
-//			return (MOO1GameOptions) GameSession.instance().options();
-//		else
-//			return (MOO1GameOptions) newOptions();
-//	}
     public static void fps(int fps) {
         // bound arg between 10 & 60
         int actualFPS = Math.min(60, Math.max(10,fps));
@@ -262,6 +256,8 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     private final MergedStaticOptionsUI  mergedStaticOptionsUI  = new MergedStaticOptionsUI();
     private final MergedDynamicOptionsUI mergedDynamicOptionsUI = new MergedDynamicOptionsUI();
     // BR: Standard Mod Game Options
+    
+    private final MergedSubListUI    mergedSubListUI    = new MergedSubListUI();
     private final StaticAOptionsUI   staticAOptionsUI   = new StaticAOptionsUI();
     private final StaticBOptionsUI   staticBOptionsUI   = new StaticBOptionsUI();
     private final DynamicAOptionsUI  dynamicAOptionsUI  = new DynamicAOptionsUI();
@@ -398,21 +394,22 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         else
             timer.stop();
     }
-    public static RotPUI instance()               { return instance; }
-    public static HelpUI helpUI()                 { return instance.helpUI; }
-//    public static StartOptionsUI startOptionsUI() { return instance.startOptionsUI; }
-    public static AdvancedOptionsUI advancedOptionsUI() { return instance.advancedOptionsUI; }
-    public static MergedStaticOptionsUI mergedStaticOptionsUI() { return instance.mergedStaticOptionsUI; }
+    public static RotPUI instance() { return instance; }
+    public static HelpUI helpUI()   { return instance.helpUI; }
+
+    public static MergedSubListUI        mergedSubListUI()        { return instance.mergedSubListUI; }
+    public static AdvancedOptionsUI      advancedOptionsUI()      { return instance.advancedOptionsUI; }
+    public static MergedStaticOptionsUI  mergedStaticOptionsUI()  { return instance.mergedStaticOptionsUI; }
     public static MergedDynamicOptionsUI mergedDynamicOptionsUI() { return instance.mergedDynamicOptionsUI; }
     public static GameSettingsUI gameSettingsUI() { return instance.gameSettingsUI; }
     // BR: Standard Mod Game Options
-    public static StaticAOptionsUI  modOptionsStaticA()  { return instance.staticAOptionsUI; }
-    public static StaticBOptionsUI  modOptionsStaticB()  { return instance.staticBOptionsUI; }
-    public static DynamicAOptionsUI modOptionsDynamicA() { return instance.dynamicAOptionsUI; }
-    public static DynamicBOptionsUI modOptionsDynamicB() { return instance.dynamicBOptionsUI; }
+    public static StaticAOptionsUI   modOptionsStaticA()  { return instance.staticAOptionsUI; }
+    public static StaticBOptionsUI   modOptionsStaticB()  { return instance.staticBOptionsUI; }
+    public static DynamicAOptionsUI  modOptionsDynamicA() { return instance.dynamicAOptionsUI; }
+    public static DynamicBOptionsUI  modOptionsDynamicB() { return instance.dynamicBOptionsUI; }
     public static ModGlobalOptionsUI modGlobalOptionsUI() { return instance.modGlobalOptionsUI; }
     // BR: Display UI panel for Race options
-    public static SetupRaceUI setupRaceUI() { return instance.setupRaceUI; }
+    public static SetupRaceUI   setupRaceUI()   { return instance.setupRaceUI; }
     public static SetupGalaxyUI setupGalaxyUI() { return instance.setupGalaxyUI; }
 
     @Override

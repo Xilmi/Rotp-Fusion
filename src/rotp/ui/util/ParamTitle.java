@@ -33,6 +33,12 @@ public class ParamTitle extends AbstractParam<String> {
 	public ParamTitle(String title) {
 		super(UserPreferences.ADV_UI, title, "");
 	}
+	/**
+	 * @param title The title
+	 */
+	public ParamTitle(String gui, String title) {
+		super(gui, title, "");
+	}
 	// ===== Overriders =====
 	//
 	@Override public void setFromCfgValue(String newValue) { value(newValue); }	

@@ -32,8 +32,8 @@ import rotp.util.LabelManager;
 public abstract class AbstractParam <T> implements InterfaceParam{
 	// Ignore UCDetector public warning!
 	
-	private final String name;
-	private final String gui;
+	private final String name; // 
+	private final String gui;  // The label header
     private BasePanel panel;
 	private T value;
 	private T defaultValue;

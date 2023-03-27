@@ -14,6 +14,9 @@ NUM_FORMAT_BILLIONS               | %1B
 // Basic Boolean Display
 BOOLEAN_YES                       | Yes
 BOOLEAN_NO                        | No
+// Basic Is Default value Display
+SUB_UI_DEFAULT_YES                | Default Value
+SUB_UI_DEFAULT_NO                 | Customized
 // Star descriptions
 RED_STAR_DESCRIPTION              | Red stars are old and dull stars that commonly have poor planets.
 YELLOW_STAR_DESCRIPTION           | Yellow stars offer the best chance of discovering terran and sub-terran planets.
@@ -1656,6 +1659,8 @@ SETTINGS_ZOOM_FACTORS_DESC         | Options controlling the galaxy Map Zoom Fac
 SETTINGS_ZOOM_FACTORS              | ~~~ MAP ZOOM FACTORS ~~~%1
 SETTINGS_MENU_OPTIONS_DESC         | Options controlling Menu Parameters. Can be changed dynamically. (Remnant.cfg options)
 SETTINGS_MENU_OPTIONS              | ~~~ MENU'S OPTIONS ~~~%1
+SETTINGS_PLANETS_FLAG_OPTIONS_DESC | To allow greater customization of the flag(s) of the planets.
+SETTINGS_PLANETS_FLAG_OPTIONS      | ~~~ PLANETS FLAG OPTIONS ~~~%1
 
 // modnar: add UI panel for modnar MOD game options
 SETTINGS_MOD_TITLE                   | modnar MOD Options
@@ -1850,6 +1855,86 @@ SETTINGS_MOD_TARGET_BOMBARD_DESC         | Sets who is allowed to give a populat
 SETTINGS_MOD_TARGET_BOMBARD              | Allow Target Bombard: %1
 SETTINGS_MOD_FLAG_COLOR_COUNT_DESC       | How may colors should appear on the Star System Flag?
 SETTINGS_MOD_FLAG_COLOR_COUNT            | Flag Color Count: %1
+
+SETTINGS_MOD_AUTO_FLAG_TITLE             | Auto-Flag Options
+SETTINGS_MOD_AUTO_FLAG_UI_DESC           | Open Sub Menu to set the parameters that will be automatically associated with flags. (Only the first time a Star System is scouted)
+SETTINGS_MOD_AUTO_FLAG_UI                | Auto-Flag Options: %1
+
+SETTINGS_MOD_AUTO_FLAG_NO_AUTOMATION     | No Automation
+SETTINGS_MOD_AUTO_FLAG_TYPE_DESC         | Select Flags Color based on Planet Type.
+SETTINGS_MOD_AUTO_FLAG_TYPE              | Planet Type
+SETTINGS_MOD_AUTO_FLAG_ENVIRONMENT_DESC  | Select Flags Color based on Planet Environment.
+SETTINGS_MOD_AUTO_FLAG_ENVIRONMENT       | Planet Environment
+SETTINGS_MOD_AUTO_FLAG_RESSOURCES_DESC   | Select Flags Color based on Planet Ressources.
+SETTINGS_MOD_AUTO_FLAG_RESSOURCES        | Planet Ressources
+
+SETTINGS_MOD_AUTO_FLAG_ASSIGN_1_DESC     | Select the parameter that will be automatically associated with the first flag. (Only the first time a Star System is scouted)
+SETTINGS_MOD_AUTO_FLAG_ASSIGN_1          | Auto-Flag 1: %1
+SETTINGS_MOD_AUTO_FLAG_ASSIGN_2_DESC     | Select the parameter that will be automatically associated with the second flag. (Only the first time a Star System is scouted)
+SETTINGS_MOD_AUTO_FLAG_ASSIGN_2          | Auto-Flag 2: %1
+SETTINGS_MOD_AUTO_FLAG_ID_SELECTION      | Auto-Flag Selection
+SETTINGS_MOD_AUTO_FLAG_ID_SELECTION_DESC | To Associate Auto-Flag position with it's parameter. (Only the first time a Star System is scouted)
+
+SETTINGS_MOD_AUTO_FLAG_ARID_DESC         | Select the Flag Color to set automatically when an Arid Planet is scouted.
+SETTINGS_MOD_AUTO_FLAG_BARREN_DESC       | Select the Flag Color to set automatically when a Barren Planet is scouted.
+SETTINGS_MOD_AUTO_FLAG_DEAD_DESC         | Select the Flag Color to set automatically when a Dead Planet is scouted.
+SETTINGS_MOD_AUTO_FLAG_DESERT_DESC       | Select the Flag Color to set automatically when a Desert Planet is scouted.
+SETTINGS_MOD_AUTO_FLAG_INFERNO_DESC      | Select the Flag Color to set automatically when an Inferno Planet is scouted.
+SETTINGS_MOD_AUTO_FLAG_JUNGLE_DESC       | Select the Flag Color to set automatically when a Jungle Planet is scouted.
+SETTINGS_MOD_AUTO_FLAG_MINIMAL_DESC      | Select the Flag Color to set automatically when a Minimal Planet is scouted.
+SETTINGS_MOD_AUTO_FLAG_ASTEROID_DESC     | Select the Flag Color to set automatically when Asteroid are scouted.
+SETTINGS_MOD_AUTO_FLAG_OCEAN_DESC        | Select the Flag Color to set automatically when an Ocean Planet is scouted.
+SETTINGS_MOD_AUTO_FLAG_RADIATED_DESC     | Select the Flag Color to set automatically when an Irradiated Planet is scouted.
+SETTINGS_MOD_AUTO_FLAG_STEPPE_DESC       | Select the Flag Color to set automatically when a Steppe Planet is scouted.
+SETTINGS_MOD_AUTO_FLAG_TERRAN_DESC       | Select the Flag Color to set automatically when a Terran Planet is scouted.
+SETTINGS_MOD_AUTO_FLAG_TOXIC_DESC        | Select the Flag Color to set automatically when a Toxic Planet is scouted.
+SETTINGS_MOD_AUTO_FLAG_TUNDRA_DESC       | Select the Flag Color to set automatically when a Tundra Planet is scouted.
+
+SETTINGS_MOD_AUTO_FLAG_ENV_GAIA_DESC      | Select the Flag Color to set automatically when a Gaia Planet is scouted.
+SETTINGS_MOD_AUTO_FLAG_ENV_FERTILE_DESC   | Select the Flag Color to set automatically when a Fertile Planet is scouted.
+SETTINGS_MOD_AUTO_FLAG_ENV_NORMAL_DESC    | Select the Flag Color to set automatically when a Normal Planet is scouted.
+SETTINGS_MOD_AUTO_FLAG_ENV_HOSTILE_DESC   | Select the Flag Color to set automatically when a Hostile Planet is scouted.
+SETTINGS_MOD_AUTO_FLAG_ENV_NONE_DESC      | Select the Flag Color to set automatically when Asteroid are scouted.
+
+SETTINGS_MOD_AUTO_FLAG_RUINS_ORION_DESC   | Select the Flag Color to set automatically when an Orion Planet is scouted.
+SETTINGS_MOD_AUTO_FLAG_RUINS_ANTARAN_DESC | Select the Flag Color to set automatically when an Artefact Planet is scouted.
+SETTINGS_MOD_AUTO_FLAG_ULTRA_RICH_DESC    | Select the Flag Color to set automatically when an Ultra Rich Planet is scouted.
+SETTINGS_MOD_AUTO_FLAG_RICH_DESC          | Select the Flag Color to set automatically when a Rich Planet is scouted.
+SETTINGS_MOD_AUTO_FLAG_NORMAL_DESC        | Select the Flag Color to set automatically when a Normal Planet is scouted.
+SETTINGS_MOD_AUTO_FLAG_POOR_DESC          | Select the Flag Color to set automatically when a Poor Planet is scouted.
+SETTINGS_MOD_AUTO_FLAG_ULTRA_POOR_DESC    | Select the Flag Color to set automatically when an Ultra Poor Planet is scouted.
+SETTINGS_MOD_AUTO_FLAG_NONE_DESC          | Select the Flag Color to set automatically when Asteroid are scouted.
+
+SETTINGS_MOD_AUTO_FLAG_ARID              | Arid Color: %1
+SETTINGS_MOD_AUTO_FLAG_BARREN            | Barren Color: %1
+SETTINGS_MOD_AUTO_FLAG_DEAD              | Dead Color: %1
+SETTINGS_MOD_AUTO_FLAG_DESERT            | Desert Color: %1
+SETTINGS_MOD_AUTO_FLAG_INFERNO           | Inferno Color: %1
+SETTINGS_MOD_AUTO_FLAG_JUNGLE            | Jungle Color: %1
+SETTINGS_MOD_AUTO_FLAG_MINIMAL           | Minimal Color: %1
+SETTINGS_MOD_AUTO_FLAG_ASTEROID          | Asteroid Color: %1
+SETTINGS_MOD_AUTO_FLAG_OCEAN             | Ocean Color: %1
+SETTINGS_MOD_AUTO_FLAG_RADIATED          | Irradiated Color: %1
+SETTINGS_MOD_AUTO_FLAG_STEPPE            | Steppe Color: %1
+SETTINGS_MOD_AUTO_FLAG_TERRAN            | Terran Color: %1
+SETTINGS_MOD_AUTO_FLAG_TOXIC             | Toxic Color: %1
+SETTINGS_MOD_AUTO_FLAG_TUNDRA            | Tundra Color: %1
+
+SETTINGS_MOD_AUTO_FLAG_ENV_GAIA          | Gaia Color: %1
+SETTINGS_MOD_AUTO_FLAG_ENV_FERTILE       | Fertile Color: %1
+SETTINGS_MOD_AUTO_FLAG_ENV_NORMAL        | Normal Color: %1
+SETTINGS_MOD_AUTO_FLAG_ENV_HOSTILE       | Hostile Color: %1
+SETTINGS_MOD_AUTO_FLAG_ENV_NONE          | None Color: %1
+
+SETTINGS_MOD_AUTO_FLAG_RUINS_ORION       | Orion Color: %1
+SETTINGS_MOD_AUTO_FLAG_RUINS_ANTARAN     | Artefact Color: %1
+SETTINGS_MOD_AUTO_FLAG_ULTRA_RICH        | Ultra Rich Color: %1
+SETTINGS_MOD_AUTO_FLAG_RICH              | Rich Color: %1
+SETTINGS_MOD_AUTO_FLAG_NORMAL            | Normal Color: %1
+SETTINGS_MOD_AUTO_FLAG_POOR              | Poor Color: %1
+SETTINGS_MOD_AUTO_FLAG_ULTRA_POOR        | Ultra Poor Color: %1
+SETTINGS_MOD_AUTO_FLAG_NONE              | Asteroid Color: %1
+
 
 // Other base menu Mod settings
 SETTINGS_MOD_PLAYER_SHIP_SET_DESC        | Select the Player Ship Set.

@@ -16,6 +16,8 @@
 package rotp.model.empires;
 
 import static rotp.ui.UserPreferences.flagColorCount;
+import static rotp.ui.UserPreferences.*;
+import static rotp.model.planet.PlanetType.*;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -37,6 +39,8 @@ import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.planet.Planet;
 import rotp.model.planet.PlanetType;
+import rotp.ui.util.ParamList;
+import rotp.ui.util.ParamList.IndexableMap;
 import rotp.util.Base;
 import rotp.util.ImageManager;
 import rotp.util.ModifierKeysState;
@@ -48,6 +52,11 @@ public class SystemView implements IMappedObject, Base, Serializable {
     protected static final int BORDER_SYSTEM = 2;
     protected static final int ATTACK_TARGET = 3;
     
+    public  static final String AUTO_FLAG_NOT   = "SETTINGS_MOD_AUTO_FLAG_NO_AUTOMATION";
+    private static final String AUTO_FLAG_TYPE  = "SETTINGS_MOD_AUTO_FLAG_TYPE";
+    private static final String AUTO_FLAG_ENV   = "SETTINGS_MOD_AUTO_FLAG_ENVIRONMENT";
+    private static final String AUTO_FLAG_ASSET = "SETTINGS_MOD_AUTO_FLAG_RESSOURCES";
+
     public static final String FLAG_COLOR_NONE   = "FLAG_COLOR_NONE";
     public static final String FLAG_COLOR_WHITE  = "FLAG_COLOR_WHITE";
     public static final String FLAG_COLOR_RED    = "FLAG_COLOR_RED";
@@ -59,23 +68,42 @@ public class SystemView implements IMappedObject, Base, Serializable {
     public static final String FLAG_COLOR_LTBLUE = "FLAG_COLOR_LTBLUE";
     public static final String FLAG_COLOR_PURPLE = "FLAG_COLOR_PURPLE";
     public static final String FLAG_COLOR_PINK   = "FLAG_COLOR_PINK";
-    public static List<String> flagColorList = Arrays.asList (
-		    FLAG_COLOR_NONE, // Don't move this one!
-		    FLAG_COLOR_WHITE,
-		    FLAG_COLOR_RED,
-		    FLAG_COLOR_BLUE,
-		    FLAG_COLOR_GREEN,
-		    FLAG_COLOR_YELLOW,
-		    FLAG_COLOR_AQUA,
-		    FLAG_COLOR_ORANGE,
-		    FLAG_COLOR_LTBLUE,
-		    FLAG_COLOR_PURPLE,
-		    FLAG_COLOR_PINK
-			);
-    private static List<String> flagImageNameList = Arrays.asList (
+	private static int flagNumber;
+	
+	public static final IndexableMap flagAssignationMap = new IndexableMap();
+	static {
+		List<String> flagAssignationList = Arrays.asList (
+	    		AUTO_FLAG_NOT,
+	    		AUTO_FLAG_TYPE,
+	    		AUTO_FLAG_ENV,
+	    		AUTO_FLAG_ASSET
+				);
+		for (String element : flagAssignationList)
+			flagAssignationMap.put(element, element); // Temporary; needs to be further initialized
+	}
+	public static final IndexableMap flagColorMap = new IndexableMap();
+	static {
+		List<String> flagColorList = Arrays.asList (
+			    FLAG_COLOR_NONE, // Don't move this one!
+			    FLAG_COLOR_WHITE,
+			    FLAG_COLOR_RED,
+			    FLAG_COLOR_BLUE,
+			    FLAG_COLOR_GREEN,
+			    FLAG_COLOR_YELLOW,
+			    FLAG_COLOR_AQUA,
+			    FLAG_COLOR_ORANGE,
+			    FLAG_COLOR_LTBLUE,
+			    FLAG_COLOR_PURPLE,
+			    FLAG_COLOR_PINK
+				);
+		flagNumber = flagColorList.size();
+		for (String element : flagColorList)
+			flagColorMap.put(element, element); // Temporary; needs to be further initialized
+	}
+    private static final List<String> flagImageNameList = Arrays.asList (
 			"Flag_None",
-			"Flag_Red",
 			"Flag_White",
+			"Flag_Red",
 			"Flag_Blue",
 			"Flag_Green",
 			"Flag_Yellow",
@@ -85,10 +113,10 @@ public class SystemView implements IMappedObject, Base, Serializable {
 			"Flag_Purple",
 			"Flag_Pink"
 			);
-    private static List<String> mapFlagImageNameList = Arrays.asList (
+    private static final List<String> mapFlagImageNameList = Arrays.asList (
 			"Flag_NoneM",
-			"Flag_RedM",
 			"Flag_WhiteM",
+			"Flag_RedM",
 			"Flag_BlueM",
 			"Flag_GreenM",
 			"Flag_YellowM",
@@ -102,9 +130,18 @@ public class SystemView implements IMappedObject, Base, Serializable {
     public  static final int FLAG_NONE = 0;
 
     // BR: flagColorCount
-    static final int MASK_COLOR   = 255;
-    static final int SHIFT_COLOR  = MASK_COLOR + 1;
-    static final int MASK_COLOR_2 = MASK_COLOR * SHIFT_COLOR;
+    private static final int BASE_MASK_COLOR = 127; // "only" 128 colors to avoid sign management
+    private static final int[] COLOR_SHIFT = {1, 256, 65536, 16777216};
+    private static final int[] COLOR_MASK = { 
+    		BASE_MASK_COLOR * COLOR_SHIFT[0],
+    		BASE_MASK_COLOR * COLOR_SHIFT[1],
+    		BASE_MASK_COLOR * COLOR_SHIFT[2],
+    		BASE_MASK_COLOR * COLOR_SHIFT[3]};
+    private static final int[] COLOR_IMASK = { // Inverted Mask
+    		-1 - COLOR_MASK[0],
+    		-1 - COLOR_MASK[1],
+    		-1 - COLOR_MASK[2],
+    		-1 - COLOR_MASK[3]};
 
     public static SystemView create(int sysId, int empId) {
         return new SystemView(sysId,empId);
@@ -214,23 +251,114 @@ public class SystemView implements IMappedObject, Base, Serializable {
 //        }
 //        return null; 
 //    }
-    private int getFlagColor(int id) { // BR: flagColorCount
-    	switch (id) {
-    	case 2:
-    		return (flagColor & MASK_COLOR_2) / SHIFT_COLOR;
-    	default:
-    		return flagColor & MASK_COLOR;
-    	}
+    private void setResourceFlagColor(int id) { // TODO BR: setAssetFlagColor(int id)
+    	int color = 0;
+    	Planet planet = system().planet();
+    	if (planet.type().key() == NONE)
+    		color = flagNoneColor.getIndex();
+    	else if (planet.isResourceUltraPoor())
+    		color = flagUltraPoorColor.getIndex();
+    	else if (planet.isResourcePoor())
+    		color = flagPoorColor.getIndex();
+    	else if (planet.isResourceNormal())
+    		color = flagAssetNormalColor.getIndex();
+    	else if (planet.isResourceRich())
+    		color = flagRichColor.getIndex();
+    	else if (planet.isResourceUltraRich())
+    		color = flagUltraRichColor.getIndex();
+    	else if (planet.isAntaran())
+    		color = flagAntaranColor.getIndex();
+    	else if (planet.isOrionArtifact())
+    		color = flagOrionColor.getIndex();
+		setFlagColor(color, id);
     }
-    private void setFlagColor(int color, int id) {
-    	switch (id) {
-    	case 2:
-    		flagColor = (flagColor & MASK_COLOR) |
-    					((color & MASK_COLOR) * SHIFT_COLOR);
-    		return;
-    	default:
-    		flagColor = (color & MASK_COLOR) | (flagColor & MASK_COLOR_2);
-    	}
+    private void setEnvFlagColor(int id) { // TODO BR: setEnvFlagColor(int id)
+    	int color = 0;
+    	Planet planet = system().planet();
+    	if (planet.type().key() == NONE)
+    		color = flagEnvNoneColor.getIndex();
+    	else if (planet.isEnvironmentNone())
+    		color = flagEnvNoneColor.getIndex();
+    	else if (planet.isEnvironmentHostile())
+    		color = flagEnvHostileColor.getIndex();
+    	else if (planet.isEnvironmentNormal())
+    		color = flagEnvNormalColor.getIndex();
+    	else if (planet.isEnvironmentFertile())
+    		color = flagEnvFertileColor.getIndex();
+    	else if (planet.isEnvironmentGaia())
+    		color = flagEnvGaiaColor.getIndex();
+		setFlagColor(color, id);
+    }
+    private void setTypeFlagColor(int id) {
+    	int color;
+		switch (system().planet().type().key()) {
+	    case NONE:
+	    	color = flagAsteroidColor.getIndex();
+	    	break;
+	    case RADIATED:
+	    	color = flagRadiatedColor.getIndex();
+	    	break;
+	    case TOXIC:
+	    	color = flagToxicColor.getIndex();
+	    	break;
+	    case INFERNO:
+	    	color = flagInfernoColor.getIndex();
+	    	break;
+	    case DEAD :
+	    	color = flagDeadColor.getIndex();
+	    	break;
+	    case TUNDRA:
+	    	color = flagTundraColor.getIndex();
+	    	break;
+	    case BARREN:
+	    	color = flagBarrenColor.getIndex();
+	    	break;
+	    case MINIMAL:
+	    	color = flagMinimalColor.getIndex();
+	    	break;
+	    case DESERT:
+	    	color = flagDesertColor.getIndex();
+	    	break;
+	    case STEPPE:
+	    	color = flagSteppeColor.getIndex();
+	    	break;
+	    case ARID:
+	    	color = flagAridColor.getIndex();
+	    	break;
+	    case OCEAN:
+	    	color = flagOceanColor.getIndex();
+	    	break;
+	    case JUNGLE:
+	    	color = flagJungleColor.getIndex();
+	    	break;
+	    case TERRAN:	
+		default:
+			color = flagTerranColor.getIndex();
+			break;
+		}
+		setFlagColor(color, id);
+    }
+    private void setFlagColor(int color, int id) { // BR: flagColorCount
+    	flagColor = getMixedColor(flagColor, color, id);
+    }
+    private int getFlagColor(int id) { // BR: flagColorCount
+    	return getBaseColor(flagColor, id);
+    }
+    private int getMixedColor(int mixedColor, int color, int id) { // BR: flagColorCount
+    	return getFilteredColor(mixedColor, id) | getShiftedColor(color, id);
+    }
+    
+    private int getFilteredColor(int mixedColor, int id) { // BR: flagColorCount
+    	int idx = min(4, max(1, id))-1;
+    	return (mixedColor & COLOR_IMASK[idx]);
+    }
+    private int getBaseColor(int mixedColor, int id) { // BR: flagColorCount
+    	int idx = min(4, max(1, id))-1;
+    	return (mixedColor & COLOR_MASK[idx]) / COLOR_SHIFT[idx];
+    }
+    private int getShiftedColor(int baseColor, int id) { // BR: flagColorCount
+    	int idx = min(4, max(1, id))-1;
+    	return (baseColor & COLOR_MASK[0]) * COLOR_SHIFT[idx];
     }
     private static Image joinImage(Image left, Image right) { // BR: flagColorCount
     	int side  = 133;
@@ -289,7 +417,7 @@ public class SystemView implements IMappedObject, Base, Serializable {
     	else
     		return planetType_(); // BR: former call
     }
-    // BR: Fix for "Precursor Relic" event; Now every one see the same thing!
+    // BR: Fix for "Precursor Relic" event; Now everyone sees the same thing!
     private PlanetType planetType_() {
         if (vPlanetTypeKey == null)
             return null;
@@ -317,11 +445,57 @@ public class SystemView implements IMappedObject, Base, Serializable {
         if (vGuarded)
             setName();
     }
+    private void autoFlagAssignation(ParamList assignation, int id) {
+    	switch (assignation.get()) {
+	    	case AUTO_FLAG_TYPE:
+	    		setTypeFlagColor(id);
+	    		return;
+	    	case AUTO_FLAG_ENV:
+	    		setEnvFlagColor(id);
+	    		return;
+	    	case AUTO_FLAG_ASSET:
+	    		setResourceFlagColor(id);
+	    		return;
+	    	case AUTO_FLAG_NOT:
+			default:
+				return;
+    	}
+    }
     public void refreshFullScan() {
         if (!scouted()) {
             log("Orbital scan scouts new system: ", system().name());
             owner().shareSystemInfoWithAllies(this);
             if (owner().isPlayer()) { // TODO BR: Add auto Flag
+            	autoFlagAssignation(autoFlagAssignation1, 1);
+            	autoFlagAssignation(autoFlagAssignation2, 2);
+//            	switch (autoFlagAssignation1.get()) {
+//	            	case AUTO_FLAG_TYPE:
+//	            		setTypeFlagColor(1);
+//	            		break;
+//	            	case AUTO_FLAG_ENV:
+//	            		setEnvFlagColor(1);
+//	            		break;
+//	            	case AUTO_FLAG_ASSET:
+//	            		setResourceFlagColor(1);
+//	            		break;
+//	            	case AUTO_FLAG_NOT:
+//	        		default:
+//	        			break;
+//            	}
+//            	switch (autoFlagAssignation2.get()) {
+//	            	case AUTO_FLAG_TYPE:
+//	            		setTypeFlagColor(2);
+//	            		break;
+//	            	case AUTO_FLAG_ENV:
+//	            		setEnvFlagColor(2);
+//	            		break;
+//	            	case AUTO_FLAG_ASSET:
+//	            		setResourceFlagColor(2);
+//	            		break;
+//	            	case AUTO_FLAG_NOT:
+//	        		default:
+//	        			break;
+//            	}
  // TODO BR:           	System.out.println("System Scouted ready for auto Flag");
             }
             if (owner().isPlayerControlled()) {
@@ -476,11 +650,11 @@ public class SystemView implements IMappedObject, Base, Serializable {
 		if (reverse) {
 			flagColor--;
 			if (flagColor < 0)
-				return flagColorList.size()-1;
+				return flagNumber-1;
 			return flagColor;
 		} else {
 			flagColor++;
-			if (flagColor >= flagColorList.size())
+			if (flagColor >= flagNumber)
 				return 0;
 			return flagColor;
 		}

@@ -17,17 +17,20 @@ package rotp.ui.game;
 
 import java.util.LinkedList;
 
-import rotp.ui.UserPreferences;
 import rotp.ui.util.InterfaceParam;
 
-public class MergedSubList extends CompactOptionsUI {
+public class MergedSubListUI extends CompactOptionsUI {
 	private static final long serialVersionUID = 1L;
-	public final String guiTitleID;
-	public final String GUI_ID;
+	public String guiTitleID;
+	public String GUI_ID;
+	public boolean FromGame;
 	
-	public MergedSubList(String TitleID, String guiID, LinkedList<LinkedList<InterfaceParam>> optionsMap) {
+	public MergedSubListUI() {}
+	public MergedSubListUI(String TitleID, String guiID, boolean callFromGame,
+			LinkedList<LinkedList<InterfaceParam>> optionsMap) {
 		super(TitleID, guiID, optionsMap);
 		guiTitleID = TitleID;
 		GUI_ID     = guiID;
+		FromGame   = callFromGame;
 	}
 }

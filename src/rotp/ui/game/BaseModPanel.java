@@ -58,7 +58,7 @@ public abstract class BaseModPanel extends BasePanel {
 	protected static int  smallButtonMargin;
 	protected static int  smallButtonH;
 
-	LinkedList<InterfaceParam> paramList;
+	public LinkedList<InterfaceParam> paramList;
 	LinkedList<InterfaceParam> duplicateList;
 	LinkedList<InterfaceParam> activeList;
 

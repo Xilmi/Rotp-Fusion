@@ -278,6 +278,14 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 			, MouseEvent e, MouseWheelEvent w) {
 		for (int i=0; i<activeList.size(); i++) {
 			if (hoverBox == btList.get(i).bounds()) {
+				if (activeList.get(i).isSubMenu()) {
+					if (e == null)
+						return;
+					super.close();
+			        disableGlassPane();
+					activeList.get(i).toggle(e, 2);
+					return;
+				}			
 				activeList.get(i).toggle(e, w);
 				btList.get(i).repaint(activeList.get(i).getGuiDisplay());
 				return;

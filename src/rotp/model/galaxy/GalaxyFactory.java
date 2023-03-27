@@ -26,7 +26,7 @@ import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
 import static rotp.ui.UserPreferences.ALL_GUI_ID;
 import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.globalCROptions;
-import static rotp.ui.UserPreferences.minDistanceArtifactPlanet;
+import static rotp.ui.UserPreferences.minDistArtifactPlanet;
 import static rotp.ui.UserPreferences.restartAppliesSettings;
 import static rotp.ui.UserPreferences.restartChangesAliensAI;
 import static rotp.ui.UserPreferences.restartChangesPlayerAI;
@@ -476,8 +476,8 @@ public class GalaxyFactory implements Base {
 				}
 				sys0.setXY(empSystem.x(i), empSystem.y(i));
 				if (sys0.planet().isAntaran()
-						&& minDistanceArtifactPlanet.get() > 0.0f
-						&& galaxy().tooCloseToHomeWorld(sys0, minDistanceArtifactPlanet.get()))
+						&& minDistArtifactPlanet.get() > 0.0f
+						&& galaxy().tooCloseToHomeWorld(sys0, minDistArtifactPlanet.get()))
 					sys0.planet().removeArtifact();
 				g.addStarSystem(sys0);
 			}
@@ -690,8 +690,8 @@ public class GalaxyFactory implements Base {
 					}
 					sys0.setXY(empSystem.x(i), empSystem.y(i));
 					if (sys0.planet().isAntaran()
-							&& minDistanceArtifactPlanet.get() > 0.0f
-							&& galaxy().tooCloseToHomeWorld(sys0, minDistanceArtifactPlanet.get()))
+							&& minDistArtifactPlanet.get() > 0.0f
+							&& galaxy().tooCloseToHomeWorld(sys0, minDistArtifactPlanet.get()))
 						sys0.planet().removeArtifact();
 					g.addStarSystem(sys0);
 				}
@@ -742,8 +742,8 @@ public class GalaxyFactory implements Base {
 				sh.coords(i, pt);
 				refSys.setXY(pt.x, pt.y);
 				if (refSys.planet().isAntaran()
-						&& minDistanceArtifactPlanet.get() > 0.0f
-						&& galaxy().tooCloseToHomeWorld(refSys, minDistanceArtifactPlanet.get()))
+						&& minDistArtifactPlanet.get() > 0.0f
+						&& galaxy().tooCloseToHomeWorld(refSys, minDistArtifactPlanet.get()))
 					refSys.planet().removeArtifact();
 				g.addStarSystem(refSys);
 				// other symmetry systems
@@ -760,8 +760,8 @@ public class GalaxyFactory implements Base {
 				sh.coords(i, pt);
 				sys.setXY(pt.x, pt.y);
 				if (sys.planet().isAntaran()
-						&& minDistanceArtifactPlanet.get() > 0.0f
-						&& galaxy().tooCloseToHomeWorld(sys, minDistanceArtifactPlanet.get()))
+						&& minDistArtifactPlanet.get() > 0.0f
+						&& galaxy().tooCloseToHomeWorld(sys, minDistArtifactPlanet.get()))
 					sys.planet().removeArtifact();
 				g.addStarSystem(sys);
 			}

@@ -19,6 +19,8 @@ package rotp.ui.util;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
+import javax.swing.JFrame;
+
 import rotp.ui.game.BaseModPanel;
 
 public interface InterfaceParam extends InterfaceOptions{
@@ -38,10 +40,12 @@ public interface InterfaceParam extends InterfaceOptions{
 	public String getGuiDescription();
 	public boolean isDefaultValue();
 
+	public default void toggle(MouseEvent e, int p) {};
 	public default void setPanel(BaseModPanel p) {}
 	public default void initGuiTexts()			{}
 	public default String getToolTip()			{ return ""; }
 	public default String getToolTip(int idx)	{ return ""; }
 	public default boolean isDuplicate()		{ return false; }
 	public default boolean isTitle()			{ return false; }
+	public default boolean isSubMenu()			{ return false; };
 }

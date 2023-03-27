@@ -1390,9 +1390,7 @@ public interface Base {
 		return name;
     }
     // BR:
-    public default ModifierKeysState setModifierKeysState(InputEvent e) {
-    	return ModifierKeysState.set(e);
-    }
+    public default void setModifierKeysState(InputEvent e) { ModifierKeysState.set(e); }
     public default boolean checkForChange(InputEvent e) {
     	return ModifierKeysState.checkForChange(e);
     }

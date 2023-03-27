@@ -15,11 +15,8 @@
  */
 package rotp.ui.game;
 
-//import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
 import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
 import static rotp.ui.UserPreferences.ALL_GUI_ID;
-//import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
-//import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
 
 import java.awt.Color;
@@ -39,7 +36,6 @@ import java.awt.event.MouseWheelListener;
 import java.util.LinkedList;
 import java.util.List;
 
-import rotp.mod.br.profiles.Profiles;
 import rotp.ui.BaseText;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
@@ -52,8 +48,8 @@ import rotp.util.ModifierKeysState;
 class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
 	private static final long serialVersionUID = 1L;
 	private static final Color backgroundHaze = new Color(0,0,0,160);
-	private final String guiTitleID;
-	private final String GUI_ID;
+	private String guiTitleID;
+	private String GUI_ID;
 	
 	private static final int rowPad		= s10;
 	private	static final int descPadV	= 0;
@@ -89,22 +85,35 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 	private int xDesc, yDesc, descWidth;
 	private int x, y; // mouse position
 	
-	private LinkedList<Integer>	lastRowList = new LinkedList<>();
-	private LinkedList<BaseText> btList0	= new LinkedList<>();
-	private LinkedList<BaseText> btList2	= new LinkedList<>();
-	private LinkedList<BaseText> btListBoth	= new LinkedList<>();
+	private LinkedList<Integer>	lastRowList;
+	private LinkedList<BaseText> btList0;
+	private LinkedList<BaseText> btList2;
+	private LinkedList<BaseText> btListBoth;
+//	private LinkedList<Integer>	lastRowList = new LinkedList<>();
+//	private LinkedList<BaseText> btList0	= new LinkedList<>();
+//	private LinkedList<BaseText> btList2	= new LinkedList<>();
+//	private LinkedList<BaseText> btListBoth	= new LinkedList<>();
 	private Rectangle hoverBox, prevHover;
 	private final Rectangle exitBox		= new Rectangle();
 	private final Rectangle toolTipBox	= new Rectangle();
 	private LinearGradientPaint bg;
 
 	private String tooltipText = "";
-	private String preTipTxt	 = "";
+	private String preTipTxt   = "";
+	private int parent = 0; // 0=Base; 1=Merged; 2=Classic
 
 	
 	// ========== Constructors and initializers ==========
 	//
+	CompactOptionsUI() { }
 	CompactOptionsUI(String guiTitle_ID, String guiId, LinkedList<LinkedList<InterfaceParam>> paramList) {
+		initUI(guiTitle_ID, guiId, paramList);
+//		guiTitleID = guiTitle_ID;
+//		GUI_ID = guiId;
+//		init_Lists(paramList);
+//		init_0();
+	}
+	public void initUI(String guiTitle_ID, String guiId, LinkedList<LinkedList<InterfaceParam>> paramList) {
 		guiTitleID = guiTitle_ID;
 		GUI_ID = guiId;
 		init_Lists(paramList);
@@ -114,6 +123,10 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 		activeList		= new LinkedList<>();
 		duplicateList	= new LinkedList<>();
 		paramList		= new LinkedList<>();
+		btList0			= new LinkedList<>();
+		btList2			= new LinkedList<>();
+		btListBoth		= new LinkedList<>();
+		lastRowList		= new LinkedList<>();
 		int totalRows   = 0;
 		numColumns = optionsList.size();
 		numRows    = 0;
@@ -255,11 +268,14 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 		else
 			txt2.enabledC(customValuesColor);
 	}
-	private void paintSetting(Graphics2D g) {
+	private void paintSetting(Graphics2D g) { // TODO
 		setValueColor(index);
 		BaseText txt0 = btList0.get(index);
 		BaseText txt2 = btList2.get(index);
-
+		if (txt0 == null || txt2  == null) {
+		System.out.println(txt0 + " " + txt2);
+			
+		}
 		g.setPaint(bg);
 		int sw0 = txt0.stringWidth(g);
 		int sw2 = txt2.stringWidth(g);
@@ -284,6 +300,14 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 		for (int i=0; i<activeList.size(); i++) {
 			if (hoverBox == btList0.get(i).bounds()
 					|| hoverBox == btList2.get(i).bounds() ) {
+				if (activeList.get(i).isSubMenu()) {
+					if (e == null)
+						return;
+					super.close();
+			        disableGlassPane();
+					activeList.get(i).toggle(e, 1);
+					return;
+				}			
 				activeList.get(i).toggle(e, w);
 				setValueColor(i);
 				btList0.get(i).repaint(activeList.get(i).getGuiDisplay(0));
@@ -416,8 +440,16 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 				repaintTooltip();
 		}
 	}
-	public void start(boolean callFromGame) {
+	public void start(boolean callFromGame) { // Called from Base UI
 		RotPUI.guiCallFromGame(callFromGame);
+		parent = 0;
+		start();
+	}
+	public void start(int p) { // Called from subUI
+		parent = p;
+		start();
+	}
+	public void start() { // Called from subUI
 		super.init();
 		int hSettingTotal = hDistSetting * numRows;
 		hBG	= titlePad + hSettingTotal + descPadV + descHeigh + buttonPadV + smallButtonH + bottomPad;
@@ -449,16 +481,27 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 	@Override protected void close() {
 		super.close();
         disableGlassPane();
-        if (!guiCallFromGame())
-        	RotPUI.setupGalaxyUI().init();
-        else
-        	RotPUI.instance().mainUI().map().resetRangeAreas();
+		switch (parent) {
+		case 1:
+			RotPUI.mergedDynamicOptionsUI().start(RotPUI.guiCallFromGame());
+			return;
+		case 2:
+			RotPUI.modOptionsDynamicA().init();
+			return;
+		case 0:
+		default: 
+	        if (!guiCallFromGame())
+	        	RotPUI.setupGalaxyUI().init();
+	        else
+	        	RotPUI.instance().mainUI().map().resetRangeAreas();
+		}
 	}
 	@Override protected void doExitBoxAction() {
 		UserPreferences.save();
 		// super.doExitBoxAction();
 		updateOptionsAndSaveToFileName(RotPUI.mergedGuiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
-		RotPUI.guiCallFromGame(false);
+		if (parent == 0) // Sub UI should not change this
+			RotPUI.guiCallFromGame(false);
 		close();
 	}
 	@Override protected void doUserBoxAction() {
@@ -558,13 +601,13 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 				return;
 			case KeyEvent.VK_SPACE:
 			default: // BR:
-				if(Profiles.processKey(k, e.isShiftDown(), guiTitleID, newGameOptions())) {
-					for (int i=0; i<activeList.size(); i++) {
-						setValueColor(i);
-						btList0.get(i).repaint(activeList.get(i).getGuiDisplay(0));
-						btList2.get(i).repaint(activeList.get(i).getGuiDisplay(1));
-					}
-				};
+//				if(Profiles.processKey(k, e.isShiftDown(), guiTitleID, newGameOptions())) {
+//					for (int i=0; i<activeList.size(); i++) {
+//						setValueColor(i);
+//						btList0.get(i).repaint(activeList.get(i).getGuiDisplay(0));
+//						btList2.get(i).repaint(activeList.get(i).getGuiDisplay(1));
+//					}
+//				};
 				return;
 		}
 	}

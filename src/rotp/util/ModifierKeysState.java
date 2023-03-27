@@ -30,9 +30,10 @@ public enum ModifierKeysState {
 	public static boolean isCtrlDown()	{ return isCtrlDown; }
 	public static boolean isAltDown()	{ return isAltDown; }
 
-	public static ModifierKeysState set(InputEvent e) {
-		lastState = analyze(e);
-		return lastState;
+	public static void set(InputEvent e) {
+		setKeysState(e);
+//		lastState = analyze(e);
+//		return lastState;
 	}
 	public static ModifierKeysState get() {
 		return lastState;
@@ -50,14 +51,22 @@ public enum ModifierKeysState {
 		lastState = newState;
 		return true;
 	}
-	private static ModifierKeysState analyze(InputEvent e) {
+	private static boolean setKeysState(InputEvent e) {
 		if (e == null) {
 			reset();
-			return lastState;
+			return true;
 		}
 		isShiftDown	= e.isShiftDown();
 		isCtrlDown	= e.isControlDown();
 		isAltDown	= e.isAltDown();
+		return false;
+	}
+	
+	private static ModifierKeysState analyze(InputEvent e) {
+		setKeysState(e);
+		if (setKeysState(e))
+			return lastState;
+
 		if (isShiftDown)
 			if (isCtrlDown)
 				if (isAltDown)
