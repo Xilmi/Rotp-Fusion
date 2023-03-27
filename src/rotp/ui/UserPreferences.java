@@ -17,7 +17,16 @@ package rotp.ui;
 
 
 import static rotp.model.empires.SystemView.AUTO_FLAG_NOT;
-import static rotp.model.empires.SystemView.*;
+import static rotp.model.empires.SystemView.FLAG_COLOR_AQUA;
+import static rotp.model.empires.SystemView.FLAG_COLOR_BLUE;
+import static rotp.model.empires.SystemView.FLAG_COLOR_GREEN;
+import static rotp.model.empires.SystemView.FLAG_COLOR_LTBLUE;
+import static rotp.model.empires.SystemView.FLAG_COLOR_ORANGE;
+import static rotp.model.empires.SystemView.FLAG_COLOR_PINK;
+import static rotp.model.empires.SystemView.FLAG_COLOR_PURPLE;
+import static rotp.model.empires.SystemView.FLAG_COLOR_RED;
+import static rotp.model.empires.SystemView.FLAG_COLOR_WHITE;
+import static rotp.model.empires.SystemView.FLAG_COLOR_YELLOW;
 import static rotp.model.empires.SystemView.flagAssignationMap;
 import static rotp.model.empires.SystemView.flagColorMap;
 import static rotp.model.game.IGameOptions.AI_HOSTILITY_NORMAL;
@@ -57,7 +66,6 @@ import static rotp.model.game.MOO1GameOptions.getStarDensityOptions;
 import static rotp.model.game.MOO1GameOptions.getTechTradingOptions;
 import static rotp.model.game.MOO1GameOptions.getTerraformingOptions;
 import static rotp.model.game.MOO1GameOptions.getWarpSpeedOptions;
-import static rotp.util.Base.textSubs;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -133,14 +141,15 @@ public class UserPreferences {
 	private static final String keyFormat = "%-25s: "; // BR: from 20 to 25 for a better alignment
 
 	// BR common for All MOD entries
-	public static final String BASE_UI = "SETUP_";
-	public static final String GAME_UI = "GAME_SETTINGS_";
-	public static final String ADV_UI  = "SETTINGS_";
-	public static final String MOD_UI  = "SETTINGS_MOD_";
-	public static final String ALL_GUI_ID = "ALL_GUI";
+	public static final String BASE_UI		= "SETUP_";
+	public static final String GAME_UI		= "GAME_SETTINGS_";
+	public static final String ADV_UI		= "SETTINGS_";
+	public static final String MOD_UI		= "SETTINGS_MOD_";
+	public static final String HEADERS		= "HEADERS_";
+	public static final String ALL_GUI_ID	= "ALL_GUI";
 
 	// Sub UI Options parameters
-	// TODO BR: AUTO-FLAG PARAMETERS SUB UI
+	// BR: AUTO-FLAG PARAMETERS SUB UI
 	public static final ParamList autoFlagAssignation1	= new ParamList(
 			MOD_UI, "AUTO_FLAG_ASSIGN_1",
 			AUTO_FLAG_NOT, flagAssignationMap);
@@ -225,7 +234,7 @@ public class UserPreferences {
 	public static final ParamList flagOrionColor		= new ParamList(
 			MOD_UI, "AUTO_FLAG_RUINS_ORION",
 			FLAG_COLOR_BLUE, flagColorMap);
-	public static final ParamList flagNoneColor		= new ParamList(
+	public static final ParamList flagNoneColor			= new ParamList(
 			MOD_UI, "AUTO_FLAG_NONE",
 			FLAG_COLOR_PINK, flagColorMap);
 	
@@ -435,7 +444,7 @@ public class UserPreferences {
 			return super.set(newValue);
 		}
 	};
-	public static final ParamOptions menuStartup       = new ParamOptions(
+	public static final ParamOptions menuStartup		= new ParamOptions(
 			MOD_UI, "MENU_STARTUP", ParamOptions.VANILLA);
 	public static final ParamOptions menuAfterGame		= new ParamOptions(
 			MOD_UI, "MENU_AFTER_GAME", ParamOptions.VANILLA);
@@ -454,11 +463,11 @@ public class UserPreferences {
 			return super.set(newValue);
 		}
 	};
-	public static final ParamBoolean showNextCouncil   = new ParamBoolean(
+	public static final ParamBoolean showNextCouncil	= new ParamBoolean(
 			MOD_UI, "SHOW_NEXT_COUNCIL", false); // Show years left until next council
 	public static final ParamInteger galaxyPreviewColorStarsSize = new ParamInteger(
 			MOD_UI, "GALAXY_PREVIEW_COLOR_SIZE" , 5, 0, 20, 1, 2, 5);
-	public static final ParamInteger minListSizePopUp		= new ParamInteger(
+	public static final ParamInteger minListSizePopUp	= new ParamInteger(
 			MOD_UI, "MIN_LIST_SIZE_POP_UP" , 4, 0, 10, true) {
 		@Override public String getGuiValue() {
 			if (get() == 0)
@@ -466,21 +475,21 @@ public class UserPreferences {
 			return super.getGuiValue();
 		}
 	};
-	public static final ParamBoolean showAlliancesGNN  = new ParamBoolean(
+	public static final ParamBoolean showAlliancesGNN	= new ParamBoolean(
 			MOD_UI, "SHOW_ALLIANCES_GNN", true);
 	public static final ParamBoolean techExchangeAutoRefuse = new ParamBoolean(
 			MOD_UI, "TECH_EXCHANGE_AUTO_NO", false);
 
 	// BR: Galaxy Menu addition
-	public static final ParamBoolean showNewRaces 		= new ParamBoolean(
+	public static final ParamBoolean showNewRaces 			= new ParamBoolean(
 			MOD_UI, "SHOW_NEW_RACES", false);
-	public static final GlobalCROptions globalCROptions = new GlobalCROptions (
+	public static final GlobalCROptions globalCROptions 	= new GlobalCROptions (
 			BASE_UI, "OPP_CR_OPTIONS", SpecificCROption.BASE_RACE.value);
-	public static final ParamBoolean useSelectableAbilities = new ParamBoolean(
+	public static final ParamBoolean useSelectableAbilities	= new ParamBoolean(
 			BASE_UI, "SELECT_CR_OPTIONS", false);
-	public static final ParamString  shapeOption3   	= new ParamString(
+	public static final ParamString  shapeOption3   		= new ParamString(
 			BASE_UI, "SHAPE_OPTION_3", "");
-	public static final ParamList    shapeOption2   	= new ParamList( // Duplicate Do not add the list
+	public static final ParamList    shapeOption2   		= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "SHAPE_OPTION_2") {
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedGalaxyShapeOption2();
@@ -489,7 +498,7 @@ public class UserPreferences {
 			RotPUI.mergedGuiOptions().selectedGalaxyShapeOption2(newValue);
 		}
 	};
-	public static final ParamList    shapeOption1   	= new ParamList( // Duplicate Do not add the list
+	public static final ParamList    shapeOption1   		= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "SHAPE_OPTION_1") {
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedGalaxyShapeOption1();
@@ -498,7 +507,7 @@ public class UserPreferences {
 			RotPUI.mergedGuiOptions().selectedGalaxyShapeOption1(newValue);
 		}
 	};
-	public static final ParamList    shapeSelection		= new ParamList( // Duplicate Do not add the list
+	public static final ParamList    shapeSelection			= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "GALAXY_SHAPE", getGalaxyShapeOptions(),  SHAPE_RECTANGLE) {
 		@Override public String     getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedGalaxyShape();
@@ -507,7 +516,7 @@ public class UserPreferences {
 			RotPUI.mergedGuiOptions().selectedGalaxyShape(newValue);
 		}
 	};
-	public static final ParamList    sizeSelection  	= new ParamList( // Duplicate Do not add the list
+	public static final ParamList    sizeSelection  		= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "GALAXY_SIZE", getGalaxySizeOptions(), SIZE_SMALL) {
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedGalaxySize();
@@ -516,7 +525,7 @@ public class UserPreferences {
 			RotPUI.mergedGuiOptions().selectedGalaxySize(newValue);
 		}
 	};
-	public static final ParamList    difficultySelection= new ParamList( // Duplicate Do not add the list
+	public static final ParamList    difficultySelection	= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "GAME_DIFFICULTY", getGameDifficultyOptions(), DIFFICULTY_NORMAL) {
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedGameDifficulty();
@@ -525,7 +534,7 @@ public class UserPreferences {
 			RotPUI.mergedGuiOptions().selectedGameDifficulty(newValue);
 		}
 	};
-	public static final ParamInteger aliensNumber 		= new ParamInteger( // Duplicate Do not add the list
+	public static final ParamInteger aliensNumber 			= new ParamInteger( // Duplicate Do not add the list
 			BASE_UI, "ALIENS_NUMBER", 1, 0, 49, 1, 5, 20, true) {
 		@Override public Integer getFromOption() {
 			maxValue(RotPUI.mergedGuiOptions().maximumOpponentsOptions());
@@ -776,11 +785,11 @@ public class UserPreferences {
 			new LinkedList<LinkedList<InterfaceParam>>();
 	static {
 		autoFlagOptionsMap.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle(MOD_UI, "AUTO_FLAG_ID_SELECTION"),
+				new ParamTitle("AUTO_FLAG_ID_SELECTION"),
 				autoFlagAssignation1, autoFlagAssignation2
 				)));
 		autoFlagOptionsMap.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle(MOD_UI, "AUTO_FLAG_TYPE"),
+				new ParamTitle("AUTO_FLAG_TYPE"),
 				flagTerranColor, flagJungleColor, flagOceanColor,
 				flagAridColor, flagSteppeColor, flagDesertColor, flagMinimalColor,
 				flagBarrenColor, flagTundraColor, flagDeadColor,
@@ -788,12 +797,12 @@ public class UserPreferences {
 				flagAsteroidColor
 				)));
 		autoFlagOptionsMap.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle(MOD_UI, "AUTO_FLAG_ENVIRONMENT"),
+				new ParamTitle("AUTO_FLAG_ENVIRONMENT"),
 				flagEnvGaiaColor, flagEnvFertileColor,
 				flagEnvNormalColor,	flagEnvHostileColor, flagEnvNoneColor
 				)));
 		autoFlagOptionsMap.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle(MOD_UI, "AUTO_FLAG_ASSET"),
+				new ParamTitle("AUTO_FLAG_RESOURCES"),
 				flagOrionColor, flagAntaranColor,
 				flagUltraRichColor, flagRichColor, flagAssetNormalColor,
 				flagPoorColor, flagUltraPoorColor, flagNoneColor

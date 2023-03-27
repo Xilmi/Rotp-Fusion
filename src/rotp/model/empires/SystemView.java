@@ -55,7 +55,7 @@ public class SystemView implements IMappedObject, Base, Serializable {
     public  static final String AUTO_FLAG_NOT   = "SETTINGS_MOD_AUTO_FLAG_NO_AUTOMATION";
     private static final String AUTO_FLAG_TYPE  = "SETTINGS_MOD_AUTO_FLAG_TYPE";
     private static final String AUTO_FLAG_ENV   = "SETTINGS_MOD_AUTO_FLAG_ENVIRONMENT";
-    private static final String AUTO_FLAG_ASSET = "SETTINGS_MOD_AUTO_FLAG_RESSOURCES";
+    private static final String AUTO_FLAG_ASSET = "SETTINGS_MOD_AUTO_FLAG_RESOURCES";
 
     public static final String FLAG_COLOR_NONE   = "FLAG_COLOR_NONE";
     public static final String FLAG_COLOR_WHITE  = "FLAG_COLOR_WHITE";
@@ -266,7 +266,8 @@ public class SystemView implements IMappedObject, Base, Serializable {
     		color = flagRichColor.getIndex();
     	else if (planet.isResourceUltraRich())
     		color = flagUltraRichColor.getIndex();
-    	else if (planet.isAntaran())
+    	// Artifact planets are considered resource Normal.
+    	if (planet.isAntaran())
     		color = flagAntaranColor.getIndex();
     	else if (planet.isOrionArtifact())
     		color = flagOrionColor.getIndex();

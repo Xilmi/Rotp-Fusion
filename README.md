@@ -27,9 +27,11 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 ## What's New
 
 2023.03.27 (BR)
+- Added auto-Flag on system when scouted.
 - Fixed Red and white flags being swapped! (in 2023.03.25 changes)
 - Fixed text on buttons no more always following the modifier keys.
-- Added auto-Flag on system when scouted.
+- Fixed some Header errors.
+- Fixed Artifact planets no setting the right flag. (auto-flag)
 
 2023.03.25 (BR)
 - Fixed second Map Flag showing black instead of not showing.

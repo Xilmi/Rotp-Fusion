@@ -1457,7 +1457,7 @@ CUSTOM_RACE_RANDOM_USE_TARGET     | Force Target
 CUSTOM_RACE_BASE_DATARACE         | Base Abilities
 CUSTOM_RACE_HOME_TYPE             | Planet Type
 CUSTOM_RACE_HOME_SIZE             | Planet Size
-CUSTOM_RACE_HOME_RESOURCES        | Planet Ressources
+CUSTOM_RACE_HOME_RESOURCES        | Planet Resources
 CUSTOM_RACE_HOME_ENVIRONMENT      | Planet Environment
 CUSTOM_RACE_RACE_KEY              | File Name
 CUSTOM_RACE_RACE_KEY_DESC         | This is the place to enter the filename, it's also used as the key for the standard race... Don't use them
@@ -1631,36 +1631,46 @@ SETTINGS_AUTOPLAY_DESC            | Completely automate the game by having an AI
 SETTINGS_AUTOPLAY_WARNING         | Warning! Autoplay is currently enabled which will prevent user gameplay. Use "Advanced Options" to disable.
 SETTINGS_FUEL_RANGE_DESC          | Increase the range of fuel range technologies and reserve fuel tanks. [Deactivated in modnar MOD]
 SETTINGS_AI_HOSTILITY_DESC        | Increase or decrease the general level of hostility between alien races.
-SETTINGS_START_GALAXY_OPTIONS_DESC | Options used for galaxy buildings. Only read when starting a new game.
-SETTINGS_START_GALAXY_OPTIONS      | ~~~ GALAXY OPTIONS ~~~%1
-SETTINGS_START_PLANET_OPTIONS_DESC | Options used for planet generation. Only read when starting a new game.
-SETTINGS_START_PLANET_OPTIONS      | ~~~ PLANETS OPTIONS ~~~%1
-SETTINGS_START_EMPIRE_OPTIONS_DESC | Options used for empire generation. Only read when starting or restarting a game.
-SETTINGS_START_EMPIRE_OPTIONS      | ~~~ EMPIRES OPTIONS ~~~%1
-SETTINGS_START_TECH_CONTROL_DESC   | Options used while generating technologies lists. Only read when starting or restarting a game.
-SETTINGS_START_TECH_CONTROL        | ~~ ALLOWED AND FORBIDDEN TECH ~~%1
-SETTINGS_START_RANDOM_ALIENS_DESC  | Options used for the generation of random races. Only read when starting or restarting a game.
-SETTINGS_START_RANDOM_ALIENS       | ~~~ RANDOM ALIENS OPTIONS ~~~%1
-SETTINGS_GAME_RELATIONS_DESC       | Options controling the relations between empires. Can be changed dynamically.
-SETTINGS_GAME_RELATIONS            | ~~~ EMPIRES RELATIONS ~~~%1
-SETTINGS_RANDOM_EVENTS_OPT_DESC    | Random Events Options. Can be changed dynamically.
-SETTINGS_RANDOM_EVENTS_OPT         | ~~~ RANDOM EVENTS OPTIONS ~~~%1
-SETTINGS_GAME_VARIOUS_DESC         | Diverses Options. Can be changed dynamically.
-SETTINGS_GAME_VARIOUS              | ~~~ VARIOUS OPTIONS ~~~%1
-SETTINGS_GAME_OTHER_DESC           | Other Options. Can be changed dynamically.
-SETTINGS_GAME_OTHER                | ~~~ OTHER OPTIONS ~~~%1
-SETTINGS_GAME_COMBAT_DESC          | Options affecting attack and defense. Can be changed dynamically.
-SETTINGS_GAME_COMBAT               | ~~~ COMBAT OPTIONS ~~~%1
-SETTINGS_GAME_DIFFICULTYL_DESC     | Options affecting the game difficulty level. Can be changed dynamically.
-SETTINGS_GAME_DIFFICULTY           | ~~~ GAME DIFFICULTY ~~~%1
-SETTINGS_RESTART_OPTIONS_DESC      | Options controlling the way a game will be restarted. Only read when restarting a game.
-SETTINGS_RESTART_OPTIONS           | ~~~ RESTART OPTIONS ~~~%1
-SETTINGS_ZOOM_FACTORS_DESC         | Options controlling the galaxy Map Zoom Factors. Can be changed dynamically. (Remnant.cfg options)
-SETTINGS_ZOOM_FACTORS              | ~~~ MAP ZOOM FACTORS ~~~%1
-SETTINGS_MENU_OPTIONS_DESC         | Options controlling Menu Parameters. Can be changed dynamically. (Remnant.cfg options)
-SETTINGS_MENU_OPTIONS              | ~~~ MENU'S OPTIONS ~~~%1
-SETTINGS_PLANETS_FLAG_OPTIONS_DESC | To allow greater customization of the flag(s) of the planets.
-SETTINGS_PLANETS_FLAG_OPTIONS      | ~~~ PLANETS FLAG OPTIONS ~~~%1
+
+HEADERS_START_GALAXY_OPTIONS_DESC | Options used for galaxy buildings. Only read when starting a new game.
+HEADERS_START_GALAXY_OPTIONS      | ~~~ GALAXY OPTIONS ~~~%1
+HEADERS_START_PLANET_OPTIONS_DESC | Options used for planet generation. Only read when starting a new game.
+HEADERS_START_PLANET_OPTIONS      | ~~~ PLANETS OPTIONS ~~~%1
+HEADERS_START_EMPIRE_OPTIONS_DESC | Options used for empire generation. Only read when starting or restarting a game.
+HEADERS_START_EMPIRE_OPTIONS      | ~~~ EMPIRES OPTIONS ~~~%1
+HEADERS_START_TECH_CONTROL_DESC   | Options used while generating technologies lists. Only read when starting or restarting a game.
+HEADERS_START_TECH_CONTROL        | ~~ ALLOWED AND FORBIDDEN TECH ~~%1
+HEADERS_START_RANDOM_ALIENS_DESC  | Options used for the generation of random races. Only read when starting or restarting a game.
+HEADERS_START_RANDOM_ALIENS       | ~~~ RANDOM ALIENS OPTIONS ~~~%1
+HEADERS_GAME_RELATIONS_DESC       | Options controling the relations between empires. Can be changed dynamically.
+HEADERS_GAME_RELATIONS            | ~~~ EMPIRES RELATIONS ~~~%1
+HEADERS_RANDOM_EVENTS_OPT_DESC    | Random Events Options. Can be changed dynamically.
+HEADERS_RANDOM_EVENTS_OPT         | ~~~ RANDOM EVENTS OPTIONS ~~~%1
+HEADERS_GAME_VARIOUS_DESC         | Diverses Options. Can be changed dynamically.
+HEADERS_GAME_VARIOUS              | ~~~ VARIOUS OPTIONS ~~~%1
+HEADERS_GAME_OTHER_DESC           | Other Options. Can be changed dynamically.
+HEADERS_GAME_OTHER                | ~~~ OTHER OPTIONS ~~~%1
+HEADERS_GAME_COMBAT_DESC          | Options affecting attack and defense. Can be changed dynamically.
+HEADERS_GAME_COMBAT               | ~~~ COMBAT OPTIONS ~~~%1
+HEADERS_GAME_DIFFICULTYL_DESC     | Options affecting the game difficulty level. Can be changed dynamically.
+HEADERS_GAME_DIFFICULTY           | ~~~ GAME DIFFICULTY ~~~%1
+HEADERS_RESTART_OPTIONS_DESC      | Options controlling the way a game will be restarted. Only read when restarting a game.
+HEADERS_RESTART_OPTIONS           | ~~~ RESTART OPTIONS ~~~%1
+HEADERS_ZOOM_FACTORS_DESC         | Options controlling the galaxy Map Zoom Factors. Can be changed dynamically. (Remnant.cfg options)
+HEADERS_ZOOM_FACTORS              | ~~~ MAP ZOOM FACTORS ~~~%1
+HEADERS_MENU_OPTIONS_DESC         | Options controlling Menu Parameters. Can be changed dynamically. (Remnant.cfg options)
+HEADERS_MENU_OPTIONS              | ~~~ MENU'S OPTIONS ~~~%1
+HEADERS_PLANETS_FLAG_OPTIONS_DESC | To allow greater customization of the flag(s) of the planets.
+HEADERS_PLANETS_FLAG_OPTIONS      | ~~~ PLANETS FLAG OPTIONS ~~~%1
+
+HEADERS_AUTO_FLAG_ID_SELECTION       | ~~~ AUTO-FLAG SELECTION ~~~%1
+HEADERS_AUTO_FLAG_ID_SELECTION_DESC  | To Associate Auto-Flag position with it's parameter. (Only the first time a Star System is scouted)
+HEADERS_AUTO_FLAG_TYPE_DESC          | Select Flags Color based on Planet Type.
+HEADERS_AUTO_FLAG_TYPE               | ~~~ PLANET TYPE ~~~%1
+HEADERS_AUTO_FLAG_ENVIRONMENT_DESC   | Select Flags Color based on Planet Environment.
+HEADERS_AUTO_FLAG_ENVIRONMENT        | ~~~ PLANET ENVIRONMENT ~~~%1
+HEADERS_AUTO_FLAG_RESOURCES_DESC     | Select Flags Color based on Planet Resources.
+HEADERS_AUTO_FLAG_RESOURCES          | ~~~ PLANET RESOURCES ~~~%1
 
 // modnar: add UI panel for modnar MOD game options
 SETTINGS_MOD_TITLE                   | modnar MOD Options
@@ -1861,19 +1871,14 @@ SETTINGS_MOD_AUTO_FLAG_UI_DESC           | Open Sub Menu to set the parameters t
 SETTINGS_MOD_AUTO_FLAG_UI                | Auto-Flag Options: %1
 
 SETTINGS_MOD_AUTO_FLAG_NO_AUTOMATION     | No Automation
-SETTINGS_MOD_AUTO_FLAG_TYPE_DESC         | Select Flags Color based on Planet Type.
 SETTINGS_MOD_AUTO_FLAG_TYPE              | Planet Type
-SETTINGS_MOD_AUTO_FLAG_ENVIRONMENT_DESC  | Select Flags Color based on Planet Environment.
 SETTINGS_MOD_AUTO_FLAG_ENVIRONMENT       | Planet Environment
-SETTINGS_MOD_AUTO_FLAG_RESSOURCES_DESC   | Select Flags Color based on Planet Ressources.
-SETTINGS_MOD_AUTO_FLAG_RESSOURCES        | Planet Ressources
+SETTINGS_MOD_AUTO_FLAG_RESOURCES         | Planet Resources
 
 SETTINGS_MOD_AUTO_FLAG_ASSIGN_1_DESC     | Select the parameter that will be automatically associated with the first flag. (Only the first time a Star System is scouted)
 SETTINGS_MOD_AUTO_FLAG_ASSIGN_1          | Auto-Flag 1: %1
 SETTINGS_MOD_AUTO_FLAG_ASSIGN_2_DESC     | Select the parameter that will be automatically associated with the second flag. (Only the first time a Star System is scouted)
 SETTINGS_MOD_AUTO_FLAG_ASSIGN_2          | Auto-Flag 2: %1
-SETTINGS_MOD_AUTO_FLAG_ID_SELECTION      | Auto-Flag Selection
-SETTINGS_MOD_AUTO_FLAG_ID_SELECTION_DESC | To Associate Auto-Flag position with it's parameter. (Only the first time a Star System is scouted)
 
 SETTINGS_MOD_AUTO_FLAG_ARID_DESC         | Select the Flag Color to set automatically when an Arid Planet is scouted.
 SETTINGS_MOD_AUTO_FLAG_BARREN_DESC       | Select the Flag Color to set automatically when a Barren Planet is scouted.
