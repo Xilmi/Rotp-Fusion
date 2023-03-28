@@ -4,8 +4,9 @@ Update: "Precursor Relic" event:
 - Player is always notified of the planet creation.
 - Added an Auto-Flag option acting when a new system is scouted.
   - Set a Flag function of Planet Type.
-  - Set a Flag function of Planet Environment.
-  - Set a Flag function of Planet Ressources.
+  - Or set a Flag function of Planet Environment.
+  - Or set a Flag function of Planet Ressources.
+  - Or set a Flag function of Colony Ship Technologies.
 
 Fixes:
 - Fixed second Map Flag showing black instead of not showing.

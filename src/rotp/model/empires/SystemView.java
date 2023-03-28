@@ -56,6 +56,7 @@ public class SystemView implements IMappedObject, Base, Serializable {
     private static final String AUTO_FLAG_TYPE  = "SETTINGS_MOD_AUTO_FLAG_TYPE";
     private static final String AUTO_FLAG_ENV   = "SETTINGS_MOD_AUTO_FLAG_ENVIRONMENT";
     private static final String AUTO_FLAG_ASSET = "SETTINGS_MOD_AUTO_FLAG_RESOURCES";
+    private static final String AUTO_FLAG_TECH  = "SETTINGS_MOD_AUTO_FLAG_TECH";
 
     public static final String FLAG_COLOR_NONE   = "FLAG_COLOR_NONE";
     public static final String FLAG_COLOR_WHITE  = "FLAG_COLOR_WHITE";
@@ -76,7 +77,8 @@ public class SystemView implements IMappedObject, Base, Serializable {
 	    		AUTO_FLAG_NOT,
 	    		AUTO_FLAG_TYPE,
 	    		AUTO_FLAG_ENV,
-	    		AUTO_FLAG_ASSET
+	    		AUTO_FLAG_ASSET,
+	    		AUTO_FLAG_TECH
 				);
 		for (String element : flagAssignationList)
 			flagAssignationMap.put(element, element); // Temporary; needs to be further initialized
@@ -251,7 +253,7 @@ public class SystemView implements IMappedObject, Base, Serializable {
 //        }
 //        return null; 
 //    }
-    private void setResourceFlagColor(int id) { // TODO BR: setAssetFlagColor(int id)
+    private void setResourceFlagColor(int id) {
     	int color = 0;
     	Planet planet = system().planet();
     	if (planet.isResourceNormal())
@@ -274,10 +276,9 @@ public class SystemView implements IMappedObject, Base, Serializable {
     		color = flagOrionColor.getIndex();
 		setFlagColor(color, id);
     }
-    private void setEnvFlagColor(int id) { // TODO BR: setEnvFlagColor(int id)
+    private void setEnvFlagColor(int id) {
     	int color = 0;
     	Planet planet = system().planet();
-    	
     	if (planet.isEnvironmentNormal())
     		color = flagEnvNormalColor.getIndex();
     	if (planet.type().key() == NONE)
@@ -294,7 +295,8 @@ public class SystemView implements IMappedObject, Base, Serializable {
     }
     private void setTypeFlagColor(int id) {
     	int color;
-		switch (system().planet().type().key()) {
+    	Planet planet = system().planet();
+		switch (planet.type().key()) {
 	    case NONE:
 	    	color = flagAsteroidColor.getIndex();
 	    	break;
@@ -339,6 +341,46 @@ public class SystemView implements IMappedObject, Base, Serializable {
 			color = flagTerranColor.getIndex();
 			break;
 		}
+		setFlagColor(color, id);
+    }
+    private void setTechFlagColor(int id) {
+    	int color;
+    	Planet planet = system().planet();
+		switch (planet.type().key()) {
+	    case NONE:
+	    	color = flagTechNoneColor.getIndex();
+	    	break;
+	    case RADIATED:
+	    	color = flagTechRadiatedColor.getIndex();
+	    	break;
+	    case TOXIC:
+	    case INFERNO:
+	    	color = flagTechToxicColor.getIndex();
+	    	break;
+	    case DEAD :
+	    case TUNDRA:
+	    	color = flagTechDeadColor.getIndex();
+	    	break;
+	    case BARREN:
+	    	color = flagTechBarrenColor.getIndex();
+	    	break;
+	    case MINIMAL:
+	    case DESERT:
+	    case STEPPE:
+	    case ARID:
+	    	color = flagTechStandardColor.getIndex();
+	    	break;
+	    case OCEAN:
+	    case JUNGLE:
+	    case TERRAN:	
+		default:
+			color = flagTechGoodColor.getIndex();
+			break;
+		}
+		if (planet.isEnvironmentFertile())
+	    	color = flagTechFertileColor.getIndex();
+	    else if (planet.isEnvironmentGaia())
+	    	color = flagTechGaiaColor.getIndex();
 		setFlagColor(color, id);
     }
     private void setFlagColor(int color, int id) { // BR: flagColorCount
@@ -458,6 +500,9 @@ public class SystemView implements IMappedObject, Base, Serializable {
 	    		return;
 	    	case AUTO_FLAG_ASSET:
 	    		setResourceFlagColor(id);
+	    		return;
+	    	case AUTO_FLAG_TECH:
+	    		setTechFlagColor(id);
 	    		return;
 	    	case AUTO_FLAG_NOT:
 			default:

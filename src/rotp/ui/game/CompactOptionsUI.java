@@ -45,7 +45,7 @@ import rotp.ui.util.InterfaceParam;
 import rotp.util.FontManager;
 import rotp.util.ModifierKeysState;
 
-class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
+public class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
 	private static final long serialVersionUID = 1L;
 	private static final Color backgroundHaze = new Color(0,0,0,160);
 	private String guiTitleID;
@@ -89,10 +89,6 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 	private LinkedList<BaseText> btList0;
 	private LinkedList<BaseText> btList2;
 	private LinkedList<BaseText> btListBoth;
-//	private LinkedList<Integer>	lastRowList = new LinkedList<>();
-//	private LinkedList<BaseText> btList0	= new LinkedList<>();
-//	private LinkedList<BaseText> btList2	= new LinkedList<>();
-//	private LinkedList<BaseText> btListBoth	= new LinkedList<>();
 	private Rectangle hoverBox, prevHover;
 	private final Rectangle exitBox		= new Rectangle();
 	private final Rectangle toolTipBox	= new Rectangle();
@@ -105,15 +101,7 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 	
 	// ========== Constructors and initializers ==========
 	//
-	CompactOptionsUI() { }
-	CompactOptionsUI(String guiTitle_ID, String guiId, LinkedList<LinkedList<InterfaceParam>> paramList) {
-		initUI(guiTitle_ID, guiId, paramList);
-//		guiTitleID = guiTitle_ID;
-//		GUI_ID = guiId;
-//		init_Lists(paramList);
-//		init_0();
-	}
-	public void initUI(String guiTitle_ID, String guiId, LinkedList<LinkedList<InterfaceParam>> paramList) {
+	public CompactOptionsUI(String guiTitle_ID, String guiId, LinkedList<LinkedList<InterfaceParam>> paramList) {
 		guiTitleID = guiTitle_ID;
 		GUI_ID = guiId;
 		init_Lists(paramList);
@@ -598,16 +586,6 @@ class CompactOptionsUI extends BaseModPanel implements MouseListener, MouseMotio
 		switch(k) {
 			case KeyEvent.VK_ESCAPE:
 				doExitBoxAction();
-				return;
-			case KeyEvent.VK_SPACE:
-			default: // BR:
-//				if(Profiles.processKey(k, e.isShiftDown(), guiTitleID, newGameOptions())) {
-//					for (int i=0; i<activeList.size(); i++) {
-//						setValueColor(i);
-//						btList0.get(i).repaint(activeList.get(i).getGuiDisplay(0));
-//						btList2.get(i).repaint(activeList.get(i).getGuiDisplay(1));
-//					}
-//				};
 				return;
 		}
 	}

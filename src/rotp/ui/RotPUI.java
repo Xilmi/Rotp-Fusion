@@ -67,7 +67,6 @@ import rotp.ui.game.GameOverUI;
 import rotp.ui.game.GameSettingsUI;
 import rotp.ui.game.GameUI;
 import rotp.ui.game.MergedStaticOptionsUI;
-import rotp.ui.game.MergedSubListUI;
 import rotp.ui.game.HelpUI;
 import rotp.ui.game.LoadGameUI;
 import rotp.ui.game.MergedDynamicOptionsUI;
@@ -257,7 +256,6 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     private final MergedDynamicOptionsUI mergedDynamicOptionsUI = new MergedDynamicOptionsUI();
     // BR: Standard Mod Game Options
     
-    private final MergedSubListUI    mergedSubListUI    = new MergedSubListUI();
     private final StaticAOptionsUI   staticAOptionsUI   = new StaticAOptionsUI();
     private final StaticBOptionsUI   staticBOptionsUI   = new StaticBOptionsUI();
     private final DynamicAOptionsUI  dynamicAOptionsUI  = new DynamicAOptionsUI();
@@ -397,7 +395,6 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     public static RotPUI instance() { return instance; }
     public static HelpUI helpUI()   { return instance.helpUI; }
 
-    public static MergedSubListUI        mergedSubListUI()        { return instance.mergedSubListUI; }
     public static AdvancedOptionsUI      advancedOptionsUI()      { return instance.advancedOptionsUI; }
     public static MergedStaticOptionsUI  mergedStaticOptionsUI()  { return instance.mergedStaticOptionsUI; }
     public static MergedDynamicOptionsUI mergedDynamicOptionsUI() { return instance.mergedDynamicOptionsUI; }

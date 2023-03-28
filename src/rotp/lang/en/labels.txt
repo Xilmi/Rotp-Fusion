@@ -1671,6 +1671,8 @@ HEADERS_AUTO_FLAG_ENVIRONMENT_DESC   | Select Flags Color based on Planet Enviro
 HEADERS_AUTO_FLAG_ENVIRONMENT        | ~~~ PLANET ENVIRONMENT ~~~%1
 HEADERS_AUTO_FLAG_RESOURCES_DESC     | Select Flags Color based on Planet Resources.
 HEADERS_AUTO_FLAG_RESOURCES          | ~~~ PLANET RESOURCES ~~~%1
+HEADERS_AUTO_FLAG_COLONY_TECH_DESC   | Select Flags Color based on Environment and required Colony ship technologies.
+HEADERS_AUTO_FLAG_COLONY_TECH        | ~~~ COLONY SHIP TECH ~~~%1
 
 // modnar: add UI panel for modnar MOD game options
 SETTINGS_MOD_TITLE                   | modnar MOD Options
@@ -1874,6 +1876,7 @@ SETTINGS_MOD_AUTO_FLAG_NO_AUTOMATION     | No Automation
 SETTINGS_MOD_AUTO_FLAG_TYPE              | Planet Type
 SETTINGS_MOD_AUTO_FLAG_ENVIRONMENT       | Planet Environment
 SETTINGS_MOD_AUTO_FLAG_RESOURCES         | Planet Resources
+SETTINGS_MOD_AUTO_FLAG_TECH              | Colony Ship Tech
 
 SETTINGS_MOD_AUTO_FLAG_ASSIGN_1_DESC     | Select the parameter that will be automatically associated with the first flag. (Only the first time a Star System is scouted)
 SETTINGS_MOD_AUTO_FLAG_ASSIGN_1          | Auto-Flag 1: %1
@@ -1939,6 +1942,16 @@ SETTINGS_MOD_AUTO_FLAG_NORMAL            | Normal Color: %1
 SETTINGS_MOD_AUTO_FLAG_POOR              | Poor Color: %1
 SETTINGS_MOD_AUTO_FLAG_ULTRA_POOR        | Ultra Poor Color: %1
 SETTINGS_MOD_AUTO_FLAG_NONE              | Asteroid Color: %1
+
+SETTINGS_MOD_AUTO_FLAG_TECH_GAIA         | Gaia Color: %1
+SETTINGS_MOD_AUTO_FLAG_TECH_FERTILE      | Fertile Color: %1
+SETTINGS_MOD_AUTO_FLAG_TECH_GOOD         | Good Color: %1
+SETTINGS_MOD_AUTO_FLAG_TECH_STANDARD     | Standard Color: %1
+SETTINGS_MOD_AUTO_FLAG_TECH_BARREN       | Barren Color: %1
+SETTINGS_MOD_AUTO_FLAG_TECH_DEAD         | Dead Color: %1
+SETTINGS_MOD_AUTO_FLAG_TECH_TOXIC        | Toxic Color: %1
+SETTINGS_MOD_AUTO_FLAG_TECH_RADIATED     | Radiated Color: %1
+SETTINGS_MOD_AUTO_FLAG_TECH_NONE         | Asteroid Color: %1
 
 
 // Other base menu Mod settings

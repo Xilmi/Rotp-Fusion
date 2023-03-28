@@ -21,14 +21,16 @@ import java.awt.event.MouseWheelEvent;
 import java.util.LinkedList;
 
 import rotp.model.game.DynamicOptions;
-import rotp.ui.RotPUI;
-import rotp.ui.game.MergedSubListUI;
+import rotp.ui.game.CompactOptionsUI;
+
 
 public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<InterfaceParam>>> {
 	
-	private LinkedList<InterfaceParam> optionsList = new LinkedList<>();
 	private final String GUI_TITLE_ID;
 	private final String GUI_ID;
+	private CompactOptionsUI ui;
+	public  final LinkedList<LinkedList<InterfaceParam>> optionsMap;
+	public  final LinkedList<InterfaceParam> optionsList = new LinkedList<>();
 	
 	// ===== Constructors =====
 	//
@@ -44,12 +46,14 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<InterfacePar
 		super(gui, name, optionsMap);
 		GUI_TITLE_ID = gui + guiTitleID;
 		GUI_ID = guiID;
+		this.optionsMap = optionsMap;
 		for (LinkedList<InterfaceParam> list : optionsMap) {
 			for (InterfaceParam param : list) {
 				if (param != null && !param.isTitle())
 					optionsList.add(param);
 			}
 		}
+		
 	}
 	// ===== Overriders =====
 	//
@@ -96,7 +100,7 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<InterfacePar
 	@Override public void toggle(MouseEvent e) {
 		// System.out.println("toggle(MouseEvent e)");		
 	}
-	@Override public void toggle(MouseEvent e, int p) { start(p); };
+	@Override public void toggle(MouseEvent e, int p) { ui().start(p); };
 	@Override public String getGuiValue()	{
 		String label = isDefaultValue()? "SUB_UI_DEFAULT_YES" : "SUB_UI_DEFAULT_NO";
 		return text(label);
@@ -110,9 +114,10 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<InterfacePar
 	@Override public boolean isSubMenu() { return true; }
 	// ===== Other Methods =====
 	//
-	private void start(int p) {
-		MergedSubListUI ui = RotPUI.mergedSubListUI();
-		ui.initUI(GUI_TITLE_ID, GUI_ID, get());
-		ui.start(p);
+	private CompactOptionsUI ui() {
+		if (ui == null)
+			ui = new CompactOptionsUI(GUI_TITLE_ID, GUI_ID, optionsMap);
+		return ui;
 	}
+	public LinkedList<InterfaceParam> optionsList() { return optionsList; }
 }

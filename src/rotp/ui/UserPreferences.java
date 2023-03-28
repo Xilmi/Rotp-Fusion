@@ -189,16 +189,17 @@ public class UserPreferences {
 			FLAG_COLOR_WHITE, flagColorMap);
 	public static final ParamList flagInfernoColor		= new ParamList(
 			MOD_UI, "AUTO_FLAG_INFERNO",
-			FLAG_COLOR_PURPLE, flagColorMap);
+			FLAG_COLOR_RED, flagColorMap);
 	public static final ParamList flagToxicColor		= new ParamList(
 			MOD_UI, "AUTO_FLAG_TOXIC",
-			FLAG_COLOR_PURPLE, flagColorMap);
+			FLAG_COLOR_RED, flagColorMap);
 	public static final ParamList flagRadiatedColor		= new ParamList(
 			MOD_UI, "AUTO_FLAG_RADIATED",
-			FLAG_COLOR_RED, flagColorMap);
+			FLAG_COLOR_PURPLE, flagColorMap);
 	public static final ParamList flagAsteroidColor		= new ParamList(
 			MOD_UI, "AUTO_FLAG_ASTEROID",
 			FLAG_COLOR_PINK, flagColorMap);
+
 	public static final ParamList flagEnvGaiaColor		= new ParamList(
 			MOD_UI, "AUTO_FLAG_ENV_GAIA",
 			FLAG_COLOR_GREEN, flagColorMap);
@@ -214,18 +215,19 @@ public class UserPreferences {
 	public static final ParamList flagEnvNoneColor		= new ParamList(
 			MOD_UI, "AUTO_FLAG_ENV_NONE",
 			FLAG_COLOR_NONE, flagColorMap);
+
 	public static final ParamList flagUltraPoorColor	= new ParamList(
 			MOD_UI, "AUTO_FLAG_ULTRA_POOR",
 			FLAG_COLOR_YELLOW, flagColorMap);
 	public static final ParamList flagPoorColor			= new ParamList(
 			MOD_UI, "AUTO_FLAG_POOR",
-			FLAG_COLOR_PURPLE, flagColorMap);
+			FLAG_COLOR_ORANGE, flagColorMap);
 	public static final ParamList flagAssetNormalColor	= new ParamList(
 			MOD_UI, "AUTO_FLAG_NORMAL",
 			FLAG_COLOR_NONE, flagColorMap);
 	public static final ParamList flagRichColor			= new ParamList(
 			MOD_UI, "AUTO_FLAG_RICH",
-			FLAG_COLOR_ORANGE, flagColorMap);
+			FLAG_COLOR_PINK, flagColorMap);
 	public static final ParamList flagUltraRichColor	= new ParamList(
 			MOD_UI, "AUTO_FLAG_ULTRA_RICH",
 			FLAG_COLOR_RED, flagColorMap);
@@ -238,6 +240,34 @@ public class UserPreferences {
 	public static final ParamList flagNoneColor			= new ParamList(
 			MOD_UI, "AUTO_FLAG_NONE",
 			FLAG_COLOR_NONE, flagColorMap);
+
+	public static final ParamList flagTechGaiaColor		= new ParamList(
+			MOD_UI, "AUTO_FLAG_TECH_GAIA",
+			FLAG_COLOR_GREEN, flagColorMap);
+	public static final ParamList flagTechFertileColor	= new ParamList(
+			MOD_UI, "AUTO_FLAG_TECH_FERTILE",
+			FLAG_COLOR_GREEN, flagColorMap);
+	public static final ParamList flagTechGoodColor		= new ParamList(
+			MOD_UI, "AUTO_FLAG_TECH_GOOD",
+			FLAG_COLOR_BLUE, flagColorMap);
+	public static final ParamList flagTechStandardColor	= new ParamList(
+			MOD_UI, "AUTO_FLAG_TECH_STANDARD",
+			FLAG_COLOR_YELLOW, flagColorMap);
+	public static final ParamList flagTechBarrenColor	= new ParamList(
+			MOD_UI, "AUTO_FLAG_TECH_BARREN",
+			FLAG_COLOR_ORANGE, flagColorMap);
+	public static final ParamList flagTechDeadColor		= new ParamList(
+			MOD_UI, "AUTO_FLAG_TECH_DEAD",
+			FLAG_COLOR_WHITE, flagColorMap);
+	public static final ParamList flagTechToxicColor	= new ParamList(
+			MOD_UI, "AUTO_FLAG_TECH_TOXIC",
+			FLAG_COLOR_RED, flagColorMap);
+	public static final ParamList flagTechRadiatedColor	= new ParamList(
+			MOD_UI, "AUTO_FLAG_TECH_RADIATED",
+			FLAG_COLOR_PURPLE, flagColorMap);
+	public static final ParamList flagTechNoneColor		= new ParamList(
+			MOD_UI, "AUTO_FLAG_TECH_NONE",
+			FLAG_COLOR_PINK, flagColorMap);
 	
 	// MOD GUI OPTIONS:
 	// BR: ===== First Mod GUI: 
@@ -781,13 +811,25 @@ public class UserPreferences {
 
 	// Sub GUI Lists and GUI List	
 	// Parameters on these list are auto saved in dynamic list options
-	public static final LinkedList<InterfaceParam> autoFlagOptions = new LinkedList<>();
 	public static final LinkedList<LinkedList<InterfaceParam>> autoFlagOptionsMap = 
 			new LinkedList<LinkedList<InterfaceParam>>();
 	static {
 		autoFlagOptionsMap.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("AUTO_FLAG_ID_SELECTION"),
-				autoFlagAssignation1, autoFlagAssignation2
+				autoFlagAssignation1, autoFlagAssignation2,
+				new ParamTitle("AUTO_FLAG_COLONY_TECH"),
+				flagTechGaiaColor, flagTechFertileColor, flagTechGoodColor,
+				flagTechStandardColor, flagTechBarrenColor, flagTechDeadColor,
+				flagTechToxicColor, flagTechRadiatedColor, flagTechNoneColor
+				)));
+		autoFlagOptionsMap.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("AUTO_FLAG_RESOURCES"),
+				flagOrionColor, flagAntaranColor,
+				flagUltraRichColor, flagRichColor, flagAssetNormalColor,
+				flagPoorColor, flagUltraPoorColor, flagNoneColor,
+				new ParamTitle("AUTO_FLAG_ENVIRONMENT"),
+				flagEnvGaiaColor, flagEnvFertileColor,
+				flagEnvNormalColor,	flagEnvHostileColor, flagEnvNoneColor
 				)));
 		autoFlagOptionsMap.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("AUTO_FLAG_TYPE"),
@@ -797,30 +839,12 @@ public class UserPreferences {
 				flagInfernoColor, flagToxicColor, flagRadiatedColor,
 				flagAsteroidColor
 				)));
-		autoFlagOptionsMap.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle("AUTO_FLAG_ENVIRONMENT"),
-				flagEnvGaiaColor, flagEnvFertileColor,
-				flagEnvNormalColor,	flagEnvHostileColor, flagEnvNoneColor
-				)));
-		autoFlagOptionsMap.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle("AUTO_FLAG_RESOURCES"),
-				flagOrionColor, flagAntaranColor,
-				flagUltraRichColor, flagRichColor, flagAssetNormalColor,
-				flagPoorColor, flagUltraPoorColor, flagNoneColor
-				)));
-
-		for (LinkedList<InterfaceParam> list : autoFlagOptionsMap) {
-			for (InterfaceParam param : list) {
-				if (param != null && !param.isTitle())
-					autoFlagOptions.add(param);
-			}
-		}
 	};
-
 	public static final String		AUTO_FLAG_GUI_ID	= "AUTO_FLAG";
 	public static final ParamSubUI	autoFlagOptionsUI	= new ParamSubUI(
 			MOD_UI, "AUTO_FLAG_UI", autoFlagOptionsMap,
 			"AUTO_FLAG_TITLE", AUTO_FLAG_GUI_ID);
+	public static final LinkedList<InterfaceParam> autoFlagOptions = autoFlagOptionsUI.optionsList();
 
 	// GUI Options Lists
 	public static final LinkedList<InterfaceParam> mergedStaticOptions	= new LinkedList<>();
