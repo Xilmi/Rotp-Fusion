@@ -254,14 +254,15 @@ public class SystemView implements IMappedObject, Base, Serializable {
     private void setResourceFlagColor(int id) { // TODO BR: setAssetFlagColor(int id)
     	int color = 0;
     	Planet planet = system().planet();
+    	if (planet.isResourceNormal())
+    		color = flagAssetNormalColor.getIndex();
+    	// Asteroid are considered resource Normal.
     	if (planet.type().key() == NONE)
     		color = flagNoneColor.getIndex();
     	else if (planet.isResourceUltraPoor())
     		color = flagUltraPoorColor.getIndex();
     	else if (planet.isResourcePoor())
     		color = flagPoorColor.getIndex();
-    	else if (planet.isResourceNormal())
-    		color = flagAssetNormalColor.getIndex();
     	else if (planet.isResourceRich())
     		color = flagRichColor.getIndex();
     	else if (planet.isResourceUltraRich())
@@ -276,14 +277,15 @@ public class SystemView implements IMappedObject, Base, Serializable {
     private void setEnvFlagColor(int id) { // TODO BR: setEnvFlagColor(int id)
     	int color = 0;
     	Planet planet = system().planet();
+    	
+    	if (planet.isEnvironmentNormal())
+    		color = flagEnvNormalColor.getIndex();
     	if (planet.type().key() == NONE)
     		color = flagEnvNoneColor.getIndex();
     	else if (planet.isEnvironmentNone())
     		color = flagEnvNoneColor.getIndex();
     	else if (planet.isEnvironmentHostile())
     		color = flagEnvHostileColor.getIndex();
-    	else if (planet.isEnvironmentNormal())
-    		color = flagEnvNormalColor.getIndex();
     	else if (planet.isEnvironmentFertile())
     		color = flagEnvFertileColor.getIndex();
     	else if (planet.isEnvironmentGaia())
@@ -469,35 +471,6 @@ public class SystemView implements IMappedObject, Base, Serializable {
             if (owner().isPlayer()) { // TODO BR: Add auto Flag
             	autoFlagAssignation(autoFlagAssignation1, 1);
             	autoFlagAssignation(autoFlagAssignation2, 2);
-//            	switch (autoFlagAssignation1.get()) {
-//	            	case AUTO_FLAG_TYPE:
-//	            		setTypeFlagColor(1);
-//	            		break;
-//	            	case AUTO_FLAG_ENV:
-//	            		setEnvFlagColor(1);
-//	            		break;
-//	            	case AUTO_FLAG_ASSET:
-//	            		setResourceFlagColor(1);
-//	            		break;
-//	            	case AUTO_FLAG_NOT:
-//	        		default:
-//	        			break;
-//            	}
-//            	switch (autoFlagAssignation2.get()) {
-//	            	case AUTO_FLAG_TYPE:
-//	            		setTypeFlagColor(2);
-//	            		break;
-//	            	case AUTO_FLAG_ENV:
-//	            		setEnvFlagColor(2);
-//	            		break;
-//	            	case AUTO_FLAG_ASSET:
-//	            		setResourceFlagColor(2);
-//	            		break;
-//	            	case AUTO_FLAG_NOT:
-//	        		default:
-//	        			break;
-//            	}
- // TODO BR:           	System.out.println("System Scouted ready for auto Flag");
             }
             if (owner().isPlayerControlled()) {
                 session().addSystemScouted(system());

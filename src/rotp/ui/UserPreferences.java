@@ -21,6 +21,7 @@ import static rotp.model.empires.SystemView.FLAG_COLOR_AQUA;
 import static rotp.model.empires.SystemView.FLAG_COLOR_BLUE;
 import static rotp.model.empires.SystemView.FLAG_COLOR_GREEN;
 import static rotp.model.empires.SystemView.FLAG_COLOR_LTBLUE;
+import static rotp.model.empires.SystemView.FLAG_COLOR_NONE;
 import static rotp.model.empires.SystemView.FLAG_COLOR_ORANGE;
 import static rotp.model.empires.SystemView.FLAG_COLOR_PINK;
 import static rotp.model.empires.SystemView.FLAG_COLOR_PURPLE;
@@ -206,13 +207,13 @@ public class UserPreferences {
 			FLAG_COLOR_AQUA, flagColorMap);
 	public static final ParamList flagEnvNormalColor	= new ParamList(
 			MOD_UI, "AUTO_FLAG_ENV_NORMAL",
-			FLAG_COLOR_WHITE, flagColorMap);
+			FLAG_COLOR_NONE, flagColorMap);
 	public static final ParamList flagEnvHostileColor	= new ParamList(
 			MOD_UI, "AUTO_FLAG_ENV_HOSTILE",
 			FLAG_COLOR_ORANGE, flagColorMap);
 	public static final ParamList flagEnvNoneColor		= new ParamList(
 			MOD_UI, "AUTO_FLAG_ENV_NONE",
-			FLAG_COLOR_PINK, flagColorMap);
+			FLAG_COLOR_NONE, flagColorMap);
 	public static final ParamList flagUltraPoorColor	= new ParamList(
 			MOD_UI, "AUTO_FLAG_ULTRA_POOR",
 			FLAG_COLOR_YELLOW, flagColorMap);
@@ -221,7 +222,7 @@ public class UserPreferences {
 			FLAG_COLOR_PURPLE, flagColorMap);
 	public static final ParamList flagAssetNormalColor	= new ParamList(
 			MOD_UI, "AUTO_FLAG_NORMAL",
-			FLAG_COLOR_WHITE, flagColorMap);
+			FLAG_COLOR_NONE, flagColorMap);
 	public static final ParamList flagRichColor			= new ParamList(
 			MOD_UI, "AUTO_FLAG_RICH",
 			FLAG_COLOR_ORANGE, flagColorMap);
@@ -236,7 +237,7 @@ public class UserPreferences {
 			FLAG_COLOR_BLUE, flagColorMap);
 	public static final ParamList flagNoneColor			= new ParamList(
 			MOD_UI, "AUTO_FLAG_NONE",
-			FLAG_COLOR_PINK, flagColorMap);
+			FLAG_COLOR_NONE, flagColorMap);
 	
 	// MOD GUI OPTIONS:
 	// BR: ===== First Mod GUI: 
