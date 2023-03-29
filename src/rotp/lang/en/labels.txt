@@ -1880,10 +1880,14 @@ SETTINGS_MOD_AUTO_FLAG_ENVIRONMENT       | Planet Environment
 SETTINGS_MOD_AUTO_FLAG_RESOURCES         | Planet Resources
 SETTINGS_MOD_AUTO_FLAG_TECH              | Colony Ship Tech
 
-SETTINGS_MOD_AUTO_FLAG_ASSIGN_1_DESC     | Select the parameter that will be automatically associated with the first flag. (Only the first time a Star System is scouted)
+SETTINGS_MOD_AUTO_FLAG_ASSIGN_1_DESC     | Select the parameter that will be automatically associated with the Top Left flag. (Only the first time a Star System is scouted)
 SETTINGS_MOD_AUTO_FLAG_ASSIGN_1          | Auto-Flag 1: %1
-SETTINGS_MOD_AUTO_FLAG_ASSIGN_2_DESC     | Select the parameter that will be automatically associated with the second flag. (Only the first time a Star System is scouted)
+SETTINGS_MOD_AUTO_FLAG_ASSIGN_2_DESC     | Select the parameter that will be automatically associated with the Top Rigth flag. (Only the first time a Star System is scouted)
 SETTINGS_MOD_AUTO_FLAG_ASSIGN_2          | Auto-Flag 2: %1
+SETTINGS_MOD_AUTO_FLAG_ASSIGN_3_DESC     | Select the parameter that will be automatically associated with the Bottom Right flag. (Only the first time a Star System is scouted)
+SETTINGS_MOD_AUTO_FLAG_ASSIGN_3          | Auto-Flag 3: %1
+SETTINGS_MOD_AUTO_FLAG_ASSIGN_4_DESC     | Select the parameter that will be automatically associated with the Bottom Left flag. (Only the first time a Star System is scouted)
+SETTINGS_MOD_AUTO_FLAG_ASSIGN_4          | Auto-Flag 4: %1
 
 SETTINGS_MOD_AUTO_FLAG_ARID_DESC         | Select the Flag Color to set automatically when an Arid Planet is scouted.
 SETTINGS_MOD_AUTO_FLAG_BARREN_DESC       | Select the Flag Color to set automatically when a Barren Planet is scouted.

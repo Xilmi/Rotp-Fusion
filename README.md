@@ -26,6 +26,12 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2023.03.29 (BR)
+- Partially Disabled Profiles Manager:
+  - It was no more updated and may already be broken!
+  - Almost everything is now available from the GUI.
+- Up to 4 flags are now available!
+
 2023.03.28 (BR)
 - Auto-Flag:
   - Added option for colony ship Technologies.
