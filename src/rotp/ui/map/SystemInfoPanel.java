@@ -26,6 +26,7 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -38,6 +39,7 @@ import java.util.List;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import rotp.model.empires.Empire;
+import rotp.model.empires.SystemInfo;
 import rotp.model.empires.SystemView;
 import rotp.model.events.StarSystemEvent;
 import rotp.model.galaxy.StarSystem;
@@ -83,6 +85,9 @@ public class SystemInfoPanel extends SystemPanel implements MouseMotionListener 
         add(detailPane, BorderLayout.CENTER);
         
         addMouseMotionListener(this);
+    }
+    public void forceAutoFlagColor(boolean all) {
+        summaryPane.forceAutoFlagColor(all);
     }
     public void toggleFlagColor(boolean rightClick) {
         summaryPane.toggleFlagColor(rightClick);
@@ -213,6 +218,10 @@ public class SystemInfoPanel extends SystemPanel implements MouseMotionListener 
             Image flagImage = parent.flagImage(sys);
             g.drawImage(flagImage, w-sz+s15-shX, -s15, sz, sz, null);
             flagBox.setBounds(w-sz+s25,-s15-shX,sz-s20,sz-s10);
+        }
+        public void forceAutoFlagColor (boolean all) {
+            StarSystem sys = systemViewToDisplay();
+            player().sv.forceAutoFlagColor(sys.id, all);
         }
         public void toggleFlagColor(boolean rightClick) { // BR: used for "F" vs "Shift-F"
             StarSystem sys = systemViewToDisplay();

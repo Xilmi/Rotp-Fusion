@@ -26,9 +26,14 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
-2023.03.27 (BR)
-- Added Auto-Flag for colony ship Technologies.
-- Fixed Auto-Flag multiple initialisation.
+2023.03.28 (BR)
+- Auto-Flag:
+  - Added option for colony ship Technologies.
+  - Fixed multiple initialisation.
+  - Fixed mose mouvement required to activate main menu on return.
+  - Adjusted the panel width.
+  - "Home" to set the selected planet flag following auto-flag rules.
+  - "Alt"+"Home" to set all planets flag following auto-flag rules.
 
 2023.03.27 (BR)
 - Added auto-Flag on system when scouted.

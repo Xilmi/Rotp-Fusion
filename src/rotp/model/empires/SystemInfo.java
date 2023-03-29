@@ -106,6 +106,15 @@ public class SystemInfo implements Serializable, Base {
     public Image flagHover(int i)              { return SystemView.flagBackGround("Flag_Hover"); }
 //    public void toggleFlagColor(int i)          { toggleFlagColor(i, false); } // BR: No longer used
     public void toggleFlagColor(int i, boolean b) { view(i).toggleFlagColor(b); }
+    public void forceAutoFlagColor(int i, boolean all) {
+    	if (all) {
+			for ( SystemView sView : views)
+				if (sView != null)
+					sView.forceAutoFlagColor();
+    	}
+    	else
+    		view(i).forceAutoFlagColor();
+    }
     public void resetFlagColor(int i)            { view(i).resetFlagColor(); }
     public FleetPlan fleetPlan(int i)            { return view(i).fleetPlan(); }
     public ShipFleet orbitingFleet(int i)        { return system(i).orbitingFleetForEmpire(empire()); }

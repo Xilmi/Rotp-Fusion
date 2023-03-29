@@ -7,6 +7,8 @@ Update: "Precursor Relic" event:
   - Or set a Flag function of Planet Environment.
   - Or set a Flag function of Planet Ressources.
   - Or set a Flag function of Colony Ship Technologies.
+  - Pressing "Home" will run the auto-flag to the selected planet flag.
+  - Pressing "Alt"+"Home"  will run the auto-flag to all scouted planets flag.
 
 Fixes:
 - Fixed second Map Flag showing black instead of not showing.

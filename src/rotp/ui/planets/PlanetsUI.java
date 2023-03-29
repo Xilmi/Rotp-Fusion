@@ -70,6 +70,7 @@ import rotp.ui.fleets.SystemListingUI.DataView;
 import static rotp.ui.fleets.SystemListingUI.LEFT;
 import static rotp.ui.fleets.SystemListingUI.RIGHT;
 import rotp.ui.game.HelpUI;
+import rotp.ui.game.MergedDynamicOptionsUI;
 import rotp.ui.main.EmpireColonyFoundedPane;
 import rotp.ui.main.EmpireColonyInfoPane;
 import rotp.ui.main.EmpireColonySpendingPane;
@@ -562,6 +563,10 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
                 return;
             case KeyEvent.VK_UP:     repaint = listingUI.scrollUp(); break;
             case KeyEvent.VK_DOWN:   repaint = listingUI.scrollDown(); break;
+            case KeyEvent.VK_HOME:
+            	colonyFoundedPane.forceAutoFlagColor(e.isAltDown());
+                instance.repaint();
+                return;
             case KeyEvent.VK_1:
             case KeyEvent.VK_2:
             case KeyEvent.VK_3:
@@ -577,6 +582,12 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
                     selectAllSystems();
                 }
                 return;
+            case KeyEvent.VK_O: // BR:
+            	if (control) {
+            		MergedDynamicOptionsUI optionsUI = RotPUI.mergedDynamicOptionsUI();
+        			optionsUI.start(true);
+            	}
+            	return;
             case KeyEvent.VK_Q:
                 selectNormalAndRichWithFullEconomy();
                 if (control) {

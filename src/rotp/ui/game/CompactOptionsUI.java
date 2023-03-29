@@ -74,8 +74,9 @@ public class CompactOptionsUI extends BaseModPanel implements MouseListener, Mou
 	private static final int bottomPad		= rowPad;
 	private static final int textBoxH		= settingH;
 	private static final int hDistSetting	= settingH + settingpadH; // distance between two setting top corner
-	private static final int leftM			= columnPad;
-	private static final int rightM			= leftM;
+//	private static final int leftM			= columnPad;
+//	private static final int rightM			= leftM;
+	private int leftM, rightM;
 	private int topM, yTop;
 	private int wBG, hBG;
 	private int numColumns, numRows;
@@ -89,15 +90,14 @@ public class CompactOptionsUI extends BaseModPanel implements MouseListener, Mou
 	private LinkedList<BaseText> btList0;
 	private LinkedList<BaseText> btList2;
 	private LinkedList<BaseText> btListBoth;
-	private Rectangle hoverBox, prevHover;
-	private final Rectangle exitBox		= new Rectangle();
-	private final Rectangle toolTipBox	= new Rectangle();
+	private static Rectangle hoverBox, prevHover;
+	private static final Rectangle exitBox		= new Rectangle();
+	private static final Rectangle toolTipBox	= new Rectangle();
 	private LinearGradientPaint bg;
 
 	private String tooltipText = "";
 	private String preTipTxt   = "";
 	private int parent = 0; // 0=Base; 1=Merged; 2=Classic
-
 	
 	// ========== Constructors and initializers ==========
 	//
@@ -260,10 +260,6 @@ public class CompactOptionsUI extends BaseModPanel implements MouseListener, Mou
 		setValueColor(index);
 		BaseText txt0 = btList0.get(index);
 		BaseText txt2 = btList2.get(index);
-		if (txt0 == null || txt2  == null) {
-		System.out.println(txt0 + " " + txt2);
-			
-		}
 		g.setPaint(bg);
 		int sw0 = txt0.stringWidth(g);
 		int sw2 = txt2.stringWidth(g);
@@ -439,10 +435,24 @@ public class CompactOptionsUI extends BaseModPanel implements MouseListener, Mou
 	}
 	public void start() { // Called from subUI
 		super.init();
+		hoverBox = null;
+		prevHover = null;
+			
 		int hSettingTotal = hDistSetting * numRows;
 		hBG	= titlePad + hSettingTotal + descPadV + descHeigh + buttonPadV + smallButtonH + bottomPad;
 		hBG	= titlePad + hSettingTotal + descHeigh + buttonPadV + smallButtonH + bottomPad;
+
+		leftM  = columnPad;
+		rightM = leftM;		
 		wBG	= w - (leftM + rightM);
+		columnWidth = ((wBG-columnPad)/4) - columnPad; // Max Width allowed
+		if (numColumns < 4) { // to adjust the panel width
+			wBG = (columnWidth + columnPad) * 3 + columnPad; // below 3 the buttons will be squeezed!
+			leftM = (w - wBG)/2;
+			rightM = leftM;		
+		}
+		columnWidth = ((wBG-columnPad)/numColumns) - columnPad;
+		
 		topM	= (h - hBG) / 2;
 		yTitle	= topM + titleOffset;
 		yTop	= topM + titlePad; // First setting top position
@@ -451,7 +461,6 @@ public class CompactOptionsUI extends BaseModPanel implements MouseListener, Mou
 		xDesc		= leftM + columnPad;		
 		yDesc		= topM + hBG - ( descHeigh + buttonPadV + smallButtonH + bottomPad);
 		
-		columnWidth = ((wBG-columnPad)/numColumns)-columnPad;
 		if (bg == null)
 			bg = GameUI.settingsSetupBackgroundW(w);
 		updateOptionsAndSaveToFileName(RotPUI.mergedGuiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
@@ -468,6 +477,8 @@ public class CompactOptionsUI extends BaseModPanel implements MouseListener, Mou
 	}
 	@Override protected void close() {
 		super.close();
+		hoverBox = null;
+		prevHover = null;
         disableGlassPane();
 		switch (parent) {
 		case 1:
@@ -636,8 +647,20 @@ public class CompactOptionsUI extends BaseModPanel implements MouseListener, Mou
 		if (hoverBox == null)
 			return;
 		mouseCommon(e, null);
-		if (hoverBox == exitBox)
+		if (hoverBox == exitBox) {
 			doExitBoxAction();
+			switch (parent) { // To reset the buttons on the parent panel!
+			case 1:
+				RotPUI.mergedDynamicOptionsUI().mouseMoved(e);
+				return;
+			case 2:
+				RotPUI.modOptionsDynamicA().mouseMoved(e);
+				return;
+			case 0:
+			default:
+				return;
+			}
+		}
 		else if (hoverBox == defaultBox)
 			doDefaultBoxAction();
 		else if (hoverBox == userBox)

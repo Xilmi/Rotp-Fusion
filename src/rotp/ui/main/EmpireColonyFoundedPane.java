@@ -92,6 +92,25 @@ public class EmpireColonyFoundedPane extends BasePanel implements MouseMotionLis
         g.drawImage(flagImage, w-sz+s15-shX, h-sz+s15, sz, sz, null);
         flagBox.setBounds(w-sz+s25,h-sz+s15-shX,sz-s20,sz-s10);
     }
+    public void forceAutoFlagColor(boolean all) {
+        List<StarSystem> systems = parent.systemsToDisplay();
+        if (systems == null) {
+            systems = new ArrayList<>();
+            StarSystem sys = parent.systemViewToDisplay();
+            if (sys != null)
+                systems.add(sys);
+        }
+        
+        for (StarSystem sys1: systems) 
+            player().sv.forceAutoFlagColor(sys1.id, all);
+
+                if (repainter != null)
+            repainter.repaint();
+        else if (topParent != null)
+            topParent.repaint();
+        else
+            parent.repaintAll();
+    }
     public void toggleFlagColor(boolean reverse) {
         List<StarSystem> systems = parent.systemsToDisplay();
         if (systems == null) {

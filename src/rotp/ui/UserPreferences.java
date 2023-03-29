@@ -809,6 +809,7 @@ public class UserPreferences {
 					researchRate, warpSpeed, fuelRange, techTrading, colonizing
 					));
 
+	private static final ParamTitle headerSpacer = new ParamTitle("SPACER");
 	// Sub GUI Lists and GUI List	
 	// Parameters on these list are auto saved in dynamic list options
 	public static final LinkedList<LinkedList<InterfaceParam>> autoFlagOptionsMap = 
@@ -817,6 +818,8 @@ public class UserPreferences {
 		autoFlagOptionsMap.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("AUTO_FLAG_ID_SELECTION"),
 				autoFlagAssignation1, autoFlagAssignation2,
+
+				headerSpacer,
 				new ParamTitle("AUTO_FLAG_COLONY_TECH"),
 				flagTechGaiaColor, flagTechFertileColor, flagTechGoodColor,
 				flagTechStandardColor, flagTechBarrenColor, flagTechDeadColor,
@@ -827,7 +830,7 @@ public class UserPreferences {
 				flagOrionColor, flagAntaranColor,
 				flagUltraRichColor, flagRichColor, flagAssetNormalColor,
 				flagPoorColor, flagUltraPoorColor, flagNoneColor,
-				new ParamTitle("AUTO_FLAG_ENVIRONMENT"),
+				headerSpacer, new ParamTitle("AUTO_FLAG_ENVIRONMENT"),
 				flagEnvGaiaColor, flagEnvFertileColor,
 				flagEnvNormalColor,	flagEnvHostileColor, flagEnvNoneColor
 				)));
@@ -855,6 +858,8 @@ public class UserPreferences {
 				new ParamTitle("START_GALAXY_OPTIONS"),
 				galaxyAge, starDensity, nebulae, maximizeSpacing,
 				spacingLimit, minStarsPerEmpire, prefStarsPerEmpire, dynStarsPerEmpire,
+
+				headerSpacer,
 				new ParamTitle("START_PLANET_OPTIONS"),
 				planetQuality, minDistArtifactPlanet
 				)));
@@ -867,6 +872,8 @@ public class UserPreferences {
 				new ParamTitle("START_TECH_CONTROL"),
 				techIrradiated, techCloaking, techStargate, techHyperspace,
 				techIndustry2, techThorium, techTransport,
+
+				headerSpacer,
 				new ParamTitle("START_RANDOM_ALIENS"),
 				randomAlienRacesTargetMax, randomAlienRacesTargetMin, randomAlienRaces,
 				randomAlienRacesMax, randomAlienRacesMin, randomAlienRacesSmoothEdges
@@ -875,6 +882,8 @@ public class UserPreferences {
 				new ParamTitle("RESTART_OPTIONS"),
 				restartChangesPlayerRace, restartChangesPlayerAI,
 				restartChangesAliensAI, restartAppliesSettings,
+
+				headerSpacer,
 				new ParamTitle("MENU_OPTIONS"),
 				compactOptionOnly
 				)));
@@ -894,9 +903,13 @@ public class UserPreferences {
 				autoFlagOptionsUI,
 				difficultySelection, customDifficulty,
 				dynamicDifficulty, challengeMode,
+
+				headerSpacer,
 				new ParamTitle("GAME_VARIOUS"),
 				terraforming, colonizing, researchRate,
 				warpSpeed, fuelRange, 
+
+				headerSpacer,
 				new ParamTitle("GAME_OTHER"),
 				showAlliancesGNN, techExchangeAutoRefuse, autoplay
 				)));
@@ -904,6 +917,8 @@ public class UserPreferences {
 				new ParamTitle("GAME_RELATIONS"),
 				councilWin, counciRequiredPct,
 				techTrading, aiHostility,
+
+				headerSpacer,
 				new ParamTitle("GAME_COMBAT"),
 				retreatRestrictions, retreatRestrictionTurns, missileSizeModifier,
 				targetBombard, bombingTarget, autoBombard_, autoColonize_
@@ -914,6 +929,8 @@ public class UserPreferences {
 				piratesDelayTurn, piratesReturnTurn, piratesMaxSystems,
 				amoebaDelayTurn, amoebaReturnTurn, amoebaMaxSystems,
 				crystalDelayTurn, crystalReturnTurn, crystalMaxSystems,
+
+				headerSpacer,
 				new ParamTitle("PLANETS_FLAG_OPTIONS"),
 				flagColorCount, autoFlagOptionsUI
 				)));
@@ -921,6 +938,8 @@ public class UserPreferences {
 				new ParamTitle("ZOOM_FACTORS"),
 				showFleetFactor, showFlagFactor, showPathFactor,
 				showNameMinFont, showInfoFontRatio, mapFontFactor,
+
+				headerSpacer,
 				new ParamTitle("MENU_OPTIONS"),
 				menuStartup, menuAfterGame, menuLoadGame,
 				minListSizePopUp, showGridCircular,

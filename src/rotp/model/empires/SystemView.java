@@ -15,9 +15,59 @@
  */
 package rotp.model.empires;
 
+import static rotp.model.planet.PlanetType.ARID;
+import static rotp.model.planet.PlanetType.BARREN;
+import static rotp.model.planet.PlanetType.DEAD;
+import static rotp.model.planet.PlanetType.DESERT;
+import static rotp.model.planet.PlanetType.INFERNO;
+import static rotp.model.planet.PlanetType.JUNGLE;
+import static rotp.model.planet.PlanetType.MINIMAL;
+import static rotp.model.planet.PlanetType.NONE;
+import static rotp.model.planet.PlanetType.OCEAN;
+import static rotp.model.planet.PlanetType.RADIATED;
+import static rotp.model.planet.PlanetType.STEPPE;
+import static rotp.model.planet.PlanetType.TERRAN;
+import static rotp.model.planet.PlanetType.TOXIC;
+import static rotp.model.planet.PlanetType.TUNDRA;
+import static rotp.ui.UserPreferences.autoFlagAssignation1;
+import static rotp.ui.UserPreferences.autoFlagAssignation2;
+import static rotp.ui.UserPreferences.flagAntaranColor;
+import static rotp.ui.UserPreferences.flagAridColor;
+import static rotp.ui.UserPreferences.flagAssetNormalColor;
+import static rotp.ui.UserPreferences.flagAsteroidColor;
+import static rotp.ui.UserPreferences.flagBarrenColor;
 import static rotp.ui.UserPreferences.flagColorCount;
-import static rotp.ui.UserPreferences.*;
-import static rotp.model.planet.PlanetType.*;
+import static rotp.ui.UserPreferences.flagDeadColor;
+import static rotp.ui.UserPreferences.flagDesertColor;
+import static rotp.ui.UserPreferences.flagEnvFertileColor;
+import static rotp.ui.UserPreferences.flagEnvGaiaColor;
+import static rotp.ui.UserPreferences.flagEnvHostileColor;
+import static rotp.ui.UserPreferences.flagEnvNoneColor;
+import static rotp.ui.UserPreferences.flagEnvNormalColor;
+import static rotp.ui.UserPreferences.flagInfernoColor;
+import static rotp.ui.UserPreferences.flagJungleColor;
+import static rotp.ui.UserPreferences.flagMinimalColor;
+import static rotp.ui.UserPreferences.flagNoneColor;
+import static rotp.ui.UserPreferences.flagOceanColor;
+import static rotp.ui.UserPreferences.flagOrionColor;
+import static rotp.ui.UserPreferences.flagPoorColor;
+import static rotp.ui.UserPreferences.flagRadiatedColor;
+import static rotp.ui.UserPreferences.flagRichColor;
+import static rotp.ui.UserPreferences.flagSteppeColor;
+import static rotp.ui.UserPreferences.flagTechBarrenColor;
+import static rotp.ui.UserPreferences.flagTechDeadColor;
+import static rotp.ui.UserPreferences.flagTechFertileColor;
+import static rotp.ui.UserPreferences.flagTechGaiaColor;
+import static rotp.ui.UserPreferences.flagTechGoodColor;
+import static rotp.ui.UserPreferences.flagTechNoneColor;
+import static rotp.ui.UserPreferences.flagTechRadiatedColor;
+import static rotp.ui.UserPreferences.flagTechStandardColor;
+import static rotp.ui.UserPreferences.flagTechToxicColor;
+import static rotp.ui.UserPreferences.flagTerranColor;
+import static rotp.ui.UserPreferences.flagToxicColor;
+import static rotp.ui.UserPreferences.flagTundraColor;
+import static rotp.ui.UserPreferences.flagUltraPoorColor;
+import static rotp.ui.UserPreferences.flagUltraRichColor;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -75,10 +125,10 @@ public class SystemView implements IMappedObject, Base, Serializable {
 	static {
 		List<String> flagAssignationList = Arrays.asList (
 	    		AUTO_FLAG_NOT,
-	    		AUTO_FLAG_TYPE,
-	    		AUTO_FLAG_ENV,
+	    		AUTO_FLAG_TECH,
 	    		AUTO_FLAG_ASSET,
-	    		AUTO_FLAG_TECH
+	    		AUTO_FLAG_ENV,
+	    		AUTO_FLAG_TYPE
 				);
 		for (String element : flagAssignationList)
 			flagAssignationMap.put(element, element); // Temporary; needs to be further initialized
@@ -253,9 +303,8 @@ public class SystemView implements IMappedObject, Base, Serializable {
 //        }
 //        return null; 
 //    }
-    private void setResourceFlagColor(int id) {
+    private void setResourceFlagColor(Planet planet, int id) {
     	int color = 0;
-    	Planet planet = system().planet();
     	if (planet.isResourceNormal())
     		color = flagAssetNormalColor.getIndex();
     	// Asteroid are considered resource Normal.
@@ -276,9 +325,8 @@ public class SystemView implements IMappedObject, Base, Serializable {
     		color = flagOrionColor.getIndex();
 		setFlagColor(color, id);
     }
-    private void setEnvFlagColor(int id) {
+    private void setEnvFlagColor(Planet planet, int id) {
     	int color = 0;
-    	Planet planet = system().planet();
     	if (planet.isEnvironmentNormal())
     		color = flagEnvNormalColor.getIndex();
     	if (planet.type().key() == NONE)
@@ -293,9 +341,8 @@ public class SystemView implements IMappedObject, Base, Serializable {
     		color = flagEnvGaiaColor.getIndex();
 		setFlagColor(color, id);
     }
-    private void setTypeFlagColor(int id) {
+    private void setTypeFlagColor(Planet planet, int id) {
     	int color;
-    	Planet planet = system().planet();
 		switch (planet.type().key()) {
 	    case NONE:
 	    	color = flagAsteroidColor.getIndex();
@@ -343,9 +390,8 @@ public class SystemView implements IMappedObject, Base, Serializable {
 		}
 		setFlagColor(color, id);
     }
-    private void setTechFlagColor(int id) {
+    private void setTechFlagColor(Planet planet, int id) {
     	int color;
-    	Planet planet = system().planet();
 		switch (planet.type().key()) {
 	    case NONE:
 	    	color = flagTechNoneColor.getIndex();
@@ -490,33 +536,39 @@ public class SystemView implements IMappedObject, Base, Serializable {
         if (vGuarded)
             setName();
     }
-    private void autoFlagAssignation(ParamList assignation, int id) {
+    private void autoFlagAssignation(Planet p, ParamList assignation, int id) {
     	switch (assignation.get()) {
 	    	case AUTO_FLAG_TYPE:
-	    		setTypeFlagColor(id);
+	    		setTypeFlagColor(p, id);
 	    		return;
 	    	case AUTO_FLAG_ENV:
-	    		setEnvFlagColor(id);
+	    		setEnvFlagColor(p, id);
 	    		return;
 	    	case AUTO_FLAG_ASSET:
-	    		setResourceFlagColor(id);
+	    		setResourceFlagColor(p, id);
 	    		return;
 	    	case AUTO_FLAG_TECH:
-	    		setTechFlagColor(id);
+	    		setTechFlagColor(p, id);
 	    		return;
 	    	case AUTO_FLAG_NOT:
 			default:
 				return;
     	}
     }
+    public void forceAutoFlagColor() {
+    	if (scouted()) 
+    		autoFlagPlanet(vPlanet);
+    }
+    private void autoFlagPlanet(Planet p) {
+    	autoFlagAssignation(p, autoFlagAssignation1, 1);
+    	autoFlagAssignation(p, autoFlagAssignation2, 2);    	
+    }
     public void refreshFullScan() {
         if (!scouted()) {
             log("Orbital scan scouts new system: ", system().name());
             owner().shareSystemInfoWithAllies(this);
-            if (owner().isPlayer()) { // TODO BR: Add auto Flag
-            	autoFlagAssignation(autoFlagAssignation1, 1);
-            	autoFlagAssignation(autoFlagAssignation2, 2);
-            }
+            if (owner().isPlayer())
+            	autoFlagPlanet(system().planet());
             if (owner().isPlayerControlled()) {
                 session().addSystemScouted(system());
                 if (system().empire() != player())
@@ -654,11 +706,15 @@ public class SystemView implements IMappedObject, Base, Serializable {
     public boolean environmentFertile()     { return (planet() != null) && planet().isEnvironmentFertile(); }
     public boolean environmentGaia()        { return (planet() != null) && planet().isEnvironmentGaia(); }
 
-    public void resetFlagColor()            { flagColor = FLAG_NONE; }
-
+    public void resetFlagColor()	{ 
+		if(ModifierKeysState.isShiftOrCtrlDown() && scouted())
+    		autoFlagPlanet(vPlanet);
+    	else 
+    		flagColor = FLAG_NONE;
+    }
     public void toggleFlagColor(boolean reverse) { // BR: flagColorCount
     	int id = 1;
-    	if(ModifierKeysState.isShiftDown())
+    	if(ModifierKeysState.isShiftOrCtrlDown())
     		id = 2;
     	setFlagColor(toggleFlagColor(reverse, getFlagColor(id)), id);
     }

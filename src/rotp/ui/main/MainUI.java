@@ -673,8 +673,7 @@ public class MainUI extends BasePanel implements IMapHandler {
         HelpSpec s0 = helpUI.addBlueHelpText(s100, s10, scaled(350), 2, text("MAIN_HELP_ALL"));
         s0.setLine(s100, s25, s30, s25);
         // BR: Main Mod Help
-        // helpUI.addBrownHelpText(s50, scaled(310), scaled(350), 2, text("MAIN_HELP_MOD"));
-        helpUI.addBrownHelpText(w-scaled(334), s10, scaled(330), 2, text("MAIN_HELP_MOD"));
+        helpUI.addBrownHelpText(w-scaled(334), s10, scaled(330), 3, text("MAIN_HELP_MOD"));
         
         int x1 = w-scaled(779);
         int w1 = scaled(430);
@@ -817,37 +816,41 @@ public class MainUI extends BasePanel implements IMapHandler {
         int y10 = scaled(55);
         int w10 = scaled(400);
         HelpSpec sp10 = helpUI.addBlueHelpText(x10, y10, w10, 2, text("MAIN_HELP_2J"));
-        sp10.setLine(x10+w10, y10+(sp10.height()/2), w-scaled(49), scaled(205));
+        sp10.setLine(x10+w10, y10+(sp10.height()/2), w-scaled(260), scaled(140), w-scaled(49), scaled(205));
 
         int w11;
         int y11;
+        int x11;
         int lines;
         String txt;
         if (flagColorCount.get() == 1) {
         	txt   = text("MAIN_HELP_2K");
-        	lines = 4;
+        	lines = 5;
         	y11   = s14;
             if (has3Buttons()) {
-            	w11 = scaled(230);
+            	w11 = scaled(250);
             	txt += " " + text("MAIN_HELP_2K_M3");
+                x11 = w-w11-s4;
             } else {
             	w11 = scaled(225);
             	txt += " " + text("MAIN_HELP_2K_M2");
+                x11 = w-w11-s14;
             }
         } else {
         	txt   = text("MAIN_HELP_2K_2F");
-        	lines = 5;
+        	lines = 6;
         	y11   = s4;
             if (has3Buttons()) {
             	txt += " " + text("MAIN_HELP_2K_M3");
-            	w11 = scaled(225);
+            	w11 = scaled(250);
+                x11 = w-w11-s4;
             } else {
             	txt += " " + text("MAIN_HELP_2K_M2");
-            	w11 = scaled(220);
-            }
+            	w11 = scaled(225);
+                x11 = w-w11-s14;
+           }
             txt += " " + text("MAIN_HELP_2K_2F_HOLD");
         }
-        int x11 = w-w11-s4;
         
         
         HelpSpec sp11 = helpUI.addBrownHelpText(x11, y11, w11, lines, txt);

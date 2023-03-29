@@ -29,6 +29,7 @@ public enum ModifierKeysState {
 	public static boolean isShiftDown()	{ return isShiftDown; }
 	public static boolean isCtrlDown()	{ return isCtrlDown; }
 	public static boolean isAltDown()	{ return isAltDown; }
+	public static boolean isShiftOrCtrlDown()	{ return isShiftDown || isCtrlDown; }
 
 	public static void set(InputEvent e) {
 		setKeysState(e);

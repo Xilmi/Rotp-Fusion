@@ -484,7 +484,7 @@ MAIN_TECH_RESERVE_TAX_ALL         | Taxing %1% of production on all colonies
 MAIN_TECH_RESERVE_TAX             | Taxing %1% of production on developed colonies
 MAIN_TECH_RESERVE_TAX_NONE        | No tax levied on colony production
 MAIN_HELP_ALL                     | Help - click to cycle through help information for a particular screen. Hit escape to cancel.
-MAIN_HELP_MOD                     | Mod Help - "Ctrl"+"o" to bring the Game options Menu.
+MAIN_HELP_MOD                     | Mod Help - "Ctrl"+"o" to bring the Game options Menu. "Home" to Auto-Flag the selected Planet. "Alt"+"Home" to apply Auto-Flag to all planets already Scouted.
 MAIN_HELP_MOD_1A                  | Click to enable or disable the Governor for this star system.
 MAIN_HELP_MOD_1B                  | Click to bring Governor's Options Menu.
 MAIN_HELP_1A                      | Each star system divides its production into five areas. Grayed bars indicate that the production bar has been locked and will not change. Click on the name to lock/unlock.
@@ -508,9 +508,9 @@ MAIN_HELP_2I                      | Current and maximum planet population. 100 r
 MAIN_HELP_2J                      | Current and maximum factories allowed. Maximum factories based on population and robotic controls technology.
 MAIN_HELP_2K                      | Place a flag on the system to help it stand out on the galaxy map.
 MAIN_HELP_2K_2F                   | Place two flags on the system to help it stand out on the galaxy map.
-MAIN_HELP_2K_M2                   | Left Button = Forward / Right Button = Reset.
-MAIN_HELP_2K_M3                   | Left Button = Forward / Middle Button = Reset / Right Button = Backward.
-MAIN_HELP_2K_2F_HOLD              | (Hold "Shift" to set the second flag)
+MAIN_HELP_2K_M2                   | Left Button = Forward / Right Button = Reset / "Home" = Auto-Flag.
+MAIN_HELP_2K_M3                   | Left Button = Forward / Right Button = Backward  / Middle Button = Reset / "Home" = Auto-Flag.
+MAIN_HELP_2K_2F_HOLD              | (Hold "Ctrl" to set the second flag)
 MAIN_HELP_2L                      | The amount of reserve stored in the empire treasury.
 MAIN_HELP_2M                      | The current state of research for each of the six technology areas.
 MAIN_HELP_3A                      | Game - returns to the opening menu. Allows you to adjust settings or save, load, and start games.
@@ -1673,6 +1673,8 @@ HEADERS_AUTO_FLAG_RESOURCES_DESC     | Select Flags Color based on Planet Resour
 HEADERS_AUTO_FLAG_RESOURCES          | ~~~ PLANET RESOURCES ~~~%1
 HEADERS_AUTO_FLAG_COLONY_TECH_DESC   | Select Flags Color based on Environment and required Colony ship technologies.
 HEADERS_AUTO_FLAG_COLONY_TECH        | ~~~ COLONY SHIP TECH ~~~%1
+HEADERS_SPACER_DESC                  |  
+HEADERS_SPACER                       |  %1
 
 // modnar: add UI panel for modnar MOD game options
 SETTINGS_MOD_TITLE                   | modnar MOD Options
@@ -1912,6 +1914,16 @@ SETTINGS_MOD_AUTO_FLAG_NORMAL_DESC        | Select the Flag Color to set automat
 SETTINGS_MOD_AUTO_FLAG_POOR_DESC          | Select the Flag Color to set automatically when a Poor Planet is scouted.
 SETTINGS_MOD_AUTO_FLAG_ULTRA_POOR_DESC    | Select the Flag Color to set automatically when an Ultra Poor Planet is scouted.
 SETTINGS_MOD_AUTO_FLAG_NONE_DESC          | Select the Flag Color to set automatically when Asteroid are scouted.
+
+SETTINGS_MOD_AUTO_FLAG_TECH_GAIA_DESC     | Select the Flag Color to set automatically when a Gaia Planet is scouted. (Standard colony ship)
+SETTINGS_MOD_AUTO_FLAG_TECH_FERTILE_DESC  | Select the Flag Color to set automatically when a Fertile Planet is scouted. (Standard colony ship)
+SETTINGS_MOD_AUTO_FLAG_TECH_GOOD_DESC     | Select the Flag Color to set automatically when a Terran, a Jungle, or an Ocean Planet is scouted. (Standard colony ship)
+SETTINGS_MOD_AUTO_FLAG_TECH_STANDARD_DESC | Select the Flag Color to set automatically when an Arid, a Steppe, a Desert, or a Minimal Planet is scouted. (Standard colony ship)
+SETTINGS_MOD_AUTO_FLAG_TECH_BARREN_DESC   | Select the Flag Color to set automatically when a Barren Planet is scouted. (Barren colony ship technology is required)
+SETTINGS_MOD_AUTO_FLAG_TECH_DEAD_DESC     | Select the Flag Color to set automatically when a Tundra or a Dead Planet is scouted. (Dead colony ship technology is required)
+SETTINGS_MOD_AUTO_FLAG_TECH_TOXIC_DESC    | Select the Flag Color to set automatically when an Inferno or a Toxic Planet is scouted. (Toxic colony ship technology is required)
+SETTINGS_MOD_AUTO_FLAG_TECH_RADIATED_DESC | Select the Flag Color to set automatically when an Irradiated Planet is scouted. (Irradiated colony ship technology is required)
+SETTINGS_MOD_AUTO_FLAG_TECH_NONE_DESC     | Select the Flag Color to set automatically when Asteroid are scouted. (No way to colonize this!)
 
 SETTINGS_MOD_AUTO_FLAG_ARID              | Arid Color: %1
 SETTINGS_MOD_AUTO_FLAG_BARREN            | Barren Color: %1

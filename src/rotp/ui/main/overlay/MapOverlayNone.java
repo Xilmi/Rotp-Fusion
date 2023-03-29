@@ -101,6 +101,13 @@ public class MapOverlayNone extends MapOverlay {
             case KeyEvent.VK_RIGHT:
                 parent.map().dragMap(-s40, 0);
                 break;
+            case KeyEvent.VK_HOME:
+                Sprite sp = parent.displayPanel().spriteToDisplay();
+                if (sp instanceof StarSystem) {
+                    StarSystem sys = (StarSystem) sp;
+                    player().sv.forceAutoFlagColor(sys.id, e.isAltDown());
+                }
+                break;
             case KeyEvent.VK_G:
                 buttonClick();
                 RotPUI.instance().selectGamePanel();
@@ -181,8 +188,7 @@ public class MapOverlayNone extends MapOverlay {
                         }
                     }
                 }
-            	if (!e.isShiftDown()) // BR to avoid noise when changing flag color
-            		misClick();
+           		misClick();
                 break;
             case KeyEvent.VK_A:
                 if (e.getModifiersEx() == 128) {

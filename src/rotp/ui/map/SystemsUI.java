@@ -1000,6 +1000,9 @@ public final class SystemsUI extends BasePanel implements IMapHandler, ActionLis
                 softClick();
                 map().dragMap(-s40, 0);
                 return;
+            case KeyEvent.VK_HOME:
+                displayPanel.forceAutoFlagColor(e.isAltDown());
+                return;
             case KeyEvent.VK_F:
                 displayPanel.toggleFlagColor(shift);
                 return;
