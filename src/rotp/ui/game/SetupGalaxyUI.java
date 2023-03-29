@@ -450,7 +450,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		ye   = dest.y + dest.height/2;
 		sp.setLine(xb, yb, xe, ye);
 
-		txt  = text("MOD_HELP_GALAXY_ABILITIES"); // TODO
+		txt  = text("MOD_HELP_GALAXY_ABILITIES");
 		wBox   = scaled(400);
 		dest = crBox;
 		nL   = 5;
@@ -2307,36 +2307,36 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			goToMainMenu();
 			return;
 		default: // BR:
-			if (Profiles.processKey(k, e.isShiftDown(), "Galaxy", newGameOptions())) {
-				buttonClick();
-				playerRaceImg = null;
-				playerRaceImg = playerRaceImg();
-				backImg = null;
-				repaint();
-			}
-			// Needs to be done twice for the case both Galaxy size
-			// and the number of opponents were changed !?
-			if (Profiles.processKey(k, e.isShiftDown(), "Galaxy", newGameOptions())) {
-				playerRaceImg = null;
-				playerRaceImg = playerRaceImg();
-				backImg = null;
-				repaint();
-			}
-			return;
+//			if (Profiles.processKey(k, e.isShiftDown(), "Galaxy", newGameOptions())) {
+//				buttonClick();
+//				playerRaceImg = null;
+//				playerRaceImg = playerRaceImg();
+//				backImg = null;
+//				repaint();
+//			}
+//			// Needs to be done twice for the case both Galaxy size
+//			// and the number of opponents were changed !?
+//			if (Profiles.processKey(k, e.isShiftDown(), "Galaxy", newGameOptions())) {
+//				playerRaceImg = null;
+//				playerRaceImg = playerRaceImg();
+//				backImg = null;
+//				repaint();
+//			}
+//			return;
 		}
 	}
-	// BR:
-	/**
-	 * Load Profiles with option "Surprise" and start Game
-	 */
-	public void surpriseStart() {
-		Profiles.processKey(KeyEvent.VK_R, true, "Galaxy", newGameOptions());
-		buttonClick();
-		repaint();
-		Profiles.processKey(KeyEvent.VK_R, true, "Galaxy", newGameOptions());
-		repaint();
-		startGame();
-	}
+//	// BR:
+//	/**
+//	 * Load Profiles with option "Surprise" and start Game
+//	 */
+//	public void surpriseStart() {
+//		Profiles.processKey(KeyEvent.VK_R, true, "Galaxy", newGameOptions());
+//		buttonClick();
+//		repaint();
+//		Profiles.processKey(KeyEvent.VK_R, true, "Galaxy", newGameOptions());
+//		repaint();
+//		startGame();
+//	}
 	@Override
 	public void mouseDragged(MouseEvent e) {  }
 	@Override

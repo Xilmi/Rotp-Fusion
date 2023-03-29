@@ -256,7 +256,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseListener, Mou
 		else
 			txt2.enabledC(customValuesColor);
 	}
-	private void paintSetting(Graphics2D g) { // TODO
+	private void paintSetting(Graphics2D g) {
 		setValueColor(index);
 		BaseText txt0 = btList0.get(index);
 		BaseText txt2 = btList2.get(index);

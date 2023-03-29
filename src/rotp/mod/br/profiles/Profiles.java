@@ -102,11 +102,11 @@ public class Profiles {
 	 * @param newOptions class containing info
 	 * @return <b>true</b> if something has been changed
    	 */
-	public static boolean processKey(int key, boolean global,
-			String group, IGameOptions options) {
-		return userProfiles.processKey(key, global, group,
-							new ClientClasses(options));
-	}
+//	public static boolean processKey(int key, boolean global,
+//			String group, IGameOptions options) {
+//		return userProfiles.processKey(key, global, group,
+//							new ClientClasses(options));
+//	}
 	/**
    	 * Load The Profile Manager configuration file,
    	 * and save the current profile with the new configuration.

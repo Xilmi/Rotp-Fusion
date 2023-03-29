@@ -46,16 +46,15 @@ import java.util.List;
 
 import javax.swing.JTextField;
 
-import rotp.mod.br.profiles.Profiles;
 import rotp.model.empires.Race;
 import rotp.model.ships.ShipImage;
 import rotp.model.ships.ShipLibrary;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
+import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.ui.main.SystemPanel;
 import rotp.util.ModifierKeysState;
-import rotp.ui.game.HelpUI.HelpSpec;
 
 public final class SetupRaceUI extends BaseModPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
     private static final long serialVersionUID	= 1L;
@@ -1097,19 +1096,19 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
             	doNextBoxAction();
                 return;
             default: // BR:
-            	if (Profiles.processKey(k, e.isShiftDown(), "Race", newGameOptions())) {
-	            	buttonClick();
-	       			raceChanged();
-	       			repaint();
-       			}
-            	// Needs to be done twice for the case both Galaxy size
-            	// and the number of opponents were changed !?
-            	if (Profiles.processKey(k, e.isShiftDown(), "Race", newGameOptions())) {
-            		buttonClick();
-					raceChanged();
-					repaint();
-				}
-                return;
+//            	if (Profiles.processKey(k, e.isShiftDown(), "Race", newGameOptions())) {
+//	            	buttonClick();
+//	       			raceChanged();
+//	       			repaint();
+//       			}
+//            	// Needs to be done twice for the case both Galaxy size
+//            	// and the number of opponents were changed !?
+//            	if (Profiles.processKey(k, e.isShiftDown(), "Race", newGameOptions())) {
+//            		buttonClick();
+//					raceChanged();
+//					repaint();
+//				}
+//                return;
         }
     }
     @Override
