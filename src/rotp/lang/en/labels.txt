@@ -1879,6 +1879,7 @@ SETTINGS_MOD_AUTO_FLAG_TYPE              | Planet Type
 SETTINGS_MOD_AUTO_FLAG_ENVIRONMENT       | Planet Environment
 SETTINGS_MOD_AUTO_FLAG_RESOURCES         | Planet Resources
 SETTINGS_MOD_AUTO_FLAG_TECH              | Colony Ship Tech
+SETTINGS_MOD_AUTO_FLAG_CLEAR             | Clear the Flag
 
 SETTINGS_MOD_AUTO_FLAG_ASSIGN_1_DESC     | Select the parameter that will be automatically associated with the Top Left flag. (Only the first time a Star System is scouted)
 SETTINGS_MOD_AUTO_FLAG_ASSIGN_1          | Auto-Flag 1: %1

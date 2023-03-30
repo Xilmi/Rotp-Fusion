@@ -109,6 +109,7 @@ public class SystemView implements IMappedObject, Base, Serializable {
     private static final String AUTO_FLAG_ENV   = "SETTINGS_MOD_AUTO_FLAG_ENVIRONMENT";
     private static final String AUTO_FLAG_ASSET = "SETTINGS_MOD_AUTO_FLAG_RESOURCES";
     private static final String AUTO_FLAG_TECH  = "SETTINGS_MOD_AUTO_FLAG_TECH";
+    public  static final String AUTO_FLAG_CLEAR = "SETTINGS_MOD_AUTO_FLAG_CLEAR";
 
     public static final String FLAG_COLOR_NONE   = "FLAG_COLOR_NONE";
     public static final String FLAG_COLOR_WHITE  = "FLAG_COLOR_WHITE";
@@ -144,7 +145,8 @@ public class SystemView implements IMappedObject, Base, Serializable {
 	    		AUTO_FLAG_TECH,
 	    		AUTO_FLAG_ASSET,
 	    		AUTO_FLAG_ENV,
-	    		AUTO_FLAG_TYPE
+	    		AUTO_FLAG_TYPE,
+	    		AUTO_FLAG_CLEAR
 				);
 		for (String element : flagAssignationList)
 			flagAssignationMap.put(element, element); // Temporary; needs to be further initialized
@@ -445,6 +447,7 @@ public class SystemView implements IMappedObject, Base, Serializable {
 	    	color = flagTechGaiaColor.getIndex();
 		setFlagColor(color, id);
     }
+    private void clearFlagColor(Planet planet, int id) { setFlagColor(0, id); }
     private void setFlagColor(int color, int id) { // BR: flagColorCount
     	flagColor = getMixedColor(flagColor, color, id);
     }
@@ -587,6 +590,9 @@ public class SystemView implements IMappedObject, Base, Serializable {
 	    		return;
 	    	case AUTO_FLAG_TECH:
 	    		setTechFlagColor(p, id);
+	    		return;
+	    	case AUTO_FLAG_CLEAR:
+	    		clearFlagColor(p, id);
 	    		return;
 	    	case AUTO_FLAG_NOT:
 			default:

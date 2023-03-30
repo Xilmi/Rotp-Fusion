@@ -907,7 +907,6 @@ public class UserPreferences {
 	static {
 		mergedDynamicOptionsMap.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("GAME_DIFFICULTY"),
-				autoFlagOptionsUI,
 				difficultySelection, customDifficulty,
 				dynamicDifficulty, challengeMode,
 

@@ -26,6 +26,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2023.03.30 (BR)
+- Added Auto-Flag option: Clear Flag Color.
+
 2023.03.29 (BR)
 - Partially Disabled Profiles Manager:
   - It was no more updated and may already be broken!
