@@ -26,7 +26,6 @@ import javax.swing.SwingUtilities;
 import rotp.model.game.DynamicOptions;
 import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BasePanel;
-import rotp.ui.game.BaseModPanel;
 import rotp.util.LabelManager;
 
 public abstract class AbstractParam <T> implements InterfaceParam{
@@ -157,7 +156,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 		else
 			toggle(e);
 	}
-	@Override public void setPanel(BaseModPanel p) { panel = p; }
+	@Override public void setPanel(BasePanel p) { panel = p; }
 	// ========== Methods to be overridden ==========
 	//
 	T value(T value) 		{ return set(value); }

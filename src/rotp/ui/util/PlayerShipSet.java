@@ -16,11 +16,18 @@
 
 package rotp.ui.util;
 
+import static rotp.ui.UserPreferences.playerCustomRace;
+import static rotp.ui.UserPreferences.playerIsCustom;
+import static rotp.ui.UserPreferences.playerShipSet;
+
+import rotp.model.empires.Race;
 import rotp.model.ships.ShipLibrary;
+import rotp.ui.RotPUI;
 
 public class PlayerShipSet extends ParamList {
 	
-	private static final String ORIGINAL = "Original";
+	public static final String ORIGINAL			= "Original";
+	public static final String DISPLAY_RACE_SET	= "Displayed Race";
 
 	/**
 	 * @param gui  The label header
@@ -31,6 +38,7 @@ public class PlayerShipSet extends ParamList {
 		for (String s : ShipLibrary.current().styles) {
 			put(s, s);
 		}
+		put(DISPLAY_RACE_SET, DISPLAY_RACE_SET);
 		put(ORIGINAL, ORIGINAL);
 	}
 	// ========== Public Getters ==========
@@ -41,15 +49,42 @@ public class PlayerShipSet extends ParamList {
 	public boolean isOriginal() {
 		return get().equalsIgnoreCase(ORIGINAL);
 	}
+	public boolean isDisplaySet() {
+		return get().equalsIgnoreCase(DISPLAY_RACE_SET);
+	}
+	/**
+	 * @return ShipSet Text to display translating Original option
+	 */
+	public String displaySet() {
+		if (playerIsCustom.get() && isOriginal()) { // Custom race
+			String preferredShipSet = playerCustomRace.getRace().preferredShipSet;
+		   	if (preferredShipSet.equalsIgnoreCase(DISPLAY_RACE_SET))
+		   		return get();
+		   	else
+		   		return "CR:" + preferredShipSet;
+	    }
+    	else // Standard process
+		 	return get();
+	}
 	/**
 	 * @return ShipSet index translating Original option
 	 */
-	public int realShipSetId(String preferredShipSet) {
+	public int realShipSetId() {
 		int index;
-		if (isOriginal())
-			index = getIndex(preferredShipSet);
+		Race r =  Race.keyed(RotPUI.newOptions().selectedPlayerRace());
+		if (playerIsCustom.get() && isOriginal()) { // Custom race
+		   	String preferredShipSet = playerCustomRace.getRace().preferredShipSet;
+		   	if (preferredShipSet.equalsIgnoreCase(DISPLAY_RACE_SET))
+		   		index = getIndex(r.preferredShipSet);
+		   	else
+		   		index = getIndex(preferredShipSet);
+    	}
+		// Standard process
+    	else if (isOriginal() || isDisplaySet())
+			index = getIndex(r.preferredShipSet);
 		else 
 			index = getIndex();
+		
 		if (index == -1) index = 0;
 		return index;
 	}

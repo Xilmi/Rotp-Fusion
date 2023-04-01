@@ -26,6 +26,12 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2023.03.31 (BR)
+- Custom Races:
+  - Added Preferred Chip Set.
+  - Added Preferred Chip Size.
+  - Added pop up list managment.
+
 2023.03.30 (BR)
 - Added Auto-Flag option: Clear Flag Color.
 - Fixed Rotp not starting in an empty folder!

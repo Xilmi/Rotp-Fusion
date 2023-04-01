@@ -16,10 +16,12 @@
 
 package rotp.ui.util;
 
+import static rotp.ui.UserPreferences.minListSizePopUp;
 import static rotp.util.Base.random;
 import static rotp.util.Base.textSubs;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -30,7 +32,9 @@ import java.util.LinkedList;
 import javax.swing.SwingUtilities;
 
 import rotp.model.game.DynamicOptions;
+import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
+import rotp.ui.RotPUI;
 import rotp.ui.main.SystemPanel;
 import rotp.util.LabelManager;
 
@@ -57,6 +61,7 @@ public class SettingBase<T> implements InterfaceParam {
 	private boolean labelsAreFinals = defaultLabelsAreFinals;
 	private boolean isList			= defaultIsList;
 	private boolean isBullet		= defaultIsBullet;
+	private boolean allowListSelect	= false;
 	private T selectedValue	  = null;
 	private T defaultValue	  = null;
 	private boolean isSpacer  = false;
@@ -65,10 +70,10 @@ public class SettingBase<T> implements InterfaceParam {
 	private BaseText[] optionsText;
 	private String settingToolTip;
 	private int bulletHeightFactor = 1;
-//	private int bulletSide  = 2;
 	private int bulletMax   = 25;
 	private int bulletStart = 0;
 	private float lastRandomSource;
+    private BasePanel panel;
 	
 	// ========== Constructors and initializers ==========
 	//
@@ -134,6 +139,10 @@ public class SettingBase<T> implements InterfaceParam {
 		this.isBullet = isBullet;
 		return this;
 	}
+	public SettingBase<?> allowListSelect(boolean allowListSelect) {
+		this.allowListSelect = allowListSelect;
+		return this;
+	}
 	public SettingBase<?> isList(boolean isList) {
 		this.isList = isList;
 		return this;
@@ -183,6 +192,9 @@ public class SettingBase<T> implements InterfaceParam {
 	@Override public void toggle(MouseEvent e) {
 		if (getDir(e) == 0) 
 			setFromDefault();
+		else if (allowListSelect && hasPanel() && 
+				(e.isControlDown() || listSize() >= minListSizePopUp.get()))
+			setFromList(getPanel());
 		else if (getDir(e) > 0)
 			next();
 		else 
@@ -445,6 +457,7 @@ public class SettingBase<T> implements InterfaceParam {
 	public int bulletHeightFactor()	{ return bulletHeightFactor; }
 	public float lastRandomSource()	{ return lastRandomSource; }
 	public boolean isDefaultIndex()	{ return cfgValidIndex() == rawDefaultIndex(); }
+	public boolean allowListSelect(){ return allowListSelect; }
 	public BaseText	settingText()	{ return settingText; }
 	public BaseText[] optionsText()	{ return optionsText; }
 	public BaseText optionText(int i) { return optionsText[i]; }
@@ -681,5 +694,40 @@ public class SettingBase<T> implements InterfaceParam {
 			index++;
 		}
 		return -1;
+	}
+
+	@Override public void setPanel (BasePanel p) { panel = p; }
+	private BasePanel getPanel() { return panel; }
+	private boolean hasPanel()	 { return panel != null; }
+	private int getValueIndexIgnoreCase(String value) {
+		int index = 0;
+		for (String entry : cfgValueList) {
+			if (entry.equalsIgnoreCase(value))
+				return index;
+			index++;
+		}
+		return -1;
+	}
+	@SuppressWarnings("unchecked")
+	private void setFromList(Component parent) {
+		String message	= "<html>" + getGuiDescription() + "</html>";
+		String title	= text(labelId(), "");
+		String input;
+		// System.out.println("getIndex() = " + getIndex());
+		// System.out.println("currentOption() = " + currentOption());
+
+		String[] list = cfgValueList.toArray(new String[listSize()]);
+		input  = (String) ListDialog.showDialog(
+				parent,	parent,			// Frame & Location component
+				message, title,			// Message & Title
+				list, selectedValue.toString(),	// List & Initial choice
+				null, true,				// long Dialogue & isVertical
+				RotPUI.scaledSize(360), RotPUI.scaledSize(300),	// size
+				null, null,	// Font, Preview
+				null);	// Alternate return
+		// System.out.println("input = " + input);
+		if (input != null && getValueIndexIgnoreCase(input) >= 0)
+			set((T) input);
+		// System.out.println("getIndex() = " + getIndex());
 	}
 }

@@ -748,9 +748,8 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         }
     }
     private void shipSetChanged() {
-    	shipSetTxt.setText(playerShipSet.get());
-    	shipSetId = playerShipSet.realShipSetId(Race.keyed(
-    			newGameOptions().selectedPlayerRace()).preferredShipSet);
+    	shipSetTxt.setText(playerShipSet.displaySet());
+    	shipSetId = playerShipSet.realShipSetId();
         for (int i=0; i<shipImages.length; i++)
         	shipImages[i].clear();
     }
@@ -758,7 +757,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         repaint();
     }
     void raceChanged() {
-        Race r =  Race.keyed(newGameOptions().selectedPlayerRace());
+        Race r   =  Race.keyed(newGameOptions().selectedPlayerRace());
       	dataRace = playerCustomRace.getRace(); // BR:
         r.resetSetupImage();
         r.resetMugshot();

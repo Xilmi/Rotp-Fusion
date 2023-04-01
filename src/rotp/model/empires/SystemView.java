@@ -478,14 +478,14 @@ public class SystemView implements IMappedObject, Base, Serializable {
     	g.drawImage(left,  0,    0, MID1, SIDE, MAST-FLAG_W, 0, MAST, SIDE, null);
     	return result;
     }
-    private static Image joinImage(Image bL, Image bR, Image tR, Image tL) { // TODO BR: flagColorCount
+    private static Image joinImage(Image bL, Image bR, Image tR, Image tL) { // BR: flagColorCount
     	BufferedImage result = bufferedImage(bL, bR);
     	Graphics g = result.getGraphics();
 		g.drawImage(joinImage(tL, tR),
 				LF_LEFT, LF_TOP,  LF_RIGHT, LF_BOTTOM, 0, 0, SIDE, SIDE-LF_CUT, null);
     	return new ImageIcon(result).getImage();
     }
-    private static Image joinImage(Image bL, Image bR, Image tR) { // TODO BR: flagColorCount
+    private static Image joinImage(Image bL, Image bR, Image tR) { // BR: flagColorCount
     	return joinImage(bL, bR, tR, null);    	
     }
     private static Image joinImage(Image left, Image right) { // BR: flagColorCount

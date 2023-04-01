@@ -1,5 +1,10 @@
 Update:
 - Added Auto-Flag option: Clear Flag Color.
+- Custom Races:
+  - Added Preferred Chip Set. (With pop-up list for selection)
+  - Added Preferred Chip Size.
+    - Only used by AI:Base, AI:Modnar, AI:Rookie, and AI:RolePlay.
+
 
 Last Release:
 - Added an Auto-Flag option acting when a new system is scouted.

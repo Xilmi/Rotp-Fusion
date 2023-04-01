@@ -273,12 +273,14 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		cr.fromOptions((DynOptions) playerCustomRace.get());
 		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 		init();
+		cr.initPanel(this);
 		reloadRaceList();
 		repaint();
 	}
 	@Override protected String GUI_ID() { return GUI_ID; }
 	@Override protected void close() {
 		ModifierKeysState.reset();
+		cr.close();
 		disableGlassPane();
 		((SetupRaceUI) parent).raceChanged();		
 		RotPUI.instance().returnToSetupRacePanel();

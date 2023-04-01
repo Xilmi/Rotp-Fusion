@@ -1566,6 +1566,16 @@ CUSTOM_RACE_AVAILABLE_AI_DESC     | Should this file be available to Alien?
 CUSTOM_RACE_RESOURCES_NORMAL      | Normal
 CUSTOM_RACE_ENVIRONMENT_NORMAL    | Normal
 
+CUSTOM_RACE_FAVORED_SHIPSET       | ShipSet
+CUSTOM_RACE_FAVORED_SHIPSET_DESC  | What is the preferred shipset used by this race? (If still available)
+CUSTOM_RACE_FAVORED_SHIP_SIZE     | Ships Size
+CUSTOM_RACE_FAVORED_SHIP_SIZE_DESC | What is the preferred ship size used by this race? (AI:Base, AI:Modnar, AI: Rookie, and AI:Roleplay will use this information)
+CUSTOM_RACE_SHIP_SIZE_SMALL       | Small
+CUSTOM_RACE_SHIP_SIZE_MEDIUM      | Medium
+CUSTOM_RACE_SHIP_SIZE_LARGE       | Large
+CUSTOM_RACE_SHIP_SIZE_HUGE        | Huge
+
+
 // Advanced Settings
 SETTINGS_TITLE                    | Advanced Game Options
 SETTINGS_DESCRIPTION              | Click, Right-Click, or Scroll to toggle each game setting.

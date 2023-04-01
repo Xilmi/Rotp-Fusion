@@ -19,9 +19,7 @@ package rotp.ui.util;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
-import javax.swing.JFrame;
-
-import rotp.ui.game.BaseModPanel;
+import rotp.ui.BasePanel;
 
 public interface InterfaceParam extends InterfaceOptions{
 	public static final String LABEL_DESCRIPTION = "_DESC";
@@ -41,7 +39,7 @@ public interface InterfaceParam extends InterfaceOptions{
 	public boolean isDefaultValue();
 
 	public default void toggle(MouseEvent e, int p) {};
-	public default void setPanel(BaseModPanel p) {}
+	public default void setPanel(BasePanel p) {}
 	public default void initGuiTexts()			{}
 	public default String getToolTip()			{ return ""; }
 	public default String getToolTip(int idx)	{ return ""; }
