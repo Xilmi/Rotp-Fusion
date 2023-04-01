@@ -26,6 +26,10 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2023.04.01 (BR)
+- Cleaned the GUI pop-up call:
+  - The parameters don't need to memorize the frame anymore.
+
 2023.03.31 (BR)
 - Custom Races:
   - Added Preferred Chip Set.

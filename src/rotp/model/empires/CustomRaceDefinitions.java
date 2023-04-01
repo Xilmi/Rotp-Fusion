@@ -46,7 +46,6 @@ import rotp.model.game.DynOptions;
 import rotp.model.game.MOO1GameOptions;
 import rotp.model.planet.PlanetType;
 import rotp.model.ships.ShipLibrary;
-import rotp.ui.BasePanel;
 import rotp.ui.util.SettingBase;
 import rotp.ui.util.SettingBoolean;
 import rotp.ui.util.SettingFloat;
@@ -109,16 +108,6 @@ public class CustomRaceDefinitions  {
 	}
 	private CustomRaceDefinitions(String fileName) {
 		this(loadOptions(Rotp.jarPath(), fileName + EXT));
-	}
-	public void initPanel(BasePanel panel) {
-		for (SettingBase<?> setting : settingList)
-			if (setting.allowListSelect())
-				setting.setPanel(panel);
-	}
-	public void close() {
-		for (SettingBase<?> setting : settingList)
-			if (setting.allowListSelect())
-				setting.setPanel(null);
 	}
 	// -------------------- Static Methods --------------------
 	// 

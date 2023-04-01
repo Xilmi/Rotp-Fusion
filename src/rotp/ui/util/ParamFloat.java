@@ -16,6 +16,7 @@
 
 package rotp.ui.util;
 
+import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.text.DecimalFormat;
@@ -118,7 +119,7 @@ public class ParamFloat extends AbstractParam<Float> {
 	}	
 	@Override public void next() { next(baseInc()); }
 	@Override public void prev() { next(-baseInc()); }
-	@Override public void toggle(MouseEvent e)		{ next(getInc(e) * getDir(e)); }
+	@Override public void toggle(MouseEvent e, Component frame)		{ next(getInc(e) * getDir(e)); }
 	@Override public void toggle(MouseWheelEvent e) { next(getInc(e) * getDir(e)); }
 	@Override public void setFromOptions(DynamicOptions options) {
 		if (!isDuplicate() && options != null)

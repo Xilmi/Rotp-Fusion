@@ -1190,12 +1190,12 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         else if (hoverBox == playerRaceSettingBox)
             goToPlayerRaceCustomization();
         else if (hoverBox == checkBox) {
-            playerIsCustom.toggle(e);
+            playerIsCustom.toggle(e, this);
             checkBoxChanged();
         }
         // BR: Player Ship Set Selection
         else if (hoverBox == shipSetBox) {
-        	playerShipSet.toggle(e);
+        	playerShipSet.toggle(e, this);
         	shipSetChanged();
         	repaint();
         }

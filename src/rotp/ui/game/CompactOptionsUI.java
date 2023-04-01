@@ -289,10 +289,10 @@ public class CompactOptionsUI extends BaseModPanel implements MouseListener, Mou
 						return;
 					super.close();
 			        disableGlassPane();
-					activeList.get(i).toggle(e, 1);
+					activeList.get(i).toggle(e, 1, this);
 					return;
 				}			
-				activeList.get(i).toggle(e, w);
+				activeList.get(i).toggle(e, w, this);
 				setValueColor(i);
 				btList0.get(i).repaint(activeList.get(i).getGuiDisplay(0));
 				btList2.get(i).repaint(activeList.get(i).getGuiDisplay(1));

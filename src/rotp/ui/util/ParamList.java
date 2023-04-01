@@ -164,12 +164,12 @@ public class ParamList extends AbstractParam<String> {
 		else 
 			prev();
 	}
-	@Override public void toggle(MouseEvent e) {
+	@Override public void toggle(MouseEvent e, Component frame) {
 		if (getDir(e) == 0)
 			setFromDefault();
-		else if (hasPanel() && 
+		else if (frame != null && 
 				(e.isControlDown() || listSize() >= minListSizePopUp.get()))
-			setFromList(getPanel());
+			setFromList(frame);
 		else if (getDir(e) > 0)
 			next();
 		else 
@@ -248,7 +248,7 @@ public class ParamList extends AbstractParam<String> {
 		int index = Math.max(0, getIndex());
 		return valueLabelMap.guiTextList.get(index);
 	}
-	private void setFromList(Component parent) {
+	private void setFromList(Component frame) {
 		String message	= "<html>" + getGuiDescription() + "</html>";
 		String title	= text(labelId(), "");
 		String input;
@@ -256,7 +256,7 @@ public class ParamList extends AbstractParam<String> {
 		// System.out.println("currentOption() = " + currentOption());
 		String[] list= valueLabelMap.guiTextList.toArray(new String[listSize()]);
 		input  = (String) ListDialog.showDialog(
-				parent,	parent,			// Frame & Location component
+				frame,	frame,			// Frame & Location component
 				message, title,			// Message & Title
 				list, currentOption(),	// List & Initial choice
 				null, true,				// long Dialogue & isVertical

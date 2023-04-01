@@ -16,10 +16,9 @@
 
 package rotp.ui.util;
 
+import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
-
-import rotp.ui.BasePanel;
 
 public interface InterfaceParam extends InterfaceOptions{
 	public static final String LABEL_DESCRIPTION = "_DESC";
@@ -29,8 +28,8 @@ public interface InterfaceParam extends InterfaceOptions{
 	public void next();
 	public void prev();
 	public void toggle(MouseWheelEvent e);
-	public void toggle(MouseEvent e);
-	public void toggle(MouseEvent e, MouseWheelEvent w);
+	public void toggle(MouseEvent e, Component frame);
+	public void toggle(MouseEvent e, MouseWheelEvent w, Component frame);
 	public String getCfgValue();
 	public String getCfgLabel();
 	public String getGuiDisplay();
@@ -38,8 +37,7 @@ public interface InterfaceParam extends InterfaceOptions{
 	public String getGuiDescription();
 	public boolean isDefaultValue();
 
-	public default void toggle(MouseEvent e, int p) {};
-	public default void setPanel(BasePanel p) {}
+	public default void toggle(MouseEvent e, int p, Component frame) {};
 	public default void initGuiTexts()			{}
 	public default String getToolTip()			{ return ""; }
 	public default String getToolTip(int idx)	{ return ""; }

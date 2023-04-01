@@ -207,7 +207,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			SettingBase<?> setting = mouseList.get(settingIdx);
 			if (setting.isBullet()) {
 				if (hoverBox == setting.settingText().bounds()) { // Check Setting
-					setting.toggle(e, w);
+					setting.toggle(e, w, this);
 					setting.guiSelect();
 					if (raceList.newValue())
 						repaint();
@@ -229,7 +229,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 					}
 				}
 			} else if (hoverBox == setting.settingText().bounds()) {
-				setting.toggle(e, w);
+				setting.toggle(e, w, this);
 				setting.settingText().repaint();
 				totalCostText.repaint(totalCostStr());
 				return;
@@ -273,14 +273,12 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		cr.fromOptions((DynOptions) playerCustomRace.get());
 		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 		init();
-		cr.initPanel(this);
 		reloadRaceList();
 		repaint();
 	}
 	@Override protected String GUI_ID() { return GUI_ID; }
 	@Override protected void close() {
 		ModifierKeysState.reset();
-		cr.close();
 		disableGlassPane();
 		((SetupRaceUI) parent).raceChanged();		
 		RotPUI.instance().returnToSetupRacePanel();

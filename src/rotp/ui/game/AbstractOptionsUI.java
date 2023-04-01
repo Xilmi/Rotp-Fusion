@@ -282,10 +282,10 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 						return;
 					super.close();
 			        disableGlassPane();
-					activeList.get(i).toggle(e, 2);
+					activeList.get(i).toggle(e, 2, this);
 					return;
 				}			
-				activeList.get(i).toggle(e, w);
+				activeList.get(i).toggle(e, w, this);
 				btList.get(i).repaint(activeList.get(i).getGuiDisplay());
 				return;
 			}			

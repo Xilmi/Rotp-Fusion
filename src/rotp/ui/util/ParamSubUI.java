@@ -16,6 +16,7 @@
 
 package rotp.ui.util;
 
+import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.util.LinkedList;
@@ -97,10 +98,10 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<InterfacePar
 	@Override public void toggle(MouseWheelEvent e) {
 		// System.out.println("toggle(MouseWheelEvent e)");		
 	}
-	@Override public void toggle(MouseEvent e) {
+	@Override public void toggle(MouseEvent e, Component frame) {
 		// System.out.println("toggle(MouseEvent e)");		
 	}
-	@Override public void toggle(MouseEvent e, int p) { ui().start(p); };
+	@Override public void toggle(MouseEvent e, int p, Component frame) { ui().start(p); };
 	@Override public String getGuiValue()	{
 		String label = isDefaultValue()? "SUB_UI_DEFAULT_YES" : "SUB_UI_DEFAULT_NO";
 		return text(label);

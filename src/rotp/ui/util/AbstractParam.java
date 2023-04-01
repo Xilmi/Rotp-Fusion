@@ -18,6 +18,7 @@ package rotp.ui.util;
 
 import static rotp.util.Base.textSubs;
 
+import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
@@ -25,7 +26,6 @@ import javax.swing.SwingUtilities;
 
 import rotp.model.game.DynamicOptions;
 import rotp.model.game.MOO1GameOptions;
-import rotp.ui.BasePanel;
 import rotp.util.LabelManager;
 
 public abstract class AbstractParam <T> implements InterfaceParam{
@@ -33,7 +33,6 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	
 	private final String name; // 
 	private final String gui;  // The label header
-    private BasePanel panel;
 	private T value;
 	private T defaultValue;
 	private T minValue	= null;
@@ -150,13 +149,12 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	}
 	@Override public boolean isDuplicate()	{ return isDuplicate; }
 	@Override public void setFromDefault()	{ set(defaultValue()); }
-	@Override public void toggle(MouseEvent e, MouseWheelEvent w) {
+	@Override public void toggle(MouseEvent e, MouseWheelEvent w, Component frame) {
 		if (e == null)
 			toggle(w);
 		else
-			toggle(e);
+			toggle(e, frame);
 	}
-	@Override public void setPanel(BasePanel p) { panel = p; }
 	// ========== Methods to be overridden ==========
 	//
 	T value(T value) 		{ return set(value); }
@@ -196,8 +194,6 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	protected void isDuplicate(boolean newValue) { isDuplicate = newValue ; }
 	protected String descriptionId() { return labelId() + LABEL_DESCRIPTION; }
 	protected String labelId()		 { return gui + name; }
-	protected BasePanel getPanel()	 { return panel; }
-	protected boolean hasPanel()	 { return panel != null; }
 	protected T getInc(MouseEvent e) {
 		if (e.isShiftDown()) 
 			return shiftInc;

@@ -32,7 +32,6 @@ import java.util.LinkedList;
 import javax.swing.SwingUtilities;
 
 import rotp.model.game.DynamicOptions;
-import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.RotPUI;
 import rotp.ui.main.SystemPanel;
@@ -73,7 +72,6 @@ public class SettingBase<T> implements InterfaceParam {
 	private int bulletMax   = 25;
 	private int bulletStart = 0;
 	private float lastRandomSource;
-    private BasePanel panel;
 	
 	// ========== Constructors and initializers ==========
 	//
@@ -177,11 +175,11 @@ public class SettingBase<T> implements InterfaceParam {
 			selectedIndex = cfgValueList.size()-1;
 		selectedValue(valueList.get(selectedIndex));		
 	}
-	@Override public void toggle(MouseEvent e, MouseWheelEvent w) {
+	@Override public void toggle(MouseEvent e, MouseWheelEvent w, Component frame) {
 		if (e == null)
 			toggle(w);
 		else
-			toggle(e);
+			toggle(e, frame);
 	}
 	@Override public void toggle(MouseWheelEvent w) {
 		if (getDir(w) > 0)
@@ -189,12 +187,12 @@ public class SettingBase<T> implements InterfaceParam {
 		else 
 			prev();
 	}
-	@Override public void toggle(MouseEvent e) {
+	@Override public void toggle(MouseEvent e, Component frame) {
 		if (getDir(e) == 0) 
 			setFromDefault();
-		else if (allowListSelect && hasPanel() && 
+		else if (allowListSelect && frame != null && 
 				(e.isControlDown() || listSize() >= minListSizePopUp.get()))
-			setFromList(getPanel());
+			setFromList(frame);
 		else if (getDir(e) > 0)
 			next();
 		else 
@@ -696,9 +694,6 @@ public class SettingBase<T> implements InterfaceParam {
 		return -1;
 	}
 
-	@Override public void setPanel (BasePanel p) { panel = p; }
-	private BasePanel getPanel() { return panel; }
-	private boolean hasPanel()	 { return panel != null; }
 	private int getValueIndexIgnoreCase(String value) {
 		int index = 0;
 		for (String entry : cfgValueList) {
@@ -709,7 +704,7 @@ public class SettingBase<T> implements InterfaceParam {
 		return -1;
 	}
 	@SuppressWarnings("unchecked")
-	private void setFromList(Component parent) {
+	private void setFromList(Component frame) {
 		String message	= "<html>" + getGuiDescription() + "</html>";
 		String title	= text(labelId(), "");
 		String input;
@@ -718,7 +713,7 @@ public class SettingBase<T> implements InterfaceParam {
 
 		String[] list = cfgValueList.toArray(new String[listSize()]);
 		input  = (String) ListDialog.showDialog(
-				parent,	parent,			// Frame & Location component
+				frame,	frame,			// Frame & Location component
 				message, title,			// Message & Title
 				list, selectedValue.toString(),	// List & Initial choice
 				null, true,				// long Dialogue & isVertical

@@ -2509,7 +2509,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			postSelectionFull(true);
 		}
 		else if (hoverBox == shapeBox) {
-			shapeSelection.toggle(e);
+			shapeSelection.toggle(e,  this);
 			postSelectionFull(true);
 		}
 		else if (hoverBox == shapeBoxR) {
@@ -2522,7 +2522,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			if (isShapeTextGalaxy())
 				selectGalaxyTextFromList();
 			else {
-				shapeOption1.toggle(e);
+				shapeOption1.toggle(e, this);
 				postSelectionMedium(true);
 			}
 		else if (hoverBox == mapOption1BoxR)
@@ -2532,7 +2532,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			postSelectionMedium(true);
 		}
 		else if (hoverBox == mapOption2Box) {
-			shapeOption2.toggle(e);
+			shapeOption2.toggle(e, this);
 			postSelectionMedium(true);
 		}
 		else if (hoverBox == mapOption2BoxR) {
@@ -2546,7 +2546,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			postGalaxySizeSelection(true);
 		}
 		else if (hoverBox == sizeBox) {
-			sizeSelection.toggle(e);
+			sizeSelection.toggle(e, this);
 			postGalaxySizeSelection(true);
 		}
 		else if (hoverBox == sizeBoxR) {
@@ -2558,7 +2558,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			postSelectionMedium(true);
 		}
 		else if (hoverBox == sizeOptionBox) {
-			dynStarsPerEmpire.toggle(e);
+			dynStarsPerEmpire.toggle(e, this);
 			postSelectionMedium(true);
 		}
 		else if (hoverBox == sizeOptionBoxR) {
@@ -2588,7 +2588,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			postSelectionLight(true);
 		}
 		else if (hoverBox == diffBox) {
-			difficultySelection.toggle(e);
+			difficultySelection.toggle(e, this);
 			postSelectionLight(true);
 		}
 		else if (hoverBox == diffBoxR) {
@@ -2601,7 +2601,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		}
 		else if (hoverBox == oppBox)
 		 {
-			aliensNumber.toggle(e);
+			aliensNumber.toggle(e, this);
 			postSelectionMedium(true);
 		}
 		else if (hoverBox == oppBoxD)

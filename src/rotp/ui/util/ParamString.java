@@ -16,6 +16,7 @@
 
 package rotp.ui.util;
 
+import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
@@ -41,7 +42,7 @@ public class ParamString extends AbstractParam<String> {
 	@Override public void prev() {}
 	@Override public void next() {}
 	@Override public void toggle(MouseWheelEvent e)	{}
-	@Override public void toggle(MouseEvent e) {}
+	@Override public void toggle(MouseEvent e, Component frame) {}
 	@Override public void setFromOptions(DynamicOptions options) {
 		if (!isDuplicate() && options != null)
 			set(options.getString(labelId(), defaultValue()));
