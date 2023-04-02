@@ -28,6 +28,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 2023.04.02 (BR)
 - Right click on alert to center the map on the system.
+- Totally removed Profiles Manager (Was no more maintained -> Danger)
 
 2023.04.01 (BR)
 - Cleaned the GUI pop-up call:

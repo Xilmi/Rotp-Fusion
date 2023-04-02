@@ -167,7 +167,7 @@ public class ShowCustomRaceUI extends BaseModPanel implements MouseListener, Mou
 		guiTitleID	= ROOT + "SHOW_TITLE";
 	    commonList	= settingList;
 	    mouseList	= settingList;
-	    cr.setRace(MOO1GameOptions.baseRaceOptions().getFirst());
+	    cr.setRace(IGameOptions.baseRaceOptions().getFirst());
 		addMouseListener(this);
 		addMouseMotionListener(this);
 	    initGUI();		

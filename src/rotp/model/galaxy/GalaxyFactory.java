@@ -39,7 +39,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import rotp.mod.br.addOns.RacesOptions;
 import rotp.model.empires.CustomRaceDefinitions;
 import rotp.model.empires.Empire;
 import rotp.model.empires.Empire.EmpireBaseData;
@@ -343,7 +342,7 @@ public class GalaxyFactory implements Base {
 	private LinkedList<String> buildAlienRaces() {
 		LinkedList<String> raceList = new LinkedList<>();
 		List<String> allRaceOptions = new ArrayList<>();
-		List<String> options = RacesOptions.getNewRacesOnOffList(); // BR:
+		List<String> options = IGameOptions.getNewRacesOnOffList(); // BR:
 		int maxRaces = options().selectedNumberOpponents();
 		int mult = IGameOptions.MAX_OPPONENT_TYPE;
 
@@ -590,11 +589,11 @@ public class GalaxyFactory implements Base {
 					case FILES_RACES:
 						if (random.nextBoolean())
 							if (allowedRaceList.isEmpty())
-								dataRace = Race.keyed(random(MOO1GameOptions.allRaceOptions()));
+								dataRace = Race.keyed(random(IGameOptions.allRaceOptions()));
 							else
 								dataRace = fileToAlienRace(random(allowedRaceList));
 						else
-							dataRace = Race.keyed(random(MOO1GameOptions.allRaceOptions()));
+							dataRace = Race.keyed(random(IGameOptions.allRaceOptions()));
 						break;
 					case ALL:
 						if (random.nextBoolean())
@@ -606,7 +605,7 @@ public class GalaxyFactory implements Base {
 							else
 								dataRace = optionToAlienRace(g.empire(0).raceOptions());
 						else if (random.nextBoolean())
-							dataRace = Race.keyed(random(MOO1GameOptions.allRaceOptions()));
+							dataRace = Race.keyed(random(IGameOptions.allRaceOptions()));
 						else
 							dataRace = Race.keyed(RANDOM_RACE_KEY);
 						break;

@@ -16,10 +16,9 @@
 package rotp.model.game;
 
 import java.awt.Color;
+import java.util.LinkedList;
 import java.util.List;
 
-import rotp.mod.br.addOns.RacesOptions;
-import rotp.mod.br.profiles.Profiles; // BR:
 import rotp.model.ai.AI;
 import rotp.model.empires.Empire;
 import rotp.model.empires.Race;
@@ -588,9 +587,6 @@ public interface IGameOptions {
     default void nextSpecificOpponentAI(int i) {
         List<String> allAIs = specificOpponentAIOptions();
         // BR: Add user filter
-    	if (Profiles.isGuiOpponentAIListEnabled()) {
-    		allAIs = RacesOptions.getGuiFilteredAIList();
-    	} // \BR:
         String currAI = specificOpponentAIOption(i);
 
         // if currAI not on the list: index=-1 then result=0 -> OK
@@ -603,10 +599,6 @@ public interface IGameOptions {
     }
     default void prevSpecificOpponentAI(int i) {
         List<String> allAIs = specificOpponentAIOptions();
-        // BR: Add user filter
-    	if (Profiles.isGuiOpponentAIListEnabled()) {
-    		allAIs = RacesOptions.getGuiFilteredAIList();
-    	} // \BR:
         String currAI = specificOpponentAIOption(i);
 
         // if currAI not on the list: index=-1 then result=0 -> OK
@@ -620,12 +612,7 @@ public interface IGameOptions {
     default void nextOpponent(int i) {
         String player = selectedPlayerRace();
         // BR: Race filtration
-        List<String> allOpps;
-        if (Profiles.isGuiOpponentRaceListEnabled()) {
-        	allOpps = RacesOptions.getGuiFilteredRaceList();
-        } else {
-        	allOpps = RacesOptions.getNewRacesOnOffList();
-        } // \BR
+        List<String> allOpps = getNewRacesOnOffList();
         String[] selectedOpps = selectedOpponentRaces();
         String currOpp = this.selectedOpponentRace(i);
 
@@ -652,12 +639,7 @@ public interface IGameOptions {
         String player = selectedPlayerRace();
         // BR: Race filtration
         // List<String> allOpps = startingRaceOptions();
-        List<String> allOpps;
-        if (Profiles.isGuiOpponentRaceListEnabled()) {
-        	allOpps = RacesOptions.getGuiFilteredRaceList();
-        } else {
-        	allOpps = RacesOptions.getNewRacesOnOffList();
-        } // \BR
+        List<String> allOpps = getNewRacesOnOffList();
         String[] selectedOpps = selectedOpponentRaces();
         String currOpp = selectedOpponentRace(i);
         int lastIndex = allOpps.size()-1;
@@ -716,5 +698,36 @@ public interface IGameOptions {
             case PLANET_QUALITY_NORMAL:   return 1.0f;
             default: return 1.0f;
         }
+    }
+    public static List<String> getNewRacesOnOffList() {
+		if (UserPreferences.showNewRaces.get()) {
+			return allRaceOptions();
+		}
+		return baseRaceOptions();
+    }
+    // BR: Made static method option
+    public static LinkedList<String> baseRaceOptions() {
+    	LinkedList<String> list = new LinkedList<>();
+        list.add("RACE_HUMAN");
+        list.add("RACE_ALKARI");
+        list.add("RACE_SILICOID");
+        list.add("RACE_MRRSHAN");
+        list.add("RACE_KLACKON");
+        list.add("RACE_MEKLAR");
+        list.add("RACE_PSILON");
+        list.add("RACE_DARLOK");
+        list.add("RACE_SAKKRA");
+        list.add("RACE_BULRATHI");
+        return list;
+    }
+    public static LinkedList<String> allRaceOptions() {
+    	LinkedList<String> list = baseRaceOptions();
+        list.add("RACE_NEOHUMAN");   // modnar: add races
+		list.add("RACE_MONOCLE");    // modnar: add races
+		list.add("RACE_JACKTRADES"); // modnar: add races
+		list.add("RACE_EARLYGAME");  // modnar: add races
+		list.add("RACE_WARDEMON");   // modnar: add races
+        list.add("RACE_GEARHEAD");   // modnar: add races
+        return list;
     }
 }

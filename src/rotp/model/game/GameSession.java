@@ -50,7 +50,6 @@ import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
 import rotp.Rotp;
-import rotp.mod.br.profiles.Profiles;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
 import rotp.model.empires.EspionageMission;
@@ -274,9 +273,6 @@ public final class GameSession implements Base, Serializable {
             shipsConstructed().clear();
             spyActivity = false;
             galaxy().startGame();
-            // BR: Save the last loaded game parameters
-            Profiles.saveGameOptionsToFile(this);
-            // \BR
             saveRecentSession(false);
             saveBackupSession(1);
             clearNewGameOptions();
@@ -298,9 +294,6 @@ public final class GameSession implements Base, Serializable {
             shipsConstructed().clear();
             spyActivity = false;
             galaxy().startGame();
-            // BR: Save the last loaded game parameters
-            Profiles.saveGameOptionsToFile(this);
-            // \BR
     		GameUI.gameName = generateGameName();
             saveRecentSession(false);
             saveBackupSession(1);
@@ -1032,15 +1025,6 @@ public final class GameSession implements Base, Serializable {
             }
 
             GameSession.instance = newSession;
-            // BR:
-            // if asked, Change the game parameters
-//            if (Profiles.ChangeGameFile) { // TODO BR: Remove Profiles.ChangeGameFile
-//            	Profiles.ChangeGameFile = false;
-//            	Profiles.changeGameSettings(instance);
-//            }
-//            // Save the last loaded game parameters
-//            Profiles.saveGameOptionsToFile(instance);
-            // \BR:
             newSession.validate();
             newSession.validateOnLoadOnly();
 
@@ -1059,15 +1043,6 @@ public final class GameSession implements Base, Serializable {
     // BR: For restarting with new options
     public void loadSession(GameSession newSession) {
         GameSession.instance = newSession;
-        // BR:
-        // if asked, Change the game parameters
-        if (Profiles.ChangeGameFile) {
-        	Profiles.ChangeGameFile = false;
-        	Profiles.changeGameSettings(instance);
-        }
-        // Save the last loaded game parameters
-        Profiles.saveGameOptionsToFile(instance);
-        // \BR:
         newSession.validate();
         newSession.validateOnLoadOnly();
     	return;

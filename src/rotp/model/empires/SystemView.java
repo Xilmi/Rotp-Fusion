@@ -81,8 +81,6 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
-import rotp.mod.br.addOns.MiscellaneousOptions;
-import rotp.mod.br.profiles.Profiles;
 import rotp.model.ai.FleetPlan;
 import rotp.model.colony.Colony;
 import rotp.model.events.SystemScoutedEvent;
@@ -773,9 +771,6 @@ public class SystemView implements IMappedObject, Base, Serializable {
     	setFlagColor(toggleFlagColor(reverse, getFlagColor(id)), id);
     }
     private int toggleFlagColor(boolean reverse, int flagColor) { // BR: flagColorCount
-    	if (Profiles.isFlagColorOrderEnabled()) { // BR:
-    		return MiscellaneousOptions.getNextFlagColor(flagColor, reverse);
-    	}
 		if (reverse) {
 			flagColor--;
 			if (flagColor < 0)

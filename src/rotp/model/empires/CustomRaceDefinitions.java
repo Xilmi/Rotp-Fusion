@@ -18,7 +18,7 @@ package rotp.model.empires;
 
 import static rotp.model.empires.Race.crEmpireNameRandom;
 import static rotp.model.game.DynOptions.loadOptions;
-import static rotp.model.game.MOO1GameOptions.baseRaceOptions;
+import static rotp.model.game.IGameOptions.baseRaceOptions;
 import static rotp.ui.UserPreferences.playerCustomRace;
 import static rotp.ui.UserPreferences.randomAlienRaces;
 import static rotp.ui.UserPreferences.randomAlienRacesMax;
@@ -43,7 +43,7 @@ import java.util.stream.Collectors;
 import rotp.Rotp;
 import rotp.model.empires.Leader.Personality;
 import rotp.model.game.DynOptions;
-import rotp.model.game.MOO1GameOptions;
+import rotp.model.game.IGameOptions;
 import rotp.model.planet.PlanetType;
 import rotp.model.ships.ShipLibrary;
 import rotp.ui.util.SettingBase;
@@ -525,7 +525,7 @@ public class CustomRaceDefinitions  {
 					add(loadOptions(file));
 
 			// Add Game races
-			for (String raceKey : MOO1GameOptions.allRaceOptions())
+			for (String raceKey : IGameOptions.allRaceOptions())
 				add(raceKey);
 
 			initOptionsText();

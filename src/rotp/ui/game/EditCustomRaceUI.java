@@ -38,6 +38,7 @@ import java.util.LinkedList;
 import rotp.model.empires.CustomRaceDefinitions;
 import rotp.model.empires.CustomRaceDefinitions.RaceList;
 import rotp.model.game.DynOptions;
+import rotp.model.game.IGameOptions;
 import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
@@ -99,7 +100,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	    mouseList.addAll(commonList);
 	    mouseList.add(raceList);
 	    
-	    cr.setRace(MOO1GameOptions.baseRaceOptions().getFirst());
+	    cr.setRace(IGameOptions.baseRaceOptions().getFirst());
 		return this;
 	}
 	private void reloadRaceList() {

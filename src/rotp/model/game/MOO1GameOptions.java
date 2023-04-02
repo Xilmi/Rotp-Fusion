@@ -48,8 +48,6 @@ import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
 import rotp.Rotp;
-import rotp.mod.br.addOns.GalaxyOptions;
-import rotp.mod.br.profiles.Profiles; // BR:
 import rotp.model.ai.AI;
 import rotp.model.empires.Empire;
 import rotp.model.empires.Race;
@@ -795,10 +793,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             case GALAXY_AGE_OLD:    pcts = oldPcts; break;
             default:                pcts = normalPcts; break;
         }
-        // BR: distribution modifier
-        if (Profiles.isStarProbabilityEnabled()) {
-        	pcts = GalaxyOptions.modifyStarProbability(pcts);
-        } // \BR:
         
         float r = random();
         for (int i=0;i<pcts.length;i++) {
@@ -884,16 +878,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
                 pcts = redPcts; break;
         }
 
-        // BR: Modify the "PLANET TYPE PROBABILITY GLOBAL" probability
-        if(Profiles.isPlanetProbabilityEnabled("GLOBAL")) {
-        	pcts = GalaxyOptions.modifyPlanetProbability(pcts, "GLOBAL");
-        }
-        // Modify the "PLANET TYPE PROBABILITY COLOR TYPE" probability
-        if(Profiles.isPlanetProbabilityEnabled(s.starType().key())) {
-        	pcts = GalaxyOptions.modifyPlanetProbability(pcts, s.starType().key());
-        }
-        // \BR
- 
         float r = random();
         
         // modnar: change PLANET_QUALITY settings, comment out poor to great settings
@@ -1226,38 +1210,45 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add(OPPONENT_AI_RANDOM_NOBAR);
         return list;
     } 
-    // BR: Made static method option
-    public static LinkedList<String> baseRaceOptions() {
-    	LinkedList<String> list = new LinkedList<>();
-        list.add("RACE_HUMAN");
-        list.add("RACE_ALKARI");
-        list.add("RACE_SILICOID");
-        list.add("RACE_MRRSHAN");
-        list.add("RACE_KLACKON");
-        list.add("RACE_MEKLAR");
-        list.add("RACE_PSILON");
-        list.add("RACE_DARLOK");
-        list.add("RACE_SAKKRA");
-        list.add("RACE_BULRATHI");
-        return list;
-    }
-    public static LinkedList<String> allRaceOptions() {
-    	LinkedList<String> list = baseRaceOptions();
-        list.add("RACE_NEOHUMAN");   // modnar: add races
-		list.add("RACE_MONOCLE");    // modnar: add races
-		list.add("RACE_JACKTRADES"); // modnar: add races
-		list.add("RACE_EARLYGAME");  // modnar: add races
-		list.add("RACE_WARDEMON");   // modnar: add races
-        list.add("RACE_GEARHEAD");   // modnar: add races
-        return list;
-    }
+    
+//    public static List<String> getNewRacesOnOffList() {
+//		if (UserPreferences.showNewRaces.get()) {
+//			return MOO1GameOptions.allRaceOptions();
+//		}
+//		return MOO1GameOptions.baseRaceOptions();
+//    }
+//    // BR: Made static method option
+//    public static LinkedList<String> baseRaceOptions() {
+//    	LinkedList<String> list = new LinkedList<>();
+//        list.add("RACE_HUMAN");
+//        list.add("RACE_ALKARI");
+//        list.add("RACE_SILICOID");
+//        list.add("RACE_MRRSHAN");
+//        list.add("RACE_KLACKON");
+//        list.add("RACE_MEKLAR");
+//        list.add("RACE_PSILON");
+//        list.add("RACE_DARLOK");
+//        list.add("RACE_SAKKRA");
+//        list.add("RACE_BULRATHI");
+//        return list;
+//    }
+//    public static LinkedList<String> allRaceOptions() {
+//    	LinkedList<String> list = baseRaceOptions();
+//        list.add("RACE_NEOHUMAN");   // modnar: add races
+//		list.add("RACE_MONOCLE");    // modnar: add races
+//		list.add("RACE_JACKTRADES"); // modnar: add races
+//		list.add("RACE_EARLYGAME");  // modnar: add races
+//		list.add("RACE_WARDEMON");   // modnar: add races
+//        list.add("RACE_GEARHEAD");   // modnar: add races
+//        return list;
+//    }
     @Override
     public List<String> newRaceOffOptions() {
-        return baseRaceOptions();
+        return IGameOptions.baseRaceOptions();
     }
     @Override
     public List<String> startingRaceOptions() {
-        return allRaceOptions();
+        return IGameOptions.allRaceOptions();
     }
     @Override
     public List<Integer> possibleColors() {
@@ -1546,9 +1537,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
     private void setBaseRaceSettingsToDefault() { // BR:
         if (UserPreferences.showNewRaces.get()) // BR: limit randomness
-        	selectedPlayerRace(random(allRaceOptions()));
+        	selectedPlayerRace(random(IGameOptions.allRaceOptions()));
         else
-        	selectedPlayerRace(random(baseRaceOptions()));
+        	selectedPlayerRace(random(IGameOptions.baseRaceOptions()));
         selectedPlayerColor(0);
     }
     private static void copyBaseRaceSettings(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
@@ -1564,9 +1555,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         for (int i=0;i<opponentRaces.length;i++)
         	opponentRaces[i] = null;
         if (UserPreferences.showNewRaces.get()) // BR: limit randomness
-        	selectedPlayerRace(random(allRaceOptions()));
+        	selectedPlayerRace(random(IGameOptions.allRaceOptions()));
         else
-        	selectedPlayerRace(random(baseRaceOptions()));
+        	selectedPlayerRace(random(IGameOptions.baseRaceOptions()));
         selectedGameDifficulty = DIFFICULTY_NORMAL;
         selectedOpponentAIOption = OPPONENT_AI_CRUEL;
         for (int i=0;i<specificOpponentAIOption.length;i++)

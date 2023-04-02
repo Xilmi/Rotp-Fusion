@@ -93,8 +93,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import rotp.Rotp;
-import rotp.mod.br.addOns.RacesOptions;
-import rotp.mod.br.profiles.Profiles;
 import rotp.model.empires.Race;
 import rotp.model.galaxy.GalaxyFactory.GalaxyCopy;
 import rotp.model.galaxy.GalaxyShape;
@@ -1812,15 +1810,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		starting = true;
 		repaint();
 		buttonClick();
-		// BR:
-		if (Profiles.isStartOpponentRaceListEnabled()) {
-			RacesOptions.loadStartingOpponents(newGameOptions());
-		}
-		if (Profiles.isStartOpponentAIListEnabled()) {
-			RacesOptions.loadStartingAIs(newGameOptions());
-		}
 		GameUI.gameName = generateGameName();
-		// \BR:
 		UserPreferences.setForNewGame();
 		close();
 		final Runnable save = () -> {
@@ -1831,7 +1821,6 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			log("TOTAL GAME START TIME:" +(System.currentTimeMillis()-start));
 			log("Game Name; "+GameUI.gameName);
 			starting = false;
-//			close();
 		};
 		SwingUtilities.invokeLater(save);
 	}

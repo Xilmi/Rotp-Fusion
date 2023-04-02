@@ -31,7 +31,6 @@ import java.io.File;
 import java.util.List;
 import javax.swing.JFileChooser;
 
-import rotp.mod.br.profiles.Profiles;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.UserPreferences;
@@ -549,9 +548,6 @@ public class GameSettingsUI extends BasePanel implements MouseListener, MouseMot
             case KeyEvent.VK_SPACE:
             case KeyEvent.VK_ENTER:
                 parent.advanceHelp();
-                break;
-            case KeyEvent.VK_P: // BR: Load Profile Manager Configuration file
-                Profiles.loadProfileManagerConfig();
                 break;
         }
     }

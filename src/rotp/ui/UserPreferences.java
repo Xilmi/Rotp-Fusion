@@ -48,7 +48,7 @@ import static rotp.model.game.IGameOptions.STAR_DENSITY_NORMAL;
 import static rotp.model.game.IGameOptions.TECH_TRADING_YES;
 import static rotp.model.game.IGameOptions.TERRAFORMING_NORMAL;
 import static rotp.model.game.IGameOptions.WARP_SPEED_NORMAL;
-import static rotp.model.game.MOO1GameOptions.baseRaceOptions;
+import static rotp.model.game.IGameOptions.baseRaceOptions;
 import static rotp.model.game.MOO1GameOptions.getAiHostilityOptions;
 import static rotp.model.game.MOO1GameOptions.getAutoplayOptions;
 import static rotp.model.game.MOO1GameOptions.getColonizingOptions;
