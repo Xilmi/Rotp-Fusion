@@ -135,7 +135,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
             }
             if(kiteMissiles)
             {
-                System.out.print("\n"+stack.fullName()+" should be kiting now. Destination: "+findSafestPoint(stack));
+                //System.out.print("\n"+stack.fullName()+" should be kiting now. Destination: "+findSafestPoint(stack));
                 if (stack.mgr.autoResolve) {
                     Point destPt = findSafestPoint(stack);
                     if (destPt != null)
@@ -146,7 +146,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
                     FlightPath bestPathToSaveSpot = findSafestPath(stack);
                     if(bestPathToSaveSpot != null)
                         mgr.performMoveStackAlongPath(stack, bestPathToSaveSpot);
-                    System.out.print("\n"+stack.fullName()+" Kiting performed: "+(bestPathToSaveSpot != null));
+                    //System.out.print("\n"+stack.fullName()+" Kiting performed: "+(bestPathToSaveSpot != null));
                 }
             }
             
