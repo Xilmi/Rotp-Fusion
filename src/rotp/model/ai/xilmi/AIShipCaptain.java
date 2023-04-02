@@ -34,6 +34,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
     private transient List<CombatStack> enemies = new ArrayList<>();
     private CombatStack currentTarget = null;
     private boolean retreatImmediately = false;
+    private boolean kiteMissiles = false;
 
     public List<CombatStack> allies() {
         if (allies == null)
@@ -76,6 +77,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
         
         CombatStack prevTarget = null;
         retreatImmediately = false;
+        kiteMissiles = false;
         
         boolean turnActive = true;
         while (turnActive) {
@@ -131,6 +133,22 @@ public class AIShipCaptain implements Base, ShipCaptain {
                     }
                 }
             }
+            if(kiteMissiles)
+            {
+                System.out.print("\n"+stack.fullName()+" should be kiting now. Destination: "+findSafestPoint(stack));
+                if (stack.mgr.autoResolve) {
+                    Point destPt = findSafestPoint(stack);
+                    if (destPt != null)
+                        mgr.performMoveStackToPoint(stack, destPt.x, destPt.y);
+                }
+                else
+                {
+                    FlightPath bestPathToSaveSpot = findSafestPath(stack);
+                    if(bestPathToSaveSpot != null)
+                        mgr.performMoveStackAlongPath(stack, bestPathToSaveSpot);
+                    System.out.print("\n"+stack.fullName()+" Kiting performed: "+(bestPathToSaveSpot != null));
+                }
+            }
             
             //When we are defending and can't get into attack-range of the enemy, we let them come to us
             /*if(currentTarget != null)
@@ -149,7 +167,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
                 }
             }
             boolean moved = false;            
-            if (currentTarget != null) {
+            if (currentTarget != null && !kiteMissiles) {
                 boolean repulsorDefender = stack.repulsorRange() >= 1 && currentTarget.maxFiringRange(stack) <= stack.repulsorRange() && stack.hasWard() && !currentTarget.canCloak && !currentTarget.canTeleport();
                 if(repulsorDefender)
                 {
@@ -562,7 +580,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
                         blocked = true;
                         continue;
                     }
-                    if(other.canPotentiallyAttack(st))
+                    if(other.canPotentiallyAttack(st) || !st.missiles().isEmpty())
                     {
                         currentScore += other.distanceTo(x, y);
                     }
@@ -817,8 +835,17 @@ public class AIShipCaptain implements Base, ShipCaptain {
                     //System.out.print("\n"+currStack.fullName()+" will be hit by missiles for approx "+killPct+" dmg: "+maxHit+" hp: "+currStack.hits+" threshold: "+(1.0f / miss.missile.shots()));
                     if((killPct > 1.0f / miss.missile.shots() && maxHit >= currStack.hits) || (currStack.num == 1 && maxHit >= currStack.hits))
                     {
-                        retreatImmediately = true; //when we have incoming missiles we can't do damage first
-                        return true;
+                        Point safestPoint = findSafestPoint(currStack);
+                        if(miss.maxMove + 0.7 < miss.distanceTo((float)safestPoint.x, (float)safestPoint.y))
+                        {
+                            kiteMissiles = true;
+                            //System.out.print("\n"+currStack.fullName()+" should kite missiles because "+(miss.maxMove+0.7)+" at x:"+miss.x()+" y:"+miss.y()+" < "+miss.distanceTo((float)safestPoint.x, (float)safestPoint.y));
+                        }
+                        else
+                        {
+                            retreatImmediately = true; //when we have incoming missiles we can't do damage first
+                            return true;
+                        }
                     }
                 }
             }
