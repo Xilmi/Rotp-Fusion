@@ -26,6 +26,7 @@ import static rotp.ui.UserPreferences.randomAlienRacesMin;
 import static rotp.ui.UserPreferences.randomAlienRacesSmoothEdges;
 import static rotp.ui.UserPreferences.randomAlienRacesTargetMax;
 import static rotp.ui.UserPreferences.randomAlienRacesTargetMin;
+import static rotp.ui.util.PlayerShipSet.DISPLAY_RACE_SET;
 import static rotp.ui.util.SettingBase.CostFormula.DIFFERENCE;
 import static rotp.ui.util.SettingBase.CostFormula.NORMALIZED;
 import static rotp.util.Base.random;
@@ -44,6 +45,7 @@ import rotp.model.empires.Leader.Personality;
 import rotp.model.game.DynOptions;
 import rotp.model.game.MOO1GameOptions;
 import rotp.model.planet.PlanetType;
+import rotp.model.ships.ShipLibrary;
 import rotp.ui.util.SettingBase;
 import rotp.ui.util.SettingBoolean;
 import rotp.ui.util.SettingFloat;
@@ -409,6 +411,8 @@ public class CustomRaceDefinitions  {
 		settingList.add(objective.technologist);
 		spacer();
 		settingList.add(availableAI);
+		settingList.add(new PreferredShipSize());
+		settingList.add(new PreferredShipSet());
 		spacer();
 		settingList.add(new RacePrefix());
 		settingList.add(new RaceSuffix());
@@ -861,6 +865,51 @@ public class CustomRaceDefinitions  {
 		@Override public void pullSetting() {
 			set(race.availableAI);
 		}
+	}
+	// ==================== PreferredShipSize ====================
+	//
+	private class PreferredShipSize extends SettingBase<String> {
+		private static final String defaultValue = "Large";
+		
+		private PreferredShipSize() {
+			super(ROOT, "FAVORED_SHIP_SIZE");
+			isBullet(true);
+			hasNoCost(true);
+			getToolTip();
+			initOptionsText();
+			labelsAreFinals(true);
+			put("Small",	ROOT + "SHIP_SIZE_SMALL",	0f, "Small");
+			put("Medium",	ROOT + "SHIP_SIZE_MEDIUM",	0f, "Medium");
+			put("Large",	ROOT + "SHIP_SIZE_LARGE",	0f, "Large");
+			put("Huge",		ROOT + "SHIP_SIZE_HUGE",	0f, "Huge");
+			defaultCfgValue(defaultValue);
+			initOptionsText();
+		}
+		@Override public void pushSetting() { race.preferredShipSize = index(); }
+		@Override public void pullSetting() { index(race.preferredShipSize()); }
+	}
+	// ==================== PreferredShipSet ====================
+	//
+	private class PreferredShipSet extends SettingBase<String> {
+		private static final String defaultValue = DISPLAY_RACE_SET;
+		
+		private PreferredShipSet() {
+			super(ROOT, "FAVORED_SHIPSET");
+			isBullet(false);
+			hasNoCost(true);
+			getToolTip();
+			initOptionsText();
+			labelsAreFinals(true);
+			allowListSelect(true);
+			for (String s : ShipLibrary.current().styles) {
+				put(s, s, 0f, s);
+			}
+			put(DISPLAY_RACE_SET, DISPLAY_RACE_SET, 0f, DISPLAY_RACE_SET);
+			defaultCfgValue(defaultValue);
+			initOptionsText();
+		}
+		@Override public void pushSetting() { race.preferredShipSet = settingValue(); }
+		@Override public void pullSetting() { set(race.preferredShipSet); }
 	}
 	// ==================== CRObjective ====================
 	//

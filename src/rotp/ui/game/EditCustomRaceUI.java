@@ -207,7 +207,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			SettingBase<?> setting = mouseList.get(settingIdx);
 			if (setting.isBullet()) {
 				if (hoverBox == setting.settingText().bounds()) { // Check Setting
-					setting.toggle(e, w);
+					setting.toggle(e, w, this);
 					setting.guiSelect();
 					if (raceList.newValue())
 						repaint();
@@ -229,7 +229,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 					}
 				}
 			} else if (hoverBox == setting.settingText().bounds()) {
-				setting.toggle(e, w);
+				setting.toggle(e, w, this);
 				setting.settingText().repaint();
 				totalCostText.repaint(totalCostStr());
 				return;

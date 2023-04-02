@@ -256,7 +256,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseListener, Mou
 		else
 			txt2.enabledC(customValuesColor);
 	}
-	private void paintSetting(Graphics2D g) { // TODO
+	private void paintSetting(Graphics2D g) {
 		setValueColor(index);
 		BaseText txt0 = btList0.get(index);
 		BaseText txt2 = btList2.get(index);
@@ -289,10 +289,10 @@ public class CompactOptionsUI extends BaseModPanel implements MouseListener, Mou
 						return;
 					super.close();
 			        disableGlassPane();
-					activeList.get(i).toggle(e, 1);
+					activeList.get(i).toggle(e, 1, this);
 					return;
 				}			
-				activeList.get(i).toggle(e, w);
+				activeList.get(i).toggle(e, w, this);
 				setValueColor(i);
 				btList0.get(i).repaint(activeList.get(i).getGuiDisplay(0));
 				btList2.get(i).repaint(activeList.get(i).getGuiDisplay(1));

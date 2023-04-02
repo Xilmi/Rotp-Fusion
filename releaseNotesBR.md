@@ -1,47 +1,41 @@
-Update: "Precursor Relic" event:
-- AIs and Player have now the same view of the new created planets.
-  - AIs where accidentally "cheating", to be even: now the player too!
-- Player is always notified of the planet creation.
+Update:
+- Added Auto-Flag option: Clear Flag Color.
+- Custom Races:
+  - Added Preferred Chip Set. (With pop-up list for selection)
+  - Added Preferred Chip Size.
+    - Only used by AI:Base, AI:Modnar, AI:Rookie, and AI:RolePlay.
+- Renamed "Target Bombing" to "Limited Bombing" and adjusted the GUI texts.
+  - in Option GUI and on the buttons: "Drop All" "Spare x pop" "No".
+
+Last Release:
 - Added an Auto-Flag option acting when a new system is scouted.
   - Set a Flag function of Planet Type.
   - Or set a Flag function of Planet Environment.
   - Or set a Flag function of Planet Ressources.
   - Or set a Flag function of Colony Ship Technologies.
-  - Pressing "Home" will run the auto-flag to the selected planet flag.
-  - Pressing "Alt"+"Home"  will run the auto-flag to all scouted planets flag.
+  - Pressing "Home" will run the auto-flag to the selected planet flags.
+  - Pressing "Alt"+"Home"  will run the auto-flag to all scouted planets flags.
+- Up to 4 flags are now available!
+  - May be not very useful, but I had fun adding them! ;-)
+  - Select Left-Right with "Ctrl".
+  - Select Top-Bottom with "Shift".
 
 Fixes:
 - Fixed second Map Flag showing black instead of not showing.
 - Fixed text on buttons some time not following the modifier keys.
+- Precursor Relic event:
+  - AIs and Player have now the same view of the new created planets.
+    - AIs where accidentally "cheating", to be even: now the player too!
+  - Player is always notified of the planet creation.
 
-
-New little features:
-- Target Bombing Button can now be hidden
-  - Added option to toggle this function.
-  - AI has been updated to use this option. (Thanks to Xilmi)
-- Added Help Button On Menu ("F1" = Help too)
-  - On Race Setup Menu.
-  - On Galaxy Setup Menu.
-  - Added MOD info on Galaxy map Help screen.
-  - (The other new Options Menu already have ToolTips at the bottom)
-- Split Menu to Static and Dynamic Option.
-  - Only Dynamic options are shown in Game.
-  - Split standard looking menu, they were full.
-  - Static = Only used when Starting, Restarting a game.
-  - Dynamic = Can be changed along the game... (Not always recommended)
-- Added Options to Space Pirates (Same as other Monster).
-    - Selectable Number of visited systems before the Pirates vanish.
-    - Option for reoccuring Pirates.
-- Added duplicate setting in Compact Dynamic Menu: (now directly available in game)
-  - Setting Auto Colony.
-  - Setting Auto Bombard.
-- Added Option for Dual Flags on planets.
-  - Hold Shift Key to adjust the second flag.
-- Flag color toggle uses the three mouse buttons:
-  - Two Buttons Mouse: No changes
-    - Left Buttons = Forward.
-    - Right Buttons = Reset.
-  - Three Buttons Mouse: No changes
-    - Left Buttons = Forward.
-    - Middle Buttons = Reset.
-    - Right Buttons = Backward.
+Others: Partially Disabled Profiles Manager:
+- It was not updated to the new menu.
+- It was not updated for the new options
+- And it may already be broken!
+- Almost everything is now more easily available from the GUI.
+  - Every save file is a profile that can be loaded!
+  - You can easily change the parameters in game...
+  - The restart function works better!
+  - Etc...
+- But if you miss some of its features: Just ask!
+- I will slowly continue to totally remove it!

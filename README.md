@@ -26,6 +26,28 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2023.04.01 (BR)
+- Cleaned the GUI pop-up call:
+  - The parameters don't need to memorize the frame anymore.
+- Renamed "Target Bombing" to "Limited Bombing" and adjusted the GUI texts.
+  - in Option GUI and on the buttons: "Drop All" "Spare x pop" "No".
+
+2023.03.31 (BR)
+- Custom Races:
+  - Added Preferred Chip Set.
+  - Added Preferred Chip Size.
+  - Added pop up list managment.
+
+2023.03.30 (BR)
+- Added Auto-Flag option: Clear Flag Color.
+- Fixed Rotp not starting in an empty folder!
+
+2023.03.29 (BR)
+- Partially Disabled Profiles Manager:
+  - It was no more updated and may already be broken!
+  - Almost everything is now available from the GUI.
+- Up to 4 flags are now available!
+
 2023.03.28 (BR)
 - Auto-Flag:
   - Added option for colony ship Technologies.

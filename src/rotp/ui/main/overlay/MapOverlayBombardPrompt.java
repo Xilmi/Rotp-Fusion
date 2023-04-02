@@ -178,7 +178,7 @@ public class MapOverlayBombardPrompt extends MapOverlay {
         int h = ui.getHeight();
 
         int transportH = transports > 0 ? s20 : 0;
-        boolean targetOK = rotp.ui.UserPreferences.targetBombardAllowedForPlayer();
+        boolean targetOK = UserPreferences.targetBombardAllowedForPlayer();
         int bdrW = s7;
         int buttonOffset = targetOK? s35 : 0; // BR: adjusted for target
         int boxW = scaled(540);
@@ -284,20 +284,31 @@ public class MapOverlayBombardPrompt extends MapOverlay {
             
             // calc width needed for yes/no buttons
             g.setFont(narrowFont(20));
-            String yesStr = text("MAIN_BOMBARD_YES");
+            String yesStr;
+            if (targetOK)
+            	yesStr = text("MAIN_BOMBARD_DROP_ALL");
+            else
+            	yesStr = text("MAIN_BOMBARD_YES");
             String targetStr = text("MAIN_BOMBARD_TARGET", UserPreferences.bombingTarget.get());
             String noStr = text("MAIN_BOMBARD_NO");
             int swYes = g.getFontMetrics().stringWidth(yesStr);
-            int swTarget = g.getFontMetrics().stringWidth(targetStr);
+            int swLim = g.getFontMetrics().stringWidth(targetStr);
             int swNo = g.getFontMetrics().stringWidth(noStr);
-            int buttonW = Math.max(swYes, swNo); // BR: adjusted for target
-            if (targetOK)
-            	buttonW = Math.max(buttonW, swTarget);
-            buttonW += s20;
+            // int buttonW = Math.max(swYes, swNo);
+            int bwYes, bwNo, bwLim;
+            if (targetOK) { // BR: adjusted for target
+            	bwYes = swYes + s20;
+            	bwNo  = bwYes;
+            	bwLim = swLim + s20;
+            } else {
+            	bwYes = Math.max(swYes, swNo) + s20;
+            	bwNo  = bwYes;
+            	bwLim = bwYes;
+            }
 
             // print prompt string
             String promptStr = text("MAIN_BOMBARD_PROMPT");
-            int promptFontSize = scaledFont(g, promptStr, boxW-leftW-buttonW-buttonW-s30, 24, 20);
+            int promptFontSize = scaledFont(g, promptStr, boxW-leftW-bwYes-bwNo-s30, 24, 20);
             g.setFont(narrowFont(promptFontSize));
             int swPrompt = g.getFontMetrics().stringWidth(promptStr);
             int promptY = boxY+s35+transportH;
@@ -311,26 +322,26 @@ public class MapOverlayBombardPrompt extends MapOverlay {
             int buttonY = promptY+buttonOffset; // BR: adjusted for target
             int buttonH = s30;
             // int x2 = boxX+leftW+swPrompt+s10;
-            int x2 = boxX+leftW+ (targetOK? 0 : swPrompt+s10); // BR: adjusted for target
-            int x3 = x2+buttonW+s10;
+            int xYes = boxX+leftW+ (targetOK? 0 : swPrompt+s10); // BR: adjusted for target
+            int xLim = xYes+bwYes+s10;
             // int x4 = x3+buttonW+s10;
-            int x4 = targetOK? x3+buttonW+s10 : x3; // BR: adjusted for target
+            int xNo = targetOK? xLim+bwLim+s10 : xLim; // BR: adjusted for target
             // yes button
             parent.addNextTurnControl(yesButton);
             yesButton.parent(this);
-            yesButton.setBounds(x2, buttonY, buttonW, buttonH);
+            yesButton.setBounds(xYes, buttonY, bwYes, buttonH);
             yesButton.draw(parent.map(), g);
             // BR: Target button
             if (targetOK) {
 	            parent.addNextTurnControl(targetButton);
 	            targetButton.parent(this);
-	            targetButton.setBounds(x3, buttonY, buttonW, buttonH);
+	            targetButton.setBounds(xLim, buttonY, bwLim, buttonH);
 	            targetButton.draw(parent.map(), g);
             }
             // no button
             parent.addNextTurnControl(noButton);
             noButton.parent(this);
-            noButton.setBounds(x4, buttonY, buttonW, buttonH);
+            noButton.setBounds(xNo, buttonY, bwNo, buttonH);
             noButton.draw(parent.map(), g);
         }
 

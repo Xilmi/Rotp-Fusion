@@ -37,7 +37,6 @@ import java.util.List;
 
 import javax.swing.SwingUtilities;
 
-import rotp.mod.br.profiles.Profiles;
 import rotp.ui.BaseText;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
@@ -168,7 +167,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 	//
 	// These may be left empty by full Auto GUI
 	private void paintCustomComponent(Graphics2D g) {}
-	private void repaintCustomComponent() {}
+//	private void repaintCustomComponent() {}
 	private void customMouseCommon(boolean up, boolean mid,
 			boolean shiftPressed, boolean ctrlPressed, MouseEvent e, MouseWheelEvent w) {}
 	// ========== Other Methods ==========
@@ -283,10 +282,10 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 						return;
 					super.close();
 			        disableGlassPane();
-					activeList.get(i).toggle(e, 2);
+					activeList.get(i).toggle(e, 2, this);
 					return;
 				}			
-				activeList.get(i).toggle(e, w);
+				activeList.get(i).toggle(e, w, this);
 				btList.get(i).repaint(activeList.get(i).getGuiDisplay());
 				return;
 			}			
@@ -411,17 +410,17 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 				return;
 			case KeyEvent.VK_SPACE:
 			default: // BR:
-				if(Profiles.processKey(k, e.isShiftDown(), guiTitleID, newGameOptions())) {
-				};
-				// Needs to be done twice for the case both Galaxy size
-				// and the number of opponents were changed !?
-				if(Profiles.processKey(k, e.isShiftDown(), guiTitleID, newGameOptions())) {
-					for (int i=0; i<activeList.size(); i++) {
-						btList.get(i).repaint(activeList.get(i).getGuiDisplay());
-					}
-					repaintCustomComponent();
-				};
-				return;
+//				if(Profiles.processKey(k, e.isShiftDown(), guiTitleID, newGameOptions())) {
+//				};
+//				// Needs to be done twice for the case both Galaxy size
+//				// and the number of opponents were changed !?
+//				if(Profiles.processKey(k, e.isShiftDown(), guiTitleID, newGameOptions())) {
+//					for (int i=0; i<activeList.size(); i++) {
+//						btList.get(i).repaint(activeList.get(i).getGuiDisplay());
+//					}
+//					repaintCustomComponent();
+//				};
+//				return;
 		}
 	}
 	@Override public void mouseDragged(MouseEvent e) {}

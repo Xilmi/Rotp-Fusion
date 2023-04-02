@@ -31,6 +31,8 @@ import static rotp.model.planet.PlanetType.TOXIC;
 import static rotp.model.planet.PlanetType.TUNDRA;
 import static rotp.ui.UserPreferences.autoFlagAssignation1;
 import static rotp.ui.UserPreferences.autoFlagAssignation2;
+import static rotp.ui.UserPreferences.autoFlagAssignation3;
+import static rotp.ui.UserPreferences.autoFlagAssignation4;
 import static rotp.ui.UserPreferences.flagAntaranColor;
 import static rotp.ui.UserPreferences.flagAridColor;
 import static rotp.ui.UserPreferences.flagAssetNormalColor;
@@ -107,6 +109,7 @@ public class SystemView implements IMappedObject, Base, Serializable {
     private static final String AUTO_FLAG_ENV   = "SETTINGS_MOD_AUTO_FLAG_ENVIRONMENT";
     private static final String AUTO_FLAG_ASSET = "SETTINGS_MOD_AUTO_FLAG_RESOURCES";
     private static final String AUTO_FLAG_TECH  = "SETTINGS_MOD_AUTO_FLAG_TECH";
+    public  static final String AUTO_FLAG_CLEAR = "SETTINGS_MOD_AUTO_FLAG_CLEAR";
 
     public static final String FLAG_COLOR_NONE   = "FLAG_COLOR_NONE";
     public static final String FLAG_COLOR_WHITE  = "FLAG_COLOR_WHITE";
@@ -119,7 +122,21 @@ public class SystemView implements IMappedObject, Base, Serializable {
     public static final String FLAG_COLOR_LTBLUE = "FLAG_COLOR_LTBLUE";
     public static final String FLAG_COLOR_PURPLE = "FLAG_COLOR_PURPLE";
     public static final String FLAG_COLOR_PINK   = "FLAG_COLOR_PINK";
-	private static int flagNumber;
+    // BR: Flag locations
+    private static final int SIDE		= 133;			// Flag icon width and height
+    private static final int MID1		= SIDE/2+8;		// Right position of Left flag
+    private static final int MID2		= SIDE - MID1;	// Left position of Right flag
+    private static final int MAST		= 97; 			// Left position of Mast in source flag
+    private static final int FLAG_W		= MID1;			// Cut width
+    private static final float LF_SCALE	= 0.75f;		// Little flags scale ratio
+    private static final int LF_CUT		= 5;			// Little flags bottom cut
+    private static final int LF_WIDTH	= Math.round(LF_SCALE * SIDE); // Little flags Width
+    private static final int LF_LEFT	= (SIDE-LF_WIDTH) /2;	// Little flags Left Margin
+    private static final int LF_RIGHT	= LF_LEFT + LF_WIDTH;	// Little flags Right Margin
+    private static final int LF_BOTTOM	= SIDE;					// Little flags Bottom Position
+    private static final int LF_TOP		= SIDE - LF_WIDTH;		// Little flags Top Position
+
+    private static int flagNumber;
 	
 	public static final IndexableMap flagAssignationMap = new IndexableMap();
 	static {
@@ -128,7 +145,8 @@ public class SystemView implements IMappedObject, Base, Serializable {
 	    		AUTO_FLAG_TECH,
 	    		AUTO_FLAG_ASSET,
 	    		AUTO_FLAG_ENV,
-	    		AUTO_FLAG_TYPE
+	    		AUTO_FLAG_TYPE,
+	    		AUTO_FLAG_CLEAR
 				);
 		for (String element : flagAssignationList)
 			flagAssignationMap.put(element, element); // Temporary; needs to be further initialized
@@ -429,6 +447,7 @@ public class SystemView implements IMappedObject, Base, Serializable {
 	    	color = flagTechGaiaColor.getIndex();
 		setFlagColor(color, id);
     }
+    private void clearFlagColor(Planet planet, int id) { setFlagColor(0, id); }
     private void setFlagColor(int color, int id) { // BR: flagColorCount
     	flagColor = getMixedColor(flagColor, color, id);
     }
@@ -451,26 +470,36 @@ public class SystemView implements IMappedObject, Base, Serializable {
     	int idx = min(4, max(1, id))-1;
     	return (baseColor & COLOR_MASK[0]) * COLOR_SHIFT[idx];
     }
-    private static Image joinImage(Image left, Image right) { // BR: flagColorCount
-    	int side  = 133;
-    	int end  = 133;
-    	int mid1 = end/2+8;
-    	int mid2 = end - mid1;
-    	int mast = 97;
-    	int fw = mid1;
+    private static BufferedImage bufferedImage(Image left, Image right) { // BR: flagColorCount
     	BufferedImage result = new BufferedImage(
-                side, side,
-                BufferedImage.TYPE_INT_ARGB);
+                SIDE, SIDE, BufferedImage.TYPE_INT_ARGB);
     	Graphics g = result.getGraphics();
-    	g.drawImage(right, mid2, 0,  end, side, mast, 0, mast-fw, side, null);
-    	g.drawImage(left,  0,    0, mid1, side, mast-fw, 0, mast, side, null);
+    	g.drawImage(right, MID2, 0, SIDE, SIDE, MAST, 0, MAST-FLAG_W, SIDE, null);
+    	g.drawImage(left,  0,    0, MID1, SIDE, MAST-FLAG_W, 0, MAST, SIDE, null);
+    	return result;
+    }
+    private static Image joinImage(Image bL, Image bR, Image tR, Image tL) { // BR: flagColorCount
+    	BufferedImage result = bufferedImage(bL, bR);
+    	Graphics g = result.getGraphics();
+		g.drawImage(joinImage(tL, tR),
+				LF_LEFT, LF_TOP,  LF_RIGHT, LF_BOTTOM, 0, 0, SIDE, SIDE-LF_CUT, null);
     	return new ImageIcon(result).getImage();
+    }
+    private static Image joinImage(Image bL, Image bR, Image tR) { // BR: flagColorCount
+    	return joinImage(bL, bR, tR, null);    	
+    }
+    private static Image joinImage(Image left, Image right) { // BR: flagColorCount
+    	return new ImageIcon(bufferedImage(left, right)).getImage();
     }
     public static Image flagBackGround(String name) { // BR: flagColorCount
     	Image fh = ImageManager.current().image(name);
     	switch (flagColorCount.get()) {
     	case 2:
     		return joinImage(fh, fh);
+    	case 3:
+    		return joinImage(fh, fh, fh);
+    	case 4:
+    		return joinImage(fh, fh, fh, fh);
     	default:
     		return fh;
     	}
@@ -479,6 +508,12 @@ public class SystemView implements IMappedObject, Base, Serializable {
     	switch (flagColorCount.get()) {
     	case 2:
     		return joinImage(flagImage(getFlagColor(1)), flagImage(getFlagColor(2)));
+    	case 3:
+    		return joinImage(flagImage(getFlagColor(1)), flagImage(getFlagColor(2)),
+    				flagImage(getFlagColor(3)));
+    	case 4:
+    		return joinImage(flagImage(getFlagColor(1)), flagImage(getFlagColor(2)),
+    				flagImage(getFlagColor(3)), flagImage(getFlagColor(4)));
     	default:
     		return flagImage(flagColor);
     	}
@@ -487,6 +522,12 @@ public class SystemView implements IMappedObject, Base, Serializable {
     	switch (flagColorCount.get()) {
     	case 2:
     		return joinImage(mapFlagImage(getFlagColor(1)), mapFlagImage(getFlagColor(2)));
+    	case 3:
+    		return joinImage(mapFlagImage(getFlagColor(1)), mapFlagImage(getFlagColor(2)),
+    				mapFlagImage(getFlagColor(3)));
+    	case 4:
+    		return joinImage(mapFlagImage(getFlagColor(1)), mapFlagImage(getFlagColor(2)),
+    				mapFlagImage(getFlagColor(3)), mapFlagImage(getFlagColor(4)));
     	default:
     		return mapFlagImage(getFlagColor(1));
     	}
@@ -550,6 +591,9 @@ public class SystemView implements IMappedObject, Base, Serializable {
 	    	case AUTO_FLAG_TECH:
 	    		setTechFlagColor(p, id);
 	    		return;
+	    	case AUTO_FLAG_CLEAR:
+	    		clearFlagColor(p, id);
+	    		return;
 	    	case AUTO_FLAG_NOT:
 			default:
 				return;
@@ -562,6 +606,8 @@ public class SystemView implements IMappedObject, Base, Serializable {
     private void autoFlagPlanet(Planet p) {
     	autoFlagAssignation(p, autoFlagAssignation1, 1);
     	autoFlagAssignation(p, autoFlagAssignation2, 2);    	
+    	autoFlagAssignation(p, autoFlagAssignation3, 3);    	
+    	autoFlagAssignation(p, autoFlagAssignation4, 4);    	
     }
     public void refreshFullScan() {
         if (!scouted()) {
@@ -685,7 +731,7 @@ public class SystemView implements IMappedObject, Base, Serializable {
         exitingFleets().clear();
     }
 
-    public float distance()                 { return owner().sv.distance(system().id); }
+    public float distance()                  { return owner().sv.distance(system().id); }
     public boolean hasRallyPoint()           { return rallySystem() != null; }
     public Colony colony()                   { return system() == null ? null : system().colony(); }
     public boolean abandoned()               { return system() == null ? false : system().abandoned(); }
@@ -713,9 +759,17 @@ public class SystemView implements IMappedObject, Base, Serializable {
     		flagColor = FLAG_NONE;
     }
     public void toggleFlagColor(boolean reverse) { // BR: flagColorCount
-    	int id = 1;
-    	if(ModifierKeysState.isShiftOrCtrlDown())
-    		id = 2;
+    	int id;
+    	if(ModifierKeysState.isCtrlDown()) // Left - Right
+        	if(ModifierKeysState.isShiftDown()) // Top - Bottom
+        		id = 3;
+        	else
+        		id = 2;
+    	else
+        	if(ModifierKeysState.isShiftDown()) // Top - Bottom
+        		id = 4;
+        	else
+        		id = 1;
     	setFlagColor(toggleFlagColor(reverse, getFlagColor(id)), id);
     }
     private int toggleFlagColor(boolean reverse, int flagColor) { // BR: flagColorCount

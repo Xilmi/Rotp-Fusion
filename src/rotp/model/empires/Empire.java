@@ -18,6 +18,7 @@ package rotp.model.empires;
 import static rotp.model.tech.Tech.miniFastRate;
 import static rotp.ui.UserPreferences.restartAppliesSettings;
 import static rotp.ui.UserPreferences.restartChangesAliensAI;
+import static rotp.ui.util.PlayerShipSet.DISPLAY_RACE_SET;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -3214,6 +3215,12 @@ public final class Empire implements Base, NamedObject, Serializable {
     public String planetRessource()            { return dataRace().planetRessource(); }
     public String planetEnvironment()          { return dataRace().planetEnvironment(); }
     // \BR:
+    public String preferredShipSet() { // BR: Add Ship Set for custom races
+    	String ShipSet = dataRace().preferredShipSet;
+    	if (ShipSet.equalsIgnoreCase(DISPLAY_RACE_SET))
+    		ShipSet = race().preferredShipSet;
+    	return ShipSet;
+    }
     public int preferredShipSize()             { return dataRace().preferredShipSize(); }
     public int diplomacyBonus()                { return dataRace().diplomacyBonus(); }
     public int robotControlsAdj()              { return dataRace().robotControlsAdj(); }

@@ -157,6 +157,12 @@ public class UserPreferences {
 	public static final ParamList autoFlagAssignation2	= new ParamList(
 			MOD_UI, "AUTO_FLAG_ASSIGN_2",
 			AUTO_FLAG_NOT, flagAssignationMap);
+	public static final ParamList autoFlagAssignation3	= new ParamList(
+			MOD_UI, "AUTO_FLAG_ASSIGN_3",
+			AUTO_FLAG_NOT, flagAssignationMap);
+	public static final ParamList autoFlagAssignation4	= new ParamList(
+			MOD_UI, "AUTO_FLAG_ASSIGN_4",
+			AUTO_FLAG_NOT, flagAssignationMap);
 	public static final ParamList flagTerranColor		= new ParamList(
 			MOD_UI, "AUTO_FLAG_TERRAN",
 			FLAG_COLOR_GREEN, flagColorMap);
@@ -414,7 +420,7 @@ public class UserPreferences {
 			MOD_UI, "BOMBING_TARGET"
 			, 10, null, null, 1, 5, 20);
 	public static final ParamInteger flagColorCount				= new ParamInteger(
-			MOD_UI, "FLAG_COLOR_COUNT", 1, 1, 2);
+			MOD_UI, "FLAG_COLOR_COUNT", 1, 1, 4);
 
 
 	// BR: ===== Global settings Mod GUI:
@@ -818,6 +824,7 @@ public class UserPreferences {
 		autoFlagOptionsMap.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("AUTO_FLAG_ID_SELECTION"),
 				autoFlagAssignation1, autoFlagAssignation2,
+				autoFlagAssignation3, autoFlagAssignation4,
 
 				headerSpacer,
 				new ParamTitle("AUTO_FLAG_COLONY_TECH"),
@@ -900,7 +907,6 @@ public class UserPreferences {
 	static {
 		mergedDynamicOptionsMap.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("GAME_DIFFICULTY"),
-				autoFlagOptionsUI,
 				difficultySelection, customDifficulty,
 				dynamicDifficulty, challengeMode,
 

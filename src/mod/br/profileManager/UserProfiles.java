@@ -219,8 +219,8 @@ public class UserProfiles extends AbstractProfiles<ClientClasses> {
 		getParameter("PLAYER NAME").addLine(
 				Valid_LocalEnable.PARAMETER_NAME, "LOAD" );
 		
-		getParameter("MAXIMIZE EMPIRES SPACING").addLine("Random", "NO",
-				"Not Random, not yet");
+//		getParameter("MAXIMIZE EMPIRES SPACING").addLine("Random", "NO",
+//				"Not Random, not yet");
 		
 		// Special random with comments
 		getParameter("PLAYER RACE").addLine("MyRandom", random,

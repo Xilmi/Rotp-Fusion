@@ -114,25 +114,8 @@ public abstract class BaseModPanel extends BasePanel {
 			smallButtonH	  = s30;
 			initGuiTextList	  = false;
 		}
-		if (paramList != null)
-			for (InterfaceParam param : paramList)
-				param.setPanel(this);
-		if (duplicateList != null)
-			for (InterfaceParam param : duplicateList) {
-				// System.out.println("param.setPanel(this) " + param.getCfgLabel());
-				param.setPanel(this);			
-			}
 	}
-
-	protected void close() {
-		ModifierKeysState.reset();
-		if (paramList != null)
-			for (InterfaceParam param : paramList)
-				param.setPanel(null);
- 		if (duplicateList != null)
-			for (InterfaceParam param : duplicateList)
-				param.setPanel(null);
- 	}
+	protected void close() { ModifierKeysState.reset(); }
 
 	// ---------- Exit Button
 	protected String exitButtonKey() {

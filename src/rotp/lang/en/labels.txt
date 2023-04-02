@@ -916,7 +916,8 @@ MAIN_BOMBARD_TITLE               | Our forces are orbiting an enemy [alien_race]
 NEUTRAL_BOMBARD_TITLE            | Our forces are orbiting a neutral [alien_race] colony.
 MAIN_BOMBARD_TROOPS              | %1 [alien_race] troops are orbiting or in transit to this colony.
 MAIN_BOMBARD_PROMPT              | Bombard the planet?
-MAIN_BOMBARD_TARGET              | Target (%1)
+MAIN_BOMBARD_TARGET              | Spare %1 pop
+MAIN_BOMBARD_DROP_ALL            | Drop All
 MAIN_BOMBARD_YES                 | Yes
 MAIN_BOMBARD_NO                  | No
 MAIN_BOMBARD_POPULATION          | Population: %1
@@ -1566,6 +1567,16 @@ CUSTOM_RACE_AVAILABLE_AI_DESC     | Should this file be available to Alien?
 CUSTOM_RACE_RESOURCES_NORMAL      | Normal
 CUSTOM_RACE_ENVIRONMENT_NORMAL    | Normal
 
+CUSTOM_RACE_FAVORED_SHIPSET       | ShipSet
+CUSTOM_RACE_FAVORED_SHIPSET_DESC  | What is the preferred shipset used by this race? (If still available)
+CUSTOM_RACE_FAVORED_SHIP_SIZE     | Ships Size
+CUSTOM_RACE_FAVORED_SHIP_SIZE_DESC | What is the preferred ship size used by this race? (AI:Base, AI:Modnar, AI: Rookie, and AI:Roleplay will use this information)
+CUSTOM_RACE_SHIP_SIZE_SMALL       | Small
+CUSTOM_RACE_SHIP_SIZE_MEDIUM      | Medium
+CUSTOM_RACE_SHIP_SIZE_LARGE       | Large
+CUSTOM_RACE_SHIP_SIZE_HUGE        | Huge
+
+
 // Advanced Settings
 SETTINGS_TITLE                    | Advanced Game Options
 SETTINGS_DESCRIPTION              | Click, Right-Click, or Scroll to toggle each game setting.
@@ -1863,10 +1874,10 @@ SETTINGS_MOD_SHOW_ALLIANCES_GNN_DESC     | Allow GNN Alliances announcements
 SETTINGS_MOD_SHOW_ALLIANCES_GNN          | Show GNN Alliances: %1
 SETTINGS_MOD_TECH_EXCHANGE_AUTO_NO_DESC  | Auto Refuse Tech Exchange offers.
 SETTINGS_MOD_TECH_EXCHANGE_AUTO_NO       | Auto Refuse Exchanges: %1
-SETTINGS_MOD_BOMBING_TARGET_DESC         | Limited Bombing: Stop Bombing when reaching this population target. !!! Powerful weapons may still annihilate the population !!!
-SETTINGS_MOD_BOMBING_TARGET              | Bombing Target: %1 pop
-SETTINGS_MOD_TARGET_BOMBARD_DESC         | Sets who is allowed to give a population target while bombing a Planet. (scroll the mouse wheel to change)
-SETTINGS_MOD_TARGET_BOMBARD              | Allow Target Bombard: %1
+SETTINGS_MOD_BOMBING_TARGET_DESC         | Limited Bombing: Stop Bombing the population level reach this limit. !!! Powerful weapons may still annihilate the population !!!
+SETTINGS_MOD_BOMBING_TARGET              | Bombing Limit: %1 pop
+SETTINGS_MOD_TARGET_BOMBARD_DESC         | Sets who is allowed to use Limited Bombing. (scroll the mouse wheel to change)
+SETTINGS_MOD_TARGET_BOMBARD              | Allow Limited Bombard: %1
 SETTINGS_MOD_FLAG_COLOR_COUNT_DESC       | How may colors should appear on the Star System Flag?
 SETTINGS_MOD_FLAG_COLOR_COUNT            | Flag Color Count: %1
 
@@ -1879,11 +1890,16 @@ SETTINGS_MOD_AUTO_FLAG_TYPE              | Planet Type
 SETTINGS_MOD_AUTO_FLAG_ENVIRONMENT       | Planet Environment
 SETTINGS_MOD_AUTO_FLAG_RESOURCES         | Planet Resources
 SETTINGS_MOD_AUTO_FLAG_TECH              | Colony Ship Tech
+SETTINGS_MOD_AUTO_FLAG_CLEAR             | Clear the Flag
 
-SETTINGS_MOD_AUTO_FLAG_ASSIGN_1_DESC     | Select the parameter that will be automatically associated with the first flag. (Only the first time a Star System is scouted)
+SETTINGS_MOD_AUTO_FLAG_ASSIGN_1_DESC     | Select the parameter that will be automatically associated with the Top Left flag. (Only the first time a Star System is scouted)
 SETTINGS_MOD_AUTO_FLAG_ASSIGN_1          | Auto-Flag 1: %1
-SETTINGS_MOD_AUTO_FLAG_ASSIGN_2_DESC     | Select the parameter that will be automatically associated with the second flag. (Only the first time a Star System is scouted)
+SETTINGS_MOD_AUTO_FLAG_ASSIGN_2_DESC     | Select the parameter that will be automatically associated with the Top Rigth flag. (Only the first time a Star System is scouted)
 SETTINGS_MOD_AUTO_FLAG_ASSIGN_2          | Auto-Flag 2: %1
+SETTINGS_MOD_AUTO_FLAG_ASSIGN_3_DESC     | Select the parameter that will be automatically associated with the Bottom Right flag. (Only the first time a Star System is scouted)
+SETTINGS_MOD_AUTO_FLAG_ASSIGN_3          | Auto-Flag 3: %1
+SETTINGS_MOD_AUTO_FLAG_ASSIGN_4_DESC     | Select the parameter that will be automatically associated with the Bottom Left flag. (Only the first time a Star System is scouted)
+SETTINGS_MOD_AUTO_FLAG_ASSIGN_4          | Auto-Flag 4: %1
 
 SETTINGS_MOD_AUTO_FLAG_ARID_DESC         | Select the Flag Color to set automatically when an Arid Planet is scouted.
 SETTINGS_MOD_AUTO_FLAG_BARREN_DESC       | Select the Flag Color to set automatically when a Barren Planet is scouted.

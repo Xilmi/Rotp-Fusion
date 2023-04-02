@@ -98,11 +98,13 @@ public class ShipDesignLab implements Base, Serializable {
     }
     public void init(Empire c)  {
         empire = c;
-        // TODO BR: Add Ship Set for custom races
-        if (empire.isPlayer() && !UserPreferences.playerShipSet.isOriginal())
-        	shipStyleIndex = UserPreferences.playerShipSet.getIndex();
-        else if (ShipLibrary.current().styles.contains(empire.race().preferredShipSet))
-            shipStyleIndex = ShipLibrary.current().styles.indexOf(empire.race().preferredShipSet);
+        // BR: Add Ship Set for custom races
+        if (empire.isPlayer())
+        	shipStyleIndex = UserPreferences.playerShipSet.realShipSetId();
+//        else if (ShipLibrary.current().styles.contains(empire.race().preferredShipSet))
+//            shipStyleIndex = ShipLibrary.current().styles.indexOf(empire.race().preferredShipSet);
+        else if (ShipLibrary.current().styles.contains(empire.preferredShipSet()))
+            shipStyleIndex = ShipLibrary.current().styles.indexOf(empire.preferredShipSet());
         else
             shipStyleIndex = ShipLibrary.current().selectRandomUnchosenSet();
 
