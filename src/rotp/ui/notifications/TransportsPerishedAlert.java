@@ -16,11 +16,13 @@
 package rotp.ui.notifications;
 
 import rotp.model.empires.Empire;
+import rotp.model.galaxy.IMappedObject;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.game.GameSession;
 
 public class TransportsPerishedAlert extends GameAlert {
-    private final Empire empire;
+    @SuppressWarnings("unused")
+	private final Empire empire;
     private final StarSystem system;
     public static void create(Empire e, StarSystem s) {
         GameSession.instance().addAlert(new TransportsPerishedAlert(e,s));
@@ -34,4 +36,6 @@ public class TransportsPerishedAlert extends GameAlert {
         empire = e;
         system = s;
     }
+    @Override public int sysId() { return system.id; } // BR: to move to the system
+    @Override public IMappedObject system() { return system; }
 }

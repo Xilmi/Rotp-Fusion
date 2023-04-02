@@ -16,6 +16,7 @@
 package rotp.ui.notifications;
 
 import rotp.model.empires.Empire;
+import rotp.model.galaxy.IMappedObject;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.game.GameSession;
 
@@ -38,4 +39,6 @@ public class TransportsKilledAlert extends GameAlert {
         system = s;
         num = n;
     }
+    @Override public int sysId() { return system.id; } // BR: to move to the system
+    @Override public IMappedObject system() { return system; }
 }

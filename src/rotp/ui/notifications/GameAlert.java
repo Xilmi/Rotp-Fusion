@@ -15,8 +15,11 @@
  */
 package rotp.ui.notifications;
 
+import rotp.model.galaxy.IMappedObject;
 import rotp.util.Base;
 
 public abstract class GameAlert implements Base {
     public abstract String description();
+    public int sysId()			  { return -1; } // BR: to move to the system
+    public IMappedObject system() { return galaxy().system(sysId()); }
 }

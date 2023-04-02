@@ -452,7 +452,8 @@ public class GalaxyMapPanel extends BasePanel implements ActionListener, MouseLi
         center(currentFocus());
     }
     public void recenterMapOn(IMappedObject obj) {
-        recenterMap(obj.x(), obj.y());
+    	if (obj != null) // BR: Just in case!
+        	recenterMap(obj.x(), obj.y());
     }
     private void recenterMap(float x, float y) {
         float bestX = bounds(0, x, sizeX());

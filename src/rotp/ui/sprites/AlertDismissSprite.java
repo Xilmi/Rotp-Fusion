@@ -22,6 +22,7 @@ import java.awt.Stroke;
 import rotp.ui.BasePanel;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
+import rotp.ui.notifications.GameAlert;
 
 public class AlertDismissSprite extends MapSprite {
     private int mapX, mapY, buttonW, buttonH;
@@ -84,6 +85,12 @@ public class AlertDismissSprite extends MapSprite {
             return;
         if (click)
             softClick();
+        if (rightClick) { // BR: Move to system
+        	GameAlert alert = session().currentAlert();
+        	map.recenterMapOn(alert.system());
+            map.repaint();
+        	return;
+        }
         minMapX = min(mapX, minMapX);
         maxButtonW = max(buttonW, maxButtonW);
         hovering = true;

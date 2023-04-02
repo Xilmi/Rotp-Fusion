@@ -7,6 +7,7 @@ Update:
 - Renamed "Target Bombing" to "Limited Bombing" and adjusted the GUI texts.
   - in Option GUI and on the buttons: "Drop All" "Spare x pop" "No".
 - Governor: Added an option to not infiltrate nor spy the xenophobic races.
+- Right click on alert to center the map on the system.
 
 
 Last Release:

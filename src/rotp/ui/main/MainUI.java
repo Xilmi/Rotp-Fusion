@@ -700,6 +700,9 @@ public class MainUI extends BasePanel implements IMapHandler {
         y1 += (sp5.height()+s5);
         HelpSpec sp6 = helpUI.addBlueHelpText(x1, y1, w1, 2, text("MAIN_HELP_1F"));
         sp6.setLine(x1+w1, y1+(sp6.height()/2), w-scaled(244), scaled(432));
+        y1 += (sp6.height()+s5);
+        HelpSpec spM6 = helpUI.addBrownHelpText(x1, y1, w1, 2, text("MAIN_HELP_MOD_1F"));
+        spM6.setLine(x1+w1, y1+(spM6.height()/2), w-scaled(244), scaled(662));
 
         // BR: Moved this to make place for governor help
 		// int x2 = w-scaled(299);
@@ -718,11 +721,12 @@ public class MainUI extends BasePanel implements IMapHandler {
         HelpSpec spM2 = helpUI.addBrownHelpText(x2,y2,w2, 4, text("MAIN_HELP_MOD_1B"));
         spM2.setLine(x2+(w2*2/3), y2+spM2.height(), w-s40, scaled(275));
 
-        int x3 = w-scaled(304); // BR: was 304
-        int y3 = scaled(540); // BR: was 490
-        int w3 = scaled(300); // BR: was 300
-        HelpSpec sp8 = helpUI.addBlueHelpText(x3,y3,w3, 4, text("MAIN_HELP_1H"));
+        int x3 = w-scaled(254); // BR: was 304
+        int y3 = scaled(480); // BR: was 490
+        int w3 = scaled(250); // BR: was 300
+        HelpSpec sp8 = helpUI.addBlueHelpText(x3,y3,w3, 5, text("MAIN_HELP_1H"));
         sp8.setLine(x3+(w3*3/4), y3, w-scaled(54), scaled(430));        
+        // sp8.setLine(x3+(w3*3/4), y3, w-scaled(54), scaled(430));        
 
         // BR: Added Spy reports
         int x9 = scaled(115);
@@ -851,8 +855,7 @@ public class MainUI extends BasePanel implements IMapHandler {
            }
             txt += " " + text("MAIN_HELP_2K_2F_HOLD");
         }
-        
-        
+
         HelpSpec sp11 = helpUI.addBrownHelpText(x11, y11, w11, lines, txt);
         sp11.setLine(w-scaled(40), y11+sp11.height(), w-scaled(25), scaled(170));
     }

@@ -46,4 +46,5 @@ public class TrespassingAlert extends GameAlert {
         empShipId = emp2;
         sysId = sys;
     }
+    @Override public int sysId() { return sysId; } // BR: to move to the system
 }
