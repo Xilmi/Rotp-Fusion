@@ -6,6 +6,8 @@ Update:
     - Only used by AI:Base, AI:Modnar, AI:Rookie, and AI:RolePlay.
 - Renamed "Target Bombing" to "Limited Bombing" and adjusted the GUI texts.
   - in Option GUI and on the buttons: "Drop All" "Spare x pop" "No".
+- Governor: Added an option to not infiltrate nor spy the xenophobic races.
+
 
 Last Release:
 - Added an Auto-Flag option acting when a new system is scouted.

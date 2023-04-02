@@ -31,6 +31,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
   - The parameters don't need to memorize the frame anymore.
 - Renamed "Target Bombing" to "Limited Bombing" and adjusted the GUI texts.
   - in Option GUI and on the buttons: "Drop All" "Spare x pop" "No".
+- Governor: Added an option to not infiltrate nor spy the xenophobic races.
 
 2023.03.31 (BR)
 - Custom Races:

@@ -1,7 +1,12 @@
 package rotp.model.game;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.LinkedList;
+
 import rotp.ui.UserPreferences;
+import rotp.ui.util.InterfaceParam;
+import rotp.ui.util.ParamBoolean;
 
 /**
  * Governor options.
@@ -50,7 +55,32 @@ public class GovernorOptions implements Serializable {
     private int autoColonyShipCount = 1;
     private int autoAttackShipCount = 1;
 
+    // BR: For the future parameters, to keep save files compatibility
+    // Will be saved in the dynamic options list.
+	public final static String GOVERNOR_GUI_ID	= "GOVERNOR";
+	public final static String GOV_UI			= "GOVERNOR_";
+	public final static ParamBoolean spareXenophobes = new ParamBoolean(
+			GOV_UI, "SPARE_XENOPHOBES", false);
+	public final static LinkedList<InterfaceParam> governorOptions = new LinkedList<>(
+			Arrays.asList(
+					spareXenophobes
+					));
+
     public GovernorOptions() {
+    }
+
+    private void save() {
+    	MOO1GameOptions.writeModSettingsToOptions(
+    			(MOO1GameOptions) GameSession.instance().options(), GOVERNOR_GUI_ID);
+    }
+
+    public boolean isSpareXenophobes() {
+        return spareXenophobes.get();
+    }
+
+    public void setSpareXenophobes(boolean newValue) {
+        spareXenophobes.set(newValue);
+        save();
     }
 
     public boolean isGovernorOnByDefault() {

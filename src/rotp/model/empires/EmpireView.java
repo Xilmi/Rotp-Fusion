@@ -23,6 +23,7 @@ import java.util.Comparator;
 import java.util.List;
 import static rotp.model.empires.EmpireStatus.POWER;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.game.GovernorOptions;
 import rotp.model.incidents.DiplomaticIncident;
 import rotp.ui.diplomacy.DialogueManager;
 import rotp.ui.diplomacy.DiplomaticReply;
@@ -141,16 +142,40 @@ public final class EmpireView implements Base, Serializable {
         }
         return values;
     }
-    public void setSuggestedAllocations() {
-        if (owner.isAIControlled() || owner.session().getGovernorOptions().isAutoSpy()) {
+    public void setSuggestedAllocations() { // TODO BR: added Xenophobic management
+        if (owner.isAIControlled()) {
             spies.setSuggestedAllocations();
-        } else if(owner.session().getGovernorOptions().isAutoInfiltrate())
-        {
-            if(spies.allocation() < 1)
-                spies.allocation(1);
-            if(spies.maxSpies() < 1)
-                spies.maxSpies(1);
+            return;
         }
+        GovernorOptions governor = owner.session().getGovernorOptions();
+        if (empire.leader().isXenophobic()
+				&& governor.isSpareXenophobes()) {
+        	if(spies.allocation() > 0)
+		        spies.allocation(0);
+		    if(spies.maxSpies() > 0)
+		        spies.maxSpies(0);
+		    return;
+        }
+        if(governor.isAutoSpy()) {
+        	spies.setSuggestedAllocations();
+		    return;
+        }
+        if(governor.isAutoInfiltrate()) {
+        	if(spies.allocation() < 1)
+        		spies.allocation(1);
+        	if(spies.maxSpies() < 1)
+        		spies.maxSpies(1);
+        	return;
+        }
+//        if (owner.isAIControlled() || owner.session().getGovernorOptions().isAutoSpy()) {
+//            spies.setSuggestedAllocations();
+//        } else if(owner.session().getGovernorOptions().isAutoInfiltrate())
+//        {
+//            if(spies.allocation() < 1)
+//                spies.allocation(1);
+//            if(spies.maxSpies() < 1)
+//                spies.maxSpies(1);
+//        }
     }
     public void setContact() {
         if (owner.extinct() || empire.extinct())

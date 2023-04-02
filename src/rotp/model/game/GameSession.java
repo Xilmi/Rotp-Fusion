@@ -1034,12 +1034,12 @@ public final class GameSession implements Base, Serializable {
             GameSession.instance = newSession;
             // BR:
             // if asked, Change the game parameters
-            if (Profiles.ChangeGameFile) { // TODO BR: Remove Profiles.ChangeGameFile
-            	Profiles.ChangeGameFile = false;
-            	Profiles.changeGameSettings(instance);
-            }
-            // Save the last loaded game parameters
-            Profiles.saveGameOptionsToFile(instance);
+//            if (Profiles.ChangeGameFile) { // TODO BR: Remove Profiles.ChangeGameFile
+//            	Profiles.ChangeGameFile = false;
+//            	Profiles.changeGameSettings(instance);
+//            }
+//            // Save the last loaded game parameters
+//            Profiles.saveGameOptionsToFile(instance);
             // \BR:
             newSession.validate();
             newSession.validateOnLoadOnly();

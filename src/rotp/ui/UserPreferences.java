@@ -85,6 +85,7 @@ import rotp.model.empires.GalacticCouncil;
 import rotp.model.events.RandomEvents;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.game.GameSession;
+import rotp.model.game.GovernorOptions;
 import rotp.ui.main.GalaxyMapPanel;
 //import rotp.model.game.IGameOptions;
 //import rotp.model.game.MOO1GameOptions;
@@ -142,9 +143,9 @@ public class UserPreferences {
 	private static final String keyFormat = "%-25s: "; // BR: from 20 to 25 for a better alignment
 
 	// BR common for All MOD entries
-	public static final String BASE_UI		= "SETUP_";
-	public static final String GAME_UI		= "GAME_SETTINGS_";
-	public static final String ADV_UI		= "SETTINGS_";
+	private static final String BASE_UI		= "SETUP_";
+	private static final String GAME_UI		= "GAME_SETTINGS_";
+	private static final String ADV_UI		= "SETTINGS_";
 	public static final String MOD_UI		= "SETTINGS_MOD_";
 	public static final String HEADERS		= "HEADERS_";
 	public static final String ALL_GUI_ID	= "ALL_GUI";
@@ -299,7 +300,7 @@ public class UserPreferences {
 			.put("AI",		MOD_UI + "RETREAT_AI")
 			.put("Player",	MOD_UI + "RETREAT_PLAYER")
 			.put("Both",	MOD_UI + "RETREAT_BOTH");
-	public static final ParamList	 targetBombard			= new ParamList(
+	private static final ParamList	 targetBombard			= new ParamList(
 			MOD_UI, "TARGET_BOMBARD", "None")
 			.put("None",	MOD_UI + "RETREAT_NONE")
 			.put("AI",		MOD_UI + "RETREAT_AI")
@@ -345,7 +346,7 @@ public class UserPreferences {
 			.put("Swap", MOD_UI + "RESTART_PLAYER_RACE_SWAP")
 			.put("GuiSwap",	 MOD_UI + "RESTART_PLAYER_RACE_GUI_SWAP")
 			.put("GuiLast",	 MOD_UI + "RESTART_PLAYER_RACE_GUI_LAST");
-	public static final ParamFloat   counciRequiredPct		= new ParamFloat(
+	private static final ParamFloat   counciRequiredPct		= new ParamFloat(
 			MOD_UI, "COUNCIL_REQUIRED_PCT"
 			, GalacticCouncil.PCT_REQUIRED
 			, 0f, 0.99f, 0.01f/3f, 0.02f, 0.1f, "0.0##", "‰") {
@@ -362,8 +363,8 @@ public class UserPreferences {
 			return super.set(newValue);
 		}
 	};
-	public static final ParamBoolean alternateMonsterMessages = new ParamBoolean(
-			MOD_UI, "ALT_MONSTER_MESSAGES", true);
+//	public static final ParamBoolean alternateMonsterMessages = new ParamBoolean(
+//			MOD_UI, "ALT_MONSTER_MESSAGES", true);
 	public static final ParamInteger piratesDelayTurn		= new ParamInteger(
 			MOD_UI, "PIRATES_DELAY_TURN",	25, 0, null, 1, 5, 20);
 	public static final ParamInteger amoebaDelayTurn		= new ParamInteger(
@@ -481,9 +482,9 @@ public class UserPreferences {
 			return super.set(newValue);
 		}
 	};
-	public static final ParamOptions menuStartup		= new ParamOptions(
+	static final ParamOptions menuStartup		= new ParamOptions(
 			MOD_UI, "MENU_STARTUP", ParamOptions.VANILLA);
-	public static final ParamOptions menuAfterGame		= new ParamOptions(
+	static final ParamOptions menuAfterGame		= new ParamOptions(
 			MOD_UI, "MENU_AFTER_GAME", ParamOptions.VANILLA);
 	public static final ParamOptions menuLoadGame		= new ParamOptions(
 			MOD_UI, "MENU_LOADING_GAME", ParamOptions.GAME);
@@ -627,6 +628,7 @@ public class UserPreferences {
 		allModOptions.addAll(optionsRace);
 		allModOptions.addAll(optionsCustomRaceBase);
 		allModOptions.addAll(autoFlagOptions);
+		allModOptions.addAll(GovernorOptions.governorOptions);
 		return allModOptions;
 	}
     // Other Global parameters
@@ -634,7 +636,7 @@ public class UserPreferences {
 			BASE_UI, "BITMAP_LAST_FOLDER", Rotp.jarPath());
 	
     // All the Global parameters
-	public static LinkedList<InterfaceParam> globalOptions() {
+	private static LinkedList<InterfaceParam> globalOptions() {
 		LinkedList<InterfaceParam> globalOptions = new LinkedList<>();
 		globalOptions.addAll(modGlobalOptionsUI);
 		globalOptions.add(bitmapGalaxyLastFolder);
@@ -642,7 +644,7 @@ public class UserPreferences {
 	}
 	
 	// Duplicates for Base Advanced Options
-	public static final ParamList galaxyAge			= new ParamList( // Duplicate Do not add the list
+	private static final ParamList galaxyAge			= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "GALAXY_AGE", getGalaxyAgeOptions(), GALAXY_AGE_NORMAL) {
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedGalaxyAge();
@@ -651,7 +653,7 @@ public class UserPreferences {
 			RotPUI.mergedGuiOptions().selectedGalaxyAge(newValue);
 		}
 	};
-	public static final ParamList starDensity		= new ParamList( // Duplicate Do not add the list
+	private static final ParamList starDensity		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "STAR_DENSITY", getStarDensityOptions(), STAR_DENSITY_NORMAL) {
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedStarDensityOption();
@@ -660,7 +662,7 @@ public class UserPreferences {
 			RotPUI.mergedGuiOptions().selectedStarDensityOption(newValue);
 		}
 	};
-	public static final ParamList nebulae			= new ParamList( // Duplicate Do not add the list
+	private static final ParamList nebulae			= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "NEBULAE", getNebulaeOptions(), NEBULAE_NORMAL) {
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedNebulaeOption();
@@ -669,7 +671,7 @@ public class UserPreferences {
 			RotPUI.mergedGuiOptions().selectedNebulaeOption(newValue);
 		}
 	};
-	public static final ParamList randomEvents		= new ParamList( // Duplicate Do not add the list
+	private static final ParamList randomEvents		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "RANDOM_EVENTS", getRandomEventOptions(), RANDOM_EVENTS_NO_MONSTERS) {
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedRandomEventOption();
@@ -678,7 +680,7 @@ public class UserPreferences {
 			RotPUI.mergedGuiOptions().selectedRandomEventOption(newValue);
 		}
 	};
-	public static final ParamList planetQuality		= new ParamList( // Duplicate Do not add the list
+	private static final ParamList planetQuality		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "PLANET_QUALITY", getPlanetQualityOptions(), PLANET_QUALITY_NORMAL) {
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedPlanetQualityOption();
@@ -687,7 +689,7 @@ public class UserPreferences {
 			RotPUI.mergedGuiOptions().selectedPlanetQualityOption(newValue);
 		}
 	};
-	public static final ParamList terraforming		= new ParamList( // Duplicate Do not add the list
+	private static final ParamList terraforming		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "TERRAFORMING", getTerraformingOptions(), TERRAFORMING_NORMAL) {
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedTerraformingOption();
@@ -696,7 +698,7 @@ public class UserPreferences {
 			RotPUI.mergedGuiOptions().selectedTerraformingOption(newValue);
 		}
 	};
-	public static final ParamList colonizing		= new ParamList( // Duplicate Do not add the list
+	private static final ParamList colonizing		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "COLONIZING", getColonizingOptions(), COLONIZING_NORMAL) {
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedColonizingOption();
@@ -705,7 +707,7 @@ public class UserPreferences {
 			RotPUI.mergedGuiOptions().selectedColonizingOption(newValue);
 		}
 	};
-	public static final ParamList councilWin		= new ParamList( // Duplicate Do not add the list
+	private static final ParamList councilWin		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "COUNCIL_WIN", getCouncilWinOptions(), COUNCIL_REBELS) {
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedCouncilWinOption();
@@ -717,7 +719,7 @@ public class UserPreferences {
 			return "SETTINGS_COUNCIL_DESC";
 		}
 	};
-	public static final ParamList randomizeAI		= new ParamList( // Duplicate Do not add the list
+	private static final ParamList randomizeAI		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "RANDOMIZE_AI", getRandomizeAIOptions(), RANDOMIZE_AI_NONE) {
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedRandomizeAIOption();
@@ -726,7 +728,7 @@ public class UserPreferences {
 			RotPUI.mergedGuiOptions().selectedRandomizeAIOption(newValue);
 		}
 	};
-	public static final ParamList autoplay			= new ParamList( // Duplicate Do not add the list
+	private static final ParamList autoplay			= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "AUTOPLAY", getAutoplayOptions(), AUTOPLAY_OFF) {
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedAutoplayOption();
@@ -735,7 +737,7 @@ public class UserPreferences {
 			RotPUI.mergedGuiOptions().selectedAutoplayOption(newValue);
 		}
 	};
-	public static final ParamList researchRate		= new ParamList( // Duplicate Do not add the list
+	private static final ParamList researchRate		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "RESEARCH_RATE", getResearchRateOptions(), RESEARCH_NORMAL) {
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedResearchRate();
@@ -744,7 +746,7 @@ public class UserPreferences {
 			RotPUI.mergedGuiOptions().selectedResearchRate(newValue);
 		}
 	};
-	public static final ParamList warpSpeed			= new ParamList( // Duplicate Do not add the list
+	private static final ParamList warpSpeed			= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "WARP_SPEED", getWarpSpeedOptions(), WARP_SPEED_NORMAL) {
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedWarpSpeedOption();
@@ -753,7 +755,7 @@ public class UserPreferences {
 			RotPUI.mergedGuiOptions().selectedWarpSpeedOption(newValue);
 		}
 	};
-	public static final ParamList fuelRange			= new ParamList( // Duplicate Do not add the list
+	private static final ParamList fuelRange			= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "FUEL_RANGE", getFuelRangeOptions(), FUEL_RANGE_NORMAL) {
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedFuelRangeOption();
@@ -764,7 +766,7 @@ public class UserPreferences {
 				GameSession.instance().galaxy().resetAllAI();
 		}
 	};
-	public static final ParamList techTrading		= new ParamList( // Duplicate Do not add the list
+	private static final ParamList techTrading		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "TECH_TRADING", getTechTradingOptions(), TECH_TRADING_YES) {
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedTechTradeOption();
@@ -773,7 +775,7 @@ public class UserPreferences {
 			RotPUI.mergedGuiOptions().selectedTechTradeOption(newValue);
 		}
 	};
-	public static final ParamList aiHostility		= new ParamList( // Duplicate Do not add the list
+	private static final ParamList aiHostility		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "AI_HOSTILITY", getAiHostilityOptions(), AI_HOSTILITY_NORMAL) {
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedAIHostilityOption();
@@ -782,7 +784,7 @@ public class UserPreferences {
 			RotPUI.mergedGuiOptions().selectedAIHostilityOption(newValue);
 		}
 	};
-	public static final ParamBoolean autoColonize_	= new ParamBoolean( // Duplicate Do not add the list
+	private static final ParamBoolean autoColonize_	= new ParamBoolean( // Duplicate Do not add the list
 			GAME_UI, "AUTOCOLONIZE", false) {
 		@Override public Boolean get() { return autoColonize(); }
 		@Override public Boolean set(Boolean newValue) {
@@ -790,7 +792,7 @@ public class UserPreferences {
 			return autoColonize();
 		}
 	};
-	public static final ParamList autoBombard_		= new ParamList( // Duplicate Do not add the list
+	private static final ParamList autoBombard_		= new ParamList( // Duplicate Do not add the list
 			GAME_UI, "AUTOBOMBARD",
 			Arrays.asList(
 					AUTOBOMBARD_NO,
@@ -818,7 +820,7 @@ public class UserPreferences {
 	private static final ParamTitle headerSpacer = new ParamTitle("SPACER");
 	// Sub GUI Lists and GUI List	
 	// Parameters on these list are auto saved in dynamic list options
-	public static final LinkedList<LinkedList<InterfaceParam>> autoFlagOptionsMap = 
+	private static final LinkedList<LinkedList<InterfaceParam>> autoFlagOptionsMap = 
 			new LinkedList<LinkedList<InterfaceParam>>();
 	static {
 		autoFlagOptionsMap.add(new LinkedList<>(Arrays.asList(
@@ -851,7 +853,7 @@ public class UserPreferences {
 				)));
 	};
 	public static final String		AUTO_FLAG_GUI_ID	= "AUTO_FLAG";
-	public static final ParamSubUI	autoFlagOptionsUI	= new ParamSubUI(
+	private static final ParamSubUI	autoFlagOptionsUI	= new ParamSubUI(
 			MOD_UI, "AUTO_FLAG_UI", autoFlagOptionsMap,
 			"AUTO_FLAG_TITLE", AUTO_FLAG_GUI_ID);
 	public static final LinkedList<InterfaceParam> autoFlagOptions = autoFlagOptionsUI.optionsList();

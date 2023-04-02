@@ -1633,7 +1633,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
    }
     // ==================== Generalized options methods ====================
     //
-    private static void writeModSettingsToOptions(MOO1GameOptions dest, String guiID) {
+    public static void writeModSettingsToOptions(MOO1GameOptions dest, String guiID) {
     	switch (guiID) {
     	case EditCustomRaceUI.GUI_ID:
     	case UserPreferences.ALL_GUI_ID:
@@ -1757,6 +1757,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	    		break;
 	    	case UserPreferences.AUTO_FLAG_GUI_ID:
 	    		modOptions = UserPreferences.autoFlagOptions;
+	    		break;
+	    	case GovernorOptions.GOVERNOR_GUI_ID:
+	    		modOptions = GovernorOptions.governorOptions;
 	    		break;
 	    	case UserPreferences.ALL_GUI_ID:
 	    		modOptions = UserPreferences.allModOptions();
