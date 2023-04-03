@@ -56,11 +56,11 @@ public class GalaxySpiralArmsShape extends GalaxyShape {
     // BR: for symmetric galaxy
     private CtrPoint getRandomSymmetric(double minRay) {
 		double armRadius   = Math.min(this.armRadius, twoPI * galaxyRay() / numEmpires);
-		double swirlRadius = rand.randX();
+		double swirlRadius = rand.next();
 		double swirlAngle  = numSwirls * swirlRadius * Math.PI;
 		CtrPoint arm = new CtrPoint(swirlRadius * galaxyRay()).rotate(swirlAngle);
-		double phi = rand.randY(twoPI);
-		double radiusSelect = Math.sqrt(rand.rand()) * armRadius * (1 - swirlRadius);
+		double phi = rand.next(twoPI);
+		double radiusSelect = Math.sqrt(rand.next()) * armRadius * (1 - swirlRadius);
     	return new CtrPoint(radiusSelect).rotate(phi + randomOrientation).shift(arm);
     }
     @Override public CtrPoint getValidRandomSymmetric() {
@@ -130,7 +130,7 @@ public class GalaxySpiralArmsShape extends GalaxyShape {
         
         // BR: For symmetric galaxy
         if (isSymmetric()) {
-        	randomOrientation = rand.rand(twoPI);
+        	randomOrientation = rand.next(twoPI);
         	// a void coming from symmetry depends on number of opponents
          	double minHomeRay = empireBuffer * numEmpires / twoPI;
         	double minRay = systemBuffer() * numEmpires / twoPI;

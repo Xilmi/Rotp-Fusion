@@ -202,7 +202,7 @@ public class GalaxyBitmapShape extends GalaxyShape {
 		}
 	}
 	private void setRandom(float[][] cD, Point.Float pt) {
-		float source = (float) rand.randD5();
+		float source = (float) rand.next();
 		int col = xBM-1;
 		int row;
 		for (row=0; row<yBM; row++) {
@@ -217,8 +217,8 @@ public class GalaxyBitmapShape extends GalaxyShape {
 		} 
 		if (col == xBM) // source = 1.0
 			col--;
-		float x = col + (float) rand.randD5();
-		float y = row + (float) rand.randD5();
+		float x = col + (float) rand.next();
+		float y = row + (float) rand.next();
 		
 		pt.x = offset + x * xMult;
 		pt.y = offset + y * yMult;

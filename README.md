@@ -32,6 +32,8 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
   - Removed some old commented test.
   - Cleaned import list.
   - Made private some public methods.
+  - Added new random function for galaxy factory.
+  - Fixed little bug in pop-up lists.
 
 2023.04.02 (BR)
 - Right click on alert to center the map on the system.

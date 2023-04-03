@@ -254,6 +254,7 @@ public class ParamList extends AbstractParam<String> {
 		String input;
 		// System.out.println("getIndex() = " + getIndex());
 		// System.out.println("currentOption() = " + currentOption());
+		initGuiTexts();
 		String[] list= valueLabelMap.guiTextList.toArray(new String[listSize()]);
 		input  = (String) ListDialog.showDialog(
 				frame,	frame,			// Frame & Location component
@@ -264,7 +265,8 @@ public class ParamList extends AbstractParam<String> {
 				null, null,	// Font, Preview
 				valueLabelMap.cfgValueList);	// Alternate return
 		// System.out.println("input = " + input);
-		if (input != null && getIndex(input) >= 0)
+		// if (input != null && getIndex(input) >= 0)
+		if (input != null && valueLabelMap.getValueIndexIgnoreCase(input) >= 0)
 			set(input);
 		// System.out.println("getIndex() = " + getIndex());
 	}
