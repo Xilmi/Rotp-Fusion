@@ -154,12 +154,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         randomizeColors();
         setBaseSettingsToDefault();
     }
-    /*
-    private void resetSelectedOpponentRaces() {
-        for (int i=0;i<opponentRaces.length;i++)
-            selectedOpponentRace(i,null);
-    }
-    */
 	@Override public DynOptions dynamicOptions() { // BR:
 		if (dynamicOptions == null)
 			dynamicOptions = new DynOptions();
@@ -630,61 +624,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	        else
 	            return selectedOpponentAI(selectedOpponentAIOption());
     }
-//    @Override
-//    public int selectedAI(Empire e) {
-//        if (e.isPlayer()) {
-//            switch(selectedAutoplayOption()) {
-//                case AUTOPLAY_AI_BASE:   return AI.BASE;
-//                case AUTOPLAY_AI_MODNAR:   return AI.MODNAR;
-//                case AUTOPLAY_AI_ROOKIE:   return AI.ROOKIE;
-//                case AUTOPLAY_AI_XILMI:  return AI.XILMI;
-//                case AUTOPLAY_AI_HYBRID:  return AI.HYBRID;
-//                case AUTOPLAY_AI_CRUEL: return AI.FUSION;
-//                case AUTOPLAY_AI_FUN: return AI.FUN;
-//                case AUTOPLAY_AI_PERSONALITY: return AI.PERSONALITY;
-//                case AUTOPLAY_AI_RANDOM:  return AI.RANDOM;
-//                case AUTOPLAY_AI_RANDOM_BASIC:  return AI.RANDOM_BASIC;
-//                case AUTOPLAY_AI_RANDOM_ADV:  return AI.RANDOM_ADVANCED;
-//                case AUTOPLAY_AI_RANDOM_NOBAR:  return AI.RANDOM_NO_RELATIONBAR;
-//                case AUTOPLAY_OFF:
-//                default:
-//                    return AI.FUSION;  // it does matter both for spending reallocation and for ship-captain
-//            }
-//        }
-//        else {
-//            switch(selectedOpponentAIOption()) {
-//                case OPPONENT_AI_BASE:   return AI.BASE;
-//                case OPPONENT_AI_MODNAR:   return AI.MODNAR;
-//                case OPPONENT_AI_ROOKIE:   return AI.ROOKIE;
-//                case OPPONENT_AI_XILMI:  return AI.XILMI;
-//                case OPPONENT_AI_HYBRID:  return AI.HYBRID;
-//                case OPPONENT_AI_CRUEL: return AI.FUSION;
-//                case OPPONENT_AI_FUN: return AI.FUN;
-//                case OPPONENT_AI_PERSONALITY: return AI.PERSONALITY;
-//                case OPPONENT_AI_RANDOM:  return AI.RANDOM;
-//                case OPPONENT_AI_RANDOM_BASIC:  return AI.RANDOM_BASIC;
-//                case OPPONENT_AI_RANDOM_ADV:  return AI.RANDOM_ADVANCED;
-//                case OPPONENT_AI_RANDOM_NOBAR:  return AI.RANDOM_NO_RELATIONBAR;
-//                case OPPONENT_AI_SELECTABLE:
-//                    String specificAI = specificOpponentAIOption(e.id);
-//                    switch(specificAI) {
-//                        case OPPONENT_AI_BASE:   return AI.BASE;
-//                        case OPPONENT_AI_MODNAR:   return AI.MODNAR;
-//                        case OPPONENT_AI_ROOKIE:   return AI.ROOKIE;
-//                        case OPPONENT_AI_XILMI:  return AI.XILMI;
-//                        case OPPONENT_AI_HYBRID:  return AI.HYBRID;
-//                        case OPPONENT_AI_CRUEL: return AI.FUSION;
-//                        case OPPONENT_AI_FUN: return AI.FUN;
-//                        case OPPONENT_AI_PERSONALITY: return AI.PERSONALITY;
-//                        case OPPONENT_AI_RANDOM:  return AI.RANDOM;
-//                        case OPPONENT_AI_RANDOM_BASIC:  return AI.RANDOM_BASIC;
-//                        case OPPONENT_AI_RANDOM_ADV:  return AI.RANDOM_ADVANCED;
-//                        case OPPONENT_AI_RANDOM_NOBAR:  return AI.RANDOM_NO_RELATIONBAR;
-//                    }
-//            }
-//        }
-//        return AI.FUSION;
-//    }
     @Override
     public float hostileTerraformingPct() { 
         switch(selectedTerraformingOption()) {
@@ -849,14 +788,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override
     public Planet randomPlanet(StarSystem s) {
         Planet p = new Planet(s);
-        
-        // BR: Made this String Array public
-        String[] planetTypes = planetTypes();
-        // String[] planetTypes = { "PLANET_NONE", "PLANET_RADIATED", "PLANET_TOXIC", "PLANET_INFERNO",
-        //         "PLANET_DEAD", "PLANET_TUNDRA", "PLANET_BARREN", "PLANET_MINIMAL", "PLANET_DESERT",
-        //         "PLANET_STEPPE", "PLANET_ARID", "PLANET_OCEAN", "PLANET_JUNGLE", "PLANET_TERRAN" };
-        // \BR
-
+        String[] planetTypes = planetTypes(); // BR: Made this String Array public
         float[] pcts;
 
         float[] redPcts =    { .05f, .10f, .15f, .20f, .25f, .30f, .35f, .40f, .50f, .60f, .75f, .85f, .95f, 1.0f };
@@ -1210,51 +1142,13 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add(OPPONENT_AI_RANDOM_NOBAR);
         return list;
     } 
-    
-//    public static List<String> getNewRacesOnOffList() {
-//		if (UserPreferences.showNewRaces.get()) {
-//			return MOO1GameOptions.allRaceOptions();
-//		}
-//		return MOO1GameOptions.baseRaceOptions();
-//    }
-//    // BR: Made static method option
-//    public static LinkedList<String> baseRaceOptions() {
-//    	LinkedList<String> list = new LinkedList<>();
-//        list.add("RACE_HUMAN");
-//        list.add("RACE_ALKARI");
-//        list.add("RACE_SILICOID");
-//        list.add("RACE_MRRSHAN");
-//        list.add("RACE_KLACKON");
-//        list.add("RACE_MEKLAR");
-//        list.add("RACE_PSILON");
-//        list.add("RACE_DARLOK");
-//        list.add("RACE_SAKKRA");
-//        list.add("RACE_BULRATHI");
-//        return list;
-//    }
-//    public static LinkedList<String> allRaceOptions() {
-//    	LinkedList<String> list = baseRaceOptions();
-//        list.add("RACE_NEOHUMAN");   // modnar: add races
-//		list.add("RACE_MONOCLE");    // modnar: add races
-//		list.add("RACE_JACKTRADES"); // modnar: add races
-//		list.add("RACE_EARLYGAME");  // modnar: add races
-//		list.add("RACE_WARDEMON");   // modnar: add races
-//        list.add("RACE_GEARHEAD");   // modnar: add races
-//        return list;
-//    }
     @Override
-    public List<String> newRaceOffOptions() {
-        return IGameOptions.baseRaceOptions();
-    }
+    public List<String> newRaceOffOptions()	  { return IGameOptions.baseRaceOptions(); }
     @Override
-    public List<String> startingRaceOptions() {
-        return IGameOptions.allRaceOptions();
-    }
+    public List<String> startingRaceOptions() {  return IGameOptions.allRaceOptions(); }
     @Override
-    public List<Integer> possibleColors() {
-        return new ArrayList<>(colors);
-    }
-    public void setAndGenerateGalaxy() {
+    public List<Integer> possibleColors()	  { return new ArrayList<>(colors); }
+    public void setAndGenerateGalaxy()		  {
        	setGalaxyShape(selectedGalaxyShapeOption1, selectedGalaxyShapeOption2);
        	generateGalaxy();
     }
@@ -1668,9 +1562,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	case AdvancedOptionsUI.GUI_ID:
     		copyAdvancedOptions(src, dest);
     		break;
-//    	case StartOptionsUI.GUI_ID:
-//    		copyAdvancedOptions(src, dest);
-//    		break;
     	case UserPreferences.ALL_GUI_ID:
     		copyBaseGalaxySettings(src, dest);
     		copyBaseRaceSettings(src, dest);
@@ -1703,9 +1594,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	case AdvancedOptionsUI.GUI_ID:
     		options.setAdvancedOptionsToDefault();
     		break;
-//    	case StartOptionsUI.GUI_ID:
-//    		options.setAdvancedOptionsToDefault();
-//    		break;
     	case UserPreferences.ALL_GUI_ID:
     		options.setAdvancedOptionsToDefault();
     		options.setBaseRaceSettingsToDefault();

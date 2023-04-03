@@ -116,8 +116,8 @@ public class UserPreferences {
 	private static final String GRAPHICS_LOW = "GAME_SETTINGS_GRAPHICS_LOW";
 	private static final String GRAPHICS_MEDIUM = "GAME_SETTINGS_GRAPHICS_MED";
 	private static final String GRAPHICS_HIGH = "GAME_SETTINGS_GRAPHICS_HIGH";
-	private static final String AUTOCOLONIZE_YES = "GAME_SETTINGS_AUTOCOLONIZE_YES";
-	private static final String AUTOCOLONIZE_NO = "GAME_SETTINGS_AUTOCOLONIZE_NO";
+	// private static final String AUTOCOLONIZE_YES = "GAME_SETTINGS_AUTOCOLONIZE_YES";
+	// private static final String AUTOCOLONIZE_NO = "GAME_SETTINGS_AUTOCOLONIZE_NO";
 	private static final String AUTOBOMBARD_NO = "GAME_SETTINGS_AUTOBOMBARD_NO";
 	private static final String AUTOBOMBARD_NEVER = "GAME_SETTINGS_AUTOBOMBARD_NEVER";
 	private static final String AUTOBOMBARD_YES = "GAME_SETTINGS_AUTOBOMBARD_YES";
@@ -288,13 +288,13 @@ public class UserPreferences {
 			MOD_UI, "BATTLE_SCOUT", false);
 	public static final ParamBoolean randomTechStart		= new ParamBoolean(
 			MOD_UI, "RANDOM_TECH_START", false);
-	public static final ParamInteger companionWorlds		= new ParamInteger(
+	private static final ParamInteger companionWorlds		= new ParamInteger(
 			MOD_UI, "COMPANION_WORLDS"
 			, 0, -4, 6, true);
-	public static final ParamInteger retreatRestrictionTurns= new ParamInteger(
+	private static final ParamInteger retreatRestrictionTurns= new ParamInteger(
 			MOD_UI, "RETREAT_RESTRICTION_TURNS"
 			, 100, 0, 100, 1, 5, 20);
-	public static final ParamList	 retreatRestrictions	= new ParamList(
+	private static final ParamList	 retreatRestrictions	= new ParamList(
 			MOD_UI, "RETREAT_RESTRICTIONS", "None")
 			.put("None",	MOD_UI + "RETREAT_NONE")
 			.put("AI",		MOD_UI + "RETREAT_AI")
@@ -311,7 +311,7 @@ public class UserPreferences {
 			, 100, 20, 500, 1, 5, 20);
 	public static final ParamBoolean dynamicDifficulty		= new ParamBoolean(
 			MOD_UI, "DYNAMIC_DIFFICULTY", false);
-	public static final ParamFloat	 missileSizeModifier	= new ParamFloat(
+	private static final ParamFloat	 missileSizeModifier	= new ParamFloat(
 			MOD_UI, "MISSILE_SIZE_MODIFIER"
 			, 2f/3f, 0.1f, 1f, 0.01f, 0.05f, 0.2f, "0.##", "%");
 	public static final ParamBoolean challengeMode			= new ParamBoolean(
@@ -355,7 +355,7 @@ public class UserPreferences {
 			return super.set(newValue);
 		}
 	};
-	public static final ParamInteger eventsStartTurn		= new ParamInteger(
+	private static final ParamInteger eventsStartTurn		= new ParamInteger(
 			MOD_UI, "EVENTS_START_TURN"
 			, RandomEvents.START_TURN, 1, null, 1, 5, 20) {
 		@Override public Integer set(Integer newValue) {
@@ -383,19 +383,19 @@ public class UserPreferences {
 			MOD_UI, "AMOEBA_MAX_SYSTEMS",	0, 0, null, 1, 5, 20);
 	public static final ParamInteger crystalMaxSystems		= new ParamInteger(
 			MOD_UI, "CRYSTAL_MAX_SYSTEMS",	0, 0, null, 1, 5, 20);
-	public static final ParamTech    techIrradiated			= new 
+	private static final ParamTech    techIrradiated			= new 
 			ParamTech("TECH_IRRADIATED",	3, "ControlEnvironment",6); // level 18
-	public static final ParamTech    techCloaking			= new 
+	private static final ParamTech    techCloaking			= new 
 			ParamTech("TECH_CLOAKING",		2, "Cloaking",			0); // level 27
-	public static final ParamTech    techStargate			= new 
+	private static final ParamTech    techStargate			= new 
 			ParamTech("TECH_STARGATES",		4, "Stargate", 			0); // level 27
-	public static final ParamTech    techHyperspace			= new 
+	private static final ParamTech    techHyperspace			= new 
 			ParamTech("TECH_HYPERSPACE",	0, "HyperspaceComm",	0); // level 34
-	public static final ParamTech    techIndustry2			= new 
+	private static final ParamTech    techIndustry2			= new 
 			ParamTech("TECH_INDUSTRY_2",	1, "ImprovedIndustrial",7); // level 38
-	public static final ParamTech    techThorium			= new 
+	private static final ParamTech    techThorium			= new 
 			ParamTech("TECH_THORIUM",		4, "FuelRange",			8); // level 41
-	public static final ParamTech    techTransport			= new 
+	private static final ParamTech    techTransport			= new 
 			ParamTech("TECH_TRANSPORTERS",	4, "CombatTransporter",	0); // level 45
 	public static final ParamInteger randomAlienRacesMin		= new ParamInteger(
 			MOD_UI, "RACES_RAND_MIN"
@@ -1115,11 +1115,11 @@ public class UserPreferences {
 		save();
 	}
 	public static String sensitivityMode()	  { return sensitivityMode; }
-	public static boolean sensitivityHigh()	  { return sensitivityMode.equals(SENSITIVITY_HIGH); }
+	// public static boolean sensitivityHigh()	  { return sensitivityMode.equals(SENSITIVITY_HIGH); }
 	public static boolean sensitivityMedium() { return sensitivityMode.equals(SENSITIVITY_MEDIUM); }
 	public static boolean sensitivityLow()	  { return sensitivityMode.equals(SENSITIVITY_LOW); }
 
-	public static String autoColonizeMode()	  { return autoColonize ? AUTOCOLONIZE_YES : AUTOCOLONIZE_NO; }
+	// public static String autoColonizeMode()	  { return autoColonize ? AUTOCOLONIZE_YES : AUTOCOLONIZE_NO; }
 	public static void toggleAutoColonize()	  { autoColonize = !autoColonize; save();  }
 	public static boolean autoColonize()	  { return autoColonize; }
 	private static void autoColonize(boolean val)  { autoColonize = val; }
@@ -1135,9 +1135,9 @@ public class UserPreferences {
 		}
 		save();
 	}
-	public static void autoBombardMode(String val)   { autoBombardMode = val; }
+	private static void autoBombardMode(String val)   { autoBombardMode = val; }
 	public static String autoBombardMode()   { return autoBombardMode; }
-	public static boolean autoBombardNo()    { return autoBombardMode.equals(AUTOBOMBARD_NO); }
+	// public static boolean autoBombardNo()    { return autoBombardMode.equals(AUTOBOMBARD_NO); }
 	public static boolean autoBombardNever() { return autoBombardMode.equals(AUTOBOMBARD_NEVER); }
 	public static boolean autoBombardYes()   { return autoBombardMode.equals(AUTOBOMBARD_YES); }
 	public static boolean autoBombardWar()   { return autoBombardMode.equals(AUTOBOMBARD_WAR); }
@@ -1175,7 +1175,7 @@ public class UserPreferences {
 	}
 	// \BR:
 	public static int screenSizePct()       { return screenSizePct; }
-	public static void screenSizePct(int i) { setScreenSizePct(i); }
+	private static void screenSizePct(int i) { setScreenSizePct(i); }
 	public static String saveDirectoryPath() {
 		if (saveDir.isEmpty())
 			return Rotp.jarPath();
@@ -1209,7 +1209,7 @@ public class UserPreferences {
 	}
 	public static void toggleYearDisplay()	{ displayYear = !displayYear; save(); }
 	public static boolean displayYear()	   { return displayYear; }
-	public static void setDefaultMaxBases(int bases)	{ defaultMaxBases = bases; }
+	// public static void setDefaultMaxBases(int bases)	{ defaultMaxBases = bases; }
 	public static int defaultMaxBases()	{ return defaultMaxBases; }
 	public static void setGovernorOn(boolean governorOn)	{ governorOnByDefault = governorOn; save(); } // BR:
 	public static boolean governorOnByDefault() { return governorOnByDefault; }
@@ -1219,15 +1219,15 @@ public class UserPreferences {
 	public static boolean legacyGrowth() { return legacyGrowth; } // BR:
 	public static void setGovernorAutoApply(boolean auto_Apply)  { governorAutoApply = auto_Apply; save(); } // BR:
 	public static boolean governorAutoApply() { return governorAutoApply; } // BR:
-	public static void setDivertColonyExcessToResearch(boolean divertOn)  {divertColonyExcessToResearch = divertOn; save(); }
+	// public static void setDivertColonyExcessToResearch(boolean divertOn)  {divertColonyExcessToResearch = divertOn; save(); }
 	public static boolean divertColonyExcessToResearch()  { return divertColonyExcessToResearch; }
-	public static boolean disableAdvisor()	{ return disableAdvisor; }
-	public static void uiTexturePct(int i)	{ uiTexturePct = i / 100.0f; }
-	public static float uiTexturePct()		{ return uiTexturePct; }
-	public static boolean gamePlayed()		{return gamePlayed; }
-	public static void gamePlayed(boolean played) { gamePlayed = played; }
-	public static boolean loadRequest()			  {return loadRequest; }
-	public static void loadRequest(boolean load)  {
+	public static boolean disableAdvisor()			{ return disableAdvisor; }
+	private static void uiTexturePct(int i)			{ uiTexturePct = i / 100.0f; }
+	static float uiTexturePct()						{ return uiTexturePct; }
+	static boolean gamePlayed()						{return gamePlayed; }
+	public static void gamePlayed(boolean played)	{ gamePlayed = played; }
+	static boolean loadRequest()			  		{return loadRequest; }
+	public static void loadRequest(boolean load)	{
 		if (load) {
 			// For games launched without going to the GUI
 			// The "backGround newGameOptions() will then be set
@@ -1236,7 +1236,7 @@ public class UserPreferences {
 		} // not else Because SetupRaceUI will do a createNewGameOptions()
 		loadRequest = load;
 	}
-	public static void loadAndSave() {
+	static void loadAndSave() {
 		load();
 		save();
 	}
@@ -1404,7 +1404,7 @@ public class UserPreferences {
 		setScreenSizePct(screenSizePct+5);
 		return oldSize != screenSizePct;
 	}
-	public static String displayModeToSettingName(String s) {
+	private static String displayModeToSettingName(String s) {
 		switch(s) {
 			case WINDOW_MODE:	  return "Windowed";
 			case BORDERLESS_MODE: return "Borderless";
@@ -1412,7 +1412,7 @@ public class UserPreferences {
 		}
 		return "Windowed";
 	}
-	public static String displayModeFromSettingName(String s) {
+	private static String displayModeFromSettingName(String s) {
 		switch(s) {
 			case "Windowed":   return WINDOW_MODE;
 			case "Borderless": return BORDERLESS_MODE;
@@ -1420,7 +1420,7 @@ public class UserPreferences {
 		}
 		return WINDOW_MODE;
 	}
-	public static String graphicsModeToSettingName(String s) {
+	private static String graphicsModeToSettingName(String s) {
 		switch(s) {
 			case GRAPHICS_LOW:	  return "Low";
 			case GRAPHICS_MEDIUM: return "Medium";
@@ -1428,7 +1428,7 @@ public class UserPreferences {
 		}
 		return "High";
 	}
-	public static String graphicsModeFromSettingName(String s) {
+	private static String graphicsModeFromSettingName(String s) {
 		switch(s) {
 			case "Low":	   return GRAPHICS_LOW;
 			case "Medium": return GRAPHICS_MEDIUM;
@@ -1436,7 +1436,7 @@ public class UserPreferences {
 		}
 		return GRAPHICS_HIGH;
 	}
-	public static String autoBombardToSettingName(String s) {
+	private static String autoBombardToSettingName(String s) {
 		switch(s) {
 			case AUTOBOMBARD_NO:	 return "No";
 			case AUTOBOMBARD_NEVER:  return "Never";
@@ -1446,7 +1446,7 @@ public class UserPreferences {
 		}
 		return "No";
 	}
-	public static String autoBombardFromSettingName(String s) {
+	private static String autoBombardFromSettingName(String s) {
 		switch(s) {
 			case "No":	   return AUTOBOMBARD_NO;
 			case "Never":  return AUTOBOMBARD_NEVER;
@@ -1456,7 +1456,7 @@ public class UserPreferences {
 		}
 		return AUTOBOMBARD_NO;
 	}
-	public static String texturesToSettingName(String s) {
+	private static String texturesToSettingName(String s) {
 		switch(s) {
 			case TEXTURES_NO:		 return "No";
 			case TEXTURES_INTERFACE: return "Interface";
@@ -1465,7 +1465,7 @@ public class UserPreferences {
 		}
 		return "Both";
 	}
-	public static String texturesFromSettingName(String s) {
+	private static String texturesFromSettingName(String s) {
 		switch(s) {
 			case "No":        return TEXTURES_NO;
 			case "Interface": return TEXTURES_INTERFACE;
@@ -1474,7 +1474,7 @@ public class UserPreferences {
 		}
 		return TEXTURES_BOTH;
 	}
-	public static String sensitivityToSettingName(String s) {
+	private static String sensitivityToSettingName(String s) {
 		switch(s) {
 			case SENSITIVITY_HIGH:   return "High";
 			case SENSITIVITY_MEDIUM: return "Medium";
@@ -1482,7 +1482,7 @@ public class UserPreferences {
 		}
 		return "Medium";
 	}
-	public static String sensitivityFromSettingName(String s) {
+	private static String sensitivityFromSettingName(String s) {
 		switch(s) {
 			case "High":   return SENSITIVITY_HIGH;
 			case "Medium": return SENSITIVITY_MEDIUM;

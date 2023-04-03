@@ -137,7 +137,7 @@ public class ParamFloat extends AbstractParam<Float> {
 	//
 	public void next(MouseEvent e) { next(Math.abs(getInc(e))); }
 	public void prev(MouseEvent e) { next(-Math.abs(getInc(e))); }
-	public void next(float i) {
+	private void next(float i) {
 		if (i == 0) {
 			setFromDefault();
 			return;

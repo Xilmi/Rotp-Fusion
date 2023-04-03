@@ -48,7 +48,8 @@ public class GNNUI extends FadeInPanel implements Base, MouseListener, MouseMoti
 
     private final static int EVENT_FADE_IN_FRAME = 30;
     private final static int NUM_EVENT_FADE_FRAMES = 5;
-    private boolean exited = false;
+    @SuppressWarnings("unused")
+	private boolean exited = false;
     private String messageText;
     private String eventId;
     private Image eventImg;

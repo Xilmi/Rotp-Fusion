@@ -59,7 +59,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	private static final String randomTipKey	= ROOT + "GUI_RANDOM_DESC";
 	private static final String saveTipKey		= ROOT + "GUI_SAVE_DESC";
 	private static final String loadTipKey		= ROOT + "GUI_LOAD_DESC";
-	public	static final EditCustomRaceUI instance = new EditCustomRaceUI();
+	private	static final EditCustomRaceUI instance = new EditCustomRaceUI();
 	
 	private final Rectangle selectBox	= new Rectangle();
 	private final Rectangle randomBox	= new Rectangle();

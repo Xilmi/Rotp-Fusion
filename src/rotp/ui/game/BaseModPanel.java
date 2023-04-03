@@ -37,7 +37,7 @@ import rotp.ui.util.InterfaceParam;
 import rotp.util.LabelManager;
 import rotp.util.ModifierKeysState;
 
-public abstract class BaseModPanel extends BasePanel {
+abstract class BaseModPanel extends BasePanel {
  
 	private static final String setGlobalDefaultKey	= "SETTINGS_GLOBAL_DEFAULT";
 	private static final String setLocalDefaultKey	= "SETTINGS_LOCAL_DEFAULT";
@@ -58,7 +58,7 @@ public abstract class BaseModPanel extends BasePanel {
 	protected static int  smallButtonMargin;
 	protected static int  smallButtonH;
 
-	public LinkedList<InterfaceParam> paramList;
+	LinkedList<InterfaceParam> paramList;
 	LinkedList<InterfaceParam> duplicateList;
 	LinkedList<InterfaceParam> activeList;
 

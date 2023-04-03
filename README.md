@@ -26,6 +26,13 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2023.04.03 (BR)
+- Some code cleaning. (Ghost, imports, comments)
+  - Removed some ghost of profiles.
+  - Removed some old commented test.
+  - Cleaned import list.
+  - Made private some public methods.
+
 2023.04.02 (BR)
 - Right click on alert to center the map on the system.
 - Totally removed Profiles Manager (Was no more maintained -> Danger)

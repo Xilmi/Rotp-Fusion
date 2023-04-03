@@ -23,7 +23,7 @@ import java.io.Serializable;
 
 import rotp.model.game.DynamicOptions;
 
-public class ParamObject extends AbstractParam<Serializable> {
+class ParamObject extends AbstractParam<Serializable> {
 	
 
 	// ===== Constructors =====
@@ -33,7 +33,7 @@ public class ParamObject extends AbstractParam<Serializable> {
 	 * @param name The name
 	 * @param defaultValue The default value
 	 */
-	public ParamObject(String gui, String name, Serializable defaultValue) {
+	ParamObject(String gui, String name, Serializable defaultValue) {
 		super(gui, name, defaultValue);
 	}
 	// ===== Overriders =====

@@ -20,15 +20,15 @@ import static rotp.ui.UserPreferences.MOD_UI;
 
 public class ParamAAN2 extends ParamList {
 	
-	public static final String HUMBLE	= "Never Always";
-	public static final String RIVALS	= "Never Auto";
-	public static final String NEVER	= "Never Never";
-	public static final String MAYBE	= "Auto Never";
-	public static final String AUTO		= "Auto Auto";
-	public static final String RISKY	= "Auto Always";
-	public static final String ALWAYS	= "Always Always";
-	public static final String PLAYER	= "Always Auto";
-	public static final String SELFISH  = "Always Never";
+	private static final String HUMBLE	= "Never Always";
+	private static final String RIVALS	= "Never Auto";
+	private static final String NEVER	= "Never Never";
+	private static final String MAYBE	= "Auto Never";
+			static final String AUTO	= "Auto Auto";
+	private static final String RISKY	= "Auto Always";
+	private static final String ALWAYS	= "Always Always";
+	private static final String PLAYER	= "Always Auto";
+	private static final String SELFISH  = "Always Never";
 	
 	private static final IndexableMap labelsAlwaysAutoNever = new IndexableMap();
 	static {
@@ -50,7 +50,7 @@ public class ParamAAN2 extends ParamList {
 	 * @param name The name
 	 * @param defaultValue The default value
 	 */
-	public ParamAAN2(String gui, String name, String defaultValue) {
+	ParamAAN2(String gui, String name, String defaultValue) {
 		super(gui, name, defaultValue, labelsAlwaysAutoNever);
 	}
 	/**
@@ -58,7 +58,7 @@ public class ParamAAN2 extends ParamList {
 	 * @param name The name
 	 * @param defaultValue The default value
 	 */
-	public ParamAAN2(String name, String defaultValue) {
+	ParamAAN2(String name, String defaultValue) {
 		this(MOD_UI, name, defaultValue);
 	}
 	/**

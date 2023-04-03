@@ -2295,37 +2295,10 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		case KeyEvent.VK_M: // BR: "M" = Go to Main Menu
 			goToMainMenu();
 			return;
-		default: // BR:
-//			if (Profiles.processKey(k, e.isShiftDown(), "Galaxy", newGameOptions())) {
-//				buttonClick();
-//				playerRaceImg = null;
-//				playerRaceImg = playerRaceImg();
-//				backImg = null;
-//				repaint();
-//			}
-//			// Needs to be done twice for the case both Galaxy size
-//			// and the number of opponents were changed !?
-//			if (Profiles.processKey(k, e.isShiftDown(), "Galaxy", newGameOptions())) {
-//				playerRaceImg = null;
-//				playerRaceImg = playerRaceImg();
-//				backImg = null;
-//				repaint();
-//			}
-//			return;
+		default:
+			return;
 		}
 	}
-//	// BR:
-//	/**
-//	 * Load Profiles with option "Surprise" and start Game
-//	 */
-//	public void surpriseStart() {
-//		Profiles.processKey(KeyEvent.VK_R, true, "Galaxy", newGameOptions());
-//		buttonClick();
-//		repaint();
-//		Profiles.processKey(KeyEvent.VK_R, true, "Galaxy", newGameOptions());
-//		repaint();
-//		startGame();
-//	}
 	@Override
 	public void mouseDragged(MouseEvent e) {  }
 	@Override
@@ -2704,87 +2677,4 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			}
 		}
 	}
-
-//	private void increaseOpponents(boolean click) {
-//	int numOpps = newGameOptions().selectedNumberOpponents();
-//	if (numOpps >= newGameOptions().maximumOpponentsOptions())
-//		return;
-//	if (click) softClick();
-//	newGameOptions().selectedNumberOpponents(numOpps+1);
-//	newGameOptions().galaxyShape().quickGenerate(); // modnar: do a quickgen to get correct map preview
-//	repaint();
-//}
-//private void decreaseOpponents(boolean click) {
-//	int numOpps = newGameOptions().selectedNumberOpponents();
-//	if (numOpps <= 0)
-//		return;
-//	if (click) softClick();
-//	newGameOptions().selectedOpponentRace(numOpps-1,null);
-//	newGameOptions().selectedNumberOpponents(numOpps-1);
-//	newGameOptions().galaxyShape().quickGenerate(); // modnar: do a quickgen to get correct map preview
-//	repaint();
-//}
-//	private void nextGalaxySize(boolean bounded, boolean click) {
-//	String nextSize = newGameOptions().nextGalaxySize(bounded);
-//	if (nextSize.equals(newGameOptions().selectedGalaxySize()))
-//		return;
-//	if (click) softClick();
-//	newGameOptions().selectedGalaxySize(newGameOptions().nextGalaxySize(bounded));
-//	newGameOptions().galaxyShape().quickGenerate(); // modnar: do a quickgen to get correct map preview
-//	backImg = null; // BR: to show/hide system per empire
-//	repaint();
-//}
-//private void prevGalaxySize(boolean bounded, boolean click) {
-//	String prevSize = newGameOptions().prevGalaxySize(bounded);
-//	if (prevSize.equals(newGameOptions().selectedGalaxySize()))
-//		return;
-//	if (click) softClick();
-//	newGameOptions().selectedGalaxySize(newGameOptions().prevGalaxySize(bounded));
-//	int numOpps = newGameOptions().selectedNumberOpponents();
-//	if(numOpps<0) {
-//		newGameOptions().selectedNumberOpponents(0);
-//		numOpps = 0;
-//	}
-//	int maxOpps = newGameOptions().maximumOpponentsOptions();
-//	if (maxOpps < numOpps) {
-//		for (int i=maxOpps;i<numOpps;i++)
-//			newGameOptions().selectedOpponentRace(i,null);
-//		newGameOptions().selectedNumberOpponents(maxOpps);
-//	}
-//	newGameOptions().galaxyShape().quickGenerate(); // modnar: do a quickgen to get correct map preview
-//	backImg = null; // BR: to show/hide system per empire
-//	repaint();
-//}
-//private void nextGalaxyShape(boolean click) {
-//	if (click) softClick();
-//	newGameOptions().selectedGalaxyShape(newGameOptions().nextGalaxyShape());
-//	postGalaxyShapeSelection();
-//}
-//private void prevGalaxyShape(boolean click) {
-//	if (click) softClick();
-//	newGameOptions().selectedGalaxyShape(newGameOptions().prevGalaxyShape());
-//	postGalaxyShapeSelection();
-//}
-//	private void nextMapOption2(boolean click) {
-//	if (click) softClick();
-//	newGameOptions().selectedGalaxyShapeOption2(newGameOptions().nextGalaxyShapeOption2());
-//	newGameOptions().galaxyShape().quickGenerate(); 
-//	repaint();
-//}
-//private void prevMapOption2(boolean click) {
-//	if (click) softClick();
-//	newGameOptions().selectedGalaxyShapeOption2(newGameOptions().prevGalaxyShapeOption2());
-//	newGameOptions().galaxyShape().quickGenerate(); 
-//	repaint();
-//}
-//private void nextGameDifficulty(boolean click) {
-//	if (click) softClick();
-//	newGameOptions().selectedGameDifficulty(newGameOptions().nextGameDifficulty());
-//	repaint();
-//}
-//private void prevGameDifficulty(boolean click) {
-//	if (click) softClick();
-//	newGameOptions().selectedGameDifficulty(newGameOptions().prevGameDifficulty());
-//	repaint();
-//}
 }

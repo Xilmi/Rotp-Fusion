@@ -16,7 +16,6 @@
 package rotp.model;
 
 import java.awt.Graphics2D;
-import java.awt.event.MouseEvent;
 
 import rotp.model.galaxy.IMappedObject;
 import rotp.model.galaxy.StarSystem;

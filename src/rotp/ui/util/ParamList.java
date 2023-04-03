@@ -286,7 +286,7 @@ public class ParamList extends AbstractParam<String> {
 //			langLabelList.addAll(map.langLabelList);
 //		}
 		
-		void clear () {
+		private void clear () {
 			cfgValueList.clear();
 			langLabelList.clear();
 		}

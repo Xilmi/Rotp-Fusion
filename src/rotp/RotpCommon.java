@@ -28,6 +28,7 @@ public class RotpCommon {
 
         PlanetFactory.current();
 
-        GameSession session = GameSession.instance();
+        @SuppressWarnings("unused")
+		GameSession session = GameSession.instance();
     }
 }

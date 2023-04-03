@@ -52,7 +52,7 @@ public class ShowCustomRaceUI extends BaseModPanel implements MouseListener, Mou
 	private static final String playerAIOffKey	= "SETUP_OPPONENT_AI_PLAYER";
 	private static final String totalCostKey	= ROOT + "GUI_COST";
 	private static final String raceAITipKey	= ROOT + "RACE_AI_DESC";
-	protected static final String exitTipKey	= "SETTINGS_EXIT_DESC";
+	private static final String exitTipKey		= "SETTINGS_EXIT_DESC";
 	
 	private	static final int tooltipPadV	= s10;
 	private	static final int tooltipPadM	= s10;
@@ -145,7 +145,7 @@ public class ShowCustomRaceUI extends BaseModPanel implements MouseListener, Mou
 	protected BaseText totalCostText;
 	private	  RacesUI  raceUI; // Parent panel
 	protected int maxLeftM;
-	public	  CustomRaceDefinitions cr;
+	CustomRaceDefinitions cr;
 	protected boolean initialized = false;
 	
 	// ========== Constructors and initializers ==========
@@ -225,7 +225,7 @@ public class ShowCustomRaceUI extends BaseModPanel implements MouseListener, Mou
 		init();
 		repaint();
 	}
-	protected void init() {
+	@Override protected void init() {
 		super.init();
 		for (SettingBase<?> setting : commonList) {
 			if (setting.isBullet()) {

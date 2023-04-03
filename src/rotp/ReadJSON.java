@@ -3,7 +3,7 @@ package rotp;
 import rotp.model.game.GameSession;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
+//import java.nio.charset.StandardCharsets;
 
 public class ReadJSON {
     static {
@@ -19,7 +19,7 @@ public class ReadJSON {
             System.exit(2);
         }
         File inputFile = new File(arg[0]);
-        File outputFile = new File(arg[1]);
+        //File outputFile = new File(arg[1]);
 
         RotpCommon.headlessInit();
 

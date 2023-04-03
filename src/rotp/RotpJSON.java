@@ -25,7 +25,8 @@ public class RotpJSON {
     public static ObjectMapper objectMapper = new ObjectMapper();
 
     static {
-        SimpleModule simpleModule = new SimpleModule("ROTP",
+        @SuppressWarnings("deprecation")
+		SimpleModule simpleModule = new SimpleModule("ROTP",
                 new Version(1, 0, 0, null));
         simpleModule.addSerializer(new RotpJSON.GameSessionSerializer());
         simpleModule.addSerializer(new RotpJSON.ColorSerializer());

@@ -74,8 +74,6 @@ public class CompactOptionsUI extends BaseModPanel implements MouseListener, Mou
 	private static final int bottomPad		= rowPad;
 	private static final int textBoxH		= settingH;
 	private static final int hDistSetting	= settingH + settingpadH; // distance between two setting top corner
-//	private static final int leftM			= columnPad;
-//	private static final int rightM			= leftM;
 	private int leftM, rightM;
 	private int topM, yTop;
 	private int wBG, hBG;
@@ -433,7 +431,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseListener, Mou
 		parent = p;
 		start();
 	}
-	public void start() { // Called from subUI
+	private void start() { // Called from subUI
 		super.init();
 		hoverBox = null;
 		prevHover = null;

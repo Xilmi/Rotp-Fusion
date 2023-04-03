@@ -142,7 +142,7 @@ public final class EmpireView implements Base, Serializable {
         }
         return values;
     }
-    public void setSuggestedAllocations() { // TODO BR: added Xenophobic management
+    public void setSuggestedAllocations() { // BR: added Xenophobic management
         if (owner.isAIControlled()) {
             spies.setSuggestedAllocations();
             return;

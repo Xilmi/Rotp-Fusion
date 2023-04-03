@@ -1095,19 +1095,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
             	doNextBoxAction();
                 return;
             default: // BR:
-//            	if (Profiles.processKey(k, e.isShiftDown(), "Race", newGameOptions())) {
-//	            	buttonClick();
-//	       			raceChanged();
-//	       			repaint();
-//       			}
-//            	// Needs to be done twice for the case both Galaxy size
-//            	// and the number of opponents were changed !?
-//            	if (Profiles.processKey(k, e.isShiftDown(), "Race", newGameOptions())) {
-//            		buttonClick();
-//					raceChanged();
-//					repaint();
-//				}
-//                return;
+                return;
         }
     }
     @Override

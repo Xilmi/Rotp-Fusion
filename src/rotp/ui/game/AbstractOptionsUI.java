@@ -152,24 +152,9 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 		lastRowList.add(numParam);
 		while (activeList.remove(null));
 	}
-	protected void rowCountList(Integer... rows) {
-		numColumns = rows.length;
-		Integer id = 0;
-		for (Integer row : rows) {
-			id+= row;
-			lastRowList.add(id);
-		}
-	}
 	// ========== Abstract Methods Request ==========
 	//
 	protected abstract void init0();
-	// ========== Former Abstract Methods Request ==========
-	//
-	// These may be left empty by full Auto GUI
-	private void paintCustomComponent(Graphics2D g) {}
-//	private void repaintCustomComponent() {}
-	private void customMouseCommon(boolean up, boolean mid,
-			boolean shiftPressed, boolean ctrlPressed, MouseEvent e, MouseWheelEvent w) {}
 	// ========== Other Methods ==========
 	//
 	private  BaseText newBT() { 
@@ -290,7 +275,6 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 				return;
 			}			
 		}
-		customMouseCommon(up, mid, shiftPressed, ctrlPressed, e, w);
 	}
 	// ========== Overriders ==========
 	//
@@ -392,10 +376,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 			paintSetting(g, btList.get(index), activeList.get(index).getGuiDescription());
 			goToNextSetting();
 		}
-		paintCustomComponent(g);
-
 		g.setStroke(prev);
-
 		drawButtons(g);
 	}
 	@Override public void keyReleased(KeyEvent e) {

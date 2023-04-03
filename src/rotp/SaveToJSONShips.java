@@ -26,7 +26,8 @@ public class SaveToJSONShips {
 
         InputStream file = new FileInputStream(inputFile);
         InputStream buffer = new BufferedInputStream(file);
-        ObjectInput input = new ObjectInputStream(buffer);
+        @SuppressWarnings("resource")
+		ObjectInput input = new ObjectInputStream(buffer);
         GameSession newSession = (GameSession) input.readObject();
         RotpJSON.setStaticField(GameSession.class, "instance", newSession);
 

@@ -89,7 +89,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 		this.ctrlInc  = ctrlInc;
 	}
 	// ===== For duplicates to be overridden =====
-	public void reInit() {}
+	//public void reInit() {}
 	public void setOption(T option) {}
 	public T getFromOption() { return null; }
 
@@ -173,8 +173,8 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	// ========== Public Getters ==========
 	//
 	public String getLabel(){ return text(labelId()); }
-	public T minValue()	{ return minValue; }	
-	public T maxValue()	{ return maxValue; }	
+	T minValue()	{ return minValue; }	
+	T maxValue()	{ return maxValue; }	
 	T baseInc()			{ return baseInc; }	
 	// ========== Public Setters ==========
 	//
@@ -183,7 +183,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 		setOption(newValue);
 		return value;
 	}
-	public void duplicateOptions (MOO1GameOptions options) { duplicateOptions = options;}
+	// public void duplicateOptions (MOO1GameOptions options) { duplicateOptions = options;}
 	public void maxValue (T newValue)	 { maxValue = newValue;}
 	public void minValue (T newValue)	 { minValue = newValue;}
 	public void defaultValue(T newValue) { defaultValue = newValue; }
