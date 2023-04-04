@@ -1982,6 +1982,9 @@ SETTINGS_MOD_AUTO_FLAG_TECH_TOXIC        | Toxic Color: %1
 SETTINGS_MOD_AUTO_FLAG_TECH_RADIATED     | Radiated Color: %1
 SETTINGS_MOD_AUTO_FLAG_TECH_NONE         | Asteroid Color: %1
 
+SETTINGS_MOD_GALAXY_RAND_SOURCE_DESC     | if <> 0, this number will be used as source for the galaxy random generator. The final galaxy will be the preview one.
+SETTINGS_MOD_GALAXY_RAND_SOURCE          | Random Source: %1
+
 
 // Other base menu Mod settings
 SETTINGS_MOD_PLAYER_SHIP_SET_DESC        | Select the Player Ship Set.

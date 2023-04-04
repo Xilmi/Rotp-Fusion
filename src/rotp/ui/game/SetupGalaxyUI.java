@@ -28,6 +28,7 @@ import static rotp.ui.UserPreferences.compactOptionOnly;
 import static rotp.ui.UserPreferences.difficultySelection;
 import static rotp.ui.UserPreferences.dynStarsPerEmpire;
 import static rotp.ui.UserPreferences.galaxyPreviewColorStarsSize;
+import static rotp.ui.UserPreferences.galaxyRandSource;
 import static rotp.ui.UserPreferences.globalCROptions;
 import static rotp.ui.UserPreferences.shapeOption1;
 import static rotp.ui.UserPreferences.shapeOption2;
@@ -161,6 +162,9 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	private Rectangle diffBox	= new Rectangle();
 	private Polygon   diffBoxL	= new Polygon();
 	private Polygon   diffBoxR	= new Polygon();
+	private Rectangle randBox	= new Rectangle();
+	private Polygon   randBoxL	= new Polygon();
+	private Polygon   randBoxR	= new Polygon();
 	private Rectangle oppBox	= new Rectangle();
 	private Polygon   oppBoxU	= new Polygon();
 	private Polygon   oppBoxD	= new Polygon();
@@ -962,24 +966,26 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		drawString(g,maxOppsLbl, x4,y3);
 
 		// highlight any controls that are hovered
-		if ((hoverBox == shapeBoxL) || (hoverBox == shapeBoxR)
-			||  (hoverBox == sizeBoxL)  || (hoverBox == sizeBoxR)
-			||  (hoverBox == diffBoxL)  || (hoverBox == diffBoxR)
-			||  (hoverBox == aiBoxL)  || (hoverBox == aiBoxR)
-			||  (hoverBox == crBoxL)  || (hoverBox == crBoxR)
-			||  (hoverBox == mapOption1BoxL)  || (hoverBox == mapOption1BoxR)
-			||  (hoverBox == mapOption2BoxL)  || (hoverBox == mapOption2BoxR)
-			||  (hoverBox == sizeOptionBoxL)  || (hoverBox == sizeOptionBoxR)
-			||  (hoverBox == oppBoxU)   || (hoverBox == oppBoxD)) {
+		if ((hoverBox == shapeBoxL)			 || (hoverBox == shapeBoxR)
+			||  (hoverBox == sizeBoxL)		 || (hoverBox == sizeBoxR)
+			||  (hoverBox == diffBoxL)		 || (hoverBox == diffBoxR)
+			||  (hoverBox == randBoxL)		 || (hoverBox == randBoxR)
+			||  (hoverBox == aiBoxL)		 || (hoverBox == aiBoxR)
+			||  (hoverBox == crBoxL)		 || (hoverBox == crBoxR)
+			||  (hoverBox == mapOption1BoxL) || (hoverBox == mapOption1BoxR)
+			||  (hoverBox == mapOption2BoxL) || (hoverBox == mapOption2BoxR)
+			||  (hoverBox == sizeOptionBoxL) || (hoverBox == sizeOptionBoxR)
+			||  (hoverBox == oppBoxU)		 || (hoverBox == oppBoxD)) {
 			g.setColor(Color.yellow);
 			g.fill(hoverBox);
 		}
-		else if ((hoverBox == shapeBox) || (hoverBox == sizeBox)
-			|| (hoverBox == mapOption1Box) || (hoverBox == mapOption2Box)
-			|| (hoverBox == sizeOptionBox) || (hoverBox == crBox)
-			|| (hoverBox == aiBox) || (hoverBox == newRacesBox)
-			|| (hoverBox == showAbilityBox) || (hoverBox == mapOption3Box)
-			|| (hoverBox == diffBox) || (hoverBox == oppBox)) {
+		else if ((hoverBox == shapeBox)		|| (hoverBox == sizeBox)
+			|| (hoverBox == mapOption1Box)	|| (hoverBox == mapOption2Box)
+			|| (hoverBox == sizeOptionBox)	|| (hoverBox == crBox)
+			|| (hoverBox == aiBox)			|| (hoverBox == newRacesBox)
+			|| (hoverBox == showAbilityBox)	|| (hoverBox == mapOption3Box)
+			|| (hoverBox == diffBox)		|| (hoverBox == randBox)
+			|| (hoverBox == oppBox)) {
 			Stroke prev = g.getStroke();
 			g.setStroke(stroke2);
 			g.setColor(Color.yellow);
@@ -1125,6 +1131,11 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		int diffSW = g.getFontMetrics().stringWidth(diffLbl);
 		int x5c =diffBox.x+((diffBox.width-diffSW)/2);
 		drawString(g,diffLbl, x5c, y5);
+		
+		String randLbl = galaxyRandSource.getGuiValue();
+		int rndSW = g.getFontMetrics().stringWidth(randLbl);
+		int x5d =randBox.x+((randBox.width-rndSW)/2);
+		drawString(g,randLbl, x5d, y5+s20);
 		
 		// draw autoplay warning
 		if (newGameOptions().isAutoPlay()) {
@@ -2141,6 +2152,20 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		diffBox.setBounds(sliderX, sliderYAI, sliderW, sliderH);
 		g.fill(diffBox);
 
+		randBoxL.reset();
+		randBoxL.addPoint(sliderX-s4,sliderYAI+s1+s20);
+		randBoxL.addPoint(sliderX-s4,sliderYAI+sliderH-s2+s20);
+		randBoxL.addPoint(sliderX-s13,sliderYAI+(sliderH/2)+s20);
+		g.fill(randBoxL);
+		randBoxR.reset();
+		randBoxR.addPoint(sliderX+sliderW+s4,sliderYAI+s1+s20);
+		randBoxR.addPoint(sliderX+sliderW+s4,sliderYAI+sliderH-s2+s20);
+		randBoxR.addPoint(sliderX+sliderW+s13,sliderYAI+(sliderH/2+s20));
+		g.fill(randBoxR);
+		randBox.setBounds(sliderX, sliderYAI+s20, sliderW, sliderH);
+		g.fill(randBox);
+		
+		
 		int cnr = s5;
 
 		// draw settings button
@@ -2394,6 +2419,12 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			hoverBox = diffBoxR;
 		else if (diffBox.contains(x,y))
 			hoverBox = diffBox;
+		else if (randBoxL.contains(x,y))
+			hoverBox = randBoxL;
+		else if (randBoxR.contains(x,y))
+			hoverBox = randBoxR;
+		else if (randBox.contains(x,y))
+			hoverBox = randBox;
 		else if (oppBoxU.contains(x,y))
 			hoverBox = oppBoxU;
 		else if (oppBoxD.contains(x,y))
@@ -2554,6 +2585,18 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			postSelectionLight(true);
 		}
 		else if (hoverBox == diffBoxR) {
+			galaxyRandSource.next();
+			postSelectionMedium(true);
+		}
+		else if (hoverBox == randBoxL) {
+			galaxyRandSource.prev();
+			postSelectionMedium(true);
+		}
+		else if (hoverBox == randBox) {
+			galaxyRandSource.toggle(e, this);
+			postSelectionMedium(true);
+		}
+		else if (hoverBox == randBoxR) {
 			difficultySelection.next();
 			postSelectionLight(true);
 		}
@@ -2645,6 +2688,11 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		 {
 			difficultySelection.toggle(e);
 			postSelectionLight(false);
+		}
+		else if (hoverBox == randBox)
+		 {
+			galaxyRandSource.toggle(e);
+			postSelectionMedium(false);
 		}
 		else if (hoverBox == oppBox) {
 			aliensNumber.toggle(e);

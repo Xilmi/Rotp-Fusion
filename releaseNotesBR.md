@@ -11,6 +11,10 @@ Update:
 - Xilmi AI: Improved reaction to missile attacks.
 - Totally removed Profiles Manager (Was no more maintained -> Danger)
 
+- New option: The final galaxy will be the preview one. With controlled randomness.
+  - Change the source number to change the galaxy.
+  - 0 => random. (as before)
+  - Applied to Rectangular Galaxy. (for now)
 
 Last Release:
 - Added an Auto-Flag option acting when a new system is scouted.

@@ -18,6 +18,7 @@ package rotp.model.galaxy;
 import static rotp.ui.UserPreferences.maximizeSpacing;
 import static rotp.ui.UserPreferences.spacingLimit;
 import static rotp.ui.UserPreferences.minStarsPerEmpire;
+import static rotp.ui.UserPreferences.galaxyRandSource;
 
 import java.awt.Point;
 import java.io.Serializable;
@@ -62,7 +63,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 	float sysBuffer = 1.9f;
 	int numEmpires;
 	private int numOpponents;
-	Rand rand = new Rand(); // random number generator
+	Rand rand = new Rand(galaxyRandSource.get()); // random number generator
 	private long tm0; // for timing computation
 	// \BR
 
@@ -416,6 +417,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 		clean();
 	}
 	private void generate(boolean full) {
+		rand = new Rand(galaxyRandSource.get());
 		singleInit(full);
 		if (isSymmetric()) {
 			generateSymmetric(full);
@@ -712,8 +714,8 @@ public abstract class GalaxyShape implements Base, Serializable {
 			float buffer = systemBuffer();
 			while (attempts < 100) {
 				attempts++;
-				pt.x = random(x1, x2);
-				pt.y = random(y1, y2);
+				pt.x = rand.next(x1, x2);
+				pt.y = rand.next(y1, y2);
 				if (sh.valid(pt)) {
 					boolean tooCloseToAny = isTooNearExistingSystem(sh,pt.x,pt.y, buffer);
 					boolean tooFarFromRef = distance(x0, y0, pt.x,pt.y) >= maxDistance;

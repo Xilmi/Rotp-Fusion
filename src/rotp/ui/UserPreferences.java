@@ -519,6 +519,8 @@ public class UserPreferences {
 			MOD_UI, "TECH_EXCHANGE_AUTO_NO", false);
 
 	// BR: Galaxy Menu addition
+	public static final ParamInteger galaxyRandSource = new ParamInteger(
+			MOD_UI, "GALAXY_RAND_SOURCE" , 0, 0, Integer.MAX_VALUE, 1, 100, 10000);
 	public static final ParamBoolean showNewRaces 			= new ParamBoolean(
 			MOD_UI, "SHOW_NEW_RACES", false);
 	public static final GlobalCROptions globalCROptions 	= new GlobalCROptions (
@@ -590,6 +592,7 @@ public class UserPreferences {
 	public static final LinkedList<InterfaceParam> optionsGalaxy = new LinkedList<>(
 			Arrays.asList(
 					showNewRaces, globalCROptions, useSelectableAbilities, shapeOption3,
+					galaxyRandSource,
 					dynStarsPerEmpire // This one is a duplicate, but it helps readability
 					));
 

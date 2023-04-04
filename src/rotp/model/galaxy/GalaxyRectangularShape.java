@@ -22,7 +22,6 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import rotp.model.game.IGameOptions;
 
 public class GalaxyRectangularShape extends GalaxyShape {
@@ -194,14 +193,17 @@ public class GalaxyRectangularShape extends GalaxyShape {
         // http://extremelearning.com.au/unreasonable-effectiveness-of-quasirandom-sequences/
         // currently not better than random(), but could in principle allow better separated star systems
         
-        double c1 = 0.7548776662466927600495; // inverse of plastic number
-        double c2 = 0.5698402909980532659114; // square inverse of plastic number
-        
-        Random rand = new Random();
-        int rand_int = rand.nextInt(20*opts.numberStarSystems());
-        
-        pt.x = galaxyEdgeBuffer() + (fullWidth - 2*galaxyEdgeBuffer()) * (float)( (0.5 + c1*rand_int)%1 );
-        pt.y = galaxyEdgeBuffer() + (fullHeight - 2*galaxyEdgeBuffer()) * (float)( (0.5 + c2*rand_int)%1 );
+//        double c1 = 0.7548776662466927600495; // inverse of plastic number
+//        double c2 = 0.5698402909980532659114; // square inverse of plastic number
+//        
+//        Random rand = new Random();
+//        int rand_int = rand.nextInt(20*opts.numberStarSystems());
+//        
+//        pt.x = galaxyEdgeBuffer() + (fullWidth - 2*galaxyEdgeBuffer()) * (float)( (0.5 + c1*rand_int)%1 );
+//        pt.y = galaxyEdgeBuffer() + (fullHeight - 2*galaxyEdgeBuffer()) * (float)( (0.5 + c2*rand_int)%1 );
+
+        pt.x = galaxyEdgeBuffer() + (fullWidth  - 2*galaxyEdgeBuffer()) * rand.nextFloat();
+        pt.y = galaxyEdgeBuffer() + (fullHeight - 2*galaxyEdgeBuffer()) * rand.nextFloat();
     }
     @Override
     public void setSpecific(Point.Float pt) { // modnar: add possibility for specific placement of homeworld/orion locations
@@ -221,7 +223,7 @@ public class GalaxyRectangularShape extends GalaxyShape {
         return totalArea.contains(x, y);
     }
     float randomLocation(float max, float buff) {
-        return buff + (random() * (max-buff-buff));
+        return buff + (rand.nextFloat() * (max-buff-buff));
     }
     @Override
     protected float sizeFactor(String size) { return settingsFactor(1.0f); }

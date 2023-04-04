@@ -48,7 +48,7 @@ public class Rand {
 
 	// ===== Constructors  and Initializers =====
 	//
-	public Rand() { init(Math.random()); }
+	public Rand() { init(0); }
 	public Rand(double source) { init(source); }
 	/**
 	 * Initialize or reinitialize the randomizer
@@ -56,10 +56,15 @@ public class Rand {
 	public void init(double source) {
 		if (source > 1.0)
 			source = 1/source;
-		if (source == 0 || source == 1.0)
+		if (source <= 0)
+			source = Math.random();
+		else if (source == 1.0)
 			source = IGR;
-		for (int i=0; i<lasts.length; i++)
+
+		for (int i=0; i<lasts.length; i++) {
 			lasts[i] = source;
+			rand(i);
+		}
 	}
 	// ========== Private Methods ==========
 	//
