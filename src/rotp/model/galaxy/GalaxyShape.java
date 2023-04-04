@@ -73,8 +73,14 @@ public abstract class GalaxyShape implements Base, Serializable {
 	// ========== abstract and overridable methods ==========
 	protected abstract int galaxyWidthLY();
 	protected abstract int galaxyHeightLY();
-	public abstract void setRandom(Point.Float p);
 	protected abstract float sizeFactor(String size);
+	public void setRandom(Point.Float pt) {
+        pt.x = galaxyEdgeBuffer() + (fullWidth  - 2*galaxyEdgeBuffer()) * rand.nextFloat();
+        pt.y = galaxyEdgeBuffer() + (fullHeight - 2*galaxyEdgeBuffer()) * rand.nextFloat();
+	}
+    float randomLocation(float max, float buff) {
+        return buff + (rand.nextFloat() * (max-buff-buff));
+    }
 	public boolean valid(float x, float y) {
 		if (x<0)          return false;
 		if (y<0)          return false;

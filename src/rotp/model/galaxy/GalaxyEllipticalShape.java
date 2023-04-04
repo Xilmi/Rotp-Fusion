@@ -23,7 +23,7 @@ import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+
 import rotp.model.game.IGameOptions;
 
 public class GalaxyEllipticalShape extends GalaxyShape {
@@ -177,22 +177,22 @@ public class GalaxyEllipticalShape extends GalaxyShape {
     protected int galaxyHeightLY() { 
         return (int) (Math.sqrt(adjust_density*(1/ellipseRatio)*maxStars*adjustedSizeFactor()));
     }
-    @Override
-    public void setRandom(Point.Float pt) {
-        // modnar: use quasi-random low-discrepancy additive recurrence sequence instead of random()
-        // based on generalised golden ratio values, in 2D this is the plastic number
-        // http://extremelearning.com.au/unreasonable-effectiveness-of-quasirandom-sequences/
-        // currently not better than random(), but could in principle allow better separated star systems
-        
-        double c1 = 0.7548776662466927600495; // inverse of plastic number
-        double c2 = 0.5698402909980532659114; // square inverse of plastic number
-        
-        Random rand = new Random();
-        int rand_int = rand.nextInt(20*opts.numberStarSystems());
-        
-        pt.x = galaxyEdgeBuffer() + (fullWidth - 2*galaxyEdgeBuffer()) * (float)( (0.5 + c1*rand_int)%1 );
-        pt.y = galaxyEdgeBuffer() + (fullHeight - 2*galaxyEdgeBuffer()) * (float)( (0.5 + c2*rand_int)%1 );
-    }
+//    @Override
+//    public void setRandom(Point.Float pt) {
+//        // modnar: use quasi-random low-discrepancy additive recurrence sequence instead of random()
+//        // based on generalised golden ratio values, in 2D this is the plastic number
+//        // http://extremelearning.com.au/unreasonable-effectiveness-of-quasirandom-sequences/
+//        // currently not better than random(), but could in principle allow better separated star systems
+//        
+//        double c1 = 0.7548776662466927600495; // inverse of plastic number
+//        double c2 = 0.5698402909980532659114; // square inverse of plastic number
+//        
+//        Random rand = new Random();
+//        int rand_int = rand.nextInt(20*opts.numberStarSystems());
+//        
+//        pt.x = galaxyEdgeBuffer() + (fullWidth - 2*galaxyEdgeBuffer()) * (float)( (0.5 + c1*rand_int)%1 );
+//        pt.y = galaxyEdgeBuffer() + (fullHeight - 2*galaxyEdgeBuffer()) * (float)( (0.5 + c2*rand_int)%1 );
+//     }
     @Override
     public void setSpecific(Point.Float pt) { // modnar: add possibility for specific placement of homeworld/orion locations
         
@@ -228,11 +228,13 @@ public class GalaxyEllipticalShape extends GalaxyShape {
         */
         return totalArea.contains(x, y); // modnar: use totalArea for valid(x,y)
     }
-    float randomLocation(float max, float buff) {
-        return buff + (random() * (max-buff-buff));
-    }
     @Override
     protected float sizeFactor(String size) { return settingsFactor(1.0f); }
+
+//    float randomLocation(float max, float buff) {
+//        return (rand.next(buff, max-buff));
+//        // return buff + (rand.nextFloat() * (max-buff-buff));
+//    }
 //    @Override
 //    protected float sizeFactor(String size) {
 //        float adj = 1.0f;

@@ -1,7 +1,5 @@
 Now working on:
-- WYSWYG Option for the final galaxy to be the preview one.
-  - Ellipse
-  - Spiral
+- WYSIWYG Option for the final galaxy to be the preview one.
   - Text
   - Cluster
   - Swirl Clusters
@@ -26,10 +24,11 @@ April Updates:
 - Right click on alert to center the map on the system.
 - Xilmi AI: Improved reaction to missile attacks.
 - Totally removed Profiles Manager (Was no more maintained -> Danger)
-- New option: The final galaxy will be the preview one. With controlled randomness.
+- New WYSIWYG option: The final galaxy will be the preview one. With controlled randomness.
   - Change the source number to change the galaxy.
   - 0 => random. (as before)
-  - Applied to Star Field Galaxy. (for now)
+  - Applied WYSIWYG to Star Field Galaxy.
+  - Applied WYSIWYG to Ellipse and spiral Galaxies.
 
 Last Release:
 - Added an Auto-Flag option acting when a new system is scouted.

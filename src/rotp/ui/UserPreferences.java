@@ -520,7 +520,7 @@ public class UserPreferences {
 
 	// BR: Galaxy Menu addition
 	public static final ParamInteger galaxyRandSource = new ParamInteger(
-			MOD_UI, "GALAXY_RAND_SOURCE" , 0, 0, Integer.MAX_VALUE, 1, 100, 10000);
+			MOD_UI, "GALAXY_RAND_SOURCE" , 0, 0, Integer.MAX_VALUE, 1, 100, 10000).loop(true);
 	public static final ParamBoolean showNewRaces 			= new ParamBoolean(
 			MOD_UI, "SHOW_NEW_RACES", false);
 	public static final GlobalCROptions globalCROptions 	= new GlobalCROptions (

@@ -186,13 +186,13 @@ public class GalaxyRectangularShape extends GalaxyShape {
     protected int galaxyHeightLY() { 
         return (int) (Math.sqrt(adjust_density*(1/rectangleRatio)*opts.numberStarSystems()*adjustedSizeFactor()));
     }
-    @Override
-    public void setRandom(Point.Float pt) {
-        // modnar: use quasi-random low-discrepancy additive recurrence sequence instead of random()
-        // based on generalised golden ratio values, in 2D this is the plastic number
-        // http://extremelearning.com.au/unreasonable-effectiveness-of-quasirandom-sequences/
-        // currently not better than random(), but could in principle allow better separated star systems
-        
+//    @Override
+//    public void setRandom(Point.Float pt) {
+//        // modnar: use quasi-random low-discrepancy additive recurrence sequence instead of random()
+//        // based on generalised golden ratio values, in 2D this is the plastic number
+//        // http://extremelearning.com.au/unreasonable-effectiveness-of-quasirandom-sequences/
+//        // currently not better than random(), but could in principle allow better separated star systems
+//        
 //        double c1 = 0.7548776662466927600495; // inverse of plastic number
 //        double c2 = 0.5698402909980532659114; // square inverse of plastic number
 //        
@@ -201,10 +201,7 @@ public class GalaxyRectangularShape extends GalaxyShape {
 //        
 //        pt.x = galaxyEdgeBuffer() + (fullWidth - 2*galaxyEdgeBuffer()) * (float)( (0.5 + c1*rand_int)%1 );
 //        pt.y = galaxyEdgeBuffer() + (fullHeight - 2*galaxyEdgeBuffer()) * (float)( (0.5 + c2*rand_int)%1 );
-
-        pt.x = galaxyEdgeBuffer() + (fullWidth  - 2*galaxyEdgeBuffer()) * rand.nextFloat();
-        pt.y = galaxyEdgeBuffer() + (fullHeight - 2*galaxyEdgeBuffer()) * rand.nextFloat();
-    }
+//    }
     @Override
     public void setSpecific(Point.Float pt) { // modnar: add possibility for specific placement of homeworld/orion locations
         setRandom(pt);
@@ -222,11 +219,12 @@ public class GalaxyRectangularShape extends GalaxyShape {
             return false;
         return totalArea.contains(x, y);
     }
-    float randomLocation(float max, float buff) {
-        return buff + (rand.nextFloat() * (max-buff-buff));
-    }
     @Override
     protected float sizeFactor(String size) { return settingsFactor(1.0f); }
+
+//    float randomLocation(float max, float buff) {
+//        return buff + (rand.nextFloat() * (max-buff-buff));
+//    }
 //    @Override
 //    protected float sizeFactor(String size) {
 //        float adj = 1.0f;

@@ -95,7 +95,10 @@ public class ParamInteger extends AbstractParam<Integer> {
 		super(gui, name, defaultValue, minValue, maxValue,
 				baseInc, shiftInc, ctrlInc, shiftInc*ctrlInc/baseInc);
 	}
-
+	public ParamInteger loop(boolean loop) {
+		this.loop = loop;
+		return this;
+	}
 	// ===== Overriders =====
 	//
 	@Override public void setFromCfgValue(String newValue) {
@@ -127,7 +130,7 @@ public class ParamInteger extends AbstractParam<Integer> {
 			setFromDefault();
 			return;
 		}
-		Integer value = get() + i;
+		Long value = (long) get() + i;
 		if (maxValue() != null && value > maxValue()) {
 			if (loop && minValue() != null) {
 				set(minValue());
@@ -146,6 +149,6 @@ public class ParamInteger extends AbstractParam<Integer> {
 				return;
 			}
 		}
-		set(value);
+		set(value.intValue());
 	}
 }

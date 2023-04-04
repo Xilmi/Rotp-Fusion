@@ -151,11 +151,11 @@ public class GalaxySpiralShape extends GalaxyShape {
         float adjW = fullWidth-buff-buff;
         float adjH = fullHeight-buff-buff;
         
-        float dist = random();
+        float dist = rand.nextFloat();
         dist = dist * dist;
         
-        float angle = random()*2*(float)Math.PI;
-        float armOffset = random() * armOffsetMax;
+        float angle = (float) rand.next(2*Math.PI);
+        float armOffset = rand.next(armOffsetMax);
         armOffset = (armOffset - armOffsetMax/2)/dist;
         armOffset = armOffset > 0 ? armOffset*armOffset : -1*armOffset*armOffset;
         
@@ -171,28 +171,21 @@ public class GalaxySpiralShape extends GalaxyShape {
     public void setSpecific(Point.Float pt) { // modnar: add possibility for specific placement of homeworld/orion locations
         setRandom(pt);
     }
-//    @Override
-//    public boolean valid(float x, float y) {
-//        return true;
-//    }
-    float randomLocation(float max, float buff) {
-        return buff + (random() * (max-buff-buff));
-    }
     @Override
     protected float sizeFactor(String size) {
 	    float adjDensity = densitySizeFactor();
 		float largeGal = 12f + 12f * (float) Math.log10(maxStars);
 		float smallGal = 1.8f * sqrt(maxStars);
 		float selected = min(58f, max(4f, min(largeGal, smallGal)));
-//		System.out.println("Galaxy = " + opts.selectedGalaxySize()
-//				+ "   maxStars = " + maxStars
-//				+ "   attempt = " + genAttempt
-//				+ "   lg = " + largeGal
-//				+ "   sq = " + smallGal
-//				+ "   sel = " + selected
-//				+ "   Final = " + adjDensity * selected);
 		return adjDensity * selected;
     }
+//    @Override
+//    public boolean valid(float x, float y) {
+//        return true;
+//    }
+//    @Override float randomLocation(float max, float buff) {
+//        return buff + (random() * (max-buff-buff));
+//    }
 //    @Override
 //    protected float sizeFactor(String size) { return settingsFactor(1.0f); }
 //    @Override
