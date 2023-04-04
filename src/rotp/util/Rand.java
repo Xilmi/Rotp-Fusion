@@ -54,16 +54,22 @@ public class Rand {
 	 * Initialize or reinitialize the randomizer
 	 */
 	public void init(double source) {
+		lastId = 2;
 		if (source > 1.0)
 			source = 1/source;
 		if (source <= 0)
 			source = Math.random();
 		else if (source == 1.0)
 			source = IGR;
-
+		// Some chaotic function to scramble the source
+		// Required for Orion position to be very random
+		source = Math.abs(Math.sin( 1/(source*(1-source)) ));
+			
 		for (int i=0; i<lasts.length; i++) {
 			lasts[i] = source;
-			rand(i);
+			source = rand(i);
+			for (int k=0; k<2; k++)
+				rand(i);
 		}
 	}
 	// ========== Private Methods ==========

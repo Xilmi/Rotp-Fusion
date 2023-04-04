@@ -162,9 +162,9 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	private Rectangle diffBox	= new Rectangle();
 	private Polygon   diffBoxL	= new Polygon();
 	private Polygon   diffBoxR	= new Polygon();
-	private Rectangle randBox	= new Rectangle();
-	private Polygon   randBoxL	= new Polygon();
-	private Polygon   randBoxR	= new Polygon();
+	private Rectangle wyswyBox	= new Rectangle();
+	private Polygon   wyswyBoxL	= new Polygon();
+	private Polygon   wyswyBoxR	= new Polygon();
 	private Rectangle oppBox	= new Rectangle();
 	private Polygon   oppBoxU	= new Polygon();
 	private Polygon   oppBoxD	= new Polygon();
@@ -969,7 +969,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		if ((hoverBox == shapeBoxL)			 || (hoverBox == shapeBoxR)
 			||  (hoverBox == sizeBoxL)		 || (hoverBox == sizeBoxR)
 			||  (hoverBox == diffBoxL)		 || (hoverBox == diffBoxR)
-			||  (hoverBox == randBoxL)		 || (hoverBox == randBoxR)
+			||  (hoverBox == wyswyBoxL)		 || (hoverBox == wyswyBoxR)
 			||  (hoverBox == aiBoxL)		 || (hoverBox == aiBoxR)
 			||  (hoverBox == crBoxL)		 || (hoverBox == crBoxR)
 			||  (hoverBox == mapOption1BoxL) || (hoverBox == mapOption1BoxR)
@@ -984,7 +984,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			|| (hoverBox == sizeOptionBox)	|| (hoverBox == crBox)
 			|| (hoverBox == aiBox)			|| (hoverBox == newRacesBox)
 			|| (hoverBox == showAbilityBox)	|| (hoverBox == mapOption3Box)
-			|| (hoverBox == diffBox)		|| (hoverBox == randBox)
+			|| (hoverBox == diffBox)		|| (hoverBox == wyswyBox)
 			|| (hoverBox == oppBox)) {
 			Stroke prev = g.getStroke();
 			g.setStroke(stroke2);
@@ -1132,10 +1132,18 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		int x5c =diffBox.x+((diffBox.width-diffSW)/2);
 		drawString(g,diffLbl, x5c, y5);
 		
-		String randLbl = galaxyRandSource.getGuiValue();
-		int rndSW = g.getFontMetrics().stringWidth(randLbl);
-		int x5d =randBox.x+((randBox.width-rndSW)/2);
-		drawString(g,randLbl, x5d, y5+s20);
+		String wyswygLbl;
+		if (galaxyRandSource.get() == 0)
+			wyswygLbl = "Random";
+		else
+			wyswygLbl = "WYSWYG " + galaxyRandSource.getGuiValue();
+		int wyswygSW = g.getFontMetrics().stringWidth(wyswygLbl);
+		if (wyswygSW > wyswyBox.width) {
+			wyswygLbl = galaxyRandSource.getGuiValue();
+			wyswygSW  = g.getFontMetrics().stringWidth(wyswygLbl);
+		}
+		int x5d =wyswyBox.x+((wyswyBox.width-wyswygSW)/2);
+		drawString(g,wyswygLbl, x5d, y5+s20);
 		
 		// draw autoplay warning
 		if (newGameOptions().isAutoPlay()) {
@@ -2152,18 +2160,18 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		diffBox.setBounds(sliderX, sliderYAI, sliderW, sliderH);
 		g.fill(diffBox);
 
-		randBoxL.reset();
-		randBoxL.addPoint(sliderX-s4,sliderYAI+s1+s20);
-		randBoxL.addPoint(sliderX-s4,sliderYAI+sliderH-s2+s20);
-		randBoxL.addPoint(sliderX-s13,sliderYAI+(sliderH/2)+s20);
-		g.fill(randBoxL);
-		randBoxR.reset();
-		randBoxR.addPoint(sliderX+sliderW+s4,sliderYAI+s1+s20);
-		randBoxR.addPoint(sliderX+sliderW+s4,sliderYAI+sliderH-s2+s20);
-		randBoxR.addPoint(sliderX+sliderW+s13,sliderYAI+(sliderH/2+s20));
-		g.fill(randBoxR);
-		randBox.setBounds(sliderX, sliderYAI+s20, sliderW, sliderH);
-		g.fill(randBox);
+		wyswyBoxL.reset();
+		wyswyBoxL.addPoint(sliderX-s4,sliderYAI+s1+s20);
+		wyswyBoxL.addPoint(sliderX-s4,sliderYAI+sliderH-s2+s20);
+		wyswyBoxL.addPoint(sliderX-s13,sliderYAI+(sliderH/2)+s20);
+		g.fill(wyswyBoxL);
+		wyswyBoxR.reset();
+		wyswyBoxR.addPoint(sliderX+sliderW+s4,sliderYAI+s1+s20);
+		wyswyBoxR.addPoint(sliderX+sliderW+s4,sliderYAI+sliderH-s2+s20);
+		wyswyBoxR.addPoint(sliderX+sliderW+s13,sliderYAI+(sliderH/2+s20));
+		g.fill(wyswyBoxR);
+		wyswyBox.setBounds(sliderX, sliderYAI+s20, sliderW, sliderH);
+		g.fill(wyswyBox);
 		
 		
 		int cnr = s5;
@@ -2419,12 +2427,12 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			hoverBox = diffBoxR;
 		else if (diffBox.contains(x,y))
 			hoverBox = diffBox;
-		else if (randBoxL.contains(x,y))
-			hoverBox = randBoxL;
-		else if (randBoxR.contains(x,y))
-			hoverBox = randBoxR;
-		else if (randBox.contains(x,y))
-			hoverBox = randBox;
+		else if (wyswyBoxL.contains(x,y))
+			hoverBox = wyswyBoxL;
+		else if (wyswyBoxR.contains(x,y))
+			hoverBox = wyswyBoxR;
+		else if (wyswyBox.contains(x,y))
+			hoverBox = wyswyBox;
 		else if (oppBoxU.contains(x,y))
 			hoverBox = oppBoxU;
 		else if (oppBoxD.contains(x,y))
@@ -2588,15 +2596,15 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			galaxyRandSource.next();
 			postSelectionMedium(true);
 		}
-		else if (hoverBox == randBoxL) {
+		else if (hoverBox == wyswyBoxL) {
 			galaxyRandSource.prev();
 			postSelectionMedium(true);
 		}
-		else if (hoverBox == randBox) {
+		else if (hoverBox == wyswyBox) {
 			galaxyRandSource.toggle(e, this);
 			postSelectionMedium(true);
 		}
-		else if (hoverBox == randBoxR) {
+		else if (hoverBox == wyswyBoxR) {
 			difficultySelection.next();
 			postSelectionLight(true);
 		}
@@ -2689,7 +2697,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			difficultySelection.toggle(e);
 			postSelectionLight(false);
 		}
-		else if (hoverBox == randBox)
+		else if (hoverBox == wyswyBox)
 		 {
 			galaxyRandSource.toggle(e);
 			postSelectionMedium(false);

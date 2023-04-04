@@ -33,6 +33,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
   - Change the source number to change the galaxy.
   - 0 => random. (as before)
   - Applied to Rectangular Galaxy.
+  - Improved big source number randomness.
 
 2023.04.03 (BR)
 - Some code cleaning. (Ghost, imports, comments)

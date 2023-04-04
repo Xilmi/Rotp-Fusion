@@ -1,4 +1,20 @@
-Update:
+Now working on:
+- WYSWYG Option for the final galaxy to be the preview one.
+  - Ellipse
+  - Spiral
+  - Text
+  - Cluster
+  - Swirl Clusters
+  - Grid
+  - Spiral Arms
+  - Maze
+  - Shuriken
+  - Bullseye
+  - Lorenz
+  - Fractal
+  - Bitmap
+
+April Updates:
 - Added Auto-Flag option: Clear Flag Color.
 - Custom Races:
   - Added Preferred Chip Set. (With pop-up list for selection)
@@ -10,11 +26,10 @@ Update:
 - Right click on alert to center the map on the system.
 - Xilmi AI: Improved reaction to missile attacks.
 - Totally removed Profiles Manager (Was no more maintained -> Danger)
-
 - New option: The final galaxy will be the preview one. With controlled randomness.
   - Change the source number to change the galaxy.
   - 0 => random. (as before)
-  - Applied to Rectangular Galaxy. (for now)
+  - Applied to Star Field Galaxy. (for now)
 
 Last Release:
 - Added an Auto-Flag option acting when a new system is scouted.
