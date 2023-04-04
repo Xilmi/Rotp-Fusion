@@ -34,7 +34,7 @@ public class ParamInteger extends AbstractParam<Integer> {
 //	 * @param defaultvalue The default value
 //	 */
 //	public ParamInteger(String gui, String name, Integer defaultValue) {
-//		super(gui, name, defaultValue, null, null, 1, 1, 1);
+//		super(gui, name, defaultValue, null, null, 1, 1, 1, 1);
 //	}
 	/**
 	 * @param gui  The label header
@@ -45,7 +45,7 @@ public class ParamInteger extends AbstractParam<Integer> {
 	 */
 	public ParamInteger(String gui, String name, Integer defaultValue
 			, Integer minValue, Integer maxValue) {
-		super(gui, name, defaultValue, minValue, maxValue, 1, 1, 1);
+		super(gui, name, defaultValue, minValue, maxValue, 1, 1, 1, 1);
 	}
 	/**
 	 * @param gui  The label header
@@ -57,7 +57,7 @@ public class ParamInteger extends AbstractParam<Integer> {
 	 */
 	public ParamInteger(String gui, String name, Integer defaultValue
 			, Integer minValue, Integer maxValue, boolean loop) {
-		super(gui, name, defaultValue, minValue, maxValue, 1, 2, 5);
+		super(gui, name, defaultValue, minValue, maxValue, 1, 2, 5, 10);
 		this.loop = loop;
 	}
 	/**
@@ -75,7 +75,8 @@ public class ParamInteger extends AbstractParam<Integer> {
 			, Integer minValue, Integer maxValue
 			, Integer baseInc, Integer shiftInc
 			, Integer ctrlInc, boolean isDuplicate) {
-		super(gui, name, defaultValue, minValue, maxValue, baseInc, shiftInc, ctrlInc);
+		super(gui, name, defaultValue, minValue, maxValue,
+				baseInc, shiftInc, ctrlInc, shiftInc*ctrlInc/baseInc);
 		isDuplicate(isDuplicate);
 	}
 	/**
@@ -91,7 +92,8 @@ public class ParamInteger extends AbstractParam<Integer> {
 	public ParamInteger(String gui, String name, Integer defaultValue
 			, Integer minValue, Integer maxValue
 			, Integer baseInc, Integer shiftInc, Integer ctrlInc) {
-		super(gui, name, defaultValue, minValue, maxValue, baseInc, shiftInc, ctrlInc);
+		super(gui, name, defaultValue, minValue, maxValue,
+				baseInc, shiftInc, ctrlInc, shiftInc*ctrlInc/baseInc);
 	}
 
 	// ===== Overriders =====

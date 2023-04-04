@@ -26,6 +26,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2023.04.04 (BR)
+- Ctrl + Shift on scrolling = Ctrl Increment * Shift Increment / Base Increment.
+
 2023.04.03 (BR)
 - Some code cleaning. (Ghost, imports, comments)
   - Removed some ghost of profiles.

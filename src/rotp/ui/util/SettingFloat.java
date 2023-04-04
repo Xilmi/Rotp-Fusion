@@ -20,6 +20,7 @@ import static rotp.ui.util.SettingBase.CostFormula.RELATIVE;
 import static rotp.util.Base.random;
 
 import java.awt.Component;
+import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.text.DecimalFormat;
@@ -284,17 +285,12 @@ public class SettingFloat extends SettingBase<Float> {
 		useNegFormula = false;
 		return 0f;
 	}
-	private Float getInc(MouseEvent e) {
-		if (e.isShiftDown()) 
-			return shiftInc;
-		else if (e.isControlDown())
-			return ctrlInc;
-		else
-			return baseInc;
-	}
-	private Float getInc(MouseWheelEvent e) {
-		if (e.isShiftDown()) 
-			return shiftInc;
+	private Float getInc(InputEvent e) {
+		if (e.isShiftDown())
+			if (e.isControlDown())
+				return shiftInc*ctrlInc/baseInc;
+			else
+				return shiftInc;
 		else if (e.isControlDown())
 			return ctrlInc;
 		else

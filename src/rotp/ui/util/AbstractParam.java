@@ -19,6 +19,7 @@ package rotp.ui.util;
 import static rotp.util.Base.textSubs;
 
 import java.awt.Component;
+import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
@@ -35,11 +36,12 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	private final String gui;  // The label header
 	private T value;
 	private T defaultValue;
-	private T minValue	= null;
-	private T maxValue	= null;
-	private T baseInc	= null;
-	private T shiftInc	= null;
-	private T ctrlInc	= null;
+	private T minValue		= null;
+	private T maxValue		= null;
+	private T baseInc		= null;
+	private T shiftInc		= null;
+	private T ctrlInc		= null;
+	private T shiftCtrlInc	= null;
 	private boolean isDuplicate = false;
 	@SuppressWarnings("unused") // kept for save game compatibility
 	private MOO1GameOptions duplicateOptions = null;
@@ -82,11 +84,12 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	 */
 	AbstractParam(String gui, String name, T defaultValue
 			, T minValue, T maxValue
-			, T baseInc, T shiftInc, T ctrlInc) {
+			, T baseInc, T shiftInc, T ctrlInc, T shiftCtrlInc) {
 		this(gui, name, defaultValue, minValue, maxValue);
-		this.baseInc  = baseInc;
-		this.shiftInc = shiftInc;
-		this.ctrlInc  = ctrlInc;
+		this.baseInc	  = baseInc;
+		this.shiftInc	  = shiftInc;
+		this.ctrlInc	  = ctrlInc;
+		this.shiftCtrlInc = shiftCtrlInc;
 	}
 	// ===== For duplicates to be overridden =====
 	//public void reInit() {}
@@ -175,7 +178,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	public String getLabel(){ return text(labelId()); }
 	T minValue()	{ return minValue; }	
 	T maxValue()	{ return maxValue; }	
-	T baseInc()			{ return baseInc; }	
+	T baseInc()		{ return baseInc; }	
 	// ========== Public Setters ==========
 	//
 	public T set(T newValue) {
@@ -194,17 +197,12 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	protected void isDuplicate(boolean newValue) { isDuplicate = newValue ; }
 	protected String descriptionId() { return labelId() + LABEL_DESCRIPTION; }
 	protected String labelId()		 { return gui + name; }
-	protected T getInc(MouseEvent e) {
-		if (e.isShiftDown()) 
-			return shiftInc;
-		else if (e.isControlDown())
-			return ctrlInc;
-		else
-			return baseInc;
-	}
-	protected T getInc(MouseWheelEvent e) {
-		if (e.isShiftDown()) 
-			return shiftInc;
+	protected T getInc(InputEvent e) {
+		if (e.isShiftDown())
+			if (e.isControlDown())
+				return shiftCtrlInc;
+			else
+				return shiftInc;
 		else if (e.isControlDown())
 			return ctrlInc;
 		else

@@ -37,7 +37,7 @@ public class ParamFloat extends AbstractParam<Float> {
 	 * @param defaultValue The default value
 	 */
 	public ParamFloat(String gui, String name, Float defaultValue) {
-		super(gui, name, defaultValue, null, null, 1.0f, 1.0f, 1.0f);
+		super(gui, name, defaultValue, null, null, 1.0f, 1.0f, 1.0f, 1.0f);
 	}
 	/**
 	 * @param gui  The label header
@@ -48,7 +48,7 @@ public class ParamFloat extends AbstractParam<Float> {
 	 */
 	public ParamFloat(String gui, String name, Float defaultValue
 			, Float minValue, Float maxValue) {
-		super(gui, name, defaultValue, minValue, maxValue, 1.0f, 1.0f, 1.0f);
+		super(gui, name, defaultValue, minValue, maxValue, 1.0f, 1.0f, 1.0f, 1.0f);
 	}
 	/**
 	 * @param gui  The label header
@@ -63,7 +63,8 @@ public class ParamFloat extends AbstractParam<Float> {
 	public ParamFloat(String gui, String name, Float defaultValue
 			, Float minValue, Float maxValue
 			, Float baseInc, Float shiftInc, Float ctrlInc) {
-		super(gui, name, defaultValue, minValue, maxValue, baseInc, shiftInc, ctrlInc);
+		super(gui, name, defaultValue, minValue, maxValue,
+				baseInc, shiftInc, ctrlInc, shiftInc*ctrlInc/baseInc);
 	}
 	/**
 	 * @param gui  The label header
@@ -81,7 +82,8 @@ public class ParamFloat extends AbstractParam<Float> {
 			, Float minValue, Float maxValue
 			, Float baseInc, Float shiftInc, Float ctrlInc
 			, String cfgFormat, String guiFormat) {
-		super(gui, name, defaultValue, minValue, maxValue, baseInc, shiftInc, ctrlInc);
+		super(gui, name, defaultValue, minValue, maxValue,
+				baseInc, shiftInc, ctrlInc, shiftInc*ctrlInc/baseInc);
 		this.cfgFormat = cfgFormat;
 		this.guiFormat = guiFormat;
 	}

@@ -19,6 +19,7 @@ package rotp.ui.util;
 import static rotp.ui.util.SettingBase.CostFormula.RELATIVE;
 
 import java.awt.Component;
+import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
@@ -235,17 +236,12 @@ public class SettingInteger extends SettingBase<Integer> {
 		useNegFormula = false;
 		return 0f;
 	}
-	private Integer getInc(MouseEvent e) {
-		if (e.isShiftDown()) 
-			return shiftInc;
-		else if (e.isControlDown())
-			return ctrlInc;
-		else
-			return baseInc;
-	}
-	private Integer getInc(MouseWheelEvent e) {
-		if (e.isShiftDown()) 
-			return shiftInc;
+	private Integer getInc(InputEvent e) {
+		if (e.isShiftDown())
+			if (e.isControlDown())
+				return shiftInc*ctrlInc/baseInc;
+			else
+				return shiftInc;
 		else if (e.isControlDown())
 			return ctrlInc;
 		else
