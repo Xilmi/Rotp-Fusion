@@ -69,7 +69,6 @@ abstract class BaseModPanel extends BasePanel {
 	protected Rectangle userBox		= new Rectangle();
 
 	protected boolean globalOptions	= false; // No preferred button and Saved to remnant.cfg
-    private boolean initGuiTextList = true;
 
 	private void localInit(Graphics2D g) {
 		Font prevFont = g.getFont();
@@ -102,18 +101,8 @@ abstract class BaseModPanel extends BasePanel {
 		ModifierKeysState.reset();
 		w = RotPUI.setupRaceUI().getWidth();
 		h = RotPUI.setupRaceUI().getHeight();
-
-		if (initGuiTextList) {
-			if (paramList != null)
-				for (InterfaceParam param : paramList)
-					param.initGuiTexts();
-			if (duplicateList != null)
-				for (InterfaceParam param : duplicateList)
-					param.initGuiTexts();
-			smallButtonMargin = s30;
-			smallButtonH	  = s30;
-			initGuiTextList	  = false;
-		}
+		smallButtonMargin = s30;
+		smallButtonH	  = s30;
 	}
 	protected void close() { ModifierKeysState.reset(); }
 

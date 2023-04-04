@@ -1004,11 +1004,11 @@ public class UserPreferences {
 			Arrays.asList(
 			menuStartup, menuAfterGame, menuLoadGame, minListSizePopUp, showAlliancesGNN,
 			null,
-			showGridCircular, showTooltips, galaxyPreviewColorStarsSize, compactOptionOnly, techExchangeAutoRefuse,
+			showGridCircular, showTooltips, galaxyPreviewColorStarsSize, techExchangeAutoRefuse,
 			null,
 			showFleetFactor, showFlagFactor, showPathFactor, useFusionFont,
 			null,
-			showNameMinFont, showInfoFontRatio, mapFontFactor, showNextCouncil
+			showNameMinFont, showInfoFontRatio, mapFontFactor, showNextCouncil, compactOptionOnly
 			));
 
 	

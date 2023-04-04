@@ -28,6 +28,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 2023.04.04 (BR)
 - Ctrl + Shift on scrolling = Ctrl Increment * Shift Increment / Base Increment.
+- Removed useless initialization, Removed old Rand class which has now its file.
 
 2023.04.03 (BR)
 - Some code cleaning. (Ghost, imports, comments)

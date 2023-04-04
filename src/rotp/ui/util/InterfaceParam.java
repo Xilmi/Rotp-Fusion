@@ -38,7 +38,6 @@ public interface InterfaceParam extends InterfaceOptions{
 	public boolean isDefaultValue();
 
 	public default void toggle(MouseEvent e, int p, Component frame) {};
-	public default void initGuiTexts()			{}
 	public default String getToolTip()			{ return ""; }
 	public default String getToolTip(int idx)	{ return ""; }
 	public default boolean isDuplicate()		{ return false; }

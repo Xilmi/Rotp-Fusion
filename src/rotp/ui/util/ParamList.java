@@ -140,12 +140,6 @@ public class ParamList extends AbstractParam<String> {
 	}
 	// ===== Overriders =====
 	//
-	@Override public void initGuiTexts() {
-		int idx = getIndex(defaultValue());
-		valueLabelMap.initGuiTexts();
-		if (idx >= 0)
-			defaultValue(valueLabelMap.cfgValueList.get(idx));
-	}
 	@Override protected String getCfgValue(String value) {
 		return validateValue(value);
 	}
@@ -231,6 +225,12 @@ public class ParamList extends AbstractParam<String> {
 	}
 	// ===== Private Methods =====
 	//
+	private void initGuiTexts() {
+		int idx = getIndex(defaultValue());
+		valueLabelMap.initGuiTexts();
+		if (idx >= 0)
+			defaultValue(valueLabelMap.cfgValueList.get(idx));
+	}
 	/**
 	 * Check if the entry is valid and return a valid value
 	 * @param key the entry to check
