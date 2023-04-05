@@ -61,7 +61,7 @@ public class GalaxyEllipticalShape extends GalaxyShape {
     }
     // BR: for symmetric galaxy
     private CtrPoint getRandomSymmetric(double minRay) {
-    	double ray   = galaxyRay() * Math.sqrt(rand.next(minRay, 1));
+    	double ray   = galaxyRay() * Math.sqrt(rand.nextDouble(minRay, 1));
     	double angle = rand.sym(randomOrientation, twoPI / numEmpires);
     	return new CtrPoint(ray).rotate(angle);
     }
@@ -120,7 +120,7 @@ public class GalaxyEllipticalShape extends GalaxyShape {
             case 4: ellipseRatio = 5.0f; break;
             case 5:
             	ellipseRatio = 1.0f;  // BR: Symmetric
-	        	randomOrientation = rand.next(twoPI);
+	        	randomOrientation = rand.nextDouble(twoPI);
 	        	// a void coming from symmetry depends on number of opponents
 	         	double minHomeRay = empireBuffer * numEmpires / twoPI;
 	        	double minRay = systemBuffer() * numEmpires / twoPI;

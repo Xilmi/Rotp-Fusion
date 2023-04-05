@@ -1,34 +1,23 @@
 Now working on:
-- WYSIWYG Option for the final galaxy to be the preview one.
-  - Text
-  - Cluster
-  - Swirl Clusters
-  - Grid
-  - Spiral Arms
-  - Maze
-  - Shuriken
-  - Bullseye
-  - Lorenz
-  - Fractal
-  - Bitmap
+- WYSIWYG test.
 
 April Updates:
-- Added Auto-Flag option: Clear Flag Color.
+- New WYSIWYG option: The final galaxy will be the preview one. With controlled randomness.
+  - Applied to all Galaxies.
+  - Change the source number to change the galaxy.
+    - 0 => random. (as before)
+- Totally removed Profiles Manager (Was no more maintained -> Danger)
+- Xilmi AI: Improved reaction to missile attacks.
+- Right click on alert to center the map on the system.
+- Governor: Added an option to not infiltrate nor spy the xenophobic races.
+- Renamed "Target Bombing" to "Limited Bombing" and adjusted the GUI texts.
+  - in Option GUI and on the buttons: "Drop All" "Spare x pop" "No".
 - Custom Races:
   - Added Preferred Chip Set. (With pop-up list for selection)
   - Added Preferred Chip Size.
     - Only used by AI:Base, AI:Modnar, AI:Rookie, and AI:RolePlay.
-- Renamed "Target Bombing" to "Limited Bombing" and adjusted the GUI texts.
-  - in Option GUI and on the buttons: "Drop All" "Spare x pop" "No".
-- Governor: Added an option to not infiltrate nor spy the xenophobic races.
-- Right click on alert to center the map on the system.
-- Xilmi AI: Improved reaction to missile attacks.
-- Totally removed Profiles Manager (Was no more maintained -> Danger)
-- New WYSIWYG option: The final galaxy will be the preview one. With controlled randomness.
-  - Change the source number to change the galaxy.
-  - 0 => random. (as before)
-  - Applied WYSIWYG to Star Field Galaxy.
-  - Applied WYSIWYG to Ellipse and spiral Galaxies.
+- Added Auto-Flag option: Clear Flag Color.
+
 
 Last Release:
 - Added an Auto-Flag option acting when a new system is scouted.

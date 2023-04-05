@@ -16,7 +16,6 @@
 package rotp.model.galaxy;
 
 import java.awt.Point;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.ArrayList;
 import java.util.List;
 import rotp.model.game.IGameOptions;
@@ -107,16 +106,16 @@ public class GalaxyFractalShape extends GalaxyShape {
                         Point.Float p3 = new Point.Float(triangleWidth, triangleHeight+0.05f*galaxyHeightLY());
                         
                         // initial start point for chaos game, take middle point with some variation
-                        Point.Float pnew = new Point.Float(triangleWidth/2.0f+(random()-0.5f)*2.0f, triangleHeight/2.0f+(random()-0.5f)*2.0f);
+                        Point.Float pnew = new Point.Float(triangleWidth/2.0f+rand.symFloat(), triangleHeight/2.0f+rand.symFloat());
                         
                         // scale number of iterations with stars
-                        int n = (int) Math.ceil(random() * 1.5 * maxStars);
+                        int n = (int) Math.ceil(rand.nextDouble() * 1.5 * maxStars);
                         int i = 0;
                         
                         // iterate through chaos game for Sierpinski randomly
                         while (i < n)
                         {
-                            switch (ThreadLocalRandom.current().nextInt(3)) {
+                            switch (rand.nextInt(3)) {
                                 case 0:
                                     pnew = midPoint(pnew, p1);
                                     break;
@@ -130,8 +129,8 @@ public class GalaxyFractalShape extends GalaxyShape {
                             i++;
                         }
                         
-                        pt.x = (float) pnew.x + 4.0f*galaxyEdgeBuffer() + (random()-0.5f)*1.0f;
-                        pt.y = (float) pnew.y + 4.0f*galaxyEdgeBuffer() + (random()-0.5f)*1.0f;
+                        pt.x = (float) pnew.x + 4.0f*galaxyEdgeBuffer() + rand.sym(0.5f);
+                        pt.y = (float) pnew.y + 4.0f*galaxyEdgeBuffer() + rand.sym(0.5f);
                         break;
                     }
                     
@@ -153,10 +152,10 @@ public class GalaxyFractalShape extends GalaxyShape {
                         Point.Float p8 = new Point.Float(0.5f*boxWidth, boxHeight);
                         
                         // initial start point for chaos game, take near middle point with some variation
-                        Point.Float pnew = new Point.Float(boxWidth/3.0f+(random()-0.5f)*1.0f, boxHeight/3.0f+(random()-0.5f)*1.0f);
+                        Point.Float pnew = new Point.Float(boxWidth/3.0f+rand.sym(0.5f), boxHeight/3.0f+rand.sym(0.5f));
                         
                         // scale number of iterations with stars
-                        int n = (int) Math.ceil(random() * 1.5 * maxStars);
+                        int n = (int) Math.ceil(rand.nextDouble() * 1.5 * maxStars);
                         int i = 0;
                         // selection verticies
                         int newVertex = 0;
@@ -164,7 +163,7 @@ public class GalaxyFractalShape extends GalaxyShape {
                         // sierpinski carpet chaos game
                         while (i < n)
                         {
-                            newVertex = ThreadLocalRandom.current().nextInt(8);
+                            newVertex = rand.nextInt(8);
                             if (newVertex == 0)
                             {
                             pnew = twothirdPoint(pnew, p1);
@@ -200,15 +199,15 @@ public class GalaxyFractalShape extends GalaxyShape {
                             i++;
                         }
                         
-                        pt.x = (float) pnew.x + 4.0f*galaxyEdgeBuffer() + (random()-0.5f)*0.2f;
-                        pt.y = (float) pnew.y + 4.0f*galaxyEdgeBuffer() + (random()-0.5f)*0.2f;
+                        pt.x = (float) pnew.x + 4.0f*galaxyEdgeBuffer() + rand.sym(0.1f);
+                        pt.y = (float) pnew.y + 4.0f*galaxyEdgeBuffer() + rand.sym(0.1f);
                         break;
                     }
                     
                     case 2: {
                         // Barnsley Fern
                         // scale number of iterations with stars
-                        int n = (int) Math.ceil(maxStars + random() * 1.5 * maxStars);
+                        int n = (int) Math.ceil(maxStars + rand.nextDouble() * 1.5 * maxStars);
                         int i = 0;
                         Point.Float pnew = new Point.Float(0.5f, 0.0f);
 
@@ -216,7 +215,7 @@ public class GalaxyFractalShape extends GalaxyShape {
                         while (i < n)
                         {
                             Point.Float ptemp = new Point.Float();
-                            float r = random();
+                            float r = rand.nextFloat();
 
                             // stem
                             if (r <= 0.10f)  { // original probability = 0.01f, increase to get more stem connectivity
@@ -245,8 +244,8 @@ public class GalaxyFractalShape extends GalaxyShape {
                             i++;
                         }
                         
-                        pt.x = (float) ((pnew.x-0.55f)*1.9f+0.55f)*(galaxyWidthLY()-8.0f*galaxyEdgeBuffer()) + 4.0f*galaxyEdgeBuffer() + (random()-0.5f)*0.5f;
-                        pt.y = (float) (pnew.y+0.02f)*0.95f*(galaxyHeightLY()-8.0f*galaxyEdgeBuffer()) + 4.0f*galaxyEdgeBuffer() + (random()-0.5f)*0.5f;
+                        pt.x = (float) ((pnew.x-0.55f)*1.9f+0.55f)*(galaxyWidthLY()-8.0f*galaxyEdgeBuffer()) + 4.0f*galaxyEdgeBuffer() + rand.sym(0.25f);
+                        pt.y = (float) (pnew.y+0.02f)*0.95f*(galaxyHeightLY()-8.0f*galaxyEdgeBuffer()) + 4.0f*galaxyEdgeBuffer() + rand.sym(0.25f);
                         break;
                     }
                 }
@@ -267,10 +266,10 @@ public class GalaxyFractalShape extends GalaxyShape {
                 Point.Float p4 = new Point.Float(0.0f, boxHeight);
                 
                 // initial start point for chaos game, take near middle point with some variation
-                Point.Float pnew = new Point.Float(boxWidth/2.0f+(random()-0.5f)*1.0f, boxHeight/2.0f+(random()-0.5f)*1.0f);
+                Point.Float pnew = new Point.Float(boxWidth/2.0f+rand.sym(0.5f), boxHeight/2.0f+rand.sym(0.5f));
                 
                 // scale number of iterations with stars
-                int n = (int) Math.ceil(random() * 1.5 * maxStars);
+                int n = (int) Math.ceil(rand.nextDouble() * 1.5 * maxStars);
                 int i = 0;
                 // selection verticies
                 int newVertex = 0;
@@ -283,7 +282,7 @@ public class GalaxyFractalShape extends GalaxyShape {
                         // currently chosen vertex cannot neighbor the previously chosen vertex if the two previously chosen vertices are the same
                         while (i < n)
                         {
-                            newVertex = ThreadLocalRandom.current().nextInt(4);
+                            newVertex = rand.nextInt(4);
                             if (newVertex == 0 && !(oldVertex==3 && oldVertex2==3) && !(oldVertex==1 && oldVertex2==1))
                             {
                             pnew = midPoint(pnew, p1);
@@ -316,7 +315,7 @@ public class GalaxyFractalShape extends GalaxyShape {
                         // current vertex cannot be the same as the previously chosen vertex
                         while (i < n)
                         {
-                            newVertex = ThreadLocalRandom.current().nextInt(4);
+                            newVertex = rand.nextInt(4);
                             if (newVertex == 0 && oldVertex != 0)
                             {
                             pnew = midPoint(pnew, p1);
@@ -345,7 +344,7 @@ public class GalaxyFractalShape extends GalaxyShape {
                         // current vertex cannot be one place away (anti-clockwise) from the previously chosen vertex
                         while (i < n)
                         {
-                            newVertex = ThreadLocalRandom.current().nextInt(4);
+                            newVertex = rand.nextInt(4);
                             if (newVertex == 0 && oldVertex != 1)
                             {
                             pnew = midPoint(pnew, p1);
@@ -372,8 +371,8 @@ public class GalaxyFractalShape extends GalaxyShape {
                     }
                 }
                 
-                pt.x = (float) pnew.x + 4.0f*galaxyEdgeBuffer() + (random()-0.5f)*1.0f;
-                pt.y = (float) pnew.y + 4.0f*galaxyEdgeBuffer() + (random()-0.5f)*1.0f;
+                pt.x = (float) pnew.x + 4.0f*galaxyEdgeBuffer() + rand.sym(0.5f);
+                pt.y = (float) pnew.y + 4.0f*galaxyEdgeBuffer() + rand.sym(0.5f);
                 break;
             }
 		}
@@ -383,15 +382,16 @@ public class GalaxyFractalShape extends GalaxyShape {
     public void setSpecific(Point.Float pt) { // modnar: add possibility for specific placement of homeworld/orion locations
         setRandom(pt);
     }
+    @Override
+    protected float sizeFactor(String size) { return settingsFactor(1.0f); }
+
 //    @Override
 //    public boolean valid(float x, float y) {
 //        return true;
 //    }
-    float randomLocation(float max, float buff) {
-        return buff + (random() * (max-buff-buff));
-    }
-    @Override
-    protected float sizeFactor(String size) { return settingsFactor(1.0f); }
+//    @Override float randomLocation(float max, float buff) {
+//        return buff + (random() * (max-buff-buff));
+//    }
 //    @Override
 //    protected float sizeFactor(String size) {
 //        float adj = 1.0f;

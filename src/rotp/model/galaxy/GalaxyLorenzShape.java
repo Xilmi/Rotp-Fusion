@@ -80,7 +80,7 @@ public class GalaxyLorenzShape extends GalaxyShape {
                 // number of steps to get a random point on the function.
                 double x = 10.0; double y = 10.0; double z = 10.0; //starting point for Lorenz
                 int maxsteps = (int) Math.max(1000, Math.ceil(1.5 * maxStars)); // scale number of iterations with stars
-                int n = (int) Math.ceil(random() * maxsteps);
+                int n = (int) Math.ceil(rand.nextDouble() * maxsteps);
                 for (int i = 0; i < n; i++) {
                     double x1 = x + dt1 * sigma*(y-x); 
                     double y1 = y + dt1 * (rho*x - y - x*z); 
@@ -96,18 +96,18 @@ public class GalaxyLorenzShape extends GalaxyShape {
                 // choose lorenz view-point with option2
                 switch(option2) {
                     case 0: {
-                        pt.x = galaxyEdgeBuffer() + ((xf+22.0f)/44.0f)*galaxyWidthLY() + (random()-0.5f)*1.0f;
-                        pt.y = galaxyEdgeBuffer() + ((yf+30.0f)/60.0f)*galaxyHeightLY() + (random()-0.5f)*1.0f;
+                        pt.x = galaxyEdgeBuffer() + ((xf+22.0f)/44.0f)*galaxyWidthLY()  + rand.sym(-0.5f);
+                        pt.y = galaxyEdgeBuffer() + ((yf+30.0f)/60.0f)*galaxyHeightLY() + rand.sym(-0.5f);
                         break;
                     }
                     case 1: {
-                        pt.x = galaxyEdgeBuffer() + ((xf+22.0f)/44.0f)*galaxyWidthLY() + (random()-0.5f)*1.0f;
-                        pt.y = galaxyEdgeBuffer() + ((zf+0.0f)/55.0f)*galaxyHeightLY() + (random()-0.5f)*1.0f;
+                        pt.x = galaxyEdgeBuffer() + ((xf+22.0f)/44.0f)*galaxyWidthLY() + rand.sym(-0.5f);
+                        pt.y = galaxyEdgeBuffer() + ((zf+0.0f)/55.0f)*galaxyHeightLY() + rand.sym(-0.5f);
                         break;
                     }
                     case 2: {
-                        pt.x = galaxyEdgeBuffer() + ((yf+30.0f)/60.0f)*galaxyWidthLY() + (random()-0.5f)*1.0f;
-                        pt.y = galaxyEdgeBuffer() + ((zf+0.0f)/55.0f)*galaxyHeightLY() + (random()-0.5f)*1.0f;
+                        pt.x = galaxyEdgeBuffer() + ((yf+30.0f)/60.0f)*galaxyWidthLY() + rand.sym(-0.5f);
+                        pt.y = galaxyEdgeBuffer() + ((zf+0.0f)/55.0f)*galaxyHeightLY() + rand.sym(-0.5f);
                         break;
                     }
                 }
@@ -118,7 +118,7 @@ public class GalaxyLorenzShape extends GalaxyShape {
                 // number of steps to get a random point on the function.
                 double x = 0.5; double y = 1.0; double z = 0.5; //starting point for Lorenz-2
                 int maxsteps = Math.max(2000, 1 * maxStars); // scale number of iterations with stars
-                int n = (int) Math.ceil(random() * maxsteps);
+                int n = (int) Math.ceil(rand.nextDouble() * maxsteps);
                 for (int i = 0; i < n; i++) {
                     double x1 = x + dt2 * y; 
                     double y1 = y + dt2 * (-a*x - b*y + y*z); 
@@ -135,18 +135,18 @@ public class GalaxyLorenzShape extends GalaxyShape {
                 // choose Lorenz-2 view-point with option2
                 switch(option2) {
                     case 0: {
-                        pt.x = galaxyEdgeBuffer() + ((xf+2.1f)/4.2f)*galaxyWidthLY() + (random()-0.5f)*2.0f;
-                        pt.y = galaxyEdgeBuffer() + ((yf+2.9f)/5.8f)*galaxyHeightLY() + (random()-0.5f)*2.0f;
+                        pt.x = galaxyEdgeBuffer() + ((xf+2.1f)/4.2f)*galaxyWidthLY()  + rand.symFloat();
+                        pt.y = galaxyEdgeBuffer() + ((yf+2.9f)/5.8f)*galaxyHeightLY() + rand.symFloat();
                         break;
                     }
                     case 1: {
-                        pt.x = galaxyEdgeBuffer() + ((xf-yf+2.5f)/5.0f)*galaxyWidthLY() + (random()-0.5f)*2.0f;
-                        pt.y = galaxyEdgeBuffer() + ((zf+5.1f)/7.5f)*galaxyHeightLY() + (random()-0.5f)*2.0f;
+                        pt.x = galaxyEdgeBuffer() + ((xf-yf+2.5f)/5.0f)*galaxyWidthLY() + rand.symFloat();
+                        pt.y = galaxyEdgeBuffer() + ((zf+5.1f)/7.5f)*galaxyHeightLY()   + rand.symFloat();
                         break;
                     }
                     case 2: {
-                        pt.x = galaxyEdgeBuffer() + ((yf+xf+3.8f)/8.0f)*galaxyWidthLY() + (random()-0.5f)*2.0f;
-                        pt.y = galaxyEdgeBuffer() + ((zf+5.1f)/7.5f)*galaxyHeightLY() + (random()-0.5f)*2.0f;
+                        pt.x = galaxyEdgeBuffer() + ((yf+xf+3.8f)/8.0f)*galaxyWidthLY() + rand.symFloat();
+                        pt.y = galaxyEdgeBuffer() + ((zf+5.1f)/7.5f)*galaxyHeightLY()   + rand.symFloat();
                         break;
                     }
                 }
@@ -159,15 +159,16 @@ public class GalaxyLorenzShape extends GalaxyShape {
     public void setSpecific(Point.Float pt) { // modnar: add possibility for specific placement of homeworld/orion locations
         setRandom(pt);
     }
+    @Override
+    protected float sizeFactor(String size) { return settingsFactor(1.0f); }
+
 //    @Override
 //    public boolean valid(float x, float y) {
 //        return true;
 //    }
-    float randomLocation(float max, float buff) {
-        return buff + (random() * (max-buff-buff));
-    }
-    @Override
-    protected float sizeFactor(String size) { return settingsFactor(1.0f); }
+//     @Override float randomLocation(float max, float buff) {
+//        return buff + (random() * (max-buff-buff));
+//    }
 //    @Override
 //    protected float sizeFactor(String size) {
 //        float adj = 1.0f;

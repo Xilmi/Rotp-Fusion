@@ -27,7 +27,6 @@ import javax.imageio.ImageIO;
 import rotp.model.game.IGameOptions;
 import rotp.ui.UserPreferences;
 
-// modnar: custom map shape, Spiral Arms
 public class GalaxyBitmapShape extends GalaxyShape {
 	public static final List<String> options1;
 	public static final List<String> options2;
@@ -61,7 +60,6 @@ public class GalaxyBitmapShape extends GalaxyShape {
 	}
 	private float adjustDensity;
 	private float aspectRatio;
-//	private float shapeFactor;
 	private float densityFactor;
 	private float[][] starsPD; // Star Map
 	private float[][] sharpPD; // for grey maps
@@ -202,7 +200,7 @@ public class GalaxyBitmapShape extends GalaxyShape {
 		}
 	}
 	private void setRandom(float[][] cD, Point.Float pt) {
-		float source = (float) rand.next();
+		float source = rand.nextFloat();
 		int col = xBM-1;
 		int row;
 		for (row=0; row<yBM; row++) {
@@ -217,13 +215,11 @@ public class GalaxyBitmapShape extends GalaxyShape {
 		} 
 		if (col == xBM) // source = 1.0
 			col--;
-		float x = col + (float) rand.next();
-		float y = row + (float) rand.next();
+		float x = col + rand.nextFloat();
+		float y = row + rand.nextFloat();
 		
 		pt.x = offset + x * xMult;
 		pt.y = offset + y * yMult;
-//		System.out.println("pt.x = " + pt.x + "	pt.y = " + pt.y);
-//		System.out.println("pt.x = " + pt.x + "	pt.y = " + pt.y);
 	}
 	private boolean initMultiple() {
 		float[][] greyCD = new float[yBM][xBM];
@@ -444,18 +440,10 @@ public class GalaxyBitmapShape extends GalaxyShape {
 	}
 	private void postSingleInit() {
 		aspectRatio = (float) xBM / yBM;
-//		shapeFactor = sqrt(max(aspectRatio, 1/aspectRatio));
 		float volumeFactor = 1/volume *xBM*yBM;
 		densityFactor = (float) Math.pow(volumeFactor, 1.0/3.0);
 		densityFactor = (float) (volumeFactor/3.0); // TODO BR: Optimize
 		adjustDensity = sqrt(densityFactor);
-//		adjustDensity = sqrt(shapeFactor * densityFactor);
-//		System.out.println("aspectRatio = " + aspectRatio);
-//		System.out.println("shapeFactor = " + shapeFactor);
-//		System.out.println("volumeFactor = " + volumeFactor);
-//		System.out.println("densityFactor = " + densityFactor);
-//		System.out.println("-- adjustDensity = " + adjustDensity);
-//		System.out.println();
 		
 	}
 	@Override protected void singleInit(boolean full) {
@@ -556,21 +544,11 @@ public class GalaxyBitmapShape extends GalaxyShape {
 	@Override public String defaultOption2()  { return options2.get(0); }
 	@Override public void init(int n) {
 		super.init(n);
-//		System.out.println("========== GalaxyBitmapShape.init()");
 		// reset w/h vars since aspect ratio may have changed
 		initWidthHeight();
 		offset = galaxyEdgeBuffer();
 		xMult  = (float) width/xBM;
 		yMult  = (float) height/yBM;
-		
-//		System.out.println("xMult = " + xMult + "	yMult = " + yMult);
-//		System.out.println("gEB = " + gEB);
-//		System.out.println("xBM = " + xBM + "  yBM = " + yBM);
-//		System.out.println("width = " + width + "  height = " + height);
-//		System.out.println("aspectRatio = " + aspectRatio);
-//		System.out.println("xMult = " + xMult + "  yMult = " + yMult);
-//		System.out.println("adjustedSizeFactor() = " + adjustedSizeFactor());
-//		System.out.println();
 	}
 	@Override public float maxScaleAdj()	{ return 1.1f; }
 	@Override protected int galaxyWidthLY() { 

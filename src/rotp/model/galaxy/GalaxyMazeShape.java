@@ -20,7 +20,6 @@ import java.awt.Shape;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 import java.util.LinkedList;
-import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
 import rotp.model.game.IGameOptions;
@@ -97,17 +96,17 @@ public class GalaxyMazeShape extends GalaxyShape {
 		totalArea = blockArea;
 		
 		LinkedList<int[]> frontiers = new LinkedList<>();
-        Random randnum = new Random();
+        // Random randnum = new Random();
 		// keep same random number seed
 		// modified by numberStarSystems, UI_option, and selectedNumberOpponents
-		randnum.setSeed(opts.numberStarSystems()*adjust_seed + opts.selectedNumberOpponents());
-        int x = randnum.nextInt(width);
-        int y = randnum.nextInt(height);
+		// randnum.setSeed(opts.numberStarSystems()*adjust_seed + opts.selectedNumberOpponents());
+        int x = rand.nextInt(width);
+        int y = rand.nextInt(height);
         frontiers.add(new int[]{x,y,x,y});
 		
 		// maze generation with Prim's algorithm
         while ( !frontiers.isEmpty() ){
-            int[] f = frontiers.remove( randnum.nextInt( frontiers.size() ) );
+            int[] f = frontiers.remove( rand.nextInt( frontiers.size() ) );
             x = f[2];
             y = f[3];
             if ( map[x][y] == WALL )
@@ -159,11 +158,12 @@ public class GalaxyMazeShape extends GalaxyShape {
     public boolean valid(float x, float y) {
         return totalArea.contains(x, y);
     }
-    float randomLocation(float max, float buff) {
-        return buff + (random() * (max-buff-buff));
-    }
     @Override
     protected float sizeFactor(String size) { return settingsFactor(1.0f); }
+
+//    @Override float randomLocation(float max, float buff) {
+//        return buff + (random() * (max-buff-buff));
+//    }
 //    @Override
 //    protected float sizeFactor(String size) {
 //        float adj = 1.0f;

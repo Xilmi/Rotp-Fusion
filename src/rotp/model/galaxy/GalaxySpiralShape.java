@@ -68,7 +68,7 @@ public class GalaxySpiralShape extends GalaxyShape {
     }
     // BR: for symmetric galaxy
     private CtrPoint getRandomSymmetric(double minRay) {
-        double ray = rand.next(minRay, 1); 
+        double ray = rand.nextDouble(minRay, 1); 
         ray *= ray; // to favor short ray
         double armOffset = rand.sym(armOffsetMax);
         armOffset = (armOffset - armOffsetMax/2) / ray;
@@ -112,7 +112,7 @@ public class GalaxySpiralShape extends GalaxyShape {
         numArms = option1+2;
     	// BR: For symmetric galaxy
         if (isSymmetric()) {
-        	randomOrientation = rand.next(twoPI);
+        	randomOrientation = rand.nextDouble(twoPI);
         	// a void coming from symmetry depends on number of opponents
          	double minHomeRay = empireBuffer * numEmpires / twoPI;
         	double minRay = systemBuffer() * numEmpires / twoPI;
@@ -154,8 +154,8 @@ public class GalaxySpiralShape extends GalaxyShape {
         float dist = rand.nextFloat();
         dist = dist * dist;
         
-        float angle = (float) rand.next(2*Math.PI);
-        float armOffset = rand.next(armOffsetMax);
+        float angle = (float) rand.nextDouble(2*Math.PI);
+        float armOffset = rand.nextFloat(armOffsetMax);
         armOffset = (armOffset - armOffsetMax/2)/dist;
         armOffset = armOffset > 0 ? armOffset*armOffset : -1*armOffset*armOffset;
         

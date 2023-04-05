@@ -17,7 +17,9 @@
 
 package rotp.util;
 
-public class Rand {
+import java.util.Random;
+
+public class Rand extends Random{
 	// BR: To avoid structure in multi dimensional random Multiple random generators will be used randomly.
 
 	// Based on golden ratio: (The positive solution of x^2 = x + 1)
@@ -43,18 +45,20 @@ public class Rand {
 
 	private static final double[] CRND = { IGR, SIGR, IPR, SIPR, ISGR, SSIGR, ISR, SISR };
 
-	private final double[] lasts = new double[CRND.length];
+	private double[] lasts;
 	private int lastId = 0;
 
 	// ===== Constructors  and Initializers =====
 	//
-	public Rand() { init(0); }
-	public Rand(double source) { init(source); }
+	public Rand()				{ super(0); }
+	public Rand(double source)	{ init(source); }
+	public Rand(Long source)	{ init(source); }
 	/**
 	 * Initialize or reinitialize the randomizer
 	 */
+	@Override public void setSeed(long seed) { init(seed); }
 	public void init(double source) {
-		lastId = 2;
+		lasts = new double[CRND.length];
 		if (source > 1.0)
 			source = 1/source;
 		if (source <= 0)
@@ -67,71 +71,83 @@ public class Rand {
 			
 		for (int i=0; i<lasts.length; i++) {
 			lasts[i] = source;
-			source = rand(i);
-			for (int k=0; k<2; k++)
+			for (int k=0; k<100; k++)
 				rand(i);
+			source = rand(i);
+		}
+		lastId = (int) (source * CRND.length);
+		System.out.println();
+		System.out.println(lastId + " = " + lasts[lastId]);
+		for (double l : lasts) {
+			System.out.println(l);
 		}
 	}
-	// ========== Private Methods ==========
+	// ========== Private and protected Methods ==========
 	//
 	private double rand(int i) { return lasts[i] = (lasts[i]  + CRND[i])%1; }
+	private double next() {
+		lastId = (int) (rand(lastId) * CRND.length);
+		return rand(lastId);
+	}
+	@Override protected int next(int bits) { return nextInt(); }
 
 	// ========== Public getter Methods ==========
 	//
 
 	// ===== Basic getters
 	/**
-	 * @return  double: 0 <= random value < 1
+	 * @return  double: 0 <= random double < 1
 	 */
-	public double next() {
-		lastId = (int) (rand(lastId) * CRND.length);
-		return rand(lastId);
-	}
+	@Override public double nextDouble() { return next(); }
 	/**
-	 * @return  float 0 <= random value < 1
+	 * @return  float 0 <= random float < 1
 	 */
-	public float nextFloat() { return (float) next(); }
+	@Override public float nextFloat() { return (float) next(); }
 	/**
-	 * @return  int: 0 <= random value < 2147483647
+	 * @return  int: 0 <= random int < 2147483647
 	 */
-	public int nextInt() { return (int) (next() * Integer.MAX_VALUE); }
+	@Override public int nextInt() { return (int) (next() * Integer.MAX_VALUE); }
 	/**
-	 * @return  boolean: 0 <= random value < 2147483647
+	 * @return  int: 0 <= random int < 2147483647
 	 */
-	public boolean nextBoolean() { return next() < 0.5; }
+	@Override public long nextLong() { return (long) (next() * Long.MAX_VALUE); }
+	/**
+	 * @return  random boolean
+	 */
+	@Override public boolean nextBoolean() { return next() < 0.5; }
 
 	// ===== Getters with max =====
 	/**
 	 * @return  double: 0 <= random value < max
 	 */
-	public double next (double max) { return max * next();  }
+	public double nextDouble (double max) { return max * next();  }
 	/**
 	 * @return  float: 0 <= random value < max
 	 */
-	public float next (float max) { return (float) (max * next());  }
+	public float nextFloat (float max) { return (float) (max * next());  }
 	/**
 	 * @return  int: 0 <= random value < max
 	 */
-	public int next (int max) { return (int) (max * next());  }
+	@Override public int nextInt (int max) { return (int) (max * next());  }
 
 	// ===== Getters with limits =====
 	/**
 	 * @return  min(lim1, lim2) <= random double < max(lim1, lim2)
 	 */
-	public double next(double lim1, double lim2) {
-		return next(Math.abs(lim2-lim1)) + Math.min(lim2, lim1);
+	public double nextDouble(double lim1, double lim2) {
+		return nextDouble(Math.abs(lim2-lim1)) + Math.min(lim2, lim1);
 	}
 	/**
 	 * @return  min(lim1, lim2) <= random float < max(lim1, lim2)
 	 */
-	public float next(float lim1, float lim2) {
-		return next(Math.abs(lim2-lim1)) + Math.min(lim2, lim1);
+	public float nextFloat(float lim1, float lim2) {
+		return nextFloat(Math.abs(lim2-lim1)) + Math.min(lim2, lim1);
 	}
 	/**
 	 * @return  min(lim1, lim2) <= random int < max(lim1, lim2)
 	 */
-	public int next(int lim1, int lim2) {
-		return next(Math.abs(lim2-lim1)) + Math.min(lim2, lim1);
+	public int nextInt(int lim1, int lim2) {
+		return nextInt(Math.abs(lim2-lim1)) + Math.min(lim2, lim1);
 	}
 
 	// ===== Symmetric Getters with multiplier =====

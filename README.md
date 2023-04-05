@@ -35,6 +35,8 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
   - Applied WYSIWYG to Rectangular Galaxy.
   - Improved big source number randomness.
   - Applied WYSIWYG to Ellipse and spiral Galaxies.
+  - Applied WYSIWYG to all other Galaxies.
+  - the new random function extends now the Random class.
   
 
 2023.04.03 (BR)

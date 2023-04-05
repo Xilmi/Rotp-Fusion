@@ -20,7 +20,6 @@ import static rotp.ui.UserPreferences.maximizeSpacing;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 import rotp.model.game.IGameOptions;
 
@@ -56,11 +55,11 @@ public class GalaxySpiralArmsShape extends GalaxyShape {
     // BR: for symmetric galaxy
     private CtrPoint getRandomSymmetric(double minRay) {
 		double armRadius   = Math.min(this.armRadius, twoPI * galaxyRay() / numEmpires);
-		double swirlRadius = rand.next();
+		double swirlRadius = rand.nextDouble();
 		double swirlAngle  = numSwirls * swirlRadius * Math.PI;
 		CtrPoint arm = new CtrPoint(swirlRadius * galaxyRay()).rotate(swirlAngle);
-		double phi = rand.next(twoPI);
-		double radiusSelect = Math.sqrt(rand.next()) * armRadius * (1 - swirlRadius);
+		double phi = rand.nextDouble(twoPI);
+		double radiusSelect = Math.sqrt(rand.nextDouble()) * armRadius * (1 - swirlRadius);
     	return new CtrPoint(radiusSelect).rotate(phi + randomOrientation).shift(arm);
     }
     @Override public CtrPoint getValidRandomSymmetric() {
@@ -130,7 +129,7 @@ public class GalaxySpiralArmsShape extends GalaxyShape {
         
         // BR: For symmetric galaxy
         if (isSymmetric()) {
-        	randomOrientation = rand.next(twoPI);
+        	randomOrientation = rand.nextDouble(twoPI);
         	// a void coming from symmetry depends on number of opponents
          	double minHomeRay = empireBuffer * numEmpires / twoPI;
         	double minRay = systemBuffer() * numEmpires / twoPI;
@@ -166,14 +165,16 @@ public class GalaxySpiralArmsShape extends GalaxyShape {
 		int numSpirals = (int) Math.floor(Math.sqrt(Math.sqrt(opts.numberStarSystems())));
 		int numSteps = (int) 50*numSpirals;
 		
-		int armSelect = ThreadLocalRandom.current().nextInt(numSpirals);
-		int stepSelect = ThreadLocalRandom.current().nextInt(numSteps);
+//		int armSelect = ThreadLocalRandom.current().nextInt(numSpirals);
+//		int stepSelect = ThreadLocalRandom.current().nextInt(numSteps);
+		int armSelect  = rand.nextInt(numSpirals);
+		int stepSelect = rand.nextInt(numSteps);
 		
 		float xArm = (float) (0.5f*gW + galaxyEdgeBuffer() + 0.45f*gW*stepSelect*Math.cos(numSwirls*stepSelect*Math.PI/numSteps + armSelect*2*Math.PI/numSpirals)/numSteps);
 		float yArm = (float) (0.5f*gW + galaxyEdgeBuffer() + 0.45f*gW*stepSelect*Math.sin(numSwirls*stepSelect*Math.PI/numSteps + armSelect*2*Math.PI/numSpirals)/numSteps);
 		
-		double phi = random() * 2 * Math.PI;
-		double radiusSelect = Math.sqrt(random()) * armRadius * (numSteps - stepSelect)/numSteps;
+		double phi = rand.nextDouble(2 * Math.PI);
+		double radiusSelect = Math.sqrt(rand.nextDouble()) * armRadius * (numSteps - stepSelect)/numSteps;
 		
 		pt.x = (float) (radiusSelect * Math.cos(phi) + xArm);
         pt.y = (float) (radiusSelect * Math.sin(phi) + yArm);
@@ -183,15 +184,16 @@ public class GalaxySpiralArmsShape extends GalaxyShape {
     public void setSpecific(Point.Float pt) { // modnar: add possibility for specific placement of homeworld/orion locations
         setRandom(pt);
     }
+    @Override
+    protected float sizeFactor(String size) { return settingsFactor(1.0f); }
+
 //    @Override
 //    public boolean valid(float x, float y) {
 //        return true;
 //    }
-    float randomLocation(float max, float buff) {
-        return buff + (random() * (max-buff-buff));
-    }
-    @Override
-    protected float sizeFactor(String size) { return settingsFactor(1.0f); }
+//    @Override float randomLocation(float max, float buff) {
+//        return buff + (random() * (max-buff-buff));
+//    }
 //    @Override
 //    protected float sizeFactor(String size) {
 //        float adj = 1.0f;

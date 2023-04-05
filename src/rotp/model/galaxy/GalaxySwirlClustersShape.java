@@ -16,9 +16,9 @@
 package rotp.model.galaxy;
 
 import java.awt.Point;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.ArrayList;
 import java.util.List;
+
 import rotp.model.game.IGameOptions;
 
 // modnar: custom map shape, Swirl Clusters
@@ -70,7 +70,7 @@ public class GalaxySwirlClustersShape extends GalaxyShape {
         //int option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
         
 		float gW = (float) galaxyWidthLY();
-		float gH = (float) galaxyHeightLY();
+		//float gH = (float) galaxyHeightLY();
 		
 		// modnar: choose swirl size, number of clusters, and cluster radii with options1
 		// scale up the swirl size with size of map
@@ -114,19 +114,22 @@ public class GalaxySwirlClustersShape extends GalaxyShape {
 		// drop a cluster "every" clusterSteps
 		// not quite since distance along swirl is not uniform with steps
 		int clusterSteps = (int) Math.floor(2*numSteps / (max(1, numClusters-1)));
-		int stepSelect = ThreadLocalRandom.current().nextInt(2*numSteps)+1;
+//		int stepSelect = ThreadLocalRandom.current().nextInt(2*numSteps)+1;
+		int stepSelect = rand.nextInt(2*numSteps)+1;
 		// select cluster position non-uniformally
-		int clusterRandom = ThreadLocalRandom.current().nextInt(numClusters);
+//		int clusterRandom = ThreadLocalRandom.current().nextInt(numClusters);
+		int clusterRandom = rand.nextInt(numClusters);
 		int clusterSelect = (int) Math.floor(Math.sqrt(clusterRandom)*Math.sqrt(numClusters-1)*clusterSteps);
 		
 		// switch between populating the swirl vs cluster
-		switch (ThreadLocalRandom.current().nextInt(2)) {
+//		switch (ThreadLocalRandom.current().nextInt(2)) {
+		switch (rand.nextInt(2)) {
             case 0:
                 float xSwirl = (float) (0.5f*gW + galaxyEdgeBuffer() + 0.225f*gW*stepSelect*Math.cos(numSwirls*stepSelect*Math.PI/numSteps)/numSteps);
 				float ySwirl = (float) (0.5f*gW + galaxyEdgeBuffer() + 0.225f*gW*stepSelect*Math.sin(numSwirls*stepSelect*Math.PI/numSteps)/numSteps);
 				
-				double phiSwirl = random() * 2 * Math.PI;
-				double radiusSwirl = Math.sqrt(random()) * swirlWidth;
+				double phiSwirl = rand.nextDouble(2 * Math.PI);
+				double radiusSwirl = Math.sqrt(rand.nextDouble()) * swirlWidth;
 				
 				pt.x = (float) (radiusSwirl * Math.cos(phiSwirl) + xSwirl);
 				pt.y = (float) (radiusSwirl * Math.sin(phiSwirl) + ySwirl);
@@ -148,8 +151,8 @@ public class GalaxySwirlClustersShape extends GalaxyShape {
 					yCluster = (float) ((clusterDelta/dCluster)*(0.5f*gW + galaxyEdgeBuffer()) + (1.0f - (clusterDelta/dCluster))*(0.5f*gW + galaxyEdgeBuffer() + yDelta));
 				}
 				
-				double phiCluster = random() * 2 * Math.PI;
-				double radiusSelect = Math.sqrt(random()) * clusterR;
+				double phiCluster = rand.nextDouble(2 * Math.PI);
+				double radiusSelect = Math.sqrt(rand.nextDouble()) * clusterR;
 				
 				pt.x = (float) (radiusSelect * Math.cos(phiCluster) + xCluster);
 				pt.y = (float) (radiusSelect * Math.sin(phiCluster) + yCluster);
@@ -166,9 +169,9 @@ public class GalaxySwirlClustersShape extends GalaxyShape {
     public boolean valid(float x, float y) {
         return true;
     }
-    float randomLocation(float max, float buff) {
-        return buff + (random() * (max-buff-buff));
-    }
+//    float randomLocation(float max, float buff) {
+//        return buff + (random() * (max-buff-buff));
+//    }
     @Override
     protected float sizeFactor(String size) { return settingsFactor(1.0f); }
 //    @Override

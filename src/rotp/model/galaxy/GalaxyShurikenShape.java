@@ -20,7 +20,6 @@ import java.awt.Shape;
 import java.awt.geom.Area;
 import java.awt.geom.Path2D;
 import java.awt.geom.AffineTransform;
-import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
 import rotp.model.game.IGameOptions;
@@ -94,14 +93,13 @@ public class GalaxyShurikenShape extends GalaxyShape {
                 break;
         }
 		
-		Random randnum = new Random();
-		
+		// Random randnum = new Random();
 		flake = new Path2D.Float();
 		switch(option2) {
 			case 0: // BR: original Modnar solution
 				// keep same random number seed
 				// modified by numberStarSystems, UI_option, and selectedNumberOpponents
-				randnum.setSeed(opts.numberStarSystems()*numPoints + opts.selectedNumberOpponents());
+				// rand.setSeed(opts.numberStarSystems()*numPoints + opts.selectedNumberOpponents());
 				// initial flake polygon start, ensure polygon extent
 				flake.moveTo(gE + 0.5f*gW, gE + 0.65f*gH);
 				flake.lineTo(gE + 0.4f*gW, gE + 0.02f*gH);
@@ -114,8 +112,8 @@ public class GalaxyShurikenShape extends GalaxyShape {
 				// create flake polygon shape, with random points/path
 				for (int i = 0; i < numPoints; i++) {
 					// uniform random point within triangle slice
-					float rand1 = randnum.nextFloat();
-					float rand2 = randnum.nextFloat();
+					float rand1 = rand.nextFloat();
+					float rand2 = rand.nextFloat();
 					float px = p1.x*(1-rand1) + p2.x*((float) Math.sqrt(rand1)*(1-rand2)) + p3.x*((float) Math.sqrt(rand1)*rand2);
 					float py = p1.y*(1-rand1) + p2.y*((float) Math.sqrt(rand1)*(1-rand2)) + p3.y*((float) Math.sqrt(rand1)*rand2);
 					flake.lineTo(px, py);
@@ -125,7 +123,7 @@ public class GalaxyShurikenShape extends GalaxyShape {
 			case 1:
 				// keep same random number seed
 				// modified by numberStarSystems, UI_option, and selectedNumberOpponents
-				randnum.setSeed(opts.numberStarSystems()*numPoints + opts.selectedNumberOpponents());
+				// rand.setSeed(opts.numberStarSystems()*numPoints + opts.selectedNumberOpponents());
 				// Then same as Case 2
 			case 2:
 				// initial flake polygon start, ensure polygon extent
@@ -143,8 +141,8 @@ public class GalaxyShurikenShape extends GalaxyShape {
 				
 				for (int i = 0; i < size; i++) {
 					// uniform random point within triangle slice
-					float rand1 = randnum.nextFloat();
-					float rand2 = randnum.nextFloat();
+					float rand1 = rand.nextFloat();
+					float rand2 = rand.nextFloat();
 					ray	  = (float) (ray - rand1*step);
 					yA[i] = ray;
 					xA[i] = (maxX-minX)*rand2 + minX;
@@ -203,11 +201,12 @@ public class GalaxyShurikenShape extends GalaxyShape {
     public boolean valid(float x, float y) {
         return totalArea.contains(x, y);
     }
-    float randomLocation(float max, float buff) {
-        return buff + (random() * (max-buff-buff));
-    }
     @Override
     protected float sizeFactor(String size) { return settingsFactor(1.0f); }
+
+//     @Override float randomLocation(float max, float buff) {
+//        return buff + (random() * (max-buff-buff));
+//    }
 //    @Override
 //    protected float sizeFactor(String size) {
 //        float adj = 1.0f;

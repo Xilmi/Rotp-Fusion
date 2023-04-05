@@ -720,8 +720,8 @@ public abstract class GalaxyShape implements Base, Serializable {
 			float buffer = systemBuffer();
 			while (attempts < 100) {
 				attempts++;
-				pt.x = rand.next(x1, x2);
-				pt.y = rand.next(y1, y2);
+				pt.x = rand.nextFloat(x1, x2);
+				pt.y = rand.nextFloat(y1, y2);
 				if (sh.valid(pt)) {
 					boolean tooCloseToAny = isTooNearExistingSystem(sh,pt.x,pt.y, buffer);
 					boolean tooFarFromRef = distance(x0, y0, pt.x,pt.y) >= maxDistance;
@@ -769,7 +769,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 			if (numComp > 0) {
 				double ctr   = twoPI / numComp;
 				double width = twoPI / numComp - minRandom;
-				double orientation = rand.next(twoPI); // Global orientation
+				double orientation = rand.nextDouble(twoPI); // Global orientation
 				for (int i=0; i<numComp; i++) {
 					cW[i] = home.shift(unit(orientation + rand.sym(i * ctr, width)));
 				}

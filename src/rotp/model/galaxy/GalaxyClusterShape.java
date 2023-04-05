@@ -172,13 +172,14 @@ public class GalaxyClusterShape extends GalaxyShape {
 		
 		// accept based on distance vs radius (not worth doing ?)
 		// more likely if closer to center, less likely further away		
-        return (random() >= min_dcc);
-    }
-    float randomLocation(float max, float buff) {
-        return buff + (random() * (max-buff-buff));
+        return (rand.nextFloat() >= min_dcc);
     }
     @Override
     protected float sizeFactor(String size) { return settingsFactor(1.0f); }
+
+//    @Override float randomLocation(float max, float buff) {
+//        return buff + (random() * (max-buff-buff));
+//    }
 //    @Override
 //    protected float sizeFactor(String size) {
 //        float adj = 1.0f;

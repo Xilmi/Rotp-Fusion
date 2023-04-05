@@ -16,10 +16,8 @@
 package rotp.model.galaxy;
 
 import java.awt.Point;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 import java.util.List;
 import rotp.model.game.IGameOptions;
 
@@ -121,14 +119,16 @@ public class GalaxyGridShape extends GalaxyShape {
 		for(int i = 0; i < (nGrid+1)*(nGrid+1); i++){
 			clusterList.add(i);
 		}
-		Collections.shuffle(clusterList, new Random(opts.numberStarSystems()+opts.selectedNumberOpponents()));
+		Collections.shuffle(clusterList, rand);
+//		Collections.shuffle(clusterList, new Random(opts.numberStarSystems()+opts.selectedNumberOpponents()));
 		
 		
 		// switch between populating the grid vs cluster
-		switch (ThreadLocalRandom.current().nextInt(2)) {
+//		switch (ThreadLocalRandom.current().nextInt(2)) {
+		switch (rand.nextInt(2)) {
             case 0:
 				
-				int stepSelect = (int) Math.floor(random()*numSteps);
+				int stepSelect = (int) Math.floor(rand.nextDouble()*numSteps);
 				
 				// horizontal grids
 				if (stepSelect < horizontalSteps) { 
@@ -153,7 +153,7 @@ public class GalaxyGridShape extends GalaxyShape {
 				}
             case 1:
 				
-				int clusterSelect = (int) Math.floor(random()*nClusters);
+				int clusterSelect = (int) Math.floor(rand.nextDouble(nClusters));
 				
 				int clusterPos = clusterList.get(clusterSelect);
                 int clusterX = (int) (clusterPos % (nGrid+1));
@@ -162,8 +162,8 @@ public class GalaxyGridShape extends GalaxyShape {
 				float xCluster = (float) ((clusterX/nGrid)*gW + clusterR + galaxyEdgeBuffer());
 				float yCluster = (float) ((clusterY/nGrid)*gH + clusterR + galaxyEdgeBuffer());
 				
-				double phiCluster = random() * 2 * Math.PI;
-				double radiusSelect = Math.sqrt(random()) * clusterR;
+				double phiCluster = rand.nextDouble(2 * Math.PI);
+				double radiusSelect = Math.sqrt(rand.nextDouble()) * clusterR;
 				
 				pt.x = (float) (radiusSelect * Math.cos(phiCluster) + xCluster);
 				pt.y = (float) (radiusSelect * Math.sin(phiCluster) + yCluster);
@@ -176,15 +176,15 @@ public class GalaxyGridShape extends GalaxyShape {
     public void setSpecific(Point.Float pt) { // modnar: add possibility for specific placement of homeworld/orion locations
         setRandom(pt);
     }
+    @Override
+    protected float sizeFactor(String size) { return settingsFactor(1.0f); }
 //    @Override
 //    public boolean valid(float x, float y) {
 //        return true;
 //    }
-    float randomLocation(float max, float buff) {
-        return buff + (random() * (max-buff-buff));
-    }
-    @Override
-    protected float sizeFactor(String size) { return settingsFactor(1.0f); }
+//    float randomLocation(float max, float buff) {
+//        return buff + (random() * (max-buff-buff));
+//    }
 //    @Override
 //    protected float sizeFactor(String size) {
 //        float adj = 1.0f;

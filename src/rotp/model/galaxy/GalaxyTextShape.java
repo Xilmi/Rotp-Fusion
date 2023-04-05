@@ -207,11 +207,12 @@ public class GalaxyTextShape extends GalaxyShape {
         // repeat once, 1 line
         return textShape.contains(x, y);
     }
-    float randomLocation(float max, float buff) {
-        return buff + (random() * (max-buff-buff));
-    }
     @Override
     protected float sizeFactor(String size) { return settingsFactor(1.0f); }
+
+//   @Override float randomLocation(float max, float buff) {
+//        return buff + (random() * (max-buff-buff));
+//    }
 //    @Override
 //    protected float sizeFactor(String size) {
 //        float adj = densitySizeFactor(size);
