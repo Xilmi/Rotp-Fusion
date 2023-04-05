@@ -26,6 +26,10 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2023.04.05 (BR)
+- Fixed Tech Never, Auto, Always labels.
+- Fixed AI and Race selection Arrows bringing up the selection list.
+
 2023.04.04 (BR)
 - Ctrl + Shift on scrolling = Ctrl Increment * Shift Increment / Base Increment.
 - Removed useless initialization, Removed old Rand class which has now its file.

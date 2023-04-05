@@ -1732,15 +1732,15 @@ SETTINGS_MOD_TITLE_B                     | Secondary MOD Options
 SETTINGS_MOD_OPTION_NEVER                | Never
 SETTINGS_MOD_OPTION_AUTO                 | Auto
 SETTINGS_MOD_OPTION_ALWAYS               | Always
-SETTINGS_MOD_OPTION_NEVER_NEVER          | Never
-SETTINGS_MOD_OPTION_NEVER_AUTO           | Never/Always
+SETTINGS_MOD_OPTION_NEVER_NEVER          | Never/Never
+SETTINGS_MOD_OPTION_NEVER_AUTO           | Never/Auto
 SETTINGS_MOD_OPTION_NEVER_ALWAYS         | Never/Always
 SETTINGS_MOD_OPTION_AUTO_NEVER           | Auto/Never
-SETTINGS_MOD_OPTION_AUTO_AUTO            | Auto
+SETTINGS_MOD_OPTION_AUTO_AUTO            | Auto/Auto
 SETTINGS_MOD_OPTION_AUTO_ALWAYS          | Auto/Always
 SETTINGS_MOD_OPTION_ALWAYS_NEVER         | Always/Never
 SETTINGS_MOD_OPTION_ALWAYS_AUTO          | Always/Auto
-SETTINGS_MOD_OPTION_ALWAYS_ALWAYS        | Always
+SETTINGS_MOD_OPTION_ALWAYS_ALWAYS        | Always/Always
 SETTINGS_MOD_COUNCIL_REQUIRED_PCT_DESC   | Percentage needed to win the council vote.
 SETTINGS_MOD_COUNCIL_REQUIRED_PCT        | Council Requirement: %1%
 SETTINGS_MOD_EVENTS_START_TURN_DESC      | To adjust the starting turn of random events. If an event has already been started, it will not be stopped.

@@ -1,7 +1,9 @@
 Now working on:
-- WYSIWYG test.
+- WYSIWYG deep test.
 
 April Updates:
+- Fixed Tech Never, Auto, Always labels mistakes.
+- Fixed AI and Race selection Arrows bringing up the selection list.
 - New WYSIWYG option: The final galaxy will be the preview one. With controlled randomness.
   - Applied to all Galaxies.
   - Change the source number to change the galaxy.

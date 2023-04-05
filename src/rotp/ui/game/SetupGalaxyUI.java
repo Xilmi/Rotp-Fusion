@@ -30,6 +30,7 @@ import static rotp.ui.UserPreferences.dynStarsPerEmpire;
 import static rotp.ui.UserPreferences.galaxyPreviewColorStarsSize;
 import static rotp.ui.UserPreferences.galaxyRandSource;
 import static rotp.ui.UserPreferences.globalCROptions;
+import static rotp.ui.UserPreferences.minListSizePopUp;
 import static rotp.ui.UserPreferences.shapeOption1;
 import static rotp.ui.UserPreferences.shapeOption2;
 import static rotp.ui.UserPreferences.shapeOption3;
@@ -1616,51 +1617,60 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	}
 	private void nextOpponentAI(boolean click) {
 		if (click) softClick();
-		if (click || ModifierKeysState.isCtrlDown())
-			selectGlobalAIFromList();
-		else 
-			newGameOptions().selectedOpponentAIOption(newGameOptions().nextOpponentAI());
+		newGameOptions().selectedOpponentAIOption(newGameOptions().nextOpponentAI());
 		repaint();
 	}
 	private void prevOpponentAI(boolean click) {
 		if (click) softClick();
-		if (click || ModifierKeysState.isCtrlDown())
+		newGameOptions().selectedOpponentAIOption(newGameOptions().prevOpponentAI());
+		repaint();
+	}
+	private void toggleOpponentAI(boolean up) {
+		softClick();
+		if (newGameOptions().opponentAIOptions().size() >= minListSizePopUp.get()
+					|| ModifierKeysState.isCtrlDown())
 			selectGlobalAIFromList();
+		else if (up)
+			newGameOptions().selectedOpponentAIOption(newGameOptions().nextOpponentAI());
 		else
 			newGameOptions().selectedOpponentAIOption(newGameOptions().prevOpponentAI());
 		repaint();
 	}
 	private void nextOpponentCR(boolean click) {
 		if (click) softClick();
-		if (click || ModifierKeysState.isCtrlDown())
-			selectAlienAbilityFromList();
-		else {
 			String currCR = globalCROptions.get();
-			int nextIndex = 0;
-			if (currCR != null)
-				nextIndex = currentGlobalAbilityIndex(currCR)+1;
-			if (nextIndex >= globalAbilitiesList.length)
-				nextIndex = 0;
-			String nextCR = (String) globalAbilitiesList[nextIndex];
-			globalCROptions.set(nextCR);
-		}
+		int nextIndex = 0;
+		if (currCR != null)
+			nextIndex = currentGlobalAbilityIndex(currCR)+1;
+		if (nextIndex >= globalAbilitiesList.length)
+			nextIndex = 0;
+		String nextCR = (String) globalAbilitiesList[nextIndex];
+		globalCROptions.set(nextCR);
 		repaint();
 	}
 	private void prevOpponentCR(boolean click) {
 		if (click) softClick();
-		if (click || ModifierKeysState.isCtrlDown())
-			selectAlienAbilityFromList();
-		else {
 			String currCR = globalCROptions.get();
-			int prevIndex = 0;
-			if (currCR != null)
-				prevIndex = currentGlobalAbilityIndex(currCR)-1;
-			if (prevIndex < 0)
-				prevIndex = globalAbilitiesList.length-1;
-			String prevCR = (String) globalAbilitiesList[prevIndex];
-			globalCROptions.set(prevCR);
-		}
+		int prevIndex = 0;
+		if (currCR != null)
+			prevIndex = currentGlobalAbilityIndex(currCR)-1;
+		if (prevIndex < 0)
+			prevIndex = globalAbilitiesList.length-1;
+		String prevCR = (String) globalAbilitiesList[prevIndex];
+		globalCROptions.set(prevCR);
 		repaint();
+	}
+	private void toggleOpponentCR(boolean up) {
+		softClick();
+		if (globalAbilitiesList.length >= minListSizePopUp.get()
+				|| ModifierKeysState.isCtrlDown()) {
+			selectAlienAbilityFromList();
+			repaint();
+		}
+		else if (up)
+			nextOpponentCR(false);
+		else
+			prevOpponentCR(false);
 	}
 	private void toggleNewRaces(boolean click) {
 		if (click) softClick();
@@ -2569,15 +2579,13 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		else if (hoverBox == aiBoxL)
 			prevOpponentAI(true);
 		else if (hoverBox == aiBox)
-			if(up) nextOpponentAI(true);
-			else prevOpponentAI(true);
+			toggleOpponentAI(up);
 		else if (hoverBox == aiBoxR)
 			nextOpponentAI(true);
 		else if (hoverBox == crBoxL)
 			prevOpponentCR(true);
 		else if (hoverBox == crBox)
-			if(up) nextOpponentCR(true);
-			else prevOpponentCR(true);
+			toggleOpponentCR(up);
 		else if (hoverBox == crBoxR)
 			nextOpponentCR(true);
 		else if (hoverBox == newRacesBox)
