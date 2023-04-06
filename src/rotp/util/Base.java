@@ -1061,24 +1061,48 @@ public interface Base {
                     currentLine = newLine;                
             }
         }
-        else {
-            List<String> words = substrings(text, ' ');
-            for (String word: words) {
-                String newLine = currentLine;
-                if (newLine.isEmpty())
-                    newLine = newLine + word;
-                else
-                    newLine = newLine + " " + word;
-                int newWidth = fm.stringWidth(newLine);
-                if (newWidth > (maxWidth-indent)) {
-                    lines.add(currentLine);
-                    indent = 0;
-                    currentLine = word;
+        else { // BR: added forced lines '\n' management 
+            String[] forcedLines = text.split("\\\\n");
+        	for (String forcedLine : forcedLines) {
+                List<String> words = substrings(forcedLine, ' ');
+                if (!currentLine.isEmpty())
+                	lines.add(currentLine);
+                currentLine = "";
+                for (String word: words) {
+                    String newLine = currentLine;
+                    if (newLine.isEmpty())
+                        newLine = newLine + word;
+                    else
+                        newLine = newLine + " " + word;
+                    int newWidth = fm.stringWidth(newLine);
+                    if (newWidth > (maxWidth-indent)) {
+                        lines.add(currentLine);
+                        indent = 0;
+                        currentLine = word;
+                    }
+                    else
+                        currentLine = newLine;
                 }
-                else
-                    currentLine = newLine;
-            }
+        	}
         }
+//        else { // Character based
+//            List<String> words = substrings(text, ' ');
+//            for (String word: words) {
+//                String newLine = currentLine;
+//                if (newLine.isEmpty())
+//                    newLine = newLine + word;
+//                else
+//                    newLine = newLine + " " + word;
+//                int newWidth = fm.stringWidth(newLine);
+//                if (newWidth > (maxWidth-indent)) {
+//                    lines.add(currentLine);
+//                    indent = 0;
+//                    currentLine = word;
+//                }
+//                else
+//                    currentLine = newLine;
+//            }
+//        }
 
         if (!currentLine.isEmpty())
             lines.add(currentLine);

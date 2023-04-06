@@ -21,6 +21,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
 public interface InterfaceParam extends InterfaceOptions{
+	public static final String HELP_DESCRIPTION = "_HELP";
 	public static final String LABEL_DESCRIPTION = "_DESC";
 	public static final String END = "   ";
 	
@@ -38,9 +39,14 @@ public interface InterfaceParam extends InterfaceOptions{
 	public boolean isDefaultValue();
 
 	public default void toggle(MouseEvent e, int p, Component frame) {};
-	public default String getToolTip()			{ return ""; }
-	public default String getToolTip(int idx)	{ return ""; }
-	public default boolean isDuplicate()		{ return false; }
-	public default boolean isTitle()			{ return false; }
-	public default boolean isSubMenu()			{ return false; };
+	public default String	getToolTip()		{ return getGuiDescription(); }
+	public default String	getToolTip(int idx)	{ return ""; }
+	public default boolean	isDuplicate()		{ return false; }
+	public default boolean	isTitle()			{ return false; }
+	public default boolean	isSubMenu()			{ return false; };
+	public default String	getFullHelp()		{
+		if (getToolTip().isEmpty())
+			return getGuiDescription();
+		return getToolTip();
+	};
 }

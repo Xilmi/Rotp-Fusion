@@ -76,11 +76,11 @@ public class Rand extends Random{
 			source = rand(i);
 		}
 		lastId = (int) (source * CRND.length);
-		System.out.println();
-		System.out.println(lastId + " = " + lasts[lastId]);
-		for (double l : lasts) {
-			System.out.println(l);
-		}
+//		System.out.println();
+//		System.out.println(lastId + " = " + lasts[lastId]);
+//		for (double l : lasts) {
+//			System.out.println(l);
+//		}
 	}
 	// ========== Private and protected Methods ==========
 	//

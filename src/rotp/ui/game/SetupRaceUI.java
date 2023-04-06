@@ -155,7 +155,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
 		helpUI.clear();
 
 		txt  = text("MOD_HELP_RACE_MAIN");
-		nL   = 4;
+		nL   = 5;
 		xBox = s50;
 		wBox = scaled(350);
 		yBox = s20;

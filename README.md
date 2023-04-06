@@ -29,6 +29,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 2023.04.05 (BR)
 - Fixed Tech Never, Auto, Always labels.
 - Fixed AI and Race selection Arrows bringing up the selection list.
+- Added option to force new lines in multi-lines text, using "\n"
+  - Used in help and descriptions.
+- Preparation for contextual Help.
 
 2023.04.04 (BR)
 - Ctrl + Shift on scrolling = Ctrl Increment * Shift Increment / Base Increment.

@@ -57,12 +57,9 @@ import java.awt.Polygon;
 import java.awt.RadialGradientPaint;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
-import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
@@ -112,7 +109,7 @@ import rotp.ui.util.SpecificCROption;
 import rotp.util.ModifierKeysState;
 
 public final class SetupGalaxyUI  extends BaseModPanel
-		implements MouseListener, MouseMotionListener, MouseWheelListener, InterfacePreview {
+		implements MouseWheelListener, InterfacePreview {
 	private static final long serialVersionUID = 1L;
     // public  static final String guiTitleID	= "SETUP_GALAXY";
 	public  static final String GUI_ID       = "START_GALAXY";
@@ -131,56 +128,55 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	private BufferedImage smBackImg;
     private int bSep = s15;
 
-	private Rectangle mergedStaticBox	= new Rectangle(); // BR add UI panel for MOD game options
-	private Rectangle mergedDynamicBox	= new Rectangle(); // BR add UI panel for MOD game options
-	private Rectangle modStaticABox		= new Rectangle(); // BR add UI panel for MOD game options
-	private Rectangle modStaticBBox		= new Rectangle(); // BR add UI panel for MOD game options
-	private Rectangle modDynamicABox	= new Rectangle(); // BR add UI panel for MOD game options
-	private Rectangle modDynamicBBox	= new Rectangle(); // BR add UI panel for MOD game options
-	private Rectangle globalModSettingsBox	= new Rectangle(); // BR add UI panel for MOD game options
-    private Rectangle helpBox   		= new Rectangle();
-	private Rectangle backBox			= new Rectangle();
-	private Rectangle startBox			= new Rectangle();
-	private Rectangle settingsBox		= new Rectangle();
-	private Rectangle newRacesBox		= new Rectangle(); // BR:
-	private Rectangle showAbilityBox	= new Rectangle(); // BR:
-	private Rectangle shapeBox			= new Rectangle();
-	private Polygon   shapeBoxL			= new Polygon();
-	private Polygon   shapeBoxR			= new Polygon();
-	private Rectangle mapOption1Box		= new Rectangle();
-	private Polygon   mapOption1BoxL	= new Polygon();
-	private Polygon   mapOption1BoxR	= new Polygon();			 
-	private Rectangle mapOption2Box		= new Rectangle();
-	private Polygon   mapOption2BoxL	= new Polygon();
-	private Polygon   mapOption2BoxR	= new Polygon();			 
-	private Rectangle mapOption3Box		= new Rectangle(); // BR:
-	private Rectangle sizeOptionBox		= new Rectangle(); // BR:
-	private Polygon   sizeOptionBoxL	= new Polygon();   // BR:
-	private Polygon   sizeOptionBoxR	= new Polygon();   // BR:
-	private Rectangle sizeBox		= new Rectangle();
-	private Polygon   sizeBoxL		= new Polygon();
-	private Polygon   sizeBoxR		= new Polygon();
-	private Rectangle diffBox		= new Rectangle();
-	private Polygon   diffBoxL		= new Polygon();
-	private Polygon   diffBoxR		= new Polygon();
-	private Rectangle wysiwygBox	= new Rectangle(); // BR:
-	private Polygon   wysiwygBoxL	= new Polygon();   // BR:
-	private Polygon   wysiwygBoxR	= new Polygon();   // BR:
-	private Rectangle oppBox		= new Rectangle();
-	private Polygon   oppBoxU		= new Polygon();
-	private Polygon   oppBoxD		= new Polygon();
-	private Rectangle aiBox			= new Rectangle();
-	private Polygon   aiBoxL		= new Polygon();
-	private Polygon	  aiBoxR		= new Polygon();
-	private Rectangle crBox			= new Rectangle(); // dataRace selection
-	private Polygon   crBoxL		= new Polygon(); // BR:
-	private Polygon   crBoxR		= new Polygon(); // BR:
+	private Rectangle mergedStaticBox	= new Box(); // BR add UI panel for MOD game options
+	private Rectangle mergedDynamicBox	= new Box(); // BR add UI panel for MOD game options
+	private Rectangle modStaticABox		= new Box(); // BR add UI panel for MOD game options
+	private Rectangle modStaticBBox		= new Box(); // BR add UI panel for MOD game options
+	private Rectangle modDynamicABox	= new Box(); // BR add UI panel for MOD game options
+	private Rectangle modDynamicBBox	= new Box(); // BR add UI panel for MOD game options
+	private Rectangle globalModSettingsBox	= new Box(); // BR add UI panel for MOD game options
+    private Rectangle helpBox   		= new Box();
+	private Rectangle backBox			= new Box();
+	private Rectangle startBox			= new Box();
+	private Rectangle settingsBox		= new Box();
+	private Rectangle newRacesBox		= new Box(); // BR:
+	private Rectangle showAbilityBox	= new Box(); // BR:
+	private Rectangle shapeBox			= new Box();
+	private Polygon   shapeBoxL			= new PolyBox();
+	private Polygon   shapeBoxR			= new PolyBox();
+	private Rectangle mapOption1Box		= new Box();
+	private Polygon   mapOption1BoxL	= new PolyBox();
+	private Polygon   mapOption1BoxR	= new PolyBox();			 
+	private Rectangle mapOption2Box		= new Box();
+	private Polygon   mapOption2BoxL	= new PolyBox();
+	private Polygon   mapOption2BoxR	= new PolyBox();			 
+	private Rectangle mapOption3Box		= new Box(); // BR:
+	private Rectangle sizeOptionBox		= new Box(); // BR:
+	private Polygon   sizeOptionBoxL	= new PolyBox();   // BR:
+	private Polygon   sizeOptionBoxR	= new PolyBox();   // BR:
+	private Rectangle sizeBox		= new Box();
+	private Polygon   sizeBoxL		= new PolyBox();
+	private Polygon   sizeBoxR		= new PolyBox();
+	private Rectangle diffBox		= new Box();
+	private Polygon   diffBoxL		= new PolyBox();
+	private Polygon   diffBoxR		= new PolyBox();
+	private Rectangle wysiwygBox	= new Box(); // BR:
+	private Polygon   wysiwygBoxL	= new PolyBox();   // BR:
+	private Polygon   wysiwygBoxR	= new PolyBox();   // BR:
+	private Rectangle oppBox		= new Box();
+	private Polygon   oppBoxU		= new PolyBox();
+	private Polygon   oppBoxD		= new PolyBox();
+	private Rectangle aiBox			= new Box();
+	private Polygon   aiBoxL		= new PolyBox();
+	private Polygon	  aiBoxR		= new PolyBox();
+	private Rectangle crBox			= new Box(); // dataRace selection
+	private Polygon   crBoxL		= new PolyBox(); // BR:
+	private Polygon   crBoxR		= new PolyBox(); // BR:
 
 	private Rectangle[] oppSet	= new Rectangle[MAX_DISPLAY_OPPS];
 	private Rectangle[] oppAI	= new Rectangle[MAX_DISPLAY_OPPS];
 	private Rectangle[] oppCR	= new Rectangle[MAX_DISPLAY_OPPS]; // BR: dataRace selection
 
-	private Shape hoverBox;
 	private boolean starting = false;
 	private int leftBoxX, rightBoxX, boxW, boxY, leftBoxH, rightBoxH;
 	private int galaxyX, galaxyY, galaxyW, galaxyH;
@@ -213,11 +209,11 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		addMouseWheelListener(this);
 		paramList = UserPreferences.optionsGalaxy;
 		for (int i=0;i<oppSet.length;i++)
-			oppSet[i] = new Rectangle();
+			oppSet[i] = new Box();
 		for (int i=0;i<oppAI.length;i++)
-			oppAI[i] = new Rectangle();
+			oppAI[i] = new Box();
 		for (int i=0;i<oppCR.length;i++)
-			oppCR[i] = new Rectangle();
+			oppCR[i] = new Box();
 		duplicateList = new LinkedList<>();
 		duplicateList.add(difficultySelection);
 		duplicateList.add(shapeSelection);
@@ -291,7 +287,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 
 		// Overview = Top, Center
 		txt  = text("MOD_HELP_GALAXY_MAIN");
-		nL   = 3;
+		nL   = 4;
 		wBox = scaled(400);
 		xBox = w/2 - wBox/2;
 		xBox = rightBoxX;
@@ -416,7 +412,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 
 		txt  = text("MOD_HELP_GALAXY_AGAINST");
 		dest = aiBox;
-		nL   = 4;
+		nL   = 5;
 		hBox = nL*lH;
 		xBox = dest.x + dest.width/2 - wBox*3/4;
 		yBox = dest.y + hShift;
@@ -454,7 +450,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		sp.setLine(xb, yb, xe, ye);
 
 		txt  = text("MOD_HELP_GALAXY_ABILITIES");
-		wBox   = scaled(400);
+		wBox   = scaled(450);
 		dest = crBox;
 		nL   = 5;
 		hBox = nL*lH;
@@ -2323,12 +2319,13 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {
+		super.keyPressed(e);
 		checkModifierKey(e);		
 		int k = e.getKeyCode();
 		switch(k) {
-		case KeyEvent.VK_F1:
-			showHelp();
-			return;
+//		case KeyEvent.VK_F1:
+//			showHelp();
+//			return;
 		case KeyEvent.VK_ESCAPE:
 			doBackBoxAction();
 			return;
@@ -2341,134 +2338,6 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		default:
 			return;
 		}
-	}
-	@Override
-	public void mouseDragged(MouseEvent e) {  }
-	@Override
-	public void mouseMoved(MouseEvent e) {
-		checkModifierKey(e);		
-		int x = e.getX();
-		int y = e.getY();
-		Shape prevHover = hoverBox;
-		hoverBox = null;
-        if (helpBox.contains(x,y))
-        	hoverBox = helpBox;
-        else if (startBox.contains(x,y))
-			hoverBox = startBox;
-		else if (backBox.contains(x,y))
-			hoverBox = backBox;
-        else if (defaultBox.contains(x,y))
-            hoverBox = defaultBox;
-        else if (userBox.contains(x,y))
-            hoverBox = userBox;
-        else if (lastBox.contains(x,y))
-            hoverBox = lastBox;
-		else if (settingsBox.contains(x,y))
-			hoverBox = settingsBox;
-		// modnar: add UI panel for modnar MOD game options
-		else if (modStaticABox.contains(x,y))
-			hoverBox = modStaticABox;
-		// BR: Merged UI panel for MOD game options
-		else if (mergedStaticBox.contains(x,y))
-			hoverBox = mergedStaticBox;
-		else if (mergedDynamicBox.contains(x,y))
-			hoverBox = mergedDynamicBox;
-		// BR: Second UI panel for MOD game options
-		else if (modStaticBBox.contains(x,y))
-			hoverBox = modStaticBBox;
-		else if (modDynamicABox.contains(x,y))
-			hoverBox = modDynamicABox;
-		else if (modDynamicBBox.contains(x,y))
-			hoverBox = modDynamicBBox;
-		// BR: Display UI panel for MOD game options
-		else if (globalModSettingsBox.contains(x,y))
-			hoverBox = globalModSettingsBox;
-		else if (shapeBoxL.contains(x,y))
-			hoverBox = shapeBoxL;
-		else if (shapeBoxR.contains(x,y))
-			hoverBox = shapeBoxR;
-		else if (shapeBox.contains(x,y))
-			hoverBox = shapeBox;
-		else if (mapOption1BoxL.contains(x,y))
-			hoverBox = mapOption1BoxL;
-		else if (mapOption1BoxR.contains(x,y))
-			hoverBox = mapOption1BoxR;
-		else if (mapOption1Box.contains(x,y))
-			hoverBox = mapOption1Box;		
-		else if (mapOption2BoxL.contains(x,y))
-			hoverBox = mapOption2BoxL;
-		else if (mapOption2BoxR.contains(x,y))
-			hoverBox = mapOption2BoxR;
-		else if (mapOption2Box.contains(x,y))
-			hoverBox = mapOption2Box;		
-		else if (mapOption3Box.contains(x,y))
-			hoverBox = mapOption3Box;		
-		else if (sizeBoxL.contains(x,y))
-			hoverBox = sizeBoxL;
-		else if (sizeBoxR.contains(x,y))
-			hoverBox = sizeBoxR;
-		else if (sizeBox.contains(x,y))
-			hoverBox = sizeBox;
-		else if (sizeOptionBoxL.contains(x,y))
-			hoverBox = sizeOptionBoxL;
-		else if (sizeOptionBoxR.contains(x,y))
-			hoverBox = sizeOptionBoxR;
-		else if (sizeOptionBox.contains(x,y))
-			hoverBox = sizeOptionBox;		
-		else if (aiBoxL.contains(x,y))
-			hoverBox = aiBoxL;
-		else if (aiBoxR.contains(x,y))
-			hoverBox = aiBoxR;
-		else if (aiBox.contains(x,y))
-			hoverBox = aiBox;
-		else if (crBoxL.contains(x,y))
-			hoverBox = crBoxL;
-		else if (crBoxR.contains(x,y))
-			hoverBox = crBoxR;
-		else if (crBox.contains(x,y))
-			hoverBox = crBox;
-		else if (newRacesBox.contains(x,y))
-			hoverBox = newRacesBox;
-		else if (showAbilityBox.contains(x,y))
-			hoverBox = showAbilityBox;
-		else if (diffBoxL.contains(x,y))
-			hoverBox = diffBoxL;
-		else if (diffBoxR.contains(x,y))
-			hoverBox = diffBoxR;
-		else if (diffBox.contains(x,y))
-			hoverBox = diffBox;
-		else if (wysiwygBoxL.contains(x,y))
-			hoverBox = wysiwygBoxL;
-		else if (wysiwygBoxR.contains(x,y))
-			hoverBox = wysiwygBoxR;
-		else if (wysiwygBox.contains(x,y))
-			hoverBox = wysiwygBox;
-		else if (oppBoxU.contains(x,y))
-			hoverBox = oppBoxU;
-		else if (oppBoxD.contains(x,y))
-			hoverBox = oppBoxD;
-		else if (oppBox.contains(x,y))
-			hoverBox = oppBox;
-		else {
-			boolean selectable = newGameOptions().selectableAI();
-			boolean selectableCR = useSelectableAbilities.get();
-			for (int i=0;i<oppAI.length;i++) {
-				if (selectable && oppAI[i].contains(x,y)) {
-					hoverBox = oppAI[i];
-					break;
-				}
-				else if (selectableCR && oppCR[i].contains(x,y)) {
-					hoverBox = oppCR[i];
-					break;
-				}
-				else if (oppSet[i].contains(x,y)) {
-					hoverBox = oppSet[i];
-					break;
-				}
-			}
-		}
-		if (hoverBox != prevHover) 
-			repaint();
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) { }

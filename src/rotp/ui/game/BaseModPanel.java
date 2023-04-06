@@ -23,11 +23,18 @@ import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
+import static rotp.ui.util.InterfaceParam.HELP_DESCRIPTION;
 import static rotp.ui.util.InterfaceParam.LABEL_DESCRIPTION;
 
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Polygon;
 import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.LinkedList;
 
 import rotp.model.game.MOO1GameOptions;
@@ -37,7 +44,8 @@ import rotp.ui.util.InterfaceParam;
 import rotp.util.LabelManager;
 import rotp.util.ModifierKeysState;
 
-abstract class BaseModPanel extends BasePanel {
+abstract class BaseModPanel extends BasePanel
+		implements MouseListener, MouseMotionListener {
  
 	private static final String setGlobalDefaultKey	= "SETTINGS_GLOBAL_DEFAULT";
 	private static final String setLocalDefaultKey	= "SETTINGS_LOCAL_DEFAULT";
@@ -58,18 +66,26 @@ abstract class BaseModPanel extends BasePanel {
 	protected static int  smallButtonMargin;
 	protected static int  smallButtonH;
 
+	protected final LinkedList<PolyBox>	polyBoxList	= new LinkedList<>();
+	protected final LinkedList<Box>		boxBaseList	= new LinkedList<>();
+	protected final LinkedList<Box>		boxHelpList	= new LinkedList<>();
+	protected Shape hoverBox;
+
 	LinkedList<InterfaceParam> paramList;
 	LinkedList<InterfaceParam> duplicateList;
 	LinkedList<InterfaceParam> activeList;
+	
 
 	//	protected Font smallButtonFont	= FontManager.current().narrowFont(20);
 	protected Font smallButtonFont	= narrowFont(20);
-	protected Rectangle defaultBox	= new Rectangle();
-	protected Rectangle lastBox		= new Rectangle();
-	protected Rectangle userBox		= new Rectangle();
+	protected Rectangle defaultBox	= new Box();
+	protected Rectangle lastBox		= new Box();
+	protected Rectangle userBox		= new Box();
 
 	protected boolean globalOptions	= false; // No preferred button and Saved to remnant.cfg
 
+	protected BaseModPanel () {	}
+	
 	private void localInit(Graphics2D g) {
 		Font prevFont = g.getFont();
 		g.setFont(smallButtonFont);
@@ -264,5 +280,109 @@ abstract class BaseModPanel extends BasePanel {
 	}
 	protected String lastButtonDescKey() {
 		return lastButtonKey() + LABEL_DESCRIPTION;
+	}
+
+	// ---------- Events management
+	@Override public void mouseDragged(MouseEvent e) {  }
+	@Override public void mouseMoved(MouseEvent e) {
+		checkModifierKey(e);		
+		int x = e.getX();
+		int y = e.getY();
+		Shape prevHover = hoverBox;
+		hoverBox = null;
+		for (Box box : boxBaseList)
+	        if (box.contains(x,y)) {
+	        	hoverBox = box;
+	        	break;
+	        }
+		if (hoverBox != prevHover) {
+			repaint();
+			return;
+		}
+		for (PolyBox box : polyBoxList)
+	        if (box.contains(x,y)) {
+	        	hoverBox = box;
+	        	break;
+	        }
+		if (hoverBox != prevHover) 
+			repaint();
+	}
+	@Override public void keyPressed(KeyEvent e) {
+		checkModifierKey(e);		
+		int k = e.getKeyCode();
+		switch(k) {
+			case KeyEvent.VK_F1:
+				showHelp();
+				return;
+		}
+	}
+
+	// ========== Sub Classes ==========
+	//
+	class Box extends Rectangle {
+		private InterfaceParam	param;
+		private String			label;
+		// ========== Constructors ==========
+		//
+		Box() { boxBaseList.add(this); }
+		Box(String label) {
+			this();
+			boxHelpList.add(this);
+			this.label = label;
+		}
+		Box(InterfaceParam param) {
+			this();
+			boxHelpList.add(this);
+			this.param = param;
+		}
+		String getDescription() {
+			String desc = getParamDescription();
+			if (desc.isEmpty())
+				return getLabelDescription();
+			else
+				return desc;
+		}
+		String getHelp() {
+			String help = getParamHelp();
+			if (help.isEmpty())
+				return getLabelHelp();
+			else
+				return help;
+		}
+		private String getLabelDescription() {
+			if (label == null)
+				return "";
+			String descLabel = label + LABEL_DESCRIPTION;
+			String desc = text(descLabel);
+			if (desc.equals(descLabel))
+				return "";
+			else
+				return desc;
+		}
+		private String getLabelHelp() {
+			if (label == null)
+				return "";
+			String helpLabel = label + HELP_DESCRIPTION;
+			String help = text(helpLabel);
+			if (help.equals(helpLabel))
+				return getDescription();
+			else
+				return help;
+		}
+		private String getParamDescription() {
+			if (param == null)
+				return "";
+			return param.getGuiDescription();
+		}
+		private String getParamHelp() {
+			if (param == null)
+				return "";
+			return param.getFullHelp();
+		}
+	}
+	class PolyBox extends Polygon {
+		// ========== Constructors ==========
+		//
+		PolyBox() { polyBoxList.add(this); }
 	}
 }
