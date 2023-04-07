@@ -55,9 +55,9 @@ public class ShowCustomRaceUI extends BaseModPanel implements MouseListener, Mou
 	private static final String exitTipKey		= "SETTINGS_EXIT_DESC";
 	
 	private	static final int tooltipPadV	= s10;
-	private	static final int tooltipPadM	= s10;
+	private	static final int tooltipPadM	= s5;
 	private static final Color tooltipC		= SystemPanel.blackText;
-	private static final int tooltipLineH	= 18;
+	private static final int tooltipLineH	= s18;
 	private	static final Font tooltipFont	= FontManager.current().narrowFont(14);
 
 	protected static final Color textC		= SystemPanel.whiteText;
@@ -491,7 +491,7 @@ public class ShowCustomRaceUI extends BaseModPanel implements MouseListener, Mou
 			g.fill(toolTipBox);
 			g.setColor(tooltipC);
 			int xT = xTT+tooltipPadM;
-			int yT = yTT + s4;
+			int yT = yTT-s2;
 			for (String line: lines) {
 				yT += tooltipLineH;
 				drawString(g,line, xT, yT);

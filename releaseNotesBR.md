@@ -1,7 +1,9 @@
 Now working on:
 - WYSIWYG deep test.
+- Slowly filling the contextual help...
 
-April Updates:
+April Updates:e
+- Fixed Tooltip box not scaling well.
 - New Option limiting the number of annoying Warnings for Expansion, Genocide, and use of Bio weapons.
   - One or two empires warning you is nice, but ten is to much!
 - Added contextual help to the race and galaxy menu.

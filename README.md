@@ -30,6 +30,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 - Added contextual help to the race and galaxy menu. "F1" will show the help for the option under the cursor. If no specific help is available, the global help will be shown.
 - New Limited Annoying Warnings for Expansion, Genocide, and use of Bio weapons.
   - You can set a maximum number of empires warning you.
+- Fixed Tooltip box not scaling well.
 
 2023.04.05 (BR)
 - Fixed Tech Never, Auto, Always labels.

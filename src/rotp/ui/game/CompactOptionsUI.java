@@ -53,14 +53,14 @@ public class CompactOptionsUI extends BaseModPanel implements MouseListener, Mou
 	
 	private static final int rowPad		= s10;
 	private	static final int descPadV	= 0;
-	private	static final int descPadM	= s10;
+	private	static final int descPadM	= s5;
 	private static final int buttonPadV	= rowPad;
 	private static final Color descColor		= SystemPanel.blackText;
 	private static final Color disabledColor	= GameUI.textColor();
 	private static final Color enabledColor		= GameUI.labelColor();
 	private static final Color defaultValuesColor	= SystemPanel.whiteText;
 	private static final Color customValuesColor	= Color.orange;
-	private static final int descLineH		= 18;
+	private static final int descLineH		= s18;
 	private	static final Font descFont		= FontManager.current().narrowFont(16);
 	private	static final Font titleFont		= FontManager.current().narrowFont(30);
 	private static final int titleOffset	= s40; // Offset from Margin
@@ -235,9 +235,9 @@ public class CompactOptionsUI extends BaseModPanel implements MouseListener, Mou
 		g.fill(toolTipBox);
 		g.setColor(descColor);
 		int xT = xDesc+descPadM;
-		int yT = yDesc + s4;
+		int yT = yDesc-s2;
 		for (String line: lines) {
-			yT += descLineH;
+			yT += descLineH; // TODO
 			drawString(g,line, xT, yT);
 		}		
 	}
