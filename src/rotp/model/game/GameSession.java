@@ -73,6 +73,7 @@ import rotp.ui.NoticeMessage;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.GameUI;
+import rotp.ui.notifications.DiplomaticNotification;
 import rotp.ui.notifications.GNNExpansionEvent;
 import rotp.ui.notifications.GNNRankingNoticeCheck;
 import rotp.ui.notifications.GameAlert;
@@ -412,6 +413,7 @@ public final class GameSession implements Base, Serializable {
                 shipsConstructed().clear();
                 spyActivity = false;
                 clearAlerts();
+                clearNotificationLimits();
                 RotPUI.instance().repaint();
                 processNotifications();
                 gal.preNextTurn();
@@ -519,6 +521,9 @@ public final class GameSession implements Base, Serializable {
                 performingTurn = false;
             }
         };
+    }
+    private void clearNotificationLimits() {
+    	DiplomaticNotification.clearNotificationLimits();
     }
     public boolean processNotifications() {
         log("Processing player notifications: ", str(notifications().size()));

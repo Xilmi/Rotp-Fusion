@@ -1878,6 +1878,11 @@ SETTINGS_MOD_SHOW_ALLIANCES_GNN_DESC     | Allow GNN Alliances announcements
 SETTINGS_MOD_SHOW_ALLIANCES_GNN          | Show GNN Alliances: %1
 SETTINGS_MOD_TECH_EXCHANGE_AUTO_NO_DESC  | Auto Refuse Tech Exchange offers.
 SETTINGS_MOD_TECH_EXCHANGE_AUTO_NO       | Auto Refuse Exchanges: %1
+SETTINGS_MOD_SHOW_LIMITED_WARNINGS_DESC  | Limit the number of aliens repeating the same warning:\n For Expansion, Genocide, and use of Bio weapons. 
+SETTINGS_MOD_SHOW_LIMITED_WARNINGS       | Limit Warnings: %1
+SETTINGS_MOD_SHOW_LIMITED_WARNINGS_ALL   | Show All
+
+
 SETTINGS_MOD_BOMBING_TARGET_DESC         | Limited Bombing: Stop Bombing the population level reach this limit. !!! Powerful weapons may still annihilate the population !!!
 SETTINGS_MOD_BOMBING_TARGET              | Bombing Limit: %1 pop
 SETTINGS_MOD_TARGET_BOMBARD_DESC         | Sets who is allowed to use Limited Bombing. (scroll the mouse wheel to change)

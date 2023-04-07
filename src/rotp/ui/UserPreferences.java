@@ -505,13 +505,12 @@ public class UserPreferences {
 	public static final ParamInteger galaxyPreviewColorStarsSize = new ParamInteger(
 			MOD_UI, "GALAXY_PREVIEW_COLOR_SIZE" , 5, 0, 20, 1, 2, 5);
 	public static final ParamInteger minListSizePopUp	= new ParamInteger(
-			MOD_UI, "MIN_LIST_SIZE_POP_UP" , 4, 0, 10, true) {
-		@Override public String getGuiValue() {
-			if (get() == 0)
-				return text(MOD_UI + "MIN_LIST_SIZE_POP_UP_NEVER");
-			return super.getGuiValue();
-		}
-	};
+			MOD_UI, "MIN_LIST_SIZE_POP_UP" , 4, 0, 10, true)
+			.specialZero(MOD_UI + "MIN_LIST_SIZE_POP_UP_NEVER");
+	public static final ParamInteger showLimitedWarnings = new ParamInteger(
+			MOD_UI, "SHOW_LIMITED_WARNINGS" , -1, -1, 49, 1, 2, 5)
+			.loop(true)
+			.specialNegative(MOD_UI + "SHOW_LIMITED_WARNINGS_ALL");
 	public static final ParamBoolean showAlliancesGNN	= new ParamBoolean(
 			MOD_UI, "SHOW_ALLIANCES_GNN", true);
 	public static final ParamBoolean techExchangeAutoRefuse = new ParamBoolean(
@@ -906,7 +905,7 @@ public class UserPreferences {
 
 				headerSpacer,
 				new ParamTitle("MENU_OPTIONS"),
-				compactOptionOnly
+				useFusionFont, compactOptionOnly
 				)));
 		for (LinkedList<InterfaceParam> list : mergedStaticOptionsMap) {
 			for (InterfaceParam param : list) {
@@ -931,7 +930,8 @@ public class UserPreferences {
 
 				headerSpacer,
 				new ParamTitle("GAME_OTHER"),
-				showAlliancesGNN, techExchangeAutoRefuse, autoplay
+				showAlliancesGNN, showLimitedWarnings,
+				techExchangeAutoRefuse, autoplay
 				)));
 		mergedDynamicOptionsMap.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("GAME_RELATIONS"),
@@ -1016,7 +1016,7 @@ public class UserPreferences {
 			Arrays.asList(
 			menuStartup, menuAfterGame, menuLoadGame, minListSizePopUp, showAlliancesGNN,
 			null,
-			showGridCircular, showTooltips, galaxyPreviewColorStarsSize, techExchangeAutoRefuse,
+			showGridCircular, showTooltips, galaxyPreviewColorStarsSize, showLimitedWarnings, techExchangeAutoRefuse,
 			null,
 			showFleetFactor, showFlagFactor, showPathFactor, useFusionFont,
 			null,

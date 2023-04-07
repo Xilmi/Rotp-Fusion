@@ -20,6 +20,8 @@ import rotp.model.empires.EmpireView;
 import rotp.model.game.GameSession;
 import rotp.model.incidents.DiplomaticIncident;
 import rotp.ui.RotPUI;
+import rotp.ui.UserPreferences;
+import rotp.ui.diplomacy.DialogueManager;
 import rotp.util.Base;
 
 public class DiplomaticNotification implements TurnNotification, Base {
@@ -29,7 +31,15 @@ public class DiplomaticNotification implements TurnNotification, Base {
     private String type;
     private DiplomaticIncident incident;
     private boolean returnToMap = false;
+    private static int expansionWarningCount = 0;
+    private static int bioweaponWarningCount = 0;
+    private static int genocideWarningCount  = 0;
 
+    public static void clearNotificationLimits() {
+        expansionWarningCount = 0;
+        bioweaponWarningCount = 0;
+        genocideWarningCount  = 0;
+    }
     public static DiplomaticNotification create(EmpireView v, String messageType) {
         DiplomaticNotification notif = new DiplomaticNotification(v, messageType);
         GameSession.instance().addTurnNotification(notif);
@@ -95,7 +105,27 @@ public class DiplomaticNotification implements TurnNotification, Base {
     @Override
     public String displayOrder() { return incident == null ? DIPLOMATIC_MESSAGE : incident.displayOrder(); }
     @Override
-    public void notifyPlayer()   {
+    public void notifyPlayer()   { // BR: TODO Annoying warnings
+    	// BR: Test if this warning is allowed.
+    	// System.out.println("Diplomatic Notification: type = " + type);
+    	switch (type) {
+			case DialogueManager.WARNING_EXPANSION:
+				expansionWarningCount += 1;
+				if (UserPreferences.showLimitedWarnings.get() < expansionWarningCount)
+					return;
+				break;
+			case DialogueManager.WARNING_BIOWEAPON:
+				bioweaponWarningCount += 1;
+				if (UserPreferences.showLimitedWarnings.get() < bioweaponWarningCount)
+					return;
+				break;
+			case DialogueManager.WARNING_GENOCIDE:
+				genocideWarningCount += 1;
+				if (UserPreferences.showLimitedWarnings.get() < genocideWarningCount)
+					return;
+				break;
+    	}
+   	
         RotPUI.instance().selectDiplomaticMessagePanel(this);
     }
 }

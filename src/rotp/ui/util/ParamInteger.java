@@ -24,7 +24,13 @@ import rotp.model.game.DynamicOptions;
 
 public class ParamInteger extends AbstractParam<Integer> {
 
-	private boolean loop = false;
+	private boolean	loop		 	= false;
+	private boolean specialNegative	= false;
+	private boolean specialZero		= false;
+	private Integer	specialValue	= null;
+	private String	negativeLabel	= "";
+	private String	zeroLabel		= "";
+	private String	specialLabel	= "";
 
 	// ========== constructors ==========
 	//
@@ -99,8 +105,40 @@ public class ParamInteger extends AbstractParam<Integer> {
 		this.loop = loop;
 		return this;
 	}
+	public ParamInteger specialNegative(String messageLabel) {
+		if (messageLabel == null) {
+			specialNegative = false;
+			negativeLabel	= "";
+		}
+		specialNegative	= true;
+		negativeLabel	= messageLabel;
+		return this;
+	}
+	public ParamInteger specialZero(String messageLabel) {
+		if (messageLabel == null) {
+			specialZero = false;
+			zeroLabel	= "";
+		}
+		specialZero	= true;
+		zeroLabel	= messageLabel;
+		return this;
+	}
+	public ParamInteger specialValue(Integer value, String messageLabel) {
+		specialValue = value;
+		specialLabel = (messageLabel == null)? "" : messageLabel;
+		return this;
+	}
 	// ===== Overriders =====
 	//
+	@Override public String getGuiValue() {
+		if (isSpecialNegative())
+			return text(negativeLabel);
+		if (isSpecialZero())
+			return text(zeroLabel);
+		if (isSpecial())
+			return text(specialLabel);
+		return super.getGuiValue();
+	}
 	@Override public void setFromCfgValue(String newValue) {
 		if (!isDuplicate())
 			set(stringToInteger(newValue));
@@ -121,10 +159,15 @@ public class ParamInteger extends AbstractParam<Integer> {
 		if (!isDuplicate() && src != null && dest != null)
 			dest.setInteger(labelId(), src.getInteger(labelId(), defaultValue()));
 	}
-	// ===== Other Methods =====
+	// ===== Other Public Methods =====
 	//
-	public void next(MouseEvent e) { next(Math.abs(getInc(e))); }
-	public void prev(MouseEvent e) { next(-Math.abs(getInc(e))); }
+	public void next(MouseEvent e)	{ next(Math.abs(getInc(e))); }
+	public void prev(MouseEvent e)	{ next(-Math.abs(getInc(e))); }
+	public boolean isSpecial()		{ return (specialValue != null) && (get() == specialValue); }
+	public boolean isSpecialZero()	{ return specialZero && (get() == 0); }
+	public boolean isSpecialNegative() { return specialNegative && (get() < 0); }
+	// ===== Other Private Methods =====
+	//
 	private void next(int i) {
 		if (i == 0) {
 			setFromDefault();

@@ -2,6 +2,8 @@ Now working on:
 - WYSIWYG deep test.
 
 April Updates:
+- New Option limiting the number of annoying Warnings for Expansion, Genocide, and use of Bio weapons.
+  - One or two empires warning you is nice, but ten is to much!
 - Added contextual help to the race and galaxy menu.
   - "F1" will show the help for the option under the cursor.
   - If no specific help is available, the global help will be shown.
