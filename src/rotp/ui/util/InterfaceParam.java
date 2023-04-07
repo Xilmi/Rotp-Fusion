@@ -16,13 +16,17 @@
 
 package rotp.ui.util;
 
+import static rotp.util.Base.lineSplit;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
 public interface InterfaceParam extends InterfaceOptions{
-	public static final String HELP_DESCRIPTION = "_HELP";
 	public static final String LABEL_DESCRIPTION = "_DESC";
+	public static final String LABEL_HELP		 = "_HELP";
+	public static final String BODY_SEPARATOR	 = lineSplit + "With:" + lineSplit;
+	public static final String HEAD_SEPARATOR	 = ":" + lineSplit;
+	public static final String HELP_SEPARATOR	 = ": ";
 	public static final String END = "   ";
 	
 	public void setFromCfgValue(String val);

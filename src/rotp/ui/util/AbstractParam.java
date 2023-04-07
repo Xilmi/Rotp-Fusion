@@ -121,6 +121,15 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	}
 	@Override public String getCfgValue() { return getCfgValue(value); }
 	@Override public String getCfgLabel() { return name; }
+	@Override public String getFullHelp() {
+		String help = getRealHelp();
+		if (help == null) {
+			help = getRealDescription();
+			if (help == null)
+				return "";
+		}
+		return help;
+	}
 	@Override public String getGuiDescription() { return text(descriptionId()); }
 	@Override public String getGuiDisplay()	{ return text(labelId(), getGuiValue()) + END; }
 	@Override public String getGuiDisplay(int idx)	{
@@ -160,6 +169,8 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	}
 	// ========== Methods to be overridden ==========
 	//
+	protected String getRealDescription() { return realText(descriptionId()); }
+	protected String getRealHelp() 		  { return realText(helpId()); }
 	T value(T value) 		{ return set(value); }
 	public int getIndex()	{ return 0; }
 	public T defaultValue()	{ return defaultValue; }
@@ -196,6 +207,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	//
 	protected void isDuplicate(boolean newValue) { isDuplicate = newValue ; }
 	protected String descriptionId() { return labelId() + LABEL_DESCRIPTION; }
+	protected String helpId()		 { return labelId() + LABEL_HELP; }
 	protected String labelId()		 { return gui + name; }
 	protected T getInc(InputEvent e) {
 		if (e.isShiftDown())
@@ -253,6 +265,9 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	}
 	protected static String text(String key) {
 		return LabelManager.current().label(key);
+	}
+	protected static String realText(String key) {
+		return LabelManager.current().realLabel(key);
 	}
 	protected static String text(String key, String... vals) {
 		String str = text(key);

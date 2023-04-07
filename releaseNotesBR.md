@@ -2,6 +2,9 @@ Now working on:
 - WYSIWYG deep test.
 
 April Updates:
+- Added contextual help to the race and galaxy menu.
+  - "F1" will show the help for the option under the cursor.
+  - If no specific help is available, the global help will be shown.
 - Fixed Tech Never, Auto, Always labels mistakes.
 - Fixed AI and Race selection Arrows bringing up the selection list.
 - New WYSIWYG option: The final galaxy will be the preview one. With controlled randomness.

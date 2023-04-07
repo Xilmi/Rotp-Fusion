@@ -26,6 +26,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2023.04.07 (BR)
+- Added contextual help to the race and galaxy menu. "F1" will show the help for the option under the cursor. If no specific help is available, the global help will be shown.
+
 2023.04.05 (BR)
 - Fixed Tech Never, Auto, Always labels.
 - Fixed AI and Race selection Arrows bringing up the selection list.

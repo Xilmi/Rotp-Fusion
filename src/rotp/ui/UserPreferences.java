@@ -86,9 +86,8 @@ import rotp.model.events.RandomEvents;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.game.GameSession;
 import rotp.model.game.GovernorOptions;
+import rotp.model.game.IGameOptions;
 import rotp.ui.main.GalaxyMapPanel;
-//import rotp.model.game.IGameOptions;
-//import rotp.model.game.MOO1GameOptions;
 import rotp.ui.util.GlobalCROptions;
 import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.ParamAAN2;
@@ -573,6 +572,16 @@ public class UserPreferences {
 		@Override public void setOption(String newValue) {
 			RotPUI.mergedGuiOptions().selectedGameDifficulty(newValue);
 		}
+		@Override protected String labelText(String label) {
+			String diffLbl = super.labelText(label);
+			if (diffLbl.equals("Custom"))
+				diffLbl += " (" + Integer.toString(UserPreferences.customDifficulty.get()) + "%)";
+			else {
+				float modifier = IGameOptions.aiProductionModifier(label);
+				diffLbl += " (" + Integer.toString(Math.round(100 * modifier)) + "%)";
+			}
+			return diffLbl;
+		}
 	};
 	public static final ParamInteger aliensNumber 			= new ParamInteger( // Duplicate Do not add the list
 			BASE_UI, "ALIENS_NUMBER", 1, 0, 49, 1, 5, 20, true) {
@@ -647,7 +656,7 @@ public class UserPreferences {
 	}
 	
 	// Duplicates for Base Advanced Options
-	private static final ParamList galaxyAge			= new ParamList( // Duplicate Do not add the list
+	private static final ParamList galaxyAge		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "GALAXY_AGE", getGalaxyAgeOptions(), GALAXY_AGE_NORMAL) {
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedGalaxyAge();
@@ -683,7 +692,7 @@ public class UserPreferences {
 			RotPUI.mergedGuiOptions().selectedRandomEventOption(newValue);
 		}
 	};
-	private static final ParamList planetQuality		= new ParamList( // Duplicate Do not add the list
+	private static final ParamList planetQuality	= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "PLANET_QUALITY", getPlanetQualityOptions(), PLANET_QUALITY_NORMAL) {
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedPlanetQualityOption();
@@ -749,7 +758,7 @@ public class UserPreferences {
 			RotPUI.mergedGuiOptions().selectedResearchRate(newValue);
 		}
 	};
-	private static final ParamList warpSpeed			= new ParamList( // Duplicate Do not add the list
+	private static final ParamList warpSpeed		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "WARP_SPEED", getWarpSpeedOptions(), WARP_SPEED_NORMAL) {
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedWarpSpeedOption();
@@ -758,7 +767,7 @@ public class UserPreferences {
 			RotPUI.mergedGuiOptions().selectedWarpSpeedOption(newValue);
 		}
 	};
-	private static final ParamList fuelRange			= new ParamList( // Duplicate Do not add the list
+	private static final ParamList fuelRange		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "FUEL_RANGE", getFuelRangeOptions(), FUEL_RANGE_NORMAL) {
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedFuelRangeOption();

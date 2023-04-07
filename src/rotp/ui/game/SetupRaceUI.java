@@ -73,18 +73,18 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
     private static BufferedImage raceBackImg;
     private BufferedImage shipBackImg;
     private BufferedImage raceImg;
-    private Rectangle hoverBox;
-    private Rectangle helpBox   = new Rectangle();
-    private Rectangle cancelBox = new Rectangle();
-    private Rectangle nextBox   = new Rectangle();
-    private Rectangle leaderBox = new Rectangle();
-    private Rectangle homeWorldBox = new Rectangle();
-    private Rectangle playerRaceSettingBox = new Rectangle(); // BR: Player Race Customization
-    private Rectangle checkBox   = new Rectangle(); // BR: Player Race Customization
-    private Rectangle shipSetBox = new Rectangle(); // BR: ShipSet Selection
-    private Rectangle[] raceBox  = new Rectangle[MAX_RACES];
-    private Rectangle[] colorBox = new Rectangle[MAX_COLORS];
-    private Rectangle[] shipBox  = new Rectangle[MAX_SHIP]; // BR: ShipSet Selection
+//    private Rectangle hoverBox;
+    private Rectangle helpBox   = new Box();
+    private Rectangle cancelBox = new Box("MOD_HELP_RACE_CANCEL");
+    private Rectangle nextBox   = new Box("MOD_HELP_RACE_NEXT");
+    private Rectangle leaderBox = new Box();
+    private Rectangle homeWorldBox = new Box();
+    private Rectangle playerRaceSettingBox = new Box("MOD_HELP_RACE_CUSTOM"); // BR: Player Race Customization
+    private Rectangle checkBox   = new Box("MOD_HELP_RACE_CHECK_BOX"); // BR: Player Race Customization
+    private Rectangle shipSetBox = new Box("MOD_HELP_RACE_SHIPSET"); // BR: ShipSet Selection
+    private Rectangle[] raceBox  = new Box[MAX_RACES];
+    private Rectangle[] colorBox = new Box[MAX_COLORS];
+    private Rectangle[] shipBox  = new Box[MAX_SHIP]; // BR: ShipSet Selection
 
     private static BufferedImage[] racemugs = new BufferedImage[MAX_RACES];
     private JTextField leaderName = new JTextField("");
@@ -108,11 +108,11 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         addMouseMotionListener(this);
         addMouseWheelListener(this);
         for (int i=0;i<raceBox.length;i++)
-            raceBox[i] = new Rectangle();
+            raceBox[i] = new Box("MOD_HELP_RACE_RACES");
         for (int i=0;i<colorBox.length;i++)
-            colorBox[i] = new Rectangle();
+            colorBox[i] = new Box();
         for (int i=0;i<shipBox.length;i++)
-        	shipBox[i] = new Rectangle();
+        	shipBox[i] = new Box("MOD_HELP_RACE_SHIPSET");
         for (int i=0;i<shipImages.length;i++)
         	shipImages[i] = new ArrayList<BufferedImage>();
         FIELD_W = scaled(160);
@@ -192,7 +192,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         ye   = dest.y;
         sp.setLine(xb, yb, xe, ye);
         
-		txt  = text("MOD_HELP_RACE_DEFAULT");
+		txt  = text("MOD_HELP_BUTTON_DEFAULT");
 		dest = defaultBox;
         nL   = 3;
         hBox = nL*lH;
@@ -205,7 +205,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         ye   = dest.y;
         sp.setLine(xb, yb, xe, ye);
         
-		txt  = text("MOD_HELP_RACE_LAST");
+		txt  = text("MOD_HELP_BUTTON_LAST");
 		dest = lastBox;
         nL   = 3;
         hBox = nL*lH;
@@ -218,7 +218,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         ye   = dest.y;
         sp.setLine(xb, yb, xe, ye);
         
-		txt  = text("MOD_HELP_RACE_USER");
+		txt  = text("MOD_HELP_BUTTON_USER");
 		dest = userBox;
         nL   = 3;
         hBox = nL*lH;
@@ -1082,73 +1082,74 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
 	}
     @Override
     public void keyPressed(KeyEvent e) {
+		super.keyPressed(e);
     	checkModifierKey(e);
-       int k = e.getKeyCode();
+    	int k = e.getKeyCode();
         switch(k) {
-        	case KeyEvent.VK_F1:
-        		showHelp();
-        		return;
+//        	case KeyEvent.VK_F1:
+//        		showHelp();
+//        		return;
             case KeyEvent.VK_ESCAPE:
             	doCancelBoxAction();
                 return;
             case KeyEvent.VK_ENTER:
             	doNextBoxAction();
                 return;
-            default: // BR:
+            default:
                 return;
         }
     }
     @Override
     public void mouseDragged(MouseEvent e) {  }
-    @Override
-    public void mouseMoved(MouseEvent e) {
-    	checkModifierKey(e);
-        int x = e.getX();
-        int y = e.getY();
-        Rectangle prevHover = hoverBox;
-        hoverBox = null;
-        search:
-        if (helpBox.contains(x,y))
-        	hoverBox = helpBox;
-        else if (nextBox.contains(x,y))
-            hoverBox = nextBox;
-        else if (cancelBox.contains(x,y))
-            hoverBox = cancelBox;
-        else if (leaderBox.contains(x,y))
-            hoverBox = leaderBox;
-        else if (homeWorldBox.contains(x,y))
-            hoverBox = homeWorldBox;
-        // BR: Ship Set Selection
-        else if (shipSetBox.contains(x,y))
-            hoverBox = shipSetBox;
-        // BR: Player Race customization
-        else if (playerRaceSettingBox.contains(x,y))
-            hoverBox = playerRaceSettingBox;
-        else if (checkBox.contains(x,y))
-            hoverBox = checkBox;
-        else if (defaultBox.contains(x,y))
-            hoverBox = defaultBox;
-        else if (userBox.contains(x,y))
-            hoverBox = userBox;
-        else if (lastBox.contains(x,y))
-            hoverBox = lastBox;
-        else {
-            for (int i=0;i<raceBox.length;i++) {
-                if (raceBox[i].contains(x,y)) {
-                    hoverBox = raceBox[i];
-                    break search;
-                }
-            }
-            for (int i=0;i<colorBox.length;i++) {
-                if (colorBox[i].contains(x,y)) {
-                    hoverBox = colorBox[i];
-                    break search;
-                }
-            }
-        }
-        if (hoverBox != prevHover)
-        	repaint();
-    }
+//    @Override
+//    public void mouseMoved(MouseEvent e) {
+//    	checkModifierKey(e);
+//        int x = e.getX();
+//        int y = e.getY();
+//        Rectangle prevHover = hoverBox;
+//        hoverBox = null;
+//        search:
+//        if (helpBox.contains(x,y))
+//        	hoverBox = helpBox;
+//        else if (nextBox.contains(x,y))
+//            hoverBox = nextBox;
+//        else if (cancelBox.contains(x,y))
+//            hoverBox = cancelBox;
+//        else if (leaderBox.contains(x,y))
+//            hoverBox = leaderBox;
+//        else if (homeWorldBox.contains(x,y))
+//            hoverBox = homeWorldBox;
+//        // BR: Ship Set Selection
+//        else if (shipSetBox.contains(x,y))
+//            hoverBox = shipSetBox;
+//        // BR: Player Race customization
+//        else if (playerRaceSettingBox.contains(x,y))
+//            hoverBox = playerRaceSettingBox;
+//        else if (checkBox.contains(x,y))
+//            hoverBox = checkBox;
+//        else if (defaultBox.contains(x,y))
+//            hoverBox = defaultBox;
+//        else if (userBox.contains(x,y))
+//            hoverBox = userBox;
+//        else if (lastBox.contains(x,y))
+//            hoverBox = lastBox;
+//        else {
+//            for (int i=0;i<raceBox.length;i++) {
+//                if (raceBox[i].contains(x,y)) {
+//                    hoverBox = raceBox[i];
+//                    break search;
+//                }
+//            }
+//            for (int i=0;i<colorBox.length;i++) {
+//                if (colorBox[i].contains(x,y)) {
+//                    hoverBox = colorBox[i];
+//                    break search;
+//                }
+//            }
+//        }
+//        if (hoverBox != prevHover)
+//        	repaint();
+//    }
     @Override
     public void mouseClicked(MouseEvent e) { }
     @Override

@@ -667,7 +667,10 @@ public interface IGameOptions {
     // modnar: add custom difficulty level option, set in Remnants.cfg
     // UserPreferences.customDifficulty(), custom difficulty range: 20% to 500%
     default float aiProductionModifier() {
-        switch(selectedGameDifficulty()) {
+    	return aiProductionModifier(selectedGameDifficulty());
+    }
+    public static float aiProductionModifier(String difficulty) {
+        switch(difficulty) {
             case DIFFICULTY_EASIEST: return 0.55f;
             case DIFFICULTY_EASIER:  return 0.75f;
             case DIFFICULTY_EASY:    return 0.90f;

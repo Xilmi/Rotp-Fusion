@@ -23,11 +23,14 @@ import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
-import static rotp.ui.util.InterfaceParam.HELP_DESCRIPTION;
 import static rotp.ui.util.InterfaceParam.LABEL_DESCRIPTION;
 
 import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.Shape;
@@ -37,9 +40,11 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.LinkedList;
 
+import rotp.Rotp;
 import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
+import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.ui.util.InterfaceParam;
 import rotp.util.LabelManager;
 import rotp.util.ModifierKeysState;
@@ -66,9 +71,9 @@ abstract class BaseModPanel extends BasePanel
 	protected static int  smallButtonMargin;
 	protected static int  smallButtonH;
 
-	protected final LinkedList<PolyBox>	polyBoxList	= new LinkedList<>();
-	protected final LinkedList<Box>		boxBaseList	= new LinkedList<>();
-	protected final LinkedList<Box>		boxHelpList	= new LinkedList<>();
+	private final LinkedList<PolyBox>	polyBoxList	= new LinkedList<>();
+	private final LinkedList<Box>		boxBaseList	= new LinkedList<>();
+	private final LinkedList<Box>		boxHelpList	= new LinkedList<>();
 	protected Shape hoverBox;
 
 	LinkedList<InterfaceParam> paramList;
@@ -78,9 +83,9 @@ abstract class BaseModPanel extends BasePanel
 
 	//	protected Font smallButtonFont	= FontManager.current().narrowFont(20);
 	protected Font smallButtonFont	= narrowFont(20);
-	protected Rectangle defaultBox	= new Box();
-	protected Rectangle lastBox		= new Box();
-	protected Rectangle userBox		= new Box();
+	protected Rectangle defaultBox	= new Box("MOD_HELP_BUTTON_DEFAULT");
+	protected Rectangle lastBox		= new Box("MOD_HELP_BUTTON_LAST");
+	protected Rectangle userBox		= new Box("MOD_HELP_BUTTON_USER");
 
 	protected boolean globalOptions	= false; // No preferred button and Saved to remnant.cfg
 
@@ -283,11 +288,19 @@ abstract class BaseModPanel extends BasePanel
 	}
 
 	// ---------- Events management
+	private Point getPointerLocation() {
+		Point p1 = MouseInfo.getPointerInfo().getLocation();
+		if (p1 == null)
+			return null;
+		Point p2 = getLocationOnScreen();
+		return new Point(p1.x-p2.x, p1.y-p2.y);
+	}
 	@Override public void mouseDragged(MouseEvent e) {  }
 	@Override public void mouseMoved(MouseEvent e) {
 		checkModifierKey(e);		
 		int x = e.getX();
 		int y = e.getY();
+		
 		Shape prevHover = hoverBox;
 		hoverBox = null;
 		for (Box box : boxBaseList)
@@ -312,9 +325,81 @@ abstract class BaseModPanel extends BasePanel
 		int k = e.getKeyCode();
 		switch(k) {
 			case KeyEvent.VK_F1:
+				if (showContextualHelp())
+					return;
 				showHelp();
 				return;
 		}
+	}
+	// ---------- Help management
+	private boolean showContextualHelp() {
+		Point pt = getPointerLocation();
+		for (Box box : boxHelpList)
+	        if (box.contains(pt)) {
+	        	String txt = box.getHelp();
+	        	if (txt == null || txt.isEmpty())
+	        		return false;
+	        	loadContextualHelpUI(box, txt);
+	        	return true;
+	        }
+		return false;
+	}
+	private void loadContextualHelpUI(Box dest, String txt) {
+		Graphics g		 = getGraphics();
+		int	maxHelpWidth = scaled(300);
+		int xHelpShift	 = s60;
+		int yHelpShift	 = -s20;
+		
+		// Find the help box size
+		g.setFont(narrowFont(16));
+        FontMetrics	fm = g.getFontMetrics();
+        String[] forcedLines = txt.split(lineSplitRegex);
+		int nL = forcedLines.length;
+		int sw = 0;
+		for (String line : forcedLines)
+			sw = max(sw, fm.stringWidth(line));
+		int wBox = min(sw + s30, maxHelpWidth);
+		nL = wrappedLines(g, txt, wBox).size();
+		int hBox = nL * s20 + s20;
+		
+		int xb, xe, yb, ye;
+		// find X location
+		int iW = scaled(Rotp.IMG_W);;
+		int xBox;
+		Point loc = getLocationOnScreen();
+		if (dest.x + dest.width/2 + loc.x > iW/2) { // put box to the left
+			xBox = dest.x - loc.x - wBox - xHelpShift;
+			xb   = xBox + wBox;
+			xe   = dest.x;
+		}
+		else { // put box to the right
+			xBox = dest.x - loc.x + dest.width + xHelpShift;
+			xb   = xBox;
+			xe   = dest.x + dest.width;
+		}
+		
+		// find Y location
+		int iH = scaled(Rotp.IMG_H);;
+		int yBox = dest.y + dest.height/2 - hBox/2 + loc.y + yHelpShift;
+		if (yBox < s10) {
+			yBox = s10 - loc.y;
+		}
+		else if (yBox > iH-s10-hBox) {
+			yBox = iH-s10-hBox - loc.y;
+		}
+		else {
+			yBox -= loc.y;
+		}
+		yb   = yBox + hBox/2;
+		ye   = dest.y + dest.height/2;
+		
+		// add box
+		HelpUI helpUI = RotPUI.helpUI();
+		helpUI.clear();
+		HelpSpec sp = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+		sp.setLine(xb, yb, xe, ye);
+
+		helpUI.open(this);
 	}
 
 	// ========== Sub Classes ==========
@@ -335,14 +420,14 @@ abstract class BaseModPanel extends BasePanel
 			boxHelpList.add(this);
 			this.param = param;
 		}
-		String getDescription() {
+		private String getDescription() {
 			String desc = getParamDescription();
 			if (desc.isEmpty())
 				return getLabelDescription();
 			else
 				return desc;
 		}
-		String getHelp() {
+		private String getHelp() {
 			String help = getParamHelp();
 			if (help.isEmpty())
 				return getLabelHelp();
@@ -362,7 +447,7 @@ abstract class BaseModPanel extends BasePanel
 		private String getLabelHelp() {
 			if (label == null)
 				return "";
-			String helpLabel = label + HELP_DESCRIPTION;
+			String helpLabel = label;
 			String help = text(helpLabel);
 			if (help.equals(helpLabel))
 				return getDescription();

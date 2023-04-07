@@ -128,54 +128,54 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	private BufferedImage smBackImg;
     private int bSep = s15;
 
-	private Rectangle mergedStaticBox	= new Box(); // BR add UI panel for MOD game options
-	private Rectangle mergedDynamicBox	= new Box(); // BR add UI panel for MOD game options
-	private Rectangle modStaticABox		= new Box(); // BR add UI panel for MOD game options
-	private Rectangle modStaticBBox		= new Box(); // BR add UI panel for MOD game options
-	private Rectangle modDynamicABox	= new Box(); // BR add UI panel for MOD game options
-	private Rectangle modDynamicBBox	= new Box(); // BR add UI panel for MOD game options
-	private Rectangle globalModSettingsBox	= new Box(); // BR add UI panel for MOD game options
+	private Rectangle mergedStaticBox	= new Box("MOD_HELP_GALAXY_OPTIONS"); // BR add UI panel for MOD game options
+	private Rectangle mergedDynamicBox	= new Box("MOD_HELP_GALAXY_OPTIONS"); // BR add UI panel for MOD game options
+	private Rectangle modStaticABox		= new Box("MOD_HELP_GALAXY_OPTIONS"); // BR add UI panel for MOD game options
+	private Rectangle modStaticBBox		= new Box("MOD_HELP_GALAXY_OPTIONS"); // BR add UI panel for MOD game options
+	private Rectangle modDynamicABox	= new Box("MOD_HELP_GALAXY_OPTIONS"); // BR add UI panel for MOD game options
+	private Rectangle modDynamicBBox	= new Box("MOD_HELP_GALAXY_OPTIONS"); // BR add UI panel for MOD game options
+	private Rectangle globalModSettingsBox	= new Box("MOD_HELP_GALAXY_OPTIONS"); // BR add UI panel for MOD game options
     private Rectangle helpBox   		= new Box();
-	private Rectangle backBox			= new Box();
-	private Rectangle startBox			= new Box();
-	private Rectangle settingsBox		= new Box();
-	private Rectangle newRacesBox		= new Box(); // BR:
-	private Rectangle showAbilityBox	= new Box(); // BR:
-	private Rectangle shapeBox			= new Box();
+	private Rectangle backBox			= new Box("MOD_HELP_GALAXY_BACK");
+	private Rectangle startBox			= new Box("MOD_HELP_GALAXY_START");
+	private Rectangle settingsBox		= new Box("MOD_HELP_GALAXY_OPTIONS");
+	private Rectangle newRacesBox		= new Box("MOD_HELP_GALAXY_RACE_LIST"); // BR:
+	private Rectangle showAbilityBox	= new Box("MOD_HELP_GALAXY_SELECTABLE"); // BR:
+	private Rectangle shapeBox			= new Box(shapeSelection);
 	private Polygon   shapeBoxL			= new PolyBox();
 	private Polygon   shapeBoxR			= new PolyBox();
-	private Rectangle mapOption1Box		= new Box();
+	private Rectangle mapOption1Box		= new Box(shapeOption1);
 	private Polygon   mapOption1BoxL	= new PolyBox();
 	private Polygon   mapOption1BoxR	= new PolyBox();			 
-	private Rectangle mapOption2Box		= new Box();
+	private Rectangle mapOption2Box		= new Box(shapeOption2);
 	private Polygon   mapOption2BoxL	= new PolyBox();
 	private Polygon   mapOption2BoxR	= new PolyBox();			 
-	private Rectangle mapOption3Box		= new Box(); // BR:
-	private Rectangle sizeOptionBox		= new Box(); // BR:
+	private Rectangle mapOption3Box		= new Box(shapeOption3); // BR:
+	private Rectangle sizeOptionBox		= new Box(dynStarsPerEmpire); // BR:
 	private Polygon   sizeOptionBoxL	= new PolyBox();   // BR:
 	private Polygon   sizeOptionBoxR	= new PolyBox();   // BR:
-	private Rectangle sizeBox		= new Box();
+	private Rectangle sizeBox		= new Box(sizeSelection);
 	private Polygon   sizeBoxL		= new PolyBox();
 	private Polygon   sizeBoxR		= new PolyBox();
-	private Rectangle diffBox		= new Box();
+	private Rectangle diffBox		= new Box(difficultySelection);
 	private Polygon   diffBoxL		= new PolyBox();
 	private Polygon   diffBoxR		= new PolyBox();
-	private Rectangle wysiwygBox	= new Box(); // BR:
+	private Rectangle wysiwygBox	= new Box(galaxyRandSource); // BR:
 	private Polygon   wysiwygBoxL	= new PolyBox();   // BR:
 	private Polygon   wysiwygBoxR	= new PolyBox();   // BR:
-	private Rectangle oppBox		= new Box();
+	private Rectangle oppBox		= new Box(aliensNumber);
 	private Polygon   oppBoxU		= new PolyBox();
 	private Polygon   oppBoxD		= new PolyBox();
-	private Rectangle aiBox			= new Box();
+	private Rectangle aiBox			= new Box("MOD_HELP_GALAXY_AGAINST");
 	private Polygon   aiBoxL		= new PolyBox();
 	private Polygon	  aiBoxR		= new PolyBox();
-	private Rectangle crBox			= new Box(); // dataRace selection
+	private Rectangle crBox			= new Box("MOD_HELP_GALAXY_ABILITIES"); // dataRace selection
 	private Polygon   crBoxL		= new PolyBox(); // BR:
 	private Polygon   crBoxR		= new PolyBox(); // BR:
 
-	private Rectangle[] oppSet	= new Rectangle[MAX_DISPLAY_OPPS];
-	private Rectangle[] oppAI	= new Rectangle[MAX_DISPLAY_OPPS];
-	private Rectangle[] oppCR	= new Rectangle[MAX_DISPLAY_OPPS]; // BR: dataRace selection
+	private Rectangle[] oppSet	= new Box[MAX_DISPLAY_OPPS];
+	private Rectangle[] oppAI	= new Box[MAX_DISPLAY_OPPS];
+	private Rectangle[] oppCR	= new Box[MAX_DISPLAY_OPPS]; // BR: dataRace selection
 
 	private boolean starting = false;
 	private int leftBoxX, rightBoxX, boxW, boxY, leftBoxH, rightBoxH;
@@ -270,7 +270,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	}
 	@Override public void showHelp() {
 		loadHelpUI();
-	repaint();   
+		repaint();   
 	}
     @Override public void advanceHelp() { cancelHelp(); }
 	@Override public void cancelHelp() { RotPUI.helpUI().close(); }
@@ -291,7 +291,6 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		wBox = scaled(400);
 		xBox = w/2 - wBox/2;
 		xBox = rightBoxX;
-		System.out.println(unscaled(rightBoxX-xBox));
 		yBox = s10;
 		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
 		lH   = sp.lineH();
@@ -303,7 +302,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		wBox = scaled(200);
 
 		// Default button: Touch Galaxy
-		txt  = text("MOD_HELP_RACE_DEFAULT");
+		txt  = text("MOD_HELP_BUTTON_DEFAULT");
 		dest = defaultBox;
 		nL   = 3;
 		hBox = nL*lH;
@@ -317,7 +316,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		sp.setLine(xb, yb, xe, ye);
 		
 		// Last button: Left of Default button
-		txt  = text("MOD_HELP_RACE_LAST");
+		txt  = text("MOD_HELP_BUTTON_LAST");
 		dest = lastBox;
 		nL   = 3;
 		hBox = nL*lH;
@@ -331,7 +330,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		sp.setLine(xb, yb, xe, ye);
 
 		// User button: Left of Last button
-		txt  = text("MOD_HELP_RACE_USER");
+		txt  = text("MOD_HELP_BUTTON_USER");
 		dest = userBox;
 		nL   = 3;
 		hBox = nL*lH;
@@ -463,7 +462,6 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		xe   = dest.x + dest.width*3/4;
 		ye   = dest.y;
 		sp.setLine(xb, yb, xe, ye);
-
 
 		helpUI.open(this);
 	}
