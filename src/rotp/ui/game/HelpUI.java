@@ -16,20 +16,26 @@
 package rotp.ui.game;
 
 import java.awt.Color;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
+
+import rotp.Rotp;
 import rotp.ui.BasePanel;
 
 
 public class HelpUI extends BasePanel implements MouseListener {
     private static final long serialVersionUID = 1L;
     private static final Color backgroundHaze = new Color(0,0,0,40);
+    private static final int FONT_SIZE = 16;
     private final Color blueBackC = new Color(78,101,155);
     private final Color brownBackC = new Color(240,240,240);
     private final Color brownTextC = new Color(45,14,5);
@@ -108,7 +114,7 @@ public class HelpUI extends BasePanel implements MouseListener {
             g.fillRect(spec.x+s5, spec.y+s5, spec.w-s10, specH-s10);
             // draw box text
             g.setColor(spec.textC);
-            int fontSize = 16;
+            int fontSize = FONT_SIZE;
             g.setFont(narrowFont(fontSize));
             List<String> lines = this.wrappedLines(g, spec.text, spec.w - s30);
             while ((lines.size() > spec.lines) && (fontSize > 11)) {
@@ -205,6 +211,49 @@ public class HelpUI extends BasePanel implements MouseListener {
         }
         public int[] rect(int x, int y, int w, int h) {
         	return new int[] {x, y, x+w, y, x+w, y+h, x, y+h, x, y};
+        }
+        public void autoSize(BasePanel p) { // BR:
+    		Graphics g = p.getGraphics();
+    		g.setFont(narrowFont(FONT_SIZE));
+            FontMetrics	fm = g.getFontMetrics();
+            String[] forcedLines = text.split(lineSplitRegex);
+    		int sw = 0;
+    		for (String line : forcedLines)
+    			sw = max(sw, fm.stringWidth(line));
+    		w = min(sw + s30, w);
+    		lines = wrappedLines(g, text, w).size();
+        }
+        public void autoPosition(BasePanel p, Rectangle dest, int xShift, int yShift, int cover) { // BR:
+    		int xb, xe, yb, ye;
+    		// find X location
+    		int iW = scaled(Rotp.IMG_W);;
+    		Point loc = p.getLocationOnScreen();
+    		if (dest.x + dest.width/2 + loc.x > iW/2) { // put box to the left
+    			x  = dest.x - loc.x - w - xShift;
+    			xb = x + w;
+    			xe = dest.x + cover;
+    		}
+    		else { // put box to the right
+    			x  = dest.x - loc.x + dest.width + xShift;
+    			xb = x;
+    			xe = dest.x + dest.width - cover;
+    		}
+    		int h = height();
+    		// find Y location
+    		int iH = scaled(Rotp.IMG_H);;
+    		y = dest.y + dest.height/2 - h/2 + loc.y + yShift;
+    		if (y < s10) {
+    			y = s10 - loc.y;
+    		}
+    		else if (y > iH-s10-h) {
+    			y = iH-s10-h - loc.y;
+    		}
+    		else {
+    			y -= loc.y;
+    		}
+    		yb = y + h/2;
+    		ye = dest.y + dest.height/2;
+    		setLineArr(xb, yb, xe, ye);
         }
     }    
 }

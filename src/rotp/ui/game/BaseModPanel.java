@@ -345,59 +345,16 @@ abstract class BaseModPanel extends BasePanel
 		return false;
 	}
 	private void loadContextualHelpUI(Box dest, String txt) {
-		Graphics g		 = getGraphics();
 		int	maxHelpWidth = scaled(300);
 		int xHelpShift	 = s60;
 		int yHelpShift	 = -s20;
+		int cover		 = s5;
 		
-		// Find the help box size
-		g.setFont(narrowFont(16));
-        FontMetrics	fm = g.getFontMetrics();
-        String[] forcedLines = txt.split(lineSplitRegex);
-		int nL = forcedLines.length;
-		int sw = 0;
-		for (String line : forcedLines)
-			sw = max(sw, fm.stringWidth(line));
-		int wBox = min(sw + s30, maxHelpWidth);
-		nL = wrappedLines(g, txt, wBox).size();
-		int hBox = nL * s20 + s20;
-		
-		int xb, xe, yb, ye;
-		// find X location
-		int iW = scaled(Rotp.IMG_W);;
-		int xBox;
-		Point loc = getLocationOnScreen();
-		if (dest.x + dest.width/2 + loc.x > iW/2) { // put box to the left
-			xBox = dest.x - loc.x - wBox - xHelpShift;
-			xb   = xBox + wBox;
-			xe   = dest.x;
-		}
-		else { // put box to the right
-			xBox = dest.x - loc.x + dest.width + xHelpShift;
-			xb   = xBox;
-			xe   = dest.x + dest.width;
-		}
-		
-		// find Y location
-		int iH = scaled(Rotp.IMG_H);;
-		int yBox = dest.y + dest.height/2 - hBox/2 + loc.y + yHelpShift;
-		if (yBox < s10) {
-			yBox = s10 - loc.y;
-		}
-		else if (yBox > iH-s10-hBox) {
-			yBox = iH-s10-hBox - loc.y;
-		}
-		else {
-			yBox -= loc.y;
-		}
-		yb   = yBox + hBox/2;
-		ye   = dest.y + dest.height/2;
-		
-		// add box
 		HelpUI helpUI = RotPUI.helpUI();
 		helpUI.clear();
-		HelpSpec sp = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
-		sp.setLine(xb, yb, xe, ye);
+		HelpSpec sp = helpUI.addBrownHelpText(0, 0, maxHelpWidth, 1, txt);
+		sp.autoSize(this);
+		sp.autoPosition(this, dest, xHelpShift, yHelpShift, cover);
 
 		helpUI.open(this);
 	}
