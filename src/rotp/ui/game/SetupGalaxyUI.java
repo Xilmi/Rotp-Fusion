@@ -2312,9 +2312,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	public String ambienceSoundKey() { 
 		return GameUI.AMBIENCE_KEY;
 	}
-	@Override public void keyReleased(KeyEvent e) {
-		checkModifierKey(e);		
-	}
+	@Override public void keyReleased(KeyEvent e) { checkModifierKey(e); }
 	@Override
 	public void keyPressed(KeyEvent e) {
 		super.keyPressed(e);

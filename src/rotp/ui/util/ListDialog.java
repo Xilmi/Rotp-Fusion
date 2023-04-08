@@ -64,8 +64,11 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
+import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.game.GameUI;
+import rotp.ui.game.HelpUI;
+import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.util.Base;
 
 /*
@@ -90,10 +93,15 @@ import rotp.util.Base;
  */
 public class ListDialog extends JDialog
 						implements ActionListener, Base {
-	private static ListDialog dialog;
+
+	private static ListDialog dialog = new ListDialog();
 	private static String value = null;
 	private static int index    = -1;
 	private JList<Object> list;
+	private static BasePanel parent;
+	private HelpUI  helpUI;
+
+	private ListDialog() {  }
 
 	/**
 	 * Set up and show the dialog.  The first Component argument
@@ -137,6 +145,7 @@ public class ListDialog extends JDialog
 									InterfacePreview panel,
 									List<String> alternateReturn) {
 		Frame frame = JOptionPane.getFrameForComponent(frameComp);
+		parent = (BasePanel) frameComp;
 		value = null;
 		index = -1;
 		dialog = new ListDialog(frame,
@@ -150,6 +159,7 @@ public class ListDialog extends JDialog
 								width, height,
 								listFont, panel,
 								alternateReturn);
+
 		dialog.setVisible(true);
 		if (alternateReturn != null && index >= 0) {
 			index = Math.max(0,  index);
@@ -180,7 +190,16 @@ public class ListDialog extends JDialog
 		int topInset  = RotPUI.scaledSize(6);
 		int sideInset = RotPUI.scaledSize(15);
 		//Create and initialize the buttons.
-		JButton cancelButton = new JButton("Cancel");
+		final JButton helpButton = new JButton("Help");
+		helpButton.setMargin(new Insets(topInset, sideInset, 0, sideInset));
+		helpButton.setFont(narrowFont(15));
+		helpButton.setVerticalAlignment(SwingConstants.TOP);
+		helpButton.setBackground(GameUI.buttonBackgroundColor());
+		helpButton.setForeground(GameUI.buttonTextColor());
+		helpButton.setActionCommand("Help");
+		helpButton.addActionListener(this);
+		//
+		final JButton cancelButton = new JButton("Cancel");
 		cancelButton.setMargin(new Insets(topInset, sideInset, 0, sideInset));
 		cancelButton.setFont(narrowFont(15));
 		cancelButton.setVerticalAlignment(SwingConstants.TOP);
@@ -191,11 +210,13 @@ public class ListDialog extends JDialog
 		final JButton setButton = new JButton("Set");
 		setButton.setMargin(new Insets(topInset, sideInset, 0, sideInset));
 		setButton.setFont(narrowFont(15));
+		setButton.setVerticalAlignment(SwingConstants.TOP);
 		setButton.setBackground(GameUI.buttonBackgroundColor());
 		setButton.setForeground(GameUI.buttonTextColor());
 		setButton.setActionCommand("Set");
 		setButton.addActionListener(this);
 		getRootPane().setDefaultButton(setButton);
+
 
 		//main part of the dialog
 		list = new JList<Object>(data) {
@@ -250,7 +271,7 @@ public class ListDialog extends JDialog
 			    			panel.preview((String) list.getSelectedValue());
 			    	}
 			    }
-			});			
+			});
 		}
 		list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		if (longValue != null)
@@ -320,17 +341,17 @@ public class ListDialog extends JDialog
 		buttonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
 		buttonPane.setBackground(GameUI.borderMidColor());
 		buttonPane.setForeground(Color.WHITE);
+
+		buttonPane.add(helpButton);
 		buttonPane.add(Box.createHorizontalGlue());
 		buttonPane.add(cancelButton);
 		buttonPane.add(Box.createRigidArea(new Dimension(10, 0)));
 		buttonPane.add(setButton);
 
-
 		//Put everything together, using the content pane's BorderLayout.
 		Container contentPane = getContentPane();
 		contentPane.add(listPane, BorderLayout.CENTER);
 		contentPane.add(buttonPane, BorderLayout.PAGE_END);
-
 
 		//Initialize values.
 		setValue(initialValue);
@@ -345,10 +366,31 @@ public class ListDialog extends JDialog
 
 	//Handle clicks on the Set and Cancel buttons.
 	@Override public void actionPerformed(ActionEvent e) {
+		System.out.println("Action Performed");
+		if ("Help".equals(e.getActionCommand())) {
+			showHelp();
+			return;
+		}		
 		if ("Set".equals(e.getActionCommand())) {
 			ListDialog.index = list.getSelectedIndex();
 			ListDialog.value = (String)(list.getSelectedValue());
 		}
+		if (helpUI != null) {
+			helpUI.close();
+			helpUI = null;
+		}
+		parent = null;
 		ListDialog.dialog.setVisible(false);
+	}
+	private void showHelp() {
+		Rectangle dest	= getBounds();
+		String	  text	= "To be done!";
+		helpUI	= RotPUI.helpUI();
+		int	  maxWidth	= scaled(300);
+		helpUI.clear();
+		HelpSpec sp = helpUI.addBrownHelpText(0, 0, maxWidth, 1, text);
+		sp.autoSize(parent);
+		sp.autoPosition(parent, dest);
+		helpUI.open(parent);
 	}
 }

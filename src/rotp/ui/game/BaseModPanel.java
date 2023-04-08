@@ -26,8 +26,6 @@ import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
 import static rotp.ui.util.InterfaceParam.LABEL_DESCRIPTION;
 
 import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.MouseInfo;
 import java.awt.Point;
@@ -40,7 +38,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.LinkedList;
 
-import rotp.Rotp;
 import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
@@ -344,14 +341,13 @@ abstract class BaseModPanel extends BasePanel
 	        }
 		return false;
 	}
-	private void loadContextualHelpUI(Box dest, String text) {
+	private void loadContextualHelpUI(Rectangle dest, String text) {
 		int	maxWidth  = scaled(300);
 		HelpUI helpUI = RotPUI.helpUI();
 		helpUI.clear();
 		HelpSpec sp = helpUI.addBrownHelpText(0, 0, maxWidth, 1, text);
 		sp.autoSize(this);
 		sp.autoPosition(this, dest);
-
 		helpUI.open(this);
 	}
 
