@@ -344,17 +344,13 @@ abstract class BaseModPanel extends BasePanel
 	        }
 		return false;
 	}
-	private void loadContextualHelpUI(Box dest, String txt) {
-		int	maxHelpWidth = scaled(300);
-		int xHelpShift	 = s60;
-		int yHelpShift	 = -s20;
-		int cover		 = s5;
-		
+	private void loadContextualHelpUI(Box dest, String text) {
+		int	maxWidth  = scaled(300);
 		HelpUI helpUI = RotPUI.helpUI();
 		helpUI.clear();
-		HelpSpec sp = helpUI.addBrownHelpText(0, 0, maxHelpWidth, 1, txt);
+		HelpSpec sp = helpUI.addBrownHelpText(0, 0, maxWidth, 1, text);
 		sp.autoSize(this);
-		sp.autoPosition(this, dest, xHelpShift, yHelpShift, cover);
+		sp.autoPosition(this, dest);
 
 		helpUI.open(this);
 	}

@@ -28,6 +28,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 2023.04.08 (BR)
 - Moved contextual help tools to HelpUI.
+- Improved contextual help auto location.
 
 2023.04.07 (BR)
 - Added contextual help to the race and galaxy menu. "F1" will show the help for the option under the cursor. If no specific help is available, the global help will be shown.

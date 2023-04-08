@@ -212,7 +212,8 @@ public class HelpUI extends BasePanel implements MouseListener {
         public int[] rect(int x, int y, int w, int h) {
         	return new int[] {x, y, x+w, y, x+w, y+h, x, y+h, x, y};
         }
-        public void autoSize(BasePanel p) { // BR:
+        public void autoSize(BasePanel p) { autoSize(p, 0); } // BR:
+        public void autoSize(BasePanel p, int minWidth) { // BR:
     		Graphics g = p.getGraphics();
     		g.setFont(narrowFont(FONT_SIZE));
             FontMetrics	fm = g.getFontMetrics();
@@ -220,40 +221,62 @@ public class HelpUI extends BasePanel implements MouseListener {
     		int sw = 0;
     		for (String line : forcedLines)
     			sw = max(sw, fm.stringWidth(line));
-    		w = min(sw + s30, w);
+    		w = max(minWidth, min(sw + s30, w));
     		lines = wrappedLines(g, text, w).size();
         }
-        public void autoPosition(BasePanel p, Rectangle dest, int xShift, int yShift, int cover) { // BR:
-    		int xb, xe, yb, ye;
-    		// find X location
-    		int iW = scaled(Rotp.IMG_W);;
+        public void autoPosition(BasePanel p, Rectangle dest) { // BR:
+        	autoPosition(p, dest, s20, s20);
+        }
+        public void autoPosition(BasePanel p, Rectangle dest, int xShift, int yShift) { // BR:
+        	autoPosition(p, dest, xShift, yShift, s10, s10);
+        }
+        public void autoPosition(BasePanel p, Rectangle dest,
+        		int xShift, int yShift, int xCover, int yCover) { // BR:
+        	autoPosition(p, dest, xShift, yShift, xCover, yCover, s10, s10);
+        }
+        public void autoPosition(BasePanel p, Rectangle dest,
+        		int xShift, int yShift, int xCover, int yCover, int xMargin, int yMargin) { // BR:
+    		int xb, xd, yb, yd;
     		Point loc = p.getLocationOnScreen();
-    		if (dest.x + dest.width/2 + loc.x > iW/2) { // put box to the left
-    			x  = dest.x - loc.x - w - xShift;
+    		int iW = scaled(Rotp.IMG_W);
+    		int iH = scaled(Rotp.IMG_H);
+    		int h  = height();
+    		// relative position
+    		// find X location
+     		if (2*(dest.x+loc.x) + dest.width  > iW) { // put box to the left
+    			x = dest.x + loc.x - w - xShift;
+    			if (x < xMargin)
+    				x = xMargin;
+    			x -= loc.x;
     			xb = x + w;
-    			xe = dest.x + cover;
+	   			xd = dest.x + xCover;
     		}
     		else { // put box to the right
-    			x  = dest.x - loc.x + dest.width + xShift;
-    			xb = x;
-    			xe = dest.x + dest.width - cover;
+    			x = dest.x + loc.x + dest.width + xShift;
+    			if (x+w > iW-xMargin)
+    				x = iW-xMargin - w;
+    			x -= loc.x;
+	   			xb = x;
+	   			xd = dest.x + dest.width - xCover;
     		}
-    		int h = height();
     		// find Y location
-    		int iH = scaled(Rotp.IMG_H);;
-    		y = dest.y + dest.height/2 - h/2 + loc.y + yShift;
-    		if (y < s10) {
-    			y = s10 - loc.y;
-    		}
-    		else if (y > iH-s10-h) {
-    			y = iH-s10-h - loc.y;
-    		}
-    		else {
+     		if (2*(dest.y+loc.y) + dest.width  > iH) { // put box to the top
+    			y = dest.y + loc.y - h - yShift;
+    			if (y < yMargin)
+    				y = yMargin;
     			y -= loc.y;
+    			yb = y + h;
+	   			yd = dest.y + yCover;
     		}
-    		yb = y + h/2;
-    		ye = dest.y + dest.height/2;
-    		setLineArr(xb, yb, xe, ye);
+    		else { // put box to the bottom
+    			y = dest.y + loc.y + dest.height + yShift;
+    			if (y+h > iH-yMargin)
+    				y = iH-yMargin - h;
+    			y -= loc.y;
+	   			yb = y;
+	   			yd = dest.y + dest.height - yCover;
+    		}
+    		setLineArr(xb, yb, xd, yd);
         }
     }    
 }
