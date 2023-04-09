@@ -94,86 +94,51 @@ import rotp.util.Base;
 public class ListDialog extends JDialog
 						implements ActionListener, Base {
 
-	private static ListDialog dialog = new ListDialog();
-	private static String value = null;
-	private static int index    = -1;
+	private String value = null;
+	private int index    = -1;
 	private JList<Object> list;
-	private static BasePanel parent;
+	private BasePanel parent;
 	private HelpUI  helpUI;
-
-	private ListDialog() {  }
+	private List<String> alternateReturn;
+	private Frame frame;
 
 	/**
-	 * Set up and show the dialog.  The first Component argument
+	 * Set up the dialog.  The first Component argument
 	 * determines which frame the dialog depends on; it should be
 	 * a component in the dialog's controlling frame. The second
 	 * Component argument should be null if you want the dialog
 	 * to come up with its left corner in the center of the screen;
 	 * otherwise, it should be the component on top of which the
 	 * dialog should appear.
-	 */
-	public static String showDialog(Component frameComp,
-									Component locationComp,
-									String labelText,
-									String title,
-									String[] possibleValues,
-									String initialValue,
-									String longValue,
-									int width, int height) {
-		return showDialog(frameComp,  locationComp, labelText, title, possibleValues,
+	 */	
+	public ListDialog(
+			BasePanel frameComp,
+			Component locationComp,
+			String labelText,
+			String title,
+			String[] possibleValues,
+			String initialValue,
+			String longValue,
+			int width, int height) { 
+		this(frameComp,  locationComp, labelText, title, possibleValues,
 				 initialValue, longValue, false, width, height, null, null, null);
 	}
-	/**
-	 * Set up and show the dialog.  The first Component argument
-	 * determines which frame the dialog depends on; it should be
-	 * a component in the dialog's controlling frame. The second
-	 * Component argument should be null if you want the dialog
-	 * to come up with its left corner in the center of the screen;
-	 * otherwise, it should be the component on top of which the
-	 * dialog should appear.
-	 */
-	public static String showDialog(Component frameComp,
-									Component locationComp,
-									String labelText,
-									String title,
-									String[] possibleValues,
-									String initialValue,
-									String longValue,
-									boolean isVerticalWrap,
-									int width, int height,
-									Font listFont,
-									InterfacePreview panel,
-									List<String> alternateReturn) {
-		Frame frame = JOptionPane.getFrameForComponent(frameComp);
-		parent = (BasePanel) frameComp;
+	public String showDialog() { // Can only be called once.
 		value = null;
 		index = -1;
-		dialog = new ListDialog(frame,
-								locationComp,
-								labelText,
-								title,
-								possibleValues,
-								initialValue,
-								longValue,
-								isVerticalWrap,
-								width, height,
-								listFont, panel,
-								alternateReturn);
-
-		dialog.setVisible(true);
+		setVisible(true);
 		if (alternateReturn != null && index >= 0) {
 			index = Math.max(0,  index);
 			value = alternateReturn.get(index);
 		}
 		return value;
 	}
-
 	private void setValue(String newValue) {
 		value = newValue;
 		list.setSelectedValue(value, true);
 	}
 
-	private ListDialog(Frame frame,
+	public ListDialog(BasePanel frameComp,
 					   Component locationComp,
 					   String labelText,
 					   String title,
@@ -186,7 +151,10 @@ public class ListDialog extends JDialog
 					   InterfacePreview panel,
 					   List<String> alternateReturn) {
 
-		super(frame, title, true);
+		super(JOptionPane.getFrameForComponent(frameComp.getParent()), title, true);
+		frame = JOptionPane.getFrameForComponent(frameComp.getParent());
+		this.alternateReturn = alternateReturn;
+
 		int topInset  = RotPUI.scaledSize(6);
 		int sideInset = RotPUI.scaledSize(15);
 		//Create and initialize the buttons.
@@ -216,7 +184,6 @@ public class ListDialog extends JDialog
 		setButton.setActionCommand("Set");
 		setButton.addActionListener(this);
 		getRootPane().setDefaultButton(setButton);
-
 
 		//main part of the dialog
 		list = new JList<Object>(data) {
@@ -366,21 +333,21 @@ public class ListDialog extends JDialog
 
 	//Handle clicks on the Set and Cancel buttons.
 	@Override public void actionPerformed(ActionEvent e) {
-		System.out.println("Action Performed");
 		if ("Help".equals(e.getActionCommand())) {
 			showHelp();
 			return;
 		}		
 		if ("Set".equals(e.getActionCommand())) {
-			ListDialog.index = list.getSelectedIndex();
-			ListDialog.value = (String)(list.getSelectedValue());
+			index = list.getSelectedIndex();
+			value = (String)(list.getSelectedValue());
 		}
 		if (helpUI != null) {
-			helpUI.close();
+			helpUI.clear();
 			helpUI = null;
 		}
 		parent = null;
-		ListDialog.dialog.setVisible(false);
+		dispose();
+		frame.repaint();
 	}
 	private void showHelp() {
 		Rectangle dest	= getBounds();
@@ -389,8 +356,9 @@ public class ListDialog extends JDialog
 		int	  maxWidth	= scaled(300);
 		helpUI.clear();
 		HelpSpec sp = helpUI.addBrownHelpText(0, 0, maxWidth, 1, text);
-		sp.autoSize(parent);
-		sp.autoPosition(parent, dest);
-		helpUI.open(parent);
+		sp.autoSize(frame);
+		sp.autoPosition(frame, dest);
+		helpUI.paintComponent(frame.getGraphics());
+//		helpUI.open(parent);
 	}
 }

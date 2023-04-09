@@ -17,6 +17,7 @@ package rotp.ui.game;
 
 import java.awt.Color;
 import java.awt.FontMetrics;
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -212,9 +213,11 @@ public class HelpUI extends BasePanel implements MouseListener {
         public int[] rect(int x, int y, int w, int h) {
         	return new int[] {x, y, x+w, y, x+w, y+h, x, y+h, x, y};
         }
-        public void autoSize(BasePanel p) { autoSize(p, 0); } // BR:
-        public void autoSize(BasePanel p, int minWidth) { // BR:
-    		Graphics g = p.getGraphics();
+        public void autoSize(Frame frame) { 
+        	autoSize(frame, 0); 
+        } // BR:
+        public void autoSize(Frame frame, int minWidth) { // BR:
+    		Graphics g = frame.getGraphics();
     		g.setFont(narrowFont(FONT_SIZE));
             FontMetrics	fm = g.getFontMetrics();
             String[] forcedLines = text.split(lineSplitRegex);
@@ -224,20 +227,20 @@ public class HelpUI extends BasePanel implements MouseListener {
     		w = max(minWidth, min(sw + s30, w));
     		lines = wrappedLines(g, text, w).size();
         }
-        public void autoPosition(BasePanel p, Rectangle dest) { // BR:
-        	autoPosition(p, dest, s20, s20);
+        public void autoPosition(Frame frame, Rectangle dest) { // BR:
+        	autoPosition(frame, dest, s20, s20);
         }
-        public void autoPosition(BasePanel p, Rectangle dest, int xShift, int yShift) { // BR:
-        	autoPosition(p, dest, xShift, yShift, s10, s10);
+        public void autoPosition(Frame frame, Rectangle dest, int xShift, int yShift) { // BR:
+        	autoPosition(frame, dest, xShift, yShift, s10, s10);
         }
-        public void autoPosition(BasePanel p, Rectangle dest,
+        public void autoPosition(Frame frame, Rectangle dest,
         		int xShift, int yShift, int xCover, int yCover) { // BR:
-        	autoPosition(p, dest, xShift, yShift, xCover, yCover, s10, s10);
+        	autoPosition(frame, dest, xShift, yShift, xCover, yCover, s10, s10);
         }
-        public void autoPosition(BasePanel p, Rectangle dest,
+        public void autoPosition(Frame frame, Rectangle dest,
         		int xShift, int yShift, int xCover, int yCover, int xMargin, int yMargin) { // BR:
     		int xb, xd, yb, yd;
-    		Point loc = p.getLocationOnScreen();
+    		Point loc = frame.getLocationOnScreen();
     		int iW = scaled(Rotp.IMG_W);
     		int iH = scaled(Rotp.IMG_H);
     		int h  = height();

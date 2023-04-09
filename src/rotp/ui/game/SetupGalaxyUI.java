@@ -736,18 +736,20 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	private String selectGalaxyTextFromList() {
 		String initialChoice = newGameOptions().selectedGalaxyShapeOption1();
 		String message = "Make your choice, (This list can be edited in the file) " + GALAXY_TEXT_FILE;
-	    String input = (String) ListDialog.showDialog(
-	    	getParent(),	// Frame component
-	    	getParent(),	// Location component
-	    	message,		// Message
-	        "Galaxy Text selection",		// Title
-	        (String[]) getGalaxyTextList(),	// List
-	        initialChoice, 					// Initial choice
-	        null,	// long Dialogue
-	        false,	// isVerticalWrap
-	        scaled(420), scaled(320),	// size
-	        dialogMonoFont(),	// Font
-	        this, null);	// for listener
+		ListDialog dialog = new ListDialog(
+		    	this,	// Frame component
+		    	getParent(),	// Location component
+		    	message,		// Message
+		        "Galaxy Text selection",		// Title
+		        (String[]) getGalaxyTextList(),	// List
+		        initialChoice, 					// Initial choice
+		        null,	// long Dialogue
+		        false,	// isVerticalWrap
+		        scaled(420), scaled(320),	// size
+		        dialogMonoFont(),	// Font
+		        this, null);	// for listener
+
+		String input = (String) dialog.showDialog();
 	    if (input == null)
 	    	return initialChoice;
 	    newGameOptions().selectedGalaxyShapeOption1(input);
@@ -770,16 +772,18 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		String title   = text(SPECIFIC_AI);
 		String message = text(SPECIFIC_AI + LABEL_DESCRIPTION);
 		String initialChoice = text(newGameOptions().specificOpponentAIOption(i+1));
-	    String input = (String) ListDialog.showDialog(
-	    	getParent(), getParent(),	// Frame & Location component
-	    	message, title,				// Message, Title
-	        specificAIList,				// List
-	        initialChoice, 				// Initial choice
-	        "XX_AI: Character_XX",		// long Dialogue
-	        true,						// isVerticalWrap
-	        scaled(320), scaled(185),	// size Width, Height
-			null, null,					// Font, Preview
-			newGameOptions().specificOpponentAIOptions());	// Alternate return
+		ListDialog dialog = new ListDialog(
+		    	this, getParent(),			// Frame & Location component
+		    	message, title,				// Message, Title
+		        specificAIList,				// List
+		        initialChoice, 				// Initial choice
+		        "XX_AI: Character_XX",		// long Dialogue
+		        true,						// isVerticalWrap
+		        scaled(320), scaled(185),	// size Width, Height
+				null, null,					// Font, Preview
+				newGameOptions().specificOpponentAIOptions());	// Alternate return
+
+		String input = (String) dialog.showDialog();
 	    if (input == null)
 	    	return initialChoice;
 	    newGameOptions().specificOpponentAIOption(input, i+1);
@@ -789,16 +793,18 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		String title   = text(GLOBAL_AI);
 		String message = text(GLOBAL_AI + LABEL_DESCRIPTION);
 		String initialChoice = text(newGameOptions().selectedOpponentAIOption());
-	    String input = (String) ListDialog.showDialog(
-	    	getParent(), getParent(),	// Frame & Location component
-	    	message, title,				// Message, Title
-	        globalAIList,				// List
-	        initialChoice, 				// Initial choice
-	        "XX_AI: Character_XX",		// long Dialogue
-	        true,						// isVerticalWrap
-	        scaled(220), scaled(250),	// size Width, Height
-			null, null,					// Font, Preview
-			newGameOptions().opponentAIOptions());	// Alternate return
+		ListDialog dialog = new ListDialog(
+		    	this, getParent(),	// Frame & Location component
+		    	message, title,				// Message, Title
+		        globalAIList,				// List
+		        initialChoice, 				// Initial choice
+		        "XX_AI: Character_XX",		// long Dialogue
+		        true,						// isVerticalWrap
+		        scaled(220), scaled(250),	// size Width, Height
+				null, null,					// Font, Preview
+				newGameOptions().opponentAIOptions());	// Alternate return
+
+		String input = (String) dialog.showDialog();
 	    if (input == null)
 	    	return initialChoice;
 	    newGameOptions().selectedOpponentAIOption(input);
@@ -808,15 +814,17 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		String title   = text(SPECIFIC_ABILITY);
 		String message = text(SPECIFIC_ABILITY + LABEL_DESCRIPTION);
 		String initialChoice = newGameOptions().specificOpponentCROption(i);
-	    String input = (String) ListDialog.showDialog(
-		    getParent(), getParent(),	// Frame & Location component
-	    	message, title,				// Message, Title
-	        specificAbilitiesList,		// List
-	        initialChoice, 				// Initial choice
-	        "XX_RACE_JACKTRADES_XX",	// long Dialogue
-	        false,						// isVerticalWrap
-	        scaled(420), scaled(320),	// size
-			null, null, null);	// Font, Preview, Alternate return
+		ListDialog dialog = new ListDialog(
+		    	this, getParent(),	// Frame & Location component
+		    	message, title,				// Message, Title
+		        specificAbilitiesList,		// List
+		        initialChoice, 				// Initial choice
+		        "XX_RACE_JACKTRADES_XX",	// long Dialogue
+		        false,						// isVerticalWrap
+		        scaled(420), scaled(320),	// size
+				null, null, null);	// Font, Preview, Alternate return
+
+		String input = (String) dialog.showDialog();
 	    if (input == null)
 	    	return initialChoice;
 	    newGameOptions().specificOpponentCROption(input, i);
@@ -826,15 +834,17 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		String title   = text(GLOBAL_ABILITIES);
 		String message = text(GLOBAL_ABILITIES + LABEL_DESCRIPTION);
 		String initialChoice = globalCROptions.get();
-	    String input = (String) ListDialog.showDialog(
-		    getParent(), getParent(),	// Frame & Location component
-	    	message, title,				// Message, Title
-	        globalAbilitiesList,		// List
-	        initialChoice, 				// Initial choice
-	        "XX_RACE_JACKTRADES_XX",	// long Dialogue
-	        false,						// isVerticalWrap
-	        scaled(420), scaled(320),	// size
-			null, null, null);	// Font, Preview, Alternate return
+		ListDialog dialog = new ListDialog(
+			    this, getParent(),	// Frame & Location component
+		    	message, title,				// Message, Title
+		        globalAbilitiesList,		// List
+		        initialChoice, 				// Initial choice
+		        "XX_RACE_JACKTRADES_XX",	// long Dialogue
+		        false,						// isVerticalWrap
+		        scaled(420), scaled(320),	// size
+				null, null, null);	// Font, Preview, Alternate return
+
+		String input = (String) dialog.showDialog();
 	    if (input == null)
 	    	return initialChoice;
 	    globalCROptions.set(input);

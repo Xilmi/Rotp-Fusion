@@ -19,12 +19,12 @@ package rotp.ui.util;
 import static rotp.ui.UserPreferences.minListSizePopUp;
 import static rotp.util.Base.lineSplit;
 
-import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.util.LinkedList;
 import java.util.List;
 
+import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 
 public class ParamList extends AbstractParam<String> {
@@ -159,7 +159,7 @@ public class ParamList extends AbstractParam<String> {
 		else 
 			prev();
 	}
-	@Override public void toggle(MouseEvent e, Component frame) {
+	@Override public void toggle(MouseEvent e, BasePanel frame) {
 		if (getDir(e) == 0)
 			setFromDefault();
 		else if (frame != null && 
@@ -256,20 +256,21 @@ public class ParamList extends AbstractParam<String> {
 		int index = Math.max(0, getIndex());
 		return valueLabelMap.guiTextList.get(index);
 	}
-	private void setFromList(Component frame) {
+	private void setFromList(BasePanel frame) {
 		String message	= "<html>" + getGuiDescription() + "</html>";
 		String title	= text(labelId(), "");
-		String input;
 		initGuiTexts();
 		String[] list= valueLabelMap.guiTextList.toArray(new String[listSize()]);
-		input  = (String) ListDialog.showDialog(
-				frame,	frame,			// Frame & Location component
-				message, title,			// Message & Title
-				list, currentOption(),	// List & Initial choice
-				null, true,				// long Dialogue & isVertical
+		ListDialog dialog = new ListDialog(
+				frame,	frame.getParent(),	// Frame & Location component
+				message, title,				// Message & Title
+				list, currentOption(),		// List & Initial choice
+				null, true,					// long Dialogue & isVertical
 				RotPUI.scaledSize(360), RotPUI.scaledSize(300),	// size
-				null, null,	// Font, Preview
+				null, null,						// Font, Preview
 				valueLabelMap.cfgValueList);	// Alternate return
+
+		String input = (String) dialog.showDialog();
 		if (input != null && valueLabelMap.getValueIndexIgnoreCase(input) >= 0)
 			set(input);
 	}

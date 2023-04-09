@@ -21,7 +21,6 @@ import static rotp.util.Base.random;
 import static rotp.util.Base.textSubs;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -32,6 +31,7 @@ import java.util.LinkedList;
 import javax.swing.SwingUtilities;
 
 import rotp.model.game.DynamicOptions;
+import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.RotPUI;
 import rotp.ui.main.SystemPanel;
@@ -175,7 +175,7 @@ public class SettingBase<T> implements InterfaceParam {
 			selectedIndex = cfgValueList.size()-1;
 		selectedValue(valueList.get(selectedIndex));		
 	}
-	@Override public void toggle(MouseEvent e, MouseWheelEvent w, Component frame) {
+	@Override public void toggle(MouseEvent e, MouseWheelEvent w, BasePanel frame) {
 		if (e == null)
 			toggle(w);
 		else
@@ -187,7 +187,7 @@ public class SettingBase<T> implements InterfaceParam {
 		else 
 			prev();
 	}
-	@Override public void toggle(MouseEvent e, Component frame) {
+	@Override public void toggle(MouseEvent e, BasePanel frame) {
 		if (getDir(e) == 0) 
 			setFromDefault();
 		else if (allowListSelect && frame != null && 
@@ -704,22 +704,23 @@ public class SettingBase<T> implements InterfaceParam {
 		return -1;
 	}
 	@SuppressWarnings("unchecked")
-	private void setFromList(Component frame) {
+	private void setFromList(BasePanel frame) {
 		String message	= "<html>" + getGuiDescription() + "</html>";
 		String title	= text(labelId(), "");
-		String input;
 		// System.out.println("getIndex() = " + getIndex());
 		// System.out.println("currentOption() = " + currentOption());
 
 		String[] list = cfgValueList.toArray(new String[listSize()]);
-		input  = (String) ListDialog.showDialog(
-				frame,	frame,			// Frame & Location component
-				message, title,			// Message & Title
+		ListDialog dialog = new ListDialog(
+				frame,	frame,					// Frame & Location component
+				message, title,					// Message & Title
 				list, selectedValue.toString(),	// List & Initial choice
-				null, true,				// long Dialogue & isVertical
+				null, true,						// long Dialogue & isVertical
 				RotPUI.scaledSize(360), RotPUI.scaledSize(300),	// size
 				null, null,	// Font, Preview
-				null);	// Alternate return
+				null);		// Alternate return
+
+		String input = (String) dialog.showDialog();
 		// System.out.println("input = " + input);
 		if (input != null && getValueIndexIgnoreCase(input) >= 0)
 			set((T) input);

@@ -18,7 +18,6 @@ package rotp.ui.util;
 
 import static rotp.util.Base.textSubs;
 
-import java.awt.Component;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -27,6 +26,7 @@ import javax.swing.SwingUtilities;
 
 import rotp.model.game.DynamicOptions;
 import rotp.model.game.MOO1GameOptions;
+import rotp.ui.BasePanel;
 import rotp.util.LabelManager;
 
 public abstract class AbstractParam <T> implements InterfaceParam{
@@ -161,7 +161,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	}
 	@Override public boolean isDuplicate()	{ return isDuplicate; }
 	@Override public void setFromDefault()	{ set(defaultValue()); }
-	@Override public void toggle(MouseEvent e, MouseWheelEvent w, Component frame) {
+	@Override public void toggle(MouseEvent e, MouseWheelEvent w, BasePanel frame) {
 		if (e == null)
 			toggle(w);
 		else

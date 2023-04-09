@@ -346,8 +346,8 @@ abstract class BaseModPanel extends BasePanel
 		HelpUI helpUI = RotPUI.helpUI();
 		helpUI.clear();
 		HelpSpec sp = helpUI.addBrownHelpText(0, 0, maxWidth, 1, text);
-		sp.autoSize(this);
-		sp.autoPosition(this, dest);
+		sp.autoSize(frame());
+		sp.autoPosition(frame(), dest);
 		helpUI.open(this);
 	}
 

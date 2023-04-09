@@ -268,17 +268,19 @@ public class ShowCustomRaceUI extends BaseModPanel implements MouseListener, Mou
 	private boolean isPlayer()			{ return raceUI.selectedEmpire().isPlayer(); }
 	private String selectAIFromList(String[] aiArray, String initialChoice) {
 		String message = "Make your choice";
-	    String input = (String) ListDialog.showDialog(
-	    	getParent(),	// Frame component
-	    	getParent(),	// Location component
-	    	message,		// Message
-	        "Empire AI selection",	// Title
-	        aiArray,			// List
-	        initialChoice, 		// Initial choice
-	        "XXXXXXXXXXXXXXXX",	// long Dialogue
-			false,				// isVertical
-	        scaled(220), scaled(220),	// size
-			null, null, null);	// Font, Preview, Alternate return
+		ListDialog dialog = new ListDialog(
+		    	this,	// Frame component
+		    	getParent(),	// Location component
+		    	message,		// Message
+		        "Empire AI selection",	// Title
+		        aiArray,			// List
+		        initialChoice, 		// Initial choice
+		        "XXXXXXXXXXXXXXXX",	// long Dialogue
+				false,				// isVertical
+		        scaled(220), scaled(220),	// size
+				null, null, null);	// Font, Preview, Alternate return
+
+		String input = (String) dialog.showDialog();
 	    if (input == null)
 	    	return initialChoice;
 	    return input;

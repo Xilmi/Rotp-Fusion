@@ -19,13 +19,13 @@ package rotp.ui.util;
 import static rotp.ui.util.SettingBase.CostFormula.RELATIVE;
 import static rotp.util.Base.random;
 
-import java.awt.Component;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.text.DecimalFormat;
 
 import rotp.model.game.DynamicOptions;
+import rotp.ui.BasePanel;
 
 public class SettingFloat extends SettingBase<Float> {
 
@@ -195,7 +195,7 @@ public class SettingFloat extends SettingBase<Float> {
 	@Override public void prev() {
 		 next(-baseInc);
 	}
-	@Override public void toggle(MouseEvent e, Component frame) {
+	@Override public void toggle(MouseEvent e, BasePanel frame) {
 		Float inc = getInc(e) * getDir(e);
 		if (inc == 0)
 			setFromDefault();

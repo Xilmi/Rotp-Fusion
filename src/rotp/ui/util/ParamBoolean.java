@@ -16,11 +16,11 @@
 
 package rotp.ui.util;
 
-import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
 import rotp.model.game.DynamicOptions;
+import rotp.ui.BasePanel;
 
 public class ParamBoolean extends AbstractParam<Boolean> {
 	
@@ -43,7 +43,7 @@ public class ParamBoolean extends AbstractParam<Boolean> {
 	@Override public void prev() { next(); }
 	@Override public void next() { set(!get()); }
 	@Override public void toggle(MouseWheelEvent e)	{ next(); }
-	@Override public void toggle(MouseEvent e, Component frame) {
+	@Override public void toggle(MouseEvent e, BasePanel frame) {
 		if (getDir(e) == 0)
 			setFromDefault();
 		else
