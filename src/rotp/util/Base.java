@@ -1037,7 +1037,6 @@ public interface Base {
         g.fillPolygon(x,y,x.length);
     }
     public default List<String> wrappedLines(Graphics g, String text, int maxWidth) {
-    	System.out.println("maxWidth = " + maxWidth);
         return wrappedLines(g, text, maxWidth, 0);
     }
     public default List<String> wrappedLines(Graphics g, String text, int maxWidth, int line1Indent) {

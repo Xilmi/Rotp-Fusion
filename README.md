@@ -31,6 +31,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 - Removed the lag in the first list selection pop-up.
 - List selection pop-up updates Galaxy preview.
 - Contextual help is now removed when moving out of the option.
+- Fixed Individual opponent race; ai and ability box overlap.
 
 2023.04.09 (BR)
 - Improved  pop-up list help.

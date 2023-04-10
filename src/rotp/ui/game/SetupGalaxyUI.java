@@ -175,9 +175,9 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	private Polygon   crBoxL		= new PolyBox(); // BR:
 	private Polygon   crBoxR		= new PolyBox(); // BR:
 
-	private Rectangle[] oppSet	= new Box[MAX_DISPLAY_OPPS];
-	private Rectangle[] oppAI	= new Box[MAX_DISPLAY_OPPS];
-	private Rectangle[] oppCR	= new Box[MAX_DISPLAY_OPPS]; // BR: dataRace selection
+	private Box[] oppSet	= new Box[MAX_DISPLAY_OPPS];
+	private Box[] oppAI		= new Box[MAX_DISPLAY_OPPS];
+	private Box[] oppCR		= new Box[MAX_DISPLAY_OPPS]; // BR: dataRace selection
 
 	private boolean starting = false;
 	private int leftBoxX, rightBoxX, boxW, boxY, leftBoxH, rightBoxH;
@@ -212,10 +212,10 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		paramList = UserPreferences.optionsGalaxy;
 		for (int i=0;i<oppSet.length;i++)
 			oppSet[i] = new Box();
-		for (int i=0;i<oppAI.length;i++)
-			oppAI[i] = new Box(specificAI);
 		for (int i=0;i<oppCR.length;i++)
 			oppCR[i] = new Box();
+		for (int i=0;i<oppAI.length;i++)
+			oppAI[i] = new Box(specificAI);
 		duplicateList = new LinkedList<>();
 		duplicateList.add(difficultySelection);
 		duplicateList.add(shapeSelection);
@@ -868,12 +868,12 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		int w = getWidth();
 		int h = getHeight();
 
-		for (Rectangle rect: oppSet)
-			rect.setBounds(0,0,0,0);
-		for (Rectangle rect: oppAI)
-			rect.setBounds(0,0,0,0);
-		for (Rectangle rect: oppCR)
-			rect.setBounds(0,0,0,0);
+		for (Box box: oppSet)
+			box.setBounds(0,0,0,0);
+		for (Box box: oppAI)
+			box.setBounds(0,0,0,0);
+		for (Box box: oppCR)
+			box.setBounds(0,0,0,0);
 		// background image
 		g.drawImage(backImg(), 0, 0, w, h, this);
 
@@ -918,7 +918,16 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			// int y2 = y0+s50+(row*spaceH);
 			int y2 = y0+s67+(row*spaceH); // BR: Adjusted for dataRace selection
 			int x2 = leftBoxX+s30+(col*spaceW);
-			oppSet[i].setBounds(x2,y2,mugW,mugH);
+			int y2o = y2;
+			int mugHo = mugH;
+			if (selectableCR) {
+				y2o   += boundH;
+				mugHo -= boundH;
+			}
+			if (selectableAI) {
+				mugHo -= boundH;
+			}
+			oppSet[i].setBounds(x2,y2o,mugW,mugHo);
 			// oppAI[i].setBounds(x2,y2+mugH-s20,mugW,s20);
 			oppAI[i].setBounds(x2,y2+mugH+s1-boundH,mugW,boundH); // BR: Adjusted
 			oppCR[i].setBounds(x2,y2-s1,mugW,boundH);
