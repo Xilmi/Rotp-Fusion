@@ -103,6 +103,11 @@ public class ListDialog extends JDialog
 	private InterfaceParam param;
 	private boolean showHelp = false;
 
+
+	public ListDialog(boolean fake) { // Fake Dialog used to load the code and accelerate the future calls
+		@SuppressWarnings("unused")
+		JDialog temp = new JDialog();
+	}
 	/**
 	 * Set up the dialog.  The first Component argument
 	 * determines which frame the dialog depends on; it should be
@@ -231,15 +236,17 @@ public class ListDialog extends JDialog
 		list.addListSelectionListener(new ListSelectionListener() {
 		    @Override
 		    public void valueChanged(ListSelectionEvent e) {
-		    	if (list.getSelectedValue() != null) {
+		    	value = (String) list.getSelectedValue();
+		    	if (value != null) {
 	    			index = Math.max(0, list.getSelectedIndex());
 		    		if (panel != null) { // For Preview
-		    			if (alternateReturn != null) {
+		    			if (alternateReturn != null)
 			    			value = alternateReturn.get(index);
-			    			panel.preview(value);
-			    		}
-			    		else
-			    			panel.preview((String) list.getSelectedValue());
+		    			
+		    			if (param != null)
+		    				param.setFromCfgValue(value);
+
+			    		panel.preview(value);
 		    		}
 		    		if (showHelp && param != null) { // For Help
 		    			showHelp(index);
@@ -337,7 +344,6 @@ public class ListDialog extends JDialog
 		else
 			setLocationRelativeTo(locationComp);			
 	}
-
 	//Handle clicks on the Set and Cancel buttons.
 	@Override public void actionPerformed(ActionEvent e) {
 		if ("Help".equals(e.getActionCommand())) {
@@ -378,20 +384,6 @@ public class ListDialog extends JDialog
 		if (param != null)
 			text = param.dialogHelp(list.getSelectedIndex());
 		helpUI = RotPUI.helpUI();
-		helpUI.clear();
-		HelpSpec sp = helpUI.addBrownHelpText(0, 0, maxWidth, 1, text);
-		sp.autoSize(frame);
-		sp.autoPosition(dest);
-		helpUI.paintComponent(frame.getGraphics());
-	}
-	private void showHelp() {
-		clearHelp();
-		Rectangle dest	= getBounds();
-		int	  maxWidth	= scaled(300);
-		String	  text	= "None";
-		if (param != null)
-			text = param.getFullHelp();
-		helpUI	= RotPUI.helpUI();
 		helpUI.clear();
 		HelpSpec sp = helpUI.addBrownHelpText(0, 0, maxWidth, 1, text);
 		sp.autoSize(frame);

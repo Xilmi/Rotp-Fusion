@@ -506,20 +506,20 @@ public class UserPreferences {
 			MOD_UI, "SHOW_NEXT_COUNCIL", false); // Show years left until next council
 	public static final ParamInteger galaxyPreviewColorStarsSize = new ParamInteger(
 			MOD_UI, "GALAXY_PREVIEW_COLOR_SIZE" , 5, 0, 20, 1, 2, 5);
-	public static final ParamInteger minListSizePopUp	= new ParamInteger(
+	public static final ParamInteger minListSizePopUp		= new ParamInteger(
 			MOD_UI, "MIN_LIST_SIZE_POP_UP" , 4, 0, 10, true)
 			.specialZero(MOD_UI + "MIN_LIST_SIZE_POP_UP_NEVER");
-	public static final ParamInteger showLimitedWarnings = new ParamInteger(
+	public static final ParamInteger showLimitedWarnings	= new ParamInteger(
 			MOD_UI, "SHOW_LIMITED_WARNINGS" , -1, -1, 49, 1, 2, 5)
 			.loop(true)
 			.specialNegative(MOD_UI + "SHOW_LIMITED_WARNINGS_ALL");
-	public static final ParamBoolean showAlliancesGNN	= new ParamBoolean(
+	public static final ParamBoolean showAlliancesGNN		= new ParamBoolean(
 			MOD_UI, "SHOW_ALLIANCES_GNN", true);
 	public static final ParamBoolean techExchangeAutoRefuse = new ParamBoolean(
 			MOD_UI, "TECH_EXCHANGE_AUTO_NO", false);
 
 	// BR: Galaxy Menu addition
-	public static final ParamInteger galaxyRandSource = new ParamInteger(
+	public static final ParamInteger galaxyRandSource		= new ParamInteger(
 			MOD_UI, "GALAXY_RAND_SOURCE" , 0, 0, Integer.MAX_VALUE, 1, 100, 10000).loop(true);
 	public static final ParamBoolean showNewRaces 			= new ParamBoolean(
 			MOD_UI, "SHOW_NEW_RACES", false);
@@ -537,7 +537,7 @@ public class UserPreferences {
 		@Override public void setOption(String newValue) {
 			RotPUI.mergedGuiOptions().selectedGalaxyShapeOption2(newValue);
 		}
-	};
+	}.hasPreview(true);
 	public static final ParamList    shapeOption1   		= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "SHAPE_OPTION_1") {
 		@Override public String getFromOption() {
@@ -546,7 +546,7 @@ public class UserPreferences {
 		@Override public void setOption(String newValue) {
 			RotPUI.mergedGuiOptions().selectedGalaxyShapeOption1(newValue);
 		}
-	};
+	}.hasPreview(true);
 	public static final ParamList    shapeSelection			= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "GALAXY_SHAPE", getGalaxyShapeOptions(),  SHAPE_RECTANGLE) {
 		@Override public String     getFromOption() {
@@ -555,7 +555,7 @@ public class UserPreferences {
 		@Override public void setOption(String newValue) {
 			RotPUI.mergedGuiOptions().selectedGalaxyShape(newValue);
 		}
-	};
+	}.hasPreview(true);
 	public static final ParamList    sizeSelection  		= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "GALAXY_SIZE", getGalaxySizeOptions(), SIZE_SMALL) {
 		@Override public String getFromOption() {

@@ -17,5 +17,5 @@
 package rotp.ui.util;
 
 public interface InterfacePreview {
-	public void preview(String s);
+	default public void preview(String s) {};
 }

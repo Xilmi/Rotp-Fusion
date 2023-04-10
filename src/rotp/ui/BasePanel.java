@@ -41,10 +41,11 @@ import rotp.model.Sprite;
 import rotp.model.galaxy.StarType;
 import rotp.ui.main.MainUI;
 import rotp.ui.main.SystemPanel;
+import rotp.ui.util.InterfacePreview;
 import rotp.util.Base;
 import rotp.util.ThickBevelBorder;
 
-public class BasePanel extends JPanel implements Base {
+public class BasePanel extends JPanel implements Base, InterfacePreview {
     private static final long serialVersionUID = 1L;
     public static final String TEXTURE_GRAY = "TEXTURE_GRAY";
     public static final String TEXTURE_BROWN = "TEXTURE_BROWN";

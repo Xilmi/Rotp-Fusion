@@ -30,6 +30,7 @@ import rotp.ui.RotPUI;
 public class ParamList extends AbstractParam<String> {
 
 	private final IndexableMap valueLabelMap;
+	private boolean hasPreview = false;
 	
 	// ===== Constructors =====
 	//
@@ -134,6 +135,10 @@ public class ParamList extends AbstractParam<String> {
 	
 	// ===== Initializers =====
 	//
+	public ParamList hasPreview(boolean hasPreview) {
+		this.hasPreview = hasPreview;
+		return this;
+	}
 	public void reInit(List<String> list) {
 		valueLabelMap.clear();
 		for (String element : list)
@@ -274,7 +279,8 @@ public class ParamList extends AbstractParam<String> {
 				list, currentOption(),		// List & Initial choice
 				null, true,					// long Dialogue & isVertical
 				RotPUI.scaledSize(360), RotPUI.scaledSize(300),	// size
-				null, null,						// Font, Preview
+				null,						// Font
+				frame,						// Preview
 				valueLabelMap.cfgValueList,	// Alternate return
 				this);
 

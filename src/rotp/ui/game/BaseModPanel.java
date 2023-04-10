@@ -348,7 +348,7 @@ abstract class BaseModPanel extends BasePanel
 		HelpSpec sp = helpUI.addBrownHelpText(0, 0, maxWidth, 1, text);
 		sp.autoSize(frame());
 		sp.autoPosition(dest);
-		helpUI.open(this);
+		helpUI.paintComponent(getGraphics());
 	}
 
 	// ========== Sub Classes ==========

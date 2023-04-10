@@ -739,17 +739,19 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		String initialChoice = newGameOptions().selectedGalaxyShapeOption1();
 		String message = "Make your choice, (This list can be edited in the file) " + GALAXY_TEXT_FILE;
 		ListDialog dialog = new ListDialog(
-		    	this,	// Frame component
-		    	getParent(),	// Location component
-		    	message,		// Message
+		    	this,							// Frame component
+		    	getParent(),					// Location component
+		    	message,						// Message
 		        "Galaxy Text selection",		// Title
 		        (String[]) getGalaxyTextList(),	// List
 		        initialChoice, 					// Initial choice
-		        null,	// long Dialogue
-		        false,	// isVerticalWrap
-		        scaled(420), scaled(320),	// size
-		        dialogMonoFont(),	// Font
-		        this, null, null);	// for listener // TODO BR: add help parameter
+		        null,							// long Dialogue
+		        false,							// isVerticalWrap
+		        scaled(420), scaled(320),		// size
+		        dialogMonoFont(),				// Font
+		        this,							// for listener
+		        null,							// Alternate return
+		        null); 							// TODO BR: add help parameter
 
 		String input = (String) dialog.showDialog();
 	    if (input == null)
@@ -764,7 +766,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			return;
 		if (this.isShapeTextGalaxy())
 			newGameOptions().selectedGalaxyShapeOption1(s);
-		else {
+		else if (this.isShapeBitmapGalaxy()){
 			shapeOption3.set(s);
 		}
 	    newGameOptions().galaxyShape().quickGenerate(); 

@@ -92,6 +92,7 @@ import rotp.ui.tech.AllocateTechUI;
 import rotp.ui.tech.DiplomaticMessageUI;
 import rotp.ui.tech.DiscoverTechUI;
 import rotp.ui.tech.SelectNewTechUI;
+import rotp.ui.util.ListDialog;
 import rotp.ui.util.ParamOptions;
 import rotp.ui.util.planets.PlanetImager;
 import rotp.util.AnimationManager;
@@ -310,6 +311,8 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         timer.start();
     }
     private void init() {
+    	@SuppressWarnings("unused")  // Fake Dialog used to load the code and accelerate the future calls
+		ListDialog dialog = new ListDialog(true);
         initModel();
         MOO1GameOptions.copyOptionsFromLiveToLast();
         addKeyListener(this);
