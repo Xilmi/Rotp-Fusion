@@ -32,14 +32,13 @@ import static rotp.ui.UserPreferences.galaxyRandSource;
 import static rotp.ui.UserPreferences.globalCROptions;
 import static rotp.ui.UserPreferences.minListSizePopUp;
 import static rotp.ui.UserPreferences.opponentAI;
-import static rotp.ui.UserPreferences.specificAI;
-import static rotp.ui.UserPreferences.specificAI;
 import static rotp.ui.UserPreferences.shapeOption1;
 import static rotp.ui.UserPreferences.shapeOption2;
 import static rotp.ui.UserPreferences.shapeOption3;
 import static rotp.ui.UserPreferences.shapeSelection;
 import static rotp.ui.UserPreferences.showNewRaces;
 import static rotp.ui.UserPreferences.sizeSelection;
+import static rotp.ui.UserPreferences.specificAI;
 import static rotp.ui.UserPreferences.useSelectableAbilities;
 import static rotp.ui.util.InterfaceParam.LABEL_DESCRIPTION;
 

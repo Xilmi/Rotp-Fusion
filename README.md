@@ -27,7 +27,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 ## What's New
 
 2023.04.10 (BR)
--
+- Long range ship scans, long range planetary scans, and ally sharring scans will now also update "Auto-Flag".
 
 2023.04.09 (BR)
 - Improved  pop-up list help.
