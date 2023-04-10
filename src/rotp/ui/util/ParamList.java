@@ -191,6 +191,13 @@ public class ParamList extends AbstractParam<String> {
 		help += getSubHelp();
 		return help;
 	}
+	@Override public String	dialogHelp(int idx)	{
+		if (idx == -1)
+			return getHeadHelp();
+		return getHeadHelp()
+				+ "--- Selected Value --- \\n "
+				+ getSubHelp(idx);
+		}
 
 	// ===== Other Protected Methods =====
 	//
@@ -268,7 +275,8 @@ public class ParamList extends AbstractParam<String> {
 				null, true,					// long Dialogue & isVertical
 				RotPUI.scaledSize(360), RotPUI.scaledSize(300),	// size
 				null, null,						// Font, Preview
-				valueLabelMap.cfgValueList);	// Alternate return
+				valueLabelMap.cfgValueList,	// Alternate return
+				this);
 
 		String input = (String) dialog.showDialog();
 		if (input != null && valueLabelMap.getValueIndexIgnoreCase(input) >= 0)

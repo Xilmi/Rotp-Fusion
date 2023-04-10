@@ -25,9 +25,9 @@ import rotp.ui.BasePanel;
 public interface InterfaceParam extends InterfaceOptions{
 	public static final String LABEL_DESCRIPTION = "_DESC";
 	public static final String LABEL_HELP		 = "_HELP";
-	public static final String BODY_SEPARATOR	 = lineSplit + "With:" + lineSplit;
-	public static final String HEAD_SEPARATOR	 = ":" + lineSplit;
-	public static final String HELP_SEPARATOR	 = ": ";
+	public static final String BODY_SEPARATOR	 = lineSplit + "WITH:" + lineSplit;
+	public static final String HEAD_SEPARATOR	 = "" + lineSplit;
+	public static final String HELP_SEPARATOR	 = " = ";
 	public static final String END = "   ";
 	
 	public void setFromCfgValue(String val);
@@ -45,7 +45,8 @@ public interface InterfaceParam extends InterfaceOptions{
 
 	public default void toggle(MouseEvent e, int p, BasePanel frame) {};
 	public default String	getToolTip()		{ return getGuiDescription(); }
-	public default String	getToolTip(int idx)	{ return ""; }
+	public default String	getToolTip(int idx)	{ return "";  }
+	public default String	dialogHelp(int idx)	{ return getToolTip(idx); };
 	public default boolean	isDuplicate()		{ return false; }
 	public default boolean	isTitle()			{ return false; }
 	public default boolean	isSubMenu()			{ return false; };

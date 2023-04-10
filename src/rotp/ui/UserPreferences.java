@@ -38,6 +38,7 @@ import static rotp.model.game.IGameOptions.DIFFICULTY_NORMAL;
 import static rotp.model.game.IGameOptions.FUEL_RANGE_NORMAL;
 import static rotp.model.game.IGameOptions.GALAXY_AGE_NORMAL;
 import static rotp.model.game.IGameOptions.NEBULAE_NORMAL;
+import static rotp.model.game.IGameOptions.OPPONENT_AI_CRUEL;
 import static rotp.model.game.IGameOptions.PLANET_QUALITY_NORMAL;
 import static rotp.model.game.IGameOptions.RANDOMIZE_AI_NONE;
 import static rotp.model.game.IGameOptions.RANDOM_EVENTS_NO_MONSTERS;
@@ -87,6 +88,7 @@ import rotp.model.galaxy.StarSystem;
 import rotp.model.game.GameSession;
 import rotp.model.game.GovernorOptions;
 import rotp.model.game.IGameOptions;
+import rotp.model.game.MOO1GameOptions;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.util.GlobalCROptions;
 import rotp.ui.util.InterfaceParam;
@@ -1022,6 +1024,16 @@ public class UserPreferences {
 			null,
 			showNameMinFont, showInfoFontRatio, mapFontFactor, showNextCouncil, compactOptionOnly
 			));
+
+	// Only used for displaying help... Do not include to UI list.
+	public static final ParamList opponentAI = new ParamList( // For Help Do not add the list
+			BASE_UI, "OPPONENT_AI",
+			MOO1GameOptions.getOpponentAIOptions(),
+			OPPONENT_AI_CRUEL);
+	public static final ParamList specificAI = new ParamList( // For Help Do not add the list
+			BASE_UI, "SPECIFIC_AI",
+			MOO1GameOptions.getSpecificOpponentAIOptions(),
+			OPPONENT_AI_CRUEL);
 
 	
 	private static boolean showMemory  = false;

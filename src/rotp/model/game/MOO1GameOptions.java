@@ -1134,7 +1134,10 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         return opponentAIBaseOptions(); // BR: to allow any possibilities
     } 
     @Override
-    public List<String> specificOpponentAIOptions() { // BR: new access to base opponents
+    public List<String> specificOpponentAIOptions() { // BR: new access to base specific opponents
+    	return getSpecificOpponentAIOptions();
+    }
+    public static List<String> getSpecificOpponentAIOptions() { // BR: new access to specific opponents
         List<String> list = specificOpponentAIBaseOptions();
         list.add(OPPONENT_AI_RANDOM);
         list.add(OPPONENT_AI_RANDOM_BASIC);

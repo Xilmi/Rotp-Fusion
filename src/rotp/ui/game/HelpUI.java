@@ -20,7 +20,6 @@ import java.awt.FontMetrics;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.awt.event.KeyEvent;
@@ -36,7 +35,8 @@ import rotp.ui.BasePanel;
 public class HelpUI extends BasePanel implements MouseListener {
     private static final long serialVersionUID = 1L;
     private static final Color backgroundHaze = new Color(0,0,0,40);
-    private static final int FONT_SIZE = 16;
+    private static final int FONT_SIZE		= 16;
+    private static final int MIN_FONT_SIZE	= 10;
     private final Color blueBackC = new Color(78,101,155);
     private final Color brownBackC = new Color(240,240,240);
     private final Color brownTextC = new Color(45,14,5);
@@ -118,7 +118,7 @@ public class HelpUI extends BasePanel implements MouseListener {
             int fontSize = FONT_SIZE;
             g.setFont(narrowFont(fontSize));
             List<String> lines = this.wrappedLines(g, spec.text, spec.w - s30);
-            while ((lines.size() > spec.lines) && (fontSize > 11)) {
+            while ((lines.size() > spec.lines) && (fontSize > MIN_FONT_SIZE)) {
                 fontSize--;
                 g.setFont(narrowFont(fontSize));
                 lines = this.wrappedLines(g, spec.text, spec.w - s30);
@@ -213,11 +213,26 @@ public class HelpUI extends BasePanel implements MouseListener {
         public int[] rect(int x, int y, int w, int h) {
         	return new int[] {x, y, x+w, y, x+w, y+h, x, y+h, x, y};
         }
+        private int wrappedLinesCount(
+        		Graphics g, String text, int maxWidth, int maxHeight) {
+            int fontSize = FONT_SIZE;
+            g.setFont(narrowFont(fontSize));
+            List<String> wrappedLines = wrappedLines(g, text, maxWidth);
+            while ((wrappedLines.size()*lineH()+s20 > maxHeight)
+            		&& (fontSize > MIN_FONT_SIZE)) {
+                fontSize--;
+                g.setFont(narrowFont(fontSize));
+                wrappedLines = wrappedLines(g, text, maxWidth);
+            }
+            return wrappedLines.size();
+        }
         public void autoSize(Frame frame) { 
         	autoSize(frame, 0); 
         } // BR:
         public void autoSize(Frame frame, int minWidth) { // BR:
     		Graphics g = frame.getGraphics();
+    		int iW = scaled(Rotp.IMG_W) - s20;
+    		int iH = scaled(Rotp.IMG_H) - s20;
     		g.setFont(narrowFont(FONT_SIZE));
             FontMetrics	fm = g.getFontMetrics();
             String[] forcedLines = text.split(lineSplitRegex);
@@ -225,59 +240,78 @@ public class HelpUI extends BasePanel implements MouseListener {
     		for (String line : forcedLines)
     			sw = max(sw, fm.stringWidth(line));
     		w = max(minWidth, min(sw + s30, w));
-    		lines = wrappedLines(g, text, w).size();
+    		lines = wrappedLines(g, text, w-s30).size();
+    		// Security for long text:
+    		int h = height();
+    		while (h > iH) {
+    			w = (w*h)/iH;
+    			// System.out.println("iH = " + iH + "  h = " + h + "  w = " + w);
+    			if (w > iW) {
+    				w = iW;
+    				lines = wrappedLinesCount(g, text, iW, iH);
+    				h = height();
+    				System.out.println("Help Width limit reached, resulting height = " + h);
+    				return;
+    			}
+    			lines = wrappedLines(g, text, w).size();
+    			h = height();
+    			System.out.println(" -- iH = " + iH + "  h = " + h + "  w = " + w);
+    		}
         }
-        public void autoPosition(Frame frame, Rectangle dest) { // BR:
-        	autoPosition(frame, dest, s20, s20);
+        public void autoPosition(Rectangle dest) { // BR:
+        	autoPosition(dest, s20, s20);
         }
-        public void autoPosition(Frame frame, Rectangle dest, int xShift, int yShift) { // BR:
-        	autoPosition(frame, dest, xShift, yShift, s10, s10);
+        public void autoPosition(Rectangle dest, int xShift, int yShift) { // BR:
+        	autoPosition(dest, xShift, yShift, s10, s10);
         }
-        public void autoPosition(Frame frame, Rectangle dest,
+        public void autoPosition(Rectangle dest,
         		int xShift, int yShift, int xCover, int yCover) { // BR:
-        	autoPosition(frame, dest, xShift, yShift, xCover, yCover, s10, s10);
+        	autoPosition(dest, xShift, yShift, xCover, yCover, s10, s10);
         }
-        public void autoPosition(Frame frame, Rectangle dest,
+        public void autoPosition(Rectangle dest,
         		int xShift, int yShift, int xCover, int yCover, int xMargin, int yMargin) { // BR:
     		int xb, xd, yb, yd;
-    		Point loc = frame.getLocationOnScreen();
     		int iW = scaled(Rotp.IMG_W);
     		int iH = scaled(Rotp.IMG_H);
     		int h  = height();
     		// relative position
     		// find X location
-     		if (2*(dest.x+loc.x) + dest.width  > iW) { // put box to the left
-    			x = dest.x + loc.x - w - xShift;
+     		if (2*dest.x + dest.width  > iW) { // put box to the left
+    			x = dest.x - w - xShift;
     			if (x < xMargin)
     				x = xMargin;
-    			x -= loc.x;
     			xb = x + w;
 	   			xd = dest.x + xCover;
+	   			if (xd < xb)
+	   				xd = xb + s10;
     		}
     		else { // put box to the right
-    			x = dest.x + loc.x + dest.width + xShift;
+    			x = dest.x + dest.width + xShift;
     			if (x+w > iW-xMargin)
     				x = iW-xMargin - w;
-    			x -= loc.x;
 	   			xb = x;
 	   			xd = dest.x + dest.width - xCover;
+	   			if (xd > xb)
+	   				xd = xb - s10;
     		}
     		// find Y location
-     		if (2*(dest.y+loc.y) + dest.width  > iH) { // put box to the top
-    			y = dest.y + loc.y - h - yShift;
+     		if (2*dest.y + dest.width  > iH) { // put box to the top
+    			y = dest.y - h - yShift;
     			if (y < yMargin)
     				y = yMargin;
-    			y -= loc.y;
     			yb = y + h;
 	   			yd = dest.y + yCover;
+	   			if (yd < yb)
+	   				yb = yd + s10;
     		}
     		else { // put box to the bottom
-    			y = dest.y + loc.y + dest.height + yShift;
+    			y = dest.y + dest.height + yShift;
     			if (y+h > iH-yMargin)
     				y = iH-yMargin - h;
-    			y -= loc.y;
 	   			yb = y;
 	   			yd = dest.y + dest.height - yCover;
+	   			if (yd > yb)
+	   				yb = yd - s10;
     		}
     		setLineArr(xb, yb, xd, yd);
         }

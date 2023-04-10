@@ -26,6 +26,13 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2023.04.10 (BR)
+-
+
+2023.04.09 (BR)
+- Improved  pop-up list help.
+- Added AI selection Help.
+
 2023.04.08 (BR)
 - Moved contextual help tools to HelpUI.
 - Improved contextual help auto location.

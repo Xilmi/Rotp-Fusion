@@ -31,6 +31,9 @@ import static rotp.ui.UserPreferences.galaxyPreviewColorStarsSize;
 import static rotp.ui.UserPreferences.galaxyRandSource;
 import static rotp.ui.UserPreferences.globalCROptions;
 import static rotp.ui.UserPreferences.minListSizePopUp;
+import static rotp.ui.UserPreferences.opponentAI;
+import static rotp.ui.UserPreferences.specificAI;
+import static rotp.ui.UserPreferences.specificAI;
 import static rotp.ui.UserPreferences.shapeOption1;
 import static rotp.ui.UserPreferences.shapeOption2;
 import static rotp.ui.UserPreferences.shapeOption3;
@@ -166,7 +169,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	private Rectangle oppBox		= new Box(aliensNumber);
 	private Polygon   oppBoxU		= new PolyBox();
 	private Polygon   oppBoxD		= new PolyBox();
-	private Rectangle aiBox			= new Box("MOD_HELP_GALAXY_AGAINST");
+	private Rectangle aiBox			= new Box(opponentAI);
 	private Polygon   aiBoxL		= new PolyBox();
 	private Polygon	  aiBoxR		= new PolyBox();
 	private Rectangle crBox			= new Box("MOD_HELP_GALAXY_ABILITIES"); // dataRace selection
@@ -211,7 +214,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		for (int i=0;i<oppSet.length;i++)
 			oppSet[i] = new Box();
 		for (int i=0;i<oppAI.length;i++)
-			oppAI[i] = new Box();
+			oppAI[i] = new Box(specificAI);
 		for (int i=0;i<oppCR.length;i++)
 			oppCR[i] = new Box();
 		duplicateList = new LinkedList<>();
@@ -747,7 +750,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		        false,	// isVerticalWrap
 		        scaled(420), scaled(320),	// size
 		        dialogMonoFont(),	// Font
-		        this, null);	// for listener
+		        this, null, null);	// for listener // TODO BR: add help parameter
 
 		String input = (String) dialog.showDialog();
 	    if (input == null)
@@ -781,8 +784,9 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		        true,						// isVerticalWrap
 		        scaled(320), scaled(185),	// size Width, Height
 				null, null,					// Font, Preview
-				newGameOptions().specificOpponentAIOptions());	// Alternate return
-
+				newGameOptions().specificOpponentAIOptions(),	// Alternate return
+				specificAI); // help parameter
+		
 		String input = (String) dialog.showDialog();
 	    if (input == null)
 	    	return initialChoice;
@@ -802,7 +806,8 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		        true,						// isVerticalWrap
 		        scaled(220), scaled(250),	// size Width, Height
 				null, null,					// Font, Preview
-				newGameOptions().opponentAIOptions());	// Alternate return
+				newGameOptions().opponentAIOptions(),	// Alternate return
+				opponentAI); // help parameter
 
 		String input = (String) dialog.showDialog();
 	    if (input == null)
@@ -822,7 +827,8 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		        "XX_RACE_JACKTRADES_XX",	// long Dialogue
 		        false,						// isVerticalWrap
 		        scaled(420), scaled(320),	// size
-				null, null, null);	// Font, Preview, Alternate return
+				null, null, null,			// Font, Preview, Alternate return
+				null); // TODO BR: add help parameter
 
 		String input = (String) dialog.showDialog();
 	    if (input == null)
@@ -842,7 +848,8 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		        "XX_RACE_JACKTRADES_XX",	// long Dialogue
 		        false,						// isVerticalWrap
 		        scaled(420), scaled(320),	// size
-				null, null, null);	// Font, Preview, Alternate return
+				null, null, null,			// Font, Preview, Alternate return
+				globalCROptions);
 
 		String input = (String) dialog.showDialog();
 	    if (input == null)

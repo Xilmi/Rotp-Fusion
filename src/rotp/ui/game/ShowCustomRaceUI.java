@@ -278,7 +278,8 @@ public class ShowCustomRaceUI extends BaseModPanel implements MouseListener, Mou
 		        "XXXXXXXXXXXXXXXX",	// long Dialogue
 				false,				// isVertical
 		        scaled(220), scaled(220),	// size
-				null, null, null);	// Font, Preview, Alternate return
+				null, null, null,	// Font, Preview, Alternate return
+				null); // TODO BR: add help param
 
 		String input = (String) dialog.showDialog();
 	    if (input == null)

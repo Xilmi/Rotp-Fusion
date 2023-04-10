@@ -97,10 +97,11 @@ public class ListDialog extends JDialog
 	private String value = null;
 	private int index    = -1;
 	private JList<Object> list;
-	private BasePanel parent;
 	private HelpUI  helpUI;
 	private List<String> alternateReturn;
 	private Frame frame;
+	private InterfaceParam param;
+	private boolean showHelp = false;
 
 	/**
 	 * Set up the dialog.  The first Component argument
@@ -121,7 +122,7 @@ public class ListDialog extends JDialog
 			String longValue,
 			int width, int height) { 
 		this(frameComp,  locationComp, labelText, title, possibleValues,
-				 initialValue, longValue, false, width, height, null, null, null);
+				 initialValue, longValue, false, width, height, null, null, null, null);
 	}
 	public String showDialog() { // Can only be called once.
 		value = null;
@@ -136,6 +137,7 @@ public class ListDialog extends JDialog
 	private void setValue(String newValue) {
 		value = newValue;
 		list.setSelectedValue(value, true);
+		index = Math.max(0, list.getSelectedIndex());
 	}
 
 	public ListDialog(BasePanel frameComp,
@@ -149,11 +151,13 @@ public class ListDialog extends JDialog
 					   int width, int height,
 					   Font listFont,
 					   InterfacePreview panel,
-					   List<String> alternateReturn) {
+					   List<String> alternateReturn,
+					   InterfaceParam param) {
 
 		super(JOptionPane.getFrameForComponent(frameComp.getParent()), title, true);
 		frame = JOptionPane.getFrameForComponent(frameComp.getParent());
 		this.alternateReturn = alternateReturn;
+		this.param = param;
 
 		int topInset  = RotPUI.scaledSize(6);
 		int sideInset = RotPUI.scaledSize(15);
@@ -224,22 +228,25 @@ public class ListDialog extends JDialog
 			DefaultListCellRenderer renderer = (DefaultListCellRenderer) list.getCellRenderer();
 			renderer.setHorizontalAlignment(SwingConstants.CENTER);
 		}
-		if (panel != null) {
-			list.addListSelectionListener(new ListSelectionListener() {
-			    @Override
-			    public void valueChanged(ListSelectionEvent e) {
-			    	if (list.getSelectedValue() != null) {
-			    		if (alternateReturn != null) {
-			    			index = Math.max(0, list.getSelectedIndex());
+		list.addListSelectionListener(new ListSelectionListener() {
+		    @Override
+		    public void valueChanged(ListSelectionEvent e) {
+		    	if (list.getSelectedValue() != null) {
+	    			index = Math.max(0, list.getSelectedIndex());
+		    		if (panel != null) { // For Preview
+		    			if (alternateReturn != null) {
 			    			value = alternateReturn.get(index);
 			    			panel.preview(value);
 			    		}
 			    		else
 			    			panel.preview((String) list.getSelectedValue());
-			    	}
-			    }
-			});
-		}
+		    		}
+		    		if (showHelp && param != null) { // For Help
+		    			showHelp(index);
+		    		}
+		    	}
+		    }
+		});
 		list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		if (longValue != null)
 			list.setPrototypeCellValue(longValue); //get extra space
@@ -334,31 +341,61 @@ public class ListDialog extends JDialog
 	//Handle clicks on the Set and Cancel buttons.
 	@Override public void actionPerformed(ActionEvent e) {
 		if ("Help".equals(e.getActionCommand())) {
-			showHelp();
+			showHelp = !showHelp;
+			if (showHelp)
+				showHelp(index);
+			else
+				clearHelp();
 			return;
 		}		
 		if ("Set".equals(e.getActionCommand())) {
 			index = list.getSelectedIndex();
 			value = (String)(list.getSelectedValue());
+			clearHelp();
+			dispose();
+			frame.repaint();
+			return;
 		}
+		if ("Cancel".equals(e.getActionCommand())) {
+			clearHelp();
+			dispose();
+			frame.repaint();
+			return;
+		}
+	}
+	private void clearHelp() {
 		if (helpUI != null) {
 			helpUI.clear();
 			helpUI = null;
 		}
-		parent = null;
-		dispose();
-		frame.repaint();
+		frame.paintComponents(frame.getGraphics());
 	}
-	private void showHelp() {
+	private void showHelp(int idx) {
+		clearHelp();
 		Rectangle dest	= getBounds();
-		String	  text	= "To be done!";
-		helpUI	= RotPUI.helpUI();
-		int	  maxWidth	= scaled(300);
+		int maxWidth	= scaled(300);
+		String text		= "No Help Yet";
+		if (param != null)
+			text = param.dialogHelp(list.getSelectedIndex());
+		helpUI = RotPUI.helpUI();
 		helpUI.clear();
 		HelpSpec sp = helpUI.addBrownHelpText(0, 0, maxWidth, 1, text);
 		sp.autoSize(frame);
-		sp.autoPosition(frame, dest);
+		sp.autoPosition(dest);
 		helpUI.paintComponent(frame.getGraphics());
-//		helpUI.open(parent);
+	}
+	private void showHelp() {
+		clearHelp();
+		Rectangle dest	= getBounds();
+		int	  maxWidth	= scaled(300);
+		String	  text	= "None";
+		if (param != null)
+			text = param.getFullHelp();
+		helpUI	= RotPUI.helpUI();
+		helpUI.clear();
+		HelpSpec sp = helpUI.addBrownHelpText(0, 0, maxWidth, 1, text);
+		sp.autoSize(frame);
+		sp.autoPosition(dest);
+		helpUI.paintComponent(frame.getGraphics());
 	}
 }

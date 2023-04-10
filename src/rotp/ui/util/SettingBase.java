@@ -718,7 +718,7 @@ public class SettingBase<T> implements InterfaceParam {
 				null, true,						// long Dialogue & isVertical
 				RotPUI.scaledSize(360), RotPUI.scaledSize(300),	// size
 				null, null,	// Font, Preview
-				null);		// Alternate return
+				null, this);		// Alternate return
 
 		String input = (String) dialog.showDialog();
 		// System.out.println("input = " + input);
