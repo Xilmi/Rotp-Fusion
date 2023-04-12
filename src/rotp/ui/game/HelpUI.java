@@ -17,7 +17,6 @@ package rotp.ui.game;
 
 import java.awt.Color;
 import java.awt.FontMetrics;
-import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -37,12 +36,12 @@ public class HelpUI extends BasePanel implements MouseListener {
     private static final Color backgroundHaze = new Color(0,0,0,40);
     private static final int FONT_SIZE		= 16;
     private static final int MIN_FONT_SIZE	= 10;
-    private final Color blueBackC = new Color(78,101,155);
+    private final Color blueBackC  = new Color(78,101,155);
     private final Color brownBackC = new Color(240,240,240);
     private final Color brownTextC = new Color(45,14,5);
     
-    List<HelpSpec> specs = new ArrayList<>();
-    BasePanel parent;
+    private List<HelpSpec> specs = new ArrayList<>();
+    private BasePanel parent;
     
     public HelpUI() {
         init();
@@ -93,18 +92,20 @@ public class HelpUI extends BasePanel implements MouseListener {
     }
     
     @Override
-    public void paintComponent(Graphics g0) {
+    public void paintComponent(Graphics g0) { paint(g0, true); }
+    public void paint(Graphics g0, boolean withHaze) {
         super.paintComponent(g0);
         
         int w = getWidth();
         int h = getHeight();
         Graphics2D g = (Graphics2D) g0;
-        // draw background "haze"
-        g.setColor(backgroundHaze);
-        g.fillRect(0, 0, w, h);
-
+        
+        if (withHaze) { // draw background "haze"
+        	g.setColor(backgroundHaze);
+            g.fillRect(0, 0, w, h);
+        }
         for (HelpSpec spec: specs) {
-            int lineH = spec.lineH();
+            int lineH = lineH();
             // draw background box
             Color backC = spec.backC;
             Color bdrC = new Color(backC.getRed(), backC.getGreen(), backC.getBlue(), 160);
@@ -154,7 +155,7 @@ public class HelpUI extends BasePanel implements MouseListener {
        }
     }
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent e)		{
         switch(e.getKeyCode()) {
             case KeyEvent.VK_ESCAPE:
                 parent.cancelHelp();
@@ -165,37 +166,34 @@ public class HelpUI extends BasePanel implements MouseListener {
                 break;
         }
     }
-
     @Override
-    public void mouseClicked(MouseEvent e) { }
+    public void mouseClicked(MouseEvent e)	{ }
     @Override
-    public void mousePressed(MouseEvent e) { }
+    public void mousePressed(MouseEvent e)	{ }
     @Override
-    public void mouseReleased(MouseEvent e) {
-        parent.advanceHelp();
-    }
+    public void mouseReleased(MouseEvent e)	{ parent.advanceHelp(); }
     @Override
-    public void mouseEntered(MouseEvent e) { }
+    public void mouseEntered(MouseEvent e)	{ }
     @Override
-    public void mouseExited(MouseEvent e) { }
+    public void mouseExited(MouseEvent e)	{ }
+    public static int lineH()				{ return s18; }
+    public static int height(int lines)		{ return s20 + lines*lineH(); }
+ 
     public class HelpSpec {
-        int x, y, w;
-        int lines;
-        int[] lineArr; // BR: to allow frames
-        int x1 = -1;
-        int y1 = -1;
-        int x2 = -1;
-        int y2 = -1;
-        int x3 = -1;
-        int y3 = -1;
-        Color backC = Color.blue;
-        Color textC = Color.white;
-        Color lineC = Color.white;
-        String text;
-        public int lineH()  { return BasePanel.s18; }
-        public int height() {
-            return (lines*lineH())+BasePanel.s20;
-        }
+        private int x, y, w;
+        private int lines;
+        private int[] lineArr; // BR: to allow frames
+        private int x1 = -1;
+        private int y1 = -1;
+        private int x2 = -1;
+        private int y2 = -1;
+        private int x3 = -1;
+        private int y3 = -1;
+        private Color backC = Color.blue;
+        private Color textC = Color.white;
+        private Color lineC = Color.white;
+        private String text;
+        public int height() { return HelpUI.height(lines); }
         public void setLine(int x1, int y1, int x2, int y2) {
             setLine(x1,y1,x2,y2,-1,-1);
         }
@@ -226,20 +224,9 @@ public class HelpUI extends BasePanel implements MouseListener {
             }
             return wrappedLines.size();
         }
-        public void autoSize(Frame frame) { 
-        	autoSize(frame, 0); 
-        } // BR:
-        public void autoSize(Frame frame, int minWidth) { // BR:
-    		Graphics g = frame.getGraphics();
+        public void autoHeigh(Graphics g) {
     		int iW = scaled(Rotp.IMG_W) - s20;
     		int iH = scaled(Rotp.IMG_H) - s20;
-    		g.setFont(narrowFont(FONT_SIZE));
-            FontMetrics	fm = g.getFontMetrics();
-            String[] forcedLines = text.split(lineSplitRegex);
-    		int sw = 0;
-    		for (String line : forcedLines)
-    			sw = max(sw, fm.stringWidth(line));
-    		w = max(minWidth, min(sw + s30, w));
     		lines = wrappedLines(g, text, w-s30).size();
     		// Security for long text:
     		int h = height();
@@ -255,8 +242,19 @@ public class HelpUI extends BasePanel implements MouseListener {
     			}
     			lines = wrappedLines(g, text, w).size();
     			h = height();
-    			System.out.println(" -- iH = " + iH + "  h = " + h + "  w = " + w);
+    			// System.out.println(" -- iH = " + iH + "  h = " + h + "  w = " + w);
     		}
+        }
+        public void autoSize(Graphics g) {  autoSize(g, 0); } // BR:
+        public void autoSize(Graphics g, int minWidth) { // BR:
+    		g.setFont(narrowFont(FONT_SIZE));
+            FontMetrics	fm = g.getFontMetrics();
+            String[] forcedLines = text.split(lineSplitRegex);
+    		int sw = 0;
+    		for (String line : forcedLines)
+    			sw = max(sw, fm.stringWidth(line));
+    		w = max(minWidth, min(sw + s30, w));
+    		autoHeigh(g);
         }
         public void autoPosition(Rectangle dest) { // BR:
         	autoPosition(dest, s20, s20);

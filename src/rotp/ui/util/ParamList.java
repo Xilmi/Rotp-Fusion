@@ -30,7 +30,6 @@ import rotp.ui.RotPUI;
 public class ParamList extends AbstractParam<String> {
 
 	private final IndexableMap valueLabelMap;
-	private boolean hasPreview = false;
 	
 	// ===== Constructors =====
 	//
@@ -135,10 +134,6 @@ public class ParamList extends AbstractParam<String> {
 	
 	// ===== Initializers =====
 	//
-	public ParamList hasPreview(boolean hasPreview) {
-		this.hasPreview = hasPreview;
-		return this;
-	}
 	public void reInit(List<String> list) {
 		valueLabelMap.clear();
 		for (String element : list)
@@ -196,13 +191,14 @@ public class ParamList extends AbstractParam<String> {
 		help += getSubHelp();
 		return help;
 	}
-	@Override public String	dialogHelp(int idx)	{
+	@Override public String	getGuide(int idx)	{
 		if (idx == -1)
 			return getHeadHelp();
 		return getHeadHelp()
 				+ "--- Selected Value --- \\n "
 				+ getSubHelp(idx);
-		}
+	}
+	@Override public String	getGuide()	{ return getGuide(this.getIndex()); }
 
 	// ===== Other Protected Methods =====
 	//
@@ -224,7 +220,7 @@ public class ParamList extends AbstractParam<String> {
 //	}
 	// ===== Other Public Methods =====
 	//
-	public LinkedList<String> getOptions() {
+	public LinkedList<String> getOptions()	{
 		LinkedList<String> list = new LinkedList<String>();
 		if (isDuplicate()) // Values and labels are swap because values may be redundant
 			list.addAll(valueLabelMap.langLabelList);
@@ -232,7 +228,7 @@ public class ParamList extends AbstractParam<String> {
 			list.addAll(valueLabelMap.cfgValueList);
 		return list;
 	}
-	public IndexableMap getOptionLabelMap() { return valueLabelMap; }
+	public IndexableMap getOptionLabelMap()	{ return valueLabelMap; }
 	/**
 	 * Add a new Option with its Label
 	 * @param option
@@ -256,15 +252,15 @@ public class ParamList extends AbstractParam<String> {
 	 * @param key the entry to check
 	 * @return a valid value, preferably the value to test
 	 */
-	private String validateValue(String key) {
+	private String validateValue(String key)  {
 		if (valueLabelMap.valuesContainsIgnoreCase(key))
 			return key;
 		if (valueLabelMap.valuesContainsIgnoreCase(defaultValue()))
 			return defaultValue();
 		return valueLabelMap.getCfgValue(0);
 	}
-	private int listSize() { return valueLabelMap.listSize(); }
-	private String currentOption() {
+	private int listSize()					  { return valueLabelMap.listSize(); }
+	private String currentOption()			  {
 		int index = Math.max(0, getIndex());
 		return valueLabelMap.guiTextList.get(index);
 	}
@@ -278,7 +274,7 @@ public class ParamList extends AbstractParam<String> {
 				message, title,				// Message & Title
 				list, currentOption(),		// List & Initial choice
 				null, true,					// long Dialogue & isVertical
-				RotPUI.scaledSize(360), RotPUI.scaledSize(300),	// size
+				RotPUI.scaledSize(200), RotPUI.scaledSize(300),	// size
 				null,						// Font
 				frame,						// Preview
 				valueLabelMap.cfgValueList,	// Alternate return
@@ -288,7 +284,7 @@ public class ParamList extends AbstractParam<String> {
 		if (input != null && valueLabelMap.getValueIndexIgnoreCase(input) >= 0)
 			set(input);
 	}
-	private String getHeadHelp() {
+	private String getHeadHelp()			  {
 		String label = labelId();
 		String name  = text(label, "");
 		String help  = realText(label+LABEL_HELP);
@@ -298,14 +294,14 @@ public class ParamList extends AbstractParam<String> {
 			help = "";
 		return name + HEAD_SEPARATOR + help + lineSplit;
 	}
-	private String getSubHelp() {
+	private String getSubHelp()				  {
 		String help = "";
 		int size = listSize();
 		for (int i=0; i<size; i++)
 			help += getSubHelp(i);
 		return help;
 	}
-	private String getSubHelp(int id) {
+	private String getSubHelp(int id)		  {
 		String name = name(id);
 		String help = realHelp(id);
 		if (help == null)
@@ -314,12 +310,12 @@ public class ParamList extends AbstractParam<String> {
 			help = "";
 		return "- " + name + HELP_SEPARATOR + help + lineSplit;
 	}
-	protected String labelText(String label) { return text(label); }
-	private String label(int id)			 { return valueLabelMap.getLangLabel(id); }
-	private String name(int id)				 { return text(label(id), ""); }
-	private String realDescription(int id)	 { return realText(label(id)+LABEL_DESCRIPTION); }
-	private String realHelp(int id)			 { return realText(label(id)+LABEL_HELP); }
-	private void initMapGuiTexts() {
+	protected String labelText(String label)  { return text(label); }
+	private String label(int id)			  { return valueLabelMap.getLangLabel(id); }
+	private String name(int id)				  { return text(label(id), ""); }
+	private String realDescription(int id)	  { return realText(label(id)+LABEL_DESCRIPTION); }
+	private String realHelp(int id)			  { return realText(label(id)+LABEL_HELP); }
+	private void initMapGuiTexts()			  {
 		valueLabelMap.guiTextList.clear();
 		for (String label : valueLabelMap.langLabelList)
 			valueLabelMap.guiTextList.add(labelText(label));

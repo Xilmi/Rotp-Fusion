@@ -74,17 +74,17 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
     private BufferedImage shipBackImg;
     private BufferedImage raceImg;
 //    private Rectangle hoverBox;
-    private Rectangle helpBox   = new Box();
-    private Rectangle cancelBox = new Box("MOD_HELP_RACE_CANCEL");
-    private Rectangle nextBox   = new Box("MOD_HELP_RACE_NEXT");
-    private Rectangle leaderBox = new Box();
-    private Rectangle homeWorldBox = new Box();
-    private Rectangle playerRaceSettingBox = new Box("MOD_HELP_RACE_CUSTOM"); // BR: Player Race Customization
-    private Rectangle checkBox   = new Box("MOD_HELP_RACE_CHECK_BOX"); // BR: Player Race Customization
-    private Rectangle shipSetBox = new Box("MOD_HELP_RACE_SHIPSET"); // BR: ShipSet Selection
-    private Rectangle[] raceBox  = new Box[MAX_RACES];
-    private Rectangle[] colorBox = new Box[MAX_COLORS];
-    private Rectangle[] shipBox  = new Box[MAX_SHIP]; // BR: ShipSet Selection
+    private Rectangle	helpBox		= new Box();
+    private Rectangle	cancelBox	= new Box("MOD_HELP_RACE_CANCEL");
+    private Rectangle	nextBox		= new Box("MOD_HELP_RACE_NEXT");
+    private Box 		leaderBox	= new Box();
+    private Box			homeWorldBox = new Box();
+    private Rectangle	playerRaceSettingBox = new Box("MOD_HELP_RACE_CUSTOM"); // BR: Player Race Customization
+    private Rectangle	checkBox	= new Box("MOD_HELP_RACE_CHECK_BOX"); // BR: Player Race Customization
+    private Box			shipSetBox	= new Box("MOD_HELP_RACE_SHIPSET"); // BR: ShipSet Selection
+    private Box[]		raceBox		= new Box[MAX_RACES];
+    private Box[]		colorBox	= new Box[MAX_COLORS];
+    private Box[]		shipBox		= new Box[MAX_SHIP]; // BR: ShipSet Selection
 
     private static BufferedImage[] racemugs = new BufferedImage[MAX_RACES];
     private JTextField leaderName = new JTextField("");
@@ -160,7 +160,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
 		wBox = scaled(350);
 		yBox = s20;
 		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
-		lH   = sp.lineH();
+		lH   = HelpUI.lineH();
 		
 		int yShift = s60;
 		int hShift = s40;
@@ -369,6 +369,10 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
 		g.setPaint(GameUI.buttonLeftBackground());
 		g.fillRoundRect(userBox.x, userBox.y, userBox.width, userBox.height, cnr, cnr);
 
+		// draw GUIDE button
+		g.setPaint(GameUI.buttonLeftBackground());
+		g.fillRoundRect(guideBox.x, guideBox.y, guideBox.width, guideBox.height, cnr, cnr);
+
 		// BR: Player Race Customization
         // far left button
         g.setPaint(GameUI.buttonLeftBackground());
@@ -485,6 +489,18 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
 		g.drawRoundRect(userBox.x, userBox.y, userBox.width, userBox.height, cnr, cnr);
 		g.setStroke(prev);
 		g.setFont(narrowFont(20));
+
+		// BR: Guide Button 
+		text = text(guideButtonKey());
+        sw 	 = g.getFontMetrics().stringWidth(text);
+		x = guideBox.x+((guideBox.width-sw)/2);
+		y = guideBox.y+guideBox.height-s8;
+		c = hoverBox == guideBox ? Color.yellow : GameUI.borderBrightColor();
+		drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), c);
+		prev = g.getStroke();
+		g.setStroke(stroke1);
+		g.drawRoundRect(guideBox.x, guideBox.y, guideBox.width, guideBox.height, cnr, cnr);
+		g.setStroke(prev);
 	}
 	@Override
     public void paintComponent(Graphics g0) {
@@ -718,6 +734,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         }
 		drawHelpButton(g);
         drawButtons(g);
+		showGuide(g);
 	}
     private void goToMainMenu() {
         buttonClick();
@@ -962,6 +979,13 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
 		g.setPaint(GameUI.buttonLeftBackground());
 		g.fillRoundRect(userBox.x, userBox.y, buttonW, buttonH, cnr, cnr);
 
+		// draw GUIDE button
+		buttonW = guideButtonWidth(g);
+		xB = s20;
+		guideBox.setBounds(xB, yB, buttonW, buttonH);
+		g.setPaint(GameUI.buttonLeftBackground());
+		g.fillRoundRect(guideBox.x, guideBox.y, buttonW, buttonH, cnr, cnr);
+
 		// BR: Player Race Customization
         // far left button
         g.setFont(smallButtonFont);
@@ -1077,9 +1101,6 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
     public String ambienceSoundKey() { 
         return GameUI.AMBIENCE_KEY;
     }
-	@Override public void keyReleased(KeyEvent e) {
-    	checkModifierKey(e);
-	}
     @Override
     public void keyPressed(KeyEvent e) {
 		super.keyPressed(e);
@@ -1100,61 +1121,6 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         }
     }
     @Override
-    public void mouseDragged(MouseEvent e) {  }
-//    @Override
-//    public void mouseMoved(MouseEvent e) {
-//    	checkModifierKey(e);
-//        int x = e.getX();
-//        int y = e.getY();
-//        Rectangle prevHover = hoverBox;
-//        hoverBox = null;
-//        search:
-//        if (helpBox.contains(x,y))
-//        	hoverBox = helpBox;
-//        else if (nextBox.contains(x,y))
-//            hoverBox = nextBox;
-//        else if (cancelBox.contains(x,y))
-//            hoverBox = cancelBox;
-//        else if (leaderBox.contains(x,y))
-//            hoverBox = leaderBox;
-//        else if (homeWorldBox.contains(x,y))
-//            hoverBox = homeWorldBox;
-//        // BR: Ship Set Selection
-//        else if (shipSetBox.contains(x,y))
-//            hoverBox = shipSetBox;
-//        // BR: Player Race customization
-//        else if (playerRaceSettingBox.contains(x,y))
-//            hoverBox = playerRaceSettingBox;
-//        else if (checkBox.contains(x,y))
-//            hoverBox = checkBox;
-//        else if (defaultBox.contains(x,y))
-//            hoverBox = defaultBox;
-//        else if (userBox.contains(x,y))
-//            hoverBox = userBox;
-//        else if (lastBox.contains(x,y))
-//            hoverBox = lastBox;
-//        else {
-//            for (int i=0;i<raceBox.length;i++) {
-//                if (raceBox[i].contains(x,y)) {
-//                    hoverBox = raceBox[i];
-//                    break search;
-//                }
-//            }
-//            for (int i=0;i<colorBox.length;i++) {
-//                if (colorBox[i].contains(x,y)) {
-//                    hoverBox = colorBox[i];
-//                    break search;
-//                }
-//            }
-//        }
-//        if (hoverBox != prevHover)
-//        	repaint();
-//    }
-    @Override
-    public void mouseClicked(MouseEvent e) { }
-    @Override
-    public void mousePressed(MouseEvent e) { }
-    @Override
     public void mouseReleased(MouseEvent e) {
         if (e.getButton() > 3)
             return;
@@ -1171,6 +1137,8 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         	doNextBoxAction();
         else if (hoverBox == defaultBox)
         	doDefaultBoxAction();
+        else if (hoverBox == guideBox)
+			doGuideBoxAction();
         else if (hoverBox == userBox)
 			doUserBoxAction();
         else if (hoverBox == lastBox)

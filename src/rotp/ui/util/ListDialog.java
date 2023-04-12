@@ -31,6 +31,9 @@
 
 package rotp.ui.util;
 
+import static rotp.ui.game.BaseModPanel.autoGuide;
+import static rotp.ui.game.BaseModPanel.guideUI;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -67,7 +70,6 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.game.GameUI;
-import rotp.ui.game.HelpUI;
 import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.util.Base;
 
@@ -97,38 +99,37 @@ public class ListDialog extends JDialog
 	private String value = null;
 	private int index    = -1;
 	private JList<Object> list;
-	private HelpUI  helpUI;
 	private List<String> alternateReturn;
 	private Frame frame;
 	private InterfaceParam param;
-	private boolean showHelp = false;
 
 
 	public ListDialog(boolean fake) { // Fake Dialog used to load the code and accelerate the future calls
 		@SuppressWarnings("unused")
 		JDialog temp = new JDialog();
 	}
-	/**
-	 * Set up the dialog.  The first Component argument
-	 * determines which frame the dialog depends on; it should be
-	 * a component in the dialog's controlling frame. The second
-	 * Component argument should be null if you want the dialog
-	 * to come up with its left corner in the center of the screen;
-	 * otherwise, it should be the component on top of which the
-	 * dialog should appear.
-	 */	
-	public ListDialog(
-			BasePanel frameComp,
-			Component locationComp,
-			String labelText,
-			String title,
-			String[] possibleValues,
-			String initialValue,
-			String longValue,
-			int width, int height) { 
-		this(frameComp,  locationComp, labelText, title, possibleValues,
-				 initialValue, longValue, false, width, height, null, null, null, null);
-	}
+//	/**
+//	 * Set up the dialog.  The first Component argument
+//	 * determines which frame the dialog depends on; it should be
+//	 * a component in the dialog's controlling frame. The second
+//	 * Component argument should be null if you want the dialog
+//	 * to come up with its left corner in the center of the screen;
+//	 * otherwise, it should be the component on top of which the
+//	 * dialog should appear.
+//	 */	
+//	public ListDialog(
+//			BasePanel frameComp,
+//			Component locationComp,
+//			String labelText,
+//			String title,
+//			String[] possibleValues,
+//			String initialValue,
+//			String longValue,
+//			int width, int height) { 
+//		this(frameComp,  locationComp, labelText, title, possibleValues,
+//				 initialValue, longValue, false, width, height, null, null, null, null);
+//	}
+	private Point defaultPosition() { return new Point(RotPUI.scaledSize(250), RotPUI.scaledSize(200)); }
 	public String showDialog() { // Can only be called once.
 		value = null;
 		index = -1;
@@ -145,7 +146,7 @@ public class ListDialog extends JDialog
 		index = Math.max(0, list.getSelectedIndex());
 	}
 
-	public ListDialog(BasePanel frameComp,
+	public ListDialog( BasePanel frameComp,
 					   Component locationComp,
 					   String labelText,
 					   String title,
@@ -165,17 +166,18 @@ public class ListDialog extends JDialog
 		this.param = param;
 
 		int topInset  = RotPUI.scaledSize(6);
-		int sideInset = RotPUI.scaledSize(15);
+		int sideInset = RotPUI.scaledSize(10);
 		//Create and initialize the buttons.
-		final JButton helpButton = new JButton("Help");
+		final JButton helpButton = new JButton("?");
 		helpButton.setMargin(new Insets(topInset, sideInset, 0, sideInset));
 		helpButton.setFont(narrowFont(15));
 		helpButton.setVerticalAlignment(SwingConstants.TOP);
 		helpButton.setBackground(GameUI.buttonBackgroundColor());
 		helpButton.setForeground(GameUI.buttonTextColor());
-		helpButton.setActionCommand("Help");
+		helpButton.setActionCommand("Guide");
 		helpButton.addActionListener(this);
 		//
+		sideInset = RotPUI.scaledSize(15);
 		final JButton cancelButton = new JButton("Cancel");
 		cancelButton.setMargin(new Insets(topInset, sideInset, 0, sideInset));
 		cancelButton.setFont(narrowFont(15));
@@ -248,7 +250,7 @@ public class ListDialog extends JDialog
 
 			    		panel.preview(value);
 		    		}
-		    		if (showHelp && param != null) { // For Help
+		    		if (autoGuide && param != null) { // For Help
 		    			showHelp(index);
 		    		}
 		    	}
@@ -340,15 +342,23 @@ public class ListDialog extends JDialog
 
 		setSize(width, height);
 		if (listFont != null)
-			setLocation(RotPUI.scaledSize(250), RotPUI.scaledSize(200));
+			setLocation(defaultPosition());
 		else
-			setLocationRelativeTo(locationComp);			
+			setLocationRelativeTo(locationComp);
+
+		if (autoGuide && param != null) // For Help
+			showHelp(index);
+	}
+	@Override public void dispose() {
+		clearHelp();
+		super.dispose();
+		frame.repaint();
 	}
 	//Handle clicks on the Set and Cancel buttons.
 	@Override public void actionPerformed(ActionEvent e) {
-		if ("Help".equals(e.getActionCommand())) {
-			showHelp = !showHelp;
-			if (showHelp)
+		if ("Guide".equals(e.getActionCommand())) {
+			autoGuide = !autoGuide;
+			if (autoGuide)
 				showHelp(index);
 			else
 				clearHelp();
@@ -357,37 +367,40 @@ public class ListDialog extends JDialog
 		if ("Set".equals(e.getActionCommand())) {
 			index = list.getSelectedIndex();
 			value = (String)(list.getSelectedValue());
-			clearHelp();
 			dispose();
-			frame.repaint();
 			return;
 		}
 		if ("Cancel".equals(e.getActionCommand())) {
-			clearHelp();
 			dispose();
-			frame.repaint();
 			return;
 		}
 	}
 	private void clearHelp() {
-		if (helpUI != null) {
-			helpUI.clear();
-			helpUI = null;
+		if (guideUI != null) {
+			guideUI.clear();
+			guideUI = null;
 		}
 		frame.paintComponents(frame.getGraphics());
 	}
 	private void showHelp(int idx) {
+		Rectangle dest = getBounds();
+		if (dest.x == 0)
+			return;
+		Point pt = frame.getLocationOnScreen();
+		dest.x -= pt.x;
+		dest.y -= pt.y;
+		dest.y += RotPUI.scaledSize(80);
+		
 		clearHelp();
-		Rectangle dest	= getBounds();
 		int maxWidth	= scaled(300);
 		String text		= "No Help Yet";
 		if (param != null)
-			text = param.dialogHelp(list.getSelectedIndex());
-		helpUI = RotPUI.helpUI();
-		helpUI.clear();
-		HelpSpec sp = helpUI.addBrownHelpText(0, 0, maxWidth, 1, text);
-		sp.autoSize(frame);
+			text = param.getGuide(list.getSelectedIndex());
+		guideUI = RotPUI.helpUI();
+		guideUI.clear();
+		HelpSpec sp = guideUI.addBrownHelpText(0, 0, maxWidth, 1, text);
+		sp.autoSize(frame.getGraphics());
 		sp.autoPosition(dest);
-		helpUI.paintComponent(frame.getGraphics());
+		guideUI.paint(frame.getGraphics(), false);
 	}
 }

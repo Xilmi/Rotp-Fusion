@@ -537,7 +537,7 @@ public class UserPreferences {
 		@Override public void setOption(String newValue) {
 			RotPUI.mergedGuiOptions().selectedGalaxyShapeOption2(newValue);
 		}
-	}.hasPreview(true);
+	};
 	public static final ParamList    shapeOption1   		= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "SHAPE_OPTION_1") {
 		@Override public String getFromOption() {
@@ -546,7 +546,7 @@ public class UserPreferences {
 		@Override public void setOption(String newValue) {
 			RotPUI.mergedGuiOptions().selectedGalaxyShapeOption1(newValue);
 		}
-	}.hasPreview(true);
+	};
 	public static final ParamList    shapeSelection			= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "GALAXY_SHAPE", getGalaxyShapeOptions(),  SHAPE_RECTANGLE) {
 		@Override public String     getFromOption() {
@@ -555,7 +555,7 @@ public class UserPreferences {
 		@Override public void setOption(String newValue) {
 			RotPUI.mergedGuiOptions().selectedGalaxyShape(newValue);
 		}
-	}.hasPreview(true);
+	};
 	public static final ParamList    sizeSelection  		= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "GALAXY_SIZE", getGalaxySizeOptions(), SIZE_SMALL) {
 		@Override public String getFromOption() {

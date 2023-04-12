@@ -105,13 +105,11 @@ import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.ui.main.SystemPanel;
-import rotp.ui.util.InterfacePreview;
 import rotp.ui.util.ListDialog;
 import rotp.ui.util.SpecificCROption;
 import rotp.util.ModifierKeysState;
 
-public final class SetupGalaxyUI  extends BaseModPanel
-		implements MouseWheelListener, InterfacePreview {
+public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelListener {
 	private static final long serialVersionUID = 1L;
     // public  static final String guiTitleID	= "SETUP_GALAXY";
 	public  static final String GUI_ID       = "START_GALAXY";
@@ -278,8 +276,9 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	@Override public void cancelHelp() { RotPUI.helpUI().close(); }
 	private void loadHelpUI() {
 		int xBox, yBox, wBox;
+		int x1, y1, x2, y2;
 		int xb, xe, yb, ye;
-		int nL, hBox, lH;
+		int nL, hBox;
 		String txt;
 		HelpSpec sp;
 		Rectangle dest;
@@ -295,9 +294,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		xBox = rightBoxX;
 		yBox = s10;
 		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
-		lH   = sp.lineH();
-		
-		int hShift = s40;
+		int hShift = s20;
 		int xTab   = s15;
 
 		// Small Buttons at the bottom
@@ -307,9 +304,11 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		txt  = text("MOD_HELP_BUTTON_DEFAULT");
 		dest = defaultBox;
 		nL   = 3;
-		hBox = nL*lH;
-		xBox = rightBoxX - wBox;
-		yBox = dest.y - hBox - hShift;
+		hBox = HelpUI.height(nL);
+		x1	 = rightBoxX - wBox;
+		y1	 = dest.y - hBox - hShift;
+		xBox = x1;
+		yBox = y1;
 		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
 		xb   = xBox + wBox*3/4;
 		yb   = yBox + sp.height();
@@ -317,44 +316,14 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		ye   = dest.y;
 		sp.setLine(xb, yb, xe, ye);
 		
-		// Last button: Left of Default button
-		txt  = text("MOD_HELP_BUTTON_LAST");
-		dest = lastBox;
-		nL   = 3;
-		hBox = nL*lH;
-		xBox -= wBox + xTab;
-		yBox = dest.y - hBox - hShift;
-		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
-		xb   = xBox + wBox*3/4;
-		yb   = yBox + sp.height();
-		xe   = dest.x + dest.width/4;
-		ye   = dest.y;
-		sp.setLine(xb, yb, xe, ye);
-
-		// User button: Left of Last button
-		txt  = text("MOD_HELP_BUTTON_USER");
-		dest = userBox;
-		nL   = 3;
-		hBox = nL*lH;
-		xBox -= wBox + xTab;
-		yBox = dest.y - hBox - hShift;
-		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
-		xb   = xBox + wBox*3/4;
-		yb   = yBox + sp.height();
-		xe   = dest.x;
-		ye   = dest.y + dest.height/2;
-		sp.setLine(xb, yb, xe, ye);
-
-		// Big buttons, bottom up
-		wBox = scaled(200);
-
 		// Back button; left Galaxy
 		txt  = text("MOD_HELP_GALAXY_BACK");
 		dest = backBox;
 		nL   = 3;
-		hBox = nL*lH;
-		xBox = rightBoxX - wBox;
-		yBox -= hBox + hShift;
+		hBox = HelpUI.height(nL);
+		y2	 = y1 - hBox - hShift;
+		xBox = x1;
+		yBox = y2;
 		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
 		xb   = xBox + wBox;
 		yb   = yBox + sp.height()/2;
@@ -362,11 +331,56 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		ye   = dest.y;
 		sp.setLineArr(new int[] {xb, yb, xb+s15, yb, xe, ye, dest.x, dest.y+s10});
 		
-		// Back button; right Galaxy
+		// User button: Left of Last button
+		txt  = text("MOD_HELP_BUTTON_USER");
+		dest = userBox;
+		nL   = 3;
+		xBox = x1 - wBox*3/2 - xTab;
+		yBox = y1;
+		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+		xb   = xBox + wBox*3/4;
+		yb   = yBox + sp.height();
+		xe   = dest.x + dest.width/2;
+		ye   = dest.y;
+		sp.setLine(xb, yb, xe, ye);
+
+
+		// Last button: Left of Default button
+		txt  = text("MOD_HELP_BUTTON_LAST");
+		dest = lastBox;
+		nL   = 3;
+		x2	 = x1 - wBox - xTab;
+		xBox = x2;
+		yBox = y2;
+		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+		xb   = xBox + wBox*3/4;
+		yb   = yBox + sp.height();
+		xe   = dest.x + dest.width/4;
+		ye   = dest.y;
+		sp.setLine(xb, yb, xe, ye);
+
+		// Guide button: Left of User button
+		txt  = text("MOD_HELP_BUTTON_GUIDE");
+		dest = guideBox;
+		nL   = 3;
+		hBox = HelpUI.height(nL);
+		xBox = x2 - wBox - xTab;
+		yBox = y2;
+		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+		xb   = xBox + wBox*1/4;
+		yb   = y2 + sp.height();
+		xe   = dest.x + dest.width*1/2;
+		ye   = dest.y;
+		sp.setLine(xb, yb, xe, ye);
+
+		// Big buttons, bottom up
+		wBox = scaled(200);
+
+		// Start button; right Galaxy
 		txt  = text("MOD_HELP_GALAXY_START");
 		dest = startBox;
 		nL   = 4;
-		hBox = nL*lH;
+		hBox = HelpUI.height(nL);
 		xBox = rightBoxX + boxW + s50 - wBox;
 		yBox = dest.y - hBox - scaled(120);
 		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
@@ -397,7 +411,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 	   
 		txt  = text("MOD_HELP_GALAXY_OPTIONS");
 		nL   = 6;
-		hBox = nL*lH;
+		hBox = HelpUI.height(nL);
 		wBox = scaled(326);
 		xBox = rightBoxX + xTab;
 		yBox = boxY + rightBoxH - hBox - scaled(170);
@@ -414,7 +428,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		txt  = text("MOD_HELP_GALAXY_AGAINST");
 		dest = aiBox;
 		nL   = 5;
-		hBox = nL*lH;
+		hBox = HelpUI.height(nL);
 		xBox = dest.x + dest.width/2 - wBox*3/4;
 		yBox = dest.y + hShift;
 		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
@@ -427,7 +441,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		txt  = text("MOD_HELP_GALAXY_RACE_LIST");
 		dest = newRacesBox;
 		nL   = 4;
-		hBox = nL*lH;
+		hBox = HelpUI.height(nL);
 		xBox = dest.x + dest.width/2 - wBox/4;
 		yBox = dest.y + hShift;
 		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
@@ -440,7 +454,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		txt  = text("MOD_HELP_GALAXY_SELECTABLE");
 		dest = showAbilityBox;
 		nL   = 3;
-		hBox = nL*lH;
+		hBox = HelpUI.height(nL);
 		xBox = dest.x + dest.width + s40;
 		yBox = dest.y + dest.height/2 - hBox/2 - s10;
 		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
@@ -451,10 +465,10 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		sp.setLine(xb, yb, xe, ye);
 
 		txt  = text("MOD_HELP_GALAXY_ABILITIES");
-		wBox   = scaled(450);
+		wBox = scaled(450);
 		dest = crBox;
 		nL   = 5;
-		hBox = nL*lH;
+		hBox = HelpUI.height(nL);
 		xBox = dest.x + dest.width + s70 - wBox;
 		xBox = leftBoxX;
 		yBox = dest.y - hBox - hShift;
@@ -929,8 +943,10 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			}
 			oppSet[i].setBounds(x2,y2o,mugW,mugHo);
 			// oppAI[i].setBounds(x2,y2+mugH-s20,mugW,s20);
-			oppAI[i].setBounds(x2,y2+mugH+s1-boundH,mugW,boundH); // BR: Adjusted
-			oppCR[i].setBounds(x2,y2-s1,mugW,boundH);
+//			oppAI[i].setBounds(x2,y2+mugH+s1-boundH,mugW,boundH); // BR: Adjusted
+//			oppCR[i].setBounds(x2,y2-s1,mugW,boundH);
+			oppAI[i].setBounds(x2,y2+mugH-boundH,mugW,boundH); // BR: Adjusted
+			oppCR[i].setBounds(x2,y2,mugW,boundH);
 			g.drawImage(mugBack, x2, y2, this);
 			String selOpp = newGameOptions().selectedOpponentRace(i);
 			if (selOpp == null) {
@@ -988,18 +1004,18 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		drawString(g,maxOppsLbl, x4,y3);
 
 		// highlight any controls that are hovered
-		if ((hoverBox == shapeBoxL)			 || (hoverBox == shapeBoxR)
-			||  (hoverBox == sizeBoxL)		 || (hoverBox == sizeBoxR)
-			||  (hoverBox == diffBoxL)		 || (hoverBox == diffBoxR)
-			||  (hoverBox == wysiwygBoxL)	 || (hoverBox == wysiwygBoxR)
-			||  (hoverBox == aiBoxL)		 || (hoverBox == aiBoxR)
-			||  (hoverBox == crBoxL)		 || (hoverBox == crBoxR)
-			||  (hoverBox == mapOption1BoxL) || (hoverBox == mapOption1BoxR)
-			||  (hoverBox == mapOption2BoxL) || (hoverBox == mapOption2BoxR)
-			||  (hoverBox == sizeOptionBoxL) || (hoverBox == sizeOptionBoxR)
-			||  (hoverBox == oppBoxU)		 || (hoverBox == oppBoxD)) {
+		if ((	 hoverPolyBox == shapeBoxL)		 || (hoverPolyBox == shapeBoxR)
+			||  (hoverPolyBox == sizeBoxL)		 || (hoverPolyBox == sizeBoxR)
+			||  (hoverPolyBox == diffBoxL)		 || (hoverPolyBox == diffBoxR)
+			||  (hoverPolyBox == wysiwygBoxL)	 || (hoverPolyBox == wysiwygBoxR)
+			||  (hoverPolyBox == aiBoxL)		 || (hoverPolyBox == aiBoxR)
+			||  (hoverPolyBox == crBoxL)		 || (hoverPolyBox == crBoxR)
+			||  (hoverPolyBox == mapOption1BoxL) || (hoverPolyBox == mapOption1BoxR)
+			||  (hoverPolyBox == mapOption2BoxL) || (hoverPolyBox == mapOption2BoxR)
+			||  (hoverPolyBox == sizeOptionBoxL) || (hoverPolyBox == sizeOptionBoxR)
+			||  (hoverPolyBox == oppBoxU)		 || (hoverPolyBox == oppBoxD)) {
 			g.setColor(Color.yellow);
-			g.fill(hoverBox);
+			g.fill(hoverPolyBox);
 		}
 		else if ((hoverBox == shapeBox)		|| (hoverBox == sizeBox)
 			|| (hoverBox == mapOption1Box)	|| (hoverBox == mapOption2Box)
@@ -1185,6 +1201,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 
 		drawHelpButton(g);
 		drawButtons(g);
+		showGuide(g);
 
 		if (starting) {
 			NoticeMessage.setStatus(text("SETUP_CREATING_GALAXY"));
@@ -1253,6 +1270,9 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		g.setPaint(GameUI.buttonLeftBackground());
 		g.fillRoundRect(userBox.x, userBox.y, userBox.width, userBox.height, cnr, cnr);
 
+		// draw GUIDE button
+		g.setPaint(GameUI.buttonLeftBackground());
+		g.fillRoundRect(guideBox.x, guideBox.y, guideBox.width, guideBox.height, cnr, cnr);
 	}
     private void drawHelpButton(Graphics2D g) {
         helpBox.setBounds(s20,s20,s20,s25);
@@ -1428,7 +1448,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		g.setStroke(stroke1);
 		g.drawRoundRect(lastBox.x, lastBox.y, lastBox.width, lastBox.height, cnr, cnr);
 		g.setStroke(prev);
- 
+		 
 		// BR: User Button 
 		text = text(userButtonKey());
         sw 	 = g.getFontMetrics().stringWidth(text);
@@ -1439,6 +1459,18 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		prev = g.getStroke();
 		g.setStroke(stroke1);
 		g.drawRoundRect(userBox.x, userBox.y, userBox.width, userBox.height, cnr, cnr);
+		g.setStroke(prev);
+		 
+		// BR: Guide Button 
+		text = text(guideButtonKey());
+        sw 	 = g.getFontMetrics().stringWidth(text);
+		x = guideBox.x+((guideBox.width-sw)/2);
+		y = guideBox.y+guideBox.height-s8;
+		c = hoverBox == guideBox ? Color.yellow : GameUI.borderBrightColor();
+		drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), c);
+		prev = g.getStroke();
+		g.setStroke(stroke1);
+		g.drawRoundRect(guideBox.x, guideBox.y, guideBox.width, guideBox.height, cnr, cnr);
 		g.setStroke(prev);
 	}
 	private String newRacesOnStr() {
@@ -2313,6 +2345,13 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		g.setPaint(GameUI.buttonLeftBackground());
 		g.fillRoundRect(userBox.x, userBox.y, buttonW, buttonH, cnr, cnr);
 
+		// draw GUIDE button
+		buttonW = guideButtonWidth(g);
+		xb = s20;
+		guideBox.setBounds(xb, yb, buttonW, buttonH);
+		g.setPaint(GameUI.buttonLeftBackground());
+		g.fillRoundRect(guideBox.x, guideBox.y, buttonW, buttonH, cnr, cnr);
+
 		g.dispose();
 	}
 	private BufferedImage smallRaceBackImg() {
@@ -2363,10 +2402,6 @@ public final class SetupGalaxyUI  extends BaseModPanel
 		}
 	}
 	@Override
-	public void mouseClicked(MouseEvent e) { }
-	@Override
-	public void mousePressed(MouseEvent e) { }
-	@Override
 	public void mouseReleased(MouseEvent e) { // BR: added full mouse control
 		if (e.getButton() > 3)
 			return;
@@ -2381,6 +2416,8 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			doBackBoxAction();
         else if (hoverBox == defaultBox)
         	doDefaultBoxAction();
+        else if (hoverBox == guideBox)
+			doGuideBoxAction();
         else if (hoverBox == userBox)
 			doUserBoxAction();
         else if (hoverBox == lastBox)
@@ -2407,7 +2444,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			goToModGlobalOptions();
 		else if (hoverBox == startBox)
 			doStartBoxAction();
-		else if (hoverBox == shapeBoxL) {
+		else if (hoverPolyBox == shapeBoxL) {
 			shapeSelection.prev();
 			postSelectionFull(true);
 		}
@@ -2415,11 +2452,11 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			shapeSelection.toggle(e,  this);
 			postSelectionFull(true);
 		}
-		else if (hoverBox == shapeBoxR) {
+		else if (hoverPolyBox == shapeBoxR) {
 			shapeSelection.next();
 			postSelectionFull(true);
 		}
-		else if (hoverBox == mapOption1BoxL)
+		else if (hoverPolyBox == mapOption1BoxL)
 			prevMapOption1(true);
 		else if (hoverBox == mapOption1Box)
 			if (isShapeTextGalaxy())
@@ -2428,9 +2465,9 @@ public final class SetupGalaxyUI  extends BaseModPanel
 				shapeOption1.toggle(e, this);
 				postSelectionMedium(true);
 			}
-		else if (hoverBox == mapOption1BoxR)
+		else if (hoverPolyBox == mapOption1BoxR)
 			nextMapOption1(true);
-		else if (hoverBox == mapOption2BoxL) {
+		else if (hoverPolyBox == mapOption2BoxL) {
 			shapeOption2.prev();
 			postSelectionMedium(true);
 		}
@@ -2438,13 +2475,13 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			shapeOption2.toggle(e, this);
 			postSelectionMedium(true);
 		}
-		else if (hoverBox == mapOption2BoxR) {
+		else if (hoverPolyBox == mapOption2BoxR) {
 			shapeOption2.next();
 			postSelectionMedium(true);
 		}
 		else if (hoverBox == mapOption3Box)
 			selectBitmapFromList();
-		else if (hoverBox == sizeBoxL) {
+		else if (hoverPolyBox == sizeBoxL) {
 			sizeSelection.prev();
 			postGalaxySizeSelection(true);
 		}
@@ -2452,11 +2489,11 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			sizeSelection.toggle(e, this);
 			postGalaxySizeSelection(true);
 		}
-		else if (hoverBox == sizeBoxR) {
+		else if (hoverPolyBox == sizeBoxR) {
 			sizeSelection.next();
 			postGalaxySizeSelection(true);
 		}
-		else if (hoverBox == sizeOptionBoxL) {
+		else if (hoverPolyBox == sizeOptionBoxL) {
 			dynStarsPerEmpire.prev(e);
 			postSelectionMedium(true);
 		}
@@ -2464,27 +2501,27 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			dynStarsPerEmpire.toggle(e, this);
 			postSelectionMedium(true);
 		}
-		else if (hoverBox == sizeOptionBoxR) {
+		else if (hoverPolyBox == sizeOptionBoxR) {
 			dynStarsPerEmpire.next(e);
 			postSelectionMedium(true);
 		}
-		else if (hoverBox == aiBoxL)
+		else if (hoverPolyBox == aiBoxL)
 			prevOpponentAI(true);
 		else if (hoverBox == aiBox)
 			toggleOpponentAI(up);
-		else if (hoverBox == aiBoxR)
+		else if (hoverPolyBox == aiBoxR)
 			nextOpponentAI(true);
-		else if (hoverBox == crBoxL)
+		else if (hoverPolyBox == crBoxL)
 			prevOpponentCR(true);
 		else if (hoverBox == crBox)
 			toggleOpponentCR(up);
-		else if (hoverBox == crBoxR)
+		else if (hoverPolyBox == crBoxR)
 			nextOpponentCR(true);
 		else if (hoverBox == newRacesBox)
 			toggleNewRaces(true);
 		else if (hoverBox == showAbilityBox)
 			toggleShowAbility(true);
-		else if (hoverBox == diffBoxL) {
+		else if (hoverPolyBox == diffBoxL) {
 			difficultySelection.prev();
 			postSelectionLight(true);
 		}
@@ -2492,11 +2529,11 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			difficultySelection.toggle(e, this);
 			postSelectionLight(true);
 		}
-		else if (hoverBox == diffBoxR) {
+		else if (hoverPolyBox == diffBoxR) {
 			difficultySelection.next();
 			postSelectionMedium(true);
 		}
-		else if (hoverBox == wysiwygBoxL) {
+		else if (hoverPolyBox == wysiwygBoxL) {
 			galaxyRandSource.prev();
 			postSelectionMedium(true);
 		}
@@ -2504,11 +2541,11 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			galaxyRandSource.toggle(e, this);
 			postSelectionMedium(true);
 		}
-		else if (hoverBox == wysiwygBoxR) {
+		else if (hoverPolyBox == wysiwygBoxR) {
 			galaxyRandSource.next();
 			postSelectionLight(true);
 		}
-		else if (hoverBox == oppBoxU) {
+		else if (hoverPolyBox == oppBoxU) {
 			aliensNumber.next();
 			postSelectionMedium(true);
 		}
@@ -2517,7 +2554,7 @@ public final class SetupGalaxyUI  extends BaseModPanel
 			aliensNumber.toggle(e, this);
 			postSelectionMedium(true);
 		}
-		else if (hoverBox == oppBoxD)
+		else if (hoverPolyBox == oppBoxD)
 		 {
 			aliensNumber.prev();
 			postSelectionMedium(true);
@@ -2540,15 +2577,6 @@ public final class SetupGalaxyUI  extends BaseModPanel
 					break;
 				}
 			}
-		}
-	}
-	@Override
-	public void mouseEntered(MouseEvent e) { }
-	@Override
-	public void mouseExited(MouseEvent e) {
-		if (hoverBox != null) {
-			hoverBox = null;
-			repaint();
 		}
 	}
 	@Override

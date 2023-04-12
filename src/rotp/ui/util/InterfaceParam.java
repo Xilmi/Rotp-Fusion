@@ -46,7 +46,8 @@ public interface InterfaceParam extends InterfaceOptions{
 	public default void toggle(MouseEvent e, int p, BasePanel frame) {};
 	public default String	getToolTip()		{ return getGuiDescription(); }
 	public default String	getToolTip(int idx)	{ return "";  }
-	public default String	dialogHelp(int idx)	{ return getToolTip(idx); };
+	public default String	getGuide()			{ return getToolTip(); };
+	public default String	getGuide(int idx)	{ return getToolTip(idx); };
 	public default boolean	isDuplicate()		{ return false; }
 	public default boolean	isTitle()			{ return false; }
 	public default boolean	isSubMenu()			{ return false; };

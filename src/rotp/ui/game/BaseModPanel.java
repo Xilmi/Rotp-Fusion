@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * 
- *     https://www.gnu.org/licenses/gpl-3.0.html
+ *	   https://www.gnu.org/licenses/gpl-3.0.html
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,9 +26,8 @@ import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
 import static rotp.ui.util.InterfaceParam.LABEL_DESCRIPTION;
 
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.MouseInfo;
-import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.Shape;
@@ -46,7 +45,7 @@ import rotp.ui.util.InterfaceParam;
 import rotp.util.LabelManager;
 import rotp.util.ModifierKeysState;
 
-abstract class BaseModPanel extends BasePanel
+public abstract class BaseModPanel extends BasePanel
 		implements MouseListener, MouseMotionListener {
  
 	private static final String setGlobalDefaultKey	= "SETTINGS_GLOBAL_DEFAULT";
@@ -61,17 +60,22 @@ abstract class BaseModPanel extends BasePanel
 	private static final String saveLocalUserKey	= "SETTINGS_LOCAL_USER_SAVE";
 	private static final String restoreGlobalKey	= "SETTINGS_GLOBAL_RESTORE";
 	private static final String restoreLocalKey		= "SETTINGS_LOCAL_RESTORE";
+	private static final String guideKey			= "SETTINGS_GUIDE";
 	private static final String exitKey		 		= "SETTINGS_EXIT";
 
-	private static int exitButtonWidth, userButtonWidth, defaultButtonWidth, lastButtonWidth;
-	protected static int  w, h;
-	protected static int  smallButtonMargin;
-	protected static int  smallButtonH;
+	private	  static int	 exitButtonWidth, guideButtonWidth,
+							 userButtonWidth, defaultButtonWidth, lastButtonWidth;
+	protected static int	 w, h;
+	protected static int	 smallButtonMargin;
+	protected static int	 smallButtonH;
+	public	  static boolean autoGuide	= false; // To disable automated Guide
+	public	  static HelpUI  guideUI;
 
 	private final LinkedList<PolyBox>	polyBoxList	= new LinkedList<>();
 	private final LinkedList<Box>		boxBaseList	= new LinkedList<>();
 	private final LinkedList<Box>		boxHelpList	= new LinkedList<>();
-	protected Shape hoverBox;
+	protected Box hoverBox;
+	protected PolyBox hoverPolyBox;
 
 	LinkedList<InterfaceParam> paramList;
 	LinkedList<InterfaceParam> duplicateList;
@@ -80,9 +84,10 @@ abstract class BaseModPanel extends BasePanel
 
 	//	protected Font smallButtonFont	= FontManager.current().narrowFont(20);
 	protected Font smallButtonFont	= narrowFont(20);
-	protected Rectangle defaultBox	= new Box("MOD_HELP_BUTTON_DEFAULT");
-	protected Rectangle lastBox		= new Box("MOD_HELP_BUTTON_LAST");
-	protected Rectangle userBox		= new Box("MOD_HELP_BUTTON_USER");
+	protected Box defaultBox		= new Box("MOD_HELP_BUTTON_DEFAULT");
+	protected Box lastBox			= new Box("MOD_HELP_BUTTON_LAST");
+	protected Box userBox			= new Box("MOD_HELP_BUTTON_USER");
+	protected Box guideBox			= new Box("MOD_HELP_BUTTON_GUIDE");
 
 	protected boolean globalOptions	= false; // No preferred button and Saved to remnant.cfg
 
@@ -93,6 +98,7 @@ abstract class BaseModPanel extends BasePanel
 		g.setFont(smallButtonFont);
 
 		initExitButtonWidth(g);
+		initGuideButtonWidth(g);
 		initUserButtonWidth(g);
 		initDefaultButtonWidth(g);
 		initLastButtonWidth(g);
@@ -125,23 +131,16 @@ abstract class BaseModPanel extends BasePanel
 	protected void close() { ModifierKeysState.reset(); }
 
 	// ---------- Exit Button
-	protected String exitButtonKey() {
-		switch (ModifierKeysState.get()) {
-		// case CTRL:
-		// case CTRL_SHIFT: return cancelKey;
-		default: return exitKey;
-		}
-	}
+	protected String exitButtonKey() { return exitKey;}
 	private void initExitButtonWidth(Graphics2D g) {
 		exitButtonWidth = buttonWidth(g, new String[] {exitKey});
-		// cancelKey, exitKey});
 	}
 	protected int exitButtonWidth(Graphics2D g) {
 		if (exitButtonWidth == 0)
 			localInit(g);
 		return exitButtonWidth;
 	}
-    protected void doExitBoxAction() {
+	protected void doExitBoxAction() {
 		buttonClick();
 		switch (ModifierKeysState.get()) {
 		case CTRL:
@@ -156,6 +155,29 @@ abstract class BaseModPanel extends BasePanel
 	}
 	protected String exitButtonDescKey() {
 		return exitButtonKey() + LABEL_DESCRIPTION;
+	}
+
+	// ---------- Guide Button
+	protected String guideButtonKey() { return guideKey; }
+	private void initGuideButtonWidth(Graphics2D g) {
+		guideButtonWidth = buttonWidth(g, new String[] {guideKey});
+	}
+	protected int guideButtonWidth(Graphics2D g) {
+		if (guideButtonWidth == 0) 
+			localInit(g);
+		return guideButtonWidth;
+	}
+	protected void doGuideBoxAction() {
+		buttonClick();
+		autoGuide = !autoGuide;
+		if (autoGuide)
+			loadGuide();
+		else
+			clearGuide();
+		paintComponent(getGraphics());
+	}	
+	protected String guideButtonDescKey() {
+		return guideButtonKey() + LABEL_DESCRIPTION;
 	}
 
 	// ---------- User Button
@@ -285,72 +307,91 @@ abstract class BaseModPanel extends BasePanel
 	}
 
 	// ---------- Events management
-	private Point getPointerLocation() {
-		Point p1 = MouseInfo.getPointerInfo().getLocation();
-		if (p1 == null)
-			return null;
-		Point p2 = getLocationOnScreen();
-		return new Point(p1.x-p2.x, p1.y-p2.y);
-	}
-	@Override public void mouseDragged(MouseEvent e) {  }
-	@Override public void mouseMoved(MouseEvent e) {
+	@Override public void mouseClicked(MouseEvent e)	{  }
+	@Override public void mousePressed(MouseEvent e)	{  }
+	@Override public void mouseEntered(MouseEvent e)	{  }
+	@Override public void mouseExited(MouseEvent e)		{  }
+	@Override public void mouseDragged(MouseEvent e)	{  }
+	@Override public void mouseMoved(MouseEvent e)		{
 		checkModifierKey(e);		
 		int x = e.getX();
 		int y = e.getY();
-		
 		Shape prevHover = hoverBox;
-		hoverBox = null;
+		hoverPolyBox	= null;
+		hoverBox		= null;
+
 		for (Box box : boxBaseList)
-	        if (box.contains(x,y)) {
-	        	hoverBox = box;
-	        	break;
-	        }
+				if (box.contains(x,y)) {
+					hoverBox = box;
+					break;
+				}
 		if (hoverBox != prevHover) {
+			loadGuide();
 			repaint();
 			return;
 		}
 		for (PolyBox box : polyBoxList)
-	        if (box.contains(x,y)) {
-	        	hoverBox = box;
-	        	break;
-	        }
-		if (hoverBox != prevHover) 
+				if (box.contains(x,y)) {
+					hoverPolyBox = box;
+					break;
+				}
+		if (hoverPolyBox != prevHover) {
 			repaint();
+		}
 	}
-	@Override public void keyPressed(KeyEvent e) {
+	@Override public void keyPressed(KeyEvent e)		{
 		checkModifierKey(e);		
 		int k = e.getKeyCode();
 		switch(k) {
 			case KeyEvent.VK_F1:
 				if (showContextualHelp())
 					return;
-				showHelp();
+				showHelp(); // Panel Help
 				return;
 		}
 	}
 	// ---------- Help management
-	private boolean showContextualHelp() {
-		Point pt = getPointerLocation();
-		for (Box box : boxHelpList)
-	        if (box.contains(pt)) {
-	        	String txt = box.getHelp();
-	        	if (txt == null || txt.isEmpty())
-	        		return false;
-	        	loadContextualHelpUI(box, txt);
-	        	return true;
-	        }
-		return false;
+	private void loadGuide()							{
+		if (hoverBox == null) {
+			clearGuide();
+			return;
+		}
+		if (!autoGuide)
+			return;
+	  	String txt = hoverBox.getGuide();
+	  	if (txt == null || txt.isEmpty())
+	  		return;
+	  	setGuide(hoverBox, txt);
 	}
-	private void loadContextualHelpUI(Rectangle dest, String text) {
+	private boolean showContextualHelp()				{ // Following "F1!
+		if (hoverBox == null)
+			return false; // ==> panel help
+		String txt = hoverBox.getHelp();
+	  	if (txt == null || txt.isEmpty())
+	  		return false; // ==> panel help
+			setGuide(hoverBox, txt);
+			showGuide(getGraphics());
+	  	return true;
+	}
+	private void setGuide(Rectangle dest, String text)	{
 		int	maxWidth  = scaled(400);
-		HelpUI helpUI = RotPUI.helpUI();
-		helpUI.clear();
-		HelpSpec sp = helpUI.addBrownHelpText(0, 0, maxWidth, 1, text);
-		sp.autoSize(frame());
+		guideUI = RotPUI.helpUI();
+		guideUI.clear();
+		HelpSpec sp = guideUI.addBrownHelpText(0, 0, maxWidth, 1, text);
+		sp.autoSize(frame().getGraphics());
 		sp.autoPosition(dest);
-		helpUI.paintComponent(getGraphics());
 	}
-
+	protected void showGuide(Graphics g)				{
+		if (guideUI == null)
+			return;
+		guideUI.paint(g, false);
+	}
+	private void clearGuide()							{
+		if (guideUI == null)
+			return;
+		guideUI.clear();
+		guideUI = null;
+	}
 	// ========== Sub Classes ==========
 	//
 	class Box extends Rectangle {
@@ -383,6 +424,13 @@ abstract class BaseModPanel extends BasePanel
 			else
 				return help;
 		}
+		private String getGuide() {
+			String guide = getParamGuide();
+			if (guide.isEmpty())
+				return getLabelHelp();
+			else
+				return guide;
+		}
 		private String getLabelDescription() {
 			if (label == null)
 				return "";
@@ -412,6 +460,11 @@ abstract class BaseModPanel extends BasePanel
 			if (param == null)
 				return "";
 			return param.getFullHelp();
+		}
+		private String getParamGuide() {
+			if (param == null)
+				return "";
+			return param.getGuide();
 		}
 	}
 	class PolyBox extends Polygon {

@@ -1451,6 +1451,7 @@ SETUP_SPECIFIC_ABILITY            | Opponent Specific Abilitiy
 SETUP_GLOBAL_ABILITIES_DESC       | Select one ability...
 SETUP_GLOBAL_ABILITIES            | Opponents Abilitiies
 SETUP_NOT_AVAILABLE               | N/A
+SETUP_ALIENS_NUMBER_DESC          | Number of Rival Empires. (between 0 an 49)
 // BR: config Player Race
 SETUP_BUTTON_CUSTOM_PLAYER_RACE   | Customize Player Race
 
@@ -1600,7 +1601,8 @@ CUSTOM_RACE_SHIP_SIZE_HUGE        | Huge
 // Advanced Settings
 SETTINGS_TITLE                    | Advanced Game Options
 SETTINGS_DESCRIPTION              | Click, Right-Click, or Scroll to toggle each game setting.
-SETTINGS_EXIT_DESC                | Save as Live Settings and Exit Panel.
+SETTINGS_GUIDE_DESC               | Enable / Disable automated contextual Help on all setup panels.
+SETTINGS_GUIDE                    | Guide
 SETTINGS_EXIT_DESC                | Save as Live Settings and Exit Panel.
 SETTINGS_EXIT                     | Exit
 SETTINGS_CANCEL_DESC              | Cancel settings changes and Exit Panel.
@@ -2792,3 +2794,4 @@ SETUP_OPP_CR_OPTIONS_HELP         | Default abilities for alien Races:\n 'Base R
 MOD_HELP_BUTTON_DEFAULT           | Save or reload User's options.\n (Switch with "Ctrl" or "Shift")
 MOD_HELP_BUTTON_LAST              | Reload Last session or last Game options.\n (Switch with "Ctrl" or "Shift")
 MOD_HELP_BUTTON_USER              | Reload Default options or Restore initial options.\n (Switch with "Ctrl" or "Shift")
+MOD_HELP_BUTTON_GUIDE             | Enable / Disable automated contextual Help on all setup panels.

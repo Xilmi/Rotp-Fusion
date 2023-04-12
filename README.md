@@ -26,6 +26,12 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2023.04.11 (BR)
+- Finished Auto Contextual help tools for:
+  - Galaxy Panel. ("GUIDE" button)
+  - Race Panel. ("GUIDE" button)
+  - List selection pop-up. ("?" button)
+
 2023.04.10 (BR)
 - Long range ship scans, long range planetary scans, and allies sharing scans will now also update "Auto-Flag".
 - Removed the lag in the first list selection pop-up.
