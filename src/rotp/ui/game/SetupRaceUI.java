@@ -73,7 +73,6 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
     private static BufferedImage raceBackImg;
     private BufferedImage shipBackImg;
     private BufferedImage raceImg;
-//    private Rectangle hoverBox;
     private Rectangle	helpBox		= new Box();
     private Rectangle	cancelBox	= new Box("MOD_HELP_RACE_CANCEL");
     private Rectangle	nextBox		= new Box("MOD_HELP_RACE_NEXT");

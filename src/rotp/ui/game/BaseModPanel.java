@@ -74,8 +74,9 @@ public abstract class BaseModPanel extends BasePanel
 	private final LinkedList<PolyBox>	polyBoxList	= new LinkedList<>();
 	private final LinkedList<Box>		boxBaseList	= new LinkedList<>();
 	private final LinkedList<Box>		boxHelpList	= new LinkedList<>();
-	protected Box hoverBox;
+	protected Box	  hoverBox;
 	protected PolyBox hoverPolyBox;
+	protected Shape	  prevHover;
 
 	LinkedList<InterfaceParam> paramList;
 	LinkedList<InterfaceParam> duplicateList;
@@ -128,7 +129,11 @@ public abstract class BaseModPanel extends BasePanel
 		smallButtonMargin = s30;
 		smallButtonH	  = s30;
 	}
-	protected void close() { ModifierKeysState.reset(); }
+	protected void close() { 
+		ModifierKeysState.reset();
+		guideUI = null;
+		disableGlassPane();
+	}
 
 	// ---------- Exit Button
 	protected String exitButtonKey() { return exitKey;}
@@ -316,7 +321,7 @@ public abstract class BaseModPanel extends BasePanel
 		checkModifierKey(e);		
 		int x = e.getX();
 		int y = e.getY();
-		Shape prevHover = hoverBox;
+//		Shape prevHover = hoverBox;
 		hoverPolyBox	= null;
 		hoverBox		= null;
 
@@ -351,7 +356,7 @@ public abstract class BaseModPanel extends BasePanel
 		}
 	}
 	// ---------- Help management
-	private void loadGuide()							{
+	protected void loadGuide()							{
 		if (hoverBox == null) {
 			clearGuide();
 			return;
@@ -386,7 +391,7 @@ public abstract class BaseModPanel extends BasePanel
 			return;
 		guideUI.paint(g, false);
 	}
-	private void clearGuide()							{
+	protected void clearGuide()							{
 		if (guideUI == null)
 			return;
 		guideUI.clear();
@@ -394,37 +399,40 @@ public abstract class BaseModPanel extends BasePanel
 	}
 	// ========== Sub Classes ==========
 	//
-	class Box extends Rectangle {
+	public class Box extends Rectangle {
 		private InterfaceParam	param;
 		private String			label;
 		// ========== Constructors ==========
 		//
-		Box() { boxBaseList.add(this); }
-		Box(String label) {
+		public Box()						 { boxBaseList.add(this); }
+		Box(String label)					 {
 			this();
 			boxHelpList.add(this);
 			this.label = label;
 		}
-		Box(InterfaceParam param) {
+		Box(InterfaceParam param)			 {
 			this();
 			boxHelpList.add(this);
 			this.param = param;
 		}
-		private String getDescription() {
+		void param(InterfaceParam param)	 { this.param = param; }
+		InterfaceParam param()	 			 { return param; }
+		void label(String label)			 { this.label = label; }
+		private String getDescription()		 {
 			String desc = getParamDescription();
 			if (desc.isEmpty())
 				return getLabelDescription();
 			else
 				return desc;
 		}
-		private String getHelp() {
+		private String getHelp()			 {
 			String help = getParamHelp();
 			if (help.isEmpty())
 				return getLabelHelp();
 			else
 				return help;
 		}
-		private String getGuide() {
+		String getGuide()					 {
 			String guide = getParamGuide();
 			if (guide.isEmpty())
 				return getLabelHelp();
@@ -441,7 +449,7 @@ public abstract class BaseModPanel extends BasePanel
 			else
 				return desc;
 		}
-		private String getLabelHelp() {
+		private String getLabelHelp()		 {
 			if (label == null)
 				return "";
 			String helpLabel = label;
@@ -456,12 +464,12 @@ public abstract class BaseModPanel extends BasePanel
 				return "";
 			return param.getGuiDescription();
 		}
-		private String getParamHelp() {
+		private String getParamHelp()		 {
 			if (param == null)
 				return "";
 			return param.getFullHelp();
 		}
-		private String getParamGuide() {
+		private String getParamGuide()		 {
 			if (param == null)
 				return "";
 			return param.getGuide();
