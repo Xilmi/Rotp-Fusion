@@ -94,6 +94,7 @@ import rotp.ui.util.GlobalCROptions;
 import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.ParamAAN2;
 import rotp.ui.util.ParamBoolean;
+import rotp.ui.util.ParamButtonHelp;
 import rotp.ui.util.ParamCR;
 import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
@@ -1034,7 +1035,21 @@ public class UserPreferences {
 			BASE_UI, "SPECIFIC_AI",
 			MOO1GameOptions.getSpecificOpponentAIOptions(),
 			OPPONENT_AI_CRUEL);
-
+	public static final ParamButtonHelp userButtonHelp = new ParamButtonHelp( // For Help Do not add the list
+			"SETTINGS_GLOBAL_USER_SET",
+			"SETTINGS_LOCAL_USER_SET",
+			"SETTINGS_GLOBAL_USER_SAVE",
+			"SETTINGS_LOCAL_USER_SAVE");
+	public static final ParamButtonHelp lastButtonHelp = new ParamButtonHelp( // For Help Do not add the list
+			"SETTINGS_GLOBAL_LAST_SET",
+			"SETTINGS_LOCAL_LAST_SET",
+			"SETTINGS_GLOBAL_LAST_GAME",
+			"SETTINGS_LOCAL_LAST_GAME");
+	public static final ParamButtonHelp defaultButtonHelp = new ParamButtonHelp( // For Help Do not add the list
+			"SETTINGS_GLOBAL_DEFAULT",
+			"SETTINGS_LOCAL_DEFAULT",
+			"",
+			"");
 	
 	private static boolean showMemory  = false;
 	private static boolean playMusic   = true;

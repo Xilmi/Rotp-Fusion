@@ -395,7 +395,8 @@ public class ListDialog extends JDialog
 		int maxWidth	= scaled(300);
 		String text		= "No Help Yet";
 		if (param != null)
-			text = param.getGuide(list.getSelectedIndex());
+			text = param.getGuide();
+//			text = param.getGuide(list.getSelectedIndex());
 		guideUI = RotPUI.helpUI();
 		guideUI.clear();
 		HelpSpec sp = guideUI.addBrownHelpText(0, 0, maxWidth, 1, text);

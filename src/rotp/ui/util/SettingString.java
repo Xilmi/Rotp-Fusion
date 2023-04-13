@@ -65,11 +65,11 @@ public class SettingString extends SettingBase<String> implements Base{
 	}
 	@Override public void setOptions(DynamicOptions destOptions) {
 		if (!isSpacer() && destOptions != null)
-			destOptions.setString(labelId(), settingValue());
+			destOptions.setString(getLangageLabel(), settingValue());
 	}
 	@Override public void setFromOptions(DynamicOptions srcOptions) {
 		if (!isSpacer() && srcOptions != null)
-			set(srcOptions.getString(labelId(), defaultValue()));
+			set(srcOptions.getString(getLangageLabel(), defaultValue()));
 	}
 	@Override public void next() {
 		Object prev = UIManager.get("OptionPane.minimumSize");

@@ -27,7 +27,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 ## What's New
 
 2023.04.12 (BR)
-- Integrated Auto Contextual in Merged Options Panel.
+- Integrated Auto Contextual Help in Merged Options Panel.
+- Formated the Guide display.
+- Integrated Auto Contextual Help in Standard Options Panel.
 
 2023.04.11 (BR)
 - Finished Auto Contextual help tools for:

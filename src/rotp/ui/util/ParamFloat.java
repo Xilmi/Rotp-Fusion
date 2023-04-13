@@ -89,6 +89,15 @@ public class ParamFloat extends AbstractParam<Float> {
 	}
 	// ========== Overriders ==========
 	//
+	@Override public String getDefaultValue()	{ return getString(defaultValue()); }
+	@Override public String[] getModifiers()	{
+		if (baseInc() == shiftInc())
+			return null;
+		return new String[] {getString(baseInc()),
+							getString(shiftInc()),
+							getString(ctrlInc()),
+							getString(shiftCtrlInc())};
+	}
 	@Override protected String getCfgValue(Float value) {
 		if (isCfgPercent()) {
 			return String.format("%d", Math.round(value * 100f));
@@ -125,20 +134,30 @@ public class ParamFloat extends AbstractParam<Float> {
 	@Override public void toggle(MouseWheelEvent e) { next(getInc(e) * getDir(e)); }
 	@Override public void setFromOptions(DynamicOptions options) {
 		if (!isDuplicate() && options != null)
-			set(options.getFloat(labelId(), defaultValue()));
+			set(options.getFloat(getLangageLabel(), defaultValue()));
 	}
 	@Override public void setOptions(DynamicOptions options) {
 		if (!isDuplicate() && options != null)
-			options.setFloat(labelId(), get());
+			options.setFloat(getLangageLabel(), get());
 	}
 	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
 		if (!isDuplicate() && src != null && dest != null)
-			dest.setFloat(labelId(), src.getFloat(labelId(), defaultValue()));
+			dest.setFloat(getLangageLabel(), src.getFloat(getLangageLabel(), defaultValue()));
 	}
 	// ========== Other Methods ==========
 	//
 	public void next(MouseEvent e) { next(Math.abs(getInc(e))); }
 	public void prev(MouseEvent e) { next(-Math.abs(getInc(e))); }
+	private String getString(float value) {
+		if (isGuiPercent()) {
+			return String.format("%d", Math.round(value * 100f)) + "%";
+		}
+		if (isGuiPerThousand()) {
+			return new DecimalFormat("0.0")
+						.format(Math.round(value * 1000f) / 10f) + "%";
+		}
+		return new DecimalFormat(guiFormat).format(value);
+	}
 	private void next(float i) {
 		if (i == 0) {
 			setFromDefault();

@@ -141,25 +141,26 @@ public class ParamList extends AbstractParam<String> {
 	}
 	// ===== Overriders =====
 	//
+	@Override public String getDefaultValue()	{ return label(defaultValue()); }
 	@Override protected String getCfgValue(String value) {
 		return validateValue(value);
 	}
-	@Override public String getGuiValue() {
+	@Override public String	getGuiValue()	{
 		return text(valueLabelMap.getLangLabelFromValue(validateValue(get())));
 	}
-	@Override public void next() {
+	@Override public void	next()			{
 		set(valueLabelMap.getNextLangLabelIgnoreCase(get()));
 	}
-	@Override public void prev() {
+	@Override public void	prev()			{
 		set(valueLabelMap.getPrevValueIgnoreCase(get())); 
 	}
-	@Override public void toggle(MouseWheelEvent e) {
+	@Override public void	toggle(MouseWheelEvent e)				{
 		if (getDir(e) > 0)
 			next();
 		else 
 			prev();
 	}
-	@Override public void toggle(MouseEvent e, BasePanel frame) {
+	@Override public void	toggle(MouseEvent e, BasePanel frame)	{
 		if (getDir(e) == 0)
 			setFromDefault();
 		else if (frame != null && 
@@ -170,44 +171,51 @@ public class ParamList extends AbstractParam<String> {
 		else 
 			prev();
 	}
-	@Override public void setFromCfgValue(String newCfgValue) {
+	@Override public void	setFromCfgValue(String newCfgValue)		{
 		super.set(validateValue(newCfgValue));
 	}
-	@Override public int getIndex(){
+	@Override public int	getIndex()				{
 		if (isDuplicate())
 			return valueLabelMap.getLangLabelIndexIgnoreCase(get());
 		else
 			return valueLabelMap.getValueIndexIgnoreCase(get());
 	}
-	@Override public String setFromIndex(int idx) {
+	@Override public String	setFromIndex(int idx)	{
 		return super.set(value(valueLabelMap.getCfgValue(idx)));
 	}
-	@Override public String getGuiValue(int idx) {
+	@Override public String	getGuiValue(int idx)	{
 		return text(valueLabelMap.getLangLabel(idx));
 	}
-	@Override public String	getFullHelp() {
-		String help = getHeadHelp();
-		help += BODY_SEPARATOR;
+	@Override public String	getFullHelp()			{
+		String help = HeaderHelp();
+		help += defaultValueHelp();
+		help += modifierHelp();
 		help += getSubHelp();
 		return help;
+
+//		String help = getHeadHelp();
+//		help += BODY_SEPARATOR;
+//		help += getSubHelp();
+//		return help;
 	}
-	@Override public String	getGuide(int idx)	{
-		if (idx == -1)
-			return getHeadHelp();
-		return getHeadHelp()
-				+ "--- Selected Value --- \\n "
-				+ getSubHelp(idx);
-	}
-	@Override public String	getGuide()	{ return getGuide(this.getIndex()); }
+//	@Override public String	getGuide(int idx)		{
+//		if (idx == -1)
+//			return getHeadHelp();
+//		return getHeadHelp()
+//				+ "--- Selected Value --- \\n "
+//				+ getSubHelp(idx);
+//	}
+//	@Override public String	getGuide()	{ return getGuide(this.getIndex()); }
 
 	// ===== Other Protected Methods =====
 	//
-	protected int getIndex(String value) {
+	protected int getIndex(String value)		{
 		if (isDuplicate())
 			return valueLabelMap.getLangLabelIndexIgnoreCase(value);
 		else
 			return valueLabelMap.getValueIndexIgnoreCase(value);
 	}
+	protected String labelText(String label)	{ return text(label); }
 	protected String getLangLabelFromValue(String newValue) {
 		String newLangLabel = valueLabelMap.getLangLabelFromValue(newValue);
 		return newLangLabel;
@@ -266,7 +274,7 @@ public class ParamList extends AbstractParam<String> {
 	}
 	private void setFromList(BasePanel frame) {
 		String message	= "<html>" + getGuiDescription() + "</html>";
-		String title	= text(labelId(), "");
+		String title	= text(getLangageLabel(), "");
 		initGuiTexts();
 		String[] list= valueLabelMap.guiTextList.toArray(new String[listSize()]);
 		ListDialog dialog = new ListDialog(
@@ -284,16 +292,16 @@ public class ParamList extends AbstractParam<String> {
 		if (input != null && valueLabelMap.getValueIndexIgnoreCase(input) >= 0)
 			set(input);
 	}
-	private String getHeadHelp()			  {
-		String label = labelId();
-		String name  = text(label, "");
-		String help  = realText(label+LABEL_HELP);
-		if (help == null)
-			help = realText(label+LABEL_DESCRIPTION);
-		if (help == null)
-			help = "";
-		return name + HEAD_SEPARATOR + help + lineSplit;
-	}
+//	private String getHeadHelp()			  {
+//		String label = labelId();
+//		String name  = text(label, "");
+//		String help  = realText(label+LABEL_HELP);
+//		if (help == null)
+//			help = realText(label+LABEL_DESCRIPTION);
+//		if (help == null)
+//			help = "";
+//		return name + HEAD_SEPARATOR + help + lineSplit;
+//	}
 	private String getSubHelp()				  {
 		String help = "";
 		int size = listSize();
@@ -310,11 +318,10 @@ public class ParamList extends AbstractParam<String> {
 			help = "";
 		return "- " + name + HELP_SEPARATOR + help + lineSplit;
 	}
-	protected String labelText(String label)  { return text(label); }
 	private String label(int id)			  { return valueLabelMap.getLangLabel(id); }
-	private String name(int id)				  { return text(label(id), ""); }
-	private String realDescription(int id)	  { return realText(label(id)+LABEL_DESCRIPTION); }
-	private String realHelp(int id)			  { return realText(label(id)+LABEL_HELP); }
+	private String name(int id)				  { return label(label(id), ""); }
+	private String realDescription(int id)	  { return realLabel(label(id)+LABEL_DESCRIPTION); }
+	private String realHelp(int id)			  { return realLabel(label(id)+LABEL_HELP); }
 	private void initMapGuiTexts()			  {
 		valueLabelMap.guiTextList.clear();
 		for (String label : valueLabelMap.langLabelList)

@@ -24,12 +24,9 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.LinearGradientPaint;
-import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.LinkedList;
@@ -37,7 +34,6 @@ import java.util.List;
 
 import javax.swing.SwingUtilities;
 
-import rotp.ui.BaseText;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
@@ -46,7 +42,7 @@ import rotp.ui.util.InterfaceParam;
 import rotp.util.ModifierKeysState;
 
 // modnar: add UI panel for modnar MOD game options, based on StartOptionsUI.java
-abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
+abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListener {
 	private static final long serialVersionUID = 1L;
 	private static final Color backgroundHaze = new Color(0,0,0,160);
 	private final String guiTitleID;
@@ -68,9 +64,9 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 	
 	private Color textC = SystemPanel.whiteText;
 	private LinkedList<Integer>	lastRowList = new LinkedList<>();
-	private LinkedList<BaseText> btList		= new LinkedList<>();
-	private Rectangle hoverBox;
-	private Rectangle exitBox	= new Rectangle();
+	private LinkedList<ModText> btList		= new LinkedList<>();
+//	private Rectangle hoverBox;
+	private Box exitBox	= new Box();
 	private LinearGradientPaint bg;
 
 	
@@ -96,7 +92,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 		buildRowCountList();
 		
 		for (int i=0; i<activeList.size(); i++)
-			btList.add(newBT());
+			btList.add(newBT().param(activeList.get(i)));
 
 		// numRows = Max column length
 		numRows	 = lastRowList.getFirst();
@@ -157,8 +153,8 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 	protected abstract void init0();
 	// ========== Other Methods ==========
 	//
-	private  BaseText newBT() { 
-		return new BaseText(this, false, 20, 20,-78,  textC, textC, hoverC, depressedC, textC, 0, 0, 0);
+	private  ModText newBT() { 
+		return new ModText(this, false, 20, 20,-78,  textC, textC, hoverC, depressedC, textC, 0, 0, 0);
 	}
 	private void drawButtons(Graphics2D g) {
 		int cnr = s5;
@@ -228,8 +224,24 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 		g.setStroke(stroke1);
 		g.drawRoundRect(userBox.x, userBox.y, userBox.width, userBox.height, cnr, cnr);
 		g.setStroke(prev);
+
+		text = text(guideButtonKey());
+		sw	 = g.getFontMetrics().stringWidth(text);
+		smallButtonW = guideButtonWidth(g);
+		guideBox.setBounds(leftM+s9, yButton, smallButtonW, smallButtonH);
+		g.setColor(GameUI.buttonBackgroundColor());
+		g.fillRoundRect(guideBox.x, guideBox.y, smallButtonW, smallButtonH, cnr, cnr);
+		g.setFont(narrowFont(20));
+		x = guideBox.x+((guideBox.width-sw)/2);
+		y = guideBox.y+guideBox.height-s8;
+		c = hoverBox == guideBox ? Color.yellow : GameUI.borderBrightColor();
+		drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), c);
+		prev = g.getStroke();
+		g.setStroke(stroke1);
+		g.drawRoundRect(guideBox.x, guideBox.y, guideBox.width, guideBox.height, cnr, cnr);
+		g.setStroke(prev);
 	}
-	private void paintSetting(Graphics2D g, BaseText txt, String desc) {
+	private void paintSetting(Graphics2D g, ModText txt, String desc) {
 		g.setColor(SystemPanel.blackText);
 		g.drawRect(xSetting, ySetting, wSetting, hSetting);
 		g.setPaint(bg);
@@ -261,7 +273,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 	private void mouseCommon(boolean up, boolean mid, boolean shiftPressed, boolean ctrlPressed
 			, MouseEvent e, MouseWheelEvent w) {
 		for (int i=0; i<activeList.size(); i++) {
-			if (hoverBox == btList.get(i).bounds()) {
+			if (hoverBox == btList.get(i).getBox()) {
 				if (activeList.get(i).isSubMenu()) {
 					if (e == null)
 						return;
@@ -272,6 +284,10 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 				}			
 				activeList.get(i).toggle(e, w, this);
 				btList.get(i).repaint(activeList.get(i).getGuiDisplay());
+				if (autoGuide) {
+					loadGuide();
+					repaint();
+				}
 				return;
 			}			
 		}
@@ -378,11 +394,13 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 		}
 		g.setStroke(prev);
 		drawButtons(g);
+		showGuide(g);
 	}
 	@Override public void keyReleased(KeyEvent e) {
 		checkModifierKey(e);		
 	}
 	@Override public void keyPressed(KeyEvent e) {
+		super.keyPressed(e);
 		checkModifierKey(e);
 		int k = e.getKeyCode();  // BR:
 		switch(k) {
@@ -391,25 +409,15 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 				return;
 			case KeyEvent.VK_SPACE:
 			default: // BR:
-//				if(Profiles.processKey(k, e.isShiftDown(), guiTitleID, newGameOptions())) {
-//				};
-//				// Needs to be done twice for the case both Galaxy size
-//				// and the number of opponents were changed !?
-//				if(Profiles.processKey(k, e.isShiftDown(), guiTitleID, newGameOptions())) {
-//					for (int i=0; i<activeList.size(); i++) {
-//						btList.get(i).repaint(activeList.get(i).getGuiDisplay());
-//					}
-//					repaintCustomComponent();
-//				};
-//				return;
 		}
 	}
 	@Override public void mouseDragged(MouseEvent e) {}
 	@Override public void mouseMoved(MouseEvent e) {
+		super.mouseMoved(e);
 		checkModifierKey(e);
 		int x = e.getX();
 		int y = e.getY();
-		Rectangle prevHover = hoverBox;
+		prevHover = hoverBox;
 		hoverBox = null;
 		if (exitBox.contains(x,y))
 			hoverBox = exitBox;
@@ -417,33 +425,33 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 			hoverBox = defaultBox;
 		else if (userBox.contains(x,y))
 			hoverBox = userBox;
+		else if (guideBox.contains(x,y))
+			hoverBox = guideBox;
 		else if (lastBox.contains(x,y))
 			hoverBox = lastBox;
-		else for (BaseText txt : btList) {
+		else for (ModText txt : btList) {
 			if (txt.contains(x,y)) {
-				hoverBox = txt.bounds();
+				hoverBox = txt.getBox();
 				break;
 			}
 		}
 		if (hoverBox != prevHover) {
-			for (BaseText txt : btList) {
+			for (ModText txt : btList) {
 				if (prevHover == txt.bounds()) {
 					txt.mouseExit();
 					break;
 				}
 			}
-			for (BaseText txt : btList) {
+			for (ModText txt : btList) {
 				if (hoverBox == txt.bounds()) {
 					txt.mouseEnter();
 					break;
 				}
 			}			
-			if (prevHover != null) repaint(prevHover);
+			if (prevHover != null) repaint(prevHover.getBounds());
 			if (hoverBox != null)  repaint(hoverBox);
 		}
 	}
-	@Override public void mouseClicked(MouseEvent e) {}
-	@Override public void mousePressed(MouseEvent e) {}
 	@Override public void mouseReleased(MouseEvent e) {
 		checkModifierKey(e);
 		if (e.getButton() > 3)
@@ -461,10 +469,11 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseListener, 
 			doDefaultBoxAction();
 		else if (hoverBox == userBox)
 			doUserBoxAction();
+		else if (hoverBox == guideBox)
+			doGuideBoxAction();
 		else if (hoverBox == lastBox)
 			doLastBoxAction();
 	}
-	@Override public void mouseEntered(MouseEvent e) {}
 	@Override public void mouseExited(MouseEvent e) {
 		if (hoverBox != null) {
 			hoverBox = null;

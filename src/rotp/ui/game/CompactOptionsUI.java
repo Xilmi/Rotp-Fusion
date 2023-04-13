@@ -34,8 +34,6 @@ import java.awt.event.MouseWheelListener;
 import java.util.LinkedList;
 import java.util.List;
 
-import rotp.ui.BasePanel;
-import rotp.ui.BaseText;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
@@ -87,7 +85,6 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	private LinkedList<ModText> btList0;
 	private LinkedList<ModText> btList2;
 	private LinkedList<ModText> btListBoth;
-//	private Box hoverBox, prevHover;
 	private final Box 		exitBox		= new Box();
 	private final Rectangle toolTipBox	= new Rectangle();
 	private LinearGradientPaint bg;
@@ -228,8 +225,8 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 
 		text = text(guideButtonKey());
 		sw	 = g.getFontMetrics().stringWidth(text);
-		smallButtonW = userButtonWidth(g);
-		guideBox.setBounds(s20, yButton, smallButtonW, smallButtonH);
+		smallButtonW = guideButtonWidth(g);
+		guideBox.setBounds(leftM+s9, yButton, smallButtonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(guideBox.x, guideBox.y, smallButtonW, smallButtonH, cnr, cnr);
 		g.setFont(smallButtonFont);
@@ -654,7 +651,6 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 			}
 		}
 		if (hoverBox != prevHover) {
-			//repaint(leftM, topM, wBG, hBG);
 			for (ModText txt : btListBoth) {
 				if (prevHover == txt.getBox()) {
 					txt.mouseExit();
@@ -705,36 +701,36 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		checkModifierKey(e);
 		mouseCommon(null, e);
 	}
-	// ========== Sub Classes ==========
-	//
-	public class ModText extends BaseText {
-
-		private final Box box = new Box();
-
-		/**
-		* @param p		BasePanel
-		* @param logo	logoFont
-		* @param fSize	fontSize
-		* @param x1	xOrig
-		* @param y1	yOrig
-		* @param c1	enabledC
-		* @param c2	disabledC
-		* @param c3	hoverC
-		* @param c4	depressedC
-		* @param c5	shadeC
-		* @param i1	bdrStep
-		* @param i2	topLBdr
-		* @param i3	btmRBdr
-		*/
-		public ModText(BasePanel p, boolean logo, int fSize, int x1, int y1, Color c1, Color c2, Color c3, Color c4,
-				Color c5, int i1, int i2, int i3) {
-			super(p, logo, fSize, x1, y1, c1, c2, c3, c4, c5, i1, i2, i3);
-		}
-		ModText param(InterfaceParam param)	 { box.param(param); return this; }
-		ModText label(String label)			 { box.label(label); return this; }
-		Box getBox() {
-			box.setBounds(bounds());
-			return box;
-		}
-	}
+//	// ========== Sub Classes ==========
+//	//
+//	public class ModText extends BaseText {
+//
+//		private final Box box = new Box();
+//
+//		/**
+//		* @param p		BasePanel
+//		* @param logo	logoFont
+//		* @param fSize	fontSize
+//		* @param x1	xOrig
+//		* @param y1	yOrig
+//		* @param c1	enabledC
+//		* @param c2	disabledC
+//		* @param c3	hoverC
+//		* @param c4	depressedC
+//		* @param c5	shadeC
+//		* @param i1	bdrStep
+//		* @param i2	topLBdr
+//		* @param i3	btmRBdr
+//		*/
+//		public ModText(BasePanel p, boolean logo, int fSize, int x1, int y1, Color c1, Color c2, Color c3, Color c4,
+//				Color c5, int i1, int i2, int i3) {
+//			super(p, logo, fSize, x1, y1, c1, c2, c3, c4, c5, i1, i2, i3);
+//		}
+//		ModText param(InterfaceParam param)	 { box.param(param); return this; }
+//		ModText label(String label)			 { box.label(label); return this; }
+//		Box getBox() {
+//			box.setBounds(bounds());
+//			return box;
+//		}
+//	}
 }

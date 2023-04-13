@@ -130,6 +130,14 @@ public class ParamInteger extends AbstractParam<Integer> {
 	}
 	// ===== Overriders =====
 	//
+	@Override public String[] getModifiers() {
+		if (baseInc() == shiftInc())
+			return null;
+		return new String[] {baseInc().toString(),
+							shiftInc().toString(),
+							ctrlInc().toString(),
+							shiftCtrlInc().toString()};
+	}
 	@Override public String getGuiValue() {
 		if (isSpecialNegative())
 			return text(negativeLabel);
@@ -149,15 +157,15 @@ public class ParamInteger extends AbstractParam<Integer> {
 	@Override public void toggle(MouseWheelEvent e)	{ next(getInc(e) * getDir(e)); }
 	@Override public void setFromOptions(DynamicOptions options) {
 		if (!isDuplicate() && options != null)
-			set(options.getInteger(labelId(), defaultValue()));
+			set(options.getInteger(getLangageLabel(), defaultValue()));
 	}
 	@Override public void setOptions(DynamicOptions options) {
 		if (!isDuplicate() && options != null)
-		options.setInteger(labelId(), get());
+		options.setInteger(getLangageLabel(), get());
 	}
 	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
 		if (!isDuplicate() && src != null && dest != null)
-			dest.setInteger(labelId(), src.getInteger(labelId(), defaultValue()));
+			dest.setInteger(getLangageLabel(), src.getInteger(getLangageLabel(), defaultValue()));
 	}
 	// ===== Other Public Methods =====
 	//

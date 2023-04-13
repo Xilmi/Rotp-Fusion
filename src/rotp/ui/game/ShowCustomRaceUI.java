@@ -27,8 +27,6 @@ import java.awt.Stroke;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -46,7 +44,7 @@ import rotp.ui.util.SettingBase;
 import rotp.util.FontManager;
 import rotp.util.ModifierKeysState;
 
-public class ShowCustomRaceUI extends BaseModPanel implements MouseListener, MouseMotionListener {
+public class ShowCustomRaceUI extends BaseModPanel {
 	private static final long serialVersionUID	= 1L;
 	private static final Color  backgroundHaze	= new Color(0,0,0,160);
 	private static final String playerAIOffKey	= "SETUP_OPPONENT_AI_PLAYER";
@@ -269,17 +267,17 @@ public class ShowCustomRaceUI extends BaseModPanel implements MouseListener, Mou
 	private String selectAIFromList(String[] aiArray, String initialChoice) {
 		String message = "Make your choice";
 		ListDialog dialog = new ListDialog(
-		    	this,	// Frame component
-		    	getParent(),	// Location component
-		    	message,		// Message
+		    	this,					// Frame component
+		    	getParent(),			// Location component
+		    	message,				// Message
 		        "Empire AI selection",	// Title
-		        aiArray,			// List
-		        initialChoice, 		// Initial choice
-		        "XXXXXXXXXXXXXXXX",	// long Dialogue
-				false,				// isVertical
+		        aiArray,				// List
+		        initialChoice, 			// Initial choice
+		        "XXXXXXXXXXXXXXXX",		// long Dialogue
+				false,					// isVertical
 		        scaled(220), scaled(220),	// size
-				null, null, null,	// Font, Preview, Alternate return
-				null); // TODO BR: add help param
+				null, null, null,		// Font, Preview, Alternate return
+				null); 					// TODO BR: add help param
 
 		String input = (String) dialog.showDialog();
 	    if (input == null)
@@ -331,6 +329,17 @@ public class ShowCustomRaceUI extends BaseModPanel implements MouseListener, Mou
 				}
 			}
 			return true;
+		} else if (guideBox.contains(x,y)) {
+			hoverBox = guideBox;
+			tooltipText = text(guideButtonDescKey());
+			if (hoverBox != prevHover) {
+				if (tooltipText.equals(preTipTxt)) {
+					repaint(hoverBox);
+				} else {
+					repaint();
+				}
+			}
+			return true;
 		} else if (raceAIBox.contains(x,y)) {
 			hoverBox = raceAIBox;
 			tooltipText = text(raceAIButtonTipKey());
@@ -356,7 +365,7 @@ public class ShowCustomRaceUI extends BaseModPanel implements MouseListener, Mou
 						repaint(hoverBox);
 					} else {
 						repaint(hoverBox);
-						repaintTooltip();
+						repaint(toolTipBox);
 					}
 				}
 				return true;
@@ -373,7 +382,7 @@ public class ShowCustomRaceUI extends BaseModPanel implements MouseListener, Mou
 								repaint(hoverBox);
 							} else {
 								repaint(hoverBox);
-								repaintTooltip();
+								repaint(toolTipBox);
 							}
 						}
 						return true;
@@ -419,11 +428,11 @@ public class ShowCustomRaceUI extends BaseModPanel implements MouseListener, Mou
 		if (keyModifierChanged) {
 			repaintButtons();
 			if (!tooltipText.equals(preTipTxt))
-				repaintTooltip();
+				repaint(toolTipBox);
 		}
 		else if (!onBox && prevHover != null) {
 			if (!tooltipText.equals(preTipTxt))
-				repaintTooltip();
+				repaint(toolTipBox);
 		}
 	}
 	protected String raceAIButtonTxt() {
@@ -479,12 +488,6 @@ public class ShowCustomRaceUI extends BaseModPanel implements MouseListener, Mou
 		}				
 		yLine += endPad;
 	}
-	private void repaintTooltip() {
-		Graphics2D g = (Graphics2D) getGraphics();
-		super.paintComponent(g);
-		paintToolTips(g);
-		g.dispose();
-	}
 	private void paintToolTips(Graphics2D g) {
 		if (showTooltips.get()) {
 			List<String> lines = wrappedLines(g, tooltipText, wTT-2*tooltipPadM);
@@ -509,7 +512,7 @@ public class ShowCustomRaceUI extends BaseModPanel implements MouseListener, Mou
 		String text = text(exitButtonKey());
 		int sw = g.getFontMetrics().stringWidth(text);
 		int buttonW	= exitButtonWidth(g);
-		xButton = leftM + wBG - buttonW - xButtonOffset;
+		xButton = leftM + wBG - buttonW - buttonPad;
 		exitBox.setBounds(xButton, yButton, buttonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(exitBox.x, exitBox.y, buttonW, smallButtonH, cnr, cnr);
@@ -520,6 +523,23 @@ public class ShowCustomRaceUI extends BaseModPanel implements MouseListener, Mou
 		Stroke prev = g.getStroke();
 		g.setStroke(stroke1);
 		g.drawRoundRect(exitBox.x, exitBox.y, exitBox.width, exitBox.height, cnr, cnr);
+		g.setStroke(prev);
+
+		// Guide Button
+		text	= text(guideButtonKey());
+		xButton = leftM + buttonPad;
+		sw		= g.getFontMetrics().stringWidth(text);
+		buttonW = g.getFontMetrics().stringWidth(text) + smallButtonMargin;
+		guideBox.setBounds(xButton, yButton, buttonW, smallButtonH);
+		g.setColor(GameUI.buttonBackgroundColor());
+		g.fillRoundRect(guideBox.x, guideBox.y, buttonW, smallButtonH, cnr, cnr);
+		xT = guideBox.x+((guideBox.width-sw)/2);
+		yT = guideBox.y+guideBox.height-s8;
+		cB = hoverBox == guideBox ? Color.yellow : GameUI.borderBrightColor();
+		drawShadowedString(g, text, 2, xT, yT, GameUI.borderDarkColor(), cB);
+		prev = g.getStroke();
+		g.setStroke(stroke1);
+		g.drawRoundRect(guideBox.x, guideBox.y, guideBox.width, guideBox.height, cnr, cnr);
 		g.setStroke(prev);
 
 		// RaceUI Button
@@ -542,7 +562,7 @@ public class ShowCustomRaceUI extends BaseModPanel implements MouseListener, Mou
 	}
 	// ========== Overriders ==========
 	//
-	@Override protected void close() { disableGlassPane(); }
+//	@Override protected void close() { disableGlassPane(); }
 	@Override public boolean checkModifierKey(InputEvent e) {
 		boolean change = checkForChange(e);
 		hoverAndTooltip(change);
@@ -632,6 +652,7 @@ public class ShowCustomRaceUI extends BaseModPanel implements MouseListener, Mou
 		g.setStroke(prev);
 
 		paintButtons(g);
+		loadGuide();
 		
 		// ready for extension
 		xLine = xLine + currentWith + columnPad;
@@ -655,14 +676,11 @@ public class ShowCustomRaceUI extends BaseModPanel implements MouseListener, Mou
 				return;
 		}
 	}
-	@Override public void mouseDragged(MouseEvent e) {  }
 	@Override public void mouseMoved(MouseEvent e) {
 		x = e.getX();
 		y = e.getY();
 		checkModifierKey(e);
 	}
-	@Override public void mouseClicked(MouseEvent e) { }
-	@Override public void mousePressed(MouseEvent e) { }
 	@Override public void mouseReleased(MouseEvent e) {
 		if (e.getButton() > 3)
 			return;
@@ -672,11 +690,13 @@ public class ShowCustomRaceUI extends BaseModPanel implements MouseListener, Mou
 			close();
 			return;
 		}
+		if (hoverBox == guideBox) {
+			doGuideBoxAction();
+			return;
+		}
 		if (hoverBox == raceAIBox) {
 			raceAIBoxAction();
 			return;
 		}
 	}
-	@Override public void mouseEntered(MouseEvent e) {}
-	@Override public void mouseExited(MouseEvent e) {}
 }

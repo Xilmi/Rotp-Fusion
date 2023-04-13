@@ -25,6 +25,7 @@ import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
 import static rotp.ui.util.InterfaceParam.LABEL_DESCRIPTION;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -39,7 +40,9 @@ import java.util.LinkedList;
 
 import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BasePanel;
+import rotp.ui.BaseText;
 import rotp.ui.RotPUI;
+import rotp.ui.UserPreferences;
 import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.ui.util.InterfaceParam;
 import rotp.util.LabelManager;
@@ -85,10 +88,13 @@ public abstract class BaseModPanel extends BasePanel
 
 	//	protected Font smallButtonFont	= FontManager.current().narrowFont(20);
 	protected Font smallButtonFont	= narrowFont(20);
-	protected Box defaultBox		= new Box("MOD_HELP_BUTTON_DEFAULT");
-	protected Box lastBox			= new Box("MOD_HELP_BUTTON_LAST");
-	protected Box userBox			= new Box("MOD_HELP_BUTTON_USER");
-	protected Box guideBox			= new Box("MOD_HELP_BUTTON_GUIDE");
+//	protected Box defaultBox		= new Box("MOD_HELP_BUTTON_DEFAULT");
+//	protected Box lastBox			= new Box("MOD_HELP_BUTTON_LAST");
+//	protected Box userBox			= new Box("MOD_HELP_BUTTON_USER");
+	protected Box defaultBox		= new Box(UserPreferences.defaultButtonHelp);
+	protected Box lastBox			= new Box(UserPreferences.lastButtonHelp);
+	protected Box userBox			= new Box(UserPreferences.userButtonHelp);
+	protected Box guideBox			= new Box("SETTINGS_GUIDE_DESC");
 
 	protected boolean globalOptions	= false; // No preferred button and Saved to remnant.cfg
 
@@ -479,5 +485,38 @@ public abstract class BaseModPanel extends BasePanel
 		// ========== Constructors ==========
 		//
 		PolyBox() { polyBoxList.add(this); }
+	}
+
+	// ========== Sub Classes ==========
+	//
+	public class ModText extends BaseText {
+
+		private final Box box = new Box();
+
+		/**
+		* @param p		BasePanel
+		* @param logo	logoFont
+		* @param fSize	fontSize
+		* @param x1	xOrig
+		* @param y1	yOrig
+		* @param c1	enabledC
+		* @param c2	disabledC
+		* @param c3	hoverC
+		* @param c4	depressedC
+		* @param c5	shadeC
+		* @param i1	bdrStep
+		* @param i2	topLBdr
+		* @param i3	btmRBdr
+		*/
+		public ModText(BasePanel p, boolean logo, int fSize, int x1, int y1, Color c1, Color c2, Color c3, Color c4,
+				Color c5, int i1, int i2, int i3) {
+			super(p, logo, fSize, x1, y1, c1, c2, c3, c4, c5, i1, i2, i3);
+		}
+		ModText param(InterfaceParam param)	 { box.param(param); return this; }
+		ModText label(String label)			 { box.label(label); return this; }
+		Box getBox() {
+			box.setBounds(bounds());
+			return box;
+		}
 	}
 }

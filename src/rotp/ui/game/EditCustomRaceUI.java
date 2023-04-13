@@ -299,6 +299,17 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 				}
 			}
 			return true;
+		} else if (guideBox.contains(x,y)) {
+			hoverBox = guideBox;
+			tooltipText = text(guideButtonDescKey());
+			if (hoverBox != prevHover) {
+				if (tooltipText.equals(preTipTxt)) {
+					repaint(hoverBox);
+				} else {
+					repaint();
+				}
+			}
+			return true;
 		} else if (userBox.contains(x,y)) {
 			hoverBox = userBox;
 			tooltipText = text(userButtonDescKey());
@@ -377,7 +388,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		String text = text(exitButtonKey());
 		int sw = g.getFontMetrics().stringWidth(text);
 		int buttonW	= exitButtonWidth(g);
-		xButton = leftM + wBG - buttonW - xButtonOffset;
+		xButton = leftM + wBG - buttonW - buttonPad;
 		exitBox.setBounds(xButton, yButton, buttonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(exitBox.x, exitBox.y, buttonW, smallButtonH, cnr, cnr);
@@ -475,6 +486,23 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		g.drawRoundRect(loadBox.x, loadBox.y, loadBox.width, loadBox.height, cnr, cnr);
 		g.setStroke(prev);
 
+		// Guide Button
+		text	 = text(guideButtonKey());
+		sw		 = g.getFontMetrics().stringWidth(text);
+		buttonW  = g.getFontMetrics().stringWidth(text) + smallButtonMargin;
+		xButton -= (buttonW + buttonPad);
+		guideBox.setBounds(xButton, yButton, buttonW, smallButtonH);
+		g.setColor(GameUI.buttonBackgroundColor());
+		g.fillRoundRect(guideBox.x, guideBox.y, buttonW, smallButtonH, cnr, cnr);
+		xT = guideBox.x+((guideBox.width-sw)/2);
+		yT = guideBox.y+guideBox.height-s8;
+		cB = hoverBox == guideBox ? Color.yellow : GameUI.borderBrightColor();
+		drawShadowedString(g, text, 2, xT, yT, GameUI.borderDarkColor(), cB);
+		prev = g.getStroke();
+		g.setStroke(stroke1);
+		g.drawRoundRect(guideBox.x, guideBox.y, guideBox.width, guideBox.height, cnr, cnr);
+		g.setStroke(prev);
+
 		// Randomize Button
 		text	= text(randomKey);
 		xButton = leftM + buttonPad;
@@ -539,6 +567,10 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		}
 		if (hoverBox == selectBox) {
 			doSelectBoxAction();
+			return;
+		}
+		if (hoverBox == guideBox) {
+			doGuideBoxAction();
 			return;
 		}
 		if (hoverBox == userBox) {
