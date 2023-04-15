@@ -27,7 +27,7 @@ import javax.swing.SwingUtilities;
 
 import rotp.model.game.DynamicOptions;
 import rotp.model.game.MOO1GameOptions;
-import rotp.ui.BasePanel;
+import rotp.ui.game.BaseModPanel;
 import rotp.util.LabelManager;
 
 public abstract class AbstractParam <T> implements InterfaceParam{
@@ -133,6 +133,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 		return help;
 	}
 	@Override public String getGuiDescription() { return text(descriptionId()); }
+	@Override public String getGuiValue()		{ return String.valueOf(value); }
 	@Override public String getGuiDisplay()		{ return text(getLangageLabel(), getGuiValue()) + END; }
 	@Override public String getGuiDisplay(int idx)	{
 		String str = text(getLangageLabel()); // Get from label.txt
@@ -157,7 +158,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	@Override public boolean isDefaultValue()	{ return defaultValue.equals(get()); }
 	@Override public boolean isDuplicate()		{ return isDuplicate; }
 	@Override public void setFromDefault()		{ set(defaultValue()); }
-	@Override public void toggle(MouseEvent e, MouseWheelEvent w, BasePanel frame) {
+	@Override public void toggle(MouseEvent e, MouseWheelEvent w, BaseModPanel frame) {
 		if (e == null)
 			toggle(w);
 		else
@@ -178,7 +179,6 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	}	
 	public T setFromIndex(int i)		  { return null; }
 	protected String getCfgValue(T value) { return String.valueOf(value); }
-	public	  String getGuiValue()		  { return String.valueOf(value); }
 	public	  String getGuiValue(int idx) { return getGuiValue(); } // For List
 	// ========== Public Getters ==========
 	//

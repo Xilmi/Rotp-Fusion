@@ -100,8 +100,10 @@ public interface Base {
     public static DecimalFormat sf7 = new DecimalFormat("0.0000000E00");
     public static DecimalFormat sf8 = new DecimalFormat("0.00000000E00");
     public static DecimalFormat pad4 = new DecimalFormat("0000");
-    public static String lineSplit		= "\\n"; 	// BR: for descriptions and Help. System independent .
-    public static String lineSplitRegex = "\\\\n";	// BR: for descriptions and Help. System independent .
+//    public static String lineSplit		= "\\n"; 	// BR: for descriptions and Help. System independent .
+//    public static String lineSplitRegex = "\\\\n";	// BR: for descriptions and Help. System independent .
+    public static String lineSplit		= "<br>"; 	// BR: for descriptions and Help. System independent .
+    public static String lineSplitRegex = "<br>";	// BR: for descriptions and Help. System independent .
     
     static ImageColorizer colorizer = new ImageColorizer();
     public static String[] textSubs = { "%1", "%2", "%3", "%4", "%5", "%6", "%7", "%8" };
@@ -1070,6 +1072,10 @@ public interface Base {
                 if (!currentLine.isEmpty())
                 	lines.add(currentLine);
                 currentLine = "";
+        		if (forcedLine.trim().isEmpty()) {
+        			lines.add("");
+        			continue;
+        		}
                 for (String word: words) {
                     String newLine = currentLine;
                     if (newLine.isEmpty())

@@ -17,6 +17,10 @@
 package rotp.ui.util;
 
 import static rotp.ui.UserPreferences.minListSizePopUp;
+import static rotp.ui.util.InterfaceParam.langDesc;
+import static rotp.ui.util.InterfaceParam.langHelp;
+import static rotp.ui.util.InterfaceParam.langLabel;
+import static rotp.ui.util.InterfaceParam.langName;
 import static rotp.util.Base.lineSplit;
 
 import java.awt.event.MouseEvent;
@@ -24,8 +28,8 @@ import java.awt.event.MouseWheelEvent;
 import java.util.LinkedList;
 import java.util.List;
 
-import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
+import rotp.ui.game.BaseModPanel;
 
 public class ParamList extends AbstractParam<String> {
 
@@ -141,7 +145,7 @@ public class ParamList extends AbstractParam<String> {
 	}
 	// ===== Overriders =====
 	//
-	@Override public String getDefaultValue()	{ return label(defaultValue()); }
+	@Override public String getDefaultValue()	{ return langLabel(defaultValue()); }
 	@Override protected String getCfgValue(String value) {
 		return validateValue(value);
 	}
@@ -160,7 +164,7 @@ public class ParamList extends AbstractParam<String> {
 		else 
 			prev();
 	}
-	@Override public void	toggle(MouseEvent e, BasePanel frame)	{
+	@Override public void	toggle(MouseEvent e, BaseModPanel frame)	{
 		if (getDir(e) == 0)
 			setFromDefault();
 		else if (frame != null && 
@@ -197,6 +201,14 @@ public class ParamList extends AbstractParam<String> {
 //		help += BODY_SEPARATOR;
 //		help += getSubHelp();
 //		return help;
+	}
+	@Override public String getValueHelp()			{
+		String value = get();
+		int idx = getIndex(value);
+		if (idx<0)
+			return "";
+		String help = getSubHelp(idx);
+		return help; 
 	}
 //	@Override public String	getGuide(int idx)		{
 //		if (idx == -1)
@@ -272,7 +284,7 @@ public class ParamList extends AbstractParam<String> {
 		int index = Math.max(0, getIndex());
 		return valueLabelMap.guiTextList.get(index);
 	}
-	private void setFromList(BasePanel frame) {
+	private void setFromList(BaseModPanel frame) {
 		String message	= "<html>" + getGuiDescription() + "</html>";
 		String title	= text(getLangageLabel(), "");
 		initGuiTexts();
@@ -319,9 +331,12 @@ public class ParamList extends AbstractParam<String> {
 		return "- " + name + HELP_SEPARATOR + help + lineSplit;
 	}
 	private String label(int id)			  { return valueLabelMap.getLangLabel(id); }
-	private String name(int id)				  { return label(label(id), ""); }
-	private String realDescription(int id)	  { return realLabel(label(id)+LABEL_DESCRIPTION); }
-	private String realHelp(int id)			  { return realLabel(label(id)+LABEL_HELP); }
+	private String name(int id)				  { return langName(label(id)); }
+//	private String name(int id)				  { return langLabel(label(id), ""); }
+//	private String realDescription(int id)	  { return realLangLabel(label(id)+LABEL_DESCRIPTION); }
+	private String realDescription(int id)	  { return langDesc(label(id)); }
+	private String realHelp(int id)			  { return langHelp(label(id)); }
+//	private String realHelp(int id)			  { return realLangLabel(label(id)+LABEL_HELP); }
 	private void initMapGuiTexts()			  {
 		valueLabelMap.guiTextList.clear();
 		for (String label : valueLabelMap.langLabelList)

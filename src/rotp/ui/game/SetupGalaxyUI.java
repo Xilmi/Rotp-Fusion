@@ -1629,15 +1629,18 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		if (click) softClick();
 		newGameOptions().galaxyShape().quickGenerate();
 		backImg = null;
+		loadGuide();
 		repaint();
 	}
 	private void postSelectionMedium(boolean click) {
 		if (click) softClick();
 		newGameOptions().galaxyShape().quickGenerate();
+		loadGuide();
 		repaint();
 	}
 	private void postSelectionLight(boolean click) {
 		if (click) softClick();
+		loadGuide();
 		repaint();
 	}
 	private void nextMapOption1(boolean click) {
@@ -1669,25 +1672,35 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		postSelectionMedium(click);
 	}
 	private void nextOpponentAI(boolean click) {
-		if (click) softClick();
 		newGameOptions().selectedOpponentAIOption(newGameOptions().nextOpponentAI());
-		repaint();
+		postSelectionLight(click);
+//		if (click) softClick();
+//		newGameOptions().selectedOpponentAIOption(newGameOptions().nextOpponentAI());
+//		repaint();
 	}
 	private void prevOpponentAI(boolean click) {
-		if (click) softClick();
 		newGameOptions().selectedOpponentAIOption(newGameOptions().prevOpponentAI());
-		repaint();
+		postSelectionLight(click);
+//		if (click) softClick();
+//		newGameOptions().selectedOpponentAIOption(newGameOptions().prevOpponentAI());
+//		repaint();
 	}
-	private void toggleOpponentAI(boolean up) {
+	private void toggleOpponentAI(MouseEvent e) { // TODO
 		softClick();
-		if (newGameOptions().opponentAIOptions().size() >= minListSizePopUp.get()
+		boolean up = !SwingUtilities.isRightMouseButton(e);
+		boolean mid = SwingUtilities.isMiddleMouseButton(e);
+		if (mid) {
+			newGameOptions().selectedOpponentAIOption(opponentAI.defaultValue());
+		}
+		else if (newGameOptions().opponentAIOptions().size() >= minListSizePopUp.get()
 					|| ModifierKeysState.isCtrlDown())
 			selectGlobalAIFromList();
 		else if (up)
 			newGameOptions().selectedOpponentAIOption(newGameOptions().nextOpponentAI());
 		else
 			newGameOptions().selectedOpponentAIOption(newGameOptions().prevOpponentAI());
-		repaint();
+		//repaint();
+		postSelectionLight(false);
 	}
 	private void nextOpponentCR(boolean click) {
 		if (click) softClick();
@@ -2508,7 +2521,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		else if (hoverPolyBox == aiBoxL)
 			prevOpponentAI(true);
 		else if (hoverBox == aiBox)
-			toggleOpponentAI(up);
+			toggleOpponentAI(e);
 		else if (hoverPolyBox == aiBoxR)
 			nextOpponentAI(true);
 		else if (hoverPolyBox == crBoxL)
@@ -2662,3 +2675,4 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 	}
 }
+ 

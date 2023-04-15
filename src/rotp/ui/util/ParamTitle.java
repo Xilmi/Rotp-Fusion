@@ -20,8 +20,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
 import rotp.model.game.DynamicOptions;
-import rotp.ui.BasePanel;
 import rotp.ui.UserPreferences;
+import rotp.ui.game.BaseModPanel;
 
 public class ParamTitle extends AbstractParam<String> {
 	
@@ -41,7 +41,7 @@ public class ParamTitle extends AbstractParam<String> {
 	@Override public void prev() {}
 	@Override public void next() {}
 	@Override public void toggle(MouseWheelEvent e)	{}
-	@Override public void toggle(MouseEvent e, BasePanel frame)	 {}
+	@Override public void toggle(MouseEvent e, BaseModPanel frame)	 {}
 	@Override public void setFromOptions(DynamicOptions options) {}
 	@Override public void setOptions(DynamicOptions options)	 {}
 	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {}

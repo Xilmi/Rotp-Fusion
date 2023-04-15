@@ -243,7 +243,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		System.out.println("===== refreshGui()");
 		System.out.println("playerCustomRace: Race Name = " +
 				((DynOptions) playerCustomRace.get()).getString("CUSTOM_RACE_RACE_NAME"));
-		System.out.println("settingList : Race Name = " + settingList.get(1).guiSettingValue());
+		System.out.println("settingList : Race Name = " + settingList.get(1).getGuiValue());
 		cr.fromOptions((DynOptions) playerCustomRace.get());
 		repaint();
 	}

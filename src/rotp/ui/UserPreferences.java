@@ -1030,26 +1030,34 @@ public class UserPreferences {
 	public static final ParamList opponentAI = new ParamList( // For Help Do not add the list
 			BASE_UI, "OPPONENT_AI",
 			MOO1GameOptions.getOpponentAIOptions(),
-			OPPONENT_AI_CRUEL);
+			OPPONENT_AI_CRUEL) {
+		@Override public String	get()	{
+			return RotPUI.mergedGuiOptions().selectedOpponentAIOption();
+		}
+		@Override public String	getGuiValue()	{ return text(get()); }
+	};
 	public static final ParamList specificAI = new ParamList( // For Help Do not add the list
 			BASE_UI, "SPECIFIC_AI",
 			MOO1GameOptions.getSpecificOpponentAIOptions(),
 			OPPONENT_AI_CRUEL);
 	public static final ParamButtonHelp userButtonHelp = new ParamButtonHelp( // For Help Do not add the list
+			"SETTINGS_BUTTON_USER",
 			"SETTINGS_GLOBAL_USER_SET",
 			"SETTINGS_LOCAL_USER_SET",
 			"SETTINGS_GLOBAL_USER_SAVE",
 			"SETTINGS_LOCAL_USER_SAVE");
 	public static final ParamButtonHelp lastButtonHelp = new ParamButtonHelp( // For Help Do not add the list
+			"SETTINGS_BUTTON_LAST",
 			"SETTINGS_GLOBAL_LAST_SET",
 			"SETTINGS_LOCAL_LAST_SET",
 			"SETTINGS_GLOBAL_LAST_GAME",
 			"SETTINGS_LOCAL_LAST_GAME");
 	public static final ParamButtonHelp defaultButtonHelp = new ParamButtonHelp( // For Help Do not add the list
+			"SETTINGS_BUTTON_DEFAULT",
 			"SETTINGS_GLOBAL_DEFAULT",
 			"SETTINGS_LOCAL_DEFAULT",
-			"",
-			"");
+			"SETTINGS_GLOBAL_RESTORE",
+			"SETTINGS_LOCAL_RESTORE");
 	
 	private static boolean showMemory  = false;
 	private static boolean playMusic   = true;

@@ -32,7 +32,6 @@
 package rotp.ui.util;
 
 import static rotp.ui.game.BaseModPanel.autoGuide;
-import static rotp.ui.game.BaseModPanel.guideUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -67,10 +66,9 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
-import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
+import rotp.ui.game.BaseModPanel;
 import rotp.ui.game.GameUI;
-import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.util.Base;
 
 /*
@@ -101,6 +99,7 @@ public class ListDialog extends JDialog
 	private JList<Object> list;
 	private List<String> alternateReturn;
 	private Frame frame;
+	private BaseModPanel baseModPanel;
 	private InterfaceParam param;
 
 
@@ -146,7 +145,7 @@ public class ListDialog extends JDialog
 		index = Math.max(0, list.getSelectedIndex());
 	}
 
-	public ListDialog( BasePanel frameComp,
+	public ListDialog( BaseModPanel frameComp,
 					   Component locationComp,
 					   String labelText,
 					   String title,
@@ -161,6 +160,7 @@ public class ListDialog extends JDialog
 					   InterfaceParam param) {
 
 		super(JOptionPane.getFrameForComponent(frameComp.getParent()), title, true);
+		baseModPanel = frameComp;
 		frame = JOptionPane.getFrameForComponent(frameComp.getParent());
 		this.alternateReturn = alternateReturn;
 		this.param = param;
@@ -376,11 +376,8 @@ public class ListDialog extends JDialog
 		}
 	}
 	private void clearHelp() {
-		if (guideUI != null) {
-			guideUI.clear();
-			guideUI = null;
-		}
-		frame.paintComponents(frame.getGraphics());
+		baseModPanel.guidePopUp.clear();
+		frame.paintComponents(frame.getGraphics()); // TODO BR: may be useless
 	}
 	private void showHelp(int idx) {
 		Rectangle dest = getBounds();
@@ -392,16 +389,9 @@ public class ListDialog extends JDialog
 		dest.y += RotPUI.scaledSize(80);
 		
 		clearHelp();
-		int maxWidth	= scaled(300);
 		String text		= "No Help Yet";
 		if (param != null)
 			text = param.getGuide();
-//			text = param.getGuide(list.getSelectedIndex());
-		guideUI = RotPUI.helpUI();
-		guideUI.clear();
-		HelpSpec sp = guideUI.addBrownHelpText(0, 0, maxWidth, 1, text);
-		sp.autoSize(frame.getGraphics());
-		sp.autoPosition(dest);
-		guideUI.paint(frame.getGraphics(), false);
+		baseModPanel.guidePopUp.setDest(dest, text, frame.getGraphics());
 	}
 }

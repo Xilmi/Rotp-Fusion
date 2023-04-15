@@ -21,7 +21,7 @@ import java.awt.event.MouseWheelEvent;
 import java.io.Serializable;
 
 import rotp.model.game.DynamicOptions;
-import rotp.ui.BasePanel;
+import rotp.ui.game.BaseModPanel;
 
 class ParamObject extends AbstractParam<Serializable> {
 	
@@ -42,7 +42,7 @@ class ParamObject extends AbstractParam<Serializable> {
 	@Override public void prev() {}
 	@Override public void next() {}
 	@Override public void toggle(MouseWheelEvent e)	{}
-	@Override public void toggle(MouseEvent e, BasePanel frame) {}
+	@Override public void toggle(MouseEvent e, BaseModPanel frame) {}
 	@Override public void setFromOptions(DynamicOptions options) {
 		if (!isDuplicate() && options != null)
 			set((Serializable) options.getObject(getLangageLabel(), defaultValue()));

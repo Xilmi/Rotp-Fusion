@@ -562,6 +562,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	}
 	// ========== Overriders ==========
 	//
+
 //	@Override protected void close() { disableGlassPane(); }
 	@Override public boolean checkModifierKey(InputEvent e) {
 		boolean change = checkForChange(e);

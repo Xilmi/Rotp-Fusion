@@ -26,24 +26,29 @@ import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
 import static rotp.ui.util.InterfaceParam.LABEL_DESCRIPTION;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.Stroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.LinkedList;
 
+import javax.swing.JEditorPane;
+import javax.swing.JTextPane;
+
+import rotp.Rotp;
 import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
-import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.ui.util.InterfaceParam;
 import rotp.util.LabelManager;
 import rotp.util.ModifierKeysState;
@@ -72,7 +77,7 @@ public abstract class BaseModPanel extends BasePanel
 	protected static int	 smallButtonMargin;
 	protected static int	 smallButtonH;
 	public	  static boolean autoGuide	= false; // To disable automated Guide
-	public	  static HelpUI  guideUI;
+	public	  static boolean contextHlp	= false; // The time to show  the contextual help
 
 	private final LinkedList<PolyBox>	polyBoxList	= new LinkedList<>();
 	private final LinkedList<Box>		boxBaseList	= new LinkedList<>();
@@ -85,20 +90,23 @@ public abstract class BaseModPanel extends BasePanel
 	LinkedList<InterfaceParam> duplicateList;
 	LinkedList<InterfaceParam> activeList;
 	
-
+	public GuidePopUp guidePopUp;
+	
 	//	protected Font smallButtonFont	= FontManager.current().narrowFont(20);
 	protected Font smallButtonFont	= narrowFont(20);
-//	protected Box defaultBox		= new Box("MOD_HELP_BUTTON_DEFAULT");
-//	protected Box lastBox			= new Box("MOD_HELP_BUTTON_LAST");
-//	protected Box userBox			= new Box("MOD_HELP_BUTTON_USER");
 	protected Box defaultBox		= new Box(UserPreferences.defaultButtonHelp);
 	protected Box lastBox			= new Box(UserPreferences.lastButtonHelp);
 	protected Box userBox			= new Box(UserPreferences.userButtonHelp);
-	protected Box guideBox			= new Box("SETTINGS_GUIDE_DESC");
+	protected Box guideBox			= new Box(guideKey);
 
 	protected boolean globalOptions	= false; // No preferred button and Saved to remnant.cfg
 
-	protected BaseModPanel () {	}
+	protected BaseModPanel () {
+		if (guidePopUp == null)
+			guidePopUp = new GuidePopUp();
+		guidePopUp.init();
+	}
+	protected abstract String GUI_ID();
 	
 	private void localInit(Graphics2D g) {
 		Font prevFont = g.getFont();
@@ -111,6 +119,8 @@ public abstract class BaseModPanel extends BasePanel
 		initLastButtonWidth(g);
 
 		g.setFont(prevFont);
+		guidePopUp.init();
+//		add(guide, -1);
 	}
 	private int stringWidth(Graphics2D g, String key) {
 		return g.getFontMetrics().stringWidth(LabelManager.current().label(key));
@@ -122,7 +132,6 @@ public abstract class BaseModPanel extends BasePanel
 		return smallButtonMargin + result;
 	}
 	
-	protected abstract String GUI_ID();
 	protected void refreshGui() {}
 	protected MOO1GameOptions guiOptions() { return RotPUI.mergedGuiOptions(); }
 
@@ -137,7 +146,7 @@ public abstract class BaseModPanel extends BasePanel
 	}
 	protected void close() { 
 		ModifierKeysState.reset();
-		guideUI = null;
+//		guideUI = null;
 		disableGlassPane();
 	}
 
@@ -321,21 +330,21 @@ public abstract class BaseModPanel extends BasePanel
 	@Override public void mouseClicked(MouseEvent e)	{  }
 	@Override public void mousePressed(MouseEvent e)	{  }
 	@Override public void mouseEntered(MouseEvent e)	{  }
-	@Override public void mouseExited(MouseEvent e)		{  }
+	@Override public void mouseExited(MouseEvent e)		{ clearGuide(); }
 	@Override public void mouseDragged(MouseEvent e)	{  }
 	@Override public void mouseMoved(MouseEvent e)		{
 		checkModifierKey(e);		
 		int x = e.getX();
 		int y = e.getY();
-//		Shape prevHover = hoverBox;
+		prevHover		= hoverBox;
 		hoverPolyBox	= null;
 		hoverBox		= null;
 
 		for (Box box : boxBaseList)
-				if (box.contains(x,y)) {
-					hoverBox = box;
-					break;
-				}
+			if (box.contains(x,y)) {
+				hoverBox = box;
+				break;
+			}
 		if (hoverBox != prevHover) {
 			loadGuide();
 			repaint();
@@ -369,39 +378,27 @@ public abstract class BaseModPanel extends BasePanel
 		}
 		if (!autoGuide)
 			return;
-	  	String txt = hoverBox.getGuide();
-	  	if (txt == null || txt.isEmpty())
-	  		return;
-	  	setGuide(hoverBox, txt);
+		guidePopUp.setDest(hoverBox, false, getGraphics());
 	}
 	private boolean showContextualHelp()				{ // Following "F1!
 		if (hoverBox == null)
 			return false; // ==> panel help
-		String txt = hoverBox.getHelp();
-	  	if (txt == null || txt.isEmpty())
+		
+	  	if (!guidePopUp.setDest(hoverBox, true, getGraphics()))
 	  		return false; // ==> panel help
-			setGuide(hoverBox, txt);
-			showGuide(getGraphics());
+	  	contextHlp = true;
 	  	return true;
 	}
-	private void setGuide(Rectangle dest, String text)	{
-		int	maxWidth  = scaled(400);
-		guideUI = RotPUI.helpUI();
-		guideUI.clear();
-		HelpSpec sp = guideUI.addBrownHelpText(0, 0, maxWidth, 1, text);
-		sp.autoSize(frame().getGraphics());
-		sp.autoPosition(dest);
-	}
 	protected void showGuide(Graphics g)				{
-		if (guideUI == null)
+		if (!(autoGuide || contextHlp))
 			return;
-		guideUI.paint(g, false);
+		guidePopUp.paintGuide(g);
 	}
 	protected void clearGuide()							{
-		if (guideUI == null)
-			return;
-		guideUI.clear();
-		guideUI = null;
+		guidePopUp.clear();
+		contextHlp = false;
+//		this.paintComponent(getGraphics());
+//		refreshGui();
 	}
 	// ========== Sub Classes ==========
 	//
@@ -424,7 +421,7 @@ public abstract class BaseModPanel extends BasePanel
 		void param(InterfaceParam param)	 { this.param = param; }
 		InterfaceParam param()	 			 { return param; }
 		void label(String label)			 { this.label = label; }
-		private String getDescription()		 {
+		public String getDescription()		 {
 			String desc = getParamDescription();
 			if (desc.isEmpty())
 				return getLabelDescription();
@@ -445,26 +442,8 @@ public abstract class BaseModPanel extends BasePanel
 			else
 				return guide;
 		}
-		private String getLabelDescription() {
-			if (label == null)
-				return "";
-			String descLabel = label + LABEL_DESCRIPTION;
-			String desc = text(descLabel);
-			if (desc.equals(descLabel))
-				return "";
-			else
-				return desc;
-		}
-		private String getLabelHelp()		 {
-			if (label == null)
-				return "";
-			String helpLabel = label;
-			String help = text(helpLabel);
-			if (help.equals(helpLabel))
-				return getDescription();
-			else
-				return help;
-		}
+		private String getLabelDescription() { return InterfaceParam.langDesc(label); }
+		private String getLabelHelp()		 { return InterfaceParam.langHelp(label); }
 		private String getParamDescription() {
 			if (param == null)
 				return "";
@@ -486,9 +465,6 @@ public abstract class BaseModPanel extends BasePanel
 		//
 		PolyBox() { polyBoxList.add(this); }
 	}
-
-	// ========== Sub Classes ==========
-	//
 	public class ModText extends BaseText {
 
 		private final Box box = new Box();
@@ -518,5 +494,184 @@ public abstract class BaseModPanel extends BasePanel
 			box.setBounds(bounds());
 			return box;
 		}
+	}
+	// ===============================================================================
+	public class GuidePopUp {
+		private static final int FONT_SIZE	= 16;
+		private final int maxWidth      = scaled(300);
+		private final Color guideColor	= GameUI.setupFrame();
+		private final Color helpColor	= new Color(240,240,240);
+		private final Color lineColor	= Color.white;
+		private final JTextPane border	= new JTextPane();
+		private final JTextPane	margin	= new JTextPane();
+		private final JEditorPane pane	= new JEditorPane();
+		private Rectangle dest			= new Rectangle(0,0,0,0);
+		private String text;
+		private int x, y, w, h;
+		private int[] lineArr;
+		private boolean fullHelp;
+		private Color bgC  = guideColor;
+		private Color bdrC = new Color(bgC.getRed(), bgC.getGreen(), bgC.getBlue(), 160);
+
+		// ========== Constructors and initializers ==========
+		//	
+		GuidePopUp() { }
+		private void init() {
+			add(border, 0);
+			add(margin, 0);
+			add(pane, 0);
+			border.setOpaque(true);
+			margin.setOpaque(true);
+			pane.setOpaque(true);
+			pane.setContentType("text/html");
+			pane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
+			hide();
+		}
+		private void setText(String newText)	{ text = newText; }
+		private void setDest(Rectangle newDest)	{
+			dest = newDest;
+			setVisible();
+			init(dest);
+		}
+		private void setFullHelp(boolean full)	{ fullHelp = full; }
+		public  void setDest(Rectangle dest, String text, Graphics g0) {
+			setFullHelp(false);
+			setText(text);
+			setDest(dest);
+			paintGuide(g0);
+		}
+		boolean setDest(Box dest, boolean fullHelp, Graphics g0)	{
+			if (dest == null)
+				return false;
+			String txt;
+			if (fullHelp)
+			  	txt = dest.getHelp();
+			else
+			  	txt = dest.getGuide();
+			if (txt == null || txt.isEmpty())
+		  		return false;
+			setFullHelp(fullHelp);
+			setText(txt);
+			setDest(dest);
+			paintGuide(g0);
+			return true;
+		}
+		// ========== Shared Methods ==========
+		//
+		private void paintGuide(Graphics g0) {
+			if (dest == null)
+				return;
+			if (!pane.isVisible())
+				return;
+			Graphics2D g = (Graphics2D) g0;
+			setVisible();
+			border.setBackground(bdrC);
+			border.setBounds(x-s8, y-s8, w+s16, h+s16);
+			margin.setBackground(bgC);
+			margin.setBounds(x-s3, y-s3, w+s6, h+s6);
+			pane.setFont(narrowFont(FONT_SIZE));
+			pane.setBackground(bgC);
+			pane.setBounds(x, y, w, h);
+			drawLines(g);
+		}
+	    void setVisible()	{
+	    	if(pane.isVisible())
+	    		return;
+			border.setVisible(true);
+			margin.setVisible(true);
+	    	pane.setVisible(true);
+	    }
+	    void hide()			{
+	    	border.setVisible(false);
+	    	margin.setVisible(false);
+	    	pane.setVisible(false);
+	    }
+	    public void clear()	{ hide(); }
+		// ========== Private Methods ==========
+		//
+        private void setLineArr(int... arr) { lineArr = arr; }
+		private void drawLines(Graphics2D g) {
+			if (lineArr != null) {
+				Stroke prev = g.getStroke();
+				g.setStroke(stroke2);
+				g.setColor(lineColor);
+				int size = lineArr.length/2 - 1;
+				for (int i=0; i<size; i++) {
+					int k = 2*i;
+					g.drawLine(lineArr[k], lineArr[k+1], lineArr[k+2], lineArr[k+3]);
+				}
+				g.setStroke(prev);
+			}			
+		}
+		private void autoSize(int width) {
+    		int iW = scaled(Rotp.IMG_W - 20);
+    		int iH = scaled(Rotp.IMG_H - 20);
+			bgC  = fullHelp ? helpColor : guideColor;
+			bdrC = new Color(bgC.getRed(), bgC.getGreen(), bgC.getBlue(), 160);
+			pane.setFont(narrowFont(FONT_SIZE));
+			h = Short.MAX_VALUE;
+			while (h>iH) {
+	    		pane.setSize(new Dimension(width, Short.MAX_VALUE));
+	    		pane.setText(text);
+	    		w = min(width, pane.getPreferredSize().width);
+	    		h = pane.getPreferredSize().height;
+	    		width *= (float)h /iH;
+			}
+    		margin.setSize(new Dimension(w+s6, h+s6));
+    		border.setSize(new Dimension(w+s16, h+s16));
+    		pane.setSize(new Dimension(w, h));
+		}
+		private void init(Rectangle dest) { init(dest, s20, s20); }
+		private void init(Rectangle dest, int xShift, int yShift) {
+			init(dest, xShift, yShift, s10, s10); }
+        private void init(Rectangle dest, int xShift, int yShift, int xCover, int yCover) {
+        	init(dest, xShift, yShift, xCover, yCover, s10, s10); }
+        private void init(Rectangle dest,
+        		int xShift, int yShift, int xCover, int yCover, int xMargin, int yMargin) {
+    		int xb, xd, yb, yd;
+    		int iW = scaled(Rotp.IMG_W);
+    		int iH = scaled(Rotp.IMG_H);
+    		autoSize(maxWidth);
+    		// relative position
+    		// find X location
+     		if (2*dest.x + dest.width  > iW) { // put box to the left
+    			x = dest.x - w - xShift;
+    			if (x < xMargin)
+    				x = xMargin;
+    			xb = x + w;
+	   			xd = dest.x + xCover;
+	   			if (xd < xb)
+	   				xd = xb + s10;
+    		}
+    		else { // put box to the right
+    			x = dest.x + dest.width + xShift;
+    			if (x+w > iW-xMargin)
+    				x = iW-xMargin - w;
+	   			xb = x;
+	   			xd = dest.x + dest.width - xCover;
+	   			if (xd > xb)
+	   				xd = xb - s10;
+    		}
+    		// find Y location
+     		if (2*dest.y + dest.width  > iH) { // put box to the top
+    			y = dest.y - h - yShift;
+    			if (y < yMargin)
+    				y = yMargin;
+    			yb = y + h;
+	   			yd = dest.y + yCover;
+	   			if (yd < yb)
+	   				yb = yd + s10;
+    		}
+    		else { // put box to the bottom
+    			y = dest.y + dest.height + yShift;
+    			if (y+h > iH-yMargin)
+    				y = iH-yMargin - h;
+	   			yb = y;
+	   			yd = dest.y + dest.height - yCover;
+	   			if (yd > yb)
+	   				yb = yd - s10;
+    		}
+    		setLineArr(xb, yb, xd, yd);
+        }
 	}
 }

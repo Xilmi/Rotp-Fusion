@@ -73,17 +73,17 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
     private static BufferedImage raceBackImg;
     private BufferedImage shipBackImg;
     private BufferedImage raceImg;
-    private Rectangle	helpBox		= new Box();
-    private Rectangle	cancelBox	= new Box("MOD_HELP_RACE_CANCEL");
-    private Rectangle	nextBox		= new Box("MOD_HELP_RACE_NEXT");
-    private Box 		leaderBox	= new Box();
-    private Box			homeWorldBox = new Box();
-    private Rectangle	playerRaceSettingBox = new Box("MOD_HELP_RACE_CUSTOM"); // BR: Player Race Customization
-    private Rectangle	checkBox	= new Box("MOD_HELP_RACE_CHECK_BOX"); // BR: Player Race Customization
-    private Box			shipSetBox	= new Box("MOD_HELP_RACE_SHIPSET"); // BR: ShipSet Selection
-    private Box[]		raceBox		= new Box[MAX_RACES];
-    private Box[]		colorBox	= new Box[MAX_COLORS];
-    private Box[]		shipBox		= new Box[MAX_SHIP]; // BR: ShipSet Selection
+    private Box	helpBox			= new Box();
+    private Box	cancelBox		= new Box("SETUP_RACE_CANCEL");
+    private Box	nextBox			= new Box("SETUP_RACE_NEXT");
+    private Box	leaderBox		= new Box();
+    private Box	homeWorldBox	= new Box();
+    private Box	playerRaceSettingBox = new Box("SETUP_RACE_CUSTOM"); // BR: Player Race Customization
+    private Box	checkBox		= new Box("SETUP_RACE_CHECK_BOX"); // BR: Player Race Customization
+    private Box	shipSetBox		= new Box("SETUP_RACE_SHIPSET"); // BR: ShipSet Selection
+    private Box[] raceBox		= new Box[MAX_RACES];
+    private Box[] colorBox		= new Box[MAX_COLORS];
+    private Box[] shipBox		= new Box[MAX_SHIP]; // BR: ShipSet Selection
 
     private static BufferedImage[] racemugs = new BufferedImage[MAX_RACES];
     private JTextField leaderName = new JTextField("");
@@ -107,11 +107,11 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         addMouseMotionListener(this);
         addMouseWheelListener(this);
         for (int i=0;i<raceBox.length;i++)
-            raceBox[i] = new Box("MOD_HELP_RACE_RACES");
+            raceBox[i] = new Box("SETUP_RACE_RACES");
         for (int i=0;i<colorBox.length;i++)
             colorBox[i] = new Box();
         for (int i=0;i<shipBox.length;i++)
-        	shipBox[i] = new Box("MOD_HELP_RACE_SHIPSET");
+        	shipBox[i] = new Box("SETUP_RACE_SHIPSET");
         for (int i=0;i<shipImages.length;i++)
         	shipImages[i] = new ArrayList<BufferedImage>();
         FIELD_W = scaled(160);
@@ -149,7 +149,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
 		int nL, hBox, lH;
 		String txt;
 		HelpSpec sp;
-		Rectangle dest;
+		Box dest;
 		HelpUI helpUI = RotPUI.helpUI();
 		helpUI.clear();
 
@@ -164,8 +164,8 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
 		int yShift = s60;
 		int hShift = s40;
 		int yTab   = s15;
-		txt  = text("MOD_HELP_RACE_NEXT");
 		dest = nextBox;
+		txt  = dest.getDescription();
         nL   = 2;
         wBox = dest.width - s20;
         hBox = nL*lH;
@@ -178,8 +178,8 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         ye   = dest.y;
         sp.setLine(xb, yb, xe, ye);
         
-		txt  = text("MOD_HELP_RACE_CANCEL");
 		dest = cancelBox;
+		txt  = dest.getDescription();
         nL   = 2;
         hBox = nL*lH;
         xBox -= wBox + yTab;
@@ -191,8 +191,8 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         ye   = dest.y;
         sp.setLine(xb, yb, xe, ye);
         
-		txt  = text("MOD_HELP_BUTTON_DEFAULT");
 		dest = defaultBox;
+		txt  = dest.getDescription();
         nL   = 3;
         hBox = nL*lH;
         xBox -= wBox + yTab;
@@ -204,8 +204,8 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         ye   = dest.y;
         sp.setLine(xb, yb, xe, ye);
         
-		txt  = text("MOD_HELP_BUTTON_LAST");
 		dest = lastBox;
+		txt  = dest.getDescription();
         nL   = 3;
         hBox = nL*lH;
         xBox -= wBox + yTab;
@@ -217,8 +217,8 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         ye   = dest.y;
         sp.setLine(xb, yb, xe, ye);
         
-		txt  = text("MOD_HELP_BUTTON_USER");
 		dest = userBox;
+		txt  = dest.getDescription();
         nL   = 3;
         hBox = nL*lH;
         xBox = dest.x - wBox - s20;
@@ -230,8 +230,8 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         ye   = dest.y +dest.height/2;
         sp.setLine(xb, yb, xe, ye);
         
-		txt  = text("MOD_HELP_RACE_CUSTOM");
 		dest = playerRaceSettingBox;
+		txt  = dest.getDescription();
         nL   = 3;
         hBox = nL*lH;
         yBox = dest.y-hBox-hShift;
@@ -242,8 +242,8 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         ye   = dest.y;
         sp.setLine(xb, yb, xe, ye);
         
-		txt  = text("MOD_HELP_RACE_CHECK_BOX");
 		dest = checkBox;
+		txt  = dest.getDescription();
         nL   = 3;
         xBox += wBox + yTab;
         wBox = scaled(170);
@@ -255,8 +255,8 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         ye   = dest.y;
         sp.setLine(xb, yb, xe, ye);
 
-		txt  = text("MOD_HELP_RACE_SHIPSET");
 		dest = shipSetBox;
+		txt  = dest.getDescription();
         nL   = 3;
         wBox = scaled(225);
         hBox = nL*lH;
@@ -284,18 +284,18 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         		lx, ty + s100
            	    );
 
-		txt  = text("MOD_HELP_RACE_RACES");
-		dest = new Rectangle(scaled(425), scaled(108), scaled(385), scaled(489));
+		txt  = text("SETUP_RACE_RACES_DESC");
+		Rectangle dst = new Rectangle(scaled(425), scaled(108), scaled(385), scaled(489));
         nL   = 4;
         wBox = scaled(300);
         hBox = nL*lH;
-        xBox = dest.x - wBox - s25;
-        yBox = dest.y + dest.height/2 - hBox;
+        xBox = dst.x - wBox - s25;
+        yBox = dst.y + dst.height/2 - hBox;
         sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
         xb   = xBox+wBox;
         yb   = yBox+sp.height()/2;
-        xe   = dest.x + s20;
-        ye   = dest.y + dest.height/2;
+        xe   = dst.x + s20;
+        ye   = dst.y + dest.height/2;
         sp.setLine(xb, yb, xe, ye);
 
         helpUI.open(this);
@@ -1184,22 +1184,20 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
             repaint();
         }
         else if (e.getComponent() == shipSetTxt) {
-        	shipSetTxt.requestFocus();
+        	//shipSetTxt.requestFocus();
             hoverBox = shipSetBox;
             repaint();
         }
     }
     @Override
     public void mouseExited(MouseEvent e) {
+    	super.mouseExited(e);
         if (e.getComponent() == leaderName) {
             newGameOptions().selectedLeaderName(leaderName.getText());
             RotPUI.instance().requestFocus();
         }
         else if (e.getComponent() == homeWorld) {
             newGameOptions().selectedHomeWorldName(homeWorld.getText());
-            RotPUI.instance().requestFocus();
-        }
-        else if (e.getComponent() == shipSetTxt) {
             RotPUI.instance().requestFocus();
         }
         if (hoverBox != null) {

@@ -22,7 +22,7 @@ import static rotp.util.Base.textSubs;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
-import rotp.ui.BasePanel;
+import rotp.ui.game.BaseModPanel;
 import rotp.util.LabelManager;
 
 public interface InterfaceParam extends InterfaceOptions{
@@ -43,18 +43,19 @@ public interface InterfaceParam extends InterfaceOptions{
 	public void next();
 	public void prev();
 	public void toggle(MouseWheelEvent e);
-	public void toggle(MouseEvent e, BasePanel frame);
-	public void toggle(MouseEvent e, MouseWheelEvent w, BasePanel frame);
+	public void toggle(MouseEvent e, BaseModPanel frame);
+	public void toggle(MouseEvent e, MouseWheelEvent w, BaseModPanel frame);
 	public String getCfgValue();
 	public String getCfgLabel();
 	public String getLangageLabel();
-	public String getGuiDisplay();
+	public String getGuiValue(); // Only the value, (player view)
+	public String getGuiDisplay(); // Name, value, ... and more
 	public String getGuiDisplay(int idx);
 	public String getGuiDescription();
 	public String getDefaultValue();
 	public boolean isDefaultValue();
 
-	public default void toggle(MouseEvent e, int p, BasePanel frame) {}
+	public default void toggle(MouseEvent e, int p, BaseModPanel frame) {}
 	public default String	getToolTip()		{ return getGuiDescription(); }
 	public default String	getToolTip(int idx)	{ return "";  }
 //	public default String	getGuide()			{ return getToolTip(); }
@@ -64,13 +65,13 @@ public interface InterfaceParam extends InterfaceOptions{
 	public default boolean	isSubMenu()			{ return false; }
 	public default String[]	getModifiers()		{ return null; }
 	
-
-//	public default String	getFullHelp()		{
-//		if (getToolTip().isEmpty())
-//			return getGuiDescription();
-//		return getToolTip();
-//	};
-	public default String getFullHelp()			{ return getGuide(); };
+	// Limited size for toolTip boxes
+	public default String	getDescription()		{
+		if (getToolTip().isEmpty())
+			return getGuiDescription();
+		return getToolTip();
+	};
+	// Bigger Description for auto pop up help (guide)
 	public default String getGuide()			{
 		String help = HeaderHelp();
 		help += defaultValueHelp();
@@ -78,13 +79,15 @@ public interface InterfaceParam extends InterfaceOptions{
 		help += selectionHelp();
 		return help;
 	};
+	// Full help for "F1" requests
+	public default String getFullHelp()			{ return getGuide(); };
+
+	// ===== Local Help and guide Tools =====
 	public default String HeaderHelp()			{
 		String label = getLangageLabel();
-		String name  = label(label, "");
-		String help  = realLabel(label+LABEL_HELP);
-		if (help == null)
-			help = realLabel(label+LABEL_DESCRIPTION);
-		if (help == null)
+		String name  = langLabel(label, "");
+		String help  = langHelp(label);
+		if (help.isEmpty())
 			help = "Sorry, no help available yet.";
 		return "Option: " + name + lineSplit
 				+ "==>" + help + BASE_SPLITER;
@@ -97,10 +100,10 @@ public interface InterfaceParam extends InterfaceOptions{
 	public default String getValueHelp()		{ return ""; }
 	public default String selectionHelp()		{
 		String help = getValueHelp();
-		String val = "Selected Value = " + getGuiDisplay();
+		String val = "Selected Value = " + getGuiValue();
 		if (help.isEmpty())
 			return val;
-		return val + lineSplit + "--> " + help;
+		return val + BASE_SPLITER + help;
 	}
 	public default String modifierHelp()		{
 		String[] mod = getModifiers();
@@ -114,16 +117,49 @@ public interface InterfaceParam extends InterfaceOptions{
 					+ BASE_SPLITER;
 		return help;
 	}
-	public default String label(String key)		{
+	// ===== Lower level language tools =====
+	public static String langName(String key)		{
+		if (key == null)
+			return "";
+		String name = realLangLabel(key);
+//		name = langLabel(key); // TODO BR: For debug... comment!
+		if (name == null)
+			return "";
+		return name.split("%1")[0];
+	}
+	public static String langDesc(String key)		{
+		if (key == null)
+			return "";
+		String desc =  realLangLabel(key+LABEL_DESCRIPTION);
+//		desc = langLabel(key+LABEL_DESCRIPTION); // TODO BR: For debug... comment!
+		if (desc == null)
+			return "";
+		return desc;
+	}
+	public static String langHelp(String key)		{
+		if (key == null)
+			return "";
+		String help =  realLangLabel(key+LABEL_HELP);
+		if (help == null)
+			return langDesc(key);
+		return help;
+	}
+	public static String langLabel(String key)		{
+		if (key == null)
+			return "";
 		return LabelManager.current().label(key);
 	}
-	public default String label(String key, String... vals) {
-		String str = label(key);
+	public static String langLabel(String key, String... vals) {
+		if (key == null)
+			return "";
+		String str = langLabel(key);
 		for (int i=0;i<vals.length;i++)
 			str = str.replace(textSubs[i], vals[i]);
 		return str;
 	}
-	public default String realLabel(String key) {
+	public static String realLangLabel(String key) {
+		if (key == null)
+			return "";
 		return LabelManager.current().realLabel(key);
 	}
 }

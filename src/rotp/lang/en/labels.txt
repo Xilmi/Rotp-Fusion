@@ -1223,22 +1223,22 @@ SETUP_OPPONENTS_HEADER_2          | Rival Empires
 SETUP_OPPONENT_RANDOM             | ???
 SETUP_OPPONENT_AI_DESC            | Select the AI that will be applied to all your Opponents.
 SETUP_OPPONENT_AI                 | Play against:
-SETUP_OPPONENT_AI_BASE_HELP       | AI-Family: Base\n More defensive than the other Base-Family-AIs.
+SETUP_OPPONENT_AI_BASE_HELP       | AI-Family: Base<br> More defensive than the other Base-Family-AIs.
 SETUP_OPPONENT_AI_BASE            | AI: Base
-SETUP_OPPONENT_AI_MODNAR_HELP     | AI-Family: Base\n Uses an opening-book for the first few technologies. Builds fewer missile-bases. Uses a broader variety of ship-design-templates. Attack-size scales with difficulty.
+SETUP_OPPONENT_AI_MODNAR_HELP     | AI-Family: Base<br> Uses an opening-book for the first few technologies. Builds fewer missile-bases. Uses a broader variety of ship-design-templates. Attack-size scales with difficulty.
 Diplomacy is a bit more quirky due to some missing bug-fixes.
 SETUP_OPPONENT_AI_MODNAR          | AI: Modnar
-SETUP_OPPONENT_AI_ROOKIE_HELP     | AI-Family: Base\n Uses an opening-book for the first few technologies. Builds fewer missile-bases. Uses a broader variety of ship-design-templates. Attack-size scales with difficulty.\n An important bug about retreat-behavior is fixed. There's no real point in having the two other base-AIs around. It's just so the Mod doesn't lack them as a feature.
+SETUP_OPPONENT_AI_ROOKIE_HELP     | AI-Family: Base<br> Uses an opening-book for the first few technologies. Builds fewer missile-bases. Uses a broader variety of ship-design-templates. Attack-size scales with difficulty.<br> An important bug about retreat-behavior is fixed. There's no real point in having the two other base-AIs around. It's just so the Mod doesn't lack them as a feature.
 SETUP_OPPONENT_AI_ROOKIE          | AI: Rookie
-SETUP_OPPONENT_AI_XILMI_HELP      | AI-Family: Xilmi\n Uses a diplomacy-module that is similar to that of the Base-Family in the sense that it uses relationship-values for decision-making. However, it also differs from these in that there's no dice-rolling involved and instead thresholds for NAPs and Alliances dynamically adjust based on a power-comparison. Basically: The weaker an AI is compared to others, the more willing it is to sign alliances even when the relationship isn't great. Based on personality alliances can be a lot more stable.
+SETUP_OPPONENT_AI_XILMI_HELP      | AI-Family: Xilmi<br> Uses a diplomacy-module that is similar to that of the Base-Family in the sense that it uses relationship-values for decision-making. However, it also differs from these in that there's no dice-rolling involved and instead thresholds for NAPs and Alliances dynamically adjust based on a power-comparison. Basically: The weaker an AI is compared to others, the more willing it is to sign alliances even when the relationship isn't great. Based on personality alliances can be a lot more stable.
 SETUP_OPPONENT_AI_XILMI           | AI: Roleplay
-SETUP_OPPONENT_AI_HYBRID_HELP     | AI-Family: Xilmi\n Uses the same diplomacy-module and espionage-module as the base-AI to basically present an AI that diplomatically acts like base-AIs but still has all the advantages in the other aspects of the game.
+SETUP_OPPONENT_AI_HYBRID_HELP     | AI-Family: Xilmi<br> Uses the same diplomacy-module and espionage-module as the base-AI to basically present an AI that diplomatically acts like base-AIs but still has all the advantages in the other aspects of the game.
 SETUP_OPPONENT_AI_HYBRID          | AI: Hybrid
-SETUP_OPPONENT_AI_CRUEL_HELP      | AI-Family: Xilmi\n ... these AIs all play more careful than aggressive while some racial differences still are applied. It's very similar in behavior to the latter but usually the games are a lot more peaceful as long as noone has a massive advantage. They are also highly opportunistic. The reason why "Fun" was created because playing against this kind of AI can be extremely frustrating. You can have a long game where nothing really happens and then be wiped out in a few turns from several opponents at once. There is an algorithm at play that guesses the chance of being backstabbed in the event of a war-declation. And because of that it is highly likely that the AI thinks the other party will be more likely to be backstabbed and not them, if they declare war. Oh... They will ignore everything in the case they should eventually reach the end of the tech-tree. So the game will not be technically endless, even if it seems like that.
+SETUP_OPPONENT_AI_CRUEL_HELP      | AI-Family: Xilmi<br> ... these AIs all play more careful than aggressive while some racial differences still are applied. It's very similar in behavior to the latter but usually the games are a lot more peaceful as long as noone has a massive advantage. They are also highly opportunistic. The reason why "Fun" was created because playing against this kind of AI can be extremely frustrating. You can have a long game where nothing really happens and then be wiped out in a few turns from several opponents at once. There is an algorithm at play that guesses the chance of being backstabbed in the event of a war-declation. And because of that it is highly likely that the AI thinks the other party will be more likely to be backstabbed and not them, if they declare war. Oh... They will ignore everything in the case they should eventually reach the end of the tech-tree. So the game will not be technically endless, even if it seems like that.
 SETUP_OPPONENT_AI_CRUEL           | AI: Fusion
-SETUP_OPPONENT_AI_FUN_HELP        | AI-Family: Xilmi\n Plays the game in a sort of "king-of-the-hill"-style. It's more concerned about preventing others from winning than it is concerned about winning itself. It will choose the strongest enemy available but takes into account when they are already at war. It creates some sort of tournament-like bracket-gameplay with separate 1v1s, that also can turn into 1vX for someone who's becoming too successfull. Note that once a war is declared they are not easily made to stop it. This prevents swingy-situations where it would become an eternal back-and-forth changing their current enemy with the situation. Basically: A former super-power being tackled from three sides will not simply be left alone when it's not a superpower anymore.
+SETUP_OPPONENT_AI_FUN_HELP        | AI-Family: Xilmi<br> Plays the game in a sort of "king-of-the-hill"-style. It's more concerned about preventing others from winning than it is concerned about winning itself. It will choose the strongest enemy available but takes into account when they are already at war. It creates some sort of tournament-like bracket-gameplay with separate 1v1s, that also can turn into 1vX for someone who's becoming too successfull. Note that once a war is declared they are not easily made to stop it. This prevents swingy-situations where it would become an eternal back-and-forth changing their current enemy with the situation. Basically: A former super-power being tackled from three sides will not simply be left alone when it's not a superpower anymore.
 SETUP_OPPONENT_AI_FUN             | AI: Fun
-SETUP_OPPONENT_AI_PERSONALITY_HELP | AI-Family: Xilmi\n This one doesn't care about being fair when choosing their opponent. It is highly opportunistic and definitely wants to win. However, it's aggressiveness is heavily dependent on their empire's race and leader's personality. They can be anything from suicidal to overly careful. However, experience has shown that the more careful approach does a lot better on average. That's why...
+SETUP_OPPONENT_AI_PERSONALITY_HELP | AI-Family: Xilmi<br> This one doesn't care about being fair when choosing their opponent. It is highly opportunistic and definitely wants to win. However, it's aggressiveness is heavily dependent on their empire's race and leader's personality. They can be anything from suicidal to overly careful. However, experience has shown that the more careful approach does a lot better on average. That's why...
 SETUP_OPPONENT_AI_PERSONALITY     | AI: Character
 SETUP_OPPONENT_AI_RANDOM_HELP     | Randomly selected from: Base, Modnar, Rookie, Roleplay, Hybrid, Fusion, Fun, or Character.
 SETUP_OPPONENT_AI_RANDOM          | AI: Random
@@ -1248,7 +1248,7 @@ SETUP_OPPONENT_AI_RANDOM_ADV_HELP | Randomly selected from: Roleplay, Hybrid, Fu
 SETUP_OPPONENT_AI_RANDOM_ADV      | AI: R.Xilmi
 SETUP_OPPONENT_AI_RANDOM_NOBAR_HELP | Randomly selected from: Fusion, Fun, or Character.
 SETUP_OPPONENT_AI_RANDOM_NOBAR    | AI: R.no relat
-SETUP_OPPONENT_AI_SELECT_HELP     | To be able to select a different AI for each opponent. \n A new selection field will be added at the bottom of each opponent icon. 
+SETUP_OPPONENT_AI_SELECT_HELP     | To be able to select a different AI for each opponent. <br> A new selection field will be added at the bottom of each opponent icon. 
 SETUP_OPPONENT_AI_SELECT          | AI: Selectable
 SETUP_OPPONENT_AI_PLAYER_HELP     | The control is under your hands. 
 SETUP_OPPONENT_AI_PLAYER          | AI: Off
@@ -1601,35 +1601,20 @@ CUSTOM_RACE_SHIP_SIZE_HUGE        | Huge
 // Advanced Settings
 SETTINGS_TITLE                    | Advanced Game Options
 SETTINGS_DESCRIPTION              | Click, Right-Click, or Scroll to toggle each game setting.
-SETTINGS_GUIDE_DESC               | Enable / Disable automated contextual Help on all setup panels.\n A short explantion will pop up when the mouse is over an option.\n A longuer explanation may be some time available by pressing "F1" (when over the option). Elsewhere, "F1" will show a global overview of the panel.
 SETTINGS_GUIDE                    | Guide
-SETTINGS_EXIT_DESC                | Save the current Settings then Exit Panel.
 SETTINGS_EXIT                     | Exit
-SETTINGS_CANCEL_DESC              | Cancel settings changes then Exit Panel.
 SETTINGS_CANCEL                   | Cancel Changes
-SETTINGS_LOCAL_RESTORE_DESC       | Restore this panel options to their state when the panel was last entered.
 SETTINGS_LOCAL_RESTORE            | Restore Local
-SETTINGS_GLOBAL_RESTORE_DESC      | Restore options from all GUI to their state when entering this panel.
 SETTINGS_GLOBAL_RESTORE           | Restore Global
-SETTINGS_LOCAL_DEFAULT_DESC       | Set this panel options with their default options values.
 SETTINGS_LOCAL_DEFAULT            | Default »» Local
-SETTINGS_GLOBAL_DEFAULT_DESC      | Set options from all GUI to their default options values.
 SETTINGS_GLOBAL_DEFAULT           | Default »» Global
-SETTINGS_LOCAL_LAST_GAME_DESC     | Set this panel options values based on the last played game.
 SETTINGS_LOCAL_LAST_GAME          | Game »» Local
-SETTINGS_GLOBAL_LAST_GAME_DESC    | Set options from all GUI based on the values from last played game.
 SETTINGS_GLOBAL_LAST_GAME         | Game »» Global
-SETTINGS_LOCAL_LAST_SET_DESC      | Set this panel options to the values of the last Gui (From File).
 SETTINGS_LOCAL_LAST_SET           | Last »» Local
-SETTINGS_GLOBAL_LAST_SET_DESC     | Set options from all GUI to the values of the last Gui (From File).
 SETTINGS_GLOBAL_LAST_SET          | Last »» Global
-SETTINGS_LOCAL_USER_SET_DESC      | Set this panel option to the User's preferred values (From File).
 SETTINGS_LOCAL_USER_SET           | User »» Local
-SETTINGS_GLOBAL_USER_SET_DESC     | Set options from GUI to the User's preferred values (From File).
 SETTINGS_GLOBAL_USER_SET          | User »» Global
-SETTINGS_LOCAL_USER_SAVE_DESC     | Save this panel current options values to User's preferred options (To File).
 SETTINGS_LOCAL_USER_SAVE          | Local »» User
-SETTINGS_GLOBAL_USER_SAVE_DESC    | Save options from all GUI to User's preferred options (To File).
 SETTINGS_GLOBAL_USER_SAVE         | Global »» User
 SETTINGS_STAR_DENSITY             | Star Density: %1
 SETTINGS_RANDOM_EVENTS            | Random Events: %1
@@ -1646,22 +1631,22 @@ SETTINGS_TERRAFORMING             | Hostile Terraforming: %1
 SETTINGS_COLONIZING               | Colonizing: %1
 SETTINGS_FUEL_RANGE               | Fuel Range: %1
 SETTINGS_AI_HOSTILITY             | Hostility: %1
-SETTINGS_RANDOM_EVENTS_DESC       | Space Monsters are random events and considerable mid-game threats.\n Turn off space monsters or all random events. 
-SETTINGS_WARP_SPEED_DESC          | Increase the speed of more advanced warp technologies. This can be desirable on very large maps.\n [Fastest speeds reduced in modnar MOD]
+SETTINGS_RANDOM_EVENTS_DESC       | Space Monsters are random events and considerable mid-game threats.<br> Turn off space monsters or all random events. 
+SETTINGS_WARP_SPEED_DESC          | Increase the speed of more advanced warp technologies. This can be desirable on very large maps.<br> [Fastest speeds reduced in modnar MOD]
 SETTINGS_GALAXY_AGE_DESC          | Compared to normal galaxies, young galaxies have more white and blue stars while old galaxies have more red and neutron stars.
 SETTINGS_TECH_TRADING_DESC        | Turn off all technology trades or restrict these trades to allies.
 SETTINGS_STAR_DENSITY_DESC        | Set to high to reduce the chance of empires being stranded early in the game.
-SETTINGS_RESEARCH_RATE_DESC       | Slow the research rate of new technologies, lengthening the useful life of current technologies.\n [Asymptotic in modnar MOD]
+SETTINGS_RESEARCH_RATE_DESC       | Slow the research rate of new technologies, lengthening the useful life of current technologies.<br> [Asymptotic in modnar MOD]
 SETTINGS_NEBULAE_DESC             | Nebulae slow down ship travel and render shields useless. Increase or decrease their frequency.
 // modnar: change PLANET_QUALITY settings, only Normal, Larger, and Richer
-SETTINGS_PLANET_QUALITY_DESC      | [modnar MOD: "Larger" gives +50% Planet Size, +20% Poor, -20% Rich;\n "Richer" gives -20% Planet Size, -20% Poor, +50% Rich, +50% Artifact.]
+SETTINGS_PLANET_QUALITY_DESC      | [modnar MOD: "Larger" gives +50% Planet Size, +20% Poor, -20% Rich;<br> "Richer" gives -20% Planet Size, -20% Poor, +50% Rich, +50% Artifact.]
 //SETTINGS_PLANET_QUALITY_DESC    | Increases or decreases the frequency of higher quality planets.
 SETTINGS_TERRAFORMING_DESC        | Reduce or eliminate the benefits of the Improved Terraforming technologies on hostile planets.
 SETTINGS_COLONIZING_DESC          | Restrict the colonization of systems to only those for which you have acquired the specific technology.
 SETTINGS_COUNCIL_DESC             | Disable the council victory condition or allow enemy empires to rebel against a player victory.
 SETTINGS_RANDOMIZE_AI_DESC        | Randomize the AI player personalities, racial abilities, or both.
-SETTINGS_AUTOPLAY_DESC            | Completely automate the game by having an AI play for the player.\n This is useful for a first-hand view of how the AI works.
-SETTINGS_AUTOPLAY_WARNING         | Warning! Autoplay is currently enabled which will prevent user gameplay.\n Use "Advanced Options" to disable.
+SETTINGS_AUTOPLAY_DESC            | Completely automate the game by having an AI play for the player.<br> This is useful for a first-hand view of how the AI works.
+SETTINGS_AUTOPLAY_WARNING         | Warning! Autoplay is currently enabled which will prevent user gameplay.<br> Use "Advanced Options" to disable.
 SETTINGS_FUEL_RANGE_DESC          | Increase the range of fuel range technologies and reserve fuel tanks.
 SETTINGS_AI_HOSTILITY_DESC        | Increase or decrease the general level of hostility between alien races.
 
@@ -1896,7 +1881,7 @@ SETTINGS_MOD_SHOW_ALLIANCES_GNN_DESC     | Allow GNN Alliances announcements
 SETTINGS_MOD_SHOW_ALLIANCES_GNN          | Show GNN Alliances: %1
 SETTINGS_MOD_TECH_EXCHANGE_AUTO_NO_DESC  | Auto Refuse Tech Exchange offers.
 SETTINGS_MOD_TECH_EXCHANGE_AUTO_NO       | Auto Refuse Exchanges: %1
-SETTINGS_MOD_SHOW_LIMITED_WARNINGS_DESC  | Limit the number of aliens repeating the same warning:\n For Expansion, Genocide, and use of Bio weapons. 
+SETTINGS_MOD_SHOW_LIMITED_WARNINGS_DESC  | Limit the number of aliens repeating the same warning:<br> For Expansion, Genocide, and use of Bio weapons. 
 SETTINGS_MOD_SHOW_LIMITED_WARNINGS       | Limit Warnings: %1
 SETTINGS_MOD_SHOW_LIMITED_WARNINGS_ALL   | Show All
 
@@ -2767,31 +2752,50 @@ GAME_OVER_REPLAY                  | Replay
 GAME_OVER_NO_COLONIES_LOSS2       | The rule of %2 has ended, undone by imperial incompetence.#With no civilized worlds on which to land safely, any surviving [player_race] transports are unable to sustain the technological progress made by your society.#Barbarism is the natural state of society. Civilization is unnatural. It is a whim of circumstance. And barbarism must ultimately triumph.
 
 // Help Menu added by MOD
-MOD_HELP_RACE_MAIN                | OVERVIEW\n This screen allows you to adjust Base Player Race parameters.\n Use "Ctrl" and "Shift" to change the buttons functions.\n Global = All options. Local = Options from this panel.
-MOD_HELP_RACE_NEXT                | Save options and go to the Galaxy setup menu.
-MOD_HELP_RACE_CANCEL              | Cancel options and go back to the Main menu.
-// MOD_HELP_RACE_DEFAULT             | Save or reload User's options.\n (Switch with "Ctrl" or "Shift")
-// MOD_HELP_RACE_LAST                | Reload Last session or last Game options.\n (Switch with "Ctrl" or "Shift")
-// MOD_HELP_RACE_USER                | Reload Default options or Restore initial options.\n (Switch with "Ctrl" or "Shift")
-MOD_HELP_RACE_CUSTOM              | Enter the Race Customization Menu.\n (For Player or Aliens) 
-MOD_HELP_RACE_CHECK_BOX           | Select the defined custom race as player race.
-MOD_HELP_RACE_SHIPSET             | Select Shipset used by the player.\n "Original" = The one associated by default to the selected race.
-MOD_HELP_RACE_RACES               | The graphical representation of the player race, with its animations, and by default its abilities. (Abilities can also be randomized or customized) 
+MOD_HELP_RACE_MAIN                | OVERVIEW<br> This screen allows you to adjust Base Player Race parameters.<br> Use "Ctrl" and "Shift" to change the buttons functions.<br> Global = All options. Local = Options from this panel.
 
-MOD_HELP_GALAXY_MAIN              | OVERVIEW\n This screen allows you to select your Galaxy and your Opponents.\n Use "Ctrl" and "Shift" to change the buttons functions. Global = All options. Local = Options from this panel.
-MOD_HELP_GALAXY_START             | Save options and Start the Game.\n "Ctrl" => Restart a new game based on and old save game.
+MOD_HELP_GALAXY_MAIN              | OVERVIEW<br> This screen allows you to select your Galaxy and your Opponents.<br> Use "Ctrl" and "Shift" to change the buttons functions. Global = All options. Local = Options from this panel.
+MOD_HELP_GALAXY_START             | Save options and Start the Game.<br> "Ctrl" => Restart a new game based on and old save game.
 MOD_HELP_GALAXY_BACK              | Cancel options and go back to the Race selection menu.
-// MOD_HELP_GALAXY_DEFAULT           | Save or reload User's options.\n (Switch with "Ctrl" or "Shift")
-// MOD_HELP_GALAXY_LAST              | Reload Last session or last Game options.\n (Switch with "Ctrl" or "Shift")
-// MOD_HELP_GALAXY_USER              | Reload Default options or Restore initial options.\n (Switch with "Ctrl" or "Shift")
-MOD_HELP_GALAXY_OPTIONS           | These buttons open Advanced options Menu.\n "Static" = Parameters being set once when starting or restarting a game.\n "Dynamic" = Parameters adjustable in game.\n (For some: You can doesn't mean you should!)\n Either 6 standard menus or 2 compact menus. 
-MOD_HELP_GALAXY_ABILITIES         | Default abilities for alien Races:\n 'Base Races' = Standard abilities of the selected Race (in the Boxes below);\n 'Reworked' = New abilities you have saved with the race default name.\n (ex: RACE_DARLOK for the Naslok);\n *Race = specific base Race; or any other customized race you have built.
+MOD_HELP_GALAXY_OPTIONS           | These buttons open Advanced options Menu.<br> "Static" = Parameters being set once when starting or restarting a game.<br> "Dynamic" = Parameters adjustable in game.<br> (For some: You can doesn't mean you should!)<br> Either 6 standard menus or 2 compact menus. 
+MOD_HELP_GALAXY_ABILITIES         | Default abilities for alien Races:<br> 'Base Races' = Standard abilities of the selected Race (in the Boxes below);<br> 'Reworked' = New abilities you have saved with the race default name.<br> (ex: RACE_DARLOK for the Naslok);<br> *Race = specific base Race; or any other customized race you have built.
 MOD_HELP_GALAXY_SELECTABLE        | "Yes" => A selection line will appear at the top of the boxes below, allowing the selection of individual ability.
-MOD_HELP_GALAXY_RACE_LIST         | "Original" = The 6 Modnar Races are excluded.\n "All Races" = The 6 Modnar Races can also be selected or randomly assigned.
-MOD_HELP_GALAXY_AGAINST           | To select Aliens AI.\n "AI:Selectable" => A selection line will appear on the bottom of the Boxes bellow, allowing the selection of individual Aliens AI.
+MOD_HELP_GALAXY_RACE_LIST         | "Original" = The 6 Modnar Races are excluded.<br> "All Races" = The 6 Modnar Races can also be selected or randomly assigned.
+MOD_HELP_GALAXY_AGAINST           | To select Aliens AI.<br> "AI:Selectable" => A selection line will appear on the bottom of the Boxes bellow, allowing the selection of individual Aliens AI.
 
-SETUP_OPP_CR_OPTIONS_HELP         | Default abilities for alien Races:\n 'Base Races' = Standard abilities of the selected Race (in the Boxes below);\n 'Reworked' = New abilities you have saved with the race default name.\n (ex: RACE_DARLOK for the Naslok);\n *Race = specific base Race; or any other customized race you have built.
-MOD_HELP_BUTTON_USER              | Save or reload User's options.\n (Switch with "Ctrl" or "Shift")
-MOD_HELP_BUTTON_LAST              | Reload Last session or last Game options.\n (Switch with "Ctrl" or "Shift")
-MOD_HELP_BUTTON_DEFAULT           | Reload Default options or Restore initial options.\n (Switch with "Ctrl" or "Shift")
-MOD_HELP_BUTTON_GUIDE             | Enable / Disable automated contextual Help on all setup panels.
+SETUP_OPP_CR_OPTIONS_HELP         | Default abilities for alien Races:<br> 'Base Races' = Standard abilities of the selected Race (in the Boxes below);<br> 'Reworked' = New abilities you have saved with the race default name.<br> (ex: RACE_DARLOK for the Naslok);<br> *Race = specific base Race; or any other customized race you have built.
+
+
+// Common Guides and Help
+SETTINGS_BUTTON_USER              | Save or reload User's options.<br> (Switch with "Ctrl" or "Shift")
+SETTINGS_BUTTON_LAST              | Reload Last session or last Game options.<br> (Switch with "Ctrl" or "Shift")
+SETTINGS_BUTTON_DEFAULT           | Reload Default options or Restore initial options.<br> (Switch with "Ctrl" or "Shift")
+SETTINGS_BUTTON_GUIDE             | Enable / Disable automated contextual Help on all setup panels.
+
+
+SETTINGS_GUIDE_HELP               | Enable / Disable automated contextual Help on all setup panels.<br> A short explantion will pop up when the mouse is over an option.<br> A longuer explanation may be some time available by pressing "F1" (when over the option). Elsewhere, "F1" will show a global overview of the panel.
+SETTINGS_GUIDE_DESC               | Enable / Disable automated contextual Help on all setup panels.<br> A short explantion will pop up when the mouse is over an option.
+SETTINGS_EXIT_DESC                | Save the current Settings then Exit Panel.
+SETTINGS_CANCEL_DESC              | Cancel settings changes then Exit Panel.
+SETTINGS_LOCAL_RESTORE_DESC       | Restore options in this panel to their state when entering this panel.
+SETTINGS_GLOBAL_RESTORE_DESC      | Restore options for all GUIs to their state when entering this panel.
+SETTINGS_LOCAL_DEFAULT_DESC       | Set options in this panel to their default values.
+SETTINGS_GLOBAL_DEFAULT_DESC      | Set options for all GUIs to their default values.
+SETTINGS_LOCAL_LAST_GAME_DESC     | Set options in this panel based on the last game played.
+SETTINGS_GLOBAL_LAST_GAME_DESC    | Set options for all GUIs based on the values of the last game played.
+SETTINGS_LOCAL_LAST_SET_DESC      | Set options in this panel based on the values of the last Gui (From File).
+SETTINGS_GLOBAL_LAST_SET_DESC     | Set options for all GUIs based on the values of the last Gui (From File).
+SETTINGS_LOCAL_USER_SET_DESC      | Set options in this panel based on the User's preferred values (From File).
+SETTINGS_GLOBAL_USER_SET_DESC     | Set options for all GUIs based on the User's preferred values (From File).
+SETTINGS_LOCAL_USER_SAVE_DESC     | Save options in this panel to the User's preferred values (To File).
+SETTINGS_GLOBAL_USER_SAVE_DESC    | Save options for all GUIs to User's preferred values (To File).
+
+// Race Menu Guides and Help
+SETUP_RACE_NEXT_DESC              | Save options and go to the Galaxy setup menu.
+SETUP_RACE_CANCEL_DESC            | Cancel options and go back to the Main menu.
+SETUP_RACE_CUSTOM_DESC            | Enter the Race Customization Menu.<br> (For Player or Aliens) 
+SETUP_RACE_CHECK_BOX_DESC         | Select the defined custom race as player race.
+SETUP_RACE_SHIPSET_DESC           | Select Shipset used by the player.<br> "Original" = The one associated by default to the selected race.
+SETUP_RACE_RACES_DESC             | The graphical representation of the player race, with its animations, and by default its abilities. (Abilities can also be randomized or customized) 
+
+// Galaxy Menu Guides and Help

@@ -25,7 +25,7 @@ import java.awt.event.MouseWheelEvent;
 import java.text.DecimalFormat;
 
 import rotp.model.game.DynamicOptions;
-import rotp.ui.BasePanel;
+import rotp.ui.game.BaseModPanel;
 
 public class SettingFloat extends SettingBase<Float> {
 
@@ -195,7 +195,7 @@ public class SettingFloat extends SettingBase<Float> {
 	@Override public void prev() {
 		 next(-baseInc);
 	}
-	@Override public void toggle(MouseEvent e, BasePanel frame) {
+	@Override public void toggle(MouseEvent e, BaseModPanel frame) {
 		Float inc = getInc(e) * getDir(e);
 		if (inc == 0)
 			setFromDefault();
@@ -222,7 +222,7 @@ public class SettingFloat extends SettingBase<Float> {
 		if (!isSpacer() && options != null)
 			set(options.getFloat(getLangageLabel(), defaultValue()));
 	}
-	@Override public String guiSettingValue() { return getCfgValue(); }
+	@Override public String getGuiValue() { return getCfgValue(); }
 	// ===== Other Methods =====
 	//
 	protected void cfgFormat(String format)	{ cfgFormat = format; }

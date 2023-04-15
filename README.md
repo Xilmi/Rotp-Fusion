@@ -26,6 +26,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2023.04.14 (BR)
+- Guide and Contextual help use Html in JEditorPane.
+
 2023.04.12 (BR)
 - Integrated Auto Contextual Help in Merged Options Panel.
 - Formated the Guide display.

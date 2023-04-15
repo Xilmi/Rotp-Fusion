@@ -16,76 +16,67 @@
 
 package rotp.ui.util;
 
+import static rotp.ui.util.InterfaceParam.*;
 import static rotp.util.Base.lineSplit;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
-import rotp.ui.BasePanel;
+import rotp.ui.game.BaseModPanel;
+
 
 public class ParamButtonHelp extends AbstractParam<String> {
 	
 	private static final String[] modifiers = new String[] {
-			"", "With Shift down: ", "With Ctrl down: ", "With Ctrl + Shift down: "};
+			"", "Shift is down", "Ctrl is down", "Ctrl and Shift are down"};
 	private final String[] labels;
 	// ===== Constructors =====
 	//
-	public ParamButtonHelp(String base, String shift, String ctrl, String ctrlShift) {
-		super("H", "G", "");
+	public ParamButtonHelp(String label, String base, String shift, String ctrl, String ctrlShift) {
+		super("", label, "");
 		labels = new String[] { base, shift, ctrl, ctrlShift };
 	}
 	
-	private String guide(int idx) {
+	private String helpLine(int idx, boolean full) {
+		String help, line;
 		String label = labels[idx];
 		if (label == null || label.isEmpty())
 			return "";
-		String help = realLabel(label + LABEL_DESCRIPTION);
-		if (help == null)
+		if (full)
+			help = langHelp(label);
+		else
+			help = langDesc(label);
+		if (help.isEmpty())
 			help = "---";
-		return modifiers[idx] + label(label) + lineSplit + help;
+		line = " [" + langName(label) + "]";
+		if (idx > 0)
+			line += " - when " + modifiers[idx];
+		line += lineSplit + help;
+		return line;
+//		return "==> " + modifiers[idx] + " [" + langName(label) + "]" + lineSplit + help;
 	}
-	private String fullhelp(int idx) {
-		String label = labels[idx];
-		if (label == null || label.isEmpty())
-			return "";
-		String help = realLabel(label + LABEL_HELP);
-		help = realLabel(label + LABEL_DESCRIPTION);
-		if (help == null)
-			help = "---";
-		return modifiers[idx] + label(label) + lineSplit + help;
-	}
-	// ===== Overriders =====
-	//
-	@Override public String getGuide() {
+	private String buildHelp(boolean full) {
 		String result = "";
 		String help = "";
 		for(int i=0; i<4; i++) {
-			help = guide(i);
+			help = helpLine(i, full);
 			if (!help.isEmpty())
 				if (result.isEmpty())
 					result = help;
 				else
-					result += lineSplit + help;
-		}
-		return result;
-	}
-	@Override public String getFullHelp() {
-		String result = "";
-		String help = "";
-		for(int i=0; i<4; i++) {
-			help = fullhelp(i);
-			if (!help.isEmpty())
-				if (result.isEmpty())
-					result = help;
-				else
-					result += lineSplit + help;
+					result += lineSplit + lineSplit + help;
 		}
 		return result;
 	}
 
+	// ===== Overriders =====
+	//
+	@Override public String getGuide()		{ return buildHelp(false); }
+	@Override public String getFullHelp()	{ return buildHelp(true); }
+	
 	@Override public void setFromCfgValue(String val) {}
 	@Override public void next() {}
 	@Override public void prev() {}
 	@Override public void toggle(MouseWheelEvent e) {}
-	@Override public void toggle(MouseEvent e, BasePanel frame) {}
+	@Override public void toggle(MouseEvent e, BaseModPanel frame) {}
 }

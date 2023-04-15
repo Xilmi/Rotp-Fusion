@@ -16,10 +16,8 @@
 package rotp.ui.game;
 
 import java.awt.Color;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -27,7 +25,6 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import rotp.Rotp;
 import rotp.ui.BasePanel;
 
 
@@ -61,6 +58,7 @@ public class HelpUI extends BasePanel implements MouseListener {
     public void clear() {
         specs.clear();
     }
+    
     public HelpSpec addBrownHelpText(int x, int y, int w, int num, String text) {
         HelpSpec sp = addBlueHelpText(x,y,w,num,text);
         sp.backC = brownBackC;
@@ -92,18 +90,15 @@ public class HelpUI extends BasePanel implements MouseListener {
     }
     
     @Override
-    public void paintComponent(Graphics g0) { paint(g0, true); }
-    public void paint(Graphics g0, boolean withHaze) {
+    public void paintComponent(Graphics g0) {
         super.paintComponent(g0);
         
         int w = getWidth();
         int h = getHeight();
         Graphics2D g = (Graphics2D) g0;
-        
-        if (withHaze) { // draw background "haze"
-        	g.setColor(backgroundHaze);
-            g.fillRect(0, 0, w, h);
-        }
+        g.setColor(backgroundHaze);
+        g.fillRect(0, 0, w, h);
+
         for (HelpSpec spec: specs) {
             int lineH = lineH();
             // draw background box
@@ -176,8 +171,8 @@ public class HelpUI extends BasePanel implements MouseListener {
     public void mouseEntered(MouseEvent e)	{ }
     @Override
     public void mouseExited(MouseEvent e)	{ }
-    public static int lineH()				{ return s18; }
-    public static int height(int lines)		{ return s20 + lines*lineH(); }
+    static int lineH()				{ return s18; }
+    static int height(int lines)		{ return s20 + lines*lineH(); }
  
     public class HelpSpec {
         private int x, y, w;
@@ -208,110 +203,8 @@ public class HelpUI extends BasePanel implements MouseListener {
         public void setLineArr(int... arr) {
         	lineArr = arr;
         }
-        public int[] rect(int x, int y, int w, int h) {
+        int[] rect(int x, int y, int w, int h) {
         	return new int[] {x, y, x+w, y, x+w, y+h, x, y+h, x, y};
-        }
-        private int wrappedLinesCount(
-        		Graphics g, String text, int maxWidth, int maxHeight) {
-            int fontSize = FONT_SIZE;
-            g.setFont(narrowFont(fontSize));
-            List<String> wrappedLines = wrappedLines(g, text, maxWidth);
-            while ((wrappedLines.size()*lineH()+s20 > maxHeight)
-            		&& (fontSize > MIN_FONT_SIZE)) {
-                fontSize--;
-                g.setFont(narrowFont(fontSize));
-                wrappedLines = wrappedLines(g, text, maxWidth);
-            }
-            return wrappedLines.size();
-        }
-        public void autoHeigh(Graphics g) {
-    		int iW = scaled(Rotp.IMG_W) - s20;
-    		int iH = scaled(Rotp.IMG_H) - s20;
-    		lines = wrappedLines(g, text, w-s30).size();
-    		// Security for long text:
-    		int h = height();
-    		while (h > iH) {
-    			w = (w*h)/iH;
-    			// System.out.println("iH = " + iH + "  h = " + h + "  w = " + w);
-    			if (w > iW) {
-    				w = iW;
-    				lines = wrappedLinesCount(g, text, iW, iH);
-    				h = height();
-    				System.out.println("Help Width limit reached, resulting height = " + h);
-    				return;
-    			}
-    			lines = wrappedLines(g, text, w).size();
-    			h = height();
-    			// System.out.println(" -- iH = " + iH + "  h = " + h + "  w = " + w);
-    		}
-        }
-        public void autoSize(Graphics g) {  autoSize(g, 0); } // BR:
-        public void autoSize(Graphics g, int minWidth) { // BR:
-    		g.setFont(narrowFont(FONT_SIZE));
-            FontMetrics	fm = g.getFontMetrics();
-            String[] forcedLines = text.split(lineSplitRegex);
-    		int sw = 0;
-    		for (String line : forcedLines)
-    			sw = max(sw, fm.stringWidth(line));
-    		w = max(minWidth, min(sw + s30, w));
-    		autoHeigh(g);
-        }
-        public void autoPosition(Rectangle dest) { // BR:
-        	autoPosition(dest, s20, s20);
-        }
-        public void autoPosition(Rectangle dest, int xShift, int yShift) { // BR:
-        	autoPosition(dest, xShift, yShift, s10, s10);
-        }
-        public void autoPosition(Rectangle dest,
-        		int xShift, int yShift, int xCover, int yCover) { // BR:
-        	autoPosition(dest, xShift, yShift, xCover, yCover, s10, s10);
-        }
-        public void autoPosition(Rectangle dest,
-        		int xShift, int yShift, int xCover, int yCover, int xMargin, int yMargin) { // BR:
-    		int xb, xd, yb, yd;
-    		int iW = scaled(Rotp.IMG_W);
-    		int iH = scaled(Rotp.IMG_H);
-    		int h  = height();
-    		// relative position
-    		// find X location
-     		if (2*dest.x + dest.width  > iW) { // put box to the left
-    			x = dest.x - w - xShift;
-    			if (x < xMargin)
-    				x = xMargin;
-    			xb = x + w;
-	   			xd = dest.x + xCover;
-	   			if (xd < xb)
-	   				xd = xb + s10;
-    		}
-    		else { // put box to the right
-    			x = dest.x + dest.width + xShift;
-    			if (x+w > iW-xMargin)
-    				x = iW-xMargin - w;
-	   			xb = x;
-	   			xd = dest.x + dest.width - xCover;
-	   			if (xd > xb)
-	   				xd = xb - s10;
-    		}
-    		// find Y location
-     		if (2*dest.y + dest.width  > iH) { // put box to the top
-    			y = dest.y - h - yShift;
-    			if (y < yMargin)
-    				y = yMargin;
-    			yb = y + h;
-	   			yd = dest.y + yCover;
-	   			if (yd < yb)
-	   				yb = yd + s10;
-    		}
-    		else { // put box to the bottom
-    			y = dest.y + dest.height + yShift;
-    			if (y+h > iH-yMargin)
-    				y = iH-yMargin - h;
-	   			yb = y;
-	   			yd = dest.y + dest.height - yCover;
-	   			if (yd > yb)
-	   				yb = yd - s10;
-    		}
-    		setLineArr(xb, yb, xd, yd);
         }
     }    
 }

@@ -31,9 +31,9 @@ import java.util.LinkedList;
 import javax.swing.SwingUtilities;
 
 import rotp.model.game.DynamicOptions;
-import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.RotPUI;
+import rotp.ui.game.BaseModPanel;
 import rotp.ui.main.SystemPanel;
 import rotp.util.LabelManager;
 
@@ -175,7 +175,7 @@ public class SettingBase<T> implements InterfaceParam {
 			selectedIndex = cfgValueList.size()-1;
 		selectedValue(valueList.get(selectedIndex));		
 	}
-	@Override public void toggle(MouseEvent e, MouseWheelEvent w, BasePanel frame) {
+	@Override public void toggle(MouseEvent e, MouseWheelEvent w, BaseModPanel frame) {
 		if (e == null)
 			toggle(w);
 		else
@@ -187,7 +187,7 @@ public class SettingBase<T> implements InterfaceParam {
 		else 
 			prev();
 	}
-	@Override public void toggle(MouseEvent e, BasePanel frame) {
+	@Override public void toggle(MouseEvent e, BaseModPanel frame) {
 		if (getDir(e) == 0) 
 			setFromDefault();
 		else if (allowListSelect && frame != null && 
@@ -224,9 +224,9 @@ public class SettingBase<T> implements InterfaceParam {
 				return "";
 		case 1:
 			if (strArr.length > 1)
-				return guiSettingValue() + strArr[1];
+				return getGuiValue() + strArr[1];
 			else
-				return guiSettingValue();
+				return getGuiValue();
 		default:
 			return "";
 		}
@@ -234,7 +234,8 @@ public class SettingBase<T> implements InterfaceParam {
 	@Override public String getCfgValue() 		{ return getCfgValue(settingValue()); }
 	@Override public String getCfgLabel()		{ return nameLabel; }
 	@Override public String getGuiDescription() { return lmText(descriptionId()); }
-	@Override public String getGuiDisplay()		{ return text(getLangageLabel(), guiSettingValue()) + END; }
+	@Override public String getGuiValue()		{ return String.valueOf(settingValue()); }
+	@Override public String getGuiDisplay()		{ return text(getLangageLabel(), getGuiValue()) + END; }
 	@Override public String getToolTip()		{
 		if (settingToolTip == null) {
 			loadSettingToolTip();
@@ -414,9 +415,6 @@ public class SettingBase<T> implements InterfaceParam {
 	public SettingBase<?> defaultCfgValue(String defaultCfgValue) {
 		setDefaultIndex(cfgValidIndex(indexOfIgnoreCase(defaultCfgValue, cfgValueList)));
 		return this;
-	}
-	public String guiSettingValue() {
-		return String.valueOf(settingValue());
 	}
 	public String guiOptionValue(int index) { // For List
 		return String.valueOf(optionValue(index));
@@ -603,8 +601,8 @@ public class SettingBase<T> implements InterfaceParam {
 	}
 	private String guiSettingLabelValueCostStr() {
 		if (hasNoCost)
-			return getLabel() + ": " + guiSettingValue();
-		return getLabel() + ": " + guiSettingValue() + " " + settingCostString();
+			return getLabel() + ": " + getGuiValue();
+		return getLabel() + ": " + getGuiValue() + " " + settingCostString();
 	}
 	private String guiCostOptionStr(int idx, int dec) {
 		if (hasNoCost)
@@ -701,7 +699,7 @@ public class SettingBase<T> implements InterfaceParam {
 		return -1;
 	}
 	@SuppressWarnings("unchecked")
-	private void setFromList(BasePanel frame) {
+	private void setFromList(BaseModPanel frame) {
 		String message	= "<html>" + getGuiDescription() + "</html>";
 		String title	= text(getLangageLabel(), "");
 		// System.out.println("getIndex() = " + getIndex());
