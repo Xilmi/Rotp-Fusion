@@ -31,7 +31,7 @@
 
 package rotp.ui.util;
 
-import static rotp.ui.game.BaseModPanel.autoGuide;
+import static rotp.ui.game.BaseModPanel.dialGuide;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -101,6 +101,7 @@ public class ListDialog extends JDialog
 	private Frame frame;
 	private BaseModPanel baseModPanel;
 	private InterfaceParam param;
+//	private boolean dialGuide;
 
 
 	public ListDialog(boolean fake) { // Fake Dialog used to load the code and accelerate the future calls
@@ -164,6 +165,7 @@ public class ListDialog extends JDialog
 		frame = JOptionPane.getFrameForComponent(frameComp.getParent());
 		this.alternateReturn = alternateReturn;
 		this.param = param;
+		dialGuide  = BaseModPanel.autoGuide; // Alway reinitialize.
 
 		int topInset  = RotPUI.scaledSize(6);
 		int sideInset = RotPUI.scaledSize(10);
@@ -250,7 +252,7 @@ public class ListDialog extends JDialog
 
 			    		panel.preview(value);
 		    		}
-		    		if (autoGuide && param != null) { // For Help
+		    		if (dialGuide && param != null) { // For Help
 		    			showHelp(index);
 		    		}
 		    	}
@@ -346,22 +348,27 @@ public class ListDialog extends JDialog
 		else
 			setLocationRelativeTo(locationComp);
 
-		if (autoGuide && param != null) // For Help
+		if (dialGuide && param != null) {// For Help
 			showHelp(index);
+		}
 	}
 	@Override public void dispose() {
 		clearHelp();
+		dialGuide = false;
 		super.dispose();
 		frame.repaint();
 	}
 	//Handle clicks on the Set and Cancel buttons.
 	@Override public void actionPerformed(ActionEvent e) {
 		if ("Guide".equals(e.getActionCommand())) {
-			autoGuide = !autoGuide;
-			if (autoGuide)
-				showHelp(index);
-			else
+			dialGuide = !dialGuide;
+			if (dialGuide) {
+				showHelp(list.getSelectedIndex());
+			}
+			else {
 				clearHelp();
+				frame.paintComponents(frame.getGraphics());
+			}
 			return;
 		}		
 		if ("Set".equals(e.getActionCommand())) {
@@ -377,7 +384,6 @@ public class ListDialog extends JDialog
 	}
 	private void clearHelp() {
 		baseModPanel.guidePopUp.clear();
-		frame.paintComponents(frame.getGraphics()); // TODO BR: may be useless
 	}
 	private void showHelp(int idx) {
 		Rectangle dest = getBounds();
@@ -387,11 +393,10 @@ public class ListDialog extends JDialog
 		dest.x -= pt.x;
 		dest.y -= pt.y;
 		dest.y += RotPUI.scaledSize(80);
-		
 		clearHelp();
 		String text		= "No Help Yet";
 		if (param != null)
-			text = param.getGuide();
+			text = param.getGuide(idx);
 		baseModPanel.guidePopUp.setDest(dest, text, frame.getGraphics());
 	}
 }

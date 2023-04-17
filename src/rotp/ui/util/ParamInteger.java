@@ -157,15 +157,15 @@ public class ParamInteger extends AbstractParam<Integer> {
 	@Override public void toggle(MouseWheelEvent e)	{ next(getInc(e) * getDir(e)); }
 	@Override public void setFromOptions(DynamicOptions options) {
 		if (!isDuplicate() && options != null)
-			set(options.getInteger(getLangageLabel(), defaultValue()));
+			set(options.getInteger(getLangLabel(), defaultValue()));
 	}
 	@Override public void setOptions(DynamicOptions options) {
 		if (!isDuplicate() && options != null)
-		options.setInteger(getLangageLabel(), get());
+		options.setInteger(getLangLabel(), get());
 	}
 	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
 		if (!isDuplicate() && src != null && dest != null)
-			dest.setInteger(getLangageLabel(), src.getInteger(getLangageLabel(), defaultValue()));
+			dest.setInteger(getLangLabel(), src.getInteger(getLangLabel(), defaultValue()));
 	}
 	// ===== Other Public Methods =====
 	//

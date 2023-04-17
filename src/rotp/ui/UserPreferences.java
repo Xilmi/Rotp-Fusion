@@ -385,13 +385,13 @@ public class UserPreferences {
 			MOD_UI, "AMOEBA_MAX_SYSTEMS",	0, 0, null, 1, 5, 20);
 	public static final ParamInteger crystalMaxSystems		= new ParamInteger(
 			MOD_UI, "CRYSTAL_MAX_SYSTEMS",	0, 0, null, 1, 5, 20);
-	private static final ParamTech    techIrradiated			= new 
+	private static final ParamTech    techIrradiated		= new 
 			ParamTech("TECH_IRRADIATED",	3, "ControlEnvironment",6); // level 18
 	private static final ParamTech    techCloaking			= new 
 			ParamTech("TECH_CLOAKING",		2, "Cloaking",			0); // level 27
 	private static final ParamTech    techStargate			= new 
 			ParamTech("TECH_STARGATES",		4, "Stargate", 			0); // level 27
-	private static final ParamTech    techHyperspace			= new 
+	private static final ParamTech    techHyperspace		= new 
 			ParamTech("TECH_HYPERSPACE",	0, "HyperspaceComm",	0); // level 34
 	private static final ParamTech    techIndustry2			= new 
 			ParamTech("TECH_INDUSTRY_2",	1, "ImprovedIndustrial",7); // level 38
@@ -1058,6 +1058,12 @@ public class UserPreferences {
 			"SETTINGS_LOCAL_DEFAULT",
 			"SETTINGS_GLOBAL_RESTORE",
 			"SETTINGS_LOCAL_RESTORE");
+	public static final ParamButtonHelp startButtonHelp = new ParamButtonHelp( // For Help Do not add the list
+			"SETUP_START",
+			"SETUP_BUTTON_START",
+			"",
+			"SETUP_BUTTON_RESTART",
+			"");
 	
 	private static boolean showMemory  = false;
 	private static boolean playMusic   = true;

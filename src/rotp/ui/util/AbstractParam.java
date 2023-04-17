@@ -16,7 +16,6 @@
 
 package rotp.ui.util;
 
-import static rotp.util.Base.lineSplit;
 import static rotp.util.Base.textSubs;
 
 import java.awt.event.InputEvent;
@@ -110,33 +109,24 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	}
 	@Override public void setFromOptions(DynamicOptions options) {
 		if (!isDuplicate() && options != null)
-			setFromCfgValue(options.getString(getLangageLabel(), getCfgValue(defaultValue())));
+			setFromCfgValue(options.getString(getLangLabel(), getCfgValue(defaultValue())));
 	}
 	@Override public void setOptions(DynamicOptions options) {
 		if (!isDuplicate() && options != null)
-			options.setString(getLangageLabel(), getCfgValue());
+			options.setString(getLangLabel(), getCfgValue());
 	}
 	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
 		if (!isDuplicate() && src != null && dest != null)
-			dest.setString(getLangageLabel(), src.getString(getLangageLabel(), getCfgValue(defaultValue())));
+			dest.setString(getLangLabel(), src.getString(getLangLabel(), getCfgValue(defaultValue())));
 	}
 	@Override public String getCfgValue()		{ return getCfgValue(value); }
 	@Override public String getCfgLabel()		{ return name; }
-	@Override public String getLangageLabel()	{ return gui + name; }
-	@Override public String getFullHelp()		{
-		String help = getRealHelp();
-		if (help == null) {
-			help = getRealDescription();
-			if (help == null)
-				return "";
-		}
-		return help;
-	}
+	@Override public String getLangLabel()		{ return gui + name; }
 	@Override public String getGuiDescription() { return text(descriptionId()); }
 	@Override public String getGuiValue()		{ return String.valueOf(value); }
-	@Override public String getGuiDisplay()		{ return text(getLangageLabel(), getGuiValue()) + END; }
+	@Override public String getGuiDisplay()		{ return text(getLangLabel(), getGuiValue()) + END; }
 	@Override public String getGuiDisplay(int idx)	{
-		String str = text(getLangageLabel()); // Get from label.txt
+		String str = text(getLangLabel()); // Get from label.txt
 		String[] strArr = str.split(textSubs[0]);
 
 		switch(idx) {
@@ -164,12 +154,10 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 		else
 			toggle(e, frame);
 	}
+	@Override public String getGuiValue(int idx){ return getGuiValue(); } // For List
 	// ========== Methods to be overridden ==========
 	//
-	protected String getRealDescription() { return realText(descriptionId()); }
-	protected String getRealHelp() 		  { return realText(helpId()); }
 	T value(T value) 		{ return set(value); }
-	public int getIndex()	{ return 0; }
 	public T defaultValue()	{ return defaultValue; }
 	public T get()			{
 		if (isDuplicate()) {
@@ -179,10 +167,9 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	}	
 	public T setFromIndex(int i)		  { return null; }
 	protected String getCfgValue(T value) { return String.valueOf(value); }
-	public	  String getGuiValue(int idx) { return getGuiValue(); } // For List
 	// ========== Public Getters ==========
 	//
-	public String getLabel(){ return text(getLangageLabel()); }
+	public String getLabel(){ return text(getLangLabel()); }
 	T minValue()	{ return minValue; }	
 	T maxValue()	{ return maxValue; }	
 	T baseInc()		{ return baseInc; }	
@@ -204,22 +191,8 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	//
 	// ========== Protected Methods ==========
 	//
-	protected String getHeadHelp()		  {
-		String label = getLangageLabel();
-		String name  = text(label, "");
-		String help  = realText(label+LABEL_HELP);
-		if (help == null)
-			help = realText(label+LABEL_DESCRIPTION);
-		if (help == null)
-			help = "";
-		return name + HEAD_SEPARATOR + help + lineSplit;
-	}
-//	protected String getDefaultHelp()	{
-//		return "Default Value (Middle Click) = " + this.defaultValue;
-//	}
 	protected void isDuplicate(boolean newValue) { isDuplicate = newValue ; }
-	protected String descriptionId() { return getLangageLabel() + LABEL_DESCRIPTION; }
-	protected String helpId()		 { return getLangageLabel() + LABEL_HELP; }
+	protected String descriptionId() { return getLangLabel() + LABEL_DESCRIPTION; }
 	protected T getInc(InputEvent e) {
 		if (e.isShiftDown())
 			if (e.isControlDown())
@@ -276,9 +249,6 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	}
 	protected static String text(String key) {
 		return LabelManager.current().label(key);
-	}
-	protected static String realText(String key) {
-		return LabelManager.current().realLabel(key);
 	}
 	protected static String text(String key, String... vals) {
 		String str = text(key);

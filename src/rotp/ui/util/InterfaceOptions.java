@@ -19,8 +19,8 @@ package rotp.ui.util;
 import rotp.model.game.DynamicOptions;
 
 public interface InterfaceOptions {
-	public void setOptions(DynamicOptions options);
-	public void setFromOptions(DynamicOptions options);
-	public void setFromDefault();
-	public void copyOption(DynamicOptions src, DynamicOptions dest);
+	public default void setOptions(DynamicOptions options) {}
+	public default void setFromOptions(DynamicOptions options) {}
+	public default void setFromDefault() {}
+	public default void copyOption(DynamicOptions src, DynamicOptions dest) {}
 }

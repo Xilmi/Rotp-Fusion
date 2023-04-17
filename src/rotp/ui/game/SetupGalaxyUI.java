@@ -39,6 +39,7 @@ import static rotp.ui.UserPreferences.shapeSelection;
 import static rotp.ui.UserPreferences.showNewRaces;
 import static rotp.ui.UserPreferences.sizeSelection;
 import static rotp.ui.UserPreferences.specificAI;
+import static rotp.ui.UserPreferences.startButtonHelp;
 import static rotp.ui.UserPreferences.useSelectableAbilities;
 import static rotp.ui.util.InterfaceParam.LABEL_DESCRIPTION;
 
@@ -57,7 +58,6 @@ import java.awt.Insets;
 import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.RadialGradientPaint;
-import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.awt.event.KeyEvent;
@@ -128,50 +128,50 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private BufferedImage smBackImg;
     private int bSep = s15;
 
-	private Rectangle mergedStaticBox	= new Box("MOD_HELP_GALAXY_OPTIONS"); // BR add UI panel for MOD game options
-	private Rectangle mergedDynamicBox	= new Box("MOD_HELP_GALAXY_OPTIONS"); // BR add UI panel for MOD game options
-	private Rectangle modStaticABox		= new Box("MOD_HELP_GALAXY_OPTIONS"); // BR add UI panel for MOD game options
-	private Rectangle modStaticBBox		= new Box("MOD_HELP_GALAXY_OPTIONS"); // BR add UI panel for MOD game options
-	private Rectangle modDynamicABox	= new Box("MOD_HELP_GALAXY_OPTIONS"); // BR add UI panel for MOD game options
-	private Rectangle modDynamicBBox	= new Box("MOD_HELP_GALAXY_OPTIONS"); // BR add UI panel for MOD game options
-	private Rectangle globalModSettingsBox	= new Box("MOD_HELP_GALAXY_OPTIONS"); // BR add UI panel for MOD game options
-    private Rectangle helpBox   		= new Box();
-	private Rectangle backBox			= new Box("MOD_HELP_GALAXY_BACK");
-	private Rectangle startBox			= new Box("MOD_HELP_GALAXY_START");
-	private Rectangle settingsBox		= new Box("MOD_HELP_GALAXY_OPTIONS");
-	private Rectangle newRacesBox		= new Box("MOD_HELP_GALAXY_RACE_LIST"); // BR:
-	private Rectangle showAbilityBox	= new Box("MOD_HELP_GALAXY_SELECTABLE"); // BR:
-	private Rectangle shapeBox			= new Box(shapeSelection);
-	private Polygon   shapeBoxL			= new PolyBox();
-	private Polygon   shapeBoxR			= new PolyBox();
-	private Rectangle mapOption1Box		= new Box(shapeOption1);
-	private Polygon   mapOption1BoxL	= new PolyBox();
-	private Polygon   mapOption1BoxR	= new PolyBox();			 
-	private Rectangle mapOption2Box		= new Box(shapeOption2);
-	private Polygon   mapOption2BoxL	= new PolyBox();
-	private Polygon   mapOption2BoxR	= new PolyBox();			 
-	private Rectangle mapOption3Box		= new Box(shapeOption3); // BR:
-	private Rectangle sizeOptionBox		= new Box(dynStarsPerEmpire); // BR:
-	private Polygon   sizeOptionBoxL	= new PolyBox();   // BR:
-	private Polygon   sizeOptionBoxR	= new PolyBox();   // BR:
-	private Rectangle sizeBox		= new Box(sizeSelection);
-	private Polygon   sizeBoxL		= new PolyBox();
-	private Polygon   sizeBoxR		= new PolyBox();
-	private Rectangle diffBox		= new Box(difficultySelection);
-	private Polygon   diffBoxL		= new PolyBox();
-	private Polygon   diffBoxR		= new PolyBox();
-	private Rectangle wysiwygBox	= new Box(galaxyRandSource); // BR:
-	private Polygon   wysiwygBoxL	= new PolyBox();   // BR:
-	private Polygon   wysiwygBoxR	= new PolyBox();   // BR:
-	private Rectangle oppBox		= new Box(aliensNumber);
-	private Polygon   oppBoxU		= new PolyBox();
-	private Polygon   oppBoxD		= new PolyBox();
-	private Rectangle aiBox			= new Box(opponentAI);
-	private Polygon   aiBoxL		= new PolyBox();
-	private Polygon	  aiBoxR		= new PolyBox();
-	private Rectangle crBox			= new Box("MOD_HELP_GALAXY_ABILITIES"); // dataRace selection
-	private Polygon   crBoxL		= new PolyBox(); // BR:
-	private Polygon   crBoxR		= new PolyBox(); // BR:
+	private Box mergedStaticBox		= new Box("SETUP_GALAXY_OPTIONS"); // BR add UI panel for MOD game options
+	private Box mergedDynamicBox	= new Box("SETUP_GALAXY_OPTIONS"); // BR add UI panel for MOD game options
+	private Box modStaticABox		= new Box("SETUP_GALAXY_OPTIONS"); // BR add UI panel for MOD game options
+	private Box modStaticBBox		= new Box("SETUP_GALAXY_OPTIONS"); // BR add UI panel for MOD game options
+	private Box modDynamicABox		= new Box("SETUP_GALAXY_OPTIONS"); // BR add UI panel for MOD game options
+	private Box modDynamicBBox		= new Box("SETUP_GALAXY_OPTIONS"); // BR add UI panel for MOD game options
+	private Box globalModSettingsBox= new Box("SETUP_GALAXY_OPTIONS"); // BR add UI panel for MOD game options
+	private Box	helpBox   			= new Box();
+	private Box	backBox				= new Box("SETUP_GALAXY_BACK");
+	private Box	startBox			= new Box(startButtonHelp);
+	private Box	settingsBox			= new Box("SETUP_GALAXY_OPTIONS");
+	private Box	newRacesBox			= new Box("SETUP_GALAXY_RACE_LIST"); // BR:
+	private Box	showAbilityBox		= new Box("SETUP_GALAXY_SELECTABLE"); // BR:
+	private Box		shapeBox		= new Box(shapeSelection);
+	private Polygon	shapeBoxL		= new PolyBox();
+	private Polygon	shapeBoxR		= new PolyBox();
+	private Box		mapOption1Box	= new Box(shapeOption1); //_DESC_DESC
+	private Polygon	mapOption1BoxL	= new PolyBox();
+	private Polygon	mapOption1BoxR	= new PolyBox();			 
+	private Box		mapOption2Box	= new Box(shapeOption2);
+	private Polygon	mapOption2BoxL	= new PolyBox();
+	private Polygon	mapOption2BoxR	= new PolyBox();			 
+	private Box		mapOption3Box	= new Box(shapeOption3); // BR:
+	private Box		sizeOptionBox	= new Box(dynStarsPerEmpire); // BR:
+	private Polygon	sizeOptionBoxL	= new PolyBox();   // BR:
+	private Polygon	sizeOptionBoxR	= new PolyBox();   // BR:
+	private Box		sizeBox			= new Box(sizeSelection);
+	private Polygon	sizeBoxL		= new PolyBox();
+	private Polygon	sizeBoxR		= new PolyBox();
+	private Box		diffBox			= new Box(difficultySelection);
+	private Polygon	diffBoxL		= new PolyBox();
+	private Polygon	diffBoxR		= new PolyBox();
+	private Box		wysiwygBox		= new Box(galaxyRandSource); // BR:
+	private Polygon	wysiwygBoxL		= new PolyBox();   // BR:
+	private Polygon	wysiwygBoxR		= new PolyBox();   // BR:
+	private Box		oppBox			= new Box(aliensNumber);
+	private Polygon	oppBoxU			= new PolyBox();
+	private Polygon	oppBoxD			= new PolyBox();
+	private Box		aiBox			= new Box(opponentAI);
+	private Polygon	aiBoxL			= new PolyBox();
+	private Polygon	aiBoxR			= new PolyBox();
+	private Box		crBox			= new Box("SETUP_GALAXY_ABILITIES"); // dataRace selection
+	private Polygon	crBoxL			= new PolyBox(); // BR:
+	private Polygon	crBoxR			= new PolyBox(); // BR:
 
 	private Box[] oppSet	= new Box[MAX_DISPLAY_OPPS];
 	private Box[] oppAI		= new Box[MAX_DISPLAY_OPPS];
@@ -281,13 +281,13 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		int nL, hBox;
 		String txt;
 		HelpSpec sp;
-		Rectangle dest;
+		Box dest;
 		int w = getWidth();
 		HelpUI helpUI = RotPUI.helpUI();
 		helpUI.clear();
 
 		// Overview = Top, Center
-		txt  = text("MOD_HELP_GALAXY_MAIN");
+		txt  = text("SETUP_GALAXY_MAIN_DESC");
 		nL   = 4;
 		wBox = scaled(400);
 		xBox = w/2 - wBox/2;
@@ -301,8 +301,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		wBox = scaled(200);
 
 		// Default button: Touch Galaxy
-		txt  = text("MOD_HELP_BUTTON_DEFAULT");
 		dest = defaultBox;
+		txt  = dest.getDescription();
 		nL   = 3;
 		hBox = HelpUI.height(nL);
 		x1	 = rightBoxX - wBox;
@@ -317,8 +317,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		sp.setLine(xb, yb, xe, ye);
 		
 		// Back button; left Galaxy
-		txt  = text("MOD_HELP_GALAXY_BACK");
 		dest = backBox;
+		txt  = dest.getDescription();
 		nL   = 3;
 		hBox = HelpUI.height(nL);
 		y2	 = y1 - hBox - hShift;
@@ -332,8 +332,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		sp.setLineArr(new int[] {xb, yb, xb+s15, yb, xe, ye, dest.x, dest.y+s10});
 		
 		// User button: Left of Last button
-		txt  = text("MOD_HELP_BUTTON_USER");
 		dest = userBox;
+		txt  = dest.getDescription();
 		nL   = 3;
 		xBox = x1 - wBox*3/2 - xTab;
 		yBox = y1;
@@ -346,8 +346,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 
 
 		// Last button: Left of Default button
-		txt  = text("MOD_HELP_BUTTON_LAST");
 		dest = lastBox;
+		txt  = dest.getDescription();
 		nL   = 3;
 		x2	 = x1 - wBox - xTab;
 		xBox = x2;
@@ -360,8 +360,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		sp.setLine(xb, yb, xe, ye);
 
 		// Guide button: Left of User button
-		txt  = text("MOD_HELP_BUTTON_GUIDE");
 		dest = guideBox;
+		txt  = dest.getDescription();
 		nL   = 3;
 		hBox = HelpUI.height(nL);
 		xBox = x2 - wBox - xTab;
@@ -374,17 +374,17 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		sp.setLine(xb, yb, xe, ye);
 
 		// Big buttons, bottom up
-		wBox = scaled(200);
 
 		// Start button; right Galaxy
-		txt  = text("MOD_HELP_GALAXY_START");
 		dest = startBox;
-		nL   = 4;
+		txt  = dest.getHelp();
+		nL   = 11;
+		wBox = scaled(300);
 		hBox = HelpUI.height(nL);
 		xBox = rightBoxX + boxW + s50 - wBox;
-		yBox = dest.y - hBox - scaled(120);
+		yBox = dest.y - hBox - scaled(150);
 		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
-		xb   = xBox + wBox*3/4;
+		xb   = xBox + wBox*5/6;
 		yb   = yBox + sp.height();
 		xe   = dest.x + dest.width - s5;
 		ye   = dest.y;
@@ -393,6 +393,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		// Options Buttons
 		txt  = text("");
 		int margin = s3;
+		// Box around buttons
  		if (compactOptionOnly.get()) {
 			hBox = mergedStaticBox.height + 2*margin;
 			wBox = mergedStaticBox.x + mergedDynamicBox.width - mergedDynamicBox.x + 2*margin;
@@ -405,19 +406,21 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			yBox = modStaticBBox.y - margin;
 		}
 		int[] lineArr = sp.rect(xBox, yBox, wBox, hBox);
-		xe = xBox + wBox/2;
 		ye = yBox;
 		yb = yBox - s80;
 	   
-		txt  = text("MOD_HELP_GALAXY_OPTIONS");
+		txt  = text("SETUP_GALAXY_OPTIONS_DESC");
 		nL   = 6;
 		hBox = HelpUI.height(nL);
-		wBox = scaled(326);
-		xBox = rightBoxX + xTab;
-		yBox = boxY + rightBoxH - hBox - scaled(170);
+		wBox = scaled(360);
+		//xBox = rightBoxX + xTab;
+		//yBox = boxY + rightBoxH - hBox - scaled(170);
+		xBox = rightBoxX - scaled(130);
+		yBox = y2 - hBox - hShift;
 		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
-		xb   = xBox + wBox/2;
+		xb   = xBox + wBox*5/6;
 		yb   = yBox + sp.height();
+		xe   = xb+s10;
 		sp.setLine(xb, yb, xe, ye);
 		sp.setLineArr(lineArr);
 
@@ -425,8 +428,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		wBox   = scaled(250);
 		hShift = s60;  
 
-		txt  = text("MOD_HELP_GALAXY_AGAINST");
+		txt  = text("SETUP_GALAXY_AGAINST_DESC");
 		dest = aiBox;
+//		txt  = dest.getGuide();
 		nL   = 5;
 		hBox = HelpUI.height(nL);
 		xBox = dest.x + dest.width/2 - wBox*3/4;
@@ -438,8 +442,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		ye   = dest.y + dest.height;
 		sp.setLine(xb, yb, xe, ye);
 
-		txt  = text("MOD_HELP_GALAXY_RACE_LIST");
 		dest = newRacesBox;
+		txt  = dest.getDescription();
 		nL   = 4;
 		hBox = HelpUI.height(nL);
 		xBox = dest.x + dest.width/2 - wBox/4;
@@ -451,8 +455,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		ye   = dest.y + dest.height;
 		sp.setLine(xb, yb, xe, ye);
 
-		txt  = text("MOD_HELP_GALAXY_SELECTABLE");
 		dest = showAbilityBox;
+		txt  = dest.getDescription();
 		nL   = 3;
 		hBox = HelpUI.height(nL);
 		xBox = dest.x + dest.width + s40;
@@ -464,17 +468,17 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		ye   = dest.y + dest.height/2;
 		sp.setLine(xb, yb, xe, ye);
 
-		txt  = text("MOD_HELP_GALAXY_ABILITIES");
 		wBox = scaled(450);
 		dest = crBox;
+		txt  = dest.getDescription();
 		nL   = 5;
 		hBox = HelpUI.height(nL);
 		xBox = dest.x + dest.width + s70 - wBox;
 		xBox = leftBoxX;
-		yBox = dest.y - hBox - hShift;
+		yBox = dest.y - hBox - s40;
 		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
 		xb   = xBox + wBox*3/4;
-		yb   = yBox + hBox + s20;
+		yb   = yBox + hBox;
 		xe   = dest.x + dest.width*3/4;
 		ye   = dest.y;
 		sp.setLine(xb, yb, xe, ye);
@@ -943,8 +947,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			}
 			oppSet[i].setBounds(x2,y2o,mugW,mugHo);
 			// oppAI[i].setBounds(x2,y2+mugH-s20,mugW,s20);
-//			oppAI[i].setBounds(x2,y2+mugH+s1-boundH,mugW,boundH); // BR: Adjusted
-//			oppCR[i].setBounds(x2,y2-s1,mugW,boundH);
 			oppAI[i].setBounds(x2,y2+mugH-boundH,mugW,boundH); // BR: Adjusted
 			oppCR[i].setBounds(x2,y2,mugW,boundH);
 			g.drawImage(mugBack, x2, y2, this);
@@ -1674,18 +1676,12 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private void nextOpponentAI(boolean click) {
 		newGameOptions().selectedOpponentAIOption(newGameOptions().nextOpponentAI());
 		postSelectionLight(click);
-//		if (click) softClick();
-//		newGameOptions().selectedOpponentAIOption(newGameOptions().nextOpponentAI());
-//		repaint();
 	}
 	private void prevOpponentAI(boolean click) {
 		newGameOptions().selectedOpponentAIOption(newGameOptions().prevOpponentAI());
 		postSelectionLight(click);
-//		if (click) softClick();
-//		newGameOptions().selectedOpponentAIOption(newGameOptions().prevOpponentAI());
-//		repaint();
 	}
-	private void toggleOpponentAI(MouseEvent e) { // TODO
+	private void toggleOpponentAI(MouseEvent e) {
 		softClick();
 		boolean up = !SwingUtilities.isRightMouseButton(e);
 		boolean mid = SwingUtilities.isMiddleMouseButton(e);
@@ -1699,7 +1695,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			newGameOptions().selectedOpponentAIOption(newGameOptions().nextOpponentAI());
 		else
 			newGameOptions().selectedOpponentAIOption(newGameOptions().prevOpponentAI());
-		//repaint();
 		postSelectionLight(false);
 	}
 	private void nextOpponentCR(boolean click) {
@@ -1813,14 +1808,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		repaint();
 	}
 	private void goToOptions() {
-//		if (ModifierKeysState.isShiftDown()) {
-//			goToMergedStatic();
-//			return;
-//		}
-//		if (ModifierKeysState.isCtrlDown()) {
-//			goToMergedDynamic();
-//			return;
-//		}
 		buttonClick();
 		AdvancedOptionsUI optionsUI = RotPUI.advancedOptionsUI();
 		close();
@@ -2221,7 +2208,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			sizeOptionBox.setBounds(sliderX, sliderYAI+s20, sliderW, sliderH);
 			g.fill(sizeOptionBox);
 		}
-
 		sliderX += sectionW;
 		diffBoxL.reset();
 		diffBoxL.addPoint(sliderX-s4,sliderYAI+s1);
@@ -2249,9 +2235,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		wysiwygBox.setBounds(sliderX, sliderYAI+s20, sliderW, sliderH);
 		g.fill(wysiwygBox);
 		
-		
 		int cnr = s5;
-
 		// draw settings button
 		int smallButtonH = s27; // 27 for 3 buttons // 30 for 2 buttons
 		int smallButtonW = scaled(150); // 150 for 3 buttons // 180 for 2 buttons
@@ -2261,9 +2245,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		int xb = 989; // 989 for 3 buttons // 960 for 2 buttons 1 row // 948 for centered
 		int dx = 145; // 145 for 3 buttons // 200 for 2 buttons 1 row // 241 for centered
 		int dy = 30; // 30 for 3 buttons // 35 for 2 buttons
-//		settingsBox.setBounds(scaled(xb), scaled(yb), smallButtonW, smallButtonH);
-//		g.setPaint(GameUI.buttonLeftBackground());
-//		g.fillRoundRect(settingsBox.x, settingsBox.y, smallButtonW, smallButtonH, cnr, cnr);
 		
 		if (!compactOptionOnly.get()) {
 			settingsBox.setBounds(scaled(xb), scaled(yb), smallButtonW, smallButtonH);

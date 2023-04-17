@@ -216,11 +216,11 @@ public class SettingFloat extends SettingBase<Float> {
 	}
 	@Override public void setOptions(DynamicOptions options) {
 		if (!isSpacer() && options != null && options != null)
-			options.setFloat(getLangageLabel(), settingValue());
+			options.setFloat(getLangLabel(), settingValue());
 	}
 	@Override public void setFromOptions(DynamicOptions options) {
 		if (!isSpacer() && options != null)
-			set(options.getFloat(getLangageLabel(), defaultValue()));
+			set(options.getFloat(getLangLabel(), defaultValue()));
 	}
 	@Override public String getGuiValue() { return getCfgValue(); }
 	// ===== Other Methods =====

@@ -17,11 +17,11 @@
 package rotp.ui.util;
 
 import static rotp.ui.UserPreferences.minListSizePopUp;
-import static rotp.ui.util.InterfaceParam.langDesc;
-import static rotp.ui.util.InterfaceParam.langHelp;
+import static rotp.ui.util.InterfaceParam.labelFormat;
 import static rotp.ui.util.InterfaceParam.langLabel;
-import static rotp.ui.util.InterfaceParam.langName;
-import static rotp.util.Base.lineSplit;
+import static rotp.ui.util.InterfaceParam.rowFormat;
+import static rotp.ui.util.InterfaceParam.rowsSeparator;
+import static rotp.ui.util.InterfaceParam.tableFormat;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -164,7 +164,7 @@ public class ParamList extends AbstractParam<String> {
 		else 
 			prev();
 	}
-	@Override public void	toggle(MouseEvent e, BaseModPanel frame)	{
+	@Override public void	toggle(MouseEvent e, BaseModPanel frame){
 		if (getDir(e) == 0)
 			setFromDefault();
 		else if (frame != null && 
@@ -178,47 +178,26 @@ public class ParamList extends AbstractParam<String> {
 	@Override public void	setFromCfgValue(String newCfgValue)		{
 		super.set(validateValue(newCfgValue));
 	}
-	@Override public int	getIndex()				{
-		if (isDuplicate())
-			return valueLabelMap.getLangLabelIndexIgnoreCase(get());
-		else
-			return valueLabelMap.getValueIndexIgnoreCase(get());
+	@Override public int	getIndex()				{ return getValidIndex(); }
+	@Override public String	setFromIndex(int id)	{
+		return super.set(value(valueLabelMap.getCfgValue(getValidIndex(id))));
 	}
-	@Override public String	setFromIndex(int idx)	{
-		return super.set(value(valueLabelMap.getCfgValue(idx)));
-	}
-	@Override public String	getGuiValue(int idx)	{
-		return text(valueLabelMap.getLangLabel(idx));
+	@Override public String	getGuiValue(int id)		{
+		return text(valueLabelMap.getLangLabel(getValidIndex(id)));
 	}
 	@Override public String	getFullHelp()			{
 		String help = HeaderHelp();
 		help += defaultValueHelp();
 		help += modifierHelp();
-		help += getSubHelp();
+		help += getTableHelp();
 		return help;
-
-//		String help = getHeadHelp();
-//		help += BODY_SEPARATOR;
-//		help += getSubHelp();
-//		return help;
 	}
-	@Override public String getValueHelp()			{
-		String value = get();
-		int idx = getIndex(value);
-		if (idx<0)
-			return "";
-		String help = getSubHelp(idx);
-		return help; 
+	@Override public String getSelectionStr()		{ return getValueStr(getIndex(get())); }
+	@Override public String getValueStr(int id)		{ return valueHelp(getValidIndex(id)); }
+	@Override public String valueHelp(int id) 		{ return tableFormat(getRowHelp(id)); }
+	@Override public String getLangLabel(int id)	{
+		return valueLabelMap.getLangLabel(getValidIndex(id));
 	}
-//	@Override public String	getGuide(int idx)		{
-//		if (idx == -1)
-//			return getHeadHelp();
-//		return getHeadHelp()
-//				+ "--- Selected Value --- \\n "
-//				+ getSubHelp(idx);
-//	}
-//	@Override public String	getGuide()	{ return getGuide(this.getIndex()); }
-
 	// ===== Other Protected Methods =====
 	//
 	protected int getIndex(String value)		{
@@ -232,12 +211,6 @@ public class ParamList extends AbstractParam<String> {
 		String newLangLabel = valueLabelMap.getLangLabelFromValue(newValue);
 		return newLangLabel;
 	}
-//	protected String getValueFromLangLabel(String langLabel) {
-//		if (isDuplicate())
-//			return langLabel;
-//		else
-//			return valueLabelMap.getValueFromLangLabel(langLabel);	
-//	}
 	// ===== Other Public Methods =====
 	//
 	public LinkedList<String> getOptions()	{
@@ -262,31 +235,31 @@ public class ParamList extends AbstractParam<String> {
 	// ===== Private Methods =====
 	//
 	private void initGuiTexts() {
-		int idx = getIndex(defaultValue());
+		int id = defaultValueIndex();
 		initMapGuiTexts();
-		if (idx >= 0)
-			defaultValue(valueLabelMap.cfgValueList.get(idx));
+		if (id >= 0)
+			defaultValue(valueLabelMap.cfgValueList.get(id));
 	}
 	/**
 	 * Check if the entry is valid and return a valid value
 	 * @param key the entry to check
 	 * @return a valid value, preferably the value to test
 	 */
-	private String validateValue(String key)  {
+	private String validateValue(String key)	{
 		if (valueLabelMap.valuesContainsIgnoreCase(key))
 			return key;
 		if (valueLabelMap.valuesContainsIgnoreCase(defaultValue()))
 			return defaultValue();
 		return valueLabelMap.getCfgValue(0);
 	}
-	private int listSize()					  { return valueLabelMap.listSize(); }
-	private String currentOption()			  {
+	private int listSize()						{ return valueLabelMap.listSize(); }
+	private String currentOption()				{
 		int index = Math.max(0, getIndex());
 		return valueLabelMap.guiTextList.get(index);
 	}
-	private void setFromList(BaseModPanel frame) {
+	private void setFromList(BaseModPanel frame){
 		String message	= "<html>" + getGuiDescription() + "</html>";
-		String title	= text(getLangageLabel(), "");
+		String title	= text(getLangLabel(), "");
 		initGuiTexts();
 		String[] list= valueLabelMap.guiTextList.toArray(new String[listSize()]);
 		ListDialog dialog = new ListDialog(
@@ -304,45 +277,49 @@ public class ParamList extends AbstractParam<String> {
 		if (input != null && valueLabelMap.getValueIndexIgnoreCase(input) >= 0)
 			set(input);
 	}
-//	private String getHeadHelp()			  {
-//		String label = labelId();
-//		String name  = text(label, "");
-//		String help  = realText(label+LABEL_HELP);
-//		if (help == null)
-//			help = realText(label+LABEL_DESCRIPTION);
-//		if (help == null)
-//			help = "";
-//		return name + HEAD_SEPARATOR + help + lineSplit;
-//	}
-	private String getSubHelp()				  {
-		String help = "";
+	private String getTableHelp()				{
 		int size = listSize();
-		for (int i=0; i<size; i++)
-			help += getSubHelp(i);
-		return help;
+		String rows = "";
+		if (size>0) {
+			rows = getRowHelp(0);
+			for (int i=1; i<size; i++)
+				rows += rowsSeparator() + getRowHelp(i);
+		}
+		return tableFormat(rows);
 	}
-	private String getSubHelp(int id)		  {
-		String name = name(id);
+	private String getRowHelp(int id)			{
 		String help = realHelp(id);
 		if (help == null)
 			help = realDescription(id);
 		if (help == null)
 			help = "";
-		return "- " + name + HELP_SEPARATOR + help + lineSplit;
+		return rowFormat(labelFormat(name(id)), help);
 	}
-	private String label(int id)			  { return valueLabelMap.getLangLabel(id); }
-	private String name(int id)				  { return langName(label(id)); }
-//	private String name(int id)				  { return langLabel(label(id), ""); }
-//	private String realDescription(int id)	  { return realLangLabel(label(id)+LABEL_DESCRIPTION); }
-	private String realDescription(int id)	  { return langDesc(label(id)); }
-	private String realHelp(int id)			  { return langHelp(label(id)); }
-//	private String realHelp(int id)			  { return realLangLabel(label(id)+LABEL_HELP); }
-	private void initMapGuiTexts()			  {
+	private void initMapGuiTexts()				{
 		valueLabelMap.guiTextList.clear();
 		for (String label : valueLabelMap.langLabelList)
 			valueLabelMap.guiTextList.add(labelText(label));
 	}
-	
+	private int defaultValueIndex()				{ return getIndex(defaultValue()); }
+	public int	getRawIndex()					{
+		if (isDuplicate())
+			return valueLabelMap.getLangLabelIndexIgnoreCase(get());
+		else
+			return valueLabelMap.getValueIndexIgnoreCase(get());
+	}
+	private int getValidIndex()					{
+		int id = getRawIndex();
+		if (id < 0)
+			id = defaultValueIndex();
+		if (id < 0)
+			return 0;
+		return id;		
+	}
+	private int getValidIndex(int id)			{
+		if (id < 0)
+			return getValidIndex();
+		return id;
+	}
 	//========== Nested class ==========
 	//
 	public static class IndexableMap{
@@ -373,13 +350,9 @@ public class ParamList extends AbstractParam<String> {
 		}
 		// ========== Getters ==========
 		//
-		private int listSize() { return cfgValueList.size(); }
-		private String getCfgValue(int idx) {
-			return cfgValueList.get(idx);
-		}
-		private String getLangLabel(int idx) {
-			return langLabelList.get(idx);
-		}
+		private int    listSize()			{ return cfgValueList.size(); }
+		private String getCfgValue(int id)	{ return cfgValueList.get(id); }
+		private String getLangLabel(int id)	{ return langLabelList.get(id); }
 		private String getLangLabelFromValue(String value) {
 			int index = getValueIndexIgnoreCase(value);
 			return langLabelList.get(index);
@@ -466,22 +439,4 @@ public class ParamList extends AbstractParam<String> {
 			return -1;
 		}
 	}
-//	/**
-//	 * Test if a {@code List<String>} contains a {@code String}
-//	 * the case not being important
-//	 * @param list	  the containing {@code List<String>}
-//	 * @param element   the contained {@code String}
-//	 * @return true if the conditions are verified
-//	 */
-//	public static Boolean containsIgnoreCase(Iterable<String> set, String element) {
-//		if (set == null || element == null) {
-//			return false;
-//		}
-//		for (String entry : set) {
-//			if (entry.equalsIgnoreCase(element)) {
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
 }

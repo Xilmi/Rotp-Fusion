@@ -45,15 +45,15 @@ class ParamObject extends AbstractParam<Serializable> {
 	@Override public void toggle(MouseEvent e, BaseModPanel frame) {}
 	@Override public void setFromOptions(DynamicOptions options) {
 		if (!isDuplicate() && options != null)
-			set((Serializable) options.getObject(getLangageLabel(), defaultValue()));
+			set((Serializable) options.getObject(getLangLabel(), defaultValue()));
 	}
 	@Override public void setOptions(DynamicOptions options) {
 		if (!isDuplicate() && options != null)
-			options.setObject(getLangageLabel(), get());
+			options.setObject(getLangLabel(), get());
 	}
 	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
 		if (!isDuplicate() && src != null && dest != null)
-			dest.setObject(getLangageLabel(), (Serializable) src.getObject(getLangageLabel(), defaultValue()));
+			dest.setObject(getLangLabel(), (Serializable) src.getObject(getLangLabel(), defaultValue()));
 	}
 	// ===== Other Methods =====
 	//

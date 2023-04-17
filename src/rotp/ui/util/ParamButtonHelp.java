@@ -16,67 +16,71 @@
 
 package rotp.ui.util;
 
+import static rotp.ui.util.InterfaceParam.langDesc;
+import static rotp.ui.util.InterfaceParam.langHelp;
 import static rotp.ui.util.InterfaceParam.*;
 import static rotp.util.Base.lineSplit;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
 
-import rotp.ui.game.BaseModPanel;
-
-
-public class ParamButtonHelp extends AbstractParam<String> {
+//public class ParamButtonHelp extends AbstractParam<String> {
+public class ParamButtonHelp implements InterfaceParam {
 	
+//	private static final String[] modifiers = new String[] {
+//			"", "Shift is down", "Ctrl is down", "Ctrl and Shift are down"};
 	private static final String[] modifiers = new String[] {
-			"", "Shift is down", "Ctrl is down", "Ctrl and Shift are down"};
-	private final String[] labels;
+			"", "(Shift) ", "(Ctrl) ", "(Ctrl)+(Shift) "};
+	private final String[]	labels;
+	private final String	name;
 	// ===== Constructors =====
 	//
 	public ParamButtonHelp(String label, String base, String shift, String ctrl, String ctrlShift) {
-		super("", label, "");
-		labels = new String[] { base, shift, ctrl, ctrlShift };
+		//super("", label, "");
+		labels	= new String[] { base, shift, ctrl, ctrlShift };
+		name	= label;
 	}
-	
-	private String helpLine(int idx, boolean full) {
+	private String helpLine(int idx, int html) {
 		String help, line;
 		String label = labels[idx];
 		if (label == null || label.isEmpty())
 			return "";
-		if (full)
-			help = langHelp(label);
-		else
+		if (html == 1)
 			help = langDesc(label);
+		else
+			help = langHelp(label);
 		if (help.isEmpty())
 			help = "---";
-		line = " [" + langName(label) + "]";
-		if (idx > 0)
-			line += " - when " + modifiers[idx];
+		if (html == 0) {
+			line = modifiers[idx];
+			line += "[" + langName(label) + "]";
+			line += lineSplit + help;
+			return line;
+		}
+		line = htmlTuneFont(-2, modifiers[idx]);
+		line += "&nbsp <b>( "+ langName(label) + " )</b>";
 		line += lineSplit + help;
 		return line;
-//		return "==> " + modifiers[idx] + " [" + langName(label) + "]" + lineSplit + help;
 	}
-	private String buildHelp(boolean full) {
+	private String buildHelp(int html) {
 		String result = "";
 		String help = "";
 		for(int i=0; i<4; i++) {
-			help = helpLine(i, full);
+			help = helpLine(i, html);
 			if (!help.isEmpty())
 				if (result.isEmpty())
 					result = help;
-				else
+				else if (html == 0)
 					result += lineSplit + lineSplit + help;
+				else
+					result += baseSeparator() + help;
 		}
 		return result;
 	}
 
 	// ===== Overriders =====
 	//
-	@Override public String getGuide()		{ return buildHelp(false); }
-	@Override public String getFullHelp()	{ return buildHelp(true); }
-	
-	@Override public void setFromCfgValue(String val) {}
-	@Override public void next() {}
-	@Override public void prev() {}
-	@Override public void toggle(MouseWheelEvent e) {}
-	@Override public void toggle(MouseEvent e, BaseModPanel frame) {}
+	@Override public String getGuide()		{ return buildHelp(1); } // html
+	@Override public String getFullHelp()	{ return buildHelp(2); } // html
+	@Override public String getHelp()		{ return buildHelp(0); } // Full for old Help
+	@Override public String getCfgLabel()	{ return name; }
+	@Override public String getLangLabel()	{ return name; }
 }

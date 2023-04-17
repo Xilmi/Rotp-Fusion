@@ -16,113 +16,156 @@
 
 package rotp.ui.util;
 
+import static rotp.ui.game.BaseModPanel.guideFontSize;
 import static rotp.util.Base.lineSplit;
 import static rotp.util.Base.textSubs;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
+import rotp.ui.RotPUI;
 import rotp.ui.game.BaseModPanel;
 import rotp.util.LabelManager;
 
 public interface InterfaceParam extends InterfaceOptions{
 	public static final String LABEL_DESCRIPTION = "_DESC";
 	public static final String LABEL_HELP		 = "_HELP";
-
-	public static final String BASE_SPLITER	 	= lineSplit +"----------" + lineSplit;
-	public static final String DEFAULT_HEADER	= BASE_SPLITER +
-												"Default Value (Middle Click) = ";
+	public static final String END				 = "   ";
 	
-	public static final String BODY_SEPARATOR	= lineSplit + "WITH:" + lineSplit;
-	public static final String HEAD_SEPARATOR	= lineSplit + "----------" + lineSplit;
-	
-	public static final String HELP_SEPARATOR	= " = ";
-	public static final String END = "   ";
-	
-	public void setFromCfgValue(String val);
-	public void next();
-	public void prev();
-	public void toggle(MouseWheelEvent e);
-	public void toggle(MouseEvent e, BaseModPanel frame);
-	public void toggle(MouseEvent e, MouseWheelEvent w, BaseModPanel frame);
-	public String getCfgValue();
-	public String getCfgLabel();
-	public String getLangageLabel();
-	public String getGuiValue(); // Only the value, (player view)
-	public String getGuiDisplay(); // Name, value, ... and more
-	public String getGuiDisplay(int idx);
-	public String getGuiDescription();
-	public String getDefaultValue();
-	public boolean isDefaultValue();
-
+	// user input
+	public default void next() {}
+	public default void prev() {}
+	public default void toggle(MouseWheelEvent e) {}
+	public default void toggle(MouseEvent e, BaseModPanel frame) {}
+	public default void toggle(MouseEvent e, MouseWheelEvent w, BaseModPanel frame) {}
 	public default void toggle(MouseEvent e, int p, BaseModPanel frame) {}
-	public default String	getToolTip()		{ return getGuiDescription(); }
-	public default String	getToolTip(int idx)	{ return "";  }
-//	public default String	getGuide()			{ return getToolTip(); }
-//	public default String	getGuide(int idx)	{ return getToolTip(idx); }
-	public default boolean	isDuplicate()		{ return false; }
-	public default boolean	isTitle()			{ return false; }
-	public default boolean	isSubMenu()			{ return false; }
-	public default String[]	getModifiers()		{ return null; }
-	
+	// State
+	public default boolean	isDuplicate()			{ return false; }
+	public default boolean	isTitle()				{ return false; }
+	public default boolean	isSubMenu()				{ return false; }
+	public default boolean	isDefaultValue()		{ return false; }
+	// Display
+	public default void setFromCfgValue(String val) {}
+	public default String	getCfgValue()			{ return ""; }
+	public default String	getCfgLabel()			{ return ""; }
+	public default String	getGuiValue()			{ return ""; }// Only the value, (player view)
+	public default String	getGuiDisplay()			{ return ""; }// Name, value, ... and more
+	public default String	getGuiDisplay(int id)	{ return ""; }
+	public default String	getGuiDescription()		{ return ""; }
+	public default String	getDefaultValue()		{ return ""; }
+	public default int		getIndex()				{ return -1; }
+	public default String	getToolTip()			{ return getGuiDescription(); }
+	public default String	getToolTip(int id)		{ return "";  }
+	public default String   getGuiValue(int id)		{ return getGuiValue(); }
+	public default String	getLangLabel()			{ return ""; }
+	public default String	getLangLabel(int id)	{ return ""; }
+	public default String[]	getModifiers()			{ return null; }
 	// Limited size for toolTip boxes
-	public default String	getDescription()		{
+	public default String getDescription()		{
 		if (getToolTip().isEmpty())
 			return getGuiDescription();
 		return getToolTip();
 	};
 	// Bigger Description for auto pop up help (guide)
-	public default String getGuide()			{
+	public default String getHeadGuide()		{
 		String help = HeaderHelp();
 		help += defaultValueHelp();
 		help += modifierHelp();
-		help += selectionHelp();
 		return help;
-	};
+	}
+	public default String getGuide(int id)		{ return getHeadGuide() + valueHelp(id); };
+	public default String getGuide()			{ return getHeadGuide() + selectionHelp(); }
 	// Full help for "F1" requests
 	public default String getFullHelp()			{ return getGuide(); };
+	public default String getHelp()				{ return getDescription(); };
 
 	// ===== Local Help and guide Tools =====
 	public default String HeaderHelp()			{
-		String label = getLangageLabel();
+		String label = getLangLabel();
 		String name  = langLabel(label, "");
 		String help  = langHelp(label);
 		if (help.isEmpty())
-			help = "Sorry, no help available yet.";
-		return "Option: " + name + lineSplit
-				+ "==>" + help + BASE_SPLITER;
+			help = "<b><i>Sorry, no help available yet.<i/></b>";
+		return "<u><b>" + name + "</b></u>" + lineSplit
+				+ help + baseSeparator();
 	}
 	public default String defaultValueHelp()	{
-		String help = "Default Value (Middle Click) = " + getDefaultValue()
-					+ BASE_SPLITER;
+		String help = labelFormat("Default Value") + getDefaultValue()
+					+ htmlTuneFont(-2, "&emsp<i>(set with Middle Click)<i/>")
+					+ baseSeparator();
 		return help;
 	}
-	public default String getValueHelp()		{ return ""; }
+	// The value in help format
+	public default String getSelectionStr()		{ return labelFormat(getGuiValue()); }
+	public default String getValueStr(int id)	{ return labelFormat(getGuiValue(id)); }
+	public default String rowHelp(int id)		{
+		String help = realHelp(id);
+		if (help == null)
+			help = realDescription(id);
+		if (help == null)
+			help = "";
+		return rowFormat(labelFormat(name(id)), help);
+	}
+	public default String valueHelp(int id)		{ return "";}
 	public default String selectionHelp()		{
-		String help = getValueHelp();
-		String val = "Selected Value = " + getGuiValue();
-		if (help.isEmpty())
+		String val  = labelFormat("Selected Value") + getGuiValue();
+		if (getIndex() < 0) // not a list
 			return val;
-		return val + BASE_SPLITER + help;
+		// this is a list
+		String help = valueHelp(getIndex());
+		return val + baseSeparator() + help;
 	}
 	public default String modifierHelp()		{
 		String[] mod = getModifiers();
 		if (mod == null)
 			return "";
-		String help = "Modifiers:"	+ lineSplit
-					+ "Base = " 	+ mod[0]	+ lineSplit
-					+ "Shift = "	+ mod[1]	+ lineSplit
-					+ "Ctrl    = " 	+ mod[2]	+ lineSplit
-					+ "Ctrl + Shift = "	+ mod[3]
-					+ BASE_SPLITER;
+		String help = labelFormat("Key Modifiers")	+ lineSplit
+					+ "None "		 + mod[0] + " &nbsp : &nbsp"
+					+ " Shift "		 + mod[1] + " &nbsp : &nbsp"
+					+ " Ctrl "		 + mod[2] + " &nbsp : &nbsp"
+					+ " Ctrl+Shift " + mod[3]
+					+ baseSeparator();
 		return help;
+	}
+	// ===== Upper level language tools =====
+	public default String name(int id)				{ return langName(getLangLabel(id)); }
+	public default String realDescription(int id)	{ return langDesc(getLangLabel(id)); }
+	public default String realHelp(int id)			{ return langHelp(getLangLabel(id)); }
+	// ===== Formatters =====
+	public static String tableFormat(String str)	{ return str; }
+	public static String rowFormat(String... strA)	{
+		String row = "";
+		for (String str : strA)
+			row += str + "&emsp ";
+		return row;
+	}
+	public static String htmlTuneFont(int deltaSize, String str)	{
+		int newSize = RotPUI.scaledSize(guideFontSize + deltaSize);
+		String head = "<span style=\"font-size:" + newSize + ".0pt\">";
+		return head + str + "</span>";
+	}
+	public static String getSeparator(int top, int thick, int down, String color)	{
+		String sOpen	= "<div style=\" height: ";
+		String sMid		= "px; font-size:0";
+		String sClose	= "; \"></div>";
+		String sColor	= "; background:#";
+		return    sOpen + top	+ sMid + sClose
+				+ sOpen + thick + sMid + sColor + color + sClose
+				+ sOpen + down	+ sMid + sClose;
+	}
+	public static String baseSeparator()			{ return getSeparator(5, 2, 3, "7f7f7f"); }
+	public static String rowsSeparator()			{ return getSeparator(4, 1, 2, "BFBFBF"); }
+	public static String labelFormat(String str)	{
+		if (str.isEmpty())
+			return str;
+		return "<b>" + str + ":</b>&nbsp ";
 	}
 	// ===== Lower level language tools =====
 	public static String langName(String key)		{
 		if (key == null)
 			return "";
 		String name = realLangLabel(key);
-//		name = langLabel(key); // TODO BR: For debug... comment!
+		name = langLabel(key); // TODO BR: For debug... comment!
 		if (name == null)
 			return "";
 		return name.split("%1")[0];
@@ -131,7 +174,7 @@ public interface InterfaceParam extends InterfaceOptions{
 		if (key == null)
 			return "";
 		String desc =  realLangLabel(key+LABEL_DESCRIPTION);
-//		desc = langLabel(key+LABEL_DESCRIPTION); // TODO BR: For debug... comment!
+		desc = langLabel(key+LABEL_DESCRIPTION); // TODO BR: For debug... comment!
 		if (desc == null)
 			return "";
 		return desc;

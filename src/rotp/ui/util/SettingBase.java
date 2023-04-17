@@ -109,8 +109,8 @@ public class SettingBase<T> implements InterfaceParam {
 		this.settingToolTip = settingToolTip;
 	}
 	private void loadSettingToolTip() {
-		String label = getLangageLabel() + LABEL_DESCRIPTION;
-		settingToolTip = text(getLangageLabel() + LABEL_DESCRIPTION);
+		String label = getLangLabel() + LABEL_DESCRIPTION;
+		settingToolTip = text(getLangLabel() + LABEL_DESCRIPTION);
 		if (label.equals(settingToolTip))
 			settingToolTip = "";
 	}
@@ -201,19 +201,19 @@ public class SettingBase<T> implements InterfaceParam {
 	@Override public void setFromDefault()		{ selectedValue(defaultValue); }
 	@Override public void setOptions(DynamicOptions destOptions) {
 		if (!isSpacer && destOptions != null)
-			destOptions.setString(getLangageLabel(), getCfgValue());
+			destOptions.setString(getLangLabel(), getCfgValue());
 	}
 	@Override public void setFromOptions(DynamicOptions srcOptions) {
 		if (!isSpacer && srcOptions != null)
-			setFromCfgValue(srcOptions.getString(getLangageLabel(), getDefaultCfgValue()));
+			setFromCfgValue(srcOptions.getString(getLangLabel(), getDefaultCfgValue()));
 	}
 	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
 		if (!isSpacer && src != null && dest != null)
-			dest.setString(getLangageLabel(), getCfgValue());
-		dest.setString(getLangageLabel(), src.getString(getLangageLabel(), getDefaultCfgValue()));
+			dest.setString(getLangLabel(), getCfgValue());
+		dest.setString(getLangLabel(), src.getString(getLangLabel(), getDefaultCfgValue()));
 	}
 	@Override public String getGuiDisplay(int idx)	{
-		String str = text(getLangageLabel()); // Get from label.txt
+		String str = text(getLangLabel()); // Get from label.txt
 		String[] strArr = str.split(textSubs[0]);
 
 		switch(idx) {
@@ -235,7 +235,7 @@ public class SettingBase<T> implements InterfaceParam {
 	@Override public String getCfgLabel()		{ return nameLabel; }
 	@Override public String getGuiDescription() { return lmText(descriptionId()); }
 	@Override public String getGuiValue()		{ return String.valueOf(settingValue()); }
-	@Override public String getGuiDisplay()		{ return text(getLangageLabel(), getGuiValue()) + END; }
+	@Override public String getGuiDisplay()		{ return text(getLangLabel(), getGuiValue()) + END; }
 	@Override public String getToolTip()		{
 		if (settingToolTip == null) {
 			loadSettingToolTip();
@@ -444,7 +444,7 @@ public class SettingBase<T> implements InterfaceParam {
 	public boolean isSpacer()	{ return isSpacer; }
 	public boolean hasNoCost()	{ return hasNoCost; }
 	public boolean isBullet()	{ return isBullet; }
-	public String  getLabel()	{ return lmText(getLangageLabel()); }
+	public String  getLabel()	{ return lmText(getLangLabel()); }
 	public int bulletStart()	{ return bulletStart; }
 	public int bulletEnd()		{ return bulletStart + bulletBoxSize(); }
 	public int bulletHeightFactor()	{ return bulletHeightFactor; }
@@ -501,7 +501,7 @@ public class SettingBase<T> implements InterfaceParam {
 		if (labelsAreFinals)
 			labelList.add(langLabel);
 		else
-			labelList.add(getLangageLabel() +"_"+ langLabel);
+			labelList.add(getLangLabel() +"_"+ langLabel);
 		tooltipList.add("");
 	}
 	public void put(String cfgValue, String langLabel, float cost, T value, String tooltipKey) {
@@ -512,13 +512,13 @@ public class SettingBase<T> implements InterfaceParam {
 		if (labelsAreFinals)
 			labelList.add(langLabel);			
 		else
-			labelList.add(getLangageLabel() +"_"+ langLabel);
+			labelList.add(getLangLabel() +"_"+ langLabel);
 		if (tooltipKey == null || tooltipKey.isEmpty())
 			tooltipList.add("");
 		else if (labelsAreFinals)
 			tooltipList.add(lmText(tooltipKey));			
 		else
-			tooltipList.add(lmText(getLangageLabel() +"_"+ tooltipKey));
+			tooltipList.add(lmText(getLangLabel() +"_"+ tooltipKey));
 	}
 	public void put(T value, String tooltipKey) {
 		cfgValueList.add("");
@@ -530,7 +530,7 @@ public class SettingBase<T> implements InterfaceParam {
 		else if (labelsAreFinals)
 			tooltipList.add(lmText(tooltipKey));			
 		else
-			tooltipList.add(lmText(getLangageLabel() +"_"+ tooltipKey));
+			tooltipList.add(lmText(getLangLabel() +"_"+ tooltipKey));
 	}
 	protected int getDir(MouseEvent e) {
 		if (SwingUtilities.isRightMouseButton(e)) return -1;
@@ -549,7 +549,7 @@ public class SettingBase<T> implements InterfaceParam {
 		tooltipList.clear();
 	}
 	protected T optionValue(int index)	{ return valueList.get(valueValidIndex(index)); }
-	@Override public String getLangageLabel()			{ return guiLabel + nameLabel; }
+	@Override public String getLangLabel()			{ return guiLabel + nameLabel; }
 	// ========== Private Methods ==========
 	//
 	private void bulletStart(int start) {
@@ -587,7 +587,7 @@ public class SettingBase<T> implements InterfaceParam {
 		return randomize(rand);
 	}
 	private float optionCost(int index)	{ return costList.get(index); }
-	private String descriptionId()		{ return getLangageLabel() + LABEL_DESCRIPTION; }
+	private String descriptionId()		{ return getLangLabel() + LABEL_DESCRIPTION; }
 	private String getDefaultCfgValue() { return getCfgValue(defaultValue); }
 	private String settingCostString()	{ return settingCostString(1); } // default decimal number
 	private String settingCostString(int dec) { return costString(settingCost(), dec); }
@@ -701,7 +701,7 @@ public class SettingBase<T> implements InterfaceParam {
 	@SuppressWarnings("unchecked")
 	private void setFromList(BaseModPanel frame) {
 		String message	= "<html>" + getGuiDescription() + "</html>";
-		String title	= text(getLangageLabel(), "");
+		String title	= text(getLangLabel(), "");
 		// System.out.println("getIndex() = " + getIndex());
 		// System.out.println("currentOption() = " + currentOption());
 
