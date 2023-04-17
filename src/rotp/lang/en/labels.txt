@@ -2807,6 +2807,6 @@ SETUP_GALAXY_RACE_LIST_DESC       | "Original" = The 6 Modnar Races are excluded
 SETUP_GALAXY_AGAINST_DESC         | To select Aliens AI.<br> "AI:Selectable" => A selection line will appear on the bottom of the Boxes bellow, allowing the selection of individual Aliens AI.
 
 SETUP_SELECT_CR_OPTIONS_DESC      | if "Yes", a selection line will appear at the top of the boxes below, allowing the selection of individual ability.
-SETUP_SELECT_CR_OPTIONS_YES       | A selection line will appear at the top of the boxes below, allowing the selection of individual ability.
-SETUP_SELECT_CR_OPTIONS_NO        | The selected global ability will be applied to all the opponents.
+SETUP_SELECT_CR_OPTIONS_YES       | A selection line will appear at the top of the opponent boxes, allowing the selection of individual ability.
+SETUP_SELECT_CR_OPTIONS_NO        | The selected global ability (on the left) will be applied to all the opponents.
 SETUP_SELECT_CR_OPTIONS		      | Selectable Abilities.

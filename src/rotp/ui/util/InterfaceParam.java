@@ -154,7 +154,7 @@ public interface InterfaceParam extends InterfaceOptions{
 				+ sOpen + down	+ sMid + sClose;
 	}
 	public static String baseSeparator()			{ return getSeparator(5, 2, 3, "7f7f7f"); }
-	public static String rowsSeparator()			{ return getSeparator(4, 1, 2, "BFBFBF"); }
+	public static String rowsSeparator()			{ return getSeparator(4, 1, 2, "9F9F9F"); }
 	public static String labelFormat(String str)	{
 		if (str.isEmpty())
 			return str;

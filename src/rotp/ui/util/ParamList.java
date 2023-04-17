@@ -186,9 +186,10 @@ public class ParamList extends AbstractParam<String> {
 		return text(valueLabelMap.getLangLabel(getValidIndex(id)));
 	}
 	@Override public String	getFullHelp()			{
-		String help = HeaderHelp();
-		help += defaultValueHelp();
-		help += modifierHelp();
+		String help = getHeadGuide();
+//		String help = HeaderHelp();
+//		help += defaultValueHelp();
+//		help += modifierHelp();
 		help += getTableHelp();
 		return help;
 	}

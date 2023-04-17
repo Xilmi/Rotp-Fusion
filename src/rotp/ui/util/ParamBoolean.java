@@ -16,6 +16,12 @@
 
 package rotp.ui.util;
 
+import static rotp.ui.util.InterfaceParam.labelFormat;
+import static rotp.ui.util.InterfaceParam.langLabel;
+import static rotp.ui.util.InterfaceParam.rowFormat;
+import static rotp.ui.util.InterfaceParam.rowsSeparator;
+import static rotp.ui.util.InterfaceParam.tableFormat;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
@@ -37,23 +43,27 @@ public class ParamBoolean extends AbstractParam<Boolean> {
 	}
 	// ===== Overriders =====
 	//
-	@Override protected	  String getCfgValue(Boolean value)	{ return yesOrNo(value); }
-	@Override public void setFromCfgValue(String newValue)	{ value(yesOrNo(newValue)); }	
-	@Override public 	  String getGuiValue()	{ return yesOrNo(get()); }
-	@Override public void prev() { next(); }
-	@Override public void next() { set(!get()); }
-	@Override public void toggle(MouseWheelEvent e)	{ next(); }
-	@Override public void toggle(MouseEvent e, BaseModPanel frame) {
+	@Override public	String	getFullHelp()		{ return getHeadGuide() + getTableHelp(); }
+	@Override public	String	valueHelp(int id)	{ return getTableHelp(); }
+	@Override public	int		getIndex()			{ return get()? 1 : 0; }
+	@Override protected	String	getCfgValue(Boolean value)		 { return yesOrNo(value); }
+	@Override public	void	setFromCfgValue(String newValue) { value(yesOrNo(newValue)); }	
+	@Override public	String	getGuiValue()				{ return yesOrNo(get()); }
+	@Override public	String	getDefaultValue()			{ return yesOrNo(defaultValue()); }
+	@Override public	void	prev()						{ next(); }
+	@Override public	void	next()						{ set(!get()); }
+	@Override public	void	toggle(MouseWheelEvent e)	{ next(); }
+	@Override public	void	toggle(MouseEvent e, BaseModPanel frame) {
 		if (getDir(e) == 0)
 			setFromDefault();
 		else
 			next();
 	}
-	@Override public void setFromOptions(DynamicOptions options) {
+	@Override public void setFromOptions(DynamicOptions options)		 {
 		if (!isDuplicate() && options != null)
 			set(options.getBoolean(getLangLabel(), defaultValue()));
 	}
-	@Override public void setOptions(DynamicOptions options) {
+	@Override public void setOptions(DynamicOptions options)			 {
 		if (!isDuplicate() && options != null)
 			options.setBoolean(getLangLabel(), get());
 	}
@@ -63,5 +73,21 @@ public class ParamBoolean extends AbstractParam<Boolean> {
 	}
 	// ===== Other Methods =====
 	//
-	public void toggle() { next(); }
+	public	void	toggle()				{ next(); }
+	private	String	valueHelp(boolean b)	{ // TODO BR:
+		String label = getLangLabel();
+		label += b ? "_YES" : "_NO";
+		return langLabel(label);
+	}
+	private String	getRowHelp(boolean b)	{
+		String help = valueHelp(b);
+		if (help == null)
+			help = "";
+		return rowFormat(labelFormat(yesOrNo(b)), "<br>" + help);
+	}
+	private String	getTableHelp()			{
+		String rows = getRowHelp(true);
+		rows += rowsSeparator() + getRowHelp(false);
+		return tableFormat(rows);
+	}
 }
