@@ -26,6 +26,10 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2023.04.17 (BR)
+- Fixed the arrows not working...
+- Added some guide descrition in galaxy panel.
+
 2023.04.16 (BR)
 - Updated guide and help to Html.
 

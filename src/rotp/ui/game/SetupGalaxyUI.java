@@ -122,7 +122,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private static final String GLOBAL_AI    = "SETUP_GLOBAL_AI";
 	private static final String SPECIFIC_ABILITY = "SETUP_SPECIFIC_ABILITY";
 	private static final String GLOBAL_ABILITIES = "SETUP_GLOBAL_ABILITIES";
-	public static int MAX_DISPLAY_OPPS = 49;
+	public  static final int	MAX_DISPLAY_OPPS = 49;
     private final Color darkBrownC = new Color(112,85,68);
 	private BufferedImage backImg, playerRaceImg;
 	private BufferedImage smBackImg;
@@ -140,7 +140,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private Box	startBox			= new Box(startButtonHelp);
 	private Box	settingsBox			= new Box("SETUP_GALAXY_OPTIONS");
 	private Box	newRacesBox			= new Box("SETUP_GALAXY_RACE_LIST"); // BR:
-	private Box	showAbilityBox		= new Box("SETUP_GALAXY_SELECTABLE"); // BR:
+	private Box	showAbilityBox		= new Box(useSelectableAbilities); // BR:
+//	private Box	showAbilityBox		= new Box("SETUP_GALAXY_SELECTABLE"); // BR:
 	private Box		shapeBox		= new Box(shapeSelection);
 	private Polygon	shapeBoxL		= new PolyBox();
 	private Polygon	shapeBoxR		= new PolyBox();
@@ -2399,7 +2400,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	public void mouseReleased(MouseEvent e) { // BR: added full mouse control
 		if (e.getButton() > 3)
 			return;
-		if (hoverBox == null)
+		if (hoverBox == null && hoverPolyBox == null)
 			return;
 		if (hoverBox == helpBox) {
 			showHelp();

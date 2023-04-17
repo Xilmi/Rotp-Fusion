@@ -2,6 +2,9 @@ Now working on:
 - Slowly filling the contextual help...
 
 April Updates:
+- Started copying parts of the manual in the contextual help.
+- The Contextual help is now in Html Format.
+- Added a "Guide" option to make the aontextual help pop-up automatically when hovering the options. 
 - Contextual help is now removed when moving out of the option.
 - Removed the lag in the first list selection pop-up.
 - Long range ship scans, long range planetary scans, and allies sharing scans will now also update "Auto-Flag".
