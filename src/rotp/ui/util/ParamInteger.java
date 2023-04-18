@@ -16,6 +16,8 @@
 
 package rotp.ui.util;
 
+import static rotp.ui.util.InterfaceParam.langLabel;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
@@ -138,14 +140,14 @@ public class ParamInteger extends AbstractParam<Integer> {
 							ctrlInc().toString(),
 							shiftCtrlInc().toString()};
 	}
-	@Override public String getGuiValue() {
+	@Override public String guideValue() {
 		if (isSpecialNegative())
-			return text(negativeLabel);
+			return langLabel(negativeLabel);
 		if (isSpecialZero())
-			return text(zeroLabel);
+			return langLabel(zeroLabel);
 		if (isSpecial())
-			return text(specialLabel);
-		return super.getGuiValue();
+			return langLabel(specialLabel);
+		return super.guideValue();
 	}
 	@Override public void setFromCfgValue(String newValue) {
 		if (!isDuplicate())

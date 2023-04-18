@@ -16,6 +16,8 @@
 
 package rotp.ui.util;
 
+import static rotp.ui.util.InterfaceParam.langLabel;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.util.LinkedList;
@@ -103,9 +105,9 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<InterfacePar
 		// System.out.println("toggle(MouseEvent e)");		
 	}
 	@Override public void toggle(MouseEvent e, int p, BaseModPanel frame) { ui().start(p); };
-	@Override public String getGuiValue()	{
+	@Override public String guideValue()	{
 		String label = isDefaultValue()? "SUB_UI_DEFAULT_YES" : "SUB_UI_DEFAULT_NO";
-		return text(label);
+		return langLabel(label);
 	}
 	@Override public String getCfgValue() {
 		// System.out.println("getCfgValue() = " + super.getCfgValue());

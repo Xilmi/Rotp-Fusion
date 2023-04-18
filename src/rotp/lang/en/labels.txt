@@ -1154,6 +1154,12 @@ Opponents panel.
 SETUP_GALAXY_SIZE_DESC            | Select the Galaxy Size
 SETUP_GALAXY_SIZE                 | Galaxy Size Selection %1
 SETUP_GALAXY_SIZE_STAR_PER_EMPIRE | %1 s/e
+SETUP_GALAXY_SIZE_DYNAMIC_DESC    | The galaxy size is function of the number of empires and the selected number of stars per empire.
+SETUP_GALAXY_SIZE_MAXIMUM_DESC    | This galaxy size is function of the computer memory size.
+SETUP_GALAXY_SIZE_MOO1_DESC       | Galaxy size available in original MOO1 game.
+SETUP_GALAXY_SIZE_UP1000_DESC     | Galaxy size larger than those available in the original MOO1 game, but still reasonable. It will take time to win...
+SETUP_GALAXY_SIZE_OVER1000_DESC   | Indecent galaxy size, much larger than those available in the original MOO1 game. It will take you weeks to finish these games.
+
 SETUP_GALAXY_SIZE_DYNAMIC         | Dynamic
 SETUP_GALAXY_SIZE_MICRO           | Micro
 SETUP_GALAXY_SIZE_TINY            | Tiny

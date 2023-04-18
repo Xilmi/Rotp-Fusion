@@ -222,7 +222,7 @@ public class SettingFloat extends SettingBase<Float> {
 		if (!isSpacer() && options != null)
 			set(options.getFloat(getLangLabel(), defaultValue()));
 	}
-	@Override public String getGuiValue() { return getCfgValue(); }
+	@Override public String guideValue() { return getCfgValue(); }
 	// ===== Other Methods =====
 	//
 	protected void cfgFormat(String format)	{ cfgFormat = format; }

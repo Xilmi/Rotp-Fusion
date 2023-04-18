@@ -89,7 +89,7 @@ public class ParamFloat extends AbstractParam<Float> {
 	}
 	// ========== Overriders ==========
 	//
-	@Override public String getDefaultValue()	{ return getString(defaultValue()); }
+	@Override public String guideDefaultValue()	{ return getString(defaultValue()); }
 	@Override public String[] getModifiers()	{
 		if (baseInc() == shiftInc())
 			return null;
@@ -98,7 +98,7 @@ public class ParamFloat extends AbstractParam<Float> {
 							getString(ctrlInc()),
 							getString(shiftCtrlInc())};
 	}
-	@Override protected String getCfgValue(Float value) {
+	@Override public String getCfgValue(Float value) {
 		if (isCfgPercent()) {
 			return String.format("%d", Math.round(value * 100f));
 		}
@@ -108,7 +108,7 @@ public class ParamFloat extends AbstractParam<Float> {
 		}
 		return new DecimalFormat(cfgFormat).format(value);
 	}
-	@Override public String getGuiValue() {
+	@Override public String guideValue() {
 		if (isGuiPercent()) {
 			return String.format("%d", Math.round(get() * 100f));
 		}

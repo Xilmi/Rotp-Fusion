@@ -590,7 +590,7 @@ public class CustomRaceDefinitions  {
 	    }
 		// ---------- Overriders ----------
 		//
-		@Override public String getGuiValue() {
+		@Override public String guideValue() {
 			return guiOptionLabel();
 		}
 		@Override public String guiOptionValue(int index) {
@@ -1595,7 +1595,7 @@ public class CustomRaceDefinitions  {
 		}
 
 		@Override public String guiSettingDisplayStr() {
-			return getLabel() + ": " + getGuiValue() + " " + costString(cost());
+			return getLabel() + ": " + guideValue() + " " + costString(cost());
 		}
 		@Override protected void next(Integer i) {
 			super.next(i);
@@ -1738,9 +1738,9 @@ public class CustomRaceDefinitions  {
 				return cost;
 			}
 			@Override public String guiSettingDisplayStr() {
-				return getLabel() + ": " + getGuiValue() + " " + costString(this.settingCost());
+				return getLabel() + ": " + guideValue() + " " + costString(this.settingCost());
 			}
-			@Override public String getGuiValue() {
+			@Override public String guideValue() {
 				String str = settingValue().toString();
 				str += " -> ";
 				str += String.valueOf(combinedValue());
@@ -1784,7 +1784,7 @@ public class CustomRaceDefinitions  {
 			set(Math.round(race.techDiscoveryPct * 100));
 		}
 		@Override public String guiSettingDisplayStr() {
-			return getLabel() + ": " + getGuiValue() + " " + costString(cost());
+			return getLabel() + ": " + guideValue() + " " + costString(cost());
 		}
 		@Override protected void next(Integer i) {
 			super.next(i);
@@ -1929,9 +1929,9 @@ public class CustomRaceDefinitions  {
 				return cost;
 			}
 			@Override public String guiSettingDisplayStr() {
-				return getLabel() + ": " + getGuiValue() + " " + costString(this.settingCost());
+				return getLabel() + ": " + guideValue() + " " + costString(this.settingCost());
 			}
-			@Override public String getGuiValue() {
+			@Override public String guideValue() {
 				String str = settingValue().toString();
 				str += " -> ";
 				str += String.valueOf(combinedValue());

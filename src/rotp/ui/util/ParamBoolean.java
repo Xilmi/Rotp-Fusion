@@ -43,17 +43,17 @@ public class ParamBoolean extends AbstractParam<Boolean> {
 	}
 	// ===== Overriders =====
 	//
-	@Override public	String	getFullHelp()		{ return getHeadGuide() + getTableHelp(); }
-	@Override public	String	valueHelp(int id)	{ return getTableHelp(); }
-	@Override public	int		getIndex()			{ return get()? 1 : 0; }
-	@Override protected	String	getCfgValue(Boolean value)		 { return yesOrNo(value); }
-	@Override public	void	setFromCfgValue(String newValue) { value(yesOrNo(newValue)); }	
-	@Override public	String	getGuiValue()				{ return yesOrNo(get()); }
-	@Override public	String	getDefaultValue()			{ return yesOrNo(defaultValue()); }
-	@Override public	void	prev()						{ next(); }
-	@Override public	void	next()						{ set(!get()); }
-	@Override public	void	toggle(MouseWheelEvent e)	{ next(); }
-	@Override public	void	toggle(MouseEvent e, BaseModPanel frame) {
+	@Override public String	getFullHelp()		{ return getHeadGuide() + getTableHelp(); }
+	@Override public String	valueGuide(int id)	{ return getTableHelp(); }
+	@Override public int	getIndex()			{ return get()? 1 : 0; }
+	@Override public String	getCfgValue(Boolean value)		 { return yesOrNo(value); }
+	@Override public void	setFromCfgValue(String newValue) { value(yesOrNo(newValue)); }	
+	@Override public String	guideValue()				{ return yesOrNo(get()); }
+	@Override public String	guideDefaultValue()			{ return yesOrNo(defaultValue()); }
+	@Override public void	prev()						{ next(); }
+	@Override public void	next()						{ set(!get()); }
+	@Override public void	toggle(MouseWheelEvent e)	{ next(); }
+	@Override public void	toggle(MouseEvent e, BaseModPanel frame) {
 		if (getDir(e) == 0)
 			setFromDefault();
 		else

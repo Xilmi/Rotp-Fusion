@@ -776,7 +776,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	    if (input == null)
 	    	return initialChoice;
 	    newGameOptions().selectedGalaxyShapeOption1(input);
-	    newGameOptions().galaxyShape().quickGenerate(); 
+	    newGameOptions().galaxyShape().quickGenerate();
 		repaint();
 	    return input;
 	}
@@ -789,6 +789,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			shapeOption3.set(s);
 		}
 	    newGameOptions().galaxyShape().quickGenerate(); 
+//	    loadGuide();
 		repaint();
 	}	
 	private String selectSpecificAIFromList(int i) {
@@ -1154,7 +1155,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		drawString(g,sizeLbl, x5b, y5);
 
 		if (isDynamic()) { // BR:
-			String label = text(SIZE_OPT_KEY, dynStarsPerEmpire.getGuiValue());
+			String label = text(SIZE_OPT_KEY, dynStarsPerEmpire.guideValue());
 			int sw2 = g.getFontMetrics().stringWidth(label);
 			int x5b1 =sizeOptionBox.x+((sizeOptionBox.width-sw2)/2);
 			drawString(g,label, x5b1, y5+s20);		   
@@ -1177,10 +1178,10 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		if (galaxyRandSource.get() == 0)
 			wysiwygLbl = "Random";
 		else
-			wysiwygLbl = "Wysiwyg " + galaxyRandSource.getGuiValue();
+			wysiwygLbl = "Wysiwyg " + galaxyRandSource.guideValue();
 		int wysiwygSW = g.getFontMetrics().stringWidth(wysiwygLbl);
 		if (wysiwygSW > wysiwygBox.width) {
-			wysiwygLbl = galaxyRandSource.getGuiValue();
+			wysiwygLbl = galaxyRandSource.guideValue();
 			wysiwygSW  = g.getFontMetrics().stringWidth(wysiwygLbl);
 		}
 		int x5d =wysiwygBox.x+((wysiwygBox.width-wysiwygSW)/2);
@@ -1481,7 +1482,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		else return text("SETUP_NEW_RACES_OFF");
 	}
 	private String showAbilityStr() {
-		return useSelectableAbilities.getGuiValue();
+		return useSelectableAbilities.guideValue();
 	}
 	private void drawGalaxyShape(Graphics g, GalaxyShape sh, int x, int y, int w, int h) {
 		float factor = min((float)h/sh.height(), (float)w/sh.width());
@@ -1626,6 +1627,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		newGameOptions().galaxyShape().quickGenerate(); // modnar: do a quickgen to get correct map preview
 		backImg = null; // BR: to show/hide system per empire
+		loadGuide();
 		repaint();
 	}
 	private void postSelectionFull(boolean click) {

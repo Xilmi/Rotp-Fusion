@@ -224,9 +224,9 @@ public class SettingBase<T> implements InterfaceParam {
 				return "";
 		case 1:
 			if (strArr.length > 1)
-				return getGuiValue() + strArr[1];
+				return guideValue() + strArr[1];
 			else
-				return getGuiValue();
+				return guideValue();
 		default:
 			return "";
 		}
@@ -234,8 +234,8 @@ public class SettingBase<T> implements InterfaceParam {
 	@Override public String getCfgValue() 		{ return getCfgValue(settingValue()); }
 	@Override public String getCfgLabel()		{ return nameLabel; }
 	@Override public String getGuiDescription() { return lmText(descriptionId()); }
-	@Override public String getGuiValue()		{ return String.valueOf(settingValue()); }
-	@Override public String getGuiDisplay()		{ return text(getLangLabel(), getGuiValue()) + END; }
+	@Override public String guideValue()		{ return String.valueOf(settingValue()); }
+	@Override public String getGuiDisplay()		{ return text(getLangLabel(), guideValue()) + END; }
 	@Override public String getToolTip()		{
 		if (settingToolTip == null) {
 			loadSettingToolTip();
@@ -251,7 +251,7 @@ public class SettingBase<T> implements InterfaceParam {
 			return "";
 		return tt;
 	}
-	@Override public String getDefaultValue()	{ return defaultValue.toString(); }
+	@Override public String guideDefaultValue()	{ return defaultValue.toString(); }
 	@Override public boolean isDefaultValue()	{ return defaultValue() == settingValue(); }
 	// ========== Overridable Methods ==========
 	//
@@ -601,8 +601,8 @@ public class SettingBase<T> implements InterfaceParam {
 	}
 	private String guiSettingLabelValueCostStr() {
 		if (hasNoCost)
-			return getLabel() + ": " + getGuiValue();
-		return getLabel() + ": " + getGuiValue() + " " + settingCostString();
+			return getLabel() + ": " + guideValue();
+		return getLabel() + ": " + guideValue() + " " + settingCostString();
 	}
 	private String guiCostOptionStr(int idx, int dec) {
 		if (hasNoCost)

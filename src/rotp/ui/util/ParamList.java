@@ -141,24 +141,20 @@ public class ParamList extends AbstractParam<String> {
 	public void reInit(List<String> list) {
 		valueLabelMap.clear();
 		for (String element : list)
-			put(element, text(element)); // "text" should now be available
+			put(element, langLabel(element)); // "text" should now be available
 	}
 	// ===== Overriders =====
 	//
-	@Override public String getDefaultValue()	{ return langLabel(defaultValue()); }
-	@Override protected String getCfgValue(String value) {
-		return validateValue(value);
-	}
-	@Override public String	getGuiValue()	{
-		return text(valueLabelMap.getLangLabelFromValue(validateValue(get())));
-	}
-	@Override public void	next()			{
+	@Override public String guideDefaultValue()			{ return name(defaultValueIndex()); }
+	@Override public String getCfgValue(String value)	{ return validateValue(value); }
+	@Override public String	guideValue()				{ return name(this.getIndex()); }
+	@Override public void	next()						{
 		set(valueLabelMap.getNextLangLabelIgnoreCase(get()));
 	}
-	@Override public void	prev()			{
+	@Override public void	prev()						{
 		set(valueLabelMap.getPrevValueIgnoreCase(get())); 
 	}
-	@Override public void	toggle(MouseWheelEvent e)				{
+	@Override public void	toggle(MouseWheelEvent e)	{
 		if (getDir(e) > 0)
 			next();
 		else 
@@ -183,7 +179,7 @@ public class ParamList extends AbstractParam<String> {
 		return super.set(value(valueLabelMap.getCfgValue(getValidIndex(id))));
 	}
 	@Override public String	getGuiValue(int id)		{
-		return text(valueLabelMap.getLangLabel(getValidIndex(id)));
+		return langLabel(valueLabelMap.getLangLabel(getValidIndex(id)));
 	}
 	@Override public String	getFullHelp()			{
 		String help = getHeadGuide();
@@ -194,8 +190,8 @@ public class ParamList extends AbstractParam<String> {
 		return help;
 	}
 	@Override public String getSelectionStr()		{ return getValueStr(getIndex(get())); }
-	@Override public String getValueStr(int id)		{ return valueHelp(getValidIndex(id)); }
-	@Override public String valueHelp(int id) 		{ return tableFormat(getRowHelp(id)); }
+	@Override public String getValueStr(int id)		{ return valueGuide(getValidIndex(id)); }
+	@Override public String valueGuide(int id) 		{ return tableFormat(getRowGuide(id)); }
 	@Override public String getLangLabel(int id)	{
 		return valueLabelMap.getLangLabel(getValidIndex(id));
 	}
@@ -207,7 +203,6 @@ public class ParamList extends AbstractParam<String> {
 		else
 			return valueLabelMap.getValueIndexIgnoreCase(value);
 	}
-	protected String labelText(String label)	{ return text(label); }
 	protected String getLangLabelFromValue(String newValue) {
 		String newLangLabel = valueLabelMap.getLangLabelFromValue(newValue);
 		return newLangLabel;
@@ -260,7 +255,7 @@ public class ParamList extends AbstractParam<String> {
 	}
 	private void setFromList(BaseModPanel frame){
 		String message	= "<html>" + getGuiDescription() + "</html>";
-		String title	= text(getLangLabel(), "");
+		String title	= langLabel(getLangLabel(), "");
 		initGuiTexts();
 		String[] list= valueLabelMap.guiTextList.toArray(new String[listSize()]);
 		ListDialog dialog = new ListDialog(
@@ -272,7 +267,7 @@ public class ParamList extends AbstractParam<String> {
 				null,						// Font
 				frame,						// Preview
 				valueLabelMap.cfgValueList,	// Alternate return
-				this);
+				this); // Param
 
 		String input = (String) dialog.showDialog();
 		if (input != null && valueLabelMap.getValueIndexIgnoreCase(input) >= 0)
@@ -282,24 +277,17 @@ public class ParamList extends AbstractParam<String> {
 		int size = listSize();
 		String rows = "";
 		if (size>0) {
-			rows = getRowHelp(0);
+			rows = getRowGuide(0);
 			for (int i=1; i<size; i++)
-				rows += rowsSeparator() + getRowHelp(i);
+				rows += rowsSeparator() + getRowGuide(i);
 		}
 		return tableFormat(rows);
-	}
-	private String getRowHelp(int id)			{
-		String help = realHelp(id);
-		if (help == null)
-			help = realDescription(id);
-		if (help == null)
-			help = "";
-		return rowFormat(labelFormat(name(id)), help);
 	}
 	private void initMapGuiTexts()				{
 		valueLabelMap.guiTextList.clear();
 		for (String label : valueLabelMap.langLabelList)
-			valueLabelMap.guiTextList.add(labelText(label));
+			valueLabelMap.guiTextList.add(langLabel(label));
+//			valueLabelMap.guiTextList.add(labelText(label));
 	}
 	private int defaultValueIndex()				{ return getIndex(defaultValue()); }
 	public int	getRawIndex()					{

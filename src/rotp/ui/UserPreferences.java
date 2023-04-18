@@ -68,6 +68,7 @@ import static rotp.model.game.MOO1GameOptions.getStarDensityOptions;
 import static rotp.model.game.MOO1GameOptions.getTechTradingOptions;
 import static rotp.model.game.MOO1GameOptions.getTerraformingOptions;
 import static rotp.model.game.MOO1GameOptions.getWarpSpeedOptions;
+import static rotp.ui.util.InterfaceParam.langLabel;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -565,6 +566,29 @@ public class UserPreferences {
 		@Override public void setOption(String newValue) {
 			RotPUI.mergedGuiOptions().selectedGalaxySize(newValue);
 		}
+		@Override public String name(int id) {
+			String diffLbl = super.name(id);
+			String label   = getLangLabel(id);
+			int size = RotPUI.mergedGuiOptions().numberStarSystems(label);
+			if (label.equals("SETUP_GALAXY_SIZE_DYNAMIC"))
+				diffLbl += " (Variable; now = " + size + ")";
+			else
+				diffLbl += " (" + size + ")";
+			return diffLbl;
+		}
+		@Override public String realHelp(int id) {
+			String label   = getLangLabel(id);
+			if (label.equals("SETUP_GALAXY_SIZE_DYNAMIC"))
+				return super.realHelp(id);
+			if (label.equals("SETUP_GALAXY_SIZE_MAXIMUM"))
+				return super.realHelp(id);
+			int size = RotPUI.mergedGuiOptions().numberStarSystems(label);
+			if (size < 101)
+				return langLabel("SETUP_GALAXY_SIZE_MOO1_DESC");
+			if (size < 1001)
+				return langLabel("SETUP_GALAXY_SIZE_UP1000_DESC");
+			return langLabel("SETUP_GALAXY_SIZE_OVER1000_DESC");
+		}
 	};
 	public static final ParamList    difficultySelection	= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "GAME_DIFFICULTY", getGameDifficultyOptions(), DIFFICULTY_NORMAL) {
@@ -574,9 +598,10 @@ public class UserPreferences {
 		@Override public void setOption(String newValue) {
 			RotPUI.mergedGuiOptions().selectedGameDifficulty(newValue);
 		}
-		@Override protected String labelText(String label) {
-			String diffLbl = super.labelText(label);
-			if (diffLbl.equals("Custom"))
+		@Override public String name(int id) {
+			String diffLbl = super.name(id);
+			String label   = getLangLabel(id);
+			if (label.equals("SETUP_DIFFICULTY_CUSTOM"))
 				diffLbl += " (" + Integer.toString(UserPreferences.customDifficulty.get()) + "%)";
 			else {
 				float modifier = IGameOptions.aiProductionModifier(label);
@@ -608,11 +633,11 @@ public class UserPreferences {
 					));
 
 	// BR: Race Menu addition
-	public static final PlayerShipSet playerShipSet = new PlayerShipSet(
+	public static final PlayerShipSet playerShipSet		= new PlayerShipSet(
 			MOD_UI, "PLAYER_SHIP_SET");
-	public static final ParamBoolean playerIsCustom = new ParamBoolean(
+	public static final ParamBoolean  playerIsCustom	= new ParamBoolean(
 			BASE_UI, "BUTTON_CUSTOM_PLAYER_RACE", false);
-	public static final ParamCR    playerCustomRace = new ParamCR(
+	public static final ParamCR       playerCustomRace	= new ParamCR(
 			MOD_UI, baseRaceOptions().getFirst());
 
 	public static final LinkedList<InterfaceParam> optionsRace = new LinkedList<>(
@@ -1034,7 +1059,7 @@ public class UserPreferences {
 		@Override public String	get()	{
 			return RotPUI.mergedGuiOptions().selectedOpponentAIOption();
 		}
-		@Override public String	getGuiValue()	{ return text(get()); }
+		@Override public String	guideValue()	{ return langLabel(get()); }
 	};
 	public static final ParamList specificAI = new ParamList( // For Help Do not add the list
 			BASE_UI, "SPECIFIC_AI",

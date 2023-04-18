@@ -74,7 +74,7 @@ public class SettingBoolean extends SettingBase<Boolean> {
 	}
 	// ===== Overriders =====
 	//
-	@Override public String getGuiValue() {
+	@Override public String guideValue() {
 		return lmText(guiOptionLabel());
 	}
 	@Override public String guiOptionValue(int index) {

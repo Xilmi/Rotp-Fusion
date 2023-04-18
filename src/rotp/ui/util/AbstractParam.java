@@ -16,6 +16,7 @@
 
 package rotp.ui.util;
 
+import static rotp.ui.util.InterfaceParam.langLabel;
 import static rotp.util.Base.textSubs;
 
 import java.awt.event.InputEvent;
@@ -27,7 +28,6 @@ import javax.swing.SwingUtilities;
 import rotp.model.game.DynamicOptions;
 import rotp.model.game.MOO1GameOptions;
 import rotp.ui.game.BaseModPanel;
-import rotp.util.LabelManager;
 
 public abstract class AbstractParam <T> implements InterfaceParam{
 	// Ignore UCDetector public warning!
@@ -122,11 +122,11 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	@Override public String getCfgValue()		{ return getCfgValue(value); }
 	@Override public String getCfgLabel()		{ return name; }
 	@Override public String getLangLabel()		{ return gui + name; }
-	@Override public String getGuiDescription() { return text(descriptionId()); }
-	@Override public String getGuiValue()		{ return String.valueOf(value); }
-	@Override public String getGuiDisplay()		{ return text(getLangLabel(), getGuiValue()) + END; }
+	@Override public String getGuiDescription() { return langLabel(descriptionId()); }
+	@Override public String guideValue()		{ return String.valueOf(value); }
+	@Override public String getGuiDisplay()		{ return langLabel(getLangLabel(), guideValue()) + END; }
 	@Override public String getGuiDisplay(int idx)	{
-		String str = text(getLangLabel()); // Get from label.txt
+		String str = langLabel(getLangLabel()); // Get from label.txt
 		String[] strArr = str.split(textSubs[0]);
 
 		switch(idx) {
@@ -137,14 +137,14 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 				return "";
 		case 1:
 			if (strArr.length > 1)
-				return getGuiValue() + strArr[1];
+				return guideValue() + strArr[1];
 			else
-				return getGuiValue();
+				return guideValue();
 		default:
 			return "";
 		}
 	}
-	@Override public String getDefaultValue()	{ return defaultValue.toString(); }
+	@Override public String guideDefaultValue()	{ return defaultValue.toString(); }
 	@Override public boolean isDefaultValue()	{ return defaultValue.equals(get()); }
 	@Override public boolean isDuplicate()		{ return isDuplicate; }
 	@Override public void setFromDefault()		{ set(defaultValue()); }
@@ -154,22 +154,22 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 		else
 			toggle(e, frame);
 	}
-	@Override public String getGuiValue(int idx){ return getGuiValue(); } // For List
+	@Override public String getGuiValue(int idx){ return guideValue(); } // For List
 	// ========== Methods to be overridden ==========
 	//
-	T value(T value) 		{ return set(value); }
-	public T defaultValue()	{ return defaultValue; }
-	public T get()			{
+	T value(T value) 					{ return set(value); }
+	public T defaultValue()				{ return defaultValue; }
+	public T get()						{
 		if (isDuplicate()) {
 			value = getFromOption();
 		}
 		return value;
 	}	
-	public T setFromIndex(int i)		  { return null; }
-	protected String getCfgValue(T value) { return String.valueOf(value); }
+	public T setFromIndex(int i)		{ return null; }
+	public String getCfgValue(T value)	{ return String.valueOf(value); }
 	// ========== Public Getters ==========
 	//
-	public String getLabel(){ return text(getLangLabel()); }
+	public String getLabel(){ return langLabel(getLangLabel()); }
 	T minValue()	{ return minValue; }	
 	T maxValue()	{ return maxValue; }	
 	T baseInc()		{ return baseInc; }	
@@ -192,8 +192,8 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	// ========== Protected Methods ==========
 	//
 	protected void isDuplicate(boolean newValue) { isDuplicate = newValue ; }
-	protected String descriptionId() { return getLangLabel() + LABEL_DESCRIPTION; }
-	protected T getInc(InputEvent e) {
+	protected String descriptionId()		{ return getLangLabel() + LABEL_DESCRIPTION; }
+	protected T getInc(InputEvent e)		{
 		if (e.isShiftDown())
 			if (e.isControlDown())
 				return shiftCtrlInc;
@@ -204,12 +204,12 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 		else
 			return baseInc;
 	}
-	protected int getDir(MouseEvent e) {
+	protected int getDir(MouseEvent e)		{
 		if (SwingUtilities.isRightMouseButton(e)) return -1;
 		if (SwingUtilities.isLeftMouseButton(e)) return 1;
 		return 0;
 	}
-	protected int getDir(MouseWheelEvent e) {
+	protected int getDir(MouseWheelEvent e)	{
 		if (e.getWheelRotation() < 0) return 1;
 		return -1;
 	}
@@ -247,13 +247,13 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	static boolean yesOrNo(String s) {
 		return s.equalsIgnoreCase("YES");
 	}
-	protected static String text(String key) {
-		return LabelManager.current().label(key);
-	}
-	protected static String text(String key, String... vals) {
-		String str = text(key);
-		for (int i=0;i<vals.length;i++)
-			str = str.replace(textSubs[i], vals[i]);
-		return str;
-	}
+//	protected static String text(String key) {
+//		return LabelManager.current().label(key);
+//	}
+//	protected static String text(String key, String... vals) {
+//		String str = text(key);
+//		for (int i=0;i<vals.length;i++)
+//			str = str.replace(textSubs[i], vals[i]);
+//		return str;
+//	}
 }

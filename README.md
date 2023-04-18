@@ -30,6 +30,8 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 - Fixed the arrows not working...
 - Added some guide descrition in galaxy panel.
 - Fixed the boolean option guide display.
+- Improved code readability. (Naming and location)
+- More guide descriptions in label.txt.
 
 2023.04.16 (BR)
 - Updated guide and help to Html.

@@ -48,15 +48,15 @@ public interface InterfaceParam extends InterfaceOptions{
 	public default void setFromCfgValue(String val) {}
 	public default String	getCfgValue()			{ return ""; }
 	public default String	getCfgLabel()			{ return ""; }
-	public default String	getGuiValue()			{ return ""; }// Only the value, (player view)
 	public default String	getGuiDisplay()			{ return ""; }// Name, value, ... and more
 	public default String	getGuiDisplay(int id)	{ return ""; }
 	public default String	getGuiDescription()		{ return ""; }
-	public default String	getDefaultValue()		{ return ""; }
+	public default String	guideValue()			{ return ""; }// Only the value, (player view)
+	public default String	guideDefaultValue()		{ return ""; }
 	public default int		getIndex()				{ return -1; }
 	public default String	getToolTip()			{ return getGuiDescription(); }
 	public default String	getToolTip(int id)		{ return "";  }
-	public default String   getGuiValue(int id)		{ return getGuiValue(); }
+	public default String   getGuiValue(int id)		{ return guideValue(); }
 	public default String	getLangLabel()			{ return ""; }
 	public default String	getLangLabel(int id)	{ return ""; }
 	public default String[]	getModifiers()			{ return null; }
@@ -73,8 +73,8 @@ public interface InterfaceParam extends InterfaceOptions{
 		help += modifierHelp();
 		return help;
 	}
-	public default String getGuide(int id)		{ return getHeadGuide() + valueHelp(id); };
-	public default String getGuide()			{ return getHeadGuide() + selectionHelp(); }
+	public default String getGuide(int id)		{ return getHeadGuide() + valueGuide(id); };
+	public default String getGuide()			{ return getHeadGuide() + selectionGuide(); }
 	// Full help for "F1" requests
 	public default String getFullHelp()			{ return getGuide(); };
 	public default String getHelp()				{ return getDescription(); };
@@ -90,15 +90,15 @@ public interface InterfaceParam extends InterfaceOptions{
 				+ help + baseSeparator();
 	}
 	public default String defaultValueHelp()	{
-		String help = labelFormat("Default Value") + getDefaultValue()
+		String help = labelFormat("Default Value") + guideDefaultValue()
 					+ htmlTuneFont(-2, "&emsp<i>(set with Middle Click)<i/>")
 					+ baseSeparator();
 		return help;
 	}
 	// The value in help format
-	public default String getSelectionStr()		{ return labelFormat(getGuiValue()); }
+	public default String getSelectionStr()		{ return labelFormat(guideValue()); }
 	public default String getValueStr(int id)	{ return labelFormat(getGuiValue(id)); }
-	public default String rowHelp(int id)		{
+	public default String getRowGuide(int id)	{
 		String help = realHelp(id);
 		if (help == null)
 			help = realDescription(id);
@@ -106,13 +106,13 @@ public interface InterfaceParam extends InterfaceOptions{
 			help = "";
 		return rowFormat(labelFormat(name(id)), help);
 	}
-	public default String valueHelp(int id)		{ return "";}
-	public default String selectionHelp()		{
-		String val  = labelFormat("Selected Value") + getGuiValue();
+	public default String valueGuide(int id)	{ return "";}
+	public default String selectionGuide()		{
+		String val  = labelFormat("Selected Value") + guideValue();
 		if (getIndex() < 0) // not a list
 			return val;
 		// this is a list
-		String help = valueHelp(getIndex());
+		String help = valueGuide(getIndex());
 		return val + baseSeparator() + help;
 	}
 	public default String modifierHelp()		{
