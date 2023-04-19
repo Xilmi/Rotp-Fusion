@@ -407,22 +407,28 @@ public abstract class BaseModPanel extends BasePanel
 	public class Box extends Rectangle {
 		private InterfaceParam	param;
 		private String			label;
+		private int 			mouseBoxIndex;
 		// ========== Constructors ==========
 		//
-		public Box()						 { boxBaseList.add(this); }
-		Box(String label)					 {
+		public Box()				{ boxBaseList.add(this); }
+		Box(String label)			{
 			this();
 			boxHelpList.add(this);
 			this.label = label;
 		}
-		Box(InterfaceParam param)			 {
+		Box(InterfaceParam param)	{
 			this();
 			boxHelpList.add(this);
 			this.param = param;
 		}
+		Box(InterfaceParam param, int mouseBoxIndex) {
+			this(param);
+			mouseBoxIndex(mouseBoxIndex);
+		}
 		void param(InterfaceParam param)	 { this.param = param; }
 		InterfaceParam param()	 			 { return param; }
 		void label(String label)			 { this.label = label; }
+		void mouseBoxIndex(int idx)			 { mouseBoxIndex = idx; }
 		public String getDescription()		 {
 			String desc = getParamDescription();
 			if (desc.isEmpty())
@@ -451,6 +457,7 @@ public abstract class BaseModPanel extends BasePanel
 			else
 				return guide;
 		}
+		public 	int	   mouseBoxIndex()		 { return mouseBoxIndex; }
 		private String getLabelDescription() { return InterfaceParam.langDesc(label); }
 		private String getLabelHelp()		 { return InterfaceParam.langHelp(label); }
 		private String getParamDescription() {
@@ -518,7 +525,7 @@ public abstract class BaseModPanel extends BasePanel
 		private final Color lineColor	= Color.white;
 		private final JTextPane border	= new JTextPane();
 		private final JTextPane	margin	= new JTextPane();
-		private final JEditorPane pane	= new JEditorPane();
+		private final JTextPane pane	= new JTextPane();
 		private Rectangle dest			= new Rectangle(0,0,0,0);
 		private String text;
 		private int x, y, w, h;
@@ -624,19 +631,29 @@ public abstract class BaseModPanel extends BasePanel
 			bdrC = new Color(bgC.getRed(), bgC.getGreen(), bgC.getBlue(), 160);
 			w = Short.MAX_VALUE;
 			guideFontSize = FONT_SIZE+1;
-			while (w > iW || h > iH) {
-				guideFontSize-=1;
+			guideFontSize = FONT_SIZE;
+			boolean go = true;
+			while (go) {
+//				System.out.println("guideFontSize = " + guideFontSize);
 				pane.setFont(plainFont(guideFontSize));
 				h = Short.MAX_VALUE;
 				preTest = -1;
 				testW = width;
-				while (h > iH && preTest != testW) {
+				while (h > iH && preTest != testW && testW < iW) {
 					preTest = testW;
 		    		pane.setSize(new Dimension(testW, Short.MAX_VALUE));
 		    		pane.setText(text);
 		    		w = min(testW, pane.getPreferredSize().width);
 		    		h = pane.getPreferredSize().height;
-		    		testW *= (float)h /iH;
+		    		testW *= (float) h /iH;
+//					System.out.println("iW " + iW + " w " + w + " testW " + testW + " iH " + iH+ "  h " + h);
+				}
+				go = (w > iW || h > iH);
+				if (go) {
+					guideFontSize = max (1, min(guideFontSize-1,
+												(int)(guideFontSize * (float)iH/h -1)));
+					go = guideFontSize > 1;
+//					System.out.println("iW " + iW + " w " + w + " iH " + iH+ "  h " + h);
 				}
 			}
     		margin.setSize(new Dimension(w+s6, h+s6));

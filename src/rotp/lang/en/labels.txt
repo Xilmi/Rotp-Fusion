@@ -1456,10 +1456,12 @@ SETUP_SPECIFIC_AI_DESC            | Select the AI tha will control this opponent
 SETUP_SPECIFIC_AI                 | Opponent Specific AI
 SETUP_GLOBAL_AI_DESC              | Select one AI...
 SETUP_GLOBAL_AI                   | Opponents AI
-SETUP_SPECIFIC_ABILITY_DESC       | Select one ability...
-SETUP_SPECIFIC_ABILITY            | Opponent Specific Abilitiy
-SETUP_GLOBAL_ABILITIES_DESC       | Select one ability...
-SETUP_GLOBAL_ABILITIES            | Opponents Abilitiies
+SETUP_SPECIFIC_ABILITY_DESC       | Select the abilities to associate to this specific opponent.
+SETUP_SPECIFIC_ABILITY            | Opponent Specific Abilities
+SETUP_GLOBAL_ABILITY_DESC         | Select the abilities of your opponents, by default the standard abilities associated to the race will be used.
+SETUP_GLOBAL_ABILITY              | Global Abilities
+SETUP_SPECIFIC_OPPONENT_DESC      | You can select your opponents individually, or let the game choose for you...<br>A maximum of 5 opponents of the same species is allowed.
+SETUP_SPECIFIC_OPPONENT           | Specific Opponent
 SETUP_NOT_AVAILABLE               | N/A
 SETUP_ALIENS_NUMBER_DESC          | Select the number of opponents (between 0 an 49), which will be limited by your map size. Then select the setting for base AI (the default), the Modnar AI (a stronger AI that retains a sense of personality sometimes at the expense of efficiency), the Xilmi AI (a ruthless AI that prioritizes efficiency), or individual settings for each opponent. 
 SETUP_ALIENS_NUMBER               | Select Opponents Number.
@@ -2816,3 +2818,15 @@ SETUP_SELECT_CR_OPTIONS_DESC      | if "Yes", a selection line will appear at th
 SETUP_SELECT_CR_OPTIONS_YES       | A selection line will appear at the top of the opponent boxes, allowing the selection of individual ability.
 SETUP_SELECT_CR_OPTIONS_NO        | The selected global ability (on the left) will be applied to all the opponents.
 SETUP_SELECT_CR_OPTIONS		      | Selectable Abilities.
+???		                          | ???
+???_DESC		                  | ???_DESCXXX
+
+'Selection'_DESC     | Same abilities as the global abilitied selected on the top.
+'Base Race'_DESC     | Base abilities of the selected race (the one on the icon)
+'Reworked'_DESC      | Reworked abilitie of the selected race (the one on the icon), saved by the player in respectively named race files: RACE_ALKARI, RACE_BULRATHI, RACE_DARLOK, RACE_HUMAN, RACE_KLACKON, RACE_MEKLAR, RACE_MRRSHAN, RACE_PSILON, RACE_SAKKRA , RACE_SILICOID, RACE_EARLYGAME, RACE_GEARHEAD, RACE_JACKTRADES, RACE_MONOCLE, RACE_NEOHUMAN, RACE_WARDEMON.
+'Player'_DESC        | Same abilities as the selected player race.
+'Random'_DESC        | Abilities randomly selected among the base race abilities.
+'Files'_DESC     | Abilities randomly selected among customized race file, having the "Available to AI" option enabled. If this list is empty the selection will be made among the base race abilities.
+'All Files'_DESC  | Abilities randomly selected among customized race file, ignoring the "Available to AI" option. If this list is empty the selection will be made among the base race abilities.
+'Files Races'_DESC   | Abilities randomly selected among the base races abilities and the customized race file, having the "Available to AI" option enabled.
+'All'_DESC           | Abilities randomly selected among the base races abilities and the customized race file, ignoring the "Available to AI" option.

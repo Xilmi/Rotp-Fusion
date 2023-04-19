@@ -26,6 +26,13 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2023.04.18 (BR)
+- Fixed middle click not working on opponents abilities.
+- Guide available on select Opponent.
+- Guide Abailable on select specific abilities.
+- Guide Abailable on select global abilities.
+
+
 2023.04.17 (BR)
 - Fixed the arrows not working...
 - Added some guide descrition in galaxy panel.

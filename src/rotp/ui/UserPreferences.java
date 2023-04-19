@@ -68,6 +68,7 @@ import static rotp.model.game.MOO1GameOptions.getStarDensityOptions;
 import static rotp.model.game.MOO1GameOptions.getTechTradingOptions;
 import static rotp.model.game.MOO1GameOptions.getTerraformingOptions;
 import static rotp.model.game.MOO1GameOptions.getWarpSpeedOptions;
+import static rotp.ui.game.SetupGalaxyUI.mouseBoxIndex;
 import static rotp.ui.util.InterfaceParam.langLabel;
 
 import java.io.BufferedReader;
@@ -146,7 +147,7 @@ public class UserPreferences {
 	private static final String keyFormat = "%-25s: "; // BR: from 20 to 25 for a better alignment
 
 	// BR common for All MOD entries
-	private static final String BASE_UI		= "SETUP_";
+	public  static final String BASE_UI		= "SETUP_";
 	private static final String GAME_UI		= "GAME_SETTINGS_";
 	private static final String ADV_UI		= "SETTINGS_";
 	public static final String MOD_UI		= "SETTINGS_MOD_";
@@ -1052,19 +1053,25 @@ public class UserPreferences {
 			));
 
 	// Only used for displaying help... Do not include to UI list.
-	public static final ParamList opponentAI = new ParamList( // For Help Do not add the list
-			BASE_UI, "OPPONENT_AI",
-			MOO1GameOptions.getOpponentAIOptions(),
-			OPPONENT_AI_CRUEL) {
-		@Override public String	get()	{
-			return RotPUI.mergedGuiOptions().selectedOpponentAIOption();
-		}
-		@Override public String	guideValue()	{ return langLabel(get()); }
-	};
-	public static final ParamList specificAI = new ParamList( // For Help Do not add the list
-			BASE_UI, "SPECIFIC_AI",
-			MOO1GameOptions.getSpecificOpponentAIOptions(),
-			OPPONENT_AI_CRUEL);
+//	public static final ParamList opponentAI = new ParamList( // For Help Do not add the list
+//			BASE_UI, "OPPONENT_AI",
+//			MOO1GameOptions.getOpponentAIOptions(),
+//			OPPONENT_AI_CRUEL) {
+//		@Override public String	get()	{
+//			return RotPUI.mergedGuiOptions().selectedOpponentAIOption();
+//		}
+//		@Override public String	guideValue()	{ return langLabel(get()); }
+//	};
+//	public static final ParamList specificAI = new ParamList( // For Help Do not add the list
+//			BASE_UI, "SPECIFIC_AI",
+//			MOO1GameOptions.getSpecificOpponentAIOptions(),
+//			OPPONENT_AI_CRUEL) {
+//		@Override public String	get()	{
+//			System.out.println("mouseBoxIndex() = " + mouseBoxIndex());
+//			return RotPUI.mergedGuiOptions().specificOpponentAIOption(mouseBoxIndex());
+//		}
+//		@Override public String	guideValue()	{ return langLabel(get()); }
+//	};
 	public static final ParamButtonHelp userButtonHelp = new ParamButtonHelp( // For Help Do not add the list
 			"SETTINGS_BUTTON_USER",
 			"SETTINGS_GLOBAL_USER_SET",

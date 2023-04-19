@@ -165,7 +165,7 @@ public interface InterfaceParam extends InterfaceOptions{
 		if (key == null)
 			return "";
 		String name = realLangLabel(key);
-		name = langLabel(key); // TODO BR: For debug... comment!
+		name = langLabel(key); // TODO BR: For debug... comment! or not
 		if (name == null)
 			return "";
 		return name.split("%1")[0];
@@ -173,8 +173,8 @@ public interface InterfaceParam extends InterfaceOptions{
 	public static String langDesc(String key)		{
 		if (key == null)
 			return "";
-		String desc =  realLangLabel(key+LABEL_DESCRIPTION);
-		desc = langLabel(key+LABEL_DESCRIPTION); // TODO BR: For debug... comment!
+		String desc = realLangLabel(key+LABEL_DESCRIPTION);
+//		desc = langLabel(key+LABEL_DESCRIPTION); // TODO BR: For debug... comment!
 		if (desc == null)
 			return "";
 		return desc;
@@ -182,7 +182,7 @@ public interface InterfaceParam extends InterfaceOptions{
 	public static String langHelp(String key)		{
 		if (key == null)
 			return "";
-		String help =  realLangLabel(key+LABEL_HELP);
+		String help = realLangLabel(key+LABEL_HELP);
 		if (help == null)
 			return langDesc(key);
 		return help;

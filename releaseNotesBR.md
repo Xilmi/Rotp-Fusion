@@ -2,6 +2,7 @@ Now working on:
 - Slowly filling the contextual help...
 
 April Updates:
+- Guide fully available for opponents parameters selection.
 - Started copying parts of the manual in the contextual help.
 - The Contextual help is now in Html Format.
 - Added a "Guide" option to make the aontextual help pop-up automatically when hovering the options. 

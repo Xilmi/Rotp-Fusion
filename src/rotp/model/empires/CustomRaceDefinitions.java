@@ -61,7 +61,7 @@ public class CustomRaceDefinitions  {
 	private	static final String RANDOMIZED_RACE_KEY	= "RANDOMIZED_RACE";
 	public	static final String RANDOM_RACE_KEY		= "RANDOM_RACE_KEY";
 	public	static final String CUSTOM_RACE_KEY		= "CUSTOM_RACE_KEY";
-	private	static final String BASE_RACE_MARKER	= "*";
+	public	static final String BASE_RACE_MARKER	= "*";
 	private static final boolean booleansAreBullet	= true;
 
 	private Race race; // !!! To be kept up to date !!!
@@ -157,7 +157,7 @@ public class CustomRaceDefinitions  {
 	public static DynOptions getDefaultOptions() {
 		return new CustomRaceDefinitions(baseRace).getAsOptions();
 	}
-	public static LinkedList<String> getBaseRacList() {
+	public static LinkedList<String> getBaseRaceList() {
 		return getRaceFileList()
 				.stream()
 				.filter(c -> c.startsWith(BASE_RACE_MARKER))

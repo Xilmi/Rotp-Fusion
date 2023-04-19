@@ -183,9 +183,6 @@ public class ParamList extends AbstractParam<String> {
 	}
 	@Override public String	getFullHelp()			{
 		String help = getHeadGuide();
-//		String help = HeaderHelp();
-//		help += defaultValueHelp();
-//		help += modifierHelp();
 		help += getTableHelp();
 		return help;
 	}
