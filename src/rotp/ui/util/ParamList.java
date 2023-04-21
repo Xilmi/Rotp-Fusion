@@ -145,7 +145,9 @@ public class ParamList extends AbstractParam<String> {
 	}
 	// ===== Overriders =====
 	//
-	@Override public String guideDefaultValue()			{ return name(defaultValueIndex()); }
+	@Override public String guideDefaultValue()			{
+			return name(defaultValueIndex());
+	}
 	@Override public String getCfgValue(String value)	{ return validateValue(value); }
 	@Override public String	guideValue()				{ return name(this.getIndex()); }
 	@Override public void	next()						{
@@ -190,13 +192,20 @@ public class ParamList extends AbstractParam<String> {
 	@Override public String getValueStr(int id)		{ return valueGuide(getValidIndex(id)); }
 	@Override public String valueGuide(int id) 		{ return tableFormat(getRowGuide(id)); }
 	@Override public String getLangLabel(int id)	{
-		return valueLabelMap.getLangLabel(getValidIndex(id));
+		if (isDuplicate())
+			return valueLabelMap.getCfgValue(id);
+		else
+			return valueLabelMap.getLangLabel(getValidIndex(id));
 	}
 	// ===== Other Protected Methods =====
 	//
 	protected int getIndex(String value)		{
-		if (isDuplicate())
-			return valueLabelMap.getLangLabelIndexIgnoreCase(value);
+		if (isDuplicate()) {
+			int idx = valueLabelMap.getLangLabelIndexIgnoreCase(value);
+			if (idx == -1)
+				return valueLabelMap.getValueIndexIgnoreCase(value);
+			return idx;
+		}
 		else
 			return valueLabelMap.getValueIndexIgnoreCase(value);
 	}
@@ -204,6 +213,7 @@ public class ParamList extends AbstractParam<String> {
 		String newLangLabel = valueLabelMap.getLangLabelFromValue(newValue);
 		return newLangLabel;
 	}
+	protected String getMapValue(int id) { return valueLabelMap.cfgValueList.get(id); }
 	// ===== Other Public Methods =====
 	//
 	public LinkedList<String> getOptions()	{
@@ -286,12 +296,21 @@ public class ParamList extends AbstractParam<String> {
 			valueLabelMap.guiTextList.add(langLabel(label));
 //			valueLabelMap.guiTextList.add(labelText(label));
 	}
-	private int defaultValueIndex()				{ return getIndex(defaultValue()); }
+	private int defaultValueIndex()				{
+		
+		return getIndex(defaultValue());
+	}
 	public int	getRawIndex()					{
-		if (isDuplicate())
-			return valueLabelMap.getLangLabelIndexIgnoreCase(get());
+		String value = get();
+		if (isDuplicate()) {
+			int idx = valueLabelMap.getLangLabelIndexIgnoreCase(value);
+			if (idx == -1)
+				return valueLabelMap.getValueIndexIgnoreCase(value);
+			else
+				return idx;
+		}
 		else
-			return valueLabelMap.getValueIndexIgnoreCase(get());
+			return valueLabelMap.getValueIndexIgnoreCase(value);
 	}
 	private int getValidIndex()					{
 		int id = getRawIndex();

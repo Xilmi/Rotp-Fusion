@@ -68,7 +68,7 @@ public interface InterfaceParam extends InterfaceOptions{
 	};
 	// Bigger Description for auto pop up help (guide)
 	public default String getHeadGuide()		{
-		String help = HeaderHelp();
+		String help = headerHelp();
 		help += defaultValueHelp();
 		help += modifierHelp();
 		return help;
@@ -80,8 +80,7 @@ public interface InterfaceParam extends InterfaceOptions{
 	public default String getHelp()				{ return getDescription(); };
 
 	// ===== Local Help and guide Tools =====
-	public default String HeaderHelp()			{
-		String label = getLangLabel();
+	public default String headerHelp(String label)	{
 		String name  = langLabel(label, "");
 		String help  = langHelp(label);
 		if (help.isEmpty())
@@ -89,6 +88,7 @@ public interface InterfaceParam extends InterfaceOptions{
 		return "<u><b>" + name + "</b></u>" + lineSplit
 				+ help + baseSeparator();
 	}
+	public default String headerHelp()			{ return headerHelp(getLangLabel()); }
 	public default String defaultValueHelp()	{
 		String help = labelFormat("Default Value") + guideDefaultValue()
 					+ htmlTuneFont(-2, "&emsp<i>(set with Middle Click)<i/>")
@@ -165,7 +165,7 @@ public interface InterfaceParam extends InterfaceOptions{
 		if (key == null)
 			return "";
 		String name = realLangLabel(key);
-		name = langLabel(key); // TODO BR: For debug... comment! or not
+//		name = langLabel(key); // TODO BR: For debug... comment! or not
 		if (name == null)
 			return "";
 		return name.split("%1")[0];

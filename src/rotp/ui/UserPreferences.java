@@ -38,7 +38,6 @@ import static rotp.model.game.IGameOptions.DIFFICULTY_NORMAL;
 import static rotp.model.game.IGameOptions.FUEL_RANGE_NORMAL;
 import static rotp.model.game.IGameOptions.GALAXY_AGE_NORMAL;
 import static rotp.model.game.IGameOptions.NEBULAE_NORMAL;
-import static rotp.model.game.IGameOptions.OPPONENT_AI_CRUEL;
 import static rotp.model.game.IGameOptions.PLANET_QUALITY_NORMAL;
 import static rotp.model.game.IGameOptions.RANDOMIZE_AI_NONE;
 import static rotp.model.game.IGameOptions.RANDOM_EVENTS_NO_MONSTERS;
@@ -68,8 +67,8 @@ import static rotp.model.game.MOO1GameOptions.getStarDensityOptions;
 import static rotp.model.game.MOO1GameOptions.getTechTradingOptions;
 import static rotp.model.game.MOO1GameOptions.getTerraformingOptions;
 import static rotp.model.game.MOO1GameOptions.getWarpSpeedOptions;
-import static rotp.ui.game.SetupGalaxyUI.mouseBoxIndex;
-import static rotp.ui.util.InterfaceParam.langLabel;
+import static rotp.ui.util.InterfaceParam.labelFormat;
+import static rotp.ui.util.InterfaceParam.*;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -85,12 +84,12 @@ import java.util.LinkedList;
 
 import rotp.Rotp;
 import rotp.model.empires.GalacticCouncil;
+import rotp.model.empires.Race;
 import rotp.model.events.RandomEvents;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.game.GameSession;
 import rotp.model.game.GovernorOptions;
 import rotp.model.game.IGameOptions;
-import rotp.model.game.MOO1GameOptions;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.util.GlobalCROptions;
 import rotp.ui.util.InterfaceParam;
@@ -533,22 +532,24 @@ public class UserPreferences {
 	public static final ParamString  shapeOption3   		= new ParamString(
 			BASE_UI, "SHAPE_OPTION_3", "");
 	public static final ParamList    shapeOption2   		= new ParamList( // Duplicate Do not add the list
-			BASE_UI, "SHAPE_OPTION_2") {
-		@Override public String getFromOption() {
+			BASE_UI, "SHAPE_OPTION_2")	{
+		@Override public String	get()	{
 			return RotPUI.mergedGuiOptions().selectedGalaxyShapeOption2();
 		}
 		@Override public void setOption(String newValue) {
 			RotPUI.mergedGuiOptions().selectedGalaxyShapeOption2(newValue);
 		}
+		@Override public String	headerHelp() { return headerHelp(shapeSelection.get() + "_O2"); }
 	};
 	public static final ParamList    shapeOption1   		= new ParamList( // Duplicate Do not add the list
-			BASE_UI, "SHAPE_OPTION_1") {
-		@Override public String getFromOption() {
+			BASE_UI, "SHAPE_OPTION_1")	{
+		@Override public String	get()	{
 			return RotPUI.mergedGuiOptions().selectedGalaxyShapeOption1();
 		}
 		@Override public void setOption(String newValue) {
 			RotPUI.mergedGuiOptions().selectedGalaxyShapeOption1(newValue);
 		}
+		@Override public String	headerHelp() { return headerHelp(shapeSelection.get() + "_O1"); }
 	};
 	public static final ParamList    shapeSelection			= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "GALAXY_SHAPE", getGalaxyShapeOptions(),  SHAPE_RECTANGLE) {

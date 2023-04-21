@@ -40,8 +40,8 @@ public class GalaxyShurikenShape extends GalaxyShape {
 
         options2 = new ArrayList<>();
         options2.add("SETUP_SHURIKEN_ORIGINAL");
-        options2.add("SETUP_SHURIKEN_ALTERNATIVE_FIX");
-        options2.add("SETUP_SHURIKEN_ALTERNATIVE_RAND");
+        options2.add("SETUP_SHURIKEN_ALTERNATIVE");
+//        options2.add("SETUP_SHURIKEN_ALTERNATIVE_RAND");
     }
     
     Path2D flake;

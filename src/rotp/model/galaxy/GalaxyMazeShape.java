@@ -69,18 +69,20 @@ public class GalaxyMazeShape extends GalaxyShape {
 		// modnar: choose different mazes (different random initial conditions) with option1
 		switch(option1) {
             case 0: {
-                adjust_seed = 1;
+                adjust_seed = 0;
                 break;
             }
             case 1: {
-                adjust_seed = 2;
+                adjust_seed = 10;
                 break;
             }
             case 2: {
-                adjust_seed = 3;
+                adjust_seed = 20;
                 break;
             }
         }
+    	for (int i=0; i<adjust_seed; i++) // new way to change the seed
+    		rand.nextDouble();
 		
 		// determine maze size with numberStarSystems
 		int width = (int) Math.max(1, 4*Math.ceil(1.5*Math.log(opts.numberStarSystems())-5));

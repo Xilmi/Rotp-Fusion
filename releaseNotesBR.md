@@ -2,6 +2,7 @@ Now working on:
 - Slowly filling the contextual help...
 
 April Updates:
+- Completed the Guides for the options in the Setup Galaxy Panel.
 - Guide fully available for opponents parameters selection.
 - Started copying parts of the manual in the contextual help.
 - The Contextual help is now in Html Format.

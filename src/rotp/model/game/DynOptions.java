@@ -194,14 +194,14 @@ public class DynOptions implements DynamicOptions, Serializable {
     }
     // Options files initialization
     private static DynOptions initMissingOptionFile(File saveFile) {
-    	Toolkit.getDefaultToolkit().beep();
+    	// Toolkit.getDefaultToolkit().beep();
     	DynOptions newOptions = new DynOptions();
     	saveOptions(new DynOptions(), saveFile);			
 		return newOptions;    	
     }
     // Options files initialization
     private static DynOptions initMissingOptionFile(String path, String fileName) {
-    	Toolkit.getDefaultToolkit().beep();
+    	// Toolkit.getDefaultToolkit().beep();
     	DynOptions newOptions = new DynOptions();
     	saveOptions(new DynOptions(), path, fileName);			
 		return newOptions;    	

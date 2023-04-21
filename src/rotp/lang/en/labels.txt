@@ -1207,8 +1207,11 @@ SETUP_GALAXY_SHAPE_LORENZ2        | Lorenz 2
 SETUP_GALAXY_SHAPE_FRACTAL        | Fractal
 SETUP_GALAXY_SHAPE_CHAOSGAME      | Chaos Game
 SETUP_GALAXY_SHAPE_BITMAP         | Bitmap
-SETUP_SHAPE_OPTION_1              | Shape Option 1
-SETUP_SHAPE_OPTION_2              | Shape Option 2
+SETUP_SHAPE_OPTION_1              | First Shape Option
+SETUP_SHAPE_OPTION_1_DESC         | Select the first shape option
+SETUP_SHAPE_OPTION_2              | Second Shape Option
+SETUP_SHAPE_OPTION_2_DESC         | Select the second shape option
+SETUP_SHAPE_OPTION_3              | Bitmap file location.
 SETUP_SHAPE_OPTION_3_DESC         | File name associated with the Bitmap Galaxy.
 SETUP_GALAXY_MAP_OPTION_LABEL     | Option
 SETUP_GALAXY_MAP_OPTION_A         | Option A
@@ -1426,8 +1429,7 @@ SETUP_SHURIKEN_2                  | 13 Spikes
 SETUP_SHURIKEN_3                  | 15 Spikes
 SETUP_SHURIKEN_4                  | 17 Spikes
 SETUP_SHURIKEN_ORIGINAL           | Original
-SETUP_SHURIKEN_ALTERNATIVE_FIX    | Alternative
-SETUP_SHURIKEN_ALTERNATIVE_RAND   | Random
+SETUP_SHURIKEN_ALTERNATIVE        | Alternative
 SETUP_SHURIKEN_SYMMETRIC          | Symmetric
 SETUP_SPIRALARMS_0                | Straight
 SETUP_SPIRALARMS_1                | Very Loose
@@ -2811,6 +2813,7 @@ SETUP_GALAXY_OPTIONS_DESC         | These buttons open Advanced options Menu.<br
 SETUP_GALAXY_ABILITIES_DESC       | Default abilities for alien Races:<br> 'Base Races' = Standard abilities of the selected Race (in the Boxes below);<br> 'Reworked' = New abilities you have saved with the race default name.<br> (ex: RACE_DARLOK for the Naslok);<br> *Race = specific base Race; or any other customized race you have built.
 SETUP_GALAXY_SELECTABLE_DESC      | "Yes" => A selection line will appear at the top of the boxes below, allowing the selection of individual ability.
 SETUP_GALAXY_SELECTABLE		      | Selectable Abilities
+SETUP_GALAXY_RACE_LIST_HELP       | <b>Race list selection</b><br> Modnar has extended the base race list with six new races. If you are not in the mood to see them, you can exclude them from the selection.<hr><b>Default:</b>&nbsp Original<hr><b>Original:</b>&nbsp The 6 Modnar Races are excluded.<br> <b>All Races</b>:&nbsp The 6 Modnar Races can also be selected or randomly assigned.
 SETUP_GALAXY_RACE_LIST_DESC       | "Original" = The 6 Modnar Races are excluded.<br> "All Races" = The 6 Modnar Races can also be selected or randomly assigned.
 SETUP_GALAXY_AGAINST_DESC         | To select Aliens AI.<br> "AI:Selectable" => A selection line will appear on the bottom of the Boxes bellow, allowing the selection of individual Aliens AI.
 
@@ -2826,7 +2829,161 @@ SETUP_SELECT_CR_OPTIONS		      | Selectable Abilities.
 'Reworked'_DESC      | Reworked abilitie of the selected race (the one on the icon), saved by the player in respectively named race files: RACE_ALKARI, RACE_BULRATHI, RACE_DARLOK, RACE_HUMAN, RACE_KLACKON, RACE_MEKLAR, RACE_MRRSHAN, RACE_PSILON, RACE_SAKKRA , RACE_SILICOID, RACE_EARLYGAME, RACE_GEARHEAD, RACE_JACKTRADES, RACE_MONOCLE, RACE_NEOHUMAN, RACE_WARDEMON.
 'Player'_DESC        | Same abilities as the selected player race.
 'Random'_DESC        | Abilities randomly selected among the base race abilities.
-'Files'_DESC     | Abilities randomly selected among customized race file, having the "Available to AI" option enabled. If this list is empty the selection will be made among the base race abilities.
-'All Files'_DESC  | Abilities randomly selected among customized race file, ignoring the "Available to AI" option. If this list is empty the selection will be made among the base race abilities.
+'Files'_DESC         | Abilities randomly selected among customized race file, having the "Available to AI" option enabled. If this list is empty the selection will be made among the base race abilities.
+'All Files'_DESC     | Abilities randomly selected among customized race file, ignoring the "Available to AI" option. If this list is empty the selection will be made among the base race abilities.
 'Files Races'_DESC   | Abilities randomly selected among the base races abilities and the customized race file, having the "Available to AI" option enabled.
 'All'_DESC           | Abilities randomly selected among the base races abilities and the customized race file, ignoring the "Available to AI" option.
+
+SETUP_GALAXY_SHAPE_RECTANGLE_HELP    | Original rectangular or square Galaxies with up to five voids.
+SETUP_GALAXY_SHAPE_RECTANGLE_O1_HELP | Shape ratio adjustement.
+SETUP_GALAXY_SHAPE_RECTANGLE_O2_HELP | Void distribution selection.
+SETUP_GALAXY_SHAPE_RECTANGLE_O1      | First Star Field option.
+SETUP_GALAXY_SHAPE_RECTANGLE_O2      | Second Star Field option
+SETUP_RECTANGLE_0_HELP        | Rectangular shaped galaxy with a ratio of 3:4.
+SETUP_RECTANGLE_1_HELP        | Square shaped galaxy.
+SETUP_VOID_0_HELP             | Plain galaxy, no void.
+SETUP_VOID_1_HELP             | Galaxy with a central void.
+SETUP_VOID_2_HELP             | Galaxy with two diagonal voids.
+SETUP_VOID_5_HELP             | Add five voids to the galaxy
+SETUP_GALAXY_SHAPE_ELLIPSE_HELP    | Original Elliptical shaped Galaxies, from circular to a lattened 5:1 ratio. A void can be placed at the center, from small to ring like.
+SETUP_GALAXY_SHAPE_ELLIPSE_O1_HELP | Shape ratio and symmetry adjustement.
+SETUP_GALAXY_SHAPE_ELLIPSE_O2_HELP | Void distribution selection.
+SETUP_GALAXY_SHAPE_ELLIPSE_O1      | First elliptical galaxy option.
+SETUP_GALAXY_SHAPE_ELLIPSE_O2      | Second elliptical galaxy option.
+SETUP_ELLIPSE_0_HELP          | Disk shaped galaxy.
+SETUP_ELLIPSE_1_HELP          | Slightly elliptical galaxy with a ratio of 3:2.
+SETUP_ELLIPSE_2_HELP          | Elliptical galaxy with a ratio of 2:1.
+SETUP_ELLIPSE_3_HELP          | Squeezed elliptical galaxy with a ratio of 3:1.
+SETUP_ELLIPSE_4_HELP          | Flattened elliptical galaxy with a ratio of 5:1.
+SETUP_ELLIPSE_SYMMETRIC_HELP  | Galaxy with circular symmetry, each empire has the same home world and the same neighborhood. Orion is at the center point.
+SETUP_VOID_2_HELP             | Galaxy with a bigger central void.
+SETUP_VOID_3_HELP             | Galaxy with an even bigger central void.
+SETUP_VOID_4_HELP             | Ring galaxy.
+SETUP_GALAXY_SHAPE_SPIRAL_HELP    | Original Spiral shaped Galaxies, up to 8 arms and 7 levels of curvature. This galaxy has a symmetric option to gives each empire has the same home world, and the same neighborhood, there are as many arms as empires.
+SETUP_GALAXY_SHAPE_SPIRAL_O1_HELP | Arm number selection.
+SETUP_GALAXY_SHAPE_SPIRAL_O2_HELP | Arm curvature adjustment.
+SETUP_GALAXY_SHAPE_SPIRAL_O1      | First spîral galaxy option.
+SETUP_GALAXY_SHAPE_SPIRAL_O2      | Second spîral galaxy option.
+SETUP_SPIRAL_2_ARMS_HELP      | Very common two-armed galaxy.
+SETUP_SPIRAL_3_ARMS_HELP      | Less common three-armed galagy.
+SETUP_SPIRAL_4_ARMS_HELP      | A four-armed galaxy, similar to the Milky Way.
+SETUP_SPIRAL_5_ARMS_HELP      | A frenetic five-armed galaxy.
+SETUP_SPIRAL_6_ARMS_HELP      | A surprizing six-armed galaxy.
+SETUP_SPIRAL_7_ARMS_HELP      | A very exotic seven-armed galaxy.
+SETUP_SPIRAL_8_ARMS_HELP      | A lucky eight-armed galaxy.
+SETUP_SPIRAL_SYMMETRIC_HELP   | Galaxy with circular symmetry, each empire has the same home world and the same neighborhood. Orion is at the center point.
+SETUP_SPIRAL_ROTATION_0_HELP  | A streight galaxy.
+SETUP_SPIRAL_ROTATION_1_HELP  | A slightly curved galaxy&nbsp <i>(~30°)</i>.
+SETUP_SPIRAL_ROTATION_2_HELP  | A shyly curved galaxy&nbsp <i>(~60°)</i>.
+SETUP_SPIRAL_ROTATION_3_HELP  | A midly curved galaxy&nbsp <i>(~90°)</i>.
+SETUP_SPIRAL_ROTATION_4_HELP  | A well curved galaxy&nbsp <i>(~120°)</i>.
+SETUP_SPIRAL_ROTATION_5_HELP  | A strongly curved galaxy&nbsp <i>(~150°)</i>.
+SETUP_SPIRAL_ROTATION_6_HELP  | An indecently curved galaxy&nbsp <i>(~180°)</i>.
+SETUP_GALAXY_SHAPE_TEXT_HELP      | The proposed list is extracted from the "Galaxy.txt" file, do not hesitate to complete it. If you see to many blank squares try to set the option "Use Fusion Font"
+SETUP_GALAXY_SHAPE_TEXT_O1        | First Text Shaped galaxy option.
+SETUP_GALAXY_SHAPE_TEXT_O1_HELP   | Text selection (from the "Galaxy.txt" file).
+SETUP_GALAXY_SHAPE_TEXT_O2        | Second Text Shaped galaxy option.
+SETUP_GALAXY_SHAPE_TEXT_O2_HELP   | Number of line Selection.
+SETUP_1_LINE_HELP             | Just the selected text.
+SETUP_2_LINE_HELP             | The selected text is repeated over two lines.
+SETUP_3_LINE_HELP             | The selected text is repeated over three lines.
+SETUP_GALAXY_SHAPE_LORENZ_HELP    | Another chaotic Galaxy based on Lorenz attractor. <i>(Atmospheric convection model also known as "Butterfly effect")</i>
+SETUP_GALAXY_SHAPE_LORENZ_O1      | First Lorentz galaxy option.
+SETUP_GALAXY_SHAPE_LORENZ_O2      | Second Lorentz galaxy option.
+SETUP_GALAXY_SHAPE_LORENZ_O1_HELP | Attractor selection.
+SETUP_GALAXY_SHAPE_LORENZ_O2_HELP | Point of view selection.
+SETUP_LORENZ_0_HELP           | First attractor.
+SETUP_LORENZ_1_HELP           | Second attractor.
+SETUP_VIEW_0_HELP             | First point of view.
+SETUP_VIEW_1_HELP             | Second point of view.
+SETUP_VIEW_2_HELP             | Third point of view.
+SETUP_GALAXY_SHAPE_FRACTAL_HELP    | Ordered disordered Galaxies.
+SETUP_GALAXY_SHAPE_FRACTAL_O1      | First fractal galaxy option.
+SETUP_GALAXY_SHAPE_FRACTAL_O2      | Second fractal galaxy option.
+SETUP_GALAXY_SHAPE_FRACTAL_O1_HELP | Fractal type.
+SETUP_GALAXY_SHAPE_FRACTAL_O2_HELP | Fractal specificity.
+SETUP_FRACTAL_0_HELP            | Sierpinski Triangle
+SETUP_FRACTAL_1_HELP            | Restricted chaos game
+SETUP_GALAXY_MAP_OPTION_A0_HELP | Sierpinski Carpet.
+SETUP_GALAXY_MAP_OPTION_B0_HELP | Sierpinski Carpet chaos game.
+SETUP_GALAXY_MAP_OPTION_C0_HELP | Barnsley Fern.
+SETUP_GALAXY_MAP_OPTION_A1_HELP | Restricted chaos game: The currently chosen vertex cannot neighbor the previously chosen vertex if the two previously chosen vertices are the same.
+SETUP_GALAXY_MAP_OPTION_B1_HELP | Restricted chaos game: The current vertex cannot be chosen in the next iteration.
+SETUP_GALAXY_MAP_OPTION_C1_HELP | Restricted chaos game: The current vertex cannot be one place away (anti-clockwise) from the previously chosen vertex, this fractal appears:
+SETUP_GALAXY_SHAPE_MAZE_HELP      | Amazing Galaxy generated using Prim's algorithm.
+SETUP_GALAXY_SHAPE_MAZE_O1        | Maze galaxy option
+SETUP_GALAXY_SHAPE_MAZE_O1_HELP   | Seed modifier for the  maze.
+SETUP_MAZE_0_HELP             | No modifier.
+SETUP_MAZE_1_HELP             | Rolled 10 times.
+SETUP_MAZE_2_HELP             | Rolled 20 times.
+SETUP_GALAXY_SHAPE_SHURIKEN_HELP    | A six-armed shuriken with random arm shape.
+SETUP_GALAXY_SHAPE_SHURIKEN_O1      | First shuriken galaxy option.
+SETUP_GALAXY_SHAPE_SHURIKEN_O2      | Second shuriken galaxy option.
+SETUP_GALAXY_SHAPE_SHURIKEN_O1_HELP | Arm shape complexity adjustment.
+SETUP_GALAXY_SHAPE_SHURIKEN_O2_HELP | Arm randomization selection.
+SETUP_SHURIKEN_A_HELP           | Seven points.
+SETUP_SHURIKEN_0_HELP           | Nine points.
+SETUP_SHURIKEN_1_HELP           | Eleven points.
+SETUP_SHURIKEN_2_HELP           | Thirteen points.
+SETUP_SHURIKEN_3_HELP           | Fifteen points.
+SETUP_SHURIKEN_4_HELP           | Seventeen points.
+SETUP_SHURIKEN_ORIGINAL_HELP    | Original strangely shaped arms.
+SETUP_SHURIKEN_ALTERNATIVE_HELP | New, less complex arm shape.
+SETUP_GALAXY_SHAPE_BULLSEYE_HELP    | Dart target shaped Galaxies.
+SETUP_GALAXY_SHAPE_BULLSEYE_O1      | Bull-eye galaxy option.
+SETUP_GALAXY_SHAPE_BULLSEYE_O1_HELP | Target shape selection.
+SETUP_BULLSEYE_0_HELP           | Standard dart board; Exclusive Or.
+SETUP_BULLSEYE_1_HELP           | Concentric ring target
+SETUP_BULLSEYE_2_HELP           | Concentric square target
+SETUP_GALAXY_SHAPE_GRID_HELP        | Another surrealistic shape... Galaxies are aligned along grid lines.
+SETUP_GALAXY_SHAPE_GRID_O1          | Grid galaxy option.
+SETUP_GALAXY_SHAPE_GRID_O1_HELP     | Galaxies distribution selection.
+SETUP_GRID_0_HELP            | The galaxies sould only be on some intersections. (!!! Never finished... Added to my To-do list!)
+SETUP_GRID_1_HELP            | The galaxies are on every intersections.
+SETUP_GRID_2_HELP            | Only the grid line!
+SETUP_GALAXY_SHAPE_CLUSTER_HELP     | Why not spread the fight over several galaxies? 3, 6, or 8 clusters are available.
+SETUP_GALAXY_SHAPE_CLUSTER_O1       |Cluster galaxy option.
+SETUP_GALAXY_SHAPE_CLUSTER_O1_HELP  | Number of cluster selection.
+SETUP_CLUSTER_0_HELP         | Star systems are spread over 4 clusters.
+SETUP_CLUSTER_1_HELP         | Star systems are spread over 6 clusters.
+SETUP_CLUSTER_2_HELP         | Star systems are spread over 8 clusters.
+SETUP_GALAXY_SHAPE_SWIRLCLUSTERS_HELP    | Another surrealistic shape... Galaxies are aligned along a swirl line.
+SETUP_GALAXY_SHAPE_SWIRLCLUSTERS_O1      | Swirl cluster galaxy option.
+SETUP_GALAXY_SHAPE_SWIRLCLUSTERS_O1_HELP | Galaxies position selection.
+SETUP_SWIRLCLUSTERS_0_HELP   | The swirl line cross the galaxies.
+SETUP_SWIRLCLUSTERS_1_HELP   | The galaxies are placed between the swirl lines.
+SETUP_SWIRLCLUSTERS_2_HELP   | Only the swirl line!
+SETUP_GALAXY_SHAPE_SPIRALARMS_HELP    | Another type of spiral galaxy. The number of arms is based on its size: <i>the fourth root of the number of star systemz</i>; exept for the symmetric option, where it depends on the number of empires.
+SETUP_GALAXY_SHAPE_SPIRALARMS_O1      | First spiral arm galaxy option.
+SETUP_GALAXY_SHAPE_SPIRALARMS_O2      | Second spiral arm galaxy option.
+SETUP_GALAXY_SHAPE_SPIRALARMS_O1_HELP | Arm curvature selection.
+SETUP_GALAXY_SHAPE_SPIRALARMS_O2_HELP | Normal versus Symmetric selection.
+SETUP_SPIRALARMS_0_HELP         | A streight spiral galaxy.
+SETUP_SPIRALARMS_1_HELP         | A very Loose spiral galaxy <i>(~60°)</i>.
+SETUP_SPIRALARMS_2_HELP         | A loose spiral galaxy <i>(~120°)</i>.
+SETUP_SPIRALARMS_3_HELP         | A normal spiral galaxy <i>(~1 turn)</i>.
+SETUP_SPIRALARMS_4_HELP         | A tight spiral galaxy <i>(~1.5 turns)</i>.
+SETUP_SPIRALARMS_NORMAL_HELP    | Normal, as non symmetric!
+SETUP_SPIRALARMS_SYMMETRIC_HELP | Galaxy with circular symmetry, each empire has the same home world and the same neighborhood. Orion is at the center point.
+
+SETUP_GALAXY_SHAPE_BITMAP_HELP      | Build your own galaxy shape, based on a Bitmap.<ul><li>Real shots of galaxies gives nice results.</li><li>You can draw your own galaxies, in shades of gray or colors.</li><li>With colored galaxies, you can define regions where Orion, Player and Aliens stars systemes should be.</li><li>An advanced color mode allows you to define the regions of each Aliens, as well as Nebula regions!</li><li>Some examples can be found in BitmapGalaxyExamples.zip</li></ul>Preferably use a small bitmap image to define the galaxy; VGA size is more than enough... Galaxies are still randomly generated!
+
+SETUP_GALAXY_SHAPE_BITMAP_O1        | First bitmap galaxy option.
+SETUP_GALAXY_SHAPE_BITMAP_O2        | Second bitmap galaxy option.
+SETUP_GALAXY_SHAPE_BITMAP_O1_HELP   | How to convert the Image file.
+SETUP_GALAXY_SHAPE_BITMAP_O2_HELP   | Fine tuning of the Image.
+SETUP_BITMAP_GREY_SUM_HELP      | Color bitmaps will be converted to grayscale by adding the three colors together. (Standard ways)
+SETUP_BITMAP_GREY_MAX_HELP      | Color bitmaps will be converted to grayscale with the maximum of the three colors. (Sometimes gives better results)
+SETUP_BITMAP_GREY_INVERSE_HELP  | Because some nice pictures have a white background.
+SETUP_BITMAP_COLOR_HELP         | The colors of the images are interpreted:<ul><li>Blue for Orion.</li><li>Green for the Player.</li><li>Red for the Aliens.</li><li>The remaining stars and nebulae are distributed over these three regions.</li><li>If one color is missing: it will be replaced by global grayscale.</li>
+</ul>
+
+SETUP_BITMAP_ADVANCED_HELP      | It uses multiple sub-bitmaps grouped vertically in a single Bitmap file.<br>Start with Black as background (sub-bitmap separator)<br>Fist Sub-Bitmap: Definition of lone star systems:<ul><li>Add Blue rectangle to define the limits of the sub-bitmap.</li><li>Add Green inside the first rectangle to define the density of lone stars.</li><ul><li>Can be mixed with blue, or replace it.</li><li>The intensity of green defines the probability of having a star:<br>(255 = Max; 0 = no stars)</li></ul></ul><i>Other Sub-Bitmaps:<ul><li>Copy the Lone star sub-bitmap, as often as necessary, keeping a few black lines as separators.</li><li>Blue is still needed to fill the gap and avoid black lines in the middle of the sub-bitmap.</li><li>The Green color is then ignored, but you may will to keep it as repair point.</li><li>The intensity of Red will be used to defines the next probabilities.</li><li>You can use White instead of Red, as White contains Red, and other colors are ignored.</li><li>All invalid Sub-Bitmaps will be reblaced by the first one.</li></ul></i>Second Sub-Bitmap: Preferred location of nebulae:<ul><li>No Red = same as lone star systems.</li><li>For "No Nebulaes"use the already existing option in the good old Advanced Options" panel.</li></ul>Third Sub-Bitmap: Orion's favourite location:<br>Fourth Sub-Bitmap: Preferred location of Player:<br>Following Sub-Bitmap: Preferred location of aliens:<ul><li>Up to 49 Alien's sub-bitmap can be defined.</li><li>If there are more Aliens than sub-bitmap, the galaxy factory will loop on the available Alien sub-bitmap.</li></ul>
+
+SETUP_BITMAP_ADVANCED_MASK_HELP  | Same as "Advanced" with the option to allow you to define the color gradiens only once, on the first sub-bitmap, and uses uniform colors to define the regions on the following maps.<br>The two maps are then multiplyed to define a resulting map.
+SETUP_BITMAP_ADVANCED_MASK2_HELP | Same as "Advanced/Mask" with an additional sharpening effect to keeps the Empires well inside the other stars.
+SETUP_BITMAP_NORMAL_HELP         | Don't change the bitmap contrast.
+SETUP_BITMAP_SHARP1_HELP         | Increase the contrast a little bit.
+SETUP_BITMAP_SHARP2_HELP         | Increase the contrast twice.
+SETUP_BITMAP_SHARP3_HELP         | Sharply increase the contrast.
+SETUP_BITMAP_SHARP4_HELP         | Al,ost convert the bitmap to black and white!

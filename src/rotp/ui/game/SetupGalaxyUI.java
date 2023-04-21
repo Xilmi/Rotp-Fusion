@@ -130,7 +130,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private static final String SPECIFIC_AI  = "SETUP_SPECIFIC_AI";
 	private static final String GLOBAL_AI    = "SETUP_GLOBAL_AI";
 	private static final String SPECIFIC_ABILITY = "SETUP_SPECIFIC_ABILITY";
-	private static final String GLOBAL_ABILITIES = "SETUP_GLOBAL_ABILITIES";
+	private static final String GLOBAL_ABILITIES = "SETUP_GLOBAL_ABILITY";
 	private static final String OPPONENT_RANDOM	 = "SETUP_OPPONENT_RANDOM";
 	public  static final int	MAX_DISPLAY_OPPS = 49;
 	private static String opponentRandom = "???";
@@ -176,7 +176,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			return name; 
 		}
 		@Override public String getRowGuide(int id)	{
-			System.out.println("id = " + id + " " + this.getGuiValue(id));
+			// System.out.println("id = " + id + " " + this.getGuiValue(id));
 			String key, help;
 			key = getGuiValue(id);
 			if (key == null || key.equals(opponentRandom))
@@ -192,7 +192,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			return help;
 		}
 		@Override public String valueGuide(int id)	{
-			System.out.println("id = " + id + " " + this.getGuiValue(id));
+			// System.out.println("id = " + id + " " + this.getGuiValue(id));
 			String key, help;
 			key = getGuiValue(id);
 			if (key == null || key.equals(opponentRandom))
@@ -280,7 +280,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private Box		shapeBox		= new Box(shapeSelection);
 	private Polygon	shapeBoxL		= new PolyBox();
 	private Polygon	shapeBoxR		= new PolyBox();
-	private Box		mapOption1Box	= new Box(shapeOption1); //_DESC_DESC
+	private Box		mapOption1Box	= new Box(shapeOption1);
 	private Polygon	mapOption1BoxL	= new PolyBox();
 	private Polygon	mapOption1BoxR	= new PolyBox();			 
 	private Box		mapOption2Box	= new Box(shapeOption2);
@@ -377,6 +377,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		// specific Abilities
 		specificAbilitiesList.clear();
 		specificAbilitiesList.addAll(SpecificCROption.options());
+		specificAbilitiesList.removeLast(); // The blank one (USER_CHOICE)
 		specificAbilitiesList.addAll(getAllowedAlienRaces());
 		specificAbilitiesList.addAll(getBaseRaceList());
 		specificAbilities.reInit(specificAbilitiesList);
@@ -2706,7 +2707,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		else if (hoverPolyBox == diffBoxR) {
 			difficultySelection.next();
-			postSelectionMedium(true);
+			postSelectionLight(true);
 		}
 		else if (hoverPolyBox == wysiwygBoxL) {
 			galaxyRandSource.prev();
@@ -2718,7 +2719,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		else if (hoverPolyBox == wysiwygBoxR) {
 			galaxyRandSource.next();
-			postSelectionLight(true);
+			postSelectionMedium(true);
 		}
 		else if (hoverPolyBox == oppBoxU) {
 			aliensNumber.next();

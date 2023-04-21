@@ -26,6 +26,13 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2023.04.20 (BR)
+- Completed the Guides for the options in the Setup Galaxy Panel.
+
+2023.04.19 (BR)
+- Removed the starting beep on missing configuration files.
+- Removed the empty abilities in the selection list.
+
 2023.04.18 (BR)
 - Fixed middle click not working on opponents abilities.
 - Guide available on select Opponent.
