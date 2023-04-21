@@ -1217,6 +1217,12 @@ SETUP_GALAXY_MAP_OPTION_LABEL     | Option
 SETUP_GALAXY_MAP_OPTION_A         | Option A
 SETUP_GALAXY_MAP_OPTION_B         | Option B
 SETUP_GALAXY_MAP_OPTION_C         | Option C
+SETUP_GALAXY_MAP_OPTION_A0        | Option A
+SETUP_GALAXY_MAP_OPTION_B0        | Option B
+SETUP_GALAXY_MAP_OPTION_C0        | Option C
+SETUP_GALAXY_MAP_OPTION_A1        | Option A
+SETUP_GALAXY_MAP_OPTION_B1        | Option B
+SETUP_GALAXY_MAP_OPTION_C1        | Option C
 SETUP_GALAXY_AGE_NORMAL           | Normal
 SETUP_GALAXY_AGE_YOUNG            | Young
 SETUP_GALAXY_AGE_OLD              | Old
@@ -2938,7 +2944,7 @@ SETUP_BULLSEYE_2_HELP           | Concentric square target
 SETUP_GALAXY_SHAPE_GRID_HELP        | Another surrealistic shape... Galaxies are aligned along grid lines.
 SETUP_GALAXY_SHAPE_GRID_O1          | Grid galaxy option.
 SETUP_GALAXY_SHAPE_GRID_O1_HELP     | Galaxies distribution selection.
-SETUP_GRID_0_HELP            | The galaxies sould only be on some intersections. (!!! Never finished... Added to my To-do list!)
+SETUP_GRID_0_HELP            | The galaxies are only on some intersections.
 SETUP_GRID_1_HELP            | The galaxies are on every intersections.
 SETUP_GRID_2_HELP            | Only the grid line!
 SETUP_GALAXY_SHAPE_CLUSTER_HELP     | Why not spread the fight over several galaxies? 3, 6, or 8 clusters are available.
@@ -2975,8 +2981,7 @@ SETUP_GALAXY_SHAPE_BITMAP_O2_HELP   | Fine tuning of the Image.
 SETUP_BITMAP_GREY_SUM_HELP      | Color bitmaps will be converted to grayscale by adding the three colors together. (Standard ways)
 SETUP_BITMAP_GREY_MAX_HELP      | Color bitmaps will be converted to grayscale with the maximum of the three colors. (Sometimes gives better results)
 SETUP_BITMAP_GREY_INVERSE_HELP  | Because some nice pictures have a white background.
-SETUP_BITMAP_COLOR_HELP         | The colors of the images are interpreted:<ul><li>Blue for Orion.</li><li>Green for the Player.</li><li>Red for the Aliens.</li><li>The remaining stars and nebulae are distributed over these three regions.</li><li>If one color is missing: it will be replaced by global grayscale.</li>
-</ul>
+SETUP_BITMAP_COLOR_HELP         | The colors of the images are interpreted:<ul><li>Blue for Orion.</li><li>Green for the Player.</li><li>Red for the Aliens.</li><li>The remaining stars and nebulae are distributed over these three regions.</li><li>If one color is missing: it will be replaced by global grayscale.</li></ul>
 
 SETUP_BITMAP_ADVANCED_HELP      | It uses multiple sub-bitmaps grouped vertically in a single Bitmap file.<br>Start with Black as background (sub-bitmap separator)<br>Fist Sub-Bitmap: Definition of lone star systems:<ul><li>Add Blue rectangle to define the limits of the sub-bitmap.</li><li>Add Green inside the first rectangle to define the density of lone stars.</li><ul><li>Can be mixed with blue, or replace it.</li><li>The intensity of green defines the probability of having a star:<br>(255 = Max; 0 = no stars)</li></ul></ul><i>Other Sub-Bitmaps:<ul><li>Copy the Lone star sub-bitmap, as often as necessary, keeping a few black lines as separators.</li><li>Blue is still needed to fill the gap and avoid black lines in the middle of the sub-bitmap.</li><li>The Green color is then ignored, but you may will to keep it as repair point.</li><li>The intensity of Red will be used to defines the next probabilities.</li><li>You can use White instead of Red, as White contains Red, and other colors are ignored.</li><li>All invalid Sub-Bitmaps will be reblaced by the first one.</li></ul></i>Second Sub-Bitmap: Preferred location of nebulae:<ul><li>No Red = same as lone star systems.</li><li>For "No Nebulaes"use the already existing option in the good old Advanced Options" panel.</li></ul>Third Sub-Bitmap: Orion's favourite location:<br>Fourth Sub-Bitmap: Preferred location of Player:<br>Following Sub-Bitmap: Preferred location of aliens:<ul><li>Up to 49 Alien's sub-bitmap can be defined.</li><li>If there are more Aliens than sub-bitmap, the galaxy factory will loop on the available Alien sub-bitmap.</li></ul>
 

@@ -17,9 +17,7 @@
 package rotp.ui.util;
 
 import static rotp.ui.UserPreferences.minListSizePopUp;
-import static rotp.ui.util.InterfaceParam.labelFormat;
 import static rotp.ui.util.InterfaceParam.langLabel;
-import static rotp.ui.util.InterfaceParam.rowFormat;
 import static rotp.ui.util.InterfaceParam.rowsSeparator;
 import static rotp.ui.util.InterfaceParam.tableFormat;
 

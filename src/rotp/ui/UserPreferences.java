@@ -539,7 +539,19 @@ public class UserPreferences {
 		@Override public void setOption(String newValue) {
 			RotPUI.mergedGuiOptions().selectedGalaxyShapeOption2(newValue);
 		}
-		@Override public String	headerHelp() { return headerHelp(shapeSelection.get() + "_O2"); }
+		@Override public String	headerHelp() {
+			return headerHelp(shapeSelection.get() + "_O2");
+		}
+		@Override public String getLangLabel(int id) {
+			String label = super.getLangLabel(id);
+			if (label != null && label.startsWith("SETUP_GALAXY_MAP_OPTION_")) {
+				if (shapeOption1.get().endsWith("0"))
+					label += "0";
+				else
+					label += "1";
+			}
+			return label;
+		}
 	};
 	public static final ParamList    shapeOption1   		= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "SHAPE_OPTION_1")	{
