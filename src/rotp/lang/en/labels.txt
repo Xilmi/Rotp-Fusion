@@ -1226,6 +1226,9 @@ SETUP_GALAXY_MAP_OPTION_C1        | Option C
 SETUP_GALAXY_AGE_NORMAL           | Normal
 SETUP_GALAXY_AGE_YOUNG            | Young
 SETUP_GALAXY_AGE_OLD              | Old
+SETUP_GALAXY_AGE_NORMAL_HELP      | Star color probability:<br>Red:&nbsp 30%&emsp  Orange:&nbsp 25%&emsp  Yellow:&nbsp 15<br>Blue:&nbsp 15%&emsp  White:&nbsp 10%&emsp  Purple:&nbsp 5%
+SETUP_GALAXY_AGE_YOUNG_HELP       | Star color probability:<br>Red:&nbsp 20%&emsp  Orange:&nbsp 20%&emsp  Yellow:&nbsp 15%<br>Blue:&nbsp 30%&emsp  White:&nbsp 10%&emsp  Purple:&nbsp 5%
+SETUP_GALAXY_AGE_OLD_HELP         | Star color probability:<br>Red:&nbsp 50%&emsp  Orange:&nbsp 15%&emsp  Yellow:&nbsp 10%<br>Blue:&nbsp 5%&emsp  White:&nbsp 5%&emsp  Purple:&nbsp 15%
 SETUP_RANDOM_EVENTS_ON            | On
 SETUP_RANDOM_EVENTS_OFF           | Off
 SETUP_RANDOM_EVENTS_NO_MONSTERS   | No Monsters
@@ -1284,6 +1287,15 @@ SETUP_DIFFICULTY_HARD             | Hard
 SETUP_DIFFICULTY_HARDER           | Harder
 SETUP_DIFFICULTY_HARDEST          | Hardest
 SETUP_DIFFICULTY_CUSTOM           | Custom
+SETUP_DIFFICULTY_EASIEST_HELP     | Easiest (55%)
+SETUP_DIFFICULTY_EASIER_HELP      | Easier (75%)
+SETUP_DIFFICULTY_EASY_HELP        | Easy (90%)
+SETUP_DIFFICULTY_NORMAL_HELP      | Normal (100%)
+SETUP_DIFFICULTY_HARD_HELP        | Hard (110%)
+SETUP_DIFFICULTY_HARDER_HELP      | Harder (125%)
+SETUP_DIFFICULTY_HARDEST_HELP     | Hardest (145%)
+SETUP_DIFFICULTY_CUSTOM_HELP      | This value is set by the option <b>Custom Difficulty</b> which can be found either:<br>&ensp - at the top left of "Dynamic A" (6 option buttons)<br>&ensp - or at the top Left of "Dynamic Options" (2 option buttons)
+
 SETUP_RESEARCH_RATE_NORMAL        | Normal
 // mondar: add fast research option
 SETUP_RESEARCH_RATE_FAST          | Fast
@@ -1301,6 +1313,13 @@ SETUP_NEBULA_UNCOMMON             | Uncommon
 SETUP_NEBULA_NORMAL               | Normal
 SETUP_NEBULA_COMMON               | Common
 SETUP_NEBULA_FREQUENT             | Frequent
+SETUP_NEBULA_NONE_HELP            | None, probably the best choice for symmetric galaxy, as nebulas are not symmetry compatible!
+SETUP_NEBULA_RARE_HELP            | One Quarter of nebula occurence.
+SETUP_NEBULA_UNCOMMON_HELP        | Halve the nebula occurence.
+SETUP_NEBULA_NORMAL_HELP          | Normal nebula occurence.
+SETUP_NEBULA_COMMON_HELP          | Double the nebula occurence.
+SETUP_NEBULA_FREQUENT_HELP        | Quadruple the nebula occurence.
+
 SETUP_COUNCIL_NONE                | No Council
 SETUP_COUNCIL_IMMEDIATE           | Immediate
 SETUP_COUNCIL_REBELS              | Allow Rebels
@@ -1311,6 +1330,14 @@ SETUP_STAR_DENSITY_NORMAL         | Normal
 SETUP_STAR_DENSITY_HIGH           | High
 SETUP_STAR_DENSITY_HIGHER         | Higher
 SETUP_STAR_DENSITY_HIGHEST        | Highest
+SETUP_STAR_DENSITY_LOWEST_HELP    | Increase the star spreading by 30%
+SETUP_STAR_DENSITY_LOWER_HELP     | Increase the star spreading by 20%
+SETUP_STAR_DENSITY_LOW_HELP       | Increase the star spreading by 10%
+SETUP_STAR_DENSITY_NORMAL_HELP    | Normal spreading
+SETUP_STAR_DENSITY_HIGH_HELP      | Decrease the star spreading by 10%
+SETUP_STAR_DENSITY_HIGHER_HELP    | Decrease the star spreading by 20%
+SETUP_STAR_DENSITY_HIGHEST_HELP   | Decrease the star spreading by 30%
+
 SETUP_AI_HOSTILITY_LOWEST         | Nicest
 SETUP_AI_HOSTILITY_LOWER          | Nicer
 SETUP_AI_HOSTILITY_LOW            | Nice

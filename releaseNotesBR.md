@@ -1,7 +1,8 @@
 Now working on:
-- Slowly filling the contextual help...
+- Slowly filling the guide and contextual help...
 
 April Updates:
+- Completed the Guides for Static options.
 - Completed Modnar Grid Galaxy, "Some Clusters" are no more "All Clusters".
 - Completed the Guides for the options in the Setup Galaxy Panel.
 - Guide fully available for opponents parameters selection.
