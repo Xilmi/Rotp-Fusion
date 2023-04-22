@@ -653,7 +653,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		g.setStroke(prev);
 
 		paintButtons(g);
-		loadGuide();
+		showGuide(g);
 		
 		// ready for extension
 		xLine = xLine + currentWith + columnPad;
@@ -663,6 +663,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		checkModifierKey(e);
 	}
 	@Override public void keyPressed(KeyEvent e) {
+		super.keyPressed(e);
 		checkModifierKey(e);
 		int k = e.getKeyCode();  // BR:
 		switch(k) {
@@ -681,6 +682,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		x = e.getX();
 		y = e.getY();
 		checkModifierKey(e);
+		super.mouseMoved(e);
 	}
 	@Override public void mouseReleased(MouseEvent e) {
 		if (e.getButton() > 3)
