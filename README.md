@@ -26,9 +26,11 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
-2023.04.20 (BR)
+2023.04.21 (BR)
 - Fixed Fractal Galaxy option2 guide... The only one being dependent on option1.
 - Completed Modnar Grid Galaxy, "Some Clusters" are no more "All Clusters".
+- Cleaned and clarified some abilities conflict.
+- Almost completed the Guide for Static Options.
 
 2023.04.20 (BR)
 - Completed the Guides for the options in the Setup Galaxy Panel.

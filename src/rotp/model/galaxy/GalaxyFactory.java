@@ -549,11 +549,13 @@ public class GalaxyFactory implements Base {
 			// Create DataRace
 			Race dataRace;
 			if (src == null || restartAppliesSettings.get()) { // Start and some restart
+				// First check the specific box
 				String selectedAbility = options().specificOpponentCROption(h+1);
 				SpecificCROption ability = SpecificCROption.set(selectedAbility);
 
 				if (!useSelectableAbilities.get() 
-						|| ability.isSelection()) {
+						|| ability.isSelection()) { // Then Check for Global ability
+					// the global setting will be used
 					selectedAbility = globalCROptions.get();
 					ability = globalCROptions.getEnu();
 				}
@@ -571,8 +573,14 @@ public class GalaxyFactory implements Base {
 					case PLAYER:
 						dataRace = optionToAlienRace(g.empire(0).raceOptions());
 						break;
-					case RANDOM:
+					case RANDOM: // Create a random race
 						dataRace = Race.keyed(RANDOM_RACE_KEY);
+						break;
+					case RANDOM_BASE: // Choose randomly in the base list
+						dataRace = Race.keyed(random(IGameOptions.baseRaceOptions()));
+						break;
+					case RANDOM_MOD: // Choose randomly including the Modnar Races
+						dataRace = Race.keyed(random(IGameOptions.allRaceOptions()));
 						break;
 					case FILES_FLT:
 						if (allowedRaceList.isEmpty())
@@ -609,8 +617,10 @@ public class GalaxyFactory implements Base {
 						else
 							dataRace = Race.keyed(RANDOM_RACE_KEY);
 						break;
-					case BASE_RACE:
+					case BASE_RACE: // default as vanilla
 					default:
+						if (options().randomizeAIAbility()) // original Advanced Option random abilities
+							dataRace = Race.keyed(random(IGameOptions.baseRaceOptions()));
 						dataRace = Race.keyed(raceKey);
 						break;
 				}
@@ -823,8 +833,8 @@ public class GalaxyFactory implements Base {
 				// Old options replace new options
 				// Copy what's needed from new options
 				switch (restartChangesPlayerRace.get()) {
-				case "GuiLast":
-				case "GuiSwap":
+					case "GuiLast":
+					case "GuiSwap":
 						// set Gui Player
 						oldOptions.selectedPlayer().race = newOptions.selectedPlayerRace();
 						oldOptions.selectedHomeWorldName(newOptions.selectedHomeWorldName());

@@ -25,6 +25,8 @@ public enum SpecificCROption {
 	REWORKED	("'Reworked'"),
 	PLAYER		("'Player'"),
 	RANDOM		("'Random'"),
+	RANDOM_BASE	("'Random 10'"),
+	RANDOM_MOD	("'Random 16'"),
 	FILES_FLT	("'Files'"),
 	FILES_NO_FLT("'All Files'"),
 	FILES_RACES	("'Files Races'"),

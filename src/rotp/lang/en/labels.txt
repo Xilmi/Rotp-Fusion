@@ -1338,9 +1338,13 @@ SETUP_FUEL_RANGE_NORMAL           | Normal
 SETUP_FUEL_RANGE_HIGH             | High
 SETUP_FUEL_RANGE_HIGHER           | Higher
 SETUP_FUEL_RANGE_HIGHEST          | Highest
+SETUP_RANDOMIZE_AI_NONE_DESC      | To disable this option. But will not disable any randomization on the Galaxy Menu.
 SETUP_RANDOMIZE_AI_NONE           | None
+SETUP_RANDOMIZE_AI_PERSONALITY_DESC | Only the AI personality will be afected by this option, but the Galaxy Menu options may override this, and some AI will ignore all personality option!
 SETUP_RANDOMIZE_AI_PERSONALITY    | Personality
+SETUP_RANDOMIZE_AI_ABILITY_DESC   | Only the AI ability will be afected by this option, but the Galaxy Menu options may override it!
 SETUP_RANDOMIZE_AI_ABILITY        | Ability
+SETUP_RANDOMIZE_AI_BOTH_DESC      | This option will try to change both the AI personality and the AI ability... Only if the Galaxy Menu options don't override it!
 SETUP_RANDOMIZE_AI_BOTH           | Both
 SETUP_RACE_LABEL                  | Available Races
 SETUP_RACE_COLOR                  | Empire Color:
@@ -1665,6 +1669,7 @@ SETTINGS_PLANET_QUALITY_DESC      | [modnar MOD: "Larger" gives +50% Planet Size
 SETTINGS_TERRAFORMING_DESC        | Reduce or eliminate the benefits of the Improved Terraforming technologies on hostile planets.
 SETTINGS_COLONIZING_DESC          | Restrict the colonization of systems to only those for which you have acquired the specific technology.
 SETTINGS_COUNCIL_DESC             | Disable the council victory condition or allow enemy empires to rebel against a player victory.
+SETTINGS_RANDOMIZE_AI_HELP        | Original "Advanced Option" to Randomize the AI played personalities, racial abilities, or both.<br><i>In case of conflict with the selected abilities in the Galaxy menu, The Galaxy menu win.</i>
 SETTINGS_RANDOMIZE_AI_DESC        | Randomize the AI player personalities, racial abilities, or both.
 SETTINGS_AUTOPLAY_DESC            | Completely automate the game by having an AI play for the player.<br> This is useful for a first-hand view of how the AI works.
 SETTINGS_AUTOPLAY_WARNING         | Warning! Autoplay is currently enabled which will prevent user gameplay.<br> Use "Advanced Options" to disable.
@@ -1677,8 +1682,10 @@ HEADERS_START_PLANET_OPTIONS_DESC | Options used for planet generation. Only rea
 HEADERS_START_PLANET_OPTIONS      | ~~~ PLANETS OPTIONS ~~~%1
 HEADERS_START_EMPIRE_OPTIONS_DESC | Options used for empire generation. Only read when starting or restarting a game.
 HEADERS_START_EMPIRE_OPTIONS      | ~~~ EMPIRES OPTIONS ~~~%1
+HEADERS_START_TECH_CONTROL_HELP   | Some technologies may be considered essential, and others boring, here is a way to personalize them, by forcing them to be available for research, or by preventing them!
 HEADERS_START_TECH_CONTROL_DESC   | Options used while generating technologies lists. Only read when starting or restarting a game.
 HEADERS_START_TECH_CONTROL        | ~~ ALLOWED AND FORBIDDEN TECH ~~%1
+HEADERS_START_RANDOM_ALIENS_HELP  | When opponent abilities are set to 'Random' the following settings will be used:
 HEADERS_START_RANDOM_ALIENS_DESC  | Options used for the generation of random races. Only read when starting or restarting a game.
 HEADERS_START_RANDOM_ALIENS       | ~~~ RANDOM ALIENS OPTIONS ~~~%1
 HEADERS_GAME_RELATIONS_DESC       | Options controling the relations between empires. Can be changed dynamically.
@@ -1693,6 +1700,7 @@ HEADERS_GAME_COMBAT_DESC          | Options affecting attack and defense. Can be
 HEADERS_GAME_COMBAT               | ~~~ COMBAT OPTIONS ~~~%1
 HEADERS_GAME_DIFFICULTYL_DESC     | Options affecting the game difficulty level. Can be changed dynamically.
 HEADERS_GAME_DIFFICULTY           | ~~~ GAME DIFFICULTY ~~~%1
+HEADERS_RESTART_OPTIONS_HELP      | Hidden behind the&nbsp <b>Start</b>&nbsp button, using the&nbsp <b>Ctrl</b>&nbsp Key you will find the&nbsp <b>Restart</b>&nbsp button.<br>You will be asked to select an old played game to start a new one on the same galaxy.<br>- With the same opponents or new ones.<br>- With the same player race, a new one, or swapped with a previous opponent.<br> You can keep your home world or swapp it with a previous opponent.<br> The following options are controlling the way a game will be restarted.
 HEADERS_RESTART_OPTIONS_DESC      | Options controlling the way a game will be restarted. Only read when restarting a game.
 HEADERS_RESTART_OPTIONS           | ~~~ RESTART OPTIONS ~~~%1
 HEADERS_ZOOM_FACTORS_DESC         | Options controlling the galaxy Map Zoom Factors. Can be changed dynamically. (Remnant.cfg options)
@@ -1738,10 +1746,12 @@ SETTINGS_MOD_HOME_ARTIFACT           | Get Artifact HomeWorld: %1
 SETTINGS_MOD_HOME_FERTILE            | Get Fertile HomeWorld: %1
 SETTINGS_MOD_HOME_RICH               | Get Rich HomeWorld: %1
 SETTINGS_MOD_HOME_ULTRA_RICH         | Get Ultra-Rich HomeWorld: %1
+SETTINGS_MOD_DIST_ARTIFACT_PLANET_HELP | This will force a minimal distance between all Homeworlds and their nearest artifact planet.<br> The purpose is to avoid a random boost to early in the game for some empires.
 SETTINGS_MOD_DIST_ARTIFACT_PLANET_DESC | Minimal distance between Homeworlds and the nearest artifact planet.
 SETTINGS_MOD_CHALLENGE_MODE_DESC     | Give AI Empires additional starting resources (more Population, Factories, and Ships).
 SETTINGS_MOD_NEW_RACES_ON_DESC       | Include the new races as potential opponents
 SETTINGS_MOD_BATTLE_SCOUT_DESC       | Medium-Hull armed Scout Design for the Player at start of game. Buildable despite breaking Ship Space limitations.
+SETTINGS_MOD_COMPANION_WORLDS_HELP   | Give 0 to 6 additional Colonies around ALL Empire Homeworlds at start of game.<br> - Use negative values, from -1 to -4, to keep the original pre-assigned layout.<br> - Use positive values, from 1 to 6, to activate the new randomly assigned layout.
 SETTINGS_MOD_COMPANION_WORLDS_DESC   | Give 0 to 6 additional Colonies around ALL Empire Homeworlds at start of game. (Negative value for original disposition)
 SETTINGS_MOD_RANDOM_TECH_START_DESC  | Give ALL Empires 2 random first Tier Techs at start of game. No Artifact Planets will be generated in the Galaxy. (Techs can differ from Empire to Empire.)
 SETTINGS_MOD_CUSTOM_DIFFICULTY_DESC  | Sets the AI Production Modifier from 20% to 500%. Make sure to select "Difficulty: Custom". (Hold down Shift/Ctrl, then scroll the mouse wheel to change in units of 5%/20%.)
@@ -1759,15 +1769,25 @@ SETTINGS_MOD_TITLE_B                     | Secondary MOD Options
 SETTINGS_MOD_OPTION_NEVER                | Never
 SETTINGS_MOD_OPTION_AUTO                 | Auto
 SETTINGS_MOD_OPTION_ALWAYS               | Always
+SETTINGS_MOD_OPTION_NEVER_NEVER_DESC     | Never for the Player, neither the AI.
 SETTINGS_MOD_OPTION_NEVER_NEVER          | Never/Never
+SETTINGS_MOD_OPTION_NEVER_AUTO_DESC      | Never for the Player, default game value for the AI.
 SETTINGS_MOD_OPTION_NEVER_AUTO           | Never/Auto
+SETTINGS_MOD_OPTION_NEVER_ALWAYS_DESC    | Never for the Player, Always for the AI.
 SETTINGS_MOD_OPTION_NEVER_ALWAYS         | Never/Always
+SETTINGS_MOD_OPTION_AUTO_NEVER_DESC      | Default game value for the Player, Never for the AI.
 SETTINGS_MOD_OPTION_AUTO_NEVER           | Auto/Never
+SETTINGS_MOD_OPTION_AUTO_AUTO_DESC       | Default game value for both the Player and the AI.
 SETTINGS_MOD_OPTION_AUTO_AUTO            | Auto/Auto
+SETTINGS_MOD_OPTION_AUTO_ALWAYS_DESC     | Default game value for the Player, Always for the AI.
 SETTINGS_MOD_OPTION_AUTO_ALWAYS          | Auto/Always
+SETTINGS_MOD_OPTION_ALWAYS_NEVER_DESC    | Always for the Player, Never for the AI.
 SETTINGS_MOD_OPTION_ALWAYS_NEVER         | Always/Never
+SETTINGS_MOD_OPTION_ALWAYS_AUTO_DESC     | Always for the Player, default game value for the AI.
 SETTINGS_MOD_OPTION_ALWAYS_AUTO          | Always/Auto
+SETTINGS_MOD_OPTION_ALWAYS_ALWAYS_DESC   | Always for both the Player and the AI.
 SETTINGS_MOD_OPTION_ALWAYS_ALWAYS        | Always/Always
+
 SETTINGS_MOD_COUNCIL_REQUIRED_PCT_DESC   | Percentage needed to win the council vote.
 SETTINGS_MOD_COUNCIL_REQUIRED_PCT        | Council Requirement: %1%
 SETTINGS_MOD_EVENTS_START_TURN_DESC      | To adjust the starting turn of random events. If an event has already been started, it will not be stopped.
@@ -1793,64 +1813,106 @@ SETTINGS_MOD_CRYSTAL_MAX_SYSTEMS         | Max Crystal Attack: %1
 SETTINGS_MOD_ALT_MONSTER_MESSAGES_DESC   | Randomly displays standard or alternate messages for Monster events.
 SETTINGS_MOD_ALT_MONSTER_MESSAGES        | Alternate Monster Messages: %1
 
+SETTINGS_MOD_MAX_SPACINGS_DESC           | If you don't like starting to close to any neighbor, this option will push apart the empire inside the allowed space. If it's not enough, you may try to unlock the security factor below...
 SETTINGS_MOD_MAX_SPACINGS_DESC           | Attempts to maximize the distance between empires, but always randomly.
 SETTINGS_MOD_MAX_SPACINGS                | Maximize Spacing: %1
+SETTINGS_MOD_MAX_SPACINGS_LIM_HELP       | This value is a safety factor to prevent empires from being too far apart. You can try increasing it if you very don't like neighbors, but this can significantly impact the build time of some complex galaxy shapes. 
 SETTINGS_MOD_MAX_SPACINGS_LIM_DESC       | Base spacing multiplier Security limit for Spacing maximization.
 SETTINGS_MOD_MAX_SPACINGS_LIM            | Max Spacing Multiplier: %1
 SETTINGS_MOD_MIN_STARS_PER_EMPIRE_DESC   | To help defining the maximun opponent number from the size of the galaxy.
 SETTINGS_MOD_MIN_STARS_PER_EMPIRE        | Min Stars per Empire: %1
+SETTINGS_MOD_PREF_STARS_PER_EMPIRE_HELP  | When setting the galaxy size, the default number of opponent will be the ratio of the galaxy new size and this value (without exceding 49 opponents).<br> If the number of opponent has already be set manually, its value won't be adjusted anymore.
 SETTINGS_MOD_PREF_STARS_PER_EMPIRE_DESC  | To help defining the default opponent number from the size of the galaxy.
 SETTINGS_MOD_PREF_STARS_PER_EMPIRE       | Favored Stars Number: %1
 SETTINGS_MOD_DYN_STARS_PER_EMPIRE_DESC   | Number of Stars per Empire for dynamic galaxy size.
 SETTINGS_MOD_DYN_STARS_PER_EMPIRE        | Dynamic Stars Number: %1
+
+SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_HELP | When starting a new game based on a previously played game, the opponents can either keep their previous AI or change to the new GUI global one.
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_DESC | Should "Restart" Change the Aliens AI? 
 SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI      | Restart Changes Aliens AI: %1 
+SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_YES  | Opponent empires will use the current GUI Opponent AI (Play against) on Restart.
+SETTINGS_MOD_RESTART_CHANGES_ALIENS_AI_NO   | Opponent empires will use keep their former AI on Restart.
+
+SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_HELP | When starting a new game based on a previously played game, you can either keep the previous auto-play option, or use the current GUI one. This option is not very usefull anymore, since it's now easy to change this setting in game (Ctrl-o)
 SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_DESC | Should "Restart" Change the Player AI? 
 SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI      | Restart Changes AutoPlay: %1 
+SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_YES  | Use the current GUI Auto-play setting on Restart.
+SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_NO   | Keep the former Auto-play setting on Restart.
+
+SETTINGS_MOD_RESTART_APPLY_SETTINGS_HELP | When starting a new game based on a previously played game, you can either keep its original settings or use the current GUI settings.
 SETTINGS_MOD_RESTART_APPLY_SETTINGS_DESC | Should "Restart" Apply the current GUI Settings? (Except for Galaxy and Races settings) 
 SETTINGS_MOD_RESTART_APPLY_SETTINGS      | Restart with new Settings: %1 
+SETTINGS_MOD_RESTART_APPLY_SETTINGS_YES  | Restart will use the current settings.
+SETTINGS_MOD_RESTART_APPLY_SETTINGS_NO   | Restart with keep the original game settings
+
+SETTINGS_MOD_RESTART_PLAYER_RACE_HELP    | When starting a new game based on a previously played game, you can keep the original race, use the current GUI one, or if you choose to swap the home world with another empire, you can also steel the race of the swapped opponent.
 SETTINGS_MOD_RESTART_PLAYER_RACE_DESC    | Player Race after "Restart" Last? or Swap? GUI & Last Alien? GUI & Swap Alien?
 SETTINGS_MOD_RESTART_PLAYER_RACE         | Restart Player Race: %1 
-SETTINGS_MOD_RESTART_PLAYER_RACE_GUI_LAST | GUI & Last
-SETTINGS_MOD_RESTART_PLAYER_RACE_GUI_SWAP | GUI & Swap
-SETTINGS_MOD_RESTART_PLAYER_RACE_LAST    | Last 
-SETTINGS_MOD_RESTART_PLAYER_RACE_SWAP    | Swap
+SETTINGS_MOD_RESTART_PLAYER_RACE_GUI_LAST  | GUI & Last
+SETTINGS_MOD_RESTART_PLAYER_RACE_GUI_SWAP  | GUI & Swap
+SETTINGS_MOD_RESTART_PLAYER_RACE_LAST      | Last 
+SETTINGS_MOD_RESTART_PLAYER_RACE_SWAP      | Swap
+SETTINGS_MOD_RESTART_PLAYER_RACE_GUI_LAST_DESC | The player will take the current GUI race and, in case of home worlds swap, the swapped opponent will keep is last race.
+SETTINGS_MOD_RESTART_PLAYER_RACE_GUI_SWAP_DESC | The player will take the current GUI race and, in case of home worlds swap, the swapped opponent will take the fpormer player race.
+SETTINGS_MOD_RESTART_PLAYER_RACE_LAST_DESC     | The player will keep the original race.
+SETTINGS_MOD_RESTART_PLAYER_RACE_SWAP_DESC     | The player will take the race of the swapped empire, and the opponent will use the player former race.
 
+SETTINGS_MOD_TECH_IRRADIATED_HELP        | To Force Include or Exclude the Technology <b>Irradiated Control</b>&nbsp in the Tech Tree.<br>This technology could be available at Level 18.<br>It coul be very frustrating not being able to colonize all the planet late in the game!
 SETTINGS_MOD_TECH_IRRADIATED_DESC        | (Level 18){Always, Never, Auto} Include "Irradiated Control"  in the Tech Tree for Player/AI.
 SETTINGS_MOD_TECH_IRRADIATED             | Tech Irradiated Control: %1
+SETTINGS_MOD_TECH_CLOAKING_HELP          | To Force Include or Exclude the Technology <b>Cloaking Device</b>&nbsp in the Tech Tree.<br>This technology could be available at Level 27.<br>You like it! or not! Used in conjunction with Hyperspace Communication, game endings can get very boring.
 SETTINGS_MOD_TECH_CLOAKING_DESC          | (Level 27) {Always, Never, Auto} Include "Cloaking Device" in the Tech Tree for Player/AI.
 SETTINGS_MOD_TECH_CLOAKING               | Tech Cloaking: %1
+SETTINGS_MOD_TECH_STARGATES_HELP         | To Force Include or Exclude the Technology <b>Intergalactic Star Gates</b>&nbsp in the Tech Tree.<br>This technology could be available at Level 27.<br>Huge galaxies without them are a no go for me!
 SETTINGS_MOD_TECH_STARGATES_DESC         | (Level 27) {Always, Never, Auto} Include "Intergalactic Star Gates" in the Tech Tree for Player/AI.
 SETTINGS_MOD_TECH_STARGATES              | Tech Star Gates: %1
+SETTINGS_MOD_TECH_HYPERSPACE_HELP        | To Force Include or Exclude the Technology <b>Hyperspace Communication</b>&nbsp in the Tech Tree.<br>This technology could be available at Level 34.<br>You like it! or not! Some may like the game of cat and mouse...
 SETTINGS_MOD_TECH_HYPERSPACE_DESC        | (Level 34) {Always, Never, Auto} Include "Hyperspace Communication" in the Tech Tree for Player/AI.
 SETTINGS_MOD_TECH_HYPERSPACE             | Tech Hyperspace Comm: %1
+SETTINGS_MOD_TECH_INDUSTRY_2_HELP        | To Force Include or Exclude the Technology <b>Improved Industrial 2</b>&nbsp in the Tech Tree.<br>This technology could be available at Level 38.<br>To speed up the construction of new planetary factories in the endgames!
 SETTINGS_MOD_TECH_INDUSTRY_2_DESC        | (Level 38) {Always, Never, Auto} Include "Improved Industrial 2" in the Tech Tree for Player/AI.
 SETTINGS_MOD_TECH_INDUSTRY_2             | Tech Factory cost 2: %1
+SETTINGS_MOD_TECH_THORIUM_HELP           | To Force Include or Exclude the Technology <b>Thorium Cells</b>&nbsp in the Tech Tree.<br>This technology could be available at Level 41.<br>Essential to reach Orion in some ring and symmetric galaxies... But some time you only want to protect you backlines...
 SETTINGS_MOD_TECH_THORIUM_DESC           | (Level 41) {Always, Never, Auto} Include "Thorium Cells" in the Tech Tree for Player/AI.
 SETTINGS_MOD_TECH_THORIUM                | Tech Thorium Cells: %1
+SETTINGS_MOD_TECH_TRANSPORTERS_HELP      | To Force Include or Exclude the Technology <b>Combat Transporter</b>&nbsp in the Tech Tree.<br>This technology could be available at Level 45.<br>A remedy against savage invasions...
 SETTINGS_MOD_TECH_TRANSPORTERS_DESC      | (Level 45) {Always, Never, Auto} Include "Combat Transporter" in the Tech Tree for Player/AI.
 SETTINGS_MOD_TECH_TRANSPORTERS           | Tech Combat Transporter: %1
-SETTINGS_MOD_TECH_TERRAFORM_120_DESC     | (Level 50) {Always, Never, Auto} Include "Improved Terraforming 120" in the Tech Tree for Player/AI.
-SETTINGS_MOD_TECH_TERRAFORM_120          | Tech Terraforming 120: %1
+
+SETTINGS_MOD_RACES_RAND_MIN_HELP         | Setting used when opponents 'Random' abilities are selected.<br>When "Custom Aliens" = Setting Range, each individual setting will be set within a relative range. This is the lower limit of this range.
 SETTINGS_MOD_RACES_RAND_MIN_DESC         | Alien races randomization: Lower limit for the settings relative randomization window.
 SETTINGS_MOD_RACES_RAND_MIN              | Settings % Min: %1
+
+SETTINGS_MOD_RACES_RAND_MAX_HELP         | Setting used when opponents 'Random' abilities are selected.<br>When "Custom Aliens" = Setting Range, each individual setting will be set within a relative range. This is the upper limit of this range.
 SETTINGS_MOD_RACES_RAND_MAX_DESC         | Alien races randomization: Upper limit for the settings relative randomization window.
 SETTINGS_MOD_RACES_RAND_MAX              | Settings % Max: %1
+
+SETTINGS_MOD_RACES_RAND_EDGES_HELP       | Setting used when opponents 'Random' abilities are selected: "Smooth Edges" defines the limits randomization distribution shape; when "Smooth" the values still have a small probablity of going past the limits, the distribution will be bell shaped. 
 SETTINGS_MOD_RACES_RAND_EDGES_DESC       | Alien races randomization: Smooth edges allow 1/6 of settings being over the window and 1/6 of settings being below the window. (Gaussian window)
 SETTINGS_MOD_RACES_RAND_EDGES            | Smooth Edges: %1
+SETTINGS_MOD_RACES_RAND_EDGES_YES        | Two thirds of the values will be within the limits, one sixth may be above the limit while another sixth may be below the limit.
+SETTINGS_MOD_RACES_RAND_EDGES_NO         | All values will be uniformly spread inside the fixed limits.
+
+SETTINGS_MOD_RACES_RAND_TARGET_MIN_HELP  | Setting used when opponents 'Random' abilities are selected.<br>When "Custom Aliens" = Target Range, each individual setting will be set within the given relative range. Then if the final result is not within the final "Target Range" the values will be randomly shifted (Even outside their allowed range) until the final "Target Range" is reached.<br>This is the lower limit for the Target Range.
 SETTINGS_MOD_RACES_RAND_TARGET_MIN_DESC  | Alien races randomization: Lower limit for the Targeted total value.
 SETTINGS_MOD_RACES_RAND_TARGET_MIN       | Target Min: %1
+
+SETTINGS_MOD_RACES_RAND_TARGET_MAX_HELP  | Setting used when opponents 'Random' abilities are selected.<br>When "Custom Aliens" = Target Range, each individual setting will be set within the given relative range. Then if the final result is not within the final "Target Range" the values will be randomly shifted (Even outside their allowed range) until the final "Target Range" is reached.<br>This is the upper limit for the Target Range.
 SETTINGS_MOD_RACES_RAND_TARGET_MAX_DESC  | Alien races randomization: Upper limit for the Targeted total value.
 SETTINGS_MOD_RACES_RAND_TARGET_MAX       | Target Max: %1
+
+SETTINGS_MOD_RACES_RAND_USE_TARGET_HELP  | SETTINGS_MOD_RACES_RAND_USE_TARGET_HELP Setting used when opponents 'Random' abilities are selected. Each individual setting will be set within the given relative range, and may or may not be adjusted to reach The Target Range.
 SETTINGS_MOD_RACES_RAND_USE_TARGET_DESC  | Alien races randomization: Force or ignore targeted value.
 SETTINGS_MOD_RACES_RAND_USE_TARGET       | Force Target Value: %1
+
+SETTINGS_MOD_RACES_ARE_RANDOM_HELP       | Setting used when opponents 'Random' abilities are selected. Each individual setting will be set within the given relative range, and may or may not be adjusted to reach The Target Range.
 SETTINGS_MOD_RACES_ARE_RANDOM_DESC       | Alien races randomization: Select the way.
 SETTINGS_MOD_RACES_ARE_RANDOM            | Custom Aliens: %1
 SETTINGS_MOD_RACES_ARE_RANDOM_NO         | No
 SETTINGS_MOD_RACES_ARE_RANDOM_SETTING    | Settings Range
 SETTINGS_MOD_RACES_ARE_RANDOM_TARGET     | Target Range
-SETTINGS_MOD_RACES_ARE_RANDOM_PLAYER     | Player Copy
-SETTINGS_MOD_RACES_ARE_RANDOM_FROM_FILES | From Files
+SETTINGS_MOD_RACES_ARE_RANDOM_SETTING_DESC | Ignore Target Range.
+SETTINGS_MOD_RACES_ARE_RANDOM_TARGET_DESC  | If the final result is not within the final "Target Range": the values will be randomly shifted (Even outside their allowed range) until the final "Target Range" is reached.
 
 // BR: Global Settings UI panel for MOD game options
 SETTINGS_MOD_TITLE_GLOBAL                | Display Settings MOD Global Options
@@ -1872,8 +1934,11 @@ SETTINGS_MOD_MENU_AFTER_GAME_DESC        | How should the GUI be initialized aft
 SETTINGS_MOD_MENU_AFTER_GAME             | GUI after Game: %1
 SETTINGS_MOD_MENU_LOADING_GAME_DESC      | What options should be used when loading a game?
 SETTINGS_MOD_MENU_LOADING_GAME           | Loading Game: %1
+SETTINGS_MOD_COMPACT_OPTION_ONLY_HELP    | To switch between Classic and Compact option menus. Both provide a distinction between:<br><b>Static Options:</b>&nbsp that are only read once, when a game starts (or restarts) a game.<br><b>Dynamic Options:</b>&nbsp that can be changed while playing a game. (Ctrl-o)
 SETTINGS_MOD_COMPACT_OPTION_ONLY_DESC    | Show multiple Options Menus at standard size, or only one compacted options menu?
 SETTINGS_MOD_COMPACT_OPTION_ONLY         | Show Compact Options: %1
+SETTINGS_MOD_COMPACT_OPTION_ONLY_YES     | Display the two buttons for accessing the compact options menus (which share a descripion space), allowing more options per menu.<br>One for the static options, the other for the dynamic options.
+SETTINGS_MOD_COMPACT_OPTION_ONLY_NO      | Display six buttons for accessing the classic options menus (which simultaneously display a small description of each option).<br>One for the original <b>Advanced Options</b>&nbsp containing both static and dynamic options, two for the mod's static options, two for the mod's dynamic options, and one for display settings (not affecting game play).
 SETTINGS_MOD_OPTIONS_DEFAULT             | Default Settings
 SETTINGS_MOD_OPTIONS_LAST                | Last GUI Settings
 SETTINGS_MOD_OPTIONS_GAME                | Game Settings
@@ -1885,8 +1950,11 @@ SETTINGS_MOD_SHOW_GRID_CIRCULAR_DESC     | Show the circular grid on the galaxy 
 SETTINGS_MOD_SHOW_GRID_CIRCULAR          | Show circular grid: %1
 SETTINGS_MOD_SHOW_TOOLTIPS_DESC          | Custom Race Menu: Show the lower box with Tooltips?
 SETTINGS_MOD_SHOW_TOOLTIPS               | Show Tooltips: %1
+SETTINGS_MOD_USE_FUSION_FONT_HELP        | To be used with <b>Text Shaped Galaxies</b>: On Windows computers you won't have access to all available chars... So I merged a bunch of "noto" fonts to a big package and included it to this mod. It's a mixt of monospaced and variable fonts (for a total of 153 fonts), I had to remove "advanced" table features because they were to big to be merged (There is a reason why Google don't offert the big merged one!). Consequently, it won't be a good idea to try to copy it into your font folder...
 SETTINGS_MOD_USE_FUSION_FONT_DESC        | Galaxy text shaped will use Fusion font.
 SETTINGS_MOD_USE_FUSION_FONT             | Use Fusion Font: %1
+SETTINGS_MOD_USE_FUSION_FONT_YES         | Replace the original standard "monospaced" Fonts with the dedicated "Fusion" ones.
+SETTINGS_MOD_USE_FUSION_FONT_NO          | Keep the original standard "monospaced" Fonts.
 SETTINGS_MOD_SHOW_NEXT_COUNCIL_DESC      | Show years left until next council. (On Galaxy panel, next to the Year)
 SETTINGS_MOD_SHOW_NEXT_COUNCIL           | Show next council: %1
 SETTINGS_MOD_LOAD_LOCAL_DESC             | Settings are loaded for current panel only (Yes), or all settings are loaded alltogether (No)
@@ -2834,11 +2902,13 @@ SETUP_SELECT_CR_OPTIONS		      | Selectable Abilities.
 'Base Race'_DESC     | Base abilities of the selected race (the one on the icon)
 'Reworked'_DESC      | Reworked abilitie of the selected race (the one on the icon), saved by the player in respectively named race files: RACE_ALKARI, RACE_BULRATHI, RACE_DARLOK, RACE_HUMAN, RACE_KLACKON, RACE_MEKLAR, RACE_MRRSHAN, RACE_PSILON, RACE_SAKKRA , RACE_SILICOID, RACE_EARLYGAME, RACE_GEARHEAD, RACE_JACKTRADES, RACE_MONOCLE, RACE_NEOHUMAN, RACE_WARDEMON.
 'Player'_DESC        | Same abilities as the selected player race.
-'Random'_DESC        | Abilities randomly selected among the base race abilities.
-'Files'_DESC         | Abilities randomly selected among customized race file, having the "Available to AI" option enabled. If this list is empty the selection will be made among the base race abilities.
-'All Files'_DESC     | Abilities randomly selected among customized race file, ignoring the "Available to AI" option. If this list is empty the selection will be made among the base race abilities.
-'Files Races'_DESC   | Abilities randomly selected among the base races abilities and the customized race file, having the "Available to AI" option enabled.
-'All'_DESC           | Abilities randomly selected among the base races abilities and the customized race file, ignoring the "Available to AI" option.
+'Random'_DESC        | Abilities will be randomly generared using the static parameters: <b>RANDOM ALIENS OPTIONS</b> : "Target Max", "Target Min", "Custom Aliens", "Setting % Max", "Setting % Min", and "Smooth Edges".
+'Random 10'_DESC     | Abilities randomly selected within the ten base races abilities.
+'Random 16'_DESC     | Abilities randomly selected within the sixteen races abilities. <i>(The ten Base races and the six Modnar races)</i>
+'Files'_DESC         | Abilities randomly selected within customized race file, having the "Available to AI" option enabled. If this list is empty the selection will be made within the base race abilities.
+'All Files'_DESC     | Abilities randomly selected within customized race file, ignoring the "Available to AI" option. If this list is empty the selection will be made within the base race abilities.
+'Files Races'_DESC   | Abilities randomly selected within the base races abilities and the customized race file, having the "Available to AI" option enabled.
+'All'_DESC           | Abilities randomly selected within the base races abilities and the customized race file, ignoring the "Available to AI" option.
 
 SETUP_GALAXY_SHAPE_RECTANGLE_HELP    | Original rectangular or square Galaxies with up to five voids.
 SETUP_GALAXY_SHAPE_RECTANGLE_O1_HELP | Shape ratio adjustement.
