@@ -68,7 +68,7 @@ public interface InterfaceParam extends InterfaceOptions{
 	};
 	// Bigger Description for auto pop up help (guide)
 	public default String getHeadGuide()		{
-		String help = headerHelp();
+		String help = headerHelp(true);
 		help += defaultValueHelp();
 		help += modifierHelp();
 		return help;
@@ -80,15 +80,19 @@ public interface InterfaceParam extends InterfaceOptions{
 	public default String getHelp()				{ return getDescription(); };
 
 	// ===== Local Help and guide Tools =====
-	public default String headerHelp(String label)	{
+	public default String headerHelp(String label, boolean sep)	{
 		String name  = langLabel(label, "");
 		String help  = langHelp(label);
 		if (help.isEmpty())
 			help = "<b><i>Sorry, no help available yet.<i/></b>";
-		return "<u><b>" + name + "</b></u>" + lineSplit
-				+ help + baseSeparator();
+		help = "<u><b>" + name + "</b></u>" + lineSplit + help;
+		if (sep)
+			return help + baseSeparator();
+		else
+			return help;
 	}
-	public default String headerHelp()			{ return headerHelp(getLangLabel()); }
+	public default String headerHelp(boolean sep)	{ return headerHelp(getLangLabel(), sep); }
+//	public default String headerHelp()			{ return headerHelp(getLangLabel(), true); }
 	public default String defaultValueHelp()	{
 		String help = labelFormat("Default Value") + guideDefaultValue()
 					+ htmlTuneFont(-2, "&emsp<i>(set with Middle Click)<i/>")

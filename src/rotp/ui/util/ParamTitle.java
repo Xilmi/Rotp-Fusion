@@ -46,6 +46,7 @@ public class ParamTitle extends AbstractParam<String> {
 	@Override public void setOptions(DynamicOptions options)	 {}
 	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {}
 	@Override public boolean isTitle()	{ return true; }
+	@Override public String getGuide()	{ return headerHelp(false); }
 
 	// ===== Other Methods =====
 	//

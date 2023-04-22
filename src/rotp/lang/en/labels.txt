@@ -1961,7 +1961,7 @@ SETTINGS_MOD_MENU_AFTER_GAME_DESC        | How should the GUI be initialized aft
 SETTINGS_MOD_MENU_AFTER_GAME             | GUI after Game: %1
 SETTINGS_MOD_MENU_LOADING_GAME_DESC      | What options should be used when loading a game?
 SETTINGS_MOD_MENU_LOADING_GAME           | Loading Game: %1
-SETTINGS_MOD_COMPACT_OPTION_ONLY_HELP    | To switch between Classic and Compact option menus. Both provide a distinction between:<br><b>Static Options:</b>&nbsp that are only read once, when a game starts (or restarts) a game.<br><b>Dynamic Options:</b>&nbsp that can be changed while playing a game. (Ctrl-o)
+SETTINGS_MOD_COMPACT_OPTION_ONLY_HELP    | To switch between Classic option menus (six menus) and Compact option menus (2 menus). Both provide a distinction between:<br><b>Static Options:</b>&nbsp which are only read once, when a game starts (or restarts).<br><b>Dynamic Options:</b>&nbsp which can be changed while playing a game. (Ctrl-o) to call the option menu.
 SETTINGS_MOD_COMPACT_OPTION_ONLY_DESC    | Show multiple Options Menus at standard size, or only one compacted options menu?
 SETTINGS_MOD_COMPACT_OPTION_ONLY         | Show Compact Options: %1
 SETTINGS_MOD_COMPACT_OPTION_ONLY_YES     | Display the two buttons for accessing the compact options menus (which share a descripion space), allowing more options per menu.<br>One for the static options, the other for the dynamic options.
@@ -1971,6 +1971,12 @@ SETTINGS_MOD_OPTIONS_LAST                | Last GUI Settings
 SETTINGS_MOD_OPTIONS_GAME                | Game Settings
 SETTINGS_MOD_OPTIONS_USER                | User's Settings
 SETTINGS_MOD_OPTIONS_VANILLA             | Old Way
+SETTINGS_MOD_OPTIONS_DEFAULT_HELP        | The options will reset to their default values.
+SETTINGS_MOD_OPTIONS_LAST_HELP           | The options will be set to the same state as the last time you left ROTP.
+SETTINGS_MOD_OPTIONS_GAME_HELP           | The options will be set to the same state as the last played game.
+SETTINGS_MOD_OPTIONS_USER_HELP           | The options will be set as stored in the User's preferred settings.
+SETTINGS_MOD_OPTIONS_VANILLA_HELP        | The options will be set as if it was no mods... a mixt of default, last state and last played game...
+
 SETTINGS_MOD_SHOW_NEW_RACES_DESC         | Show the new races in the opponents list?
 SETTINGS_MOD_SHOW_NEW_RACES              | Show new races: %1
 SETTINGS_MOD_SHOW_GRID_CIRCULAR_DESC     | Show the circular grid on the galaxy map? (Dynamic)
@@ -2878,7 +2884,7 @@ SETTINGS_BUTTON_DEFAULT_DESC      | Reload Default options or Restore initial op
 SETTINGS_BUTTON_GUIDE_DESC        | Enable / Disable automated contextual Help on all setup panels.
 
 
-SETTINGS_GUIDE_HELP               | <b>Enable / Disable</b> automated contextual Help on all setup panels.<br> A short explantion will pop up when the mouse is over an option.<br> A longuer explanation may be some time available by pressing <b>"F1"</b> (when hovering the option). Elsewhere, <b>"F1"</b> will show a global overview of the panel.
+SETTINGS_GUIDE_HELP               | <b>Enable / Disable</b> automated contextual Help on all setup panels.<br> A short explantion will pop up when the mouse is over an option.<br> A longuer explanation may be some time available by pressing <b>"F1"</b> (when hovering the option). Elsewhere, <b>"F1"</b> will show a global overview of the panel<br>The guide can also be enable/disabled with the key <b>"G"</b>.
 SETTINGS_GUIDE_DESC               | Enable / Disable automated contextual Help on all setup panels.
 SETTINGS_EXIT_DESC                | Save the current Settings then Exit Panel.
 SETTINGS_CANCEL_DESC              | Cancel settings changes then Exit Panel.
@@ -2910,7 +2916,8 @@ SETUP_START_DESC                  | Save options and Start the Game.<br> "Ctrl" 
 SETUP_BUTTON_START_DESC           | Save options and Start the Game.
 SETUP_BUTTON_RESTART_DESC         | You will be asked to select an old played game to start a new one on the same galaxy.<br>- With the same opponents or new ones.<br>- With the same player race, a new one, or swapped with a previous opponent.<br> You can keep your home world or swapp it with a previous opponent.
 SETUP_GALAXY_BACK_DESC            | Cancel options and go back to the Race selection menu.
-SETUP_GALAXY_OPTIONS_DESC         | These buttons open Advanced options Menu.<br> "Static" contains parameters being set once when starting or restarting a game.<br> "Dynamic" contains parameters adjustable in game.<br> (For some parameters: You can... doesn't mean you should!)<br> Either 6 standard menus or 2 compact menus. 
+SETUP_GALAXY_CLASSIC_OPTIONS_HELP | These buttons open Advanced option Menus.<br> "Static" contains parameters being set once when starting or restarting a game.<br> "Dynamic" contains parameters adjustable in game.<br>To switch to 2 compact option menus:<br> - Go to "Menus Options" and set "Show Compact Options" to "Yes".  (at the bottom right)<br>Compact option menus have the same appearence as the one showing in-game, following "Ctrl-o". 
+SETUP_GALAXY_COMPACT_OPTIONS_HELP | These buttons open Advanced options Menu.<br> "Static" contains parameters being set once when starting or restarting a game.<br> "Dynamic" contains parameters adjustable in game.<br>To switch back to 6 classic option menus:<br> - Go to "Static Options" and set "Show Compact Options" to "No". (at the bottom right)
 SETUP_GALAXY_ABILITIES_DESC       | Default abilities for alien Races:<br> 'Base Races' = Standard abilities of the selected Race (in the Boxes below);<br> 'Reworked' = New abilities you have saved with the race default name.<br> (ex: RACE_DARLOK for the Naslok);<br> *Race = specific base Race; or any other customized race you have built.
 SETUP_GALAXY_SELECTABLE_DESC      | "Yes" => A selection line will appear at the top of the boxes below, allowing the selection of individual ability.
 SETUP_GALAXY_SELECTABLE		      | Selectable Abilities

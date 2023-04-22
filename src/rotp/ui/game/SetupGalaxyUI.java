@@ -264,13 +264,13 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 //		}
 	};
 
-	private Box mergedStaticBox		= new Box("SETUP_GALAXY_OPTIONS"); // BR add UI panel for MOD game options
-	private Box mergedDynamicBox	= new Box("SETUP_GALAXY_OPTIONS"); // BR add UI panel for MOD game options
-	private Box modStaticABox		= new Box("SETUP_GALAXY_OPTIONS"); // BR add UI panel for MOD game options
-	private Box modStaticBBox		= new Box("SETUP_GALAXY_OPTIONS"); // BR add UI panel for MOD game options
-	private Box modDynamicABox		= new Box("SETUP_GALAXY_OPTIONS"); // BR add UI panel for MOD game options
-	private Box modDynamicBBox		= new Box("SETUP_GALAXY_OPTIONS"); // BR add UI panel for MOD game options
-	private Box globalModSettingsBox= new Box("SETUP_GALAXY_OPTIONS"); // BR add UI panel for MOD game options
+	private Box mergedStaticBox		= new Box("SETUP_GALAXY_COMPACT_OPTIONS"); // BR add UI panel for MOD game options
+	private Box mergedDynamicBox	= new Box("SETUP_GALAXY_COMPACT_OPTIONS"); // BR add UI panel for MOD game options
+	private Box modStaticABox		= new Box("SETUP_GALAXY_CLASSIC_OPTIONS"); // BR add UI panel for MOD game options
+	private Box modStaticBBox		= new Box("SETUP_GALAXY_CLASSIC_OPTIONS"); // BR add UI panel for MOD game options
+	private Box modDynamicABox		= new Box("SETUP_GALAXY_CLASSIC_OPTIONS"); // BR add UI panel for MOD game options
+	private Box modDynamicBBox		= new Box("SETUP_GALAXY_CLASSIC_OPTIONS"); // BR add UI panel for MOD game options
+	private Box globalModSettingsBox= new Box("SETUP_GALAXY_CLASSIC_OPTIONS"); // BR add UI panel for MOD game options
 	private Box	helpBox   			= new Box();
 	private Box	backBox				= new Box("SETUP_GALAXY_BACK");
 	private Box	startBox			= new Box(startButtonHelp);

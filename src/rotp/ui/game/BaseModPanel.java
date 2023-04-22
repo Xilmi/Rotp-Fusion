@@ -123,7 +123,6 @@ public abstract class BaseModPanel extends BasePanel
 
 		g.setFont(prevFont);
 		guidePopUp.init();
-//		add(guide, -1);
 	}
 	private int stringWidth(Graphics2D g, String key) {
 		return g.getFontMetrics().stringWidth(LabelManager.current().label(key));
@@ -149,7 +148,6 @@ public abstract class BaseModPanel extends BasePanel
 	}
 	protected void close() { 
 		ModifierKeysState.reset();
-//		guideUI = null;
 		disableGlassPane();
 	}
 
@@ -371,6 +369,9 @@ public abstract class BaseModPanel extends BasePanel
 				if (showContextualHelp())
 					return;
 				showHelp(); // Panel Help
+				return;
+			case KeyEvent.VK_G:
+				doGuideBoxAction();
 				return;
 		}
 	}

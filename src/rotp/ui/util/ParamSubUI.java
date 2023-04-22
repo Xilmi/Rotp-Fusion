@@ -109,13 +109,11 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<InterfacePar
 		String label = isDefaultValue()? "SUB_UI_DEFAULT_YES" : "SUB_UI_DEFAULT_NO";
 		return langLabel(label);
 	}
-	@Override public String getCfgValue() {
-		// System.out.println("getCfgValue() = " + super.getCfgValue());
-		return super.getCfgValue(); }
-	@Override public String getCfgLabel() { 
-		// System.out.println("getCfgLabel() = " + super.getCfgLabel());
-		return super.getCfgLabel(); }
-	@Override public boolean isSubMenu() { return true; }
+	@Override public String getCfgValue()	{ return super.getCfgValue(); }
+	@Override public String getCfgLabel()	{ return super.getCfgLabel(); }
+	@Override public boolean isSubMenu()	{ return true; }
+	@Override public String getHeadGuide()	{ return headerHelp(true); }
+
 	// ===== Other Methods =====
 	//
 	private CompactOptionsUI ui() {
