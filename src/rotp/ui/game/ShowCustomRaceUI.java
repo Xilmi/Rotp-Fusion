@@ -23,6 +23,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -35,7 +36,6 @@ import rotp.model.empires.CustomRaceDefinitions;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BasePanel;
-import rotp.ui.BaseText;
 import rotp.ui.RotPUI;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.races.RacesUI;
@@ -134,13 +134,13 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	protected int x, y; // mouse position
 
 	protected BasePanel parent;
-	protected Rectangle hoverBox, prevHover;
-	protected final Rectangle exitBox	 = new Rectangle();
+	//protected Rectangle hoverBox, prevHover;
+	protected final Box exitBox	   = new Box("SETTINGS_EXIT");
+	private	  final Box raceAIBox  = new Box(ROOT + "RACE_AI");
 	private	  final Rectangle toolTipBox = new Rectangle();
-	private	  final Rectangle raceAIBox  = new Rectangle();
 	protected String tooltipText = "";
 	protected String preTipTxt	 = "";
-	protected BaseText totalCostText;
+	protected ModText totalCostText;
 	private	  RacesUI  raceUI; // Parent panel
 	protected int maxLeftM;
 	CustomRaceDefinitions cr;
@@ -150,7 +150,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	//
 	protected ShowCustomRaceUI() {
 		setOpaque(false);
-	    totalCostText = new BaseText(this, false, costFontSize, 0, 0, 
+	    totalCostText = new ModText(this, false, costFontSize, 0, 0, 
 	    		costC, costC, hoverC, depressedC, costC, 0, 0, 0);
 	}
 	public static ShowCustomRaceUI instance() {
@@ -245,12 +245,12 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	}
 	// ========== Other Methods ==========
 	//
-	private  BaseText settingBT() {
-		return new BaseText(this, false, settingFont, 0, 0,
+	private  ModText settingBT() {
+		return new ModText(this, false, settingFont, 0, 0,
 				settingC, settingNegC, hoverC, depressedC, textC, 0, 0, 0);
 	}
-	protected  BaseText optionBT() {
-		return new BaseText(this, false, optionFont, 0, 0,
+	protected  ModText optionBT() {
+		return new ModText(this, false, optionFont, 0, 0,
 				optionC, selectC, hoverC, depressedC, textC, 0, 0, 0);
 	}
 	private void endOfColumn() {
@@ -357,7 +357,8 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	private boolean checkForHoveredSettings(LinkedList<SettingBase<?>> settings) {
 		for (SettingBase<?> setting : settings) {
 			if (setting.settingText().contains(x,y)) {
-				hoverBox = setting.settingText().bounds();
+//				hoverBox = setting.settingText().bounds();
+				hoverBox = setting.settingText().box();
 				tooltipText = setting.getToolTip();
 				if (hoverBox != prevHover) {
 					setting.settingText().mouseEnter();
@@ -372,9 +373,10 @@ public class ShowCustomRaceUI extends BaseModPanel {
 			}
 			if (setting.isBullet()) {
 				int idx = 0;
-				for (BaseText txt : setting.optionsText()) {
+				for (ModText txt : setting.optionsText()) {
 					if (txt.contains(x,y)) {
-						hoverBox = txt.bounds();
+//						hoverBox = txt.bounds();
+						hoverBox = txt.box();
 						tooltipText = setting.getToolTip(idx);
 						if (hoverBox != prevHover) {
 							txt.mouseEnter();
@@ -395,13 +397,13 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	}
 	private void checkExitSettings(LinkedList<SettingBase<?>> settings) {
 		for (SettingBase<?> setting : settings) {
-			if (prevHover == setting.settingText().bounds()) {
+			if (prevHover == setting.settingText().box()) {
 				setting.settingText().mouseExit();
 				return;
 			}
 			if (setting.isBullet())				
-				for (BaseText txt : setting.optionsText()) {
-					if (prevHover == txt.bounds()) {
+				for (ModText txt : setting.optionsText()) {
+					if (prevHover == txt.box()) {
 						txt.mouseExit();
 						return;
 					}
@@ -423,7 +425,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 
 		if (prevHover != hoverBox && prevHover != null) {
 			checkExitSettings(mouseList);
-			repaint(prevHover);
+			repaint(prevHover.getBounds());
 		}
 		if (keyModifierChanged) {
 			repaintButtons();
@@ -452,7 +454,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		int endPad 	= frameEndPad;
 		int optNum	= setting.bulletBoxSize();;
 		float cost 	= setting.settingCost();
-		BaseText bt	= setting.settingText();
+		ModText bt	= setting.settingText();
 		int paramId	= setting.index();
 
 		if (optNum == 0) {
@@ -665,8 +667,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	@Override public void keyPressed(KeyEvent e) {
 		super.keyPressed(e);
 		checkModifierKey(e);
-		int k = e.getKeyCode();  // BR:
-		switch(k) {
+		switch(e.getKeyCode()) {
 			case KeyEvent.VK_ESCAPE:
 				close();
 				return;
@@ -679,10 +680,15 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		}
 	}
 	@Override public void mouseMoved(MouseEvent e) {
+		// Go thru the guide and restore the boxes
+		Box	  hover = hoverBox;
+		Shape prev  = prevHover;
+		super.mouseMoved(e);
+		hoverBox  = hover;
+		prevHover = prev;
 		x = e.getX();
 		y = e.getY();
 		checkModifierKey(e);
-		super.mouseMoved(e);
 	}
 	@Override public void mouseReleased(MouseEvent e) {
 		if (e.getButton() > 3)

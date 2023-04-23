@@ -31,9 +31,9 @@ import java.util.LinkedList;
 import javax.swing.SwingUtilities;
 
 import rotp.model.game.DynamicOptions;
-import rotp.ui.BaseText;
 import rotp.ui.RotPUI;
 import rotp.ui.game.BaseModPanel;
+import rotp.ui.game.BaseModPanel.ModText;
 import rotp.ui.main.SystemPanel;
 import rotp.util.LabelManager;
 
@@ -65,8 +65,8 @@ public class SettingBase<T> implements InterfaceParam {
 	private T defaultValue	  = null;
 	private boolean isSpacer  = false;
 	private boolean hasNoCost = false;
-	private BaseText settingText;
-	private BaseText[] optionsText;
+	private ModText settingText;
+	private ModText[] optionsText;
 	private String settingToolTip;
 	private int bulletHeightFactor = 1;
 	private int bulletMax   = 25;
@@ -99,8 +99,8 @@ public class SettingBase<T> implements InterfaceParam {
 		this.guiLabel	= guiLabel;
 		this.nameLabel	= nameLabel;
 	}
-	public void settingText(BaseText settingText) {
-		this.settingText = settingText;
+	public void settingText(ModText settingText) {
+		this.settingText = settingText.initGuide(this);
 	}
 	protected void maxBullet(int maxBullet) {
 		bulletMax = maxBullet;
@@ -114,15 +114,15 @@ public class SettingBase<T> implements InterfaceParam {
 		if (label.equals(settingToolTip))
 			settingToolTip = "";
 	}
-	private void optionsText(BaseText[] optionsText) {
+	private void optionsText(ModText[] optionsText) {
 		this.optionsText = optionsText;
 	}
-	public void optionText(BaseText optionText, int i) {
+	public void optionText(ModText optionText, int i) {
 		optionsText[i] = optionText;
 	}
 	public SettingBase<?> initOptionsText() {
 		if (bulletBoxSize() > 0)
-			optionsText(new BaseText[bulletBoxSize()]);
+			optionsText(new ModText[bulletBoxSize()]);
 		return this;
 	}
 	public SettingBase<?> isSpacer(boolean isSpacer) {
@@ -451,9 +451,9 @@ public class SettingBase<T> implements InterfaceParam {
 	public float lastRandomSource()	{ return lastRandomSource; }
 	public boolean isDefaultIndex()	{ return cfgValidIndex() == rawDefaultIndex(); }
 	public boolean allowListSelect(){ return allowListSelect; }
-	public BaseText	settingText()	{ return settingText; }
-	public BaseText[] optionsText()	{ return optionsText; }
-	public BaseText optionText(int i) { return optionsText[i]; }
+	public ModText	settingText()	{ return settingText; }
+	public ModText[] optionsText()	{ return optionsText; }
+	public ModText optionText(int i) { return optionsText[i]; }
 	public float	costFactor() {
 		if (isList) {
 			if (lastRandomSource<0)

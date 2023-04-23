@@ -1514,6 +1514,7 @@ CUSTOM_RACE_SHOW_TITLE            | Species' Abilities
 CUSTOM_RACE_GUI_COST              | Total Value: %1
 CUSTOM_RACE_GUI_SELECT_DESC       | Save Current Race, Select it as Player Race, Save as Last Settings and Exit Panel
 CUSTOM_RACE_GUI_SELECT            | Select
+CUSTOM_RACE_GUI_RANDOM_HELP       | Each individual setting will randomly be set within the given relative Setting range.<br> If "Force Target" = Yes, and the Total Value is not within the allowed Range: The values will progressively be randomly shifted (Even outside their allowed range) until the final "Target Range" is reached.
 CUSTOM_RACE_GUI_RANDOM_DESC       | Randomize the race following the above settings
 CUSTOM_RACE_GUI_RANDOM            | Randomize
 CUSTOM_RACE_GUI_LOAD_DESC         | Load the settings from the file specified in "Name" Field, if none, create an empty one.
@@ -1928,7 +1929,7 @@ SETTINGS_MOD_RACES_RAND_TARGET_MAX_HELP  | Setting used when opponents 'Random' 
 SETTINGS_MOD_RACES_RAND_TARGET_MAX_DESC  | Alien races randomization: Upper limit for the Targeted total value.
 SETTINGS_MOD_RACES_RAND_TARGET_MAX       | Target Max: %1
 
-SETTINGS_MOD_RACES_RAND_USE_TARGET_HELP  | SETTINGS_MOD_RACES_RAND_USE_TARGET_HELP Setting used when opponents 'Random' abilities are selected. Each individual setting will be set within the given relative range, and may or may not be adjusted to reach The Target Range.
+SETTINGS_MOD_RACES_RAND_USE_TARGET_HELP  | Setting used when opponents 'Random' abilities are selected. Each individual setting will be set within the given relative range, and may or may not be adjusted to reach The Target Range.
 SETTINGS_MOD_RACES_RAND_USE_TARGET_DESC  | Alien races randomization: Force or ignore targeted value.
 SETTINGS_MOD_RACES_RAND_USE_TARGET       | Force Target Value: %1
 

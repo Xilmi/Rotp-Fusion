@@ -510,9 +510,9 @@ public abstract class BaseModPanel extends BasePanel
 				Color c5, int i1, int i2, int i3) {
 			super(p, logo, fSize, x1, y1, c1, c2, c3, c4, c5, i1, i2, i3);
 		}
-		ModText param(InterfaceParam param)	 { box.param(param); return this; }
-		ModText label(String label)			 { box.label(label); return this; }
-		Box getBox() {
+		public ModText initGuide(InterfaceParam param)	 { box.param(param); return this; }
+		ModText initGuide(String label)			 { box.label(label); return this; }
+		Box box() {
 			box.setBounds(bounds());
 			return box;
 		}

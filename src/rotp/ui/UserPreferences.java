@@ -67,8 +67,7 @@ import static rotp.model.game.MOO1GameOptions.getStarDensityOptions;
 import static rotp.model.game.MOO1GameOptions.getTechTradingOptions;
 import static rotp.model.game.MOO1GameOptions.getTerraformingOptions;
 import static rotp.model.game.MOO1GameOptions.getWarpSpeedOptions;
-import static rotp.ui.util.InterfaceParam.labelFormat;
-import static rotp.ui.util.InterfaceParam.*;
+import static rotp.ui.util.InterfaceParam.langLabel;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -84,7 +83,6 @@ import java.util.LinkedList;
 
 import rotp.Rotp;
 import rotp.model.empires.GalacticCouncil;
-import rotp.model.empires.Race;
 import rotp.model.events.RandomEvents;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.game.GameSession;

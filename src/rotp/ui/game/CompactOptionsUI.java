@@ -119,8 +119,8 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 			for (InterfaceParam param : list) {
 				if (param != null) {
 					activeList.add(param);
-					btList0.add(newBT(param.isTitle()).param(param));
-					btList2.add(newBT2(param.isDefaultValue()).param(param));
+					btList0.add(newBT(param.isTitle()).initGuide(param));
+					btList2.add(newBT2(param.isDefaultValue()).initGuide(param));
 					if (param.isDuplicate())
 						duplicateList.add(param);
 					else
@@ -286,8 +286,8 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	}
 	private void mouseCommon(MouseEvent e, MouseWheelEvent w) {
 		for (int i=0; i<activeList.size(); i++) {
-			if (hoverBox == btList0.get(i).getBox()
-					|| hoverBox == btList2.get(i).getBox() ) {
+			if (hoverBox == btList0.get(i).box()
+					|| hoverBox == btList2.get(i).box() ) {
 				if (activeList.get(i).isSubMenu()) {
 					if (e == null)
 						return;
@@ -375,7 +375,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		for (int idx=0; idx<btList0.size(); idx++) {
 			bt0 = btList0.get(idx);
 			if (bt0.contains(x,y)) {
-				hoverBox = bt0.getBox();
+				hoverBox = bt0.box();
 				tooltipText = activeList.get(idx).getGuiDescription();
 				if (hoverBox != prevHover) {
 					bt0.mouseEnter();
@@ -393,7 +393,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 			}
 			bt2 = btList2.get(idx);
 			if (bt2.contains(x,y)) {
-				hoverBox = bt2.getBox();
+				hoverBox = bt2.box();
 				tooltipText = activeList.get(idx).getGuiDescription();
 				if (hoverBox != prevHover) {
 					bt2.mouseEnter();
@@ -416,7 +416,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	}
 	private void checkExitSettings(LinkedList<ModText> baseTextList) {
 		for (ModText setting : baseTextList) {
-			if (prevHover == setting.getBox()) {
+			if (prevHover == setting.box()) {
 				setting.mouseExit();
 				return;
 			}
@@ -646,19 +646,19 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 //		else 
 			for (ModText txt : btListBoth) {
 			if (txt.contains(x,y)) {
-				hoverBox = txt.getBox();
+				hoverBox = txt.box();
 				break;
 			}
 		}
 		if (hoverBox != prevHover) {
 			for (ModText txt : btListBoth) {
-				if (prevHover == txt.getBox()) {
+				if (prevHover == txt.box()) {
 					txt.mouseExit();
 					break;
 				}
 			}
 			for (ModText txt : btListBoth) {
-				if (hoverBox == txt.getBox()) {
+				if (hoverBox == txt.box()) {
 					txt.mouseEnter();
 					break;
 				}

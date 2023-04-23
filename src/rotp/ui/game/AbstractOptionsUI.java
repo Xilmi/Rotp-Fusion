@@ -92,7 +92,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 		buildRowCountList();
 		
 		for (int i=0; i<activeList.size(); i++)
-			btList.add(newBT().param(activeList.get(i)));
+			btList.add(newBT().initGuide(activeList.get(i)));
 
 		// numRows = Max column length
 		numRows	 = lastRowList.getFirst();
@@ -273,7 +273,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 	private void mouseCommon(boolean up, boolean mid, boolean shiftPressed, boolean ctrlPressed
 			, MouseEvent e, MouseWheelEvent w) {
 		for (int i=0; i<activeList.size(); i++) {
-			if (hoverBox == btList.get(i).getBox()) {
+			if (hoverBox == btList.get(i).box()) {
 				if (activeList.get(i).isSubMenu()) {
 					if (e == null)
 						return;
@@ -431,7 +431,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 			hoverBox = lastBox;
 		else for (ModText txt : btList) {
 			if (txt.contains(x,y)) {
-				hoverBox = txt.getBox();
+				hoverBox = txt.box();
 				break;
 			}
 		}

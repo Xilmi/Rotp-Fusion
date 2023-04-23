@@ -27,7 +27,6 @@ import static rotp.ui.UserPreferences.playerIsCustom;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -41,7 +40,6 @@ import rotp.model.game.DynOptions;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BasePanel;
-import rotp.ui.BaseText;
 import rotp.ui.RotPUI;
 import rotp.ui.util.InterfaceOptions;
 import rotp.ui.util.SettingBase;
@@ -61,9 +59,9 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	private static final String loadTipKey		= ROOT + "GUI_LOAD_DESC";
 	private	static final EditCustomRaceUI instance = new EditCustomRaceUI();
 	
-	private final Rectangle selectBox	= new Rectangle();
-	private final Rectangle randomBox	= new Rectangle();
-	private final Rectangle loadBox		= new Rectangle();
+	private final Box selectBox	= new Box(selectKey);
+	private final Box randomBox	= new Box(randomKey);
+	private final Box loadBox	= new Box();
 
 	private LinkedList<SettingBase<?>> guiList;
 	private RaceList raceList;
@@ -87,7 +85,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 
 		guiList = cr.guiList();
 	    for(SettingBase<?> setting : guiList)
-	    	setting.settingText(new BaseText(this, false, labelFontSize, 0, 0,
+	    	setting.settingText(new ModText(this, false, labelFontSize, 0, 0,
 					labelC, labelC, hoverC, depressedC, textC, 0, 0, 0));
 	    raceList = cr.initRaceList();
 	    initSetting(raceList);
@@ -207,7 +205,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		for (int settingIdx=0; settingIdx < mouseList.size(); settingIdx++) {
 			SettingBase<?> setting = mouseList.get(settingIdx);
 			if (setting.isBullet()) {
-				if (hoverBox == setting.settingText().bounds()) { // Check Setting
+				if (hoverBox == setting.settingText().box()) { // Check Setting
 					setting.toggle(e, w, this);
 					setting.guiSelect();
 					if (raceList.newValue())
@@ -220,7 +218,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 					int bulletSize	= setting.bulletBoxSize();
 					for (int bulletIdx=0; bulletIdx < bulletSize; bulletIdx++) {
 						int optionIdx = bulletStart + bulletIdx;
-						if (hoverBox == setting.optionText(bulletIdx).bounds()) {
+						if (hoverBox == setting.optionText(bulletIdx).box()) {
 							if (setting.toggle(e, w, optionIdx) || raceList.newValue())
 								repaint();
 							else
@@ -229,7 +227,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 						}
 					}
 				}
-			} else if (hoverBox == setting.settingText().bounds()) {
+			} else if (hoverBox == setting.settingText().box()) {
 				setting.toggle(e, w, this);
 				setting.settingText().repaint();
 				totalCostText.repaint(totalCostStr());
@@ -533,7 +531,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		// Randomize Options
 		xLine = xButton + labelPad;
 		yLine = yButton - labelPad;
-		BaseText bt;
+		ModText bt;
 	    for(SettingBase<?> setting : guiList) {
 			bt = setting.settingText();
 			bt.displayText(setting.guiSettingDisplayStr());
@@ -545,16 +543,12 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	}
 	@Override public void keyPressed(KeyEvent e) {
 		checkModifierKey(e);
-		int k = e.getKeyCode();  // BR:
-		switch(k) {
+		switch(e.getKeyCode()) {
 			case KeyEvent.VK_ESCAPE:
 				doExitBoxAction();
 				return;
-			case KeyEvent.VK_SPACE:
-			case KeyEvent.VK_ENTER:
-				parent.advanceHelp();
-				return;
 		}
+		super.keyPressed(e);
 	}
 	@Override public void mouseReleased(MouseEvent e) {
 		if (e.getButton() > 3)

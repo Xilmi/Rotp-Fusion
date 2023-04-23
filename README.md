@@ -30,7 +30,10 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 - Completed the Guide for Static Options.
 - Guide switchable by the key "G".
 - Minor changes to the Guide appearance.
-- Activated the guide for Custom Race Menu.
+- Custom Race Menu:
+  - Activated the guide.
+  - Fixed the priority conflict with the Guide.
+  - Auto load the parameters to the Guide.
 
 2023.04.21 (BR)
 - Fixed Fractal Galaxy option2 guide... The only one being dependent on option1.
