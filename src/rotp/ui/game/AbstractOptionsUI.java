@@ -24,6 +24,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.LinearGradientPaint;
+import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -36,6 +37,7 @@ import javax.swing.SwingUtilities;
 
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
+import rotp.ui.game.BaseModPanel.Box;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.util.InterfaceOptions;
 import rotp.ui.util.InterfaceParam;
@@ -413,7 +415,13 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 	}
 	@Override public void mouseDragged(MouseEvent e) {}
 	@Override public void mouseMoved(MouseEvent e) {
+		// Go thru the guide and restore the boxes
+		Box	  hover = hoverBox;
+		Shape prev  = prevHover;
 		super.mouseMoved(e);
+		hoverBox  = hover;
+		prevHover = prev;
+
 		checkModifierKey(e);
 		int x = e.getX();
 		int y = e.getY();

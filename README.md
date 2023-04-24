@@ -26,7 +26,10 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
-2023.04.21 (BR)
+2023.04.24 (BR)
+- Fixed guide messing with option menu selection box display.
+
+2023.04.22 (BR)
 - Completed the Guide for Static Options.
 - Guide switchable by the key "G".
 - Minor changes to the Guide appearance.
