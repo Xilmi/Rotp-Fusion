@@ -19,7 +19,17 @@ package rotp.util;
 import java.awt.event.InputEvent;
 
 public enum ModifierKeysState {
-	NONE, SHIFT, CTRL, ALT, CTRL_SHIFT, ALT_SHIFT, ALT_CTRL, ALT_CTRL_SHIFT;
+	NONE			(""),
+	SHIFT			("(Shift) "),
+	CTRL			("(Ctrl) "),
+	ALT				("(Alt) "),
+	CTRL_SHIFT		("(Ctrl)+(Shift) "),
+	ALT_SHIFT		("(Alt)+(Shift)) "),
+	ALT_CTRL		("(Alt)+(Ctrl) "),
+	ALT_CTRL_SHIFT	("(Alt)+(Ctrl)+(Shift) ");
+
+	public final String helpLine;
+	private ModifierKeysState(String opt) { helpLine = opt; }
 
 	private static ModifierKeysState lastState = ModifierKeysState.NONE;
 	private static boolean isShiftDown;

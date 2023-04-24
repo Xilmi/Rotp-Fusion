@@ -28,6 +28,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 2023.04.24 (BR)
 - Fixed guide messing with option menu selection box display.
+- Made a better use of Enum for button guide.
 
 2023.04.22 (BR)
 - Completed the Guide for Static Options.

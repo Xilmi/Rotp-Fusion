@@ -16,31 +16,40 @@
 
 package rotp.ui.util;
 
+import static rotp.ui.util.InterfaceParam.baseSeparator;
+import static rotp.ui.util.InterfaceParam.htmlTuneFont;
 import static rotp.ui.util.InterfaceParam.langDesc;
 import static rotp.ui.util.InterfaceParam.langHelp;
-import static rotp.ui.util.InterfaceParam.*;
+import static rotp.ui.util.InterfaceParam.langName;
+import static rotp.ui.util.InterfaceParam.realLangLabel;
 import static rotp.util.Base.lineSplit;
+
+import java.util.EnumMap;
+
+import rotp.util.ModifierKeysState;
 
 
 //public class ParamButtonHelp extends AbstractParam<String> {
 public class ParamButtonHelp implements InterfaceParam {
 	
-//	private static final String[] modifiers = new String[] {
-//			"", "Shift is down", "Ctrl is down", "Ctrl and Shift are down"};
-	private static final String[] modifiers = new String[] {
-			"", "(Shift) ", "(Ctrl) ", "(Ctrl)+(Shift) "};
-	private final String[]	labels;
+	private EnumMap<ModifierKeysState, String> nameMap = new EnumMap<>(ModifierKeysState.class);
 	private final String	name;
 	// ===== Constructors =====
 	//
 	public ParamButtonHelp(String label, String base, String shift, String ctrl, String ctrlShift) {
-		//super("", label, "");
-		labels	= new String[] { base, shift, ctrl, ctrlShift };
 		name	= label;
+		nameMap.put(ModifierKeysState.NONE, base);
+		nameMap.put(ModifierKeysState.SHIFT, shift);
+		nameMap.put(ModifierKeysState.CTRL, ctrl);
+		nameMap.put(ModifierKeysState.CTRL_SHIFT, ctrlShift);
+//		nameMap.put(ModifierKeysState.ALT, base);
+//		nameMap.put(ModifierKeysState.ALT_SHIFT, shift);
+//		nameMap.put(ModifierKeysState.ALT_CTRL, ctrl);
+//		nameMap.put(ModifierKeysState.ALT_CTRL_SHIFT, ctrlShift);
 	}
-	private String helpLine(int idx, int html) {
+	private String helpLine(ModifierKeysState state, int html) {
 		String help, line;
-		String label = labels[idx];
+		String label = nameMap.get(state);
 		if (label == null || label.isEmpty())
 			return "";
 		if (html == 1)
@@ -50,12 +59,12 @@ public class ParamButtonHelp implements InterfaceParam {
 		if (help.isEmpty())
 			help = "---";
 		if (html == 0) {
-			line = modifiers[idx];
+			line = state.helpLine;
 			line += "[" + langName(label) + "]";
 			line += lineSplit + help;
 			return line;
 		}
-		line = htmlTuneFont(-2, modifiers[idx]);
+		line = htmlTuneFont(-2, state.helpLine);
 		line += "&nbsp <b>( "+ langName(label) + " )</b>";
 		line += lineSplit + help;
 		return line;
@@ -63,8 +72,8 @@ public class ParamButtonHelp implements InterfaceParam {
 	private String buildHelp(int html) {
 		String result = "";
 		String help = "";
-		for(int i=0; i<4; i++) {
-			help = helpLine(i, html);
+		for( ModifierKeysState state: nameMap.keySet()) {
+			help = helpLine(state, html);
 			if (!help.isEmpty())
 				if (result.isEmpty())
 					result = help;
@@ -75,6 +84,7 @@ public class ParamButtonHelp implements InterfaceParam {
 		}
 		return result;
 	}
+	private String getKey() { return nameMap.get(ModifierKeysState.get()); }
 
 	// ===== Overriders =====
 	//
@@ -83,4 +93,5 @@ public class ParamButtonHelp implements InterfaceParam {
 	@Override public String getHelp()		{ return buildHelp(0); } // Full for old Help
 	@Override public String getCfgLabel()	{ return name; }
 	@Override public String getLangLabel()	{ return name; }
+	@Override public String getToolTip()	{ return realLangLabel(getKey() + LABEL_DESCRIPTION); }
 }
