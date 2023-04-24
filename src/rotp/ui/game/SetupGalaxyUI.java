@@ -41,7 +41,6 @@ import static rotp.ui.UserPreferences.shapeOption3;
 import static rotp.ui.UserPreferences.shapeSelection;
 import static rotp.ui.UserPreferences.showNewRaces;
 import static rotp.ui.UserPreferences.sizeSelection;
-import static rotp.ui.UserPreferences.startButtonHelp;
 import static rotp.ui.UserPreferences.useSelectableAbilities;
 import static rotp.ui.util.InterfaceParam.LABEL_DESCRIPTION;
 import static rotp.ui.util.InterfaceParam.labelFormat;
@@ -114,6 +113,7 @@ import rotp.ui.UserPreferences;
 import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.util.ListDialog;
+import rotp.ui.util.ParamButtonHelp;
 import rotp.ui.util.ParamList;
 import rotp.ui.util.SpecificCROption;
 import rotp.util.ModifierKeysState;
@@ -140,6 +140,12 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private BufferedImage smBackImg;
     private int bSep = s15;
 
+	public static final ParamButtonHelp startButtonHelp = new ParamButtonHelp( // For Help Do not add the list
+			"SETUP_START",
+			START_KEY,
+			"",
+			RESTART_KEY,
+			"");
 	private final ParamList opponentAI			= new ParamList( // For Guide
 			BASE_UI, "OPPONENT_AI",
 			MOO1GameOptions.getOpponentAIOptions(),

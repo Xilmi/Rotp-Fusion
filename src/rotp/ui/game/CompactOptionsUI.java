@@ -25,7 +25,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.LinearGradientPaint;
 import java.awt.Rectangle;
-import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -37,7 +36,6 @@ import java.util.List;
 
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
-import rotp.ui.game.BaseModPanel.Box;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.util.InterfaceOptions;
 import rotp.ui.util.InterfaceParam;
@@ -87,7 +85,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	private LinkedList<ModText> btList0;
 	private LinkedList<ModText> btList2;
 	private LinkedList<ModText> btListBoth;
-	private final Box 		exitBox		= new Box();
+	private final Box 		exitBox		= new Box(exitKey);
 	private final Rectangle toolTipBox	= new Rectangle();
 	private LinearGradientPaint bg;
 
@@ -631,7 +629,8 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	@Override public void mouseMoved(MouseEvent e) {
 		// Go thru the guide and restore the boxes
 		Box	  hover = hoverBox;
-		Shape prev  = prevHover;
+		Box prev  = prevHover;
+//		Shape prev  = prevHover; // TODO BR: Remove
 		super.mouseMoved(e);
 		hoverBox  = hover;
 		prevHover = prev;

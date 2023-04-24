@@ -32,7 +32,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Rectangle;
-import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -48,8 +47,8 @@ import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.RotPUI;
-import rotp.ui.UserPreferences;
 import rotp.ui.util.InterfaceParam;
+import rotp.ui.util.ParamButtonHelp;
 import rotp.util.LabelManager;
 import rotp.util.ModifierKeysState;
 
@@ -69,7 +68,7 @@ public abstract class BaseModPanel extends BasePanel
 	private static final String restoreGlobalKey	= "SETTINGS_GLOBAL_RESTORE";
 	private static final String restoreLocalKey		= "SETTINGS_LOCAL_RESTORE";
 	private static final String guideKey			= "SETTINGS_GUIDE";
-	private static final String exitKey		 		= "SETTINGS_EXIT";
+	protected static final String exitKey		 	= "SETTINGS_EXIT";
 	
 	private	  static int	 exitButtonWidth, guideButtonWidth,
 							 userButtonWidth, defaultButtonWidth, lastButtonWidth;
@@ -85,19 +84,40 @@ public abstract class BaseModPanel extends BasePanel
 	private final LinkedList<Box>		boxBaseList	= new LinkedList<>();
 	private final LinkedList<Box>		boxHelpList	= new LinkedList<>();
 	protected Box	  hoverBox;
+	protected Box	  prevHover;
 	protected PolyBox hoverPolyBox;
-	protected Shape	  prevHover;
+	protected PolyBox prevPolyBox;
+//	protected Shape	  prevHover; // TODO BR: REMOVE
 
 	LinkedList<InterfaceParam> paramList;
 	LinkedList<InterfaceParam> duplicateList;
 	LinkedList<InterfaceParam> activeList;
 	
 	public GuidePopUp guidePopUp;
-	
+
+	public static final ParamButtonHelp userButtonHelp = new ParamButtonHelp( // For Help Do not add the list
+			"SETTINGS_BUTTON_USER",
+			setGlobalUserKey,
+			setLocalUserKey,
+			saveGlobalUserKey,
+			saveLocalUserKey);
+	public static final ParamButtonHelp lastButtonHelp = new ParamButtonHelp( // For Help Do not add the list
+			"SETTINGS_BUTTON_LAST",
+			setGlobalLastKey,
+			setLocalLastKey,
+			setGlobalGameKey,
+			setLocalGameKey);
+	public static final ParamButtonHelp defaultButtonHelp = new ParamButtonHelp( // For Help Do not add the list
+			"SETTINGS_BUTTON_DEFAULT",
+			setGlobalDefaultKey,
+			setLocalDefaultKey,
+			restoreGlobalKey,
+			restoreLocalKey);
+
 	protected Font smallButtonFont	= narrowFont(20);
-	protected Box defaultBox		= new Box(UserPreferences.defaultButtonHelp);
-	protected Box lastBox			= new Box(UserPreferences.lastButtonHelp);
-	protected Box userBox			= new Box(UserPreferences.userButtonHelp);
+	protected Box defaultBox		= new Box(defaultButtonHelp);
+	protected Box lastBox			= new Box(lastButtonHelp);
+	protected Box userBox			= new Box(userButtonHelp);
 	protected Box guideBox			= new Box(guideKey);
 
 	protected boolean globalOptions	= false; // No preferred button and Saved to remnant.cfg
@@ -339,8 +359,12 @@ public abstract class BaseModPanel extends BasePanel
 		int x = e.getX();
 		int y = e.getY();
 		prevHover		= hoverBox;
+		prevPolyBox		= hoverPolyBox;
 		hoverPolyBox	= null;
 		hoverBox		= null;
+//		prevHover		= hoverBox;
+//		hoverPolyBox	= null;
+//		hoverBox		= null;
 
 		for (Box box : boxBaseList)
 			if (box.contains(x,y)) {
@@ -348,6 +372,14 @@ public abstract class BaseModPanel extends BasePanel
 				break;
 			}
 		if (hoverBox != prevHover) {
+//			if(hoverBox != null) { // TODO BR: LATER Mouse Moved text management
+//			hoverBox.mouseEnter();
+//			repaint(hoverBox);
+//		}
+//		if(prevHover != null) {
+//			prevHover.mouseExit();
+//			repaint(prevHover);
+//		}
 			loadGuide();
 			repaint();
 			return;
@@ -357,9 +389,12 @@ public abstract class BaseModPanel extends BasePanel
 					hoverPolyBox = box;
 					break;
 				}
-		if (hoverPolyBox != prevHover) {
+		if (hoverPolyBox != prevPolyBox) {
 			repaint();
 		}
+//		if (hoverPolyBox != prevHover) { // TODO BR: REMOVE
+//			repaint();
+//		}
 	}
 	@Override public void keyPressed(KeyEvent e)		{
 		checkModifierKey(e);		
@@ -408,10 +443,17 @@ public abstract class BaseModPanel extends BasePanel
 	public class Box extends Rectangle {
 		private InterfaceParam	param;
 		private String			label;
+		private ModText         modText;
 		private int 			mouseBoxIndex;
 		// ========== Constructors ==========
 		//
-		public Box()				{ boxBaseList.add(this); }
+		public Box()				{ addToList(); }
+		public Box(boolean add)		{ if (add) addToList(); }
+		Box(ModText modText)		{
+			this(false);
+			boxHelpList.add(this);
+			this.modText = modText;
+		}
 		Box(String label)			{
 			this();
 			boxHelpList.add(this);
@@ -426,10 +468,30 @@ public abstract class BaseModPanel extends BasePanel
 			this(param);
 			mouseBoxIndex(mouseBoxIndex);
 		}
-		void param(InterfaceParam param)	 { this.param = param; }
+		void addToList() 					 { boxBaseList.add(this); }
+		void initGuide(String label)		 { this.label = label; }
+		void initGuide(InterfaceParam param) { this.param = param; }
 		InterfaceParam param()	 			 { return param; }
-		void label(String label)			 { this.label = label; }
 		void mouseBoxIndex(int idx)			 { mouseBoxIndex = idx; }
+		// ========== Doers ==========
+		//
+		public void mouseEnter() {
+			if (modText != null)
+				modText.mouseEnter();
+		}
+		public void mouseExit() {
+			if (modText != null)
+				modText.mouseExit();
+		}
+		// ========== Getters ==========
+		//
+		public String getToolTip()		 {
+			String tip = getParamToolTip();
+			if (tip.isEmpty())
+				return getLabelToolTip();
+			else
+				return tip;
+		}
 		public String getDescription()		 {
 			String desc = getParamDescription();
 			if (desc.isEmpty())
@@ -459,8 +521,14 @@ public abstract class BaseModPanel extends BasePanel
 				return guide;
 		}
 		public 	int	   mouseBoxIndex()		 { return mouseBoxIndex; }
+		private String getLabelToolTip()	 { return InterfaceParam.langDesc(label); }
 		private String getLabelDescription() { return InterfaceParam.langDesc(label); }
 		private String getLabelHelp()		 { return InterfaceParam.langHelp(label); }
+		private String getParamToolTip() 	 {
+			if (param == null)
+				return "";
+			return param.getToolTip();
+		}
 		private String getParamDescription() {
 			if (param == null)
 				return "";
@@ -489,7 +557,7 @@ public abstract class BaseModPanel extends BasePanel
 	}
 	public class ModText extends BaseText {
 
-		private final Box box = new Box();
+		private final Box box = new Box(true); // TODO BR: class ModText new Box(false); true?
 
 		/**
 		* @param p		BasePanel
@@ -510,8 +578,8 @@ public abstract class BaseModPanel extends BasePanel
 				Color c5, int i1, int i2, int i3) {
 			super(p, logo, fSize, x1, y1, c1, c2, c3, c4, c5, i1, i2, i3);
 		}
-		public ModText initGuide(InterfaceParam param)	 { box.param(param); return this; }
-		ModText initGuide(String label)			 { box.label(label); return this; }
+		public ModText initGuide(InterfaceParam param)	 { box.initGuide(param); return this; }
+		ModText initGuide(String label)			 { box.initGuide(label); return this; }
 		Box box() {
 			box.setBounds(bounds());
 			return box;

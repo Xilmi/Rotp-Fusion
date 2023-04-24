@@ -93,7 +93,6 @@ import rotp.ui.util.GlobalCROptions;
 import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.ParamAAN2;
 import rotp.ui.util.ParamBoolean;
-import rotp.ui.util.ParamButtonHelp;
 import rotp.ui.util.ParamCR;
 import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
@@ -1063,51 +1062,6 @@ public class UserPreferences {
 			showNameMinFont, showInfoFontRatio, mapFontFactor, showNextCouncil, compactOptionOnly
 			));
 
-	// Only used for displaying help... Do not include to UI list.
-//	public static final ParamList opponentAI = new ParamList( // For Help Do not add the list
-//			BASE_UI, "OPPONENT_AI",
-//			MOO1GameOptions.getOpponentAIOptions(),
-//			OPPONENT_AI_CRUEL) {
-//		@Override public String	get()	{
-//			return RotPUI.mergedGuiOptions().selectedOpponentAIOption();
-//		}
-//		@Override public String	guideValue()	{ return langLabel(get()); }
-//	};
-//	public static final ParamList specificAI = new ParamList( // For Help Do not add the list
-//			BASE_UI, "SPECIFIC_AI",
-//			MOO1GameOptions.getSpecificOpponentAIOptions(),
-//			OPPONENT_AI_CRUEL) {
-//		@Override public String	get()	{
-//			System.out.println("mouseBoxIndex() = " + mouseBoxIndex());
-//			return RotPUI.mergedGuiOptions().specificOpponentAIOption(mouseBoxIndex());
-//		}
-//		@Override public String	guideValue()	{ return langLabel(get()); }
-//	};
-	public static final ParamButtonHelp userButtonHelp = new ParamButtonHelp( // For Help Do not add the list
-			"SETTINGS_BUTTON_USER",
-			"SETTINGS_GLOBAL_USER_SET",
-			"SETTINGS_LOCAL_USER_SET",
-			"SETTINGS_GLOBAL_USER_SAVE",
-			"SETTINGS_LOCAL_USER_SAVE");
-	public static final ParamButtonHelp lastButtonHelp = new ParamButtonHelp( // For Help Do not add the list
-			"SETTINGS_BUTTON_LAST",
-			"SETTINGS_GLOBAL_LAST_SET",
-			"SETTINGS_LOCAL_LAST_SET",
-			"SETTINGS_GLOBAL_LAST_GAME",
-			"SETTINGS_LOCAL_LAST_GAME");
-	public static final ParamButtonHelp defaultButtonHelp = new ParamButtonHelp( // For Help Do not add the list
-			"SETTINGS_BUTTON_DEFAULT",
-			"SETTINGS_GLOBAL_DEFAULT",
-			"SETTINGS_LOCAL_DEFAULT",
-			"SETTINGS_GLOBAL_RESTORE",
-			"SETTINGS_LOCAL_RESTORE");
-	public static final ParamButtonHelp startButtonHelp = new ParamButtonHelp( // For Help Do not add the list
-			"SETUP_START",
-			"SETUP_BUTTON_START",
-			"",
-			"SETUP_BUTTON_RESTART",
-			"");
-	
 	private static boolean showMemory  = false;
 	private static boolean playMusic   = true;
 	private static boolean playSounds  = true;
