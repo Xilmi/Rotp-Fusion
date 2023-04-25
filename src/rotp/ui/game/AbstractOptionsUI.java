@@ -65,7 +65,6 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 	private Color textC = SystemPanel.whiteText;
 	private LinkedList<Integer>	lastRowList = new LinkedList<>();
 	private LinkedList<ModText> btList		= new LinkedList<>();
-//	private Rectangle hoverBox;
 	private Box exitBox	= new Box();
 	private LinearGradientPaint bg;
 
@@ -297,7 +296,6 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 	@Override
 	public void init() {
 		super.init();
-
 		w	= RotPUI.setupRaceUI().getWidth();
 		h	= RotPUI.setupRaceUI().getHeight();
 		wBG	= w - (leftM + rightM);
@@ -416,7 +414,6 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 		// Go thru the guide and restore the boxes
 		Box	  hover = hoverBox;
 		Box prev  = prevHover;
-//		Shape prev  = prevHover; // TODO BR: Remove
 		super.mouseMoved(e);
 		hoverBox  = hover;
 		prevHover = prev;

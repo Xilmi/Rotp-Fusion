@@ -177,22 +177,22 @@ public interface InterfaceParam extends InterfaceOptions{
 	public static String langDesc(String key)		{
 		if (key == null)
 			return "";
-		System.out.println("langDesc: key+LABEL_DESCRIPTION = " + key+LABEL_DESCRIPTION);
+//		System.out.println("langDesc: key+LABEL_DESCRIPTION = " + key+LABEL_DESCRIPTION);
 		String desc = realLangLabel(key+LABEL_DESCRIPTION);
 //		desc = langLabel(key+LABEL_DESCRIPTION); // TODO BR: For debug... comment!
 		if (desc == null)
 			return "";
-		System.out.println("desc = " + desc);
+//		System.out.println("desc = " + desc);
 		return desc;
 	}
 	public static String langHelp(String key)		{
 		if (key == null)
 			return "";
-		System.out.println("langHelp: key+LABEL_HELP = " + key+LABEL_HELP);
+//		System.out.println("langHelp: key+LABEL_HELP = " + key+LABEL_HELP);
 		String help = realLangLabel(key+LABEL_HELP);
 		if (help == null)
 			return langDesc(key);
-		System.out.println("help = " + help);
+//		System.out.println("help = " + help);
 		return help;
 	}
 	public static String langLabel(String key)		{

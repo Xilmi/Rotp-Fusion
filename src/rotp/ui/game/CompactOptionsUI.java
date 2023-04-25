@@ -79,18 +79,15 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	private int xSetting, ySetting, columnWidth; // settings var
 	private int index, column;
 	private int xDesc, yDesc, descWidth;
-	private int x, y; // mouse position
 	
 	private LinkedList<Integer>	lastRowList;
-	private LinkedList<ModText> btList0;
-	private LinkedList<ModText> btList2;
+	private LinkedList<ModText> btList0; // left part
+	private LinkedList<ModText> btList2; // right part
 	private LinkedList<ModText> btListBoth;
 	private final Box 		exitBox		= new Box(exitKey);
 	private final Rectangle toolTipBox	= new Rectangle();
 	private LinearGradientPaint bg;
 
-	private String tooltipText = "";
-	private String preTipTxt   = "";
 	private int parent = 0; // 0=Base; 1=Merged; 2=Classic
 	
 	// ========== Constructors and initializers ==========
@@ -153,7 +150,6 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		else
 			bt = new ModText(this, false, settingFont, 0, 0,
 					customValuesColor, disabledColor, hoverC, depressedC, disabledColor, 0, 0, 0);
-
 		return bt;
 	}
 	private void drawButtons(Graphics2D g) {
@@ -249,7 +245,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		int xT = xDesc+descPadM;
 		int yT = yDesc-s2;
 		for (String line: lines) {
-			yT += descLineH; // TODO BR:
+			yT += descLineH;
 			drawString(g,line, xT, yT);
 		}		
 	}
@@ -313,100 +309,93 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 			param.setFromDefault();
 	}
 	private boolean checkForHoveredButtons() {
-		if (exitBox.contains(x,y)) {
-			hoverBox = exitBox;
-			tooltipText = text(exitButtonDescKey());
-			if (hoverBox != prevHover) {
-				if (tooltipText.equals(preTipTxt)) {
-					repaint(hoverBox);
-				} else {
-					repaint();
-				}
-			}
-			return true;
-		} else if (guideBox.contains(x,y)) {
-			hoverBox = guideBox;
-			tooltipText = text(guideButtonDescKey());
-			if (hoverBox != prevHover) {
-				if (tooltipText.equals(preTipTxt)) {
-					repaint(hoverBox);
-				} else {
-					repaint();
-				}
-			}
-		} else if (userBox.contains(x,y)) {
-			hoverBox = userBox;
-			tooltipText = text(userButtonDescKey());
-			if (hoverBox != prevHover) {
-				if (tooltipText.equals(preTipTxt)) {
-					repaint(hoverBox);
-				} else {
-					repaint();
-				}
-			}
-			return true;
-		} else if (lastBox.contains(x,y)) {
-			hoverBox = lastBox;
-			tooltipText = text(lastButtonDescKey());
-			if (hoverBox != prevHover) {
-				if (tooltipText.equals(preTipTxt)) {
-					repaint(hoverBox);
-				} else {
-					repaint();
-				}
-			}
-			return true;
-		} else if (defaultBox.contains(x,y)) {
-			hoverBox = defaultBox;
-			tooltipText = text(defaultButtonDescKey());
-			if (hoverBox != prevHover) {
-				if (tooltipText.equals(preTipTxt)) {
-					repaint(hoverBox);
-				} else {
-					repaint();
-				}
-			}
-			return true;
-		}
+//		if (exitBox.contains(x,y)) {
+//			hoverBox = exitBox;
+//			tooltipText = text(exitButtonDescKey());
+//			if (hoverBox != prevHover) {
+//				if (tooltipText.equals(preTipTxt)) {
+//					repaint(hoverBox);
+//				} else {
+//					repaint();
+//				}
+//			}
+//			return true;
+//		} else if (guideBox.contains(x,y)) {
+//			hoverBox = guideBox;
+//			tooltipText = text(guideButtonDescKey());
+//			if (hoverBox != prevHover) {
+//				if (tooltipText.equals(preTipTxt)) {
+//					repaint(hoverBox);
+//				} else {
+//					repaint();
+//				}
+//			}
+//		} else if (userBox.contains(x,y)) {
+//			hoverBox = userBox;
+//			tooltipText = text(userButtonDescKey());
+//			if (hoverBox != prevHover) {
+//				if (tooltipText.equals(preTipTxt)) {
+//					repaint(hoverBox);
+//				} else {
+//					repaint();
+//				}
+//			}
+//			return true;
+//		} else if (lastBox.contains(x,y)) {
+//			hoverBox = lastBox;
+//			tooltipText = text(lastButtonDescKey());
+//			if (hoverBox != prevHover) {
+//				if (tooltipText.equals(preTipTxt)) {
+//					repaint(hoverBox);
+//				} else {
+//					repaint();
+//				}
+//			}
+//			return true;
+//		} else if (defaultBox.contains(x,y)) {
+//			hoverBox = defaultBox;
+//			tooltipText = text(defaultButtonDescKey());
+//			if (hoverBox != prevHover) {
+//				if (tooltipText.equals(preTipTxt)) {
+//					repaint(hoverBox);
+//				} else {
+//					repaint();
+//				}
+//			}
+//			return true;
+//		}
 		return false;
 	}
 	private boolean checkForHoveredSettings() {
 		ModText bt0, bt2;
 		for (int idx=0; idx<btList0.size(); idx++) {
 			bt0 = btList0.get(idx);
-			if (bt0.contains(x,y)) {
+			if (bt0.contains(mX,mY)) {
 				hoverBox = bt0.box();
 				tooltipText = activeList.get(idx).getGuiDescription();
 				if (hoverBox != prevHover) {
 					bt0.mouseEnter();
 					if (tooltipText.equals(preTipTxt)) { 
-//						repaint(); // TODO BR:
 						repaint(hoverBox);
 					} else {
-//						repaint(); // TODO BR:
 						repaint(hoverBox);
-//						repaintTooltip();
 						repaint(toolTipBox);
 					}
 				}
 				return true;
 			}
 			bt2 = btList2.get(idx);
-			if (bt2.contains(x,y)) {
+			if (bt2.contains(mX,mY)) {
 				hoverBox = bt2.box();
 				tooltipText = activeList.get(idx).getGuiDescription();
 				if (hoverBox != prevHover) {
 					bt2.mouseEnter();
 					setValueColor(idx);
 					if (tooltipText.equals(preTipTxt)) { 
-//						repaint(); // TODO BR:
 						repaint(hoverBox);
 					} else {
-//						repaint(); // TODO BR:
-//						repaint(hoverBox);
 						repaint(hoverBox);
 						repaint(toolTipBox);
-//						repaintTooltip();
 					}
 				}
 				return true;
@@ -617,6 +606,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		checkModifierKey(e);		
 	}
 	@Override public void keyPressed(KeyEvent e) {
+		// TODO BR: TRY to test Modifier only there!
 		super.keyPressed(e);
 		checkModifierKey(e);
 		int k = e.getKeyCode();  // BR:
@@ -627,55 +617,31 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		}
 	}
 	@Override public void mouseMoved(MouseEvent e) {
-		// Go thru the guide and restore the boxes
-		Box	  hover = hoverBox;
-		Box prev  = prevHover;
-//		Shape prev  = prevHover; // TODO BR: Remove
-		super.mouseMoved(e);
-		hoverBox  = hover;
-		prevHover = prev;
-
-		x = e.getX();
-		y = e.getY();
-		checkModifierKey(e);
+		// TODO BR: Try to use mouse Entered and exited!
+		newKeyModifier = checkForChange(e);
+		mX = e.getX();
+		mY = e.getY();
+		preTipTxt = tooltipText;
+		tooltipText = "";
 		prevHover = hoverBox;
 		hoverBox = null;
-//		if (exitBox.contains(x,y))
-//			hoverBox = exitBox;
-//		else if (defaultBox.contains(x,y))
-//			hoverBox = defaultBox;
-//		else if (userBox.contains(x,y))
-//			hoverBox = userBox;
-//		else if (guideBox.contains(x,y))
-//			hoverBox = guideBox;
-//		else if (lastBox.contains(x,y))
-//			hoverBox = lastBox;
-//		else 
-			for (ModText txt : btListBoth) {
-			if (txt.contains(x,y)) {
-				hoverBox = txt.box();
+		hoverChanged = false;
+		for (Box box : boxBaseList)
+			if (box.checkIfHovered()) {
+				repaint(toolTipBox);
 				break;
 			}
+		if (newKeyModifier) {
+			repaintButtons();
 		}
-		if (hoverBox != prevHover) {
-			for (ModText txt : btListBoth) {
-				if (prevHover == txt.box()) {
-					txt.mouseExit();
-					break;
-				}
-			}
-			for (ModText txt : btListBoth) {
-				if (hoverBox == txt.box()) {
-					txt.mouseEnter();
-					break;
-				}
-			}
-			if (prevHover != null) repaint(prevHover.getBounds());
-			if (hoverBox != null)  repaint(hoverBox);
+		else if (prevHover != null && !tooltipText.equals(preTipTxt)) {
+			prevHover.mouseExit();
+			loadGuide();
+			repaint();
 		}
 	}
 	@Override public void mouseReleased(MouseEvent e) {
-		checkModifierKey(e);
+		//checkModifierKey(e);
 		if (e.getButton() > 3)
 			return;
 		if (hoverBox == null)
@@ -708,36 +674,4 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		checkModifierKey(e);
 		mouseCommon(null, e);
 	}
-//	// ========== Sub Classes ==========
-//	//
-//	public class ModText extends BaseText {
-//
-//		private final Box box = new Box();
-//
-//		/**
-//		* @param p		BasePanel
-//		* @param logo	logoFont
-//		* @param fSize	fontSize
-//		* @param x1	xOrig
-//		* @param y1	yOrig
-//		* @param c1	enabledC
-//		* @param c2	disabledC
-//		* @param c3	hoverC
-//		* @param c4	depressedC
-//		* @param c5	shadeC
-//		* @param i1	bdrStep
-//		* @param i2	topLBdr
-//		* @param i3	btmRBdr
-//		*/
-//		public ModText(BasePanel p, boolean logo, int fSize, int x1, int y1, Color c1, Color c2, Color c3, Color c4,
-//				Color c5, int i1, int i2, int i3) {
-//			super(p, logo, fSize, x1, y1, c1, c2, c3, c4, c5, i1, i2, i3);
-//		}
-//		ModText param(InterfaceParam param)	 { box.param(param); return this; }
-//		ModText label(String label)			 { box.label(label); return this; }
-//		Box getBox() {
-//			box.setBounds(bounds());
-//			return box;
-//		}
-//	}
 }

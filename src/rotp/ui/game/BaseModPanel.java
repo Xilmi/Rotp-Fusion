@@ -72,7 +72,7 @@ public abstract class BaseModPanel extends BasePanel
 	
 	private	  static int	 exitButtonWidth, guideButtonWidth,
 							 userButtonWidth, defaultButtonWidth, lastButtonWidth;
-	protected static int	 w, h;
+	protected static int	 mX, mY, w, h;
 	protected static int	 smallButtonMargin;
 	protected static int	 smallButtonH;
 	public	  static int	 guideFontSize;
@@ -80,14 +80,16 @@ public abstract class BaseModPanel extends BasePanel
 	public	  static boolean dialGuide	= false; // To disable automated Guide on dialog list
 	public	  static boolean contextHlp	= false; // The time to show  the contextual help
 
-	private final LinkedList<PolyBox>	polyBoxList	= new LinkedList<>();
-	private final LinkedList<Box>		boxBaseList	= new LinkedList<>();
-	private final LinkedList<Box>		boxHelpList	= new LinkedList<>();
+	private	  final LinkedList<PolyBox>	polyBoxList	= new LinkedList<>();
+	protected final LinkedList<Box>		boxBaseList	= new LinkedList<>();
+	private	  final LinkedList<Box>		boxHelpList	= new LinkedList<>();
 	protected Box	  hoverBox;
 	protected Box	  prevHover;
 	protected PolyBox hoverPolyBox;
 	protected PolyBox prevPolyBox;
-//	protected Shape	  prevHover; // TODO BR: REMOVE
+	protected boolean hoverChanged, newKeyModifier;
+	protected String  tooltipText = "";
+	protected String  preTipTxt   = "";
 
 	LinkedList<InterfaceParam> paramList;
 	LinkedList<InterfaceParam> duplicateList;
@@ -356,45 +358,31 @@ public abstract class BaseModPanel extends BasePanel
 	@Override public void mouseDragged(MouseEvent e)	{  }
 	@Override public void mouseMoved(MouseEvent e)		{
 		checkModifierKey(e);		
-		int x = e.getX();
-		int y = e.getY();
+		mX = e.getX();
+		mY = e.getY();
 		prevHover		= hoverBox;
 		prevPolyBox		= hoverPolyBox;
 		hoverPolyBox	= null;
 		hoverBox		= null;
-//		prevHover		= hoverBox;
-//		hoverPolyBox	= null;
-//		hoverBox		= null;
 
 		for (Box box : boxBaseList)
-			if (box.contains(x,y)) {
+			if (box.contains(mX,mY)) {
 				hoverBox = box;
 				break;
 			}
 		if (hoverBox != prevHover) {
-//			if(hoverBox != null) { // TODO BR: LATER Mouse Moved text management
-//			hoverBox.mouseEnter();
-//			repaint(hoverBox);
-//		}
-//		if(prevHover != null) {
-//			prevHover.mouseExit();
-//			repaint(prevHover);
-//		}
 			loadGuide();
 			repaint();
 			return;
 		}
 		for (PolyBox box : polyBoxList)
-				if (box.contains(x,y)) {
+				if (box.contains(mX,mY)) {
 					hoverPolyBox = box;
 					break;
 				}
 		if (hoverPolyBox != prevPolyBox) {
 			repaint();
 		}
-//		if (hoverPolyBox != prevHover) { // TODO BR: REMOVE
-//			repaint();
-//		}
 	}
 	@Override public void keyPressed(KeyEvent e)		{
 		checkModifierKey(e);		
@@ -448,9 +436,9 @@ public abstract class BaseModPanel extends BasePanel
 		// ========== Constructors ==========
 		//
 		public Box()				{ addToList(); }
-		public Box(boolean add)		{ if (add) addToList(); }
+		private Box(boolean add)		{ if (add) addToList(); }
 		Box(ModText modText)		{
-			this(false);
+			this(true);
 			boxHelpList.add(this);
 			this.modText = modText;
 		}
@@ -475,6 +463,25 @@ public abstract class BaseModPanel extends BasePanel
 		void mouseBoxIndex(int idx)			 { mouseBoxIndex = idx; }
 		// ========== Doers ==========
 		//
+		public boolean checkIfHovered() {
+			if (contains(mX,mY)) {
+				hoverBox = this;
+				tooltipText = getDescription();
+				hoverChanged = (hoverBox != prevHover);
+				if (hoverChanged) {
+					mouseEnter();
+					tooltipText = getDescription();
+					loadGuide();
+					if (prevHover != null) {
+						prevHover.mouseExit();
+						repaint(prevHover);
+					}
+					repaint();					
+				}
+				return true;
+			}
+			return false;
+		}
 		public void mouseEnter() {
 			if (modText != null)
 				modText.mouseEnter();
@@ -485,13 +492,6 @@ public abstract class BaseModPanel extends BasePanel
 		}
 		// ========== Getters ==========
 		//
-		public String getToolTip()		 {
-			String tip = getParamToolTip();
-			if (tip.isEmpty())
-				return getLabelToolTip();
-			else
-				return tip;
-		}
 		public String getDescription()		 {
 			String desc = getParamDescription();
 			if (desc.isEmpty())
@@ -521,18 +521,15 @@ public abstract class BaseModPanel extends BasePanel
 				return guide;
 		}
 		public 	int	   mouseBoxIndex()		 { return mouseBoxIndex; }
-		private String getLabelToolTip()	 { return InterfaceParam.langDesc(label); }
 		private String getLabelDescription() { return InterfaceParam.langDesc(label); }
 		private String getLabelHelp()		 { return InterfaceParam.langHelp(label); }
-		private String getParamToolTip() 	 {
-			if (param == null)
-				return "";
-			return param.getToolTip();
-		}
 		private String getParamDescription() {
 			if (param == null)
 				return "";
-			return param.getGuiDescription();
+			String desc = param.getGuiDescription();
+			if (desc == null || desc.isEmpty())
+				return param.getToolTip();
+			return desc;
 		}
 		private String getParamHelp()	 {
 			if (param == null)
@@ -557,7 +554,7 @@ public abstract class BaseModPanel extends BasePanel
 	}
 	public class ModText extends BaseText {
 
-		private final Box box = new Box(true); // TODO BR: class ModText new Box(false); true?
+		private final Box box;
 
 		/**
 		* @param p		BasePanel
@@ -577,6 +574,7 @@ public abstract class BaseModPanel extends BasePanel
 		public ModText(BasePanel p, boolean logo, int fSize, int x1, int y1, Color c1, Color c2, Color c3, Color c4,
 				Color c5, int i1, int i2, int i3) {
 			super(p, logo, fSize, x1, y1, c1, c2, c3, c4, c5, i1, i2, i3);
+			box = new Box(this);
 		}
 		public ModText initGuide(InterfaceParam param)	 { box.initGuide(param); return this; }
 		ModText initGuide(String label)			 { box.initGuide(label); return this; }
