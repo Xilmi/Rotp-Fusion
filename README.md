@@ -31,6 +31,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 - Made a better use of Enum for button guide.
 - Moved buttons param to their right place.
 - Made BaseModPanel ready for custom Race Panel full integration.
+- Optimized the mouse events management in compact option menus.
 
 2023.04.22 (BR)
 - Completed the Guide for Static Options.

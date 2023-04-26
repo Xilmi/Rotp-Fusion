@@ -78,7 +78,7 @@ public abstract class BaseModPanel extends BasePanel
 	public	  static int	 guideFontSize;
 	public	  static boolean autoGuide	= false; // To disable automated Guide
 	public	  static boolean dialGuide	= false; // To disable automated Guide on dialog list
-	public	  static boolean contextHlp	= false; // The time to show  the contextual help
+	private	  static boolean contextHlp	= false; // The time to show  the contextual help
 
 	private	  final LinkedList<PolyBox>	polyBoxList	= new LinkedList<>();
 	protected final LinkedList<Box>		boxBaseList	= new LinkedList<>();
@@ -86,10 +86,10 @@ public abstract class BaseModPanel extends BasePanel
 	protected Box	  hoverBox;
 	protected Box	  prevHover;
 	protected PolyBox hoverPolyBox;
-	protected PolyBox prevPolyBox;
-	protected boolean hoverChanged, newKeyModifier;
-	protected String  tooltipText = "";
-	protected String  preTipTxt   = "";
+	private	  PolyBox prevPolyBox;
+	protected boolean hoverChanged;
+	protected JTextPane toolTipBox;
+
 
 	LinkedList<InterfaceParam> paramList;
 	LinkedList<InterfaceParam> duplicateList;
@@ -97,19 +97,19 @@ public abstract class BaseModPanel extends BasePanel
 	
 	public GuidePopUp guidePopUp;
 
-	public static final ParamButtonHelp userButtonHelp = new ParamButtonHelp( // For Help Do not add the list
+	private static final ParamButtonHelp userButtonHelp = new ParamButtonHelp( // For Help Do not add the list
 			"SETTINGS_BUTTON_USER",
 			setGlobalUserKey,
 			setLocalUserKey,
 			saveGlobalUserKey,
 			saveLocalUserKey);
-	public static final ParamButtonHelp lastButtonHelp = new ParamButtonHelp( // For Help Do not add the list
+	private static final ParamButtonHelp lastButtonHelp = new ParamButtonHelp( // For Help Do not add the list
 			"SETTINGS_BUTTON_LAST",
 			setGlobalLastKey,
 			setLocalLastKey,
 			setGlobalGameKey,
 			setLocalGameKey);
-	public static final ParamButtonHelp defaultButtonHelp = new ParamButtonHelp( // For Help Do not add the list
+	private static final ParamButtonHelp defaultButtonHelp = new ParamButtonHelp( // For Help Do not add the list
 			"SETTINGS_BUTTON_DEFAULT",
 			setGlobalDefaultKey,
 			setLocalDefaultKey,
@@ -130,9 +130,6 @@ public abstract class BaseModPanel extends BasePanel
 		guidePopUp.init();
 	}
 	protected abstract String GUI_ID();
-
-	public static int fontSize()	{ return guideFontSize; }
-
 	private void localInit(Graphics2D g) {
 		Font prevFont = g.getFont();
 		g.setFont(smallButtonFont);
@@ -422,13 +419,13 @@ public abstract class BaseModPanel extends BasePanel
 			return;
 		guidePopUp.paintGuide(g);
 	}
-	protected void clearGuide()							{
+	private void clearGuide()							{
 		guidePopUp.clear();
 		contextHlp = false;
 	}
 	// ========== Sub Classes ==========
 	//
-	public class Box extends Rectangle {
+	class Box extends Rectangle {
 		private InterfaceParam	param;
 		private String			label;
 		private ModText         modText;
@@ -436,8 +433,8 @@ public abstract class BaseModPanel extends BasePanel
 		// ========== Constructors ==========
 		//
 		public Box()				{ addToList(); }
-		private Box(boolean add)		{ if (add) addToList(); }
-		Box(ModText modText)		{
+		private Box(boolean add)	{ if (add) addToList(); }
+		private Box(ModText modText){
 			this(true);
 			boxHelpList.add(this);
 			this.modText = modText;
@@ -456,21 +453,21 @@ public abstract class BaseModPanel extends BasePanel
 			this(param);
 			mouseBoxIndex(mouseBoxIndex);
 		}
-		void addToList() 					 { boxBaseList.add(this); }
-		void initGuide(String label)		 { this.label = label; }
-		void initGuide(InterfaceParam param) { this.param = param; }
-		InterfaceParam param()	 			 { return param; }
-		void mouseBoxIndex(int idx)			 { mouseBoxIndex = idx; }
+		private void addToList() 					 { boxBaseList.add(this); }
+		private void initGuide(String label)		 { this.label = label; }
+		private void initGuide(InterfaceParam param) { this.param = param; }
+		InterfaceParam param()	 					 { return param; }
+		private void mouseBoxIndex(int idx)			 { mouseBoxIndex = idx; }
 		// ========== Doers ==========
 		//
-		public boolean checkIfHovered() {
+		boolean checkIfHovered() {
 			if (contains(mX,mY)) {
 				hoverBox = this;
-				tooltipText = getDescription();
+				toolTipBox.setText(getDescription());
 				hoverChanged = (hoverBox != prevHover);
 				if (hoverChanged) {
 					mouseEnter();
-					tooltipText = getDescription();
+					toolTipBox.setText(getDescription());
 					loadGuide();
 					if (prevHover != null) {
 						prevHover.mouseExit();
@@ -482,11 +479,11 @@ public abstract class BaseModPanel extends BasePanel
 			}
 			return false;
 		}
-		public void mouseEnter() {
+		void mouseEnter() {
 			if (modText != null)
 				modText.mouseEnter();
 		}
-		public void mouseExit() {
+		void mouseExit() {
 			if (modText != null)
 				modText.mouseExit();
 		}
@@ -494,34 +491,42 @@ public abstract class BaseModPanel extends BasePanel
 		//
 		public String getDescription()		 {
 			String desc = getParamDescription();
-			if (desc.isEmpty())
-				return getLabelDescription();
-			else
-				return desc;
+			if (desc == null || desc.isEmpty()) {
+				desc = getLabelDescription();
+				if (desc == null)
+					return "";
+			}
+			return desc;
 		}
 		private String getFullHelp()		 {
 			String help = getParamFullHelp();
-			if (help.isEmpty())
-				return getLabelHelp();
-			else
-				return help;
+			if (help == null || help.isEmpty()) {
+				help = getLabelHelp();
+				if (help == null)
+					return "";
+			}
+			return help;
 		}
 		String getHelp()					 {
 			String help = getParamHelp();
-			if (help.isEmpty())
-				return getLabelHelp();
-			else
-				return help;
+			if (help == null || help.isEmpty()) {
+				help = getLabelHelp();
+				if (help == null)
+					return "";
+			}
+			return help;
 		}
-		String getGuide()					 {
+		private String getGuide()					 {
 			String guide = getParamGuide();
-			if (guide.isEmpty())
-				return getLabelHelp();
-			else
-				return guide;
+			if (guide == null || guide.isEmpty()) {
+				guide = getLabelHelp();
+				if (guide == null)
+					return "";
+			}
+			return guide;
 		}
 		public 	int	   mouseBoxIndex()		 { return mouseBoxIndex; }
-		private String getLabelDescription() { return InterfaceParam.langDesc(label); }
+		String getLabelDescription()		 { return InterfaceParam.langDesc(label); }
 		private String getLabelHelp()		 { return InterfaceParam.langHelp(label); }
 		private String getParamDescription() {
 			if (param == null)
@@ -577,14 +582,14 @@ public abstract class BaseModPanel extends BasePanel
 			box = new Box(this);
 		}
 		public ModText initGuide(InterfaceParam param)	 { box.initGuide(param); return this; }
-		ModText initGuide(String label)			 { box.initGuide(label); return this; }
+		public ModText initGuide(String label)			 { box.initGuide(label); return this; }
 		Box box() {
 			box.setBounds(bounds());
 			return box;
 		}
 	}
 	// ===============================================================================
-	public class GuidePopUp {
+	private class GuidePopUp {
 		private static final int FONT_SIZE	= 16;
 		private final int maxWidth      = scaled(400);
 		private final Color guideColor	= GameUI.setupFrame();
@@ -623,12 +628,7 @@ public abstract class BaseModPanel extends BasePanel
 			init(dest);
 		}
 		private void setFullHelp(boolean full)	{ fullHelp = full; }
-		public  void setDest(Rectangle dest, String text, Graphics g0)	{
-			setFullHelp(false);
-			setText(text);
-			setDest(dest);
-		}
-		boolean setDest(Box dest, boolean fullHelp, Graphics g0)		{
+		private boolean setDest(Box dest, boolean fullHelp, Graphics g0)		{
 			if (dest == null)
 				return false;
 			String txt;
@@ -645,14 +645,14 @@ public abstract class BaseModPanel extends BasePanel
 		}
 		// ========== Shared Methods ==========
 		//
-	    void setVisible()		{
+	    private void setVisible()		{
 	    	if(pane.isVisible())
 	    		return;
 			border.setVisible(true);
 			margin.setVisible(true);
 	    	pane.setVisible(true);
 	    }
-	    void hide()				{
+	    private void hide()				{
 	    	border.setVisible(false);
 	    	margin.setVisible(false);
 	    	pane.setVisible(false);
