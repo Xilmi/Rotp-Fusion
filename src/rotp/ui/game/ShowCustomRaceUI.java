@@ -23,7 +23,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -37,7 +36,6 @@ import rotp.model.game.IGameOptions;
 import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
-import rotp.ui.game.BaseModPanel.Box;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.races.RacesUI;
 import rotp.ui.util.ListDialog;
@@ -684,7 +682,6 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		// Go thru the guide and restore the boxes
 		Box	  hover = hoverBox;
 		Box prev  = prevHover;
-//		Shape prev  = prevHover; // TODO BR: Remove
 		super.mouseMoved(e);
 		hoverBox  = hover;
 		prevHover = prev;

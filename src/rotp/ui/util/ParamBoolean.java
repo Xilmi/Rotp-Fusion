@@ -17,7 +17,6 @@
 package rotp.ui.util;
 
 import static rotp.ui.util.InterfaceParam.labelFormat;
-import static rotp.ui.util.InterfaceParam.langLabel;
 import static rotp.ui.util.InterfaceParam.realLangLabel;
 import static rotp.ui.util.InterfaceParam.rowFormat;
 import static rotp.ui.util.InterfaceParam.rowsSeparator;
@@ -75,7 +74,7 @@ public class ParamBoolean extends AbstractParam<Boolean> {
 	// ===== Other Methods =====
 	//
 	public	void	toggle()				{ next(); }
-	private	String	valueHelp(boolean b)	{ // TODO BR:
+	private	String	valueHelp(boolean b)	{
 		String label = getLangLabel();
 		label += b ? "_YES" : "_NO";
 		return realLangLabel(label);

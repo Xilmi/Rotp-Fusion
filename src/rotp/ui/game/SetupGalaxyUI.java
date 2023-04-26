@@ -237,9 +237,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 					+ "&ensp /&ensp " + race.description4;
 			return help;
 		}
-//		@Override public String valueGuide(int id)	{ // TODO BR:
-//			return super.valueGuide(id);
-//		}
 	};
 	private final ParamList specificAbilities	= new ParamList( // For Guide
 			BASE_UI, "SPECIFIC_ABILITY", specificAbilitiesList,
@@ -265,9 +262,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 					+ "&ensp /&ensp " + race.description4;
 			return help;
 		}
-//		@Override public String valueGuide(int id)	{ // TODO BR:
-//			return super.valueGuide(id);
-//		}
 	};
 
 	private Box mergedStaticBox		= new Box("SETUP_GALAXY_COMPACT_OPTIONS"); // BR add UI panel for MOD game options
@@ -1974,16 +1968,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			prevSpecificOpponentAbilities(i, false);
 		postSelectionLight(false);
 	}
-//	private void nextOpponent(int i, boolean click) { // TODO BR:
-//		if (click) softClick();
-//		newGameOptions().nextOpponent(i);
-//		postSelectionLight(false);
-//	}
-//	private void prevOpponent(int i, boolean click) {
-//		if (click) softClick();
-//		newGameOptions().prevOpponent(i);
-//		postSelectionLight(false);
-//	}
 	private void toggleOpponent(int i, boolean click, boolean up, boolean mid) {
 		if (click) softClick();
 		if (mid)

@@ -105,7 +105,7 @@ public class DiplomaticNotification implements TurnNotification, Base {
     @Override
     public String displayOrder() { return incident == null ? DIPLOMATIC_MESSAGE : incident.displayOrder(); }
     @Override
-    public void notifyPlayer()   { // BR: TODO Annoying warnings
+    public void notifyPlayer()   {
     	// BR: Test if this warning is allowed.
     	// System.out.println("Diplomatic Notification: type = " + type);
     	switch (type) {
