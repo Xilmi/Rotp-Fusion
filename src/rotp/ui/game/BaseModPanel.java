@@ -589,7 +589,7 @@ public abstract class BaseModPanel extends BasePanel
 		}
 	}
 	// ===============================================================================
-	private class GuidePopUp {
+	public class GuidePopUp {
 		private static final int FONT_SIZE	= 16;
 		private final int maxWidth      = scaled(400);
 		private final Color guideColor	= GameUI.setupFrame();
@@ -628,7 +628,12 @@ public abstract class BaseModPanel extends BasePanel
 			init(dest);
 		}
 		private void setFullHelp(boolean full)	{ fullHelp = full; }
-		private boolean setDest(Box dest, boolean fullHelp, Graphics g0)		{
+		public  void setDest(Rectangle dest, String text, Graphics g0)	{
+			setFullHelp(false);
+			setText(text);
+			setDest(dest);
+		}
+		private boolean setDest(Box dest, boolean fullHelp, Graphics g0){
 			if (dest == null)
 				return false;
 			String txt;

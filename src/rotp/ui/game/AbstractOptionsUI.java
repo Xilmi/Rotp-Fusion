@@ -484,6 +484,19 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 			repaint();
 		}
 	}
+	@Override public void mouseEntered(MouseEvent e)	{
+		for (int i=0; i<activeList.size(); i++) {
+			if (hoverBox == btList.get(i).box()) {	
+				btList.get(i).repaint(activeList.get(i).getGuiDisplay());
+				if (autoGuide) {
+					loadGuide();
+					repaint();
+				}
+				return;
+			}			
+		}
+	}
+
 	@Override public void mouseWheelMoved(MouseWheelEvent e) {
 		checkModifierKey(e);
 		boolean shiftPressed = e.isShiftDown();

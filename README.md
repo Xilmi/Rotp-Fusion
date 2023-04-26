@@ -32,6 +32,8 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 - Moved buttons param to their right place.
 - Made BaseModPanel ready for custom Race Panel full integration.
 - Optimized the mouse events management in compact option menus.
+- Removed redundancies and useless code in compact option menus.
+- Fixed little guide glitch in Classic option menus.
 
 2023.04.22 (BR)
 - Completed the Guide for Static Options.
