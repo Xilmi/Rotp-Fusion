@@ -384,12 +384,10 @@ public abstract class BaseModPanel extends BasePanel
 			repaint();
 		}
 	}
-	@Override public void keyReleased(KeyEvent e)	 { if(checkModifierKey(e)) repaintButtons(); }
+	@Override public void keyReleased(KeyEvent e)	 { checkModifierKey(e); }
 	@Override public void keyPressed(KeyEvent e)	 {
-		if(checkModifierKey(e))
-			repaintButtons();
-		int k = e.getKeyCode();
-		switch(k) {
+		checkModifierKey(e);
+		switch(e.getKeyCode()) {
 			case KeyEvent.VK_F1:
 				if (showContextualHelp())
 					return;

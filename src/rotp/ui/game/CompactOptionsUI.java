@@ -461,7 +461,6 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	}
 	@Override public void keyReleased(KeyEvent e)		{
 		if(checkModifierKey(e)) {
-			repaintButtons();
 			if(hoverBox != null) {
 				descBox.setText(hoverBox.getDescription());
 				descBox.validate();
@@ -470,7 +469,6 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	}
 	@Override public void keyPressed(KeyEvent e)		{
 		if(checkModifierKey(e)) {
-			repaintButtons();
 			if(hoverBox != null) {
 				descBox.setText(hoverBox.getDescription());
 				descBox.validate();
