@@ -86,7 +86,7 @@ public class ParamBoolean extends AbstractParam<Boolean> {
 				help = "Enable this option.";
 			else
 				help = "Disable this option.";
-		return rowFormat(labelFormat(yesOrNo(b)), "<br>" + help);
+		return rowFormat(labelFormat(yesOrNo(b)), help);
 	}
 	private String	getTableHelp()			{
 		String rows = getRowHelp(true);

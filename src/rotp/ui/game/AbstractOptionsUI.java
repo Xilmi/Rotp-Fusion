@@ -414,10 +414,8 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 		hoverBox	 = null;
 		hoverChanged = true;
 		for (Box box : boxBaseList)
-			if (box.checkIfHovered()) {
-				System.out.println("mouseMoved " + hoverBox);
+			if (box.checkIfHovered())
 				break;
-			}
 		if (prevHover != null) {
 			prevHover.mouseExit();
 			loadGuide();

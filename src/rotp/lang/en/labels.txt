@@ -425,6 +425,12 @@ GAME_SETTINGS_AUTOBOMBARD_NEVER   | Never
 GAME_SETTINGS_AUTOBOMBARD_YES     | Always
 GAME_SETTINGS_AUTOBOMBARD_WAR     | Only War
 GAME_SETTINGS_AUTOBOMBARD_INVADE  | Only War and not Invading
+GAME_SETTINGS_AUTOBOMBARD_NO_HELP     | No automation! Always ask for fresh orders!
+GAME_SETTINGS_AUTOBOMBARD_NEVER_HELP  | No automation! Always ask for fresh orders!
+GAME_SETTINGS_AUTOBOMBARD_YES_HELP    | The galaxy is ours! Repels the weaklings and claim our due!
+GAME_SETTINGS_AUTOBOMBARD_WAR_HELP    | Annihilate our declared enemies, seek advice for other empires!
+GAME_SETTINGS_AUTOBOMBARD_INVADE_HELP | Annihilate our declared enemies if no invasion is planned, seek advise otherwise.
+GAME_SETTINGS_AUTOBOMBARD_HELP    | What should be done when your you have armed fleet orbiting an alien empire? Should we bombard them or leave them alone?
 GAME_SETTINGS_AUTOBOMBARD_DESC    | Toggle to always prompt to bombard, never bombard, always bombard, only auto-bombard when at war, or only auto-bombard when at war with no invasion forces en route. 
 GAME_SETTINGS_BACKUP_OFF          | Off
 GAME_SETTINGS_BACKUP_ON           | Every %1 turns
@@ -1296,16 +1302,23 @@ SETUP_DIFFICULTY_HARDER_HELP      | Harder (125%)
 SETUP_DIFFICULTY_HARDEST_HELP     | Hardest (145%)
 SETUP_DIFFICULTY_CUSTOM_HELP      | This value is set by the option <b>Custom Difficulty</b> which can be found either:<br>&ensp - at the top left of "Dynamic A" (6 option buttons)<br>&ensp - or at the top Left of "Dynamic Options" (2 option buttons)
 
+SETUP_RESEARCH_RATE_NORMAL_HELP   | Research costs factors = 1.
 SETUP_RESEARCH_RATE_NORMAL        | Normal
 // mondar: add fast research option
+SETUP_RESEARCH_RATE_FAST_HELP     | Research costs factors:<br>75% at level 2;&ensp 65% at level 6;&ensp 60% at level 8;<br>55% at level 20;&ensp 52% at level 50;&ensp 51% at level 100.
 SETUP_RESEARCH_RATE_FAST          | Fast
+SETUP_RESEARCH_RATE_SLOW_HELP     | Research costs factors:<br>115% at level 2;&ensp 2 at level 12;&ensp 2.5 at level 20;<br>3 at level 28&ensp 4 at level 50;&ensp 6 at level 100.
 SETUP_RESEARCH_RATE_SLOW          | Slow
+SETUP_RESEARCH_RATE_SLOWER_HELP   | Research costs factors:<br>120% at level 2;&ensp 2.5 at level 10;&ensp 4 at level 20;<br>5 at level 29&ensp 7 at level 50;&ensp 10 at level 100.
 SETUP_RESEARCH_RATE_SLOWER        | Slower
+SETUP_RESEARCH_RATE_SLOWESTHELP  | Research costs factors:<br>125% at level 2;&ensp 5 at level 11;&ensp 8 at level 20;<br>10 at level 26&ensp 16 at level 51;&ensp 25 at level 100.
 SETUP_RESEARCH_RATE_SLOWEST       | Slowest
 SETUP_TECH_TRADING_YES            | Yes
 SETUP_TECH_TRADING_ALLIES         | Allies Only
 SETUP_TECH_TRADING_NO             | No
+SETUP_WARP_SPEED_NORMAL_HELP      | Warp Seep progression: 1, 2, 3, 4, 5,  6,  7,  8,  9
 SETUP_WARP_SPEED_NORMAL           | Normal
+SETUP_WARP_SPEED_FAST_HELP        | Warp Seep progression: 1, 2, 3, 5, 7, 10, 13, 17, 21
 SETUP_WARP_SPEED_FAST             | Fast
 SETUP_NEBULA_NONE                 | None
 SETUP_NEBULA_RARE                 | Rare
@@ -1323,6 +1336,9 @@ SETUP_NEBULA_FREQUENT_HELP        | Quadruple the nebula occurence.
 SETUP_COUNCIL_NONE                | No Council
 SETUP_COUNCIL_IMMEDIATE           | Immediate
 SETUP_COUNCIL_REBELS              | Allow Rebels
+SETUP_COUNCIL_NONE_HELP           | No Council! the only way to win is by destroying all the other empires!
+SETUP_COUNCIL_IMMEDIATE_HELP      | Once two-thirds of the galaxy has been colonized, councils will pop up every 25 years to hold elections. If you win, every one will agree you are the best!
+SETUP_COUNCIL_REBELS_HELP         | Once two-thirds of the galaxy has been colonized, councils will pop up every 25 years to hold elections. If you win, some of your worst enemies may refuse to follow you, and will start a rebellion: The final War!!!
 SETUP_STAR_DENSITY_LOWEST         | Lowest
 SETUP_STAR_DENSITY_LOWER          | Lower
 SETUP_STAR_DENSITY_LOW            | Low
@@ -1354,10 +1370,15 @@ SETUP_PLANET_QUALITY_MEDIOCRE     | Mediocre
 SETUP_PLANET_QUALITY_NORMAL       | Normal
 SETUP_PLANET_QUALITY_GOOD         | Good
 SETUP_PLANET_QUALITY_GREAT        | Great
+SETUP_TERRAFORMING_NORMAL_HELP    | Terraforming technologies work at 100% on hostile planets.
 SETUP_TERRAFORMING_NORMAL         | Normal
+SETUP_TERRAFORMING_REDUCED_HELP   | Improved Terraforming technologies that increase the size of your planets will only have half effectiveness on Hostile planets,  until you've applied Atmosphere Terraforming to remove the Hostile trait.
 SETUP_TERRAFORMING_REDUCED        | Reduced
+SETUP_TERRAFORMING_NONE_HELP      | Improved Terraforming technologies that increase the size of your planets will no affect Hostile planets,  until you've applied Atmosphere Terraforming to remove the Hostile trait.
 SETUP_TERRAFORMING_NONE           | None
+SETUP_COLONIZING_NORMAL_HELP      | Any special colony base can colonize a planet of that hostility or lower on the "hierarchy of hostilities" from Barren to Irradiated.
 SETUP_COLONIZING_NORMAL           | Normal
+SETUP_COLONIZING_RESTRICTED_HELP  |  Hostile environment will need a colony base of that specific type. Now the Irradiated Colony Base you'll need to settle the most hostile of planets is no longer the be-all and end-all of colony bases.
 SETUP_COLONIZING_RESTRICTED       | Restricted
 SETUP_FUEL_RANGE_CUT              | Cut
 SETUP_FUEL_RANGE_LOW              | Low
@@ -1365,13 +1386,19 @@ SETUP_FUEL_RANGE_NORMAL           | Normal
 SETUP_FUEL_RANGE_HIGH             | High
 SETUP_FUEL_RANGE_HIGHER           | Higher
 SETUP_FUEL_RANGE_HIGHEST          | Highest
-SETUP_RANDOMIZE_AI_NONE_DESC      | To disable this option. But will not disable any randomization on the Galaxy Menu.
+SETUP_FUEL_RANGE_CUT_HELP         | Fuel range factor = 2/3.
+SETUP_FUEL_RANGE_LOW_HELP         | Fuel range factor = 80%.
+SETUP_FUEL_RANGE_NORMAL_HELP      | Fuel range factor = 1.
+SETUP_FUEL_RANGE_HIGH_HELP        | Fuel range factor = 2.
+SETUP_FUEL_RANGE_HIGHER_HELP      | Fuel range factor = 3.
+SETUP_FUEL_RANGE_HIGHEST_HELP     | Fuel range factor = 5.
+SETUP_RANDOMIZE_AI_NONE_HELP      | To disable this option. But will not disable any randomization on the Galaxy Menu.
 SETUP_RANDOMIZE_AI_NONE           | None
-SETUP_RANDOMIZE_AI_PERSONALITY_DESC | Only the AI personality will be afected by this option, but the Galaxy Menu options may override this, and some AI will ignore all personality option!
+SETUP_RANDOMIZE_AI_PERSONALITY_HELP | Only the AI personality will be afected by this option, but the Galaxy Menu options may override this, and some AI will ignore all personality option!
 SETUP_RANDOMIZE_AI_PERSONALITY    | Personality
-SETUP_RANDOMIZE_AI_ABILITY_DESC   | Only the AI ability will be afected by this option, but the Galaxy Menu options may override it!
+SETUP_RANDOMIZE_AI_ABILITY_HELP   | Only the AI ability will be afected by this option, but the Galaxy Menu options may override it!
 SETUP_RANDOMIZE_AI_ABILITY        | Ability
-SETUP_RANDOMIZE_AI_BOTH_DESC      | This option will try to change both the AI personality and the AI ability... Only if the Galaxy Menu options don't override it!
+SETUP_RANDOMIZE_AI_BOTH_HELP      | This option will try to change both the AI personality and the AI ability... Only if the Galaxy Menu options don't override it!
 SETUP_RANDOMIZE_AI_BOTH           | Both
 SETUP_RACE_LABEL                  | Available Races
 SETUP_RACE_COLOR                  | Empire Color:
@@ -1689,18 +1716,24 @@ SETTINGS_WARP_SPEED_DESC          | Increase the speed of more advanced warp tec
 SETTINGS_GALAXY_AGE_DESC          | Compared to normal galaxies, young galaxies have more white and blue stars while old galaxies have more red and neutron stars.
 SETTINGS_TECH_TRADING_DESC        | Turn off all technology trades or restrict these trades to allies.
 SETTINGS_STAR_DENSITY_DESC        | Set to high to reduce the chance of empires being stranded early in the game.
+SETTINGS_RESEARCH_RATE_HELP       | If you like savoring your new technologies, if you want to delay being distracted by science's newest shinies, you can slow the rate of research
 SETTINGS_RESEARCH_RATE_DESC       | Slow the research rate of new technologies, lengthening the useful life of current technologies.<br> [Asymptotic in modnar MOD]
 SETTINGS_NEBULAE_DESC             | Nebulae slow down ship travel and render shields useless. Increase or decrease their frequency.
 // modnar: change PLANET_QUALITY settings, only Normal, Larger, and Richer
 SETTINGS_PLANET_QUALITY_DESC      | [modnar MOD: "Larger" gives +50% Planet Size, +20% Poor, -20% Rich;<br> "Richer" gives -20% Planet Size, -20% Poor, +50% Rich, +50% Artifact.]
 //SETTINGS_PLANET_QUALITY_DESC    | Increases or decreases the frequency of higher quality planets.
+SETTINGS_TERRAFORMING_HELP        | When this is set to Normal, once you've colonized a Hostile planet with the required colony base, the only difference from non-Hostile planets is a 50% penalty to population growth. This can be removed with Atmospheric Terraforming, at which points the Hostile trait is removed and the colony is like any other environment. But if you'd like your Hostile planets to have more bite, put this setting on Reduced. Now the Improved Terraforming
+technologies that increase the size of your planets will only have half effectiveness on Hostile planets. For instance, the first step of Improved Terraforming lets you add +10 to a planet's size to represent more hospitable conditions. But with this setting at Reduced, a Hostile planet will only get +5 size. And if you want really hostile Hostile planets, put this setting on None. Now you can't apply any terraforming size upgrades until you've applied Atmosphere Terraforming to remove the Hostile trait.
 SETTINGS_TERRAFORMING_DESC        | Reduce or eliminate the benefits of the Improved Terraforming technologies on hostile planets.
+SETTINGS_COLONIZING_HELP          |  By default, any special colony base can colonize a planet of that hostility or lower on the "hierarchy of hostilities" from Barren to Irradiated. But if you set this to Restricted, a Hostile environment will need a colony base of that specific type. Now the Irradiated Colony Base you'll need to settle the most hostile of planets is no longer the be-all and end-all of colony bases.
 SETTINGS_COLONIZING_DESC          | Restrict the colonization of systems to only those for which you have acquired the specific technology.
+SETTINGS_COUNCIL_WIN_HELP         | This determines whether factions can reject a council victory, or whether one is even possible.
 SETTINGS_COUNCIL_DESC             | Disable the council victory condition or allow enemy empires to rebel against a player victory.
 SETTINGS_RANDOMIZE_AI_HELP        | Original "Advanced Option" to Randomize the AI played personalities, racial abilities, or both.<br><i>In case of conflict with the selected abilities in the Galaxy menu, The Galaxy menu win.</i>
 SETTINGS_RANDOMIZE_AI_DESC        | Randomize the AI player personalities, racial abilities, or both.
 SETTINGS_AUTOPLAY_DESC            | Completely automate the game by having an AI play for the player.<br> This is useful for a first-hand view of how the AI works.
 SETTINGS_AUTOPLAY_WARNING         | Warning! Autoplay is currently enabled which will prevent user gameplay.<br> Use "Advanced Options" to disable.
+SETTINGS_FUEL_RANGE_HELP          | Increase or decrease the range of fuel range technologies and reserve fuel tanks. tolerant species will benefit from reduced ranges, while fast growing species will appreciate increased ranges...
 SETTINGS_FUEL_RANGE_DESC          | Increase the range of fuel range technologies and reserve fuel tanks.
 SETTINGS_AI_HOSTILITY_DESC        | Increase or decrease the general level of hostility between alien races.
 
@@ -1726,7 +1759,7 @@ HEADERS_GAME_OTHER_DESC           | Other Options. Can be changed dynamically.
 HEADERS_GAME_OTHER                | ~~~ OTHER OPTIONS ~~~%1
 HEADERS_GAME_COMBAT_DESC          | Options affecting attack and defense. Can be changed dynamically.
 HEADERS_GAME_COMBAT               | ~~~ COMBAT OPTIONS ~~~%1
-HEADERS_GAME_DIFFICULTYL_DESC     | Options affecting the game difficulty level. Can be changed dynamically.
+HEADERS_GAME_DIFFICULTY_DESC      | Options affecting the game difficulty level. Can be changed dynamically.
 HEADERS_GAME_DIFFICULTY           | ~~~ GAME DIFFICULTY ~~~%1
 HEADERS_RESTART_OPTIONS_HELP      | Hidden behind the&nbsp <b>Start</b>&nbsp button, using the&nbsp <b>Ctrl</b>&nbsp Key you will find the&nbsp <b>Restart</b>&nbsp button.<br>You will be asked to select an old played game to start a new one on the same galaxy.<br>- With the same opponents or new ones.<br>- With the same player race, a new one, or swapped with a previous opponent.<br> You can keep your home world or swapp it with a previous opponent.<br> The following options are controlling the way a game will be restarted.
 HEADERS_RESTART_OPTIONS_DESC      | Options controlling the way a game will be restarted. Only read when restarting a game.
@@ -1769,6 +1802,10 @@ SETTINGS_MOD_RETREAT_NONE            | None
 SETTINGS_MOD_RETREAT_AI              | AI
 SETTINGS_MOD_RETREAT_PLAYER          | Player
 SETTINGS_MOD_RETREAT_BOTH            | Both
+SETTINGS_MOD_RETREAT_NONE_HELP       | Everyone is allowed to retreat!
+SETTINGS_MOD_RETREAT_AI_HELP         | AI can't retreat that easily, but Player is allowed to do so!
+SETTINGS_MOD_RETREAT_PLAYER_HELP     | Player can't retreat that easily, but AI is allowed to do so!
+SETTINGS_MOD_RETREAT_BOTH_HELP       | Nobody can retreat that easily!
 SETTINGS_MOD_RETREAT_RESTRICTION_TURNS | Retreat restricted turns: %1
 SETTINGS_MOD_HOME_ARTIFACT           | Get Artifact HomeWorld: %1
 SETTINGS_MOD_HOME_FERTILE            | Get Fertile HomeWorld: %1
@@ -2013,6 +2050,15 @@ SETTINGS_MOD_BOMBING_TARGET_DESC         | Limited Bombing: Stop Bombing the pop
 SETTINGS_MOD_BOMBING_TARGET              | Bombing Limit: %1 pop
 SETTINGS_MOD_TARGET_BOMBARD_DESC         | Sets who is allowed to use Limited Bombing. (scroll the mouse wheel to change)
 SETTINGS_MOD_TARGET_BOMBARD              | Allow Limited Bombard: %1
+SETTINGS_MOD_TARGET_BOMBARD_NONE         | None
+SETTINGS_MOD_TARGET_BOMBARD_AI           | AI
+SETTINGS_MOD_TARGET_BOMBARD_PLAYER       | Player
+SETTINGS_MOD_TARGET_BOMBARD_BOTH         | Both
+SETTINGS_MOD_TARGET_BOMBARD_NONE_HELP    | Nobody is able to control its bombing... it's all or nothing!
+SETTINGS_MOD_TARGET_BOMBARD_AI_HELP      | AI is smart enough to control its bombing, but the Player is to slow do so!
+SETTINGS_MOD_TARGET_BOMBARD_PLAYER_HELP  | Player is smart enough to control its bombing, but AI is not allowed to do so!
+SETTINGS_MOD_TARGET_BOMBARD_BOTH_HELP    | Everyone is able to control their bombing.
+
 SETTINGS_MOD_FLAG_COLOR_COUNT_DESC       | How may colors should appear on the Star System Flag?
 SETTINGS_MOD_FLAG_COLOR_COUNT            | Flag Color Count: %1
 

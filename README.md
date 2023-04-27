@@ -29,6 +29,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 2023.04.27 (BR)
 - Fixed Classic option menu hovering color not showing (Since Guide introduction)
 - Optimized the hover loop for most setting menus.
+- Updated Dynamic option guide content.
 
 2023.04.24 (BR)
 - Fixed guide messing with option menu selection box display.

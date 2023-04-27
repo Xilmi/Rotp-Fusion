@@ -509,10 +509,8 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		hoverBox = null;
 		hoverChanged = true;
 		for (Box box : boxBaseList)
-			if (box.checkIfHovered(descBox)) {
-				System.out.println("mouseMoved " + hoverBox);
+			if (box.checkIfHovered(descBox))
 				break;
-			}
 		if (prevHover != null) {
 			prevHover.mouseExit();
 			if (hoverBox == null)
