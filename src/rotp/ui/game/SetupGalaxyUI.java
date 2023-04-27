@@ -924,7 +924,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		        dialogMonoFont(),				// Font
 		        this,							// for listener
 		        null,							// Alternate return
-		        null); 							// TODO BR: add help parameter
+		        null); 							// Help parameter
 
 		String input = (String) dialog.showDialog();
 	    if (input == null)
@@ -2539,20 +2539,10 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		g.fillRect(0, 0, w, h);
 		g.dispose();
 	}
-	@Override
-	public String ambienceSoundKey() { 
-		return GameUI.AMBIENCE_KEY;
-	}
-	@Override public void keyReleased(KeyEvent e) { checkModifierKey(e); }
-	@Override
-	public void keyPressed(KeyEvent e) {
+	@Override public String ambienceSoundKey()		{ return GameUI.AMBIENCE_KEY; }
+	@Override public void keyPressed(KeyEvent e)	{
 		super.keyPressed(e);
-		checkModifierKey(e);		
-		int k = e.getKeyCode();
-		switch(k) {
-//		case KeyEvent.VK_F1:
-//			showHelp();
-//			return;
+		switch(e.getKeyCode()) {
 		case KeyEvent.VK_ESCAPE:
 			doBackBoxAction();
 			return;
@@ -2566,8 +2556,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			return;
 		}
 	}
-	@Override
-	public void mouseReleased(MouseEvent e) { // BR: added full mouse control
+	@Override public void mouseReleased(MouseEvent e) { // BR: added full mouse control
 		if (e.getButton() > 3)
 			return;
 		if (hoverBox == null && hoverPolyBox == null)
@@ -2742,8 +2731,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			}
 		}
 	}
-	@Override
-	public void mouseWheelMoved(MouseWheelEvent e) {
+	@Override public void mouseWheelMoved(MouseWheelEvent e) {
 		boolean up = e.getWheelRotation() > 0;
 		if (hoverBox == shapeBox)  {
 			shapeSelection.toggle(e);

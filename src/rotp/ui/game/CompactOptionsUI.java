@@ -70,7 +70,8 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	private static final int bottomPad		= rowPad;
 	private static final int textBoxH		= settingH;
 	private static final int hDistSetting	= settingH + settingpadH; // distance between two setting top corner
-	private final Box exitBox	= new Box(exitKey);
+	private		   final Box exitBox		= new Box(exitKey);
+	private		   final JTextPane descBox	= new JTextPane();
 	private int leftM, rightM;
 	private int topM, yTop;
 	private int wBG, hBG;
@@ -128,11 +129,10 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	}
 	private void init_0() {
 		setOpaque(false);
-		toolTipBox	= new JTextPane();
-		add(toolTipBox);
-		toolTipBox.setOpaque(true);
-		toolTipBox.setContentType("text/html");
-		toolTipBox.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
+		add(descBox);
+		descBox.setOpaque(true);
+		descBox.setContentType("text/html");
+		descBox.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
 		addMouseListener(this);
 		addMouseMotionListener(this);
 		addMouseWheelListener(this);
@@ -239,9 +239,9 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		g.setStroke(prev);
 	}
 	private void paintDescriptions(Graphics2D g) {
-		toolTipBox.setFont(descFont);
-		toolTipBox.setBackground(GameUI.setupFrame());
-		toolTipBox.setBounds(xDesc, yDesc, descWidth, descHeigh);
+		descBox.setFont(descFont);
+		descBox.setBackground(GameUI.setupFrame());
+		descBox.setBounds(xDesc, yDesc, descWidth, descHeigh);
 	}
 	private void setValueColor(int index) {
 		ModText txt2 = btList2.get(index);
@@ -315,7 +315,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		super.init();
 		hoverBox = null;
 		prevHover = null;
-		toolTipBox.setVisible(true);
+		descBox.setVisible(true);
 		int hSettingTotal = hDistSetting * numRows;
 		hBG	= titlePad + hSettingTotal + descPadV + descHeigh + buttonPadV + smallButtonH + bottomPad;
 		hBG	= titlePad + hSettingTotal + descHeigh + buttonPadV + smallButtonH + bottomPad;
@@ -367,14 +367,14 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	        	RotPUI.instance().mainUI().map().resetRangeAreas();
 		}
 	}
-	@Override protected void doExitBoxAction() {
+	@Override protected void doExitBoxAction()		{
 		UserPreferences.save();
 		updateOptionsAndSaveToFileName(RotPUI.mergedGuiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 		if (parent == 0) // Sub UI should not change this
 			RotPUI.guiCallFromGame(false);
 		close();
 	}
-	@Override protected void doUserBoxAction() {
+	@Override protected void doUserBoxAction()		{
 		switch (ModifierKeysState.get()) {
 		case CTRL: // saveGlobalUserKey
 		case CTRL_SHIFT: // saveLocalUserKey
@@ -387,7 +387,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		}
 		super.doUserBoxAction();
 	}
-	@Override protected void doDefaultBoxAction() {
+	@Override protected void doDefaultBoxAction()	{
 		switch (ModifierKeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // cancelKey
@@ -399,7 +399,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		}
 		super.doDefaultBoxAction();
 	}
-	@Override protected void doLastBoxAction() {
+	@Override protected void doLastBoxAction()		{
 		buttonClick();
 		switch (ModifierKeysState.get()) {
 		case SHIFT: // setLocalLastKey
@@ -408,7 +408,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		}
 		super.doLastBoxAction();
 	}
-	@Override protected void refreshGui() {
+	@Override protected void refreshGui()	{
 		super.refreshGui();
 		for (int i=0; i<activeList.size(); i++) {
 			setValueColor(i);
@@ -417,14 +417,14 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		}
 		repaint();
 	}
-	@Override public void repaintButtons() {
+	@Override public void repaintButtons()	{
 		Graphics2D g = (Graphics2D) getGraphics();
 		setFontHints(g);
 		drawButtons(g);
 		g.dispose();
 	}
-	@Override protected String GUI_ID() { return GUI_ID; }
-	@Override public void paintComponent(Graphics g0) {
+	@Override protected String GUI_ID()		{ return GUI_ID; }
+	@Override public void paintComponent(Graphics g0)	{
 		super.paintComponent(g0);
 		Graphics2D g = (Graphics2D) g0;
 		// draw background "haze"
@@ -459,21 +459,21 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		drawButtons(g);
 		showGuide(g);		
 	}
-	@Override public void keyReleased(KeyEvent e) {
+	@Override public void keyReleased(KeyEvent e)		{
 		if(checkModifierKey(e)) {
 			repaintButtons();
 			if(hoverBox != null) {
-				toolTipBox.setText(hoverBox.getDescription());
-				toolTipBox.validate();
+				descBox.setText(hoverBox.getDescription());
+				descBox.validate();
 			}
 		}
 	}
-	@Override public void keyPressed(KeyEvent e) {
+	@Override public void keyPressed(KeyEvent e)		{
 		if(checkModifierKey(e)) {
 			repaintButtons();
 			if(hoverBox != null) {
-				toolTipBox.setText(hoverBox.getDescription());
-				toolTipBox.validate();
+				descBox.setText(hoverBox.getDescription());
+				descBox.validate();
 			}
 		}
 		super.keyPressed(e);
@@ -498,7 +498,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 			}			
 		}
 	}
-	@Override public void mouseMoved(MouseEvent e) {
+	@Override public void mouseMoved(MouseEvent e)		{
 		mX = e.getX();
 		mY = e.getY();
 		if (hoverBox != null && hoverBox.contains(mX,mY)) {
@@ -509,19 +509,19 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		hoverBox = null;
 		hoverChanged = true;
 		for (Box box : boxBaseList)
-			if (box.checkIfHovered()) {
+			if (box.checkIfHovered(descBox)) {
 				System.out.println("mouseMoved " + hoverBox);
 				break;
 			}
 		if (prevHover != null) {
 			prevHover.mouseExit();
 			if (hoverBox == null)
-				toolTipBox.setText("");
+				descBox.setText("");
 			loadGuide();
 			repaint();
 		}
 	}
-	@Override public void mouseReleased(MouseEvent e) {
+	@Override public void mouseReleased(MouseEvent e)	{
 		if (e.getButton() > 3)
 			return;
 		if (hoverBox == null)

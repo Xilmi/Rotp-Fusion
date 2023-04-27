@@ -88,8 +88,6 @@ public abstract class BaseModPanel extends BasePanel
 	protected PolyBox hoverPolyBox;
 	private	  PolyBox prevPolyBox;
 	protected boolean hoverChanged;
-	protected JTextPane toolTipBox;
-
 
 	LinkedList<InterfaceParam> paramList;
 	LinkedList<InterfaceParam> duplicateList;
@@ -348,19 +346,24 @@ public abstract class BaseModPanel extends BasePanel
 	}
 
 	// ---------- Events management
-	@Override public void mouseClicked(MouseEvent e)	{  }
-	@Override public void mousePressed(MouseEvent e)	{  }
-	@Override public void mouseEntered(MouseEvent e)	{  }
-	@Override public void mouseExited(MouseEvent e)		{ clearGuide(); }
-	@Override public void mouseDragged(MouseEvent e)	{  }
-	@Override public void mouseMoved(MouseEvent e)		{
-		checkModifierKey(e);		
+	@Override public void mouseClicked(MouseEvent e) {  }
+	@Override public void mousePressed(MouseEvent e) {  }
+	@Override public void mouseEntered(MouseEvent e) {  }
+	@Override public void mouseExited(MouseEvent e)	 { clearGuide(); }
+	@Override public void mouseDragged(MouseEvent e) {  }
+	@Override public void mouseMoved(MouseEvent e)	 {
+//		checkModifierKey(e);		
 		mX = e.getX();
 		mY = e.getY();
-		prevHover		= hoverBox;
-		prevPolyBox		= hoverPolyBox;
-		hoverPolyBox	= null;
-		hoverBox		= null;
+		if (hoverBox != null && hoverBox.contains(mX,mY)) {
+			hoverChanged = false;
+			return;
+		}
+		hoverChanged = true;
+		prevHover	 = hoverBox;
+		prevPolyBox	 = hoverPolyBox;
+		hoverPolyBox = null;
+		hoverBox	 = null;
 
 		for (Box box : boxBaseList)
 			if (box.contains(mX,mY)) {
@@ -381,8 +384,10 @@ public abstract class BaseModPanel extends BasePanel
 			repaint();
 		}
 	}
-	@Override public void keyPressed(KeyEvent e)		{
-		checkModifierKey(e);		
+	@Override public void keyReleased(KeyEvent e)	 { if(checkModifierKey(e)) repaintButtons(); }
+	@Override public void keyPressed(KeyEvent e)	 {
+		if(checkModifierKey(e))
+			repaintButtons();
 		int k = e.getKeyCode();
 		switch(k) {
 			case KeyEvent.VK_F1:
@@ -396,7 +401,7 @@ public abstract class BaseModPanel extends BasePanel
 		}
 	}
 	// ---------- Help management
-	protected void loadGuide()							{
+	protected void loadGuide()						 {
 		if (hoverBox == null) {
 			clearGuide();
 			return;
@@ -405,7 +410,7 @@ public abstract class BaseModPanel extends BasePanel
 			return;
 		guidePopUp.setDest(hoverBox, false, getGraphics());
 	}
-	private boolean showContextualHelp()				{ // Following "F1!
+	private boolean showContextualHelp()			 { // Following "F1!
 		if (hoverBox == null)
 			return false; // ==> panel help
 		
@@ -414,12 +419,12 @@ public abstract class BaseModPanel extends BasePanel
 	  	contextHlp = true;
 	  	return true;
 	}
-	protected void showGuide(Graphics g)				{
+	protected void showGuide(Graphics g)			 {
 		if (!(autoGuide || dialGuide || contextHlp))
 			return;
 		guidePopUp.paintGuide(g);
 	}
-	private void clearGuide()							{
+	private void clearGuide()						 {
 		guidePopUp.clear();
 		contextHlp = false;
 	}
@@ -460,14 +465,17 @@ public abstract class BaseModPanel extends BasePanel
 		private void mouseBoxIndex(int idx)			 { mouseBoxIndex = idx; }
 		// ========== Doers ==========
 		//
-		boolean checkIfHovered() {
+		boolean checkIfHovered() { return checkIfHovered(null); }
+		boolean checkIfHovered(JTextPane descBox) {
 			if (contains(mX,mY)) {
 				hoverBox = this;
-				toolTipBox.setText(getDescription());
+				if (descBox != null)
+					descBox.setText(getDescription());
 				hoverChanged = (hoverBox != prevHover);
 				if (hoverChanged) {
 					mouseEnter();
-					toolTipBox.setText(getDescription());
+					if (descBox != null)
+						descBox.setText(getDescription());
 					loadGuide();
 					if (prevHover != null) {
 						prevHover.mouseExit();

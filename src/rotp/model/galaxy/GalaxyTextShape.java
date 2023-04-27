@@ -197,12 +197,15 @@ public class GalaxyTextShape extends GalaxyShape {
         // modnar: check validity of point with multiple lines
         int option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
         if (option2 == 1) {
-            // repeat twice, 2 lines, with some in-bewteen spacing
-            return (textShape.contains(x, y+textShape.getBounds().getHeight()*(adjust_line-1)/2) || textShape.contains(x, y-textShape.getBounds().getHeight()*(adjust_line-1)/2));
+            // repeat twice, 2 lines, with some in-between spacing
+            return (textShape.contains(x, y+textShape.getBounds().getHeight()*(adjust_line-1)/2)
+            		|| textShape.contains(x, y-textShape.getBounds().getHeight()*(adjust_line-1)/2));
         }
         else if (option2 == 2) {
-            // repeat thrice, 3 lines, with some in-bewteen spacing
-            return (textShape.contains(x, y) || textShape.contains(x, y+textShape.getBounds().getHeight()*(adjust_line-1)/2) || textShape.contains(x, y-textShape.getBounds().getHeight()*(adjust_line-1)/2));
+            // repeat thrice, 3 lines, with some in-between spacing
+            return (textShape.contains(x, y) 
+            		|| textShape.contains(x, y+textShape.getBounds().getHeight()*(adjust_line-1)/2) 
+            		|| textShape.contains(x, y-textShape.getBounds().getHeight()*(adjust_line-1)/2));
         }
         // repeat once, 1 line
         return textShape.contains(x, y);

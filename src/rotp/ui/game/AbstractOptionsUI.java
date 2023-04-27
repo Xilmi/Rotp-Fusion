@@ -291,10 +291,13 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 			}			
 		}
 	}
+	private void setLocalToDefault() {
+		for (InterfaceOptions param : activeList)
+			param.setFromDefault();
+	}
 	// ========== Overriders ==========
 	//
-	@Override
-	public void init() {
+	@Override public void init()	 {
 		super.init();
 		w	= RotPUI.setupRaceUI().getWidth();
 		h	= RotPUI.setupRaceUI().getHeight();
@@ -315,7 +318,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
         disableGlassPane();
 		RotPUI.setupGalaxyUI().init();
 	}
-	@Override protected void doExitBoxAction() {
+	@Override protected void doExitBoxAction()		{
 		if (globalOptions) { // The old ways
 			buttonClick();
 			UserPreferences.save();
@@ -324,7 +327,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 		else
 			super.doExitBoxAction();
 	}
-	@Override protected void doDefaultBoxAction() {
+	@Override protected void doDefaultBoxAction()	{
 		if (globalOptions) { // The old ways
 			buttonClick();
 			switch (ModifierKeysState.get()) {
@@ -341,24 +344,20 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 		else
 			super.doDefaultBoxAction();
 	}
-	private void setLocalToDefault() {
-		for (InterfaceOptions param : activeList)
-			param.setFromDefault();
-	}
-	@Override protected void refreshGui() {
+	@Override protected void refreshGui()	{
 		super.refreshGui();
 		for (int i=0; i<activeList.size(); i++)
 			btList.get(i).displayText(activeList.get(i).getGuiDisplay());
 		repaint();
 	}
-	@Override public void repaintButtons() {
+	@Override public void repaintButtons()	{
 		Graphics2D g = (Graphics2D) getGraphics();
 		setFontHints(g);
 		drawButtons(g);
 		g.dispose();
 	}
-	@Override protected String GUI_ID() { return GUI_ID; }
-	@Override public void paintComponent(Graphics g0) {
+	@Override protected String GUI_ID()		{ return GUI_ID; }
+	@Override public void paintComponent(Graphics g0)	{
 		super.paintComponent(g0);
 		Graphics2D g = (Graphics2D) g0;
 		// draw background "haze"
@@ -394,14 +393,9 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 		drawButtons(g);
 		showGuide(g);
 	}
-	@Override public void keyReleased(KeyEvent e) {
-		checkModifierKey(e);		
-	}
-	@Override public void keyPressed(KeyEvent e) {
+	@Override public void keyPressed(KeyEvent e)		{
 		super.keyPressed(e);
-		checkModifierKey(e);
-		int k = e.getKeyCode();  // BR:
-		switch(k) {
+		switch(e.getKeyCode()) {
 			case KeyEvent.VK_ESCAPE:
 				doExitBoxAction();
 				return;
@@ -409,54 +403,28 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 			default: // BR:
 		}
 	}
-	@Override public void mouseDragged(MouseEvent e) {}
-	@Override public void mouseMoved(MouseEvent e) {
-		// Go thru the guide and restore the boxes
-		Box	  hover = hoverBox;
-		Box prev  = prevHover;
-		super.mouseMoved(e);
-		hoverBox  = hover;
-		prevHover = prev;
-
-		checkModifierKey(e);
-		int x = e.getX();
-		int y = e.getY();
-		prevHover = hoverBox;
-		hoverBox = null;
-		if (exitBox.contains(x,y))
-			hoverBox = exitBox;
-		else if (defaultBox.contains(x,y))
-			hoverBox = defaultBox;
-		else if (userBox.contains(x,y))
-			hoverBox = userBox;
-		else if (guideBox.contains(x,y))
-			hoverBox = guideBox;
-		else if (lastBox.contains(x,y))
-			hoverBox = lastBox;
-		else for (ModText txt : btList) {
-			if (txt.contains(x,y)) {
-				hoverBox = txt.box();
+	@Override public void mouseMoved(MouseEvent e)		{
+		mX = e.getX();
+		mY = e.getY();
+		if (hoverBox != null && hoverBox.contains(mX,mY)) {
+			hoverChanged = false;
+			return;
+		}
+		prevHover	 = hoverBox;
+		hoverBox	 = null;
+		hoverChanged = true;
+		for (Box box : boxBaseList)
+			if (box.checkIfHovered()) {
+				System.out.println("mouseMoved " + hoverBox);
 				break;
 			}
-		}
-		if (hoverBox != prevHover) {
-			for (ModText txt : btList) {
-				if (prevHover == txt.bounds()) {
-					txt.mouseExit();
-					break;
-				}
-			}
-			for (ModText txt : btList) {
-				if (hoverBox == txt.bounds()) {
-					txt.mouseEnter();
-					break;
-				}
-			}			
-			if (prevHover != null) repaint(prevHover.getBounds());
-			if (hoverBox != null)  repaint(hoverBox);
+		if (prevHover != null) {
+			prevHover.mouseExit();
+			loadGuide();
+			repaint();
 		}
 	}
-	@Override public void mouseReleased(MouseEvent e) {
+	@Override public void mouseReleased(MouseEvent e)	{
 		checkModifierKey(e);
 		if (e.getButton() > 3)
 			return;
@@ -478,12 +446,6 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 		else if (hoverBox == lastBox)
 			doLastBoxAction();
 	}
-	@Override public void mouseExited(MouseEvent e) {
-		if (hoverBox != null) {
-			hoverBox = null;
-			repaint();
-		}
-	}
 	@Override public void mouseEntered(MouseEvent e)	{
 		for (int i=0; i<activeList.size(); i++) {
 			if (hoverBox == btList.get(i).box()) {	
@@ -496,7 +458,6 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 			}			
 		}
 	}
-
 	@Override public void mouseWheelMoved(MouseWheelEvent e) {
 		checkModifierKey(e);
 		boolean shiftPressed = e.isShiftDown();
