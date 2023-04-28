@@ -513,7 +513,7 @@ public class SystemView implements IMappedObject, Base, Serializable {
     		return joinImage(flagImage(getFlagColor(1)), flagImage(getFlagColor(2)),
     				flagImage(getFlagColor(3)), flagImage(getFlagColor(4)));
     	default:
-    		return flagImage(flagColor);
+    		return flagImage(getFlagColor(1));
     	}
     }
     public Image mapFlagImage() { // BR: flagColorCount
