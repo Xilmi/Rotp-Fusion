@@ -1307,11 +1307,11 @@ SETUP_RESEARCH_RATE_NORMAL        | Normal
 // mondar: add fast research option
 SETUP_RESEARCH_RATE_FAST_HELP     | Research costs factors:<br>75% at level 2;&ensp 65% at level 6;&ensp 60% at level 8;<br>55% at level 20;&ensp 52% at level 50;&ensp 51% at level 100.
 SETUP_RESEARCH_RATE_FAST          | Fast
-SETUP_RESEARCH_RATE_SLOW_HELP     | Research costs factors:<br>115% at level 2;&ensp 2 at level 12;&ensp 2.5 at level 20;<br>3 at level 28&ensp 4 at level 50;&ensp 6 at level 100.
+SETUP_RESEARCH_RATE_SLOW_HELP     | Research costs factors:<br>115% at level 2;&ensp 2 at level 12;&ensp 2.5 at level 20;<br>3 at level 28;&ensp 4 at level 50;&ensp 6 at level 100.
 SETUP_RESEARCH_RATE_SLOW          | Slow
-SETUP_RESEARCH_RATE_SLOWER_HELP   | Research costs factors:<br>120% at level 2;&ensp 2.5 at level 10;&ensp 4 at level 20;<br>5 at level 29&ensp 7 at level 50;&ensp 10 at level 100.
+SETUP_RESEARCH_RATE_SLOWER_HELP   | Research costs factors:<br>120% at level 2;&ensp 2.5 at level 10;&ensp 4 at level 20;<br>5 at level 29;&ensp 7 at level 50;&ensp 10 at level 100.
 SETUP_RESEARCH_RATE_SLOWER        | Slower
-SETUP_RESEARCH_RATE_SLOWESTHELP  | Research costs factors:<br>125% at level 2;&ensp 5 at level 11;&ensp 8 at level 20;<br>10 at level 26&ensp 16 at level 51;&ensp 25 at level 100.
+SETUP_RESEARCH_RATE_SLOWEST_HELP  | Research costs factors:<br>125% at level 2;&ensp 5 at level 11;&ensp 8 at level 20;<br>10 at level 26;&ensp 16 at level 51;&ensp 25 at level 100.
 SETUP_RESEARCH_RATE_SLOWEST       | Slowest
 SETUP_TECH_TRADING_YES            | Yes
 SETUP_TECH_TRADING_ALLIES         | Allies Only
