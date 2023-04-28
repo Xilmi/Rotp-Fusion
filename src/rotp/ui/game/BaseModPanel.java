@@ -352,7 +352,6 @@ public abstract class BaseModPanel extends BasePanel
 	@Override public void mouseExited(MouseEvent e)	 { clearGuide(); }
 	@Override public void mouseDragged(MouseEvent e) {  }
 	@Override public void mouseMoved(MouseEvent e)	 {
-//		checkModifierKey(e);		
 		mX = e.getX();
 		mY = e.getY();
 		if (hoverBox != null && hoverBox.contains(mX,mY)) {
@@ -456,6 +455,7 @@ public abstract class BaseModPanel extends BasePanel
 			this(param);
 			mouseBoxIndex(mouseBoxIndex);
 		}
+		public	void removeFromList()				 { boxBaseList.remove(this); }
 		private void addToList() 					 { boxBaseList.add(this); }
 		private void initGuide(String label)		 { this.label = label; }
 		private void initGuide(InterfaceParam param) { this.param = param; }
@@ -587,8 +587,9 @@ public abstract class BaseModPanel extends BasePanel
 			super(p, logo, fSize, x1, y1, c1, c2, c3, c4, c5, i1, i2, i3);
 			box = new Box(this);
 		}
-		public ModText initGuide(InterfaceParam param)	 { box.initGuide(param); return this; }
-		public ModText initGuide(String label)			 { box.initGuide(label); return this; }
+		public void	   removeBoxFromList()				{ box.removeFromList(); }
+		public ModText initGuide(InterfaceParam param)	{ box.initGuide(param); return this; }
+		public ModText initGuide(String label)			{ box.initGuide(label); return this; }
 		Box box() {
 			box.setBounds(bounds());
 			return box;

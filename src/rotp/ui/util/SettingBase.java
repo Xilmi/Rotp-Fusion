@@ -548,6 +548,15 @@ public class SettingBase<T> implements InterfaceParam {
 		valueList.clear();
 		tooltipList.clear();
 	}
+	protected void clearOptionsText() {
+		if (optionsText == null)
+			return;
+		for (int i=0; i<optionsText.length; i++ )
+			if (optionsText[i] != null) {
+				optionsText[i].removeBoxFromList();
+				//optionsText[i] = null;
+			}
+	}
 	protected T optionValue(int index)	{ return valueList.get(valueValidIndex(index)); }
 	@Override public String getLangLabel()			{ return guiLabel + nameLabel; }
 	// ========== Private Methods ==========

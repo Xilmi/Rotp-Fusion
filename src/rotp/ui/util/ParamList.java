@@ -143,9 +143,7 @@ public class ParamList extends AbstractParam<String> {
 	}
 	// ===== Overriders =====
 	//
-	@Override public String guideDefaultValue()			{
-			return name(defaultValueIndex());
-	}
+	@Override public String guideDefaultValue()			{ return name(defaultValueIndex()); }
 	@Override public String getCfgValue(String value)	{ return validateValue(value); }
 	@Override public String	guideValue()				{ return name(this.getIndex()); }
 	@Override public void	next()						{

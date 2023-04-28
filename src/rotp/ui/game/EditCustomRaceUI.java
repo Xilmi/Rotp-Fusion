@@ -286,7 +286,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		return super.getBackGroundWidth() + raceListW + columnPad;
 	}
 	@Override protected boolean checkForHoveredButtons() {
-		if (exitBox.contains(x,y)) {
+		if (exitBox.contains(mX,mY)) {
 			hoverBox = exitBox;
 			tooltipText = text(exitButtonDescKey());
 			if (hoverBox != prevHover) {
@@ -297,7 +297,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 				}
 			}
 			return true;
-		} else if (guideBox.contains(x,y)) {
+		} else if (guideBox.contains(mX,mY)) {
 			hoverBox = guideBox;
 			tooltipText = text(guideButtonDescKey());
 			if (hoverBox != prevHover) {
@@ -308,7 +308,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 				}
 			}
 			return true;
-		} else if (userBox.contains(x,y)) {
+		} else if (userBox.contains(mX,mY)) {
 			hoverBox = userBox;
 			tooltipText = text(userButtonDescKey());
 			if (hoverBox != prevHover) {
@@ -319,7 +319,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 				}
 			}
 			return true;
-		} else if (lastBox.contains(x,y)) {
+		} else if (lastBox.contains(mX,mY)) {
 			hoverBox = lastBox;
 			tooltipText = text(lastButtonDescKey());
 			if (hoverBox != prevHover) {
@@ -330,7 +330,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 				}
 			}
 			return true;
-		} else if (selectBox.contains(x,y)) {
+		} else if (selectBox.contains(mX,mY)) {
 			hoverBox = selectBox;
 			tooltipText = text(selectButtonDescKey());
 			if (hoverBox != prevHover) {
@@ -341,7 +341,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 				}
 			}
 			return true;
-		} else if (defaultBox.contains(x,y)) {
+		} else if (defaultBox.contains(mX,mY)) {
 			hoverBox = defaultBox;
 			tooltipText = text(defaultButtonDescKey());
 			if (hoverBox != prevHover) {
@@ -352,7 +352,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 				}
 			}
 			return true;
-		} else if (loadBox.contains(x,y)) {
+		} else if (loadBox.contains(mX,mY)) {
 			hoverBox = loadBox;
 			tooltipText = text(loadButtonDescKey());
 			if (hoverBox != prevHover) {
@@ -363,7 +363,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 				}
 			}
 			return true;
-		} else if (randomBox.contains(x,y)) {
+		} else if (randomBox.contains(mX,mY)) {
 			hoverBox = randomBox;
 			tooltipText = text(randomButtonDescKey());
 			if (hoverBox != prevHover) {

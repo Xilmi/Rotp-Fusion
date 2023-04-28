@@ -515,6 +515,7 @@ public class CustomRaceDefinitions  {
 		public void reload() {
 			String currentValue = settingValue();
 			clearLists();
+			clearOptionsText();
 			// Add Current race
 			add((DynOptions) playerCustomRace.get());
 			defaultIndex(0);

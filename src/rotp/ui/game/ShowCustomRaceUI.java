@@ -130,10 +130,8 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	protected int xButton, yButton;
 	protected int leftM;
 	protected int xLine, yLine; // settings var
-	protected int x, y; // mouse position
 
 	protected BasePanel parent;
-	//protected Rectangle hoverBox, prevHover;
 	protected final Box exitBox	   = new Box("SETTINGS_EXIT");
 	private	  final Box raceAIBox  = new Box(ROOT + "RACE_AI");
 	private	  final Rectangle toolTipBox = new Rectangle();
@@ -317,7 +315,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		return text(totalCostKey, Math.round(cr.getTotalCost()));
 	}
 	protected boolean checkForHoveredButtons() {
-		if (exitBox.contains(x,y)) {
+		if (exitBox.contains(mX,mY)) {
 			hoverBox = exitBox;
 			tooltipText = text(exitButtonTipKey());
 			if (hoverBox != prevHover) {
@@ -328,7 +326,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 				}
 			}
 			return true;
-		} else if (guideBox.contains(x,y)) {
+		} else if (guideBox.contains(mX,mY)) {
 			hoverBox = guideBox;
 			tooltipText = text(guideButtonDescKey());
 			if (hoverBox != prevHover) {
@@ -339,7 +337,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 				}
 			}
 			return true;
-		} else if (raceAIBox.contains(x,y)) {
+		} else if (raceAIBox.contains(mX,mY)) {
 			hoverBox = raceAIBox;
 			tooltipText = text(raceAIButtonTipKey());
 			if (hoverBox != prevHover) {
@@ -355,8 +353,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	}
 	private boolean checkForHoveredSettings(LinkedList<SettingBase<?>> settings) {
 		for (SettingBase<?> setting : settings) {
-			if (setting.settingText().contains(x,y)) {
-//				hoverBox = setting.settingText().bounds();
+			if (setting.settingText().contains(mX,mY)) {
 				hoverBox = setting.settingText().box();
 				tooltipText = setting.getToolTip();
 				if (hoverBox != prevHover) {
@@ -373,8 +370,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 			if (setting.isBullet()) {
 				int idx = 0;
 				for (ModText txt : setting.optionsText()) {
-					if (txt.contains(x,y)) {
-//						hoverBox = txt.bounds();
+					if (txt.contains(mX,mY)) {
 						hoverBox = txt.box();
 						tooltipText = setting.getToolTip(idx);
 						if (hoverBox != prevHover) {
@@ -564,7 +560,6 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	// ========== Overriders ==========
 	//
 
-//	@Override protected void close() { disableGlassPane(); }
 	@Override public boolean checkModifierKey(InputEvent e) {
 		boolean change = checkForChange(e);
 		hoverAndTooltip(change);
@@ -664,31 +659,43 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		checkModifierKey(e);
 	}
 	@Override public void keyPressed(KeyEvent e) {
-		super.keyPressed(e);
 		checkModifierKey(e);
 		switch(e.getKeyCode()) {
 			case KeyEvent.VK_ESCAPE:
 				close();
 				return;
-			case KeyEvent.VK_SPACE:
-			case KeyEvent.VK_ENTER:
-				parent.advanceHelp();
-				return;
 			default:
-				return;
+				break;
 		}
+		super.keyPressed(e);
 	}
 	@Override public void mouseMoved(MouseEvent e) {
+		mX = e.getX();
+		mY = e.getY();
+		if (hoverBox != null && hoverBox.contains(mX,mY)) {
+			hoverChanged = false;
+			return;
+		}
 		// Go thru the guide and restore the boxes
-		Box	  hover = hoverBox;
+		Box	hover = hoverBox;
 		Box prev  = prevHover;
-		super.mouseMoved(e);
+		hoverChanged = true;
+		prevHover	 = hoverBox;
+		hoverBox	 = null;
+
+		for (Box box : boxBaseList)
+			if (box.contains(mX,mY)) {
+				hoverBox = box;
+				break;
+			}
+		if (hoverBox != prevHover) {
+			loadGuide();
+			repaint();
+		}
 		hoverBox  = hover;
 		prevHover = prev;
 
-		x = e.getX();
-		y = e.getY();
-		checkModifierKey(e);
+		hoverAndTooltip(false);
 	}
 	@Override public void mouseReleased(MouseEvent e) {
 		if (e.getButton() > 3)
