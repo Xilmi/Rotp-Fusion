@@ -271,7 +271,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private Box modDynamicABox		= new Box("SETUP_GALAXY_CLASSIC_OPTIONS"); // BR add UI panel for MOD game options
 	private Box modDynamicBBox		= new Box("SETUP_GALAXY_CLASSIC_OPTIONS"); // BR add UI panel for MOD game options
 	private Box globalModSettingsBox= new Box("SETUP_GALAXY_CLASSIC_OPTIONS"); // BR add UI panel for MOD game options
-	private Box	helpBox   			= new Box();
+	private Box	helpBox   			= new Box("SETTINGS_BUTTON_HELP");
 	private Box	backBox				= new Box("SETUP_GALAXY_BACK");
 	private Box	startBox			= new Box(startButtonHelp);
 	private Box	settingsBox			= new Box("SETUP_GALAXY_OPTIONS");
@@ -327,7 +327,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
     private int  dialogMonoFontSize = 20;
     private Font boxMonoFont;
     private int  boxMonoFontSize  = 15;
-
 
     public static int mouseBoxIndex() { return instance.hoverBox.mouseBoxIndex(); }
 

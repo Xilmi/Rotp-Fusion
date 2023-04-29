@@ -26,6 +26,11 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2023.04.29 (BR)
+- Custom Race Menu:
+  - Some Guide addition.
+  - Removed most redundancies.
+
 2023.04.28 (BR)
 - Fixed Flag not showing correctly.
 

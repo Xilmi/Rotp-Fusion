@@ -42,6 +42,7 @@ import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.util.InterfaceOptions;
+import rotp.ui.util.ParamButtonHelp;
 import rotp.ui.util.SettingBase;
 import rotp.util.LabelManager;
 import rotp.util.ModifierKeysState;
@@ -53,19 +54,21 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	private static final String randomKey		= ROOT + "GUI_RANDOM";
 	private static final String saveCurrentKey	= ROOT + "GUI_SAVE";
 	private static final String loadCurrentKey	= ROOT + "GUI_LOAD";
-	private	static final String selectTipKey	= ROOT + "GUI_SELECT_DESC";
-	private static final String randomTipKey	= ROOT + "GUI_RANDOM_DESC";
-	private static final String saveTipKey		= ROOT + "GUI_SAVE_DESC";
-	private static final String loadTipKey		= ROOT + "GUI_LOAD_DESC";
-	private	static final EditCustomRaceUI instance = new EditCustomRaceUI();
+	private static final int	raceListW		= RotPUI.scaledSize(180);
+	private static final ParamButtonHelp loadButtonHelp = new ParamButtonHelp( // For Help Do not add the list
+			"CUSTOM_RACE_BUTTON_LOAD",
+			loadCurrentKey,
+			"",
+			saveCurrentKey,
+			"");
+	private	static final EditCustomRaceUI instance		= new EditCustomRaceUI();
 	
 	private final Box selectBox	= new Box(selectKey);
 	private final Box randomBox	= new Box(randomKey);
-	private final Box loadBox	= new Box();
+	private final Box loadBox	= new Box(loadButtonHelp);
 
 	private LinkedList<SettingBase<?>> guiList;
 	private RaceList raceList;
-	private static final int raceListW = RotPUI.scaledSize(180);
 	
 	// ========== Constructors and initializers ==========
 	//
@@ -85,8 +88,8 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 
 		guiList = cr.guiList();
 	    for(SettingBase<?> setting : guiList)
-	    	setting.settingText(new ModText(this, false, labelFontSize, 0, 0,
-					labelC, labelC, hoverC, depressedC, textC, 0, 0, 0));
+	    	setting.settingText(new ModText(this, labelFontSize,
+					labelC, labelC, hoverC, depressedC, textC, false));
 	    raceList = cr.initRaceList();
 	    initSetting(raceList);
 
@@ -168,24 +171,6 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	private void randomizeRace() {
 		cr.randomizeRace(true);
 		totalCostText.repaint(totalCostStr());
-	}
-	private String selectButtonDescKey() {
-			return selectTipKey;
-	}
-	private String randomButtonDescKey() {
-			return randomTipKey;
-	}
-	@Override protected String exitButtonDescKey() {
-		return super.exitButtonDescKey();
-	}
-	private String loadButtonDescKey() {
-		switch (ModifierKeysState.get()) {
-		case CTRL:
-		case CTRL_SHIFT:
-			return saveTipKey;
-		default:
-			return loadTipKey;
-		}
 	}
 	private String loadButtonKey() {
 		switch (ModifierKeysState.get()) {
@@ -284,98 +269,6 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	}
 	@Override protected int getBackGroundWidth() {
 		return super.getBackGroundWidth() + raceListW + columnPad;
-	}
-	@Override protected boolean checkForHoveredButtons() {
-		if (exitBox.contains(mX,mY)) {
-			hoverBox = exitBox;
-			tooltipText = text(exitButtonDescKey());
-			if (hoverBox != prevHover) {
-				if (tooltipText.equals(preTipTxt)) {
-					repaint(hoverBox);
-				} else {
-					repaint();
-				}
-			}
-			return true;
-		} else if (guideBox.contains(mX,mY)) {
-			hoverBox = guideBox;
-			tooltipText = text(guideButtonDescKey());
-			if (hoverBox != prevHover) {
-				if (tooltipText.equals(preTipTxt)) {
-					repaint(hoverBox);
-				} else {
-					repaint();
-				}
-			}
-			return true;
-		} else if (userBox.contains(mX,mY)) {
-			hoverBox = userBox;
-			tooltipText = text(userButtonDescKey());
-			if (hoverBox != prevHover) {
-				if (tooltipText.equals(preTipTxt)) {
-					repaint(hoverBox);
-				} else {
-					repaint();
-				}
-			}
-			return true;
-		} else if (lastBox.contains(mX,mY)) {
-			hoverBox = lastBox;
-			tooltipText = text(lastButtonDescKey());
-			if (hoverBox != prevHover) {
-				if (tooltipText.equals(preTipTxt)) {
-					repaint(hoverBox);
-				} else {
-					repaint();
-				}
-			}
-			return true;
-		} else if (selectBox.contains(mX,mY)) {
-			hoverBox = selectBox;
-			tooltipText = text(selectButtonDescKey());
-			if (hoverBox != prevHover) {
-				if (tooltipText.equals(preTipTxt)) {
-					repaint(hoverBox);
-				} else {
-					repaint();
-				}
-			}
-			return true;
-		} else if (defaultBox.contains(mX,mY)) {
-			hoverBox = defaultBox;
-			tooltipText = text(defaultButtonDescKey());
-			if (hoverBox != prevHover) {
-				if (tooltipText.equals(preTipTxt)) {
-					repaint(hoverBox);
-				} else {
-					repaint();
-				}
-			}
-			return true;
-		} else if (loadBox.contains(mX,mY)) {
-			hoverBox = loadBox;
-			tooltipText = text(loadButtonDescKey());
-			if (hoverBox != prevHover) {
-				if (tooltipText.equals(preTipTxt)) {
-					repaint(hoverBox);
-				} else {
-					repaint();
-				}
-			}
-			return true;
-		} else if (randomBox.contains(mX,mY)) {
-			hoverBox = randomBox;
-			tooltipText = text(randomButtonDescKey());
-			if (hoverBox != prevHover) {
-				if (tooltipText.equals(preTipTxt)) {
-					repaint(hoverBox);
-				} else {
-					repaint();
-				}
-			}
-			return true;
-		}
-		return false;
 	}
 	@Override protected String raceAIButtonTxt() { return ""; }
 	@Override protected void paintButtons(Graphics2D g) {
@@ -542,7 +435,6 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	    //g.dispose();
 	}
 	@Override public void keyPressed(KeyEvent e) {
-		checkModifierKey(e);
 		switch(e.getKeyCode()) {
 			case KeyEvent.VK_ESCAPE:
 				doExitBoxAction();

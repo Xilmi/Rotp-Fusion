@@ -14,6 +14,8 @@ NUM_FORMAT_BILLIONS               | %1B
 // Basic Boolean Display
 BOOLEAN_YES                       | Yes
 BOOLEAN_NO                        | No
+BOOLEAN_YES_HELP                  | To enable this option.
+BOOLEAN_NO_HELP                   | To disable this option.
 // Basic Is Default value Display
 SUB_UI_DEFAULT_YES                | Default Value
 SUB_UI_DEFAULT_NO                 | Customized
@@ -87,6 +89,14 @@ PLANET_ULTRA_RICH                 | Ultra Rich
 PLANET_HOSTILE                    | Hostile
 PLANET_FERTILE                    | Fertile
 PLANET_GAIA                       | Gaia
+PLANET_ARTIFACTS_HELP             | <b>Planetary traits:</b><br>Double Reaserch.
+PLANET_ULTRA_POOR_HELP            | <b>Planetary traits:</b><br>Ship, base, and factory production are divided by three.
+PLANET_POOR_HELP                  | <b>Planetary traits:</b><br>Halve ship, base, and factory production.
+PLANET_RICH_HELP                  | <b>Planetary traits:</b><br>Double ship, base, and factory production.
+PLANET_ULTRA_RICH_HELP            | <b>Planetary traits:</b><br>Triple ship, base, and factory production.
+PLANET_HOSTILE_HELP               | <b>Planetary traits:</b><br>Halve population growth.
+PLANET_FERTILE_HELP               | <b>Planetary traits:</b><br>add 50% to population growth.
+PLANET_GAIA_HELP                  | <b>Planetary traits:</b><br>Double population growth.
 
 // Planet Descriptors for Race
 PLANET_HOMEWORLD                  | [alien_race] Homeworld
@@ -1544,6 +1554,7 @@ CUSTOM_RACE_GUI_SELECT            | Select
 CUSTOM_RACE_GUI_RANDOM_HELP       | Each individual setting will randomly be set within the given relative Setting range.<br> If "Force Target" = Yes, and the Total Value is not within the allowed Range: The values will progressively be randomly shifted (Even outside their allowed range) until the final "Target Range" is reached.
 CUSTOM_RACE_GUI_RANDOM_DESC       | Randomize the race following the above settings
 CUSTOM_RACE_GUI_RANDOM            | Randomize
+CUSTOM_RACE_BUTTON_LOAD_DESC      | Save or reload the settings from the file specified in "Name" Field (Switch with "Ctrl")
 CUSTOM_RACE_GUI_LOAD_DESC         | Load the settings from the file specified in "Name" Field, if none, create an empty one.
 CUSTOM_RACE_GUI_LOAD              | Load
 CUSTOM_RACE_GUI_SAVE_DESC         | Save the settings to the file specified in "Name" Field, existing files will be overwritten.
@@ -1558,8 +1569,11 @@ CUSTOM_RACE_RANDOM_TARGET_MIN     | Total Value Min
 CUSTOM_RACE_RANDOM_USE_TARGET     | Force Target
 CUSTOM_RACE_BASE_DATARACE         | Base Abilities
 CUSTOM_RACE_HOME_TYPE             | Planet Type
+CUSTOM_RACE_HOME_SIZE_DESC        | Starting Size of this Race Home world.
 CUSTOM_RACE_HOME_SIZE             | Planet Size
+CUSTOM_RACE_HOME_RESOURCES_DESC   | This selection will affect either the research or the production of the home world.
 CUSTOM_RACE_HOME_RESOURCES        | Planet Resources
+CUSTOM_RACE_HOME_ENVIRONMENT_DESC | This selection will affect the growth rate of the home world.
 CUSTOM_RACE_HOME_ENVIRONMENT      | Planet Environment
 CUSTOM_RACE_RACE_KEY              | File Name
 CUSTOM_RACE_RACE_KEY_DESC         | This is the place to enter the filename, it's also used as the key for the standard race... Don't use them
@@ -1569,8 +1583,10 @@ CUSTOM_RACE_RACE_TERRAN           | Terran
 CUSTOM_RACE_RACE_AQUATIC          | Aquatic
 CUSTOM_RACE_RACE_SILICATE         | Silicate
 CUSTOM_RACE_RACE_ROBOTIC          | Robotic
+CUSTOM_RACE_IGNORES_ECO_DESC      | Will be able to colonize any planet, and wont be impaired by their Hostility.
 CUSTOM_RACE_IGNORES_ECO           | Race Ignores Eco
 CUSTOM_RACE_PROPERTIE             | Race Propertie
+CUSTOM_RACE_CREDIT_DESC           | Easy Money Races?
 CUSTOM_RACE_CREDIT                | Credits Bonus
 CUSTOM_RACE_HIT_POINTS            | Hit Point Factor
 CUSTOM_RACE_MAINTENANCE           | Maintenance Factor
@@ -1676,6 +1692,10 @@ CUSTOM_RACE_SHIP_SIZE_SMALL       | Small
 CUSTOM_RACE_SHIP_SIZE_MEDIUM      | Medium
 CUSTOM_RACE_SHIP_SIZE_LARGE       | Large
 CUSTOM_RACE_SHIP_SIZE_HUGE        | Huge
+CUSTOM_RACE_SHIP_SIZE_SMALL_HELP  | Preferred by:&ensp Alkari and Klackon.
+CUSTOM_RACE_SHIP_SIZE_MEDIUM_HELP | Preferred by:&ensp Darlok, Human, Mrrshan, Psilon, Sakkra,&ensp <i>EarlyGame, NeoHuman.</i>
+CUSTOM_RACE_SHIP_SIZE_LARGE_HELP  | Preferred by:&ensp Bulrathi, Meklar, Silicoid,&ensp <i>JackTrades, WarDemon.</i>
+CUSTOM_RACE_SHIP_SIZE_HUGE_HELP   | Preferred by:&ensp <i>GearHead, Monocle.</i>
 
 
 // Advanced Settings
@@ -2929,7 +2949,7 @@ SETTINGS_BUTTON_USER_DESC         | Save or reload User's options.<br> (Switch w
 SETTINGS_BUTTON_LAST_DESC         | Reload Last session or last Game options.<br> (Switch with "Ctrl" or "Shift")
 SETTINGS_BUTTON_DEFAULT_DESC      | Reload Default options or Restore initial options.<br> (Switch with "Ctrl" or "Shift")
 SETTINGS_BUTTON_GUIDE_DESC        | Enable / Disable automated contextual Help on all setup panels.
-
+SETTINGS_BUTTON_HELP_DESC         | This or <b>"F1"</b>  will display a global overview of the panel.<br>If an option is hovered when pressing <b>"F1"</b> a more specific help will be shown.
 
 SETTINGS_GUIDE_HELP               | <b>Enable / Disable</b> automated contextual Help on all setup panels.<br> A short explantion will pop up when the mouse is over an option.<br> A longuer explanation may be some time available by pressing <b>"F1"</b> (when hovering the option). Elsewhere, <b>"F1"</b> will show a global overview of the panel<br>The guide can also be enable/disabled with the key <b>"G"</b>.
 SETTINGS_GUIDE_DESC               | Enable / Disable automated contextual Help on all setup panels.
@@ -2956,6 +2976,8 @@ SETUP_RACE_CUSTOM_DESC            | Enter the Race Customization Menu.<br> (For 
 SETUP_RACE_CHECK_BOX_DESC         | Select the defined custom race as player race.
 SETUP_RACE_SHIPSET_DESC           | Select Shipset used by the player.<br> "Original" = The one associated by default to the selected race.
 SETUP_RACE_RACES_DESC             | The graphical representation of the player race, with its animations, and by default its abilities. (Abilities can also be randomized or customized) 
+SETUP_RACE_LEADER_HELP            | Name your leader here, think twice, as you won't be able to change it later.
+SETUP_RACE_HOMEWORLD_HELP         | You can set your home world name here, or change it later in the game colony tab.
 
 // Galaxy Menu Guides and Help
 SETUP_GALAXY_MAIN_DESC            | OVERVIEW<br> This screen allows you to select your Galaxy and your Opponents.<br> Use "Ctrl" and "Shift" to change the buttons functions. Global = All options. Local = Options from this panel.

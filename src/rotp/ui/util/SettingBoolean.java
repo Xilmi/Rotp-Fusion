@@ -16,6 +16,8 @@
 
 package rotp.ui.util;
 
+import static rotp.ui.util.InterfaceParam.langLabel;
+
 import rotp.model.game.DynamicOptions;
 
 public class SettingBoolean extends SettingBase<Boolean> {
@@ -75,10 +77,10 @@ public class SettingBoolean extends SettingBase<Boolean> {
 	// ===== Overriders =====
 	//
 	@Override public String guideValue() {
-		return lmText(guiOptionLabel());
+		return langLabel(guiOptionLabel());
 	}
 	@Override public String guiOptionValue(int index) {
-		return lmText(guiOptionLabel(index));
+		return langLabel(guiOptionLabel(index));
 	}
 	@Override public void setOptions(DynamicOptions options) {
 		if (!isSpacer() && options != null)

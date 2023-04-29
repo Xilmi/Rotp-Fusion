@@ -140,19 +140,25 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	// ========== Other Methods ==========
 	//
 	private  ModText newBT(boolean disabled) {
-		ModText bt = new ModText(this, false, settingFont, 0, 0,
-				enabledColor, disabledColor, hoverC, depressedC, enabledColor, 0, 0, 0);
+//		ModText bt = new ModText(this, false, settingFont, 0, 0,
+//				enabledColor, disabledColor, hoverC, depressedC, enabledColor, 0, 0, 0);
+		ModText bt = new ModText(this, settingFont, enabledColor,
+				disabledColor, hoverC, depressedC, enabledColor, true);
 		bt.disabled(disabled);
 		return bt;
 	}
 	private  ModText newBT2(boolean isDefault) {
 		ModText bt;
 		if (isDefault)
-			bt = new ModText(this, false, settingFont, 0, 0,
-				defaultValuesColor, disabledColor, hoverC, depressedC, disabledColor, 0, 0, 0);
+			bt = new ModText(this, settingFont, defaultValuesColor, 
+					disabledColor, hoverC, depressedC, disabledColor, true);
+//			bt = new ModText(this, false, settingFont, 0, 0,
+//				defaultValuesColor, disabledColor, hoverC, depressedC, disabledColor, 0, 0, 0);
 		else
-			bt = new ModText(this, false, settingFont, 0, 0,
-					customValuesColor, disabledColor, hoverC, depressedC, disabledColor, 0, 0, 0);
+			bt = new ModText(this, settingFont, customValuesColor,
+					disabledColor, hoverC, depressedC, disabledColor, true);
+//			bt = new ModText(this, false, settingFont, 0, 0,
+//					customValuesColor, disabledColor, hoverC, depressedC, disabledColor, 0, 0, 0);
 		return bt;
 	}
 	private void drawButtons(Graphics2D g) {
@@ -460,20 +466,14 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		showGuide(g);		
 	}
 	@Override public void keyReleased(KeyEvent e)		{
-		if(checkModifierKey(e)) {
-			if(hoverBox != null) {
+		if(checkModifierKey(e))
+			if(hoverBox != null)
 				descBox.setText(hoverBox.getDescription());
-				descBox.validate();
-			}
-		}
 	}
 	@Override public void keyPressed(KeyEvent e)		{
-		if(checkModifierKey(e)) {
-			if(hoverBox != null) {
+		if(checkModifierKey(e))
+			if(hoverBox != null)
 				descBox.setText(hoverBox.getDescription());
-				descBox.validate();
-			}
-		}
 		super.keyPressed(e);
 		switch(e.getKeyCode()) {
 			case KeyEvent.VK_ESCAPE:

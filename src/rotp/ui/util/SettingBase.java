@@ -17,6 +17,10 @@
 package rotp.ui.util;
 
 import static rotp.ui.UserPreferences.minListSizePopUp;
+import static rotp.ui.util.InterfaceParam.langHelp;
+import static rotp.ui.util.InterfaceParam.langLabel;
+import static rotp.ui.util.InterfaceParam.rowsSeparator;
+import static rotp.ui.util.InterfaceParam.tableFormat;
 import static rotp.util.Base.random;
 import static rotp.util.Base.textSubs;
 
@@ -35,12 +39,11 @@ import rotp.ui.RotPUI;
 import rotp.ui.game.BaseModPanel;
 import rotp.ui.game.BaseModPanel.ModText;
 import rotp.ui.main.SystemPanel;
-import rotp.util.LabelManager;
 
 public class SettingBase<T> implements InterfaceParam {
 	
 	public enum CostFormula {DIFFERENCE, RELATIVE, NORMALIZED}
-	public static final Color settingPosC = SystemPanel.limeText;  // Setting name color
+	private static final Color settingPosC = SystemPanel.limeText;  // Setting name color
 	public static final Color settingNegC = SystemPanel.redText;   // Setting name color
 	public static final Color settingC	  = SystemPanel.whiteText; // Setting name color
 
@@ -95,68 +98,30 @@ public class SettingBase<T> implements InterfaceParam {
 	 * @param guiLabel  The label header
 	 * @param nameLabel The nameLabel
 	 */
-	public SettingBase(String guiLabel, String nameLabel) {
+	public	SettingBase(String guiLabel, String nameLabel) {
 		this.guiLabel	= guiLabel;
 		this.nameLabel	= nameLabel;
 	}
-	public void settingText(ModText settingText) {
-		this.settingText = settingText.initGuide(this);
-	}
-	protected void maxBullet(int maxBullet) {
-		bulletMax = maxBullet;
-	}
-	void settingToolTip(String settingToolTip) {
-		this.settingToolTip = settingToolTip;
-	}
-	private void loadSettingToolTip() {
-		String label = getLangLabel() + LABEL_DESCRIPTION;
-		settingToolTip = text(getLangLabel() + LABEL_DESCRIPTION);
-		if (label.equals(settingToolTip))
+	public	void settingText(ModText txt)	{ settingText = txt.initGuide(this); }
+	protected void maxBullet(int maxBullet)	{ bulletMax = maxBullet; }
+	void settingToolTip(String tt)			{ settingToolTip = tt; }
+	private	void loadSettingToolTip()		{
+		settingToolTip = langHelp(getLangLabel());
+		if (settingToolTip == null)
 			settingToolTip = "";
 	}
-	private void optionsText(ModText[] optionsText) {
-		this.optionsText = optionsText;
-	}
-	public void optionText(ModText optionText, int i) {
-		optionsText[i] = optionText;
-	}
-	public SettingBase<?> initOptionsText() {
+	private	void optionsText(ModText[] optionsText)		{ this.optionsText = optionsText; }
+	public	void optionText(ModText optionText, int i)	{ optionsText[i] = optionText; }
+	public	void initOptionsText()				{
 		if (bulletBoxSize() > 0)
 			optionsText(new ModText[bulletBoxSize()]);
-		return this;
 	}
-	public SettingBase<?> isSpacer(boolean isSpacer) {
-		this.isSpacer = isSpacer;
-		return this;
-	}
-	public SettingBase<?> hasNoCost(boolean hasNoCost) {
-		this.hasNoCost = hasNoCost;
-		return this;
-	}
-	public SettingBase<?> isBullet(boolean isBullet) {
-		this.isBullet = isBullet;
-		return this;
-	}
-	public SettingBase<?> allowListSelect(boolean allowListSelect) {
-		this.allowListSelect = allowListSelect;
-		return this;
-	}
-	public SettingBase<?> isList(boolean isList) {
-		this.isList = isList;
-		return this;
-	}
-	public SettingBase<?> labelsAreFinals(boolean labelsAreFinals) {
-		this.labelsAreFinals = labelsAreFinals;
-		return this;
-	}
-	public SettingBase<?> defaultValue(T value) {
-		defaultValue = value;
-		return this;
-	}
-	protected SettingBase<T> bulletHeightFactor(int bulletHeightFactor) {
-		this.bulletHeightFactor = bulletHeightFactor;
-		return this;
-	}
+	public	void hasNoCost(boolean hasNoCost)	{ this.hasNoCost = hasNoCost; }
+	public	void isBullet(boolean isBullet)		{ this.isBullet = isBullet; }
+	public	void allowListSelect(boolean allow)	{ allowListSelect = allow; }
+	private	void isList(boolean isList)			{ this.isList = isList; }
+	public	void labelsAreFinals(boolean finals){ labelsAreFinals = finals; }
+	protected void bulletHFactor(int factor)	{ bulletHeightFactor = factor; }
 	// ========== Public Interfaces ==========
 	//
 	@Override public void setFromCfgValue(String cfgValue) {
@@ -233,7 +198,7 @@ public class SettingBase<T> implements InterfaceParam {
 	}
 	@Override public String getCfgValue() 		{ return getCfgValue(settingValue()); }
 	@Override public String getCfgLabel()		{ return nameLabel; }
-	@Override public String getGuiDescription() { return lmText(descriptionId()); }
+	@Override public String getGuiDescription() { return langLabel(descriptionId()); }
 	@Override public String guideValue()		{ return String.valueOf(settingValue()); }
 	@Override public String getGuiDisplay()		{ return text(getLangLabel(), guideValue()) + END; }
 	@Override public String getToolTip()		{
@@ -253,6 +218,28 @@ public class SettingBase<T> implements InterfaceParam {
 	}
 	@Override public String guideDefaultValue()	{ return defaultValue.toString(); }
 	@Override public boolean isDefaultValue()	{ return defaultValue() == settingValue(); }
+	@Override public String getLangLabel()		{ return guiLabel + nameLabel; }
+	@Override public String	getFullHelp()		{
+		String help = getHeadGuide();
+		help += getTableHelp();
+		return help;
+	}
+//	@Override public String getSelectionStr()	{ return getValueStr(getIndex(get())); }
+	@Override public String getValueStr(int id)	{ return valueGuide(valueValidIndex(id)); }
+	@Override public String valueGuide(int id) 	{ return tableFormat(getRowGuide(id)); }
+
+	private String getTableHelp()				{
+		int size = listSize();
+		String rows = "";
+		if (size>0) {
+			rows = getRowGuide(0);
+			for (int i=1; i<size; i++)
+				rows += rowsSeparator() + getRowGuide(i);
+		}
+		return tableFormat(rows);
+	}
+	
+	
 	// ========== Overridable Methods ==========
 	//
 	public void enabledColor(float cost) {
@@ -313,7 +300,7 @@ public class SettingBase<T> implements InterfaceParam {
 		return 0f;
 	}
 	public void updateGui() {  repaint(); }
-	public void repaint() { 
+	private void repaint() { 
 		if (isSpacer())
 			return;
 		settingText().repaint();
@@ -405,9 +392,6 @@ public class SettingBase<T> implements InterfaceParam {
 	public void setValueFromCost(float cost) {
 		set(getValueFromCost(cost));
 	}
-	public void newCost(int index, float newCost) {
-		costList.set(index, newCost);
-	}
 	public SettingBase<?> defaultIndex(int index) {
 		setDefaultIndex(bounds(0, index, cfgValueList.size()-1));
 		return this;
@@ -419,42 +403,32 @@ public class SettingBase<T> implements InterfaceParam {
 	public String guiOptionValue(int index) { // For List
 		return String.valueOf(optionValue(index));
 	}
-	protected void setFromLabel(String langLabel) {
-		int index = cfgValidIndex(indexOfIgnoreCase(langLabel, labelList));
-		// don't call selectedValue(T value) 
-		// it'll mess with CustomRaceDefinitions.RaceList
-		selectedValue = valueList.get(index);
-	}
 	// ===== Getters =====
 	//
-	protected T	defaultValue() { return defaultValue; }
-	protected String guiOptionLabel() { return guiOptionLabel(index()); }
+	protected T	defaultValue()			{ return defaultValue; }
+	protected String guiOptionLabel()	{ return guiOptionLabel(index()); }
 	protected String guiOptionLabel(int index) {
-		return lmText(labelList.get(cfgValidIndex(index)));
+		return langLabel(labelList.get(cfgValidIndex(index)));
 	}
-	protected String labelList(int index) {
-		return labelList.get(cfgValidIndex(index));
-	}
-	public String guiSettingDisplayStr() {
+	public	String guiSettingDisplayStr() {
 		if (isBullet) 
 			return guiSettingLabelCostStr();
 		else
 			return guiSettingLabelValueCostStr();		
 	}
-	public boolean isSpacer()	{ return isSpacer; }
-	public boolean hasNoCost()	{ return hasNoCost; }
-	public boolean isBullet()	{ return isBullet; }
-	public String  getLabel()	{ return lmText(getLangLabel()); }
-	public int bulletStart()	{ return bulletStart; }
-	public int bulletEnd()		{ return bulletStart + bulletBoxSize(); }
-	public int bulletHeightFactor()	{ return bulletHeightFactor; }
-	public float lastRandomSource()	{ return lastRandomSource; }
-	public boolean isDefaultIndex()	{ return cfgValidIndex() == rawDefaultIndex(); }
-	public boolean allowListSelect(){ return allowListSelect; }
-	public ModText	settingText()	{ return settingText; }
-	public ModText[] optionsText()	{ return optionsText; }
-	public ModText optionText(int i) { return optionsText[i]; }
-	public float	costFactor() {
+	public	boolean isSpacer()			{ return isSpacer; }
+	public	boolean hasNoCost()			{ return hasNoCost; }
+	public	boolean isBullet()			{ return isBullet; }
+	public	String  getLabel()			{ return langLabel(getLangLabel()); }
+	public	int bulletStart()			{ return bulletStart; }
+	private	int bulletEnd()				{ return bulletStart + bulletBoxSize(); }
+	int	bulletHeightFactor()			{ return bulletHeightFactor; }
+	public	float	lastRandomSource()	{ return lastRandomSource; }
+	public	boolean	isDefaultIndex()	{ return cfgValidIndex() == rawDefaultIndex(); }
+	public	ModText	settingText()		{ return settingText; }
+	public	ModText[] optionsText()		{ return optionsText; }
+	public	ModText	optionText(int i)	{ return optionsText[i]; }
+	public	float	costFactor()		{
 		if (isList) {
 			if (lastRandomSource<0)
 				return -Collections.min(costList);
@@ -466,22 +440,45 @@ public class SettingBase<T> implements InterfaceParam {
 		else
 			return Math.max(maxValueCostFactor(), minValueCostFactor());
 	}
-	public int listSize() { return valueList.size(); }
-	public int bulletBoxSize() {
+	public	int listSize()				{ return valueList.size(); }
+	public	int bulletBoxSize()			{
 		if (isBullet())
 			return Math.min(listSize(), bulletMax);
 		else
 			return 0;
 	}
-	public LinkedList<String> getOptions(){
+	public	LinkedList<String> getOptions()	{
 		LinkedList<String> list = new LinkedList<String>();
 		list.addAll(cfgValueList);
 		return list;
 	}
-	public LinkedList<String> getLabels(){
+	public	LinkedList<String> getLabels()	{
 		LinkedList<String> list = new LinkedList<String>();
 		list.addAll(labelList);
 		return list;
+	}
+	private	String getFinalLabel(String rawLabel)	{
+		if (rawLabel == null)
+			return "";
+		if (labelsAreFinals)
+			return rawLabel;
+		return getLangLabel() +"_"+ rawLabel;
+	}
+	private	void addLabel(String rawLabel)	{ labelList.add(getFinalLabel(rawLabel)); }
+	private	String getToolTip(String label, boolean finalKey)	{
+		if (label == null || label.isEmpty())
+			return "";
+		if (finalKey)
+			return langLabel(label);
+		String tt = langHelp(getFinalLabel(label));
+		if (tt == null || tt.isEmpty()) {
+			// System.out.println("Missed TT: " + label);
+			return "";
+		}
+		return tt;
+	}
+	private	void addToolTip(String label, boolean finalKey)		{
+		tooltipList.add(getToolTip(label, finalKey));
 	}
 	// ===== Other Public Methods =====
 	//
@@ -498,39 +495,23 @@ public class SettingBase<T> implements InterfaceParam {
 		cfgValueList.add(cfgValue);
 		costList.add(cost);
 		valueList.add(value);
-		if (labelsAreFinals)
-			labelList.add(langLabel);
-		else
-			labelList.add(getLangLabel() +"_"+ langLabel);
-		tooltipList.add("");
+		addLabel(langLabel);
+		addToolTip(langLabel, false);
 	}
 	public void put(String cfgValue, String langLabel, float cost, T value, String tooltipKey) {
 		isList(true);
 		cfgValueList.add(cfgValue);
 		costList.add(cost);
 		valueList.add(value);
-		if (labelsAreFinals)
-			labelList.add(langLabel);			
-		else
-			labelList.add(getLangLabel() +"_"+ langLabel);
-		if (tooltipKey == null || tooltipKey.isEmpty())
-			tooltipList.add("");
-		else if (labelsAreFinals)
-			tooltipList.add(lmText(tooltipKey));			
-		else
-			tooltipList.add(lmText(getLangLabel() +"_"+ tooltipKey));
+		addLabel(langLabel);
+		addToolTip(tooltipKey, true);
 	}
-	public void put(T value, String tooltipKey) {
+	void put(T value, String tooltipKey) {
 		cfgValueList.add("");
 		costList.add(0f);
 		valueList.add(value);
 		labelList.add("");
-		if (tooltipKey == null || tooltipKey.isEmpty())
-			tooltipList.add("");
-		else if (labelsAreFinals)
-			tooltipList.add(lmText(tooltipKey));			
-		else
-			tooltipList.add(lmText(getLangLabel() +"_"+ tooltipKey));
+		addToolTip(tooltipKey, true);
 	}
 	protected int getDir(MouseEvent e) {
 		if (SwingUtilities.isRightMouseButton(e)) return -1;
@@ -558,7 +539,6 @@ public class SettingBase<T> implements InterfaceParam {
 			}
 	}
 	protected T optionValue(int index)	{ return valueList.get(valueValidIndex(index)); }
-	@Override public String getLangLabel()			{ return guiLabel + nameLabel; }
 	// ========== Private Methods ==========
 	//
 	private void bulletStart(int start) {
@@ -679,11 +659,8 @@ public class SettingBase<T> implements InterfaceParam {
 			return costValidDefaultIndex();
 		return index;
 	}
-	protected static String lmText(String key) {
-		return LabelManager.current().label(key);
-	}
 	private static String text(String key, String... vals) {
-		String str = lmText(key);
+		String str = langLabel(key);
 		for (int i=0;i<vals.length;i++)
 			str = str.replace(textSubs[i], vals[i]);
 		return str;
@@ -697,7 +674,6 @@ public class SettingBase<T> implements InterfaceParam {
 		}
 		return -1;
 	}
-
 	private int getValueIndexIgnoreCase(String value) {
 		int index = 0;
 		for (String entry : cfgValueList) {

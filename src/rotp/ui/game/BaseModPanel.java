@@ -82,7 +82,7 @@ public abstract class BaseModPanel extends BasePanel
 
 	private	  final LinkedList<PolyBox>	polyBoxList	= new LinkedList<>();
 	protected final LinkedList<Box>		boxBaseList	= new LinkedList<>();
-	private	  final LinkedList<Box>		boxHelpList	= new LinkedList<>();
+	protected final LinkedList<Box>		boxHelpList	= new LinkedList<>();
 	protected Box	  hoverBox;
 	protected Box	  prevHover;
 	protected PolyBox hoverPolyBox;
@@ -436,9 +436,9 @@ public abstract class BaseModPanel extends BasePanel
 		//
 		public Box()				{ addToList(); }
 		private Box(boolean add)	{ if (add) addToList(); }
-		private Box(ModText modText){
-			this(true);
-			boxHelpList.add(this);
+		private Box(ModText modText, boolean addToList) {
+			this(addToList);
+//			boxHelpList.add(this);
 			this.modText = modText;
 		}
 		Box(String label)			{
@@ -582,10 +582,25 @@ public abstract class BaseModPanel extends BasePanel
 		* @param i2	topLBdr
 		* @param i3	btmRBdr
 		*/
-		public ModText(BasePanel p, boolean logo, int fSize, int x1, int y1, Color c1, Color c2, Color c3, Color c4,
-				Color c5, int i1, int i2, int i3) {
-			super(p, logo, fSize, x1, y1, c1, c2, c3, c4, c5, i1, i2, i3);
-			box = new Box(this);
+//		public ModText(BasePanel p, boolean logo, int fSize, int x1, int y1, Color c1, Color c2, Color c3, Color c4,
+//				Color c5, int i1, int i2, int i3) {
+//			super(p, logo, fSize, x1, y1, c1, c2, c3, c4, c5, i1, i2, i3);
+//			box = new Box(this, true);
+//		}
+		
+		/**
+		* @param p		BasePanel
+		* @param fSize	fontSize
+		* @param c1		enabledC
+		* @param c2		disabledC
+		* @param c3		hoverC
+		* @param c4		depressedC
+		* @param c5		shadeC
+		* @param add	add to box list
+		*/
+		public ModText(BasePanel p, int fSize, Color c1, Color c2, Color c3, Color c4, Color c5, boolean add) {
+			super(p, false, fSize, 0, 0, c1, c2, c3, c4, c5, 0, 0, 0);
+			box = new Box(this, add);
 		}
 		public void	   removeBoxFromList()				{ box.removeFromList(); }
 		public ModText initGuide(InterfaceParam param)	{ box.initGuide(param); return this; }

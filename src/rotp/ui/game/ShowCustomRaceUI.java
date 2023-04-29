@@ -16,13 +16,11 @@
 package rotp.ui.game;
 
 import static rotp.model.empires.CustomRaceDefinitions.ROOT;
-import static rotp.ui.UserPreferences.showTooltips;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -30,6 +28,9 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.swing.JEditorPane;
+import javax.swing.JTextPane;
 
 import rotp.model.empires.CustomRaceDefinitions;
 import rotp.model.game.IGameOptions;
@@ -48,18 +49,15 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	private static final Color  backgroundHaze	= new Color(0,0,0,160);
 	private static final String playerAIOffKey	= "SETUP_OPPONENT_AI_PLAYER";
 	private static final String totalCostKey	= ROOT + "GUI_COST";
-	private static final String raceAITipKey	= ROOT + "RACE_AI_DESC";
-	private static final String exitTipKey		= "SETTINGS_EXIT_DESC";
 	
-	private	static final int tooltipPadV	= s10;
-	private	static final int tooltipPadM	= s5;
-	private static final Color tooltipC		= SystemPanel.blackText;
-	private static final int tooltipLineH	= s18;
-	private	static final Font tooltipFont	= FontManager.current().narrowFont(14);
+	private	static final int  tooltipPadV	= s10;
+	private	static final int  descPadM		= s5;
+	private static final int  descLineH		= s18;
+	private	static final Font descFont		= FontManager.current().narrowFont(14);
 
 	protected static final Color textC		= SystemPanel.whiteText;
 	protected static final int buttonPad	= s15;
-	private static final int buttonPadV		= tooltipPadV;
+	private   static final int buttonPadV	= tooltipPadV;
 	protected static final int xButtonOffset= s30;
 	protected static final Color labelC		= SystemPanel.orangeText;
 	protected static final int labelFontSize= 14;
@@ -93,9 +91,9 @@ public class ShowCustomRaceUI extends BaseModPanel {
 
 	private static final Color optionC		= SystemPanel.blackText; // Unselected option Color
 	private static final Color selectC		= SystemPanel.whiteText;  // Selected option color
-	private static final int optionFont		= 13;
-	private static final int optionH		= s15;
-	private static final int optionIndent	= s15;
+	private static final int   optionFont	= 13;
+	private static final int   optionH		= s15;
+	private static final int   optionIndent	= s15;
 
 	// This should be the last static to be initialized
 	private static final ShowCustomRaceUI instance = new ShowCustomRaceUI();
@@ -103,7 +101,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	private LinkedList<Integer> colSettingsCount;
 	private	LinkedList<Integer> spacerList;
 	private LinkedList<Integer> columnList;
-	LinkedList<SettingBase<?>> commonList;
+	LinkedList<SettingBase<?>>  commonList;
 	protected LinkedList<SettingBase<?>> settingList;
 	protected LinkedList<SettingBase<?>> mouseList;
 	
@@ -113,8 +111,8 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	private int columnsMaxH	= 0;
 	private int columnH		= RotPUI.scaledSize(60); // For the Random options
 	private int numSettings	= 0;
-	private	int tooltipLines = 2;
-	private	int tooltipH = tooltipLines * tooltipLineH + tooltipPadM;
+	private	int descLines	= 2;
+	private	int descHeigh	= descLines * descLineH + descPadM;
 
 	private int yTitle;
 	private int xCost, yCost;
@@ -126,29 +124,31 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	private int settingBoxH;
 	private int topM;
 	private int yTop;
-	private int xTT, yTT, wTT;
+	private int xDesc, yDesc, descWidth;
 	protected int xButton, yButton;
 	protected int leftM;
 	protected int xLine, yLine; // settings var
 
 	protected BasePanel parent;
-	protected final Box exitBox	   = new Box("SETTINGS_EXIT");
-	private	  final Box raceAIBox  = new Box(ROOT + "RACE_AI");
-	private	  final Rectangle toolTipBox = new Rectangle();
-	protected String tooltipText = "";
-	protected String preTipTxt	 = "";
+	protected final Box exitBox			= new Box("SETTINGS_EXIT");
+	private	  final Box raceAIBox		= new Box(ROOT + "RACE_AI");
+	private	  final JTextPane descBox	= new JTextPane();
 	protected ModText totalCostText;
 	private	  RacesUI  raceUI; // Parent panel
 	protected int maxLeftM;
 	CustomRaceDefinitions cr;
 	protected boolean initialized = false;
-	
+
 	// ========== Constructors and initializers ==========
 	//
 	protected ShowCustomRaceUI() {
 		setOpaque(false);
-	    totalCostText = new ModText(this, false, costFontSize, 0, 0, 
-	    		costC, costC, hoverC, depressedC, costC, 0, 0, 0);
+		add(descBox);
+		descBox.setOpaque(true);
+		descBox.setContentType("text/html");
+		descBox.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
+	    totalCostText = new ModText(this, costFontSize, 
+	    		costC, costC, hoverC, depressedC, costC, false);
 	}
 	public static ShowCustomRaceUI instance() {
 		return instance.init0();
@@ -220,35 +220,19 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		init();
 		repaint();
 	}
-	@Override protected void init() {
-		super.init();
-		for (SettingBase<?> setting : commonList) {
-			if (setting.isBullet()) {
-				setting.settingText().displayText(setting.guiSettingDisplayStr()); // The setting
-				int bulletStart	= setting.bulletStart();
-				int bulletSize	= setting.bulletBoxSize();
-				for (int bulletIdx=0; bulletIdx < bulletSize; bulletIdx++) {
-					int optionIdx = bulletStart + bulletIdx;
-					setting.optionText(bulletIdx).displayText(setting.guiCostOptionStr(optionIdx));
-				}
-
-			} else {
-				setting.settingText().displayText(setting.guiSettingDisplayStr());			
-			}
-		}
-		totalCostText.displayText(totalCostStr());
-		totalCostText.disabled(true);
-		tooltipText = "\"Shift\" and \"Ctrl\" can be used to changes button, click and scroll functions";
-	}
 	// ========== Other Methods ==========
 	//
+	protected void setToolTip(String tt) {
+		descBox.setText(tt);
+		loadGuide();
+		if (hoverBox != null && hoverBox != prevHover)
+			repaint(hoverBox);
+	}
 	private  ModText settingBT() {
-		return new ModText(this, false, settingFont, 0, 0,
-				settingC, settingNegC, hoverC, depressedC, textC, 0, 0, 0);
+		return new ModText(this, settingFont, settingC, settingNegC, hoverC, depressedC, textC, false);
 	}
 	protected  ModText optionBT() {
-		return new ModText(this, false, optionFont, 0, 0,
-				optionC, selectC, hoverC, depressedC, textC, 0, 0, 0);
+		return new ModText(this, optionFont, optionC, selectC, hoverC, depressedC, textC, false);
 	}
 	private void endOfColumn() {
 		columnH -= 2 * settingH; // to fit the reality... Debug needed
@@ -258,8 +242,6 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		numSettings	= 0;
 		columnH		= 0;
 	}
-	private String exitButtonTipKey()	{ return exitTipKey; }
-	private String raceAIButtonTipKey()	{ return raceAITipKey; }
 	private boolean isPlayer()			{ return raceUI.selectedEmpire().isPlayer(); }
 	private String selectAIFromList(String[] aiArray, String initialChoice) {
 		String message = "Make your choice";
@@ -274,7 +256,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 				false,					// isVertical
 		        scaled(220), scaled(220),	// size
 				null, null, null,		// Font, Preview, Alternate return
-				null); 					// TODO BR: add help param
+				null); 					// TODO BR: add help parameter
 
 		String input = (String) dialog.showDialog();
 	    if (input == null)
@@ -314,56 +296,14 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	protected  String totalCostStr() {
 		return text(totalCostKey, Math.round(cr.getTotalCost()));
 	}
-	protected boolean checkForHoveredButtons() {
-		if (exitBox.contains(mX,mY)) {
-			hoverBox = exitBox;
-			tooltipText = text(exitButtonTipKey());
-			if (hoverBox != prevHover) {
-				if (tooltipText.equals(preTipTxt)) {
-					repaint(hoverBox);
-				} else {
-					repaint();
-				}
-			}
-			return true;
-		} else if (guideBox.contains(mX,mY)) {
-			hoverBox = guideBox;
-			tooltipText = text(guideButtonDescKey());
-			if (hoverBox != prevHover) {
-				if (tooltipText.equals(preTipTxt)) {
-					repaint(hoverBox);
-				} else {
-					repaint();
-				}
-			}
-			return true;
-		} else if (raceAIBox.contains(mX,mY)) {
-			hoverBox = raceAIBox;
-			tooltipText = text(raceAIButtonTipKey());
-			if (hoverBox != prevHover) {
-				if (tooltipText.equals(preTipTxt)) {
-					repaint(hoverBox);
-				} else {
-					repaint();
-				}
-			}
-			return true;
-		}
-		return false;
-	}
 	private boolean checkForHoveredSettings(LinkedList<SettingBase<?>> settings) {
 		for (SettingBase<?> setting : settings) {
 			if (setting.settingText().contains(mX,mY)) {
 				hoverBox = setting.settingText().box();
-				tooltipText = setting.getToolTip();
+				setToolTip(setting.getToolTip());
 				if (hoverBox != prevHover) {
 					setting.settingText().mouseEnter();
-					if (tooltipText.equals(preTipTxt)) { 
-						repaint(hoverBox);
-					} else {
-						repaint(hoverBox);
-						repaint(toolTipBox);
-					}
+					repaint(hoverBox);
 				}
 				return true;
 			}
@@ -372,15 +312,10 @@ public class ShowCustomRaceUI extends BaseModPanel {
 				for (ModText txt : setting.optionsText()) {
 					if (txt.contains(mX,mY)) {
 						hoverBox = txt.box();
-						tooltipText = setting.getToolTip(idx);
+						setToolTip(setting.getToolTip(idx));
 						if (hoverBox != prevHover) {
 							txt.mouseEnter();
-							if (tooltipText.equals(preTipTxt)) { 
-								repaint(hoverBox);
-							} else {
-								repaint(hoverBox);
-								repaint(toolTipBox);
-							}
+							repaint(hoverBox);
 						}
 						return true;
 					}
@@ -389,48 +324,6 @@ public class ShowCustomRaceUI extends BaseModPanel {
 			}
 		}
 		return false;
-	}
-	private void checkExitSettings(LinkedList<SettingBase<?>> settings) {
-		for (SettingBase<?> setting : settings) {
-			if (prevHover == setting.settingText().box()) {
-				setting.settingText().mouseExit();
-				return;
-			}
-			if (setting.isBullet())				
-				for (ModText txt : setting.optionsText()) {
-					if (prevHover == txt.box()) {
-						txt.mouseExit();
-						return;
-					}
-				}
-		}
-	}
-	private void hoverAndTooltip(boolean keyModifierChanged) {
-		if (mouseList == null) {
-			System.out.println("mouseList is null");
-			return;
-		}
-		preTipTxt = tooltipText;
-		tooltipText = "";
-		prevHover = hoverBox;
-		hoverBox = null;
-		// Check if cursor is in a box
-		boolean onButton = checkForHoveredButtons();
-		boolean onBox = onButton || checkForHoveredSettings(mouseList);
-
-		if (prevHover != hoverBox && prevHover != null) {
-			checkExitSettings(mouseList);
-			repaint(prevHover.getBounds());
-		}
-		if (keyModifierChanged) {
-			repaintButtons();
-			if (!tooltipText.equals(preTipTxt))
-				repaint(toolTipBox);
-		}
-		else if (!onBox && prevHover != null) {
-			if (!tooltipText.equals(preTipTxt))
-				repaint(toolTipBox);
-		}
 	}
 	protected String raceAIButtonTxt() {
 		if (isPlayer())
@@ -485,21 +378,11 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		}				
 		yLine += endPad;
 	}
-	private void paintToolTips(Graphics2D g) {
-		if (showTooltips.get()) {
-			List<String> lines = wrappedLines(g, tooltipText, wTT-2*tooltipPadM);
-			g.setFont(tooltipFont);
-			toolTipBox.setBounds(xTT, yTT, wTT, tooltipH);
-			g.setColor(GameUI.setupFrame());
-			g.fill(toolTipBox);
-			g.setColor(tooltipC);
-			int xT = xTT+tooltipPadM;
-			int yT = yTT-s2;
-			for (String line: lines) {
-				yT += tooltipLineH;
-				drawString(g,line, xT, yT);
-			}		
-		}
+	private void paintDescriptions(Graphics2D g) {
+		descBox.setFont(descFont);
+		descBox.setBackground(GameUI.setupFrame());
+		descBox.setBounds(xDesc, yDesc, descWidth, descHeigh);
+		descBox.setVisible(true);
 	}
 	protected void paintButtons(Graphics2D g) {
 		int cnr = s5;
@@ -559,10 +442,29 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	}
 	// ========== Overriders ==========
 	//
+	@Override protected void init() {
+		super.init();
+		for (SettingBase<?> setting : commonList) {
+			if (setting.isBullet()) {
+				setting.settingText().displayText(setting.guiSettingDisplayStr()); // The setting
+				int bulletStart	= setting.bulletStart();
+				int bulletSize	= setting.bulletBoxSize();
+				for (int bulletIdx=0; bulletIdx < bulletSize; bulletIdx++) {
+					int optionIdx = bulletStart + bulletIdx;
+					setting.optionText(bulletIdx).displayText(setting.guiCostOptionStr(optionIdx));
+				}
 
+			} else {
+				setting.settingText().displayText(setting.guiSettingDisplayStr());			
+			}
+		}
+		totalCostText.displayText(totalCostStr());
+		totalCostText.disabled(true);
+		descBox.setText("<b>Shift</b>&nbsp and <b>Ctrl</b>&nbsp can be used to change buttons, click and scroll functions");
+	}
 	@Override public boolean checkModifierKey(InputEvent e) {
 		boolean change = checkForChange(e);
-		hoverAndTooltip(change);
+//		hoverAndTooltip(false);
 		return change;
 	}
 	@Override public void repaintButtons() {
@@ -579,31 +481,24 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		w	= getWidth();
 		h	= getHeight();
 		wBG	= getBackGroundWidth();
-		wTT	= wBG - 2 * columnPad;
+		descWidth	= wBG - 2 * columnPad;
 
-		g.setFont(tooltipFont);
-		if (showTooltips.get()) {
-			// Set the base top Margin
-			// Set the final High
-			hBG	 = titlePad + columnsMaxH + buttonPadV + smallButtonH + tooltipPadV + tooltipH + tooltipPadV;
-			topM = (h - hBG)/2;
-			yTT	 = topM + hBG - tooltipPadV - tooltipH;
-		} else {
-			// Set the final High
-			hBG	 = titlePad + columnsMaxH + buttonPadV + smallButtonH + buttonPadV;
-			topM = (h - hBG)/2;
-			yTT	= topM + hBG;
-		}
+		g.setFont(descFont);
+		// Set the base top Margin
+		// Set the final High
+		hBG	 = titlePad + columnsMaxH + buttonPadV + smallButtonH + tooltipPadV + descHeigh + tooltipPadV;
+		topM = (h - hBG)/2;
+		yDesc	 = topM + hBG - tooltipPadV - descHeigh;
 		
 		yTop	= topM + titlePad; // First setting top position
 		leftM	= Math.min((w - wBG)/2, maxLeftM);
 		yTitle	= topM + titleOffset;
-		yButton	= yTT - tooltipPadV - smallButtonH;
+		yButton	= yDesc - tooltipPadV - smallButtonH;
 		yCost 	= yTitle + costOffset;
 		xCost	= leftM + columnPad/2;
 		xLine	= leftM + columnPad/2;
 		yLine	= yTop;
-		xTT		= leftM + columnPad;
+		xDesc		= leftM + columnPad;
 
 		// draw background "haze"
 		g.setColor(backgroundHaze);
@@ -613,7 +508,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		g.fillRect(leftM, topM, wBG, hBG);
 		
 		// Tool tip
-		paintToolTips(g);
+		paintDescriptions(g);
 		
 		// Title
 		g.setFont(titleFont);
@@ -656,10 +551,18 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		yLine = yTop;
 	}
 	@Override public void keyReleased(KeyEvent e) {
-		checkModifierKey(e);
+		if(checkModifierKey(e)) {
+			if(hoverBox != null)
+				descBox.setText(hoverBox.getDescription());
+			repaintButtons();
+		}
 	}
 	@Override public void keyPressed(KeyEvent e) {
-		checkModifierKey(e);
+		if(checkModifierKey(e)) {
+			if(hoverBox != null)
+				descBox.setText(hoverBox.getDescription());
+			repaintButtons();
+		}
 		switch(e.getKeyCode()) {
 			case KeyEvent.VK_ESCAPE:
 				close();
@@ -676,26 +579,24 @@ public class ShowCustomRaceUI extends BaseModPanel {
 			hoverChanged = false;
 			return;
 		}
-		// Go thru the guide and restore the boxes
-		Box	hover = hoverBox;
-		Box prev  = prevHover;
+		descBox.setText("");
 		hoverChanged = true;
 		prevHover	 = hoverBox;
 		hoverBox	 = null;
-
-		for (Box box : boxBaseList)
-			if (box.contains(mX,mY)) {
-				hoverBox = box;
+		// Go thru the buttons and restore the boxes
+		for (Box box : boxHelpList)
+			if (box.checkIfHovered(descBox))
 				break;
-			}
-		if (hoverBox != prevHover) {
+		if (prevHover != null) {
+			prevHover.mouseExit();
+			if (hoverBox == null)
+				descBox.setText("");
 			loadGuide();
 			repaint();
 		}
-		hoverBox  = hover;
-		prevHover = prev;
+		// Check if cursor is in a box
+		checkForHoveredSettings(mouseList);;
 
-		hoverAndTooltip(false);
 	}
 	@Override public void mouseReleased(MouseEvent e) {
 		if (e.getButton() > 3)

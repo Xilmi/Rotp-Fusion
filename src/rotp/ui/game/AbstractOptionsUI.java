@@ -65,7 +65,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 	private Color textC = SystemPanel.whiteText;
 	private LinkedList<Integer>	lastRowList = new LinkedList<>();
 	private LinkedList<ModText> btList		= new LinkedList<>();
-	private Box exitBox	= new Box();
+	private Box exitBox	= new Box(exitKey);
 	private LinearGradientPaint bg;
 
 	
@@ -153,7 +153,8 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 	// ========== Other Methods ==========
 	//
 	private  ModText newBT() { 
-		return new ModText(this, false, 20, 20,-78,  textC, textC, hoverC, depressedC, textC, 0, 0, 0);
+		return new ModText(this, 20,  textC, textC, hoverC, depressedC, textC, true);
+//		return new ModText(this, false, 20, 20,-78,  textC, textC, hoverC, depressedC, textC, 0, 0, 0);
 	}
 	private void drawButtons(Graphics2D g) {
 		int cnr = s5;

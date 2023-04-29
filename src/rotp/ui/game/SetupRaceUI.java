@@ -73,11 +73,11 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
     private static BufferedImage raceBackImg;
     private BufferedImage shipBackImg;
     private BufferedImage raceImg;
-    private Box	helpBox			= new Box();
+    private Box	helpBox			= new Box("SETTINGS_BUTTON_HELP");
     private Box	cancelBox		= new Box("SETUP_RACE_CANCEL");
     private Box	nextBox			= new Box("SETUP_RACE_NEXT");
-    private Box	leaderBox		= new Box();
-    private Box	homeWorldBox	= new Box();
+    private Box	leaderBox		= new Box("SETUP_RACE_LEADER");
+    private Box	homeWorldBox	= new Box("SETUP_RACE_HOMEWORLD");
     private Box	playerRaceSettingBox = new Box("SETUP_RACE_CUSTOM"); // BR: Player Race Customization
     private Box	checkBox		= new Box("SETUP_RACE_CHECK_BOX"); // BR: Player Race Customization
     private Box	shipSetBox		= new Box("SETUP_RACE_SHIPSET"); // BR: ShipSet Selection

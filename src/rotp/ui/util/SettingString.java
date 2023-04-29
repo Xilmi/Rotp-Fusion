@@ -41,7 +41,7 @@ public class SettingString extends SettingBase<String> implements Base{
 	public SettingString(String guiLangLabel, String nameLangLabel, String defaultValue, int lineNum) {
 		super(guiLangLabel, nameLangLabel, defaultValue, false, true, true);
 		hasNoCost(true);
-		bulletHeightFactor(lineNum);
+		bulletHFactor(lineNum);
 		// Fake list needed for bullet aspect
 		for (int i=0; i<lineNum; i++)
 			put("", "");
