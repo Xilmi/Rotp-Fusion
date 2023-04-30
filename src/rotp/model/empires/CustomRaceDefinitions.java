@@ -508,6 +508,7 @@ public class CustomRaceDefinitions  {
 			maxBullet(32);
 			labelsAreFinals(true);
 			hasNoCost(true);
+			showFullGuide(false);
 			reload();
 		}
 		// ---------- Initializers ----------
@@ -876,6 +877,7 @@ public class CustomRaceDefinitions  {
 			super(ROOT, "FAVORED_SHIP_SIZE");
 			isBullet(true);
 			hasNoCost(true);
+			showFullGuide(true);
 			getToolTip();
 			initOptionsText();
 			labelsAreFinals(true);
@@ -898,6 +900,7 @@ public class CustomRaceDefinitions  {
 			super(ROOT, "FAVORED_SHIPSET");
 			isBullet(false);
 			hasNoCost(true);
+			showFullGuide(false);
 			getToolTip();
 			initOptionsText();
 			labelsAreFinals(true);
@@ -1188,6 +1191,7 @@ public class CustomRaceDefinitions  {
 			super(ROOT, "HOME_RESOURCES");
 			isBullet(true);
 			labelsAreFinals(true);
+			showFullGuide(true);
 			put("UltraPoor",	PLANET + "ULTRA_POOR",		-50f, "UltraPoor");
 			put("Poor",			PLANET + "POOR",			-25f, "Poor");
 			put("Normal",		ROOT   + "RESOURCES_NORMAL",  0f, "Normal");
@@ -1213,6 +1217,7 @@ public class CustomRaceDefinitions  {
 			super(ROOT, "HOME_ENVIRONMENT");
 			isBullet(true);
 			labelsAreFinals(true);
+			showFullGuide(true);
 			put("Hostile", PLANET + "HOSTILE",			  -20f, "Hostile");
 			put("Normal",  ROOT   + "ENVIRONMENT_NORMAL",	0f, "Normal");
 			put("Fertile", PLANET + "FERTILE",			   15f, "Fertile");
@@ -1237,6 +1242,7 @@ public class CustomRaceDefinitions  {
 			super(ROOT, "HOME_TYPE");
 			isBullet(true);
 			labelsAreFinals(true);
+			showFullGuide(true);
 //			put("Ocean",	PlanetType.OCEAN,	-8f, PlanetType.OCEAN);
 //			put("Jungle",	PlanetType.JUNGLE,	-5f, PlanetType.JUNGLE);
 //			put("Terran",	PlanetType.TERRAN,	 0f, PlanetType.TERRAN);

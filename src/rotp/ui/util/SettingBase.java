@@ -64,17 +64,18 @@ public class SettingBase<T> implements InterfaceParam {
 	private boolean isList			= defaultIsList;
 	private boolean isBullet		= defaultIsBullet;
 	private boolean allowListSelect	= false;
-	private T selectedValue	  = null;
-	private T defaultValue	  = null;
-	private boolean isSpacer  = false;
-	private boolean hasNoCost = false;
+	private boolean showFullGuide	= false;
+	private boolean isSpacer 		= false;
+	private boolean hasNoCost		= false;
+	private T		selectedValue	= null;
+	private T		defaultValue	= null;
+	private int		bulletHFactor	= 1;
+	private int 	bulletMax   	= 25;
+	private int 	bulletStart 	= 0;
 	private ModText settingText;
 	private ModText[] optionsText;
-	private String settingToolTip;
-	private int bulletHeightFactor = 1;
-	private int bulletMax   = 25;
-	private int bulletStart = 0;
-	private float lastRandomSource;
+	private String	settingToolTip;
+	private float	lastRandomSource;
 	
 	// ========== Constructors and initializers ==========
 	//
@@ -121,7 +122,8 @@ public class SettingBase<T> implements InterfaceParam {
 	public	void allowListSelect(boolean allow)	{ allowListSelect = allow; }
 	private	void isList(boolean isList)			{ this.isList = isList; }
 	public	void labelsAreFinals(boolean finals){ labelsAreFinals = finals; }
-	protected void bulletHFactor(int factor)	{ bulletHeightFactor = factor; }
+	public	void showFullGuide(boolean show)	{ showFullGuide = show; }
+	protected void bulletHFactor(int factor)	{ bulletHFactor = factor; }
 	// ========== Public Interfaces ==========
 	//
 	@Override public void setFromCfgValue(String cfgValue) {
@@ -163,7 +165,7 @@ public class SettingBase<T> implements InterfaceParam {
 		else 
 			prev();
 	}
-	@Override public void setFromDefault()		{ selectedValue(defaultValue); }
+	@Override public void setFromDefault()			{ selectedValue(defaultValue); }
 	@Override public void setOptions(DynamicOptions destOptions) {
 		if (!isSpacer && destOptions != null)
 			destOptions.setString(getLangLabel(), getCfgValue());
@@ -196,19 +198,19 @@ public class SettingBase<T> implements InterfaceParam {
 			return "";
 		}
 	}
-	@Override public String getCfgValue() 		{ return getCfgValue(settingValue()); }
-	@Override public String getCfgLabel()		{ return nameLabel; }
-	@Override public String getGuiDescription() { return langLabel(descriptionId()); }
-	@Override public String guideValue()		{ return String.valueOf(settingValue()); }
-	@Override public String getGuiDisplay()		{ return text(getLangLabel(), guideValue()) + END; }
-	@Override public String getToolTip()		{
+	@Override public String getCfgValue() 			{ return getCfgValue(settingValue()); }
+	@Override public String getCfgLabel()			{ return nameLabel; }
+	@Override public String getGuiDescription() 	{ return langLabel(descriptionId()); }
+	@Override public String guideValue()			{ return String.valueOf(settingValue()); }
+	@Override public String getGuiDisplay()			{ return text(getLangLabel(), guideValue()) + END; }
+	@Override public String getToolTip()			{
 		if (settingToolTip == null) {
 			loadSettingToolTip();
 			resetOptionsToolTip();
 		}
 		return settingToolTip;
 	}
-	@Override public String getToolTip(int idx) {
+	@Override public String getToolTip(int idx) 	{
 		if (idx >= tooltipList.size())
 			return "";
 		String tt = tooltipList.get(idx);
@@ -216,33 +218,28 @@ public class SettingBase<T> implements InterfaceParam {
 			return "";
 		return tt;
 	}
-	@Override public String guideDefaultValue()	{ return defaultValue.toString(); }
-	@Override public boolean isDefaultValue()	{ return defaultValue() == settingValue(); }
-	@Override public String getLangLabel()		{ return guiLabel + nameLabel; }
-	@Override public String	getFullHelp()		{
+	@Override public String guideDefaultValue()		{ return defaultValue.toString(); }
+	@Override public boolean isDefaultValue()		{ return defaultValue() == settingValue(); }
+	@Override public String getLangLabel()			{ return guiLabel + nameLabel; }
+	@Override public String getLangLabel(int id)	{ return labelList.get(valueValidIndex(id)); }
+	@Override public int	getIndex()				{ return valueValidIndex(); }
+	@Override public String	getGuide()				{
+		if(showFullGuide())
+			return getFullHelp();
+		return InterfaceParam.super.getGuide();
+	}
+	@Override public String	getFullHelp()			{
 		String help = getHeadGuide();
 		help += getTableHelp();
 		return help;
 	}
-//	@Override public String getSelectionStr()	{ return getValueStr(getIndex(get())); }
-	@Override public String getValueStr(int id)	{ return valueGuide(valueValidIndex(id)); }
-	@Override public String valueGuide(int id) 	{ return tableFormat(getRowGuide(id)); }
-
-	private String getTableHelp()				{
-		int size = listSize();
-		String rows = "";
-		if (size>0) {
-			rows = getRowGuide(0);
-			for (int i=1; i<size; i++)
-				rows += rowsSeparator() + getRowGuide(i);
-		}
-		return tableFormat(rows);
-	}
-	
+	@Override public String getValueStr(int id)		{ return valueGuide(valueValidIndex(id)); }
+	@Override public String valueGuide(int id) 		{ return tableFormat(getRowGuide(id)); }
 	
 	// ========== Overridable Methods ==========
 	//
-	public void enabledColor(float cost) {
+	public boolean showFullGuide()			{ return showFullGuide; }
+	public void enabledColor(float cost) 	{
 		if (cost == 0) 
 			settingText().enabledC(settingC);
 		else if (cost > 0)
@@ -250,8 +247,8 @@ public class SettingBase<T> implements InterfaceParam {
 		else
 			settingText().enabledC(settingNegC);	
 	}
-	void resetOptionsToolTip() {}
-	protected String getCfgValue(T value) {
+	void resetOptionsToolTip()				{}
+	protected String getCfgValue(T value)	{
 		if (isList) {
 			int index = valueValidIndex(valueList.indexOf(value));
 			return cfgValueList.get(index);
@@ -422,7 +419,7 @@ public class SettingBase<T> implements InterfaceParam {
 	public	String  getLabel()			{ return langLabel(getLangLabel()); }
 	public	int bulletStart()			{ return bulletStart; }
 	private	int bulletEnd()				{ return bulletStart + bulletBoxSize(); }
-	int	bulletHeightFactor()			{ return bulletHeightFactor; }
+	int	bulletHeightFactor()			{ return bulletHFactor; }
 	public	float	lastRandomSource()	{ return lastRandomSource; }
 	public	boolean	isDefaultIndex()	{ return cfgValidIndex() == rawDefaultIndex(); }
 	public	ModText	settingText()		{ return settingText; }
@@ -541,6 +538,16 @@ public class SettingBase<T> implements InterfaceParam {
 	protected T optionValue(int index)	{ return valueList.get(valueValidIndex(index)); }
 	// ========== Private Methods ==========
 	//
+	private String getTableHelp()		{
+		int size = listSize();
+		String rows = "";
+		if (size>0) {
+			rows = getRowGuide(0);
+			for (int i=1; i<size; i++)
+				rows += rowsSeparator() + getRowGuide(i);
+		}
+		return tableFormat(rows);
+	}
 	private void bulletStart(int start) {
 		bulletStart = start;
 		int idx = index();

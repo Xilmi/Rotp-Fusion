@@ -32,6 +32,7 @@ import rotp.ui.game.BaseModPanel;
 public class ParamList extends AbstractParam<String> {
 
 	private final IndexableMap valueLabelMap;
+	private boolean showFullGuide = false;
 	
 	// ===== Constructors =====
 	//
@@ -136,7 +137,8 @@ public class ParamList extends AbstractParam<String> {
 	
 	// ===== Initializers =====
 	//
-	public void reInit(List<String> list) {
+	public void showFullGuide(boolean show) { showFullGuide = show; }
+ 	public void reInit(List<String> list) {
 		valueLabelMap.clear();
 		for (String element : list)
 			put(element, langLabel(element)); // "text" should now be available
@@ -178,6 +180,11 @@ public class ParamList extends AbstractParam<String> {
 	}
 	@Override public String	getGuiValue(int id)		{
 		return langLabel(valueLabelMap.getLangLabel(getValidIndex(id)));
+	}
+	@Override public String	getGuide()				{
+		if(showFullGuide)
+			return getFullHelp();
+		return super.getGuide();
 	}
 	@Override public String	getFullHelp()			{
 		String help = getHeadGuide();

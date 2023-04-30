@@ -193,29 +193,45 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 				if (hoverBox == setting.settingText().box()) { // Check Setting
 					setting.toggle(e, w, this);
 					setting.guiSelect();
-					if (raceList.newValue())
+					if (autoGuide) {
+						loadGuide();
+						repaint();
+					}
+					else if (raceList.newValue())
 						repaint();
 					else
 						totalCostText.repaint(totalCostStr());
 					return;
-				} else { // Check options
+				}
+				else { // Check options
 					int bulletStart	= setting.bulletStart();
 					int bulletSize	= setting.bulletBoxSize();
 					for (int bulletIdx=0; bulletIdx < bulletSize; bulletIdx++) {
 						int optionIdx = bulletStart + bulletIdx;
 						if (hoverBox == setting.optionText(bulletIdx).box()) {
-							if (setting.toggle(e, w, optionIdx) || raceList.newValue())
+							if (setting.toggle(e, w, optionIdx) || raceList.newValue()) {
+								//loadGuide();
 								repaint();
+							}
+//							else if (autoGuide) {
+//								loadGuide();
+//								repaint();
+//							}
 							else
 								totalCostText.repaint(totalCostStr());
 							return;
 						}
 					}
 				}
-			} else if (hoverBox == setting.settingText().box()) {
+			}
+			else if (hoverBox == setting.settingText().box()) {
 				setting.toggle(e, w, this);
 				setting.settingText().repaint();
 				totalCostText.repaint(totalCostStr());
+				if (autoGuide) {
+					loadGuide();
+					repaint();
+				}
 				return;
 			} 
 		}

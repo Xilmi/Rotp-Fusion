@@ -52,6 +52,7 @@ public class ParamAAN2 extends ParamList {
 	 */
 	ParamAAN2(String gui, String name, String defaultValue) {
 		super(gui, name, defaultValue, labelsAlwaysAutoNever);
+		showFullGuide(false);
 	}
 	/**
 	 * GUI = MOD_UI

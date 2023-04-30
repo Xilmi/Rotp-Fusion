@@ -1,3 +1,10 @@
+New updates:
+- Guide improvement: 
+  - Short list are now diplayed with all their options.
+  - Some new contents.
+  - Better integration in Custom Race Menu.
+
+
 April improvements:
 - New integrated Guide.
 - New Option limiting the number of annoying Warnings for Expansion, Genocide, and use of Bio weapons.

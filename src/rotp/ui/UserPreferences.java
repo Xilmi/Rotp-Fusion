@@ -154,16 +154,24 @@ public class UserPreferences {
 	// BR: AUTO-FLAG PARAMETERS SUB UI
 	public static final ParamList autoFlagAssignation1	= new ParamList(
 			MOD_UI, "AUTO_FLAG_ASSIGN_1",
-			AUTO_FLAG_NOT, flagAssignationMap);
+			AUTO_FLAG_NOT, flagAssignationMap) {
+		{ showFullGuide(true); }
+	};
 	public static final ParamList autoFlagAssignation2	= new ParamList(
 			MOD_UI, "AUTO_FLAG_ASSIGN_2",
-			AUTO_FLAG_NOT, flagAssignationMap);
+			AUTO_FLAG_NOT, flagAssignationMap) {
+		{ showFullGuide(true); }
+	};
 	public static final ParamList autoFlagAssignation3	= new ParamList(
 			MOD_UI, "AUTO_FLAG_ASSIGN_3",
-			AUTO_FLAG_NOT, flagAssignationMap);
+			AUTO_FLAG_NOT, flagAssignationMap) {
+		{ showFullGuide(true); }
+	};
 	public static final ParamList autoFlagAssignation4	= new ParamList(
 			MOD_UI, "AUTO_FLAG_ASSIGN_4",
-			AUTO_FLAG_NOT, flagAssignationMap);
+			AUTO_FLAG_NOT, flagAssignationMap) {
+		{ showFullGuide(true); }
+	};
 	public static final ParamList flagTerranColor		= new ParamList(
 			MOD_UI, "AUTO_FLAG_TERRAN",
 			FLAG_COLOR_GREEN, flagColorMap);
@@ -295,14 +303,16 @@ public class UserPreferences {
 			MOD_UI, "RETREAT_RESTRICTION_TURNS"
 			, 100, 0, 100, 1, 5, 20);
 	private static final ParamList	 retreatRestrictions	= new ParamList(
-			MOD_UI, "RETREAT_RESTRICTIONS", "None")
-			.put("None",	MOD_UI + "RETREAT_NONE")
+			MOD_UI, "RETREAT_RESTRICTIONS", "None") {
+		{ showFullGuide(true); }
+	}		.put("None",	MOD_UI + "RETREAT_NONE")
 			.put("AI",		MOD_UI + "RETREAT_AI")
 			.put("Player",	MOD_UI + "RETREAT_PLAYER")
 			.put("Both",	MOD_UI + "RETREAT_BOTH");
 	private static final ParamList	 targetBombard			= new ParamList(
-			MOD_UI, "TARGET_BOMBARD", "None")
-			.put("None",	MOD_UI + "RETREAT_NONE")
+			MOD_UI, "TARGET_BOMBARD", "None") {
+		{ showFullGuide(true); }
+	}		.put("None",	MOD_UI + "RETREAT_NONE")
 			.put("AI",		MOD_UI + "RETREAT_AI")
 			.put("Player",	MOD_UI + "RETREAT_PLAYER")
 			.put("Both",	MOD_UI + "RETREAT_BOTH");
@@ -341,8 +351,9 @@ public class UserPreferences {
 	public static final ParamBoolean restartAppliesSettings	= new ParamBoolean(
 			MOD_UI, "RESTART_APPLY_SETTINGS",false);
 	public static final ParamList  restartChangesPlayerRace	= new ParamList(
-			MOD_UI, "RESTART_PLAYER_RACE", "Swap")
-			.put("Last", MOD_UI + "RESTART_PLAYER_RACE_LAST")
+			MOD_UI, "RESTART_PLAYER_RACE", "Swap") {
+		{ showFullGuide(true); }
+	}		.put("Last", MOD_UI + "RESTART_PLAYER_RACE_LAST")
 			.put("Swap", MOD_UI + "RESTART_PLAYER_RACE_SWAP")
 			.put("GuiSwap",	 MOD_UI + "RESTART_PLAYER_RACE_GUI_SWAP")
 			.put("GuiLast",	 MOD_UI + "RESTART_PLAYER_RACE_GUI_LAST");
@@ -530,6 +541,7 @@ public class UserPreferences {
 			BASE_UI, "SHAPE_OPTION_3", "");
 	public static final ParamList    shapeOption2   		= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "SHAPE_OPTION_2")	{
+		{ showFullGuide(true); }
 		@Override public String	get()	{
 			return RotPUI.mergedGuiOptions().selectedGalaxyShapeOption2();
 		}
@@ -551,6 +563,7 @@ public class UserPreferences {
 	};
 	public static final ParamList    shapeOption1   		= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "SHAPE_OPTION_1")	{
+		{ showFullGuide(true); }
 		@Override public String	get()	{
 			return RotPUI.mergedGuiOptions().selectedGalaxyShapeOption1();
 		}
@@ -569,8 +582,9 @@ public class UserPreferences {
 			RotPUI.mergedGuiOptions().selectedGalaxyShape(newValue);
 		}
 	};
-	public static final ParamList    sizeSelection  		= new ParamList( // Duplicate Do not add the list
+	public static final ParamList    sizeSelection 		= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "GALAXY_SIZE", getGalaxySizeOptions(), SIZE_SMALL) {
+		{ showFullGuide(false); }
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedGalaxySize();
 		}
@@ -603,6 +617,7 @@ public class UserPreferences {
 	};
 	public static final ParamList    difficultySelection	= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "GAME_DIFFICULTY", getGameDifficultyOptions(), DIFFICULTY_NORMAL) {
+		{ showFullGuide(true); }
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedGameDifficulty();
 		}
@@ -696,6 +711,7 @@ public class UserPreferences {
 	// Duplicates for Base Advanced Options
 	private static final ParamList galaxyAge		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "GALAXY_AGE", getGalaxyAgeOptions(), GALAXY_AGE_NORMAL) {
+		{ showFullGuide(true); }
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedGalaxyAge();
 		}
@@ -705,6 +721,7 @@ public class UserPreferences {
 	};
 	private static final ParamList starDensity		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "STAR_DENSITY", getStarDensityOptions(), STAR_DENSITY_NORMAL) {
+		{ showFullGuide(true); }
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedStarDensityOption();
 		}
@@ -714,6 +731,7 @@ public class UserPreferences {
 	};
 	private static final ParamList nebulae			= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "NEBULAE", getNebulaeOptions(), NEBULAE_NORMAL) {
+		{ showFullGuide(true); }
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedNebulaeOption();
 		}
@@ -723,6 +741,7 @@ public class UserPreferences {
 	};
 	private static final ParamList randomEvents		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "RANDOM_EVENTS", getRandomEventOptions(), RANDOM_EVENTS_NO_MONSTERS) {
+		{ showFullGuide(true); }
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedRandomEventOption();
 		}
@@ -732,6 +751,7 @@ public class UserPreferences {
 	};
 	private static final ParamList planetQuality	= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "PLANET_QUALITY", getPlanetQualityOptions(), PLANET_QUALITY_NORMAL) {
+		{ showFullGuide(true); }
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedPlanetQualityOption();
 		}
@@ -741,6 +761,7 @@ public class UserPreferences {
 	};
 	private static final ParamList terraforming		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "TERRAFORMING", getTerraformingOptions(), TERRAFORMING_NORMAL) {
+		{ showFullGuide(true); }
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedTerraformingOption();
 		}
@@ -750,6 +771,7 @@ public class UserPreferences {
 	};
 	private static final ParamList colonizing		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "COLONIZING", getColonizingOptions(), COLONIZING_NORMAL) {
+		{ showFullGuide(true); }
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedColonizingOption();
 		}
@@ -759,6 +781,7 @@ public class UserPreferences {
 	};
 	private static final ParamList councilWin		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "COUNCIL_WIN", getCouncilWinOptions(), COUNCIL_REBELS) {
+		{ showFullGuide(true); }
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedCouncilWinOption();
 		}
@@ -780,6 +803,7 @@ public class UserPreferences {
 	};
 	private static final ParamList autoplay			= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "AUTOPLAY", getAutoplayOptions(), AUTOPLAY_OFF) {
+		{ showFullGuide(false); }
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedAutoplayOption();
 		}
@@ -789,6 +813,7 @@ public class UserPreferences {
 	};
 	private static final ParamList researchRate		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "RESEARCH_RATE", getResearchRateOptions(), RESEARCH_NORMAL) {
+		{ showFullGuide(true); }
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedResearchRate();
 		}
@@ -798,6 +823,7 @@ public class UserPreferences {
 	};
 	private static final ParamList warpSpeed		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "WARP_SPEED", getWarpSpeedOptions(), WARP_SPEED_NORMAL) {
+		{ showFullGuide(true); }
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedWarpSpeedOption();
 		}
@@ -807,6 +833,7 @@ public class UserPreferences {
 	};
 	private static final ParamList fuelRange		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "FUEL_RANGE", getFuelRangeOptions(), FUEL_RANGE_NORMAL) {
+		{ showFullGuide(true); }
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedFuelRangeOption();
 		}
@@ -818,6 +845,7 @@ public class UserPreferences {
 	};
 	private static final ParamList techTrading		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "TECH_TRADING", getTechTradingOptions(), TECH_TRADING_YES) {
+		{ showFullGuide(true); }
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedTechTradeOption();
 		}
@@ -827,6 +855,7 @@ public class UserPreferences {
 	};
 	private static final ParamList aiHostility		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "AI_HOSTILITY", getAiHostilityOptions(), AI_HOSTILITY_NORMAL) {
+		{ showFullGuide(true); }
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedAIHostilityOption();
 		}
@@ -852,6 +881,7 @@ public class UserPreferences {
 					AUTOBOMBARD_INVADE
 					),
 			AUTOBOMBARD_NO) {
+		{ showFullGuide(true); }
 		@Override public String get() { return autoBombardMode(); }
 		@Override public String set(String newValue) {
 			autoBombardMode(newValue);

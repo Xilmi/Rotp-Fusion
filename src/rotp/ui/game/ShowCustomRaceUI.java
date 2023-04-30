@@ -453,8 +453,8 @@ public class ShowCustomRaceUI extends BaseModPanel {
 					int optionIdx = bulletStart + bulletIdx;
 					setting.optionText(bulletIdx).displayText(setting.guiCostOptionStr(optionIdx));
 				}
-
-			} else {
+			}
+			else {
 				setting.settingText().displayText(setting.guiSettingDisplayStr());			
 			}
 		}

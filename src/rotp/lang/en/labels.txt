@@ -89,14 +89,14 @@ PLANET_ULTRA_RICH                 | Ultra Rich
 PLANET_HOSTILE                    | Hostile
 PLANET_FERTILE                    | Fertile
 PLANET_GAIA                       | Gaia
-PLANET_ARTIFACTS_HELP             | <b>Planetary traits:</b><br>Double Reaserch.
-PLANET_ULTRA_POOR_HELP            | <b>Planetary traits:</b><br>Ship, base, and factory production are divided by three.
-PLANET_POOR_HELP                  | <b>Planetary traits:</b><br>Halve ship, base, and factory production.
-PLANET_RICH_HELP                  | <b>Planetary traits:</b><br>Double ship, base, and factory production.
-PLANET_ULTRA_RICH_HELP            | <b>Planetary traits:</b><br>Triple ship, base, and factory production.
-PLANET_HOSTILE_HELP               | <b>Planetary traits:</b><br>Halve population growth.
-PLANET_FERTILE_HELP               | <b>Planetary traits:</b><br>add 50% to population growth.
-PLANET_GAIA_HELP                  | <b>Planetary traits:</b><br>Double population growth.
+PLANET_ARTIFACTS_HELP             | Double Reaserch.
+PLANET_ULTRA_POOR_HELP            | Ship, base, and factory production are divided by three.
+PLANET_POOR_HELP                  | Halve ship, base, and factory production.
+PLANET_RICH_HELP                  | Double ship, base, and factory production.
+PLANET_ULTRA_RICH_HELP            | Triple ship, base, and factory production.
+PLANET_HOSTILE_HELP               | Halve population growth.
+PLANET_FERTILE_HELP               | add 50% to population growth.
+PLANET_GAIA_HELP                  | Double population growth.
 
 // Planet Descriptors for Race
 PLANET_HOMEWORLD                  | [alien_race] Homeworld
@@ -1693,8 +1693,8 @@ CUSTOM_RACE_SHIP_SIZE_MEDIUM      | Medium
 CUSTOM_RACE_SHIP_SIZE_LARGE       | Large
 CUSTOM_RACE_SHIP_SIZE_HUGE        | Huge
 CUSTOM_RACE_SHIP_SIZE_SMALL_HELP  | Preferred by:&ensp Alkari and Klackon.
-CUSTOM_RACE_SHIP_SIZE_MEDIUM_HELP | Preferred by:&ensp Darlok, Human, Mrrshan, Psilon, Sakkra,&ensp <i>EarlyGame, NeoHuman.</i>
-CUSTOM_RACE_SHIP_SIZE_LARGE_HELP  | Preferred by:&ensp Bulrathi, Meklar, Silicoid,&ensp <i>JackTrades, WarDemon.</i>
+CUSTOM_RACE_SHIP_SIZE_MEDIUM_HELP | Preferred by:&ensp Darlok, Human, Mrrshan, Psilon, Sakkra, <i> EarlyGame, NeoHuman.</i>
+CUSTOM_RACE_SHIP_SIZE_LARGE_HELP  | Preferred by:&ensp Bulrathi, Meklar, Silicoid, <i> JackTrades, WarDemon.</i>
 CUSTOM_RACE_SHIP_SIZE_HUGE_HELP   | Preferred by:&ensp <i>GearHead, Monocle.</i>
 
 

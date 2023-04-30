@@ -44,6 +44,7 @@ public class ParamOptions extends ParamList {
 	 */
 	public ParamOptions(String gui, String name, String defaultValue) {
 		super(gui, name, defaultValue, labelsOptions);
+		showFullGuide(true);
 	}
 	/**
 	 * GUI = MOD_UI
