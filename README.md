@@ -26,6 +26,11 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## What's New
 
+2023.04.30 (BR)
+- Custom Race Menu:
+  - AI Box has Guide.
+- PopUp selection list Fix: "Cancel" will work again!
+
 2023.04.29 (BR)
 - Custom Race Menu:
   - Some Guide addition.

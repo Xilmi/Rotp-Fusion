@@ -4,6 +4,9 @@ New updates:
   - Some new contents.
   - Better integration in Custom Race Menu.
 
+New Fixes:
+- PopUp selection list: "Cancel" will work again!
+
 
 April improvements:
 - New integrated Guide.

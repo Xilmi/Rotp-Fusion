@@ -91,44 +91,23 @@ import rotp.util.Base;
 								choices[0]);
  * </pre>
  */
-public class ListDialog extends JDialog
-						implements ActionListener, Base {
+public class ListDialog extends JDialog implements ActionListener, Base {
 
+	private String initialValue;
 	private String value = null;
 	private int index    = -1;
+	private int initialIndex;
 	private JList<Object> list;
 	private List<String> alternateReturn;
 	private Frame frame;
 	private BaseModPanel baseModPanel;
 	private InterfaceParam param;
-//	private boolean dialGuide;
 
 
 	public ListDialog(boolean fake) { // Fake Dialog used to load the code and accelerate the future calls
 		@SuppressWarnings("unused")
 		JDialog temp = new JDialog();
 	}
-//	/**
-//	 * Set up the dialog.  The first Component argument
-//	 * determines which frame the dialog depends on; it should be
-//	 * a component in the dialog's controlling frame. The second
-//	 * Component argument should be null if you want the dialog
-//	 * to come up with its left corner in the center of the screen;
-//	 * otherwise, it should be the component on top of which the
-//	 * dialog should appear.
-//	 */	
-//	public ListDialog(
-//			BasePanel frameComp,
-//			Component locationComp,
-//			String labelText,
-//			String title,
-//			String[] possibleValues,
-//			String initialValue,
-//			String longValue,
-//			int width, int height) { 
-//		this(frameComp,  locationComp, labelText, title, possibleValues,
-//				 initialValue, longValue, false, width, height, null, null, null, null);
-//	}
 	private Point defaultPosition() { return new Point(RotPUI.scaledSize(250), RotPUI.scaledSize(200)); }
 	public String showDialog() { // Can only be called once.
 		value = null;
@@ -146,6 +125,15 @@ public class ListDialog extends JDialog
 		index = Math.max(0, list.getSelectedIndex());
 	}
 
+	/**
+	 * Set up the dialog.  The first Component argument
+	 * determines which frame the dialog depends on; it should be
+	 * a component in the dialog's controlling frame. The second
+	 * Component argument should be null if you want the dialog
+	 * to come up with its left corner in the center of the screen;
+	 * otherwise, it should be the component on top of which the
+	 * dialog should appear.
+	 */	
 	public ListDialog( BaseModPanel frameComp,
 					   Component locationComp,
 					   String labelText,
@@ -161,11 +149,12 @@ public class ListDialog extends JDialog
 					   InterfaceParam param) {
 
 		super(JOptionPane.getFrameForComponent(frameComp.getParent()), title, true);
-		baseModPanel = frameComp;
-		frame = JOptionPane.getFrameForComponent(frameComp.getParent());
+		baseModPanel		 = frameComp;
+		frame				 = JOptionPane.getFrameForComponent(frameComp.getParent());
 		this.alternateReturn = alternateReturn;
-		this.param = param;
-		dialGuide  = BaseModPanel.autoGuide; // Alway reinitialize.
+		this.param 			 = param;
+		this.initialValue	 = initialValue;
+		dialGuide			 = BaseModPanel.autoGuide; // Always reinitialize.
 
 		int topInset  = RotPUI.scaledSize(6);
 		int sideInset = RotPUI.scaledSize(10);
@@ -186,6 +175,7 @@ public class ListDialog extends JDialog
 		cancelButton.setVerticalAlignment(SwingConstants.TOP);
 		cancelButton.setBackground(GameUI.buttonBackgroundColor());
 		cancelButton.setForeground(GameUI.buttonTextColor());
+//		cancelButton.setActionCommand("Cancel");
 		cancelButton.addActionListener(this);
 		//
 		final JButton setButton = new JButton("Set");
@@ -194,7 +184,7 @@ public class ListDialog extends JDialog
 		setButton.setVerticalAlignment(SwingConstants.TOP);
 		setButton.setBackground(GameUI.buttonBackgroundColor());
 		setButton.setForeground(GameUI.buttonTextColor());
-		setButton.setActionCommand("Set");
+//		setButton.setActionCommand("Set");
 		setButton.addActionListener(this);
 		getRootPane().setDefaultButton(setButton);
 
@@ -341,6 +331,7 @@ public class ListDialog extends JDialog
 		//Initialize values.
 		setValue(initialValue);
 		pack();
+		initialIndex = list.getSelectedIndex();
 
 		setSize(width, height);
 		if (listFont != null)
@@ -378,6 +369,8 @@ public class ListDialog extends JDialog
 			return;
 		}
 		if ("Cancel".equals(e.getActionCommand())) {
+			index = initialIndex;
+			value = initialValue;
 			dispose();
 			return;
 		}
