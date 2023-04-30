@@ -29,6 +29,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 2023.04.30 (BR)
 - Custom Race Menu:
   - AI Box has Guide.
+  - Moved the buttons below the description box and removed the "showTooltips"-option.
 - PopUp selection list Fix: "Cancel" will work again!
 
 2023.04.29 (BR)

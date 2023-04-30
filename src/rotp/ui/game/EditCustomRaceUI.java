@@ -69,6 +69,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 
 	private LinkedList<SettingBase<?>> guiList;
 	private RaceList raceList;
+	private int yRandB;
 	
 	// ========== Constructors and initializers ==========
 	//
@@ -394,10 +395,11 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		g.setStroke(prev);
 
 		// Guide Button
-		text	 = text(guideButtonKey());
-		sw		 = g.getFontMetrics().stringWidth(text);
-		buttonW  = g.getFontMetrics().stringWidth(text) + smallButtonMargin;
-		xButton -= (buttonW + buttonPad);
+		text	= text(guideButtonKey());
+		sw		= g.getFontMetrics().stringWidth(text);
+		buttonW = g.getFontMetrics().stringWidth(text) + smallButtonMargin;
+//		xButton -= (buttonW + buttonPad);
+		xButton	= leftM + buttonPad;
 		guideBox.setBounds(xButton, yButton, buttonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(guideBox.x, guideBox.y, buttonW, smallButtonH, cnr, cnr);
@@ -413,9 +415,10 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		// Randomize Button
 		text	= text(randomKey);
 		xButton = leftM + buttonPad;
+		yRandB  = yDesc - buttonPadV - smallButtonH;
 		sw		= g.getFontMetrics().stringWidth(text);
 		buttonW = g.getFontMetrics().stringWidth(text) + smallButtonMargin;
-		randomBox.setBounds(xButton, yButton, buttonW, smallButtonH);
+		randomBox.setBounds(xButton, yRandB, buttonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(randomBox.x, randomBox.y, buttonW, smallButtonH, cnr, cnr);
 		xT = randomBox.x+((randomBox.width-sw)/2);
@@ -438,8 +441,10 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		g.setStroke(prev);
 	
 		// Randomize Options
-		xLine = xButton + labelPad;
-		yLine = yButton - labelPad;
+//		xLine = xButton + labelPad;
+//		yLine = yButton - labelPad;
+		xLine = xDesc  + labelPad;
+		yLine = yRandB - labelPad;
 		ModText bt;
 	    for(SettingBase<?> setting : guiList) {
 			bt = setting.settingText();

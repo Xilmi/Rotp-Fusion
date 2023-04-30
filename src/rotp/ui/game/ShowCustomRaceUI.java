@@ -60,7 +60,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 
 	protected static final Color textC		= SystemPanel.whiteText;
 	protected static final int buttonPad	= s15;
-	private   static final int buttonPadV	= tooltipPadV;
+	protected static final int buttonPadV	= tooltipPadV;
 	protected static final int xButtonOffset= s30;
 	protected static final Color labelC		= SystemPanel.orangeText;
 	protected static final int labelFontSize= 14;
@@ -127,8 +127,8 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	private int settingBoxH;
 	private int topM;
 	private int yTop;
-	private int xDesc, yDesc, descWidth;
-	protected int xButton, yButton;
+	private int descWidth;
+	protected int xButton, yButton, xDesc, yDesc;
 	protected int leftM;
 	protected int xLine, yLine; // settings var
 
@@ -492,24 +492,26 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		w	= getWidth();
 		h	= getHeight();
 		wBG	= getBackGroundWidth();
-		descWidth	= wBG - 2 * columnPad;
+		descWidth = wBG - 2 * columnPad;
 
 		g.setFont(descFont);
 		// Set the base top Margin
 		// Set the final High
-		hBG	 = titlePad + columnsMaxH + buttonPadV + smallButtonH + tooltipPadV + descHeigh + tooltipPadV;
-		topM = (h - hBG)/2;
-		yDesc	 = topM + hBG - tooltipPadV - descHeigh;
+		hBG		= titlePad + columnsMaxH + tooltipPadV + descHeigh + buttonPadV + smallButtonH + buttonPadV;
+		topM	= (h - hBG)/2;
+//		yDesc	= topM + hBG - tooltipPadV - descHeigh;
+		yButton	= topM + hBG - buttonPadV - smallButtonH;
 		
 		yTop	= topM + titlePad; // First setting top position
 		leftM	= Math.min((w - wBG)/2, maxLeftM);
 		yTitle	= topM + titleOffset;
-		yButton	= yDesc - tooltipPadV - smallButtonH;
+//		yButton	= yDesc - tooltipPadV - smallButtonH;
+		yDesc	= yButton - buttonPadV - descHeigh;
 		yCost 	= yTitle + costOffset;
 		xCost	= leftM + columnPad/2;
 		xLine	= leftM + columnPad/2;
 		yLine	= yTop;
-		xDesc		= leftM + columnPad;
+		xDesc	= leftM + columnPad;
 
 		// draw background "haze"
 		g.setColor(backgroundHaze);

@@ -503,8 +503,8 @@ public class UserPreferences {
 			MOD_UI, "COMPACT_OPTION_ONLY", false);
 	public static final ParamBoolean showGridCircular	= new ParamBoolean(
 			MOD_UI, "SHOW_GRID_CIRCULAR", false);
-	public static final ParamBoolean showTooltips		= new ParamBoolean(
-			MOD_UI, "SHOW_TOOLTIPS", true);
+//	public static final ParamBoolean showTooltips		= new ParamBoolean(
+//			MOD_UI, "SHOW_TOOLTIPS", true);
 	public static final ParamBoolean useFusionFont		= new ParamBoolean(
 			MOD_UI, "USE_FUSION_FONT", false) {
 		@Override public Boolean set(Boolean newValue) {
@@ -617,7 +617,7 @@ public class UserPreferences {
 	};
 	public static final ParamList    difficultySelection	= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "GAME_DIFFICULTY", getGameDifficultyOptions(), DIFFICULTY_NORMAL) {
-		{ showFullGuide(true); }
+		{ showFullGuide(false); }
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedGameDifficulty();
 		}
@@ -1024,8 +1024,7 @@ public class UserPreferences {
 				new ParamTitle("MENU_OPTIONS"),
 				menuStartup, menuAfterGame, menuLoadGame,
 				minListSizePopUp, showGridCircular,
-				showTooltips, galaxyPreviewColorStarsSize,
-				compactOptionOnly
+				galaxyPreviewColorStarsSize, compactOptionOnly
 				)));
 		for (LinkedList<InterfaceParam> list : mergedDynamicOptionsMap) {
 			for (InterfaceParam param : list) {
@@ -1085,7 +1084,7 @@ public class UserPreferences {
 			Arrays.asList(
 			menuStartup, menuAfterGame, menuLoadGame, minListSizePopUp, showAlliancesGNN,
 			null,
-			showGridCircular, showTooltips, galaxyPreviewColorStarsSize, showLimitedWarnings, techExchangeAutoRefuse,
+			showGridCircular, galaxyPreviewColorStarsSize, showLimitedWarnings, techExchangeAutoRefuse,
 			null,
 			showFleetFactor, showFlagFactor, showPathFactor, useFusionFont,
 			null,
