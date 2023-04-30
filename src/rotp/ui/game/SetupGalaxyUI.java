@@ -112,6 +112,7 @@ import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.ui.main.SystemPanel;
+import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.ListDialog;
 import rotp.ui.util.ParamButtonHelp;
 import rotp.ui.util.ParamList;
@@ -328,6 +329,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
     private Font boxMonoFont;
     private int  boxMonoFontSize  = 15;
 
+    public static InterfaceParam specificAI() { return instance.specificAI; }
     public static int mouseBoxIndex() { return instance.hoverBox.mouseBoxIndex(); }
 
  	private Font boxMonoFont() {

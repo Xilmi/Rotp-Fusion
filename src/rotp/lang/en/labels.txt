@@ -1283,13 +1283,14 @@ SETUP_OPPONENT_AI_RANDOM_BASIC_HELP | Randomly selected from: Base, Modnar, or R
 SETUP_OPPONENT_AI_RANDOM_BASIC    | AI: R.Basic
 SETUP_OPPONENT_AI_RANDOM_ADV_HELP | Randomly selected from: Roleplay, Hybrid, Fusion, Fun, or Character.
 SETUP_OPPONENT_AI_RANDOM_ADV      | AI: R.Xilmi
-SETUP_OPPONENT_AI_RANDOM_NOBAR_HELP | Randomly selected from: Fusion, Fun, or Character.
+SETUP_OPPONENT_AI_RANDOM_NOBAR_HELP | Randomly selected from: Fusion, Fun, or Character.<br>These AI are opportunistic and don't display the relationship bar.
 SETUP_OPPONENT_AI_RANDOM_NOBAR    | AI: R.no relat
 SETUP_OPPONENT_AI_SELECT_HELP     | To be able to select a different AI for each opponent. <br> A new selection field will be added at the bottom of each opponent icon. 
 SETUP_OPPONENT_AI_SELECT          | AI: Selectable
 SETUP_OPPONENT_AI_PLAYER_HELP     | The control is under your hands. 
 SETUP_OPPONENT_AI_PLAYER          | AI: Off
 SETUP_OPPONENT_CR                 | Abilities:
+SETUP_AUTOPLAY_OFF_HELP           | The player takes command of the empire.
 SETUP_AUTOPLAY_OFF                | Off
 SETUP_GAME_DIFFICULTY_HELP        | The difficulty setting will apply a boost or penalty to AI players' production.<br>On normal or higher, Space Monsters will be introduced among the random events somewhere during the mid-game. But on the easy, easier, and easiest difficulty levels, Space Monsters will be delayed to give players more time to build up.
 SETUP_GAME_DIFFICULTY_DESC        | Select The Game Difficulty Level.

@@ -16,6 +16,8 @@
 package rotp.ui.game;
 
 import static rotp.model.empires.CustomRaceDefinitions.ROOT;
+import static rotp.ui.game.SetupGalaxyUI.specificAI;
+import static rotp.ui.UserPreferences.autoplay;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -39,6 +41,7 @@ import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.races.RacesUI;
+import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.ListDialog;
 import rotp.ui.util.SettingBase;
 import rotp.util.FontManager;
@@ -168,13 +171,13 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	    initGUI();		
 		return this;
 	}
-	public void loadRace() { // For Race Diplomatic UI Panel
+	public void loadRace()		{ // For Race Diplomatic UI Panel
 		cr.setFromRaceToShow(raceUI.selectedEmpire().dataRace());
 	}
-	public void init(RacesUI p) { // For Race Diplomatic UI Panel
+	public void init(RacesUI p)	{ // For Race Diplomatic UI Panel
 		raceUI = p;
 	}
-	protected void initGUI() {
+	protected void initGUI()	{
 		colSettingsCount = new LinkedList<>();
 		columnList	= cr.columnList();
 		spacerList	= cr.spacerList();
@@ -222,19 +225,19 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	}
 	// ========== Other Methods ==========
 	//
-	protected void setToolTip(String tt) {
+	protected void setDesc(String tt)	{
 		descBox.setText(tt);
 		loadGuide();
 		if (hoverBox != null && hoverBox != prevHover)
 			repaint(hoverBox);
 	}
-	private  ModText settingBT() {
+	private	  ModText settingBT()		{
 		return new ModText(this, settingFont, settingC, settingNegC, hoverC, depressedC, textC, false);
 	}
-	protected  ModText optionBT() {
+	protected ModText optionBT()		{
 		return new ModText(this, optionFont, optionC, selectC, hoverC, depressedC, textC, false);
 	}
-	private void endOfColumn() {
+	private void endOfColumn()			{
 		columnH -= 2 * settingH; // to fit the reality... Debug needed
 		columnsMaxH = max(columnsMaxH, columnH);
 		colSettingsCount.add(numSettings);
@@ -243,64 +246,72 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		columnH		= 0;
 	}
 	private boolean isPlayer()			{ return raceUI.selectedEmpire().isPlayer(); }
-	private String selectAIFromList(String[] aiArray, String initialChoice) {
+	private String selectAIFromList(String[] aiArray, String initialChoice, InterfaceParam param) {
 		String message = "Make your choice";
 		ListDialog dialog = new ListDialog(
-		    	this,					// Frame component
-		    	getParent(),			// Location component
-		    	message,				// Message
-		        "Empire AI selection",	// Title
-		        aiArray,				// List
-		        initialChoice, 			// Initial choice
-		        "XXXXXXXXXXXXXXXX",		// long Dialogue
-				false,					// isVertical
+		    	this,						// Frame component
+		    	getParent(),				// Location component
+		    	message,					// Message
+		        "Empire AI selection",		// Title
+		        aiArray,					// List
+		        initialChoice, 				// Initial choice
+		        "XXXXXXXXXXXXXXXX",			// long Dialogue
+				false,						// isVertical
 		        scaled(220), scaled(220),	// size
-				null, null, null,		// Font, Preview, Alternate return
-				null); 					// TODO BR: add help parameter
-
+				null, null,					// Font, Preview
+				null,						// Alternate return
+				param); 					// help parameter
 		String input = (String) dialog.showDialog();
 	    if (input == null)
 	    	return initialChoice;
 	    return input;
 	}
-	private void raceAIBoxAction() {
-		if (isPlayer()) { // Change Player AI
-			IGameOptions opts   	= raceUI.options();
-			List<String> aiKeys		= MOO1GameOptions.autoplayBaseOptions();
-			List<String> aiNameList = new ArrayList<>(); // Get language version
-			for (String key : aiKeys)
-				aiNameList.add(text(key));
-			String[] aiNameArray = aiNameList.toArray(new String[aiNameList.size()]);
+	private void playerAIBoxAction()	{
+		IGameOptions opts   	= raceUI.options();
+		List<String> aiKeys		= MOO1GameOptions.autoplayBaseOptions();
+		List<String> aiNameList = new ArrayList<>(); // Get language version
+		for (String key : aiKeys)
+			aiNameList.add(text(key));
+		String[] aiNameArray = aiNameList.toArray(new String[aiNameList.size()]);
 
-			String currentAI = opts.selectedAutoplayOption();
-			int currentIndex = aiKeys.indexOf(currentAI);
-			String aiNewName = selectAIFromList(aiNameArray, aiNameArray[currentIndex]);
-			int aiNewIndex   = aiNameList.indexOf(aiNewName);
-			String aiNewKey  = aiKeys.get(aiNewIndex);
-			
-			opts.selectedAutoplayOption(aiNewKey);
-			raceUI.selectedEmpire().changePlayerAI(aiNewKey);
-		}
-		else { // Change Opponent AI
-			List<String> aiNameList = MOO1GameOptions.sortedOpponentAINames();
-			String[] aiNameArray    = aiNameList.toArray(new String[aiNameList.size()]);
+		String currentAI = opts.selectedAutoplayOption();
+		int currentIndex = aiKeys.indexOf(currentAI);
+		String aiNewName = selectAIFromList(aiNameArray, aiNameArray[currentIndex], autoplay);
+		int aiNewIndex   = aiNameList.indexOf(aiNewName);
+		String aiNewKey  = aiKeys.get(aiNewIndex);
+		
+		opts.selectedAutoplayOption(aiNewKey);
+		raceUI.selectedEmpire().changePlayerAI(aiNewKey);
+	}
+	private void alienAIBoxAction()		{
+		LinkedList<String> aiKeys	= MOO1GameOptions.autoplayBaseOptions();
+		aiKeys.removeFirst();
+		List<String> aiNameList = new ArrayList<>(); // Get language version
+		for (String key : aiKeys)
+			aiNameList.add(text(key));
+		String[] aiNameArray = aiNameList.toArray(new String[aiNameList.size()]);
 
-			String currentAI = raceUI.selectedEmpire().getAiName();
-			String aiNewName = selectAIFromList(aiNameArray, currentAI);
-			String aiNewKey  = MOO1GameOptions.getOpponentAIKey(aiNewName);
+		String currentAI = raceUI.selectedEmpire().getAiName();
+		String aiNewName = selectAIFromList(aiNameArray, currentAI, specificAI());
+		String aiNewKey  = MOO1GameOptions.getOpponentAIKey(aiNewName);
 
-			raceUI.selectedEmpire().changeOpponentAI(aiNewKey);
-		}
+		raceUI.selectedEmpire().changeOpponentAI(aiNewKey);
+	}
+	private void raceAIBoxAction()		{
+		if (isPlayer())
+			playerAIBoxAction();
+		else
+			alienAIBoxAction();
 		repaint();
 	}
-	protected  String totalCostStr() {
+	protected  String totalCostStr()	{
 		return text(totalCostKey, Math.round(cr.getTotalCost()));
 	}
 	private boolean checkForHoveredSettings(LinkedList<SettingBase<?>> settings) {
 		for (SettingBase<?> setting : settings) {
 			if (setting.settingText().contains(mX,mY)) {
 				hoverBox = setting.settingText().box();
-				setToolTip(setting.getToolTip());
+				setDesc(setting.getToolTip());
 				if (hoverBox != prevHover) {
 					setting.settingText().mouseEnter();
 					repaint(hoverBox);
@@ -312,7 +323,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 				for (ModText txt : setting.optionsText()) {
 					if (txt.contains(mX,mY)) {
 						hoverBox = txt.box();
-						setToolTip(setting.getToolTip(idx));
+						setDesc(setting.getToolTip(idx));
 						if (hoverBox != prevHover) {
 							txt.mouseEnter();
 							repaint(hoverBox);
@@ -325,7 +336,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		}
 		return false;
 	}
-	protected String raceAIButtonTxt() {
+	protected String raceAIButtonTxt()	{
 		if (isPlayer())
 			if (raceUI.selectedEmpire().isAIControlled())
 				return raceUI.selectedEmpire().getAiName();
@@ -334,7 +345,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		else
 			return raceUI.selectedEmpire().getAiName();
 	}
-	protected int getBackGroundWidth() {
+	protected int getBackGroundWidth()	{
 		return columnPad+wFirstColumn+columnPad + (wSetting+columnPad) * (numColumns-1);
 	}
 	protected void paintSetting(Graphics2D g, SettingBase<?> setting) {
@@ -467,13 +478,13 @@ public class ShowCustomRaceUI extends BaseModPanel {
 //		hoverAndTooltip(false);
 		return change;
 	}
-	@Override public void repaintButtons() {
+	@Override public void repaintButtons()			  {
 		Graphics2D g = (Graphics2D) getGraphics();
 		super.paintComponent(g);
 		paintButtons(g);
 		g.dispose();
 	}
-	@Override protected String GUI_ID() { return ""; }
+	@Override protected String GUI_ID()				  { return ""; }
 	@Override public void paintComponent(Graphics g0) {
 		super.paintComponent(g0);
 		Graphics2D g = (Graphics2D) g0;
@@ -550,14 +561,14 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		xLine = xLine + currentWith + columnPad;
 		yLine = yTop;
 	}
-	@Override public void keyReleased(KeyEvent e) {
+	@Override public void keyReleased(KeyEvent e)	  {
 		if(checkModifierKey(e)) {
 			if(hoverBox != null)
 				descBox.setText(hoverBox.getDescription());
 			repaintButtons();
 		}
 	}
-	@Override public void keyPressed(KeyEvent e) {
+	@Override public void keyPressed(KeyEvent e)	  {
 		if(checkModifierKey(e)) {
 			if(hoverBox != null)
 				descBox.setText(hoverBox.getDescription());
@@ -572,7 +583,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		}
 		super.keyPressed(e);
 	}
-	@Override public void mouseMoved(MouseEvent e) {
+	@Override public void mouseMoved(MouseEvent e)	  {
 		mX = e.getX();
 		mY = e.getY();
 		if (hoverBox != null && hoverBox.contains(mX,mY)) {

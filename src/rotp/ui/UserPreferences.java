@@ -792,7 +792,7 @@ public class UserPreferences {
 			return "SETTINGS_COUNCIL_DESC";
 		}
 	};
-	private static final ParamList randomizeAI		= new ParamList( // Duplicate Do not add the list
+	private static final ParamList randomizeAI	 	= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "RANDOMIZE_AI", getRandomizeAIOptions(), RANDOMIZE_AI_NONE) {
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedRandomizeAIOption();
@@ -801,7 +801,7 @@ public class UserPreferences {
 			RotPUI.mergedGuiOptions().selectedRandomizeAIOption(newValue);
 		}
 	};
-	private static final ParamList autoplay			= new ParamList( // Duplicate Do not add the list
+	public	static final ParamList autoplay			= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "AUTOPLAY", getAutoplayOptions(), AUTOPLAY_OFF) {
 		{ showFullGuide(false); }
 		@Override public String getFromOption() {
@@ -888,14 +888,6 @@ public class UserPreferences {
 			return autoBombardMode();
 		}
 	};
-	public static final LinkedList<InterfaceParam> advancedOptions = new LinkedList<>(
-			Arrays.asList(
-					galaxyAge, starDensity, nebulae, planetQuality, terraforming,
-					null,
-					randomEvents, aiHostility, councilWin, randomizeAI, autoplay,
-					null,
-					researchRate, warpSpeed, fuelRange, techTrading, colonizing
-					));
 
 	private static final ParamTitle headerSpacer = new ParamTitle("SPACER");
 	// Sub GUI Lists and GUI List	
@@ -1042,6 +1034,14 @@ public class UserPreferences {
 			}
 		}
 	};	
+	public static final LinkedList<InterfaceParam> advancedOptions = new LinkedList<>(
+			Arrays.asList(
+					galaxyAge, starDensity, nebulae, planetQuality, terraforming,
+					null,
+					randomEvents, aiHostility, councilWin, randomizeAI, autoplay,
+					null,
+					researchRate, warpSpeed, fuelRange, techTrading, colonizing
+					));
 	public static final LinkedList<InterfaceParam> modOptionsStaticA  = new LinkedList<>(
 			Arrays.asList(
 			artifactsHomeworld, fertileHomeworld, richHomeworld, ultraRichHomeworld,
