@@ -654,17 +654,17 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         
         float amt = BASE_RESEARCH_MOD;                  // default adjustment
         switch(selectedResearchRate()) {
-            // mondar: add fast research option
+            // modnar: add fast research option
             case RESEARCH_FAST:
-                return amt*(1.0f/(techLevel+2.0f) + 0.5f);    // mondar: asymptotically approach 2x faster
+                return amt*(1.0f/(techLevel+2.0f) + 0.5f);    // modnar: asymptotically approach 2x faster
             case RESEARCH_SLOW:
-                return amt*((0.6f*techLevel*sqrt(techLevel)+1.0f)/techLevel - 0.2f); // mondar: asymptotically similar
+                return amt*((0.6f*techLevel*sqrt(techLevel)+1.0f)/techLevel - 0.2f); // modnar: asymptotically similar
                 //return amt*sqrt(techLevel/3.0f); // approx. 4x slower for level 50
             case RESEARCH_SLOWER:
-                return amt*((1.2f*techLevel*sqrt(techLevel)+2.0f)/techLevel - 1.5f); // mondar: asymptotically similar
+                return amt*((1.2f*techLevel*sqrt(techLevel)+2.0f)/techLevel - 1.5f); // modnar: asymptotically similar
                 //return amt*sqrt(techLevel);   // approx. 7x slower for level 50
             case RESEARCH_SLOWEST:
-                return amt*((3.0f*techLevel*sqrt(techLevel)+5.0f)/techLevel - 5.5f); // mondar: asymptotically similar
+                return amt*((3.0f*techLevel*sqrt(techLevel)+5.0f)/techLevel - 5.5f); // modnar: asymptotically similar
                 //return amt*sqrt(techLevel*5); // approx. 16x slower for level 50
             default:  
                 return amt;                   // no additional slowing. 

@@ -15,6 +15,8 @@
  */
 package rotp.model.ships;
 
+import static rotp.ui.UserPreferences.scrapRefundFactor;
+
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
@@ -110,7 +112,8 @@ public final class ShipDesign extends Design {
     public String iconKey()                 { return iconKey; }
     public void iconKey(String s)           { icon = null; iconKey = s; }
     public void seq(int i)                  { seq = i%6; setIconKey(); }
-    public float scrapValue(int n)          { return cost() * n / 4.0f; }
+ //   public float scrapValue(int n)          { return cost() * n / 4.0f; }
+    public float scrapValue(int n)          { return cost() * n * scrapRefundFactor.get(); }
     public void setIconKey() {
         iconKey(ShipLibrary.current().shipKey(lab().shipStyleIndex(), size(), seq()));
     }

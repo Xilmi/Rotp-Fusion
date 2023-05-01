@@ -285,59 +285,74 @@ public class UserPreferences {
 			FLAG_COLOR_PINK, flagColorMap);
 	
 	// MOD GUI OPTIONS:
-	// BR: ===== First Mod GUI: 
-	public static final ParamAAN2	 artifactsHomeworld		= new ParamAAN2("HOME_ARTIFACT");
-	public static final ParamAAN2	 fertileHomeworld		= new ParamAAN2("HOME_FERTILE");
-	public static final ParamAAN2	 richHomeworld			= new ParamAAN2("HOME_RICH");
-	public static final ParamAAN2	 ultraRichHomeworld		= new ParamAAN2("HOME_ULTRA_RICH");
-	public static final ParamFloat	 minDistArtifactPlanet	= new ParamFloat(
+	public	static final ParamAAN2	  artifactsHomeworld		= new ParamAAN2("HOME_ARTIFACT");
+	public	static final ParamAAN2	  fertileHomeworld			= new ParamAAN2("HOME_FERTILE");
+	public	static final ParamAAN2	  richHomeworld				= new ParamAAN2("HOME_RICH");
+	public	static final ParamAAN2	  ultraRichHomeworld		= new ParamAAN2("HOME_ULTRA_RICH");
+	public	static final ParamFloat	  minDistArtifactPlanet		= new ParamFloat(
 			MOD_UI, "DIST_ARTIFACT_PLANET", 0.0f, 0.0f, null, 0.2f, 1f, 5f, "0.0##", "0.0");
-	public static final ParamBoolean battleScout			= new ParamBoolean(
+	public	static final ParamBoolean battleScout				= new ParamBoolean(
 			MOD_UI, "BATTLE_SCOUT", false);
-	public static final ParamBoolean randomTechStart		= new ParamBoolean(
+	public	static final ParamBoolean randomTechStart			= new ParamBoolean(
 			MOD_UI, "RANDOM_TECH_START", false);
-	private static final ParamInteger companionWorlds		= new ParamInteger(
+	private	static final ParamInteger companionWorlds			= new ParamInteger(
 			MOD_UI, "COMPANION_WORLDS"
 			, 0, -4, 6, true);
-	private static final ParamInteger retreatRestrictionTurns= new ParamInteger(
+	private	static final ParamInteger retreatRestrictionTurns	= new ParamInteger(
 			MOD_UI, "RETREAT_RESTRICTION_TURNS"
 			, 100, 0, 100, 1, 5, 20);
-	private static final ParamList	 retreatRestrictions	= new ParamList(
+	private	static final ParamList	  retreatRestrictions		= new ParamList(
 			MOD_UI, "RETREAT_RESTRICTIONS", "None") {
 		{ showFullGuide(true); }
 	}		.put("None",	MOD_UI + "RETREAT_NONE")
 			.put("AI",		MOD_UI + "RETREAT_AI")
 			.put("Player",	MOD_UI + "RETREAT_PLAYER")
 			.put("Both",	MOD_UI + "RETREAT_BOTH");
-	private static final ParamList	 targetBombard			= new ParamList(
+	private	static final ParamList	  targetBombard				= new ParamList(
 			MOD_UI, "TARGET_BOMBARD", "None") {
-		{ showFullGuide(true); }
-	}		.put("None",	MOD_UI + "RETREAT_NONE")
-			.put("AI",		MOD_UI + "RETREAT_AI")
-			.put("Player",	MOD_UI + "RETREAT_PLAYER")
-			.put("Both",	MOD_UI + "RETREAT_BOTH");
-	public static final ParamInteger customDifficulty		= new ParamInteger(
+		{
+			showFullGuide(true);
+			put("None",		MOD_UI + "RETREAT_NONE");
+			put("AI",		MOD_UI + "RETREAT_AI");
+			put("Player",	MOD_UI + "RETREAT_PLAYER");
+			put("Both",		MOD_UI + "RETREAT_BOTH");
+		}
+	};
+	public static final ParamInteger customDifficulty			= new ParamInteger(
 			MOD_UI, "CUSTOM_DIFFICULTY"
 			, 100, 20, 500, 1, 5, 20);
-	public static final ParamBoolean dynamicDifficulty		= new ParamBoolean(
+	public	static final ParamBoolean dynamicDifficulty			= new ParamBoolean(
 			MOD_UI, "DYNAMIC_DIFFICULTY", false);
-	private static final ParamFloat	 missileSizeModifier	= new ParamFloat(
+	public	static final ParamList	  scrapRefundOption			= new ParamList(
+			MOD_UI, "SCRAP_REFUND", "All") {
+		{
+			showFullGuide(true);
+			put("All",		MOD_UI + "SCRAP_REFUND_ALL");
+			put("Empire",	MOD_UI + "SCRAP_REFUND_EMPIRE");
+			put("Ally",		MOD_UI + "SCRAP_REFUND_ALLY");
+			put("Never",	MOD_UI + "SCRAP_REFUND_NEVER");
+		}
+	};
+	public	static final ParamFloat	  scrapRefundFactor			= new ParamFloat(
+			MOD_UI, "SCRAP_REFUND_FACTOR"
+			, 0.25f, 0f, 1f, 0.01f, 0.05f, 0.2f, "0.##", "%");
+	private	static final ParamFloat	  missileSizeModifier		= new ParamFloat(
 			MOD_UI, "MISSILE_SIZE_MODIFIER"
 			, 2f/3f, 0.1f, 1f, 0.01f, 0.05f, 0.2f, "0.##", "%");
-	public static final ParamBoolean challengeMode			= new ParamBoolean(
+	public	static final ParamBoolean challengeMode				= new ParamBoolean(
 			MOD_UI, "CHALLENGE_MODE", false);
-	public static final ParamBoolean maximizeSpacing		= new ParamBoolean(
+	public	static final ParamBoolean maximizeSpacing			= new ParamBoolean(
 			MOD_UI, "MAX_SPACINGS", false);
-	public static final ParamInteger spacingLimit			= new ParamInteger(
+	public	static final ParamInteger spacingLimit				= new ParamInteger(
 			MOD_UI, "MAX_SPACINGS_LIM"
 			, 16, 3, Rotp.maximumSystems-1, 1, 10, 100);
-	public static final ParamInteger minStarsPerEmpire		= new ParamInteger(
+	public	static final ParamInteger minStarsPerEmpire			= new ParamInteger(
 			MOD_UI, "MIN_STARS_PER_EMPIRE"
 			, 3, 3, Rotp.maximumSystems-1, 1, 5, 20);
-	public static final ParamInteger prefStarsPerEmpire		= new ParamInteger(
+	public	static final ParamInteger prefStarsPerEmpire		= new ParamInteger(
 			MOD_UI, "PREF_STARS_PER_EMPIRE"
 			, 10, 3, Rotp.maximumSystems-1, 1, 10, 100);
-	public static final ParamInteger dynStarsPerEmpire		= new ParamInteger(
+	public	static final ParamInteger dynStarsPerEmpire			= new ParamInteger(
 			MOD_UI, "DYN_STARS_PER_EMPIRE"
 			, 10, 3, Rotp.maximumSystems-1, 1, 10, 100) {
 		@Override public Integer defaultValue() {
@@ -346,18 +361,18 @@ public class UserPreferences {
 	};
 	public static final ParamBoolean restartChangesAliensAI	= new ParamBoolean(
 			MOD_UI, "RESTART_CHANGES_ALIENS_AI", false);
-	public static final ParamBoolean restartChangesPlayerAI	= new ParamBoolean(
+	public	static final ParamBoolean restartChangesPlayerAI	= new ParamBoolean(
 			MOD_UI, "RESTART_CHANGES_PLAYER_AI", false);
-	public static final ParamBoolean restartAppliesSettings	= new ParamBoolean(
+	public	static final ParamBoolean restartAppliesSettings	= new ParamBoolean(
 			MOD_UI, "RESTART_APPLY_SETTINGS",false);
-	public static final ParamList  restartChangesPlayerRace	= new ParamList(
+	public	static final ParamList    restartChangesPlayerRace	= new ParamList(
 			MOD_UI, "RESTART_PLAYER_RACE", "Swap") {
 		{ showFullGuide(true); }
 	}		.put("Last", MOD_UI + "RESTART_PLAYER_RACE_LAST")
 			.put("Swap", MOD_UI + "RESTART_PLAYER_RACE_SWAP")
 			.put("GuiSwap",	 MOD_UI + "RESTART_PLAYER_RACE_GUI_SWAP")
 			.put("GuiLast",	 MOD_UI + "RESTART_PLAYER_RACE_GUI_LAST");
-	private static final ParamFloat   counciRequiredPct		= new ParamFloat(
+	private static final ParamFloat   counciRequiredPct			= new ParamFloat(
 			MOD_UI, "COUNCIL_REQUIRED_PCT"
 			, GalacticCouncil.PCT_REQUIRED
 			, 0f, 0.99f, 0.01f/3f, 0.02f, 0.1f, "0.0##", "‰") {
@@ -366,7 +381,7 @@ public class UserPreferences {
 			return super.set(newValue);
 		}
 	};
-	private static final ParamInteger eventsStartTurn		= new ParamInteger(
+	private static final ParamInteger eventsStartTurn			= new ParamInteger(
 			MOD_UI, "EVENTS_START_TURN"
 			, RandomEvents.START_TURN, 1, null, 1, 5, 20) {
 		@Override public Integer set(Integer newValue) {
@@ -375,63 +390,62 @@ public class UserPreferences {
 		}
 	};
 //	public static final ParamBoolean alternateMonsterMessages = new ParamBoolean(
-//			MOD_UI, "ALT_MONSTER_MESSAGES", true);
-	public static final ParamInteger piratesDelayTurn		= new ParamInteger(
+	public	static final ParamInteger piratesDelayTurn			= new ParamInteger(
 			MOD_UI, "PIRATES_DELAY_TURN",	25, 0, null, 1, 5, 20);
-	public static final ParamInteger amoebaDelayTurn		= new ParamInteger(
+	public	static final ParamInteger amoebaDelayTurn			= new ParamInteger(
 			MOD_UI, "AMOEBA_DELAY_TURN",	100, 0, null, 1, 5, 20);
-	public static final ParamInteger crystalDelayTurn		= new ParamInteger(
+	public	static final ParamInteger crystalDelayTurn			= new ParamInteger(
 			MOD_UI, "CRYSTAL_DELAY_TURN",	100, 0, null, 1, 5, 20);
-	public static final ParamInteger piratesReturnTurn		= new ParamInteger(
+	public	static final ParamInteger piratesReturnTurn			= new ParamInteger(
 			MOD_UI, "PIRATES_RETURN_TURN",	0, 0, null, 1, 5, 20);
-	public static final ParamInteger amoebaReturnTurn		= new ParamInteger(
+	public	static final ParamInteger amoebaReturnTurn			= new ParamInteger(
 			MOD_UI, "AMOEBA_RETURN_TURN",	0, 0, null, 1, 5, 20);
-	public static final ParamInteger crystalReturnTurn		= new ParamInteger(
+	public	static final ParamInteger crystalReturnTurn			= new ParamInteger(
 			MOD_UI, "CRYSTAL_RETURN_TURN",	0, 0, null, 1, 5, 20);
-	public static final ParamInteger piratesMaxSystems		= new ParamInteger(
+	public	static final ParamInteger piratesMaxSystems			= new ParamInteger(
 			MOD_UI, "PIRATES_MAX_SYSTEMS",	0, 0, null, 1, 5, 20);
-	public static final ParamInteger amoebaMaxSystems		= new ParamInteger(
+	public	static final ParamInteger amoebaMaxSystems			= new ParamInteger(
 			MOD_UI, "AMOEBA_MAX_SYSTEMS",	0, 0, null, 1, 5, 20);
-	public static final ParamInteger crystalMaxSystems		= new ParamInteger(
+	public	static final ParamInteger crystalMaxSystems			= new ParamInteger(
 			MOD_UI, "CRYSTAL_MAX_SYSTEMS",	0, 0, null, 1, 5, 20);
-	private static final ParamTech    techIrradiated		= new 
+	private	static final ParamTech    techIrradiated			= new 
 			ParamTech("TECH_IRRADIATED",	3, "ControlEnvironment",6); // level 18
-	private static final ParamTech    techCloaking			= new 
+	private	static final ParamTech    techCloaking				= new 
 			ParamTech("TECH_CLOAKING",		2, "Cloaking",			0); // level 27
-	private static final ParamTech    techStargate			= new 
+	private	static final ParamTech    techStargate				= new 
 			ParamTech("TECH_STARGATES",		4, "Stargate", 			0); // level 27
-	private static final ParamTech    techHyperspace		= new 
+	private	static final ParamTech    techHyperspace			= new 
 			ParamTech("TECH_HYPERSPACE",	0, "HyperspaceComm",	0); // level 34
-	private static final ParamTech    techIndustry2			= new 
+	private	static final ParamTech    techIndustry2				= new 
 			ParamTech("TECH_INDUSTRY_2",	1, "ImprovedIndustrial",7); // level 38
-	private static final ParamTech    techThorium			= new 
+	private	static final ParamTech    techThorium				= new 
 			ParamTech("TECH_THORIUM",		4, "FuelRange",			8); // level 41
-	private static final ParamTech    techTransport			= new 
+	private	static final ParamTech    techTransport				= new 
 			ParamTech("TECH_TRANSPORTERS",	4, "CombatTransporter",	0); // level 45
-	public static final ParamInteger randomAlienRacesMin		= new ParamInteger(
+	public	static final ParamInteger randomAlienRacesMin		= new ParamInteger(
 			MOD_UI, "RACES_RAND_MIN"
 			, -50, -100, 100, 1, 5, 20);
-	public static final ParamInteger randomAlienRacesMax		= new ParamInteger(
+	public	static final ParamInteger randomAlienRacesMax		= new ParamInteger(
 			MOD_UI, "RACES_RAND_MAX"
 			, 50, -100, 100, 1, 5, 20);
-	public static final ParamInteger randomAlienRacesTargetMax	= new ParamInteger(
+	public	static final ParamInteger randomAlienRacesTargetMax	= new ParamInteger(
 			MOD_UI, "RACES_RAND_TARGET_MAX"
 			, 75, null, null, 1, 10, 100);
-	public static final ParamInteger randomAlienRacesTargetMin	= new ParamInteger(
+	public	static final ParamInteger randomAlienRacesTargetMin	= new ParamInteger(
 			MOD_UI, "RACES_RAND_TARGET_MIN"
 			, 0, null, null, 1, 10, 100);
-	public static final ParamBoolean randomAlienRacesSmoothEdges= new ParamBoolean(
+	public	static final ParamBoolean randomAlienRacesSmoothEdges= new ParamBoolean(
 			MOD_UI, "RACES_RAND_EDGES", true);
-	public static final RandomAlienRaces randomAlienRaces		= new RandomAlienRaces (
+	public	static final RandomAlienRaces randomAlienRaces		= new RandomAlienRaces(
 			MOD_UI, "RACES_ARE_RANDOM", RandomAlienRaces.TARGET);
-	public static final LinkedList<ParamTech> techModList		= new LinkedList<>(Arrays.asList(
+	public	static final LinkedList<ParamTech> techModList		= new LinkedList<>(Arrays.asList(
 			techIrradiated, techCloaking, techStargate, techHyperspace,
 			techIndustry2, techThorium, techTransport
 			));
-	public static final ParamInteger bombingTarget				= new ParamInteger(
+	public	static final ParamInteger bombingTarget				= new ParamInteger(
 			MOD_UI, "BOMBING_TARGET"
 			, 10, null, null, 1, 5, 20);
-	public static final ParamInteger flagColorCount				= new ParamInteger(
+	public	static final ParamInteger flagColorCount			= new ParamInteger(
 			MOD_UI, "FLAG_COLOR_COUNT", 1, 1, 4);
 
 
@@ -495,7 +509,7 @@ public class UserPreferences {
 	};
 	static final ParamOptions menuStartup		= new ParamOptions(
 			MOD_UI, "MENU_STARTUP", ParamOptions.VANILLA);
-	static final ParamOptions menuAfterGame		= new ParamOptions(
+		   static final ParamOptions menuAfterGame		= new ParamOptions(
 			MOD_UI, "MENU_AFTER_GAME", ParamOptions.VANILLA);
 	public static final ParamOptions menuLoadGame		= new ParamOptions(
 			MOD_UI, "MENU_LOADING_GAME", ParamOptions.GAME);
@@ -582,7 +596,7 @@ public class UserPreferences {
 			RotPUI.mergedGuiOptions().selectedGalaxyShape(newValue);
 		}
 	};
-	public static final ParamList    sizeSelection 		= new ParamList( // Duplicate Do not add the list
+	public static final ParamList    sizeSelection 			= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "GALAXY_SIZE", getGalaxySizeOptions(), SIZE_SMALL) {
 		{ showFullGuide(false); }
 		@Override public String getFromOption() {
@@ -1002,7 +1016,8 @@ public class UserPreferences {
 				headerSpacer,
 				new ParamTitle("GAME_COMBAT"),
 				retreatRestrictions, retreatRestrictionTurns, missileSizeModifier,
-				targetBombard, bombingTarget, autoBombard_, autoColonize_
+				targetBombard, bombingTarget, autoBombard_, autoColonize_,
+				scrapRefundFactor, scrapRefundOption
 				)));
 		mergedDynamicOptionsMap.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("RANDOM_EVENTS_OPT"),
@@ -1067,7 +1082,9 @@ public class UserPreferences {
 				null,
 				missileSizeModifier, retreatRestrictions, retreatRestrictionTurns,
 				null,
-				bombingTarget, targetBombard, flagColorCount, autoFlagOptionsUI
+				bombingTarget, targetBombard, flagColorCount, autoFlagOptionsUI,
+				null,
+				scrapRefundFactor, scrapRefundOption
 			));
 	public static final LinkedList<InterfaceParam> modOptionsDynamicB = new LinkedList<>(
 			Arrays.asList(

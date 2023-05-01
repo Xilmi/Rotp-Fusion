@@ -697,15 +697,24 @@ public class Ships implements Base, Serializable {
         }
         return fleets;
     }
-    public int scrapDesign(int empireId, int designId) {
+    public int[] scrapDesign(int empireId, int designId) {
         int scrapCount = 0;
+        int empCount   = 0;
+        int allyCount  = 0;
         List<ShipFleet> emptyFleets = new ArrayList<>();
         List<ShipFleet> fleetsAll = allFleetsCopy();
         
         for (ShipFleet fl: fleetsAll) {
             if (fl.empId == empireId) {
-                int count = fl.num(designId);
+            	int count = fl.num(designId);
                 if (count > 0) {
+                	StarSystem sys = fl.system();
+                	if (sys != null && fl.isOrbiting()) {
+                		if (sys.empId() == empireId)
+                			empCount += count;
+                		else if (galaxy().empire(empireId).alliedWith(sys.empId()))
+                			allyCount += count;
+                	}
                     scrapCount += count;
                     fl.num(designId, 0);
                     if (fl.isEmpty())
@@ -717,8 +726,30 @@ public class Ships implements Base, Serializable {
         for (ShipFleet fl: emptyFleets) 
             this.deleteFleet(fl);
         
-        return scrapCount;
+        return new int[] {scrapCount, empCount, allyCount};
     }
+//    public int scrapDesign(int empireId, int designId) {
+//        int scrapCount = 0;
+//        List<ShipFleet> emptyFleets = new ArrayList<>();
+//        List<ShipFleet> fleetsAll = allFleetsCopy();
+//        
+//        for (ShipFleet fl: fleetsAll) {
+//            if (fl.empId == empireId) {
+//                int count = fl.num(designId);
+//                if (count > 0) {
+//                    scrapCount += count;
+//                    fl.num(designId, 0);
+//                    if (fl.isEmpty())
+//                        emptyFleets.add(fl);
+//                }
+//            }
+//        }
+//        
+//        for (ShipFleet fl: emptyFleets) 
+//            this.deleteFleet(fl);
+//        
+//        return scrapCount;
+//    }
     public int[] shipDesignCounts(int empireId) {
         int[] count = new int[ShipDesignLab.MAX_DESIGNS];
         List<ShipFleet> fleetsAll = allFleetsCopy();

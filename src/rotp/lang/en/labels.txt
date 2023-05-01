@@ -1817,9 +1817,15 @@ SETTINGS_MOD_COMPANION_WORLDS        | Companion Worlds: %1
 SETTINGS_MOD_RANDOM_TECH_START       | Random Tech Start: %1
 SETTINGS_MOD_CUSTOM_DIFFICULTY       | Custom Difficulty: %1%
 SETTINGS_MOD_DYNAMIC_DIFFICULTY      | Dynamic Difficulty: %1
+SETTINGS_MOD_SCRAP_REFUND            | Ship Refund: %1
+SETTINGS_MOD_SCRAP_REFUND_ALL        | Everywhere
+SETTINGS_MOD_SCRAP_REFUND_EMPIRE     | Empire Worlds
+SETTINGS_MOD_SCRAP_REFUND_ALLY       | Allied Worlds
+SETTINGS_MOD_SCRAP_REFUND_NEVER      | Never
+SETTINGS_MOD_SCRAP_REFUND_FACTOR     | Refund Factor: %1%
 SETTINGS_MOD_MISSILE_SIZE_MODIFIER   | Missile Size Modifier: %1%
 SETTINGS_MOD_RETREAT_RESTRICTIONS    | Retreating restricted for: %1
-SETTINGS_MOD_RETREAT_NONE            | None
+SETTINGS_MOD_RETREAT_NONE            | Nowhere
 SETTINGS_MOD_RETREAT_AI              | AI
 SETTINGS_MOD_RETREAT_PLAYER          | Player
 SETTINGS_MOD_RETREAT_BOTH            | Both
@@ -1842,6 +1848,12 @@ SETTINGS_MOD_COMPANION_WORLDS_DESC   | Give 0 to 6 additional Colonies around AL
 SETTINGS_MOD_RANDOM_TECH_START_DESC  | Give ALL Empires 2 random first Tier Techs at start of game. No Artifact Planets will be generated in the Galaxy. (Techs can differ from Empire to Empire.)
 SETTINGS_MOD_CUSTOM_DIFFICULTY_DESC  | Sets the AI Production Modifier from 20% to 500%. Make sure to select "Difficulty: Custom". (Hold down Shift/Ctrl, then scroll the mouse wheel to change in units of 5%/20%.)
 SETTINGS_MOD_DYNAMIC_DIFFICULTY_DESC | Scales the AI Production up/down when weaker/stronger than the Player. Effect ramps up at around Turn-150. (Will not infinitely scale, very strong AI Empires will be almost un-changed.)
+SETTINGS_MOD_SCRAP_REFUND_DESC          | Will scrap value be recovered from decommissioned ships everywhere in the galaxy?
+SETTINGS_MOD_SCRAP_REFUND_ALL_DESC      | Vanilla option. Every scrap metal will be recovered.
+SETTINGS_MOD_SCRAP_REFUND_EMPIRE_DESC   | Only ships orbiting on empire worlds will be valuably salvaged.
+SETTINGS_MOD_SCRAP_REFUND_ALLY_DESC     | Only ships orbiting on empire or ally worlds will be valuably salvaged.
+SETTINGS_MOD_SCRAP_REFUND_NEVER_DESC    | Nowhere, don't bother me with that!
+SETTINGS_MOD_SCRAP_REFUND_FACTOR_DESC   | What percentage of the ships value can be salvaged from their scrap metal?
 SETTINGS_MOD_MISSILE_SIZE_MODIFIER_DESC | Sets size, cost and power-consuption of missiles as well as cost of missile-bases from 10% to 100%. (Hold down Shift/Ctrl, then scroll the mouse wheel to change in units of 5%/20%.)
 SETTINGS_MOD_RETREAT_RESTRICTIONS_DESC | Sets for whom retreating shall be restricted. (scroll the mouse wheel to change)
 SETTINGS_MOD_RETREAT_RESTRICTION_TURNS_DESC | Sets for how many turns someone who's retreating is restricted must remain in combat. (Hold down Shift/Ctrl, then scroll the mouse wheel to change in units of 5/20.)

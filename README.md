@@ -24,7 +24,19 @@ Official website: https://www.remnantsoftheprecursors.com/<br/>
 Community subreddit: https://www.reddit.com/r/rotp/<br/>
 Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
+## To-Do list
+
+Very soon
+- Add an option "Scrap-refund percentage"
+- Investigated what is done by the caller of this function: Slower tech pace...
+- Rename "recentStart.rotp" to "replayLastTurn.rotp"
+
 ## What's New
+
+2023.05.01 (BR)
+- Ships Scrapping refund:
+  - Option to change the refund percentage.
+  - Option to limit the ships location for the refund.
 
 2023.04.30 (BR)
 - Custom Race Menu:

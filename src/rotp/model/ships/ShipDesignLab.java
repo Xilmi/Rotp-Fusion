@@ -15,6 +15,8 @@
  */
 package rotp.model.ships;
 
+import static rotp.ui.UserPreferences.scrapRefundOption;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -462,15 +464,31 @@ public class ShipDesignLab implements Base, Serializable {
         int designId = d.id();
 
         // remove from existing fleets
-        int scrappedCount = galaxy().ships.scrapDesign(empire.id, designId);
-        log("Empire: "+empire.name()+"  Scrapping design: ", d.name(), "  id: "+d.id()+"  count:", str(scrappedCount));
+//        int scrappedCount = galaxy().ships.scrapDesign(empire.id, designId);
+        int[] counts = galaxy().ships.scrapDesign(empire.id, designId);
+        log("Empire: "+empire.name()+"  Scrapping design: ",
+        		d.name(), "  id: "+d.id()+"  count:", str(counts[0]));
 
         d.scrapped(true);
         d.active(false);
-        d.addTotalScrapped(scrappedCount);
+//        d.addTotalScrapped(scrappedCount);
+        d.addTotalScrapped(counts[0]);
 
         // reimburse civ reserve for 1/2 of ship's cost (halved when added to reserve)
-        empire().addReserve(d.scrapValue(scrappedCount)*2);
+        switch (scrapRefundOption.get()) {
+	        case "Never":
+	        	break;
+	        case "Ally":
+	        	empire().addReserve(d.scrapValue(counts[1]+counts[2])*2);
+	        	break;
+	        case "Empire":
+	        	empire().addReserve(d.scrapValue(counts[1])*2);
+	        	break;
+	        case "All":
+	        default:
+	        	empire().addReserve(d.scrapValue(counts[0])*2);
+        }
+//        empire().addReserve(d.scrapValue(scrappedCount)*2);
         empire().swapShipConstruction(d);
         
         // remove scrapped design from list of designs and replace with new, inactive design
