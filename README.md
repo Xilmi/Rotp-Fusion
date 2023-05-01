@@ -25,11 +25,12 @@ Community subreddit: https://www.reddit.com/r/rotp/<br/>
 Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## To-Do list
+Now:
+- Custom Race Menu: Guide continuation
 
 Very soon
-- Add an option "Scrap-refund percentage"
-- Investigated what is done by the caller of this function: Slower tech pace...
-- Rename "recentStart.rotp" to "replayLastTurn.rotp"
+-
+
 
 ## What's New
 
@@ -37,6 +38,8 @@ Very soon
 - Ships Scrapping refund:
   - Option to change the refund percentage.
   - Option to limit the ships location for the refund.
+- Renamed "recentStart.rotp" to "!!! To Replay Last Turn !!!".
+  - This should clarify its purpose and keep it on the top of the list.
 
 2023.04.30 (BR)
 - Custom Race Menu:

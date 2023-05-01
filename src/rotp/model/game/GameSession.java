@@ -94,7 +94,7 @@ public final class GameSession implements Base, Serializable {
     public static final String SAVEFILE_EXTENSION = ".rotp";
     public static final String RECENT_SAVEFILE = "recent"+SAVEFILE_EXTENSION;
     // BR: to save the beginning of the turn
-    public static final String RECENT_START_SAVEFILE = "recentStart"+SAVEFILE_EXTENSION;
+    public static final String RECENT_START_SAVEFILE = "!!! To Replay Last Turn !!!"+SAVEFILE_EXTENSION;
     public static final SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     public static final Object ONE_GAME_AT_A_TIME = new Object();
     private static GameSession instance = new GameSession();

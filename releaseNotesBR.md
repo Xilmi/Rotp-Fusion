@@ -6,7 +6,10 @@ May updates:
 - Ships Design Scrap Refund:
   - New option to change the refund percentage.
   - New option to limit the ships location to get the refund.
-  
+- Renamed "recentStart.rotp" to "!!! To Replay Last Turn !!!".
+  - This should clarify its purpose and keep it on the top of the list.
+
+
 New Fixes:
 - PopUp selection list: "Cancel" will work again!
 
