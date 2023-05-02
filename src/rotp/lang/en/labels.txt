@@ -1388,18 +1388,26 @@ SETUP_AI_HOSTILITY_HIGHEST_HELP   | Hostility is increased by 30.
 
 SETUP_GAME_NUMBER_OPPONENTS       | Opponents
 // modnar: change PLANET_QUALITY settings, add larger and richer
-[modnar MOD: "Larger" gives +50% Planet Size, +20% Poor, -20% Rich;<br> "Richer" gives -20% Planet Size, -20% Poor, +50% Rich, +50% Artifact.]
-SETUP_PLANET_QUALITY_NORMAL_HELP  | Base Quality setting.
+// BR: from change to add!
+SETUP_PLANET_QUALITY_NORMAL_HELP  | Base Quality setting.<br>Based on random factor between 0% and 100%. 
 SETUP_PLANET_QUALITY_LARGER_HELP  | Gives +50% Planet Size,<br>but also +20% Poor, and -20% Rich.
 SETUP_PLANET_QUALITY_RICHER_HELP  | Gives +50% Rich, -20% Poor, and +50% Artifact,<br> but also -20% Planet Size.
+SETUP_PLANET_QUALITY_HELL_HELP    | Awful Quality.<br>Based on random factor between 0% and 50%.
+SETUP_PLANET_QUALITY_POOR_HELP    | Low Quality.<br>Based on random factor between 0% and 80%.
+SETUP_PLANET_QUALITY_MEDIOCRE_HELP | Mediocre Quality.<br>Based on random factor between 0% and 90%.
+SETUP_PLANET_QUALITY_GOOD_HELP    | Good Quality.<br>Based on random factor between 10% and 100%.
+SETUP_PLANET_QUALITY_GREAT_HELP   | Great Quality.<br>Based on random factor between 20% and 100%.
+SETUP_PLANET_QUALITY_HEAVEN_HELP  | Heavenly Quality.<br>Based on random factor between 50% and 100%.
 
 SETUP_PLANET_QUALITY_LARGER       | Larger
 SETUP_PLANET_QUALITY_RICHER       | Richer
+SETUP_PLANET_QUALITY_HELL         | Hell
 SETUP_PLANET_QUALITY_POOR         | Poor
 SETUP_PLANET_QUALITY_MEDIOCRE     | Mediocre
 SETUP_PLANET_QUALITY_NORMAL       | Normal
 SETUP_PLANET_QUALITY_GOOD         | Good
 SETUP_PLANET_QUALITY_GREAT        | Great
+SETUP_PLANET_QUALITY_HEAVEN       | Heaven
 SETUP_TERRAFORMING_NORMAL_HELP    | Terraforming technologies work at 100% on hostile planets.
 SETUP_TERRAFORMING_NORMAL         | Normal
 SETUP_TERRAFORMING_REDUCED_HELP   | Improved Terraforming technologies that increase the size of your planets will only have half effectiveness on Hostile planets,  until you've applied Atmosphere Terraforming to remove the Hostile trait.
@@ -1762,8 +1770,9 @@ SETTINGS_RESEARCH_RATE_HELP       | If you like savoring your new technologies, 
 SETTINGS_RESEARCH_RATE_DESC       | Slow the research rate of new technologies, lengthening the useful life of current technologies.<br> [Asymptotic in modnar MOD]
 SETTINGS_NEBULAE_DESC             | Nebulae slow down ship travel and render shields useless. Increase or decrease their frequency.
 // modnar: change PLANET_QUALITY settings, only Normal, Larger, and Richer
-SETTINGS_PLANET_QUALITY_DESC      | [modnar MOD: "Larger" gives +50% Planet Size, +20% Poor, -20% Rich;<br> "Richer" gives -20% Planet Size, -20% Poor, +50% Rich, +50% Artifact.]
-//SETTINGS_PLANET_QUALITY_DESC    | Increases or decreases the frequency of higher quality planets.
+//SETTINGS_PLANET_QUALITY_DESC    | [modnar MOD: "Larger" gives +50% Planet Size, +20% Poor, -20% Rich;<br> "Richer" gives -20% Planet Size, -20% Poor, +50% Rich, +50% Artifact.]
+SETTINGS_PLANET_QUALITY_HELP      |  Do you want your galaxy to lean more terran or more barren?<br>After the stars have been placed, each star has a percentage chance based on its type of getting a single planet. The star type then determines the environment of its planet. The environment sets the range of sizes available for a planet, with unfriendly environments tending to smaller planets. However, the formula allows planets to sometimes stray dramatically from their default ranges. It's possible, but unlikely, to find massive barren planets and tiny fertile planets. Finally, the star type determines the chance that its planet will have a special trait like poor, rich, or artifact.
+SETTINGS_PLANET_QUALITY_DESC      | Increases or decreases the frequency of higher quality planets.
 SETTINGS_TERRAFORMING_HELP        | When this is set to Normal, once you've colonized a Hostile planet with the required colony base, the only difference from non-Hostile planets is a 50% penalty to population growth. This can be removed with Atmospheric Terraforming, at which points the Hostile trait is removed and the colony is like any other environment. But if you'd like your Hostile planets to have more bite, put this setting on Reduced. Now the Improved Terraforming
 technologies that increase the size of your planets will only have half effectiveness on Hostile planets. For instance, the first step of Improved Terraforming lets you add +10 to a planet's size to represent more hospitable conditions. But with this setting at Reduced, a Hostile planet will only get +5 size. And if you want really hostile Hostile planets, put this setting on None. Now you can't apply any terraforming size upgrades until you've applied Atmosphere Terraforming to remove the Hostile trait.
 SETTINGS_TERRAFORMING_DESC        | Reduce or eliminate the benefits of the Improved Terraforming technologies on hostile planets.

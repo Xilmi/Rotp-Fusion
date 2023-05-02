@@ -30,13 +30,18 @@ Now:
 
 Very soon
 - Save Governor options in the game files.
-- Reactivate vanilla Planet Quality
+- Reactivate vanilla Planet Quality.
+- Right Mouse to Max Clean!
+- Governor colors.
 
 ## What's New
 
 2023.05.02 (BR)
 - Made a specific ParamFlagColor class parameter.
 - More guide content.
+- Restored vanilla Planet Quality options
+  - Modnar options are still available.
+  - Added Hell and Heaven quality.
 
 2023.05.01 (BR)
 - Ships Scrapping refund:

@@ -821,18 +821,21 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
                 pcts = redPcts; break;
         }
 
-        float r = random();
+        float r;
         
         // modnar: change PLANET_QUALITY settings, comment out poor to great settings
-        /*
-        switch(selectedPlanetQualityOption()) { // TODO BR: REACTIVATE Planet Quality
+        // BR: restored; both are compatible ==> Player choice!
+        // BR: added Hell and Heaven!
+        switch(selectedPlanetQualityOption()) {
+            case PLANET_QUALITY_HELL:     r = random() * 0.5f; break;
             case PLANET_QUALITY_POOR:     r = random() * 0.8f; break;
             case PLANET_QUALITY_MEDIOCRE: r = random() * 0.9f; break;
-            case PLANET_QUALITY_NORMAL:   r = random(); break;
             case PLANET_QUALITY_GOOD:     r = 0.1f + (random() * 0.9f); break;
             case PLANET_QUALITY_GREAT:    r = 0.2f + (random() * 0.8f); break;
+            case PLANET_QUALITY_HEAVEN:   r = 0.5f + (random() * 0.5f); break;
+            case PLANET_QUALITY_NORMAL:
+            default:					  r = random(); break;
         }
-        */
         
         for (int i=0;i<pcts.length;i++) {
             if (r <= pcts[i]) {
@@ -1050,16 +1053,16 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     public static List<String> getPlanetQualityOptions() {
         List<String> list = new ArrayList<>();
         // modnar: change PLANET_QUALITY settings, add larger and richer, comment out poor to great settings
-        list.add(PLANET_QUALITY_NORMAL);
-        list.add(PLANET_QUALITY_LARGER);
-        list.add(PLANET_QUALITY_RICHER);
-        /*
+        // BR: Restored vanilla choices... They are not incompatible
+        list.add(PLANET_QUALITY_HELL);
         list.add(PLANET_QUALITY_POOR);
         list.add(PLANET_QUALITY_MEDIOCRE);
         list.add(PLANET_QUALITY_NORMAL);
         list.add(PLANET_QUALITY_GOOD);
         list.add(PLANET_QUALITY_GREAT);
-        */
+        list.add(PLANET_QUALITY_HEAVEN);
+        list.add(PLANET_QUALITY_LARGER);
+        list.add(PLANET_QUALITY_RICHER);
         return list;
     }
     @Override public List<String> terraformingOptions() { return getTerraformingOptions(); }

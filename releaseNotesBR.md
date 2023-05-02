@@ -10,6 +10,10 @@ May updates:
   - This should clarify its purpose and keep it on the top of the list.
 - Governor Spying "Spare Xenophobes": The spying will now be stopped only when framed.
   - Spying will start again once the timer is expired.
+- Restored vanilla Planet Quality options.
+  - Modnar options are still available.
+  - Added Hell and Heaven quality.
+
 
 New Fixes:
 - PopUp selection list: "Cancel" will work again!

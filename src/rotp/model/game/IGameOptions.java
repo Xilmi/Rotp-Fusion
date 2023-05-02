@@ -123,11 +123,13 @@ public interface IGameOptions {
     // modnar: change PLANET_QUALITY settings, add larger and richer
     public static final String PLANET_QUALITY_LARGER = "SETUP_PLANET_QUALITY_LARGER";
     public static final String PLANET_QUALITY_RICHER = "SETUP_PLANET_QUALITY_RICHER";
+    public static final String PLANET_QUALITY_HELL   = "SETUP_PLANET_QUALITY_HELL";
     public static final String PLANET_QUALITY_POOR   = "SETUP_PLANET_QUALITY_POOR";
     public static final String PLANET_QUALITY_MEDIOCRE  = "SETUP_PLANET_QUALITY_MEDIOCRE";
     public static final String PLANET_QUALITY_NORMAL = "SETUP_PLANET_QUALITY_NORMAL";
     public static final String PLANET_QUALITY_GOOD   = "SETUP_PLANET_QUALITY_GOOD";
     public static final String PLANET_QUALITY_GREAT  = "SETUP_PLANET_QUALITY_GREAT";
+    public static final String PLANET_QUALITY_HEAVEN = "SETUP_PLANET_QUALITY_HEAVEN";
 
     public static final String TERRAFORMING_NORMAL   = "SETUP_TERRAFORMING_NORMAL";
     public static final String TERRAFORMING_REDUCED  = "SETUP_TERRAFORMING_REDUCED";
