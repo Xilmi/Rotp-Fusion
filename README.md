@@ -29,10 +29,13 @@ Now:
 - Custom Race Menu: Guide continuation
 
 Very soon
--
+- Save Governor options in the game files.
 
 
 ## What's New
+
+2023.05.02 (BR)
+- Made a specific ParamFlagColor class parameter.
 
 2023.05.01 (BR)
 - Ships Scrapping refund:

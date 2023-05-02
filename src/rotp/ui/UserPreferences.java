@@ -17,19 +17,7 @@ package rotp.ui;
 
 
 import static rotp.model.empires.SystemView.AUTO_FLAG_NOT;
-import static rotp.model.empires.SystemView.FLAG_COLOR_AQUA;
-import static rotp.model.empires.SystemView.FLAG_COLOR_BLUE;
-import static rotp.model.empires.SystemView.FLAG_COLOR_GREEN;
-import static rotp.model.empires.SystemView.FLAG_COLOR_LTBLUE;
-import static rotp.model.empires.SystemView.FLAG_COLOR_NONE;
-import static rotp.model.empires.SystemView.FLAG_COLOR_ORANGE;
-import static rotp.model.empires.SystemView.FLAG_COLOR_PINK;
-import static rotp.model.empires.SystemView.FLAG_COLOR_PURPLE;
-import static rotp.model.empires.SystemView.FLAG_COLOR_RED;
-import static rotp.model.empires.SystemView.FLAG_COLOR_WHITE;
-import static rotp.model.empires.SystemView.FLAG_COLOR_YELLOW;
 import static rotp.model.empires.SystemView.flagAssignationMap;
-import static rotp.model.empires.SystemView.flagColorMap;
 import static rotp.model.game.IGameOptions.AI_HOSTILITY_NORMAL;
 import static rotp.model.game.IGameOptions.AUTOPLAY_OFF;
 import static rotp.model.game.IGameOptions.COLONIZING_NORMAL;
@@ -68,6 +56,17 @@ import static rotp.model.game.MOO1GameOptions.getTechTradingOptions;
 import static rotp.model.game.MOO1GameOptions.getTerraformingOptions;
 import static rotp.model.game.MOO1GameOptions.getWarpSpeedOptions;
 import static rotp.ui.util.InterfaceParam.langLabel;
+import static rotp.ui.util.ParamFlagColor.FLAG_COLOR_AQUA;
+import static rotp.ui.util.ParamFlagColor.FLAG_COLOR_BLUE;
+import static rotp.ui.util.ParamFlagColor.FLAG_COLOR_GREEN;
+import static rotp.ui.util.ParamFlagColor.FLAG_COLOR_LTBLUE;
+import static rotp.ui.util.ParamFlagColor.FLAG_COLOR_NONE;
+import static rotp.ui.util.ParamFlagColor.FLAG_COLOR_ORANGE;
+import static rotp.ui.util.ParamFlagColor.FLAG_COLOR_PINK;
+import static rotp.ui.util.ParamFlagColor.FLAG_COLOR_PURPLE;
+import static rotp.ui.util.ParamFlagColor.FLAG_COLOR_RED;
+import static rotp.ui.util.ParamFlagColor.FLAG_COLOR_WHITE;
+import static rotp.ui.util.ParamFlagColor.FLAG_COLOR_YELLOW;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -94,6 +93,7 @@ import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.ParamAAN2;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamCR;
+import rotp.ui.util.ParamFlagColor;
 import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
@@ -152,137 +152,101 @@ public class UserPreferences {
 
 	// Sub UI Options parameters
 	// BR: AUTO-FLAG PARAMETERS SUB UI
-	public static final ParamList autoFlagAssignation1	= new ParamList(
+	public static final ParamList 		autoFlagAssignation1	= new ParamList(
 			MOD_UI, "AUTO_FLAG_ASSIGN_1",
 			AUTO_FLAG_NOT, flagAssignationMap) {
 		{ showFullGuide(true); }
 	};
-	public static final ParamList autoFlagAssignation2	= new ParamList(
+	public static final ParamList 		autoFlagAssignation2	= new ParamList(
 			MOD_UI, "AUTO_FLAG_ASSIGN_2",
 			AUTO_FLAG_NOT, flagAssignationMap) {
 		{ showFullGuide(true); }
 	};
-	public static final ParamList autoFlagAssignation3	= new ParamList(
+	public static final ParamList 		autoFlagAssignation3	= new ParamList(
 			MOD_UI, "AUTO_FLAG_ASSIGN_3",
 			AUTO_FLAG_NOT, flagAssignationMap) {
 		{ showFullGuide(true); }
 	};
-	public static final ParamList autoFlagAssignation4	= new ParamList(
+	public static final ParamList 		autoFlagAssignation4	= new ParamList(
 			MOD_UI, "AUTO_FLAG_ASSIGN_4",
 			AUTO_FLAG_NOT, flagAssignationMap) {
 		{ showFullGuide(true); }
 	};
-	public static final ParamList flagTerranColor		= new ParamList(
-			MOD_UI, "AUTO_FLAG_TERRAN",
-			FLAG_COLOR_GREEN, flagColorMap);
-	public static final ParamList flagJungleColor		= new ParamList(
-			MOD_UI, "AUTO_FLAG_JUNGLE",
-			FLAG_COLOR_GREEN, flagColorMap);
-	public static final ParamList flagOceanColor		= new ParamList(
-			MOD_UI, "AUTO_FLAG_OCEAN",
-			FLAG_COLOR_AQUA, flagColorMap);
-	public static final ParamList flagAridColor			= new ParamList(
-			MOD_UI, "AUTO_FLAG_ARID",
-			FLAG_COLOR_YELLOW, flagColorMap);
-	public static final ParamList flagSteppeColor		= new ParamList(
-			MOD_UI, "AUTO_FLAG_STEPPE",
-			FLAG_COLOR_YELLOW, flagColorMap);
-	public static final ParamList flagDesertColor		= new ParamList(
-			MOD_UI, "AUTO_FLAG_DESERT",
-			FLAG_COLOR_YELLOW, flagColorMap);
-	public static final ParamList flagMinimalColor		= new ParamList(
-			MOD_UI, "AUTO_FLAG_MINIMAL",
-			FLAG_COLOR_YELLOW, flagColorMap);
-	public static final ParamList flagBarrenColor		= new ParamList(
-			MOD_UI, "AUTO_FLAG_BARREN",
-			FLAG_COLOR_ORANGE, flagColorMap);
-	public static final ParamList flagTundraColor		= new ParamList(
-			MOD_UI, "AUTO_FLAG_TUNDRA",
-			FLAG_COLOR_WHITE, flagColorMap);
-	public static final ParamList flagDeadColor			= new ParamList(
-			MOD_UI, "AUTO_FLAG_DEAD",
-			FLAG_COLOR_WHITE, flagColorMap);
-	public static final ParamList flagInfernoColor		= new ParamList(
-			MOD_UI, "AUTO_FLAG_INFERNO",
-			FLAG_COLOR_RED, flagColorMap);
-	public static final ParamList flagToxicColor		= new ParamList(
-			MOD_UI, "AUTO_FLAG_TOXIC",
-			FLAG_COLOR_RED, flagColorMap);
-	public static final ParamList flagRadiatedColor		= new ParamList(
-			MOD_UI, "AUTO_FLAG_RADIATED",
-			FLAG_COLOR_PURPLE, flagColorMap);
-	public static final ParamList flagAsteroidColor		= new ParamList(
-			MOD_UI, "AUTO_FLAG_ASTEROID",
-			FLAG_COLOR_PINK, flagColorMap);
+	public static final ParamFlagColor	flagTerranColor			= new ParamFlagColor(
+			"AUTO_FLAG_TERRAN",			FLAG_COLOR_GREEN);
+	public static final ParamFlagColor	flagJungleColor			= new ParamFlagColor(
+			"AUTO_FLAG_JUNGLE",			FLAG_COLOR_GREEN);
+	public static final ParamFlagColor	flagOceanColor			= new ParamFlagColor(
+			"AUTO_FLAG_OCEAN",			FLAG_COLOR_AQUA);
+	public static final ParamFlagColor	flagAridColor			= new ParamFlagColor(
+			"AUTO_FLAG_ARID",			FLAG_COLOR_YELLOW);
+	public static final ParamFlagColor	flagSteppeColor			= new ParamFlagColor(
+			"AUTO_FLAG_STEPPE",			FLAG_COLOR_YELLOW);
+	public static final ParamFlagColor	flagDesertColor			= new ParamFlagColor(
+			"AUTO_FLAG_DESERT",			FLAG_COLOR_YELLOW);
+	public static final ParamFlagColor	flagMinimalColor		= new ParamFlagColor(
+			"AUTO_FLAG_MINIMAL",		FLAG_COLOR_YELLOW);
+	public static final ParamFlagColor	flagBarrenColor			= new ParamFlagColor(
+			"AUTO_FLAG_BARREN",			FLAG_COLOR_ORANGE);
+	public static final ParamFlagColor	flagTundraColor			= new ParamFlagColor(
+			"AUTO_FLAG_TUNDRA",			FLAG_COLOR_WHITE);
+	public static final ParamFlagColor	flagDeadColor			= new ParamFlagColor(
+			"AUTO_FLAG_DEAD",			FLAG_COLOR_WHITE);
+	public static final ParamFlagColor	flagInfernoColor		= new ParamFlagColor(
+			"AUTO_FLAG_INFERNO",		FLAG_COLOR_RED);
+	public static final ParamFlagColor	flagToxicColor			= new ParamFlagColor(
+			"AUTO_FLAG_TOXIC",			FLAG_COLOR_RED);
+	public static final ParamFlagColor	flagRadiatedColor		= new ParamFlagColor(
+			"AUTO_FLAG_RADIATED",		FLAG_COLOR_PURPLE);
+	public static final ParamFlagColor	flagAsteroidColor		= new ParamFlagColor(
+			"AUTO_FLAG_ASTEROID",		FLAG_COLOR_PINK);
 
-	public static final ParamList flagEnvGaiaColor		= new ParamList(
-			MOD_UI, "AUTO_FLAG_ENV_GAIA",
-			FLAG_COLOR_GREEN, flagColorMap);
-	public static final ParamList flagEnvFertileColor	= new ParamList(
-			MOD_UI, "AUTO_FLAG_ENV_FERTILE",
-			FLAG_COLOR_AQUA, flagColorMap);
-	public static final ParamList flagEnvNormalColor	= new ParamList(
-			MOD_UI, "AUTO_FLAG_ENV_NORMAL",
-			FLAG_COLOR_NONE, flagColorMap);
-	public static final ParamList flagEnvHostileColor	= new ParamList(
-			MOD_UI, "AUTO_FLAG_ENV_HOSTILE",
-			FLAG_COLOR_ORANGE, flagColorMap);
-	public static final ParamList flagEnvNoneColor		= new ParamList(
-			MOD_UI, "AUTO_FLAG_ENV_NONE",
-			FLAG_COLOR_NONE, flagColorMap);
+	public static final ParamFlagColor	flagEnvGaiaColor		= new ParamFlagColor(
+			"AUTO_FLAG_ENV_GAIA",		FLAG_COLOR_GREEN);
+	public static final ParamFlagColor	flagEnvFertileColor		= new ParamFlagColor(
+			"AUTO_FLAG_ENV_FERTILE",	FLAG_COLOR_AQUA);
+	public static final ParamFlagColor	flagEnvNormalColor		= new ParamFlagColor(
+			"AUTO_FLAG_ENV_NORMAL",		FLAG_COLOR_NONE);
+	public static final ParamFlagColor	flagEnvHostileColor		= new ParamFlagColor(
+			"AUTO_FLAG_ENV_HOSTILE",	FLAG_COLOR_ORANGE);
+	public static final ParamFlagColor	flagEnvNoneColor		= new ParamFlagColor(
+			"AUTO_FLAG_ENV_NONE",		FLAG_COLOR_NONE);
 
-	public static final ParamList flagUltraPoorColor	= new ParamList(
-			MOD_UI, "AUTO_FLAG_ULTRA_POOR",
-			FLAG_COLOR_YELLOW, flagColorMap);
-	public static final ParamList flagPoorColor			= new ParamList(
-			MOD_UI, "AUTO_FLAG_POOR",
-			FLAG_COLOR_ORANGE, flagColorMap);
-	public static final ParamList flagAssetNormalColor	= new ParamList(
-			MOD_UI, "AUTO_FLAG_NORMAL",
-			FLAG_COLOR_NONE, flagColorMap);
-	public static final ParamList flagRichColor			= new ParamList(
-			MOD_UI, "AUTO_FLAG_RICH",
-			FLAG_COLOR_PINK, flagColorMap);
-	public static final ParamList flagUltraRichColor	= new ParamList(
-			MOD_UI, "AUTO_FLAG_ULTRA_RICH",
-			FLAG_COLOR_RED, flagColorMap);
-	public static final ParamList flagAntaranColor		= new ParamList(
-			MOD_UI, "AUTO_FLAG_RUINS_ANTARAN",
-			FLAG_COLOR_LTBLUE, flagColorMap);
-	public static final ParamList flagOrionColor		= new ParamList(
-			MOD_UI, "AUTO_FLAG_RUINS_ORION",
-			FLAG_COLOR_BLUE, flagColorMap);
-	public static final ParamList flagNoneColor			= new ParamList(
-			MOD_UI, "AUTO_FLAG_NONE",
-			FLAG_COLOR_NONE, flagColorMap);
+	public static final ParamFlagColor	flagUltraPoorColor		= new ParamFlagColor(
+			"AUTO_FLAG_ULTRA_POOR",		FLAG_COLOR_YELLOW);
+	public static final ParamFlagColor	flagPoorColor			= new ParamFlagColor(
+			"AUTO_FLAG_POOR",			FLAG_COLOR_ORANGE);
+	public static final ParamFlagColor	flagAssetNormalColor	= new ParamFlagColor(
+			"AUTO_FLAG_NORMAL",			FLAG_COLOR_NONE);
+	public static final ParamFlagColor	flagRichColor			= new ParamFlagColor(
+			"AUTO_FLAG_RICH",			FLAG_COLOR_PINK);
+	public static final ParamFlagColor	flagUltraRichColor		= new ParamFlagColor(
+			"AUTO_FLAG_ULTRA_RICH",		FLAG_COLOR_RED);
+	public static final ParamFlagColor	flagAntaranColor		= new ParamFlagColor(
+			"AUTO_FLAG_RUINS_ANTARAN",	FLAG_COLOR_LTBLUE);
+	public static final ParamFlagColor	flagOrionColor			= new ParamFlagColor(
+			"AUTO_FLAG_RUINS_ORION",	FLAG_COLOR_BLUE);
+	public static final ParamFlagColor	flagNoneColor			= new ParamFlagColor(
+			"AUTO_FLAG_NONE",			FLAG_COLOR_NONE);
 
-	public static final ParamList flagTechGaiaColor		= new ParamList(
-			MOD_UI, "AUTO_FLAG_TECH_GAIA",
-			FLAG_COLOR_GREEN, flagColorMap);
-	public static final ParamList flagTechFertileColor	= new ParamList(
-			MOD_UI, "AUTO_FLAG_TECH_FERTILE",
-			FLAG_COLOR_GREEN, flagColorMap);
-	public static final ParamList flagTechGoodColor		= new ParamList(
-			MOD_UI, "AUTO_FLAG_TECH_GOOD",
-			FLAG_COLOR_BLUE, flagColorMap);
-	public static final ParamList flagTechStandardColor	= new ParamList(
-			MOD_UI, "AUTO_FLAG_TECH_STANDARD",
-			FLAG_COLOR_YELLOW, flagColorMap);
-	public static final ParamList flagTechBarrenColor	= new ParamList(
-			MOD_UI, "AUTO_FLAG_TECH_BARREN",
-			FLAG_COLOR_ORANGE, flagColorMap);
-	public static final ParamList flagTechDeadColor		= new ParamList(
-			MOD_UI, "AUTO_FLAG_TECH_DEAD",
-			FLAG_COLOR_WHITE, flagColorMap);
-	public static final ParamList flagTechToxicColor	= new ParamList(
-			MOD_UI, "AUTO_FLAG_TECH_TOXIC",
-			FLAG_COLOR_RED, flagColorMap);
-	public static final ParamList flagTechRadiatedColor	= new ParamList(
-			MOD_UI, "AUTO_FLAG_TECH_RADIATED",
-			FLAG_COLOR_PURPLE, flagColorMap);
-	public static final ParamList flagTechNoneColor		= new ParamList(
-			MOD_UI, "AUTO_FLAG_TECH_NONE",
-			FLAG_COLOR_PINK, flagColorMap);
+	public static final ParamFlagColor	flagTechGaiaColor		= new ParamFlagColor(
+			"AUTO_FLAG_TECH_GAIA",		FLAG_COLOR_GREEN);
+	public static final ParamFlagColor	flagTechFertileColor	= new ParamFlagColor(
+			"AUTO_FLAG_TECH_FERTILE",	FLAG_COLOR_GREEN);
+	public static final ParamFlagColor	flagTechGoodColor		= new ParamFlagColor(
+			"AUTO_FLAG_TECH_GOOD",		FLAG_COLOR_BLUE);
+	public static final ParamFlagColor	flagTechStandardColor	= new ParamFlagColor(
+			"AUTO_FLAG_TECH_STANDARD",	FLAG_COLOR_YELLOW);
+	public static final ParamFlagColor	flagTechBarrenColor		= new ParamFlagColor(
+			"AUTO_FLAG_TECH_BARREN",	FLAG_COLOR_ORANGE);
+	public static final ParamFlagColor	flagTechDeadColor		= new ParamFlagColor(
+			"AUTO_FLAG_TECH_DEAD",		FLAG_COLOR_WHITE);
+	public static final ParamFlagColor	flagTechToxicColor		= new ParamFlagColor(
+			"AUTO_FLAG_TECH_TOXIC",		FLAG_COLOR_RED);
+	public static final ParamFlagColor	flagTechRadiatedColor	= new ParamFlagColor(
+			"AUTO_FLAG_TECH_RADIATED",	FLAG_COLOR_PURPLE);
+	public static final ParamFlagColor	flagTechNoneColor		= new ParamFlagColor(
+			"AUTO_FLAG_TECH_NONE",		FLAG_COLOR_PINK);
 	
 	// MOD GUI OPTIONS:
 	public	static final ParamAAN2	  artifactsHomeworld		= new ParamAAN2("HOME_ARTIFACT");
@@ -446,7 +410,6 @@ public class UserPreferences {
 			, 10, null, null, 1, 5, 20);
 	public	static final ParamInteger flagColorCount			= new ParamInteger(
 			MOD_UI, "FLAG_COLOR_COUNT", 1, 1, 4);
-
 
 	// BR: ===== Global settings Mod GUI:
 	private static boolean gamePlayed = false; // to differentiate startup from loaded game

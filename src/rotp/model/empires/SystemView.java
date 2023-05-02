@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 package rotp.model.empires;
-
 import static rotp.model.planet.PlanetType.ARID;
 import static rotp.model.planet.PlanetType.BARREN;
 import static rotp.model.planet.PlanetType.DEAD;
@@ -70,6 +69,7 @@ import static rotp.ui.UserPreferences.flagToxicColor;
 import static rotp.ui.UserPreferences.flagTundraColor;
 import static rotp.ui.UserPreferences.flagUltraPoorColor;
 import static rotp.ui.UserPreferences.flagUltraRichColor;
+import static rotp.ui.util.ParamFlagColor.flagCount;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -109,17 +109,6 @@ public class SystemView implements IMappedObject, Base, Serializable {
     private static final String AUTO_FLAG_TECH  = "SETTINGS_MOD_AUTO_FLAG_TECH";
     public  static final String AUTO_FLAG_CLEAR = "SETTINGS_MOD_AUTO_FLAG_CLEAR";
 
-    public static final String FLAG_COLOR_NONE   = "FLAG_COLOR_NONE";
-    public static final String FLAG_COLOR_WHITE  = "FLAG_COLOR_WHITE";
-    public static final String FLAG_COLOR_RED    = "FLAG_COLOR_RED";
-    public static final String FLAG_COLOR_BLUE   = "FLAG_COLOR_BLUE";
-    public static final String FLAG_COLOR_GREEN  = "FLAG_COLOR_GREEN";
-    public static final String FLAG_COLOR_YELLOW = "FLAG_COLOR_YELLOW";
-    public static final String FLAG_COLOR_AQUA   = "FLAG_COLOR_AQUA";
-    public static final String FLAG_COLOR_ORANGE = "FLAG_COLOR_ORANGE";
-    public static final String FLAG_COLOR_LTBLUE = "FLAG_COLOR_LTBLUE";
-    public static final String FLAG_COLOR_PURPLE = "FLAG_COLOR_PURPLE";
-    public static final String FLAG_COLOR_PINK   = "FLAG_COLOR_PINK";
     // BR: Flag locations
     private static final int SIDE		= 133;			// Flag icon width and height
     private static final int MID1		= SIDE/2+8;		// Right position of Left flag
@@ -134,8 +123,6 @@ public class SystemView implements IMappedObject, Base, Serializable {
     private static final int LF_BOTTOM	= SIDE;					// Little flags Bottom Position
     private static final int LF_TOP		= SIDE - LF_WIDTH;		// Little flags Top Position
 
-    private static int flagNumber;
-	
 	public static final IndexableMap flagAssignationMap = new IndexableMap();
 	static {
 		List<String> flagAssignationList = Arrays.asList (
@@ -148,25 +135,6 @@ public class SystemView implements IMappedObject, Base, Serializable {
 				);
 		for (String element : flagAssignationList)
 			flagAssignationMap.put(element, element); // Temporary; needs to be further initialized
-	}
-	public static final IndexableMap flagColorMap = new IndexableMap();
-	static {
-		List<String> flagColorList = Arrays.asList (
-			    FLAG_COLOR_NONE, // Don't move this one!
-			    FLAG_COLOR_WHITE,
-			    FLAG_COLOR_RED,
-			    FLAG_COLOR_BLUE,
-			    FLAG_COLOR_GREEN,
-			    FLAG_COLOR_YELLOW,
-			    FLAG_COLOR_AQUA,
-			    FLAG_COLOR_ORANGE,
-			    FLAG_COLOR_LTBLUE,
-			    FLAG_COLOR_PURPLE,
-			    FLAG_COLOR_PINK
-				);
-		flagNumber = flagColorList.size();
-		for (String element : flagColorList)
-			flagColorMap.put(element, element); // Temporary; needs to be further initialized
 	}
     private static final List<String> flagImageNameList = Arrays.asList (
 			"Flag_None",
@@ -780,11 +748,11 @@ public class SystemView implements IMappedObject, Base, Serializable {
 		if (reverse) {
 			flagColor--;
 			if (flagColor < 0)
-				return flagNumber-1;
+				return flagCount-1;
 			return flagColor;
 		} else {
 			flagColor++;
-			if (flagColor >= flagNumber)
+			if (flagColor >= flagCount)
 				return 0;
 			return flagColor;
 		}
