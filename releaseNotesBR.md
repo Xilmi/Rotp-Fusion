@@ -8,11 +8,12 @@ May updates:
   - New option to limit the ships location to get the refund.
 - Renamed "recentStart.rotp" to "!!! To Replay Last Turn !!!".
   - This should clarify its purpose and keep it on the top of the list.
-
+- Governor Spying "Spare Xenophobes": The spying will now be stopped only when framed.
+  - Spying will start again once the timer is expired.
 
 New Fixes:
 - PopUp selection list: "Cancel" will work again!
-
+- Fixed Governor not updating options when reloading a file.
 
 April Release:
 

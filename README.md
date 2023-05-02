@@ -40,6 +40,8 @@ Very soon
   - Option to limit the ships location for the refund.
 - Renamed "recentStart.rotp" to "!!! To Replay Last Turn !!!".
   - This should clarify its purpose and keep it on the top of the list.
+- Governor Spare Xenophobes: The spying will be stopped only when framed.
+- Fixed Governor not updating options when reloading a file.
 
 2023.04.30 (BR)
 - Custom Race Menu:

@@ -277,6 +277,7 @@ public final class GameSession implements Base, Serializable {
             saveRecentSession(false);
             saveBackupSession(1);
             clearNewGameOptions();
+            MOO1GameOptions.newOptionsLoaded();
         }
     }
     // BR: For Restart with new options
@@ -299,6 +300,7 @@ public final class GameSession implements Base, Serializable {
             saveRecentSession(false);
             saveBackupSession(1);
             clearNewGameOptions();
+            MOO1GameOptions.newOptionsLoaded();
         }
     }
     private void  startExecutors() {
@@ -897,6 +899,7 @@ public final class GameSession implements Base, Serializable {
         if (!startUp) {
             RotPUI.instance().selectMainPanelLoadGame();
         }
+        MOO1GameOptions.newOptionsLoaded();
     }
 	private void showInfo(Galaxy g) { // BR: for debug
 		System.out.println("GameSession.showInfo = true ===========================================");
@@ -1034,7 +1037,8 @@ public final class GameSession implements Base, Serializable {
             newSession.validateOnLoadOnly();
 
             loadPreviousSession(newSession, startUp);
-            // do not autosave the current session if that is the file we are trying to reload
+            
+            // do not autosave the current session if that is the file we are trying to reload            
             if (!filename.equals(RECENT_SAVEFILE))
                 saveRecentSession(false);
             else

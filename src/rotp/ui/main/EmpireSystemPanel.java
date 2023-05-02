@@ -451,7 +451,7 @@ public class EmpireSystemPanel extends SystemPanel {
                 g.setColor(sliderBoxBlue);
                 String name = c.shipyard().design().name();
                 if (name == null) {
-                    int i = 0;
+                    // int i = 0;
                     name = "";
                 }
                 scaledFont(g, name, barW-s5, 18, 8);

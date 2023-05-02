@@ -9,13 +9,17 @@ import rotp.model.empires.Empire;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.game.GameSession;
 import rotp.model.game.GovernorOptions;
+import rotp.model.game.MOO1GameOptions;
+import rotp.model.game.MOO1GameOptions.NewOptionsListener;
 import rotp.ui.RotPUI;
 
 /**
  * Produced using Netbeans Swing GUI builder.
  */
-public class GovernorOptionsPanel extends javax.swing.JPanel {
-    private final JFrame frame;
+public class GovernorOptionsPanel extends javax.swing.JPanel 
+								  implements NewOptionsListener{
+
+	private final JFrame frame;
     public GovernorOptionsPanel(JFrame frame) {
         this.frame = frame;
         initComponents();
@@ -56,9 +60,14 @@ public class GovernorOptionsPanel extends javax.swing.JPanel {
         this.autoColonyShipCount.setValue(options.getAutoColonyShipCount());
         this.autoAttackShipCount.setValue(options.getAutoAttackShipCount());
         this.autoApplyToggleButton.setEnabled(options.isAutoApply());
+        MOO1GameOptions.addListener(this);
+    }
+    @Override public void optionLoaded() { // BR: for the option saved in game files
+    	GovernorOptions options = GameSession.instance().getGovernorOptions();
+        spareXenophobes.setSelected(options.isSpareXenophobes());
     }
 
-    public boolean isCompletionistEnabled() {
+    private boolean isCompletionistEnabled() {
         if (GameSession.instance().galaxy() == null) {
             return false;
         }
@@ -72,7 +81,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel {
             return false;
         }
     }
-    public void performCompletionist() {
+    private void performCompletionist() {
         // game not in session
         if (GameSession.instance().galaxy() == null) {
             return;
@@ -528,7 +537,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel {
         });
 
         spareXenophobes.setText("Spare the Xenophobes");
-        spareXenophobes.setToolTipText("Do not Spy nor infiltrate xenophobic empire to avoid outraging them");
+        spareXenophobes.setToolTipText("Once framed by xenophobic empire: stop spying and infiltration to avoid further outrage");
         spareXenophobes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 spareXenophobesActionPerformed(evt);

@@ -47,6 +47,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
+import javax.swing.SwingUtilities;
+
 import rotp.Rotp;
 import rotp.model.ai.AI;
 import rotp.model.empires.Empire;
@@ -96,6 +98,15 @@ import rotp.util.LabelManager;
 //  
 //public class MOO1GameOptions implements Base, IGameOptions, DynamicOptions, Serializable {
 public class MOO1GameOptions implements Base, IGameOptions, Serializable {
+	
+	public	interface NewOptionsListener { void optionLoaded(); }
+	private	static List<NewOptionsListener> listeners = new ArrayList<NewOptionsListener>();
+    public	static void addListener(NewOptionsListener toAdd) { listeners.add(toAdd); }
+    public	static void newOptionsLoaded() {
+        for (NewOptionsListener hl : listeners)
+            hl.optionLoaded();
+    }
+    
     private static final long serialVersionUID = 1L;
     private static final float BASE_RESEARCH_MOD = 30f;
     private static final boolean beepsOnError = false;
@@ -1667,7 +1678,12 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	setBaseAndModSettingsFromOptions(loadFileName(fileName), options, guiID);   		
     }
     private static MOO1GameOptions loadFileName(String fileName) {
-   		return loadOptions(Rotp.jarPath(), fileName);
+    	MOO1GameOptions dest = loadOptions(Rotp.jarPath(), fileName);
+        final Runnable tell = () -> {
+        	newOptionsLoaded();
+        };
+        SwingUtilities.invokeLater(tell);
+   		return dest;
     }
     // BR: save options to zip file
     private static void saveOptions(MOO1GameOptions options, String path, String fileName) {

@@ -318,7 +318,7 @@ public class UserPreferences {
 			put("Both",		MOD_UI + "RETREAT_BOTH");
 		}
 	};
-	public static final ParamInteger customDifficulty			= new ParamInteger(
+	public	static final ParamInteger customDifficulty			= new ParamInteger(
 			MOD_UI, "CUSTOM_DIFFICULTY"
 			, 100, 20, 500, 1, 5, 20);
 	public	static final ParamBoolean dynamicDifficulty			= new ParamBoolean(
@@ -359,7 +359,7 @@ public class UserPreferences {
 			return prefStarsPerEmpire.get();
 		}
 	};
-	public static final ParamBoolean restartChangesAliensAI	= new ParamBoolean(
+	public	static final ParamBoolean restartChangesAliensAI	= new ParamBoolean(
 			MOD_UI, "RESTART_CHANGES_ALIENS_AI", false);
 	public	static final ParamBoolean restartChangesPlayerAI	= new ParamBoolean(
 			MOD_UI, "RESTART_CHANGES_PLAYER_AI", false);
@@ -389,7 +389,6 @@ public class UserPreferences {
 			return super.set(newValue);
 		}
 	};
-//	public static final ParamBoolean alternateMonsterMessages = new ParamBoolean(
 	public	static final ParamInteger piratesDelayTurn			= new ParamInteger(
 			MOD_UI, "PIRATES_DELAY_TURN",	25, 0, null, 1, 5, 20);
 	public	static final ParamInteger amoebaDelayTurn			= new ParamInteger(

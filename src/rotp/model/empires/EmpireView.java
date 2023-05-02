@@ -149,7 +149,8 @@ public final class EmpireView implements Base, Serializable {
         }
         GovernorOptions governor = owner.session().getGovernorOptions();
         if (empire.leader().isXenophobic()
-				&& governor.isSpareXenophobes()) {
+				&& governor.isSpareXenophobes()
+				&& otherView().embassy().timerIsActive(DiplomaticEmbassy.TIMER_SPY_WARNING)) {
         	if(spies.allocation() > 0)
 		        spies.allocation(0);
 		    if(spies.maxSpies() > 0)
