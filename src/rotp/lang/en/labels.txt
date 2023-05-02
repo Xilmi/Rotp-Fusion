@@ -1248,6 +1248,9 @@ SETUP_GALAXY_AGE_OLD_HELP         | Star color probability:<br>Red:&nbsp 50%&ems
 SETUP_RANDOM_EVENTS_ON            | On
 SETUP_RANDOM_EVENTS_OFF           | Off
 SETUP_RANDOM_EVENTS_NO_MONSTERS   | No Monsters
+SETUP_RANDOM_EVENTS_ON_HELP          | All events are allowed once the time has come.
+SETUP_RANDOM_EVENTS_OFF_HELP         | !!! Leave me alone !!! No random events.
+SETUP_RANDOM_EVENTS_NO_MONSTERS_HELP | Ok for the random events, but no Space Amoeba, no Space Crystal, and no Space Pirates. <i> (But some event piracy may happen)</i>
 SETUP_GALAXY_NUMBER_EMPIRES       | Total Empires: %1
 SETUP_GALAXY_NUMBER_SYSTEMS       | Total Systems: %1
 SETUP_GALAXY_MAX_OPPONENTS        | Maximum Opponents: %1
@@ -1327,6 +1330,9 @@ SETUP_RESEARCH_RATE_SLOWEST       | Slowest
 SETUP_TECH_TRADING_YES            | Yes
 SETUP_TECH_TRADING_ALLIES         | Allies Only
 SETUP_TECH_TRADING_NO             | No
+SETUP_TECH_TRADING_YES_HELP       | Anyone can trade with anyone, as long as their relationship is good enough.<br>Empires at war won't trade!
+SETUP_TECH_TRADING_ALLIES_HELP    | Trade is limited between allies only.
+SETUP_TECH_TRADING_NO_HELP        | Trade is disabled.
 SETUP_WARP_SPEED_NORMAL_HELP      | Warp Seep progression: 1, 2, 3, 4, 5,  6,  7,  8,  9
 SETUP_WARP_SPEED_NORMAL           | Normal
 SETUP_WARP_SPEED_FAST_HELP        | Warp Seep progression: 1, 2, 3, 5, 7, 10, 13, 17, 21
@@ -1372,8 +1378,21 @@ SETUP_AI_HOSTILITY_NORMAL         | Normal
 SETUP_AI_HOSTILITY_HIGH           | Angry
 SETUP_AI_HOSTILITY_HIGHER         | Angrier
 SETUP_AI_HOSTILITY_HIGHEST        | Angriest
+SETUP_AI_HOSTILITY_LOWEST_HELP    | Hostility is lowered by 30.
+SETUP_AI_HOSTILITY_LOWER_HELP     | Hostility is lowered by 20.
+SETUP_AI_HOSTILITY_LOW_HELP       | Hostility is lowered by 10.
+SETUP_AI_HOSTILITY_NORMAL_HELP    | Base hostility value.
+SETUP_AI_HOSTILITY_HIGH_HELP      | Hostility is increased by 10.
+SETUP_AI_HOSTILITY_HIGHER_HELP    | Hostility is increased by 20.
+SETUP_AI_HOSTILITY_HIGHEST_HELP   | Hostility is increased by 30.
+
 SETUP_GAME_NUMBER_OPPONENTS       | Opponents
 // modnar: change PLANET_QUALITY settings, add larger and richer
+[modnar MOD: "Larger" gives +50% Planet Size, +20% Poor, -20% Rich;<br> "Richer" gives -20% Planet Size, -20% Poor, +50% Rich, +50% Artifact.]
+SETUP_PLANET_QUALITY_NORMAL_HELP  | Base Quality setting.
+SETUP_PLANET_QUALITY_LARGER_HELP  | Gives +50% Planet Size,<br>but also +20% Poor, and -20% Rich.
+SETUP_PLANET_QUALITY_RICHER_HELP  | Gives +50% Rich, -20% Poor, and +50% Artifact,<br> but also -20% Planet Size.
+
 SETUP_PLANET_QUALITY_LARGER       | Larger
 SETUP_PLANET_QUALITY_RICHER       | Richer
 SETUP_PLANET_QUALITY_POOR         | Poor
@@ -1732,9 +1751,11 @@ SETTINGS_TERRAFORMING             | Hostile Terraforming: %1
 SETTINGS_COLONIZING               | Colonizing: %1
 SETTINGS_FUEL_RANGE               | Fuel Range: %1
 SETTINGS_AI_HOSTILITY             | Hostility: %1
+SETTINGS_RANDOM_EVENTS_HELP       | There are twenty random events in Remnants of the Precursors <i> (sixten vanilla and four from the Modnar)</i>, some favorable and some unfavorable. As of turn 50 <i> (this value can be changed) </i>, the percentage chance that a random event will occur somewhere in the galaxy begins to climb. After a random event occurs, the percentage chance resets to zero and begins climbing again next turn.<br>Random events are a catch-up mechanic that favors weaker factions. Once the event is determined, it will target a player based on how well they're doing in the game. Favorable events are more likely to happen to players with lower overall production, whereas unfavorable events are more likely to happen to players with higher overall production. Some event can only happen once.
 SETTINGS_RANDOM_EVENTS_DESC       | Space Monsters are random events and considerable mid-game threats.<br> Turn off space monsters or all random events. 
 SETTINGS_WARP_SPEED_DESC          | Increase the speed of more advanced warp technologies. This can be desirable on very large maps.<br> [Fastest speeds reduced in modnar MOD]
 SETTINGS_GALAXY_AGE_DESC          | Compared to normal galaxies, young galaxies have more white and blue stars while old galaxies have more red and neutron stars.
+SETTINGS_TECH_TRADING_HELP        | Tech trading is the other common way to learn a technology. The AI factions will trade technologies with each other, so you might as well get in on the action.<br>You can turn off all technology trades or restrict these trades to allies.
 SETTINGS_TECH_TRADING_DESC        | Turn off all technology trades or restrict these trades to allies.
 SETTINGS_STAR_DENSITY_DESC        | Set to high to reduce the chance of empires being stranded early in the game.
 SETTINGS_RESEARCH_RATE_HELP       | If you like savoring your new technologies, if you want to delay being distracted by science's newest shinies, you can slow the rate of research
@@ -1756,7 +1777,7 @@ SETTINGS_AUTOPLAY_DESC            | Completely automate the game by having an AI
 SETTINGS_AUTOPLAY_WARNING         | Warning! Autoplay is currently enabled which will prevent user gameplay.<br> Use "Advanced Options" to disable.
 SETTINGS_FUEL_RANGE_HELP          | Increase or decrease the range of fuel range technologies and reserve fuel tanks. tolerant species will benefit from reduced ranges, while fast growing species will appreciate increased ranges...
 SETTINGS_FUEL_RANGE_DESC          | Increase the range of fuel range technologies and reserve fuel tanks.
-SETTINGS_AI_HOSTILITY_DESC        | Increase or decrease the general level of hostility between alien races.
+SETTINGS_AI_HOSTILITY_DESC        | Increase or decrease the general level of hostility between alien races.<br>When the hostility between two empires reach the level 30, a war declaration will follow!
 
 HEADERS_START_GALAXY_OPTIONS_DESC | Options used for galaxy buildings. Only read when starting a new game.
 HEADERS_START_GALAXY_OPTIONS      | ~~~ GALAXY OPTIONS ~~~%1

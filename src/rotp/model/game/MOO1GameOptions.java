@@ -825,7 +825,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         
         // modnar: change PLANET_QUALITY settings, comment out poor to great settings
         /*
-        switch(selectedPlanetQualityOption()) {
+        switch(selectedPlanetQualityOption()) { // TODO BR: REACTIVATE Planet Quality
             case PLANET_QUALITY_POOR:     r = random() * 0.8f; break;
             case PLANET_QUALITY_MEDIOCRE: r = random() * 0.9f; break;
             case PLANET_QUALITY_NORMAL:   r = random(); break;

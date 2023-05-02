@@ -30,12 +30,13 @@ Now:
 
 Very soon
 - Save Governor options in the game files.
-
+- Reactivate vanilla Planet Quality
 
 ## What's New
 
 2023.05.02 (BR)
 - Made a specific ParamFlagColor class parameter.
+- More guide content.
 
 2023.05.01 (BR)
 - Ships Scrapping refund:

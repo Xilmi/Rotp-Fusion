@@ -30,6 +30,7 @@ public class RandomAlienRaces extends ParamList {
 		super(gui, name, defaultValue);
 		put(SETTING, gui + name + "_SETTING");
 		put(TARGET,	 gui + name + "_TARGET");
+		showFullGuide(true);
 	}
 
 	public boolean isSettingWindow() {
