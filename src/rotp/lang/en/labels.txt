@@ -2229,6 +2229,15 @@ SETTINGS_MOD_GALAXY_RAND_SOURCE_HELP     | By default, the preview gives only an
 SETTINGS_MOD_GALAXY_RAND_SOURCE_DESC     | if <> 0, this number will be used as source for the galaxy random generator. The final galaxy will be the preview one.
 SETTINGS_MOD_GALAXY_RAND_SOURCE          | Random or Wysiwyg: %1
 
+SETTINGS_MOD_AUTO_TERRAFORM_ENDING_DESC  | When in terraforming mode, what will trigger the end of the Eco boost?
+SETTINGS_MOD_AUTO_TERRAFORM_ENDING       | Terraform End: %1
+SETTINGS_MOD_TERRAFORM_POPULATED         | Populated
+SETTINGS_MOD_TERRAFORM_TERRAFORMED       | Terraformed
+SETTINGS_MOD_TERRAFORM_CLEANED           | Cleaned
+SETTINGS_MOD_TERRAFORM_POPULATED_HELP    | Keep the ECO up until fully terraformed, and fully populated.
+SETTINGS_MOD_TERRAFORM_TERRAFORMED_HELP  | Don't bother populating, stop at the end of the terraformation, let the population grow normally.
+SETTINGS_MOD_TERRAFORM_CLEANED_HELP      | Don't bother terraforming, just keep it clean!
+
 // Other base menu Mod settings
 SETTINGS_MOD_PLAYER_SHIP_SET_DESC        | Select the Player Ship Set.
 SETTINGS_MOD_PLAYER_SHIP_SET             | Player Ship Set: %1

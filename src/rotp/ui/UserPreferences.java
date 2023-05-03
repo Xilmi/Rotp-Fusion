@@ -331,11 +331,14 @@ public class UserPreferences {
 			MOD_UI, "RESTART_APPLY_SETTINGS",false);
 	public	static final ParamList    restartChangesPlayerRace	= new ParamList(
 			MOD_UI, "RESTART_PLAYER_RACE", "Swap") {
-		{ showFullGuide(true); }
-	}		.put("Last", MOD_UI + "RESTART_PLAYER_RACE_LAST")
-			.put("Swap", MOD_UI + "RESTART_PLAYER_RACE_SWAP")
-			.put("GuiSwap",	 MOD_UI + "RESTART_PLAYER_RACE_GUI_SWAP")
-			.put("GuiLast",	 MOD_UI + "RESTART_PLAYER_RACE_GUI_LAST");
+		{
+			showFullGuide(true);
+			put("Last", 	MOD_UI + "RESTART_PLAYER_RACE_LAST");
+			put("Swap",		MOD_UI + "RESTART_PLAYER_RACE_SWAP");
+			put("GuiSwap",	MOD_UI + "RESTART_PLAYER_RACE_GUI_SWAP");
+			put("GuiLast",	MOD_UI + "RESTART_PLAYER_RACE_GUI_LAST");
+		}
+	};
 	private static final ParamFloat   counciRequiredPct			= new ParamFloat(
 			MOD_UI, "COUNCIL_REQUIRED_PCT"
 			, GalacticCouncil.PCT_REQUIRED
@@ -410,6 +413,15 @@ public class UserPreferences {
 			, 10, null, null, 1, 5, 20);
 	public	static final ParamInteger flagColorCount			= new ParamInteger(
 			MOD_UI, "FLAG_COLOR_COUNT", 1, 1, 4);
+	public	static final ParamList	  autoTerraformEnding		= new ParamList(
+			MOD_UI, "AUTO_TERRAFORM_ENDING", "Populated") {
+		{
+			showFullGuide(true);
+			put("Populated",	MOD_UI + "TERRAFORM_POPULATED");
+			put("Terraformed",	MOD_UI + "TERRAFORM_TERRAFORMED");
+			put("Cleaned",		MOD_UI + "TERRAFORM_CLEANED");
+		}
+	};
 
 	// BR: ===== Global settings Mod GUI:
 	private static boolean gamePlayed = false; // to differentiate startup from loaded game
@@ -479,8 +491,6 @@ public class UserPreferences {
 			MOD_UI, "COMPACT_OPTION_ONLY", false);
 	public static final ParamBoolean showGridCircular	= new ParamBoolean(
 			MOD_UI, "SHOW_GRID_CIRCULAR", false);
-//	public static final ParamBoolean showTooltips		= new ParamBoolean(
-//			MOD_UI, "SHOW_TOOLTIPS", true);
 	public static final ParamBoolean useFusionFont		= new ParamBoolean(
 			MOD_UI, "USE_FUSION_FONT", false) {
 		@Override public Boolean set(Boolean newValue) {
@@ -900,11 +910,11 @@ public class UserPreferences {
 				flagAsteroidColor
 				)));
 	};
-	public static final String		AUTO_FLAG_GUI_ID	= "AUTO_FLAG";
-	private static final ParamSubUI	autoFlagOptionsUI	= new ParamSubUI(
+	public	static final String		AUTO_FLAG_GUI_ID	= "AUTO_FLAG";
+	private	static final ParamSubUI	autoFlagOptionsUI	= new ParamSubUI(
 			MOD_UI, "AUTO_FLAG_UI", autoFlagOptionsMap,
 			"AUTO_FLAG_TITLE", AUTO_FLAG_GUI_ID);
-	public static final LinkedList<InterfaceParam> autoFlagOptions = autoFlagOptionsUI.optionsList();
+	public	static final LinkedList<InterfaceParam> autoFlagOptions = autoFlagOptionsUI.optionsList();
 
 	// GUI Options Lists
 	public static final LinkedList<InterfaceParam> mergedStaticOptions	= new LinkedList<>();
@@ -968,7 +978,7 @@ public class UserPreferences {
 				headerSpacer,
 				new ParamTitle("GAME_OTHER"),
 				showAlliancesGNN, showLimitedWarnings,
-				techExchangeAutoRefuse, autoplay
+				techExchangeAutoRefuse, autoTerraformEnding, autoplay
 				)));
 		mergedDynamicOptionsMap.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("GAME_RELATIONS"),
@@ -1010,7 +1020,7 @@ public class UserPreferences {
 			}
 		}
 	};	
-	public static final LinkedList<InterfaceParam> advancedOptions = new LinkedList<>(
+	public static final LinkedList<InterfaceParam> advancedOptions	  = new LinkedList<>(
 			Arrays.asList(
 					galaxyAge, starDensity, nebulae, planetQuality, terraforming,
 					null,
@@ -1046,7 +1056,7 @@ public class UserPreferences {
 				null,
 				bombingTarget, targetBombard, flagColorCount, autoFlagOptionsUI,
 				null,
-				scrapRefundFactor, scrapRefundOption
+				scrapRefundFactor, scrapRefundOption, autoTerraformEnding
 			));
 	public static final LinkedList<InterfaceParam> modOptionsDynamicB = new LinkedList<>(
 			Arrays.asList(

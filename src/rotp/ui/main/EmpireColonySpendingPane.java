@@ -22,11 +22,9 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.awt.image.BufferedImage;
 import java.util.List; // modnar: change to cleaner icon set
 import java.util.ArrayList; // modnar: change to cleaner icon set
 
-import rotp.RotpGovernor;
 import rotp.model.colony.Colony;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
@@ -39,7 +37,6 @@ import static rotp.model.colony.Colony.ECOLOGY;
 import static rotp.model.colony.Colony.SHIP;
 import static rotp.model.colony.Colony.DEFENSE;
 import static rotp.model.colony.Colony.INDUSTRY;
-import static rotp.model.colony.ColonySpendingCategory.MAX_TICKS;
 
 public class EmpireColonySpendingPane extends BasePanel {
     private static final long serialVersionUID = 1L;
@@ -202,15 +199,15 @@ public class EmpireColonySpendingPane extends BasePanel {
 
                 // crappy ASCII art. Should be something else.
                 // TODO: for future use
-                if (1 == 0) {
-                    if (colony.isAutoShips()) {
-                        color = Color.green;
-                    } else {
-                        color = MainUI.shadeBorderC();
-                    }
-                    String shipAutomateText = "]=>";
-                    drawShadowedString(g, shipAutomateText, 2, w - s95, titleY, color, textC);
-                }
+//                if (1 == 0) {
+//                    if (colony.isAutoShips()) {
+//                        color = Color.green;
+//                    } else {
+//                        color = MainUI.shadeBorderC();
+//                    }
+//                    String shipAutomateText = "]=>";
+//                    drawShadowedString(g, shipAutomateText, 2, w - s95, titleY, color, textC);
+//                }
                 String governorOptionsText = text("GOVERNOR_OPTIONS");
                 drawShadowedString(g, governorOptionsText, 2, w-s60, titleY, MainUI.shadeBorderC(), textC);
                 return;
@@ -410,6 +407,68 @@ public class EmpireColonySpendingPane extends BasePanel {
                 softClick();
             parent.repaint();
         }
+        public void rightClickResultBox(boolean click) {
+            StarSystem sys = parent.systemViewToDisplay();
+            if (sys == null)
+                return;
+            Colony colony = sys.colony();
+            if (colony == null)
+                return;
+            if(!colony.locked(category)) {
+                float prevTech = mapListener == null ? 0 : colony.totalPlanetaryResearch();
+                switch(category) {
+                    case SHIP:		break;
+                    case DEFENSE:	break;
+                    case INDUSTRY:	break;
+                    case ECOLOGY:
+                    	colony.checkEcoAtTerraform();
+                    	colony.keepEcoLockedToClean = false;
+                        break;
+                    default:		break;
+                }
+                if (mapListener == null)
+                    RotPUI.instance().techUI().resetPlanetaryResearch();
+                else {
+                    float techAdj = colony.totalPlanetaryResearch() - prevTech;
+                    RotPUI.instance().techUI().adjustPlanetaryResearch(techAdj);
+                    mapListener.repaintTechStatus();
+                }
+            }
+            if (click)
+                softClick();
+            parent.repaint();
+        }
+        public void middleClickResultBox(boolean click) {
+            StarSystem sys = parent.systemViewToDisplay();
+            if (sys == null)
+                return;
+            Colony colony = sys.colony();
+            if (colony == null)
+                return;
+            if(!colony.locked(category)) {
+                float prevTech = mapListener == null ? 0 : colony.totalPlanetaryResearch();
+                switch(category) {
+                    case SHIP:		break;
+                    case DEFENSE:	break;
+                    case INDUSTRY:	break;
+                    case ECOLOGY:
+                    	colony.keepEcoLockedToClean = true;
+                    	colony.checkEcoAtClean();
+                        break;
+                    default:		break;
+                }
+                if (mapListener == null)
+                    RotPUI.instance().techUI().resetPlanetaryResearch();
+                else {
+                    float techAdj = colony.totalPlanetaryResearch() - prevTech;
+                    RotPUI.instance().techUI().adjustPlanetaryResearch(techAdj);
+                    mapListener.repaintTechStatus();
+                }
+            }
+            if (click)
+                softClick();
+            parent.repaint();
+        }
         public void increment(boolean click) {
             StarSystem sys = parent.systemViewToDisplay();
             if (sys == null)
@@ -471,7 +530,12 @@ public class EmpireColonySpendingPane extends BasePanel {
             else if (rightArrow.contains(x,y))
                 increment(true);
             else if (resultBox.contains(x,y))
-                maxSlider(true, e.getButton());
+            	if (SwingUtilities.isRightMouseButton(e))
+            		rightClickResultBox(true);
+            	else if (SwingUtilities.isMiddleMouseButton(e))
+            		middleClickResultBox(true);
+            	else
+            		maxSlider(true, e.getButton());
             else {
                 if (this.category < 0) {
 // TODO: for future use

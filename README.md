@@ -30,9 +30,10 @@ Now:
 
 Very soon
 - Save Governor options in the game files.
-- Reactivate vanilla Planet Quality.
-- Right Mouse to Max Clean!
 - Governor colors.
+- Alternative governor Panel?
+- Combat button fix.
+- Text color for gaia and fertile?
 
 ## What's New
 
@@ -42,6 +43,13 @@ Very soon
 - Restored vanilla Planet Quality options
   - Modnar options are still available.
   - Added Hell and Heaven quality.
+- ECO bar:
+  - Right Click on the text on the right = Enough to terraform, no growing.
+  - Middle Click on the text on the right = Enough to Clean.
+- New option: Terraform End; The terraformation will stop either:
+  - When fully populated.
+  - When fully terraformed. (Don't bother populating)
+  - When fully cleaned. (Don't bother terraforming)
 
 2023.05.01 (BR)
 - Ships Scrapping refund:

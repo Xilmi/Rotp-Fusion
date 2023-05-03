@@ -623,6 +623,16 @@ public final class Colony implements Base, IMappedObject, Serializable {
             redistributeReducedEcoSpending();
         }
     }
+    public void checkEcoAtTerraform() {
+        recalcSpendingForNewTaxRate = false;
+        if (locked[ECOLOGY]) 
+            return;
+        int terraformAlloc = ecology().terraformAllocationNeeded();
+        if (allocation[ECOLOGY] == terraformAlloc)
+            return;
+        allocation[ECOLOGY] = cleanupAllocation = terraformAlloc;
+        redistributeReducedEcoSpending();
+    }
     public void lowerECOToCleanIfEcoComplete() {
         // this will NOT adjust ECO spending if it is locked
         // or manually set to level lower than clean
@@ -635,7 +645,8 @@ public final class Colony implements Base, IMappedObject, Serializable {
         
         // if ECO spending is complete, just lower ECO to clean
         // and auto-realign the other categories
-        if (ecology().isCompleted()) {
+//        if (ecology().isCompleted()) {
+        if (ecology().isTerraformed()) { // BR: 
             if (allocation[ECOLOGY] != cleanAlloc) {
                 allocation(ECOLOGY, cleanAlloc);
                 realignSpending(ecology());
@@ -741,8 +752,10 @@ public final class Colony implements Base, IMappedObject, Serializable {
         int maxAllocation = ColonySpendingCategory.MAX_TICKS;
         // determine how much categories are over/under spent
         int spendingTotal = 0;
-        for (int i = 0; i < NUM_CATS; i++)
-            spendingTotal += spending[i].allocation();
+        for (int i = 0; i < NUM_CATS; i++) {
+        	ColonySpendingCategory sp = spending[i];
+        	spendingTotal += spending[i].allocation();
+        }
 
         int adj = maxAllocation - spendingTotal;
         if (adj == 0)

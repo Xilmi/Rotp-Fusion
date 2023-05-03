@@ -15,6 +15,8 @@
  */
 package rotp.model.colony;
 
+import static rotp.ui.UserPreferences.autoTerraformEnding;
+
 import rotp.model.empires.Empire;
 import rotp.model.planet.Planet;
 import rotp.model.tech.TechAtmosphereEnrichment;
@@ -60,12 +62,25 @@ public class ColonyEcology extends ColonySpendingCategory {
         newPurchasedPopulation = 0;
         newBiosphereIncrease = 0;
     }
+    public boolean isTerraformed() {
+    	switch (autoTerraformEnding.get()) {
+    	case "Cleaned":
+    		return empire().ignoresPlanetEnvironment() || waste() == 0;
+    	case "Terraformed":
+    		return colony().planet().currentSize() >= colony().planet().maxSize()
+        		&& (empire().ignoresPlanetEnvironment() || waste() == 0);
+    	case "Populated":
+    	default:
+    		return colony().population() >= colony().planet().maxSize()
+            		&& (empire().ignoresPlanetEnvironment() || waste() == 0);
+    	}
+    }
     @Override
     public int categoryType()    { return Colony.ECOLOGY; }
     @Override
     public boolean isCompleted() {
-        return colony().population() >= colony().planet().maxSize()
-            && (empire().ignoresPlanetEnvironment() || waste() == 0);
+		return colony().population() >= colony().planet().maxSize()
+        		&& (empire().ignoresPlanetEnvironment() || waste() == 0);
     }
     @Override
     public float orderedValue() {
