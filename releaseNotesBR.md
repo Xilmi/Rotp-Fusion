@@ -13,7 +13,13 @@ May updates:
 - Restored vanilla Planet Quality options.
   - Modnar options are still available.
   - Added Hell and Heaven quality.
-
+- ECO bar adjustment:
+  - Right Click on the text on the right = Enough to terraform, no growing.
+  - Middle Click on the text on the right = Enough to Clean.
+- New option: Terraform End; The terraformation will stop either:
+  - When fully populated.
+  - When fully terraformed. (Don't bother populating)
+  - When fully cleaned. (Don't bother terraforming)
 
 New Fixes:
 - PopUp selection list: "Cancel" will work again!
