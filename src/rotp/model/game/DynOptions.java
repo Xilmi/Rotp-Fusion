@@ -17,7 +17,6 @@ package rotp.model.game;
 
 import static rotp.util.ObjectCloner.deepCopy;
 
-import java.awt.Toolkit;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;

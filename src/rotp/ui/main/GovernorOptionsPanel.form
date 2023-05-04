@@ -73,7 +73,7 @@
                                   <Group type="102" attributes="0">
                                       <Component id="autoSpy" max="32767" attributes="0"/>
                                       <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                                      <Component id="autoSpySpare" max="32767" attributes="0"/>
+                                      <Component id="spareXenophobes" max="32767" attributes="0"/>
                                       <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                                       <Component id="completionist" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
@@ -165,7 +165,7 @@
                   <Component id="completionist" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="autoSpy" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="autoInfiltrate" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="autoSpySpare" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="spareXenophobes" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="27" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -432,6 +432,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="OK"/>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Apply settings and close the GUI"/>
+      </AccessibilityProperties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="okButtonActionPerformed"/>
       </Events>
@@ -613,6 +616,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Apply"/>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Apply settings and keep GUI open"/>
+      </AccessibilityProperties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="applyButtonActionPerformed"/>
       </Events>
@@ -622,17 +628,23 @@
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="Auto Apply"/>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="For the settings to be applied live"/>
+      </AccessibilityProperties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autoApplyToggleButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JCheckBox" name="autoSpySpare">
+    <Component class="javax.swing.JCheckBox" name="spareXenophobes">
       <Properties>
         <Property name="text" type="java.lang.String" value="Spare the Xenophobes"/>
         <Property name="toolTipText" type="java.lang.String" value="Hand control over spies to AI"/>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Once framed by xenophobic empire: stop spying and infiltration to avoid further outrage"/>
+      </AccessibilityProperties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autoSpySpareActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="spareXenophobesActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

@@ -75,15 +75,12 @@ public class GovernorOptions implements Serializable {
     }
 
     public boolean isSpareXenophobes() {
-    	System.out.println("isSpareXenophobes() = " + spareXenophobes.get());
         return spareXenophobes.get();
     }
 
     public void setSpareXenophobes(boolean newValue) {
-    	System.out.println("setSpareXenophobes() = " + newValue);
         spareXenophobes.set(newValue);
         save();
-    	System.out.println("Verif: setSpareXenophobes() = " + spareXenophobes.get());
     }
 
     public boolean isGovernorOnByDefault() {

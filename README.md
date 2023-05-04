@@ -28,14 +28,23 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 Now:
 - Custom Race Menu: Guide continuation
 
-Very soon
+Very soon:
 - Save Governor options in the game files.
 - Governor colors.
 - Alternative governor Panel?
 - Combat button fix.
 - Text color for gaia and fertile?
 
+Later:
+- William482 request: Continuing on the topic of things that normal people probably just let the governor do, I would love a button on the "Send Transports From:" popup in the Fleets tab which would, for each world:
+  1. Send the maximum number of population which can be regrown in one turn, and
+  2. set the eco slider to whatever value is needed to regrow that pop.
+
+
 ## What's New
+
+2023.05.03 (BR)
+- 
 
 2023.05.02 (BR)
 - Made a specific ParamFlagColor class parameter.

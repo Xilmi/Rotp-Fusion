@@ -187,9 +187,9 @@ public class GovernorOptionsPanel extends javax.swing.JPanel
         legacyGrowthMode = new javax.swing.JCheckBox();
         autoSpy = new javax.swing.JCheckBox();
         autoInfiltrate = new javax.swing.JCheckBox();
-        spareXenophobes = new javax.swing.JCheckBox();
         applyButton = new javax.swing.JButton();
         autoApplyToggleButton = new javax.swing.JToggleButton();
+        spareXenophobes = new javax.swing.JCheckBox();
 
         governorDefault.setText("Governor is on by default");
 
@@ -360,7 +360,6 @@ public class GovernorOptionsPanel extends javax.swing.JPanel
         );
 
         okButton.setText("OK");
-        okButton.setToolTipText("Apply settings and close the GUI");
         okButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 okButtonActionPerformed(evt);
@@ -520,7 +519,6 @@ public class GovernorOptionsPanel extends javax.swing.JPanel
         });
 
         applyButton.setText("Apply");
-        applyButton.setToolTipText("Apply settings and keep GUI open");
         applyButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 applyButtonActionPerformed(evt);
@@ -528,7 +526,6 @@ public class GovernorOptionsPanel extends javax.swing.JPanel
         });
 
         autoApplyToggleButton.setSelected(true);
-        autoApplyToggleButton.setToolTipText("For the settings to be applied live");
         autoApplyToggleButton.setText("Auto Apply");
         autoApplyToggleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -537,7 +534,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel
         });
 
         spareXenophobes.setText("Spare the Xenophobes");
-        spareXenophobes.setToolTipText("Once framed by xenophobic empire: stop spying and infiltration to avoid further outrage");
+        spareXenophobes.setToolTipText("Hand control over spies to AI");
         spareXenophobes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 spareXenophobesActionPerformed(evt);
@@ -675,6 +672,11 @@ public class GovernorOptionsPanel extends javax.swing.JPanel
                     .addComponent(autoApplyToggleButton))
                 .addContainerGap())
         );
+
+        okButton.getAccessibleContext().setAccessibleDescription("Apply settings and close the GUI");
+        applyButton.getAccessibleContext().setAccessibleDescription("Apply settings and keep GUI open");
+        autoApplyToggleButton.getAccessibleContext().setAccessibleDescription("For the settings to be applied live");
+        spareXenophobes.getAccessibleContext().setAccessibleDescription("Once framed by xenophobic empire: stop spying and infiltration to avoid further outrage");
     }// </editor-fold>//GEN-END:initComponents
 
     private void allGovernorsOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allGovernorsOnActionPerformed
@@ -850,12 +852,12 @@ public class GovernorOptionsPanel extends javax.swing.JPanel
         }
     }//GEN-LAST:event_legacyGrowthModeActionPerformed
 
-    private void autoSpyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoSpyActionPerformed
+    private void autoSpyActionPerformed(java.awt.event.ActionEvent evt) {                                        
         if (autoApplyToggleButton.isEnabled()) { // BR:
             GovernorOptions options = GameSession.instance().getGovernorOptions();
             options.setAutoSpy(autoSpy.isSelected());
         }
-    }//GEN-LAST:event_autoSpyActionPerformed
+    }                                       
 
     private void spareXenophobesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoSpyActionPerformed
         if (autoApplyToggleButton.isEnabled()) { // BR:
@@ -954,7 +956,6 @@ public class GovernorOptionsPanel extends javax.swing.JPanel
     private javax.swing.JSpinner autoScoutShipCount;
     private javax.swing.JLabel autoScoutShipCountLabel;
     private javax.swing.JCheckBox autoSpy;
-    private javax.swing.JCheckBox spareXenophobes;
     private javax.swing.JCheckBox autospend;
     private javax.swing.JCheckBox autotransport;
     private javax.swing.JCheckBox autotransportXilmi;
@@ -969,6 +970,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel
     private javax.swing.JLabel resrveLabel;
     private javax.swing.JCheckBox shieldWithoutBases;
     private javax.swing.JCheckBox shipbuilding;
+    private javax.swing.JCheckBox spareXenophobes;
     private javax.swing.JRadioButton stargateOff;
     private javax.swing.JRadioButton stargateOn;
     private javax.swing.ButtonGroup stargateOptions;
