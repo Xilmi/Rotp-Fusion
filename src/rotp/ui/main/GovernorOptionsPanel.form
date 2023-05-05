@@ -431,10 +431,8 @@
     <Component class="javax.swing.JButton" name="okButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="OK"/>
+        <Property name="toolTipText" type="java.lang.String" value="Apply settings and close the GUI"/>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Apply settings and close the GUI"/>
-      </AccessibilityProperties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="okButtonActionPerformed"/>
       </Events>
@@ -615,22 +613,18 @@
     <Component class="javax.swing.JButton" name="applyButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Apply"/>
+        <Property name="toolTipText" type="java.lang.String" value="Apply settings and keep GUI open"/>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Apply settings and keep GUI open"/>
-      </AccessibilityProperties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="applyButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JToggleButton" name="autoApplyToggleButton">
+    <Component class="javax.swing.JButton" name="autoApplyToggleButton">
       <Properties>
-        <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="Auto Apply"/>
+        <Property name="toolTipText" type="java.lang.String" value="For the settings to be applied live."/>
+        <Property name="focusPainted" type="boolean" value="false"/>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="For the settings to be applied live"/>
-      </AccessibilityProperties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autoApplyToggleButtonActionPerformed"/>
       </Events>
@@ -638,11 +632,8 @@
     <Component class="javax.swing.JCheckBox" name="spareXenophobes">
       <Properties>
         <Property name="text" type="java.lang.String" value="Spare the Xenophobes"/>
-        <Property name="toolTipText" type="java.lang.String" value="Hand control over spies to AI"/>
+        <Property name="toolTipText" type="java.lang.String" value="Once framed by xenophobic empire: stop spying and infiltration to avoid further outrage"/>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Once framed by xenophobic empire: stop spying and infiltration to avoid further outrage"/>
-      </AccessibilityProperties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="spareXenophobesActionPerformed"/>
       </Events>

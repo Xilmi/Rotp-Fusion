@@ -1,9 +1,30 @@
 package rotp.ui.main;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Insets;
 import java.awt.event.MouseWheelEvent;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JRootPane;
 import javax.swing.JSpinner;
+import javax.swing.JSpinner.NumberEditor;
+import javax.swing.JToggleButton;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.plaf.basic.BasicArrowButton;
 
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.StarSystem;
@@ -12,19 +33,261 @@ import rotp.model.game.GovernorOptions;
 import rotp.model.game.MOO1GameOptions;
 import rotp.model.game.MOO1GameOptions.NewOptionsListener;
 import rotp.ui.RotPUI;
+import rotp.ui.game.GameUI;
+import rotp.ui.races.RacesUI;
+import rotp.util.FontManager;
 
 /**
  * Produced using Netbeans Swing GUI builder.
  */
-public class GovernorOptionsPanel extends javax.swing.JPanel 
-								  implements NewOptionsListener{
+public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptionsListener{
+
+	private final Font	valueFont		= FontManager.current().narrowFont(13);
+	private final Font	baseFont		= FontManager.current().narrowFont(14);
+	private final Font	labelFont		= FontManager.current().narrowFont(14);
+	private final Font	buttonFont		= FontManager.current().narrowFont(15);
+	private final Font	titleFont		= FontManager.current().narrowFont(21);
+	private Color	buttonColor			= new Color(93,75,66);
+	private Color	buttonOffColor		= buttonColor;
+	private Color	buttonOnColor		= new Color(131,95,70);
+	private Color	buttonTextColor		= SystemPanel.whiteText;
+	private Color	buttonTextOnColor	= SystemPanel.blackText;
+	private Color	buttonBorderColor	= SystemPanel.whiteText;;
+	private Color	valueBgColor		= multColor(RacesUI.lightBrown, 1.2f);
+	private Color	paneColor			= new Color(150,105,73);
+	private Color	textBgColor			= paneColor;
+	private Color	textColor			= SystemPanel.blackText;
+	private Color	titleColor			= SystemPanel.whiteText;
+	private int		buttonBorder		= 2;
+	private int		buttonTopInset		= 6;
+	private int		buttonSideInset		= 10;
+	private int		buttonWidth			= 150;
 
 	private final JFrame frame;
-    public GovernorOptionsPanel(JFrame frame) {
+	private boolean autoApply = true;
+    private void testColor() {
+    	buttonColor		= new Color(93,75,66);
+    	buttonOffColor	= new Color(93,75,66);
+    	buttonOnColor	= new Color(131,95,70);
+    	buttonTextColor	= SystemPanel.whiteText;
+    	valueBgColor	= multColor(RacesUI.lightBrown, 1.2f);
+    	paneColor		= new Color(150,105,73);
+    	textBgColor		= paneColor;
+    	textColor		= SystemPanel.blackText;
+    	titleColor		= SystemPanel.whiteText;
+    	buttonTextOnColor	= SystemPanel.blackText;
+    	updatePanel(frame, true, true, false, 0);
+    }
+
+	public GovernorOptionsPanel(JFrame frame) {
         this.frame = frame;
         initComponents();
+        setPanelSize(717, 575);
+        updatePanel(frame, true, true, false, 0);
         // initial values
+        loadValues();
+        updatePanel(frame, true, true, false, 0);
+        MOO1GameOptions.addListener(this);
+    }
+    @Override public void optionLoaded() { loadValues();  } 
+    public void newStyle() { updatePanel(frame, true, true, false, 0); } 
+    private static Color multColor		(Color offColor, float factor) {
+    	factor /= 255f;
+    	return new Color(Math.min(1f, offColor.getRed()   * factor),
+    					 Math.min(1f, offColor.getGreen() * factor),
+    					 Math.min(1f, offColor.getBlue()  * factor));
+    }
+    private void setBasicArrowButton	(Component c, boolean color, boolean font, boolean debug) {
+       	
+    }
+    private void setJButton				(Component c, boolean color, boolean font, boolean debug) {
+    	JButton button = (JButton) c;
+    	if (color) {
+    		button.setBackground(buttonColor);
+    		button.setForeground(buttonTextColor);
+    	}
+    	if (font) {
+    		int topInset  = RotPUI.scaledSize(buttonTopInset);
+    		int sideInset = RotPUI.scaledSize(buttonSideInset);
+    		setBorder(new LineBorder(buttonBorderColor, RotPUI.scaledSize(buttonBorder), true));
+    		button.setMargin(new Insets(topInset, sideInset, 0, sideInset));
+    		button.setFont(buttonFont);
+    	}
+    }
+    private void setJCheckBox			(Component c, boolean color, boolean font, boolean debug) {
+    	JCheckBox box = (JCheckBox) c;
+    	if (color) {
+    		box.setBackground(textBgColor);
+    		box.setForeground(textColor);
+    	}
+    	if (font)
+    		box.setFont(baseFont);
+    }
+    private void setJRadioButton		(Component c, boolean color, boolean font, boolean debug) {
+    	JRadioButton button = (JRadioButton) c;
+    	if (color) {
+    		button.setBackground(textBgColor);
+    		button.setForeground(textColor);
+    	}
+    	if (font)
+    		button.setFont(baseFont);
+    }
+    private void setJToggleButton		(Component c, boolean color, boolean font, boolean debug) {
+    	JToggleButton button = (JToggleButton) c;
+    	if (color) {
+    		button.setBackground(buttonColor);
+    		button.setForeground(buttonTextColor);
+    	}
+    	if (font) {
+    		int topInset  = RotPUI.scaledSize(6);
+    		int sideInset = RotPUI.scaledSize(10);
+    		button.setMargin(new Insets(topInset, sideInset, 0, sideInset));
+    		button.setFont(buttonFont);
+    	}
+    }
+    private void setJSpinner			(Component c, boolean color, boolean font, boolean debug) {
+    	JSpinner spinner = (JSpinner) c;
+    	if (color) {
+    		spinner.setBackground(valueBgColor);
+    		spinner.setForeground(textColor);
+    	}
+    	if (font) {
+    		int topInset  = RotPUI.scaledSize(4);
+    		int sideInset = RotPUI.scaledSize(6);
+    		//spinner.getBorder().getBorderInsets(c).set(topInset, sideInset, 0, sideInset);
+    		spinner.setFont(valueFont);
+    	}       	
+    }
+    private void setJLabel				(Component c, boolean color, boolean font, boolean debug) {
+    	JLabel label = (JLabel) c;
+    	if (color) {
+    		label.setBackground(textBgColor);
+    		label.setForeground(textColor);
+    	}
+    	if (font)
+    		label.setFont(labelFont);
+    }
+    private void setJFormattedTextField	(Component c, boolean color, boolean font, boolean debug) {
+    	JFormattedTextField txt = (JFormattedTextField) c;
+    	if (color) {
+    		txt.setBackground(valueBgColor);
+    		txt.setForeground(SystemPanel.blackText);
+    	}
+    	if (font) {
+    		int topInset  = RotPUI.scaledSize(6);
+    		int sideInset = RotPUI.scaledSize(10);
+    		txt.setMargin(new Insets(topInset, sideInset, 0, sideInset));
+    		txt.setFont(valueFont);
+    	}
+    }
+    private void setNumberEditor		(Component c, boolean color, boolean font, boolean debug) {
+       	
+    }
+    private void setJPanel				(Component c, boolean color, boolean font, boolean debug) {
+    	JPanel pane = (JPanel) c;
+    	if (color)
+    		pane.setBackground(paneColor);
+    	if (font)
+    		pane.setFont(baseFont);
+    	Border b = pane.getBorder();
+    	if (b != null && b instanceof TitledBorder) {
+        	TitledBorder border = (TitledBorder) b;
+        	if (color)
+        		border.setTitleColor(titleColor);
+        	if (font)
+        		border.setTitleFont(titleFont);
+    	}
+    }
+    private void setJLayeredPane		(Component c, boolean color, boolean font, boolean debug) {
+//    	JLayeredPane pane = (JLayeredPane) c;
+//    	if (color)
+//    		pane.setBackground(PaneColor);
+//    	if (font)
+//    		pane.setFont(baseFont);
+     }
+    private void setJRootPane			(Component c, boolean color, boolean font, boolean debug) {
+//    	JRootPane pane = (JRootPane) c;
+//    	if (color)
+//    		pane.setBackground(PaneColor);
+//    	if (font)
+//    		pane.setFont(baseFont);
+    }
+    private	void updatePanel(Container parent, boolean color, boolean font, boolean debug, int k) {
+    	for (Component c : parent.getComponents()) {
+    		if (c instanceof BasicArrowButton) {
+    			if (debug) System.out.println("BasicArrowButton : " + k + " -- " + c.toString());
+    			setBasicArrowButton(c, color, font, debug);
+        	} 
+        	else if (c instanceof JButton) {
+        		if (debug) System.out.println("JButton : " + k + " -- " + c.toString());
+        		setJButton(c, color, font, debug);
+        	}
+        	else if (c instanceof JCheckBox) {
+        		if (debug) System.out.println("JCheckBox : " + k + " -- " + c.toString());
+        		setJCheckBox(c, color, font, debug);
+        	}
+        	else if (c instanceof JRadioButton) {
+        		if (debug) System.out.println("JRadioButton : " + k + " -- " + c.toString());
+        		setJRadioButton(c, color, font, debug);
+        	}
+        	else if (c instanceof JToggleButton) {
+        		if (debug) System.out.println("JToggleButton : " + k + " -- " + c.toString());
+        		setJToggleButton(c, color, font, debug);
+        	}
+        	else if (c instanceof JSpinner) {
+        		if (debug) System.out.println("JSpinner : " + k + " -- " + c.toString());
+        		setJSpinner(c, color, font, debug);
+        	}
+        	else if (c instanceof JLabel) {
+        		if (debug) System.out.println("JLabel : " + k + " -- " + c.toString());
+        		setJLabel(c, color, font, debug);
+        	}
+        	else if (c instanceof JFormattedTextField) {
+        		if (debug) System.out.println("JFormattedTextField : " + k + " -- " + c.toString());
+        		setJFormattedTextField(c, color, font, debug);
+        	}
+        	else if (c instanceof NumberEditor) {
+        		if (debug) System.out.println("NumberEditor : " + k + " -- " + c.toString());
+        		setNumberEditor(c, color, font, debug);
+        	}
+        	else if (c instanceof JPanel) {
+        		if (debug) System.out.println("JPanel : " + k + " -- " + c.toString());
+        		setJPanel(c, color, font, debug);
+        	}
+        	else if (c instanceof JLayeredPane) {
+        		if (debug) System.out.println("JLayeredPane : " + k + " -- " + c.toString());
+        		setJLayeredPane(c, color, font, debug);
+        	}
+        	else if (c instanceof JRootPane) {
+        		if (debug) System.out.println("JRootPane : " + k + " -- " + c.toString());
+        		setJRootPane(c, color, font, debug);
+        	}
+        	else {
+        		if (debug) System.out.println("-- " + k + " -- " + c.toString());
+        	}
+            if (c instanceof Container) {
+            	updatePanel((Container)c, color, font, debug, k+1);
+            }
+        }
+    	setAutoApplyColors();
+    	repaint();
+    }
+    private void setPanelSize(int width, int height) {
+    	setPreferredSize(new Dimension(RotPUI.scaledSize(width), RotPUI.scaledSize(height)));
+    }
+    private void setAutoApplyColors() {
+    	if (autoApply) {
+    		autoApplyToggleButton.setBackground(buttonOnColor);
+    		autoApplyToggleButton.setForeground(buttonTextOnColor);
+    	}
+    	else {
+    		autoApplyToggleButton.setBackground(buttonOffColor);
+    		autoApplyToggleButton.setForeground(buttonTextColor);
+       }
+    }
+    private void loadValues() {
         GovernorOptions options = GameSession.instance().getGovernorOptions();
+        this.autoApply = options.isAutoApply();
         this.governorDefault.setSelected(options.isGovernorOnByDefault());
         this.legacyGrowthMode.setSelected(options.legacyGrowthMode());
         this.autotransport.setSelected(options.isAutotransport());
@@ -59,14 +322,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel
         this.autoScoutShipCount.setValue(options.getAutoScoutShipCount());
         this.autoColonyShipCount.setValue(options.getAutoColonyShipCount());
         this.autoAttackShipCount.setValue(options.getAutoAttackShipCount());
-        this.autoApplyToggleButton.setEnabled(options.isAutoApply());
-        MOO1GameOptions.addListener(this);
+        setAutoApplyColors();
     }
-    @Override public void optionLoaded() { // BR: for the option saved in game files
-    	GovernorOptions options = GameSession.instance().getGovernorOptions();
-        spareXenophobes.setSelected(options.isSpareXenophobes());
-    }
-
     private boolean isCompletionistEnabled() {
         if (GameSession.instance().galaxy() == null) {
             return false;
@@ -74,7 +331,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel
         float colonized = GameSession.instance().galaxy().numColonizedSystems() / (float)GameSession.instance().galaxy().numStarSystems();
         float controlled = GameSession.instance().galaxy().player().numColonies() / GameSession.instance().galaxy().numColonizedSystems();
         boolean completed = GameSession.instance().galaxy().player().tech().researchCompleted();
-        System.out.format("Colonized %.2f galaxy, controlled %.2f galaxy, completed research %s%n", colonized, controlled, completed);
+        // System.out.format("Colonized %.2f galaxy, controlled %.2f galaxy, completed research %s%n", colonized, controlled, completed);
         if (colonized >= 0.3 && controlled >= 0.5 && completed) {
             return true;
         } else {
@@ -188,7 +445,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel
         autoSpy = new javax.swing.JCheckBox();
         autoInfiltrate = new javax.swing.JCheckBox();
         applyButton = new javax.swing.JButton();
-        autoApplyToggleButton = new javax.swing.JToggleButton();
+        autoApplyToggleButton = new javax.swing.JButton();
         spareXenophobes = new javax.swing.JCheckBox();
 
         governorDefault.setText("Governor is on by default");
@@ -360,6 +617,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel
         );
 
         okButton.setText("OK");
+        okButton.setToolTipText("Apply settings and close the GUI");
         okButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 okButtonActionPerformed(evt);
@@ -519,14 +777,16 @@ public class GovernorOptionsPanel extends javax.swing.JPanel
         });
 
         applyButton.setText("Apply");
+        applyButton.setToolTipText("Apply settings and keep GUI open");
         applyButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 applyButtonActionPerformed(evt);
             }
         });
 
-        autoApplyToggleButton.setSelected(true);
         autoApplyToggleButton.setText("Auto Apply");
+        autoApplyToggleButton.setToolTipText("For the settings to be applied live.");
+        autoApplyToggleButton.setFocusPainted(false);
         autoApplyToggleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 autoApplyToggleButtonActionPerformed(evt);
@@ -534,7 +794,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel
         });
 
         spareXenophobes.setText("Spare the Xenophobes");
-        spareXenophobes.setToolTipText("Hand control over spies to AI");
+        spareXenophobes.setToolTipText("Once framed by xenophobic empire: stop spying and infiltration to avoid further outrage");
         spareXenophobes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 spareXenophobesActionPerformed(evt);
@@ -672,11 +932,6 @@ public class GovernorOptionsPanel extends javax.swing.JPanel
                     .addComponent(autoApplyToggleButton))
                 .addContainerGap())
         );
-
-        okButton.getAccessibleContext().setAccessibleDescription("Apply settings and close the GUI");
-        applyButton.getAccessibleContext().setAccessibleDescription("Apply settings and keep GUI open");
-        autoApplyToggleButton.getAccessibleContext().setAccessibleDescription("For the settings to be applied live");
-        spareXenophobes.getAccessibleContext().setAccessibleDescription("Once framed by xenophobic empire: stop spying and infiltration to avoid further outrage");
     }// </editor-fold>//GEN-END:initComponents
 
     private void allGovernorsOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allGovernorsOnActionPerformed
@@ -687,7 +942,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel
             }
             ss.colony().setGovernor(true);
             ss.colony().governIfNeeded();
-            if (autoApplyToggleButton.isEnabled()) { // BR:
+            if (autoApply) { // BR:
                 GovernorOptions options = GameSession.instance().getGovernorOptions();
                 options.setGovernorOnByDefault(governorDefault.isSelected());
             }
@@ -701,7 +956,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel
                 continue;
             }
             ss.colony().setGovernor(false);
-            if (autoApplyToggleButton.isEnabled()) { // BR:
+            if (autoApply) { // BR:
                 GovernorOptions options = GameSession.instance().getGovernorOptions();
                 options.setGovernorOnByDefault(governorDefault.isSelected());
             }
@@ -715,6 +970,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel
 
     private void applyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyButtonActionPerformed
     	applyAction();
+    	testColor();
     }//GEN-LAST:event_applyButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
@@ -746,7 +1002,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel
     }//GEN-LAST:event_autoAttackShipCountMouseWheelMoved
 
     private void autotransportXilmiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autotransportXilmiActionPerformed
-        if (autoApplyToggleButton.isEnabled()) { // BR:
+        if (autoApply) { // BR:
             GovernorOptions options = GameSession.instance().getGovernorOptions();
             options.setAutotransportXilmi(autotransportXilmi.isSelected());
         }
@@ -761,160 +1017,161 @@ public class GovernorOptionsPanel extends javax.swing.JPanel
     }//GEN-LAST:event_transportMaxTurnsMouseWheelMoved
 
     private void autoApplyToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoApplyToggleButtonActionPerformed
-        GovernorOptions options = GameSession.instance().getGovernorOptions();
-        options.setAutoApply(autoApplyToggleButton.isEnabled());
-        if (autoApplyToggleButton.isEnabled()) { // BR:
+        autoApply = !autoApply;
+    	GovernorOptions options = GameSession.instance().getGovernorOptions();
+        options.setAutoApply(autoApply);
+        if (autoApply) // BR:
         	applyAction();
-        }
+        setAutoApplyColors();
     }//GEN-LAST:event_autoApplyToggleButtonActionPerformed
 
     private void allowUngovernedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allowUngovernedActionPerformed
-        if (autoApplyToggleButton.isEnabled()) { // BR:
+        if (autoApply) { // BR:
             GovernorOptions options = GameSession.instance().getGovernorOptions();
             options.setAutotransportUngoverned(allowUngoverned.isSelected());
         }
     }//GEN-LAST:event_allowUngovernedActionPerformed
 
     private void autotransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autotransportActionPerformed
-        if (autoApplyToggleButton.isEnabled()) { // BR:
+        if (autoApply) { // BR:
             GovernorOptions options = GameSession.instance().getGovernorOptions();
             options.setAutotransport(autotransport.isSelected());
         }
     }//GEN-LAST:event_autotransportActionPerformed
 
     private void transportRichDisabledActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transportRichDisabledActionPerformed
-        if (autoApplyToggleButton.isEnabled()) { // BR:
+        if (autoApply) { // BR:
             GovernorOptions options = GameSession.instance().getGovernorOptions();
             options.setTransportRichDisabled(transportRichDisabled.isSelected());
         }
     }//GEN-LAST:event_transportRichDisabledActionPerformed
 
     private void transportPoorDoubleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transportPoorDoubleActionPerformed
-        if (autoApplyToggleButton.isEnabled()) { // BR:
+        if (autoApply) { // BR:
             GovernorOptions options = GameSession.instance().getGovernorOptions();
             options.setTransportPoorDouble(transportPoorDouble.isSelected());
         }
     }//GEN-LAST:event_transportPoorDoubleActionPerformed
 
     private void autoScoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoScoutActionPerformed
-        if (autoApplyToggleButton.isEnabled()) { // BR:
+        if (autoApply) { // BR:
             GovernorOptions options = GameSession.instance().getGovernorOptions();
             options.setAutoScout(autoScout.isSelected());
         }
     }//GEN-LAST:event_autoScoutActionPerformed
 
     private void autoColonizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoColonizeActionPerformed
-        if (autoApplyToggleButton.isEnabled()) { // BR:
+        if (autoApply) { // BR:
             GovernorOptions options = GameSession.instance().getGovernorOptions();
             options.setAutoColonize(autoColonize.isSelected());
         }
     }//GEN-LAST:event_autoColonizeActionPerformed
 
     private void autoAttackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoAttackActionPerformed
-        if (autoApplyToggleButton.isEnabled()) { // BR:
+        if (autoApply) { // BR:
             GovernorOptions options = GameSession.instance().getGovernorOptions();
             options.setAutoAttack(autoAttack.isSelected());
         }
     }//GEN-LAST:event_autoAttackActionPerformed
 
     private void shieldWithoutBasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shieldWithoutBasesActionPerformed
-        if (autoApplyToggleButton.isEnabled()) { // BR:
+        if (autoApply) { // BR:
             GovernorOptions options = GameSession.instance().getGovernorOptions();
             options.setShieldWithoutBases(shieldWithoutBases.isSelected());
         }
     }//GEN-LAST:event_shieldWithoutBasesActionPerformed
 
     private void autospendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autospendActionPerformed
-        if (autoApplyToggleButton.isEnabled()) { // BR:
+        if (autoApply) { // BR:
             GovernorOptions options = GameSession.instance().getGovernorOptions();
             options.setAutospend(autospend.isSelected());
         }
     }//GEN-LAST:event_autospendActionPerformed
 
     private void shipbuildingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shipbuildingActionPerformed
-        if (autoApplyToggleButton.isEnabled()) { // BR:
+        if (autoApply) { // BR:
             GovernorOptions options = GameSession.instance().getGovernorOptions();
             options.setShipbuilding(shipbuilding.isSelected());
         }
     }//GEN-LAST:event_shipbuildingActionPerformed
 
     private void autoInfiltrateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoInfiltrateActionPerformed
-        if (autoApplyToggleButton.isEnabled()) { // BR:
+        if (autoApply) { // BR:
             GovernorOptions options = GameSession.instance().getGovernorOptions();
             options.setAutoInfiltrate(autoInfiltrate.isSelected());
         }
     }//GEN-LAST:event_autoInfiltrateActionPerformed
 
     private void legacyGrowthModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_legacyGrowthModeActionPerformed
-        if (autoApplyToggleButton.isEnabled()) { // BR:
+        if (autoApply) { // BR:
             GovernorOptions options = GameSession.instance().getGovernorOptions();
             options.setLegacyGrowthMode(legacyGrowthMode.isSelected());
         }
     }//GEN-LAST:event_legacyGrowthModeActionPerformed
 
     private void autoSpyActionPerformed(java.awt.event.ActionEvent evt) {                                        
-        if (autoApplyToggleButton.isEnabled()) { // BR:
+        if (autoApply) { // BR:
             GovernorOptions options = GameSession.instance().getGovernorOptions();
             options.setAutoSpy(autoSpy.isSelected());
         }
     }                                       
 
     private void spareXenophobesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoSpyActionPerformed
-        if (autoApplyToggleButton.isEnabled()) { // BR:
+        if (autoApply) { // BR:
             GovernorOptions options = GameSession.instance().getGovernorOptions();
             options.setSpareXenophobes(spareXenophobes.isSelected());
         }
     }//GEN-LAST:event_autoSpyActionPerformed
 
     private void stargateOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stargateOffActionPerformed
-        if (autoApplyToggleButton.isEnabled()) applyStargates(); // BR:
+        if (autoApply) applyStargates(); // BR:
     }//GEN-LAST:event_stargateOffActionPerformed
 
     private void stargateRichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stargateRichActionPerformed
-        if (autoApplyToggleButton.isEnabled()) applyStargates(); // BR:
+        if (autoApply) applyStargates(); // BR:
     }//GEN-LAST:event_stargateRichActionPerformed
 
     private void stargateOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stargateOnActionPerformed
-        if (autoApplyToggleButton.isEnabled()) applyStargates(); // BR:
+        if (autoApply) applyStargates(); // BR:
     }//GEN-LAST:event_stargateOnActionPerformed
 
     private void reserveStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_reserveStateChanged
-        if (autoApplyToggleButton.isEnabled()) { // BR:
+        if (autoApply) { // BR:
             GovernorOptions options = GameSession.instance().getGovernorOptions();
             options.setReserve((Integer)reserve.getValue());
         }
     }//GEN-LAST:event_reserveStateChanged
 
     private void missileBasesStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_missileBasesStateChanged
-        if (autoApplyToggleButton.isEnabled()) { // BR:
+        if (autoApply) { // BR:
             GovernorOptions options = GameSession.instance().getGovernorOptions();
             options.setMinimumMissileBases((Integer)missileBases.getValue());
         }
     }//GEN-LAST:event_missileBasesStateChanged
 
     private void autoAttackShipCountStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_autoAttackShipCountStateChanged
-        if (autoApplyToggleButton.isEnabled()) { // BR:
+        if (autoApply) { // BR:
             GovernorOptions options = GameSession.instance().getGovernorOptions();
             options.setAutoAttackShipCount((Integer)autoAttackShipCount.getValue());
         }
     }//GEN-LAST:event_autoAttackShipCountStateChanged
 
     private void autoColonyShipCountStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_autoColonyShipCountStateChanged
-        if (autoApplyToggleButton.isEnabled()) { // BR:
+        if (autoApply) { // BR:
             GovernorOptions options = GameSession.instance().getGovernorOptions();
             options.setAutoColonyShipCount((Integer)autoColonyShipCount.getValue());
         }
     }//GEN-LAST:event_autoColonyShipCountStateChanged
 
     private void autoScoutShipCountStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_autoScoutShipCountStateChanged
-        if (autoApplyToggleButton.isEnabled()) { // BR:
+        if (autoApply) { // BR:
             GovernorOptions options = GameSession.instance().getGovernorOptions();
             options.setAutoScoutShipCount((Integer)autoScoutShipCount.getValue());
         }
    }//GEN-LAST:event_autoScoutShipCountStateChanged
 
     private void transportMaxTurnsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_transportMaxTurnsStateChanged
-        if (autoApplyToggleButton.isEnabled()) { // BR:
+        if (autoApply) { // BR:
             GovernorOptions options = GameSession.instance().getGovernorOptions();
             options.setTransportMaxTurns((Integer)transportMaxTurns.getValue());
         }
@@ -944,7 +1201,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel
     private javax.swing.JButton allGovernorsOn;
     private javax.swing.JCheckBox allowUngoverned;
     private javax.swing.JButton applyButton;
-    private javax.swing.JToggleButton autoApplyToggleButton;
+    private javax.swing.JButton autoApplyToggleButton;
     private javax.swing.JCheckBox autoAttack;
     private javax.swing.JSpinner autoAttackShipCount;
     private javax.swing.JLabel autoAttackShipCountLabel;

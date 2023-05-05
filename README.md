@@ -26,11 +26,11 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## To-Do list
 Now:
+- Governor colors.
 - Custom Race Menu: Guide continuation
 
 Very soon:
 - Save Governor options in the game files.
-- Governor colors.
 - Alternative governor Panel?
 - Combat button fix.
 - Text color for gaia and fertile?
@@ -43,8 +43,8 @@ Later:
 
 ## What's New
 
-2023.05.03 (BR)
-- 
+2023.05.04 (BR)
+- Cleanup and preparation for governor panel colorization.
 
 2023.05.02 (BR)
 - Made a specific ParamFlagColor class parameter.
