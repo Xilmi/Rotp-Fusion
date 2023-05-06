@@ -42,6 +42,8 @@ Later:
 - Replay:
   - Start Full galaxy View.
   - Speed adjustement.
+- Option to be used to force war declaration upon "Smart Resolve".
+  - Check if at war and add a button if not!
 
 
 ## What's New
@@ -50,6 +52,7 @@ Later:
 - Governor Panel:
   - New Colors.
   - New race image.
+  - New CheckBox and RadioButtons.
 
 2023.05.04 (BR)
 - Cleanup and preparation for governor panel colorization.

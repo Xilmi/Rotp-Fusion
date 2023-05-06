@@ -4,11 +4,13 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.MouseWheelEvent;
 import java.awt.image.BufferedImage;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -26,6 +28,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.plaf.basic.BasicArrowButton;
+import javax.swing.plaf.metal.MetalCheckBoxIcon;
 
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.StarSystem;
@@ -35,6 +38,7 @@ import rotp.model.game.MOO1GameOptions;
 import rotp.model.game.MOO1GameOptions.NewOptionsListener;
 import rotp.ui.RotPUI;
 import rotp.ui.races.RacesUI;
+import rotp.ui.util.SimpleCheckBox;
 import rotp.util.FontManager;
 
 /**
@@ -48,8 +52,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	private Font	buttonFont		= FontManager.current().narrowFont(15);
 	private Font	panelTitleFont	= FontManager.current().narrowFont(18);
 
-	private Color	frameBgColor		= new Color(93,75,66);
-	private Color	panelBgColor		= new Color(150,105,73);
+	private Color	frameBgColor		= multColor(new Color(93,75,66), 1.1f);
+	private Color	panelBgColor		= multColor(new Color(150,105,73), 1.1f);
 	private Color	textBgColor			= panelBgColor;
 	private Color	valueBgColor		= multColor(RacesUI.lightBrown, 1.2f);
 
@@ -72,18 +76,14 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	
 	private final JFrame frame;
     private void testColor() {
-//    	buttonColor			= new Color(93,75,66);
-//    	buttonOffColor		= new Color(93,75,66);
+    	frameBgColor		= multColor(new Color(93,75,66), 1.1f);
+    	panelBgColor		= multColor(new Color(150,105,73), 1.1f);
+    	textBgColor			= panelBgColor;
+    	valueBgColor		= multColor(RacesUI.lightBrown, 1.2f);
+
+    	buttonColor			= panelBgColor;
+    	buttonOffColor		= buttonColor;
     	buttonOnColor		= valueBgColor;
-//    	buttonTextColor		= SystemPanel.whiteText;
-//    	valueBgColor		= multColor(RacesUI.lightBrown, 1.2f);
-//    	panelBgColor		= new Color(150,105,73);
-//    	textBgColor			= panelBgColor;
-//    	textColor			= SystemPanel.blackText;
-//    	panelTitleColor		= SystemPanel.whiteText;
-//    	buttonTextOnColor	= SystemPanel.blackText;
-    	
-    	frameBgColor		= new Color(93,75,66);
     	updatePanel(frame, updateColor, updateFont, false, 0);
     }
 
@@ -104,21 +104,24 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
     private void setRaceImg() {
     	if (jLabelImage.getWidth() == 0)
     		return;
-    	int margin = RotPUI.scaledSize(20);
-    	Empire player = GameSession.instance().galaxy().player();
-    	BufferedImage raceImg = player.race().setupImage();
-    	int ws = jLabelImage.getWidth() - margin;
-    	int hs = jLabelImage.getHeight() - margin;
-    	int wi = raceImg.getWidth();
-    	int hi = raceImg.getHeight();
-    	float fW = (float)wi/ws;
-    	float fH = (float)hi/hs;
+    	BufferedImage raceImg = GameSession.instance().galaxy().player().race().setupImage();
+    	int srcWidth	= raceImg.getWidth();
+    	int srcHeight	= raceImg.getHeight();
+    	int margin		= RotPUI.scaledSize(0);
+    	int destWidth	= jLabelImage.getWidth()  - margin;
+    	int destHeight	= jLabelImage.getHeight() - margin;
+    	// Get New Size
+    	float fW = (float)srcWidth/destWidth;
+    	float fH = (float)srcHeight/destHeight;
     	if (fW>fH)
-    		hs *= fH/fW;
+    		destHeight *= fH/fW;
     	else
-    		ws *= fW/fH;
-    	ImageIcon raceIcon = new ImageIcon(raceImg.getScaledInstance(ws, hs, Image.SCALE_SMOOTH));
-    	jLabelImage.setIcon(raceIcon);
+    		destWidth *= fW/fH;
+    	// Flip the Image
+    	BufferedImage flipped = new BufferedImage(destWidth, destHeight, BufferedImage.TYPE_INT_ARGB);
+    	Graphics g = flipped.getGraphics();
+    	g.drawImage(raceImg, 0, 0, destWidth, destHeight, srcWidth, 0, 0, srcHeight, null);
+    	jLabelImage.setIcon(new ImageIcon(flipped));
     }
     private static Color multColor		(Color offColor, float factor) {
     	factor /= 255f;
@@ -127,6 +130,12 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
     					 Math.min(1f, offColor.getBlue()  * factor));
     }
     private void setBasicArrowButton	(Component c, boolean color, boolean font, boolean debug) {
+    	BasicArrowButton button = (BasicArrowButton) c;
+    	if (color) {
+    		button.setBackground(frameBgColor);
+    	}
+    	if (font) {
+    	}
     }
     private void setJButton				(Component c, boolean color, boolean font, boolean debug) {
     	JButton button = (JButton) c;
@@ -139,9 +148,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
     		int topInset  = RotPUI.scaledSize(buttonTopInset);
     		int sideInset = RotPUI.scaledSize(buttonSideInset);
     		button.setFont(buttonFont);
-    		//button.setBorder(new LineBorder(buttonBorderColor, RotPUI.scaledSize(buttonBorder), true));
     		button.setMargin(new Insets(topInset, sideInset, 0, sideInset));
-    		//button.setBorderPainted(true);
     	}
     }
     private void setJCheckBox			(Component c, boolean color, boolean font, boolean debug) {
@@ -150,8 +157,12 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
     		box.setBackground(textBgColor);
     		box.setForeground(textColor);
     	}
-    	if (font)
+    	if (font) {
     		box.setFont(baseFont);
+    		int topInset  = RotPUI.scaledSize(buttonTopInset);
+    		box.setMargin(new Insets(topInset, 2, 0, 2));
+    		box.setIcon( new SimpleCheckBox(RotPUI.scaledSize(15), valueBgColor));
+    	}
     }
     private void setJRadioButton		(Component c, boolean color, boolean font, boolean debug) {
     	JRadioButton button = (JRadioButton) c;
@@ -162,6 +173,9 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
     	}
     	if (font)
     		button.setFont(baseFont);
+			int topInset  = RotPUI.scaledSize(buttonTopInset);
+			button.setMargin(new Insets(topInset, 2, 0, 2));
+    		button.setIcon(new SimpleCheckBox(RotPUI.scaledSize(15), valueBgColor));
     }
     private void setJToggleButton		(Component c, boolean color, boolean font, boolean debug) {
     	JToggleButton button = (JToggleButton) c;
@@ -183,9 +197,6 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
     		spinner.setForeground(textColor);
     	}
     	if (font) {
-    		//int topInset  = RotPUI.scaledSize(4);
-    		//int sideInset = RotPUI.scaledSize(6);
-    		//spinner.getBorder().getBorderInsets(c).set(topInset, sideInset, 0, sideInset);
     		spinner.setFont(valueFont);
     	}       	
     }
@@ -205,14 +216,22 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
     		txt.setForeground(valueTextColor);
     	}
     	if (font) {
-    		int topInset  = RotPUI.scaledSize(6);
-    		int sideInset = RotPUI.scaledSize(10);
-    		txt.setMargin(new Insets(topInset, sideInset, 0, sideInset));
     		txt.setFont(valueFont);
     	}
     }
     private void setNumberEditor		(Component c, boolean color, boolean font, boolean debug) {
-       	
+    	NumberEditor num = (NumberEditor) c;
+    	if (color) {
+    		num.setBackground(valueBgColor);
+    		num.setForeground(valueTextColor);
+    	}
+    	if (font) {
+    		int topInset  = RotPUI.scaledSize(6);
+    		int sideInset = RotPUI.scaledSize(2);
+    		Border border = BorderFactory.createEmptyBorder(topInset, sideInset, 0, sideInset);
+//    		num.setBackground(valueBgColor);
+    		num.setBorder(border);
+    	}
     }
     private void setJPanel				(Component c, boolean color, boolean font, boolean debug) {
     	JPanel pane = (JPanel) c;
@@ -962,11 +981,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
                 .addContainerGap())
         );
 
-        jLabelImage.setBackground(new java.awt.Color(0, 0, 0));
         jLabelImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelImage.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jLabelImage.setFocusable(false);
-        jLabelImage.setOpaque(true);
         jLabelImage.setRequestFocusEnabled(false);
         jLabelImage.setVerifyInputWhenFocusTarget(false);
 
