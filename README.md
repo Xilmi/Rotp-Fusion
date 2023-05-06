@@ -39,12 +39,21 @@ Later:
 - William482 request: Continuing on the topic of things that normal people probably just let the governor do, I would love a button on the "Send Transports From:" popup in the Fleets tab which would, for each world:
   1. Send the maximum number of population which can be regrown in one turn, and
   2. set the eco slider to whatever value is needed to regrow that pop.
+- Replay:
+  - Start Full galaxy View.
+  - Speed adjustement.
 
 
 ## What's New
 
+2023.05.06 (BR)
+- Governor Panel:
+  - New Colors.
+  - New race image.
+
 2023.05.04 (BR)
 - Cleanup and preparation for governor panel colorization.
+- Governor new fonts and colors.
 
 2023.05.02 (BR)
 - Made a specific ParamFlagColor class parameter.

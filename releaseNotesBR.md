@@ -20,6 +20,10 @@ May updates:
   - When fully populated.
   - When fully terraformed. (Don't bother populating)
   - When fully cleaned. (Don't bother terraforming)
+- New Governor Panel:
+  - Changed to Rotp Colors.
+  - Changed to Rotp Fonts.
+  - Added race image.
 
 New Fixes:
 - PopUp selection list: "Cancel" will work again!

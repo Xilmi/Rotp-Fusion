@@ -213,7 +213,8 @@ public class Rotp {
         long free = Runtime.getRuntime().freeMemory() / 1048576;
         return (max == total) && (free < 300);
     }
-    public static void restart() {
+    @SuppressWarnings("deprecation")
+	public static void restart() {
         File exeFile = new File(startupDir+"/"+exeFileName);
         String execStr = exeFile.exists() ? exeFileName : actualAlloc < 0 ? "java -jar "+jarFileName : "java -Xmx"+actualAlloc+"m -jar "+jarFileName+" arg1";
 
