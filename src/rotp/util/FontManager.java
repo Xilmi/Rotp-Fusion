@@ -44,6 +44,10 @@ public enum FontManager implements Base {
     private final Map<String,Font[]> allFonts = new HashMap<>();
     private int dlgSize, narrowSize, plainSize, introSize,  logoSize; //, languageSize;
 
+    public static Font getNarrowFont(float size) {
+    	Font[] fonts = INSTANCE.allFonts.get(INSTANCE.narrowFont);
+    	return fonts[0].deriveFont(size);
+    }
     public void resetGalaxyFont() { galaxyFont = null; }
     @Override public Font galaxyFont(int size) { // BR: MonoSpaced font for Galaxy
     	if (galaxyFont == null) {
@@ -70,6 +74,7 @@ public enum FontManager implements Base {
     public Font font(int n)        { return getFont(introFont, n, introSize);  }
     @Override
     public Font logoFont(int n)    { return getFont(logoFont, n, logoSize); }
+
     private Font getFont(String filename, int size, int scale) {
         if (!allFonts.containsKey(filename)) 
             createFontTable(filename, null);

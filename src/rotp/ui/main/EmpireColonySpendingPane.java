@@ -645,7 +645,7 @@ public class EmpireColonySpendingPane extends BasePanel {
                     governorOptionsFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
                     //Create and set up the content pane.
-                    GovernorOptionsPanel newContentPane = new GovernorOptionsPanel(governorOptionsFrame, true, true);
+                    GovernorOptionsPanel newContentPane = new GovernorOptionsPanel(governorOptionsFrame, true, 1f, 1f);
                     newContentPane.setOpaque(true); //content panes must be opaque
                     governorOptionsFrame.setContentPane(newContentPane);
                     newContentPane.applyStyle();

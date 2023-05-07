@@ -1,16 +1,21 @@
 package rotp.ui.main;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.Graphics2D;
 import java.awt.Insets;
+import java.awt.Stroke;
 import java.awt.event.MouseWheelEvent;
 import java.awt.image.BufferedImage;
 
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
+import javax.swing.ButtonModel;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -28,8 +33,8 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.plaf.basic.BasicArrowButton;
-import javax.swing.plaf.metal.MetalCheckBoxIcon;
 
+import rotp.Rotp;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.game.GameSession;
@@ -38,7 +43,6 @@ import rotp.model.game.MOO1GameOptions;
 import rotp.model.game.MOO1GameOptions.NewOptionsListener;
 import rotp.ui.RotPUI;
 import rotp.ui.races.RacesUI;
-import rotp.ui.util.SimpleCheckBox;
 import rotp.util.FontManager;
 
 /**
@@ -46,59 +50,93 @@ import rotp.util.FontManager;
  */
 public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptionsListener{
 
-	private Font	valueFont		= FontManager.current().narrowFont(13);
-	private Font	baseFont		= FontManager.current().narrowFont(14);
-	private Font	labelFont		= FontManager.current().narrowFont(14);
-	private Font	buttonFont		= FontManager.current().narrowFont(15);
-	private Font	panelTitleFont	= FontManager.current().narrowFont(18);
+	private Font	valueFont, baseFont, labelFont, buttonFont, panelTitleFont;
 
-	private Color	frameBgColor		= multColor(new Color(93,75,66), 1.1f);
-	private Color	panelBgColor		= multColor(new Color(150,105,73), 1.1f);
-	private Color	textBgColor			= panelBgColor;
-	private Color	valueBgColor		= multColor(RacesUI.lightBrown, 1.2f);
-
-	private Color	buttonColor			= panelBgColor;
-	private Color	buttonTextColor		= SystemPanel.whiteText;
-	private Color	buttonOffColor		= buttonColor;
-	private Color	buttonOnColor		= valueBgColor;
-	private Color	buttonTextOnColor	= SystemPanel.blackText;
-
-	private Color	textColor			= SystemPanel.blackText;
-	private Color	valueTextColor		= SystemPanel.blackText;
-	private Color	panelTitleColor		= SystemPanel.whiteText;
+	private Color	frameBgColor, panelBgColor, textBgColor, valueBgColor;
+	private Color	textColor, valueTextColor, panelTitleColor;
+	private Color	buttonColor, buttonTextColor, iconBgColor;
+	private	float	iconSize;
+	private	Icon	iconCheckRadio		= new ScalableCheckBoxAndRadioButtonIcon();
+//	private	Inset	iconInset			= new Insets(topInset, 2, 0, 2);
 	
 	private int		buttonTopInset		= 6;
 	private int		buttonSideInset		= 10;
 	
-	private boolean updateColor			= false;
-	private boolean updateFont			= false;
 	private boolean autoApply			= true;
+
+	private float	valueFontSize		= 14f;
+	private float	baseFontSize		= 14f;
+	private float	labelFontSize		= 14f;
+	private float	buttonFontSize		= 16f;
+	private float	panelTitleFontSize	= 20f;
+	private	float	baseIconSize		= 16f;
+	
+	private float	brightness			= 1.1f;
+	private float	baseSizefactor		= 1.0f;
+	private float	finalSizefactor		= 1.0f;
+	private boolean	newFormat			= true;
+	
 	
 	private final JFrame frame;
     private void testColor() {
-    	frameBgColor		= multColor(new Color(93,75,66), 1.1f);
-    	panelBgColor		= multColor(new Color(150,105,73), 1.1f);
-    	textBgColor			= panelBgColor;
-    	valueBgColor		= multColor(RacesUI.lightBrown, 1.2f);
-
-    	buttonColor			= panelBgColor;
-    	buttonOffColor		= buttonColor;
-    	buttonOnColor		= valueBgColor;
-    	updatePanel(frame, updateColor, updateFont, false, 0);
+    	//init();
+    	updatePanel(frame, newFormat, false, 0);
+    	repaint(autoApplyToggleButton.getBounds());
+    	frame.pack();
     }
+    private void initNewFonts() {
+    	valueFont		= FontManager.getNarrowFont(finalSizefactor * valueFontSize);
+    	baseFont		= FontManager.getNarrowFont(finalSizefactor * baseFontSize);
+    	labelFont		= FontManager.getNarrowFont(finalSizefactor * labelFontSize);
+    	buttonFont		= FontManager.getNarrowFont(finalSizefactor * buttonFontSize);
+    	panelTitleFont	= FontManager.getNarrowFont(finalSizefactor * panelTitleFontSize);
+    }
+    private void initNewColors() {
+    	frameBgColor	= multColor(new Color(93,  75,  66), brightness);
+    	panelBgColor	= multColor(new Color(150, 105, 73), brightness);
+    	textBgColor		= panelBgColor;
+    	valueBgColor	= multColor(RacesUI.lightBrown, 1.2f);
+    	
+    	buttonColor		= panelBgColor;
+    	buttonTextColor	= SystemPanel.whiteText;
 
-	public GovernorOptionsPanel(JFrame frame, boolean updateColor, boolean updateFont) {
-        this.frame		 = frame;
-        this.updateColor = updateColor; 
-        this.updateFont	 = updateFont;
+    	textColor		= SystemPanel.blackText;
+    	valueTextColor	= SystemPanel.blackText;
+    	panelTitleColor	= SystemPanel.whiteText;
+    }
+    private void initCheckRadioIcon() {
+    	iconBgColor	= valueBgColor;
+    	iconSize	= baseIconSize * finalSizefactor;
+    }
+    
+    private void init() {
+    	// Window size factor
+    	finalSizefactor = baseSizefactor;
+    	if (newFormat) {
+    		finalSizefactor *= Rotp.resizeAmt();
+    		initNewFonts();
+    		initNewColors();
+    		initCheckRadioIcon();
+    	}
+    	
         initComponents();
         // initial values
         loadValues();
-        updatePanel(frame, updateColor, updateFont, false, 0);
-        MOO1GameOptions.addListener(this);
+        updatePanel(frame, newFormat, false, 0);
     }
-    @Override public void optionLoaded() { loadValues(); } 
-    public void applyStyle() { updatePanel(frame, updateColor, updateFont, false, 0); }
+    
+	public GovernorOptionsPanel(JFrame frame, boolean newFormat, float sizeFactor, float brightness) {
+        this.frame		= frame;
+        this.newFormat	= newFormat;
+        this.brightness	= brightness;
+        baseSizefactor	= sizeFactor;
+        init();
+        MOO1GameOptions.addListener(this);   
+    }
+    @Override public void optionLoaded() { 
+    	System.out.println("===== optionLoaded =====");
+    	loadValues(); } 
+    public void applyStyle() { updatePanel(frame, newFormat, false, 0); }
     public void refresh() { loadValues(); }
     
     private void setRaceImg() {
@@ -129,218 +167,167 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
     					 Math.min(1f, offColor.getGreen() * factor),
     					 Math.min(1f, offColor.getBlue()  * factor));
     }
-    private void setBasicArrowButton	(Component c, boolean color, boolean font, boolean debug) {
+    private void setBasicArrowButton	(Component c, boolean newFormat, boolean debug) {
     	BasicArrowButton button = (BasicArrowButton) c;
-    	if (color) {
+    	if (newFormat) {
     		button.setBackground(frameBgColor);
     	}
-    	if (font) {
-    	}
     }
-    private void setJButton				(Component c, boolean color, boolean font, boolean debug) {
+    private void setJButton				(Component c, boolean newFormat, boolean debug) {
     	JButton button = (JButton) c;
     	button.setFocusPainted(false);
-    	if (color) {
+    	if (newFormat) {
     		button.setBackground(buttonColor);
     		button.setForeground(buttonTextColor);
-    	}
-    	if (font) {
     		int topInset  = RotPUI.scaledSize(buttonTopInset);
     		int sideInset = RotPUI.scaledSize(buttonSideInset);
     		button.setFont(buttonFont);
     		button.setMargin(new Insets(topInset, sideInset, 0, sideInset));
     	}
     }
-    private void setJCheckBox			(Component c, boolean color, boolean font, boolean debug) {
+    private void setJCheckBox			(Component c, boolean newFormat, boolean debug) {
     	JCheckBox box = (JCheckBox) c;
-    	if (color) {
+    	box.setFocusPainted(false);
+    	if (newFormat) {
     		box.setBackground(textBgColor);
     		box.setForeground(textColor);
-    	}
-    	if (font) {
     		box.setFont(baseFont);
     		int topInset  = RotPUI.scaledSize(buttonTopInset);
     		box.setMargin(new Insets(topInset, 2, 0, 2));
-    		box.setIcon( new SimpleCheckBox(RotPUI.scaledSize(15), valueBgColor));
+    		box.setIcon(iconCheckRadio);
     	}
     }
-    private void setJRadioButton		(Component c, boolean color, boolean font, boolean debug) {
+    private void setJRadioButton		(Component c, boolean newFormat, boolean debug) {
     	JRadioButton button = (JRadioButton) c;
     	button.setFocusPainted(false);
-    	if (color) {
+    	if (newFormat) {
     		button.setBackground(textBgColor);
     		button.setForeground(textColor);
-    	}
-    	if (font)
     		button.setFont(baseFont);
 			int topInset  = RotPUI.scaledSize(buttonTopInset);
 			button.setMargin(new Insets(topInset, 2, 0, 2));
-    		button.setIcon(new SimpleCheckBox(RotPUI.scaledSize(15), valueBgColor));
-    }
-    private void setJToggleButton		(Component c, boolean color, boolean font, boolean debug) {
-    	JToggleButton button = (JToggleButton) c;
-    	if (color) {
-    		button.setBackground(buttonColor);
-    		button.setForeground(buttonTextColor);
-    	}
-    	if (font) {
-    		int topInset  = RotPUI.scaledSize(6);
-    		int sideInset = RotPUI.scaledSize(10);
-    		button.setMargin(new Insets(topInset, sideInset, 0, sideInset));
-    		button.setFont(buttonFont);
+    		button.setIcon(iconCheckRadio);
     	}
     }
-    private void setJSpinner			(Component c, boolean color, boolean font, boolean debug) {
+    private void setJToggleButton		(Component c, boolean newFormat, boolean debug) { }
+    private void setJSpinner			(Component c, boolean newFormat, boolean debug) {
     	JSpinner spinner = (JSpinner) c;
-    	if (color) {
+    	if (newFormat) {
     		spinner.setBackground(valueBgColor);
     		spinner.setForeground(textColor);
-    	}
-    	if (font) {
     		spinner.setFont(valueFont);
+    		spinner.setBorder(null);
     	}       	
     }
-    private void setJLabel				(Component c, boolean color, boolean font, boolean debug) {
+    private void setJLabel				(Component c, boolean newFormat, boolean debug) {
     	JLabel label = (JLabel) c;
-    	if (color) {
+    	if (newFormat) {
     		label.setBackground(textBgColor);
     		label.setForeground(textColor);
-    	}
-    	if (font)
     		label.setFont(labelFont);
+    	}
     }
-    private void setJFormattedTextField	(Component c, boolean color, boolean font, boolean debug) {
+    private void setJFormattedTextField	(Component c, boolean newFormat, boolean debug) {
     	JFormattedTextField txt = (JFormattedTextField) c;
-    	if (color) {
+    	if (newFormat) {
     		txt.setBackground(valueBgColor);
     		txt.setForeground(valueTextColor);
-    	}
-    	if (font) {
     		txt.setFont(valueFont);
+    		
     	}
     }
-    private void setNumberEditor		(Component c, boolean color, boolean font, boolean debug) {
+    private void setNumberEditor		(Component c, boolean newFormat, boolean debug) {
     	NumberEditor num = (NumberEditor) c;
-    	if (color) {
+    	if (newFormat) {
     		num.setBackground(valueBgColor);
     		num.setForeground(valueTextColor);
-    	}
-    	if (font) {
     		int topInset  = RotPUI.scaledSize(6);
     		int sideInset = RotPUI.scaledSize(2);
     		Border border = BorderFactory.createEmptyBorder(topInset, sideInset, 0, sideInset);
-//    		num.setBackground(valueBgColor);
     		num.setBorder(border);
     	}
     }
-    private void setJPanel				(Component c, boolean color, boolean font, boolean debug) {
+    private void setJPanel				(Component c, boolean newFormat, boolean debug) {
     	JPanel pane = (JPanel) c;
-    	if (color)
+    	if (newFormat) {
     		pane.setBackground(panelBgColor);
-    	if (font)
     		pane.setFont(baseFont);
-    	Border b = pane.getBorder();
-    	if (b != null && b instanceof TitledBorder) {
-        	TitledBorder border = (TitledBorder) b;
-        	if (color)
-        		border.setTitleColor(panelTitleColor);
-        	if (font)
-        		border.setTitleFont(panelTitleFont);
+    		Border b = pane.getBorder();
+        	if (b != null && b instanceof TitledBorder) {
+            	TitledBorder border = (TitledBorder) b;
+            	border.setTitleColor(panelTitleColor);
+            	border.setTitleFont(panelTitleFont);
+        	}
     	}
     }
-    private void setJLayeredPane		(Component c, boolean color, boolean font, boolean debug) {
-//    	JLayeredPane pane = (JLayeredPane) c;
-//    	if (color)
-//    		pane.setBackground(PaneColor);
-//    	if (font)
-//    		pane.setFont(baseFont);
-     }
-    private void setJRootPane			(Component c, boolean color, boolean font, boolean debug) {
-//    	JRootPane pane = (JRootPane) c;
-//    	if (color)
-//    		pane.setBackground(PaneColor);
-//    	if (font)
-//    		pane.setFont(baseFont);
-    }
+    private void setJLayeredPane		(Component c, boolean newFormat, boolean debug) { }
+    private void setJRootPane			(Component c, boolean newFormat, boolean debug) { }
 
-    
-    private	void updatePanel(Container parent, boolean color, boolean font, boolean debug, int k) {
-    	autoUpdatePanel(parent, color, font, debug, k);
-    	specialUpdatePanel(parent, color, font, debug, k);
-    	setAutoApplyColors();
-    	repaint();
+    private	void updatePanel(Container parent, boolean newFormat, boolean debug, int k) {
+    	autoUpdatePanel(parent, newFormat, debug, k);
+    	specialUpdatePanel(parent, newFormat, debug, k);
     }
-    private	void specialUpdatePanel(Container parent, boolean color, boolean font, boolean debug, int k) {
+    private	void specialUpdatePanel(Container parent, boolean newFormat, boolean debug, int k) {
     	setBackground(frameBgColor);
     	setRaceImg();
     }
-    private	void autoUpdatePanel(Container parent, boolean color, boolean font, boolean debug, int k) {
+    private	void autoUpdatePanel(Container parent, boolean newFormat, boolean debug, int k) {
     	for (Component c : parent.getComponents()) {
     		if (c instanceof BasicArrowButton) {
     			if (debug) System.out.println("BasicArrowButton : " + k + " -- " + c.toString());
-    			setBasicArrowButton(c, color, font, debug);
+    			setBasicArrowButton(c, newFormat, debug);
         	} 
         	else if (c instanceof JButton) {
         		if (debug) System.out.println("JButton : " + k + " -- " + c.toString());
-        		setJButton(c, color, font, debug);
+        		setJButton(c, newFormat, debug);
         	}
         	else if (c instanceof JCheckBox) {
         		if (debug) System.out.println("JCheckBox : " + k + " -- " + c.toString());
-        		setJCheckBox(c, color, font, debug);
+        		setJCheckBox(c, newFormat, debug);
         	}
         	else if (c instanceof JRadioButton) {
         		if (debug) System.out.println("JRadioButton : " + k + " -- " + c.toString());
-        		setJRadioButton(c, color, font, debug);
+        		setJRadioButton(c, newFormat, debug);
         	}
         	else if (c instanceof JToggleButton) {
         		if (debug) System.out.println("JToggleButton : " + k + " -- " + c.toString());
-        		setJToggleButton(c, color, font, debug);
+        		setJToggleButton(c, newFormat, debug);
         	}
         	else if (c instanceof JSpinner) {
         		if (debug) System.out.println("JSpinner : " + k + " -- " + c.toString());
-        		setJSpinner(c, color, font, debug);
+        		setJSpinner(c, newFormat, debug);
         	}
         	else if (c instanceof JLabel) {
         		if (debug) System.out.println("JLabel : " + k + " -- " + c.toString());
-        		setJLabel(c, color, font, debug);
+        		setJLabel(c, newFormat, debug);
         	}
         	else if (c instanceof JFormattedTextField) {
         		if (debug) System.out.println("JFormattedTextField : " + k + " -- " + c.toString());
-        		setJFormattedTextField(c, color, font, debug);
+        		setJFormattedTextField(c, newFormat, debug);
         	}
         	else if (c instanceof NumberEditor) {
         		if (debug) System.out.println("NumberEditor : " + k + " -- " + c.toString());
-        		setNumberEditor(c, color, font, debug);
+        		setNumberEditor(c, newFormat, debug);
         	}
         	else if (c instanceof JPanel) {
         		if (debug) System.out.println("JPanel : " + k + " -- " + c.toString());
-        		setJPanel(c, color, font, debug);
+        		setJPanel(c, newFormat, debug);
         	}
         	else if (c instanceof JLayeredPane) {
         		if (debug) System.out.println("JLayeredPane : " + k + " -- " + c.toString());
-        		setJLayeredPane(c, color, font, debug);
+        		setJLayeredPane(c, newFormat, debug);
         	}
         	else if (c instanceof JRootPane) {
         		if (debug) System.out.println("JRootPane : " + k + " -- " + c.toString());
-        		setJRootPane(c, color, font, debug);
+        		setJRootPane(c, newFormat, debug);
         	}
         	else {
         		if (debug) System.out.println("-- " + k + " -- " + c.toString());
         	}
             if (c instanceof Container) {
-            	autoUpdatePanel((Container)c, color, font, debug, k+1);
+            	autoUpdatePanel((Container)c, newFormat, debug, k+1);
             }
         }
-    }
-    private void setAutoApplyColors() {
-    	if (autoApply) {
-    		autoApplyToggleButton.setBackground(buttonOnColor);
-    		autoApplyToggleButton.setForeground(buttonTextOnColor);
-    	}
-    	else {
-    		autoApplyToggleButton.setBackground(buttonOffColor);
-    		autoApplyToggleButton.setForeground(buttonTextColor);
-       }
     }
     private void loadValues() {
         GovernorOptions options = GameSession.instance().getGovernorOptions();
@@ -379,7 +366,6 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         this.autoScoutShipCount.setValue(options.getAutoScoutShipCount());
         this.autoColonyShipCount.setValue(options.getAutoColonyShipCount());
         this.autoAttackShipCount.setValue(options.getAutoAttackShipCount());
-        setAutoApplyColors();
         setRaceImg();
     }
     private boolean isCompletionistEnabled() {
@@ -484,7 +470,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         cancelButton = new javax.swing.JButton();
         completionist = new javax.swing.JButton();
         applyButton = new javax.swing.JButton();
-        autoApplyToggleButton = new javax.swing.JButton();
+        autoApplyToggleButton = new javax.swing.JCheckBox();
         javax.swing.JPanel fleetPanel = new javax.swing.JPanel();
         autoScout = new javax.swing.JCheckBox();
         autoColonize = new javax.swing.JCheckBox();
@@ -510,6 +496,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         autoInfiltrate = new javax.swing.JCheckBox();
         jLabelImage = new javax.swing.JLabel();
 
+        governorDefault.setSelected(true);
         governorDefault.setText("Governor is on by default");
         governorDefault.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -712,6 +699,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
             }
         });
 
+        autoApplyToggleButton.setSelected(true);
         autoApplyToggleButton.setText("Auto Apply");
         autoApplyToggleButton.setToolTipText("For the settings to be applied live.");
         autoApplyToggleButton.addActionListener(new java.awt.event.ActionListener() {
@@ -810,7 +798,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         fleetPanelLayout.setVerticalGroup(
             fleetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(fleetPanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 6, Short.MAX_VALUE)
                 .addGroup(fleetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(autoScout)
                     .addComponent(autoScoutShipCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -998,7 +986,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(applyButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(autoApplyToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(autoApplyToggleButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(completionist, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1060,6 +1048,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {colonyPanel, spyPanel});
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {allGovernorsOff, allGovernorsOn, governorDefault});
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {applyButton, autoApplyToggleButton, cancelButton, completionist, okButton});
 
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1146,12 +1136,11 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
     }//GEN-LAST:event_transportMaxTurnsMouseWheelMoved
 
     private void autoApplyToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoApplyToggleButtonActionPerformed
-        autoApply = !autoApply;
+    	autoApply = autoApplyToggleButton.isSelected();
     	GovernorOptions options = GameSession.instance().getGovernorOptions();
         options.setAutoApply(autoApply);
         if (autoApply) // BR:
         	applyAction();
-        setAutoApplyColors();
     }//GEN-LAST:event_autoApplyToggleButtonActionPerformed
 
     private void allowUngovernedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allowUngovernedActionPerformed
@@ -1334,7 +1323,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
     private javax.swing.JButton allGovernorsOn;
     private javax.swing.JCheckBox allowUngoverned;
     private javax.swing.JButton applyButton;
-    private javax.swing.JButton autoApplyToggleButton;
+    private javax.swing.JCheckBox autoApplyToggleButton;
     private javax.swing.JCheckBox autoAttack;
     private javax.swing.JSpinner autoAttackShipCount;
     private javax.swing.JLabel autoAttackShipCountLabel;
@@ -1383,7 +1372,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
                 //Create and set up the content pane.
-                GovernorOptionsPanel newContentPane = new GovernorOptionsPanel(frame, true, true);
+                GovernorOptionsPanel newContentPane = new GovernorOptionsPanel(frame, true, 1.0f, 1.0f);
                 newContentPane.setOpaque(true); //content panes must be opaque
                 frame.setContentPane(newContentPane);
 
@@ -1393,5 +1382,61 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
             }
         });
 
+    }
+    
+    // ========== Nested Class 
+    public class ScalableCheckBoxAndRadioButtonIcon implements Icon {
+
+        public ScalableCheckBoxAndRadioButtonIcon () {  }
+        
+        protected int dim() {
+            return Math.round(iconSize);
+        }
+
+        @Override public void paintIcon(Component component, Graphics g0, int xi, int yi) {
+            ButtonModel buttonModel = ((AbstractButton) component).getModel();
+            Graphics2D g = (Graphics2D) g0;
+            float y    = (float) (0.5 * (component.getSize().getHeight() - dim()));
+            float x    = 2f;
+            int corner = 0;
+            int d2 = (int)(iconSize*0.8f);
+            if (component instanceof JRadioButton) {
+            	corner = dim();
+            	d2 = (int)(iconSize*0.7f);
+            }
+            
+            if (buttonModel.isRollover()) {
+                g.setColor(Color.yellow);
+            } else {
+                g.setColor(Color.DARK_GRAY);
+            }
+            g.fillRoundRect((int)x, (int)y, dim(), dim(), corner, corner);
+            if (buttonModel.isPressed()) {
+                g.setColor(Color.GRAY);
+            } else {
+                g.setColor(iconBgColor);
+            }
+            g.fillRoundRect(1 + (int)x, (int)y + 1, dim() - 2, dim() - 2, corner, corner);
+            
+            if (buttonModel.isSelected()) {
+            	Stroke prev = g.getStroke();
+                g.setStroke(new BasicStroke(iconSize/5, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+                g.setColor(SystemPanel.whiteText);
+                int x0 = (int)(x+iconSize/4);
+                int y0 = (int)(3*iconSize/4+y);
+                int d1 = (int)(iconSize*0.3f);
+                g.drawLine(x0-d1, y0-d1, x0, y0);
+                g.drawLine(x0, y0, x0+d2, y0-d2);
+                g.setStroke(prev);
+            }
+        }
+
+        @Override public int getIconWidth() {
+            return dim();
+        }
+
+        @Override public int getIconHeight() {
+            return dim();
+        }
     }
 }

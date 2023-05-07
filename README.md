@@ -53,6 +53,8 @@ Later:
   - New Colors.
   - New race image.
   - New CheckBox and RadioButtons.
+  - Replaced "Auto Apply" by check box.
+    - The Toggle button color is to problematic!
 
 2023.05.04 (BR)
 - Cleanup and preparation for governor panel colorization.

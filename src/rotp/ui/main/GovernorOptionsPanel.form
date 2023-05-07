@@ -28,7 +28,7 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="applyButton" max="32767" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="autoApplyToggleButton" max="32767" attributes="0"/>
+                      <Component id="autoApplyToggleButton" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="completionist" max="32767" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
@@ -90,12 +90,12 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="okButton" min="-2" max="-2" attributes="0"/>
-                  <Component id="applyButton" min="-2" max="-2" attributes="0"/>
+                  <Component id="okButton" linkSize="4" min="-2" max="-2" attributes="0"/>
+                  <Component id="applyButton" linkSize="4" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="autoApplyToggleButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cancelButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="completionist" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="autoApplyToggleButton" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cancelButton" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="completionist" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -106,6 +106,7 @@
   <SubComponents>
     <Component class="javax.swing.JCheckBox" name="governorDefault">
       <Properties>
+        <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="Governor is on by default"/>
       </Properties>
       <Events>
@@ -389,8 +390,9 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="applyButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="autoApplyToggleButton">
+    <Component class="javax.swing.JCheckBox" name="autoApplyToggleButton">
       <Properties>
+        <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="Auto Apply"/>
         <Property name="toolTipText" type="java.lang.String" value="For the settings to be applied live."/>
       </Properties>
@@ -445,7 +447,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="6" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="autoScout" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="autoScoutShipCount" alignment="3" min="-2" max="-2" attributes="0"/>
