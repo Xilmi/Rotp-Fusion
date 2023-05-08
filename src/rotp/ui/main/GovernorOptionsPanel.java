@@ -62,7 +62,6 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	private int		buttonTopInset		= 6;
 	private int		buttonSideInset		= 10;
 	
-	private boolean autoApply			= true;
 
 	private float	valueFontSize		= 14f;
 	private float	baseFontSize		= 14f;
@@ -71,27 +70,32 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	private float	panelTitleFontSize	= 20f;
 	private	float	baseIconSize		= 16f;
 	
-	private float	brightness			= 1.1f;
-	private float	baseSizefactor		= 1.0f;
-	private float	finalSizefactor		= 1.0f;
-	private boolean	newFormat			= true;
+	private boolean autoApply	= true;
+	private boolean	newFormat	= true;
+	private boolean onRefresh	= false;
 	
 	
 	private final JFrame frame;
-    private void testColor() {
-    	//init();
-    	updatePanel(frame, newFormat, false, 0);
-    	repaint(autoApplyToggleButton.getBounds());
-    	frame.pack();
+	private void updatePanel() {
+		updatePanel(frame, newFormat, false, 0);
+		onRefresh = false;
+	}
+	private int	  scaledSize(int size)	 { return (int) (size * finalSizefactor()); }
+	private float scaledSize(float size) { return size * finalSizefactor(); }
+	private void testColor() {
+		
+    	//resetPanel();
+    	updatePanel();
     }
     private void initNewFonts() {
-    	valueFont		= FontManager.getNarrowFont(finalSizefactor * valueFontSize);
-    	baseFont		= FontManager.getNarrowFont(finalSizefactor * baseFontSize);
-    	labelFont		= FontManager.getNarrowFont(finalSizefactor * labelFontSize);
-    	buttonFont		= FontManager.getNarrowFont(finalSizefactor * buttonFontSize);
-    	panelTitleFont	= FontManager.getNarrowFont(finalSizefactor * panelTitleFontSize);
+    	valueFont		= FontManager.getNarrowFont(scaledSize(valueFontSize));
+    	baseFont		= FontManager.getNarrowFont(scaledSize(baseFontSize));
+    	labelFont		= FontManager.getNarrowFont(scaledSize(labelFontSize));
+    	buttonFont		= FontManager.getNarrowFont(scaledSize(buttonFontSize));
+    	panelTitleFont	= FontManager.getNarrowFont(scaledSize(panelTitleFontSize));
     }
     private void initNewColors() {
+    	float brightness = options().getBrightnessPct()/100f;
     	frameBgColor	= multColor(new Color(93,  75,  66), brightness);
     	panelBgColor	= multColor(new Color(150, 105, 73), brightness);
     	textBgColor		= panelBgColor;
@@ -106,48 +110,76 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
     }
     private void initCheckRadioIcon() {
     	iconBgColor	= valueBgColor;
-    	iconSize	= baseIconSize * finalSizefactor;
+    	iconSize	= scaledSize(baseIconSize);
     }
-    
+    private float finalSizefactor() {
+    	if (options().isCustomSize())
+    		return Rotp.resizeAmt() * options().getSizeFactorPct()/100f;
+    	else
+    		return Rotp.resizeAmt();
+    }
+   
     private void init() {
-    	// Window size factor
-    	finalSizefactor = baseSizefactor;
     	if (newFormat) {
-    		finalSizefactor *= Rotp.resizeAmt();
     		initNewFonts();
     		initNewColors();
     		initCheckRadioIcon();
     	}
-    	
         initComponents();
         // initial values
         loadValues();
         updatePanel(frame, newFormat, false, 0);
+
+        frame.pack();
+    	setRaceImg();
+    	repaint();
     }
-    
-	public GovernorOptionsPanel(JFrame frame, boolean newFormat, float sizeFactor, float brightness) {
-        this.frame		= frame;
-        this.newFormat	= newFormat;
-        this.brightness	= brightness;
-        baseSizefactor	= sizeFactor;
+    private GovernorOptions options() { return GameSession.instance().getGovernorOptions(); }
+    private void resetPanelOnce() {
+    	if (onRefresh)
+    		return;
+    	onRefresh = true;
+    	resetPanel();
+    	onRefresh = false;
+    }
+    private void resetPanel() {
+    	//Remove the components
+    	Component[] componentList = getComponents();
+    	for(Component c : componentList){
+    		remove(c);
+    	}
+    	init();
+    }
+	public GovernorOptionsPanel(JFrame frame) {
+        this.frame = frame;
         init();
         MOO1GameOptions.addListener(this);   
     }
-    @Override public void optionLoaded() { 
+    @Override public void optionLoaded() {
+    	if (options().isLocalSave()) {
+    		System.out.println("===== optionLoad Blocked =====");
+    		return;
+    	}
     	System.out.println("===== optionLoaded =====");
-    	loadValues(); } 
+    	loadValues();
+        setRaceImg();
+    } 
     public void applyStyle() { updatePanel(frame, newFormat, false, 0); }
-    public void refresh() { loadValues(); }
+    public void refresh() {
+    	loadValues();
+        setRaceImg();
+    }
     
     private void setRaceImg() {
-    	if (jLabelImage.getWidth() == 0)
+    	if (raceImage.getWidth() == 0)
     		return;
+    	raceImage.setOpaque(false);
     	BufferedImage raceImg = GameSession.instance().galaxy().player().race().setupImage();
     	int srcWidth	= raceImg.getWidth();
     	int srcHeight	= raceImg.getHeight();
-    	int margin		= RotPUI.scaledSize(0);
-    	int destWidth	= jLabelImage.getWidth()  - margin;
-    	int destHeight	= jLabelImage.getHeight() - margin;
+    	int margin		= scaledSize(0);
+    	int destWidth	= raceImage.getWidth()  - margin;
+    	int destHeight	= raceImage.getHeight() - margin;
     	// Get New Size
     	float fW = (float)srcWidth/destWidth;
     	float fH = (float)srcHeight/destHeight;
@@ -155,11 +187,13 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
     		destHeight *= fH/fW;
     	else
     		destWidth *= fW/fH;
+    	raceImage.setSize(destWidth, destHeight);
+    	frame.pack();
     	// Flip the Image
     	BufferedImage flipped = new BufferedImage(destWidth, destHeight, BufferedImage.TYPE_INT_ARGB);
     	Graphics g = flipped.getGraphics();
     	g.drawImage(raceImg, 0, 0, destWidth, destHeight, srcWidth, 0, 0, srcHeight, null);
-    	jLabelImage.setIcon(new ImageIcon(flipped));
+    	raceImage.setIcon(new ImageIcon(flipped));
     }
     private static Color multColor		(Color offColor, float factor) {
     	factor /= 255f;
@@ -179,8 +213,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
     	if (newFormat) {
     		button.setBackground(buttonColor);
     		button.setForeground(buttonTextColor);
-    		int topInset  = RotPUI.scaledSize(buttonTopInset);
-    		int sideInset = RotPUI.scaledSize(buttonSideInset);
+    		int topInset  = scaledSize(buttonTopInset);
+    		int sideInset = scaledSize(buttonSideInset);
     		button.setFont(buttonFont);
     		button.setMargin(new Insets(topInset, sideInset, 0, sideInset));
     	}
@@ -192,7 +226,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
     		box.setBackground(textBgColor);
     		box.setForeground(textColor);
     		box.setFont(baseFont);
-    		int topInset  = RotPUI.scaledSize(buttonTopInset);
+    		int topInset  = scaledSize(buttonTopInset);
     		box.setMargin(new Insets(topInset, 2, 0, 2));
     		box.setIcon(iconCheckRadio);
     	}
@@ -204,7 +238,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
     		button.setBackground(textBgColor);
     		button.setForeground(textColor);
     		button.setFont(baseFont);
-			int topInset  = RotPUI.scaledSize(buttonTopInset);
+			int topInset  = scaledSize(buttonTopInset);
 			button.setMargin(new Insets(topInset, 2, 0, 2));
     		button.setIcon(iconCheckRadio);
     	}
@@ -241,8 +275,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
     	if (newFormat) {
     		num.setBackground(valueBgColor);
     		num.setForeground(valueTextColor);
-    		int topInset  = RotPUI.scaledSize(6);
-    		int sideInset = RotPUI.scaledSize(2);
+    		int topInset  = scaledSize(6);
+    		int sideInset = scaledSize(2);
     		Border border = BorderFactory.createEmptyBorder(topInset, sideInset, 0, sideInset);
     		num.setBorder(border);
     	}
@@ -268,7 +302,18 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
     	specialUpdatePanel(parent, newFormat, debug, k);
     }
     private	void specialUpdatePanel(Container parent, boolean newFormat, boolean debug, int k) {
-    	setBackground(frameBgColor);
+    	if (newFormat) {
+    		setBackground(frameBgColor);
+    	}
+    	else {
+        	Component[] componentList = getComponents();
+        	for(Component c : componentList){
+        		if (c instanceof JPanel) {
+        			setBackground(c.getBackground());
+        			break;
+        		}
+        	}
+    	}
     	setRaceImg();
     }
     private	void autoUpdatePanel(Container parent, boolean newFormat, boolean debug, int k) {
@@ -331,18 +376,21 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
     }
     private void loadValues() {
         GovernorOptions options = GameSession.instance().getGovernorOptions();
+        
+        // Other Options
         this.autoApply = options.isAutoApply();
         this.governorDefault.setSelected(options.isGovernorOnByDefault());
-        this.legacyGrowthMode.setSelected(options.legacyGrowthMode());
+        this.completionist.setEnabled(isCompletionistEnabled());
+        
+    	// AutoTransport Options
         this.autotransport.setSelected(options.isAutotransport());
         this.autotransportXilmi.setSelected(options.isAutotransportXilmi());
-        this.autoInfiltrate.setSelected(options.isAutoInfiltrate());
-        this.autoSpy.setSelected(options.isAutoSpy());
-        this.spareXenophobes.setSelected(options.isSpareXenophobes());
         this.allowUngoverned.setSelected(options.isAutotransportUngoverned());
         this.transportMaxTurns.setValue(options.getTransportMaxTurns());
         this.transportRichDisabled.setSelected(options.isTransportRichDisabled());
         this.transportPoorDouble.setSelected(options.isTransportPoorDouble());
+
+        // StarGates Options
         switch (GameSession.instance().getGovernorOptions().getGates()) {
             case None:
                 this.stargateOff.setSelected(true);
@@ -354,19 +402,33 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
                 this.stargateOn.setSelected(true);
                 break;
         }
+
+        // Colony Options
         this.missileBases.setValue(options.getMinimumMissileBases());
         this.shieldWithoutBases.setSelected(options.getShieldWithoutBases());
         this.autospend.setSelected(options.isAutospend());
         this.reserve.setValue(options.getReserve());
         this.shipbuilding.setSelected(options.isShipbuilding());
+        this.legacyGrowthMode.setSelected(options.legacyGrowthMode());
+
+        // Intelligence Options
+        this.autoInfiltrate.setSelected(options.isAutoInfiltrate());
+        this.autoSpy.setSelected(options.isAutoSpy());
+        this.spareXenophobes.setSelected(options.isSpareXenophobes());
+
+        // Fleet Options
         this.autoScout.setSelected(options.isAutoScout());
         this.autoColonize.setSelected(options.isAutoColonize());
-        this.completionist.setEnabled(isCompletionistEnabled());
         this.autoAttack.setSelected(options.isAutoAttack());
         this.autoScoutShipCount.setValue(options.getAutoScoutShipCount());
         this.autoColonyShipCount.setValue(options.getAutoColonyShipCount());
         this.autoAttackShipCount.setValue(options.getAutoAttackShipCount());
-        setRaceImg();
+
+        // Aspect Options
+        this.customSize.setSelected(options.isCustomSize());
+        this.sizePct.setValue(options.getSizeFactorPct());
+        this.brightnessPct.setValue(options.getBrightnessPct());
+        this.isOriginal.setSelected(options.isOriginalPanel());
     }
     private boolean isCompletionistEnabled() {
         if (GameSession.instance().galaxy() == null) {
@@ -406,29 +468,49 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
     }
     private void applyAction() {// BR: 
     	GovernorOptions options = GameSession.instance().getGovernorOptions();
-        options.setGovernorOnByDefault(governorDefault.isSelected());
-        options.setLegacyGrowthMode(legacyGrowthMode.isSelected());
+    	
+    	// AutoTransport Options
         options.setAutotransport(autotransport.isSelected());
         options.setAutotransportXilmi(autotransportXilmi.isSelected());
         options.setAutotransportUngoverned(allowUngoverned.isSelected());
         options.setTransportMaxTurns((Integer)transportMaxTurns.getValue());
         options.setTransportRichDisabled(transportRichDisabled.isSelected());
         options.setTransportPoorDouble(transportPoorDouble.isSelected());
+
+        // StarGates Options
         applyStargates();
+
+        // Colony Options
         options.setMinimumMissileBases((Integer)missileBases.getValue());
         options.setShieldWithoutBases(shieldWithoutBases.isSelected());
         options.setAutospend(autospend.isSelected());
-        options.setAutoInfiltrate(autoInfiltrate.isSelected());
-        options.setAutoSpy(autoSpy.isSelected());
-        options.setSpareXenophobes(spareXenophobes.isSelected());
         options.setReserve((Integer)reserve.getValue());
         options.setShipbuilding(shipbuilding.isSelected());
+        options.setLegacyGrowthMode(legacyGrowthMode.isSelected());
+
+        // Intelligence Options
+        options.setAutoInfiltrate(autoInfiltrate.isSelected());
+        options.setAutoSpy(autoSpy.isSelected());
+        options.setSpareXenophobes(spareXenophobes.isSelected(), false);
+
+        // Fleet Options
         options.setAutoScout(autoScout.isSelected());
         options.setAutoColonize(autoColonize.isSelected());
         options.setAutoAttack(autoAttack.isSelected());
         options.setAutoScoutShipCount((Integer)autoScoutShipCount.getValue());
         options.setAutoColonyShipCount((Integer)autoColonyShipCount.getValue());
         options.setAutoAttackShipCount((Integer)autoAttackShipCount.getValue());
+
+        // Aspect Options
+        options.setIsOriginalPanel(isOriginal.isSelected(), false);
+        options.setIsCustomSize(customSize.isSelected(), false);
+        options.setSizeFactorPct((Integer)sizePct.getValue(), false);
+        options.setBrightnessPct((Integer)brightnessPct.getValue(), false);
+        
+        // Other Options
+        options.setGovernorOnByDefault(governorDefault.isSelected());
+        
+        options.save();
     }                                   
     private void applyStargates() {// BR: 
     	GovernorOptions options = GameSession.instance().getGovernorOptions();
@@ -494,7 +576,14 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         spareXenophobes = new javax.swing.JCheckBox();
         autoSpy = new javax.swing.JCheckBox();
         autoInfiltrate = new javax.swing.JCheckBox();
-        jLabelImage = new javax.swing.JLabel();
+        jPanelAspect = new javax.swing.JPanel();
+        isOriginal = new javax.swing.JCheckBox();
+        customSize = new javax.swing.JCheckBox();
+        sizePct = new javax.swing.JSpinner();
+        sizeFactorLabel = new javax.swing.JLabel();
+        brightnessPct = new javax.swing.JSpinner();
+        brightnessLabel = new javax.swing.JLabel();
+        raceImage = new javax.swing.JLabel();
 
         governorDefault.setSelected(true);
         governorDefault.setText("Governor is on by default");
@@ -507,6 +596,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         autotransportPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Autotransport Options", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13))); // NOI18N
 
         autotransport.setText("Population automatically transported from colonies at max production capacity");
+        autotransport.setMinimumSize(new java.awt.Dimension(0, 0));
         autotransport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 autotransportActionPerformed(evt);
@@ -569,21 +659,16 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
             .addGroup(autotransportPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(autotransportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(transportPoorDouble)
+                    .addComponent(transportMaxTurnsNebula)
                     .addGroup(autotransportPanelLayout.createSequentialGroup()
-                        .addComponent(autotransportXilmi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(187, 187, 187))
-                    .addGroup(autotransportPanelLayout.createSequentialGroup()
-                        .addGroup(autotransportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(autotransportPanelLayout.createSequentialGroup()
-                                .addComponent(transportMaxTurns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(transportMaxTurnsLabel))
-                            .addComponent(transportMaxTurnsNebula)
-                            .addComponent(transportRichDisabled)
-                            .addComponent(transportPoorDouble)
-                            .addComponent(allowUngoverned, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(autotransport))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(transportMaxTurns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(transportMaxTurnsLabel))
+                    .addComponent(autotransportXilmi)
+                    .addComponent(allowUngoverned)
+                    .addComponent(autotransport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(transportRichDisabled))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         autotransportPanelLayout.setVerticalGroup(
@@ -593,7 +678,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(allowUngoverned)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(autotransport)
+                .addComponent(autotransport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(autotransportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(transportMaxTurns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -631,7 +716,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         });
 
         stargateOptions.add(stargateRich);
-        stargateRich.setText("Build stargates on Rich and Ultra Rich planets");
+        stargateRich.setText("<HTML>Build stargates <br>on Rich and Ultra Rich planets</HTML>");
         stargateRich.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 stargateRichActionPerformed(evt);
@@ -654,17 +739,17 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
                 .addContainerGap()
                 .addGroup(stargatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(stargateOff)
-                    .addComponent(stargateRich)
+                    .addComponent(stargateRich, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(stargateOn))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         stargatePanelLayout.setVerticalGroup(
             stargatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(stargatePanelLayout.createSequentialGroup()
                 .addComponent(stargateOff)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(stargateRich)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(stargateRich, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(stargateOn))
         );
 
@@ -784,21 +869,25 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
                     .addComponent(autoScout)
                     .addComponent(autoAttack))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(fleetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(autoAttackShipCount)
-                    .addComponent(autoScoutShipCount)
-                    .addComponent(autoColonyShipCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(fleetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(autoColonyShipCountLabel)
-                    .addComponent(autoScoutShipCountLabel)
-                    .addComponent(autoAttackShipCountLabel))
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addComponent(autoAttackShipCount, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(autoColonyShipCount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(autoScoutShipCount, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(fleetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(fleetPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(fleetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(autoColonyShipCountLabel)
+                            .addComponent(autoScoutShipCountLabel))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(fleetPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(autoAttackShipCountLabel)))
+                .addContainerGap())
         );
         fleetPanelLayout.setVerticalGroup(
             fleetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(fleetPanelLayout.createSequentialGroup()
-                .addGap(0, 6, Short.MAX_VALUE)
                 .addGroup(fleetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(autoScout)
                     .addComponent(autoScoutShipCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -812,7 +901,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
                 .addGroup(fleetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(autoAttack)
                     .addComponent(autoAttackShipCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(autoAttackShipCountLabel)))
+                    .addComponent(autoAttackShipCountLabel))
+                .addGap(0, 0, 0))
         );
 
         colonyPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Colony Options", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13))); // NOI18N
@@ -883,40 +973,49 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
                 .addContainerGap()
                 .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(shipbuilding)
-                    .addComponent(autospend)
                     .addGroup(colonyPanelLayout.createSequentialGroup()
                         .addComponent(missileBases, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(missileBasesLabel)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(missileBasesLabel))
+                    .addComponent(shieldWithoutBases))
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(shieldWithoutBases)
                     .addGroup(colonyPanelLayout.createSequentialGroup()
                         .addComponent(reserve, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(resrveLabel))
-                    .addComponent(legacyGrowthMode))
-                .addContainerGap())
+                    .addComponent(legacyGrowthMode)
+                    .addComponent(autospend))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         colonyPanelLayout.setVerticalGroup(
             colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(colonyPanelLayout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(missileBases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(missileBasesLabel)
-                    .addComponent(shieldWithoutBases))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(autospend)
-                    .addComponent(reserve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(resrveLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(shipbuilding)
-                    .addComponent(legacyGrowthMode))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(1, 1, 1)
+                .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(colonyPanelLayout.createSequentialGroup()
+                        .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(missileBases, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(missileBasesLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(autospend)
+                            .addComponent(shieldWithoutBases))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(legacyGrowthMode)
+                            .addComponent(shipbuilding))
+                        .addContainerGap())
+                    .addGroup(colonyPanelLayout.createSequentialGroup()
+                        .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(reserve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(resrveLabel))
+                        .addGap(63, 63, 63))))
         );
+
+        colonyPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {missileBases, missileBasesLabel});
+
+        colonyPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {reserve, resrveLabel});
 
         spyPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Intelligence Options", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13))); // NOI18N
 
@@ -951,12 +1050,10 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
             .addGroup(spyPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(spyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(autoInfiltrate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(autoSpy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(spyPanelLayout.createSequentialGroup()
-                        .addComponent(spareXenophobes)
-                        .addGap(0, 35, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addComponent(autoInfiltrate)
+                    .addComponent(autoSpy)
+                    .addComponent(spareXenophobes))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         spyPanelLayout.setVerticalGroup(
             spyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -969,48 +1066,158 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
                 .addContainerGap())
         );
 
-        jLabelImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelImage.setFocusable(false);
-        jLabelImage.setRequestFocusEnabled(false);
-        jLabelImage.setVerifyInputWhenFocusTarget(false);
+        jPanelAspect.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Aspect", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13))); // NOI18N
+
+        isOriginal.setText("Original View");
+        isOriginal.setName("Original View"); // NOI18N
+        isOriginal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                isOriginalActionPerformed(evt);
+            }
+        });
+
+        customSize.setText("CustomSize");
+        customSize.setName("Custom Size"); // NOI18N
+        customSize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                customSizeActionPerformed(evt);
+            }
+        });
+
+        sizePct.setModel(new javax.swing.SpinnerNumberModel(100, 20, 200, 1));
+        sizePct.setToolTipText("Size Factor");
+        sizePct.setName("Size Factor"); // NOI18N
+        sizePct.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sizePctStateChanged(evt);
+            }
+        });
+        sizePct.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                sizePctMouseWheelMoved(evt);
+            }
+        });
+
+        sizeFactorLabel.setText("% Size");
+
+        brightnessPct.setModel(new javax.swing.SpinnerNumberModel(100, 20, 300, 1));
+        brightnessPct.setToolTipText("Color Brightness");
+        brightnessPct.setName("Color Brightness"); // NOI18N
+        brightnessPct.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                brightnessPctStateChanged(evt);
+            }
+        });
+        brightnessPct.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                brightnessPctMouseWheelMoved(evt);
+            }
+        });
+
+        brightnessLabel.setText("% Bright");
+
+        javax.swing.GroupLayout jPanelAspectLayout = new javax.swing.GroupLayout(jPanelAspect);
+        jPanelAspect.setLayout(jPanelAspectLayout);
+        jPanelAspectLayout.setHorizontalGroup(
+            jPanelAspectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelAspectLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelAspectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(sizeFactorLabel)
+                    .addComponent(sizePct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelAspectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(brightnessLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(brightnessPct, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanelAspectLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanelAspectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(isOriginal)
+                    .addComponent(customSize))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanelAspectLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {customSize, isOriginal});
+
+        jPanelAspectLayout.setVerticalGroup(
+            jPanelAspectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelAspectLayout.createSequentialGroup()
+                .addComponent(isOriginal)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(customSize)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelAspectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(sizePct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(brightnessPct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0)
+                .addGroup(jPanelAspectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(sizeFactorLabel)
+                    .addComponent(brightnessLabel)))
+        );
+
+        jPanelAspectLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {brightnessLabel, brightnessPct});
+
+        jPanelAspectLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {sizeFactorLabel, sizePct});
+
+        raceImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        raceImage.setFocusable(false);
+        raceImage.setMinimumSize(new java.awt.Dimension(50, 50));
+        raceImage.setRequestFocusEnabled(false);
+        raceImage.setVerifyInputWhenFocusTarget(false);
+        raceImage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                raceImageMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(10, 10, 10)
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(okButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .addComponent(okButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(applyButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(applyButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(autoApplyToggleButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(completionist, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(completionist)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cancelButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(cancelButton))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(allGovernorsOn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(fleetPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jPanelAspect, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(2, 2, 2))
+                                    .addComponent(autotransportPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(colonyPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(allGovernorsOn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(allGovernorsOff, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(governorDefault)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(governorDefault, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(colonyPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(autotransportPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(allGovernorsOff)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(spyPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(fleetPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(stargatePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(stargatePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(spyPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(raceImage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {raceImage, spyPanel, stargatePanel});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -1023,33 +1230,33 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
                             .addComponent(allGovernorsOn))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(autotransportPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabelImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(raceImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(spyPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(colonyPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 106, Short.MAX_VALUE))
+                    .addComponent(colonyPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(fleetPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelAspect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(stargatePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cancelButton)
                     .addComponent(okButton)
                     .addComponent(applyButton)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(autoApplyToggleButton)
-                        .addComponent(cancelButton)
-                        .addComponent(completionist)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(completionist)
+                    .addComponent(autoApplyToggleButton))
+                .addContainerGap())
         );
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {fleetPanel, stargatePanel});
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {colonyPanel, spyPanel});
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {allGovernorsOff, allGovernorsOn, governorDefault});
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {applyButton, autoApplyToggleButton, cancelButton, completionist, okButton});
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {fleetPanel, jPanelAspect, stargatePanel});
 
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1237,7 +1444,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
     private void spareXenophobesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoSpyActionPerformed
         if (autoApply) { // BR:
             GovernorOptions options = GameSession.instance().getGovernorOptions();
-            options.setSpareXenophobes(spareXenophobes.isSelected());
+            options.setSpareXenophobes(spareXenophobes.isSelected(), true);
         }
     }//GEN-LAST:event_autoSpyActionPerformed
 
@@ -1299,14 +1506,60 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         // TODO add your handling code here:
     }//GEN-LAST:event_governorDefaultActionPerformed
 
+    private void brightnessPctMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_brightnessPctMouseWheelMoved
+    	mouseWheel(brightnessPct, evt);
+    }//GEN-LAST:event_brightnessPctMouseWheelMoved
+
+    private void sizePctMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_sizePctMouseWheelMoved
+    	mouseWheel(sizePct, evt);
+    }//GEN-LAST:event_sizePctMouseWheelMoved
+
+    private void isOriginalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isOriginalActionPerformed
+        if (autoApply) {
+            newFormat = !isOriginal.isSelected();
+            options().setIsOriginalPanel(isOriginal.isSelected(), true);
+            resetPanelOnce();
+        }
+    }//GEN-LAST:event_isOriginalActionPerformed
+
+    private void customSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customSizeActionPerformed
+        if (autoApply) {
+            options().setIsCustomSize(customSize.isSelected(), true);
+            resetPanelOnce();
+        }
+    }//GEN-LAST:event_customSizeActionPerformed
+
+    private void raceImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_raceImageMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_raceImageMouseClicked
+
+    private void sizePctStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sizePctStateChanged
+    	if (autoApply) {
+            options().setSizeFactorPct((Integer)sizePct.getValue(), true);
+            if (options().isCustomSize())
+            	resetPanelOnce();
+        }
+    }//GEN-LAST:event_sizePctStateChanged
+
+    private void brightnessPctStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_brightnessPctStateChanged
+    	if (autoApply) { // BR:
+            options().setBrightnessPct((Integer)brightnessPct.getValue(), true);
+            resetPanelOnce();
+        }
+    }//GEN-LAST:event_brightnessPctStateChanged
+
     private static void mouseWheel(JSpinner spinner, java.awt.event.MouseWheelEvent evt) {
         if (evt.getScrollType() != MouseWheelEvent.WHEEL_UNIT_SCROLL) {
             return;
         }
         SpinnerNumberModel model = (SpinnerNumberModel) spinner.getModel();
-        int value = (int) model.getValue();
-        // always scroll integers by 1
-        value -= Math.signum(evt.getUnitsToScroll()) * model.getStepSize().intValue();
+        // BR: added Shift and Ctrl accelerator
+        int inc = (int) Math.signum(evt.getUnitsToScroll()) * model.getStepSize().intValue();
+        if (evt.isShiftDown())
+        	inc *= 5;
+        if (evt.isControlDown())
+        	inc *= 20;
+        int value = inc + (int) model.getValue();       
         int minimum = ((Number)model.getMinimum()).intValue();
         int maximum = ((Number)model.getMaximum()).intValue();
         if (value < minimum) {
@@ -1338,18 +1591,25 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
     private javax.swing.JCheckBox autospend;
     private javax.swing.JCheckBox autotransport;
     private javax.swing.JCheckBox autotransportXilmi;
+    private javax.swing.JLabel brightnessLabel;
+    private javax.swing.JSpinner brightnessPct;
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton completionist;
+    private javax.swing.JCheckBox customSize;
     private javax.swing.JCheckBox governorDefault;
-    private javax.swing.JLabel jLabelImage;
+    private javax.swing.JCheckBox isOriginal;
+    private javax.swing.JPanel jPanelAspect;
     private javax.swing.JCheckBox legacyGrowthMode;
     private javax.swing.JSpinner missileBases;
     private javax.swing.JLabel missileBasesLabel;
     private javax.swing.JButton okButton;
+    private javax.swing.JLabel raceImage;
     private javax.swing.JSpinner reserve;
     private javax.swing.JLabel resrveLabel;
     private javax.swing.JCheckBox shieldWithoutBases;
     private javax.swing.JCheckBox shipbuilding;
+    private javax.swing.JLabel sizeFactorLabel;
+    private javax.swing.JSpinner sizePct;
     private javax.swing.JCheckBox spareXenophobes;
     private javax.swing.JRadioButton stargateOff;
     private javax.swing.JRadioButton stargateOn;
@@ -1372,7 +1632,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
                 //Create and set up the content pane.
-                GovernorOptionsPanel newContentPane = new GovernorOptionsPanel(frame, true, 1.0f, 1.0f);
+                GovernorOptionsPanel newContentPane = new GovernorOptionsPanel(frame);
                 newContentPane.setOpaque(true); //content panes must be opaque
                 frame.setContentPane(newContentPane);
 

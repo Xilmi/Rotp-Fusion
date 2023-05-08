@@ -24,6 +24,9 @@ May updates:
   - Changed to Rotp Colors.
   - Changed to Rotp Fonts.
   - Added race image.
+  - Option to choose between the old and new design.
+  - Option to adjust the size.
+  - Option to adjust the brightness.
 
 New Fixes:
 - PopUp selection list: "Cancel" will work again!

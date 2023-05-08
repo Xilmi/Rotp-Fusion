@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.9" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="stargateOptions">
     </Component>
@@ -20,51 +20,61 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="okButton" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="okButton" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="applyButton" max="32767" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="applyButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="autoApplyToggleButton" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="completionist" max="32767" attributes="0"/>
+                      <Component id="completionist" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="cancelButton" max="32767" attributes="0"/>
+                      <Component id="cancelButton" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="allGovernorsOn" max="32767" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="allGovernorsOff" max="32767" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="governorDefault" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="fleetPanel" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="jPanelAspect" max="32767" attributes="0"/>
+                                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="autotransportPanel" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="colonyPanel" alignment="1" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
-                          <Component id="colonyPanel" max="32767" attributes="0"/>
-                          <Component id="autotransportPanel" alignment="0" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                              <Component id="allGovernorsOn" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="governorDefault" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="allGovernorsOff" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabelImage" max="32767" attributes="0"/>
-                          <Component id="spyPanel" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="stargatePanel" linkSize="12" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="spyPanel" linkSize="12" alignment="1" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="raceImage" linkSize="12" alignment="1" min="-2" pref="176" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="fleetPanel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="stargatePanel" max="32767" attributes="0"/>
-                  </Group>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" attributes="0">
@@ -76,29 +86,28 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="autotransportPanel" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jLabelImage" max="32767" attributes="0"/>
+                  <Component id="raceImage" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="spyPanel" linkSize="2" max="32767" attributes="0"/>
-                  <Component id="colonyPanel" linkSize="2" pref="106" max="32767" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="fleetPanel" linkSize="1" min="-2" max="-2" attributes="0"/>
-                  <Component id="stargatePanel" linkSize="1" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="2" attributes="0">
+                  <Component id="spyPanel" linkSize="2" alignment="2" max="32767" attributes="0"/>
+                  <Component id="colonyPanel" linkSize="2" alignment="2" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="fleetPanel" linkSize="17" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="jPanelAspect" linkSize="17" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="stargatePanel" linkSize="17" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="cancelButton" linkSize="4" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="okButton" linkSize="4" min="-2" max="-2" attributes="0"/>
                   <Component id="applyButton" linkSize="4" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="autoApplyToggleButton" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cancelButton" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="completionist" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="completionist" linkSize="4" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="autoApplyToggleButton" linkSize="4" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -137,25 +146,17 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="transportPoorDouble" min="-2" max="-2" attributes="0"/>
+                      <Component id="transportMaxTurnsNebula" alignment="0" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="autotransportXilmi" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" pref="187" max="-2" attributes="0"/>
+                          <Component id="transportMaxTurns" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="transportMaxTurnsLabel" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="transportMaxTurns" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="transportMaxTurnsLabel" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="transportMaxTurnsNebula" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="transportRichDisabled" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="transportPoorDouble" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="allowUngoverned" min="-2" pref="393" max="-2" attributes="0"/>
-                              <Component id="autotransport" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="autotransportXilmi" alignment="0" max="-2" attributes="0"/>
+                      <Component id="allowUngoverned" alignment="0" max="-2" attributes="0"/>
+                      <Component id="autotransport" alignment="0" max="-2" attributes="0"/>
+                      <Component id="transportRichDisabled" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -169,7 +170,7 @@
                   <Component id="allowUngoverned" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="autotransport" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="transportMaxTurns" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="transportMaxTurnsLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -188,6 +189,9 @@
         <Component class="javax.swing.JCheckBox" name="autotransport">
           <Properties>
             <Property name="text" type="java.lang.String" value="Population automatically transported from colonies at max production capacity"/>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[0, 0]"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autotransportActionPerformed"/>
@@ -303,7 +307,7 @@
                       <Component id="stargateRich" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="stargateOn" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -311,9 +315,9 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="stargateOff" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="stargateRich" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="stargateOn" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -336,7 +340,7 @@
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="stargateOptions"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Build stargates on Rich and Ultra Rich planets"/>
+            <Property name="text" type="java.lang.String" value="&lt;HTML&gt;Build stargates &lt;br&gt;on Rich and Ultra Rich planets&lt;/HTML&gt;"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="stargateRichActionPerformed"/>
@@ -421,7 +425,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="autoColonize" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -429,25 +433,32 @@
                       <Component id="autoAttack" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="autoAttackShipCount" max="32767" attributes="0"/>
-                      <Component id="autoScoutShipCount" max="32767" attributes="0"/>
-                      <Component id="autoColonyShipCount" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="autoAttackShipCount" alignment="1" max="32767" attributes="0"/>
+                      <Component id="autoColonyShipCount" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="autoScoutShipCount" alignment="1" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="autoColonyShipCountLabel" min="-2" max="-2" attributes="0"/>
+                              <Component id="autoScoutShipCountLabel" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="autoAttackShipCountLabel" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="autoColonyShipCountLabel" min="-2" max="-2" attributes="0"/>
-                      <Component id="autoScoutShipCountLabel" min="-2" max="-2" attributes="0"/>
-                      <Component id="autoAttackShipCountLabel" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="19" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="0" pref="6" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="autoScout" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="autoScoutShipCount" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -465,6 +476,7 @@
                       <Component id="autoAttackShipCount" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="autoAttackShipCountLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -569,48 +581,57 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="shipbuilding" alignment="0" max="-2" attributes="0"/>
-                      <Component id="autospend" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="missileBases" min="-2" pref="64" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="missileBasesLabel" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="shieldWithoutBases" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="shieldWithoutBases" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="reserve" min="-2" pref="90" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="resrveLabel" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="legacyGrowthMode" min="-2" max="-2" attributes="0"/>
+                      <Component id="autospend" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="missileBases" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="missileBasesLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="shieldWithoutBases" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="missileBases" linkSize="18" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="missileBasesLabel" linkSize="18" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="autospend" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="shieldWithoutBases" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="legacyGrowthMode" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="shipbuilding" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="reserve" linkSize="19" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="resrveLabel" linkSize="19" alignment="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="autospend" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="reserve" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="resrveLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="shipbuilding" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="legacyGrowthMode" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -708,14 +729,11 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="autoInfiltrate" alignment="0" max="32767" attributes="0"/>
-                      <Component id="autoSpy" alignment="0" max="32767" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="spareXenophobes" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="35" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="autoInfiltrate" alignment="0" max="-2" attributes="0"/>
+                      <Component id="autoSpy" alignment="0" max="-2" attributes="0"/>
+                      <Component id="spareXenophobes" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace pref="40" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -762,13 +780,136 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="jLabelImage">
+    <Container class="javax.swing.JPanel" name="jPanelAspect">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder title="Aspect">
+              <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                <EtchetBorder/>
+              </Border>
+              <Font PropertyName="font" name="Tahoma" size="13" style="0"/>
+            </TitledBorder>
+          </Border>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="sizeFactorLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="sizePct" alignment="0" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="brightnessLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="brightnessPct" alignment="1" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="isOriginal" linkSize="14" min="-2" max="-2" attributes="0"/>
+                      <Component id="customSize" linkSize="14" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="isOriginal" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="customSize" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="2" attributes="0">
+                      <Component id="sizePct" linkSize="7" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="brightnessPct" linkSize="6" alignment="2" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="sizeFactorLabel" linkSize="7" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="brightnessLabel" linkSize="6" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JCheckBox" name="isOriginal">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Original View"/>
+            <Property name="name" type="java.lang.String" value="Original View" noResource="true"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="isOriginalActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="customSize">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="CustomSize"/>
+            <Property name="name" type="java.lang.String" value="Custom Size" noResource="true"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="customSizeActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="sizePct">
+          <Properties>
+            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+              <SpinnerModel initial="100" maximum="200" minimum="20" numberType="java.lang.Integer" stepSize="1" type="number"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Size Factor"/>
+            <Property name="name" type="java.lang.String" value="Size Factor" noResource="true"/>
+          </Properties>
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="sizePctStateChanged"/>
+            <EventHandler event="mouseWheelMoved" listener="java.awt.event.MouseWheelListener" parameters="java.awt.event.MouseWheelEvent" handler="sizePctMouseWheelMoved"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="sizeFactorLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="% Size"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="brightnessPct">
+          <Properties>
+            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+              <SpinnerModel initial="100" maximum="300" minimum="20" numberType="java.lang.Integer" stepSize="1" type="number"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Color Brightness"/>
+            <Property name="name" type="java.lang.String" value="Color Brightness" noResource="true"/>
+          </Properties>
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="brightnessPctStateChanged"/>
+            <EventHandler event="mouseWheelMoved" listener="java.awt.event.MouseWheelListener" parameters="java.awt.event.MouseWheelEvent" handler="brightnessPctMouseWheelMoved"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="brightnessLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="% Bright"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JLabel" name="raceImage">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="focusable" type="boolean" value="false"/>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[50, 50]"/>
+        </Property>
         <Property name="requestFocusEnabled" type="boolean" value="false"/>
         <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="raceImageMouseClicked"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -48,6 +48,13 @@ Later:
 
 ## What's New
 
+2023.05.08 (BR)
+- Governor Panel update:
+  - Option to choose between the old and new design.
+  - Option to adjust the size.
+  - Option to adjust the brightness.
+
+
 2023.05.06 (BR)
 - Governor Panel:
   - New Colors.

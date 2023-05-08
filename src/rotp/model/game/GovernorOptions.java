@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import rotp.ui.UserPreferences;
 import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.ParamBoolean;
+import rotp.ui.util.ParamInteger;
 
 /**
  * Governor options.
@@ -59,30 +60,66 @@ public class GovernorOptions implements Serializable {
     // Will be saved in the dynamic options list.
 	public final static String GOVERNOR_GUI_ID	= "GOVERNOR";
 	public final static String GOV_UI			= "GOVERNOR_";
-	public final static ParamBoolean spareXenophobes = new ParamBoolean(
+	public final static ParamBoolean	spareXenophobes	= new ParamBoolean(
 			GOV_UI, "SPARE_XENOPHOBES", false);
+	public final static ParamBoolean	originalPanel	= new ParamBoolean(
+			GOV_UI, "ORIGINAL_PANEL", false);
+	public final static ParamBoolean	customSize	= new ParamBoolean(
+			GOV_UI, "CUSTOM_SIZE", true);
+	public static final ParamInteger	brightnessPct	= new ParamInteger(
+			GOV_UI, "BRIGHTNESS"
+			, 100, 20, 300, 1, 5, 20);
+	public static final ParamInteger	sizeFactorPct	= new ParamInteger(
+			GOV_UI, "SIZE_FACTOR"
+			, 100, 20, 200, 1, 5, 20);
 	public final static LinkedList<InterfaceParam> governorOptions = new LinkedList<>(
 			Arrays.asList(
-					spareXenophobes
+					spareXenophobes, originalPanel, customSize,
+					brightnessPct, sizeFactorPct
 					));
+	private boolean localSave = false;
 
     public GovernorOptions() {
     }
 
-    private void save() {
+    public boolean isLocalSave() {
+    	if (localSave) {
+    		localSave = false;
+    		return true;
+    	}
+    	return false;
+    }
+    public void save() {
+    	localSave = true;
     	MOO1GameOptions.writeModSettingsToOptions(
     			(MOO1GameOptions) GameSession.instance().options(), GOVERNOR_GUI_ID);
     }
-
-    public boolean isSpareXenophobes() {
-        return spareXenophobes.get();
-    }
-
-    public void setSpareXenophobes(boolean newValue) {
+    public boolean isSpareXenophobes() { return spareXenophobes.get(); }
+    public void setSpareXenophobes(boolean newValue, boolean save) {
         spareXenophobes.set(newValue);
-        save();
+        if(save) save();
     }
-
+    public boolean isOriginalPanel() { return originalPanel.get(); }
+    public void setIsOriginalPanel(boolean newValue, boolean save) {
+    	originalPanel.set(newValue);
+        if(save) save();
+    }
+    public boolean isCustomSize() { return customSize.get(); }
+    public void setIsCustomSize(boolean newValue, boolean save) {
+    	customSize.set(newValue);
+        if(save) save();
+    }
+    public int  getBrightnessPct() { return brightnessPct.get(); }
+    public void setBrightnessPct(int newValue, boolean save) {
+    	brightnessPct.set(newValue);
+        if(save) save();
+    }
+    public int  getSizeFactorPct() { return sizeFactorPct.get(); }
+    public void setSizeFactorPct(int newValue, boolean save) {
+    	sizeFactorPct.set(newValue);
+        if(save) save();
+    }
+   
     public boolean isGovernorOnByDefault() {
         return governorOnByDefault;
     }
