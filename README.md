@@ -53,6 +53,7 @@ Later:
   - Option to choose between the old and new design.
   - Option to adjust the size.
   - Option to adjust the brightness.
+  - Methods reorganization, cleaning and documenting.
 
 
 2023.05.06 (BR)

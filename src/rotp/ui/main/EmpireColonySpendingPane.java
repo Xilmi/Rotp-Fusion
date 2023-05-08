@@ -648,11 +648,10 @@ public class EmpireColonySpendingPane extends BasePanel {
                     GovernorOptionsPanel newContentPane = new GovernorOptionsPanel(governorOptionsFrame);
                     newContentPane.setOpaque(true); //content panes must be opaque
                     governorOptionsFrame.setContentPane(newContentPane);
-                    newContentPane.applyStyle();
+                    newContentPane.applyStyle(); // Keep after set to the frame
                 }
                 //Display the window.
                 governorOptionsFrame.pack();
-                ((GovernorOptionsPanel) governorOptionsFrame.getContentPane()).refresh();
                 governorOptionsFrame.setVisible(true);
             }
         });
