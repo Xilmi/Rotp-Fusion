@@ -41,7 +41,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="fleetPanel" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="jPanelAspect" max="32767" attributes="0"/>
                                       <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                                   </Group>
@@ -58,13 +58,13 @@
                               <Component id="allGovernorsOff" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="stargatePanel" linkSize="12" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="stargatePanel" linkSize="12" alignment="1" max="32767" attributes="0"/>
                               <Component id="spyPanel" linkSize="12" alignment="1" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="raceImage" linkSize="12" alignment="1" min="-2" pref="176" max="-2" attributes="0"/>
+                          <Component id="raceImage" linkSize="12" alignment="1" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -340,7 +340,7 @@
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="stargateOptions"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="&lt;HTML&gt;Build stargates &lt;br&gt;on Rich and Ultra Rich planets&lt;/HTML&gt;"/>
+            <Property name="text" type="java.lang.String" value="&lt;HTML&gt;Build stargates on Rich &lt;br&gt;and Ultra Rich planets&lt;/HTML&gt;"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="stargateRichActionPerformed"/>
@@ -733,7 +733,7 @@
                       <Component id="autoSpy" alignment="0" max="-2" attributes="0"/>
                       <Component id="spareXenophobes" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="40" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

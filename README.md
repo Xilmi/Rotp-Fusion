@@ -56,6 +56,7 @@ Later:
   - Methods reorganization, cleaning and documenting.
   - Added Animation to Image.
   - Fixed possible crash when swicthing view while animated.
+  - Fixed image size on original view.
 
 
 2023.05.06 (BR)
