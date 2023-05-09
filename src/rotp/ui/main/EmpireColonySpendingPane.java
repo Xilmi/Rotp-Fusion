@@ -632,7 +632,8 @@ public class EmpireColonySpendingPane extends BasePanel {
     JFrame governorOptionsFrame = null;
     private void governorOptions() {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
+            @Override
+			public void run() {
                 if (governorOptionsFrame == null) {
                     governorOptionsFrame = new JFrame("GovernorOptions");
                     // make this window have an icon, same as main window

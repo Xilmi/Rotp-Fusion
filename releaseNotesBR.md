@@ -23,7 +23,7 @@ May updates:
 - New Governor Panel:
   - Changed to Rotp Colors.
   - Changed to Rotp Fonts.
-  - Added race image.
+  - Added race image. (Click on it to start / stop the animation)
   - Option to choose between the old and new design.
   - Option to adjust the size.
   - Option to adjust the brightness.

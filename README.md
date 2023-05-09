@@ -54,6 +54,7 @@ Later:
   - Option to adjust the size.
   - Option to adjust the brightness.
   - Methods reorganization, cleaning and documenting.
+  - Added Animation to Image.
 
 
 2023.05.06 (BR)

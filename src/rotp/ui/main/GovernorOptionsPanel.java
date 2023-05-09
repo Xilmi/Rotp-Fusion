@@ -11,6 +11,11 @@ import java.awt.Insets;
 import java.awt.Stroke;
 import java.awt.event.MouseWheelEvent;
 import java.awt.image.BufferedImage;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
@@ -44,35 +49,42 @@ import rotp.model.game.MOO1GameOptions.NewOptionsListener;
 import rotp.ui.RotPUI;
 import rotp.ui.races.RacesUI;
 import rotp.util.FontManager;
-
 /**
  * Produced using Netbeans Swing GUI builder.
  */
 public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptionsListener{
+	
+	private static final float	valueFontSize		= 14f;
+	private static final float	baseFontSize		= 14f;
+	private static final float	labelFontSize		= 14f;
+	private static final float	buttonFontSize		= 16f;
+	private static final float	panelTitleFontSize	= 20f;
+	private static final float	baseIconSize		= 16f;
+	private static final int	buttonTopInset		= 6;
+	private static final int	buttonSideInset		= 10;
+	private static final int	animationStep		= 100; // ms
+	private static final int	ANIMATION_STOPPED	= 0;
+	private static final int	ANIMATION_ON		= 1;
+	private static final int	ANIMATION_CANCELED	= 100; // ms
+	private static 		 int	animationOngoing	= 0;
+	
+	private static GovernorOptionsPanel instance;
+    private static ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(15); // no
+    private static ScheduledFuture<?> anim, update;
 
 	private Font	valueFont, baseFont, labelFont, buttonFont, panelTitleFont;
-
 	private Color	frameBgColor, panelBgColor, textBgColor, valueBgColor;
 	private Color	textColor, valueTextColor, panelTitleColor;
 	private Color	buttonColor, buttonTextColor, iconBgColor;
 	private	float	iconSize;
 	private	Icon	iconCheckRadio		= new ScalableCheckBoxAndRadioButtonIcon();
 //	private	Inset	iconInset			= new Insets(topInset, 2, 0, 2);
-	
-	private int		buttonTopInset		= 6;
-	private int		buttonSideInset		= 10;
-	
 
-	private float	valueFontSize		= 14f;
-	private float	baseFontSize		= 14f;
-	private float	labelFontSize		= 14f;
-	private float	buttonFontSize		= 16f;
-	private float	panelTitleFontSize	= 20f;
-	private	float	baseIconSize		= 16f;
 	
-	private boolean autoApply	= true;
-	private boolean	newFormat	= true;
-	private boolean onRefresh	= false;
+	private boolean autoApply		= true;
+	private boolean	newFormat		= true;
+	private boolean updateOngoing	= false;
+	private boolean animatedImage	= options().isAnimatedImage();
 
 	private final JFrame frame;
 	
@@ -81,45 +93,50 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	// may trigger new-initializations 
 	// The first call win!
 	//
+	private static void delayedReset() { instance.resetPanel(); }
 	private void protectedReset() {
-		if (!onRefresh) {
-			onRefresh = true;
-			resetPanel();
-			onRefresh = false;
+		if (!updateOngoing) {
+			updateOngoing = true;
+			if (animationOngoing != ANIMATION_STOPPED) {
+				animationOngoing = ANIMATION_CANCELED;
+				update = executor.schedule (GovernorOptionsPanel::delayedReset, 2*animationStep, TimeUnit.MILLISECONDS);
+			} else
+				resetPanel();
+			updateOngoing = false;
 		}
 	}
 	private void protectedInitPanel() {
-		if (!onRefresh) {
-			onRefresh = true;
+		if (!updateOngoing) {
+			updateOngoing = true;
 			initPanel();
-			onRefresh = false;
+			updateOngoing = false;
 		}
 	}
 	private void protectedUpdateColor() {
-		if (!onRefresh) {
-			onRefresh = true;
+		if (!updateOngoing) {
+			updateOngoing = true;
 			initNewColors();
 			updatePanel(frame, newFormat, false, 0);
-			onRefresh = false;
+			updateOngoing = false;
 			setRaceImg(); 	// Pack and set icon
 		}
 	}
 	private void protectedUpdateSize() {
-		if (!onRefresh) {
-			onRefresh = true;
+		if (!updateOngoing) {
+			updateOngoing = true;
 			initNewFonts();
 			updatePanel(frame, newFormat, false, 0);
-			onRefresh = false;
+			updateOngoing = false;
 			setRaceImg(); 	// Pack and set icon
 		}
 	}
 	private void protectedUpdatePanel() {
-		if (!onRefresh) {
-			onRefresh = true;
+		if (!updateOngoing) {
+			updateOngoing = true;
 			initNewColors();
 			initNewFonts();
 			updatePanel(frame, newFormat, false, 0);
-			onRefresh = false;
+			updateOngoing = false;
 			setRaceImg(); 	// Pack and set icon
 		}
 	}
@@ -127,16 +144,18 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 		//resetPanel();
 		protectedUpdateColor();
 	}
+
 	// ========== Constructor and initializers ==========
 	//
 	public GovernorOptionsPanel(JFrame frame) {
+		instance = this;
 		this.frame = frame;
 		protectedInitPanel();
 		MOO1GameOptions.addListener(this);   
 	}
 	private void initNewColors() {
 		if (newFormat) {
-			float brightness = options().getBrightnessPct()/100f;
+			float brightness = (int)brightnessPct.getValue() /100f;
 			frameBgColor	= multColor(new Color(93,  75,  66), brightness);
 			panelBgColor	= multColor(new Color(150, 105, 73), brightness);
 			textBgColor		= panelBgColor;
@@ -165,10 +184,10 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 		iconSize	= scaledSize(baseIconSize);
 	}
 	private void initPanel() {
-		initNewFonts();
-		initNewColors();
 		initComponents();	// Load the form
 		loadValues();		// Load User's values
+		initNewFonts();
+		initNewColors();
 		updatePanel(frame, newFormat, false, 0); // Apply the new formating
 		setRaceImg();		// Pack and set icon
 	}
@@ -180,6 +199,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 		}
 		initPanel();
 	}
+
 	// ========== Public Method and Overrider ==========
 	//
 	@Override public void optionLoaded() {
@@ -202,16 +222,41 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	private int	  scaledSize(int size)	 { return (int) (size * finalSizefactor()); }
 	private float scaledSize(float size) { return size * finalSizefactor(); }
 	private float finalSizefactor() {
-		if (options().isCustomSize())
-			return Rotp.resizeAmt() * options().getSizeFactorPct()/100f;
+		if (customSize.isSelected())
+			return Rotp.resizeAmt() * (int)sizePct.getValue() /100f;
 		else
 			return Rotp.resizeAmt();
 	}
-	private void setRaceImg() {
-		frame.pack(); // Should set a width!
-		if (raceImage.getWidth() == 0)
-			return;
-		raceImage.setOpaque(false);
+	private static Color multColor		(Color offColor, float factor) {
+		factor /= 255f;
+		return new Color(Math.min(1f, offColor.getRed()   * factor),
+						 Math.min(1f, offColor.getGreen() * factor),
+						 Math.min(1f, offColor.getBlue()  * factor));
+	}
+
+	// ========== Image display and animation ==========
+	//
+	private void stopAnimation() {
+		if (animationOngoing == ANIMATION_ON)
+			animationOngoing = ANIMATION_CANCELED;
+	}
+	private void startAnimation() {
+		if (animatedImage && animationOngoing == ANIMATION_STOPPED) {
+			animationOngoing = ANIMATION_ON;
+			anim = executor.scheduleAtFixedRate(GovernorOptionsPanel::animate, 0, animationStep, TimeUnit.MILLISECONDS);
+		}
+	}
+	private static void animate() {
+		if (animationOngoing == ANIMATION_ON) {
+			if (instance.frame.isVisible())
+				instance.updateRaceImage();
+		}
+		else {
+			anim.cancel(false);
+			animationOngoing = ANIMATION_STOPPED;
+		}
+	}
+	private void updateRaceImage() {
 		BufferedImage raceImg = GameSession.instance().galaxy().player().race().setupImage();
 		int srcWidth	= raceImg.getWidth();
 		int srcHeight	= raceImg.getHeight();
@@ -232,15 +277,19 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 		Graphics g = flipped.getGraphics();
 		g.drawImage(raceImg, 0, 0, destWidth, destHeight, srcWidth, 0, 0, srcHeight, null);
 		raceImage.setIcon(new ImageIcon(flipped));
-		repaint();
+		repaint(raceImage.getBounds());
 	}
-	private static Color multColor		(Color offColor, float factor) {
-		factor /= 255f;
-		return new Color(Math.min(1f, offColor.getRed()   * factor),
-						 Math.min(1f, offColor.getGreen() * factor),
-						 Math.min(1f, offColor.getBlue()  * factor));
+	private void setRaceImg() {
+		frame.pack(); // Should set a width!
+		if (raceImage.getWidth() == 0)
+			return;
+		raceImage.setOpaque(false);
+		updateRaceImage();
+		startAnimation();
 	}
+	
 	// ========== Update Panel Tools ==========
+	//
 	private void setBasicArrowButton	(Component c, boolean newFormat, boolean debug) {
 		BasicArrowButton button = (BasicArrowButton) c;
 		if (newFormat) {
@@ -414,12 +463,15 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 			}
 		}
 	}
+
 	// ========== Load and save Values ==========
+	//
 	private void loadValues() {
 		GovernorOptions options = GameSession.instance().getGovernorOptions();
 		
 		// Other Options
-		this.autoApply = options.isAutoApply();
+		autoApply	  = options.isAutoApply();
+		animatedImage = options.isAnimatedImage();
 		this.governorDefault.setSelected(options.isGovernorOnByDefault());
 		this.completionist.setEnabled(isCompletionistEnabled());
 		
@@ -514,20 +566,21 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 		
 		// Other Options
 		options.setGovernorOnByDefault(governorDefault.isSelected());
+		options.setIsAnimatedImage(animatedImage, false);
 		
 		options.save();
 	}								   
 	private void applyStargates() {// BR: 
-		GovernorOptions options = GameSession.instance().getGovernorOptions();
-		if (stargateOff.isSelected()) {
-			options.setGates(GovernorOptions.GatesGovernor.None);
-		} else if (stargateRich.isSelected()) {
-			options.setGates(GovernorOptions.GatesGovernor.Rich);
-		} else if (stargateOn.isSelected()) {
-			options.setGates(GovernorOptions.GatesGovernor.All);
-		}
+		if (stargateOff.isSelected())
+			options().setGates(GovernorOptions.GatesGovernor.None);
+		else if (stargateRich.isSelected())
+			options().setGates(GovernorOptions.GatesGovernor.Rich);
+		else if (stargateOn.isSelected())
+			options().setGates(GovernorOptions.GatesGovernor.All);
 	}
+
 	// ========== Completionist tools ==========
+	//
 	private boolean isCompletionistEnabled() {
 		if (GameSession.instance().galaxy() == null) {
 			return false;
@@ -1356,10 +1409,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 			}
 			ss.colony().setGovernor(true);
 			ss.colony().governIfNeeded();
-			if (autoApply) {
-				GovernorOptions options = GameSession.instance().getGovernorOptions();
-				options.setGovernorOnByDefault(governorDefault.isSelected());
-			}
+			if (autoApply)
+				options().setGovernorOnByDefault(governorDefault.isSelected());
 		}
 	}//GEN-LAST:event_allGovernorsOnActionPerformed
 
@@ -1370,10 +1421,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 				continue;
 			}
 			ss.colony().setGovernor(false);
-			if (autoApply) {
-				GovernorOptions options = GameSession.instance().getGovernorOptions();
-				options.setGovernorOnByDefault(governorDefault.isSelected());
-			}
+			if (autoApply)
+				options().setGovernorOnByDefault(governorDefault.isSelected());
 		}
 	}//GEN-LAST:event_allGovernorsOffActionPerformed
 
@@ -1416,10 +1465,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	}//GEN-LAST:event_autoAttackShipCountMouseWheelMoved
 
 	private void autotransportXilmiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autotransportXilmiActionPerformed
-		if (autoApply) {
-			GovernorOptions options = GameSession.instance().getGovernorOptions();
-			options.setAutotransportXilmi(autotransportXilmi.isSelected());
-		}
+		if (autoApply)
+			options().setAutotransportXilmi(autotransportXilmi.isSelected());
 	}//GEN-LAST:event_autotransportXilmiActionPerformed
 
 	private void transportMaxTurnsLabelMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_transportMaxTurnsLabelMouseWheelMoved
@@ -1432,166 +1479,126 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 
 	private void autoApplyToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoApplyToggleButtonActionPerformed
 		autoApply = autoApplyToggleButton.isSelected();
-		GovernorOptions options = GameSession.instance().getGovernorOptions();
-		options.setAutoApply(autoApply);
-		if (autoApply) // BR:
+		options().setAutoApply(autoApply);
+		if (autoApply)
 			applyAction();
 	}//GEN-LAST:event_autoApplyToggleButtonActionPerformed
 
 	private void allowUngovernedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allowUngovernedActionPerformed
-		if (autoApply) {
-			GovernorOptions options = GameSession.instance().getGovernorOptions();
-			options.setAutotransportUngoverned(allowUngoverned.isSelected());
-		}
+		if (autoApply)
+			options().setAutotransportUngoverned(allowUngoverned.isSelected());
 	}//GEN-LAST:event_allowUngovernedActionPerformed
 
 	private void autotransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autotransportActionPerformed
-		if (autoApply) {
-			GovernorOptions options = GameSession.instance().getGovernorOptions();
-			options.setAutotransport(autotransport.isSelected());
-		}
+		if (autoApply)
+			options().setAutotransport(autotransport.isSelected());
 	}//GEN-LAST:event_autotransportActionPerformed
 
 	private void transportRichDisabledActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transportRichDisabledActionPerformed
-		if (autoApply) {
-			GovernorOptions options = GameSession.instance().getGovernorOptions();
-			options.setTransportRichDisabled(transportRichDisabled.isSelected());
-		}
+		if (autoApply)
+			options().setTransportRichDisabled(transportRichDisabled.isSelected());
 	}//GEN-LAST:event_transportRichDisabledActionPerformed
 
 	private void transportPoorDoubleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transportPoorDoubleActionPerformed
-		if (autoApply) {
-			GovernorOptions options = GameSession.instance().getGovernorOptions();
-			options.setTransportPoorDouble(transportPoorDouble.isSelected());
-		}
+		if (autoApply)
+			options().setTransportPoorDouble(transportPoorDouble.isSelected());
 	}//GEN-LAST:event_transportPoorDoubleActionPerformed
 
 	private void autoScoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoScoutActionPerformed
-		if (autoApply) {
-			GovernorOptions options = GameSession.instance().getGovernorOptions();
-			options.setAutoScout(autoScout.isSelected());
-		}
+		if (autoApply)
+			options().setAutoScout(autoScout.isSelected());
 	}//GEN-LAST:event_autoScoutActionPerformed
 
 	private void autoColonizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoColonizeActionPerformed
-		if (autoApply) {
-			GovernorOptions options = GameSession.instance().getGovernorOptions();
-			options.setAutoColonize(autoColonize.isSelected());
-		}
+		if (autoApply)
+			options().setAutoColonize(autoColonize.isSelected());
 	}//GEN-LAST:event_autoColonizeActionPerformed
 
 	private void autoAttackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoAttackActionPerformed
-		if (autoApply) {
-			GovernorOptions options = GameSession.instance().getGovernorOptions();
-			options.setAutoAttack(autoAttack.isSelected());
-		}
+		if (autoApply)
+			options().setAutoAttack(autoAttack.isSelected());
 	}//GEN-LAST:event_autoAttackActionPerformed
 
 	private void shieldWithoutBasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shieldWithoutBasesActionPerformed
-		if (autoApply) {
-			GovernorOptions options = GameSession.instance().getGovernorOptions();
-			options.setShieldWithoutBases(shieldWithoutBases.isSelected());
-		}
+		if (autoApply)
+			options().setShieldWithoutBases(shieldWithoutBases.isSelected());
 	}//GEN-LAST:event_shieldWithoutBasesActionPerformed
 
 	private void autospendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autospendActionPerformed
-		if (autoApply) {
-			GovernorOptions options = GameSession.instance().getGovernorOptions();
-			options.setAutospend(autospend.isSelected());
-		}
+		if (autoApply)
+			options().setAutospend(autospend.isSelected());
 	}//GEN-LAST:event_autospendActionPerformed
 
 	private void shipbuildingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shipbuildingActionPerformed
-		if (autoApply) {
-			GovernorOptions options = GameSession.instance().getGovernorOptions();
-			options.setShipbuilding(shipbuilding.isSelected());
-		}
+		if (autoApply)
+			options().setShipbuilding(shipbuilding.isSelected());
 	}//GEN-LAST:event_shipbuildingActionPerformed
 
 	private void autoInfiltrateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoInfiltrateActionPerformed
-		if (autoApply) {
-			GovernorOptions options = GameSession.instance().getGovernorOptions();
-			options.setAutoInfiltrate(autoInfiltrate.isSelected());
-		}
+		if (autoApply)
+			options().setAutoInfiltrate(autoInfiltrate.isSelected());
 	}//GEN-LAST:event_autoInfiltrateActionPerformed
 
 	private void legacyGrowthModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_legacyGrowthModeActionPerformed
-		if (autoApply) {
-			GovernorOptions options = GameSession.instance().getGovernorOptions();
-			options.setLegacyGrowthMode(legacyGrowthMode.isSelected());
-		}
+		if (autoApply)
+			options().setLegacyGrowthMode(legacyGrowthMode.isSelected());
 	}//GEN-LAST:event_legacyGrowthModeActionPerformed
 
 	private void autoSpyActionPerformed(java.awt.event.ActionEvent evt) {										
-		if (autoApply) {
-			GovernorOptions options = GameSession.instance().getGovernorOptions();
-			options.setAutoSpy(autoSpy.isSelected());
-		}
+		if (autoApply)
+			options().setAutoSpy(autoSpy.isSelected());
 	}									   
 
 	private void spareXenophobesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoSpyActionPerformed
-		if (autoApply) {
-			GovernorOptions options = GameSession.instance().getGovernorOptions();
-			options.setSpareXenophobes(spareXenophobes.isSelected(), true);
-		}
+		if (autoApply)
+			options().setSpareXenophobes(spareXenophobes.isSelected(), true);
 	}//GEN-LAST:event_autoSpyActionPerformed
 
 	private void stargateOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stargateOffActionPerformed
-		if (autoApply) applyStargates(); // BR:
+		if (autoApply) applyStargates();
 	}//GEN-LAST:event_stargateOffActionPerformed
 
 	private void stargateRichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stargateRichActionPerformed
-		if (autoApply) applyStargates(); // BR:
+		if (autoApply) applyStargates();
 	}//GEN-LAST:event_stargateRichActionPerformed
 
 	private void stargateOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stargateOnActionPerformed
-		if (autoApply) applyStargates(); // BR:
+		if (autoApply) applyStargates();
 	}//GEN-LAST:event_stargateOnActionPerformed
 
 	private void reserveStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_reserveStateChanged
-		if (autoApply) {
-			GovernorOptions options = GameSession.instance().getGovernorOptions();
-			options.setReserve((Integer)reserve.getValue());
-		}
+		if (autoApply)
+			options().setReserve((Integer)reserve.getValue());
 	}//GEN-LAST:event_reserveStateChanged
 
 	private void missileBasesStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_missileBasesStateChanged
-		if (autoApply) {
-			GovernorOptions options = GameSession.instance().getGovernorOptions();
-			options.setMinimumMissileBases((Integer)missileBases.getValue());
-		}
+		if (autoApply)
+			options().setMinimumMissileBases((Integer)missileBases.getValue());
 	}//GEN-LAST:event_missileBasesStateChanged
 
 	private void autoAttackShipCountStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_autoAttackShipCountStateChanged
-		if (autoApply) {
-			GovernorOptions options = GameSession.instance().getGovernorOptions();
-			options.setAutoAttackShipCount((Integer)autoAttackShipCount.getValue());
-		}
+		if (autoApply)
+			options().setAutoAttackShipCount((Integer)autoAttackShipCount.getValue());
 	}//GEN-LAST:event_autoAttackShipCountStateChanged
 
 	private void autoColonyShipCountStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_autoColonyShipCountStateChanged
-		if (autoApply) {
-			GovernorOptions options = GameSession.instance().getGovernorOptions();
-			options.setAutoColonyShipCount((Integer)autoColonyShipCount.getValue());
-		}
+		if (autoApply)
+			options().setAutoColonyShipCount((Integer)autoColonyShipCount.getValue());
 	}//GEN-LAST:event_autoColonyShipCountStateChanged
 
 	private void autoScoutShipCountStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_autoScoutShipCountStateChanged
-		if (autoApply) {
-			GovernorOptions options = GameSession.instance().getGovernorOptions();
-			options.setAutoScoutShipCount((Integer)autoScoutShipCount.getValue());
-		}
+		if (autoApply)
+			options().setAutoScoutShipCount((Integer)autoScoutShipCount.getValue());
    }//GEN-LAST:event_autoScoutShipCountStateChanged
 
 	private void transportMaxTurnsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_transportMaxTurnsStateChanged
-		if (autoApply) {
-			GovernorOptions options = GameSession.instance().getGovernorOptions();
-			options.setTransportMaxTurns((Integer)transportMaxTurns.getValue());
-		}
+		if (autoApply)
+			options().setTransportMaxTurns((Integer)transportMaxTurns.getValue());
 	}//GEN-LAST:event_transportMaxTurnsStateChanged
 
 	private void governorDefaultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_governorDefaultActionPerformed
-		// TODO add your handling code here:
+		if (autoApply)
+			options().setGovernorOnByDefault(governorDefault.isSelected());
 	}//GEN-LAST:event_governorDefaultActionPerformed
 
 	private void brightnessPctMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_brightnessPctMouseWheelMoved
@@ -1603,37 +1610,39 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	}//GEN-LAST:event_sizePctMouseWheelMoved
 
 	private void isOriginalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isOriginalActionPerformed
-		if (autoApply) {
-			newFormat = !isOriginal.isSelected();
+		newFormat = !isOriginal.isSelected();
+		if (autoApply)
 			options().setIsOriginalPanel(isOriginal.isSelected(), true);
-			protectedReset();
-		}
+		protectedReset();
 	}//GEN-LAST:event_isOriginalActionPerformed
 
 	private void customSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customSizeActionPerformed
-		if (autoApply) {
+		if (autoApply)
 			options().setIsCustomSize(customSize.isSelected(), true);
-			protectedUpdateSize();
-		}
+		protectedUpdateSize();
 	}//GEN-LAST:event_customSizeActionPerformed
 
 	private void raceImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_raceImageMouseClicked
-		// TODO add your handling code here:
+		animatedImage = !animatedImage;
+		if (autoApply)
+			options().setIsAnimatedImage(animatedImage, true);
+		if (animatedImage)
+			startAnimation();
+		else
+			stopAnimation();
 	}//GEN-LAST:event_raceImageMouseClicked
 
 	private void sizePctStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sizePctStateChanged
-		if (autoApply) {
+		if (autoApply)
 			options().setSizeFactorPct((Integer)sizePct.getValue(), true);
-			if (options().isCustomSize())
-				protectedUpdateSize();
-		}
+		if (options().isCustomSize())
+			protectedUpdateSize();
 	}//GEN-LAST:event_sizePctStateChanged
 
 	private void brightnessPctStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_brightnessPctStateChanged
-		if (autoApply) {
+		if (autoApply)
 			options().setBrightnessPct((Integer)brightnessPct.getValue(), true);
-			protectedUpdateColor();
-		}
+		protectedUpdateColor();
 	}//GEN-LAST:event_brightnessPctStateChanged
 
 	private static void mouseWheel(JSpinner spinner, java.awt.event.MouseWheelEvent evt) {
