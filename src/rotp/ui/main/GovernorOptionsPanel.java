@@ -11,8 +11,6 @@ import java.awt.Insets;
 import java.awt.Stroke;
 import java.awt.event.MouseWheelEvent;
 import java.awt.image.BufferedImage;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -64,13 +62,13 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	private static final int	buttonSideInset		= 10;
 	private static final int	animationStep		= 100; // ms
 	private static final int	ANIMATION_STOPPED	= 0;
-	private static final int	ANIMATION_ON		= 1;
-	private static final int	ANIMATION_CANCELED	= 100; // ms
+	private static final int	ANIMATION_ONGOING	= 1;
+	private static final int	ANIMATION_CANCELED	= 2;
+	private static final int	ANIMATION_RESET		= 3;
 	private static 		 int	animationOngoing	= 0;
 	
-	private static GovernorOptionsPanel instance;
     private static ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(15); // no
-    private static ScheduledFuture<?> anim, update;
+    private static ScheduledFuture<?> anim;
 
 	private Font	valueFont, baseFont, labelFont, buttonFont, panelTitleFont;
 	private Color	frameBgColor, panelBgColor, textBgColor, valueBgColor;
@@ -86,6 +84,12 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	private boolean updateOngoing	= false;
 	private boolean animatedImage	= options().isAnimatedImage();
 
+	Runnable delayedAnimate = new Runnable() {
+	    @Override
+	    public void run() {
+	    	animate();
+	    }
+	};
 	private final JFrame frame;
 	
 	// ========== Protected initializers ==========
@@ -93,16 +97,15 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	// may trigger new-initializations 
 	// The first call win!
 	//
-	private static void delayedReset() { instance.resetPanel(); }
 	private void protectedReset() {
 		if (!updateOngoing) {
 			updateOngoing = true;
 			if (animationOngoing != ANIMATION_STOPPED) {
-				animationOngoing = ANIMATION_CANCELED;
-				update = executor.schedule (GovernorOptionsPanel::delayedReset, 2*animationStep, TimeUnit.MILLISECONDS);
-			} else
+				animationOngoing = ANIMATION_RESET;
+			} 
+			else {
 				resetPanel();
-			updateOngoing = false;
+			}
 		}
 	}
 	private void protectedInitPanel() {
@@ -148,7 +151,6 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	// ========== Constructor and initializers ==========
 	//
 	public GovernorOptionsPanel(JFrame frame) {
-		instance = this;
 		this.frame = frame;
 		protectedInitPanel();
 		MOO1GameOptions.addListener(this);   
@@ -192,12 +194,16 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 		setRaceImg();		// Pack and set icon
 	}
 	private void resetPanel() {
+		frame.setVisible(false);
 		//Remove the components before reloading
 		Component[] componentList = getComponents();
 		for(Component c : componentList){
 			remove(c);
 		}
 		initPanel();
+		updateOngoing = false;
+		frame.setVisible(true);
+		startAnimation();
 	}
 
 	// ========== Public Method and Overrider ==========
@@ -237,22 +243,31 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	// ========== Image display and animation ==========
 	//
 	private void stopAnimation() {
-		if (animationOngoing == ANIMATION_ON)
+		if (animationOngoing == ANIMATION_ONGOING)
 			animationOngoing = ANIMATION_CANCELED;
 	}
 	private void startAnimation() {
+		if (anim == null)
+			anim = executor.scheduleAtFixedRate(delayedAnimate, 0, animationStep, TimeUnit.MILLISECONDS);
+		if (updateOngoing)
+			return;
 		if (animatedImage && animationOngoing == ANIMATION_STOPPED) {
-			animationOngoing = ANIMATION_ON;
-			anim = executor.scheduleAtFixedRate(GovernorOptionsPanel::animate, 0, animationStep, TimeUnit.MILLISECONDS);
+			animationOngoing = ANIMATION_ONGOING;
 		}
 	}
-	private static void animate() {
-		if (animationOngoing == ANIMATION_ON) {
-			if (instance.frame.isVisible())
-				instance.updateRaceImage();
+	private void animate() {
+		if (animationOngoing == ANIMATION_RESET) {
+			animationOngoing = ANIMATION_STOPPED;
+			resetPanel();
+			return;
+		}
+		if (animatedImage && animationOngoing == ANIMATION_ONGOING) {
+			if (frame.isVisible()) {
+				updateRaceImage();
+				return;
+			}
 		}
 		else {
-			anim.cancel(false);
 			animationOngoing = ANIMATION_STOPPED;
 		}
 	}
