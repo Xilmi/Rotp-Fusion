@@ -134,7 +134,7 @@ public class ParamFloat extends AbstractParam<Float> {
 	@Override public void toggle(MouseWheelEvent e) { next(getInc(e) * getDir(e)); }
 	@Override public void setFromOptions(DynamicOptions options) {
 		if (!isDuplicate() && options != null)
-			set(options.getFloat(getLangLabel(), defaultValue()));
+			set(options.getFloat(getLangLabel(), creationValue()));
 	}
 	@Override public void setOptions(DynamicOptions options) {
 		if (!isDuplicate() && options != null)
@@ -142,7 +142,7 @@ public class ParamFloat extends AbstractParam<Float> {
 	}
 	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
 		if (!isDuplicate() && src != null && dest != null)
-			dest.setFloat(getLangLabel(), src.getFloat(getLangLabel(), defaultValue()));
+			dest.setFloat(getLangLabel(), src.getFloat(getLangLabel(), creationValue()));
 	}
 	// ========== Other Methods ==========
 	//

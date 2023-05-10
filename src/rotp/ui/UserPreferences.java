@@ -1181,10 +1181,10 @@ public class UserPreferences {
 
 	public static void toggleSensitivityMode()   {
 		switch(sensitivityMode) {
-			case SENSITIVITY_LOW:	   sensitivityMode = SENSITIVITY_MEDIUM; break;
-			case SENSITIVITY_MEDIUM:	sensitivityMode = SENSITIVITY_HIGH; break;
-			case SENSITIVITY_HIGH:	  sensitivityMode = SENSITIVITY_LOW; break;
-			default :				   sensitivityMode = SENSITIVITY_MEDIUM; break;
+			case SENSITIVITY_LOW:	 sensitivityMode = SENSITIVITY_MEDIUM;	break;
+			case SENSITIVITY_MEDIUM: sensitivityMode = SENSITIVITY_HIGH;	break;
+			case SENSITIVITY_HIGH:	 sensitivityMode = SENSITIVITY_LOW;		break;
+			default :				 sensitivityMode = SENSITIVITY_MEDIUM;	break;
 		}
 		save();
 	}
@@ -1281,27 +1281,21 @@ public class UserPreferences {
 			backupTurns = (int) Math.round(1.0f + 4.87f*backupTurns - 0.93f*Math.pow(backupTurns, 2) + 0.063f*Math.pow(backupTurns, 3) );
 		save();
 	}
-	public static void toggleYearDisplay()	{ displayYear = !displayYear; save(); }
-	public static boolean displayYear()	   { return displayYear; }
-	// public static void setDefaultMaxBases(int bases)	{ defaultMaxBases = bases; }
-	public static int defaultMaxBases()	{ return defaultMaxBases; }
-	public static void setGovernorOn(boolean governorOn)	{ governorOnByDefault = governorOn; save(); } // BR:
-	public static boolean governorOnByDefault() { return governorOnByDefault; }
-	public static void setAutoSpendOn(boolean autospendOn)  { governorAutoSpendByDefault = autospendOn; save(); }
-	public static boolean governorAutoSpendByDefault() { return governorAutoSpendByDefault; }
-	public static void setLegacyGrowth(boolean legacy_Growth)  { legacyGrowth = legacy_Growth; save(); } // BR:
-	public static boolean legacyGrowth() { return legacyGrowth; } // BR:
-	public static void setGovernorAutoApply(boolean auto_Apply)  { governorAutoApply = auto_Apply; save(); } // BR:
-	public static boolean governorAutoApply() { return governorAutoApply; } // BR:
-	// public static void setDivertColonyExcessToResearch(boolean divertOn)  {divertColonyExcessToResearch = divertOn; save(); }
-	public static boolean divertColonyExcessToResearch()  { return divertColonyExcessToResearch; }
-	public static boolean disableAdvisor()			{ return disableAdvisor; }
-	private static void uiTexturePct(int i)			{ uiTexturePct = i / 100.0f; }
-	static float uiTexturePct()						{ return uiTexturePct; }
-	static boolean gamePlayed()						{return gamePlayed; }
-	public static void gamePlayed(boolean played)	{ gamePlayed = played; }
-	static boolean loadRequest()			  		{return loadRequest; }
-	public static void loadRequest(boolean load)	{
+	public	static void		toggleYearDisplay()				{ displayYear = !displayYear; save(); }
+	public	static boolean	displayYear()					{ return displayYear; }
+	public	static int		defaultMaxBases()				{ return defaultMaxBases; }
+	public	static boolean	governorOnByDefault()			{ return governorOnByDefault; }
+	public	static boolean	governorAutoSpendByDefault()	{ return governorAutoSpendByDefault; }
+	public	static boolean	legacyGrowth()					{ return legacyGrowth; } // BR:
+	public	static boolean	governorAutoApply()				{ return governorAutoApply; } // BR:
+	public	static boolean	divertColonyExcessToResearch()	{ return divertColonyExcessToResearch; }
+	public	static boolean	disableAdvisor()				{ return disableAdvisor; }
+	private	static void		uiTexturePct(int i)				{ uiTexturePct = i / 100.0f; }
+	public	static void		gamePlayed(boolean played)		{ gamePlayed = played; }
+	static	float			uiTexturePct()					{ return uiTexturePct; }
+	static	boolean			gamePlayed()					{return gamePlayed; }
+	static	boolean			loadRequest()					{return loadRequest; }
+	public	static void		loadRequest(boolean load)		{
 		if (load) {
 			// For games launched without going to the GUI
 			// The "backGround newGameOptions() will then be set

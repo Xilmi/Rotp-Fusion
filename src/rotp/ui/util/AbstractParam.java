@@ -26,7 +26,6 @@ import java.awt.event.MouseWheelEvent;
 import javax.swing.SwingUtilities;
 
 import rotp.model.game.DynamicOptions;
-import rotp.model.game.MOO1GameOptions;
 import rotp.ui.game.BaseModPanel;
 
 public abstract class AbstractParam <T> implements InterfaceParam{
@@ -36,15 +35,16 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	private final String gui;  // The label header
 	private T value;
 	private T defaultValue;
+	private T creationValue; // for a smooth move from Remnant.cfg
 	private T minValue		= null;
 	private T maxValue		= null;
 	private T baseInc		= null;
 	private T shiftInc		= null;
 	private T ctrlInc		= null;
 	private T shiftCtrlInc	= null;
-	private boolean isDuplicate		= false;
-	@SuppressWarnings("unused") // kept for save game compatibility
-	private MOO1GameOptions duplicateOptions = null;
+	private boolean isDuplicate	= false;
+//	@SuppressWarnings("unused") // kept for save game compatibility
+//	private MOO1GameOptions duplicateOptions = null;
 
 	// ========== constructors ==========
 	//
@@ -57,6 +57,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 		this.gui = gui;
 		this.name = name;
 		this.defaultValue = defaultValue;
+		creationValue = defaultValue; // for a smooth move from Remnant.cfg
 		value = defaultValue;
 	}
 	/**
@@ -109,7 +110,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	}
 	@Override public void setFromOptions(DynamicOptions options) {
 		if (!isDuplicate() && options != null)
-			setFromCfgValue(options.getString(getLangLabel(), getCfgValue(defaultValue())));
+			setFromCfgValue(options.getString(getLangLabel(), getCfgValue(creationValue())));
 	}
 	@Override public void setOptions(DynamicOptions options) {
 		if (!isDuplicate() && options != null)
@@ -117,7 +118,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	}
 	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
 		if (!isDuplicate() && src != null && dest != null)
-			dest.setString(getLangLabel(), src.getString(getLangLabel(), getCfgValue(defaultValue())));
+			dest.setString(getLangLabel(), src.getString(getLangLabel(), getCfgValue(creationValue())));
 	}
 	@Override public String getCfgValue()		{ return getCfgValue(value); }
 	@Override public String getCfgLabel()		{ return name; }
@@ -169,7 +170,8 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	public String getCfgValue(T value)	{ return String.valueOf(value); }
 	// ========== Public Getters ==========
 	//
-	public String getLabel(){ return langLabel(getLangLabel()); }
+	public String getLabel()	{ return langLabel(getLangLabel()); }
+	public T creationValue()	{ return creationValue; }
 	T minValue()	{ return minValue; }	
 	T maxValue()	{ return maxValue; }	
 	T baseInc()		{ return baseInc; }	
@@ -184,9 +186,10 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 		return value;
 	}
 	// public void duplicateOptions (MOO1GameOptions options) { duplicateOptions = options;}
-	public void maxValue (T newValue)	 { maxValue = newValue;}
-	public void minValue (T newValue)	 { minValue = newValue;}
-	public void defaultValue(T newValue) { defaultValue = newValue; }
+	public void maxValue (T newValue)		{ maxValue = newValue;}
+	public void minValue (T newValue)		{ minValue = newValue;}
+	public void defaultValue(T newValue)	{ defaultValue = newValue; }
+	public void creationValue(T newValue)	{ creationValue = newValue; }
 	// ========== Private Methods ==========
 	//
 	// ========== Protected Methods ==========

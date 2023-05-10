@@ -45,7 +45,7 @@ public class ParamString extends AbstractParam<String> {
 	@Override public void toggle(MouseEvent e, BaseModPanel frame) {}
 	@Override public void setFromOptions(DynamicOptions options) {
 		if (!isDuplicate() && options != null)
-			set(options.getString(getLangLabel(), defaultValue()));
+			set(options.getString(getLangLabel(), creationValue()));
 	}
 	@Override public void setOptions(DynamicOptions options) {
 		if (!isDuplicate() && options != null)
@@ -53,7 +53,7 @@ public class ParamString extends AbstractParam<String> {
 	}
 	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
 		if (!isDuplicate() && src != null && dest != null)
-			dest.setString(getLangLabel(), src.getString(getLangLabel(), defaultValue()));
+			dest.setString(getLangLabel(), src.getString(getLangLabel(), creationValue()));
 	}
 	// ===== Other Methods =====
 	//

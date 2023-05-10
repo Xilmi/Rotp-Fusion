@@ -3053,11 +3053,11 @@ GOVERNOR_SPARE_XENOPHOBES            | spare Xenophobes: %1
 
 HEADERS_GOVERNOR_FLEET_OPTIONS_DESC  | Fleet Options.
 HEADERS_GOVERNOR_FLEET_OPTIONS       | ~~~ FLEET OPTIONS ~~~%1
-GOVERNOR_AUTO_SCOUT_DESC             | Auto Scout.
+GOVERNOR_AUTO_SCOUT_DESC             | if true, automatically scout new planets.
 GOVERNOR_AUTO_SCOUT                  | Auto Scout: %1
-GOVERNOR_AUTO_COLONIZE_DESC          | Auto Colonize.
+GOVERNOR_AUTO_COLONIZE_DESC          | if true, automatically colonize new planets.
 GOVERNOR_AUTO_COLONIZE               | Auto Colonize: %1
-GOVERNOR_AUTO_ATTACK_DESC            | Auto Attack.
+GOVERNOR_AUTO_ATTACK_DESC            | if true, send ships to enemy colonies.
 GOVERNOR_AUTO_ATTACK                 | Auto Attack: %1
 GOVERNOR_AUTO_SCOUT_COUNT_DESC       | Number of scout ships to send.
 GOVERNOR_AUTO_SCOUT_COUNT            | Scout Count: %1

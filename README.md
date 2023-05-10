@@ -30,9 +30,6 @@ Now:
 - Custom Race Menu: Guide continuation
 
 Very soon:
-- Save Governor options in the game files.
-- Alternative governor Panel?
-- Combat button fix.
 - Text color for gaia and fertile?
 
 Later:
@@ -48,10 +45,11 @@ Later:
 
 ## What's New
 
-2023.05.09 (BR)
+2023.05.10 (BR)
 - Fixed Bombing auto firing the turn following a "Fire all weapon"
+- Governor new options Initialized withRemnant.cfg 
 
-2023.05.08 (BR)
+2023.05.09 (BR)
 - Governor Panel update:
   - Options are now saved to the game file.
   - New compact panel available from setup Menu.
