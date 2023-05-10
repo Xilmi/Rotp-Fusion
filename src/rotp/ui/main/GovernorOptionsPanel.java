@@ -84,7 +84,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	private boolean updateOngoing	= false;
 	private boolean animatedImage	= options().isAnimatedImage();
 
-	Runnable delayedAnimate = new Runnable() {
+	private Runnable delayedAnimate = new Runnable() {
 	    @Override
 	    public void run() {
 	    	animate();
@@ -182,6 +182,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 		setRaceImg();		// Pack and set icon
 	}
 	private void resetPanel() {
+		updateOngoing = true;
+		boolean visible = frame.isVisible();
 		frame.setVisible(false);
 		//Remove the components before reloading
 		Component[] componentList = getComponents();
@@ -190,7 +192,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 		}
 		initPanel();
 		updateOngoing = false;
-		frame.setVisible(true);
+		frame.setVisible(visible);
 		startAnimation();
 	}
 
@@ -202,7 +204,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 			return;
 		}
 		System.out.println("===== optionLoaded =====");
-		resetPanel();
+		loadValues();
+		protectedReset();
 	} 
 	public void applyStyle() { protectedUpdatePanel(); }
 	public void refresh() {
@@ -246,7 +249,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	private void animate() {
 		if (animationOngoing == ANIMATION_RESET) {
 			animationOngoing = ANIMATION_STOPPED;
-			resetPanel();
+			resetPanel(); // called by protected
 			return;
 		}
 		if (animatedImage && animationOngoing == ANIMATION_ONGOING) {
@@ -468,8 +471,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	//
 	private void loadValues() {
 		GovernorOptions options = GameSession.instance().getGovernorOptions();
-		
-		// Other Options
+		// Other Options and duplicate
+		newFormat 	  = !options.isOriginalPanel();
 		autoApply	  = options.isAutoApply();
 		animatedImage = options.isAnimatedImage();
 		this.governorDefault.setSelected(options.isGovernorOnByDefault());
@@ -527,36 +530,36 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 		GovernorOptions options = GameSession.instance().getGovernorOptions();
 		
 		// AutoTransport Options
-		options.setAutotransport(autotransport.isSelected());
-		options.setAutotransportXilmi(autotransportXilmi.isSelected());
-		options.setAutotransportUngoverned(allowUngoverned.isSelected());
-		options.setTransportMaxTurns((Integer)transportMaxTurns.getValue());
-		options.setTransportRichDisabled(transportRichDisabled.isSelected());
-		options.setTransportPoorDouble(transportPoorDouble.isSelected());
+		options.setAutotransport(autotransport.isSelected(), false);
+		options.setAutotransportXilmi(autotransportXilmi.isSelected(), false);
+		options.setAutotransportUngoverned(allowUngoverned.isSelected(), false);
+		options.setTransportMaxTurns((Integer)transportMaxTurns.getValue(), false);
+		options.setTransportRichDisabled(transportRichDisabled.isSelected(), false);
+		options.setTransportPoorDouble(transportPoorDouble.isSelected(), false);
 
 		// StarGates Options
-		applyStargates();
+		applyStargates(false);
 
 		// Colony Options
-		options.setMinimumMissileBases((Integer)missileBases.getValue());
-		options.setShieldWithoutBases(shieldWithoutBases.isSelected());
-		options.setAutospend(autospend.isSelected());
-		options.setReserve((Integer)reserve.getValue());
-		options.setShipbuilding(shipbuilding.isSelected());
-		options.setLegacyGrowthMode(legacyGrowthMode.isSelected());
+		options.setMinimumMissileBases((Integer)missileBases.getValue(), false);
+		options.setShieldWithoutBases(shieldWithoutBases.isSelected(), false);
+		options.setAutospend(autospend.isSelected(), false);
+		options.setReserve((Integer)reserve.getValue(), false);
+		options.setShipbuilding(shipbuilding.isSelected(), false);
+		options.setLegacyGrowthMode(legacyGrowthMode.isSelected(), false);
 
 		// Intelligence Options
-		options.setAutoInfiltrate(autoInfiltrate.isSelected());
-		options.setAutoSpy(autoSpy.isSelected());
+		options.setAutoInfiltrate(autoInfiltrate.isSelected(), false);
+		options.setAutoSpy(autoSpy.isSelected(), false);
 		options.setSpareXenophobes(spareXenophobes.isSelected(), false);
 
 		// Fleet Options
-		options.setAutoScout(autoScout.isSelected());
-		options.setAutoColonize(autoColonize.isSelected());
-		options.setAutoAttack(autoAttack.isSelected());
-		options.setAutoScoutShipCount((Integer)autoScoutShipCount.getValue());
-		options.setAutoColonyShipCount((Integer)autoColonyShipCount.getValue());
-		options.setAutoAttackShipCount((Integer)autoAttackShipCount.getValue());
+		options.setAutoScout(autoScout.isSelected(), false);
+		options.setAutoColonize(autoColonize.isSelected(), false);
+		options.setAutoAttack(autoAttack.isSelected(), false);
+		options.setAutoScoutShipCount((Integer)autoScoutShipCount.getValue(), false);
+		options.setAutoColonyShipCount((Integer)autoColonyShipCount.getValue(), false);
+		options.setAutoAttackShipCount((Integer)autoAttackShipCount.getValue(), false);
 
 		// Aspect Options
 		options.setIsOriginalPanel(isOriginal.isSelected(), false);
@@ -565,18 +568,18 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 		options.setBrightnessPct((Integer)brightnessPct.getValue(), false);
 		
 		// Other Options
-		options.setGovernorOnByDefault(governorDefault.isSelected());
+		options.setGovernorOnByDefault(governorDefault.isSelected(), false);
 		options.setIsAnimatedImage(animatedImage, false);
 		
 		options.save();
 	}								   
-	private void applyStargates() {// BR: 
+	private void applyStargates(boolean save) {// BR: 
 		if (stargateOff.isSelected())
-			options().setGates(GovernorOptions.GatesGovernor.None);
+			options().setGates(GovernorOptions.GatesGovernor.None, save);
 		else if (stargateRich.isSelected())
-			options().setGates(GovernorOptions.GatesGovernor.Rich);
+			options().setGates(GovernorOptions.GatesGovernor.Rich, save);
 		else if (stargateOn.isSelected())
-			options().setGates(GovernorOptions.GatesGovernor.All);
+			options().setGates(GovernorOptions.GatesGovernor.All, save);
 	}
 
 	// ========== Completionist tools ==========
@@ -683,7 +686,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         governorDefault.setSelected(true);
         governorDefault.setText("Governor is on by default");
         governorDefault.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 governorDefaultActionPerformed(evt);
             }
         });
@@ -693,26 +697,30 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         autotransport.setText("Population automatically transported from colonies at max production capacity");
         autotransport.setMinimumSize(new java.awt.Dimension(0, 0));
         autotransport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 autotransportActionPerformed(evt);
             }
         });
 
         transportMaxTurns.setModel(new javax.swing.SpinnerNumberModel(15, 1, 15, 1));
         transportMaxTurns.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            @Override
+			public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 transportMaxTurnsStateChanged(evt);
             }
         });
         transportMaxTurns.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+            @Override
+			public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
                 transportMaxTurnsMouseWheelMoved(evt);
             }
         });
 
         transportMaxTurnsLabel.setText("Maximum transport distance in turns");
         transportMaxTurnsLabel.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+            @Override
+			public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
                 transportMaxTurnsLabelMouseWheelMoved(evt);
             }
         });
@@ -721,28 +729,32 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 
         transportRichDisabled.setText("Don't send from Rich/Artifacts planets");
         transportRichDisabled.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 transportRichDisabledActionPerformed(evt);
             }
         });
 
         transportPoorDouble.setText("Send double from Poor planets");
         transportPoorDouble.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 transportPoorDoubleActionPerformed(evt);
             }
         });
 
         autotransportXilmi.setText("Let AI handle population transportation");
         autotransportXilmi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 autotransportXilmiActionPerformed(evt);
             }
         });
 
-        allowUngoverned.setText("allow sending population from ungoverned colonies");
+        allowUngoverned.setText("Allow sending population from ungoverned colonies");
         allowUngoverned.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 allowUngovernedActionPerformed(evt);
             }
         });
@@ -788,14 +800,16 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 
         allGovernorsOn.setText("All Governors ON");
         allGovernorsOn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 allGovernorsOnActionPerformed(evt);
             }
         });
 
         allGovernorsOff.setText("All Governors OFF");
         allGovernorsOff.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 allGovernorsOffActionPerformed(evt);
             }
         });
@@ -805,7 +819,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         stargateOptions.add(stargateOff);
         stargateOff.setText("Never build stargates");
         stargateOff.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 stargateOffActionPerformed(evt);
             }
         });
@@ -813,7 +828,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         stargateOptions.add(stargateRich);
         stargateRich.setText("<HTML>Build stargates on Rich <br>and Ultra Rich planets</HTML>");
         stargateRich.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 stargateRichActionPerformed(evt);
             }
         });
@@ -821,7 +837,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         stargateOptions.add(stargateOn);
         stargateOn.setText("Always build stargates");
         stargateOn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 stargateOnActionPerformed(evt);
             }
         });
@@ -851,14 +868,16 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         okButton.setText("OK");
         okButton.setToolTipText("Apply settings and close the GUI");
         okButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 okButtonActionPerformed(evt);
             }
         });
 
         cancelButton.setText("Cancel");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
             }
         });
@@ -866,7 +885,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         completionist.setText("Completionist Technologies");
         completionist.setToolTipText("<html>\nI like completing games fully. <br/>\nAllow all Empires to Research the following Technologies:<br/>\n<br/>\nControlled Irradiated Environment<br/>\nAtmospheric Terraforming<br/>\nComplete Terraforming<br/>\nAdvanced Soil Enrichment<br/>\nIntergalactic Star Gates<br/>\n<br/>\nMore than 30% of the Galaxy needs to be colonized.<br/>\nPlayer must control more than 50% of colonized systems.<br/>\nPlayer must have completed all Research in their Tech Tree (Future Techs too).<br/>\n</html>");
         completionist.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 completionistActionPerformed(evt);
             }
         });
@@ -874,7 +894,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         applyButton.setText("Apply");
         applyButton.setToolTipText("Apply settings and keep GUI open");
         applyButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 applyButtonActionPerformed(evt);
             }
         });
@@ -883,7 +904,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         autoApplyToggleButton.setText("Auto Apply");
         autoApplyToggleButton.setToolTipText("For the settings to be applied live.");
         autoApplyToggleButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 autoApplyToggleButtonActionPerformed(evt);
             }
         });
@@ -892,33 +914,38 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 
         autoScout.setText("Auto Scout");
         autoScout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 autoScoutActionPerformed(evt);
             }
         });
 
         autoColonize.setText("Auto Colonize");
         autoColonize.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 autoColonizeActionPerformed(evt);
             }
         });
 
         autoAttack.setText("Auto Attack");
         autoAttack.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 autoAttackActionPerformed(evt);
             }
         });
 
         autoColonyShipCount.setModel(new javax.swing.SpinnerNumberModel(1, 1, 9999, 1));
         autoColonyShipCount.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            @Override
+			public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 autoColonyShipCountStateChanged(evt);
             }
         });
         autoColonyShipCount.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+            @Override
+			public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
                 autoColonyShipCountMouseWheelMoved(evt);
             }
         });
@@ -927,24 +954,28 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 
         autoScoutShipCount.setModel(new javax.swing.SpinnerNumberModel(1, 1, 9999, 1));
         autoScoutShipCount.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            @Override
+			public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 autoScoutShipCountStateChanged(evt);
             }
         });
         autoScoutShipCount.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+            @Override
+			public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
                 autoScoutShipCountMouseWheelMoved(evt);
             }
         });
 
         autoAttackShipCount.setModel(new javax.swing.SpinnerNumberModel(1, 1, 9999, 1));
         autoAttackShipCount.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            @Override
+			public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 autoAttackShipCountStateChanged(evt);
             }
         });
         autoAttackShipCount.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+            @Override
+			public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
                 autoAttackShipCountMouseWheelMoved(evt);
             }
         });
@@ -1005,19 +1036,22 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         autospend.setText("Autospend");
         autospend.setToolTipText("Automatically spend reserve on planets with lowest production");
         autospend.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 autospendActionPerformed(evt);
             }
         });
 
         reserve.setModel(new javax.swing.SpinnerNumberModel(1000, 0, 100000, 10));
         reserve.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            @Override
+			public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 reserveStateChanged(evt);
             }
         });
         reserve.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+            @Override
+			public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
                 reserveMouseWheelMoved(evt);
             }
         });
@@ -1027,33 +1061,38 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         shipbuilding.setText("Shipbuilding with Governor enabled");
         shipbuilding.setToolTipText("Divert resources into shipbuilding and not research if planet is already building ships");
         shipbuilding.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 shipbuildingActionPerformed(evt);
             }
         });
 
         shieldWithoutBases.setText("Allow shields without bases");
         shieldWithoutBases.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 shieldWithoutBasesActionPerformed(evt);
             }
         });
 
         legacyGrowthMode.setText("Develop colonies as quickly as possible");
         legacyGrowthMode.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 legacyGrowthModeActionPerformed(evt);
             }
         });
 
         missileBases.setModel(new javax.swing.SpinnerNumberModel(0, 0, 20, 1));
         missileBases.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            @Override
+			public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 missileBasesStateChanged(evt);
             }
         });
         missileBases.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+            @Override
+			public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
                 missileBasesMouseWheelMoved(evt);
             }
         });
@@ -1117,7 +1156,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         spareXenophobes.setText("Spare the Xenophobes");
         spareXenophobes.setToolTipText("Once framed by xenophobic empire: stop spying and infiltration to avoid further outrage");
         spareXenophobes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 spareXenophobesActionPerformed(evt);
             }
         });
@@ -1125,7 +1165,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         autoSpy.setText("Let AI handle spies");
         autoSpy.setToolTipText("Hand control over spies to AI");
         autoSpy.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 autoSpyActionPerformed(evt);
             }
         });
@@ -1133,7 +1174,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         autoInfiltrate.setText("Autoinfiltrate");
         autoInfiltrate.setToolTipText("Automatically sends spies to infiltrate other empires");
         autoInfiltrate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 autoInfiltrateActionPerformed(evt);
             }
         });
@@ -1166,7 +1208,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         isOriginal.setText("Original View");
         isOriginal.setName("Original View"); // NOI18N
         isOriginal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 isOriginalActionPerformed(evt);
             }
         });
@@ -1174,7 +1217,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         customSize.setText("CustomSize");
         customSize.setName("Custom Size"); // NOI18N
         customSize.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 customSizeActionPerformed(evt);
             }
         });
@@ -1183,12 +1227,14 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         sizePct.setToolTipText("Size Factor");
         sizePct.setName("Size Factor"); // NOI18N
         sizePct.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            @Override
+			public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 sizePctStateChanged(evt);
             }
         });
         sizePct.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+            @Override
+			public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
                 sizePctMouseWheelMoved(evt);
             }
         });
@@ -1199,12 +1245,14 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         brightnessPct.setToolTipText("Color Brightness");
         brightnessPct.setName("Color Brightness"); // NOI18N
         brightnessPct.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            @Override
+			public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 brightnessPctStateChanged(evt);
             }
         });
         brightnessPct.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+            @Override
+			public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
                 brightnessPctMouseWheelMoved(evt);
             }
         });
@@ -1261,7 +1309,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         raceImage.setRequestFocusEnabled(false);
         raceImage.setVerifyInputWhenFocusTarget(false);
         raceImage.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            @Override
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
                 raceImageMouseClicked(evt);
             }
         });
@@ -1364,7 +1413,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 			ss.colony().setGovernor(true);
 			ss.colony().governIfNeeded();
 			if (autoApply)
-				options().setGovernorOnByDefault(governorDefault.isSelected());
+				options().setGovernorOnByDefault(governorDefault.isSelected(), true);
 		}
 	}//GEN-LAST:event_allGovernorsOnActionPerformed
 
@@ -1376,7 +1425,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 			}
 			ss.colony().setGovernor(false);
 			if (autoApply)
-				options().setGovernorOnByDefault(governorDefault.isSelected());
+				options().setGovernorOnByDefault(governorDefault.isSelected(), true);
 		}
 	}//GEN-LAST:event_allGovernorsOffActionPerformed
 
@@ -1419,7 +1468,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 
 	private void autotransportXilmiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autotransportXilmiActionPerformed
 		if (autoApply)
-			options().setAutotransportXilmi(autotransportXilmi.isSelected());
+			options().setAutotransportXilmi(autotransportXilmi.isSelected(), true);
 	}//GEN-LAST:event_autotransportXilmiActionPerformed
 
 	private void transportMaxTurnsLabelMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_transportMaxTurnsLabelMouseWheelMoved
@@ -1432,74 +1481,74 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 
 	private void autoApplyToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoApplyToggleButtonActionPerformed
 		autoApply = autoApplyToggleButton.isSelected();
-		options().setAutoApply(autoApply);
+		options().setAutoApply(autoApply, true);
 		if (autoApply)
 			applyAction();
 	}//GEN-LAST:event_autoApplyToggleButtonActionPerformed
 
 	private void allowUngovernedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allowUngovernedActionPerformed
 		if (autoApply)
-			options().setAutotransportUngoverned(allowUngoverned.isSelected());
+			options().setAutotransportUngoverned(allowUngoverned.isSelected(), true);
 	}//GEN-LAST:event_allowUngovernedActionPerformed
 
 	private void autotransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autotransportActionPerformed
 		if (autoApply)
-			options().setAutotransport(autotransport.isSelected());
+			options().setAutotransport(autotransport.isSelected(), true);
 	}//GEN-LAST:event_autotransportActionPerformed
 
 	private void transportRichDisabledActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transportRichDisabledActionPerformed
 		if (autoApply)
-			options().setTransportRichDisabled(transportRichDisabled.isSelected());
+			options().setTransportRichDisabled(transportRichDisabled.isSelected(), true);
 	}//GEN-LAST:event_transportRichDisabledActionPerformed
 
 	private void transportPoorDoubleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transportPoorDoubleActionPerformed
 		if (autoApply)
-			options().setTransportPoorDouble(transportPoorDouble.isSelected());
+			options().setTransportPoorDouble(transportPoorDouble.isSelected(), true);
 	}//GEN-LAST:event_transportPoorDoubleActionPerformed
 
 	private void autoScoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoScoutActionPerformed
 		if (autoApply)
-			options().setAutoScout(autoScout.isSelected());
+			options().setAutoScout(autoScout.isSelected(), true);
 	}//GEN-LAST:event_autoScoutActionPerformed
 
 	private void autoColonizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoColonizeActionPerformed
 		if (autoApply)
-			options().setAutoColonize(autoColonize.isSelected());
+			options().setAutoColonize(autoColonize.isSelected(), true);
 	}//GEN-LAST:event_autoColonizeActionPerformed
 
 	private void autoAttackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoAttackActionPerformed
 		if (autoApply)
-			options().setAutoAttack(autoAttack.isSelected());
+			options().setAutoAttack(autoAttack.isSelected(), true);
 	}//GEN-LAST:event_autoAttackActionPerformed
 
 	private void shieldWithoutBasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shieldWithoutBasesActionPerformed
 		if (autoApply)
-			options().setShieldWithoutBases(shieldWithoutBases.isSelected());
+			options().setShieldWithoutBases(shieldWithoutBases.isSelected(), true);
 	}//GEN-LAST:event_shieldWithoutBasesActionPerformed
 
 	private void autospendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autospendActionPerformed
 		if (autoApply)
-			options().setAutospend(autospend.isSelected());
+			options().setAutospend(autospend.isSelected(), true);
 	}//GEN-LAST:event_autospendActionPerformed
 
 	private void shipbuildingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shipbuildingActionPerformed
 		if (autoApply)
-			options().setShipbuilding(shipbuilding.isSelected());
+			options().setShipbuilding(shipbuilding.isSelected(), true);
 	}//GEN-LAST:event_shipbuildingActionPerformed
 
 	private void autoInfiltrateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoInfiltrateActionPerformed
 		if (autoApply)
-			options().setAutoInfiltrate(autoInfiltrate.isSelected());
+			options().setAutoInfiltrate(autoInfiltrate.isSelected(), true);
 	}//GEN-LAST:event_autoInfiltrateActionPerformed
 
 	private void legacyGrowthModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_legacyGrowthModeActionPerformed
 		if (autoApply)
-			options().setLegacyGrowthMode(legacyGrowthMode.isSelected());
+			options().setLegacyGrowthMode(legacyGrowthMode.isSelected(), true);
 	}//GEN-LAST:event_legacyGrowthModeActionPerformed
 
 	private void autoSpyActionPerformed(java.awt.event.ActionEvent evt) {										
 		if (autoApply)
-			options().setAutoSpy(autoSpy.isSelected());
+			options().setAutoSpy(autoSpy.isSelected(), true);
 	}									   
 
 	private void spareXenophobesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoSpyActionPerformed
@@ -1508,50 +1557,50 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	}//GEN-LAST:event_autoSpyActionPerformed
 
 	private void stargateOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stargateOffActionPerformed
-		if (autoApply) applyStargates();
+		if (autoApply) applyStargates(true);
 	}//GEN-LAST:event_stargateOffActionPerformed
 
 	private void stargateRichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stargateRichActionPerformed
-		if (autoApply) applyStargates();
+		if (autoApply) applyStargates(true);
 	}//GEN-LAST:event_stargateRichActionPerformed
 
 	private void stargateOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stargateOnActionPerformed
-		if (autoApply) applyStargates();
+		if (autoApply) applyStargates(true);
 	}//GEN-LAST:event_stargateOnActionPerformed
 
 	private void reserveStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_reserveStateChanged
 		if (autoApply)
-			options().setReserve((Integer)reserve.getValue());
+			options().setReserve((Integer)reserve.getValue(), true);
 	}//GEN-LAST:event_reserveStateChanged
 
 	private void missileBasesStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_missileBasesStateChanged
 		if (autoApply)
-			options().setMinimumMissileBases((Integer)missileBases.getValue());
+			options().setMinimumMissileBases((Integer)missileBases.getValue(), true);
 	}//GEN-LAST:event_missileBasesStateChanged
 
 	private void autoAttackShipCountStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_autoAttackShipCountStateChanged
 		if (autoApply)
-			options().setAutoAttackShipCount((Integer)autoAttackShipCount.getValue());
+			options().setAutoAttackShipCount((Integer)autoAttackShipCount.getValue(), true);
 	}//GEN-LAST:event_autoAttackShipCountStateChanged
 
 	private void autoColonyShipCountStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_autoColonyShipCountStateChanged
 		if (autoApply)
-			options().setAutoColonyShipCount((Integer)autoColonyShipCount.getValue());
+			options().setAutoColonyShipCount((Integer)autoColonyShipCount.getValue(), true);
 	}//GEN-LAST:event_autoColonyShipCountStateChanged
 
 	private void autoScoutShipCountStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_autoScoutShipCountStateChanged
 		if (autoApply)
-			options().setAutoScoutShipCount((Integer)autoScoutShipCount.getValue());
+			options().setAutoScoutShipCount((Integer)autoScoutShipCount.getValue(), true);
    }//GEN-LAST:event_autoScoutShipCountStateChanged
 
 	private void transportMaxTurnsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_transportMaxTurnsStateChanged
 		if (autoApply)
-			options().setTransportMaxTurns((Integer)transportMaxTurns.getValue());
+			options().setTransportMaxTurns((Integer)transportMaxTurns.getValue(), true);
 	}//GEN-LAST:event_transportMaxTurnsStateChanged
 
 	private void governorDefaultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_governorDefaultActionPerformed
 		if (autoApply)
-			options().setGovernorOnByDefault(governorDefault.isSelected());
+			options().setGovernorOnByDefault(governorDefault.isSelected(), true);
 	}//GEN-LAST:event_governorDefaultActionPerformed
 
 	private void brightnessPctMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_brightnessPctMouseWheelMoved

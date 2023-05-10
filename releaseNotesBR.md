@@ -27,6 +27,8 @@ May updates:
   - Option to choose between the old and new design.
   - Option to adjust the size.
   - Option to adjust the brightness.
+  - Options are now saved to the game file.
+  - New compact panel available from setup Menu. (To configure User's preferences)
 
 New Fixes:
 - PopUp selection list: "Cancel" will work again!

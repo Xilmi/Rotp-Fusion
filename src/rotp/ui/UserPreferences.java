@@ -15,7 +15,6 @@
  */
 package rotp.ui;
 
-
 import static rotp.model.empires.SystemView.AUTO_FLAG_NOT;
 import static rotp.model.empires.SystemView.flagAssignationMap;
 import static rotp.model.game.IGameOptions.AI_HOSTILITY_NORMAL;
@@ -400,7 +399,7 @@ public class UserPreferences {
 	public	static final ParamInteger randomAlienRacesTargetMin	= new ParamInteger(
 			MOD_UI, "RACES_RAND_TARGET_MIN"
 			, 0, null, null, 1, 10, 100);
-	public	static final ParamBoolean randomAlienRacesSmoothEdges= new ParamBoolean(
+	public	static final ParamBoolean randomAlienRacesSmoothEdges = new ParamBoolean(
 			MOD_UI, "RACES_RAND_EDGES", true);
 	public	static final RandomAlienRaces randomAlienRaces		= new RandomAlienRaces(
 			MOD_UI, "RACES_ARE_RANDOM", RandomAlienRaces.TARGET);
@@ -481,7 +480,7 @@ public class UserPreferences {
 			return super.set(newValue);
 		}
 	};
-	static final ParamOptions menuStartup		= new ParamOptions(
+		   static final ParamOptions menuStartup		= new ParamOptions(
 			MOD_UI, "MENU_STARTUP", ParamOptions.VANILLA);
 		   static final ParamOptions menuAfterGame		= new ParamOptions(
 			MOD_UI, "MENU_AFTER_GAME", ParamOptions.VANILLA);
@@ -875,9 +874,10 @@ public class UserPreferences {
 		}
 	};
 
-	private static final ParamTitle headerSpacer = new ParamTitle("SPACER");
+	public	static final ParamTitle headerSpacer = new ParamTitle("SPACER");
 	// Sub GUI Lists and GUI List	
 	// Parameters on these list are auto saved in dynamic list options
+	// Auto Flag interface
 	private static final LinkedList<LinkedList<InterfaceParam>> autoFlagOptionsMap = 
 			new LinkedList<LinkedList<InterfaceParam>>();
 	static {
@@ -897,7 +897,9 @@ public class UserPreferences {
 				flagOrionColor, flagAntaranColor,
 				flagUltraRichColor, flagRichColor, flagAssetNormalColor,
 				flagPoorColor, flagUltraPoorColor, flagNoneColor,
-				headerSpacer, new ParamTitle("AUTO_FLAG_ENVIRONMENT"),
+				
+				headerSpacer,
+				new ParamTitle("AUTO_FLAG_ENVIRONMENT"),
 				flagEnvGaiaColor, flagEnvFertileColor,
 				flagEnvNormalColor,	flagEnvHostileColor, flagEnvNoneColor
 				)));
@@ -1000,7 +1002,11 @@ public class UserPreferences {
 
 				headerSpacer,
 				new ParamTitle("PLANETS_FLAG_OPTIONS"),
-				flagColorCount, autoFlagOptionsUI
+				flagColorCount, autoFlagOptionsUI,
+
+				headerSpacer,
+				new ParamTitle("GOVERNOR_SETUP_MENU"),
+				GovernorOptions.governorOptionsUI
 				)));
 		mergedDynamicOptionsMap.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("ZOOM_FACTORS"),
@@ -1060,7 +1066,7 @@ public class UserPreferences {
 			));
 	public static final LinkedList<InterfaceParam> modOptionsDynamicB = new LinkedList<>(
 			Arrays.asList(
-				eventsStartTurn, counciRequiredPct,
+				eventsStartTurn, counciRequiredPct, GovernorOptions.governorOptionsUI,
 				null,
 				amoebaDelayTurn, amoebaMaxSystems, amoebaReturnTurn,
 				null,

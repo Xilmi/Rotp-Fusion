@@ -50,6 +50,12 @@ Later:
 
 2023.05.08 (BR)
 - Governor Panel update:
+  - Options are now saved to the game file.
+  - New compact panel available from setup Menu.
+  - minor fixes.
+
+2023.05.08 (BR)
+- Governor Panel update:
   - Option to choose between the old and new design.
   - Option to adjust the size.
   - Option to adjust the brightness.

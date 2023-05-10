@@ -2992,8 +2992,110 @@ GAME_OVER_REPLAY                  | Replay
 // %1 Game year, %2 player name, %3 player race, %4 player empire, %5 leader name, %6 leader race, %7 leader empire, %8 special text
 GAME_OVER_NO_COLONIES_LOSS2       | The rule of %2 has ended, undone by imperial incompetence.#With no civilized worlds on which to land safely, any surviving [player_race] transports are unable to sustain the technological progress made by your society.#Barbarism is the natural state of society. Civilization is unnatural. It is a whim of circumstance. And barbarism must ultimately triumph.
 
-// Help Menu added by MOD
-SETUP_OPP_CR_OPTIONS_HELP         | Default abilities for alien Races:<br> 'Base Races' = Standard abilities of the selected Race (in the Boxes below);<br> 'Reworked' = New abilities you have saved with the race default name.<br> (ex: RACE_DARLOK for the Naslok);<br> *Race = specific base Race; or any other customized race you have built.
+//
+// ===== BR: Governor labels =====
+// 
+HEADERS_GOVERNOR_SETUP_MENU_DESC  | To define the Governor options ouside of the Game
+HEADERS_GOVERNOR_SETUP_MENU       | ~~~ SETUP GOVERNOR ~~~%1
+GOVENOR_SETUP_TITLE               | Governor Setup Panel
+GOVERNOR_SETUP_MENU_DESC          | Open Sub Menu to access Governor Options Setup.
+GOVERNOR_SETUP_MENU               | Governor Menu: %1
+
+HEADERS_GOVERNOR_TRANSPORT_OPTIONS_DESC | AutoTransport Options.
+HEADERS_GOVERNOR_TRANSPORT_OPTIONS  | ~~~ AUTO-TRANSPORT OPTIONS ~~~%1
+GOVERNOR_AUTO_TRANSPORT_DESC        | Let AI handle population transportation.
+GOVERNOR_AUTO_TRANSPORT             | Auto Transport: %1
+GOVERNOR_TRANSPORT_XILMI_DESC       | Population automatically transported from colonies at max production capacity.
+GOVERNOR_TRANSPORT_XILMI            | From Max Prod: %1
+GOVERNOR_TRANSPORT_UNGOVERNED_DESC  | Allow sending population from ungoverned colonies.
+GOVERNOR_TRANSPORT_UNGOVERNED       | From Ungoverned: %1
+GOVERNOR_TRANSPORT_RICH_OFF_DESC    | Don't send from Rich/Artifacts planets.
+GOVERNOR_TRANSPORT_RICH_OFF         | Spare Rich: %1
+GOVERNOR_TRANSPORT_POOR_DBL_DESC    | Send double from Poor planets.
+GOVERNOR_TRANSPORT_POOR_DBL         | Double from Poor: %1
+GOVERNOR_TRANSPORT_MAX_TURNS_DESC   | Maximum transport distance in turns.<br>(1.5x higher distance when transporting to nebulae)
+GOVERNOR_TRANSPORT_MAX_TURNS        | Max Distance: %1 turn(s)
+
+HEADERS_GOVERNOR_STARGATES_OPTIONS_DESC | StarGates Options.
+HEADERS_GOVERNOR_STARGATES_OPTIONS      | ~~~ STARGATES OPTIONS ~~~%1
+GOVERNOR_STARGATES_OPTIONS_DESC      | To select when the stargates should be build automatically.
+GOVERNOR_STARGATES_OPTIONS           | Gates Built: %1
+GOVERNOR_STARGATES_NONE              | Never
+GOVERNOR_STARGATES_RICH              | Rich
+GOVERNOR_STARGATES_ALL               | All
+GOVERNOR_STARGATES_NONE_HELP         | Never build stargates.
+GOVERNOR_STARGATES_RICH_HELP         | Build stargates on Rich and Ultra Rich planets.
+GOVERNOR_STARGATES_ALL_HELP          | Always build stargates.
+
+HEADERS_GOVERNOR_COLONY_OPTIONS_DESC | Colony Options.
+HEADERS_GOVERNOR_COLONY_OPTIONS      | ~~~ COLONY OPTIONS ~~~%1
+GOVERNOR_MIN_MISSILE_BASES_DESC      | Minimum missile bases to be built automatically.
+GOVERNOR_MIN_MISSILE_BASES           | Min Bases: %1
+GOVERNOR_SHIELD_WITHOUT_BASES_DESC   | Allow shields without bases.
+GOVERNOR_SHIELD_WITHOUT_BASES        | Shields alones: %1
+GOVERNOR_AUTOSPEND_DESC              | Automatically spend reserve on planets with lowest production.
+GOVERNOR_AUTOSPEND                   | autospend: %1
+GOVERNOR_RESERVE_DESC                | Keep in reserve.
+GOVERNOR_RESERVE                     | Reserve: %1
+GOVERNOR_SHIP_BUILDING_DESC          | Shipbuilding with Governor enabled. Divert resources into shipbuilding and not research if planet is already building ships.
+GOVERNOR_SHIP_BUILDING               | Shipbuilding: %1
+GOVERNOR_LEGACY_GROWTH_MODE_DESC     | Develop colonies as quickly as possible.
+GOVERNOR_LEGACY_GROWTH_MODE          | Rapid growth: %1
+
+HEADERS_GOVERNOR_INTELLIGENCE_OPTIONS_DESC | Spying activities related Options.
+HEADERS_GOVERNOR_INTELLIGENCE_OPTIONS      | ~~~ INTELLIGENCE OPTIONS ~~~%1
+GOVERNOR_AUTO_INFILTRATE_DESC        | Automatically sends spies to infiltrate other empires.
+GOVERNOR_AUTO_INFILTRATE             | spare Xenophobes: %1
+GOVERNOR_AUTO_SPY_DESC               | Hand control over spies to AI.
+GOVERNOR_AUTO_SPY                    | spare Xenophobes: %1
+GOVERNOR_SPARE_XENOPHOBES_DESC       | Once framed by xenophobic empire: stop spying and infiltration to avoid further outrage.
+GOVERNOR_SPARE_XENOPHOBES            | spare Xenophobes: %1
+
+HEADERS_GOVERNOR_FLEET_OPTIONS_DESC  | Fleet Options.
+HEADERS_GOVERNOR_FLEET_OPTIONS       | ~~~ FLEET OPTIONS ~~~%1
+GOVERNOR_AUTO_SCOUT_DESC             | Auto Scout.
+GOVERNOR_AUTO_SCOUT                  | Auto Scout: %1
+GOVERNOR_AUTO_COLONIZE_DESC          | Auto Colonize.
+GOVERNOR_AUTO_COLONIZE               | Auto Colonize: %1
+GOVERNOR_AUTO_ATTACK_DESC            | Auto Attack.
+GOVERNOR_AUTO_ATTACK                 | Auto Attack: %1
+GOVERNOR_AUTO_SCOUT_COUNT_DESC       | Number of scout ships to send.
+GOVERNOR_AUTO_SCOUT_COUNT            | Scout Count: %1
+GOVERNOR_AUTO_COLONY_COUNT_DESC      | Number of Colony ships to send.
+GOVERNOR_AUTO_COLONY_COUNT           | Colony Count: %1
+GOVERNOR_AUTO_ATTACK_COUNT_DESC      | Number of Attack ships to send.
+GOVERNOR_AUTO_ATTACK_COUNT           | Attack Count: %1
+GOVERNOR_AUTOSHIPS_BY_DEFAULT_DESC   | AutoShips is set to "On" by Default: If true, new colonies will have auto ship building set to "on".
+GOVERNOR_AUTOSHIPS_BY_DEFAULT        | Preset autoShipst: %1
+
+HEADERS_GOVERNOR_ASPECT_OPTIONS_DESC | Appearance related Options.
+HEADERS_GOVERNOR_ASPECT_OPTIONS      | ~~~ ASPECT OPTIONS ~~~%1
+GOVERNOR_ORIGINAL_PANEL_DESC         | How the panel should be displayed? Old ways or Rotp like?
+GOVERNOR_ORIGINAL_PANEL              | Original View: %1
+GOVERNOR_ORIGINAL_PANEL_YES          | Grey
+GOVERNOR_ORIGINAL_PANEL_NO           | Rotp Colors
+GOVERNOR_ORIGINAL_PANEL_YES_HELP     | The panel will be displayed in its gray color as originally designed.<br>No size or brightness control.
+GOVERNOR_ORIGINAL_PANEL_NO_HELP      | The panel will copy the Rotp fonts, colors and icons.<br>It will be resizable, and the brightnes can be adjusted.
+GOVERNOR_CUSTOM_SIZE_DESC            | Quick way to activate or deactivate the resizing.  (Available for the new design only)
+GOVERNOR_CUSTOM_SIZE                 | Custom Size: %1
+GOVERNOR_SIZE_FACTOR_DESC            | The factor used to adjust the font size.<br>The other parameters will follow; but with discret increments, leading to jerky changes. (Available for the new design only)
+GOVERNOR_SIZE_FACTOR                 | Size Factor: %1%
+GOVERNOR_BRIGHTNESS_DESC             | The Rotp panel have various brightness level... I will let you choose what this one should use!  (Available for the new design only)
+GOVERNOR_BRIGHTNESS                  | Brightness: %1%
+
+HEADERS_GOVERNOR_OTHER_OPTIONS_DESC | Unclassified Options.
+HEADERS_GOVERNOR_OTHER_OPTIONS      | ~~~ OTHER OPTIONS ~~~%1
+GOVERNOR_AUTO_APPLY_DESC            | Apply the option on the fly, without having to close the panel. (Standard floating panel only)
+GOVERNOR_AUTO_APPLY                 | Auto Apply: %1
+GOVERNOR_ON_BY_DEFAULT_DESC         | This will activate the governor for all new colonies, created or invaded.
+GOVERNOR_ON_BY_DEFAULT              | On By Default: %1
+GOVERNOR_ANIMATED_IMAGE_DESC        | If the animation is disturbing you, you can stop it by clicking on it!<br>another click will reativate it.
+GOVERNOR_ANIMATED_IMAGE             | Animate Image: %1
+
+//
+// ===== BR: Guide and contextual Help added by Mods =====
+// 
+SETUP_OPP_CR_OPTIONS_HELP           | Default abilities for alien Races:<br> 'Base Races' = Standard abilities of the selected Race (in the Boxes below);<br> 'Reworked' = New abilities you have saved with the race default name.<br> (ex: RACE_DARLOK for the Naslok);<br> *Race = specific base Race; or any other customized race you have built.
 
 
 // Common Guides and Help

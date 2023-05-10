@@ -1675,6 +1675,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
     public static void updateOptionsAndSaveToFileName(MOO1GameOptions options, String fileName, String guiID) {
     	writeModSettingsToOptions(options, guiID);
+    	newOptionsLoaded();
     	saveOptions(options, Rotp.jarPath(), fileName);
     }
     public static void loadAndUpdateFromFileName(MOO1GameOptions options, String fileName, String guiID) {
