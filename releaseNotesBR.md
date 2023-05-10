@@ -29,6 +29,7 @@ May updates:
   - Option to adjust the brightness.
   - Options are now saved to the game file.
   - New compact panel available from setup Menu. (To configure User's preferences)
+  - If Fullscreen and OS Allows "Always on top": Governor panel will be "Always on top".
 
 New Fixes:
 - PopUp selection list: "Cancel" will work again!

@@ -53,6 +53,7 @@ Later:
   - Options are now saved to the game file.
   - New compact panel available from setup Menu.
   - minor fixes.
+  - If Fullscreen and OS Allows "Always on top": Governor panel will be "Always on top".
 
 2023.05.08 (BR)
 - Governor Panel update:

@@ -30,6 +30,7 @@ import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.SystemViewer;
+import rotp.ui.UserPreferences;
 import rotp.util.ImageManager;
 
 import javax.swing.*;
@@ -650,6 +651,9 @@ public class EmpireColonySpendingPane extends BasePanel {
                     newContentPane.setOpaque(true); //content panes must be opaque
                     governorOptionsFrame.setContentPane(newContentPane);
                     newContentPane.applyStyle(); // Keep after set to the frame
+                    if (UserPreferences.fullScreen() &&
+                    		governorOptionsFrame.isAlwaysOnTopSupported())
+                    	governorOptionsFrame.setAlwaysOnTop(true);
                 }
                 //Display the window.
                 governorOptionsFrame.pack();

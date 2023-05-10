@@ -102,7 +102,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	public	interface NewOptionsListener { void optionLoaded(); }
 	private	static List<NewOptionsListener> listeners = new ArrayList<NewOptionsListener>();
     public	static void addListener(NewOptionsListener toAdd) { listeners.add(toAdd); }
-    public	static void newOptionsLoaded() {
+    public	static void optionsUpdated() {
         for (NewOptionsListener hl : listeners)
             hl.optionLoaded();
     }
@@ -1675,7 +1675,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
     public static void updateOptionsAndSaveToFileName(MOO1GameOptions options, String fileName, String guiID) {
     	writeModSettingsToOptions(options, guiID);
-    	newOptionsLoaded();
+    	optionsUpdated();
     	saveOptions(options, Rotp.jarPath(), fileName);
     }
     public static void loadAndUpdateFromFileName(MOO1GameOptions options, String fileName, String guiID) {
@@ -1684,7 +1684,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private static MOO1GameOptions loadFileName(String fileName) {
     	MOO1GameOptions dest = loadOptions(Rotp.jarPath(), fileName);
         final Runnable tell = () -> {
-        	newOptionsLoaded();
+        	optionsUpdated();
         };
         SwingUtilities.invokeLater(tell);
    		return dest;
