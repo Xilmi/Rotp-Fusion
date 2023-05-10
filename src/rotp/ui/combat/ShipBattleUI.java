@@ -2518,7 +2518,13 @@ public class ShipBattleUI extends FadeInPanel implements Base, MouseListener, Mo
                 nextStack();
                 return;
             }
-            List<ShipActionButton> buttons = new ArrayList<>(shipActionButtons);
+            // List<ShipActionButton> buttons = new ArrayList<>(shipActionButtons);
+            // BR: Fix to bombing propagated to next turn:
+            // BR: Only valid buttons are added to the list!
+            List<ShipActionButton> buttons = new ArrayList<>();
+            for (ShipActionButton butt: shipActionButtons)
+            	if (butt.canUse())
+            		buttons.add(butt);
             CombatStack stackAtClickTime = mgr.currentStack();
             for (ShipActionButton butt: buttons) {
                 if (butt != this)

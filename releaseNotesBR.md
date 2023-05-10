@@ -34,6 +34,7 @@ May updates:
 New Fixes:
 - PopUp selection list: "Cancel" will work again!
 - Fixed Governor not updating options when reloading a file.
+- Fixed Bombing auto firing the turn following a "Fire all weapon".
 
 April Release:
 

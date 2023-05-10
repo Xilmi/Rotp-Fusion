@@ -48,6 +48,9 @@ Later:
 
 ## What's New
 
+2023.05.09 (BR)
+- Fixed Bombing auto firing the turn following a "Fire all weapon"
+
 2023.05.08 (BR)
 - Governor Panel update:
   - Options are now saved to the game file.
