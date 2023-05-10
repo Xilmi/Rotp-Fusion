@@ -306,11 +306,15 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
             envStr = text("PLANET_HOSTILE");
         }
         else if (pl.isEnvironmentFertile(sys)) {
-            g2.setColor(greenText);
+//            g2.setColor(greenText);
+//            g2.setColor(blueText);
+            g2.setColor(greenFertileText);
             envStr = text("PLANET_FERTILE");
         }
         else if (pl.isEnvironmentGaia(sys)) {
-            g2.setColor(greenText);
+//            g2.setColor(greenText); // TODO BR: Test Green
+//            g2.setColor(blueText);
+            g2.setColor(greenGaiaText);
             envStr = text("PLANET_GAIA");
         }
 

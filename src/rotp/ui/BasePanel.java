@@ -43,6 +43,7 @@ import rotp.ui.main.MainUI;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.util.InterfacePreview;
 import rotp.util.Base;
+import rotp.util.Palette;
 import rotp.util.ThickBevelBorder;
 
 public class BasePanel extends JPanel implements Base, InterfacePreview {
@@ -62,6 +63,10 @@ public class BasePanel extends JPanel implements Base, InterfacePreview {
     private static Border buttonBevelBorder;
     static final Color greenText = Color.green;
     static final Color greenBackground = new Color(0, 128, 0, 128);
+    protected static final Color greenGaiaText	  = new Palette().green;
+    protected static final Color greenFertileText = new Color(255, 192, 32);
+//    protected static final Color greenGaiaText	  = new Color(68,206,67);
+//    protected static final Color greenFertileText = new Color(32, 150, 32);
 
     static Image textureGray, textureBrown;
 

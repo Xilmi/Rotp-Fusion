@@ -966,9 +966,12 @@ public abstract class SystemListingUI extends BasePanel implements MouseListener
             String val = sys.getAttribute(attributeKey);
             int sw = g.getFontMetrics().stringWidth(val);
 
-            // Planet p = sys.planet();
-            if (player().isEnvironmentFertile(sys) || player().isEnvironmentGaia(sys))
-                g.setColor(palette.green);
+            // if (player().isEnvironmentFertile(sys) || player().isEnvironmentGaia(sys))
+            //     g.setColor(palette.green);
+            if (player().isEnvironmentFertile(sys))
+                g.setColor(greenFertileText);
+            else if (player().isEnvironmentGaia(sys))
+                g.setColor(greenGaiaText);
             else if (player().isEnvironmentHostile(sys))
                 g.setColor(palette.maroon);
             else

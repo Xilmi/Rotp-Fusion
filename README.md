@@ -47,7 +47,8 @@ Later:
 
 2023.05.10 (BR)
 - Fixed Bombing auto firing the turn following a "Fire all weapon"
-- Governor new options Initialized withRemnant.cfg 
+- Governor new options Initialized withRemnant.cfg
+- Different color for Gaia and Fertile text.
 
 2023.05.09 (BR)
 - Governor Panel update:
