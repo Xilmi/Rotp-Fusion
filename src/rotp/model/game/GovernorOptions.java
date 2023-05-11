@@ -105,7 +105,7 @@ public class GovernorOptions implements Serializable {
 	private	final static ParamBoolean	autoSpend			= new ParamBoolean(
 			GOV_UI, "AUTOSPEND", false);
 	private	static final ParamInteger	reserveForSlow		= new ParamInteger(
-			GOV_UI, "RESERVE", 0, 0, 20, 1, 5, 20);
+			GOV_UI, "RESERVE", 0, 0, 100000, 10, 50, 200);
 	private	final static ParamBoolean	shipBuilding		= new ParamBoolean(
 			GOV_UI, "SHIP_BUILDING", true);
 	private	final static ParamBoolean	maxGrowthMode		= new ParamBoolean(

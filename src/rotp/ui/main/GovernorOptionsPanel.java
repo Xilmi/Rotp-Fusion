@@ -210,10 +210,6 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 		protectedReset();
 	} 
 	public void applyStyle() { protectedUpdatePanel(); }
-	public void refresh() {
-		loadValues();
-		setRaceImg();
-	}
 	
 	// ========== Local tools ==========
 	//
@@ -665,7 +661,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         javax.swing.JPanel colonyPanel = new javax.swing.JPanel();
         autospend = new javax.swing.JCheckBox();
         reserve = new javax.swing.JSpinner();
-        resrveLabel = new javax.swing.JLabel();
+        reserveLabel = new javax.swing.JLabel();
         shipbuilding = new javax.swing.JCheckBox();
         shieldWithoutBases = new javax.swing.JCheckBox();
         legacyGrowthMode = new javax.swing.JCheckBox();
@@ -770,9 +766,9 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
                     .addComponent(transportPoorDouble)
                     .addComponent(transportMaxTurnsNebula)
                     .addGroup(autotransportPanelLayout.createSequentialGroup()
-                        .addComponent(transportMaxTurns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(transportMaxTurnsLabel))
+                        .addComponent(transportMaxTurns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(transportMaxTurnsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(autotransportXilmi)
                     .addComponent(allowUngoverned)
                     .addComponent(autotransport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1057,7 +1053,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
             }
         });
 
-        resrveLabel.setText("Keep in reserve");
+        reserveLabel.setText("Keep in reserve");
 
         shipbuilding.setText("Shipbuilding with Governor enabled");
         shipbuilding.setToolTipText("Divert resources into shipbuilding and not research if planet is already building ships");
@@ -1109,18 +1105,18 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
                 .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(shipbuilding)
                     .addGroup(colonyPanelLayout.createSequentialGroup()
-                        .addComponent(missileBases, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(missileBases)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(missileBasesLabel))
+                        .addComponent(missileBasesLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(shieldWithoutBases))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(colonyPanelLayout.createSequentialGroup()
-                        .addComponent(reserve, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(resrveLabel))
+                        .addComponent(reserve, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(reserveLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(legacyGrowthMode)
-                    .addComponent(autospend))
+                    .addComponent(autospend, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         colonyPanelLayout.setVerticalGroup(
@@ -1144,13 +1140,13 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
                     .addGroup(colonyPanelLayout.createSequentialGroup()
                         .addGroup(colonyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(reserve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(resrveLabel))
+                            .addComponent(reserveLabel))
                         .addGap(63, 63, 63))))
         );
 
         colonyPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {missileBases, missileBasesLabel});
 
-        colonyPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {reserve, resrveLabel});
+        colonyPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {reserve, reserveLabel});
 
         spyPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Intelligence Options", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13))); // NOI18N
 
@@ -1547,10 +1543,10 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 			options().setLegacyGrowthMode(legacyGrowthMode.isSelected(), true);
 	}//GEN-LAST:event_legacyGrowthModeActionPerformed
 
-	private void autoSpyActionPerformed(java.awt.event.ActionEvent evt) {										
+	private void autoSpyActionPerformed(java.awt.event.ActionEvent evt) {                                               
 		if (autoApply)
 			options().setAutoSpy(autoSpy.isSelected(), true);
-	}									   
+	}                                                
 
 	private void spareXenophobesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoSpyActionPerformed
 		if (autoApply)
@@ -1705,7 +1701,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
     private javax.swing.JButton okButton;
     private javax.swing.JLabel raceImage;
     private javax.swing.JSpinner reserve;
-    private javax.swing.JLabel resrveLabel;
+    private javax.swing.JLabel reserveLabel;
     private javax.swing.JCheckBox shieldWithoutBases;
     private javax.swing.JCheckBox shipbuilding;
     private javax.swing.JLabel sizeFactorLabel;

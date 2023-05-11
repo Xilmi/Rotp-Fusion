@@ -149,9 +149,9 @@
                       <Component id="transportPoorDouble" min="-2" max="-2" attributes="0"/>
                       <Component id="transportMaxTurnsNebula" alignment="0" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="transportMaxTurns" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="transportMaxTurnsLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="transportMaxTurns" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="transportMaxTurnsLabel" max="32767" attributes="0"/>
                       </Group>
                       <Component id="autotransportXilmi" alignment="0" max="-2" attributes="0"/>
                       <Component id="allowUngoverned" alignment="0" max="-2" attributes="0"/>
@@ -582,21 +582,21 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="shipbuilding" alignment="0" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="missileBases" min="-2" pref="64" max="-2" attributes="0"/>
+                          <Component id="missileBases" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="missileBasesLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="missileBasesLabel" max="32767" attributes="0"/>
                       </Group>
                       <Component id="shieldWithoutBases" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="reserve" min="-2" pref="90" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="resrveLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="reserve" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="reserveLabel" max="32767" attributes="0"/>
                       </Group>
                       <Component id="legacyGrowthMode" min="-2" max="-2" attributes="0"/>
-                      <Component id="autospend" min="-2" max="-2" attributes="0"/>
+                      <Component id="autospend" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -627,7 +627,7 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="reserve" linkSize="19" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="resrveLabel" linkSize="19" alignment="2" min="-2" max="-2" attributes="0"/>
+                              <Component id="reserveLabel" linkSize="19" alignment="2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                       </Group>
@@ -657,7 +657,7 @@
             <EventHandler event="mouseWheelMoved" listener="java.awt.event.MouseWheelListener" parameters="java.awt.event.MouseWheelEvent" handler="reserveMouseWheelMoved"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="resrveLabel">
+        <Component class="javax.swing.JLabel" name="reserveLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Keep in reserve"/>
           </Properties>
