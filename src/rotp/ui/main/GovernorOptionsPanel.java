@@ -141,7 +141,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	public GovernorOptionsPanel(JFrame frame) {
 		this.frame = frame;
 		protectedInitPanel();
-		MOO1GameOptions.addListener(this);   
+		MOO1GameOptions.addListener(this);
 	}
 	private void initNewColors() {
 		if (newFormat) {
@@ -192,6 +192,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 		}
 		initPanel();
 		updateOngoing = false;
+		frame.setVisible(true);
+		frame.setLocation(options().getPosition());
 		frame.setVisible(visible);
 		startAnimation();
 	}
@@ -524,7 +526,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 		this.customSize.setSelected(options.isCustomSize());
 		this.sizePct.setValue(options.getSizeFactorPct());
 		this.brightnessPct.setValue(options.getBrightnessPct());
-		this.isOriginal.setSelected(options.isOriginalPanel());
+		this.isOriginal.setSelected(options.isOriginalPanel());		
 	}
 	private void applyAction() {// BR: Save Values
 		GovernorOptions options = GameSession.instance().getGovernorOptions();
@@ -566,7 +568,6 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 		options.setIsCustomSize(customSize.isSelected(), false);
 		options.setSizeFactorPct((Integer)sizePct.getValue(), false);
 		options.setBrightnessPct((Integer)brightnessPct.getValue(), false);
-		
 		// Other Options
 		options.setGovernorOnByDefault(governorDefault.isSelected(), false);
 		options.setIsAnimatedImage(animatedImage, false);

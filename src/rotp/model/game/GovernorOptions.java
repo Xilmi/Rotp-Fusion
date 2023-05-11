@@ -2,6 +2,7 @@ package rotp.model.game;
 
 import static rotp.ui.UserPreferences.headerSpacer;
 
+import java.awt.Point;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -86,6 +87,10 @@ public class GovernorOptions implements Serializable {
 			GOV_UI, "BRIGHTNESS",	100, 20, 300, 1, 5, 20);
 	private	static final ParamInteger	sizeFactorPct			= new ParamInteger(
 			GOV_UI, "SIZE_FACTOR",	100, 20, 200, 1, 5, 20);
+	private	static final ParamInteger	horizontalPosition		= new ParamInteger(
+			GOV_UI, "POSITION_X",	0, null, null, 1, 5, 20);
+	private	static final ParamInteger	verticalPosition		= new ParamInteger(
+			GOV_UI, "POSITION_Y",	0, null, null, 1, 5, 20);
 
 	// Fleet Options
 	private	final static ParamBoolean	autoScout				= new ParamBoolean(
@@ -147,6 +152,7 @@ public class GovernorOptions implements Serializable {
 				new ParamTitle(GOV_UI + "ASPECT_OPTIONS"),
 				originalPanel, customSize, animatedImage,
 				brightnessPct, sizeFactorPct,
+				horizontalPosition, verticalPosition,
 				
 				headerSpacer,
 				new ParamTitle(GOV_UI + "OTHER_OPTIONS"),
@@ -159,7 +165,7 @@ public class GovernorOptions implements Serializable {
 			"SETUP_TITLE", GOV_GUI_ID);
 	public	static final LinkedList<InterfaceParam> governorOptions = governorOptionsUI.optionsList();
 
-	private boolean localSave = false;
+	private transient boolean localSave = false;
 
 	// ========== Constructor ==========
     public GovernorOptions() {
@@ -213,6 +219,27 @@ public class GovernorOptions implements Serializable {
     	sizeFactorPct.set(newValue);
         if(save) save();
     }
+    public int  getPositionX()					{ return horizontalPosition.get(); }
+    public void setPositionX(int newValue, boolean save) {
+    	horizontalPosition.set(newValue);
+        if(save) save();
+    }
+    public int  getPositionY()					{ return verticalPosition.get(); }
+    public void setPositionY(int newValue, boolean save) {
+    	verticalPosition.set(newValue);
+        if(save) save();
+    }
+    public Point getPosition()					{ 
+    	Point pt = new Point();
+	    	pt.x = horizontalPosition.get();
+	    	pt.y = verticalPosition.get();
+    	return pt;
+    }
+    public void setPosition(Point pt) {
+    	horizontalPosition.set(pt.x);
+    	verticalPosition.set(pt.y);
+    }
+   
     public boolean isAutoApply()				{ return autoApply.get(); }
     public void setAutoApply(boolean newValue, boolean save) {
         autoApply.set(newValue);

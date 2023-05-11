@@ -26,11 +26,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## To-Do list
 Now:
-- Governor colors.
-- Custom Race Menu: Guide continuation
+- Playing the game...
 
 Very soon:
-- Text color for gaia and fertile?
 
 Later:
 - William482 request: Continuing on the topic of things that normal people probably just let the governor do, I would love a button on the "Send Transports From:" popup in the Fleets tab which would, for each world:
@@ -49,6 +47,7 @@ Later:
 - Fixed Bombing auto firing the turn following a "Fire all weapon"
 - Governor new options Initialized withRemnant.cfg
 - Different color for Gaia and Fertile text.
+- Governor Position Memorized.
 
 2023.05.09 (BR)
 - Governor Panel update:

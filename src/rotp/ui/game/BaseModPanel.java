@@ -69,6 +69,8 @@ public abstract class BaseModPanel extends BasePanel
 	private static final String restoreLocalKey		= "SETTINGS_LOCAL_RESTORE";
 	private static final String guideKey			= "SETTINGS_GUIDE";
 	protected static final String exitKey		 	= "SETTINGS_EXIT";
+	protected static final String cancelKey		 	= "SETTINGS_CANCEL";
+	protected static final String applyKey		 	= "SETTINGS_APPLY";
 	
 	private	  static int	 exitButtonWidth, guideButtonWidth,
 							 userButtonWidth, defaultButtonWidth, lastButtonWidth;
@@ -94,7 +96,13 @@ public abstract class BaseModPanel extends BasePanel
 	LinkedList<InterfaceParam> activeList;
 	
 	public GuidePopUp guidePopUp;
-
+	
+	protected static final ParamButtonHelp exipButtonHelp = new ParamButtonHelp( // For Help Do not add the list
+			"SETTINGS_BUTTON_EXIT",
+			exitKey,
+			applyKey,
+			cancelKey,
+			"");
 	private static final ParamButtonHelp userButtonHelp = new ParamButtonHelp( // For Help Do not add the list
 			"SETTINGS_BUTTON_USER",
 			setGlobalUserKey,

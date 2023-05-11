@@ -15,6 +15,7 @@
  */
 package rotp.ui.game;
 
+import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
 import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
 import static rotp.ui.UserPreferences.ALL_GUI_ID;
 import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
@@ -70,7 +71,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	private static final int bottomPad		= rowPad;
 	private static final int textBoxH		= settingH;
 	private static final int hDistSetting	= settingH + settingpadH; // distance between two setting top corner
-	private		   final Box exitBox		= new Box(exitKey);
+	private		   final Box exitBox		= new Box(exipButtonHelp);
 	private		   final JTextPane descBox	= new JTextPane();
 	private int leftM, rightM;
 	private int topM, yTop;
@@ -353,6 +354,14 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	}
 	// ========== Overriders ==========
 	//
+	@Override 	protected String exitButtonKey() {
+		switch (ModifierKeysState.get()) {
+		case CTRL:		 return cancelKey;
+		case CTRL_SHIFT: return cancelKey;
+		case SHIFT:		 return applyKey;
+		default:		 return exitKey;
+		}
+	}
 	@Override protected void close() {
 		super.close();
 		hoverBox = null;
@@ -374,8 +383,22 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		}
 	}
 	@Override protected void doExitBoxAction()		{
-		UserPreferences.save();
-		updateOptionsAndSaveToFileName(RotPUI.mergedGuiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+		buttonClick();
+		switch (ModifierKeysState.get()) {
+		case CTRL:			// Cancel and exit
+		case CTRL_SHIFT:	// Cancel and exit
+			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+			UserPreferences.load();
+			break;
+		case SHIFT:			// Apply
+			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+			repaintButtons();
+			return; 
+		default:			// Exit
+			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+			UserPreferences.save();
+			break; 
+		}
 		if (parent == 0) // Sub UI should not change this
 			RotPUI.guiCallFromGame(false);
 		close();

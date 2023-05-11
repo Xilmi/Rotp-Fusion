@@ -27,6 +27,8 @@ import java.util.ArrayList; // modnar: change to cleaner icon set
 
 import rotp.model.colony.Colony;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.game.GameSession;
+import rotp.model.game.GovernorOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.SystemViewer;
@@ -636,7 +638,17 @@ public class EmpireColonySpendingPane extends BasePanel {
             @Override
 			public void run() {
                 if (governorOptionsFrame == null) {
-                    governorOptionsFrame = new JFrame("GovernorOptions");
+                    governorOptionsFrame = new JFrame("GovernorOptions") {
+                    	{
+                    		addComponentListener(new java.awt.event.ComponentAdapter() {
+                                @Override
+                    			public void componentMoved(java.awt.event.ComponentEvent evt) {
+                                	GovernorOptions options = GameSession.instance().getGovernorOptions();
+                        			options.setPosition(getLocation());
+                                }
+                            });
+                    	}
+                    };
                     // make this window have an icon, same as main window
                     // modnar: change to cleaner icon set
                     List<Image> iconImages = new ArrayList<Image>();
@@ -658,6 +670,7 @@ public class EmpireColonySpendingPane extends BasePanel {
                 //Display the window.
                 governorOptionsFrame.pack();
                 governorOptionsFrame.setVisible(true);
+                governorOptionsFrame.setLocation(GameSession.instance().getGovernorOptions().getPosition());
             }
         });
     }

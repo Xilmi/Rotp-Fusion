@@ -1731,6 +1731,7 @@ SETTINGS_TITLE                    | Advanced Game Options
 SETTINGS_DESCRIPTION              | Click, Right-Click, or Scroll to toggle each game setting.
 SETTINGS_GUIDE                    | Guide
 SETTINGS_EXIT                     | Exit
+SETTINGS_APPLY                    | Apply Changes
 SETTINGS_CANCEL                   | Cancel Changes
 SETTINGS_LOCAL_RESTORE            | Restore Local
 SETTINGS_GLOBAL_RESTORE           | Restore Global
@@ -2997,7 +2998,7 @@ GAME_OVER_NO_COLONIES_LOSS2       | The rule of %2 has ended, undone by imperial
 // 
 HEADERS_GOVERNOR_SETUP_MENU_DESC  | To define the Governor options ouside of the Game
 HEADERS_GOVERNOR_SETUP_MENU       | ~~~ SETUP GOVERNOR ~~~%1
-GOVENOR_SETUP_TITLE               | Governor Setup Panel
+GOVERNOR_SETUP_TITLE              | Governor Setup Panel
 GOVERNOR_SETUP_MENU_DESC          | Open Sub Menu to access Governor Options Setup.
 GOVERNOR_SETUP_MENU               | Governor Menu: %1
 
@@ -3082,6 +3083,10 @@ GOVERNOR_SIZE_FACTOR_DESC            | The factor used to adjust the font size.<
 GOVERNOR_SIZE_FACTOR                 | Size Factor: %1%
 GOVERNOR_BRIGHTNESS_DESC             | The Rotp panel have various brightness level... I will let you choose what this one should use!  (Available for the new design only)
 GOVERNOR_BRIGHTNESS                  | Brightness: %1%
+GOVERNOR_POSITION_X_DESC             | Horizontal position of the Governor Panel.
+GOVERNOR_POSITION_X                  | X position: %1
+GOVERNOR_POSITION_Y_DESC             | Vertical position of the Governor Panel.
+GOVERNOR_POSITION_Y                  | Y position: %1
 
 HEADERS_GOVERNOR_OTHER_OPTIONS_DESC | Unclassified Options.
 HEADERS_GOVERNOR_OTHER_OPTIONS      | ~~~ OTHER OPTIONS ~~~%1
@@ -3099,6 +3104,7 @@ SETUP_OPP_CR_OPTIONS_HELP           | Default abilities for alien Races:<br> 'Ba
 
 
 // Common Guides and Help
+SETTINGS_BUTTON_EXIT_DESC         | Exit / Apply / Cancel <br> (Switch with "Ctrl" or "Shift")
 SETTINGS_BUTTON_USER_DESC         | Save or reload User's options.<br> (Switch with "Ctrl" or "Shift")
 SETTINGS_BUTTON_LAST_DESC         | Reload Last session or last Game options.<br> (Switch with "Ctrl" or "Shift")
 SETTINGS_BUTTON_DEFAULT_DESC      | Reload Default options or Restore initial options.<br> (Switch with "Ctrl" or "Shift")
@@ -3108,6 +3114,7 @@ SETTINGS_BUTTON_HELP_DESC         | This or <b>"F1"</b>  will display a global o
 SETTINGS_GUIDE_HELP               | <b>Enable / Disable</b> automated contextual Help on all setup panels.<br> A short explantion will pop up when the mouse is over an option.<br> A longuer explanation may be some time available by pressing <b>"F1"</b> (when hovering the option). Elsewhere, <b>"F1"</b> will show a global overview of the panel<br>The guide can also be enable/disabled with the key <b>"G"</b>.
 SETTINGS_GUIDE_DESC               | Enable / Disable automated contextual Help on all setup panels.
 SETTINGS_EXIT_DESC                | Save the current Settings then Exit Panel.
+SETTINGS_APPLY_DESC               | Save the current Settings.
 SETTINGS_CANCEL_DESC              | Cancel settings changes then Exit Panel.
 SETTINGS_LOCAL_RESTORE_DESC       | Restore options in this panel to their state when entering this panel.
 SETTINGS_GLOBAL_RESTORE_DESC      | Restore options for all GUIs to their state when entering this panel.
