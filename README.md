@@ -45,6 +45,7 @@ Later:
 
 2023.05.11 (BR)
 - Improved Governor options continuity
+- Unlocked Screen Size up to 200%
 
 2023.05.10 (BR)
 - Fixed Bombing auto firing the turn following a "Fire all weapon"

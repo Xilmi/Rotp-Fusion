@@ -1461,7 +1461,7 @@ public class UserPreferences {
 		return LanguageManager.selectedLanguageDir();
 	}
 	private static void setScreenSizePct(int i) {
-		screenSizePct = Math.max(50,Math.min(i,100));
+		screenSizePct = Math.max(50,Math.min(i,200));
 	}
 	public static boolean shrinkFrame() {
 		int oldSize = screenSizePct;
