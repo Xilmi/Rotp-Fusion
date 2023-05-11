@@ -622,7 +622,8 @@ public class UserPreferences {
 		}
 	};
 	public static final ParamInteger aliensNumber 			= new ParamInteger( // Duplicate Do not add the list
-			BASE_UI, "ALIENS_NUMBER", 1, 0, 49, 1, 5, 20, true) {
+			BASE_UI, "ALIENS_NUMBER", 1, 0, 49, 1, 5, 20) {
+		{ isDuplicate(true); }
 		@Override public Integer getFromOption() {
 			maxValue(RotPUI.mergedGuiOptions().maximumOpponentsOptions());
 			return RotPUI.mergedGuiOptions().selectedNumberOpponents();

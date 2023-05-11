@@ -35,7 +35,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	private final String gui;  // The label header
 	private T value;
 	private T defaultValue;
-	private T creationValue; // for a smooth move from Remnant.cfg
+//	private T creationValue; // for a smooth move from Remnant.cfg
 	private T minValue		= null;
 	private T maxValue		= null;
 	private T baseInc		= null;
@@ -57,7 +57,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 		this.gui = gui;
 		this.name = name;
 		this.defaultValue = defaultValue;
-		creationValue = defaultValue; // for a smooth move from Remnant.cfg
+//		creationValue = defaultValue; // for a smooth move from Remnant.cfg
 		value = defaultValue;
 	}
 	/**
@@ -171,7 +171,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	// ========== Public Getters ==========
 	//
 	public String getLabel()	{ return langLabel(getLangLabel()); }
-	public T creationValue()	{ return creationValue; }
+	public T creationValue()	{ return value; }
 	T minValue()	{ return minValue; }	
 	T maxValue()	{ return maxValue; }	
 	T baseInc()		{ return baseInc; }	
@@ -189,7 +189,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	public void maxValue (T newValue)		{ maxValue = newValue;}
 	public void minValue (T newValue)		{ minValue = newValue;}
 	public void defaultValue(T newValue)	{ defaultValue = newValue; }
-	public void creationValue(T newValue)	{ creationValue = newValue; }
+//	public void creationValue(T newValue)	{ creationValue = newValue; }
 	// ========== Private Methods ==========
 	//
 	// ========== Protected Methods ==========

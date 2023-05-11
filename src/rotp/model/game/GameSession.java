@@ -277,6 +277,7 @@ public final class GameSession implements Base, Serializable {
             saveRecentSession(false);
             saveBackupSession(1);
             clearNewGameOptions();
+            instance.governorOptions.gameLoaded();
             MOO1GameOptions.optionsUpdated();
         }
     }
@@ -300,6 +301,7 @@ public final class GameSession implements Base, Serializable {
             saveRecentSession(false);
             saveBackupSession(1);
             clearNewGameOptions();
+            instance.governorOptions.gameLoaded();
             MOO1GameOptions.optionsUpdated();
         }
     }
@@ -825,7 +827,10 @@ public final class GameSession implements Base, Serializable {
     public void saveSession(String filename, boolean backup) throws Exception {
         log("Saving game as file: ", filename, "  backup: "+backup);
         GameSession currSession = GameSession.instance();
-        File theDir = backup ? new File(backupDir()) : new File(saveDir());
+    	// Update quietly the dynamic options before saving
+    	MOO1GameOptions.writeModSettingsToOptions((MOO1GameOptions) currSession.options(), ALL_GUI_ID, false);
+
+    	File theDir = backup ? new File(backupDir()) : new File(saveDir());
         if (!theDir.exists())
             theDir.mkdirs();
         File saveFile = backup ? backupFileNamed(filename) : saveFileNamed(filename);
@@ -899,6 +904,7 @@ public final class GameSession implements Base, Serializable {
         if (!startUp) {
             RotPUI.instance().selectMainPanelLoadGame();
         }
+        instance.governorOptions.gameLoaded();
         MOO1GameOptions.optionsUpdated();
     }
 	private void showInfo(Galaxy g) { // BR: for debug
@@ -996,7 +1002,6 @@ public final class GameSession implements Base, Serializable {
             err("Error saving: ", filename, " - ", e.getMessage());
             RotPUI.instance().mainUI().showAutosaveFailedPrompt(e.getMessage());
         }
-
     }
     public boolean hasRecentSession() {
         try {

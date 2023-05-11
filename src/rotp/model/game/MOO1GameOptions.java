@@ -1535,7 +1535,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
    }
     // ==================== Generalized options methods ====================
     //
-    public static void writeModSettingsToOptions(MOO1GameOptions dest, String guiID) {
+    public static void writeModSettingsToOptions(MOO1GameOptions dest, String guiID, boolean call) {
     	switch (guiID) {
     	case EditCustomRaceUI.GUI_ID:
     	case UserPreferences.ALL_GUI_ID:
@@ -1548,6 +1548,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
        		if (param != null)
     			param.setOptions(dest.dynamicOptions());
        	}
+       	if (call && guiID.equals(UserPreferences.ALL_GUI_ID))
+        	optionsUpdated();
     }
     private static void setBaseAndModSettingsFromOptions(
     		MOO1GameOptions src, MOO1GameOptions dest, String guiID) {
@@ -1674,8 +1676,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	saveOptions(options, Rotp.jarPath(), fileName);
     }
     public static void updateOptionsAndSaveToFileName(MOO1GameOptions options, String fileName, String guiID) {
-    	writeModSettingsToOptions(options, guiID);
-    	optionsUpdated();
+    	writeModSettingsToOptions(options, guiID, true);
     	saveOptions(options, Rotp.jarPath(), fileName);
     }
     public static void loadAndUpdateFromFileName(MOO1GameOptions options, String fileName, String guiID) {

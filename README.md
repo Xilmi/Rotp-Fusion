@@ -43,6 +43,9 @@ Later:
 
 ## What's New
 
+2023.05.11 (BR)
+- Improved Governor options continuity
+
 2023.05.10 (BR)
 - Fixed Bombing auto firing the turn following a "Fire all weapon"
 - Governor new options Initialized withRemnant.cfg

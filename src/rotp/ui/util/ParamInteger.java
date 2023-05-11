@@ -77,25 +77,6 @@ public class ParamInteger extends AbstractParam<Integer> {
 	 * @param baseInc  The base increment
 	 * @param shiftInc The increment when Shift is hold
 	 * @param ctrlInc  The increment when Ctrl is hold
-	 * @param isDuplicate  If is base option duplicate
-	 */
-	public ParamInteger(String gui, String name, Integer defaultValue
-			, Integer minValue, Integer maxValue
-			, Integer baseInc, Integer shiftInc
-			, Integer ctrlInc, boolean isDuplicate) {
-		super(gui, name, defaultValue, minValue, maxValue,
-				baseInc, shiftInc, ctrlInc, shiftInc*ctrlInc/baseInc);
-		isDuplicate(isDuplicate);
-	}
-	/**
-	 * @param gui  The label header
-	 * @param name The name
-	 * @param defaultvalue The default value
-	 * @param minValue The minimum value (null = none)
-	 * @param maxValue The maximum value (null = none)
-	 * @param baseInc  The base increment
-	 * @param shiftInc The increment when Shift is hold
-	 * @param ctrlInc  The increment when Ctrl is hold
 	 */
 	public ParamInteger(String gui, String name, Integer defaultValue
 			, Integer minValue, Integer maxValue
