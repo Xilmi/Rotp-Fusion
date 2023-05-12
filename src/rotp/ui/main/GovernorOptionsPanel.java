@@ -643,6 +643,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         stargateOff = new javax.swing.JRadioButton();
         stargateRich = new javax.swing.JRadioButton();
         stargateOn = new javax.swing.JRadioButton();
+        jLabel1 = new javax.swing.JLabel();
         okButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
         completionist = new javax.swing.JButton();
@@ -823,7 +824,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         });
 
         stargateOptions.add(stargateRich);
-        stargateRich.setText("<HTML>Build stargates on Rich <br>and Ultra Rich planets</HTML>");
+        stargateRich.setText("Build stargates on Rich");
         stargateRich.addActionListener(new java.awt.event.ActionListener() {
             @Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -840,6 +841,9 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
             }
         });
 
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("and Ultra Rich planets");
+
         javax.swing.GroupLayout stargatePanelLayout = new javax.swing.GroupLayout(stargatePanel);
         stargatePanel.setLayout(stargatePanelLayout);
         stargatePanelLayout.setHorizontalGroup(
@@ -847,19 +851,30 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
             .addGroup(stargatePanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(stargatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(stargateOff)
-                    .addComponent(stargateRich, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(stargateOn))
-                .addContainerGap())
+                    .addGroup(stargatePanelLayout.createSequentialGroup()
+                        .addGroup(stargatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(stargateOff)
+                            .addComponent(stargateRich)
+                            .addComponent(stargateOn))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, stargatePanelLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addContainerGap())))
         );
+
+        stargatePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel1, stargateRich});
+
         stargatePanelLayout.setVerticalGroup(
             stargatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(stargatePanelLayout.createSequentialGroup()
                 .addComponent(stargateOff)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(stargateRich, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(stargateRich)
+                .addGap(0, 0, 0)
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(stargateOn))
+                .addComponent(stargateOn)
+                .addGap(0, 0, 0))
         );
 
         okButton.setText("OK");
@@ -1694,6 +1709,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
     private javax.swing.JCheckBox customSize;
     private javax.swing.JCheckBox governorDefault;
     private javax.swing.JCheckBox isOriginal;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanelAspect;
     private javax.swing.JCheckBox legacyGrowthMode;
     private javax.swing.JSpinner missileBases;
