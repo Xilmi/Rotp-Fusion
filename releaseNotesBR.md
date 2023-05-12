@@ -45,5 +45,9 @@ New Fixes:
 - PopUp selection list: "Cancel" will work again!
 - Fixed Governor not updating options when reloading a file.
 - Fixed Bombing auto firing the turn following a "Fire all weapon".
+- Fixed base setting auto colonize and auto bombard not being saved.
+- Governor panel: Fixed ugly html text on Mac.
+- If no flags, only show one black flag.
+
 
 
