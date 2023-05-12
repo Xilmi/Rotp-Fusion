@@ -29,8 +29,7 @@ Now:
 - Playing the game...
 
 Very soon:
-- Auto Colonize- Remnant.cfg
-- Stargate options HTML Mac Bug.
+
 - Governor Buttons.
 - Governor Spinners.
 - Spare Xenophobes: Stop if caught too.
@@ -53,6 +52,7 @@ Later:
 - Fixed base setting auto colonize and auto bombard not being saved.
 - Governor panel: Fixed ugly html text on Mac.
 - If no flags, only show one black flag.
+- Set AI: Hybrid as default AI.
 
 2023.05.11 (BR)
 - Fixed the Spying Labels.

@@ -19,7 +19,7 @@ import static rotp.model.empires.CustomRaceDefinitions.BASE_RACE_MARKER;
 import static rotp.model.empires.CustomRaceDefinitions.fileToAlienRace;
 import static rotp.model.empires.CustomRaceDefinitions.getAllowedAlienRaces;
 import static rotp.model.empires.CustomRaceDefinitions.getBaseRaceList;
-import static rotp.model.game.IGameOptions.OPPONENT_AI_CRUEL;
+import static rotp.model.game.IGameOptions.OPPONENT_AI_HYBRID;
 import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
 import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
 import static rotp.ui.UserPreferences.ALL_GUI_ID;
@@ -150,7 +150,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private final ParamList opponentAI			= new ParamList( // For Guide
 			BASE_UI, "OPPONENT_AI",
 			MOO1GameOptions.getOpponentAIOptions(),
-			OPPONENT_AI_CRUEL) {
+			OPPONENT_AI_HYBRID) {
 		@Override public String	get()	{
 			return newGameOptions().selectedOpponentAIOption();
 		}
@@ -159,7 +159,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private final ParamList specificAI			= new ParamList( // For Guide
 			BASE_UI, "SPECIFIC_AI",
 			MOO1GameOptions.getSpecificOpponentAIOptions(),
-			OPPONENT_AI_CRUEL) {
+			OPPONENT_AI_HYBRID) {
 		@Override public String	get()	{
 			return newGameOptions().specificOpponentAIOption(mouseBoxIndex()+1);
 		}
