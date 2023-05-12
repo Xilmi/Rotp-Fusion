@@ -312,12 +312,12 @@ public class GovernorOptions implements Serializable {
     }
     public boolean isAutotransport()			{ return autoTransport.get(); }
     public void setAutotransport(boolean newValue, boolean save) {
-    	governorByDefault.set(newValue);
+    	autoTransport.set(newValue);
         if(save) save();
     }
     public boolean isAutotransportXilmi()		{ return autotransportAtMax.get(); }
     public void setAutotransportXilmi(boolean newValue, boolean save) {
-    	governorByDefault.set(newValue);
+    	autotransportAtMax.set(newValue);
         if(save) save();
     }
     public boolean isAutotransportUngoverned()	{ return autotransportAll.get(); }
