@@ -1109,6 +1109,7 @@ public class UserPreferences {
 	private static String saveDir = "";
 	private static float uiTexturePct = 0.20f;
 	private static int screenSizePct = 93;
+	private static int selectedScreen = -1; // BR: to specify the destination display
 	private static int backupTurns = 5; // modnar: change default turns between backups to 5
 
 	/**
@@ -1122,6 +1123,7 @@ public class UserPreferences {
 		texturesMode = TEXTURES_BOTH;
 		sensitivityMode = SENSITIVITY_MEDIUM;
 		screenSizePct = 93;
+		selectedScreen = -1;
 		backupTurns = 5; // modnar: change default turns between backups to 5
 		saveDir = "";
 		uiTexturePct = 0.20f;
@@ -1249,9 +1251,9 @@ public class UserPreferences {
 		}
 	}
 	// \BR:
-	public static int screenSizePct()       { return screenSizePct; }
-	private static void screenSizePct(int i) { setScreenSizePct(i); }
-	public static String saveDirectoryPath() {
+	public	static int	selectedScreen()		{ return selectedScreen; }
+	public	static int	screenSizePct()			{ return screenSizePct; }
+	public	static String saveDirectoryPath()	{
 		if (saveDir.isEmpty())
 			return Rotp.jarPath();
 		else
@@ -1350,6 +1352,7 @@ public class UserPreferences {
 			out.println(keyFormat("SHOW_MEMORY")+ yesOrNo(showMemory));
 			out.println(keyFormat("DISPLAY_YEAR")+ yesOrNo(displayYear));
 			out.println(keyFormat("SCREEN_SIZE_PCT")+ screenSizePct());
+			out.println(keyFormat("SELECTED_SCREEN")+ selectedScreen());
 			out.println(keyFormat("UI_TEXTURE_LEVEL")+(int) (uiTexturePct()*100));
 			out.println(keyFormat("DISABLE_ADVISOR") + yesOrNo(disableAdvisor));
 			out.println(keyFormat("LANGUAGE")+ languageDir());
@@ -1422,7 +1425,8 @@ public class UserPreferences {
 			case "LEGACY_GROWTH": legacyGrowth = yesOrNo(val); return; // BR:
 			case "GOVERNOR_AUTO_APPLY": governorAutoApply = yesOrNo(val); return; // BR:
 			case "DISABLE_ADVISOR": disableAdvisor = yesOrNo(val); return;
-			case "SCREEN_SIZE_PCT": screenSizePct(Integer.valueOf(val)); return;
+			case "SCREEN_SIZE_PCT": setScreenSizePct(Integer.valueOf(val)); return;
+			case "SELECTED_SCREEN": setSelectedScreen(Integer.valueOf(val)); return;
 			case "UI_TEXTURE_LEVEL": uiTexturePct(Integer.valueOf(val)); return;
 			case "LANGUAGE": selectLanguage(val); return;
 			default:
@@ -1459,6 +1463,17 @@ public class UserPreferences {
 	}
 	private static String languageDir() {
 		return LanguageManager.selectedLanguageDir();
+	}
+	private	static void setSelectedScreen(int i) {
+		selectedScreen = Math.max(-1, Math.min(i, Rotp.maxScreen()));
+	}
+	public	static void nextSelectedScreen()	 {
+		setSelectedScreen(selectedScreen + 1);
+		save();
+	}
+	public	static void prevSelectedScreen()	 {
+		setSelectedScreen(selectedScreen - 1);
+		save();
 	}
 	private static void setScreenSizePct(int i) {
 		screenSizePct = Math.max(25,Math.min(i,200));

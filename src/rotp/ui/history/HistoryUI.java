@@ -25,7 +25,6 @@ import java.awt.LinearGradientPaint;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -63,7 +62,7 @@ public final class HistoryUI extends BasePanel implements MouseListener {
     static Color uiBackground = new Color(132,98,77);
     static Color dataBackground = new Color(94,71,53);
     static Color titleColor = new Color(114,155,201);
-    private static final Color shadeBorderC = new Color(80,80,80);
+//    private static final Color shadeBorderC = new Color(80,80,80);
     static final Color dataBorders = new Color(160,160,160);
 
     static final Color paneBorderDarker = new Color(61,41,28);
@@ -656,7 +655,7 @@ public final class HistoryUI extends BasePanel implements MouseListener {
         private void init0() {
             int w, h;
             if (!UserPreferences.windowed()) {
-                Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
+                Dimension size = Rotp.getSize();
                 w = size.width;
                 h = size.height;
             }

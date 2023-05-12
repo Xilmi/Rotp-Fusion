@@ -25,7 +25,6 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -896,7 +895,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
             setBackground(Color.black);
             dialogHolder.setLayout(dialogLayout);
 
-            Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
+            Dimension size = Rotp.getSize();
             int border = s10;
             int w = size.width-border-border;
             int h = size.height-border-border;

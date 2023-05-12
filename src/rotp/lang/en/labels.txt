@@ -415,6 +415,8 @@ GAME_SETTINGS_MEMORY              | Show Memory Usage: %1
 GAME_SETTINGS_MEMORY_YES          | Yes
 GAME_SETTINGS_MEMORY_NO           | No
 GAME_SETTINGS_MEMORY_DESC         | Toggles the display of memory usage statistics at the bottom right corner of the game. Useful for monitoring memory usage. (Used / Total / Max / Max Used /Threads)
+GAME_SETTINGS_SCREEN              | Selected Screen: %1
+GAME_SETTINGS_SCREEN_DESC         | Select the screen on which you will play. (-1 = Main Screen)
 GAME_SETTINGS_SOUNDS              | Sounds: %1
 GAME_SETTINGS_SOUNDS_OFF          | Muted
 GAME_SETTINGS_SOUNDS_ON           | %1/10

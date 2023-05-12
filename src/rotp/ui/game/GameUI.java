@@ -129,6 +129,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     boolean mouseDepressed = false;
     boolean hideText = false;
     int startingScale = 100;
+    int startingScreen = -1;
     String startingDisplayMode;
     public static Image defaultBackground;
     Image backImg1, backImg2;
@@ -358,6 +359,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
 
     public GameUI() {
         startingScale = UserPreferences.screenSizePct();
+        startingScreen = UserPreferences.selectedScreen();
         startingDisplayMode = UserPreferences.displayMode();
         languagePanel = new GameLanguagePane(this);
         imageKey1 = backImgKeys[0];
@@ -675,8 +677,11 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     private boolean canSaveGame()    { return session().status().inProgress(); }
     private boolean canOpenManual()  { return manualExists(); }
     private boolean canExit()        { return true; }
-    private boolean canRestart()     { return !UserPreferences.displayMode().equals(startingDisplayMode) 
-            || (UserPreferences.screenSizePct() != startingScale); }
+    private boolean canRestart()     { 
+    	return !UserPreferences.displayMode().equals(startingDisplayMode) 
+            || (UserPreferences.screenSizePct() != startingScale)
+            || (UserPreferences.selectedScreen() != startingScreen);
+    }
 
     private void rescaleMenuOptions() {
         restartText.rescale();

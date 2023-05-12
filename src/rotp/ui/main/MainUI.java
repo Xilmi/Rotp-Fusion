@@ -23,7 +23,6 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.LinearGradientPaint;
 import java.awt.Stroke;
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -331,7 +330,7 @@ public class MainUI extends BasePanel implements IMapHandler {
     private void initModel() {
         int w, h;
         if (!UserPreferences.windowed()) {
-            Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
+            Dimension size = Rotp.getSize();
             w = size.width;
             h = size.height;
         }

@@ -18,7 +18,6 @@ Last updates:
       - Or when in windowed mode.
   - Governor Spying "Spare Xenophobes": The spying will now be stopped only when framed.
     - Spying will start again once the timer is expired.
-
 - Guide improvement: 
   - Short list are now diplayed with all their options.
   - Some new contents.
@@ -39,6 +38,7 @@ Last updates:
   - When fully terraformed. (Don't bother populating)
   - When fully cleaned. (Don't bother terraforming)
 - Different Text colors for Gaia and Fertile planets.
+- New option to select the screen on which you will play.
 
 
 New Fixes:

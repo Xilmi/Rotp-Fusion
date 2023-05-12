@@ -25,7 +25,6 @@ import java.awt.LinearGradientPaint;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
-import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -572,7 +571,7 @@ public final class FleetUI extends BasePanel implements IMapHandler, ActionListe
     private void initModel() {
         int w, h;
         if (!UserPreferences.windowed()) {
-            Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
+            Dimension size = Rotp.getSize();
             w = size.width;
             h = size.height;
         }

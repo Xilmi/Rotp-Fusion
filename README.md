@@ -48,6 +48,7 @@ Later:
 - Unlocked Screen Size up to 200%
 - Fixed the JSpinner Size.
 - Fixed Reserve limits.
+- New option to select the screen on which you will play.
 
 2023.05.10 (BR)
 - Fixed Bombing auto firing the turn following a "Fire all weapon"

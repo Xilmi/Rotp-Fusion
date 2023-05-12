@@ -202,10 +202,10 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	//
 	@Override public void optionLoaded() {
 		if (options().isLocalSave()) {
-			System.out.println("===== optionLoad Blocked =====");
+			//System.out.println("===== optionLoad Blocked =====");
 			return;
 		}
-		System.out.println("===== optionLoaded =====");
+		//System.out.println("===== optionLoaded =====");
 		loadValues();
 		protectedReset();
 	} 

@@ -24,6 +24,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.io.File;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
@@ -68,7 +69,8 @@ public class Rotp {
     public static int actualAlloc = -1;
     public static boolean reloadRecentSave = false;
 
-    static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+//    static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+    static GraphicsDevice device;
     
     public static void main(String[] args) {
         frame = new JFrame("Remnants of the Precursors");
@@ -93,12 +95,24 @@ public class Rotp {
                 System.exit(0);
             }
         });
+        
+//        // ------------------------------
+//        int selectedScreen = UserPreferences.selectedScreen();
+//        if (selectedScreen < 0)
+//        	device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+//        else {
+//            GraphicsDevice[] gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices();
+//            selectedScreen = Math.min(selectedScreen, gd.length);
+//            device = gd[selectedScreen];
+//        }
+//        // ------------------------------
 
         // note: referencing the RotPUI class executes its static block
         // which loads in sounds, images, etc
         frame.setLayout(new BorderLayout());
         frame.add(RotPUI.instance(), BorderLayout.CENTER);
 
+        
         // modnar: change to cleaner icon set
         List<Image> iconImages = new ArrayList<Image>();
         iconImages.add(ImageManager.current().image("ROTP_MOD_ICON3"));
@@ -116,20 +130,24 @@ public class Rotp {
 
         if (UserPreferences.fullScreen()) {
             frame.setUndecorated(true);
-            device.setFullScreenWindow(frame);
+            device().setFullScreenWindow(frame);
             resizeAmt();
         }
         else if (UserPreferences.borderless()) {
+        	frame.setLocation(device().getDefaultConfiguration().getBounds().x,
+					  device().getDefaultConfiguration().getBounds().y);
             frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
             frame.setUndecorated(true);
             resizeAmt();
         }
         else {
+        	
             frame.setResizable(false);
-            device.setFullScreenWindow(null);
+            device().setFullScreenWindow(null);
+        	frame.setLocation(device().getDefaultConfiguration().getBounds().x,
+        					  device().getDefaultConfiguration().getBounds().y);
             setFrameSize();
         }
-
 
         // this will not catch 32-bit JREs on all platforms, but better than nothing
         String bits = System.getProperty("sun.arch.data.model").trim();
@@ -141,6 +159,22 @@ public class Rotp {
             GameSession.instance().loadSession("", loadSaveFile, false);
 
         becomeVisible();
+    }
+    private static GraphicsDevice device() {
+    	if (device == null) {
+            int selectedScreen = UserPreferences.selectedScreen();
+            if (selectedScreen < 0)
+            	device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+            else {
+                GraphicsDevice[] gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices();
+                selectedScreen = Math.min(selectedScreen, gd.length);
+                device = gd[selectedScreen];
+            }
+    	}
+        return device;
+    }
+    public static int maxScreen() {
+    	return GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices().length;
     }
     public static void becomeVisible() {   frame.setVisible(true); }
     public static boolean containsArg(String[] argList, String key) {
@@ -163,11 +197,19 @@ public class Rotp {
         frame.getContentPane().setPreferredSize(new Dimension(maxX,maxY));
         frame.pack();
     }
+    public static Dimension getSize() {
+    	Rectangle rect = device().getDefaultConfiguration().getBounds();
+    	return new Dimension(rect.width, rect.height);
+//      return Toolkit.getDefaultToolkit().getScreenSize();
+    }
     public static float resizeAmt() {
         int pct = UserPreferences.windowed() ? UserPreferences.screenSizePct() : 100;
         float sizeAdj = (float) pct / 100.0f;
         if (resizeAmt < 0) {
-            Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
+        	
+//            Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
+            Dimension size = getSize();
+
             int sizeW = (int) (sizeAdj*size.width);
             int sizeH = (int) (sizeAdj*size.height);
             int maxX = sizeH*8/5;
