@@ -851,9 +851,11 @@ public class UserPreferences {
 	};
 	private static final ParamBoolean autoColonize_	= new ParamBoolean( // Duplicate Do not add the list
 			GAME_UI, "AUTOCOLONIZE", false) {
+		{ isDuplicate(true); }
 		@Override public Boolean get() { return autoColonize(); }
 		@Override public Boolean set(Boolean newValue) {
 			autoColonize(newValue);
+			save();
 			return autoColonize();
 		}
 	};
@@ -871,6 +873,7 @@ public class UserPreferences {
 		@Override public String get() { return autoBombardMode(); }
 		@Override public String set(String newValue) {
 			autoBombardMode(newValue);
+			save();
 			return autoBombardMode();
 		}
 	};
