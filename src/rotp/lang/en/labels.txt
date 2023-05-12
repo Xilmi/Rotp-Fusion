@@ -3048,11 +3048,11 @@ GOVERNOR_LEGACY_GROWTH_MODE          | Rapid growth: %1
 HEADERS_GOVERNOR_INTELLIGENCE_OPTIONS_DESC | Spying activities related Options.
 HEADERS_GOVERNOR_INTELLIGENCE_OPTIONS      | ~~~ INTELLIGENCE OPTIONS ~~~%1
 GOVERNOR_AUTO_INFILTRATE_DESC        | Automatically sends spies to infiltrate other empires.
-GOVERNOR_AUTO_INFILTRATE             | spare Xenophobes: %1
+GOVERNOR_AUTO_INFILTRATE             | Auto Infiltrate: %1
 GOVERNOR_AUTO_SPY_DESC               | Hand control over spies to AI.
-GOVERNOR_AUTO_SPY                    | spare Xenophobes: %1
+GOVERNOR_AUTO_SPY                    | Auto Spy: %1
 GOVERNOR_SPARE_XENOPHOBES_DESC       | Once framed by xenophobic empire: stop spying and infiltration to avoid further outrage.
-GOVERNOR_SPARE_XENOPHOBES            | spare Xenophobes: %1
+GOVERNOR_SPARE_XENOPHOBES            | Spare Xenophobes: %1
 
 HEADERS_GOVERNOR_FLEET_OPTIONS_DESC  | Fleet Options.
 HEADERS_GOVERNOR_FLEET_OPTIONS       | ~~~ FLEET OPTIONS ~~~%1
