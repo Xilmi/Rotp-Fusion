@@ -471,17 +471,27 @@ public class SystemView implements IMappedObject, Base, Serializable {
     	}
     }
     public Image flagImage() { // BR: flagColorCount
+    	// Don't show more than one black flag!
+    	Image flag1;
+    	boolean haveFlag = false;
+    	for (int i=1; i<=flagColorCount.get(); i++)
+    		haveFlag |= getFlagColor(i)>0;
+    	if (haveFlag)
+    		flag1 = flagImage(getFlagColor(1));
+    	else
+    		flag1 = image(flagImageNameList.get(FLAG_NONE));
+
     	switch (flagColorCount.get()) {
     	case 2:
-    		return joinImage(flagImage(getFlagColor(1)), flagImage(getFlagColor(2)));
+    		return joinImage(flag1, flagImage(getFlagColor(2)));
     	case 3:
-    		return joinImage(flagImage(getFlagColor(1)), flagImage(getFlagColor(2)),
+    		return joinImage(flag1, flagImage(getFlagColor(2)),
     				flagImage(getFlagColor(3)));
     	case 4:
-    		return joinImage(flagImage(getFlagColor(1)), flagImage(getFlagColor(2)),
+    		return joinImage(flag1, flagImage(getFlagColor(2)),
     				flagImage(getFlagColor(3)), flagImage(getFlagColor(4)));
     	default:
-    		return flagImage(getFlagColor(1));
+    		return flag1;
     	}
     }
     public Image mapFlagImage() { // BR: flagColorCount
@@ -499,7 +509,7 @@ public class SystemView implements IMappedObject, Base, Serializable {
     	}
     }
     private Image flagImage(int flagColor) { // BR: flagColorCount
-    	if (flagColor < 0 || flagColor >= flagImageNameList.size())
+    	if (flagColor <= 0 || flagColor >= flagImageNameList.size())
     		return null;
     	return image(flagImageNameList.get(flagColor));
     }

@@ -29,6 +29,12 @@ Now:
 - Playing the game...
 
 Very soon:
+- Auto Colonize- Remnant.cfg
+- Stargate options HTML Mac Bug.
+- Governor Buttons.
+- Governor Spinners.
+- Spare Xenophobes: Stop if caught too.
+- Default AI = Hybrid.
 
 Later:
 - William482 request: Continuing on the topic of things that normal people probably just let the governor do, I would love a button on the "Send Transports From:" popup in the Fleets tab which would, for each world:
@@ -42,6 +48,15 @@ Later:
 
 
 ## What's New
+
+2023.05.12 (BR)
+- Fixed base setting auto colonize and auto bombard not being saved.
+- Governor panel: Fixed ugly html text on Mac.
+- If no flags, only show one black flag.
+
+2023.05.11 (BR)
+- Fixed the Spying Labels.
+- Fixed auto-transport.
 
 2023.05.11 (BR)
 - Improved Governor options continuity
