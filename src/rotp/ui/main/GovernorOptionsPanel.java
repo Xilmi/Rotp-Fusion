@@ -33,9 +33,11 @@ import javax.swing.JSpinner;
 import javax.swing.JSpinner.NumberEditor;
 import javax.swing.JToggleButton;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.plaf.basic.BasicArrowButton;
+import javax.swing.plaf.metal.MetalButtonUI;
 
 import rotp.Rotp;
 import rotp.model.empires.Empire;
@@ -45,6 +47,7 @@ import rotp.model.game.GovernorOptions;
 import rotp.model.game.MOO1GameOptions;
 import rotp.model.game.MOO1GameOptions.NewOptionsListener;
 import rotp.ui.RotPUI;
+import rotp.ui.game.GameUI;
 import rotp.ui.races.RacesUI;
 import rotp.util.FontManager;
 /**
@@ -55,9 +58,11 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	private static final float	valueFontSize		= 14f;
 	private static final float	baseFontSize		= 14f;
 	private static final float	labelFontSize		= 14f;
-	private static final float	buttonFontSize		= 16f;
+	private static final float	buttonFontSize		= 18f;
 	private static final float	panelTitleFontSize	= 20f;
 	private static final float	baseIconSize		= 16f;
+	private static final float	buttonHeightFactor	= 3f/2f;
+	private static final float	buttonCornerFactor	= 5f/18f;
 	private static final int	buttonTopInset		= 6;
 	private static final int	buttonSideInset		= 10;
 	private static final int	animationStep		= 100; // ms
@@ -74,8 +79,10 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	private Color	frameBgColor, panelBgColor, textBgColor, valueBgColor;
 	private Color	textColor, valueTextColor, panelTitleColor;
 	private Color	buttonColor, buttonTextColor, iconBgColor;
-	private	float	iconSize;
+	private Color	hiddenColor, disabledColor, hoverColor, borderColor;
+	private	float	iconSize, buttonHeight, buttonCorner;
 	private	Icon	iconCheckRadio		= new ScalableCheckBoxAndRadioButtonIcon();
+	private	RotpButtonUI rotpButtonUI	= new RotpButtonUI();
 //	private	Inset	iconInset			= new Insets(topInset, 2, 0, 2);
 
 	
@@ -149,9 +156,15 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 			frameBgColor	= multColor(new Color(93,  75,  66), brightness);
 			panelBgColor	= multColor(new Color(150, 105, 73), brightness);
 			textBgColor		= panelBgColor;
-			valueBgColor	= multColor(RacesUI.lightBrown, 1.2f);
+			valueBgColor	= multColor(RacesUI.lightBrown, 1.2f * brightness);
 			
 			buttonColor		= panelBgColor;
+//			borderColor		= multColor(GameUI.borderBrightColor(), 0.8f * brightness);
+			borderColor		= multColor(panelBgColor, 1.2f * brightness);
+			hiddenColor		= multColor(frameBgColor, 0.8f);
+			disabledColor	= multColor(frameBgColor, 1.2f);
+			hoverColor		= Color.yellow;
+			
 			buttonTextColor	= SystemPanel.whiteText;
 	
 			textColor		= SystemPanel.blackText;
@@ -166,12 +179,14 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 			labelFont		= FontManager.getNarrowFont(scaledSize(labelFontSize));
 			buttonFont		= FontManager.getNarrowFont(scaledSize(buttonFontSize));
 			panelTitleFont	= FontManager.getNarrowFont(scaledSize(panelTitleFontSize));
-			initCheckBoxAndRadioButtonIcon();
+			initCustomComponents();
 		}
 	}
-	private void initCheckBoxAndRadioButtonIcon() {
-		iconBgColor	= valueBgColor;
-		iconSize	= scaledSize(baseIconSize);
+	private void initCustomComponents() {
+		iconBgColor	 = valueBgColor;
+		iconSize	 = scaledSize(baseIconSize);
+		buttonHeight = scaledSize(buttonFontSize * buttonHeightFactor);
+		buttonCorner = scaledSize(buttonFontSize * buttonCornerFactor);
 	}
 	private void initPanel() {
 		initComponents();	// Load the form
@@ -301,12 +316,18 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 		JButton button = (JButton) c;
 		button.setFocusPainted(false);
 		if (newFormat) {
-			button.setBackground(buttonColor);
+			button.setUI(rotpButtonUI);
+			button.setBackground(null);
 			button.setForeground(buttonTextColor);
 			int topInset  = scaledSize(buttonTopInset);
 			int sideInset = scaledSize(buttonSideInset);
 			button.setFont(buttonFont);
 			button.setMargin(new Insets(topInset, sideInset, 0, sideInset));
+			button.setIcon(new RotpButtonIcon());
+			button.setOpaque(true);
+			button.setContentAreaFilled(false);
+			button.setBorderPainted(false);
+			button.setFocusPainted(false);
 		}
 	}
 	private void setJCheckBox			(Component c, boolean newFormat, boolean debug) {
@@ -1756,10 +1777,53 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 
 	}
 	
-	// ========== Nested Class 
-	public class ScalableCheckBoxAndRadioButtonIcon implements Icon {
+	// ========== Nested Class ==========	
+	private class RotpButtonIcon implements Icon {
 
-		public ScalableCheckBoxAndRadioButtonIcon () {  }
+		private RotpButtonIcon () {  }
+		
+		@Override public int getIconHeight() { return 2; }
+		@Override public int getIconWidth()	 { return 2; }
+		@Override public void paintIcon(Component component, Graphics g0, int xi, int yi) {
+			Graphics2D g	= (Graphics2D) g0;
+			JButton button	= (JButton) component;			
+			ButtonModel buttonModel = button.getModel();
+			Color borderC = borderColor;
+			Color centerC = buttonColor;
+			int corner = Math.round(buttonCorner);
+			int border = 1;
+			int x = 0;
+			int y = 0;
+			int w = button.getWidth();
+			int h = button.getHeight();
+			
+			if (!buttonModel.isEnabled()) {
+				borderC = disabledColor;
+				centerC = hiddenColor;
+			}
+			else if (buttonModel.isRollover()) {
+				borderC = hoverColor;
+				border = 2;
+			}
+			// Fill background to go over OS choices... 
+			g.setColor(frameBgColor);
+			g.fillRect(x, y, w, h);
+			
+			// Draw borders
+			g.setColor(borderC);
+			g.fillRoundRect(x, y, w, h, corner, corner);
+
+			// Fill the buttons
+			g.setColor(centerC);
+			g.fillRoundRect(x + border, y + border, w - 2*border, h - 2*border, corner, corner);			
+		}
+	}
+	
+	// ==============================================================
+	//
+	private class ScalableCheckBoxAndRadioButtonIcon implements Icon {
+
+		private ScalableCheckBoxAndRadioButtonIcon () {  }
 		
 		protected int dim() {
 			return Math.round(iconSize);
@@ -1771,6 +1835,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 			float y	= (float) (0.5 * (component.getSize().getHeight() - dim()));
 			float x	= 2f;
 			int corner = 0;
+			int border = 1;
 			int d2 = (int)(iconSize*0.8f);
 			if (component instanceof JRadioButton) {
 				corner = dim();
@@ -1778,9 +1843,10 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 			}
 			
 			if (buttonModel.isRollover()) {
-				g.setColor(Color.yellow);
+				g.setColor(hoverColor);
+				border = 2;
 			} else {
-				g.setColor(Color.DARK_GRAY);
+				g.setColor(borderColor);
 			}
 			g.fillRoundRect((int)x, (int)y, dim(), dim(), corner, corner);
 			if (buttonModel.isPressed()) {
@@ -1788,7 +1854,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 			} else {
 				g.setColor(iconBgColor);
 			}
-			g.fillRoundRect(1 + (int)x, (int)y + 1, dim() - 2, dim() - 2, corner, corner);
+			g.fillRoundRect(border + (int)x, (int)y + border, dim() - 2*border, dim() - 2*border, corner, corner);
 			
 			if (buttonModel.isSelected()) {
 				Stroke prev = g.getStroke();
@@ -1810,5 +1876,12 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 		@Override public int getIconHeight() {
 			return dim();
 		}
+	}
+	// ==============================================================
+	//
+	private class RotpButtonUI extends MetalButtonUI {
+		@Override  protected Color getDisabledTextColor() { return disabledColor; }
+	    @Override  protected Color getSelectColor()		  { return hoverColor; }
+
 	}
 }

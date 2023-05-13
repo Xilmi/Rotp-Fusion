@@ -48,11 +48,14 @@ Later:
 
 ## What's New
 
+2023.05.13 (BR)
+- Mac OS: Fixed Governor Buttons?
+
 2023.05.12 (BR)
 - Fixed base setting auto colonize and auto bombard not being saved.
 - Governor panel: Fixed ugly html text on Mac.
 - If no flags, only show one black flag.
-- Set AI: Hybrid as default AI.
+- Set AI:Hybrid as default AI.
 
 2023.05.11 (BR)
 - Fixed the Spying Labels.

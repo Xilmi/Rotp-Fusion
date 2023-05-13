@@ -39,7 +39,7 @@ Last updates:
   - When fully cleaned. (Don't bother terraforming)
 - Different Text colors for Gaia and Fertile planets.
 - New option to select the screen on which you will play.
-
+- Set AI:Hybrid as default AI.
 
 New Fixes:
 - PopUp selection list: "Cancel" will work again!
