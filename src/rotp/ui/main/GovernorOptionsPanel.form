@@ -8,13 +8,13 @@
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
-    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
-    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="0"/>
   </AuxValues>
 
   <Layout>
@@ -41,7 +41,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="fleetPanel" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="jPanelAspect" max="32767" attributes="0"/>
                                       <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                                   </Group>
@@ -58,7 +58,7 @@
                               <Component id="allGovernorsOff" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace type="unrelated" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="stargatePanel" linkSize="12" alignment="1" max="32767" attributes="0"/>
@@ -207,6 +207,9 @@
             <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="transportMaxTurnsStateChanged"/>
             <EventHandler event="mouseWheelMoved" listener="java.awt.event.MouseWheelListener" parameters="java.awt.event.MouseWheelEvent" handler="transportMaxTurnsMouseWheelMoved"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new GovernorJSpinner()"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="transportMaxTurnsLabel">
           <Properties>
@@ -303,19 +306,12 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="stargateOff" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="stargateRich" linkSize="20" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="stargateOn" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="jLabel1" linkSize="20" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="stargateOff" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="stargateRich" linkSize="20" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="stargateOn" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel1" linkSize="20" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -450,10 +446,10 @@
                       <Component id="autoAttack" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="autoAttackShipCount" alignment="1" max="32767" attributes="0"/>
-                      <Component id="autoColonyShipCount" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="autoScoutShipCount" alignment="1" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="2" attributes="0">
+                      <Component id="autoAttackShipCount" linkSize="21" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="autoColonyShipCount" linkSize="21" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="autoScoutShipCount" linkSize="21" alignment="2" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
@@ -476,24 +472,25 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="autoScout" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="autoScoutShipCount" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="autoScoutShipCountLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="autoScout" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace pref="6" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="autoColonize" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="autoColonyShipCount" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="autoColonyShipCountLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace pref="6" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="autoAttack" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="autoAttackShipCount" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="autoAttackShipCountLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="autoAttack" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -533,6 +530,9 @@
             <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="autoColonyShipCountStateChanged"/>
             <EventHandler event="mouseWheelMoved" listener="java.awt.event.MouseWheelListener" parameters="java.awt.event.MouseWheelEvent" handler="autoColonyShipCountMouseWheelMoved"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new GovernorJSpinner()"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="autoColonyShipCountLabel">
           <Properties>
@@ -549,6 +549,9 @@
             <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="autoScoutShipCountStateChanged"/>
             <EventHandler event="mouseWheelMoved" listener="java.awt.event.MouseWheelListener" parameters="java.awt.event.MouseWheelEvent" handler="autoScoutShipCountMouseWheelMoved"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new GovernorJSpinner()"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JSpinner" name="autoAttackShipCount">
           <Properties>
@@ -560,6 +563,9 @@
             <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="autoAttackShipCountStateChanged"/>
             <EventHandler event="mouseWheelMoved" listener="java.awt.event.MouseWheelListener" parameters="java.awt.event.MouseWheelEvent" handler="autoAttackShipCountMouseWheelMoved"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new GovernorJSpinner()"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="autoScoutShipCountLabel">
           <Properties>
@@ -673,6 +679,9 @@
             <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="reserveStateChanged"/>
             <EventHandler event="mouseWheelMoved" listener="java.awt.event.MouseWheelListener" parameters="java.awt.event.MouseWheelEvent" handler="reserveMouseWheelMoved"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new GovernorJSpinner()"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="reserveLabel">
           <Properties>
@@ -714,6 +723,9 @@
             <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="missileBasesStateChanged"/>
             <EventHandler event="mouseWheelMoved" listener="java.awt.event.MouseWheelListener" parameters="java.awt.event.MouseWheelEvent" handler="missileBasesMouseWheelMoved"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new GovernorJSpinner()"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="missileBasesLabel">
           <Properties>
@@ -815,25 +827,28 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="sizeFactorLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="sizePct" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="sizePct" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="sizeFactorLabel" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="isOriginal" linkSize="14" min="-2" max="-2" attributes="0"/>
+                              <Component id="customSize" linkSize="14" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="brightnessPct" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="brightnessLabel" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace type="unrelated" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="brightnessLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="brightnessPct" alignment="1" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="isOriginal" linkSize="14" min="-2" max="-2" attributes="0"/>
-                      <Component id="customSize" linkSize="14" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -841,18 +856,19 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="isOriginal" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   <Component id="customSize" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="2" attributes="0">
-                      <Component id="sizePct" linkSize="7" alignment="2" min="-2" max="-2" attributes="0"/>
-                      <Component id="brightnessPct" linkSize="6" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="sizePct" linkSize="7" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="sizeFactorLabel" linkSize="7" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="sizeFactorLabel" linkSize="7" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="brightnessPct" linkSize="6" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="brightnessLabel" linkSize="6" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -888,6 +904,10 @@
             <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="sizePctStateChanged"/>
             <EventHandler event="mouseWheelMoved" listener="java.awt.event.MouseWheelListener" parameters="java.awt.event.MouseWheelEvent" handler="sizePctMouseWheelMoved"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new GovernorJSpinner()"/>
+            <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="GovernorOptionsPanel_sizePct"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="sizeFactorLabel">
           <Properties>
@@ -906,6 +926,9 @@
             <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="brightnessPctStateChanged"/>
             <EventHandler event="mouseWheelMoved" listener="java.awt.event.MouseWheelListener" parameters="java.awt.event.MouseWheelEvent" handler="brightnessPctMouseWheelMoved"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new GovernorJSpinner()"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="brightnessLabel">
           <Properties>

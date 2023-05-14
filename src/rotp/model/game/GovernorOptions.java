@@ -269,6 +269,11 @@ public class GovernorOptions implements Serializable {
     	animatedImage.set(newValue);
         if(save) save();
     }
+    public boolean toggleAnimatedImage() {
+    	animatedImage.toggle();
+    	save();
+    	return animatedImage.get();
+    }
     public int  getBrightnessPct()				{ return brightnessPct.get(); }
     public void setBrightnessPct(int newValue, boolean save) {
     	brightnessPct.set(newValue);

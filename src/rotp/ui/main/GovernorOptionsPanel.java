@@ -1,13 +1,17 @@
 package rotp.ui.main;
 
 import java.awt.BasicStroke;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Insets;
+import java.awt.LayoutManager;
+import java.awt.Polygon;
 import java.awt.Stroke;
 import java.awt.event.MouseWheelEvent;
 import java.awt.image.BufferedImage;
@@ -22,6 +26,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -31,12 +36,15 @@ import javax.swing.JRadioButton;
 import javax.swing.JRootPane;
 import javax.swing.JSpinner;
 import javax.swing.JSpinner.NumberEditor;
+import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.UIManager;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
+import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicArrowButton;
+import javax.swing.plaf.basic.BasicSpinnerUI;
 import javax.swing.plaf.metal.MetalButtonUI;
 
 import rotp.Rotp;
@@ -47,7 +55,6 @@ import rotp.model.game.GovernorOptions;
 import rotp.model.game.MOO1GameOptions;
 import rotp.model.game.MOO1GameOptions.NewOptionsListener;
 import rotp.ui.RotPUI;
-import rotp.ui.game.GameUI;
 import rotp.ui.races.RacesUI;
 import rotp.util.FontManager;
 /**
@@ -61,7 +68,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	private static final float	buttonFontSize		= 18f;
 	private static final float	panelTitleFontSize	= 20f;
 	private static final float	baseIconSize		= 16f;
-	private static final float	buttonHeightFactor	= 3f/2f;
+	private static final float	arrowWidthFactor	= 0.8f;
 	private static final float	buttonCornerFactor	= 5f/18f;
 	private static final int	buttonTopInset		= 6;
 	private static final int	buttonSideInset		= 10;
@@ -70,30 +77,30 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	private static final int	ANIMATION_ONGOING	= 1;
 	private static final int	ANIMATION_CANCELED	= 2;
 	private static final int	ANIMATION_RESET		= 3;
-	private static 		 int	animationOngoing	= 0;
 	
     private static ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(15); // no
     private static ScheduledFuture<?> anim;
 
-	private Font	valueFont, baseFont, labelFont, buttonFont, panelTitleFont;
-	private Color	frameBgColor, panelBgColor, textBgColor, valueBgColor;
-	private Color	textColor, valueTextColor, panelTitleColor;
-	private Color	buttonColor, buttonTextColor, iconBgColor;
-	private Color	hiddenColor, disabledColor, hoverColor, borderColor;
-	private	float	iconSize, buttonHeight, buttonCorner;
-	private	Icon	iconCheckRadio		= new ScalableCheckBoxAndRadioButtonIcon();
-	private	RotpButtonUI rotpButtonUI	= new RotpButtonUI();
+	private static Font	 valueFont, baseFont, labelFont, buttonFont, panelTitleFont;
+	private static Color frameBgColor, panelBgColor, textBgColor, valueBgColor;
+	private static Color textColor, valueTextColor, panelTitleColor;
+	private static Color buttonColor, buttonTextColor, iconBgColor;
+	private static Color hiddenColor, disabledColor, hoverColor, borderColor;
+	private static int	 iconSize, arrowHeight, buttonCorner;
+	private static Icon	 iconCheckRadio		= new ScalableCheckBoxAndRadioButtonIcon();
+	private static GovButtonUI rotpButtonUI	= new GovButtonUI();
 //	private	Inset	iconInset			= new Insets(topInset, 2, 0, 2);
-
 	
-	private boolean autoApply		= true;
-	private boolean	newFormat		= true;
-	private boolean updateOngoing	= false;
-	private boolean animatedImage	= options().isAnimatedImage();
+	// Display format variable, needed for reset purpose
+	//
+	private static Boolean	isNewFormat, isCustomSize;
+	private static Integer	sizeFactorPct,	brightnessFactorPct;
+	private static int		animationLive	= 0;
+	private static boolean	updateOngoing	= false;
+//	private static boolean animatedImage	= options().isAnimatedImage();
 
-	private Runnable delayedAnimate = new Runnable() {
-	    @Override
-	    public void run() {
+	private Runnable delayedAnimate	= new Runnable() {
+	    @Override public void run() {
 	    	animate();
 	    }
 	};
@@ -107,8 +114,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	private void protectedReset()		{
 		if (!updateOngoing) {
 			updateOngoing = true;
-			if (animationOngoing != ANIMATION_STOPPED) {
-				animationOngoing = ANIMATION_RESET;
+			if (animationLive != ANIMATION_STOPPED) {
+				animationLive = ANIMATION_RESET;
 			} 
 			else {
 				resetPanel();
@@ -125,8 +132,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	private void protectedUpdateColor() {
 		if (!updateOngoing) {
 			updateOngoing = true;
-			initNewColors();
-			updatePanel(frame, newFormat, false, 0);
+			initNewColors(true);
+			updatePanel(frame, isNewFormat(), false, 0);
 			updateOngoing = false;
 			setRaceImg(); 	// Pack and set icon
 		}
@@ -135,9 +142,9 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	private void protectedUpdatePanel() {
 		if (!updateOngoing) {
 			updateOngoing = true;
-			initNewColors();
+			initNewColors(true);
 			initNewFonts();
-			updatePanel(frame, newFormat, false, 0);
+			updatePanel(frame, isNewFormat(), false, 0);
 			updateOngoing = false;
 			setRaceImg(); 	// Pack and set icon
 		}
@@ -150,16 +157,19 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 		protectedInitPanel();
 		MOO1GameOptions.addListener(this);
 	}
-	private void initNewColors() {
-		if (newFormat) {
-			float brightness = (int)brightnessPct.getValue() /100f;
+	private void initNewColors(boolean local) {
+		if (isNewFormat()) {
+			float brightness;
+			if (local)
+				brightness = (int)brightnessPct.getValue() /100f;
+			else
+				brightness = options().getBrightnessPct()/100f;
 			frameBgColor	= multColor(new Color(93,  75,  66), brightness);
 			panelBgColor	= multColor(new Color(150, 105, 73), brightness);
 			textBgColor		= panelBgColor;
 			valueBgColor	= multColor(RacesUI.lightBrown, 1.2f * brightness);
 			
 			buttonColor		= panelBgColor;
-//			borderColor		= multColor(GameUI.borderBrightColor(), 0.8f * brightness);
 			borderColor		= multColor(panelBgColor, 1.2f * brightness);
 			hiddenColor		= multColor(frameBgColor, 0.8f);
 			disabledColor	= multColor(frameBgColor, 1.2f);
@@ -170,30 +180,27 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 			textColor		= SystemPanel.blackText;
 			valueTextColor	= SystemPanel.blackText;
 			panelTitleColor	= SystemPanel.whiteText;
+			iconBgColor		= valueBgColor;
 		}
 	}
 	private void initNewFonts() {
-		if (newFormat) {
+		if (isNewFormat()) {
+			iconSize	 	= (int) scaledSize(baseIconSize);
+			buttonCorner 	= (int) scaledSize(buttonFontSize * buttonCornerFactor);
+			arrowHeight 	= (int) scaledSize((valueFontSize+buttonTopInset) * arrowWidthFactor);
 			valueFont		= FontManager.getNarrowFont(scaledSize(valueFontSize));
 			baseFont		= FontManager.getNarrowFont(scaledSize(baseFontSize));
 			labelFont		= FontManager.getNarrowFont(scaledSize(labelFontSize));
 			buttonFont		= FontManager.getNarrowFont(scaledSize(buttonFontSize));
 			panelTitleFont	= FontManager.getNarrowFont(scaledSize(panelTitleFontSize));
-			initCustomComponents();
 		}
 	}
-	private void initCustomComponents() {
-		iconBgColor	 = valueBgColor;
-		iconSize	 = scaledSize(baseIconSize);
-		buttonHeight = scaledSize(buttonFontSize * buttonHeightFactor);
-		buttonCorner = scaledSize(buttonFontSize * buttonCornerFactor);
-	}
 	private void initPanel() {
+		initNewFonts();
+		initNewColors(false);
 		initComponents();	// Load the form
 		loadValues();		// Load User's values
-		initNewFonts();
-		initNewColors();
-		updatePanel(frame, newFormat, false, 0); // Apply the new formating
+		updatePanel(frame, isNewFormat(), false, 0); // Apply the new formating
 		setRaceImg();		// Pack and set icon
 	}
 	private void resetPanel() {
@@ -212,7 +219,12 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 		frame.setVisible(visible);
 		startAnimation();
 	}
-
+	private void loadDisplayValues() {
+		isNewFormat			= !options().isOriginalPanel();
+		isCustomSize		= options().isCustomSize();
+		sizeFactorPct		= options().getSizeFactorPct();
+		brightnessFactorPct	= options().getBrightnessPct();
+	}
 	// ========== Public Method and Overrider ==========
 	//
 	@Override public void optionLoaded() {
@@ -221,6 +233,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 			return;
 		}
 		//System.out.println("===== optionLoaded =====");
+		loadDisplayValues();
 		loadValues();
 		protectedReset();
 	} 
@@ -228,51 +241,93 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	
 	// ========== Local tools ==========
 	//
-	private GovernorOptions options()	 { return GameSession.instance().getGovernorOptions(); }
-	private int	  scaledSize(int size)	 { return (int) (size * finalSizefactor()); }
-	private float scaledSize(float size) { return size * finalSizefactor(); }
-	private float finalSizefactor() {
-		if (customSize.isSelected())
-			return Rotp.resizeAmt() * (int)sizePct.getValue() /100f;
-		else
-			return Rotp.resizeAmt();
-	}
-	private static Color multColor		(Color offColor, float factor) {
+	private static Color multColor(Color offColor, float factor) {
 		factor /= 255f;
 		return new Color(Math.min(1f, offColor.getRed()   * factor),
 						 Math.min(1f, offColor.getGreen() * factor),
 						 Math.min(1f, offColor.getBlue()  * factor));
 	}
+	private static GovernorOptions options()		{ return GameSession.instance().getGovernorOptions(); }
+	private static boolean	isAutoApply()			{ return (options().isAutoApply()); }
+	private static boolean	isAnimatedImage()		{ return (options().isAnimatedImage()); }
+	private static boolean	isCustomSize()			{
+		if (isCustomSize == null)
+			isCustomSize = options().isCustomSize();
+		return isCustomSize;
+	}
+	private static boolean	isNewFormat()			{
+		if (isNewFormat == null)
+			isNewFormat = !options().isOriginalPanel();
+		return isNewFormat;
+	}
+	private static int		getSizeFactor()			{
+		if (sizeFactorPct == null)
+			sizeFactorPct = options().getSizeFactorPct();
+		return sizeFactorPct;
+	}
+	private static int		getBrightnessPct()		{
+		if (brightnessFactorPct == null)
+			brightnessFactorPct = options().getBrightnessPct();
+		return brightnessFactorPct;
+	}
+	private static int		scaledSize(int size)	{ return (int) (size * getFinalSizefactor()); }
+	private static float 	scaledSize(float size)	{ return size * getFinalSizefactor(); }
+	private static float 	getFinalSizefactor()	{
+		if (isCustomSize())
+			return Rotp.resizeAmt() * getSizeFactor()/100f;
+		else
+			return Rotp.resizeAmt();
+	}
+	private static void	setCustomSize(boolean val)	{
+		isCustomSize = val;
+		if (isAutoApply())
+			options().setIsCustomSize(isCustomSize, true);
+	}
+	private static void	setBrightnessPct(int val)	{
+		brightnessFactorPct = val;
+		if (isAutoApply())
+			options().setBrightnessPct(brightnessFactorPct, true);
+	}
+	private static void	setSizeFactorPct(int pct)	{
+		sizeFactorPct = pct;
+		if (isAutoApply())
+			options().setSizeFactorPct(pct, true);
+	}
+	private static void	setNewFormat(boolean val)	{
+		isNewFormat = val;
+		if (isAutoApply())
+			options().setIsOriginalPanel(!val, true);
+	}
 
 	// ========== Image display and animation ==========
 	//
 	private void stopAnimation() {
-		if (animationOngoing == ANIMATION_ONGOING)
-			animationOngoing = ANIMATION_CANCELED;
+		if (animationLive == ANIMATION_ONGOING)
+			animationLive = ANIMATION_CANCELED;
 	}
 	private void startAnimation() {
 		if (anim == null)
 			anim = executor.scheduleAtFixedRate(delayedAnimate, 0, animationStep, TimeUnit.MILLISECONDS);
 		if (updateOngoing)
 			return;
-		if (animatedImage && animationOngoing == ANIMATION_STOPPED) {
-			animationOngoing = ANIMATION_ONGOING;
+		if (isAnimatedImage() && animationLive == ANIMATION_STOPPED) {
+			animationLive = ANIMATION_ONGOING;
 		}
 	}
 	private void animate() {
-		if (animationOngoing == ANIMATION_RESET) {
-			animationOngoing = ANIMATION_STOPPED;
+		if (animationLive == ANIMATION_RESET) {
+			animationLive = ANIMATION_STOPPED;
 			resetPanel(); // called by protected
 			return;
 		}
-		if (animatedImage && animationOngoing == ANIMATION_ONGOING) {
+		if (isAnimatedImage() && animationLive == ANIMATION_ONGOING) {
 			if (frame.isVisible()) {
 				updateRaceImage();
 				return;
 			}
 		}
 		else {
-			animationOngoing = ANIMATION_STOPPED;
+			animationLive = ANIMATION_STOPPED;
 		}
 	}
 	private void updateRaceImage() {
@@ -312,6 +367,20 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 			button.setBackground(frameBgColor);
 		}
 	}
+	private void setRotpSpinnerButton	(Component c, boolean newFormat, boolean debug) {
+		RotpSpinnerButton button = (RotpSpinnerButton) c;
+		button.setFocusPainted(false);
+		if (newFormat) {
+			button.setBackground(null);
+			button.setForeground(buttonTextColor);
+			int topInset  = scaledSize(buttonTopInset);
+			int sideInset = scaledSize(buttonSideInset);
+			button.setMargin(new Insets(topInset, sideInset, -5, sideInset));
+//			button.setContentAreaFilled(false);
+			button.setBorderPainted(false);
+			button.setFocusPainted(false);
+		}
+	}
 	private void setJButton				(Component c, boolean newFormat, boolean debug) {
 		JButton button = (JButton) c;
 		button.setFocusPainted(false);
@@ -323,7 +392,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 			int sideInset = scaledSize(buttonSideInset);
 			button.setFont(buttonFont);
 			button.setMargin(new Insets(topInset, sideInset, 0, sideInset));
-			button.setIcon(new RotpButtonIcon());
+			button.setIcon(new GovButtonIcon());
 			button.setOpaque(true);
 			button.setContentAreaFilled(false);
 			button.setBorderPainted(false);
@@ -356,12 +425,14 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	}
 	private void setJToggleButton		(Component c, boolean newFormat, boolean debug) { }
 	private void setJSpinner			(Component c, boolean newFormat, boolean debug) {
-		JSpinner spinner = (JSpinner) c;
+		GovernorJSpinner spinner = (GovernorJSpinner) c;
 		if (newFormat) {
+			spinner.getLayout();
 			spinner.setBackground(valueBgColor);
 			spinner.setForeground(textColor);
 			spinner.setFont(valueFont);
 			spinner.setBorder(null);
+			spinner.centerText();
 		}	   	
 	}
 	private void setJLabel				(Component c, boolean newFormat, boolean debug) {
@@ -433,6 +504,10 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 				if (debug) System.out.println("BasicArrowButton : " + k + " -- " + c.toString());
 				setBasicArrowButton(c, newFormat, debug);
 			} 
+			else if (c instanceof RotpSpinnerButton) {
+				if (debug) System.out.println("RotpSpinnerButton : " + k + " -- " + c.toString());
+				setRotpSpinnerButton(c, newFormat, debug);
+			}
 			else if (c instanceof JButton) {
 				if (debug) System.out.println("JButton : " + k + " -- " + c.toString());
 				setJButton(c, newFormat, debug);
@@ -491,11 +566,9 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	private void loadValues() {
 		GovernorOptions options = GameSession.instance().getGovernorOptions();
 		// Other Options and duplicate
-		newFormat 	  = !options.isOriginalPanel();
-		autoApply	  = options.isAutoApply();
-		animatedImage = options.isAnimatedImage();
 		this.governorDefault.setSelected(options.isGovernorOnByDefault());
 		this.completionist.setEnabled(isCompletionistEnabled());
+		this.autoApplyToggleButton.setSelected(isAutoApply());
 		
 		// AutoTransport Options
 		this.autotransport.setSelected(options.isAutotransport());
@@ -540,12 +613,14 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 		this.autoAttackShipCount.setValue(options.getAutoAttackShipCount());
 
 		// Aspect Options
-		this.customSize.setSelected(options.isCustomSize());
-		this.sizePct.setValue(options.getSizeFactorPct());
-		this.brightnessPct.setValue(options.getBrightnessPct());
-		this.isOriginal.setSelected(options.isOriginalPanel());		
+		this.customSize.setSelected(isCustomSize());
+		this.sizePct.setValue(getSizeFactor());
+		this.brightnessPct.setValue(getBrightnessPct());
+		this.isOriginal.setSelected(!isNewFormat());
 	}
 	private void applyAction() {// BR: Save Values
+		if (!isAutoApply())
+			return;
 		GovernorOptions options = GameSession.instance().getGovernorOptions();
 		
 		// AutoTransport Options
@@ -587,7 +662,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 		options.setBrightnessPct((Integer)brightnessPct.getValue(), false);
 		// Other Options
 		options.setGovernorOnByDefault(governorDefault.isSelected(), false);
-		options.setIsAnimatedImage(animatedImage, false);
+		options.setIsAnimatedImage(isAnimatedImage(), false);
 		
 		options.save();
 	}								   
@@ -651,7 +726,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         governorDefault = new javax.swing.JCheckBox();
         javax.swing.JPanel autotransportPanel = new javax.swing.JPanel();
         autotransport = new javax.swing.JCheckBox();
-        transportMaxTurns = new javax.swing.JSpinner();
+        transportMaxTurns = new GovernorJSpinner();
         javax.swing.JLabel transportMaxTurnsLabel = new javax.swing.JLabel();
         javax.swing.JLabel transportMaxTurnsNebula = new javax.swing.JLabel();
         transportRichDisabled = new javax.swing.JCheckBox();
@@ -674,20 +749,20 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         autoScout = new javax.swing.JCheckBox();
         autoColonize = new javax.swing.JCheckBox();
         autoAttack = new javax.swing.JCheckBox();
-        autoColonyShipCount = new javax.swing.JSpinner();
+        autoColonyShipCount = new GovernorJSpinner();
         autoColonyShipCountLabel = new javax.swing.JLabel();
-        autoScoutShipCount = new javax.swing.JSpinner();
-        autoAttackShipCount = new javax.swing.JSpinner();
+        autoScoutShipCount = new GovernorJSpinner();
+        autoAttackShipCount = new GovernorJSpinner();
         autoScoutShipCountLabel = new javax.swing.JLabel();
         autoAttackShipCountLabel = new javax.swing.JLabel();
         javax.swing.JPanel colonyPanel = new javax.swing.JPanel();
         autospend = new javax.swing.JCheckBox();
-        reserve = new javax.swing.JSpinner();
+        reserve = new GovernorJSpinner();
         reserveLabel = new javax.swing.JLabel();
         shipbuilding = new javax.swing.JCheckBox();
         shieldWithoutBases = new javax.swing.JCheckBox();
         legacyGrowthMode = new javax.swing.JCheckBox();
-        missileBases = new javax.swing.JSpinner();
+        missileBases = new GovernorJSpinner();
         missileBasesLabel = new javax.swing.JLabel();
         javax.swing.JPanel spyPanel = new javax.swing.JPanel();
         spareXenophobes = new javax.swing.JCheckBox();
@@ -696,9 +771,9 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         jPanelAspect = new javax.swing.JPanel();
         isOriginal = new javax.swing.JCheckBox();
         customSize = new javax.swing.JCheckBox();
-        sizePct = new javax.swing.JSpinner();
+        sizePct = new GovernorJSpinner();
         sizeFactorLabel = new javax.swing.JLabel();
-        brightnessPct = new javax.swing.JSpinner();
+        brightnessPct = new GovernorJSpinner();
         brightnessLabel = new javax.swing.JLabel();
         raceImage = new javax.swing.JLabel();
 
@@ -872,15 +947,11 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
             .addGroup(stargatePanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(stargatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(stargatePanelLayout.createSequentialGroup()
-                        .addGroup(stargatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(stargateOff)
-                            .addComponent(stargateRich)
-                            .addComponent(stargateOn))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, stargatePanelLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addContainerGap())))
+                    .addComponent(stargateOff)
+                    .addComponent(stargateRich)
+                    .addComponent(stargateOn)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
 
         stargatePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel1, stargateRich});
@@ -1028,10 +1099,10 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
                     .addComponent(autoScout)
                     .addComponent(autoAttack))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(fleetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(autoAttackShipCount, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(autoColonyShipCount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(autoScoutShipCount, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(fleetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(autoAttackShipCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(autoColonyShipCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(autoScoutShipCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(fleetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(fleetPanelLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1044,24 +1115,28 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
                         .addComponent(autoAttackShipCountLabel)))
                 .addContainerGap())
         );
+
+        fleetPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {autoAttackShipCount, autoColonyShipCount, autoScoutShipCount});
+
         fleetPanelLayout.setVerticalGroup(
             fleetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(fleetPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(fleetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(autoScout)
                     .addComponent(autoScoutShipCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(autoScoutShipCountLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(autoScoutShipCountLabel)
+                    .addComponent(autoScout))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
                 .addGroup(fleetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(autoColonize)
                     .addComponent(autoColonyShipCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(autoColonyShipCountLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
                 .addGroup(fleetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(autoAttack)
                     .addComponent(autoAttackShipCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(autoAttackShipCountLabel))
-                .addGap(0, 0, 0))
+                    .addComponent(autoAttackShipCountLabel)
+                    .addComponent(autoAttack))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         colonyPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Colony Options", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13))); // NOI18N
@@ -1297,21 +1372,23 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
         jPanelAspectLayout.setHorizontalGroup(
             jPanelAspectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelAspectLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanelAspectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(sizeFactorLabel)
-                    .addComponent(sizePct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanelAspectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(brightnessLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(brightnessPct, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanelAspectLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(jPanelAspectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(isOriginal)
-                    .addComponent(customSize))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanelAspectLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(sizePct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(sizeFactorLabel))
+                    .addGroup(jPanelAspectLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanelAspectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(isOriginal)
+                            .addComponent(customSize)))
+                    .addGroup(jPanelAspectLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(brightnessPct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(brightnessLabel)))
+                .addGap(0, 0, 0))
         );
 
         jPanelAspectLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {customSize, isOriginal});
@@ -1320,16 +1397,17 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
             jPanelAspectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelAspectLayout.createSequentialGroup()
                 .addComponent(isOriginal)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(customSize)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelAspectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                .addGroup(jPanelAspectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sizePct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(brightnessPct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(sizeFactorLabel))
                 .addGap(0, 0, 0)
                 .addGroup(jPanelAspectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(sizeFactorLabel)
-                    .addComponent(brightnessLabel)))
+                    .addComponent(brightnessPct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(brightnessLabel))
+                .addGap(0, 0, 0))
         );
 
         jPanelAspectLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {brightnessLabel, brightnessPct});
@@ -1372,7 +1450,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(fleetPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jPanelAspect, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGap(2, 2, 2))
                                     .addComponent(autotransportPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1384,7 +1462,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
                                 .addComponent(governorDefault)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(allGovernorsOff)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(stargatePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1445,7 +1523,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 			}
 			ss.colony().setGovernor(true);
 			ss.colony().governIfNeeded();
-			if (autoApply)
+			if (isAutoApply())
 				options().setGovernorOnByDefault(governorDefault.isSelected(), true);
 		}
 	}//GEN-LAST:event_allGovernorsOnActionPerformed
@@ -1457,7 +1535,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 				continue;
 			}
 			ss.colony().setGovernor(false);
-			if (autoApply)
+			if (isAutoApply())
 				options().setGovernorOnByDefault(governorDefault.isSelected(), true);
 		}
 	}//GEN-LAST:event_allGovernorsOffActionPerformed
@@ -1500,7 +1578,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	}//GEN-LAST:event_autoAttackShipCountMouseWheelMoved
 
 	private void autotransportXilmiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autotransportXilmiActionPerformed
-		if (autoApply)
+		if (isAutoApply())
 			options().setAutotransportXilmi(autotransportXilmi.isSelected(), true);
 	}//GEN-LAST:event_autotransportXilmiActionPerformed
 
@@ -1513,126 +1591,124 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	}//GEN-LAST:event_transportMaxTurnsMouseWheelMoved
 
 	private void autoApplyToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoApplyToggleButtonActionPerformed
-		autoApply = autoApplyToggleButton.isSelected();
-		options().setAutoApply(autoApply, true);
-		if (autoApply)
-			applyAction();
+		options().setAutoApply(autoApplyToggleButton.isSelected(), true);
+		applyAction();
 	}//GEN-LAST:event_autoApplyToggleButtonActionPerformed
 
 	private void allowUngovernedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allowUngovernedActionPerformed
-		if (autoApply)
+		if (isAutoApply())
 			options().setAutotransportUngoverned(allowUngoverned.isSelected(), true);
 	}//GEN-LAST:event_allowUngovernedActionPerformed
 
 	private void autotransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autotransportActionPerformed
-		if (autoApply)
+		if (isAutoApply())
 			options().setAutotransport(autotransport.isSelected(), true);
 	}//GEN-LAST:event_autotransportActionPerformed
 
 	private void transportRichDisabledActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transportRichDisabledActionPerformed
-		if (autoApply)
+		if (isAutoApply())
 			options().setTransportRichDisabled(transportRichDisabled.isSelected(), true);
 	}//GEN-LAST:event_transportRichDisabledActionPerformed
 
 	private void transportPoorDoubleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transportPoorDoubleActionPerformed
-		if (autoApply)
+		if (isAutoApply())
 			options().setTransportPoorDouble(transportPoorDouble.isSelected(), true);
 	}//GEN-LAST:event_transportPoorDoubleActionPerformed
 
 	private void autoScoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoScoutActionPerformed
-		if (autoApply)
+		if (isAutoApply())
 			options().setAutoScout(autoScout.isSelected(), true);
 	}//GEN-LAST:event_autoScoutActionPerformed
 
 	private void autoColonizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoColonizeActionPerformed
-		if (autoApply)
+		if (isAutoApply())
 			options().setAutoColonize(autoColonize.isSelected(), true);
 	}//GEN-LAST:event_autoColonizeActionPerformed
 
 	private void autoAttackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoAttackActionPerformed
-		if (autoApply)
+		if (isAutoApply())
 			options().setAutoAttack(autoAttack.isSelected(), true);
 	}//GEN-LAST:event_autoAttackActionPerformed
 
 	private void shieldWithoutBasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shieldWithoutBasesActionPerformed
-		if (autoApply)
+		if (isAutoApply())
 			options().setShieldWithoutBases(shieldWithoutBases.isSelected(), true);
 	}//GEN-LAST:event_shieldWithoutBasesActionPerformed
 
 	private void autospendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autospendActionPerformed
-		if (autoApply)
+		if (isAutoApply())
 			options().setAutospend(autospend.isSelected(), true);
 	}//GEN-LAST:event_autospendActionPerformed
 
 	private void shipbuildingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shipbuildingActionPerformed
-		if (autoApply)
+		if (isAutoApply())
 			options().setShipbuilding(shipbuilding.isSelected(), true);
 	}//GEN-LAST:event_shipbuildingActionPerformed
 
 	private void autoInfiltrateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoInfiltrateActionPerformed
-		if (autoApply)
+		if (isAutoApply())
 			options().setAutoInfiltrate(autoInfiltrate.isSelected(), true);
 	}//GEN-LAST:event_autoInfiltrateActionPerformed
 
 	private void legacyGrowthModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_legacyGrowthModeActionPerformed
-		if (autoApply)
+		if (isAutoApply())
 			options().setLegacyGrowthMode(legacyGrowthMode.isSelected(), true);
 	}//GEN-LAST:event_legacyGrowthModeActionPerformed
 
 	private void autoSpyActionPerformed(java.awt.event.ActionEvent evt) {                                               
-		if (autoApply)
+		if (isAutoApply())
 			options().setAutoSpy(autoSpy.isSelected(), true);
 	}                                                
 
 	private void spareXenophobesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoSpyActionPerformed
-		if (autoApply)
+		if (isAutoApply())
 			options().setSpareXenophobes(spareXenophobes.isSelected(), true);
 	}//GEN-LAST:event_autoSpyActionPerformed
 
 	private void stargateOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stargateOffActionPerformed
-		if (autoApply) applyStargates(true);
+		if (isAutoApply()) applyStargates(true);
 	}//GEN-LAST:event_stargateOffActionPerformed
 
 	private void stargateRichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stargateRichActionPerformed
-		if (autoApply) applyStargates(true);
+		if (isAutoApply()) applyStargates(true);
 	}//GEN-LAST:event_stargateRichActionPerformed
 
 	private void stargateOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stargateOnActionPerformed
-		if (autoApply) applyStargates(true);
+		if (isAutoApply()) applyStargates(true);
 	}//GEN-LAST:event_stargateOnActionPerformed
 
 	private void reserveStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_reserveStateChanged
-		if (autoApply)
+		if (isAutoApply())
 			options().setReserve((Integer)reserve.getValue(), true);
 	}//GEN-LAST:event_reserveStateChanged
 
 	private void missileBasesStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_missileBasesStateChanged
-		if (autoApply)
+		if (isAutoApply())
 			options().setMinimumMissileBases((Integer)missileBases.getValue(), true);
 	}//GEN-LAST:event_missileBasesStateChanged
 
 	private void autoAttackShipCountStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_autoAttackShipCountStateChanged
-		if (autoApply)
+		if (isAutoApply())
 			options().setAutoAttackShipCount((Integer)autoAttackShipCount.getValue(), true);
 	}//GEN-LAST:event_autoAttackShipCountStateChanged
 
 	private void autoColonyShipCountStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_autoColonyShipCountStateChanged
-		if (autoApply)
+		if (isAutoApply())
 			options().setAutoColonyShipCount((Integer)autoColonyShipCount.getValue(), true);
 	}//GEN-LAST:event_autoColonyShipCountStateChanged
 
 	private void autoScoutShipCountStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_autoScoutShipCountStateChanged
-		if (autoApply)
+		if (isAutoApply())
 			options().setAutoScoutShipCount((Integer)autoScoutShipCount.getValue(), true);
    }//GEN-LAST:event_autoScoutShipCountStateChanged
 
 	private void transportMaxTurnsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_transportMaxTurnsStateChanged
-		if (autoApply)
+		if (isAutoApply())
 			options().setTransportMaxTurns((Integer)transportMaxTurns.getValue(), true);
 	}//GEN-LAST:event_transportMaxTurnsStateChanged
 
 	private void governorDefaultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_governorDefaultActionPerformed
-		if (autoApply)
+		if (isAutoApply())
 			options().setGovernorOnByDefault(governorDefault.isSelected(), true);
 	}//GEN-LAST:event_governorDefaultActionPerformed
 
@@ -1645,38 +1721,30 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	}//GEN-LAST:event_sizePctMouseWheelMoved
 
 	private void isOriginalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isOriginalActionPerformed
-		newFormat = !isOriginal.isSelected();
-		if (autoApply)
-			options().setIsOriginalPanel(isOriginal.isSelected(), true);
+		setNewFormat (!isOriginal.isSelected());
 		protectedReset();
 	}//GEN-LAST:event_isOriginalActionPerformed
 
 	private void customSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customSizeActionPerformed
-		if (autoApply)
-			options().setIsCustomSize(customSize.isSelected(), true);
+		setCustomSize(customSize.isSelected());
 		protectedUpdateSize();
 	}//GEN-LAST:event_customSizeActionPerformed
 
 	private void raceImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_raceImageMouseClicked
-		animatedImage = !animatedImage;
-		if (autoApply)
-			options().setIsAnimatedImage(animatedImage, true);
-		if (animatedImage)
+		if (options().toggleAnimatedImage())
 			startAnimation();
 		else
 			stopAnimation();
 	}//GEN-LAST:event_raceImageMouseClicked
 
 	private void sizePctStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sizePctStateChanged
-		if (autoApply)
-			options().setSizeFactorPct((Integer)sizePct.getValue(), true);
-		if (options().isCustomSize())
+		setSizeFactorPct((Integer)sizePct.getValue());
+		if (isCustomSize())
 			protectedUpdateSize();
 	}//GEN-LAST:event_sizePctStateChanged
 
 	private void brightnessPctStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_brightnessPctStateChanged
-		if (autoApply)
-			options().setBrightnessPct((Integer)brightnessPct.getValue(), true);
+		setBrightnessPct((Integer)brightnessPct.getValue());
 		protectedUpdateColor();
 	}//GEN-LAST:event_brightnessPctStateChanged
 
@@ -1704,53 +1772,53 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 	}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton allGovernorsOff;
-    private javax.swing.JButton allGovernorsOn;
-    private javax.swing.JCheckBox allowUngoverned;
-    private javax.swing.JButton applyButton;
-    private javax.swing.JCheckBox autoApplyToggleButton;
-    private javax.swing.JCheckBox autoAttack;
-    private javax.swing.JSpinner autoAttackShipCount;
-    private javax.swing.JLabel autoAttackShipCountLabel;
-    private javax.swing.JCheckBox autoColonize;
-    private javax.swing.JSpinner autoColonyShipCount;
-    private javax.swing.JLabel autoColonyShipCountLabel;
-    private javax.swing.JCheckBox autoInfiltrate;
-    private javax.swing.JCheckBox autoScout;
-    private javax.swing.JSpinner autoScoutShipCount;
-    private javax.swing.JLabel autoScoutShipCountLabel;
-    private javax.swing.JCheckBox autoSpy;
-    private javax.swing.JCheckBox autospend;
-    private javax.swing.JCheckBox autotransport;
-    private javax.swing.JCheckBox autotransportXilmi;
-    private javax.swing.JLabel brightnessLabel;
-    private javax.swing.JSpinner brightnessPct;
-    private javax.swing.JButton cancelButton;
-    private javax.swing.JButton completionist;
-    private javax.swing.JCheckBox customSize;
-    private javax.swing.JCheckBox governorDefault;
-    private javax.swing.JCheckBox isOriginal;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanelAspect;
-    private javax.swing.JCheckBox legacyGrowthMode;
-    private javax.swing.JSpinner missileBases;
-    private javax.swing.JLabel missileBasesLabel;
-    private javax.swing.JButton okButton;
-    private javax.swing.JLabel raceImage;
-    private javax.swing.JSpinner reserve;
-    private javax.swing.JLabel reserveLabel;
-    private javax.swing.JCheckBox shieldWithoutBases;
-    private javax.swing.JCheckBox shipbuilding;
-    private javax.swing.JLabel sizeFactorLabel;
-    private javax.swing.JSpinner sizePct;
-    private javax.swing.JCheckBox spareXenophobes;
-    private javax.swing.JRadioButton stargateOff;
-    private javax.swing.JRadioButton stargateOn;
-    private javax.swing.ButtonGroup stargateOptions;
-    private javax.swing.JRadioButton stargateRich;
-    private javax.swing.JSpinner transportMaxTurns;
-    private javax.swing.JCheckBox transportPoorDouble;
-    private javax.swing.JCheckBox transportRichDisabled;
+    javax.swing.JButton allGovernorsOff;
+    javax.swing.JButton allGovernorsOn;
+    javax.swing.JCheckBox allowUngoverned;
+    javax.swing.JButton applyButton;
+    javax.swing.JCheckBox autoApplyToggleButton;
+    javax.swing.JCheckBox autoAttack;
+    javax.swing.JSpinner autoAttackShipCount;
+    javax.swing.JLabel autoAttackShipCountLabel;
+    javax.swing.JCheckBox autoColonize;
+    javax.swing.JSpinner autoColonyShipCount;
+    javax.swing.JLabel autoColonyShipCountLabel;
+    javax.swing.JCheckBox autoInfiltrate;
+    javax.swing.JCheckBox autoScout;
+    javax.swing.JSpinner autoScoutShipCount;
+    javax.swing.JLabel autoScoutShipCountLabel;
+    javax.swing.JCheckBox autoSpy;
+    javax.swing.JCheckBox autospend;
+    javax.swing.JCheckBox autotransport;
+    javax.swing.JCheckBox autotransportXilmi;
+    javax.swing.JLabel brightnessLabel;
+    javax.swing.JSpinner brightnessPct;
+    javax.swing.JButton cancelButton;
+    javax.swing.JButton completionist;
+    javax.swing.JCheckBox customSize;
+    javax.swing.JCheckBox governorDefault;
+    javax.swing.JCheckBox isOriginal;
+    javax.swing.JLabel jLabel1;
+    javax.swing.JPanel jPanelAspect;
+    javax.swing.JCheckBox legacyGrowthMode;
+    javax.swing.JSpinner missileBases;
+    javax.swing.JLabel missileBasesLabel;
+    javax.swing.JButton okButton;
+    javax.swing.JLabel raceImage;
+    javax.swing.JSpinner reserve;
+    javax.swing.JLabel reserveLabel;
+    javax.swing.JCheckBox shieldWithoutBases;
+    javax.swing.JCheckBox shipbuilding;
+    javax.swing.JLabel sizeFactorLabel;
+    javax.swing.JSpinner sizePct;
+    javax.swing.JCheckBox spareXenophobes;
+    javax.swing.JRadioButton stargateOff;
+    javax.swing.JRadioButton stargateOn;
+    javax.swing.ButtonGroup stargateOptions;
+    javax.swing.JRadioButton stargateRich;
+    javax.swing.JSpinner transportMaxTurns;
+    javax.swing.JCheckBox transportPoorDouble;
+    javax.swing.JCheckBox transportRichDisabled;
     // End of variables declaration//GEN-END:variables
 
 	// Just test the layout
@@ -1777,58 +1845,15 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 
 	}
 	
-	// ========== Nested Class ==========	
-	private class RotpButtonIcon implements Icon {
-
-		private RotpButtonIcon () {  }
-		
-		@Override public int getIconHeight() { return 2; }
-		@Override public int getIconWidth()	 { return 2; }
-		@Override public void paintIcon(Component component, Graphics g0, int xi, int yi) {
-			Graphics2D g	= (Graphics2D) g0;
-			JButton button	= (JButton) component;			
-			ButtonModel buttonModel = button.getModel();
-			Color borderC = borderColor;
-			Color centerC = buttonColor;
-			int corner = Math.round(buttonCorner);
-			int border = 1;
-			int x = 0;
-			int y = 0;
-			int w = button.getWidth();
-			int h = button.getHeight();
-			
-			if (!buttonModel.isEnabled()) {
-				borderC = disabledColor;
-				centerC = hiddenColor;
-			}
-			else if (buttonModel.isRollover()) {
-				borderC = hoverColor;
-				border = 2;
-			}
-			// Fill background to go over OS choices... 
-			g.setColor(frameBgColor);
-			g.fillRect(x, y, w, h);
-			
-			// Draw borders
-			g.setColor(borderC);
-			g.fillRoundRect(x, y, w, h, corner, corner);
-
-			// Fill the buttons
-			g.setColor(centerC);
-			g.fillRoundRect(x + border, y + border, w - 2*border, h - 2*border, corner, corner);			
-		}
-	}
-	
-	// ==============================================================
+	// ========== Nested Class ==========
 	//
-	private class ScalableCheckBoxAndRadioButtonIcon implements Icon {
+	// =============== Check Box and Radio Button ===============
+	//
+	private static class ScalableCheckBoxAndRadioButtonIcon implements Icon {
 
 		private ScalableCheckBoxAndRadioButtonIcon () {  }
 		
-		protected int dim() {
-			return Math.round(iconSize);
-		}
-
+		protected int dim() { return Math.round(iconSize); }
 		@Override public void paintIcon(Component component, Graphics g0, int xi, int yi) {
 			ButtonModel buttonModel = ((AbstractButton) component).getModel();
 			Graphics2D g = (Graphics2D) g0;
@@ -1868,20 +1893,218 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 				g.setStroke(prev);
 			}
 		}
-
-		@Override public int getIconWidth() {
-			return dim();
-		}
-
-		@Override public int getIconHeight() {
-			return dim();
-		}
+		@Override public int getIconWidth()  { return dim(); }
+		@Override public int getIconHeight() { return dim(); }
 	}
-	// ==============================================================
+
+	// ==================== Buttons ====================
 	//
-	private class RotpButtonUI extends MetalButtonUI {
+	private static class GovButtonUI extends MetalButtonUI {
 		@Override  protected Color getDisabledTextColor() { return disabledColor; }
 	    @Override  protected Color getSelectColor()		  { return hoverColor; }
+	}
+	// =================================================
+	//
+	private class GovButtonIcon implements Icon {
 
+		private GovButtonIcon () {  }
+		
+		@Override public int getIconHeight() { return 2; }
+		@Override public int getIconWidth()	 { return 2; }
+		@Override public void paintIcon(Component component, Graphics g0, int xi, int yi) {
+			Graphics2D g	= (Graphics2D) g0;
+			JButton button	= (JButton) component;			
+			ButtonModel buttonModel = button.getModel();
+			Color borderC = borderColor;
+			Color centerC = buttonColor;
+			int corner = Math.round(buttonCorner);
+			int border = 1;
+			int x = 0;
+			int y = 0;
+			int w = button.getWidth();
+			int h = button.getHeight();
+			
+			if (!buttonModel.isEnabled()) {
+				borderC = disabledColor;
+				centerC = hiddenColor;
+			}
+			else if (buttonModel.isRollover()) {
+				borderC = hoverColor;
+				border = 2;
+			}
+			// Fill background to go over OS choices... 
+			g.setColor(frameBgColor);
+			g.fillRect(x, y, w, h);
+			
+			// Draw borders
+			g.setColor(borderC);
+			g.fillRoundRect(x, y, w, h, corner, corner);
+
+			// Fill the buttons
+			g.setColor(centerC);
+			g.fillRoundRect(x + border, y + border, w - 2*border, h - 2*border, corner, corner);			
+		}
+	}
+
+	// ==================== Spinners ====================
+	//
+	private static class GovSpinnerIcon implements Icon {
+
+		private int dir;
+		/**
+		 * 
+		 * @param direction SwingConstants: EST | WEST
+		 */
+		private GovSpinnerIcon (int direction) {  dir = direction; }
+		private Polygon arrow(int width, int height, int border) {
+			Polygon p = new Polygon();
+			p.reset();
+			int b2 = 3*border/2;
+			int b  = border;
+			int m  = width/5;
+			int w  = width - m;
+			if (dir == SwingConstants.EAST) {
+				p.addPoint(m+b,		b+b);
+				p.addPoint(m-b2+w,	height/2);
+				p.addPoint(m+b,		height - b-b);
+				return p;
+			}
+			else if (dir == SwingConstants.WEST) {
+				p.addPoint(w-b,	b+b);
+				p.addPoint(b2,	height/2);
+				p.addPoint(w-b,	height - b-b);
+				return p;
+			}
+			else if (dir == SwingConstants.NORTH) {
+				p.addPoint(width/2, border);
+				p.addPoint(width-border, height - border);
+				p.addPoint(border, height - border);
+				return p;
+			}
+			p.addPoint(border, border);
+			p.addPoint(width-border, border);
+			p.addPoint(width/2, height - border);
+			return p;
+		}
+		@Override public int getIconHeight() { return 20; }
+		@Override public int getIconWidth()	 { return 20; }
+		@Override public void paintIcon(Component component, Graphics g0, int xi, int yi) {
+			Graphics2D g	= (Graphics2D) g0;
+			JButton button	= (JButton) component;			
+			ButtonModel buttonModel = button.getModel();
+			Color borderC = borderColor;
+			Color centerC = valueBgColor;
+			int border = 1;
+			int x = 0;
+			int y = 0;
+			int w = button.getWidth();
+			int h = button.getHeight();
+			
+			if (!buttonModel.isEnabled()) {
+				borderC = disabledColor;
+				centerC = hiddenColor;
+			}
+			else if (buttonModel.isRollover()) {
+				borderC = hoverColor;
+				border = 2;
+			}
+			// Fill background to go over OS choices...
+			g.setColor(panelBgColor);
+			g.fillRect(x, y, w, h);
+			
+			// Draw borders
+			g.setColor(borderC);
+			g.fill(arrow(w, h, 0));
+
+			// Fill the buttons
+			g.setColor(centerC);
+			g.fill(arrow(w, h, border));		
+		}
+	}
+	// =================================================
+	//
+	private static class GovernorJSpinner extends JSpinner {
+		
+		GovernorJSpinner() {
+			if (isNewFormat())
+				setUI(new RotpSpinnerUI());
+		}
+		@Override public void setLayout(LayoutManager mgr) {
+			if (isNewFormat()) {
+				super.setLayout(new GovSpinnerLayout());
+			} 
+			else {
+				super.setLayout(mgr);
+			}
+		}
+		public void centerText() {
+			JComponent c = getEditor();
+			if (c instanceof DefaultEditor)
+				((DefaultEditor) c).getTextField().setHorizontalAlignment(JTextField.CENTER);
+		}
+	}
+	// =================================================
+	//
+	private static class GovSpinnerLayout extends BorderLayout {
+		
+		GovSpinnerLayout() { }
+//		@Override public int getHgap() { return 5; }
+		@Override public void addLayoutComponent(Component comp, Object constraints) {
+			if("Editor".equals(constraints)) {
+				constraints = CENTER;
+		    }
+			else if("Next".equals(constraints)) {
+				constraints = BorderLayout.EAST;
+		    }
+			else if("Previous".equals(constraints)) {
+				constraints = BorderLayout.WEST;
+		    }
+			super.addLayoutComponent(comp, constraints);
+		}
+	}
+	// =================================================
+	//
+	// From https://coderanch.com/t/522480/java/change-jspinner-arrows-left
+	//
+	private static class RotpSpinnerUI extends BasicSpinnerUI {
+		 
+		public static ComponentUI createUI(JComponent c) {
+			return new RotpSpinnerUI();
+		}
+		@Override protected Component createNextButton() {
+			Component c = createArrowButton(SwingConstants.EAST);
+			c.setName("Spinner.nextButton");
+			installNextButtonListeners(c);
+			return c;
+		}
+		@Override protected Component createPreviousButton() {
+			Component c = createArrowButton(SwingConstants.WEST);
+			c.setName("Spinner.previousButton");
+			installPreviousButtonListeners(c);
+			return c;
+		}
+		private Component createArrowButton(int direction) {
+			RotpSpinnerButton b = new RotpSpinnerButton(direction);
+			b.setInheritsPopupMenu(true);
+			return b;
+		}
+		@Override public void installUI(JComponent c) {
+			super.installUI(c);
+			c.removeAll();
+			c.setLayout(new BorderLayout());
+			c.add(createNextButton(), BorderLayout.EAST);
+			c.add(createPreviousButton(), BorderLayout.WEST);
+			c.add(createEditor(), BorderLayout.CENTER);
+		}
+	}
+	// =================================================
+	//
+	private static class RotpSpinnerButton extends JButton {
+		RotpSpinnerButton(int direction) {
+			super();
+			this.setMinimumSize(new Dimension(5, 5));
+			this.setPreferredSize(new Dimension(arrowHeight, arrowHeight));
+			setIcon(new GovSpinnerIcon(direction));
+		}
 	}
 }

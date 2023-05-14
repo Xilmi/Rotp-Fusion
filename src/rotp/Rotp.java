@@ -19,7 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
@@ -69,8 +68,7 @@ public class Rotp {
     public static int actualAlloc = -1;
     public static boolean reloadRecentSave = false;
 
-//    static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-    static GraphicsDevice device;
+    private static GraphicsDevice device;
     
     public static void main(String[] args) {
         frame = new JFrame("Remnants of the Precursors");
@@ -96,22 +94,10 @@ public class Rotp {
             }
         });
         
-//        // ------------------------------
-//        int selectedScreen = UserPreferences.selectedScreen();
-//        if (selectedScreen < 0)
-//        	device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-//        else {
-//            GraphicsDevice[] gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices();
-//            selectedScreen = Math.min(selectedScreen, gd.length);
-//            device = gd[selectedScreen];
-//        }
-//        // ------------------------------
-
         // note: referencing the RotPUI class executes its static block
         // which loads in sounds, images, etc
         frame.setLayout(new BorderLayout());
         frame.add(RotPUI.instance(), BorderLayout.CENTER);
-
         
         // modnar: change to cleaner icon set
         List<Image> iconImages = new ArrayList<Image>();
@@ -141,7 +127,6 @@ public class Rotp {
             resizeAmt();
         }
         else {
-        	
             frame.setResizable(false);
             device().setFullScreenWindow(null);
         	frame.setLocation(device().getDefaultConfiguration().getBounds().x,
