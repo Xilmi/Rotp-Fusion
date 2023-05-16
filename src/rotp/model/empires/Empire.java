@@ -73,7 +73,6 @@ import rotp.model.galaxy.Transport;
 import rotp.model.game.DynOptions;
 import rotp.model.game.GameSession;
 import rotp.model.game.GovernorOptions;
-import rotp.model.game.MOO1GameOptions;
 import rotp.model.incidents.DiplomaticIncident;
 import rotp.model.incidents.GenocideIncident;
 import rotp.model.planet.PlanetType;
@@ -188,11 +187,11 @@ public final class Empire implements Base, NamedObject, Serializable {
 
     public void resetAI() { ai = null; } // BR:
     public void changePlayerAI(String newAI) { // BR:
-    	selectedAI = MOO1GameOptions.selectedPlayerAI(newAI);
+    	selectedAI = AI.autoPlayAIset().id(newAI);
     	ai = null;
     }
     public void changeOpponentAI(String newAI) { // BR:
-    	selectedAI = MOO1GameOptions.selectedOpponentAI(newAI);
+    	selectedAI = AI.globalAIset().id(newAI);
     	ai = null;
     	ai();
     }
@@ -205,8 +204,8 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
         return ai;
     }
-    public String getAiKey()  { return MOO1GameOptions.sortedOpponentAIKeys().get(selectedAI); } // BR:
-    public String getAiName() { return MOO1GameOptions.sortedOpponentAINames().get(selectedAI); } // BR:
+    public String getAiKey()					  { return AI.allAIset().aliensKey(selectedAI); } // BR:
+    public String getAiName() 					  { return text(getAiKey()); } // BR:
     public Diplomat diplomatAI()                  { return ai().diplomat(); }
     public FleetCommander fleetCommanderAI()      { return ai().fleetCommander(); }
     public ShipCaptain shipCaptainAI()            { return ai().shipCaptain(); }

@@ -60,7 +60,7 @@ import rotp.util.FontManager;
 /**
  * Produced using Netbeans Swing GUI builder.
  */
-public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptionsListener{
+class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptionsListener{
 	
 	private static final float	valueFontSize		= 14f;
 	private static final float	baseFontSize		= 14f;
@@ -152,7 +152,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 
 	// ========== Constructor and initializers ==========
 	//
-	public GovernorOptionsPanel(JFrame frame) {
+	GovernorOptionsPanel(JFrame frame) {
 		this.frame = frame;
 		protectedInitPanel();
 		MOO1GameOptions.addListener(this);
@@ -170,12 +170,12 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 			valueBgColor	= multColor(RacesUI.lightBrown, 1.2f * brightness);
 			
 			buttonColor		= panelBgColor;
-			borderColor		= multColor(panelBgColor, 1.2f * brightness);
+			borderColor		= multColor(valueBgColor, 1.2f);
 			hiddenColor		= multColor(frameBgColor, 0.8f);
 			disabledColor	= multColor(frameBgColor, 1.2f);
 			hoverColor		= Color.yellow;
 			
-			buttonTextColor	= SystemPanel.whiteText;
+			buttonTextColor	= multColor(valueBgColor, 1.2f);
 	
 			textColor		= SystemPanel.blackText;
 			valueTextColor	= SystemPanel.blackText;
@@ -237,7 +237,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 		loadValues();
 		protectedReset();
 	} 
-	public void applyStyle() { protectedUpdatePanel(); }
+	void applyStyle() { protectedUpdatePanel(); }
 	
 	// ========== Local tools ==========
 	//
@@ -1936,13 +1936,24 @@ public class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptio
 			g.setColor(frameBgColor);
 			g.fillRect(x, y, w, h);
 			
-			// Draw borders
-			g.setColor(borderC);
-			g.fillRoundRect(x, y, w, h, corner, corner);
-
 			// Fill the buttons
 			g.setColor(centerC);
-			g.fillRoundRect(x + border, y + border, w - 2*border, h - 2*border, corner, corner);			
+			g.fillRoundRect(x, y, w, h, corner, corner);
+			
+			// Draw borders
+			Stroke prev = g.getStroke();
+			g.setStroke(new BasicStroke(border, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+			g.setColor(borderC);
+			g.drawRoundRect(x + border, y + border, w - 2*border, h - 2*border, corner, corner);
+			g.setStroke(prev);
+
+//			// Draw borders
+//			g.setColor(borderC);
+//			g.fillRoundRect(x, y, w, h, corner, corner);
+
+//			// Fill the buttons
+//			g.setColor(centerC);
+//			g.fillRoundRect(x + border, y + border, w - 2*border, h - 2*border, corner, corner);
 		}
 	}
 

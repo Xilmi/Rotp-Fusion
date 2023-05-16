@@ -70,6 +70,7 @@ import rotp.ui.RotPUI;
 import rotp.ui.game.BaseModPanel;
 import rotp.ui.game.GameUI;
 import rotp.util.Base;
+import rotp.util.ModifierKeysState;
 
 /*
  * ListDialog.java is meant to be used by programs such as
@@ -175,7 +176,6 @@ public class ListDialog extends JDialog implements ActionListener, Base {
 		cancelButton.setVerticalAlignment(SwingConstants.TOP);
 		cancelButton.setBackground(GameUI.buttonBackgroundColor());
 		cancelButton.setForeground(GameUI.buttonTextColor());
-//		cancelButton.setActionCommand("Cancel");
 		cancelButton.addActionListener(this);
 		//
 		final JButton setButton = new JButton("Set");
@@ -184,7 +184,6 @@ public class ListDialog extends JDialog implements ActionListener, Base {
 		setButton.setVerticalAlignment(SwingConstants.TOP);
 		setButton.setBackground(GameUI.buttonBackgroundColor());
 		setButton.setForeground(GameUI.buttonTextColor());
-//		setButton.setActionCommand("Set");
 		setButton.addActionListener(this);
 		getRootPane().setDefaultButton(setButton);
 
@@ -297,7 +296,7 @@ public class ListDialog extends JDialog implements ActionListener, Base {
 		JPanel listPane = new JPanel();
 		listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
 		JLabel label = new JLabel(labelText);
-		label.setFont(narrowFont(14));
+		label.setFont(narrowFont(15));
 		label.setLabelFor(list);
 		label.setForeground(Color.BLACK);
 
@@ -347,6 +346,7 @@ public class ListDialog extends JDialog implements ActionListener, Base {
 		clearHelp();
 		dialGuide = false;
 		super.dispose();
+		ModifierKeysState.reset();
 		frame.repaint();
 	}
 	//Handle clicks on the Set and Cancel buttons.

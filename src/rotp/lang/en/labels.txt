@@ -2081,6 +2081,14 @@ SETTINGS_MOD_OPTIONS_GAME_HELP           | The options will be set to the same s
 SETTINGS_MOD_OPTIONS_USER_HELP           | The options will be set as stored in the User's preferred settings.
 SETTINGS_MOD_OPTIONS_VANILLA_HELP        | The options will be set as if it was no mods... a mixt of default, last state and last played game...
 
+SETTINGS_MOD_SHOW_ALL_AI_DESC            | AI:Base, AI:Modnar, and AI:Rookies are quite similar. AI:Rookie is based on the other two, with some important bug fixed. You may want to hide unfixed AI.
+SETTINGS_MOD_SHOW_ALL_AI                 | Show all AIs: %1
+SETTINGS_MOD_SHOW_ALL_AI_YES             | All.
+SETTINGS_MOD_SHOW_ALL_AI_NO	             | Hide some.
+SETTINGS_MOD_SHOW_ALL_AI_YES_HELP        | All AIs are available for the player and the opponents.
+SETTINGS_MOD_SHOW_ALL_AI_NO_HELP         | AI:Base and AI:Modnar won't be available.
+
+
 SETTINGS_MOD_SHOW_NEW_RACES_DESC         | Show the new races in the opponents list?
 SETTINGS_MOD_SHOW_NEW_RACES              | Show new races: %1
 SETTINGS_MOD_SHOW_GRID_CIRCULAR_DESC     | Show the circular grid on the galaxy map? (Dynamic)

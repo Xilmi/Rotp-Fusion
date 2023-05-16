@@ -39,7 +39,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -90,7 +89,6 @@ import rotp.ui.game.StaticBOptionsUI;
 import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.SpecificCROption;
 import rotp.util.Base;
-import rotp.util.LabelManager;
 
 // Renaming:
 //   Options = setting set
@@ -154,8 +152,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private DynOptions dynamicOptions = new DynOptions();
 
     private transient GalaxyShape galaxyShape;
-    private static transient LinkedList<String> sortedOpponentAINames;
-    private static transient LinkedList<String> sortedOpponentAIKeys;
 
     public MOO1GameOptions() {
         init();
@@ -564,76 +560,18 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         else 
             return min(10,sqrt(nStars/200f));
     }
-    private static void initAISortedList() { // BR: To retrieve AI name from its ID
-    	LabelManager lm       = LabelManager.current();
-		sortedOpponentAIKeys  = opponentAIBaseOptions(); // Should start with the good size
-		sortedOpponentAINames = opponentAIBaseOptions(); // Should start with the good size
-		for (String key : opponentAIBaseOptions()) {
-			int index = selectedOpponentAI(key);
-			sortedOpponentAIKeys.set(index, key);
-			sortedOpponentAINames.set(index, lm.label(key));
-		}
-    }
-    public static String getOpponentAIKey(String aiName) { // BR:
-    	int aiIndex  = sortedOpponentAINames().indexOf(aiName);
-    	return sortedOpponentAIKeys().get(aiIndex);
-    }
-    public static LinkedList<String> sortedOpponentAIKeys() { // BR: To retrieve AI name from its ID
-    	if (sortedOpponentAIKeys == null)
-    		initAISortedList();
-    	return sortedOpponentAIKeys;
-    }
-    public static LinkedList<String> sortedOpponentAINames() { // BR: To retrieve AI name from its ID
-    	if (sortedOpponentAINames == null)
-    		initAISortedList();
-    	return sortedOpponentAINames;
-    }
-    public static int selectedPlayerAI(String autoplayOption) {
-    	switch(autoplayOption) {
-	        case AUTOPLAY_AI_BASE:         return AI.BASE;
-	        case AUTOPLAY_AI_MODNAR:       return AI.MODNAR;
-	        case AUTOPLAY_AI_ROOKIE:       return AI.ROOKIE;
-	        case AUTOPLAY_AI_XILMI:        return AI.XILMI;
-	        case AUTOPLAY_AI_HYBRID:       return AI.HYBRID;
-	        case AUTOPLAY_AI_CRUEL:        return AI.FUSION;
-	        case AUTOPLAY_AI_FUN:          return AI.FUN;
-	        case AUTOPLAY_AI_PERSONALITY:  return AI.PERSONALITY;
-	        case AUTOPLAY_AI_RANDOM:       return AI.RANDOM;
-	        case AUTOPLAY_AI_RANDOM_BASIC: return AI.RANDOM_BASIC;
-	        case AUTOPLAY_AI_RANDOM_ADV:   return AI.RANDOM_ADVANCED;
-	        case AUTOPLAY_AI_RANDOM_NOBAR: return AI.RANDOM_NO_RELATIONBAR;
-	        case AUTOPLAY_OFF:
-	        default:
-	            return AI.FUSION;  // it does matter both for spending reallocation and for ship-captain
-    	}
-    }
-    public static int selectedOpponentAI(String opponentAIOption) {
-    	switch(opponentAIOption) {
-	        case OPPONENT_AI_BASE:         return AI.BASE;
-	        case OPPONENT_AI_MODNAR:       return AI.MODNAR;
-	        case OPPONENT_AI_ROOKIE:       return AI.ROOKIE;
-	        case OPPONENT_AI_XILMI:        return AI.XILMI;
-	        case OPPONENT_AI_HYBRID:       return AI.HYBRID;
-	        case OPPONENT_AI_CRUEL:        return AI.FUSION;
-	        case OPPONENT_AI_FUN:          return AI.FUN;
-	        case OPPONENT_AI_PERSONALITY:  return AI.PERSONALITY;
-	        case OPPONENT_AI_RANDOM:       return AI.RANDOM;
-	        case OPPONENT_AI_RANDOM_BASIC: return AI.RANDOM_BASIC;
-	        case OPPONENT_AI_RANDOM_ADV:   return AI.RANDOM_ADVANCED;
-	        case OPPONENT_AI_RANDOM_NOBAR: return AI.RANDOM_NO_RELATIONBAR;
-	        default:
-	            return AI.FUSION;
-        }
-    }    
     @Override
     public int selectedAI(Empire e) {
-        if (e.isPlayer())
-        	return selectedPlayerAI(selectedAutoplayOption());
+        if (e.isPlayer()) {
+    		return AI.autoPlayAIset().id(selectedAutoplayOption());
+        }
         else
-        	if (OPPONENT_AI_SELECTABLE.equals(selectedOpponentAIOption()))
-	            return selectedOpponentAI(specificOpponentAIOption(e.id));
-	        else
-	            return selectedOpponentAI(selectedOpponentAIOption());
+        	if (OPPONENT_AI_SELECTABLE.equals(selectedOpponentAIOption())) {
+        		return AI.globalAIset().id(specificOpponentAIOption(e.id));
+        	}
+	        else {
+        		return AI.globalAIset().id(selectedOpponentAIOption());
+	        }
     }
     @Override
     public float hostileTerraformingPct() { 
@@ -762,22 +700,12 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             default: return StarType.RED;
         }
     }
-    // BR: Made this String List public
-    /**
-     * List of all stars Type Color key
-     * in the sequence used by the cumulative probability arrays
-     * @return the list
-     */
-    public static List<String> starTypeColors() {
-    	return Arrays.asList("RED", "ORANGE", "YELLOW"
-    				 , "BLUE", "WHITE", "PURPLE"); 
-    }
     // BR: Made this String Array public
     /**
      * @return List of all planetTypes Key 
      * in the sequence used by randomPlanet()
      */
-    public static String[] planetTypes() {
+    private static String[] planetTypes() {
     	return new String[] {
     			PlanetType.NONE,
     			PlanetType.RADIATED,
@@ -1100,65 +1028,12 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add(RANDOMIZE_AI_BOTH);
         return list;
     }
-    public static LinkedList<String> autoplayBaseOptions() {
-    	LinkedList<String> list = new LinkedList<>();
-        list.add(AUTOPLAY_OFF);
-        list.add(AUTOPLAY_AI_BASE);
-        list.add(AUTOPLAY_AI_MODNAR);
-        list.add(AUTOPLAY_AI_ROOKIE);
-        list.add(AUTOPLAY_AI_XILMI);
-        list.add(AUTOPLAY_AI_HYBRID);
-        list.add(AUTOPLAY_AI_PERSONALITY);
-        list.add(AUTOPLAY_AI_FUN);
-        list.add(AUTOPLAY_AI_CRUEL);
-        return list;
-    }
-    @Override public List<String> autoplayOptions() { return getAutoplayOptions(); }
-    public static List<String> getAutoplayOptions() {
-        List<String> list = autoplayBaseOptions();
-        list.add(AUTOPLAY_AI_RANDOM);
-        list.add(AUTOPLAY_AI_RANDOM_BASIC);
-        list.add(AUTOPLAY_AI_RANDOM_ADV);
-        list.add(AUTOPLAY_AI_RANDOM_NOBAR);
-        return list;
-    }
-    private static LinkedList<String> opponentAIBaseOptions() { // BR: new access to base opponents
-    	LinkedList<String> list = new LinkedList<>();
-        list.add(OPPONENT_AI_BASE);
-        list.add(OPPONENT_AI_MODNAR);
-        list.add(OPPONENT_AI_ROOKIE);
-        list.add(OPPONENT_AI_XILMI);
-        list.add(OPPONENT_AI_HYBRID);
-        list.add(OPPONENT_AI_PERSONALITY);
-        list.add(OPPONENT_AI_FUN);
-        list.add(OPPONENT_AI_CRUEL);
-        return list;
-    }
-    @Override public List<String> opponentAIOptions() { return getOpponentAIOptions(); }
-    public static List<String> getOpponentAIOptions() { // BR: new access to base opponents
-        List<String> list =  opponentAIBaseOptions();
-        list.add(OPPONENT_AI_RANDOM);
-        list.add(OPPONENT_AI_RANDOM_BASIC);
-        list.add(OPPONENT_AI_RANDOM_ADV);
-        list.add(OPPONENT_AI_RANDOM_NOBAR);
-        list.add(OPPONENT_AI_SELECTABLE);
-        return list;
-    }
-    private static List<String> specificOpponentAIBaseOptions() { // BR: new access to base opponents
-        return opponentAIBaseOptions(); // BR: to allow any possibilities
-    } 
+    @Override public List<String> autoplayOptions()   { return AI.autoPlayAIset().getAutoPlay(); }
+    @Override public List<String> opponentAIOptions() { return AI.globalAIset().getAliens(); }
     @Override
     public List<String> specificOpponentAIOptions() { // BR: new access to base specific opponents
-    	return getSpecificOpponentAIOptions();
+    	return AI.specificAIset().getAliens();
     }
-    public static List<String> getSpecificOpponentAIOptions() { // BR: new access to specific opponents
-        List<String> list = specificOpponentAIBaseOptions();
-        list.add(OPPONENT_AI_RANDOM);
-        list.add(OPPONENT_AI_RANDOM_BASIC);
-        list.add(OPPONENT_AI_RANDOM_ADV);
-        list.add(OPPONENT_AI_RANDOM_NOBAR);
-        return list;
-    } 
     @Override
     public List<String> newRaceOffOptions()	  { return IGameOptions.baseRaceOptions(); }
     @Override
@@ -1535,7 +1410,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
    }
     // ==================== Generalized options methods ====================
     //
-    public static void writeModSettingsToOptions(MOO1GameOptions dest, String guiID, boolean call) {
+    static void writeModSettingsToOptions(MOO1GameOptions dest, String guiID, boolean call) {
     	switch (guiID) {
     	case EditCustomRaceUI.GUI_ID:
     	case UserPreferences.ALL_GUI_ID:

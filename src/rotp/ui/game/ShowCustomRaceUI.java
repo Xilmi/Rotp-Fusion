@@ -16,8 +16,8 @@
 package rotp.ui.game;
 
 import static rotp.model.empires.CustomRaceDefinitions.ROOT;
-import static rotp.ui.game.SetupGalaxyUI.specificAI;
 import static rotp.ui.UserPreferences.autoplay;
+import static rotp.ui.game.SetupGalaxyUI.specificAI;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -27,16 +27,17 @@ import java.awt.Stroke;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JEditorPane;
 import javax.swing.JTextPane;
 
+import rotp.model.ai.AI;
+import rotp.model.ai.AIList;
 import rotp.model.empires.CustomRaceDefinitions;
+import rotp.model.empires.Empire;
 import rotp.model.game.IGameOptions;
-import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.main.SystemPanel;
@@ -49,47 +50,47 @@ import rotp.util.ModifierKeysState;
 
 public class ShowCustomRaceUI extends BaseModPanel {
 	private static final long serialVersionUID	= 1L;
-	private static final Color  backgroundHaze	= new Color(0,0,0,160);
-	private static final String playerAIOffKey	= "SETUP_OPPONENT_AI_PLAYER";
-	private static final String totalCostKey	= ROOT + "GUI_COST";
+	private static final Color	 backgroundHaze	= new Color(0,0,0,160);
+	private static final String	 playerAIOffKey	= "SETUP_OPPONENT_AI_PLAYER";
+	private static final String	 totalCostKey	= ROOT + "GUI_COST";
 	
-	private	static final int  tooltipPadV	= s10;
-	private	static final int  descPadM		= s5;
-	private static final int  descLineH		= s18;
-	private	static final Font descFont		= FontManager.current().narrowFont(14);
+	private	static final int	 tooltipPadV	= s10;
+	private	static final int	 descPadM		= s5;
+	private static final int	 descLineH		= s18;
+	private	static final Font	 descFont		= FontManager.current().narrowFont(14);
 
-	protected static final Color textC		= SystemPanel.whiteText;
-	protected static final int buttonPad	= s15;
-	protected static final int buttonPadV	= tooltipPadV;
-	protected static final int xButtonOffset= s30;
-	protected static final Color labelC		= SystemPanel.orangeText;
-	protected static final int labelFontSize= 14;
-	protected static final int labelH		= s16;
-	protected static final int labelPad		= s8;
+	protected static final Color textC			= SystemPanel.whiteText;
+	protected static final int	 buttonPad		= s15;
+	protected static final int	 buttonPadV		= tooltipPadV;
+	protected static final int	 xButtonOffset	= s30;
+	protected static final Color labelC			= SystemPanel.orangeText;
+	protected static final int	 labelFontSize	= 14;
+	protected static final int	 labelH			= s16;
+	protected static final int	 labelPad		= s8;
+	protected static final int	 columnPad		= s12;
 
-	protected static final int columnPad	= s12;
-	private static final Color costC		= SystemPanel.blackText;
-	private static final int costFontSize	= 18;
-	private	static final Font titleFont		= FontManager.current().narrowFont(30);
-	private static final int titleOffset	= s30; // Offset from Margin
-	private static final int costOffset		= s25; // Offset from title
-	private static final int titlePad		= s80; // Offset of first setting
-	private static final int raceAIH		= s18;
+	private static final Color	costC			= SystemPanel.blackText;
+	private static final int	costFontSize	= 18;
+	private	static final Font	titleFont		= FontManager.current().narrowFont(30);
+	private static final int	titleOffset		= s30; // Offset from Margin
+	private static final int	costOffset		= s25; // Offset from title
+	private static final int	titlePad		= s80; // Offset of first setting
+	private static final int	raceAIH			= s18;
 	
-	private static final Color frameC		= SystemPanel.blackText; // Setting frame color
-	private static final Color settingNegC	= SettingBase.settingNegC; // Setting name color
-	private static final Color settingC		= SettingBase.settingC; // Setting name color
-	private static final int settingFont	= 15;
-	private static final int settingH		= s16;
-	private static final int spacerH		= s10;
-	private static final int settingHPad	= s4;
-	private static final int frameShift		= s5;
-	private static final int frameTopPad	= 0;
-	private static final int frameSizePad	= s10;
-	private static final int frameEndPad	= s4;
-	private static final int settingIndent	= s10;
-	private static final int wFirstColumn	= RotPUI.scaledSize(200);
-	private static final int wSetting		= RotPUI.scaledSize(200);
+	private static final Color	frameC			= SystemPanel.blackText; // Setting frame color
+	private static final Color	settingNegC		= SettingBase.settingNegC; // Setting name color
+	private static final Color	settingC		= SettingBase.settingC; // Setting name color
+	private static final int	settingFont		= 15;
+	private static final int	settingH		= s16;
+	private static final int	spacerH			= s10;
+	private static final int	settingHPad		= s4;
+	private static final int	frameShift		= s5;
+	private static final int	frameTopPad		= 0;
+	private static final int	frameSizePad	= s10;
+	private static final int	frameEndPad		= s4;
+	private static final int	settingIndent	= s10;
+	private static final int	wFirstColumn	= RotPUI.scaledSize(200);
+	private static final int	wSetting		= RotPUI.scaledSize(200);
 	protected int currentWith = wFirstColumn;
 
 	private static final Color optionC		= SystemPanel.blackText; // Unselected option Color
@@ -246,20 +247,22 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		columnH		= 0;
 	}
 	private boolean isPlayer()			{ return raceUI.selectedEmpire().isPlayer(); }
-	private String selectAIFromList(String[] aiArray, String initialChoice, InterfaceParam param) {
+
+	private String selectAIFromList(String[] choiceArray, List<String> returnList,
+									String initialLabel, InterfaceParam param) {
 		String message = "Make your choice";
+		String initialChoice = text(initialLabel);
 		ListDialog dialog = new ListDialog(
-		    	this,						// Frame component
-		    	getParent(),				// Location component
+		    	this, getParent(),			// Frame & Location component
 		    	message,					// Message
 		        "Empire AI selection",		// Title
-		        aiArray,					// List
+		        choiceArray,				// List
 		        initialChoice, 				// Initial choice
 		        "XXXXXXXXXXXXXXXX",			// long Dialogue
-				false,						// isVertical
+		        true,						// isVertical
 		        scaled(220), scaled(220),	// size
 				null, null,					// Font, Preview
-				null,						// Alternate return
+				returnList,					// Alternate return
 				param); 					// help parameter
 		String input = (String) dialog.showDialog();
 	    if (input == null)
@@ -267,35 +270,22 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	    return input;
 	}
 	private void playerAIBoxAction()	{
-		IGameOptions opts   	= raceUI.options();
-		List<String> aiKeys		= MOO1GameOptions.autoplayBaseOptions();
-		List<String> aiNameList = new ArrayList<>(); // Get language version
-		for (String key : aiKeys)
-			aiNameList.add(text(key));
-		String[] aiNameArray = aiNameList.toArray(new String[aiNameList.size()]);
+		AIList list				 = AI.changePlayAIset();
+		List<String> returnList = list.getAutoPlay();
+		String[] choiceArray	= list.getNames().toArray(new String[list.size()]);;
 
-		String currentAI = opts.selectedAutoplayOption();
-		int currentIndex = aiKeys.indexOf(currentAI);
-		String aiNewName = selectAIFromList(aiNameArray, aiNameArray[currentIndex], autoplay);
-		int aiNewIndex   = aiNameList.indexOf(aiNewName);
-		String aiNewKey  = aiKeys.get(aiNewIndex);
-		
+		IGameOptions opts = raceUI.options();
+		String aiNewKey = selectAIFromList(choiceArray, returnList, opts.selectedAutoplayOption(), autoplay);
 		opts.selectedAutoplayOption(aiNewKey);
 		raceUI.selectedEmpire().changePlayerAI(aiNewKey);
 	}
 	private void alienAIBoxAction()		{
-		LinkedList<String> aiKeys	= MOO1GameOptions.autoplayBaseOptions();
-		aiKeys.removeFirst();
-		List<String> aiNameList = new ArrayList<>(); // Get language version
-		for (String key : aiKeys)
-			aiNameList.add(text(key));
-		String[] aiNameArray = aiNameList.toArray(new String[aiNameList.size()]);
-
-		String currentAI = raceUI.selectedEmpire().getAiName();
-		String aiNewName = selectAIFromList(aiNameArray, currentAI, specificAI());
-		String aiNewKey  = MOO1GameOptions.getOpponentAIKey(aiNewName);
-
-		raceUI.selectedEmpire().changeOpponentAI(aiNewKey);
+		AIList list				= AI.changeAlienAIset();
+		List<String> returnList = list.getAliens();
+		String[] choiceArray	= list.getNames().toArray(new String[list.size()]);;
+		Empire emp		= raceUI.selectedEmpire();
+		String aiNewKey = selectAIFromList(choiceArray, returnList, emp.getAiName(), specificAI());
+		emp.changeOpponentAI(aiNewKey);
 	}
 	private void raceAIBoxAction()		{
 		if (isPlayer())

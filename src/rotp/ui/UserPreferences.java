@@ -37,7 +37,6 @@ import static rotp.model.game.IGameOptions.TERRAFORMING_NORMAL;
 import static rotp.model.game.IGameOptions.WARP_SPEED_NORMAL;
 import static rotp.model.game.IGameOptions.baseRaceOptions;
 import static rotp.model.game.MOO1GameOptions.getAiHostilityOptions;
-import static rotp.model.game.MOO1GameOptions.getAutoplayOptions;
 import static rotp.model.game.MOO1GameOptions.getColonizingOptions;
 import static rotp.model.game.MOO1GameOptions.getCouncilWinOptions;
 import static rotp.model.game.MOO1GameOptions.getFuelRangeOptions;
@@ -80,6 +79,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 import rotp.Rotp;
+import rotp.model.ai.AI;
 import rotp.model.empires.GalacticCouncil;
 import rotp.model.events.RandomEvents;
 import rotp.model.galaxy.StarSystem;
@@ -512,6 +512,8 @@ public class UserPreferences {
 			MOD_UI, "SHOW_ALLIANCES_GNN", true);
 	public static final ParamBoolean techExchangeAutoRefuse = new ParamBoolean(
 			MOD_UI, "TECH_EXCHANGE_AUTO_NO", false);
+	public static final ParamBoolean showAllAI	 			= new ParamBoolean(
+			MOD_UI, "SHOW_ALL_AI", true);
 
 	// BR: Galaxy Menu addition
 	public static final ParamInteger galaxyRandSource		= new ParamInteger(
@@ -788,7 +790,8 @@ public class UserPreferences {
 		}
 	};
 	public	static final ParamList autoplay			= new ParamList( // Duplicate Do not add the list
-			ADV_UI, "AUTOPLAY", getAutoplayOptions(), AUTOPLAY_OFF) {
+			ADV_UI, "AUTOPLAY",
+			AI.autoPlayAIset().getAutoPlay(), AUTOPLAY_OFF) {
 		{ showFullGuide(false); }
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedAutoplayOption();
@@ -1020,8 +1023,8 @@ public class UserPreferences {
 				headerSpacer,
 				new ParamTitle("MENU_OPTIONS"),
 				menuStartup, menuAfterGame, menuLoadGame,
-				minListSizePopUp, showGridCircular,
-				galaxyPreviewColorStarsSize, compactOptionOnly
+				minListSizePopUp, showGridCircular, galaxyPreviewColorStarsSize,
+				showAllAI, compactOptionOnly
 				)));
 		for (LinkedList<InterfaceParam> list : mergedDynamicOptionsMap) {
 			for (InterfaceParam param : list) {
@@ -1060,7 +1063,7 @@ public class UserPreferences {
 			));
 	public static final LinkedList<InterfaceParam> modOptionsDynamicA = new LinkedList<>(
 			Arrays.asList(
-				customDifficulty, dynamicDifficulty, challengeMode,
+				customDifficulty, dynamicDifficulty, challengeMode, showAllAI,
 				null,
 				missileSizeModifier, retreatRestrictions, retreatRestrictionTurns,
 				null,
@@ -1254,33 +1257,34 @@ public class UserPreferences {
 		}
 	}
 	// \BR:
-	public	static int	selectedScreen()		{ return selectedScreen; }
-	public	static int	screenSizePct()			{ return screenSizePct; }
-	public	static String saveDirectoryPath()	{
+	
+	public	static int		selectedScreen()				{ return selectedScreen; }
+	public	static int		screenSizePct()					{ return screenSizePct; }
+	public	static String	saveDirectoryPath()				{
 		if (saveDir.isEmpty())
 			return Rotp.jarPath();
 		else
 			return saveDir;
 	}
-	public static String backupDirectoryPath() {
+	public	static String	backupDirectoryPath()			{
 		return saveDirectoryPath()+"/"+GameSession.BACKUP_DIRECTORY;
 	}
-	public static String saveDir()       { return saveDir; }
-	public static void saveDir(String s) { saveDir = s; save(); }
-	public static String saveDirStr()    {
+	public	static String	saveDir()						{ return saveDir; }
+	public	static void		saveDir(String s)				{ saveDir = s; save(); }
+	public	static String	saveDirStr()					{
 		if (saveDir.isEmpty())
 			return SAVEDIR_DEFAULT;
 		else
 			return SAVEDIR_CUSTOM;
 	}
-	public static int backupTurns() { return backupTurns; }
-	public static boolean backupTurns(int i) {
+	public	static int		backupTurns()					{ return backupTurns; }
+	public	static boolean	backupTurns(int i)				{
 		int prev = backupTurns;
 		backupTurns = Math.min(Math.max(0,i),MAX_BACKUP_TURNS);
 		save();
 		return prev != backupTurns;
 	}
-	public static void toggleBackupTurns() {
+	public	static void		toggleBackupTurns()				{
 		if ((backupTurns >= MAX_BACKUP_TURNS) || (backupTurns < 0)) // modnar: add negative check
 			backupTurns = 0;
 		else // modnar: change backupTurns to be: 0, 1, 5 ,10, 20

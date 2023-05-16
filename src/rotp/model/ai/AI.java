@@ -15,6 +15,34 @@
  */
 package rotp.model.ai;
 
+import static rotp.model.game.IGameOptions.AUTOPLAY_AI_BASE;
+import static rotp.model.game.IGameOptions.AUTOPLAY_AI_CRUEL;
+import static rotp.model.game.IGameOptions.AUTOPLAY_AI_FUN;
+import static rotp.model.game.IGameOptions.AUTOPLAY_AI_HYBRID;
+import static rotp.model.game.IGameOptions.AUTOPLAY_AI_MODNAR;
+import static rotp.model.game.IGameOptions.AUTOPLAY_AI_PERSONALITY;
+import static rotp.model.game.IGameOptions.AUTOPLAY_AI_RANDOM;
+import static rotp.model.game.IGameOptions.AUTOPLAY_AI_RANDOM_ADV;
+import static rotp.model.game.IGameOptions.AUTOPLAY_AI_RANDOM_BASIC;
+import static rotp.model.game.IGameOptions.AUTOPLAY_AI_RANDOM_NOBAR;
+import static rotp.model.game.IGameOptions.AUTOPLAY_AI_ROOKIE;
+import static rotp.model.game.IGameOptions.AUTOPLAY_AI_XILMI;
+import static rotp.model.game.IGameOptions.AUTOPLAY_OFF;
+import static rotp.model.game.IGameOptions.OPPONENT_AI_BASE;
+import static rotp.model.game.IGameOptions.OPPONENT_AI_CRUEL;
+import static rotp.model.game.IGameOptions.OPPONENT_AI_FUN;
+import static rotp.model.game.IGameOptions.OPPONENT_AI_HYBRID;
+import static rotp.model.game.IGameOptions.OPPONENT_AI_MODNAR;
+import static rotp.model.game.IGameOptions.OPPONENT_AI_PERSONALITY;
+import static rotp.model.game.IGameOptions.OPPONENT_AI_RANDOM;
+import static rotp.model.game.IGameOptions.OPPONENT_AI_RANDOM_ADV;
+import static rotp.model.game.IGameOptions.OPPONENT_AI_RANDOM_BASIC;
+import static rotp.model.game.IGameOptions.OPPONENT_AI_RANDOM_NOBAR;
+import static rotp.model.game.IGameOptions.OPPONENT_AI_ROOKIE;
+import static rotp.model.game.IGameOptions.OPPONENT_AI_SELECTABLE;
+import static rotp.model.game.IGameOptions.OPPONENT_AI_XILMI;
+import static rotp.ui.UserPreferences.showAllAI;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -44,19 +72,124 @@ import rotp.ui.notifications.ColonizeSystemNotification;
 import rotp.util.Base;
 
 public class AI implements Base { // BR: Tentative
-    public static final int BASE = 0;   // Base
-    public static final int MODNAR = 1; // MODNAR
-    public static final int ROOKIE = 2; // ROOkie
-    public static final int XILMI  = 3; // Roleplay
-    public static final int HYBRID = 4;
-    public static final int FUSION  = 5; // Legacy
-    public static final int FUN = 6; // Fun
-    public static final int PERSONALITY = 7; // Personality
-    public static final int RANDOM = 8;
-    public static final int RANDOM_BASIC = 9;
-    public static final int RANDOM_ADVANCED = 10;
-    public static final int RANDOM_NO_RELATIONBAR = 11;
+    private static final int BASE = 0;   // Base
+    private static final int MODNAR = 1; // MODNAR
+    private static final int ROOKIE = 2; // ROOkie
+    private static final int XILMI  = 3; // Roleplay
+    private static final int HYBRID = 4; // Hybrid
+    private static final int FUSION = 5; // Legacy
+    private static final int FUN = 6;	// Fun
+    private static final int PERSONALITY = 7; // Personality
+    private static final int RANDOM = 8;
+    private static final int RANDOM_BASIC = 9;
+    private static final int RANDOM_ADVANCED = 10;
+    private static final int RANDOM_NO_RELATIONBAR = 11;
 
+    // The necessary link between int and String constants may be confusing
+    // Here is a way to clearly define their relations with some maps
+    // It should be easier to rearrange list content and sequence
+    // Add or remove AI or Random set
+    
+    // Base AI Entries
+    private static final AIEntry selectableAI	= new AIEntry(-1,
+    		OPPONENT_AI_SELECTABLE,  OPPONENT_AI_SELECTABLE);
+    private static final AIEntry offAI			= new AIEntry(FUSION, AUTOPLAY_OFF,		  AUTOPLAY_OFF);
+    private static final AIEntry baseAI			= new AIEntry(BASE,	  AUTOPLAY_AI_BASE,	  OPPONENT_AI_BASE);
+    private static final AIEntry modnarAI		= new AIEntry(MODNAR, AUTOPLAY_AI_MODNAR, OPPONENT_AI_MODNAR);
+    private static final AIEntry rookieAI		= new AIEntry(ROOKIE, AUTOPLAY_AI_ROOKIE, OPPONENT_AI_ROOKIE);
+    private static final AIEntry xilmiAI		= new AIEntry(XILMI,  AUTOPLAY_AI_XILMI,  OPPONENT_AI_XILMI);
+    private static final AIEntry hybridAI		= new AIEntry(HYBRID, AUTOPLAY_AI_HYBRID, OPPONENT_AI_HYBRID);
+    private static final AIEntry fusionAI		= new AIEntry(FUSION, AUTOPLAY_AI_CRUEL,  OPPONENT_AI_CRUEL);
+    private static final AIEntry funAI			= new AIEntry(FUN,	  AUTOPLAY_AI_FUN,	  OPPONENT_AI_FUN);
+    private static final AIEntry personalityAI	= new AIEntry(PERSONALITY,
+    		AUTOPLAY_AI_PERSONALITY, OPPONENT_AI_PERSONALITY);
+    private static final AIEntry randomAI		= new AIEntry(RANDOM,
+    		AUTOPLAY_AI_RANDOM, OPPONENT_AI_RANDOM);
+    private static final AIEntry randomBasicAI	= new AIEntry(RANDOM_BASIC,
+    		AUTOPLAY_AI_RANDOM_BASIC, OPPONENT_AI_RANDOM_BASIC);
+    private static final AIEntry randomAdvAI	= new AIEntry(RANDOM_ADVANCED,
+    		AUTOPLAY_AI_RANDOM_ADV, OPPONENT_AI_RANDOM_ADV);
+    private static final AIEntry randomNoBarAI	= new AIEntry(RANDOM_NO_RELATIONBAR,
+    		AUTOPLAY_AI_RANDOM_NOBAR, OPPONENT_AI_RANDOM_NOBAR);
+    public	static final AIEntry defaultAI 		= hybridAI;
+    // AI SubSet Builder
+    private static final AIList optionalAIset() {
+    	AIList list = new AIList();
+    	if (!showAllAI.get())
+    		return list;
+    	list.add(baseAI);
+    	list.add(modnarAI);
+    	return list;
+    };
+    private	static final AIList baseAIset() {
+    	AIList list = optionalAIset();
+    	list.add(rookieAI);
+    	return list;
+    }
+    private static final AIList advancedAIset() {
+    	AIList list = new AIList();
+     	list.add(xilmiAI);
+     	list.add(hybridAI);
+     	list.add(personalityAI);
+     	list.add(funAI);
+    	list.add(fusionAI);
+    	return list;
+    }
+    private static final AIList mandatoryAIset() {
+    	AIList list = new AIList();
+    	list.add(rookieAI);
+     	list.addAll(advancedAIset());
+    	return list;
+    }
+    private static final AIList noRelationBarAIset() {
+    	AIList list = new AIList();
+    	list.add(fusionAI);
+     	list.add(funAI);
+     	list.add(personalityAI);
+    	return list;
+    }
+    private static final AIList randomAIset() {
+    	AIList list = new AIList();
+     	list.add(randomAI);
+     	list.add(randomBasicAI);
+     	list.add(randomAdvAI);
+     	list.add(randomNoBarAI);
+    	return list;
+    }
+    // AI Subset Getter
+    public static final AIList allAIset() {
+    	AIList list = baseAIset();
+     	list.addAll(mandatoryAIset());
+    	return list;
+    }
+    public static final AIList changePlayAIset() {
+    	AIList list = new AIList();
+    	list.add(offAI);
+    	list.addAll(optionalAIset());
+    	list.addAll(mandatoryAIset());
+    	return list;
+    }
+    public static final AIList autoPlayAIset() {
+    	AIList list = changePlayAIset();
+    	list.addAll(randomAIset());
+    	return list;
+    }
+    public static final AIList changeAlienAIset() {
+    	AIList list = optionalAIset();
+    	list.addAll(mandatoryAIset());
+    	return list;
+    }
+    public static final AIList specificAIset() {
+    	AIList list = changeAlienAIset();
+    	list.addAll(randomAIset());
+    	return list;
+    }
+    public static final AIList globalAIset() {
+    	AIList list = specificAIset();
+    	list.add(selectableAI);
+    	return list;
+    }
+    
     private final Empire empire;
 
     private final Diplomat diplomat;
@@ -69,21 +202,22 @@ public class AI implements Base { // BR: Tentative
     private final SpyMaster spyMaster;
     private final Treasurer treasurer;
 
+
     public AI (Empire e, int aiType) {
         empire = e;
         
         switch (aiType) {
             case RANDOM:
-                aiType = random.nextInt(RANDOM);
+                aiType = allAIset().random();
                 break;
             case RANDOM_BASIC:
-                aiType = random.nextInt(XILMI);
+                aiType = baseAIset().random();
                 break;
             case RANDOM_ADVANCED:
-                aiType = 3 + random.nextInt(5);
+                aiType = advancedAIset().random();
                 break;
             case RANDOM_NO_RELATIONBAR:
-                aiType = 5 + random.nextInt(3);
+                aiType = noRelationBarAIset().random();
                 break;
             default:
                 break;
@@ -358,7 +492,8 @@ public class AI implements Base { // BR: Tentative
         }
         return 0;
     }
-    private float targetPopPct(SystemView sv) {
+    @SuppressWarnings("unused")
+	private float targetPopPct(SystemView sv) {
         if (sv.borderSystem()) return .75f;
         
         Planet pl = sv.system().planet();

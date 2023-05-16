@@ -40,6 +40,7 @@ Last updates:
 - Different Text colors for Gaia and Fertile planets.
 - New option to select the screen on which you will play.
 - Set AI:Hybrid as default AI.
+- AI:Base and AI:Modnar are now optional.
 
 New Fixes:
 - PopUp selection list: "Cancel" will work again!

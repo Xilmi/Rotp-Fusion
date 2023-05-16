@@ -29,11 +29,7 @@ Now:
 - Playing the game...
 
 Very soon:
-- Governor Buttons.
-- Governor Spinners.
 - Spare Xenophobes: Stop if caught too.
-- Default AI = Hybrid.
-- Base and Modnar optional.
 
 Later:
 - William482 request: Continuing on the topic of things that normal people probably just let the governor do, I would love a button on the "Send Transports From:" popup in the Fleets tab which would, for each world:
@@ -47,6 +43,11 @@ Later:
 
 
 ## What's New
+
+2023.05.16 (BR)
+- Governor panel:Tuned button colors.
+- AI:Base and AI:Modnar are now optional.
+- Centralized the AI options control.
 
 2023.05.14 (BR)
 - Governor panel: local variable for display settings.

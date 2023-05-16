@@ -209,7 +209,6 @@ public class GovernorOptions implements Serializable {
 	// ========== Constructor And Initializers ==========
     public GovernorOptions() {  }
     public void gameLoaded() {
-    	System.out.println("gameLoaded(): is Old Format? = " + autoShipsByDefault);
     	if (autoShipsByDefault) {
     		autoTransport.set(autotransport);
     		autotransportAtMax.set(autotransportXilmi);

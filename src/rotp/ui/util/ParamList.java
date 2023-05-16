@@ -28,6 +28,7 @@ import java.util.List;
 
 import rotp.ui.RotPUI;
 import rotp.ui.game.BaseModPanel;
+import rotp.util.ModifierKeysState;
 
 public class ParamList extends AbstractParam<String> {
 
@@ -273,11 +274,11 @@ public class ParamList extends AbstractParam<String> {
 				message, title,				// Message & Title
 				list, currentOption(),		// List & Initial choice
 				null, true,					// long Dialogue & isVertical
-				RotPUI.scaledSize(200), RotPUI.scaledSize(300),	// size
+				RotPUI.scaledSize(250), RotPUI.scaledSize(300),	// size
 				null,						// Font
 				frame,						// Preview
 				valueLabelMap.cfgValueList,	// Alternate return
-				this); // Param
+				this); 						// Parameter
 
 		String input = (String) dialog.showDialog();
 		if (input != null && valueLabelMap.getValueIndexIgnoreCase(input) >= 0)

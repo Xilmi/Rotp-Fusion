@@ -100,13 +100,14 @@ import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import rotp.Rotp;
+import rotp.model.ai.AI;
+import rotp.model.ai.AIList;
 import rotp.model.empires.Race;
 import rotp.model.galaxy.GalaxyFactory.GalaxyCopy;
 import rotp.model.galaxy.GalaxyShape;
 import rotp.model.galaxy.GalaxyShape.EmpireSystem;
 import rotp.model.game.GameSession;
 import rotp.model.game.IGameOptions;
-import rotp.model.game.MOO1GameOptions;
 import rotp.ui.NoticeMessage;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
@@ -149,7 +150,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			"");
 	private final ParamList opponentAI			= new ParamList( // For Guide
 			BASE_UI, "OPPONENT_AI",
-			MOO1GameOptions.getOpponentAIOptions(),
+			AI.globalAIset().getAliens(),
 			OPPONENT_AI_HYBRID) {
 		@Override public String	get()	{
 			return newGameOptions().selectedOpponentAIOption();
@@ -158,7 +159,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	};
 	private final ParamList specificAI			= new ParamList( // For Guide
 			BASE_UI, "SPECIFIC_AI",
-			MOO1GameOptions.getSpecificOpponentAIOptions(),
+			AI.specificAIset().getAliens(),
 			OPPONENT_AI_HYBRID) {
 		@Override public String	get()	{
 			return newGameOptions().specificOpponentAIOption(mouseBoxIndex()+1);
@@ -321,8 +322,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private static final LinkedList<String> globalAbilitiesList   = new LinkedList<>();; 
 	private String[] specificAbilitiesArray; 
 	private String[] globalAbilitiesArray; 
-	private String[] specificAIArray; 
-	private String[] globalAIArray; 
 	private String[] galaxyTextArray;
     private Font dialogMonoFont;
     private int  dialogMonoFontSize = 20;
@@ -390,17 +389,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		globalAbilitiesList.addAll(getBaseRaceList());
 		globalAbilities.reInit(globalAbilitiesList);
 		globalAbilitiesArray = globalAbilitiesList.toArray(new String[globalAbilitiesList.size()]);
-		
-		// specific AI
-		LinkedList<String> list = new LinkedList<>();
-		for (String label : newGameOptions().specificOpponentAIOptions())
-			list.add(text(label));
-		specificAIArray = list.toArray(new String[list.size()]);
-		// global AI
-		list.clear();
-		for (String label : newGameOptions().opponentAIOptions())
-			list.add(text(label));
-		globalAIArray = list.toArray(new String[list.size()]);
 	}
 	@Override public void init() {
 		super.init();
@@ -947,46 +935,57 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		repaint();
 	}	
 	private String selectSpecificAIFromList(int i) {
-		String title   = text(SPECIFIC_AI);
-		String message = text(SPECIFIC_AI + LABEL_DESCRIPTION);
-		String initialChoice = text(newGameOptions().specificOpponentAIOption(i+1));
-		ListDialog dialog = new ListDialog(
+		String title			= text(SPECIFIC_AI);
+		String message			= text(SPECIFIC_AI + LABEL_DESCRIPTION);
+		String initialChoice	= text(newGameOptions().specificOpponentAIOption(i+1));
+		AIList list				= AI.specificAIset();
+		List<String> returnList = list.getAliens();
+		String[] choiceArray	= list.getNames().toArray(new String[list.size()]);;
+		ListDialog dialog		= new ListDialog(
 		    	this, getParent(),			// Frame & Location component
 		    	message, title,				// Message, Title
-		        specificAIArray,				// List
+		    	choiceArray,				// List
 		        initialChoice, 				// Initial choice
 		        "XX_AI: Character_XX",		// long Dialogue
 		        true,						// isVerticalWrap
-		        scaled(320), scaled(185),	// size Width, Height
+		        scaled(325), scaled(185),	// size Width, Height
 				null, null,					// Font, Preview
-				newGameOptions().specificOpponentAIOptions(),	// Alternate return
-				specificAI); // help parameter
-		
+				returnList,					// Alternate return
+				specificAI);				// help parameter
 		String input = (String) dialog.showDialog();
+		ModifierKeysState.reset();
+	    repaintButtons();
 	    if (input == null)
 	    	return initialChoice;
+
 	    newGameOptions().specificOpponentAIOption(input, i+1);
 	    return input;
 	}
 	private String selectGlobalAIFromList() {
-		String title   = text(GLOBAL_AI);
-		String message = text(GLOBAL_AI + LABEL_DESCRIPTION);
-		String initialChoice = text(newGameOptions().selectedOpponentAIOption());
-		ListDialog dialog = new ListDialog(
-		    	this, getParent(),	// Frame & Location component
+		String title			= text(GLOBAL_AI);
+		String message			= text(GLOBAL_AI + LABEL_DESCRIPTION);
+		String initialChoice	= text(newGameOptions().selectedOpponentAIOption());
+		AIList list				= AI.globalAIset();
+		List<String> returnList = list.getAliens();
+		String[] choiceArray	= list.getNames().toArray(new String[list.size()]);;
+		ListDialog dialog		= new ListDialog(
+		    	this, getParent(),			// Frame & Location component
 		    	message, title,				// Message, Title
-		        globalAIArray,				// List
+		    	choiceArray,				// List
 		        initialChoice, 				// Initial choice
-		        "XX_AI: Character_XX",		// long Dialogue
+		        "XX_AI:Character_XX",		// long Dialogue
 		        true,						// isVerticalWrap
-		        scaled(220), scaled(250),	// size Width, Height
+		        scaled(225), scaled(250),	// size Width, Height
 				null, null,					// Font, Preview
-				newGameOptions().opponentAIOptions(),	// Alternate return
-				opponentAI); // help parameter
+				returnList,					// Alternate return
+				specificAI);				// help parameter
 
 		String input = (String) dialog.showDialog();
+		ModifierKeysState.reset();
+	    repaintButtons();
 	    if (input == null)
 	    	return initialChoice;
+
 	    newGameOptions().selectedOpponentAIOption(input);
 	    return input;
 	}
@@ -1006,6 +1005,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				specificAbilities); // help parameter
 
 		String input = (String) dialog.showDialog();
+		ModifierKeysState.reset();
+	    repaintButtons();
 	    if (input == null)
 	    	return initialChoice;
 	    newGameOptions().specificOpponentCROption(input, i);
@@ -1027,6 +1028,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				globalAbilities); // help parameter
 
 		String input = (String) dialog.showDialog();
+		ModifierKeysState.reset();
+		ModifierKeysState.reset();
+		repaintButtons();
 	    if (input == null)
 	    	return initialChoice;
 	    globalCROptions.set(input);
