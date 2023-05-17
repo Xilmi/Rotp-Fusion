@@ -48,6 +48,7 @@ Later:
 - Governor panel:Tuned button colors.
 - AI:Base and AI:Modnar are now optional.
 - Centralized the AI options control.
+- Moved Custom Spinner out of Governor to remove excessive "Static" param.
 
 2023.05.14 (BR)
 - Governor panel: local variable for display settings.

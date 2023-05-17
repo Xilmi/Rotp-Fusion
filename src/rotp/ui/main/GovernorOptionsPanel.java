@@ -1,17 +1,13 @@
 package rotp.ui.main;
 
 import java.awt.BasicStroke;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Insets;
-import java.awt.LayoutManager;
-import java.awt.Polygon;
 import java.awt.Stroke;
 import java.awt.event.MouseWheelEvent;
 import java.awt.image.BufferedImage;
@@ -26,7 +22,6 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -36,15 +31,11 @@ import javax.swing.JRadioButton;
 import javax.swing.JRootPane;
 import javax.swing.JSpinner;
 import javax.swing.JSpinner.NumberEditor;
-import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
-import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.basic.BasicArrowButton;
-import javax.swing.plaf.basic.BasicSpinnerUI;
 import javax.swing.plaf.metal.MetalButtonUI;
 
 import rotp.Rotp;
@@ -56,6 +47,8 @@ import rotp.model.game.MOO1GameOptions;
 import rotp.model.game.MOO1GameOptions.NewOptionsListener;
 import rotp.ui.RotPUI;
 import rotp.ui.races.RacesUI;
+import rotp.ui.util.swing.RotpJSpinner;
+import rotp.ui.util.swing.RotpJSpinnerButton;
 import rotp.util.FontManager;
 /**
  * Produced using Netbeans Swing GUI builder.
@@ -78,27 +71,26 @@ class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptionsListe
 	private static final int	ANIMATION_CANCELED	= 2;
 	private static final int	ANIMATION_RESET		= 3;
 	
-    private static ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(15); // no
-    private static ScheduledFuture<?> anim;
 
-	private static Font	 valueFont, baseFont, labelFont, buttonFont, panelTitleFont;
-	private static Color frameBgColor, panelBgColor, textBgColor, valueBgColor;
-	private static Color textColor, valueTextColor, panelTitleColor;
-	private static Color buttonColor, buttonTextColor, iconBgColor;
-	private static Color hiddenColor, disabledColor, hoverColor, borderColor;
-	private static int	 iconSize, arrowHeight, buttonCorner;
-	private static Icon	 iconCheckRadio		= new ScalableCheckBoxAndRadioButtonIcon();
-	private static GovButtonUI rotpButtonUI	= new GovButtonUI();
+	private  Font	valueFont, baseFont, labelFont, buttonFont, panelTitleFont;
+	private  Color	frameBgColor, panelBgColor, textBgColor, valueBgColor;
+	private  Color	textColor, valueTextColor, panelTitleColor;
+	private  Color	buttonColor, buttonTextColor, iconBgColor;
+	private  Color	hiddenColor, disabledColor, hoverColor, borderColor;
+	private  int	iconSize, arrowHeight, buttonCorner;
+	private  Icon	iconCheckRadio		= new ScalableCheckBoxAndRadioButtonIcon();
+	private  GovButtonUI rotpButtonUI	= new GovButtonUI();
 //	private	Inset	iconInset			= new Insets(topInset, 2, 0, 2);
 	
 	// Display format variable, needed for reset purpose
 	//
-	private static Boolean	isNewFormat, isCustomSize;
-	private static Integer	sizeFactorPct,	brightnessFactorPct;
-	private static int		animationLive	= 0;
-	private static boolean	updateOngoing	= false;
-//	private static boolean animatedImage	= options().isAnimatedImage();
+	private  Boolean	isNewFormat, isCustomSize;
+	private  Integer	sizeFactorPct,	brightnessFactorPct;
+	private  int		animationLive	= 0;
+	private  boolean	updateOngoing	= false;
 
+    private ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(15); // no
+    private ScheduledFuture<?> anim;
 	private Runnable delayedAnimate	= new Runnable() {
 	    @Override public void run() {
 	    	animate();
@@ -241,59 +233,59 @@ class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptionsListe
 	
 	// ========== Local tools ==========
 	//
-	private static Color multColor(Color offColor, float factor) {
+	private Color multColor(Color offColor, float factor) {
 		factor /= 255f;
 		return new Color(Math.min(1f, offColor.getRed()   * factor),
 						 Math.min(1f, offColor.getGreen() * factor),
 						 Math.min(1f, offColor.getBlue()  * factor));
 	}
-	private static GovernorOptions options()		{ return GameSession.instance().getGovernorOptions(); }
-	private static boolean	isAutoApply()			{ return (options().isAutoApply()); }
-	private static boolean	isAnimatedImage()		{ return (options().isAnimatedImage()); }
-	private static boolean	isCustomSize()			{
+	private GovernorOptions options()			{ return GameSession.instance().getGovernorOptions(); }
+	private boolean	isAutoApply()				{ return (options().isAutoApply()); }
+	private boolean	isAnimatedImage()			{ return (options().isAnimatedImage()); }
+	private boolean	isCustomSize()				{
 		if (isCustomSize == null)
 			isCustomSize = options().isCustomSize();
 		return isCustomSize;
 	}
-	private static boolean	isNewFormat()			{
+	private boolean	isNewFormat()				{
 		if (isNewFormat == null)
 			isNewFormat = !options().isOriginalPanel();
 		return isNewFormat;
 	}
-	private static int		getSizeFactor()			{
+	private int		getSizeFactor()				{
 		if (sizeFactorPct == null)
 			sizeFactorPct = options().getSizeFactorPct();
 		return sizeFactorPct;
 	}
-	private static int		getBrightnessPct()		{
+	private int		getBrightnessPct()			{
 		if (brightnessFactorPct == null)
 			brightnessFactorPct = options().getBrightnessPct();
 		return brightnessFactorPct;
 	}
-	private static int		scaledSize(int size)	{ return (int) (size * getFinalSizefactor()); }
-	private static float 	scaledSize(float size)	{ return size * getFinalSizefactor(); }
-	private static float 	getFinalSizefactor()	{
+	private int		scaledSize(int size)		{ return (int) (size * getFinalSizefactor()); }
+	private float 	scaledSize(float size)		{ return size * getFinalSizefactor(); }
+	private float 	getFinalSizefactor()		{
 		if (isCustomSize())
 			return Rotp.resizeAmt() * getSizeFactor()/100f;
 		else
 			return Rotp.resizeAmt();
 	}
-	private static void	setCustomSize(boolean val)	{
+	private void	setCustomSize(boolean val)	{
 		isCustomSize = val;
 		if (isAutoApply())
 			options().setIsCustomSize(isCustomSize, true);
 	}
-	private static void	setBrightnessPct(int val)	{
+	private void	setBrightnessPct(int val)	{
 		brightnessFactorPct = val;
 		if (isAutoApply())
 			options().setBrightnessPct(brightnessFactorPct, true);
 	}
-	private static void	setSizeFactorPct(int pct)	{
+	private void	setSizeFactorPct(int pct)	{
 		sizeFactorPct = pct;
 		if (isAutoApply())
 			options().setSizeFactorPct(pct, true);
 	}
-	private static void	setNewFormat(boolean val)	{
+	private void	setNewFormat(boolean val)	{
 		isNewFormat = val;
 		if (isAutoApply())
 			options().setIsOriginalPanel(!val, true);
@@ -368,7 +360,7 @@ class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptionsListe
 		}
 	}
 	private void setRotpSpinnerButton	(Component c, boolean newFormat, boolean debug) {
-		RotpSpinnerButton button = (RotpSpinnerButton) c;
+		RotpJSpinnerButton button = (RotpJSpinnerButton) c;
 		button.setFocusPainted(false);
 		if (newFormat) {
 			button.setBackground(null);
@@ -376,7 +368,6 @@ class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptionsListe
 			int topInset  = scaledSize(buttonTopInset);
 			int sideInset = scaledSize(buttonSideInset);
 			button.setMargin(new Insets(topInset, sideInset, -5, sideInset));
-//			button.setContentAreaFilled(false);
 			button.setBorderPainted(false);
 			button.setFocusPainted(false);
 		}
@@ -504,7 +495,7 @@ class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptionsListe
 				if (debug) System.out.println("BasicArrowButton : " + k + " -- " + c.toString());
 				setBasicArrowButton(c, newFormat, debug);
 			} 
-			else if (c instanceof RotpSpinnerButton) {
+			else if (c instanceof RotpJSpinnerButton) {
 				if (debug) System.out.println("RotpSpinnerButton : " + k + " -- " + c.toString());
 				setRotpSpinnerButton(c, newFormat, debug);
 			}
@@ -1748,7 +1739,7 @@ class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptionsListe
 		protectedUpdateColor();
 	}//GEN-LAST:event_brightnessPctStateChanged
 
-	private static void mouseWheel(JSpinner spinner, java.awt.event.MouseWheelEvent evt) {
+	private  void mouseWheel(JSpinner spinner, java.awt.event.MouseWheelEvent evt) {
 		if (evt.getScrollType() != MouseWheelEvent.WHEEL_UNIT_SCROLL) {
 			return;
 		}
@@ -1849,7 +1840,7 @@ class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptionsListe
 	//
 	// =============== Check Box and Radio Button ===============
 	//
-	private static class ScalableCheckBoxAndRadioButtonIcon implements Icon {
+	private class ScalableCheckBoxAndRadioButtonIcon implements Icon {
 
 		private ScalableCheckBoxAndRadioButtonIcon () {  }
 		
@@ -1896,10 +1887,9 @@ class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptionsListe
 		@Override public int getIconWidth()  { return dim(); }
 		@Override public int getIconHeight() { return dim(); }
 	}
-
 	// ==================== Buttons ====================
 	//
-	private static class GovButtonUI extends MetalButtonUI {
+	private class GovButtonUI extends MetalButtonUI {
 		@Override  protected Color getDisabledTextColor() { return disabledColor; }
 	    @Override  protected Color getSelectColor()		  { return hoverColor; }
 	}
@@ -1946,176 +1936,18 @@ class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptionsListe
 			g.setColor(borderC);
 			g.drawRoundRect(x + border, y + border, w - 2*border, h - 2*border, corner, corner);
 			g.setStroke(prev);
-
-//			// Draw borders
-//			g.setColor(borderC);
-//			g.fillRoundRect(x, y, w, h, corner, corner);
-
-//			// Fill the buttons
-//			g.setColor(centerC);
-//			g.fillRoundRect(x + border, y + border, w - 2*border, h - 2*border, corner, corner);
 		}
 	}
-
 	// ==================== Spinners ====================
 	//
-	private static class GovSpinnerIcon implements Icon {
-
-		private int dir;
-		/**
-		 * 
-		 * @param direction SwingConstants: EST | WEST
-		 */
-		private GovSpinnerIcon (int direction) {  dir = direction; }
-		private Polygon arrow(int width, int height, int border) {
-			Polygon p = new Polygon();
-			p.reset();
-			int b2 = 3*border/2;
-			int b  = border;
-			int m  = width/5;
-			int w  = width - m;
-			if (dir == SwingConstants.EAST) {
-				p.addPoint(m+b,		b+b);
-				p.addPoint(m-b2+w,	height/2);
-				p.addPoint(m+b,		height - b-b);
-				return p;
-			}
-			else if (dir == SwingConstants.WEST) {
-				p.addPoint(w-b,	b+b);
-				p.addPoint(b2,	height/2);
-				p.addPoint(w-b,	height - b-b);
-				return p;
-			}
-			else if (dir == SwingConstants.NORTH) {
-				p.addPoint(width/2, border);
-				p.addPoint(width-border, height - border);
-				p.addPoint(border, height - border);
-				return p;
-			}
-			p.addPoint(border, border);
-			p.addPoint(width-border, border);
-			p.addPoint(width/2, height - border);
-			return p;
-		}
-		@Override public int getIconHeight() { return 20; }
-		@Override public int getIconWidth()	 { return 20; }
-		@Override public void paintIcon(Component component, Graphics g0, int xi, int yi) {
-			Graphics2D g	= (Graphics2D) g0;
-			JButton button	= (JButton) component;			
-			ButtonModel buttonModel = button.getModel();
-			Color borderC = borderColor;
-			Color centerC = valueBgColor;
-			int border = 1;
-			int x = 0;
-			int y = 0;
-			int w = button.getWidth();
-			int h = button.getHeight();
-			
-			if (!buttonModel.isEnabled()) {
-				borderC = disabledColor;
-				centerC = hiddenColor;
-			}
-			else if (buttonModel.isRollover()) {
-				borderC = hoverColor;
-				border = 2;
-			}
-			// Fill background to go over OS choices...
-			g.setColor(panelBgColor);
-			g.fillRect(x, y, w, h);
-			
-			// Draw borders
-			g.setColor(borderC);
-			g.fill(arrow(w, h, 0));
-
-			// Fill the buttons
-			g.setColor(centerC);
-			g.fill(arrow(w, h, border));		
-		}
-	}
-	// =================================================
-	//
-	private static class GovernorJSpinner extends JSpinner {
-		
-		GovernorJSpinner() {
-			if (isNewFormat())
-				setUI(new RotpSpinnerUI());
-		}
-		@Override public void setLayout(LayoutManager mgr) {
-			if (isNewFormat()) {
-				super.setLayout(new GovSpinnerLayout());
-			} 
-			else {
-				super.setLayout(mgr);
-			}
-		}
-		public void centerText() {
-			JComponent c = getEditor();
-			if (c instanceof DefaultEditor)
-				((DefaultEditor) c).getTextField().setHorizontalAlignment(JTextField.CENTER);
-		}
-	}
-	// =================================================
-	//
-	private static class GovSpinnerLayout extends BorderLayout {
-		
-		GovSpinnerLayout() { }
-//		@Override public int getHgap() { return 5; }
-		@Override public void addLayoutComponent(Component comp, Object constraints) {
-			if("Editor".equals(constraints)) {
-				constraints = CENTER;
-		    }
-			else if("Next".equals(constraints)) {
-				constraints = BorderLayout.EAST;
-		    }
-			else if("Previous".equals(constraints)) {
-				constraints = BorderLayout.WEST;
-		    }
-			super.addLayoutComponent(comp, constraints);
-		}
-	}
-	// =================================================
-	//
-	// From https://coderanch.com/t/522480/java/change-jspinner-arrows-left
-	//
-	private static class RotpSpinnerUI extends BasicSpinnerUI {
-		 
-		public static ComponentUI createUI(JComponent c) {
-			return new RotpSpinnerUI();
-		}
-		@Override protected Component createNextButton() {
-			Component c = createArrowButton(SwingConstants.EAST);
-			c.setName("Spinner.nextButton");
-			installNextButtonListeners(c);
-			return c;
-		}
-		@Override protected Component createPreviousButton() {
-			Component c = createArrowButton(SwingConstants.WEST);
-			c.setName("Spinner.previousButton");
-			installPreviousButtonListeners(c);
-			return c;
-		}
-		private Component createArrowButton(int direction) {
-			RotpSpinnerButton b = new RotpSpinnerButton(direction);
-			b.setInheritsPopupMenu(true);
-			return b;
-		}
-		@Override public void installUI(JComponent c) {
-			super.installUI(c);
-			c.removeAll();
-			c.setLayout(new BorderLayout());
-			c.add(createNextButton(), BorderLayout.EAST);
-			c.add(createPreviousButton(), BorderLayout.WEST);
-			c.add(createEditor(), BorderLayout.CENTER);
-		}
-	}
-	// =================================================
-	//
-	private static class RotpSpinnerButton extends JButton {
-		RotpSpinnerButton(int direction) {
-			super();
-			this.setMinimumSize(new Dimension(5, 5));
-			this.setPreferredSize(new Dimension(arrowHeight, arrowHeight));
-			setIcon(new GovSpinnerIcon(direction));
-		}
+	private class GovernorJSpinner extends RotpJSpinner {
+		@Override public	boolean isNewFormat()	{ return isNewFormat; }
+		@Override public	int		arrowSize()		{ return arrowHeight; }
+		@Override protected Color	borderColor()	{ return borderColor; }
+		@Override protected Color	valueBgColor()	{ return valueBgColor; }
+		@Override protected Color	disabledColor()	{ return disabledColor; }
+		@Override protected Color	hiddenColor()	{ return hiddenColor; }
+		@Override protected Color	hoverColor()	{ return hoverColor; }
+		@Override protected Color	panelBgColor()	{ return panelBgColor; }
 	}
 }
