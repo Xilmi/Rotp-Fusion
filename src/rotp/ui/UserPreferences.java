@@ -79,7 +79,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 import rotp.Rotp;
-import rotp.model.ai.AI;
 import rotp.model.empires.GalacticCouncil;
 import rotp.model.events.RandomEvents;
 import rotp.model.galaxy.StarSystem;
@@ -791,7 +790,7 @@ public class UserPreferences {
 	};
 	public	static final ParamList autoplay			= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "AUTOPLAY",
-			AI.autoPlayAIset().getAutoPlay(), AUTOPLAY_OFF) {
+			IGameOptions.autoPlayAIset().getAutoPlay(), AUTOPLAY_OFF) {
 		{ showFullGuide(false); }
 		@Override public String getFromOption() {
 			return RotPUI.mergedGuiOptions().selectedAutoplayOption();

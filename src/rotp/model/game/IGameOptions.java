@@ -15,11 +15,14 @@
  */
 package rotp.model.game;
 
+import static rotp.ui.UserPreferences.showAllAI;
+
 import java.awt.Color;
 import java.util.LinkedList;
 import java.util.List;
 
-import rotp.model.ai.AI;
+import rotp.model.ai.AIEntry;
+import rotp.model.ai.AIList;
 import rotp.model.empires.Empire;
 import rotp.model.empires.Race;
 import rotp.model.events.RandomEvent;
@@ -185,6 +188,113 @@ public interface IGameOptions {
     public static final String AUTOPLAY_AI_RANDOM_BASIC="SETUP_OPPONENT_AI_RANDOM_BASIC";
     public static final String AUTOPLAY_AI_RANDOM_ADV = "SETUP_OPPONENT_AI_RANDOM_ADV";
     public static final String AUTOPLAY_AI_RANDOM_NOBAR="SETUP_OPPONENT_AI_RANDOM_NOBAR";
+    // AI encoded values; This list can be extended without being sorted!
+    public static final int BASE		= 0;	// Base
+    public static final int MODNAR		= 1;	// MODNAR
+    public static final int ROOKIE		= 2;	// ROOkie
+    public static final int XILMI		= 3;	// Roleplay
+    public static final int HYBRID		= 4;	// Hybrid
+    public static final int FUSION		= 5;	// Legacy
+    public static final int FUN			= 6;	// Fun
+    public static final int PERSONALITY	= 7;	// Personality
+    public static final int RANDOM			= 8;
+    public static final int RANDOM_BASIC	= 9;
+    public static final int RANDOM_ADVANCED	= 10;
+    public static final int RANDOM_NO_RELATIONBAR = 11;
+    // Base AI Entries
+    AIEntry selectableAI  = new AIEntry(-1,						OPPONENT_AI_SELECTABLE,		OPPONENT_AI_SELECTABLE);
+    AIEntry offAI		  = new AIEntry(FUSION,					AUTOPLAY_OFF,				AUTOPLAY_OFF);
+    AIEntry baseAI		  = new AIEntry(BASE,					AUTOPLAY_AI_BASE,			OPPONENT_AI_BASE);
+    AIEntry modnarAI	  = new AIEntry(MODNAR,					AUTOPLAY_AI_MODNAR,			OPPONENT_AI_MODNAR);
+    AIEntry rookieAI	  = new AIEntry(ROOKIE,					AUTOPLAY_AI_ROOKIE,			OPPONENT_AI_ROOKIE);
+    AIEntry xilmiAI		  = new AIEntry(XILMI, 					AUTOPLAY_AI_XILMI,			OPPONENT_AI_XILMI);
+    AIEntry hybridAI	  = new AIEntry(HYBRID,					AUTOPLAY_AI_HYBRID,			OPPONENT_AI_HYBRID);
+    AIEntry fusionAI	  = new AIEntry(FUSION, 				AUTOPLAY_AI_CRUEL,			OPPONENT_AI_CRUEL);
+    AIEntry funAI		  = new AIEntry(FUN,					AUTOPLAY_AI_FUN,			OPPONENT_AI_FUN);
+    AIEntry personalityAI = new AIEntry(PERSONALITY,			AUTOPLAY_AI_PERSONALITY,	OPPONENT_AI_PERSONALITY);
+    AIEntry randomAI	  = new AIEntry(RANDOM,					AUTOPLAY_AI_RANDOM,			OPPONENT_AI_RANDOM);
+    AIEntry randomBasicAI = new AIEntry(RANDOM_BASIC,			AUTOPLAY_AI_RANDOM_BASIC,	OPPONENT_AI_RANDOM_BASIC);
+    AIEntry randomAdvAI	  = new AIEntry(RANDOM_ADVANCED,		AUTOPLAY_AI_RANDOM_ADV,		OPPONENT_AI_RANDOM_ADV);
+    AIEntry randomNoBarAI = new AIEntry(RANDOM_NO_RELATIONBAR,	AUTOPLAY_AI_RANDOM_NOBAR,	OPPONENT_AI_RANDOM_NOBAR);
+    AIEntry defaultAI 	  = hybridAI;
+    // AI SubSet Builder: These sequences can be changed to fit GUI requirements
+    public static AIList optionalAIset() {
+    	AIList list = new AIList();
+    	if (!showAllAI.get())
+    		return list;
+    	list.add(baseAI);
+    	list.add(modnarAI);
+    	return list;
+    };
+    public static AIList baseAIset() {
+    	AIList list = optionalAIset();
+    	list.add(rookieAI);
+    	return list;
+    }
+    public static AIList advancedAIset() {
+    	AIList list = new AIList();
+     	list.add(xilmiAI);
+     	list.add(hybridAI);
+     	list.add(personalityAI);
+     	list.add(funAI);
+    	list.add(fusionAI);
+    	return list;
+    }
+    public static AIList mandatoryAIset() {
+    	AIList list = new AIList();
+    	list.add(rookieAI);
+     	list.addAll(advancedAIset());
+    	return list;
+    }
+    public static AIList noRelationBarAIset() {
+    	AIList list = new AIList();
+    	list.add(fusionAI);
+     	list.add(funAI);
+     	list.add(personalityAI);
+    	return list;
+    }
+    public static AIList randomAIset() {
+    	AIList list = new AIList();
+     	list.add(randomAI);
+     	list.add(randomBasicAI);
+     	list.add(randomAdvAI);
+     	list.add(randomNoBarAI);
+    	return list;
+    }
+
+    // AI Subset Getter: These sequences can be changed to fit GUI requirements
+    public static AIList allAIset() {
+    	AIList list = baseAIset();
+     	list.addAll(mandatoryAIset());
+    	return list;
+    }
+    public static AIList changePlayAIset() {
+    	AIList list = new AIList();
+    	list.add(offAI);
+    	list.addAll(optionalAIset());
+    	list.addAll(mandatoryAIset());
+    	return list;
+    }
+    public static AIList autoPlayAIset() {
+    	AIList list = changePlayAIset();
+    	list.addAll(randomAIset());
+    	return list;
+    }
+    public static AIList changeAlienAIset() {
+    	AIList list = optionalAIset();
+    	list.addAll(mandatoryAIset());
+    	return list;
+    }
+    public static AIList specificAIset() {
+    	AIList list = changeAlienAIset();
+    	list.addAll(randomAIset());
+    	return list;
+    }
+    public static AIList globalAIset() {
+    	AIList list = specificAIset();
+    	list.add(selectableAI);
+    	return list;
+    }
     
     public default boolean isAutoPlay()          { return !selectedAutoplayOption().equals(AUTOPLAY_OFF); }
     public default boolean communityAI()         { return false; }
@@ -195,7 +305,7 @@ public interface IGameOptions {
     public default float hostileTerraformingPct() { return 1.0f; }
     public default boolean restrictedColonization() { return selectedColonizingOption().equals(COLONIZING_RESTRICTED); }
     public default int baseAIRelationsAdj()       { return 0; }
-    public default int selectedAI(Empire e)       { return AI.defaultAI.id; }
+    public default int selectedAI(Empire e)       { return defaultAI.id; }
     public default boolean randomizeAIPersonality()  {
         switch (selectedRandomizeAIOption()) {
             case RANDOMIZE_AI_PERSONALITY:

@@ -22,7 +22,7 @@ public class AIEntry {
 	public	final  String playerKey;
 	public	final  String aliensKey;
 	public	String name() { return LabelManager.current().label(aliensKey); }
-	AIEntry (int id, String playerKey, String aliensKey) {
+	public AIEntry (int id, String playerKey, String aliensKey) {
 		this.id = id;
 		this.playerKey = playerKey;
 		this.aliensKey = aliensKey;

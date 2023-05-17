@@ -100,7 +100,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import rotp.Rotp;
-import rotp.model.ai.AI;
 import rotp.model.ai.AIList;
 import rotp.model.empires.Race;
 import rotp.model.galaxy.GalaxyFactory.GalaxyCopy;
@@ -150,7 +149,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			"");
 	private final ParamList opponentAI			= new ParamList( // For Guide
 			BASE_UI, "OPPONENT_AI",
-			AI.globalAIset().getAliens(),
+			IGameOptions.globalAIset().getAliens(),
 			OPPONENT_AI_HYBRID) {
 		@Override public String	get()	{
 			return newGameOptions().selectedOpponentAIOption();
@@ -159,7 +158,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	};
 	private final ParamList specificAI			= new ParamList( // For Guide
 			BASE_UI, "SPECIFIC_AI",
-			AI.specificAIset().getAliens(),
+			IGameOptions.specificAIset().getAliens(),
 			OPPONENT_AI_HYBRID) {
 		@Override public String	get()	{
 			return newGameOptions().specificOpponentAIOption(mouseBoxIndex()+1);
@@ -938,7 +937,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		String title			= text(SPECIFIC_AI);
 		String message			= text(SPECIFIC_AI + LABEL_DESCRIPTION);
 		String initialChoice	= text(newGameOptions().specificOpponentAIOption(i+1));
-		AIList list				= AI.specificAIset();
+		AIList list				= IGameOptions.specificAIset();
 		List<String> returnList = list.getAliens();
 		String[] choiceArray	= list.getNames().toArray(new String[list.size()]);;
 		ListDialog dialog		= new ListDialog(
@@ -965,7 +964,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		String title			= text(GLOBAL_AI);
 		String message			= text(GLOBAL_AI + LABEL_DESCRIPTION);
 		String initialChoice	= text(newGameOptions().selectedOpponentAIOption());
-		AIList list				= AI.globalAIset();
+		AIList list				= IGameOptions.globalAIset();
 		List<String> returnList = list.getAliens();
 		String[] choiceArray	= list.getNames().toArray(new String[list.size()]);;
 		ListDialog dialog		= new ListDialog(

@@ -33,7 +33,6 @@ import java.util.List;
 import javax.swing.JEditorPane;
 import javax.swing.JTextPane;
 
-import rotp.model.ai.AI;
 import rotp.model.ai.AIList;
 import rotp.model.empires.CustomRaceDefinitions;
 import rotp.model.empires.Empire;
@@ -270,7 +269,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	    return input;
 	}
 	private void playerAIBoxAction()	{
-		AIList list				 = AI.changePlayAIset();
+		AIList list				 = IGameOptions.changePlayAIset();
 		List<String> returnList = list.getAutoPlay();
 		String[] choiceArray	= list.getNames().toArray(new String[list.size()]);;
 
@@ -280,7 +279,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		raceUI.selectedEmpire().changePlayerAI(aiNewKey);
 	}
 	private void alienAIBoxAction()		{
-		AIList list				= AI.changeAlienAIset();
+		AIList list				= IGameOptions.changeAlienAIset();
 		List<String> returnList = list.getAliens();
 		String[] choiceArray	= list.getNames().toArray(new String[list.size()]);;
 		Empire emp		= raceUI.selectedEmpire();

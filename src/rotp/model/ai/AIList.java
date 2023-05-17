@@ -18,6 +18,9 @@ package rotp.model.ai;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import rotp.model.game.IGameOptions;
+
 import static rotp.util.Base.random;
 
 public class AIList extends LinkedList<AIEntry>{
@@ -25,14 +28,14 @@ public class AIList extends LinkedList<AIEntry>{
 		for (AIEntry entry : this)
 			if (entry.id == id)
 				return entry;
-		return AI.defaultAI;
+		return IGameOptions.defaultAI;
 	}
 	public AIEntry entry(String key)	{
 		for (AIEntry entry : this)
 			if (entry.aliensKey.equals(key)
 					|| entry.playerKey.equals(key))
 				return entry;
-		return AI.defaultAI;
+		return IGameOptions.defaultAI;
 	}
 	public String playerKey(int id)		{ return entry(id).playerKey; }
 	public String aliensKey(int id)		{ return entry(id).aliensKey; }

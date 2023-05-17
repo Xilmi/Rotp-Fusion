@@ -49,6 +49,7 @@ Later:
 - AI:Base and AI:Modnar are now optional.
 - Centralized the AI options control.
 - Moved Custom Spinner out of Governor to remove excessive "Static" param.
+- Moved and grouped all new AI definitions to IGameOptions.
 
 2023.05.14 (BR)
 - Governor panel: local variable for display settings.

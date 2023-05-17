@@ -563,14 +563,14 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override
     public int selectedAI(Empire e) {
         if (e.isPlayer()) {
-    		return AI.autoPlayAIset().id(selectedAutoplayOption());
+    		return IGameOptions.autoPlayAIset().id(selectedAutoplayOption());
         }
         else
         	if (OPPONENT_AI_SELECTABLE.equals(selectedOpponentAIOption())) {
-        		return AI.globalAIset().id(specificOpponentAIOption(e.id));
+        		return IGameOptions.globalAIset().id(specificOpponentAIOption(e.id));
         	}
 	        else {
-        		return AI.globalAIset().id(selectedOpponentAIOption());
+        		return IGameOptions.globalAIset().id(selectedOpponentAIOption());
 	        }
     }
     @Override
@@ -1028,11 +1028,11 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add(RANDOMIZE_AI_BOTH);
         return list;
     }
-    @Override public List<String> autoplayOptions()   { return AI.autoPlayAIset().getAutoPlay(); }
-    @Override public List<String> opponentAIOptions() { return AI.globalAIset().getAliens(); }
+    @Override public List<String> autoplayOptions()   { return IGameOptions.autoPlayAIset().getAutoPlay(); }
+    @Override public List<String> opponentAIOptions() { return IGameOptions.globalAIset().getAliens(); }
     @Override
     public List<String> specificOpponentAIOptions() { // BR: new access to base specific opponents
-    	return AI.specificAIset().getAliens();
+    	return IGameOptions.specificAIset().getAliens();
     }
     @Override
     public List<String> newRaceOffOptions()	  { return IGameOptions.baseRaceOptions(); }
