@@ -15,11 +15,12 @@
  */
 package rotp.ui;
 
+import static rotp.model.game.BaseOptions.ALL_GUI_ID;
 import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
-import static rotp.ui.UserPreferences.ALL_GUI_ID;
 import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
+
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -61,22 +62,22 @@ import rotp.ui.diplomacy.DialogueManager;
 import rotp.ui.diplomacy.DiplomacyRequestReply;
 import rotp.ui.fleets.FleetUI;
 import rotp.ui.game.AdvancedOptionsUI;
+import rotp.ui.game.DynamicAOptionsUI;
+import rotp.ui.game.DynamicBOptionsUI;
 import rotp.ui.game.GameOverUI;
 import rotp.ui.game.GameSettingsUI;
 import rotp.ui.game.GameUI;
-import rotp.ui.game.MergedStaticOptionsUI;
 import rotp.ui.game.HelpUI;
 import rotp.ui.game.LoadGameUI;
 import rotp.ui.game.MergedDynamicOptionsUI;
+import rotp.ui.game.MergedStaticOptionsUI;
 import rotp.ui.game.ModGlobalOptionsUI;
-import rotp.ui.game.DynamicAOptionsUI;
-import rotp.ui.game.DynamicBOptionsUI;
-import rotp.ui.game.StaticAOptionsUI;
-import rotp.ui.game.StaticBOptionsUI;
 import rotp.ui.game.RaceIntroUI;
 import rotp.ui.game.SaveGameUI;
 import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.game.SetupRaceUI;
+import rotp.ui.game.StaticAOptionsUI;
+import rotp.ui.game.StaticBOptionsUI;
 import rotp.ui.history.HistoryUI;
 import rotp.ui.main.MainUI;
 import rotp.ui.map.SystemsUI;

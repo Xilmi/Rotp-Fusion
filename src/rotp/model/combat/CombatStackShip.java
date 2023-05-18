@@ -26,7 +26,6 @@ import rotp.model.ships.*;
 import rotp.model.tech.TechCloaking;
 import rotp.model.tech.TechStasisField;
 import rotp.ui.BasePanel;
-import rotp.ui.UserPreferences;
 import rotp.ui.combat.ShipBattleUI;
 
 public class CombatStackShip extends CombatStack {
@@ -115,14 +114,15 @@ public class CombatStackShip extends CombatStack {
     @Override
     public boolean canRetreat()     {
         boolean checkRetreatTurn = false;
+        int retreatRestrictions = options().selectedRetreatRestrictions();
         if(empire.isAIControlled()) {
-            if(UserPreferences.retreatRestrictions() == 1 || UserPreferences.retreatRestrictions() == 3)
+            if(retreatRestrictions == 1 || retreatRestrictions == 3)
                 checkRetreatTurn = true;
         } else {
-            if(UserPreferences.retreatRestrictions() >= 2)
+            if(retreatRestrictions >= 2)
                 checkRetreatTurn = true;
         }
-        if(checkRetreatTurn && mgr.turnCounter() < UserPreferences.retreatRestrictionTurns())
+        if(checkRetreatTurn && mgr.turnCounter() < options().selectedRetreatRestrictionTurns())
             return false;
         return !atLastColony && (maneuverability > 0); 
     }

@@ -15,9 +15,9 @@
  */
 package rotp.model.game;
 
+import static rotp.model.game.BaseOptions.ALL_GUI_ID;
 import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
 import static rotp.model.game.MOO1GameOptions.saveOptionsToFileName;
-import static rotp.ui.UserPreferences.ALL_GUI_ID;
 import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.menuLoadGame;

@@ -16,7 +16,8 @@
 
 package rotp.ui.util;
 
-import static rotp.ui.UserPreferences.MOD_UI;
+import static rotp.model.game.BaseOptions.*;
+
 
 import java.util.Arrays;
 import java.util.List;

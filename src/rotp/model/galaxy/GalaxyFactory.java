@@ -21,12 +21,11 @@ import static rotp.model.empires.CustomRaceDefinitions.getAllAlienRaces;
 import static rotp.model.empires.CustomRaceDefinitions.getAllowedAlienRaces;
 import static rotp.model.empires.CustomRaceDefinitions.optionToAlienRace;
 import static rotp.model.empires.CustomRaceDefinitions.raceFileExist;
+import static rotp.model.game.BaseOptions.ALL_GUI_ID;
 import static rotp.model.game.MOO1GameOptions.copyAliensAISettings;
 import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
-import static rotp.ui.UserPreferences.ALL_GUI_ID;
 import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.globalCROptions;
-import static rotp.ui.UserPreferences.minDistArtifactPlanet;
 import static rotp.ui.UserPreferences.restartAppliesSettings;
 import static rotp.ui.UserPreferences.restartChangesAliensAI;
 import static rotp.ui.UserPreferences.restartChangesPlayerAI;
@@ -254,7 +253,7 @@ public class GalaxyFactory implements Base {
 			e.loadStartingTechs();
 			
 			// modnar: add game mode to start all Empires with 2 random techs
-			if (UserPreferences.randomTechStart.get()) {
+			if (options().selectedRandomTechStart()) {
 				// randomUnknownTech, somewhat awkward to use in succession
 				//e.tech().learnTech(e.tech().randomUnknownTech(1,4).id());
 				//e.tech().learnTech(e.tech().randomUnknownTech(1,4).id());
@@ -290,11 +289,12 @@ public class GalaxyFactory implements Base {
 		long tm3b = System.currentTimeMillis();
 		log("load ship designs: "+(tm3b-tm3)+"ms");
 
+		int companionWorlds = options().selectedCompanionWorlds();
 		for (Empire e: g.empires()) {
 			e.colonizeHomeworld();
 			// modnar: add option to start game with additional colonies
 			// modnar: colonize these 0 to 4 additional colonies
-			for (int i=0; i<UserPreferences.companionWorlds(); i++) {
+			for (int i=0; i<companionWorlds; i++) {
 				e.colonizeCompanionWorld(e.compSysId(i));
 			}
 		}
@@ -332,7 +332,7 @@ public class GalaxyFactory implements Base {
 		PlanetImager.current().finished();
 		
 		MOO1GameOptions opts = (MOO1GameOptions) GameSession.instance().options();
-		opts.dynamicOptions().setObject(Galaxy.EMPIRES_KEY, g.empires());
+		opts.dynOpts().setObject(Galaxy.EMPIRES_KEY, g.empires());
 		// Save initial state
 		g.backupStarSystem();
 
@@ -427,7 +427,7 @@ public class GalaxyFactory implements Base {
 		int numCompWorlds;
 		int[] compSysId;
 		if (src == null) { // Start
-			numCompWorlds = UserPreferences.companionWorlds();
+			numCompWorlds = options().selectedCompanionWorlds();
 			compSysId = new int[numCompWorlds];
 			if (numCompWorlds > 0) {
 				for (int i=0; i<numCompWorlds; i++) { // BR: Symmetry management
@@ -475,8 +475,8 @@ public class GalaxyFactory implements Base {
 				}
 				sys0.setXY(empSystem.x(i), empSystem.y(i));
 				if (sys0.planet().isAntaran()
-						&& minDistArtifactPlanet.get() > 0.0f
-						&& galaxy().tooCloseToHomeWorld(sys0, minDistArtifactPlanet.get()))
+						&& opts.selectedMinDistArtifactPlanet() > 0.0f
+						&& galaxy().tooCloseToHomeWorld(sys0, opts.selectedMinDistArtifactPlanet()))
 					sys0.planet().removeArtifact();
 				g.addStarSystem(sys0);
 			}
@@ -650,7 +650,7 @@ public class GalaxyFactory implements Base {
 			int[] compSysId;
 			Empire emp;
 			if (src == null) { // Start
-				numCompWorlds = UserPreferences.companionWorlds();
+				numCompWorlds = options().selectedCompanionWorlds();
 				compSysId = new int[numCompWorlds];
 				if (numCompWorlds > 0) {
 					for (int i=0; i<numCompWorlds; i++) { // BR: Symmetry management
@@ -699,8 +699,8 @@ public class GalaxyFactory implements Base {
 					}
 					sys0.setXY(empSystem.x(i), empSystem.y(i));
 					if (sys0.planet().isAntaran()
-							&& minDistArtifactPlanet.get() > 0.0f
-							&& galaxy().tooCloseToHomeWorld(sys0, minDistArtifactPlanet.get()))
+							&& opts.selectedMinDistArtifactPlanet() > 0.0f
+							&& galaxy().tooCloseToHomeWorld(sys0, opts.selectedMinDistArtifactPlanet()))
 						sys0.planet().removeArtifact();
 					g.addStarSystem(sys0);
 				}
@@ -751,8 +751,8 @@ public class GalaxyFactory implements Base {
 				sh.coords(i, pt);
 				refSys.setXY(pt.x, pt.y);
 				if (refSys.planet().isAntaran()
-						&& minDistArtifactPlanet.get() > 0.0f
-						&& galaxy().tooCloseToHomeWorld(refSys, minDistArtifactPlanet.get()))
+						&& opts.selectedMinDistArtifactPlanet() > 0.0f
+						&& galaxy().tooCloseToHomeWorld(refSys, opts.selectedMinDistArtifactPlanet()))
 					refSys.planet().removeArtifact();
 				g.addStarSystem(refSys);
 				// other symmetry systems
@@ -769,8 +769,8 @@ public class GalaxyFactory implements Base {
 				sh.coords(i, pt);
 				sys.setXY(pt.x, pt.y);
 				if (sys.planet().isAntaran()
-						&& minDistArtifactPlanet.get() > 0.0f
-						&& galaxy().tooCloseToHomeWorld(sys, minDistArtifactPlanet.get()))
+						&& opts.selectedMinDistArtifactPlanet() > 0.0f
+						&& galaxy().tooCloseToHomeWorld(sys, opts.selectedMinDistArtifactPlanet()))
 					sys.planet().removeArtifact();
 				g.addStarSystem(sys);
 			}

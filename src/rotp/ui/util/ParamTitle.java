@@ -16,11 +16,12 @@
 
 package rotp.ui.util;
 
+import static rotp.model.game.BaseOptions.HEADERS;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
 import rotp.model.game.DynamicOptions;
-import rotp.ui.UserPreferences;
 import rotp.ui.game.BaseModPanel;
 
 public class ParamTitle extends AbstractParam<String> {
@@ -32,7 +33,7 @@ public class ParamTitle extends AbstractParam<String> {
 	 * @param title The title
 	 */
 	public ParamTitle(String title) {
-		super(UserPreferences.HEADERS, title, "");
+		super(HEADERS, title, "");
 	}
 
 	// ===== Overriders =====

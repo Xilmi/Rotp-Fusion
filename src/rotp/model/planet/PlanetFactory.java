@@ -15,16 +15,14 @@
  */
 package rotp.model.planet;
 
-import static rotp.ui.UserPreferences.artifactsHomeworld;
-import static rotp.ui.UserPreferences.fertileHomeworld;
-import static rotp.ui.UserPreferences.richHomeworld;
-import static rotp.ui.UserPreferences.ultraRichHomeworld;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
+
 import rotp.model.empires.Race;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.game.GameSession;
+import rotp.model.game.IGameOptions;
 import rotp.model.planet.Planet.PlanetBaseData;
 import rotp.util.Base;
 
@@ -88,6 +86,7 @@ public class PlanetFactory implements Base {
     }
     public static Planet createHomeworld(Race r, Race dr, StarSystem sys,
     		float bonus, boolean isPlayer) { // BR: added player info and dataRace
+    	IGameOptions opts = GameSession.instance().options();
         Planet p = instance.options().randomPlayerPlanet(dr, sys);
         p.baseSize(dr.homeworldSize*bonus);
         if (r.homeworldKey() > 0)
@@ -98,23 +97,23 @@ public class PlanetFactory implements Base {
 			p.setResourceUltraPoor();
 		if (dr.raceWithPoorHomeworld())
 			p.setResourcePoor();
-		if (richHomeworld.isAlways(isPlayer)
-				|| (!richHomeworld.isNever(isPlayer)
+		if (opts.selectedRichHomeworld().isAlways(isPlayer)
+				|| (!opts.selectedRichHomeworld().isNever(isPlayer)
 						&& dr.raceWithRichHomeworld()))
 			p.setResourceRich();
-		if (ultraRichHomeworld.isAlways(isPlayer)
-				|| (!ultraRichHomeworld.isNever(isPlayer)
+		if (opts.selectedUltraRichHomeworld().isAlways(isPlayer)
+				|| (!opts.selectedUltraRichHomeworld().isNever(isPlayer)
 						&& dr.raceWithUltraRichHomeworld()))
 			p.setResourceUltraRich();
-		if (artifactsHomeworld.isAlways(isPlayer)
-				|| (!artifactsHomeworld.isNever(isPlayer)
+		if (opts.selectedArtifactsHomeworld().isAlways(isPlayer)
+				|| (!opts.selectedArtifactsHomeworld().isNever(isPlayer)
 						&& dr.raceWithArtifactsHomeworld())) {
 			p.setArtifactRace();
 		}
 		if (dr.raceWithHostileHomeworld())
 			p.makeEnvironmentHostile();
-		if (fertileHomeworld.isAlways(isPlayer)
-				|| (!fertileHomeworld.isNever(isPlayer)
+		if (opts.selectedFertileHomeworld().isAlways(isPlayer)
+				|| (!opts.selectedFertileHomeworld().isNever(isPlayer)
 						&& dr.raceWithFertileHomeworld())) {
 			p.enrichSoil();
 		}

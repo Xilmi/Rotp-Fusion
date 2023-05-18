@@ -15,8 +15,6 @@
  */
 package rotp.model.ships;
 
-import static rotp.ui.UserPreferences.scrapRefundOption;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -118,7 +116,7 @@ public class ShipDesignLab implements Base, Serializable {
         loadInitialDesigns();
         
         // modnar: add battleScout option to give player super Scout design
-        if ( c.isPlayerControlled() && UserPreferences.battleScout.get() ) { 
+        if ( c.isPlayerControlled() && options().selectedBattleScout() ) { 
             ShipDesign design;
             design = battleScoutDesign();
             setFighterDesign(design, 5);
@@ -475,7 +473,7 @@ public class ShipDesignLab implements Base, Serializable {
         d.addTotalScrapped(counts[0]);
 
         // reimburse civ reserve for 1/2 of ship's cost (halved when added to reserve)
-        switch (scrapRefundOption.get()) {
+        switch (UserPreferences.scrapRefundOption.get()) {
 	        case "Never":
 	        	break;
 	        case "Ally":

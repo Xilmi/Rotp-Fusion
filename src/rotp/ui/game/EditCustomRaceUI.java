@@ -19,7 +19,8 @@ import static rotp.model.empires.CustomRaceDefinitions.ROOT;
 import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
 import static rotp.model.game.MOO1GameOptions.setBaseAndModSettingsToDefault;
 import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
-import static rotp.ui.UserPreferences.ALL_GUI_ID;
+import static rotp.model.game.BaseOptions.*;
+
 import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.playerCustomRace;
 import static rotp.ui.UserPreferences.playerIsCustom;
@@ -151,17 +152,17 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	}
 	public void updateCRGui(MOO1GameOptions source) {
         for (InterfaceOptions param : commonList)
-			param.setFromOptions(source.dynamicOptions());
-        playerIsCustom.setFromOptions(source.dynamicOptions());
-		playerCustomRace.setFromOptions(source.dynamicOptions());
+			param.setFromOptions(source.dynOpts());
+        playerIsCustom.setFromOptions(source.dynOpts());
+		playerCustomRace.setFromOptions(source.dynOpts());
 		writeLocalOptions(guiOptions());
 		init();
 	}
 	public void writeLocalOptions(MOO1GameOptions destination) {
 		for (InterfaceOptions param : commonList)
-			param.setOptions(destination.dynamicOptions());
-		playerIsCustom.setOptions(destination.dynamicOptions());
-		playerCustomRace.setOptions(destination.dynamicOptions());
+			param.setOptions(destination.dynOpts());
+		playerIsCustom.setOptions(destination.dynOpts());
+		playerCustomRace.setOptions(destination.dynOpts());
 	}
 	private void setToLocalDefault() {
 		for (InterfaceOptions param : commonList)

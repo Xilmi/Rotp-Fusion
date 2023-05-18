@@ -16,7 +16,7 @@
 
 package rotp.ui.util;
 
-import static rotp.ui.UserPreferences.MOD_UI;
+import static rotp.model.game.BaseOptions.*;
 
 public class ParamAAN2 extends ParamList {
 	

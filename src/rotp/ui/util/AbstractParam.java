@@ -25,6 +25,7 @@ import java.awt.event.MouseWheelEvent;
 
 import javax.swing.SwingUtilities;
 
+import rotp.model.game.DynOptions;
 import rotp.model.game.DynamicOptions;
 import rotp.ui.game.BaseModPanel;
 
@@ -35,7 +36,6 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	private final String gui;  // The label header
 	private T value;
 	private T defaultValue;
-//	private T creationValue; // for a smooth move from Remnant.cfg
 	private T minValue		= null;
 	private T maxValue		= null;
 	private T baseInc		= null;
@@ -43,13 +43,11 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	private T ctrlInc		= null;
 	private T shiftCtrlInc	= null;
 	private boolean isDuplicate	= false;
-//	@SuppressWarnings("unused") // kept for save game compatibility
-//	private MOO1GameOptions duplicateOptions = null;
 
 	// ========== constructors ==========
 	//
 	/**
-	 * @param gui  The label header
+	 * @param gui  The label headerTechLibrary
 	 * @param name The name
 	 * @param defaultValue The default value
 	 */
@@ -57,7 +55,6 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 		this.gui = gui;
 		this.name = name;
 		this.defaultValue = defaultValue;
-//		creationValue = defaultValue; // for a smooth move from Remnant.cfg
 		value = defaultValue;
 	}
 	/**
@@ -168,6 +165,14 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	}	
 	public T setFromIndex(int i)		{ return null; }
 	public String getCfgValue(T value)	{ return String.valueOf(value); }
+	public T selected(DynOptions dyn)	{
+		setFromOptions(dyn);
+		return get();
+	}
+	public void selected(DynOptions Options, T value)	{
+		value(value);
+		setOptions(Options);
+	}
 	// ========== Public Getters ==========
 	//
 	public String getLabel()	{ return langLabel(getLangLabel()); }
@@ -185,11 +190,9 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 		setOption(newValue);
 		return value;
 	}
-	// public void duplicateOptions (MOO1GameOptions options) { duplicateOptions = options;}
 	public void maxValue (T newValue)		{ maxValue = newValue;}
 	public void minValue (T newValue)		{ minValue = newValue;}
 	public void defaultValue(T newValue)	{ defaultValue = newValue; }
-//	public void creationValue(T newValue)	{ creationValue = newValue; }
 	// ========== Private Methods ==========
 	//
 	// ========== Protected Methods ==========

@@ -33,7 +33,7 @@ import rotp.model.tech.TechEngineWarp;
 import rotp.ui.UserPreferences; // modnar: add custom difficulty level option
 import rotp.ui.game.SetupGalaxyUI;
 
-public interface IGameOptions {
+public interface IGameOptions extends ModOptions {
     public static final int MAX_OPPONENTS = SetupGalaxyUI.MAX_DISPLAY_OPPS;
     public static final int MAX_OPPONENT_TYPE = 5;
     public static final String SIZE_DYNAMIC = "SETUP_GALAXY_SIZE_DYNAMIC";
@@ -448,9 +448,6 @@ public interface IGameOptions {
     public String selectedOpponentRace(int i);
     public void selectedOpponentRace(int i, String s);
 
-    // BR: Options management
-    public DynOptions dynamicOptions();
-    
     default void copyForRestart(IGameOptions opt) { } // BR: for Restart with new options
     default void copyOptions(IGameOptions opt) { }
     default boolean immediateCouncilWin()    { return selectedCouncilWinOption().equals(COUNCIL_IMMEDIATE); }
@@ -781,7 +778,7 @@ public interface IGameOptions {
     default float aiProductionModifier() {
     	return aiProductionModifier(selectedGameDifficulty());
     }
-    public static float aiProductionModifier(String difficulty) {
+    static float aiProductionModifier(String difficulty) {
         switch(difficulty) {
             case DIFFICULTY_EASIEST: return 0.55f;
             case DIFFICULTY_EASIER:  return 0.75f;

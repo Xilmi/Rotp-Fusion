@@ -99,8 +99,8 @@ public interface IMapHandler {
     default Image mapFlagImage(StarSystem s)             { return Empire.thePlayer().sv.mapFlagImage(s.id); }
 //    default Image flagHover(StarSystem s)                { return ImageManager.current().image("Flag_Hover"); } // BR: old call
 //    default Image flagHaze(StarSystem s)                 { return ImageManager.current().image("Flag_Haze"); } // BR: old call
-    default Image flagHover(StarSystem s)                { return SystemView.flagBackGround("Flag_Hover"); }
-    default Image flagHaze(StarSystem s)                 { return SystemView.flagBackGround("Flag_Haze"); }
+    default Image flagHover(StarSystem s)                { return Empire.thePlayer().sv.view(s.id).flagBackGround("Flag_Hover"); }
+    default Image flagHaze(StarSystem s)                 { return Empire.thePlayer().sv.view(s.id).flagBackGround("Flag_Haze"); }
     default boolean drawStar(StarSystem s)               { return true; }
     default boolean showOwnerReach(StarSystem s)         { return false; }
     default boolean showOwnership(StarSystem s)          { return true; }

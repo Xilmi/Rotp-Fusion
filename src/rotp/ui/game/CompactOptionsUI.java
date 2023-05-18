@@ -17,7 +17,8 @@ package rotp.ui.game;
 
 import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
 import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
-import static rotp.ui.UserPreferences.ALL_GUI_ID;
+import static rotp.model.game.BaseOptions.*;
+
 import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
 
 import java.awt.Color;

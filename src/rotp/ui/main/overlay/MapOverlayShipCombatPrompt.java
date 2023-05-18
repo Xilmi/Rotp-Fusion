@@ -35,7 +35,6 @@ import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import rotp.model.combat.CombatStack;
-import rotp.ui.UserPreferences;
 import rotp.ui.combat.ShipBattleUI;
 
 public class MapOverlayShipCombatPrompt extends MapOverlay {
@@ -239,7 +238,7 @@ public class MapOverlayShipCombatPrompt extends MapOverlay {
         smartResolveButton.mapY(battleButton.mapY());
         smartResolveButton.draw(parent.map(), g);
 
-        if(UserPreferences.retreatRestrictions() < 2 || UserPreferences.retreatRestrictionTurns() == 0)
+        if(options().selectedRetreatRestrictions() < 2 || options().selectedRetreatRestrictionTurns() == 0)
         {
             parent.addNextTurnControl(retreatButton);
             retreatButton.init(this, g);

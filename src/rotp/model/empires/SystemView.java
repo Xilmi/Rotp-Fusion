@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 package rotp.model.empires;
+
+import static rotp.model.game.FlagOptions.*;
 import static rotp.model.planet.PlanetType.ARID;
 import static rotp.model.planet.PlanetType.BARREN;
 import static rotp.model.planet.PlanetType.DEAD;
@@ -28,47 +30,6 @@ import static rotp.model.planet.PlanetType.STEPPE;
 import static rotp.model.planet.PlanetType.TERRAN;
 import static rotp.model.planet.PlanetType.TOXIC;
 import static rotp.model.planet.PlanetType.TUNDRA;
-import static rotp.ui.UserPreferences.autoFlagAssignation1;
-import static rotp.ui.UserPreferences.autoFlagAssignation2;
-import static rotp.ui.UserPreferences.autoFlagAssignation3;
-import static rotp.ui.UserPreferences.autoFlagAssignation4;
-import static rotp.ui.UserPreferences.flagAntaranColor;
-import static rotp.ui.UserPreferences.flagAridColor;
-import static rotp.ui.UserPreferences.flagAssetNormalColor;
-import static rotp.ui.UserPreferences.flagAsteroidColor;
-import static rotp.ui.UserPreferences.flagBarrenColor;
-import static rotp.ui.UserPreferences.flagColorCount;
-import static rotp.ui.UserPreferences.flagDeadColor;
-import static rotp.ui.UserPreferences.flagDesertColor;
-import static rotp.ui.UserPreferences.flagEnvFertileColor;
-import static rotp.ui.UserPreferences.flagEnvGaiaColor;
-import static rotp.ui.UserPreferences.flagEnvHostileColor;
-import static rotp.ui.UserPreferences.flagEnvNoneColor;
-import static rotp.ui.UserPreferences.flagEnvNormalColor;
-import static rotp.ui.UserPreferences.flagInfernoColor;
-import static rotp.ui.UserPreferences.flagJungleColor;
-import static rotp.ui.UserPreferences.flagMinimalColor;
-import static rotp.ui.UserPreferences.flagNoneColor;
-import static rotp.ui.UserPreferences.flagOceanColor;
-import static rotp.ui.UserPreferences.flagOrionColor;
-import static rotp.ui.UserPreferences.flagPoorColor;
-import static rotp.ui.UserPreferences.flagRadiatedColor;
-import static rotp.ui.UserPreferences.flagRichColor;
-import static rotp.ui.UserPreferences.flagSteppeColor;
-import static rotp.ui.UserPreferences.flagTechBarrenColor;
-import static rotp.ui.UserPreferences.flagTechDeadColor;
-import static rotp.ui.UserPreferences.flagTechFertileColor;
-import static rotp.ui.UserPreferences.flagTechGaiaColor;
-import static rotp.ui.UserPreferences.flagTechGoodColor;
-import static rotp.ui.UserPreferences.flagTechNoneColor;
-import static rotp.ui.UserPreferences.flagTechRadiatedColor;
-import static rotp.ui.UserPreferences.flagTechStandardColor;
-import static rotp.ui.UserPreferences.flagTechToxicColor;
-import static rotp.ui.UserPreferences.flagTerranColor;
-import static rotp.ui.UserPreferences.flagToxicColor;
-import static rotp.ui.UserPreferences.flagTundraColor;
-import static rotp.ui.UserPreferences.flagUltraPoorColor;
-import static rotp.ui.UserPreferences.flagUltraRichColor;
 import static rotp.ui.util.ParamFlagColor.flagCount;
 
 import java.awt.Graphics;
@@ -457,9 +418,9 @@ public class SystemView implements IMappedObject, Base, Serializable {
     private static Image joinImage(Image left, Image right) { // BR: flagColorCount
     	return new ImageIcon(bufferedImage(left, right)).getImage();
     }
-    public static Image flagBackGround(String name) { // BR: flagColorCount
+    public Image flagBackGround(String name) { // BR: flagColorCount
     	Image fh = ImageManager.current().image(name);
-    	switch (flagColorCount.get()) {
+    	switch (options().selectedFlagColorCount()) {
     	case 2:
     		return joinImage(fh, fh);
     	case 3:
@@ -474,14 +435,14 @@ public class SystemView implements IMappedObject, Base, Serializable {
     	// Don't show more than one black flag!
     	Image flag1;
     	boolean haveFlag = false;
-    	for (int i=1; i<=flagColorCount.get(); i++)
+    	for (int i=1; i<=options().selectedFlagColorCount(); i++)
     		haveFlag |= getFlagColor(i)>0;
     	if (haveFlag)
     		flag1 = flagImage(getFlagColor(1));
     	else
     		flag1 = image(flagImageNameList.get(FLAG_NONE));
 
-    	switch (flagColorCount.get()) {
+    	switch (options().selectedFlagColorCount()) {
     	case 2:
     		return joinImage(flag1, flagImage(getFlagColor(2)));
     	case 3:
@@ -495,7 +456,7 @@ public class SystemView implements IMappedObject, Base, Serializable {
     	}
     }
     public Image mapFlagImage() { // BR: flagColorCount
-    	switch (flagColorCount.get()) {
+    	switch (options().selectedFlagColorCount()) {
     	case 2:
     		return joinImage(mapFlagImage(getFlagColor(1)), mapFlagImage(getFlagColor(2)));
     	case 3:
@@ -554,7 +515,7 @@ public class SystemView implements IMappedObject, Base, Serializable {
             setName();
     }
     private void autoFlagAssignation(Planet p, ParamList assignation, int id) {
-    	switch (assignation.get()) {
+    	switch (assignation.selected(options().dynOpts())) {
 	    	case AUTO_FLAG_TYPE:
 	    		setTypeFlagColor(p, id);
 	    		return;

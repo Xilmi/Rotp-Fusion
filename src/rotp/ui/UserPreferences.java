@@ -15,8 +15,21 @@
  */
 package rotp.ui;
 
-import static rotp.model.empires.SystemView.AUTO_FLAG_NOT;
-import static rotp.model.empires.SystemView.flagAssignationMap;
+import static rotp.model.game.GamePlayOptions.*;
+import static rotp.model.game.BaseOptions.ADV_UI;
+import static rotp.model.game.BaseOptions.BASE_UI;
+import static rotp.model.game.BaseOptions.GAME_UI;
+import static rotp.model.game.BaseOptions.MOD_UI;
+import static rotp.model.game.FactoryOptions.artifactsHomeworld;
+import static rotp.model.game.FactoryOptions.battleScout;
+import static rotp.model.game.FactoryOptions.companionWorlds;
+import static rotp.model.game.FactoryOptions.fertileHomeworld;
+import static rotp.model.game.FactoryOptions.minDistArtifactPlanet;
+import static rotp.model.game.FactoryOptions.randomTechStart;
+import static rotp.model.game.FactoryOptions.richHomeworld;
+import static rotp.model.game.FactoryOptions.ultraRichHomeworld;
+import static rotp.model.game.FlagOptions.autoFlagOptions;
+import static rotp.model.game.FlagOptions.autoFlagOptionsUI;
 import static rotp.model.game.IGameOptions.AI_HOSTILITY_NORMAL;
 import static rotp.model.game.IGameOptions.AUTOPLAY_OFF;
 import static rotp.model.game.IGameOptions.COLONIZING_NORMAL;
@@ -54,17 +67,6 @@ import static rotp.model.game.MOO1GameOptions.getTechTradingOptions;
 import static rotp.model.game.MOO1GameOptions.getTerraformingOptions;
 import static rotp.model.game.MOO1GameOptions.getWarpSpeedOptions;
 import static rotp.ui.util.InterfaceParam.langLabel;
-import static rotp.ui.util.ParamFlagColor.FLAG_COLOR_AQUA;
-import static rotp.ui.util.ParamFlagColor.FLAG_COLOR_BLUE;
-import static rotp.ui.util.ParamFlagColor.FLAG_COLOR_GREEN;
-import static rotp.ui.util.ParamFlagColor.FLAG_COLOR_LTBLUE;
-import static rotp.ui.util.ParamFlagColor.FLAG_COLOR_NONE;
-import static rotp.ui.util.ParamFlagColor.FLAG_COLOR_ORANGE;
-import static rotp.ui.util.ParamFlagColor.FLAG_COLOR_PINK;
-import static rotp.ui.util.ParamFlagColor.FLAG_COLOR_PURPLE;
-import static rotp.ui.util.ParamFlagColor.FLAG_COLOR_RED;
-import static rotp.ui.util.ParamFlagColor.FLAG_COLOR_WHITE;
-import static rotp.ui.util.ParamFlagColor.FLAG_COLOR_YELLOW;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -88,16 +90,13 @@ import rotp.model.game.IGameOptions;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.util.GlobalCROptions;
 import rotp.ui.util.InterfaceParam;
-import rotp.ui.util.ParamAAN2;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamCR;
-import rotp.ui.util.ParamFlagColor;
 import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamOptions;
 import rotp.ui.util.ParamString;
-import rotp.ui.util.ParamSubUI;
 import rotp.ui.util.ParamTech;
 import rotp.ui.util.ParamTitle;
 import rotp.ui.util.PlayerShipSet;
@@ -114,8 +113,6 @@ public class UserPreferences {
 	private static final String GRAPHICS_LOW = "GAME_SETTINGS_GRAPHICS_LOW";
 	private static final String GRAPHICS_MEDIUM = "GAME_SETTINGS_GRAPHICS_MED";
 	private static final String GRAPHICS_HIGH = "GAME_SETTINGS_GRAPHICS_HIGH";
-	// private static final String AUTOCOLONIZE_YES = "GAME_SETTINGS_AUTOCOLONIZE_YES";
-	// private static final String AUTOCOLONIZE_NO = "GAME_SETTINGS_AUTOCOLONIZE_NO";
 	private static final String AUTOBOMBARD_NO = "GAME_SETTINGS_AUTOBOMBARD_NO";
 	private static final String AUTOBOMBARD_NEVER = "GAME_SETTINGS_AUTOBOMBARD_NEVER";
 	private static final String AUTOBOMBARD_YES = "GAME_SETTINGS_AUTOBOMBARD_YES";
@@ -140,146 +137,10 @@ public class UserPreferences {
 	private static final int    MAX_BACKUP_TURNS  = 20; // modnar: change max turns between backups to 20
 	private static final String keyFormat = "%-25s: "; // BR: from 20 to 25 for a better alignment
 
-	// BR common for All MOD entries
-	public  static final String BASE_UI		= "SETUP_";
-	private static final String GAME_UI		= "GAME_SETTINGS_";
-	private static final String ADV_UI		= "SETTINGS_";
-	public static final String MOD_UI		= "SETTINGS_MOD_";
-	public static final String HEADERS		= "HEADERS_";
-	public static final String ALL_GUI_ID	= "ALL_GUI";
-
 	// Sub UI Options parameters
 	// BR: AUTO-FLAG PARAMETERS SUB UI
-	public static final ParamList 		autoFlagAssignation1	= new ParamList(
-			MOD_UI, "AUTO_FLAG_ASSIGN_1",
-			AUTO_FLAG_NOT, flagAssignationMap) {
-		{ showFullGuide(true); }
-	};
-	public static final ParamList 		autoFlagAssignation2	= new ParamList(
-			MOD_UI, "AUTO_FLAG_ASSIGN_2",
-			AUTO_FLAG_NOT, flagAssignationMap) {
-		{ showFullGuide(true); }
-	};
-	public static final ParamList 		autoFlagAssignation3	= new ParamList(
-			MOD_UI, "AUTO_FLAG_ASSIGN_3",
-			AUTO_FLAG_NOT, flagAssignationMap) {
-		{ showFullGuide(true); }
-	};
-	public static final ParamList 		autoFlagAssignation4	= new ParamList(
-			MOD_UI, "AUTO_FLAG_ASSIGN_4",
-			AUTO_FLAG_NOT, flagAssignationMap) {
-		{ showFullGuide(true); }
-	};
-	public static final ParamFlagColor	flagTerranColor			= new ParamFlagColor(
-			"AUTO_FLAG_TERRAN",			FLAG_COLOR_GREEN);
-	public static final ParamFlagColor	flagJungleColor			= new ParamFlagColor(
-			"AUTO_FLAG_JUNGLE",			FLAG_COLOR_GREEN);
-	public static final ParamFlagColor	flagOceanColor			= new ParamFlagColor(
-			"AUTO_FLAG_OCEAN",			FLAG_COLOR_AQUA);
-	public static final ParamFlagColor	flagAridColor			= new ParamFlagColor(
-			"AUTO_FLAG_ARID",			FLAG_COLOR_YELLOW);
-	public static final ParamFlagColor	flagSteppeColor			= new ParamFlagColor(
-			"AUTO_FLAG_STEPPE",			FLAG_COLOR_YELLOW);
-	public static final ParamFlagColor	flagDesertColor			= new ParamFlagColor(
-			"AUTO_FLAG_DESERT",			FLAG_COLOR_YELLOW);
-	public static final ParamFlagColor	flagMinimalColor		= new ParamFlagColor(
-			"AUTO_FLAG_MINIMAL",		FLAG_COLOR_YELLOW);
-	public static final ParamFlagColor	flagBarrenColor			= new ParamFlagColor(
-			"AUTO_FLAG_BARREN",			FLAG_COLOR_ORANGE);
-	public static final ParamFlagColor	flagTundraColor			= new ParamFlagColor(
-			"AUTO_FLAG_TUNDRA",			FLAG_COLOR_WHITE);
-	public static final ParamFlagColor	flagDeadColor			= new ParamFlagColor(
-			"AUTO_FLAG_DEAD",			FLAG_COLOR_WHITE);
-	public static final ParamFlagColor	flagInfernoColor		= new ParamFlagColor(
-			"AUTO_FLAG_INFERNO",		FLAG_COLOR_RED);
-	public static final ParamFlagColor	flagToxicColor			= new ParamFlagColor(
-			"AUTO_FLAG_TOXIC",			FLAG_COLOR_RED);
-	public static final ParamFlagColor	flagRadiatedColor		= new ParamFlagColor(
-			"AUTO_FLAG_RADIATED",		FLAG_COLOR_PURPLE);
-	public static final ParamFlagColor	flagAsteroidColor		= new ParamFlagColor(
-			"AUTO_FLAG_ASTEROID",		FLAG_COLOR_PINK);
-
-	public static final ParamFlagColor	flagEnvGaiaColor		= new ParamFlagColor(
-			"AUTO_FLAG_ENV_GAIA",		FLAG_COLOR_GREEN);
-	public static final ParamFlagColor	flagEnvFertileColor		= new ParamFlagColor(
-			"AUTO_FLAG_ENV_FERTILE",	FLAG_COLOR_AQUA);
-	public static final ParamFlagColor	flagEnvNormalColor		= new ParamFlagColor(
-			"AUTO_FLAG_ENV_NORMAL",		FLAG_COLOR_NONE);
-	public static final ParamFlagColor	flagEnvHostileColor		= new ParamFlagColor(
-			"AUTO_FLAG_ENV_HOSTILE",	FLAG_COLOR_ORANGE);
-	public static final ParamFlagColor	flagEnvNoneColor		= new ParamFlagColor(
-			"AUTO_FLAG_ENV_NONE",		FLAG_COLOR_NONE);
-
-	public static final ParamFlagColor	flagUltraPoorColor		= new ParamFlagColor(
-			"AUTO_FLAG_ULTRA_POOR",		FLAG_COLOR_YELLOW);
-	public static final ParamFlagColor	flagPoorColor			= new ParamFlagColor(
-			"AUTO_FLAG_POOR",			FLAG_COLOR_ORANGE);
-	public static final ParamFlagColor	flagAssetNormalColor	= new ParamFlagColor(
-			"AUTO_FLAG_NORMAL",			FLAG_COLOR_NONE);
-	public static final ParamFlagColor	flagRichColor			= new ParamFlagColor(
-			"AUTO_FLAG_RICH",			FLAG_COLOR_PINK);
-	public static final ParamFlagColor	flagUltraRichColor		= new ParamFlagColor(
-			"AUTO_FLAG_ULTRA_RICH",		FLAG_COLOR_RED);
-	public static final ParamFlagColor	flagAntaranColor		= new ParamFlagColor(
-			"AUTO_FLAG_RUINS_ANTARAN",	FLAG_COLOR_LTBLUE);
-	public static final ParamFlagColor	flagOrionColor			= new ParamFlagColor(
-			"AUTO_FLAG_RUINS_ORION",	FLAG_COLOR_BLUE);
-	public static final ParamFlagColor	flagNoneColor			= new ParamFlagColor(
-			"AUTO_FLAG_NONE",			FLAG_COLOR_NONE);
-
-	public static final ParamFlagColor	flagTechGaiaColor		= new ParamFlagColor(
-			"AUTO_FLAG_TECH_GAIA",		FLAG_COLOR_GREEN);
-	public static final ParamFlagColor	flagTechFertileColor	= new ParamFlagColor(
-			"AUTO_FLAG_TECH_FERTILE",	FLAG_COLOR_GREEN);
-	public static final ParamFlagColor	flagTechGoodColor		= new ParamFlagColor(
-			"AUTO_FLAG_TECH_GOOD",		FLAG_COLOR_BLUE);
-	public static final ParamFlagColor	flagTechStandardColor	= new ParamFlagColor(
-			"AUTO_FLAG_TECH_STANDARD",	FLAG_COLOR_YELLOW);
-	public static final ParamFlagColor	flagTechBarrenColor		= new ParamFlagColor(
-			"AUTO_FLAG_TECH_BARREN",	FLAG_COLOR_ORANGE);
-	public static final ParamFlagColor	flagTechDeadColor		= new ParamFlagColor(
-			"AUTO_FLAG_TECH_DEAD",		FLAG_COLOR_WHITE);
-	public static final ParamFlagColor	flagTechToxicColor		= new ParamFlagColor(
-			"AUTO_FLAG_TECH_TOXIC",		FLAG_COLOR_RED);
-	public static final ParamFlagColor	flagTechRadiatedColor	= new ParamFlagColor(
-			"AUTO_FLAG_TECH_RADIATED",	FLAG_COLOR_PURPLE);
-	public static final ParamFlagColor	flagTechNoneColor		= new ParamFlagColor(
-			"AUTO_FLAG_TECH_NONE",		FLAG_COLOR_PINK);
 	
 	// MOD GUI OPTIONS:
-	public	static final ParamAAN2	  artifactsHomeworld		= new ParamAAN2("HOME_ARTIFACT");
-	public	static final ParamAAN2	  fertileHomeworld			= new ParamAAN2("HOME_FERTILE");
-	public	static final ParamAAN2	  richHomeworld				= new ParamAAN2("HOME_RICH");
-	public	static final ParamAAN2	  ultraRichHomeworld		= new ParamAAN2("HOME_ULTRA_RICH");
-	public	static final ParamFloat	  minDistArtifactPlanet		= new ParamFloat(
-			MOD_UI, "DIST_ARTIFACT_PLANET", 0.0f, 0.0f, null, 0.2f, 1f, 5f, "0.0##", "0.0");
-	public	static final ParamBoolean battleScout				= new ParamBoolean(
-			MOD_UI, "BATTLE_SCOUT", false);
-	public	static final ParamBoolean randomTechStart			= new ParamBoolean(
-			MOD_UI, "RANDOM_TECH_START", false);
-	private	static final ParamInteger companionWorlds			= new ParamInteger(
-			MOD_UI, "COMPANION_WORLDS"
-			, 0, -4, 6, true);
-	private	static final ParamInteger retreatRestrictionTurns	= new ParamInteger(
-			MOD_UI, "RETREAT_RESTRICTION_TURNS"
-			, 100, 0, 100, 1, 5, 20);
-	private	static final ParamList	  retreatRestrictions		= new ParamList(
-			MOD_UI, "RETREAT_RESTRICTIONS", "None") {
-		{ showFullGuide(true); }
-	}		.put("None",	MOD_UI + "RETREAT_NONE")
-			.put("AI",		MOD_UI + "RETREAT_AI")
-			.put("Player",	MOD_UI + "RETREAT_PLAYER")
-			.put("Both",	MOD_UI + "RETREAT_BOTH");
-	private	static final ParamList	  targetBombard				= new ParamList(
-			MOD_UI, "TARGET_BOMBARD", "None") {
-		{
-			showFullGuide(true);
-			put("None",		MOD_UI + "RETREAT_NONE");
-			put("AI",		MOD_UI + "RETREAT_AI");
-			put("Player",	MOD_UI + "RETREAT_PLAYER");
-			put("Both",		MOD_UI + "RETREAT_BOTH");
-		}
-	};
 	public	static final ParamInteger customDifficulty			= new ParamInteger(
 			MOD_UI, "CUSTOM_DIFFICULTY"
 			, 100, 20, 500, 1, 5, 20);
@@ -883,47 +744,6 @@ public class UserPreferences {
 	public	static final ParamTitle headerSpacer = new ParamTitle("SPACER");
 	// Sub GUI Lists and GUI List	
 	// Parameters on these list are auto saved in dynamic list options
-	// Auto Flag interface
-	private static final LinkedList<LinkedList<InterfaceParam>> autoFlagOptionsMap = 
-			new LinkedList<LinkedList<InterfaceParam>>();
-	static {
-		autoFlagOptionsMap.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle("AUTO_FLAG_ID_SELECTION"),
-				autoFlagAssignation1, autoFlagAssignation2,
-				autoFlagAssignation3, autoFlagAssignation4,
-
-				headerSpacer,
-				new ParamTitle("AUTO_FLAG_COLONY_TECH"),
-				flagTechGaiaColor, flagTechFertileColor, flagTechGoodColor,
-				flagTechStandardColor, flagTechBarrenColor, flagTechDeadColor,
-				flagTechToxicColor, flagTechRadiatedColor, flagTechNoneColor
-				)));
-		autoFlagOptionsMap.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle("AUTO_FLAG_RESOURCES"),
-				flagOrionColor, flagAntaranColor,
-				flagUltraRichColor, flagRichColor, flagAssetNormalColor,
-				flagPoorColor, flagUltraPoorColor, flagNoneColor,
-				
-				headerSpacer,
-				new ParamTitle("AUTO_FLAG_ENVIRONMENT"),
-				flagEnvGaiaColor, flagEnvFertileColor,
-				flagEnvNormalColor,	flagEnvHostileColor, flagEnvNoneColor
-				)));
-		autoFlagOptionsMap.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle("AUTO_FLAG_TYPE"),
-				flagTerranColor, flagJungleColor, flagOceanColor,
-				flagAridColor, flagSteppeColor, flagDesertColor, flagMinimalColor,
-				flagBarrenColor, flagTundraColor, flagDeadColor,
-				flagInfernoColor, flagToxicColor, flagRadiatedColor,
-				flagAsteroidColor
-				)));
-	};
-	public	static final String		AUTO_FLAG_GUI_ID	= "AUTO_FLAG";
-	private	static final ParamSubUI	autoFlagOptionsUI	= new ParamSubUI(
-			MOD_UI, "AUTO_FLAG_UI", autoFlagOptionsMap,
-			"AUTO_FLAG_TITLE", AUTO_FLAG_GUI_ID);
-	public	static final LinkedList<InterfaceParam> autoFlagOptions = autoFlagOptionsUI.optionsList();
-
 	// GUI Options Lists
 	public static final LinkedList<InterfaceParam> mergedStaticOptions	= new LinkedList<>();
 	public static final LinkedList<LinkedList<InterfaceParam>> mergedStaticOptionsMap	= 
@@ -1232,11 +1052,11 @@ public class UserPreferences {
 	public static boolean playMusic()    { return playMusic; }
 	public static void toggleMusic()     { playMusic = !playMusic; save();  }
 	// BR: redirection for compatibility
-	public static int companionWorlds()			{ return Math.abs(companionWorlds.get()); } // modnar: add option to start game with additional colonies
-	public static int companionWorldsSigned()	{ return companionWorlds.get(); } // BR: to manage old and new distribution
+//	public static int companionWorlds()			{ return Math.abs(companionWorlds.get()); } // modnar: add option to start game with additional colonies
+//	public static int companionWorldsSigned()	{ return companionWorlds.get(); } // BR: to manage old and new distribution
 	public static float missileSizeModifier()	{ return missileSizeModifier.get(); } 
-	public static int retreatRestrictions()		{ return retreatRestrictions.getIndex(); }
-	public static int retreatRestrictionTurns()	{ return retreatRestrictionTurns.get(); }
+//	public static int retreatRestrictions()		{ return retreatRestrictions.getIndex(); }
+//	public static int retreatRestrictionTurns()	{ return retreatRestrictionTurns.get(); }
 	public static boolean targetBombardAllowedForAI() {
 		switch (targetBombard.get()) {
 			case  "Both":

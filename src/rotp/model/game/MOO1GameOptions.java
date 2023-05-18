@@ -16,13 +16,9 @@
 package rotp.model.game;
 
 import static rotp.ui.UserPreferences.allModOptions;
-import static rotp.ui.UserPreferences.dynStarsPerEmpire;
 import static rotp.ui.UserPreferences.globalCROptions;
-import static rotp.ui.UserPreferences.minStarsPerEmpire;
 import static rotp.ui.UserPreferences.optionsGalaxy;
 import static rotp.ui.UserPreferences.optionsRace;
-import static rotp.ui.UserPreferences.prefStarsPerEmpire;
-import static rotp.ui.UserPreferences.randomTechStart;
 import static rotp.ui.UserPreferences.shapeOption1;
 import static rotp.ui.UserPreferences.shapeOption2;
 
@@ -49,7 +45,6 @@ import java.util.zip.ZipOutputStream;
 import javax.swing.SwingUtilities;
 
 import rotp.Rotp;
-import rotp.model.ai.AI;
 import rotp.model.empires.Empire;
 import rotp.model.empires.Race;
 import rotp.model.events.RandomEvent;
@@ -161,7 +156,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         randomizeColors();
         setBaseSettingsToDefault();
     }
-	@Override public DynOptions dynamicOptions() { // BR:
+	@Override public DynOptions dynOpts() { // BR:
 		if (dynamicOptions == null)
 			dynamicOptions = new DynOptions();
 		return dynamicOptions;	}
@@ -1293,12 +1288,12 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
     static void setModSettingsFromOptions(MOO1GameOptions source) { // BR:
     	for( InterfaceParam param : allModOptions())
-    		param.setFromOptions(source.dynamicOptions());
+    		param.setFromOptions(source.dynOpts());
         EditCustomRaceUI.instance().updateCRGui(source);
     }
     private static void writeModSettingsToOptions(MOO1GameOptions destination) { // BR:
     	for( InterfaceParam option : allModOptions())
-    		option.setOptions(destination.dynamicOptions());
+    		option.setOptions(destination.dynOpts());
        	EditCustomRaceUI.instance().writeLocalOptions(destination);
     }
     private static void copyBaseSettings(MOO1GameOptions src, MOO1GameOptions dest) {
@@ -1413,7 +1408,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     static void writeModSettingsToOptions(MOO1GameOptions dest, String guiID, boolean call) {
     	switch (guiID) {
     	case EditCustomRaceUI.GUI_ID:
-    	case UserPreferences.ALL_GUI_ID:
+    	case ALL_GUI_ID:
     		EditCustomRaceUI.updatePlayerCustomRace();
     	}
     	LinkedList<InterfaceParam> modOptions = getModParameterList(guiID);
@@ -1421,9 +1416,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     		return;
        	for (InterfaceParam param : modOptions) {
        		if (param != null)
-    			param.setOptions(dest.dynamicOptions());
+    			param.setOptions(dest.dynOpts());
        	}
-       	if (call && guiID.equals(UserPreferences.ALL_GUI_ID))
+       	if (call && guiID.equals(ALL_GUI_ID))
         	optionsUpdated();
     }
     private static void setBaseAndModSettingsFromOptions(
@@ -1456,7 +1451,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	case AdvancedOptionsUI.GUI_ID:
     		copyAdvancedOptions(src, dest);
     		break;
-    	case UserPreferences.ALL_GUI_ID:
+    	case ALL_GUI_ID:
     		copyBaseGalaxySettings(src, dest);
     		copyBaseRaceSettings(src, dest);
     		copyAdvancedOptions(src, dest);
@@ -1474,7 +1469,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
        	for (InterfaceParam param : modOptions)
        		if (param != null) {
 	       		param.setFromDefault();
-	       		param.setOptions(options.dynamicOptions());
+	       		param.setOptions(options.dynOpts());
 	       	}
     }
     private static void setBaseSettingsToDefault(MOO1GameOptions options, String guiID) {
@@ -1488,7 +1483,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	case AdvancedOptionsUI.GUI_ID:
     		options.setAdvancedOptionsToDefault();
     		break;
-    	case UserPreferences.ALL_GUI_ID:
+    	case ALL_GUI_ID:
     		options.setAdvancedOptionsToDefault();
     		options.setBaseRaceSettingsToDefault();
     		options.setBaseGalaxySettingsToDefault();
@@ -1528,13 +1523,13 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	    	case EditCustomRaceUI.GUI_ID:
 	    		modOptions = UserPreferences.optionsCustomRace();
 	    		break;
-	    	case UserPreferences.AUTO_FLAG_GUI_ID:
-	    		modOptions = UserPreferences.autoFlagOptions;
+	    	case AUTO_FLAG_GUI_ID:
+	    		modOptions = autoFlagOptions;
 	    		break;
 	    	case GovernorOptions.GOVERNOR_GUI_ID:
 	    		modOptions = GovernorOptions.governorOptions;
 	    		break;
-	    	case UserPreferences.ALL_GUI_ID:
+	    	case ALL_GUI_ID:
 	    		modOptions = UserPreferences.allModOptions();
 	    		break;
     	}
