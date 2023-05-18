@@ -84,6 +84,7 @@ import rotp.Rotp;
 import rotp.model.empires.GalacticCouncil;
 import rotp.model.events.RandomEvents;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.game.GamePlayOptions;
 import rotp.model.game.GameSession;
 import rotp.model.game.GovernorOptions;
 import rotp.model.game.IGameOptions;
@@ -141,24 +142,6 @@ public class UserPreferences {
 	// BR: AUTO-FLAG PARAMETERS SUB UI
 	
 	// MOD GUI OPTIONS:
-	public	static final ParamInteger customDifficulty			= new ParamInteger(
-			MOD_UI, "CUSTOM_DIFFICULTY"
-			, 100, 20, 500, 1, 5, 20);
-	public	static final ParamBoolean dynamicDifficulty			= new ParamBoolean(
-			MOD_UI, "DYNAMIC_DIFFICULTY", false);
-	public	static final ParamList	  scrapRefundOption			= new ParamList(
-			MOD_UI, "SCRAP_REFUND", "All") {
-		{
-			showFullGuide(true);
-			put("All",		MOD_UI + "SCRAP_REFUND_ALL");
-			put("Empire",	MOD_UI + "SCRAP_REFUND_EMPIRE");
-			put("Ally",		MOD_UI + "SCRAP_REFUND_ALLY");
-			put("Never",	MOD_UI + "SCRAP_REFUND_NEVER");
-		}
-	};
-	public	static final ParamFloat	  scrapRefundFactor			= new ParamFloat(
-			MOD_UI, "SCRAP_REFUND_FACTOR"
-			, 0.25f, 0f, 1f, 0.01f, 0.05f, 0.2f, "0.##", "%");
 	private	static final ParamFloat	  missileSizeModifier		= new ParamFloat(
 			MOD_UI, "MISSILE_SIZE_MODIFIER"
 			, 2f/3f, 0.1f, 1f, 0.01f, 0.05f, 0.2f, "0.##", "%");
@@ -475,9 +458,9 @@ public class UserPreferences {
 			String diffLbl = super.name(id);
 			String label   = getLangLabel(id);
 			if (label.equals("SETUP_DIFFICULTY_CUSTOM"))
-				diffLbl += " (" + Integer.toString(UserPreferences.customDifficulty.get()) + "%)";
+				diffLbl += " (" + Integer.toString(RotPUI.mergedGuiOptions().selectedCustomDifficulty()) + "%)";
 			else {
-				float modifier = IGameOptions.aiProductionModifier(label);
+				float modifier = RotPUI.mergedGuiOptions().aiProductionModifier(label);
 				diffLbl += " (" + Integer.toString(Math.round(100 * modifier)) + "%)";
 			}
 			return diffLbl;
@@ -1057,24 +1040,24 @@ public class UserPreferences {
 	public static float missileSizeModifier()	{ return missileSizeModifier.get(); } 
 //	public static int retreatRestrictions()		{ return retreatRestrictions.getIndex(); }
 //	public static int retreatRestrictionTurns()	{ return retreatRestrictionTurns.get(); }
-	public static boolean targetBombardAllowedForAI() {
-		switch (targetBombard.get()) {
-			case  "Both":
-			case  "AI":
-				return true;
-			default:
-				return false;
-		}
-	}
-	public static boolean targetBombardAllowedForPlayer() {
-		switch (targetBombard.get()) {
-			case  "Both":
-			case  "Player":
-				return true;
-			default:
-				return false;
-		}
-	}
+//	public static boolean targetBombardAllowedForAI() {
+//		switch (targetBombard.get()) {
+//			case  "Both":
+//			case  "AI":
+//				return true;
+//			default:
+//				return false;
+//		}
+//	}
+//	public static boolean targetBombardAllowedForPlayer() {
+//		switch (targetBombard.get()) {
+//			case  "Both":
+//			case  "Player":
+//				return true;
+//			default:
+//				return false;
+//		}
+//	}
 	// \BR:
 	
 	public	static int		selectedScreen()				{ return selectedScreen; }

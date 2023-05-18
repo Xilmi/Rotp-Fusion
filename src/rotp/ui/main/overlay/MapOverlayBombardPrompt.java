@@ -178,7 +178,7 @@ public class MapOverlayBombardPrompt extends MapOverlay {
         int h = ui.getHeight();
 
         int transportH = transports > 0 ? s20 : 0;
-        boolean targetOK = UserPreferences.targetBombardAllowedForPlayer();
+        boolean targetOK = options().targetBombardAllowedForPlayer();
         int bdrW = s7;
         int buttonOffset = targetOK? s35 : 0; // BR: adjusted for target
         int boxW = scaled(540);

@@ -104,6 +104,7 @@ import rotp.model.empires.Race;
 import rotp.model.galaxy.GalaxyFactory.GalaxyCopy;
 import rotp.model.galaxy.GalaxyShape;
 import rotp.model.galaxy.GalaxyShape.EmpireSystem;
+import rotp.model.game.GamePlayOptions;
 import rotp.model.game.GameSession;
 import rotp.model.game.IGameOptions;
 import rotp.ui.NoticeMessage;
@@ -1321,7 +1322,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		// modnar: add custom difficulty level option, set in Remnants.cfg
 		// append this custom difficulty percentage to diffLbl if selected
 		if (diffLbl.equals("Custom")) {
-			diffLbl = diffLbl + " (" + Integer.toString(UserPreferences.customDifficulty.get()) + "%)";
+			diffLbl = diffLbl + " (" + Integer.toString(GamePlayOptions.customDifficulty.get()) + "%)";
 		} else {
 			diffLbl = diffLbl + " (" + Integer.toString(Math.round(100 * newGameOptions().aiProductionModifier())) + "%)";
 		}

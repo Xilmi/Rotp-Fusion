@@ -16,7 +16,6 @@
 package rotp.util;
 
 import static rotp.model.game.IGameOptions.DIFFICULTY_CUSTOM;
-import static rotp.ui.UserPreferences.customDifficulty;
 import static rotp.ui.UserPreferences.playerCustomRace;
 import static rotp.ui.UserPreferences.playerIsCustom;
 
@@ -1417,7 +1416,7 @@ public interface Base {
 		// modnar: add custom difficulty level option, set in Remnants.cfg
 		// append this custom difficulty percentage to gameName if selected
 		if (newGameOptions().selectedGameDifficulty().equals(DIFFICULTY_CUSTOM)) {
-			name += " (" + Integer.toString(customDifficulty.get()) + "%)";
+			name += " (" + Integer.toString(newGameOptions().selectedCustomDifficulty()) + "%)";
 		}
 		return name;
     }

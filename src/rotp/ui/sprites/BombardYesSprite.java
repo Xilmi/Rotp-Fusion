@@ -21,7 +21,6 @@ import java.awt.LinearGradientPaint;
 import java.awt.Stroke;
 import java.awt.geom.Point2D;
 import rotp.ui.BasePanel;
-import rotp.ui.UserPreferences;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.main.overlay.MapOverlayBombardPrompt;
@@ -71,7 +70,7 @@ public class BombardYesSprite extends MapSprite {
         int s10 = scaled(10);
         g.setFont(narrowFont(20));
         String str;  // BR: adjusted for target
-        if (UserPreferences.targetBombardAllowedForPlayer())
+        if (options().targetBombardAllowedForPlayer())
         	str = text("MAIN_BOMBARD_DROP_ALL");
         else
         	str = text("MAIN_BOMBARD_YES");

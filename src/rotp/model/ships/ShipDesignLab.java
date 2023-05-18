@@ -473,7 +473,7 @@ public class ShipDesignLab implements Base, Serializable {
         d.addTotalScrapped(counts[0]);
 
         // reimburse civ reserve for 1/2 of ship's cost (halved when added to reserve)
-        switch (UserPreferences.scrapRefundOption.get()) {
+        switch (options().selectedScrapRefundOption()) {
 	        case "Never":
 	        	break;
 	        case "Ally":

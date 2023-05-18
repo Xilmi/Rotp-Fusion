@@ -328,7 +328,7 @@ public class AI implements Base {
             if (UserPreferences.autoBombardInvading() && atWar && (transports == 0))
                 autoBomb = true;
             int bombTarget = 0;
-            if(UserPreferences.targetBombardAllowedForPlayer() && empire.transportsInTransit(sys) > 0)
+            if(options().targetBombardAllowedForPlayer() && empire.transportsInTransit(sys) > 0)
                 bombTarget = UserPreferences.bombingTarget.get();
             BombardSystemNotification.create(id(sys), fl, autoBomb, bombTarget);
             return 0;
@@ -358,7 +358,7 @@ public class AI implements Base {
         //Xilmi: Not a nice way, but a way to tell Xilmi-AIs apart from base-AIs:
         if(empire.generalAI().absolution() != 0)
         {
-            if(rotp.ui.UserPreferences.targetBombardAllowedForAI() == true)
+            if(options().targetBombardAllowedForAI() == true)
             {
                 return 2;
             }

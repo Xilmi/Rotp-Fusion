@@ -753,7 +753,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         // determine how much categories are over/under spent
         int spendingTotal = 0;
         for (int i = 0; i < NUM_CATS; i++) {
-        	ColonySpendingCategory sp = spending[i];
+        	//ColonySpendingCategory sp = spending[i];
         	spendingTotal += spending[i].allocation();
         }
 
@@ -840,7 +840,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         // modnar: add dynamic difficulty option, change AI colony production
         float dynaMod = 1.0f;
         float scaleMod = 1.0f;
-        if (UserPreferences.dynamicDifficulty.get() && !(galaxy().currentTurn() < 5)) {
+        if (options().selectedDynamicDifficulty() && !(galaxy().currentTurn() < 5)) {
             // scale with relative empire industrialPowerLevel (production*tech) compared with player
             // use custom created nonDynaIndPowerLevel, to avoid infinite recursion
             float empIndPowerLevel = empire().nonDynaIndPowerLevel();

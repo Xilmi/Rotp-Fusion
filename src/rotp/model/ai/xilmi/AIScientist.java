@@ -38,7 +38,6 @@ import rotp.model.tech.TechBiologicalWeapon;
 import rotp.model.tech.TechBlackHole;
 import rotp.model.tech.TechBombWeapon;
 import rotp.model.tech.TechCategory;
-import static rotp.model.tech.TechCategory.COMPUTER;
 import static rotp.model.tech.TechCategory.PROPULSION;
 import static rotp.model.tech.TechCategory.WEAPON;
 import rotp.model.tech.TechCloaking;
@@ -81,7 +80,6 @@ import rotp.model.tech.TechSubspaceInterdictor;
 import rotp.model.tech.TechTeleporter;
 import rotp.model.tech.TechTorpedoWeapon;
 import rotp.model.tech.TechTree;
-import rotp.ui.UserPreferences;
 import rotp.ui.notifications.SelectTechNotification;
 import rotp.util.Base;
 
@@ -892,7 +890,7 @@ public class AIScientist implements Base, Scientist {
     }
     @Override
     public float baseValue(TechMissileWeapon t) {
-        float val = 2 / UserPreferences.missileSizeModifier();
+        float val = 2 / options().selectedMissileSizeModifier();
         if(empire.tech().topShipWeaponTech().quintile() < 2 && empire.tech().topBaseMissileTech().quintile() < 2 && empire.tech().topBaseScatterPackTech() == null)
             val += 1;
         return val;

@@ -26,11 +26,11 @@ import rotp.model.colony.Colony;
 import rotp.model.colony.MissileBaseMissile;
 import rotp.model.combat.CombatStack;
 import rotp.model.empires.Empire;
+import rotp.model.game.GamePlayOptions;
 import rotp.model.game.GameSession;
 import rotp.model.ships.ShipWeaponMissile;
 import rotp.ui.RotPUI;
 import rotp.ui.combat.ShipBattleUI;
-import rotp.ui.UserPreferences;
 
 public final class TechMissileWeapon extends Tech {
     public static List<String> missileTypes = new ArrayList<>();
@@ -90,6 +90,7 @@ public final class TechMissileWeapon extends Tech {
     public void init() {
         super.init();
         techType = Tech.MISSILE_WEAPON;
+        int initialDamage = damage;
 
         switch(typeSeq) {
             case 0: // NUCLEAR MISSILE
@@ -225,9 +226,18 @@ public final class TechMissileWeapon extends Tech {
                 imageKey = "MISSILE_SCATTER_PACK_X";
                 break;
         }
-        cost *= UserPreferences.missileSizeModifier();
-        size *= UserPreferences.missileSizeModifier();
-        power *= UserPreferences.missileSizeModifier();
+        // options() is not available for the first initialization
+        // This line will be executed before the first "options()" call is finished. 
+        // The first call will return the default value.
+        // A second call will happen when launching the game.
+        float missileSizeModifier;
+        if (initialDamage == 0)
+        	missileSizeModifier = GamePlayOptions.missileSizeModifier.get();
+        else
+        	missileSizeModifier = options().selectedMissileSizeModifier();
+        cost *= missileSizeModifier;
+        size *= missileSizeModifier;
+        power *= missileSizeModifier;
     }
     @Override
     public float baseValue(Empire c) { return c.ai().scientist().baseValue(this); }

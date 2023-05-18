@@ -1262,7 +1262,7 @@ public class AIGeneral implements Base, General {
         Empire emp = sys.empire();
         if(empire.enemies().contains(emp))
         {
-            if(rotp.ui.UserPreferences.targetBombardAllowedForAI() == true)
+            if(options().targetBombardAllowedForAI() == true)
                 return true;
             if(empire.transportsInTransit(sys) > troopsNecessaryToTakePlanet(empire.viewForEmpire(emp), sys, true) + expectedEnemyTransportKillPower(sys) * (1 - empire.fleetCommanderAI().bridgeHeadConfidence(sys)))
                 return false;

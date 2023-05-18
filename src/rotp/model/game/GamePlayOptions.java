@@ -34,54 +34,54 @@ public interface GamePlayOptions extends BaseOptions {
 		}
 	};
 	default String selectedTargetBombard()			{ return targetBombard.selected(dynOpts()); }
-//	default boolean targetBombardAllowedForAI() {
-//		targetBombard.setFromOptions(dynOpts());
-//		switch (targetBombard.get()) {
-//			case  "Both":
-//			case  "AI":
-//				return true;
-//			default:
-//				return false;
-//		}
-//	}
-//	default boolean targetBombardAllowedForPlayer() {
-//		targetBombard.setFromOptions(dynOpts());
-//		switch (targetBombard.get()) {
-//			case  "Both":
-//			case  "Player":
-//				return true;
-//			default:
-//				return false;
-//		}
-//	}
+	default boolean targetBombardAllowedForAI() {
+		targetBombard.setFromOptions(dynOpts());
+		switch (targetBombard.get()) {
+			case  "Both":
+			case  "AI":
+				return true;
+			default:
+				return false;
+		}
+	}
+	default boolean targetBombardAllowedForPlayer() {
+		targetBombard.setFromOptions(dynOpts());
+		switch (targetBombard.get()) {
+			case  "Both":
+			case  "Player":
+				return true;
+			default:
+				return false;
+		}
+	}
 
-//	ParamInteger customDifficulty			= new ParamInteger(MOD_UI, "CUSTOM_DIFFICULTY"
-//			, 100, 20, 500, 1, 5, 20);
-//	default int selectedCustomDifficulty()			{ return customDifficulty.selected(dynOpts()); }
-//
-//	ParamBoolean dynamicDifficulty			= new ParamBoolean(MOD_UI, "DYNAMIC_DIFFICULTY", false);
-//	default boolean selectedDynamicDifficulty()		{ return dynamicDifficulty.selected(dynOpts()); }
-//
-//	ParamList scrapRefundOption				= new ParamList(MOD_UI, "SCRAP_REFUND", "All") {
-//		{
-//			showFullGuide(true);
-//			put("All",		MOD_UI + "SCRAP_REFUND_ALL");
-//			put("Empire",	MOD_UI + "SCRAP_REFUND_EMPIRE");
-//			put("Ally",		MOD_UI + "SCRAP_REFUND_ALLY");
-//			put("Never",	MOD_UI + "SCRAP_REFUND_NEVER");
-//		}
-//	};
-//	default String selectedScrapRefundOption()		{ return scrapRefundOption.selected(dynOpts()); }
-//
-//	ParamFloat scrapRefundFactor			= new ParamFloat(MOD_UI, "SCRAP_REFUND_FACTOR"
-//			, 0.25f, 0f, 1f, 0.01f, 0.05f, 0.2f, "0.##", "%");
-//	default float selectedScrapRefundFactor()		{ return scrapRefundFactor.selected(dynOpts()); }
-//
-//	ParamFloat missileSizeModifier			= new ParamFloat(MOD_UI, "MISSILE_SIZE_MODIFIER"
-//			, 2f/3f, 0.1f, 1f, 0.01f, 0.05f, 0.2f, "0.##", "%");
-//	default float selectedMissileSizeModifier()		{ return missileSizeModifier.selected(dynOpts()); }
-//
-//	ParamBoolean challengeMode				= new ParamBoolean(MOD_UI, "CHALLENGE_MODE", false);
-//	default boolean selectedChallengeMode()			{ return challengeMode.selected(dynOpts()); }
+	ParamInteger customDifficulty			= new ParamInteger(MOD_UI, "CUSTOM_DIFFICULTY"
+			, 100, 20, 500, 1, 5, 20);
+	default int selectedCustomDifficulty()			{ return customDifficulty.selected(dynOpts()); }
+
+	ParamBoolean dynamicDifficulty			= new ParamBoolean(MOD_UI, "DYNAMIC_DIFFICULTY", false);
+	default boolean selectedDynamicDifficulty()		{ return dynamicDifficulty.selected(dynOpts()); }
+
+	ParamList scrapRefundOption				= new ParamList(MOD_UI, "SCRAP_REFUND", "All") {
+		{
+			showFullGuide(true);
+			put("All",		MOD_UI + "SCRAP_REFUND_ALL");
+			put("Empire",	MOD_UI + "SCRAP_REFUND_EMPIRE");
+			put("Ally",		MOD_UI + "SCRAP_REFUND_ALLY");
+			put("Never",	MOD_UI + "SCRAP_REFUND_NEVER");
+		}
+	};
+	default String selectedScrapRefundOption()		{ return scrapRefundOption.selected(dynOpts()); }
+
+	ParamFloat scrapRefundFactor			= new ParamFloat(MOD_UI, "SCRAP_REFUND_FACTOR"
+			, 0.25f, 0f, 1f, 0.01f, 0.05f, 0.2f, "0.##", "%");
+	default float selectedScrapRefundFactor()		{ return scrapRefundFactor.selected(dynOpts()); }
+
+	ParamFloat missileSizeModifier			= new ParamFloat(MOD_UI, "MISSILE_SIZE_MODIFIER"
+			, 2f/3f, 0.1f, 1f, 0.01f, 0.05f, 0.2f, "0.##", "%");
+	default float selectedMissileSizeModifier()		{ return missileSizeModifier.selected(dynOpts()); }
+
+	ParamBoolean challengeMode				= new ParamBoolean(MOD_UI, "CHALLENGE_MODE", false);
+	default boolean selectedChallengeMode()			{ return challengeMode.selected(dynOpts()); }
 
 }
