@@ -1,5 +1,10 @@
 package rotp.model.game;
 
+import static rotp.model.game.BaseOptions.MOD_UI;
+
+import java.util.Arrays;
+import java.util.LinkedList;
+
 import rotp.Rotp;
 import rotp.ui.RotPUI;
 import rotp.ui.util.ParamAAN2;
@@ -7,6 +12,8 @@ import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
+import rotp.ui.util.ParamTech;
+import rotp.ui.util.RandomAlienRaces;
 
 public interface FactoryOptions extends BaseOptions {
 
@@ -87,4 +94,28 @@ public interface FactoryOptions extends BaseOptions {
 	};
 	default String selectedRestartChangesPlayerRace()	{ return restartChangesPlayerRace.selected(RotPUI.newOptions().dynOpts()); }
 
+	
+	ParamTech techIrradiated	= new ParamTech("TECH_IRRADIATED",	3, "ControlEnvironment",6); // level 18
+	ParamTech techCloaking		= new ParamTech("TECH_CLOAKING",	2, "Cloaking",			0); // level 27
+	ParamTech techStargate		= new ParamTech("TECH_STARGATES",	4, "Stargate", 			0); // level 27
+	ParamTech techHyperspace	= new ParamTech("TECH_HYPERSPACE",	0, "HyperspaceComm",	0); // level 34
+	ParamTech techIndustry2		= new ParamTech("TECH_INDUSTRY_2",	1, "ImprovedIndustrial",7); // level 38
+	ParamTech techThorium		= new ParamTech("TECH_THORIUM",		4, "FuelRange",			8); // level 41
+	ParamTech techTransport		= new ParamTech("TECH_TRANSPORTERS",4, "CombatTransporter",	0); // level 45
+	ParamInteger randomAlienRacesMin		= new ParamInteger(MOD_UI, "RACES_RAND_MIN"
+			, -50, -100, 100, 1, 5, 20);
+	ParamInteger randomAlienRacesMax		= new ParamInteger(MOD_UI, "RACES_RAND_MAX"
+			, 50, -100, 100, 1, 5, 20);
+	ParamInteger randomAlienRacesTargetMax	= new ParamInteger(MOD_UI, "RACES_RAND_TARGET_MAX"
+			, 75, null, null, 1, 10, 100);
+	ParamInteger randomAlienRacesTargetMin	= new ParamInteger(MOD_UI, "RACES_RAND_TARGET_MIN"
+			, 0, null, null, 1, 10, 100);
+	ParamBoolean randomAlienRacesSmoothEdges = new ParamBoolean(MOD_UI, "RACES_RAND_EDGES", true);
+	RandomAlienRaces randomAlienRaces		= new RandomAlienRaces(MOD_UI, "RACES_ARE_RANDOM", RandomAlienRaces.TARGET);
+	LinkedList<ParamTech> techModList		= new LinkedList<>(Arrays.asList(
+			techIrradiated, techCloaking, techStargate, techHyperspace,
+			techIndustry2, techThorium, techTransport
+			));
+	
+	
 }

@@ -15,10 +15,6 @@
  */
 package rotp.model.events;
 
-import static rotp.ui.UserPreferences.crystalDelayTurn;
-import static rotp.ui.UserPreferences.crystalReturnTurn;
-import static rotp.ui.UserPreferences.crystalMaxSystems;
-
 import java.io.Serializable;
 import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
@@ -47,25 +43,26 @@ public class RandomEventSpaceCrystal implements Base, Serializable, RandomEvent 
     @Override
     public boolean goodEvent()    		{ return false; }
     @Override
-    public boolean repeatable()    		{ return crystalReturnTurn.get() != 0; } // BR:
+    public boolean repeatable()    		{ return options().selectedCrystalReturnTurn() != 0; } // BR:
     @Override
     public boolean monsterEvent()       { return true; }
     @Override
     public int minimumTurn()            {
     	int turn = 0;
         // space monsters can be a challenge... delay their entry in the easier game settings
+    	int crystalDelayTurn = options().selectedCrystalDelayTurn();
         switch (options().selectedGameDifficulty()) { // BR: added adjustable delay
         case IGameOptions.DIFFICULTY_EASIEST:
-        	turn = RandomEvents.START_TURN + 4 * crystalDelayTurn.get();
+        	turn = RandomEvents.START_TURN + 4 * crystalDelayTurn;
         	break;
         case IGameOptions.DIFFICULTY_EASIER:
-        	turn = RandomEvents.START_TURN + 3 * crystalDelayTurn.get();
+        	turn = RandomEvents.START_TURN + 3 * crystalDelayTurn;
         	break;
         case IGameOptions.DIFFICULTY_EASY:
-        	turn = RandomEvents.START_TURN + 2 * crystalDelayTurn.get();
+        	turn = RandomEvents.START_TURN + 2 * crystalDelayTurn;
         	break;
         default:
-        	turn = RandomEvents.START_TURN + crystalDelayTurn.get();
+        	turn = RandomEvents.START_TURN + crystalDelayTurn;
         }
 //        System.out.println("Space Crystal next Turn = " + max(turn, nextAllowedTurn()) +
 //        		" (current turn = " + galaxy().currentTurn() + ")");
@@ -114,7 +111,7 @@ public class RandomEventSpaceCrystal implements Base, Serializable, RandomEvent 
     private boolean nextSystemAllowed() { // BR: To allow disappearance
         if (!monsterAllowed())
             return false;
-    	int maxSystem = crystalMaxSystems.get();
+    	int maxSystem = options().selectedCrystalMaxSystems();
         return maxSystem == 0 || maxSystem > monster.vistedSystemsCount();
     }
     private static void initMonster() {
@@ -186,7 +183,7 @@ public class RandomEventSpaceCrystal implements Base, Serializable, RandomEvent 
     private void terminateEvent() { // BR: To allow repeatable event
         galaxy().events().removeActiveEvent(this);
     	if(repeatable())
-    		nextAllowedTurn(galaxy().currentTurn() + crystalReturnTurn.get());
+    		nextAllowedTurn(galaxy().currentTurn() + options().selectedCrystalReturnTurn());
     }
     private void moveToNextSystem() {
         StarSystem targetSystem = galaxy().system(sysId);

@@ -45,7 +45,6 @@ import rotp.ui.RotPUI;
 import rotp.ui.notifications.GNNNotification;
 import rotp.ui.notifications.InvadersKilledAlert;
 import rotp.ui.notifications.TransportsKilledAlert;
-import rotp.ui.UserPreferences; // modnar: add challengeMode option to give AI more initial resources
 import rotp.util.Base;
 
 public final class Colony implements Base, IMappedObject, Serializable {
@@ -389,7 +388,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     }
 
     // modnar: add challengeMode option from UserPreferences to give AI more initial resources
-	private boolean challengeMode = UserPreferences.challengeMode.get();
+	private boolean challengeMode = options().selectedChallengeMode();
 	
 	public void setHomeworldValues() {
         Empire emp = empire();

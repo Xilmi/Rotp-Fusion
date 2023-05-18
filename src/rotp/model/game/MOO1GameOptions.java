@@ -514,7 +514,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         case SIZE_DYNAMIC: // BR: Added an option to select from the opponents number
         default:
         	return min(maximumSystems(), 
-        			1 + Math.round(UserPreferences.dynStarsPerEmpire.get() // +1 for Orion
+        			1 + Math.round(selectedDynStarsPerEmpire() // +1 for Orion
         					* (selectedNumberOpponents()+1))); // +1 for player
     }
 }

@@ -15,11 +15,6 @@
  */
 package rotp.model.events;
 
-import static rotp.ui.UserPreferences.amoebaReturnTurn;
-import static rotp.ui.UserPreferences.piratesDelayTurn;
-import static rotp.ui.UserPreferences.piratesMaxSystems;
-import static rotp.ui.UserPreferences.piratesReturnTurn;
-
 import java.io.Serializable;
 
 import rotp.model.colony.Colony;
@@ -50,7 +45,7 @@ public class RandomEventSpacePirates implements Base, Serializable, RandomEvent 
     @Override
     public boolean goodEvent()    		{ return false; }
     @Override // modnar: Space Pirates are repeatable // BR: Player Choice
-    public boolean repeatable()    		{ return piratesReturnTurn.get() != 0; } 
+    public boolean repeatable()    		{ return options().selectedPiratesReturnTurn() != 0; } 
     @Override
     public boolean monsterEvent()       { return true; } // modnar: make into monsterEvent
     @Override
@@ -58,18 +53,19 @@ public class RandomEventSpacePirates implements Base, Serializable, RandomEvent 
       	int turn = 0;
       	 		// modnar: Space Pirates can show up earlier than other space monsters, later than regular random events
 		// but the space pirate ship stack stats will be based on galaxy empire development
+      	int piratesDelayTurn = options().selectedPiratesDelayTurn();
 		switch (options().selectedGameDifficulty()) { // BR: added adjustable delay
             case IGameOptions.DIFFICULTY_EASIEST:
-            	turn = RandomEvents.START_TURN + 4 * piratesDelayTurn.get();
+            	turn = RandomEvents.START_TURN + 4 * piratesDelayTurn;
             	break;
             case IGameOptions.DIFFICULTY_EASIER:
-            	turn = RandomEvents.START_TURN + 3 * piratesDelayTurn.get();
+            	turn = RandomEvents.START_TURN + 3 * piratesDelayTurn;
             	break;
             case IGameOptions.DIFFICULTY_EASY:
-            	turn = RandomEvents.START_TURN + 2 * piratesDelayTurn.get();
+            	turn = RandomEvents.START_TURN + 2 * piratesDelayTurn;
             	break;
             default:
-            	turn = RandomEvents.START_TURN + piratesDelayTurn.get();
+            	turn = RandomEvents.START_TURN + piratesDelayTurn;
         }
 //      System.out.println("Space Pirates next Turn = " + max(turn, nextAllowedTurn()) +
 //		" (current turn = " + galaxy().currentTurn() + ")");
@@ -118,7 +114,7 @@ return max(turn, nextAllowedTurn()); // BR: To allow repeatable event
     private boolean nextSystemAllowed() { // BR: To allow disappearance
         if (!options().selectedRandomEventOption().equals(IGameOptions.RANDOM_EVENTS_ON))
             return false;
-    	int maxSystem = piratesMaxSystems.get();
+    	int maxSystem = options().selectedPiratesMaxSystems();
         return maxSystem == 0 || maxSystem > monster.vistedSystemsCount();
     }
      private static void initMonster() {
@@ -194,7 +190,7 @@ return max(turn, nextAllowedTurn()); // BR: To allow repeatable event
     private void terminateEvent() { // BR: To allow repeatable event
    		galaxy().events().removeActiveEvent(this);
     	if(repeatable())
-    		nextAllowedTurn(galaxy().currentTurn() + piratesReturnTurn.get());
+    		nextAllowedTurn(galaxy().currentTurn() + options().selectedPiratesReturnTurn());
     }
     private void moveToNextSystem() {
         if (!options().selectedRandomEventOption().equals(IGameOptions.RANDOM_EVENTS_ON)) {

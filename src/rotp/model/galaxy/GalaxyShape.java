@@ -15,9 +15,6 @@
  */
 package rotp.model.galaxy;
 
-import static rotp.ui.UserPreferences.maximizeSpacing;
-import static rotp.ui.UserPreferences.spacingLimit;
-import static rotp.ui.UserPreferences.minStarsPerEmpire;
 import static rotp.ui.UserPreferences.galaxyRandSource;
 
 import java.awt.Point;
@@ -343,11 +340,11 @@ public abstract class GalaxyShape implements Base, Serializable {
 		float minOrionBuffer = 5*sysBuffer; // modnar: increase spacing between empires and orion
 
 		// BR: not optimized for symmetric
-    	if (maximizeSpacing.get() && !isSymmetric()) {		
-    		int minStars = minStarsPerEmpire.get();
-	    	if (maximizeSpacing.get())
+    	if (opts.selectedMaximizeSpacing() && !isSymmetric()) {		
+    		int minStars = opts.selectedMinStarsPerEmpire();
+	    	if (opts.selectedMaximizeSpacing())
 				minStars = maxStars/numEmpires;
-			float maxMinEmpireFactor = spacingLimit.get(); // To avoid problems with strange galaxy shapes
+			float maxMinEmpireFactor = opts.selectedSpacingLimit(); // To avoid problems with strange galaxy shapes
 			                                // Maybe To-Do Make this a new setting
 			float minEmpireFactor = (minStars + 1) / 3; // 8 spe -> 3; 12 spe -> 4;
 			if (minEmpireFactor >= (maxMinEmpireFactor - 2))

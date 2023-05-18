@@ -15,7 +15,6 @@
  */
 package rotp.model.galaxy;
 
-import static rotp.ui.UserPreferences.restartChangesPlayerRace;
 import static rotp.util.ObjectCloner.deepCopy;
 
 import java.awt.Point;
@@ -37,6 +36,7 @@ import rotp.model.events.RandomEvents;
 import rotp.model.galaxy.StarSystem.SystemBaseData;
 import rotp.model.game.DynOptions;
 import rotp.model.game.GameSession;
+import rotp.model.game.IGameOptions;
 import rotp.ui.NoticeMessage;
 import rotp.ui.UserPreferences;
 import rotp.ui.notifications.AdviceNotification;
@@ -662,8 +662,10 @@ public class Galaxy implements Base, Serializable {
 			player.raceAI(aiSwap);
 
 			// Switch back races if asked
-			if (restartChangesPlayerRace.get().equalsIgnoreCase("GuiLast")
-					|| restartChangesPlayerRace.get().equalsIgnoreCase("Last")) {
+			IGameOptions opts = GameSession.instance().options();
+			String restartChangesPlayerRace = opts.selectedRestartChangesPlayerRace();
+			if (restartChangesPlayerRace.equalsIgnoreCase("GuiLast")
+					|| restartChangesPlayerRace.equalsIgnoreCase("Last")) {
 				String playerRaceKey		 = alien.raceKey;
 				String alienRaceKey			 = player.raceKey;
 				String playerDataRaceKey	 = alien.dataRaceKey;

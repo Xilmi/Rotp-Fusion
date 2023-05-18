@@ -24,7 +24,7 @@ import static rotp.model.game.FactoryOptions.artifactsHomeworld;
 import static rotp.model.game.FactoryOptions.battleScout;
 import static rotp.model.game.FactoryOptions.companionWorlds;
 import static rotp.model.game.FactoryOptions.fertileHomeworld;
-import static rotp.model.game.FactoryOptions.minDistArtifactPlanet;
+import static rotp.model.game.FactoryOptions.*;
 import static rotp.model.game.FactoryOptions.randomTechStart;
 import static rotp.model.game.FactoryOptions.richHomeworld;
 import static rotp.model.game.FactoryOptions.ultraRichHomeworld;
@@ -142,80 +142,6 @@ public class UserPreferences {
 	// BR: AUTO-FLAG PARAMETERS SUB UI
 	
 	// MOD GUI OPTIONS:
-	private	static final ParamFloat	  missileSizeModifier		= new ParamFloat(
-			MOD_UI, "MISSILE_SIZE_MODIFIER"
-			, 2f/3f, 0.1f, 1f, 0.01f, 0.05f, 0.2f, "0.##", "%");
-	public	static final ParamBoolean challengeMode				= new ParamBoolean(
-			MOD_UI, "CHALLENGE_MODE", false);
-	public	static final ParamBoolean maximizeSpacing			= new ParamBoolean(
-			MOD_UI, "MAX_SPACINGS", false);
-	public	static final ParamInteger spacingLimit				= new ParamInteger(
-			MOD_UI, "MAX_SPACINGS_LIM"
-			, 16, 3, Rotp.maximumSystems-1, 1, 10, 100);
-	public	static final ParamInteger minStarsPerEmpire			= new ParamInteger(
-			MOD_UI, "MIN_STARS_PER_EMPIRE"
-			, 3, 3, Rotp.maximumSystems-1, 1, 5, 20);
-	public	static final ParamInteger prefStarsPerEmpire		= new ParamInteger(
-			MOD_UI, "PREF_STARS_PER_EMPIRE"
-			, 10, 3, Rotp.maximumSystems-1, 1, 10, 100);
-	public	static final ParamInteger dynStarsPerEmpire			= new ParamInteger(
-			MOD_UI, "DYN_STARS_PER_EMPIRE"
-			, 10, 3, Rotp.maximumSystems-1, 1, 10, 100) {
-		@Override public Integer defaultValue() {
-			return prefStarsPerEmpire.get();
-		}
-	};
-	public	static final ParamBoolean restartChangesAliensAI	= new ParamBoolean(
-			MOD_UI, "RESTART_CHANGES_ALIENS_AI", false);
-	public	static final ParamBoolean restartChangesPlayerAI	= new ParamBoolean(
-			MOD_UI, "RESTART_CHANGES_PLAYER_AI", false);
-	public	static final ParamBoolean restartAppliesSettings	= new ParamBoolean(
-			MOD_UI, "RESTART_APPLY_SETTINGS",false);
-	public	static final ParamList    restartChangesPlayerRace	= new ParamList(
-			MOD_UI, "RESTART_PLAYER_RACE", "Swap") {
-		{
-			showFullGuide(true);
-			put("Last", 	MOD_UI + "RESTART_PLAYER_RACE_LAST");
-			put("Swap",		MOD_UI + "RESTART_PLAYER_RACE_SWAP");
-			put("GuiSwap",	MOD_UI + "RESTART_PLAYER_RACE_GUI_SWAP");
-			put("GuiLast",	MOD_UI + "RESTART_PLAYER_RACE_GUI_LAST");
-		}
-	};
-	private static final ParamFloat   counciRequiredPct			= new ParamFloat(
-			MOD_UI, "COUNCIL_REQUIRED_PCT"
-			, GalacticCouncil.PCT_REQUIRED
-			, 0f, 0.99f, 0.01f/3f, 0.02f, 0.1f, "0.0##", "‰") {
-		@Override public Float set(Float newValue) {
-			GalacticCouncil.PCT_REQUIRED = newValue;
-			return super.set(newValue);
-		}
-	};
-	private static final ParamInteger eventsStartTurn			= new ParamInteger(
-			MOD_UI, "EVENTS_START_TURN"
-			, RandomEvents.START_TURN, 1, null, 1, 5, 20) {
-		@Override public Integer set(Integer newValue) {
-			RandomEvents.START_TURN = newValue;
-			return super.set(newValue);
-		}
-	};
-	public	static final ParamInteger piratesDelayTurn			= new ParamInteger(
-			MOD_UI, "PIRATES_DELAY_TURN",	25, 0, null, 1, 5, 20);
-	public	static final ParamInteger amoebaDelayTurn			= new ParamInteger(
-			MOD_UI, "AMOEBA_DELAY_TURN",	100, 0, null, 1, 5, 20);
-	public	static final ParamInteger crystalDelayTurn			= new ParamInteger(
-			MOD_UI, "CRYSTAL_DELAY_TURN",	100, 0, null, 1, 5, 20);
-	public	static final ParamInteger piratesReturnTurn			= new ParamInteger(
-			MOD_UI, "PIRATES_RETURN_TURN",	0, 0, null, 1, 5, 20);
-	public	static final ParamInteger amoebaReturnTurn			= new ParamInteger(
-			MOD_UI, "AMOEBA_RETURN_TURN",	0, 0, null, 1, 5, 20);
-	public	static final ParamInteger crystalReturnTurn			= new ParamInteger(
-			MOD_UI, "CRYSTAL_RETURN_TURN",	0, 0, null, 1, 5, 20);
-	public	static final ParamInteger piratesMaxSystems			= new ParamInteger(
-			MOD_UI, "PIRATES_MAX_SYSTEMS",	0, 0, null, 1, 5, 20);
-	public	static final ParamInteger amoebaMaxSystems			= new ParamInteger(
-			MOD_UI, "AMOEBA_MAX_SYSTEMS",	0, 0, null, 1, 5, 20);
-	public	static final ParamInteger crystalMaxSystems			= new ParamInteger(
-			MOD_UI, "CRYSTAL_MAX_SYSTEMS",	0, 0, null, 1, 5, 20);
 	private	static final ParamTech    techIrradiated			= new 
 			ParamTech("TECH_IRRADIATED",	3, "ControlEnvironment",6); // level 18
 	private	static final ParamTech    techCloaking				= new 
@@ -1034,31 +960,6 @@ public class UserPreferences {
 	public static void toggleSounds()    { playSounds = !playSounds;	save(); }
 	public static boolean playMusic()    { return playMusic; }
 	public static void toggleMusic()     { playMusic = !playMusic; save();  }
-	// BR: redirection for compatibility
-//	public static int companionWorlds()			{ return Math.abs(companionWorlds.get()); } // modnar: add option to start game with additional colonies
-//	public static int companionWorldsSigned()	{ return companionWorlds.get(); } // BR: to manage old and new distribution
-	public static float missileSizeModifier()	{ return missileSizeModifier.get(); } 
-//	public static int retreatRestrictions()		{ return retreatRestrictions.getIndex(); }
-//	public static int retreatRestrictionTurns()	{ return retreatRestrictionTurns.get(); }
-//	public static boolean targetBombardAllowedForAI() {
-//		switch (targetBombard.get()) {
-//			case  "Both":
-//			case  "AI":
-//				return true;
-//			default:
-//				return false;
-//		}
-//	}
-//	public static boolean targetBombardAllowedForPlayer() {
-//		switch (targetBombard.get()) {
-//			case  "Both":
-//			case  "Player":
-//				return true;
-//			default:
-//				return false;
-//		}
-//	}
-	// \BR:
 	
 	public	static int		selectedScreen()				{ return selectedScreen; }
 	public	static int		screenSizePct()					{ return screenSizePct; }

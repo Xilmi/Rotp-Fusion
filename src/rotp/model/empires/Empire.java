@@ -16,8 +16,6 @@
 package rotp.model.empires;
 
 import static rotp.model.tech.Tech.miniFastRate;
-import static rotp.ui.UserPreferences.restartAppliesSettings;
-import static rotp.ui.UserPreferences.restartChangesAliensAI;
 import static rotp.ui.util.PlayerShipSet.DISPLAY_RACE_SET;
 
 import java.awt.Color;
@@ -448,7 +446,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         compSysId = compId; // modnar: add option to start game with additional colonies
         if (empSrc != null							// Restart
         		&& empId != Empire.PLAYER_ID		// Is Alien
-        		&& !restartChangesAliensAI.get())	// Don't changes AI
+        		&& !options().selectedRestartChangesAliensAI())	// Don't changes AI
         	selectedAI = empSrc.raceAI();
 
         empireViews = new EmpireView[options().selectedNumberOpponents()+1];
@@ -470,7 +468,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         	leaderName = dataRace.leaderPrefix + r.nextAvailableLeader() + dataRace.leaderSuffix;
         leader = new Leader(this, leaderName);
         if (empSrc != null && empId != Empire.PLAYER_ID
-        		&& !restartAppliesSettings.get()) { // BR: For Restart with new options 
+        		&& !options().selectedRestartAppliesSettings()) { // BR: For Restart with new options 
         	leader.personality = empSrc.personality;
         	leader.objective   = empSrc.objective;
         }
