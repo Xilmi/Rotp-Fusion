@@ -32,7 +32,6 @@ import java.util.List;
 import javax.swing.SwingUtilities;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
-import static rotp.ui.UserPreferences.flagColorCount;
 
 import rotp.ui.RotPUI;
 import rotp.ui.SystemViewer;
@@ -83,7 +82,7 @@ public class EmpireColonyFoundedPane extends BasePanel implements MouseMotionLis
 
         // draw system banner
         int sz = s70;
-        int shX = (flagColorCount.get() == 1)? 0 : s8; // BR: flagColorCount
+        int shX = (options().selectedFlagColorCount() == 1)? 0 : s8; // BR: flagColorCount
         if (hoverBox == flagBox) {
             Image hoverImage = player().sv.flagHover(sys.id);
             g.drawImage(hoverImage, w-sz+s15-shX, h-sz+s15, sz, sz, null);

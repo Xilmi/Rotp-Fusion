@@ -15,21 +15,16 @@
  */
 package rotp.ui.game;
 
-import static rotp.ui.UserPreferences.modOptionsStaticA;
-
-// modnar: add UI panel for modnar MOD game options, based on StartOptionsUI.java
 public class StaticAOptionsUI extends AbstractOptionsUI {
 	private static final long serialVersionUID = 1L;
-	public static final String guiTitleID = "SETTINGS_MOD_STATIC_TITLE";
-	public static final String GUI_ID     = "START_MOD_STAT_A";
+
+	private static final String guiTitleID = "SETTINGS_MOD_STATIC_TITLE";
+	public  static final String GUI_ID     = "START_MOD_STAT_A";
 	
 	// Just call the "super" with GUI Title Label ID
-	public StaticAOptionsUI() {
-		super(guiTitleID, GUI_ID);
-	}
-	// ========== Abstract Overriders ==========
-	//
+	public StaticAOptionsUI() { super(guiTitleID, GUI_ID); }
+//	@Override protected void singleInit() {
 	@Override protected void init0() {
-		paramList = modOptionsStaticA;
+		paramList = rotp.model.game.FactoryOptions.modOptionsStaticA ;
 	}
 }

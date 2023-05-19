@@ -15,21 +15,17 @@
  */
 package rotp.ui.game;
 
-import rotp.ui.UserPreferences;
-
 // modnar: add UI panel for modnar MOD game options, based on StartOptionsUI.java
 public class AdvancedOptionsUI extends AbstractOptionsUI {
 	private static final long serialVersionUID = 1L;
-	public static final String guiTitleID = "SETTINGS_TITLE";
+	private static final String guiTitleID = "SETTINGS_TITLE";
 	public static final String GUI_ID     = "ADVANCED_OPTIONS";
 	
 	// Just call the "super" with GUI Title Label ID
 	public AdvancedOptionsUI() {
 		super(guiTitleID, GUI_ID);
 	}
-	// ========== Abstract Overriders ==========
-	//
 	@Override protected void init0() {
-		duplicateList = UserPreferences.advancedOptions;
+		duplicateList = rotp.model.game.DuplicateOptions.advancedOptions;
 	}
 }

@@ -15,8 +15,6 @@
  */
 package rotp.ui.main;
 
-import static rotp.ui.UserPreferences.flagColorCount;
-
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Composite;
@@ -165,7 +163,7 @@ public class UnexploredSystemPanel extends SystemPanel implements MouseMotionLis
             drawStar(g2, sys.starType(), s40, getWidth()/2, getHeight()/2);
 
             int sz = s60;
-            int shX = (flagColorCount.get() == 1)? 0 : s4; // BR: flagColorCount
+            int shX = (options().selectedFlagColorCount() == 1)? 0 : s4; // BR: flagColorCount
             String label = text("MAIN_UNEXPLORED_SYSTEM");
             scaledFont(g, label, w-sz, 36, 24);
             drawBorderedString(g, label, 2, s10, s40, Color.black, SystemPanel.orangeText);

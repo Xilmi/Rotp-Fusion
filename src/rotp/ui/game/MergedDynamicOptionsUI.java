@@ -15,14 +15,13 @@
  */
 package rotp.ui.game;
 
-import rotp.ui.UserPreferences;
-
 public class MergedDynamicOptionsUI extends CompactOptionsUI {
 	private static final long serialVersionUID = 1L;
 	public static final String guiTitleID = "SETTINGS_MOD_DYNAMIC_TITLE";
 	public static final String GUI_ID     = "MERGED_DYNAMIC_OPTIONS";
 	
 	public MergedDynamicOptionsUI() {
-		super(guiTitleID, GUI_ID, UserPreferences.mergedDynamicOptionsMap);
+//		super(guiTitleID, GUI_ID, rotp.model.game.ModOptions.mergedDynamicOptionsMap);
+		super(guiTitleID, GUI_ID, rotp.ui.UserPreferences.mergedDynamicOptionsMap);
 	}
 }

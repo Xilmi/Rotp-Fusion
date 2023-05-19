@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import rotp.model.empires.Empire;
 import rotp.model.tech.Tech;
-import rotp.ui.UserPreferences;
 
 public class DiplomacyTechOfferMenu extends DiplomacyRequestReply {
     private Empire requestee;
@@ -44,7 +43,7 @@ public class DiplomacyTechOfferMenu extends DiplomacyRequestReply {
         List<Tech> unreviewedCounterTechs = requestee.diplomatAI().techsRequestedForCounter(diplomat(), requestedTech);
         counterOffers = new ArrayList<>(unreviewedCounterTechs.size());
         //System.out.println(galaxy().currentTurn()+" Requestee: "+requestee.name()+" Diplomat: "+diplomat().name()+" requested tech "+requestedTech.name());
-        if(!UserPreferences.techExchangeAutoRefuse.get()) // To auto refuse, keep counterOffers empty
+        if(!rotp.ui.UserPreferences.techExchangeAutoRefuse.get()) // To auto refuse, keep counterOffers empty
 	        if(diplomat().diplomatAI().wantsToReviewCounterOffers()) // Owner Diplomat
 	        {
 	            for (Tech t: unreviewedCounterTechs) {

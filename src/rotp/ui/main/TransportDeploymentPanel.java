@@ -15,7 +15,6 @@
  */
 package rotp.ui.main;
 
-import static rotp.ui.UserPreferences.flagColorCount;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -637,7 +636,7 @@ public class TransportDeploymentPanel extends SystemPanel {
             
             // draw system banner
             int sz = s60;
-            int shX = (flagColorCount.get() == 1)? 0 : s8; // BR: flagColorCount
+            int shX = (options().selectedFlagColorCount() == 1)? 0 : s8; // BR: flagColorCount
             if (hoverBox == flagBox) {
                 Image hoverImage = parentSpritePanel.parent.flagHover(sys);
                 g.drawImage(hoverImage, w-sz+s15-shX, -s15, sz, sz, null);

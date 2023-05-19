@@ -51,6 +51,7 @@ import rotp.model.galaxy.Transport;
 import rotp.model.game.GameSession;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.MOO1GameOptions;
+import rotp.model.game.RemnantOptions;
 import rotp.model.planet.PlanetFactory;
 import rotp.model.ships.ShipDesign;
 import rotp.model.ships.ShipLibrary;
@@ -250,6 +251,9 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     private final ErrorUI errorUI = new ErrorUI();
     private final HelpUI helpUI = new HelpUI();
 //    private final StartOptionsUI startOptionsUI = new StartOptionsUI();
+    private final GameSettingsUI gameSettingsUI = new GameSettingsUI();
+    private final LargeDialogPane dialogPane = new LargeDialogPane();
+
     private final AdvancedOptionsUI advancedOptionsUI = new AdvancedOptionsUI();
     // BR: Compact Mod Game options
     private final MergedStaticOptionsUI  mergedStaticOptionsUI  = new MergedStaticOptionsUI();
@@ -261,8 +265,6 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     private final DynamicAOptionsUI  dynamicAOptionsUI  = new DynamicAOptionsUI();
     private final DynamicBOptionsUI  dynamicBOptionsUI  = new DynamicBOptionsUI();
     private final ModGlobalOptionsUI modGlobalOptionsUI = new ModGlobalOptionsUI();
-    private final GameSettingsUI gameSettingsUI = new GameSettingsUI();
-    private final LargeDialogPane dialogPane = new LargeDialogPane();
 
     private final CardLayout layout = new CardLayout();
     private String currentPane = GAME_PANEL;
@@ -346,9 +348,9 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
 
      	// Creation depend on state
     	if (UserPreferences.gamePlayed())
-        	action = UserPreferences.menuAfterGame;
+        	action = rotp.ui.UserPreferences.menuAfterGame;
         else
-        	action = UserPreferences.menuStartup;
+        	action = rotp.ui.UserPreferences.menuStartup;
 
     	// Check for special request
     	if (UserPreferences.loadRequest()) {

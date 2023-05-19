@@ -16,7 +16,6 @@
 package rotp.ui.game;
 
 import static rotp.model.empires.CustomRaceDefinitions.ROOT;
-import static rotp.ui.UserPreferences.autoplay;
 import static rotp.ui.game.SetupGalaxyUI.specificAI;
 
 import java.awt.Color;
@@ -274,7 +273,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		String[] choiceArray	= list.getNames().toArray(new String[list.size()]);;
 
 		IGameOptions opts = raceUI.options();
-		String aiNewKey = selectAIFromList(choiceArray, returnList, opts.selectedAutoplayOption(), autoplay);
+		String aiNewKey = selectAIFromList(choiceArray, returnList, opts.selectedAutoplayOption(), opts.autoplay());
 		opts.selectedAutoplayOption(aiNewKey);
 		raceUI.selectedEmpire().changePlayerAI(aiNewKey);
 	}

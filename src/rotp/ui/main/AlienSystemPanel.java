@@ -34,7 +34,6 @@ import javax.swing.SwingUtilities;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
-import static rotp.ui.UserPreferences.flagColorCount;
 
 import rotp.ui.RotPUI;
 
@@ -125,7 +124,7 @@ public class AlienSystemPanel extends SystemPanel {
 
             // draw system banner
             int sz = s70;
-            int shX = (flagColorCount.get() == 1)? 0 : s8; // BR: flagColorCount
+            int shX = (options().selectedFlagColorCount() == 1)? 0 : s8; // BR: flagColorCount
             if (hoverBox == flagBox) { // BR: swapped hover and Flag
                 Image hoverImage = parentSpritePanel.parent.flagHover(sys);
                 g.drawImage(hoverImage, w-sz+s15-shX, topH1-sz+s10, sz, sz, null);

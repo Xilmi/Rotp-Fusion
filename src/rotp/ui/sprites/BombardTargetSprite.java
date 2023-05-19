@@ -21,7 +21,6 @@ import java.awt.LinearGradientPaint;
 import java.awt.Stroke;
 import java.awt.geom.Point2D;
 import rotp.ui.BasePanel;
-import rotp.ui.UserPreferences;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.main.overlay.MapOverlayBombardPrompt;
@@ -70,7 +69,7 @@ public class BombardTargetSprite extends MapSprite {
         int s5 = scaled(5);
         int s10 = scaled(10);
         g.setFont(narrowFont(20));
-        String str = text("MAIN_BOMBARD_TARGET", UserPreferences.bombingTarget.get());
+        String str = text("MAIN_BOMBARD_TARGET", options().selectedBombingTarget());
         int sw = g.getFontMetrics().stringWidth(str);
         g.setPaint(background);
         g.fillRoundRect(mapX, mapY, buttonW,buttonH,s5,s5);

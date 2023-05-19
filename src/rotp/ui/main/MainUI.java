@@ -15,8 +15,6 @@
  */
 package rotp.ui.main;
 
-import static rotp.ui.UserPreferences.flagColorCount;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -826,7 +824,7 @@ public class MainUI extends BasePanel implements IMapHandler {
         int x11;
         int lines;
         String txt;
-        if (flagColorCount.get() == 1) {
+        if (options().selectedFlagColorCount() == 1) {
         	txt   = text("MAIN_HELP_2K");
         	lines = 5;
         	y11   = s14;

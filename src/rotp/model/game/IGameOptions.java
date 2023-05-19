@@ -15,8 +15,6 @@
  */
 package rotp.model.game;
 
-import static rotp.ui.UserPreferences.showAllAI;
-
 import java.awt.Color;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,7 +28,6 @@ import rotp.model.galaxy.GalaxyShape;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.planet.Planet;
 import rotp.model.tech.TechEngineWarp;
-import rotp.ui.UserPreferences; // modnar: add custom difficulty level option
 import rotp.ui.game.SetupGalaxyUI;
 
 public interface IGameOptions extends ModOptions {
@@ -546,12 +543,12 @@ public interface IGameOptions extends ModOptions {
         return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
     }
     default String nextOpponentCR() {
-    	UserPreferences.globalCROptions.next();
-    	return UserPreferences.globalCROptions.get();
+    	globalCROptions.next();
+    	return globalCROptions.get();
     }
     default String prevOpponentCR() {
-    	UserPreferences.globalCROptions.prev();
-    	return UserPreferences.globalCROptions.get();
+    	globalCROptions.prev();
+    	return globalCROptions.get();
     }
     default String nextResearchRate(boolean up) { // BR: added bidirectional
         List<String> opts = researchRateOptions();
@@ -812,7 +809,7 @@ public interface IGameOptions extends ModOptions {
         }
     }
     public static List<String> getNewRacesOnOffList() {
-		if (UserPreferences.showNewRaces.get()) {
+		if (showNewRaces.get()) {
 			return allRaceOptions();
 		}
 		return baseRaceOptions();

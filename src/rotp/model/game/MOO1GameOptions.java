@@ -15,13 +15,6 @@
  */
 package rotp.model.game;
 
-import static rotp.ui.UserPreferences.allModOptions;
-import static rotp.ui.UserPreferences.globalCROptions;
-import static rotp.ui.UserPreferences.optionsGalaxy;
-import static rotp.ui.UserPreferences.optionsRace;
-import static rotp.ui.UserPreferences.shapeOption1;
-import static rotp.ui.UserPreferences.shapeOption2;
-
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.io.BufferedInputStream;
@@ -467,6 +460,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             default:
                 galaxyShape = new GalaxyRectangularShape(this);
         }
+        if (rotp.Rotp.noOptions)
+        	return;
 		shapeOption1.reInit(galaxyShape().options1());
 		shapeOption1.defaultValue(galaxyShape.defaultOption1());
 		shapeOption2.reInit(galaxyShape().options2());
@@ -1287,12 +1282,12 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         writeModSettingsToOptions(options);
     }
     static void setModSettingsFromOptions(MOO1GameOptions source) { // BR:
-    	for( InterfaceParam param : allModOptions())
+    	for( InterfaceParam param : allModOptions)
     		param.setFromOptions(source.dynOpts());
         EditCustomRaceUI.instance().updateCRGui(source);
     }
     private static void writeModSettingsToOptions(MOO1GameOptions destination) { // BR:
-    	for( InterfaceParam option : allModOptions())
+    	for( InterfaceParam option : allModOptions)
     		option.setOptions(destination.dynOpts());
        	EditCustomRaceUI.instance().writeLocalOptions(destination);
     }
@@ -1317,7 +1312,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     			param.copyOption(src.dynamicOptions, dest.dynamicOptions);;
     }
     private void setBaseRaceSettingsToDefault() { // BR:
-        if (UserPreferences.showNewRaces.get()) // BR: limit randomness
+    	if (rotp.Rotp.noOptions)
+        	selectedPlayerRace(random(IGameOptions.allRaceOptions()));
+        else if (selectedShowNewRaces()) // BR: limit randomness
         	selectedPlayerRace(random(IGameOptions.allRaceOptions()));
         else
         	selectedPlayerRace(random(IGameOptions.baseRaceOptions()));
@@ -1335,7 +1332,10 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         selectedNumberOpponents = defaultOpponentsOptions();
         for (int i=0;i<opponentRaces.length;i++)
         	opponentRaces[i] = null;
-        if (UserPreferences.showNewRaces.get()) // BR: limit randomness
+        
+        if (rotp.Rotp.noOptions)
+        	selectedPlayerRace(random(IGameOptions.allRaceOptions()));
+        else if (selectedShowNewRaces()) // BR: limit randomness
         	selectedPlayerRace(random(IGameOptions.allRaceOptions()));
         else
         	selectedPlayerRace(random(IGameOptions.baseRaceOptions()));
@@ -1491,49 +1491,49 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	}
     }
     private static LinkedList<InterfaceParam> getModParameterList(String guiID) {
-    	LinkedList<InterfaceParam> modOptions = null;
+    	LinkedList<InterfaceParam> modOpts = null;
     	switch (guiID) {
 	    	case SetupGalaxyUI.GUI_ID:
-	    		modOptions = optionsGalaxy;
+	    		modOpts = optionsGalaxy;
 	    		break;
 	    	case SetupRaceUI.GUI_ID:
-	    		modOptions = optionsRace;
+	    		modOpts = optionsRace;
 	    		break;
 	    	case StaticAOptionsUI.GUI_ID:
-	    		modOptions = UserPreferences.modOptionsStaticA;
+	    		modOpts = modOptionsStaticA;
 	    		break;
 	    	case StaticBOptionsUI.GUI_ID:
-	    		modOptions = UserPreferences.modOptionsStaticB;
+	    		modOpts = modOptionsStaticB;
 	    		break;
 	    	case DynamicAOptionsUI.GUI_ID:
-	    		modOptions = UserPreferences.modOptionsDynamicA;
+	    		modOpts = modOptionsDynamicA;
 	    		break;
 	    	case DynamicBOptionsUI.GUI_ID:
-	    		modOptions = UserPreferences.modOptionsDynamicB;
+	    		modOpts = modOptionsDynamicB;
 	    		break;
 	    	case MergedStaticOptionsUI.GUI_ID:
-	    		modOptions = UserPreferences.mergedStaticOptions;
+	    		modOpts = rotp.ui.UserPreferences.mergedStaticOptions;
 	    		break;
 	    	case MergedDynamicOptionsUI.GUI_ID:
-	    		modOptions = UserPreferences.mergedDynamicOptions;
+	    		modOpts = rotp.ui.UserPreferences.mergedDynamicOptions;
 	    		break;
 	    	case ModGlobalOptionsUI.GUI_ID:
-	    		modOptions = UserPreferences.modGlobalOptionsUI;
+	    		modOpts = rotp.ui.UserPreferences.modGlobalOptionsUI;
 	    		break;
 	    	case EditCustomRaceUI.GUI_ID:
-	    		modOptions = UserPreferences.optionsCustomRace();
+	    		modOpts = optionsCustomRaceBase;
 	    		break;
 	    	case AUTO_FLAG_GUI_ID:
-	    		modOptions = autoFlagOptions;
+	    		modOpts = autoFlagOptions;
 	    		break;
 	    	case GovernorOptions.GOVERNOR_GUI_ID:
-	    		modOptions = GovernorOptions.governorOptions;
+	    		modOpts = GovernorOptions.governorOptions;
 	    		break;
 	    	case ALL_GUI_ID:
-	    		modOptions = UserPreferences.allModOptions();
+	    		modOpts = allModOptions;
 	    		break;
     	}
-   		return modOptions;
+   		return modOpts;
     }
     // ==================== New Options files management methods ====================
     //

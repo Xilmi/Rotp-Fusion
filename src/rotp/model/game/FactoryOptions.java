@@ -1,12 +1,11 @@
 package rotp.model.game;
 
-import static rotp.model.game.BaseOptions.MOD_UI;
-
 import java.util.Arrays;
 import java.util.LinkedList;
 
 import rotp.Rotp;
 import rotp.ui.RotPUI;
+import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.ParamAAN2;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamFloat;
@@ -76,7 +75,7 @@ public interface FactoryOptions extends BaseOptions {
 	};
 	default int selectedDynStarsPerEmpire()		{ return Math.abs(dynStarsPerEmpire.selected(RotPUI.newOptions().dynOpts())); }
 
-	// Always look for setup options!
+	// Restart Always looks for setup options!
 	ParamBoolean restartChangesAliensAI		= new ParamBoolean( MOD_UI, "RESTART_CHANGES_ALIENS_AI", false);
 	default boolean selectedRestartChangesAliensAI()	{ return restartChangesAliensAI.selected(RotPUI.newOptions().dynOpts()); }
 	ParamBoolean restartChangesPlayerAI		= new ParamBoolean( MOD_UI, "RESTART_CHANGES_PLAYER_AI", false);
@@ -94,7 +93,6 @@ public interface FactoryOptions extends BaseOptions {
 	};
 	default String selectedRestartChangesPlayerRace()	{ return restartChangesPlayerRace.selected(RotPUI.newOptions().dynOpts()); }
 
-	
 	ParamTech techIrradiated	= new ParamTech("TECH_IRRADIATED",	3, "ControlEnvironment",6); // level 18
 	ParamTech techCloaking		= new ParamTech("TECH_CLOAKING",	2, "Cloaking",			0); // level 27
 	ParamTech techStargate		= new ParamTech("TECH_STARGATES",	4, "Stargate", 			0); // level 27
@@ -102,20 +100,42 @@ public interface FactoryOptions extends BaseOptions {
 	ParamTech techIndustry2		= new ParamTech("TECH_INDUSTRY_2",	1, "ImprovedIndustrial",7); // level 38
 	ParamTech techThorium		= new ParamTech("TECH_THORIUM",		4, "FuelRange",			8); // level 41
 	ParamTech techTransport		= new ParamTech("TECH_TRANSPORTERS",4, "CombatTransporter",	0); // level 45
-	ParamInteger randomAlienRacesMin		= new ParamInteger(MOD_UI, "RACES_RAND_MIN"
-			, -50, -100, 100, 1, 5, 20);
-	ParamInteger randomAlienRacesMax		= new ParamInteger(MOD_UI, "RACES_RAND_MAX"
-			, 50, -100, 100, 1, 5, 20);
-	ParamInteger randomAlienRacesTargetMax	= new ParamInteger(MOD_UI, "RACES_RAND_TARGET_MAX"
-			, 75, null, null, 1, 10, 100);
-	ParamInteger randomAlienRacesTargetMin	= new ParamInteger(MOD_UI, "RACES_RAND_TARGET_MIN"
-			, 0, null, null, 1, 10, 100);
-	ParamBoolean randomAlienRacesSmoothEdges = new ParamBoolean(MOD_UI, "RACES_RAND_EDGES", true);
-	RandomAlienRaces randomAlienRaces		= new RandomAlienRaces(MOD_UI, "RACES_ARE_RANDOM", RandomAlienRaces.TARGET);
 	LinkedList<ParamTech> techModList		= new LinkedList<>(Arrays.asList(
 			techIrradiated, techCloaking, techStargate, techHyperspace,
 			techIndustry2, techThorium, techTransport
 			));
+	default LinkedList<ParamTech> techModList()			{ return techModList; }
+
+	ParamInteger randomAlienRacesMin		 = new ParamInteger(MOD_UI, "RACES_RAND_MIN", -50, -100, 100, 1, 5, 20);
+	ParamInteger randomAlienRacesMax		 = new ParamInteger(MOD_UI, "RACES_RAND_MAX", 50, -100, 100, 1, 5, 20);
+	ParamInteger randomAlienRacesTargetMax	 = new ParamInteger(MOD_UI, "RACES_RAND_TARGET_MAX", 75, null, null, 1, 10, 100);
+	ParamInteger randomAlienRacesTargetMin	 = new ParamInteger(MOD_UI, "RACES_RAND_TARGET_MIN", 0, null, null, 1, 10, 100);
+	ParamBoolean randomAlienRacesSmoothEdges = new ParamBoolean(MOD_UI, "RACES_RAND_EDGES", true);
+
+	RandomAlienRaces randomAlienRaces		 = new RandomAlienRaces(MOD_UI, "RACES_ARE_RANDOM", RandomAlienRaces.TARGET);
+	default String selectedRandomAlienRaces()			{ return randomAlienRaces.selected(dynOpts()); }
 	
-	
+	// ==================== GUI List Declarations ====================
+	//
+	LinkedList<InterfaceParam> modOptionsStaticA  = new LinkedList<>(
+			Arrays.asList(
+			artifactsHomeworld, fertileHomeworld, richHomeworld, ultraRichHomeworld,
+			null,
+			techIrradiated, techCloaking, techStargate, techHyperspace,
+			null,
+			techIndustry2, techThorium, techTransport, randomTechStart, 
+			null,
+			companionWorlds, battleScout
+			));
+	LinkedList<InterfaceParam> modOptionsStaticB  = new LinkedList<>(
+			Arrays.asList(
+			minStarsPerEmpire, prefStarsPerEmpire, maximizeSpacing, spacingLimit, minDistArtifactPlanet,
+			null,
+			randomAlienRacesTargetMax, randomAlienRacesTargetMin, randomAlienRaces,
+			null,
+			randomAlienRacesMax, randomAlienRacesMin, randomAlienRacesSmoothEdges,
+			null,
+			restartChangesPlayerAI, restartChangesAliensAI, restartAppliesSettings, restartChangesPlayerRace
+			));
+
 }

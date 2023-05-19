@@ -23,7 +23,6 @@ import rotp.model.empires.Empire;
 import rotp.model.empires.ShipView;
 import rotp.model.tech.TechEngineWarp;
 import rotp.util.Base;
-import rotp.ui.UserPreferences; // modnar: add battleScout option to give player super Scout design
 
 public class ShipDesignLab implements Base, Serializable {
     private static final long serialVersionUID = 1L;
@@ -100,7 +99,7 @@ public class ShipDesignLab implements Base, Serializable {
         empire = c;
         // BR: Add Ship Set for custom races
         if (empire.isPlayer())
-        	shipStyleIndex = UserPreferences.playerShipSet.realShipSetId();
+        	shipStyleIndex = options().selectedPlayerShipSetId();
 //        else if (ShipLibrary.current().styles.contains(empire.race().preferredShipSet))
 //            shipStyleIndex = ShipLibrary.current().styles.indexOf(empire.race().preferredShipSet);
         else if (ShipLibrary.current().styles.contains(empire.preferredShipSet()))

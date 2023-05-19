@@ -25,8 +25,6 @@ import static rotp.model.game.BaseOptions.ALL_GUI_ID;
 import static rotp.model.game.MOO1GameOptions.copyAliensAISettings;
 import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
 import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
-import static rotp.ui.UserPreferences.globalCROptions;
-import static rotp.ui.UserPreferences.useSelectableAbilities;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -49,7 +47,6 @@ import rotp.model.game.MOO1GameOptions;
 import rotp.model.planet.Planet;
 import rotp.model.tech.Tech; // modnar: add game mode to start all Empires with 2 random techs
 import rotp.model.tech.TechTree; // modnar: add game mode to start all Empires with 2 random techs
-import rotp.ui.UserPreferences; // modnar: add game mode to start all Empires with 2 random techs
 import rotp.ui.util.SpecificCROption;
 import rotp.ui.util.planets.PlanetImager;
 import rotp.util.Base;
@@ -393,7 +390,7 @@ public class GalaxyFactory implements Base {
 		playerDataRaceKey = raceKey;
 		DynOptions options = null;
 		String restartChangesPlayerRace = opts.selectedRestartChangesPlayerRace();
-		if (UserPreferences.playerIsCustom.get())
+		if (opts.selectedPlayerIsCustom())
 			playerDataRaceKey = CustomRaceDefinitions.CUSTOM_RACE_KEY;
 		if (src != null && !opts.selectedRestartAppliesSettings()
 				&& !restartChangesPlayerRace.equals("GuiLast")
@@ -549,11 +546,11 @@ public class GalaxyFactory implements Base {
 				String selectedAbility = options().specificOpponentCROption(h+1);
 				SpecificCROption ability = SpecificCROption.set(selectedAbility);
 
-				if (!useSelectableAbilities.get() 
+				if (!opts.selecteduseSelectableAbilities()
 						|| ability.isSelection()) { // Then Check for Global ability
 					// the global setting will be used
-					selectedAbility = globalCROptions.get();
-					ability = globalCROptions.getEnu();
+					selectedAbility = opts.selecteduseGlobalCROptions();
+					ability = opts.globalCROptions().getEnu();
 				}
 
 				switch (ability) {

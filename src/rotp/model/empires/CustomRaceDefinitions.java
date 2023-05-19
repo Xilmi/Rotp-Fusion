@@ -19,13 +19,8 @@ package rotp.model.empires;
 import static rotp.model.empires.Race.crEmpireNameRandom;
 import static rotp.model.game.DynOptions.loadOptions;
 import static rotp.model.game.IGameOptions.baseRaceOptions;
-import static rotp.ui.UserPreferences.playerCustomRace;
-import static rotp.ui.UserPreferences.randomAlienRaces;
-import static rotp.ui.UserPreferences.randomAlienRacesMax;
-import static rotp.ui.UserPreferences.randomAlienRacesMin;
-import static rotp.ui.UserPreferences.randomAlienRacesSmoothEdges;
-import static rotp.ui.UserPreferences.randomAlienRacesTargetMax;
-import static rotp.ui.UserPreferences.randomAlienRacesTargetMin;
+import static rotp.model.game.ModOptions.playerCustomRace;
+import static rotp.model.game.FactoryOptions.*;
 import static rotp.ui.util.PlayerShipSet.DISPLAY_RACE_SET;
 import static rotp.ui.util.SettingBase.CostFormula.DIFFERENCE;
 import static rotp.ui.util.SettingBase.CostFormula.NORMALIZED;
@@ -518,7 +513,7 @@ public class CustomRaceDefinitions  {
 			clearLists();
 			clearOptionsText();
 			// Add Current race
-			add((DynOptions) playerCustomRace.get());
+			add((DynOptions) playerCustomRace.get()); // TODO BR: Finalize Options
 			defaultIndex(0);
 			// Add existing files
 			File[] fileList = loadListing();

@@ -35,8 +35,6 @@ import rotp.model.empires.Empire;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
 
-import static rotp.ui.UserPreferences.flagColorCount;
-
 import rotp.ui.RotPUI;
 
 public class UnexploredAlienSystemPanel extends SystemPanel {
@@ -131,7 +129,7 @@ public class UnexploredAlienSystemPanel extends SystemPanel {
 
            // draw system banner
             int sz = s70;
-            int shX = (flagColorCount.get() == 1)? 0 : s8; // BR: flagColorCount
+            int shX = (options().selectedFlagColorCount() == 1)? 0 : s8; // BR: flagColorCount
             if (hoverBox == flagBox) { // BR: swapped Hover and image
                 Image hoverImage = parentSpritePanel.parent.flagHover(sys);
                 g.drawImage(hoverImage, w-sz+s15-shX, topH1-sz+s10, sz, sz, null);

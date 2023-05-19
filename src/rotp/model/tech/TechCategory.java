@@ -21,7 +21,6 @@ import java.util.Collections;
 import java.util.List;
 
 import rotp.model.empires.Empire;
-import rotp.ui.UserPreferences;
 import rotp.ui.util.ParamTech;
 import rotp.util.Base;
 
@@ -204,7 +203,7 @@ public final class TechCategory implements Base, Serializable {
     // BR: never add in some Technologies
     private boolean isAllowed(String id, boolean isPlayer) {
     	boolean allowed = true;
-        for (ParamTech tech : UserPreferences.techModList) {
+        for (ParamTech tech : options().techModList()) {
         	allowed = allowed && !tech.isNever(id, isPlayer);
         }
     	return allowed;
@@ -232,7 +231,7 @@ public final class TechCategory implements Base, Serializable {
         // BR: always add in some Technologies
         //Xilmi: Why the heck was this in the loop through the quintiles?
         //quintile != techSeqNum
-        for (ParamTech tech : UserPreferences.techModList) {
+        for (ParamTech tech : options().techModList()) {
             if (tech.isAlways(index, tech.techSeqNum, emp.isPlayer())) {
                 addPossibleTech(tech.techId());
             }

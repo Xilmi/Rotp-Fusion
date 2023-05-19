@@ -329,7 +329,7 @@ public class AI implements Base {
                 autoBomb = true;
             int bombTarget = 0;
             if(options().targetBombardAllowedForPlayer() && empire.transportsInTransit(sys) > 0)
-                bombTarget = UserPreferences.bombingTarget.get();
+                bombTarget = options().selectedBombingTarget();
             BombardSystemNotification.create(id(sys), fl, autoBomb, bombTarget);
             return 0;
         }

@@ -29,7 +29,6 @@ import rotp.model.empires.SystemView;
 import rotp.model.galaxy.IMappedObject;
 import rotp.model.galaxy.Location;
 import rotp.model.galaxy.StarSystem;
-import rotp.ui.UserPreferences;
 import rotp.ui.main.GalaxyMapPanel;
 
 public interface IMapHandler {
@@ -87,7 +86,7 @@ public interface IMapHandler {
     default public int defaultFleetDisplay()             { return GalaxyMapPanel.SHOW_IMPORTANT_FLIGHTPATHS; }
     default public int defaultShipRangesDisplay()        { return GalaxyMapPanel.SHOW_STARS_AND_RANGES; }
     default public boolean showShipRanges()              { return true; }
-    default public boolean defaultGridCircularDisplay()  { return UserPreferences.showGridCircular.get(); } // BR: Preferred Choice
+    default public boolean defaultGridCircularDisplay()  { return rotp.ui.UserPreferences.showGridCircular.get(); } // BR: Preferred Choice
     default public IMappedObject gridOrigin()            { return null; }
     default public void drawAlerts(Graphics2D g)         { }
 

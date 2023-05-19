@@ -15,7 +15,6 @@
  */
 package rotp.ui.fleets;
 
-import static rotp.ui.UserPreferences.flagColorCount;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -840,7 +839,7 @@ public abstract class SystemListingUI extends BasePanel implements MouseListener
 
            SystemView sv = player().sv.view(sys.id);
             int sz = s35;
-            int shY = (flagColorCount.get() == 1)? 0 : s3; // BR: flagColorCount
+            int shY = (options().selectedFlagColorCount() == 1)? 0 : s3; // BR: flagColorCount
             Image img = sv.flagImage();
 
             g.drawImage(img, x+w-sz+shY, y-sz+s3, sz, sz, null);

@@ -15,8 +15,6 @@
  */
 package rotp.model.galaxy;
 
-import static rotp.ui.UserPreferences.galaxyRandSource;
-
 import java.awt.Point;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -59,7 +57,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 	float sysBuffer = 1.9f;
 	int numEmpires;
 	private int numOpponents;
-	Rand rand = new Rand(galaxyRandSource.get()); // random number generator
+	Rand rand = new Rand(random()); // random number generator
 	private long tm0; // for timing computation
 	// \BR
 
@@ -419,7 +417,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 		clean();
 	}
 	private void generate(boolean full) {
-		rand = new Rand(galaxyRandSource.get());
+		rand = new Rand(options().selectedGalaxyRandSource());
 		singleInit(full);
 		if (isSymmetric()) {
 			generateSymmetric(full);

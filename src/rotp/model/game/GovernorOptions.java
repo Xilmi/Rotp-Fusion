@@ -1,6 +1,6 @@
 package rotp.model.game;
 
-import static rotp.ui.UserPreferences.headerSpacer;
+import static rotp.model.game.BaseOptions.headerSpacer;
 
 import java.awt.Point;
 import java.io.Serializable;

@@ -15,8 +15,6 @@
  */
 package rotp.ui.map;
 
-import static rotp.ui.UserPreferences.flagColorCount;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -208,7 +206,7 @@ public class SystemInfoPanel extends SystemPanel implements MouseMotionListener 
             drawShadowedString(g, name, 2, s10, s30, MainUI.shadeBorderC(), SystemPanel.whiteLabelText);
             
             int sz = s60;
-            int shX = (flagColorCount.get() == 1)? 0 : s8; // BR: flagColorCount
+            int shX = (options().selectedFlagColorCount() == 1)? 0 : s8; // BR: flagColorCount
             if (hoverBox == flagBox) {
                 Image hoverImage = parent.flagHover(sys);
                 g.drawImage(hoverImage, w-sz+s15-shX, -s15, sz, sz, null);

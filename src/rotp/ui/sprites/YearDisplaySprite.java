@@ -56,7 +56,7 @@ public class YearDisplaySprite extends MapSprite {
             return;
 
         String s = displayYearOrTurn();
-        if (UserPreferences.showNextCouncil.get()) {
+        if (rotp.ui.UserPreferences.showNextCouncil.get()) {
         	int nextC = galaxy().council().nextCouncil();
         	 if (nextC > 0)
         		 s += " (" + nextC + ")";

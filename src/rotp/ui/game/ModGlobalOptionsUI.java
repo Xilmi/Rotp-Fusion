@@ -15,8 +15,6 @@
  */
 package rotp.ui.game;
 
-import static rotp.ui.UserPreferences.modGlobalOptionsUI;
-
 public class ModGlobalOptionsUI extends AbstractOptionsUI {
 	private static final long serialVersionUID = 1L;
 	public  static final String guiTitleID = "SETTINGS_MOD_TITLE_GLOBAL";
@@ -26,8 +24,9 @@ public class ModGlobalOptionsUI extends AbstractOptionsUI {
 		super(guiTitleID, GUI_ID);
 	}
 
+//	@Override protected void singleInit() {
 	@Override protected void init0() {
 		globalOptions = true; // No preferred button
-		paramList	  = modGlobalOptionsUI;
+		paramList	  = rotp.ui.UserPreferences.modGlobalOptionsUI;
 	}
 }

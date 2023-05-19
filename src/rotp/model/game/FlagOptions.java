@@ -87,7 +87,6 @@ public interface FlagOptions extends BaseOptions {
 
 	ParamInteger flagColorCount = new ParamInteger(MOD_UI, "FLAG_COLOR_COUNT", 1, 1, 4);
 	default int	 selectedFlagColorCount() { return flagColorCount.selected(dynOpts()); }
-	default void selectedFlagColorCount(int val) { flagColorCount.selected(dynOpts(), val); }
 
 	LinkedList<LinkedList<InterfaceParam>> autoFlagOptionsMap = 
 			new LinkedList<LinkedList<InterfaceParam>>() { {

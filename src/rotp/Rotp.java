@@ -47,6 +47,7 @@ public class Rotp {
     public static final String modId = RotpGovernor.governorModId();
     public static int IMG_W = 1229;
     public static int IMG_H = 768;
+    public static boolean noOptions = true; // BR: Options are not ready to be called
 
     public static String jarFileName = "rotp-" + version + RotpGovernor.miniSuffix() + ".jar";
     public static String exeFileName = "rotp-" + version + ".exe";
@@ -98,7 +99,7 @@ public class Rotp {
         // which loads in sounds, images, etc
         frame.setLayout(new BorderLayout());
         frame.add(RotPUI.instance(), BorderLayout.CENTER);
-        
+        noOptions = false; // BR:  Options are ready to be called
         // modnar: change to cleaner icon set
         List<Image> iconImages = new ArrayList<Image>();
         iconImages.add(ImageManager.current().image("ROTP_MOD_ICON3"));

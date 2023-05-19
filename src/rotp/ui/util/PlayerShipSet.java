@@ -16,8 +16,8 @@
 
 package rotp.ui.util;
 
-import static rotp.ui.UserPreferences.playerCustomRace;
-import static rotp.ui.UserPreferences.playerIsCustom;
+import static rotp.model.game.ModOptions.playerCustomRace;
+import static rotp.model.game.ModOptions.playerIsCustom;
 
 import rotp.model.empires.Race;
 import rotp.model.ships.ShipLibrary;
@@ -55,7 +55,7 @@ public class PlayerShipSet extends ParamList {
 	 * @return ShipSet Text to display translating Original option
 	 */
 	public String displaySet() {
-		if (playerIsCustom.get() && isOriginal()) { // Custom race
+		if (playerIsCustom.get() && isOriginal()) { // Custom race TODO BR: Finalize options
 			String preferredShipSet = playerCustomRace.getRace().preferredShipSet;
 		   	if (preferredShipSet.equalsIgnoreCase(DISPLAY_RACE_SET))
 		   		return get();
@@ -71,7 +71,7 @@ public class PlayerShipSet extends ParamList {
 	public int realShipSetId() {
 		int index;
 		Race r =  Race.keyed(RotPUI.newOptions().selectedPlayerRace());
-		if (playerIsCustom.get() && isOriginal()) { // Custom race
+		if (playerIsCustom.get() && isOriginal()) { // Custom race TODO BR: Finalize options
 		   	String preferredShipSet = playerCustomRace.getRace().preferredShipSet;
 		   	if (preferredShipSet.equalsIgnoreCase(DISPLAY_RACE_SET))
 		   		index = getIndex(r.preferredShipSet);

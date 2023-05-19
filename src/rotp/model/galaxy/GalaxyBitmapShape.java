@@ -25,7 +25,6 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 import rotp.model.game.IGameOptions;
-import rotp.ui.UserPreferences;
 
 public class GalaxyBitmapShape extends GalaxyShape {
 	public static final List<String> options1;
@@ -454,7 +453,7 @@ public class GalaxyBitmapShape extends GalaxyShape {
 		setOption2();
 
 		// Get bitmap (Normalized to One)
-		String option3 = UserPreferences.shapeOption3.get();
+		String option3 = opts.selectedGalaxyShapeOption3();
 		if(option3==null || option3.equals(""))
 			genGaussian(GX, GY, GS);
 		else

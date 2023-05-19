@@ -30,7 +30,6 @@ import rotp.model.empires.Empire;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
-import rotp.ui.UserPreferences;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
 import rotp.ui.main.SystemPanel;
@@ -129,7 +128,7 @@ public class MapOverlayBombardPrompt extends MapOverlay {
         // repaints from animation
         if (!bombarded) {
             bombarded = true;
-            fleet.targetBombard(0.5f + UserPreferences.bombingTarget.get());
+            fleet.targetBombard(0.5f + options().selectedBombingTarget());
             Empire pl = player();
             endPop = pl.sv.population(sysId);
             endBases = pl.sv.bases(sysId);
@@ -289,7 +288,7 @@ public class MapOverlayBombardPrompt extends MapOverlay {
             	yesStr = text("MAIN_BOMBARD_DROP_ALL");
             else
             	yesStr = text("MAIN_BOMBARD_YES");
-            String targetStr = text("MAIN_BOMBARD_TARGET", UserPreferences.bombingTarget.get());
+            String targetStr = text("MAIN_BOMBARD_TARGET", options().selectedBombingTarget());
             String noStr = text("MAIN_BOMBARD_NO");
             int swYes = g.getFontMetrics().stringWidth(yesStr);
             int swLim = g.getFontMetrics().stringWidth(targetStr);

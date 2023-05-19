@@ -93,8 +93,12 @@ public abstract class BaseModPanel extends BasePanel
 	protected boolean hoverChanged;
 
 	LinkedList<InterfaceParam> paramList;
+	
+	private boolean initialised = false;
 	LinkedList<InterfaceParam> duplicateList;
 	LinkedList<InterfaceParam> activeList;
+	
+	protected void singleInit() { } // To avoid call to options during class creation
 	
 	public GuidePopUp guidePopUp;
 	
@@ -166,6 +170,10 @@ public abstract class BaseModPanel extends BasePanel
 	protected boolean guiCallFromGame() { return RotPUI.guiCallFromGame(); }
 	@Override public void repaintButtons() { repaint(); }
 	protected void init() {
+		if (!initialised) {
+			singleInit();
+			initialised = true;
+		}
 		ModifierKeysState.reset();
 		w = RotPUI.setupRaceUI().getWidth();
 		h = RotPUI.setupRaceUI().getHeight();

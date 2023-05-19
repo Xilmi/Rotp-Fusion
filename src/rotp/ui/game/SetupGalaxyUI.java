@@ -15,16 +15,35 @@
  */
 package rotp.ui.game;
 
-import static rotp.model.game.BaseOptions.*;
-import static rotp.model.game.FactoryOptions.*;
 import static rotp.model.empires.CustomRaceDefinitions.BASE_RACE_MARKER;
 import static rotp.model.empires.CustomRaceDefinitions.fileToAlienRace;
 import static rotp.model.empires.CustomRaceDefinitions.getAllowedAlienRaces;
 import static rotp.model.empires.CustomRaceDefinitions.getBaseRaceList;
+import static rotp.model.game.BaseOptions.ALL_GUI_ID;
+import static rotp.model.game.BaseOptions.BASE_UI;
+import static rotp.model.game.FactoryOptions.dynStarsPerEmpire;
 import static rotp.model.game.IGameOptions.OPPONENT_AI_HYBRID;
 import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
 import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
-import static rotp.ui.UserPreferences.*;
+import static rotp.model.game.ModOptions.aliensNumber;
+import static rotp.model.game.ModOptions.bitmapGalaxyLastFolder;
+import static rotp.model.game.ModOptions.difficultySelection;
+import static rotp.model.game.ModOptions.galaxyRandSource;
+import static rotp.model.game.ModOptions.globalCROptions;
+import static rotp.model.game.ModOptions.optionsGalaxy;
+import static rotp.model.game.ModOptions.optionsRace;
+import static rotp.model.game.ModOptions.shapeOption1;
+import static rotp.model.game.ModOptions.shapeOption2;
+import static rotp.model.game.ModOptions.shapeOption3;
+import static rotp.model.game.ModOptions.shapeSelection;
+import static rotp.model.game.ModOptions.showNewRaces;
+import static rotp.model.game.ModOptions.sizeSelection;
+import static rotp.model.game.ModOptions.useSelectableAbilities;
+import static rotp.ui.UserPreferences.compactOptionOnly;
+import static rotp.ui.UserPreferences.galaxyPreviewColorStarsSize;
+import static rotp.ui.UserPreferences.minListSizePopUp;
+import static rotp.ui.UserPreferences.GALAXY_TEXT_FILE;
+import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
 import static rotp.ui.util.InterfaceParam.LABEL_DESCRIPTION;
 import static rotp.ui.util.InterfaceParam.labelFormat;
 import static rotp.ui.util.InterfaceParam.langLabel;
@@ -258,33 +277,33 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private Box globalModSettingsBox= new Box("SETUP_GALAXY_CLASSIC_OPTIONS"); // BR add UI panel for MOD game options
 	private Box	helpBox   			= new Box("SETTINGS_BUTTON_HELP");
 	private Box	backBox				= new Box("SETUP_GALAXY_BACK");
-	private Box	startBox			= new Box(startButtonHelp);
+	private Box	startBox;
 	private Box	settingsBox			= new Box("SETUP_GALAXY_OPTIONS");
 	private Box	newRacesBox			= new Box("SETUP_GALAXY_RACE_LIST"); // BR:
-	private Box	showAbilitiesBox	= new Box(useSelectableAbilities); // BR:
-	private Box		shapeBox		= new Box(shapeSelection);
+	private Box	showAbilitiesBox; // BR:
+	private Box		shapeBox;
 	private Polygon	shapeBoxL		= new PolyBox();
 	private Polygon	shapeBoxR		= new PolyBox();
-	private Box		mapOption1Box	= new Box(shapeOption1);
+	private Box		mapOption1Box;
 	private Polygon	mapOption1BoxL	= new PolyBox();
 	private Polygon	mapOption1BoxR	= new PolyBox();			 
-	private Box		mapOption2Box	= new Box(shapeOption2);
+	private Box		mapOption2Box;
 	private Polygon	mapOption2BoxL	= new PolyBox();
 	private Polygon	mapOption2BoxR	= new PolyBox();			 
-	private Box		mapOption3Box	= new Box(shapeOption3); // BR:
-	private Box		sizeOptionBox	= new Box(dynStarsPerEmpire); // BR:
+	private Box		mapOption3Box; // BR:
+	private Box		sizeOptionBox; // BR:
 	private Polygon	sizeOptionBoxL	= new PolyBox();   // BR:
 	private Polygon	sizeOptionBoxR	= new PolyBox();   // BR:
-	private Box		sizeBox			= new Box(sizeSelection);
+	private Box		sizeBox;
 	private Polygon	sizeBoxL		= new PolyBox();
 	private Polygon	sizeBoxR		= new PolyBox();
-	private Box		diffBox			= new Box(difficultySelection);
+	private Box		diffBox;
 	private Polygon	diffBoxL		= new PolyBox();
 	private Polygon	diffBoxR		= new PolyBox();
-	private Box		wysiwygBox		= new Box(galaxyRandSource); // BR:
+	private Box		wysiwygBox; // BR:
 	private Polygon	wysiwygBoxL		= new PolyBox();   // BR:
 	private Polygon	wysiwygBoxR		= new PolyBox();   // BR:
-	private Box		oppBox			= new Box(aliensNumber);
+	private Box		oppBox;
 	private Polygon	oppBoxU			= new PolyBox();
 	private Polygon	oppBoxD			= new PolyBox();
 	private Box		aiBox			= new Box(opponentAI);
@@ -332,7 +351,37 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		addMouseListener(this);
 		addMouseMotionListener(this);
 		addMouseWheelListener(this);
-		paramList = UserPreferences.optionsGalaxy;
+//		paramList = optionsGalaxy;
+//		for (int i=0;i<oppSet.length;i++)
+//			oppSet[i] = new Box(specificOpponent, i);
+//		for (int i=0;i<oppAbilities.length;i++)
+//			oppAbilities[i] = new Box(specificAbilities, i);
+//		for (int i=0;i<oppAI.length;i++)
+//			oppAI[i] = new Box(specificAI, i);
+//		duplicateList = new LinkedList<>();
+//		duplicateList.add(difficultySelection);
+//		duplicateList.add(shapeSelection);
+//		duplicateList.add(sizeSelection);
+//		duplicateList.add(shapeOption1);
+//		duplicateList.add(shapeOption2);
+//		duplicateList.add(aliensNumber);
+	}
+	@Override protected void singleInit() {
+		startBox			= new Box(startButtonHelp);
+		showAbilitiesBox	= new Box(useSelectableAbilities);
+		shapeBox			= new Box(shapeSelection);
+		mapOption1Box		= new Box(shapeOption1);
+		mapOption2Box		= new Box(shapeOption2);
+		mapOption3Box		= new Box(shapeOption3);
+		sizeOptionBox		= new Box(dynStarsPerEmpire);
+		sizeBox				= new Box(sizeSelection);
+		diffBox				= new Box(difficultySelection);
+		wysiwygBox			= new Box(galaxyRandSource);
+		oppBox				= new Box(aliensNumber);
+		
+		
+		
+		paramList = optionsGalaxy;
 		for (int i=0;i<oppSet.length;i++)
 			oppSet[i] = new Box(specificOpponent, i);
 		for (int i=0;i<oppAbilities.length;i++)
@@ -347,7 +396,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		duplicateList.add(shapeOption2);
 		duplicateList.add(aliensNumber);
 	}
-	private void initOpponentGuide() {
+
+    private void initOpponentGuide() {
 		opponentRandom = text(OPPONENT_RANDOM);
 		LinkedList<String> list = new LinkedList<>();
 		list.addAll(IGameOptions.getNewRacesOnOffList());

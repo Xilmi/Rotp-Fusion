@@ -13,11 +13,4 @@ public interface BaseOptions {
 	ParamTitle headerSpacer = new ParamTitle("SPACER");
 
 	DynOptions dynOpts();
-	
-//	static MOO1GameOptions gameOptions() {
-//		return (MOO1GameOptions) GameSession.instance().options();
-//	}
-//	static MOO1GameOptions setupOptions() {
-//		return (MOO1GameOptions) RotPUI.newOptions();
-//	}
 }

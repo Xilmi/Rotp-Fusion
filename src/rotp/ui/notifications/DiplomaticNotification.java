@@ -20,7 +20,6 @@ import rotp.model.empires.EmpireView;
 import rotp.model.game.GameSession;
 import rotp.model.incidents.DiplomaticIncident;
 import rotp.ui.RotPUI;
-import rotp.ui.UserPreferences;
 import rotp.ui.diplomacy.DialogueManager;
 import rotp.util.Base;
 
@@ -111,17 +110,17 @@ public class DiplomaticNotification implements TurnNotification, Base {
     	switch (type) {
 			case DialogueManager.WARNING_EXPANSION:
 				expansionWarningCount += 1;
-				if (UserPreferences.showLimitedWarnings.get() < expansionWarningCount)
+				if (rotp.ui.UserPreferences.showLimitedWarnings.get() < expansionWarningCount)
 					return;
 				break;
 			case DialogueManager.WARNING_BIOWEAPON:
 				bioweaponWarningCount += 1;
-				if (UserPreferences.showLimitedWarnings.get() < bioweaponWarningCount)
+				if (rotp.ui.UserPreferences.showLimitedWarnings.get() < bioweaponWarningCount)
 					return;
 				break;
 			case DialogueManager.WARNING_GENOCIDE:
 				genocideWarningCount += 1;
-				if (UserPreferences.showLimitedWarnings.get() < genocideWarningCount)
+				if (rotp.ui.UserPreferences.showLimitedWarnings.get() < genocideWarningCount)
 					return;
 				break;
     	}

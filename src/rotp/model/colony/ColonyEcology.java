@@ -15,8 +15,6 @@
  */
 package rotp.model.colony;
 
-import static rotp.ui.UserPreferences.autoTerraformEnding;
-
 import rotp.model.empires.Empire;
 import rotp.model.planet.Planet;
 import rotp.model.tech.TechAtmosphereEnrichment;
@@ -63,7 +61,7 @@ public class ColonyEcology extends ColonySpendingCategory {
         newBiosphereIncrease = 0;
     }
     public boolean isTerraformed() {
-    	switch (autoTerraformEnding.get()) {
+    	switch (options().selectedAutoTerraformEnding()) {
     	case "Cleaned":
     		return empire().ignoresPlanetEnvironment() || waste() == 0;
     	case "Terraformed":

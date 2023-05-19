@@ -1,9 +1,14 @@
 package rotp.model.game;
 
-import static rotp.model.game.BaseOptions.MOD_UI;
+import static rotp.model.game.FlagOptions.autoFlagOptionsUI;
+import static rotp.model.game.FlagOptions.flagColorCount;
+
+import java.util.Arrays;
+import java.util.LinkedList;
 
 import rotp.model.empires.GalacticCouncil;
 import rotp.model.events.RandomEvents;
+import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
@@ -136,11 +141,10 @@ public interface GamePlayOptions extends BaseOptions {
 	ParamInteger crystalMaxSystems	= new ParamInteger(MOD_UI, "CRYSTAL_MAX_SYSTEMS", 0, 0, null, 1, 5, 20);
 	default int selectedCrystalMaxSystems()		{ return crystalMaxSystems.selected(dynOpts()); }
 
-	
-	
-	
 	ParamInteger bombingTarget		= new ParamInteger(MOD_UI, "BOMBING_TARGET", 10, null, null, 1, 5, 20);
-	ParamList	 autoTerraformEnding	= new ParamList( MOD_UI, "AUTO_TERRAFORM_ENDING", "Populated") {
+	default int selectedBombingTarget()			{ return bombingTarget.selected(dynOpts()); }
+
+	ParamList autoTerraformEnding	= new ParamList( MOD_UI, "AUTO_TERRAFORM_ENDING", "Populated") {
 		{
 			showFullGuide(true);
 			put("Populated",	MOD_UI + "TERRAFORM_POPULATED");
@@ -148,5 +152,31 @@ public interface GamePlayOptions extends BaseOptions {
 			put("Cleaned",		MOD_UI + "TERRAFORM_CLEANED");
 		}
 	};
+	default String selectedAutoTerraformEnding() { return autoTerraformEnding.selected(dynOpts()); }
 
+	ParamBoolean showAllAI			= new ParamBoolean(MOD_UI, "SHOW_ALL_AI", true);
+	default boolean selectedShowAllAI()			 { return showAllAI.selected(dynOpts()); }
+	
+
+	// ==================== GUI List Declarations ====================
+	LinkedList<InterfaceParam> modOptionsDynamicA = new LinkedList<>(
+			Arrays.asList(
+				customDifficulty, dynamicDifficulty, challengeMode, showAllAI,
+				null,
+				missileSizeModifier, retreatRestrictions, retreatRestrictionTurns,
+				null,
+				bombingTarget, targetBombard, flagColorCount, autoFlagOptionsUI,
+				null,
+				scrapRefundFactor, scrapRefundOption, autoTerraformEnding
+			));
+	LinkedList<InterfaceParam> modOptionsDynamicB = new LinkedList<>(
+			Arrays.asList(
+				eventsStartTurn, counciRequiredPct, GovernorOptions.governorOptionsUI,
+				null,
+				amoebaDelayTurn, amoebaMaxSystems, amoebaReturnTurn,
+				null,
+				crystalDelayTurn, crystalMaxSystems, crystalReturnTurn,
+				null,
+				piratesDelayTurn, piratesMaxSystems, piratesReturnTurn
+			));
 }
