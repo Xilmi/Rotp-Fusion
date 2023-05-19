@@ -63,7 +63,7 @@ public class GNNNotification implements TurnNotification {
     	switch (eventId) {
 			case "GNN_Alliance_Formed":
 			case "GNN_Alliance_Broken":
-				if (!rotp.ui.UserPreferences.showAlliancesGNN.get())
+				if (!rotp.model.game.RemnantOptions.showAlliancesGNN.get())
 					return;
     	}
         RotPUI.instance().selectGNNPanel(message, eventId, null);

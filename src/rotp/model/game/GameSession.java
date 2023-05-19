@@ -20,7 +20,7 @@ import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
 import static rotp.model.game.MOO1GameOptions.saveOptionsToFileName;
 import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
-import static rotp.ui.UserPreferences.menuLoadGame;
+import static rotp.model.game.RemnantOptions.menuLoadGame;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;

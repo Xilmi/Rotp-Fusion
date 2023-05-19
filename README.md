@@ -44,6 +44,11 @@ Later:
 
 ## What's New
 
+2023.05.19 (BR)
+- Moved games options from UserPreferences to IGameOptions to be available through options() call.
+  - The dynamic options were wrongly located in UserPreferences, a guess had to be done about which option was calling! With a little change in the interface these options can now be called by standard option interface.
+  - They are distributed on several files for a better lisibility. (No need to flood IGameOptions)
+
 2023.05.16 (BR)
 - Governor panel:Tuned button colors.
 - AI:Base and AI:Modnar are now optional.

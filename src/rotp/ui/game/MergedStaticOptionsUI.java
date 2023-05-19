@@ -29,6 +29,6 @@ public class MergedStaticOptionsUI extends CompactOptionsUI {
 		super(guiTitleID, GUI_ID);
 	}
 	@Override protected LinkedList<LinkedList<InterfaceParam>> getList() {
-		return rotp.ui.UserPreferences.mergedStaticOptionsMap;
+		return rotp.model.game.RemnantOptions.mergedStaticOptionsMap;
 	}
 }

@@ -1514,13 +1514,13 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	    		modOpts = modOptionsDynamicB;
 	    		break;
 	    	case MergedStaticOptionsUI.GUI_ID:
-	    		modOpts = rotp.ui.UserPreferences.mergedStaticOptions;
+	    		modOpts = mergedStaticOptions;
 	    		break;
 	    	case MergedDynamicOptionsUI.GUI_ID:
-	    		modOpts = rotp.ui.UserPreferences.mergedDynamicOptions;
+	    		modOpts = mergedDynamicOptions;
 	    		break;
 	    	case ModGlobalOptionsUI.GUI_ID:
-	    		modOpts = rotp.ui.UserPreferences.modGlobalOptionsUI;
+	    		modOpts = modGlobalOptionsUI;
 	    		break;
 	    	case EditCustomRaceUI.GUI_ID:
 	    		modOpts = optionsCustomRaceBase;

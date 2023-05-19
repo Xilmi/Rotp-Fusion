@@ -16,7 +16,7 @@
 
 package rotp.ui.util;
 
-import static rotp.ui.UserPreferences.minListSizePopUp;
+import static rotp.model.game.RemnantOptions.minListSizePopUp;
 import static rotp.ui.util.InterfaceParam.langLabel;
 import static rotp.ui.util.InterfaceParam.rowsSeparator;
 import static rotp.ui.util.InterfaceParam.tableFormat;

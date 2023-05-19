@@ -34,8 +34,8 @@ import rotp.ui.util.ParamString;
 import rotp.util.LanguageManager;
 import rotp.util.sound.SoundManager;
 
-public class UserPreferences implements RemnantOptions {
-//public class UserPreferences {
+//public class UserPreferences implements RemnantOptions {
+public class UserPreferences {
 	private static final String WINDOW_MODE = "GAME_SETTINGS_WINDOWED";
 	private static final String BORDERLESS_MODE = "GAME_SETTINGS_BORDERLESS";
 	private static final String FULLSCREEN_MODE = "GAME_SETTINGS_FULLSCREEN";

@@ -15,10 +15,6 @@
  */
 package rotp.model.galaxy;
 
-import static rotp.ui.UserPreferences.mapFontFactor;
-import static rotp.ui.UserPreferences.showInfoFontRatio;
-import static rotp.ui.UserPreferences.showNameMinFont;
-
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Composite;
