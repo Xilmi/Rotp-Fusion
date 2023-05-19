@@ -16,10 +16,6 @@
 package rotp.ui.main;
 
 import static rotp.model.galaxy.Ship.EMPIRE_ID;
-import static rotp.ui.UserPreferences.showFlagFactor;
-import static rotp.ui.UserPreferences.showFleetFactor;
-import static rotp.ui.UserPreferences.showPathFactor;
-
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Composite;
@@ -96,14 +92,23 @@ public class GalaxyMapPanel extends BasePanel implements ActionListener, MouseLi
     public static final int SHOW_NO_STARS_AND_RANGES = 3;
 
 	// BR:
-    public static int MAX_FLAG_SCALE = (int) (80 * showFlagFactor.get());
-    public static int MAX_STARGATE_SCALE = (int) (40 * showFleetFactor.get());
-    public static int MAX_RALLY_SCALE = (int) (100 * showPathFactor.get());
-    public static int MAX_FLEET_UNARMED_SCALE = (int) (40 * showFleetFactor.get());
-    public static int MAX_FLEET_TRANSPORT_SCALE = (int) (60 * showFleetFactor.get());
-    public static int MAX_FLEET_SMALL_SCALE = (int) (60 * showFleetFactor.get());
-    public static int MAX_FLEET_LARGE_SCALE = (int) (80 * showFleetFactor.get());
-    public static int MAX_FLEET_HUGE_SCALE = (int) (100 * showFleetFactor.get());
+//    public static int MAX_FLAG_SCALE = (int) (80 * showFlagFactor.get());
+//    public static int MAX_STARGATE_SCALE = (int) (40 * showFleetFactor.get());
+//    public static int MAX_RALLY_SCALE = (int) (100 * showPathFactor.get());
+//    public static int MAX_FLEET_UNARMED_SCALE = (int) (40 * showFleetFactor.get());
+//    public static int MAX_FLEET_TRANSPORT_SCALE = (int) (60 * showFleetFactor.get());
+//    public static int MAX_FLEET_SMALL_SCALE = (int) (60 * showFleetFactor.get());
+//    public static int MAX_FLEET_LARGE_SCALE = (int) (80 * showFleetFactor.get());
+//    public static int MAX_FLEET_HUGE_SCALE = (int) (100 * showFleetFactor.get());
+    // BR These values may be changed remotely!
+    public static int MAX_FLAG_SCALE			= 80;
+    public static int MAX_STARGATE_SCALE 		= 40;
+    public static int MAX_RALLY_SCALE 			= 100;
+    public static int MAX_FLEET_UNARMED_SCALE	= 40;
+    public static int MAX_FLEET_TRANSPORT_SCALE = 60;
+    public static int MAX_FLEET_SMALL_SCALE		= 60;
+    public static int MAX_FLEET_LARGE_SCALE		= 80;
+    public static int MAX_FLEET_HUGE_SCALE		= 100;
 	// \BR:
     
 //    private static final Color unreachableBackground = new Color(0,0,0);
@@ -123,7 +128,7 @@ public class GalaxyMapPanel extends BasePanel implements ActionListener, MouseLi
     private static int flightPathDisplay = SHOW_IMPORTANT_FLIGHTPATHS;
     private static int shipDisplay = SHOW_ALL_SHIPS;
     private static int showShipRanges = SHOW_STARS_AND_RANGES;
-    private static boolean showGridCircular = false;
+ //   private static boolean showGridCircular = false;
 
     private float desiredScale;
     private Image mapBuffer;
@@ -220,9 +225,10 @@ public class GalaxyMapPanel extends BasePanel implements ActionListener, MouseLi
     public void toggleGridCircularDisplay() { // BR: added memorization
     	rotp.ui.UserPreferences.showGridCircular.toggle();
     	UserPreferences.save();
-    	showGridCircular = rotp.ui.UserPreferences.showGridCircular.get();
+//    	showGridCircular = rotp.ui.UserPreferences.showGridCircular.get();
     }
-    public boolean showGridCircular()           { return showGridCircular; }
+//    public boolean showGridCircular()           { return showGridCircular; }
+    public boolean showGridCircular()           { return rotp.ui.UserPreferences.showGridCircular.get(); }
     public boolean showFleetsOnly()             { return flightPathDisplay == SHOW_NO_FLIGHTPATHS; }
     public boolean showImportantFlightPaths()   { return flightPathDisplay != SHOW_NO_FLIGHTPATHS; }
     public boolean showAllFlightPaths()         { return flightPathDisplay == SHOW_ALL_FLIGHTPATHS; }
@@ -278,7 +284,7 @@ public class GalaxyMapPanel extends BasePanel implements ActionListener, MouseLi
         flightPathDisplay = parent.defaultFleetDisplay();
         shipDisplay = SHOW_ALL_SHIPS;
         showShipRanges = parent.defaultShipRangesDisplay();
-        showGridCircular = parent.defaultGridCircularDisplay();
+//        showGridCircular = parent.defaultGridCircularDisplay();
 
         if (baseControls.isEmpty()) {
             baseControls.add(new ZoomOutWidgetSprite(10,260,30,30));
@@ -526,7 +532,7 @@ public class GalaxyMapPanel extends BasePanel implements ActionListener, MouseLi
 	}
 
     private void drawGrids(Graphics2D g) {
-        if (showGridCircular) {
+        if (showGridCircular()) {
             drawGridCircularDisplayDark(g);
             //drawGridCircularDisplayLight(g);
         }

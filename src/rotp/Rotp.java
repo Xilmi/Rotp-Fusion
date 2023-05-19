@@ -107,14 +107,17 @@ public class Rotp {
         iconImages.add(ImageManager.current().image("ROTP_MOD_ICON1"));
         frame.setIconImages(iconImages);
 
-        // check after ROTPUI is created
-        stopIfNoFilePermissions(frame);
+//        // check after ROTPUI is created
+//        stopIfNoFilePermissions(frame);
 
         Image img = ImageManager.current().image("LANDSCAPE_RUINS_ORION");
         BufferedImage bimg = RotpGovernor.toBufferedImage(img);
         BufferedImage square = bimg.getSubimage(bimg.getWidth()-bimg.getHeight(), 0, bimg.getHeight(), bimg.getHeight());
         frame.setIconImage(square);
 
+        // check after ROTPUI is created
+        stopIfNoFilePermissions(frame);
+ 
         if (UserPreferences.fullScreen()) {
             frame.setUndecorated(true);
             device().setFullScreenWindow(frame);

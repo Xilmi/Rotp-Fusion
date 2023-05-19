@@ -74,9 +74,10 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 	AbstractOptionsUI(String guiTitle_ID, String guiId) {
 		guiTitleID = guiTitle_ID;
 		GUI_ID = guiId;
-		init_0();
+//		init_0();
 	}
-	private void init_0() {
+//	private void init_0() {
+	@Override protected void singleInit() {
 		setOpaque(false);
 		textC = SystemPanel.whiteText;
 		numColumns = 0;

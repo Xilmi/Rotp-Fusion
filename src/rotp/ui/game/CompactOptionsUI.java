@@ -88,7 +88,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	private LinkedList<ModText> btList2; // right part
 	private LinkedList<ModText> btListBoth;
 	private LinearGradientPaint bg;
-
+	private LinkedList<LinkedList<InterfaceParam>> optionsList;
 	private int parent = 0; // 0=Base; 1=Merged; 2=Classic
 	
 	// ========== Constructors and initializers ==========
@@ -96,10 +96,19 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	public CompactOptionsUI(String guiTitle_ID, String guiId, LinkedList<LinkedList<InterfaceParam>> paramList) {
 		guiTitleID = guiTitle_ID;
 		GUI_ID = guiId;
-		init_Lists(paramList);
+		optionsList = paramList;
 		init_0();
 	}
-	private void init_Lists(LinkedList<LinkedList<InterfaceParam>> optionsList) {
+	public CompactOptionsUI(String guiTitle_ID, String guiId) {
+		guiTitleID = guiTitle_ID;
+		GUI_ID = guiId;
+//		init_Lists(paramList);
+		init_0();
+	}
+	protected LinkedList<LinkedList<InterfaceParam>> getList() { return optionsList; }
+//	private void init_Lists(LinkedList<LinkedList<InterfaceParam>> optionsList) {
+	@Override protected void singleInit() {
+		optionsList		= getList();
 		activeList		= new LinkedList<>();
 		duplicateList	= new LinkedList<>();
 		paramList		= new LinkedList<>();

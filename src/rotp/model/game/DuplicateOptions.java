@@ -155,7 +155,7 @@ public interface DuplicateOptions extends BaseOptions {
 			RotPUI.mergedGuiOptions().selectedAutoplayOption(newValue);
 		}
 	};
-	default ParamList autoplay()	{ return autoplay(); }
+	default ParamList autoplay()	{ return autoplay; }
 	ParamList researchRate		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "RESEARCH_RATE", getResearchRateOptions(), RESEARCH_NORMAL) {
 		{ showFullGuide(true); }

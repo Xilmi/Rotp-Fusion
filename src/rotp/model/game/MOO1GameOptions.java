@@ -1282,13 +1282,15 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         writeModSettingsToOptions(options);
     }
     static void setModSettingsFromOptions(MOO1GameOptions source) { // BR:
-    	for( InterfaceParam param : allModOptions)
-    		param.setFromOptions(source.dynOpts());
+    	for(InterfaceParam param : allModOptions)
+    		if (param != null)
+    			param.setFromOptions(source.dynOpts());
         EditCustomRaceUI.instance().updateCRGui(source);
     }
     private static void writeModSettingsToOptions(MOO1GameOptions destination) { // BR:
-    	for( InterfaceParam option : allModOptions)
-    		option.setOptions(destination.dynOpts());
+    	for(InterfaceParam option : allModOptions)
+    		if (option != null)
+    			option.setOptions(destination.dynOpts());
        	EditCustomRaceUI.instance().writeLocalOptions(destination);
     }
     private static void copyBaseSettings(MOO1GameOptions src, MOO1GameOptions dest) {

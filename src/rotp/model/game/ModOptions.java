@@ -26,7 +26,7 @@ import rotp.ui.util.PlayerShipSet;
 import rotp.ui.util.SpecificCROption;
 
 public interface ModOptions extends FlagOptions, FactoryOptions, GamePlayOptions,
-									DuplicateOptions {
+									DuplicateOptions, RemnantOptions {
 
 	// ==================== Galaxy Menu addition ====================
 	//

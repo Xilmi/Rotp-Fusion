@@ -15,6 +15,10 @@
  */
 package rotp.ui.game;
 
+import java.util.LinkedList;
+
+import rotp.ui.util.InterfaceParam;
+
 public class MergedStaticOptionsUI extends CompactOptionsUI {
 	private static final long serialVersionUID = 1L;
 	public static final String guiTitleID = "SETTINGS_MOD_STATIC_TITLE";
@@ -22,6 +26,9 @@ public class MergedStaticOptionsUI extends CompactOptionsUI {
 	
 	public MergedStaticOptionsUI() {
 //		super(guiTitleID, GUI_ID, rotp.model.game.ModOptions.mergedStaticOptionsMap);
-		super(guiTitleID, GUI_ID, rotp.ui.UserPreferences.mergedStaticOptionsMap);
+		super(guiTitleID, GUI_ID);
+	}
+	@Override protected LinkedList<LinkedList<InterfaceParam>> getList() {
+		return rotp.ui.UserPreferences.mergedStaticOptionsMap;
 	}
 }

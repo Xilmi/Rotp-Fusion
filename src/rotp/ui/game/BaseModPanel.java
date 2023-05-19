@@ -98,7 +98,8 @@ public abstract class BaseModPanel extends BasePanel
 	LinkedList<InterfaceParam> duplicateList;
 	LinkedList<InterfaceParam> activeList;
 	
-	protected void singleInit() { } // To avoid call to options during class creation
+	protected void singleInit() {} // To avoid call to options during class creation
+//	protected abstract void singleInit(); // To avoid call to options during class creation
 	
 	public GuidePopUp guidePopUp;
 	
