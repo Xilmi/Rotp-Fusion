@@ -215,114 +215,122 @@ public interface ModOptions extends FlagOptions, FactoryOptions, GamePlayOptions
 
 	// ==================== GUI List Declarations ====================
 	//
-//	LinkedList<InterfaceParam> mergedStaticOptions	= new LinkedList<>();
-//	LinkedList<LinkedList<InterfaceParam>> mergedStaticOptionsMap	= 
-//			new LinkedList<LinkedList<InterfaceParam>>() {
-//		{
-//			add(new LinkedList<>(Arrays.asList(
-//					new ParamTitle("START_GALAXY_OPTIONS"),
-//					galaxyAge, starDensity, nebulae, maximizeSpacing,
-//					spacingLimit, minStarsPerEmpire, prefStarsPerEmpire, dynStarsPerEmpire,
-//	
-//					headerSpacer,
-//					new ParamTitle("START_PLANET_OPTIONS"),
-//					planetQuality, minDistArtifactPlanet
-//					)));
-//			add(new LinkedList<>(Arrays.asList(
-//					new ParamTitle("START_EMPIRE_OPTIONS"),
-//					artifactsHomeworld, fertileHomeworld, richHomeworld, ultraRichHomeworld,
-//					companionWorlds, battleScout, randomTechStart, randomizeAI
-//					)));
-//			add(new LinkedList<>(Arrays.asList(
-//					new ParamTitle("START_TECH_CONTROL"),
-//					techIrradiated, techCloaking, techStargate, techHyperspace,
-//					techIndustry2, techThorium, techTransport,
-//	
-//					headerSpacer,
-//					new ParamTitle("START_RANDOM_ALIENS"),
-//					randomAlienRacesTargetMax, randomAlienRacesTargetMin, randomAlienRaces,
-//					randomAlienRacesMax, randomAlienRacesMin, randomAlienRacesSmoothEdges
-//					)));
-//			add(new LinkedList<>(Arrays.asList(
-//					new ParamTitle("RESTART_OPTIONS"),
-//					restartChangesPlayerRace, restartChangesPlayerAI,
-//					restartChangesAliensAI, restartAppliesSettings,
-//	
-//					headerSpacer,
-//					new ParamTitle("MENU_OPTIONS"),
-//					useFusionFont, compactOptionOnly
-//					)));
-//			for (LinkedList<InterfaceParam> list : mergedStaticOptionsMap) {
-//				for (InterfaceParam param : list) {
-//					if (param != null && !param.isTitle())
-//						mergedStaticOptions.add(param);
-//				}
-//			}
-//		}
-//	};
-//	LinkedList<InterfaceParam> mergedDynamicOptions	= new LinkedList<>();
-//	LinkedList<LinkedList<InterfaceParam>> mergedDynamicOptionsMap	= 
-//			new LinkedList<LinkedList<InterfaceParam>>() {
-//		{
-//			add(new LinkedList<>(Arrays.asList(
-//					new ParamTitle("GAME_DIFFICULTY"),
-//					difficultySelection, customDifficulty,
-//					dynamicDifficulty, challengeMode,
-//	
-//					headerSpacer,
-//					new ParamTitle("GAME_VARIOUS"),
-//					terraforming, colonizing, researchRate,
-//					warpSpeed, fuelRange, 
-//	
-//					headerSpacer,
-//					new ParamTitle("GAME_OTHER"),
-//					showAlliancesGNN, showLimitedWarnings,
-//					techExchangeAutoRefuse, autoTerraformEnding, autoplay
-//					)));
-//			add(new LinkedList<>(Arrays.asList(
-//					new ParamTitle("GAME_RELATIONS"),
-//					councilWin, counciRequiredPct,
-//					techTrading, aiHostility,
-//	
-//					headerSpacer,
-//					new ParamTitle("GAME_COMBAT"),
-//					retreatRestrictions, retreatRestrictionTurns, missileSizeModifier,
-//					targetBombard, bombingTarget, autoBombard_, autoColonize_,
-//					scrapRefundFactor, scrapRefundOption
-//					)));
-//			add(new LinkedList<>(Arrays.asList(
-//					new ParamTitle("RANDOM_EVENTS_OPT"),
-//					randomEvents, eventsStartTurn,
-//					piratesDelayTurn, piratesReturnTurn, piratesMaxSystems,
-//					amoebaDelayTurn, amoebaReturnTurn, amoebaMaxSystems,
-//					crystalDelayTurn, crystalReturnTurn, crystalMaxSystems,
-//	
-//					headerSpacer,
-//					new ParamTitle("PLANETS_FLAG_OPTIONS"),
-//					flagColorCount, autoFlagOptionsUI,
-//	
-//					headerSpacer,
-//					new ParamTitle("GOVERNOR_SETUP_MENU"),
-//					GovernorOptions.governorOptionsUI
-//					)));
-//			add(new LinkedList<>(Arrays.asList(
-//					new ParamTitle("ZOOM_FACTORS"),
-//					showFleetFactor, showFlagFactor, showPathFactor,
-//					showNameMinFont, showInfoFontRatio, mapFontFactor,
-//	
-//					headerSpacer,
-//					new ParamTitle("MENU_OPTIONS"),
-//					menuStartup, menuAfterGame, menuLoadGame,
-//					minListSizePopUp, showGridCircular, galaxyPreviewColorStarsSize,
-//					showAllAI, compactOptionOnly
-//					)));
-//			for (LinkedList<InterfaceParam> list : mergedDynamicOptionsMap) {
-//				for (InterfaceParam param : list) {
-//					if (param != null && !param.isTitle())
-//						mergedDynamicOptions.add(param);
-//				}
-//			}
-//		}
-//	};	
+    // All the Global parameters
+	LinkedList<InterfaceParam> globalOptions = globalOptions();
+	static LinkedList<InterfaceParam> globalOptions() {
+		LinkedList<InterfaceParam> globalOptions = new LinkedList<>();
+		globalOptions.addAll(modGlobalOptionsUI);
+		globalOptions.add(bitmapGalaxyLastFolder);
+		return globalOptions;
+	}
 
+	LinkedList<InterfaceParam> mergedStaticOptions	= new LinkedList<>();
+	LinkedList<LinkedList<InterfaceParam>> mergedStaticOptionsMap = mergedStaticOptionsMap();
+	static LinkedList<LinkedList<InterfaceParam>> mergedStaticOptionsMap()	{
+		LinkedList<LinkedList<InterfaceParam>> map = new LinkedList<>();
+		map.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("START_GALAXY_OPTIONS"),
+				galaxyAge, starDensity, nebulae, maximizeSpacing,
+				spacingLimit, minStarsPerEmpire, prefStarsPerEmpire, dynStarsPerEmpire,
+
+				headerSpacer,
+				new ParamTitle("START_PLANET_OPTIONS"),
+				planetQuality, minDistArtifactPlanet
+				)));
+		map.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("START_EMPIRE_OPTIONS"),
+				artifactsHomeworld, fertileHomeworld, richHomeworld, ultraRichHomeworld,
+				companionWorlds, battleScout, randomTechStart, randomizeAI
+				)));
+		map.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("START_TECH_CONTROL"),
+				techIrradiated, techCloaking, techStargate, techHyperspace,
+				techIndustry2, techThorium, techTransport,
+
+				headerSpacer,
+				new ParamTitle("START_RANDOM_ALIENS"),
+				randomAlienRacesTargetMax, randomAlienRacesTargetMin, randomAlienRaces,
+				randomAlienRacesMax, randomAlienRacesMin, randomAlienRacesSmoothEdges
+				)));
+		map.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("RESTART_OPTIONS"),
+				restartChangesPlayerRace, restartChangesPlayerAI,
+				restartChangesAliensAI, restartAppliesSettings,
+
+				headerSpacer,
+				new ParamTitle("MENU_OPTIONS"),
+				useFusionFont, compactOptionOnly
+				)));
+		for (LinkedList<InterfaceParam> list : map) {
+			for (InterfaceParam param : list) {
+				if (param != null && !param.isTitle())
+					mergedStaticOptions.add(param);
+			}
+		}
+		return map;
+	};
+	LinkedList<InterfaceParam> mergedDynamicOptions	= new LinkedList<>();
+	LinkedList<LinkedList<InterfaceParam>> mergedDynamicOptionsMap = mergedDynamicOptionsMap(); 
+	static LinkedList<LinkedList<InterfaceParam>> mergedDynamicOptionsMap()	{
+		LinkedList<LinkedList<InterfaceParam>> map = new LinkedList<>();
+		map.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("GAME_DIFFICULTY"),
+				difficultySelection, customDifficulty,
+				dynamicDifficulty, challengeMode,
+
+				headerSpacer,
+				new ParamTitle("GAME_VARIOUS"),
+				terraforming, colonizing, researchRate,
+				warpSpeed, fuelRange, 
+
+				headerSpacer,
+				new ParamTitle("GAME_OTHER"),
+				showAlliancesGNN, showLimitedWarnings,
+				techExchangeAutoRefuse, autoTerraformEnding, autoplay
+				)));
+		map.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("GAME_RELATIONS"),
+				councilWin, counciRequiredPct,
+				techTrading, aiHostility,
+
+				headerSpacer,
+				new ParamTitle("GAME_COMBAT"),
+				retreatRestrictions, retreatRestrictionTurns, missileSizeModifier,
+				targetBombard, bombingTarget, autoBombard_, autoColonize_,
+				scrapRefundFactor, scrapRefundOption
+				)));
+		map.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("RANDOM_EVENTS_OPT"),
+				randomEvents, eventsStartTurn,
+				piratesDelayTurn, piratesReturnTurn, piratesMaxSystems,
+				amoebaDelayTurn, amoebaReturnTurn, amoebaMaxSystems,
+				crystalDelayTurn, crystalReturnTurn, crystalMaxSystems,
+
+				headerSpacer,
+				new ParamTitle("PLANETS_FLAG_OPTIONS"),
+				flagColorCount, autoFlagOptionsUI,
+
+				headerSpacer,
+				new ParamTitle("GOVERNOR_SETUP_MENU"),
+				GovernorOptions.governorOptionsUI
+				)));
+		map.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("ZOOM_FACTORS"),
+				showFleetFactor, showFlagFactor, showPathFactor,
+				showNameMinFont, showInfoFontRatio, mapFontFactor,
+	
+				headerSpacer,
+				new ParamTitle("MENU_OPTIONS"),
+				menuStartup, menuAfterGame, menuLoadGame,
+				minListSizePopUp, showGridCircular, galaxyPreviewColorStarsSize,
+				showAllAI, compactOptionOnly
+				)));
+		for (LinkedList<InterfaceParam> list : map) {
+			for (InterfaceParam param : list) {
+				if (param != null && !param.isTitle())
+					mergedDynamicOptions.add(param);
+			}
+		}
+		return map;
+	};
 }

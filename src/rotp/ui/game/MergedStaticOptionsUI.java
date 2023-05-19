@@ -24,11 +24,8 @@ public class MergedStaticOptionsUI extends CompactOptionsUI {
 	public static final String guiTitleID = "SETTINGS_MOD_STATIC_TITLE";
 	public static final String GUI_ID     = "MERGED_STATIC_OPTIONS";
 	
-	public MergedStaticOptionsUI() {
-//		super(guiTitleID, GUI_ID, rotp.model.game.ModOptions.mergedStaticOptionsMap);
-		super(guiTitleID, GUI_ID);
-	}
+	public MergedStaticOptionsUI() { super(guiTitleID, GUI_ID); }
 	@Override protected LinkedList<LinkedList<InterfaceParam>> getList() {
-		return rotp.model.game.RemnantOptions.mergedStaticOptionsMap;
+		return rotp.model.game.ModOptions.mergedStaticOptionsMap;
 	}
 }

@@ -24,11 +24,8 @@ public class MergedDynamicOptionsUI extends CompactOptionsUI {
 	public static final String guiTitleID = "SETTINGS_MOD_DYNAMIC_TITLE";
 	public static final String GUI_ID     = "MERGED_DYNAMIC_OPTIONS";
 	
-	public MergedDynamicOptionsUI() {
-//		super(guiTitleID, GUI_ID, rotp.model.game.ModOptions.mergedDynamicOptionsMap);
-		super(guiTitleID, GUI_ID);
-	}
+	public MergedDynamicOptionsUI() { super(guiTitleID, GUI_ID); }
 	@Override protected LinkedList<LinkedList<InterfaceParam>> getList() {
-		return rotp.model.game.RemnantOptions.mergedDynamicOptionsMap;
+		return rotp.model.game.ModOptions.mergedDynamicOptionsMap;
 	}
 }

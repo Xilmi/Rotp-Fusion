@@ -90,7 +90,6 @@ public final class TechMissileWeapon extends Tech {
     public void init() {
         super.init();
         techType = Tech.MISSILE_WEAPON;
-        int initialDamage = damage;
 
         switch(typeSeq) {
             case 0: // NUCLEAR MISSILE
@@ -231,7 +230,7 @@ public final class TechMissileWeapon extends Tech {
         // The first call will return the default value.
         // A second call will happen when launching the game.
         float missileSizeModifier;
-        if (initialDamage == 0)
+        if (rotp.Rotp.noOptions)
         	missileSizeModifier = GamePlayOptions.missileSizeModifier.get();
         else
         	missileSizeModifier = options().selectedMissileSizeModifier();

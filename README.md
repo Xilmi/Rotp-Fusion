@@ -40,6 +40,7 @@ Later:
   - Speed adjustement.
 - Option to be used to force war declaration upon "Smart Resolve".
   - Check if at war and add a button if not!
+- Governor Auto-invasion ?!
 
 
 ## What's New
@@ -48,6 +49,7 @@ Later:
 - Moved games options from UserPreferences to IGameOptions to be available through options() call.
   - The dynamic options were wrongly located in UserPreferences, a guess had to be done about which option was calling! With a little change in the interface these options can now be called by standard option interface.
   - They are distributed on several files for a better lisibility. (No need to flood IGameOptions)
+- Added "noOptions" in Rotp to validate the end of options initialisation... Early call to options are fatal!
 
 2023.05.16 (BR)
 - Governor panel:Tuned button colors.
