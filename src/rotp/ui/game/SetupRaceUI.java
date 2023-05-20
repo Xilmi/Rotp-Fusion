@@ -15,10 +15,12 @@
  */
 package rotp.ui.game;
 
+import static rotp.model.game.BaseOptions.ALL_GUI_ID;
 import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
-import static rotp.model.game.BaseOptions.*;
-import static rotp.model.game.ModOptions.*;
-
+import static rotp.model.game.ModOptions.optionsRace;
+import static rotp.model.game.ModOptions.playerCustomRace;
+import static rotp.model.game.ModOptions.playerIsCustom;
+import static rotp.model.game.ModOptions.playerShipSet;
 import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
 
 import java.awt.AlphaComposite;
@@ -41,7 +43,6 @@ import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JTextField;
@@ -51,10 +52,8 @@ import rotp.model.ships.ShipImage;
 import rotp.model.ships.ShipLibrary;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
-import rotp.ui.game.BaseModPanel.Box;
 import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.ui.main.SystemPanel;
-import rotp.ui.util.InterfaceParam;
 import rotp.util.ModifierKeysState;
 
 public final class SetupRaceUI extends BaseModPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
@@ -120,7 +119,6 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         initTextField(homeWorld);
         initTextField(leaderName);
         initTextField(shipSetTxt); // BR:
-//		paramList = optionsRace;
     }
 	@Override protected void singleInit() {
 		paramList = optionsRace;
@@ -131,7 +129,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         // homeWorld.setFont(narrowFont(20));
         setHomeWorldFont(); // BR: MonoSpaced font for Galaxy
         shipSetTxt.setFont(narrowFont(20)); // BR:
-        createNewGameOptions(); // Following the UserPreferences.menuStartup
+//        createNewGameOptions(); // TODO BR: REMOVE
         refreshGui();
         // Save initial options
 		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);

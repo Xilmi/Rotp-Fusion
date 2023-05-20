@@ -14,6 +14,7 @@ import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamOptions;
 import rotp.util.FontManager;
 
+// Options saved in Remnants.cfg
 public interface RemnantOptions {
 	ParamFloat   showFleetFactor	= new ParamFloat(
 			MOD_UI, "SHOW_FLEET_FACTOR"
@@ -63,9 +64,9 @@ public interface RemnantOptions {
 			return super.set(newValue);
 		}
 	};
-	ParamOptions menuStartup		= new ParamOptions(MOD_UI, "MENU_STARTUP", ParamOptions.VANILLA);
-	ParamOptions menuAfterGame		= new ParamOptions(MOD_UI, "MENU_AFTER_GAME", ParamOptions.VANILLA);
-	ParamOptions menuLoadGame		= new ParamOptions(MOD_UI, "MENU_LOADING_GAME", ParamOptions.GAME);
+	ParamOptions menuStartup		= new ParamOptions(MOD_UI, "MENU_STARTUP", ParamOptions.LAST);
+//	ParamOptions menuAfterGame		= new ParamOptions(MOD_UI, "MENU_AFTER_GAME", ParamOptions.VANILLA); // TODO BR: REMOVE
+//	ParamOptions menuLoadGame		= new ParamOptions(MOD_UI, "MENU_LOADING_GAME", ParamOptions.GAME);
 	ParamBoolean compactOptionOnly	= new ParamBoolean(MOD_UI, "COMPACT_OPTION_ONLY", false);
 	ParamBoolean showGridCircular	= new ParamBoolean(MOD_UI, "SHOW_GRID_CIRCULAR", false);
 	ParamBoolean useFusionFont		= new ParamBoolean(MOD_UI, "USE_FUSION_FONT", false)
@@ -89,7 +90,8 @@ public interface RemnantOptions {
 	// ==================== GUI List Declarations ====================
 	LinkedList<InterfaceParam> modGlobalOptionsUI = new LinkedList<>(
 			Arrays.asList(
-			menuStartup, menuAfterGame, menuLoadGame, minListSizePopUp, showAlliancesGNN,
+//			menuStartup, menuAfterGame, menuLoadGame, minListSizePopUp, showAlliancesGNN,  // TODO BR: REMOVE
+			menuStartup, minListSizePopUp, showAlliancesGNN,
 			null,
 			showGridCircular, galaxyPreviewColorStarsSize, showLimitedWarnings, techExchangeAutoRefuse,
 			null,

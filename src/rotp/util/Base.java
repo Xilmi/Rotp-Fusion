@@ -114,7 +114,7 @@ public interface Base {
     public default boolean isPlayer(Empire e) { return galaxy().isPlayer(e); }
     public default LabelManager labels()   { return LabelManager.current(); }
     public default IGameOptions newGameOptions() { return RotPUI.newOptions(); }
-    public default void createNewGameOptions()   { RotPUI.createNewOptions(); } // BR: Only called by SetupRaceUI
+//    public default void createNewGameOptions()   { RotPUI.createNewOptions(); } // TODO BR: REMOVE
     public default void clearNewGameOptions()    { RotPUI.clearNewOptions(); }
 
     public default Object sessionVar(String key) {

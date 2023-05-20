@@ -45,8 +45,13 @@ Later:
 
 ## What's New
 
-2023.05.19 (BR)
+2023.05.20 (BR)
 - Fixed Governor panel having wrong parameters when starting a new game.
+- Setup options are now only loaded once at startup...
+  - No more updated when going through the main menu.
+  - The player decide when setup options needs to be reloaded.
+- Loaded games will always load their own options. (no mix with current setup option)
+  - The player decide if when to change some options.
 
 2023.05.19 (BR)
 - Moved games options from UserPreferences to IGameOptions to be available through options() call.

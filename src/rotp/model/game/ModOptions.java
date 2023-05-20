@@ -321,7 +321,8 @@ public interface ModOptions extends FlagOptions, FactoryOptions, GamePlayOptions
 	
 				headerSpacer,
 				new ParamTitle("MENU_OPTIONS"),
-				menuStartup, menuAfterGame, menuLoadGame,
+//				menuStartup, menuAfterGame, menuLoadGame, // TODO BR: REMOVE
+				menuStartup,
 				minListSizePopUp, showGridCircular, galaxyPreviewColorStarsSize,
 				showAllAI, compactOptionOnly
 				)));

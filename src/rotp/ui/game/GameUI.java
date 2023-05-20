@@ -15,9 +15,6 @@
  */
 package rotp.ui.game;
 
-import static rotp.ui.UserPreferences.loadRequest;
-import static rotp.ui.UserPreferences.menuSpecial;
-
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Composite;
@@ -52,7 +49,6 @@ import rotp.ui.BaseText;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.sprites.RoundGradientPaint;
-import rotp.ui.util.ParamOptions;
 import rotp.util.FontManager;
 import rotp.util.ImageManager;
 import rotp.util.LanguageManager;
@@ -425,10 +421,10 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     }
     private void setTextValues() {
         discussText.displayText(text("GAME_DISCUSS_ONLINE"));
-//        continueText.displayText(text("GAME_MENU_CONTINUE"));
-//        newGameText.displayText(text("GAME_MENU_NEW_GAME"));
-//        loadGameText.displayText(text("GAME_MENU_LOAD_GAME"));
-//        saveGameText.displayText(text("GAME_MENU_SAVE_GAME"));
+        continueText.displayText(text("GAME_MENU_CONTINUE"));
+        newGameText.displayText(text("GAME_MENU_NEW_GAME"));
+        loadGameText.displayText(text("GAME_MENU_LOAD_GAME"));
+        saveGameText.displayText(text("GAME_MENU_SAVE_GAME"));
 //        settingsText.displayText(text("GAME_MENU_SETTINGS"));
         manualText.displayText(text("GAME_MENU_OPEN_MANUAL"));
         exitText.displayText(text("GAME_MENU_EXIT"));
@@ -451,17 +447,17 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
 		switch (ModifierKeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT:
-	        continueText.displayText(text("GAME_MENU_LAST_SETTINGS"));
-	        newGameText.displayText(text("GAME_MENU_USER_SETTINGS"));
-	        loadGameText.displayText(text("GAME_MENU_GAME_SETTINGS"));
-	        saveGameText.displayText(text("GAME_MENU_DEFAULT_SETTINGS"));
+//	        continueText.displayText(text("GAME_MENU_LAST_SETTINGS")); // TODO BR: REMOVE
+//	        newGameText.displayText(text("GAME_MENU_USER_SETTINGS"));
+//	        loadGameText.displayText(text("GAME_MENU_GAME_SETTINGS"));
+//	        saveGameText.displayText(text("GAME_MENU_DEFAULT_SETTINGS"));
 	        settingsText.displayText(text("GAME_MENU_GLOBAL_MOD_SETTINGS"));
 	        break;
 		default:
-	        continueText.displayText(text("GAME_MENU_CONTINUE"));
-	        newGameText.displayText(text("GAME_MENU_NEW_GAME"));
-	        loadGameText.displayText(text("GAME_MENU_LOAD_GAME"));
-	        saveGameText.displayText(text("GAME_MENU_SAVE_GAME"));
+//	        continueText.displayText(text("GAME_MENU_CONTINUE")); // TODO BR: REMOVE
+//	        newGameText.displayText(text("GAME_MENU_NEW_GAME"));
+//	        loadGameText.displayText(text("GAME_MENU_LOAD_GAME"));
+//	        saveGameText.displayText(text("GAME_MENU_SAVE_GAME"));
 	        settingsText.displayText(text("GAME_MENU_SETTINGS"));
 		}
 	}
@@ -632,13 +628,17 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         }
         else {
             restartText.reset();
-            continueText.disabled(!canContinue() && !isCtrlDown());
+            continueText.disabled(!canContinue());
+//            continueText.disabled(!canContinue() && !isCtrlDown()); // TODO BR: REMOVE
             continueText.drawCentered(g);
-            newGameText.disabled(!canNewGame() && !isCtrlDown());
+ //           newGameText.disabled(!canNewGame() && !isCtrlDown());  // TODO BR: REMOVE
+            newGameText.disabled(!canNewGame());
             newGameText.drawCentered(g);
-            loadGameText.disabled(!canLoadGame() && !isCtrlDown());
+//            loadGameText.disabled(!canLoadGame() && !isCtrlDown()); // TODO BR: REMOVE
+            loadGameText.disabled(!canLoadGame());
             loadGameText.drawCentered(g);
-            saveGameText.disabled(!canSaveGame() && !isCtrlDown());
+//            saveGameText.disabled(!canSaveGame() && !isCtrlDown()); // TODO BR: REMOVE
+            saveGameText.disabled(!canSaveGame());
             saveGameText.drawCentered(g);
             settingsText.disabled(false);
             settingsText.drawCentered(g);
@@ -789,12 +789,12 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         } catch (IOException e) {}
     }
     public void continueGame() { // BR:
-    	if (isCtrlDown()) {
-            buttonClick();
-    		menuSpecial.set(ParamOptions.LAST);
-    		loadRequest(true); // always after for SetupRaceUI createNewGameOptions() call
-    		return;
-    	}
+//    	if (isCtrlDown()) {  // TODO BR: REMOVE
+//            buttonClick();
+//    		menuSpecial.set(ParamOptions.LAST);
+//    		loadRequest(true); // always after for SetupRaceUI createNewGameOptions() call
+//    		return;
+//    	}
         if (canContinue()) {
             buttonClick();
             if (!session().status().inProgress()) {
@@ -805,38 +805,38 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         }
     }
     public void newGame() { // BR:
-    	if (isCtrlDown()) {
-            buttonClick();
-    		menuSpecial.set(ParamOptions.USER);
-    		loadRequest(true); // always after for SetupRaceUI createNewGameOptions() call
-    		return;
-    	}
+//    	if (isCtrlDown()) { // TODO BR: REMOVE
+//            buttonClick();
+//    		menuSpecial.set(ParamOptions.USER);
+//    		loadRequest(true); // always after for SetupRaceUI createNewGameOptions() call
+//    		return;
+//    	}
         if (canNewGame()) {
             buttonClick();
             RotPUI.instance().selectSetupRacePanel();
         }
     }
     public void loadGame() { // BR:
-    	if (isCtrlDown()) {
-            buttonClick();
-    		menuSpecial.set(ParamOptions.GAME);
-    		loadRequest(true); // always after for SetupRaceUI createNewGameOptions() call
-    		return;
-    	}
+//    	if (isCtrlDown()) {  // TODO BR: REMOVE
+//            buttonClick();
+//    		menuSpecial.set(ParamOptions.GAME);
+//    		loadRequest(true); // always after for SetupRaceUI createNewGameOptions() call
+//    		return;
+//    	}
         if (canLoadGame()) {
             buttonClick();
-            loadRequest(false); // The call was not for SetupRaceUI
-            newGameOptions(); // To create one if none
+//            loadRequest(false); // The call was not for SetupRaceUI
+//            newGameOptions(); // To create one if none
             RotPUI.instance().selectLoadGamePanel();
         }
     }
     public void saveGame() { // BR:
-    	if (isCtrlDown()) {
-            buttonClick();
-    		menuSpecial.set(ParamOptions.DEFAULT);
-    		loadRequest(true); // always after for SetupRaceUI createNewGameOptions() call
-    		return;
-    	}
+//    	if (isCtrlDown()) {
+//            buttonClick();
+//    		menuSpecial.set(ParamOptions.DEFAULT);
+//    		loadRequest(true); // always after for SetupRaceUI createNewGameOptions() call
+//    		return;
+//    	}
         if (canSaveGame()) {
             buttonClick();
             RotPUI.instance().selectSaveGamePanel();

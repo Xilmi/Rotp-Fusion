@@ -88,7 +88,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	public	interface NewOptionsListener { void optionLoaded(); }
 	private	static List<NewOptionsListener> listeners = new ArrayList<NewOptionsListener>();
     public	static void addListener(NewOptionsListener toAdd) { listeners.add(toAdd); }
-    public	static void optionsUpdated() {
+    static void optionsUpdated() {
         for (NewOptionsListener hl : listeners)
             hl.optionLoaded();
     }
@@ -1279,43 +1279,43 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         }
     }
     // ========== All Menu Options ==========
-    static void setBaseAndModSettingsFromOptions(MOO1GameOptions options, MOO1GameOptions source) { // BR:
-    	copyBaseSettings(source, options);
-        setModSettingsFromOptions(source);
-        writeModSettingsToOptions(options);
-    }
+//    static void setBaseAndModSettingsFromOptions(MOO1GameOptions options, MOO1GameOptions source) { // TODO BR: REMOVE
+//    	copyBaseSettings(source, options);
+//        setModSettingsFromOptions(source);
+//        writeModSettingsToOptions(options);
+//    }
     static void setModSettingsFromOptions(MOO1GameOptions source) { // BR:
     	for(InterfaceParam param : allModOptions)
     		if (param != null)
     			param.setFromOptions(source.dynOpts());
         EditCustomRaceUI.instance().updateCRGui(source);
     }
-    private static void writeModSettingsToOptions(MOO1GameOptions destination) { // BR:
-    	for(InterfaceParam option : allModOptions)
-    		if (option != null)
-    			option.setOptions(destination.dynOpts());
-       	EditCustomRaceUI.instance().writeLocalOptions(destination);
-    }
-    private static void copyBaseSettings(MOO1GameOptions src, MOO1GameOptions dest) {
-    	copyBaseRaceSettings(src, dest);
-    	copyBaseGalaxySettings(src, dest);
-    	copyAdvancedOptions(src, dest);
-    }
+//    private static void writeModSettingsToOptions(MOO1GameOptions destination) { // BR:
+//    	for(InterfaceParam option : allModOptions)
+//    		if (option != null)
+//    			option.setOptions(destination.dynOpts());
+//       	EditCustomRaceUI.instance().writeLocalOptions(destination);
+//    }
+//    private static void copyBaseSettings(MOO1GameOptions src, MOO1GameOptions dest) { // TODO BR: REMOVE
+//    	copyBaseRaceSettings(src, dest);
+//    	copyBaseGalaxySettings(src, dest);
+//    	copyAdvancedOptions(src, dest);
+//    }
     private void setBaseSettingsToDefault() {
     	setBaseGalaxySettingsToDefault();
     	setBaseRaceSettingsToDefault();
         setAdvancedOptionsToDefault();
     }
     // ========== Race Menu Options ==========
-    public static void copyBaseAndModRaceSettings(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
-    	copyModRaceSettings(src, dest);
-    	copyBaseRaceSettings(src, dest);
-    }
-    private static void copyModRaceSettings(MOO1GameOptions src, MOO1GameOptions dest) { // BR:
-    	for (InterfaceParam param : optionsRace)
-    		if (param != null)
-    			param.copyOption(src.dynamicOptions, dest.dynamicOptions);;
-    }
+//    public static void copyBaseAndModRaceSettings(MOO1GameOptions src, MOO1GameOptions dest) { // TODO BR: REMOVE
+//    	copyModRaceSettings(src, dest);
+//    	copyBaseRaceSettings(src, dest);
+//    }
+//    private static void copyModRaceSettings(MOO1GameOptions src, MOO1GameOptions dest) { // TODO BR: REMOVE
+//    	for (InterfaceParam param : optionsRace)
+//    		if (param != null)
+//    			param.copyOption(src.dynamicOptions, dest.dynamicOptions);;
+//    }
     private void setBaseRaceSettingsToDefault() { // BR:
     	if (rotp.Rotp.noOptions)
         	selectedPlayerRace(random(IGameOptions.allRaceOptions()));

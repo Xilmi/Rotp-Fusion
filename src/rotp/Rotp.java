@@ -99,7 +99,8 @@ public class Rotp {
         // which loads in sounds, images, etc
         frame.setLayout(new BorderLayout());
         frame.add(RotPUI.instance(), BorderLayout.CENTER);
-        noOptions = false; // BR:  Options are ready to be called
+        noOptions = false; // BR:  Session Options are ready to be called
+        RotPUI.createNewOptions(); // BR: Setup Option are now only set once
         // modnar: change to cleaner icon set
         List<Image> iconImages = new ArrayList<Image>();
         iconImages.add(ImageManager.current().image("ROTP_MOD_ICON3"));

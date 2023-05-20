@@ -16,11 +16,8 @@
 package rotp.model.game;
 
 import static rotp.model.game.BaseOptions.ALL_GUI_ID;
-import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
 import static rotp.model.game.MOO1GameOptions.saveOptionsToFileName;
 import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
-import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
-import static rotp.model.game.RemnantOptions.menuLoadGame;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -32,9 +29,6 @@ import java.io.InputStream;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-//import java.io.FileWriter;
-//import java.io.BufferedWriter;
-//import java.io.PrintWriter;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -864,36 +858,36 @@ public final class GameSession implements Base, Serializable {
         instance = gs;
         // BR: save the last loaded game initial parameters
 		saveOptionsToFileName((MOO1GameOptions) instance.options, GAME_OPTIONS_FILE);
-		UserPreferences.gamePlayed(true);
+//		UserPreferences.gamePlayed(true); // TODO BR: REMOVE
 		// BR: If required, set all game options
         // System.out.println("==================== loadPreviousSession ====================");
-    	if (menuLoadGame.isLast()) {
-    		// System.out.println("Game Loaded Current GUI options");
-    		// Load the options and set the GUI
-    		MOO1GameOptions.setBaseAndModSettingsFromOptions(
-    				(MOO1GameOptions) instance.options,
-    				(MOO1GameOptions) newGameOptions());
-    		//MOO1GameOptions.loadLastOptions((MOO1GameOptions) instance.options);
-    	}
-    	else if (menuLoadGame.isUser()) {
-    		// System.out.println("Game Loaded User.options");
-    		// Load the options and set the GUI
-			loadAndUpdateFromFileName((MOO1GameOptions) instance.options, USER_OPTIONS_FILE, ALL_GUI_ID);
-
-    	}
-    	else if (menuLoadGame.isDefault()) {
-    		// System.out.println("Game Loaded Default options");
-    		// Reset the options and reset the GUI
-    		MOO1GameOptions.setBaseAndModSettingsToDefault((MOO1GameOptions) instance.options, ALL_GUI_ID);
-    	}
-    	else if (menuLoadGame.isGame()) {
-    		// System.out.println("Game Set the GUI with the Game options");
-    		// Set the GUI with the Game options
-    		MOO1GameOptions.setModSettingsFromOptions((MOO1GameOptions) instance.options);
-    	}
+//    	if (menuLoadGame.isLast()) { // TODO BR: REMOVE
+//    		// System.out.println("Game Loaded Current GUI options");
+//    		// Load the options and set the GUI
+//    		MOO1GameOptions.setBaseAndModSettingsFromOptions(
+//    				(MOO1GameOptions) instance.options,
+//    				(MOO1GameOptions) newGameOptions());
+//    		//MOO1GameOptions.loadLastOptions((MOO1GameOptions) instance.options);
+//    	}
+//    	else if (menuLoadGame.isUser()) {
+//    		// System.out.println("Game Loaded User.options");
+//    		// Load the options and set the GUI
+//			loadAndUpdateFromFileName((MOO1GameOptions) instance.options, USER_OPTIONS_FILE, ALL_GUI_ID);
+//
+//    	}
+//    	else if (menuLoadGame.isDefault()) {
+//    		// System.out.println("Game Loaded Default options");
+//    		// Reset the options and reset the GUI
+//    		MOO1GameOptions.setBaseAndModSettingsToDefault((MOO1GameOptions) instance.options, ALL_GUI_ID);
+//    	}
+//    	else if (menuLoadGame.isGame()) {
+//    		// System.out.println("Game Set the GUI with the Game options");
+//    		// Set the GUI with the Game options
+//    		MOO1GameOptions.setModSettingsFromOptions((MOO1GameOptions) instance.options);
+//    	}
     	// else vanilla Nothing special to do
     	// else System.out.println("Old Ways Game Loaded Nothing");
-
+    	MOO1GameOptions.setModSettingsFromOptions((MOO1GameOptions) instance.options);
     	resolveOptionsDiscrepansies(gs);
 
 		if (showInfo)  showInfo(gs.galaxy());

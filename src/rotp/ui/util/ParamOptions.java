@@ -25,11 +25,11 @@ public class ParamOptions extends ParamList {
 	public static final String LAST		= "Last";
 	public static final String USER		= "User";
 	public static final String GAME		= "Game";
-	public static final String VANILLA	= "Vanilla";
+//	public static final String VANILLA	= "Vanilla"; // TODO BR: REMOVE
 	
 	private static final IndexableMap labelsOptions = new IndexableMap();
 	static {
-		labelsOptions.put(VANILLA,	MOD_UI + "OPTIONS_VANILLA");
+//		labelsOptions.put(VANILLA,	MOD_UI + "OPTIONS_VANILLA"); // TODO BR: REMOVE
 		labelsOptions.put(GAME,		MOD_UI + "OPTIONS_GAME");
 		labelsOptions.put(LAST,		MOD_UI + "OPTIONS_LAST");
 		labelsOptions.put(USER,		MOD_UI + "OPTIONS_USER");
@@ -61,7 +61,7 @@ public class ParamOptions extends ParamList {
 	 * @param TechCategory The category index from
 	 */
 	public ParamOptions(String name) {
-		this(MOD_UI, name, VANILLA);
+		this(MOD_UI, name, LAST);
 	}
 	// ===== Specific Public Methods =====
 	//
@@ -69,5 +69,5 @@ public class ParamOptions extends ParamList {
 	public boolean isLast()		{ return get().equalsIgnoreCase(LAST); }
 	public boolean isUser()		{ return get().equalsIgnoreCase(USER); }
 	public boolean isGame()		{ return get().equalsIgnoreCase(GAME); }
-	public boolean isVanilla()	{ return get().equalsIgnoreCase(VANILLA); }
+//	public boolean isVanilla()	{ return get().equalsIgnoreCase(VANILLA); }  // TODO BR: REMOVE
 }

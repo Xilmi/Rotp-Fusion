@@ -379,11 +379,11 @@ GAME_MENU_RESTART                 | Restart
 GAME_VERSION                      | Version: %1
 GAME_SHRINK                       | Shrink -
 GAME_ENLARGE                      | Expand
-GAME_MENU_LAST_SETTINGS           | Load last settings
-GAME_MENU_USER_SETTINGS           | Load user settings
-GAME_MENU_GAME_SETTINGS           | Load last game settings
-GAME_MENU_DEFAULT_SETTINGS        | Restore default settings
-GAME_MENU_GLOBAL_MOD_SETTINGS     | Go To global Mod settings
+// GAME_MENU_LAST_SETTINGS           | Load last settings
+// GAME_MENU_USER_SETTINGS           | Load user settings
+// GAME_MENU_GAME_SETTINGS           | Load last game settings
+// GAME_MENU_DEFAULT_SETTINGS        | Restore default settings
+GAME_MENU_GLOBAL_MOD_SETTINGS     | Mod Settings
 
 // Game Settings UI
 GAME_SETTINGS_TITLE               | Game Settings
@@ -2061,10 +2061,10 @@ SETTINGS_MOD_MAP_FONT_FACTOR_DESC        | To adjust the galaxy map font size. B
 SETTINGS_MOD_MAP_FONT_FACTOR             | Map Font Ratio: %1
 SETTINGS_MOD_MENU_STARTUP_DESC           | How should the GUI be initialized on startup?
 SETTINGS_MOD_MENU_STARTUP                | GUI at Startup: %1
-SETTINGS_MOD_MENU_AFTER_GAME_DESC        | How should the GUI be initialized after a game was played?
-SETTINGS_MOD_MENU_AFTER_GAME             | GUI after Game: %1
-SETTINGS_MOD_MENU_LOADING_GAME_DESC      | What options should be used when loading a game?
-SETTINGS_MOD_MENU_LOADING_GAME           | Loading Game: %1
+// SETTINGS_MOD_MENU_AFTER_GAME_DESC        | How should the GUI be initialized after a game was played?
+// SETTINGS_MOD_MENU_AFTER_GAME             | GUI after Game: %1
+// SETTINGS_MOD_MENU_LOADING_GAME_DESC      | What options should be used when loading a game?
+// SETTINGS_MOD_MENU_LOADING_GAME           | Loading Game: %1
 SETTINGS_MOD_COMPACT_OPTION_ONLY_HELP    | To switch between Classic option menus (six menus) and Compact option menus (2 menus). Both provide a distinction between:<br><b>Static Options:</b>&nbsp which are only read once, when a game starts (or restarts).<br><b>Dynamic Options:</b>&nbsp which can be changed while playing a game. (Ctrl-o) to call the option menu.
 SETTINGS_MOD_COMPACT_OPTION_ONLY_DESC    | Show multiple Options Menus at standard size, or only one compacted options menu?
 SETTINGS_MOD_COMPACT_OPTION_ONLY         | Show Compact Options: %1
@@ -2074,12 +2074,12 @@ SETTINGS_MOD_OPTIONS_DEFAULT             | Default Settings
 SETTINGS_MOD_OPTIONS_LAST                | Last GUI Settings
 SETTINGS_MOD_OPTIONS_GAME                | Game Settings
 SETTINGS_MOD_OPTIONS_USER                | User's Settings
-SETTINGS_MOD_OPTIONS_VANILLA             | Old Way
+// SETTINGS_MOD_OPTIONS_VANILLA             | Old Way
 SETTINGS_MOD_OPTIONS_DEFAULT_HELP        | The options will reset to their default values.
 SETTINGS_MOD_OPTIONS_LAST_HELP           | The options will be set to the same state as the last time you left ROTP.
 SETTINGS_MOD_OPTIONS_GAME_HELP           | The options will be set to the same state as the last played game.
 SETTINGS_MOD_OPTIONS_USER_HELP           | The options will be set as stored in the User's preferred settings.
-SETTINGS_MOD_OPTIONS_VANILLA_HELP        | The options will be set as if it was no mods... a mixt of default, last state and last played game...
+// SETTINGS_MOD_OPTIONS_VANILLA_HELP        | The options will be set as if it was no mods... a mixt of default, last state and last played game...
 
 SETTINGS_MOD_SHOW_ALL_AI_DESC            | AI:Base, AI:Modnar, and AI:Rookies are quite similar. AI:Rookie is based on the other two, with some important bug fixed. You may want to hide unfixed AI.
 SETTINGS_MOD_SHOW_ALL_AI                 | Show all AIs: %1

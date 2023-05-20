@@ -207,10 +207,7 @@ public class GovernorOptions implements Serializable {
 	private transient boolean localSave = false;
 
 	// ========== Constructor And Initializers ==========
-    public GovernorOptions() { 
-    	System.out.println("GovernorOptions(): governorOnByDefault = " + governorOnByDefault);
-    	
-    }
+    public GovernorOptions() {  }
     public void gameLoaded() {
     	System.out.println("gameLoaded(): autoShipsByDefault = " + autoShipsByDefault);
     	System.out.println("gameLoaded(): governorOnByDefault = " + governorOnByDefault);

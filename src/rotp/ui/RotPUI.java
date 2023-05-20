@@ -349,16 +349,16 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
 //		System.out.println("UserPreferences.menuSpecial.get() = " + UserPreferences.menuSpecial.get());
 
      	// Creation depend on state
-    	if (UserPreferences.gamePlayed())
-        	action = rotp.model.game.RemnantOptions.menuAfterGame;
-        else
+//    	if (UserPreferences.gamePlayed())
+//        	action = rotp.model.game.RemnantOptions.menuAfterGame; // TODO BR: REMOVE
+//        else
         	action = rotp.model.game.RemnantOptions.menuStartup;
 
     	// Check for special request
-    	if (UserPreferences.loadRequest()) {
-        	action = UserPreferences.menuSpecial;
-        	UserPreferences.loadRequest(false);
-        }
+//    	if (UserPreferences.loadRequest()) { // TODO BR: REMOVE
+//        	action = UserPreferences.menuSpecial;
+//        	UserPreferences.loadRequest(false);
+//        }
 		// System.out.println("action.get() = " + action.get());
    	
     	if (action.isLast()) {

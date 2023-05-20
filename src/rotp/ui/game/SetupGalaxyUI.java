@@ -2083,7 +2083,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	// BR: For restarting with new options
 	private void restartGame() { 
 		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
-		UserPreferences.gamePlayed(true);		
+//		UserPreferences.gamePlayed(true);	 // TODO BR: REMOVE
 		starting = true;
 		buttonClick();
 		repaint();
@@ -2096,7 +2096,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	}
 	private void startGame() {
 		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
-		UserPreferences.gamePlayed(true);
+//		UserPreferences.gamePlayed(true); // TODO BR: REMOVE
 		starting = true;
 		repaint();
 		buttonClick();
