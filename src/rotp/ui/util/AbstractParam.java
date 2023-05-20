@@ -25,7 +25,6 @@ import java.awt.event.MouseWheelEvent;
 
 import javax.swing.SwingUtilities;
 
-import rotp.model.game.DynOptions;
 import rotp.model.game.DynamicOptions;
 import rotp.ui.game.BaseModPanel;
 
@@ -43,6 +42,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	private T ctrlInc		= null;
 	private T shiftCtrlInc	= null;
 	private boolean isDuplicate	= false;
+//	private DynamicOptions dynOpts;  // TODO BR: Update options
 
 	// ========== constructors ==========
 	//
@@ -91,7 +91,11 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	}
 	// ===== For duplicates to be overridden =====
 	//public void reInit() {}
-	public void setOption(T option) {}
+	public void setOption(T option) {
+//		if (dynOpts != null) { // TODO BR: Update options
+//			 setOptions(dynOpts);
+//		}
+	}
 	public T getFromOption() { return null; }
 
 	// ========== Public Interfaces ==========
@@ -106,10 +110,12 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 		return getCfgLabel() + " = " + getCfgValue();
 	}
 	@Override public void setFromOptions(DynamicOptions options) {
+//		dynOpts = options;  // TODO BR: Update options
 		if (!isDuplicate() && options != null)
 			setFromCfgValue(options.getString(getLangLabel(), getCfgValue(creationValue())));
 	}
 	@Override public void setOptions(DynamicOptions options) {
+//		dynOpts = options;  // TODO BR: Update options
 		if (!isDuplicate() && options != null)
 			options.setString(getLangLabel(), getCfgValue());
 	}
@@ -165,13 +171,14 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	}	
 	public T setFromIndex(int i)		{ return null; }
 	public String getCfgValue(T value)	{ return String.valueOf(value); }
-	public T selected(DynOptions dyn)	{
-		setFromOptions(dyn);
+	public T selected(DynamicOptions dyn)	{
+//		setFromOptions(dyn); // TODO BR: Update options
 		return get();
 	}
-	public void selected(DynOptions Options, T value)	{
+	public void selected(DynamicOptions dyn, T value)	{
+//		dynOpts = dyn; // TODO BR: Update options
 		value(value);
-		setOptions(Options);
+//		setOptions(dyn);
 	}
 	// ========== Public Getters ==========
 	//

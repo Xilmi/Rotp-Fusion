@@ -332,7 +332,10 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         return newGameOptions;
     }
     // BR: Added initialization choice
-    public static void createNewOptions() { newGameOptions = createStartupOptions(); }
+    public static void createNewOptions() {
+    	newGameOptions = createStartupOptions();
+    	newGameOptions.id(1);
+    }
     // BR: Added for initialization choice
     public static MOO1GameOptions createStartupOptions() { // BR:
     	MOO1GameOptions newOptions;

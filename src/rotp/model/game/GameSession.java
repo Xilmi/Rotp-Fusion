@@ -180,7 +180,7 @@ public final class GameSession implements Base, Serializable {
     public boolean performingTurn()      { return performingTurn; }
     @Override
     public IGameOptions options()        { return options; }
-    public void options(IGameOptions o)  { options = o; }
+    public void options(IGameOptions o)  { options = o; o.id(0); }
     @Override
     public Galaxy galaxy()               { return galaxy; }
     public void galaxy(Galaxy g)         { galaxy = g; }

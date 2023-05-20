@@ -53,6 +53,8 @@ Later:
 - Fixed Missiles not reaching planet.
   - It was a bug that has probably always been there! The distance to unlock the fire button was calculated according to ship movement rules (Diagonal movement = 1). But missiles follow another rule! (Diagonal movement = sqrt(2)). When ships are on the side of the screen, their distance to the planet is 6, but for missiles, this distance is ~7.2. Since the merculite missile range is 6 (+0.7 attack range)... You were allowed to fire, but the missiles run out of fuel before reaching the target and are destroyed!
   - The fix only unlocks the button when the missiles are really in range.
+- Commented the main options' change to allow a release of the fix.
+  - The options are managed like before, but through the options() call.
 
 2023.05.16 (BR)
 - Governor panel:Tuned button colors.

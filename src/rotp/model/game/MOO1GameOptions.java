@@ -140,6 +140,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private DynOptions dynamicOptions = new DynOptions();
 
     private transient GalaxyShape galaxyShape;
+    private transient int id;
 
     public MOO1GameOptions() {
         init();
@@ -153,6 +154,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 		if (dynamicOptions == null)
 			dynamicOptions = new DynOptions();
 		return dynamicOptions;	}
+    @Override public int id()                    { return id; }
+    @Override public void id(int id)             { this.id = id; }
     @Override
     public int numPlayers()                      { return 1; }
     @Override
