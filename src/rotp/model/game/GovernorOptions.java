@@ -207,8 +207,13 @@ public class GovernorOptions implements Serializable {
 	private transient boolean localSave = false;
 
 	// ========== Constructor And Initializers ==========
-    public GovernorOptions() {  }
+    public GovernorOptions() { 
+    	System.out.println("GovernorOptions(): governorOnByDefault = " + governorOnByDefault);
+    	
+    }
     public void gameLoaded() {
+    	System.out.println("gameLoaded(): autoShipsByDefault = " + autoShipsByDefault);
+    	System.out.println("gameLoaded(): governorOnByDefault = " + governorOnByDefault);
     	if (autoShipsByDefault) {
     		autoTransport.set(autotransport);
     		autotransportAtMax.set(autotransportXilmi);
@@ -236,6 +241,7 @@ public class GovernorOptions implements Serializable {
     		save();
     	}
     	autoShipsByDefault = false;
+    	System.out.println("gameLoaded(): governorOnByDefault = " + governorOnByDefault);
         // Converted use of autoShipsByDefault: true = not yet transfered.
         // The autoShipsByDefault original function will be implemented using the new parameters
         // if true, new colonies will have auto ship building set to "on"

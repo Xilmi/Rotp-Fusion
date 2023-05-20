@@ -46,6 +46,9 @@ Later:
 ## What's New
 
 2023.05.19 (BR)
+- Fixed Governor panel having wrong parameters when starting a new game.
+
+2023.05.19 (BR)
 - Moved games options from UserPreferences to IGameOptions to be available through options() call.
   - The dynamic options were wrongly located in UserPreferences, a guess had to be done about which option was calling! With a little change in the interface these options can now be called by standard option interface.
   - They are distributed on several files for a better lisibility. (No need to flood IGameOptions)

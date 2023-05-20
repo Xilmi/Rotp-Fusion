@@ -277,7 +277,6 @@ public final class GameSession implements Base, Serializable {
             saveRecentSession(false);
             saveBackupSession(1);
             clearNewGameOptions();
-            instance.governorOptions.gameLoaded();
             MOO1GameOptions.optionsUpdated();
         }
     }
@@ -301,7 +300,6 @@ public final class GameSession implements Base, Serializable {
             saveRecentSession(false);
             saveBackupSession(1);
             clearNewGameOptions();
-            instance.governorOptions.gameLoaded();
             MOO1GameOptions.optionsUpdated();
         }
     }
