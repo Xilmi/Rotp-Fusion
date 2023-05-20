@@ -49,6 +49,8 @@ New Fixes:
 - Fixed base setting auto colonize and auto bombard not being saved.
 - Governor panel: Fixed ugly html text on Mac.
 - If no flags, only show one black flag.
-
+- Fixed Missiles not reaching planet.
+  - It was a bug that has probably always been there! The distance to unlock the fire button was calculated according to ship movement rules (Diagonal movement = 1). But missiles follow another rule! (Diagonal movement = sqrt(2)). When ships are on the side of the screen, their distance to the planet is 6, but for missiles, this distance is ~7.2. Since the merculite missile range is 6 (+0.7 attack range)... You were allowed to fire, but the missiles run out of fuel before reaching the target and are destroyed!
+  - The fix only unlocks the button when the missiles are really in range.
 
 

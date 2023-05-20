@@ -86,7 +86,8 @@ public interface FlagOptions extends BaseOptions {
 	ParamFlagColor flagTechNoneColor 	= new ParamFlagColor("AUTO_FLAG_TECH_NONE",		FLAG_COLOR_PINK);
 
 	ParamInteger flagColorCount = new ParamInteger(MOD_UI, "FLAG_COLOR_COUNT", 1, 1, 4);
-	default int	 selectedFlagColorCount() { return flagColorCount.selected(dynOpts()); }
+//	default int	 selectedFlagColorCount() { return flagColorCount.selected(dynOpts()); }
+	default int	 selectedFlagColorCount() { return flagColorCount.get(); } // TODO BR get from options
 
 	LinkedList<LinkedList<InterfaceParam>> autoFlagOptionsMap = 
 			new LinkedList<LinkedList<InterfaceParam>>() { {

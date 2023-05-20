@@ -600,7 +600,11 @@ public class CombatStackShip extends CombatStack {
     @Override
     public boolean shipComponentInRange(int index, CombatStack target) {
         ShipComponent shipWeapon = weapons.get(index);
-        int minMove = movePointsTo(target);
+        int minMove;
+        if (shipWeapon.isMissileWeapon())
+        	minMove = missileMovePointsTo(target); // BR: Missiles move differently
+        else
+        	minMove = movePointsTo(target);
         if (weaponRange(shipWeapon) < minMove)
             return false;
         return true;

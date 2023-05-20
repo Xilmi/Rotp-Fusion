@@ -50,6 +50,9 @@ Later:
   - The dynamic options were wrongly located in UserPreferences, a guess had to be done about which option was calling! With a little change in the interface these options can now be called by standard option interface.
   - They are distributed on several files for a better lisibility. (No need to flood IGameOptions)
 - Added "noOptions" in Rotp to validate the end of options initialisation... Early call to options are fatal!
+- Fixed Missiles not reaching planet.
+  - It was a bug that has probably always been there! The distance to unlock the fire button was calculated according to ship movement rules (Diagonal movement = 1). But missiles follow another rule! (Diagonal movement = sqrt(2)). When ships are on the side of the screen, their distance to the planet is 6, but for missiles, this distance is ~7.2. Since the merculite missile range is 6 (+0.7 attack range)... You were allowed to fire, but the missiles run out of fuel before reaching the target and are destroyed!
+  - The fix only unlocks the button when the missiles are really in range.
 
 2023.05.16 (BR)
 - Governor panel:Tuned button colors.

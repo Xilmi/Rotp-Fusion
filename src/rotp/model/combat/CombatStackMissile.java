@@ -24,6 +24,7 @@ import rotp.util.Base;
 
 public class CombatStackMissile extends CombatStack implements Base {
     public static int MAX_TURNS = 10;
+    public static final float MIN_ATTACK_DIST = 0.7f;
     public CombatStack owner;
     public ShipWeaponMissileType missile;
     public int turnsLeft = 0;
@@ -105,7 +106,7 @@ public class CombatStackMissile extends CombatStack implements Base {
     }
     @Override
     public boolean canAttack(CombatStack target) {
-        return (distanceTo(target.x(),target.y()) < .7);
+        return (distanceTo(target.x(),target.y()) < MIN_ATTACK_DIST);
     }
     @Override
     public void fireWeapon(CombatStack target) {
@@ -121,7 +122,6 @@ public class CombatStackMissile extends CombatStack implements Base {
         
         float targetDist = distanceTo(target.x(), target.y());
         float moveDist = min(move, moveRate * tgtMoveDist);
-
         float stepPct = min(1,moveDist/targetDist);
 
         float stepX = stepPct * (target.x()-x());

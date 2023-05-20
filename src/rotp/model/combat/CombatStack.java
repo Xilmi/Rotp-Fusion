@@ -255,11 +255,16 @@ public class CombatStack implements Base {
         for (CombatStackMissile miss : missiles)
             miss.endTurn();
     }
+    public int missileMovePointsTo(CombatStack target) { // BR: Missiles move differently
+    	float dist = distanceTo(target.x, target.y);
+        return (int) Math.ceil(dist-CombatStackMissile.MIN_ATTACK_DIST);
+    }
     public int movePointsTo(CombatStack target) {
         int distX = Math.abs(x - target.x);
         int distY = Math.abs(y - target.y);
         return max(distX, distY);
     }
+
     public int movePointsTo(int x1, int y1) {
         int distX = Math.abs(x - x1);
         int distY = Math.abs(y - y1);
