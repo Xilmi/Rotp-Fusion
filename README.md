@@ -53,6 +53,7 @@ Later:
 - Loaded games will always load their own options. (no mix with current setup option)
   - The player decide if when to change some options.
 - Removed "static" from MOO1GameOptions method that should be called through "options()".
+- GUI are initialized with the option they have to works with.
 
 2023.05.19 (BR)
 - Moved games options from UserPreferences to IGameOptions to be available through options() call.

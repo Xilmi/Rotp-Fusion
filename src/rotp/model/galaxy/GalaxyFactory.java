@@ -90,7 +90,7 @@ public class GalaxyFactory implements Base {
 		addAlienRaceSystemsForGalaxy(g, 1, null, src, alienRaces);
 		addUnsettledSystemsForGalaxy(g, gc);		
 		init(g, System.currentTimeMillis());
-		opts.updateOptionsAndSaveToFileName((MOO1GameOptions)opts, GAME_OPTIONS_FILE);
+		opts.updateOptionsAndSaveToFileName(GAME_OPTIONS_FILE);
 		//saveOptionsToFileName((MOO1GameOptions)opts, GAME_OPTIONS_FILE);
 		return g;
 	}
@@ -147,7 +147,7 @@ public class GalaxyFactory implements Base {
 		log(str(g.numStarSystems()) ," Systems, ",str(Planet.COUNT)," Planets: "+(tm2-tm1)+"ms");
 		init(g, tm2);
 		// saveOptionsToFileName((MOO1GameOptions)opts, GAME_OPTIONS_FILE);
-		opts.updateOptionsAndSaveToFileName((MOO1GameOptions)opts, GAME_OPTIONS_FILE);
+		opts.updateOptionsAndSaveToFileName(GAME_OPTIONS_FILE);
 		return g;
 	}
 	private void showAI(Galaxy g) {
@@ -568,10 +568,10 @@ public class GalaxyFactory implements Base {
 						dataRace = Race.keyed(RANDOM_RACE_KEY);
 						break;
 					case RANDOM_BASE: // Choose randomly in the base list
-						dataRace = Race.keyed(random(IGameOptions.baseRaceOptions()));
+						dataRace = Race.keyed(random(opts.baseRaceOptions()));
 						break;
 					case RANDOM_MOD: // Choose randomly including the Modnar Races
-						dataRace = Race.keyed(random(IGameOptions.allRaceOptions()));
+						dataRace = Race.keyed(random(opts.allRaceOptions()));
 						break;
 					case FILES_FLT:
 						if (allowedRaceList.isEmpty())
@@ -588,11 +588,11 @@ public class GalaxyFactory implements Base {
 					case FILES_RACES:
 						if (random.nextBoolean())
 							if (allowedRaceList.isEmpty())
-								dataRace = Race.keyed(random(IGameOptions.allRaceOptions()));
+								dataRace = Race.keyed(random(opts.allRaceOptions()));
 							else
 								dataRace = fileToAlienRace(random(allowedRaceList));
 						else
-							dataRace = Race.keyed(random(IGameOptions.allRaceOptions()));
+							dataRace = Race.keyed(random(opts.allRaceOptions()));
 						break;
 					case ALL:
 						if (random.nextBoolean())
@@ -604,14 +604,14 @@ public class GalaxyFactory implements Base {
 							else
 								dataRace = optionToAlienRace(g.empire(0).raceOptions());
 						else if (random.nextBoolean())
-							dataRace = Race.keyed(random(IGameOptions.allRaceOptions()));
+							dataRace = Race.keyed(random(opts.allRaceOptions()));
 						else
 							dataRace = Race.keyed(RANDOM_RACE_KEY);
 						break;
 					case BASE_RACE: // default as vanilla
 					default:
 						if (options().randomizeAIAbility()) // original Advanced Option random abilities
-							dataRace = Race.keyed(random(IGameOptions.baseRaceOptions()));
+							dataRace = Race.keyed(random(opts.baseRaceOptions()));
 						dataRace = Race.keyed(raceKey);
 						break;
 				}
@@ -839,7 +839,7 @@ public class GalaxyFactory implements Base {
 						oldOptions.selectedLeaderName	(empires(0).leaderName);
 				}
 				if (opts.selectedRestartChangesAliensAI()) {
-					copyAliensAISettings((MOO1GameOptions) newOptions, (MOO1GameOptions) oldOptions);
+					copyAliensAISettings(newOptions, oldOptions);
 				} 
 				if (opts.selectedRestartChangesPlayerAI()) {
 					oldOptions.selectedAutoplayOption(newOptions.selectedAutoplayOption());

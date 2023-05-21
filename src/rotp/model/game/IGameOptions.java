@@ -342,6 +342,7 @@ public interface IGameOptions extends ModOptions {
     public Planet orionPlanet(StarSystem s);
     public void randomizeColors();
     public GalaxyShape galaxyShape();
+    public void setAndGenerateGalaxy();
 
     public int numColors();
     public Color color(int i);
@@ -810,12 +811,12 @@ public interface IGameOptions extends ModOptions {
     }
     public static List<String> getNewRacesOnOffList() {
 		if (showNewRaces.get()) {
-			return allRaceOptions();
+			return getAllRaceOptions();
 		}
-		return baseRaceOptions();
+		return getBaseRaceOptions();
     }
     // BR: Made static method option
-    public static LinkedList<String> baseRaceOptions() {
+    static LinkedList<String> getBaseRaceOptions() {
     	LinkedList<String> list = new LinkedList<>();
         list.add("RACE_HUMAN");
         list.add("RACE_ALKARI");
@@ -829,8 +830,9 @@ public interface IGameOptions extends ModOptions {
         list.add("RACE_BULRATHI");
         return list;
     }
-    public static LinkedList<String> allRaceOptions() {
-    	LinkedList<String> list = baseRaceOptions();
+    default LinkedList<String> baseRaceOptions() { return getBaseRaceOptions(); } 
+    static LinkedList<String> getAllRaceOptions() {
+    	LinkedList<String> list = getBaseRaceOptions();
         list.add("RACE_NEOHUMAN");   // modnar: add races
 		list.add("RACE_MONOCLE");    // modnar: add races
 		list.add("RACE_JACKTRADES"); // modnar: add races
@@ -839,4 +841,5 @@ public interface IGameOptions extends ModOptions {
         list.add("RACE_GEARHEAD");   // modnar: add races
         return list;
     }
+    default LinkedList<String> allRaceOptions() { return getAllRaceOptions(); } 
 }

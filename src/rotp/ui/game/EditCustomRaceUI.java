@@ -34,7 +34,6 @@ import rotp.model.empires.CustomRaceDefinitions;
 import rotp.model.empires.CustomRaceDefinitions.RaceList;
 import rotp.model.game.DynOptions;
 import rotp.model.game.IGameOptions;
-import rotp.model.game.MOO1GameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.util.InterfaceOptions;
@@ -98,7 +97,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	    mouseList.addAll(commonList);
 	    mouseList.add(raceList);
 	    
-	    cr.setRace(IGameOptions.baseRaceOptions().getFirst());
+	    cr.setRace(guiOptions().baseRaceOptions().getFirst());
 		return this;
 	}
 	private void reloadRaceList() {
@@ -111,7 +110,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			raceList.optionText(optionBT(), bulletIdx);
 			raceList.optionText(bulletIdx).disabled(optionIdx == paramIdx);
 		}
-		init();
+		init(guiOptions());
 	}
 	// ========== Other Methods ==========
 	//
@@ -142,19 +141,18 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		buttonClick();
 		playerCustomRace.set(cr.getAsOptions());
 		playerIsCustom.set(true);
-//		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
-		options().updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE);
+		guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
 		close();
 	}
-	public void updateCRGui(MOO1GameOptions source) {
+	public void updateCRGui(IGameOptions source) {
         for (InterfaceOptions param : commonList)
 			param.setFromOptions(source.dynOpts());
         playerIsCustom.setFromOptions(source.dynOpts());
 		playerCustomRace.setFromOptions(source.dynOpts());
 		writeLocalOptions(guiOptions());
-		init();
+		init(guiOptions());
 	}
-	public void writeLocalOptions(MOO1GameOptions destination) {
+	public void writeLocalOptions(IGameOptions destination) {
 		for (InterfaceOptions param : commonList)
 			param.setOptions(destination.dynOpts());
 		playerIsCustom.setOptions(destination.dynOpts());
@@ -164,7 +162,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		for (InterfaceOptions param : commonList)
 			param.setFromDefault();
 		writeLocalOptions(guiOptions());
-		init(); // Validate Init
+		init(guiOptions()); // Validate Init
 	}
 	private void randomizeRace() {
 		cr.randomizeRace(true);
@@ -236,6 +234,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	}
 	// ========== Overriders ==========
 	//
+//	@Override protected IGameOptions guiOptions() { return newGameOptions(); }
 	@Override protected void refreshGui() {
 		System.out.println("===== refreshGui()");
 		System.out.println("playerCustomRace: Race Name = " +
@@ -248,33 +247,29 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		buttonClick();
 		switch (ModifierKeysState.get()) {
 		case CTRL: // restoreGlobalKey
-//			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);		
-			options().loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE);		
+			guiOptions().loadAndUpdateFromFileName(LIVE_OPTIONS_FILE);		
 			break;
 		case CTRL_SHIFT: // restoreLocalKey
-//			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, GUI_ID());		
-			options().loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, localOptions());		
+			guiOptions().loadAndUpdateFromFileName(LIVE_OPTIONS_FILE, localOptions());		
 			break;
 		case SHIFT: // setLocalDefaultKey
 			setToLocalDefault();
 			break; 
 		default: // setGlobalDefaultKey
-//			setBaseAndModSettingsToDefault(guiOptions(), ALL_GUI_ID);
-			options().setBaseAndModSettingsToDefault(guiOptions());
+			guiOptions().setBaseAndModSettingsToDefault();
 			setToLocalDefault();
 			break; 
 		}
 		refreshGui();
 	}
-	@Override public void open(BasePanel p) {
+	@Override public void open(BasePanel p, IGameOptions guiOptions) {
 		enableGlassPane(this);
 		ModifierKeysState.reset();
 		parent = p;
 
 		cr.fromOptions((DynOptions) playerCustomRace.get());
-//		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
-		options().updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE);
-		init();
+		guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
+		init(guiOptions);
 		reloadRaceList();
 		repaint();
 	}

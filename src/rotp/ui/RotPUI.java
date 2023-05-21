@@ -178,11 +178,11 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     private static boolean guiCallFromGame = false;
     public static boolean guiCallFromGame() { return guiCallFromGame;}
     public static void guiCallFromGame(boolean callFromGame) { guiCallFromGame = callFromGame;} 
-    public static MOO1GameOptions mergedGuiOptions()  {
+    public static IGameOptions mergedGuiOptions()  {
 		if (guiCallFromGame())
-			return (MOO1GameOptions) GameSession.instance().options();
+			return GameSession.instance().options();
 		else
-			return (MOO1GameOptions) newOptions();
+			return newOptions();
 	}
     public static void fps(int fps) {
         // bound arg between 10 & 60
@@ -337,7 +337,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     // BR: Added for initialization choice
     public static MOO1GameOptions createStartupOptions() { // BR:
     	MOO1GameOptions newOptions;
-        System.out.println("==================== createNewOptions() ====================");
+//        System.out.println("==================== createNewOptions() ====================");
 //		System.out.println("UserPreferences.gamePlayed() = " + UserPreferences.gamePlayed());
 //		System.out.println("UserPreferences.loadRequest() = " + UserPreferences.loadRequest());
 //		System.out.println("UserPreferences.menuLoadGame.get() = " + UserPreferences.menuLoadGame.get());
@@ -350,25 +350,25 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     	if (action.isUser()) {
     		// System.out.println("GUI Loaded User.options");
        		newOptions = new MOO1GameOptions();
-       		newOptions.loadAndUpdateFromFileName(newOptions, USER_OPTIONS_FILE);
+       		newOptions.loadAndUpdateFromFileName(USER_OPTIONS_FILE);
     		return newOptions;
     	}
     	if (action.isGame()) {
     		// System.out.println("GUI Loaded Game.options");
        		newOptions = new MOO1GameOptions();
-       		newOptions.loadAndUpdateFromFileName(newOptions, GAME_OPTIONS_FILE);
+       		newOptions.loadAndUpdateFromFileName(GAME_OPTIONS_FILE);
     		return newOptions;
     	}
     	if (action.isDefault()) {
     		// System.out.println("GUI Loaded Default options");
     		newOptions = new MOO1GameOptions();
-    		newOptions.setBaseAndModSettingsToDefault(newOptions);
+    		newOptions.setBaseAndModSettingsToDefault();
     		return newOptions;
     	}
     	// else default = action.isLast()
 		// System.out.println("GUI Loaded Last.options");
    		newOptions = new MOO1GameOptions();
-   		newOptions.loadAndUpdateFromFileName(newOptions, LAST_OPTIONS_FILE);
+   		newOptions.loadAndUpdateFromFileName(LAST_OPTIONS_FILE);
 		return newOptions;
     }
     public static void clearNewOptions() { newGameOptions = null; }
@@ -414,17 +414,19 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     public void selectCurrentPanel() { selectPanel(currentPane, selectedPanel); }
 
     // PLAYER-TRIGGERED ACTIONS
-//    /**
-//     * Load Profiles with option "Surprise" and start Game
-//     */
-//    public void surpriseStart()  { setupGalaxyUI.surpriseStart(); } // BR:
     // To avoid reset options while returning to Race panel
-    public void returnToSetupRacePanel() {  // BR:
-    	setupRaceUI.smallInit();
+    public void returnToSetupRacePanel() { // TODO BR: REMOVE Later
+    	setupRaceUI.smallInit(newGameOptions());
     	selectPanel(SETUP_RACE_PANEL, setupRaceUI);
     }
-    public void selectSetupRacePanel()	 { setupRaceUI.init(); selectPanel(SETUP_RACE_PANEL, setupRaceUI);  }
-    public void selectSetupGalaxyPanel() { setupGalaxyUI.init(); selectPanel(SETUP_GALAXY_PANEL, setupGalaxyUI);  }
+    public void selectSetupRacePanel()	 {
+    	setupRaceUI.init(newGameOptions());
+    	selectPanel(SETUP_RACE_PANEL, setupRaceUI); 
+    }
+    public void selectSetupGalaxyPanel() {
+    	setupGalaxyUI.init(newGameOptions());
+    	selectPanel(SETUP_GALAXY_PANEL, setupGalaxyUI);
+    }
     public void selectLoadGamePanel() { loadGameUI.init(); selectPanel(LOAD_PANEL, loadGameUI); }
     // BR: for restarting with new options
     public void selectRestartGamePanel(GalaxyCopy oldGalaxy) {

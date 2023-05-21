@@ -165,7 +165,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		@Override public String	guideValue()	{ return langLabel(get()); }
 	};
 	private final ParamList specificOpponent	= new ParamList( // For Guide
-			BASE_UI, "SPECIFIC_OPPONENT", IGameOptions.allRaceOptions(), opponentRandom) {
+			BASE_UI, "SPECIFIC_OPPONENT", IGameOptions.getAllRaceOptions(), opponentRandom) {
 		@Override public String	get()	{
 			String val = newGameOptions().selectedOpponentRace(mouseBoxIndex());
 			if (val == null)
@@ -348,6 +348,34 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		addMouseMotionListener(this);
 		addMouseWheelListener(this);
 	}
+    private void initOpponentGuide() {
+		opponentRandom = text(OPPONENT_RANDOM);
+		LinkedList<String> list = new LinkedList<>();
+		list.addAll(IGameOptions.getNewRacesOnOffList());
+		list.add(opponentRandom); // For Random (???)
+		specificOpponent.reInit(list);
+		specificOpponent.defaultValue(opponentRandom);
+	}
+	private void initAIandAbilitiesList() {
+		initOpponentGuide();
+		// specific Abilities
+		specificAbilitiesList.clear();
+		specificAbilitiesList.addAll(SpecificCROption.options());
+		specificAbilitiesList.removeLast(); // The blank one (USER_CHOICE)
+		specificAbilitiesList.addAll(getAllowedAlienRaces());
+		specificAbilitiesList.addAll(getBaseRaceList());
+		specificAbilities.reInit(specificAbilitiesList);
+		specificAbilitiesArray = specificAbilitiesList.toArray(new String[specificAbilitiesList.size()]);
+		// global Abilities
+		globalAbilitiesList.clear();
+		globalAbilitiesList.addAll(globalCROptions.getBaseOptions());
+		globalAbilitiesList.addAll(getAllowedAlienRaces());
+		globalAbilitiesList.addAll(getBaseRaceList());
+		globalAbilities.reInit(globalAbilitiesList);
+		globalAbilitiesArray = globalAbilitiesList.toArray(new String[globalAbilitiesList.size()]);
+	}
+
+
 	@Override protected void singleInit() {
 		startBox			= new Box(startButtonHelp);
 		showAbilitiesBox	= new Box(useSelectableAbilities);
@@ -378,39 +406,13 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		duplicateList.add(shapeOption2);
 		duplicateList.add(aliensNumber);
 	}
-
-    private void initOpponentGuide() {
-		opponentRandom = text(OPPONENT_RANDOM);
-		LinkedList<String> list = new LinkedList<>();
-		list.addAll(IGameOptions.getNewRacesOnOffList());
-		list.add(opponentRandom); // For Random (???)
-		specificOpponent.reInit(list);
-		specificOpponent.defaultValue(opponentRandom);
-	}
-	private void initAIandAbilitiesList() {
-		initOpponentGuide();
-		// specific Abilities
-		specificAbilitiesList.clear();
-		specificAbilitiesList.addAll(SpecificCROption.options());
-		specificAbilitiesList.removeLast(); // The blank one (USER_CHOICE)
-		specificAbilitiesList.addAll(getAllowedAlienRaces());
-		specificAbilitiesList.addAll(getBaseRaceList());
-		specificAbilities.reInit(specificAbilitiesList);
-		specificAbilitiesArray = specificAbilitiesList.toArray(new String[specificAbilitiesList.size()]);
-		// global Abilities
-		globalAbilitiesList.clear();
-		globalAbilitiesList.addAll(globalCROptions.getBaseOptions());
-		globalAbilitiesList.addAll(getAllowedAlienRaces());
-		globalAbilitiesList.addAll(getBaseRaceList());
-		globalAbilities.reInit(globalAbilitiesList);
-		globalAbilitiesArray = globalAbilitiesList.toArray(new String[globalAbilitiesList.size()]);
-	}
-	@Override public void init() {
-		super.init();
+//	@Override protected IGameOptions guiOptions() { return newGameOptions(); }
+	@Override public void init(IGameOptions guiOptions) {
+		super.init(guiOptions);
 		boxMonoFont    = null;
 		dialogMonoFont = null;
         initAIandAbilitiesList();
-		options().updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE);
+        guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
 		refreshGui();
 	}
 	@Override protected String GUI_ID() { return GUI_ID; }
@@ -664,8 +666,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			// loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 			// break;
 		default: // Save
-//			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
-			options().updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE);
+			guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
 			break; 
 		}
 		// Go back to Race Panel
@@ -2003,51 +2004,51 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		buttonClick();
 		AdvancedOptionsUI optionsUI = RotPUI.advancedOptionsUI();
 		close();
-		optionsUI.init();
+		optionsUI.init(guiOptions());
 	}
 	// BR: add UI panel for MOD game options
 	private void goToMergedStatic() {
 		buttonClick();
 		MergedStaticOptionsUI modOptionsUI = RotPUI.mergedStaticOptionsUI();
 		close();
-		modOptionsUI.start(false);
+		modOptionsUI.start(false, guiOptions());
 	}
 	private void goToMergedDynamic() {
 		buttonClick();
 		MergedDynamicOptionsUI modOptionsUI = RotPUI.mergedDynamicOptionsUI();
 		close();
-		modOptionsUI.start(false);
+		modOptionsUI.start(false, guiOptions());
 	}
 	private void goToModStaticA() {
 		buttonClick();
 		StaticAOptionsUI modOptionsUI = RotPUI.modOptionsStaticA();
 		close();
-		modOptionsUI.init();
+		modOptionsUI.init(guiOptions());
 	}
 	private void goToModStaticB() {
 		buttonClick();
 		StaticBOptionsUI modBOptionsUI = RotPUI.modOptionsStaticB();
 		close();
-		modBOptionsUI.init();
+		modBOptionsUI.init(guiOptions());
 	}
 	private void goToModDynamicA() {
 		buttonClick();
 		DynamicAOptionsUI modOptionsUI = RotPUI.modOptionsDynamicA();
 		close();
-		modOptionsUI.init();
+		modOptionsUI.init(guiOptions());
 	}
 	private void goToModDynamicB() {
 		buttonClick();
 		DynamicBOptionsUI modBOptionsUI = RotPUI.modOptionsDynamicB();
 		close();
-		modBOptionsUI.init();
+		modBOptionsUI.init(guiOptions());
 	}
 	// BR: Display UI panel for MOD game options
 	private void goToModGlobalOptions() {
 		buttonClick();
 		ModGlobalOptionsUI modGlobalOptionsUI = RotPUI.modGlobalOptionsUI();
 		close();
-		modGlobalOptionsUI.init();
+		modGlobalOptionsUI.init(guiOptions());
 	}
 	// BR: Add option to return to the main menu
 	private void goToMainMenu() {
@@ -2055,10 +2056,10 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		switch (ModifierKeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Restore
-			options().loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE);	
+			guiOptions().loadAndUpdateFromFileName(LIVE_OPTIONS_FILE);	
 			break;
 		default:
-			options().updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE);
+			guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
 			break;
 		}
 		close();
@@ -2066,7 +2067,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	}
 	// BR: For restarting with new options
 	private void restartGame() { 
-		options().updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE);
+		guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
 		starting = true;
 		buttonClick();
 		repaint();
@@ -2078,7 +2079,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		starting = false;
 	}
 	private void startGame() {
-		options().updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE);
+		guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
 		starting = true;
 		repaint();
 		buttonClick();

@@ -819,7 +819,7 @@ public final class GameSession implements Base, Serializable {
         GameSession currSession = GameSession.instance();
         MOO1GameOptions opts = (MOO1GameOptions) currSession.options();
     	// Update quietly the dynamic options before saving
-        opts.writeModSettingsToOptions(opts, opts.allModOptions(), false);
+        opts.writeModSettingsToOptions(opts.allModOptions(), false);
 //    	MOO1GameOptions.writeModSettingsToOptions((MOO1GameOptions) currSession.options(), ALL_GUI_ID, false);
 
     	File theDir = backup ? new File(backupDir()) : new File(saveDir());

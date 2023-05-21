@@ -3,7 +3,7 @@ package rotp.model.game;
 import static rotp.model.game.IGameOptions.DIFFICULTY_NORMAL;
 import static rotp.model.game.IGameOptions.SHAPE_RECTANGLE;
 import static rotp.model.game.IGameOptions.SIZE_SMALL;
-import static rotp.model.game.IGameOptions.baseRaceOptions;
+import static rotp.model.game.IGameOptions.getBaseRaceOptions;
 import static rotp.model.game.MOO1GameOptions.getGalaxyShapeOptions;
 import static rotp.model.game.MOO1GameOptions.getGalaxySizeOptions;
 import static rotp.model.game.MOO1GameOptions.getGameDifficultyOptions;
@@ -28,14 +28,14 @@ import rotp.ui.util.SpecificCROption;
 public interface ModOptions extends FlagOptions, FactoryOptions, GamePlayOptions,
 									DuplicateOptions, RemnantOptions {
 
-	default void updateOptionsAndSaveToFileName(MOO1GameOptions options, String fileName) {
-		updateOptionsAndSaveToFileName(options, fileName, allModOptions());
+	default void updateOptionsAndSaveToFileName(String fileName) {
+		updateOptionsAndSaveToFileName(fileName, allModOptions());
 	}
-	default void loadAndUpdateFromFileName(MOO1GameOptions options, String fileName) {
-		loadAndUpdateFromFileName(options, fileName, allModOptions());
+	default void loadAndUpdateFromFileName(String fileName) {
+		loadAndUpdateFromFileName(fileName, allModOptions());
 	}
-	default void setBaseAndModSettingsToDefault(MOO1GameOptions options) {
-		setBaseAndModSettingsToDefault(options, allModOptions());
+	default void setBaseAndModSettingsToDefault() {
+		setBaseAndModSettingsToDefault(allModOptions());
 	}
 
 	// ==================== Galaxy Menu addition ====================
@@ -192,7 +192,7 @@ public interface ModOptions extends FlagOptions, FactoryOptions, GamePlayOptions
 	default boolean selectedPlayerIsCustom()	{ return playerIsCustom.selected(dynOpts()); }
 
 	ParamCR       playerCustomRace	= new ParamCR(
-			MOD_UI, baseRaceOptions().getFirst());
+			MOD_UI, getBaseRaceOptions().getFirst());
 	// Custom Race Menu
 	static LinkedList<InterfaceParam> optionsCustomRaceBase = new LinkedList<>(
 			Arrays.asList(

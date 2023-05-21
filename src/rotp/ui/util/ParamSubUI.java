@@ -104,7 +104,9 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<InterfacePar
 	@Override public void toggle(MouseEvent e, BaseModPanel frame) {
 		// System.out.println("toggle(MouseEvent e)");		
 	}
-	@Override public void toggle(MouseEvent e, int p, BaseModPanel frame) { ui().start(p); };
+	@Override public void toggle(MouseEvent e, int p, BaseModPanel frame) {
+		ui().start(p, frame.guiOptions());
+	};
 	@Override public String guideValue()	{
 		String label = isDefaultValue()? "SUB_UI_DEFAULT_YES" : "SUB_UI_DEFAULT_NO";
 		return langLabel(label);

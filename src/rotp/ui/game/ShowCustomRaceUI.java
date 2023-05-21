@@ -164,7 +164,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		guiTitleID	= ROOT + "SHOW_TITLE";
 	    commonList	= settingList;
 	    mouseList	= settingList;
-	    cr.setRace(IGameOptions.baseRaceOptions().getFirst());
+	    cr.setRace(guiOptions().baseRaceOptions().getFirst());
 		addMouseListener(this);
 		addMouseMotionListener(this);
 	    initGUI();		
@@ -215,11 +215,11 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		}
 		columnH += settingHPad;
 	}
-	public void open(BasePanel p) {
+	public void open(BasePanel p, IGameOptions guiOptions) {
 		enableGlassPane(this);
 		ModifierKeysState.reset();
 		parent = p;
-		init();
+		init(guiOptions);
 		repaint();
 	}
 	// ========== Other Methods ==========
@@ -441,8 +441,8 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	}
 	// ========== Overriders ==========
 	//
-	@Override protected void init() {
-		super.init();
+	@Override protected void init(IGameOptions guiOptions) {
+		super.init(guiOptions);
 		for (SettingBase<?> setting : commonList) {
 			if (setting.isBullet()) {
 				setting.settingText().displayText(setting.guiSettingDisplayStr()); // The setting

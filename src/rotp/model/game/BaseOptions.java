@@ -21,10 +21,9 @@ public interface BaseOptions {
 
 	ParamTitle headerSpacer = new ParamTitle("SPACER");
 	
-	void updateOptionsAndSaveToFileName(MOO1GameOptions options,
-			String fileName, LinkedList<InterfaceParam> paramList);
-	void loadAndUpdateFromFileName(MOO1GameOptions options,
-			String fileName, LinkedList<InterfaceParam> paramList);
-	void setBaseAndModSettingsToDefault(MOO1GameOptions options,
-    		LinkedList<InterfaceParam> paramList);
+	void updateOptionsAndSaveToFileName(String fileName,
+			LinkedList<InterfaceParam> paramList);
+	void loadAndUpdateFromFileName(String fileName,
+			LinkedList<InterfaceParam> paramList);
+	void setBaseAndModSettingsToDefault(LinkedList<InterfaceParam> paramList);
 }

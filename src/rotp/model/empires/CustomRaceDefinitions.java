@@ -18,7 +18,7 @@ package rotp.model.empires;
 
 import static rotp.model.empires.Race.crEmpireNameRandom;
 import static rotp.model.game.DynOptions.loadOptions;
-import static rotp.model.game.IGameOptions.baseRaceOptions;
+import static rotp.model.game.IGameOptions.getBaseRaceOptions;
 import static rotp.model.game.ModOptions.playerCustomRace;
 import static rotp.model.game.FactoryOptions.*;
 import static rotp.ui.util.PlayerShipSet.DISPLAY_RACE_SET;
@@ -52,7 +52,7 @@ public class CustomRaceDefinitions  {
 	public	static final String ROOT	= "CUSTOM_RACE_";
 	private	static final String PLANET	= "PLANET_";
 	private	static final String EXT		= ".race";
-	private static final String baseRace = baseRaceOptions().getFirst();
+	private static final String baseRace = getBaseRaceOptions().getFirst();
 	private	static final String RANDOMIZED_RACE_KEY	= "RANDOMIZED_RACE";
 	public	static final String RANDOM_RACE_KEY		= "RANDOM_RACE_KEY";
 	public	static final String CUSTOM_RACE_KEY		= "CUSTOM_RACE_KEY";
@@ -522,7 +522,7 @@ public class CustomRaceDefinitions  {
 					add(loadOptions(file));
 
 			// Add Game races
-			for (String raceKey : IGameOptions.allRaceOptions())
+			for (String raceKey : IGameOptions.getAllRaceOptions())
 				add(raceKey);
 
 			initOptionsText();

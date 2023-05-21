@@ -32,6 +32,7 @@ import java.util.LinkedList;
 import javax.swing.JEditorPane;
 import javax.swing.JTextPane;
 
+import rotp.model.game.IGameOptions;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
@@ -314,17 +315,17 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		for (InterfaceOptions param : activeList)
 			param.setFromDefault();
 	}
-	public void start(boolean callFromGame) { // Called from Base UI
+	public void start(boolean callFromGame, IGameOptions guiOptions) { // Called from Base UI
 		RotPUI.guiCallFromGame(callFromGame);
 		parent = 0;
-		start();
+		start(guiOptions);
 	}
-	public void start(int p) { // Called from subUI
+	public void start(int p, IGameOptions guiOptions) { // Called from subUI
 		parent = p;
-		start();
+		start(guiOptions);
 	}
-	private void start() { // Called from subUI
-		super.init();
+	private void start(IGameOptions guiOptions) { // Called from subUI
+		super.init(guiOptions);
 		hoverBox = null;
 		prevHover = null;
 		descBox.setVisible(true);
@@ -353,8 +354,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		
 		if (bg == null)
 			bg = GameUI.settingsSetupBackgroundW(w);
-//		updateOptionsAndSaveToFileName(RotPUI.mergedGuiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
-		options().updateOptionsAndSaveToFileName(RotPUI.mergedGuiOptions(), LIVE_OPTIONS_FILE);
+		guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
 		enableGlassPane(this);
 		refreshGui();
 	}
@@ -375,15 +375,15 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
         disableGlassPane();
 		switch (parent) {
 		case 1:
-			RotPUI.mergedDynamicOptionsUI().start(RotPUI.guiCallFromGame());
+			RotPUI.mergedDynamicOptionsUI().start(RotPUI.guiCallFromGame(), guiOptions());
 			return;
 		case 2:
-			RotPUI.modOptionsDynamicA().init();
+			RotPUI.modOptionsDynamicA().init(guiOptions());
 			return;
 		case 0:
 		default: 
 	        if (!guiCallFromGame())
-	        	RotPUI.setupGalaxyUI().init();
+	        	RotPUI.setupGalaxyUI().init(guiOptions());
 	        else
 	        	RotPUI.instance().mainUI().map().resetRangeAreas();
 		}
@@ -393,18 +393,15 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		switch (ModifierKeysState.get()) {
 		case CTRL:			// Cancel and exit
 		case CTRL_SHIFT:	// Cancel and exit
-//			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
-			options().loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE);
+			guiOptions().loadAndUpdateFromFileName(LIVE_OPTIONS_FILE);
 			UserPreferences.load();
 			break;
 		case SHIFT:			// Apply
-//			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
-			options().updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE);
+			guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
 			repaintButtons();
 			return; 
 		default:			// Exit
-//			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
-			options().updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE);
+			guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
 			UserPreferences.save();
 			break; 
 		}

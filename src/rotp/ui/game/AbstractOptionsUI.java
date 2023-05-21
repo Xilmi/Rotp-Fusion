@@ -32,6 +32,7 @@ import java.util.List;
 
 import javax.swing.SwingUtilities;
 
+import rotp.model.game.IGameOptions;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
@@ -297,8 +298,8 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 	}
 	// ========== Overriders ==========
 	//
-	@Override public void init()	 {
-		super.init();
+	@Override public void init(IGameOptions guiOptions)	 {
+		super.init(guiOptions);
 		w	= RotPUI.setupRaceUI().getWidth();
 		h	= RotPUI.setupRaceUI().getHeight();
 		wBG	= w - (leftM + rightM);
@@ -309,14 +310,14 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 			else
 				bg = GameUI.settingsSetupBackground(w);
 		if (!globalOptions) // The new ways
-			options().updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE);
+			guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
 		enableGlassPane(this);
 		refreshGui();
 	}
 	@Override protected void close() {
 		super.close();
         disableGlassPane();
-		RotPUI.setupGalaxyUI().init();
+		RotPUI.setupGalaxyUI().init(guiOptions());
 	}
 	@Override protected void doExitBoxAction()		{
 		if (globalOptions) { // The old ways

@@ -34,8 +34,6 @@ import java.awt.RenderingHints; // modnar: needed for adding RenderingHints
 import java.awt.Stroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.geom.Point2D;
@@ -46,6 +44,7 @@ import java.util.List;
 import javax.swing.JTextField;
 
 import rotp.model.empires.Race;
+import rotp.model.game.IGameOptions;
 import rotp.model.ships.ShipImage;
 import rotp.model.ships.ShipLibrary;
 import rotp.ui.BasePanel;
@@ -54,7 +53,7 @@ import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.ui.main.SystemPanel;
 import rotp.util.ModifierKeysState;
 
-public final class SetupRaceUI extends BaseModPanel implements MouseListener, MouseMotionListener, MouseWheelListener {
+public final class SetupRaceUI extends BaseModPanel implements MouseWheelListener {
     private static final long serialVersionUID	= 1L;
 	private static final String guiTitleID		= "SETUP_SELECT_RACE";
 	public  static final String GUI_ID          = "START_RACE";
@@ -121,18 +120,18 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
 	@Override protected void singleInit() {
 		paramList = optionsRace;
 	}
-    @Override public void init() {
-    	super.init();
+    @Override public void init(IGameOptions guiOptions) {
+    	super.init(guiOptions);
         leaderName.setFont(narrowFont(20));
         // homeWorld.setFont(narrowFont(20));
         setHomeWorldFont(); // BR: MonoSpaced font for Galaxy
         shipSetTxt.setFont(narrowFont(20)); // BR:
         refreshGui();
         // Save initial options
-        options().updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE);
+        guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
     }
-    public void smallInit() {
-       	super.init();
+    public void smallInit(IGameOptions guiOptions) {
+       	super.init(guiOptions);
         refreshGui();
     }
 	@Override public void showHelp() {
@@ -321,7 +320,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
 		case CTRL:
 		case CTRL_SHIFT: 
 		default: // Save
-			options().updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE);
+			guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
 			break; 
 		}
     	goToMainMenu();
@@ -332,7 +331,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
 		case CTRL:
 		case CTRL_SHIFT:
 		default: // Save
-			options().updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE);
+			guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
 			break; 
 		}
  		goToGalaxySetup();
@@ -1105,7 +1104,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
     // BR: Display UI panel for Player Race Customization
     private void goToPlayerRaceCustomization() {
         buttonClick();
-        EditCustomRaceUI.instance().open(this);
+        EditCustomRaceUI.instance().open(this, guiOptions());
 		setVisible(false);      
     }
     @Override
