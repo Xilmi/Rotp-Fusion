@@ -15,8 +15,6 @@
  */
 package rotp.ui.game;
 
-import static rotp.model.game.BaseOptions.ALL_GUI_ID;
-import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
 import static rotp.model.game.ModOptions.optionsRace;
 import static rotp.model.game.ModOptions.playerCustomRace;
 import static rotp.model.game.ModOptions.playerIsCustom;
@@ -129,10 +127,9 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
         // homeWorld.setFont(narrowFont(20));
         setHomeWorldFont(); // BR: MonoSpaced font for Galaxy
         shipSetTxt.setFont(narrowFont(20)); // BR:
-//        createNewGameOptions(); // TODO BR: REMOVE
         refreshGui();
         // Save initial options
-		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+        options().updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE);
     }
     public void smallInit() {
        	super.init();
@@ -324,7 +321,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
 		case CTRL:
 		case CTRL_SHIFT: 
 		default: // Save
-			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+			options().updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE);
 			break; 
 		}
     	goToMainMenu();
@@ -335,7 +332,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseListener, Mo
 		case CTRL:
 		case CTRL_SHIFT:
 		default: // Save
-			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+			options().updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE);
 			break; 
 		}
  		goToGalaxySetup();

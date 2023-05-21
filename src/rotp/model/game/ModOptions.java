@@ -28,6 +28,16 @@ import rotp.ui.util.SpecificCROption;
 public interface ModOptions extends FlagOptions, FactoryOptions, GamePlayOptions,
 									DuplicateOptions, RemnantOptions {
 
+	default void updateOptionsAndSaveToFileName(MOO1GameOptions options, String fileName) {
+		updateOptionsAndSaveToFileName(options, fileName, allModOptions());
+	}
+	default void loadAndUpdateFromFileName(MOO1GameOptions options, String fileName) {
+		loadAndUpdateFromFileName(options, fileName, allModOptions());
+	}
+	default void setBaseAndModSettingsToDefault(MOO1GameOptions options) {
+		setBaseAndModSettingsToDefault(options, allModOptions());
+	}
+
 	// ==================== Galaxy Menu addition ====================
 	//
 	ParamInteger galaxyRandSource		= new ParamInteger(MOD_UI, "GALAXY_RAND_SOURCE",
@@ -168,6 +178,7 @@ public interface ModOptions extends FlagOptions, FactoryOptions, GamePlayOptions
 					galaxyRandSource,
 					dynStarsPerEmpire // This one is a duplicate, but it helps readability
 					));
+	default LinkedList<InterfaceParam> optionsGalaxy()	{ return optionsGalaxy; }
 	// ==================== Race Menu addition ====================
 	//
 	PlayerShipSet playerShipSet		= new PlayerShipSet(
@@ -196,10 +207,14 @@ public interface ModOptions extends FlagOptions, FactoryOptions, GamePlayOptions
 			Arrays.asList(
 					playerShipSet, playerIsCustom, playerCustomRace
 					));
+	default LinkedList<InterfaceParam> optionsRace()	{ return optionsRace; }
 
-	LinkedList<InterfaceParam> allModOptions = allModOptions();
-	
-	static LinkedList<InterfaceParam> allModOptions() {
+	LinkedList<InterfaceParam> editCustomRace = new LinkedList<>(); // TODO BR: Fake list
+	default LinkedList<InterfaceParam> editCustomRace()	{ return editCustomRace; }
+
+	default LinkedList<InterfaceParam> allModOptions()	{ return allModOptions; }
+	LinkedList<InterfaceParam> allModOptions = getAllModOptions();
+	static LinkedList<InterfaceParam> getAllModOptions() {
 		LinkedList<InterfaceParam> allModOptions = new LinkedList<>();
 		allModOptions.addAll(modOptionsStaticA);
 		allModOptions.addAll(modOptionsStaticB);
@@ -321,7 +336,6 @@ public interface ModOptions extends FlagOptions, FactoryOptions, GamePlayOptions
 	
 				headerSpacer,
 				new ParamTitle("MENU_OPTIONS"),
-//				menuStartup, menuAfterGame, menuLoadGame, // TODO BR: REMOVE
 				menuStartup,
 				minListSizePopUp, showGridCircular, galaxyPreviewColorStarsSize,
 				showAllAI, compactOptionOnly

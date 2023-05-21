@@ -19,12 +19,9 @@ import static rotp.model.empires.CustomRaceDefinitions.BASE_RACE_MARKER;
 import static rotp.model.empires.CustomRaceDefinitions.fileToAlienRace;
 import static rotp.model.empires.CustomRaceDefinitions.getAllowedAlienRaces;
 import static rotp.model.empires.CustomRaceDefinitions.getBaseRaceList;
-import static rotp.model.game.BaseOptions.ALL_GUI_ID;
 import static rotp.model.game.BaseOptions.BASE_UI;
 import static rotp.model.game.FactoryOptions.dynStarsPerEmpire;
 import static rotp.model.game.IGameOptions.OPPONENT_AI_HYBRID;
-import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
-import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
 import static rotp.model.game.ModOptions.aliensNumber;
 import static rotp.model.game.ModOptions.bitmapGalaxyLastFolder;
 import static rotp.model.game.ModOptions.difficultySelection;
@@ -350,20 +347,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		addMouseListener(this);
 		addMouseMotionListener(this);
 		addMouseWheelListener(this);
-//		paramList = optionsGalaxy;
-//		for (int i=0;i<oppSet.length;i++)
-//			oppSet[i] = new Box(specificOpponent, i);
-//		for (int i=0;i<oppAbilities.length;i++)
-//			oppAbilities[i] = new Box(specificAbilities, i);
-//		for (int i=0;i<oppAI.length;i++)
-//			oppAI[i] = new Box(specificAI, i);
-//		duplicateList = new LinkedList<>();
-//		duplicateList.add(difficultySelection);
-//		duplicateList.add(shapeSelection);
-//		duplicateList.add(sizeSelection);
-//		duplicateList.add(shapeOption1);
-//		duplicateList.add(shapeOption2);
-//		duplicateList.add(aliensNumber);
 	}
 	@Override protected void singleInit() {
 		startBox			= new Box(startButtonHelp);
@@ -427,7 +410,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		boxMonoFont    = null;
 		dialogMonoFont = null;
         initAIandAbilitiesList();
-		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+		options().updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE);
 		refreshGui();
 	}
 	@Override protected String GUI_ID() { return GUI_ID; }
@@ -681,7 +664,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			// loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 			// break;
 		default: // Save
-			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+//			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+			options().updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE);
 			break; 
 		}
 		// Go back to Race Panel
@@ -2071,10 +2055,10 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		switch (ModifierKeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Restore
-			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);	
+			options().loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE);	
 			break;
 		default:
-			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+			options().updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE);
 			break;
 		}
 		close();
@@ -2082,8 +2066,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	}
 	// BR: For restarting with new options
 	private void restartGame() { 
-		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
-//		UserPreferences.gamePlayed(true);	 // TODO BR: REMOVE
+		options().updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE);
 		starting = true;
 		buttonClick();
 		repaint();
@@ -2095,8 +2078,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		starting = false;
 	}
 	private void startGame() {
-		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
-//		UserPreferences.gamePlayed(true); // TODO BR: REMOVE
+		options().updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE);
 		starting = true;
 		repaint();
 		buttonClick();

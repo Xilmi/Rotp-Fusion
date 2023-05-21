@@ -65,11 +65,6 @@ public class UserPreferences {
 	private static final int    MAX_BACKUP_TURNS  = 20; // modnar: change max turns between backups to 20
 	private static final String keyFormat = "%-25s: "; // BR: from 20 to 25 for a better alignment
 
-	// BR: ===== Global settings Mod GUI:
-//	private static boolean gamePlayed = false; // to differentiate startup from loaded game
-//	private static boolean loadRequest = false; // to Load options requested in menu
-//	public static final ParamOptions menuSpecial 		= new ParamOptions(""); // TODO BR: REMOVE
-	
 	private static boolean showMemory  = false;
 	private static boolean playMusic   = true;
 	private static boolean playSounds  = true;
@@ -253,19 +248,7 @@ public class UserPreferences {
 	public	static boolean	divertColonyExcessToResearch()	{ return divertColonyExcessToResearch; }
 	public	static boolean	disableAdvisor()				{ return disableAdvisor; }
 	private	static void		uiTexturePct(int i)				{ uiTexturePct = i / 100.0f; }
-//	public	static void		gamePlayed(boolean played)		{ gamePlayed = played; } // TODO BR: REMOVE
 	static	float			uiTexturePct()					{ return uiTexturePct; }
-//	static	boolean			gamePlayed()					{return gamePlayed; } // TODO BR: REMOVE
-//	static	boolean			loadRequest()					{return loadRequest; } // TODO BR: REMOVE
-//	public	static void		loadRequest(boolean load)		{  // TODO BR: REMOVE
-//		if (load) {
-//			// For games launched without going to the GUI
-//			// The "backGround newGameOptions() will then be set
-//			loadRequest = load;
-//			RotPUI.createNewOptions(); // This will reset loadRequest
-//		} // not else Because SetupRaceUI will do a createNewGameOptions()
-//		loadRequest = load;
-//	}
 	static void loadAndSave() {
 		load();
 		save();

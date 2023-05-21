@@ -15,8 +15,6 @@
  */
 package rotp.ui;
 
-import static rotp.model.game.BaseOptions.ALL_GUI_ID;
-import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
 import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
@@ -339,8 +337,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     // BR: Added for initialization choice
     public static MOO1GameOptions createStartupOptions() { // BR:
     	MOO1GameOptions newOptions;
-     	ParamOptions action;
-//        System.out.println("==================== createNewOptions() ====================");
+        System.out.println("==================== createNewOptions() ====================");
 //		System.out.println("UserPreferences.gamePlayed() = " + UserPreferences.gamePlayed());
 //		System.out.println("UserPreferences.loadRequest() = " + UserPreferences.loadRequest());
 //		System.out.println("UserPreferences.menuLoadGame.get() = " + UserPreferences.menuLoadGame.get());
@@ -348,46 +345,31 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
 //		System.out.println("UserPreferences.menuAfterGame.get() = " + UserPreferences.menuAfterGame.get());
 //		System.out.println("UserPreferences.menuSpecial.get() = " + UserPreferences.menuSpecial.get());
 
-     	// Creation depend on state
-//    	if (UserPreferences.gamePlayed())
-//        	action = rotp.model.game.RemnantOptions.menuAfterGame; // TODO BR: REMOVE
-//        else
-        	action = rotp.model.game.RemnantOptions.menuStartup;
-
-    	// Check for special request
-//    	if (UserPreferences.loadRequest()) { // TODO BR: REMOVE
-//        	action = UserPreferences.menuSpecial;
-//        	UserPreferences.loadRequest(false);
-//        }
-		// System.out.println("action.get() = " + action.get());
+     	ParamOptions action = rotp.model.game.RemnantOptions.menuStartup;
    	
-    	if (action.isLast()) {
-    		// System.out.println("GUI Loaded Last.options");
-       		newOptions = new MOO1GameOptions();
-    		loadAndUpdateFromFileName(newOptions, LAST_OPTIONS_FILE, ALL_GUI_ID);
-    		return newOptions;
-    	}
     	if (action.isUser()) {
     		// System.out.println("GUI Loaded User.options");
        		newOptions = new MOO1GameOptions();
-       		loadAndUpdateFromFileName(newOptions, USER_OPTIONS_FILE, ALL_GUI_ID);
+       		newOptions.loadAndUpdateFromFileName(newOptions, USER_OPTIONS_FILE);
     		return newOptions;
     	}
     	if (action.isGame()) {
     		// System.out.println("GUI Loaded Game.options");
        		newOptions = new MOO1GameOptions();
-       		loadAndUpdateFromFileName(newOptions, GAME_OPTIONS_FILE, ALL_GUI_ID);
+       		newOptions.loadAndUpdateFromFileName(newOptions, GAME_OPTIONS_FILE);
     		return newOptions;
     	}
     	if (action.isDefault()) {
     		// System.out.println("GUI Loaded Default options");
     		newOptions = new MOO1GameOptions();
-    		MOO1GameOptions.setBaseAndModSettingsToDefault(newOptions, ALL_GUI_ID);
+    		newOptions.setBaseAndModSettingsToDefault(newOptions);
     		return newOptions;
-    	} // else Vanilla, as before
-    	
-		System.out.println("GUI Loaded Old Way options");
-    	return new MOO1GameOptions();
+    	}
+    	// else default = action.isLast()
+		// System.out.println("GUI Loaded Last.options");
+   		newOptions = new MOO1GameOptions();
+   		newOptions.loadAndUpdateFromFileName(newOptions, LAST_OPTIONS_FILE);
+		return newOptions;
     }
     public static void clearNewOptions() { newGameOptions = null; }
 

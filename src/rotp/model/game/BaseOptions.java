@@ -1,5 +1,8 @@
 package rotp.model.game;
 
+import java.util.LinkedList;
+
+import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.ParamTitle;
 
 public interface BaseOptions {
@@ -17,5 +20,11 @@ public interface BaseOptions {
 	DynOptions dynOpts();
 
 	ParamTitle headerSpacer = new ParamTitle("SPACER");
-
+	
+	void updateOptionsAndSaveToFileName(MOO1GameOptions options,
+			String fileName, LinkedList<InterfaceParam> paramList);
+	void loadAndUpdateFromFileName(MOO1GameOptions options,
+			String fileName, LinkedList<InterfaceParam> paramList);
+	void setBaseAndModSettingsToDefault(MOO1GameOptions options,
+    		LinkedList<InterfaceParam> paramList);
 }

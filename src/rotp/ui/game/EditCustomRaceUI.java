@@ -16,14 +16,9 @@
 package rotp.ui.game;
 
 import static rotp.model.empires.CustomRaceDefinitions.ROOT;
-import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
-import static rotp.model.game.MOO1GameOptions.setBaseAndModSettingsToDefault;
-import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
-import static rotp.model.game.BaseOptions.*;
-
-import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
 import static rotp.model.game.ModOptions.playerCustomRace; // TODO BR: Finalize options()
 import static rotp.model.game.ModOptions.playerIsCustom;
+import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -147,7 +142,8 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		buttonClick();
 		playerCustomRace.set(cr.getAsOptions());
 		playerIsCustom.set(true);
-		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+//		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+		options().updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE);
 		close();
 	}
 	public void updateCRGui(MOO1GameOptions source) {
@@ -252,16 +248,19 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		buttonClick();
 		switch (ModifierKeysState.get()) {
 		case CTRL: // restoreGlobalKey
-			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);		
+//			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);		
+			options().loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE);		
 			break;
 		case CTRL_SHIFT: // restoreLocalKey
-			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, GUI_ID());		
+//			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, GUI_ID());		
+			options().loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, localOptions());		
 			break;
 		case SHIFT: // setLocalDefaultKey
 			setToLocalDefault();
 			break; 
 		default: // setGlobalDefaultKey
-			setBaseAndModSettingsToDefault(guiOptions(), ALL_GUI_ID);
+//			setBaseAndModSettingsToDefault(guiOptions(), ALL_GUI_ID);
+			options().setBaseAndModSettingsToDefault(guiOptions());
 			setToLocalDefault();
 			break; 
 		}
@@ -273,7 +272,8 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		parent = p;
 
 		cr.fromOptions((DynOptions) playerCustomRace.get());
-		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+//		updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+		options().updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE);
 		init();
 		reloadRaceList();
 		repaint();

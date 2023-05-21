@@ -15,10 +15,6 @@
  */
 package rotp.ui.game;
 
-import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
-import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
-import static rotp.model.game.BaseOptions.*;
-
 import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
 
 import java.awt.Color;
@@ -93,7 +89,8 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	
 	// ========== Constructors and initializers ==========
 	//
-	public CompactOptionsUI(String guiTitle_ID, String guiId, LinkedList<LinkedList<InterfaceParam>> paramList) {
+	public CompactOptionsUI(String guiTitle_ID, String guiId,
+			LinkedList<LinkedList<InterfaceParam>> paramList) {
 		guiTitleID = guiTitle_ID;
 		GUI_ID = guiId;
 		optionsList = paramList;
@@ -102,11 +99,9 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	public CompactOptionsUI(String guiTitle_ID, String guiId) {
 		guiTitleID = guiTitle_ID;
 		GUI_ID = guiId;
-//		init_Lists(paramList);
 		init_0();
 	}
 	protected LinkedList<LinkedList<InterfaceParam>> getList() { return optionsList; }
-//	private void init_Lists(LinkedList<LinkedList<InterfaceParam>> optionsList) {
 	@Override protected void singleInit() {
 		optionsList		= getList();
 		activeList		= new LinkedList<>();
@@ -358,7 +353,8 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		
 		if (bg == null)
 			bg = GameUI.settingsSetupBackgroundW(w);
-		updateOptionsAndSaveToFileName(RotPUI.mergedGuiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+//		updateOptionsAndSaveToFileName(RotPUI.mergedGuiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+		options().updateOptionsAndSaveToFileName(RotPUI.mergedGuiOptions(), LIVE_OPTIONS_FILE);
 		enableGlassPane(this);
 		refreshGui();
 	}
@@ -397,15 +393,18 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		switch (ModifierKeysState.get()) {
 		case CTRL:			// Cancel and exit
 		case CTRL_SHIFT:	// Cancel and exit
-			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+//			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+			options().loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE);
 			UserPreferences.load();
 			break;
 		case SHIFT:			// Apply
-			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+//			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+			options().updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE);
 			repaintButtons();
 			return; 
 		default:			// Exit
-			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+//			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+			options().updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE);
 			UserPreferences.save();
 			break; 
 		}

@@ -99,8 +99,6 @@ public interface Base {
     public static DecimalFormat sf7 = new DecimalFormat("0.0000000E00");
     public static DecimalFormat sf8 = new DecimalFormat("0.00000000E00");
     public static DecimalFormat pad4 = new DecimalFormat("0000");
-//    public static String lineSplit		= "\\n"; 	// BR: for descriptions and Help. System independent .
-//    public static String lineSplitRegex = "\\\\n";	// BR: for descriptions and Help. System independent .
     public static String lineSplit		= "<br>"; 	// BR: for descriptions and Help. System independent .
     public static String lineSplitRegex = "<br>";	// BR: for descriptions and Help. System independent .
     
@@ -114,7 +112,6 @@ public interface Base {
     public default boolean isPlayer(Empire e) { return galaxy().isPlayer(e); }
     public default LabelManager labels()   { return LabelManager.current(); }
     public default IGameOptions newGameOptions() { return RotPUI.newOptions(); }
-//    public default void createNewGameOptions()   { RotPUI.createNewOptions(); } // TODO BR: REMOVE
     public default void clearNewGameOptions()    { RotPUI.clearNewOptions(); }
 
     public default Object sessionVar(String key) {

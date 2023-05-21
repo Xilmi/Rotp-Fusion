@@ -63,17 +63,8 @@ import rotp.model.planet.Planet;
 import rotp.model.planet.PlanetType;
 import rotp.model.tech.TechEngineWarp;
 import rotp.ui.UserPreferences;
-import rotp.ui.game.AdvancedOptionsUI;
-import rotp.ui.game.DynamicAOptionsUI;
-import rotp.ui.game.DynamicBOptionsUI;
 import rotp.ui.game.EditCustomRaceUI;
-import rotp.ui.game.MergedDynamicOptionsUI;
-import rotp.ui.game.MergedStaticOptionsUI;
-import rotp.ui.game.ModGlobalOptionsUI;
 import rotp.ui.game.SetupGalaxyUI;
-import rotp.ui.game.SetupRaceUI;
-import rotp.ui.game.StaticAOptionsUI;
-import rotp.ui.game.StaticBOptionsUI;
 import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.SpecificCROption;
 import rotp.util.Base;
@@ -1279,43 +1270,18 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         }
     }
     // ========== All Menu Options ==========
-//    static void setBaseAndModSettingsFromOptions(MOO1GameOptions options, MOO1GameOptions source) { // TODO BR: REMOVE
-//    	copyBaseSettings(source, options);
-//        setModSettingsFromOptions(source);
-//        writeModSettingsToOptions(options);
-//    }
-    static void setModSettingsFromOptions(MOO1GameOptions source) { // BR:
+    void setModSettingsFromOptions() { // BR:
     	for(InterfaceParam param : allModOptions)
     		if (param != null)
-    			param.setFromOptions(source.dynOpts());
-        EditCustomRaceUI.instance().updateCRGui(source);
+    			param.setFromOptions(dynOpts());
+        EditCustomRaceUI.instance().updateCRGui(this);
     }
-//    private static void writeModSettingsToOptions(MOO1GameOptions destination) { // BR:
-//    	for(InterfaceParam option : allModOptions)
-//    		if (option != null)
-//    			option.setOptions(destination.dynOpts());
-//       	EditCustomRaceUI.instance().writeLocalOptions(destination);
-//    }
-//    private static void copyBaseSettings(MOO1GameOptions src, MOO1GameOptions dest) { // TODO BR: REMOVE
-//    	copyBaseRaceSettings(src, dest);
-//    	copyBaseGalaxySettings(src, dest);
-//    	copyAdvancedOptions(src, dest);
-//    }
     private void setBaseSettingsToDefault() {
     	setBaseGalaxySettingsToDefault();
     	setBaseRaceSettingsToDefault();
         setAdvancedOptionsToDefault();
     }
     // ========== Race Menu Options ==========
-//    public static void copyBaseAndModRaceSettings(MOO1GameOptions src, MOO1GameOptions dest) { // TODO BR: REMOVE
-//    	copyModRaceSettings(src, dest);
-//    	copyBaseRaceSettings(src, dest);
-//    }
-//    private static void copyModRaceSettings(MOO1GameOptions src, MOO1GameOptions dest) { // TODO BR: REMOVE
-//    	for (InterfaceParam param : optionsRace)
-//    		if (param != null)
-//    			param.copyOption(src.dynamicOptions, dest.dynamicOptions);;
-//    }
     private void setBaseRaceSettingsToDefault() { // BR:
     	if (rotp.Rotp.noOptions)
         	selectedPlayerRace(random(IGameOptions.allRaceOptions()));
@@ -1410,153 +1376,118 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
    }
     // ==================== Generalized options methods ====================
     //
-    static void writeModSettingsToOptions(MOO1GameOptions dest, String guiID, boolean call) {
-    	switch (guiID) {
-    	case EditCustomRaceUI.GUI_ID:
-    	case ALL_GUI_ID:
-    		EditCustomRaceUI.updatePlayerCustomRace();
-    	}
-    	LinkedList<InterfaceParam> modOptions = getModParameterList(guiID);
-    	if (modOptions == null)
+    void writeModSettingsToOptions(LinkedList<InterfaceParam> paramList, boolean call) {
+    	writeModSettingsToOptions(this, paramList, call);
+    }
+    void writeModSettingsToOptions(MOO1GameOptions dest,
+    		LinkedList<InterfaceParam> paramList, boolean call) {
+    	if (paramList == null)
     		return;
-       	for (InterfaceParam param : modOptions) {
+    	boolean isAllGui = paramList == allModOptions();
+    	boolean isEditRaceGui = paramList == editCustomRace();
+    	if (isAllGui || isEditRaceGui) {
+    		EditCustomRaceUI.updatePlayerCustomRace(); // TODO BR: Try to Normalize (later)
+    	}
+       	for (InterfaceParam param : paramList) {
        		if (param != null)
     			param.setOptions(dest.dynOpts());
        	}
-       	if (call && guiID.equals(ALL_GUI_ID))
+       	if (call && isAllGui)
         	optionsUpdated();
     }
-    private static void setBaseAndModSettingsFromOptions(
-    		MOO1GameOptions src, MOO1GameOptions dest, String guiID) {
-    	setModSettingsFromOptions(src, guiID);
-    	setBaseSettingsFromOptions(src, dest, guiID);
+    private void setBaseAndModSettingsFromOptions(MOO1GameOptions src,
+    		MOO1GameOptions dest, LinkedList<InterfaceParam> paramList) {
+    	setModSettingsFromOptions(src, paramList);
+    	setBaseSettingsFromOptions(src, dest, paramList);
     }
-    private static void setModSettingsFromOptions(MOO1GameOptions src, String guiID) {
-    	LinkedList<InterfaceParam> modOptions = getModParameterList(guiID);
-    	if (modOptions == null)
+    private void setModSettingsFromOptions(MOO1GameOptions src,
+    		LinkedList<InterfaceParam> paramList) {
+    	if (paramList == null)
     		return;
-       	for (InterfaceParam param : modOptions) {
+       	for (InterfaceParam param : paramList) {
        		if (param != null)
        			param.setFromOptions(src.dynamicOptions);
        	}
     }
-    private static void setBaseSettingsFromOptions(
-    		MOO1GameOptions src, MOO1GameOptions dest, String guiID) {
-    	copyBaseSettings(src, dest, guiID);
+    private void setBaseSettingsFromOptions(MOO1GameOptions src,
+    		 MOO1GameOptions dest, LinkedList<InterfaceParam> paramList) {
+    	copyBaseSettings(src, dest, paramList);
     }
-    private static void copyBaseSettings(
-    		MOO1GameOptions src, MOO1GameOptions dest, String guiID) {
-    	switch (guiID) {
-    	case SetupGalaxyUI.GUI_ID:
+    private void copyBaseSettings(MOO1GameOptions src,
+		   MOO1GameOptions dest, LinkedList<InterfaceParam> paramList) {
+   		if (paramList == null)
+   			return;
+   		if (paramList == optionsGalaxy()) {
+   			copyBaseGalaxySettings(src, dest);
+   			return;
+   		}
+   		if (paramList == optionsRace()) {
+   			copyBaseRaceSettings(src, dest);
+   			return;
+   		}
+   		if (paramList == allModOptions()) {
     		copyBaseGalaxySettings(src, dest);
-    		break;
-    	case SetupRaceUI.GUI_ID:
-    		copyBaseRaceSettings(src, dest);
-    		break;
-    	case AdvancedOptionsUI.GUI_ID:
-    		copyAdvancedOptions(src, dest);
-    		break;
-    	case ALL_GUI_ID:
-    		copyBaseGalaxySettings(src, dest);
     		copyBaseRaceSettings(src, dest);
     		copyAdvancedOptions(src, dest);
-    		break;
-    	}
+  			return;
+   		}
     }
-    public static void setBaseAndModSettingsToDefault(MOO1GameOptions options, String guiID) {
-    	setModSettingsToDefault(options, guiID);
-    	setBaseSettingsToDefault(options, guiID);
+    @Override public void setBaseAndModSettingsToDefault(MOO1GameOptions options,
+    		LinkedList<InterfaceParam> paramList) {
+    	setModSettingsToDefault(options, paramList);
+    	setBaseSettingsToDefault(options, paramList);
     }
-    private static void setModSettingsToDefault(MOO1GameOptions options, String guiID) {
-    	LinkedList<InterfaceParam> modOptions = getModParameterList(guiID);
-    	if (modOptions == null)
+    private void setModSettingsToDefault(MOO1GameOptions options,
+    		LinkedList<InterfaceParam> paramList) {
+    	if (paramList == null)
     		return;
-       	for (InterfaceParam param : modOptions)
+       	for (InterfaceParam param : paramList)
        		if (param != null) {
 	       		param.setFromDefault();
 	       		param.setOptions(options.dynOpts());
 	       	}
     }
-    private static void setBaseSettingsToDefault(MOO1GameOptions options, String guiID) {
-    	switch (guiID) {
-    	case SetupGalaxyUI.GUI_ID:
-    		options.setBaseGalaxySettingsToDefault();
-    		break;
-    	case SetupRaceUI.GUI_ID:
+    private void setBaseSettingsToDefault(MOO1GameOptions options,
+    		LinkedList<InterfaceParam> paramList) {
+   		if (paramList == null)
+   			return;
+   		if (paramList == optionsGalaxy()) {
+   			options.setBaseGalaxySettingsToDefault();
+   			return;
+   		}
+   		if (paramList == optionsRace()) {
+   			options.setBaseRaceSettingsToDefault();
+   			return;
+   		}
+   		if (paramList == allModOptions()) {
+   			options.setAdvancedOptionsToDefault();
     		options.setBaseRaceSettingsToDefault();
-    		break;
-    	case AdvancedOptionsUI.GUI_ID:
-    		options.setAdvancedOptionsToDefault();
-    		break;
-    	case ALL_GUI_ID:
-    		options.setAdvancedOptionsToDefault();
-    		options.setBaseRaceSettingsToDefault();
     		options.setBaseGalaxySettingsToDefault();
-    		break;
-    	}
-    }
-    private static LinkedList<InterfaceParam> getModParameterList(String guiID) {
-    	LinkedList<InterfaceParam> modOpts = null;
-    	switch (guiID) {
-	    	case SetupGalaxyUI.GUI_ID:
-	    		modOpts = optionsGalaxy;
-	    		break;
-	    	case SetupRaceUI.GUI_ID:
-	    		modOpts = optionsRace;
-	    		break;
-	    	case StaticAOptionsUI.GUI_ID:
-	    		modOpts = modOptionsStaticA;
-	    		break;
-	    	case StaticBOptionsUI.GUI_ID:
-	    		modOpts = modOptionsStaticB;
-	    		break;
-	    	case DynamicAOptionsUI.GUI_ID:
-	    		modOpts = modOptionsDynamicA;
-	    		break;
-	    	case DynamicBOptionsUI.GUI_ID:
-	    		modOpts = modOptionsDynamicB;
-	    		break;
-	    	case MergedStaticOptionsUI.GUI_ID:
-	    		modOpts = mergedStaticOptions;
-	    		break;
-	    	case MergedDynamicOptionsUI.GUI_ID:
-	    		modOpts = mergedDynamicOptions;
-	    		break;
-	    	case ModGlobalOptionsUI.GUI_ID:
-	    		modOpts = modGlobalOptionsUI;
-	    		break;
-	    	case EditCustomRaceUI.GUI_ID:
-	    		modOpts = optionsCustomRaceBase;
-	    		break;
-	    	case AUTO_FLAG_GUI_ID:
-	    		modOpts = autoFlagOptions;
-	    		break;
-	    	case GovernorOptions.GOVERNOR_GUI_ID:
-	    		modOpts = GovernorOptions.governorOptions;
-	    		break;
-	    	case ALL_GUI_ID:
-	    		modOpts = allModOptions;
-	    		break;
-    	}
-   		return modOpts;
+  			return;
+   		}
     }
     // ==================== New Options files management methods ====================
     //
+    // Must remain static: Called before option are fully initialized.
     public static void copyOptionsFromLiveToLast() {
-    	saveOptionsToFileName(
-    			loadFileName(UserPreferences.LIVE_OPTIONS_FILE)
-    			, UserPreferences.LAST_OPTIONS_FILE);
+    	System.out.println("copyOptionsFromLiveToLast()");
+    	saveOptions(loadFileName(UserPreferences.LIVE_OPTIONS_FILE),
+   			Rotp.jarPath(), UserPreferences.LAST_OPTIONS_FILE);
     }
-    public static void saveOptionsToFileName(MOO1GameOptions options, String fileName) {
+    void saveOptionsToFileName(String fileName) {
+    	saveOptions(this, Rotp.jarPath(), fileName);
+    }
+    @Override public void updateOptionsAndSaveToFileName(MOO1GameOptions options,
+    		String fileName, LinkedList<InterfaceParam> paramList) {
+    	writeModSettingsToOptions(options, paramList, true);
     	saveOptions(options, Rotp.jarPath(), fileName);
     }
-    public static void updateOptionsAndSaveToFileName(MOO1GameOptions options, String fileName, String guiID) {
-    	writeModSettingsToOptions(options, guiID, true);
-    	saveOptions(options, Rotp.jarPath(), fileName);
+    
+    @Override public void loadAndUpdateFromFileName(MOO1GameOptions options,
+    		String fileName, LinkedList<InterfaceParam> paramList) {
+    	setBaseAndModSettingsFromOptions(loadFileName(fileName), options, paramList);   		
     }
-    public static void loadAndUpdateFromFileName(MOO1GameOptions options, String fileName, String guiID) {
-    	setBaseAndModSettingsFromOptions(loadFileName(fileName), options, guiID);   		
-    }
+
     private static MOO1GameOptions loadFileName(String fileName) {
     	MOO1GameOptions dest = loadOptions(Rotp.jarPath(), fileName);
         final Runnable tell = () -> {

@@ -15,11 +15,6 @@
  */
 package rotp.ui.game;
 
-import static rotp.model.game.MOO1GameOptions.loadAndUpdateFromFileName;
-import static rotp.model.game.MOO1GameOptions.setBaseAndModSettingsToDefault;
-import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
-import static rotp.model.game.BaseOptions.*;
-
 import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
@@ -142,6 +137,7 @@ public abstract class BaseModPanel extends BasePanel
 		guidePopUp.init();
 	}
 	protected abstract String GUI_ID();
+	protected LinkedList<InterfaceParam> localOptions() { return activeList; };
 	private void localInit(Graphics2D g) {
 		Font prevFont = g.getFont();
 		g.setFont(smallButtonFont);
@@ -204,7 +200,8 @@ public abstract class BaseModPanel extends BasePanel
 			// loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 			// break;
 		default: // Save
-			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+//			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+			options().updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE);
 			break; 
 		}
 		close();
@@ -259,17 +256,21 @@ public abstract class BaseModPanel extends BasePanel
 		buttonClick();
 		switch (ModifierKeysState.get()) {
 		case CTRL: // saveGlobalUserKey
-			updateOptionsAndSaveToFileName(guiOptions(), USER_OPTIONS_FILE, ALL_GUI_ID);
+//			updateOptionsAndSaveToFileName(guiOptions(), USER_OPTIONS_FILE, ALL_GUI_ID);
+			options().updateOptionsAndSaveToFileName(guiOptions(), USER_OPTIONS_FILE);
 			return;
 		case CTRL_SHIFT: // saveLocalUserKey
-			updateOptionsAndSaveToFileName(guiOptions(), USER_OPTIONS_FILE, GUI_ID());
+//			updateOptionsAndSaveToFileName(guiOptions(), USER_OPTIONS_FILE, GUI_ID());
+			options().updateOptionsAndSaveToFileName(guiOptions(), USER_OPTIONS_FILE, localOptions());
 			return;
 		case SHIFT: // setLocalUserKey
-			loadAndUpdateFromFileName(guiOptions(), USER_OPTIONS_FILE, GUI_ID());
+//			loadAndUpdateFromFileName(guiOptions(), USER_OPTIONS_FILE, GUI_ID());
+			options().loadAndUpdateFromFileName(guiOptions(), USER_OPTIONS_FILE, localOptions());
 			refreshGui();
 			return;
 		default: // setGlobalUserKey
-			loadAndUpdateFromFileName(guiOptions(), USER_OPTIONS_FILE, ALL_GUI_ID);
+//			loadAndUpdateFromFileName(guiOptions(), USER_OPTIONS_FILE, ALL_GUI_ID);
+			options().loadAndUpdateFromFileName(guiOptions(), USER_OPTIONS_FILE);
 			refreshGui();
 		}
 	}	
@@ -306,16 +307,18 @@ public abstract class BaseModPanel extends BasePanel
 		buttonClick();
 		switch (ModifierKeysState.get()) {
 		case CTRL: // restoreGlobalKey
-			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);		
+//			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);		
+			options().loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE);		
 			break;
 		case CTRL_SHIFT: // restoreLocalKey
-			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, GUI_ID());		
+//			loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, GUI_ID());		
+			options().loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, localOptions());		
 			break;
 		case SHIFT: // setLocalDefaultKey
-			setBaseAndModSettingsToDefault(guiOptions(), GUI_ID());		
+			options().setBaseAndModSettingsToDefault(guiOptions(), localOptions());		
 			break; 
 		default: // setGlobalDefaultKey
-			setBaseAndModSettingsToDefault(guiOptions(), ALL_GUI_ID);		
+			options().setBaseAndModSettingsToDefault(guiOptions());		
 			break; 
 		}
 		refreshGui();
@@ -346,16 +349,20 @@ public abstract class BaseModPanel extends BasePanel
 		buttonClick();
 		switch (ModifierKeysState.get()) {
 		case CTRL: // setGlobalGameKey
-			loadAndUpdateFromFileName(guiOptions(), GAME_OPTIONS_FILE, ALL_GUI_ID);
+//			loadAndUpdateFromFileName(guiOptions(), GAME_OPTIONS_FILE, ALL_GUI_ID);
+			options().loadAndUpdateFromFileName(guiOptions(), GAME_OPTIONS_FILE);
 			break;
 		case CTRL_SHIFT: // setLocalGameKey
-			loadAndUpdateFromFileName(guiOptions(), GAME_OPTIONS_FILE, GUI_ID());
+//			loadAndUpdateFromFileName(guiOptions(), GAME_OPTIONS_FILE, GUI_ID());
+			options().loadAndUpdateFromFileName(guiOptions(), GAME_OPTIONS_FILE, localOptions());
 			break;
 		case SHIFT: // setLocalLastKey
-			loadAndUpdateFromFileName(guiOptions(), LAST_OPTIONS_FILE, GUI_ID());
+//			loadAndUpdateFromFileName(guiOptions(), LAST_OPTIONS_FILE, GUI_ID());
+			options().loadAndUpdateFromFileName(guiOptions(), LAST_OPTIONS_FILE, localOptions());
 			break;
 		default: // setGlobalLastKey
-			loadAndUpdateFromFileName(guiOptions(), LAST_OPTIONS_FILE, ALL_GUI_ID);
+//			loadAndUpdateFromFileName(guiOptions(), LAST_OPTIONS_FILE, ALL_GUI_ID);
+			options().loadAndUpdateFromFileName(guiOptions(), LAST_OPTIONS_FILE);
 		}
 		refreshGui();
 	}

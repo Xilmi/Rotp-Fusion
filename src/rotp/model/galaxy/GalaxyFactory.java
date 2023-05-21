@@ -21,9 +21,7 @@ import static rotp.model.empires.CustomRaceDefinitions.getAllAlienRaces;
 import static rotp.model.empires.CustomRaceDefinitions.getAllowedAlienRaces;
 import static rotp.model.empires.CustomRaceDefinitions.optionToAlienRace;
 import static rotp.model.empires.CustomRaceDefinitions.raceFileExist;
-import static rotp.model.game.BaseOptions.ALL_GUI_ID;
 import static rotp.model.game.MOO1GameOptions.copyAliensAISettings;
-import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
 import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
 
 import java.awt.Point;
@@ -53,7 +51,7 @@ import rotp.util.Base;
 
 public class GalaxyFactory implements Base {
 	private static GalaxyFactory instance = new GalaxyFactory();
-	public static GalaxyFactory current() { return instance; }
+	public  static GalaxyFactory current() { return instance; }
 	/**
 	 * Companion world greek letter prefix
 	 */
@@ -92,7 +90,7 @@ public class GalaxyFactory implements Base {
 		addAlienRaceSystemsForGalaxy(g, 1, null, src, alienRaces);
 		addUnsettledSystemsForGalaxy(g, gc);		
 		init(g, System.currentTimeMillis());
-		updateOptionsAndSaveToFileName((MOO1GameOptions)opts, GAME_OPTIONS_FILE, ALL_GUI_ID);
+		opts.updateOptionsAndSaveToFileName((MOO1GameOptions)opts, GAME_OPTIONS_FILE);
 		//saveOptionsToFileName((MOO1GameOptions)opts, GAME_OPTIONS_FILE);
 		return g;
 	}
@@ -149,7 +147,7 @@ public class GalaxyFactory implements Base {
 		log(str(g.numStarSystems()) ," Systems, ",str(Planet.COUNT)," Planets: "+(tm2-tm1)+"ms");
 		init(g, tm2);
 		// saveOptionsToFileName((MOO1GameOptions)opts, GAME_OPTIONS_FILE);
-		updateOptionsAndSaveToFileName((MOO1GameOptions)opts, GAME_OPTIONS_FILE, ALL_GUI_ID);
+		opts.updateOptionsAndSaveToFileName((MOO1GameOptions)opts, GAME_OPTIONS_FILE);
 		return g;
 	}
 	private void showAI(Galaxy g) {

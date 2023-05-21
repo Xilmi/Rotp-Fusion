@@ -15,8 +15,6 @@
  */
 package rotp.ui.game;
 
-import static rotp.model.game.MOO1GameOptions.updateOptionsAndSaveToFileName;
-import static rotp.model.game.BaseOptions.*;
 import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
 
 import java.awt.Color;
@@ -311,7 +309,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 			else
 				bg = GameUI.settingsSetupBackground(w);
 		if (!globalOptions) // The new ways
-			updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
+			options().updateOptionsAndSaveToFileName(guiOptions(), LIVE_OPTIONS_FILE);
 		enableGlassPane(this);
 		refreshGui();
 	}
