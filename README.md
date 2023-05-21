@@ -46,6 +46,10 @@ Later:
 ## What's New
 
 2023.05.20 (BR)
+- Converted more "static" methods from MOO1GameOptions.
+- Validated the right option is given to the GUI panel.
+
+2023.05.20 (BR)
 - Fixed Governor panel having wrong parameters when starting a new game.
 - Setup options are now only loaded once at startup...
   - No more updated when going through the main menu.

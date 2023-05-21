@@ -164,13 +164,15 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		guiTitleID	= ROOT + "SHOW_TITLE";
 	    commonList	= settingList;
 	    mouseList	= settingList;
-	    cr.setRace(guiOptions().baseRaceOptions().getFirst());
+//	    cr.setRace(guiOptions().baseRaceOptions().getFirst()); // TODO BR: ????
 		addMouseListener(this);
 		addMouseMotionListener(this);
 	    initGUI();		
 		return this;
 	}
-	public void loadRace()		{ // For Race Diplomatic UI Panel
+	public void loadRace(IGameOptions options)		{ // For Race Diplomatic UI Panel
+		guiOptions(options);
+//		cr.setRace(guiOptions().baseRaceOptions().getFirst()); // TODO BR: ????
 		cr.setFromRaceToShow(raceUI.selectedEmpire().dataRace());
 	}
 	public void init(RacesUI p)	{ // For Race Diplomatic UI Panel

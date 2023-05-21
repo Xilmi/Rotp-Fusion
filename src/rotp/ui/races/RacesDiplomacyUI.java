@@ -1301,7 +1301,7 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
             showRaceAbilitiesPane = ShowCustomRaceUI.instance();
             showRaceAbilitiesPane.init(parent);
         }
-        showRaceAbilitiesPane.loadRace();
+        showRaceAbilitiesPane.loadRace(options());
         enableGlassPane(showRaceAbilitiesPane);
         return;
     }

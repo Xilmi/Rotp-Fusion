@@ -37,6 +37,9 @@ public interface ModOptions extends FlagOptions, FactoryOptions, GamePlayOptions
 	default void setBaseAndModSettingsToDefault() {
 		setBaseAndModSettingsToDefault(allModOptions());
 	}
+	default LinkedList<InterfaceParam> governorOptions() {
+		return rotp.model.game.GovernorOptions.governorOptions;
+	}
 
 	// ==================== Galaxy Menu addition ====================
 	//

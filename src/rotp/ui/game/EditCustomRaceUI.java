@@ -69,6 +69,10 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	// ========== Constructors and initializers ==========
 	//
 	private EditCustomRaceUI() {}
+//	public static EditCustomRaceUI instance(IGameOptions options) {
+//		instance.guiOptions(options);
+//		return instance.init0();
+//	}
 	public static EditCustomRaceUI instance() { return instance.init0(); }
 	public EditCustomRaceUI init0() {
 		if (initialized)
@@ -96,8 +100,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	    mouseList = new LinkedList<>();
 	    mouseList.addAll(commonList);
 	    mouseList.add(raceList);
-	    
-	    cr.setRace(guiOptions().baseRaceOptions().getFirst());
+//	    cr.setRace(guiOptions().baseRaceOptions().getFirst());
 		return this;
 	}
 	private void reloadRaceList() {
@@ -145,6 +148,8 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		close();
 	}
 	public void updateCRGui(IGameOptions source) {
+		guiOptions(source);
+//	    cr.setRace(guiOptions().baseRaceOptions().getFirst()); // TODO BR: ???
         for (InterfaceOptions param : commonList)
 			param.setFromOptions(source.dynOpts());
         playerIsCustom.setFromOptions(source.dynOpts());
@@ -263,6 +268,8 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		refreshGui();
 	}
 	@Override public void open(BasePanel p, IGameOptions guiOptions) {
+		guiOptions(guiOptions);
+//	    cr.setRace(guiOptions().baseRaceOptions().getFirst()); // TODO BR: ???
 		enableGlassPane(this);
 		ModifierKeysState.reset();
 		parent = p;
@@ -278,7 +285,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		ModifierKeysState.reset();
 		disableGlassPane();
 		((SetupRaceUI) parent).raceChanged();		
-		RotPUI.instance().returnToSetupRacePanel();
+		RotPUI.instance().selectSetupRacePanel();
 	}
 	@Override protected int getBackGroundWidth() {
 		return super.getBackGroundWidth() + raceListW + columnPad;

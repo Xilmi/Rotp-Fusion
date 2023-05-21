@@ -165,7 +165,10 @@ public abstract class BaseModPanel extends BasePanel
 	protected void refreshGui() {}
 //	protected IGameOptions guiOptions() { return RotPUI.mergedGuiOptions(); }
 	public IGameOptions guiOptions() { return guiOptions; }
-	protected void guiOptions(IGameOptions options) { guiOptions = options; }
+	protected void guiOptions(IGameOptions options) {
+		guiOptions = options;
+		guiOptions.showOptionName(); // TODO BR: --- REMOVE
+	}
 
 	protected boolean guiCallFromGame() { return RotPUI.guiCallFromGame(); }
 	@Override public void repaintButtons() { repaint(); }

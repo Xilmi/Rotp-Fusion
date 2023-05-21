@@ -250,7 +250,7 @@ public class GovernorOptions implements Serializable {
     }
     public void save() { // update Quietly
     	localSave = true;
-    	MOO1GameOptions opts = (MOO1GameOptions) GameSession.instance().options();
+    	IGameOptions opts = GameSession.instance().options();
     	opts.writeModSettingsToOptions(governorOptions, false);
 //    	MOO1GameOptions.writeModSettingsToOptions(
 //    			(MOO1GameOptions) GameSession.instance().options(), GOVERNOR_GUI_ID, false);

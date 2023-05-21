@@ -172,7 +172,7 @@ public final class GameSession implements Base, Serializable {
     public boolean performingTurn()      { return performingTurn; }
     @Override
     public IGameOptions options()        { return options; }
-    public void options(IGameOptions o)  { options = o; o.id(0); }
+    public void options(IGameOptions o)  { options = o; o.setAsGame(); }
     @Override
     public Galaxy galaxy()               { return galaxy; }
     public void galaxy(Galaxy g)         { galaxy = g; }
@@ -253,7 +253,7 @@ public final class GameSession implements Base, Serializable {
     public void startGame(IGameOptions newGameOptions) {
         stopCurrentGame();
 
-        options = newGameOptions;
+        options(newGameOptions);
         startExecutors();
 
         synchronized(ONE_GAME_AT_A_TIME) {
@@ -275,7 +275,7 @@ public final class GameSession implements Base, Serializable {
     // BR: For Restart with new options
     public void restartGame(IGameOptions newGameOptions, GalaxyCopy src) {
     	stopCurrentGame();
-        options = src.options();
+        options(src.options());
         startExecutors();
 
         synchronized(ONE_GAME_AT_A_TIME) {
@@ -817,10 +817,9 @@ public final class GameSession implements Base, Serializable {
     public void saveSession(String filename, boolean backup) throws Exception {
         log("Saving game as file: ", filename, "  backup: "+backup);
         GameSession currSession = GameSession.instance();
-        MOO1GameOptions opts = (MOO1GameOptions) currSession.options();
+        IGameOptions opts = currSession.options();
     	// Update quietly the dynamic options before saving
         opts.writeModSettingsToOptions(opts.allModOptions(), false);
-//    	MOO1GameOptions.writeModSettingsToOptions((MOO1GameOptions) currSession.options(), ALL_GUI_ID, false);
 
     	File theDir = backup ? new File(backupDir()) : new File(saveDir());
         if (!theDir.exists())
@@ -857,9 +856,8 @@ public final class GameSession implements Base, Serializable {
         stopCurrentGame();
         instance = gs;
         // BR: save the last loaded game initial parameters
-        MOO1GameOptions opts = (MOO1GameOptions) instance.options;
-		opts.saveOptionsToFileName(GAME_OPTIONS_FILE);
-    	opts.setModSettingsFromOptions();
+        instance.options().saveOptionsToFileName(GAME_OPTIONS_FILE);
+        instance.options().setModSettingsFromOptions();
     	resolveOptionsDiscrepansies(gs);
 
 		if (showInfo)  showInfo(gs.galaxy());

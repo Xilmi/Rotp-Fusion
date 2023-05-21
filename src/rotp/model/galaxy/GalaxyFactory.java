@@ -21,7 +21,6 @@ import static rotp.model.empires.CustomRaceDefinitions.getAllAlienRaces;
 import static rotp.model.empires.CustomRaceDefinitions.getAllowedAlienRaces;
 import static rotp.model.empires.CustomRaceDefinitions.optionToAlienRace;
 import static rotp.model.empires.CustomRaceDefinitions.raceFileExist;
-import static rotp.model.game.MOO1GameOptions.copyAliensAISettings;
 import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
 
 import java.awt.Point;
@@ -839,7 +838,7 @@ public class GalaxyFactory implements Base {
 						oldOptions.selectedLeaderName	(empires(0).leaderName);
 				}
 				if (opts.selectedRestartChangesAliensAI()) {
-					copyAliensAISettings(newOptions, oldOptions);
+					newOptions.copyAliensAISettings(oldOptions);
 				} 
 				if (opts.selectedRestartChangesPlayerAI()) {
 					oldOptions.selectedAutoplayOption(newOptions.selectedAutoplayOption());

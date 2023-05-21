@@ -332,7 +332,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     // BR: Added initialization choice
     public static void createNewOptions() {
     	newGameOptions = createStartupOptions();
-    	newGameOptions.id(1);
+    	newGameOptions.setAsSetup();
     }
     // BR: Added for initialization choice
     public static MOO1GameOptions createStartupOptions() { // BR:
@@ -415,10 +415,10 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
 
     // PLAYER-TRIGGERED ACTIONS
     // To avoid reset options while returning to Race panel
-    public void returnToSetupRacePanel() { // TODO BR: REMOVE Later
-    	setupRaceUI.smallInit(newGameOptions());
-    	selectPanel(SETUP_RACE_PANEL, setupRaceUI);
-    }
+//    public void returnToSetupRacePanel() { // TODO BR: REMOVE Later
+//    	setupRaceUI.smallInit(newGameOptions());
+//    	selectPanel(SETUP_RACE_PANEL, setupRaceUI);
+//    }
     public void selectSetupRacePanel()	 {
     	setupRaceUI.init(newGameOptions());
     	selectPanel(SETUP_RACE_PANEL, setupRaceUI); 
