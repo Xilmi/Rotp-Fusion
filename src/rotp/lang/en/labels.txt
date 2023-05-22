@@ -1316,7 +1316,7 @@ SETUP_DIFFICULTY_NORMAL_HELP      | Normal (100%)
 SETUP_DIFFICULTY_HARD_HELP        | Hard (110%)
 SETUP_DIFFICULTY_HARDER_HELP      | Harder (125%)
 SETUP_DIFFICULTY_HARDEST_HELP     | Hardest (145%)
-SETUP_DIFFICULTY_CUSTOM_HELP      | This value is set by the option <b>Custom Difficulty</b> which can be found either:<br>&ensp - at the top left of "Dynamic A" (6 option buttons)<br>&ensp - or at the top Left of "Dynamic Options" (2 option buttons)
+SETUP_DIFFICULTY_CUSTOM_HELP      | This value is set by the option <b>Custom Difficulty</b> which can be found either:<br>&ensp - at the top left of "In-game A" (6 option buttons)<br>&ensp - or at the top Left of "In-game Options" (2 option buttons)
 
 SETUP_RESEARCH_RATE_NORMAL_HELP   | Research costs factors = 1.
 SETUP_RESEARCH_RATE_NORMAL        | Normal
@@ -1455,13 +1455,13 @@ SETUP_BUTTON_START                | Start
 SETUP_BUTTON_RESTART              | Restart
 SETUP_BUTTON_SETTINGS             | Advanced Options
 // BR: add UI panel for modnar MOD game options
-SETUP_BUTTON_STATIC_A_SETTINGS    | Static A
-SETUP_BUTTON_STATIC_B_SETTINGS    | Static B
-SETUP_BUTTON_DYNAMIC_A_SETTINGS   | Dynamic A
-SETUP_BUTTON_DYNAMIC_B_SETTINGS   | Dynamic B
+SETUP_BUTTON_STATIC_A_SETTINGS    | Pregame A
+SETUP_BUTTON_STATIC_B_SETTINGS    | Pregame B
+SETUP_BUTTON_DYNAMIC_A_SETTINGS   | In-game A
+SETUP_BUTTON_DYNAMIC_B_SETTINGS   | In-game B
 SETUP_BUTTON_MOD_GLOBAL_SETTINGS  | Menu Options
-SETUP_BUTTON_MERGED_STATIC_SETTINGS  | Static Options
-SETUP_BUTTON_MERGED_DYNAMIC_SETTINGS | Dynamic Options
+SETUP_BUTTON_MERGED_STATIC_SETTINGS  | Pregame Options
+SETUP_BUTTON_MERGED_DYNAMIC_SETTINGS | In-game Options
 // BR: Restart swap empire
 SETUP_SELECT_EMPIRE_TITLE         | Select Player Empire
 SETUP_SELECT_EMPIRE_SELECT_BUTTON | Select
@@ -1840,8 +1840,8 @@ HEADERS_SPACER                       |  %1
 
 // modnar: add UI panel for modnar MOD game options
 SETTINGS_MOD_TITLE                   | modnar MOD Options
-SETTINGS_MOD_STATIC_TITLE            | Static Options
-SETTINGS_MOD_DYNAMIC_TITLE           | Dynamic Options
+SETTINGS_MOD_STATIC_TITLE            | Pregame Options
+SETTINGS_MOD_DYNAMIC_TITLE           | In-game Options
 SETTINGS_MOD_DIST_ARTIFACT_PLANET    | Min Artifact distance: %1
 SETTINGS_MOD_NEW_RACES_ON            | Include New Races: %1
 SETTINGS_MOD_CHALLENGE_MODE          | Challenge Mode: %1
@@ -2065,11 +2065,11 @@ SETTINGS_MOD_MENU_STARTUP                | GUI at Startup: %1
 // SETTINGS_MOD_MENU_AFTER_GAME             | GUI after Game: %1
 // SETTINGS_MOD_MENU_LOADING_GAME_DESC      | What options should be used when loading a game?
 // SETTINGS_MOD_MENU_LOADING_GAME           | Loading Game: %1
-SETTINGS_MOD_COMPACT_OPTION_ONLY_HELP    | To switch between Classic option menus (six menus) and Compact option menus (2 menus). Both provide a distinction between:<br><b>Static Options:</b>&nbsp which are only read once, when a game starts (or restarts).<br><b>Dynamic Options:</b>&nbsp which can be changed while playing a game. (Ctrl-o) to call the option menu.
+SETTINGS_MOD_COMPACT_OPTION_ONLY_HELP    | To switch between Classic option menus (six menus) and Compact option menus (2 menus). Both provide a distinction between:<br><b>Pregame Options:</b>&nbsp which are only read once, when a game starts (or restarts).<br><b>In-game Options:</b>&nbsp which can be changed while playing a game. (Ctrl-o) to call the option menu.
 SETTINGS_MOD_COMPACT_OPTION_ONLY_DESC    | Show multiple Options Menus at standard size, or only one compacted options menu?
 SETTINGS_MOD_COMPACT_OPTION_ONLY         | Show Compact Options: %1
-SETTINGS_MOD_COMPACT_OPTION_ONLY_YES     | Display the two buttons for accessing the compact options menus (which share a descripion space), allowing more options per menu.<br>One for the static options, the other for the dynamic options.
-SETTINGS_MOD_COMPACT_OPTION_ONLY_NO      | Display six buttons for accessing the classic options menus (which simultaneously display a small description of each option).<br>One for the original <b>Advanced Options</b>&nbsp containing both static and dynamic options, two for the mod's static options, two for the mod's dynamic options, and one for display settings (not affecting game play).
+SETTINGS_MOD_COMPACT_OPTION_ONLY_YES     | Display the two buttons for accessing the compact options menus (which share a descripion space), allowing more options per menu.<br>One for the Pregame Options, the other for the In-game Options.
+SETTINGS_MOD_COMPACT_OPTION_ONLY_NO      | Display six buttons for accessing the classic options menus (which simultaneously display a small description of each option).<br>One for the original <b>Advanced Options</b>&nbsp containing both Pregame and In-game Options, two for the mod's Pregame Options, two for the mod's In-game Options, and one for display settings (not affecting game play).
 SETTINGS_MOD_OPTIONS_DEFAULT             | Default Settings
 SETTINGS_MOD_OPTIONS_LAST                | Last GUI Settings
 SETTINGS_MOD_OPTIONS_GAME                | Game Settings
@@ -3156,8 +3156,8 @@ SETUP_START_DESC                  | Save options and Start the Game.<br> "Ctrl" 
 SETUP_BUTTON_START_DESC           | Save options and Start the Game.
 SETUP_BUTTON_RESTART_DESC         | You will be asked to select an old played game to start a new one on the same galaxy.<br>- With the same opponents or new ones.<br>- With the same player race, a new one, or swapped with a previous opponent.<br> You can keep your home world or swapp it with a previous opponent.
 SETUP_GALAXY_BACK_DESC            | Cancel options and go back to the Race selection menu.
-SETUP_GALAXY_CLASSIC_OPTIONS_HELP | These buttons open Advanced option Menus.<br> "Static" contains parameters being set once when starting or restarting a game.<br> "Dynamic" contains parameters adjustable in game.<br>To switch to 2 compact option menus:<br> - Go to "Menus Options" and set "Show Compact Options" to "Yes".  (at the bottom right)<br>Compact option menus have the same appearence as the one showing in-game, following "Ctrl-o". 
-SETUP_GALAXY_COMPACT_OPTIONS_HELP | These buttons open Advanced options Menu.<br> "Static" contains parameters being set once when starting or restarting a game.<br> "Dynamic" contains parameters adjustable in game.<br>To switch back to 6 classic option menus:<br> - Go to "Static Options" and set "Show Compact Options" to "No". (at the bottom right)
+SETUP_GALAXY_CLASSIC_OPTIONS_HELP | These buttons open Advanced option Menus.<br> "Pregame" contains parameters being set once when starting or restarting a game.<br> "In-game" contains parameters adjustable in game.<br>To switch to 2 compact option menus:<br> - Go to "Menus Options" and set "Show Compact Options" to "Yes".  (at the bottom right)<br>Compact option menus have the same appearence as the one showing in-game, following "Ctrl-o". 
+SETUP_GALAXY_COMPACT_OPTIONS_HELP | These buttons open Advanced options Menu.<br> "Pregame" contains parameters being set once when starting or restarting a game.<br> "In-game" contains parameters adjustable in game.<br>To switch back to 6 classic option menus:<br> - Go to "Pregame Options" and set "Show Compact Options" to "No". (at the bottom right)
 SETUP_GALAXY_ABILITIES_DESC       | Default abilities for alien Races:<br> 'Base Races' = Standard abilities of the selected Race (in the Boxes below);<br> 'Reworked' = New abilities you have saved with the race default name.<br> (ex: RACE_DARLOK for the Naslok);<br> *Race = specific base Race; or any other customized race you have built.
 SETUP_GALAXY_SELECTABLE_DESC      | "Yes" => A selection line will appear at the top of the boxes below, allowing the selection of individual ability.
 SETUP_GALAXY_SELECTABLE		      | Selectable Abilities
@@ -3176,7 +3176,7 @@ SETUP_SELECT_CR_OPTIONS		      | Selectable Abilities.
 'Base Race'_DESC     | Base abilities of the selected race (the one on the icon)
 'Reworked'_DESC      | Reworked abilitie of the selected race (the one on the icon), saved by the player in respectively named race files: RACE_ALKARI, RACE_BULRATHI, RACE_DARLOK, RACE_HUMAN, RACE_KLACKON, RACE_MEKLAR, RACE_MRRSHAN, RACE_PSILON, RACE_SAKKRA , RACE_SILICOID, RACE_EARLYGAME, RACE_GEARHEAD, RACE_JACKTRADES, RACE_MONOCLE, RACE_NEOHUMAN, RACE_WARDEMON.
 'Player'_DESC        | Same abilities as the selected player race.
-'Random'_DESC        | Abilities will be randomly generared using the static parameters: <b>RANDOM ALIENS OPTIONS</b> : "Target Max", "Target Min", "Custom Aliens", "Setting % Max", "Setting % Min", and "Smooth Edges".
+'Random'_DESC        | Abilities will be randomly generared using the pregame parameters: <b>RANDOM ALIENS OPTIONS</b> : "Target Max", "Target Min", "Custom Aliens", "Setting % Max", "Setting % Min", and "Smooth Edges".
 'Random 10'_DESC     | Abilities randomly selected within the ten base races abilities.
 'Random 16'_DESC     | Abilities randomly selected within the sixteen races abilities. <i>(The ten Base races and the six Modnar races)</i>
 'Files'_DESC         | Abilities randomly selected within customized race file, having the "Available to AI" option enabled. If this list is empty the selection will be made within the base race abilities.

@@ -45,9 +45,10 @@ Later:
 
 ## What's New
 
-2023.05.20 (BR)
+2023.05.21 (BR)
 - Converted more "static" methods from MOO1GameOptions.
 - Validated the right option is given to the GUI panel.
+- New buttons names: "pregame" and "in-game".
 
 2023.05.20 (BR)
 - Fixed Governor panel having wrong parameters when starting a new game.

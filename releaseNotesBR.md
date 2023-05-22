@@ -1,6 +1,11 @@
 Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
-Last updates:
+Las updates:
+- New buttons names: "Static" -> "pregame" and "Dynamic" -> "in-game",
+  - Thanks to William482 for the name proposal.
+
+
+Last Anouuncement:
 
 - New Governor Panel:
   - Changed to Rotp Colors.

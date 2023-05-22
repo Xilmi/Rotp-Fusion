@@ -560,18 +560,20 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			wBox = mergedStaticBox.x + mergedDynamicBox.width - mergedDynamicBox.x + 2*margin;
 			xBox = mergedDynamicBox.x - margin;
 			yBox = mergedStaticBox.y - margin;
+			nL   = 7;
+			txt  = text("SETUP_GALAXY_COMPACT_OPTIONS_HELP");
 		} else {
  			hBox = modDynamicBBox.y + modDynamicBBox.height - modStaticBBox.y + 2*margin;
 			wBox = settingsBox.x + settingsBox.width - modStaticBBox.x + 2*margin;
 			xBox = modStaticBBox.x - margin;
 			yBox = modStaticBBox.y - margin;
+			nL   = 9;
+			txt  = text("SETUP_GALAXY_CLASSIC_OPTIONS_HELP");
 		}
 		int[] lineArr = sp.rect(xBox, yBox, wBox, hBox);
 		ye = yBox;
 		yb = yBox - s80;
 	   
-		txt  = text("SETUP_GALAXY_OPTIONS_DESC");
-		nL   = 6;
 		hBox = HelpUI.height(nL);
 		wBox = scaled(360);
 		//xBox = rightBoxX + xTab;
@@ -605,11 +607,11 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 
 		dest = newRacesBox;
 		txt  = dest.getDescription();
-		nL   = 4;
+		nL   = 3;
 		hBox = HelpUI.height(nL);
 		xBox = dest.x + dest.width/2 - wBox/4;
-		yBox = dest.y + hShift;
-		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
+		yBox = dest.y + hShift-s10;
+		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox+s55, nL, txt);
 		xb   = xBox + wBox/4;
 		yb   = yBox;
 		xe   = dest.x + dest.width/2;
