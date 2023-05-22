@@ -32,16 +32,28 @@ import rotp.util.ModifierKeysState;
 //public class ParamButtonHelp extends AbstractParam<String> {
 public class ParamButtonHelp implements InterfaceParam {
 	
-	private EnumMap<ModifierKeysState, String> nameMap = new EnumMap<>(ModifierKeysState.class);
+	private EnumMap<ModifierKeysState, String>  nameMap = new EnumMap<>(ModifierKeysState.class);
+	private EnumMap<ModifierKeysState, Boolean> showMap = new EnumMap<>(ModifierKeysState.class);
 	private final String	name;
 	// ===== Constructors =====
 	//
 	public ParamButtonHelp(String label, String base, String shift, String ctrl, String ctrlShift) {
+		this(label, base, true, shift, true, ctrl, true, ctrlShift, true);
+	}
+	public ParamButtonHelp(String label,
+			String base,	  boolean showBase,
+			String shift,	  boolean showShift,
+			String ctrl,	  boolean showCtrl,
+			String ctrlShift, boolean showCtrlShift) {
 		name	= label;
 		nameMap.put(ModifierKeysState.NONE, base);
 		nameMap.put(ModifierKeysState.SHIFT, shift);
 		nameMap.put(ModifierKeysState.CTRL, ctrl);
 		nameMap.put(ModifierKeysState.CTRL_SHIFT, ctrlShift);
+		showMap.put(ModifierKeysState.NONE, showBase);
+		showMap.put(ModifierKeysState.SHIFT, showShift);
+		showMap.put(ModifierKeysState.CTRL, showCtrl);
+		showMap.put(ModifierKeysState.CTRL_SHIFT, showCtrlShift);
 //		nameMap.put(ModifierKeysState.ALT, base);
 //		nameMap.put(ModifierKeysState.ALT_SHIFT, shift);
 //		nameMap.put(ModifierKeysState.ALT_CTRL, ctrl);
@@ -50,7 +62,7 @@ public class ParamButtonHelp implements InterfaceParam {
 	private String helpLine(ModifierKeysState state, int html) {
 		String help, line;
 		String label = nameMap.get(state);
-		if (label == null || label.isEmpty())
+		if (label == null || label.isEmpty() || !showMap.get(state))
 			return "";
 		if (html == 1)
 			help = langDesc(label);
@@ -84,11 +96,17 @@ public class ParamButtonHelp implements InterfaceParam {
 		}
 		return result;
 	}
-	private String getKey() { return nameMap.get(ModifierKeysState.get()); }
+	public	String getKey() { return nameMap.get(ModifierKeysState.get()); }
+	public	String getKey(ModifierKeysState state) { return nameMap.get(state); }
+	public	String[] getKeys() {
+		return (String[]) nameMap.values().toArray(new String[nameMap.size()]);
+	}
 
 	// ===== Overriders =====
 	//
-	@Override public String getGuide()		{ return buildHelp(1); } // html
+	@Override public String getGuide()		{
+		return buildHelp(1); 
+	} // html
 	@Override public String getFullHelp()	{ return buildHelp(2); } // html
 	@Override public String getHelp()		{ return buildHelp(0); } // Full for old Help
 	@Override public String getCfgLabel()	{ return name; }

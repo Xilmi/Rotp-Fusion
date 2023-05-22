@@ -100,6 +100,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         init0();
     }
     private void init0() {
+		isSubMenu = false;
         addMouseListener(this);
         addMouseMotionListener(this);
         addMouseWheelListener(this);
@@ -130,10 +131,6 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         // Save initial options
         guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
     }
-//    public void smallInit(IGameOptions guiOptions) {
-//       	super.init(guiOptions);
-//        refreshGui();
-//    }
 	@Override public void showHelp() {
 		loadHelpUI();
 	repaint();   

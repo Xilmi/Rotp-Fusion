@@ -87,6 +87,7 @@ public abstract class BaseModPanel extends BasePanel
 	private	  PolyBox prevPolyBox;
 	protected boolean hoverChanged;
 	private	  IGameOptions guiOptions;
+	protected boolean isSubMenu = true;
 
 	LinkedList<InterfaceParam> paramList;
 	
@@ -99,35 +100,10 @@ public abstract class BaseModPanel extends BasePanel
 	
 	public GuidePopUp guidePopUp;
 	
-	protected static final ParamButtonHelp exipButtonHelp = new ParamButtonHelp( // For Help Do not add the list
-			"SETTINGS_BUTTON_EXIT",
-			exitKey,
-			applyKey,
-			cancelKey,
-			"");
-	private static final ParamButtonHelp userButtonHelp = new ParamButtonHelp( // For Help Do not add the list
-			"SETTINGS_BUTTON_USER",
-			setGlobalUserKey,
-			setLocalUserKey,
-			saveGlobalUserKey,
-			saveLocalUserKey);
-	private static final ParamButtonHelp lastButtonHelp = new ParamButtonHelp( // For Help Do not add the list
-			"SETTINGS_BUTTON_LAST",
-			setGlobalLastKey,
-			setLocalLastKey,
-			setGlobalGameKey,
-			setLocalGameKey);
-	private static final ParamButtonHelp defaultButtonHelp = new ParamButtonHelp( // For Help Do not add the list
-			"SETTINGS_BUTTON_DEFAULT",
-			setGlobalDefaultKey,
-			setLocalDefaultKey,
-			restoreGlobalKey,
-			restoreLocalKey);
-
 	protected Font smallButtonFont	= narrowFont(20);
-	protected Box defaultBox		= new Box(defaultButtonHelp);
-	protected Box lastBox			= new Box(lastButtonHelp);
-	protected Box userBox			= new Box(userButtonHelp);
+	protected Box defaultBox		= new Box(defaultButton);
+	protected Box lastBox			= new Box(lastButton);
+	protected Box userBox			= new Box(userButton);
 	protected Box guideBox			= new Box(guideKey);
 
 	protected boolean globalOptions	= false; // No preferred button and Saved to remnant.cfg
@@ -163,18 +139,25 @@ public abstract class BaseModPanel extends BasePanel
 	}
 	
 	protected void refreshGui() {}
-//	protected IGameOptions guiOptions() { return RotPUI.mergedGuiOptions(); }
 	public IGameOptions guiOptions() { return guiOptions; }
-	protected void guiOptions(IGameOptions options) {
-		guiOptions = options;
-		guiOptions.showOptionName(); // TODO BR: --- REMOVE
-	}
+	protected void guiOptions(IGameOptions options) { guiOptions = options; }
 
 	protected boolean guiCallFromGame() { return RotPUI.guiCallFromGame(); }
 	@Override public void repaintButtons() { repaint(); }
 	protected void init(IGameOptions guiOptions) {
 		guiOptions(guiOptions);
 		if (!initialised) {
+			if (isSubMenu) {
+				defaultBox	= new Box(defaultSubButton);
+				lastBox		= new Box(lastSubButton);
+				userBox		= new Box(userSubButton);
+			}
+			else {
+				defaultBox	= new Box(defaultButton);
+				lastBox		= new Box(lastButton);
+				userBox		= new Box(userButton);
+			}
+			guideBox	= new Box(guideKey);
 			singleInit();
 			initialised = true;
 		}
@@ -189,34 +172,8 @@ public abstract class BaseModPanel extends BasePanel
 		disableGlassPane();
 	}
 
-	// ---------- Exit Button
-	protected String exitButtonKey() { return exitKey;}
-	private void initExitButtonWidth(Graphics2D g) {
-		exitButtonWidth = buttonWidth(g, new String[] {exitKey});
-	}
-	protected int exitButtonWidth(Graphics2D g) {
-		if (exitButtonWidth == 0)
-			localInit(g);
-		return exitButtonWidth;
-	}
-	protected void doExitBoxAction() {
-		buttonClick();
-		switch (ModifierKeysState.get()) {
-		case CTRL:
-		case CTRL_SHIFT: // Restore
-			// loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
-			// break;
-		default: // Save
-			guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
-			break; 
-		}
-		close();
-	}
-	protected String exitButtonDescKey() {
-		return exitButtonKey() + LABEL_DESCRIPTION;
-	}
-
-	// ---------- Guide Button
+	// ==================== Guide Button ====================
+	//
 	protected String guideButtonKey() { return guideKey; }
 	private void initGuideButtonWidth(Graphics2D g) {
 		guideButtonWidth = buttonWidth(g, new String[] {guideKey});
@@ -240,18 +197,73 @@ public abstract class BaseModPanel extends BasePanel
 		return guideButtonKey() + LABEL_DESCRIPTION;
 	}
 
-	// ---------- User Button
-	protected String userButtonKey() {
-		switch (ModifierKeysState.get()) {
-		case CTRL:		 return saveGlobalUserKey;
-		case CTRL_SHIFT: return saveLocalUserKey;
-		case SHIFT:		 return setLocalUserKey;
-		default:		 return setGlobalUserKey;
-		}
+	// ==================== Exit Button ====================
+	//
+	protected static final ParamButtonHelp exitButton = new ParamButtonHelp(
+			"SETTINGS_BUTTON_EXIT", // For Help Do not add the list
+			exitKey,	true,
+			exitKey,	false,
+			cancelKey,	true,
+			cancelKey,	false);
+	protected static final ParamButtonHelp exitSubButton = new ParamButtonHelp(
+			"SETTINGS_BUTTON_EXIT", // For Help Do not add the list
+			exitKey,	true,
+			applyKey,	true,
+			cancelKey,	true,
+			cancelKey,	false);
+	protected String exitButtonKey() {
+		if (isSubMenu)
+			return exitButton.getKey();
+		else
+			return exitButton.getKey();
 	}
-	private void initUserButtonWidth(Graphics2D g) {
-		userButtonWidth = buttonWidth(g, new String[] {
-				saveGlobalUserKey, saveLocalUserKey, setLocalUserKey, setGlobalUserKey});
+	private void initExitButtonWidth(Graphics2D g) { // Same size for panels and sub panels
+		exitButtonWidth = buttonWidth(g, exitButton.getKeys());
+	}
+	protected int exitButtonWidth(Graphics2D g) {
+		if (exitButtonWidth == 0)
+			localInit(g);
+		return exitButtonWidth;
+	}
+	protected void doExitBoxAction() {
+		buttonClick();
+		switch (ModifierKeysState.get()) {
+		case CTRL:
+		case CTRL_SHIFT: // Restore
+			guiOptions().loadAndUpdateFromFileName(LIVE_OPTIONS_FILE);
+			break;
+		default: // Save
+			guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
+			break; 
+		}
+		close();
+	}
+	protected String exitButtonDescKey() {
+		return exitButtonKey() + LABEL_DESCRIPTION;
+	}
+
+	// ==================== User Button ====================
+	//
+	private static final ParamButtonHelp userButton = new ParamButtonHelp(
+			"SETTINGS_BUTTON_USER", // For Help Do not add the list
+			setGlobalUserKey,
+			setLocalUserKey,
+			saveGlobalUserKey,
+			saveLocalUserKey);
+	private static final ParamButtonHelp userSubButton = new ParamButtonHelp(
+			"SETTINGS_BUTTON_USER", // For Help Do not add the list
+			setLocalUserKey,	true,
+			setLocalUserKey,	false,
+			saveLocalUserKey,	true,
+			saveLocalUserKey,	false);
+	protected String userButtonKey() {
+		if (isSubMenu)
+			return userSubButton.getKey();
+		else
+			return userButton.getKey();
+	}
+	private void initUserButtonWidth(Graphics2D g) { // Same size for panels and sub panels
+		userButtonWidth = buttonWidth(g, userButton.getKeys());
 	}
 	protected int userButtonWidth(Graphics2D g) {
 		if (userButtonWidth == 0) 
@@ -260,27 +272,54 @@ public abstract class BaseModPanel extends BasePanel
 	}
 	protected void doUserBoxAction() {
 		buttonClick();
-		switch (ModifierKeysState.get()) {
-		case CTRL: // saveGlobalUserKey
-			guiOptions().updateOptionsAndSaveToFileName(USER_OPTIONS_FILE);
-			return;
-		case CTRL_SHIFT: // saveLocalUserKey
-			guiOptions().updateOptionsAndSaveToFileName(USER_OPTIONS_FILE, localOptions());
-			return;
-		case SHIFT: // setLocalUserKey
-			guiOptions().loadAndUpdateFromFileName(USER_OPTIONS_FILE, localOptions());
-			refreshGui();
-			return;
-		default: // setGlobalUserKey
-			guiOptions().loadAndUpdateFromFileName(USER_OPTIONS_FILE);
-			refreshGui();
-		}
+		if (isSubMenu)
+			switch (ModifierKeysState.get()) {
+			case CTRL:
+			case CTRL_SHIFT: // saveLocalUserKey
+				guiOptions().updateOptionsAndSaveToFileName(USER_OPTIONS_FILE, localOptions());
+				return;
+			case SHIFT: // setLocalUserKey
+			default:
+				guiOptions().loadAndUpdateFromFileName(USER_OPTIONS_FILE, localOptions());
+				refreshGui();
+				return;
+			}
+		else
+			switch (ModifierKeysState.get()) {
+			case CTRL: // saveGlobalUserKey
+				guiOptions().updateOptionsAndSaveToFileName(USER_OPTIONS_FILE);
+				return;
+			case CTRL_SHIFT: // saveLocalUserKey
+				guiOptions().updateOptionsAndSaveToFileName(USER_OPTIONS_FILE, localOptions());
+				return;
+			case SHIFT: // setLocalUserKey
+				guiOptions().loadAndUpdateFromFileName(USER_OPTIONS_FILE, localOptions());
+				refreshGui();
+				return;
+			default: // setGlobalUserKey
+				guiOptions().loadAndUpdateFromFileName(USER_OPTIONS_FILE);
+				refreshGui();
+				return;
+			}
 	}	
 	protected String userButtonDescKey() {
 		return userButtonKey() + LABEL_DESCRIPTION;
 	}
 
-	// ---------- Default Button
+	// ==================== Default Button ====================
+	//
+	private static final ParamButtonHelp defaultButton = new ParamButtonHelp(
+			"SETTINGS_BUTTON_DEFAULT", // For Help Do not add the list
+			setGlobalDefaultKey,
+			setLocalDefaultKey,
+			restoreGlobalKey,
+			restoreLocalKey);
+	private static final ParamButtonHelp defaultSubButton = new ParamButtonHelp(
+			"SETTINGS_BUTTON_DEFAULT", // For Help Do not add the list
+			setLocalDefaultKey,	true,
+			setLocalDefaultKey,	false,
+			restoreLocalKey,	true,
+			restoreLocalKey,	false);
 	protected String defaultButtonKey() {
 		if (globalOptions)  // The old ways
 			switch (ModifierKeysState.get()) {
@@ -288,17 +327,13 @@ public abstract class BaseModPanel extends BasePanel
 			case CTRL_SHIFT: return restoreLocalKey;
 			default:		 return setLocalDefaultKey;
 			}
+		else if (isSubMenu)
+			return defaultSubButton.getKey();
 		else
-			switch (ModifierKeysState.get()) {
-			case CTRL:		 return restoreGlobalKey;
-			case CTRL_SHIFT: return restoreLocalKey;
-			case SHIFT:		 return setLocalDefaultKey;
-			default:		 return setGlobalDefaultKey;
-			}
+			return defaultButton.getKey();
 	}
-	private void initDefaultButtonWidth(Graphics2D g) {
-		defaultButtonWidth = buttonWidth(g, new String[] {
-				restoreGlobalKey, restoreLocalKey, setLocalDefaultKey, setGlobalDefaultKey});
+	private void initDefaultButtonWidth(Graphics2D g) { // Same size for panels and sub panels
+		defaultButtonWidth = buttonWidth(g, defaultButton.getKeys());
 	}
 	protected int defaultButtonWidth(Graphics2D g) {
 		if (defaultButtonWidth == 0) 
@@ -307,38 +342,65 @@ public abstract class BaseModPanel extends BasePanel
 	}
 	protected void doDefaultBoxAction() {
 		buttonClick();
-		switch (ModifierKeysState.get()) {
-		case CTRL: // restoreGlobalKey
-			guiOptions().loadAndUpdateFromFileName(LIVE_OPTIONS_FILE);		
-			break;
-		case CTRL_SHIFT: // restoreLocalKey
-			guiOptions().loadAndUpdateFromFileName(LIVE_OPTIONS_FILE, localOptions());		
-			break;
-		case SHIFT: // setLocalDefaultKey
-			guiOptions().setBaseAndModSettingsToDefault(localOptions());		
-			break; 
-		default: // setGlobalDefaultKey
-			guiOptions().setBaseAndModSettingsToDefault();		
-			break; 
-		}
-		refreshGui();
+		if (isSubMenu)
+			switch (ModifierKeysState.get()) {
+			case CTRL: // restoreGlobalKey
+			case CTRL_SHIFT: // restoreLocalKey
+				guiOptions().loadAndUpdateFromFileName(LIVE_OPTIONS_FILE, localOptions());
+				refreshGui();
+				return;
+			case SHIFT:
+			default: // setLocalDefaultKey
+				guiOptions().setBaseAndModSettingsToDefault(localOptions());		
+				refreshGui();
+				return;
+			}
+		else
+			switch (ModifierKeysState.get()) {
+			case CTRL: // restoreGlobalKey
+				guiOptions().loadAndUpdateFromFileName(LIVE_OPTIONS_FILE);		
+				refreshGui();
+				return;
+			case CTRL_SHIFT: // restoreLocalKey
+				guiOptions().loadAndUpdateFromFileName(LIVE_OPTIONS_FILE, localOptions());		
+				refreshGui();
+				return;
+			case SHIFT: // setLocalDefaultKey
+				guiOptions().setBaseAndModSettingsToDefault(localOptions());		
+				refreshGui();
+				return;
+			default: // setGlobalDefaultKey
+				guiOptions().setBaseAndModSettingsToDefault();		
+				refreshGui();
+				return;
+			}
 	}
 	protected String defaultButtonDescKey() {
 		return defaultButtonKey() + LABEL_DESCRIPTION;
 	}
 
-	// ---------- Last Button
+	// ==================== Last Button ====================
+	//
+	private static final ParamButtonHelp lastButton = new ParamButtonHelp(
+			"SETTINGS_BUTTON_LAST", // For Help Do not add the list
+			setGlobalLastKey,
+			setLocalLastKey,
+			setGlobalGameKey,
+			setLocalGameKey);
+	private static final ParamButtonHelp lastSubButton = new ParamButtonHelp(
+			"SETTINGS_BUTTON_LAST", // For Help Do not add the list
+			setLocalLastKey,	true,
+			setLocalLastKey,	false,
+			setLocalGameKey,	true,
+			setLocalGameKey,	false);
 	protected String lastButtonKey() {
-		switch (ModifierKeysState.get()) {
-		case CTRL:		 return setGlobalGameKey;
-		case CTRL_SHIFT: return setLocalGameKey;
-		case SHIFT:		 return setLocalLastKey;
-		default:		 return setGlobalLastKey;
-		}
+		 if (isSubMenu)
+				return lastSubButton.getKey();
+			else
+				return lastButton.getKey();
 	}
-	private void initLastButtonWidth(Graphics2D g) {
-		lastButtonWidth = buttonWidth(g, new String[] {
-				setGlobalGameKey, setLocalGameKey, setLocalLastKey, setGlobalLastKey});
+	private void initLastButtonWidth(Graphics2D g) { // Same size for panels and sub panels
+		lastButtonWidth = buttonWidth(g, lastButton.getKeys());
 	}
 	protected int lastButtonWidth(Graphics2D g) {
 		if (lastButtonWidth == 0) 
@@ -347,19 +409,31 @@ public abstract class BaseModPanel extends BasePanel
 	}
 	protected void doLastBoxAction() {
 		buttonClick();
-		switch (ModifierKeysState.get()) {
-		case CTRL: // setGlobalGameKey
-			guiOptions().loadAndUpdateFromFileName(GAME_OPTIONS_FILE);
-			break;
-		case CTRL_SHIFT: // setLocalGameKey
-			guiOptions().loadAndUpdateFromFileName(GAME_OPTIONS_FILE, localOptions());
-			break;
-		case SHIFT: // setLocalLastKey
-			guiOptions().loadAndUpdateFromFileName(LAST_OPTIONS_FILE, localOptions());
-			break;
-		default: // setGlobalLastKey
-			guiOptions().loadAndUpdateFromFileName(LAST_OPTIONS_FILE);
-		}
+		 if (isSubMenu)
+			 switch (ModifierKeysState.get()) {
+				case CTRL:
+				case CTRL_SHIFT: // setLocalGameKey
+					guiOptions().loadAndUpdateFromFileName(GAME_OPTIONS_FILE, localOptions());
+					break;
+				case SHIFT:
+				default: // setLocalLastKey
+					guiOptions().loadAndUpdateFromFileName(LAST_OPTIONS_FILE, localOptions());
+					break;
+				}
+		else
+			switch (ModifierKeysState.get()) {
+			case CTRL: // setGlobalGameKey
+				guiOptions().loadAndUpdateFromFileName(GAME_OPTIONS_FILE);
+				break;
+			case CTRL_SHIFT: // setLocalGameKey
+				guiOptions().loadAndUpdateFromFileName(GAME_OPTIONS_FILE, localOptions());
+				break;
+			case SHIFT: // setLocalLastKey
+				guiOptions().loadAndUpdateFromFileName(LAST_OPTIONS_FILE, localOptions());
+				break;
+			default: // setGlobalLastKey
+				guiOptions().loadAndUpdateFromFileName(LAST_OPTIONS_FILE);
+			}
 		refreshGui();
 	}
 	protected String lastButtonDescKey() {

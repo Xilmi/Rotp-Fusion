@@ -344,9 +344,11 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		init0();
 	}
 	private void init0() {
+		isSubMenu = false;
 		addMouseListener(this);
 		addMouseMotionListener(this);
 		addMouseWheelListener(this);
+		
 	}
     private void initOpponentGuide() {
 		opponentRandom = text(OPPONENT_RANDOM);

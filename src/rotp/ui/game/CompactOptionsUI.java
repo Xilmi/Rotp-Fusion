@@ -69,7 +69,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	private static final int bottomPad		= rowPad;
 	private static final int textBoxH		= settingH;
 	private static final int hDistSetting	= settingH + settingpadH; // distance between two setting top corner
-	private		   final Box exitBox		= new Box(exipButtonHelp);
+	private		   final Box exitBox		= new Box(exitButton);
 	private		   final JTextPane descBox	= new JTextPane();
 	private int leftM, rightM;
 	private int topM, yTop;

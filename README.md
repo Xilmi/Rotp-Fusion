@@ -45,6 +45,10 @@ Later:
 
 ## What's New
 
+2023.05.22 (BR)
+- Removed "global" from sub-menus.
+- Removed some buttons label redundancies.
+
 2023.05.21 (BR)
 - Converted more "static" methods from MOO1GameOptions.
 - Validated the right option is given to the GUI panel.
