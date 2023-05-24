@@ -54,6 +54,7 @@ Later:
 2023.05.23 (BR)
 - "param" Mod option tools auto update options.
 - Cleaned Advanced options duplicate "Override".
+- Fixed potential null pointer bug.
 
 -2023.05.22 (BR)
 - Removed "global" from sub-menus.
