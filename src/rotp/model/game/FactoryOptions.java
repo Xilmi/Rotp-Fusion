@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 import rotp.Rotp;
-import rotp.ui.RotPUI;
 import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.ParamAAN2;
 import rotp.ui.util.ParamBoolean;
@@ -14,58 +13,47 @@ import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamTech;
 import rotp.ui.util.RandomAlienRaces;
 
-public interface FactoryOptions extends BaseOptions {
+public interface FactoryOptions extends BaseOptionsTools {
 
 	// ========================================================================
 	// Factory options
 	ParamAAN2 artifactsHomeworld		= new ParamAAN2("HOME_ARTIFACT");
-	default ParamAAN2 selectedArtifactsHomeworld() {
-		artifactsHomeworld.setFromOptions(dynOpts());
-		return artifactsHomeworld;
-	}
+	default ParamAAN2 selectedArtifactsHomeworld()	{ return artifactsHomeworld; }
 	ParamAAN2 fertileHomeworld			= new ParamAAN2("HOME_FERTILE");
-	default ParamAAN2 selectedFertileHomeworld() {
-		fertileHomeworld.setFromOptions(dynOpts());
-		return fertileHomeworld;
-	}
+	default ParamAAN2 selectedFertileHomeworld()	{  return fertileHomeworld; }
 	ParamAAN2 richHomeworld				= new ParamAAN2("HOME_RICH");
-	default ParamAAN2 selectedRichHomeworld() {
-		richHomeworld.setFromOptions(dynOpts());
-		return richHomeworld;
-	}
+	default ParamAAN2 selectedRichHomeworld()		{ return richHomeworld; }
 	ParamAAN2 ultraRichHomeworld		= new ParamAAN2("HOME_ULTRA_RICH");
-	default ParamAAN2 selectedUltraRichHomeworld() {
-		ultraRichHomeworld.setFromOptions(dynOpts());
-		return ultraRichHomeworld;
-	}
+	default ParamAAN2 selectedUltraRichHomeworld()	{ return ultraRichHomeworld; }
+
 	ParamFloat minDistArtifactPlanet	= new ParamFloat(
 			MOD_UI, "DIST_ARTIFACT_PLANET", 0.0f, 0.0f, null, 0.2f, 1f, 5f, "0.0##", "0.0");
-	default float selectedMinDistArtifactPlanet() { return minDistArtifactPlanet.selected(dynOpts()); }
+	default float selectedMinDistArtifactPlanet() { return minDistArtifactPlanet.get(); }
 
 	ParamBoolean battleScout		= new ParamBoolean( MOD_UI, "BATTLE_SCOUT", false);
-	default boolean selectedBattleScout()		{ return battleScout.selected(dynOpts()); }
+	default boolean selectedBattleScout()		{ return battleScout.get(); }
 
 	ParamBoolean randomTechStart	= new ParamBoolean( MOD_UI, "RANDOM_TECH_START", false);
-	default boolean selectedRandomTechStart()	{ return randomTechStart.selected(dynOpts()); }
+	default boolean selectedRandomTechStart()	{ return randomTechStart.get(); }
 
 	ParamInteger companionWorlds	= new ParamInteger( MOD_UI, "COMPANION_WORLDS" , 0, -4, 6, true);
-	default int selectedCompanionWorlds() 		{ return Math.abs(companionWorlds.selected(dynOpts())); }
-	default int signedCompanionWorlds() 		{ return companionWorlds.selected(dynOpts()); }
+	default int selectedCompanionWorlds() 		{ return Math.abs(companionWorlds.get()); }
+	default int signedCompanionWorlds() 		{ return companionWorlds.get(); }
 
 	ParamBoolean maximizeSpacing	= new ParamBoolean( MOD_UI, "MAX_SPACINGS", false);
-	default boolean selectedMaximizeSpacing()	{ return maximizeSpacing.selected(dynOpts()); }
+	default boolean selectedMaximizeSpacing()	{ return maximizeSpacing.get(); }
 
 	ParamInteger spacingLimit		= new ParamInteger( MOD_UI, "MAX_SPACINGS_LIM"
 			, 16, 3, Rotp.maximumSystems-1, 1, 10, 100);
-	default int selectedSpacingLimit()			{ return spacingLimit.selected(dynOpts()); }
+	default int selectedSpacingLimit()			{ return spacingLimit.get(); }
 
 	ParamInteger minStarsPerEmpire	= new ParamInteger( MOD_UI, "MIN_STARS_PER_EMPIRE"
 			, 3, 3, Rotp.maximumSystems-1, 1, 5, 20);
-	default int selectedMinStarsPerEmpire()		{ return minStarsPerEmpire.selected(dynOpts()); }
+	default int selectedMinStarsPerEmpire()		{ return minStarsPerEmpire.get(); }
 
 	ParamInteger prefStarsPerEmpire	= new ParamInteger( MOD_UI, "PREF_STARS_PER_EMPIRE"
 			, 10, 3, Rotp.maximumSystems-1, 1, 10, 100);
-	default int selectedPrefStarsPerEmpire()	{ return prefStarsPerEmpire.selected(dynOpts()); }
+	default int selectedPrefStarsPerEmpire()	{ return prefStarsPerEmpire.get(); }
 
 	ParamInteger dynStarsPerEmpire	= new ParamInteger( MOD_UI, "DYN_STARS_PER_EMPIRE"
 			, 10, 3, Rotp.maximumSystems-1, 1, 10, 100) {
@@ -73,15 +61,15 @@ public interface FactoryOptions extends BaseOptions {
 			return prefStarsPerEmpire.get();
 		}
 	};
-	default int selectedDynStarsPerEmpire()		{ return Math.abs(dynStarsPerEmpire.selected(RotPUI.newOptions().dynOpts())); }
+	default int selectedDynStarsPerEmpire()		{ return Math.abs(dynStarsPerEmpire.get()); }
 
 	// Restart Always looks for setup options!
 	ParamBoolean restartChangesAliensAI		= new ParamBoolean( MOD_UI, "RESTART_CHANGES_ALIENS_AI", false);
-	default boolean selectedRestartChangesAliensAI()	{ return restartChangesAliensAI.selected(RotPUI.newOptions().dynOpts()); }
+	default boolean selectedRestartChangesAliensAI()	{ return restartChangesAliensAI.get(); }
 	ParamBoolean restartChangesPlayerAI		= new ParamBoolean( MOD_UI, "RESTART_CHANGES_PLAYER_AI", false);
-	default boolean selectedRestartChangesPlayerAI()	{ return restartChangesPlayerAI.selected(RotPUI.newOptions().dynOpts()); }
+	default boolean selectedRestartChangesPlayerAI()	{ return restartChangesPlayerAI.get(); }
 	ParamBoolean restartAppliesSettings		= new ParamBoolean( MOD_UI, "RESTART_APPLY_SETTINGS",false);
-	default boolean selectedRestartAppliesSettings()	{ return restartAppliesSettings.selected(RotPUI.newOptions().dynOpts()); }
+	default boolean selectedRestartAppliesSettings()	{ return restartAppliesSettings.get(); }
 	ParamList    restartChangesPlayerRace	= new ParamList( MOD_UI, "RESTART_PLAYER_RACE", "Swap") {
 		{
 			showFullGuide(true);
@@ -91,7 +79,7 @@ public interface FactoryOptions extends BaseOptions {
 			put("GuiLast",	MOD_UI + "RESTART_PLAYER_RACE_GUI_LAST");
 		}
 	};
-	default String selectedRestartChangesPlayerRace()	{ return restartChangesPlayerRace.selected(RotPUI.newOptions().dynOpts()); }
+	default String selectedRestartChangesPlayerRace()	{ return restartChangesPlayerRace.get(); }
 
 	ParamTech techIrradiated	= new ParamTech("TECH_IRRADIATED",	3, "ControlEnvironment",6); // level 18
 	ParamTech techCloaking		= new ParamTech("TECH_CLOAKING",	2, "Cloaking",			0); // level 27
@@ -113,7 +101,7 @@ public interface FactoryOptions extends BaseOptions {
 	ParamBoolean randomAlienRacesSmoothEdges = new ParamBoolean(MOD_UI, "RACES_RAND_EDGES", true);
 
 	RandomAlienRaces randomAlienRaces		 = new RandomAlienRaces(MOD_UI, "RACES_ARE_RANDOM", RandomAlienRaces.TARGET);
-	default String selectedRandomAlienRaces()			{ return randomAlienRaces.selected(dynOpts()); }
+	default String selectedRandomAlienRaces()			{ return randomAlienRaces.get(); }
 	
 	// ==================== GUI List Declarations ====================
 	//

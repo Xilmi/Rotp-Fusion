@@ -20,7 +20,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.text.DecimalFormat;
 
-import rotp.model.game.DynamicOptions;
+import rotp.model.game.IGameOptions;
 import rotp.ui.game.BaseModPanel;
 
 public class ParamFloat extends AbstractParam<Float> {
@@ -132,17 +132,19 @@ public class ParamFloat extends AbstractParam<Float> {
 	@Override public void prev() { next(-baseInc()); }
 	@Override public void toggle(MouseEvent e, BaseModPanel frame)		{ next(getInc(e) * getDir(e)); }
 	@Override public void toggle(MouseWheelEvent e) { next(getInc(e) * getDir(e)); }
-	@Override public void setFromOptions(DynamicOptions options) {
-		if (!isDuplicate() && options != null)
-			set(options.getFloat(getLangLabel(), creationValue()));
+	@Override public void setOptionTools() {
+		if (!isDuplicate() && dynOpts() != null)
+			set(dynOpts().getFloat(getLangLabel(), creationValue()));
 	}
-	@Override public void setOptions(DynamicOptions options) {
-		if (!isDuplicate() && options != null)
-			options.setFloat(getLangLabel(), get());
+	@Override public void setOptions() {
+		if (!isDuplicate() && dynOpts() != null)
+			dynOpts().setFloat(getLangLabel(), get());
 	}
-	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
-		if (!isDuplicate() && src != null && dest != null)
-			dest.setFloat(getLangLabel(), src.getFloat(getLangLabel(), creationValue()));
+	@Override protected Float getOptionValue(IGameOptions options) {
+		return options.dynOpts().getFloat(getLangLabel(), creationValue());
+	}
+	@Override protected void setOptionValue(IGameOptions options, Float value) {
+		options.dynOpts().setFloat(getLangLabel(), value);
 	}
 	// ========== Other Methods ==========
 	//

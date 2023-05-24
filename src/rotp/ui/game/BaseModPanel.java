@@ -96,7 +96,6 @@ public abstract class BaseModPanel extends BasePanel
 	LinkedList<InterfaceParam> activeList;
 	
 	protected void singleInit() {} // To avoid call to options during class creation
-//	protected abstract void singleInit(); // To avoid call to options during class creation
 	
 	public GuidePopUp guidePopUp;
 	
@@ -114,7 +113,7 @@ public abstract class BaseModPanel extends BasePanel
 		guidePopUp.init();
 	}
 	protected abstract String GUI_ID();
-	protected LinkedList<InterfaceParam> localOptions() { return activeList; };
+	protected LinkedList<InterfaceParam> localOptions() { return paramList; };
 	private void localInit(Graphics2D g) {
 		Font prevFont = g.getFont();
 		g.setFont(smallButtonFont);
@@ -536,7 +535,6 @@ public abstract class BaseModPanel extends BasePanel
 		private Box(boolean add)	{ if (add) addToList(); }
 		private Box(ModText modText, boolean addToList) {
 			this(addToList);
-//			boxHelpList.add(this);
 			this.modText = modText;
 		}
 		Box(String label)			{
@@ -664,27 +662,6 @@ public abstract class BaseModPanel extends BasePanel
 	public class ModText extends BaseText {
 
 		private final Box box;
-
-		/**
-		* @param p		BasePanel
-		* @param logo	logoFont
-		* @param fSize	fontSize
-		* @param x1	xOrig
-		* @param y1	yOrig
-		* @param c1	enabledC
-		* @param c2	disabledC
-		* @param c3	hoverC
-		* @param c4	depressedC
-		* @param c5	shadeC
-		* @param i1	bdrStep
-		* @param i2	topLBdr
-		* @param i3	btmRBdr
-		*/
-//		public ModText(BasePanel p, boolean logo, int fSize, int x1, int y1, Color c1, Color c2, Color c3, Color c4,
-//				Color c5, int i1, int i2, int i3) {
-//			super(p, logo, fSize, x1, y1, c1, c2, c3, c4, c5, i1, i2, i3);
-//			box = new Box(this, true);
-//		}
 		
 		/**
 		* @param p		BasePanel
@@ -826,7 +803,6 @@ public abstract class BaseModPanel extends BasePanel
 			guideFontSize = FONT_SIZE;
 			boolean go = true;
 			while (go) {
-//				System.out.println("guideFontSize = " + guideFontSize);
 				pane.setFont(plainFont(guideFontSize));
 				h = Short.MAX_VALUE;
 				preTest = -1;
@@ -838,14 +814,12 @@ public abstract class BaseModPanel extends BasePanel
 		    		w = min(testW, pane.getPreferredSize().width);
 		    		h = pane.getPreferredSize().height;
 		    		testW *= (float) h /iH;
-//					System.out.println("iW " + iW + " w " + w + " testW " + testW + " iH " + iH+ "  h " + h);
 				}
 				go = (w > iW || h > iH);
 				if (go) {
 					guideFontSize = max (1, min(guideFontSize-1,
 												(int)(guideFontSize * (float)iH/h -1)));
 					go = guideFontSize > 1;
-//					System.out.println("iW " + iW + " w " + w + " iH " + iH+ "  h " + h);
 				}
 			}
     		margin.setSize(new Dimension(w+s6, h+s6));

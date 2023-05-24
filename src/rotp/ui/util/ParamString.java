@@ -19,12 +19,11 @@ package rotp.ui.util;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
-import rotp.model.game.DynamicOptions;
+import rotp.model.game.IGameOptions;
 import rotp.ui.game.BaseModPanel;
 
 public class ParamString extends AbstractParam<String> {
 	
-
 	// ===== Constructors =====
 	//
 	/**
@@ -37,24 +36,23 @@ public class ParamString extends AbstractParam<String> {
 	}
 	// ===== Overriders =====
 	//
-//	@Override public boolean isDefaultValue()	{ return defaultValue().equals(get()); }
 	@Override public void setFromCfgValue(String newValue)	{ value(newValue); }	
 	@Override public void prev() {}
 	@Override public void next() {}
 	@Override public void toggle(MouseWheelEvent e)	{}
 	@Override public void toggle(MouseEvent e, BaseModPanel frame) {}
-	@Override public void setFromOptions(DynamicOptions options) {
-		if (!isDuplicate() && options != null)
-			set(options.getString(getLangLabel(), creationValue()));
+	@Override public void setOptionTools() {
+		if (!isDuplicate() && dynOpts() != null)
+			set(dynOpts().getString(getLangLabel(), creationValue()));
 	}
-	@Override public void setOptions(DynamicOptions options) {
-		if (!isDuplicate() && options != null)
-			options.setString(getLangLabel(), get());
+	@Override public void setOptions() {
+		if (!isDuplicate() && dynOpts() != null)
+			dynOpts().setString(getLangLabel(), get());
 	}
-	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
-		if (!isDuplicate() && src != null && dest != null)
-			dest.setString(getLangLabel(), src.getString(getLangLabel(), creationValue()));
+	@Override protected String getOptionValue(IGameOptions options) {
+		return options.dynOpts().getString(getLangLabel(), creationValue());
 	}
-	// ===== Other Methods =====
-	//
+	@Override protected void setOptionValue(IGameOptions options, String value) {
+		options.dynOpts().setString(getLangLabel(), value);
+	}
 }

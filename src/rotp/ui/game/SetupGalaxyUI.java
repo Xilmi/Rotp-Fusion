@@ -19,7 +19,7 @@ import static rotp.model.empires.CustomRaceDefinitions.BASE_RACE_MARKER;
 import static rotp.model.empires.CustomRaceDefinitions.fileToAlienRace;
 import static rotp.model.empires.CustomRaceDefinitions.getAllowedAlienRaces;
 import static rotp.model.empires.CustomRaceDefinitions.getBaseRaceList;
-import static rotp.model.game.BaseOptions.BASE_UI;
+import static rotp.model.game.BaseOptionsTools.BASE_UI;
 import static rotp.model.game.FactoryOptions.dynStarsPerEmpire;
 import static rotp.model.game.IGameOptions.OPPONENT_AI_HYBRID;
 import static rotp.model.game.ModOptions.aliensNumber;

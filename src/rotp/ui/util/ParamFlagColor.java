@@ -16,7 +16,7 @@
 
 package rotp.ui.util;
 
-import static rotp.model.game.BaseOptions.*;
+import static rotp.model.game.BaseOptionsTools.*;
 
 
 import java.util.Arrays;
@@ -68,7 +68,4 @@ public class ParamFlagColor extends ParamList {
 		super(MOD_UI, name, defaultValue, flagColorMap);
 		showFullGuide(false);
 	}
-
-	// ===== Overriders =====
-	//
 }

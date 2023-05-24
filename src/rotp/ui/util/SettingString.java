@@ -63,11 +63,20 @@ public class SettingString extends SettingBase<String> implements Base{
 	@Override public void setFromCfgValue(String cfgValue) {
 		set(cfgValue);
 	}
+	@Override public void setOptions() {
+		if (!isSpacer() && dynOpts() != null)
+			dynOpts().setString(getLangLabel(), settingValue());
+	}
+	@Override public void setOptionTools() {
+		if (!isSpacer() && dynOpts() != null)
+			set(dynOpts().getString(getLangLabel(), defaultValue()));
+	}
 	@Override public void setOptions(DynamicOptions destOptions) {
 		if (!isSpacer() && destOptions != null)
 			destOptions.setString(getLangLabel(), settingValue());
 	}
-	@Override public void setFromOptions(DynamicOptions srcOptions) {
+	@Override public void setOptionsTools(DynamicOptions srcOptions) {
+		options(srcOptions);
 		if (!isSpacer() && srcOptions != null)
 			set(srcOptions.getString(getLangLabel(), defaultValue()));
 	}

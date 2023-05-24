@@ -28,8 +28,14 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 Now:
 - Playing the game...
 
+Bug to fix:
+- I have noticed that whenever I capture an AI homeworld, the governor for that world is on by default.
+
 Very soon:
 - Spare Xenophobes: Stop if caught too.
+- William482 request: Show info on offered Tech trade
+  - ($remaining_RP / $total_RP Remaining) or (Imminent - 29%) in place of the beaker counts...
+- Tech trading extended list.
 
 Later:
 - William482 request: Continuing on the topic of things that normal people probably just let the governor do, I would love a button on the "Send Transports From:" popup in the Fleets tab which would, for each world:
@@ -45,7 +51,10 @@ Later:
 
 ## What's New
 
-2023.05.22 (BR)
+2023.05.23 (BR)
+- "param" Mod option tools auto update options.
+
+-2023.05.22 (BR)
 - Removed "global" from sub-menus.
 - Removed some buttons label redundancies.
 

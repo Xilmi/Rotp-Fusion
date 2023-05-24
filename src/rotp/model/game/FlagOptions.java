@@ -13,7 +13,7 @@ import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamSubUI;
 import rotp.ui.util.ParamTitle;
 
-public interface FlagOptions extends BaseOptions {
+public interface FlagOptions extends BaseOptionsTools {
 	String AUTO_FLAG_GUI_ID		= "AUTO_FLAG";
 	String FLAG_COLOR_NONE		= "FLAG_COLOR_NONE";
     String FLAG_COLOR_WHITE		= "FLAG_COLOR_WHITE";
@@ -33,18 +33,30 @@ public interface FlagOptions extends BaseOptions {
 			AUTO_FLAG_NOT, flagAssignationMap) {
 		{ showFullGuide(true); }
 	};
+	default String selectedAutoFlagAssignation1() {
+		return autoFlagAssignation1.get();
+	}
 	ParamList autoFlagAssignation2	= new ParamList(MOD_UI, "AUTO_FLAG_ASSIGN_2",
 			AUTO_FLAG_NOT, flagAssignationMap) {
 		{ showFullGuide(true); }
 	};
+	default String selectedAutoFlagAssignation2() {
+		return autoFlagAssignation2.get();
+	}
 	ParamList autoFlagAssignation3	= new ParamList(MOD_UI, "AUTO_FLAG_ASSIGN_3",
 			AUTO_FLAG_NOT, flagAssignationMap) {
 		{ showFullGuide(true); }
 	};
+	default String selectedAutoFlagAssignation3() {
+		return autoFlagAssignation3.get();
+	}
 	ParamList autoFlagAssignation4	= new ParamList(MOD_UI, "AUTO_FLAG_ASSIGN_4",
 			AUTO_FLAG_NOT, flagAssignationMap) {
 		{ showFullGuide(true); }
 	};
+	default String selectedAutoFlagAssignation4() {
+		return autoFlagAssignation4.get();
+	}
 	ParamFlagColor flagTerranColor 		= new ParamFlagColor("AUTO_FLAG_TERRAN",		FLAG_COLOR_GREEN);
 	ParamFlagColor flagJungleColor 		= new ParamFlagColor("AUTO_FLAG_JUNGLE",		FLAG_COLOR_GREEN);
 	ParamFlagColor flagOceanColor 		= new ParamFlagColor("AUTO_FLAG_OCEAN",			FLAG_COLOR_AQUA);
@@ -86,8 +98,7 @@ public interface FlagOptions extends BaseOptions {
 	ParamFlagColor flagTechNoneColor 	= new ParamFlagColor("AUTO_FLAG_TECH_NONE",		FLAG_COLOR_PINK);
 
 	ParamInteger flagColorCount = new ParamInteger(MOD_UI, "FLAG_COLOR_COUNT", 1, 1, 4);
-//	default int	 selectedFlagColorCount() { return flagColorCount.selected(dynOpts()); }
-	default int	 selectedFlagColorCount() { return flagColorCount.get(); } // TODO BR get from options
+	default int	 selectedFlagColorCount() { return flagColorCount.get(); }
 
 	LinkedList<LinkedList<InterfaceParam>> autoFlagOptionsMap = 
 			new LinkedList<LinkedList<InterfaceParam>>() { {

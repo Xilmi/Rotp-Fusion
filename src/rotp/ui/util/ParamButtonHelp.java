@@ -26,6 +26,7 @@ import static rotp.util.Base.lineSplit;
 
 import java.util.EnumMap;
 
+import rotp.model.game.IGameOptions;
 import rotp.util.ModifierKeysState;
 
 
@@ -54,10 +55,6 @@ public class ParamButtonHelp implements InterfaceParam {
 		showMap.put(ModifierKeysState.SHIFT, showShift);
 		showMap.put(ModifierKeysState.CTRL, showCtrl);
 		showMap.put(ModifierKeysState.CTRL_SHIFT, showCtrlShift);
-//		nameMap.put(ModifierKeysState.ALT, base);
-//		nameMap.put(ModifierKeysState.ALT_SHIFT, shift);
-//		nameMap.put(ModifierKeysState.ALT_CTRL, ctrl);
-//		nameMap.put(ModifierKeysState.ALT_CTRL_SHIFT, ctrlShift);
 	}
 	private String helpLine(ModifierKeysState state, int html) {
 		String help, line;
@@ -112,4 +109,8 @@ public class ParamButtonHelp implements InterfaceParam {
 	@Override public String getCfgLabel()	{ return name; }
 	@Override public String getLangLabel()	{ return name; }
 	@Override public String getToolTip()	{ return realLangLabel(getKey() + LABEL_DESCRIPTION); }
+
+	@Override public void setOptionTools()	{}
+	@Override public void setOptions()		{}
+	@Override public void setOptionLinks(IGameOptions options) {}
 }

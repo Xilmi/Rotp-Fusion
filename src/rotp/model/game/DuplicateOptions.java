@@ -48,7 +48,7 @@ import rotp.ui.util.ParamList;
 
 // Duplicates Options, Race Menu Options and Galaxy Options
 //
-public interface DuplicateOptions extends BaseOptions {
+public interface DuplicateOptions extends BaseOptionsTools {
 	
 	// ==================== Duplicates for Base Advanced Options ====================
 	//

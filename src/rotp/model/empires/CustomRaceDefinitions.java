@@ -98,7 +98,7 @@ public class CustomRaceDefinitions  {
 	}
 	public CustomRaceDefinitions(DynOptions srcOptions) {
 		newSettingList();
-		fromOptions(srcOptions);
+		setSettingTools(srcOptions);
 		pushSettings();
 	}
 	private CustomRaceDefinitions(String fileName) {
@@ -190,11 +190,11 @@ public class CustomRaceDefinitions  {
 	 * DynOptions to settings and race
 	 * @param srcOptions
 	 */
-	public void fromOptions(DynOptions srcOptions) {
+	public void setSettingTools(DynOptions srcOptions) {
 		for (SettingBase<?> setting : settingList)
-			setting.setFromOptions(srcOptions);
+			setting.setOptionsTools(srcOptions);
 		for (SettingBase<?> setting : guiList)
-			setting.setFromOptions(srcOptions);
+			setting.setOptionsTools(srcOptions);
 		pushSettings();
 	}
 	/**
@@ -211,7 +211,7 @@ public class CustomRaceDefinitions  {
 	 * DynOptions to settings and race
 	 */
 	private void loadSettingList(String path, String fileName) {
-		fromOptions(loadOptions(path, fileName));
+		setSettingTools(loadOptions(path, fileName));
 	}
 	private String fileName() { return race.id + EXT; }
 	public void saveRace() { saveSettingList(Rotp.jarPath(), fileName()); }
@@ -600,7 +600,7 @@ public class CustomRaceDefinitions  {
 				return;
 			}
 			if (index() == 0) {
-				fromOptions((DynOptions) playerCustomRace.get());
+				setSettingTools((DynOptions) playerCustomRace.get());
 				newValue = true;
 				return;
 			}
@@ -612,7 +612,7 @@ public class CustomRaceDefinitions  {
 			}
 			File file = new File(Rotp.jarPath(), settingValue()+EXT);
 			if (file.exists()) {
-				fromOptions(loadOptions(file));
+				setSettingTools(loadOptions(file));
 				newValue = true;
 				return;
 			}

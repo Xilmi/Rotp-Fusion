@@ -26,6 +26,7 @@ import java.awt.event.MouseWheelEvent;
 import javax.swing.SwingUtilities;
 
 import rotp.model.game.DynamicOptions;
+import rotp.model.game.IGameOptions;
 import rotp.ui.game.BaseModPanel;
 
 public abstract class AbstractParam <T> implements InterfaceParam{
@@ -42,7 +43,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	private T ctrlInc		= null;
 	private T shiftCtrlInc	= null;
 	private boolean isDuplicate	= false;
-//	private DynamicOptions dynOpts;  // TODO BR: Update options
+	private IGameOptions	options;
 
 	// ========== constructors ==========
 	//
@@ -92,9 +93,10 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	// ===== For duplicates to be overridden =====
 	//public void reInit() {}
 	public void setOption(T option) {
-//		if (dynOpts != null) { // TODO BR: Update options
-//			 setOptions(dynOpts);
-//		}
+		DynamicOptions opts = dynOpts();
+		if (opts != null) {
+			 setOptions(opts);
+		}
 	}
 	public T getFromOption() { return null; }
 
@@ -109,19 +111,25 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	@Override public String toString() {
 		return getCfgLabel() + " = " + getCfgValue();
 	}
-	@Override public void setFromOptions(DynamicOptions options) {
-//		dynOpts = options;  // TODO BR: Update options
-		if (!isDuplicate() && options != null)
-			setFromCfgValue(options.getString(getLangLabel(), getCfgValue(creationValue())));
+	@Override public void setOptionLinks(IGameOptions srcOptions) { // TODO BR: Validate the Option split
+		options(srcOptions);
 	}
-	@Override public void setOptions(DynamicOptions options) {
-//		dynOpts = options;  // TODO BR: Update options
-		if (!isDuplicate() && options != null)
-			options.setString(getLangLabel(), getCfgValue());
+	@Override public void setOptions() {
+		if (!isDuplicate() && dynOpts() != null)
+			dynOpts().setString(getLangLabel(), getCfgValue());
 	}
-	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
-		if (!isDuplicate() && src != null && dest != null)
-			dest.setString(getLangLabel(), src.getString(getLangLabel(), getCfgValue(creationValue())));
+	@Override public void setOptionTools() {
+		if (!isDuplicate() && dynOpts() != null)
+			setFromCfgValue(dynOpts().getString(getLangLabel(), getCfgValue(creationValue())));
+	}
+	@Override public void copyOption(IGameOptions src, IGameOptions dest) {
+		if (src == null || dest == null)
+			return;
+		T val = getOptionValue(src);
+		setOptionValue(dest, val);
+//		
+//		if (!isDuplicate() && src != null && dest != null)
+//			dest.setString(getLangLabel(), src.getString(getLangLabel(), getCfgValue(creationValue())));
 	}
 	@Override public String getCfgValue()		{ return getCfgValue(value); }
 	@Override public String getCfgLabel()		{ return name; }
@@ -159,8 +167,19 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 			toggle(e, frame);
 	}
 	@Override public String getGuiValue(int idx){ return guideValue(); } // For List
+	// ========== Tools for overriders ==========
+	//
+	protected void options(IGameOptions srcOptions)		{ options = srcOptions; }
+	protected IGameOptions   options()					{ return options; }
+	protected DynamicOptions dynOpts()					{
+		if (options == null)
+			return null;
+		return options.dynOpts();
+	}
 	// ========== Methods to be overridden ==========
 	//
+	protected abstract T getOptionValue(IGameOptions options);
+	protected abstract void setOptionValue(IGameOptions options, T value);
 	T value(T value) 					{ return set(value); }
 	public T defaultValue()				{ return defaultValue; }
 	public T get()						{
@@ -171,15 +190,6 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	}	
 	public T setFromIndex(int i)		{ return null; }
 	public String getCfgValue(T value)	{ return String.valueOf(value); }
-	public T selected(DynamicOptions dyn)	{
-//		setFromOptions(dyn); // TODO BR: Update options
-		return get();
-	}
-	public void selected(DynamicOptions dyn, T value)	{
-//		dynOpts = dyn; // TODO BR: Update options
-		value(value);
-//		setOptions(dyn);
-	}
 	// ========== Public Getters ==========
 	//
 	public String getLabel()	{ return langLabel(getLangLabel()); }
@@ -260,13 +270,4 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	static boolean yesOrNo(String s) {
 		return s.equalsIgnoreCase("YES");
 	}
-//	protected static String text(String key) {
-//		return LabelManager.current().label(key);
-//	}
-//	protected static String text(String key, String... vals) {
-//		String str = text(key);
-//		for (int i=0;i<vals.length;i++)
-//			str = str.replace(textSubs[i], vals[i]);
-//		return str;
-//	}
 }

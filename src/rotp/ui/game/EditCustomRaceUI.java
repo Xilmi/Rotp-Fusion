@@ -16,8 +16,6 @@
 package rotp.ui.game;
 
 import static rotp.model.empires.CustomRaceDefinitions.ROOT;
-import static rotp.model.game.ModOptions.playerCustomRace; // TODO BR: Finalize options()
-import static rotp.model.game.ModOptions.playerIsCustom;
 import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
 
 import java.awt.Color;
@@ -122,7 +120,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			return;
 		if (instance.cr == null)
 			return;
-		playerCustomRace.set(instance.cr.getAsOptions());
+		instance.guiOptions().selectedPlayerCustomRace(instance.cr.getAsOptions());
 	}
 	private void saveCurrentRace() { cr.saveRace(); }
 	private void loadCurrentRace() { cr.loadRace(); }
@@ -142,8 +140,8 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	}
 	private void doSelectBoxAction() {
 		buttonClick();
-		playerCustomRace.set(cr.getAsOptions());
-		playerIsCustom.set(true);
+		guiOptions().selectedPlayerCustomRace(cr.getAsOptions());
+		guiOptions().selectedPlayerIsCustom(true);
 		guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
 		close();
 	}
@@ -151,17 +149,17 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		guiOptions(source);
 //	    cr.setRace(guiOptions().baseRaceOptions().getFirst()); // TODO BR: ???
         for (InterfaceOptions param : commonList)
-			param.setFromOptions(source.dynOpts());
-        playerIsCustom.setFromOptions(source.dynOpts());
-		playerCustomRace.setFromOptions(source.dynOpts());
+			param.setOptionsTools(source.dynOpts());
+        guiOptions().playerIsCustom().setOptionTools();
+		guiOptions().playerCustomRace().setOptionTools();
 		writeLocalOptions(guiOptions());
 		init(guiOptions());
 	}
 	public void writeLocalOptions(IGameOptions destination) {
 		for (InterfaceOptions param : commonList)
 			param.setOptions(destination.dynOpts());
-		playerIsCustom.setOptions(destination.dynOpts());
-		playerCustomRace.setOptions(destination.dynOpts());
+		guiOptions().playerIsCustom().setOptions();
+		guiOptions().playerCustomRace().setOptions();
 	}
 	private void setToLocalDefault() {
 		for (InterfaceOptions param : commonList)
@@ -243,9 +241,9 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	@Override protected void refreshGui() {
 		System.out.println("===== refreshGui()");
 		System.out.println("playerCustomRace: Race Name = " +
-				((DynOptions) playerCustomRace.get()).getString("CUSTOM_RACE_RACE_NAME"));
+				((DynOptions) guiOptions().selectedPlayerCustomRace()).getString("CUSTOM_RACE_RACE_NAME"));
 		System.out.println("settingList : Race Name = " + settingList.get(1).guideValue());
-		cr.fromOptions((DynOptions) playerCustomRace.get());
+		cr.setSettingTools((DynOptions) guiOptions().selectedPlayerCustomRace());
 		repaint();
 	}
 	@Override protected void doDefaultBoxAction() {
@@ -274,7 +272,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		ModifierKeysState.reset();
 		parent = p;
 
-		cr.fromOptions((DynOptions) playerCustomRace.get());
+		cr.setSettingTools((DynOptions) guiOptions().selectedPlayerCustomRace());
 		guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
 		init(guiOptions);
 		reloadRaceList();

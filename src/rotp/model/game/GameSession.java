@@ -857,7 +857,7 @@ public final class GameSession implements Base, Serializable {
         instance = gs;
         // BR: save the last loaded game initial parameters
         instance.options().saveOptionsToFileName(GAME_OPTIONS_FILE);
-        instance.options().setModSettingsFromOptions();
+//        instance.options().setModSettingsFromOptions();
     	resolveOptionsDiscrepansies(gs);
 
 		if (showInfo)  showInfo(gs.galaxy());

@@ -456,6 +456,11 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
 
     public void init() {
         slideshowFade = SLIDESHOW_MAX;
+    	// TODO BR: # Reinitialize options tools with the setup options
+        
+    	System.out.println("Setup updateOptionsTools(): " + newGameOptions().dynOpts().hashCode());
+    	newGameOptions().updateOptionsTools();
+
         resetSlideshowTimer();
 		ModifierKeysState.reset();
     }

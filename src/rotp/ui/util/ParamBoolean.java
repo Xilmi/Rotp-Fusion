@@ -25,12 +25,11 @@ import static rotp.ui.util.InterfaceParam.tableFormat;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
-import rotp.model.game.DynamicOptions;
+import rotp.model.game.IGameOptions;
 import rotp.ui.game.BaseModPanel;
 
 public class ParamBoolean extends AbstractParam<Boolean> {
 	
-
 	// ===== Constructors =====
 	//
 	/**
@@ -59,17 +58,20 @@ public class ParamBoolean extends AbstractParam<Boolean> {
 		else
 			next();
 	}
-	@Override public void setFromOptions(DynamicOptions options)		 {
-		if (!isDuplicate() && options != null)
-			set(options.getBoolean(getLangLabel(), creationValue()));
+	@Override public void setOptionTools()	{
+		if (!isDuplicate() && dynOpts() != null) {
+			set(dynOpts().getBoolean(getLangLabel(), creationValue()));
+		}
 	}
-	@Override public void setOptions(DynamicOptions options)			 {
-		if (!isDuplicate() && options != null)
-			options.setBoolean(getLangLabel(), get());
+	@Override public void setOptions()			 {
+		if (!isDuplicate() && dynOpts() != null)
+			dynOpts().setBoolean(getLangLabel(), get());
 	}
-	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
-		if (!isDuplicate() && src != null && dest != null)
-			dest.setBoolean(getLangLabel(), src.getBoolean(getLangLabel(), creationValue()));
+	@Override protected Boolean getOptionValue(IGameOptions options) {
+		return options.dynOpts().getBoolean(getLangLabel(), creationValue());
+	}
+	@Override protected void setOptionValue(IGameOptions options, Boolean value) {
+		options.dynOpts().setBoolean(getLangLabel(), value);
 	}
 	// ===== Other Methods =====
 	//

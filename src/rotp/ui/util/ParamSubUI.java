@@ -22,7 +22,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.util.LinkedList;
 
-import rotp.model.game.DynamicOptions;
+import rotp.model.game.IGameOptions;
 import rotp.ui.game.BaseModPanel;
 import rotp.ui.game.CompactOptionsUI;
 
@@ -67,43 +67,41 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<InterfacePar
 			is &= param.isDefaultValue();
 		return is;
 	}
-	@Override public void setOptions(DynamicOptions options) {
-		// System.out.println("setOptions(DynamicOptions options)");		
+	@Override public void setOptionLinks(IGameOptions srcOptions) {
+		super.setOptionLinks(srcOptions);
 		for (InterfaceParam param : optionsList)
-			param.setOptions(options);
+			param.setOptionLinks(srcOptions);
 	}
-	@Override public void setFromOptions(DynamicOptions options) {
-		// System.out.println("setFromOptions(DynamicOptions options)");		
+	@Override public void setOptions() {
 		for (InterfaceParam param : optionsList)
-			param.setFromOptions(options);
+			param.setOptions();
+	}
+	@Override public void setOptionTools() {
+		for (InterfaceParam param : optionsList)
+			param.setOptionTools();
 	}
 	@Override public void setFromDefault() {
-		// System.out.println("setFromDefault()");		
 		for (InterfaceParam param : optionsList)
 			param.setFromDefault();
 	}
-	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
-		// System.out.println("next");		
+	@Override protected LinkedList<LinkedList<InterfaceParam>> getOptionValue(
+			IGameOptions options) {
+		return get();
+	}
+	@Override protected void setOptionValue(IGameOptions options,
+			LinkedList<LinkedList<InterfaceParam>> value) {}
+	@Override public void copyOption(IGameOptions src, IGameOptions dest) {
 		for (InterfaceParam param : optionsList)
 			param.copyOption(src, dest);
 	}
 	@Override public void setFromCfgValue(String val) {
-		// System.out.println("next");		
 		for (InterfaceParam param : optionsList)
 			param.setFromCfgValue(val);
 	}
-	@Override public void next() { 
-		// System.out.println("next");		
-	}
-	@Override public void prev() { 
-		// System.out.println("prev()");		
-	}
-	@Override public void toggle(MouseWheelEvent e) {
-		// System.out.println("toggle(MouseWheelEvent e)");		
-	}
-	@Override public void toggle(MouseEvent e, BaseModPanel frame) {
-		// System.out.println("toggle(MouseEvent e)");		
-	}
+	@Override public void next() {  }
+	@Override public void prev() {  }
+	@Override public void toggle(MouseWheelEvent e) { }
+	@Override public void toggle(MouseEvent e, BaseModPanel frame) { }
 	@Override public void toggle(MouseEvent e, int p, BaseModPanel frame) {
 		ui().start(p, frame.guiOptions());
 	};

@@ -35,6 +35,7 @@ import java.util.LinkedList;
 import javax.swing.SwingUtilities;
 
 import rotp.model.game.DynamicOptions;
+import rotp.model.game.IGameOptions;
 import rotp.ui.RotPUI;
 import rotp.ui.game.BaseModPanel;
 import rotp.ui.game.BaseModPanel.ModText;
@@ -76,6 +77,8 @@ public class SettingBase<T> implements InterfaceParam {
 	private ModText[] optionsText;
 	private String	settingToolTip;
 	private float	lastRandomSource;
+	private DynamicOptions	dynOpts;
+
 	
 	// ========== Constructors and initializers ==========
 	//
@@ -166,18 +169,29 @@ public class SettingBase<T> implements InterfaceParam {
 			prev();
 	}
 	@Override public void setFromDefault()			{ selectedValue(defaultValue); }
+	@Override public void setOptionLinks(IGameOptions srcOptions) { 
+		options(srcOptions.dynOpts());
+	}
+	@Override public void setOptions() {
+		if (!isSpacer && dynOpts() != null)
+			dynOpts().setString(getLangLabel(), getCfgValue());
+	}
+	@Override public void setOptionTools() {
+		if (!isSpacer && dynOpts() != null)
+			setFromCfgValue(dynOpts().getString(getLangLabel(), getDefaultCfgValue()));
+	}
 	@Override public void setOptions(DynamicOptions destOptions) {
 		if (!isSpacer && destOptions != null)
 			destOptions.setString(getLangLabel(), getCfgValue());
 	}
-	@Override public void setFromOptions(DynamicOptions srcOptions) {
+	@Override public void setOptionsTools(DynamicOptions srcOptions) {
 		if (!isSpacer && srcOptions != null)
 			setFromCfgValue(srcOptions.getString(getLangLabel(), getDefaultCfgValue()));
 	}
-	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
+	@Override public void copyOption(IGameOptions src, IGameOptions dest) {
 		if (!isSpacer && src != null && dest != null)
-			dest.setString(getLangLabel(), getCfgValue());
-		dest.setString(getLangLabel(), src.getString(getLangLabel(), getDefaultCfgValue()));
+			dest.dynOpts().setString(getLangLabel(), getCfgValue());
+		dest.dynOpts().setString(getLangLabel(), src.dynOpts().getString(getLangLabel(), getDefaultCfgValue()));
 	}
 	@Override public String getGuiDisplay(int idx)	{
 		String str = text(getLangLabel()); // Get from label.txt
@@ -236,6 +250,10 @@ public class SettingBase<T> implements InterfaceParam {
 	@Override public String getValueStr(int id)		{ return valueGuide(valueValidIndex(id)); }
 	@Override public String valueGuide(int id) 		{ return tableFormat(getRowGuide(id)); }
 	
+	// ========== Tools for overriders ==========
+	//
+	protected void options(DynamicOptions srcOptions)	{ dynOpts = srcOptions; }
+	protected DynamicOptions dynOpts()					{ return dynOpts; }
 	// ========== Overridable Methods ==========
 	//
 	public boolean showFullGuide()			{ return showFullGuide; }

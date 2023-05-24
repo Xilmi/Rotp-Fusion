@@ -330,14 +330,14 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         return newGameOptions;
     }
     // BR: Added initialization choice
-    public static void createNewOptions() {
+    private static void createNewOptions() {
     	newGameOptions = createStartupOptions();
     	newGameOptions.setAsSetup();
     }
     // BR: Added for initialization choice
-    public static MOO1GameOptions createStartupOptions() { // BR:
+    private static MOO1GameOptions createStartupOptions() { // BR:
     	MOO1GameOptions newOptions;
-//        System.out.println("==================== createNewOptions() ====================");
+        System.out.println("==================== createNewOptions() ====================");
 //		System.out.println("UserPreferences.gamePlayed() = " + UserPreferences.gamePlayed());
 //		System.out.println("UserPreferences.loadRequest() = " + UserPreferences.loadRequest());
 //		System.out.println("UserPreferences.menuLoadGame.get() = " + UserPreferences.menuLoadGame.get());
@@ -371,7 +371,9 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
    		newOptions.loadAndUpdateFromFileName(LAST_OPTIONS_FILE);
 		return newOptions;
     }
-    public static void clearNewOptions() { newGameOptions = null; }
+    public static void clearNewOptions() { // TODO BR: Remove
+    	// newGameOptions = null; 
+    } 
 
     public void toggleAnimations() {
         if (playAnimations())

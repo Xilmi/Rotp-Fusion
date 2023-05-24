@@ -20,12 +20,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.io.Serializable;
 
-import rotp.model.game.DynamicOptions;
+import rotp.model.game.IGameOptions;
 import rotp.ui.game.BaseModPanel;
 
 class ParamObject extends AbstractParam<Serializable> {
 	
-
 	// ===== Constructors =====
 	//
 	/**
@@ -43,18 +42,18 @@ class ParamObject extends AbstractParam<Serializable> {
 	@Override public void next() {}
 	@Override public void toggle(MouseWheelEvent e)	{}
 	@Override public void toggle(MouseEvent e, BaseModPanel frame) {}
-	@Override public void setFromOptions(DynamicOptions options) {
-		if (!isDuplicate() && options != null)
-			set((Serializable) options.getObject(getLangLabel(), creationValue()));
+	@Override public void setOptionTools()	{
+		if (!isDuplicate() && dynOpts() != null)
+			set((Serializable) dynOpts().getObject(getLangLabel(), creationValue()));
 	}
-	@Override public void setOptions(DynamicOptions options) {
-		if (!isDuplicate() && options != null)
-			options.setObject(getLangLabel(), get());
+	@Override public void setOptions() {
+		if (!isDuplicate() && dynOpts() != null)
+			dynOpts().setObject(getLangLabel(), get());
 	}
-	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {
-		if (!isDuplicate() && src != null && dest != null)
-			dest.setObject(getLangLabel(), (Serializable) src.getObject(getLangLabel(), creationValue()));
+	@Override protected Serializable getOptionValue(IGameOptions options) {
+		return options.dynOpts().getObject(getLangLabel(), creationValue());
 	}
-	// ===== Other Methods =====
-	//
+	@Override protected void setOptionValue(IGameOptions options, Serializable value) {
+		options.dynOpts().setObject(getLangLabel(), value);
+	}
 }

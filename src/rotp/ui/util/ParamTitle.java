@@ -16,17 +16,16 @@
 
 package rotp.ui.util;
 
-import static rotp.model.game.BaseOptions.HEADERS;
+import static rotp.model.game.BaseOptionsTools.HEADERS;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
-import rotp.model.game.DynamicOptions;
+import rotp.model.game.IGameOptions;
 import rotp.ui.game.BaseModPanel;
 
 public class ParamTitle extends AbstractParam<String> {
 	
-
 	// ===== Constructors =====
 	//
 	/**
@@ -43,12 +42,11 @@ public class ParamTitle extends AbstractParam<String> {
 	@Override public void next() {}
 	@Override public void toggle(MouseWheelEvent e)	{}
 	@Override public void toggle(MouseEvent e, BaseModPanel frame)	 {}
-	@Override public void setFromOptions(DynamicOptions options) {}
-	@Override public void setOptions(DynamicOptions options)	 {}
-	@Override public void copyOption(DynamicOptions src, DynamicOptions dest) {}
+	@Override public void setOptionTools() {}
+	@Override public void setOptions()	 {}
+	@Override protected String getOptionValue(IGameOptions options) { return ""; }
+	@Override protected void setOptionValue(IGameOptions options, String value) {}
 	@Override public boolean isTitle()	{ return true; }
 	@Override public String getGuide()	{ return headerHelp(false); }
 
-	// ===== Other Methods =====
-	//
 }

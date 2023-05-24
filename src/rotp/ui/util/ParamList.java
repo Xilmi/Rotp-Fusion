@@ -26,6 +26,7 @@ import java.awt.event.MouseWheelEvent;
 import java.util.LinkedList;
 import java.util.List;
 
+import rotp.model.game.IGameOptions;
 import rotp.ui.RotPUI;
 import rotp.ui.game.BaseModPanel;
 
@@ -199,6 +200,12 @@ public class ParamList extends AbstractParam<String> {
 			return valueLabelMap.getCfgValue(id);
 		else
 			return valueLabelMap.getLangLabel(getValidIndex(id));
+	}
+	@Override protected String getOptionValue(IGameOptions options) {
+		return options.dynOpts().getString(getLangLabel(), creationValue());
+	}
+	@Override protected void setOptionValue(IGameOptions options, String value) {
+		options.dynOpts().setString(getLangLabel(), value);
 	}
 	// ===== Other Protected Methods =====
 	//

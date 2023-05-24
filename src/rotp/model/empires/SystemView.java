@@ -15,7 +15,42 @@
  */
 package rotp.model.empires;
 
-import static rotp.model.game.FlagOptions.*;
+import static rotp.model.game.FlagOptions.flagAntaranColor;
+import static rotp.model.game.FlagOptions.flagAridColor;
+import static rotp.model.game.FlagOptions.flagAssetNormalColor;
+import static rotp.model.game.FlagOptions.flagAsteroidColor;
+import static rotp.model.game.FlagOptions.flagBarrenColor;
+import static rotp.model.game.FlagOptions.flagDeadColor;
+import static rotp.model.game.FlagOptions.flagDesertColor;
+import static rotp.model.game.FlagOptions.flagEnvFertileColor;
+import static rotp.model.game.FlagOptions.flagEnvGaiaColor;
+import static rotp.model.game.FlagOptions.flagEnvHostileColor;
+import static rotp.model.game.FlagOptions.flagEnvNoneColor;
+import static rotp.model.game.FlagOptions.flagEnvNormalColor;
+import static rotp.model.game.FlagOptions.flagInfernoColor;
+import static rotp.model.game.FlagOptions.flagJungleColor;
+import static rotp.model.game.FlagOptions.flagMinimalColor;
+import static rotp.model.game.FlagOptions.flagNoneColor;
+import static rotp.model.game.FlagOptions.flagOceanColor;
+import static rotp.model.game.FlagOptions.flagOrionColor;
+import static rotp.model.game.FlagOptions.flagPoorColor;
+import static rotp.model.game.FlagOptions.flagRadiatedColor;
+import static rotp.model.game.FlagOptions.flagRichColor;
+import static rotp.model.game.FlagOptions.flagSteppeColor;
+import static rotp.model.game.FlagOptions.flagTechBarrenColor;
+import static rotp.model.game.FlagOptions.flagTechDeadColor;
+import static rotp.model.game.FlagOptions.flagTechFertileColor;
+import static rotp.model.game.FlagOptions.flagTechGaiaColor;
+import static rotp.model.game.FlagOptions.flagTechGoodColor;
+import static rotp.model.game.FlagOptions.flagTechNoneColor;
+import static rotp.model.game.FlagOptions.flagTechRadiatedColor;
+import static rotp.model.game.FlagOptions.flagTechStandardColor;
+import static rotp.model.game.FlagOptions.flagTechToxicColor;
+import static rotp.model.game.FlagOptions.flagTerranColor;
+import static rotp.model.game.FlagOptions.flagToxicColor;
+import static rotp.model.game.FlagOptions.flagTundraColor;
+import static rotp.model.game.FlagOptions.flagUltraPoorColor;
+import static rotp.model.game.FlagOptions.flagUltraRichColor;
 import static rotp.model.planet.PlanetType.ARID;
 import static rotp.model.planet.PlanetType.BARREN;
 import static rotp.model.planet.PlanetType.DEAD;
@@ -50,7 +85,6 @@ import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.planet.Planet;
 import rotp.model.planet.PlanetType;
-import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamList.IndexableMap;
 import rotp.util.Base;
 import rotp.util.ImageManager;
@@ -514,8 +548,8 @@ public class SystemView implements IMappedObject, Base, Serializable {
         if (vGuarded)
             setName();
     }
-    private void autoFlagAssignation(Planet p, ParamList assignation, int id) {
-    	switch (assignation.selected(options().dynOpts())) {
+    private void autoFlagAssignation(Planet p, String assignation, int id) {
+    	switch (assignation) {
 	    	case AUTO_FLAG_TYPE:
 	    		setTypeFlagColor(p, id);
 	    		return;
@@ -541,10 +575,10 @@ public class SystemView implements IMappedObject, Base, Serializable {
     		autoFlagPlanet(vPlanet);
     }
     private void autoFlagPlanet(Planet p) {
-    	autoFlagAssignation(p, autoFlagAssignation1, 1);
-    	autoFlagAssignation(p, autoFlagAssignation2, 2);    	
-    	autoFlagAssignation(p, autoFlagAssignation3, 3);    	
-    	autoFlagAssignation(p, autoFlagAssignation4, 4);    	
+    	autoFlagAssignation(p, options().selectedAutoFlagAssignation1(), 1);
+    	autoFlagAssignation(p, options().selectedAutoFlagAssignation2(), 2);    	
+    	autoFlagAssignation(p, options().selectedAutoFlagAssignation3(), 3);    	
+    	autoFlagAssignation(p, options().selectedAutoFlagAssignation4(), 4);    	
     }
     public void refreshFullScan() {
         if (!scouted()) {

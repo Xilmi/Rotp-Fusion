@@ -82,11 +82,20 @@ public class SettingBoolean extends SettingBase<Boolean> {
 	@Override public String guiOptionValue(int index) {
 		return langLabel(guiOptionLabel(index));
 	}
+	@Override public void setOptions() {
+		if (!isSpacer() && dynOpts() != null)
+			dynOpts().setBoolean(getLangLabel(), settingValue());
+	}
+	@Override public void setOptionTools() {
+		if (!isSpacer() && dynOpts() != null)
+			set(dynOpts().getBoolean(getLangLabel(), defaultValue()));
+	}
 	@Override public void setOptions(DynamicOptions options) {
 		if (!isSpacer() && options != null)
 			options.setBoolean(getLangLabel(), settingValue());
 	}
-	@Override public void setFromOptions(DynamicOptions options) {
+	@Override public void setOptionsTools(DynamicOptions options) {
+		options(options);
 		if (!isSpacer() && options != null)
 			set(options.getBoolean(getLangLabel(), defaultValue()));
 	}
