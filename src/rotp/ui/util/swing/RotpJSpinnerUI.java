@@ -14,6 +14,9 @@ class RotpJSpinnerUI extends BasicSpinnerUI {
 	private int arrowSize = 16;
 	RotpJSpinnerUI(int iconSize) { arrowSize = iconSize; }
 	RotpJSpinnerUI() {}
+	public static ComponentUI createUI(JComponent c) { // BR: Unused, but who knows?
+		return new RotpJSpinnerUI();
+	}
 	private Component createArrowButton(int direction) {
 		RotpJSpinnerButton b = new RotpJSpinnerButton(direction, arrowSize);
 		b.setInheritsPopupMenu(true);
