@@ -30,6 +30,9 @@ Now:
 
 Bug to fix:
 - I have noticed that whenever I capture an AI homeworld, the governor for that world is on by default.
+- Change Error messages.
+- Governor acting when it should not.
+- Custom spinner crashing on Mac.
 
 Very soon:
 - Spare Xenophobes: Stop if caught too.
@@ -50,6 +53,9 @@ Later:
 
 
 ## What's New
+
+2023.05.24 (BR)
+- Mac Crash on Governor new spinners Fix (Smooth Tentative)
 
 2023.05.23 (BR)
 - "param" Mod option tools auto update options.
