@@ -99,7 +99,15 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 		}
 	}
 	public T getFromOption() { return null; }
-
+	// For internal use only! Do not call from outside AbstracParam
+	protected abstract T getOptionValue(IGameOptions options);
+	protected void setOptionValue(IGameOptions options, T value) {
+		if (isDuplicate()) { // TODO BR: For compatibility
+			set(getFromOption());
+				System.err.println("getFromOption() not updated to setOptionValue: " + name);
+//			value = getFromOption(); // TODO BR:
+		}		
+	}
 	// ========== Public Interfaces ==========
 	//
 	//	public abstract void setFromCfgValue(String val);
@@ -115,12 +123,29 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 		options(srcOptions);
 	}
 	@Override public void setOptions() {
-		if (!isDuplicate() && dynOpts() != null)
-			dynOpts().setString(getLangLabel(), getCfgValue());
+//		if (!isDuplicate() && dynOpts() != null) {
+//			dynOpts().setString(getLangLabel(), getCfgValue());
+		if (dynOpts() != null) {
+			T oldVal = getOptionValue(options);
+			T newVal = get();
+			if ( !( oldVal.toString().equals(newVal.toString()) ) ) {
+				System.err.println("setOptions(): " + name + " : " + oldVal + " != " + newVal);
+			}
+			setOptionValue(options, get());
+		} 
+		else {
+			System.err.println("setOptions(): [dynOpts() == null] " + name);
+		}
 	}
 	@Override public void setOptionTools() {
-		if (!isDuplicate() && dynOpts() != null)
-			setFromCfgValue(dynOpts().getString(getLangLabel(), getCfgValue(creationValue())));
+//		if (!isDuplicate() && dynOpts() != null) {
+//			setFromCfgValue(dynOpts().getString(getLangLabel(), getCfgValue(creationValue())));
+		if (dynOpts() != null) {
+			value = getOptionValue(options);
+		} 
+		else {
+			System.err.println("setOptionTools(): [dynOpts() == null] " + name);
+		}
 	}
 	@Override public void copyOption(IGameOptions src, IGameOptions dest) {
 		if (src == null || dest == null)
@@ -178,8 +203,6 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	}
 	// ========== Methods to be overridden ==========
 	//
-	protected abstract T getOptionValue(IGameOptions options);
-	protected abstract void setOptionValue(IGameOptions options, T value);
 	T value(T value) 					{ return set(value); }
 	public T defaultValue()				{ return defaultValue; }
 	public T get()						{

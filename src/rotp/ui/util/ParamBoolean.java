@@ -63,10 +63,10 @@ public class ParamBoolean extends AbstractParam<Boolean> {
 			set(dynOpts().getBoolean(getLangLabel(), creationValue()));
 		}
 	}
-	@Override public void setOptions()			 {
-		if (!isDuplicate() && dynOpts() != null)
-			dynOpts().setBoolean(getLangLabel(), get());
-	}
+//	@Override public void setOptions()			 {
+//		if (!isDuplicate() && dynOpts() != null)
+//			dynOpts().setBoolean(getLangLabel(), get());
+//	}
 	@Override protected Boolean getOptionValue(IGameOptions options) {
 		return options.dynOpts().getBoolean(getLangLabel(), creationValue());
 	}
