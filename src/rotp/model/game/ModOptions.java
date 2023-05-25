@@ -27,13 +27,7 @@ import rotp.ui.util.PlayerShipSet;
 import rotp.ui.util.SpecificCROption;
 
 public interface ModOptions extends FlagOptions, FactoryOptions, GamePlayOptions,
-									DuplicateOptions, RemnantOptions {
-
-//	/**
-//	 * Update all the options's tool with the current options
-//	 * @param paramList
-//	 */
-//	default void updateOptionsTools() { updateOptionsTools(allModOptions()); }
+									IAdvOptions, RemnantOptions, IMainOptions{
 
 	default void updateOptionsAndSaveToFileName(String fileName) {
 		updateOptionsAndSaveToFileName(fileName, allModOptions());

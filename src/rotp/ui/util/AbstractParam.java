@@ -124,12 +124,12 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 			T oldVal = getOptionValue(options());
 			T newVal = get();
 			if ( !( oldVal.toString().equals(newVal.toString()) ) ) {
-				System.err.println("setOptions(): " + name + " : " + oldVal + " != " + newVal);
+				System.err.println("AParam.setOptions(): " + name + " : " + oldVal + " != " + newVal);
 			}
 			setOptionValue(options(), get());
 		} 
 		else {
-			System.err.println("setOptions(): [dynOpts() == null] " + name);
+			System.err.println("AParam.setOptions(): [dynOpts() == null] " + name);
 		}
 	}
 	@Override public void updateOptionTool() {
@@ -137,7 +137,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 			value = getOptionValue(options());
 		} 
 		else {
-			System.err.println("setOptionTools(): [dynOpts() == null] " + name);
+			System.err.println("AParam.setOptionTools(): [dynOpts() == null] " + name);
 		}
 	}
 	@Override public void copyOption(IGameOptions src, IGameOptions dest) {

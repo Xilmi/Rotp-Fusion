@@ -73,10 +73,12 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<InterfacePar
 			param.copyOption(src, dest);
 	}
 	@Override public void updateOption() {
+		super.updateOption();
 		for (InterfaceParam param : optionsList)
 			param.updateOption();
 	}
 	@Override public void updateOptionTool() {
+		super.updateOptionTool();
 		for (InterfaceParam param : optionsList)
 			param.updateOptionTool();
 	}
@@ -98,9 +100,7 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<InterfacePar
 	@Override public void prev() {  }
 	@Override public void toggle(MouseWheelEvent e) { }
 	@Override public void toggle(MouseEvent e, BaseModPanel frame) { }
-	@Override public void toggle(MouseEvent e, int p, BaseModPanel frame) {
-		ui().start(p, frame.guiOptions());
-	};
+	@Override public void toggle(MouseEvent e, int p, BaseModPanel frame) { ui().start(p); };
 	@Override public String guideValue()	{
 		String label = isDefaultValue()? "SUB_UI_DEFAULT_YES" : "SUB_UI_DEFAULT_NO";
 		return langLabel(label);

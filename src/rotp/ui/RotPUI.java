@@ -374,11 +374,11 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
 
     // PLAYER-TRIGGERED ACTIONS
     public void selectSetupRacePanel()	 {
-    	setupRaceUI.init(newGameOptions());
+    	setupRaceUI.init();
     	selectPanel(SETUP_RACE_PANEL, setupRaceUI); 
     }
     public void selectSetupGalaxyPanel() {
-    	setupGalaxyUI.init(newGameOptions());
+    	setupGalaxyUI.init();
     	selectPanel(SETUP_GALAXY_PANEL, setupGalaxyUI);
     }
     public void selectLoadGamePanel() { loadGameUI.init(); selectPanel(LOAD_PANEL, loadGameUI); }

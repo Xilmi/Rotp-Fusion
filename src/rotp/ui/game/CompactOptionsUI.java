@@ -32,7 +32,6 @@ import java.util.LinkedList;
 import javax.swing.JEditorPane;
 import javax.swing.JTextPane;
 
-import rotp.model.game.IGameOptions;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
@@ -147,8 +146,6 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	// ========== Other Methods ==========
 	//
 	private  ModText newBT(boolean disabled) {
-//		ModText bt = new ModText(this, false, settingFont, 0, 0,
-//				enabledColor, disabledColor, hoverC, depressedC, enabledColor, 0, 0, 0);
 		ModText bt = new ModText(this, settingFont, enabledColor,
 				disabledColor, hoverC, depressedC, enabledColor, true);
 		bt.disabled(disabled);
@@ -159,13 +156,9 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		if (isDefault)
 			bt = new ModText(this, settingFont, defaultValuesColor, 
 					disabledColor, hoverC, depressedC, disabledColor, true);
-//			bt = new ModText(this, false, settingFont, 0, 0,
-//				defaultValuesColor, disabledColor, hoverC, depressedC, disabledColor, 0, 0, 0);
 		else
 			bt = new ModText(this, settingFont, customValuesColor,
 					disabledColor, hoverC, depressedC, disabledColor, true);
-//			bt = new ModText(this, false, settingFont, 0, 0,
-//					customValuesColor, disabledColor, hoverC, depressedC, disabledColor, 0, 0, 0);
 		return bt;
 	}
 	private void drawButtons(Graphics2D g) {
@@ -315,16 +308,16 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		for (InterfaceOptions param : activeList)
 			param.setFromDefault();
 	}
-	public void start(boolean callFromGame, IGameOptions guiOptions) { // Called from Base UI
+	public void start(boolean callFromGame) { // Called from Base UI
 		parent = 0;
-		start(guiOptions);
+		start();
 	}
-	public void start(int p, IGameOptions guiOptions) { // Called from subUI
+	public void start(int p) { // Called from subUI
 		parent = p;
-		start(guiOptions);
+		start();
 	}
-	private void start(IGameOptions guiOptions) { // Called from subUI
-		super.init(guiOptions);
+	private void start() { // Called from subUI
+		super.init();
 		hoverBox = null;
 		prevHover = null;
 		descBox.setVisible(true);
@@ -374,16 +367,15 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
         disableGlassPane();
 		switch (parent) {
 		case 1:
-			RotPUI.mergedDynamicOptionsUI().start(guiOptions().isGameOption(), guiOptions()); // TODO BR: remove one parameter
+			RotPUI.mergedDynamicOptionsUI().start(guiOptions().isGameOption()); // TODO BR: remove one parameter
 			return;
 		case 2:
-			RotPUI.modOptionsDynamicA().init(guiOptions());
+			RotPUI.modOptionsDynamicA().init();
 			return;
 		case 0:
 		default: 
-//	        if (!guiCallFromGame())
 	        if (guiOptions().isSetupOption())
-	        	RotPUI.setupGalaxyUI().init(guiOptions());
+	        	RotPUI.setupGalaxyUI().init();
 	        else
 	        	RotPUI.instance().mainUI().map().resetRangeAreas();
 		}

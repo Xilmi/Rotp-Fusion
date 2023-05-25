@@ -32,7 +32,6 @@ import java.util.List;
 
 import javax.swing.SwingUtilities;
 
-import rotp.model.game.IGameOptions;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
@@ -73,9 +72,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 	AbstractOptionsUI(String guiTitle_ID, String guiId) {
 		guiTitleID = guiTitle_ID;
 		GUI_ID = guiId;
-//		init_0();
 	}
-//	private void init_0() {
 	@Override protected void singleInit() {
 		setOpaque(false);
 		textC = SystemPanel.whiteText;
@@ -154,7 +151,6 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 	//
 	private  ModText newBT() { 
 		return new ModText(this, 20,  textC, textC, hoverC, depressedC, textC, true);
-//		return new ModText(this, false, 20, 20,-78,  textC, textC, hoverC, depressedC, textC, 0, 0, 0);
 	}
 	private void drawButtons(Graphics2D g) {
 		int cnr = s5;
@@ -298,8 +294,8 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 	}
 	// ========== Overriders ==========
 	//
-	@Override public void init(IGameOptions guiOptions)	 {
-		super.init(guiOptions);
+	@Override public void init()	 {
+		super.init();
 		w	= RotPUI.setupRaceUI().getWidth();
 		h	= RotPUI.setupRaceUI().getHeight();
 		wBG	= w - (leftM + rightM);
@@ -317,7 +313,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 	@Override protected void close() {
 		super.close();
         disableGlassPane();
-		RotPUI.setupGalaxyUI().init(guiOptions());
+		RotPUI.setupGalaxyUI().init();
 	}
 	@Override protected void doExitBoxAction()		{
 		if (globalOptions) { // The old ways

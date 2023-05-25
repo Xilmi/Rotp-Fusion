@@ -44,7 +44,6 @@ import java.util.List;
 import javax.swing.JTextField;
 
 import rotp.model.empires.Race;
-import rotp.model.game.IGameOptions;
 import rotp.model.ships.ShipImage;
 import rotp.model.ships.ShipLibrary;
 import rotp.ui.BasePanel;
@@ -118,11 +117,9 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         initTextField(leaderName);
         initTextField(shipSetTxt); // BR:
     }
-	@Override protected void singleInit() {
-		paramList = optionsRace;
-	}
-    @Override public void init(IGameOptions guiOptions) {
-    	super.init(guiOptions);
+	@Override protected void singleInit() { paramList = optionsRace; }
+    @Override public void init() {
+    	super.init();
         leaderName.setFont(narrowFont(20));
         // homeWorld.setFont(narrowFont(20));
         setHomeWorldFont(); // BR: MonoSpaced font for Galaxy
@@ -133,7 +130,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
     }
 	@Override public void showHelp() {
 		loadHelpUI();
-	repaint();   
+		repaint();   
 	}
     @Override public void advanceHelp() { cancelHelp(); }
 	@Override public void cancelHelp() { RotPUI.helpUI().close(); }
@@ -1101,7 +1098,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
     // BR: Display UI panel for Player Race Customization
     private void goToPlayerRaceCustomization() {
         buttonClick();
-        EditCustomRaceUI.instance().open(this, guiOptions());
+        EditCustomRaceUI.instance().open(this);
 		setVisible(false);      
     }
     @Override

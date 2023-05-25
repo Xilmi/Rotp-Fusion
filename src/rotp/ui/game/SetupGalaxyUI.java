@@ -408,9 +408,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		duplicateList.add(shapeOption2);
 		duplicateList.add(aliensNumber);
 	}
-//	@Override protected IGameOptions guiOptions() { return newGameOptions(); }
-	@Override public void init(IGameOptions guiOptions) {
-		super.init(guiOptions);
+	@Override public void init() {
+		super.init();
 		boxMonoFont    = null;
 		dialogMonoFont = null;
         initAIandAbilitiesList();
@@ -2008,51 +2007,51 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		buttonClick();
 		AdvancedOptionsUI optionsUI = RotPUI.advancedOptionsUI();
 		close();
-		optionsUI.init(guiOptions());
+		optionsUI.init();
 	}
 	// BR: add UI panel for MOD game options
 	private void goToMergedStatic() {
 		buttonClick();
 		MergedStaticOptionsUI modOptionsUI = RotPUI.mergedStaticOptionsUI();
 		close();
-		modOptionsUI.start(false, guiOptions());
+		modOptionsUI.start(false);
 	}
 	private void goToMergedDynamic() {
 		buttonClick();
 		MergedDynamicOptionsUI modOptionsUI = RotPUI.mergedDynamicOptionsUI();
 		close();
-		modOptionsUI.start(false, guiOptions());
+		modOptionsUI.start(false);
 	}
 	private void goToModStaticA() {
 		buttonClick();
 		StaticAOptionsUI modOptionsUI = RotPUI.modOptionsStaticA();
 		close();
-		modOptionsUI.init(guiOptions());
+		modOptionsUI.init();
 	}
 	private void goToModStaticB() {
 		buttonClick();
 		StaticBOptionsUI modBOptionsUI = RotPUI.modOptionsStaticB();
 		close();
-		modBOptionsUI.init(guiOptions());
+		modBOptionsUI.init();
 	}
 	private void goToModDynamicA() {
 		buttonClick();
 		DynamicAOptionsUI modOptionsUI = RotPUI.modOptionsDynamicA();
 		close();
-		modOptionsUI.init(guiOptions());
+		modOptionsUI.init();
 	}
 	private void goToModDynamicB() {
 		buttonClick();
 		DynamicBOptionsUI modBOptionsUI = RotPUI.modOptionsDynamicB();
 		close();
-		modBOptionsUI.init(guiOptions());
+		modBOptionsUI.init();
 	}
 	// BR: Display UI panel for MOD game options
 	private void goToModGlobalOptions() {
 		buttonClick();
 		ModGlobalOptionsUI modGlobalOptionsUI = RotPUI.modGlobalOptionsUI();
 		close();
-		modGlobalOptionsUI.init(guiOptions());
+		modGlobalOptionsUI.init();
 	}
 	// BR: Add option to return to the main menu
 	private void goToMainMenu() {

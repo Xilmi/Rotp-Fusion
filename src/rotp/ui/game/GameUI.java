@@ -828,7 +828,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     	if (isCtrlDown()) {
             buttonClick();
     		ModGlobalOptionsUI modGlobalOptionsUI = RotPUI.modGlobalOptionsUI();
-    		modGlobalOptionsUI.init(this.newGameOptions());
+    		modGlobalOptionsUI.init();
     		return;
     	}
         buttonClick();
@@ -837,7 +837,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     }
     @Override
     public void playAmbience() {
-        // in case playing ambience causes a sound error
+        // in case playing ambiance causes a sound error
         super.playAmbience();
         setTextValues();
     }

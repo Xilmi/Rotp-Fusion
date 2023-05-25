@@ -29,25 +29,16 @@ import static rotp.model.game.MOO1GameOptions.getStarDensityOptions;
 import static rotp.model.game.MOO1GameOptions.getTechTradingOptions;
 import static rotp.model.game.MOO1GameOptions.getTerraformingOptions;
 import static rotp.model.game.MOO1GameOptions.getWarpSpeedOptions;
-import static rotp.ui.UserPreferences.AUTOBOMBARD_INVADE;
-import static rotp.ui.UserPreferences.AUTOBOMBARD_NEVER;
-import static rotp.ui.UserPreferences.AUTOBOMBARD_NO;
-import static rotp.ui.UserPreferences.AUTOBOMBARD_WAR;
-import static rotp.ui.UserPreferences.AUTOBOMBARD_YES;
-import static rotp.ui.UserPreferences.autoBombardMode;
-import static rotp.ui.UserPreferences.autoColonize;
-import static rotp.ui.UserPreferences.save;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 
 import rotp.ui.util.InterfaceParam;
-import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamList;
 
 // Duplicates Options, Race Menu Options and Galaxy Options
 //
-public interface DuplicateOptions extends BaseOptionsTools {
+public interface IAdvOptions extends BaseOptionsTools {
 	
 	// ==================== Duplicates for Base Advanced Options ====================
 	//
@@ -60,12 +51,6 @@ public interface DuplicateOptions extends BaseOptionsTools {
 		@Override public void setOptionValue(IGameOptions options, String newValue) {
 			options.selectedGalaxyAge(newValue);
 		}
-//		@Override public String getFromOption() {
-//			return RotPUI.mergedGuiOptions().selectedGalaxyAge();
-//		}
-//		@Override public void setOption(String newValue) {
-//			RotPUI.mergedGuiOptions().selectedGalaxyAge(newValue);
-//		}
 	};
 	ParamList starDensity		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "STAR_DENSITY", getStarDensityOptions(), STAR_DENSITY_NORMAL) {
@@ -76,12 +61,6 @@ public interface DuplicateOptions extends BaseOptionsTools {
 		@Override public void setOptionValue(IGameOptions options, String newValue) {
 			options.selectedStarDensityOption(newValue);
 		}
-//		@Override public String getFromOption() {
-//			return RotPUI.mergedGuiOptions().selectedStarDensityOption();
-//		}
-//		@Override public void setOption(String newValue) {
-//			RotPUI.mergedGuiOptions().selectedStarDensityOption(newValue);
-//		}
 	};
 	ParamList nebulae			= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "NEBULAE", getNebulaeOptions(), NEBULAE_NORMAL) {
@@ -92,12 +71,6 @@ public interface DuplicateOptions extends BaseOptionsTools {
 		@Override public void setOptionValue(IGameOptions options, String newValue) {
 			options.selectedNebulaeOption(newValue);
 		}
-//		@Override public String getFromOption() {
-//			return RotPUI.mergedGuiOptions().selectedNebulaeOption();
-//		}
-//		@Override public void setOption(String newValue) {
-//			RotPUI.mergedGuiOptions().selectedNebulaeOption(newValue);
-//		}
 	};
 	ParamList randomEvents		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "RANDOM_EVENTS", getRandomEventOptions(), RANDOM_EVENTS_NO_MONSTERS) {
@@ -108,12 +81,6 @@ public interface DuplicateOptions extends BaseOptionsTools {
 		@Override public void setOptionValue(IGameOptions options, String newValue) {
 			options.selectedRandomEventOption(newValue);
 		}
-//		@Override public String getFromOption() {
-//			return RotPUI.mergedGuiOptions().selectedRandomEventOption();
-//		}
-//		@Override public void setOption(String newValue) {
-//			RotPUI.mergedGuiOptions().selectedRandomEventOption(newValue);
-//		}
 	};
 	ParamList planetQuality	= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "PLANET_QUALITY", getPlanetQualityOptions(), PLANET_QUALITY_NORMAL) {
@@ -124,12 +91,6 @@ public interface DuplicateOptions extends BaseOptionsTools {
 		@Override public void setOptionValue(IGameOptions options, String newValue) {
 			options.selectedPlanetQualityOption(newValue);
 		}
-//		@Override public String getFromOption() {
-//			return RotPUI.mergedGuiOptions().selectedPlanetQualityOption();
-//		}
-//		@Override public void setOption(String newValue) {
-//			RotPUI.mergedGuiOptions().selectedPlanetQualityOption(newValue);
-//		}
 	};
 	ParamList terraforming		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "TERRAFORMING", getTerraformingOptions(), TERRAFORMING_NORMAL) {
@@ -140,12 +101,6 @@ public interface DuplicateOptions extends BaseOptionsTools {
 		@Override public void setOptionValue(IGameOptions options, String newValue) {
 			options.selectedTerraformingOption(newValue);
 		}
-//		@Override public String getFromOption() {
-//			return RotPUI.mergedGuiOptions().selectedTerraformingOption();
-//		}
-//		@Override public void setOption(String newValue) {
-//			RotPUI.mergedGuiOptions().selectedTerraformingOption(newValue);
-//		}
 	};
 	ParamList colonizing		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "COLONIZING", getColonizingOptions(), COLONIZING_NORMAL) {
@@ -156,12 +111,6 @@ public interface DuplicateOptions extends BaseOptionsTools {
 		@Override public void setOptionValue(IGameOptions options, String newValue) {
 			options.selectedColonizingOption(newValue);
 		}
-//		@Override public String getFromOption() {
-//			return RotPUI.mergedGuiOptions().selectedColonizingOption();
-//		}
-//		@Override public void setOption(String newValue) {
-//			RotPUI.mergedGuiOptions().selectedColonizingOption(newValue);
-//		}
 	};
 	ParamList councilWin		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "COUNCIL_WIN", getCouncilWinOptions(), COUNCIL_REBELS) {
@@ -172,12 +121,6 @@ public interface DuplicateOptions extends BaseOptionsTools {
 		@Override public void setOptionValue(IGameOptions options, String newValue) {
 			options.selectedCouncilWinOption(newValue);
 		}
-//		@Override public String getFromOption() {
-//			return RotPUI.mergedGuiOptions().selectedCouncilWinOption();
-//		}
-//		@Override public void setOption(String newValue) {
-//			RotPUI.mergedGuiOptions().selectedCouncilWinOption(newValue);
-//		}
 		@Override protected String descriptionId() {
 			return "SETTINGS_COUNCIL_DESC";
 		}
@@ -190,12 +133,6 @@ public interface DuplicateOptions extends BaseOptionsTools {
 		@Override public void setOptionValue(IGameOptions options, String newValue) {
 			options.selectedRandomizeAIOption(newValue);
 		}
-//		@Override public String getFromOption() {
-//			return RotPUI.mergedGuiOptions().selectedRandomizeAIOption();
-//		}
-//		@Override public void setOption(String newValue) {
-//			RotPUI.mergedGuiOptions().selectedRandomizeAIOption(newValue);
-//		}
 	};
 	ParamList autoplay			= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "AUTOPLAY",
@@ -207,12 +144,6 @@ public interface DuplicateOptions extends BaseOptionsTools {
 		@Override public void setOptionValue(IGameOptions options, String newValue) {
 			options.selectedAutoplayOption(newValue);
 		}
-//		@Override public String getFromOption() {
-//			return RotPUI.mergedGuiOptions().selectedAutoplayOption();
-//		}
-//		@Override public void setOption(String newValue) {
-//			RotPUI.mergedGuiOptions().selectedAutoplayOption(newValue);
-//		}
 	};
 	default ParamList autoplay()	{ return autoplay; }
 	ParamList researchRate		= new ParamList( // Duplicate Do not add the list
@@ -224,12 +155,6 @@ public interface DuplicateOptions extends BaseOptionsTools {
 		@Override public void setOptionValue(IGameOptions options, String newValue) {
 			options.selectedResearchRate(newValue);
 		}
-//		@Override public String getFromOption() {
-//			return RotPUI.mergedGuiOptions().selectedResearchRate();
-//		}
-//		@Override public void setOption(String newValue) {
-//			RotPUI.mergedGuiOptions().selectedResearchRate(newValue);
-//		}
 	};
 	ParamList warpSpeed		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "WARP_SPEED", getWarpSpeedOptions(), WARP_SPEED_NORMAL) {
@@ -240,12 +165,6 @@ public interface DuplicateOptions extends BaseOptionsTools {
 		@Override public void setOptionValue(IGameOptions options, String newValue) {
 			options.selectedWarpSpeedOption(newValue);
 		}
-//		@Override public String getFromOption() {
-//			return RotPUI.mergedGuiOptions().selectedWarpSpeedOption();
-//		}
-//		@Override public void setOption(String newValue) {
-//			RotPUI.mergedGuiOptions().selectedWarpSpeedOption(newValue);
-//		}
 	};
 	ParamList fuelRange		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "FUEL_RANGE", getFuelRangeOptions(), FUEL_RANGE_NORMAL) {
@@ -258,14 +177,6 @@ public interface DuplicateOptions extends BaseOptionsTools {
 			if (GameSession.instance().status().inProgress())
 				GameSession.instance().galaxy().resetAllAI();
 		}
-//		@Override public String getFromOption() {
-//			return RotPUI.mergedGuiOptions().selectedFuelRangeOption();
-//		}
-//		@Override public void setOption(String newValue) {
-//			RotPUI.mergedGuiOptions().selectedFuelRangeOption(newValue);
-//			if (GameSession.instance().status().inProgress())
-//				GameSession.instance().galaxy().resetAllAI();
-//		}
 	};
 	ParamList techTrading		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "TECH_TRADING", getTechTradingOptions(), TECH_TRADING_YES) {
@@ -276,12 +187,6 @@ public interface DuplicateOptions extends BaseOptionsTools {
 		@Override public void setOptionValue(IGameOptions options, String newValue) {
 			options.selectedTechTradeOption(newValue);
 		}
-//		@Override public String getFromOption() {
-//			return RotPUI.mergedGuiOptions().selectedTechTradeOption();
-//		}
-//		@Override public void setOption(String newValue) {
-//			RotPUI.mergedGuiOptions().selectedTechTradeOption(newValue);
-//		}
 	};
 	ParamList aiHostility		= new ParamList( // Duplicate Do not add the list
 			ADV_UI, "AI_HOSTILITY", getAiHostilityOptions(), AI_HOSTILITY_NORMAL) {
@@ -292,44 +197,7 @@ public interface DuplicateOptions extends BaseOptionsTools {
 		@Override public void setOptionValue(IGameOptions options, String newValue) {
 			options.selectedAIHostilityOption(newValue);
 		}
-//		@Override public String getFromOption() {
-//			return RotPUI.mergedGuiOptions().selectedAIHostilityOption();
-//		}
-//		@Override public void setOption(String newValue) {
-//			RotPUI.mergedGuiOptions().selectedAIHostilityOption(newValue);
-//		}
 	};
-	// ==================== Duplicates for Main Settings Options ====================
-	//
-	ParamBoolean autoColonize_	= new ParamBoolean( // Duplicate Do not add the list
-			GAME_UI, "AUTOCOLONIZE", false) {
-		{ isDuplicate(true); }
-		@Override public Boolean get() { return autoColonize(); }
-		@Override public Boolean set(Boolean newValue) {
-			autoColonize(newValue);
-			save();
-			return autoColonize();
-		}
-	};
-	ParamList autoBombard_		= new ParamList( // Duplicate Do not add the list
-			GAME_UI, "AUTOBOMBARD",
-			Arrays.asList(
-					AUTOBOMBARD_NO,
-					AUTOBOMBARD_NEVER,
-					AUTOBOMBARD_YES,
-					AUTOBOMBARD_WAR,
-					AUTOBOMBARD_INVADE
-					),
-			AUTOBOMBARD_NO) {
-		{ showFullGuide(true); }
-		@Override public String get() { return autoBombardMode(); }
-		@Override public String set(String newValue) {
-			autoBombardMode(newValue);
-			save();
-			return autoBombardMode();
-		}
-	};
-
 	// ==================== GUI List Declarations ====================
 	//
 	LinkedList<InterfaceParam> advancedOptions	  = new LinkedList<>(

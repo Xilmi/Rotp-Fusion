@@ -216,11 +216,11 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		}
 		columnH += settingHPad;
 	}
-	public void open(BasePanel p, IGameOptions guiOptions) {
+	public void open(BasePanel p) {
 		enableGlassPane(this);
 		ModifierKeysState.reset();
 		parent = p;
-		init(guiOptions);
+		init();
 		repaint();
 	}
 	// ========== Other Methods ==========
@@ -442,8 +442,8 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	}
 	// ========== Overriders ==========
 	//
-	@Override protected void init(IGameOptions guiOptions) {
-		super.init(guiOptions);
+	@Override protected void init() {
+		super.init();
 		for (SettingBase<?> setting : commonList) {
 			if (setting.isBullet()) {
 				setting.settingText().displayText(setting.guiSettingDisplayStr()); // The setting

@@ -67,10 +67,6 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	// ========== Constructors and initializers ==========
 	//
 	private EditCustomRaceUI() {}
-//	public static EditCustomRaceUI instance(IGameOptions options) {
-//		instance.guiOptions(options);
-//		return instance.init0();
-//	}
 	public static EditCustomRaceUI instance() { return instance.init0(); }
 	public EditCustomRaceUI init0() {
 		if (initialized)
@@ -111,7 +107,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			raceList.optionText(optionBT(), bulletIdx);
 			raceList.optionText(bulletIdx).disabled(optionIdx == paramIdx);
 		}
-		init(guiOptions());
+		init();
 	}
 	// ========== Other Methods ==========
 	//
@@ -152,7 +148,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
         guiOptions().playerIsCustom().updateOptionTool();
 		guiOptions().playerCustomRace().updateOptionTool();
 		writeLocalOptions(guiOptions());
-		init(guiOptions());
+		init();
 	}
 	public void writeLocalOptions(IGameOptions destination) {
 		for (InterfaceOptions param : commonList)
@@ -164,7 +160,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		for (InterfaceOptions param : commonList)
 			param.setFromDefault();
 		writeLocalOptions(guiOptions());
-		init(guiOptions()); // Validate Init
+		init(); // Validate Init
 	}
 	private void randomizeRace() {
 		cr.randomizeRace(true);
@@ -264,7 +260,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		}
 		refreshGui();
 	}
-	@Override public void open(BasePanel p, IGameOptions guiOptions) {
+	@Override public void open(BasePanel p) {
 //	    cr.setRace(guiOptions().baseRaceOptions().getFirst()); // TODO BR: ???
 		enableGlassPane(this);
 		ModifierKeysState.reset();
@@ -272,7 +268,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 
 		cr.setSettingTools((DynOptions) guiOptions().selectedPlayerCustomRace());
 		guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
-		init(guiOptions);
+		init();
 		reloadRaceList();
 		repaint();
 	}

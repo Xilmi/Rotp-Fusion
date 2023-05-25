@@ -139,7 +139,7 @@ public abstract class BaseModPanel extends BasePanel
 	protected void refreshGui() {}
 
 	@Override public void repaintButtons() { repaint(); }
-	protected void init(IGameOptions guiOptions) {
+	protected void init() {
 		if (!initialised) {
 			if (isSubMenu) {
 				defaultBox	= new Box(defaultSubButton);
