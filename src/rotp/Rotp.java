@@ -71,6 +71,11 @@ public class Rotp {
 
     private static GraphicsDevice device;
     
+    public static boolean noOptions(String id) {
+    	if (noOptions)
+    		System.out.println("### noOptions() usefully called from " + id + " ###");
+    	return noOptions;
+    }
     public static void main(String[] args) {
         frame = new JFrame("Remnants of the Precursors");
         String loadSaveFile = "";

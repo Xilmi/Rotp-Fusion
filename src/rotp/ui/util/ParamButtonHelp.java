@@ -110,7 +110,6 @@ public class ParamButtonHelp implements InterfaceParam {
 	@Override public String getLangLabel()	{ return name; }
 	@Override public String getToolTip()	{ return realLangLabel(getKey() + LABEL_DESCRIPTION); }
 
-	@Override public void setOptionTools()	{}
-	@Override public void setOptions()		{}
-	@Override public void setOptionLinks(IGameOptions options) {}
+	@Override public void updateOptionTool()	{}
+	@Override public void updateOption()		{}
 }

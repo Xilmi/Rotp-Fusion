@@ -16,7 +16,6 @@
 package rotp.model.game;
 
 import java.io.Serializable;
-import rotp.model.empires.Race;
 
 public class NewPlayer implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -25,13 +24,15 @@ public class NewPlayer implements Serializable {
     public String homeWorldName;
     public int color = 0;
 
-    public NewPlayer() {
-        Race def = Race.races().get(0);
-        race = def.id;
-        leaderName = def.randomLeaderName();
-        homeWorldName = def.defaultHomeworldName();
-        color = 0;	
-    }
+    // BR: No initialization needed 
+    // Avoid too early access to options
+//    public NewPlayer() {
+//        Race def = Race.races().get(0);
+//        race = def.id;
+//        leaderName = def.randomLeaderName();
+//        homeWorldName = def.defaultHomeworldName();
+//        color = 0;	
+//    }
     public void copy(NewPlayer p) {
         race = p.race;
         leaderName = p.leaderName;

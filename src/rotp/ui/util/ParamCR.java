@@ -44,12 +44,12 @@ public class ParamCR extends ParamObject {
 			return CustomRaceDefinitions.getDefaultOptions();
 		return super.get();
 	}
-	@Override public void setOptionsTools(DynamicOptions options) {
+	@Override public void updateOptionTool(DynamicOptions options) {
 		System.out.println("ParamCR.setOptionsTools");
 		if (!isDuplicate() && options != null)
 			set((Serializable) options.getObject(getLangLabel(), creationValue()));
 	}
-	@Override public void setOptions(DynamicOptions options) {
+	@Override public void updateOption(DynamicOptions options) {
 		System.out.println("ParamCR.setOptions");
 		if (!isDuplicate() && options != null)
 			options.setObject(getLangLabel(), get());

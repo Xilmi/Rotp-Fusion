@@ -69,6 +69,7 @@ import rotp.model.empires.Empire;
 import rotp.model.empires.Race;
 import rotp.model.galaxy.Galaxy;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.game.DynOptions;
 import rotp.model.game.GameSession;
 import rotp.model.game.IGameOptions;
 import rotp.model.tech.Tech;
@@ -112,7 +113,8 @@ public interface Base {
     public default boolean isPlayer(Empire e) { return galaxy().isPlayer(e); }
     public default LabelManager labels()   { return LabelManager.current(); }
     public default IGameOptions newGameOptions() { return RotPUI.newOptions(); }
-    public default void clearNewGameOptions()    { RotPUI.clearNewOptions(); }
+    public default IGameOptions guiOptions()	 { return RotPUI.currentOptions(); }
+    public default DynOptions   dynOptions()	 { return guiOptions().dynOpts(); }
 
     public default Object sessionVar(String key) {
         return session().var(key);

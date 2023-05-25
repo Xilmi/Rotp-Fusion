@@ -42,8 +42,8 @@ public class ParamTitle extends AbstractParam<String> {
 	@Override public void next() {}
 	@Override public void toggle(MouseWheelEvent e)	{}
 	@Override public void toggle(MouseEvent e, BaseModPanel frame)	 {}
-	@Override public void setOptionTools() {}
-	@Override public void setOptions()	 {}
+	@Override public void updateOptionTool() {}
+	@Override public void updateOption()	 {}
 	@Override protected String getOptionValue(IGameOptions options) { return ""; }
 	@Override protected void setOptionValue(IGameOptions options, String value) {}
 	@Override public boolean isTitle()	{ return true; }

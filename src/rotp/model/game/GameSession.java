@@ -248,6 +248,7 @@ public final class GameSession implements Base, Serializable {
 
     }
     public GameSession() {
+        System.out.println("==================== Create Options (In-Game) ====================");
         options(RulesetManager.current().defaultRuleset());
     }
     public void startGame(IGameOptions newGameOptions) {
@@ -268,7 +269,6 @@ public final class GameSession implements Base, Serializable {
             galaxy().startGame();
             saveRecentSession(false);
             saveBackupSession(1);
-            clearNewGameOptions();
             MOO1GameOptions.optionsUpdated();
         }
     }
@@ -291,7 +291,6 @@ public final class GameSession implements Base, Serializable {
     		GameUI.gameName = generateGameName();
             saveRecentSession(false);
             saveBackupSession(1);
-            clearNewGameOptions();
             MOO1GameOptions.optionsUpdated();
         }
     }

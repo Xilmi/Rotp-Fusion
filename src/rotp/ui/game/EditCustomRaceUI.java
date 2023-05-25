@@ -146,20 +146,19 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		close();
 	}
 	public void updateCRGui(IGameOptions source) {
-		guiOptions(source);
 //	    cr.setRace(guiOptions().baseRaceOptions().getFirst()); // TODO BR: ???
         for (InterfaceOptions param : commonList)
-			param.setOptionsTools(source.dynOpts());
-        guiOptions().playerIsCustom().setOptionTools();
-		guiOptions().playerCustomRace().setOptionTools();
+			param.updateOptionTool(source.dynOpts());
+        guiOptions().playerIsCustom().updateOptionTool();
+		guiOptions().playerCustomRace().updateOptionTool();
 		writeLocalOptions(guiOptions());
 		init(guiOptions());
 	}
 	public void writeLocalOptions(IGameOptions destination) {
 		for (InterfaceOptions param : commonList)
-			param.setOptions(destination.dynOpts());
-		guiOptions().playerIsCustom().setOptions();
-		guiOptions().playerCustomRace().setOptions();
+			param.updateOption(destination.dynOpts());
+		guiOptions().playerIsCustom().updateOption();
+		guiOptions().playerCustomRace().updateOption();
 	}
 	private void setToLocalDefault() {
 		for (InterfaceOptions param : commonList)
@@ -253,7 +252,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			guiOptions().loadAndUpdateFromFileName(LIVE_OPTIONS_FILE);		
 			break;
 		case CTRL_SHIFT: // restoreLocalKey
-			guiOptions().loadAndUpdateFromFileName(LIVE_OPTIONS_FILE, localOptions());		
+			guiOptions().getParamFromFile(LIVE_OPTIONS_FILE, localOptions());		
 			break;
 		case SHIFT: // setLocalDefaultKey
 			setToLocalDefault();
@@ -266,7 +265,6 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		refreshGui();
 	}
 	@Override public void open(BasePanel p, IGameOptions guiOptions) {
-		guiOptions(guiOptions);
 //	    cr.setRace(guiOptions().baseRaceOptions().getFirst()); // TODO BR: ???
 		enableGlassPane(this);
 		ModifierKeysState.reset();

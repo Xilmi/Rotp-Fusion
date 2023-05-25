@@ -41,11 +41,11 @@ public class ParamString extends AbstractParam<String> {
 	@Override public void next() {}
 	@Override public void toggle(MouseWheelEvent e)	{}
 	@Override public void toggle(MouseEvent e, BaseModPanel frame) {}
-	@Override public void setOptionTools() {
+	@Override public void updateOptionTool() {
 		if (!isDuplicate() && dynOpts() != null)
 			set(dynOpts().getString(getLangLabel(), creationValue()));
 	}
-	@Override public void setOptions() {
+	@Override public void updateOption() {
 		if (!isDuplicate() && dynOpts() != null)
 			dynOpts().setString(getLangLabel(), get());
 	}

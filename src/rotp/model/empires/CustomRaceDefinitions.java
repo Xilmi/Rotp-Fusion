@@ -181,9 +181,9 @@ public class CustomRaceDefinitions  {
 	public DynOptions getAsOptions() {
 		DynOptions destOptions = new DynOptions();
 		for (SettingBase<?> setting : settingList)
-			setting.setOptions(destOptions);
+			setting.updateOption(destOptions);
 		for (SettingBase<?> setting : guiList)
-			setting.setOptions(destOptions);
+			setting.updateOption(destOptions);
 		return destOptions;
 	}
 	/**
@@ -192,9 +192,9 @@ public class CustomRaceDefinitions  {
 	 */
 	public void setSettingTools(DynOptions srcOptions) {
 		for (SettingBase<?> setting : settingList)
-			setting.setOptionsTools(srcOptions);
+			setting.updateOptionTool(srcOptions);
 		for (SettingBase<?> setting : guiList)
-			setting.setOptionsTools(srcOptions);
+			setting.updateOptionTool(srcOptions);
 		pushSettings();
 	}
 	/**

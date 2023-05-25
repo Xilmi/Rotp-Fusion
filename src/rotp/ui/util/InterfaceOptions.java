@@ -21,20 +21,15 @@ import rotp.model.game.IGameOptions;
 
 public interface InterfaceOptions {
 	/**
-	 * Set the option tools value from full dynamic options. 
-	 * @param options
-	 */
-	public void setOptionLinks(IGameOptions options);
-	/**
 	 * Set the option tools value from specific options. 
 	 * @param options
 	 */
-	public void setOptionTools();
-	public void setOptions();
+	public void updateOptionTool();
+	public void updateOption();
 	// For settings only
-	public default void setOptionsTools(DynamicOptions options) {};
+	public default void updateOptionTool(DynamicOptions options) {};
 	// For settings only
-	public default void setOptions(DynamicOptions options) {};
+	public default void updateOption(DynamicOptions options) {};
 	public default void setFromDefault() {}
 	public default void copyOption(IGameOptions src, IGameOptions dest) {}
 }

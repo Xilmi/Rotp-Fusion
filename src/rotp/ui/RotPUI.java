@@ -15,10 +15,6 @@
  */
 package rotp.ui;
 
-import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
-import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
-import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
-
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -91,7 +87,6 @@ import rotp.ui.tech.DiplomaticMessageUI;
 import rotp.ui.tech.DiscoverTechUI;
 import rotp.ui.tech.SelectNewTechUI;
 import rotp.ui.util.ListDialog;
-import rotp.ui.util.ParamOptions;
 import rotp.ui.util.planets.PlanetImager;
 import rotp.util.AnimationManager;
 import rotp.util.ImageManager;
@@ -175,11 +170,11 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
 
     private static PrintWriter debugFile = null;
 
-    private static boolean guiCallFromGame = false;
-    public static boolean guiCallFromGame() { return guiCallFromGame;}
-    public static void guiCallFromGame(boolean callFromGame) { guiCallFromGame = callFromGame;} 
-    public static IGameOptions mergedGuiOptions()  {
-		if (guiCallFromGame())
+    private static int currentOptions = IGameOptions.SETUP_ID;
+
+    public static void currentOptions(int id)	{ currentOptions = id;}
+    public static IGameOptions currentOptions()	{
+		if (currentOptions == IGameOptions.GAME_ID)
 			return GameSession.instance().options();
 		else
 			return newOptions();
@@ -247,7 +242,6 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     private final GameOverUI gameOverUI = new GameOverUI();
     private final ErrorUI errorUI = new ErrorUI();
     private final HelpUI helpUI = new HelpUI();
-//    private final StartOptionsUI startOptionsUI = new StartOptionsUI();
 
     private final AdvancedOptionsUI advancedOptionsUI = new AdvancedOptionsUI();
     // BR: Compact Mod Game options
@@ -312,8 +306,10 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     private void init() {
     	@SuppressWarnings("unused")  // Fake Dialog used to load the code and accelerate the future calls
 		ListDialog dialog = new ListDialog(true);
-        initModel();
+        // Copy the former "Live.Option" to new "Last.Option"
         MOO1GameOptions.copyOptionsFromLiveToLast();
+        newOptions().loadStartupOptions();
+        initModel();
         addKeyListener(this);
         if (startupException != null)
             selectErrorPanel(startupException);
@@ -329,52 +325,13 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
             createNewOptions();
         return newGameOptions;
     }
-    // BR: Added initialization choice
+    // BR: Added option identification
     private static void createNewOptions() {
-    	newGameOptions = createStartupOptions();
+        System.out.println("==================== Create newGameOptions  (Setup) ====================");
+    	newGameOptions = new MOO1GameOptions();
     	newGameOptions.setAsSetup();
+    	Rotp.noOptions = false;
     }
-    // BR: Added for initialization choice
-    private static MOO1GameOptions createStartupOptions() { // BR:
-    	MOO1GameOptions newOptions;
-        System.out.println("==================== createNewOptions() ====================");
-//		System.out.println("UserPreferences.gamePlayed() = " + UserPreferences.gamePlayed());
-//		System.out.println("UserPreferences.loadRequest() = " + UserPreferences.loadRequest());
-//		System.out.println("UserPreferences.menuLoadGame.get() = " + UserPreferences.menuLoadGame.get());
-//		System.out.println("UserPreferences.menuStartup.get() = " + UserPreferences.menuStartup.get());
-//		System.out.println("UserPreferences.menuAfterGame.get() = " + UserPreferences.menuAfterGame.get());
-//		System.out.println("UserPreferences.menuSpecial.get() = " + UserPreferences.menuSpecial.get());
-
-     	ParamOptions action = rotp.model.game.RemnantOptions.menuStartup;
-   	
-    	if (action.isUser()) {
-    		// System.out.println("GUI Loaded User.options");
-       		newOptions = new MOO1GameOptions();
-       		newOptions.loadAndUpdateFromFileName(USER_OPTIONS_FILE);
-    		return newOptions;
-    	}
-    	if (action.isGame()) {
-    		// System.out.println("GUI Loaded Game.options");
-       		newOptions = new MOO1GameOptions();
-       		newOptions.loadAndUpdateFromFileName(GAME_OPTIONS_FILE);
-    		return newOptions;
-    	}
-    	if (action.isDefault()) {
-    		// System.out.println("GUI Loaded Default options");
-    		newOptions = new MOO1GameOptions();
-    		newOptions.setBaseAndModSettingsToDefault();
-    		return newOptions;
-    	}
-    	// else default = action.isLast()
-		// System.out.println("GUI Loaded Last.options");
-   		newOptions = new MOO1GameOptions();
-   		newOptions.loadAndUpdateFromFileName(LAST_OPTIONS_FILE);
-		return newOptions;
-    }
-    public static void clearNewOptions() { // TODO BR: Remove
-    	// newGameOptions = null; 
-    } 
-
     public void toggleAnimations() {
         if (playAnimations())
             timer.start();
@@ -416,11 +373,6 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     public void selectCurrentPanel() { selectPanel(currentPane, selectedPanel); }
 
     // PLAYER-TRIGGERED ACTIONS
-    // To avoid reset options while returning to Race panel
-//    public void returnToSetupRacePanel() { // TODO BR: REMOVE Later
-//    	setupRaceUI.smallInit(newGameOptions());
-//    	selectPanel(SETUP_RACE_PANEL, setupRaceUI);
-//    }
     public void selectSetupRacePanel()	 {
     	setupRaceUI.init(newGameOptions());
     	selectPanel(SETUP_RACE_PANEL, setupRaceUI); 

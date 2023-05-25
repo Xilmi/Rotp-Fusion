@@ -163,8 +163,7 @@ public class MainUI extends BasePanel implements IMapHandler {
         overlay = overlayNone;
     }
     public void init(boolean pauseNextTurn) {
-    	// TODO BR: # Reinitialize options tools with the session options
-    	options().updateOptionsTools();
+    	options().updateGuiOptionsId();
         map.init();
         if (pauseNextTurn)
             buttonPanel.init();

@@ -27,6 +27,7 @@ import javax.swing.SwingUtilities;
 
 import rotp.model.game.DynamicOptions;
 import rotp.model.game.IGameOptions;
+import rotp.ui.RotPUI;
 import rotp.ui.game.BaseModPanel;
 
 public abstract class AbstractParam <T> implements InterfaceParam{
@@ -43,7 +44,6 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	private T ctrlInc		= null;
 	private T shiftCtrlInc	= null;
 	private boolean isDuplicate	= false;
-	private IGameOptions	options;
 
 	// ========== constructors ==========
 	//
@@ -93,10 +93,10 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	// ===== For duplicates to be overridden =====
 	//public void reInit() {}
 	public void setOption(T option) {
-		DynamicOptions opts = dynOpts();
-		if (opts != null) {
-			 setOptions(opts);
-		}
+//		DynamicOptions opts = dynOpts();
+//		if (opts != null) {
+//			 updateOption(opts);
+//		}
 	}
 	public T getFromOption() { return null; }
 	// For internal use only! Do not call from outside AbstracParam
@@ -119,29 +119,22 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	@Override public String toString() {
 		return getCfgLabel() + " = " + getCfgValue();
 	}
-	@Override public void setOptionLinks(IGameOptions srcOptions) { // TODO BR: Validate the Option split
-		options(srcOptions);
-	}
-	@Override public void setOptions() {
-//		if (!isDuplicate() && dynOpts() != null) {
-//			dynOpts().setString(getLangLabel(), getCfgValue());
+	@Override public void updateOption() {
 		if (dynOpts() != null) {
-			T oldVal = getOptionValue(options);
+			T oldVal = getOptionValue(options());
 			T newVal = get();
 			if ( !( oldVal.toString().equals(newVal.toString()) ) ) {
 				System.err.println("setOptions(): " + name + " : " + oldVal + " != " + newVal);
 			}
-			setOptionValue(options, get());
+			setOptionValue(options(), get());
 		} 
 		else {
 			System.err.println("setOptions(): [dynOpts() == null] " + name);
 		}
 	}
-	@Override public void setOptionTools() {
-//		if (!isDuplicate() && dynOpts() != null) {
-//			setFromCfgValue(dynOpts().getString(getLangLabel(), getCfgValue(creationValue())));
+	@Override public void updateOptionTool() {
 		if (dynOpts() != null) {
-			value = getOptionValue(options);
+			value = getOptionValue(options());
 		} 
 		else {
 			System.err.println("setOptionTools(): [dynOpts() == null] " + name);
@@ -152,9 +145,6 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 			return;
 		T val = getOptionValue(src);
 		setOptionValue(dest, val);
-//		
-//		if (!isDuplicate() && src != null && dest != null)
-//			dest.setString(getLangLabel(), src.getString(getLangLabel(), getCfgValue(creationValue())));
 	}
 	@Override public String getCfgValue()		{ return getCfgValue(value); }
 	@Override public String getCfgLabel()		{ return name; }
@@ -194,13 +184,8 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	@Override public String getGuiValue(int idx){ return guideValue(); } // For List
 	// ========== Tools for overriders ==========
 	//
-	protected void options(IGameOptions srcOptions)		{ options = srcOptions; }
-	protected IGameOptions   options()					{ return options; }
-	protected DynamicOptions dynOpts()					{
-		if (options == null)
-			return null;
-		return options.dynOpts();
-	}
+	protected IGameOptions   options()					{ return RotPUI.currentOptions(); }
+	protected DynamicOptions dynOpts()					{ return options().dynOpts(); }
 	// ========== Methods to be overridden ==========
 	//
 	T value(T value) 					{ return set(value); }

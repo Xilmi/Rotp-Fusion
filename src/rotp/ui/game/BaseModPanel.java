@@ -86,7 +86,6 @@ public abstract class BaseModPanel extends BasePanel
 	protected PolyBox hoverPolyBox;
 	private	  PolyBox prevPolyBox;
 	protected boolean hoverChanged;
-	private	  IGameOptions guiOptions;
 	protected boolean isSubMenu = true;
 
 	LinkedList<InterfaceParam> paramList;
@@ -138,13 +137,9 @@ public abstract class BaseModPanel extends BasePanel
 	}
 	
 	protected void refreshGui() {}
-	public IGameOptions guiOptions() { return guiOptions; }
-	protected void guiOptions(IGameOptions options) { guiOptions = options; }
 
-	protected boolean guiCallFromGame() { return RotPUI.guiCallFromGame(); }
 	@Override public void repaintButtons() { repaint(); }
 	protected void init(IGameOptions guiOptions) {
-		guiOptions(guiOptions);
 		if (!initialised) {
 			if (isSubMenu) {
 				defaultBox	= new Box(defaultSubButton);
@@ -279,7 +274,7 @@ public abstract class BaseModPanel extends BasePanel
 				return;
 			case SHIFT: // setLocalUserKey
 			default:
-				guiOptions().loadAndUpdateFromFileName(USER_OPTIONS_FILE, localOptions());
+				guiOptions().getParamFromFile(USER_OPTIONS_FILE, localOptions());
 				refreshGui();
 				return;
 			}
@@ -292,7 +287,7 @@ public abstract class BaseModPanel extends BasePanel
 				guiOptions().updateOptionsAndSaveToFileName(USER_OPTIONS_FILE, localOptions());
 				return;
 			case SHIFT: // setLocalUserKey
-				guiOptions().loadAndUpdateFromFileName(USER_OPTIONS_FILE, localOptions());
+				guiOptions().getParamFromFile(USER_OPTIONS_FILE, localOptions());
 				refreshGui();
 				return;
 			default: // setGlobalUserKey
@@ -345,7 +340,7 @@ public abstract class BaseModPanel extends BasePanel
 			switch (ModifierKeysState.get()) {
 			case CTRL: // restoreGlobalKey
 			case CTRL_SHIFT: // restoreLocalKey
-				guiOptions().loadAndUpdateFromFileName(LIVE_OPTIONS_FILE, localOptions());
+				guiOptions().getParamFromFile(LIVE_OPTIONS_FILE, localOptions());
 				refreshGui();
 				return;
 			case SHIFT:
@@ -361,7 +356,7 @@ public abstract class BaseModPanel extends BasePanel
 				refreshGui();
 				return;
 			case CTRL_SHIFT: // restoreLocalKey
-				guiOptions().loadAndUpdateFromFileName(LIVE_OPTIONS_FILE, localOptions());		
+				guiOptions().getParamFromFile(LIVE_OPTIONS_FILE, localOptions());		
 				refreshGui();
 				return;
 			case SHIFT: // setLocalDefaultKey
@@ -412,11 +407,11 @@ public abstract class BaseModPanel extends BasePanel
 			 switch (ModifierKeysState.get()) {
 				case CTRL:
 				case CTRL_SHIFT: // setLocalGameKey
-					guiOptions().loadAndUpdateFromFileName(GAME_OPTIONS_FILE, localOptions());
+					guiOptions().getParamFromFile(GAME_OPTIONS_FILE, localOptions());
 					break;
 				case SHIFT:
 				default: // setLocalLastKey
-					guiOptions().loadAndUpdateFromFileName(LAST_OPTIONS_FILE, localOptions());
+					guiOptions().getParamFromFile(LAST_OPTIONS_FILE, localOptions());
 					break;
 				}
 		else
@@ -425,10 +420,10 @@ public abstract class BaseModPanel extends BasePanel
 				guiOptions().loadAndUpdateFromFileName(GAME_OPTIONS_FILE);
 				break;
 			case CTRL_SHIFT: // setLocalGameKey
-				guiOptions().loadAndUpdateFromFileName(GAME_OPTIONS_FILE, localOptions());
+				guiOptions().getParamFromFile(GAME_OPTIONS_FILE, localOptions());
 				break;
 			case SHIFT: // setLocalLastKey
-				guiOptions().loadAndUpdateFromFileName(LAST_OPTIONS_FILE, localOptions());
+				guiOptions().getParamFromFile(LAST_OPTIONS_FILE, localOptions());
 				break;
 			default: // setGlobalLastKey
 				guiOptions().loadAndUpdateFromFileName(LAST_OPTIONS_FILE);

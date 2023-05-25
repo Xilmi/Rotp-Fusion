@@ -67,18 +67,18 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<InterfacePar
 			is &= param.isDefaultValue();
 		return is;
 	}
-	@Override public void setOptionLinks(IGameOptions srcOptions) {
-		super.setOptionLinks(srcOptions);
+	@Override public void copyOption(IGameOptions src, IGameOptions dest) {
+		super.copyOption(src, dest);
 		for (InterfaceParam param : optionsList)
-			param.setOptionLinks(srcOptions);
+			param.copyOption(src, dest);
 	}
-	@Override public void setOptions() {
+	@Override public void updateOption() {
 		for (InterfaceParam param : optionsList)
-			param.setOptions();
+			param.updateOption();
 	}
-	@Override public void setOptionTools() {
+	@Override public void updateOptionTool() {
 		for (InterfaceParam param : optionsList)
-			param.setOptionTools();
+			param.updateOptionTool();
 	}
 	@Override public void setFromDefault() {
 		for (InterfaceParam param : optionsList)
@@ -90,10 +90,6 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<InterfacePar
 	}
 	@Override protected void setOptionValue(IGameOptions options,
 			LinkedList<LinkedList<InterfaceParam>> value) {}
-	@Override public void copyOption(IGameOptions src, IGameOptions dest) {
-		for (InterfaceParam param : optionsList)
-			param.copyOption(src, dest);
-	}
 	@Override public void setFromCfgValue(String val) {
 		for (InterfaceParam param : optionsList)
 			param.setFromCfgValue(val);

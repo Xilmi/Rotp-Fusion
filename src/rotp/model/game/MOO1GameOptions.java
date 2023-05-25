@@ -15,6 +15,10 @@
  */
 package rotp.model.game;
 
+import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
+import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
+import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
+
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.io.BufferedInputStream;
@@ -66,6 +70,7 @@ import rotp.ui.UserPreferences;
 import rotp.ui.game.EditCustomRaceUI;
 import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.util.InterfaceParam;
+import rotp.ui.util.ParamOptions;
 import rotp.ui.util.SpecificCROption;
 import rotp.util.Base;
 
@@ -136,7 +141,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     public MOO1GameOptions() {
         init();
     }
-    private void init() {
+   private void init() {
         initOpponentRaces();
         randomizeColors();
         setBaseSettingsToDefault();
@@ -455,7 +460,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             default:
                 galaxyShape = new GalaxyRectangularShape(this);
         }
-        if (rotp.Rotp.noOptions)
+        if (rotp.Rotp.noOptions("setBaseGalaxyShape()"))
         	return;
 		shapeOption1.reInit(galaxyShape().options1());
 		shapeOption1.defaultValue(galaxyShape.defaultOption1());
@@ -1278,7 +1283,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
     // ========== Race Menu Options ==========
     private void setBaseRaceSettingsToDefault() { // BR:
-    	if (rotp.Rotp.noOptions)
+    	if (rotp.Rotp.noOptions("setBaseRaceSettingsToDefault()"))
         	selectedPlayerRace(random(allRaceOptions()));
         else if (selectedShowNewRaces()) // BR: limit randomness
         	selectedPlayerRace(random(allRaceOptions()));
@@ -1299,7 +1304,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         for (int i=0;i<opponentRaces.length;i++)
         	opponentRaces[i] = null;
         
-        if (rotp.Rotp.noOptions)
+        if (rotp.Rotp.noOptions("setBaseGalaxySettingsToDefault()"))
         	selectedPlayerRace(random(allRaceOptions()));
         else if (selectedShowNewRaces()) // BR: limit randomness
         	selectedPlayerRace(random(allRaceOptions()));
@@ -1375,9 +1380,12 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
        	for (InterfaceParam param : paramList) {
        		if (param != null) {
        			param.copyOption(this, dest);
-       			param.setOptionTools();
        		}
        	}
+       	if (!Rotp.noOptions("copyModSettings"))
+	       	for (InterfaceParam param : paramList)
+	       		if (param != null)
+	       			param.updateOptionTool();
     }
     private void copyBaseSettings(MOO1GameOptions dest, LinkedList<InterfaceParam> paramList) {
    		if (paramList == optionsGalaxy()) {
@@ -1401,7 +1409,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
        	for (InterfaceParam param : paramList)
        		if (param != null) {
 	       		param.setFromDefault();
-	       		param.setOptions();
+	       		param.updateOption();
 	       	}
     }
     private void setBaseSettingsToDefault(MOO1GameOptions options,
@@ -1425,6 +1433,18 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
     // ==================== New Options files public access ====================
     //
+    @Override public void loadStartupOptions() {
+        System.out.println("==================== loadStartupOptions() ====================");
+     	ParamOptions action = menuStartup;
+    	if (action.isUser())
+       		loadAndUpdateFromFileName(USER_OPTIONS_FILE);
+    	else if (action.isGame())
+       		loadAndUpdateFromFileName(GAME_OPTIONS_FILE);
+    	else if (action.isDefault())
+    		setBaseAndModSettingsToDefault();
+    	else // default = action.isLast()
+    		loadAndUpdateFromFileName(LAST_OPTIONS_FILE);
+    }
     @Override public void copyAliensAISettings(IGameOptions dest) { // BR:
     	MOO1GameOptions d = (MOO1GameOptions) dest; 	
     	d.selectedOpponentAIOption = selectedOpponentAIOption;
@@ -1442,7 +1462,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	}
        	for (InterfaceParam param : paramList) {
        		if (param != null) {
-    			param.setOptions();
+    			param.updateOption();
        		}
        	}
        	if (call && isAllGui)
@@ -1451,7 +1471,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override public void setModSettingsFromOptions() { // BR:
     	for(InterfaceParam param : allModOptions())
     		if (param != null) {
-    			param.setOptionTools();
+    			param.updateOptionTool();
     		}
         EditCustomRaceUI.instance().updateCRGui(this);
     }
@@ -1467,7 +1487,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         writeModSettingsToOptions(paramList, true);
         saveOptions(this, Rotp.jarPath(), fileName);
     }
-    @Override public void loadAndUpdateFromFileName(String fileName,
+    @Override public void getParamFromFile(String fileName,
     						LinkedList<InterfaceParam> paramList) {
     	MOO1GameOptions source = loadFileName(fileName);
         source.setBaseAndModSettingsFromOptions(this, paramList);

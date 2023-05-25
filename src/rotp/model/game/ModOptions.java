@@ -29,23 +29,26 @@ import rotp.ui.util.SpecificCROption;
 public interface ModOptions extends FlagOptions, FactoryOptions, GamePlayOptions,
 									DuplicateOptions, RemnantOptions {
 
-	/**
-	 * Update all the options's tool with the current options
-	 * @param paramList
-	 */
-	default void updateOptionsTools() { updateOptionsTools(allModOptions()); }
+//	/**
+//	 * Update all the options's tool with the current options
+//	 * @param paramList
+//	 */
+//	default void updateOptionsTools() { updateOptionsTools(allModOptions()); }
 
 	default void updateOptionsAndSaveToFileName(String fileName) {
 		updateOptionsAndSaveToFileName(fileName, allModOptions());
 	}
 	default void loadAndUpdateFromFileName(String fileName) {
-		loadAndUpdateFromFileName(fileName, allModOptions());
+		getParamFromFile(fileName, allModOptions());
 	}
 	default void setBaseAndModSettingsToDefault() {
 		setBaseAndModSettingsToDefault(allModOptions());
 	}
 	default LinkedList<InterfaceParam> governorOptions() {
 		return rotp.model.game.GovernorOptions.governorOptions;
+	}
+	@Override default void writeModSettingsToOptions(boolean call) {
+		writeModSettingsToOptions(allModOptions(), call);
 	}
 
 	// ==================== Galaxy Menu addition ====================
@@ -72,10 +75,10 @@ public interface ModOptions extends FlagOptions, FactoryOptions, GamePlayOptions
 			BASE_UI, "SHAPE_OPTION_2")	{
 		{ showFullGuide(true); }
 		@Override public String	get()	{
-			return RotPUI.mergedGuiOptions().selectedGalaxyShapeOption2();
+			return RotPUI.currentOptions().selectedGalaxyShapeOption2();
 		}
 		@Override public void setOption(String newValue) {
-			RotPUI.mergedGuiOptions().selectedGalaxyShapeOption2(newValue);
+			RotPUI.currentOptions().selectedGalaxyShapeOption2(newValue);
 		}
 		@Override public String	headerHelp(boolean sep) {
 			return headerHelp(shapeSelection.get() + "_O2", sep); }
@@ -94,10 +97,10 @@ public interface ModOptions extends FlagOptions, FactoryOptions, GamePlayOptions
 			BASE_UI, "SHAPE_OPTION_1")	{
 		{ showFullGuide(true); }
 		@Override public String	get()	{
-			return RotPUI.mergedGuiOptions().selectedGalaxyShapeOption1();
+			return RotPUI.currentOptions().selectedGalaxyShapeOption1();
 		}
 		@Override public void setOption(String newValue) {
-			RotPUI.mergedGuiOptions().selectedGalaxyShapeOption1(newValue);
+			RotPUI.currentOptions().selectedGalaxyShapeOption1(newValue);
 		}
 		@Override public String	headerHelp(boolean sep) {
 			return headerHelp(shapeSelection.get() + "_O1", sep); }
@@ -105,25 +108,25 @@ public interface ModOptions extends FlagOptions, FactoryOptions, GamePlayOptions
 	ParamList    shapeSelection			= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "GALAXY_SHAPE", getGalaxyShapeOptions(),  SHAPE_RECTANGLE) {
 		@Override public String     getFromOption() {
-			return RotPUI.mergedGuiOptions().selectedGalaxyShape();
+			return RotPUI.currentOptions().selectedGalaxyShape();
 		}
 		@Override public void setOption(String newValue) {
-			RotPUI.mergedGuiOptions().selectedGalaxyShape(newValue);
+			RotPUI.currentOptions().selectedGalaxyShape(newValue);
 		}
 	};
 	ParamList    sizeSelection 			= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "GALAXY_SIZE", getGalaxySizeOptions(), SIZE_SMALL) {
 		{ showFullGuide(false); }
 		@Override public String getFromOption() {
-			return RotPUI.mergedGuiOptions().selectedGalaxySize();
+			return RotPUI.currentOptions().selectedGalaxySize();
 		}
 		@Override public void setOption(String newValue) {
-			RotPUI.mergedGuiOptions().selectedGalaxySize(newValue);
+			RotPUI.currentOptions().selectedGalaxySize(newValue);
 		}
 		@Override public String name(int id) {
 			String diffLbl = super.name(id);
 			String label   = getLangLabel(id);
-			int size = RotPUI.mergedGuiOptions().numberStarSystems(label);
+			int size = RotPUI.currentOptions().numberStarSystems(label);
 			if (label.equals("SETUP_GALAXY_SIZE_DYNAMIC"))
 				diffLbl += " (Variable; now = " + size + ")";
 			else
@@ -136,7 +139,7 @@ public interface ModOptions extends FlagOptions, FactoryOptions, GamePlayOptions
 				return super.realHelp(id);
 			if (label.equals("SETUP_GALAXY_SIZE_MAXIMUM"))
 				return super.realHelp(id);
-			int size = RotPUI.mergedGuiOptions().numberStarSystems(label);
+			int size = RotPUI.currentOptions().numberStarSystems(label);
 			if (size < 101)
 				return langLabel("SETUP_GALAXY_SIZE_MOO1_DESC");
 			if (size < 1001)
@@ -148,18 +151,18 @@ public interface ModOptions extends FlagOptions, FactoryOptions, GamePlayOptions
 			BASE_UI, "GAME_DIFFICULTY", getGameDifficultyOptions(), DIFFICULTY_NORMAL) {
 		{ showFullGuide(false); }
 		@Override public String getFromOption() {
-			return RotPUI.mergedGuiOptions().selectedGameDifficulty();
+			return RotPUI.currentOptions().selectedGameDifficulty();
 		}
 		@Override public void setOption(String newValue) {
-			RotPUI.mergedGuiOptions().selectedGameDifficulty(newValue);
+			RotPUI.currentOptions().selectedGameDifficulty(newValue);
 		}
 		@Override public String name(int id) {
 			String diffLbl = super.name(id);
 			String label   = getLangLabel(id);
 			if (label.equals("SETUP_DIFFICULTY_CUSTOM"))
-				diffLbl += " (" + Integer.toString(RotPUI.mergedGuiOptions().selectedCustomDifficulty()) + "%)";
+				diffLbl += " (" + Integer.toString(RotPUI.currentOptions().selectedCustomDifficulty()) + "%)";
 			else {
-				float modifier = RotPUI.mergedGuiOptions().aiProductionModifier(label);
+				float modifier = RotPUI.currentOptions().aiProductionModifier(label);
 				diffLbl += " (" + Integer.toString(Math.round(100 * modifier)) + "%)";
 			}
 			return diffLbl;
@@ -169,15 +172,15 @@ public interface ModOptions extends FlagOptions, FactoryOptions, GamePlayOptions
 			BASE_UI, "ALIENS_NUMBER", 1, 0, 49, 1, 5, 20) {
 		{ isDuplicate(true); }
 		@Override public Integer getFromOption() {
-			maxValue(RotPUI.mergedGuiOptions().maximumOpponentsOptions());
-			return RotPUI.mergedGuiOptions().selectedNumberOpponents();
+			maxValue(RotPUI.currentOptions().maximumOpponentsOptions());
+			return RotPUI.currentOptions().selectedNumberOpponents();
 		}
 		@Override public void setOption(Integer newValue) {
-			RotPUI.mergedGuiOptions().selectedOpponentRace(newValue, null);
-			RotPUI.mergedGuiOptions().selectedNumberOpponents(newValue);
+			RotPUI.currentOptions().selectedOpponentRace(newValue, null);
+			RotPUI.currentOptions().selectedNumberOpponents(newValue);
 		}
 		@Override public Integer defaultValue() {
-			return RotPUI.mergedGuiOptions().defaultOpponentsOptions();
+			return RotPUI.currentOptions().defaultOpponentsOptions();
 		}
 	};
 	ParamString bitmapGalaxyLastFolder = new ParamString(BASE_UI, "BITMAP_LAST_FOLDER", Rotp.jarPath());

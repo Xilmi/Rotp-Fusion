@@ -2,6 +2,7 @@ package rotp.model.game;
 
 import java.util.LinkedList;
 
+import rotp.ui.RotPUI;
 import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.ParamTitle;
 
@@ -18,13 +19,24 @@ public interface BaseOptionsTools {
 	int SETUP_ID = 2;
 	int id();
 	void id(int id);
-	default void	setAsGame()			{ id(GAME_ID); }
-	default void	setAsSetup()		{ id(SETUP_ID); }
-	default void	setAsUnknown()		{ id(UNKNOWN_ID); }
-	default boolean	isGameOption()		{ return id() == GAME_ID; }
-	default boolean	isSetupOption()		{ return id() == SETUP_ID; }
-	default boolean	isUnknownOption()	{ return !isGameOption() && !isSetupOption(); }
-	default void	showOptionName()	{
+	DynOptions dynOpts();
+	IGameOptions opts();
+	
+	default void	setAsGame()				{ id(GAME_ID); }
+	default void	setAsSetup()			{ id(SETUP_ID); }
+	default void	setAsUnknown()			{ id(UNKNOWN_ID); }
+	default boolean	isGameOption()			{ return id() == GAME_ID; }
+	default boolean	isSetupOption()			{ return id() == SETUP_ID; }
+	default boolean	isUnknownOption()		{ return !isGameOption() && !isSetupOption(); }
+	default void	updateGuiOptionsId()	{
+		RotPUI.currentOptions(id());
+		writeModSettingsToOptions(true);
+	}
+	
+	void loadStartupOptions();
+	
+	// Tools For Debug
+	default void	showOptionName()		{
 		System.out.println("Option name = " + optionName());
 	}
 	default void	showOptionName(String header)	{
@@ -40,32 +52,30 @@ public interface BaseOptionsTools {
 				return "Unknown Options";
 		}
 	}
-	DynOptions dynOpts();
-	IGameOptions opts();
-	/**
-	 * Update the listed options's tool Links with the current options
-	 * @param paramList
-	 */
-	default void updateOptionsLinks(LinkedList<InterfaceParam> paramList) {
-		IGameOptions opts = opts();
-		for(InterfaceParam param : paramList)
-			if (param != null) {
-				param.setOptionLinks(opts);
-			}
-	}
-	/**
-	 * Update the listed options's tool with the current options
-	 * @param paramList
-	 */
-	default void updateOptionsTools(LinkedList<InterfaceParam> paramList) {
- 		IGameOptions opts = opts();
-// 		System.out.println("----- updateOptionsTools(): " + opts().dynOpts().hashCode());		
-		for(InterfaceParam param : paramList)
-			if (param != null) {
-				param.setOptionLinks(opts); // TODO BR: Maybe Remove! probably not
-				param.setOptionTools();
-			}
-	}
+//	/**
+//	 * Update the listed options's tool Links with the current options
+//	 * @param paramList
+//	 */
+//	default void updateOptionsLinks(LinkedList<InterfaceParam> paramList) {
+//		IGameOptions opts = opts();
+//		for(InterfaceParam param : paramList)
+//			if (param != null) {
+//				param.setOptionLinks(opts);
+//			}
+//	}
+//	/**
+//	 * Update the listed options's tool with the current options
+//	 * @param paramList
+//	 */
+//	default void updateOptionsTools(LinkedList<InterfaceParam> paramList) {
+// 		IGameOptions opts = opts();
+//// 		System.out.println("----- updateOptionsTools(): " + opts().dynOpts().hashCode());		
+//		for(InterfaceParam param : paramList)
+//			if (param != null) {
+//				param.setOptionLinks(opts); // TODO BR: Maybe Remove! probably not
+//				param.setOptionTools();
+//			}
+//	}
 
 	ParamTitle headerSpacer = new ParamTitle("SPACER");
 	
@@ -79,11 +89,10 @@ public interface BaseOptionsTools {
 	void updateOptionsAndSaveToFileName (String fileName, LinkedList<InterfaceParam> paramList);
 	/**
 	 * Get the listed parameters from the file 
-	 * TODO BR: Rename to getParamFromFile
 	 * @param fileName
 	 * @param paramList
 	 */
-	void loadAndUpdateFromFileName (String fileName, LinkedList<InterfaceParam> paramList);
+	void getParamFromFile (String fileName, LinkedList<InterfaceParam> paramList);
 	/**
 	 * TODO BR: Rename to setOptionsToDefault ... After all options integration
 	 * @param paramList
@@ -91,7 +100,7 @@ public interface BaseOptionsTools {
 	void setBaseAndModSettingsToDefault (LinkedList<InterfaceParam> paramList);
 	void saveOptionsToFileName (String fileName);
 	/**
-	 * TODO BR: Should probably be keps as private method
+	 * TODO BR: Should probably be kept as private method
 	 * @param paramList
 	 * @param call
 	 */
@@ -102,6 +111,7 @@ public interface BaseOptionsTools {
 	 * @param paramList
 	 * @param call
 	 */
+	void writeModSettingsToOptions(boolean call);
 	void writeModSettingsToOptions(LinkedList<InterfaceParam> paramList, boolean call);
 	void copyAliensAISettings(IGameOptions dest);
 }

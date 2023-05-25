@@ -168,20 +168,20 @@ public class SettingInteger extends SettingBase<Integer> {
 			return 0f;;
 		return settingCost(settingValue());
 	}
-	@Override public void setOptions() {
+	@Override public void updateOption() {
 		if (!isSpacer() && dynOpts() != null)
 			dynOpts().setInteger(getLangLabel(), settingValue());
 	}
-	@Override public void setOptionTools() {
+	@Override public void updateOptionTool() {
 		if (!isSpacer() && dynOpts() != null)
 			set(dynOpts().getInteger(getLangLabel(), defaultValue()));
 	}
-	@Override public void setOptions(DynamicOptions options) {
+	@Override public void updateOption(DynamicOptions options) {
 		if (!isSpacer() && options != null)
 			options.setInteger(getLangLabel(), settingValue());
 	}
-	@Override public void setOptionsTools(DynamicOptions options) {
-		options(options);
+	@Override public void updateOptionTool(DynamicOptions options) {
+//		options(options);
 		if (!isSpacer() && options != null)
 			set(options.getInteger(getLangLabel(), defaultValue()));
 	}

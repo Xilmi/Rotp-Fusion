@@ -58,7 +58,7 @@ public class ParamBoolean extends AbstractParam<Boolean> {
 		else
 			next();
 	}
-	@Override public void setOptionTools()	{
+	@Override public void updateOptionTool()	{
 		if (!isDuplicate() && dynOpts() != null) {
 			set(dynOpts().getBoolean(getLangLabel(), creationValue()));
 		}

@@ -77,7 +77,6 @@ public class SettingBase<T> implements InterfaceParam {
 	private ModText[] optionsText;
 	private String	settingToolTip;
 	private float	lastRandomSource;
-	private DynamicOptions	dynOpts;
 
 	
 	// ========== Constructors and initializers ==========
@@ -168,23 +167,20 @@ public class SettingBase<T> implements InterfaceParam {
 		else 
 			prev();
 	}
-	@Override public void setFromDefault()			{ selectedValue(defaultValue); }
-	@Override public void setOptionLinks(IGameOptions srcOptions) { 
-		options(srcOptions.dynOpts());
-	}
-	@Override public void setOptions() {
+	@Override public void setFromDefault()	{ selectedValue(defaultValue); }
+	@Override public void updateOption()	{
 		if (!isSpacer && dynOpts() != null)
 			dynOpts().setString(getLangLabel(), getCfgValue());
 	}
-	@Override public void setOptionTools() {
+	@Override public void updateOptionTool() {
 		if (!isSpacer && dynOpts() != null)
 			setFromCfgValue(dynOpts().getString(getLangLabel(), getDefaultCfgValue()));
 	}
-	@Override public void setOptions(DynamicOptions destOptions) {
+	@Override public void updateOption(DynamicOptions destOptions) {
 		if (!isSpacer && destOptions != null)
 			destOptions.setString(getLangLabel(), getCfgValue());
 	}
-	@Override public void setOptionsTools(DynamicOptions srcOptions) {
+	@Override public void updateOptionTool(DynamicOptions srcOptions) {
 		if (!isSpacer && srcOptions != null)
 			setFromCfgValue(srcOptions.getString(getLangLabel(), getDefaultCfgValue()));
 	}
@@ -252,8 +248,8 @@ public class SettingBase<T> implements InterfaceParam {
 	
 	// ========== Tools for overriders ==========
 	//
-	protected void options(DynamicOptions srcOptions)	{ dynOpts = srcOptions; }
-	protected DynamicOptions dynOpts()					{ return dynOpts; }
+//	protected void options(DynamicOptions srcOptions)	{ dynOpts = srcOptions; }
+	protected DynamicOptions dynOpts()					{ return RotPUI.currentOptions().dynOpts(); }
 	// ========== Overridable Methods ==========
 	//
 	public boolean showFullGuide()			{ return showFullGuide; }

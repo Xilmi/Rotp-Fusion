@@ -138,11 +138,11 @@ public class ParamInteger extends AbstractParam<Integer> {
 	@Override public void next() { next(baseInc()); }
 	@Override public void toggle(MouseEvent e, BaseModPanel frame)	{ next(getInc(e) * getDir(e)); }
 	@Override public void toggle(MouseWheelEvent e)	{ next(getInc(e) * getDir(e)); }
-	@Override public void setOptionTools() {
+	@Override public void updateOptionTool() {
 		if (!isDuplicate() && dynOpts() != null)
 			set(dynOpts().getInteger(getLangLabel(), creationValue()));
 	}
-	@Override public void setOptions() {
+	@Override public void updateOption() {
 		if (!isDuplicate() && dynOpts() != null)
 		dynOpts().setInteger(getLangLabel(), get());
 	}

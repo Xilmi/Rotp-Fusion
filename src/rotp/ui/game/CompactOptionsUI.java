@@ -316,7 +316,6 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 			param.setFromDefault();
 	}
 	public void start(boolean callFromGame, IGameOptions guiOptions) { // Called from Base UI
-		RotPUI.guiCallFromGame(callFromGame);
 		parent = 0;
 		start(guiOptions);
 	}
@@ -375,14 +374,15 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
         disableGlassPane();
 		switch (parent) {
 		case 1:
-			RotPUI.mergedDynamicOptionsUI().start(RotPUI.guiCallFromGame(), guiOptions());
+			RotPUI.mergedDynamicOptionsUI().start(guiOptions().isGameOption(), guiOptions()); // TODO BR: remove one parameter
 			return;
 		case 2:
 			RotPUI.modOptionsDynamicA().init(guiOptions());
 			return;
 		case 0:
 		default: 
-	        if (!guiCallFromGame())
+//	        if (!guiCallFromGame())
+	        if (guiOptions().isSetupOption())
 	        	RotPUI.setupGalaxyUI().init(guiOptions());
 	        else
 	        	RotPUI.instance().mainUI().map().resetRangeAreas();
@@ -405,8 +405,6 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 			UserPreferences.save();
 			break; 
 		}
-		if (parent == 0) // Sub UI should not change this
-			RotPUI.guiCallFromGame(false);
 		close();
 	}
 	@Override protected void doUserBoxAction()		{

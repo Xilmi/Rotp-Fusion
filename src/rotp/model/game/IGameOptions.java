@@ -292,7 +292,6 @@ public interface IGameOptions extends ModOptions {
     	list.add(selectableAI);
     	return list;
     }
-    
     public default boolean isAutoPlay()          { return !selectedAutoplayOption().equals(AUTOPLAY_OFF); }
     public default boolean communityAI()         { return false; }
     public default boolean selectableAI()        { return selectedOpponentAIOption().equals(OPPONENT_AI_SELECTABLE); }

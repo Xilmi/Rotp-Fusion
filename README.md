@@ -54,6 +54,11 @@ Later:
 
 ## What's New
 
+2023.05.25 (BR)
+- Cleaned Option tools initialisation.
+  - Cleaned options call and initialisation.
+  - Renamed some method more meaningfully.
+
 2023.05.24 (BR)
 - Mac Crash on Governor new spinners Fix (Smooth Tentative)
 

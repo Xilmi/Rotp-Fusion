@@ -42,11 +42,11 @@ class ParamObject extends AbstractParam<Serializable> {
 	@Override public void next() {}
 	@Override public void toggle(MouseWheelEvent e)	{}
 	@Override public void toggle(MouseEvent e, BaseModPanel frame) {}
-	@Override public void setOptionTools()	{
+	@Override public void updateOptionTool()	{
 		if (!isDuplicate() && dynOpts() != null)
 			set((Serializable) dynOpts().getObject(getLangLabel(), creationValue()));
 	}
-	@Override public void setOptions() {
+	@Override public void updateOption() {
 		if (!isDuplicate() && dynOpts() != null)
 			dynOpts().setObject(getLangLabel(), get());
 	}
