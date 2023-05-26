@@ -8,15 +8,34 @@ class RotpJSpinnerLayout extends BorderLayout {
 	RotpJSpinnerLayout() { }
 	@Override
 	public void addLayoutComponent(Component comp, Object constraints) {
+//		System.out.println("RotpJSpinnerLayout: constraints " + constraints + "    # Name = " + comp.getName());
+
 		if("Editor".equals(constraints)) {
 			constraints = CENTER;
+			super.addLayoutComponent(comp, constraints);
+			return;
 	    }
-		else if("Next".equals(constraints)) {
+		if("Next".equals(constraints)) {
 			constraints = BorderLayout.EAST;
+			super.addLayoutComponent(comp, constraints);
+			return;
 	    }
-		else if("Previous".equals(constraints)) {
+		if("Previous".equals(constraints)) {
 			constraints = BorderLayout.WEST;
+			super.addLayoutComponent(comp, constraints);
+			return;
 	    }
-		super.addLayoutComponent(comp, constraints);
+		// BR: No unknown Layout Addition !!!
+
+//		if("Editor".equals(constraints)) {
+//			constraints = CENTER;
+//	    }
+//		else if("Next".equals(constraints)) {
+//			constraints = BorderLayout.EAST;
+//	    }
+//		else if("Previous".equals(constraints)) {
+//			constraints = BorderLayout.WEST;
+//	    }
+//		super.addLayoutComponent(comp, constraints);
 	}
 }
