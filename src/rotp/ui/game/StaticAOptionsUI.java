@@ -25,6 +25,6 @@ public class StaticAOptionsUI extends AbstractOptionsUI {
 	public StaticAOptionsUI() { super(guiTitleID, GUI_ID); }
 //	@Override protected void singleInit() {
 	@Override protected void init0() {
-		paramList = rotp.model.game.FactoryOptions.modOptionsStaticA ;
+		paramList = rotp.model.game.IPreGameOptions.modOptionsStaticA ;
 	}
 }

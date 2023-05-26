@@ -22,6 +22,7 @@ import rotp.model.empires.CustomRaceDefinitions;
 import rotp.model.empires.Race;
 import rotp.model.game.DynOptions;
 import rotp.model.game.DynamicOptions;
+import rotp.model.game.IGameOptions;
 
 public class ParamCR extends ParamObject {
 
@@ -39,19 +40,19 @@ public class ParamCR extends ParamObject {
 	@Override public Serializable defaultValue() {
 		return CustomRaceDefinitions.getDefaultOptions();
 	}
-	@Override public Serializable get() {
+	@Override public Serializable getOptionValue(IGameOptions options) {
 		if (super.get() == null)
 			return CustomRaceDefinitions.getDefaultOptions();
 		return super.get();
 	}
 	@Override public void updateOptionTool(DynamicOptions options) {
 		System.out.println("ParamCR.setOptionsTools");
-		if (!isDuplicate() && options != null)
+		if (options != null)
 			set((Serializable) options.getObject(getLangLabel(), creationValue()));
 	}
 	@Override public void updateOption(DynamicOptions options) {
 		System.out.println("ParamCR.setOptions");
-		if (!isDuplicate() && options != null)
+		if (options != null)
 			options.setObject(getLangLabel(), get());
 	}
 	// ===== Other Methods =====

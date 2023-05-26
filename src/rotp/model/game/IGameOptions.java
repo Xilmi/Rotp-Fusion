@@ -30,7 +30,7 @@ import rotp.model.planet.Planet;
 import rotp.model.tech.TechEngineWarp;
 import rotp.ui.game.SetupGalaxyUI;
 
-public interface IGameOptions extends ModOptions {
+public interface IGameOptions extends IModOptions {
     public static final int MAX_OPPONENTS = SetupGalaxyUI.MAX_DISPLAY_OPPS;
     public static final int MAX_OPPONENT_TYPE = 5;
     public static final String SIZE_DYNAMIC = "SETUP_GALAXY_SIZE_DYNAMIC";

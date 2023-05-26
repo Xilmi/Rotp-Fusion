@@ -269,7 +269,6 @@ public final class GameSession implements Base, Serializable {
             galaxy().startGame();
             saveRecentSession(false);
             saveBackupSession(1);
-            MOO1GameOptions.optionsUpdated();
         }
     }
     // BR: For Restart with new options
@@ -291,7 +290,6 @@ public final class GameSession implements Base, Serializable {
     		GameUI.gameName = generateGameName();
             saveRecentSession(false);
             saveBackupSession(1);
-            MOO1GameOptions.optionsUpdated();
         }
     }
     private void  startExecutors() {
@@ -855,8 +853,7 @@ public final class GameSession implements Base, Serializable {
         stopCurrentGame();
         instance = gs;
         // BR: save the last loaded game initial parameters
-        instance.options().saveOptionsToFileName(GAME_OPTIONS_FILE);
-//        instance.options().setModSettingsFromOptions();
+        instance.options().saveOptionsToFile(GAME_OPTIONS_FILE);
     	resolveOptionsDiscrepansies(gs);
 
 		if (showInfo)  showInfo(gs.galaxy());
@@ -866,7 +863,6 @@ public final class GameSession implements Base, Serializable {
             RotPUI.instance().selectMainPanelLoadGame();
         }
         instance.governorOptions.gameLoaded();
-        MOO1GameOptions.optionsUpdated();
     }
 	private void showInfo(Galaxy g) { // BR: for debug
 		System.out.println("GameSession.showInfo = true ===========================================");

@@ -543,10 +543,10 @@ public class GalaxyFactory implements Base {
 				String selectedAbility = options().specificOpponentCROption(h+1);
 				SpecificCROption ability = SpecificCROption.set(selectedAbility);
 
-				if (!opts.selecteduseSelectableAbilities()
+				if (!opts.selectedUseSelectableAbilities()
 						|| ability.isSelection()) { // Then Check for Global ability
 					// the global setting will be used
-					selectedAbility = opts.selecteduseGlobalCROptions();
+					selectedAbility = opts.selectedUseGlobalCROptions();
 					ability = opts.globalCROptions().getEnu();
 				}
 

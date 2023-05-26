@@ -16,8 +16,8 @@
 
 package rotp.ui.util;
 
-import static rotp.model.game.ModOptions.playerCustomRace;
-import static rotp.model.game.ModOptions.playerIsCustom;
+import static rotp.model.game.IModOptions.playerCustomRace;
+import static rotp.model.game.IModOptions.playerIsCustom;
 
 import rotp.model.empires.Race;
 import rotp.model.ships.ShipLibrary;

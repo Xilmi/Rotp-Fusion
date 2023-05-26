@@ -55,6 +55,10 @@ Later:
 ## What's New
 
 2023.05.25 (BR)
+- Greater integration of Governor in option tools.
+- Renamed options interface for easier code reading.
+
+2023.05.25 (BR)
 - Cleaned Option tools initialisation.
   - Cleaned options call and initialisation.
   - Renamed some method more meaningfully.

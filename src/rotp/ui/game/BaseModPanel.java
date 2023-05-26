@@ -274,7 +274,7 @@ public abstract class BaseModPanel extends BasePanel
 				return;
 			case SHIFT: // setLocalUserKey
 			default:
-				guiOptions().getParamFromFile(USER_OPTIONS_FILE, localOptions());
+				guiOptions().updateFromFile(USER_OPTIONS_FILE, localOptions());
 				refreshGui();
 				return;
 			}
@@ -287,7 +287,7 @@ public abstract class BaseModPanel extends BasePanel
 				guiOptions().updateOptionsAndSaveToFileName(USER_OPTIONS_FILE, localOptions());
 				return;
 			case SHIFT: // setLocalUserKey
-				guiOptions().getParamFromFile(USER_OPTIONS_FILE, localOptions());
+				guiOptions().updateFromFile(USER_OPTIONS_FILE, localOptions());
 				refreshGui();
 				return;
 			default: // setGlobalUserKey
@@ -340,12 +340,12 @@ public abstract class BaseModPanel extends BasePanel
 			switch (ModifierKeysState.get()) {
 			case CTRL: // restoreGlobalKey
 			case CTRL_SHIFT: // restoreLocalKey
-				guiOptions().getParamFromFile(LIVE_OPTIONS_FILE, localOptions());
+				guiOptions().updateFromFile(LIVE_OPTIONS_FILE, localOptions());
 				refreshGui();
 				return;
 			case SHIFT:
 			default: // setLocalDefaultKey
-				guiOptions().setBaseAndModSettingsToDefault(localOptions());		
+				guiOptions().updateFromDefault(localOptions());		
 				refreshGui();
 				return;
 			}
@@ -356,11 +356,11 @@ public abstract class BaseModPanel extends BasePanel
 				refreshGui();
 				return;
 			case CTRL_SHIFT: // restoreLocalKey
-				guiOptions().getParamFromFile(LIVE_OPTIONS_FILE, localOptions());		
+				guiOptions().updateFromFile(LIVE_OPTIONS_FILE, localOptions());		
 				refreshGui();
 				return;
 			case SHIFT: // setLocalDefaultKey
-				guiOptions().setBaseAndModSettingsToDefault(localOptions());		
+				guiOptions().updateFromDefault(localOptions());		
 				refreshGui();
 				return;
 			default: // setGlobalDefaultKey
@@ -407,11 +407,11 @@ public abstract class BaseModPanel extends BasePanel
 			 switch (ModifierKeysState.get()) {
 				case CTRL:
 				case CTRL_SHIFT: // setLocalGameKey
-					guiOptions().getParamFromFile(GAME_OPTIONS_FILE, localOptions());
+					guiOptions().updateFromFile(GAME_OPTIONS_FILE, localOptions());
 					break;
 				case SHIFT:
 				default: // setLocalLastKey
-					guiOptions().getParamFromFile(LAST_OPTIONS_FILE, localOptions());
+					guiOptions().updateFromFile(LAST_OPTIONS_FILE, localOptions());
 					break;
 				}
 		else
@@ -420,10 +420,10 @@ public abstract class BaseModPanel extends BasePanel
 				guiOptions().loadAndUpdateFromFileName(GAME_OPTIONS_FILE);
 				break;
 			case CTRL_SHIFT: // setLocalGameKey
-				guiOptions().getParamFromFile(GAME_OPTIONS_FILE, localOptions());
+				guiOptions().updateFromFile(GAME_OPTIONS_FILE, localOptions());
 				break;
 			case SHIFT: // setLocalLastKey
-				guiOptions().getParamFromFile(LAST_OPTIONS_FILE, localOptions());
+				guiOptions().updateFromFile(LAST_OPTIONS_FILE, localOptions());
 				break;
 			default: // setGlobalLastKey
 				guiOptions().loadAndUpdateFromFileName(LAST_OPTIONS_FILE);

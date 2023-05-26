@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 import rotp.Rotp;
-import rotp.ui.RotPUI;
 import rotp.ui.util.GlobalCROptions;
 import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.ParamBoolean;
@@ -26,17 +25,17 @@ import rotp.ui.util.ParamTitle;
 import rotp.ui.util.PlayerShipSet;
 import rotp.ui.util.SpecificCROption;
 
-public interface ModOptions extends FlagOptions, FactoryOptions, GamePlayOptions,
-									IAdvOptions, RemnantOptions, IMainOptions{
+public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptions,
+							IAdvOptions, IRemnantOptions, IMainOptions, IGovOptions {
 
 	default void updateOptionsAndSaveToFileName(String fileName) {
 		updateOptionsAndSaveToFileName(fileName, allModOptions());
 	}
 	default void loadAndUpdateFromFileName(String fileName) {
-		getParamFromFile(fileName, allModOptions());
+		updateFromFile(fileName, allModOptions());
 	}
 	default void setBaseAndModSettingsToDefault() {
-		setBaseAndModSettingsToDefault(allModOptions());
+		updateFromDefault(allModOptions());
 	}
 	default LinkedList<InterfaceParam> governorOptions() {
 		return rotp.model.game.GovernorOptions.governorOptions;
@@ -56,10 +55,10 @@ public interface ModOptions extends FlagOptions, FactoryOptions, GamePlayOptions
 	GlobalCROptions globalCROptions 	= new GlobalCROptions (BASE_UI, "OPP_CR_OPTIONS",
 			SpecificCROption.BASE_RACE.value);
 	default GlobalCROptions globalCROptions()	{ return globalCROptions; }
-	default String selecteduseGlobalCROptions()	{ return globalCROptions.get(); }
+	default String selectedUseGlobalCROptions()	{ return globalCROptions.get(); }
 
 	ParamBoolean useSelectableAbilities	= new ParamBoolean(BASE_UI, "SELECT_CR_OPTIONS", false);
-	default boolean selecteduseSelectableAbilities()	{ return useSelectableAbilities.get(); }
+	default boolean selectedUseSelectableAbilities()	{ return useSelectableAbilities.get(); }
 
 	ParamString  shapeOption3   		= new ParamString(BASE_UI, "SHAPE_OPTION_3", "");
 	default ParamString shapeOption3()			{ return shapeOption3; }
@@ -68,11 +67,11 @@ public interface ModOptions extends FlagOptions, FactoryOptions, GamePlayOptions
 	ParamList    shapeOption2   		= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "SHAPE_OPTION_2")	{
 		{ showFullGuide(true); }
-		@Override public String	get()	{
-			return RotPUI.currentOptions().selectedGalaxyShapeOption2();
+		@Override public String	getOptionValue(IGameOptions options)	{
+			return options.selectedGalaxyShapeOption2();
 		}
-		@Override public void setOption(String newValue) {
-			RotPUI.currentOptions().selectedGalaxyShapeOption2(newValue);
+		@Override public void setOptionValue(IGameOptions options, String newValue) {
+			options.selectedGalaxyShapeOption2(newValue);
 		}
 		@Override public String	headerHelp(boolean sep) {
 			return headerHelp(shapeSelection.get() + "_O2", sep); }
@@ -90,37 +89,37 @@ public interface ModOptions extends FlagOptions, FactoryOptions, GamePlayOptions
 	ParamList    shapeOption1   		= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "SHAPE_OPTION_1")	{
 		{ showFullGuide(true); }
-		@Override public String	get()	{
-			return RotPUI.currentOptions().selectedGalaxyShapeOption1();
+		@Override public String	getOptionValue(IGameOptions options)	{
+			return options.selectedGalaxyShapeOption1();
 		}
-		@Override public void setOption(String newValue) {
-			RotPUI.currentOptions().selectedGalaxyShapeOption1(newValue);
+		@Override public void setOptionValue(IGameOptions options, String newValue) {
+			options.selectedGalaxyShapeOption1(newValue);
 		}
 		@Override public String	headerHelp(boolean sep) {
 			return headerHelp(shapeSelection.get() + "_O1", sep); }
 	};
 	ParamList    shapeSelection			= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "GALAXY_SHAPE", getGalaxyShapeOptions(),  SHAPE_RECTANGLE) {
-		@Override public String     getFromOption() {
-			return RotPUI.currentOptions().selectedGalaxyShape();
+		@Override public String getOptionValue(IGameOptions options) {
+			return options.selectedGalaxyShape();
 		}
-		@Override public void setOption(String newValue) {
-			RotPUI.currentOptions().selectedGalaxyShape(newValue);
+		@Override public void setOptionValue(IGameOptions options, String newValue) {
+			options.selectedGalaxyShape(newValue);
 		}
 	};
 	ParamList    sizeSelection 			= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "GALAXY_SIZE", getGalaxySizeOptions(), SIZE_SMALL) {
 		{ showFullGuide(false); }
-		@Override public String getFromOption() {
-			return RotPUI.currentOptions().selectedGalaxySize();
+		@Override public String getOptionValue(IGameOptions options) {
+			return options.selectedGalaxySize();
 		}
-		@Override public void setOption(String newValue) {
-			RotPUI.currentOptions().selectedGalaxySize(newValue);
+		@Override public void setOptionValue(IGameOptions options, String newValue) {
+			options.selectedGalaxySize(newValue);
 		}
 		@Override public String name(int id) {
 			String diffLbl = super.name(id);
 			String label   = getLangLabel(id);
-			int size = RotPUI.currentOptions().numberStarSystems(label);
+			int size = opts().numberStarSystems(label);
 			if (label.equals("SETUP_GALAXY_SIZE_DYNAMIC"))
 				diffLbl += " (Variable; now = " + size + ")";
 			else
@@ -133,7 +132,7 @@ public interface ModOptions extends FlagOptions, FactoryOptions, GamePlayOptions
 				return super.realHelp(id);
 			if (label.equals("SETUP_GALAXY_SIZE_MAXIMUM"))
 				return super.realHelp(id);
-			int size = RotPUI.currentOptions().numberStarSystems(label);
+			int size = opts().numberStarSystems(label);
 			if (size < 101)
 				return langLabel("SETUP_GALAXY_SIZE_MOO1_DESC");
 			if (size < 1001)
@@ -144,19 +143,19 @@ public interface ModOptions extends FlagOptions, FactoryOptions, GamePlayOptions
 	ParamList    difficultySelection	= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "GAME_DIFFICULTY", getGameDifficultyOptions(), DIFFICULTY_NORMAL) {
 		{ showFullGuide(false); }
-		@Override public String getFromOption() {
-			return RotPUI.currentOptions().selectedGameDifficulty();
+		@Override public String getOptionValue(IGameOptions options) {
+			return options.selectedGameDifficulty();
 		}
-		@Override public void setOption(String newValue) {
-			RotPUI.currentOptions().selectedGameDifficulty(newValue);
+		@Override public void setOptionValue(IGameOptions options, String newValue) {
+			options.selectedGameDifficulty(newValue);
 		}
 		@Override public String name(int id) {
 			String diffLbl = super.name(id);
 			String label   = getLangLabel(id);
 			if (label.equals("SETUP_DIFFICULTY_CUSTOM"))
-				diffLbl += " (" + Integer.toString(RotPUI.currentOptions().selectedCustomDifficulty()) + "%)";
+				diffLbl += " (" + Integer.toString(opts().selectedCustomDifficulty()) + "%)";
 			else {
-				float modifier = RotPUI.currentOptions().aiProductionModifier(label);
+				float modifier = opts().aiProductionModifier(label);
 				diffLbl += " (" + Integer.toString(Math.round(100 * modifier)) + "%)";
 			}
 			return diffLbl;
@@ -165,16 +164,16 @@ public interface ModOptions extends FlagOptions, FactoryOptions, GamePlayOptions
 	ParamInteger aliensNumber 			= new ParamInteger( // Duplicate Do not add the list
 			BASE_UI, "ALIENS_NUMBER", 1, 0, 49, 1, 5, 20) {
 		{ isDuplicate(true); }
-		@Override public Integer getFromOption() {
-			maxValue(RotPUI.currentOptions().maximumOpponentsOptions());
-			return RotPUI.currentOptions().selectedNumberOpponents();
+		@Override public Integer getOptionValue(IGameOptions options) {
+			maxValue(options.maximumOpponentsOptions());
+			return options.selectedNumberOpponents();
 		}
-		@Override public void setOption(Integer newValue) {
-			RotPUI.currentOptions().selectedOpponentRace(newValue, null);
-			RotPUI.currentOptions().selectedNumberOpponents(newValue);
+		@Override public void setOptionValue(IGameOptions options, Integer newValue) {
+			options.selectedOpponentRace(newValue, null);
+			options.selectedNumberOpponents(newValue);
 		}
 		@Override public Integer defaultValue() {
-			return RotPUI.currentOptions().defaultOpponentsOptions();
+			return opts().defaultOpponentsOptions();
 		}
 	};
 	ParamString bitmapGalaxyLastFolder = new ParamString(BASE_UI, "BITMAP_LAST_FOLDER", Rotp.jarPath());
@@ -199,9 +198,12 @@ public interface ModOptions extends FlagOptions, FactoryOptions, GamePlayOptions
 
 	ParamCR       playerCustomRace	= new ParamCR(
 			MOD_UI, getBaseRaceOptions().getFirst());
-	default ParamCR playerCustomRace()				{ return playerCustomRace; }
-	default Serializable selectedPlayerCustomRace()	{ return playerCustomRace.get(); }
-	default void selectedPlayerCustomRace(Serializable race)	{ playerCustomRace.set(race); }
+	default ParamCR playerCustomRace()				{
+		return playerCustomRace; }
+	default Serializable selectedPlayerCustomRace()	{ 
+		return playerCustomRace.get(); }
+	default void selectedPlayerCustomRace(Serializable race)	{
+		playerCustomRace.set(race); }
 	// Custom Race Menu
 	static LinkedList<InterfaceParam> optionsCustomRaceBase = new LinkedList<>(
 			Arrays.asList(

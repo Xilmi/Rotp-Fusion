@@ -16,8 +16,8 @@
 package rotp.util;
 
 import static rotp.model.game.IGameOptions.DIFFICULTY_CUSTOM;
-import static rotp.model.game.ModOptions.playerCustomRace;
-import static rotp.model.game.ModOptions.playerIsCustom;
+import static rotp.model.game.IModOptions.playerCustomRace;
+import static rotp.model.game.IModOptions.playerIsCustom;
 
 
 import java.awt.AlphaComposite;

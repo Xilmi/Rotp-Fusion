@@ -11,12 +11,14 @@ public interface BaseOptionsTools {
 	String GAME_UI				= "GAME_SETTINGS_";
 	String ADV_UI				= "SETTINGS_";
 	String MOD_UI				= "SETTINGS_MOD_";
-	String HEADERS				= "HEADERS_";
-	
+	String HEADERS				= "HEADERS_";	
 	// To be able to identify the current options
 	int UNKNOWN_ID = 0;
 	int GAME_ID  = 1;
 	int SETUP_ID = 2;
+
+	ParamTitle headerSpacer = new ParamTitle("SPACER");
+
 	int id();
 	void id(int id);
 	DynOptions dynOpts();
@@ -34,6 +36,23 @@ public interface BaseOptionsTools {
 	}
 	
 	void loadStartupOptions();
+	void saveOptionsToFile (String fileName);
+	/**
+	 * Load the file and update the listed parameters
+	 * (Options and options' tools)
+	 * @param fileName
+	 * @param paramList
+	 */
+	void updateFromFile (String fileName, LinkedList<InterfaceParam> paramList);
+	/**
+	 * update the listed parameters From their default values
+	 * (Options and options' tools)
+	 * @param paramList
+	 */
+	void updateFromDefault (LinkedList<InterfaceParam> paramList);
+	
+
+	
 	
 	// Tools For Debug
 	default void	showOptionName()		{
@@ -52,9 +71,6 @@ public interface BaseOptionsTools {
 				return "Unknown Options";
 		}
 	}
-
-	ParamTitle headerSpacer = new ParamTitle("SPACER");
-	
 	/**
 	 * TODO BR: will have to be removed
 	 * 			Use Save (String fileName) instead, the options should be up to date
@@ -63,24 +79,7 @@ public interface BaseOptionsTools {
 	 * @param paramList
 	 */
 	void updateOptionsAndSaveToFileName (String fileName, LinkedList<InterfaceParam> paramList);
-	/**
-	 * Get the listed parameters from the file 
-	 * @param fileName
-	 * @param paramList
-	 */
-	void getParamFromFile (String fileName, LinkedList<InterfaceParam> paramList);
-	/**
-	 * TODO BR: Rename to setOptionsToDefault ... After all options integration
-	 * @param paramList
-	 */
-	void setBaseAndModSettingsToDefault (LinkedList<InterfaceParam> paramList);
-	void saveOptionsToFileName (String fileName);
-	/**
-	 * TODO BR: Should probably be kept as private method
-	 * @param paramList
-	 * @param call
-	 */
-	void setModSettingsFromOptions();
+
 	/**
 	 * TODO BR: will have to be removed, the options should be up to date
 	 * updated governor options will have to "call"

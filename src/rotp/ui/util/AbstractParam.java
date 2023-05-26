@@ -16,6 +16,7 @@
 
 package rotp.ui.util;
 
+import static rotp.model.game.IGovOptions.NOT_GOVERNOR;
 import static rotp.ui.util.InterfaceParam.langLabel;
 import static rotp.util.Base.textSubs;
 
@@ -25,7 +26,9 @@ import java.awt.event.MouseWheelEvent;
 
 import javax.swing.SwingUtilities;
 
+import rotp.model.game.DynOptions;
 import rotp.model.game.DynamicOptions;
+import rotp.model.game.GovernorOptions;
 import rotp.model.game.IGameOptions;
 import rotp.ui.RotPUI;
 import rotp.ui.game.BaseModPanel;
@@ -45,6 +48,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	private T shiftCtrlInc	= null;
 	private boolean isDuplicate	= false;
 	private boolean isCfgFile	= false;
+	private int		isGovernor	= NOT_GOVERNOR;
 
 	// ========== constructors ==========
 	//
@@ -92,20 +96,13 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 		this.shiftCtrlInc = shiftCtrlInc;
 	}
 	// ===== For duplicates to be overridden =====
-	//public void reInit() {}
-	public void setOption(T option) {
-//		DynamicOptions opts = dynOpts();
-//		if (opts != null) {
-//			 updateOption(opts);
-//		}
-	}
-	public T getFromOption() { return null; }
+	public void setOption(T option) {}
 	// For internal use only! Do not call from outside AbstracParam
 	protected abstract T getOptionValue(IGameOptions options);
 	protected void setOptionValue(IGameOptions options, T value) {
 		if (isDuplicate()) { // TODO BR: For compatibility
-			set(getFromOption());
-				System.err.println("getFromOption() not updated to setOptionValue: " + name);
+//			set(getFromOption());
+			System.err.println("getFromOption() not updated to getOptionValue: " + name);
 //			value = getFromOption(); // TODO BR:
 		}		
 	}
@@ -120,31 +117,34 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	@Override public String toString() {
 		return getCfgLabel() + " = " + getCfgValue();
 	}
-	@Override public void updateOption() {
+	@Override public void updateOption() { // TODO BR: will be removed
 		if (dynOpts() != null) {
-			T oldVal = getOptionValue(options());
+			T oldVal = getOptionValue(opts());
 			T newVal = get();
 			if ( !( oldVal.toString().equals(newVal.toString()) ) ) {
-				System.err.println("AParam.setOptions(): " + name + " : " + oldVal + " != " + newVal);
+				if(!(oldVal instanceof DynOptions))
+					System.err.println("AParam.updateOption(): " + name + " : " + oldVal + " != " + newVal);
 			}
-			setOptionValue(options(), get());
+			setOptionValue(opts(), get());
 		} 
 		else {
-			System.err.println("AParam.setOptions(): [dynOpts() == null] " + name);
+			System.err.println("AParam.updateOption(): [dynOpts() == null] " + name);
 		}
 	}
 	@Override public void updateOptionTool() {
 		if (dynOpts() != null) {
-			value = getOptionValue(options());
+//			value = getOptionValue(opts()); TODO BR: VAlidate
+			set( getOptionValue(opts()));
 		} 
 		else {
-			System.err.println("AParam.setOptionTools(): [dynOpts() == null] " + name);
+			System.err.println("AParam.updateOption(): [dynOpts() == null] " + name);
 		}
 	}
 	@Override public void copyOption(IGameOptions src, IGameOptions dest) {
 		if (src == null || dest == null)
 			return;
 		T val = getOptionValue(src);
+		set(val);
 		setOptionValue(dest, val);
 	}
 	@Override public String getCfgValue()		{ return getCfgValue(value); }
@@ -186,15 +186,15 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	@Override public String getGuiValue(int idx){ return guideValue(); } // For List
 	// ========== Tools for overriders ==========
 	//
-	protected IGameOptions   options()					{ return RotPUI.currentOptions(); }
-	protected DynamicOptions dynOpts()					{ return options().dynOpts(); }
+	protected IGameOptions   opts()		{ return RotPUI.currentOptions(); }
+	protected DynamicOptions dynOpts()	{ return opts().dynOpts(); }
 	// ========== Methods to be overridden ==========
 	//
 	T value(T value) 					{ return set(value); }
 	public T defaultValue()				{ return defaultValue; }
 	public T get()						{
-		if (isDuplicate()) {
-			value = getFromOption();
+		if (isDuplicate() || isCfgFile) {
+			value = getOptionValue(opts());
 		}
 		return value;
 	}	
@@ -212,20 +212,29 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	T shiftCtrlInc(){ return shiftCtrlInc; }	
 	// ========== Public Setters ==========
 	//
+	public T silentSet(T newValue) { // Reserved call from governor class
+		value = newValue;
+		setOption(newValue); // For overrider
+		return value;
+	}
 	public T set(T newValue) {
 		value = newValue;
-		setOption(newValue);
+		updateOption(dynOpts());
+		setOption(newValue); // For overrider
+		if (isGovernor != NOT_GOVERNOR)
+			GovernorOptions.callForRefresh(isGovernor);
 		return value;
 	}
 	public void maxValue (T newValue)		{ maxValue = newValue;}
 	public void minValue (T newValue)		{ minValue = newValue;}
 	public void defaultValue(T newValue)	{ defaultValue = newValue; }
+	public void isGovernor(int val)			{ isGovernor  = val ; }
 	// ========== Private Methods ==========
 	//
 	// ========== Protected Methods ==========
 	//
 	protected void isDuplicate(boolean is)	{ isDuplicate = is ; }
-	protected void isCfgFile(boolean is)	{ isCfgFile = is ; }
+	protected void isCfgFile(boolean is)	{ isCfgFile   = is ; }
 	protected String descriptionId()		{ return getLangLabel() + LABEL_DESCRIPTION; }
 	protected T getInc(InputEvent e)		{
 		if (e.isShiftDown())

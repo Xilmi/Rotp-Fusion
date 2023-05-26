@@ -39,8 +39,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
-import javax.swing.SwingUtilities;
-
 import rotp.Rotp;
 import rotp.model.empires.Empire;
 import rotp.model.empires.Race;
@@ -81,14 +79,6 @@ import rotp.util.Base;
 //public class MOO1GameOptions implements Base, IGameOptions, DynamicOptions, Serializable {
 public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	
-	public	interface NewOptionsListener { void optionLoaded(); }
-	private	static List<NewOptionsListener> listeners = new ArrayList<NewOptionsListener>();
-    public	static void addListener(NewOptionsListener toAdd) { listeners.add(toAdd); }
-    static void optionsUpdated() {
-        for (NewOptionsListener hl : listeners)
-            hl.optionLoaded();
-    }
-    
     private static final long serialVersionUID = 1L;
     private static final float BASE_RESEARCH_MOD = 30f;
     private static final boolean beepsOnError = false;
@@ -1370,23 +1360,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
    }
     // ==================== Generalized options methods ====================
     //
-    private void setBaseAndModSettingsFromOptions(MOO1GameOptions dest, LinkedList<InterfaceParam> paramList) {
-    	if (paramList == null)
-    		return;
-    	copyModSettings(dest, paramList);
-    	copyBaseSettings(dest, paramList);
-    }
-    private void copyModSettings(MOO1GameOptions dest, LinkedList<InterfaceParam> paramList) {
-       	for (InterfaceParam param : paramList) {
-       		if (param != null) {
-       			param.copyOption(this, dest);
-       		}
-       	}
-       	if (!Rotp.noOptions("copyModSettings"))
-	       	for (InterfaceParam param : paramList)
-	       		if (param != null)
-	       			param.updateOptionTool();
-    }
     private void copyBaseSettings(MOO1GameOptions dest, LinkedList<InterfaceParam> paramList) {
    		if (paramList == optionsGalaxy()) {
    			copyBaseGalaxySettings(dest);
@@ -1465,21 +1438,19 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     			param.updateOption();
        		}
        	}
-       	if (call && isAllGui)
-        	optionsUpdated();
     }
-    @Override public void setModSettingsFromOptions() { // BR:
-    	for(InterfaceParam param : allModOptions())
-    		if (param != null) {
-    			param.updateOptionTool();
-    		}
-        EditCustomRaceUI.instance().updateCRGui(this);
-    }
-    @Override public void setBaseAndModSettingsToDefault(LinkedList<InterfaceParam> paramList) {
+//    private void setModSettingsFromOptions() { // BR: remove later
+//    	for(InterfaceParam param : allModOptions())
+//    		if (param != null) {
+//    			param.updateOptionTool();
+//    		}
+//        EditCustomRaceUI.instance().updateCRGui(this);
+//    }
+    @Override public void updateFromDefault(LinkedList<InterfaceParam> paramList) {
     	setModSettingsToDefault(this, paramList);
     	setBaseSettingsToDefault(this, paramList);
     }
-    @Override public void saveOptionsToFileName(String fileName) {
+    @Override public void saveOptionsToFile(String fileName) {
     	saveOptions(this, Rotp.jarPath(), fileName);
     }
     @Override public void updateOptionsAndSaveToFileName(String fileName,
@@ -1487,10 +1458,15 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         writeModSettingsToOptions(paramList, true);
         saveOptions(this, Rotp.jarPath(), fileName);
     }
-    @Override public void getParamFromFile(String fileName,
+    @Override public void updateFromFile(String fileName,
     						LinkedList<InterfaceParam> paramList) {
+    	if (paramList == null)
+    		return;
     	MOO1GameOptions source = loadFileName(fileName);
-        source.setBaseAndModSettingsFromOptions(this, paramList);
+       	for (InterfaceParam param : paramList)
+       		if (param != null)
+       			param.copyOption(source, this);
+        source.copyBaseSettings(this, paramList);
     }
     // ========== New Options Static files management methods ==========
     //
@@ -1502,24 +1478,17 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
     private static MOO1GameOptions loadFileName(String fileName) {
     	MOO1GameOptions dest = loadOptions(Rotp.jarPath(), fileName);
-        final Runnable tell = () -> {
-        	optionsUpdated();
-        };
-        SwingUtilities.invokeLater(tell);
    		return dest;
     }
     // BR: save options to zip file
-    private static void saveOptions(IGameOptions options, String path, String fileName) {
-    	if (options != null && options instanceof MOO1GameOptions) {
-        	MOO1GameOptions opts = (MOO1GameOptions) options;
-    		File saveFile = new File(path, fileName);
-    		try {
-    			saveOptionsTE(opts, saveFile);
-    		} catch (IOException ex) {
-    			ex.printStackTrace();
-               	System.err.println("Options.save -- IOException: "+ ex.toString());
-    		}    		
-    	}
+    private static void saveOptions(MOO1GameOptions options, String path, String fileName) {
+		File saveFile = new File(path, fileName);
+		try {
+			saveOptionsTE(options, saveFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+           	System.err.println("Options.save -- IOException: "+ ex.toString());
+		}    		
     }
     // BR: save options to zip  file
     private static void saveOptionsTE(MOO1GameOptions options, File saveFile) throws IOException {

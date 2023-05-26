@@ -56,7 +56,7 @@ public class YearDisplaySprite extends MapSprite {
             return;
 
         String s = displayYearOrTurn();
-        if (rotp.model.game.RemnantOptions.showNextCouncil.get()) {
+        if (rotp.model.game.IRemnantOptions.showNextCouncil.get()) {
         	int nextC = galaxy().council().nextCouncil();
         	 if (nextC > 0)
         		 s += " (" + nextC + ")";

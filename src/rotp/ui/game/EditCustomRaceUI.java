@@ -248,7 +248,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			guiOptions().loadAndUpdateFromFileName(LIVE_OPTIONS_FILE);		
 			break;
 		case CTRL_SHIFT: // restoreLocalKey
-			guiOptions().getParamFromFile(LIVE_OPTIONS_FILE, localOptions());		
+			guiOptions().updateFromFile(LIVE_OPTIONS_FILE, localOptions());		
 			break;
 		case SHIFT: // setLocalDefaultKey
 			setToLocalDefault();

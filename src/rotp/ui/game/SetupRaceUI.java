@@ -15,10 +15,10 @@
  */
 package rotp.ui.game;
 
-import static rotp.model.game.ModOptions.optionsRace;
-import static rotp.model.game.ModOptions.playerCustomRace;
-import static rotp.model.game.ModOptions.playerIsCustom;
-import static rotp.model.game.ModOptions.playerShipSet;
+import static rotp.model.game.IModOptions.optionsRace;
+import static rotp.model.game.IModOptions.playerCustomRace;
+import static rotp.model.game.IModOptions.playerIsCustom;
+import static rotp.model.game.IModOptions.playerShipSet;
 import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
 
 import java.awt.AlphaComposite;

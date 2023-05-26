@@ -43,8 +43,6 @@ import rotp.model.empires.Empire;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.game.GameSession;
 import rotp.model.game.GovernorOptions;
-import rotp.model.game.MOO1GameOptions;
-import rotp.model.game.MOO1GameOptions.NewOptionsListener;
 import rotp.ui.RotPUI;
 import rotp.ui.races.RacesUI;
 import rotp.ui.util.swing.RotpJSpinner;
@@ -53,7 +51,7 @@ import rotp.util.FontManager;
 /**
  * Produced using Netbeans Swing GUI builder.
  */
-class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptionsListener{
+class GovernorOptionsPanel extends javax.swing.JPanel{
 	
 	private static final float	valueFontSize		= 14f;
 	private static final float	baseFontSize		= 14f;
@@ -91,12 +89,37 @@ class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptionsListe
 
     private ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(15); // no
     private ScheduledFuture<?> anim;
-	private Runnable delayedAnimate	= new Runnable() {
+	private Runnable timedRefresh	= new Runnable() {
 	    @Override public void run() {
-	    	animate();
+	    	if (options().resetRequested()) {
+	    		System.out.println("resetRequested()");
+	    		optionUpdated();
+	    	}
+	    	else if (options().refreshRequested()) {
+				options().clearRefresh();
+	    		loadDisplayValues();
+	    		loadValues();
+	    		//protectedUpdatePanel();
+	    		System.out.println("refreshRequested()");
+	    	}
+    		animate();
 	    }
 	};
 	private final JFrame frame;
+	
+	// ========== Public Method and Overrider ==========
+	//
+	private void optionUpdated() {
+		if (options().isLocalUpdate()) {
+			//System.out.println("===== optionLoad Blocked =====");
+			return;
+		}
+		//System.out.println("===== optionLoaded =====");
+		loadDisplayValues();
+		loadValues();
+		protectedReset();
+	} 
+	void applyStyle() { protectedUpdatePanel(); }
 	
 	// ========== Protected initializers ==========
 	// Loading and saving values occurring during these call
@@ -147,7 +170,7 @@ class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptionsListe
 	GovernorOptionsPanel(JFrame frame) {
 		this.frame = frame;
 		protectedInitPanel();
-		MOO1GameOptions.addListener(this);
+//		MOO1GameOptions.addListener(this);
 	}
 	private void initNewColors(boolean local) {
 		if (isNewFormat()) {
@@ -197,6 +220,8 @@ class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptionsListe
 	}
 	private void resetPanel() {
 		updateOngoing = true;
+		options().clearReset();
+
 		boolean visible = frame.isVisible();
 		frame.setVisible(false);
 		//Remove the components before reloading
@@ -217,20 +242,6 @@ class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptionsListe
 		sizeFactorPct		= options().getSizeFactorPct();
 		brightnessFactorPct	= options().getBrightnessPct();
 	}
-	// ========== Public Method and Overrider ==========
-	//
-	@Override public void optionLoaded() {
-		if (options().isLocalSave()) {
-			//System.out.println("===== optionLoad Blocked =====");
-			return;
-		}
-		//System.out.println("===== optionLoaded =====");
-		loadDisplayValues();
-		loadValues();
-		protectedReset();
-	} 
-	void applyStyle() { protectedUpdatePanel(); }
-	
 	// ========== Local tools ==========
 	//
 	private Color multColor(Color offColor, float factor) {
@@ -299,7 +310,7 @@ class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptionsListe
 	}
 	private void startAnimation() {
 		if (anim == null)
-			anim = executor.scheduleAtFixedRate(delayedAnimate, 0, animationStep, TimeUnit.MILLISECONDS);
+			anim = executor.scheduleAtFixedRate(timedRefresh, 0, animationStep, TimeUnit.MILLISECONDS);
 		if (updateOngoing)
 			return;
 		if (isAnimatedImage() && animationLive == ANIMATION_STOPPED) {
@@ -555,7 +566,7 @@ class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptionsListe
 	// ========== Load and save Values ==========
 	//
 	private void loadValues() {
-		GovernorOptions options = GameSession.instance().getGovernorOptions();
+		GovernorOptions options = options();
 		// Other Options and duplicate
 		this.governorDefault.setSelected(options.isGovernorOnByDefault());
 		this.completionist.setEnabled(isCompletionistEnabled());
@@ -570,7 +581,7 @@ class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptionsListe
 		this.transportPoorDouble.setSelected(options.isTransportPoorDouble());
 
 		// StarGates Options
-		switch (GameSession.instance().getGovernorOptions().getGates()) {
+		switch (options().getGates()) {
 			case None:
 				this.stargateOff.setSelected(true);
 				break;
@@ -612,7 +623,7 @@ class GovernorOptionsPanel extends javax.swing.JPanel implements NewOptionsListe
 	private void applyAction() {// BR: Save Values
 		if (!isAutoApply())
 			return;
-		GovernorOptions options = GameSession.instance().getGovernorOptions();
+		GovernorOptions options = options();
 		
 		// AutoTransport Options
 		options.setAutotransport(autotransport.isSelected(), false);

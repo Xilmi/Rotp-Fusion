@@ -1,27 +1,21 @@
 package rotp.model.game;
 
-import static rotp.model.game.BaseOptionsTools.headerSpacer;
-
 import java.awt.Point;
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.LinkedList;
 
 import rotp.ui.UserPreferences;
+import rotp.ui.util.AbstractParam;
 import rotp.ui.util.InterfaceParam;
-import rotp.ui.util.ParamBoolean;
-import rotp.ui.util.ParamInteger;
-import rotp.ui.util.ParamList;
-import rotp.ui.util.ParamSubUI;
-import rotp.ui.util.ParamTitle;
 
 /**
  * Governor options.
  */
-public class GovernorOptions implements Serializable {
+public class GovernorOptions implements Serializable, IGovOptions {
     private static final long serialVersionUID = 1l;
     public	static final String GOVERNOR_GUI_ID	= "GOVERNOR";
-    public	static final String GOV_UI			= "GOVERNOR_";
+//    public	static final String GOV_UI			= "GOVERNOR_";
+    private static boolean callForRefresh		= false;
+    private static boolean callForReset			= false;
 
     public enum GatesGovernor {
         None,
@@ -70,169 +64,47 @@ public class GovernorOptions implements Serializable {
     private int autoColonyShipCount = 1;
     private int autoAttackShipCount = 1;
 
-    // BR: For the future parameters, to keep save files compatibility
-    // Will be saved in the dynamic options list.
-	// AutoTransport Options
-	private	final static ParamBoolean	autoTransport		= new ParamBoolean(
-			GOV_UI, "AUTO_TRANSPORT", true);
-	private	final static ParamBoolean	autotransportAtMax	= new ParamBoolean(
-			GOV_UI, "TRANSPORT_XILMI", true);
-	private	final static ParamBoolean	autotransportAll	= new ParamBoolean(
-			GOV_UI, "TRANSPORT_UNGOVERNED", true);
-	private	final static ParamBoolean	transportNoRich		= new ParamBoolean(
-			GOV_UI, "TRANSPORT_RICH_OFF", true);
-	private	final static ParamBoolean	transportPoorX2		= new ParamBoolean(
-			GOV_UI, "TRANSPORT_POOR_DBL", true);
-	private	static final ParamInteger	transportMaxDist	= new ParamInteger(
-			GOV_UI, "TRANSPORT_MAX_TURNS", 5, 1, 15, 1, 3, 5);
+	private transient boolean localUpdate = false;
 
-	// StarGates Options
-	// Using an Enum object instead of a list will break the game save if the enum is changed! 
-	private	final static ParamList		starGateOption		= new ParamList(
-			GOV_UI, "STARGATES_OPTIONS", GatesGovernor.Rich.name()) {
-		{
-			showFullGuide(true);
-			for (GatesGovernor value: GatesGovernor.values())
-				put(value.name(), GOV_UI + "STARGATES_" + value.name().toUpperCase());
-		}
-	};
+	// ========== Constructor And Initializers ==========AbstractParam <T>
+    public GovernorOptions() {  
+    	for (InterfaceParam param : governorOptions)
+    		((AbstractParam <?>) param).isGovernor(GOV_REFRESH);
 
-	// Colony Options
-	private	static final ParamInteger	missileBasesMin		= new ParamInteger(
-			GOV_UI, "MIN_MISSILE_BASES", 0, 0, 20, 1, 3, 5);
-	private	final static ParamBoolean	shieldAlones		= new ParamBoolean(
-			GOV_UI, "SHIELD_WITHOUT_BASES", false);
-	private	final static ParamBoolean	autoSpend			= new ParamBoolean(
-			GOV_UI, "AUTOSPEND", false);
-	private	static final ParamInteger	reserveForSlow		= new ParamInteger(
-			GOV_UI, "RESERVE", 0, 0, 100000, 10, 50, 200);
-	private	final static ParamBoolean	shipBuilding		= new ParamBoolean(
-			GOV_UI, "SHIP_BUILDING", true);
-	private	final static ParamBoolean	maxGrowthMode		= new ParamBoolean(
-			GOV_UI, "LEGACY_GROWTH_MODE", true);
-
-	// Intelligence Options
-	private	final static ParamBoolean	auto_Infiltrate		= new ParamBoolean(
-			GOV_UI, "AUTO_INFILTRATE", true);
-	private	final static ParamBoolean	auto_Spy			= new ParamBoolean(
-			GOV_UI, "AUTO_SPY", true);
-	private	final static ParamBoolean	spareXenophobes		= new ParamBoolean(
-			GOV_UI, "SPARE_XENOPHOBES", false);
-
-	// Aspect Options
-	private	final static ParamBoolean	originalPanel		= new ParamBoolean(
-			GOV_UI, "ORIGINAL_PANEL", false);
-	private	final static ParamBoolean	customSize			= new ParamBoolean(
-			GOV_UI, "CUSTOM_SIZE", true);
-	private	static final ParamInteger	brightnessPct		= new ParamInteger(
-			GOV_UI, "BRIGHTNESS",	100, 20, 300, 1, 5, 20);
-	private	static final ParamInteger	sizeFactorPct		= new ParamInteger(
-			GOV_UI, "SIZE_FACTOR",	100, 20, 200, 1, 5, 20);
-	private	static final ParamInteger	horizontalPosition	= new ParamInteger(
-			GOV_UI, "POSITION_X",	0, null, null, 1, 5, 20);
-	private	static final ParamInteger	verticalPosition	= new ParamInteger(
-			GOV_UI, "POSITION_Y",	0, null, null, 1, 5, 20);
-
-	// Fleet Options
-	private	final static ParamBoolean	auto_Scout			= new ParamBoolean(
-			GOV_UI, "AUTO_SCOUT", true);
-	private	static final ParamInteger	autoScoutCount		= new ParamInteger(
-			GOV_UI, "AUTO_SCOUT_COUNT",	1, 1, 9999, 1, 5, 20);
-	public	final static ParamBoolean	auto_Colonize		= new ParamBoolean(
-			GOV_UI, "AUTO_COLONIZE", true);
-	private	static final ParamInteger	autoColonyCount		= new ParamInteger(
-			GOV_UI, "AUTO_COLONY_COUNT", 1, 1, 9999, 1, 5, 20);
-	private	final static ParamBoolean	auto_Attack			= new ParamBoolean(
-			GOV_UI, "AUTO_ATTACK", false);
-	private	static final ParamInteger	autoAttackCount		= new ParamInteger(
-			GOV_UI, "AUTO_ATTACK_COUNT", 1, 1, 9999, 1, 5, 20);
-    // if true, new colonies will have auto ship building set to "on"
-	private	final static ParamBoolean	autoShipsDefault	= new ParamBoolean(
-			GOV_UI, "AUTOSHIPS_BY_DEFAULT", true);
-
-	// Other Options
-	private	final static ParamBoolean	animatedImage		= new ParamBoolean(
-			GOV_UI, "ANIMATED_IMAGE", true);
-	private final static ParamBoolean	auto_Apply			= new ParamBoolean(
-			GOV_UI, "AUTO_APPLY", true);
-	private final static ParamBoolean	governorByDefault	= new ParamBoolean(
-			GOV_UI, "ON_BY_DEFAULT", true);
-
-	private static final LinkedList<LinkedList<InterfaceParam>> governorOptionsMap = 
-			new LinkedList<LinkedList<InterfaceParam>>();
-	static {
-		governorOptionsMap.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle(GOV_UI + "TRANSPORT_OPTIONS"),
-				autoTransport, autotransportAtMax, autotransportAll,
-				transportNoRich, transportPoorX2, transportMaxDist,
-
-				headerSpacer,
-				new ParamTitle(GOV_UI + "COLONY_OPTIONS"),
-				missileBasesMin, shieldAlones,
-				autoSpend, reserveForSlow, shipBuilding,
-				maxGrowthMode
-				)));
-		governorOptionsMap.add(new LinkedList<>(Arrays.asList(				
-				new ParamTitle(GOV_UI + "INTELLIGENCE_OPTIONS"),
-				auto_Infiltrate, auto_Spy, spareXenophobes,
-				
-				headerSpacer,
-				new ParamTitle(GOV_UI + "FLEET_OPTIONS"),
-				// autoShipsByDefault,	// TODO: for future use
-				auto_Scout, autoScoutCount,
-				auto_Colonize, autoColonyCount,
-				auto_Attack, autoAttackCount,
-				
-				headerSpacer,
-				new ParamTitle(GOV_UI + "STARGATES_OPTIONS"),
-				starGateOption
-				)));
-		governorOptionsMap.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle(GOV_UI + "ASPECT_OPTIONS"),
-				originalPanel, customSize, animatedImage,
-				brightnessPct, sizeFactorPct,
-				horizontalPosition, verticalPosition,
-				
-				headerSpacer,
-				new ParamTitle(GOV_UI + "OTHER_OPTIONS"),
-				governorByDefault, auto_Apply
-				)));
-	};
-	private	static final String		GOV_GUI_ID	= "GOV_2";
-	public	static final ParamSubUI	governorOptionsUI	= new ParamSubUI(
-			GOV_UI, "SETUP_MENU", governorOptionsMap,
-			"SETUP_TITLE", GOV_GUI_ID);
-	public	static final LinkedList<InterfaceParam> governorOptions = governorOptionsUI.optionsList();
-
-	private transient boolean localSave = false;
-
-	// ========== Constructor And Initializers ==========
-    public GovernorOptions() {  }
+    	auto_Apply.isGovernor(GOV_RESET);
+    	customSize.isGovernor(GOV_RESET);
+    	animatedImage.isGovernor(GOV_RESET);
+    	brightnessPct.isGovernor(GOV_RESET);
+    	originalPanel.isGovernor(GOV_RESET);
+    	sizeFactorPct.isGovernor(GOV_RESET);
+    	verticalPosition.isGovernor(GOV_RESET);
+    	horizontalPosition.isGovernor(GOV_RESET);
+    }
     public void gameLoaded() {
     	if (autoShipsByDefault) {
-    		autoTransport.set(autotransport);
-    		autotransportAtMax.set(autotransportXilmi);
-    		autotransportAll.set(autotransportUngoverned);
-    		transportNoRich.set(transportRichDisabled);
-    		transportPoorX2.set(transportPoorDouble);
-    		transportMaxDist.set(transportMaxTurns);
-    		starGateOption.set(gates.name());
-    		missileBasesMin.set(minimumMissileBases);
-    		shieldAlones.set(shieldWithoutBases);
-    		autoSpend.set(autospend);
-    		reserveForSlow.set(reserve);
-    		shipBuilding.set(shipbuilding);
-    		maxGrowthMode.set(legacyGrowthMode);
-    		auto_Infiltrate.set(autoInfiltrate);
-    		auto_Spy.set(autoSpy);
-    		auto_Scout.set(autoScout);
-    		autoScoutCount.set(autoScoutShipCount);
-    		auto_Colonize.set(autoColonize);
-    		autoColonyCount.set(autoColonyShipCount);
-    		auto_Attack.set(autoAttack);
-    		autoAttackCount.set(autoAttackShipCount);
-    		auto_Apply.set(autoApply);
-    		governorByDefault.set(governorOnByDefault);
+    		autoTransport.silentSet(autotransport);
+    		autotransportAtMax.silentSet(autotransportXilmi);
+    		autotransportAll.silentSet(autotransportUngoverned);
+    		transportNoRich.silentSet(transportRichDisabled);
+    		transportPoorX2.silentSet(transportPoorDouble);
+    		transportMaxDist.silentSet(transportMaxTurns);
+    		starGateOption.silentSet(gates.name());
+    		missileBasesMin.silentSet(minimumMissileBases);
+    		shieldAlones.silentSet(shieldWithoutBases);
+    		autoSpend.silentSet(autospend);
+    		reserveForSlow.silentSet(reserve);
+    		shipBuilding.silentSet(shipbuilding);
+    		maxGrowthMode.silentSet(legacyGrowthMode);
+    		auto_Infiltrate.silentSet(autoInfiltrate);
+    		auto_Spy.silentSet(autoSpy);
+    		auto_Scout.silentSet(autoScout);
+    		autoScoutCount.silentSet(autoScoutShipCount);
+    		auto_Colonize.silentSet(autoColonize);
+    		autoColonyCount.silentSet(autoColonyShipCount);
+    		auto_Attack.silentSet(autoAttack);
+    		autoAttackCount.silentSet(autoAttackShipCount);
+    		auto_Apply.silentSet(autoApply);
+    		governorByDefault.silentSet(governorOnByDefault);
     		save();
     	}
     	autoShipsByDefault = false;
@@ -240,16 +112,24 @@ public class GovernorOptions implements Serializable {
         // The autoShipsByDefault original function will be implemented using the new parameters
         // if true, new colonies will have auto ship building set to "on"
     }
-
-    public boolean isLocalSave() {
-    	if (localSave) {
-    		localSave = false;
+    public static void callForRefresh(int call)	{
+    	callForRefresh	= callForRefresh || (call == GOV_REFRESH);
+    	callForReset	= callForReset   || (call == GOV_RESET);
+    }
+    public void		clearRefresh()		{ callForRefresh = false; }
+    public void		clearReset()		{ clearRefresh(); callForReset = false; }
+    public boolean	refreshRequested()	{ return callForRefresh; }
+    public boolean	resetRequested()	{ return callForReset; }
+    
+    public boolean isLocalUpdate() {
+    	if (localUpdate) {
+    		localUpdate = false;
     		return true;
     	}
     	return false;
     }
     public void save() { // update Quietly
-    	localSave = true;
+    	localUpdate = true;
     	IGameOptions opts = GameSession.instance().options();
     	opts.writeModSettingsToOptions(governorOptions, false);
 //    	MOO1GameOptions.writeModSettingsToOptions(
@@ -257,17 +137,17 @@ public class GovernorOptions implements Serializable {
     }
     public boolean isOriginalPanel()			{ return originalPanel.get(); }
     public void setIsOriginalPanel(boolean newValue, boolean save) {
-    	originalPanel.set(newValue);
+    	originalPanel.silentSet(newValue);
         if(save) save();
     }
     public boolean isCustomSize()				{ return customSize.get(); }
     public void setIsCustomSize(boolean newValue, boolean save) {
-    	customSize.set(newValue);
+    	customSize.silentSet(newValue);
         if(save) save();
     }
     public boolean isAnimatedImage()			{ return animatedImage.get(); }
     public void setIsAnimatedImage(boolean newValue, boolean save) {
-    	animatedImage.set(newValue);
+    	animatedImage.silentSet(newValue);
         if(save) save();
     }
     public boolean toggleAnimatedImage() {
@@ -277,22 +157,22 @@ public class GovernorOptions implements Serializable {
     }
     public int  getBrightnessPct()				{ return brightnessPct.get(); }
     public void setBrightnessPct(int newValue, boolean save) {
-    	brightnessPct.set(newValue);
+    	brightnessPct.silentSet(newValue);
         if(save) save();
     }
     public int  getSizeFactorPct()				{ return sizeFactorPct.get(); }
     public void setSizeFactorPct(int newValue, boolean save) {
-    	sizeFactorPct.set(newValue);
+    	sizeFactorPct.silentSet(newValue);
         if(save) save();
     }
     public int  getPositionX()					{ return horizontalPosition.get(); }
     public void setPositionX(int newValue, boolean save) {
-    	horizontalPosition.set(newValue);
+    	horizontalPosition.silentSet(newValue);
         if(save) save();
     }
     public int  getPositionY()					{ return verticalPosition.get(); }
     public void setPositionY(int newValue, boolean save) {
-    	verticalPosition.set(newValue);
+    	verticalPosition.silentSet(newValue);
         if(save) save();
     }
     public Point getPosition()					{ 
@@ -302,48 +182,48 @@ public class GovernorOptions implements Serializable {
     	return pt;
     }
     public void setPosition(Point pt) {
-    	horizontalPosition.set(pt.x);
-    	verticalPosition.set(pt.y);
+    	horizontalPosition.silentSet(pt.x);
+    	verticalPosition.silentSet(pt.y);
     }
    
     public boolean isAutoApply()				{ return auto_Apply.get(); }
     public void setAutoApply(boolean newValue, boolean save) {
-        auto_Apply.set(newValue);
+        auto_Apply.silentSet(newValue);
         if(save) save();
     }
     public boolean isGovernorOnByDefault()		{ return governorByDefault.get(); }
     public void setGovernorOnByDefault(boolean newValue, boolean save) {
-    	governorByDefault.set(newValue);
+    	governorByDefault.silentSet(newValue);
         if(save) save();
     }
     public boolean isAutotransport()			{ return autoTransport.get(); }
     public void setAutotransport(boolean newValue, boolean save) {
-    	autoTransport.set(newValue);
+    	autoTransport.silentSet(newValue);
         if(save) save();
     }
     public boolean isAutotransportXilmi()		{ return autotransportAtMax.get(); }
     public void setAutotransportXilmi(boolean newValue, boolean save) {
-    	autotransportAtMax.set(newValue);
+    	autotransportAtMax.silentSet(newValue);
         if(save) save();
     }
     public boolean isAutotransportUngoverned()	{ return autotransportAll.get(); }
     public void setAutotransportUngoverned(boolean newValue, boolean save) {
-    	autotransportAll.set(newValue);
+    	autotransportAll.silentSet(newValue);
         if(save) save();
     }
     public boolean isTransportRichDisabled()	{ return transportNoRich.get(); }
     public void setTransportRichDisabled(boolean newValue, boolean save) {
-    	transportNoRich.set(newValue);
+    	transportNoRich.silentSet(newValue);
         if(save) save();
     }
     public boolean isTransportPoorDouble()		{ return transportPoorX2.get(); }
     public void setTransportPoorDouble(boolean newValue, boolean save) {
-    	transportPoorX2.set(newValue);
+    	transportPoorX2.silentSet(newValue);
         if(save) save();
     }
     public int  getTransportMaxTurns()			{ return transportMaxDist.get(); }
     public void setTransportMaxTurns(int newValue, boolean save) {
-    	transportMaxDist.set(newValue);
+    	transportMaxDist.silentSet(newValue);
         if(save) save();
     }
     public GatesGovernor getGates()				{
@@ -354,87 +234,87 @@ public class GovernorOptions implements Serializable {
 		return GatesGovernor.Rich; // Default Value
     }
     public void setGates(GatesGovernor gates, boolean save) {
-    	starGateOption.set(gates.name());
+    	starGateOption.silentSet(gates.name());
         if(save) save();
     }
     public boolean legacyGrowthMode()			{ return maxGrowthMode.get(); }
     public void setLegacyGrowthMode(boolean newValue, boolean save) {
-    	maxGrowthMode.set(newValue);
+    	maxGrowthMode.silentSet(newValue);
         if(save) save();
     }
     public int  getMinimumMissileBases()		{ return missileBasesMin.get(); }
     public void setMinimumMissileBases(int newValue, boolean save) {
-    	missileBasesMin.set(newValue);
+    	missileBasesMin.silentSet(newValue);
         if(save) save();
     }
     public boolean getShieldWithoutBases()		{ return shieldAlones.get(); }
     public void setShieldWithoutBases(boolean newValue, boolean save) {
-    	shieldAlones.set(newValue);
+    	shieldAlones.silentSet(newValue);
         if(save) save();
     }
     public boolean isAutospend()				{ return autoSpend.get(); }
     public void setAutospend(boolean newValue, boolean save) {
-    	autoSpend.set(newValue);
+    	autoSpend.silentSet(newValue);
         if(save) save();
     }
     public int  getReserve()					{ return reserveForSlow.get(); }
     public void setReserve(int newValue, boolean save) {
-    	reserveForSlow.set(newValue);
+    	reserveForSlow.silentSet(newValue);
         if(save) save();
     }
     public boolean isShipbuilding()				{ return shipBuilding.get(); }
     public void setShipbuilding(boolean newValue, boolean save) {
-    	shipBuilding.set(newValue);
+    	shipBuilding.silentSet(newValue);
         if(save) save();
     }
     public boolean isAutoInfiltrate()			{ return auto_Infiltrate.get(); }
     public void setAutoInfiltrate(boolean newValue, boolean save) {
-    	auto_Infiltrate.set(newValue);
+    	auto_Infiltrate.silentSet(newValue);
         if(save) save();
     }
     public boolean isAutoSpy()					{ return auto_Spy.get(); }
     public void setAutoSpy(boolean newValue, boolean save) {
-    	auto_Spy.set(newValue);
+    	auto_Spy.silentSet(newValue);
         if(save) save();
     }
     public boolean isSpareXenophobes()			{ return spareXenophobes.get(); }
     public void setSpareXenophobes(boolean newValue, boolean save) {
-        spareXenophobes.set(newValue);
+        spareXenophobes.silentSet(newValue);
         if(save) save();
     }
     public boolean isAutoScout()				{ return auto_Scout.get(); }
     public void setAutoScout(boolean newValue, boolean save) {
-    	auto_Scout.set(newValue);
+    	auto_Scout.silentSet(newValue);
         if(save) save();
     }
     public boolean isAutoColonize()				{ return auto_Colonize.get(); }
     public void setAutoColonize(boolean newValue, boolean save) {
-    	auto_Colonize.set(newValue);
+    	auto_Colonize.silentSet(newValue);
         if(save) save();
     }
     public boolean isAutoAttack()				{ return auto_Attack.get(); }
     public void setAutoAttack(boolean newValue, boolean save) {
-    	auto_Attack.set(newValue);
+    	auto_Attack.silentSet(newValue);
         if(save) save();
     }
     public int  getAutoScoutShipCount()			{ return autoScoutCount.get(); }
     public void setAutoScoutShipCount(int newValue, boolean save) {
-    	autoScoutCount.set(newValue);
+    	autoScoutCount.silentSet(newValue);
         if(save) save();
     }
     public int  getAutoColonyShipCount()		{ return autoColonyCount.get(); }
     public void setAutoColonyShipCount(int newValue, boolean save) {
-    	autoColonyCount.set(newValue);
+    	autoColonyCount.silentSet(newValue);
         if(save) save();
     }
     public int  getAutoAttackShipCount()		{ return autoAttackCount.get(); }
     public void setAutoAttackShipCount(int newValue, boolean save) {
-    	autoAttackCount.set(newValue);
+    	autoAttackCount.silentSet(newValue);
         if(save) save();
     }
     public boolean isAutoShipsByDefault()		{ return autoShipsDefault.get(); }
     public void setAutoShipsByDefault(boolean newValue, boolean save) {
-    	autoShipsDefault.set(newValue);
+    	autoShipsDefault.silentSet(newValue);
         if(save) save();
     }
 }

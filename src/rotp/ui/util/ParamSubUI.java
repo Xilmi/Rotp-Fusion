@@ -83,6 +83,7 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<InterfacePar
 			param.updateOptionTool();
 	}
 	@Override public void setFromDefault() {
+		super.setFromDefault();
 		for (InterfaceParam param : optionsList)
 			param.setFromDefault();
 	}

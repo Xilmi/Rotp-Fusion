@@ -22,12 +22,14 @@ public interface IMainOptions extends BaseOptionsTools {
 	//
 	ParamBoolean autoColonize_	= new ParamBoolean( // Duplicate Do not add the list
 			GAME_UI, "AUTOCOLONIZE", false) {
-		{ isDuplicate(true); }
-		@Override public Boolean get() { return autoColonize(); }
-		@Override public Boolean set(Boolean newValue) {
+		{
+			isDuplicate(true);
+			isCfgFile(true);
+		}
+		@Override public Boolean getOptionValue(IGameOptions options) { return autoColonize(); }
+		@Override public void setOption(Boolean newValue) {
 			autoColonize(newValue);
 			save();
-			return autoColonize();
 		}
 	};
 	ParamList autoBombard_		= new ParamList( // Duplicate Do not add the list
@@ -40,12 +42,16 @@ public interface IMainOptions extends BaseOptionsTools {
 					AUTOBOMBARD_INVADE
 					),
 			AUTOBOMBARD_NO) {
-		{ showFullGuide(true); }
-		@Override public String get() { return autoBombardMode(); }
-		@Override public String set(String newValue) {
+		{
+			isDuplicate(true);
+			isCfgFile(true);
+			showFullGuide(true);
+		}
+		@Override public String getOptionValue(IGameOptions options) { return autoBombardMode(); }
+		@Override public void setOption(String newValue) {
 			autoBombardMode(newValue);
 			save();
-			return autoBombardMode();
+			return;
 		}
 	};
 

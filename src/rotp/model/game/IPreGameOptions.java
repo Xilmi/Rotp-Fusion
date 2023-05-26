@@ -13,7 +13,7 @@ import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamTech;
 import rotp.ui.util.RandomAlienRaces;
 
-public interface FactoryOptions extends BaseOptionsTools {
+public interface IPreGameOptions extends BaseOptionsTools {
 
 	// ========================================================================
 	// Factory options

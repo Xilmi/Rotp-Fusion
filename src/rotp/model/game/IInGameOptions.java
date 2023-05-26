@@ -1,7 +1,7 @@
 package rotp.model.game;
 
-import static rotp.model.game.FlagOptions.autoFlagOptionsUI;
-import static rotp.model.game.FlagOptions.flagColorCount;
+import static rotp.model.game.IFlagOptions.autoFlagOptionsUI;
+import static rotp.model.game.IFlagOptions.flagColorCount;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -14,7 +14,7 @@ import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
 
-public interface GamePlayOptions extends BaseOptionsTools {
+public interface IInGameOptions extends BaseOptionsTools {
 
 	// ========================================================================
 	// GamePlay options
@@ -93,18 +93,16 @@ public interface GamePlayOptions extends BaseOptionsTools {
 	
 	ParamFloat counciRequiredPct	= new ParamFloat(MOD_UI, "COUNCIL_REQUIRED_PCT"
 			, GalacticCouncil.PCT_REQUIRED , 0f, 0.99f, 0.01f/3f, 0.02f, 0.1f, "0.0##", "‰") {
-		@Override public Float set(Float newValue) {
+		@Override public void setOption(Float newValue) {
 			GalacticCouncil.PCT_REQUIRED = newValue;
-			return super.set(newValue);
 		}
 	};
 	default float selectedCounciRequiredPct()	{ return counciRequiredPct.get(); }
 
 	ParamInteger eventsStartTurn	= new ParamInteger(MOD_UI, "EVENTS_START_TURN"
 			, RandomEvents.START_TURN, 1, null, 1, 5, 20) {
-		@Override public Integer set(Integer newValue) {
+		@Override public void setOption(Integer newValue) {
 			RandomEvents.START_TURN = newValue;
-			return super.set(newValue);
 		}
 	};
 	default int selectedEventsStartTurn()		{ return eventsStartTurn.get(); }

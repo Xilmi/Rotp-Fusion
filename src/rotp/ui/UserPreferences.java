@@ -27,7 +27,7 @@ import java.io.PrintWriter;
 
 import rotp.Rotp;
 import rotp.model.game.GameSession;
-import rotp.model.game.ModOptions;
+import rotp.model.game.IModOptions;
 import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.ParamString;
 import rotp.util.LanguageManager;
@@ -312,7 +312,7 @@ public class UserPreferences {
 			out.println();
 			out.println("===== MOD Global GUI Settings =====");
 			out.println();
-			for (InterfaceParam param : ModOptions.globalOptions) {
+			for (InterfaceParam param : IModOptions.globalOptions) {
 				if (param != null)
 					out.println(keyFormat(param.getCfgLabel()) + param.getCfgValue());
 			}
@@ -373,7 +373,7 @@ public class UserPreferences {
 			case "LANGUAGE": selectLanguage(val); return;
 			default:
 			// BR: Global Mod GUI
-				for (InterfaceParam param : ModOptions.globalOptions) {
+				for (InterfaceParam param : IModOptions.globalOptions) {
 					if (param != null 
 							&& key.equalsIgnoreCase(param.getCfgLabel())) {
 						if (param instanceof ParamString)

@@ -20,24 +20,24 @@ import static rotp.model.empires.CustomRaceDefinitions.fileToAlienRace;
 import static rotp.model.empires.CustomRaceDefinitions.getAllowedAlienRaces;
 import static rotp.model.empires.CustomRaceDefinitions.getBaseRaceList;
 import static rotp.model.game.BaseOptionsTools.BASE_UI;
-import static rotp.model.game.FactoryOptions.dynStarsPerEmpire;
+import static rotp.model.game.IPreGameOptions.dynStarsPerEmpire;
 import static rotp.model.game.IGameOptions.OPPONENT_AI_HYBRID;
-import static rotp.model.game.ModOptions.aliensNumber;
-import static rotp.model.game.ModOptions.bitmapGalaxyLastFolder;
-import static rotp.model.game.ModOptions.difficultySelection;
-import static rotp.model.game.ModOptions.galaxyRandSource;
-import static rotp.model.game.ModOptions.globalCROptions;
-import static rotp.model.game.ModOptions.optionsGalaxy;
-import static rotp.model.game.ModOptions.shapeOption1;
-import static rotp.model.game.ModOptions.shapeOption2;
-import static rotp.model.game.ModOptions.shapeOption3;
-import static rotp.model.game.ModOptions.shapeSelection;
-import static rotp.model.game.ModOptions.showNewRaces;
-import static rotp.model.game.ModOptions.sizeSelection;
-import static rotp.model.game.ModOptions.useSelectableAbilities;
-import static rotp.model.game.RemnantOptions.compactOptionOnly;
-import static rotp.model.game.RemnantOptions.galaxyPreviewColorStarsSize;
-import static rotp.model.game.RemnantOptions.minListSizePopUp;
+import static rotp.model.game.IModOptions.aliensNumber;
+import static rotp.model.game.IModOptions.bitmapGalaxyLastFolder;
+import static rotp.model.game.IModOptions.difficultySelection;
+import static rotp.model.game.IModOptions.galaxyRandSource;
+import static rotp.model.game.IModOptions.globalCROptions;
+import static rotp.model.game.IModOptions.optionsGalaxy;
+import static rotp.model.game.IModOptions.shapeOption1;
+import static rotp.model.game.IModOptions.shapeOption2;
+import static rotp.model.game.IModOptions.shapeOption3;
+import static rotp.model.game.IModOptions.shapeSelection;
+import static rotp.model.game.IModOptions.showNewRaces;
+import static rotp.model.game.IModOptions.sizeSelection;
+import static rotp.model.game.IModOptions.useSelectableAbilities;
+import static rotp.model.game.IRemnantOptions.compactOptionOnly;
+import static rotp.model.game.IRemnantOptions.galaxyPreviewColorStarsSize;
+import static rotp.model.game.IRemnantOptions.minListSizePopUp;
 import static rotp.ui.UserPreferences.GALAXY_TEXT_FILE;
 import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
 import static rotp.ui.util.InterfaceParam.LABEL_DESCRIPTION;
@@ -103,7 +103,7 @@ import rotp.model.empires.Race;
 import rotp.model.galaxy.GalaxyFactory.GalaxyCopy;
 import rotp.model.galaxy.GalaxyShape;
 import rotp.model.galaxy.GalaxyShape.EmpireSystem;
-import rotp.model.game.GamePlayOptions;
+import rotp.model.game.IInGameOptions;
 import rotp.model.game.GameSession;
 import rotp.model.game.IGameOptions;
 import rotp.ui.NoticeMessage;
@@ -150,8 +150,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			BASE_UI, "OPPONENT_AI",
 			IGameOptions.globalAIset().getAliens(),
 			OPPONENT_AI_HYBRID) {
-		@Override public String	get()	{
-			return newGameOptions().selectedOpponentAIOption();
+		@Override public String	getOptionValue(IGameOptions options)	{
+			return options.selectedOpponentAIOption();
 		}
 		@Override public String	guideValue()	{ return langLabel(get()); }
 	};
@@ -159,15 +159,15 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			BASE_UI, "SPECIFIC_AI",
 			IGameOptions.specificAIset().getAliens(),
 			OPPONENT_AI_HYBRID) {
-		@Override public String	get()	{
-			return newGameOptions().specificOpponentAIOption(mouseBoxIndex()+1);
+		@Override public String	getOptionValue(IGameOptions options)	{
+			return options.specificOpponentAIOption(mouseBoxIndex()+1);
 		}
 		@Override public String	guideValue()	{ return langLabel(get()); }
 	};
 	private final ParamList specificOpponent	= new ParamList( // For Guide
 			BASE_UI, "SPECIFIC_OPPONENT", IGameOptions.getAllRaceOptions(), opponentRandom) {
-		@Override public String	get()	{
-			String val = newGameOptions().selectedOpponentRace(mouseBoxIndex());
+		@Override public String	getOptionValue(IGameOptions options)	{
+			String val = options.selectedOpponentRace(mouseBoxIndex());
 			if (val == null)
 				return opponentRandom;
 			return val;
@@ -218,7 +218,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
     private final ParamList globalAbilities		= new ParamList( // For Guide
 			BASE_UI, "GLOBAL_ABILITY", globalAbilitiesList,
 			SpecificCROption.BASE_RACE.value)	{
-		@Override public String	get()			{ return globalCROptions.get(); }
+		@Override public String	getOptionValue(IGameOptions options) {
+			return globalCROptions.get();
+		}
 		@Override public String	guideValue()	{ return text(get()); }
 		@Override public String getRowGuide(int id)	{
 			String key  = getGuiValue(id);
@@ -241,8 +243,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private final ParamList specificAbilities	= new ParamList( // For Guide
 			BASE_UI, "SPECIFIC_ABILITY", specificAbilitiesList,
 			SpecificCROption.defaultSpecificValue().value) {
-		@Override public String	get()			{
-			return newGameOptions().specificOpponentCROption(mouseBoxIndex()+1);
+		@Override public String	getOptionValue(IGameOptions options)	{
+			return options.specificOpponentCROption(mouseBoxIndex()+1);
 		}
 		@Override public String	guideValue()	{ return text(get()); }
 		@Override public String getRowGuide(int id)	{
@@ -1343,7 +1345,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		// modnar: add custom difficulty level option, set in Remnants.cfg
 		// append this custom difficulty percentage to diffLbl if selected
 		if (diffLbl.equals("Custom")) {
-			diffLbl = diffLbl + " (" + Integer.toString(GamePlayOptions.customDifficulty.get()) + "%)";
+			diffLbl = diffLbl + " (" + Integer.toString(IInGameOptions.customDifficulty.get()) + "%)";
 		} else {
 			diffLbl = diffLbl + " (" + Integer.toString(Math.round(100 * newGameOptions().aiProductionModifier())) + "%)";
 		}
