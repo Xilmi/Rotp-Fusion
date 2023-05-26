@@ -59,6 +59,7 @@ Later:
   - Cleaned options call and initialisation.
   - Renamed some method more meaningfully.
 - Removed some newly useless method parameters.
+- Fixed Mac Crash on Governor new spinners Fix (Blocking useless constraint)
 
 2023.05.24 (BR)
 - Mac Crash on Governor new spinners Fix (Smooth Tentative)

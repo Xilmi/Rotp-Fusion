@@ -41,6 +41,7 @@ public interface InterfaceParam extends InterfaceOptions{
 	public default void toggle(MouseEvent e, int p, BaseModPanel frame) {}
 	// State
 	public default boolean	isDuplicate()			{ return false; }
+	public default boolean	isCfgFile()				{ return false; }
 	public default boolean	isTitle()				{ return false; }
 	public default boolean	isSubMenu()				{ return false; }
 	public default boolean	isDefaultValue()		{ return false; }

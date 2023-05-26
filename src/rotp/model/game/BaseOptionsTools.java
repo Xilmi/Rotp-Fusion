@@ -52,30 +52,6 @@ public interface BaseOptionsTools {
 				return "Unknown Options";
 		}
 	}
-//	/**
-//	 * Update the listed options's tool Links with the current options
-//	 * @param paramList
-//	 */
-//	default void updateOptionsLinks(LinkedList<InterfaceParam> paramList) {
-//		IGameOptions opts = opts();
-//		for(InterfaceParam param : paramList)
-//			if (param != null) {
-//				param.setOptionLinks(opts);
-//			}
-//	}
-//	/**
-//	 * Update the listed options's tool with the current options
-//	 * @param paramList
-//	 */
-//	default void updateOptionsTools(LinkedList<InterfaceParam> paramList) {
-// 		IGameOptions opts = opts();
-//// 		System.out.println("----- updateOptionsTools(): " + opts().dynOpts().hashCode());		
-//		for(InterfaceParam param : paramList)
-//			if (param != null) {
-//				param.setOptionLinks(opts); // TODO BR: Maybe Remove! probably not
-//				param.setOptionTools();
-//			}
-//	}
 
 	ParamTitle headerSpacer = new ParamTitle("SPACER");
 	

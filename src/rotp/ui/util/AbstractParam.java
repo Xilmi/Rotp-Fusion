@@ -44,6 +44,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	private T ctrlInc		= null;
 	private T shiftCtrlInc	= null;
 	private boolean isDuplicate	= false;
+	private boolean isCfgFile	= false;
 
 	// ========== constructors ==========
 	//
@@ -174,6 +175,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	@Override public String guideDefaultValue()	{ return defaultValue.toString(); }
 	@Override public boolean isDefaultValue()	{ return defaultValue.equals(get()); }
 	@Override public boolean isDuplicate()		{ return isDuplicate; }
+	@Override public boolean isCfgFile()		{ return isCfgFile; }
 	@Override public void setFromDefault()		{ set(defaultValue()); }
 	@Override public void toggle(MouseEvent e, MouseWheelEvent w, BaseModPanel frame) {
 		if (e == null)
@@ -222,7 +224,8 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	//
 	// ========== Protected Methods ==========
 	//
-	protected void isDuplicate(boolean newValue) { isDuplicate = newValue ; }
+	protected void isDuplicate(boolean is)	{ isDuplicate = is ; }
+	protected void isCfgFile(boolean is)	{ isCfgFile = is ; }
 	protected String descriptionId()		{ return getLangLabel() + LABEL_DESCRIPTION; }
 	protected T getInc(InputEvent e)		{
 		if (e.isShiftDown())
