@@ -11,9 +11,10 @@ import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamTech;
+import rotp.ui.util.ParamTitle;
 import rotp.ui.util.RandomAlienRaces;
 
-public interface IPreGameOptions extends BaseOptionsTools {
+public interface IPreGameOptions extends IAdvOptions, IRemnantOptions {
 
 	// ========================================================================
 	// Factory options
@@ -125,5 +126,50 @@ public interface IPreGameOptions extends BaseOptionsTools {
 			null,
 			restartChangesPlayerAI, restartChangesAliensAI, restartAppliesSettings, restartChangesPlayerRace
 			));
+	LinkedList<InterfaceParam> preGameOptions	= new LinkedList<>();
+	LinkedList<LinkedList<InterfaceParam>> preGameOptionsMap = preGameOptionsMap();
 
+	static LinkedList<LinkedList<InterfaceParam>> preGameOptionsMap()	{
+		LinkedList<LinkedList<InterfaceParam>> map = new LinkedList<>();
+		map.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("START_GALAXY_OPTIONS"),
+				galaxyAge, starDensity, nebulae, maximizeSpacing,
+				spacingLimit, minStarsPerEmpire, prefStarsPerEmpire, dynStarsPerEmpire,
+
+				headerSpacer,
+				new ParamTitle("START_PLANET_OPTIONS"),
+				planetQuality, minDistArtifactPlanet
+				)));
+		map.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("START_EMPIRE_OPTIONS"),
+				artifactsHomeworld, fertileHomeworld, richHomeworld, ultraRichHomeworld,
+				companionWorlds, battleScout, randomTechStart, randomizeAI
+				)));
+		map.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("START_TECH_CONTROL"),
+				techIrradiated, techCloaking, techStargate, techHyperspace,
+				techIndustry2, techThorium, techTransport,
+
+				headerSpacer,
+				new ParamTitle("START_RANDOM_ALIENS"),
+				randomAlienRacesTargetMax, randomAlienRacesTargetMin, randomAlienRaces,
+				randomAlienRacesMax, randomAlienRacesMin, randomAlienRacesSmoothEdges
+				)));
+		map.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("RESTART_OPTIONS"),
+				restartChangesPlayerRace, restartChangesPlayerAI,
+				restartChangesAliensAI, restartAppliesSettings,
+
+				headerSpacer,
+				new ParamTitle("MENU_OPTIONS"),
+				useFusionFont, compactOptionOnly
+				)));
+		for (LinkedList<InterfaceParam> list : map) {
+			for (InterfaceParam param : list) {
+				if (param != null && !param.isTitle())
+					preGameOptions.add(param);
+			}
+		}
+		return map;
+	};
 }

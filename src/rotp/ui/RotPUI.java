@@ -171,8 +171,17 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     private static PrintWriter debugFile = null;
 
     private static int currentOptions = IGameOptions.SETUP_ID;
+    private	static int optionVersion = 0;
 
-    public static void currentOptions(int id)	{ currentOptions = id;}
+    public static int optionVersion()	{ return optionVersion;}
+    public static void nextVersion()	{
+    	optionVersion += 1;
+    	System.out.println("Next optionVersion: " + optionVersion);
+    }
+    public static void currentOptions(int id)	{
+    	currentOptions = id;
+    	nextVersion();
+    }
     public static IGameOptions currentOptions()	{
 		if (currentOptions == IGameOptions.GAME_ID)
 			return GameSession.instance().options();

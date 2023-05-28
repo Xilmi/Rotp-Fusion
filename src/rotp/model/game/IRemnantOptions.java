@@ -1,6 +1,6 @@
 package rotp.model.game;
 
-import static rotp.model.game.BaseOptionsTools.MOD_UI;
+import static rotp.model.game.IBaseOptsTools.MOD_UI;
 
 import java.util.Arrays;
 import java.util.LinkedList;

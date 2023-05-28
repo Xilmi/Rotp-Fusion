@@ -21,8 +21,6 @@ import java.io.Serializable;
 import rotp.model.empires.CustomRaceDefinitions;
 import rotp.model.empires.Race;
 import rotp.model.game.DynOptions;
-import rotp.model.game.DynamicOptions;
-import rotp.model.game.IGameOptions;
 
 public class ParamCR extends ParamObject {
 
@@ -38,29 +36,32 @@ public class ParamCR extends ParamObject {
 	// ===== Overriders =====
 	//
 	@Override public Serializable defaultValue() {
+		System.out.println("ParamCR defaultValue() {"); // TODO BR: REMOVE
 		return CustomRaceDefinitions.getDefaultOptions();
 	}
-	@Override public Serializable getOptionValue(IGameOptions options) {
-		if (super.get() == null)
-			return CustomRaceDefinitions.getDefaultOptions();
-		return super.get();
-	}
-	@Override public void updateOptionTool(DynamicOptions options) {
-		System.out.println("ParamCR.setOptionsTools");
-		if (options != null)
-			set((Serializable) options.getObject(getLangLabel(), creationValue()));
-	}
-	@Override public void updateOption(DynamicOptions options) {
-		System.out.println("ParamCR.setOptions");
-		if (options != null)
-			options.setObject(getLangLabel(), get());
-	}
+//	@Override public Serializable getOptionValue(IGameOptions options) {
+//		if (super.get() == null)
+//			return CustomRaceDefinitions.getDefaultOptions();
+//		return super.get();
+//	}
+//	@Override public void updateOptionTool(DynamicOptions options) {
+//		System.out.println("ParamCR.setOptionsTools");
+//		if (options != null)
+//			set((Serializable) options.getObject(getLangLabel(), creationValue()));
+//	}
+//	@Override public void updateOption(DynamicOptions options) {
+//		System.out.println("ParamCR.setOptions");
+//		if (options != null)
+//			options.setObject(getLangLabel(), get());
+//	}
 	// ===== Other Methods =====
 	//
 	public Race getRace() {
-		return getCustomRace().getRace();
+		Race r = getCustomRace().getRace();
+		System.out.println("ParamCR getRace(): " + r.name()); // TODO BR: REMOVE
+		return r;
 	}
-	public CustomRaceDefinitions getCustomRace() {
+	private CustomRaceDefinitions getCustomRace() {
 		return new CustomRaceDefinitions((DynOptions) get());
 	}
 }

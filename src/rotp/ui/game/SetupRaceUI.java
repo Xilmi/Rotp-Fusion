@@ -120,6 +120,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 	@Override protected void singleInit() { paramList = optionsRace; }
     @Override public void init() {
     	super.init();
+    	EditCustomRaceUI.updatePlayerCustomRace();
         leaderName.setFont(narrowFont(20));
         // homeWorld.setFont(narrowFont(20));
         setHomeWorldFont(); // BR: MonoSpaced font for Galaxy

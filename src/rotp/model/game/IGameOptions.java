@@ -16,7 +16,6 @@
 package rotp.model.game;
 
 import java.awt.Color;
-import java.util.LinkedList;
 import java.util.List;
 
 import rotp.model.ai.AIEntry;
@@ -808,37 +807,10 @@ public interface IGameOptions extends IModOptions {
             default: return 1.0f;
         }
     }
-    public static List<String> getNewRacesOnOffList() {
+    default List<String> getNewRacesOnOffList() {
 		if (showNewRaces.get()) {
-			return getAllRaceOptions();
+			return allRaceOptions();
 		}
-		return getBaseRaceOptions();
+		return baseRaceOptions();
     }
-    // BR: Made static method option
-    static LinkedList<String> getBaseRaceOptions() {
-    	LinkedList<String> list = new LinkedList<>();
-        list.add("RACE_HUMAN");
-        list.add("RACE_ALKARI");
-        list.add("RACE_SILICOID");
-        list.add("RACE_MRRSHAN");
-        list.add("RACE_KLACKON");
-        list.add("RACE_MEKLAR");
-        list.add("RACE_PSILON");
-        list.add("RACE_DARLOK");
-        list.add("RACE_SAKKRA");
-        list.add("RACE_BULRATHI");
-        return list;
-    }
-    default LinkedList<String> baseRaceOptions() { return getBaseRaceOptions(); } 
-    static LinkedList<String> getAllRaceOptions() {
-    	LinkedList<String> list = getBaseRaceOptions();
-        list.add("RACE_NEOHUMAN");   // modnar: add races
-		list.add("RACE_MONOCLE");    // modnar: add races
-		list.add("RACE_JACKTRADES"); // modnar: add races
-		list.add("RACE_EARLYGAME");  // modnar: add races
-		list.add("RACE_WARDEMON");   // modnar: add races
-        list.add("RACE_GEARHEAD");   // modnar: add races
-        return list;
-    }
-    default LinkedList<String> allRaceOptions() { return getAllRaceOptions(); } 
 }

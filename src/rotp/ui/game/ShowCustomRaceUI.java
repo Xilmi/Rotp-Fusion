@@ -444,6 +444,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	//
 	@Override protected void init() {
 		super.init();
+		System.out.println("xxCustomRaceUI init() {"); // TODO BR: REMOVE
 		for (SettingBase<?> setting : commonList) {
 			if (setting.isBullet()) {
 				setting.settingText().displayText(setting.guiSettingDisplayStr()); // The setting

@@ -121,17 +121,17 @@ public class GovernorOptions implements Serializable, IGovOptions {
     public boolean	refreshRequested()	{ return callForRefresh; }
     public boolean	resetRequested()	{ return callForReset; }
     
-    public boolean isLocalUpdate() {
+    public boolean isLocalUpdate() {// TODO BR: REMOVE 
     	if (localUpdate) {
     		localUpdate = false;
     		return true;
     	}
     	return false;
     }
-    public void save() { // update Quietly
+    public void save() { // update Quietly // TODO BR: REMOVE all saves
     	localUpdate = true;
-    	IGameOptions opts = GameSession.instance().options();
-    	opts.writeModSettingsToOptions(governorOptions, false);
+//    	IGameOptions opts = GameSession.instance().options();
+//    	opts.writeModSettingsToOptions(governorOptions, false);
 //    	MOO1GameOptions.writeModSettingsToOptions(
 //    			(MOO1GameOptions) GameSession.instance().options(), GOVERNOR_GUI_ID, false);
     }

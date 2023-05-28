@@ -26,7 +26,6 @@ import static rotp.util.Base.lineSplit;
 
 import java.util.EnumMap;
 
-import rotp.model.game.IGameOptions;
 import rotp.util.ModifierKeysState;
 
 
@@ -111,5 +110,4 @@ public class ParamButtonHelp implements InterfaceParam {
 	@Override public String getToolTip()	{ return realLangLabel(getKey() + LABEL_DESCRIPTION); }
 
 	@Override public void updateOptionTool()	{}
-	@Override public void updateOption()		{}
 }

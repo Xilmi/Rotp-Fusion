@@ -18,9 +18,13 @@ package rotp.model.empires;
 
 import static rotp.model.empires.Race.crEmpireNameRandom;
 import static rotp.model.game.DynOptions.loadOptions;
-import static rotp.model.game.IGameOptions.getBaseRaceOptions;
-import static rotp.model.game.IModOptions.playerCustomRace;
-import static rotp.model.game.IPreGameOptions.*;
+import static rotp.model.game.IGameOptions.defaultRace;
+import static rotp.model.game.IGameOptions.randomAlienRaces;
+import static rotp.model.game.IGameOptions.randomAlienRacesMax;
+import static rotp.model.game.IGameOptions.randomAlienRacesMin;
+import static rotp.model.game.IGameOptions.randomAlienRacesSmoothEdges;
+import static rotp.model.game.IGameOptions.randomAlienRacesTargetMax;
+import static rotp.model.game.IGameOptions.randomAlienRacesTargetMin;
 import static rotp.ui.util.PlayerShipSet.DISPLAY_RACE_SET;
 import static rotp.ui.util.SettingBase.CostFormula.DIFFERENCE;
 import static rotp.ui.util.SettingBase.CostFormula.NORMALIZED;
@@ -52,7 +56,7 @@ public class CustomRaceDefinitions  {
 	public	static final String ROOT	= "CUSTOM_RACE_";
 	private	static final String PLANET	= "PLANET_";
 	private	static final String EXT		= ".race";
-	private static final String baseRace = getBaseRaceOptions().getFirst();
+	private static final String baseRace = defaultRace;
 	private	static final String RANDOMIZED_RACE_KEY	= "RANDOMIZED_RACE";
 	public	static final String RANDOM_RACE_KEY		= "RANDOM_RACE_KEY";
 	public	static final String CUSTOM_RACE_KEY		= "CUSTOM_RACE_KEY";
@@ -130,7 +134,7 @@ public class CustomRaceDefinitions  {
 			return getRandomAlienRace();
 		}
 		if (key.equalsIgnoreCase(CUSTOM_RACE_KEY)) { // Player Custom
-			DynOptions opt = (DynOptions) playerCustomRace.get();
+			DynOptions opt = (DynOptions) IGameOptions.playerCustomRace.get();
 			return new CustomRaceDefinitions(opt).getRace();
 		}
 		if (options == null) // load from file
@@ -143,7 +147,7 @@ public class CustomRaceDefinitions  {
 			return getRandomAlienRace();
 		}
 		if (raceKey.equalsIgnoreCase(CUSTOM_RACE_KEY)) {
-			DynOptions opt = (DynOptions) playerCustomRace.get();
+			DynOptions opt = (DynOptions) IGameOptions.playerCustomRace.get();
 			return new CustomRaceDefinitions(opt).getRace();
 		}
 		// load from file
@@ -513,7 +517,7 @@ public class CustomRaceDefinitions  {
 			clearLists();
 			clearOptionsText();
 			// Add Current race
-			add((DynOptions) playerCustomRace.get()); // TODO BR: Finalize Options
+			add((DynOptions) IGameOptions.playerCustomRace.get()); // TODO BR: Finalize Options
 			defaultIndex(0);
 			// Add existing files
 			File[] fileList = loadListing();
@@ -522,7 +526,7 @@ public class CustomRaceDefinitions  {
 					add(loadOptions(file));
 
 			// Add Game races
-			for (String raceKey : IGameOptions.getAllRaceOptions())
+			for (String raceKey : IGameOptions.allRaceOptions)
 				add(raceKey);
 
 			initOptionsText();
@@ -600,7 +604,7 @@ public class CustomRaceDefinitions  {
 				return;
 			}
 			if (index() == 0) {
-				setSettingTools((DynOptions) playerCustomRace.get());
+				setSettingTools((DynOptions) IGameOptions.playerCustomRace.get());
 				newValue = true;
 				return;
 			}

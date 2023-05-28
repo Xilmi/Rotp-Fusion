@@ -214,10 +214,10 @@ public class SettingFloat extends SettingBase<Float> {
 			return 0f;;
 		return settingCost(settingValue());
 	}
-	@Override public void updateOption() {
-		if (!isSpacer() && dynOpts() != null)
-			dynOpts().setFloat(getLangLabel(), settingValue());
-	}
+//	@Override public void updateOption() {
+//		if (!isSpacer() && dynOpts() != null)
+//			dynOpts().setFloat(getLangLabel(), settingValue());
+//	}
 	@Override public void updateOptionTool() {
 		if (!isSpacer() && dynOpts() != null)
 			set(dynOpts().getFloat(getLangLabel(), defaultValue()));

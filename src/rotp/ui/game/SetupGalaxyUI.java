@@ -19,7 +19,7 @@ import static rotp.model.empires.CustomRaceDefinitions.BASE_RACE_MARKER;
 import static rotp.model.empires.CustomRaceDefinitions.fileToAlienRace;
 import static rotp.model.empires.CustomRaceDefinitions.getAllowedAlienRaces;
 import static rotp.model.empires.CustomRaceDefinitions.getBaseRaceList;
-import static rotp.model.game.BaseOptionsTools.BASE_UI;
+import static rotp.model.game.IBaseOptsTools.BASE_UI;
 import static rotp.model.game.IPreGameOptions.dynStarsPerEmpire;
 import static rotp.model.game.IGameOptions.OPPONENT_AI_HYBRID;
 import static rotp.model.game.IModOptions.aliensNumber;
@@ -165,7 +165,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		@Override public String	guideValue()	{ return langLabel(get()); }
 	};
 	private final ParamList specificOpponent	= new ParamList( // For Guide
-			BASE_UI, "SPECIFIC_OPPONENT", IGameOptions.getAllRaceOptions(), opponentRandom) {
+			BASE_UI, "SPECIFIC_OPPONENT", guiOptions().allRaceOptions(), opponentRandom) {
 		@Override public String	getOptionValue(IGameOptions options)	{
 			String val = options.selectedOpponentRace(mouseBoxIndex());
 			if (val == null)
@@ -355,7 +355,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
     private void initOpponentGuide() {
 		opponentRandom = text(OPPONENT_RANDOM);
 		LinkedList<String> list = new LinkedList<>();
-		list.addAll(IGameOptions.getNewRacesOnOffList());
+		list.addAll(guiOptions().getNewRacesOnOffList());
 		list.add(opponentRandom); // For Random (???)
 		specificOpponent.reInit(list);
 		specificOpponent.defaultValue(opponentRandom);
@@ -976,7 +976,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				specificAI);				// help parameter
 		String input = (String) dialog.showDialog();
 		ModifierKeysState.reset();
-	    repaintButtons();
+//		repaintButtons();
+		repaint();
 	    if (input == null)
 	    	return initialChoice;
 
@@ -1004,7 +1005,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 
 		String input = (String) dialog.showDialog();
 		ModifierKeysState.reset();
-	    repaintButtons();
+//		repaintButtons();
+		repaint();
 	    if (input == null)
 	    	return initialChoice;
 
@@ -1028,7 +1030,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 
 		String input = (String) dialog.showDialog();
 		ModifierKeysState.reset();
-	    repaintButtons();
+//		repaintButtons();
+		repaint();
 	    if (input == null)
 	    	return initialChoice;
 	    newGameOptions().specificOpponentCROption(input, i);
@@ -1052,7 +1055,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		String input = (String) dialog.showDialog();
 		ModifierKeysState.reset();
 		ModifierKeysState.reset();
-		repaintButtons();
+//		repaintButtons();
+		repaint();
 	    if (input == null)
 	    	return initialChoice;
 	    globalCROptions.set(input);
@@ -2061,7 +2065,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		switch (ModifierKeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Restore
-			guiOptions().loadAndUpdateFromFileName(LIVE_OPTIONS_FILE);	
+			guiOptions().updateFromFile(LIVE_OPTIONS_FILE);	
 			break;
 		default:
 			guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);

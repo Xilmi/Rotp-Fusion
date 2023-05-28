@@ -69,6 +69,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	private EditCustomRaceUI() {}
 	public static EditCustomRaceUI instance() { return instance.init0(); }
 	public EditCustomRaceUI init0() {
+		System.out.println("EditCustomRaceUI init0() {"); // TODO BR: REMOVE
 		if (initialized)
 			return this;
 		initialized = true;
@@ -98,6 +99,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		return this;
 	}
 	private void reloadRaceList() {
+		System.out.println("reloadRaceList() {"); // TODO BR: REMOVE
 		raceList.reload();
 		int paramIdx	= raceList.index();
 		int bulletStart	= raceList.bulletStart();
@@ -145,16 +147,16 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 //	    cr.setRace(guiOptions().baseRaceOptions().getFirst()); // TODO BR: ???
         for (InterfaceOptions param : commonList)
 			param.updateOptionTool(source.dynOpts());
-        guiOptions().playerIsCustom().updateOptionTool();
-		guiOptions().playerCustomRace().updateOptionTool();
+//        guiOptions().playerIsCustom().updateOptionTool();
+//		guiOptions().playerCustomRace().updateOptionTool();
 		writeLocalOptions(guiOptions());
-		init();
+		//init();
 	}
 	public void writeLocalOptions(IGameOptions destination) {
 		for (InterfaceOptions param : commonList)
 			param.updateOption(destination.dynOpts());
-		guiOptions().playerIsCustom().updateOption();
-		guiOptions().playerCustomRace().updateOption();
+//		guiOptions().playerIsCustom().updateOption();
+//		guiOptions().playerCustomRace().updateOption();
 	}
 	private void setToLocalDefault() {
 		for (InterfaceOptions param : commonList)
@@ -232,7 +234,6 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	}
 	// ========== Overriders ==========
 	//
-//	@Override protected IGameOptions guiOptions() { return newGameOptions(); }
 	@Override protected void refreshGui() {
 		System.out.println("===== refreshGui()");
 		System.out.println("playerCustomRace: Race Name = " +
@@ -245,7 +246,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		buttonClick();
 		switch (ModifierKeysState.get()) {
 		case CTRL: // restoreGlobalKey
-			guiOptions().loadAndUpdateFromFileName(LIVE_OPTIONS_FILE);		
+			guiOptions().updateFromFile(LIVE_OPTIONS_FILE);		
 			break;
 		case CTRL_SHIFT: // restoreLocalKey
 			guiOptions().updateFromFile(LIVE_OPTIONS_FILE, localOptions());		

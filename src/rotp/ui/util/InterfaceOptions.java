@@ -22,10 +22,9 @@ import rotp.model.game.IGameOptions;
 public interface InterfaceOptions {
 	/**
 	 * Set the option tools value from specific options. 
-	 * @param options
+	 * Used when switching between Game and settings
 	 */
 	public void updateOptionTool();
-	public void updateOption();
 	// For settings only
 	public default void updateOptionTool(DynamicOptions options) {};
 	// For settings only

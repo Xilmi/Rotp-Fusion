@@ -110,10 +110,10 @@ class GovernorOptionsPanel extends javax.swing.JPanel{
 	// ========== Public Method and Overrider ==========
 	//
 	private void optionUpdated() {
-		if (options().isLocalUpdate()) {
-			//System.out.println("===== optionLoad Blocked =====");
-			return;
-		}
+//		if (options().isLocalUpdate()) {
+//			//System.out.println("===== optionLoad Blocked =====");
+//			return;
+//		}
 		//System.out.println("===== optionLoaded =====");
 		loadDisplayValues();
 		loadValues();

@@ -17,6 +17,7 @@
 package rotp.ui.util;
 
 import static rotp.model.game.IGovOptions.NOT_GOVERNOR;
+import static rotp.ui.RotPUI.optionVersion;
 import static rotp.ui.util.InterfaceParam.langLabel;
 import static rotp.util.Base.textSubs;
 
@@ -26,7 +27,6 @@ import java.awt.event.MouseWheelEvent;
 
 import javax.swing.SwingUtilities;
 
-import rotp.model.game.DynOptions;
 import rotp.model.game.DynamicOptions;
 import rotp.model.game.GovernorOptions;
 import rotp.model.game.IGameOptions;
@@ -46,9 +46,10 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	private T shiftInc		= null;
 	private T ctrlInc		= null;
 	private T shiftCtrlInc	= null;
+	private int	version		= 0;
+	private int	isGovernor	= NOT_GOVERNOR;
 	private boolean isDuplicate	= false;
 	private boolean isCfgFile	= false;
-	private int		isGovernor	= NOT_GOVERNOR;
 
 	// ========== constructors ==========
 	//
@@ -96,14 +97,12 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 		this.shiftCtrlInc = shiftCtrlInc;
 	}
 	// ===== For duplicates to be overridden =====
-	public void setOption(T option) {}
 	// For internal use only! Do not call from outside AbstracParam
+	protected void setOption(T value) { setOptionValue(opts(), value); }
 	protected abstract T getOptionValue(IGameOptions options);
 	protected void setOptionValue(IGameOptions options, T value) {
 		if (isDuplicate()) { // TODO BR: For compatibility
-//			set(getFromOption());
 			System.err.println("getFromOption() not updated to getOptionValue: " + name);
-//			value = getFromOption(); // TODO BR:
 		}		
 	}
 	// ========== Public Interfaces ==========
@@ -117,28 +116,22 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	@Override public String toString() {
 		return getCfgLabel() + " = " + getCfgValue();
 	}
-	@Override public void updateOption() { // TODO BR: will be removed
-		if (dynOpts() != null) {
-			T oldVal = getOptionValue(opts());
-			T newVal = get();
-			if ( !( oldVal.toString().equals(newVal.toString()) ) ) {
-				if(!(oldVal instanceof DynOptions))
-					System.err.println("AParam.updateOption(): " + name + " : " + oldVal + " != " + newVal);
-			}
-			setOptionValue(opts(), get());
-		} 
-		else {
-			System.err.println("AParam.updateOption(): [dynOpts() == null] " + name);
-		}
-	}
+//	@Override public void updateOption() { // TODO BR: will be removed
+//		if (dynOpts() != null) {
+//			T oldVal = getOptionValue(opts());
+//			T newVal = get();
+//			if ( !( oldVal.toString().equals(newVal.toString()) ) ) {
+//				if(!(oldVal instanceof DynOptions))
+//					System.err.println("AParam.updateOption(): " + name + " : " + oldVal + " != " + newVal);
+//			}
+//			setOptionValue(opts(), get());
+//		} 
+//		else {
+//			System.err.println("AParam.updateOption(): [dynOpts() == null] " + name);
+//		}
+//	}
 	@Override public void updateOptionTool() {
-		if (dynOpts() != null) {
-//			value = getOptionValue(opts()); TODO BR: VAlidate
 			set( getOptionValue(opts()));
-		} 
-		else {
-			System.err.println("AParam.updateOption(): [dynOpts() == null] " + name);
-		}
 	}
 	@Override public void copyOption(IGameOptions src, IGameOptions dest) {
 		if (src == null || dest == null)
@@ -188,13 +181,15 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	//
 	protected IGameOptions   opts()		{ return RotPUI.currentOptions(); }
 	protected DynamicOptions dynOpts()	{ return opts().dynOpts(); }
+	protected T last()					{ return value; }
 	// ========== Methods to be overridden ==========
 	//
 	T value(T value) 					{ return set(value); }
 	public T defaultValue()				{ return defaultValue; }
 	public T get()						{
-		if (isDuplicate() || isCfgFile) {
+		if (version != optionVersion() || isDuplicate() || isCfgFile) {
 			value = getOptionValue(opts());
+			version = optionVersion();
 		}
 		return value;
 	}	

@@ -39,7 +39,6 @@ import javax.swing.JEditorPane;
 import javax.swing.JTextPane;
 
 import rotp.Rotp;
-import rotp.model.game.IGameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.RotPUI;
@@ -155,15 +154,15 @@ public abstract class BaseModPanel extends BasePanel
 			singleInit();
 			initialised = true;
 		}
-		ModifierKeysState.reset();
+		//ModifierKeysState.reset();
 		w = RotPUI.setupRaceUI().getWidth();
 		h = RotPUI.setupRaceUI().getHeight();
 		smallButtonMargin = s30;
 		smallButtonH	  = s30;
 	}
 	protected void close() { 
-		ModifierKeysState.reset();
 		disableGlassPane();
+		//ModifierKeysState.reset();
 	}
 
 	// ==================== Guide Button ====================
@@ -224,7 +223,7 @@ public abstract class BaseModPanel extends BasePanel
 		switch (ModifierKeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Restore
-			guiOptions().loadAndUpdateFromFileName(LIVE_OPTIONS_FILE);
+			guiOptions().updateFromFile(LIVE_OPTIONS_FILE);
 			break;
 		default: // Save
 			guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
@@ -291,7 +290,7 @@ public abstract class BaseModPanel extends BasePanel
 				refreshGui();
 				return;
 			default: // setGlobalUserKey
-				guiOptions().loadAndUpdateFromFileName(USER_OPTIONS_FILE);
+				guiOptions().updateFromFile(USER_OPTIONS_FILE);
 				refreshGui();
 				return;
 			}
@@ -352,7 +351,7 @@ public abstract class BaseModPanel extends BasePanel
 		else
 			switch (ModifierKeysState.get()) {
 			case CTRL: // restoreGlobalKey
-				guiOptions().loadAndUpdateFromFileName(LIVE_OPTIONS_FILE);		
+				guiOptions().updateFromFile(LIVE_OPTIONS_FILE);		
 				refreshGui();
 				return;
 			case CTRL_SHIFT: // restoreLocalKey
@@ -417,7 +416,7 @@ public abstract class BaseModPanel extends BasePanel
 		else
 			switch (ModifierKeysState.get()) {
 			case CTRL: // setGlobalGameKey
-				guiOptions().loadAndUpdateFromFileName(GAME_OPTIONS_FILE);
+				guiOptions().updateFromFile(GAME_OPTIONS_FILE);
 				break;
 			case CTRL_SHIFT: // setLocalGameKey
 				guiOptions().updateFromFile(GAME_OPTIONS_FILE, localOptions());
@@ -426,7 +425,7 @@ public abstract class BaseModPanel extends BasePanel
 				guiOptions().updateFromFile(LAST_OPTIONS_FILE, localOptions());
 				break;
 			default: // setGlobalLastKey
-				guiOptions().loadAndUpdateFromFileName(LAST_OPTIONS_FILE);
+				guiOptions().updateFromFile(LAST_OPTIONS_FILE);
 			}
 		refreshGui();
 	}

@@ -1382,7 +1382,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
        	for (InterfaceParam param : paramList)
        		if (param != null) {
 	       		param.setFromDefault();
-	       		param.updateOption();
+	       		// param.updateOption();
 	       	}
     }
     private void setBaseSettingsToDefault(MOO1GameOptions options,
@@ -1410,13 +1410,13 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         System.out.println("==================== loadStartupOptions() ====================");
      	ParamOptions action = menuStartup;
     	if (action.isUser())
-       		loadAndUpdateFromFileName(USER_OPTIONS_FILE);
+       		updateFromFile(USER_OPTIONS_FILE);
     	else if (action.isGame())
-       		loadAndUpdateFromFileName(GAME_OPTIONS_FILE);
+       		updateFromFile(GAME_OPTIONS_FILE);
     	else if (action.isDefault())
     		setBaseAndModSettingsToDefault();
     	else // default = action.isLast()
-    		loadAndUpdateFromFileName(LAST_OPTIONS_FILE);
+    		updateFromFile(LAST_OPTIONS_FILE);
     }
     @Override public void copyAliensAISettings(IGameOptions dest) { // BR:
     	MOO1GameOptions d = (MOO1GameOptions) dest; 	
@@ -1425,7 +1425,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         	d.specificOpponentAIOption[i] = specificOpponentAIOption[i];
     }
     // TODO BR: Will probably be removed
-    @Override public void writeModSettingsToOptions(LinkedList<InterfaceParam> paramList, boolean call) {
+    @Override public void writeModSettingsToOptions(LinkedList<InterfaceParam> paramList) {
     	if (paramList == null)
     		return;
     	boolean isAllGui = paramList == allModOptions();
@@ -1433,11 +1433,11 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	if (isAllGui || isEditRaceGui) {
 			EditCustomRaceUI.updatePlayerCustomRace(); // TODO BR: Try to Normalize (later)
     	}
-       	for (InterfaceParam param : paramList) {
-       		if (param != null) {
-    			param.updateOption();
-       		}
-       	}
+//       	for (InterfaceParam param : paramList) {
+//       		if (param != null) {
+//    			param.updateOption();
+//       		}
+//       	}
     }
 //    private void setModSettingsFromOptions() { // BR: remove later
 //    	for(InterfaceParam param : allModOptions())
@@ -1455,7 +1455,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
     @Override public void updateOptionsAndSaveToFileName(String fileName,
     						LinkedList<InterfaceParam> paramList) {
-        writeModSettingsToOptions(paramList, true);
+        writeModSettingsToOptions(paramList);
         saveOptions(this, Rotp.jarPath(), fileName);
     }
     @Override public void updateFromFile(String fileName,
@@ -1466,6 +1466,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
        	for (InterfaceParam param : paramList)
        		if (param != null)
        			param.copyOption(source, this);
+       	// EditCustomRaceUI.instance().updateCRGui(this); // TODO BR: !Validate
         source.copyBaseSettings(this, paramList);
     }
     // ========== New Options Static files management methods ==========

@@ -16,7 +16,7 @@
 
 package rotp.ui.util;
 
-import static rotp.model.game.BaseOptionsTools.*;
+import static rotp.model.game.IBaseOptsTools.*;
 
 
 public class ParamOptions extends ParamList {

@@ -32,7 +32,8 @@ Bug to fix:
 - I have noticed that whenever I capture an AI homeworld, the governor for that world is on by default.
 - Change Error messages.
 - Governor acting when it should not.
-- Custom spinner crashing on Mac.
+- random race stay random if not changed by user!
+- Governor All AI off will also disable "Allow sending population from ungoverned colonies" 
 
 Very soon:
 - Spare Xenophobes: Stop if caught too.

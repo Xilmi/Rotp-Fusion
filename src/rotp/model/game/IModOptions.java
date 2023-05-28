@@ -1,232 +1,96 @@
 package rotp.model.game;
 
-import static rotp.model.game.IGameOptions.DIFFICULTY_NORMAL;
-import static rotp.model.game.IGameOptions.SHAPE_RECTANGLE;
-import static rotp.model.game.IGameOptions.SIZE_SMALL;
-import static rotp.model.game.IGameOptions.getBaseRaceOptions;
-import static rotp.model.game.MOO1GameOptions.getGalaxyShapeOptions;
-import static rotp.model.game.MOO1GameOptions.getGalaxySizeOptions;
-import static rotp.model.game.MOO1GameOptions.getGameDifficultyOptions;
-import static rotp.ui.util.InterfaceParam.langLabel;
-
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-import rotp.Rotp;
-import rotp.ui.util.GlobalCROptions;
+import rotp.ui.RotPUI;
 import rotp.ui.util.InterfaceParam;
-import rotp.ui.util.ParamBoolean;
-import rotp.ui.util.ParamCR;
-import rotp.ui.util.ParamInteger;
-import rotp.ui.util.ParamList;
-import rotp.ui.util.ParamString;
 import rotp.ui.util.ParamTitle;
-import rotp.ui.util.PlayerShipSet;
-import rotp.ui.util.SpecificCROption;
 
 public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptions,
-							IAdvOptions, IRemnantOptions, IMainOptions, IGovOptions {
+							IRaceOptions, IGovOptions, IGalaxyOptions,  IMainOptions {
 
 	default void updateOptionsAndSaveToFileName(String fileName) {
 		updateOptionsAndSaveToFileName(fileName, allModOptions());
 	}
-	default void loadAndUpdateFromFileName(String fileName) {
-		updateFromFile(fileName, allModOptions());
-	}
-	default void setBaseAndModSettingsToDefault() {
-		updateFromDefault(allModOptions());
-	}
+	default void updateFromFile(String fileName)	{ updateFromFile(fileName, allModOptions()); }
+	default void setBaseAndModSettingsToDefault()	{ updateFromDefault(allModOptions()); }
+
 	default LinkedList<InterfaceParam> governorOptions() {
 		return rotp.model.game.GovernorOptions.governorOptions;
 	}
-	@Override default void writeModSettingsToOptions(boolean call) {
-		writeModSettingsToOptions(allModOptions(), call);
+	int id();
+	void id(int id);
+	DynOptions dynOpts();
+	IGameOptions opts();
+	
+	default void	setAsGame()				{ id(GAME_ID); }
+	default void	setAsSetup()			{ id(SETUP_ID); }
+	default void	setAsUnknown()			{ id(UNKNOWN_ID); }
+	default boolean	isGameOption()			{ return id() == GAME_ID; }
+	default boolean	isSetupOption()			{ return id() == SETUP_ID; }
+	default boolean	isUnknownOption()		{ return !isGameOption() && !isSetupOption(); }
+	/**
+	 * New options have been set:
+	 * Switch between Game and Setup, reinitialize tools
+	 */
+	default void	updateGuiOptionsId()	{ RotPUI.currentOptions(id()); }
+	
+	void loadStartupOptions();
+	void saveOptionsToFile (String fileName);
+	/**
+	 * Load the file and update the listed parameters
+	 * (Options and options' tools)
+	 * @param fileName
+	 * @param paramList
+	 */
+	void updateFromFile (String fileName, LinkedList<InterfaceParam> paramList);
+	/**
+	 * update the listed parameters From their default values
+	 * (Options and options' tools)
+	 * @param paramList
+	 */
+	void updateFromDefault (LinkedList<InterfaceParam> paramList);
+	
+
+	
+	
+	// Tools For Debug
+	default void	showOptionName()		{
+		System.out.println("Option name = " + optionName());
 	}
-
-	// ==================== Galaxy Menu addition ====================
-	//
-	ParamInteger galaxyRandSource		= new ParamInteger(MOD_UI, "GALAXY_RAND_SOURCE",
-			0, 0, Integer.MAX_VALUE, 1, 100, 10000).loop(true);
-	default int selectedGalaxyRandSource()		{ return galaxyRandSource.get(); }
-	ParamBoolean showNewRaces 			= new ParamBoolean(MOD_UI, "SHOW_NEW_RACES", false);
-	default boolean selectedShowNewRaces()		{ return showNewRaces.get(); }
-
-	GlobalCROptions globalCROptions 	= new GlobalCROptions (BASE_UI, "OPP_CR_OPTIONS",
-			SpecificCROption.BASE_RACE.value);
-	default GlobalCROptions globalCROptions()	{ return globalCROptions; }
-	default String selectedUseGlobalCROptions()	{ return globalCROptions.get(); }
-
-	ParamBoolean useSelectableAbilities	= new ParamBoolean(BASE_UI, "SELECT_CR_OPTIONS", false);
-	default boolean selectedUseSelectableAbilities()	{ return useSelectableAbilities.get(); }
-
-	ParamString  shapeOption3   		= new ParamString(BASE_UI, "SHAPE_OPTION_3", "");
-	default ParamString shapeOption3()			{ return shapeOption3; }
-	default String selectedGalaxyShapeOption3()	{ return shapeOption3.get(); }
-
-	ParamList    shapeOption2   		= new ParamList( // Duplicate Do not add the list
-			BASE_UI, "SHAPE_OPTION_2")	{
-		{ showFullGuide(true); }
-		@Override public String	getOptionValue(IGameOptions options)	{
-			return options.selectedGalaxyShapeOption2();
-		}
-		@Override public void setOptionValue(IGameOptions options, String newValue) {
-			options.selectedGalaxyShapeOption2(newValue);
-		}
-		@Override public String	headerHelp(boolean sep) {
-			return headerHelp(shapeSelection.get() + "_O2", sep); }
-		@Override public String getLangLabel(int id) {
-			String label = super.getLangLabel(id);
-			if (label != null && label.startsWith("SETUP_GALAXY_MAP_OPTION_")) {
-				if (shapeOption1.get().endsWith("0"))
-					label += "0";
-				else
-					label += "1";
-			}
-			return label;
-		}
-	};
-	ParamList    shapeOption1   		= new ParamList( // Duplicate Do not add the list
-			BASE_UI, "SHAPE_OPTION_1")	{
-		{ showFullGuide(true); }
-		@Override public String	getOptionValue(IGameOptions options)	{
-			return options.selectedGalaxyShapeOption1();
-		}
-		@Override public void setOptionValue(IGameOptions options, String newValue) {
-			options.selectedGalaxyShapeOption1(newValue);
-		}
-		@Override public String	headerHelp(boolean sep) {
-			return headerHelp(shapeSelection.get() + "_O1", sep); }
-	};
-	ParamList    shapeSelection			= new ParamList( // Duplicate Do not add the list
-			BASE_UI, "GALAXY_SHAPE", getGalaxyShapeOptions(),  SHAPE_RECTANGLE) {
-		@Override public String getOptionValue(IGameOptions options) {
-			return options.selectedGalaxyShape();
-		}
-		@Override public void setOptionValue(IGameOptions options, String newValue) {
-			options.selectedGalaxyShape(newValue);
-		}
-	};
-	ParamList    sizeSelection 			= new ParamList( // Duplicate Do not add the list
-			BASE_UI, "GALAXY_SIZE", getGalaxySizeOptions(), SIZE_SMALL) {
-		{ showFullGuide(false); }
-		@Override public String getOptionValue(IGameOptions options) {
-			return options.selectedGalaxySize();
-		}
-		@Override public void setOptionValue(IGameOptions options, String newValue) {
-			options.selectedGalaxySize(newValue);
-		}
-		@Override public String name(int id) {
-			String diffLbl = super.name(id);
-			String label   = getLangLabel(id);
-			int size = opts().numberStarSystems(label);
-			if (label.equals("SETUP_GALAXY_SIZE_DYNAMIC"))
-				diffLbl += " (Variable; now = " + size + ")";
-			else
-				diffLbl += " (" + size + ")";
-			return diffLbl;
-		}
-		@Override public String realHelp(int id) {
-			String label   = getLangLabel(id);
-			if (label.equals("SETUP_GALAXY_SIZE_DYNAMIC"))
-				return super.realHelp(id);
-			if (label.equals("SETUP_GALAXY_SIZE_MAXIMUM"))
-				return super.realHelp(id);
-			int size = opts().numberStarSystems(label);
-			if (size < 101)
-				return langLabel("SETUP_GALAXY_SIZE_MOO1_DESC");
-			if (size < 1001)
-				return langLabel("SETUP_GALAXY_SIZE_UP1000_DESC");
-			return langLabel("SETUP_GALAXY_SIZE_OVER1000_DESC");
-		}
-	};
-	ParamList    difficultySelection	= new ParamList( // Duplicate Do not add the list
-			BASE_UI, "GAME_DIFFICULTY", getGameDifficultyOptions(), DIFFICULTY_NORMAL) {
-		{ showFullGuide(false); }
-		@Override public String getOptionValue(IGameOptions options) {
-			return options.selectedGameDifficulty();
-		}
-		@Override public void setOptionValue(IGameOptions options, String newValue) {
-			options.selectedGameDifficulty(newValue);
-		}
-		@Override public String name(int id) {
-			String diffLbl = super.name(id);
-			String label   = getLangLabel(id);
-			if (label.equals("SETUP_DIFFICULTY_CUSTOM"))
-				diffLbl += " (" + Integer.toString(opts().selectedCustomDifficulty()) + "%)";
-			else {
-				float modifier = opts().aiProductionModifier(label);
-				diffLbl += " (" + Integer.toString(Math.round(100 * modifier)) + "%)";
-			}
-			return diffLbl;
-		}
-	};
-	ParamInteger aliensNumber 			= new ParamInteger( // Duplicate Do not add the list
-			BASE_UI, "ALIENS_NUMBER", 1, 0, 49, 1, 5, 20) {
-		{ isDuplicate(true); }
-		@Override public Integer getOptionValue(IGameOptions options) {
-			maxValue(options.maximumOpponentsOptions());
-			return options.selectedNumberOpponents();
-		}
-		@Override public void setOptionValue(IGameOptions options, Integer newValue) {
-			options.selectedOpponentRace(newValue, null);
-			options.selectedNumberOpponents(newValue);
-		}
-		@Override public Integer defaultValue() {
-			return opts().defaultOpponentsOptions();
-		}
-	};
-	ParamString bitmapGalaxyLastFolder = new ParamString(BASE_UI, "BITMAP_LAST_FOLDER", Rotp.jarPath());
-
-	static LinkedList<InterfaceParam> optionsGalaxy = new LinkedList<>(
-			Arrays.asList(
-					showNewRaces, globalCROptions, useSelectableAbilities, shapeOption3,
-					galaxyRandSource,
-					dynStarsPerEmpire // This one is a duplicate, but it helps readability
-					));
-	default LinkedList<InterfaceParam> optionsGalaxy()	{ return optionsGalaxy; }
-	// ==================== Race Menu addition ====================
-	//
-	PlayerShipSet playerShipSet		= new PlayerShipSet(
-			MOD_UI, "PLAYER_SHIP_SET");
-	default int selectedPlayerShipSetId()			{ return playerShipSet.realShipSetId(); }
-
-	ParamBoolean  playerIsCustom	= new ParamBoolean( BASE_UI, "BUTTON_CUSTOM_PLAYER_RACE", false);
-	default ParamBoolean playerIsCustom()			{ return playerIsCustom; }
-	default boolean selectedPlayerIsCustom()		{ return playerIsCustom.get(); }
-	default void selectedPlayerIsCustom(boolean is)	{ playerIsCustom.set(is); }
-
-	ParamCR       playerCustomRace	= new ParamCR(
-			MOD_UI, getBaseRaceOptions().getFirst());
-	default ParamCR playerCustomRace()				{
-		return playerCustomRace; }
-	default Serializable selectedPlayerCustomRace()	{ 
-		return playerCustomRace.get(); }
-	default void selectedPlayerCustomRace(Serializable race)	{
-		playerCustomRace.set(race); }
-	// Custom Race Menu
-	static LinkedList<InterfaceParam> optionsCustomRaceBase = new LinkedList<>(
-			Arrays.asList(
-					playerIsCustom, playerCustomRace
-					));
-	default LinkedList<InterfaceParam> optionsCustomRace() {
-		LinkedList<InterfaceParam> list = new LinkedList<>();
-		list.addAll(optionsCustomRaceBase);
-		return list;
+	default void	showOptionName(String header)	{
+		System.out.println(header + " Option name = " + optionName());
 	}
-	static LinkedList<InterfaceParam> optionsRace = new LinkedList<>(
-			Arrays.asList(
-					playerShipSet, playerIsCustom, playerCustomRace
-					));
-	default LinkedList<InterfaceParam> optionsRace()	{
-		LinkedList<InterfaceParam> list = new LinkedList<>();
-		list.addAll(optionsRace);
-		list.addAll(optionsCustomRaceBase);
-		return optionsRace;
+	default String	optionName()		{
+		switch (id()) {
+			case GAME_ID:
+				return "Game Options";
+			case SETUP_ID:
+				return "Setup Options";
+			default:
+				return "Unknown Options";
+		}
 	}
+	/**
+	 * TODO BR: will have to be removed
+	 * 			Use Save (String fileName) instead, the options should be up to date
+	 * Update listed options and save to file
+	 * @param fileName
+	 * @param paramList
+	 */
+	void updateOptionsAndSaveToFileName (String fileName, LinkedList<InterfaceParam> paramList);
 
-	LinkedList<InterfaceParam> editCustomRace = new LinkedList<>(); // TODO BR: Fake list
-	default LinkedList<InterfaceParam> editCustomRace()	{ return editCustomRace; }
+	/**
+	 * TODO BR: will have to be removed, the options should be up to date
+	 * updated governor options will have to "call"
+	 * @param paramList
+	 * @param call
+	 */
+	void writeModSettingsToOptions(LinkedList<InterfaceParam> paramList);
+	void copyAliensAISettings(IGameOptions dest);
+
+	
 
 	// ==================== All Parameters ====================
 	//
@@ -256,55 +120,11 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 		globalOptions.add(bitmapGalaxyLastFolder);
 		return globalOptions;
 	}
+	
+	LinkedList<InterfaceParam> inGameOptions	= new LinkedList<>();
+	LinkedList<LinkedList<InterfaceParam>> inGameOptionsMap = inGameOptionsMap(); 
 
-	LinkedList<InterfaceParam> mergedStaticOptions	= new LinkedList<>();
-	LinkedList<LinkedList<InterfaceParam>> mergedStaticOptionsMap = mergedStaticOptionsMap();
-	static LinkedList<LinkedList<InterfaceParam>> mergedStaticOptionsMap()	{
-		LinkedList<LinkedList<InterfaceParam>> map = new LinkedList<>();
-		map.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle("START_GALAXY_OPTIONS"),
-				galaxyAge, starDensity, nebulae, maximizeSpacing,
-				spacingLimit, minStarsPerEmpire, prefStarsPerEmpire, dynStarsPerEmpire,
-
-				headerSpacer,
-				new ParamTitle("START_PLANET_OPTIONS"),
-				planetQuality, minDistArtifactPlanet
-				)));
-		map.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle("START_EMPIRE_OPTIONS"),
-				artifactsHomeworld, fertileHomeworld, richHomeworld, ultraRichHomeworld,
-				companionWorlds, battleScout, randomTechStart, randomizeAI
-				)));
-		map.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle("START_TECH_CONTROL"),
-				techIrradiated, techCloaking, techStargate, techHyperspace,
-				techIndustry2, techThorium, techTransport,
-
-				headerSpacer,
-				new ParamTitle("START_RANDOM_ALIENS"),
-				randomAlienRacesTargetMax, randomAlienRacesTargetMin, randomAlienRaces,
-				randomAlienRacesMax, randomAlienRacesMin, randomAlienRacesSmoothEdges
-				)));
-		map.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle("RESTART_OPTIONS"),
-				restartChangesPlayerRace, restartChangesPlayerAI,
-				restartChangesAliensAI, restartAppliesSettings,
-
-				headerSpacer,
-				new ParamTitle("MENU_OPTIONS"),
-				useFusionFont, compactOptionOnly
-				)));
-		for (LinkedList<InterfaceParam> list : map) {
-			for (InterfaceParam param : list) {
-				if (param != null && !param.isTitle())
-					mergedStaticOptions.add(param);
-			}
-		}
-		return map;
-	};
-	LinkedList<InterfaceParam> mergedDynamicOptions	= new LinkedList<>();
-	LinkedList<LinkedList<InterfaceParam>> mergedDynamicOptionsMap = mergedDynamicOptionsMap(); 
-	static LinkedList<LinkedList<InterfaceParam>> mergedDynamicOptionsMap()	{
+	static LinkedList<LinkedList<InterfaceParam>> inGameOptionsMap()	{
 		LinkedList<LinkedList<InterfaceParam>> map = new LinkedList<>();
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("GAME_DIFFICULTY"),
@@ -361,7 +181,7 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 		for (LinkedList<InterfaceParam> list : map) {
 			for (InterfaceParam param : list) {
 				if (param != null && !param.isTitle())
-					mergedDynamicOptions.add(param);
+					inGameOptions.add(param);
 			}
 		}
 		return map;

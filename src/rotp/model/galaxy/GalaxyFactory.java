@@ -331,7 +331,7 @@ public class GalaxyFactory implements Base {
 	private LinkedList<String> buildAlienRaces() {
 		LinkedList<String> raceList = new LinkedList<>();
 		List<String> allRaceOptions = new ArrayList<>();
-		List<String> options = IGameOptions.getNewRacesOnOffList(); // BR:
+		List<String> options = options().getNewRacesOnOffList(); // BR:
 		int maxRaces = options().selectedNumberOpponents();
 		int mult = IGameOptions.MAX_OPPONENT_TYPE;
 

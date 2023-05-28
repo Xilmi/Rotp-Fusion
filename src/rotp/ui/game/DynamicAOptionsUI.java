@@ -24,8 +24,7 @@ public class DynamicAOptionsUI extends AbstractOptionsUI {
 	public DynamicAOptionsUI() {
 		super(guiTitleID, GUI_ID);
 	}
-//	@Override protected void singleInit() {
 	@Override protected void init0() {
-		paramList = rotp.model.game.IInGameOptions.modOptionsDynamicA;
+		paramList = rotp.model.game.IGameOptions.modOptionsDynamicA;
 	}
 }

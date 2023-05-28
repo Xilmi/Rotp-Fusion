@@ -364,7 +364,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		super.close();
 		hoverBox = null;
 		prevHover = null;
-        disableGlassPane();
+//        disableGlassPane();
 		switch (parent) {
 		case 1:
 			RotPUI.mergedDynamicOptionsUI().start(guiOptions().isGameOption()); // TODO BR: remove one parameter
@@ -385,7 +385,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		switch (ModifierKeysState.get()) {
 		case CTRL:			// Cancel and exit
 		case CTRL_SHIFT:	// Cancel and exit
-			guiOptions().loadAndUpdateFromFileName(LIVE_OPTIONS_FILE);
+			guiOptions().updateFromFile(LIVE_OPTIONS_FILE);
 			UserPreferences.load();
 			break;
 		case SHIFT:			// Apply

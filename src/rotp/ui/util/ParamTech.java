@@ -16,7 +16,7 @@
 
 package rotp.ui.util;
 
-import static rotp.model.game.BaseOptionsTools.*;
+import static rotp.model.game.IBaseOptsTools.*;
 
 
 public class ParamTech extends ParamAAN2 implements InterfaceParam {

@@ -1,6 +1,6 @@
 package rotp.model.game;
 
-import static rotp.model.game.BaseOptionsTools.headerSpacer;
+import static rotp.model.game.IBaseOptsTools.headerSpacer;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -25,9 +25,9 @@ public interface IGovOptions {
 	int GOV_RESET		= 2;
 	
 	// AutoTransport Options
-	ParamBoolean autoTransport		= new ParamBoolean(GOV_UI, "AUTO_TRANSPORT", true);
-	ParamBoolean autotransportAtMax	= new ParamBoolean(GOV_UI, "TRANSPORT_XILMI", true);
-	ParamBoolean autotransportAll	= new ParamBoolean(GOV_UI, "TRANSPORT_UNGOVERNED", true);
+	ParamBoolean autoTransport		= new ParamBoolean(GOV_UI, "AUTO_TRANSPORT", false);
+	ParamBoolean autotransportAtMax	= new ParamBoolean(GOV_UI, "TRANSPORT_XILMI", false);
+	ParamBoolean autotransportAll	= new ParamBoolean(GOV_UI, "TRANSPORT_UNGOVERNED", false);
 	ParamBoolean transportNoRich	= new ParamBoolean(GOV_UI, "TRANSPORT_RICH_OFF", true);
 	ParamBoolean transportPoorX2	= new ParamBoolean(GOV_UI, "TRANSPORT_POOR_DBL", true);
 	ParamInteger transportMaxDist	= new ParamInteger(GOV_UI, "TRANSPORT_MAX_TURNS", 5, 1, 15, 1, 3, 5);
@@ -52,7 +52,7 @@ public interface IGovOptions {
 
 	// Intelligence Options
 	ParamBoolean auto_Infiltrate	= new ParamBoolean(GOV_UI, "AUTO_INFILTRATE", true);
-	ParamBoolean auto_Spy			= new ParamBoolean(GOV_UI, "AUTO_SPY", true);
+	ParamBoolean auto_Spy			= new ParamBoolean(GOV_UI, "AUTO_SPY", false);
 	ParamBoolean spareXenophobes	= new ParamBoolean(GOV_UI, "SPARE_XENOPHOBES", false);
 
 	// Aspect Options

@@ -168,10 +168,10 @@ public class SettingBase<T> implements InterfaceParam {
 			prev();
 	}
 	@Override public void setFromDefault()	{ selectedValue(defaultValue); }
-	@Override public void updateOption()	{
-		if (!isSpacer && dynOpts() != null)
-			dynOpts().setString(getLangLabel(), getCfgValue());
-	}
+//	@Override public void updateOption()	{
+//		if (!isSpacer && dynOpts() != null)
+//			dynOpts().setString(getLangLabel(), getCfgValue());
+//	}
 	@Override public void updateOptionTool() {
 		if (!isSpacer && dynOpts() != null)
 			setFromCfgValue(dynOpts().getString(getLangLabel(), getDefaultCfgValue()));

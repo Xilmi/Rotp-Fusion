@@ -26,6 +26,6 @@ public class MergedDynamicOptionsUI extends CompactOptionsUI {
 	
 	public MergedDynamicOptionsUI() { super(guiTitleID, GUI_ID); }
 	@Override protected LinkedList<LinkedList<InterfaceParam>> getList() {
-		return rotp.model.game.IModOptions.mergedDynamicOptionsMap;
+		return rotp.model.game.IGameOptions.inGameOptionsMap;
 	}
 }

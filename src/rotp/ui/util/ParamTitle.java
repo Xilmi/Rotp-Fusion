@@ -16,7 +16,7 @@
 
 package rotp.ui.util;
 
-import static rotp.model.game.BaseOptionsTools.HEADERS;
+import static rotp.model.game.IBaseOptsTools.HEADERS;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -43,7 +43,6 @@ public class ParamTitle extends AbstractParam<String> {
 	@Override public void toggle(MouseWheelEvent e)	{}
 	@Override public void toggle(MouseEvent e, BaseModPanel frame)	 {}
 	@Override public void updateOptionTool() {}
-	@Override public void updateOption()	 {}
 	@Override protected String getOptionValue(IGameOptions options) { return ""; }
 	@Override protected void setOptionValue(IGameOptions options, String value) {}
 	@Override public boolean isTitle()	{ return true; }

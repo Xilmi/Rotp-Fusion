@@ -13,7 +13,7 @@ import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamSubUI;
 import rotp.ui.util.ParamTitle;
 
-public interface IFlagOptions extends BaseOptionsTools {
+public interface IFlagOptions extends IBaseOptsTools {
 	String AUTO_FLAG_GUI_ID		= "AUTO_FLAG";
 	String FLAG_COLOR_NONE		= "FLAG_COLOR_NONE";
     String FLAG_COLOR_WHITE		= "FLAG_COLOR_WHITE";

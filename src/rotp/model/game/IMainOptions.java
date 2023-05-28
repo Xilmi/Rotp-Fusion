@@ -16,7 +16,7 @@ import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamList;
 
-public interface IMainOptions extends BaseOptionsTools {
+public interface IMainOptions extends IBaseOptsTools {
 	
 	// ==================== Duplicates for Base Main Settings Options ====================
 	//

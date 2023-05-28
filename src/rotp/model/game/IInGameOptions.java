@@ -14,7 +14,7 @@ import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
 
-public interface IInGameOptions extends BaseOptionsTools {
+public interface IInGameOptions extends IBaseOptsTools {
 
 	// ========================================================================
 	// GamePlay options
