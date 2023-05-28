@@ -11,7 +11,7 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 							IRaceOptions, IGovOptions, IGalaxyOptions,  IMainOptions {
 
 	default void updateOptionsAndSaveToFileName(String fileName) {
-		updateOptionsAndSaveToFileName(fileName, allModOptions());
+		saveOptionsToFile(fileName, allModOptions());
 	}
 	default void updateFromFile(String fileName)	{ updateFromFile(fileName, allModOptions()); }
 	default void setBaseAndModSettingsToDefault()	{ updateFromDefault(allModOptions()); }
@@ -79,15 +79,8 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 	 * @param fileName
 	 * @param paramList
 	 */
-	void updateOptionsAndSaveToFileName (String fileName, LinkedList<InterfaceParam> paramList);
+	void saveOptionsToFile (String fileName, LinkedList<InterfaceParam> paramList);
 
-	/**
-	 * TODO BR: will have to be removed, the options should be up to date
-	 * updated governor options will have to "call"
-	 * @param paramList
-	 * @param call
-	 */
-	void writeModSettingsToOptions(LinkedList<InterfaceParam> paramList);
 	void copyAliensAISettings(IGameOptions dest);
 
 	

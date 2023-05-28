@@ -88,8 +88,8 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
     private int shipSetId = 0; // The index from the list
     private int shipSize = 2;
     private int shipId = 0;
-    private static int shipW = 0;
-    private static int shipH = 0;
+    private int shipW = 0;
+    private int shipH = 0;
     @SuppressWarnings("unchecked")
 	private List<BufferedImage>[] shipImages = new ArrayList[MAX_SHIP];
     private int bSep = s15;
@@ -1115,7 +1115,13 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 //        	case KeyEvent.VK_F1:
 //        		showHelp();
 //        		return;
-            case KeyEvent.VK_ESCAPE:
+	    	case KeyEvent.VK_R: // BR: TODO Random Race
+	    		playerIsCustom.set(false);
+	        	guiOptions().setRandomPlayerRace();
+	        	raceChanged();
+	        	repaint();
+				return;
+        	case KeyEvent.VK_ESCAPE:
             	doCancelBoxAction();
                 return;
             case KeyEvent.VK_ENTER:

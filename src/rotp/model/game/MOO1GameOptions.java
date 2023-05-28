@@ -65,7 +65,6 @@ import rotp.model.planet.Planet;
 import rotp.model.planet.PlanetType;
 import rotp.model.tech.TechEngineWarp;
 import rotp.ui.UserPreferences;
-import rotp.ui.game.EditCustomRaceUI;
 import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.ParamOptions;
@@ -136,11 +135,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         randomizeColors();
         setBaseSettingsToDefault();
     }
-	@Override public IGameOptions opts() { return this;	}
-	@Override public DynOptions dynOpts() { // BR:
-//		if (dynamicOptions == null)
-//			dynamicOptions = new DynOptions();
-		return dynamicOptions;	}
+	@Override public IGameOptions opts()		 { return this;	}
+	@Override public DynOptions dynOpts()		 { return dynamicOptions;	}
     @Override public int id()                    { return id; }
     @Override public void id(int id)             { this.id = id; }
     @Override
@@ -281,7 +277,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     public String selectedPlayerRace()           { return selectedPlayer().race; }
     @Override
     // public void selectedPlayerRace(String s)  { selectedPlayer().race = s;  resetSelectedOpponentRaces(); }
-    public void selectedPlayerRace(String s)     { selectedPlayer().race = s;} // BR: Rest on demand only
+    public void selectedPlayerRace(String s)     { selectedPlayer().race = s;} // BR: Reset on demand only
      @Override
     public int selectedPlayerColor()             { return selectedPlayer().color; }
     @Override
@@ -1272,13 +1268,16 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         setAdvancedOptionsToDefault();
     }
     // ========== Race Menu Options ==========
-    private void setBaseRaceSettingsToDefault() { // BR:
+    @Override public void setRandomPlayerRace() { // BR:
     	if (rotp.Rotp.noOptions("setBaseRaceSettingsToDefault()"))
         	selectedPlayerRace(random(allRaceOptions()));
         else if (selectedShowNewRaces()) // BR: limit randomness
         	selectedPlayerRace(random(allRaceOptions()));
         else
         	selectedPlayerRace(random(baseRaceOptions()));
+    }
+    private void setBaseRaceSettingsToDefault() { // BR:
+    	setRandomPlayerRace();
         selectedPlayerColor(0);
     }
     private void copyBaseRaceSettings(MOO1GameOptions dest) { // BR:
@@ -1417,6 +1416,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     		setBaseAndModSettingsToDefault();
     	else // default = action.isLast()
     		updateFromFile(LAST_OPTIONS_FILE);
+    	if (!selectedPlayerIsCustom()) {
+    		setRandomPlayerRace();
+    	}
     }
     @Override public void copyAliensAISettings(IGameOptions dest) { // BR:
     	MOO1GameOptions d = (MOO1GameOptions) dest; 	
@@ -1424,28 +1426,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         for (int i=0; i<d.specificOpponentAIOption.length; i++)
         	d.specificOpponentAIOption[i] = specificOpponentAIOption[i];
     }
-    // TODO BR: Will probably be removed
-    @Override public void writeModSettingsToOptions(LinkedList<InterfaceParam> paramList) {
-    	if (paramList == null)
-    		return;
-    	boolean isAllGui = paramList == allModOptions();
-    	boolean isEditRaceGui = paramList == editCustomRace();
-    	if (isAllGui || isEditRaceGui) {
-			EditCustomRaceUI.updatePlayerCustomRace(); // TODO BR: Try to Normalize (later)
-    	}
-//       	for (InterfaceParam param : paramList) {
-//       		if (param != null) {
-//    			param.updateOption();
-//       		}
-//       	}
-    }
-//    private void setModSettingsFromOptions() { // BR: remove later
-//    	for(InterfaceParam param : allModOptions())
-//    		if (param != null) {
-//    			param.updateOptionTool();
-//    		}
-//        EditCustomRaceUI.instance().updateCRGui(this);
-//    }
     @Override public void updateFromDefault(LinkedList<InterfaceParam> paramList) {
     	setModSettingsToDefault(this, paramList);
     	setBaseSettingsToDefault(this, paramList);
@@ -1453,9 +1433,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override public void saveOptionsToFile(String fileName) {
     	saveOptions(this, Rotp.jarPath(), fileName);
     }
-    @Override public void updateOptionsAndSaveToFileName(String fileName,
-    						LinkedList<InterfaceParam> paramList) {
-        writeModSettingsToOptions(paramList);
+    @Override public void saveOptionsToFile(String fileName,
+    						LinkedList<InterfaceParam> paramList) { // TODO BR: limited list
         saveOptions(this, Rotp.jarPath(), fileName);
     }
     @Override public void updateFromFile(String fileName,
@@ -1466,7 +1445,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
        	for (InterfaceParam param : paramList)
        		if (param != null)
        			param.copyOption(source, this);
-       	// EditCustomRaceUI.instance().updateCRGui(this); // TODO BR: !Validate
         source.copyBaseSettings(this, paramList);
     }
     // ========== New Options Static files management methods ==========

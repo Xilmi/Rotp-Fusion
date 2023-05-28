@@ -269,7 +269,7 @@ public abstract class BaseModPanel extends BasePanel
 			switch (ModifierKeysState.get()) {
 			case CTRL:
 			case CTRL_SHIFT: // saveLocalUserKey
-				guiOptions().updateOptionsAndSaveToFileName(USER_OPTIONS_FILE, localOptions());
+				guiOptions().saveOptionsToFile(USER_OPTIONS_FILE, localOptions());
 				return;
 			case SHIFT: // setLocalUserKey
 			default:
@@ -283,7 +283,7 @@ public abstract class BaseModPanel extends BasePanel
 				guiOptions().updateOptionsAndSaveToFileName(USER_OPTIONS_FILE);
 				return;
 			case CTRL_SHIFT: // saveLocalUserKey
-				guiOptions().updateOptionsAndSaveToFileName(USER_OPTIONS_FILE, localOptions());
+				guiOptions().saveOptionsToFile(USER_OPTIONS_FILE, localOptions());
 				return;
 			case SHIFT: // setLocalUserKey
 				guiOptions().updateFromFile(USER_OPTIONS_FILE, localOptions());

@@ -164,14 +164,12 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		guiTitleID	= ROOT + "SHOW_TITLE";
 	    commonList	= settingList;
 	    mouseList	= settingList;
-//	    cr.setRace(guiOptions().baseRaceOptions().getFirst()); // TODO BR: ????
 		addMouseListener(this);
 		addMouseMotionListener(this);
 	    initGUI();		
 		return this;
 	}
 	public void loadRace(IGameOptions options)		{ // For Race Diplomatic UI Panel
-//		cr.setRace(guiOptions().baseRaceOptions().getFirst()); // TODO BR: ????
 		cr.setFromRaceToShow(raceUI.selectedEmpire().dataRace());
 	}
 	public void init(RacesUI p)	{ // For Race Diplomatic UI Panel
@@ -465,7 +463,6 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	}
 	@Override public boolean checkModifierKey(InputEvent e) {
 		boolean change = checkForChange(e);
-//		hoverAndTooltip(false);
 		return change;
 	}
 	@Override public void repaintButtons()			  {
@@ -489,13 +486,11 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		// Set the final High
 		hBG		= titlePad + columnsMaxH + tooltipPadV + descHeigh + buttonPadV + smallButtonH + buttonPadV;
 		topM	= (h - hBG)/2;
-//		yDesc	= topM + hBG - tooltipPadV - descHeigh;
 		yButton	= topM + hBG - buttonPadV - smallButtonH;
 		
 		yTop	= topM + titlePad; // First setting top position
 		leftM	= Math.min((w - wBG)/2, maxLeftM);
 		yTitle	= topM + titleOffset;
-//		yButton	= yDesc - tooltipPadV - smallButtonH;
 		yDesc	= yButton - buttonPadV - descHeigh;
 		yCost 	= yTitle + costOffset;
 		xCost	= leftM + columnPad/2;

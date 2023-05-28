@@ -16,6 +16,10 @@ Last updates:
   - Removed "global" load and save from sub-menus.
     - Only Race setup panel and Galaxy setup panel will allow Global reload.
     - Sub panels are available in-game, and it wouldn't be a good idea to reload all parameters there!
+- Player initial race will be randomized (as it was on vanilla Rotp)
+  - If the race was a custom race, id wont'be randomized.
+  - If you always want to play with the same race: Standard races can be selected in custom race menu.
+  - "R" in Race setup panel will randomize your race.
 
 
 Last Fixes:

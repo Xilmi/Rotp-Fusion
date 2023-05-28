@@ -55,6 +55,12 @@ Later:
 ## What's New
 
 2023.05.28 (BR)
+- Player initial race will be randomized (as it was on vanilla Rotp)
+  - If the race was a custom race, id wont'be randomized.
+  - If you always want to play with the same race: Standard races can be selected in custom race menu.
+  - "R" in Race setup panel will randomize your race.
+
+2023.05.28 (BR)
 - Cleaned Governor from obsolete methods.
 - All Governor off will now also disable: 
   - Transport from ungoverned colony.

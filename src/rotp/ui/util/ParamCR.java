@@ -39,21 +39,6 @@ public class ParamCR extends ParamObject {
 		System.out.println("ParamCR defaultValue() {"); // TODO BR: REMOVE
 		return CustomRaceDefinitions.getDefaultOptions();
 	}
-//	@Override public Serializable getOptionValue(IGameOptions options) {
-//		if (super.get() == null)
-//			return CustomRaceDefinitions.getDefaultOptions();
-//		return super.get();
-//	}
-//	@Override public void updateOptionTool(DynamicOptions options) {
-//		System.out.println("ParamCR.setOptionsTools");
-//		if (options != null)
-//			set((Serializable) options.getObject(getLangLabel(), creationValue()));
-//	}
-//	@Override public void updateOption(DynamicOptions options) {
-//		System.out.println("ParamCR.setOptions");
-//		if (options != null)
-//			options.setObject(getLangLabel(), get());
-//	}
 	// ===== Other Methods =====
 	//
 	public Race getRace() {

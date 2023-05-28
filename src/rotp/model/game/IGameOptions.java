@@ -434,6 +434,7 @@ public interface IGameOptions extends IModOptions {
     public NewPlayer selectedPlayer();
     public String selectedPlayerRace();
     public void selectedPlayerRace(String s);
+    public void setRandomPlayerRace(); // BR:
     public int selectedPlayerColor();
     public void selectedPlayerColor(int i);
     public String selectedLeaderName();
