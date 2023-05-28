@@ -1,8 +1,25 @@
 Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
-Las updates:
+Last updates:
 - New buttons names: "Static" -> "pregame" and "Dynamic" -> "in-game",
   - Thanks to William482 for the name proposal.
+- All Governor off will now also disable: 
+  - Transport from ungoverned colony.
+  - Auto-Spy.
+  - Auto-Infiltrate.
+- Simplified options' management.
+  - Setup options are now only loaded once at startup...
+    - No more silently updated when going through the main menu.
+    - The player decide when setup options needs to be reloaded.
+  - Loaded games will always load their own options. (No mix with some current setup options)
+    - The player decide if an when to change some options.
+  - Removed "global" load and save from sub-menus.
+    - Only Race setup panel and Galaxy setup panel will allow Global reload.
+    - Sub panels are available in-game, and it wouldn't be a good idea to reload all parameters there!
+
+
+Last Fixes:
+- New Governor Panel don't crash any more on Apple OS.
 
 
 Last Anouuncement:

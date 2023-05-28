@@ -92,15 +92,14 @@ class GovernorOptionsPanel extends javax.swing.JPanel{
 	private Runnable timedRefresh	= new Runnable() {
 	    @Override public void run() {
 	    	if (options().resetRequested()) {
-	    		System.out.println("resetRequested()");
+	    		// System.out.println("resetRequested()");
 	    		optionUpdated();
 	    	}
 	    	else if (options().refreshRequested()) {
 				options().clearRefresh();
 	    		loadDisplayValues();
 	    		loadValues();
-	    		//protectedUpdatePanel();
-	    		System.out.println("refreshRequested()");
+	    		// System.out.println("refreshRequested()");
 	    	}
     		animate();
 	    }
@@ -110,11 +109,6 @@ class GovernorOptionsPanel extends javax.swing.JPanel{
 	// ========== Public Method and Overrider ==========
 	//
 	private void optionUpdated() {
-//		if (options().isLocalUpdate()) {
-//			//System.out.println("===== optionLoad Blocked =====");
-//			return;
-//		}
-		//System.out.println("===== optionLoaded =====");
 		loadDisplayValues();
 		loadValues();
 		protectedReset();
@@ -284,22 +278,22 @@ class GovernorOptionsPanel extends javax.swing.JPanel{
 	private void	setCustomSize(boolean val)	{
 		isCustomSize = val;
 		if (isAutoApply())
-			options().setIsCustomSize(isCustomSize, true);
+			options().setIsCustomSize(isCustomSize);
 	}
 	private void	setBrightnessPct(int val)	{
 		brightnessFactorPct = val;
 		if (isAutoApply())
-			options().setBrightnessPct(brightnessFactorPct, true);
+			options().setBrightnessPct(brightnessFactorPct);
 	}
 	private void	setSizeFactorPct(int pct)	{
 		sizeFactorPct = pct;
 		if (isAutoApply())
-			options().setSizeFactorPct(pct, true);
+			options().setSizeFactorPct(pct);
 	}
 	private void	setNewFormat(boolean val)	{
 		isNewFormat = val;
 		if (isAutoApply())
-			options().setIsOriginalPanel(!val, true);
+			options().setIsOriginalPanel(!val);
 	}
 
 	// ========== Image display and animation ==========
@@ -626,55 +620,53 @@ class GovernorOptionsPanel extends javax.swing.JPanel{
 		GovernorOptions options = options();
 		
 		// AutoTransport Options
-		options.setAutotransport(autotransport.isSelected(), false);
-		options.setAutotransportXilmi(autotransportXilmi.isSelected(), false);
-		options.setAutotransportUngoverned(allowUngoverned.isSelected(), false);
-		options.setTransportMaxTurns((Integer)transportMaxTurns.getValue(), false);
-		options.setTransportRichDisabled(transportRichDisabled.isSelected(), false);
-		options.setTransportPoorDouble(transportPoorDouble.isSelected(), false);
+		options.setAutotransport(autotransport.isSelected());
+		options.setAutotransportXilmi(autotransportXilmi.isSelected());
+		options.setAutotransportUngoverned(allowUngoverned.isSelected());
+		options.setTransportMaxTurns((Integer)transportMaxTurns.getValue());
+		options.setTransportRichDisabled(transportRichDisabled.isSelected());
+		options.setTransportPoorDouble(transportPoorDouble.isSelected());
 
 		// StarGates Options
-		applyStargates(false);
+		applyStargates();
 
 		// Colony Options
-		options.setMinimumMissileBases((Integer)missileBases.getValue(), false);
-		options.setShieldWithoutBases(shieldWithoutBases.isSelected(), false);
-		options.setAutospend(autospend.isSelected(), false);
-		options.setReserve((Integer)reserve.getValue(), false);
-		options.setShipbuilding(shipbuilding.isSelected(), false);
-		options.setLegacyGrowthMode(legacyGrowthMode.isSelected(), false);
+		options.setMinimumMissileBases((Integer)missileBases.getValue());
+		options.setShieldWithoutBases(shieldWithoutBases.isSelected());
+		options.setAutospend(autospend.isSelected());
+		options.setReserve((Integer)reserve.getValue());
+		options.setShipbuilding(shipbuilding.isSelected());
+		options.setLegacyGrowthMode(legacyGrowthMode.isSelected());
 
 		// Intelligence Options
-		options.setAutoInfiltrate(autoInfiltrate.isSelected(), false);
-		options.setAutoSpy(autoSpy.isSelected(), false);
-		options.setSpareXenophobes(spareXenophobes.isSelected(), false);
+		options.setAutoInfiltrate(autoInfiltrate.isSelected());
+		options.setAutoSpy(autoSpy.isSelected());
+		options.setSpareXenophobes(spareXenophobes.isSelected());
 
 		// Fleet Options
-		options.setAutoScout(autoScout.isSelected(), false);
-		options.setAutoColonize(autoColonize.isSelected(), false);
-		options.setAutoAttack(autoAttack.isSelected(), false);
-		options.setAutoScoutShipCount((Integer)autoScoutShipCount.getValue(), false);
-		options.setAutoColonyShipCount((Integer)autoColonyShipCount.getValue(), false);
-		options.setAutoAttackShipCount((Integer)autoAttackShipCount.getValue(), false);
+		options.setAutoScout(autoScout.isSelected());
+		options.setAutoColonize(autoColonize.isSelected());
+		options.setAutoAttack(autoAttack.isSelected());
+		options.setAutoScoutShipCount((Integer)autoScoutShipCount.getValue());
+		options.setAutoColonyShipCount((Integer)autoColonyShipCount.getValue());
+		options.setAutoAttackShipCount((Integer)autoAttackShipCount.getValue());
 
 		// Aspect Options
-		options.setIsOriginalPanel(isOriginal.isSelected(), false);
-		options.setIsCustomSize(customSize.isSelected(), false);
-		options.setSizeFactorPct((Integer)sizePct.getValue(), false);
-		options.setBrightnessPct((Integer)brightnessPct.getValue(), false);
+		options.setIsOriginalPanel(isOriginal.isSelected());
+		options.setIsCustomSize(customSize.isSelected());
+		options.setSizeFactorPct((Integer)sizePct.getValue());
+		options.setBrightnessPct((Integer)brightnessPct.getValue());
 		// Other Options
-		options.setGovernorOnByDefault(governorDefault.isSelected(), false);
-		options.setIsAnimatedImage(isAnimatedImage(), false);
-		
-		options.save();
+		options.setGovernorOnByDefault(governorDefault.isSelected());
+		options.setIsAnimatedImage(isAnimatedImage());
 	}								   
-	private void applyStargates(boolean save) {// BR: 
+	private void applyStargates() {// BR: 
 		if (stargateOff.isSelected())
-			options().setGates(GovernorOptions.GatesGovernor.None, save);
+			options().setGates(GovernorOptions.GatesGovernor.None);
 		else if (stargateRich.isSelected())
-			options().setGates(GovernorOptions.GatesGovernor.Rich, save);
+			options().setGates(GovernorOptions.GatesGovernor.Rich);
 		else if (stargateOn.isSelected())
-			options().setGates(GovernorOptions.GatesGovernor.All, save);
+			options().setGates(GovernorOptions.GatesGovernor.All);
 	}
 
 	// ========== Completionist tools ==========
@@ -1526,7 +1518,7 @@ class GovernorOptionsPanel extends javax.swing.JPanel{
 			ss.colony().setGovernor(true);
 			ss.colony().governIfNeeded();
 			if (isAutoApply())
-				options().setGovernorOnByDefault(governorDefault.isSelected(), true);
+				options().setGovernorOnByDefault(governorDefault.isSelected());
 		}
 	}//GEN-LAST:event_allGovernorsOnActionPerformed
 
@@ -1538,8 +1530,14 @@ class GovernorOptionsPanel extends javax.swing.JPanel{
 			}
 			ss.colony().setGovernor(false);
 			if (isAutoApply())
-				options().setGovernorOnByDefault(governorDefault.isSelected(), true);
+				options().setGovernorOnByDefault(governorDefault.isSelected());
 		}
+		this.allowUngoverned.setSelected(false);
+		options().setAutotransportUngoverned(allowUngoverned.isSelected());
+		this.autoSpy.setSelected(false);
+		options().setAutoSpy(autoSpy.isSelected());
+		this.autoInfiltrate.setSelected(false);
+		options().setAutoInfiltrate(autoInfiltrate.isSelected());
 	}//GEN-LAST:event_allGovernorsOffActionPerformed
 
 	private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
@@ -1581,7 +1579,7 @@ class GovernorOptionsPanel extends javax.swing.JPanel{
 
 	private void autotransportXilmiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autotransportXilmiActionPerformed
 		if (isAutoApply())
-			options().setAutotransportXilmi(autotransportXilmi.isSelected(), true);
+			options().setAutotransportXilmi(autotransportXilmi.isSelected());
 	}//GEN-LAST:event_autotransportXilmiActionPerformed
 
 	private void transportMaxTurnsLabelMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_transportMaxTurnsLabelMouseWheelMoved
@@ -1593,125 +1591,125 @@ class GovernorOptionsPanel extends javax.swing.JPanel{
 	}//GEN-LAST:event_transportMaxTurnsMouseWheelMoved
 
 	private void autoApplyToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoApplyToggleButtonActionPerformed
-		options().setAutoApply(autoApplyToggleButton.isSelected(), true);
+		options().setAutoApply(autoApplyToggleButton.isSelected());
 		applyAction();
 	}//GEN-LAST:event_autoApplyToggleButtonActionPerformed
 
 	private void allowUngovernedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allowUngovernedActionPerformed
 		if (isAutoApply())
-			options().setAutotransportUngoverned(allowUngoverned.isSelected(), true);
+			options().setAutotransportUngoverned(allowUngoverned.isSelected());
 	}//GEN-LAST:event_allowUngovernedActionPerformed
 
 	private void autotransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autotransportActionPerformed
 		if (isAutoApply())
-			options().setAutotransport(autotransport.isSelected(), true);
+			options().setAutotransport(autotransport.isSelected());
 	}//GEN-LAST:event_autotransportActionPerformed
 
 	private void transportRichDisabledActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transportRichDisabledActionPerformed
 		if (isAutoApply())
-			options().setTransportRichDisabled(transportRichDisabled.isSelected(), true);
+			options().setTransportRichDisabled(transportRichDisabled.isSelected());
 	}//GEN-LAST:event_transportRichDisabledActionPerformed
 
 	private void transportPoorDoubleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transportPoorDoubleActionPerformed
 		if (isAutoApply())
-			options().setTransportPoorDouble(transportPoorDouble.isSelected(), true);
+			options().setTransportPoorDouble(transportPoorDouble.isSelected());
 	}//GEN-LAST:event_transportPoorDoubleActionPerformed
 
 	private void autoScoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoScoutActionPerformed
 		if (isAutoApply())
-			options().setAutoScout(autoScout.isSelected(), true);
+			options().setAutoScout(autoScout.isSelected());
 	}//GEN-LAST:event_autoScoutActionPerformed
 
 	private void autoColonizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoColonizeActionPerformed
 		if (isAutoApply())
-			options().setAutoColonize(autoColonize.isSelected(), true);
+			options().setAutoColonize(autoColonize.isSelected());
 	}//GEN-LAST:event_autoColonizeActionPerformed
 
 	private void autoAttackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoAttackActionPerformed
 		if (isAutoApply())
-			options().setAutoAttack(autoAttack.isSelected(), true);
+			options().setAutoAttack(autoAttack.isSelected());
 	}//GEN-LAST:event_autoAttackActionPerformed
 
 	private void shieldWithoutBasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shieldWithoutBasesActionPerformed
 		if (isAutoApply())
-			options().setShieldWithoutBases(shieldWithoutBases.isSelected(), true);
+			options().setShieldWithoutBases(shieldWithoutBases.isSelected());
 	}//GEN-LAST:event_shieldWithoutBasesActionPerformed
 
 	private void autospendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autospendActionPerformed
 		if (isAutoApply())
-			options().setAutospend(autospend.isSelected(), true);
+			options().setAutospend(autospend.isSelected());
 	}//GEN-LAST:event_autospendActionPerformed
 
 	private void shipbuildingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shipbuildingActionPerformed
 		if (isAutoApply())
-			options().setShipbuilding(shipbuilding.isSelected(), true);
+			options().setShipbuilding(shipbuilding.isSelected());
 	}//GEN-LAST:event_shipbuildingActionPerformed
 
 	private void autoInfiltrateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoInfiltrateActionPerformed
 		if (isAutoApply())
-			options().setAutoInfiltrate(autoInfiltrate.isSelected(), true);
+			options().setAutoInfiltrate(autoInfiltrate.isSelected());
 	}//GEN-LAST:event_autoInfiltrateActionPerformed
 
 	private void legacyGrowthModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_legacyGrowthModeActionPerformed
 		if (isAutoApply())
-			options().setLegacyGrowthMode(legacyGrowthMode.isSelected(), true);
+			options().setLegacyGrowthMode(legacyGrowthMode.isSelected());
 	}//GEN-LAST:event_legacyGrowthModeActionPerformed
 
 	private void autoSpyActionPerformed(java.awt.event.ActionEvent evt) {                                               
 		if (isAutoApply())
-			options().setAutoSpy(autoSpy.isSelected(), true);
+			options().setAutoSpy(autoSpy.isSelected());
 	}                                                
 
 	private void spareXenophobesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoSpyActionPerformed
 		if (isAutoApply())
-			options().setSpareXenophobes(spareXenophobes.isSelected(), true);
+			options().setSpareXenophobes(spareXenophobes.isSelected());
 	}//GEN-LAST:event_autoSpyActionPerformed
 
 	private void stargateOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stargateOffActionPerformed
-		if (isAutoApply()) applyStargates(true);
+		if (isAutoApply()) applyStargates();
 	}//GEN-LAST:event_stargateOffActionPerformed
 
 	private void stargateRichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stargateRichActionPerformed
-		if (isAutoApply()) applyStargates(true);
+		if (isAutoApply()) applyStargates();
 	}//GEN-LAST:event_stargateRichActionPerformed
 
 	private void stargateOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stargateOnActionPerformed
-		if (isAutoApply()) applyStargates(true);
+		if (isAutoApply()) applyStargates();
 	}//GEN-LAST:event_stargateOnActionPerformed
 
 	private void reserveStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_reserveStateChanged
 		if (isAutoApply())
-			options().setReserve((Integer)reserve.getValue(), true);
+			options().setReserve((Integer)reserve.getValue());
 	}//GEN-LAST:event_reserveStateChanged
 
 	private void missileBasesStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_missileBasesStateChanged
 		if (isAutoApply())
-			options().setMinimumMissileBases((Integer)missileBases.getValue(), true);
+			options().setMinimumMissileBases((Integer)missileBases.getValue());
 	}//GEN-LAST:event_missileBasesStateChanged
 
 	private void autoAttackShipCountStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_autoAttackShipCountStateChanged
 		if (isAutoApply())
-			options().setAutoAttackShipCount((Integer)autoAttackShipCount.getValue(), true);
+			options().setAutoAttackShipCount((Integer)autoAttackShipCount.getValue());
 	}//GEN-LAST:event_autoAttackShipCountStateChanged
 
 	private void autoColonyShipCountStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_autoColonyShipCountStateChanged
 		if (isAutoApply())
-			options().setAutoColonyShipCount((Integer)autoColonyShipCount.getValue(), true);
+			options().setAutoColonyShipCount((Integer)autoColonyShipCount.getValue());
 	}//GEN-LAST:event_autoColonyShipCountStateChanged
 
 	private void autoScoutShipCountStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_autoScoutShipCountStateChanged
 		if (isAutoApply())
-			options().setAutoScoutShipCount((Integer)autoScoutShipCount.getValue(), true);
+			options().setAutoScoutShipCount((Integer)autoScoutShipCount.getValue());
    }//GEN-LAST:event_autoScoutShipCountStateChanged
 
 	private void transportMaxTurnsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_transportMaxTurnsStateChanged
 		if (isAutoApply())
-			options().setTransportMaxTurns((Integer)transportMaxTurns.getValue(), true);
+			options().setTransportMaxTurns((Integer)transportMaxTurns.getValue());
 	}//GEN-LAST:event_transportMaxTurnsStateChanged
 
 	private void governorDefaultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_governorDefaultActionPerformed
 		if (isAutoApply())
-			options().setGovernorOnByDefault(governorDefault.isSelected(), true);
+			options().setGovernorOnByDefault(governorDefault.isSelected());
 	}//GEN-LAST:event_governorDefaultActionPerformed
 
 	private void brightnessPctMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_brightnessPctMouseWheelMoved

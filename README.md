@@ -33,7 +33,6 @@ Bug to fix:
 - Change Error messages.
 - Governor acting when it should not.
 - random race stay random if not changed by user!
-- Governor All AI off will also disable "Allow sending population from ungoverned colonies" 
 
 Very soon:
 - Spare Xenophobes: Stop if caught too.
@@ -55,7 +54,14 @@ Later:
 
 ## What's New
 
-2023.05.25 (BR)
+2023.05.28 (BR)
+- Cleaned Governor from obsolete methods.
+- All Governor off will now also disable: 
+  - Transport from ungoverned colony.
+  - Auto-Spy.
+  - Auto-Infiltrate.
+
+2023.05.26 (BR)
 - Greater integration of Governor in option tools.
 - Renamed options interface for easier code reading.
 
