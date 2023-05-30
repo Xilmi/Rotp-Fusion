@@ -15,10 +15,6 @@
  */
 package rotp.model.game;
 
-import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
-import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
-import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
-
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.io.BufferedInputStream;
@@ -64,7 +60,6 @@ import rotp.model.galaxy.StarType;
 import rotp.model.planet.Planet;
 import rotp.model.planet.PlanetType;
 import rotp.model.tech.TechEngineWarp;
-import rotp.ui.UserPreferences;
 import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.ParamOptions;
@@ -1405,7 +1400,25 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
     // ==================== New Options files public access ====================
     //
-    @Override public void loadStartupOptions() {
+    @Override public void loadStartupOptions() { // TODO BR: Transfert
+//    	LinkedList<InterfaceParam> transfertList = new LinkedList<>();
+//    	transfertList.add(showNextCouncil);
+//    	transfertList.add(mapFontFactor);
+//    	transfertList.add(showInfoFontRatio);
+//    	transfertList.add(showNameMinFont);
+//    	transfertList.add(useFusionFont);
+//    	transfertList.add(showPathFactor);
+//    	transfertList.add(showFlagFactor);
+//    	transfertList.add(showFleetFactor);
+//    	transfertList.add(techExchangeAutoRefuse);
+//    	transfertList.add(showLimitedWarnings);
+//    	transfertList.add(showGridCircular);
+//    	transfertList.add(showAlliancesGNN);
+//
+//    	transfertList.add(autoBombard_);
+//    	transfertList.add(autoColonize_);
+//    	transfertList.add(displayYear);
+    	
         System.out.println("==================== loadStartupOptions() ====================");
      	ParamOptions action = menuStartup;
     	if (action.isUser())
@@ -1431,20 +1444,26 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	setBaseSettingsToDefault(this, paramList);
     }
     @Override public void saveOptionsToFile(String fileName) {
-    	saveOptions(this, Rotp.jarPath(), fileName);
+    	saveOptions(this, fileName);
     }
-    @Override public void saveOptionsToFile(String fileName,
-    						LinkedList<InterfaceParam> paramList) { // TODO BR: limited list
-        saveOptions(this, Rotp.jarPath(), fileName);
+    @Override public void saveOptionsToFile(String fileName, LinkedList<InterfaceParam> paramList) {
+    	if (paramList == null)
+    		return;
+    	MOO1GameOptions fileOptions = loadOptions(fileName);
+       	for (InterfaceParam param : paramList)
+       		if (param != null)
+       			param.copyOption(this, fileOptions, false); // don't update tool
+        saveOptions(fileOptions, fileName);
     }
     @Override public void updateFromFile(String fileName,
     						LinkedList<InterfaceParam> paramList) {
     	if (paramList == null)
     		return;
-    	MOO1GameOptions source = loadFileName(fileName);
+    	MOO1GameOptions source = loadOptions(fileName);
        	for (InterfaceParam param : paramList)
-       		if (param != null)
-       			param.copyOption(source, this);
+       		if (param != null) {
+       			param.copyOption(source, this, true); // update tool
+       		}
         source.copyBaseSettings(this, paramList);
     }
     // ========== New Options Static files management methods ==========
@@ -1452,14 +1471,17 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     // !!! Must remain static: Called before option are fully initialized.
     //
     public static void copyOptionsFromLiveToLast() {
-    	saveOptions(loadFileName(UserPreferences.LIVE_OPTIONS_FILE),
-   			Rotp.jarPath(), UserPreferences.LAST_OPTIONS_FILE);
+    	saveOptions(loadOptions(LIVE_OPTIONS_FILE),
+   			Rotp.jarPath(), LAST_OPTIONS_FILE);
     }
-    private static MOO1GameOptions loadFileName(String fileName) {
+    private static MOO1GameOptions loadOptions(String fileName) {
     	MOO1GameOptions dest = loadOptions(Rotp.jarPath(), fileName);
    		return dest;
     }
     // BR: save options to zip file
+    private static void saveOptions(MOO1GameOptions options, String fileName) {
+    	saveOptions(options, Rotp.jarPath(), fileName);
+    }
     private static void saveOptions(MOO1GameOptions options, String path, String fileName) {
 		File saveFile = new File(path, fileName);
 		try {

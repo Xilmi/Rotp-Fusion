@@ -1,11 +1,12 @@
 package rotp.model.game;
 
-import static rotp.model.game.IBaseOptsTools.MOD_UI;
+import static rotp.ui.UserPreferences.save;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 
 import rotp.model.galaxy.StarSystem;
+import rotp.ui.UserPreferences;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.ParamBoolean;
@@ -15,7 +16,25 @@ import rotp.ui.util.ParamOptions;
 import rotp.util.FontManager;
 
 // Options saved in Remnants.cfg
-public interface IRemnantOptions {
+public interface IRemnantOptions extends IMainOptions {
+	// ==================== Parameters saved in Remnant.cfg ====================
+	ParamBoolean displayYear	= new ParamBoolean( // Duplicate Do not add the list
+			GAME_UI, "DISPLAY_YEAR", false) {
+		{
+			isDuplicate(true);
+			isCfgFile(true);
+		}
+		@Override public Boolean getOptionValue(IGameOptions options) {
+			return UserPreferences.displayYear();
+		}
+		@Override public void setOption(Boolean newValue) {
+			UserPreferences.displayYear(newValue);
+			save();
+		}
+	};
+	default boolean displayYear()		{ return displayYear.get(); }
+	default void toggleYearDisplay()	{ displayYear.toggle(); }
+
 	ParamFloat   showFleetFactor	= new ParamFloat(
 			MOD_UI, "SHOW_FLEET_FACTOR"
 			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
@@ -81,7 +100,7 @@ public interface IRemnantOptions {
 	// ==================== GUI List Declarations ====================
 	LinkedList<InterfaceParam> modGlobalOptionsUI = new LinkedList<>(
 			Arrays.asList(
-			menuStartup, minListSizePopUp, showAlliancesGNN,
+			menuStartup, minListSizePopUp, showAlliancesGNN, displayYear,
 			null,
 			showGridCircular, galaxyPreviewColorStarsSize, showLimitedWarnings, techExchangeAutoRefuse,
 			null,

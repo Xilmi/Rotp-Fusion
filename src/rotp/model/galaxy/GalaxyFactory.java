@@ -21,7 +21,7 @@ import static rotp.model.empires.CustomRaceDefinitions.getAllAlienRaces;
 import static rotp.model.empires.CustomRaceDefinitions.getAllowedAlienRaces;
 import static rotp.model.empires.CustomRaceDefinitions.optionToAlienRace;
 import static rotp.model.empires.CustomRaceDefinitions.raceFileExist;
-import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
+import static rotp.model.game.IGameOptions.GAME_OPTIONS_FILE;
 
 import java.awt.Point;
 import java.util.ArrayList;

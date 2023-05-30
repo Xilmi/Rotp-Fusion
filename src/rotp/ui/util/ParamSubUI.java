@@ -67,10 +67,10 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<InterfacePar
 			is &= param.isDefaultValue();
 		return is;
 	}
-	@Override public void copyOption(IGameOptions src, IGameOptions dest) {
-		super.copyOption(src, dest);
+	@Override public void copyOption(IGameOptions src, IGameOptions dest, boolean updateTool) {
+		super.copyOption(src, dest, updateTool);
 		for (InterfaceParam param : optionsList)
-			param.copyOption(src, dest);
+			param.copyOption(src, dest, updateTool);
 	}
 //	@Override public void updateOption() {
 //		super.updateOption();

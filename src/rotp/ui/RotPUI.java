@@ -63,6 +63,7 @@ import rotp.ui.game.GameSettingsUI;
 import rotp.ui.game.GameUI;
 import rotp.ui.game.HelpUI;
 import rotp.ui.game.LoadGameUI;
+import rotp.ui.game.MainOptionsUI;
 import rotp.ui.game.MergedDynamicOptionsUI;
 import rotp.ui.game.MergedStaticOptionsUI;
 import rotp.ui.game.ModGlobalOptionsUI;
@@ -260,6 +261,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     private final DynamicBOptionsUI  dynamicBOptionsUI  = new DynamicBOptionsUI();
     private final ModGlobalOptionsUI modGlobalOptionsUI = new ModGlobalOptionsUI();
     private final GameSettingsUI     gameSettingsUI     = new GameSettingsUI();
+    private final MainOptionsUI      mainOptionsUI      = new MainOptionsUI();
     private final LargeDialogPane    dialogPane         = new LargeDialogPane();
 
     private final CardLayout layout = new CardLayout();
@@ -332,10 +334,11 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     }
     // BR: Added option identification
     private static void createNewOptions() {
-        System.out.println("==================== Create newGameOptions  (Setup) ====================");
+        System.out.println("==================== Create newGameOptions (Setup) ====================");
     	newGameOptions = new MOO1GameOptions();
     	newGameOptions.setAsSetup();
     	Rotp.noOptions = false;
+        System.out.println("==================== Rotp.noOptions = false; ====================");
     }
     public void toggleAnimations() {
         if (playAnimations())
@@ -350,6 +353,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     public static MergedStaticOptionsUI  mergedStaticOptionsUI()  { return instance.mergedStaticOptionsUI; }
     public static MergedDynamicOptionsUI mergedDynamicOptionsUI() { return instance.mergedDynamicOptionsUI; }
     public static GameSettingsUI gameSettingsUI() { return instance.gameSettingsUI; }
+    public static MainOptionsUI  mainOptionsUI() { return instance.mainOptionsUI; }
     // BR: Standard Mod Game Options
     public static StaticAOptionsUI   modOptionsStaticA()  { return instance.staticAOptionsUI; }
     public static StaticBOptionsUI   modOptionsStaticB()  { return instance.staticBOptionsUI; }

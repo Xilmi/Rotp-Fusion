@@ -184,7 +184,7 @@ public class SettingBase<T> implements InterfaceParam {
 		if (!isSpacer && srcOptions != null)
 			setFromCfgValue(srcOptions.getString(getLangLabel(), getDefaultCfgValue()));
 	}
-	@Override public void copyOption(IGameOptions src, IGameOptions dest) {
+	@Override public void copyOption(IGameOptions src, IGameOptions dest, boolean updateTool) {
 		if (!isSpacer && src != null && dest != null)
 			dest.dynOpts().setString(getLangLabel(), getCfgValue());
 		dest.dynOpts().setString(getLangLabel(), src.dynOpts().getString(getLangLabel(), getDefaultCfgValue()));

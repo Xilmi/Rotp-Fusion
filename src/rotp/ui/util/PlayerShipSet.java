@@ -55,7 +55,7 @@ public class PlayerShipSet extends ParamList {
 	 * @return ShipSet Text to display translating Original option
 	 */
 	public String displaySet() {
-		if (playerIsCustom.get() && isOriginal()) { // Custom race TODO BR: Finalize options
+		if (playerIsCustom.get() && isOriginal()) {
 			String preferredShipSet = playerCustomRace.getRace().preferredShipSet;
 		   	if (preferredShipSet.equalsIgnoreCase(DISPLAY_RACE_SET))
 		   		return get();
@@ -71,7 +71,7 @@ public class PlayerShipSet extends ParamList {
 	public int realShipSetId() {
 		int index;
 		Race r =  Race.keyed(RotPUI.newOptions().selectedPlayerRace());
-		if (playerIsCustom.get() && isOriginal()) { // Custom race TODO BR: Finalize options
+		if (playerIsCustom.get() && isOriginal()) {
 		   	String preferredShipSet = playerCustomRace.getRace().preferredShipSet;
 		   	if (preferredShipSet.equalsIgnoreCase(DISPLAY_RACE_SET))
 		   		index = getIndex(r.preferredShipSet);

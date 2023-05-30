@@ -27,6 +27,7 @@ import java.io.PrintWriter;
 
 import rotp.Rotp;
 import rotp.model.game.GameSession;
+import rotp.model.game.IMainOptions;
 import rotp.model.game.IModOptions;
 import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.ParamString;
@@ -34,35 +35,30 @@ import rotp.util.LanguageManager;
 import rotp.util.sound.SoundManager;
 
 //public class UserPreferences implements RemnantOptions {
-public class UserPreferences {
-	private static final String WINDOW_MODE = "GAME_SETTINGS_WINDOWED";
-	private static final String BORDERLESS_MODE = "GAME_SETTINGS_BORDERLESS";
-	private static final String FULLSCREEN_MODE = "GAME_SETTINGS_FULLSCREEN";
-	private static final String GRAPHICS_LOW = "GAME_SETTINGS_GRAPHICS_LOW";
-	private static final String GRAPHICS_MEDIUM = "GAME_SETTINGS_GRAPHICS_MED";
-	private static final String GRAPHICS_HIGH = "GAME_SETTINGS_GRAPHICS_HIGH";
-	public  static final String AUTOBOMBARD_NO = "GAME_SETTINGS_AUTOBOMBARD_NO";
-	public  static final String AUTOBOMBARD_NEVER = "GAME_SETTINGS_AUTOBOMBARD_NEVER";
-	public  static final String AUTOBOMBARD_YES = "GAME_SETTINGS_AUTOBOMBARD_YES";
-	public  static final String AUTOBOMBARD_WAR = "GAME_SETTINGS_AUTOBOMBARD_WAR";
-	public  static final String AUTOBOMBARD_INVADE = "GAME_SETTINGS_AUTOBOMBARD_INVADE";
-	private static final String TEXTURES_NO = "GAME_SETTINGS_TEXTURES_NO";
-	private static final String TEXTURES_INTERFACE = "GAME_SETTINGS_TEXTURES_INTERFACE";
-	private static final String TEXTURES_MAP = "GAME_SETTINGS_TEXTURES_MAP";
-	private static final String TEXTURES_BOTH = "GAME_SETTINGS_TEXTURES_BOTH";
-	private static final String SAVEDIR_DEFAULT = "GAME_SETTINGS_SAVEDIR_DEFAULT";
-	private static final String SAVEDIR_CUSTOM = "GAME_SETTINGS_SAVEDIR_CUSTOM";
-	private static final String SENSITIVITY_HIGH = "GAME_SETTINGS_SENSITIVITY_HIGH";
-	private static final String SENSITIVITY_MEDIUM = "GAME_SETTINGS_SENSITIVITY_MEDIUM";
-	private static final String SENSITIVITY_LOW = "GAME_SETTINGS_SENSITIVITY_LOW";
+public class UserPreferences implements IMainOptions {
+//	public static final String WINDOW_MODE = "GAME_SETTINGS_WINDOWED";
+//	public static final String BORDERLESS_MODE = "GAME_SETTINGS_BORDERLESS";
+//	public static final String FULLSCREEN_MODE = "GAME_SETTINGS_FULLSCREEN";
+//	public static final String GRAPHICS_LOW = "GAME_SETTINGS_GRAPHICS_LOW";
+//	public static final String GRAPHICS_MEDIUM = "GAME_SETTINGS_GRAPHICS_MED";
+//	public static final String GRAPHICS_HIGH = "GAME_SETTINGS_GRAPHICS_HIGH";
+//	public static final String AUTOBOMBARD_NO = "GAME_SETTINGS_AUTOBOMBARD_NO";
+//	public static final String AUTOBOMBARD_NEVER = "GAME_SETTINGS_AUTOBOMBARD_NEVER";
+//	public static final String AUTOBOMBARD_YES = "GAME_SETTINGS_AUTOBOMBARD_YES";
+//	public static final String AUTOBOMBARD_WAR = "GAME_SETTINGS_AUTOBOMBARD_WAR";
+//	public static final String AUTOBOMBARD_INVADE = "GAME_SETTINGS_AUTOBOMBARD_INVADE";
+//	public static final String TEXTURES_NO = "GAME_SETTINGS_TEXTURES_NO";
+//	public static final String TEXTURES_INTERFACE = "GAME_SETTINGS_TEXTURES_INTERFACE";
+//	public static final String TEXTURES_MAP = "GAME_SETTINGS_TEXTURES_MAP";
+//	public static final String TEXTURES_BOTH = "GAME_SETTINGS_TEXTURES_BOTH";
+//	public static final String SAVEDIR_DEFAULT = "GAME_SETTINGS_SAVEDIR_DEFAULT";
+//	public static final String SAVEDIR_CUSTOM = "GAME_SETTINGS_SAVEDIR_CUSTOM";
+//	public static final String SENSITIVITY_HIGH = "GAME_SETTINGS_SENSITIVITY_HIGH";
+//	public static final String SENSITIVITY_MEDIUM = "GAME_SETTINGS_SENSITIVITY_MEDIUM";
+//	public static final String SENSITIVITY_LOW = "GAME_SETTINGS_SENSITIVITY_LOW";
 
 	private static final String PREFERENCES_FILE  = "Remnants.cfg";
-	public  static final String GAME_OPTIONS_FILE = "Game.options";
-	public  static final String LAST_OPTIONS_FILE = "Last.options";
-	public  static final String LIVE_OPTIONS_FILE = "Live.options";
-	public  static final String USER_OPTIONS_FILE = "User.options";
 	public  static final String GALAXY_TEXT_FILE  = "Galaxy.txt";
-	private static final int    MAX_BACKUP_TURNS  = 20; // modnar: change max turns between backups to 20
 	private static final String keyFormat = "%-25s: "; // BR: from 20 to 25 for a better alignment
 
 	private static boolean showMemory  = false;
@@ -119,15 +115,19 @@ public class UserPreferences {
 		autoColonize = false;
 		autoBombardMode = AUTOBOMBARD_NO;
 	}
-	public static int musicVolume()		   { return musicVolume; }
-	public static int soundVolume()		   { return soundVolume; }
-	public static boolean showMemory()	   { return showMemory; }
-	public static void toggleMemory()	   { showMemory = !showMemory; save(); }
-	public static boolean fullScreen()	   { return displayMode.equals(FULLSCREEN_MODE); }
-	public static boolean windowed()	   { return displayMode.equals(WINDOW_MODE); }
-	public static boolean borderless()	   { return displayMode.equals(BORDERLESS_MODE); }
-	public static String displayMode()	   { return displayMode; }
-	public static void toggleDisplayMode() {
+	public static void musicVolume(int i)    { musicVolume = i; }
+	public static int musicVolume()		     { return musicVolume; }
+	public static void soundVolume(int i)    { soundVolume = i; }
+	public static int soundVolume()		     { return soundVolume; }
+	public static void showMemory(boolean b) { showMemory = b; }
+	public static boolean showMemory()	     { return showMemory; }
+	public static void toggleMemory()	     { showMemory = !showMemory; save(); }
+	public static boolean fullScreen()	     { return displayMode.equals(FULLSCREEN_MODE); }
+	public static boolean windowed()	     { return displayMode.equals(WINDOW_MODE); }
+	public static boolean borderless()	     { return displayMode.equals(BORDERLESS_MODE); }
+	public static String displayMode()	     { return displayMode; }
+	public static void displayMode(String s) { displayMode = s; }
+	public static void toggleDisplayMode()   {
 		switch(displayMode) {
 			case WINDOW_MODE:	  displayMode = BORDERLESS_MODE; break;
 			case BORDERLESS_MODE: displayMode = FULLSCREEN_MODE; break;
@@ -136,7 +136,8 @@ public class UserPreferences {
 		}
 		save();
 	}
-	public static String graphicsMode()	 { return graphicsMode; }
+	public static void graphicsMode(String s) { graphicsMode = s; }
+	public static String graphicsMode()	      { return graphicsMode; }
 	public static void toggleGraphicsMode()   {
 		switch(graphicsMode) {
 			case GRAPHICS_HIGH:   graphicsMode = GRAPHICS_MEDIUM; break;
@@ -156,9 +157,10 @@ public class UserPreferences {
 		}
 		save();
 	}
-	public static String texturesMode()	 { return texturesMode; }
+	public static void texturesMode(String s) { texturesMode = s; }
+	public static String texturesMode()	      { return texturesMode; }
 	public static boolean texturesInterface() { return texturesMode.equals(TEXTURES_INTERFACE) || texturesMode.equals(TEXTURES_BOTH); }
-	public static boolean texturesMap()	   { return texturesMode.equals(TEXTURES_MAP) || texturesMode.equals(TEXTURES_BOTH); }
+	public static boolean texturesMap()	      { return texturesMode.equals(TEXTURES_MAP) || texturesMode.equals(TEXTURES_BOTH); }
 
 	public static void toggleSensitivityMode()   {
 		switch(sensitivityMode) {
@@ -169,10 +171,11 @@ public class UserPreferences {
 		}
 		save();
 	}
-	public static String sensitivityMode()	  { return sensitivityMode; }
-	// public static boolean sensitivityHigh()	  { return sensitivityMode.equals(SENSITIVITY_HIGH); }
-	public static boolean sensitivityMedium() { return sensitivityMode.equals(SENSITIVITY_MEDIUM); }
-	public static boolean sensitivityLow()	  { return sensitivityMode.equals(SENSITIVITY_LOW); }
+	public static void sensitivityMode(String s) { sensitivityMode = s; }
+	public static String sensitivityMode()	     { return sensitivityMode; }
+	// public static boolean sensitivityHigh()	 { return sensitivityMode.equals(SENSITIVITY_HIGH); }
+	public static boolean sensitivityMedium()    { return sensitivityMode.equals(SENSITIVITY_MEDIUM); }
+	public static boolean sensitivityLow()	     { return sensitivityMode.equals(SENSITIVITY_LOW); }
 
 	// public static String autoColonizeMode()	  { return autoColonize ? AUTOCOLONIZE_YES : AUTOCOLONIZE_NO; }
 	public static void toggleAutoColonize()	  { autoColonize = !autoColonize; save();  }
@@ -198,13 +201,16 @@ public class UserPreferences {
 	public static boolean autoBombardWar()   { return autoBombardMode.equals(AUTOBOMBARD_WAR); }
 	public static boolean autoBombardInvading() { return autoBombardMode.equals(AUTOBOMBARD_INVADE); }
 
-	public static boolean playAnimations() { return !graphicsMode.equals(GRAPHICS_LOW); }
-	public static boolean antialiasing() { return graphicsMode.equals(GRAPHICS_HIGH); }
-	public static boolean playSounds()   { return playSounds; }
-	public static void toggleSounds()    { playSounds = !playSounds;	save(); }
-	public static boolean playMusic()    { return playMusic; }
-	public static void toggleMusic()     { playMusic = !playMusic; save();  }
+	public static boolean playAnimations()   { return !graphicsMode.equals(GRAPHICS_LOW); }
+	public static boolean antialiasing()     { return graphicsMode.equals(GRAPHICS_HIGH); }
+	public static void playSounds(boolean b) { playSounds = b; }
+	public static boolean playSounds()       { return playSounds; }
+	public static void toggleSounds()        { playSounds = !playSounds; save(); }
+	public static void playMusic(boolean b)  { playMusic = b; }
+	public static boolean playMusic()        { return playMusic; }
+	public static void toggleMusic()         { playMusic = !playMusic; save();  } // called from sound manager
 	
+	public	static void		selectedScreen(int i)			{ selectedScreen = i; }
 	public	static int		selectedScreen()				{ return selectedScreen; }
 	public	static int		screenSizePct()					{ return screenSizePct; }
 	public	static String	saveDirectoryPath()				{
@@ -227,7 +233,7 @@ public class UserPreferences {
 	public	static int		backupTurns()					{ return backupTurns; }
 	public	static boolean	backupTurns(int i)				{
 		int prev = backupTurns;
-		backupTurns = Math.min(Math.max(0,i),MAX_BACKUP_TURNS);
+		backupTurns = Math.min(Math.max(0,i), MAX_BACKUP_TURNS);
 		save();
 		return prev != backupTurns;
 	}
@@ -239,6 +245,7 @@ public class UserPreferences {
 		save();
 	}
 	public	static void		toggleYearDisplay()				{ displayYear = !displayYear; save(); }
+	public	static void		displayYear(boolean b)			{ displayYear = b; }
 	public	static boolean	displayYear()					{ return displayYear; }
 	public	static int		defaultMaxBases()				{ return defaultMaxBases; }
 	public	static boolean	governorOnByDefault()			{ return governorOnByDefault; }
@@ -255,6 +262,7 @@ public class UserPreferences {
 	}
 	@SuppressWarnings("null")
 	public static void load() {
+		System.out.println("UserPreferences: load()");
 		String path = Rotp.jarPath();
 		File configFile = new File(path, PREFERENCES_FILE);
 		// modnar: change to InputStreamReader, force UTF-8
@@ -273,6 +281,7 @@ public class UserPreferences {
 		}
 	}
 	public static int save() {
+		System.out.println("UserPreferences: save()");
 		String path = Rotp.jarPath();
 		try (FileOutputStream fout = new FileOutputStream(new File(path, PREFERENCES_FILE));
 			// modnar: change to OutputStreamWriter, force UTF-8

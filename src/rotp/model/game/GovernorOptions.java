@@ -97,7 +97,7 @@ public class GovernorOptions implements Serializable, IGovOptions {
 			auto_Spy.silentSet(autoSpy);
 			auto_Scout.silentSet(autoScout);
 			autoScoutCount.silentSet(autoScoutShipCount);
-			auto_Colonize.silentSet(autoColonize);
+			govAutoColonize.silentSet(autoColonize);
 			autoColonyCount.silentSet(autoColonyShipCount);
 			auto_Attack.silentSet(autoAttack);
 			autoAttackCount.silentSet(autoAttackShipCount);
@@ -217,8 +217,8 @@ public class GovernorOptions implements Serializable, IGovOptions {
 	public boolean isAutoScout()				{ return auto_Scout.get(); }
 	public void setAutoScout(boolean b)			{ auto_Scout.silentSet(b); }
 
-	public boolean isAutoColonize()				{ return auto_Colonize.get(); }
-	public void setAutoColonize(boolean b)		{ auto_Colonize.silentSet(b); }
+	public boolean isAutoColonize()				{ return govAutoColonize.get(); }
+	public void setAutoColonize(boolean b)		{ govAutoColonize.silentSet(b); }
 
 	public boolean isAutoAttack()				{ return auto_Attack.get(); }
 	public void setAutoAttack(boolean b)		{ auto_Attack.silentSet(b); }

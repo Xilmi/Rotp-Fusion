@@ -15,11 +15,11 @@
  */
 package rotp.ui.game;
 
-import static rotp.model.game.IModOptions.optionsRace;
-import static rotp.model.game.IModOptions.playerCustomRace;
-import static rotp.model.game.IModOptions.playerIsCustom;
-import static rotp.model.game.IModOptions.playerShipSet;
-import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
+import static rotp.model.game.IGameOptions.LIVE_OPTIONS_FILE;
+import static rotp.model.game.IGameOptions.optionsRace;
+import static rotp.model.game.IGameOptions.playerCustomRace;
+import static rotp.model.game.IGameOptions.playerIsCustom;
+import static rotp.model.game.IGameOptions.playerShipSet;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -1115,7 +1115,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 //        	case KeyEvent.VK_F1:
 //        		showHelp();
 //        		return;
-	    	case KeyEvent.VK_R: // BR: TODO Random Race
+	    	case KeyEvent.VK_R:
 	    		playerIsCustom.set(false);
 	        	guiOptions().setRandomPlayerRace();
 	        	raceChanged();

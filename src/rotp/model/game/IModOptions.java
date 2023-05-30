@@ -8,7 +8,7 @@ import rotp.ui.util.InterfaceParam;
 import rotp.ui.util.ParamTitle;
 
 public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptions,
-							IRaceOptions, IGovOptions, IGalaxyOptions,  IMainOptions {
+							IRaceOptions, IGovOptions, IGalaxyOptions {
 
 	default void updateOptionsAndSaveToFileName(String fileName) {
 		saveOptionsToFile(fileName, allModOptions());
@@ -37,6 +37,16 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 	default void	updateGuiOptionsId()	{ RotPUI.currentOptions(id()); }
 	
 	void loadStartupOptions();
+	/**
+	 * Load file and update with specified options list then save back to file
+	 * @param fileName
+	 * @param paramList
+	 */
+	void saveOptionsToFile (String fileName, LinkedList<InterfaceParam> paramList);
+	/**
+	 * Save all options to file
+	 * @param fileName
+	 */
 	void saveOptionsToFile (String fileName);
 	/**
 	 * Load the file and update the listed parameters
@@ -51,9 +61,8 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 	 * @param paramList
 	 */
 	void updateFromDefault (LinkedList<InterfaceParam> paramList);
-	
 
-	
+	void copyAliensAISettings(IGameOptions dest);
 	
 	// Tools For Debug
 	default void	showOptionName()		{
@@ -72,18 +81,6 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 				return "Unknown Options";
 		}
 	}
-	/**
-	 * TODO BR: will have to be removed
-	 * 			Use Save (String fileName) instead, the options should be up to date
-	 * Update listed options and save to file
-	 * @param fileName
-	 * @param paramList
-	 */
-	void saveOptionsToFile (String fileName, LinkedList<InterfaceParam> paramList);
-
-	void copyAliensAISettings(IGameOptions dest);
-
-	
 
 	// ==================== All Parameters ====================
 	//

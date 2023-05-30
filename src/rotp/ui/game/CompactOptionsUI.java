@@ -15,7 +15,7 @@
  */
 package rotp.ui.game;
 
-import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
+import static rotp.model.game.IGameOptions.LIVE_OPTIONS_FILE;
 
 import java.awt.Color;
 import java.awt.Font;

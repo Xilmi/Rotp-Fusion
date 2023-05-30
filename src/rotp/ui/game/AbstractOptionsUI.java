@@ -15,7 +15,7 @@
  */
 package rotp.ui.game;
 
-import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
+import static rotp.model.game.IGameOptions.LIVE_OPTIONS_FILE;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -53,8 +53,8 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 	private static int lineH		= s17;
 	private static int rowPad		= s20;
 	private static int hDistSetting = hSetting + rowPad; // distance between two setting top corner
-	private int leftM, rightM,topM, yTop;
-	private int w, wBG, h, hBG;
+	private int leftM, rightM, topM, yTop;
+	private int wBG, hBG;
 	private int numColumns, numRows;
 	private int yTitle, xDesc, yDesc, yButton;
 	private int xSetting, ySetting, wSetting; // settings var
@@ -100,31 +100,32 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 		int shiftButton	= s15;
 		int topPad		= hSetting;
 		int hSettings	= hDistSetting * numRows;
-		
+
+		// ----- With Management
 		if (numColumns == 4)
 			columnPad = s12;
 
 		leftM	= max(columnPad, scaled(100 + (3-numColumns) * 150));
 		rightM	= leftM;
-		topM	= s45;
-		yTitle	= topM + shiftTitle;
-		yButton	= topM + topPad + hSettings - shiftButton;
 		xDesc	= leftM + columnPad/2;
+
+		// ----- Height Management
+		if (numRows == 6) {
+			topPad		-= s40; // Push the settings up			
+			shiftTitle	-= s10; // Shift the title a little
+		}	
+		hBG		= topPad + hSettings + smallButtonH + s10;
+		topM	= (h - hBG)/2;
+		yTop	= topM + topPad; // First setting top position
+		yButton	= yTop + hSettings - shiftButton + s10;
+		yTitle	= topM + shiftTitle;
 		yDesc	= yTitle + s20;
 		
 		// Special positioning for 6 rows
 		if (numRows == 6) {
-			// Shift the top
-			topM		-= s30; // Margin reduction
-			topPad		-= s40; // Push the settings up
-			shiftTitle	-= s10; // Shift the title a little
-			// Move the description to the buttons level
-			yTitle	= topM + shiftTitle;
-			yButton	= topM + topPad + hSettings - shiftButton;
-			yDesc	= yButton + s20;
+			// Move the description to the Title level
+			yDesc	= yTitle;
 		}
-		yTop	= topM + topPad; // First setting top position
-		hBG		= topPad + hSettings + smallButtonH - s10;
 
 		addMouseListener(this);
 		addMouseMotionListener(this);
@@ -366,6 +367,10 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 		String title = text(guiTitleID);
 		int sw = g.getFontMetrics().stringWidth(title);
 		int xTitle = (w-sw)/2;
+		if (numRows == 6) {
+			xTitle = w -rightM - sw - 2*columnPad;
+		}
+
 		drawBorderedString(g, title, 1, xTitle, yTitle, Color.black, Color.white);
 		
 		g.setFont(narrowFont(18));
@@ -452,8 +457,8 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 				return;
 			}			
 		}
-		ModifierKeysState.reset();
-		repaintButtons();
+//		ModifierKeysState.reset();
+//		repaintButtons();
 	}
 	@Override public void mouseWheelMoved(MouseWheelEvent e) {
 		checkModifierKey(e);

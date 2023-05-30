@@ -284,7 +284,7 @@ public class GameSettingsUI extends BasePanel implements MouseListener, MouseMot
         g.fillRect(x2+s10, y2-s10, memoryText.stringWidth(g)+s10,s30);
         screenText.setScaledXY(x2+s20, y2+s7);
         screenText.draw(g);
-        desc = text("GAME_SETTINGS_SCREEN_DESC");
+        desc = text("GAME_SETTINGS_SELECTED_SCREEN_DESC");
         g.setColor(SystemPanel.blackText);
         g.setFont(descFont);
         lines = this.wrappedLines(g,desc, w2-s30);

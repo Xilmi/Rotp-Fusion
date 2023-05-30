@@ -101,7 +101,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	protected void setOption(T value) { setOptionValue(opts(), value); }
 	protected abstract T getOptionValue(IGameOptions options);
 	protected void setOptionValue(IGameOptions options, T value) {
-		if (isDuplicate()) { // TODO BR: For compatibility
+		if (isDuplicate()) { // Just in case!
 			System.err.println("getFromOption() not updated to getOptionValue: " + name);
 		}		
 	}
@@ -116,28 +116,15 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	@Override public String toString() {
 		return getCfgLabel() + " = " + getCfgValue();
 	}
-//	@Override public void updateOption() { // TODO BR: will be removed
-//		if (dynOpts() != null) {
-//			T oldVal = getOptionValue(opts());
-//			T newVal = get();
-//			if ( !( oldVal.toString().equals(newVal.toString()) ) ) {
-//				if(!(oldVal instanceof DynOptions))
-//					System.err.println("AParam.updateOption(): " + name + " : " + oldVal + " != " + newVal);
-//			}
-//			setOptionValue(opts(), get());
-//		} 
-//		else {
-//			System.err.println("AParam.updateOption(): [dynOpts() == null] " + name);
-//		}
-//	}
 	@Override public void updateOptionTool() {
 			set( getOptionValue(opts()));
 	}
-	@Override public void copyOption(IGameOptions src, IGameOptions dest) {
+	@Override public void copyOption(IGameOptions src, IGameOptions dest, boolean updateTool) {
 		if (src == null || dest == null)
 			return;
 		T val = getOptionValue(src);
-		set(val);
+		if (updateTool)
+			set(val);
 		setOptionValue(dest, val);
 	}
 	@Override public String getCfgValue()		{ return getCfgValue(value); }

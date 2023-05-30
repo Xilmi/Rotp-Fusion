@@ -36,14 +36,12 @@ public class ParamCR extends ParamObject {
 	// ===== Overriders =====
 	//
 	@Override public Serializable defaultValue() {
-		System.out.println("ParamCR defaultValue() {"); // TODO BR: REMOVE
 		return CustomRaceDefinitions.getDefaultOptions();
 	}
 	// ===== Other Methods =====
 	//
 	public Race getRace() {
 		Race r = getCustomRace().getRace();
-		System.out.println("ParamCR getRace(): " + r.name()); // TODO BR: REMOVE
 		return r;
 	}
 	private CustomRaceDefinitions getCustomRace() {

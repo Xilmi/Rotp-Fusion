@@ -22,11 +22,12 @@ public enum ModifierKeysState {
 	NONE			(""),
 	SHIFT			("(Shift) "),
 	CTRL			("(Ctrl) "),
-	ALT				("(Alt) "),
+	//ALT				("(Alt) "),
 	CTRL_SHIFT		("(Ctrl)+(Shift) "),
-	ALT_SHIFT		("(Alt)+(Shift)) "),
-	ALT_CTRL		("(Alt)+(Ctrl) "),
-	ALT_CTRL_SHIFT	("(Alt)+(Ctrl)+(Shift) ");
+	//ALT_SHIFT		("(Alt)+(Shift)) "),
+	//ALT_CTRL		("(Alt)+(Ctrl) "),
+	//ALT_CTRL_SHIFT	("(Alt)+(Ctrl)+(Shift) ")
+	;
 
 	public final String helpLine;
 	private ModifierKeysState(String opt) { helpLine = opt; }
@@ -77,24 +78,38 @@ public enum ModifierKeysState {
 		setKeysState(e);
 		if (setKeysState(e))
 			return lastState;
-
 		if (isShiftDown)
 			if (isCtrlDown)
-				if (isAltDown)
-					return ModifierKeysState.ALT_CTRL_SHIFT;
-				else
-					return ModifierKeysState.CTRL_SHIFT;
-			else if (isAltDown)
-				return ModifierKeysState.ALT_SHIFT;
+				return ModifierKeysState.CTRL_SHIFT;
 			else
 				return ModifierKeysState.SHIFT;
 		if (isCtrlDown)
-			if (isAltDown)
-				return ModifierKeysState.ALT_CTRL;
-			else
-				return ModifierKeysState.CTRL;
-		if (isAltDown)
-			return ModifierKeysState.ALT;
+			return ModifierKeysState.CTRL;
 		return ModifierKeysState.NONE;
 	}
+// !!! Middle-click wrongly generate alt alt action !!!
+//
+//	private static ModifierKeysState analyze(InputEvent e) {
+//		setKeysState(e);
+//		if (setKeysState(e))
+//			return lastState;
+//		if (isShiftDown)
+//			if (isCtrlDown)
+//				if (isAltDown)
+//					return ModifierKeysState.ALT_CTRL_SHIFT;
+//				else
+//					return ModifierKeysState.CTRL_SHIFT;
+//			else if (isAltDown)
+//				return ModifierKeysState.ALT_SHIFT;
+//			else
+//				return ModifierKeysState.SHIFT;
+//		if (isCtrlDown)
+//			if (isAltDown)
+//				return ModifierKeysState.ALT_CTRL;
+//			else
+//				return ModifierKeysState.CTRL;
+//		if (isAltDown)
+//			return ModifierKeysState.ALT;
+//		return ModifierKeysState.NONE;
+//	}
 }

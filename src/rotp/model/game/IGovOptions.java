@@ -66,7 +66,7 @@ public interface IGovOptions {
 	// Fleet Options
 	ParamBoolean auto_Scout			= new ParamBoolean(GOV_UI, "AUTO_SCOUT", true);
 	ParamInteger autoScoutCount		= new ParamInteger(GOV_UI, "AUTO_SCOUT_COUNT",	1, 1, 9999, 1, 5, 20);
-	ParamBoolean auto_Colonize		= new ParamBoolean(GOV_UI, "AUTO_COLONIZE", true);
+	ParamBoolean govAutoColonize	= new ParamBoolean(GOV_UI, "AUTO_COLONIZE", true);
 	ParamInteger autoColonyCount	= new ParamInteger(GOV_UI, "AUTO_COLONY_COUNT", 1, 1, 9999, 1, 5, 20);
 	ParamBoolean auto_Attack		= new ParamBoolean(GOV_UI, "AUTO_ATTACK", false);
 	ParamInteger autoAttackCount	= new ParamInteger(GOV_UI, "AUTO_ATTACK_COUNT", 1, 1, 9999, 1, 5, 20);
@@ -104,7 +104,7 @@ public interface IGovOptions {
 				new ParamTitle(GOV_UI + "FLEET_OPTIONS"),
 				// autoShipsByDefault,	// TODO: for future use
 				auto_Scout, autoScoutCount,
-				auto_Colonize, autoColonyCount,
+				govAutoColonize, autoColonyCount,
 				auto_Attack, autoAttackCount,
 				
 				headerSpacer,

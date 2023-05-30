@@ -15,7 +15,7 @@
  */
 package rotp.model.game;
 
-import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
+import static rotp.model.game.IGameOptions.GAME_OPTIONS_FILE;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -814,9 +814,6 @@ public final class GameSession implements Base, Serializable {
     public void saveSession(String filename, boolean backup) throws Exception {
         log("Saving game as file: ", filename, "  backup: "+backup);
         GameSession currSession = GameSession.instance();
-//        IGameOptions opts = currSession.options();
-    	// Update quietly the dynamic options before saving
-        // opts.writeModSettingsToOptions(opts.allModOptions(), false); TODO BR: REMOVE
 
     	File theDir = backup ? new File(backupDir()) : new File(saveDir());
         if (!theDir.exists())

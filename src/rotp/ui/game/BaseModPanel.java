@@ -15,10 +15,10 @@
  */
 package rotp.ui.game;
 
-import static rotp.ui.UserPreferences.GAME_OPTIONS_FILE;
-import static rotp.ui.UserPreferences.LAST_OPTIONS_FILE;
-import static rotp.ui.UserPreferences.LIVE_OPTIONS_FILE;
-import static rotp.ui.UserPreferences.USER_OPTIONS_FILE;
+import static rotp.model.game.IGameOptions.GAME_OPTIONS_FILE;
+import static rotp.model.game.IGameOptions.LAST_OPTIONS_FILE;
+import static rotp.model.game.IGameOptions.LIVE_OPTIONS_FILE;
+import static rotp.model.game.IGameOptions.USER_OPTIONS_FILE;
 import static rotp.ui.util.InterfaceParam.LABEL_DESCRIPTION;
 
 import java.awt.Color;
@@ -139,6 +139,11 @@ public abstract class BaseModPanel extends BasePanel
 
 	@Override public void repaintButtons() { repaint(); }
 	protected void init() {
+		//ModifierKeysState.reset();
+		w = RotPUI.setupRaceUI().getWidth();
+		h = RotPUI.setupRaceUI().getHeight();
+		smallButtonMargin = s30;
+		smallButtonH	  = s30;
 		if (!initialised) {
 			if (isSubMenu) {
 				defaultBox	= new Box(defaultSubButton);
@@ -154,11 +159,6 @@ public abstract class BaseModPanel extends BasePanel
 			singleInit();
 			initialised = true;
 		}
-		//ModifierKeysState.reset();
-		w = RotPUI.setupRaceUI().getWidth();
-		h = RotPUI.setupRaceUI().getHeight();
-		smallButtonMargin = s30;
-		smallButtonH	  = s30;
 	}
 	protected void close() { 
 		disableGlassPane();
@@ -437,8 +437,9 @@ public abstract class BaseModPanel extends BasePanel
 	@Override public void mouseClicked(MouseEvent e) {  }
 	@Override public void mousePressed(MouseEvent e) {  }
 	@Override public void mouseEntered(MouseEvent e) {
-		ModifierKeysState.reset();
-		repaintButtons();
+		repaint();
+//		ModifierKeysState.reset();
+//		repaintButtons();
 	}
 	@Override public void mouseExited(MouseEvent e)	 { clearGuide(); }
 	@Override public void mouseDragged(MouseEvent e) {  }
