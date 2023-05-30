@@ -180,7 +180,7 @@ public interface InterfaceParam extends InterfaceOptions{
 			return "";
 //		System.out.println("langDesc: key+LABEL_DESCRIPTION = " + key+LABEL_DESCRIPTION);
 		String desc = realLangLabel(key+LABEL_DESCRIPTION);
-//		desc = langLabel(key+LABEL_DESCRIPTION); // TODO BR: For debug... comment!
+		desc = langLabel(key+LABEL_DESCRIPTION); // TODO BR: For debug... comment!
 		if (desc == null)
 			return "";
 //		System.out.println("desc = " + desc);

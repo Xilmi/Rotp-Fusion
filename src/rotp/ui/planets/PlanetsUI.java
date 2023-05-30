@@ -585,7 +585,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             case KeyEvent.VK_O: // BR:
             	if (control) {
             		MergedDynamicOptionsUI optionsUI = RotPUI.mergedDynamicOptionsUI();
-        			optionsUI.start(true);
+        			optionsUI.start(0);
             	}
             	return;
             case KeyEvent.VK_Q:

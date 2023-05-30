@@ -146,7 +146,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 		helpUI.clear();
 
 		txt  = text("SETUP_RACE_MAIN_DESC");
-		nL   = 5;
+		nL   = 6;
 		xBox = s50;
 		wBox = scaled(350);
 		yBox = s20;

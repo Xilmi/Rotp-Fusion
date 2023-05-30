@@ -226,7 +226,7 @@ public class MapOverlayNone extends MapOverlay {
             case KeyEvent.VK_O: // BR:
             	if (ctrl) {
             		MergedDynamicOptionsUI optionsUI = RotPUI.mergedDynamicOptionsUI();
-        			optionsUI.start(true);
+        			optionsUI.start(0);
             	}
             	break;
             case KeyEvent.VK_Y: // BR:

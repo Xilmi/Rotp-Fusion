@@ -308,10 +308,6 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		for (InterfaceOptions param : activeList)
 			param.setFromDefault();
 	}
-	public void start(boolean callFromGame) { // Called from Base UI
-		parent = 0;
-		start();
-	}
 	public void start(int p) { // Called from subUI
 		parent = p;
 		start();
@@ -367,7 +363,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 //        disableGlassPane();
 		switch (parent) {
 		case 1:
-			RotPUI.mergedDynamicOptionsUI().start(guiOptions().isGameOption()); // TODO BR: remove one parameter
+			RotPUI.mergedDynamicOptionsUI().start(0); // TODO BR: remove one parameter
 			return;
 		case 2:
 			RotPUI.modOptionsDynamicA().init();

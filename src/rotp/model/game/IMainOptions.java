@@ -120,7 +120,7 @@ public interface IMainOptions extends IBaseOptsTools {
 //	default boolean texturesInterface()		{ return UserPreferences.texturesInterface(); }
 //	default boolean texturesMap()			{ return UserPreferences.texturesMap(); }
 
-	ParamList sensitivityMode		= new ParamList( GAME_UI, "GRAPHICS",
+	ParamList sensitivityMode		= new ParamList( GAME_UI, "SENSITIVITY",
 			Arrays.asList(
 					SENSITIVITY_LOW,
 					SENSITIVITY_MEDIUM,

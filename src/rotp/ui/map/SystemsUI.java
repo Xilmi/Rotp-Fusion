@@ -1011,7 +1011,7 @@ public final class SystemsUI extends BasePanel implements IMapHandler, ActionLis
             case KeyEvent.VK_O: // BR:
             	if (ctrl) {
             		MergedDynamicOptionsUI optionsUI = RotPUI.mergedDynamicOptionsUI();
-        			optionsUI.start(true);
+        			optionsUI.start(0);
             	}
                 return;
         }

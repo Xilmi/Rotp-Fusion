@@ -2020,13 +2020,13 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		buttonClick();
 		MergedStaticOptionsUI modOptionsUI = RotPUI.mergedStaticOptionsUI();
 		close();
-		modOptionsUI.start(false);
+		modOptionsUI.start(0);
 	}
 	private void goToMergedDynamic() {
 		buttonClick();
 		MergedDynamicOptionsUI modOptionsUI = RotPUI.mergedDynamicOptionsUI();
 		close();
-		modOptionsUI.start(false);
+		modOptionsUI.start(0);
 	}
 	private void goToModStaticA() {
 		buttonClick();

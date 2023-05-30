@@ -58,6 +58,8 @@ Later:
 - Remade Main settings panel, now Guide compatible.
   - Not yet activated.
 - Fixed Buttons appearing before the panels.
+- Completed the Main settings panel Guide.
+- Removed useless parameters.
 
 2023.05.29 (BR)
 - Player initial race will be randomized (as it was on vanilla Rotp)

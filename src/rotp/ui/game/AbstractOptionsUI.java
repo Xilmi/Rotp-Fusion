@@ -457,8 +457,6 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 				return;
 			}			
 		}
-//		ModifierKeysState.reset();
-//		repaintButtons();
 	}
 	@Override public void mouseWheelMoved(MouseWheelEvent e) {
 		checkModifierKey(e);

@@ -50,7 +50,6 @@ public class ParamBoolInt extends ParamInteger {
 	    	val = langLabel(super.getLangLabel(), guideValue());
 	    else
 	    	val = langLabel(negativeLabel());
-	   	System.out.println("Val: " + val);
 	    return langLabel(boolParam.getLangLabel(), val +END);
 	}
 	@Override public String getLangLabel()		{ return boolParam.getLangLabel(); }
