@@ -17,7 +17,7 @@ package rotp.ui.game;
 
 import java.util.LinkedList;
 
-import rotp.ui.util.InterfaceParam;
+import rotp.ui.util.IParam;
 
 public class MergedDynamicOptionsUI extends CompactOptionsUI {
 	private static final long serialVersionUID = 1L;
@@ -25,7 +25,7 @@ public class MergedDynamicOptionsUI extends CompactOptionsUI {
 	public static final String GUI_ID     = "MERGED_DYNAMIC_OPTIONS";
 	
 	public MergedDynamicOptionsUI() { super(guiTitleID, GUI_ID); }
-	@Override protected LinkedList<LinkedList<InterfaceParam>> getList() {
+	@Override protected LinkedList<LinkedList<IParam>> getList() {
 		return rotp.model.game.IGameOptions.inGameOptionsMap;
 	}
 }

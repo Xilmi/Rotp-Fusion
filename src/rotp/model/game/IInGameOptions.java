@@ -8,7 +8,7 @@ import java.util.LinkedList;
 
 import rotp.model.empires.GalacticCouncil;
 import rotp.model.events.RandomEvents;
-import rotp.ui.util.InterfaceParam;
+import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
@@ -152,7 +152,7 @@ public interface IInGameOptions extends IBaseOptsTools {
 	
 
 	// ==================== GUI List Declarations ====================
-	LinkedList<InterfaceParam> modOptionsDynamicA = new LinkedList<>(
+	LinkedList<IParam> modOptionsDynamicA = new LinkedList<>(
 			Arrays.asList(
 				customDifficulty, dynamicDifficulty, challengeMode, showAllAI,
 				null,
@@ -162,7 +162,7 @@ public interface IInGameOptions extends IBaseOptsTools {
 				null,
 				scrapRefundFactor, scrapRefundOption, autoTerraformEnding
 			));
-	LinkedList<InterfaceParam> modOptionsDynamicB = new LinkedList<>(
+	LinkedList<IParam> modOptionsDynamicB = new LinkedList<>(
 			Arrays.asList(
 				eventsStartTurn, counciRequiredPct, GovernorOptions.governorOptionsUI,
 				null,

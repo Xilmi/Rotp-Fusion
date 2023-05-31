@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-import rotp.ui.util.InterfaceParam;
+import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamCR;
 import rotp.ui.util.PlayerShipSet;
@@ -60,24 +60,24 @@ public interface IRaceOptions extends IBaseOptsTools {
 	default Serializable selectedPlayerCustomRace()			 { return playerCustomRace.get(); }
 	default void selectedPlayerCustomRace(Serializable race) { playerCustomRace.set(race); }
 	// Custom Race Menu
-	static LinkedList<InterfaceParam> optionsCustomRaceBase = new LinkedList<>(
+	static LinkedList<IParam> optionsCustomRaceBase = new LinkedList<>(
 			Arrays.asList(
 					playerIsCustom, playerCustomRace
 					));
-	default LinkedList<InterfaceParam> optionsCustomRace() {
-		LinkedList<InterfaceParam> list = new LinkedList<>();
+	default LinkedList<IParam> optionsCustomRace() {
+		LinkedList<IParam> list = new LinkedList<>();
 		list.addAll(optionsCustomRaceBase);
 		return list;
 	}
 	// ==================== GUI List Declarations ====================
 	//
-	static LinkedList<InterfaceParam> optionsRace = new LinkedList<>(
+	static LinkedList<IParam> optionsRace = new LinkedList<>(
 			Arrays.asList(
 					playerShipSet, playerIsCustom, playerCustomRace
 					));
-	default LinkedList<InterfaceParam> optionsRace()	{ return optionsRace; }
+	default LinkedList<IParam> optionsRace()	{ return optionsRace; }
 
-	LinkedList<InterfaceParam> editCustomRace = new LinkedList<>(); // TODO BR: Fake list
-	default LinkedList<InterfaceParam> editCustomRace()	{ return editCustomRace; }
+	LinkedList<IParam> editCustomRace = new LinkedList<>(); // TODO BR: Fake list
+	default LinkedList<IParam> editCustomRace()	{ return editCustomRace; }
 
 }

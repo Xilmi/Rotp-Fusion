@@ -6,7 +6,7 @@ import static rotp.model.empires.SystemView.flagAssignationMap;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-import rotp.ui.util.InterfaceParam;
+import rotp.ui.util.IParam;
 import rotp.ui.util.ParamFlagColor;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
@@ -100,8 +100,8 @@ public interface IFlagOptions extends IBaseOptsTools {
 	ParamInteger flagColorCount = new ParamInteger(MOD_UI, "FLAG_COLOR_COUNT", 1, 1, 4);
 	default int	 selectedFlagColorCount() { return flagColorCount.get(); }
 
-	LinkedList<LinkedList<InterfaceParam>> autoFlagOptionsMap = 
-			new LinkedList<LinkedList<InterfaceParam>>() { {
+	LinkedList<LinkedList<IParam>> autoFlagOptionsMap = 
+			new LinkedList<LinkedList<IParam>>() { {
 		add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("AUTO_FLAG_ID_SELECTION"),
 				autoFlagAssignation1, autoFlagAssignation2,
@@ -137,5 +137,5 @@ public interface IFlagOptions extends IBaseOptsTools {
 	ParamSubUI autoFlagOptionsUI = new ParamSubUI( MOD_UI, "AUTO_FLAG_UI", autoFlagOptionsMap,
 			"AUTO_FLAG_TITLE", AUTO_FLAG_GUI_ID);
 
-	LinkedList<InterfaceParam> autoFlagOptions = autoFlagOptionsUI.optionsList();
+	LinkedList<IParam> autoFlagOptions = autoFlagOptionsUI.optionsList();
 }

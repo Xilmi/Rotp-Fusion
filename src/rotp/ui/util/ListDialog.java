@@ -102,7 +102,7 @@ public class ListDialog extends JDialog implements ActionListener, Base {
 	private List<String> alternateReturn;
 	private Frame frame;
 	private BaseModPanel baseModPanel;
-	private InterfaceParam param;
+	private IParam param;
 
 
 	public ListDialog(boolean fake) { // Fake Dialog used to load the code and accelerate the future calls
@@ -147,7 +147,7 @@ public class ListDialog extends JDialog implements ActionListener, Base {
 					   Font listFont,
 					   InterfacePreview panel,
 					   List<String> alternateReturn,
-					   InterfaceParam param) {
+					   IParam param) {
 
 		super(JOptionPane.getFrameForComponent(frameComp.getParent()), title, true);
 		baseModPanel		 = frameComp;

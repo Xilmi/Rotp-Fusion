@@ -137,7 +137,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		buttonClick();
 		guiOptions().selectedPlayerCustomRace(cr.getAsOptions());
 		guiOptions().selectedPlayerIsCustom(true);
-		guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
+		guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
 		close();
 	}
 	public void updateCRGui(IGameOptions source) {
@@ -241,7 +241,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			setToLocalDefault();
 			break; 
 		default: // setGlobalDefaultKey
-			guiOptions().setBaseAndModSettingsToDefault();
+			guiOptions().resetToDefault();
 			setToLocalDefault();
 			break; 
 		}
@@ -253,7 +253,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		parent = p;
 
 		cr.setSettingTools((DynOptions) guiOptions().selectedPlayerCustomRace());
-		guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
+		guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
 		init();
 		reloadRaceList();
 		repaint();

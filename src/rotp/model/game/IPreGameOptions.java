@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 import rotp.Rotp;
-import rotp.ui.util.InterfaceParam;
+import rotp.ui.util.IParam;
 import rotp.ui.util.ParamAAN2;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamFloat;
@@ -14,7 +14,7 @@ import rotp.ui.util.ParamTech;
 import rotp.ui.util.ParamTitle;
 import rotp.ui.util.RandomAlienRaces;
 
-public interface IPreGameOptions extends IAdvOptions, IRemnantOptions {
+public interface IPreGameOptions extends IAdvOptions, ICfgOptions {
 
 	// ========================================================================
 	// Factory options
@@ -106,7 +106,7 @@ public interface IPreGameOptions extends IAdvOptions, IRemnantOptions {
 	
 	// ==================== GUI List Declarations ====================
 	//
-	LinkedList<InterfaceParam> modOptionsStaticA  = new LinkedList<>(
+	LinkedList<IParam> modOptionsStaticA  = new LinkedList<>(
 			Arrays.asList(
 			artifactsHomeworld, fertileHomeworld, richHomeworld, ultraRichHomeworld,
 			null,
@@ -116,7 +116,7 @@ public interface IPreGameOptions extends IAdvOptions, IRemnantOptions {
 			null,
 			companionWorlds, battleScout
 			));
-	LinkedList<InterfaceParam> modOptionsStaticB  = new LinkedList<>(
+	LinkedList<IParam> modOptionsStaticB  = new LinkedList<>(
 			Arrays.asList(
 			minStarsPerEmpire, prefStarsPerEmpire, maximizeSpacing, spacingLimit, minDistArtifactPlanet,
 			null,
@@ -126,11 +126,11 @@ public interface IPreGameOptions extends IAdvOptions, IRemnantOptions {
 			null,
 			restartChangesPlayerAI, restartChangesAliensAI, restartAppliesSettings, restartChangesPlayerRace
 			));
-	LinkedList<InterfaceParam> preGameOptions	= new LinkedList<>();
-	LinkedList<LinkedList<InterfaceParam>> preGameOptionsMap = preGameOptionsMap();
+	LinkedList<IParam> preGameOptions	= new LinkedList<>();
+	LinkedList<LinkedList<IParam>> preGameOptionsMap = preGameOptionsMap();
 
-	static LinkedList<LinkedList<InterfaceParam>> preGameOptionsMap()	{
-		LinkedList<LinkedList<InterfaceParam>> map = new LinkedList<>();
+	static LinkedList<LinkedList<IParam>> preGameOptionsMap()	{
+		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("START_GALAXY_OPTIONS"),
 				galaxyAge, starDensity, nebulae, maximizeSpacing,
@@ -164,8 +164,8 @@ public interface IPreGameOptions extends IAdvOptions, IRemnantOptions {
 				new ParamTitle("MENU_OPTIONS"),
 				useFusionFont, compactOptionOnly
 				)));
-		for (LinkedList<InterfaceParam> list : map) {
-			for (InterfaceParam param : list) {
+		for (LinkedList<IParam> list : map) {
+			for (IParam param : list) {
 				if (param != null && !param.isTitle())
 					preGameOptions.add(param);
 			}

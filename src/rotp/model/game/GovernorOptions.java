@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 import rotp.ui.UserPreferences;
 import rotp.ui.util.AbstractParam;
-import rotp.ui.util.InterfaceParam;
+import rotp.ui.util.IParam;
 
 /**
  * Governor options.
@@ -66,7 +66,7 @@ public class GovernorOptions implements Serializable, IGovOptions {
 
 	// ========== Constructor And Initializers ==========AbstractParam <T>
 	public GovernorOptions() {  
-		for (InterfaceParam param : governorOptions)
+		for (IParam param : governorOptions)
 			((AbstractParam <?>) param).isGovernor(GOV_REFRESH);
 
 		auto_Apply.isGovernor(GOV_RESET);

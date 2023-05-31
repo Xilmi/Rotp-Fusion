@@ -36,7 +36,7 @@ import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.util.InterfaceOptions;
-import rotp.ui.util.InterfaceParam;
+import rotp.ui.util.IParam;
 import rotp.util.FontManager;
 import rotp.util.ModifierKeysState;
 
@@ -84,13 +84,13 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	private LinkedList<ModText> btList2; // right part
 	private LinkedList<ModText> btListBoth;
 	private LinearGradientPaint bg;
-	private LinkedList<LinkedList<InterfaceParam>> optionsList;
+	private LinkedList<LinkedList<IParam>> optionsList;
 	private int parent = 0; // 0=Base; 1=Merged; 2=Classic
 	
 	// ========== Constructors and initializers ==========
 	//
 	public CompactOptionsUI(String guiTitle_ID, String guiId,
-			LinkedList<LinkedList<InterfaceParam>> paramList) {
+			LinkedList<LinkedList<IParam>> paramList) {
 		guiTitleID = guiTitle_ID;
 		GUI_ID = guiId;
 		optionsList = paramList;
@@ -101,7 +101,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		GUI_ID = guiId;
 		init_0();
 	}
-	protected LinkedList<LinkedList<InterfaceParam>> getList() { return optionsList; }
+	protected LinkedList<LinkedList<IParam>> getList() { return optionsList; }
 	@Override protected void singleInit() {
 		optionsList		= getList();
 		activeList		= new LinkedList<>();
@@ -114,11 +114,11 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		int totalRows   = 0;
 		numColumns = optionsList.size();
 		numRows    = 0;
-		for (LinkedList<InterfaceParam> list : optionsList) {
+		for (LinkedList<IParam> list : optionsList) {
 			totalRows += list.size();
 			lastRowList.add(totalRows);
 			numRows = max(numRows, list.size());
-			for (InterfaceParam param : list) {
+			for (IParam param : list) {
 				if (param != null) {
 					activeList.add(param);
 					btList0.add(newBT(param.isTitle()).initGuide(param));
@@ -342,7 +342,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		
 		if (bg == null)
 			bg = GameUI.settingsSetupBackgroundW(w);
-		guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
+		guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
 		enableGlassPane(this);
 		refreshGui();
 	}
@@ -385,12 +385,11 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 			UserPreferences.load();
 			break;
 		case SHIFT:			// Apply
-			guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
+			guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
 			repaintButtons();
 			return; 
 		default:			// Exit
-			guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
-			UserPreferences.save();
+			guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
 			break; 
 		}
 		close();
@@ -399,7 +398,6 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		switch (ModifierKeysState.get()) {
 		case CTRL: // saveGlobalUserKey
 		case CTRL_SHIFT: // saveLocalUserKey
-			UserPreferences.save();
 			break;
 		case SHIFT: // setLocalUserKey
 		default: // setGlobalUserKey

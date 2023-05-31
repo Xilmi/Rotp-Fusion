@@ -16,7 +16,7 @@
 
 package rotp.ui.util;
 
-import static rotp.ui.util.InterfaceParam.langLabel;
+import static rotp.ui.util.IParam.langLabel;
 
 import rotp.model.game.DynamicOptions;
 

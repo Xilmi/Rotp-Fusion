@@ -16,7 +16,7 @@
 
 package rotp.ui.util;
 
-import static rotp.ui.util.InterfaceParam.langLabel;
+import static rotp.ui.util.IParam.langLabel;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -27,13 +27,13 @@ import rotp.ui.game.BaseModPanel;
 import rotp.ui.game.CompactOptionsUI;
 
 
-public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<InterfaceParam>>> {
+public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<IParam>>> {
 	
 	private final String GUI_TITLE_ID;
 	private final String GUI_ID;
 	private CompactOptionsUI ui;
-	public  final LinkedList<LinkedList<InterfaceParam>> optionsMap;
-	public  final LinkedList<InterfaceParam> optionsList = new LinkedList<>();
+	public  final LinkedList<LinkedList<IParam>> optionsMap;
+	public  final LinkedList<IParam> optionsList = new LinkedList<>();
 	
 	// ===== Constructors =====
 	//
@@ -45,15 +45,15 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<InterfacePar
 	 * @param guiID Unique GUI ID for load and save
 	 */
 	public ParamSubUI(String gui, String name,
-			LinkedList<LinkedList<InterfaceParam>> optionsMap,
+			LinkedList<LinkedList<IParam>> optionsMap,
 			String guiTitleID, String guiID)
 	{
 		super(gui, name, optionsMap);
 		GUI_TITLE_ID = gui + guiTitleID;
 		GUI_ID = guiID;
 		this.optionsMap = optionsMap;
-		for (LinkedList<InterfaceParam> list : optionsMap) {
-			for (InterfaceParam param : list) {
+		for (LinkedList<IParam> list : optionsMap) {
+			for (IParam param : list) {
 				if (param != null && !param.isTitle())
 					optionsList.add(param);
 			}
@@ -63,13 +63,13 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<InterfacePar
 	//
 	@Override public boolean isDefaultValue()	{ 
 		boolean is = true;
-		for (InterfaceParam param : optionsList)
+		for (IParam param : optionsList)
 			is &= param.isDefaultValue();
 		return is;
 	}
 	@Override public void copyOption(IGameOptions src, IGameOptions dest, boolean updateTool) {
 		super.copyOption(src, dest, updateTool);
-		for (InterfaceParam param : optionsList)
+		for (IParam param : optionsList)
 			param.copyOption(src, dest, updateTool);
 	}
 //	@Override public void updateOption() {
@@ -79,22 +79,22 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<InterfacePar
 //	}
 	@Override public void updateOptionTool() {
 		super.updateOptionTool();
-		for (InterfaceParam param : optionsList)
+		for (IParam param : optionsList)
 			param.updateOptionTool();
 	}
 	@Override public void setFromDefault() {
 		super.setFromDefault();
-		for (InterfaceParam param : optionsList)
+		for (IParam param : optionsList)
 			param.setFromDefault();
 	}
-	@Override protected LinkedList<LinkedList<InterfaceParam>> getOptionValue(
+	@Override protected LinkedList<LinkedList<IParam>> getOptionValue(
 			IGameOptions options) {
 		return last();
 	}
 	@Override protected void setOptionValue(IGameOptions options,
-			LinkedList<LinkedList<InterfaceParam>> value) {}
+			LinkedList<LinkedList<IParam>> value) {}
 	@Override public void setFromCfgValue(String val) {
-		for (InterfaceParam param : optionsList)
+		for (IParam param : optionsList)
 			param.setFromCfgValue(val);
 	}
 	@Override public void next() {  }
@@ -118,5 +118,5 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<InterfacePar
 			ui = new CompactOptionsUI(GUI_TITLE_ID, GUI_ID, optionsMap);
 		return ui;
 	}
-	public LinkedList<InterfaceParam> optionsList() { return optionsList; }
+	public LinkedList<IParam> optionsList() { return optionsList; }
 }

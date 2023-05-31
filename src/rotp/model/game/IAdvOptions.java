@@ -33,7 +33,7 @@ import static rotp.model.game.MOO1GameOptions.getWarpSpeedOptions;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-import rotp.ui.util.InterfaceParam;
+import rotp.ui.util.IParam;
 import rotp.ui.util.ParamList;
 
 // Duplicates Options, Race Menu Options and Galaxy Options
@@ -200,7 +200,7 @@ public interface IAdvOptions extends IBaseOptsTools {
 	};
 	// ==================== GUI List Declarations ====================
 	//
-	LinkedList<InterfaceParam> advancedOptions	  = new LinkedList<>(
+	LinkedList<IParam> advancedOptions	  = new LinkedList<>(
 			Arrays.asList(
 					galaxyAge, starDensity, nebulae, planetQuality, terraforming,
 					null,

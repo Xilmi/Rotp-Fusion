@@ -16,10 +16,10 @@
 
 package rotp.ui.util;
 
-import static rotp.model.game.IRemnantOptions.minListSizePopUp;
-import static rotp.ui.util.InterfaceParam.langLabel;
-import static rotp.ui.util.InterfaceParam.rowsSeparator;
-import static rotp.ui.util.InterfaceParam.tableFormat;
+import static rotp.model.game.ICfgOptions.minListSizePopUp;
+import static rotp.ui.util.IParam.langLabel;
+import static rotp.ui.util.IParam.rowsSeparator;
+import static rotp.ui.util.IParam.tableFormat;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -172,12 +172,12 @@ public class ParamList extends AbstractParam<String> {
 		else 
 			prev();
 	}
-	@Override public void	setFromCfgValue(String newCfgValue)		{
-		super.set(validateValue(newCfgValue));
+	@Override public void	setFromCfgValue(String newCfgValue)	{
+		setFromCfg(validateValue(newCfgValue));
 	}
 	@Override public int	getIndex()				{ return getValidIndex(); }
 	@Override public String	setFromIndex(int id)	{
-		return super.set(value(valueLabelMap.getCfgValue(getValidIndex(id))));
+		return super.set(valueLabelMap.getCfgValue(getValidIndex(id)));
 	}
 	@Override public String	getGuiValue(int id)		{
 		return langLabel(valueLabelMap.getLangLabel(getValidIndex(id)));

@@ -27,7 +27,7 @@ import rotp.ui.RotPUI;
 import rotp.ui.game.BaseModPanel;
 import rotp.util.LabelManager;
 
-public interface InterfaceParam extends InterfaceOptions{
+public interface IParam extends InterfaceOptions{
 	public static final String LABEL_DESCRIPTION = "_DESC";
 	public static final String LABEL_HELP		 = "_HELP";
 	public static final String END				 = "   ";

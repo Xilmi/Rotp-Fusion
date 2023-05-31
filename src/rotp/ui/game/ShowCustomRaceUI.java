@@ -40,7 +40,7 @@ import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.races.RacesUI;
-import rotp.ui.util.InterfaceParam;
+import rotp.ui.util.IParam;
 import rotp.ui.util.ListDialog;
 import rotp.ui.util.SettingBase;
 import rotp.util.FontManager;
@@ -246,7 +246,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	private boolean isPlayer()			{ return raceUI.selectedEmpire().isPlayer(); }
 
 	private String selectAIFromList(String[] choiceArray, List<String> returnList,
-									String initialLabel, InterfaceParam param) {
+									String initialLabel, IParam param) {
 		String message = "Make your choice";
 		String initialChoice = text(initialLabel);
 		ListDialog dialog = new ListDialog(

@@ -7,14 +7,14 @@ import static rotp.model.game.IPreGameOptions.dynStarsPerEmpire;
 import static rotp.model.game.MOO1GameOptions.getGalaxyShapeOptions;
 import static rotp.model.game.MOO1GameOptions.getGalaxySizeOptions;
 import static rotp.model.game.MOO1GameOptions.getGameDifficultyOptions;
-import static rotp.ui.util.InterfaceParam.langLabel;
+import static rotp.ui.util.IParam.langLabel;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 
 import rotp.Rotp;
 import rotp.ui.util.GlobalCROptions;
-import rotp.ui.util.InterfaceParam;
+import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
@@ -159,11 +159,11 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 
 	// ==================== GUI List Declarations ====================
 	//
-	static LinkedList<InterfaceParam> optionsGalaxy = new LinkedList<>(
+	static LinkedList<IParam> optionsGalaxy = new LinkedList<>(
 			Arrays.asList(
 					showNewRaces, globalCROptions, useSelectableAbilities, shapeOption3,
 					galaxyRandSource,
 					dynStarsPerEmpire // This one is a duplicate, but it helps readability
 					));
-	default LinkedList<InterfaceParam> optionsGalaxy()	{ return optionsGalaxy; }
+	default LinkedList<IParam> optionsGalaxy()	{ return optionsGalaxy; }
 }

@@ -16,7 +16,7 @@
 
 package rotp.ui.util;
 
-import static rotp.ui.util.InterfaceParam.langLabel;
+import static rotp.ui.util.IParam.langLabel;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -132,7 +132,7 @@ public class ParamInteger extends AbstractParam<Integer> {
 	}
 	@Override public void setFromCfgValue(String newValue) {
 		if (!isDuplicate())
-			set(stringToInteger(newValue));
+			setFromCfg(stringToInteger(newValue));
 	}	
 	@Override public void prev() { next(-baseInc()); }
 	@Override public void next() { next(baseInc()); }

@@ -37,7 +37,7 @@ class ParamObject extends AbstractParam<Serializable> {
 	}
 	// ===== Overriders =====
 	//
-	@Override public void setFromCfgValue(String newValue)	{ value(newValue); }	
+	@Override public void setFromCfgValue(String newValue)	{ setFromCfg(newValue); }	
 	@Override public void prev() {}
 	@Override public void next() {}
 	@Override public void toggle(MouseWheelEvent e)	{}

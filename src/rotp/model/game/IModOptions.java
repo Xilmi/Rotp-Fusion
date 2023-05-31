@@ -4,19 +4,16 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 import rotp.ui.RotPUI;
-import rotp.ui.util.InterfaceParam;
+import rotp.ui.util.IParam;
 import rotp.ui.util.ParamTitle;
 
 public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptions,
 							IRaceOptions, IGovOptions, IGalaxyOptions {
 
-	default void updateOptionsAndSaveToFileName(String fileName) {
-		saveOptionsToFile(fileName, allModOptions());
-	}
-	default void updateFromFile(String fileName)	{ updateFromFile(fileName, allModOptions()); }
-	default void setBaseAndModSettingsToDefault()	{ updateFromDefault(allModOptions()); }
+	default void updateFromFile(String fileName)	{ updateFromFile(fileName, allModOptions); }
+	default void resetToDefault()					{ resetToDefault(allModOptions); }
 
-	default LinkedList<InterfaceParam> governorOptions() {
+	default LinkedList<IParam> governorOptions() {
 		return rotp.model.game.GovernorOptions.governorOptions;
 	}
 	int id();
@@ -42,7 +39,7 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 	 * @param fileName
 	 * @param paramList
 	 */
-	void saveOptionsToFile (String fileName, LinkedList<InterfaceParam> paramList);
+	void saveOptionsToFile (String fileName, LinkedList<IParam> paramList);
 	/**
 	 * Save all options to file
 	 * @param fileName
@@ -54,13 +51,13 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 	 * @param fileName
 	 * @param paramList
 	 */
-	void updateFromFile (String fileName, LinkedList<InterfaceParam> paramList);
+	void updateFromFile (String fileName, LinkedList<IParam> paramList);
 	/**
 	 * update the listed parameters From their default values
 	 * (Options and options' tools)
 	 * @param paramList
 	 */
-	void updateFromDefault (LinkedList<InterfaceParam> paramList);
+	void resetToDefault (LinkedList<IParam> paramList);
 
 	void copyAliensAISettings(IGameOptions dest);
 	
@@ -84,10 +81,10 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 
 	// ==================== All Parameters ====================
 	//
-	default LinkedList<InterfaceParam> allModOptions()	{ return allModOptions; }
-	LinkedList<InterfaceParam> allModOptions = getAllModOptions();
-	static LinkedList<InterfaceParam> getAllModOptions() {
-		LinkedList<InterfaceParam> allModOptions = new LinkedList<>();
+	default LinkedList<IParam> allModOptions()	{ return allModOptions; }
+	LinkedList<IParam> allModOptions = getAllModOptions();
+	static LinkedList<IParam> getAllModOptions() {
+		LinkedList<IParam> allModOptions = new LinkedList<>();
 		allModOptions.addAll(modOptionsStaticA);
 		allModOptions.addAll(modOptionsStaticB);
 		allModOptions.addAll(modOptionsDynamicA);
@@ -103,19 +100,19 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 	// ==================== GUI List Declarations ====================
 	//
     // All the Global parameters
-	LinkedList<InterfaceParam> globalOptions = globalOptions();
-	static LinkedList<InterfaceParam> globalOptions() {
-		LinkedList<InterfaceParam> globalOptions = new LinkedList<>();
+	LinkedList<IParam> globalOptions = globalOptions();
+	static LinkedList<IParam> globalOptions() {
+		LinkedList<IParam> globalOptions = new LinkedList<>();
 		globalOptions.addAll(modGlobalOptionsUI);
 		globalOptions.add(bitmapGalaxyLastFolder);
 		return globalOptions;
 	}
 	
-	LinkedList<InterfaceParam> inGameOptions	= new LinkedList<>();
-	LinkedList<LinkedList<InterfaceParam>> inGameOptionsMap = inGameOptionsMap(); 
+	LinkedList<IParam> inGameOptions	= new LinkedList<>();
+	LinkedList<LinkedList<IParam>> inGameOptionsMap = inGameOptionsMap(); 
 
-	static LinkedList<LinkedList<InterfaceParam>> inGameOptionsMap()	{
-		LinkedList<LinkedList<InterfaceParam>> map = new LinkedList<>();
+	static LinkedList<LinkedList<IParam>> inGameOptionsMap()	{
+		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("GAME_DIFFICULTY"),
 				difficultySelection, customDifficulty,
@@ -168,8 +165,8 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 				minListSizePopUp, showGridCircular, galaxyPreviewColorStarsSize,
 				showAllAI, compactOptionOnly
 				)));
-		for (LinkedList<InterfaceParam> list : map) {
-			for (InterfaceParam param : list) {
+		for (LinkedList<IParam> list : map) {
+			for (IParam param : list) {
 				if (param != null && !param.isTitle())
 					inGameOptions.add(param);
 			}

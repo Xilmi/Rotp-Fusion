@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 import rotp.model.game.GovernorOptions.GatesGovernor;
-import rotp.ui.util.InterfaceParam;
+import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
@@ -81,10 +81,10 @@ public interface IGovOptions {
 	// ==================== GUI List Declarations ====================
 	//
 
-	LinkedList<InterfaceParam> mergedStaticOptions	= new LinkedList<>();
-	LinkedList<LinkedList<InterfaceParam>> governorOptionsMap = governorOptionsMap();
-	static LinkedList<LinkedList<InterfaceParam>> governorOptionsMap()	{
-		LinkedList<LinkedList<InterfaceParam>> map = new LinkedList<>();
+	LinkedList<IParam> mergedStaticOptions	= new LinkedList<>();
+	LinkedList<LinkedList<IParam>> governorOptionsMap = governorOptionsMap();
+	static LinkedList<LinkedList<IParam>> governorOptionsMap()	{
+		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle(GOV_UI + "TRANSPORT_OPTIONS"),
 				autoTransport, autotransportAtMax, autotransportAll,
@@ -121,8 +121,8 @@ public interface IGovOptions {
 				new ParamTitle(GOV_UI + "OTHER_OPTIONS"),
 				governorByDefault, auto_Apply
 				)));
-		for (LinkedList<InterfaceParam> list : map) {
-			for (InterfaceParam param : list) {
+		for (LinkedList<IParam> list : map) {
+			for (IParam param : list) {
 				if (param != null && !param.isTitle())
 					mergedStaticOptions.add(param);
 			}
@@ -131,5 +131,5 @@ public interface IGovOptions {
 	};
 	ParamSubUI	governorOptionsUI	= new ParamSubUI(GOV_UI, "SETUP_MENU",
 			governorOptionsMap, "SETUP_TITLE", GOV_GUI_ID);
-	LinkedList<InterfaceParam> governorOptions = governorOptionsUI.optionsList();
+	LinkedList<IParam> governorOptions = governorOptionsUI.optionsList();
 }

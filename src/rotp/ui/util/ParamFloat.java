@@ -122,11 +122,11 @@ public class ParamFloat extends AbstractParam<Float> {
 		if (isCfgPercent()) {
 			Integer val = stringToInteger(newValue.replace("%", ""));
 			if (val == null) 
-				set(stringToFloat(newValue));
+				setFromCfg(stringToFloat(newValue));
 			else
-				set(val/100f);
+				setFromCfg(val/100f);
 		} else
-			set(stringToFloat(newValue));
+			setFromCfg(stringToFloat(newValue));
 	}	
 	@Override public void next() { next(baseInc()); }
 	@Override public void prev() { next(-baseInc()); }

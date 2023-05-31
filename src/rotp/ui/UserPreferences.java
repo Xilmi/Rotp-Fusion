@@ -27,15 +27,15 @@ import java.io.PrintWriter;
 
 import rotp.Rotp;
 import rotp.model.game.GameSession;
-import rotp.model.game.IMainOptions;
-import rotp.model.game.IModOptions;
-import rotp.ui.util.InterfaceParam;
+import rotp.model.game.ICfgOptions;
+import rotp.model.game.IGameOptions;
+import rotp.ui.util.IParam;
 import rotp.ui.util.ParamString;
 import rotp.util.LanguageManager;
 import rotp.util.sound.SoundManager;
 
 //public class UserPreferences implements RemnantOptions {
-public class UserPreferences implements IMainOptions {
+public class UserPreferences implements ICfgOptions {
 //	public static final String WINDOW_MODE = "GAME_SETTINGS_WINDOWED";
 //	public static final String BORDERLESS_MODE = "GAME_SETTINGS_BORDERLESS";
 //	public static final String FULLSCREEN_MODE = "GAME_SETTINGS_FULLSCREEN";
@@ -321,10 +321,19 @@ public class UserPreferences implements IMainOptions {
 			out.println();
 			out.println("===== MOD Global GUI Settings =====");
 			out.println();
-			for (InterfaceParam param : IModOptions.globalOptions) {
+			for (IParam param : IGameOptions.globalOptions) {
 				if (param != null)
 					out.println(keyFormat(param.getCfgLabel()) + param.getCfgValue());
 			}
+			// ========== TEST ==========
+			//
+			for (IParam param : mainOptions)
+				if (param != null) {
+					String label = param.getCfgLabel();
+					String value = param.getCfgValue();
+					System.out.println(keyFormat(label) + value);
+				}
+						
 			return 0;
 		}
 		catch (IOException e) {
@@ -382,7 +391,7 @@ public class UserPreferences implements IMainOptions {
 			case "LANGUAGE": selectLanguage(val); return;
 			default:
 			// BR: Global Mod GUI
-				for (InterfaceParam param : IModOptions.globalOptions) {
+				for (IParam param : IGameOptions.globalOptions) {
 					if (param != null 
 							&& key.equalsIgnoreCase(param.getCfgLabel())) {
 						if (param instanceof ParamString)
@@ -439,7 +448,7 @@ public class UserPreferences implements IMainOptions {
 		setScreenSizePct(screenSizePct+5);
 		return oldSize != screenSizePct;
 	}
-	private static String displayModeToSettingName(String s) {
+	public static String displayModeToSettingName(String s) {
 		switch(s) {
 			case WINDOW_MODE:	  return "Windowed";
 			case BORDERLESS_MODE: return "Borderless";
@@ -455,7 +464,7 @@ public class UserPreferences implements IMainOptions {
 		}
 		return WINDOW_MODE;
 	}
-	private static String graphicsModeToSettingName(String s) {
+	public static String graphicsModeToSettingName(String s) {
 		switch(s) {
 			case GRAPHICS_LOW:	  return "Low";
 			case GRAPHICS_MEDIUM: return "Medium";
@@ -471,7 +480,7 @@ public class UserPreferences implements IMainOptions {
 		}
 		return GRAPHICS_HIGH;
 	}
-	private static String autoBombardToSettingName(String s) {
+	public static String autoBombardToSettingName(String s) {
 		switch(s) {
 			case AUTOBOMBARD_NO:	 return "No";
 			case AUTOBOMBARD_NEVER:  return "Never";
@@ -491,7 +500,7 @@ public class UserPreferences implements IMainOptions {
 		}
 		return AUTOBOMBARD_NO;
 	}
-	private static String texturesToSettingName(String s) {
+	public static String texturesToSettingName(String s) {
 		switch(s) {
 			case TEXTURES_NO:		 return "No";
 			case TEXTURES_INTERFACE: return "Interface";
@@ -509,7 +518,7 @@ public class UserPreferences implements IMainOptions {
 		}
 		return TEXTURES_BOTH;
 	}
-	private static String sensitivityToSettingName(String s) {
+	public static String sensitivityToSettingName(String s) {
 		switch(s) {
 			case SENSITIVITY_HIGH:   return "High";
 			case SENSITIVITY_MEDIUM: return "Medium";

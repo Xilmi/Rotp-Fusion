@@ -61,7 +61,7 @@ import rotp.model.planet.Planet;
 import rotp.model.planet.PlanetType;
 import rotp.model.tech.TechEngineWarp;
 import rotp.ui.game.SetupGalaxyUI;
-import rotp.ui.util.InterfaceParam;
+import rotp.ui.util.IParam;
 import rotp.ui.util.ParamOptions;
 import rotp.ui.util.SpecificCROption;
 import rotp.util.Base;
@@ -1354,53 +1354,54 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
    }
     // ==================== Generalized options methods ====================
     //
-    private void copyBaseSettings(MOO1GameOptions dest, LinkedList<InterfaceParam> paramList) {
-   		if (paramList == optionsGalaxy()) {
+    private void copyBaseSettings(MOO1GameOptions dest, LinkedList<IParam> pList) {
+   		if (pList == optionsGalaxy()) {
    			copyBaseGalaxySettings(dest);
    			return;
    		}
-   		if (paramList == optionsRace()) {
+   		if (pList == optionsRace()) {
    			copyBaseRaceSettings(dest);
    			return;
    		}
-   		if (paramList == allModOptions()) {
+   		if (pList == allModOptions()) {
     		copyBaseGalaxySettings(dest);
     		copyBaseRaceSettings(dest);
     		copyAdvancedOptions(dest);
    		}
     }
-    private void setModSettingsToDefault(MOO1GameOptions options,
-    		LinkedList<InterfaceParam> paramList) {
-    	if (paramList == null)
+    private void setModSettingsToDefault(LinkedList<IParam> pList) {
+    	if (pList == null)
     		return;
-       	for (InterfaceParam param : paramList)
-       		if (param != null) {
-	       		param.setFromDefault();
-	       		// param.updateOption();
-	       	}
+    	if (pList == allModOptions) { // Exclude .cfg parameters
+	       	for (IParam param : pList)
+	       		if (param != null && !param.isCfgFile())
+		       		param.setFromDefault();
+    	} else 
+	       	for (IParam param : pList)
+	       		if (param != null)
+		       		param.setFromDefault();
     }
-    private void setBaseSettingsToDefault(MOO1GameOptions options,
-    		LinkedList<InterfaceParam> paramList) {
-   		if (paramList == null)
+    private void setBaseSettingsToDefault(LinkedList<IParam> pList) {
+   		if (pList == null)
    			return;
-   		if (paramList == optionsGalaxy()) {
-   			options.setBaseGalaxySettingsToDefault();
-   			return;
-   		}
-   		if (paramList == optionsRace()) {
-   			options.setBaseRaceSettingsToDefault();
+   		if (pList == optionsGalaxy()) {
+   			setBaseGalaxySettingsToDefault();
    			return;
    		}
-   		if (paramList == allModOptions()) {
-   			options.setAdvancedOptionsToDefault();
-    		options.setBaseRaceSettingsToDefault();
-    		options.setBaseGalaxySettingsToDefault();
+   		if (pList == optionsRace()) {
+   			setBaseRaceSettingsToDefault();
+   			return;
+   		}
+   		if (pList == allModOptions()) {
+   			setAdvancedOptionsToDefault();
+    		setBaseRaceSettingsToDefault();
+    		setBaseGalaxySettingsToDefault();
   			return;
    		}
     }
     // ==================== New Options files public access ====================
     //
-    @Override public void loadStartupOptions() { // TODO BR: Transfert
+    @Override public void loadStartupOptions() { // TODO BR: Transfer
 //    	LinkedList<InterfaceParam> transfertList = new LinkedList<>();
 //    	transfertList.add(showNextCouncil);
 //    	transfertList.add(mapFontFactor);
@@ -1426,7 +1427,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	else if (action.isGame())
        		updateFromFile(GAME_OPTIONS_FILE);
     	else if (action.isDefault())
-    		setBaseAndModSettingsToDefault();
+    		resetToDefault();
     	else // default = action.isLast()
     		updateFromFile(LAST_OPTIONS_FILE);
     	if (!selectedPlayerIsCustom()) {
@@ -1439,32 +1440,31 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         for (int i=0; i<d.specificOpponentAIOption.length; i++)
         	d.specificOpponentAIOption[i] = specificOpponentAIOption[i];
     }
-    @Override public void updateFromDefault(LinkedList<InterfaceParam> paramList) {
-    	setModSettingsToDefault(this, paramList);
-    	setBaseSettingsToDefault(this, paramList);
+    @Override public void resetToDefault(LinkedList<IParam> pList) {
+    	setModSettingsToDefault(pList);
+    	setBaseSettingsToDefault(pList);
     }
     @Override public void saveOptionsToFile(String fileName) {
     	saveOptions(this, fileName);
     }
-    @Override public void saveOptionsToFile(String fileName, LinkedList<InterfaceParam> paramList) {
-    	if (paramList == null)
+    @Override public void saveOptionsToFile(String fileName, LinkedList<IParam> pList) {
+    	if (pList == null)
     		return;
     	MOO1GameOptions fileOptions = loadOptions(fileName);
-       	for (InterfaceParam param : paramList)
+       	for (IParam param : pList)
        		if (param != null)
        			param.copyOption(this, fileOptions, false); // don't update tool
         saveOptions(fileOptions, fileName);
     }
-    @Override public void updateFromFile(String fileName,
-    						LinkedList<InterfaceParam> paramList) {
-    	if (paramList == null)
+    @Override public void updateFromFile(String fileName, LinkedList<IParam> pList) {
+    	if (pList == null)
     		return;
     	MOO1GameOptions source = loadOptions(fileName);
-       	for (InterfaceParam param : paramList)
-       		if (param != null) {
+       	for (IParam param : pList)
+       		if (param != null && !param.isCfgFile()) { // Exclude .cfg parameters
        			param.copyOption(source, this, true); // update tool
        		}
-        source.copyBaseSettings(this, paramList);
+        source.copyBaseSettings(this, pList);
     }
     // ========== New Options Static files management methods ==========
     //

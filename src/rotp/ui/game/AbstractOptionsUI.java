@@ -36,7 +36,7 @@ import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.util.InterfaceOptions;
-import rotp.ui.util.InterfaceParam;
+import rotp.ui.util.IParam;
 import rotp.util.ModifierKeysState;
 
 // modnar: add UI panel for modnar MOD game options, based on StartOptionsUI.java
@@ -134,7 +134,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 	private void buildRowCountList() {
 		numColumns = 1;
 		Integer numParam = 0;
-		for (InterfaceParam param : activeList) {
+		for (IParam param : activeList) {
 			if (param == null) {
 				numColumns++;
 				lastRowList.add(numParam);
@@ -307,7 +307,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 			else
 				bg = GameUI.settingsSetupBackground(w);
 		if (!globalOptions) // The new ways
-			guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
+			guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
 		enableGlassPane(this);
 		refreshGui();
 	}

@@ -127,7 +127,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         shipSetTxt.setFont(narrowFont(20)); // BR:
         refreshGui();
         // Save initial options
-        guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
+        guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
     }
 	@Override public void showHelp() {
 		loadHelpUI();
@@ -315,7 +315,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 		case CTRL:
 		case CTRL_SHIFT: 
 		default: // Save
-			guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
+			guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
 			break; 
 		}
     	goToMainMenu();
@@ -326,7 +326,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 		case CTRL:
 		case CTRL_SHIFT:
 		default: // Save
-			guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
+			guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
 			break; 
 		}
  		goToGalaxySetup();

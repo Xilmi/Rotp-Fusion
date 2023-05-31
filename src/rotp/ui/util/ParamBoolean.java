@@ -16,11 +16,11 @@
 
 package rotp.ui.util;
 
-import static rotp.ui.util.InterfaceParam.labelFormat;
-import static rotp.ui.util.InterfaceParam.realLangLabel;
-import static rotp.ui.util.InterfaceParam.rowFormat;
-import static rotp.ui.util.InterfaceParam.rowsSeparator;
-import static rotp.ui.util.InterfaceParam.tableFormat;
+import static rotp.ui.util.IParam.labelFormat;
+import static rotp.ui.util.IParam.realLangLabel;
+import static rotp.ui.util.IParam.rowFormat;
+import static rotp.ui.util.IParam.rowsSeparator;
+import static rotp.ui.util.IParam.tableFormat;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -46,7 +46,7 @@ public class ParamBoolean extends AbstractParam<Boolean> {
 	@Override public String	valueGuide(int id)	{ return getTableHelp(); }
 	@Override public int	getIndex()			{ return get()? 1 : 0; }
 	@Override public String	getCfgValue(Boolean value)		 { return yesOrNo(value); }
-	@Override public void	setFromCfgValue(String newValue) { value(yesOrNo(newValue)); }	
+	@Override public void	setFromCfgValue(String newValue) { setFromCfg(yesOrNo(newValue)); }	
 	@Override public String	guideValue()				{ return yesOrNo(get()); }
 	@Override public String	guideDefaultValue()			{ return yesOrNo(defaultValue()); }
 	@Override public void	prev()						{ next(); }

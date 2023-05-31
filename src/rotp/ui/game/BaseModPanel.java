@@ -19,7 +19,7 @@ import static rotp.model.game.IGameOptions.GAME_OPTIONS_FILE;
 import static rotp.model.game.IGameOptions.LAST_OPTIONS_FILE;
 import static rotp.model.game.IGameOptions.LIVE_OPTIONS_FILE;
 import static rotp.model.game.IGameOptions.USER_OPTIONS_FILE;
-import static rotp.ui.util.InterfaceParam.LABEL_DESCRIPTION;
+import static rotp.ui.util.IParam.LABEL_DESCRIPTION;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -42,7 +42,7 @@ import rotp.Rotp;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.RotPUI;
-import rotp.ui.util.InterfaceParam;
+import rotp.ui.util.IParam;
 import rotp.ui.util.ParamButtonHelp;
 import rotp.util.LabelManager;
 import rotp.util.ModifierKeysState;
@@ -87,11 +87,11 @@ public abstract class BaseModPanel extends BasePanel
 	protected boolean hoverChanged;
 	protected boolean isSubMenu = true;
 
-	LinkedList<InterfaceParam> paramList;
+	LinkedList<IParam> paramList;
 	
 	private boolean initialised = false;
-	LinkedList<InterfaceParam> duplicateList;
-	LinkedList<InterfaceParam> activeList;
+	LinkedList<IParam> duplicateList;
+	LinkedList<IParam> activeList;
 	
 	protected void singleInit() {} // To avoid call to options during class creation
 	
@@ -111,7 +111,7 @@ public abstract class BaseModPanel extends BasePanel
 		guidePopUp.init();
 	}
 	protected abstract String GUI_ID();
-	protected LinkedList<InterfaceParam> localOptions() { return paramList; };
+	protected LinkedList<IParam> localOptions() { return paramList; };
 	private void localInit(Graphics2D g) {
 		Font prevFont = g.getFont();
 		g.setFont(smallButtonFont);
@@ -226,7 +226,7 @@ public abstract class BaseModPanel extends BasePanel
 			guiOptions().updateFromFile(LIVE_OPTIONS_FILE);
 			break;
 		default: // Save
-			guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
+			guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
 			break; 
 		}
 		close();
@@ -280,7 +280,7 @@ public abstract class BaseModPanel extends BasePanel
 		else
 			switch (ModifierKeysState.get()) {
 			case CTRL: // saveGlobalUserKey
-				guiOptions().updateOptionsAndSaveToFileName(USER_OPTIONS_FILE);
+				guiOptions().saveOptionsToFile(USER_OPTIONS_FILE);
 				return;
 			case CTRL_SHIFT: // saveLocalUserKey
 				guiOptions().saveOptionsToFile(USER_OPTIONS_FILE, localOptions());
@@ -344,7 +344,7 @@ public abstract class BaseModPanel extends BasePanel
 				return;
 			case SHIFT:
 			default: // setLocalDefaultKey
-				guiOptions().updateFromDefault(localOptions());		
+				guiOptions().resetToDefault(localOptions());		
 				refreshGui();
 				return;
 			}
@@ -359,11 +359,11 @@ public abstract class BaseModPanel extends BasePanel
 				refreshGui();
 				return;
 			case SHIFT: // setLocalDefaultKey
-				guiOptions().updateFromDefault(localOptions());		
+				guiOptions().resetToDefault(localOptions());		
 				refreshGui();
 				return;
 			default: // setGlobalDefaultKey
-				guiOptions().setBaseAndModSettingsToDefault();		
+				guiOptions().resetToDefault();		
 				refreshGui();
 				return;
 			}
@@ -520,7 +520,7 @@ public abstract class BaseModPanel extends BasePanel
 	// ========== Sub Classes ==========
 	//
 	class Box extends Rectangle {
-		private InterfaceParam	param;
+		private IParam	param;
 		private String			label;
 		private ModText         modText;
 		private int 			mouseBoxIndex;
@@ -537,20 +537,20 @@ public abstract class BaseModPanel extends BasePanel
 			boxHelpList.add(this);
 			this.label = label;
 		}
-		Box(InterfaceParam param)	{
+		Box(IParam param)	{
 			this();
 			boxHelpList.add(this);
 			this.param = param;
 		}
-		Box(InterfaceParam param, int mouseBoxIndex) {
+		Box(IParam param, int mouseBoxIndex) {
 			this(param);
 			mouseBoxIndex(mouseBoxIndex);
 		}
 		public	void removeFromList()				 { boxBaseList.remove(this); }
 		private void addToList() 					 { boxBaseList.add(this); }
 		private void initGuide(String label)		 { this.label = label; }
-		private void initGuide(InterfaceParam param) { this.param = param; }
-		InterfaceParam param()	 					 { return param; }
+		private void initGuide(IParam param) { this.param = param; }
+		IParam param()	 					 { return param; }
 		private void mouseBoxIndex(int idx)			 { mouseBoxIndex = idx; }
 		// ========== Doers ==========
 		//
@@ -623,8 +623,8 @@ public abstract class BaseModPanel extends BasePanel
 			return guide;
 		}
 		public 	int	   mouseBoxIndex()		 { return mouseBoxIndex; }
-		String getLabelDescription()		 { return InterfaceParam.langDesc(label); }
-		private String getLabelHelp()		 { return InterfaceParam.langHelp(label); }
+		String getLabelDescription()		 { return IParam.langDesc(label); }
+		private String getLabelHelp()		 { return IParam.langHelp(label); }
 		private String getParamDescription() {
 			if (param == null)
 				return "";
@@ -673,7 +673,7 @@ public abstract class BaseModPanel extends BasePanel
 			box = new Box(this, add);
 		}
 		public void	   removeBoxFromList()				{ box.removeFromList(); }
-		public ModText initGuide(InterfaceParam param)	{ box.initGuide(param); return this; }
+		public ModText initGuide(IParam param)	{ box.initGuide(param); return this; }
 		public ModText initGuide(String label)			{ box.initGuide(label); return this; }
 		Box box() {
 			box.setBounds(bounds());

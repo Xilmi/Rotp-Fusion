@@ -18,7 +18,7 @@ package rotp.ui.util;
 
 import static rotp.model.game.IGovOptions.NOT_GOVERNOR;
 import static rotp.ui.RotPUI.optionVersion;
-import static rotp.ui.util.InterfaceParam.langLabel;
+import static rotp.ui.util.IParam.langLabel;
 import static rotp.util.Base.textSubs;
 
 import java.awt.event.InputEvent;
@@ -31,9 +31,10 @@ import rotp.model.game.DynamicOptions;
 import rotp.model.game.GovernorOptions;
 import rotp.model.game.IGameOptions;
 import rotp.ui.RotPUI;
+import rotp.ui.UserPreferences;
 import rotp.ui.game.BaseModPanel;
 
-public abstract class AbstractParam <T> implements InterfaceParam{
+public abstract class AbstractParam <T> implements IParam{
 	// Ignore UCDetector public warning!
 	
 	private final String name; // 
@@ -112,7 +113,6 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	//	public abstract void prev();
 	//	public abstract void toggle(MouseWheelEvent e);
 	//	public abstract void toggle(MouseEvent e);
-
 	@Override public String toString() {
 		return getCfgLabel() + " = " + getCfgValue();
 	}
@@ -171,7 +171,7 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	protected T last()					{ return value; }
 	// ========== Methods to be overridden ==========
 	//
-	T value(T value) 					{ return set(value); }
+//	T value(T value) 					{ return set(value); } // TODO BR: Remove
 	public T defaultValue()				{ return defaultValue; }
 	public T get()						{
 		if (version != optionVersion() || isDuplicate() || isCfgFile) {
@@ -194,6 +194,10 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 	T shiftCtrlInc(){ return shiftCtrlInc; }	
 	// ========== Public Setters ==========
 	//
+	protected void setFromCfg(T newValue) {
+		value = newValue;
+		updateOption(dynOpts());
+	}
 	public T silentSet(T newValue) { // Reserved call from governor class
 		value = newValue;
 		setOption(newValue); // For overrider
@@ -205,6 +209,8 @@ public abstract class AbstractParam <T> implements InterfaceParam{
 		setOption(newValue); // For overrider
 		if (isGovernor != NOT_GOVERNOR)
 			GovernorOptions.callForRefresh(isGovernor);
+		if (isCfgFile)
+			UserPreferences.save();
 		return value;
 	}
 	public void maxValue (T newValue)		{ maxValue = newValue;}

@@ -16,12 +16,12 @@
 
 package rotp.ui.util;
 
-import static rotp.ui.util.InterfaceParam.baseSeparator;
-import static rotp.ui.util.InterfaceParam.htmlTuneFont;
-import static rotp.ui.util.InterfaceParam.langDesc;
-import static rotp.ui.util.InterfaceParam.langHelp;
-import static rotp.ui.util.InterfaceParam.langName;
-import static rotp.ui.util.InterfaceParam.realLangLabel;
+import static rotp.ui.util.IParam.baseSeparator;
+import static rotp.ui.util.IParam.htmlTuneFont;
+import static rotp.ui.util.IParam.langDesc;
+import static rotp.ui.util.IParam.langHelp;
+import static rotp.ui.util.IParam.langName;
+import static rotp.ui.util.IParam.realLangLabel;
 import static rotp.util.Base.lineSplit;
 
 import java.util.EnumMap;
@@ -30,7 +30,7 @@ import rotp.util.ModifierKeysState;
 
 
 //public class ParamButtonHelp extends AbstractParam<String> {
-public class ParamButtonHelp implements InterfaceParam {
+public class ParamButtonHelp implements IParam {
 	
 	private EnumMap<ModifierKeysState, String>  nameMap = new EnumMap<>(ModifierKeysState.class);
 	private EnumMap<ModifierKeysState, Boolean> showMap = new EnumMap<>(ModifierKeysState.class);

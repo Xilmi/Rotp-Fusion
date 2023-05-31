@@ -89,7 +89,7 @@ public class GalaxyFactory implements Base {
 		addAlienRaceSystemsForGalaxy(g, 1, null, src, alienRaces);
 		addUnsettledSystemsForGalaxy(g, gc);		
 		init(g, System.currentTimeMillis());
-		opts.updateOptionsAndSaveToFileName(GAME_OPTIONS_FILE);
+		opts.saveOptionsToFile(GAME_OPTIONS_FILE);
 		//saveOptionsToFileName((MOO1GameOptions)opts, GAME_OPTIONS_FILE);
 		return g;
 	}
@@ -146,7 +146,7 @@ public class GalaxyFactory implements Base {
 		log(str(g.numStarSystems()) ," Systems, ",str(Planet.COUNT)," Planets: "+(tm2-tm1)+"ms");
 		init(g, tm2);
 		// saveOptionsToFileName((MOO1GameOptions)opts, GAME_OPTIONS_FILE);
-		opts.updateOptionsAndSaveToFileName(GAME_OPTIONS_FILE);
+		opts.saveOptionsToFile(GAME_OPTIONS_FILE);
 		return g;
 	}
 	private void showAI(Galaxy g) {

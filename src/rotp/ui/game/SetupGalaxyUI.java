@@ -40,12 +40,12 @@ import static rotp.model.game.IGameOptions.galaxyPreviewColorStarsSize;
 import static rotp.model.game.IGameOptions.minListSizePopUp;
 import static rotp.model.game.IGameOptions.LIVE_OPTIONS_FILE;
 import static rotp.ui.UserPreferences.GALAXY_TEXT_FILE;
-import static rotp.ui.util.InterfaceParam.LABEL_DESCRIPTION;
-import static rotp.ui.util.InterfaceParam.labelFormat;
-import static rotp.ui.util.InterfaceParam.langLabel;
-import static rotp.ui.util.InterfaceParam.realLangLabel;
-import static rotp.ui.util.InterfaceParam.rowFormat;
-import static rotp.ui.util.InterfaceParam.tableFormat;
+import static rotp.ui.util.IParam.LABEL_DESCRIPTION;
+import static rotp.ui.util.IParam.labelFormat;
+import static rotp.ui.util.IParam.langLabel;
+import static rotp.ui.util.IParam.realLangLabel;
+import static rotp.ui.util.IParam.rowFormat;
+import static rotp.ui.util.IParam.tableFormat;
 
 // modnar: needed for adding RenderingHints
 import java.awt.AlphaComposite;
@@ -111,7 +111,7 @@ import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.ui.main.SystemPanel;
-import rotp.ui.util.InterfaceParam;
+import rotp.ui.util.IParam;
 import rotp.ui.util.ListDialog;
 import rotp.ui.util.ParamButtonHelp;
 import rotp.ui.util.ParamList;
@@ -328,7 +328,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
     private Font boxMonoFont;
     private int  boxMonoFontSize  = 15;
 
-    public static InterfaceParam specificAI() { return instance.specificAI; }
+    public static IParam specificAI() { return instance.specificAI; }
     public static int mouseBoxIndex() { return instance.hoverBox.mouseBoxIndex(); }
 
  	private Font boxMonoFont() {
@@ -415,7 +415,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		boxMonoFont    = null;
 		dialogMonoFont = null;
         initAIandAbilitiesList();
-        guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
+        guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
 		refreshGui();
 	}
 	@Override protected String GUI_ID() { return GUI_ID; }
@@ -671,7 +671,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			// loadAndUpdateFromFileName(guiOptions(), LIVE_OPTIONS_FILE, ALL_GUI_ID);
 			// break;
 		default: // Save
-			guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
+			guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
 			break; 
 		}
 		// Go back to Race Panel
@@ -2068,7 +2068,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			guiOptions().updateFromFile(LIVE_OPTIONS_FILE);	
 			break;
 		default:
-			guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
+			guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
 			break;
 		}
 		close();
@@ -2076,7 +2076,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	}
 	// BR: For restarting with new options
 	private void restartGame() { 
-		guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
+		guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
 		starting = true;
 		buttonClick();
 		repaint();
@@ -2088,7 +2088,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		starting = false;
 	}
 	private void startGame() {
-		guiOptions().updateOptionsAndSaveToFileName(LIVE_OPTIONS_FILE);
+		guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
 		starting = true;
 		repaint();
 		buttonClick();

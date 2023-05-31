@@ -223,12 +223,12 @@ public class GalaxyMapPanel extends BasePanel implements ActionListener, MouseLi
         }
     }
     public void toggleGridCircularDisplay() { // BR: added memorization
-    	rotp.model.game.IRemnantOptions.showGridCircular.toggle();
+    	rotp.model.game.ICfgOptions.showGridCircular.toggle();
     	UserPreferences.save();
 //    	showGridCircular = rotp.ui.UserPreferences.showGridCircular.get();
     }
 //    public boolean showGridCircular()           { return showGridCircular; }
-    public boolean showGridCircular()           { return rotp.model.game.IRemnantOptions.showGridCircular.get(); }
+    public boolean showGridCircular()           { return rotp.model.game.ICfgOptions.showGridCircular.get(); }
     public boolean showFleetsOnly()             { return flightPathDisplay == SHOW_NO_FLIGHTPATHS; }
     public boolean showImportantFlightPaths()   { return flightPathDisplay != SHOW_NO_FLIGHTPATHS; }
     public boolean showAllFlightPaths()         { return flightPathDisplay == SHOW_ALL_FLIGHTPATHS; }

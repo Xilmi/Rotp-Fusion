@@ -16,11 +16,11 @@
 
 package rotp.ui.util;
 
-import static rotp.model.game.IRemnantOptions.minListSizePopUp;
-import static rotp.ui.util.InterfaceParam.langHelp;
-import static rotp.ui.util.InterfaceParam.langLabel;
-import static rotp.ui.util.InterfaceParam.rowsSeparator;
-import static rotp.ui.util.InterfaceParam.tableFormat;
+import static rotp.model.game.ICfgOptions.minListSizePopUp;
+import static rotp.ui.util.IParam.langHelp;
+import static rotp.ui.util.IParam.langLabel;
+import static rotp.ui.util.IParam.rowsSeparator;
+import static rotp.ui.util.IParam.tableFormat;
 import static rotp.util.Base.random;
 import static rotp.util.Base.textSubs;
 
@@ -41,7 +41,7 @@ import rotp.ui.game.BaseModPanel;
 import rotp.ui.game.BaseModPanel.ModText;
 import rotp.ui.main.SystemPanel;
 
-public class SettingBase<T> implements InterfaceParam {
+public class SettingBase<T> implements IParam {
 	
 	public enum CostFormula {DIFFERENCE, RELATIVE, NORMALIZED}
 	private static final Color settingPosC = SystemPanel.limeText;  // Setting name color
@@ -236,7 +236,7 @@ public class SettingBase<T> implements InterfaceParam {
 	@Override public String	getGuide()				{
 		if(showFullGuide())
 			return getFullHelp();
-		return InterfaceParam.super.getGuide();
+		return IParam.super.getGuide();
 	}
 	@Override public String	getFullHelp()			{
 		String help = getHeadGuide();
