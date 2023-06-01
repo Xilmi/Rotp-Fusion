@@ -1596,11 +1596,10 @@ CUSTOM_RACE_GUI_SELECT            | Select
 CUSTOM_RACE_GUI_RANDOM_HELP       | Each individual setting will randomly be set within the given relative Setting range.<br> If "Force Target" = Yes, and the Total Value is not within the allowed Range: The values will progressively be randomly shifted (Even outside their allowed range) until the final "Target Range" is reached.
 CUSTOM_RACE_GUI_RANDOM_DESC       | Randomize the race following the above settings
 CUSTOM_RACE_GUI_RANDOM            | Randomize
-CUSTOM_RACE_BUTTON_LOAD_DESC      | Save or reload the settings from the file specified in "Name" Field (Switch with "Ctrl")
-CUSTOM_RACE_GUI_LOAD_DESC         | Load the settings from the file specified in "Name" Field, if none, create an empty one.
-CUSTOM_RACE_GUI_LOAD              | Load
-CUSTOM_RACE_GUI_SAVE_DESC         | Save the settings to the file specified in "Name" Field, existing files will be overwritten.
-CUSTOM_RACE_GUI_SAVE              | Save
+CUSTOM_RACE_GUI_LOAD_DESC         | Load the settings from the file specified in "File Name" Field, if none, create an empty one.
+CUSTOM_RACE_GUI_LOAD              | Reload
+CUSTOM_RACE_GUI_SAVE_DESC         | Save the settings to the file specified in "File Name" Field, existing files will be overwritten.
+CUSTOM_RACE_GUI_SAVE              | Save to File
 CUSTOM_RACE_RACE_LIST             | FileList
 CUSTOM_RACE_RACE_LIST_DESC        | Custom race ablilities file list. Click to load. (At the top is the one when opening the GUI.) 
 CUSTOM_RACE_RANDOM_MAX            | Setting Max in %

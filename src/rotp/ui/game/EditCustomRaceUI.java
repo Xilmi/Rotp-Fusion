@@ -50,9 +50,9 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	private static final int	raceListW		= RotPUI.scaledSize(180);
 	private static final ParamButtonHelp loadButtonHelp = new ParamButtonHelp( // For Help Do not add the list
 			"CUSTOM_RACE_BUTTON_LOAD",
-			loadCurrentKey,
-			"",
 			saveCurrentKey,
+			"",
+			loadCurrentKey,
 			"");
 	private	static final EditCustomRaceUI instance		= new EditCustomRaceUI();
 	
@@ -124,10 +124,10 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		switch (ModifierKeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Save
-			saveCurrentRace();
+			loadCurrentRace();
 			break;
 		default: // Load
-			loadCurrentRace();
+			saveCurrentRace();
 			break; 
 		}
 		reloadRaceList();
@@ -163,9 +163,9 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		switch (ModifierKeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT:
-			return saveCurrentKey;
-		default:
 			return loadCurrentKey;
+		default:
+			return saveCurrentKey;
 		}
 	}
 	private int loadButtonWidth(Graphics2D g) {

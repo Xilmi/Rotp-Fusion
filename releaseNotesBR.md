@@ -20,7 +20,7 @@ Last updates:
   - If the race was a custom race, id wont'be randomized.
   - If you always want to play with the same race: Standard races can be selected in custom race menu.
   - "R" in Race setup panel will randomize your race.
-
+- Custom Race Panel: "Save" button is now on top of "load" Button
 
 Last Fixes:
 - New Governor Panel don't crash any more on Apple OS.

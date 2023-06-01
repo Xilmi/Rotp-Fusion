@@ -39,6 +39,7 @@ Very soon:
 - William482 request: Show info on offered Tech trade
   - ($remaining_RP / $total_RP Remaining) or (Imminent - 29%) in place of the beaker counts...
 - Tech trading extended list.
+- Investigate: William482 request: Age of your data on each race into the bar graphs on the status page.
 
 Later:
 - William482 request: Continuing on the topic of things that normal people probably just let the governor do, I would love a button on the "Send Transports From:" popup in the Fleets tab which would, for each world:
@@ -53,6 +54,13 @@ Later:
 
 
 ## What's New
+
+2023.06.01 (BR)
+- Custom Race Panel: "Save" button is now on top of "load" Button.
+
+2023.05.31 (BR)
+- Options Tools: Better names and uniformization.
+- Fixed the planet view not updated on terraforming
 
 2023.05.30 (BR)
 - Remade Main settings panel, now Guide compatible.
