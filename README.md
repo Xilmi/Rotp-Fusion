@@ -39,6 +39,7 @@ Very soon:
 - William482 request: Show info on offered Tech trade
   - ($remaining_RP / $total_RP Remaining) or (Imminent - 29%) in place of the beaker counts...
 - Tech trading extended list.
+- Smooth the Trade blocking option.
 - Investigate: William482 request: Age of your data on each race into the bar graphs on the status page.
 
 Later:
@@ -54,6 +55,10 @@ Later:
 
 
 ## What's New
+
+2023.06.02 (BR)
+- Lowered Governor useless refresh.
+- Terraforming events will update autoflag.
 
 2023.06.01 (BR)
 - Custom Race Panel: "Save" button is now on top of "load" Button.

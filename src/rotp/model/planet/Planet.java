@@ -322,12 +322,16 @@ public class Planet implements Base, IMappedObject, Serializable {
             makeEnvironmentFertile();
             float incr = (float)Math.ceil(baseSize() / 20.0f) * 5;
             increaseBaseSize(incr);
+            colony.empire().sv.refreshFullScan(starSystem().id);
+            // BR: To reset the view TODO BR: Validate the fix
         }
         else if (isEnvironmentFertile()) {
             starSystem().addEvent(new SystemTerraformingEvent("SYSEVENT_GAIA_TERRAFORMING"));
             makeEnvironmentGaia();
             float incr = (float)Math.ceil((baseSize()-10) / 20.0f) * 5;
             increaseBaseSize(incr);
+            colony.empire().sv.refreshFullScan(starSystem().id);
+            // BR: To reset the view TODO BR: Validate the fix
         }
     }
     public void terraformAtmosphere() {
@@ -339,11 +343,11 @@ public class Planet implements Base, IMappedObject, Serializable {
             planetTypeKey = PlanetType.MINIMAL;
             int incr = (int) (20*session().populationBonus());
             increaseBaseSize(incr);
+            type = null;
+        	type();
             starSystem().addEvent(new SystemTerraformingEvent("SYSEVENT_ATMOSPHERE_TERRAFORMED"));
             colony.empire().sv.refreshFullScan(starSystem().id);
             // BR: To reset the view TODO BR: Validate the fix
-            type = null;
-        	type();
         }
     }
     public void terraformBiosphere(float amt) {

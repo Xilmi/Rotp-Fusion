@@ -204,10 +204,11 @@ public abstract class AbstractParam <T> implements IParam{
 		return value;
 	}
 	public T set(T newValue) {
+		boolean trueChange = value != newValue;
 		value = newValue;
 		updateOption(dynOpts());
 		setOption(newValue); // For overrider
-		if (isGovernor != NOT_GOVERNOR)
+		if (trueChange && (isGovernor != NOT_GOVERNOR))
 			GovernorOptions.callForRefresh(isGovernor);
 		if (isCfgFile)
 			UserPreferences.save();
