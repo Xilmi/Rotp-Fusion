@@ -43,6 +43,7 @@ import rotp.model.galaxy.GalaxyFactory.GalaxyCopy;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.Transport;
 import rotp.model.game.GameSession;
+import rotp.model.game.GovernorOptions;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.MOO1GameOptions;
 import rotp.model.planet.PlanetFactory;
@@ -402,6 +403,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         selectPanel(MAIN_PANEL, mainUI());
         enableGlassPane(raceIntroUI);
         repaint();
+        GovernorOptions.callForReset();
     }
     public void selectMainPanel()      { selectMainPanel(false); }
     public void selectMainPanel(boolean pauseNextTurn)      {
@@ -425,6 +427,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         mainUI.showDisplayPanel();
         selectPanel(MAIN_PANEL, mainUI());
         repaint();
+        GovernorOptions.callForReset();
     }
     public void selectMainPanelNewGame()      {
         disableGlassPane();
@@ -436,6 +439,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         mainUI.showDisplayPanel();
         selectPanel(MAIN_PANEL, mainUI());
         repaint();
+        GovernorOptions.callForReset();
     }
     public void selectGamePanel()      {
         gameUI.init();

@@ -1656,6 +1656,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         }
 
         // put rest into research.
+        allocation(RESEARCH, 0); // BR: Clear the research before computing the remaining available
         if(allocationRemaining() > 0)
             allocation(RESEARCH, allocationRemaining());
 
@@ -1938,7 +1939,6 @@ public final class Colony implements Base, IMappedObject, Serializable {
             int needed = shipyard().maxAllocationNeeded();
             needed = min(needed, allocationRemaining() + allocation(RESEARCH));
             allocation(SHIP, needed);
-            allocation(RESEARCH, allocationRemaining());
         }
     }
 

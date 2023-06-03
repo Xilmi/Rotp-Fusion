@@ -93,7 +93,7 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 		allModOptions.addAll(optionsRace);
 		allModOptions.addAll(optionsCustomRaceBase);
 		allModOptions.addAll(autoFlagOptions);
-		allModOptions.addAll(GovernorOptions.governorOptions);
+		allModOptions.addAll(governorOptions);
 		return allModOptions;
 	};
 

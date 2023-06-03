@@ -255,6 +255,7 @@ public final class GameSession implements Base, Serializable {
         stopCurrentGame();
 
         options(newGameOptions);
+    	RotPUI.currentOptions(IGameOptions.GAME_ID);
         startExecutors();
 
         synchronized(ONE_GAME_AT_A_TIME) {
@@ -275,6 +276,7 @@ public final class GameSession implements Base, Serializable {
     public void restartGame(IGameOptions newGameOptions, GalaxyCopy src) {
     	stopCurrentGame();
         options(src.options());
+    	RotPUI.currentOptions(IGameOptions.GAME_ID);
         startExecutors();
 
         synchronized(ONE_GAME_AT_A_TIME) {
@@ -852,6 +854,7 @@ public final class GameSession implements Base, Serializable {
         // BR: save the last loaded game initial parameters
         instance.options().saveOptionsToFile(GAME_OPTIONS_FILE);
     	resolveOptionsDiscrepansies(gs);
+    	RotPUI.currentOptions(IGameOptions.GAME_ID);
 
 		if (showInfo)  showInfo(gs.galaxy());
         startExecutors();

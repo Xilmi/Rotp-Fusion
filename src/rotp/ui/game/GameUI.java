@@ -44,6 +44,7 @@ import java.util.List;
 import javax.swing.border.Border;
 import rotp.Rotp;
 import rotp.model.game.GameSession;
+import rotp.model.game.IGameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.RotPUI;
@@ -456,7 +457,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
 
     public void init() {
         slideshowFade = SLIDESHOW_MAX;
-    	newGameOptions().updateGuiOptionsId();
+    	RotPUI.currentOptions(IGameOptions.SETUP_ID);
         resetSlideshowTimer();
 		ModifierKeysState.reset();
     }

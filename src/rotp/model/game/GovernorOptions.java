@@ -109,6 +109,7 @@ public class GovernorOptions implements Serializable, IGovOptions {
 		// The autoShipsByDefault original function will be implemented using the new parameters
 		// if true, new colonies will have auto ship building set to "on"
 	}
+	public static void callForReset()	{ callForReset	= true; }
 	public static void callForRefresh(int call)	{
 		callForRefresh	= callForRefresh || (call == GOV_REFRESH);
 		callForReset	= callForReset   || (call == GOV_RESET);

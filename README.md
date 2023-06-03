@@ -56,6 +56,9 @@ Later:
 
 ## What's New
 
+2023.06.03 (BR)
+- Fixed Governor double production with stargates.
+
 2023.06.02 (BR)
 - Lowered Governor useless refresh.
 - Terraforming events will update autoflag.

@@ -338,6 +338,8 @@ class GovernorOptionsPanel extends javax.swing.JPanel{
 		float fW = (float)srcWidth/destWidth;
 		float fH = (float)srcHeight/destHeight;
 		destWidth *= fW/fH;
+		if (destWidth*destHeight == 0)
+			return;
 		raceImage.setSize(destWidth, destHeight);
 		// Flip the Image
 		BufferedImage flipped = new BufferedImage(destWidth, destHeight, BufferedImage.TYPE_INT_ARGB);

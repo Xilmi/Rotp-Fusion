@@ -26,6 +26,7 @@ Last Fixes:
 - New Governor Panel don't crash any more on Apple OS.
 - Fixed some missing help text.
 - Fixed Buttons appearing before the panels.
+- Fixed Governor double production with stargates.
 - Some minor fixes.
 
 
