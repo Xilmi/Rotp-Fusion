@@ -281,7 +281,6 @@ public class UserPreferences implements ICfgOptions {
 		}
 	}
 	public static int save() {
-		System.out.println("UserPreferences: save()");
 		String path = Rotp.jarPath();
 		try (FileOutputStream fout = new FileOutputStream(new File(path, PREFERENCES_FILE));
 			// modnar: change to OutputStreamWriter, force UTF-8
@@ -327,12 +326,13 @@ public class UserPreferences implements ICfgOptions {
 			}
 			// ========== TEST ==========
 			//
-			for (IParam param : mainOptions)
-				if (param != null) {
-					String label = param.getCfgLabel();
-					String value = param.getCfgValue();
-					System.out.println(keyFormat(label) + value);
-				}
+//		System.out.println("UserPreferences: save()");
+//			for (IParam param : mainOptions)
+//				if (param != null) {
+//					String label = param.getCfgLabel();
+//					String value = param.getCfgValue();
+//					System.out.println(keyFormat(label) + value);
+//				}
 						
 			return 0;
 		}

@@ -58,6 +58,7 @@ Later:
 
 2023.06.03 (BR)
 - Fixed Governor double production with stargates.
+- Fixed minor Glitches.
 
 2023.06.02 (BR)
 - Lowered Governor useless refresh.

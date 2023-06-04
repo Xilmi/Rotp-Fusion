@@ -36,10 +36,10 @@ public interface IInGameOptions extends IBaseOptsTools {
 	ParamList targetBombard					= new ParamList(MOD_UI, "TARGET_BOMBARD", "None") {
 		{
 			showFullGuide(true);
-			put("None",		MOD_UI + "RETREAT_NONE");
-			put("AI",		MOD_UI + "RETREAT_AI");
-			put("Player",	MOD_UI + "RETREAT_PLAYER");
-			put("Both",		MOD_UI + "RETREAT_BOTH");
+			put("None",		MOD_UI + "BOMBARD_NONE");
+			put("AI",		MOD_UI + "BOMBARD_AI");
+			put("Player",	MOD_UI + "BOMBARD_PLAYER");
+			put("Both",		MOD_UI + "BOMBARD_BOTH");
 		}
 	};
 	default String selectedTargetBombard()		{ return targetBombard.get(); }

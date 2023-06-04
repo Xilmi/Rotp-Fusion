@@ -163,8 +163,8 @@ class GovernorOptionsPanel extends javax.swing.JPanel{
 	//
 	GovernorOptionsPanel(JFrame frame) {
 		this.frame = frame;
+		frame.setVisible(true);
 		protectedInitPanel();
-//		MOO1GameOptions.addListener(this);
 	}
 	private void initNewColors(boolean local) {
 		if (isNewFormat()) {
