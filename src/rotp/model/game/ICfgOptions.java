@@ -70,8 +70,8 @@ public interface ICfgOptions extends IMainOptions {
 	{	{ isCfgFile(true); } };
 	ParamBoolean compactOptionOnly	= new ParamBoolean(MOD_UI, "COMPACT_OPTION_ONLY", false)
 	{	{ isCfgFile(true); } };
-	ParamBoolean showGridCircular	= new ParamBoolean(MOD_UI, "SHOW_GRID_CIRCULAR", false)
-	{	{ isCfgFile(true); } };
+//	ParamBoolean showGridCircular	= new ParamBoolean(MOD_UI, "SHOW_GRID_CIRCULAR", false)
+//	{	{ isCfgFile(true); } };
 	ParamBoolean useFusionFont		= new ParamBoolean(MOD_UI, "USE_FUSION_FONT", false)
 	{
 		{ isCfgFile(true); }
@@ -98,7 +98,7 @@ public interface ICfgOptions extends IMainOptions {
 			Arrays.asList(
 			menuStartup, minListSizePopUp, showAlliancesGNN, displayYear,
 			null,
-			showGridCircular, galaxyPreviewColorStarsSize, showLimitedWarnings, techExchangeAutoRefuse,
+			galaxyPreviewColorStarsSize, showLimitedWarnings, techExchangeAutoRefuse,
 			null,
 			showFleetFactor, showFlagFactor, showPathFactor, useFusionFont,
 			null,

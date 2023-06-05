@@ -28,6 +28,7 @@ Curie
 Herschel
 Lyell
 Laplace
+Lemaître
 Hubble
 Thomson
 Born
@@ -126,3 +127,4 @@ Ptolemy
 Khwarizmi
 daVinci
 Gutenberg
+Fresnel

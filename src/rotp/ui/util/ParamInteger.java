@@ -146,12 +146,13 @@ public class ParamInteger extends AbstractParam<Integer> {
 	}
 	// ===== Other Public Methods =====
 	//
-	public void next(MouseEvent e)	{ next(Math.abs(getInc(e))); }
-	public void prev(MouseEvent e)	{ next(-Math.abs(getInc(e))); }
-	public boolean isSpecial()		{ return (specialValue != null) && (get() == specialValue); }
-	public boolean isSpecialZero()	{ return specialZero && (get() == 0); }
-	public boolean isSpecialNegative() { return specialNegative && (get() < 0); }
-	public String  negativeLabel()	{ return negativeLabel; }
+	public void toggle(boolean reverse)	{ if (reverse) prev(); else next(); }
+	public void next(MouseEvent e)		{ next(Math.abs(getInc(e))); }
+	public void prev(MouseEvent e)		{ next(-Math.abs(getInc(e))); }
+	public boolean isSpecial()			{ return (specialValue != null) && (get() == specialValue); }
+	public boolean isSpecialZero()		{ return specialZero && (get() == 0); }
+	public boolean isSpecialNegative()	{ return specialNegative && (get() < 0); }
+	public String  negativeLabel()		{ return negativeLabel; }
 	// ===== Other Private Methods =====
 	//
 	private void next(int i) {

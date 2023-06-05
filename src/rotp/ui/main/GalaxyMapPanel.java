@@ -54,6 +54,7 @@ import rotp.model.galaxy.Location;
 import rotp.model.galaxy.Nebula;
 import rotp.model.galaxy.Ship;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.game.IMapOptions;
 import rotp.model.tech.TechCategory;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
@@ -71,25 +72,25 @@ import rotp.ui.sprites.TreasurySprite;
 import rotp.ui.sprites.ZoomInWidgetSprite;
 import rotp.ui.sprites.ZoomOutWidgetSprite;
 
-public class GalaxyMapPanel extends BasePanel implements ActionListener, MouseListener, MouseWheelListener, MouseMotionListener {
+public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionListener, MouseListener, MouseWheelListener, MouseMotionListener {
     private static final long serialVersionUID = 1L;
     
-    public static final int HIDE_SYSTEM_NAME = 0;
-    public static final int SHOW_SYSTEM_NAME = 1;
-    public static final int SHOW_SYSTEM_DATA = 2;
-    
-    public static final int SHOW_ALL_FLIGHTPATHS = 0;
-    public static final int SHOW_IMPORTANT_FLIGHTPATHS = 1;
-    public static final int SHOW_NO_FLIGHTPATHS = 2;
-
-    public static final int SHOW_ALL_SHIPS = 0;
-    public static final int SHOW_NO_UNARMED_SHIPS = 1;
-    public static final int SHOW_ONLY_ARMED_SHIPS = 2;
-    
-    public static final int SHOW_RANGES = 0;
-    public static final int SHOW_STARS_AND_RANGES = 1;
-    public static final int SHOW_STARS = 2;
-    public static final int SHOW_NO_STARS_AND_RANGES = 3;
+//    public static final int HIDE_SYSTEM_NAME = 0;
+//    public static final int SHOW_SYSTEM_NAME = 1;
+//    public static final int SHOW_SYSTEM_DATA = 2;
+//    
+//    public static final int SHOW_ALL_FLIGHTPATHS = 0;
+//    public static final int SHOW_IMPORTANT_FLIGHTPATHS = 1;
+//    public static final int SHOW_NO_FLIGHTPATHS = 2;
+//
+//    public static final int SHOW_ALL_SHIPS = 0;
+//    public static final int SHOW_NO_UNARMED_SHIPS = 1;
+//    public static final int SHOW_ONLY_ARMED_SHIPS = 2;
+//    
+//    public static final int SHOW_RANGES = 0;
+//    public static final int SHOW_STARS_AND_RANGES = 1;
+//    public static final int SHOW_STARS = 2;
+//    public static final int SHOW_NO_STARS_AND_RANGES = 3;
 
 	// BR:
 //    public static int MAX_FLAG_SCALE = (int) (80 * showFlagFactor.get());
@@ -124,10 +125,10 @@ public class GalaxyMapPanel extends BasePanel implements ActionListener, MouseLi
     private static float scaleX, scaleY;
     private static float sizeX, sizeY;
     private static final List<Sprite> baseControls = new ArrayList<>();
-    private static int systemNameDisplay = SHOW_SYSTEM_DATA;
-    private static int flightPathDisplay = SHOW_IMPORTANT_FLIGHTPATHS;
-    private static int shipDisplay = SHOW_ALL_SHIPS;
-    private static int showShipRanges = SHOW_STARS_AND_RANGES;
+//    private static int systemNameDisplay = SHOW_SYSTEM_DATA;
+//    private static int flightPathDisplay = SHOW_IMPORTANT_FLIGHTPATHS;
+//    private static int shipDisplay = SHOW_ALL_SHIPS;
+//    private static int showShipRanges = SHOW_STARS_AND_RANGES;
  //   private static boolean showGridCircular = false;
 
     private float desiredScale;
@@ -156,90 +157,96 @@ public class GalaxyMapPanel extends BasePanel implements ActionListener, MouseLi
 
     public IMapHandler parent()                 { return parent; }
 
-    public void toggleSystemNameDisplay(boolean reverse)       { 
-        if (reverse) {
-                switch(systemNameDisplay) {
-                case HIDE_SYSTEM_NAME: systemNameDisplay = SHOW_SYSTEM_DATA; break;
-                case SHOW_SYSTEM_NAME: systemNameDisplay = HIDE_SYSTEM_NAME; break;
-                case SHOW_SYSTEM_DATA: systemNameDisplay = SHOW_SYSTEM_NAME; break;
-            }
-        }
-        else {
-            switch(systemNameDisplay) {
-                case HIDE_SYSTEM_NAME: systemNameDisplay = SHOW_SYSTEM_NAME; break;
-                case SHOW_SYSTEM_NAME: systemNameDisplay = SHOW_SYSTEM_DATA; break;
-                case SHOW_SYSTEM_DATA: systemNameDisplay = HIDE_SYSTEM_NAME; break;
-            }
-        }
-    }
-    public void toggleFlightPathDisplay(boolean reverse)       {
-        if (reverse) {
-            switch(flightPathDisplay) {
-                case SHOW_ALL_FLIGHTPATHS:       flightPathDisplay = SHOW_NO_FLIGHTPATHS; break;
-                case SHOW_IMPORTANT_FLIGHTPATHS: flightPathDisplay = SHOW_ALL_FLIGHTPATHS; break;
-                case SHOW_NO_FLIGHTPATHS:        flightPathDisplay = SHOW_IMPORTANT_FLIGHTPATHS; break;
-            }
-        }
-        else {
-            switch(flightPathDisplay) {
-                case SHOW_ALL_FLIGHTPATHS:       flightPathDisplay = SHOW_IMPORTANT_FLIGHTPATHS; break;
-                case SHOW_IMPORTANT_FLIGHTPATHS: flightPathDisplay = SHOW_NO_FLIGHTPATHS; break;
-                case SHOW_NO_FLIGHTPATHS:        flightPathDisplay = SHOW_ALL_FLIGHTPATHS; break;
-            }
-        }
-    }
-    public void toggleShipDisplay(boolean reverse)       {
-        if (reverse) {
-            switch(shipDisplay) {
-                case SHOW_ALL_SHIPS:        shipDisplay = SHOW_ONLY_ARMED_SHIPS; break;
-                case SHOW_NO_UNARMED_SHIPS: shipDisplay = SHOW_ALL_SHIPS; break;
-                case SHOW_ONLY_ARMED_SHIPS: shipDisplay = SHOW_NO_UNARMED_SHIPS; break;
-            }
-        }
-        else {
-            switch(shipDisplay) {
-                case SHOW_ALL_SHIPS:        shipDisplay = SHOW_NO_UNARMED_SHIPS; break;
-                case SHOW_NO_UNARMED_SHIPS: shipDisplay = SHOW_ONLY_ARMED_SHIPS; break;
-                case SHOW_ONLY_ARMED_SHIPS: shipDisplay = SHOW_ALL_SHIPS; break;
-            }
-        }
-    }
-    public void toggleShipRangesDisplay(boolean reverse)       {
-        if (reverse) {
-            switch(showShipRanges) {
-                case SHOW_RANGES:              showShipRanges = SHOW_NO_STARS_AND_RANGES; break;
-                case SHOW_STARS_AND_RANGES:    showShipRanges = SHOW_RANGES; break;
-                case SHOW_STARS:               showShipRanges = SHOW_STARS_AND_RANGES; break;
-                case SHOW_NO_STARS_AND_RANGES: showShipRanges = SHOW_STARS; break;
-            }
-        }
-        else {
-            switch(showShipRanges) {
-                case SHOW_RANGES:              showShipRanges = SHOW_STARS_AND_RANGES; break;
-                case SHOW_STARS_AND_RANGES:    showShipRanges = SHOW_STARS; break;
-                case SHOW_STARS:               showShipRanges = SHOW_NO_STARS_AND_RANGES; break;
-                case SHOW_NO_STARS_AND_RANGES: showShipRanges = SHOW_RANGES; break;
-            }
-        }
-    }
-    public void toggleGridCircularDisplay() { // BR: added memorization
-    	rotp.model.game.ICfgOptions.showGridCircular.toggle();
-    	UserPreferences.save();
+// BR: Moved to options tools control!
+//   public void toggleSystemNameDisplay(boolean reverse)       { 
+//    	options().toggleSystemNameDisplay(reverse);
+//        if (reverse) {
+//                switch(systemNameDisplay) {
+//                case HIDE_SYSTEM_NAME: systemNameDisplay = SHOW_SYSTEM_DATA; break;
+//                case SHOW_SYSTEM_NAME: systemNameDisplay = HIDE_SYSTEM_NAME; break;
+//                case SHOW_SYSTEM_DATA: systemNameDisplay = SHOW_SYSTEM_NAME; break;
+//            }
+//        }
+//        else {
+//            switch(systemNameDisplay) {
+//                case HIDE_SYSTEM_NAME: systemNameDisplay = SHOW_SYSTEM_NAME; break;
+//                case SHOW_SYSTEM_NAME: systemNameDisplay = SHOW_SYSTEM_DATA; break;
+//                case SHOW_SYSTEM_DATA: systemNameDisplay = HIDE_SYSTEM_NAME; break;
+//            }
+//        }
+//    }
+//    public void toggleFlightPathDisplay(boolean reverse)       {
+//    	options().toggleFlightPathDisplay(reverse);
+//        if (reverse) {
+//            switch(flightPathDisplay) {
+//                case SHOW_ALL_FLIGHTPATHS:       flightPathDisplay = SHOW_NO_FLIGHTPATHS; break;
+//                case SHOW_IMPORTANT_FLIGHTPATHS: flightPathDisplay = SHOW_ALL_FLIGHTPATHS; break;
+//                case SHOW_NO_FLIGHTPATHS:        flightPathDisplay = SHOW_IMPORTANT_FLIGHTPATHS; break;
+//            }
+//        }
+//        else {
+//            switch(flightPathDisplay) {
+//                case SHOW_ALL_FLIGHTPATHS:       flightPathDisplay = SHOW_IMPORTANT_FLIGHTPATHS; break;
+//                case SHOW_IMPORTANT_FLIGHTPATHS: flightPathDisplay = SHOW_NO_FLIGHTPATHS; break;
+//                case SHOW_NO_FLIGHTPATHS:        flightPathDisplay = SHOW_ALL_FLIGHTPATHS; break;
+//            }
+//        }
+//    }
+//    public void toggleShipDisplay(boolean reverse)       {
+//        if (reverse) {
+//            switch(shipDisplay) {
+//                case SHOW_ALL_SHIPS:        shipDisplay = SHOW_ONLY_ARMED_SHIPS; break;
+//                case SHOW_NO_UNARMED_SHIPS: shipDisplay = SHOW_ALL_SHIPS; break;
+//                case SHOW_ONLY_ARMED_SHIPS: shipDisplay = SHOW_NO_UNARMED_SHIPS; break;
+//            }
+//        }
+//        else {
+//            switch(shipDisplay) {
+//                case SHOW_ALL_SHIPS:        shipDisplay = SHOW_NO_UNARMED_SHIPS; break;
+//                case SHOW_NO_UNARMED_SHIPS: shipDisplay = SHOW_ONLY_ARMED_SHIPS; break;
+//                case SHOW_ONLY_ARMED_SHIPS: shipDisplay = SHOW_ALL_SHIPS; break;
+//            }
+//        }
+//    }
+//    public void toggleShipRangesDisplay(boolean reverse)       {
+//        if (reverse) {
+//            switch(showShipRanges) {
+//                case SHOW_RANGES:              showShipRanges = SHOW_NO_STARS_AND_RANGES; break;
+//                case SHOW_STARS_AND_RANGES:    showShipRanges = SHOW_RANGES; break;
+//                case SHOW_STARS:               showShipRanges = SHOW_STARS_AND_RANGES; break;
+//                case SHOW_NO_STARS_AND_RANGES: showShipRanges = SHOW_STARS; break;
+//            }
+//        }
+//        else {
+//            switch(showShipRanges) {
+//                case SHOW_RANGES:              showShipRanges = SHOW_STARS_AND_RANGES; break;
+//                case SHOW_STARS_AND_RANGES:    showShipRanges = SHOW_STARS; break;
+//                case SHOW_STARS:               showShipRanges = SHOW_NO_STARS_AND_RANGES; break;
+//                case SHOW_NO_STARS_AND_RANGES: showShipRanges = SHOW_RANGES; break;
+//            }
+//        }
+//    }
+//    public void toggleGridCircularDisplay() { // BR: added memorization
+//    	IGameOptions.showGridCircular.toggle();
+//    	UserPreferences.save();
 //    	showGridCircular = rotp.ui.UserPreferences.showGridCircular.get();
-    }
+//    }
 //    public boolean showGridCircular()           { return showGridCircular; }
-    public boolean showGridCircular()           { return rotp.model.game.ICfgOptions.showGridCircular.get(); }
-    public boolean showFleetsOnly()             { return flightPathDisplay == SHOW_NO_FLIGHTPATHS; }
-    public boolean showImportantFlightPaths()   { return flightPathDisplay != SHOW_NO_FLIGHTPATHS; }
-    public boolean showAllFlightPaths()         { return flightPathDisplay == SHOW_ALL_FLIGHTPATHS; }
-    public boolean showFriendlyTransports()     { return shipDisplay != SHOW_ONLY_ARMED_SHIPS; }
-    public boolean showUnarmedShips()           { return shipDisplay == SHOW_ALL_SHIPS; }
+//    public boolean showGridCircular()           { return options().selectedShowGridCircular(); }
+//    public boolean showFleetsOnly()             { return options().showFleetsOnly(); }
+//    public boolean showImportantFlightPaths()   { return options().showImportantFlightPaths(); }
+//    public boolean showAllFlightPaths()         { return options().showAllFlightPaths(); }
+//    public boolean showFleetsOnly()             { return flightPathDisplay == SHOW_NO_FLIGHTPATHS; }
+//    public boolean showImportantFlightPaths()   { return flightPathDisplay != SHOW_NO_FLIGHTPATHS; }
+//    public boolean showAllFlightPaths()         { return flightPathDisplay == SHOW_ALL_FLIGHTPATHS; }
+//    public boolean showFriendlyTransports()     { return shipDisplay != SHOW_ONLY_ARMED_SHIPS; }
+//    public boolean showUnarmedShips()           { return shipDisplay == SHOW_ALL_SHIPS; }
     public boolean showArmedShips()             { return true; }
-    public boolean hideSystemNames()            { return systemNameDisplay == HIDE_SYSTEM_NAME; }
-    public boolean showSystemNames()            { return systemNameDisplay == SHOW_SYSTEM_NAME; }
-    public boolean showSystemData()             { return systemNameDisplay == SHOW_SYSTEM_DATA; }
-    public boolean showShipRanges()             { return (showShipRanges == SHOW_RANGES) || (showShipRanges == SHOW_STARS_AND_RANGES); }
-    public boolean showStars()                  { return (showShipRanges == SHOW_STARS)  || (showShipRanges == SHOW_STARS_AND_RANGES); }
+//    public boolean hideSystemNames()            { return systemNameDisplay == HIDE_SYSTEM_NAME; }
+//    public boolean showSystemNames()            { return systemNameDisplay == SHOW_SYSTEM_NAME; }
+//    public boolean showSystemData()             { return systemNameDisplay == SHOW_SYSTEM_DATA; }
+//    public boolean showShipRanges()             { return (showShipRanges == SHOW_RANGES) || (showShipRanges == SHOW_STARS_AND_RANGES); }
+//    public boolean showStars()                  { return (showShipRanges == SHOW_STARS)  || (showShipRanges == SHOW_STARS_AND_RANGES); }
 
     public void clearHoverSprite()              { hoverSprite = null; }
     public Location currentFocus()        { return parent.mapFocus();  }
@@ -281,9 +288,10 @@ public class GalaxyMapPanel extends BasePanel implements ActionListener, MouseLi
         setBackground(Color.BLACK);
         setOpaque(true);
 
-        flightPathDisplay = parent.defaultFleetDisplay();
-        shipDisplay = SHOW_ALL_SHIPS;
-        showShipRanges = parent.defaultShipRangesDisplay();
+//	Do Not initialize these, keep the former values!
+//        flightPathDisplay = parent.defaultFleetDisplay();
+//        shipDisplay = SHOW_ALL_SHIPS;
+//        showShipRanges = parent.defaultShipRangesDisplay();
 //        showGridCircular = parent.defaultGridCircularDisplay();
 
         if (baseControls.isEmpty()) {

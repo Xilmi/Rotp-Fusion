@@ -22,6 +22,11 @@ Last updates:
   - "R" in Race setup panel will randomize your race.
 - Custom Race Panel: "Save" button is now on top of "load" Button
 - On launch; Continue will now load the last saved game.
+- Showing which ship is currently being built on each colony on the main-map right below the colony.
+- Techs which you could steal but are obsolete to your empire are now displayed in grey on the intelligence-tab in the races-screen.
+- When you select your own empire on the intelligence-tab in the races-screen the techs you are lacking now also are color-coded in grey, yellow or orange depending on whether they are obsolete, stealable or not stealable.
+- Galaxy Map Display Parameters are now memorized!
+
 
 Last Fixes:
 - New Governor Panel don't crash any more on Apple OS.
@@ -31,7 +36,6 @@ Last Fixes:
 - Fixed Manual.pdf Table 10.5: Heavy Fusion Beam & Heavy Phasor.
 - "Graviton Beam" description: rendering -> rending 
 - Two "Kekule" in Psilon star name list!
-
 
 
 Last Anouuncement:

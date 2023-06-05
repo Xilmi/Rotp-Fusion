@@ -8,7 +8,7 @@ import rotp.ui.util.IParam;
 import rotp.ui.util.ParamTitle;
 
 public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptions,
-							IRaceOptions, IGovOptions, IGalaxyOptions {
+							IRaceOptions, IGovOptions, IGalaxyOptions, IMapOptions {
 
 	default void updateFromFile(String fileName)	{ updateFromFile(fileName, allModOptions); }
 	default void resetToDefault()					{ resetToDefault(allModOptions); }
@@ -93,6 +93,7 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 		allModOptions.addAll(optionsRace);
 		allModOptions.addAll(optionsCustomRaceBase);
 		allModOptions.addAll(autoFlagOptions);
+		allModOptions.addAll(galaxyMapOptions);
 		allModOptions.addAll(governorOptions);
 		return allModOptions;
 	};

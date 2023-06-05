@@ -145,12 +145,11 @@ public interface IInGameOptions extends IBaseOptsTools {
 			put("Cleaned",		MOD_UI + "TERRAFORM_CLEANED");
 		}
 	};
-	default String selectedAutoTerraformEnding() { return autoTerraformEnding.get(); }
+	default String selectedAutoTerraformEnding()	{ return autoTerraformEnding.get(); }
 
 	ParamBoolean showAllAI			= new ParamBoolean(MOD_UI, "SHOW_ALL_AI", true);
-	default boolean selectedShowAllAI()			 { return showAllAI.get(); }
+	default boolean selectedShowAllAI()			{ return showAllAI.get(); }
 	
-
 	// ==================== GUI List Declarations ====================
 	LinkedList<IParam> modOptionsDynamicA = new LinkedList<>(
 			Arrays.asList(
