@@ -669,7 +669,12 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
             String label1 = map.parent().systemLabel(this);
             String label2 = map.parent().systemLabel2(this);
             if (label2.isEmpty())
-                label2 = name2(map);
+            {
+                if(this.colony() != null && this.colony().shipyardProject() != "" && this.colony().empire() == pl)
+                    label2 = this.colony().shipyardProject();
+                else
+                    label2 = name2(map);
+            }
             if (!label1.isEmpty() || !label2.isEmpty()) {
                 Font prevFont = g2.getFont();
                 g2.setFont(narrowFont(fontSize));
