@@ -22,6 +22,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInput;
@@ -961,13 +962,32 @@ public final class GameSession implements Base, Serializable {
         }
     }
     public boolean hasRecentSession() {
+    	File f = new File(saveDir(), RECENT_SAVEFILE); // BR: To work on debug too...
         try {
-            InputStream file = new FileInputStream(RECENT_SAVEFILE);
+            // InputStream file = new FileInputStream(RECENT_SAVEFILE);
+            InputStream file = new FileInputStream(f);
             file.close();
         } catch (IOException ex) {
             return false;
         }
         return true;
+    }
+    public void loadLastSavedGame(boolean startUp) {
+    	String ext = GameSession.SAVEFILE_EXTENSION;
+    	File saveDir = new File(saveDir());
+    	FilenameFilter filter = (File dir, String name1) -> name1.toLowerCase().endsWith(ext);
+        File[] fileList = saveDir.listFiles(filter);
+        String lastSave = "";
+        long lastModifiedTime = Long.MIN_VALUE;
+        if (fileList != null) {
+            for (File file : fileList) {
+                if (file.lastModified() > lastModifiedTime) {
+                    lastSave = file.getName();
+                    lastModifiedTime = file.lastModified();
+                }
+            }
+        }
+        loadSession(saveDir(), lastSave, startUp);
     }
     public void loadRecentSession(boolean startUp) {
         loadSession(saveDir(), RECENT_SAVEFILE, startUp);

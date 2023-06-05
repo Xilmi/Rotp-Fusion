@@ -56,6 +56,9 @@ Later:
 
 ## What's New
 
+2023.06.04 (BR)
+- On launch; Continue will now load the last saved game.
+
 2023.06.03 (BR)
 - Fixed Governor double production with stargates.
 - Fixed minor Glitches.
