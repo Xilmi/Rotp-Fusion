@@ -507,7 +507,9 @@ public final class RacesIntelligenceUI extends BasePanel implements MouseListene
         int rows = 0;
         for (String id: aiUnknown) {
             Tech t = tech(id);
-            if(player().viewForEmpire(emp).spies().possibleTechs().contains(id))
+            if(player().tech(id).isObsolete(player()))
+                g.setColor(SystemPanel.grayText);
+            else if(player().viewForEmpire(emp).spies().possibleTechs().contains(id))
                 g.setColor(SystemPanel.yellowText);
             else
                 g.setColor(SystemPanel.orangeText);
@@ -579,17 +581,27 @@ public final class RacesIntelligenceUI extends BasePanel implements MouseListene
         int y2 = y1-techY[num];
         g.setFont(narrowFont(15));
         g.setClip(x1+s1,y1+s1,w1-s1,listH-s2);
-        g.setColor(SystemPanel.orangeText);
         int rows = 0;
         for (String id: aiUnknown) {
             Tech t = tech(id);
             if ((t.level() > 0) && !t.free) {
+                List<Empire> emps = techOwners.get(id);
+                boolean couldSteal = false;
+                for (Empire emp1: emps) {
+                    if(player().viewForEmpire(emp1).spies().possibleTechs().contains(id))
+                        couldSteal = true;
+                }
+                if(player().tech(id).isObsolete(player()))
+                    g.setColor(SystemPanel.grayText);
+                else if(couldSteal)
+                    g.setColor(SystemPanel.yellowText);
+                else
+                    g.setColor(SystemPanel.orangeText);
                 y2 += rowH;
                 rows++;
                 String s = tech(id).name();
                 drawString(g,s, x2, y2);
                 int sw1 = g.getFontMetrics().stringWidth(s)+s5;
-                List<Empire> emps = techOwners.get(id);
                 int x3 = x2 + sw1;
                 g.setColor(SystemPanel.blackText);
                 for (Empire emp1: emps) {
@@ -598,7 +610,6 @@ public final class RacesIntelligenceUI extends BasePanel implements MouseListene
                     drawString(g,s, x3, y2);
                     x3 += sw1;
                 }
-                g.setColor(SystemPanel.orangeText);
             }
         }
         techYMax[num] = max(0, s21+(rowH*rows) - listH);
