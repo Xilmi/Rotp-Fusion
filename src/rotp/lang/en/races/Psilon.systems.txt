@@ -109,7 +109,6 @@ Joule
 Foucault
 Kelvin
 Lister
-Kekule
 Roentgen
 Edison
 Pavlov

@@ -1060,7 +1060,7 @@ SHIPWPN_5_DETAIL       | High powered beam weapons capable of inflicting 3-12 po
 
 SHIPWPN_6_NAME         | Graviton Beam
 SHIPWPN_6_BRIEF        | Streaming Attack
-SHIPWPN_6_DETAIL       | Tractor-repulsor beam capable of rendering ships to pieces. It strikes for 1-15 points damage, and the continuous streaming effect allows excess damage to carry over to other ships.
+SHIPWPN_6_DETAIL       | Tractor-repulsor beam capable of rending ships to pieces. It strikes for 1-15 points damage, and the continuous streaming effect allows excess damage to carry over to other ships.
 
 SHIPWPN_7_NAME         | Hard Beam
 SHIPWPN_7_BRIEF        | Halves Shield Strength

@@ -28,7 +28,10 @@ Last Fixes:
 - Fixed some missing help text.
 - Fixed Buttons appearing before the panels.
 - Fixed Governor double production with stargates.
-- Some minor fixes.
+- Fixed Manual.pdf Table 10.5: Heavy Fusion Beam & Heavy Phasor.
+- "Graviton Beam" description: rendering -> rending 
+- Two "Kekule" in Psilon star name list!
+
 
 
 Last Anouuncement:

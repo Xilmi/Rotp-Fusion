@@ -56,6 +56,11 @@ Later:
 
 ## What's New
 
+2023.06.05 (BR)
+- Fixed Manual.pdf Table 10.5: Heavy Fusion Beam & Heavy Phasor.
+- "Graviton Beam" description: rendering -> rending 
+- Two "Kekule" in Psilon star name list!
+
 2023.06.04 (BR)
 - On launch; Continue will now load the last saved game.
 

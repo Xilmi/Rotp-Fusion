@@ -56,7 +56,7 @@ public class ErrorUI extends BasePanel implements MouseListener, MouseMotionList
         int w0 = w*4/5;
         int y0 = BasePanel.s80;
         g.setFont(narrowFont(30));
-        String desc = "If you would like to help fix this problem, please send a screen shot of this UI plus the 'recent.rotp' save game file to Ray Fowler, or bring it to his attention on the ROTP subreddit.";
+        String desc = "If you would like to help fix this problem, please send a screen shot of this UI plus the 'recent.rotp' save game file to BrokenRegistry, or bring it to his attention on the ROTP subreddit.";
         List<String> lines = wrappedLines(g, desc, w0);
         int lineCount = 0;
         for (String line : lines) {
@@ -68,7 +68,8 @@ public class ErrorUI extends BasePanel implements MouseListener, MouseMotionList
 
         g.setFont(narrowFont(24));
         y0 += BasePanel.s60;
-        drawString(g,"Email: ail.st@gmx.de", x0, y0);
+        //drawString(g,"Email: ail.st@gmx.de", x0, y0);
+        drawString(g,"Email: Broken.Registry@protonmail.com", x0, y0);
         y0 += BasePanel.s30;
         drawString(g,"Reddit: www.Reddit.com/r/rotp", x0, y0);
 

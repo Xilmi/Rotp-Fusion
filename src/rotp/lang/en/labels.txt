@@ -1161,8 +1161,9 @@ GNN_ALLY_AT_WAR                   | Our ally, the [ally_empire], has entered int
 
 // Error UI text
 ERROR_TITLE                       | An Error has occurred  :(
-ERROR_MESSAGE                     | If you would like to help fix this problem, please send a screen shot of this UI plus the 'recent.rotp' save game file to Ray Fowler, or bring it to his attention on the ROTP subreddit.
-ERROR_EMAIL                       | Email: rayfowler@fastmail.com
+//ERROR_MESSAGE                     | If you would like to help fix this problem, please send a screen shot of this UI plus the 'recent.rotp' save game file to Ray Fowler, or bring it to his attention on the ROTP subreddit.
+ERROR_MESSAGE                     | If you would like to help fix this problem, please send a screen shot of this UI plus the 'recent.rotp' save game file to BrokenRegistry, or bring it to his attention on the ROTP subreddit.
+ERROR_EMAIL                       | Email: Broken.Registry@protonmail.com
 ERROR_REDDIT                      | Reddit: www.Reddit.com/r/rotp
 
 // Setup UI
