@@ -19,26 +19,26 @@ import static rotp.model.empires.CustomRaceDefinitions.BASE_RACE_MARKER;
 import static rotp.model.empires.CustomRaceDefinitions.fileToAlienRace;
 import static rotp.model.empires.CustomRaceDefinitions.getAllowedAlienRaces;
 import static rotp.model.empires.CustomRaceDefinitions.getBaseRaceList;
-import static rotp.model.game.IGameOptions.BASE_UI;
-import static rotp.model.game.IGameOptions.dynStarsPerEmpire;
+import static rotp.model.game.IBaseOptsTools.BASE_UI;
+import static rotp.model.game.IBaseOptsTools.LIVE_OPTIONS_FILE;
+import static rotp.model.game.ICfgOptions.compactOptionOnly;
+import static rotp.model.game.ICfgOptions.galaxyPreviewColorStarsSize;
+import static rotp.model.game.ICfgOptions.minListSizePopUp;
+import static rotp.model.game.IGalaxyOptions.aliensNumber;
+import static rotp.model.game.IGalaxyOptions.bitmapGalaxyLastFolder;
+import static rotp.model.game.IGalaxyOptions.difficultySelection;
+import static rotp.model.game.IGalaxyOptions.galaxyRandSource;
+import static rotp.model.game.IGalaxyOptions.globalCROptions;
+import static rotp.model.game.IGalaxyOptions.optionsGalaxy;
+import static rotp.model.game.IGalaxyOptions.shapeOption1;
+import static rotp.model.game.IGalaxyOptions.shapeOption2;
+import static rotp.model.game.IGalaxyOptions.shapeOption3;
+import static rotp.model.game.IGalaxyOptions.shapeSelection;
+import static rotp.model.game.IGalaxyOptions.showNewRaces;
+import static rotp.model.game.IGalaxyOptions.sizeSelection;
+import static rotp.model.game.IGalaxyOptions.useSelectableAbilities;
 import static rotp.model.game.IGameOptions.OPPONENT_AI_HYBRID;
-import static rotp.model.game.IGameOptions.aliensNumber;
-import static rotp.model.game.IGameOptions.bitmapGalaxyLastFolder;
-import static rotp.model.game.IGameOptions.difficultySelection;
-import static rotp.model.game.IGameOptions.galaxyRandSource;
-import static rotp.model.game.IGameOptions.globalCROptions;
-import static rotp.model.game.IGameOptions.optionsGalaxy;
-import static rotp.model.game.IGameOptions.shapeOption1;
-import static rotp.model.game.IGameOptions.shapeOption2;
-import static rotp.model.game.IGameOptions.shapeOption3;
-import static rotp.model.game.IGameOptions.shapeSelection;
-import static rotp.model.game.IGameOptions.showNewRaces;
-import static rotp.model.game.IGameOptions.sizeSelection;
-import static rotp.model.game.IGameOptions.useSelectableAbilities;
-import static rotp.model.game.IGameOptions.compactOptionOnly;
-import static rotp.model.game.IGameOptions.galaxyPreviewColorStarsSize;
-import static rotp.model.game.IGameOptions.minListSizePopUp;
-import static rotp.model.game.IGameOptions.LIVE_OPTIONS_FILE;
+import static rotp.model.game.IPreGameOptions.dynStarsPerEmpire;
 import static rotp.ui.UserPreferences.GALAXY_TEXT_FILE;
 import static rotp.ui.util.IParam.LABEL_DESCRIPTION;
 import static rotp.ui.util.IParam.labelFormat;
@@ -103,15 +103,14 @@ import rotp.model.empires.Race;
 import rotp.model.galaxy.GalaxyFactory.GalaxyCopy;
 import rotp.model.galaxy.GalaxyShape;
 import rotp.model.galaxy.GalaxyShape.EmpireSystem;
-import rotp.model.game.IInGameOptions;
 import rotp.model.game.GameSession;
 import rotp.model.game.IGameOptions;
+import rotp.model.game.IInGameOptions;
 import rotp.ui.NoticeMessage;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.ui.main.SystemPanel;
-import rotp.ui.util.IParam;
 import rotp.ui.util.ListDialog;
 import rotp.ui.util.ParamButtonHelp;
 import rotp.ui.util.ParamList;
@@ -154,6 +153,12 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			return options.selectedOpponentAIOption();
 		}
 		@Override public String	guideValue()	{ return langLabel(get()); }
+		@Override public void reInit(List<String> list) {
+			if (list == null)
+				super.reInit(IGameOptions.globalAIset().getAliens());
+			else
+				super.reInit(list);
+		}
 	};
 	private final ParamList specificAI			= new ParamList( // For Guide
 			BASE_UI, "SPECIFIC_AI",
@@ -163,9 +168,21 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			return options.specificOpponentAIOption(mouseBoxIndex()+1);
 		}
 		@Override public String	guideValue()	{ return langLabel(get()); }
+		@Override public void reInit(List<String> list) {
+			if (list == null)
+				super.reInit(IGameOptions.specificAIset().getAliens());
+			else
+				super.reInit(list);
+		}
 	};
 	private final ParamList specificOpponent	= new ParamList( // For Guide
 			BASE_UI, "SPECIFIC_OPPONENT", guiOptions().allRaceOptions(), opponentRandom) {
+		@Override public void reInit(List<String> list) {
+			if (list == null)
+				super.reInit(guiOptions().allRaceOptions());
+			else
+				super.reInit(list);
+		}
 		@Override public String	getOptionValue(IGameOptions options)	{
 			String val = options.selectedOpponentRace(mouseBoxIndex());
 			if (val == null)
@@ -328,7 +345,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
     private Font boxMonoFont;
     private int  boxMonoFontSize  = 15;
 
-    public static IParam specificAI() { return instance.specificAI; }
+    public static ParamList specificAI() { return instance.specificAI; }
+    public static ParamList opponentAI() { return instance.opponentAI; }
     public static int mouseBoxIndex() { return instance.hoverBox.mouseBoxIndex(); }
 
  	private Font boxMonoFont() {
@@ -976,7 +994,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				specificAI);				// help parameter
 		String input = (String) dialog.showDialog();
 		ModifierKeysState.reset();
-//		repaintButtons();
 		repaint();
 	    if (input == null)
 	    	return initialChoice;
@@ -1005,7 +1022,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 
 		String input = (String) dialog.showDialog();
 		ModifierKeysState.reset();
-//		repaintButtons();
 		repaint();
 	    if (input == null)
 	    	return initialChoice;
@@ -1030,7 +1046,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 
 		String input = (String) dialog.showDialog();
 		ModifierKeysState.reset();
-//		repaintButtons();
 		repaint();
 	    if (input == null)
 	    	return initialChoice;
@@ -1055,7 +1070,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		String input = (String) dialog.showDialog();
 		ModifierKeysState.reset();
 		ModifierKeysState.reset();
-//		repaintButtons();
 		repaint();
 	    if (input == null)
 	    	return initialChoice;

@@ -147,7 +147,15 @@ public interface IInGameOptions extends IBaseOptsTools {
 	};
 	default String selectedAutoTerraformEnding()	{ return autoTerraformEnding.get(); }
 
-	ParamBoolean showAllAI			= new ParamBoolean(MOD_UI, "SHOW_ALL_AI", true);
+	ParamBoolean showAllAI			= new ParamBoolean(MOD_UI, "SHOW_ALL_AI", true) {
+		@Override public Boolean set(Boolean newValue) {
+			super.set(newValue);
+			rotp.ui.game.SetupGalaxyUI.specificAI().reInit(null);
+			rotp.ui.game.SetupGalaxyUI.opponentAI().reInit(null);
+			rotp.model.game.IAdvOptions.autoplay.reInit(null);
+			return get();
+		}
+	};
 	default boolean selectedShowAllAI()			{ return showAllAI.get(); }
 	
 	// ==================== GUI List Declarations ====================

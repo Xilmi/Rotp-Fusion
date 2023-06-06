@@ -36,6 +36,8 @@ Last Fixes:
 - Fixed Manual.pdf Table 10.5: Heavy Fusion Beam & Heavy Phasor.
 - "Graviton Beam" description: rendering -> rending 
 - Two "Kekule" in Psilon star name list!
+- Fixed Limited Bombard missing labels.
+- Fixed AI-Guide not immediately updated when changing "Show all AIs"
 
 
 Last Anouuncement:

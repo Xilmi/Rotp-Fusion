@@ -56,6 +56,9 @@ Later:
 
 ## What's New
 
+2023.06.06 (BR)
+- Fixed AI-Guide not immediately updated when changing "Show all AIs"
+
 2023.06.05 (Xilmi)
 - Showing which ship is currently being built on each colony on the main-map right below the colony.
 - Techs which you could steal but are obsolete to your empire are now displayed in grey on the intelligence-tab in the races-screen.

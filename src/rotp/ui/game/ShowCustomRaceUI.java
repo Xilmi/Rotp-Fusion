@@ -267,7 +267,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	    return input;
 	}
 	private void playerAIBoxAction()	{
-		AIList list				 = IGameOptions.changePlayAIset();
+		AIList list				= IGameOptions.changePlayAIset();
 		List<String> returnList = list.getAutoPlay();
 		String[] choiceArray	= list.getNames().toArray(new String[list.size()]);;
 

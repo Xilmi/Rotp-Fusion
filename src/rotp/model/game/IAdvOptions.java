@@ -32,6 +32,7 @@ import static rotp.model.game.MOO1GameOptions.getWarpSpeedOptions;
 
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamList;
@@ -138,6 +139,12 @@ public interface IAdvOptions extends IBaseOptsTools {
 			ADV_UI, "AUTOPLAY",
 			IGameOptions.autoPlayAIset().getAutoPlay(), AUTOPLAY_OFF) {
 		{ showFullGuide(false); }
+		@Override public void reInit(List<String> list) {
+			if (list == null)
+				super.reInit(IGameOptions.autoPlayAIset().getAutoPlay());
+			else
+				super.reInit(list);
+		}
 		@Override public String getOptionValue(IGameOptions options) {
 			return options.selectedAutoplayOption();
 		}
