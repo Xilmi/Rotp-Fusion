@@ -59,6 +59,7 @@ Later:
 2023.06.06 (BR)
 - Fixed AI-Guide not immediately updated when changing "Show all AIs"
 - Fixed button missing description.
+- Fix tentative: Governor panel won't update it's components if the windows is not focused.
 
 2023.06.05 (Xilmi)
 - Showing which ship is currently being built on each colony on the main-map right below the colony.
