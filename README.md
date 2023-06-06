@@ -67,6 +67,7 @@ Later:
 - Fixed Two "Kekule" in Psilon star name list!
   - Added Fresnel and Lemaître (Published 2 years before Hubble... But in French in a little Belgium paper!)
 - Galaxy Map Display Parameters are now memorized!
+- Fixed Limited Bombard missing labels.
 
 
 2023.06.04 (BR)
