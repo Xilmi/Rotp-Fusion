@@ -290,10 +290,10 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private Box modDynamicABox		= new Box("SETUP_GALAXY_CLASSIC_OPTIONS"); // BR add UI panel for MOD game options
 	private Box modDynamicBBox		= new Box("SETUP_GALAXY_CLASSIC_OPTIONS"); // BR add UI panel for MOD game options
 	private Box globalModSettingsBox= new Box("SETUP_GALAXY_CLASSIC_OPTIONS"); // BR add UI panel for MOD game options
+	private Box	settingsBox			= new Box("SETUP_GALAXY_CLASSIC_OPTIONS");
 	private Box	helpBox   			= new Box("SETTINGS_BUTTON_HELP");
 	private Box	backBox				= new Box("SETUP_GALAXY_BACK");
 	private Box	startBox;
-	private Box	settingsBox			= new Box("SETUP_GALAXY_OPTIONS");
 	private Box	newRacesBox			= new Box("SETUP_GALAXY_RACE_LIST"); // BR:
 	private Box	showAbilitiesBox; // BR:
 	private Box		shapeBox;
