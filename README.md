@@ -73,7 +73,7 @@ Later:
 - Fixed Manual.pdf Table 10.5: Heavy Fusion Beam & Heavy Phasor.
 - "Graviton Beam" description: rendering -> rending 
 - Fixed Two "Kekule" in Psilon star name list!
-  - Added Fresnel and Lemaître (Published 2 years before Hubble... But in French in a little Belgium paper!)
+  - Added Fresnel and LemaÃ®tre (Published 2 years before Hubble... But in French in a little Belgium paper!)
 - Galaxy Map Display Parameters are now memorized!
 - Fixed Limited Bombard missing labels.
 
