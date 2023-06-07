@@ -1461,13 +1461,18 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	if (pList == null)
     		return;
     	MOO1GameOptions source = loadOptions(fileName);
-       	for (IParam param : pList)
-//       		if (param != null && !param.isCfgFile()) { // Exclude .cfg parameters
-       		if (param != null) {
-//       			System.out.print(param.getCfgLabel() + ": " + param.getCfgValue());
-       			param.copyOption(source, this, true); // update tool
-//       			System.out.println(" -> " + param.getCfgValue());
-       		}
+    	if (pList == modGlobalOptionsUI || pList == mainOptions)
+           	for (IParam param : pList) {
+           		if (param != null) {
+           			param.copyOption(source, this, true); // update tool
+           		}
+           	}
+    	else
+	       	for (IParam param : pList) {
+	       		if (param != null && !param.isCfgFile()) { // Exclude .cfg parameters
+	       			param.copyOption(source, this, true); // update tool
+	       		}
+	       	}
         source.copyBaseSettings(this, pList);
     }
     // ========== New Options Static files management methods ==========

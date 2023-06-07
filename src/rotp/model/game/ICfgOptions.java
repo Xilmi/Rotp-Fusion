@@ -101,10 +101,10 @@ public interface ICfgOptions extends IMainOptions {
 			Arrays.asList(
 			menuStartup, minListSizePopUp, showAlliancesGNN, displayYear,
 			null,
-			galaxyPreviewColorStarsSize, showLimitedWarnings, techExchangeAutoRefuse,
+			galaxyPreviewColorStarsSize, showLimitedWarnings, techExchangeAutoRefuse, showNextCouncil,
 			null,
 			showFleetFactor, showFlagFactor, showPathFactor, useFusionFont,
 			null,
-			showNameMinFont, showInfoFontRatio, mapFontFactor, showNextCouncil, compactOptionOnly
+			showNameMinFont, showInfoFontRatio, mapFontFactor, compactOptionOnly
 			));
 }
