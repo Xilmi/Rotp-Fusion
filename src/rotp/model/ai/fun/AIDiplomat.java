@@ -466,6 +466,9 @@ public class AIDiplomat implements Base, Diplomat {
             && (v.trade().profit() <= 0))
             return false;
         
+        if(!v.trade().atFullLevel())
+            return false;
+        
         // if asking player, check that we don't spam him
         if (v.empire().isPlayerControlled()) {
              if (!v.otherView().embassy().readyForTrade(level))
@@ -474,7 +477,7 @@ public class AIDiplomat implements Base, Diplomat {
 
         float currentTrade = v.trade().level();
         float maxTrade = v.trade().maxLevel();
-        if (maxTrade < (currentTrade * 1.5) && !v.trade().atFullLevel())
+        if (maxTrade <= currentTrade)
             return false;
 
         log(v.toString(), ": willing to offer trade. Max:", str(maxTrade), "    current:", str(currentTrade));
