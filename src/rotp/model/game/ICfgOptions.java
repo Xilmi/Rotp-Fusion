@@ -19,8 +19,8 @@ public interface ICfgOptions extends IMainOptions {
 	ParamBoolean displayYear	= new ParamBoolean( // Duplicate Do not add the list
 			GAME_UI, "DISPLAY_YEAR", false) {
 		{ isDuplicate(true); isCfgFile(true); }
-		@Override public Boolean getOptionValue(IGameOptions o)	{ return displayYear(); }
-		@Override public void setOption(Boolean val)			{ displayYear(val); }
+		@Override public Boolean getOption()			{ return displayYear(); }
+		@Override public void setOption(Boolean val)	{ displayYear(val); }
 	};
 //	default boolean displayYear()		{ return displayYear.get(); }
 //	default void toggleYearDisplay()	{ displayYear.toggle(); }
@@ -83,11 +83,14 @@ public interface ICfgOptions extends IMainOptions {
 	ParamInteger galaxyPreviewColorStarsSize = new ParamInteger(MOD_UI, "GALAXY_PREVIEW_COLOR_SIZE" , 5, 0, 20, 1, 2, 5)
 	{	{ isCfgFile(true); } };
 	ParamInteger minListSizePopUp		= new ParamInteger(MOD_UI, "MIN_LIST_SIZE_POP_UP" , 4, 0, 10, true)
-	{	{ isCfgFile(true); } }.specialZero(MOD_UI + "MIN_LIST_SIZE_POP_UP_NEVER");
+	{
+		{ isCfgFile(true); }
+	}	.specialZero(MOD_UI + "MIN_LIST_SIZE_POP_UP_NEVER");
 	ParamInteger showLimitedWarnings	= new ParamInteger(MOD_UI, "SHOW_LIMITED_WARNINGS" , -1, -1, 49, 1, 2, 5)
-	{	{ isCfgFile(true); } }
-			.loop(true)
-			.specialNegative(MOD_UI + "SHOW_LIMITED_WARNINGS_ALL");
+	{
+		{ isCfgFile(true); }
+	}	.loop(true)
+		.specialNegative(MOD_UI + "SHOW_LIMITED_WARNINGS_ALL");
 	ParamBoolean showAlliancesGNN		= new ParamBoolean(MOD_UI, "SHOW_ALLIANCES_GNN", true)
 	{	{ isCfgFile(true); } };
 	ParamBoolean techExchangeAutoRefuse = new ParamBoolean(MOD_UI, "TECH_EXCHANGE_AUTO_NO", false)

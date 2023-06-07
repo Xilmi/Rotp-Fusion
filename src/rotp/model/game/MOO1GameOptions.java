@@ -1452,8 +1452,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     		return;
     	MOO1GameOptions fileOptions = loadOptions(fileName);
        	for (IParam param : pList)
-       		if (param != null)
+       		if (param != null) {
        			param.copyOption(this, fileOptions, false); // don't update tool
+       		}
         saveOptions(fileOptions, fileName);
     }
     @Override public void updateFromFile(String fileName, LinkedList<IParam> pList) {
@@ -1461,8 +1462,11 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     		return;
     	MOO1GameOptions source = loadOptions(fileName);
        	for (IParam param : pList)
-       		if (param != null && !param.isCfgFile()) { // Exclude .cfg parameters
+//       		if (param != null && !param.isCfgFile()) { // Exclude .cfg parameters
+       		if (param != null) {
+//       			System.out.print(param.getCfgLabel() + ": " + param.getCfgValue());
        			param.copyOption(source, this, true); // update tool
+//       			System.out.println(" -> " + param.getCfgValue());
        		}
         source.copyBaseSettings(this, pList);
     }

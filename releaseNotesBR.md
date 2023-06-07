@@ -26,6 +26,7 @@ Last updates:
 - Techs which you could steal but are obsolete to your empire are now displayed in grey on the intelligence-tab in the races-screen.
 - When you select your own empire on the intelligence-tab in the races-screen the techs you are lacking now also are color-coded in grey, yellow or orange depending on whether they are obsolete, stealable or not stealable.
 - Galaxy Map Display Parameters are now memorized!
+- New Main Settings UI with Guide and all options' tool features.
 
 
 Last Fixes:
@@ -37,7 +38,8 @@ Last Fixes:
 - "Graviton Beam" description: rendering -> rending 
 - Two "Kekule" in Psilon star name list!
 - Fixed Limited Bombard missing labels.
-- Fixed AI-Guide not immediately updated when changing "Show all AIs"
+- Fixed AI-Guide not immediately updated when changing "Show all AIs".
+- Fixed Governor Panel glitching (badly) on some computers.
 
 
 Last Anouuncement:

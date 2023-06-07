@@ -111,7 +111,8 @@ public abstract class BaseModPanel extends BasePanel
 		guidePopUp.init();
 	}
 	protected abstract String GUI_ID();
-	protected LinkedList<IParam> localOptions() { return paramList; };
+	protected LinkedList<IParam> localOptions() { return activeList; };
+//	protected LinkedList<IParam> localOptions() { return paramList; };
 	private void localInit(Graphics2D g) {
 		Font prevFont = g.getFont();
 		g.setFont(smallButtonFont);
