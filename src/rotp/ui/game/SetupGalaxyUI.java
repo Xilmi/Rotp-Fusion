@@ -1018,7 +1018,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		        scaled(225), scaled(250),	// size Width, Height
 				null, null,					// Font, Preview
 				returnList,					// Alternate return
-				specificAI);				// help parameter
+				opponentAI);				// help parameter
 
 		String input = (String) dialog.showDialog();
 		ModifierKeysState.reset();
