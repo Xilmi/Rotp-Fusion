@@ -33,7 +33,7 @@ public class TradeRoute implements Base, Serializable {
     public int level()               { return level; }
     public float profit()            { return profit; }
     public boolean active()          { return level > 0; }
-    public boolean atFullLevel()     { return profit >= level; }
+    public boolean atFullLevel()     { return profit >= maxProfit(); }
     public TradeRoute (EmpireView v) {
         emp1 = v.owner().id;
         emp2 = v.empire().id;
