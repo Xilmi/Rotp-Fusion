@@ -833,15 +833,15 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     		modGlobalOptionsUI.init();
     		return;
     	}
-    	if (isShiftDown()) {
-    		buttonClick();
-    		MainOptionsUI mainOptionsUI = RotPUI.mainOptionsUI();
-    		mainOptionsUI.init();
-    		return;
-    	}
-        buttonClick();
-        GameSettingsUI settingsUI = RotPUI.gameSettingsUI();
-        settingsUI.open(this);
+//	if (isShiftDown()) {
+		buttonClick();
+		MainOptionsUI mainOptionsUI = RotPUI.mainOptionsUI();
+		mainOptionsUI.init();
+		return;
+//	}
+//        buttonClick();
+//        GameSettingsUI settingsUI = RotPUI.gameSettingsUI();
+//        settingsUI.open(this);
     }
     @Override
     public void playAmbience() {

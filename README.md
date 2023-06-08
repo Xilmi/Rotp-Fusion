@@ -56,6 +56,9 @@ Later:
 
 ## What's New
 
+2023.06.07 (BR)
+- New Main Settings UI with Guide and all options' tool features.
+
 2023.06.06 (BR)
 - Fixed AI-Guide not immediately updated when changing "Show all AIs"
 - Fixed button missing description.
@@ -70,7 +73,7 @@ Later:
 - Fixed Manual.pdf Table 10.5: Heavy Fusion Beam & Heavy Phasor.
 - "Graviton Beam" description: rendering -> rending 
 - Fixed Two "Kekule" in Psilon star name list!
-  - Added Fresnel and Lemaître (Published 2 years before Hubble... But in French in a little Belgium paper!)
+  - Added Fresnel and LemaÃ®tre (Published 2 years before Hubble... But in French in a little Belgium paper!)
 - Galaxy Map Display Parameters are now memorized!
 - Fixed Limited Bombard missing labels.
 

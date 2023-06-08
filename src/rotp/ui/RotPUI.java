@@ -60,7 +60,6 @@ import rotp.ui.game.AdvancedOptionsUI;
 import rotp.ui.game.DynamicAOptionsUI;
 import rotp.ui.game.DynamicBOptionsUI;
 import rotp.ui.game.GameOverUI;
-import rotp.ui.game.GameSettingsUI;
 import rotp.ui.game.GameUI;
 import rotp.ui.game.HelpUI;
 import rotp.ui.game.LoadGameUI;
@@ -261,7 +260,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     private final DynamicAOptionsUI  dynamicAOptionsUI  = new DynamicAOptionsUI();
     private final DynamicBOptionsUI  dynamicBOptionsUI  = new DynamicBOptionsUI();
     private final ModGlobalOptionsUI modGlobalOptionsUI = new ModGlobalOptionsUI();
-    private final GameSettingsUI     gameSettingsUI     = new GameSettingsUI();
+//    private final GameSettingsUI     gameSettingsUI     = new GameSettingsUI();
     private final MainOptionsUI      mainOptionsUI      = new MainOptionsUI();
     private final LargeDialogPane    dialogPane         = new LargeDialogPane();
 
@@ -353,7 +352,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     public static AdvancedOptionsUI      advancedOptionsUI()      { return instance.advancedOptionsUI; }
     public static MergedStaticOptionsUI  mergedStaticOptionsUI()  { return instance.mergedStaticOptionsUI; }
     public static MergedDynamicOptionsUI mergedDynamicOptionsUI() { return instance.mergedDynamicOptionsUI; }
-    public static GameSettingsUI gameSettingsUI() { return instance.gameSettingsUI; }
+//    public static GameSettingsUI gameSettingsUI() { return instance.gameSettingsUI; }
     public static MainOptionsUI  mainOptionsUI() { return instance.mainOptionsUI; }
     // BR: Standard Mod Game Options
     public static StaticAOptionsUI   modOptionsStaticA()  { return instance.staticAOptionsUI; }

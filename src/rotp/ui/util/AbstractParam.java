@@ -99,6 +99,12 @@ public abstract class AbstractParam <T> implements IParam{
 	}
 	// ===== For duplicates to be overridden =====
 	// For internal use only! Do not call from outside AbstracParam
+	protected T getOption() {
+		if (isDuplicate()) { // Just in case!
+			System.err.println("getOption() Not set " + getCfgLabel());
+		}		
+		return value; // for cfg non duplicate
+	}
 	protected void setOption(T value) { setOptionValue(opts(), value); }
 	protected abstract T getOptionValue(IGameOptions options);
 	protected void setOptionValue(IGameOptions options, T value) {
@@ -122,10 +128,17 @@ public abstract class AbstractParam <T> implements IParam{
 	@Override public void copyOption(IGameOptions src, IGameOptions dest, boolean updateTool) {
 		if (src == null || dest == null)
 			return;
-		T val = getOptionValue(src);
+		T val;
+		if (isCfgFile && src == opts())
+			val = getOption();
+		else 
+			val = getOptionValue(src);
 		if (updateTool)
 			set(val);
-		setOptionValue(dest, val);
+		if (isCfgFile && dest == opts())
+			setOption(val);
+		else
+			setOptionValue(dest, val);
 	}
 	@Override public String getCfgValue()		{ return getCfgValue(value); }
 	@Override public String getCfgLabel()		{ return name; }
@@ -174,7 +187,10 @@ public abstract class AbstractParam <T> implements IParam{
 //	T value(T value) 					{ return set(value); } // TODO BR: Remove
 	public T defaultValue()				{ return defaultValue; }
 	public T get()						{
-		if (version != optionVersion() || isDuplicate() || isCfgFile) {
+		if (isCfgFile) {
+			value = getOption();
+		}
+		else if (version != optionVersion() || isDuplicate) {
 			value = getOptionValue(opts());
 			version = optionVersion();
 		}
@@ -206,8 +222,9 @@ public abstract class AbstractParam <T> implements IParam{
 	public T set(T newValue) {
 		boolean trueChange = value != newValue;
 		value = newValue;
-		updateOption(dynOpts());
+//		updateOption(dynOpts()); // only for CR settings...
 		setOption(newValue); // For overrider
+		version = optionVersion();
 		if (trueChange && (isGovernor != NOT_GOVERNOR))
 			GovernorOptions.callForRefresh(isGovernor);
 		if (isCfgFile)

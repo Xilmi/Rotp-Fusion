@@ -72,9 +72,9 @@ public interface IMainOptions extends IBaseOptsTools {
 					),
 			WINDOW_MODE) {
 		{ isDuplicate(true); isCfgFile(true); showFullGuide(true); }
-		@Override public String getCfgValue()					{ return displayModeToSettingName(get()); }
-		@Override public String getOptionValue(IGameOptions o)	{ return displayMode(); }
-		@Override public void setOption(String newValue)		{ displayMode(newValue); }
+		@Override public String getCfgValue()		{ return displayModeToSettingName(get()); }
+		@Override public String getOption()			{ return displayMode(); }
+		@Override public void setOption(String s)	{ displayMode(s); }
 	};
 //	default boolean fullScreen()	{ return displayMode().equals(FULLSCREEN_MODE); }
 //	default boolean windowed()		{ return displayMode().equals(WINDOW_MODE); }
@@ -89,9 +89,9 @@ public interface IMainOptions extends IBaseOptsTools {
 					),
 			GRAPHICS_HIGH) {
 		{ isDuplicate(true); isCfgFile(true); showFullGuide(true); }
-		@Override public String getCfgValue()					{ return graphicsModeToSettingName(get()); }
-		@Override public String getOptionValue(IGameOptions o)	{ return graphicsMode(); }
-		@Override public void setOption(String newValue)		{ graphicsMode(newValue); }
+		@Override public String getCfgValue()		{ return graphicsModeToSettingName(get()); }
+		@Override public String getOption()			{ return graphicsMode(); }
+		@Override public void setOption(String s)	{ graphicsMode(s); }
 	};
 //	default boolean playAnimations()	{ return !graphicsMode.get().equals(GRAPHICS_LOW); }
 //	default boolean antiAliasing()		{ return graphicsMode.get().equals(GRAPHICS_HIGH); }
@@ -105,9 +105,9 @@ public interface IMainOptions extends IBaseOptsTools {
 					),
 			TEXTURES_BOTH) {
 		{ isDuplicate(true); isCfgFile(true); showFullGuide(true); }
-		@Override public String getCfgValue()					{ return texturesToSettingName(get()); }
-		@Override public String getOptionValue(IGameOptions o)	{ return texturesMode(); }
-		@Override public void setOption(String newValue)		{ texturesMode(newValue); }
+		@Override public String getCfgValue()		{ return texturesToSettingName(get()); }
+		@Override public String getOption()			{ return texturesMode(); }
+		@Override public void setOption(String s)	{ texturesMode(s); }
 	};
 //	default boolean texturesInterface()		{ return texturesInterface(); }
 //	default boolean texturesMap()			{ return texturesMap(); }
@@ -120,9 +120,9 @@ public interface IMainOptions extends IBaseOptsTools {
 					),
 			SENSITIVITY_MEDIUM) {
 		{ isDuplicate(true); isCfgFile(true); showFullGuide(true); }
-		@Override public String getCfgValue()					{ return sensitivityToSettingName(get()); }
-		@Override public String getOptionValue(IGameOptions o)	{ return sensitivityMode(); }
-		@Override public void setOption(String newValue)		{ sensitivityMode(newValue); }
+		@Override public String getCfgValue()		{ return sensitivityToSettingName(get()); }
+		@Override public String getOption()			{ return sensitivityMode(); }
+		@Override public void setOption(String s)	{ sensitivityMode(s); }
 	};
 //	default boolean sensitivityMedium()		{ return sensitivityMedium(); }
 //	default boolean sensitivityLow()		{ return sensitivityLow(); }
@@ -130,20 +130,20 @@ public interface IMainOptions extends IBaseOptsTools {
 	// Do no use alone, Go through soundVolume
 	ParamBoolean playSounds		= new ParamBoolean(GAME_UI, "SOUNDS", true) {
 		{ isDuplicate(true); isCfgFile(true); }
-		@Override public Boolean getOptionValue(IGameOptions o)	{ return playSounds(); }
-		@Override public void setOption(Boolean newValue)		{
-			if(playSounds() != newValue)
-				//playSounds(!newValue); // ! because following line will toggle!
+		@Override public Boolean getOption()		{ return playSounds(); }
+		@Override public void setOption(Boolean b)	{
+			if(playSounds() != b)
+				//playSounds(!s); // ! because following line will toggle!
 				SoundManager.current().toggleSounds();
 		}
 	};
 	ParamBoolInt soundVolume	= new ParamBoolInt(GAME_UI, playSounds,
 			"SOUNDS_ON", "SOUNDS_OFF", 10, 0, 10) {
 		{ isDuplicate(true); isCfgFile(true); }
-		@Override public String getCfgLabel()					{ return "SOUND_VOLUME"; }
-		@Override public Integer getOptionValue(IGameOptions o)	{ return soundVolume(); }
-		@Override public void setOption(Integer newValue)		{
-			soundVolume(Math.abs(newValue));
+		@Override public String getCfgLabel()		{ return "SOUND_VOLUME"; }
+		@Override public Integer getOption()		{ return soundVolume(); }
+		@Override public void setOption(Integer i)	{
+			soundVolume(Math.abs(i));
 			SoundManager.current().resetSoundVolumes();
 		}
 	};
@@ -153,47 +153,47 @@ public interface IMainOptions extends IBaseOptsTools {
 	// Do no use alone, Go through musicVolume
 	ParamBoolean playMusic		= new ParamBoolean(GAME_UI, "MUSIC", true) {
 		{ isDuplicate(true); isCfgFile(true); }
-		@Override public Boolean getOptionValue(IGameOptions o)	{ return playMusic(); }
-		@Override public void setOption(Boolean newValue)		{
-			if(playMusic() != newValue)
-				//playMusic(!newValue); // ! because following line will toggle!
+		@Override public Boolean getOption()		{ return playMusic(); }
+		@Override public void setOption(Boolean b)	{
+			if(playMusic() != b)
+				//playMusic(!s); // ! because following line will toggle!
 				SoundManager.current().toggleMusic();
 		}
 	};
 	ParamBoolInt musicVolume	= new ParamBoolInt(GAME_UI, playMusic,
 			"MUSIC_ON", "MUSIC_OFF", 10, 0, 10) {
 		{ isDuplicate(true); isCfgFile(true); }
-		@Override public String getCfgLabel()					{ return "MUSIC_VOLUME"; }
-		@Override public Integer getOptionValue(IGameOptions o)	{ return musicVolume(); }
-		@Override public void setOption(Integer newValue)		{
-			musicVolume(Math.abs(newValue));
+		@Override public String getCfgLabel()		{ return "MUSIC_VOLUME"; }
+		@Override public Integer getOption()		{ return musicVolume(); }
+		@Override public void setOption(Integer i)	{
+			musicVolume(Math.abs(i));
 			SoundManager.current().resetMusicVolumes();
 		}
 	};
 //	default int musicVolume()		{ return musicVolume.get(); }
 //	default boolean playMusic()		{ return playMusic.get(); }
 
-	ParamBoolean showMemory		= new ParamBoolean(GAME_UI, "MEMORY", true) {
+	ParamBoolean showMemory		= new ParamBoolean(GAME_UI, "MEMORY", false) {
 		{ isDuplicate(true); isCfgFile(true); }
-		@Override public String getCfgLabel()					{ return "SHOW_MEMORY"; }
-		@Override public Boolean getOptionValue(IGameOptions o)	{ return showMemory(); }
-		@Override public void setOption(Boolean newValue)		{ showMemory(newValue); }
+		@Override public String getCfgLabel()		{ return "SHOW_MEMORY"; }
+		@Override public Boolean getOption()		{ return showMemory(); }
+		@Override public void setOption(Boolean b)	{ showMemory(b); }
 	};
 //	default boolean showMemory()		{ return showMemory.get(); }
 
 	ParamInteger selectedScreen		= new ParamInteger(GAME_UI, "SELECTED_SCREEN", -1, -1, Rotp.maxScreen()) {
 		{ isDuplicate(true); isCfgFile(true); }
-		@Override public Integer getOptionValue(IGameOptions o)	{ return selectedScreen(); }
-		@Override public void setOption(Integer newValue)		{ selectedScreen(newValue); }
+		@Override public Integer getOption()		{ return selectedScreen(); }
+		@Override public void setOption(Integer i)	{ selectedScreen(i); }
 	};
 //	default int selectedScreen()		{ return selectedScreen.get(); }
 
 	ParamBoolean autoColonize_	= new ParamBoolean( GAME_UI, "AUTOCOLONIZE", false) {
 		{ isDuplicate(true); isCfgFile(true); }
-		@Override public Boolean getOptionValue(IGameOptions o)	{ return autoColonize(); }
-		@Override public void setOption(Boolean newValue)		{ autoColonize(newValue); }
+		@Override public Boolean getOption()		{ return autoColonize(); }
+		@Override public void setOption(Boolean b)	{ autoColonize(b); }
 	};
-	default boolean autoColonizeMode()		{ return autoColonize_.get(); }
+	default boolean autoColonizeMode()				{ return autoColonize_.get(); }
 //	default void autoColonize()	{ autoColonize_.get();  }
 
 	ParamList autoBombard_		= new ParamList( GAME_UI, "AUTOBOMBARD",
@@ -206,9 +206,9 @@ public interface IMainOptions extends IBaseOptsTools {
 					),
 			AUTOBOMBARD_NO) {
 		{ isDuplicate(true); isCfgFile(true); showFullGuide(true); }
-		@Override public String getCfgValue()	{ return autoBombardToSettingName(get()); }
-		@Override public String getOptionValue(IGameOptions o) { return autoBombardMode(); }
-		@Override public void setOption(String newValue)			 { autoBombardMode(newValue); }
+		@Override public String getCfgValue()		{ return autoBombardToSettingName(get()); }
+		@Override public String getOption()			{ return autoBombardMode(); }
+		@Override public void setOption(String s)	{ autoBombardMode(s); }
 	};
 //	default String  autoBombardMode()		{ return autoBombard_.get(); }
 //	default boolean autoBombardNever()		{ return autoBombard_.get().equals(AUTOBOMBARD_NEVER); }
@@ -218,9 +218,9 @@ public interface IMainOptions extends IBaseOptsTools {
 
 	ParamInteger backupTurns	= new ParamInteger(GAME_UI, "BACKUP", 5, 0, MAX_BACKUP_TURNS, 1, 5, 10) {
 		{ isDuplicate(true); isCfgFile(true); specialZero(GAME_UI + "BACKUP_OFF"); }
-		@Override public String getCfgLabel()					{ return "BACKUP_TURNS"; }
-		@Override public Integer getOptionValue(IGameOptions o)	{ return backupTurns(); }
-		@Override public void setOption(Integer newValue)		{ backupTurns(newValue); }
+		@Override public String getCfgLabel()		{ return "BACKUP_TURNS"; }
+		@Override public Integer getOption()		{ return backupTurns(); }
+		@Override public void setOption(Integer i)	{ backupTurns(i); }
 	};
 //	default int backupTurns()		{ return backupTurns.get(); }
 
@@ -252,9 +252,9 @@ public interface IMainOptions extends IBaseOptsTools {
 	            set(path);
 	        }
 	    }
-		@Override public String	getCfgLabel()					{ return "SAVE_DIR"; }
-		@Override public String	getOptionValue(IGameOptions o)	{ return saveDir(); }
-		@Override public void	setOption(String newValue)		{ saveDir(newValue); }
+		@Override public String	getCfgLabel()		{ return "SAVE_DIR"; }
+		@Override public String	getOption()			{ return saveDir(); }
+		@Override public void	setOption(String s)	{ saveDir(s); }
 	};
 //	default int saveDir()		{ return saveDirectory.get(); }
 

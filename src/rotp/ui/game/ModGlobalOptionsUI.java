@@ -24,9 +24,8 @@ public class ModGlobalOptionsUI extends AbstractOptionsUI {
 		super(guiTitleID, GUI_ID);
 	}
 
-//	@Override protected void singleInit() {
 	@Override protected void init0() {
-		globalOptions = true; // No preferred button
+		//globalOptions = true; // No preferred button
 		paramList	  = rotp.model.game.ICfgOptions.modGlobalOptionsUI;
 	}
 }
