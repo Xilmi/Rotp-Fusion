@@ -364,9 +364,16 @@ public class ParamList extends AbstractParam<String> {
 		}
 		// ========== Getters ==========
 		//
+		private int	   validId(int id)	{
+			if (id < 0)
+				return 0;
+			if (id >= listSize())
+				return 0;
+			return id;
+		}
 		private int    listSize()			{ return cfgValueList.size(); }
-		private String getCfgValue(int id)	{ return cfgValueList.get(id); }
-		private String getLangLabel(int id)	{ return langLabelList.get(id); }
+		private String getCfgValue(int id)	{ return cfgValueList.get(validId(id)); }
+		private String getLangLabel(int id)	{ return langLabelList.get(validId(id)); }
 		private String getLangLabelFromValue(String value) {
 			int index = getValueIndexIgnoreCase(value);
 			return langLabelList.get(index);
