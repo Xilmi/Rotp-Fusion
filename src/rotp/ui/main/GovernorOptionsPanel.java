@@ -91,18 +91,18 @@ class GovernorOptionsPanel extends javax.swing.JPanel{
     private ScheduledFuture<?> anim;
 	private Runnable timedRefresh	= new Runnable() {
 	    @Override public void run() {
+	    	if (options().refreshRequested()) {
+	    		loadDisplayValues();
+	    		loadValues();
+				options().clearRefresh();
+	    		System.out.println("refreshRequested() and executed");
+	    	}
 	    	if (!frame.isFocused()) {
 	    		return;
 	    	}
 	    	if (options().resetRequested()) {
-	    		// System.out.println("resetRequested()");
+	    		System.out.println("resetRequested() and executed");
 	    		optionUpdated();
-	    	}
-	    	else if (options().refreshRequested()) {
-				options().clearRefresh();
-	    		loadDisplayValues();
-	    		loadValues();
-	    		// System.out.println("refreshRequested()");
 	    	}
     		animate();
 	    }

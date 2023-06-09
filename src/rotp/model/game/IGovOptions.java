@@ -1,8 +1,6 @@
 package rotp.model.game;
 
 import static rotp.model.game.IBaseOptsTools.headerSpacer;
-import static rotp.ui.UserPreferences.disableAdvisor;
-import static rotp.ui.UserPreferences.getDefaultMaxBases;
 
 import java.util.Arrays;
 import java.util.LinkedList;

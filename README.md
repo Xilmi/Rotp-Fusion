@@ -56,12 +56,17 @@ Later:
 
 ## What's New
 
-2023.06.10 (BR)
+2023.06.09 (BR)
 - Converted some Remnant.cfg settings to options:
   - displayYear, showAlliancesGNN, showNextCouncil, showLimitedWarnings, techExchangeAutoRefuse, autoColonize_, autoBombard_, divertExcessToResearch, defaultMaxBases, 
 - Moved all other Remnant.cfg settings in the setting panel from the main menu.
 - "Menu Options" received new options from in-game Galaxy Map panel, and allow saving them in User's prefered options.
   - A guide has been writen for these options too.
+- Partial refresh of governor panel when loading a game.
+  - A full refresh may generate display glicth on some computers.
+  - The full refresh will be done when the focus is given to the panel.
+  - Partial refresh = only update values
+  - Full refresh = update panel display format (position, size, color) and update values.
 
 2023.06.08 (BR)
 - Fixed crash on opponent AI selection with guide on and selecting "AI:Selectable"

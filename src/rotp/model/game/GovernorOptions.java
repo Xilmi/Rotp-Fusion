@@ -111,6 +111,7 @@ public class GovernorOptions implements Serializable, IGovOptions {
 		
 	}
 	public void gameLoaded() {
+		System.out.println("gameLoaded() : autoShipsByDefault = " + autoShipsByDefault);
 		if (autoShipsByDefault) {
 			autoTransport.silentSet(autotransport);
 			autotransportAtMax.silentSet(autotransportXilmi);
@@ -137,12 +138,17 @@ public class GovernorOptions implements Serializable, IGovOptions {
 			governorByDefault.silentSet(governorOnByDefault);
 		}
 		autoShipsByDefault = false;
+		callForRefresh(GOV_REFRESH);
+//		for (IParam param: governorOptions) {
+//			param.updateOptionTool();
+//		}
 		// Converted use of autoShipsByDefault: true = not yet transfered.
 		// The autoShipsByDefault original function will be implemented using the new parameters
 		// if true, new colonies will have auto ship building set to "on"
 	}
 	public static void callForReset()	{ callForReset	= true; }
 	public static void callForRefresh(int call)	{
+		System.out.println("callForRefresh(int call): " + call);
 		callForRefresh	= callForRefresh || (call == GOV_REFRESH);
 		callForReset	= callForReset   || (call == GOV_RESET);
 	}
