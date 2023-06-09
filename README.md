@@ -67,6 +67,7 @@ Later:
   - The full refresh will be done when the focus is given to the panel.
   - Partial refresh = only update values
   - Full refresh = update panel display format (position, size, color) and update values.
+- Allow Missile size modifier to go up to 200% (Reddit request) 
 
 2023.06.08 (BR)
 - Fixed crash on opponent AI selection with guide on and selecting "AI:Selectable"

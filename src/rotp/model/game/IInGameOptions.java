@@ -85,7 +85,7 @@ public interface IInGameOptions extends IConvenienceOptions {
 	default float selectedScrapRefundFactor()	{ return scrapRefundFactor.get(); }
 
 	ParamFloat missileSizeModifier	= new ParamFloat(MOD_UI, "MISSILE_SIZE_MODIFIER"
-			, 2f/3f, 0.1f, 1f, 0.01f, 0.05f, 0.2f, "0.##", "%");
+			, 2f/3f, 0.1f, 2f, 0.01f, 0.05f, 0.2f, "0.##", "%");
 	default float selectedMissileSizeModifier()	{ return missileSizeModifier.get(); }
 
 	ParamBoolean challengeMode		= new ParamBoolean(MOD_UI, "CHALLENGE_MODE", false);
