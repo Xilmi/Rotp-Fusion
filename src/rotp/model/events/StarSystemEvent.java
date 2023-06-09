@@ -17,7 +17,7 @@ package rotp.model.events;
 
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.Galaxy;
-import rotp.ui.UserPreferences;
+import rotp.model.game.IGameOptions;
 
 public interface StarSystemEvent {
     int turn();
@@ -25,6 +25,6 @@ public interface StarSystemEvent {
     default boolean changesOwnership()    { return false; }
     default int owner()                   { return Empire.NULL_ID; }
     default String year() {
-        return UserPreferences.displayYear() ? ""+(Galaxy.current().beginningYear() + turn()) : ""+(turn()+1);
+        return IGameOptions.displayYear.get() ? ""+(Galaxy.current().beginningYear() + turn()) : ""+(turn()+1);
     }
 }

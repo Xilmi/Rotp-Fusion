@@ -40,7 +40,6 @@ import rotp.model.empires.SystemView;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseTextField;
-import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.sprites.SystemTransportSprite;
 import rotp.util.Base;
@@ -535,7 +534,7 @@ public abstract class SystemListingUI extends BasePanel implements MouseListener
 
             String title;
             if (headerKey.equals(YEARS_OR_TURNS)) {
-                if (UserPreferences.displayYear())
+                if (options().displayYear())
                     title = text("PLANETS_LIST_YEARS");
                 else
                     title = text("PLANETS_LIST_TURNS");

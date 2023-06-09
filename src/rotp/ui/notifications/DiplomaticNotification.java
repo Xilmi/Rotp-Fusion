@@ -110,17 +110,17 @@ public class DiplomaticNotification implements TurnNotification, Base {
     	switch (type) {
 			case DialogueManager.WARNING_EXPANSION:
 				expansionWarningCount += 1;
-				if (rotp.model.game.ICfgOptions.showLimitedWarnings.get() < expansionWarningCount)
+				if (rotp.model.game.IConvenienceOptions.showLimitedWarnings.get() < expansionWarningCount)
 					return;
 				break;
 			case DialogueManager.WARNING_BIOWEAPON:
 				bioweaponWarningCount += 1;
-				if (rotp.model.game.ICfgOptions.showLimitedWarnings.get() < bioweaponWarningCount)
+				if (rotp.model.game.IConvenienceOptions.showLimitedWarnings.get() < bioweaponWarningCount)
 					return;
 				break;
 			case DialogueManager.WARNING_GENOCIDE:
 				genocideWarningCount += 1;
-				if (rotp.model.game.ICfgOptions.showLimitedWarnings.get() < genocideWarningCount)
+				if (rotp.model.game.IConvenienceOptions.showLimitedWarnings.get() < genocideWarningCount)
 					return;
 				break;
     	}

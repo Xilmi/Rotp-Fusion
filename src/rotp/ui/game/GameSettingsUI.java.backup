@@ -417,7 +417,7 @@ public class GameSettingsUI extends BasePanel implements MouseListener, MouseMot
         return text("GAME_SETTINGS_SCREEN", val)+"   ";
     }
     private String autoColonizeStr() {
-        String val = UserPreferences.autoColonize()?  text("GAME_SETTINGS_AUTOCOLONIZE_YES"): text("GAME_SETTINGS_AUTOCOLONIZE_NO");
+        String val = options().autoColonize()?  text("GAME_SETTINGS_AUTOCOLONIZE_YES"): text("GAME_SETTINGS_AUTOCOLONIZE_NO");
         return text("GAME_SETTINGS_AUTOCOLONIZE", val+"   ");
     }
     private String soundsStr() {

@@ -56,7 +56,6 @@ import rotp.model.galaxy.StarSystem;
 import rotp.model.game.GameSession;
 import rotp.model.planet.Planet;
 import rotp.model.ships.ShipDesign;
-import rotp.ui.UserPreferences;
 import rotp.ui.notifications.BombardSystemNotification;
 import rotp.ui.notifications.ColonizeSystemNotification;
 import rotp.util.Base;
@@ -304,7 +303,7 @@ public class AI implements Base {
 
         // AT THIS POINT, the fleet can definitely colonize the planet
         // confirm if player controlled & if colonize prompt is disabled
-        if (empire.isAIControlled() || UserPreferences.autoColonize())
+        if (empire.isAIControlled() || options().autoColonize())
             fl.colonizeSystem(sys, bestDesign);
         else
             ColonizeSystemNotification.create(sys.id, fl, bestDesign);
@@ -313,19 +312,19 @@ public class AI implements Base {
     public int promptForBombardment(StarSystem sys, ShipFleet fl) {
         // if player, prompt for decision to bomb instead of deciding here
         if (empire.isPlayerControlled()) {
-            if (UserPreferences.autoBombardNever())
+            if (options().autoBombardNever())
                 return 0;
             boolean autoBomb = false;
             // user preference auto-bombard set to always?
-            if (UserPreferences.autoBombardYes())
+            if (options().autoBombardYes())
                 autoBomb = true;
             // auto-bombard set to whenever at war?
             boolean atWar = empire.atWarWith(sys.empId());
-            if (UserPreferences.autoBombardWar() && atWar) 
+            if (options().autoBombardWar() && atWar) 
                 autoBomb = true;
             // auto-bombard set to whenever at war and not invading?
             int transports = empire.transportsInTransit(sys);
-            if (UserPreferences.autoBombardInvading() && atWar && (transports == 0))
+            if (options().autoBombardInvading() && atWar && (transports == 0))
                 autoBomb = true;
             int bombTarget = 0;
             if(options().targetBombardAllowedForPlayer() && empire.transportsInTransit(sys) > 0)

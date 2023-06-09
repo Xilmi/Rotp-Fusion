@@ -39,6 +39,7 @@ import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
 import rotp.model.empires.SystemView;
 import rotp.model.events.StarSystemEvent;
+import rotp.model.game.IGameOptions; // modnar: use for shield display selection
 import rotp.model.planet.Planet;
 import rotp.model.planet.PlanetFactory;
 import rotp.model.planet.Planet.PlanetBaseData;
@@ -46,7 +47,6 @@ import rotp.model.ships.Design;
 import rotp.model.ships.ShipDesign;
 import rotp.model.ships.ShipLibrary;
 import rotp.ui.BasePanel;
-import rotp.ui.UserPreferences; // modnar: use for shield display selection
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.sprites.ShipRelocationSprite;
 import rotp.ui.sprites.SystemTransportSprite;
@@ -891,7 +891,7 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
         g.setStroke(shieldStroke);
         switch (shieldLevel) {
             case 5:
-				if (UserPreferences.displayYear()) { // modnar: adjust shield display type with year/turn display
+				if (IGameOptions.displayYear.get()) { // modnar: adjust shield display type with year/turn display
 					g.setColor(Color.black);
 					g.setStroke(shieldBorderStroke);
 					g.drawArc(x-r, y-r, r+r, r+r, 30, 120);
@@ -909,7 +909,7 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
 				}
                 break;
             case 10:
-                if (UserPreferences.displayYear()) { // modnar: adjust shield display type with year/turn display
+                if (IGameOptions.displayYear.get()) { // modnar: adjust shield display type with year/turn display
 					g.setColor(Color.black);
 					g.setStroke(shieldBorderStroke);
 					g.drawArc(x-r, y-r, r+r, r+r,0, 180);
@@ -927,7 +927,7 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
 				}
                 break;
             case 15:
-                if (UserPreferences.displayYear()) { // modnar: adjust shield display type with year/turn display
+                if (IGameOptions.displayYear.get()) { // modnar: adjust shield display type with year/turn display
 					g.setColor(Color.black);
 					g.setStroke(shieldBorderStroke);
 					g.drawArc(x-r, y-r, r+r, r+r, 330, 240);
@@ -945,7 +945,7 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
 				}
                 break;
             case 20:
-                if (UserPreferences.displayYear()) { // modnar: adjust shield display type with year/turn display
+                if (IGameOptions.displayYear.get()) { // modnar: adjust shield display type with year/turn display
 					g.setColor(Color.black);
 					g.setStroke(shieldBorderStroke);
 					g.drawArc(x-r, y-r, r+r, r+r, 0, 360); // modnar: make shield-20 full circle

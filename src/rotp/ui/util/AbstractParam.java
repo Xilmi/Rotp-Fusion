@@ -112,6 +112,7 @@ public abstract class AbstractParam <T> implements IParam{
 			System.err.println("getFromOption() not updated to getOptionValue: " + name);
 		}		
 	}
+	public void transfert (IGameOptions opts, boolean set) {}
 	// ========== Public Interfaces ==========
 	//
 	//	public abstract void setFromCfgValue(String val);
@@ -180,7 +181,7 @@ public abstract class AbstractParam <T> implements IParam{
 	// ========== Tools for overriders ==========
 	//
 	protected IGameOptions   opts()		{ return RotPUI.currentOptions(); }
-	protected DynamicOptions dynOpts()	{ return opts().dynOpts(); }
+	private	  DynamicOptions dynOpts()	{ return opts().dynOpts(); }
 	protected T last()					{ return value; }
 	// ========== Methods to be overridden ==========
 	//
@@ -201,7 +202,7 @@ public abstract class AbstractParam <T> implements IParam{
 	// ========== Public Getters ==========
 	//
 	public String getLabel()	{ return langLabel(getLangLabel()); }
-	public T creationValue()	{ return value; }
+	T creationValue()	{ return value; }
 	T minValue()	{ return minValue; }	
 	T maxValue()	{ return maxValue; }	
 	T baseInc()		{ return baseInc; }	
@@ -210,6 +211,7 @@ public abstract class AbstractParam <T> implements IParam{
 	T shiftCtrlInc(){ return shiftCtrlInc; }	
 	// ========== Public Setters ==========
 	//
+	public void toggle(boolean reverse)	{ if (reverse) prev(); else next(); }
 	protected void setFromCfg(T newValue) {
 		value = newValue;
 		updateOption(dynOpts());

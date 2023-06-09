@@ -16,7 +16,7 @@
 
 package rotp.ui.util;
 
-import static rotp.model.game.ICfgOptions.minListSizePopUp;
+import static rotp.model.game.IGameOptions.minListSizePopUp;
 import static rotp.ui.util.IParam.langHelp;
 import static rotp.ui.util.IParam.langLabel;
 import static rotp.ui.util.IParam.rowsSeparator;

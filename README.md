@@ -56,6 +56,18 @@ Later:
 
 ## What's New
 
+2023.06.10 (BR)
+- Converted some Remnant.cfg settings to options:
+  - displayYear, showAlliancesGNN, showNextCouncil, showLimitedWarnings, techExchangeAutoRefuse, autoColonize_, autoBombard_, divertExcessToResearch, defaultMaxBases, 
+- Moved all other Remnant.cfg settings in the setting panel from the main menu.
+- "Menu Options" received new options from in-game Galaxy Map panel, and allow saving them in User's prefered options.
+  - A guide has been writen for these options too.
+
+2023.06.08 (BR)
+- Fixed crash on opponent AI selection with guide on and selecting "AI:Selectable"
+	- The guide is now availble for this selection
+	- No more crach for a missing guide!
+
 2023.06.07 (BR)
 - New Main Settings UI with Guide and all options' tool features.
 

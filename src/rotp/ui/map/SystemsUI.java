@@ -553,7 +553,7 @@ public final class SystemsUI extends BasePanel implements IMapHandler, ActionLis
         // with year, default previous display
         // with turn, display green for all colonizable planets scouted (regardless if in range or already colonized)
         //            display red if not currently colonizable, display purple if no planet at star system
-        if (!UserPreferences.displayYear()) {
+        if (!options().displayYear()) {
             String eventMessage = randomEventStatus(sv);
             if (!eventMessage.isEmpty()) {
                 if (sv.empire() == player())
@@ -616,7 +616,7 @@ public final class SystemsUI extends BasePanel implements IMapHandler, ActionLis
         //            green   if rich or ultra rich
         //            blue    if artifact
         //            purple  if no planet
-        if (!UserPreferences.displayYear()) {
+        if (!options().displayYear()) {
             if (sv.empire() != player())
                 return null;
             
@@ -1006,7 +1006,7 @@ public final class SystemsUI extends BasePanel implements IMapHandler, ActionLis
                 displayPanel.toggleFlagColor(shift);
                 return;
             case KeyEvent.VK_Y: // BR:
-            	UserPreferences.toggleYearDisplay();
+            	options().toggleYearDisplay();
                 return;
             case KeyEvent.VK_O: // BR:
             	if (ctrl) {

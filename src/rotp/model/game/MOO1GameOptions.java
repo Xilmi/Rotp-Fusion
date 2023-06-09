@@ -62,14 +62,9 @@ import rotp.model.planet.PlanetType;
 import rotp.model.tech.TechEngineWarp;
 import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.util.IParam;
-import rotp.ui.util.ParamOptions;
 import rotp.ui.util.SpecificCROption;
 import rotp.util.Base;
 
-// Renaming:
-//   Options = setting set
-//   Setting = Options element
-//  
 //public class MOO1GameOptions implements Base, IGameOptions, DynamicOptions, Serializable {
 public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	
@@ -1352,7 +1347,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         dest.selectedAutoplayOption		= selectedAutoplayOption;
         dest.selectedAIHostilityOption	= selectedAIHostilityOption;
    }
-    // ==================== Generalized options methods ====================
+    // ==================== Generalized options' Tools methods ====================
     //
     private void copyBaseSettings(MOO1GameOptions dest, LinkedList<IParam> pList) {
    		if (pList == optionsGalaxy()) {
@@ -1399,37 +1394,43 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
   			return;
    		}
     }
+    private void transfert(String fileName, boolean set) {
+    	MOO1GameOptions opts = loadOptions(fileName);
+		displayYear.transfert(opts, set);
+		showAlliancesGNN.transfert(opts, set);
+		showNextCouncil.transfert(opts, set);
+		showLimitedWarnings.transfert(opts, set);
+		techExchangeAutoRefuse.transfert(opts, set);
+		autoColonize_.transfert(opts, set);
+		autoBombard_.transfert(opts, set);
+		divertExcessToResearch.transfert(opts, set);
+		defaultMaxBases.transfert(opts, set);
+		saveOptions(opts, fileName);
+    }
     // ==================== New Options files public access ====================
     //
     @Override public void loadStartupOptions() { // TODO BR: Transfer
-//    	LinkedList<InterfaceParam> transfertList = new LinkedList<>();
-//    	transfertList.add(showNextCouncil);
-//    	transfertList.add(mapFontFactor);
-//    	transfertList.add(showInfoFontRatio);
-//    	transfertList.add(showNameMinFont);
-//    	transfertList.add(useFusionFont);
-//    	transfertList.add(showPathFactor);
-//    	transfertList.add(showFlagFactor);
-//    	transfertList.add(showFleetFactor);
-//    	transfertList.add(techExchangeAutoRefuse);
-//    	transfertList.add(showLimitedWarnings);
-//    	transfertList.add(showGridCircular);
-//    	transfertList.add(showAlliancesGNN);
-//
-//    	transfertList.add(autoBombard_);
-//    	transfertList.add(autoColonize_);
-//    	transfertList.add(displayYear);
-    	
         System.out.println("==================== loadStartupOptions() ====================");
-     	ParamOptions action = menuStartup;
-    	if (action.isUser())
-       		updateFromFile(USER_OPTIONS_FILE);
-    	else if (action.isGame())
-       		updateFromFile(GAME_OPTIONS_FILE);
-    	else if (action.isDefault())
+    	if (menuStartup.isUser()) {
+    		updateFromFile(USER_OPTIONS_FILE);
+    		transfert(USER_OPTIONS_FILE, true);
+    	}
+    	else if (menuStartup.isGame()) {
+    		updateFromFile(GAME_OPTIONS_FILE);
+    		transfert(GAME_OPTIONS_FILE, true);
+    	}
+    	else if (menuStartup.isDefault())
     		resetToDefault();
-    	else // default = action.isLast()
+    	else { // default = action.isLast()
     		updateFromFile(LAST_OPTIONS_FILE);
+    		transfert(LAST_OPTIONS_FILE, true);
+    	}
+		transfert(USER_OPTIONS_FILE, false);
+		transfert(GAME_OPTIONS_FILE, false);
+		transfert(LAST_OPTIONS_FILE, false);
+		
+		rotp.ui.UserPreferences.initialList(false);
+
     	if (!selectedPlayerIsCustom()) {
     		setRandomPlayerRace();
     	}
@@ -1461,7 +1462,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	if (pList == null)
     		return;
     	MOO1GameOptions source = loadOptions(fileName);
-    	if (pList == modGlobalOptionsUI || pList == mainOptions)
+    	if (pList == convenienceOptions || pList == mainOptionsUI)
            	for (IParam param : pList) {
            		if (param != null) {
            			param.copyOption(source, this, true); // update tool

@@ -43,7 +43,7 @@ public class DiplomacyTechOfferMenu extends DiplomacyRequestReply {
         List<Tech> unreviewedCounterTechs = requestee.diplomatAI().techsRequestedForCounter(diplomat(), requestedTech);
         counterOffers = new ArrayList<>(unreviewedCounterTechs.size());
         //System.out.println(galaxy().currentTurn()+" Requestee: "+requestee.name()+" Diplomat: "+diplomat().name()+" requested tech "+requestedTech.name());
-        if(!rotp.model.game.ICfgOptions.techExchangeAutoRefuse.get()) // To auto refuse, keep counterOffers empty
+        if(!rotp.model.game.IConvenienceOptions.techExchangeAutoRefuse.get()) // To auto refuse, keep counterOffers empty
 	        if(diplomat().diplomatAI().wantsToReviewCounterOffers()) // Owner Diplomat
 	        {
 	            for (Tech t: unreviewedCounterTechs) {

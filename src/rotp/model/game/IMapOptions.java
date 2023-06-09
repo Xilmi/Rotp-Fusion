@@ -1,30 +1,11 @@
 package rotp.model.game;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-
-import rotp.ui.util.IParam;
+import rotp.ui.UserPreferences;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamInteger;
+import rotp.ui.util.ParamList;
 
 public interface IMapOptions extends IBaseOptsTools {
-
-	int HIDE_SYSTEM_NAME = 0;
-	int SHOW_SYSTEM_NAME = 1;
-	int SHOW_SYSTEM_DATA = 2;
-	
-	int SHOW_ALL_FLIGHTPATHS		= 0;
-	int SHOW_IMPORTANT_FLIGHTPATHS	= 1;
-	int SHOW_NO_FLIGHTPATHS			= 2;
-
-	int SHOW_ALL_SHIPS		  = 0;
-	int SHOW_NO_UNARMED_SHIPS = 1;
-	int SHOW_ONLY_ARMED_SHIPS = 2;
-	
-	int SHOW_RANGES				 = 0;
-	int SHOW_STARS_AND_RANGES	 = 1;
-	int SHOW_STARS				 = 2;
-	int SHOW_NO_STARS_AND_RANGES = 3;
 
 	// ========================================================================
 	// Galaxy Map options
@@ -34,46 +15,96 @@ public interface IMapOptions extends IBaseOptsTools {
 	default void toggleGridCircularDisplay()	{ showGridCircular.toggle();}
 	default boolean showGridCircular()			{ return showGridCircular.get();}
 
-	ParamInteger flightPathDisplay	= new ParamInteger(MOD_UI, "FLIGHT_PATH_DISPLAY",
-			SHOW_IMPORTANT_FLIGHTPATHS, 0, 2, true);
-	default void flightPathDisplay(int i)		{ flightPathDisplay.set(i);}
+	ParamList flightPathDisplay	= new ParamList (MOD_UI, "FLIGHT_PATH_DISPLAY", "Important") {
+		{
+			showFullGuide(true);
+			put("All",		 MOD_UI + "SHOW_ALL_FLIGHTPATHS");
+			put("Important", MOD_UI + "SHOW_IMPORTANT_FLIGHTPATHS");
+			put("None",		 MOD_UI + "SHOW_NO_FLIGHTPATHS");
+		}
+	};
 	default void toggleFlightPathDisplay(boolean reverse)	{ flightPathDisplay.toggle(reverse);}
-	default boolean showFleetsOnly()			{ return flightPathDisplay.get() == SHOW_NO_FLIGHTPATHS; }
-	default boolean showImportantFlightPaths() 	{ return flightPathDisplay.get() != SHOW_NO_FLIGHTPATHS; }
-	default boolean showAllFlightPaths()		{ return flightPathDisplay.get() == SHOW_ALL_FLIGHTPATHS; }
+	default boolean showFleetsOnly()			{ return flightPathDisplay.get().equals("None"); }
+	default boolean showImportantFlightPaths() 	{ return !flightPathDisplay.get().equals("None"); }
+	default boolean showAllFlightPaths()		{ return flightPathDisplay.get().equals("All"); }
 
-	ParamInteger systemNameDisplay	= new ParamInteger(MOD_UI, "SYSTEM_NAME_DISPLAY",
-			SHOW_SYSTEM_DATA, 0, 2, true);
-	default void systemNameDisplay(int i)	{ systemNameDisplay.set(i);}
+	ParamList systemNameDisplay	= new ParamList (MOD_UI, "SYSTEM_NAME_DISPLAY", "Data") {
+		{
+			showFullGuide(true);
+			put("Hide",	MOD_UI + "HIDE_SYSTEM_NAME");
+			put("Name",	MOD_UI + "SHOW_SYSTEM_NAME");
+			put("Data",	MOD_UI + "SHOW_SYSTEM_DATA");
+		}
+	};
 	default void toggleSystemNameDisplay(boolean reverse)	{ systemNameDisplay.toggle(reverse);}
-	default boolean hideSystemNames()		{ return systemNameDisplay.get() == HIDE_SYSTEM_NAME; }
-	default boolean showSystemNames()		{ return systemNameDisplay.get() == SHOW_SYSTEM_NAME; }
-	default boolean showSystemData() 		{ return systemNameDisplay.get() == SHOW_SYSTEM_DATA; }
+	default boolean hideSystemNames()		{ return systemNameDisplay.get().equals("Hide"); }
+	default boolean showSystemNames()		{ return systemNameDisplay.get().equals("Name"); }
+	default boolean showSystemData() 		{ return systemNameDisplay.get().equals("Data"); }
 
-	ParamInteger shipDisplay		= new ParamInteger(MOD_UI, "SHIP_DISPLAY",
-			SHOW_ALL_SHIPS, 0, 2, true);
-	default void shipDisplay(int i)					{ shipDisplay.set(i);}
+	ParamList shipDisplay	= new ParamList (MOD_UI, "SHIP_DISPLAY", "All") {
+		{
+			showFullGuide(true);
+			put("All",		 MOD_UI + "SHOW_ALL_SHIPS");
+			put("NoUnarmed", MOD_UI + "SHOW_NO_UNARMED_SHIPS");
+			put("Armed",	 MOD_UI + "SHOW_ONLY_ARMED_SHIPS");
+		}
+	};
 	default void toggleShipDisplay(boolean reverse)	{ shipDisplay.toggle(reverse);}
-	default boolean showFriendlyTransports()		{ return shipDisplay.get() != SHOW_ONLY_ARMED_SHIPS; }
-	default boolean showUnarmedShips()				{ return shipDisplay.get() == SHOW_ALL_SHIPS; }
+	default boolean showFriendlyTransports()		{ return !shipDisplay.get().equals("Armed"); }
+	default boolean showUnarmedShips()				{ return shipDisplay.get().equals("All"); }
 
-	ParamInteger showShipRanges	= new ParamInteger(MOD_UI, "SHOW_SHIP_RANGES",
-			SHOW_STARS_AND_RANGES, 0, 3, true);
-	default void showShipRanges(int i)						{ showShipRanges.set(i);}
+	ParamList showShipRanges	= new ParamList (MOD_UI, "SHOW_SHIP_RANGES", "All") {
+		{
+			showFullGuide(true);
+			put("R",	MOD_UI + "SHOW_RANGES");
+			put("SR",	MOD_UI + "SHOW_STARS_AND_RANGES");
+			put("S",	MOD_UI + "SHOW_STARS");
+			put("-",	MOD_UI + "SHOW_NO_STARS_AND_RANGES");
+		}
+	};
 	default void toggleShipRangesDisplay(boolean reverse)	{ showShipRanges.toggle(reverse);}
 	default boolean showShipRanges()	{
-		return (showShipRanges.get() == SHOW_RANGES)
-				|| (showShipRanges.get() == SHOW_STARS_AND_RANGES);
+		return (showShipRanges.get().equals("R"))
+				|| (showShipRanges.get().equals("SR"));
 	}
 	default boolean showStars()	{
-		return (showShipRanges.get() == SHOW_STARS)
-				|| (showShipRanges.get() == SHOW_STARS_AND_RANGES);
+		return (showShipRanges.get().equals("S"))
+				|| (showShipRanges.get().equals("SR"));
 	}
-	// ==================== GUI List Declarations ====================
+	
+	ParamInteger defaultMaxBases	= new ParamInteger( GAME_UI, "DEFAULT_MAX_BASES",
+			0, 0, 5000, 1, 5, 20) {
+		@Override public void transfert (IGameOptions opts, boolean set)	{
+			if (opts.dynOpts().getInteger(getCfgLabel()) == null) {
+				if (set)
+					set(UserPreferences.getDefaultMaxBases());
+				setOptionValue(opts, get());
+			}
+		}
+	};
+	default int	defaultMaxBases() { return defaultMaxBases.get(); }
 
-	LinkedList<IParam> galaxyMapOptions = new LinkedList<>(
-			Arrays.asList(
-				showGridCircular, flightPathDisplay, systemNameDisplay,
-				shipDisplay, showShipRanges
-			));
+	ParamBoolean divertExcessToResearch	= new ParamBoolean( GAME_UI, "DIVERT_EXCESS_TO_RESEARCH", true) {
+		@Override public void transfert (IGameOptions opts, boolean set)	{
+			if (opts.dynOpts().getBoolean(getCfgLabel()) == null) {
+				if (set)
+					set(UserPreferences.getDivertColonyExcessToResearch());
+				setOptionValue(opts, get());
+			}
+		}
+	};
+	default boolean	divertColonyExcessToResearch()	{ return divertExcessToResearch.get(); }
+
+	ParamBoolean displayYear	= new ParamBoolean( // Duplicate Do not add the list
+			GAME_UI, "DISPLAY_YEAR", false) {
+		@Override public void transfert (IGameOptions opts, boolean set)	{
+			if (opts.dynOpts().getBoolean(getCfgLabel()) == null) {
+				if (set)
+					set(UserPreferences.getDisplayYear());
+				setOptionValue(opts, get());
+			}
+		}
+	};
+	default boolean displayYear()		{ return displayYear.get(); }
+	default void toggleYearDisplay()	{ displayYear.toggle(); }
 }

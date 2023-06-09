@@ -83,10 +83,10 @@ public interface IMapHandler {
     default public List<Sprite> controlSprites()           { return new ArrayList<>(); }
     default public void reselectCurrentSystem() { };
 
-    default public int defaultFleetDisplay()             { return GalaxyMapPanel.SHOW_IMPORTANT_FLIGHTPATHS; }
-    default public int defaultShipRangesDisplay()        { return GalaxyMapPanel.SHOW_STARS_AND_RANGES; }
+//    default public int defaultFleetDisplay()             { return GalaxyMapPanel.SHOW_IMPORTANT_FLIGHTPATHS; }
+//    default public int defaultShipRangesDisplay()        { return GalaxyMapPanel.SHOW_STARS_AND_RANGES; }
     default public boolean showShipRanges()              { return true; }
-    default public boolean defaultGridCircularDisplay()  { return false; }
+//    default public boolean defaultGridCircularDisplay()  { return false; }
     default public IMappedObject gridOrigin()            { return null; }
     default public void drawAlerts(Graphics2D g)         { }
 
@@ -95,7 +95,7 @@ public interface IMapHandler {
     default public boolean showYear()                    { return true; }
 //    default Color flagColor(StarSystem s)                { return Empire.thePlayer().sv.flagColor(s.id); } // BR: Not used!
     default Image flagImage(StarSystem s)                { return Empire.thePlayer().sv.flagImage(s.id); }
-    default Image mapFlagImage(StarSystem s)             { return Empire.thePlayer().sv.mapFlagImage(s.id); }
+//    default Image mapFlagImage(StarSystem s)             { return Empire.thePlayer().sv.mapFlagImage(s.id); }
 //    default Image flagHover(StarSystem s)                { return ImageManager.current().image("Flag_Hover"); } // BR: old call
 //    default Image flagHaze(StarSystem s)                 { return ImageManager.current().image("Flag_Haze"); } // BR: old call
     default Image flagHover(StarSystem s)                { return Empire.thePlayer().sv.view(s.id).flagBackGround("Flag_Hover"); }

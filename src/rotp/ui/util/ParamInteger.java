@@ -146,7 +146,6 @@ public class ParamInteger extends AbstractParam<Integer> {
 	}
 	// ===== Other Public Methods =====
 	//
-	public void toggle(boolean reverse)	{ if (reverse) prev(); else next(); }
 	public void next(MouseEvent e)		{ next(Math.abs(getInc(e))); }
 	public void prev(MouseEvent e)		{ next(-Math.abs(getInc(e))); }
 	public boolean isSpecial()			{ return (specialValue != null) && (get() == specialValue); }

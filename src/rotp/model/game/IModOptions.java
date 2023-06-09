@@ -8,7 +8,7 @@ import rotp.ui.util.IParam;
 import rotp.ui.util.ParamTitle;
 
 public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptions,
-							IRaceOptions, IGovOptions, IGalaxyOptions, IMapOptions {
+							IRaceOptions, IGovOptions, IGalaxyOptions, IMainOptions {
 
 	default void updateFromFile(String fileName)	{ updateFromFile(fileName, allModOptions); }
 	default void resetToDefault()					{ resetToDefault(allModOptions); }
@@ -93,7 +93,7 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 		allModOptions.addAll(optionsRace);
 		allModOptions.addAll(optionsCustomRaceBase);
 		allModOptions.addAll(autoFlagOptions);
-		allModOptions.addAll(galaxyMapOptions);
+		allModOptions.addAll(convenienceOptions);
 		allModOptions.addAll(governorOptions);
 		return allModOptions;
 	};
@@ -101,11 +101,17 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 	// ==================== GUI List Declarations ====================
 	//
     // All the Global parameters
-	LinkedList<IParam> globalOptions = globalOptions();
-	static LinkedList<IParam> globalOptions() {
+	static LinkedList<IParam> globalOptions(boolean initialList) {
 		LinkedList<IParam> globalOptions = new LinkedList<>();
-		globalOptions.addAll(modGlobalOptionsUI);
+		globalOptions.addAll(mainOptionsUI);
 		globalOptions.add(bitmapGalaxyLastFolder);
+		if (initialList) {
+			globalOptions.addAll(convenienceOptions);
+			globalOptions.add(governorByDefault);
+			globalOptions.add(autoSpend);
+			globalOptions.add(maxGrowthMode);
+			globalOptions.add(auto_Apply);
+		}
 		return globalOptions;
 	}
 	
@@ -162,8 +168,8 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 	
 				headerSpacer,
 				new ParamTitle("MENU_OPTIONS"),
-				menuStartup,
-				minListSizePopUp, showGridCircular, galaxyPreviewColorStarsSize,
+				systemNameDisplay, shipDisplay, flightPathDisplay,
+				showGridCircular, showShipRanges, galaxyPreviewColorStarsSize,
 				showAllAI, compactOptionOnly
 				)));
 		for (LinkedList<IParam> list : map) {

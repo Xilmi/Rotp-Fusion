@@ -18,7 +18,6 @@ package rotp.ui.sprites;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import rotp.ui.UserPreferences;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
 import rotp.ui.main.SystemPanel;
@@ -56,7 +55,7 @@ public class YearDisplaySprite extends MapSprite {
             return;
 
         String s = displayYearOrTurn();
-        if (rotp.model.game.ICfgOptions.showNextCouncil.get()) {
+        if (rotp.model.game.IConvenienceOptions.showNextCouncil.get()) {
         	int nextC = galaxy().council().nextCouncil();
         	 if (nextC > 0)
         		 s += " (" + nextC + ")";
@@ -88,7 +87,7 @@ public class YearDisplaySprite extends MapSprite {
         maxButtonW = max(buttonW, maxButtonW);
         hovering = true;
 
-        UserPreferences.toggleYearDisplay();
+        options().toggleYearDisplay();
     }
     @Override
     public void repaint(GalaxyMapPanel map)     {

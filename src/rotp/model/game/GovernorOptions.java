@@ -3,7 +3,6 @@ package rotp.model.game;
 import java.awt.Point;
 import java.io.Serializable;
 
-import rotp.ui.UserPreferences;
 import rotp.ui.util.AbstractParam;
 import rotp.ui.util.IParam;
 
@@ -26,44 +25,76 @@ public class GovernorOptions implements Serializable, IGovOptions {
 	// The new dynamic options are needed for multiple access
 	// Remnant.cfg options will be read once, the ignored.
 	// keep backwards compatibility with system properties
-	private boolean governorOnByDefault = UserPreferences.governorOnByDefault();
-	private boolean legacyGrowthMode = UserPreferences.legacyGrowth(); // BR: moved to remnant.cfg
-	private boolean autotransport = "true".equalsIgnoreCase(System.getProperty("autotransport", "false"));
-	private boolean autotransportXilmi = "true".equalsIgnoreCase(System.getProperty("autotransportXilmi", "false"));
-	private boolean autotransportUngoverned = "true".equalsIgnoreCase(System.getProperty("autotransportUngoverned", "false"));
-	private GatesGovernor gates = "false".equalsIgnoreCase(System.getProperty("autogate", "true")) ? GatesGovernor.None : GatesGovernor.Rich;
+//	private boolean governorOnByDefault = UserPreferences.governorOnByDefault();
+//	private boolean legacyGrowthMode = UserPreferences.legacyGrowth(); // BR: moved to remnant.cfg
+//	private boolean autotransport = "true".equalsIgnoreCase(System.getProperty("autotransport", "false"));
+//	private boolean autotransportXilmi = "true".equalsIgnoreCase(System.getProperty("autotransportXilmi", "false"));
+//	private boolean autotransportUngoverned = "true".equalsIgnoreCase(System.getProperty("autotransportUngoverned", "false"));
+//	private GatesGovernor gates = "false".equalsIgnoreCase(System.getProperty("autogate", "true")) ? GatesGovernor.None : GatesGovernor.Rich;
+//
+//	// 1.5x for destinations inside nebulae
+//	private int transportMaxTurns = 5;
+//	private boolean transportRichDisabled = true;
+//	private boolean transportPoorDouble = true;
+//
+//	private int minimumMissileBases = 0;
+//	private boolean shieldWithoutBases = false;
+//	private boolean autospend = UserPreferences.governorAutoSpendByDefault();
+//	private boolean autoApply = UserPreferences.S();
+//	private boolean autoInfiltrate = "true".equalsIgnoreCase(System.getProperty("autoInfiltrate", "true"));
+//	private boolean autoSpy = "true".equalsIgnoreCase(System.getProperty("autoSpy", "false"));
+//	private int reserve = 1000;
+// 
+//	private boolean shipbuilding = true;
+//
+//	// if true, automatically scout new planets
+//	private boolean autoScout = true;
+//	// if true, automatically colonize new planets
+//	private boolean autoColonize = true;
+//	// if true, send ships to enemy colonies
+//	private boolean autoAttack = false;
+//	// How many ships should Auto* missions send?
+//	private int autoScoutShipCount  = 1;
+//	private int autoColonyShipCount = 1;
+//	private int autoAttackShipCount = 1;
+	private boolean governorOnByDefault		= isGovernorOnByDefault();
+	private boolean legacyGrowthMode		= legacyGrowthMode();
+	private boolean autotransport			= isAutotransport();
+	private boolean autotransportXilmi		= isAutotransportXilmi();
+	private boolean autotransportUngoverned	= isAutotransportUngoverned();
+	private GatesGovernor gates				= getGates();
 
 	// 1.5x for destinations inside nebulae
-	private int transportMaxTurns = 5;
-	private boolean transportRichDisabled = true;
-	private boolean transportPoorDouble = true;
+	private int 	transportMaxTurns		= getTransportMaxTurns();
+	private boolean transportRichDisabled	= isTransportRichDisabled();
+	private boolean transportPoorDouble		= isTransportPoorDouble();
 
-	private int minimumMissileBases = 0;
-	private boolean shieldWithoutBases = false;
-	private boolean autospend = UserPreferences.governorAutoSpendByDefault();
-	private boolean autoApply = UserPreferences.governorAutoApply();
-	private boolean autoInfiltrate = "true".equalsIgnoreCase(System.getProperty("autoInfiltrate", "true"));
-	private boolean autoSpy = "true".equalsIgnoreCase(System.getProperty("autoSpy", "false"));
-	private int reserve = 1000;
+	private int		minimumMissileBases		= getMinimumMissileBases();
+	private boolean shieldWithoutBases		= getShieldWithoutBases();
+	private boolean autospend				= isAutospend();
+	private boolean autoApply				= isAutoApply();
+	private boolean autoInfiltrate			= isAutoInfiltrate();
+	private boolean autoSpy					= isAutoSpy();
+	private int		reserve					= getReserve();
  
+	private boolean shipbuilding			= isShipbuilding();
+
+	// if true, automatically scout new planets
+	private boolean autoScout				= isAutoScout();
+	// if true, automatically colonize new planets
+	private boolean autoColonize			= isAutoColonize();
+	// if true, send ships to enemy colonies
+	private boolean autoAttack				= isAutoAttack();
+	// How many ships should Auto* missions send?
+	private int		autoScoutShipCount		= getAutoScoutShipCount();
+	private int		autoColonyShipCount		= getAutoColonyShipCount();
+	private int		autoAttackShipCount		= getAutoAttackShipCount();
 	// if true, new colonies will have auto ship building set to "on"
 	// Converted use: true = not yet transfered.
 	// The autoShipsByDefault original function will be implemented
 	// Using the news parameters
 	private boolean autoShipsByDefault = true;
-	private boolean shipbuilding = true;
-
-	// if true, automatically scout new planets
-	private boolean autoScout = true;
-	// if true, automatically colonize new planets
-	private boolean autoColonize = true;
-	// if true, send ships to enemy colonies
-	private boolean autoAttack = false;
-	// How many ships should Auto* missions send?
-	private int autoScoutShipCount  = 1;
-	private int autoColonyShipCount = 1;
-	private int autoAttackShipCount = 1;
-
+	
 	// ========== Constructor And Initializers ==========AbstractParam <T>
 	public GovernorOptions() {  
 		for (IParam param : governorOptions)
@@ -77,6 +108,7 @@ public class GovernorOptions implements Serializable, IGovOptions {
 		sizeFactorPct.isGovernor(GOV_RESET);
 		verticalPosition.isGovernor(GOV_RESET);
 		horizontalPosition.isGovernor(GOV_RESET);
+		
 	}
 	public void gameLoaded() {
 		if (autoShipsByDefault) {

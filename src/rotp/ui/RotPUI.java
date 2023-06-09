@@ -100,6 +100,8 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     private static int FPS = 10;
     public static int ANIMATION_TIMER = 100;
     private boolean drawNextTurnNotice = true;
+    
+
     private static Throwable startupException;
     static {
         Logger.registerLogListener(Logger::logToFile);
@@ -315,7 +317,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
 		ListDialog dialog = new ListDialog(true);
         // Copy the former "Live.Option" to new "Last.Option"
         MOO1GameOptions.copyOptionsFromLiveToLast();
-        newOptions().loadStartupOptions();
+        newOptions().loadStartupOptions(); // TODO BR: Validate
         initModel();
         addKeyListener(this);
         if (startupException != null)

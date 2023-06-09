@@ -1,9 +1,10 @@
 package rotp.model.game;
 
-import static rotp.ui.UserPreferences.autoBombardMode;
-import static rotp.ui.UserPreferences.autoBombardToSettingName;
-import static rotp.ui.UserPreferences.autoColonize;
+import static rotp.model.galaxy.StarSystem.fontPct;
+import static rotp.model.galaxy.StarSystem.minFont;
+import static rotp.model.galaxy.StarSystem.minFont2;
 import static rotp.ui.UserPreferences.backupTurns;
+import static rotp.ui.UserPreferences.disableAdvisor;
 import static rotp.ui.UserPreferences.displayMode;
 import static rotp.ui.UserPreferences.displayModeToSettingName;
 import static rotp.ui.UserPreferences.graphicsMode;
@@ -20,6 +21,14 @@ import static rotp.ui.UserPreferences.showMemory;
 import static rotp.ui.UserPreferences.soundVolume;
 import static rotp.ui.UserPreferences.texturesMode;
 import static rotp.ui.UserPreferences.texturesToSettingName;
+import static rotp.ui.main.GalaxyMapPanel.MAX_FLAG_SCALE;
+import static rotp.ui.main.GalaxyMapPanel.MAX_FLEET_HUGE_SCALE;
+import static rotp.ui.main.GalaxyMapPanel.MAX_FLEET_LARGE_SCALE;
+import static rotp.ui.main.GalaxyMapPanel.MAX_FLEET_SMALL_SCALE;
+import static rotp.ui.main.GalaxyMapPanel.MAX_FLEET_TRANSPORT_SCALE;
+import static rotp.ui.main.GalaxyMapPanel.MAX_FLEET_UNARMED_SCALE;
+import static rotp.ui.main.GalaxyMapPanel.MAX_RALLY_SCALE;
+import static rotp.ui.main.GalaxyMapPanel.MAX_STARGATE_SCALE;
 import static rotp.ui.util.IParam.langLabel;
 
 import java.awt.event.MouseEvent;
@@ -34,9 +43,12 @@ import rotp.ui.game.BaseModPanel;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolInt;
 import rotp.ui.util.ParamBoolean;
+import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
+import rotp.ui.util.ParamOptions;
 import rotp.ui.util.ParamString;
+import rotp.util.FontManager;
 import rotp.util.sound.SoundManager;
 
 public interface IMainOptions extends IBaseOptsTools {
@@ -46,11 +58,6 @@ public interface IMainOptions extends IBaseOptsTools {
 	String GRAPHICS_LOW			= "GAME_SETTINGS_GRAPHICS_LOW";
 	String GRAPHICS_MEDIUM		= "GAME_SETTINGS_GRAPHICS_MED";
 	String GRAPHICS_HIGH		= "GAME_SETTINGS_GRAPHICS_HIGH";
-	String AUTOBOMBARD_NO		= "GAME_SETTINGS_AUTOBOMBARD_NO";
-	String AUTOBOMBARD_NEVER	= "GAME_SETTINGS_AUTOBOMBARD_NEVER";
-	String AUTOBOMBARD_YES		= "GAME_SETTINGS_AUTOBOMBARD_YES";
-	String AUTOBOMBARD_WAR		= "GAME_SETTINGS_AUTOBOMBARD_WAR";
-	String AUTOBOMBARD_INVADE	= "GAME_SETTINGS_AUTOBOMBARD_INVADE";
 	String TEXTURES_NO			= "GAME_SETTINGS_TEXTURES_NO";
 	String TEXTURES_INTERFACE	= "GAME_SETTINGS_TEXTURES_INTERFACE";
 	String TEXTURES_MAP			= "GAME_SETTINGS_TEXTURES_MAP";
@@ -188,33 +195,6 @@ public interface IMainOptions extends IBaseOptsTools {
 	};
 //	default int selectedScreen()		{ return selectedScreen.get(); }
 
-	ParamBoolean autoColonize_	= new ParamBoolean( GAME_UI, "AUTOCOLONIZE", false) {
-		{ isDuplicate(true); isCfgFile(true); }
-		@Override public Boolean getOption()		{ return autoColonize(); }
-		@Override public void setOption(Boolean b)	{ autoColonize(b); }
-	};
-	default boolean autoColonizeMode()				{ return autoColonize_.get(); }
-//	default void autoColonize()	{ autoColonize_.get();  }
-
-	ParamList autoBombard_		= new ParamList( GAME_UI, "AUTOBOMBARD",
-			Arrays.asList(
-					AUTOBOMBARD_NO,
-					AUTOBOMBARD_NEVER,
-					AUTOBOMBARD_YES,
-					AUTOBOMBARD_WAR,
-					AUTOBOMBARD_INVADE
-					),
-			AUTOBOMBARD_NO) {
-		{ isDuplicate(true); isCfgFile(true); showFullGuide(true); }
-		@Override public String getCfgValue()		{ return autoBombardToSettingName(get()); }
-		@Override public String getOption()			{ return autoBombardMode(); }
-		@Override public void setOption(String s)	{ autoBombardMode(s); }
-	};
-//	default String  autoBombardMode()		{ return autoBombard_.get(); }
-//	default boolean autoBombardNever()		{ return autoBombard_.get().equals(AUTOBOMBARD_NEVER); }
-//	default boolean autoBombardYes()		{ return autoBombard_.get().equals(AUTOBOMBARD_YES); }
-//	default boolean autoBombardWar()		{ return autoBombard_.get().equals(AUTOBOMBARD_WAR); }
-//	default boolean autoBombardInvading()	{ return autoBombard_.get().equals(AUTOBOMBARD_INVADE); }
 
 	ParamInteger backupTurns	= new ParamInteger(GAME_UI, "BACKUP", 5, 0, MAX_BACKUP_TURNS, 1, 5, 10) {
 		{ isDuplicate(true); isCfgFile(true); specialZero(GAME_UI + "BACKUP_OFF"); }
@@ -257,18 +237,83 @@ public interface IMainOptions extends IBaseOptsTools {
 		@Override public void	setOption(String s)	{ saveDir(s); }
 	};
 //	default int saveDir()		{ return saveDirectory.get(); }
+	ParamBoolean disableAdvisor		= new ParamBoolean(MOD_UI, "DISABLE_ADVISOR", true)
+	{
+		{  isDuplicate(true); isCfgFile(true); }
+		@Override public Boolean getOption()		{ return disableAdvisor(); }
+		@Override public void setOption(Boolean b)	{ disableAdvisor(b); }
+	};
 
+	
+	// ==================== Mod Options ====================
+	//
+	ParamOptions menuStartup		= new ParamOptions(MOD_UI, "MENU_STARTUP", ParamOptions.LAST)
+	{	{ isCfgFile(true); } };
+	ParamInteger galaxyPreviewColorStarsSize = new ParamInteger(MOD_UI, "GALAXY_PREVIEW_COLOR_SIZE" , 5, 0, 20, 1, 2, 5)
+	{	{ isCfgFile(true); } };
+	ParamInteger minListSizePopUp	= new ParamInteger(MOD_UI, "MIN_LIST_SIZE_POP_UP" , 4, 0, 10, true)
+	{
+		{ isCfgFile(true); }
+	}	.specialZero(MOD_UI + "MIN_LIST_SIZE_POP_UP_NEVER");
+	ParamBoolean useFusionFont		= new ParamBoolean(MOD_UI, "USE_FUSION_FONT", false)
+	{
+		{ isCfgFile(true); }
+		@Override public void setOption(Boolean val) { FontManager.INSTANCE.resetGalaxyFont(); }
+	};
+	ParamFloat   showFlagFactor		= new ParamFloat(MOD_UI, "SHOW_FLAG_FACTOR"
+			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
+		{ isCfgFile(true); }
+		@Override public void setOption(Float val) { MAX_FLAG_SCALE = (int) (80 * val); }
+	};
+	ParamFloat   showPathFactor		= new ParamFloat(MOD_UI, "SHOW_PATH_FACTOR"
+			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
+		{ isCfgFile(true); }
+		@Override public void setOption(Float val) { MAX_RALLY_SCALE = (int) (100 * val); }
+	};
+	ParamInteger showNameMinFont	= new ParamInteger(MOD_UI, "SHOW_NAME_MIN_FONT", 8, 2, 24, 1, 2, 5) {
+		{ isCfgFile(true); }
+		@Override public void setOption(Integer val) {
+			minFont	 = val;
+			minFont2 = Math.round(val/showInfoFontRatio.get());
+		}
+	};
+	ParamFloat   showInfoFontRatio	= new ParamFloat(MOD_UI, "SHOW_INFO_FONT_RATIO"
+			, 0.7f, 0.2f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
+		{ isCfgFile(true); }
+		@Override public void setOption(Float val) { minFont2	= Math.round(minFont/val);
+		}
+	};
+	ParamFloat   mapFontFactor		= new ParamFloat(MOD_UI, "MAP_FONT_FACTOR"
+			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
+		{ isCfgFile(true); }
+		@Override public void setOption(Float val) { fontPct = Math.round(val * 100); }
+	};
+	ParamFloat   showFleetFactor	= new ParamFloat( MOD_UI, "SHOW_FLEET_FACTOR"
+			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
+		{ isCfgFile(true); }
+		@Override public void setOption(Float val) {
+			MAX_STARGATE_SCALE			= (int) (40 * val);
+			MAX_FLEET_UNARMED_SCALE		= (int) (40 * val);
+			MAX_FLEET_TRANSPORT_SCALE	= (int) (60 * val);
+			MAX_FLEET_SMALL_SCALE		= (int) (60 * val);
+			MAX_FLEET_LARGE_SCALE		= (int) (80 * val);
+			MAX_FLEET_HUGE_SCALE		= (int) (100 * val);
+		}
+	};
+	ParamBoolean compactOptionOnly	= new ParamBoolean(MOD_UI, "COMPACT_OPTION_ONLY", false)
+	{	{ isCfgFile(true); } };
 
 	// ==================== GUI List Declarations ====================
 	//
-	LinkedList<IParam> mainOptions	  = new LinkedList<>(
+	LinkedList<IParam> mainOptionsUI  = new LinkedList<>(
 			Arrays.asList(
-					displayMode, graphicsMode, texturesMode, sensitivityMode,
+					displayMode, graphicsMode, texturesMode, sensitivityMode, selectedScreen, disableAdvisor,
 					null,
-					soundVolume, musicVolume, showMemory, selectedScreen,
+					soundVolume, musicVolume, showMemory, backupTurns, saveDirectory,
 					null,
-					autoColonize_, autoBombard_, backupTurns, saveDirectory
-					// displayYear
+					mapFontFactor, showNameMinFont, showInfoFontRatio, useFusionFont, galaxyPreviewColorStarsSize,
+					null,
+					showFleetFactor, showFlagFactor, showPathFactor, minListSizePopUp, menuStartup, compactOptionOnly
 					));
 
 }

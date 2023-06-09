@@ -27,6 +27,15 @@ Last updates:
 - When you select your own empire on the intelligence-tab in the races-screen the techs you are lacking now also are color-coded in grey, yellow or orange depending on whether they are obsolete, stealable or not stealable.
 - Galaxy Map Display Parameters are now memorized!
 - New Main Settings UI with Guide and all options' tool features.
+- Remnant.cfg file:
+  - Moved all parameter not computer related to the game files.
+  - The remaining parameters are available in the settings panel under the main menu, where:
+    - The Guide is available.
+    - Middle click will get the default value, etc...
+    - Can be saved and retreived from User's preference...
+      - But will never be copied from outside of this panel. (Loading parameters from Race or galaxy panel will not change Remnant.cfg)
+- "Menu Options" received new options from in-game Galaxy Map panel, and allow saving them in User's prefered options.
+  - A guide has been writen for these options too.
 
 
 Last Fixes:
@@ -39,6 +48,7 @@ Last Fixes:
 - Two "Kekule" in Psilon star name list!
 - Fixed Limited Bombard missing labels.
 - Fixed AI-Guide not immediately updated when changing "Show all AIs".
+  - Fixed crash on opponent AI selection with guide on and selecting "AI:Selectable".
 - Fixed Governor Panel glitching (badly) on some computers.
 
 

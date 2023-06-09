@@ -15,7 +15,7 @@
  */
 package rotp.util;
 
-import static rotp.model.game.ICfgOptions.useFusionFont;
+import static rotp.model.game.IGameOptions.useFusionFont;
 
 import java.awt.Font;
 import java.awt.FontFormatException;

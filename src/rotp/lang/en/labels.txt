@@ -466,6 +466,17 @@ GAME_SETTINGS_SAVEDIR_DESC1       | The save directory is currently set to the s
 GAME_SETTINGS_SAVEDIR_DESC2       | The save directory is currently set to: %1
 GAME_SETTINGS_DISPLAY_YEAR        | Display Year: %1
 GAME_SETTINGS_DISPLAY_YEAR_DESC   | On the Galaxy map: Displays either the game's current turn or your empire's current year
+GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH      | To Research: %1
+GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_YES  | Excess colony spending is diverted to research.
+GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_NO   | Excess colony spending is sent to treasury.
+GAME_SETTINGS_DIVERT_EXCESS_TO_RESEARCH_DESC | Divert excess colony spending from treasury reserve to research.
+GAME_SETTINGS_DEFAULT_MAX_BASES              | Max Bases: %1
+GAME_SETTINGS_DEFAULT_MAX_BASES_DESC         | Default Maximum Missile Bases for New Colonies.
+
+SETTINGS_MOD_DISABLE_ADVISOR_YES  | Disabled
+SETTINGS_MOD_DISABLE_ADVISOR_NO   | Enabled
+SETTINGS_MOD_DISABLE_ADVISOR      | Disable Advisor: %1
+SETTINGS_MOD_DISABLE_ADVISOR_DESC | To Enable / Disable to automatics display of Galaxy Panel Help when starting a new Game.
 
 // Load Game UI
 LOAD_GAME_TITLE                   | Load Game
@@ -2059,7 +2070,7 @@ SETTINGS_MOD_RACES_ARE_RANDOM_SETTING_DESC | Ignore Target Range.
 SETTINGS_MOD_RACES_ARE_RANDOM_TARGET_DESC  | If the final result is not within the final "Target Range": the values will be randomly shifted (Even outside their allowed range) until the final "Target Range" is reached.
 
 // BR: Global Settings UI panel for MOD game options
-SETTINGS_MOD_TITLE_GLOBAL                | Display Settings MOD Global Options
+SETTINGS_MOD_TITLE_GLOBAL                | In-Game Convenience Options
 SETTINGS_MOD_SHOW_FLEET_FACTOR_DESC      | To adjust the galaxy map fleets disappearance while zooming. Bigger factor means stay longer to the screen.
 SETTINGS_MOD_SHOW_FLEET_FACTOR           | Show Fleet Factor: %1
 SETTINGS_MOD_SHOW_FLAG_FACTOR_DESC       | To adjust the galaxy map flags disappearance while zooming. Bigger factor means stay longer to the screen.
@@ -2096,11 +2107,48 @@ SETTINGS_MOD_OPTIONS_USER_HELP           | The options will be set as stored in 
 
 SETTINGS_MOD_SHOW_ALL_AI_DESC            | AI:Base, AI:Modnar, and AI:Rookies are quite similar. AI:Rookie is based on the other two, with some important bug fixed. You may want to hide unfixed AI.
 SETTINGS_MOD_SHOW_ALL_AI                 | Show all AIs: %1
-SETTINGS_MOD_SHOW_ALL_AI_YES             | All.
-SETTINGS_MOD_SHOW_ALL_AI_NO	             | Hide some.
-SETTINGS_MOD_SHOW_ALL_AI_YES_HELP        | All AIs are available for the player and the opponents.
-SETTINGS_MOD_SHOW_ALL_AI_NO_HELP         | AI:Base and AI:Modnar won't be available.
+// SETTINGS_MOD_SHOW_ALL_AI_YES             | All.
+// SETTINGS_MOD_SHOW_ALL_AI_NO	            | Hide some.
+SETTINGS_MOD_SHOW_ALL_AI_YES             | All AIs are available for the player and the opponents.
+SETTINGS_MOD_SHOW_ALL_AI_NO              | AI:Base and AI:Modnar won't be available.
 
+SETTINGS_MOD_FLIGHT_PATH_DISPLAY_DESC    | Which path should be shown? (Related to the icon button on the left of the Galaxy) 
+SETTINGS_MOD_FLIGHT_PATH_DISPLAY         | Show flight path: %1
+SETTINGS_MOD_SHOW_ALL_FLIGHTPATHS        | All
+SETTINGS_MOD_SHOW_IMPORTANT_FLIGHTPATHS  | Important
+SETTINGS_MOD_SHOW_NO_FLIGHTPATHS         | None
+SETTINGS_MOD_SHOW_ALL_FLIGHTPATHS_HELP       | Show all flight paths
+SETTINGS_MOD_SHOW_IMPORTANT_FLIGHTPATHS_HELP | Show only important flight paths. (Non threatening alien fleets are hidden)
+SETTINGS_MOD_SHOW_NO_FLIGHTPATHS_HELP        | Hide all flight paths
+
+SETTINGS_MOD_SYSTEM_NAME_DISPLAY_DESC    | What should be displayed under the star systems? (Related to the icon button on the left of the Galaxy) 
+SETTINGS_MOD_SYSTEM_NAME_DISPLAY         | Star Display: %1
+SETTINGS_MOD_HIDE_SYSTEM_NAME            | Nothing
+SETTINGS_MOD_SHOW_SYSTEM_NAME 	         | Name
+SETTINGS_MOD_SHOW_SYSTEM_DATA            | Name and Data
+SETTINGS_MOD_HIDE_SYSTEM_NAME_HELP       | Hide everything.
+SETTINGS_MOD_SHOW_SYSTEM_NAME_HELP       | Show only the star system name
+SETTINGS_MOD_SHOW_SYSTEM_DATA_HELP       | Show the star system name abd the colony data.
+
+SETTINGS_MOD_SHIP_DISPLAY_DESC           | Which moving ships should be displayed? (Related to the icon button on the left of the Galaxy) 
+SETTINGS_MOD_SHIP_DISPLAY                | Ship Display: %1
+SETTINGS_MOD_SHOW_ALL_SHIPS              | All
+SETTINGS_MOD_SHOW_NO_UNARMED_SHIPS 	     | Transport
+SETTINGS_MOD_SHOW_ONLY_ARMED_SHIPS       | Armed
+SETTINGS_MOD_SHOW_ALL_SHIPS_HELP         | Show me every moving things.
+SETTINGS_MOD_SHOW_NO_UNARMED_SHIPS_HELP  | Show transports and armed ships, hide unarmed ships.
+SETTINGS_MOD_SHOW_ONLY_ARMED_SHIPS_HELP  | Show only War ships, hide transports and unarmed ships.
+
+SETTINGS_MOD_SHOW_SHIP_RANGES_DESC       | Which ships should be displayed near the star systems? (Related to the icon button on the left of the Galaxy) 
+SETTINGS_MOD_SHOW_SHIP_RANGES            | Stars & Ranges: %1
+SETTINGS_MOD_SHOW_RANGES                 | Ranges only
+SETTINGS_MOD_SHOW_STARS_AND_RANGES 	     | Ranges & stars
+SETTINGS_MOD_SHOW_STARS                  | Stars only
+SETTINGS_MOD_SHOW_NO_STARS_AND_RANGES    | Nothing
+SETTINGS_MOD_SHOW_RANGES_HELP              | Show ship ranges without the stars background.
+SETTINGS_MOD_SHOW_STARS_AND_RANGES_HELP    | Show ship ranges with the stars background.
+SETTINGS_MOD_SHOW_STARS_HELP               | Show the stars background, but hide the ship range.
+SETTINGS_MOD_SHOW_NO_STARS_AND_RANGES_HELP | Hide both the ship ranges and the stars background.
 
 SETTINGS_MOD_SHOW_NEW_RACES_DESC         | Show the new races in the opponents list?
 SETTINGS_MOD_SHOW_NEW_RACES              | Show new races: %1
@@ -3096,10 +3144,10 @@ HEADERS_GOVERNOR_ASPECT_OPTIONS_DESC | Appearance related Options.
 HEADERS_GOVERNOR_ASPECT_OPTIONS      | ~~~ ASPECT OPTIONS ~~~%1
 GOVERNOR_ORIGINAL_PANEL_DESC         | How the panel should be displayed? Old ways or Rotp like?
 GOVERNOR_ORIGINAL_PANEL              | Original View: %1
-GOVERNOR_ORIGINAL_PANEL_YES          | Grey
-GOVERNOR_ORIGINAL_PANEL_NO           | Rotp Colors
-GOVERNOR_ORIGINAL_PANEL_YES_HELP     | The panel will be displayed in its gray color as originally designed.<br>No size or brightness control.
-GOVERNOR_ORIGINAL_PANEL_NO_HELP      | The panel will copy the Rotp fonts, colors and icons.<br>It will be resizable, and the brightnes can be adjusted.
+// GOVERNOR_ORIGINAL_PANEL_YES       | Grey
+// GOVERNOR_ORIGINAL_PANEL_NO        | Rotp Colors
+GOVERNOR_ORIGINAL_PANEL_YES          | The panel will be displayed in its gray color as originally designed.<br>No size or brightness control.
+GOVERNOR_ORIGINAL_PANEL_NO           | The panel will copy the Rotp fonts, colors and icons.<br>It will be resizable, and the brightnes can be adjusted.
 GOVERNOR_CUSTOM_SIZE_DESC            | Quick way to activate or deactivate the resizing.  (Available for the new design only)
 GOVERNOR_CUSTOM_SIZE                 | Custom Size: %1
 GOVERNOR_SIZE_FACTOR_DESC            | The factor used to adjust the font size.<br>The other parameters will follow; but with discret increments, leading to jerky changes. (Available for the new design only)

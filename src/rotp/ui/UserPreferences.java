@@ -15,6 +15,12 @@
  */
 package rotp.ui;
 
+import static rotp.model.game.IConvenienceOptions.AUTOBOMBARD_INVADE;
+import static rotp.model.game.IConvenienceOptions.AUTOBOMBARD_NEVER;
+import static rotp.model.game.IConvenienceOptions.AUTOBOMBARD_NO;
+import static rotp.model.game.IConvenienceOptions.AUTOBOMBARD_WAR;
+import static rotp.model.game.IConvenienceOptions.AUTOBOMBARD_YES;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,38 +30,18 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.LinkedList;
 
 import rotp.Rotp;
 import rotp.model.game.GameSession;
-import rotp.model.game.ICfgOptions;
-import rotp.model.game.IGameOptions;
+import rotp.model.game.IMainOptions;
+import rotp.model.game.IModOptions;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamString;
 import rotp.util.LanguageManager;
-import rotp.util.sound.SoundManager;
 
 //public class UserPreferences implements RemnantOptions {
-public class UserPreferences implements ICfgOptions {
-//	public static final String WINDOW_MODE = "GAME_SETTINGS_WINDOWED";
-//	public static final String BORDERLESS_MODE = "GAME_SETTINGS_BORDERLESS";
-//	public static final String FULLSCREEN_MODE = "GAME_SETTINGS_FULLSCREEN";
-//	public static final String GRAPHICS_LOW = "GAME_SETTINGS_GRAPHICS_LOW";
-//	public static final String GRAPHICS_MEDIUM = "GAME_SETTINGS_GRAPHICS_MED";
-//	public static final String GRAPHICS_HIGH = "GAME_SETTINGS_GRAPHICS_HIGH";
-//	public static final String AUTOBOMBARD_NO = "GAME_SETTINGS_AUTOBOMBARD_NO";
-//	public static final String AUTOBOMBARD_NEVER = "GAME_SETTINGS_AUTOBOMBARD_NEVER";
-//	public static final String AUTOBOMBARD_YES = "GAME_SETTINGS_AUTOBOMBARD_YES";
-//	public static final String AUTOBOMBARD_WAR = "GAME_SETTINGS_AUTOBOMBARD_WAR";
-//	public static final String AUTOBOMBARD_INVADE = "GAME_SETTINGS_AUTOBOMBARD_INVADE";
-//	public static final String TEXTURES_NO = "GAME_SETTINGS_TEXTURES_NO";
-//	public static final String TEXTURES_INTERFACE = "GAME_SETTINGS_TEXTURES_INTERFACE";
-//	public static final String TEXTURES_MAP = "GAME_SETTINGS_TEXTURES_MAP";
-//	public static final String TEXTURES_BOTH = "GAME_SETTINGS_TEXTURES_BOTH";
-//	public static final String SAVEDIR_DEFAULT = "GAME_SETTINGS_SAVEDIR_DEFAULT";
-//	public static final String SAVEDIR_CUSTOM = "GAME_SETTINGS_SAVEDIR_CUSTOM";
-//	public static final String SENSITIVITY_HIGH = "GAME_SETTINGS_SENSITIVITY_HIGH";
-//	public static final String SENSITIVITY_MEDIUM = "GAME_SETTINGS_SENSITIVITY_MEDIUM";
-//	public static final String SENSITIVITY_LOW = "GAME_SETTINGS_SENSITIVITY_LOW";
+public class UserPreferences implements IMainOptions {
 
 	private static final String PREFERENCES_FILE  = "Remnants.cfg";
 	public  static final String GALAXY_TEXT_FILE  = "Galaxy.txt";
@@ -76,7 +62,7 @@ public class UserPreferences implements ICfgOptions {
 	private static boolean divertColonyExcessToResearch = true;
 	private static boolean disableAdvisor = true;
 	private static String autoBombardMode = AUTOBOMBARD_NO;
-	private static String displayMode     = BORDERLESS_MODE;
+	private static String displayMode     = WINDOW_MODE;
 	private static String graphicsMode    = GRAPHICS_HIGH;
 	private static String texturesMode    = TEXTURES_BOTH;
 	private static String sensitivityMode = SENSITIVITY_MEDIUM;
@@ -85,32 +71,44 @@ public class UserPreferences implements ICfgOptions {
 	private static int screenSizePct = 93;
 	private static int selectedScreen = -1; // BR: to specify the destination display
 	private static int backupTurns = 5; // modnar: change default turns between backups to 5
+	private static boolean initialList = true;
+	private static LinkedList<IParam> optionList;
+	private static LinkedList<IParam> optionList() {
+		if (optionList == null)
+			optionList = IModOptions.globalOptions(initialList);
+		return optionList;
+	}
+	public static void initialList(boolean initial) {
+		initialList = initial;
+		optionList = IModOptions.globalOptions(initialList);
+		save();
+	}
 
 	/**
 	 * Advanced setting GUI Default Button Action
 	 */
-	public static void setToDefault() {
-		autoColonize = false;
-		autoBombardMode = AUTOBOMBARD_NO;
-		displayMode = WINDOW_MODE;
-		graphicsMode = GRAPHICS_HIGH;
-		texturesMode = TEXTURES_BOTH;
-		sensitivityMode = SENSITIVITY_MEDIUM;
-		screenSizePct = 93;
-		selectedScreen = -1;
-		backupTurns = 5; // modnar: change default turns between backups to 5
-		saveDir = "";
-		uiTexturePct = 0.20f;
-		showMemory = false;
-		if (!playMusic)
-			SoundManager.current().toggleMusic();
-		if (!playSounds)
-			SoundManager.current().toggleSounds();
-		musicVolume = 10;
-		soundVolume = 10;
-		SoundManager.current().resetSoundVolumes();
-		save();
-	}
+//	public static void setToDefault() {
+//		autoColonize = false;
+//		autoBombardMode = AUTOBOMBARD_NO;
+//		displayMode = WINDOW_MODE;
+//		graphicsMode = GRAPHICS_HIGH;
+//		texturesMode = TEXTURES_BOTH;
+//		sensitivityMode = SENSITIVITY_MEDIUM;
+//		screenSizePct = 93;
+//		selectedScreen = -1;
+//		backupTurns = 5; // modnar: change default turns between backups to 5
+//		saveDir = "";
+//		uiTexturePct = 0.20f;
+//		showMemory = false;
+//		if (!playMusic)
+//			SoundManager.current().toggleMusic();
+//		if (!playSounds)
+//			SoundManager.current().toggleSounds();
+//		musicVolume = 10;
+//		soundVolume = 10;
+//		SoundManager.current().resetSoundVolumes();
+//		save();
+//	}
 	public static void setForNewGame() {
 		autoColonize = false;
 		autoBombardMode = AUTOBOMBARD_NO;
@@ -121,56 +119,56 @@ public class UserPreferences implements ICfgOptions {
 	public static int soundVolume()		     { return soundVolume; }
 	public static void showMemory(boolean b) { showMemory = b; }
 	public static boolean showMemory()	     { return showMemory; }
-	public static void toggleMemory()	     { showMemory = !showMemory; save(); }
+//	public static void toggleMemory()	     { showMemory = !showMemory; save(); }
 	public static boolean fullScreen()	     { return displayMode.equals(FULLSCREEN_MODE); }
 	public static boolean windowed()	     { return displayMode.equals(WINDOW_MODE); }
 	public static boolean borderless()	     { return displayMode.equals(BORDERLESS_MODE); }
 	public static String displayMode()	     { return displayMode; }
 	public static void displayMode(String s) { displayMode = s; }
-	public static void toggleDisplayMode()   {
-		switch(displayMode) {
-			case WINDOW_MODE:	  displayMode = BORDERLESS_MODE; break;
-			case BORDERLESS_MODE: displayMode = FULLSCREEN_MODE; break;
-			case FULLSCREEN_MODE: displayMode = WINDOW_MODE; break;
-			default:			  displayMode = WINDOW_MODE; break;
-		}
-		save();
-	}
+//	public static void toggleDisplayMode()   {
+//		switch(displayMode) {
+//			case WINDOW_MODE:	  displayMode = BORDERLESS_MODE; break;
+//			case BORDERLESS_MODE: displayMode = FULLSCREEN_MODE; break;
+//			case FULLSCREEN_MODE: displayMode = WINDOW_MODE; break;
+//			default:			  displayMode = WINDOW_MODE; break;
+//		}
+//		save();
+//	}
 	public static void graphicsMode(String s) { graphicsMode = s; }
 	public static String graphicsMode()	      { return graphicsMode; }
-	public static void toggleGraphicsMode()   {
-		switch(graphicsMode) {
-			case GRAPHICS_HIGH:   graphicsMode = GRAPHICS_MEDIUM; break;
-			case GRAPHICS_MEDIUM: graphicsMode = GRAPHICS_LOW; break;
-			case GRAPHICS_LOW:	  graphicsMode = GRAPHICS_HIGH; break;
-			default :			  graphicsMode = GRAPHICS_HIGH; break;
-		}
-		save();
-	}
-	public static void toggleTexturesMode()   {
-		switch(texturesMode) {
-			case TEXTURES_NO:		 texturesMode = TEXTURES_INTERFACE; break;
-			case TEXTURES_INTERFACE: texturesMode = TEXTURES_MAP; break;
-			case TEXTURES_MAP:	     texturesMode = TEXTURES_BOTH; break;
-			case TEXTURES_BOTH:	     texturesMode = TEXTURES_NO; break;
-			default :				 texturesMode = TEXTURES_BOTH; break;
-		}
-		save();
-	}
+//	public static void toggleGraphicsMode()   {
+//		switch(graphicsMode) {
+//			case GRAPHICS_HIGH:   graphicsMode = GRAPHICS_MEDIUM; break;
+//			case GRAPHICS_MEDIUM: graphicsMode = GRAPHICS_LOW; break;
+//			case GRAPHICS_LOW:	  graphicsMode = GRAPHICS_HIGH; break;
+//			default :			  graphicsMode = GRAPHICS_HIGH; break;
+//		}
+//		save();
+//	}
+//	public static void toggleTexturesMode()   {
+//		switch(texturesMode) {
+//			case TEXTURES_NO:		 texturesMode = TEXTURES_INTERFACE; break;
+//			case TEXTURES_INTERFACE: texturesMode = TEXTURES_MAP; break;
+//			case TEXTURES_MAP:	     texturesMode = TEXTURES_BOTH; break;
+//			case TEXTURES_BOTH:	     texturesMode = TEXTURES_NO; break;
+//			default :				 texturesMode = TEXTURES_BOTH; break;
+//		}
+//		save();
+//	}
 	public static void texturesMode(String s) { texturesMode = s; }
 	public static String texturesMode()	      { return texturesMode; }
 	public static boolean texturesInterface() { return texturesMode.equals(TEXTURES_INTERFACE) || texturesMode.equals(TEXTURES_BOTH); }
 	public static boolean texturesMap()	      { return texturesMode.equals(TEXTURES_MAP) || texturesMode.equals(TEXTURES_BOTH); }
 
-	public static void toggleSensitivityMode()   {
-		switch(sensitivityMode) {
-			case SENSITIVITY_LOW:	 sensitivityMode = SENSITIVITY_MEDIUM;	break;
-			case SENSITIVITY_MEDIUM: sensitivityMode = SENSITIVITY_HIGH;	break;
-			case SENSITIVITY_HIGH:	 sensitivityMode = SENSITIVITY_LOW;		break;
-			default :				 sensitivityMode = SENSITIVITY_MEDIUM;	break;
-		}
-		save();
-	}
+//	public static void toggleSensitivityMode()   {
+//		switch(sensitivityMode) {
+//			case SENSITIVITY_LOW:	 sensitivityMode = SENSITIVITY_MEDIUM;	break;
+//			case SENSITIVITY_MEDIUM: sensitivityMode = SENSITIVITY_HIGH;	break;
+//			case SENSITIVITY_HIGH:	 sensitivityMode = SENSITIVITY_LOW;		break;
+//			default :				 sensitivityMode = SENSITIVITY_MEDIUM;	break;
+//		}
+//		save();
+//	}
 	public static void sensitivityMode(String s) { sensitivityMode = s; }
 	public static String sensitivityMode()	     { return sensitivityMode; }
 	// public static boolean sensitivityHigh()	 { return sensitivityMode.equals(SENSITIVITY_HIGH); }
@@ -178,35 +176,35 @@ public class UserPreferences implements ICfgOptions {
 	public static boolean sensitivityLow()	     { return sensitivityMode.equals(SENSITIVITY_LOW); }
 
 	// public static String autoColonizeMode()	  { return autoColonize ? AUTOCOLONIZE_YES : AUTOCOLONIZE_NO; }
-	public static void toggleAutoColonize()	  { autoColonize = !autoColonize; save();  }
-	public static boolean autoColonize()	  { return autoColonize; }
-	public static void autoColonize(boolean val)  { autoColonize = val; }
+//	public static void toggleAutoColonize()	  { autoColonize = !autoColonize; save();  }
+	public static boolean getAutoColonize()	  { return autoColonize; }
+//	public static void autoColonize(boolean val)  { autoColonize = val; }
 
-	public static void toggleAutoBombard()	  {
-		switch(autoBombardMode) {
-			case AUTOBOMBARD_NO:	 autoBombardMode = AUTOBOMBARD_NEVER; break;
-			case AUTOBOMBARD_NEVER:  autoBombardMode = AUTOBOMBARD_YES; break;
-			case AUTOBOMBARD_YES:	 autoBombardMode = AUTOBOMBARD_WAR; break;
-			case AUTOBOMBARD_WAR:	 autoBombardMode = AUTOBOMBARD_INVADE; break;
-			case AUTOBOMBARD_INVADE: autoBombardMode = AUTOBOMBARD_NO; break;
-			default:				 autoBombardMode = AUTOBOMBARD_NO; break;
-		}
-		save();
-	}
-	public static void autoBombardMode(String val)   { autoBombardMode = val; }
+//	public static void toggleAutoBombard()	  {
+//		switch(autoBombardMode) {
+//			case AUTOBOMBARD_NO:	 autoBombardMode = AUTOBOMBARD_NEVER; break;
+//			case AUTOBOMBARD_NEVER:  autoBombardMode = AUTOBOMBARD_YES; break;
+//			case AUTOBOMBARD_YES:	 autoBombardMode = AUTOBOMBARD_WAR; break;
+//			case AUTOBOMBARD_WAR:	 autoBombardMode = AUTOBOMBARD_INVADE; break;
+//			case AUTOBOMBARD_INVADE: autoBombardMode = AUTOBOMBARD_NO; break;
+//			default:				 autoBombardMode = AUTOBOMBARD_NO; break;
+//		}
+//		save();
+//	}
+//	public static void autoBombardMode(String val)   { autoBombardMode = val; }
 	public static String autoBombardMode()   { return autoBombardMode; }
 	// public static boolean autoBombardNo()    { return autoBombardMode.equals(AUTOBOMBARD_NO); }
-	public static boolean autoBombardNever() { return autoBombardMode.equals(AUTOBOMBARD_NEVER); }
-	public static boolean autoBombardYes()   { return autoBombardMode.equals(AUTOBOMBARD_YES); }
-	public static boolean autoBombardWar()   { return autoBombardMode.equals(AUTOBOMBARD_WAR); }
-	public static boolean autoBombardInvading() { return autoBombardMode.equals(AUTOBOMBARD_INVADE); }
+//	public static boolean autoBombardNever() { return autoBombardMode.equals(AUTOBOMBARD_NEVER); }
+//	public static boolean autoBombardYes()   { return autoBombardMode.equals(AUTOBOMBARD_YES); }
+//	public static boolean autoBombardWar()   { return autoBombardMode.equals(AUTOBOMBARD_WAR); }
+//	public static boolean autoBombardInvading() { return autoBombardMode.equals(AUTOBOMBARD_INVADE); }
 
 	public static boolean playAnimations()   { return !graphicsMode.equals(GRAPHICS_LOW); }
 	public static boolean antialiasing()     { return graphicsMode.equals(GRAPHICS_HIGH); }
-	public static void playSounds(boolean b) { playSounds = b; }
+//	public static void playSounds(boolean b) { playSounds = b; }
 	public static boolean playSounds()       { return playSounds; }
 	public static void toggleSounds()        { playSounds = !playSounds; save(); }
-	public static void playMusic(boolean b)  { playMusic = b; }
+//	public static void playMusic(boolean b)  { playMusic = b; }
 	public static boolean playMusic()        { return playMusic; }
 	public static void toggleMusic()         { playMusic = !playMusic; save();  } // called from sound manager
 	
@@ -224,12 +222,12 @@ public class UserPreferences implements ICfgOptions {
 	}
 	public	static String	saveDir()						{ return saveDir; }
 	public	static void		saveDir(String s)				{ saveDir = s; save(); }
-	public	static String	saveDirStr()					{
-		if (saveDir.isEmpty())
-			return SAVEDIR_DEFAULT;
-		else
-			return SAVEDIR_CUSTOM;
-	}
+//	public	static String	saveDirStr()					{
+//		if (saveDir.isEmpty())
+//			return SAVEDIR_DEFAULT;
+//		else
+//			return SAVEDIR_CUSTOM;
+//	}
 	public	static int		backupTurns()					{ return backupTurns; }
 	public	static boolean	backupTurns(int i)				{
 		int prev = backupTurns;
@@ -237,23 +235,26 @@ public class UserPreferences implements ICfgOptions {
 		save();
 		return prev != backupTurns;
 	}
-	public	static void		toggleBackupTurns()				{
-		if ((backupTurns >= MAX_BACKUP_TURNS) || (backupTurns < 0)) // modnar: add negative check
-			backupTurns = 0;
-		else // modnar: change backupTurns to be: 0, 1, 5 ,10, 20
-			backupTurns = (int) Math.round(1.0f + 4.87f*backupTurns - 0.93f*Math.pow(backupTurns, 2) + 0.063f*Math.pow(backupTurns, 3) );
-		save();
-	}
-	public	static void		toggleYearDisplay()				{ displayYear = !displayYear; save(); }
-	public	static void		displayYear(boolean b)			{ displayYear = b; }
-	public	static boolean	displayYear()					{ return displayYear; }
-	public	static int		defaultMaxBases()				{ return defaultMaxBases; }
+//	public	static void		toggleBackupTurns()				{
+//		if ((backupTurns >= MAX_BACKUP_TURNS) || (backupTurns < 0)) // modnar: add negative check
+//			backupTurns = 0;
+//		else // modnar: change backupTurns to be: 0, 1, 5 ,10, 20
+//			backupTurns = (int) Math.round(1.0f + 4.87f*backupTurns - 0.93f*Math.pow(backupTurns, 2) + 0.063f*Math.pow(backupTurns, 3) );
+//		save();
+//	}
+//	public	static void		toggleYearDisplay()				{ displayYear = !displayYear; save(); }
+//	public	static void		displayYear(boolean b)			{ displayYear = b; }
+	public	static boolean	getDisplayYear()				{ return displayYear; }
+	public	static int		getDefaultMaxBases()			{ return defaultMaxBases; }
+//	public	static void		defaultMaxBases(int i)			{ defaultMaxBases = i; }
 	public	static boolean	governorOnByDefault()			{ return governorOnByDefault; }
 	public	static boolean	governorAutoSpendByDefault()	{ return governorAutoSpendByDefault; }
 	public	static boolean	legacyGrowth()					{ return legacyGrowth; } // BR:
 	public	static boolean	governorAutoApply()				{ return governorAutoApply; } // BR:
-	public	static boolean	divertColonyExcessToResearch()	{ return divertColonyExcessToResearch; }
+	public	static boolean	getDivertColonyExcessToResearch()	{ return divertColonyExcessToResearch; }
+//	public	static void	divertExcessToResearch(boolean b)	{ divertColonyExcessToResearch = b; }
 	public	static boolean	disableAdvisor()				{ return disableAdvisor; }
+	public	static void		disableAdvisor(boolean b)		{ disableAdvisor = b; }
 	private	static void		uiTexturePct(int i)				{ uiTexturePct = i / 100.0f; }
 	static	float			uiTexturePct()					{ return uiTexturePct; }
 	static void loadAndSave() {
@@ -262,7 +263,8 @@ public class UserPreferences implements ICfgOptions {
 	}
 	@SuppressWarnings("null")
 	public static void load() {
-		System.out.println("UserPreferences: load()");
+		
+//		System.out.println("UserPreferences: load()");
 		String path = Rotp.jarPath();
 		File configFile = new File(path, PREFERENCES_FILE);
 		// modnar: change to InputStreamReader, force UTF-8
@@ -307,21 +309,21 @@ public class UserPreferences implements ICfgOptions {
 			out.println(keyFormat("DISABLE_ADVISOR") + yesOrNo(disableAdvisor));
 			out.println(keyFormat("LANGUAGE")+ languageDir());
 			// BR: Governors GUI
-			out.println();
-			out.println("===== Governor Settings =====");
-			out.println();
-			out.println(keyFormat("DEFAULT_MAX_BASES") + defaultMaxBases);
-			out.println(keyFormat("GOVERNOR_ON_BY_DEFAULT") + yesOrNo(governorOnByDefault));
-			out.println(keyFormat("AUTOSPEND_ON_BY_DEFAULT") + yesOrNo(governorAutoSpendByDefault));
-			out.println(keyFormat("DIVERT_COLONY_EXCESS_TO_RESEARCH")+ yesOrNo(divertColonyExcessToResearch));
-			out.println(keyFormat("LEGACY_GROWTH") + yesOrNo(legacyGrowth)); // BR:
-			out.println(keyFormat("GOVERNOR_AUTO_APPLY") + yesOrNo(governorAutoApply)); // BR:
+//			out.println();
+//			out.println("===== Governor Settings =====");
+//			out.println();
+//			out.println(keyFormat("DEFAULT_MAX_BASES") + defaultMaxBases);
+//			out.println(keyFormat("GOVERNOR_ON_BY_DEFAULT") + yesOrNo(governorOnByDefault));
+//			out.println(keyFormat("AUTOSPEND_ON_BY_DEFAULT") + yesOrNo(governorAutoSpendByDefault));
+//			out.println(keyFormat("DIVERT_COLONY_EXCESS_TO_RESEARCH")+ yesOrNo(divertColonyExcessToResearch));
+//			out.println(keyFormat("LEGACY_GROWTH") + yesOrNo(legacyGrowth)); // BR:
+//			out.println(keyFormat("GOVERNOR_AUTO_APPLY") + yesOrNo(governorAutoApply)); // BR:
 
 			out.println();
-			out.println("===== MOD Global GUI Settings =====");
+			out.println("===== Extended Settings =====");
 			out.println();
-			for (IParam param : IGameOptions.globalOptions) {
-				if (param != null)
+			for (IParam param : optionList()) {
+				if (param != null && !param.isDuplicate())
 					out.println(keyFormat(param.getCfgLabel()) + param.getCfgValue());
 			}
 			// ========== TEST ==========
@@ -391,7 +393,7 @@ public class UserPreferences implements ICfgOptions {
 			case "LANGUAGE": selectLanguage(val); return;
 			default:
 			// BR: Global Mod GUI
-				for (IParam param : IGameOptions.globalOptions) {
+				for (IParam param : optionList()) {
 					if (param != null 
 							&& key.equalsIgnoreCase(param.getCfgLabel())) {
 						if (param instanceof ParamString)
@@ -427,14 +429,14 @@ public class UserPreferences implements ICfgOptions {
 	private	static void setSelectedScreen(int i) {
 		selectedScreen = Math.max(-1, Math.min(i, Rotp.maxScreen()));
 	}
-	public	static void nextSelectedScreen()	 {
-		setSelectedScreen(selectedScreen + 1);
-		save();
-	}
-	public	static void prevSelectedScreen()	 {
-		setSelectedScreen(selectedScreen - 1);
-		save();
-	}
+//	public	static void nextSelectedScreen()	 {
+//		setSelectedScreen(selectedScreen + 1);
+//		save();
+//	}
+//	public	static void prevSelectedScreen()	 {
+//		setSelectedScreen(selectedScreen - 1);
+//		save();
+//	}
 	private static void setScreenSizePct(int i) {
 		screenSizePct = Math.max(25,Math.min(i,200));
 	}
@@ -534,24 +536,24 @@ public class UserPreferences implements ICfgOptions {
 		}
 		return SENSITIVITY_MEDIUM;
 	}
-	public static void increaseMusicLevel()	{
-		musicVolume = Math.min(10, musicVolume+1);
-		SoundManager.current().resetMusicVolumes();
-		save();
-	}
-	public static void decreaseMusicLevel()	{
-		musicVolume = Math.max(0, musicVolume-1);
-		SoundManager.current().resetMusicVolumes();
-		save();
-	};
-	public static void increaseSoundLevel()	{
-		soundVolume = Math.min(10, soundVolume+1);
-		SoundManager.current().resetSoundVolumes();
-		save();
-	}
-	public static void decreaseSoundLevel()	{
-		soundVolume = Math.max(0, soundVolume-1);
-		SoundManager.current().resetSoundVolumes();
-		save();
-	}
+//	public static void increaseMusicLevel()	{
+//		musicVolume = Math.min(10, musicVolume+1);
+//		SoundManager.current().resetMusicVolumes();
+//		save();
+//	}
+//	public static void decreaseMusicLevel()	{
+//		musicVolume = Math.max(0, musicVolume-1);
+//		SoundManager.current().resetMusicVolumes();
+//		save();
+//	};
+//	public static void increaseSoundLevel()	{
+//		soundVolume = Math.min(10, soundVolume+1);
+//		SoundManager.current().resetSoundVolumes();
+//		save();
+//	}
+//	public static void decreaseSoundLevel()	{
+//		soundVolume = Math.max(0, soundVolume-1);
+//		SoundManager.current().resetSoundVolumes();
+//		save();
+//	}
 }

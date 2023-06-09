@@ -407,7 +407,7 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
         g.setFont(narrowFont(20));
         int x1 = x0;
         int w1 = s60;         
-        String year = UserPreferences.displayYear() ? text("RACES_DIPLOMACY_EVENT_YEAR") :  text("RACES_DIPLOMACY_EVENT_TURN");
+        String year = options().displayYear() ? text("RACES_DIPLOMACY_EVENT_YEAR") :  text("RACES_DIPLOMACY_EVENT_TURN");
         int sw = g.getFontMetrics().stringWidth(year);
         drawShadowedString(g, year, 1, x0+(w1-sw)/2, y0+s23, Color.black, SystemPanel.whiteText);
         
@@ -419,7 +419,7 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
         sw = g.getFontMetrics().stringWidth(race);
         drawShadowedString(g, race, 1, x2+(w2-sw)/2, y0+s23, Color.black, SystemPanel.whiteText);
         
-        // scrollboar
+        // scrollbar
         int w5 = s20;
         int x5 = x0+w0-w5;
         
@@ -525,7 +525,7 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
         // year or turn
         g.setFont(narrowFont(18));
         g.setColor(Color.black);
-        String year = UserPreferences.displayYear() ? str(inc.dateOccurred()) :  str(inc.turnOccurred());
+        String year = options().displayYear() ? str(inc.dateOccurred()) :  str(inc.turnOccurred());
         int sw = g.getFontMetrics().stringWidth(year);
         int x0 = x1+(w1-sw)/2;
         int y0 = y+s25;
@@ -895,7 +895,7 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
 
        //title
         g.setFont(narrowFont(20));
-        String year = UserPreferences.displayYear() ? text("RACES_DIPLOMACY_EVENT_YEAR") :  text("RACES_DIPLOMACY_EVENT_TURN");
+        String year = options().displayYear() ? text("RACES_DIPLOMACY_EVENT_YEAR") :  text("RACES_DIPLOMACY_EVENT_TURN");
         drawShadowedString(g, year, 1, x0+s10, y0+s23, Color.black, SystemPanel.whiteText);
         
         g.setFont(narrowFont(22));
@@ -1009,7 +1009,7 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
         // year
         g.setFont(narrowFont(18));
         g.setColor(Color.black);
-        String year = UserPreferences.displayYear() ? str(inc.dateOccurred()) :  str(inc.turnOccurred());
+        String year = options().displayYear() ? str(inc.dateOccurred()) :  str(inc.turnOccurred());
         int sw0 = g.getFontMetrics().stringWidth(year);
         int x0 = x+(leftM-sw0)/2;
         int y0 = y+s25;

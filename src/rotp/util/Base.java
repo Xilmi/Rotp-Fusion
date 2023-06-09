@@ -513,7 +513,7 @@ public interface Base {
         return concat(str(year), ".", monthName[month], ".", str(++day));
     }
     public default String displayYearOrTurn() {
-        if (UserPreferences.displayYear())
+        if (options().displayYear())
             return text("MAIN_YEAR_DISPLAY", galaxy().currentYear());
         else
             return text("MAIN_TURN_DISPLAY", galaxy().currentTurn());

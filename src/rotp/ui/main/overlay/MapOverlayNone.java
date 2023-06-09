@@ -23,7 +23,6 @@ import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
-import rotp.ui.UserPreferences;
 import rotp.ui.game.MergedDynamicOptionsUI;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
@@ -230,7 +229,7 @@ public class MapOverlayNone extends MapOverlay {
             	}
             	break;
             case KeyEvent.VK_Y: // BR:
-            	UserPreferences.toggleYearDisplay();
+            	options().toggleYearDisplay();
                 break;
             case KeyEvent.VK_F1:
                 parent.showHelp();

@@ -809,7 +809,7 @@ public final class GameSession implements Base, Serializable {
         }
     }
     private String nextTurnTitle() {
-        if (UserPreferences.displayYear())
+        if (options().displayYear())
             return text("MAIN_ADVANCING_YEAR", galaxy().currentYear()+1);
         else
             return text("MAIN_ADVANCING_TURN", galaxy().currentTurn()+1);

@@ -14,7 +14,7 @@ import rotp.ui.util.ParamTech;
 import rotp.ui.util.ParamTitle;
 import rotp.ui.util.RandomAlienRaces;
 
-public interface IPreGameOptions extends IAdvOptions, ICfgOptions {
+public interface IPreGameOptions extends IAdvOptions {
 
 	// ========================================================================
 	// Factory options
@@ -162,7 +162,7 @@ public interface IPreGameOptions extends IAdvOptions, ICfgOptions {
 
 				headerSpacer,
 				new ParamTitle("MENU_OPTIONS"),
-				useFusionFont, compactOptionOnly
+				IMainOptions.useFusionFont, IMainOptions.compactOptionOnly
 				)));
 		for (LinkedList<IParam> list : map) {
 			for (IParam param : list) {
