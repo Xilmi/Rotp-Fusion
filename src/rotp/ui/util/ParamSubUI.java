@@ -64,28 +64,27 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<IParam>>> {
 	@Override public boolean isDefaultValue()	{ 
 		boolean is = true;
 		for (IParam param : optionsList)
-			is &= param.isDefaultValue();
+			if (param != null)
+				is &= param.isDefaultValue();
 		return is;
 	}
 	@Override public void copyOption(IGameOptions src, IGameOptions dest, boolean updateTool) {
 		super.copyOption(src, dest, updateTool);
 		for (IParam param : optionsList)
-			param.copyOption(src, dest, updateTool);
+			if (param != null && !param.isCfgFile())
+				param.copyOption(src, dest, updateTool);
 	}
-//	@Override public void updateOption() {
-//		super.updateOption();
-//		for (InterfaceParam param : optionsList)
-//			param.updateOption();
-//	}
 	@Override public void updateOptionTool() {
 		super.updateOptionTool();
 		for (IParam param : optionsList)
-			param.updateOptionTool();
+			if (param != null)
+				param.updateOptionTool();
 	}
 	@Override public void setFromDefault() {
 		super.setFromDefault();
 		for (IParam param : optionsList)
-			param.setFromDefault();
+			if (param != null)
+				param.setFromDefault();
 	}
 	@Override protected LinkedList<LinkedList<IParam>> getOptionValue(
 			IGameOptions options) {
@@ -95,7 +94,8 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<IParam>>> {
 			LinkedList<LinkedList<IParam>> value) {}
 	@Override public void setFromCfgValue(String val) {
 		for (IParam param : optionsList)
-			param.setFromCfgValue(val);
+			if (param != null && !param.isCfgFile())
+				param.setFromCfgValue(val);
 	}
 	@Override public void next() {  }
 	@Override public void prev() {  }

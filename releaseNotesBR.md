@@ -36,7 +36,8 @@ Last updates:
       - But will never be copied from outside of this panel. (Loading parameters from Race or galaxy panel will not change Remnant.cfg)
 - "Menu Options" received new options from in-game Galaxy Map panel, and allow saving them in User's prefered options.
   - A guide has been writen for these options too.
-
+- New option to allow full refresh on governor panel when loading a new game.
+  - "Off" by default to avoid glitches.
 
 Last Fixes:
 - New Governor Panel don't crash any more on Apple OS.
@@ -93,6 +94,7 @@ Last Anouuncement:
 - New option to select the screen on which you will play.
 - Set AI:Hybrid as default AI.
 - AI:Base and AI:Modnar are now optional.
+
 
 New Fixes:
 - PopUp selection list: "Cancel" will work again!

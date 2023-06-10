@@ -56,6 +56,10 @@ Later:
 
 ## What's New
 
+2023.06.10 (BR)
+- New option to allow full refresh on governor panel when loading a new game.
+  - "Off" by default to avoid glitches.
+
 2023.06.09 (BR)
 - Converted some Remnant.cfg settings to options:
   - displayYear, showAlliancesGNN, showNextCouncil, showLimitedWarnings, techExchangeAutoRefuse, autoColonize_, autoBombard_, divertExcessToResearch, defaultMaxBases, 

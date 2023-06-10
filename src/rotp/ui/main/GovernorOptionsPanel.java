@@ -91,30 +91,40 @@ class GovernorOptionsPanel extends javax.swing.JPanel{
     private ScheduledFuture<?> anim;
 	private Runnable timedRefresh	= new Runnable() {
 	    @Override public void run() {
+	    	if (options().resetRequested() && options().isFullRefreshOnLoad() && frame.isVisible()) {
+	    		System.out.println("resetRequested() and executed (FullRefresh)");
+	    		optionUpdate();
+	    		animate();
+	    		return;
+	    	}
+	    	if (options().resetRequested() && frame.isFocused()) {
+	    		System.out.println("resetRequested() and executed (isFocused)");
+	    		optionUpdate();
+	    		animate();
+	    		return;
+	    	}
 	    	if (options().refreshRequested()) {
 	    		loadDisplayValues();
 	    		loadValues();
 				options().clearRefresh();
 	    		System.out.println("refreshRequested() and executed");
 	    	}
-	    	if (!frame.isFocused()) {
-	    		return;
+	    	if ((options().isFullRefreshOnLoad() && frame.isVisible())
+	    			|| frame.isFocused()) {
+	    		animate();
 	    	}
-	    	if (options().resetRequested()) {
-	    		System.out.println("resetRequested() and executed");
-	    		optionUpdated();
-	    	}
-    		animate();
 	    }
 	};
 	private final JFrame frame;
 	
 	// ========== Public Method and Overrider ==========
 	//
-	private void optionUpdated() {
-		loadDisplayValues();
-		loadValues();
-		protectedReset();
+	private void optionUpdate() {
+		if (!updateOngoing) {
+			loadDisplayValues();
+			loadValues();
+			protectedReset();
+		}
 	} 
 	void applyStyle() { protectedUpdatePanel(); }
 	
@@ -226,7 +236,9 @@ class GovernorOptionsPanel extends javax.swing.JPanel{
 		for(Component c : componentList){
 			remove(c);
 		}
+		frame.revalidate();
 		initPanel();
+		frame.revalidate();
 		updateOngoing = false;
 		frame.setVisible(true);
 		frame.setLocation(options().getPosition());

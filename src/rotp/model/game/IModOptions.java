@@ -105,6 +105,7 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 		LinkedList<IParam> globalOptions = new LinkedList<>();
 		globalOptions.addAll(mainOptionsUI);
 		globalOptions.add(bitmapGalaxyLastFolder);
+		globalOptions.add(fullRefreshOnLoad);
 		if (initialList) {
 			globalOptions.addAll(convenienceOptions);
 			globalOptions.add(governorByDefault);
