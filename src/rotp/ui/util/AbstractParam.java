@@ -202,7 +202,7 @@ public abstract class AbstractParam <T> implements IParam{
 	// ========== Public Getters ==========
 	//
 	public String getLabel()	{ return langLabel(getLangLabel()); }
-	T creationValue()	{ return value; }
+	protected T creationValue()	{ return value; }
 	T minValue()	{ return minValue; }	
 	T maxValue()	{ return maxValue; }	
 	T baseInc()		{ return baseInc; }	

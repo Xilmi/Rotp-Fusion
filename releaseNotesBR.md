@@ -38,6 +38,8 @@ Last updates:
   - A guide has been writen for these options too.
 - New option to allow full refresh on governor panel when loading a new game.
   - "Off" by default to avoid glitches.
+- Separate missile size Modifiers for Bases and Ship weapons.
+  - They are initialized with the former common modifier.
 
 Last Fixes:
 - New Governor Panel don't crash any more on Apple OS.

@@ -387,7 +387,7 @@ public class AIGovernor implements Base, Governor {
         else if (empire.sv.isRich(sys.id))
             baseMultiplier *= 1.5f;
         
-        baseMultiplier /= options().selectedMissileSizeModifier();
+        baseMultiplier /= options().selectedMissileBaseModifier();
         
         if (empire.sv.isAttackTarget(sys.id))
             col.defense().maxBases(max(currBases, (int)(baseMultiplier * col.production()/40))); // modnar: reduce

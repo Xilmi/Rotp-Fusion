@@ -79,7 +79,7 @@ public class MissileBase implements Base, Serializable {
             cost += computer.cost(emp);
         if (ecm != null)
             cost += ecm.cost(emp);
-        cost *= options().selectedMissileSizeModifier();
+        cost *= options().selectedMissileBaseModifier();
         return cost;
     }
 }

@@ -143,7 +143,7 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 
 				headerSpacer,
 				new ParamTitle("GAME_COMBAT"),
-				retreatRestrictions, retreatRestrictionTurns, missileSizeModifier,
+				retreatRestrictions, retreatRestrictionTurns, missileBaseModifier, missileShipModifier,
 				targetBombard, bombingTarget, autoBombard_, autoColonize_,
 				scrapRefundFactor, scrapRefundOption
 				)));

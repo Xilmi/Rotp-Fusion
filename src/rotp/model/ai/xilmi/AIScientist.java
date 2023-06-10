@@ -890,7 +890,11 @@ public class AIScientist implements Base, Scientist {
     }
     @Override
     public float baseValue(TechMissileWeapon t) {
-        float val = 2 / options().selectedMissileSizeModifier();
+    	float baseWeight = 1;
+    	float shipWeight = 4;
+    	float baseVal = baseWeight / options().selectedMissileBaseModifier();
+    	float shipVal = shipWeight / options().selectedMissileShipModifier();
+        float val = 2 * (baseVal + shipVal) / (baseWeight + shipWeight) ;
         if(empire.tech().topShipWeaponTech().quintile() < 2 && empire.tech().topBaseMissileTech().quintile() < 2 && empire.tech().topBaseScatterPackTech() == null)
             val += 1;
         return val;

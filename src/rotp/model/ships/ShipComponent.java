@@ -86,13 +86,24 @@ public class ShipComponent implements Base, Serializable {
     public String desc(ShipDesign d)  { return desc(); }
     public float cost(ShipDesign d)  {
         Empire emp = d == null ? null : d.empire();
-        return nullTech() ? 0 : (float) Math.ceil(tech().costMiniaturization(emp) * tech().baseCost(d));
+        float cost = nullTech() ? 0 : (float) Math.ceil(tech().costMiniaturization(emp) * tech().baseCost(d));
+        if (isMissileWeapon())
+        	cost *= options().selectedMissileShipModifier();
+        return cost;
     }
     public float space(ShipDesign d) { return  nullTech() ? 0 : (float) Math.ceil(size(d) + engineSpaceRequired(d)); }
-    public float power(ShipDesign d) { return nullTech() ? 0 :  tech().basePower(d); }
+    public float power(ShipDesign d) {
+    	float power = nullTech() ? 0 :  tech().basePower(d);
+        if (isMissileWeapon())
+        	power *= options().selectedMissileShipModifier();
+    	return  power;
+    }
     public float size(ShipDesign d)  {
         Empire emp = d == null ? null : d.empire();
-        return nullTech() ? 0 :   tech().sizeMiniaturization(emp) * tech().baseSize(d);
+        float size = nullTech() ? 0 :   tech().sizeMiniaturization(emp) * tech().baseSize(d);
+        if (isMissileWeapon())
+        	size *= options().selectedMissileShipModifier();
+        return size;
     }
     public float enginesRequired(ShipDesign d) {
         float req = power(d);

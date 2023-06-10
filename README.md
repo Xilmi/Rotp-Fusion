@@ -59,6 +59,7 @@ Later:
 2023.06.10 (BR)
 - New option to allow full refresh on governor panel when loading a new game.
   - "Off" by default to avoid glitches.
+- Missile size Modifiers split for Bases and Ship weapons.
 
 2023.06.09 (BR)
 - Converted some Remnant.cfg settings to options:

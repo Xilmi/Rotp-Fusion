@@ -84,9 +84,33 @@ public interface IInGameOptions extends IConvenienceOptions {
 			, 0.25f, 0f, 1f, 0.01f, 0.05f, 0.2f, "0.##", "%");
 	default float selectedScrapRefundFactor()	{ return scrapRefundFactor.get(); }
 
-	ParamFloat missileSizeModifier	= new ParamFloat(MOD_UI, "MISSILE_SIZE_MODIFIER"
-			, 2f/3f, 0.1f, 2f, 0.01f, 0.05f, 0.2f, "0.##", "%");
-	default float selectedMissileSizeModifier()	{ return missileSizeModifier.get(); }
+//	ParamFloat missileSizeModifier	= new ParamFloat(MOD_UI, "MISSILE_SIZE_MODIFIER"
+//			, 2f/3f, 0.1f, 2f, 0.01f, 0.05f, 0.2f, "0.##", "%");
+//	default float selectedMissileSizeModifier()	{ return missileSizeModifier.get(); }
+
+	ParamFloat missileBaseModifier	= new ParamFloat(MOD_UI, "MISSILE_BASE_MODIFIER"
+			, 2f/3f, 0.1f, 2f, 0.01f, 0.05f, 0.2f, "0.##", "%") {
+		// If not initialized: get the former common value 
+		@Override protected Float getOptionValue(IGameOptions options) {
+			Float val = options.dynOpts().getFloat(getLangLabel());
+			if (val == null)
+				val = options.dynOpts().getFloat(MOD_UI+"MISSILE_SIZE_MODIFIER", creationValue());
+			return val;
+		}
+	};
+	default float selectedMissileBaseModifier()	{ return missileBaseModifier.get(); }
+
+	ParamFloat missileShipModifier	= new ParamFloat(MOD_UI, "MISSILE_SHIP_MODIFIER"
+			, 2f/3f, 0.1f, 2f, 0.01f, 0.05f, 0.2f, "0.##", "%") {
+		// If not initialized: get the former common value 
+		@Override protected Float getOptionValue(IGameOptions options) {
+			Float val = options.dynOpts().getFloat(getLangLabel());
+			if (val == null)
+				val = options.dynOpts().getFloat(MOD_UI+"MISSILE_SIZE_MODIFIER", creationValue());
+			return val;
+		}
+	};
+	default float selectedMissileShipModifier()	{ return missileShipModifier.get(); }
 
 	ParamBoolean challengeMode		= new ParamBoolean(MOD_UI, "CHALLENGE_MODE", false);
 	default boolean selectedChallengeMode()		{ return challengeMode.get(); }
@@ -163,7 +187,7 @@ public interface IInGameOptions extends IConvenienceOptions {
 			Arrays.asList(
 				customDifficulty, dynamicDifficulty, challengeMode, showAllAI,
 				null,
-				missileSizeModifier, retreatRestrictions, retreatRestrictionTurns,
+				missileBaseModifier, missileShipModifier, retreatRestrictions, retreatRestrictionTurns,
 				null,
 				bombingTarget, targetBombard, flagColorCount, autoFlagOptionsUI,
 				null,
