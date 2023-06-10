@@ -92,13 +92,13 @@ class GovernorOptionsPanel extends javax.swing.JPanel{
 	private Runnable timedRefresh	= new Runnable() {
 	    @Override public void run() {
 	    	if (options().resetRequested() && options().isFullRefreshOnLoad() && frame.isVisible()) {
-	    		System.out.println("resetRequested() and executed (FullRefresh)");
+	    		//System.out.println("resetRequested() and executed (FullRefresh)");
 	    		optionUpdate();
 	    		animate();
 	    		return;
 	    	}
 	    	if (options().resetRequested() && frame.isFocused()) {
-	    		System.out.println("resetRequested() and executed (isFocused)");
+	    		//System.out.println("resetRequested() and executed (isFocused)");
 	    		optionUpdate();
 	    		animate();
 	    		return;
@@ -107,7 +107,7 @@ class GovernorOptionsPanel extends javax.swing.JPanel{
 	    		loadDisplayValues();
 	    		loadValues();
 				options().clearRefresh();
-	    		System.out.println("refreshRequested() and executed");
+	    		//System.out.println("refreshRequested() and executed");
 	    	}
 	    	if ((options().isFullRefreshOnLoad() && frame.isVisible())
 	    			|| frame.isFocused()) {

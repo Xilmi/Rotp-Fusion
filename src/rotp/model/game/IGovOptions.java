@@ -116,7 +116,6 @@ public interface IGovOptions {
 	};
 	ParamBoolean fullRefreshOnLoad		= new ParamBoolean(GOV_UI, "FULL_REFRESH_ON_LOAD", false)
 	{ { isCfgFile(true); } };
-//	{ { isCfgFile(true); isDuplicate(true); } };
 
 	// ==================== GUI List Declarations ====================
 	//
