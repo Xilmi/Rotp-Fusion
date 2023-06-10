@@ -60,6 +60,7 @@ Later:
 - New option to allow full refresh on governor panel when loading a new game.
   - "Off" by default to avoid glitches.
 - Missile size Modifiers split for Bases and Ship weapons.
+- Fixed buttons not showing race display panel first call.
 
 2023.06.09 (BR)
 - Converted some Remnant.cfg settings to options:

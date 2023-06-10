@@ -53,6 +53,7 @@ Last Fixes:
 - Fixed AI-Guide not immediately updated when changing "Show all AIs".
   - Fixed crash on opponent AI selection with guide on and selecting "AI:Selectable".
 - Fixed Governor Panel glitching (badly) on some computers.
+- Fixed buttons not showing race display panel first call.
 
 
 Last Anouuncement:

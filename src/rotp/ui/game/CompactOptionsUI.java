@@ -318,7 +318,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		prevHover = null;
 		descBox.setVisible(true);
 		int hSettingTotal = hDistSetting * numRows;
-		hBG	= titlePad + hSettingTotal + descPadV + descHeigh + buttonPadV + smallButtonH + bottomPad;
+//		hBG	= titlePad + hSettingTotal + descPadV + descHeigh + buttonPadV + smallButtonH + bottomPad;
 		hBG	= titlePad + hSettingTotal + descHeigh + buttonPadV + smallButtonH + bottomPad;
 
 		leftM  = columnPad;

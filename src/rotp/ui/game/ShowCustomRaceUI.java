@@ -173,6 +173,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		cr.setFromRaceToShow(raceUI.selectedEmpire().dataRace());
 	}
 	public void init(RacesUI p)	{ // For Race Diplomatic UI Panel
+		super.init();
 		raceUI = p;
 	}
 	protected void initGUI()	{
