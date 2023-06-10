@@ -491,7 +491,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
                 }
                 if(empire.shipDesignerAI().bombingAdapted(stack.design()) < 0.5 && target.isColony() && !target.isArmed())
                     desirability = Float.MIN_VALUE;
-                if(stack.maxFiringRange(target) <= target.repulsorRange() && stack.movePointsTo(target) > 1)
+                if(!stack.ignoreRepulsors() && stack.maxFiringRange(target) <= target.repulsorRange() && stack.movePointsTo(target) > 1)
                     desirability = -1;
                 if (desirability > maxDesirability && valueMod > 0) {  // this might be a better target, adjust desirability for pathing
                     if (stack.mgr.autoResolve) {
