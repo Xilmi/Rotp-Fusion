@@ -120,12 +120,11 @@ public abstract class AbstractParam <T> implements IParam{
 	//	public abstract void prev();
 	//	public abstract void toggle(MouseWheelEvent e);
 	//	public abstract void toggle(MouseEvent e);
+	@Override public void prepareToSave(IGameOptions o)	{ setOptionValue(o, get()); }
 	@Override public String toString() {
 		return getCfgLabel() + " = " + getCfgValue();
 	}
-	@Override public void updateOptionTool() {
-			set( getOptionValue(opts()));
-	}
+	@Override public void updateOptionTool()	{ set(getOptionValue(opts())); }
 	@Override public void copyOption(IGameOptions src, IGameOptions dest, boolean updateTool) {
 		if (src == null || dest == null)
 			return;

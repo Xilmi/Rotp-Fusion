@@ -255,7 +255,7 @@ public final class GameSession implements Base, Serializable {
     public void startGame(IGameOptions newGameOptions) {
         stopCurrentGame();
 
-        options(newGameOptions);
+        options(newGameOptions.copyAllOptions());
     	RotPUI.currentOptions(IGameOptions.GAME_ID);
         startExecutors();
 
@@ -276,7 +276,7 @@ public final class GameSession implements Base, Serializable {
     // BR: For Restart with new options
     public void restartGame(IGameOptions newGameOptions, GalaxyCopy src) {
     	stopCurrentGame();
-        options(src.options());
+        options(src.options().copyAllOptions());
     	RotPUI.currentOptions(IGameOptions.GAME_ID);
         startExecutors();
 
@@ -853,9 +853,10 @@ public final class GameSession implements Base, Serializable {
         stopCurrentGame();
         instance = gs;
         // BR: save the last loaded game initial parameters
-        instance.options().saveOptionsToFile(GAME_OPTIONS_FILE);
+        instance.options().setAsGame();
     	resolveOptionsDiscrepansies(gs);
     	RotPUI.currentOptions(IGameOptions.GAME_ID);
+        instance.options().saveOptionsToFile(GAME_OPTIONS_FILE);
 
 		if (showInfo)  showInfo(gs.galaxy());
         startExecutors();
@@ -994,6 +995,7 @@ public final class GameSession implements Base, Serializable {
     }
     // BR: added option to restart with new options
     public void loadSession(String dir, String filename, boolean startUp) {
+        RotPUI.currentOptions(IGameOptions.GAME_ID);
         try {
             log("Loading game from file: ", filename);
             File saveFile = dir.isEmpty() ? new File(filename) : new File(dir, filename);

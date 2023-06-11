@@ -18,6 +18,7 @@ package rotp.model.game;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -1479,6 +1480,35 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	}
         source.copyBaseSettings(this, pList);
     }
+    @Override public void prepareToSave(boolean secure) {
+    	System.out.println("prepareToSave() " + optionName());
+    	for (IParam param : allModOptions) {
+    		if (param != null) {
+    			param.prepareToSave(this);
+    		}
+    	}
+    	saveDirectory.prepareToSave(this);
+    	if (secure) {
+    		dynOpts().setString(saveDirectory.getLangLabel(), "");
+    	}
+    }
+    @Override public void UpdateOptionsTools() {
+    	System.out.println("UpdateOptionsTools() " + optionName());
+    	for (IParam param : allModOptions) {
+    		if (param != null && !param.isCfgFile()) {
+    			param.updateOptionTool();
+    		}
+    	}    	
+    }
+    @Override public MOO1GameOptions copyAllOptions() {
+		try {
+			return copyObjectData();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+    }
     // ========== New Options Static files management methods ==========
     //
     // !!! Must remain static: Called before option are fully initialized.
@@ -1496,6 +1526,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	saveOptions(options, Rotp.jarPath(), fileName);
     }
     private static void saveOptions(MOO1GameOptions options, String path, String fileName) {
+    	options.prepareToSave(false);
 		File saveFile = new File(path, fileName);
 		try {
 			saveOptionsTE(options, saveFile);
@@ -1586,5 +1617,28 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         catch (IOException | ClassNotFoundException e) {
             return null;
         }
+    }
+    private MOO1GameOptions copyObjectData() throws Exception {
+		ObjectOutputStream oos = null;
+		ObjectInputStream ois = null;
+		try {
+			ByteArrayOutputStream bos =  new ByteArrayOutputStream();
+			oos = new ObjectOutputStream(bos);
+			// serialize and pass the object
+			oos.writeObject(this);
+			oos.flush();
+			ByteArrayInputStream bin = new ByteArrayInputStream(bos.toByteArray());
+			ois = new ObjectInputStream(bin);
+			// return the new object
+			return (MOO1GameOptions) ois.readObject();
+		}
+		catch(Exception e) {
+			System.out.println("Exception in ObjectCloner = " + e);
+			throw(e);
+		}
+		finally {
+			oos.close();
+			ois.close();
+		}
     }
 }

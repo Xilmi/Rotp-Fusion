@@ -51,7 +51,7 @@ import rotp.util.FontManager;
 /**
  * Produced using Netbeans Swing GUI builder.
  */
-class GovernorOptionsPanel extends javax.swing.JPanel{
+public class GovernorOptionsPanel extends javax.swing.JPanel{
 	
 	private static final float	valueFontSize		= 14f;
 	private static final float	baseFontSize		= 14f;
@@ -68,7 +68,6 @@ class GovernorOptionsPanel extends javax.swing.JPanel{
 	private static final int	ANIMATION_ONGOING	= 1;
 	private static final int	ANIMATION_CANCELED	= 2;
 	private static final int	ANIMATION_RESET		= 3;
-	
 
 	private  Font	valueFont, baseFont, labelFont, buttonFont, panelTitleFont;
 	private  Color	frameBgColor, panelBgColor, textBgColor, valueBgColor;
@@ -92,22 +91,28 @@ class GovernorOptionsPanel extends javax.swing.JPanel{
 	private Runnable timedRefresh	= new Runnable() {
 	    @Override public void run() {
 	    	if (options().resetRequested() && options().isFullRefreshOnLoad() && frame.isVisible()) {
-	    		//System.out.println("resetRequested() and executed (FullRefresh)");
-	    		optionUpdate();
-	    		animate();
+	    		if (!updateOngoing) {
+		    		optionUpdate();
+		    		animate();
+		    		System.out.println("resetRequested() and executed (FullRefresh)");
+	    		}
 	    		return;
 	    	}
 	    	if (options().resetRequested() && frame.isFocused()) {
-	    		//System.out.println("resetRequested() and executed (isFocused)");
-	    		optionUpdate();
-	    		animate();
+	    		if (!updateOngoing) {
+		    		optionUpdate();
+		    		animate();
+		    		System.out.println("resetRequested() and executed (isFocused)");
+	    		}
 	    		return;
 	    	}
 	    	if (options().refreshRequested()) {
-	    		loadDisplayValues();
-	    		loadValues();
-				options().clearRefresh();
-	    		//System.out.println("refreshRequested() and executed");
+	    		if (!updateOngoing) {
+		    		loadDisplayValues();
+		    		loadValues();
+					options().clearRefresh();
+		    		System.out.println("refreshRequested() and executed");
+	    		}
 	    	}
 	    	if ((options().isFullRefreshOnLoad() && frame.isVisible())
 	    			|| frame.isFocused()) {
@@ -115,7 +120,7 @@ class GovernorOptionsPanel extends javax.swing.JPanel{
 	    	}
 	    }
 	};
-	private final JFrame frame;
+	private static JFrame frame;
 	
 	// ========== Public Method and Overrider ==========
 	//
@@ -127,6 +132,17 @@ class GovernorOptionsPanel extends javax.swing.JPanel{
 		}
 	} 
 	void applyStyle() { protectedUpdatePanel(); }
+	void reOpen() {
+		System.out.println("executor.getTaskCount() " + executor.getTaskCount());
+		System.out.println("executor.executor.getQueue().size() " + executor.getQueue().size());
+		if (executor.getQueue().size() == 0)
+			anim = executor.scheduleAtFixedRate(timedRefresh, 0, animationStep, TimeUnit.MILLISECONDS);
+	}
+	public static void close() {
+		if (frame == null)
+			return;
+		frame.setVisible(false); 
+	}
 	
 	// ========== Protected initializers ==========
 	// Loading and saving values occurring during these call
@@ -174,8 +190,9 @@ class GovernorOptionsPanel extends javax.swing.JPanel{
 
 	// ========== Constructor and initializers ==========
 	//
-	GovernorOptionsPanel(JFrame frame) {
-		this.frame = frame;
+	GovernorOptionsPanel(JFrame f) {
+		frame = f;
+		options().clearReset();
 		frame.setVisible(true);
 		protectedInitPanel();
 	}

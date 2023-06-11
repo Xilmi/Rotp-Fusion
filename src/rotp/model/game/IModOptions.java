@@ -3,7 +3,6 @@ package rotp.model.game;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-import rotp.ui.RotPUI;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamTitle;
 
@@ -27,11 +26,10 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 	default boolean	isGameOption()			{ return id() == GAME_ID; }
 	default boolean	isSetupOption()			{ return id() == SETUP_ID; }
 	default boolean	isUnknownOption()		{ return !isGameOption() && !isSetupOption(); }
-	/**
-	 * New options have been set:
-	 * Switch between Game and Setup, reinitialize tools
-	 */
-	default void	updateGuiOptionsId()	{ RotPUI.currentOptions(id()); }
+
+	void prepareToSave(boolean secure);
+	void UpdateOptionsTools();
+	MOO1GameOptions copyAllOptions();
 	
 	void loadStartupOptions();
 	/**
@@ -95,6 +93,7 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 		allModOptions.addAll(autoFlagOptions);
 		allModOptions.addAll(convenienceOptions);
 		allModOptions.addAll(governorOptions);
+		allModOptions.addAll(mainOptionsUI);
 		return allModOptions;
 	};
 

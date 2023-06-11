@@ -111,7 +111,7 @@ public interface IConvenienceOptions extends IMapOptions {
 			Arrays.asList(
 				systemNameDisplay, shipDisplay, flightPathDisplay, showGridCircular, showShipRanges,
 				null,
-				autoColonize_, autoBombard_, divertExcessToResearch, defaultMaxBases,
+				autoColonize_, autoBombard_, divertExcessToResearch, defaultMaxBases, IMainOptions.compactOptionOnly,
 				null,
 				displayYear, showNextCouncil, showAlliancesGNN, showLimitedWarnings, techExchangeAutoRefuse
 			));

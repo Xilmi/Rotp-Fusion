@@ -671,6 +671,7 @@ public class EmpireColonySpendingPane extends BasePanel {
                 governorOptionsFrame.pack();
                 governorOptionsFrame.setVisible(true);
                 governorOptionsFrame.setLocation(GameSession.instance().getGovernorOptions().getPosition());
+                ((GovernorOptionsPanel) governorOptionsFrame.getContentPane()).reOpen();
             }
         });
     }

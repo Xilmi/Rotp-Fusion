@@ -46,6 +46,7 @@ import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import rotp.model.game.GameSession;
+import rotp.model.game.IGameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseTextField;
 import rotp.ui.NoticeMessage;
@@ -105,7 +106,7 @@ public final class SaveGameUI extends BasePanel implements MouseListener, MouseW
         newFileField.setFont(narrowFont(20));
         newFileField.setText(GameUI.gameName);                
         saving = false;
-
+        RotPUI.currentOptions(IGameOptions.GAME_ID);
         sortListing();
     }
     private void sortListing() {
@@ -293,6 +294,10 @@ public final class SaveGameUI extends BasePanel implements MouseListener, MouseW
         GameUI.gameName = newFileField.getText().trim();
         repaint();
         buttonClick();
+        // Remove sensitive info that should not be shared in game file
+        // (May contains player name)
+        RotPUI.currentOptions(IGameOptions.GAME_ID);
+        options().prepareToSave(true);
         final Runnable save = () -> {
             try {
                 GameSession.instance().saveSession(s, false);

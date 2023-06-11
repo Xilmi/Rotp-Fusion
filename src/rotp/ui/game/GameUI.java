@@ -457,6 +457,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
 
     public void init() {
         slideshowFade = SLIDESHOW_MAX;
+        rotp.ui.main.GovernorOptionsPanel.close();
     	RotPUI.currentOptions(IGameOptions.SETUP_ID);
         resetSlideshowTimer();
 		ModifierKeysState.reset();
@@ -785,6 +786,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             	session().loadLastSavedGame(true);
             	// session().loadRecentSession(true);
             }
+        	RotPUI.currentOptions(IGameOptions.GAME_ID);
             RotPUI.instance().selectMainPanel();
             RotPUI.instance().mainUI().showDisplayPanel();
         }

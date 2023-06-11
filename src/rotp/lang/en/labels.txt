@@ -1673,6 +1673,11 @@ CUSTOM_RACE_DISCOVERY_FORCEFIELD  | Disc. Force Field
 CUSTOM_RACE_DISCOVERY_PLANET      | Disc. Planet
 CUSTOM_RACE_DISCOVERY_PROPULSION  | Disc. Propulsion
 CUSTOM_RACE_DISCOVERY_WEAPON      | Disc. Weapon
+CUSTOM_RACE_DIPLOMACY_TRADE_DESC        | Probability offset of getting better trades.
+CUSTOM_RACE_DIPLO_POS_DP_DESC           | Probability offset of getting better diplomacy relation.
+CUSTOM_RACE_DIPLOMACY_BONUS_DESC        | Probability offset of getting better diplomacy relation.
+CUSTOM_RACE_DIPLOMACY_COUNCIL_DESC      | Probability offset of getting better council friends.
+CUSTOM_RACE_RELATION_DEFAULT_DESC       | Global Diplomacy improvement.
 CUSTOM_RACE_DISCOVERY_COMPUTER_DESC     | Probability offset of getting Computer tech available. Display: Offset -> Sum (Cost)
 CUSTOM_RACE_DISCOVERY_CONSTRUCTION_DESC | Probability offset of getting Construction tech available. Display: Offset -> Sum (Cost)
 CUSTOM_RACE_DISCOVERY_FORCEFIELD_DESC   | Probability offset of getting Force Field tech available. Display: Offset -> Sum (Cost)
