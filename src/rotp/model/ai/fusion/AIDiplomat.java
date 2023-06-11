@@ -1395,7 +1395,7 @@ public class AIDiplomat implements Base, Diplomat {
         return best;
     }
     public boolean readyForWarRP(EmpireView v) {
-        if(empire.leader().isPacifist() || empire.leader().isHonorable())
+        if(galaxy().numActiveEmpires() > 2 && (empire.leader().isPacifist() || empire.leader().isHonorable()))
             return false;
         boolean warAllowed = true;
         float myPower = empire.powerLevel(empire);
@@ -2188,7 +2188,7 @@ public class AIDiplomat implements Base, Diplomat {
         return bestVictim;
     }
     Empire getVictim() {
-        if(variant == 1) {
+        if(variant == 1 && galaxy().numActiveEmpires() > 2) {
             if(empire.leader().isDiplomat())
                 return empire.generalAI().bestVictim();
             if(empire.leader().isExpansionist())
