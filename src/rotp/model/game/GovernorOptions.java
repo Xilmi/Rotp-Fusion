@@ -138,7 +138,6 @@ public class GovernorOptions implements Serializable, IGovOptions {
 			governorByDefault.silentSet(governorOnByDefault);
 		}
 		autoShipsByDefault = false;
-//		callForRefresh(GOV_REFRESH);
 		for (IParam param: governorOptions) {
 			param.updateOptionTool();
 		}

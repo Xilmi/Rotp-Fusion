@@ -85,17 +85,22 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 	private  Integer	sizeFactorPct,	brightnessFactorPct;
 	private  int		animationLive	= 0;
 	private  boolean	updateOngoing	= false;
+	private  boolean	horlogeOngoing	= false; // Another crash prevention
 
     private ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(15); // no
     private ScheduledFuture<?> anim;
-	private Runnable timedRefresh	= new Runnable() {
+	private Runnable timedRefresh = new Runnable() {
 	    @Override public void run() {
+	    	if (horlogeOngoing)
+	    		return;
+	    	horlogeOngoing	= true;
 	    	if (options().resetRequested() && options().isFullRefreshOnLoad() && frame.isVisible()) {
 	    		if (!updateOngoing) {
 		    		optionUpdate();
 		    		animate();
 		    		System.out.println("resetRequested() and executed (FullRefresh)");
 	    		}
+	    		horlogeOngoing	= false;
 	    		return;
 	    	}
 	    	if (options().resetRequested() && frame.isFocused()) {
@@ -104,6 +109,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 		    		animate();
 		    		System.out.println("resetRequested() and executed (isFocused)");
 	    		}
+	    		horlogeOngoing	= false;
 	    		return;
 	    	}
 	    	if (options().refreshRequested()) {
@@ -118,6 +124,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 	    			|| frame.isFocused()) {
 	    		animate();
 	    	}
+	    	horlogeOngoing	= false;
 	    }
 	};
 	private static JFrame frame;
@@ -133,10 +140,11 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 	} 
 	void applyStyle() { protectedUpdatePanel(); }
 	void reOpen() {
-		System.out.println("executor.getTaskCount() " + executor.getTaskCount());
-		System.out.println("executor.executor.getQueue().size() " + executor.getQueue().size());
-		if (executor.getQueue().size() == 0)
-			anim = executor.scheduleAtFixedRate(timedRefresh, 0, animationStep, TimeUnit.MILLISECONDS);
+		if (executor.getQueue().size() == 0) {
+			System.out.println("executor Timer Restarted ");
+			horlogeOngoing = false;
+			anim = executor.scheduleAtFixedRate(timedRefresh, animationStep, animationStep, TimeUnit.MILLISECONDS);
+		}
 	}
 	public static void close() {
 		if (frame == null)
@@ -336,7 +344,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 	}
 	private void startAnimation() {
 		if (anim == null)
-			anim = executor.scheduleAtFixedRate(timedRefresh, 0, animationStep, TimeUnit.MILLISECONDS);
+			anim = executor.scheduleAtFixedRate(timedRefresh, animationStep, animationStep, TimeUnit.MILLISECONDS);
 		if (updateOngoing)
 			return;
 		if (isAnimatedImage() && animationLive == ANIMATION_STOPPED) {

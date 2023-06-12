@@ -1396,6 +1396,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
    		}
     }
     private void transfert(String fileName, boolean set) {
+    	// to avoid loosing former cfg settings.
     	MOO1GameOptions opts = loadOptions(fileName);
 		displayYear.transfert(opts, set);
 		showAlliancesGNN.transfert(opts, set);
@@ -1410,7 +1411,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
     // ==================== New Options files public access ====================
     //
-    @Override public void loadStartupOptions() { // TODO BR: Transfer
+    @Override public void loadStartupOptions() {
         System.out.println("==================== loadStartupOptions() ====================");
     	if (menuStartup.isUser()) {
     		updateFromFile(USER_OPTIONS_FILE);
@@ -1481,21 +1482,24 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         source.copyBaseSettings(this, pList);
     }
     @Override public void prepareToSave(boolean secure) {
-    	System.out.println("prepareToSave() " + optionName());
+    	// probably not necessary! but it's called during screen swap and won't delay the game
+    	//System.out.println("prepareToSave() " + optionName());
     	for (IParam param : allModOptions) {
     		if (param != null) {
     			param.prepareToSave(this);
     		}
     	}
-    	saveDirectory.prepareToSave(this);
     	if (secure) {
+    		// No computer info in game files... Folder path may contains player name!
     		dynOpts().setString(saveDirectory.getLangLabel(), "");
+    		dynOpts().setString(bitmapGalaxyLastFolder.getLangLabel(), "");
     	}
     }
     @Override public void UpdateOptionsTools() {
-    	System.out.println("UpdateOptionsTools() " + optionName());
+    	// probably overkill, but no needs to be picky
+    	//System.out.println("UpdateOptionsTools() " + optionName());
     	for (IParam param : allModOptions) {
-    		if (param != null && !param.isCfgFile()) {
+    		if (param != null && !param.isCfgFile()) { // cfg file if updated live!
     			param.updateOptionTool();
     		}
     	}    	

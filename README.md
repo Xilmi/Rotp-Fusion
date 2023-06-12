@@ -56,8 +56,10 @@ Later:
 
 ## What's New
 
-2023.06.10 (BR)
-- Governor panel mixed fixes
+2023.06.11 (BR)
+- Governor panel mixed fixes.
+- Secured Governor a little more.
+- Removed both folder paths from the file save.
 
 2023.06.10 (BR)
 - New option to allow full refresh on governor panel when loading a new game.

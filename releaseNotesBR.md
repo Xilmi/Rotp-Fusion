@@ -12,7 +12,7 @@ Last updates:
     - No more silently updated when going through the main menu.
     - The player decide when setup options needs to be reloaded.
   - Loaded games will always load their own options. (No mix with some current setup options)
-    - The player decide if an when to change some options.
+    - The player decide if and when to change some options.
   - Removed "global" load and save from sub-menus.
     - Only Race setup panel and Galaxy setup panel will allow Global reload.
     - Sub panels are available in-game, and it wouldn't be a good idea to reload all parameters there!
@@ -21,7 +21,7 @@ Last updates:
   - If you always want to play with the same race: Standard races can be selected in custom race menu.
   - "R" in Race setup panel will randomize your race.
 - Custom Race Panel: "Save" button is now on top of "load" Button
-- On launch; Continue will now load the last saved game.
+- On launch; "Continue" will now load the last saved game.
 - Showing which ship is currently being built on each colony on the main-map right below the colony.
 - Techs which you could steal but are obsolete to your empire are now displayed in grey on the intelligence-tab in the races-screen.
 - When you select your own empire on the intelligence-tab in the races-screen the techs you are lacking now also are color-coded in grey, yellow or orange depending on whether they are obsolete, stealable or not stealable.
@@ -37,7 +37,7 @@ Last updates:
 - "Menu Options" received new options from in-game Galaxy Map panel, and allow saving them in User's prefered options.
   - A guide has been writen for these options too.
 - New option to allow full refresh on governor panel when loading a new game.
-  - "Off" by default to avoid glitches.
+  - "Off" by default to avoid glitches on some computer.
 - Separate missile size Modifiers for Bases and Ship weapons.
   - They are initialized with the former common modifier.
 
@@ -53,7 +53,7 @@ Last Fixes:
 - Fixed AI-Guide not immediately updated when changing "Show all AIs".
   - Fixed crash on opponent AI selection with guide on and selecting "AI:Selectable".
 - Fixed Governor Panel glitching (badly) on some computers.
-- Fixed buttons not showing race display panel first call.
+- Fixed buttons not showing race display panel on first call.
 
 
 Last Anouuncement:
