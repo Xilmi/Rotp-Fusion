@@ -745,8 +745,6 @@ public class AIDiplomat implements Base, Diplomat {
             return false;
         if (!canOfferAlliance(e))
             return false;       
-        if (v.embassy().alliedWithEnemy())
-            return false;
         if(!viableAlly(v))
             return false;
         // do we like the other to want to join an alliance
