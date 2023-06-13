@@ -53,6 +53,16 @@ Later:
 
 ## What's New
 
+2023.06.13 (BR)
+- Send transport panel has 2 new columns:
+  - Stable = Max population to send to keep a stable population on Max ECO.
+  - Fill = Max Population to send to have the planet filled on Max ECO.
+  - Left click on slider = normal % selection.
+  - Middle click on slider = "Stable"-value selection.
+  - Right click on slider = "Fill"-value selection.
+  - It's up to the player or the governor to set the ECO to max.
+  
+
 2023.06.12 (BR)
 - Made Governor options available through Base Interface.
 - Captured planet governor is now set to the Governor default value.

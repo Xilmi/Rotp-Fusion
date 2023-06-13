@@ -34,7 +34,6 @@ import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import rotp.model.empires.Empire;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
 import rotp.ui.main.SystemPanel;
@@ -121,7 +120,7 @@ public class MassTransportsDialog extends BasePanel {
     }
     public void initSystems() {
         StarSystem.TARGET_SYSTEM = topParent.targetSystem;
-        Empire pl = player();
+        //Empire pl = player();
         sourceSystems.clear();
         sourceSystems.addAll(topParent.filteredSystems);
         sourceSystems.remove(topParent.targetSystem);
@@ -143,7 +142,8 @@ public class MassTransportsDialog extends BasePanel {
         footerUI.close();
     }
     private void setBoundsH(int h) {
-        setBounds(scaled(150),scaled(100),scaled(730),h);
+        setBounds(scaled(90),scaled(100),scaled(850),h); // BR: added for 2 columns
+//        setBounds(scaled(150),scaled(100),scaled(730),h);
     }
     private void initModel() {
         setBoundsH(scaled(600));
@@ -243,6 +243,8 @@ public class MassTransportsDialog extends BasePanel {
             Column populationCol = newSystemDataColumn("PLANETS_LIST_POP", "POPULATION", 60, palette.black, StarSystem.POPULATION, RIGHT);
             Column sizeCol = newSystemDataColumn("PLANETS_LIST_SIZE", "SIZE", 60, palette.black, StarSystem.CURRENT_SIZE, RIGHT);
             Column pTypeCol = newPlanetTypeColumn("PLANETS_LIST_TYPE", "PLANET_TYPE", 90, StarSystem.PLANET_TYPE);
+            Column maxNoLossCol = newSystemDataColumn("PLANETS_LIST_MAX_TRANS_NO_LOSS", "NO_LOSS", 60, palette.black, StarSystem.TRANS_NO_LOSS, RIGHT);
+            Column maxToFillCol = newSystemDataColumn("PLANETS_LIST_MAX_TRANS_TO_FILL", "TO_FILL", 60, palette.black, StarSystem.TRANS_TO_FILL, RIGHT);
             Column distCol = newSystemDataColumn(Column.YEARS_OR_TURNS, "TRANSPORT_TURNS", 60, palette.black, StarSystem.TRANSPORT_TIME_TO_TARGET_SYSTEM, RIGHT);
             transportsCol = newSystemSetTransportsColumn("PLANETS_LIST_TRANSPORTS", this, 999);
 
@@ -253,6 +255,8 @@ public class MassTransportsDialog extends BasePanel {
             view.addColumn(populationCol);
             view.addColumn(sizeCol);
             view.addColumn(pTypeCol);
+            view.addColumn(maxNoLossCol);
+            view.addColumn(maxToFillCol);
             view.addColumn(distCol);
             view.addColumn(transportsCol);
 

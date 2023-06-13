@@ -898,6 +898,8 @@ PLANETS_LIST_NAME                 | Name
 PLANETS_LIST_POPULATION           | Population
 PLANETS_LIST_POP                  | Pop.
 PLANETS_LIST_SIZE                 | Size
+PLANETS_LIST_MAX_TRANS_TO_FILL    | Fill
+PLANETS_LIST_MAX_TRANS_NO_LOSS    | Stable
 PLANETS_LIST_TYPE                 | Type
 PLANETS_LIST_FACTORIES            | Factories
 PLANETS_LIST_WASTE                | Waste

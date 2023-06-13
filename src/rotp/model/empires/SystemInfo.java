@@ -58,7 +58,7 @@ public class SystemInfo implements Serializable, Base {
     public int empId(int i)              { return missing(i) ? Empire.NULL_ID : view(i).empId(); }
     public Colony colony(int i)          { return missing(i) ? null : view(i).colony(); }
     public PlanetType planetType(int i)  { return view(i).planetType(); }
-    public float distance(int i)        { return distances[i]; }
+    public float distance(int i)         { return distances[i]; }
     public int population(int i)         { return missing(i) ? 0  : view(i).population(); }
     public int deltaPopulation(int i)    { return missing(i) ? 0  : view(i).deltaPopulation(); }
     public int factories(int i)          { return missing(i) ? 0  : view(i).factories(); }
@@ -67,6 +67,8 @@ public class SystemInfo implements Serializable, Base {
     public int bases(int i)              { return missing(i) ? 0  : view(i).bases(); }
     public int deltaBases(int i)         { return missing(i) ? 0  : view(i).deltaBases(); }
     public int currentSize(int i)        { return missing(i) ? 0  : view(i).currentSize(); }
+    public int maxTransToFill(int i)     { return missing(i) ? 0  : view(i).maxTransToFill(); }
+    public int maxTransNoLoss(int i)     { return missing(i) ? 0  : view(i).maxTransNoLoss(); }
     public int desiredMissileBases(int i)  { return missing(i) ? 0  : view(i).desiredMissileBases(); }
     public float defenderCombatAdj(int i)  { return missing(i) ? 0  : view(i).defenderCombatAdj(); }
     public int spyReportAge(int i)       { return missing(i) ? -1 : view(i).spyReportAge(); }

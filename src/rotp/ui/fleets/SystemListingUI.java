@@ -800,6 +800,7 @@ public abstract class SystemListingUI extends BasePanel implements MouseListener
         @Override
         public void click() {
             super.click();
+            System.out.println("SystemDataColumn Click()");
             if (enabled()) {
                 reversed = !reversed;
                 sort(comp, reversed);
@@ -1110,7 +1111,10 @@ public abstract class SystemListingUI extends BasePanel implements MouseListener
             redrawHeaders = true;
         }
         @Override
-        public void click() { column.click(); }
+        public void click() {
+           	System.out.println("HeaderSprite Click()");
+        	column.click();
+        }
     }
     public class RowSprite extends Sprite {
         StarSystem system;
@@ -1149,7 +1153,10 @@ public abstract class SystemListingUI extends BasePanel implements MouseListener
         @Override
         public void exit()  {  }
         @Override
-        public void click() { selectedSystem(system, true); }
+        public void click() {
+        	System.out.println("RowSprite Click()");
+        	selectedSystem(system, true);
+        }
         @Override
         public void shiftClick() { shiftSelectedSystem(system, true); }
         @Override
@@ -1174,8 +1181,14 @@ public abstract class SystemListingUI extends BasePanel implements MouseListener
                 return;
             int maxSendingSize = player().sv.maxTransportsToSend(sys.id);
             float pct = (float) (e.getX() -x) / width;
-            int newAmt = max(0, (int) Math.ceil(pct*(maxSendingSize+1))-1);
             int oldAmt = sys.transportSprite().amt();
+            int newAmt;
+            if (SwingUtilities.isMiddleMouseButton(e))
+            	newAmt = max(0, player().sv.maxTransNoLoss(sys.id));
+            else if (SwingUtilities.isRightMouseButton(e))
+            	newAmt = max(0, player().sv.maxTransToFill(sys.id));
+            else
+            	newAmt = max(0, (int) Math.ceil(pct*(maxSendingSize+1))-1);
             if (oldAmt != newAmt) {
                 softClick();
                 sys.transportSprite().amt(newAmt);

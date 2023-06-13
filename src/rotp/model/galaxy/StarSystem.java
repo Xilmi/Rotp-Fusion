@@ -441,6 +441,8 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
             case "SHIELD":           return str(colony().defense().shieldLevel());
             case "TRANSPORT_TURNS":  return str((int)Math.ceil(transportTimeTo(TARGET_SYSTEM)));
             case "RESOURCES":        return text(empire().sv.view(id).resourceType());
+            case "TO_FILL":          return str(empire().sv.view(id).maxTransToFill());
+            case "NO_LOSS":          return str(empire().sv.view(id).maxTransNoLoss());
         }
         return "";
     }
@@ -476,6 +478,14 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
     public static Comparator<StarSystem> CURRENT_SIZE = (StarSystem sys1, StarSystem sys2) -> {
         Empire emp = sys1.empire();
         return Base.compare(emp.sv.currentSize(sys1.id),emp.sv.currentSize(sys2.id));
+    };
+    public static Comparator<StarSystem> TRANS_TO_FILL = (StarSystem sys1, StarSystem sys2) -> {
+        Empire emp = sys1.empire();
+        return Base.compare(emp.sv.maxTransToFill(sys1.id),emp.sv.maxTransToFill(sys2.id));
+    };
+    public static Comparator<StarSystem> TRANS_NO_LOSS = (StarSystem sys1, StarSystem sys2) -> {
+        Empire emp = sys1.empire();
+        return Base.compare(emp.sv.maxTransNoLoss(sys1.id),emp.sv.maxTransNoLoss(sys2.id));
     };
     public static StarSystem TARGET_SYSTEM;
     public static Comparator<StarSystem> DISTANCE_TO_TARGET_SYSTEM = new Comparator<StarSystem>() {

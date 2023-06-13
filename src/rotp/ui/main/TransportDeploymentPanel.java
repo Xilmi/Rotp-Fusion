@@ -707,14 +707,6 @@ public class TransportDeploymentPanel extends SystemPanel {
                 g.setStroke(prevStroke);
             }
         }
-//        public void toggleFlagColor(boolean rightClick) {
-//            StarSystem sys = destination();
-//            if (rightClick)
-//                player().sv.resetFlagColor(sys.id);
-//            else
-//                player().sv.toggleFlagColor(sys.id);
-//            parentSpritePanel.repaint();
-//        }
         @Override
         public void mouseDragged(MouseEvent e) { }
         @Override

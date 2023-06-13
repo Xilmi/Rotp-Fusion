@@ -40,6 +40,14 @@ Last updates:
   - "Off" by default to avoid glitches on some computer.
 - Separate missile size Modifiers for Bases and Ship weapons.
   - They are initialized with the former common modifier.
+- Send transport panel has 2 new columns:
+  - Stable = Max population to send to keep a stable population on Max ECO.
+  - Fill = Max Population to send to have the planet filled on Max ECO.
+  - Left click on slider = normal % selection.
+  - Middle click on slider = "Stable"-value selection.
+  - Right click on slider = "Fill"-value selection.
+  - It's up to the player or the governor to set the ECO to max.
+
 
 Last Fixes:
 - New Governor Panel don't crash any more on Apple OS.

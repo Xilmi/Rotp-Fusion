@@ -1180,7 +1180,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     }
     // New autotransport. Start with targets first.
     public void autotransport() {
-        GovernorOptions options = session().getGovernorOptions();
+        GovernorOptions options = govOptions();
         if (isAIControlled()) {
             return;
         }

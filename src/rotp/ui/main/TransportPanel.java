@@ -38,12 +38,6 @@ import rotp.model.empires.Race;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.galaxy.Transport;
 import rotp.ui.BasePanel;
-import static rotp.ui.BasePanel.s1;
-import static rotp.ui.BasePanel.s12;
-import static rotp.ui.BasePanel.s3;
-import static rotp.ui.BasePanel.s30;
-import static rotp.ui.BasePanel.s6;
-import static rotp.ui.BasePanel.stroke2;
 
 public class TransportPanel extends BasePanel {
     private static final long serialVersionUID = 1L;

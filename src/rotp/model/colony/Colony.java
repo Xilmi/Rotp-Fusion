@@ -1002,16 +1002,18 @@ public final class Colony implements Base, IMappedObject, Serializable {
     public float maxUseableFactories() {
         return workingPopulation() * empire().maxRobotControls();
     }
-    public float normalPopGrowth() {
-        // calculate growth rate based on current pop, environment & race
-        float maxNewPopulation = planet.currentSize() - workingPopulation();
-        float baseGrowthRate = max(0, (1 - (workingPopulation() / planet.currentSize())) / 10);
+    public float normalPopGrowth() { return normalPopGrowth(0); }
+    public float normalPopGrowth(int toSend) { // BR: to check effect of sending population
+        // calculate growth rate based on current pop, environment & race & new sent pop
+    	float workingPopulation = (workingPopulation() - toSend);
+        float maxNewPopulation = planet.currentSize() - workingPopulation;
+        float baseGrowthRate = max(0, (1 - (workingPopulation / planet.currentSize())) / 10);
         baseGrowthRate *= empire.growthRateMod();
         if (!empire.ignoresPlanetEnvironment())
             baseGrowthRate *= planet.growthAdj();
 
         // always at least .1 base growth in pop
-        float newGrownPopulation = max(.1f, workingPopulation() * baseGrowthRate);
+        float newGrownPopulation = max(.1f, workingPopulation * baseGrowthRate);
         newGrownPopulation = min(newGrownPopulation, maxNewPopulation);
 
         return newGrownPopulation;
@@ -1879,7 +1881,6 @@ public final class Colony implements Base, IMappedObject, Serializable {
         allocation(Colony.INDUSTRY, indAll);
         locked(Colony.INDUSTRY, true);
     }
-
     public float unrestrictedPopGrowth() {
         // calculate growth rate based on current pop, environment & race
         float baseGrowthRate = max(0, (1 - (workingPopulation() / planet.currentSize())) / 10);
@@ -1891,6 +1892,47 @@ public final class Colony implements Base, IMappedObject, Serializable {
         float newGrownPopulation = max(.1f, workingPopulation() * baseGrowthRate);
         return newGrownPopulation;
     }
+    private int upcomingPopGrowth(int toSend) {
+    	float oldPop = population;
+    	int   oldEco = allocation(ECOLOGY);
+        allocation(ECOLOGY, 50);
+    	population -= toSend;
+        int expectedPopGrowth = ecology().upcomingPopGrowth();
+        population = oldPop;
+        allocation(ECOLOGY, oldEco);
+        return expectedPopGrowth;
+    }
+    private boolean willBeFilled(int toSend) {
+    	float expectedPop = population - toSend + upcomingPopGrowth(toSend);
+    	return planet.currentSize() <= expectedPop;
+    }
+    private boolean willNotDecline(int toSend) {
+    	float expectedPop = population - toSend + upcomingPopGrowth(toSend);
+    	return population <= expectedPop;
+    }
+    public int maxTransportToFill() { // TODO BR Max Growth
+    	int lim = maxTransportsAllowed();
+    	int maxTransport = 0;
+    	for (int i=0; i<=lim; i++) {
+    		if (willBeFilled(i))
+    			maxTransport = i;
+    		else
+    			return maxTransport;
+    	}
+    	return maxTransport;
+    }
+    public int maxTransportNoLoss() { // TODO BR Max Growth
+    	int lim = maxTransportsAllowed();
+    	int maxTransport = 0;
+    	for (int i=0; i<=lim; i++) {
+    		if (willNotDecline(i))
+    			maxTransport = i;
+    		else
+    			return maxTransport;
+    	}
+    	return maxTransport;
+    }
+
     // Try to transport extra population to other plants.
     // Since 1.9 minimum cost to transport population is 10 BC which means
     // we have to transport in bunches of ~10 (configurable).
