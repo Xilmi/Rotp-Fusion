@@ -23,7 +23,6 @@ import rotp.model.colony.ColonySpendingCategory;
 import rotp.model.empires.Empire;
 import rotp.model.empires.SystemView;
 import rotp.model.galaxy.StarSystem;
-import rotp.model.game.GameSession;
 import rotp.model.planet.Planet;
 import rotp.util.Base;
 
@@ -92,7 +91,7 @@ public class AIGovernor implements Base, Governor {
         }
         if (col.ecology().populationGrowthCompletedThisTurn()) {
             // disable colony at max pop message if governor is on and we are using auto transport
-            if (!col.isGovernor() || !GameSession.instance().getGovernorOptions().isAutotransport()) {
+            if (!col.isGovernor() || !govOptions().isAutotransport()) {
                 session().addSystemToAllocate(sys, text("MAIN_ALLOCATE_MAX_POPULATION", name, (int) col.maxSize()));
             }
         }

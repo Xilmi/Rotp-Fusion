@@ -30,7 +30,6 @@ import rotp.model.galaxy.IMappedObject;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.galaxy.Transport;
-import rotp.model.game.GameSession;
 import rotp.model.game.GovernorOptions;
 import rotp.model.incidents.ColonyCapturedIncident;
 import rotp.model.incidents.ColonyInvadedIncident;
@@ -1411,11 +1410,15 @@ public final class Colony implements Base, IMappedObject, Serializable {
 
         // if system was captured, clear shipbuilding, we don't want systems just captured building ships
         // Do that if governor is on by default, otherwise stick to default behaviour
-        if (tr.empire().isPlayerControlled() && GameSession.instance().getGovernorOptions().isGovernorOnByDefault()) {
-            System.out.println("System captured "+name()+", clearing shipbuilding");
-            locked(SHIP, false);
-            locked(INDUSTRY, false);
-            setAllocation(SHIP, 0);
+        if (tr.empire().isPlayerControlled()) {
+        	// BR: Set the new governor
+        	setGovernor(govOptions().isGovernorOnByDefault());
+            if (isGovernor()) {
+	            System.out.println("System captured "+name()+", clearing shipbuilding");
+	            locked(SHIP, false);
+	            locked(INDUSTRY, false);
+	            setAllocation(SHIP, 0);
+	        }
         }
 
         if (loser.numColonies() == 0)
@@ -1522,9 +1525,9 @@ public final class Colony implements Base, IMappedObject, Serializable {
         }
     }
 
-    private boolean governor = GameSession.instance().getGovernorOptions().isGovernorOnByDefault();
+    private boolean governor = govOptions().isGovernorOnByDefault();
 //  TODO: For future use, flag allowing this colony to autobuild ships
-    private boolean autoShips = GameSession.instance().getGovernorOptions().isAutoShipsByDefault();
+    private boolean autoShips = govOptions().isAutoShipsByDefault();
 
     public boolean isGovernor() {
         return governor;

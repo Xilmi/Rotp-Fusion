@@ -71,6 +71,7 @@ import rotp.model.galaxy.Galaxy;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.game.DynOptions;
 import rotp.model.game.GameSession;
+import rotp.model.game.GovernorOptions;
 import rotp.model.game.IGameOptions;
 import rotp.model.tech.Tech;
 import rotp.model.tech.TechLibrary;
@@ -115,6 +116,7 @@ public interface Base {
     public default IGameOptions newGameOptions() { return RotPUI.newOptions(); }
     public default IGameOptions guiOptions()	 { return RotPUI.currentOptions(); }
     public default DynOptions   dynOptions()	 { return guiOptions().dynOpts(); }
+    public default GovernorOptions govOptions()	 { return GameSession.instance().getGovernorOptions(); }
 
     public default Object sessionVar(String key) {
         return session().var(key);

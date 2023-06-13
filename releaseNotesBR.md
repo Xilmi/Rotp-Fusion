@@ -54,6 +54,7 @@ Last Fixes:
   - Fixed crash on opponent AI selection with guide on and selecting "AI:Selectable".
 - Fixed Governor Panel glitching (badly) on some computers.
 - Fixed buttons not showing race display panel on first call.
+- Captured planet governor is now set to the Governor default value.
 
 
 Last Anouuncement:

@@ -29,10 +29,7 @@ Now:
 - Playing the game...
 
 Bug to fix:
-- I have noticed that whenever I capture an AI homeworld, the governor for that world is on by default.
-- Change Error messages.
-- Governor acting when it should not.
-- random race stay random if not changed by user!
+- Some unexpected Map misalignment...
 
 Very soon:
 - Spare Xenophobes: Stop if caught too.
@@ -55,6 +52,11 @@ Later:
 
 
 ## What's New
+
+2023.06.12 (BR)
+- Made Governor options available through Base Interface.
+- Captured planet governor is now set to the Governor default value.
+
 
 2023.06.11 (BR)
 - Governor panel mixed fixes.

@@ -27,7 +27,6 @@ import rotp.model.galaxy.StarSystem;
 import rotp.model.ships.ShipDesign;
 import rotp.model.ships.ShipDesignLab;
 import rotp.ui.RotPUI;
-import rotp.ui.UserPreferences;
 import rotp.ui.combat.ShipBattleUI;
 import rotp.util.Base;
 
@@ -984,7 +983,7 @@ public class ShipCombatManager implements Base {
         }
     }
     private void removeMissileFromCombat(CombatStackMissile miss) {
-        List missList = miss.target.missiles();
+        List<CombatStackMissile> missList = miss.target.missiles();
         synchronized(missList) {
             missList.remove(miss);
         }

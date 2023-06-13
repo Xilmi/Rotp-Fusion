@@ -27,7 +27,6 @@ import java.util.ArrayList; // modnar: change to cleaner icon set
 
 import rotp.model.colony.Colony;
 import rotp.model.galaxy.StarSystem;
-import rotp.model.game.GameSession;
 import rotp.model.game.GovernorOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
@@ -643,7 +642,7 @@ public class EmpireColonySpendingPane extends BasePanel {
                     		addComponentListener(new java.awt.event.ComponentAdapter() {
                                 @Override
                     			public void componentMoved(java.awt.event.ComponentEvent evt) {
-                                	GovernorOptions options = GameSession.instance().getGovernorOptions();
+                                	GovernorOptions options = govOptions();
                         			options.setPosition(getLocation());
                                 }
                             });
@@ -670,7 +669,7 @@ public class EmpireColonySpendingPane extends BasePanel {
                 //Display the window.
                 governorOptionsFrame.pack();
                 governorOptionsFrame.setVisible(true);
-                governorOptionsFrame.setLocation(GameSession.instance().getGovernorOptions().getPosition());
+                governorOptionsFrame.setLocation(govOptions().getPosition());
                 ((GovernorOptionsPanel) governorOptionsFrame.getContentPane()).reOpen();
             }
         });

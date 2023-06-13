@@ -69,7 +69,6 @@ import rotp.model.galaxy.StarSystem;
 import rotp.model.galaxy.StarSystem.SystemBaseData;
 import rotp.model.galaxy.Transport;
 import rotp.model.game.DynOptions;
-import rotp.model.game.GameSession;
 import rotp.model.game.GovernorOptions;
 import rotp.model.game.IGameOptions;
 import rotp.model.incidents.DiplomaticIncident;
@@ -1657,7 +1656,7 @@ public final class Empire implements Base, NamedObject, Serializable {
                 (int)Math.signum(f1.travelTime(sv.system(targetSysten), warpSpeed) -
                         f2.travelTime(sv.system(targetSysten), warpSpeed)) );
 
-        int sendCount = Math.max(1, GameSession.instance().getGovernorOptions().getAutoScoutShipCount());
+        int sendCount = Math.max(1, govOptions().getAutoScoutShipCount());
         // don't send out armed scout ships when enemy fleet is incoming, hence the need for defend predicate
         autoSendShips(designs, targets, systemsSorter, fleetsSorter, (d, si) -> true, defendFirstPredicate(),
                 sendCount);
@@ -1774,7 +1773,7 @@ public final class Empire implements Base, NamedObject, Serializable {
                 (int)Math.signum(f1.travelTime(sv.system(targetSysten), warpSpeed) -
                         f2.travelTime(sv.system(targetSysten), warpSpeed)) );
 
-        int sendCount = Math.max(1, GameSession.instance().getGovernorOptions().getAutoColonyShipCount());
+        int sendCount = Math.max(1, govOptions().getAutoColonyShipCount());
         // don't send out armed colony ships when enemy fleet is incoming, hence the need for defend predicate
         autoSendShips(designs, targets, new ColonizePriority("toColonize"), fleetsSorter,
                 designFitForSystem, defendFirstPredicate(), sendCount);
@@ -1831,7 +1830,7 @@ public final class Empire implements Base, NamedObject, Serializable {
             System.out.println("autoattack Enemy "+enemy.toString());
             hostileEmpires.add(enemy.empId());
         }
-        int sendCount = Math.max(1, GameSession.instance().getGovernorOptions().getAutoAttackShipCount());
+        int sendCount = Math.max(1, govOptions().getAutoAttackShipCount());
         List<Integer> targets = filterTargets(i -> {
             // consider both scouted and unscouted systems if they belong to the enemy
             boolean inRange;

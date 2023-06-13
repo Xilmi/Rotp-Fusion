@@ -37,7 +37,6 @@ import rotp.ui.BasePanel;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.map.IMapHandler;
 import rotp.ui.sprites.FlightPathSprite;
-import rotp.ui.sprites.ShipRelocationSprite;
 import rotp.util.Base;
 
 public class ShipFleet implements Base, Sprite, Ship, Serializable {
