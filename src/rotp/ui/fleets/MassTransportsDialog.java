@@ -202,11 +202,11 @@ public class MassTransportsDialog extends BasePanel {
         private static final long serialVersionUID = 1L;
         private DataView view;
         private StarSystem selectedSystem;
-        private final int[] sysIds;
+        // private final int[] sysIds;
         private SystemSetTransportsColumn transportsCol;
         TransportTargetListingUI(BasePanel p) {
             super(p);
-            sysIds = new int[MAX_ROWS];
+            //sysIds = new int[MAX_ROWS];
         }
         @Override
         public String textureName()           { return TEXTURE_BROWN; }

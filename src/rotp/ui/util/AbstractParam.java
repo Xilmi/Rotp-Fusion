@@ -184,7 +184,6 @@ public abstract class AbstractParam <T> implements IParam{
 	protected T last()					{ return value; }
 	// ========== Methods to be overridden ==========
 	//
-//	T value(T value) 					{ return set(value); } // TODO BR: Remove
 	public T defaultValue()				{ return defaultValue; }
 	public T get()						{
 		if (isCfgFile) {

@@ -331,7 +331,7 @@ public class Planet implements Base, IMappedObject, Serializable {
         }
         if (colony != null)
         	colony.empire().sv.refreshFullScan(starSystem().id);
-        // BR: To reset the view TODO BR: Validate the fix
+        	// BR: To reset the view
     }
     public void terraformAtmosphere() {
         // change env to NORMAL
@@ -347,7 +347,7 @@ public class Planet implements Base, IMappedObject, Serializable {
             starSystem().addEvent(new SystemTerraformingEvent("SYSEVENT_ATMOSPHERE_TERRAFORMED"));
             if (colony != null)
             	colony.empire().sv.refreshFullScan(starSystem().id);
-            // BR: To reset the view TODO BR: Validate the fix
+            	// BR: To reset the view
         }
     }
     public void terraformBiosphere(float amt) {

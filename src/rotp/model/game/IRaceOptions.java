@@ -77,7 +77,7 @@ public interface IRaceOptions extends IBaseOptsTools {
 					));
 	default LinkedList<IParam> optionsRace()	{ return optionsRace; }
 
-	LinkedList<IParam> editCustomRace = new LinkedList<>(); // TODO BR: Fake list
+	LinkedList<IParam> editCustomRace = new LinkedList<>();
 	default LinkedList<IParam> editCustomRace()	{ return editCustomRace; }
 
 }

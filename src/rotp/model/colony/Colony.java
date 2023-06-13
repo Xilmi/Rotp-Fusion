@@ -1910,7 +1910,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     	float expectedPop = population - toSend + upcomingPopGrowth(toSend);
     	return population <= expectedPop;
     }
-    public int maxTransportToFill() { // TODO BR Max Growth
+    public int maxTransportToFill() {
     	int lim = maxTransportsAllowed();
     	int maxTransport = 0;
     	for (int i=0; i<=lim; i++) {
@@ -1921,7 +1921,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     	}
     	return maxTransport;
     }
-    public int maxTransportNoLoss() { // TODO BR Max Growth
+    public int maxTransportNoLoss() {
     	int lim = maxTransportsAllowed();
     	int maxTransport = 0;
     	for (int i=0; i<=lim; i++) {

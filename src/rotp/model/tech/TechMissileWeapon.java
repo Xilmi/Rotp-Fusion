@@ -88,7 +88,7 @@ public final class TechMissileWeapon extends Tech {
     @Override
     public void init() {
         baseInit();
-        // TODO BR: Split Bases and Ship
+        // BR: Split Bases and Ship
 //        float missileSizeModifier = options().selectedMissileShipModifier();
 //        cost *= missileSizeModifier;
 //        size *= missileSizeModifier;

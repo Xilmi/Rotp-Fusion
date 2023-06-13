@@ -47,7 +47,6 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	private String GUI_ID;
 	
 	private static final int rowPad		= s10;
-	private	static final int descPadV	= 0;
 	private	static final int descPadM	= s5;
 	private static final int buttonPadV	= rowPad;
 	private static final Color disabledColor		= GameUI.textColor();
@@ -363,7 +362,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 //        disableGlassPane();
 		switch (parent) {
 		case 1:
-			RotPUI.mergedDynamicOptionsUI().start(0); // TODO BR: remove one parameter
+			RotPUI.mergedDynamicOptionsUI().start(0);
 			return;
 		case 2:
 			RotPUI.modOptionsDynamicA().init();

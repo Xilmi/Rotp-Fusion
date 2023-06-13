@@ -517,7 +517,7 @@ public class CustomRaceDefinitions  {
 			clearLists();
 			clearOptionsText();
 			// Add Current race
-			add((DynOptions) IGameOptions.playerCustomRace.get()); // TODO BR: Finalize Options
+			add((DynOptions) IGameOptions.playerCustomRace.get());
 			defaultIndex(0);
 			// Add existing files
 			File[] fileList = loadListing();

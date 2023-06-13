@@ -200,12 +200,12 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
     public int shieldLevel()                 { return vShieldLevel; }
     public int factories()                   { return vFactories; }
     public int currentSize()                 { return vCurrentSize; }
-    public int maxTransToFill()              { // TODO BR: Max Growth
+    public int maxTransToFill()              {
         if (!colony().canTransport())
             return 0;
         return colony().maxTransportToFill();
     }
-    public int maxTransNoLoss()              { // TODO BR: Max Growth
+    public int maxTransNoLoss()              {
         if (!colony().canTransport())
             return 0;
         return colony().maxTransportNoLoss();

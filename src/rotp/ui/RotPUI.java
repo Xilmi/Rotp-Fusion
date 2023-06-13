@@ -319,7 +319,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
 		ListDialog dialog = new ListDialog(true);
         // Copy the former "Live.Option" to new "Last.Option"
         MOO1GameOptions.copyOptionsFromLiveToLast();
-        newOptions().loadStartupOptions(); // TODO BR: Validate
+        newOptions().loadStartupOptions();
         initModel();
         addKeyListener(this);
         if (startupException != null)
