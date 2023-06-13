@@ -61,6 +61,7 @@ Later:
   - Middle click on slider = "Stable"-value selection.
   - Right click on slider = "Fill"-value selection.
   - It's up to the player or the governor to set the ECO to max.
+- Probably fixed shifted Range Area!
   
 
 2023.06.12 (BR)
