@@ -800,7 +800,6 @@ public abstract class SystemListingUI extends BasePanel implements MouseListener
         @Override
         public void click() {
             super.click();
-            System.out.println("SystemDataColumn Click()");
             if (enabled()) {
                 reversed = !reversed;
                 sort(comp, reversed);
@@ -1111,10 +1110,7 @@ public abstract class SystemListingUI extends BasePanel implements MouseListener
             redrawHeaders = true;
         }
         @Override
-        public void click() {
-           	System.out.println("HeaderSprite Click()");
-        	column.click();
-        }
+        public void click() { column.click(); }
     }
     public class RowSprite extends Sprite {
         StarSystem system;
@@ -1153,10 +1149,7 @@ public abstract class SystemListingUI extends BasePanel implements MouseListener
         @Override
         public void exit()  {  }
         @Override
-        public void click() {
-        	System.out.println("RowSprite Click()");
-        	selectedSystem(system, true);
-        }
+        public void click() { selectedSystem(system, true); }
         @Override
         public void shiftClick() { shiftSelectedSystem(system, true); }
         @Override

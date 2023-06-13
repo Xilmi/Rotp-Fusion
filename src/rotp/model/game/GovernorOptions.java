@@ -111,7 +111,6 @@ public class GovernorOptions implements Serializable, IGovOptions {
 		
 	}
 	public void gameLoaded() {
-		System.out.println("gameLoaded() : autoShipsByDefault = " + autoShipsByDefault);
 		if (autoShipsByDefault) {
 			autoTransport.silentSet(autotransport);
 			autotransportAtMax.silentSet(autotransportXilmi);
