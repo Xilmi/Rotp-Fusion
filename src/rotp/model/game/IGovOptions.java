@@ -49,7 +49,7 @@ public interface IGovOptions {
 	ParamBoolean autoSpend			= new ParamBoolean(GOV_UI, "AUTOSPEND", false)
 	{
 		@Override public void transfert (IGameOptions opts, boolean set)	{
-			if (opts.dynOpts().getBoolean(getCfgLabel()) == null) {
+			if (opts.dynOpts().getBoolean(getLangLabel()) == null) {
 				if (set)
 					set(UserPreferences.governorAutoSpendByDefault());
 				setOptionValue(opts, get());
@@ -61,7 +61,7 @@ public interface IGovOptions {
 	ParamBoolean maxGrowthMode		= new ParamBoolean(GOV_UI, "LEGACY_GROWTH_MODE", true)
 	{
 		@Override public void transfert (IGameOptions opts, boolean set)	{
-			if (opts.dynOpts().getBoolean(getCfgLabel()) == null) {
+			if (opts.dynOpts().getBoolean(getLangLabel()) == null) {
 				if (set)
 					set(UserPreferences.legacyGrowth());
 				setOptionValue(opts, get());
@@ -97,7 +97,7 @@ public interface IGovOptions {
 	ParamBoolean auto_Apply			= new ParamBoolean(GOV_UI, "AUTO_APPLY", true)
 	{
 		@Override public void transfert (IGameOptions opts, boolean set)	{
-			if (opts.dynOpts().getBoolean(getCfgLabel()) == null) {
+			if (opts.dynOpts().getBoolean(getLangLabel()) == null) {
 				if (set)
 					set(UserPreferences.governorAutoApply());
 				setOptionValue(opts, get());
@@ -107,7 +107,7 @@ public interface IGovOptions {
 	ParamBoolean governorByDefault	= new ParamBoolean(GOV_UI, "ON_BY_DEFAULT", true)
 	{
 		@Override public void transfert (IGameOptions opts, boolean set)	{
-			if (opts.dynOpts().getBoolean(getCfgLabel()) == null) {
+			if (opts.dynOpts().getBoolean(getLangLabel()) == null) {
 				if (set)
 					set(UserPreferences.governorOnByDefault());
 				setOptionValue(opts, get());

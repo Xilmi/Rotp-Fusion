@@ -75,7 +75,7 @@ public interface IMapOptions extends IBaseOptsTools {
 	ParamInteger defaultMaxBases	= new ParamInteger( GAME_UI, "DEFAULT_MAX_BASES",
 			0, 0, 5000, 1, 5, 20) {
 		@Override public void transfert (IGameOptions opts, boolean set)	{
-			if (opts.dynOpts().getInteger(getCfgLabel()) == null) {
+			if (opts.dynOpts().getInteger(getLangLabel()) == null) {
 				if (set)
 					set(UserPreferences.getDefaultMaxBases());
 				setOptionValue(opts, get());
@@ -86,7 +86,7 @@ public interface IMapOptions extends IBaseOptsTools {
 
 	ParamBoolean divertExcessToResearch	= new ParamBoolean( GAME_UI, "DIVERT_EXCESS_TO_RESEARCH", true) {
 		@Override public void transfert (IGameOptions opts, boolean set)	{
-			if (opts.dynOpts().getBoolean(getCfgLabel()) == null) {
+			if (opts.dynOpts().getBoolean(getLangLabel()) == null) {
 				if (set)
 					set(UserPreferences.getDivertColonyExcessToResearch());
 				setOptionValue(opts, get());
@@ -98,7 +98,7 @@ public interface IMapOptions extends IBaseOptsTools {
 	ParamBoolean displayYear	= new ParamBoolean( // Duplicate Do not add the list
 			GAME_UI, "DISPLAY_YEAR", false) {
 		@Override public void transfert (IGameOptions opts, boolean set)	{
-			if (opts.dynOpts().getBoolean(getCfgLabel()) == null) {
+			if (opts.dynOpts().getBoolean(getLangLabel()) == null) {
 				if (set)
 					set(UserPreferences.getDisplayYear());
 				setOptionValue(opts, get());

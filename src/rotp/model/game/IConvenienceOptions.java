@@ -22,7 +22,7 @@ public interface IConvenienceOptions extends IMapOptions {
 	{
 		{ isCfgFile(true); }
 		@Override public void transfert (IGameOptions opts, boolean set)	{
-			if (opts.dynOpts().getBoolean(getCfgLabel()) == null) {
+			if (opts.dynOpts().getBoolean(getLangLabel()) == null) {
 				setOptionValue(opts, get());
 			}
 			isCfgFile(false);
@@ -33,7 +33,7 @@ public interface IConvenienceOptions extends IMapOptions {
 	{
 		{ isCfgFile(true); }
 		@Override public void transfert (IGameOptions opts, boolean set)	{
-			if (opts.dynOpts().getInteger(getCfgLabel()) == null) {
+			if (opts.dynOpts().getInteger(getLangLabel()) == null) {
 				setOptionValue(opts, get());
 			}
 			isCfgFile(false);
@@ -45,7 +45,7 @@ public interface IConvenienceOptions extends IMapOptions {
 	{	
 		{ isCfgFile(true); }
 		@Override public void transfert (IGameOptions opts, boolean set)	{
-			if (opts.dynOpts().getBoolean(getCfgLabel()) == null) {
+			if (opts.dynOpts().getBoolean(getLangLabel()) == null) {
 				setOptionValue(opts, get());
 			}
 			isCfgFile(false);
@@ -56,7 +56,7 @@ public interface IConvenienceOptions extends IMapOptions {
 	{
 		{ isCfgFile(true); }
 		@Override public void transfert (IGameOptions opts, boolean set)	{
-			if (opts.dynOpts().getBoolean(getCfgLabel()) == null) {
+			if (opts.dynOpts().getBoolean(getLangLabel()) == null) {
 				setOptionValue(opts, get());
 			}
 			isCfgFile(false);
@@ -68,7 +68,7 @@ public interface IConvenienceOptions extends IMapOptions {
 //		@Override public Boolean getOption()		{ return autoColonize(); }
 //		@Override public void setOption(Boolean b)	{ autoColonize(b); }
 		@Override public void transfert (IGameOptions opts, boolean set)	{
-			if (opts.dynOpts().getBoolean(getCfgLabel()) == null) {
+			if (opts.dynOpts().getBoolean(getLangLabel()) == null) {
 				if (set)
 					set(UserPreferences.getAutoColonize());
 				setOptionValue(opts, get());
@@ -94,7 +94,7 @@ public interface IConvenienceOptions extends IMapOptions {
 //		@Override public String getOption()			{ return autoBombardMode(); }
 //		@Override public void setOption(String s)	{ autoBombardMode(s); }
 		@Override public void transfert (IGameOptions opts, boolean set)	{
-			if (opts.dynOpts().getString(getCfgLabel()) == null) {
+			if (opts.dynOpts().getString(getLangLabel()) == null) {
 				if (set)
 					set(UserPreferences.autoBombardMode());
 				setOptionValue(opts, get());
