@@ -212,7 +212,7 @@ public interface IGameOptions extends IModOptions {
     AIEntry randomBasicAI = new AIEntry(RANDOM_BASIC,			AUTOPLAY_AI_RANDOM_BASIC,	OPPONENT_AI_RANDOM_BASIC);
     AIEntry randomAdvAI	  = new AIEntry(RANDOM_ADVANCED,		AUTOPLAY_AI_RANDOM_ADV,		OPPONENT_AI_RANDOM_ADV);
     AIEntry randomNoBarAI = new AIEntry(RANDOM_NO_RELATIONBAR,	AUTOPLAY_AI_RANDOM_NOBAR,	OPPONENT_AI_RANDOM_NOBAR);
-    AIEntry defaultAI 	  = hybridAI;
+    AIEntry defaultAI 	  = xilmiAI;
     // AI SubSet Builder: These sequences can be changed to fit GUI requirements
     public static AIList optionalAIset() {
     	AIList list = new AIList();

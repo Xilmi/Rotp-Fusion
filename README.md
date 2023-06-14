@@ -55,6 +55,7 @@ Later:
 - Planet Map now display incoming transports.
 - Restored light-years display when grid is on.
 - Fixed some "Remnant.cfg"-options not fully initialized.
+- Changed default AI to Roleplay.
 
 2023.06.13 (BR)
 - Send transport panel has 2 new columns:
