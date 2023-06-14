@@ -680,7 +680,10 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
             String label2 = map.parent().systemLabel2(this);
             if (label2.isEmpty())
             {
-                if(this.colony() != null && this.colony().shipyardProject() != "" && this.colony().empire() == pl)
+                if(this.colony() != null
+                		&& !map.showGridCircular()
+                		&& this.colony().shipyardProject() != ""
+                		&& this.colony().empire() == pl)
                     label2 = this.colony().shipyardProject();
                 else
                     label2 = name2(map);
