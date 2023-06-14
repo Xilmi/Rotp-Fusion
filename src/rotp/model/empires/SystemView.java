@@ -210,6 +210,7 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
             return 0;
         return colony().maxTransportNoLoss();
     }
+    public boolean showTransports()          { return colony().showTransports(); }
     public int artifacts()                   { return vArtifacts; }
     public boolean stargate()                { return vStargate; }
     public void removeStargate()             { vStargate = false;

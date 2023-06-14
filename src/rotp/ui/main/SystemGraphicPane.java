@@ -43,6 +43,7 @@ public class SystemGraphicPane extends BasePanel implements MouseMotionListener,
     Rectangle stargateBox = new Rectangle();
     int currentHover = 0;
     public boolean showPopulation = false;
+    // TODO BR: Add incoming transports
     public SystemGraphicPane(SystemPanel p, Border coloredBorder) {
         parent = p;
         init();
@@ -83,14 +84,20 @@ public class SystemGraphicPane extends BasePanel implements MouseMotionListener,
 
         String str = player().sv.name(sys.id);
         scaledFont(g,str,w-s30,36,24);
-        int y0 = s32*adjW/w; //modnar: move colony name up due to increase planet size
+        // BR: removed the offset bringing the text out of the box
+//        int y0 = s32*adjW/w; //modnar: move colony name up due to increase planet size
+        int y0 = s32; //modnar: move colony name up due to increase planet size
         int x0 = s25;
         drawBorderedString(g0, str, 1, x0, y0, Color.black, SystemPanel.orangeText);
+        
+        // BR: Incoming transport
+        boolean showTransports = false;
+        if (sys.planet().isColonized()) { showTransports = sys.colony().showTransports(); }
 
         //log("graphic h:", str(unscaled(h)));
-        int x1 = s5;
-        int y1 = s70/2;
-        int r = s80; //modnar: increase planet size
+        int x1 = showTransports? s10 : s5;
+        int y1 = showTransports? s55 : s70/2;
+        int r = showTransports? s70 : s80; //modnar: increase planet size
         sys.planet().draw(g0, w, h, x1, y1, (r+r), 45);
         planetCircle.setFrame(x1, y1, r+r, r+r);
 
@@ -111,7 +118,7 @@ public class SystemGraphicPane extends BasePanel implements MouseMotionListener,
                 g.setStroke(prevStroke);
             }
         }
-        parent.drawPlanetInfo(g, sys, showSpyData, showPopulation, s40, w-s3, h-s12);
+        parent.drawPlanetInfo(g, sys, showSpyData, showPopulation, showTransports, s40, w-s3, h-s12);
     }
     @Override
     public void animate() {

@@ -1036,6 +1036,8 @@ FLEETS_CANCEL_DEPLOYMENTS         | Cancel Deployments
 FLEETS_DEPLOYING_FLEETS           | Deploying Fleets
 FLEETS_DEPLOYING_FLEETS_DESC      | Select a system in range to deploy all selected fleets.
 FLEETS_DEPLOY_FLEETS              | Deploy Fleets
+FLEETS_TRANSPORTS_INCOMING        | Transports
+FLEETS_TRANSPORTS_INCOMING_COUNT  | (+%1)
 FLEETS_TRANSPORTS_TITLE           | Send Transports From:
 FLEETS_TRANSPORTS_SEND            | Send %1 Transports
 FLEETS_TRANSPORTS_SYNCH           | Synch

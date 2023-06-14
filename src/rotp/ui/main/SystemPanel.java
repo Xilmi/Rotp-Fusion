@@ -206,7 +206,8 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
         topPanel.map().recenterMapOn(systems.get(index));
         topPanel.repaint();
     }
-    public void drawPlanetInfo(Graphics2D g, StarSystem sys, boolean showSpyData, boolean showPopulation, int startY, int w, int h) {
+    public void drawPlanetInfo(Graphics2D g, StarSystem sys, boolean showSpyData,
+    		boolean showPopulation, boolean showTransports, int startY, int w, int h) {
         int y = startY;
 
         int lines = showSpyData ? 5 : 4;
@@ -244,6 +245,48 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
 
         if (player().sv.isColonized(sys.id))
             drawSystemTreatyStatus(g, sys, f, y, w, lineH);
+
+        // BR: Incoming transport
+//        boolean showTransports = false;
+//        int friend = 0;
+//        int enemy  = 0;
+//        if (sys.planet().isColonized()) {
+//        	if (isPlayer(sys.empire())) {
+//        		friend = sys.colony().incomingTransports();
+//        		enemy  = 0; // TODO BR:
+//        		showTransports = (friend>0 || enemy>0);
+//        	}
+//        }
+        if (showTransports) {
+        	int friend = sys.colony().incomingTransports();;
+            int enemy  = 0;	// TODO BR:
+        	String str = text("FLEETS_TRANSPORTS_INCOMING");
+            int y0 = s54;
+            int x0 = s25;
+            g.setFont(narrowFont(20));
+            if (friend > 0)
+            	if (enemy > 0)
+            		g.setColor(Color.yellow);
+            	else
+            		g.setColor(Color.green);
+            else
+            	g.setColor(Color.red);
+            drawString(g, str, x0, y0);
+            int sw = g.getFontMetrics().stringWidth(str);
+            x0 += sw + s2;
+        	if (friend > 0) {
+        		str = text("FLEETS_TRANSPORTS_INCOMING_COUNT", friend);
+        		g.setColor(Color.green);
+        		drawString(g, str, x0, y0);
+        		sw = g.getFontMetrics().stringWidth(str);
+        		x0 += sw + s2;
+        	}
+        	if (enemy > 0) {
+        		str = text("FLEETS_TRANSPORTS_INCOMING_COUNT", enemy);
+        		g.setColor(Color.red);
+        		drawString(g, str, x0, y0);
+        	}
+        }
     }
     public void drawSystemTreatyStatus(Graphics2D g, StarSystem sys, Font textF, int y, int w, int h) {
         int id = sys.id;

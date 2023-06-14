@@ -80,6 +80,7 @@ public class SystemInfo implements Serializable, Base {
 
     public float hostilityLevel(int i)     { return missing(i) ? 0 : view(i).hostilityLevel(); }
     public int artifactLevel(int i)      { return missing(i) ? 0 : view(i).artifacts(); }
+    public boolean showTransports(int i) { return missing(i) ? false : view(i).showTransports(); }
     public boolean isScouted(int i)      { return missing(i) ? false : view(i).scouted(); }
     public boolean isSpied(int i)        { return missing(i) ? false : view(i).spied(); }
     public boolean isColonized(int i)    { return missing(i) ? false : view(i).isColonized(); }

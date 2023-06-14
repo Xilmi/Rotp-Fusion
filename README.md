@@ -29,9 +29,10 @@ Now:
 - Playing the game...
 
 Bug to fix:
-- Some unexpected Map misalignment...
+
 
 Very soon:
+- When the range circles are selected, distances should be shown instead of built ships.
 - Spare Xenophobes: Stop if caught too.
 - William482 request: Show info on offered Tech trade
   - ($remaining_RP / $total_RP Remaining) or (Imminent - 29%) in place of the beaker counts...
@@ -40,9 +41,6 @@ Very soon:
 - Investigate: William482 request: Age of your data on each race into the bar graphs on the status page.
 
 Later:
-- William482 request: Continuing on the topic of things that normal people probably just let the governor do, I would love a button on the "Send Transports From:" popup in the Fleets tab which would, for each world:
-  1. Send the maximum number of population which can be regrown in one turn, and
-  2. set the eco slider to whatever value is needed to regrow that pop.
 - Replay:
   - Start Full galaxy View.
   - Speed adjustement.
@@ -52,6 +50,9 @@ Later:
 
 
 ## What's New
+
+2023.06.14 (BR)
+- Planet Map now display incoming transports.
 
 2023.06.13 (BR)
 - Send transport panel has 2 new columns:

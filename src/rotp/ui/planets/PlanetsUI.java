@@ -694,7 +694,8 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
     public StarSystem systemViewToDisplay()  { return lastSelectedSystem(); }
 
     private List<StarSystem> selectedSystems(){
-        List<StarSystem> systems = (List<StarSystem>)sessionVar("COLONYUI_SELECTED_SYSTEMS");
+        @SuppressWarnings("unchecked")
+		List<StarSystem> systems = (List<StarSystem>)sessionVar("COLONYUI_SELECTED_SYSTEMS");
         if (systems == null) {
             systems = new ArrayList<>();
             sessionVar("COLONYUI_SELECTED_SYSTEMS", systems);
@@ -1052,8 +1053,8 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
         public void mouseReleased(MouseEvent e) {
             if (e.getButton() > 3)
                 return;
-            int x = e.getX();
-            int y = e.getY();
+            //int x = e.getX();
+            //int y = e.getY();
             if (hoverBox == null)
                 misClick();
             else {
@@ -1268,14 +1269,21 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             int x0 = s25;
             drawBorderedString(g, str, 2, x0, y0, Color.black, SystemPanel.orangeText);
 
-            int x1 = s5;
-            int y1 = s70/2;
-            int r = s80; //modnar: increase planet size
+            boolean showTransports = false;
+            if (sys != null && sys.planet().isColonized()) {
+            	showTransports = sys.colony().showTransports();
+            }
+            int x1 = showTransports? s10 : s5;
+            int y1 = showTransports? s55 : s70/2;
+            int r  = showTransports? s70 : s80; //modnar: increase planet size
+//            int x1 = s5;
+//            int y1 = s70/2;
+//            int r = s80; //modnar: increase planet size
             anchorSys.planet().draw(g, w, h, x1, y1, r+r, 45);
             planetCircle.setFrame(x1, y1, r+r, r+r);
             
             if (sys != null)
-                parent.drawPlanetInfo(g2, sys, false, false, s40, getWidth()+s5, getHeight()-s5);
+                parent.drawPlanetInfo(g2, sys, false, false, showTransports, s40, getWidth()+s5, getHeight()-s5);
         }
         @Override
         public void animate() {

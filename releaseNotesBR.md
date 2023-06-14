@@ -47,6 +47,7 @@ Last updates:
   - Middle click on slider = "Stable"-value selection.
   - Right click on slider = "Fill"-value selection.
   - It's up to the player or the governor to set the ECO to max.
+- System Map now display incoming transports.
 
 
 Last Fixes:

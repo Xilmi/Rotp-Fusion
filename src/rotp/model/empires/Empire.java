@@ -3913,20 +3913,6 @@ public final class Empire implements Base, NamedObject, Serializable {
             }
         }
     }
-   
-    // BR:
-    /**
-	 * @return the Challenge Mod State
-	 */
-	public boolean isChallengeMode() {
-		for (StarSystem system : colonizedSystems) {
-			if (system.colony() != null) {
-				return system.colony().isChallengeMode();
-			}
-		}
-        return false; // This should never happen... But better safe than sorry!
-	} // \BR
-
     // BR:
     /**
 	 * @return the current number of companion worlds

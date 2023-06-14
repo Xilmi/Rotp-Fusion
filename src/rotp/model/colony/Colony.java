@@ -1932,7 +1932,15 @@ public final class Colony implements Base, IMappedObject, Serializable {
     	}
     	return maxTransport;
     }
-
+    public boolean showTransports() {
+        if (isPlayer(empire())) {
+        	int friend = incomingTransports();
+            int enemy  = 0; // TODO BR: count enemy transport
+    		return (friend>0 || enemy>0);
+    	}
+        else // TODO BR: opponent show Transport
+        	return false;
+    }
     // Try to transport extra population to other plants.
     // Since 1.9 minimum cost to transport population is 10 BC which means
     // we have to transport in bunches of ~10 (configurable).
@@ -1987,11 +1995,4 @@ public final class Colony implements Base, IMappedObject, Serializable {
         }
     }
 
-    // BR:
-    /**
-    * @return the Challenge Mod State
-    */
-    public boolean isChallengeMode() {
-        return challengeMode;
-    } // \BR
 }
