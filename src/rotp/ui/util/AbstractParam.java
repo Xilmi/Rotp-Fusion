@@ -124,7 +124,12 @@ public abstract class AbstractParam <T> implements IParam{
 	@Override public String toString() {
 		return getCfgLabel() + " = " + getCfgValue();
 	}
-	@Override public void updateOptionTool()	{ set(getOptionValue(opts())); }
+	@Override public void updateOptionTool()	{
+		if (isCfgFile)
+			setOption(get());
+		else
+			set(getOptionValue(opts()));
+	}
 	@Override public void copyOption(IGameOptions src, IGameOptions dest, boolean updateTool) {
 		if (src == null || dest == null)
 			return;

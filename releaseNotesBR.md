@@ -64,7 +64,7 @@ Last Fixes:
 - Fixed Governor Panel glitching (badly) on some computers.
 - Fixed buttons not showing race display panel on first call.
 - Captured planet governor is now set to the Governor default value.
-
+- Fixed some "Remnant.cfg"-options not fully initialized.
 
 Last Anouuncement:
 

@@ -1474,8 +1474,13 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	}
     	else {
 	       	for (IParam param : pList) {
-	       		if (param != null && !param.isCfgFile()) { // Exclude .cfg parameters
-	       			param.copyOption(source, this, true); // update tool
+	       		if (param != null) { // Exclude .cfg parameters
+		       		if (!param.isCfgFile()) { // Exclude .cfg parameters
+		       			param.copyOption(source, this, true); // update tool
+		       		}
+		       		else {
+		       			param.updateOptionTool();
+		       		}
 	       		}
 	       	}
     	}
