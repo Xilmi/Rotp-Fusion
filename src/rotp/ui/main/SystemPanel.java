@@ -254,7 +254,7 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
                 int y0 = s54;
                 int x0 = s25;
                 g.setFont(narrowFont(20));
-                g.setColor(buttonColor.yellow);
+                g.setColor(Color.yellow);
                 drawString(g, str, x0, y0);
                 int sw = g.getFontMetrics().stringWidth(str);
                 x0 += sw + s2;

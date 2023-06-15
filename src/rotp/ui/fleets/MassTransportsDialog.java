@@ -36,6 +36,7 @@ import java.util.Collections;
 import java.util.List;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
+import rotp.ui.fleets.SystemListingUI.DataView;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.sprites.SystemTransportSprite;
 import rotp.util.Palette;
@@ -234,6 +235,7 @@ public class MassTransportsDialog extends BasePanel {
         @Override
         public void open() {
             transportsCol.targetSystem(topParent.targetSystem);
+            super.open(); // BR: to prevent display glitches
         }
         @Override
         protected void postInit() {

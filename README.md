@@ -54,6 +54,7 @@ Later:
 2023.06.15 (BR)
 - Planet Map now display incoming enemy transports.
 - Planet Map now display incoming player invasion transports.
+- Fixed Transport panel missing reinitialization when reopening!
 
 
 2023.06.14 (BR)

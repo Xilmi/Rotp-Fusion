@@ -70,6 +70,8 @@ Last Fixes:
 - Fixed buttons not showing race display panel on first call.
 - Captured planet governor is now set to the Governor default value.
 - Fixed some "Remnant.cfg"-options not fully initialized.
+- Fixed Transport panel missing reinitialization when reopening!
+
 
 Last Anouuncement:
 
