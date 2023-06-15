@@ -1934,12 +1934,14 @@ public final class Colony implements Base, IMappedObject, Serializable {
     }
     public boolean showTransports() {
         if (isPlayer(empire())) {
-        	int friend = incomingTransports();
-            int enemy  = 0; // TODO BR: count enemy transport
-    		return (friend>0 || enemy>0);
+        	int friendPop = incomingTransports();
+            int enemyPop  = enemyPopApproachingSystem(); // TODO BR: count enemy transport
+    		return (friendPop>0 || enemyPop>0);
     	}
-        else // TODO BR: opponent show Transport
-        	return false;
+        else { // TODO BR: opponent show Transport
+        	int playerPop  = playerPopApproachingSystem(); // TODO BR: count enemy transport
+        	return (playerPop>0);
+        }
     }
     // Try to transport extra population to other plants.
     // Since 1.9 minimum cost to transport population is 10 BC which means
@@ -1952,6 +1954,12 @@ public final class Colony implements Base, IMappedObject, Serializable {
     // We chose targets more carefully.
     // Autotransport was Moved to Empire.autotransport()
 
+    public int enemyPopApproachingSystem() {
+        return galaxy().enemyPopApproachingSystem(starSystem());
+    }
+    public int playerPopApproachingSystem() {
+        return galaxy().playerPopApproachingSystem(starSystem());
+    }
     private int incomingTransportsNextTurn() {
         return galaxy().friendlyPopApproachingSystemNextTurn(starSystem());
     }

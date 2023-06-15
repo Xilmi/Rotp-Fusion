@@ -51,6 +51,11 @@ Later:
 
 ## What's New
 
+2023.06.15 (BR)
+- Planet Map now display incoming enemy transports.
+- Planet Map now display incoming player invasion transports.
+
+
 2023.06.14 (BR)
 - Planet Map now display incoming transports.
 - Restored light-years display when grid is on.

@@ -496,6 +496,26 @@ public class Galaxy implements Base, Serializable {
         }
         return pop;
     }
+    public int playerPopApproachingSystem(StarSystem sys) {
+        int pop = 0;
+        Galaxy gal = galaxy();
+
+        for (Transport tr: gal.transports()) {
+            if (tr.empId() == player().id) {
+                if (tr.destSysId() == sys.id)
+                    pop += tr.size();
+            }
+        }
+        for (int i=0; i<gal.numStarSystems(); i++) {
+            StarSystem system = gal.system(i);
+            if (system.planet().isColonized()) {
+                Colony col = system.planet().colony();
+                if ((col.empire() == player()) && col.transporting() && (col.transport().destSysId() == sys.id))
+                    pop += col.inTransport();
+            }
+        }
+        return pop;
+    }
     public int friendlyPopApproachingSystemNextTurn(StarSystem sys) {
         int pop = 0;
         Galaxy gal = galaxy();
