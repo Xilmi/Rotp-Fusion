@@ -209,7 +209,8 @@ public final class Colony implements Base, IMappedObject, Serializable {
             if (flEmp != empire)
                 flEmp.sv.refreshFullScan(sys.id);
         }
-
+		if (empire().isPlayer())
+			setDefaultGovernor();
     }
     public boolean isBuildingShip() { return shipyard().design() instanceof ShipDesign; }
     private void buildFortress()    { fortressNum = empire.race().randomFortress(); }
@@ -394,31 +395,33 @@ public final class Colony implements Base, IMappedObject, Serializable {
         ShipDesignLab lab = emp.shipLab();
         ShipDesign scout = lab.scoutDesign();
         ShipDesign colony = lab.colonyDesign();
-		
+        
+		if (emp.isPlayer())
+			setDefaultGovernor();
 		// modnar: normal resources for player or non-challengeMode
 		if (emp.isPlayer() || !challengeMode) {
-        setPopulation(50);
-        previousPopulation = population();
-        industry().factories(30);
-        industry().previousFactories(30);
-
-        galaxy().ships.buildShips(emp.id, starSystem().id, scout.id(), 2);
-        galaxy().ships.buildShips(emp.id, starSystem().id, colony.id(), 1);
-        lab.recordConstruction(scout, 2);
-        lab.recordConstruction(colony, 1);
-		}
-		// modnar: add extra starting resources, if challengeMode and AI
-		// double initial ships, increase pop/factories to approximately double initial production
-		if (emp.isAI() && challengeMode) {
-        setPopulation(80);
-        previousPopulation = population();
-        industry().factories(80);
-        industry().previousFactories(80);
-
-        galaxy().ships.buildShips(emp.id, starSystem().id, scout.id(), 4);
-        galaxy().ships.buildShips(emp.id, starSystem().id, colony.id(), 2);
-        lab.recordConstruction(scout, 4);
-        lab.recordConstruction(colony, 2);
+	        setPopulation(50);
+	        previousPopulation = population();
+	        industry().factories(30);
+	        industry().previousFactories(30);
+	
+	        galaxy().ships.buildShips(emp.id, starSystem().id, scout.id(), 2);
+	        galaxy().ships.buildShips(emp.id, starSystem().id, colony.id(), 1);
+	        lab.recordConstruction(scout, 2);
+	        lab.recordConstruction(colony, 1);
+			}
+			// modnar: add extra starting resources, if challengeMode and AI
+			// double initial ships, increase pop/factories to approximately double initial production
+			if (emp.isAI() && challengeMode) {
+	        setPopulation(80);
+	        previousPopulation = population();
+	        industry().factories(80);
+	        industry().previousFactories(80);
+	
+	        galaxy().ships.buildShips(emp.id, starSystem().id, scout.id(), 4);
+	        galaxy().ships.buildShips(emp.id, starSystem().id, colony.id(), 2);
+	        lab.recordConstruction(scout, 4);
+	        lab.recordConstruction(colony, 2);
 		}
     }
     
@@ -426,20 +429,22 @@ public final class Colony implements Base, IMappedObject, Serializable {
     public void setCompanionWorldValues() {
         Empire emp = empire();
 		
+		if (emp.isPlayer())
+			setDefaultGovernor();
 		// modnar: normal resources for player or non-challengeMode
 		if (emp.isPlayer() || !challengeMode) {
-        setPopulation(30);
-        previousPopulation = population();
-        industry().factories(20);
-        industry().previousFactories(20);
+	        setPopulation(30);
+	        previousPopulation = population();
+	        industry().factories(20);
+	        industry().previousFactories(20);
 		}
 		// modnar: add extra starting resources, if challengeMode and AI
 		// increase pop/factories to approximately double initial production
 		if (emp.isAI() && challengeMode) {
-        setPopulation(50);
-        previousPopulation = population();
-        industry().factories(50);
-        industry().previousFactories(50);
+	        setPopulation(50);
+	        previousPopulation = population();
+	        industry().factories(50);
+	        industry().previousFactories(50);
 		}
     }
 
@@ -1531,10 +1536,8 @@ public final class Colony implements Base, IMappedObject, Serializable {
 //  TODO: For future use, flag allowing this colony to autobuild ships
     private boolean autoShips = govOptions().isAutoShipsByDefault();
 
-    public boolean isGovernor() {
-        return governor;
-    }
-
+    public boolean isGovernor() { return governor; }
+    public void setDefaultGovernor() { setGovernor(govOptions().isGovernorOnByDefault()); }
     public void setGovernor(boolean governor) {
         this.governor = governor;
         //removing locks after disabling governor:
@@ -1546,10 +1549,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         }
     }
 
-    public boolean isAutoShips() {
-        return autoShips;
-    }
-
+    public boolean isAutoShips() { return autoShips; }
     public void setAutoShips(boolean autoShips) {
         this.autoShips = autoShips;
     }

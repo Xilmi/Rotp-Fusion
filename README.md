@@ -55,6 +55,7 @@ Later:
 - Planet Map now display incoming enemy transports.
 - Planet Map now display incoming player invasion transports.
 - Fixed Transport panel missing reinitialization when reopening!
+- All new colonies will be set with the current default governor option.
 
 
 2023.06.14 (BR)
