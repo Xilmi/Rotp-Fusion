@@ -57,6 +57,8 @@ Later:
 - Fixed some "Remnant.cfg"-options not fully initialized.
 - Changed default AI to Roleplay.
 - Fixed too short label name when loading Some options.
+- Swapped "Ctrl"-selection on Game, Last loading button.
+  - Last Game" is on the top!
 
 2023.06.13 (BR)
 - Send transport panel has 2 new columns:

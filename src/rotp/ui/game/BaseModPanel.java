@@ -377,16 +377,16 @@ public abstract class BaseModPanel extends BasePanel
 	//
 	private static final ParamButtonHelp lastButton = new ParamButtonHelp(
 			"SETTINGS_BUTTON_LAST", // For Help Do not add the list
-			setGlobalLastKey,
-			setLocalLastKey,
 			setGlobalGameKey,
-			setLocalGameKey);
+			setLocalGameKey,
+			setGlobalLastKey,
+			setLocalLastKey);
 	private static final ParamButtonHelp lastSubButton = new ParamButtonHelp(
 			"SETTINGS_BUTTON_LAST", // For Help Do not add the list
-			setLocalLastKey,	true,
-			setLocalLastKey,	false,
 			setLocalGameKey,	true,
-			setLocalGameKey,	false);
+			setLocalGameKey,	false,
+			setLocalLastKey,	true,
+			setLocalLastKey,	false);
 	protected String lastButtonKey() {
 		 if (isSubMenu)
 				return lastSubButton.getKey();
@@ -407,26 +407,26 @@ public abstract class BaseModPanel extends BasePanel
 			 switch (ModifierKeysState.get()) {
 				case CTRL:
 				case CTRL_SHIFT: // setLocalGameKey
-					guiOptions().updateFromFile(GAME_OPTIONS_FILE, localOptions());
+					guiOptions().updateFromFile(LAST_OPTIONS_FILE, localOptions());
 					break;
 				case SHIFT:
 				default: // setLocalLastKey
-					guiOptions().updateFromFile(LAST_OPTIONS_FILE, localOptions());
+					guiOptions().updateFromFile(GAME_OPTIONS_FILE, localOptions());
 					break;
 				}
 		else
 			switch (ModifierKeysState.get()) {
 			case CTRL: // setGlobalGameKey
-				guiOptions().updateFromFile(GAME_OPTIONS_FILE);
+				guiOptions().updateFromFile(LAST_OPTIONS_FILE);
 				break;
 			case CTRL_SHIFT: // setLocalGameKey
-				guiOptions().updateFromFile(GAME_OPTIONS_FILE, localOptions());
-				break;
-			case SHIFT: // setLocalLastKey
 				guiOptions().updateFromFile(LAST_OPTIONS_FILE, localOptions());
 				break;
+			case SHIFT: // setLocalLastKey
+				guiOptions().updateFromFile(GAME_OPTIONS_FILE, localOptions());
+				break;
 			default: // setGlobalLastKey
-				guiOptions().updateFromFile(LAST_OPTIONS_FILE);
+				guiOptions().updateFromFile(GAME_OPTIONS_FILE);
 			}
 		refreshGui();
 	}

@@ -49,7 +49,8 @@ Last updates:
   - It's up to the player or the governor to set the ECO to max.
 - Planet Map now display incoming transports.
 - Changed default AI to Roleplay.
-
+- Swapped "Ctrl"-selection on Game, Last loading button.
+  - Last Game" is on the top!
 
 Last Fixes:
 - New Governor Panel don't crash any more on Apple OS.
