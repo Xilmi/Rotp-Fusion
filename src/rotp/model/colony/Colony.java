@@ -1935,7 +1935,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     public boolean showTransports() {
         if (isPlayer(empire())) {
         	int friendPop = incomingTransports();
-            int enemyPop  = enemyPopApproachingSystem(); // TODO BR: count enemy transport
+            int enemyPop  = enemyPopApproachingPlayerSystem(); // TODO BR: count enemy transport
     		return (friendPop>0 || enemyPop>0);
     	}
         else { // TODO BR: opponent show Transport
@@ -1954,8 +1954,8 @@ public final class Colony implements Base, IMappedObject, Serializable {
     // We chose targets more carefully.
     // Autotransport was Moved to Empire.autotransport()
 
-    public int enemyPopApproachingSystem() {
-        return galaxy().enemyPopApproachingSystem(starSystem());
+    public int enemyPopApproachingPlayerSystem() {
+        return galaxy().enemyPopApproachingPlayerSystem(starSystem());
     }
     public int playerPopApproachingSystem() {
         return galaxy().playerPopApproachingSystem(starSystem());

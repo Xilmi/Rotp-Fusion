@@ -50,9 +50,11 @@ Last updates:
 - Single colony send transport panel:
   - Middle click on slider = "Stable"-value selection.
   - Right click on slider = "Fill"-value selection.
-- Planet Map now display incoming player populing transports.
-- Planet Map now display incoming player invasion transports.
-- Planet Map now display incoming enemy invasion transports.
+- Planet Map now display incoming transports.
+  - Pop(num) for Population.
+  - Troop(num) for invasion troops.
+  - Green for Player transport.
+  - Red for opponent transport.
 - Changed default AI to Roleplay.
 - Swapped "Ctrl"-selection on Game, Last loading button.
   - Last Game" is on the top!

@@ -697,6 +697,8 @@ MAIN_TRANSPORT_SEND               | Send Transports
 MAIN_TRANSPORT_ABANDON            | Abandon
 MAIN_TRANSPORT_CLEAR              | Clear Transports
 MAIN_TRANSPORT_SURRENDER          | Automatically surrender upon arrival
+MAIN_TRANSPORT_INCOMING_TROOP     | Troops(%1)
+MAIN_TRANSPORT_INCOMING_POP       | Pop(%1)
 
 // Colony labels
 MAIN_COLONY_HOMEWORLD             | %1 Homeworld
@@ -1036,8 +1038,6 @@ FLEETS_CANCEL_DEPLOYMENTS         | Cancel Deployments
 FLEETS_DEPLOYING_FLEETS           | Deploying Fleets
 FLEETS_DEPLOYING_FLEETS_DESC      | Select a system in range to deploy all selected fleets.
 FLEETS_DEPLOY_FLEETS              | Deploy Fleets
-FLEETS_TRANSPORTS_INCOMING        | Transports
-FLEETS_TRANSPORTS_INCOMING_COUNT  | (+%1)
 FLEETS_TRANSPORTS_TITLE           | Send Transports From:
 FLEETS_TRANSPORTS_SEND            | Send %1 Transports
 FLEETS_TRANSPORTS_SYNCH           | Synch

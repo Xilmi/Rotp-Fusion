@@ -250,47 +250,48 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
         	boolean isPlayer = isPlayer(sys.empire());
         	if (!isPlayer) {
             	int playerPop = sys.colony().playerPopApproachingSystem();;
-            	String str = text("FLEETS_TRANSPORTS_INCOMING");
+//            	String str = text("FLEETS_TRANSPORTS_INCOMING");
                 int y0 = s54;
                 int x0 = s25;
                 g.setFont(narrowFont(20));
-                g.setColor(Color.yellow);
-                drawString(g, str, x0, y0);
-                int sw = g.getFontMetrics().stringWidth(str);
-                x0 += sw + s2;
-                str = text("FLEETS_TRANSPORTS_INCOMING_COUNT", playerPop);
+                g.setColor(Color.green);
+//                drawString(g, str, x0, y0);
+//                int sw = g.getFontMetrics().stringWidth(str);
+//                x0 += sw + s2;
+                String str = text("MAIN_TRANSPORT_INCOMING_TROOP", playerPop);
         		drawString(g, str, x0, y0);
         	} 
         	else {
             	int friendPop = sys.colony().incomingTransports();;
-                int enemyPop  = sys.colony().enemyPopApproachingSystem();	// TODO BR:
-            	String str = text("FLEETS_TRANSPORTS_INCOMING");
+                int enemyPop  = sys.colony().enemyPopApproachingPlayerSystem();	// TODO BR:
+//            	String str = text("FLEETS_TRANSPORTS_INCOMING");
+            	String str;
+            	int sw;
                 int y0 = s54;
                 int x0 = s25;
                 g.setFont(narrowFont(20));
-                if (friendPop > 0)
-                	if (enemyPop > 0)
-                		g.setColor(Color.yellow);
-                	else
-                		g.setColor(Color.green);
-                else
-                	g.setColor(Color.red);
-                drawString(g, str, x0, y0);
-                int sw = g.getFontMetrics().stringWidth(str);
-                x0 += sw + s2;
+//                if (friendPop > 0)
+//                	if (enemyPop > 0)
+//                		g.setColor(Color.yellow);
+//                	else
+//                		g.setColor(Color.green);
+//                else
+//                	g.setColor(Color.red);
+//                drawString(g, str, x0, y0);
+//                int sw = g.getFontMetrics().stringWidth(str);
+//                x0 += sw + s2;
             	if (friendPop > 0) {
-            		str = text("FLEETS_TRANSPORTS_INCOMING_COUNT", friendPop);
+            		str = text("MAIN_TRANSPORT_INCOMING_POP", friendPop);
             		g.setColor(Color.green);
             		drawString(g, str, x0, y0);
             		sw = g.getFontMetrics().stringWidth(str);
-            		x0 += sw + s2;
+            		x0 += sw + s4;
             	}
             	if (enemyPop > 0) {
-            		str = text("FLEETS_TRANSPORTS_INCOMING_COUNT", enemyPop);
+            		str = text("MAIN_TRANSPORT_INCOMING_TROOP", enemyPop);
             		g.setColor(Color.red);
             		drawString(g, str, x0, y0);
             	}
-        		
         	}
         }
     }

@@ -539,6 +539,17 @@ public class Galaxy implements Base, Serializable {
         }
         return pop;
     }
+    public int enemyPopApproachingPlayerSystem(StarSystem sys) {
+        int pop = 0;
+        Empire pl = player();
+        for (Transport sh: transports) {
+            if ( (sh.destSysId() == sys.id)
+            		&& (sh.empId() != pl.id)
+            		&& pl.knowETA(sh))
+                pop += sh.size();
+        }
+        return pop;
+    }
     public int enemyPopApproachingSystem(StarSystem sys) {
         int pop = 0;
         for (Transport sh: transports) {

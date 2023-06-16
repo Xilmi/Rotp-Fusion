@@ -59,6 +59,12 @@ Later:
 - Single colony sending transport panel:
   - Middle click on slider = "Stable"-value selection.
   - Right click on slider = "Fill"-value selection.
+- Fixed enemy transport count: only if their destination is known! (was shown)
+- Planet Map now display:
+  - Pop(num) for Population.
+  - Troop(num) for invasion troops.
+  - Green for Player transport.
+  - Red for opponent transport.
 
 
 2023.06.14 (BR)
