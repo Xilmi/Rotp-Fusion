@@ -26,7 +26,6 @@ import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -1209,8 +1208,8 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
             int stackNum = fl.num(index);
             int currAdj = stackAdjustment[index];
             int newAdj = 1;
-            boolean shiftPressed = (e.getModifiers() & InputEvent.SHIFT_MASK) != 0;
-            boolean ctrlPressed = (e.getModifiers() & InputEvent.CTRL_MASK) != 0;
+            boolean shiftPressed = e.isShiftDown();
+            boolean ctrlPressed = e.isControlDown();
             
             int adjAmt = 1;
             if (shiftPressed)

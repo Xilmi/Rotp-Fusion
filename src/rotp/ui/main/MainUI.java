@@ -50,6 +50,7 @@ import rotp.ui.notifications.GameAlert;
 import rotp.ui.sprites.AlertDismissSprite;
 import rotp.ui.sprites.FlightPathSprite;
 import rotp.ui.sprites.HelpSprite;
+import rotp.ui.sprites.SystemTransportSprite;
 import rotp.ui.sprites.YearDisplaySprite;
 
 public class MainUI extends BasePanel implements IMapHandler {
@@ -216,9 +217,7 @@ public class MainUI extends BasePanel implements IMapHandler {
     @Override
     public boolean showAllCurrentResearch()        { return (overlay == overlayEspionageMission); }
     
-    public void setOverlay(MapOverlay lay) {
-        overlay = lay;
-    }
+    public void setOverlay(MapOverlay lay) { overlay = lay; }
     public MapOverlay overlay()   { return overlay; }
     public void clearAdvice() {
         if (overlay == overlayAdvice) {
@@ -380,6 +379,12 @@ public class MainUI extends BasePanel implements IMapHandler {
             return;
         
         Sprite spr = this.clickedSprite();
+        if (spr instanceof SystemTransportSprite) {
+        	helpFrame = numHelpFrames+2;
+        	loadHelpFrameTP();
+        	helpUI.open(this);
+        	return;
+        }
         if (spr instanceof StarSystem) {
             StarSystem sys = (StarSystem) spr;
             if (sys.empire() == player()) {
@@ -591,6 +596,7 @@ public class MainUI extends BasePanel implements IMapHandler {
         overlay.paintOverMap(this, ui, g);
     }
     public void advanceMap() {
+    	System.out.println("advanceMap()(): helpFrame = " + helpFrame);
         log("Advancing Main UI Map");
         overlay.advanceMap();
         map.hoverSprite = clickedSprite();
@@ -659,6 +665,24 @@ public class MainUI extends BasePanel implements IMapHandler {
             drawString(g,line, x1, y1);
             y1 += scaled(16);
         }
+    }
+    private void loadHelpFrameTP() {
+        HelpUI helpUI = RotPUI.helpUI();
+        int w = getWidth();
+        
+        helpUI.clear();
+        int x0 = scaled(75);
+        int w0 = scaled(400);
+        int y0 = scaled(300);
+        helpUI.addBrownHelpText(x0, y0, w0, 5, text("FLEETS_HELP_3MAIN"));
+
+        int w3 = scaled(350);
+        int x3 = w-w3-scaled(280);
+        int y3 = y0;
+        int x3a = w-scaled(120);
+        int y3a = scaled(250);
+        HelpUI.HelpSpec sp3 = helpUI.addBrownHelpText(x3, y3, w3, 4, text("FLEETS_HELP_3C"));
+        sp3.setLine(x3+w3, y3+sp3.height()/2, x3a, y3a);
     }
     private void loadEmpireColonyHelpFrame1() {
         HelpUI helpUI = RotPUI.helpUI();

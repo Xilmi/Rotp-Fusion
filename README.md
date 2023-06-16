@@ -55,6 +55,7 @@ Later:
 2023.06.15 (BR)
 - Single colony sending transport panel: Dynamic change of transport destination.
 - Fixed Random Event Fertile to not target hostile planets, because enrichSoil() has no effect on them.
+- Updated Help with New transport features.
 
 2023.06.15 (BR)
 - Planet Map now display incoming enemy transports.

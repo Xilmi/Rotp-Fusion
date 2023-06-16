@@ -1062,6 +1062,10 @@ FLEETS_HELP_2B                    | Filter By - select check boxes to narrow dow
 FLEETS_HELP_2C                    | Only Deploy Ships of Type - restrict the types of ships you want to deploy from your fleets.
 FLEETS_HELP_2D                    | Selected for Deployment - a count of ships, by type, that will be deployed.
 FLEETS_HELP_2E                    | Deploy Fleets - deploy the selected fleets to a single target system.
+FLEETS_HELP_3A                    | Stable:<br>The maximum number of population you can send from this planet while being able to regrowth to the same level, with ECO bar set to max.<br>It's up to the player or the governor to adjust the ECO bar.
+FLEETS_HELP_3B                    | Fill:<br>The maximum number of population you can send from this planet while being able to regrowth to fill the planet, with ECO bar set to max.<br>It's up to the player or the governor to adjust the ECO bar.
+FLEETS_HELP_3C                    | Population to send selection bars:<br>- Left click on slider = Normal percentage selection.<br>- Middle click on slider = "Stable"-value selection.<br>- Right click on slider = "Fill"-value selection.
+FLEETS_HELP_3MAIN                 | OVERVIEW:<br> This screen allows the management of population and troops transport.<br>Select the destination colony and transport size.<br>Destination colony can be changed at will.
 
 // Select Next Tech to Research UI
 TECH_RESEARCH_COMPUTER            | Select the next computer technology our researchers should focus on.
