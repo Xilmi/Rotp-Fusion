@@ -522,14 +522,30 @@ public class TransportDeploymentPanel extends SystemPanel {
                 increment(true);
             else if (sliderBox.contains(x,y)) {
                 float pct = (float) (x -sliderBox.x) / sliderBox.width;
-                if (pct >= 0) {
-                    if (pct < .05)
-                       pct = 0;
-                    else if (pct > .95)
-                       pct = 1;
-                    transportSprite().amt(bounds(0, (int)(pct*maxSendingSize), maxSendingSize));
-                    parentSpritePanel.repaint();
+                int newAmt = 0;
+                if (SwingUtilities.isMiddleMouseButton(e))
+                	newAmt = max(0, player().sv.maxTransNoLoss(system().id));
+                else if (SwingUtilities.isRightMouseButton(e))
+                	newAmt = max(0, player().sv.maxTransToFill(system().id));
+                else {
+                	if (pct >= 0) {
+                        if (pct < .05)
+                           pct = 0;
+                        else if (pct > .95)
+                           pct = 1;
+                    }
+                	newAmt = bounds(0, (int)(pct*maxSendingSize), maxSendingSize);
                 }
+                transportSprite().amt(newAmt);
+                parentSpritePanel.repaint();
+//                if (pct >= 0) {
+//                    if (pct < .05)
+//                       pct = 0;
+//                    else if (pct > .95)
+//                       pct = 1;
+//                    transportSprite().amt(bounds(0, (int)(pct*maxSendingSize), maxSendingSize));
+//                    parentSpritePanel.repaint();
+//                }
             }
         }
         @Override
