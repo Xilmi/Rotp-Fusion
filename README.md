@@ -32,6 +32,7 @@ Bug to fix:
 
 
 Very soon:
+- Update Help for transport troop
 - When the range circles are selected, distances should be shown instead of built ships.
 - Spare Xenophobes: Stop if caught too.
 - William482 request: Show info on offered Tech trade
@@ -53,6 +54,7 @@ Later:
 
 2023.06.15 (BR)
 - Single colony sending transport panel: Dynamic change of transport destination.
+- Fixed Random Event Fertile to not target hostile planets, because enrichSoil() has no effect on them.
 
 2023.06.15 (BR)
 - Planet Map now display incoming enemy transports.

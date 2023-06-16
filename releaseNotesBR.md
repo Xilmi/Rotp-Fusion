@@ -76,6 +76,7 @@ Last Fixes:
 - Fixed some "Remnant.cfg"-options not fully initialized.
 - Fixed Transport panel missing reinitialization when reopening!
 - All new colonies will be set with the current default governor option.
+- Fixed Random Event Fertile to not target hostile planets, this because enrichSoil() has no effect on them.
 
 
 Last Anouuncement:

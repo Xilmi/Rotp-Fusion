@@ -42,10 +42,13 @@ public String notificationText()    {
     @Override
     public void trigger(Empire emp) {
         // find a random colony that is not fertile or gaia
+    	// BR: Nor Hostile as enrichSoil() has no effect on hostile planets
         List<StarSystem> systems = new ArrayList<>();
         for (StarSystem sys : emp.allColonizedSystems()) {
             Planet pl = sys.planet();
-            if (!pl.isEnvironmentFertile() && !pl.isEnvironmentGaia()) 
+            if (!pl.isEnvironmentHostile() &&
+            		!pl.isEnvironmentFertile()
+            		&& !pl.isEnvironmentGaia()) 
                 systems.add(sys);
         }
         if (systems.isEmpty())
