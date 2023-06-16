@@ -103,6 +103,8 @@ public class SystemTransportSprite extends MapSprite {
         homeSystem().transportAmt = newAmt;
         return true;
     }
+    public StarSystem hoveringDest()          { return hoveringDest; }
+    public StarSystem clickedDest()           { return clickedDest; }
     public void clickedDest(StarSystem sys)   { clickedDest = sys; }
     public void hoveringDest(StarSystem sys)  { hoveringDest = sys; }
     public StarSystem homeSystem()            { return (StarSystem) source(); }

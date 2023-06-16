@@ -538,14 +538,6 @@ public class TransportDeploymentPanel extends SystemPanel {
                 }
                 transportSprite().amt(newAmt);
                 parentSpritePanel.repaint();
-//                if (pct >= 0) {
-//                    if (pct < .05)
-//                       pct = 0;
-//                    else if (pct > .95)
-//                       pct = 1;
-//                    transportSprite().amt(bounds(0, (int)(pct*maxSendingSize), maxSendingSize));
-//                    parentSpritePanel.repaint();
-//                }
             }
         }
         @Override

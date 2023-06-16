@@ -53,8 +53,8 @@ Last updates:
 - Planet Map now display incoming transports.
   - Pop(num) for Population.
   - Troop(num) for invasion troops.
-  - Green for Player transport.
-  - Red for opponent transport.
+  - Green for Player transports.
+  - Red for opponent transports.
 - Changed default AI to Roleplay.
 - Swapped "Ctrl"-selection on Game, Last loading button.
   - Last Game" is on the top!

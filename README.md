@@ -52,6 +52,9 @@ Later:
 ## What's New
 
 2023.06.15 (BR)
+- Single colony sending transport panel: Dynamic change of transport destination.
+
+2023.06.15 (BR)
 - Planet Map now display incoming enemy transports.
 - Planet Map now display incoming player invasion transports.
 - Fixed Transport panel missing reinitialization when reopening!
@@ -60,11 +63,11 @@ Later:
   - Middle click on slider = "Stable"-value selection.
   - Right click on slider = "Fill"-value selection.
 - Fixed enemy transport count: only if their destination is known! (was shown)
-- Planet Map now display:
+- Planet Map now display incoming transports as:
   - Pop(num) for Population.
   - Troop(num) for invasion troops.
-  - Green for Player transport.
-  - Red for opponent transport.
+  - Green for Player transports.
+  - Red for opponent transports.
 
 
 2023.06.14 (BR)

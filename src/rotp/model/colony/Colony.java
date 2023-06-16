@@ -102,11 +102,11 @@ public final class Colony implements Base, IMappedObject, Serializable {
             new ColonyIndustry(), new ColonyEcology(), new ColonyResearch() };
 
     private boolean underSiege = false;
-    public boolean keepEcoLockedToClean;
+    public  boolean keepEcoLockedToClean;
     private transient boolean hasNewOrders = false;
     private transient int cleanupAllocation = 0;
     private transient boolean recalcSpendingForNewTaxRate;
-    public transient boolean reallocationRequired = false;
+    public  transient boolean reallocationRequired = false;
 
     public void toggleRecalcSpending()         { recalcSpendingForNewTaxRate = true; }
     public boolean underSiege()                { return underSiege; }
@@ -1934,14 +1934,30 @@ public final class Colony implements Base, IMappedObject, Serializable {
     }
     public boolean showTransports() {
         if (isPlayer(empire())) {
-        	int friendPop = incomingTransports();
-            int enemyPop  = enemyPopApproachingPlayerSystem(); // TODO BR: count enemy transport
+        	int friendPop = playerPopApproachingSystem();
+            int enemyPop  = enemyPopApproachingPlayerSystem();
     		return (friendPop>0 || enemyPop>0);
     	}
-        else { // TODO BR: opponent show Transport
-        	int playerPop  = playerPopApproachingSystem(); // TODO BR: count enemy transport
+        else {
+        	int playerPop  = playerPopApproachingSystem();
         	return (playerPop>0);
         }
+    }
+    public int plannedTransport(int destId) {
+    	StarSystem sys = starSystem();
+    	if ( sys.transportSprite != null) {
+    		StarSystem destSys = sys.transportSprite.clickedDest();
+    	   	if ( destSys != null && destSys.id == destId) {
+    	   		return sys.transportAmt;
+    	   	}
+    	   	destSys = sys.transportSprite.hoveringDest();
+        	if ( destSys != null && destSys.id == destId) {
+        		return 0;
+    	   	}
+    	}
+    	if (transporting() && transport().destSysId() == destId)
+    		return (int) inTransport();
+    	return 0;
     }
     // Try to transport extra population to other plants.
     // Since 1.9 minimum cost to transport population is 10 BC which means
