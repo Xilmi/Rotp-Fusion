@@ -17,7 +17,6 @@
 package rotp.ui.util;
 
 import static rotp.model.game.IGovOptions.NOT_GOVERNOR;
-import static rotp.ui.RotPUI.optionVersion;
 import static rotp.ui.util.IParam.langLabel;
 import static rotp.util.Base.textSubs;
 
@@ -47,7 +46,6 @@ public abstract class AbstractParam <T> implements IParam{
 	private T shiftInc		= null;
 	private T ctrlInc		= null;
 	private T shiftCtrlInc	= null;
-	private int	version		= 0;
 	private int	isGovernor	= NOT_GOVERNOR;
 	private boolean isDuplicate	= false;
 	private boolean isCfgFile	= false;
@@ -194,9 +192,8 @@ public abstract class AbstractParam <T> implements IParam{
 		if (isCfgFile) {
 			value = getOption();
 		}
-		else if (version != optionVersion() || isDuplicate) {
+		else if (isDuplicate) {
 			value = getOptionValue(opts());
-			version = optionVersion();
 		}
 		return value;
 	}	
@@ -229,7 +226,6 @@ public abstract class AbstractParam <T> implements IParam{
 		value = newValue;
 //		updateOption(dynOpts()); // only for CR settings...
 		setOption(newValue); // For overrider
-		version = optionVersion();
 		if (trueChange && (isGovernor != NOT_GOVERNOR))
 			GovernorOptions.callForRefresh(isGovernor);
 		if (isCfgFile)

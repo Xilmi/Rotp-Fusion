@@ -61,6 +61,7 @@ import rotp.model.galaxy.StarType;
 import rotp.model.planet.Planet;
 import rotp.model.planet.PlanetType;
 import rotp.model.tech.TechEngineWarp;
+import rotp.ui.UserPreferences;
 import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.util.IParam;
 import rotp.ui.util.SpecificCROption;
@@ -1474,12 +1475,12 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	}
     	else {
 	       	for (IParam param : pList) {
-	       		if (param != null) { // Exclude .cfg parameters
-		       		if (!param.isCfgFile()) { // Exclude .cfg parameters
-		       			param.copyOption(source, this, true); // update tool
+	       		if (param != null) {
+		       		if (param.isCfgFile()) { // Exclude .cfg parameters
+		       			param.updateOptionTool();
 		       		}
 		       		else {
-		       			param.updateOptionTool();
+		       			param.copyOption(source, this, true); // Copy and update tool
 		       		}
 	       		}
 	       	}
@@ -1507,7 +1508,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     		if (param != null && !param.isCfgFile()) { // cfg file if updated live!
     			param.updateOptionTool();
     		}
-    	}    	
+    	}
+    	UserPreferences.load();
     }
     @Override public MOO1GameOptions copyAllOptions() {
 		try {

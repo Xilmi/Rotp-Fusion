@@ -15,6 +15,9 @@
  */
 package rotp.ui.game;
 
+import static rotp.model.game.IBaseOptsTools.GAME_OPTIONS_FILE;
+import static rotp.model.game.IBaseOptsTools.LIVE_OPTIONS_FILE;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -298,6 +301,9 @@ public final class SaveGameUI extends BasePanel implements MouseListener, MouseW
         // (May contains player name)
         RotPUI.currentOptions(IGameOptions.GAME_ID);
         options().prepareToSave(true);
+        options().saveOptionsToFile(GAME_OPTIONS_FILE);
+        options().saveOptionsToFile(LIVE_OPTIONS_FILE);
+        
         final Runnable save = () -> {
             try {
                 GameSession.instance().saveSession(s, false);

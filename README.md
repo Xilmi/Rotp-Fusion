@@ -32,8 +32,6 @@ Bug to fix:
 
 
 Very soon:
-- Update Help for transport troop
-- When the range circles are selected, distances should be shown instead of built ships.
 - Spare Xenophobes: Stop if caught too.
 - William482 request: Show info on offered Tech trade
   - ($remaining_RP / $total_RP Remaining) or (Imminent - 29%) in place of the beaker counts...
@@ -52,7 +50,12 @@ Later:
 
 ## What's New
 
-2023.06.15 (BR)
+2023.06.17 (BR)
+- Setup options will now follow the current game options.
+  - Any changes in the game panels will be ported to the setup options.
+  - But the current game options won't follow the changes made in the setup panels!
+
+2023.06.16 (BR)
 - Single colony sending transport panel: Dynamic change of transport destination.
 - Fixed Random Event Fertile to not target hostile planets, because enrichSoil() has no effect on them.
 - Updated Help with New transport features.

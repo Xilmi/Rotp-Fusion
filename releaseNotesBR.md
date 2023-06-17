@@ -8,10 +8,10 @@ Last updates:
   - Auto-Spy.
   - Auto-Infiltrate.
 - Simplified options' management.
-  - Setup options are now only loaded once at startup...
-    - No more silently updated when going through the main menu.
-    - The player decide when setup options needs to be reloaded.
-  - Loaded games will always load their own options. (No mix with some current setup options)
+  - Setup options follow Game options, but game options don't follow setup option. (Exept when starting a new game)
+  - Setup options are loaded once at startup, according to your selection: Last Game, Last Session, or User's
+    - Then will follow the game options and setup panel settings; last change win.
+  - Loaded games will always load their own options.
     - The player decide if and when to change some options.
   - Removed "global" load and save from sub-menus.
     - Only Race setup panel and Galaxy setup panel will allow Global reload.
