@@ -188,7 +188,8 @@ public interface IMainOptions extends IBaseOptsTools {
 	};
 //	default boolean showMemory()		{ return showMemory.get(); }
 
-	ParamInteger selectedScreen		= new ParamInteger(GAME_UI, "SELECTED_SCREEN", -1, -1, Rotp.maxScreen()) {
+	ParamInteger selectedScreen		= new ParamInteger(GAME_UI, "SELECTED_SCREEN",
+			-1, -1, Rotp.maxScreenIndex(), true) {
 		{ isDuplicate(true); isCfgFile(true); }
 		@Override public Integer getOption()		{ return selectedScreen(); }
 		@Override public void setOption(Integer i)	{ selectedScreen(i); }

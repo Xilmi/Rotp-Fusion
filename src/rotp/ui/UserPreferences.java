@@ -427,7 +427,7 @@ public class UserPreferences implements IMainOptions {
 		return LanguageManager.selectedLanguageDir();
 	}
 	private	static void setSelectedScreen(int i) {
-		selectedScreen = Math.max(-1, Math.min(i, Rotp.maxScreen()));
+		selectedScreen = Math.max(-1, Math.min(i, Rotp.maxScreenIndex()));
 	}
 //	public	static void nextSelectedScreen()	 {
 //		setSelectedScreen(selectedScreen + 1);

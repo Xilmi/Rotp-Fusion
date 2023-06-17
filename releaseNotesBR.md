@@ -77,6 +77,10 @@ Last Fixes:
 - Fixed Transport panel missing reinitialization when reopening!
 - All new colonies will be set with the current default governor option.
 - Fixed Random Event Fertile to not target hostile planets, this because enrichSoil() has no effect on them.
+- Fixed Screen selection: maxScreen() will return the max index instead of the number of screen!
+  - Screen selection values are now looping.
+- Fixed Fullscreen setting: The selected screen will be tested for fullscreen ability before forcing this setting.
+  - Boderless will be used if fullscreen is not available.
 
 
 Last Anouuncement:

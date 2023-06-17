@@ -121,12 +121,17 @@ public class Rotp {
         BufferedImage square = bimg.getSubimage(bimg.getWidth()-bimg.getHeight(), 0, bimg.getHeight(), bimg.getHeight());
         frame.setIconImage(square);
 
+        boolean failedFullScreen = false;
         if (UserPreferences.fullScreen()) {
-            frame.setUndecorated(true);
-            device().setFullScreenWindow(frame);
-            resizeAmt();
+            if (device().isFullScreenSupported()) {
+            	frame.setUndecorated(true);
+            	device().setFullScreenWindow(frame);
+            	resizeAmt();
+            }
+            else
+            	failedFullScreen = true;
         }
-        else if (UserPreferences.borderless()) {
+        else if (failedFullScreen || UserPreferences.borderless()) {
         	frame.setLocation(device().getDefaultConfiguration().getBounds().x,
 					  device().getDefaultConfiguration().getBounds().y);
             frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -159,14 +164,14 @@ public class Rotp {
             	device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
             else {
                 GraphicsDevice[] gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices();
-                selectedScreen = Math.min(selectedScreen, gd.length);
+                selectedScreen = Math.min(selectedScreen, gd.length-1);
                 device = gd[selectedScreen];
             }
     	}
         return device;
     }
-    public static int maxScreen() {
-    	return GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices().length;
+    public static int maxScreenIndex() {
+    	return GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices().length-1;
     }
     public static void becomeVisible() {   frame.setVisible(true); }
     public static boolean containsArg(String[] argList, String key) {

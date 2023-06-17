@@ -56,6 +56,11 @@ Later:
 - Single colony sending transport panel: Dynamic change of transport destination.
 - Fixed Random Event Fertile to not target hostile planets, because enrichSoil() has no effect on them.
 - Updated Help with New transport features.
+- Fixed Screen selection: maxScreen() will return the max index instead of the number of screen.
+  - And renamed it to  maxScreenIndex() for better code lisibility.
+  - Screen selection values are now looping.
+- Fixed Fullscreen setting: The selected screen will be tested for fullscreen ability before forcing this setting.
+  - Boderless will be used if fullscreen is not available.
 
 2023.06.15 (BR)
 - Planet Map now display incoming enemy transports.
