@@ -168,7 +168,7 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 	
 				headerSpacer,
 				new ParamTitle("MENU_OPTIONS"),
-				systemNameDisplay, shipDisplay, flightPathDisplay,
+				showNextCouncil, systemNameDisplay, shipDisplay, flightPathDisplay,
 				showGridCircular, showShipRanges, galaxyPreviewColorStarsSize,
 				showAllAI, compactOptionOnly
 				)));
