@@ -50,6 +50,9 @@ Later:
 
 ## What's New
 
+2023.06.18 (BR)
+- Sending transport helper will work even if a transport is already set.
+
 2023.06.17 (BR)
 - Setup options will now follow the current game options.
   - Any changes in the game panels will be ported to the setup options.
