@@ -1525,8 +1525,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     // !!! Must remain static: Called before option are fully initialized.
     //
     public static void copyOptionsFromLiveToLast() {
-    	saveOptions(loadOptions(LIVE_OPTIONS_FILE),
-   			Rotp.jarPath(), LAST_OPTIONS_FILE);
+    	MOO1GameOptions live = loadOptions(LIVE_OPTIONS_FILE);
+    	saveOptions(live, Rotp.jarPath(), LAST_OPTIONS_FILE);
     }
     private static MOO1GameOptions loadOptions(String fileName) {
     	MOO1GameOptions dest = loadOptions(Rotp.jarPath(), fileName);
@@ -1537,7 +1537,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	saveOptions(options, Rotp.jarPath(), fileName);
     }
     private static void saveOptions(MOO1GameOptions options, String path, String fileName) {
-    	options.prepareToSave(false);
 		File saveFile = new File(path, fileName);
 		try {
 			saveOptionsTE(options, saveFile);

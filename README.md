@@ -54,6 +54,7 @@ Later:
 - Setup options will now follow the current game options.
   - Any changes in the game panels will be ported to the setup options.
   - But the current game options won't follow the changes made in the setup panels!
+- Fixed bad option copy.
 
 2023.06.16 (BR)
 - Single colony sending transport panel: Dynamic change of transport destination.
