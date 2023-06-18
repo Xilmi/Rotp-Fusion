@@ -47,7 +47,15 @@ public abstract class ColonySpendingCategory implements Base, Serializable {
 
     private Colony colony;
 
+    /**
+     * upcomingResult() is the text displayed to the player in the EmpireColonySpendingPane.
+     * upcomingResult() is the *expected* result, based on information *known* to the player at the time.
+     * nextTurn(), by contrast, will determine the *actual* result, which will sometimes be different.
+     * In particular, GameSession.nextTurnProcess() checks for random events before resolving colony spending.
+     * A ship that was expected to be built next year might not be built if an unexpected earthquake strikes the colony during the year.
+    */
     public abstract String upcomingResult();
+
     public abstract int categoryType();
     public abstract boolean isCompleted();
     public abstract void nextTurn(float prod, float rsv);
