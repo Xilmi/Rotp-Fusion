@@ -1027,6 +1027,11 @@ public final class Colony implements Base, IMappedObject, Serializable {
 
         return newGrownPopulation;
     }
+    public float normalPopGrowthAfterNextTurnTransports() {
+	// normalPopGrowth() actually already calls workingPopulation() internally,
+        // which already subtracts outgoing transports.
+        return normalPopGrowth(-incomingTransportsNextTurn());
+    }
     public ShipFleet homeFleet() {
         return starSystem().orbitingFleetForEmpire(empire());
     }
