@@ -61,6 +61,7 @@ Later:
 
 2023.06.18 (dHannasch)
 - Fixed ungoverned colony sending transport without following "transport Max Turn"
+- Fixed inaccuracies of expected colony growth.
 
 2023.06.18 (BR)
 - Sending transport helper will work even if a transport is already set.
