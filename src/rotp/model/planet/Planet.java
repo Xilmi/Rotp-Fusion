@@ -431,6 +431,23 @@ public class Planet implements Base, IMappedObject, Serializable {
 
         return size;
     }
+    public float normalPopGrowth(float currentPopulation) { return normalPopGrowth(currentPopulation, empire()); }
+    public float normalPopGrowth(float currentPopulation, Empire civ) {
+        float maxNewPopulation = currentSize() - currentPopulation;
+        float baseGrowthRate = max(0, (1 - (currentPopulation / currentSize())) / 10);
+        if (civ != null) {
+            baseGrowthRate *= civ.growthRateMod();
+            if (!civ.ignoresPlanetEnvironment())
+                baseGrowthRate *= growthAdj();
+        }
+
+        // always at least .1 base growth in pop
+        float newGrownPopulation = max(.1f, currentPopulation * baseGrowthRate);
+        newGrownPopulation = min(newGrownPopulation, maxNewPopulation);
+
+        return newGrownPopulation;
+    }
+
     private void initColors() {
         switch(type().key()) {
             case PlanetType.OCEAN:
