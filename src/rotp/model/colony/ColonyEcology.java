@@ -129,6 +129,16 @@ public class ColonyEcology extends ColonySpendingCategory {
 
         return roomToGrow * tech().popIncreaseCost();
     }
+    public float wasteWillClean(float availableBC, float wasteToClean) {
+        Empire emp = colony().empire();
+        if (emp.ignoresPlanetEnvironment())
+            return 0;
+        else
+            return max(0, min((availableBC * emp.tech().wasteElimination()), wasteToClean));
+    }
+    public float wasteWillClean(float availableBC) {
+        return wasteWillClean(availableBC, waste());
+    }
     @Override
     public void nextTurn(float totalProd, float totalReserve) {
         Colony c = colony();
@@ -144,7 +154,7 @@ public class ColonyEcology extends ColonySpendingCategory {
 
         // add new waste created from this turn & clean it up
         addWaste(c.newWaste());
-        wasteCleaned = emp.ignoresPlanetEnvironment() ? 0 : max(0, min((newBC * tr.wasteElimination()), waste()));
+        wasteCleaned = wasteWillClean(newBC);
         newBC -= (wasteCleaned / tr.wasteElimination());
 
         // try to convert hostile atmosphere
