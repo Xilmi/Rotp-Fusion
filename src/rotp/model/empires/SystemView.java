@@ -201,12 +201,12 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
     public int factories()                   { return vFactories; }
     public int currentSize()                 { return vCurrentSize; }
     public int maxTransToFill()              {
-        if (!colony().canTransport())
+        if (colony().inRebellion())
             return 0;
         return colony().maxTransportToFill();
     }
     public int maxTransNoLoss()              {
-        if (!colony().canTransport())
+        if (colony().inRebellion())
             return 0;
         return colony().maxTransportNoLoss();
     }

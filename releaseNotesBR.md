@@ -81,6 +81,7 @@ Last Fixes:
   - Screen selection values are now looping.
 - Fixed Fullscreen setting: The selected screen will be tested for fullscreen ability before forcing this setting.
   - Boderless will be used if fullscreen is not available.
+- Fixed ungoverned colony sending transport without following "transport Max Turn" (dHannasch)
 
 
 Last Anouuncement:

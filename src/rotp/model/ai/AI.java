@@ -258,6 +258,9 @@ public class AI implements Base {
 
         Collections.sort(needy,TRANSPORT_PRIORITY);
 
+        float allowableTurns = (float) (1 + Math.min(7, Math.floor(22 / empire.tech().topSpeed())));
+        if(empire.isPlayerControlled())
+            allowableTurns = Math.min(session().getGovernorOptions().getTransportMaxTurns(), allowableTurns);
         for(ColonyTransporter needer : needy)
         {
             TARGET_COLONY = needer;
@@ -268,7 +271,6 @@ public class AI implements Base {
                 if(giver.colony.transport().size() > 0)
                     continue;
                 allGiversBusy = false;
-                float allowableTurns = (float) (1 + Math.min(7, Math.floor(22 / empire.tech().topSpeed())));
                 float travelTime = giver.colony.transport().travelTime(needer.colony.starSystem());
                 if ((giver.maxPopToGive >= minTransportSize) && (giver.transportPriority < needer.transportPriority)
                         && travelTime <= allowableTurns) {

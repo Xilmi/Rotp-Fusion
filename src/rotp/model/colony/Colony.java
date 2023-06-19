@@ -1011,26 +1011,11 @@ public final class Colony implements Base, IMappedObject, Serializable {
     public float maxUseableFactories() {
         return workingPopulation() * empire().maxRobotControls();
     }
-    public float normalPopGrowth() { return normalPopGrowth(0); }
-    public float normalPopGrowth(int toSend) { // BR: to check effect of sending population
-        // calculate growth rate based on current pop, environment & race & new sent pop
-    	float workingPopulation = (workingPopulation() - toSend);
-        float maxNewPopulation = planet.currentSize() - workingPopulation;
-        float baseGrowthRate = max(0, (1 - (workingPopulation / planet.currentSize())) / 10);
-        baseGrowthRate *= empire.growthRateMod();
-        if (!empire.ignoresPlanetEnvironment())
-            baseGrowthRate *= planet.growthAdj();
-
-        // always at least .1 base growth in pop
-        float newGrownPopulation = max(.1f, workingPopulation * baseGrowthRate);
-        newGrownPopulation = min(newGrownPopulation, maxNewPopulation);
-
-        return newGrownPopulation;
+    public float normalPopGrowth() {
+        return planet.normalPopGrowth(workingPopulation());
     }
     public float normalPopGrowthAfterNextTurnTransports() {
-	// normalPopGrowth() actually already calls workingPopulation() internally,
-        // which already subtracts outgoing transports.
-        return normalPopGrowth(-incomingTransportsNextTurn());
+        return planet.normalPopGrowth(populationAfterNextTurnTransports());
     }
     public ShipFleet homeFleet() {
         return starSystem().orbitingFleetForEmpire(empire());
@@ -1902,11 +1887,14 @@ public final class Colony implements Base, IMappedObject, Serializable {
         return newGrownPopulation;
     }
     private int upcomingPopGrowth(int toSend) {
-    	float oldPop = population;
-    	int   oldEco = allocation(ECOLOGY);
+    	float oldPop	 = population;
+    	int oldTransport = transport().size();
+    	int oldEco		 = allocation(ECOLOGY);
         allocation(ECOLOGY, 50);
-    	population -= toSend;
+        transport().size(0);
+        population -= toSend;
         int expectedPopGrowth = ecology().upcomingPopGrowth();
+        transport().size(oldTransport);
         population = oldPop;
         allocation(ECOLOGY, oldEco);
         return expectedPopGrowth;

@@ -19,6 +19,15 @@ The description of the additions/changes by BrokenRegistry can be found there: <
 	[https://brokenregistry.github.io](https://brokenregistry.github.io) <br/>
 	[Also available as pdf file (User Manual)](https://brokenregistry.github.io/pdf/Profiles.pdf) <br/>
 
+### To build and run locally:
+
+```
+sudo apt install vorbis-tools
+sudo apt install webp
+mvn clean package -Dmaven.javadoc.skip=true
+java -jar target/rotp-<timestamp>-mini.jar
+```
+
 # Other Links
 Official website: https://www.remnantsoftheprecursors.com/<br/>
 Community subreddit: https://www.reddit.com/r/rotp/<br/>
@@ -49,6 +58,12 @@ Later:
 
 
 ## What's New
+
+2023.06.18 (dHannasch)
+- Fixed ungoverned colony sending transport without following "transport Max Turn"
+
+2023.06.18 (BR)
+- Sending transport helper will work even if a transport is already set.
 
 2023.06.17 (BR)
 - Setup options will now follow the current game options.

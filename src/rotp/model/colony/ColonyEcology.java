@@ -19,6 +19,7 @@ import rotp.model.empires.Empire;
 import rotp.model.planet.Planet;
 import rotp.model.tech.TechAtmosphereEnrichment;
 import rotp.model.tech.TechTree;
+import rotp.util.ObjectCloner;
 
 public class ColonyEcology extends ColonySpendingCategory {
     private static final long serialVersionUID = 1L;
@@ -264,6 +265,12 @@ public class ColonyEcology extends ColonySpendingCategory {
         if (!empire().divertColonyExcessToResearch())
             empire().addReserve(unallocatedBC);
         unallocatedBC = 0;
+    }
+    public int altUpcomingPopGrowth() {
+    	Colony c = (Colony) ObjectCloner.deepCopy(colony());
+    	c.nextTurn();
+        System.out.println("c.population() = " + c.population()) ;
+    	return c.deltaPopulation();
     }
     public int upcomingPopGrowth() {
         upcomingResult();
