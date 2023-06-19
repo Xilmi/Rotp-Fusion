@@ -298,8 +298,9 @@ public class ColonyEcology extends ColonySpendingCategory {
 
         // new population
         float currentPop = c.population();
-        float workingPop = c.workingPopulation(); // currentpop - transports away
-        float expGrowth = c.normalPopGrowth();
+        // Currently, this assumes that all incoming transports will not be shot down.
+        float workingPop = c.populationAfterNextTurnTransports();
+        float expGrowth = c.normalPopGrowthAfterNextTurnTransports();
         expectedPopGrowth = (int) (workingPop+expGrowth) - (int) currentPop;
 
         // check for waste cleanup

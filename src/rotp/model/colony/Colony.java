@@ -961,6 +961,10 @@ public final class Colony implements Base, IMappedObject, Serializable {
     public float expectedPopulation() {
         return workingPopulation() + normalPopGrowth() + incomingTransports();
     }
+    // GameSession.nextTurnProcess() processes transports before normal population growth.
+    public float populationAfterNextTurnTransports() {
+        return population() - inTransport() + incomingTransportsNextTurn();
+    }
     public int incomingTransports() {
         return galaxy().friendlyPopApproachingSystem(starSystem());
     }
@@ -1008,19 +1012,10 @@ public final class Colony implements Base, IMappedObject, Serializable {
         return workingPopulation() * empire().maxRobotControls();
     }
     public float normalPopGrowth() {
-    	// calculate growth rate based on current pop, environment & race
-    	float workingPopulation = (workingPopulation());
-        float maxNewPopulation = planet.currentSize() - workingPopulation;
-        float baseGrowthRate = max(0, (1 - (workingPopulation / planet.currentSize())) / 10);
-        baseGrowthRate *= empire.growthRateMod();
-        if (!empire.ignoresPlanetEnvironment())
-            baseGrowthRate *= planet.growthAdj();
-
-        // always at least .1 base growth in pop
-        float newGrownPopulation = max(.1f, workingPopulation * baseGrowthRate);
-        newGrownPopulation = min(newGrownPopulation, maxNewPopulation);
-
-        return newGrownPopulation;
+        return planet.normalPopGrowth(workingPopulation());
+    }
+    public float normalPopGrowthAfterNextTurnTransports() {
+        return planet.normalPopGrowth(populationAfterNextTurnTransports());
     }
     public ShipFleet homeFleet() {
         return starSystem().orbitingFleetForEmpire(empire());
