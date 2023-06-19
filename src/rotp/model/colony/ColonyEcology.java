@@ -266,12 +266,6 @@ public class ColonyEcology extends ColonySpendingCategory {
             empire().addReserve(unallocatedBC);
         unallocatedBC = 0;
     }
-    public int altUpcomingPopGrowth() {
-    	Colony c = (Colony) ObjectCloner.deepCopy(colony());
-    	c.nextTurn();
-        System.out.println("c.population() = " + c.population()) ;
-    	return c.deltaPopulation();
-    }
     public int upcomingPopGrowth() {
         upcomingResult();
         return expectedPopGrowth;
