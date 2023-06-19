@@ -68,6 +68,11 @@ public abstract class ColonySpendingCategory implements Base, Serializable {
     public float totalBCForEmpire()     { return totalBC(); }
     public int allocation()             { return colony.allocation(categoryType()); }
     public float pct()                  { return (float)allocation()/ MAX_TICKS; }
+    public float totalAvailableBCthisCategory(float totalProd, float totalReserve) {
+        float prodBC = pct() * totalProd;
+        float rsvBC = pct() * totalReserve;
+        return prodBC + rsvBC;
+    }
     public boolean warning()            { return false; }
     public String overflowText()        { 
         if (!empire().divertColonyExcessToResearch())

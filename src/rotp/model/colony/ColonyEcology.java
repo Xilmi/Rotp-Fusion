@@ -129,6 +129,16 @@ public class ColonyEcology extends ColonySpendingCategory {
 
         return roomToGrow * tech().popIncreaseCost();
     }
+    public float wasteWillClean(float availableBC, float wasteToClean) {
+        Empire emp = colony().empire();
+        if (emp.ignoresPlanetEnvironment())
+            return 0;
+        else
+            return max(0, min((availableBC * emp.tech().wasteElimination()), wasteToClean));
+    }
+    public float wasteWillClean(float availableBC) {
+        return wasteWillClean(availableBC, waste());
+    }
     @Override
     public void nextTurn(float totalProd, float totalReserve) {
         Colony c = colony();
@@ -140,11 +150,11 @@ public class ColonyEcology extends ColonySpendingCategory {
 
         float prodBC = pct()* totalProd;
         float rsvBC = pct() * totalReserve;
-        float newBC = prodBC+rsvBC;
+        float newBC = totalAvailableBCthisCategory(totalProd, totalReserve);
 
         // add new waste created from this turn & clean it up
         addWaste(c.newWaste());
-        wasteCleaned = emp.ignoresPlanetEnvironment() ? 0 : max(0, min((newBC * tr.wasteElimination()), waste()));
+        wasteCleaned = wasteWillClean(newBC);
         newBC -= (wasteCleaned / tr.wasteElimination());
 
         // try to convert hostile atmosphere
@@ -275,9 +285,7 @@ public class ColonyEcology extends ColonySpendingCategory {
         if (empire().ignoresPlanetEnvironment())
             return false;
         
-        float prodBC = pct()* colony().totalProductionIncome();
-        float rsvBC = pct() * colony().maxReserveIncome();
-        float newBC = prodBC+rsvBC; 
+        float newBC = totalAvailableBCthisCategory(colony().totalProductionIncome(), colony().maxReserveIncome());
         
         return (newBC < colony().wasteCleanupCost());
     }
@@ -285,9 +293,7 @@ public class ColonyEcology extends ColonySpendingCategory {
     public String upcomingResult(){
         Colony c = colony();
         
-        float prodBC = pct()* c.totalProductionIncome();
-        float rsvBC = pct() * c.maxReserveIncome();
-        float newBC = prodBC+rsvBC;
+        float newBC = totalAvailableBCthisCategory(colony().totalProductionIncome(), colony().maxReserveIncome());
         float cost;
 
         // new population
@@ -369,9 +375,7 @@ public class ColonyEcology extends ColonySpendingCategory {
         if (c.allocation(categoryType()) == 0)
             return 0;
         
-        float prodBC = pct()* c.totalProductionIncome();
-        float rsvBC = pct() * c.maxReserveIncome();
-        float totalBC = prodBC+rsvBC;        
+        float totalBC = totalAvailableBCthisCategory(colony().totalProductionIncome(), colony().maxReserveIncome());
         
         // deduct cost to clean industrial waste
         float cleanCost = c.wasteCleanupCost();
