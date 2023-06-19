@@ -246,7 +246,7 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
         if (player().sv.isColonized(sys.id))
             drawSystemTreatyStatus(g, sys, f, y, w, lineH);
 
-        if (showTransports) {
+        { // block to limit scope of variables
         	boolean isPlayer = isPlayer(sys.empire());
             int y0 = s54;
             int x0 = s25;
