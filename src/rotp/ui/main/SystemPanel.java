@@ -211,7 +211,7 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
         int y = startY;
 
         int lines = showSpyData ? 5 : 4;
-        int lineH = h/lines;
+        int lineH = h/lines;  // line height
 
         // ensure we are always at least font 16, readjust lineH to compensate
         int estFontSize = min(20, max(16, unscaled(lineH)));
@@ -277,6 +277,19 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
             		g.setColor(Color.red);
             		drawString(g, str, x0, y0);
             	}
+                if (friendPop > 0 || enemyPop > 0)
+                    y0 -= lineH;
+                // This will only display alienFactories if the player has colonized the system.
+                // We could display alienFactories if the player has merely explored the system,
+                // just as we show the player the planet's current terraformed size.
+                for (int empId=0; empId<sys.galaxy().numEmpires(); empId++)
+                    if (sys.planet().alienFactories(empId) > 0) {
+                        str = sys.planet().alienFactories(empId).toString() + ' ' + sys.galaxy().empire(empId).name();
+                        g.setColor(sys.galaxy().empire(empId).nameColor());
+                        drawString(g, str, x0, y0);
+                        sw = g.getFontMetrics().stringWidth(str);
+                        x0 += sw + s4;
+                    }
         	}
         }
     }
