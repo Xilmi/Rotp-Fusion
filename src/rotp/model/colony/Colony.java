@@ -961,6 +961,10 @@ public final class Colony implements Base, IMappedObject, Serializable {
     public float expectedPopulation() {
         return workingPopulation() + normalPopGrowth() + incomingTransports();
     }
+    // GameSession.nextTurnProcess() processes transports before normal population growth.
+    public float populationAfterNextTurnTransports() {
+        return population() - inTransport() + incomingTransportsNextTurn();
+    }
     public int incomingTransports() {
         return galaxy().friendlyPopApproachingSystem(starSystem());
     }
@@ -1007,7 +1011,12 @@ public final class Colony implements Base, IMappedObject, Serializable {
     public float maxUseableFactories() {
         return workingPopulation() * empire().maxRobotControls();
     }
-    public float normalPopGrowth() { return planet.normalPopGrowth(workingPopulation()); }
+    public float normalPopGrowth() {
+        return planet.normalPopGrowth(workingPopulation());
+    }
+    public float normalPopGrowthAfterNextTurnTransports() {
+        return planet.normalPopGrowth(populationAfterNextTurnTransports());
+    }
     public ShipFleet homeFleet() {
         return starSystem().orbitingFleetForEmpire(empire());
     }
