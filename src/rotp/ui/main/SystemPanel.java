@@ -278,7 +278,8 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
             		drawString(g, str, x0, y0);
             	}
                 if (friendPop > 0 || enemyPop > 0)
-                    y0 -= lineH;
+                    y0 += lineH;
+                x0 = s25;
                 // This will only display alienFactories if the player has colonized the system.
                 // We could display alienFactories if the player has merely explored the system,
                 // just as we show the player the planet's current terraformed size.
