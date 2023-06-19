@@ -1007,21 +1007,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
     public float maxUseableFactories() {
         return workingPopulation() * empire().maxRobotControls();
     }
-    public float normalPopGrowth() {
-    	// calculate growth rate based on current pop, environment & race
-    	float workingPopulation = (workingPopulation());
-        float maxNewPopulation = planet.currentSize() - workingPopulation;
-        float baseGrowthRate = max(0, (1 - (workingPopulation / planet.currentSize())) / 10);
-        baseGrowthRate *= empire.growthRateMod();
-        if (!empire.ignoresPlanetEnvironment())
-            baseGrowthRate *= planet.growthAdj();
-
-        // always at least .1 base growth in pop
-        float newGrownPopulation = max(.1f, workingPopulation * baseGrowthRate);
-        newGrownPopulation = min(newGrownPopulation, maxNewPopulation);
-
-        return newGrownPopulation;
-    }
+    public float normalPopGrowth() { return planet.normalPopGrowth(workingPopulation()); }
     public ShipFleet homeFleet() {
         return starSystem().orbitingFleetForEmpire(empire());
     }
