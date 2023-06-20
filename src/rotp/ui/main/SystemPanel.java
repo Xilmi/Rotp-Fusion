@@ -249,7 +249,7 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
     	boolean isPlayer = isPlayer(sys.empire());
         int y0 = s54;
         int x0 = s25;
-        if (showTransports) { // This test can't be removed! May leads to crash
+        if (sys.canShowIncomingTransports()) { // This test can't be removed! We cannot dereference colony() in an uncolonized system.
         	if (!isPlayer) {
             	int playerPop = sys.colony().playerPopApproachingSystem();;
                 g.setFont(narrowFont(20));

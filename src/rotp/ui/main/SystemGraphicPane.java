@@ -91,8 +91,7 @@ public class SystemGraphicPane extends BasePanel implements MouseMotionListener,
         drawBorderedString(g0, str, 1, x0, y0, Color.black, SystemPanel.orangeText);
         
         // BR: Incoming transport
-        boolean showTransports = false;
-        if (sys.planet().isColonized()) { showTransports = sys.colony().showTransports(); }
+        boolean showTransports = sys.canShowIncomingTransports();
 
         //log("graphic h:", str(unscaled(h)));
         int x1 = showTransports? s10 : s5;
