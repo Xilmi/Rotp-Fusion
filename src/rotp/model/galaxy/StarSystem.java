@@ -323,9 +323,9 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
         
     }
     public boolean canShowIncomingTransports() {
-        boolean showTransports = false;
         if (sys.planet().isColonized())
             return sys.colony().showTransports();
+        return false;
     }
     public void resolvePendingTransports() {
         if (!hasOrbitingTransports())
