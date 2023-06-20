@@ -163,10 +163,7 @@ public class SystemInfoPanel extends SystemPanel implements MouseMotionListener 
 
             if (!player().sv.isScouted(sys.id))
                 return;
-            boolean showTransports = false;
-            if (sys.planet().isColonized()) {
-            	showTransports = sys.colony().showTransports();
-            }
+            boolean showTransports = sys.canShowIncomingTransports();
             int x1 = showTransports? s10 : s5;
             int y1 = showTransports? s55 : s70/2;
             int r = showTransports? s70 : s80; //modnar: increase planet size
