@@ -246,11 +246,10 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
         if (player().sv.isColonized(sys.id))
             drawSystemTreatyStatus(g, sys, f, y, w, lineH);
 
-        { // block to limit scope of variables
-        	boolean isPlayer = isPlayer(sys.empire());
-            int y0 = s54;
-            int x0 = s25;
-        	
+    	boolean isPlayer = isPlayer(sys.empire());
+        int y0 = s54;
+        int x0 = s25;
+        if (showTransports) { // This test can't be removed! May leads to crash
         	if (!isPlayer) {
             	int playerPop = sys.colony().playerPopApproachingSystem();;
                 g.setFont(narrowFont(20));
@@ -279,19 +278,21 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
             	}
                 if (friendPop > 0 || enemyPop > 0)
                     y0 += lineH;
-                x0 = s25;
-                // This will only display alienFactories if the player has colonized the system.
-                // We could display alienFactories if the player has merely explored the system,
-                // just as we show the player the planet's current terraformed size.
-                for (int empId=0; empId<sys.galaxy().numEmpires(); empId++)
-                    if (sys.planet().alienFactories(empId) > 0) {
-                        str = String.valueOf(sys.planet().alienFactories(empId)) + ' ' + sys.galaxy().empire(empId).name();
-                        g.setColor(sys.galaxy().empire(empId).nameColor());
-                        drawString(g, str, x0, y0);
-                        sw = g.getFontMetrics().stringWidth(str);
-                        x0 += sw + s4;
-                    }
         	}
+        }
+        if (isPlayer) {
+            x0 = s25;
+            // This will only display alienFactories if the player has colonized the system.
+            // We could display alienFactories if the player has merely explored the system,
+            // just as we show the player the planet's current terraformed size.
+            for (int empId=0; empId<sys.galaxy().numEmpires(); empId++)
+                if (sys.planet().alienFactories(empId) > 0) {
+                    String str = String.valueOf(sys.planet().alienFactories(empId)) + ' ' + sys.galaxy().empire(empId).name();
+                    g.setColor(sys.galaxy().empire(empId).nameColor());
+                    drawString(g, str, x0, y0);
+                    int sw = g.getFontMetrics().stringWidth(str);
+                    x0 += sw + s4;
+                }        	
         }
     }
     public void drawSystemTreatyStatus(Graphics2D g, StarSystem sys, Font textF, int y, int w, int h) {

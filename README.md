@@ -59,6 +59,13 @@ Later:
 
 ## What's New
 
+2023.06.19 (BR)
+- Fixed crash hovering uncolonized planets.
+
+2023.06.19 (dHannasch)
+- New alien's factories (to be refurbished) display.
+- Colony growth methods restructuration.
+
 2023.06.18 (dHannasch)
 - Fixed ungoverned colony sending transport without following "transport Max Turn"
 - Fixed inaccuracies of expected colony growth.
