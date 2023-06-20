@@ -1269,10 +1269,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             int x0 = s25;
             drawBorderedString(g, str, 2, x0, y0, Color.black, SystemPanel.orangeText);
 
-            boolean showTransports = false;
-            if (sys != null && sys.planet().isColonized()) {
-            	showTransports = sys.colony().showTransports();
-            }
+            boolean showTransports = sys != null && sys.canShowIncomingTransports();
             int x1 = showTransports? s10 : s5;
             int y1 = showTransports? s55 : s70/2;
             int r  = showTransports? s70 : s80; //modnar: increase planet size
