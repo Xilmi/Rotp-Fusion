@@ -331,36 +331,68 @@ public abstract class GalaxyShape implements Base, Serializable {
 		tm0 = System.currentTimeMillis();
 		empSystems.clear();
 
+		// BR: the code was a little bit confusing,
+		// some values where independent from star density option
+		// Everything will be done step by step
+		
 		// systemBuffer() is minimum distance between any 2 stars
 		sysBuffer = systemBuffer();
-		float minEmpireBuffer = 4*sysBuffer; // modnar: increase spacing between empires
-		float maxMinEmpireBuffer = 15*sysBuffer;
-		float minOrionBuffer = 5*sysBuffer; // modnar: increase spacing between empires and orion
+		
+		// Buffer multipliers
+		float minEmpireFactor    = 4f; // modnar: increase spacing between empires
+		float minOrionFactor     = 5f; // modnar: increase spacing between empires and orion
+		float minMaxEmpireFactor = 0.5f * maxStars / numEmpires; // TODO BR: This should not be linear!
+		float maxMinEmpireFactor = 15f;
+		
+		// option to maximize spacing; not optimized for symmetric
+    	if (opts.selectedMaximizeSpacing() && !isSymmetric()) {
+    		minEmpireFactor    *= 1.4f;
+    		minOrionFactor     *= 1.4f;
+    		minMaxEmpireFactor *= 1.8f;
+    		maxMinEmpireFactor  = opts.selectedSpacingLimit();
+    	}
+    	
+    	// Buffers targets and limits
+		float minEmpireBuffer    = sysBuffer * minEmpireFactor;
+		float minOrionBuffer     = sysBuffer * minOrionFactor;
+		float minMaxEmpireBuffer = sysBuffer * minMaxEmpireFactor;
+		float maxMinEmpireBuffer = sysBuffer * maxMinEmpireFactor;
+		
+		// Final Buffers
+		empireBuffer = min(maxMinEmpireBuffer, max(minEmpireBuffer, minMaxEmpireBuffer));
+		orionBuffer  = max(minOrionBuffer, empireBuffer*3/2);
 
-		// BR: not optimized for symmetric
-    	if (opts.selectedMaximizeSpacing() && !isSymmetric()) {		
-    		int minStars = opts.selectedMinStarsPerEmpire();
-	    	if (opts.selectedMaximizeSpacing())
-				minStars = maxStars/numEmpires;
-			float maxMinEmpireFactor = opts.selectedSpacingLimit(); // To avoid problems with strange galaxy shapes
-			                                // Maybe To-Do Make this a new setting
-			float minEmpireFactor = (minStars + 1) / 3; // 8 spe -> 3; 12 spe -> 4;
-			if (minEmpireFactor >= (maxMinEmpireFactor - 2))
-				minEmpireFactor = maxMinEmpireFactor - 2;
-			minEmpireBuffer    = sysBuffer * minEmpireFactor;
-			maxMinEmpireBuffer = sysBuffer * maxMinEmpireFactor;
-			minOrionBuffer     = sysBuffer * minEmpireFactor + 1;
-		}
-		// \BR:
-
-		// the stars/empires ratio for the most "densely" populated galaxy is about 8:1
-		// we want to set the minimum distance between empires to half that in ly, with a minimum
-		// of 6 ly... this means that it will not increase until there is at least a 12:1
-		// ratio. However, the minimum buffer will never exceed the "MAX_MIN", to ensure that
-		// massive maps don't always GUARANTEE hundreds of light-years of space to expand uncontested
-		empireBuffer = min(maxMinEmpireBuffer, max(minEmpireBuffer, (maxStars/(numEmpires*2))));
-		// Orion buffer is 50% greater with minimum of 8 ly.
-		orionBuffer = max(minOrionBuffer, empireBuffer*3/2);
+//		System.out.println();
+//		System.out.println("sysBuffer = " + sysBuffer);
+//		System.out.println("minEmpireBuffer = " + minEmpireBuffer);
+//		System.out.println("minOrionBuffer = " + minOrionBuffer);
+//		System.out.println("minMaxEmpireBuffer = " + minMaxEmpireBuffer);
+//		System.out.println("maxMinEmpireBuffer = " + maxMinEmpireBuffer);
+//		System.out.println("empireBuffer = " + empireBuffer);
+//		System.out.println("orionBuffer = " + orionBuffer);
+		
+//    		int minStars = opts.selectedMinStarsPerEmpire();
+//	    	if (opts.selectedMaximizeSpacing())
+//				minStars = maxStars/numEmpires;
+//			float maxMinEmpireFactor = opts.selectedSpacingLimit(); // To avoid problems with strange galaxy shapes
+//			                                // Maybe To-Do Make this a new setting
+//			float minEmpireFactor = (minStars + 1) / 3; // 8 spe -> 3; 12 spe -> 4;
+//			if (minEmpireFactor >= (maxMinEmpireFactor - 2))
+//				minEmpireFactor = maxMinEmpireFactor - 2;
+//			minEmpireBuffer    = sysBuffer * minEmpireFactor;
+//			maxMinEmpireBuffer = sysBuffer * maxMinEmpireFactor;
+//			minOrionBuffer     = sysBuffer * minEmpireFactor + 1;
+//		}
+//		 \BR:
+//
+//		// the stars/empires ratio for the most "densely" populated galaxy is about 8:1
+//		// we want to set the minimum distance between empires to half that in ly, with a minimum
+//		// of 6 ly... this means that it will not increase until there is at least a 12:1
+//		// ratio. However, the minimum buffer will never exceed the "MAX_MIN", to ensure that
+//		// massive maps don't always GUARANTEE hundreds of light-years of space to expand uncontested
+//		empireBuffer = min(maxMinEmpireBuffer, max(minEmpireBuffer, (maxStars/(numEmpires*2))));
+//		// Orion buffer is 50% greater with minimum of 8 ly.
+//		orionBuffer = max(minOrionBuffer, empireBuffer*3/2);
 //		bufferRatio = empireBuffer/sysBuffer;
 	}
 	private void fullInit() {

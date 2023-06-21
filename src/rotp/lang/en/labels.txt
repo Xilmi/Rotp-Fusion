@@ -1983,11 +1983,11 @@ SETTINGS_MOD_CRYSTAL_MAX_SYSTEMS         | Max Crystal Attack: %1
 SETTINGS_MOD_ALT_MONSTER_MESSAGES_DESC   | Randomly displays standard or alternate messages for Monster events.
 SETTINGS_MOD_ALT_MONSTER_MESSAGES        | Alternate Monster Messages: %1
 
-SETTINGS_MOD_MAX_SPACINGS_DESC           | If you don't like starting to close to any neighbor, this option will push apart the empire inside the allowed space. If it's not enough, you may try to unlock the security factor below...
+SETTINGS_MOD_MAX_SPACINGS_HELP           | If you don't like starting too close to a neighbor, this option will reduce diversity of distances between homeworlds, and push closer empires away. If that's not enough, you may try to unlock the security factor below...
 SETTINGS_MOD_MAX_SPACINGS_DESC           | Attempts to maximize the distance between empires, but always randomly.
 SETTINGS_MOD_MAX_SPACINGS                | Maximize Spacing: %1
-SETTINGS_MOD_MAX_SPACINGS_LIM_HELP       | This value is a safety factor to prevent empires from being too far apart. You can try increasing it if you very don't like neighbors, but this can significantly impact the build time of some complex galaxy shapes. 
-SETTINGS_MOD_MAX_SPACINGS_LIM_DESC       | Base spacing multiplier Security limit for Spacing maximization.
+SETTINGS_MOD_MAX_SPACINGS_LIM_HELP       | A safety prohibits setting a minimum distance between homeworlds below 15 minimum star distances.<br>For massive galaxies, you may want to relax this limit. It works quite well with standard galaxies, but very massive special galaxies may take a while to generate (Text, fractal, etc...).<br>You can also reduce this value for greater variety of distances between Homeworlds.
+SETTINGS_MOD_MAX_SPACINGS_LIM_DESC       | (Maximal minimum distance between homeworlds) / (minimum star spacing). Massive special galaxies may take a while to generate...
 SETTINGS_MOD_MAX_SPACINGS_LIM            | Max Spacing Multiplier: %1
 SETTINGS_MOD_MIN_STARS_PER_EMPIRE_DESC   | To help defining the maximun opponent number from the size of the galaxy.
 SETTINGS_MOD_MIN_STARS_PER_EMPIRE        | Min Stars per Empire: %1

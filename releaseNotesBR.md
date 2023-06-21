@@ -83,7 +83,8 @@ Last Fixes:
   - Boderless will be used if fullscreen is not available.
 - Fixed ungoverned colony sending transport without following "transport Max Turn". (dHannasch)
 - Fixed inaccuracies of expected colony growth. (dHannasch)
-
+- Fixed  "Max Spacing Multiplier" not working.
+  - Improved guide for "Max Spacing Multiplier"
 
 Last Anouuncement:
 

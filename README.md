@@ -60,6 +60,10 @@ Later:
 ## What's New
 
 2023.06.19 (BR)
+- Fixed  "Max Spacing Multiplier" not working.
+  - Improved guide for "Max Spacing Multiplier"
+
+2023.06.19 (BR)
 - Fixed crash hovering uncolonized planets.
 
 2023.06.19 (dHannasch)
