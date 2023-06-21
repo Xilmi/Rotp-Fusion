@@ -163,6 +163,7 @@ Later:
 - Fixed crash on opponent AI selection with guide on and selecting "AI:Selectable"
 	- The guide is now availble for this selection
 	- No more crach for a missing guide!
+- Fixed eco reallocation when all other slides are locked.
 
 2023.06.07 (BR)
 - New Main Settings UI with Guide and all options' tool features.

@@ -85,6 +85,7 @@ Last Fixes:
 - Fixed inaccuracies of expected colony growth. (dHannasch)
 - Fixed  "Max Spacing Multiplier" not working.
   - Improved guide for "Max Spacing Multiplier"
+- Fixed eco reallocation when all other slides are locked.
 
 Last Anouuncement:
 
