@@ -341,21 +341,20 @@ public abstract class GalaxyShape implements Base, Serializable {
 		// Buffer multipliers
 		float minEmpireFactor    = 4f; // modnar: increase spacing between empires
 		float minOrionFactor     = 5f; // modnar: increase spacing between empires and orion
-		float minMaxEmpireFactor = 0.5f * maxStars / numEmpires; // TODO BR: This should not be linear!
 		float maxMinEmpireFactor = 15f;
+		float minMaxEmpireBuffer = maxStars/(numEmpires*2);
 		
 		// option to maximize spacing; not optimized for symmetric
     	if (opts.selectedMaximizeSpacing() && !isSymmetric()) {
     		minEmpireFactor    *= 1.4f;
     		minOrionFactor     *= 1.4f;
-    		minMaxEmpireFactor *= 1.8f;
+    		minMaxEmpireBuffer *= 1.8f;
     		maxMinEmpireFactor  = opts.selectedSpacingLimit();
     	}
     	
     	// Buffers targets and limits
 		float minEmpireBuffer    = sysBuffer * minEmpireFactor;
 		float minOrionBuffer     = sysBuffer * minOrionFactor;
-		float minMaxEmpireBuffer = sysBuffer * minMaxEmpireFactor;
 		float maxMinEmpireBuffer = sysBuffer * maxMinEmpireFactor;
 		
 		// Final Buffers
@@ -363,13 +362,16 @@ public abstract class GalaxyShape implements Base, Serializable {
 		orionBuffer  = max(minOrionBuffer, empireBuffer*3/2);
 
 //		System.out.println();
+//		System.out.println("selectedMaximizeSpacing() = " + opts.selectedMaximizeSpacing());
 //		System.out.println("sysBuffer = " + sysBuffer);
 //		System.out.println("minEmpireBuffer = " + minEmpireBuffer);
 //		System.out.println("minOrionBuffer = " + minOrionBuffer);
 //		System.out.println("minMaxEmpireBuffer = " + minMaxEmpireBuffer);
 //		System.out.println("maxMinEmpireBuffer = " + maxMinEmpireBuffer);
-//		System.out.println("empireBuffer = " + empireBuffer);
+//		System.out.println("empireBuffer = " + empireBuffer + " (" +
+//				min(maxMinEmpireBuffer, max(minEmpireBuffer, (maxStars/(numEmpires*2)))) + ")");
 //		System.out.println("orionBuffer = " + orionBuffer);
+		
 		
 //    		int minStars = opts.selectedMinStarsPerEmpire();
 //	    	if (opts.selectedMaximizeSpacing())
