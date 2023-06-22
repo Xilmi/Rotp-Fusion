@@ -832,14 +832,14 @@ public class AIShipCaptain implements Base, ShipCaptain {
                     hitPct = min(hitPct, 1.0f);
                     killPct += ((miss.maxDamage()-miss.target.shieldLevel())*miss.num*hitPct)/(miss.target.maxHits*miss.target.num);
                     maxHit += (miss.maxDamage() - currStack.shieldLevel()) * miss.num; //don't use hitPct for max-hit as we have to expect the worst in this case
-                    //System.out.print("\n"+currStack.fullName()+" will be hit by missiles for approx "+killPct+" dmg: "+maxHit+" hp: "+currStack.hits+" threshold: "+(1.0f / miss.missile.shots()));
+                    //System.out.println(currStack.fullName()+" will be hit by missiles for approx "+killPct+" dmg: "+maxHit+" hp: "+currStack.hits+" threshold: "+(1.0f / miss.missile.shots()));
                     if((killPct > 1.0f / miss.missile.shots() && maxHit >= currStack.hits) || (currStack.num == 1 && maxHit >= currStack.hits))
                     {
                         Point safestPoint = findSafestPoint(currStack);
-                        if(miss.maxMove + 0.7 < miss.distanceTo((float)safestPoint.x, (float)safestPoint.y))
+                        if(miss.maxMove * miss.moveRate + 0.7 < miss.distanceTo((float)safestPoint.x, (float)safestPoint.y))
                         {
                             kiteMissiles = true;
-                            //System.out.print("\n"+currStack.fullName()+" should kite missiles because "+(miss.maxMove+0.7)+" at x:"+miss.x()+" y:"+miss.y()+" < "+miss.distanceTo((float)safestPoint.x, (float)safestPoint.y));
+                            //System.out.println(currStack.fullName()+" should kite missiles because "+(miss.maxMove*miss.moveRate+0.7)+" at x:"+miss.x()+" y:"+miss.y()+" < "+miss.distanceTo((float)safestPoint.x, (float)safestPoint.y)+" to x:"+safestPoint.x+" y: "+safestPoint.y+" Moverate: "+miss.moveRate );
                         }
                         else
                         {

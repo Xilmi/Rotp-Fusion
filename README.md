@@ -59,6 +59,9 @@ Later:
 
 ## What's New
 
+2023.06.22 (Xilmi)
+- The move-rate of missiles is now being taken into consideration when it comes to the AI determining whether they should be able to outrun missiles or not. So the decision of whether to kite a missile or retreat immediately shall be more accurate.
+
 2023.06.19 (BR)
 - Fixed  "Max Spacing Multiplier" not working.
   - Improved guide for "Max Spacing Multiplier"
