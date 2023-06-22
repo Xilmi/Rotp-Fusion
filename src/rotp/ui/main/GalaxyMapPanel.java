@@ -457,10 +457,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         clearRangeMap();
         shipRangeArea = null;
         scoutRangeArea = null;
-// TODO BR: search for Map offset bug
-//        System.out.println("resetRangeAreas():  areaOffsetX = " + areaOffsetX + " areaOffsetY = " + areaOffsetY);
-//        System.out.println("resetRangeAreas():  backOffsetX = " + backOffsetX + " backOffsetY = " + backOffsetY);
-       areaOffsetX = 0;
+        areaOffsetX = 0;
         areaOffsetY = 0;
     }
     private void setFocusToCenter() {

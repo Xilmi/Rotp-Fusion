@@ -483,7 +483,7 @@ public final class GameSession implements Base, Serializable {
                 log("Refreshing Player Views");
                 NoticeMessage.resetSubstatus(text("TURN_REFRESHING"));
                 validate();
-                // TODO BR: Tentative to fix range area errors
+                //BR: Tentative to fix range area errors
                 RotPUI.instance().mainUI().map().resetRangeAreas();
                 player().setEmpireMapAvgCoordinates();
                 gal.refreshAllEmpireViews();

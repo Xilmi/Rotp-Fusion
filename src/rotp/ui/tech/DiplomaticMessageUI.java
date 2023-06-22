@@ -485,7 +485,8 @@ public class DiplomaticMessageUI extends FadeInPanel implements MouseListener, M
             case KeyEvent.VK_4: selectHover = 3; selectOption(3); return;
             case KeyEvent.VK_5: selectHover = 4; selectOption(4); return;
             case KeyEvent.VK_6: selectHover = 5; selectOption(5); return;
-
+            case KeyEvent.VK_F1:
+            	// TODO BR: More research INFO
             case KeyEvent.VK_ESCAPE:
                 exited = true;
                 message.escape();

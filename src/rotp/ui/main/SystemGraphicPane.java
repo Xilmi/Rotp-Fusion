@@ -43,7 +43,7 @@ public class SystemGraphicPane extends BasePanel implements MouseMotionListener,
     Rectangle stargateBox = new Rectangle();
     int currentHover = 0;
     public boolean showPopulation = false;
-    // TODO BR: Add incoming transports
+    
     public SystemGraphicPane(SystemPanel p, Border coloredBorder) {
         parent = p;
         init();

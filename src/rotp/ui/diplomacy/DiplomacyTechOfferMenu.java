@@ -60,7 +60,7 @@ public class DiplomacyTechOfferMenu extends DiplomacyRequestReply {
 	                }
 	            }
 	        }
-	        else // BR: as originally: Don't return an empty list!... To validate with Xilmi ???
+	        else // BR: as originally: Don't return an empty list!...
 	        	counterOffers = unreviewedCounterTechs;
         else
         	System.out.println(galaxy().currentTurn()+" Auto Refused Tech Trade from "+diplomat().name());
