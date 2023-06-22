@@ -34,7 +34,6 @@ import static rotp.model.game.IGalaxyOptions.shapeSelection;
 import static rotp.model.game.IGalaxyOptions.showNewRaces;
 import static rotp.model.game.IGalaxyOptions.sizeSelection;
 import static rotp.model.game.IGalaxyOptions.useSelectableAbilities;
-import static rotp.model.game.IGameOptions.OPPONENT_AI_HYBRID;
 import static rotp.model.game.IMainOptions.compactOptionOnly;
 import static rotp.model.game.IMainOptions.galaxyPreviewColorStarsSize;
 import static rotp.model.game.IMainOptions.minListSizePopUp;
@@ -432,6 +431,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		super.init();
 		boxMonoFont    = null;
 		dialogMonoFont = null;
+		playerRaceImg  = null;
         initAIandAbilitiesList();
         guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
 		refreshGui();
@@ -2108,7 +2108,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		buttonClick();
 		GameUI.gameName = generateGameName();
 		UserPreferences.setForNewGame();
-		close();
+		// close();
 		final Runnable save = () -> {
 			long start = System.currentTimeMillis();
 			GameSession.instance().startGame(newGameOptions());
@@ -2117,6 +2117,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			log("TOTAL GAME START TIME:" +(System.currentTimeMillis()-start));
 			log("Game Name; "+GameUI.gameName);
 			starting = false;
+			close();
 		};
 		SwingUtilities.invokeLater(save);
 	}

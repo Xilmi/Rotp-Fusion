@@ -61,6 +61,7 @@ Later:
 
 2023.06.22 (BR)
 - Fixed defaultAI not correctly set everywhere.
+- Fixed occasional wrong player icon on Setup Galaxy panel.
 
 2023.06.21 (BR)
 - Fixed  "Max Spacing Multiplier" not working.
