@@ -230,7 +230,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     public void selectedAutoplayOption(String s)    { selectedAutoplayOption = s; }
     @Override
     public String selectedOpponentAIOption()       { 
-    	return selectedOpponentAIOption == null ? OPPONENT_AI_HYBRID : selectedOpponentAIOption; } // modnar: default to modnar AI
+    	return selectedOpponentAIOption == null ? defaultAI.aliensKey : selectedOpponentAIOption; } // modnar: default to modnar AI
     @Override
     public void selectedOpponentAIOption(String s) { selectedOpponentAIOption = s; }
     @Override
@@ -1292,9 +1292,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         else
         	selectedPlayerRace(random(baseRaceOptions()));
         selectedGameDifficulty = DIFFICULTY_NORMAL;
-        selectedOpponentAIOption = OPPONENT_AI_HYBRID;
+        selectedOpponentAIOption = defaultAI.aliensKey;
         for (int i=0;i<specificOpponentAIOption.length;i++)
-		    specificOpponentAIOption[i] = OPPONENT_AI_HYBRID;
+		    specificOpponentAIOption[i] = defaultAI.aliensKey;
         if(specificOpponentCROption != null) {
         	String defVal = SpecificCROption.defaultSpecificValue().value;
 	        for (int i=0;i<specificOpponentCROption.length;i++)

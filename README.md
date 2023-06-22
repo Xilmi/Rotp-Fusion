@@ -59,9 +59,15 @@ Later:
 
 ## What's New
 
-2023.06.19 (BR)
+2023.06.22 (BR)
+- Fixed defaultAI not correctly set everywhere.
+
+2023.06.21 (BR)
 - Fixed  "Max Spacing Multiplier" not working.
   - Improved guide for "Max Spacing Multiplier"
+- Fixed eco reallocation when all other slides are locked.
+- Fixed Governor initialisation issue on new options & new game.
+- Fixed Circle ranges default value.
 
 2023.06.19 (BR)
 - Fixed crash hovering uncolonized planets.
@@ -108,7 +114,6 @@ Later:
   - Green for Player transports.
   - Red for opponent transports.
 
-
 2023.06.14 (BR)
 - Planet Map now display incoming transports.
 - Restored light-years display when grid is on.
@@ -127,12 +132,10 @@ Later:
   - Right click on slider = "Fill"-value selection.
   - It's up to the player or the governor to set the ECO to max.
 - Probably fixed shifted Range Area!
-  
 
 2023.06.12 (BR)
 - Made Governor options available through Base Interface.
 - Captured planet governor is now set to the Governor default value.
-
 
 2023.06.11 (BR)
 - Governor panel mixed fixes.
@@ -163,9 +166,6 @@ Later:
 - Fixed crash on opponent AI selection with guide on and selecting "AI:Selectable"
 	- The guide is now availble for this selection
 	- No more crach for a missing guide!
-- Fixed eco reallocation when all other slides are locked.
-- Fixed Governor initialisation issue on new options & new game.
-- Fixed Circle ranges default value
 
 2023.06.07 (BR)
 - New Main Settings UI with Guide and all options' tool features.

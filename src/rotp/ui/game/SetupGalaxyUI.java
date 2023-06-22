@@ -148,7 +148,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private final ParamList opponentAI			= new ParamList( // For Guide
 			BASE_UI, "OPPONENT_AI",
 			IGameOptions.globalAIset().getAliens(),
-			OPPONENT_AI_HYBRID) {
+			IGameOptions.defaultAI.aliensKey) {
 		@Override public String	getOptionValue(IGameOptions options)	{
 			return options.selectedOpponentAIOption();
 		}
@@ -163,7 +163,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private final ParamList specificAI			= new ParamList( // For Guide
 			BASE_UI, "SPECIFIC_AI",
 			IGameOptions.specificAIset().getAliens(),
-			OPPONENT_AI_HYBRID) {
+			IGameOptions.defaultAI.aliensKey) {
 		@Override public String	getOptionValue(IGameOptions options)	{
 			return options.specificOpponentAIOption(mouseBoxIndex()+1);
 		}
