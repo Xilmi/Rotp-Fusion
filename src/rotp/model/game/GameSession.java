@@ -257,6 +257,7 @@ public final class GameSession implements Base, Serializable {
 
         options(newGameOptions.copyAllOptions());
     	RotPUI.currentOptions(IGameOptions.GAME_ID);
+    	instance.governorOptions.gameStarted();
         startExecutors();
 
         synchronized(ONE_GAME_AT_A_TIME) {
@@ -278,6 +279,7 @@ public final class GameSession implements Base, Serializable {
     	stopCurrentGame();
         options(src.options().copyAllOptions());
     	RotPUI.currentOptions(IGameOptions.GAME_ID);
+    	instance.governorOptions.gameStarted();
         startExecutors();
 
         synchronized(ONE_GAME_AT_A_TIME) {

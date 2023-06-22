@@ -96,9 +96,13 @@ public class GovernorOptions implements Serializable, IGovOptions {
 	private boolean autoShipsByDefault = true;
 	
 	// ========== Constructor And Initializers ==========AbstractParam <T>
-	public GovernorOptions() {  
-		for (IParam param : governorOptions)
+	public GovernorOptions() {
+		System.out.println("GovernorOptions() " + autoShipsByDefault);
+		for (IParam param : governorOptions) {
+//			System.out.println("is duplicate? = " + param.isDuplicate() + " - " + param.isCfgFile()
+//			+ " - " + param.getCfgLabel());
 			((AbstractParam <?>) param).isGovernor(GOV_REFRESH);
+		}
 
 		auto_Apply.isGovernor(GOV_RESET);
 		customSize.isGovernor(GOV_RESET);
@@ -110,7 +114,9 @@ public class GovernorOptions implements Serializable, IGovOptions {
 		horizontalPosition.isGovernor(GOV_RESET);
 		
 	}
-	public void gameLoaded() {
+	public void gameStarted() { autoShipsByDefault = false; }
+	public void gameLoaded()  {
+		System.out.println("autoShipsByDefault = " + autoShipsByDefault);
 		if (autoShipsByDefault) {
 			autoTransport.silentSet(autotransport);
 			autotransportAtMax.silentSet(autotransportXilmi);

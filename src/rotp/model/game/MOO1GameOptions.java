@@ -1413,6 +1413,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     // ==================== New Options files public access ====================
     //
     @Override public void loadStartupOptions() {
+        System.out.println("==================== reset all options() ====================");
+        resetToDefault();
         System.out.println("==================== loadStartupOptions() ====================");
     	if (menuStartup.isUser()) {
     		updateFromFile(USER_OPTIONS_FILE);
@@ -1576,6 +1578,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	if (beepsOnError)
     		Toolkit.getDefaultToolkit().beep();
 		MOO1GameOptions newOptions = new MOO1GameOptions();
+		newOptions.prepareToSave(false);
     	saveOptions(new MOO1GameOptions(), path, fileName);			
 		return newOptions;    	
     }
