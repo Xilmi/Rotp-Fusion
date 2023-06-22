@@ -836,7 +836,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
                     if((killPct > 1.0f / miss.missile.shots() && maxHit >= currStack.hits) || (currStack.num == 1 && maxHit >= currStack.hits))
                     {
                         Point safestPoint = findSafestPoint(currStack);
-                        if(miss.maxMove * miss.moveRate + 0.7 < miss.distanceTo((float)safestPoint.x, (float)safestPoint.y))
+                        if(miss.maxMove * Math.max(1.0, miss.moveRate) + 0.7 < miss.distanceTo((float)safestPoint.x, (float)safestPoint.y))
                         {
                             kiteMissiles = true;
                             //System.out.println(currStack.fullName()+" should kite missiles because "+(miss.maxMove*miss.moveRate+0.7)+" at x:"+miss.x()+" y:"+miss.y()+" < "+miss.distanceTo((float)safestPoint.x, (float)safestPoint.y)+" to x:"+safestPoint.x+" y: "+safestPoint.y+" Moverate: "+miss.moveRate );
