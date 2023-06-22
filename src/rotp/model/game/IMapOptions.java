@@ -53,7 +53,7 @@ public interface IMapOptions extends IBaseOptsTools {
 	default boolean showFriendlyTransports()		{ return !shipDisplay.get().equals("Armed"); }
 	default boolean showUnarmedShips()				{ return shipDisplay.get().equals("All"); }
 
-	ParamList showShipRanges	= new ParamList (MOD_UI, "SHOW_SHIP_RANGES", "All") {
+	ParamList showShipRanges	= new ParamList (MOD_UI, "SHOW_SHIP_RANGES", "SR") {
 		{
 			showFullGuide(true);
 			put("R",	MOD_UI + "SHOW_RANGES");
