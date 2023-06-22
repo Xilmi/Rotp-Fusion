@@ -74,24 +74,24 @@ public interface IMapOptions extends IBaseOptsTools {
 	
 	ParamInteger defaultMaxBases	= new ParamInteger( GAME_UI, "DEFAULT_MAX_BASES",
 			0, 0, 5000, 1, 5, 20) {
-		@Override public void transfert (IGameOptions opts, boolean set)	{
-			if (opts.dynOpts().getInteger(getLangLabel()) == null) {
-				if (set)
-					set(UserPreferences.getDefaultMaxBases());
-				setOptionValue(opts, get());
-			}
-		}
+//		@Override public void transfert (IGameOptions opts, boolean set)	{
+//			if (opts.dynOpts().getInteger(getLangLabel()) == null) {
+//				if (set)
+//					set(UserPreferences.getDefaultMaxBases());
+//				setOptionValue(opts, get());
+//			}
+//		}
 	};
 	default int	defaultMaxBases() { return defaultMaxBases.get(); }
 
 	ParamBoolean divertExcessToResearch	= new ParamBoolean( GAME_UI, "DIVERT_EXCESS_TO_RESEARCH", true) {
-		@Override public void transfert (IGameOptions opts, boolean set)	{
-			if (opts.dynOpts().getBoolean(getLangLabel()) == null) {
-				if (set)
-					set(UserPreferences.getDivertColonyExcessToResearch());
-				setOptionValue(opts, get());
-			}
-		}
+//		@Override public void transfert (IGameOptions opts, boolean set)	{
+//			if (opts.dynOpts().getBoolean(getLangLabel()) == null) {
+//				if (set)
+//					set(UserPreferences.getDivertColonyExcessToResearch());
+//				setOptionValue(opts, get());
+//			}
+//		}
 	};
 	default boolean	divertColonyExcessToResearch()	{ return divertExcessToResearch.get(); }
 
