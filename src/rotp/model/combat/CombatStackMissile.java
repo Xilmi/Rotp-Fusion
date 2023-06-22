@@ -29,7 +29,7 @@ public class CombatStackMissile extends CombatStack implements Base {
     public ShipWeaponMissileType missile;
     public int turnsLeft = 0;
     Image missiles;
-    float moveRate = 0;
+    public float moveRate = 0;
     float range = 0;
 
     public CombatStackMissile(CombatStack ship, ShipWeaponMissileType miss, int n) {

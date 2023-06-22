@@ -64,6 +64,10 @@ Later:
 - Fixed occasional wrong player icon on Setup Galaxy panel.
 
 2023.06.21 (BR)
+2023.06.22 (Xilmi)
+- The move-rate of missiles is now being taken into consideration when it comes to the AI determining whether they should be able to outrun missiles or not. So the decision of whether to kite a missile or retreat immediately shall be more accurate.
+
+2023.06.19 (BR)
 - Fixed  "Max Spacing Multiplier" not working.
   - Improved guide for "Max Spacing Multiplier"
 - Fixed eco reallocation when all other slides are locked.
@@ -152,7 +156,7 @@ Later:
 
 2023.06.09 (BR)
 - Converted some Remnant.cfg settings to options:
-  - displayYear, showAlliancesGNN, showNextCouncil, showLimitedWarnings, techExchangeAutoRefuse, autoColonize_, autoBombard_, divertExcessToResearch, defaultMaxBases, 
+  - displayYear, showAlliancesGNN, showNextCouncil, showLimitedWarnings, techExchangeAutoRefuse, autoColonize_, autoBombard_, divertExcessToResearch, defaultMaxBases,
 - Moved all other Remnant.cfg settings in the setting panel from the main menu.
 - "Menu Options" received new options from in-game Galaxy Map panel, and allow saving them in User's prefered options.
   - A guide has been writen for these options too.
@@ -161,7 +165,7 @@ Later:
   - The full refresh will be done when the focus is given to the panel.
   - Partial refresh = only update values
   - Full refresh = update panel display format (position, size, color) and update values.
-- Allow Missile size modifier to go up to 200% (Reddit request) 
+- Allow Missile size modifier to go up to 200% (Reddit request)
 
 2023.06.08 (BR)
 - Fixed crash on opponent AI selection with guide on and selecting "AI:Selectable"
@@ -183,7 +187,7 @@ Later:
 
 2023.06.05 (BR)
 - Fixed Manual.pdf Table 10.5: Heavy Fusion Beam & Heavy Phasor.
-- "Graviton Beam" description: rendering -> rending 
+- "Graviton Beam" description: rendering -> rending
 - Fixed Two "Kekule" in Psilon star name list!
   - Added Fresnel and Lemaître (Published 2 years before Hubble... But in French in a little Belgium paper!)
 - Galaxy Map Display Parameters are now memorized!
@@ -223,7 +227,7 @@ Later:
 
 2023.05.28 (BR)
 - Cleaned Governor from obsolete methods.
-- All Governor off will now also disable: 
+- All Governor off will now also disable:
   - Transport from ungoverned colony.
   - Auto-Spy.
   - Auto-Infiltrate.
@@ -491,7 +495,7 @@ Later:
   - Applied WYSIWYG to Ellipse and spiral Galaxies.
   - Applied WYSIWYG to all other Galaxies.
   - the new random function extends now the Random class.
-  
+
 
 2023.04.03 (BR)
 - Some code cleaning. (Ghost, imports, comments)
@@ -544,7 +548,7 @@ Later:
 - Fixed text on buttons no more always following the modifier keys.
 - Fixed some Header errors.
 - Auto-Flag: Fixed Artifact planets not setting the right flag.
-- Auto-Flag: Resources and Environment normal or none = no flag by default. 
+- Auto-Flag: Resources and Environment normal or none = no flag by default.
 
 2023.03.25 (BR)
 - Fixed second Map Flag showing black instead of not showing.
@@ -570,7 +574,7 @@ Later:
   - Galaxy Setup Menu.
     - Fixed "Menu Options" sometime opening "Compact Static Options"
     - Added Help button.
-    - "F1" = Help too. 
+    - "F1" = Help too.
   - Completed Galaxy Setup Menu Help.
 
 
@@ -589,7 +593,7 @@ Later:
   - Completed Race Setup Menu Help.
 
 2023.03.17 (Xilmi)
-  - Integrate Terget Bombing to AI. 
+  - Integrate Terget Bombing to AI.
 
 2023.03.17 (BR)
   - Option to Stop Bombing:
@@ -625,7 +629,7 @@ Later:
     - Added selectable delay after standard random events.
     - Added selectable Number of visited systems before the monster vanish.
     - Added option for reoccuring Monster.
-  - Polish language fix. 
+  - Polish language fix.
 
 2023.02.06 (Xilmi)
   - AI now identifies scouts in the ship-sending-method by exclusion rather than the isScout-flag.
@@ -646,7 +650,7 @@ This prevents an issue that after toggling on autoplay in an ongoing match ships
 2022.12.31 (BR)
   - Merged Advanced options and mod options in a single compact GUI.
   - Made the merged GUI available with "Shift-Click"-Advanced options.
-  - Made the merged GUI available while playing a game, with "Ctrl"-o on galaxy map. 
+  - Made the merged GUI available while playing a game, with "Ctrl"-o on galaxy map.
 
 2022.12.27 (BR)
   - Fixed some new GUI interface issues.
@@ -699,7 +703,7 @@ This prevents an issue that after toggling on autoplay in an ongoing match ships
   - Fixed Orion misplacement on big map (was always Top left!).
   - Galaxy Preview:
     - Added new "Mod Global Option" for Orion and Empires in color with bigger size.
-  
+
 2022.12.16 (BR)
   - Added Galaxy Bitmap Advanced.
 
@@ -732,7 +736,7 @@ This prevents an issue that after toggling on autoplay in an ongoing match ships
 2022.12.03 (BR)
   - Text Shaped Galaxy: Fixed text not being saved.
   - Text Shaped Galaxy: Added Preview for popup selection window
-  - Loading Game: Added Option Selection 
+  - Loading Game: Added Option Selection
 
 2022.12.01 (BR)
   - Map Expand Panel: Purple crosses are visible on planetless stars wathever the year's configuration.
@@ -751,8 +755,8 @@ This prevents an issue that after toggling on autoplay in an ongoing match ships
 
 2022.11.27 (BR)
   - Fixed international font problems.
-  - Added option to choose percentage needed to win council vote. 
-  - Added option to Display years left until next council. 
+  - Added option to choose percentage needed to win council vote.
+  - Added option to Display years left until next council.
 
 2022.11.22 (BR)
   - Text shaped Galaxy: Added selection from file Galaxy.txt
@@ -771,7 +775,7 @@ This prevents an issue that after toggling on autoplay in an ongoing match ships
   - Replaced tech discovery probability product by sum.
   - Linked global and individual discovery probability.
   - Added cost management to tech discovery probability.
-  
+
 2022.11.12 (BR)
   - Fixed custom race edit / show panel display Glitch.
   - Restored the responsivity of race selection Panel.
@@ -781,8 +785,8 @@ This prevents an issue that after toggling on autoplay in an ongoing match ships
 2022.11.11 (BR)
   - Added Prefix and suffix option to custom race name, leader names and worlds name.
   - Selection popup available for global ability selection.
-  - Fixed Missing Worlds suffix 
-  
+  - Fixed Missing Worlds suffix
+
 2022.11.10 (BR)
   - Fixed game options not always being saved.
   - Fixed overlapping text in race ability selection.
@@ -808,11 +812,11 @@ This prevents an issue that after toggling on autoplay in an ongoing match ships
   - Ctrl+Click on "selectable" will reset the abilities to default.
   - Fixed offset in opponent Abilities.
   - Fixed opponent list being deleted.
-  
+
 2022.11.05 (BR)
   - Added individual opponent Ability selection.
   - Added "reworked" to set the ability to "raceKey.race"
-  
+
 2022.11.03 (BR)
   - Fixed custom Race file list refresh.
   - Reduced selectable AI font size to fit the box.
@@ -830,7 +834,7 @@ This prevents an issue that after toggling on autoplay in an ongoing match ships
   - Added options to randomly load custom race file(MOD Option B - Custom Aliens: Yes, From Files)
 
 2022.10.26 (BR)
-  - Added options to shuriken galaxies, some time better looking. 
+  - Added options to shuriken galaxies, some time better looking.
 
 2022.10.24 (BR)
   - Fixed lonely Orion in Galaxy preview. (When opponents are maxed out)
@@ -840,7 +844,7 @@ This prevents an issue that after toggling on autoplay in an ongoing match ships
   - Mixed Restart button with start button (ctrl+Start).
   - Ship set: Fixed race keeping the last player preferred chip set.
   - Fixed overlaping Leader text in Race diplomacy panel. (Adaptive font)
-  - Updated max number of star with different formula for >4GB as java seems to loose efficiency! 
+  - Updated max number of star with different formula for >4GB as java seems to loose efficiency!
   - All the settings are now saved in the game files, and are also saved as individual files:
     - Last.options for the last GUI settings. Saved when you exit a setup panel.
     - Game.options for the last played game settings. Saved when a game is started or loaded.
@@ -864,7 +868,7 @@ This prevents an issue that after toggling on autoplay in an ongoing match ships
     - Use the other GUI settings, without changing galaxy nor aliens.
 
 2022.10.19 (BR)
-  - Fixed Randomized alien races not reaching target values. 
+  - Fixed Randomized alien races not reaching target values.
 
 2022.10.14 (Xilmi)
   - Fixed an issue where the report of how many transports were destroyed it would show the number of transports that the defending fleet potentially could have destroyed instead of the actual number.
@@ -992,15 +996,15 @@ This prevents an issue that after toggling on autoplay in an ongoing match ships
   - Fixed that when using the max-slider-buttons from inside of the Colonies-screen the sliders wouldn't properly update.
 
 2022.09.09 (BR)
-  - Moved restart button to the left side, to be visible in windowed mode too. 
-  
+  - Moved restart button to the left side, to be visible in windowed mode too.
+
 2022.09.09 (Xilmi)
   - The bombardment-prompt now includes an estimate of how many factories will be destroyed.
   - AI no longer assumes that producing population to man all already existing factories is always worth it. Instead the return of investment of workers working factories is compared to the savings of letting population grow naturally.
   - AI cost-benefit-analysis for invasions now takes lost-productivity into account on the cost-side and how many factories will likely be destroyed until the invasion arrives on the benefit-side.
 
 2022.09.08 (BR)
-  - Fixed restart issue for late game when an empire as lost his home world. 
+  - Fixed restart issue for late game when an empire as lost his home world.
 
 2022.09.06 (BR)
   - Added tools to load and save options.
@@ -1160,7 +1164,7 @@ This prevents an issue that after toggling on autoplay in an ongoing match ships
 
 2022.08.06 (BR)
   - Removed the useless double call to options() and newOptions().
-  - Rewrote "Restart with a new race". It's now a "Start" allowing to load an old save and copy galaxy and opponents.  
+  - Rewrote "Restart with a new race". It's now a "Start" allowing to load an old save and copy galaxy and opponents.
 
 2022.08.04 (BR)
   - Made tools to simplify setting addition to user preferences: Only two lines are needed.
@@ -1175,7 +1179,7 @@ This prevents an issue that after toggling on autoplay in an ongoing match ships
   - Technologies: Irradiated Cloaking Stargate Hyperspace Industry2 Thorium Transport Terraforming120.
   - MOD Options A GUI: Added option to give Artifact, Fertile, Rich or Ultra-Rich Home World to Player/AI.
   - Added all these new things to Profiles Manager.
-  
+
 2022.07.25 (Xilmi)
   - Changed version-string from to "Rotp-C-M-X-BR" to "Fusion-Mod"
   - Renamed AI's Legacy => Fusion, Advanced => Roleplay
@@ -1258,5 +1262,3 @@ This prevents an issue that after toggling on autoplay in an ongoing match ships
   - Merged with 1.02a_modnar_MOD39_newRaces
   - Merged with Profiles Manager
   - Added some on the side feature...
-
-  
