@@ -292,6 +292,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private Box	settingsBox			= new Box("SETUP_GALAXY_CLASSIC_OPTIONS");
 	private Box	helpBox   			= new Box("SETTINGS_BUTTON_HELP");
 	private Box	backBox				= new Box("SETUP_GALAXY_BACK");
+	private Box	galaxyBox			= new Box("SETUP_GALAXY_PREVIEW");
 	private Box	startBox;
 	private Box	newRacesBox			= new Box("SETUP_GALAXY_RACE_LIST"); // BR:
 	private Box	showAbilitiesBox; // BR:
@@ -343,6 +344,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
     private int  dialogMonoFontSize = 20;
     private Font boxMonoFont;
     private int  boxMonoFontSize  = 15;
+    
+    private int  galaxyGrid  = 10;
+    private boolean showGrid = false;
 
     public static ParamList specificAI() { return instance.specificAI; }
     public static ParamList opponentAI() { return instance.opponentAI; }
@@ -1211,7 +1215,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			||  (hoverPolyBox == diffBoxL)		 || (hoverPolyBox == diffBoxR)
 			||  (hoverPolyBox == wysiwygBoxL)	 || (hoverPolyBox == wysiwygBoxR)
 			||  (hoverPolyBox == aiBoxL)		 || (hoverPolyBox == aiBoxR)
-			||  (hoverPolyBox == abilitiesBoxL)		 || (hoverPolyBox == abilitiesBoxR)
+			||  (hoverPolyBox == abilitiesBoxL)	 || (hoverPolyBox == abilitiesBoxR)
 			||  (hoverPolyBox == mapOption1BoxL) || (hoverPolyBox == mapOption1BoxR)
 			||  (hoverPolyBox == mapOption2BoxL) || (hoverPolyBox == mapOption2BoxR)
 			||  (hoverPolyBox == sizeOptionBoxL) || (hoverPolyBox == sizeOptionBoxR)
@@ -1223,9 +1227,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			|| (hoverBox == mapOption1Box)	|| (hoverBox == mapOption2Box)
 			|| (hoverBox == sizeOptionBox)	|| (hoverBox == abilitiesBox)
 			|| (hoverBox == aiBox)			|| (hoverBox == newRacesBox)
-			|| (hoverBox == showAbilitiesBox)	|| (hoverBox == mapOption3Box)
+			|| (hoverBox == mapOption3Box)	|| (hoverBox == showAbilitiesBox)
 			|| (hoverBox == diffBox)		|| (hoverBox == wysiwygBox)
-			|| (hoverBox == oppBox)) {
+			|| (hoverBox == oppBox) 		|| (hoverBox == galaxyBox)) {
 			Stroke prev = g.getStroke();
 			g.setStroke(stroke2);
 			g.setColor(Color.yellow);
@@ -1707,7 +1711,27 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			compShift   = compSize/2;
 		}
 
-		// Start with lone stars
+		// Start with grid
+		if (showGrid) {
+			int gw = sh.width();
+			int gh = sh.height();
+			int xEnd = xOff + Math.round(gw*factor);
+			int yEnd = yOff + Math.round(gh*factor);
+			int lim = gw/(2*galaxyGrid);
+			int ctr = (xOff+xEnd)/2;
+			g.setColor(Color.darkGray);
+			for (int i=-lim; i<=lim; i++) {
+				int xG = ctr + Math.round(i*galaxyGrid*factor);
+				g.drawLine(xG, yOff, xG, yEnd);
+			}
+			lim = gh/(2*galaxyGrid);
+			ctr = (yOff+yEnd)/2;			
+			for (int i=-lim; i<=lim; i++) {
+				int yG = ctr + Math.round(i*galaxyGrid*factor);
+				g.drawLine(xOff, yG, xEnd, yG);
+			}
+		}
+		// Add with lone stars
 		Point.Float pt = new Point.Float();
 		for (int i=0; i<sh.numberStarSystems();i++) {
 			sh.coords(i, pt);
@@ -2023,6 +2047,10 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			newGameOptions().prevOpponent(i);
 		postSelectionLight(false);
 	}
+	private void toggleGalaxyGrid() {
+		showGrid = !showGrid;
+		repaint(galaxyBox);
+	}
 	private void goToOptions() {
 		buttonClick();
 		AdvancedOptionsUI optionsUI = RotPUI.advancedOptionsUI();
@@ -2313,7 +2341,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		galaxyY = boxY+s40;
 		galaxyW = boxW-s80;
 		galaxyH = scaled(325);
-		g.fillRect(galaxyX, galaxyY, galaxyW, galaxyH);
+		galaxyBox.setBounds(galaxyX, galaxyY, galaxyW, galaxyH);
+		g.fill(galaxyBox);
+//		g.fillRect(galaxyX, galaxyY, galaxyW, galaxyH);
 
 		// draw 3 galaxy option labels
 		int sectionW = (boxW-s40) / 3;
@@ -2641,6 +2671,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		// BR: Display UI panel for MOD game options
 		else if (hoverBox == globalModSettingsBox)
 			goToModGlobalOptions();
+		else if (hoverBox == galaxyBox)
+			toggleGalaxyGrid();
 		else if (hoverBox == startBox)
 			doStartBoxAction();
 		else if (hoverPolyBox == shapeBoxL) {

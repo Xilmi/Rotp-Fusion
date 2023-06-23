@@ -59,6 +59,9 @@ Last updates:
 - Swapped "Ctrl"-selection on Game, Last loading button.
   - Last Game" is on the top!
 - Restored vanilla parameters for vanilla galaxies.
+- Added a 10 ly grid to the galaxy preview.
+- Added a guide to the galaxy preview.
+
 
 Last Fixes:
 - New Governor Panel don't crash any more on Apple OS.

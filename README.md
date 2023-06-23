@@ -59,6 +59,10 @@ Later:
 
 ## What's New
 
+2023.06.23 (BR)
+- Added a 10 ly grid to the galaxy preview.
+- Added a guide to the galaxy preview.
+
 2023.06.22 (BR)
 - Fixed defaultAI not correctly set everywhere.
 - Fixed occasional wrong player icon on Setup Galaxy panel.

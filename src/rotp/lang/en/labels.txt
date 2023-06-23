@@ -3243,6 +3243,7 @@ SETUP_GALAXY_SELECTABLE		      | Selectable Abilities
 SETUP_GALAXY_RACE_LIST_HELP       | <b>Race list selection</b><br> Modnar has extended the base race list with six new races. If you are not in the mood to see them, you can exclude them from the selection.<hr><b>Default:</b>&nbsp Original<hr><b>Original:</b>&nbsp The 6 Modnar Races are excluded.<br> <b>All Races</b>:&nbsp The 6 Modnar Races can also be selected or randomly assigned.
 SETUP_GALAXY_RACE_LIST_DESC       | "Original" = The 6 Modnar Races are excluded.<br> "All Races" = The 6 Modnar Races can also be selected or randomly assigned.
 SETUP_GALAXY_AGAINST_DESC         | To select Aliens AI.<br> "AI:Selectable" => A selection line will appear on the bottom of the Boxes bellow, allowing the selection of individual Aliens AI.
+SETUP_GALAXY_PREVIEW_DESC         | This is what the Galaxy will look like.<br>Blue dot = Orion.<br>Green dots = Player Homeworld and neighbor systems.<br>Red dots = Opponents Homeworlds and their neighbor systems.<br>Grey dots = other star systems.<br>Click to show/hide a 10 ly spaced grid.
 
 SETUP_SELECT_CR_OPTIONS_DESC      | if "Yes", a selection line will appear at the top of the boxes below, allowing the selection of individual ability.
 SETUP_SELECT_CR_OPTIONS_YES       | A selection line will appear at the top of the opponent boxes, allowing the selection of individual ability.

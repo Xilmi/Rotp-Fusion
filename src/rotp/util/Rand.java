@@ -71,14 +71,6 @@ public class Rand extends Random{
 		CRND = new double[] { IGR, SIGR, IPR, SIPR, ISGR, SSIGR, ISR, SISR };
 		init(source);
 	}
-//	public Rand()				{
-//		super(0);
-//		CRND = new double[] { IGR, SIGR, IPR, SIPR, ISGR, SSIGR, ISR, SISR };
-//	}
-//	public Rand(Long source)	{
-//		CRND = new double[] { IGR, SIGR, IPR, SIPR, ISGR, SSIGR, ISR, SISR };
-//		init(source);
-//	}
 	/**
 	 * Initialize or reinitialize the randomizer
 	 */
