@@ -59,6 +59,9 @@ Later:
 
 ## What's New
 
+2023.06.23 (Xilmi)
+- Restored Moo1 Race names.
+
 2023.06.23 (BR)
 - Added a 10 ly grid to the galaxy preview.
 - Added a guide to the galaxy preview.

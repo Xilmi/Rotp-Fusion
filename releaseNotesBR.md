@@ -96,6 +96,8 @@ Last Fixes:
   - Improved guide for "Max Spacing Multiplier"
 - Fixed eco reallocation when all other slides are locked.
 - Fixed occasional wrong player icon on Setup Galaxy panel.
+- Restored Moo1 Race names.
+
 
 Last Anouuncement:
 
