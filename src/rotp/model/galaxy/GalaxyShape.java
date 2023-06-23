@@ -330,16 +330,18 @@ public abstract class GalaxyShape implements Base, Serializable {
 		tm0 = System.currentTimeMillis();
 		empSystems.clear();
 
-		// BR: the code was a little bit confusing,
-		// some values where independent from star density option
+		// BR: Restored Vanilla parameters
+		// Use "Maximize Spacing" for customization
 		// Everything will be done step by step
 		
 		// systemBuffer() is minimum distance between any 2 stars
 		sysBuffer = systemBuffer();
 		
 		// Buffer multipliers
-		float minEmpireFactor    = 4f; // modnar: increase spacing between empires
-		float minOrionFactor     = 5f; // modnar: increase spacing between empires and orion
+//		float minEmpireFactor    = 4f; // modnar: increase spacing between empires
+//		float minOrionFactor     = 5f; // modnar: increase spacing between empires and orion
+		float minEmpireFactor    = 3f; // BR: Restored Vanilla values.
+		float minOrionFactor     = 4f; // BR: Restored Vanilla values. (Use maximize to space)
 		float maxMinEmpireFactor = 15f;
 		float minMaxEmpireBuffer = maxStars/(numEmpires*2);
 		
@@ -509,9 +511,6 @@ public abstract class GalaxyShape implements Base, Serializable {
 		}
 		return GALAXY_EDGE_BUFFER;
 	}
-//	private void addColonizedSystems() {
-//
-//	}
 	private Point.Float addOrion() {
 		Point.Float pt = new Point.Float();
 		indexWorld = 0; // modnar: explicitly set indexWorld=0 for orion

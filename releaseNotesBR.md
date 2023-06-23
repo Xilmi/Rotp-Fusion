@@ -58,6 +58,7 @@ Last updates:
 - Changed default AI to Roleplay.
 - Swapped "Ctrl"-selection on Game, Last loading button.
   - Last Game" is on the top!
+- Restored vanilla parameters for vanilla galaxies.
 
 Last Fixes:
 - New Governor Panel don't crash any more on Apple OS.
