@@ -134,6 +134,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private static String opponentRandom = "???";
 	private static SetupGalaxyUI instance;
     private final Color darkBrownC = new Color(112,85,68);
+	private final Color darkYellow = new Color(223, 223, 0);
 	private BufferedImage backImg, playerRaceImg;
 	private BufferedImage smBackImg;
     private int bSep = s15;
@@ -1229,10 +1230,18 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			|| (hoverBox == aiBox)			|| (hoverBox == newRacesBox)
 			|| (hoverBox == mapOption3Box)	|| (hoverBox == showAbilitiesBox)
 			|| (hoverBox == diffBox)		|| (hoverBox == wysiwygBox)
-			|| (hoverBox == oppBox) 		|| (hoverBox == galaxyBox)) {
+			|| (hoverBox == oppBox)) {
 			Stroke prev = g.getStroke();
 			g.setStroke(stroke2);
 			g.setColor(Color.yellow);
+			g.draw(hoverBox);
+			g.setStroke(prev);
+		}
+		else if (hoverBox == galaxyBox) {
+			// Standard borders are ugly when applied to galaxy preview
+			Stroke prev = g.getStroke();
+			g.setStroke(stroke1);
+			g.setColor(darkYellow);
 			g.draw(hoverBox);
 			g.setStroke(prev);
 		}

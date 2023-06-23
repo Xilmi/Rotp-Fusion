@@ -68,6 +68,7 @@ Later:
   - Middle Click on the galaxy preview will reset it's value to "Auto"
 - Removed "Max Spacing Multiplier" and "Maximize Spacing".
   - Too complex, and replaced by "Empire Spacing".
+- Made galaxy hovering borders more discreet.
 
 2023.06.22 (BR)
 - Fixed defaultAI not correctly set everywhere.
