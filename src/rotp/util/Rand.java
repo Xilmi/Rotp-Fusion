@@ -50,12 +50,12 @@ public class Rand extends Random{
 	private int lastId = 0;
 
 	
-	public class RandX extends Rand{
+	public static class RandX extends Rand{
 		public RandX(double source)	{
 			super(new double[] { IGR, IPR, ISGR, ISR }, source);
 		}
 	}
-	public class RandY extends Rand{
+	public static class RandY extends Rand{
 		public RandY(double source)	{
 			super(new double[] { SIGR, SIPR, SSIGR, SISR }, source);
 		}

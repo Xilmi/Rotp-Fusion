@@ -183,11 +183,11 @@ public class GalaxyTextShape extends GalaxyShape {
     protected int galaxyHeightLY() {
         return (int) (Math.sqrt(1.4f*(1/aspectRatio)*opts.numberStarSystems()*adjustedSizeFactor()));
     }
-    @Override
-    public void setRandom(Point.Float pt) {
-        pt.x = randomLocation(fullWidth, galaxyEdgeBuffer());
-        pt.y = randomLocation(fullHeight, galaxyEdgeBuffer());
-    }
+//    @Override
+//    public void setRandom(Point.Float pt) {
+//        pt.x = randomLocation(fullWidth, galaxyEdgeBuffer());
+//        pt.y = randomLocation(fullHeight, galaxyEdgeBuffer());
+//    }
     @Override
     public void setSpecific(Point.Float pt) { // modnar: add possibility for specific placement of homeworld/orion locations
         setRandom(pt);

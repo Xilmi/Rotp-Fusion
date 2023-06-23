@@ -65,6 +65,8 @@ Later:
 - Restored former Galaxy factory.
 - Added missing options to "compact"-Options menu.
 - Updated "Rand" to be more tuneable.
+- Split randX and randY for vanill Galaxy.
+- Removed Overrider methods identical to overriden! (For better readability)
 
 2023.06.22 (Xilmi)
 - The move-rate of missiles is now being taken into consideration when it comes to the AI determining whether they should be able to outrun missiles or not. So the decision of whether to kite a missile or retreat immediately shall be more accurate.

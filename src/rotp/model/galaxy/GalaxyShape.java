@@ -57,7 +57,9 @@ public abstract class GalaxyShape implements Base, Serializable {
 	float sysBuffer = 1.9f;
 	int numEmpires;
 	private int numOpponents;
-	Rand rand = new Rand(random()); // random number generator
+	Rand rand = new Rand(random()); // random number generator TODO BR: Remove rand
+	Rand randX = new Rand.RandX(random());
+	Rand randY = new Rand.RandY(random());
 	private long tm0; // for timing computation
 	// \BR
 
@@ -69,12 +71,12 @@ public abstract class GalaxyShape implements Base, Serializable {
 	protected abstract int galaxyHeightLY();
 	protected abstract float sizeFactor(String size);
 	public void setRandom(Point.Float pt) {
-        pt.x = galaxyEdgeBuffer() + (fullWidth  - 2*galaxyEdgeBuffer()) * rand.nextFloat();
-        pt.y = galaxyEdgeBuffer() + (fullHeight - 2*galaxyEdgeBuffer()) * rand.nextFloat();
+        pt.x = galaxyEdgeBuffer() + (fullWidth  - 2*galaxyEdgeBuffer()) * randX.nextFloat();
+        pt.y = galaxyEdgeBuffer() + (fullHeight - 2*galaxyEdgeBuffer()) * randY.nextFloat();
 	}
-    float randomLocation(float max, float buff) {
-        return buff + (rand.nextFloat() * (max-buff-buff));
-    }
+//    float randomLocation(float max, float buff) { // TODO BR: Remove
+//        return buff + (rand.nextFloat() * (max-buff-buff));
+//    }
 	public boolean valid(float x, float y) {
 		if (x<0)          return false;
 		if (y<0)          return false;
@@ -451,7 +453,9 @@ public abstract class GalaxyShape implements Base, Serializable {
 		clean();
 	}
 	private void generate(boolean full) {
-		rand = new Rand(options().selectedGalaxyRandSource());
+		rand = new Rand(options().selectedGalaxyRandSource()); // TODO BR: Remove
+		randX = new Rand.RandX(options().selectedGalaxyRandSource());
+		randY = new Rand.RandY(options().selectedGalaxyRandSource());
 		singleInit(full);
 		if (isSymmetric()) {
 			generateSymmetric(full);
