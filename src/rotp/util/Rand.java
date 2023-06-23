@@ -71,14 +71,14 @@ public class Rand extends Random{
 		CRND = new double[] { IGR, SIGR, IPR, SIPR, ISGR, SSIGR, ISR, SISR };
 		init(source);
 	}
-	public Rand()				{
-		super(0);
-		CRND = new double[] { IGR, SIGR, IPR, SIPR, ISGR, SSIGR, ISR, SISR };
-	}
-	public Rand(Long source)	{
-		CRND = new double[] { IGR, SIGR, IPR, SIPR, ISGR, SSIGR, ISR, SISR };
-		init(source);
-	}
+//	public Rand()				{
+//		super(0);
+//		CRND = new double[] { IGR, SIGR, IPR, SIPR, ISGR, SSIGR, ISR, SISR };
+//	}
+//	public Rand(Long source)	{
+//		CRND = new double[] { IGR, SIGR, IPR, SIPR, ISGR, SSIGR, ISR, SISR };
+//		init(source);
+//	}
 	/**
 	 * Initialize or reinitialize the randomizer
 	 */
@@ -143,33 +143,33 @@ public class Rand extends Random{
 	/**
 	 * @return  double: 0 <= random value < max
 	 */
-	@Override public double nextDouble (double max) { return max * next();  }
+	public double nextDouble (double max) { return max * next();  }
 	/**
 	 * @return  float: 0 <= random value < max
 	 */
-	@Override public float nextFloat (float max) { return (float) (max * next());  }
+	public float nextFloat (float max) { return (float) (max * next());  }
 	/**
 	 * @return  int: 0 <= random value < max
 	 */
-	@Override public int nextInt (int max) { return (int) (max * next());  }
+	public int nextInt (int max) { return (int) (max * next());  }
 
 	// ===== Getters with limits =====
 	/**
 	 * @return  min(lim1, lim2) <= random double < max(lim1, lim2)
 	 */
-	@Override public double nextDouble(double lim1, double lim2) {
+	public double nextDouble(double lim1, double lim2) {
 		return nextDouble(Math.abs(lim2-lim1)) + Math.min(lim2, lim1);
 	}
 	/**
 	 * @return  min(lim1, lim2) <= random float < max(lim1, lim2)
 	 */
-	@Override public float nextFloat(float lim1, float lim2) {
+	public float nextFloat(float lim1, float lim2) {
 		return nextFloat(Math.abs(lim2-lim1)) + Math.min(lim2, lim1);
 	}
 	/**
 	 * @return  min(lim1, lim2) <= random int < max(lim1, lim2)
 	 */
-	@Override public int nextInt(int lim1, int lim2) {
+	public int nextInt(int lim1, int lim2) {
 		return nextInt(Math.abs(lim2-lim1)) + Math.min(lim2, lim1);
 	}
 
