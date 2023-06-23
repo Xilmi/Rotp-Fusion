@@ -21,6 +21,7 @@ import java.util.Random;
 
 public class Rand extends Random{
 	// BR: To avoid structure in multi dimensional random Multiple random generators will be used randomly.
+	// BR: Trying to be more slowly uniform!
 
 	// Based on golden ratio: (The positive solution of x^2 = x + 1)
 	// https://en.wikipedia.org/wiki/Golden_ratio
@@ -43,21 +44,40 @@ public class Rand extends Random{
 	private static final double ISR  = 0.4142135623730950488017; // Inverse of silver ratio
 	private static final double SISR = 0.1715728752538099023966; // Square of the inverse of silver ratio
 
-	private static final double[] CRND = { IGR, SIGR, IPR, SIPR, ISGR, SSIGR, ISR, SISR };
+	private final double[] CRND;
 
 	private double[] lasts;
 	private int lastId = 0;
 
+	
+	public class RandX extends Rand{
+		public RandX(double source)	{
+			super(new double[] { IGR, IPR, ISGR, ISR }, source);
+		}
+	}
+	public class RandY extends Rand{
+		public RandY(double source)	{
+			super(new double[] { SIGR, SIPR, SSIGR, SISR }, source);
+		}
+	}
+
 	// ===== Constructors  and Initializers =====
 	//
-	public Rand()				{ super(0); }
-	public Rand(double source)	{ init(source); }
-	public Rand(Long source)	{ init(source); }
+	public Rand(double[] crnd, double source)	{
+		CRND = crnd;
+		init(source);
+	}
+	public Rand(double source)	{
+		CRND = new double[] { IGR, SIGR, IPR, SIPR, ISGR, SSIGR, ISR, SISR };
+		init(source);
+	}
 	/**
 	 * Initialize or reinitialize the randomizer
 	 */
 	@Override public void setSeed(long seed) { init(seed); }
 	public void init(double source) {
+		if (CRND == null)
+			return;
 		lasts = new double[CRND.length];
 		if (source > 1.0)
 			source = 1/source;
@@ -76,17 +96,12 @@ public class Rand extends Random{
 			source = rand(i);
 		}
 		lastId = (int) (source * CRND.length);
-//		System.out.println();
-//		System.out.println(lastId + " = " + lasts[lastId]);
-//		for (double l : lasts) {
-//			System.out.println(l);
-//		}
 	}
 	// ========== Private and protected Methods ==========
 	//
 	private double rand(int i) { return lasts[i] = (lasts[i]  + CRND[i])%1; }
 	private double next() {
-		lastId = (int) (rand(lastId) * CRND.length);
+			lastId = (int) (rand(lastId) * CRND.length);
 		return rand(lastId);
 	}
 	@Override protected int next(int bits) { return nextInt(); }
@@ -120,11 +135,11 @@ public class Rand extends Random{
 	/**
 	 * @return  double: 0 <= random value < max
 	 */
-	public double nextDouble (double max) { return max * next();  }
+	@Override public double nextDouble (double max) { return max * next();  }
 	/**
 	 * @return  float: 0 <= random value < max
 	 */
-	public float nextFloat (float max) { return (float) (max * next());  }
+	@Override public float nextFloat (float max) { return (float) (max * next());  }
 	/**
 	 * @return  int: 0 <= random value < max
 	 */
@@ -134,19 +149,19 @@ public class Rand extends Random{
 	/**
 	 * @return  min(lim1, lim2) <= random double < max(lim1, lim2)
 	 */
-	public double nextDouble(double lim1, double lim2) {
+	@Override public double nextDouble(double lim1, double lim2) {
 		return nextDouble(Math.abs(lim2-lim1)) + Math.min(lim2, lim1);
 	}
 	/**
 	 * @return  min(lim1, lim2) <= random float < max(lim1, lim2)
 	 */
-	public float nextFloat(float lim1, float lim2) {
+	@Override public float nextFloat(float lim1, float lim2) {
 		return nextFloat(Math.abs(lim2-lim1)) + Math.min(lim2, lim1);
 	}
 	/**
 	 * @return  min(lim1, lim2) <= random int < max(lim1, lim2)
 	 */
-	public int nextInt(int lim1, int lim2) {
+	@Override public int nextInt(int lim1, int lim2) {
 		return nextInt(Math.abs(lim2-lim1)) + Math.min(lim2, lim1);
 	}
 
@@ -196,5 +211,5 @@ public class Rand extends Random{
 	 */
 	public int sym(int ctr, int width) {
 		return (int) ((nextFloat() - 0.5f) * width + ctr);
-	}
+	}	
 }
