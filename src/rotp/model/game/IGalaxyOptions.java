@@ -4,6 +4,7 @@ import static rotp.model.game.IGameOptions.DIFFICULTY_NORMAL;
 import static rotp.model.game.IGameOptions.SHAPE_RECTANGLE;
 import static rotp.model.game.IGameOptions.SIZE_SMALL;
 import static rotp.model.game.IPreGameOptions.dynStarsPerEmpire;
+import static rotp.model.game.IPreGameOptions.empiresSpacing;
 import static rotp.model.game.MOO1GameOptions.getGalaxyShapeOptions;
 import static rotp.model.game.MOO1GameOptions.getGalaxySizeOptions;
 import static rotp.model.game.MOO1GameOptions.getGameDifficultyOptions;
@@ -162,7 +163,7 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 	static LinkedList<IParam> optionsGalaxy = new LinkedList<>(
 			Arrays.asList(
 					showNewRaces, globalCROptions, useSelectableAbilities, shapeOption3,
-					galaxyRandSource,
+					galaxyRandSource, empiresSpacing,
 					dynStarsPerEmpire // This one is a duplicate, but it helps readability
 					));
 	default LinkedList<IParam> optionsGalaxy()	{ return optionsGalaxy; }

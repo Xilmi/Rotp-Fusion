@@ -345,13 +345,13 @@ public abstract class GalaxyShape implements Base, Serializable {
 		float maxMinEmpireFactor = 15f;
 		float minMaxEmpireBuffer = maxStars/(numEmpires*2);
 		
-		// option to maximize spacing; not optimized for symmetric
-    	if (opts.selectedMaximizeSpacing() && !isSymmetric()) {
-    		minEmpireFactor    *= 1.4f;
-    		minOrionFactor     *= 1.4f;
-    		minMaxEmpireBuffer *= 1.8f;
-    		maxMinEmpireFactor  = opts.selectedSpacingLimit();
-    	}
+//		// option to maximize spacing; not optimized for symmetric
+//    	if (opts.selectedMaximizeSpacing() && !isSymmetric()) {
+//    		minEmpireFactor    *= 1.4f;
+//    		minOrionFactor     *= 1.4f;
+//    		minMaxEmpireBuffer *= 1.8f;
+//    		maxMinEmpireFactor  = opts.selectedSpacingLimit();
+//    	}
     	
     	// Buffers targets and limits
 		float minEmpireBuffer    = sysBuffer * minEmpireFactor;
@@ -360,7 +360,9 @@ public abstract class GalaxyShape implements Base, Serializable {
 		
 		// Final Buffers
 		empireBuffer = min(maxMinEmpireBuffer, max(minEmpireBuffer, minMaxEmpireBuffer));
-		orionBuffer  = max(minOrionBuffer, empireBuffer*3/2);
+		if (opts.isCustomEmpireSpacing())
+			empireBuffer = opts.selectedEmpireSpacing();
+		orionBuffer = max(minOrionBuffer, empireBuffer*3/2);
 
 //		System.out.println();
 //		System.out.println("selectedMaximizeSpacing() = " + opts.selectedMaximizeSpacing());

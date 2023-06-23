@@ -71,9 +71,9 @@ public class GalaxyEllipticalShape extends GalaxyShape {
     }
 	@Override public CtrPoint getPlayerSymmetricHomeWorld() {
     	double minHomeRay = Math.pow(empireBuffer * numEmpires / twoPI / galaxyRay(), 2);
-    	if (opts.selectedMaximizeSpacing()) {
-    		minHomeRay = Math.max(minHomeRay, (galaxyRay() - sysBuffer)/galaxyRay()) ;
-    	}
+//    	if (opts.selectedMaximizeSpacing()) {
+//    		minHomeRay = Math.max(minHomeRay, (galaxyRay() - sysBuffer)/galaxyRay()) ;
+//    	}
     	return getRandomSymmetric(minHomeRay);
 	}
 	@Override public boolean isSymmetric() {

@@ -61,7 +61,12 @@ Last updates:
 - Restored vanilla parameters for vanilla galaxies.
 - Added a 10 ly grid to the galaxy preview.
 - Added a guide to the galaxy preview.
-
+- Added "Empire Spacing" to easily customise the distance between home world.
+  - Default value = "Auto"
+  - Scrolling on the galaxy preview will change it's value.
+  - Middle Click on the galaxy preview will reset it's value to "Auto"
+- Removed "Max Spacing Multiplier" and "Maximize Spacing".
+  - Too complex, and replaced by "Empire Spacing".
 
 Last Fixes:
 - New Governor Panel don't crash any more on Apple OS.

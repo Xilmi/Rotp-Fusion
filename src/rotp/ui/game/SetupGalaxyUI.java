@@ -2047,7 +2047,12 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			newGameOptions().prevOpponent(i);
 		postSelectionLight(false);
 	}
-	private void toggleGalaxyGrid() {
+	private void toggleGalaxyGrid(MouseEvent e) {
+		if (SwingUtilities.isMiddleMouseButton(e)) {
+			guiOptions().resetEmpireSpacing();
+			refreshGui();
+			return;
+		}
 		showGrid = !showGrid;
 		repaint(galaxyBox);
 	}
@@ -2672,7 +2677,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		else if (hoverBox == globalModSettingsBox)
 			goToModGlobalOptions();
 		else if (hoverBox == galaxyBox)
-			toggleGalaxyGrid();
+			toggleGalaxyGrid(e);
 		else if (hoverBox == startBox)
 			doStartBoxAction();
 		else if (hoverPolyBox == shapeBoxL) {
@@ -2812,6 +2817,10 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		if (hoverBox == shapeBox)  {
 			shapeSelection.toggle(e);
 			postSelectionFull(false);
+		}
+		else if (hoverBox == galaxyBox) {
+			guiOptions().toggleEmpireSpacing(e);
+			postSelectionMedium(false);
 		}
 		else if (hoverBox == mapOption1Box) {
 			shapeOption1.toggle(e);
