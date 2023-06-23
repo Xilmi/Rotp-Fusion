@@ -1,7 +1,7 @@
 // race-specific variables (must start with _)
-_empire                           | Altairi Sovereignty, Aviari Sovereignty, Cluckari Sovereignty, Feathari Sovereignty, Fowlari Sovereignty
-_race                             | Altairi, Aviari, Cluckari, Feathari, Fowlari
-_race_plural                      | Altairis, Aviaris, Cluckaris, Featharis, Fowlaris
+_empire                           | Alkari Sovereignty, Aviari Sovereignty, Cluckari Sovereignty, Feathari Sovereignty, Fowlari Sovereignty
+_race                             | Alkari, Aviari, Cluckari, Feathari, Fowlari
+_race_plural                      | Alkaris, Aviaris, Cluckaris, Featharis, Fowlaris
 _title                            | Spire King
 _nameTitle                        | Spire King
 
@@ -21,7 +21,7 @@ _nameTitle                        | Spire King
 //
 
 // Advisor text
-MAIN_ADVISOR_TITLE                | Altairi Advisor
+MAIN_ADVISOR_TITLE                | Alkari Advisor
 MAIN_ADVISOR_BUTTON_OK            | Dismiss
 MAIN_ADVISOR_SCOUT                | My lord, our scouts stand at the ready to discover a new world for our colony ship to bring into the fold so that we may add the territory to our illustrious sovereignty. 
 MAIN_ADVISOR_TRANSPORT            | A new world bears our banner, but it grows at an inhibited rate. Sending a transport to the colony will enable it to grow much faster.

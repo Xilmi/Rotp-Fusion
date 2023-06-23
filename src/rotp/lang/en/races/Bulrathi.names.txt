@@ -1,5 +1,5 @@
 // all possible names
-name: Ursinathi, Bearathi, Burlathi, Pawrathi, Grizzlathi
+name: Bulrathi, Bearathi, Burlathi, Pawrathi, Grizzlathi
 
 desc1: Aggressive Ecologists
 desc2: Terrific Ground Fighters

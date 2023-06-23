@@ -1,7 +1,7 @@
 // race-specific variables (must start with _)
-_empire                           | Kholdan Hive, Klackant Hive, Klockan Hive, Arthropon Hive, Coleopteron Hive
-_race                             | Kholdan, Klackant, Klockan, Arthropon, Coleopteron
-_race_plural                      | Kholdans, Klackants, Klockans, Arthropons, Coleopterons
+_empire                           | Klackon Hive, Klackant Hive, Klockan Hive, Arthropon Hive, Coleopteron Hive
+_race                             | Klackon, Klackant, Klockan, Arthropon, Coleopteron
+_race_plural                      | Klackons, Klackants, Klockans, Arthropons, Coleopterons
 _title                            | ruler
 _nameTitle                        |
 
