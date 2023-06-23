@@ -115,7 +115,7 @@ public class GalaxySwirlClustersShape extends GalaxyShape {
 		// not quite since distance along swirl is not uniform with steps
 		int clusterSteps = (int) Math.floor(2*numSteps / (max(1, numClusters-1)));
 //		int stepSelect = ThreadLocalRandom.current().nextInt(2*numSteps)+1;
-		int stepSelect = rand.nextInt(2*numSteps)+1;
+		int stepSelect = randX.nextInt(2*numSteps)+1;
 		// select cluster position non-uniformally
 //		int clusterRandom = ThreadLocalRandom.current().nextInt(numClusters);
 		int clusterRandom = rand.nextInt(numClusters);
@@ -128,8 +128,8 @@ public class GalaxySwirlClustersShape extends GalaxyShape {
                 float xSwirl = (float) (0.5f*gW + galaxyEdgeBuffer() + 0.225f*gW*stepSelect*Math.cos(numSwirls*stepSelect*Math.PI/numSteps)/numSteps);
 				float ySwirl = (float) (0.5f*gW + galaxyEdgeBuffer() + 0.225f*gW*stepSelect*Math.sin(numSwirls*stepSelect*Math.PI/numSteps)/numSteps);
 				
-				double phiSwirl = rand.nextDouble(2 * Math.PI);
-				double radiusSwirl = Math.sqrt(rand.nextDouble()) * swirlWidth;
+				double phiSwirl = randY.nextDouble(2 * Math.PI);
+				double radiusSwirl = Math.sqrt(randX.nextDouble()) * swirlWidth;
 				
 				pt.x = (float) (radiusSwirl * Math.cos(phiSwirl) + xSwirl);
 				pt.y = (float) (radiusSwirl * Math.sin(phiSwirl) + ySwirl);
@@ -151,8 +151,8 @@ public class GalaxySwirlClustersShape extends GalaxyShape {
 					yCluster = (float) ((clusterDelta/dCluster)*(0.5f*gW + galaxyEdgeBuffer()) + (1.0f - (clusterDelta/dCluster))*(0.5f*gW + galaxyEdgeBuffer() + yDelta));
 				}
 				
-				double phiCluster = rand.nextDouble(2 * Math.PI);
-				double radiusSelect = Math.sqrt(rand.nextDouble()) * clusterR;
+				double phiCluster = randY.nextDouble(2 * Math.PI);
+				double radiusSelect = Math.sqrt(randX.nextDouble()) * clusterR;
 				
 				pt.x = (float) (radiusSelect * Math.cos(phiCluster) + xCluster);
 				pt.y = (float) (radiusSelect * Math.sin(phiCluster) + yCluster);

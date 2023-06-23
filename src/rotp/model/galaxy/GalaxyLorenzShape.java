@@ -96,18 +96,18 @@ public class GalaxyLorenzShape extends GalaxyShape {
                 // choose lorenz view-point with option2
                 switch(option2) {
                     case 0: {
-                        pt.x = galaxyEdgeBuffer() + ((xf+22.0f)/44.0f)*galaxyWidthLY()  + rand.sym(-0.5f);
-                        pt.y = galaxyEdgeBuffer() + ((yf+30.0f)/60.0f)*galaxyHeightLY() + rand.sym(-0.5f);
+                        pt.x = galaxyEdgeBuffer() + ((xf+22.0f)/44.0f)*galaxyWidthLY()  + randX.sym(-0.5f);
+                        pt.y = galaxyEdgeBuffer() + ((yf+30.0f)/60.0f)*galaxyHeightLY() + randY.sym(-0.5f);
                         break;
                     }
                     case 1: {
-                        pt.x = galaxyEdgeBuffer() + ((xf+22.0f)/44.0f)*galaxyWidthLY() + rand.sym(-0.5f);
-                        pt.y = galaxyEdgeBuffer() + ((zf+0.0f)/55.0f)*galaxyHeightLY() + rand.sym(-0.5f);
+                        pt.x = galaxyEdgeBuffer() + ((xf+22.0f)/44.0f)*galaxyWidthLY() + randX.sym(-0.5f);
+                        pt.y = galaxyEdgeBuffer() + ((zf+0.0f)/55.0f)*galaxyHeightLY() + randY.sym(-0.5f);
                         break;
                     }
                     case 2: {
-                        pt.x = galaxyEdgeBuffer() + ((yf+30.0f)/60.0f)*galaxyWidthLY() + rand.sym(-0.5f);
-                        pt.y = galaxyEdgeBuffer() + ((zf+0.0f)/55.0f)*galaxyHeightLY() + rand.sym(-0.5f);
+                        pt.x = galaxyEdgeBuffer() + ((yf+30.0f)/60.0f)*galaxyWidthLY() + randX.sym(-0.5f);
+                        pt.y = galaxyEdgeBuffer() + ((zf+0.0f)/55.0f)*galaxyHeightLY() + randY.sym(-0.5f);
                         break;
                     }
                 }
@@ -135,18 +135,18 @@ public class GalaxyLorenzShape extends GalaxyShape {
                 // choose Lorenz-2 view-point with option2
                 switch(option2) {
                     case 0: {
-                        pt.x = galaxyEdgeBuffer() + ((xf+2.1f)/4.2f)*galaxyWidthLY()  + rand.symFloat();
-                        pt.y = galaxyEdgeBuffer() + ((yf+2.9f)/5.8f)*galaxyHeightLY() + rand.symFloat();
+                        pt.x = galaxyEdgeBuffer() + ((xf+2.1f)/4.2f)*galaxyWidthLY()  + randX.symFloat();
+                        pt.y = galaxyEdgeBuffer() + ((yf+2.9f)/5.8f)*galaxyHeightLY() + randY.symFloat();
                         break;
                     }
                     case 1: {
-                        pt.x = galaxyEdgeBuffer() + ((xf-yf+2.5f)/5.0f)*galaxyWidthLY() + rand.symFloat();
-                        pt.y = galaxyEdgeBuffer() + ((zf+5.1f)/7.5f)*galaxyHeightLY()   + rand.symFloat();
+                        pt.x = galaxyEdgeBuffer() + ((xf-yf+2.5f)/5.0f)*galaxyWidthLY() + randX.symFloat();
+                        pt.y = galaxyEdgeBuffer() + ((zf+5.1f)/7.5f)*galaxyHeightLY()   + randY.symFloat();
                         break;
                     }
                     case 2: {
-                        pt.x = galaxyEdgeBuffer() + ((yf+xf+3.8f)/8.0f)*galaxyWidthLY() + rand.symFloat();
-                        pt.y = galaxyEdgeBuffer() + ((zf+5.1f)/7.5f)*galaxyHeightLY()   + rand.symFloat();
+                        pt.x = galaxyEdgeBuffer() + ((yf+xf+3.8f)/8.0f)*galaxyWidthLY() + randX.symFloat();
+                        pt.y = galaxyEdgeBuffer() + ((zf+5.1f)/7.5f)*galaxyHeightLY()   + randY.symFloat();
                         break;
                     }
                 }

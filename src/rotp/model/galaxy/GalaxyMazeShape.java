@@ -102,8 +102,8 @@ public class GalaxyMazeShape extends GalaxyShape {
 		// keep same random number seed
 		// modified by numberStarSystems, UI_option, and selectedNumberOpponents
 		// randnum.setSeed(opts.numberStarSystems()*adjust_seed + opts.selectedNumberOpponents());
-        int x = rand.nextInt(width);
-        int y = rand.nextInt(height);
+        int x = randX.nextInt(width);
+        int y = randY.nextInt(height);
         frontiers.add(new int[]{x,y,x,y});
 		
 		// maze generation with Prim's algorithm

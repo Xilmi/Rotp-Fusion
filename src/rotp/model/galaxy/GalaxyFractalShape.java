@@ -106,7 +106,7 @@ public class GalaxyFractalShape extends GalaxyShape {
                         Point.Float p3 = new Point.Float(triangleWidth, triangleHeight+0.05f*galaxyHeightLY());
                         
                         // initial start point for chaos game, take middle point with some variation
-                        Point.Float pnew = new Point.Float(triangleWidth/2.0f+rand.symFloat(), triangleHeight/2.0f+rand.symFloat());
+                        Point.Float pnew = new Point.Float(triangleWidth/2.0f+randX.symFloat(), triangleHeight/2.0f+randY.symFloat());
                         
                         // scale number of iterations with stars
                         int n = (int) Math.ceil(rand.nextDouble() * 1.5 * maxStars);
@@ -129,8 +129,8 @@ public class GalaxyFractalShape extends GalaxyShape {
                             i++;
                         }
                         
-                        pt.x = (float) pnew.x + 4.0f*galaxyEdgeBuffer() + rand.sym(0.5f);
-                        pt.y = (float) pnew.y + 4.0f*galaxyEdgeBuffer() + rand.sym(0.5f);
+                        pt.x = (float) pnew.x + 4.0f*galaxyEdgeBuffer() + randX.sym(0.5f);
+                        pt.y = (float) pnew.y + 4.0f*galaxyEdgeBuffer() + randY.sym(0.5f);
                         break;
                     }
                     
@@ -152,7 +152,7 @@ public class GalaxyFractalShape extends GalaxyShape {
                         Point.Float p8 = new Point.Float(0.5f*boxWidth, boxHeight);
                         
                         // initial start point for chaos game, take near middle point with some variation
-                        Point.Float pnew = new Point.Float(boxWidth/3.0f+rand.sym(0.5f), boxHeight/3.0f+rand.sym(0.5f));
+                        Point.Float pnew = new Point.Float(boxWidth/3.0f+randX.sym(0.5f), boxHeight/3.0f+randY.sym(0.5f));
                         
                         // scale number of iterations with stars
                         int n = (int) Math.ceil(rand.nextDouble() * 1.5 * maxStars);
@@ -199,8 +199,8 @@ public class GalaxyFractalShape extends GalaxyShape {
                             i++;
                         }
                         
-                        pt.x = (float) pnew.x + 4.0f*galaxyEdgeBuffer() + rand.sym(0.1f);
-                        pt.y = (float) pnew.y + 4.0f*galaxyEdgeBuffer() + rand.sym(0.1f);
+                        pt.x = (float) pnew.x + 4.0f*galaxyEdgeBuffer() + randX.sym(0.1f);
+                        pt.y = (float) pnew.y + 4.0f*galaxyEdgeBuffer() + randY.sym(0.1f);
                         break;
                     }
                     
@@ -244,8 +244,8 @@ public class GalaxyFractalShape extends GalaxyShape {
                             i++;
                         }
                         
-                        pt.x = (float) ((pnew.x-0.55f)*1.9f+0.55f)*(galaxyWidthLY()-8.0f*galaxyEdgeBuffer()) + 4.0f*galaxyEdgeBuffer() + rand.sym(0.25f);
-                        pt.y = (float) (pnew.y+0.02f)*0.95f*(galaxyHeightLY()-8.0f*galaxyEdgeBuffer()) + 4.0f*galaxyEdgeBuffer() + rand.sym(0.25f);
+                        pt.x = (float) ((pnew.x-0.55f)*1.9f+0.55f)*(galaxyWidthLY()-8.0f*galaxyEdgeBuffer()) + 4.0f*galaxyEdgeBuffer() + randX.sym(0.25f);
+                        pt.y = (float) (pnew.y+0.02f)*0.95f*(galaxyHeightLY()-8.0f*galaxyEdgeBuffer()) + 4.0f*galaxyEdgeBuffer() + randY.sym(0.25f);
                         break;
                     }
                 }
@@ -266,7 +266,7 @@ public class GalaxyFractalShape extends GalaxyShape {
                 Point.Float p4 = new Point.Float(0.0f, boxHeight);
                 
                 // initial start point for chaos game, take near middle point with some variation
-                Point.Float pnew = new Point.Float(boxWidth/2.0f+rand.sym(0.5f), boxHeight/2.0f+rand.sym(0.5f));
+                Point.Float pnew = new Point.Float(boxWidth/2.0f+randX.sym(0.5f), boxHeight/2.0f+randY.sym(0.5f));
                 
                 // scale number of iterations with stars
                 int n = (int) Math.ceil(rand.nextDouble() * 1.5 * maxStars);
@@ -371,8 +371,8 @@ public class GalaxyFractalShape extends GalaxyShape {
                     }
                 }
                 
-                pt.x = (float) pnew.x + 4.0f*galaxyEdgeBuffer() + rand.sym(0.5f);
-                pt.y = (float) pnew.y + 4.0f*galaxyEdgeBuffer() + rand.sym(0.5f);
+                pt.x = (float) pnew.x + 4.0f*galaxyEdgeBuffer() + randX.sym(0.5f);
+                pt.y = (float) pnew.y + 4.0f*galaxyEdgeBuffer() + randY.sym(0.5f);
                 break;
             }
 		}

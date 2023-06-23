@@ -65,7 +65,7 @@ Later:
 - Restored former Galaxy factory.
 - Added missing options to "compact"-Options menu.
 - Updated "Rand" to be more tuneable.
-- Split randX and randY for vanill Galaxy.
+- Split randX and randY for all Galaxy.
 - Removed Overrider methods identical to overriden! (For better readability)
 
 2023.06.22 (Xilmi)

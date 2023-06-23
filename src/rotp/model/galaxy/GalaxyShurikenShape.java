@@ -112,8 +112,8 @@ public class GalaxyShurikenShape extends GalaxyShape {
 				// create flake polygon shape, with random points/path
 				for (int i = 0; i < numPoints; i++) {
 					// uniform random point within triangle slice
-					float rand1 = rand.nextFloat();
-					float rand2 = rand.nextFloat();
+					float rand1 = randX.nextFloat();
+					float rand2 = randY.nextFloat();
 					float px = p1.x*(1-rand1) + p2.x*((float) Math.sqrt(rand1)*(1-rand2)) + p3.x*((float) Math.sqrt(rand1)*rand2);
 					float py = p1.y*(1-rand1) + p2.y*((float) Math.sqrt(rand1)*(1-rand2)) + p3.y*((float) Math.sqrt(rand1)*rand2);
 					flake.lineTo(px, py);
@@ -141,8 +141,8 @@ public class GalaxyShurikenShape extends GalaxyShape {
 				
 				for (int i = 0; i < size; i++) {
 					// uniform random point within triangle slice
-					float rand1 = rand.nextFloat();
-					float rand2 = rand.nextFloat();
+					float rand1 = randX.nextFloat();
+					float rand2 = randY.nextFloat();
 					ray	  = (float) (ray - rand1*step);
 					yA[i] = ray;
 					xA[i] = (maxX-minX)*rand2 + minX;

@@ -214,8 +214,8 @@ public class GalaxyBitmapShape extends GalaxyShape {
 		} 
 		if (col == xBM) // source = 1.0
 			col--;
-		float x = col + rand.nextFloat();
-		float y = row + rand.nextFloat();
+		float x = col + randX.nextFloat();
+		float y = row + randY.nextFloat();
 		
 		pt.x = offset + x * xMult;
 		pt.y = offset + y * yMult;

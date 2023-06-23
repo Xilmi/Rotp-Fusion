@@ -57,9 +57,9 @@ public abstract class GalaxyShape implements Base, Serializable {
 	float sysBuffer = 1.9f;
 	int numEmpires;
 	private int numOpponents;
-	Rand rand = new Rand(random()); // random number generator TODO BR: Remove rand
-	Rand randX = new Rand.RandX(random());
-	Rand randY = new Rand.RandY(random());
+	Rand rand = new Rand(random()); // For other than location purpose
+	Rand randX = new Rand.RandX(random()); // For X and R
+	Rand randY = new Rand.RandY(random());  // for Y and Angle
 	private long tm0; // for timing computation
 	// \BR
 
@@ -74,9 +74,6 @@ public abstract class GalaxyShape implements Base, Serializable {
         pt.x = galaxyEdgeBuffer() + (fullWidth  - 2*galaxyEdgeBuffer()) * randX.nextFloat();
         pt.y = galaxyEdgeBuffer() + (fullHeight - 2*galaxyEdgeBuffer()) * randY.nextFloat();
 	}
-//    float randomLocation(float max, float buff) { // TODO BR: Remove
-//        return buff + (rand.nextFloat() * (max-buff-buff));
-//    }
 	public boolean valid(float x, float y) {
 		if (x<0)          return false;
 		if (y<0)          return false;
@@ -453,7 +450,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 		clean();
 	}
 	private void generate(boolean full) {
-		rand = new Rand(options().selectedGalaxyRandSource()); // TODO BR: Remove
+		rand = new Rand(options().selectedGalaxyRandSource());
 		randX = new Rand.RandX(options().selectedGalaxyRandSource());
 		randY = new Rand.RandY(options().selectedGalaxyRandSource());
 		singleInit(full);
@@ -752,8 +749,8 @@ public abstract class GalaxyShape implements Base, Serializable {
 			float buffer = systemBuffer();
 			while (attempts < 100) {
 				attempts++;
-				pt.x = rand.nextFloat(x1, x2);
-				pt.y = rand.nextFloat(y1, y2);
+				pt.x = randX.nextFloat(x1, x2);
+				pt.y = randY.nextFloat(y1, y2);
 				if (sh.valid(pt)) {
 					boolean tooCloseToAny = isTooNearExistingSystem(sh,pt.x,pt.y, buffer);
 					boolean tooFarFromRef = distance(x0, y0, pt.x,pt.y) >= maxDistance;
@@ -801,9 +798,9 @@ public abstract class GalaxyShape implements Base, Serializable {
 			if (numComp > 0) {
 				double ctr   = twoPI / numComp;
 				double width = twoPI / numComp - minRandom;
-				double orientation = rand.nextDouble(twoPI); // Global orientation
+				double orientation = randY.nextDouble(twoPI); // Global orientation
 				for (int i=0; i<numComp; i++) {
-					cW[i] = home.shift(unit(orientation + rand.sym(i * ctr, width)));
+					cW[i] = home.shift(unit(orientation + randX.sym(i * ctr, width)));
 				}
 			} else { // old way
 				numComp = -numComp;

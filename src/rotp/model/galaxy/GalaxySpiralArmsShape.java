@@ -53,11 +53,11 @@ public class GalaxySpiralArmsShape extends GalaxyShape {
     // BR: for symmetric galaxy
     private CtrPoint getRandomSymmetric(double minRay) {
 		double armRadius   = Math.min(this.armRadius, twoPI * galaxyRay() / numEmpires);
-		double swirlRadius = rand.nextDouble();
+		double swirlRadius = randX.nextDouble();
 		double swirlAngle  = numSwirls * swirlRadius * Math.PI;
 		CtrPoint arm = new CtrPoint(swirlRadius * galaxyRay()).rotate(swirlAngle);
-		double phi = rand.nextDouble(twoPI);
-		double radiusSelect = Math.sqrt(rand.nextDouble()) * armRadius * (1 - swirlRadius);
+		double phi = randY.nextDouble(twoPI);
+		double radiusSelect = Math.sqrt(randX.nextDouble()) * armRadius * (1 - swirlRadius);
     	return new CtrPoint(radiusSelect).rotate(phi + randomOrientation).shift(arm);
     }
     @Override public CtrPoint getValidRandomSymmetric() {
@@ -165,14 +165,14 @@ public class GalaxySpiralArmsShape extends GalaxyShape {
 		
 //		int armSelect = ThreadLocalRandom.current().nextInt(numSpirals);
 //		int stepSelect = ThreadLocalRandom.current().nextInt(numSteps);
-		int armSelect  = rand.nextInt(numSpirals);
-		int stepSelect = rand.nextInt(numSteps);
+		int armSelect  = randY.nextInt(numSpirals);
+		int stepSelect = randX.nextInt(numSteps);
 		
 		float xArm = (float) (0.5f*gW + galaxyEdgeBuffer() + 0.45f*gW*stepSelect*Math.cos(numSwirls*stepSelect*Math.PI/numSteps + armSelect*2*Math.PI/numSpirals)/numSteps);
 		float yArm = (float) (0.5f*gW + galaxyEdgeBuffer() + 0.45f*gW*stepSelect*Math.sin(numSwirls*stepSelect*Math.PI/numSteps + armSelect*2*Math.PI/numSpirals)/numSteps);
 		
-		double phi = rand.nextDouble(2 * Math.PI);
-		double radiusSelect = Math.sqrt(rand.nextDouble()) * armRadius * (numSteps - stepSelect)/numSteps;
+		double phi = randY.nextDouble(2 * Math.PI);
+		double radiusSelect = Math.sqrt(randX.nextDouble()) * armRadius * (numSteps - stepSelect)/numSteps;
 		
 		pt.x = (float) (radiusSelect * Math.cos(phi) + xArm);
         pt.y = (float) (radiusSelect * Math.sin(phi) + yArm);

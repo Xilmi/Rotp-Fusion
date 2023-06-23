@@ -148,8 +148,8 @@ public class GalaxyGridShape extends GalaxyShape {
 				float xCluster = (float) ((clusterX/nGrid)*gW + clusterR + galaxyEdgeBuffer());
 				float yCluster = (float) ((clusterY/nGrid)*gH + clusterR + galaxyEdgeBuffer());
 				
-				double phiCluster = rand.nextDouble(2 * Math.PI);
-				double radiusSelect = Math.sqrt(rand.nextDouble()) * clusterR;
+				double phiCluster = randY.nextDouble(2 * Math.PI);
+				double radiusSelect = Math.sqrt(randX.nextDouble()) * clusterR;
 				
 				pt.x = (float) (radiusSelect * Math.cos(phiCluster) + xCluster);
 				pt.y = (float) (radiusSelect * Math.sin(phiCluster) + yCluster);

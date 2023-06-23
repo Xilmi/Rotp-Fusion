@@ -66,9 +66,9 @@ public class GalaxySpiralShape extends GalaxyShape {
     }
     // BR: for symmetric galaxy
     private CtrPoint getRandomSymmetric(double minRay) {
-        double ray = rand.nextDouble(minRay, 1); 
+        double ray = randX.nextDouble(minRay, 1); 
         ray *= ray; // to favor short ray
-        double armOffset = rand.sym(armOffsetMax);
+        double armOffset = randY.sym(armOffsetMax);
         armOffset = (armOffset - armOffsetMax/2) / ray;
         armOffset *= armOffset * Math.signum(armOffset); // to Squeeze the arm
         double angle = armOffset + ray * rotationFactor;
@@ -149,10 +149,10 @@ public class GalaxySpiralShape extends GalaxyShape {
         float adjW = fullWidth-buff-buff;
         float adjH = fullHeight-buff-buff;
         
-        float dist = rand.nextFloat();
+        float dist = randX.nextFloat();
         dist = dist * dist;
         
-        float angle = (float) rand.nextDouble(2*Math.PI);
+        float angle = (float) randY.nextDouble(2*Math.PI);
         float armOffset = rand.nextFloat(armOffsetMax);
         armOffset = (armOffset - armOffsetMax/2)/dist;
         armOffset = armOffset > 0 ? armOffset*armOffset : -1*armOffset*armOffset;

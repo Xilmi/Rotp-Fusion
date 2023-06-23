@@ -59,8 +59,8 @@ public class GalaxyEllipticalShape extends GalaxyShape {
     }
     // BR: for symmetric galaxy
     private CtrPoint getRandomSymmetric(double minRay) {
-    	double ray   = galaxyRay() * Math.sqrt(rand.nextDouble(minRay, 1));
-    	double angle = rand.sym(randomOrientation, twoPI / numEmpires);
+    	double ray   = galaxyRay() * Math.sqrt(randX.nextDouble(minRay, 1));
+    	double angle = randY.sym(randomOrientation, twoPI / numEmpires);
     	return new CtrPoint(ray).rotate(angle);
     }
     @Override public CtrPoint getValidRandomSymmetric() {
