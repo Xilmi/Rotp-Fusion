@@ -44,7 +44,7 @@ public class Rand extends Random{
 	private static final double ISR  = 0.4142135623730950488017; // Inverse of silver ratio
 	private static final double SISR = 0.1715728752538099023966; // Square of the inverse of silver ratio
 
-	private final double[] CRND;
+	private double[] CRND;
 
 	private double[] lasts;
 	private int lastId = 0;
@@ -68,6 +68,14 @@ public class Rand extends Random{
 		init(source);
 	}
 	public Rand(double source)	{
+		CRND = new double[] { IGR, SIGR, IPR, SIPR, ISGR, SSIGR, ISR, SISR };
+		init(source);
+	}
+	public Rand()				{
+		super(0);
+		CRND = new double[] { IGR, SIGR, IPR, SIPR, ISGR, SSIGR, ISR, SISR };
+	}
+	public Rand(Long source)	{
 		CRND = new double[] { IGR, SIGR, IPR, SIPR, ISGR, SSIGR, ISR, SISR };
 		init(source);
 	}
