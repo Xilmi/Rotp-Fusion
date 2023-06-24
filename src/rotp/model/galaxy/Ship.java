@@ -73,6 +73,12 @@ public interface Ship extends IMappedObject, Base, Sprite {
     default float travelPct() {
         return travelPct(galaxy().currentTime());
     }
+    default float transitXlastTurn() {
+        return fromX() + travelPct(galaxy().currentTime() - Galaxy.TIME_PER_TURN)*(destX() - fromX());
+    }
+    default float transitYlastTurn() {
+        return fromY() + travelPct(galaxy().currentTime() - Galaxy.TIME_PER_TURN)*(destY() - fromY());
+    }
 
     public boolean inTransit();
     @Override // from IMappedObject
