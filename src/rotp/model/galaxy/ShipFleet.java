@@ -23,7 +23,9 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import rotp.model.Sprite;
 import rotp.model.ai.FleetOrders;
 import rotp.model.combat.CombatStackColony;
@@ -382,6 +384,20 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
         }
         return visible;
     }
+    public Map<ShipDesign, Integer> visibleShipDesigns(int emp) {
+        Map<ShipDesign, Integer> ret = new HashMap<ShipDesign, Integer>();
+        int[] visible = visibleShips(emp);
+        for (int i=0; i<visible.length; i++) {
+            int cnt = visible[i];
+            if (cnt > 0) {
+                ShipDesign design = design(i);
+                if (design == null)
+                    ret.put(null, ret.getOrDefault(null, 0) + cnt)
+                else
+                    ret.put(design, cnt)
+            }
+        }
+    }
     public float visibleFirepower(int emp, int shieldLevel) {
         // this calculates the visible firepower threat against SystemView sv
         // it only checks visible stacks for sv's owner
@@ -390,20 +406,16 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
 
         float firepower = 0;
         int[] visible = visibleShips(emp);
-        for (int i=0; i<visible.length; i++) {
-            int cnt = visible[i];
-            if (cnt > 0) {
-                ShipDesign design = design(i);
-                if (design != null) {
-                    Empire empire = galaxy().empire(emp);
-                    ShipView shipView = empire.shipViewFor(design);
-                    if (shipView == null)
-                        firepower += (cnt * empire.estimatedShipFirepower(empire(), design.size(), shieldLevel));
-                    else
-                        firepower += (cnt * shipView.visibleFirepower(shieldLevel));
-                }
+        visibleShipDesigns().forEach((design, cnt) -> {
+            if (design != null) {
+                Empire empire = galaxy().empire(emp);
+                ShipView shipView = empire.shipViewFor(design);
+                if (shipView == null)
+                    firepower += (cnt * empire.estimatedShipFirepower(empire(), design.size(), shieldLevel));
+                else
+                    firepower += (cnt * shipView.visibleFirepower(shieldLevel));
             }
-        }
+        });
         return firepower;
     }
     public boolean aggressiveWith(ShipFleet fl, StarSystem sys) {
