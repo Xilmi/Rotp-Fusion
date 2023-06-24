@@ -170,6 +170,12 @@ public class ShipView implements Base,Serializable {
         else
             return owner.estimatedShipFirepower(empire, design.size(), shieldLevel);
     }
+    public float visibleFirepowerAntiShip(int shieldLevel) {
+        if (scanned)
+            return design.firepowerAntiShip(shieldLevel);
+        else
+            return owner.estimatedShipFirepower(empire, design.size(), shieldLevel);
+    }
     private void scanComputer() {
         computer = design.computer();
         attackLevel = (int) design.attackLevel()+empire.shipAttackBonus();
