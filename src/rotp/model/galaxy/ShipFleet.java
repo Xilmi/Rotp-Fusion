@@ -412,6 +412,18 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
             return cnt * viewingEmpire.estimatedShipFirepower(design, shieldLevel);
         }).reduce(0f, (Float a, Float b) -> a + b); // this .reduce() is literally just .sum() for floats
     }
+    public float visibleFirepowerAntiShip(int viewingEmpireId, int shieldLevel) {
+        // visibleFirepowerAntiShip() is almost identical with visibleFirepower().
+        // It would be great if we could cut down the boilerplate even more, but some seems necessary for readability,
+        // like ShipDesign design = entry.getKey().
+        final Empire viewingEmpire = galaxy().empire(viewingEmpireId);
+        // cannot use mapToDouble().sum() nor Collectors.summingDouble https://rmannibucau.metawerx.net/java-stream-float-widening.html
+        return visibleShipDesigns(emp).entrySet().stream().map(entry -> {
+            ShipDesign design = entry.getKey();
+            int cnt = entry.getValue();
+            return cnt * viewingEmpire.estimatedShipFirepowerAntiShip(design, shieldLevel);
+        }).reduce(0f, (Float a, Float b) -> a + b); // this .reduce() is literally just .sum() for floats
+    }
     public boolean aggressiveWith(ShipFleet fl, StarSystem sys) {
         // only possibly aggressive if one of the fleets is armed
         if (isArmed() || fl.isArmed())
