@@ -98,6 +98,7 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
     public void system(StarSystem s)    { sysId = id(s); }
     public StarSystem destination()     { return galaxy().system(destSysId);  }
     public float destY()                { return destY; }
+    public float fromX()                { return fromX; }
     public float fromY()                { return fromY; }
     public void makeOrbiting()          { status = Status.ORBITING; }
     public void makeDeployed()          { status = Status.DEPLOYED; }
