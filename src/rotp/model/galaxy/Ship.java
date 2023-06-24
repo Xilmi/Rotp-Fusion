@@ -22,7 +22,7 @@ import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.sprites.FlightPathSprite;
 import rotp.util.Base;
 
-public interface Ship extends IMappedObject, Sprite {
+public interface Ship extends IMappedObject, Base, Sprite {
     static final int NOT_LAUNCHED = -1;
     default float hullPoints()          { return 0; }
     default boolean isRallied()         { return false; }
@@ -38,6 +38,7 @@ public interface Ship extends IMappedObject, Sprite {
     default boolean hasDisplayPanel() { return true; }
 
     public boolean canSendTo(int sysId);
+    public float launchTime();
     public float arrivalTime();
     public boolean visibleTo(int empId);
 
@@ -52,8 +53,31 @@ public interface Ship extends IMappedObject, Sprite {
     default Empire empire() { return galaxy().empire(empId()); }
     public int destSysId();
     default StarSystem destination() { return galaxy().system(destSysId());  }
+    default float destX() { return destination().x(); }
+    default float destY() { return destination().y(); }
+    // destination is always a star system, but origin point need not be?
+    public float fromX();
+    public float fromY();
+    default float transitX() {
+        return fromX() + travelPct()*(destX() - fromX());
+    }
+    default float transitY() {
+        return fromY() + travelPct()*(destY() - fromY());
+    }
+    default float travelPct() {
+        float currTime = galaxy().currentTime();
+        if ((launchTime() == NOT_LAUNCHED) || (launchTime() == currTime))
+            return 0;
+        else 
+            return (currTime-launchTime()) / (arrivalTime()-launchTime());
+    }
 
     public boolean inTransit();
+    @Override // from IMappedObject
+    default float x() { return inTransit() ? transitX() : fromX(); }
+    @Override // from IMappedObject
+    default float y() { return inTransit() ? transitY() : fromY(); }
+
     public boolean deployed();
     public FlightPathSprite pathSprite();
     public int maxMapScale();
