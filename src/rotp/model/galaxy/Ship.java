@@ -31,6 +31,11 @@ public interface Ship extends IMappedObject {
     default boolean retreating()        { return false; }
     default boolean isTransport()       { return false; }
 
+    @Override
+    default int displayPriority() { return 8; }
+    @Override
+    default boolean hasDisplayPanel() { return true; }
+
     public boolean canSendTo(int sysId);
     public float arrivalTime();
     public boolean visibleTo(int empId);
