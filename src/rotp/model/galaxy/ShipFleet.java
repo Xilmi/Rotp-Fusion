@@ -392,11 +392,12 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
             if (cnt > 0) {
                 ShipDesign design = design(i);
                 if (design == null)
-                    ret.put(null, ret.getOrDefault(null, 0) + cnt)
+                    ret.put(null, ret.getOrDefault(null, 0) + cnt);
                 else
-                    ret.put(design, cnt)
+                    ret.put(design, cnt);
             }
         }
+        return ret;
     }
     public float visibleFirepower(int emp, int shieldLevel) {
         // this calculates the visible firepower threat against SystemView sv
@@ -406,7 +407,9 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
 
         float firepower = 0;
         int[] visible = visibleShips(emp);
-        visibleShipDesigns().forEach((design, cnt) -> {
+        for (Map.Entry<ShipDesign, Integer> entry : visibleShipDesigns(emp).entrySet()) {
+            ShipDesign design = entry.getKey();
+            int cnt = entry.getValue();
             if (design != null) {
                 Empire empire = galaxy().empire(emp);
                 ShipView shipView = empire.shipViewFor(design);
@@ -415,7 +418,7 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
                 else
                     firepower += (cnt * shipView.visibleFirepower(shieldLevel));
             }
-        });
+        }
         return firepower;
     }
     public boolean aggressiveWith(ShipFleet fl, StarSystem sys) {
