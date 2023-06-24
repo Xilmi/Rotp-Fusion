@@ -100,6 +100,7 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
     public float destY()                { return destY; }
     public float fromX()                { return fromX; }
     public float fromY()                { return fromY; }
+    public float launchTime()           { return launchTime; }
     public void makeOrbiting()          { status = Status.ORBITING; }
     public void makeDeployed()          { status = Status.DEPLOYED; }
     public void makeInTransit()         { status = Status.IN_TRANSIT; }
