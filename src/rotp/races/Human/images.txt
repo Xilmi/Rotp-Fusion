@@ -30,6 +30,12 @@ HumDipEy03    | races/Human/Diplomat_Eye_03.png
 HumDipMo02    | races/Human/Diplomat_Mouth_02.png
 HumDipMo03    | races/Human/Diplomat_Mouth_03.png
 
+HumDipAlt     | races/Human/DiplomatAlt_Base.png
+HumDipAltEy02 | races/Human/DiplomatAlt_Eye_02.png
+HumDipAltEy03 | races/Human/DiplomatAlt_Eye_03.png
+HumDipAltMo02 | races/Human/DiplomatAlt_Mouth_02.png
+HumDipAltMo03 | races/Human/DiplomatAlt_Mouth_03.png
+
 HumSci        | races/Human/Scientist_Base.png
 HumSci01      | races/Human/Scientist_01.png
 HumSci02      | races/Human/Scientist_02.png

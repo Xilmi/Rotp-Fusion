@@ -117,6 +117,10 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         initTextField(leaderName);
         initTextField(shipSetTxt); // BR:
     }
+    public void resetRaceMug() {
+    	for (int i=0;i<racemugs.length;i++)
+    		racemugs[i] = null;
+    }
 	@Override protected void singleInit() { paramList = optionsRace; }
     @Override public void init() {
     	super.init();

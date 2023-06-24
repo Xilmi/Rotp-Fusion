@@ -61,6 +61,8 @@ Later:
 
 2023.06.23 (Xilmi)
 - Restored Moo1 Race names.
+- Restored Vanilla Human diplomat.
+  - Added option to select the younger one (default value).
 
 2023.06.23 (BR)
 - Added a 10 ly grid to the galaxy preview.

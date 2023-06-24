@@ -1,8 +1,10 @@
 
 HumanLaboratory    | races/Human/animationLaboratory.txt
+HumanDiploMugAlt   | races/Human/animationDiploMugAlt.txt
 HumanDiploMug      | races/Human/animationDiploMug.txt
 HumanSpyMug        | races/Human/animationSpyMug.txt
 HumanSoldierMug    | races/Human/animationSoldierMug.txt
+HumanDiplomatAlt   | races/Human/animationDiplomatAlt.txt
 HumanDiplomat      | races/Human/animationDiplomat.txt
 HumanScientist     | races/Human/animationScientist.txt
 HumanSoldier       | races/Human/animationSoldier.txt

@@ -1,0 +1,10 @@
+#
+# Humrathi Diplomat Animation
+Base,  _ALL_    , HumDipAlt
+
+// open-blink-open-squint-blink-squint
+Eye,    260@220   , NULL:30:60+HumDipAltEy03:2+NULL:10:20+HumDipAltEy02:4:10+HumDipAltEy03:2+HumDipAltEy02:3:10
+
+// closed-open1-open2-open1-open2-open1
+Mouth,  250@260   , NULL:2+HumDipAltMo02:2+HumDipAltMo03:2+HumDipAltMo02:2+HumDipAltMo03:2+HumDipAltMo02:2
+

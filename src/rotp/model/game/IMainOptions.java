@@ -39,6 +39,7 @@ import java.util.LinkedList;
 import javax.swing.JFileChooser;
 
 import rotp.Rotp;
+import rotp.ui.RotPUI;
 import rotp.ui.game.BaseModPanel;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolInt;
@@ -304,13 +305,24 @@ public interface IMainOptions extends IBaseOptsTools {
 	ParamBoolean compactOptionOnly	= new ParamBoolean(MOD_UI, "COMPACT_OPTION_ONLY", false)
 	{	{ isCfgFile(true); } };
 
+	ParamBoolean showAlternateAnimation	= new ParamBoolean(MOD_UI, "SHOW_ALT_ANIMATION", true)
+	{
+		{ isCfgFile(true); }
+		@Override public Boolean set(Boolean val) {
+			super.set(val);
+			RotPUI.setupRaceUI().resetRaceMug();
+			return val;
+		}
+	};
+
+
 	// ==================== GUI List Declarations ====================
 	//
 	LinkedList<IParam> mainOptionsUI  = new LinkedList<>(
 			Arrays.asList(
 					displayMode, graphicsMode, texturesMode, sensitivityMode, selectedScreen, disableAdvisor,
 					null,
-					soundVolume, musicVolume, showMemory, backupTurns, saveDirectory,
+					soundVolume, musicVolume, showMemory, backupTurns, saveDirectory, showAlternateAnimation,
 					null,
 					mapFontFactor, showNameMinFont, showInfoFontRatio, useFusionFont, galaxyPreviewColorStarsSize,
 					null,

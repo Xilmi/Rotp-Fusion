@@ -26,29 +26,40 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import rotp.Rotp;
+import rotp.model.game.IGameOptions;
 import rotp.ui.UserPreferences;
 
 public enum AnimationManager implements Base {
     INSTANCE;
     public static AnimationManager current()  { return INSTANCE; }
 
-    private static final String explosionBaseDir = "images/explosions/";
+    private static final String explosionBaseDir  = "images/explosions/";
     private static final String explosionListFile = "images/explosions/listing.txt";
     private static final String animationListFile = "data/animations.txt";
 
     private static final HashMap<Integer,List<BufferedImage>> cachedImages = new HashMap<>();
     private static final HashMap<Integer,List<BufferedImage>> activeImages = new HashMap<>();
 
-
     private final HashMap<String, Animation> animations = new HashMap<>();
     private final HashMap<String, List<String>> explosions = new HashMap<>();
 
-    private static int imgKey(int w, int h) {
-        return (w*1000)+h;
-    }
+//    private static int imgKey(int w, int h) {
+//        return (w*1000)+h;
+//    }
     private AnimationManager() {
         loadAnimationList(animationListFile);
         loadExplosions();
+    }
+    private String altKey (String key) {
+    	if (IGameOptions.showAlternateAnimation.get()) {
+        	String altKey = key+"Alt";
+        	if (animations.get(altKey) == null)
+        		return key;
+        	else
+        		return altKey;    		
+    	}
+    	else
+    		return key;
     }
     public boolean animationsDisabled()  { return lowMemory(); }
     @Override
@@ -58,7 +69,7 @@ public enum AnimationManager implements Base {
     }
     public void reset(String animationSpecifier) {
         List<String> specs = this.substrings(animationSpecifier, ',');
-        String key = specs.get(0);
+        String key = altKey(specs.get(0));
 
         Animation anim = animations.get(key);
         if (anim != null)
@@ -69,7 +80,8 @@ public enum AnimationManager implements Base {
         if ((key == null) || key.isEmpty())
             return results;
 
-        Rectangle area = null;
+        key = altKey(key);
+		//Rectangle area = null;
         Animation anim = animations.get(key);
 
         for (AnimationImage imgSpec: anim.images) {
@@ -84,8 +96,9 @@ public enum AnimationManager implements Base {
             return;
 
         List<String> specs = substrings(animationSpecifier, ',');
-        String key = specs.get(0);
-        Rectangle area = null;
+        String key = altKey(specs.get(0));
+        @SuppressWarnings("unused")
+		Rectangle area = null;
 
         try {
             area = specs.size() > 1 ? parseArea(specs.get(1)) : null;
@@ -123,7 +136,7 @@ public enum AnimationManager implements Base {
             return null;
 
         List<String> specs = substrings(animationSpecifier, ',');
-        String key = specs.get(0);
+        String key = altKey(specs.get(0));
         Rectangle area = null;
 
         try {
