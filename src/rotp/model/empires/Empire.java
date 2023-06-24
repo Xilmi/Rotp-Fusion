@@ -2320,7 +2320,6 @@ public final class Empire implements Base, NamedObject, Serializable {
     }
     public float estimatedFleetDamagePerRoundToArrivingTransports(List<ShipFleet> fleets) {
         float defenderDmg = 0;
-        List<ShipFleet> fleets = starSystem().orbitingFleets();
         // add firepower for each allied ship in orbit
             // modnar: use firepowerAntiShip to only count ship weapons that can hit ships
             // to prevent ground bombs from being able to damage transports
