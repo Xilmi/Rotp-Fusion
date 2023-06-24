@@ -40,9 +40,19 @@ public interface Ship extends IMappedObject, Sprite {
     public boolean canSendTo(int sysId);
     public float arrivalTime();
     public boolean visibleTo(int empId);
+
+    // empId() and empire() provide the same information and either could be defined in terms of the other.
+    // ShipFleet directly stores the empId and defines empire() using the empId.
+    // Transport directly stores the empire and defines empId() using the empire.
+    // Either works fine. Which to provide a default implementation for is essentially arbitrary.
+    // We just can't provide a default implementation for *both* empId() and empire().
+    // Unfortunately, there is no Java construct for "any implementation must override at least one of these two functions."
+    // https://softwareengineering.stackexchange.com/questions/287234/is-it-good-practice-to-implement-two-java-8-default-methods-in-terms-of-each-oth
     public int empId();
     default Empire empire() { return galaxy().empire(empId()); }
     public int destSysId();
+    default StarSystem destination() { return galaxy().system(destSysId());  }
+
     public boolean inTransit();
     public boolean deployed();
     public FlightPathSprite pathSprite();
