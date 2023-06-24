@@ -41,6 +41,7 @@ public interface Ship extends IMappedObject, Sprite {
     public float arrivalTime();
     public boolean visibleTo(int empId);
     public int empId();
+    default Empire empire() { return galaxy().empire(empId()); }
     public int destSysId();
     public boolean inTransit();
     public boolean deployed();
