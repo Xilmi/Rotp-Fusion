@@ -404,16 +404,13 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
         // it only checks visible stacks for sv's owner
         // for unscanned ShipDesigns it asks the sv's owner to estimate threat based on size
         //  (this allows the owner to check any spied tech trees for worst possible weapons)
-
-        float firepower = 0;
-        int[] visible = visibleShips(emp);
-        for (Map.Entry<ShipDesign, Integer> entry : visibleShipDesigns(emp).entrySet()) {
+        final Empire viewingEmpire = galaxy().empire(emp);
+        // cannot use mapToDouble().sum() nor Collectors.summingDouble https://rmannibucau.metawerx.net/java-stream-float-widening.html
+        return visibleShipDesigns(emp).entrySet().stream().map(entry -> {
             ShipDesign design = entry.getKey();
             int cnt = entry.getValue();
-            if (design != null)
-                firepower += cnt * galaxy().empire(emp).estimatedShipFirepower(design, shieldLevel);
-        }
-        return firepower;
+            return cnt * viewingEmpire.estimatedShipFirepower(design, shieldLevel);
+        }).reduce(0f, (Float a, Float b) -> a + b); // this .reduce() is literally just .sum() for floats
     }
     public boolean aggressiveWith(ShipFleet fl, StarSystem sys) {
         // only possibly aggressive if one of the fleets is armed
