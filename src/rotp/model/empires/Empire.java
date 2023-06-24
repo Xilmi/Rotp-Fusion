@@ -2309,7 +2309,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public float estimatedShipFirepower(Empire emp, int shipSize, int shieldLevel) {
         return 0;
     }
-    public float estimatedShipFirepower(Empire emp, ShipDesign design, int shieldLevel) {
+    public float estimatedShipFirepower(ShipDesign design, int shieldLevel) {
         ShipView shipView = shipViewFor(design);
         if (shipView == null)
             return estimatedShipFirepower(design.empire(), design.size(), shieldLevel);
