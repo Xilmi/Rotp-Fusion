@@ -98,6 +98,7 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
     public void system(StarSystem s)    { sysId = id(s); }
     public StarSystem destination()     { return galaxy().system(destSysId);  }
     public float destY()                { return destY; }
+    public float fromY()                { return fromY; }
     public void makeOrbiting()          { status = Status.ORBITING; }
     public void makeDeployed()          { status = Status.DEPLOYED; }
     public void makeInTransit()         { status = Status.IN_TRANSIT; }
@@ -257,21 +258,6 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
     @Override
     public float y() { return isInTransit() ? transitY() : fromY; }
 
-    private float transitX() {
-        float p = travelPct();
-        return fromX + (p*(destX - fromX));
-    }
-    private float transitY() {
-        float p = travelPct();
-        return fromY + (p*(destY - fromY));
-    }
-    private float travelPct() {
-        float currTime = galaxy().currentTime();
-        if ((launchTime == NOT_LAUNCHED) || (launchTime == currTime))
-            return 0;
-        else 
-            return (currTime-launchTime) / (arrivalTime-launchTime);
-    }
     public void launch() {
         StarSystem sys = system();
         launch(sys.x(), sys.y());
