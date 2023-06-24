@@ -112,6 +112,10 @@ public class Transport implements Base, Ship, Sprite, Serializable {
     public StarSystem destination()   { return dest; }
     public void setDest(StarSystem d) { dest = d; }
     public StarSystem from()          { return from; }
+    @Override
+    public float fromX()              { return from.x(); }
+    @Override
+    public float fromY()              { return from.y(); }
     public int size()                 { return size; }
     public void size(int s)           { size = s; }
     public int launchSize()           { return originalSize; }
@@ -119,6 +123,7 @@ public class Transport implements Base, Ship, Sprite, Serializable {
     public float hitPoints()          { return hitPoints; }
     public float combatTransportPct() { return combatTransportPct; }
     public float combatAdj()          { return combatAdj; }
+    @Override
     public float launchTime()         { return launchTime; }
     public Empire targetCiv()          { return targetEmp; }
     public void travelSpeed(float d)  { travelSpeed = d; }
@@ -146,17 +151,6 @@ public class Transport implements Base, Ship, Sprite, Serializable {
     public float x() { return inTransit() ? transitX() : from.x();  }
     @Override
     public float y() { return inTransit() ? transitY() : from.y();  }
-    private float transitX() {
-        float p = travelPct();
-        return from.x() + (p*(dest.x() - from.x()));
-    }
-    private float transitY() {
-        float p = travelPct();
-        return from.y() + (p*(dest.y() - from.y()));
-    }
-    private float travelPct() {
-        return (galaxy().currentTime()-launchTime) / (arrivalTime-launchTime);
-    }
     public boolean launched()       { return launchTime > NOT_LAUNCHED; }
     @Override
     public boolean deployed()       { return launched(); }

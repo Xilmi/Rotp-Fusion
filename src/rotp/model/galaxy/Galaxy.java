@@ -46,7 +46,7 @@ import rotp.util.Base;
 public class Galaxy implements Base, Serializable {
     private static final long serialVersionUID = 1L;
     public static Galaxy current()   { return GameSession.instance().galaxy(); }
-    private static final float TIME_PER_TURN = 1;
+    public static final float TIME_PER_TURN = 1;
     public	static final String EMPIRES_KEY	= "SETUP_EMPIRE_LIST";
     public	static final String SYSTEMS_KEY	= "SETUP_SYSTEM_LIST";
 
