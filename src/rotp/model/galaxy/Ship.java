@@ -16,12 +16,13 @@
 package rotp.model.galaxy;
 
 import java.util.Comparator;
+import rotp.model.Sprite;
 import rotp.model.empires.Empire;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.sprites.FlightPathSprite;
 import rotp.util.Base;
 
-public interface Ship extends IMappedObject {
+public interface Ship extends IMappedObject, Sprite {
     static final int NOT_LAUNCHED = -1;
     default float hullPoints()          { return 0; }
     default boolean isRallied()         { return false; }
