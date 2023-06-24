@@ -59,10 +59,12 @@ Later:
 
 ## What's New
 
+2024.06.23 (BR)
+- Added distance between empires on the map.
+- Fixed wrong Integer to Integer equal test.
+
 2023.06.23 (Xilmi)
 - Restored Moo1 Race names.
-- Restored Vanilla Human diplomat.
-  - Added option to select the younger one (default value).
 
 2023.06.23 (BR)
 - Added a 10 ly grid to the galaxy preview.
@@ -74,6 +76,8 @@ Later:
 - Removed "Max Spacing Multiplier" and "Maximize Spacing".
   - Too complex, and replaced by "Empire Spacing".
 - Made galaxy hovering borders more discreet.
+- Restored Vanilla Human diplomat.
+  - Added option to select the younger one (default value).
 
 2023.06.22 (BR)
 - Fixed defaultAI not correctly set everywhere.

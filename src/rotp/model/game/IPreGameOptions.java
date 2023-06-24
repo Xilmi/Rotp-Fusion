@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 import rotp.Rotp;
+import rotp.ui.RotPUI;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamAAN2;
 import rotp.ui.util.ParamBoolean;
@@ -49,16 +50,27 @@ public interface IPreGameOptions extends IAdvOptions {
 //			, 16, 3, Rotp.maximumSystems-1, 1, 10, 100);
 //	default int selectedSpacingLimit()			{ return spacingLimit.get(); }
 
-	ParamInteger empiresSpacing		= new ParamInteger( MOD_UI, "EMPIRES_SPACINGS"
+	ParamInteger empiresSpacing		= new ParamInteger( MOD_UI, "EMPIRES_SPACING"
 			, 3, 3, 100, 1, 5, 20) {
 		{
-			specialValue(3, MOD_UI + "EMPIRES_SPACINGS_AUTO");
+			specialValue(3, MOD_UI + "EMPIRES_SPACING_AUTO");
 		}
 	};
 	default int		selectedEmpireSpacing()		{ return empiresSpacing.get(); }
 	default boolean	isCustomEmpireSpacing()		{ return !empiresSpacing.isSpecial(); }
 	default void	resetEmpireSpacing()		{ empiresSpacing.setFromDefault(); }
 	default void	toggleEmpireSpacing(MouseWheelEvent e)	{ empiresSpacing.toggle(e); }
+	default void	toggleEmpireSpacingFromMap(MouseWheelEvent e)	{
+		if (isCustomEmpireSpacing()) {
+			toggleEmpireSpacing(e);
+			if (empiresSpacing.isSpecial()) // don't go to the default value this way
+				empiresSpacing.next();
+		}
+		else {
+			float auto = RotPUI.currentOptions().galaxyShape().empireBuffer();
+			empiresSpacing.next(e, auto);
+		}
+	}
 	
 	ParamInteger minStarsPerEmpire	= new ParamInteger( MOD_UI, "MIN_STARS_PER_EMPIRE"
 			, 3, 3, Rotp.maximumSystems-1, 1, 5, 20);

@@ -1694,7 +1694,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private String showAbilityStr() {
 		return useSelectableAbilities.guideValue();
 	}
-	private void drawGalaxyShape(Graphics g, GalaxyShape sh, int x, int y, int w, int h) {
+	private void drawGalaxyShape(Graphics2D g, GalaxyShape sh, int x, int y, int w, int h) {
 		float factor = min((float)h/sh.height(), (float)w/sh.width());
 		int dispH = (int) (sh.height()*factor);
 		int dispW = (int) (sh.width()*factor);
@@ -1808,6 +1808,30 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			if (colored)
 				g.setColor(Color.red); // Start with Player, continue with aliens
 			iEmp++;
+		}
+		// Add Empire distance
+		if (hoverBox == galaxyBox) { // TODO BR: Add Empire distance
+			IGameOptions opts = newGameOptions();
+			float spacing = opts.galaxyShape().empireBuffer();
+			String spStr = text("SETTINGS_MOD_EMPIRES_SPACING_MAP", str(spacing));
+			if (!opts.isCustomEmpireSpacing()) {
+				spStr += " (" + text("SETTINGS_MOD_EMPIRES_SPACING_AUTO") + ")";
+			}
+			g.setColor(darkYellow);
+			g.setFont(narrowFont(15));
+			int xt = galaxyBox.x+s5;
+			int yt = galaxyBox.y+galaxyBox.height-s5;
+			drawString(g, spStr, xt, yt);
+			// Add line reference
+			int x1 = galaxyBox.x+galaxyBox.width-s5;
+			int x2 = (int) (x1-factor*spacing);
+			yt -= s2;
+			Stroke prev = g.getStroke();
+			g.setStroke(stroke2);
+			g.drawLine(x1, yt, x2, yt);
+			g.drawLine(x1, yt-s2, x1, yt+s2);
+			g.drawLine(x2, yt-s2, x2, yt+s2);
+			g.setStroke(prev);
 		}
 	}
 	private Color starColor(int i) {
@@ -2064,6 +2088,10 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		showGrid = !showGrid;
 		repaint(galaxyBox);
+	}
+	private void toggleEmpireSpacing(MouseWheelEvent e) {
+		guiOptions().toggleEmpireSpacingFromMap(e);
+		postSelectionMedium(false);
 	}
 	private void goToOptions() {
 		buttonClick();
@@ -2828,8 +2856,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			postSelectionFull(false);
 		}
 		else if (hoverBox == galaxyBox) {
-			guiOptions().toggleEmpireSpacing(e);
-			postSelectionMedium(false);
+			toggleEmpireSpacing(e);
 		}
 		else if (hoverBox == mapOption1Box) {
 			shapeOption1.toggle(e);

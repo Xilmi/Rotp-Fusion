@@ -91,7 +91,7 @@ public class ParamFloat extends AbstractParam<Float> {
 	//
 	@Override public String guideDefaultValue()	{ return getString(defaultValue()); }
 	@Override public String[] getModifiers()	{
-		if (baseInc() == shiftInc())
+		if (baseInc().equals(shiftInc()))
 			return null;
 		return new String[] {getString(baseInc()),
 							getString(shiftInc()),

@@ -114,7 +114,7 @@ public class ParamInteger extends AbstractParam<Integer> {
 	// ===== Overriders =====
 	//
 	@Override public String[] getModifiers() {
-		if (baseInc() == shiftInc())
+		if (baseInc().equals(shiftInc()))
 			return null;
 		return new String[] {baseInc().toString(),
 							shiftInc().toString(),
@@ -146,10 +146,20 @@ public class ParamInteger extends AbstractParam<Integer> {
 	}
 	// ===== Other Public Methods =====
 	//
+	public void next(MouseEvent e, float f)	{
+		int inc = getInc(e);
+		if (inc > 0)
+			set((int) Math.floor(f));
+		else
+			set((int) Math.ceil(f));
+		next(inc);
+	}
 	public void next(MouseEvent e)		{ next(Math.abs(getInc(e))); }
 	public void prev(MouseEvent e)		{ next(-Math.abs(getInc(e))); }
-	public boolean isSpecial()			{ return (specialValue != null) && (get() == specialValue); }
-	public boolean isSpecialZero()		{ return specialZero && (get() == 0); }
+	public boolean isSpecial()			{
+		return (specialValue != null) && (specialValue.equals(get()));
+	}
+	public boolean isSpecialZero()		{ return specialZero && (get().equals(0)); }
 	public boolean isSpecialNegative()	{ return specialNegative && (get() < 0); }
 	public String  negativeLabel()		{ return negativeLabel; }
 	// ===== Other Private Methods =====

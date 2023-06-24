@@ -65,12 +65,13 @@ Last updates:
   - Default value = "Auto"
   - Scrolling on the galaxy preview will change it's value.
   - Middle Click on the galaxy preview will reset it's value to "Auto"
+  - Added distance between empires on the map. (When hovering)
 - Removed "Max Spacing Multiplier" and "Maximize Spacing".
   - Too complex, and replaced by "Empire Spacing".
 - Restored Moo1 Race names.
 - Restored Vanilla Human diplomat.
   - Added option to select the younger one (default value)
-  
+
 
 Last Fixes:
 - New Governor Panel don't crash any more on Apple OS.

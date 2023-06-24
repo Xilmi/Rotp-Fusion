@@ -317,6 +317,17 @@ public abstract class GalaxyShape implements Base, Serializable {
 	}
 	// BR: ========== Initialization Methods ==========
 	//
+	public float empireBuffer() { // BR: Made this parameter available for GUI
+		if (opts.isCustomEmpireSpacing())
+			return opts.selectedEmpireSpacing();
+		float sysBuffer			 = systemBuffer();
+		float minEmpireFactor    = 3f; // BR: Restored Vanilla values.
+		float maxMinEmpireFactor = 15f;
+		float minMaxEmpireBuffer = maxStars/(numEmpires*2);
+		float minEmpireBuffer    = sysBuffer * minEmpireFactor;
+		float maxMinEmpireBuffer = sysBuffer * maxMinEmpireFactor;
+		return min(maxMinEmpireBuffer, max(minEmpireBuffer, minMaxEmpireBuffer));
+	}
 	protected void singleInit(boolean full) {
 		if (full)
 			maxStars = opts.numberStarSystems();
@@ -335,16 +346,17 @@ public abstract class GalaxyShape implements Base, Serializable {
 		// Everything will be done step by step
 		
 		// systemBuffer() is minimum distance between any 2 stars
-		sysBuffer = systemBuffer();
+		sysBuffer    = systemBuffer();
+		empireBuffer = empireBuffer();
+		orionBuffer  = max(4 * sysBuffer, empireBuffer*3/2); // BR: Restored Vanilla values.
 		
 		// Buffer multipliers
 //		float minEmpireFactor    = 4f; // modnar: increase spacing between empires
 //		float minOrionFactor     = 5f; // modnar: increase spacing between empires and orion
-		float minEmpireFactor    = 3f; // BR: Restored Vanilla values.
-		float minOrionFactor     = 4f; // BR: Restored Vanilla values. (Use maximize to space)
-		float maxMinEmpireFactor = 15f;
-		float minMaxEmpireBuffer = maxStars/(numEmpires*2);
-		
+//		float minEmpireFactor    = 3f; // BR: Restored Vanilla values.
+//		float maxMinEmpireFactor = 15f;
+//		float minMaxEmpireBuffer = maxStars/(numEmpires*2);
+//		
 //		// option to maximize spacing; not optimized for symmetric
 //    	if (opts.selectedMaximizeSpacing() && !isSymmetric()) {
 //    		minEmpireFactor    *= 1.4f;
@@ -352,17 +364,16 @@ public abstract class GalaxyShape implements Base, Serializable {
 //    		minMaxEmpireBuffer *= 1.8f;
 //    		maxMinEmpireFactor  = opts.selectedSpacingLimit();
 //    	}
-    	
-    	// Buffers targets and limits
-		float minEmpireBuffer    = sysBuffer * minEmpireFactor;
-		float minOrionBuffer     = sysBuffer * minOrionFactor;
-		float maxMinEmpireBuffer = sysBuffer * maxMinEmpireFactor;
-		
-		// Final Buffers
-		empireBuffer = min(maxMinEmpireBuffer, max(minEmpireBuffer, minMaxEmpireBuffer));
-		if (opts.isCustomEmpireSpacing())
-			empireBuffer = opts.selectedEmpireSpacing();
-		orionBuffer = max(minOrionBuffer, empireBuffer*3/2);
+//    	
+//    	// Buffers targets and limits
+//		float minEmpireBuffer    = sysBuffer * minEmpireFactor;
+//		float maxMinEmpireBuffer = sysBuffer * maxMinEmpireFactor;
+//		
+//		// Final Buffers
+//		empireBuffer = min(maxMinEmpireBuffer, max(minEmpireBuffer, minMaxEmpireBuffer));
+//		if (opts.isCustomEmpireSpacing())
+//			empireBuffer = opts.selectedEmpireSpacing();
+//		orionBuffer = max(minOrionBuffer, empireBuffer*3/2);
 
 //		System.out.println();
 //		System.out.println("selectedMaximizeSpacing() = " + opts.selectedMaximizeSpacing());
