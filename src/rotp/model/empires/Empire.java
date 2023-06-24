@@ -2310,7 +2310,8 @@ public final class Empire implements Base, NamedObject, Serializable {
         return 0;
     }
     public float estimatedShipFirepower(ShipDesign design, int shieldLevel) {
-        // We do not need to specifically handle the null case here, because shipViewFor() will just return null in that case.
+        if (design == null)
+            return 0;
         ShipView shipView = shipViewFor(design);
         if (shipView == null)
             return estimatedShipFirepower(design.empire(), design.size(), shieldLevel);
