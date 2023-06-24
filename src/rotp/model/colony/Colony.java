@@ -1138,7 +1138,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
             return;
         }
         // Xilmi: when landing on our own planet we also can be shot down by orbiting enemies
-        float defenderDmg = fleetDamagePerRoundToArrivingTransports(tr.empId());
+        float defenderDmg = fleetDamagePerRoundToArrivingTransports(t.empId());
         int passed = 0;
         int lost = 0;
         int num = t.size();
