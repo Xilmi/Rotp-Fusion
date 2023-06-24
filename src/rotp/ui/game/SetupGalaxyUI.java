@@ -2178,7 +2178,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		buttonClick();
 		GameUI.gameName = generateGameName();
 		UserPreferences.setForNewGame();
-		// close();
+		close();
 		final Runnable save = () -> {
 			long start = System.currentTimeMillis();
 			GameSession.instance().startGame(newGameOptions());
@@ -2187,7 +2187,11 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			log("TOTAL GAME START TIME:" +(System.currentTimeMillis()-start));
 			log("Game Name; "+GameUI.gameName);
 			starting = false;
-			close();
+			backImg = null;
+			playerRaceImg  = null;
+			boxMonoFont    = null;
+			dialogMonoFont = null;
+			galaxyTextArray = null;
 		};
 		SwingUtilities.invokeLater(save);
 	}

@@ -59,9 +59,10 @@ Later:
 
 ## What's New
 
-2024.06.23 (BR)
+2024.06.24 (BR)
 - Added distance between empires on the map.
 - Fixed wrong Integer to Integer equal test.
+- Restored the missing race backstory.
 
 2023.06.23 (Xilmi)
 - Restored Moo1 Race names.
