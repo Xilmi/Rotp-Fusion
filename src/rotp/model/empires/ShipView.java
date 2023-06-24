@@ -36,7 +36,9 @@ public class ShipView implements Base,Serializable {
     private final static int UNARMED = -1;
     private final static int UNKNOWN = 0;
     private final static int ARMED = 1;
+    // owner is the *viewing* empire.
     private final Empire owner;
+    // empire is the owner of the actual ship.
     private final Empire empire;
     private final ShipDesign design;
     private boolean detected = false;
