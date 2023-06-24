@@ -410,14 +410,8 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
         for (Map.Entry<ShipDesign, Integer> entry : visibleShipDesigns(emp).entrySet()) {
             ShipDesign design = entry.getKey();
             int cnt = entry.getValue();
-            if (design != null) {
-                Empire empire = galaxy().empire(emp);
-                ShipView shipView = empire.shipViewFor(design);
-                if (shipView == null)
-                    firepower += (cnt * empire.estimatedShipFirepower(empire(), design.size(), shieldLevel));
-                else
-                    firepower += (cnt * shipView.visibleFirepower(shieldLevel));
-            }
+            if (design != null)
+                firepower += cnt * galaxy().empire(emp).estimatedShipFirepower(design, shieldLevel);
         }
         return firepower;
     }
