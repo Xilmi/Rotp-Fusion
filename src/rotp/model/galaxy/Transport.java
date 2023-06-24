@@ -112,7 +112,8 @@ public class Transport implements Base, Ship, Sprite, Serializable {
     public StarSystem destination()   { return dest; }
     public void setDest(StarSystem d) { dest = d; }
     public StarSystem from()          { return from; }
-    public StarSystem fromY()         { return from.y(); }
+    public float fromX()              { return from.x(); }
+    public float fromY()              { return from.y(); }
     public int size()                 { return size; }
     public void size(int s)           { size = s; }
     public int launchSize()           { return originalSize; }
