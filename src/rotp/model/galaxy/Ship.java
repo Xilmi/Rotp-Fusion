@@ -64,12 +64,14 @@ public interface Ship extends IMappedObject, Base, Sprite {
     default float transitY() {
         return fromY() + travelPct()*(destY() - fromY());
     }
-    default float travelPct() {
-        float currTime = galaxy().currentTime();
+    default float travelPct(float currTime) {
         if ((launchTime() == NOT_LAUNCHED) || (launchTime() == currTime))
             return 0;
         else 
             return (currTime-launchTime()) / (arrivalTime()-launchTime());
+    }
+    default float travelPct() {
+        return travelPct(galaxy().currentTime());
     }
 
     public boolean inTransit();
