@@ -2318,6 +2318,18 @@ public final class Empire implements Base, NamedObject, Serializable {
         else
             return shipView.visibleFirepower(shieldLevel);
     }
+    public float estimatedFleetDamagePerRoundToArrivingTransports(List<ShipFleet> fleets) {
+        float defenderDmg = 0;
+        List<ShipFleet> fleets = starSystem().orbitingFleets();
+        // add firepower for each allied ship in orbit
+            // modnar: use firepowerAntiShip to only count ship weapons that can hit ships
+            // to prevent ground bombs from being able to damage transports
+        for (ShipFleet fl : fleets) {
+            if (fl.empire().aggressiveWith(id))
+                defenderDmg += fl.visibleFirepowerAntiShip(id, 0);
+        }
+        return defenderDmg;
+    }
     public boolean canScoutTo(Location xyz) {
         Galaxy gal = galaxy();
         for (int i=0; i<gal.numStarSystems(); i++) {
