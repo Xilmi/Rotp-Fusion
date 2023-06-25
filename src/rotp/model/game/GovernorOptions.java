@@ -97,7 +97,7 @@ public class GovernorOptions implements Serializable, IGovOptions {
 	
 	// ========== Constructor And Initializers ==========AbstractParam <T>
 	public GovernorOptions() {
-		System.out.println("GovernorOptions() " + autoShipsByDefault);
+		//System.out.println("GovernorOptions() " + autoShipsByDefault);
 		for (IParam param : governorOptions) {
 //			System.out.println("is duplicate? = " + param.isDuplicate() + " - " + param.isCfgFile()
 //			+ " - " + param.getCfgLabel());

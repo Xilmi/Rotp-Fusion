@@ -754,6 +754,12 @@ public class MainUI extends BasePanel implements IMapHandler {
         int w9 = scaled(220);
         HelpSpec sp9 = helpUI.addBlueHelpText(x9, y9, w9, 2, text("MAIN_HELP_1I"));
         sp9.setLine(x9, y9+(sp9.height()/2), s45, h-scaled(370));
+
+        int x10 = x9;
+        int y10 = y9 - scaled(90);
+        int w10 = w9;
+        HelpSpec sp10 = helpUI.addBrownHelpText(x10, y10, w10, 2, text("MAIN_HELP_MOD_1I"));
+        sp10.setLine(x10, y10+(sp10.height()/2), s40, scaled(310));
         
         if (showTreasuryResearchBar()) {
             // int x12 = scaled(80); // modnar: TreasuryResearchBar made horizontal, change help line/box

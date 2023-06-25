@@ -63,6 +63,7 @@ import rotp.ui.map.IMapHandler;
 import rotp.ui.sprites.FlightPathDisplaySprite;
 import rotp.ui.sprites.FlightPathSprite;
 import rotp.ui.sprites.GridCircularDisplaySprite;
+import rotp.ui.sprites.OptionsWidgetSprite;
 import rotp.ui.sprites.RangeDisplaySprite;
 import rotp.ui.sprites.ShipDisplaySprite;
 import rotp.ui.sprites.SpyReportSprite;
@@ -295,6 +296,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
 //        showGridCircular = parent.defaultGridCircularDisplay();
 
         if (baseControls.isEmpty()) {
+            baseControls.add(new OptionsWidgetSprite(10,295,30,30)); // TODO BR: Option Button
             baseControls.add(new ZoomOutWidgetSprite(10,260,30,30));
             baseControls.add(new ZoomInWidgetSprite(10,225,30,30));
             baseControls.add(new RangeDisplaySprite(10,190,30,30));

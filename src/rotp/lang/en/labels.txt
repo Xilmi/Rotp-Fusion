@@ -530,6 +530,7 @@ MAIN_HELP_MOD                     | Mod Help - "Ctrl"+"o" to bring the Game opti
 MAIN_HELP_MOD_1A                  | Click to enable or disable the Governor for this star system.
 MAIN_HELP_MOD_1B                  | Click to bring Governor's Options Menu.
 MAIN_HELP_MOD_1F                  | Turn alerts may appear there: Right click on them to center the map on the system. Left click to show the next alert.
+MAIN_HELP_MOD_1I                  | To access "In-game Options" Panel.
 MAIN_HELP_1A                      | Each star system divides its production into five areas. Grayed bars indicate that the production bar has been locked and will not change. Click on the name to lock/unlock.
 MAIN_HELP_1B                      | Shipyard - constructs the selected ship design. Large ships may take multiple turns.
 MAIN_HELP_1C                      | Defenses - builds and upgrades missile bases up to the specified limit and planetary shields when available.

@@ -58,6 +58,11 @@ Later:
 
 
 ## What's New
+
+2024.06.25 (BR)
+- Added button in galaxy map to access the "In-game Options" Panel.
+- Updated the galaxy map help.
+
 2024.06.24 (dHannasch)
 - Extract functions from ShipFleet and Transport to Ship.
 - Don't send transports that will be shot down.
