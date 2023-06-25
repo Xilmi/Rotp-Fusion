@@ -2329,6 +2329,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         if (planetScanningRange() == 0)
             return false;
 
+        // could we use distanceTo() here?
         Galaxy gal = galaxy();
         for (int i=0; i<sv.count(); i++) {
             if ((sv.empire(i) == this) && (gal.system(i).distanceTo(loc) <= planetScanningRange()))
@@ -2412,6 +2413,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         Galaxy gal = galaxy();
         List<Empire> allies = this.allies();
         if (allies.isEmpty()) {
+            // could we use allColonizedSystems() here?
             for (int i=0; i<gal.numStarSystems(); i++) {
                 StarSystem s = gal.system(i);
                 if (s.empire() == this)
