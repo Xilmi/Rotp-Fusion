@@ -89,6 +89,12 @@ public class ShipView implements Base,Serializable {
     // The warp speed is always known and displayed.
     // (I guess this follows from canDistinguishFromOtherDesigns(), as scanners track a ship over the course of a year?)
     public static boolean warpSpeedKnown() { return true; }
+    public float maxPossibleWarpSpeed() {
+        if (warpSpeedKnown())
+            return design.warpSpeed();
+        else
+            return 9;
+    }
 
     public boolean hasComputer()        { return computer != null; }
     public boolean computerKnown()      { return computerKnown; }
