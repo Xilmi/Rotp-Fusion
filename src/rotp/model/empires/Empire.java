@@ -2373,7 +2373,13 @@ public final class Empire implements Base, NamedObject, Serializable {
             return 8;
         SpyNetwork spies = empireView.spies();
         // No matter how fast you research, it is impossible to discover more than one propulsion tech per turn.
-        return Math.min(8, spies.tech().transportTravelSpeed() + spies.reportAge());
+        // But nevertheless someone could have researched Hyper Drives without even having researched Nuclear Engines first.
+        // propulsion().maxKnownQuintile() cannot increase more than one per turn.
+        // But nevertheless there might be an unencountered empire which researched Hyper Drives and traded it to the encountered empire.
+        // So the only way to be *sure* is if the report is current.
+        if (spies.reportAge() == 0)
+            return spies.tech().transportTravelSpeed();
+        return 8;
     }
     public boolean knowsShipCouldNotHaveFlownInFromOutsideScanRange(Ship ufo) {
         // For simplicity, we completely ignore scan coverage from ships.
