@@ -612,8 +612,11 @@ public class RacesUI extends BasePanel {
         int k = e.getKeyCode();
         switch(k) {
             case KeyEvent.VK_F1:
-                showHelp();
-                return;
+            	if (e.isShiftDown())
+            		showHotKeys(); // TODO BR showHotKeys();
+            	else
+            		showHelp();
+            	return;
             case KeyEvent.VK_A:
                 if (selectedPanel.equals(DIPLOMACY_PANEL)) {
                     if (!selectedEmpire().isPlayer())

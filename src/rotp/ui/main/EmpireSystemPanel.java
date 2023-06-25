@@ -27,7 +27,6 @@ import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -83,7 +82,7 @@ public class EmpireSystemPanel extends SystemPanel {
         topPane.animate();
     }
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent e) { // TODO BR: Use this to complete Hotkey list
     	setModifierKeysState(e); // BR: For the Flag color selection
         int k = e.getKeyCode();
         int code = e.getModifiersEx();
@@ -649,8 +648,8 @@ public class EmpireSystemPanel extends SystemPanel {
             int x = e.getX();
             int y = e.getY();
             boolean rightClick = SwingUtilities.isRightMouseButton(e);
-            boolean shiftPressed = (e.getModifiers() & InputEvent.SHIFT_MASK) != 0;
-            boolean ctrlPressed = (e.getModifiers() & InputEvent.CTRL_MASK) != 0;
+            boolean shiftPressed = e.isShiftDown();
+            boolean ctrlPressed = e.isControlDown();
             
             int adjAmt = 1;
             if (shiftPressed)
@@ -755,8 +754,8 @@ public class EmpireSystemPanel extends SystemPanel {
             int y = e.getY();
             
             if (limitBox.contains(x,y)) {
-                boolean shiftPressed = (e.getModifiers() & InputEvent.SHIFT_MASK) != 0;
-                boolean ctrlPressed = (e.getModifiers() & InputEvent.CTRL_MASK) != 0;
+                boolean shiftPressed = e.isShiftDown();
+                boolean ctrlPressed = e.isControlDown();
 
                 int adjAmt = 1;
                 if (shiftPressed)

@@ -918,8 +918,11 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
         int mods = e.getModifiersEx();
         switch (k) {
             case KeyEvent.VK_F1:
-                showHelp();
-                return;
+            	if (e.isShiftDown())
+            		showHotKeys(); // TODO BR showHotKeys();
+            	else
+            		showHelp();
+            	return;
             case KeyEvent.VK_EQUALS:
                 equalize();
                 return;

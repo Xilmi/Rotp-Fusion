@@ -1016,8 +1016,11 @@ public final class FleetUI extends BasePanel implements IMapHandler, ActionListe
 
         switch(e.getKeyCode()) {
             case KeyEvent.VK_F1:
-                showHelp();
-                return;
+            	if (e.isShiftDown())
+            		showHotKeys(); // TODO BR showHotKeys();
+            	else
+            		showHelp();
+            	return;
             case KeyEvent.VK_ESCAPE:
                 if (massTransportDialog.isVisible())
                     closeTransportsDialog();

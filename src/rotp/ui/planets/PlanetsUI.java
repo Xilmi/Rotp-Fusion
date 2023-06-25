@@ -547,8 +547,11 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
         boolean control = e.isControlDown();
         switch(e.getKeyCode()) {
             case KeyEvent.VK_F1:
-                showHelp();
-                return;
+            	if (e.isShiftDown())
+            		showHotKeys(); // TODO BR showHotKeys();
+            	else
+            		showHelp();
+            	return;
             case KeyEvent.VK_ESCAPE:
                 if (frame().getGlassPane().isVisible())
                     disableGlassPane();

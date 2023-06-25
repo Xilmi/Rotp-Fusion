@@ -691,13 +691,17 @@ public class MainUI extends BasePanel implements IMapHandler {
     private void loadHotKeysFrameTP() {
     	// TODO BR: loadHotKeysFrameTP()
     }
+    private void addHotKeysFrame() {
+        HelpUI helpUI = RotPUI.helpUI();
+        int xHK = scaled(100);
+        int yHK = scaled(70);
+        int wHK = scaled(360);
+        helpUI.addBrownHelpText(xHK, yHK, wHK, 37, text("MAIN_HELP_HK"));
+    }
     private void loadHotKeysFrame() {
         HelpUI helpUI = RotPUI.helpUI();
         helpUI.clear();
-        int xHK = scaled(100);
-        int yHK = scaled(100);
-        int wHK = scaled(360);
-        helpUI.addBrownHelpText(xHK, yHK, wHK, 31, text("MAIN_HELP_HK"));
+        addHotKeysFrame();
     	helpUI.open(this);
     }
     private void loadHelpFrameTP() {
@@ -826,10 +830,7 @@ public class MainUI extends BasePanel implements IMapHandler {
         HelpSpec s0 = helpUI.addBlueHelpText(s100, s10, scaled(350), 2, text("MAIN_HELP_ALL"));
         s0.setLine(s100, s25, s30, s25);
 
-        int xHK = scaled(100);
-        int yHK = scaled(100);
-        int wHK = scaled(360);
-        helpUI.addBrownHelpText(xHK, yHK, wHK, 31, text("MAIN_HELP_HK"));
+        addHotKeysFrame();
 
         int x1= w-scaled(700);
         int y1 = scaled(175);

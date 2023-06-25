@@ -39,6 +39,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JLayeredPane;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import rotp.Rotp;
 import rotp.model.Sprite;
@@ -56,7 +57,6 @@ import rotp.ui.BasePanel;
 import rotp.ui.ExitButton;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
-import rotp.ui.game.MergedDynamicOptionsUI;
 import rotp.ui.game.HelpUI;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
@@ -442,6 +442,10 @@ public final class SystemsUI extends BasePanel implements IMapHandler, ActionLis
     public void cancelHelp() {
         RotPUI.helpUI().close();
     }
+    @Override  public void showHotKeys() {
+        loadHotKeysUI();
+        repaint();   
+    }
     @Override
     public void showHelp() {
         loadHelpUI();
@@ -450,6 +454,15 @@ public final class SystemsUI extends BasePanel implements IMapHandler, ActionLis
     @Override 
     public void advanceHelp() {
         cancelHelp();
+    }
+    private void loadHotKeysUI() {
+    	HelpUI helpUI = RotPUI.helpUI();
+        helpUI.clear();
+        int xHK = scaled(100);
+        int yHK = scaled(70);
+        int wHK = scaled(360);
+        helpUI.addBrownHelpText(xHK, yHK, wHK, 15, text("SYSTEMS_HELP_HK"));
+        helpUI.open(this);
     }
     private void loadHelpUI() {
         HelpUI helpUI = RotPUI.helpUI();
@@ -953,15 +966,18 @@ public final class SystemsUI extends BasePanel implements IMapHandler, ActionLis
     public void keyPressed(KeyEvent e) {
     	setModifierKeysState(e); // BR: For the Flag color selection
         boolean shift = e.isShiftDown();
-        boolean ctrl  = e.isControlDown();
+        //boolean ctrl  = e.isControlDown();
         if (e.getKeyChar() == '?') {
             showHelp();
             return;
         }
         switch(e.getKeyCode()) {
             case KeyEvent.VK_F1:
-                showHelp();
-                return;
+            	if (e.isShiftDown())
+            		showHotKeys();
+            	else
+            		showHelp();
+            	return;
             case KeyEvent.VK_TAB:
                 if (!shift)
                     titlePanel.selectNextTab();
@@ -1007,12 +1023,6 @@ public final class SystemsUI extends BasePanel implements IMapHandler, ActionLis
                 return;
             case KeyEvent.VK_Y: // BR:
             	options().toggleYearDisplay();
-                return;
-            case KeyEvent.VK_O: // BR:
-            	if (ctrl) {
-            		MergedDynamicOptionsUI optionsUI = RotPUI.mergedDynamicOptionsUI();
-        			optionsUI.start(0);
-            	}
                 return;
         }
     }
@@ -1188,7 +1198,10 @@ public final class SystemsUI extends BasePanel implements IMapHandler, ActionLis
                 else if (hoverBox == exterminateBox)
                     selectTab(exterminateTab);
                 else if (hoverBox == helpBox)
-                    parent.showHelp();
+                	if (SwingUtilities.isRightMouseButton(e))
+                		parent.showHotKeys();
+                	else
+                		parent.showHelp();
             }
         }
         @Override
