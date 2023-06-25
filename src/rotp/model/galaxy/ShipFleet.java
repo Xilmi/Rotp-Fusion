@@ -418,7 +418,7 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
         // like ShipDesign design = entry.getKey().
         final Empire viewingEmpire = galaxy().empire(viewingEmpireId);
         // cannot use mapToDouble().sum() nor Collectors.summingDouble https://rmannibucau.metawerx.net/java-stream-float-widening.html
-        return visibleShipDesigns(emp).entrySet().stream().map(entry -> {
+        return visibleShipDesigns(viewingEmpireId).entrySet().stream().map(entry -> {
             ShipDesign design = entry.getKey();
             int cnt = entry.getValue();
             return cnt * viewingEmpire.estimatedShipFirepowerAntiShip(design, shieldLevel);
