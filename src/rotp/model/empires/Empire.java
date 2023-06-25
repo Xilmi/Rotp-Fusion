@@ -2278,12 +2278,16 @@ public final class Empire implements Base, NamedObject, Serializable {
     public Map<Ship, Ship> matchShipsSeenThisTurnToShipsSeenLastTurn(List<Ship> visibleShips, Set<Ship> shipsVisibleLastTurnDestroyed) {
         Map<Ship, Ship> ret = new HashMap<Ship, Ship>();
         for (Ship ufo : visibleShips) {
-            if (!knowsNotBuiltThisTurn(ufo))
+            if (!knowsShipNotBuiltThisTurn(ufo))
                 continue;
 	}
         return ret;
     }
-    public boolean knowsNotBuiltThisTurn(Ship ufo) {
+    public boolean knowsShipNotBuiltThisTurn(Ship ufo) {
+        // If the ship does not have the same coordinates as any star --- that is,
+        // if it's in deep space, not deploying from a star system,
+        // then it could not have been built this turn.
+        // Ship already stores that information, so we can just reference it.
         return ufo.inTransit();
     }
     public boolean canScanTo(IMappedObject loc) {
