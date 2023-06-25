@@ -2290,6 +2290,22 @@ public final class Empire implements Base, NamedObject, Serializable {
         // Ship already stores that information, so we can just reference it.
         return ufo.inTransit();
     }
+    public float maxSpeedShipMightHave(Ship ufo) {
+        if (ufo instanceof ShipFleet)
+            return maxSpeedFleetMightHave(ufo);
+        if (ufo instanceof Transport)
+            return maxSpeedTransportMightHave(ufo);
+        return 9;
+    }
+    public float maxSpeedFleetMightHave(ShipFleet fleet) {
+        return fleet.visibleShipDesigns(id).keySet().stream()
+                    .map(design -> shipViewFor(design))
+                    .map(view -> (view == null) ? 9 : view.maxPossibleWarpSpeed())
+                    .min(Comparator.<Float>naturalOrder()).get();
+    }
+    public float maxSpeedTransportMightHave(Transport transport) {
+        return 8;
+    }
     public boolean canScanTo(IMappedObject loc) {
         return planetsCanScanTo(loc) || shipsCanScanTo(loc);
     }
