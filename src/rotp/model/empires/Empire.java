@@ -126,7 +126,6 @@ public final class Empire implements Base, NamedObject, Serializable {
     // To strictly firewall off privileged information, the right thing to do would be to store the coordinates of ships seen last turn.
     // The *identity* of the ship, as represented by the Ship object, is not necessarily known to the empire.
     // But it's cheaper to just store the ships that were seen and ask them after-the-fact where they were last turn.
-    private final Set<Ship> shipsVisibleLastTurn = new HashSet<>();
     private final List<StarSystem> shipBuildingSystems = new ArrayList<>();
     private final List<StarSystem> colonizedSystems = new ArrayList<>();
     private boolean extinct = false;
@@ -265,7 +264,6 @@ public final class Empire implements Base, NamedObject, Serializable {
             return galaxy().ships.notInTransitFleets(id);
     }
     public List<Ship> visibleShips()              { return visibleShips; }
-    public Set<Ship> shipsVisibleLastTurn()      { return shipsVisibleLastTurn; }
     public EmpireView[] empireViews()             { return empireViews; }
     public List<StarSystem> newSystems()          { return newSystems; }
     public int lastCouncilVoteEmpId()             { return lastCouncilVoteEmpId; }
@@ -2251,8 +2249,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public void setVisibleShips() {
         Galaxy gal = galaxy();
         // This takes advantage of the fact that setVisibleShips() is called exactly once per turn.
-        shipsVisibleLastTurn.clear();
-        shipsVisibleLastTurn.addAll(visibleShips);
+        final Set<Ship> shipsVisibleLastTurn = new HashSet<>(visibleShips);
         visibleShips.clear();
 
         List<ShipFleet> myShips = galaxy().ships.allFleets(id);
@@ -2277,6 +2274,9 @@ public final class Empire implements Base, NamedObject, Serializable {
             if (fl instanceof ShipFleet)
                 detectFleet((ShipFleet)fl);
         }
+    }
+    public Map<Ship, Ship> matchShipsSeenThisTurnToShipsSeenLastTurn(List<Ship> visibleShips, Set<Ship> shipsVisibleLastTurn) {
+        return null;
     }
     public boolean canScanTo(IMappedObject loc) {
         return planetsCanScanTo(loc) || shipsCanScanTo(loc);
