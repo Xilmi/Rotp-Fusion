@@ -2319,6 +2319,12 @@ public final class Empire implements Base, NamedObject, Serializable {
         return false;
     }
     public boolean knowsCouldNotHaveBeenSameFleetLastTurn(ShipFleet fleetNow, ShipFleet fleetLastTurn) {
+        if (!visibleShipViews(fleetNow).equals(visibleShipViews(fleetLastTurn)))
+            // This defers to ShipView.equals() for the ships that have ShipViews,
+            // and compares the count of each as well as the count of all ships that lack ShipViews.
+            // Strictly speaking, we could implement ShipView.equals(), but letting ShipView inherit .equals from Object works,
+            // because two ShipViews are always distinguishable.
+            return true;
         return false;
     }
     public boolean knowsCouldNotHaveBeenSameTransportLastTurn(Transport transportNow, Transport transportLastTurn) {
