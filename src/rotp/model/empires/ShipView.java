@@ -264,7 +264,7 @@ public class ShipView implements Base,Serializable {
     }
     // For the reporting name given by the viewing empire, we use the actual name of the design.
     // (The player will never have access to the "real" name, so there's no need for the reporting name to be different.)
-    public int reportingName()       { return design.name(); }
+    public String reportingName()    { return design.name(); }
     public int hits()                { return hits; }
     public ShipShield shield()       { return shield; }
     public ShipComputer computer()   { return computer; }
