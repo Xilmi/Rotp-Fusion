@@ -123,7 +123,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public final SystemInfo sv;
     private final EmpireView[] empireViews;
     private final List<Ship> visibleShips = new ArrayList<>();
-    private final List<Ship> shipsVisibleLastTurn = new ArrayList<>();
+    private final Set<Ship> shipsVisibleLastTurn = new HashSet<>();
     private final List<StarSystem> shipBuildingSystems = new ArrayList<>();
     private final List<StarSystem> colonizedSystems = new ArrayList<>();
     private boolean extinct = false;
@@ -262,7 +262,7 @@ public final class Empire implements Base, NamedObject, Serializable {
             return galaxy().ships.notInTransitFleets(id);
     }
     public List<Ship> visibleShips()              { return visibleShips; }
-    public List<Ship> shipsVisibleLastTurn()      { return shipsVisibleLastTurn; }
+    public Set<Ship> shipsVisibleLastTurn()      { return shipsVisibleLastTurn; }
     public EmpireView[] empireViews()             { return empireViews; }
     public List<StarSystem> newSystems()          { return newSystems; }
     public int lastCouncilVoteEmpId()             { return lastCouncilVoteEmpId; }
