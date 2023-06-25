@@ -23,7 +23,9 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import rotp.model.Sprite;
 import rotp.model.ai.FleetOrders;
 import rotp.model.combat.CombatStackColony;
@@ -376,29 +378,45 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
         }
         return visible;
     }
-    public float visibleFirepower(int emp, int shieldLevel) {
-        // this calculates the visible firepower threat against SystemView sv
-        // it only checks visible stacks for sv's owner
-        // for unscanned ShipDesigns it asks the sv's owner to estimate threat based on size
-        //  (this allows the owner to check any spied tech trees for worst possible weapons)
-
-        float firepower = 0;
+    public Map<ShipDesign, Integer> visibleShipDesigns(int emp) {
+        Map<ShipDesign, Integer> ret = new HashMap<ShipDesign, Integer>();
         int[] visible = visibleShips(emp);
         for (int i=0; i<visible.length; i++) {
             int cnt = visible[i];
             if (cnt > 0) {
                 ShipDesign design = design(i);
-                if (design != null) {
-                    Empire empire = galaxy().empire(emp);
-                    ShipView shipView = empire.shipViewFor(design);
-                    if (shipView == null)
-                        firepower += (cnt * empire.estimatedShipFirepower(empire(), design.size(), shieldLevel));
-                    else
-                        firepower += (cnt * shipView.visibleFirepower(shieldLevel));
-                }
+                if (design == null)
+                    ret.put(null, ret.getOrDefault(null, 0) + cnt);
+                else
+                    ret.put(design, cnt);
             }
         }
-        return firepower;
+        return ret;
+    }
+    public float visibleFirepower(int emp, int shieldLevel) {
+        // this calculates the visible firepower threat against SystemView sv
+        // it only checks visible stacks for sv's owner
+        // for unscanned ShipDesigns it asks the sv's owner to estimate threat based on size
+        //  (this allows the owner to check any spied tech trees for worst possible weapons)
+        final Empire viewingEmpire = galaxy().empire(emp);
+        // cannot use mapToDouble().sum() nor Collectors.summingDouble https://rmannibucau.metawerx.net/java-stream-float-widening.html
+        return visibleShipDesigns(emp).entrySet().stream().map(entry -> {
+            ShipDesign design = entry.getKey();
+            int cnt = entry.getValue();
+            return cnt * viewingEmpire.estimatedShipFirepower(design, shieldLevel);
+        }).reduce(0f, (Float a, Float b) -> a + b); // this .reduce() is literally just .sum() for floats
+    }
+    public float visibleFirepowerAntiShip(int viewingEmpireId, int shieldLevel) {
+        // visibleFirepowerAntiShip() is almost identical with visibleFirepower().
+        // It would be great if we could cut down the boilerplate even more, but some seems necessary for readability,
+        // like ShipDesign design = entry.getKey().
+        final Empire viewingEmpire = galaxy().empire(viewingEmpireId);
+        // cannot use mapToDouble().sum() nor Collectors.summingDouble https://rmannibucau.metawerx.net/java-stream-float-widening.html
+        return visibleShipDesigns(viewingEmpireId).entrySet().stream().map(entry -> {
+            ShipDesign design = entry.getKey();
+            int cnt = entry.getValue();
+            return cnt * viewingEmpire.estimatedShipFirepowerAntiShip(design, shieldLevel);
+        }).reduce(0f, (Float a, Float b) -> a + b); // this .reduce() is literally just .sum() for floats
     }
     public boolean aggressiveWith(ShipFleet fl, StarSystem sys) {
         // only possibly aggressive if one of the fleets is armed

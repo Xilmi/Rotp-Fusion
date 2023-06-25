@@ -36,7 +36,9 @@ public class ShipView implements Base,Serializable {
     private final static int UNARMED = -1;
     private final static int UNKNOWN = 0;
     private final static int ARMED = 1;
+    // owner is the *viewing* empire.
     private final Empire owner;
+    // empire is the owner of the actual ship.
     private final Empire empire;
     private final ShipDesign design;
     private boolean detected = false;
@@ -167,6 +169,12 @@ public class ShipView implements Base,Serializable {
     public float visibleFirepower(int shieldLevel) {
         if (scanned)
             return design.firepower(shieldLevel);
+        else
+            return owner.estimatedShipFirepower(empire, design.size(), shieldLevel);
+    }
+    public float visibleFirepowerAntiShip(int shieldLevel) {
+        if (scanned)
+            return design.firepowerAntiShip(shieldLevel);
         else
             return owner.estimatedShipFirepower(empire, design.size(), shieldLevel);
     }

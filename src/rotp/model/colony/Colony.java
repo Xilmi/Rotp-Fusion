@@ -1114,6 +1114,18 @@ public final class Colony implements Base, IMappedObject, Serializable {
         // recalculate destination colony
         dest.colony().governIfNeeded();
     }
+    public float fleetDamagePerRoundToArrivingTransports(int empId) {
+        float defenderDmg = 0;
+        List<ShipFleet> fleets = starSystem().orbitingFleets();
+        // add firepower for each allied ship in orbit
+            // modnar: use firepowerAntiShip to only count ship weapons that can hit ships
+            // to prevent ground bombs from being able to damage transports
+        for (ShipFleet fl : fleets) {
+            if (fl.empire().aggressiveWith(empId))
+                defenderDmg += fl.firepowerAntiShip(0);
+        }
+        return defenderDmg;
+    }
     public void acceptTransport(Transport t) {
         if (!t.empire().canColonize(starSystem())) {
             // no appropriate alert message for this transport loss. This is an edge case anyway
@@ -1123,12 +1135,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
             return;
         }
         // Xilmi: when landing on our own planet we also can be shot down by orbiting enemies
-        float defenderDmg = 0;
-        List<ShipFleet> fleets = starSystem().orbitingFleets();
-        for (ShipFleet fl : fleets) {
-            if (fl.empire().aggressiveWith(t.empId()))
-                defenderDmg += fl.firepowerAntiShip(0);
-        }
+        float defenderDmg = fleetDamagePerRoundToArrivingTransports(t.empId());
         int passed = 0;
         int lost = 0;
         int num = t.size();
@@ -1159,12 +1166,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
                     str(tr.size()), " ", tr.empire().raceName(), " transports");
 
         // Xilmi: when landing on our own planet we also can be shot down by orbiting enemies
-        float defenderDmg = 0;
-        List<ShipFleet> fleets = starSystem().orbitingFleets();
-        for (ShipFleet fl : fleets) {
-            if (fl.empire().aggressiveWith(tr.empId()))
-                defenderDmg += fl.firepowerAntiShip(0);
-        }
+        float defenderDmg = fleetDamagePerRoundToArrivingTransports(tr.empId());
         int passed = 0;
         int lost = 0;
         int num = tr.size();
@@ -1270,11 +1272,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
         // add firepower for each allied ship in orbit
             // modnar: use firepowerAntiShip to only count ship weapons that can hit ships
             // to prevent ground bombs from being able to damage transports
-        List<ShipFleet> fleets = starSystem().orbitingFleets();
-        for (ShipFleet fl : fleets) {
-            if (fl.empire().aggressiveWith(tr.empId()))
-                defenderDmg += fl.firepowerAntiShip(0);
-        }
+	defenderDmg += fleetDamagePerRoundToArrivingTransports(tr.empId());
 
         // run the gauntlet
         for (int j = 0; j < tr.gauntletRounds(); j++)

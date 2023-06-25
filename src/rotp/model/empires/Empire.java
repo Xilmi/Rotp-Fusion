@@ -2309,6 +2309,34 @@ public final class Empire implements Base, NamedObject, Serializable {
     public float estimatedShipFirepower(Empire emp, int shipSize, int shieldLevel) {
         return 0;
     }
+    public float estimatedShipFirepower(ShipDesign design, int shieldLevel) {
+        if (design == null)
+            return 0;
+        ShipView shipView = shipViewFor(design);
+        if (shipView == null)
+            return estimatedShipFirepower(design.empire(), design.size(), shieldLevel);
+        else
+            return shipView.visibleFirepower(shieldLevel);
+    }
+    public float estimatedShipFirepowerAntiShip(ShipDesign design, int shieldLevel) {
+        if (design == null)
+            return 0;
+        ShipView shipView = shipViewFor(design);
+        if (shipView == null)
+            return estimatedShipFirepower(design.empire(), design.size(), shieldLevel);
+        else
+            return shipView.visibleFirepowerAntiShip(shieldLevel);
+    }
+    public float estimatedFleetDamagePerRoundToArrivingTransports(List<ShipFleet> fleets) {
+        float defenderDmg = 0;
+            // modnar: use firepowerAntiShip to only count ship weapons that can hit ships
+            // to prevent ground bombs from being able to damage transports
+        for (ShipFleet fl : fleets) {
+            if (fl.empire().aggressiveWith(id))
+                defenderDmg += fl.visibleFirepowerAntiShip(id, 0);
+        }
+        return defenderDmg;
+    }
     public boolean canScoutTo(Location xyz) {
         Galaxy gal = galaxy();
         for (int i=0; i<gal.numStarSystems(); i++) {
