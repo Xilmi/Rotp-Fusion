@@ -2283,7 +2283,7 @@ public final class Empire implements Base, NamedObject, Serializable {
 	}
         return ret;
     }
-    public knowsNotBuiltThisTurn(Ship ufo) {
+    public boolean knowsNotBuiltThisTurn(Ship ufo) {
         return ufo.inTransit();
     }
     public boolean canScanTo(IMappedObject loc) {
