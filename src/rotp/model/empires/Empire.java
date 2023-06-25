@@ -2304,7 +2304,12 @@ public final class Empire implements Base, NamedObject, Serializable {
                     .min(Comparator.<Float>naturalOrder()).get();
     }
     public float maxSpeedTransportMightHave(Transport transport) {
-        return 8;
+        empireView = viewForEmpire(transport.empire());
+        if (empireView == null)
+            return 8;
+        SpyNetwork spies = empireView.spies();
+        // No matter how fast you research, it is impossible to discover more than one propulsion tech per turn.
+        return Math.min(8, spies.tech().transportTravelSpeed() + spies.reportAge());
     }
     public boolean canScanTo(IMappedObject loc) {
         return planetsCanScanTo(loc) || shipsCanScanTo(loc);
