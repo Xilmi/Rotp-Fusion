@@ -123,9 +123,6 @@ public final class Empire implements Base, NamedObject, Serializable {
     public final SystemInfo sv;
     private final EmpireView[] empireViews;
     private final List<Ship> visibleShips = new ArrayList<>();
-    // To strictly firewall off privileged information, the right thing to do would be to store the coordinates of ships seen last turn.
-    // The *identity* of the ship, as represented by the Ship object, is not necessarily known to the empire.
-    // But it's cheaper to just store the ships that were seen and ask them after-the-fact where they were last turn.
     private final List<StarSystem> shipBuildingSystems = new ArrayList<>();
     private final List<StarSystem> colonizedSystems = new ArrayList<>();
     private boolean extinct = false;
@@ -2249,6 +2246,9 @@ public final class Empire implements Base, NamedObject, Serializable {
     public void setVisibleShips() {
         Galaxy gal = galaxy();
         // This takes advantage of the fact that setVisibleShips() is called exactly once per turn.
+        // To strictly firewall off privileged information, the right thing to do would be to store the coordinates of ships seen last turn.
+        // The *identity* of the ship, as represented by the Ship object, is not necessarily known to the empire.
+        // But it's cheaper to just store the ships that were seen and ask them after-the-fact where they were last turn.
         final Set<Ship> shipsVisibleLastTurn = new HashSet<>(visibleShips);
         visibleShips.clear();
 
@@ -2275,8 +2275,16 @@ public final class Empire implements Base, NamedObject, Serializable {
                 detectFleet((ShipFleet)fl);
         }
     }
-    public Map<Ship, Ship> matchShipsSeenThisTurnToShipsSeenLastTurn(List<Ship> visibleShips, Set<Ship> shipsVisibleLastTurn) {
-        return null;
+    public Map<Ship, Ship> matchShipsSeenThisTurnToShipsSeenLastTurn(List<Ship> visibleShips, Set<Ship> shipsVisibleLastTurnDestroyed) {
+        Map<Ship, Ship> ret = new HashMap<Ship, Ship>();
+        for (Ship ufo : visibleShips) {
+            if (!knowsNotBuiltThisTurn(ufo))
+                continue;
+	}
+        return ret;
+    }
+    public knowsNotBuiltThisTurn(Ship ufo) {
+        return ufo.inTransit();
     }
     public boolean canScanTo(IMappedObject loc) {
         return planetsCanScanTo(loc) || shipsCanScanTo(loc);
