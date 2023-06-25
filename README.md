@@ -58,6 +58,9 @@ Later:
 
 
 ## What's New
+2024.06.24 (dHannasch)
+- Extract functions from ShipFleet and Transport to Ship.
+- Don't send transports that will be shot down.
 
 2024.06.24 (BR)
 - Added distance between empires on the map.

@@ -71,7 +71,7 @@ Last updates:
 - Restored Moo1 Race names.
 - Restored Vanilla Human diplomat.
   - Added option to select the younger one (default value)
-
+- Governor won't send transports that will be shot down by attacking fleet. (dHannasch)
 
 Last Fixes:
 - New Governor Panel don't crash any more on Apple OS.
