@@ -2327,9 +2327,18 @@ public final class Empire implements Base, NamedObject, Serializable {
         return false;
     }
     public Map<ShipView, Integer> visibleShipViews(ShipFleet fleet) {
+        // shipViewFor(design) might be null because design is null, or it might be null when there is a design but we have no ShipView for that design.
         Map<ShipDesign, Integer> designs = fleet.visibleShipDesigns(id);
-        // designs.map(entry -> );
-        return null;
+        int numberOfShipsWithMissingDesign = 0;
+        if (designs.containsKey(null))
+            numberOfShipsWithMissingDesign = designs.get(null);
+        Map<ShipView, Integer> ret = designs.entrySet().stream().filter(Objects::nonNull).collect(Collectors.toMap(
+            entry -> shipViewFor(entry.getKey()),
+            Map.Entry::getValue
+        ));
+        if (numberOfShipsWithMissingDesign > 0)
+            ret.put(null, ret.get(null) + numberOfShipsWithMissingDesign);
+        return ret;
     }
     public boolean knowsShipNotBuiltThisTurn(Ship ufo) {
         // If the ship does not have the same coordinates as any star --- that is,
