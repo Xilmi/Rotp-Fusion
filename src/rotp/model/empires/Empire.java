@@ -2321,6 +2321,9 @@ public final class Empire implements Base, NamedObject, Serializable {
         return false;
     }
     public boolean knowsCouldNotHaveBeenSameTransportLastTurn(Transport transportNow, Transport transportLastTurn) {
+        // There is no concept of a ShipView for transports, but size is always visible.
+        if transportNow.size() != transportLastTurn.size()
+            return true;
         return false;
     }
     public boolean knowsShipNotBuiltThisTurn(Ship ufo) {
