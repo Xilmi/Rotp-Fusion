@@ -60,7 +60,7 @@ public class MapOverlayNone extends MapOverlay {
             return true;
         }
         boolean shift = e.isShiftDown();
-        boolean ctrl  = e.isControlDown();
+        //boolean ctrl  = e.isControlDown();
         int s40 = BasePanel.s40;
         List<StarSystem> systems;
         List<ShipFleet> fleets;
@@ -116,7 +116,7 @@ public class MapOverlayNone extends MapOverlay {
                 RotPUI.instance().selectDesignPanel();
                 break;
             case KeyEvent.VK_F:
-                if (e.getModifiersEx() == 128) {
+                if (e.isControlDown()) {
                     Sprite spr = parent.displayPanel().spriteToDisplay();
                     if (spr instanceof StarSystem) {
                         StarSystem sys = (StarSystem) spr;
@@ -136,7 +136,7 @@ public class MapOverlayNone extends MapOverlay {
                 }
                 break;
             case KeyEvent.VK_R:
-                if (e.getModifiersEx() == 512) {
+                if (e.isAltDown()) {
                     if (parent.clickedSprite() instanceof StarSystem) {
                         StarSystem sys = (StarSystem) parent.clickedSprite();
                         if (player().canRallyFleetsTo(id(sys))) {
@@ -147,7 +147,7 @@ public class MapOverlayNone extends MapOverlay {
                         }
                     }
                 }
-                else if (e.getModifiersEx() == 128) {
+                else if (e.isControlDown()) {
                     if (parent.clickedSprite() instanceof StarSystem) {
                         StarSystem sys = (StarSystem) parent.clickedSprite();
                         if (player().canRallyFleetsFrom(id(sys))) {
@@ -169,12 +169,12 @@ public class MapOverlayNone extends MapOverlay {
                 RotPUI.instance().selectPlanetsPanel();
                 break;
             case KeyEvent.VK_T:
-                if  (e.getModifiersEx() == 0) {
+                if  (e.getModifiersEx() == 0) { // No modifier!
                     buttonClick();
                     RotPUI.instance().selectTechPanel();
                     break;
                 }
-                else if (e.getModifiersEx() == 128) {
+                else if (e.isControlDown()) {
                     if (parent.clickedSprite() instanceof StarSystem) {
                         StarSystem sys = (StarSystem) parent.clickedSprite();
                         if (player().canSendTransportsFrom(sys)) {
@@ -190,7 +190,7 @@ public class MapOverlayNone extends MapOverlay {
            		misClick();
                 break;
             case KeyEvent.VK_A:
-                if (e.getModifiersEx() == 128) {
+                if (e.isControlDown()) {
                     if (parent.clickedSprite() instanceof StarSystem) {
                         StarSystem sys = (StarSystem) parent.clickedSprite();
                         if (player().canSendTransportsFrom(sys)) {
@@ -223,10 +223,10 @@ public class MapOverlayNone extends MapOverlay {
                 session().nextTurn();
                 break;
             case KeyEvent.VK_O: // BR:
-            	if (ctrl) {
+            	//if (ctrl) {
             		MergedDynamicOptionsUI optionsUI = RotPUI.mergedDynamicOptionsUI();
         			optionsUI.start(0);
-            	}
+            	//}
             	break;
             case KeyEvent.VK_Y: // BR:
             	options().toggleYearDisplay();

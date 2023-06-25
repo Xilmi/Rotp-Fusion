@@ -63,6 +63,7 @@ Later:
 - Added button in galaxy map to access the "In-game Options" Panel.
 - Updated the galaxy map help.
 - Fixed secondary galaxy shape option being ignored!
+- Updated some "e.getModifiersEx() == xx" to more readable code.
 
 2024.06.24 (dHannasch)
 - Extract functions from ShipFleet and Transport to Ship.
