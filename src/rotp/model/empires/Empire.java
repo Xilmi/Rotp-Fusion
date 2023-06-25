@@ -2326,6 +2326,11 @@ public final class Empire implements Base, NamedObject, Serializable {
             return true;
         return false;
     }
+    public Map<ShipView, Integer> visibleShipViews(ShipFleet fleet) {
+        Map<ShipDesign, Integer> designs = fleet.visibleShipDesigns(id);
+        // designs.map(entry -> );
+        return null;
+    }
     public boolean knowsShipNotBuiltThisTurn(Ship ufo) {
         // If the ship does not have the same coordinates as any star --- that is,
         // if it's in deep space, not deploying from a star system,
