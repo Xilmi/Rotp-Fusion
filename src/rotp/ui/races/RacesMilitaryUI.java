@@ -632,7 +632,7 @@ public final class RacesMilitaryUI extends BasePanel implements MouseListener, M
         drawString(g,label,  x0, y3);
              
         g.setFont(narrowFont(15));
-        String val = view.sizeKnown() ? sd.sizeDesc() : unk;
+        String val = view.sizeKnown() ? d.sizeDesc() : unk;
         int sw = g.getFontMetrics().stringWidth(val);
         drawString(g,val, x+w-sw-s10, y0);
         val = view.armorKnown() ? str((int)d.hits()) : unk;
