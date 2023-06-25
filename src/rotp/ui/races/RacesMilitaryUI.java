@@ -548,7 +548,7 @@ public final class RacesMilitaryUI extends BasePanel implements MouseListener, M
         int sw = g.getFontMetrics().stringWidth(s);
         int x1 = x+((x0-x-sw)/2);
         int y1 = y+(h/2)-s10;
-        if view.canDistinguishFromOtherDesigns()
+        if (view.canDistinguishFromOtherDesigns())
             drawShadowedString(g, s, 1, x1, y1, SystemPanel.blackText, c0);
 
         nameBox.setBounds(x1-s5,y1-s18,sw+s10,s22);
