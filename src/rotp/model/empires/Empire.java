@@ -2322,7 +2322,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     }
     public boolean knowsCouldNotHaveBeenSameTransportLastTurn(Transport transportNow, Transport transportLastTurn) {
         // There is no concept of a ShipView for transports, but size is always visible.
-        if transportNow.size() != transportLastTurn.size()
+        if (transportNow.size() != transportLastTurn.size())
             return true;
         return false;
     }
