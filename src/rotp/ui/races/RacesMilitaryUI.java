@@ -510,7 +510,7 @@ public final class RacesMilitaryUI extends BasePanel implements MouseListener, M
         int x3 = x+scaled(550);
         int x4 = x+scaled(735);
         int x5 = x+w-scaled(20);
-        
+
         drawShipNameAndIcon(g, view, x0, y, x1-x0, h);
         drawShipTactical1(g, view, x1, y, x2-x1, h);
         drawShipTactical2(g, view, x2, y, x3-x2, h);
@@ -535,7 +535,7 @@ public final class RacesMilitaryUI extends BasePanel implements MouseListener, M
         int h0 = h-s10;
         
         ShipDesign d = view.design();
-        
+
         if (!renameBoxes.containsKey(d))
             renameBoxes.put(d, new Rectangle());
         Rectangle nameBox = renameBoxes.get(d);
@@ -543,13 +543,14 @@ public final class RacesMilitaryUI extends BasePanel implements MouseListener, M
         Color c0 = hoverNameBox == nameBox ? SystemPanel.yellowText : SystemPanel.whiteText;
         
         g.setFont(narrowFont(20));
-        String s = d.name();
+        String s = view.reportingName();
         scaledFont(g,s,w0-s10,20,10);
         int sw = g.getFontMetrics().stringWidth(s);
         int x1 = x+((x0-x-sw)/2);
         int y1 = y+(h/2)-s10;
-        drawShadowedString(g, s, 1, x1, y1, SystemPanel.blackText, c0);
-        
+        if view.canDistinguishFromOtherDesigns()
+            drawShadowedString(g, s, 1, x1, y1, SystemPanel.blackText, c0);
+
         nameBox.setBounds(x1-s5,y1-s18,sw+s10,s22);
         
         String status, status2 = null;
@@ -631,7 +632,7 @@ public final class RacesMilitaryUI extends BasePanel implements MouseListener, M
         drawString(g,label,  x0, y3);
              
         g.setFont(narrowFont(15));
-        String val = d.sizeDesc();
+        String val = view.sizeKnown() ? sd.sizeDesc() : unk;
         int sw = g.getFontMetrics().stringWidth(val);
         drawString(g,val, x+w-sw-s10, y0);
         val = view.armorKnown() ? str((int)d.hits()) : unk;
@@ -640,7 +641,7 @@ public final class RacesMilitaryUI extends BasePanel implements MouseListener, M
         val =  view.shieldKnown() ? str((int)d.shieldLevel()) : unk;
         sw = g.getFontMetrics().stringWidth(val);
         drawString(g,val, x+w-sw-s10, y2);
-        val = str(d.warpSpeed());
+        val = view.warpSpeedKnown() ? str(d.warpSpeed()) : unk;
         sw = g.getFontMetrics().stringWidth(val);
         drawString(g,val, x+w-sw-s10, y3);
     }
