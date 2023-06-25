@@ -1515,7 +1515,11 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
     @Override public MOO1GameOptions copyAllOptions() {
 		try {
-			return copyObjectData();
+			MOO1GameOptions opts = copyObjectData();
+			opts.setGalaxyShape(); 
+			opts.selectedGalaxyShapeOption1 = selectedGalaxyShapeOption1;
+			opts.selectedGalaxyShapeOption2 = selectedGalaxyShapeOption2;
+			return opts;
 		}
 		catch (Exception e) {
 			e.printStackTrace();
