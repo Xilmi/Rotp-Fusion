@@ -73,8 +73,10 @@ Last updates:
   - Added option to select the younger one (default value)
 - Governor won't send transports that will be shot down by attacking fleet. (dHannasch)
 - Added button in galaxy map to access the "In-game Options" Panel.
-- Added Hot-Key list in Galaxy Map Help (second panel).
 - Changed option call to "O" to be more consistent with other panel call.
+- Added Hotkey list in Galaxy Map Help (second panel).
+  - Available alone by right-clicking the Help button. 
+  - Available alone with SHIFT+F1. 
 
 
 Last Fixes:

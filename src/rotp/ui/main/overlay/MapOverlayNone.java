@@ -232,7 +232,10 @@ public class MapOverlayNone extends MapOverlay {
             	options().toggleYearDisplay();
                 break;
             case KeyEvent.VK_F1:
-                parent.showHelp();
+            	if (shift)
+            		parent.showHotKeys();
+            	else
+            		parent.showHelp();
                 break;
             case KeyEvent.VK_F2:
                 //softClick();

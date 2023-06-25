@@ -237,6 +237,12 @@ public class MainUI extends BasePanel implements IMapHandler {
         numHelpFrames = 0;
         RotPUI.helpUI().close();
     }
+    @Override public void showHotKeys() {
+        helpFrame = 1;        
+        numHelpFrames = 1;
+        loadHotKeysUI();
+        repaint();   
+    }
     @Override
     public void showHelp() {
         helpFrame = 1;
@@ -373,6 +379,24 @@ public class MainUI extends BasePanel implements IMapHandler {
         map.setBounds(emp.minX()-3, emp.maxX()+3, emp.minY()-3, emp.maxY()+3);
         repaint();
     }
+    private void loadHotKeysUI() {
+        if (helpFrame == 0)
+            return;
+        
+        Sprite spr = this.clickedSprite();
+        if (spr instanceof SystemTransportSprite) {
+        	helpFrame = numHelpFrames+2;
+        	loadHotKeysFrameTP();
+        	return;
+        }
+        if (spr instanceof StarSystem) {
+            StarSystem sys = (StarSystem) spr;
+            if (sys.empire() == player()) {
+            	loadHotKeysFrame();
+            	return;
+            }
+        }
+    }
     private void loadHelpUI() {
         HelpUI helpUI = RotPUI.helpUI();
         if (helpFrame == 0)
@@ -401,7 +425,6 @@ public class MainUI extends BasePanel implements IMapHandler {
         else {
             loadButtonBarHelpFrame();          
         }
-
         helpUI.open(this);
     }
     @Override
@@ -665,6 +688,18 @@ public class MainUI extends BasePanel implements IMapHandler {
             y1 += scaled(16);
         }
     }
+    private void loadHotKeysFrameTP() {
+    	// TODO BR: loadHotKeysFrameTP()
+    }
+    private void loadHotKeysFrame() {
+        HelpUI helpUI = RotPUI.helpUI();
+        helpUI.clear();
+        int xHK = scaled(100);
+        int yHK = scaled(100);
+        int wHK = scaled(360);
+        helpUI.addBrownHelpText(xHK, yHK, wHK, 31, text("MAIN_HELP_HK"));
+    	helpUI.open(this);
+    }
     private void loadHelpFrameTP() {
         HelpUI helpUI = RotPUI.helpUI();
         int w = getWidth();
@@ -794,7 +829,7 @@ public class MainUI extends BasePanel implements IMapHandler {
         int xHK = scaled(100);
         int yHK = scaled(100);
         int wHK = scaled(360);
-        helpUI.addBrownHelpText(xHK, yHK, wHK, 30, text("MAIN_HELP_HK"));
+        helpUI.addBrownHelpText(xHK, yHK, wHK, 31, text("MAIN_HELP_HK"));
 
         int x1= w-scaled(700);
         int y1 = scaled(175);

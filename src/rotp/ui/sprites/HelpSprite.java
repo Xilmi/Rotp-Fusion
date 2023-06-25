@@ -79,7 +79,10 @@ public class HelpSprite extends MapSprite {
         minMapX = min(mapX, minMapX);
         maxButtonW = max(buttonW, maxButtonW);
         hovering = true;
-        parent.showHelp();
+        if (rightClick)
+        	parent.showHotKeys();
+        else
+        	parent.showHelp();
     }
 }
 
