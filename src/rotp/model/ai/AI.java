@@ -240,7 +240,7 @@ public class AI implements Base {
             ColonyTransporter col = createColony(sys, minTransportSize);
             if (col != null) {
                 if((col.popNeeded >= minTransportSize) && (col.popNeeded >= col.maxPopToGive)
-                   && (empire.estimatedFleetDamagePerRoundToArrivingTransports(col.starSystem().orbitingFleets()) < empire.tech().topArmorTech().transportHP))
+                   && (empire.estimatedFleetDamagePerRoundToArrivingTransports(sys.orbitingFleets()) < empire.tech().topArmorTech().transportHP))
                     needy.add(col);
                 else if ((col.maxPopToGive >= minTransportSize) && (col.maxPopToGive > col.popNeeded))
                 {
