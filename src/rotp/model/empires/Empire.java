@@ -2323,9 +2323,9 @@ public final class Empire implements Base, NamedObject, Serializable {
             return 0;
         ShipView shipView = shipViewFor(design);
         if (shipView == null)
-            return estimatedShipFirepowerAntiShip(design.empire(), design.size(), shieldLevel);
+            return estimatedShipFirepower(design.empire(), design.size(), shieldLevel);
         else
-            return shipView.visibleFirepower(shieldLevel);
+            return shipView.visibleFirepowerAntiShip(shieldLevel);
     }
     public float estimatedFleetDamagePerRoundToArrivingTransports(List<ShipFleet> fleets) {
         float defenderDmg = 0;
