@@ -2318,7 +2318,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         // No matter how fast you research, it is impossible to discover more than one propulsion tech per turn.
         return Math.min(8, spies.tech().transportTravelSpeed() + spies.reportAge());
     }
-    public knowsShipCouldNotHaveFlownInFromOutsideScanRange(Ship ufo) {
+    public boolean knowsShipCouldNotHaveFlownInFromOutsideScanRange(Ship ufo) {
         // For simplicity, we completely ignore scan coverage from ships.
         return distanceTo(ufo) + maxSpeedShipMightHave(ufo) < planetScanningRange();
     }
