@@ -2304,7 +2304,7 @@ public final class Empire implements Base, NamedObject, Serializable {
                     .min(Comparator.<Float>naturalOrder()).get();
     }
     public float maxSpeedTransportMightHave(Transport transport) {
-        empireView = viewForEmpire(transport.empire());
+        EmpireView empireView = viewForEmpire(transport.empire());
         if (empireView == null)
             return 8;
         SpyNetwork spies = empireView.spies();
