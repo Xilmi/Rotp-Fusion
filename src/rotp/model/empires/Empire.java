@@ -2318,6 +2318,15 @@ public final class Empire implements Base, NamedObject, Serializable {
         else
             return shipView.visibleFirepower(shieldLevel);
     }
+    public float estimatedShipFirepowerAntiShip(ShipDesign design, int shieldLevel) {
+        if (design == null)
+            return 0;
+        ShipView shipView = shipViewFor(design);
+        if (shipView == null)
+            return estimatedShipFirepowerAntiShip(design.empire(), design.size(), shieldLevel);
+        else
+            return shipView.visibleFirepower(shieldLevel);
+    }
     public float estimatedFleetDamagePerRoundToArrivingTransports(List<ShipFleet> fleets) {
         float defenderDmg = 0;
             // modnar: use firepowerAntiShip to only count ship weapons that can hit ships
