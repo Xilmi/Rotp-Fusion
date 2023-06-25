@@ -2292,9 +2292,9 @@ public final class Empire implements Base, NamedObject, Serializable {
     }
     public float maxSpeedShipMightHave(Ship ufo) {
         if (ufo instanceof ShipFleet)
-            return maxSpeedFleetMightHave(ufo);
+            return maxSpeedFleetMightHave((ShipFleet)ufo);
         if (ufo instanceof Transport)
-            return maxSpeedTransportMightHave(ufo);
+            return maxSpeedTransportMightHave((Transport)ufo);
         return 9;
     }
     public float maxSpeedFleetMightHave(ShipFleet fleet) {
