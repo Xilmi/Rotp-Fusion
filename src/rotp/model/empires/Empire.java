@@ -2279,6 +2279,8 @@ public final class Empire implements Base, NamedObject, Serializable {
         // This function attempts to match ships seen last turn with ships seen this turn (to determine trajectories).
         // Obviously, we have the object references in hand, so we could just compare their identities.
         // But the point is to find out whether *the empire* can do that using only the information available.
+        // The Map<Ship, Ship> will be a bit funny-looking because for any Ship in the keySet, the value will always be itself.
+        // To save an allocation, the set of *last* turn's ships is destroyed as we go.
         Map<Ship, Ship> ret = new HashMap<Ship, Ship>();
         for (Ship ufo : visibleShips) {
             if (!knowsShipNotBuiltThisTurn(ufo))
@@ -2287,8 +2289,29 @@ public final class Empire implements Base, NamedObject, Serializable {
                 continue;
             // If it definitely wasn't built this turn, and it definitely wasn't outside scan range last turn, then
             // it must have been seen last turn. The question then becomes uniquely identifying it.
+            boolean foundMatch = false;
+            for (Ship ufoLastTurn : shipsVisibleLastTurnDestroyed)
+                if (!knowsTheseTwoShipsDifferent(ufo, ufoLastTurn))
+                    if (foundMatch) {
+                        foundMatch = false;
+                        ret.remove(ufo);
+                        break;
+                    }
+                    else {
+                        alreadyFoundMatch = true;
+                        ret.put(ufo, ufoLastTurn);
+                    }
+            if (foundMatch)
+                shipsVisibleLastTurnDestroyed.remove(ret.get(ufo));
 	}
         return ret;
+    }
+    public boolean knowsCouldNotHaveBeenSameShipLastTurn(Ship ufoNow, Ship ufoLastTurn) {
+        if (ufoNow.empire().ownershipColor() != ufoLastTurn.empire().ownershipColor())
+            return true;
+        if (ufoNow.isTransport() != ufoLastTurn.isTransport())
+            return true;
+        return false;
     }
     public boolean knowsShipNotBuiltThisTurn(Ship ufo) {
         // If the ship does not have the same coordinates as any star --- that is,
