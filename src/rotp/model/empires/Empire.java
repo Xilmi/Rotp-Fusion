@@ -2276,10 +2276,17 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
     }
     public Map<Ship, Ship> matchShipsSeenThisTurnToShipsSeenLastTurn(List<Ship> visibleShips, Set<Ship> shipsVisibleLastTurnDestroyed) {
+        // This function attempts to match ships seen last turn with ships seen this turn (to determine trajectories).
+        // Obviously, we have the object references in hand, so we could just compare their identities.
+        // But the point is to find out whether *the empire* can do that using only the information available.
         Map<Ship, Ship> ret = new HashMap<Ship, Ship>();
         for (Ship ufo : visibleShips) {
             if (!knowsShipNotBuiltThisTurn(ufo))
                 continue;
+            if (!knowsShipCouldNotHaveFlownInFromOutsideScanRange(ufo))
+                continue;
+            // If it definitely wasn't built this turn, and it definitely wasn't outside scan range last turn, then
+            // it must have been seen last turn. The question then becomes uniquely identifying it.
 	}
         return ret;
     }
@@ -2310,6 +2317,10 @@ public final class Empire implements Base, NamedObject, Serializable {
         SpyNetwork spies = empireView.spies();
         // No matter how fast you research, it is impossible to discover more than one propulsion tech per turn.
         return Math.min(8, spies.tech().transportTravelSpeed() + spies.reportAge());
+    }
+    public knowsShipCouldNotHaveFlownInFromOutsideScanRange(Ship ufo) {
+        // For simplicity, we completely ignore scan coverage from ships.
+        return distanceTo(ufo) + maxSpeedShipMightHave(ufo) < planetScanningRange();
     }
     public boolean canScanTo(IMappedObject loc) {
         return planetsCanScanTo(loc) || shipsCanScanTo(loc);
