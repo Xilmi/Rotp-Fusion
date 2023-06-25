@@ -123,6 +123,9 @@ public final class Empire implements Base, NamedObject, Serializable {
     public final SystemInfo sv;
     private final EmpireView[] empireViews;
     private final List<Ship> visibleShips = new ArrayList<>();
+    // To strictly firewall off privileged information, the right thing to do would be to store the coordinates of ships seen last turn.
+    // The *identity* of the ship, as represented by the Ship object, is not necessarily known to the empire.
+    // But it's cheaper to just store the ships that were seen and ask them after-the-fact where they were last turn.
     private final Set<Ship> shipsVisibleLastTurn = new HashSet<>();
     private final List<StarSystem> shipBuildingSystems = new ArrayList<>();
     private final List<StarSystem> colonizedSystems = new ArrayList<>();
