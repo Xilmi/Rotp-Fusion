@@ -2291,14 +2291,14 @@ public final class Empire implements Base, NamedObject, Serializable {
             // it must have been seen last turn. The question then becomes uniquely identifying it.
             boolean foundMatch = false;
             for (Ship ufoLastTurn : shipsVisibleLastTurnDestroyed)
-                if (!knowsTheseTwoShipsDifferent(ufo, ufoLastTurn))
+                if (!knowsCouldNotHaveBeenSameShipLastTurn(ufo, ufoLastTurn))
                     if (foundMatch) {
                         foundMatch = false;
                         ret.remove(ufo);
                         break;
                     }
                     else {
-                        alreadyFoundMatch = true;
+                        foundMatch = true;
                         ret.put(ufo, ufoLastTurn);
                     }
             if (foundMatch)
