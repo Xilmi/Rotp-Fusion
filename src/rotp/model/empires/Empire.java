@@ -2362,7 +2362,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         if (planetScanningRange() == 0)
             return false;
 
-        // could we use distanceTo() here?
+        // could we use this.distanceTo() here?
         Galaxy gal = galaxy();
         for (int i=0; i<sv.count(); i++) {
             if ((sv.empire(i) == this) && (gal.system(i).distanceTo(loc) <= planetScanningRange()))
@@ -2466,6 +2466,8 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
         return distance;
     }
+    // If calculating square roots is a big enough problem that we have to cache them and have a special "Recalculating system distances"
+    // popup when recalculating them, should we just...not take any square roots, and compare squared distances?
     public int rangeTo(StarSystem sys) {
         return (int) Math.ceil(sv.distance(sys.id));
     }
