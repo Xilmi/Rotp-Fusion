@@ -2311,6 +2311,16 @@ public final class Empire implements Base, NamedObject, Serializable {
             return true;
         if (ufoNow.isTransport() != ufoLastTurn.isTransport())
             return true;
+        if (ufoNow instanceof ShipFleet && ufoLastTurn instanceof ShipFleet)
+            return knowsCouldNotHaveBeenSameFleetLastTurn((ShipFleet)ufoNow, (ShipFleet)ufoLastTurn);
+        if (ufoNow instanceof Transport && ufoLastTurn instanceof Transport)
+            return knowsCouldNotHaveBeenSameTransportLastTurn((Transport)ufoNow, (Transport)ufoLastTurn);
+        return false;
+    }
+    public boolean knowsCouldNotHaveBeenSameFleetLastTurn(ShipFleet fleetNow, ShipFleet fleetLastTurn) {
+        return false;
+    }
+    public boolean knowsCouldNotHaveBeenSameTransportLastTurn(Transport transportNow, Transport transportLastTurn) {
         return false;
     }
     public boolean knowsShipNotBuiltThisTurn(Ship ufo) {
