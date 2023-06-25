@@ -526,11 +526,11 @@ MAIN_TECH_RESERVE_TAX_ALL         | Taxing %1% of production on all colonies
 MAIN_TECH_RESERVE_TAX             | Taxing %1% of production on developed colonies
 MAIN_TECH_RESERVE_TAX_NONE        | No tax levied on colony production
 MAIN_HELP_ALL                     | Help - click to cycle through help information for a particular screen. Hit escape to cancel.
-MAIN_HELP_MOD                     | Mod Help - "Ctrl"+"o" to bring the Game options Menu. "Home" to Auto-Flag the selected Planet. "Alt"+"Home" to apply Auto-Flag to all planets already Scouted.
-MAIN_HELP_MOD_1A                  | Click to enable or disable the Governor for this star system.
-MAIN_HELP_MOD_1B                  | Click to bring Governor's Options Menu.
+MAIN_HELP_MOD                     | Mod Help - "O" to bring the Game options Menu. "Home" to Auto-Flag the selected Planet. "Alt"+"Home" to apply Auto-Flag to all planets already Scouted.
+MAIN_HELP_MOD_1A                  | To enable or disable the Governor for this star system.
+MAIN_HELP_MOD_1B                  | To access Governor's Options Menu.
 MAIN_HELP_MOD_1F                  | Turn alerts may appear there: Right click on them to center the map on the system. Left click to show the next alert.
-MAIN_HELP_MOD_1I                  | To access "In-game Options" Panel.
+MAIN_HELP_MOD_1I                  | To access "In-game Options" Panel.<br>Useful for remembering our configuration choices.<br>Can be edited... But some options maybe shouldn't be!
 MAIN_HELP_1A                      | Each star system divides its production into five areas. Grayed bars indicate that the production bar has been locked and will not change. Click on the name to lock/unlock.
 MAIN_HELP_1B                      | Shipyard - constructs the selected ship design. Large ships may take multiple turns.
 MAIN_HELP_1C                      | Defenses - builds and upgrades missile bases up to the specified limit and planetary shields when available.
@@ -567,6 +567,7 @@ MAIN_HELP_3G                      | Tech - shows available technologies. Allows 
 MAIN_HELP_3H                      | Next Year - advances the game to the next year.
 MAIN_HELP_3I                      | Current Turn - displays the game's current turn or your empire's current year. Click to toggle.
 MAIN_HELP_3J                      | Map controls - click to cycle through various display settings for the galaxy map.
+MAIN_HELP_HK                      | HOT-KEYS:<br>F1 : Show Help<br>F2/F3 : next/previous player colony<br>F5/F6 : next/previous player colony that has constructed a ship this turn<br>F7/F8 : next/previous player colony with incoming armed enemy fleets or transports<br>F9/F10 : next/previous player fleet<br>F11/F12 : next/previous AI fleet<br>Space/PageDown/PageUp : next/previous player Idle fleet<br><br>G : Select Game Panel<br>S : Select System Panel<br>F : Select Fleet Panel<br>D : Select Design Panel<br>R : Select Race Panel<br>C : Select Colonies Panel<br>T : Select Tech Panel<br>N : Next Turn<br>O : Select Option Panel<br>Y : Toggle Year Display<br>SHIFT-S : Show spy report<br><br>1-5 : allocate spending to ship, def, ind, eco, tech<br>CTRL+1-5 : lock slider<br>Arrows : Move Map<br>+/- : Zoom Map<br>mousewheel : Zoom Map<br>mousewheel : increment quantities/moves slider
 
 // modnar: shorten SystemData display
 MAIN_SYSTEM_DETAIL_PFB            | P:%1  F:%2  B:%3

@@ -746,34 +746,37 @@ public class MainUI extends BasePanel implements IMapHandler {
         int w3 = scaled(250); // BR: was 300
         HelpSpec sp8 = helpUI.addBlueHelpText(x3,y3,w3, 5, text("MAIN_HELP_1H"));
         sp8.setLine(x3+(w3*3/4), y3, w-scaled(54), scaled(430));        
-        // sp8.setLine(x3+(w3*3/4), y3, w-scaled(54), scaled(430));        
+        // sp8.setLine(x3+(w3*3/4), y3, w-scaled(54), scaled(430));
+        
+        // BR: Added options panel
+        int sep = s30;
+        int x10 = scaled(115);
+        int y10 = scaled(220);
+        int w10 = scaled(225);
+        HelpSpec sp10 = helpUI.addBrownHelpText(x10, y10, w10, 6, text("MAIN_HELP_MOD_1I"));
+        sp10.setLine(x10, y10+(sp10.height()/2), s40, scaled(310));
 
         // BR: Added Spy reports
         int x9 = scaled(115);
-        int y9 = scaled(350);
-        int w9 = scaled(220);
+        int y9 = y10+sp10.height()+sep;;
+        int w9 = w10;
         HelpSpec sp9 = helpUI.addBlueHelpText(x9, y9, w9, 2, text("MAIN_HELP_1I"));
         sp9.setLine(x9, y9+(sp9.height()/2), s45, h-scaled(370));
 
-        int x10 = x9;
-        int y10 = y9 - scaled(90);
-        int w10 = w9;
-        HelpSpec sp10 = helpUI.addBrownHelpText(x10, y10, w10, 2, text("MAIN_HELP_MOD_1I"));
-        sp10.setLine(x10, y10+(sp10.height()/2), s40, scaled(310));
         
         if (showTreasuryResearchBar()) {
             // int x12 = scaled(80); // modnar: TreasuryResearchBar made horizontal, change help line/box
             // int y12 = scaled(440); // modnar: TreasuryResearchBar made horizontal, change help line/box
             int x12 = scaled(115); // BR restored original (As the bar are back in vertical mode!)
-            int y12 = scaled(440); // BR restored original
-            int w12 = scaled(220);
+            int y12 = y9+sp9.height()+sep; // BR restored original
+            int w12 = w10;
             HelpSpec sp12 = helpUI.addBlueHelpText(x12, y12, w12, 3, text("MAIN_HELP_2L"));
             //sp12.setLine(x12, y12+(sp12.height()/2), s35, scaled(655)); // modnar: TreasuryResearchBar made horizontal, change help line/box
             sp12.setLine(x12, y12+(sp12.height()/2), s45, h-scaled(298)); // BR restored original
 
             int x13 = scaled(120);
-            int y13 = scaled(540);
-            int w13 = scaled(220);
+            int y13 = y12+sp12.height()+sep;
+            int w13 = w10;
             HelpSpec sp13 = helpUI.addBlueHelpText(x13, y13, w13, 3, text("MAIN_HELP_2M"));
             // sp13.setLine(x13+sp13.height(), y13+sp13.height(), scaled(160), scaled(655)); // modnar: TreasuryResearchBar made horizontal, change help line/box
             sp13.setLine(x13, y13+(sp13.height()/2), s45, h-scaled(173)); // BR restored original
@@ -787,6 +790,11 @@ public class MainUI extends BasePanel implements IMapHandler {
         helpUI.clear();
         HelpSpec s0 = helpUI.addBlueHelpText(s100, s10, scaled(350), 2, text("MAIN_HELP_ALL"));
         s0.setLine(s100, s25, s30, s25);
+
+        int xHK = scaled(100);
+        int yHK = scaled(100);
+        int wHK = scaled(360);
+        helpUI.addBrownHelpText(xHK, yHK, wHK, 30, text("MAIN_HELP_HK"));
 
         int x1= w-scaled(700);
         int y1 = scaled(175);

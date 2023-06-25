@@ -64,6 +64,8 @@ Later:
 - Updated the galaxy map help.
 - Fixed secondary galaxy shape option being ignored!
 - Updated some "e.getModifiersEx() == xx" to more readable code.
+- Added Hot-Key list in Galaxy Map Help (second panel).
+- Changed option call to "O" to be more consistent with other panel call.
 
 2024.06.24 (dHannasch)
 - Extract functions from ShipFleet and Transport to Ship.
