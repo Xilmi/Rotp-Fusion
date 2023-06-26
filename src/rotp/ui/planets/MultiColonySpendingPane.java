@@ -236,6 +236,26 @@ public class MultiColonySpendingPane extends BasePanel implements MouseListener,
         }
         parent.repaintAll();
     }
+    public void increaseBase() {
+        List<StarSystem> systems = parent.systemsToDisplay();
+        for (StarSystem sys: systems) {
+            Colony c = sys.colony();
+            if (c != null) {
+            	c.defense().incrementMaxBases();
+            }
+        }
+        parent.repaintAll();
+    }
+    public void decreaseBase() {
+        List<StarSystem> systems = parent.systemsToDisplay();
+        for (StarSystem sys: systems) {
+            Colony c = sys.colony();
+            if (c != null) {
+            	c.defense().decrementMaxBases();
+            }
+        }
+        parent.repaintAll();
+    }
     public void setSpendingLevel(float pct) {
         List<StarSystem> systems = parent.systemsToDisplay();
         for (StarSystem sys: systems) {
@@ -327,7 +347,7 @@ public class MultiColonySpendingPane extends BasePanel implements MouseListener,
     @Override
     public void keyPressed(KeyEvent e) {
         int k = e.getKeyCode();
-        int mods = e.getModifiersEx();
+        //int mods = e.getModifiersEx();
         switch (k) {
             case KeyEvent.VK_1:
 

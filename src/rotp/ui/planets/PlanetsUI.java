@@ -277,7 +277,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
         int xHK = scaled(100);
         int yHK = scaled(70);
         int wHK = scaled(500);
-        helpUI.addBrownHelpText(xHK, yHK, wHK, 26, text("PLANETS_HELP_HK"));
+        helpUI.addBrownHelpText(xHK, yHK, wHK, 27, text("PLANETS_HELP_HK"));
         helpUI.open(this);
     }
     private void loadHelpUI() {
@@ -666,6 +666,11 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
                 else
                     multiSpendingPane.toggleGovernor();
                 return;
+            case KeyEvent.VK_B:
+            	if(shift)
+            		multiSpendingPane.decreaseBase();
+            	else
+            		multiSpendingPane.increaseBase();
         }
         if (repaint)
             repaint();

@@ -58,6 +58,10 @@ Later:
 
 
 ## What's New
+
+2024.06.26 (BR)
+- Colony Panel: added "B" Hotkey to change "Max Bases".
+
 2024.06.25 (dHannasch)
 - Added functions to track ships.
 
