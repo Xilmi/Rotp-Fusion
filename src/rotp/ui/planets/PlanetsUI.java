@@ -277,7 +277,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
         int xHK = scaled(100);
         int yHK = scaled(70);
         int wHK = scaled(500);
-        helpUI.addBrownHelpText(xHK, yHK, wHK, 27, text("PLANETS_HELP_HK"));
+        helpUI.addBrownHelpText(xHK, yHK, wHK, 28, text("PLANETS_HELP_HK"));
         helpUI.open(this);
     }
     private void loadHelpUI() {
@@ -561,7 +561,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
         switch(e.getKeyCode()) {
             case KeyEvent.VK_F1:
             	if (e.isShiftDown())
-            		showHotKeys(); // TODO BR showHotKeys();
+            		showHotKeys();
             	else
             		showHelp();
             	return;
@@ -577,6 +577,8 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
                 else
                     viewSelectionPane.selectPreviousTab();
                 return;
+            case KeyEvent.VK_LEFT:   previousSystem(); break;
+            case KeyEvent.VK_RIGHT:  nextSystem(); break;
             case KeyEvent.VK_UP:     repaint = listingUI.scrollUp(); break;
             case KeyEvent.VK_DOWN:   repaint = listingUI.scrollDown(); break;
             case KeyEvent.VK_HOME:
@@ -674,6 +676,32 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
         }
         if (repaint)
             repaint();
+    }
+    private void nextSystem() {
+    	List<StarSystem> systems = listingUI.systems();
+    	int selectedIndex = systems.indexOf(lastSelectedSystem());
+    	if (selectedIndex != systems.size()-1)
+    		selectedIndex++;
+    	StarSystem newSystem = systems.get(selectedIndex);
+    	List<StarSystem> selectedSystems = selectedSystems();
+        selectedSystems.clear();
+        selectedSystems.add(newSystem);
+        showSinglePlanetPanel();
+        repaint();
+        setAnchorSystem(newSystem, true);
+    }
+    private void previousSystem() {
+    	List<StarSystem> systems = listingUI.systems();
+    	int selectedIndex = systems.indexOf(lastSelectedSystem());
+    	if (selectedIndex != 0)
+    		selectedIndex--;
+    	StarSystem newSystem = systems.get(selectedIndex);
+    	List<StarSystem> selectedSystems = selectedSystems();
+        selectedSystems.clear();
+        selectedSystems.add(newSystem);
+        showSinglePlanetPanel();
+        repaint();
+        setAnchorSystem(newSystem, true);
     }
     private List<StarSystem> allSystems()  {
         if (displayedSystems == null) {
