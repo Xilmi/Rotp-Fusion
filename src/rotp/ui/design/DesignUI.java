@@ -19,12 +19,12 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.RoundRectangle2D;
+
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
-import rotp.Rotp;
-import rotp.model.empires.EmpireView;
 import rotp.model.galaxy.Ships;
 import rotp.model.ships.*;
 import rotp.ui.*;
@@ -210,8 +210,8 @@ public class DesignUI extends BasePanel {
         configPanel.animate();
     }
     private void initModel() {
-        int w = scaled(Rotp.IMG_W);
-        int h = scaled(Rotp.IMG_H);
+        //int w = scaled(Rotp.IMG_W);
+        //int h = scaled(Rotp.IMG_H);
         int rightPaneW = scaled(250);
 
         setBackground(Color.black);
@@ -252,6 +252,11 @@ public class DesignUI extends BasePanel {
         helpFrame = 0;
         RotPUI.helpUI().close();
     }
+    @Override  public void showHotKeys() {
+        helpFrame = 5;
+        loadHotKeysUI();
+        repaint();   
+    }
     @Override
     public void showHelp() {
         helpFrame = 1;
@@ -268,6 +273,15 @@ public class DesignUI extends BasePanel {
             cancelHelp();
         loadHelpUI();
         repaint();
+    }
+    private void loadHotKeysUI() {
+    	HelpUI helpUI = RotPUI.helpUI();
+        helpUI.clear();
+        int xHK = scaled(100);
+        int yHK = scaled(70);
+        int wHK = scaled(360);
+        helpUI.addBrownHelpText(xHK, yHK, wHK, 14, text("SHIP_DESIGN_HELP_HK"));
+        helpUI.open(this);
     }
     private void loadHelpUI() {
         HelpUI helpUI = RotPUI.helpUI();
@@ -295,7 +309,7 @@ public class DesignUI extends BasePanel {
         int x1 = scaled(350);
         int w1 = scaled(430);
         int y1 = scaled(470);
-        HelpUI.HelpSpec sp1 = helpUI.addBrownHelpText(x1, y1, w1, 8, text("SHIP_DESIGN_HELP_ALL"));
+        helpUI.addBrownHelpText(x1, y1, w1, 8, text("SHIP_DESIGN_HELP_ALL"));
 
         int x2 = scaled(120);
         int w2 = scaled(280);
@@ -378,7 +392,7 @@ public class DesignUI extends BasePanel {
         int x1 = scaled(350);
         int w1 = scaled(430);
         int y1 = scaled(470);
-        HelpUI.HelpSpec sp1 = helpUI.addBrownHelpText(x1, y1, w1, 8, text("SHIP_DESIGN_HELP_ALL"));
+        helpUI.addBrownHelpText(x1, y1, w1, 8, text("SHIP_DESIGN_HELP_ALL"));
 
         int x2 = scaled(730);
         int w2 = scaled(280);
@@ -453,7 +467,7 @@ public class DesignUI extends BasePanel {
         int x1 = scaled(50);
         int w1 = scaled(430);
         int y1 = scaled(80);
-        HelpUI.HelpSpec sp1 = helpUI.addBrownHelpText(x1, y1, w1, 8, text("SHIP_DESIGN_HELP_ALL"));
+        helpUI.addBrownHelpText(x1, y1, w1, 8, text("SHIP_DESIGN_HELP_ALL"));
 
         int x2 = scaled(30);
         int w2 = scaled(280);
@@ -505,7 +519,7 @@ public class DesignUI extends BasePanel {
         int x1 = scaled(50);
         int w1 = scaled(430);
         int y1 = scaled(80);
-        HelpUI.HelpSpec sp1 = helpUI.addBrownHelpText(x1, y1, w1, 8, text("SHIP_DESIGN_HELP_ALL"));
+        helpUI.addBrownHelpText(x1, y1, w1, 8, text("SHIP_DESIGN_HELP_ALL"));
 
         int x2 = scaled(30);
         int w2 = scaled(280);
@@ -555,7 +569,7 @@ public class DesignUI extends BasePanel {
         int x1 = scaled(50);
         int w1 = scaled(430);
         int y1 = scaled(80);
-        HelpUI.HelpSpec sp1 = helpUI.addBrownHelpText(x1, y1, w1, 8, text("SHIP_DESIGN_HELP_ALL"));
+        helpUI.addBrownHelpText(x1, y1, w1, 8, text("SHIP_DESIGN_HELP_ALL"));
 
         int x2 = scaled(30);
         int w2 = scaled(280);
@@ -632,14 +646,21 @@ public class DesignUI extends BasePanel {
             return;
         }
         int k = e.getKeyCode();
-        boolean ctrlPressed = (e.getModifiers() & InputEvent.CTRL_MASK) != 0;
+        boolean ctrlPressed = e.isControlDown();
         if (k == KeyEvent.VK_ESCAPE) {
             exit(false);
             return;
         }
-        else if ((k == KeyEvent.VK_F1)  || (e.getKeyChar() == '?')) {
+        else if (e.getKeyChar() == '?') {
             showHelp();
             return;
+        }
+        else if (k == KeyEvent.VK_F1) {
+        	if (e.isShiftDown())
+        		showHotKeys();
+        	else
+        		showHelp();
+        	return;
         }
         else if (k == KeyEvent.VK_DOWN) {
             if (selectedSlot < (designPanels.length - 1)) {
@@ -746,13 +767,16 @@ public class DesignUI extends BasePanel {
         public void mouseReleased(MouseEvent e) {
             if (e.getButton() > 3)
                 return;
-            int x = e.getX();
-            int y = e.getY();
+            //int x = e.getX();
+            //int y = e.getY();
             if (hoverBox == null)
                 misClick();
             else {
-                if (hoverBox == helpBox)
-                    parent.showHelp();
+            	if (hoverBox == helpBox)
+                	if (SwingUtilities.isRightMouseButton(e))
+                		parent.showHotKeys();
+                	else
+                		parent.showHelp();
             }
         }
         @Override
@@ -1309,7 +1333,7 @@ public class DesignUI extends BasePanel {
             g2.setClip(null);
         }
         private void drawShip(Graphics g0, int x, int y, int w, int h) {
-            Graphics2D g2 = (Graphics2D) g0;
+            //Graphics2D g2 = (Graphics2D) g0;
             ShipDesign des = shipDesign();
             
             shipImageArea.setBounds(0,0,0,0);
@@ -1354,8 +1378,8 @@ public class DesignUI extends BasePanel {
             if (des.shipColor() > 0) 
                 img = Base.colorizer.makeColor(des.shipColor(), img);
             
-            int w1 = img.getWidth();
-            int h1 = img.getHeight();
+            //int w1 = img.getWidth();
+            //int h1 = img.getHeight();
 
             g.drawImage(img, 0, 0, this);
 
@@ -2694,7 +2718,7 @@ public class DesignUI extends BasePanel {
             int x6 = x5+w5; int w6 = w*5/100;
             int x7 = x6+w6; int w7 = w*5/100;
             int x8 = x7+w7; int w8 = w*5/100;
-            int x9 = x8+w8; int w9 = w*29/100;
+            int x9 = x8+w8; //int w9 = w*29/100;
 
             // draw headers
             g.setColor(Color.black);
@@ -2862,7 +2886,7 @@ public class DesignUI extends BasePanel {
             int x3 = x2+w2; int w3 = w*5/100;
             int x4 = x3+w3; int w4 = w*7/100;
             int x5 = x4+w4; int w5 = w*5/100;
-            int x6 = x5+w5; int w6 = w*40/100;
+            int x6 = x5+w5; //int w6 = w*40/100;
 
             // draw headers
             g.setColor(Color.black);
@@ -3377,8 +3401,8 @@ public class DesignUI extends BasePanel {
         public void mousePressed(MouseEvent mouseEvent) { }
         @Override
         public void mouseReleased(MouseEvent e) {
-            boolean shiftPressed = (e.getModifiers() & InputEvent.SHIFT_MASK) != 0;
-            boolean ctrlPressed = (e.getModifiers() & InputEvent.CTRL_MASK) != 0;
+            boolean shiftPressed = e.isShiftDown();
+            boolean ctrlPressed = e.isControlDown();
             
             if (hoverTarget == scrapButtonArea) {
                 softClick(); openScrapDialog(); return;
@@ -3564,8 +3588,8 @@ public class DesignUI extends BasePanel {
             if (shipDesign().active())
                 return;
             
-            boolean shiftPressed = (e.getModifiers() & InputEvent.SHIFT_MASK) != 0;
-            boolean ctrlPressed = (e.getModifiers() & InputEvent.CTRL_MASK) != 0;
+            boolean shiftPressed = e.isShiftDown();
+            boolean ctrlPressed = e.isControlDown();
             
             if (hoverTarget == shipImageArea) {
                 if (count < 0)

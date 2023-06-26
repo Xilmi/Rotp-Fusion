@@ -525,7 +525,7 @@ MAIN_TECH_RESERVE_BC              | %1 BC
 MAIN_TECH_RESERVE_TAX_ALL         | Taxing %1% of production on all colonies
 MAIN_TECH_RESERVE_TAX             | Taxing %1% of production on developed colonies
 MAIN_TECH_RESERVE_TAX_NONE        | No tax levied on colony production
-MAIN_HELP_ALL                     | Help - click to cycle through help information for a particular screen. Hit escape to cancel.
+MAIN_HELP_ALL                     | Help - click to cycle through help information for a particular screen. Hit escape to cancel.<br>Right-Click to display Shortcut Keys.
 MAIN_HELP_MOD                     | Mod Help - "O" to bring the Game options Menu. "Home" to Auto-Flag the selected Planet. "Alt"+"Home" to apply Auto-Flag to all planets already Scouted.
 MAIN_HELP_MOD_1A                  | To enable or disable the Governor for this star system.
 MAIN_HELP_MOD_1B                  | To access Governor's Options Menu.
@@ -2581,7 +2581,7 @@ SHIP_DESIGN_HELP_4D               | Available ship design slots can be selected 
 SHIP_DESIGN_HELP_4E               | Copy - copy an existing design to serve as a starting point for a new design.
 SHIP_DESIGN_HELP_4F               | Clear - resets all of the selected components.
 SHIP_DESIGN_HELP_4G               | Deploy Design - when your new design is complete, deploying it allows you to name it and makes it available for construction.
-
+SHIP_DESIGN_HELP_HK               | HOTKEYS: (Available by right-clicking the Help button)<br><br>SHIFT+F1 : Show Hotkeys List (This)<br>F1, ? : Show Help<br><br>Arrows Down/Up : Next/Previous Slot<br><br>S : Scrap Design<br>R : Rename Design<br>D : Create Design<br>C / (+CTRL) : Clear Design / (Only Weapons)<br><br>Escape : exit this panel
 
 // Ship Combat UI
 SHIP_COMBAT_TITLE_SYSTEM          | Ship Combat at %1!

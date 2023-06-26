@@ -64,6 +64,8 @@ Later:
   - added "B" Hotkey to change "Max Bases".
   - added Arrows Right/Left for Next/Previous Colony.
   - added Move selector by clicking on the rail.
+- Added Hotkey list to Ship Design Panel.
+- Minor changes to Map panel Help.
 
 2024.06.25 (dHannasch)
 - Added functions to track ships.

@@ -386,7 +386,8 @@ public class MainUI extends BasePanel implements IMapHandler {
         Sprite spr = this.clickedSprite();
         if (spr instanceof SystemTransportSprite) {
         	helpFrame = numHelpFrames+2;
-        	loadHotKeysFrameTP();
+        	loadHelpFrameTP();
+        	RotPUI.helpUI().open(this);
         	return;
         }
         if (spr instanceof StarSystem) {
@@ -688,15 +689,12 @@ public class MainUI extends BasePanel implements IMapHandler {
             y1 += scaled(16);
         }
     }
-    private void loadHotKeysFrameTP() {
-    	// TODO BR: loadHotKeysFrameTP()
-    }
     private void addHotKeysFrame() {
         HelpUI helpUI = RotPUI.helpUI();
-        int xHK = scaled(75);
-        int yHK = scaled(70);
-        int wHK = scaled(400);
-        helpUI.addBrownHelpText(xHK, yHK, wHK, 37, text("MAIN_HELP_HK"));
+        int xHK = scaled(65);
+        int yHK = scaled(75);
+        int wHK = scaled(450);
+        helpUI.addBrownHelpText(xHK, yHK, wHK, 36, text("MAIN_HELP_HK"));
     }
     private void loadHotKeysFrame() {
         HelpUI helpUI = RotPUI.helpUI();
@@ -729,7 +727,7 @@ public class MainUI extends BasePanel implements IMapHandler {
         int h = getHeight();
 
         helpUI.clear();
-        HelpSpec s0 = helpUI.addBlueHelpText(s100, s10, scaled(350), 2, text("MAIN_HELP_ALL"));
+        HelpSpec s0 = helpUI.addBlueHelpText(s100, s10, scaled(350), 3, text("MAIN_HELP_ALL"));
         s0.setLine(s100, s25, s30, s25);
         // BR: Main Mod Help
         helpUI.addBrownHelpText(w-scaled(334), s10, scaled(330), 3, text("MAIN_HELP_MOD"));
@@ -827,7 +825,7 @@ public class MainUI extends BasePanel implements IMapHandler {
         int w = getWidth();
 
         helpUI.clear();
-        HelpSpec s0 = helpUI.addBlueHelpText(s100, s10, scaled(350), 2, text("MAIN_HELP_ALL"));
+        HelpSpec s0 = helpUI.addBlueHelpText(s100, s10, scaled(350), 3, text("MAIN_HELP_ALL"));
         s0.setLine(s100, s25, s30, s25);
 
         addHotKeysFrame();
@@ -932,7 +930,7 @@ public class MainUI extends BasePanel implements IMapHandler {
     private void loadButtonBarHelpFrame() {
         HelpUI helpUI = RotPUI.helpUI();
         helpUI.clear();
-        HelpSpec s0 = helpUI.addBlueHelpText(s100, s10, scaled(350), 2, text("MAIN_HELP_ALL"));
+        HelpSpec s0 = helpUI.addBlueHelpText(s100, s10, scaled(350), 3, text("MAIN_HELP_ALL"));
         s0.setLine(s100, s25, s30, s25);
 
         int h = getHeight();
