@@ -292,10 +292,10 @@ public interface IGameOptions extends IModOptions {
     	return list;
     }
     public default boolean isAutoPlay()          { return !selectedAutoplayOption().equals(AUTOPLAY_OFF); }
-    public default boolean communityAI()         { return false; }
+    //public default boolean communityAI()         { return false; }
     public default boolean selectableAI()        { return selectedOpponentAIOption().equals(OPPONENT_AI_SELECTABLE); }
-    public default boolean usingExtendedRaces()  { return (selectedNumberOpponents()+1) > startingRaceOptions().size(); }
-    public default void communityAI(boolean b)   { }
+    //public default boolean usingExtendedRaces()  { return (selectedNumberOpponents()+1) > startingRaceOptions().size(); }
+    //public default void communityAI(boolean b)   { }
     public default int maxOpponents()            { return MAX_OPPONENTS; }
     public default float hostileTerraformingPct() { return 1.0f; }
     public default boolean restrictedColonization() { return selectedColonizingOption().equals(COLONIZING_RESTRICTED); }
@@ -446,7 +446,7 @@ public interface IGameOptions extends IModOptions {
     public void selectedOpponentRace(int i, String s);
 
     default void copyForRestart(IGameOptions opt) { } // BR: for Restart with new options
-    default void copyOptions(IGameOptions opt) { }
+    //default void copyOptions(IGameOptions opt) { }
     default boolean immediateCouncilWin()    { return selectedCouncilWinOption().equals(COUNCIL_IMMEDIATE); }
     default boolean noGalacticCouncil()      { return selectedCouncilWinOption().equals(COUNCIL_NONE); }
     default float fuelRangeMultiplier() {
@@ -460,78 +460,78 @@ public interface IGameOptions extends IModOptions {
             default: return 1;
         }
     }
-    default String nextGalaxySize(boolean bounded) {
-        List<String> opts = galaxySizeOptions();
-        int index = opts.indexOf(selectedGalaxySize())+1;
-        if (bounded && (index >= opts.size()))
-            return selectedGalaxySize();
-        return index >= opts.size() ? opts.get(index-1) : opts.get(index);
-    }
-    default String prevGalaxySize(boolean bounded) {
-        List<String> opts = galaxySizeOptions();
-        int index = opts.indexOf(selectedGalaxySize())-1;
-        if (bounded && index < 0)
-            return selectedGalaxySize();
-        return index < 0 ? opts.get(0) : opts.get(index);
-    }
-    default String nextGalaxyShape() {
-        List<String> opts = galaxyShapeOptions();
-        int index = opts.indexOf(selectedGalaxyShape())+1;
-        return index >= opts.size() ? opts.get(0) : opts.get(index);
-    }
-    default String prevGalaxyShape() {
-        List<String> opts = galaxyShapeOptions();
-        int index = opts.indexOf(selectedGalaxyShape())-1;
-        return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
-    }
-    default String nextGalaxyShapeOption1() {
-        List<String> opts = galaxyShapeOptions1();
-        if (opts.isEmpty())
-            return "";
-        int index = opts.indexOf(selectedGalaxyShapeOption1())+1;
-        return index >= opts.size() ? opts.get(0) : opts.get(index);
-    }
-    default String prevGalaxyShapeOption1() {
-        List<String> opts = galaxyShapeOptions1();
-        if (opts.isEmpty())
-            return "";
-        int index = opts.indexOf(selectedGalaxyShapeOption1())-1;
-        return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
-    }
-    default String nextGalaxyShapeOption2() {
-        List<String> opts = galaxyShapeOptions2();
-        if (opts.isEmpty())
-            return "";
-        int index = opts.indexOf(selectedGalaxyShapeOption2())+1;
-        return index >= opts.size() ? opts.get(0) : opts.get(index);
-    }
-    default String prevGalaxyShapeOption2() {
-        List<String> opts = galaxyShapeOptions2();
-        if (opts.isEmpty())
-            return "";
-        int index = opts.indexOf(selectedGalaxyShapeOption2())-1;
-        return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
-    }
-    default String nextGalaxyAge(boolean up) { // BR: added bidirectional
-        List<String> opts = galaxyAgeOptions();
-        if (up) {
-            int index = opts.indexOf(selectedGalaxyAge())+1;
-            return index >= opts.size() ? opts.get(0) : opts.get(index);
-        } else {
-            int index = opts.indexOf(selectedGalaxyAge())-1;
-            return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
-        }
-    }
-    default String nextGameDifficulty() {
-        List<String> opts = gameDifficultyOptions();
-        int index = opts.indexOf(selectedGameDifficulty())+1;
-        return index >= opts.size() ? opts.get(index-1) : opts.get(index);
-    }
-    default String prevGameDifficulty() {
-        List<String> opts = gameDifficultyOptions();
-        int index = opts.indexOf(selectedGameDifficulty())-1;
-        return index < 0 ? opts.get(0) : opts.get(index);
-    }
+//    default String nextGalaxySize(boolean bounded) {
+//        List<String> opts = galaxySizeOptions();
+//        int index = opts.indexOf(selectedGalaxySize())+1;
+//        if (bounded && (index >= opts.size()))
+//            return selectedGalaxySize();
+//        return index >= opts.size() ? opts.get(index-1) : opts.get(index);
+//    }
+//    default String prevGalaxySize(boolean bounded) {
+//        List<String> opts = galaxySizeOptions();
+//        int index = opts.indexOf(selectedGalaxySize())-1;
+//        if (bounded && index < 0)
+//            return selectedGalaxySize();
+//        return index < 0 ? opts.get(0) : opts.get(index);
+//    }
+//    default String nextGalaxyShape() {
+//        List<String> opts = galaxyShapeOptions();
+//        int index = opts.indexOf(selectedGalaxyShape())+1;
+//        return index >= opts.size() ? opts.get(0) : opts.get(index);
+//    }
+//    default String prevGalaxyShape() {
+//        List<String> opts = galaxyShapeOptions();
+//        int index = opts.indexOf(selectedGalaxyShape())-1;
+//        return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
+//    }
+//    default String nextGalaxyShapeOption1() {
+//        List<String> opts = galaxyShapeOptions1();
+//        if (opts.isEmpty())
+//            return "";
+//        int index = opts.indexOf(selectedGalaxyShapeOption1())+1;
+//        return index >= opts.size() ? opts.get(0) : opts.get(index);
+//    }
+//    default String prevGalaxyShapeOption1() {
+//        List<String> opts = galaxyShapeOptions1();
+//        if (opts.isEmpty())
+//            return "";
+//        int index = opts.indexOf(selectedGalaxyShapeOption1())-1;
+//        return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
+//    }
+//    default String nextGalaxyShapeOption2() {
+//        List<String> opts = galaxyShapeOptions2();
+//        if (opts.isEmpty())
+//            return "";
+//        int index = opts.indexOf(selectedGalaxyShapeOption2())+1;
+//        return index >= opts.size() ? opts.get(0) : opts.get(index);
+//    }
+//    default String prevGalaxyShapeOption2() {
+//        List<String> opts = galaxyShapeOptions2();
+//        if (opts.isEmpty())
+//            return "";
+//        int index = opts.indexOf(selectedGalaxyShapeOption2())-1;
+//        return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
+//    }
+//    default String nextGalaxyAge(boolean up) { // BR: added bidirectional
+//        List<String> opts = galaxyAgeOptions();
+//        if (up) {
+//            int index = opts.indexOf(selectedGalaxyAge())+1;
+//            return index >= opts.size() ? opts.get(0) : opts.get(index);
+//        } else {
+//            int index = opts.indexOf(selectedGalaxyAge())-1;
+//            return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
+//        }
+//    }
+//    default String nextGameDifficulty() {
+//        List<String> opts = gameDifficultyOptions();
+//        int index = opts.indexOf(selectedGameDifficulty())+1;
+//        return index >= opts.size() ? opts.get(index-1) : opts.get(index);
+//    }
+//    default String prevGameDifficulty() {
+//        List<String> opts = gameDifficultyOptions();
+//        int index = opts.indexOf(selectedGameDifficulty())-1;
+//        return index < 0 ? opts.get(0) : opts.get(index);
+//    }
     default String nextOpponentAI() {
         List<String> opts = opponentAIOptions();
         int index = opts.indexOf(selectedOpponentAIOption())+1;
@@ -542,154 +542,154 @@ public interface IGameOptions extends IModOptions {
         int index = opts.indexOf(selectedOpponentAIOption())-1;
         return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
     }
-    default String nextOpponentCR() {
-    	globalCROptions.next();
-    	return globalCROptions.get();
-    }
-    default String prevOpponentCR() {
-    	globalCROptions.prev();
-    	return globalCROptions.get();
-    }
-    default String nextResearchRate(boolean up) { // BR: added bidirectional
-        List<String> opts = researchRateOptions();
-        if (up) {
-            int index = opts.indexOf(selectedResearchRate())+1;
-            return index >= opts.size() ? opts.get(0) : opts.get(index);
-        } else {
-            int index = opts.indexOf(selectedResearchRate())-1;
-            return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
-        }
-    }
-    default String nextTechTradeOption(boolean up) { // BR: added bidirectional
-        List<String> opts = techTradingOptions();
-        if (up) {
-            int index = opts.indexOf(selectedTechTradeOption())+1;
-            return index >= opts.size() ? opts.get(0) : opts.get(index);
-        } else {
-            int index = opts.indexOf(selectedTechTradeOption())-1;
-            return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
-        }
-    }
-    default String nextRandomEventOption(boolean up) { // BR: added bidirectional
-        List<String> opts = randomEventOptions();
-        if (up) {
-            int index = opts.indexOf(selectedRandomEventOption())+1;
-            return index >= opts.size() ? opts.get(0) : opts.get(index);
-        } else {
-            int index = opts.indexOf(selectedRandomEventOption())-1;
-            return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
-        }
-    }
-    default String nextWarpSpeedOption(boolean up) { // BR: added bidirectional
-        List<String> opts = warpSpeedOptions();
-        if (up) {
-            int index = opts.indexOf(selectedWarpSpeedOption())+1;
-            return index >= opts.size() ? opts.get(0) : opts.get(index);
-        } else {
-            int index = opts.indexOf(selectedWarpSpeedOption())-1;
-            return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
-        }
-    }
-    default String nextNebulaeOption(boolean up) { // BR: added bidirectional
-        List<String> opts = nebulaeOptions();
-        if (up) {
-            int index = opts.indexOf(selectedNebulaeOption())+1;
-            return index >= opts.size() ? opts.get(0) : opts.get(index);
-        } else {
-            int index = opts.indexOf(selectedNebulaeOption())-1;
-            return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
-        }
-    }
-    default String nextCouncilWinOption(boolean up) { // BR: added bidirectional
-        List<String> opts = councilWinOptions();
-        if (up) {
-            int index = opts.indexOf(selectedCouncilWinOption())+1;
-            return index >= opts.size() ? opts.get(0) : opts.get(index);
-        } else {
-            int index = opts.indexOf(selectedCouncilWinOption())-1;
-            return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
-        }
-    }
-    default String nextStarDensityOption(boolean up) { // BR: added bidirectional
-        List<String> opts = starDensityOptions();
-        if (up) {
-            int index = opts.indexOf(selectedStarDensityOption())+1;
-            return index >= opts.size() ? opts.get(0) : opts.get(index);
-        } else {
-            int index = opts.indexOf(selectedStarDensityOption())-1;
-            return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
-        }
-     }
-    default String nextAIHostilityOption(boolean up) { // BR: added bidirectional
-        List<String> opts = aiHostilityOptions();
-        if (up) {
-            int index = opts.indexOf(selectedAIHostilityOption())+1;
-            return index >= opts.size() ? opts.get(0) : opts.get(index);
-        } else {
-            int index = opts.indexOf(selectedAIHostilityOption())-1;
-            return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
-        }
-    }
-    default String nextPlanetQualityOption(boolean up) { // BR: added bidirectional
-        List<String> opts = planetQualityOptions();
-        if (up) {
-            int index = opts.indexOf(selectedPlanetQualityOption())+1;
-            return index >= opts.size() ? opts.get(0) : opts.get(index);
-        } else {
-            int index = opts.indexOf(selectedPlanetQualityOption())-1;
-            return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
-        }
-    }
-    default String nextTerraformingOption(boolean up) { // BR: added bidirectional
-        List<String> opts = terraformingOptions();
-        if (up) {
-            int index = opts.indexOf(selectedTerraformingOption())+1;
-            return index >= opts.size() ? opts.get(0) : opts.get(index);
-        } else {
-            int index = opts.indexOf(selectedTerraformingOption())-1;
-            return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
-        }
-    }
-    default String nextColonizingOption(boolean up) { // BR: added bidirectional
-        List<String> opts = colonizingOptions();
-        if (up) {
-            int index = opts.indexOf(selectedColonizingOption())+1;
-            return index >= opts.size() ? opts.get(0) : opts.get(index);
-        } else {
-            int index = opts.indexOf(selectedColonizingOption())-1;
-            return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
-        }
-    }
-    default String nextFuelRangeOption(boolean up) { // BR: added bidirectional
-        List<String> opts = fuelRangeOptions();
-        if (up) {
-            int index = opts.indexOf(selectedFuelRangeOption())+1;
-            return index >= opts.size() ? opts.get(0) : opts.get(index);
-        } else {
-            int index = opts.indexOf(selectedFuelRangeOption())-1;
-            return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
-        }
-    }
-    default String nextRandomizeAIOption(boolean up) { // BR: added bidirectional
-        List<String> opts = randomizeAIOptions();
-        if (up) {
-            int index = opts.indexOf(selectedRandomizeAIOption())+1;
-            return index >= opts.size() ? opts.get(0) : opts.get(index);
-        } else {
-            int index = opts.indexOf(selectedRandomizeAIOption())-1;
-            return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
-        }
-    }
-    default String nextAutoplayOption(boolean up) { // BR: added bidirectional
-        List<String> opts = autoplayOptions();
-        if (up) {
-            int index = opts.indexOf(selectedAutoplayOption())+1;
-            return index >= opts.size() ? opts.get(0) : opts.get(index);
-        } else {
-            int index = opts.indexOf(selectedAutoplayOption())-1;
-            return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
-        }
-    }
+//    default String nextOpponentCR() {
+//    	globalCROptions.next();
+//    	return globalCROptions.get();
+//    }
+//    default String prevOpponentCR() {
+//    	globalCROptions.prev();
+//    	return globalCROptions.get();
+//    }
+//    default String nextResearchRate(boolean up) { // BR: added bidirectional
+//        List<String> opts = researchRateOptions();
+//        if (up) {
+//            int index = opts.indexOf(selectedResearchRate())+1;
+//            return index >= opts.size() ? opts.get(0) : opts.get(index);
+//        } else {
+//            int index = opts.indexOf(selectedResearchRate())-1;
+//            return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
+//        }
+//    }
+//    default String nextTechTradeOption(boolean up) { // BR: added bidirectional
+//        List<String> opts = techTradingOptions();
+//        if (up) {
+//            int index = opts.indexOf(selectedTechTradeOption())+1;
+//            return index >= opts.size() ? opts.get(0) : opts.get(index);
+//        } else {
+//            int index = opts.indexOf(selectedTechTradeOption())-1;
+//            return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
+//        }
+//    }
+//    default String nextRandomEventOption(boolean up) { // BR: added bidirectional
+//        List<String> opts = randomEventOptions();
+//        if (up) {
+//            int index = opts.indexOf(selectedRandomEventOption())+1;
+//            return index >= opts.size() ? opts.get(0) : opts.get(index);
+//        } else {
+//            int index = opts.indexOf(selectedRandomEventOption())-1;
+//            return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
+//        }
+//    }
+//    default String nextWarpSpeedOption(boolean up) { // BR: added bidirectional
+//        List<String> opts = warpSpeedOptions();
+//        if (up) {
+//            int index = opts.indexOf(selectedWarpSpeedOption())+1;
+//            return index >= opts.size() ? opts.get(0) : opts.get(index);
+//        } else {
+//            int index = opts.indexOf(selectedWarpSpeedOption())-1;
+//            return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
+//        }
+//    }
+//    default String nextNebulaeOption(boolean up) { // BR: added bidirectional
+//        List<String> opts = nebulaeOptions();
+//        if (up) {
+//            int index = opts.indexOf(selectedNebulaeOption())+1;
+//            return index >= opts.size() ? opts.get(0) : opts.get(index);
+//        } else {
+//            int index = opts.indexOf(selectedNebulaeOption())-1;
+//            return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
+//        }
+//    }
+//    default String nextCouncilWinOption(boolean up) { // BR: added bidirectional
+//        List<String> opts = councilWinOptions();
+//        if (up) {
+//            int index = opts.indexOf(selectedCouncilWinOption())+1;
+//            return index >= opts.size() ? opts.get(0) : opts.get(index);
+//        } else {
+//            int index = opts.indexOf(selectedCouncilWinOption())-1;
+//            return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
+//        }
+//    }
+//    default String nextStarDensityOption(boolean up) { // BR: added bidirectional
+//        List<String> opts = starDensityOptions();
+//        if (up) {
+//            int index = opts.indexOf(selectedStarDensityOption())+1;
+//            return index >= opts.size() ? opts.get(0) : opts.get(index);
+//        } else {
+//            int index = opts.indexOf(selectedStarDensityOption())-1;
+//            return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
+//        }
+//     }
+//    default String nextAIHostilityOption(boolean up) { // BR: added bidirectional
+//        List<String> opts = aiHostilityOptions();
+//        if (up) {
+//            int index = opts.indexOf(selectedAIHostilityOption())+1;
+//            return index >= opts.size() ? opts.get(0) : opts.get(index);
+//        } else {
+//            int index = opts.indexOf(selectedAIHostilityOption())-1;
+//            return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
+//        }
+//    }
+//    default String nextPlanetQualityOption(boolean up) { // BR: added bidirectional
+//        List<String> opts = planetQualityOptions();
+//        if (up) {
+//            int index = opts.indexOf(selectedPlanetQualityOption())+1;
+//            return index >= opts.size() ? opts.get(0) : opts.get(index);
+//        } else {
+//            int index = opts.indexOf(selectedPlanetQualityOption())-1;
+//            return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
+//        }
+//    }
+//    default String nextTerraformingOption(boolean up) { // BR: added bidirectional
+//        List<String> opts = terraformingOptions();
+//        if (up) {
+//            int index = opts.indexOf(selectedTerraformingOption())+1;
+//            return index >= opts.size() ? opts.get(0) : opts.get(index);
+//        } else {
+//            int index = opts.indexOf(selectedTerraformingOption())-1;
+//            return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
+//        }
+//    }
+//    default String nextColonizingOption(boolean up) { // BR: added bidirectional
+//        List<String> opts = colonizingOptions();
+//        if (up) {
+//            int index = opts.indexOf(selectedColonizingOption())+1;
+//            return index >= opts.size() ? opts.get(0) : opts.get(index);
+//        } else {
+//            int index = opts.indexOf(selectedColonizingOption())-1;
+//            return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
+//        }
+//    }
+//    default String nextFuelRangeOption(boolean up) { // BR: added bidirectional
+//        List<String> opts = fuelRangeOptions();
+//        if (up) {
+//            int index = opts.indexOf(selectedFuelRangeOption())+1;
+//            return index >= opts.size() ? opts.get(0) : opts.get(index);
+//        } else {
+//            int index = opts.indexOf(selectedFuelRangeOption())-1;
+//            return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
+//        }
+//    }
+//    default String nextRandomizeAIOption(boolean up) { // BR: added bidirectional
+//        List<String> opts = randomizeAIOptions();
+//        if (up) {
+//            int index = opts.indexOf(selectedRandomizeAIOption())+1;
+//            return index >= opts.size() ? opts.get(0) : opts.get(index);
+//        } else {
+//            int index = opts.indexOf(selectedRandomizeAIOption())-1;
+//            return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
+//        }
+//    }
+//    default String nextAutoplayOption(boolean up) { // BR: added bidirectional
+//        List<String> opts = autoplayOptions();
+//        if (up) {
+//            int index = opts.indexOf(selectedAutoplayOption())+1;
+//            return index >= opts.size() ? opts.get(0) : opts.get(index);
+//        } else {
+//            int index = opts.indexOf(selectedAutoplayOption())-1;
+//            return index < 0 ? opts.get(opts.size()-1) : opts.get(index);
+//        }
+//    }
     default void nextSpecificOpponentAI(int i) {
         List<String> allAIs = specificOpponentAIOptions();
         // BR: Add user filter

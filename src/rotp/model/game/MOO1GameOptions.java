@@ -73,7 +73,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private static final long serialVersionUID = 1L;
     private static final float BASE_RESEARCH_MOD = 30f;
     private static final boolean beepsOnError = false;
-    private final String[] opponentRaces = new String[MAX_OPPONENTS];
+    private final String[] opponentRaces = new String[maxOpponents()];
     private final List<Integer> colors = new ArrayList<>();
     private final List<Color> empireColors = new ArrayList<>();
 
@@ -89,8 +89,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private int selectedNumberOpponents;
     private String selectedStarDensityOption;
     private String selectedOpponentAIOption;
-    private final String[] specificOpponentAIOption = new String[MAX_OPPONENTS+1];
-    private String[] specificOpponentCROption = new String[MAX_OPPONENTS+1];
+    private final String[] specificOpponentAIOption = new String[maxOpponents()+1];
+    private String[] specificOpponentCROption = new String[maxOpponents()+1];
 
     @SuppressWarnings("unused")
 	private boolean communityAI = false;  // unused
@@ -338,55 +338,56 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         selectedGalaxyShapeOption1 = opt.selectedGalaxyShapeOption1;
         selectedGalaxyShapeOption2 = opt.selectedGalaxyShapeOption2;
     }
-    @Override
-    public void copyOptions(IGameOptions o) { // BR: No more used
-        if (!(o instanceof MOO1GameOptions))
-            return;
-        
-        // copy only the options that are immediately visible
-        // .. not the advanced options
-        MOO1GameOptions opt = (MOO1GameOptions) o;
-        
-        selectedGalaxySize = opt.selectedGalaxySize;
-        selectedGalaxyShape = opt.selectedGalaxyShape;
-        selectedGalaxyShapeOption1 = opt.selectedGalaxyShapeOption1;
-        selectedGalaxyShapeOption2 = opt.selectedGalaxyShapeOption2;
-        selectedGameDifficulty = opt.selectedGameDifficulty;
-        selectedNumberOpponents = opt.selectedNumberOpponents;
-
-        selectedGalaxyAge = opt.selectedGalaxyAge;
-        selectedResearchRate = opt.selectedResearchRate;
-        selectedTechTradeOption = opt.selectedTechTradeOption;
-        selectedRandomEventOption = opt.selectedRandomEventOption;
-        selectedWarpSpeedOption = opt.selectedWarpSpeedOption;
-        selectedNebulaeOption = opt.selectedNebulaeOption;
-        selectedCouncilWinOption = opt.selectedCouncilWinOption;
-        selectedStarDensityOption = opt.selectedStarDensityOption;
-        selectedPlanetQualityOption = opt.selectedPlanetQualityOption;
-        selectedTerraformingOption = opt.selectedTerraformingOption;
-        selectedFuelRangeOption = opt.selectedFuelRangeOption;
-        selectedRandomizeAIOption = opt.selectedRandomizeAIOption;
-        selectedAutoplayOption = opt.selectedAutoplayOption;
-        selectedAIHostilityOption = opt.selectedAIHostilityOption;
-        selectedColonizingOption = opt.selectedColonizingOption;
-        selectedOpponentAIOption = opt.selectedOpponentAIOption;
-        
-        if (opt.specificOpponentAIOption != null) {
-            for (int i=0;i<specificOpponentAIOption.length;i++)
-                specificOpponentAIOption[i] = opt.specificOpponentAIOption[i];
-        }
-        if (opt.player != null) 
-            player.copy(opt.player);
-        
-        setGalaxyShape(); 
-        selectedGalaxyShapeOption1 = opt.selectedGalaxyShapeOption1;
-        selectedGalaxyShapeOption2 = opt.selectedGalaxyShapeOption2;
-    }
+//    @Override
+//    public void copyOptions(IGameOptions o) { // BR: No more used
+//        if (!(o instanceof MOO1GameOptions))
+//            return;
+//        
+//        // copy only the options that are immediately visible
+//        // .. not the advanced options
+//        MOO1GameOptions opt = (MOO1GameOptions) o;
+//        
+//        selectedGalaxySize = opt.selectedGalaxySize;
+//        selectedGalaxyShape = opt.selectedGalaxyShape;
+//        selectedGalaxyShapeOption1 = opt.selectedGalaxyShapeOption1;
+//        selectedGalaxyShapeOption2 = opt.selectedGalaxyShapeOption2;
+//        selectedGameDifficulty = opt.selectedGameDifficulty;
+//        selectedNumberOpponents = opt.selectedNumberOpponents;
+//
+//        selectedGalaxyAge = opt.selectedGalaxyAge;
+//        selectedResearchRate = opt.selectedResearchRate;
+//        selectedTechTradeOption = opt.selectedTechTradeOption;
+//        selectedRandomEventOption = opt.selectedRandomEventOption;
+//        selectedWarpSpeedOption = opt.selectedWarpSpeedOption;
+//        selectedNebulaeOption = opt.selectedNebulaeOption;
+//        selectedCouncilWinOption = opt.selectedCouncilWinOption;
+//        selectedStarDensityOption = opt.selectedStarDensityOption;
+//        selectedPlanetQualityOption = opt.selectedPlanetQualityOption;
+//        selectedTerraformingOption = opt.selectedTerraformingOption;
+//        selectedFuelRangeOption = opt.selectedFuelRangeOption;
+//        selectedRandomizeAIOption = opt.selectedRandomizeAIOption;
+//        selectedAutoplayOption = opt.selectedAutoplayOption;
+//        selectedAIHostilityOption = opt.selectedAIHostilityOption;
+//        selectedColonizingOption = opt.selectedColonizingOption;
+//        selectedOpponentAIOption = opt.selectedOpponentAIOption;
+//        
+//        if (opt.specificOpponentAIOption != null) {
+//            for (int i=0;i<specificOpponentAIOption.length;i++)
+//                specificOpponentAIOption[i] = opt.specificOpponentAIOption[i];
+//        }
+//        if (opt.player != null) 
+//            player.copy(opt.player);
+//        
+//        setGalaxyShape(); 
+//        selectedGalaxyShapeOption1 = opt.selectedGalaxyShapeOption1;
+//        selectedGalaxyShapeOption2 = opt.selectedGalaxyShapeOption2;
+//    }
 
     @Override
     public GalaxyShape galaxyShape()   {
         if (galaxyShape == null)
-            setGalaxyShape();
+        	setGalaxyShape(selectedGalaxyShapeOption1, selectedGalaxyShapeOption2);
+            //setGalaxyShape();
         return galaxyShape;
     }
     private void setGalaxyShape(String option1, String option2) {
@@ -405,7 +406,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         selectedGalaxyShapeOption1 = galaxyShape.defaultOption1();
         selectedGalaxyShapeOption2 = galaxyShape.defaultOption2();
     }
-    private void setBaseGalaxyShape() { // BR: for copy
+    private void setBaseGalaxyShape() { // BR: Init and rest sub options
         switch(selectedGalaxyShape) {
             case SHAPE_ELLIPTICAL:
                 galaxyShape = new GalaxyEllipticalShape(this); break;
@@ -440,9 +441,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         }
         if (rotp.Rotp.noOptions("setBaseGalaxyShape()"))
         	return;
-		shapeOption1.reInit(galaxyShape().options1());
+		shapeOption1.reInit(galaxyShape().options1()); // New shape -> Reset the list
 		shapeOption1.defaultValue(galaxyShape.defaultOption1());
-		shapeOption2.reInit(galaxyShape().options2());
+		shapeOption2.reInit(galaxyShape().options2()); // New shape -> Reset the list
 		shapeOption2.defaultValue(galaxyShape.defaultOption2());
     }
     @Override
@@ -1516,9 +1517,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override public MOO1GameOptions copyAllOptions() {
 		try {
 			MOO1GameOptions opts = copyObjectData();
-			opts.setGalaxyShape(); 
-			opts.selectedGalaxyShapeOption1 = selectedGalaxyShapeOption1;
-			opts.selectedGalaxyShapeOption2 = selectedGalaxyShapeOption2;
+//			opts.setGalaxyShape(); 
+//			opts.selectedGalaxyShapeOption1 = selectedGalaxyShapeOption1;
+//			opts.selectedGalaxyShapeOption2 = selectedGalaxyShapeOption2;
 			return opts;
 		}
 		catch (Exception e) {
