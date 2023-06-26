@@ -79,8 +79,9 @@ Last updates:
   - Available alone with SHIFT+F1.
 - Added Hotkey list to most game panels.
 - Colony Panel:
-  - added "B" Hotkey to change "Max Bases".
-  - added Arrows Right/Left for Next/Previous Colony.
+  - Added "B" Hotkey to change "Max Bases".
+  - Added Arrows Right/Left for Next/Previous Colony.
+  - Clicking on the rail will move the selector.
 
 
 Last Fixes:

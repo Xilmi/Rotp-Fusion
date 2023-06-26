@@ -88,6 +88,7 @@ public abstract class SystemListingUI extends BasePanel implements MouseListener
     private Column selectedColumn;
     private boolean redrawHeaders = false;
     final Rectangle listScroller = new Rectangle();
+    final Rectangle backScroller = new Rectangle();
     int startY = 0;
     int maxY = 0;
     int minDisplayY, maxDisplayY;
@@ -261,9 +262,10 @@ public abstract class SystemListingUI extends BasePanel implements MouseListener
 
         g.setClip(null);
         listBox.setBounds(0,row1Y,w,h-row1Y);
-        
-        if (maxY == 0)
-            listScroller.setBounds(0,0,0,0);
+        if (maxY == 0) {
+        	listScroller.setBounds(0,0,0,0);
+        	backScroller.setBounds(0,0,0,0);
+        }
         else {
             g.setColor(scrollBarC);
             int scrollW = scrollBoxW-s5;
@@ -271,6 +273,7 @@ public abstract class SystemListingUI extends BasePanel implements MouseListener
             int scrollX = w-rightM+s3;
             int scrollY =(int) (minDisplayY-rowH+ (float)listH*startY/(maxY+listH));
             g.fillRoundRect(scrollX, scrollY, scrollW, scrollH, s4, s4);
+            backScroller.setBounds(scrollX, row1Y,   scrollW, h-row1Y);
             listScroller.setBounds(scrollX, scrollY, scrollW, scrollH);
             if (hoverBox == listScroller) {
                 Stroke prev = g.getStroke();
@@ -388,10 +391,19 @@ public abstract class SystemListingUI extends BasePanel implements MouseListener
 
         Rectangle prevHover = hoverBox;
         hoverBox = null;
-        if (listScroller.contains(x,y)) 
-            hoverBox = listScroller;
-        else if (listBox.contains(x,y)) 
-            hoverBox = listBox;
+        if (listScroller.contains(x,y)) {
+//        	System.out.println("listScroller.contains(x,y)");
+        	hoverBox = listScroller;
+        }
+        else if (backScroller.contains(x,y)) {
+//        	System.out.println("backScroller.contains(x,y)");
+        	hoverBox = backScroller;
+        }
+
+        else if (listBox.contains(x,y)) {
+//        	System.out.println("listBox.contains(x,y)");
+        	hoverBox = listBox;
+        }
         
         if (prevHover != hoverBox) {
             repaint();
@@ -457,6 +469,18 @@ public abstract class SystemListingUI extends BasePanel implements MouseListener
         if (hoverBox == listScroller)
             return;
 
+        // Click outside the scroller to move the scroller
+        if (hoverBox == backScroller) {
+        	double deltaMax = listBox.height - listScroller.height;
+        	double deltaY   = y - listBox.y - listScroller.height/2;
+        	deltaY = Math.max(deltaY, 0);
+        	deltaY = Math.min(deltaY, deltaMax);
+        	double ratioH = deltaY / deltaMax;
+        	int    shiftY = (int)(maxY * ratioH);
+        	startY = shiftY;
+        	repaint();
+        }
+
         if (dragging) {
             dragging = false;
             int dragDist = unscaled((int)distance(x, y, dragStartX, dragStartY));
@@ -483,8 +507,9 @@ public abstract class SystemListingUI extends BasePanel implements MouseListener
         }
 
         Sprite sprite = matchingSprite(x,y);
-        if (sprite instanceof RowSprite && !selectRows())
-            return;
+        if (sprite instanceof RowSprite && !selectRows()) {
+        	return;
+        }
 
         if (sprite != null) {
             if (shift)
