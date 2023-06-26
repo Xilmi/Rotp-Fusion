@@ -78,6 +78,24 @@ public class ShipView implements Base,Serializable {
     public int totalKilled()              { return totalKilled; }
     public void addTotalKilled(int i)     { totalKilled += i; }
 
+    // A ShipView is always tied to exactly one ShipDesign.
+    // In the case of un-encountered empires, when only ship size is known, no ShipView is created.
+    // A public static function that always returns true is obviously completely vacuous,
+    // but serves as a hook where we could potentially have other kinds of views for un-encountered empires.
+    // (And links IDEs to where the fact that the design is distinguishable is *used* in the RacesMilitaryUI.)
+    public static boolean canDistinguishFromOtherDesigns() { return true; }
+    // The size is always known and displayed.
+    public static boolean sizeKnown() { return true; }
+    // The warp speed is always known and displayed.
+    // (I guess this follows from canDistinguishFromOtherDesigns(), as scanners track a ship over the course of a year?)
+    public static boolean warpSpeedKnown() { return true; }
+    public float maxPossibleWarpSpeed() {
+        if (warpSpeedKnown())
+            return design.warpSpeed();
+        else
+            return 9;
+    }
+
     public boolean hasComputer()        { return computer != null; }
     public boolean computerKnown()      { return computerKnown; }
     public boolean hasShield()          { return shield != null; }
@@ -100,7 +118,7 @@ public class ShipView implements Base,Serializable {
     public boolean beamDefenseKnown()   { return beamDefenseKnown; }
     public boolean attackLevelKnown()   { return attackLevelKnown; }
     public boolean combatSpeedKnown()   { return combatSpeedKnown; }
-    
+
     public boolean isPotentiallyArmed() { return armedFlag != UNARMED; }
 
     public void setViewDate() {
@@ -250,6 +268,9 @@ public class ShipView implements Base,Serializable {
         }
         return spec;
     }
+    // For the reporting name given by the viewing empire, we use the actual name of the design.
+    // (The player will never have access to the "real" name, so there's no need for the reporting name to be different.)
+    public String reportingName()    { return design.name(); }
     public int hits()                { return hits; }
     public ShipShield shield()       { return shield; }
     public ShipComputer computer()   { return computer; }
