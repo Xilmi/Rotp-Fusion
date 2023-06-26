@@ -76,7 +76,8 @@ Last updates:
 - Changed option call to "O" to be more consistent with other panel call.
 - Added Hotkey list in Galaxy Map Help (second panel).
   - Available alone by right-clicking the Help button. 
-  - Available alone with SHIFT+F1. 
+  - Available alone with SHIFT+F1.
+Added Hotkey list to most game panels.
 
 
 Last Fixes:

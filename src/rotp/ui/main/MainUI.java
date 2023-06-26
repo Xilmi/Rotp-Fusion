@@ -693,9 +693,9 @@ public class MainUI extends BasePanel implements IMapHandler {
     }
     private void addHotKeysFrame() {
         HelpUI helpUI = RotPUI.helpUI();
-        int xHK = scaled(100);
+        int xHK = scaled(75);
         int yHK = scaled(70);
-        int wHK = scaled(360);
+        int wHK = scaled(400);
         helpUI.addBrownHelpText(xHK, yHK, wHK, 37, text("MAIN_HELP_HK"));
     }
     private void loadHotKeysFrame() {

@@ -70,7 +70,6 @@ import rotp.ui.fleets.SystemListingUI.DataView;
 import static rotp.ui.fleets.SystemListingUI.LEFT;
 import static rotp.ui.fleets.SystemListingUI.RIGHT;
 import rotp.ui.game.HelpUI;
-import rotp.ui.game.MergedDynamicOptionsUI;
 import rotp.ui.main.EmpireColonyFoundedPane;
 import rotp.ui.main.EmpireColonyInfoPane;
 import rotp.ui.main.EmpireColonySpendingPane;
@@ -251,6 +250,11 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
         helpFrame = 0;
         RotPUI.helpUI().close();
     }
+    @Override  public void showHotKeys() {
+        helpFrame = 2;
+        loadHotKeysUI();
+        repaint();   
+    }
     @Override
     public void showHelp() {
         helpFrame = 1;
@@ -266,6 +270,15 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
             cancelHelp();
         loadHelpUI();
         repaint();
+    }
+    private void loadHotKeysUI() {
+    	HelpUI helpUI = RotPUI.helpUI();
+        helpUI.clear();
+        int xHK = scaled(100);
+        int yHK = scaled(70);
+        int wHK = scaled(500);
+        helpUI.addBrownHelpText(xHK, yHK, wHK, 26, text("PLANETS_HELP_HK"));
+        helpUI.open(this);
     }
     private void loadHelpUI() {
         HelpUI helpUI = RotPUI.helpUI();
@@ -293,7 +306,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
         int x1 = scaled(150);
         int w1 = scaled(400);
         int y1 = scaled(270);
-        HelpUI.HelpSpec sp1 = helpUI.addBrownHelpText(x1, y1, w1, 4, text("PLANETS_HELP_ALL"));
+        helpUI.addBrownHelpText(x1, y1, w1, 4, text("PLANETS_HELP_ALL"));
 
         int x2 = ecologyBox.x;
         int w2 = scaled(200);
@@ -348,7 +361,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
         int x1 = scaled(200);
         int w1 = scaled(400);
         int y1 = scaled(350);
-        HelpUI.HelpSpec sp1 = helpUI.addBrownHelpText(x1, y1, w1, 4, text("PLANETS_HELP_ALL"));
+        helpUI.addBrownHelpText(x1, y1, w1, 4, text("PLANETS_HELP_ALL"));
 
         int x1a = scaled(10);
         int w1a = scaled(130);
@@ -404,7 +417,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
         int x1 = scaled(200);
         int w1 = scaled(400);
         int y1 = scaled(350);
-        HelpUI.HelpSpec sp1 = helpUI.addBrownHelpText(x1, y1, w1, 4, text("PLANETS_HELP_ALL"));
+        helpUI.addBrownHelpText(x1, y1, w1, 4, text("PLANETS_HELP_ALL"));
 
         int x1a = scaled(10);
         int w1a = scaled(130);
@@ -466,7 +479,7 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
         int x1 = scaled(200);
         int w1 = scaled(400);
         int y1 = scaled(350);
-        HelpUI.HelpSpec sp1 = helpUI.addBrownHelpText(x1, y1, w1, 4, text("PLANETS_HELP_ALL"));
+        helpUI.addBrownHelpText(x1, y1, w1, 4, text("PLANETS_HELP_ALL"));
 
         int x1a = scaled(10);
         int w1a = scaled(130);
@@ -585,12 +598,6 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
                     selectAllSystems();
                 }
                 return;
-            case KeyEvent.VK_O: // BR:
-            	if (control) {
-            		MergedDynamicOptionsUI optionsUI = RotPUI.mergedDynamicOptionsUI();
-        			optionsUI.start(0);
-            	}
-            	return;
             case KeyEvent.VK_Q:
                 selectNormalAndRichWithFullEconomy();
                 if (control) {
@@ -1068,7 +1075,10 @@ public class PlanetsUI extends BasePanel implements SystemViewer {
                 else if (hoverBox == militaryBox)
                     selectTab(MILITARY_MODE);
                 else if (hoverBox == helpBox)
-                    parent.showHelp();
+                	if (SwingUtilities.isRightMouseButton(e))
+                		parent.showHotKeys();
+                	else
+                		parent.showHelp();
             }
         }
         @Override

@@ -58,6 +58,8 @@ Later:
 
 
 ## What's New
+2024.06.25 (dHannasch)
+- Added functions to track ships.
 
 2024.06.25 (BR)
 - Added button in galaxy map to access the "In-game Options" Panel.
@@ -69,6 +71,10 @@ Later:
   - Available alone by right-clicking the Help button. 
   - Available alone with SHIFT+F1.
 - Added Hotkey list in System Panel.
+- Added Hotkey list in Race Panel.
+- Added Hotkey list in Colony Panel.
+- Added Hotkey list in Fleet Panel.
+- Added Hotkey list in Tech Panel.
 
 2024.06.24 (dHannasch)
 - Extract functions from ShipFleet and Transport to Ship.

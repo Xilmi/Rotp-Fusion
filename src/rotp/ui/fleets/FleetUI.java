@@ -39,6 +39,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JLayeredPane;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import rotp.Rotp;
 import rotp.model.Sprite;
@@ -859,6 +860,11 @@ public final class FleetUI extends BasePanel implements IMapHandler, ActionListe
         helpFrame = 0;
         RotPUI.helpUI().close();
     }
+    @Override  public void showHotKeys() {
+        helpFrame = 2;
+        loadHotKeysUI();
+        repaint();   
+    }
     @Override
     public void showHelp() {
         helpFrame = 1;
@@ -875,6 +881,15 @@ public final class FleetUI extends BasePanel implements IMapHandler, ActionListe
         else
         	loadHelpUI();
         repaint();
+    }
+    private void loadHotKeysUI() {
+    	HelpUI helpUI = RotPUI.helpUI();
+        helpUI.clear();
+        int xHK = scaled(100);
+        int yHK = scaled(70);
+        int wHK = scaled(360);
+        helpUI.addBrownHelpText(xHK, yHK, wHK, 11, text("FLEETS_HELP_HK"));
+        helpUI.open(this);
     }
     private void loadHelpUI() {
     	System.out.println("loadHelpUI(): currentPane = " + currentPane);
@@ -1017,7 +1032,7 @@ public final class FleetUI extends BasePanel implements IMapHandler, ActionListe
         switch(e.getKeyCode()) {
             case KeyEvent.VK_F1:
             	if (e.isShiftDown())
-            		showHotKeys(); // TODO BR showHotKeys();
+            		showHotKeys();
             	else
             		showHelp();
             	return;
@@ -1139,7 +1154,10 @@ public final class FleetUI extends BasePanel implements IMapHandler, ActionListe
                 misClick();
             else {
                 if (hoverBox == helpBox)
-                    parent.showHelp();
+                	if (SwingUtilities.isRightMouseButton(e))
+                		parent.showHotKeys();
+                	else
+                		parent.showHelp();
             }
         }
         @Override

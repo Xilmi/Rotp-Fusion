@@ -38,6 +38,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.swing.SwingUtilities;
+
 import rotp.model.tech.Tech;
 import rotp.model.tech.TechCategory;
 import rotp.model.tech.TechTree;
@@ -142,7 +145,11 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
     public void cancelHelp() {
         RotPUI.helpUI().close();
     }
-    @Override
+    @Override  public void showHotKeys() {
+        loadHotKeysUI();
+        repaint();   
+    }
+   @Override
     public void showHelp() {
         loadHelpUI();
         repaint();   
@@ -150,6 +157,15 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
     @Override 
     public void advanceHelp() {
         cancelHelp();
+    }
+    private void loadHotKeysUI() {
+    	HelpUI helpUI = RotPUI.helpUI();
+        helpUI.clear();
+        int xHK = scaled(100);
+        int yHK = scaled(70);
+        int wHK = scaled(360);
+        helpUI.addBrownHelpText(xHK, yHK, wHK, 13, text("TECH_HELP_HK"));
+        helpUI.open(this);
     }
     private void loadHelpUI() {
         int w = getWidth();
@@ -159,7 +175,7 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
         int x1 = scaled(150);
         int w1 = scaled(400);
         int y1 = scaled(330);
-        HelpUI.HelpSpec sp1 = helpUI.addBrownHelpText(x1, y1, w1, 5, text("TECH_HELP_1A"));
+        helpUI.addBrownHelpText(x1, y1, w1, 5, text("TECH_HELP_1A"));
 
         int x2 = scaled(10);
         int w2 = scaled(160);
@@ -1060,7 +1076,10 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
         int x = e.getX();
         int y = e.getY();
         if (hoverBox == helpBox) {
-            showHelp();
+        	if (SwingUtilities.isRightMouseButton(e))
+        		showHotKeys();
+        	else
+        		showHelp();
             return;
         }
         
