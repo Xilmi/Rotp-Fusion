@@ -85,9 +85,7 @@ public class BasePanel extends JPanel implements Base, InterfacePreview {
             gc = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
         return gc;
     }
-    public void showHotKeys()              {
-    	showHelp();
-    }
+    public void showHotKeys()              { showHelp(); }
     public void showHelp()                 {  }
     public void cancelHelp()               {  }
     public void advanceHelp()              { }

@@ -441,7 +441,7 @@ public class GalaxyBitmapShape extends GalaxyShape {
 		aspectRatio = (float) xBM / yBM;
 		float volumeFactor = 1/volume *xBM*yBM;
 		densityFactor = (float) Math.pow(volumeFactor, 1.0/3.0);
-		densityFactor = (float) (volumeFactor/3.0); // TODO BR: Optimize
+		densityFactor = (float) (volumeFactor/3.0);
 		adjustDensity = sqrt(densityFactor);
 		
 	}

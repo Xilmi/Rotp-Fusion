@@ -82,7 +82,7 @@ public class EmpireSystemPanel extends SystemPanel {
         topPane.animate();
     }
     @Override
-    public void keyPressed(KeyEvent e) { // TODO BR: Use this to complete Hotkey list
+    public void keyPressed(KeyEvent e) {
     	setModifierKeysState(e); // BR: For the Flag color selection
         int k = e.getKeyCode();
         int code = e.getModifiersEx();
