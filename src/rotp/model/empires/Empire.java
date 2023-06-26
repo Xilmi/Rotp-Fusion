@@ -35,6 +35,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
@@ -2245,6 +2246,11 @@ public final class Empire implements Base, NamedObject, Serializable {
     }
     public void setVisibleShips() {
         Galaxy gal = galaxy();
+        // This takes advantage of the fact that setVisibleShips() is called exactly once per turn.
+        // To strictly firewall off privileged information, the right thing to do would be to store the coordinates of ships seen last turn.
+        // The *identity* of the ship, as represented by the Ship object, is not necessarily known to the empire.
+        // But it's cheaper to just store the ships that were seen and ask them after-the-fact where they were last turn.
+        final Set<Ship> shipsVisibleLastTurn = new HashSet<>(visibleShips);
         visibleShips.clear();
 
         List<ShipFleet> myShips = galaxy().ships.allFleets(id);
@@ -2270,6 +2276,115 @@ public final class Empire implements Base, NamedObject, Serializable {
                 detectFleet((ShipFleet)fl);
         }
     }
+    public Map<Ship, Ship> matchShipsSeenThisTurnToShipsSeenLastTurn(List<Ship> visibleShips, Set<Ship> shipsVisibleLastTurnDestroyed) {
+        // This function attempts to match ships seen last turn with ships seen this turn (to determine trajectories).
+        // Obviously, we have the object references in hand, so we could just compare their identities.
+        // But the point is to find out whether *the empire* can do that using only the information available.
+        // The Map<Ship, Ship> will be a bit funny-looking because for any Ship in the keySet, the value will always be itself.
+        // To save an allocation, the set of *last* turn's ships is destroyed as we go.
+        Map<Ship, Ship> ret = new HashMap<Ship, Ship>();
+        for (Ship ufo : visibleShips) {
+            if (!knowsShipNotBuiltThisTurn(ufo))
+                continue;
+            if (!knowsShipCouldNotHaveFlownInFromOutsideScanRange(ufo))
+                continue;
+            // If it definitely wasn't built this turn, and it definitely wasn't outside scan range last turn, then
+            // it must have been seen last turn. The question then becomes uniquely identifying it.
+            boolean foundMatch = false;
+            for (Ship ufoLastTurn : shipsVisibleLastTurnDestroyed)
+                if (!knowsCouldNotHaveBeenSameShipLastTurn(ufo, ufoLastTurn))
+                    if (foundMatch) {
+                        foundMatch = false;
+                        ret.remove(ufo);
+                        break;
+                    }
+                    else {
+                        foundMatch = true;
+                        ret.put(ufo, ufoLastTurn);
+                    }
+            if (foundMatch)
+                shipsVisibleLastTurnDestroyed.remove(ret.get(ufo));
+	}
+        return ret;
+    }
+    public boolean knowsCouldNotHaveBeenSameShipLastTurn(Ship ufoNow, Ship ufoLastTurn) {
+        if (ufoNow.empire().ownershipColor() != ufoLastTurn.empire().ownershipColor())
+            return true;
+        if (ufoNow.isTransport() != ufoLastTurn.isTransport())
+            return true;
+        if (ufoNow instanceof ShipFleet && ufoLastTurn instanceof ShipFleet)
+            return knowsCouldNotHaveBeenSameFleetLastTurn((ShipFleet)ufoNow, (ShipFleet)ufoLastTurn);
+        if (ufoNow instanceof Transport && ufoLastTurn instanceof Transport)
+            return knowsCouldNotHaveBeenSameTransportLastTurn((Transport)ufoNow, (Transport)ufoLastTurn);
+        return false;
+    }
+    public boolean knowsCouldNotHaveBeenSameFleetLastTurn(ShipFleet fleetNow, ShipFleet fleetLastTurn) {
+        if (!visibleShipViews(fleetNow).equals(visibleShipViews(fleetLastTurn)))
+            // This defers to ShipView.equals() for the ships that have ShipViews,
+            // and compares the count of each as well as the count of all ships that lack ShipViews.
+            // Strictly speaking, we could implement ShipView.equals(), but letting ShipView inherit .equals from Object works,
+            // because two ShipViews are always distinguishable.
+            return true;
+        return false;
+    }
+    public boolean knowsCouldNotHaveBeenSameTransportLastTurn(Transport transportNow, Transport transportLastTurn) {
+        // There is no concept of a ShipView for transports, but size is always visible.
+        if (transportNow.size() != transportLastTurn.size())
+            return true;
+        return false;
+    }
+    public Map<ShipView, Integer> visibleShipViews(ShipFleet fleet) {
+        // shipViewFor(design) might be null because design is null, or it might be null when there is a design but we have no ShipView for that design.
+        Map<ShipDesign, Integer> designs = fleet.visibleShipDesigns(id);
+        int numberOfShipsWithMissingDesign = 0;
+        if (designs.containsKey(null))
+            numberOfShipsWithMissingDesign = designs.get(null);
+        Map<ShipView, Integer> ret = designs.entrySet().stream().filter(Objects::nonNull).collect(Collectors.toMap(
+            entry -> shipViewFor(entry.getKey()),
+            Map.Entry::getValue
+        ));
+        if (numberOfShipsWithMissingDesign > 0)
+            ret.put(null, ret.get(null) + numberOfShipsWithMissingDesign);
+        return ret;
+    }
+    public boolean knowsShipNotBuiltThisTurn(Ship ufo) {
+        // If the ship does not have the same coordinates as any star --- that is,
+        // if it's in deep space, not deploying from a star system,
+        // then it could not have been built this turn.
+        // Ship already stores that information, so we can just reference it.
+        return ufo.inTransit();
+    }
+    public float maxSpeedShipMightHave(Ship ufo) {
+        if (ufo instanceof ShipFleet)
+            return maxSpeedFleetMightHave((ShipFleet)ufo);
+        if (ufo instanceof Transport)
+            return maxSpeedTransportMightHave((Transport)ufo);
+        return 9;
+    }
+    public float maxSpeedFleetMightHave(ShipFleet fleet) {
+        return fleet.visibleShipDesigns(id).keySet().stream()
+                    .map(design -> shipViewFor(design))
+                    .map(view -> (view == null) ? 9 : view.maxPossibleWarpSpeed())
+                    .min(Comparator.<Float>naturalOrder()).get();
+    }
+    public float maxSpeedTransportMightHave(Transport transport) {
+        EmpireView empireView = viewForEmpire(transport.empire());
+        if (empireView == null)
+            return 8;
+        SpyNetwork spies = empireView.spies();
+        // No matter how fast you research, it is impossible to discover more than one propulsion tech per turn.
+        // But nevertheless someone could have researched Hyper Drives without even having researched Nuclear Engines first.
+        // propulsion().maxKnownQuintile() cannot increase more than one per turn.
+        // But nevertheless there might be an unencountered empire which researched Hyper Drives and traded it to the encountered empire.
+        // So the only way to be *sure* is if the report is current.
+        if (spies.reportAge() == 0)
+            return spies.tech().transportTravelSpeed();
+        return 8;
+    }
+    public boolean knowsShipCouldNotHaveFlownInFromOutsideScanRange(Ship ufo) {
+        // For simplicity, we completely ignore scan coverage from ships.
+        return distanceTo(ufo) + maxSpeedShipMightHave(ufo) < planetScanningRange();
+    }
     public boolean canScanTo(IMappedObject loc) {
         return planetsCanScanTo(loc) || shipsCanScanTo(loc);
     }
@@ -2277,6 +2392,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         if (planetScanningRange() == 0)
             return false;
 
+        // could we use this.distanceTo() here?
         Galaxy gal = galaxy();
         for (int i=0; i<sv.count(); i++) {
             if ((sv.empire(i) == this) && (gal.system(i).distanceTo(loc) <= planetScanningRange()))
@@ -2360,6 +2476,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         Galaxy gal = galaxy();
         List<Empire> allies = this.allies();
         if (allies.isEmpty()) {
+            // could we use allColonizedSystems() here?
             for (int i=0; i<gal.numStarSystems(); i++) {
                 StarSystem s = gal.system(i);
                 if (s.empire() == this)
@@ -2379,6 +2496,8 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
         return distance;
     }
+    // If calculating square roots is a big enough problem that we have to cache them and have a special "Recalculating system distances"
+    // popup when recalculating them, should we just...not take any square roots, and compare squared distances?
     public int rangeTo(StarSystem sys) {
         return (int) Math.ceil(sv.distance(sys.id));
     }
