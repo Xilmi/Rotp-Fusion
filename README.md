@@ -59,6 +59,9 @@ Later:
 
 ## What's New
 
+2024.06.27 (Xilmi)
+- A fleet that exclusively consists of designs that are flagged as automated for either scouting, colonizing or attacking will no longer be considered as idle in the context of cycling through idle fleets via space-bar or page-up/down.
+
 2024.06.26 (BR)
 - Colony Panel:
   - added "B" Hotkey to change "Max Bases".
