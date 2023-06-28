@@ -92,7 +92,7 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
     int dragX, dragY;
     float totalPlanetaryResearch = -1;
     float totalPlanetaryResearchSpending = 0;
-    
+    private int altReturn = -1;
     
     public AllocateTechUI() {
         initModel();
@@ -118,7 +118,9 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
         addMouseMotionListener(this);
         addMouseWheelListener(this);
     }
-    public void init() {
+    public void init() { init(-1); }
+    public void init(int altReturn) { // BR: To be called as help from diplomat menu
+    	this.altReturn = altReturn;
         totalPlanetaryResearch = -1;
         totalPlanetaryResearchSpending = player().totalPlanetaryResearchSpending();
         resetData();
@@ -1062,7 +1064,10 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
     private void exit(boolean disableNextTurn) {
         resetData();
         buttonClick();
-        RotPUI.instance().selectMainPanel(disableNextTurn);
+        if (altReturn == 1) // BR: Return from help
+        	RotPUI.instance().continueDiplomaticReplyModalPanel();
+        else // BR: Standard return
+        	RotPUI.instance().selectMainPanel(disableNextTurn);
     }
     @Override
     public void mouseClicked(MouseEvent e) { }

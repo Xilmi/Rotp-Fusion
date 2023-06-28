@@ -41,6 +41,7 @@ import rotp.model.empires.DiplomaticTreaty;
 import rotp.model.empires.Empire;
 import rotp.model.empires.Race;
 import rotp.ui.FadeInPanel;
+import rotp.ui.RotPUI;
 import rotp.ui.diplomacy.DialogueManager;
 import rotp.ui.diplomacy.DiplomacyRequestReply;
 import rotp.ui.diplomacy.DiplomaticMessage;
@@ -485,8 +486,10 @@ public class DiplomaticMessageUI extends FadeInPanel implements MouseListener, M
             case KeyEvent.VK_4: selectHover = 3; selectOption(3); return;
             case KeyEvent.VK_5: selectHover = 4; selectOption(4); return;
             case KeyEvent.VK_6: selectHover = 5; selectOption(5); return;
-            case KeyEvent.VK_F1:
-            	// TODO BR: More research INFO
+            case KeyEvent.VK_T:
+            	// BR: More research INFO
+            	RotPUI.instance().selectTechPanel(1);
+            	return;
             case KeyEvent.VK_ESCAPE:
                 exited = true;
                 message.escape();

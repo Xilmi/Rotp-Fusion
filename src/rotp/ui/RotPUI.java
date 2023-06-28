@@ -463,6 +463,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     public void selectRacesPanel()     { racesUI.init(); selectPanel(RACES_PANEL, racesUI); }
     public void selectPlanetsPanel()   { planetsUI.init(); selectPanel(PLANETS_PANEL, planetsUI); }
     public void selectTechPanel()      { allocateTechUI.init(); selectPanel(TECH_PANEL, allocateTechUI); }
+    public void selectTechPanel(int r) { allocateTechUI.init(r); selectPanel(TECH_PANEL, allocateTechUI); }
     public void selectCouncilPanel()   {
         session().pauseNextTurnProcessing("Show Council");
         galacticCouncilUI.init();
@@ -695,6 +696,14 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
             selectPanel(DIPLOMATIC_MESSAGE_PANEL, diplomaticMessageUI);
         session().waitUntilNextTurnCanProceed();
     }
+    // BR: After using the Reseach panel as help!
+    public void continueDiplomaticReplyModalPanel() {
+        if (!UserPreferences.windowed())
+            selectDialogPanel(DIPLOMATIC_MESSAGE_PANEL, diplomaticMessageUI);
+        else
+            selectPanel(DIPLOMATIC_MESSAGE_PANEL, diplomaticMessageUI);
+    }
+    
     public void showTransportAlert(String title, String subtitle, String text) {  }
     public void showSpyAlert(String title, String subtitle, String text) {  }
     public void showRandomEventAlert(String title, String subtitle, String text, ImageIcon splash) { }

@@ -38,7 +38,8 @@ Now:
 - Playing the game...
 
 Bug to fix:
-
+- Too many tech transfered...
+- Propagate mouse events...
 
 Very soon:
 - Spare Xenophobes: Stop if caught too.
@@ -65,6 +66,7 @@ Later:
   - Allowed for all galaxies.
 - Restored Modnar empire spreading to Modnar galaxies.
 - Improved the galaxies' Empire positioning time.
+- Show info on offered Tech trade (Press "T")
 
 2024.06.27 (Xilmi)
 - A fleet that exclusively consists of designs that are flagged as automated for either scouting, colonizing or attacking will no longer be considered as idle in the context of cycling through idle fleets via space-bar or page-up/down.

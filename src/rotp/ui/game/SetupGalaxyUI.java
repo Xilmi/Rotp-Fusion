@@ -1810,16 +1810,13 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			iEmp++;
 		}
 		// Add Empire distance
-		if (showGrid || (hoverBox == galaxyBox)) { // TODO BR: Add Empire distance
+		if (showGrid || (hoverBox == galaxyBox)) { // BR: Add Empire distance
 			IGameOptions opts = newGameOptions();
 			float  spacing    = opts.galaxyShape().empireBuffer();
 			String spacingStr = String.format("%.01f", spacing);
 			int    spacingPct = opts.selectedEmpireSpreadingPct();
 			String spacingKey = opts.empireSpreadingFactorMapKey();
 			String spStr = text(spacingKey, str(spacingPct), spacingStr);
-//			if (!opts.isCustomEmpireSpacing()) {
-//				spStr += " (" + text("SETTINGS_MOD_EMPIRES_SPACING_AUTO") + ")";
-//			}
 			g.setColor(darkYellow);
 			g.setFont(narrowFont(15));
 			int xt = galaxyBox.x+s5;

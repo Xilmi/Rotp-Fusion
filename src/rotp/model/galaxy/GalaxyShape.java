@@ -234,7 +234,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 				homeStars++; // the two nearby system will be set later
 		   	}
 			// ===== Then the nearby systems
-			boolean valid = true; // TODO BR: currentEmpire
+			boolean valid = true;
 			for (int i=1; i<3; i++) { // 2 nearby systems
 				// get player nearby system
 				EmpireSystem player = empSystems.get(0);
