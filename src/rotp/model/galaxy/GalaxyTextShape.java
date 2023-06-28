@@ -57,6 +57,7 @@ public class GalaxyTextShape extends GalaxyShape {
     public GalaxyTextShape(IGameOptions options) {
         opts = options;
     }
+    @Override public boolean allowSpreading() { return false; }
     @Override public void clean()  { font = null; }
     @Override
     public List<String> options1()  { return options1; }

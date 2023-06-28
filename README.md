@@ -59,6 +59,11 @@ Later:
 
 ## What's New
 
+2024.06.28 (BR)
+- Changed the Fixed value of "Minimum Empires Spacing" to a relative one "Empires Spreading" between 20% and 500%. 100% being the vanilla value.
+  - Absolute minimum distance = 3.8 ly.
+  - Always 100% for exotic galaxies: Text, Maze, Lorentz, Fractal, Bulls Eyes.
+
 2024.06.26 (BR)
 - Colony Panel:
   - added "B" Hotkey to change "Max Bases".

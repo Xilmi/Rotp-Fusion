@@ -119,7 +119,7 @@ import rotp.util.ModifierKeysState;
 public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelListener {
 	private static final long serialVersionUID = 1L;
     // public  static final String guiTitleID	= "SETUP_GALAXY";
-	public  static final String GUI_ID       = "START_GALAXY";
+	private static final String GUI_ID       = "START_GALAXY";
 	private static final String BACK_KEY	 = "SETUP_BUTTON_BACK";
 	private static final String RESTART_KEY	 = "SETUP_BUTTON_RESTART";
 	private static final String START_KEY	 = "SETUP_BUTTON_START";
@@ -139,7 +139,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private BufferedImage smBackImg;
     private int bSep = s15;
 
-	public static final ParamButtonHelp startButtonHelp = new ParamButtonHelp( // For Help Do not add the list
+	private static final ParamButtonHelp startButtonHelp = new ParamButtonHelp( // For Help Do not add the list
 			"SETUP_START",
 			START_KEY,
 			"",
@@ -351,7 +351,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 
     public static ParamList specificAI() { return instance.specificAI; }
     public static ParamList opponentAI() { return instance.opponentAI; }
-    public static int mouseBoxIndex() { return instance.hoverBox.mouseBoxIndex(); }
+    private static int mouseBoxIndex() { return instance.hoverBox.mouseBoxIndex(); }
 
  	private Font boxMonoFont() {
     	if (boxMonoFont == null)
@@ -1812,11 +1812,14 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		// Add Empire distance
 		if (hoverBox == galaxyBox) { // TODO BR: Add Empire distance
 			IGameOptions opts = newGameOptions();
-			float spacing = opts.galaxyShape().empireBuffer();
-			String spStr = text("SETTINGS_MOD_EMPIRES_SPACING_MAP", str(spacing));
-			if (!opts.isCustomEmpireSpacing()) {
-				spStr += " (" + text("SETTINGS_MOD_EMPIRES_SPACING_AUTO") + ")";
-			}
+			float  spacing    = opts.galaxyShape().empireBuffer();
+			String spacingStr = String.format("%.01f", spacing);
+			int    spacingPct = opts.selectedEmpireSpreadingPct();
+			String spacingKey = opts.empireSpreadingFactorMapKey();
+			String spStr = text(spacingKey, str(spacingPct), spacingStr);
+//			if (!opts.isCustomEmpireSpacing()) {
+//				spStr += " (" + text("SETTINGS_MOD_EMPIRES_SPACING_AUTO") + ")";
+//			}
 			g.setColor(darkYellow);
 			g.setFont(narrowFont(15));
 			int xt = galaxyBox.x+s5;
@@ -2082,7 +2085,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	}
 	private void toggleGalaxyGrid(MouseEvent e) {
 		if (SwingUtilities.isMiddleMouseButton(e)) {
-			guiOptions().resetEmpireSpacing();
+			guiOptions().resetEmpireSpreadingFactor();
 			refreshGui();
 			return;
 		}
@@ -2090,7 +2093,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		repaint(galaxyBox);
 	}
 	private void toggleEmpireSpacing(MouseWheelEvent e) {
-		guiOptions().toggleEmpireSpacingFromMap(e);
+		guiOptions().toggleEmpireSpreadingFactor(e);
 		postSelectionMedium(false);
 	}
 	private void goToOptions() {

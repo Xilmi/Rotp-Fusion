@@ -29,8 +29,13 @@ import rotp.util.Rand;
 // moved modnar companion worlds here with some more random positioning
 // added some comments to help my understanding of this class
 public abstract class GalaxyShape implements Base, Serializable {
-	private static final long serialVersionUID = 1L;
-	private static final int GALAXY_EDGE_BUFFER = 12;
+	private static final long  serialVersionUID   = 1L;
+	private static final int   GALAXY_EDGE_BUFFER = 12;
+	private static final float minEmpireFactor    = 3f; // BR: Restored Vanilla values.
+	private static final float maxMinEmpireFactor = 15f;
+	private static final float absMinEmpireBuffer = 3.8f;
+	private static final int   MaxPreviewSystems  = 5000;
+
 	static final double twoPI = Math.PI * 2.0; // BR:
 	private static float orionBuffer = 10;
 	static float empireBuffer = 8;	
@@ -108,6 +113,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 	public abstract void setSpecific(Point.Float p);
 	int indexWorld;
 
+	public boolean allowSpreading()         { return true; }
 	public boolean isSymmetric()            { return false; }
 	public boolean isCircularSymmetric()    { return false; }
 	public boolean isRectangulatSymmetric() { return false; }
@@ -318,21 +324,36 @@ public abstract class GalaxyShape implements Base, Serializable {
 	// BR: ========== Initialization Methods ==========
 	//
 	public float empireBuffer() { // BR: Made this parameter available for GUI
-		if (opts.isCustomEmpireSpacing())
-			return opts.selectedEmpireSpacing();
 		float sysBuffer			 = systemBuffer();
-		float minEmpireFactor    = 3f; // BR: Restored Vanilla values.
-		float maxMinEmpireFactor = 15f;
-		float minMaxEmpireBuffer = maxStars/(numEmpires*2);
+//		float minMaxEmpireBuffer = maxStars/(numEmpires*2);
+		float minMaxEmpireBuffer = opts.numberStarSystems()/(numEmpires*2);
 		float minEmpireBuffer    = sysBuffer * minEmpireFactor;
 		float maxMinEmpireBuffer = sysBuffer * maxMinEmpireFactor;
+		System.out.println();
+		System.out.println("maxStars = " + maxStars);
+		System.out.println("RandSource = " + options().selectedGalaxyRandSource());
+		System.out.println("minMaxEmpireBuffer = " + minMaxEmpireBuffer);
+		System.out.println("maxMinEmpireBuffer = " + maxMinEmpireBuffer);
+		System.out.println("minEmpireBuffer = " + minEmpireBuffer);
+		System.out.println("empireBuffer() = " + min(maxMinEmpireBuffer, max(minEmpireBuffer, minMaxEmpireBuffer)));
+		if (opts.isCustomEmpireSpreadingFactor() && allowSpreading()) {
+			minEmpireBuffer    *= opts.selectedEmpireSpreadingFactor();
+			maxMinEmpireBuffer *= opts.selectedEmpireSpreadingFactor();
+		}
+		System.out.println("minMaxEmpireBuffer = " + minMaxEmpireBuffer);
+		System.out.println("maxMinEmpireBuffer = " + maxMinEmpireBuffer);
+		System.out.println("minEmpireBuffer = " + minEmpireBuffer);
+		minEmpireBuffer     = max(minEmpireBuffer, absMinEmpireBuffer);
+		maxMinEmpireBuffer  = max(maxMinEmpireBuffer, absMinEmpireBuffer);
+		System.out.println("empireBuffer() = " + min(maxMinEmpireBuffer, max(minEmpireBuffer, minMaxEmpireBuffer)));
 		return min(maxMinEmpireBuffer, max(minEmpireBuffer, minMaxEmpireBuffer));
 	}
 	protected void singleInit(boolean full) {
 		if (full)
 			maxStars = opts.numberStarSystems();
 		else
-			maxStars = min(5000,opts.numberStarSystems());
+			maxStars = min(MaxPreviewSystems, opts.numberStarSystems());
+		System.out.println("maxStars = " + maxStars);
 			
 		// common symmetric and non symmetric initializer for generation
 		numOpponents = max(0, opts.selectedNumberOpponents());
@@ -417,7 +438,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 	}
 	private void quickInit() {
 		fullyInit = false;
-		init(min(5000,opts.numberStarSystems()));
+		init(min(MaxPreviewSystems, opts.numberStarSystems()));
 	}
 	public void init(int numStars) {
 		// System.out.println("========== GalaxyShape.init(): genAttempt = " + genAttempt);
@@ -428,6 +449,8 @@ public abstract class GalaxyShape implements Base, Serializable {
 		homeStars = 0;
 		empSystems.clear();
 		maxStars = numStars;
+		System.out.println("maxStars = " + maxStars);
+
 		initWidthHeight();
 		float minSize = min(fullWidth, fullHeight);
 		usingRegions = minSize > 100;
@@ -460,8 +483,11 @@ public abstract class GalaxyShape implements Base, Serializable {
 		generate(true);
 		clean();
 	}
-	public void quickGenerate() {	
-		generate(false);
+	public void quickGenerate() {
+		if (options().selectedGalaxyRandSource() == 0)
+			generate(false);
+		else
+			generate(true);
 		clean();
 	}
 	private void generate(boolean full) {

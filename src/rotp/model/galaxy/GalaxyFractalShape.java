@@ -39,6 +39,7 @@ public class GalaxyFractalShape extends GalaxyShape {
     public GalaxyFractalShape(IGameOptions options) {
         opts = options;
     }
+    @Override public boolean allowSpreading() { return false; }
     @Override
     public List<String> options1()  { return options1; }
     @Override

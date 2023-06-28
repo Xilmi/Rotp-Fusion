@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 import rotp.Rotp;
-import rotp.ui.RotPUI;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamAAN2;
 import rotp.ui.util.ParamBoolean;
@@ -29,8 +28,8 @@ public interface IPreGameOptions extends IAdvOptions {
 	ParamAAN2 ultraRichHomeworld		= new ParamAAN2("HOME_ULTRA_RICH");
 	default ParamAAN2 selectedUltraRichHomeworld()	{ return ultraRichHomeworld; }
 
-	ParamFloat minDistArtifactPlanet	= new ParamFloat(
-			MOD_UI, "DIST_ARTIFACT_PLANET", 0.0f, 0.0f, null, 0.2f, 1f, 5f, "0.0##", "0.0");
+	ParamFloat minDistArtifactPlanet	= new ParamFloat( MOD_UI, "DIST_ARTIFACT_PLANET",
+			0.0f, 0.0f, null, 0.2f, 1f, 5f, "0.0##", "0.0");
 	default float selectedMinDistArtifactPlanet() { return minDistArtifactPlanet.get(); }
 
 	ParamBoolean battleScout		= new ParamBoolean( MOD_UI, "BATTLE_SCOUT", false);
@@ -50,27 +49,36 @@ public interface IPreGameOptions extends IAdvOptions {
 //			, 16, 3, Rotp.maximumSystems-1, 1, 10, 100);
 //	default int selectedSpacingLimit()			{ return spacingLimit.get(); }
 
-	ParamInteger empiresSpacing		= new ParamInteger( MOD_UI, "EMPIRES_SPACING"
-			, 3, 3, 100, 1, 5, 20) {
-		{
-			specialValue(3, MOD_UI + "EMPIRES_SPACING_AUTO");
-		}
-	};
-	default int		selectedEmpireSpacing()		{ return empiresSpacing.get(); }
-	default boolean	isCustomEmpireSpacing()		{ return !empiresSpacing.isSpecial(); }
-	default void	resetEmpireSpacing()		{ empiresSpacing.setFromDefault(); }
-	default void	toggleEmpireSpacing(MouseWheelEvent e)	{ empiresSpacing.toggle(e); }
-	default void	toggleEmpireSpacingFromMap(MouseWheelEvent e)	{
-		if (isCustomEmpireSpacing()) {
-			toggleEmpireSpacing(e);
-			if (empiresSpacing.isSpecial()) // don't go to the default value this way
-				empiresSpacing.next();
-		}
-		else {
-			float auto = RotPUI.currentOptions().galaxyShape().empireBuffer();
-			empiresSpacing.next(e, auto);
-		}
-	}
+	ParamInteger empiresSpreadingFactor	= new ParamInteger( MOD_UI, "EMPIRES_SPREADING_FACTOR",
+			100, 20, 500, 1, 5, 20);
+	default int		selectedEmpireSpreadingPct()	{ return empiresSpreadingFactor.get(); }
+	default float	selectedEmpireSpreadingFactor()	{ return 0.01f * empiresSpreadingFactor.get(); }
+	default boolean	isCustomEmpireSpreadingFactor()	{ return !empiresSpreadingFactor.isDefaultValue(); }
+	default void	resetEmpireSpreadingFactor()	{ empiresSpreadingFactor.setFromDefault(); }
+	default void	toggleEmpireSpreadingFactor(MouseWheelEvent e)	{ empiresSpreadingFactor.toggle(e); }
+	default String	empireSpreadingFactorMapKey()	{ return  MOD_UI + "EMPIRES_SPREADING_FACTOR_MAP"; }
+
+//	ParamInteger empiresSpacing		= new ParamInteger( MOD_UI, "EMPIRES_SPACING"
+//			, 3, 3, 100, 1, 5, 20) {
+//		{
+//			specialValue(3, MOD_UI + "EMPIRES_SPACING_AUTO");
+//		}
+//	};
+//	default int		selectedEmpireSpacing()		{ return empiresSpacing.get(); }
+//	default boolean	isCustomEmpireSpacing()		{ return !empiresSpacing.isSpecial(); }
+//	default void	resetEmpireSpacing()		{ empiresSpacing.setFromDefault(); }
+//	default void	toggleEmpireSpacing(MouseWheelEvent e)	{ empiresSpacing.toggle(e); }
+//	default void	toggleEmpireSpacingFromMap(MouseWheelEvent e)	{
+//		if (isCustomEmpireSpacing()) {
+//			toggleEmpireSpacing(e);
+//			if (empiresSpacing.isSpecial()) // don't go to the default value this way
+//				empiresSpacing.next();
+//		}
+//		else {
+//			float auto = RotPUI.currentOptions().galaxyShape().empireBuffer();
+//			empiresSpacing.next(e, auto);
+//		}
+//	}
 	
 	ParamInteger minStarsPerEmpire	= new ParamInteger( MOD_UI, "MIN_STARS_PER_EMPIRE"
 			, 3, 3, Rotp.maximumSystems-1, 1, 5, 20);
@@ -143,7 +151,7 @@ public interface IPreGameOptions extends IAdvOptions {
 	LinkedList<IParam> modOptionsStaticB  = new LinkedList<>(
 			Arrays.asList(
 //			minStarsPerEmpire, prefStarsPerEmpire, maximizeSpacing, spacingLimit, minDistArtifactPlanet,
-			minStarsPerEmpire, prefStarsPerEmpire, empiresSpacing, minDistArtifactPlanet,
+			minStarsPerEmpire, prefStarsPerEmpire, empiresSpreadingFactor, minDistArtifactPlanet,
 			null,
 			randomAlienRacesTargetMax, randomAlienRacesTargetMin, randomAlienRaces,
 			null,
@@ -158,7 +166,7 @@ public interface IPreGameOptions extends IAdvOptions {
 		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("START_GALAXY_OPTIONS"),
-				galaxyAge, starDensity, nebulae, empiresSpacing, // maximizeSpacing, spacingLimit,
+				galaxyAge, starDensity, nebulae, empiresSpreadingFactor,
 				minStarsPerEmpire, prefStarsPerEmpire, dynStarsPerEmpire,
 
 				headerSpacer,

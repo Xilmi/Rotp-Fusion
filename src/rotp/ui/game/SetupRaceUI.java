@@ -55,7 +55,7 @@ import rotp.util.ModifierKeysState;
 public final class SetupRaceUI extends BaseModPanel implements MouseWheelListener {
     private static final long serialVersionUID	= 1L;
 	private static final String guiTitleID		= "SETUP_SELECT_RACE";
-	public  static final String GUI_ID          = "START_RACE";
+	private static final String GUI_ID          = "START_RACE";
 	private static final String cancelKey		= "SETUP_BUTTON_CANCEL";
 	private static final String customRaceKey	= "SETUP_BUTTON_CUSTOM_PLAYER_RACE";
     private static final int MAX_RACES  = 16; // modnar: increase MAX_RACES to add new Races

@@ -44,6 +44,7 @@ public class GalaxyMazeShape extends GalaxyShape {
     public GalaxyMazeShape(IGameOptions options) {
         opts = options;
     }
+    @Override public boolean allowSpreading() { return false; }
     @Override
     public float maxScaleAdj()               { return 0.95f; }
 	@Override

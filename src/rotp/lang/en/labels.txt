@@ -1988,11 +1988,18 @@ SETTINGS_MOD_CRYSTAL_MAX_SYSTEMS         | Max Crystal Attack: %1
 SETTINGS_MOD_ALT_MONSTER_MESSAGES_DESC   | Randomly displays standard or alternate messages for Monster events.
 SETTINGS_MOD_ALT_MONSTER_MESSAGES        | Alternate Monster Messages: %1
 
-SETTINGS_MOD_EMPIRES_SPACING_HELP        | Minimum distance between Empire Homeworlds in light-years.<br>A small value will allow a great variety of distances between Empire homeworlds.<br>Increasing this value will uniformize these distances.
-SETTINGS_MOD_EMPIRES_SPACING_DESC        | Minimum distance between Empire Homeworlds in light-years.
-SETTINGS_MOD_EMPIRES_SPACING             | Empires Spacing: %1 ly
-SETTINGS_MOD_EMPIRES_SPACING_AUTO        | Auto
-SETTINGS_MOD_EMPIRES_SPACING_MAP         | Minimum Empires Spacing: %1 ly
+//SETTINGS_MOD_EMPIRES_SPACING_HELP        | Minimum distance between Empire Homeworlds in light-years.<br>A small value will allow a great variety of distances between Empire homeworlds.<br>Increasing this value will uniformize these distances.<br>The absolute minimum distance is: 3.8 light-years.
+//SETTINGS_MOD_EMPIRES_SPACING_DESC        | Minimum distance between Empire Homeworlds in light-years.
+//SETTINGS_MOD_EMPIRES_SPACING             | Empires Spacing: %1 ly
+//SETTINGS_MOD_EMPIRES_SPACING_AUTO        | Auto
+//SETTINGS_MOD_EMPIRES_SPACING_MAP         | Minimum Empires Spacing: %1 ly
+
+SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_HELP | To adjust the Empire Homeworlds spreading; Vanilla value is 100%.<br>A small value will allow homeworlds to be closer, resulting in a great variety of distances.<br>Increasing this value will push aways the homeworlds, resulting in more uniformized distances.<br>This parameter can be adjusted on the Galaxy map preview.<br>This parameter isn't allowed on some complex galaxies: Text, Maze, Lorentz, Fractal, Bulls Eyes.
+SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_DESC | Minimum distance between Empire Homeworlds Factor in %.(Not allowed on "complex galaxies")
+SETTINGS_MOD_EMPIRES_SPREADING_FACTOR      | Empires Spreading: %1%
+SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_MAP  | Minimum Empires Spacing: %1% (%2 ly)
+
+
 
 // SETTINGS_MOD_MAX_SPACINGS_HELP           | If you don't like starting too close to a neighbor, this option will reduce diversity of distances between homeworlds, and push closer empires away. If that's not enough, you may try to unlock the security factor below...
 // SETTINGS_MOD_MAX_SPACINGS_DESC           | Attempts to maximize the distance between empires, but always randomly.
@@ -2327,7 +2334,7 @@ SETTINGS_MOD_AUTO_FLAG_TECH_RADIATED     | Radiated Color: %1
 SETTINGS_MOD_AUTO_FLAG_TECH_NONE         | Asteroid Color: %1
 
 SETTINGS_MOD_GALAXY_RAND_SOURCE_HELP     | By default, the preview gives only an global idea of the galaxy you will get. By setting a value other than "Random", the preview will display the final galaxy. Use this to avoid configurations you won't like... To far from Orion... To close to the center... or tor far! etc...
-SETTINGS_MOD_GALAXY_RAND_SOURCE_DESC     | if <> 0, this number will be used as source for the galaxy random generator. The final galaxy will be the preview one.
+SETTINGS_MOD_GALAXY_RAND_SOURCE_DESC     | if <> 0, this number will be used as source for the galaxy random generator. The final galaxy will be the preview one.<br>This option will unlock the galaxy preview size limitation (5000). Be ready for long generation time with "Insane" and above galaxies!
 SETTINGS_MOD_GALAXY_RAND_SOURCE          | Random or Wysiwyg: %1
 
 SETTINGS_MOD_AUTO_TERRAFORM_ENDING_DESC  | When in terraforming mode, what will trigger the end of the Eco boost?
@@ -3260,7 +3267,7 @@ SETUP_GALAXY_SELECTABLE		      | Selectable Abilities
 SETUP_GALAXY_RACE_LIST_HELP       | <b>Race list selection</b><br> Modnar has extended the base race list with six new races. If you are not in the mood to see them, you can exclude them from the selection.<hr><b>Default:</b>&nbsp Original<hr><b>Original:</b>&nbsp The 6 Modnar Races are excluded.<br> <b>All Races</b>:&nbsp The 6 Modnar Races can also be selected or randomly assigned.
 SETUP_GALAXY_RACE_LIST_DESC       | "Original" = The 6 Modnar Races are excluded.<br> "All Races" = The 6 Modnar Races can also be selected or randomly assigned.
 SETUP_GALAXY_AGAINST_DESC         | To select Aliens AI.<br> "AI:Selectable" => A selection line will appear on the bottom of the Boxes bellow, allowing the selection of individual Aliens AI.
-SETUP_GALAXY_PREVIEW_DESC         | This is what the Galaxy will look like.<br>Blue dot = Orion.<br>Green dots = Player Homeworld and neighbor systems.<br>Red dots = Opponents Homeworlds and their neighbor systems.<br>Grey dots = other star systems.<br>Click to show/hide a 10 ly spaced grid.<br>Scroll to change the distances between empires.<br>Middle Click to restore the default distances between empires.
+SETUP_GALAXY_PREVIEW_DESC         | This is what the Galaxy will look like.<br>Blue dot = Orion.<br>Green dots = Player Homeworld and neighbor systems.<br>Red dots = Opponents Homeworlds and their neighbor systems.<br>Grey dots = other star systems.<br>Click to show/hide a 10 ly spaced grid.<br>Scroll to change the empires spreading.<br>Middle Click to restore the default minimal distances between empires.
 
 SETUP_SELECT_CR_OPTIONS_DESC      | if "Yes", a selection line will appear at the top of the boxes below, allowing the selection of individual ability.
 SETUP_SELECT_CR_OPTIONS_YES       | A selection line will appear at the top of the opponent boxes, allowing the selection of individual ability.

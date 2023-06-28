@@ -42,6 +42,7 @@ public class GalaxyLorenzShape extends GalaxyShape {
     public GalaxyLorenzShape(IGameOptions options) {
         opts = options;
     }
+    @Override public boolean allowSpreading() { return false; }
     @Override
     public List<String> options1()  { return options1; }
     @Override

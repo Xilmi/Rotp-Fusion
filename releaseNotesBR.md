@@ -82,7 +82,9 @@ Last updates:
   - Added "B" Hotkey to change "Max Bases".
   - Added Arrows Right/Left for Next/Previous Colony.
   - Clicking on the rail will move the selector.
-
+- Changed the Fixed value of "Minimum Empires Spacing" to a relative one "Empires Spreading" between 20% and 500%. 100% being the vanilla value.
+  - Absolute minimum distance = 3.8 ly.
+  - Always 100% for exotic galaxies: Text, Maze, Lorentz, Fractal, Bulls Eyes.
 
 Last Fixes:
 - New Governor Panel don't crash any more on Apple OS.
