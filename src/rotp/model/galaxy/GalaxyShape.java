@@ -31,7 +31,6 @@ import rotp.util.Rand;
 public abstract class GalaxyShape implements Base, Serializable {
 	private static final long  serialVersionUID   = 1L;
 	private static final int   GALAXY_EDGE_BUFFER = 12;
-	private static final float minEmpireFactor    = 3f; // BR: Restored Vanilla values.
 	private static final float maxMinEmpireFactor = 15f;
 	private static final float absMinEmpireBuffer = 3.8f;
 	private static final int   MaxPreviewSystems  = 5000;
@@ -49,6 +48,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 	int maxStars = 0;
 	private int num = 0;
 	private int homeStars = 0;
+	@SuppressWarnings("unused") // kept for debug
 	private int genAttempt = 0;
 	private boolean usingRegions = false;
 	private boolean fullyInit = false;
@@ -59,7 +59,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 	// BR: added for symmetric galaxy
 	private static float cx; // Width galaxy center
 	private static float cy; // Height galaxy center
-	float sysBuffer = 1.9f;
+	private float sysBuffer = 1.9f;
 	int numEmpires;
 	private int numOpponents;
 	Rand rand = new Rand(random()); // For other than location purpose
@@ -67,6 +67,10 @@ public abstract class GalaxyShape implements Base, Serializable {
 	Rand randY = new Rand.RandY(random());  // for Y and Angle
 	private long tm0; // for timing computation
 	// \BR
+	
+	private float dynamicGrowth = 1f;
+	private int   currentEmpire = 0;
+	private int   loopReserve   = 0;
 
 	public int width()	{ return fullWidth; }
 	public int height() { return fullHeight; }
@@ -107,16 +111,16 @@ public abstract class GalaxyShape implements Base, Serializable {
         }
         return adj;
     }
-
 	// modnar: add possibility for specific placement of homeworld/orion locations
 	// indexWorld variable will be used by setSpecific in each Map Shape for locations
 	public abstract void setSpecific(Point.Float p);
 	int indexWorld;
 
-	public boolean allowSpreading()         { return true; }
-	public boolean isSymmetric()            { return false; }
-	public boolean isCircularSymmetric()    { return false; }
-	public boolean isRectangulatSymmetric() { return false; }
+	protected float   minEmpireFactor()        { return 3f; }
+	protected boolean allowExtendedPreview()   { return true; }
+	protected boolean isSymmetric()            { return false; }
+	protected boolean isCircularSymmetric()    { return false; }
+	protected boolean isRectangulatSymmetric() { return false; }
 	public CtrPoint getPlayerSymmetricHomeWorld() {
 		// This may have been be abstract... but symmetric isn't mandatory...
 		// So either an empty method here or one in every non symmetric child class
@@ -143,12 +147,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 	public List<EmpireSystem> empireSystems() { return empSystems; }
 	float adjustedSizeFactor()	{ // BR: to converge more quickly
 		float factor = sizeFactor(opts.selectedGalaxySize());
-		float mult = (float) Math.pow(1.05, genAttempt);
-//		float mult = (1f + (float)genAttempt/20f);
-		float adjFactor = factor * mult;
-//		System.out.println("factor = " + factor);
-//		System.out.println("genAttempt = " + genAttempt + "  mult = " + mult);
-//		System.out.println("adjFactor = " + adjFactor);
+		float adjFactor = factor * dynamicGrowth;
 		return adjFactor;
 	}
 
@@ -196,7 +195,9 @@ public abstract class GalaxyShape implements Base, Serializable {
     	return cx - galaxyEdgeBuffer();
     }
 	private void generateSymmetric(boolean full) {
-		genAttempt = 0;
+		genAttempt    = 0;
+		dynamicGrowth = 1f;
+		loopReserve   = 0;
 		// add systems needed for empires
 		while (empSystems.size() < numEmpires) { // Empires attempts loop
 			if (full)
@@ -233,7 +234,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 				homeStars++; // the two nearby system will be set later
 		   	}
 			// ===== Then the nearby systems
-			boolean valid = true;
+			boolean valid = true; // TODO BR: currentEmpire
 			for (int i=1; i<3; i++) { // 2 nearby systems
 				// get player nearby system
 				EmpireSystem player = empSystems.get(0);
@@ -325,27 +326,20 @@ public abstract class GalaxyShape implements Base, Serializable {
 	//
 	public float empireBuffer() { // BR: Made this parameter available for GUI
 		float sysBuffer			 = systemBuffer();
-//		float minMaxEmpireBuffer = maxStars/(numEmpires*2);
 		float minMaxEmpireBuffer = opts.numberStarSystems()/(numEmpires*2);
-		float minEmpireBuffer    = sysBuffer * minEmpireFactor;
+		float minEmpireBuffer    = sysBuffer * minEmpireFactor();
 		float maxMinEmpireBuffer = sysBuffer * maxMinEmpireFactor;
-		System.out.println();
-		System.out.println("maxStars = " + maxStars);
-		System.out.println("RandSource = " + options().selectedGalaxyRandSource());
-		System.out.println("minMaxEmpireBuffer = " + minMaxEmpireBuffer);
-		System.out.println("maxMinEmpireBuffer = " + maxMinEmpireBuffer);
-		System.out.println("minEmpireBuffer = " + minEmpireBuffer);
-		System.out.println("empireBuffer() = " + min(maxMinEmpireBuffer, max(minEmpireBuffer, minMaxEmpireBuffer)));
-		if (opts.isCustomEmpireSpreadingFactor() && allowSpreading()) {
+		if (opts.isCustomEmpireSpreadingFactor()) {
 			minEmpireBuffer    *= opts.selectedEmpireSpreadingFactor();
 			maxMinEmpireBuffer *= opts.selectedEmpireSpreadingFactor();
 		}
-		System.out.println("minMaxEmpireBuffer = " + minMaxEmpireBuffer);
-		System.out.println("maxMinEmpireBuffer = " + maxMinEmpireBuffer);
-		System.out.println("minEmpireBuffer = " + minEmpireBuffer);
-		minEmpireBuffer     = max(minEmpireBuffer, absMinEmpireBuffer);
-		maxMinEmpireBuffer  = max(maxMinEmpireBuffer, absMinEmpireBuffer);
-		System.out.println("empireBuffer() = " + min(maxMinEmpireBuffer, max(minEmpireBuffer, minMaxEmpireBuffer)));
+		minEmpireBuffer    = max(minEmpireBuffer, absMinEmpireBuffer);
+		maxMinEmpireBuffer = max(maxMinEmpireBuffer, absMinEmpireBuffer);
+		// the stars/empires ratio for the most "densely" populated galaxy is about 8:1
+		// we want to set the minimum distance between empires to half that in ly, with a minimum
+		// of 6 ly... this means that it will not increase until there is at least a 12:1
+		// ratio. However, the minimum buffer will never exceed the "MAX_MIN", to ensure that
+		// massive maps don't always GUARANTEE hundreds of light-years of space to expand uncontested
 		return min(maxMinEmpireBuffer, max(minEmpireBuffer, minMaxEmpireBuffer));
 	}
 	protected void singleInit(boolean full) {
@@ -353,7 +347,6 @@ public abstract class GalaxyShape implements Base, Serializable {
 			maxStars = opts.numberStarSystems();
 		else
 			maxStars = min(MaxPreviewSystems, opts.numberStarSystems());
-		System.out.println("maxStars = " + maxStars);
 			
 		// common symmetric and non symmetric initializer for generation
 		numOpponents = max(0, opts.selectedNumberOpponents());
@@ -362,75 +355,11 @@ public abstract class GalaxyShape implements Base, Serializable {
 		tm0 = System.currentTimeMillis();
 		empSystems.clear();
 
-		// BR: Restored Vanilla parameters
-		// Use "Maximize Spacing" for customization
-		// Everything will be done step by step
-		
 		// systemBuffer() is minimum distance between any 2 stars
 		sysBuffer    = systemBuffer();
 		empireBuffer = empireBuffer();
-		orionBuffer  = max(4 * sysBuffer, empireBuffer*3/2); // BR: Restored Vanilla values.
-		
-		// Buffer multipliers
-//		float minEmpireFactor    = 4f; // modnar: increase spacing between empires
-//		float minOrionFactor     = 5f; // modnar: increase spacing between empires and orion
-//		float minEmpireFactor    = 3f; // BR: Restored Vanilla values.
-//		float maxMinEmpireFactor = 15f;
-//		float minMaxEmpireBuffer = maxStars/(numEmpires*2);
-//		
-//		// option to maximize spacing; not optimized for symmetric
-//    	if (opts.selectedMaximizeSpacing() && !isSymmetric()) {
-//    		minEmpireFactor    *= 1.4f;
-//    		minOrionFactor     *= 1.4f;
-//    		minMaxEmpireBuffer *= 1.8f;
-//    		maxMinEmpireFactor  = opts.selectedSpacingLimit();
-//    	}
-//    	
-//    	// Buffers targets and limits
-//		float minEmpireBuffer    = sysBuffer * minEmpireFactor;
-//		float maxMinEmpireBuffer = sysBuffer * maxMinEmpireFactor;
-//		
-//		// Final Buffers
-//		empireBuffer = min(maxMinEmpireBuffer, max(minEmpireBuffer, minMaxEmpireBuffer));
-//		if (opts.isCustomEmpireSpacing())
-//			empireBuffer = opts.selectedEmpireSpacing();
-//		orionBuffer = max(minOrionBuffer, empireBuffer*3/2);
-
-//		System.out.println();
-//		System.out.println("selectedMaximizeSpacing() = " + opts.selectedMaximizeSpacing());
-//		System.out.println("sysBuffer = " + sysBuffer);
-//		System.out.println("minEmpireBuffer = " + minEmpireBuffer);
-//		System.out.println("minOrionBuffer = " + minOrionBuffer);
-//		System.out.println("minMaxEmpireBuffer = " + minMaxEmpireBuffer);
-//		System.out.println("maxMinEmpireBuffer = " + maxMinEmpireBuffer);
-//		System.out.println("empireBuffer = " + empireBuffer + " (" +
-//				min(maxMinEmpireBuffer, max(minEmpireBuffer, (maxStars/(numEmpires*2)))) + ")");
-//		System.out.println("orionBuffer = " + orionBuffer);
-		
-		
-//    		int minStars = opts.selectedMinStarsPerEmpire();
-//	    	if (opts.selectedMaximizeSpacing())
-//				minStars = maxStars/numEmpires;
-//			float maxMinEmpireFactor = opts.selectedSpacingLimit(); // To avoid problems with strange galaxy shapes
-//			                                // Maybe To-Do Make this a new setting
-//			float minEmpireFactor = (minStars + 1) / 3; // 8 spe -> 3; 12 spe -> 4;
-//			if (minEmpireFactor >= (maxMinEmpireFactor - 2))
-//				minEmpireFactor = maxMinEmpireFactor - 2;
-//			minEmpireBuffer    = sysBuffer * minEmpireFactor;
-//			maxMinEmpireBuffer = sysBuffer * maxMinEmpireFactor;
-//			minOrionBuffer     = sysBuffer * minEmpireFactor + 1;
-//		}
-//		 \BR:
-//
-//		// the stars/empires ratio for the most "densely" populated galaxy is about 8:1
-//		// we want to set the minimum distance between empires to half that in ly, with a minimum
-//		// of 6 ly... this means that it will not increase until there is at least a 12:1
-//		// ratio. However, the minimum buffer will never exceed the "MAX_MIN", to ensure that
-//		// massive maps don't always GUARANTEE hundreds of light-years of space to expand uncontested
-//		empireBuffer = min(maxMinEmpireBuffer, max(minEmpireBuffer, (maxStars/(numEmpires*2))));
-//		// Orion buffer is 50% greater with minimum of 8 ly.
-//		orionBuffer = max(minOrionBuffer, empireBuffer*3/2);
-//		bufferRatio = empireBuffer/sysBuffer;
+		// Orion buffer is 50% greater with minimum of 8 ly.
+		orionBuffer  = max(4 * sysBuffer, empireBuffer*3/2); // BR: Restored Vanilla values.		
 	}
 	private void fullInit() {
 		fullyInit = true;
@@ -449,7 +378,6 @@ public abstract class GalaxyShape implements Base, Serializable {
 		homeStars = 0;
 		empSystems.clear();
 		maxStars = numStars;
-		System.out.println("maxStars = " + maxStars);
 
 		initWidthHeight();
 		float minSize = min(fullWidth, fullHeight);
@@ -484,11 +412,38 @@ public abstract class GalaxyShape implements Base, Serializable {
 		clean();
 	}
 	public void quickGenerate() {
-		if (options().selectedGalaxyRandSource() == 0)
+		if (options().selectedGalaxyRandSource() == 0 || !allowExtendedPreview())
 			generate(false);
 		else
 			generate(true);
 		clean();
+	}
+//	private void displayDebug() {
+//		int nbSys = opts.numberStarSystems();
+//		String size = opts.selectedGalaxySize();
+//		float dynFactor  = settingsFactor(1);
+//		float baseFactor = sizeFactor(size);
+//		System.out.format("Nb Stars = %6d; Spreading = %3d; factorRatio = %4.2f; genAttempt = %5d; corrFactor = %4.2f",
+//				nbSys,
+//				opts.selectedEmpireSpreadingPct(),
+//				dynFactor/baseFactor,
+//				genAttempt,
+//				dynamicGrowth
+//				);
+//		System.out.println("  Shape = " + opts.selectedGalaxyShape());
+//	}
+	private float growthFactor() {
+		if (currentEmpire == 0)
+			return 2f;
+		float missingEmpire  = max(1f, numEmpires-empSystems.size()+loopReserve);
+		float targetExponent = missingEmpire/5 	* numEmpires/currentEmpire;
+		float targetFactor   = (float) Math.pow(1.05, targetExponent);
+		float growthFactor   = max(min(targetFactor, 2f), 1.05f);
+//		System.out.println("Break at:" + empSystems.size() +
+//				"  growthFactor = " + growthFactor +
+//				"  dynamicGrowth = " + dynamicGrowth
+//				);
+		return growthFactor;
 	}
 	private void generate(boolean full) {
 		rand = new Rand(options().selectedGalaxyRandSource());
@@ -500,6 +455,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 			return;
 		}
 		genAttempt = 0;
+		dynamicGrowth = 1f;
 		// add systems needed for empires
 		while (empSystems.size() < numEmpires) {
 			if (full)
@@ -512,14 +468,26 @@ public abstract class GalaxyShape implements Base, Serializable {
 			num = 0;
 			orionXY = addOrion();
 			indexWorld = 1; // modnar: after specific orion placement, set indexWorld=1 for homeworlds
-			for (int i=0;i<numEmpires;i++) {
+			loopReserve = 1 + numEmpires/10;
+			int fail = 0;
+			for (currentEmpire=0;
+					currentEmpire<numEmpires+loopReserve && numEmpires != empSystems.size();
+					currentEmpire++) {
 				EmpireSystem sys = new EmpireSystem(this);
 				if (sys.valid) {
 					empSystems.add(sys);
 					homeStars += sys.numSystems();
 				}
+				else {
+					fail++;
+					if (fail >= loopReserve) {
+						dynamicGrowth *= growthFactor();
+						break;
+					}
+				}
 			}
 		}
+//		displayDebug(); // TODO :R: REMOVE
 
 		// add other systems to fill out galaxy
 		int attempts = addUncolonizedSystems();
@@ -948,8 +916,8 @@ public abstract class GalaxyShape implements Base, Serializable {
 //		float ray(Point.Float pt)     { return ray(pt.x, pt.y); }
 //		private float angle(float x, float y) { return (float) Math.atan2(y- cy, x - cx); }
 //		float angle(Point.Float pt)   { return angle(pt.y, pt.x); }
-		Point.Float mirrorX(Point.Float pt)  { return new Point.Float(fullWidth - pt.x, pt.y); }
-		Point.Float mirrorY(Point.Float pt)  { return new Point.Float(pt.x, fullHeight - pt.y); }
-		Point.Float mirrorXY(Point.Float pt) { return new Point.Float(fullWidth - pt.x, fullHeight - pt.y); }
+//		Point.Float mirrorX(Point.Float pt)  { return new Point.Float(fullWidth - pt.x, pt.y); }
+//		Point.Float mirrorY(Point.Float pt)  { return new Point.Float(pt.x, fullHeight - pt.y); }
+//		Point.Float mirrorXY(Point.Float pt) { return new Point.Float(fullWidth - pt.x, fullHeight - pt.y); }
 	}
 }

@@ -50,7 +50,7 @@ public interface IPreGameOptions extends IAdvOptions {
 //	default int selectedSpacingLimit()			{ return spacingLimit.get(); }
 
 	ParamInteger empiresSpreadingFactor	= new ParamInteger( MOD_UI, "EMPIRES_SPREADING_FACTOR",
-			100, 20, 500, 1, 5, 20);
+			100, 20, 1000, 1, 5, 20);
 	default int		selectedEmpireSpreadingPct()	{ return empiresSpreadingFactor.get(); }
 	default float	selectedEmpireSpreadingFactor()	{ return 0.01f * empiresSpreadingFactor.get(); }
 	default boolean	isCustomEmpireSpreadingFactor()	{ return !empiresSpreadingFactor.isDefaultValue(); }

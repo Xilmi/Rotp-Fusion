@@ -39,6 +39,7 @@ public class GalaxyClusterShape extends GalaxyShape {
     public GalaxyClusterShape(IGameOptions options) {
         opts = options;
     }
+    @Override protected float minEmpireFactor() { return 4f; }
     @Override
     public float maxScaleAdj()               { return 0.95f; }
     @Override

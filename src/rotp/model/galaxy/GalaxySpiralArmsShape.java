@@ -60,6 +60,7 @@ public class GalaxySpiralArmsShape extends GalaxyShape {
 		double radiusSelect = Math.sqrt(randX.nextDouble()) * armRadius * (1 - swirlRadius);
     	return new CtrPoint(radiusSelect).rotate(phi + randomOrientation).shift(arm);
     }
+    @Override protected float minEmpireFactor() { return 4f; }
     @Override public CtrPoint getValidRandomSymmetric() {
     	CtrPoint pt = getRandomSymmetric(minRandRay);
 		while (!valid(pt.getX(), pt.getY()))

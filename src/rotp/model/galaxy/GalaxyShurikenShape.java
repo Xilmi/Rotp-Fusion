@@ -52,6 +52,7 @@ public class GalaxyShurikenShape extends GalaxyShape {
     public GalaxyShurikenShape(IGameOptions options) {
         opts = options;
     }
+    @Override protected float minEmpireFactor() { return 4f; }
     @Override
     public List<String> options1()  { return options1; }
     @Override

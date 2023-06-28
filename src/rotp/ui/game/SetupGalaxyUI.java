@@ -1810,7 +1810,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			iEmp++;
 		}
 		// Add Empire distance
-		if (hoverBox == galaxyBox) { // TODO BR: Add Empire distance
+		if (showGrid || (hoverBox == galaxyBox)) { // TODO BR: Add Empire distance
 			IGameOptions opts = newGameOptions();
 			float  spacing    = opts.galaxyShape().empireBuffer();
 			String spacingStr = String.format("%.01f", spacing);

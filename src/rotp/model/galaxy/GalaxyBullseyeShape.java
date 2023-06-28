@@ -46,7 +46,8 @@ public class GalaxyBullseyeShape extends GalaxyShape {
     public GalaxyBullseyeShape(IGameOptions options) {
         opts = options;
     }
-    @Override public boolean allowSpreading() { return false; }
+    @Override protected float   minEmpireFactor() { return 4f; }
+    @Override protected boolean allowExtendedPreview()  { return false; }
     @Override
     public List<String> options1()  { return options1; }
     //@Override
@@ -70,7 +71,7 @@ public class GalaxyBullseyeShape extends GalaxyShape {
                 initWidthHeight();
                 
                 float gE = (float) galaxyEdgeBuffer();
-                float gW = (float) galaxyWidthLY();
+                //float gW = (float) galaxyWidthLY();
                 float gH = (float) galaxyHeightLY();
                 
                 // number of arc sections in the dart board
@@ -116,7 +117,7 @@ public class GalaxyBullseyeShape extends GalaxyShape {
                 initWidthHeight();
                 
                 float gE = (float) galaxyEdgeBuffer();
-                float gW = (float) galaxyWidthLY();
+                //float gW = (float) galaxyWidthLY();
                 float gH = (float) galaxyHeightLY();
                 
                 // number of rings/halos
@@ -157,7 +158,7 @@ public class GalaxyBullseyeShape extends GalaxyShape {
                 initWidthHeight();
                 
                 float gE = (float) galaxyEdgeBuffer();
-                float gW = (float) galaxyWidthLY();
+                //float gW = (float) galaxyWidthLY();
                 float gH = (float) galaxyHeightLY();
                 
                 // number of rings/halos

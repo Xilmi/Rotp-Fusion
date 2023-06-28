@@ -445,6 +445,8 @@ public class GalaxyBitmapShape extends GalaxyShape {
 		adjustDensity = sqrt(densityFactor);
 		
 	}
+    @Override protected float   minEmpireFactor() { return 4f; }
+    @Override protected boolean allowExtendedPreview()  { return true; }
 	@Override protected void singleInit(boolean full) {
 		super.singleInit(full);
 		// System.out.println("========== GalaxyBitmapShape.singleInit()");

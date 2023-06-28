@@ -1994,7 +1994,7 @@ SETTINGS_MOD_ALT_MONSTER_MESSAGES        | Alternate Monster Messages: %1
 //SETTINGS_MOD_EMPIRES_SPACING_AUTO        | Auto
 //SETTINGS_MOD_EMPIRES_SPACING_MAP         | Minimum Empires Spacing: %1 ly
 
-SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_HELP | To adjust the Empire Homeworlds spreading; Vanilla value is 100%.<br>A small value will allow homeworlds to be closer, resulting in a great variety of distances.<br>Increasing this value will push aways the homeworlds, resulting in more uniformized distances.<br>This parameter can be adjusted on the Galaxy map preview.<br>This parameter isn't allowed on some complex galaxies: Text, Maze, Lorentz, Fractal, Bulls Eyes.
+SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_HELP | To adjust the Empire Homeworlds spreading; (Vanilla value is 100%).<br>A small value will allow homeworlds to be closer, resulting in a great variety of distances.<br>Increasing this value will push aways the homeworlds, resulting in more uniformized distances.<br>This parameter can be adjusted on the Galaxy map preview.
 SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_DESC | Minimum distance between Empire Homeworlds Factor in %.(Not allowed on "complex galaxies")
 SETTINGS_MOD_EMPIRES_SPREADING_FACTOR      | Empires Spreading: %1%
 SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_MAP  | Minimum Empires Spacing: %1% (%2 ly)
