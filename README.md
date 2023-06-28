@@ -66,6 +66,9 @@ Later:
 - Restored Modnar empire spreading to Modnar galaxies.
 - Improved the galaxies' Empire positioning time.
 
+2024.06.27 (Xilmi)
+- A fleet that exclusively consists of designs that are flagged as automated for either scouting, colonizing or attacking will no longer be considered as idle in the context of cycling through idle fleets via space-bar or page-up/down.
+
 2024.06.26 (BR)
 - Colony Panel:
   - added "B" Hotkey to change "Max Bases".
@@ -84,7 +87,7 @@ Later:
 - Updated some "e.getModifiersEx() == xx" to more readable code.
 - Changed option call to "O" to be more consistent with other panel call.
 - Added Hotkey list in Galaxy Map Help (second panel).
-  - Available alone by right-clicking the Help button. 
+  - Available alone by right-clicking the Help button.
   - Available alone with SHIFT+F1.
 - Added Hotkey list in System Panel.
 - Added Hotkey list in Race Panel.
