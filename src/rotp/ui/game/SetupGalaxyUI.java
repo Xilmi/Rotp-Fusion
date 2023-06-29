@@ -1809,8 +1809,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				g.setColor(Color.red); // Start with Player, continue with aliens
 			iEmp++;
 		}
-		// Add Empire distance
-		if (showGrid || (hoverBox == galaxyBox)) { // BR: Add Empire distance
+		// BR: Add Empire distance
+		if (showGrid || (hoverBox == galaxyBox)) {
 			IGameOptions opts = newGameOptions();
 			float  spacing    = opts.galaxyShape().empireBuffer();
 			String spacingStr = String.format("%.01f", spacing);
@@ -1832,6 +1832,19 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			g.drawLine(x1, yt-s2, x1, yt+s2);
 			g.drawLine(x2, yt-s2, x2, yt+s2);
 			g.setStroke(prev);
+		}
+		// BR: Add Galaxy Size
+		if (showGrid || (hoverBox == galaxyBox)) {
+			IGameOptions opts = newGameOptions();
+			String key   = "SETTINGS_MOD_GALAXY_SIZE";
+			String gwStr = str(opts.galaxyShape().width());
+			String ghStr = str(opts.galaxyShape().height());
+			String spStr = text(key, gwStr, ghStr);
+			g.setColor(darkYellow);
+			g.setFont(narrowFont(15));
+			int xt = galaxyBox.x + s5;
+			int yt = galaxyBox.y + s15;
+			drawString(g, spStr, xt, yt);
 		}
 	}
 	private Color starColor(int i) {

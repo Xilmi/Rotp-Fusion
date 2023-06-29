@@ -61,7 +61,10 @@ Later:
 ## What's New
 
 2024.06.28 (BR)
-- Set "Empires Spreading" limits  to 10% ~ 1000%
+- Set "Empires Spreading" limits  to 10% ~ 1000%.
+- Linearized empire spreading.
+- Changed "Alt Animation" to "Alt Diplomat".
+- Added Galaxy size on the preview.
 
 2024.06.28 (BR)
 - Changed the Fixed value of "Minimum Empires Spacing" to a relative one "Empires Spreading" between 20% and 1000%. 100% being the vanilla value.

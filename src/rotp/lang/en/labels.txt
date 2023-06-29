@@ -1999,6 +1999,7 @@ SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_DESC | Minimum distance between Empire Hom
 SETTINGS_MOD_EMPIRES_SPREADING_FACTOR      | Empires Spreading: %1%
 SETTINGS_MOD_EMPIRES_SPREADING_FACTOR_MAP  | Minimum Empires Spacing: %1% (%2 ly)
 
+SETTINGS_MOD_GALAXY_SIZE                   | Galaxy size: %1 ly x %2 ly
 
 
 // SETTINGS_MOD_MAX_SPACINGS_HELP           | If you don't like starting too close to a neighbor, this option will reduce diversity of distances between homeworlds, and push closer empires away. If that's not enough, you may try to unlock the security factor below...
@@ -2106,7 +2107,7 @@ SETTINGS_MOD_RACES_ARE_RANDOM_TARGET_DESC  | If the final result is not within t
 // BR: Global Settings UI panel for MOD game options
 SETTINGS_MOD_TITLE_GLOBAL                | In-Game Convenience Options
 SETTINGS_MOD_SHOW_ALT_ANIMATION_DESC     | Select between vanilla animations (No) or Zestyclose Art work (Yes).<br>(Younger Human diplomat)
-SETTINGS_MOD_SHOW_ALT_ANIMATION          | Alt Animation: %1
+SETTINGS_MOD_SHOW_ALT_ANIMATION          | Alt Diplomat: %1
 SETTINGS_MOD_SHOW_FLEET_FACTOR_DESC      | To adjust the galaxy map fleets disappearance while zooming. Bigger factor means stay longer to the screen.
 SETTINGS_MOD_SHOW_FLEET_FACTOR           | Show Fleet Factor: %1
 SETTINGS_MOD_SHOW_FLAG_FACTOR_DESC       | To adjust the galaxy map flags disappearance while zooming. Bigger factor means stay longer to the screen.

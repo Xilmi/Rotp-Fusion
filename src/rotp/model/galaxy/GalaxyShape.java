@@ -329,18 +329,26 @@ public abstract class GalaxyShape implements Base, Serializable {
 		float minMaxEmpireBuffer = opts.numberStarSystems()/(numEmpires*2);
 		float minEmpireBuffer    = sysBuffer * minEmpireFactor();
 		float maxMinEmpireBuffer = sysBuffer * maxMinEmpireFactor;
-		if (opts.isCustomEmpireSpreadingFactor()) {
-			minEmpireBuffer    *= opts.selectedEmpireSpreadingFactor();
-			maxMinEmpireBuffer *= opts.selectedEmpireSpreadingFactor();
-		}
-		minEmpireBuffer    = max(minEmpireBuffer, absMinEmpireBuffer);
-		maxMinEmpireBuffer = max(maxMinEmpireBuffer, absMinEmpireBuffer);
 		// the stars/empires ratio for the most "densely" populated galaxy is about 8:1
 		// we want to set the minimum distance between empires to half that in ly, with a minimum
 		// of 6 ly... this means that it will not increase until there is at least a 12:1
 		// ratio. However, the minimum buffer will never exceed the "MAX_MIN", to ensure that
 		// massive maps don't always GUARANTEE hundreds of light-years of space to expand uncontested
-		return min(maxMinEmpireBuffer, max(minEmpireBuffer, minMaxEmpireBuffer));
+		float vanillaBuffer = min(maxMinEmpireBuffer, max(minEmpireBuffer, minMaxEmpireBuffer));
+		float spreadBuffer  = vanillaBuffer * opts.selectedEmpireSpreadingFactor();
+		return max(spreadBuffer, absMinEmpireBuffer);
+//		if (opts.isCustomEmpireSpreadingFactor()) {
+//			minEmpireBuffer    *= opts.selectedEmpireSpreadingFactor();
+//			maxMinEmpireBuffer *= opts.selectedEmpireSpreadingFactor();
+//		}
+//		minEmpireBuffer    = max(minEmpireBuffer, absMinEmpireBuffer);
+//		maxMinEmpireBuffer = max(maxMinEmpireBuffer, absMinEmpireBuffer);
+//		// the stars/empires ratio for the most "densely" populated galaxy is about 8:1
+//		// we want to set the minimum distance between empires to half that in ly, with a minimum
+//		// of 6 ly... this means that it will not increase until there is at least a 12:1
+//		// ratio. However, the minimum buffer will never exceed the "MAX_MIN", to ensure that
+//		// massive maps don't always GUARANTEE hundreds of light-years of space to expand uncontested
+//		return min(maxMinEmpireBuffer, max(minEmpireBuffer, minMaxEmpireBuffer));
 	}
 	protected void singleInit(boolean full) {
 		if (full)
