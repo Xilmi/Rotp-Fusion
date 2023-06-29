@@ -487,7 +487,6 @@ public abstract class GalaxyShape implements Base, Serializable {
 				}
 			}
 		}
-//		displayDebug(); // TODO :R: REMOVE
 
 		// add other systems to fill out galaxy
 		int attempts = addUncolonizedSystems();

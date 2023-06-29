@@ -42,15 +42,8 @@ public interface IPreGameOptions extends IAdvOptions {
 	default int selectedCompanionWorlds() 		{ return Math.abs(companionWorlds.get()); }
 	default int signedCompanionWorlds() 		{ return companionWorlds.get(); }
 
-//	ParamBoolean maximizeSpacing	= new ParamBoolean( MOD_UI, "MAX_SPACINGS", false);
-//	default boolean selectedMaximizeSpacing()	{ return maximizeSpacing.get(); }
-//
-//	ParamInteger spacingLimit		= new ParamInteger( MOD_UI, "MAX_SPACINGS_LIM"
-//			, 16, 3, Rotp.maximumSystems-1, 1, 10, 100);
-//	default int selectedSpacingLimit()			{ return spacingLimit.get(); }
-
 	ParamInteger empiresSpreadingFactor	= new ParamInteger( MOD_UI, "EMPIRES_SPREADING_FACTOR",
-			100, 20, 1000, 1, 5, 20);
+			100, 10, 1000, 1, 5, 20);
 	default int		selectedEmpireSpreadingPct()	{ return empiresSpreadingFactor.get(); }
 	default float	selectedEmpireSpreadingFactor()	{ return 0.01f * empiresSpreadingFactor.get(); }
 	default boolean	isCustomEmpireSpreadingFactor()	{ return !empiresSpreadingFactor.isDefaultValue(); }
@@ -58,28 +51,6 @@ public interface IPreGameOptions extends IAdvOptions {
 	default void	toggleEmpireSpreadingFactor(MouseWheelEvent e)	{ empiresSpreadingFactor.toggle(e); }
 	default String	empireSpreadingFactorMapKey()	{ return  MOD_UI + "EMPIRES_SPREADING_FACTOR_MAP"; }
 
-//	ParamInteger empiresSpacing		= new ParamInteger( MOD_UI, "EMPIRES_SPACING"
-//			, 3, 3, 100, 1, 5, 20) {
-//		{
-//			specialValue(3, MOD_UI + "EMPIRES_SPACING_AUTO");
-//		}
-//	};
-//	default int		selectedEmpireSpacing()		{ return empiresSpacing.get(); }
-//	default boolean	isCustomEmpireSpacing()		{ return !empiresSpacing.isSpecial(); }
-//	default void	resetEmpireSpacing()		{ empiresSpacing.setFromDefault(); }
-//	default void	toggleEmpireSpacing(MouseWheelEvent e)	{ empiresSpacing.toggle(e); }
-//	default void	toggleEmpireSpacingFromMap(MouseWheelEvent e)	{
-//		if (isCustomEmpireSpacing()) {
-//			toggleEmpireSpacing(e);
-//			if (empiresSpacing.isSpecial()) // don't go to the default value this way
-//				empiresSpacing.next();
-//		}
-//		else {
-//			float auto = RotPUI.currentOptions().galaxyShape().empireBuffer();
-//			empiresSpacing.next(e, auto);
-//		}
-//	}
-	
 	ParamInteger minStarsPerEmpire	= new ParamInteger( MOD_UI, "MIN_STARS_PER_EMPIRE"
 			, 3, 3, Rotp.maximumSystems-1, 1, 5, 20);
 	default int selectedMinStarsPerEmpire()		{ return minStarsPerEmpire.get(); }
@@ -150,7 +121,6 @@ public interface IPreGameOptions extends IAdvOptions {
 			));
 	LinkedList<IParam> modOptionsStaticB  = new LinkedList<>(
 			Arrays.asList(
-//			minStarsPerEmpire, prefStarsPerEmpire, maximizeSpacing, spacingLimit, minDistArtifactPlanet,
 			minStarsPerEmpire, prefStarsPerEmpire, empiresSpreadingFactor, minDistArtifactPlanet,
 			null,
 			randomAlienRacesTargetMax, randomAlienRacesTargetMin, randomAlienRaces,
