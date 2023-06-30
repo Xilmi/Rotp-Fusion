@@ -38,13 +38,11 @@ Now:
 - Playing the game...
 
 Bug to fix:
-- Too many tech transfered...
+- Too many tech transfered pop-up...
 - Propagate mouse events...
 
 Very soon:
 - Spare Xenophobes: Stop if caught too.
-- William482 request: Show info on offered Tech trade
-  - ($remaining_RP / $total_RP Remaining) or (Imminent - 29%) in place of the beaker counts...
 - Tech trading extended list.
 - Smooth the Trade blocking option.
 - Investigate: William482 request: Age of your data on each race into the bar graphs on the status page.
@@ -60,11 +58,12 @@ Later:
 
 ## What's New
 
-2024.06.28 (BR)
+2024.06.29 (BR)
 - Set "Empires Spreading" limits  to 10% ~ 1000%.
 - Linearized empire spreading.
 - Changed "Alt Animation" to "Alt Diplomat".
 - Added Galaxy size on the preview.
+- Multiple Bombard: Get the focus without small mouse move.
 
 2024.06.28 (BR)
 - Changed the Fixed value of "Minimum Empires Spacing" to a relative one "Empires Spreading" between 20% and 1000%. 100% being the vanilla value.

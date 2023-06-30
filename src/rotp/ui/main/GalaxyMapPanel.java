@@ -22,6 +22,7 @@ import java.awt.Composite;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Stroke;
 import java.awt.event.ActionEvent;
@@ -1077,15 +1078,22 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
     }
     @Override
     public void mouseMoved(MouseEvent e) {
-        long prevTime = lastMouseTime;
+    	mouseMoved(e.getX(), e.getY());
+    }
+    public void updateHover() { // BR: To remove the need of moving the mouse
+    	Point pos = getMousePosition();
+    	if (pos == null)
+	    	mouseMoved(lastMouseX, lastMouseY);
+    	else
+	    	mouseMoved(pos.x, pos.y);
+    }
+    public void mouseMoved(int x, int y) {
+       long prevTime = lastMouseTime;
         int prevX = lastMouseX;
         int prevY = lastMouseY;
-        lastMouseX = e.getX();
-        lastMouseY = e.getY();
+        lastMouseX = x;
+        lastMouseY = y;
         lastMouseTime = System.currentTimeMillis();
-        int x = e.getX();
-        int y = e.getY();
-        
         
         if (maxMouseVelocity > 0) {
             long timeS = (lastMouseTime - prevTime);

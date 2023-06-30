@@ -67,7 +67,6 @@ Last updates:
   - Middle Click on the galaxy preview will reset it's value to "Auto"
   - Added distance between empires on the map. (When hovering, or grid on)
   - Added Galaxy size on the preview. (When hovering, or grid on)
-
 - Removed "Max Spacing Multiplier" and "Maximize Spacing".
   - Too complex, and replaced by "Empire Spacing".
 - Restored Moo1 Race names.
@@ -87,6 +86,7 @@ Last updates:
 - Changed the Fixed value of "Minimum Empires Spacing" to a relative one "Empires Spreading" between 20% and 500%. 100% being the vanilla value.
   - Absolute minimum distance = 3.8 ly.
   - Always 100% for exotic galaxies: Text, Maze, Lorentz, Fractal, Bulls Eyes.
+- Multiple Bombard: Get the focus without small mouse move.
 
 Last Fixes:
 - New Governor Panel don't crash any more on Apple OS.

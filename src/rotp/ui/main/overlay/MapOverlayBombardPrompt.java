@@ -342,7 +342,7 @@ public class MapOverlayBombardPrompt extends MapOverlay {
             noButton.parent(this);
             noButton.setBounds(xNo, buttonY, bwNo, buttonH);
             noButton.draw(parent.map(), g);
-        }
+         }
 
         // draw top data line
         int y0a = boxY+boxH1+s20;
@@ -518,6 +518,7 @@ public class MapOverlayBombardPrompt extends MapOverlay {
             int y0 = boxY+boxH1+scaled(fontSize+20);
             this.drawBorderedString(g, s, 2, x0, y0, Color.black, destroyedTextC);
         }
+        parent.map().updateHover();  // BR: To remove the need of moving the mouse
     }
     @Override
     public boolean handleKeyPress(KeyEvent e) {
