@@ -124,6 +124,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public final SystemInfo sv;
     private final EmpireView[] empireViews;
     private final List<Ship> visibleShips = new ArrayList<>();
+    private Map<Ship, StarSystem> suspectedDestinationsOfVisibleShips = new HashMap<>();
     private final List<StarSystem> shipBuildingSystems = new ArrayList<>();
     private final List<StarSystem> colonizedSystems = new ArrayList<>();
     private boolean extinct = false;
@@ -262,6 +263,7 @@ public final class Empire implements Base, NamedObject, Serializable {
             return galaxy().ships.notInTransitFleets(id);
     }
     public List<Ship> visibleShips()              { return visibleShips; }
+    public Map<Ship, StarSystem> suspectedDestinationsOfVisibleShips()  { return suspectedDestinationsOfVisibleShips; }
     public EmpireView[] empireViews()             { return empireViews; }
     public List<StarSystem> newSystems()          { return newSystems; }
     public int lastCouncilVoteEmpId()             { return lastCouncilVoteEmpId; }
@@ -2270,6 +2272,9 @@ public final class Empire implements Base, NamedObject, Serializable {
                 addVisibleShip(sh);
         }
 
+        final Set<Ship> shipsKnowLastTurnLocationOf = matchShipsSeenThisTurnToShipsSeenLastTurn(visibleShips, shipsVisibleLastTurn).keySet();
+        suspectedDestinationsOfVisibleShips = suspectedDestinationsOfShipsSeenLastTurn(shipsKnowLastTurnLocationOf);
+
         // inform our spies!
         for (Ship fl : visibleShips) {
             if (fl instanceof ShipFleet)
@@ -2384,6 +2389,33 @@ public final class Empire implements Base, NamedObject, Serializable {
     public boolean knowsShipCouldNotHaveFlownInFromOutsideScanRange(Ship ufo) {
         // For simplicity, we completely ignore scan coverage from ships.
         return distanceTo(ufo) + maxSpeedShipMightHave(ufo) < planetScanningRange();
+    }
+    public starSystemInLineIfAny(float firstX, float firstY, float secondX, float secondY) {
+        /**
+         * This function uses only information available to the empire.
+         * This function should never be used to for game purposes, because when systems are collinear the answer it returns can be,
+         * and sometimes will be, wrong.
+         */
+        static final MAX_LOOKAHEAD = 8; // just to ensure we don't somehow infinite-loop
+        float strideX = secondX - firstX;
+        float strideY = secondY - firstY;
+        for (int i=1; i<MAX_LOOKAHEAD; i++)
+            for (StarSystem sys: allColonizedSystems())
+                // Strictly speaking, there's no reason the suspected-destination system needs to be colonized;
+                // it doesn't even need to be in scanner range. But this saves time and it's going to be rare for
+                // a ship to be observed far outside the empire when Improved Space Scanner is not researched.
+                if (Math.abs((sys.x() - firstX - i*strideX)/strideX) < 0.125 && Math.abs((sys.y() - firstY - i*strideY)/strideY) < 0.125)
+                    return sys;
+        return null;
+    }
+    public Map<Ship, StarSystem> suspectedDestinationsOfShipsSeenLastTurn(Set<Ship> shipsKnowLastTurnLocationOf) {
+        Map<Ship, StarSystem> suspectedDestinations = new HashMap<Ship, StarSystem>();
+        for (Ship sh : shipsKnowLastTurnLocationOf) {
+            StarSystem suspectedDestination = starSystemInLineIfAny(sh.transitXlastTurn(), sh.transitYlastTurn(), sh.transitX(), sh.transitY());
+            if (suspectedDestination != null)
+                suspectedDestinations.put(sh, suspectedDestination);
+        }
+        return suspectedDestinations;
     }
     public boolean canScanTo(IMappedObject loc) {
         return planetsCanScanTo(loc) || shipsCanScanTo(loc);
