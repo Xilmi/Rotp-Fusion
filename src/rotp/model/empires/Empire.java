@@ -2390,13 +2390,13 @@ public final class Empire implements Base, NamedObject, Serializable {
         // For simplicity, we completely ignore scan coverage from ships.
         return distanceTo(ufo) + maxSpeedShipMightHave(ufo) < planetScanningRange();
     }
-    public starSystemInLineIfAny(float firstX, float firstY, float secondX, float secondY) {
+    public StarSystem starSystemInLineIfAny(float firstX, float firstY, float secondX, float secondY) {
         /**
          * This function uses only information available to the empire.
          * This function should never be used to for game purposes, because when systems are collinear the answer it returns can be,
          * and sometimes will be, wrong.
          */
-        static final MAX_LOOKAHEAD = 8; // just to ensure we don't somehow infinite-loop
+        final int MAX_LOOKAHEAD = 8; // just to ensure we don't somehow infinite-loop
         float strideX = secondX - firstX;
         float strideY = secondY - firstY;
         for (int i=1; i<MAX_LOOKAHEAD; i++)
