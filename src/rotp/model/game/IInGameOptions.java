@@ -182,9 +182,9 @@ public interface IInGameOptions extends IConvenienceOptions {
 	};
 	default boolean selectedShowAllAI()			{ return showAllAI.get(); }
 
-	ParamBoolean activateBasicScanner	= new ParamBoolean(MOD_UI, "ACTIVATE_BASIC_SCANNER", true);
+	ParamBoolean trackUFOsAcrossTurns = new ParamBoolean(MOD_UI, "TRACK_UFOS_ACROSS_TURNS", true);
 	
-	default boolean selectedActivateBasicScanner()	{ return activateBasicScanner.get(); }
+	default boolean selectedTrackUFOsAcrossTurns() { return trackUFOsAcrossTurns.get(); }
 	
 	// ==================== GUI List Declarations ====================
 	LinkedList<IParam> modOptionsDynamicA = new LinkedList<>(
@@ -195,7 +195,7 @@ public interface IInGameOptions extends IConvenienceOptions {
 				null,
 				bombingTarget, targetBombard, flagColorCount, autoFlagOptionsUI,
 				null,
-				scrapRefundFactor, scrapRefundOption, autoTerraformEnding, activateBasicScanner
+				scrapRefundFactor, scrapRefundOption, autoTerraformEnding, trackUFOsAcrossTurns
 			));
 	LinkedList<IParam> modOptionsDynamicB = new LinkedList<>(
 			Arrays.asList(
