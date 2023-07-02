@@ -389,11 +389,10 @@ public class Transport implements Base, Ship, Sprite, Serializable {
                 path.draw(map, g2);
         }
 
-        if (options().selectedActivateBasicScanner() &&
-        		(map.showAllFlightPaths() || map.parent().isClicked(this)))
+        if (map.showAllFlightPaths() || map.parent().isClicked(this))
             if (player().knowETA(this))
                 pathSprite().draw(map, g2);
-            else {
+            else if (options().selectedTrackUFOsAcrossTurns()) {
                 StarSystem suspectedDestination = player().suspectedDestinationsOfVisibleShips().get(this);
                 if (suspectedDestination != null)
                     pathSpriteTo(suspectedDestination).draw(map, g2);
