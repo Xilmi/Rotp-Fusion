@@ -2187,6 +2187,10 @@ SETTINGS_MOD_SHOW_STARS_AND_RANGES_HELP    | Show ship ranges with the stars bac
 SETTINGS_MOD_SHOW_STARS_HELP               | Show the stars background, but hide the ship range.
 SETTINGS_MOD_SHOW_NO_STARS_AND_RANGES_HELP | Hide both the ship ranges and the stars background.
 
+SETTINGS_MOD_ACTIVATE_BASIC_SCANNER_HELP | TODO Add more complete Guide description. 
+SETTINGS_MOD_ACTIVATE_BASIC_SCANNER_DESC | TODO Add small description.
+SETTINGS_MOD_ACTIVATE_BASIC_SCANNER      | Basic Scanner: %1
+
 SETTINGS_MOD_SHOW_NEW_RACES_DESC         | Show the new races in the opponents list?
 SETTINGS_MOD_SHOW_NEW_RACES              | Show new races: %1
 SETTINGS_MOD_SHOW_GRID_CIRCULAR_DESC     | Show the circular grid on the galaxy map? (Dynamic)
@@ -2216,7 +2220,6 @@ SETTINGS_MOD_TECH_EXCHANGE_AUTO_NO       | Auto Refuse Exchanges: %1
 SETTINGS_MOD_SHOW_LIMITED_WARNINGS_DESC  | Limit the number of aliens repeating the same warning:<br> For Expansion, Genocide, and use of Bio weapons. 
 SETTINGS_MOD_SHOW_LIMITED_WARNINGS       | Limit Warnings: %1
 SETTINGS_MOD_SHOW_LIMITED_WARNINGS_ALL   | Show All
-
 
 SETTINGS_MOD_BOMBING_TARGET_DESC         | Limited Bombing: Stop Bombing the population level reach this limit. !!! Powerful weapons may still annihilate the population !!!
 SETTINGS_MOD_BOMBING_TARGET              | Bombing Limit: %1 pop

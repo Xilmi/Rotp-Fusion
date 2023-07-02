@@ -181,6 +181,10 @@ public interface IInGameOptions extends IConvenienceOptions {
 		}
 	};
 	default boolean selectedShowAllAI()			{ return showAllAI.get(); }
+
+	ParamBoolean activateBasicScanner	= new ParamBoolean(MOD_UI, "ACTIVATE_BASIC_SCANNER", true);
+	
+	default boolean selectedActivateBasicScanner()	{ return activateBasicScanner.get(); }
 	
 	// ==================== GUI List Declarations ====================
 	LinkedList<IParam> modOptionsDynamicA = new LinkedList<>(
@@ -191,7 +195,7 @@ public interface IInGameOptions extends IConvenienceOptions {
 				null,
 				bombingTarget, targetBombard, flagColorCount, autoFlagOptionsUI,
 				null,
-				scrapRefundFactor, scrapRefundOption, autoTerraformEnding
+				scrapRefundFactor, scrapRefundOption, autoTerraformEnding, activateBasicScanner
 			));
 	LinkedList<IParam> modOptionsDynamicB = new LinkedList<>(
 			Arrays.asList(

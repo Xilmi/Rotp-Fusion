@@ -58,6 +58,12 @@ Later:
 
 ## What's New
 
+2024.07.02 (BR)
+- Made "Rudimentary Scanner" Optional.
+
+2024.07.01 (dHannasch)
+- Added "Rudimentary Scanner".
+
 2024.06.29 (BR)
 - Set "Empires Spreading" limits  to 10% ~ 1000%.
 - Linearized empire spreading.
