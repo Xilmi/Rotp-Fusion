@@ -21,7 +21,11 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+
 import rotp.Rotp;
+import rotp.model.tech.Tech;
 
 public class LabelManager implements Base {
     static LabelManager instance = new LabelManager();
@@ -46,15 +50,23 @@ public class LabelManager implements Base {
     
     public String label(String key) {
         byte[] value = labelMap.get(key);
+        if (value == null)
+        	return key;
         try {
-        return (value == null) ? key : new String(value, "UTF-8");
+        	String result;
+        	result = new String(value, "UTF-8");
+        	return replaceCrossReferences(result);
         }
         catch(UnsupportedEncodingException e) { return key; }
     }
     public String realLabel(String key) {
         byte[] value = labelMap.get(key);
+        if (value == null)
+        	return null;
         try {
-        return (value == null) ? null : new String(value, "UTF-8");
+        	String result;
+        	result = new String(value, "UTF-8");
+        	return replaceCrossReferences(result);
         }
         catch(UnsupportedEncodingException e) { return null; }
     }
@@ -229,5 +241,27 @@ public class LabelManager implements Base {
             return substrings(vals.get(1), ' ').size();
         else
             return 0;
+    }
+
+    private String replaceCrossReferences(String source) {
+    	// Split the requests
+    	String leftId  = "→";
+    	String rightId = "←";
+    	String[] crArray = StringUtils.substringsBetween(source, leftId, rightId);
+    	if (crArray == null || crArray.length == 0)
+    		return source;
+
+    	String result = source;
+    	for (int k=0; k<crArray.length; k++) {
+    		// identify the request
+    		String key = crArray[k];
+    		if (key == null || key.isEmpty())
+    			continue;
+    		// Extract the replacement string
+    		String replacement = label(key);
+    		// Replace
+    		result = result.replace(leftId+key+rightId, replacement);
+    	}
+		return result;
     }
 }

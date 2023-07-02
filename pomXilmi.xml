@@ -51,6 +51,7 @@
 		</repository>
 	</distributionManagement>
 
+<!-- not needed if antrun works
 	<pluginRepositories>
 		<pluginRepository>
 			<id>local-repository</id>
@@ -63,6 +64,7 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
+-->
 
 	<!-- All the dependencies Declaration -->
 	<dependencies>
@@ -71,11 +73,13 @@
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
 			<version>${junit.jupiter.version}</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
 			<version>${junit.jupiter.version}</version>
+			<scope>test</scope>
 		</dependency>
 		<!-- Base and modders ROTP dependencies -->
 		<dependency>
@@ -83,6 +87,11 @@
 			<artifactId>commons-math3</artifactId>
 			<version>3.6.1</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.12.0</version>
 		<dependency>
 			<groupId>com.googlecode.soundlibs</groupId>
 			<artifactId>tritonus-share</artifactId>
@@ -185,7 +194,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<timestampFormat>yyyy/MM/dd/HH</timestampFormat>
+					<timestampFormat>yyyy/MM/dd/HHmm</timestampFormat>
 					<timestampPropertyName>build.date</timestampPropertyName>
 				</configuration>
 			</plugin>
@@ -198,14 +207,69 @@
 				</configuration>
 			</plugin>
 			
- 
-			<!-- Coder plugin for images compression -->
+			<!-- images & sound compression, using antrun which is standard -->
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>3.1.0</version> <!-- Must be high version or echo doesn't work -->
+				<executions>
+					<execution>
+						<id>ogg</id>
+						<phase>compile</phase>
+ 						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target  xmlns:mvn="http://maven.apache.org/ANTRUN">
+								<parallel threadCount="4">
+									<!-- convert wav to ogg. Needs vorbis-tools package, oggenc executable  -->
+									<apply executable="oggenc" dest="${project.build.outputDirectory}" verbose="true" parallel="false">
+										<srcfile/>
+										<arg value="-o"/>
+										<targetfile/>
+										<fileset dir="${project.build.sourceDirectory}">
+											<patternset>
+												<include name="**/*.wav"/>
+											</patternset>
+										</fileset>
+										<mapper type="glob" from="*.wav" to="*.ogg"/>
+ 									</apply>
+									<!-- convert png/jpg to webp. Needs webp package, cwebp executable -->
+									<!-- quality 90 is visually indistinguishable from original jpeg -->
+									<!-- but given that people using minified version want a small jar, let's use quality 80 -->
+ 									<apply executable="cwebp" dest="${project.build.outputDirectory}" verbose="true" parallel="false">
+										<arg value="-short"/>
+										<arg value="-mt"/>
+										<arg value="-q"/>
+										<arg value="75"/>
+										<srcfile/>
+										<arg value="-o"/>
+ 										<targetfile/>
+										<fileset dir="${project.build.sourceDirectory}">
+											<patternset>
+												<include name="**/*.png"/>
+												<include name="**/*.jpg"/>
+											</patternset>
+										</fileset>
+										<firstmatchmapper>
+											<globmapper from="*.png" to="*.webp"/>
+											<globmapper from="*.jpg" to="*.webp"/>
+										</firstmatchmapper>
+									</apply>
+								</parallel>
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+ 
+			<!-- Coder plugin for images compression Better not to use non-standard plugins -->
+			<!-- To be removed if antrun plugin works -->
+<!--			<plugin>
 				<groupId>org.maven.coder</groupId>
 				<artifactId>native-transform-maven-plugin</artifactId>
 				<version>1.1-SNAPSHOT</version>
 				<executions>
-					<!-- convert wav to ogg. Needs vorbis-tools package, oggenc executable -->
 					<execution>
 						<id>ogg</id>
 						<phase>compile</phase>
@@ -224,7 +288,6 @@
 							</inputFiles>
 						</configuration>
 					</execution>
-					<!-- convert png/jpg to webp. Needs webp package, cwebp executable -->
 					<execution>
 						<id>webp</id>
 						<phase>compile</phase>
@@ -232,8 +295,6 @@
 							<goal>run</goal>
 						</goals>
 						<configuration>
-							<!-- quality 90 is visually indistinguishable from original jpeg -->
-							<!-- but given that people using minified version want a small jar, let's use quality 80 -->
 							<command>cwebp -mt -q 75 ${input} -o ${output}</command>
 							<outputExtension>webp</outputExtension>
 							<errorToOutput>true</errorToOutput>
@@ -247,7 +308,7 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin>-->
 
 			<!-- plugin for Mini Jar -->
 			<plugin>
@@ -324,7 +385,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- Some Download helper -->
+			<!-- Download Eclipse OpenJDK to package in windows binary zip -->
 			<plugin>
 				<groupId>com.googlecode.maven-download-plugin</groupId>
 				<artifactId>download-maven-plugin</artifactId>
@@ -339,18 +400,18 @@
 				</executions>
 				<configuration>
 					<url>
-						https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.3%2B7/OpenJDK17U-jre_x64_windows_hotspot_17.0.3_7.zip
+						https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.7%2B7/OpenJDK17U-jre_x64_windows_hotspot_17.0.7_7.zip
 					</url>
 					<unpack>true</unpack>
 					<outputDirectory>${project.build.directory}/jre-win</outputDirectory>
-					<sha256>d77745fdb57b51116f7b8fabd7d251067edbe3c94ea18fa224f64d9584b41a97</sha256>
+					<sha256>62e82c1afa7509424813e9cb22d8becfec4346d7505e6d2fc8770af4dcd5b9a0</sha256>
 				</configuration>
 			</plugin>
 			<!-- Windows executable creation -->
 			<plugin>
 				<groupId>com.akathist.maven.plugins.launch4j</groupId>
 				<artifactId>launch4j-maven-plugin</artifactId>
-                                <!-- Last known working version !!! -->
+				<!-- Last known working version !!! -->
 				<version>2.1.2</version>
 				<executions>
 					<execution>
@@ -400,7 +461,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- package a jar with governor classes only -->
+			<!-- package a zip for windows -->
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<executions>
@@ -422,7 +483,7 @@
 			<plugin>
 				<groupId>com.ragedunicorn.tools.maven</groupId>
 				<artifactId>github-release-maven-plugin</artifactId>
-				<version>1.0.2</version>
+				<version>1.0.5</version>
 				<executions>
 					<execution>
 						<id>default-cli</id>

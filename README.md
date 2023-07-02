@@ -60,6 +60,9 @@ Later:
 
 2024.07.02 (BR)
 - Made "Rudimentary Scanner" Optional.
+- Labels allows now cross referencing with key between →←
+  - Updated pom files to include Apache commons-lang3
+  - Updated Xilmi pom file to last settings
 
 2024.07.01 (dHannasch)
 - Added "Rudimentary Scanner".
