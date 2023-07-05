@@ -58,6 +58,11 @@ Later:
 
 ## What's New
 
+2024.07.05
+- Track ships across turns:
+  - Added a test to better disable the background...
+  - Temporary disabled the option.
+
 2024.07.02 (BR)
 - Made "Rudimentary Scanner" Optional.
 - Labels allows now cross referencing with key between →←

@@ -2272,8 +2272,10 @@ public final class Empire implements Base, NamedObject, Serializable {
                 addVisibleShip(sh);
         }
 
-        final Set<Ship> shipsKnowLastTurnLocationOf = matchShipsSeenThisTurnToShipsSeenLastTurn(visibleShips, shipsVisibleLastTurn).keySet();
-        suspectedDestinationsOfVisibleShips = suspectedDestinationsOfShipsSeenLastTurn(shipsKnowLastTurnLocationOf);
+        if (options().selectedTrackUFOsAcrossTurns()) { // To disable the tracking backgroung
+            final Set<Ship> shipsKnowLastTurnLocationOf = matchShipsSeenThisTurnToShipsSeenLastTurn(visibleShips, shipsVisibleLastTurn).keySet();
+            suspectedDestinationsOfVisibleShips = suspectedDestinationsOfShipsSeenLastTurn(shipsKnowLastTurnLocationOf);        	
+        }
 
         // inform our spies!
         for (Ship fl : visibleShips) {
