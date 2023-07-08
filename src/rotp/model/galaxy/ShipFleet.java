@@ -639,6 +639,7 @@ public class ShipFleet extends FleetBase implements Base, Sprite, Ship, Serializ
         }
         return empire().tech().scoutRange();
     }
+    public float travelSpeed() { return slowestStackSpeed(); }
     public float slowestStackSpeed() {
         float maxSpeed = Integer.MAX_VALUE;
         for (int i=0;i<num.length;i++) {
@@ -689,7 +690,7 @@ public class ShipFleet extends FleetBase implements Base, Sprite, Ship, Serializ
         return empire().sv.withinRange(dest.id, range());
     }
     public float travelTime(StarSystem to) {
-        return travelTime(to, slowestStackSpeed());
+        return travelTime(to, travelSpeed());
     }
     public float travelTime(StarSystem dest, float speed) {
         if (inOrbit() || deployed()
