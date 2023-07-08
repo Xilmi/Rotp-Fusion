@@ -1,5 +1,6 @@
 package rotp.model.galaxy;
 
+import java.awt.Rectangle;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.util.Base;
 
