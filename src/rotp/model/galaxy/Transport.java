@@ -35,7 +35,7 @@ import rotp.ui.notifications.TransportsPerishedAlert;
 import rotp.ui.sprites.FlightPathSprite;
 import rotp.util.Base;
 
-public class Transport implements Base, Ship, Sprite, Serializable {
+public class Transport extends FleetBase implements Base, Ship, Sprite, Serializable {
     private static final long serialVersionUID = 1L;
     private Empire empire;
     private final StarSystem from;
