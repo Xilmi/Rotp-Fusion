@@ -2272,7 +2272,7 @@ public final class Empire implements Base, NamedObject, Serializable {
                 addVisibleShip(sh);
         }
 
-        if (options().selectedTrackUFOsAcrossTurns()) { // To disable the tracking backgroung
+        if (options().selectedTrackUFOsAcrossTurns()) { // To disable the tracking background
             final Set<Ship> shipsKnowLastTurnLocationOf = matchShipsSeenThisTurnToShipsSeenLastTurn(visibleShips, shipsVisibleLastTurn).keySet();
             suspectedDestinationsOfVisibleShips = suspectedDestinationsOfShipsSeenLastTurn(shipsKnowLastTurnLocationOf);        	
         }
@@ -2348,7 +2348,8 @@ public final class Empire implements Base, NamedObject, Serializable {
             numberOfShipsWithMissingDesign = designs.get(null);
         Map<ShipView, Integer> ret = designs.entrySet().stream().filter(Objects::nonNull).collect(Collectors.toMap(
             entry -> shipViewFor(entry.getKey()),
-            Map.Entry::getValue
+            Map.Entry::getValue,
+            (first, second) -> first // BR: designs may have duplicate... -> Crash!
         ));
         if (numberOfShipsWithMissingDesign > 0)
             ret.put(null, ret.get(null) + numberOfShipsWithMissingDesign);
