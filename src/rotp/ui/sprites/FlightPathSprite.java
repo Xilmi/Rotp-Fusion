@@ -76,10 +76,13 @@ public class FlightPathSprite extends MapSprite {
     public FlightPathSprite()  {}
     public FlightPathSprite(Ship s, StarSystem sv) {
         ship = s;
+        assert sv != null : "FlightPathSprite created with no destination";
         to = sv;
     }
     public FlightPathSprite(StarSystem sv1, StarSystem sv2) {
+        assert sv1 != null : "FlightPathSprite created with no source";
         fr = sv1;
+        assert sv2 != null : "FlightPathSprite created with no destination";
         to = sv2;
         isColonyRelocation = true;
     }
