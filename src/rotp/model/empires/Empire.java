@@ -2272,7 +2272,7 @@ public final class Empire implements Base, NamedObject, Serializable {
                 addVisibleShip(sh);
         }
 
-        if (options().selectedTrackUFOsAcrossTurns()) { // To disable the tracking backgroung
+        if (options().selectedTrackUFOsAcrossTurns()) { // To disable the tracking background
             final Set<Ship> shipsKnowLastTurnLocationOf = matchShipsSeenThisTurnToShipsSeenLastTurn(visibleShips, shipsVisibleLastTurn).keySet();
             suspectedDestinationsOfVisibleShips = suspectedDestinationsOfShipsSeenLastTurn(shipsKnowLastTurnLocationOf);        	
         }

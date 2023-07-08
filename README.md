@@ -58,7 +58,11 @@ Later:
 
 ## What's New
 
-2024.07.05
+2024.07.08 (BR)
+- Fixed "Track ships across turns" crash over ship design duplicate.
+- Reactivated "Track ships across turns".
+
+2024.07.05 (BR)
 - Track ships across turns:
   - Added a test to better disable the background...
   - Temporary disabled the option.
