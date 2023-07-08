@@ -217,6 +217,8 @@ public class ShipFleet extends FleetBase implements Base, Sprite, Ship, Serializ
         if (pathSprite == null)
             pathSprite = new FlightPathSprite(this, dest);
         if (pathSprite.destination() != dest)
+            // Under what possible circumstances could this ever happen?
+            // The FlightPathSprite constructor sets its destination to the second argument. That's all it does.
             pathSprite.destination(dest);
         return pathSprite;
     }
