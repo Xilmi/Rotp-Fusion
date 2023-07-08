@@ -5,4 +5,8 @@ public abstract class FleetBase {
   private float arrivalTime = Float.MAX_VALUE;
 
   public float arrivalTime() { return arrivalTime; }
+  abstract float calculateArrivalTime();
+  public void setArrivalTime() {
+    arrivalTime = calculateArrivalTime();
+  }
 }
