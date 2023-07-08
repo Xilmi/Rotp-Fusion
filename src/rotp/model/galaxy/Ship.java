@@ -38,6 +38,7 @@ public interface Ship extends IMappedObject, Base, Sprite {
     default boolean hasDisplayPanel() { return true; }
 
     public boolean canSendTo(int sysId);
+    public float travelSpeed();
     public float launchTime();
     public float arrivalTime();
     public boolean visibleTo(int empId);
