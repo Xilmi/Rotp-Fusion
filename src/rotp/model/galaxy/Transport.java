@@ -125,7 +125,8 @@ public class Transport implements Base, Ship, Sprite, Serializable {
     public float combatAdj()          { return combatAdj; }
     @Override
     public float launchTime()         { return launchTime; }
-    public Empire targetCiv()          { return targetEmp; }
+    public Empire targetCiv()         { return targetEmp; }
+    public float travelSpeed()        { return travelSpeed; }
     public void travelSpeed(float d)  { travelSpeed = d; }
 
 
