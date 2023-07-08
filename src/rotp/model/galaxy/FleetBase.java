@@ -14,13 +14,16 @@ public abstract class FleetBase implements Base {
 
   public float arrivalTime() {
     if (arrivalTime == Float.MAX_VALUE) {
-      throw new RuntimeException("Something has gone terribly wrong: setArrivalTime() was never called, or it returned Float.MAX_VALUE.");
+      throw new RuntimeException("Something has gone terribly wrong: it appears setArrivalTime() was never called.");
     }
     return arrivalTime;
   }
   protected abstract float calculateArrivalTime();
   public void setArrivalTime() {
     arrivalTime = calculateArrivalTime();
+    if (arrivalTime == Float.MAX_VALUE) {
+      throw new RuntimeException("Something has gone terribly wrong: calculateArrivalTime() returned Float.MAX_VALUE.");
+    }
   }
 
   public boolean displayed() { return displayed; }
