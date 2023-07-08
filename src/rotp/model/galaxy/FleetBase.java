@@ -1,5 +1,5 @@
 package rotp.model.galaxy;
 
-public class FleetBase {
+public abstract class FleetBase {
   private static final long serialVersionUID = 1L;
 }
