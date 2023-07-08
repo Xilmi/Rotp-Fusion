@@ -60,7 +60,6 @@ public class ShipFleet extends FleetBase implements Base, Sprite, Ship, Serializ
     private transient Rectangle selectBox;
     private transient boolean hovering;
     private transient int[] bombardCount = new int[ShipDesignLab.MAX_DESIGNS];
-    private transient boolean displayed = false;
 
     public int sysId()                  { return sysId; }
     public void sysId(int i)            { sysId = i; }
@@ -158,8 +157,6 @@ public class ShipFleet extends FleetBase implements Base, Sprite, Ship, Serializ
     public boolean hovering()                   { return hovering; }
     @Override
     public void hovering(boolean b)             { hovering = b; }
-    @Override
-    public boolean displayed()                  { return displayed; }
     public ShipFleet(int emp, StarSystem s) {
         empId = emp;
         sysId = s.id;
@@ -526,6 +523,7 @@ public class ShipFleet extends FleetBase implements Base, Sprite, Ship, Serializ
     public boolean hasShip(ShipDesign d)  {
             return (d == null) || !d.active() ? false : num[d.id()] > 0;
     }
+    @Override
     public float calculateArrivalTime() {
         float arrivalTime = galaxy().currentTime();
         if (hasDestination())
@@ -953,7 +951,7 @@ public class ShipFleet extends FleetBase implements Base, Sprite, Ship, Serializ
     }
     @Override
     public boolean isSelectableAt(GalaxyMapPanel map, int mapX, int mapY) {
-        return displayed && selectBox().contains(mapX, mapY);
+        return displayed() && selectBox().contains(mapX, mapY);
     }
     @Override
     public float selectDistance(GalaxyMapPanel map, int mapX, int mapY)  { 
@@ -1031,12 +1029,11 @@ public class ShipFleet extends FleetBase implements Base, Sprite, Ship, Serializ
             return GalaxyMapPanel.MAX_FLEET_SMALL_SCALE;
     }
     @Override
-    public void setDisplayed(GalaxyMapPanel map) {
-        displayed = false;
+    public void decideWhetherDisplayed(GalaxyMapPanel map) {
         if (!map.displays(this))
-            return;
+            return false;
         if (map.scaleX() > maxMapScale())
-            return;
+            return false;
         Sprite clickedSprite = map.parent().clickedSprite();
         boolean clickingOnThisFleet = false;
         if ((clickedSprite == this)
@@ -1047,25 +1044,25 @@ public class ShipFleet extends FleetBase implements Base, Sprite, Ship, Serializ
         // don't draw unless we are clicking on this fleet
         boolean armed = isPotentiallyArmed(player());    
         if (!armed && !map.showUnarmedShips() && !clickingOnThisFleet)
-            return;
+            return false;
         
         // stop drawing unarmed AI fleets at a certain zoom level
         if (!armed && !empire().isPlayerControlled() && (map.scaleX() > GalaxyMapPanel.MAX_FLEET_UNARMED_SCALE))
-            return;
+            return false;
 
         // because fleets can be disbanded asynchronously to the ui thread,
         // make sure this fleet is still active before drawing
         if (!isActive())
-            return;
+            return false;
         
         if (!map.parent().shouldDrawSprite(this))
-            return;
+            return false;
 
-        displayed = true;
+        return true;
     }
     @Override
     public void draw(GalaxyMapPanel map, Graphics2D g2) {
-        if (!displayed)
+        if (!displayed())
             return;
         float size = hullPoints();
         int imgSize = 1;
