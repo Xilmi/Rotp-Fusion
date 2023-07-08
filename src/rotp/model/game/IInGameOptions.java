@@ -184,8 +184,7 @@ public interface IInGameOptions extends IConvenienceOptions {
 
 	ParamBoolean trackUFOsAcrossTurns = new ParamBoolean(MOD_UI, "TRACK_UFOS_ACROSS_TURNS", true);
 	
-	default boolean selectedTrackUFOsAcrossTurns() { return false; }
-// TODO	default boolean selectedTrackUFOsAcrossTurns() { return trackUFOsAcrossTurns.get(); }
+	default boolean selectedTrackUFOsAcrossTurns() { return trackUFOsAcrossTurns.get(); }
 	
 	// ==================== GUI List Declarations ====================
 	LinkedList<IParam> modOptionsDynamicA = new LinkedList<>(
@@ -196,8 +195,7 @@ public interface IInGameOptions extends IConvenienceOptions {
 				null,
 				bombingTarget, targetBombard, flagColorCount, autoFlagOptionsUI,
 				null,
-				scrapRefundFactor, scrapRefundOption, autoTerraformEnding
-// TODO				scrapRefundFactor, scrapRefundOption, autoTerraformEnding, trackUFOsAcrossTurns
+				scrapRefundFactor, scrapRefundOption, autoTerraformEnding, trackUFOsAcrossTurns
 			));
 	LinkedList<IParam> modOptionsDynamicB = new LinkedList<>(
 			Arrays.asList(
