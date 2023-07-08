@@ -184,7 +184,7 @@ public interface IInGameOptions extends IConvenienceOptions {
 
 	ParamBoolean trackUFOsAcrossTurns = new ParamBoolean(MOD_UI, "TRACK_UFOS_ACROSS_TURNS", true);
 	
-default boolean selectedTrackUFOsAcrossTurns() { return trackUFOsAcrossTurns.get(); }
+	default boolean selectedTrackUFOsAcrossTurns() { return trackUFOsAcrossTurns.get(); }
 	
 	// ==================== GUI List Declarations ====================
 	LinkedList<IParam> modOptionsDynamicA = new LinkedList<>(

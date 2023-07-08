@@ -2346,10 +2346,14 @@ public final class Empire implements Base, NamedObject, Serializable {
         int numberOfShipsWithMissingDesign = 0;
         if (designs.containsKey(null))
             numberOfShipsWithMissingDesign = designs.get(null);
-        Map<ShipView, Integer> ret = designs.entrySet().stream().filter(Objects::nonNull).collect(Collectors.toMap(
+        Map<ShipView, Integer> ret = designs.entrySet().stream().filter(Objects::nonNull)
+                                            .collect(Collectors.toMap(
             entry -> shipViewFor(entry.getKey()),
             Map.Entry::getValue,
-            (first, second) -> first // BR: designs may have duplicate... -> Crash!
+            // Although we separately dealt with null designs, we can still have multiple null ShipViews.
+            // We agglomerate those all together and save the count in case we want it.
+            // (Collectors.toMap will complain of "Duplicate key null" if we don't include some kind of mergeFunction)
+            Integer::sum
         ));
         if (numberOfShipsWithMissingDesign > 0)
             ret.put(null, ret.get(null) + numberOfShipsWithMissingDesign);
