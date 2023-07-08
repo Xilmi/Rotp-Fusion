@@ -12,7 +12,12 @@ public abstract class FleetBase implements Base {
   private transient Rectangle selectBox;
   private transient boolean hovering;
 
-  public float arrivalTime() { return arrivalTime; }
+  public float arrivalTime() {
+    if (arrivalTime == Float.MAX_VALUE) {
+      throw new RuntimeException("Something has gone terribly wrong: setArrivalTime() was never called, or it returned Float.MAX_VALUE.");
+    }
+    return arrivalTime;
+  }
   protected abstract float calculateArrivalTime();
   public void setArrivalTime() {
     arrivalTime = calculateArrivalTime();
