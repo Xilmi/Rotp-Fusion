@@ -7,6 +7,7 @@ public abstract class FleetBase {
   private float arrivalTime = Float.MAX_VALUE;
 
   private transient boolean displayed;
+  private transient Rectangle selectBox;
 
   public float arrivalTime() { return arrivalTime; }
   protected abstract float calculateArrivalTime();
@@ -18,5 +19,11 @@ public abstract class FleetBase {
   protected abstract boolean decideWhetherDisplayed(GalaxyMapPanel map);
   public void setDisplayed(GalaxyMapPanel map) {
     displayed = decideWhetherDisplayed(map);
+  }
+
+  public Rectangle selectBox() {
+    if (selectBox == null)
+      selectBox = new Rectangle();
+    return selectBox;
   }
 }
