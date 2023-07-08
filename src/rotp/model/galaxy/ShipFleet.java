@@ -207,13 +207,17 @@ public class ShipFleet extends FleetBase implements Base, Sprite, Ship, Serializ
     @Override
     public StarSystem destinationOrRallySystem() {
         int destId = hasDestination() ? destSysId : rallySysId;
-        if (destId == StarSystem.NULL_ID)
-            return null;
+        // galaxy().system(destId) will return null if destId is StarSystem.NULL_ID
+        // if (destId == StarSystem.NULL_ID)
+        //     return null;
         return galaxy().system(destId);
     }
     @Override
     public FlightPathSprite pathSprite() {
         StarSystem dest = destinationOrRallySystem();
+        // If we have no destination and no rally system, we have no path and no path sprite.
+        if (dest == null)
+            return null;
         if (pathSprite == null)
             pathSprite = new FlightPathSprite(this, dest);
         if (pathSprite.destination() != dest)
