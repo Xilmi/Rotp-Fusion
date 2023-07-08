@@ -1,6 +1,7 @@
 package rotp.model.galaxy;
 
 import rotp.ui.main.GalaxyMapPanel;
+import rotp.util.Base;
 
 public abstract class FleetBase implements Base {
   private static final long serialVersionUID = 1L;
