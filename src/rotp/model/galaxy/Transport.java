@@ -50,7 +50,6 @@ public class Transport extends FleetBase implements Base, Ship, Sprite, Serializ
     private float combatAdj = 0;
     private float launchTime = NOT_LAUNCHED;
     private float travelSpeed = 0;
-    private float arrivalTime = Float.MAX_VALUE;
 
     private String troopArmorId;
     private String troopBattleSuitId;
@@ -139,8 +138,6 @@ public class Transport extends FleetBase implements Base, Ship, Sprite, Serializ
     public int destSysId()              { return dest == null ? StarSystem.NULL_ID : dest.id; }
     @Override
     public int empId()                  { return empire.id; }
-    @Override
-    public float arrivalTime()         { return arrivalTime; }
     public void arrive()                { dest.acceptTransport(this); }
     @Override
     public boolean visibleTo(int empId) { return true; }
@@ -246,14 +243,13 @@ public class Transport extends FleetBase implements Base, Ship, Sprite, Serializ
         }
         return normalTime;
     }
-    public int travelTurnsRemaining()     { return !inTransit() ? 0 : (int)Math.ceil(arrivalTime-galaxy().currentTime()); }
-    public void setArrivalTime() {
+    public float calculateArrivalTime() {
         // direct time is if we go straight there at empire's tech transport speed
         float directTime = travelTime(dest);
         // set time is if we have travelSpeed alrady set, by synching transports
         float setTime = travelSpeed > 0 ? distanceTo(dest)/travelSpeed : directTime;
         // take the worst time
-        arrivalTime = galaxy().currentTime() + max(setTime, directTime);
+        return galaxy().currentTime() + max(setTime, directTime);
     }
     public boolean  changeDestination(StarSystem to) {
         if (inTransit()
