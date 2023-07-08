@@ -55,7 +55,6 @@ public class Transport extends FleetBase implements Base, Ship, Sprite, Serializ
     private String troopBattleSuitId;
     private String troopWeaponId;
     private String troopShieldId;
-    private transient boolean hovering;
     private transient FlightPathSprite pathSprite;
     private transient StarSystem hoveringDest;
 
@@ -65,10 +64,6 @@ public class Transport extends FleetBase implements Base, Ship, Sprite, Serializ
     private TechBattleSuit troopBattleSuit() { return (TechBattleSuit) tech(troopBattleSuitId); }
     private TechHandWeapon troopWeapon()     { return (TechHandWeapon) tech(troopWeaponId); }
     private TechPersonalShield troopShield() { return (TechPersonalShield) tech(troopShieldId); }
-    @Override
-    public boolean hovering()                   { return hovering; }
-    @Override
-    public void hovering(boolean b)             { hovering = b; }
     @Override
     public int displayPriority()                { return 8; }
     @Override
