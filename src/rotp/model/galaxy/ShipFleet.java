@@ -54,7 +54,6 @@ public class ShipFleet extends FleetBase implements Base, Sprite, Ship, Serializ
     private boolean retreating = false;
     private float fromX, fromY, destX, destY;
     private float launchTime = NOT_LAUNCHED;
-    private float arrivalTime = Float.MAX_VALUE;
 
     private transient FleetOrders orders;
     private transient FlightPathSprite pathSprite;
@@ -143,8 +142,6 @@ public class ShipFleet extends FleetBase implements Base, Sprite, Ship, Serializ
 
     @Override
     public int empId()                  { return empId; }
-    @Override
-    public float arrivalTime()         { return arrivalTime; }
     @Override
     public boolean visibleTo(int emp) {
         if (emp == empId)
@@ -529,12 +526,13 @@ public class ShipFleet extends FleetBase implements Base, Sprite, Ship, Serializ
     public boolean hasShip(ShipDesign d)  {
             return (d == null) || !d.active() ? false : num[d.id()] > 0;
     }
-    public void setArrivalTime() {
-        arrivalTime = galaxy().currentTime();
+    public float calculateArrivalTime() {
+        float arrivalTime = galaxy().currentTime();
         if (hasDestination())
             arrivalTime += travelTime(destination());
         if (arrivalTime <= galaxy().currentTime()) 
             log("Error: ship arrivalTime <= currentTime");
+        return arrivalTime;
     }
     public FleetOrders newOrders() {
         if (orders == null)
@@ -731,7 +729,7 @@ public class ShipFleet extends FleetBase implements Base, Sprite, Ship, Serializ
         return currTurns+nextTurns;
     }
     public int travelTurnsRemaining()     { 
-        return (int)Math.ceil(arrivalTime - galaxy().currentTime());
+        return (int)Math.ceil(arrivalTime() - galaxy().currentTime());
     }
     public int numScouts()   { return numShipType(ShipDesign.SCOUT); }
     public int numFighters() { return numShipType(ShipDesign.FIGHTER); }
