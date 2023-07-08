@@ -2,12 +2,13 @@ package rotp.model.galaxy;
 
 import rotp.ui.main.GalaxyMapPanel;
 
-public abstract class FleetBase {
+public abstract class FleetBase implements Base {
   private static final long serialVersionUID = 1L;
   private float arrivalTime = Float.MAX_VALUE;
 
   private transient boolean displayed;
   private transient Rectangle selectBox;
+  private transient boolean hovering;
 
   public float arrivalTime() { return arrivalTime; }
   protected abstract float calculateArrivalTime();
@@ -26,4 +27,7 @@ public abstract class FleetBase {
       selectBox = new Rectangle();
     return selectBox;
   }
+
+  public boolean hovering()                   { return hovering; }
+  public void hovering(boolean b)             { hovering = b; }
 }
