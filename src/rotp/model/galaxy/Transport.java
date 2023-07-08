@@ -55,7 +55,6 @@ public class Transport extends FleetBase implements Base, Ship, Sprite, Serializ
     private String troopBattleSuitId;
     private String troopWeaponId;
     private String troopShieldId;
-    private transient boolean displayed;
     private transient Rectangle selectBox;
     private transient boolean hovering;
     private transient FlightPathSprite pathSprite;
@@ -71,8 +70,6 @@ public class Transport extends FleetBase implements Base, Ship, Sprite, Serializ
     public boolean hovering()                   { return hovering; }
     @Override
     public void hovering(boolean b)             { hovering = b; }
-    @Override
-    public boolean displayed()                  { return displayed; }
     @Override
     public int displayPriority()                { return 8; }
     @Override
@@ -335,21 +332,20 @@ public class Transport extends FleetBase implements Base, Ship, Sprite, Serializ
     @Override
     public int maxMapScale()                    { return GalaxyMapPanel.MAX_FLEET_TRANSPORT_SCALE;  }
     @Override
-    public void setDisplayed(GalaxyMapPanel map) {
-        displayed = false;
+    public void decideWhetherDisplayed(GalaxyMapPanel map) {
         if (!map.parent().isClicked(this)) {
             if ((empire == targetEmp) && !map.showFriendlyTransports())
-                return;
+                return false;
             if ((empire != targetEmp) && !map.showArmedShips())
-                return;
+                return false;
         }
         if (map.scaleX() > maxMapScale())
-            return;
-        displayed = true;
+            return false;
+        return true;
     }
     @Override
     public void draw(GalaxyMapPanel map, Graphics2D g2) {
-        if (!displayed)
+        if (!displayed())
             return;
         int x = mapX(map);
         int y = mapY(map);
