@@ -1029,7 +1029,7 @@ public class ShipFleet extends FleetBase implements Base, Sprite, Ship, Serializ
             return GalaxyMapPanel.MAX_FLEET_SMALL_SCALE;
     }
     @Override
-    public void decideWhetherDisplayed(GalaxyMapPanel map) {
+    public boolean decideWhetherDisplayed(GalaxyMapPanel map) {
         if (!map.displays(this))
             return false;
         if (map.scaleX() > maxMapScale())
