@@ -55,7 +55,6 @@ public class Transport extends FleetBase implements Base, Ship, Sprite, Serializ
     private String troopBattleSuitId;
     private String troopWeaponId;
     private String troopShieldId;
-    private transient Rectangle selectBox;
     private transient boolean hovering;
     private transient FlightPathSprite pathSprite;
     private transient StarSystem hoveringDest;
@@ -86,11 +85,6 @@ public class Transport extends FleetBase implements Base, Ship, Sprite, Serializ
             orderToSurrenderOnArrival();
     }
 
-    public Rectangle selectBox() {
-        if (selectBox == null)
-            selectBox = new Rectangle();
-        return selectBox;
-    }
     @Override
     public FlightPathSprite pathSprite() {
         if (pathSprite == null)
