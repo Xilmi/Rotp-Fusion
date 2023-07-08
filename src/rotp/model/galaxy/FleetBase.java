@@ -16,7 +16,7 @@ public abstract class FleetBase {
 
   public boolean displayed() { return displayed; }
   protected abstract boolean decideWhetherDisplayed(GalaxyMapPanel map);
-  public void setDisplayed() {
-    displayed = decideWhetherDisplayed();
+  public void setDisplayed(GalaxyMapPanel map) {
+    displayed = decideWhetherDisplayed(map);
   }
 }
