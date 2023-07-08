@@ -57,7 +57,6 @@ public class ShipFleet extends FleetBase implements Base, Sprite, Ship, Serializ
 
     private transient FleetOrders orders;
     private transient FlightPathSprite pathSprite;
-    private transient Rectangle selectBox;
     private transient boolean hovering;
     private transient int[] bombardCount = new int[ShipDesignLab.MAX_DESIGNS];
 
@@ -133,12 +132,6 @@ public class ShipFleet extends FleetBase implements Base, Sprite, Ship, Serializ
     }
     public boolean hasDestination()     { return destSysId != StarSystem.NULL_ID; }
     
-    public Rectangle selectBox() {
-        if (selectBox == null)
-            selectBox = new Rectangle();
-        return selectBox;
-    }
-
     @Override
     public int empId()                  { return empId; }
     @Override
