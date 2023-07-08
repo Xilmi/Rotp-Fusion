@@ -205,7 +205,7 @@ public class ShipFleet extends FleetBase implements Base, Sprite, Ship, Serializ
         destY = fl.destY;
     }
     @Override
-    public destinationOrRallySystem() {
+    public StarSystem destinationOrRallySystem() {
         int destId = hasDestination() ? destSysId : rallySysId;
         if (destId == StarSystem.NULL_ID)
             return null;
