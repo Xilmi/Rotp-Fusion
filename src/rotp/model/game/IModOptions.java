@@ -133,8 +133,7 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 				headerSpacer,
 				new ParamTitle("GAME_OTHER"),
 				showAlliancesGNN, showLimitedWarnings,
-				techExchangeAutoRefuse, autoTerraformEnding, autoplay
-// TODO				techExchangeAutoRefuse, autoTerraformEnding, trackUFOsAcrossTurns, autoplay
+				techExchangeAutoRefuse, autoTerraformEnding, trackUFOsAcrossTurns, autoplay
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("GAME_RELATIONS"),
