@@ -728,9 +728,6 @@ public class ShipFleet extends FleetBase implements Base, Sprite, Ship, Serializ
         int nextTurns = (int) Math.ceil(travelTime(currDest,finalDest,design.warpSpeed()));
         return currTurns+nextTurns;
     }
-    public int travelTurnsRemaining()     { 
-        return (int)Math.ceil(arrivalTime() - galaxy().currentTime());
-    }
     public int numScouts()   { return numShipType(ShipDesign.SCOUT); }
     public int numFighters() { return numShipType(ShipDesign.FIGHTER); }
     public int numBombers()  { return numShipType(ShipDesign.BOMBER); }
