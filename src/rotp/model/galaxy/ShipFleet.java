@@ -57,7 +57,6 @@ public class ShipFleet extends FleetBase implements Base, Sprite, Ship, Serializ
 
     private transient FleetOrders orders;
     private transient FlightPathSprite pathSprite;
-    private transient boolean hovering;
     private transient int[] bombardCount = new int[ShipDesignLab.MAX_DESIGNS];
 
     public int sysId()                  { return sysId; }
@@ -146,10 +145,6 @@ public class ShipFleet extends FleetBase implements Base, Sprite, Ship, Serializ
         }
         return false;
     }
-    @Override
-    public boolean hovering()                   { return hovering; }
-    @Override
-    public void hovering(boolean b)             { hovering = b; }
     public ShipFleet(int emp, StarSystem s) {
         empId = emp;
         sysId = s.id;
