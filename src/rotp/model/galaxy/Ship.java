@@ -82,6 +82,7 @@ public interface Ship extends IMappedObject, Base, Sprite {
     }
 
     public boolean inTransit();
+    default int travelTurnsRemaining() { return !inTransit() ? 0 : (int)Math.ceil(arrivalTime() - galaxy().currentTime()); }
     @Override // from IMappedObject
     default float x() { return inTransit() ? transitX() : fromX(); }
     @Override // from IMappedObject
