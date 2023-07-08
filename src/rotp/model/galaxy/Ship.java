@@ -53,7 +53,9 @@ public interface Ship extends IMappedObject, Base, Sprite {
     public int empId();
     default Empire empire() { return galaxy().empire(empId()); }
     public int destSysId();
-    default StarSystem destination() { return galaxy().system(destSysId());  }
+    default StarSystem destination() { return galaxy().system(destSysId()); }
+    // Rally systems are treated differently from other destinations, but sometimes we just want either one.
+    default StarSystem destinationOrRallySystem() { return destination(); }
     default float destX() { return destination().x(); }
     default float destY() { return destination().y(); }
     // destination is always a star system, but origin point need not be?
