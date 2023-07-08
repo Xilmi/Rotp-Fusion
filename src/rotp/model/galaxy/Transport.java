@@ -332,7 +332,7 @@ public class Transport extends FleetBase implements Base, Ship, Sprite, Serializ
     @Override
     public int maxMapScale()                    { return GalaxyMapPanel.MAX_FLEET_TRANSPORT_SCALE;  }
     @Override
-    public void decideWhetherDisplayed(GalaxyMapPanel map) {
+    public boolean decideWhetherDisplayed(GalaxyMapPanel map) {
         if (!map.parent().isClicked(this)) {
             if ((empire == targetEmp) && !map.showFriendlyTransports())
                 return false;
