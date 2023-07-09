@@ -229,6 +229,11 @@ public class Transport extends FleetBase implements Base, Ship, Sprite, Serializ
         }
         return normalTime;
     }
+    @Override
+    // Why does Transport.travelTurnsRemaining() check whether it's inTransit?
+    // It sort of works, since Transports don't have a "deployed, not in transit" state like ShipFleet,
+    // but a Transport is only not inTransit when dest == null, and when could that ever happen?
+    public int travelTurnsRemaining()     { return !inTransit() ? 0 : (int)Math.ceil(arrivalTime-galaxy().currentTime()); }
     public float calculateArrivalTime() {
         // direct time is if we go straight there at empire's tech transport speed
         float directTime = travelTime(dest);
