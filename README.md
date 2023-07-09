@@ -58,9 +58,14 @@ Later:
 
 ## What's New
 
+2024.07.09 (BR)
+- Added HotKey list to compact and classic options Panels.
+
 2024.07.08 (BR)
 - Fixed "Track ships across turns" crash over ship design duplicate.
 - Reactivated "Track ships across turns".
+- HotKey Uniformization.
+- Added HotKey list to Race and Galaxy Setup Menu.
 
 2024.07.05 (BR)
 - Track ships across turns:

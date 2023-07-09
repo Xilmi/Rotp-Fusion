@@ -78,7 +78,7 @@ Last updates:
 - Added Hotkey list in Galaxy Map Help (second panel).
   - Available alone by right-clicking the Help button. 
   - Available alone with SHIFT+F1.
-- Added Hotkey list to most game panels.
+- Added Hotkey list to main setup and game panels.
 - Colony Panel:
   - Added "B" Hotkey to change "Max Bases".
   - Added Arrows Right/Left for Next/Previous Colony.

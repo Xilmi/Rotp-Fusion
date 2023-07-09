@@ -574,7 +574,6 @@ MAIN_HELP_3G                      | Tech - shows available technologies. Allows 
 MAIN_HELP_3H                      | Next Year - advances the game to the next year.
 MAIN_HELP_3I                      | Current Turn - displays the game's current turn or your empire's current year. Click to toggle.
 MAIN_HELP_3J                      | Map controls - click to cycle through various display settings for the galaxy map.
-MAIN_HELP_HK                      | HOTKEYS: (Available by right-clicking the Help button)<br><br>SHIFT+F1 : Show Hotkeys List (This)<br>F1, ? : Show Help<br>F2/F3 : Next/Previous player colony<br>F5/F6 : Next/Previous player colony that has constructed a ship this turn<br>F7/F8 : Next/Previous player colony with incoming armed enemy fleets or transports<br>F9/F10 : Next/Previous player fleet<br>F11/F12 : Next/Previous AI fleet<br>Space/PageDown/PageUp : Next/Previous player Idle fleet<br><br>G : Select Game Panel<br>S : Select System Panel<br>F : Select Fleet Panel<br>D : Select Design Panel<br>R : Select Race Panel<br>C : Select Colonies Panel<br>T : Select Tech Panel<br>N : Next Turn<br>O : Select Option Panel<br>Y : Toggle Year Display<br>SHIFT-S : Show spy report<br><br>Home : Set Auto-Flag Color<br>ALT-Home : Set Auto-Flag Color to all scouted systems.<br>B/SHIFT-B : Increment/Decrement Max Bases<br>1-5/+SHIFT : Increment/Decrement to ship, def, ind, eco, tech<br>CTRL+1-5 : Lock slider<br>Arrows : Move Map<br>+/- : Zoom Map<br>mousewheel : Zoom Map<br>mousewheel : Increment quantities/moves slider<br><br>Escape : exit this panel
 
 // modnar: shorten SystemData display
 MAIN_SYSTEM_DETAIL_PFB            | P:%1  F:%2  B:%3
@@ -965,7 +964,6 @@ PLANETS_HELP_4F                   | Bases - missile bases on planet. Red if outd
 PLANETS_HELP_4G                   | Shipyard - ship design being constructed.
 PLANETS_HELP_4H                   | Notes - Player system notes. Editable.
 PLANETS_HELP_4I                   | Flag - user-selected system flag.
-PLANETS_HELP_HK                   | HOTKEYS: (Available by right-clicking the Help button)<br><br>SHIFT+F1 : Show Hotkeys List (This)<br>F1 : Show Help<br><br>Arrows Up/Down : Scroll Up/Down<br>Arrows Right/Left : Next/Previous Colony<br>Tab/+SHIFT : Next/Previous Tab<br>F : Toggle Flag Color<br>Home : Set Auto-Flag Color<br><br>B/SHIFT-B : Increment/Decrement Max Bases<br>1-5/+SHIFT : Increment/Decrement categories<br>CTRL+1-5 : Lock slider<br><br>CTRL+A : Select All Systems<br>Q/+CTRL : Select Normal And Rich With Full Economy / + Set Ship spending to 100%<br>Y,Z/+CTRL : Select Lacking Population / + Set Eco spending to 100%<br><br>S/+CTRL/+SHIFT : Current Selection Ship Spending to 100% / Lock / Unlock<br>D/+CTRL/+SHIFT : Current Selection Defense Spending to 100% / Lock / Unlock<br>W/+CTRL/+SHIFT : Current Selection Industry Spending to 100% / Lock / Unlock<br>E/+CTRL/+SHIFT : Current Selection Ecology Spending to 100% / Lock / Unlock<br>R/+CTRL/+SHIFT : Current Selection Research Spending to 100% / Lock / Unlock<br>G/+CTRL/+SHIFT : Current Selection Governor Toggle / On / Off<br><br>Escape : exit this panel
 
 // Bombardment prompt
 MAIN_BOMBARDED_TITLE             | %1 has been bombarded by [alien_race] forces.
@@ -1076,8 +1074,6 @@ FLEETS_HELP_3A                    | Stable:<br>The maximum number of population 
 FLEETS_HELP_3B                    | Fill:<br>The maximum number of population you can send from this planet while being able to regrowth to fill the planet, with ECO bar set to max.<br>It's up to the player or the governor to adjust the ECO bar.
 FLEETS_HELP_3C                    | Population to send selection bars:<br>- Left click on slider = Normal percentage selection.<br>- Middle click on slider = "Stable"-value selection.<br>- Right click on slider = "Fill"-value selection.
 FLEETS_HELP_3MAIN                 | OVERVIEW:<br> This screen allows the management of population and troops transport.<br>Select the destination colony and transport size.<br>Destination colony can be changed at will.
-FLEETS_HELP_HK                    | HOTKEYS: (Available by right-clicking the Help button)<br><br>SHIFT+F1 : Show Hotkeys List (This)<br>F1, ? : Show Help<br><br>Arrows : Move Map<br>+/- : Zoom Map<br>mousewheel : Zoom Map<br><br>Escape : exit this panel
-
 
 // Select Next Tech to Research UI
 TECH_RESEARCH_COMPUTER            | Select the next computer technology our researchers should focus on.
@@ -2417,7 +2413,6 @@ TECH_HELP_1F                      | Total production (BC) applied to research an
 TECH_HELP_1G                      | Overflow spending in a colony may be directed to research instead of the empire treasury.
 TECH_HELP_1H                      | Each tech area has a spending bar. Click on the name to lock a bar. Spending for the first 1/6th of the bar gains a 25% research bonus.
 TECH_HELP_1I                      | Equalize the spending allocations for the unlocked bars. 
-TECH_HELP_HK                      | HOTKEYS: (Available by right-clicking the Help button)<br><br>SHIFT+F1 : Show Hotkeys List (This)<br>F1, ? : Show Help<br><br>1-6/+SHIFT : Increment/Decrement categories<br>CTRL+1-6 : Lock slider<br>Arrows : Move Tree / Categories<br>= : Equalize<br>mousewheel : Increment quantities/moves slider<br><br>Escape : exit this panel
 
 // =========================================================================
 //   ALPHA 4
@@ -2598,7 +2593,6 @@ SHIP_DESIGN_HELP_4D               | Available ship design slots can be selected 
 SHIP_DESIGN_HELP_4E               | Copy - copy an existing design to serve as a starting point for a new design.
 SHIP_DESIGN_HELP_4F               | Clear - resets all of the selected components.
 SHIP_DESIGN_HELP_4G               | Deploy Design - when your new design is complete, deploying it allows you to name it and makes it available for construction.
-SHIP_DESIGN_HELP_HK               | HOTKEYS: (Available by right-clicking the Help button)<br><br>SHIFT+F1 : Show Hotkeys List (This)<br>F1, ? : Show Help<br><br>Arrows Down/Up : Next/Previous Slot<br><br>S : Scrap Design<br>R : Rename Design<br>D : Create Design<br>C / (+CTRL) : Clear Design / (Only Weapons)<br><br>Escape : exit this panel
 
 // Ship Combat UI
 SHIP_COMBAT_TITLE_SYSTEM          | Ship Combat at %1!
@@ -2901,7 +2895,6 @@ RACES_HELP_6D                     | Technology - average level of technology in 
 RACES_HELP_6E                     | Planets - the number of colonized systems.
 RACES_HELP_6F                     | Production - total industrial production for the empire.
 RACES_HELP_6G                     | Total Power - a combination of fleet strength, technology and production levels.
-RACES_HELP_HK                     | HOTKEYS: (Available by right-clicking the Help button)<br><br>SHIFT+F1 : Show Hotkeys List (This)<br>F1 : Show Help<br><br>Arrows Down/Up : Next/Previous Empire<br>Tab/+SHIFT : Next/Previous Tab<br><br>A : Select Embassy Panel<br>D : Select Diplomat Panel<br>S : Select Spies Panel<br><br>Escape : exit this panel
 
 // Sabotage UI
 SABOTAGE_TITLE                    | Our spies have infiltrated [alien_race] colonies and are ready to carry out orders.
@@ -3030,7 +3023,6 @@ SYSTEMS_HELP_1E                   | Exterminate - shows colonies that are under 
 SYSTEMS_HELP_1F                   | System Alert - describes the system alert, if any, for the selected system
 SYSTEMS_HELP_1G                   | System Notes - text field for player to leave notes.
 SYSTEMS_HELP_1H                   | System History - a chronological list of significant events that have occurred in this system.
-SYSTEMS_HELP_HK                   | HOTKEYS: (Available by right-clicking the Help button)<br><br>SHIFT+F1 : Show Hotkeys List (This)<br>F1, ? : Show Help<br>Arrows : Move Map<br>+/- : Zoom Map<br>mousewheel : Zoom Map<br><br>Y : Toggle Year Display<br>F : Toggle Flag Color<br>Home : Set Auto-Flag Color<br>ALT-Home : Set Auto-Flag Color to all scouted systems<br><br>Escape : exit this panel
 
 SYSTEMS_STATUS_REBELLION          | The colony is in rebellion.
 SYSTEMS_STATUS_COMET              | A comet will strike this planet in %1 years.
@@ -3450,3 +3442,45 @@ SETUP_BITMAP_SHARP1_HELP         | Increase the contrast a little bit.
 SETUP_BITMAP_SHARP2_HELP         | Increase the contrast twice.
 SETUP_BITMAP_SHARP3_HELP         | Sharply increase the contrast.
 SETUP_BITMAP_SHARP4_HELP         | Al,ost convert the bitmap to black and white!
+
+// Shortcuts / HotKeys list  (use crossreferences →←) →HK_←
+// Shortcuts Cross referenced
+HK_HEADER     | HOTKEYS: (Available by right-clicking the Help button)<br>→HK_SHIFT_F1←
+HK_SHIFT_F1   | <br>SHIFT+F1 : Show Hotkeys List (This)
+HK_F1         | <br>F1 : Show Help.
+HK_F1_?       | <br>F1, ? : Show Help.
+HK_ESCAPE     | <br>Escape : Exit this panel.
+HK_F          | <br>F : Toggle Flag Color.
+HK_HOME       | <br>Home : Set Auto-Flag Color.
+HK_ALT_HOME   | <br>ALT-Home : Set Auto-Flag Color to all scouted systems.
+HK_B_SHIFT_B  | <br>B/SHIFT-B : Increment/Decrement Max Bases.
+HK_1_5        | <br>1-5/+SHIFT : Increment/Decrement to ship, def, ind, eco, tech
+HK_CTRL_1_5   | <br>CTRL+1-5 : Lock sliders.
+HK_MAP_ARROWS | <br>Arrows : Move Map.
+HK_MAP_ZOOM   | <br>+/- : Zoom Map. <br>Mousewheel : Zoom Map.
+HK_TAB        | <br>Tab/+SHIFT : Next/Previous Tab.
+HK_Y          | <br>Y : Toggle Year Display.
+
+HK_G          | <br>G : Toggle Guide.
+
+
+// Shortcuts Full lists
+MAIN_HELP_HK         | →HK_HEADER← →HK_F1_?←<br>F2/F3 : Next/Previous player colony<br>F5/F6 : Next/Previous player colony that has constructed a ship this turn<br>F7/F8 : Next/Previous player colony with incoming armed enemy fleets or transports<br>F9/F10 : Next/Previous player fleet<br>F11/F12 : Next/Previous AI fleet<br>Space/PageDown/PageUp : Next/Previous player Idle fleet<br><br>G : Select Game Panel<br>S : Select System Panel<br>F : Select Fleet Panel<br>D : Select Design Panel<br>R : Select Race Panel<br>C : Select Colonies Panel<br>T : Select Tech Panel<br>N : Next Turn<br>O : Select Option Panel →HK_Y←<br>SHIFT-S : Show spy report<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Mousewheel : Increment quantities/moves slider<br>→HK_ESCAPE←
+
+PLANETS_HELP_HK      | →HK_HEADER← →HK_F1←<br><br>Arrows Up/Down : Scroll Up/Down<br>Arrows Right/Left : Next/Previous Colony. →HK_TAB← →HK_F← →HK_HOME←<br> →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5←<br><br>CTRL+A : Select All Systems<br>Q/+CTRL : Select Normal And Rich With Full Economy / + Set Ship spending to 100%<br>Y,Z/+CTRL : Select Lacking Population / + Set Eco spending to 100%<br><br>S/+CTRL/+SHIFT : Current Selection Ship Spending to 100% / Lock / Unlock<br>D/+CTRL/+SHIFT : Current Selection Defense Spending to 100% / Lock / Unlock<br>W/+CTRL/+SHIFT : Current Selection Industry Spending to 100% / Lock / Unlock<br>E/+CTRL/+SHIFT : Current Selection Ecology Spending to 100% / Lock / Unlock<br>R/+CTRL/+SHIFT : Current Selection Research Spending to 100% / Lock / Unlock<br>G/+CTRL/+SHIFT : Current Selection Governor Toggle / On / Off <br>→HK_ESCAPE←
+
+FLEETS_HELP_HK       | →HK_HEADER← →HK_F1_?← <br>→HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>→HK_ESCAPE←
+
+TECH_HELP_HK         | →HK_HEADER← →HK_F1_?← <br><br>1-6/+SHIFT : Increment/Decrement categories.<br>CTRL+1-6 : Lock sliders.<br>Arrows : Move Tree / Categories<br>= : Equalize<br>mousewheel : Increment quantities/moves slider. <br>→HK_ESCAPE←
+
+SHIP_DESIGN_HELP_HK  | →HK_HEADER← →HK_F1_?← <br><br>Arrows Down/Up : Next/Previous Slot.<br><br>S : Scrap Design.<br>R : Rename Design.<br>D : Create Design.<br>C / (+CTRL) : Clear Design / (Only Weapons) <br>→HK_ESCAPE←
+
+RACES_HELP_HK        | →HK_HEADER← →HK_F1← <br><br>Arrows Down/Up : Next/Previous Empire. →HK_TAB←<br><br>A : Select Embassy Panel.<br>D : Select Diplomat Panel.<br>S : Select Spies Panel. <br>→HK_ESCAPE←
+
+SYSTEMS_HELP_HK      | →HK_HEADER← →HK_F1_?← <br>→HK_MAP_ARROWS← →HK_MAP_ZOOM← <br> →HK_Y← →HK_F← →HK_HOME← →HK_ALT_HOME← <br>→HK_ESCAPE←
+
+SETUP_GALAXY_HELP_HK | →HK_HEADER← →HK_F1← →HK_G← <br><br>M : Go to Main Menu.<br>Enter : Start a new Game. <br><br>Escape : Go to Race Setup Panel.
+
+SETUP_RACE_HELP_HK   | →HK_HEADER← →HK_F1← →HK_G← <br><br>R : Random Race. <br>Enter : Go to Galaxy Setup Panel. <br><br>Escape : Go to Main Menu.
+
+MOD_OPTIONS_HELP_HK  | <b><u>HOTKEYS:</u></b> →HK_SHIFT_F1← <br>F1 : Show contextual Help. →HK_G← <br>→HK_ESCAPE←

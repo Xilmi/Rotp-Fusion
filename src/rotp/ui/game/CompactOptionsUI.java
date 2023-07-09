@@ -144,13 +144,13 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	}
 	// ========== Other Methods ==========
 	//
-	private  ModText newBT(boolean disabled) {
+	private ModText newBT(boolean disabled) {
 		ModText bt = new ModText(this, settingFont, enabledColor,
 				disabledColor, hoverC, depressedC, enabledColor, true);
 		bt.disabled(disabled);
 		return bt;
 	}
-	private  ModText newBT2(boolean isDefault) {
+	private ModText newBT2(boolean isDefault) {
 		ModText bt;
 		if (isDefault)
 			bt = new ModText(this, settingFont, defaultValuesColor, 
@@ -307,7 +307,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		for (InterfaceOptions param : activeList)
 			param.setFromDefault();
 	}
-	public void start(int p) { // Called from subUI
+	public  void start(int p) { // Called from subUI
 		parent = p;
 		start();
 	}
@@ -347,7 +347,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	}
 	// ========== Overriders ==========
 	//
-	@Override 	protected String exitButtonKey() {
+	@Override protected String exitButtonKey() {
 		switch (ModifierKeysState.get()) {
 		case CTRL:		 return cancelKey;
 		case CTRL_SHIFT: return cancelKey;
@@ -359,7 +359,6 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		super.close();
 		hoverBox = null;
 		prevHover = null;
-//        disableGlassPane();
 		switch (parent) {
 		case 1:
 			RotPUI.mergedDynamicOptionsUI().start(0);

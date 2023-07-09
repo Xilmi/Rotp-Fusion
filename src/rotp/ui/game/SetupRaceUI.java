@@ -42,6 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 import rotp.model.empires.Race;
 import rotp.model.ships.ShipImage;
@@ -137,8 +138,19 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 		loadHelpUI();
 		repaint();   
 	}
-    @Override public void advanceHelp() { cancelHelp(); }
-	@Override public void cancelHelp() { RotPUI.helpUI().close(); }
+	@Override public void showHotKeys() {
+		loadHotKeysUI();
+		repaint();   
+	}
+	@Override protected void loadHotKeysUI() {
+    	HelpUI helpUI = RotPUI.helpUI();
+        helpUI.clear();
+        int xHK = scaled(100);
+        int yHK = scaled(70);
+        int wHK = scaled(360);
+        helpUI.addBrownHelpText(xHK, yHK, wHK, 10, text("SETUP_RACE_HELP_HK"));
+        helpUI.open(this);
+	}
 	private void loadHelpUI() {
 		int xBox, yBox, wBox;
 		int xb, xe, yb, ye;
@@ -1116,9 +1128,6 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
     	checkModifierKey(e);
     	int k = e.getKeyCode();
         switch(k) {
-//        	case KeyEvent.VK_F1:
-//        		showHelp();
-//        		return;
 	    	case KeyEvent.VK_R:
 	    		playerIsCustom.set(false);
 	        	guiOptions().setRandomPlayerRace();
@@ -1142,7 +1151,10 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         if (hoverBox == null)
             return;
         if (hoverBox == helpBox) {
-            showHelp();
+			if (SwingUtilities.isRightMouseButton(e))
+				showHotKeys();
+			else
+				showHelp();
             return;
         }
         search:

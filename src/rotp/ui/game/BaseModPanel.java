@@ -112,7 +112,6 @@ public abstract class BaseModPanel extends BasePanel
 	}
 	protected abstract String GUI_ID();
 	protected LinkedList<IParam> localOptions() { return activeList; };
-//	protected LinkedList<IParam> localOptions() { return paramList; };
 	private void localInit(Graphics2D g) {
 		Font prevFont = g.getFont();
 		g.setFont(smallButtonFont);
@@ -435,6 +434,15 @@ public abstract class BaseModPanel extends BasePanel
 	}
 
 	// ---------- Events management
+    @Override public void advanceHelp() { cancelHelp(); }
+	@Override public void cancelHelp()  { RotPUI.helpUI().close(); }
+    @Override public void showHelp()    { showHotKeys(); }
+	@Override public void showHotKeys() {
+		Rectangle hotKeysBox  = new Rectangle(mX, mY, 0, 0);
+		String    hotKeysText = text("MOD_OPTIONS_HELP_HK");
+		guidePopUp.setDest(hotKeysBox, hotKeysText, getGraphics());
+		contextHlp = true;
+	}
 	@Override public void mouseClicked(MouseEvent e) {  }
 	@Override public void mousePressed(MouseEvent e) {  }
 	@Override public void mouseEntered(MouseEvent e) {
@@ -481,6 +489,10 @@ public abstract class BaseModPanel extends BasePanel
 		checkModifierKey(e);
 		switch(e.getKeyCode()) {
 			case KeyEvent.VK_F1:
+				if (e.isShiftDown()) {
+					showHotKeys();
+					return;
+				}
 				if (showContextualHelp())
 					return;
 				showHelp(); // Panel Help
@@ -491,7 +503,8 @@ public abstract class BaseModPanel extends BasePanel
 		}
 	}
 	// ---------- Help management
-	protected void loadGuide()						 {
+	protected void loadHotKeysUI()			{}
+	protected void loadGuide()				{
 		if (hoverBox == null) {
 			clearGuide();
 			return;
@@ -500,7 +513,7 @@ public abstract class BaseModPanel extends BasePanel
 			return;
 		guidePopUp.setDest(hoverBox, false, getGraphics());
 	}
-	private boolean showContextualHelp()			 { // Following "F1!
+	private boolean showContextualHelp()	{ // Following "F1!
 		if (hoverBox == null)
 			return false; // ==> panel help
 		
@@ -509,12 +522,12 @@ public abstract class BaseModPanel extends BasePanel
 	  	contextHlp = true;
 	  	return true;
 	}
-	protected void showGuide(Graphics g)			 {
+	protected void showGuide(Graphics g)	{
 		if (!(autoGuide || dialGuide || contextHlp))
 			return;
 		guidePopUp.paintGuide(g);
 	}
-	private void clearGuide()						 {
+	private void clearGuide()				{
 		guidePopUp.clear();
 		contextHlp = false;
 	}
@@ -715,14 +728,15 @@ public abstract class BaseModPanel extends BasePanel
 			guideFontSize = FONT_SIZE;
 		}
 		private void setText(String newText)	{ text = newText; }
+		private void setFullHelp(boolean full)	{ fullHelp = full; }
 		private void setDest(Rectangle newDest)	{
 			dest = newDest;
 			setVisible();
 			init(dest);
 		}
-		private void setFullHelp(boolean full)	{ fullHelp = full; }
 		public  void setDest(Rectangle dest, String text, Graphics g0)	{
-			setFullHelp(false);
+			lineArr = null;
+			setFullHelp(dest.width == 0);
 			setText(text);
 			setDest(dest);
 		}
@@ -872,7 +886,8 @@ public abstract class BaseModPanel extends BasePanel
 	   			if (yd > yb)
 	   				yb = yd - s10;
     		}
-    		setLineArr(xb, yb, xd, yd);
+     		if (dest.width>0) // no line for Hotkeys help
+     			setLineArr(xb, yb, xd, yd);
         }
 	}
 }

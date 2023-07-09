@@ -459,8 +459,19 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		loadHelpUI();
 		repaint();   
 	}
-    @Override public void advanceHelp() { cancelHelp(); }
-	@Override public void cancelHelp() { RotPUI.helpUI().close(); }
+	@Override public void showHotKeys() {
+		loadHotKeysUI();
+		repaint();   
+	}
+	@Override protected void loadHotKeysUI() {
+    	HelpUI helpUI = RotPUI.helpUI();
+        helpUI.clear();
+        int xHK = scaled(100);
+        int yHK = scaled(70);
+        int wHK = scaled(360);
+        helpUI.addBrownHelpText(xHK, yHK, wHK, 11, text("SETUP_GALAXY_HELP_HK"));
+        helpUI.open(this);
+	}
 	private void loadHelpUI() {
 		int xBox, yBox, wBox;
 		int x1, y1, x2, y2;
@@ -2695,7 +2706,10 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		if (hoverBox == null && hoverPolyBox == null)
 			return;
 		if (hoverBox == helpBox) {
-			showHelp();
+			if (SwingUtilities.isRightMouseButton(e))
+				showHotKeys();
+			else
+				showHelp();
 			return;
 		}
 		boolean up  = !SwingUtilities.isRightMouseButton(e);
