@@ -95,7 +95,10 @@ public class Transport extends FleetBase implements Base, Ship, Sprite, Serializ
     public String toString()          { return concat("Transport: ", Integer.toHexString(hashCode())); }
     public Colony home()              { return from.colony(); }
     public StarSystem destination()   { return dest; }
-    public void setDest(StarSystem d) { dest = d; }
+    public void setDest(StarSystem d) {
+        dest = d;
+        setArrivalTime();
+    }
     public StarSystem from()          { return from; }
     @Override
     public float fromX()              { return from.x(); }
@@ -245,9 +248,8 @@ public class Transport extends FleetBase implements Base, Ship, Sprite, Serializ
     public boolean  changeDestination(StarSystem to) {
         if (inTransit()
         && validDestination(id(to))) {
-            dest = to;
+            setDest(to);
             targetEmp = to.empire();
-            setArrivalTime();
             return true;
         }
         return false;
