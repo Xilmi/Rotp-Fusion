@@ -1,10 +1,11 @@
 package rotp.model.galaxy;
 
 import java.awt.Rectangle;
+import java.io.Serializable;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.util.Base;
 
-public abstract class FleetBase implements Base {
+public abstract class FleetBase implements Base, Serializable {
   private static final long serialVersionUID = 1L;
   private float arrivalTime = Float.MAX_VALUE;
 
