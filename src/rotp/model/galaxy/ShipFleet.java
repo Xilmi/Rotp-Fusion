@@ -69,6 +69,7 @@ public class ShipFleet extends FleetBase implements Base, Sprite, Ship, Serializ
             StarSystem s = galaxy().system(destSysId);
             destX = s.x();
             destY = s.y();
+            setArrivalTime();
         }
     }
     public void destination(int i, float x, float y) {
