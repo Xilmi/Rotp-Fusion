@@ -46,6 +46,8 @@ public interface IRaceOptions extends IBaseOptsTools {
 
 	// ==================== Race Menu addition ====================
 	//
+	ParamBoolean  noFogOnIcons	= new ParamBoolean( BASE_UI, "NO_FOG_ON_ICONS", false);
+   
 	PlayerShipSet playerShipSet		= new PlayerShipSet(
 			MOD_UI, "PLAYER_SHIP_SET");
 	default int selectedPlayerShipSetId()			{ return playerShipSet.realShipSetId(); }
@@ -73,7 +75,7 @@ public interface IRaceOptions extends IBaseOptsTools {
 	//
 	static LinkedList<IParam> optionsRace = new LinkedList<>(
 			Arrays.asList(
-					playerShipSet, playerIsCustom, playerCustomRace
+					playerShipSet, playerIsCustom, playerCustomRace, noFogOnIcons
 					));
 	default LinkedList<IParam> optionsRace()	{ return optionsRace; }
 

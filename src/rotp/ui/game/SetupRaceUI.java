@@ -16,6 +16,7 @@
 package rotp.ui.game;
 
 import static rotp.model.game.IGameOptions.LIVE_OPTIONS_FILE;
+import static rotp.model.game.IGameOptions.noFogOnIcons;
 import static rotp.model.game.IGameOptions.optionsRace;
 import static rotp.model.game.IGameOptions.playerCustomRace;
 import static rotp.model.game.IGameOptions.playerIsCustom;
@@ -25,6 +26,7 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Composite;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -51,6 +53,7 @@ import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.ui.main.SystemPanel;
+import rotp.util.FontManager;
 import rotp.util.ModifierKeysState;
 
 public final class SetupRaceUI extends BaseModPanel implements MouseWheelListener {
@@ -59,9 +62,14 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 	private static final String GUI_ID          = "START_RACE";
 	private static final String cancelKey		= "SETUP_BUTTON_CANCEL";
 	private static final String customRaceKey	= "SETUP_BUTTON_CUSTOM_PLAYER_RACE";
-    private static final int MAX_RACES  = 16; // modnar: increase MAX_RACES to add new Races
-    private static final int MAX_COLORS = 16; // modnar: add new colors
-    private static final int MAX_SHIP   = ShipLibrary.designsPerSize; // BR:
+    private static final int    MAX_RACES  		= 16; // modnar: increase MAX_RACES to add new Races
+    private static final int    MAX_COLORS 		= 16; // modnar: add new colors
+    private static final int    MAX_SHIP   		= ShipLibrary.designsPerSize; // BR:
+	private static final int    settingFont		= 20;
+	private static final Color  enabledColor	= GameUI.labelColor();
+	private static final Color  disabledColor	= GameUI.textColor();
+	private	static final Font   labelFont		= FontManager.current().narrowFont(settingFont);
+	
     private final Color checkBoxC  = new Color(178,124,87);
     private final Color darkBrownC = new Color(112,85,68);
     private int FIELD_W;
@@ -78,6 +86,8 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
     private Box	playerRaceSettingBox = new Box("SETUP_RACE_CUSTOM"); // BR: Player Race Customization
     private Box	checkBox		= new Box("SETUP_RACE_CHECK_BOX"); // BR: Player Race Customization
     private Box	shipSetBox		= new Box("SETUP_RACE_SHIPSET"); // BR: ShipSet Selection
+//    private ModText	noFogLabel;
+    private Box	noFogBox		= new Box(noFogOnIcons);
     private Box[] raceBox		= new Box[MAX_RACES];
     private Box[] colorBox		= new Box[MAX_COLORS];
     private Box[] shipBox		= new Box[MAX_SHIP]; // BR: ShipSet Selection
@@ -122,14 +132,20 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
     	for (int i=0;i<racemugs.length;i++)
     		racemugs[i] = null;
     }
-	@Override protected void singleInit() { paramList = optionsRace; }
+	@Override protected void singleInit() {
+		paramList = optionsRace;
+//		noFogLabel = new ModText(this, settingFont, enabledColor,
+//				disabledColor, hoverC, depressedC, enabledColor, true);
+//		noFogLabel.initGuide(noFogOnIcons);
+//		noFogLabel.displayText(noFogOnIcons.getLabel());
+	}
     @Override public void init() {
     	super.init();
     	EditCustomRaceUI.updatePlayerCustomRace();
-        leaderName.setFont(narrowFont(20));
+        leaderName.setFont(labelFont);
         // homeWorld.setFont(narrowFont(20));
         setHomeWorldFont(); // BR: MonoSpaced font for Galaxy
-        shipSetTxt.setFont(narrowFont(20)); // BR:
+        shipSetTxt.setFont(labelFont); // BR:
         refreshGui();
         // Save initial options
         guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
@@ -439,6 +455,29 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         g.drawRoundRect(nextBox.x, nextBox.y, nextBox.width, nextBox.height, cnr, cnr);
         g.setStroke(prev);
 
+        // TODO BR: No Fog on Icons
+        int noFogW = s16;
+        int noFogX = playerRaceSettingBox.x + s5 ;
+        int noFogY = playerRaceSettingBox.y - s15;
+        noFogBox.setBounds(noFogX, noFogY-noFogW, noFogW, noFogW);
+        prev = g.getStroke();
+        g.setStroke(stroke3);
+		g.setColor(GameUI.setupFrame());
+        g.fill(noFogBox);
+        if (hoverBox == noFogBox) {
+            g.setColor(Color.yellow);
+            g.draw(noFogBox);
+        }
+        if (noFogOnIcons.get()) {
+ //           g.setPaint(GameUI.buttonLeftBackground());
+            g.setColor(SystemPanel.blackText);
+//            g.setColor(checkBoxC);
+            g.drawLine(noFogX-s1, noFogY-s8, noFogX+s4, noFogY-s4);
+            g.drawLine(noFogX+s4, noFogY-s4, noFogX+noFogW, noFogY-s16);
+        }
+        g.setStroke(prev);
+        
+        
         // BR: Player Race Customization
         // far left button
         g.setFont(narrowFont(20));
@@ -791,6 +830,11 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         for (int i=0; i<shipImages.length; i++)
         	shipImages[i].clear();
     }
+    private void noFogBoxChanged() {
+    	resetRaceMug();
+    	backImg = null;
+        repaint();
+    }
     private void checkBoxChanged() { // BR: checkBoxChanged
         repaint();
     }
@@ -909,13 +953,16 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         g.fillRect(scaled(125), s95, scaled(1040), scaled(515)); // BR: adjusted Shading right position
 
         // draw race frame
+        int raceFrameY = scaled(103);
+        int raceFrameH = scaled(499);
         g.setColor(GameUI.setupFrame());
-        g.fillRect(scaled(420), scaled(103), scaled(395), scaled(499));
+        g.fillRect(scaled(420), raceFrameY, scaled(395), raceFrameH);
 
         // draw race left gradient
 		// modnar: extend out for new Races
+        int raceLeftX = scaled(140);
         g.setPaint(GameUI.raceLeftBackground());
-        g.fillRect(scaled(140), scaled(110), scaled(280), scaled(485));
+        g.fillRect(raceLeftX, scaled(110), scaled(280), scaled(485));
 
         // draw race right gradient, modnar: extend right side
         g.setPaint(GameUI.raceRightBackground());
@@ -929,7 +976,8 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 		int xCC = scaled(245); // modnar: shift columns over for old Races
         int xR = scaled(340); // modnar: set column for new Races
 
-        Composite comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER , 0.3f);
+        float fog = noFogOnIcons.get()? 1.0f : 0.3f;
+        Composite comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER , fog);
         drawRaceBox(g, 0, xL, scaled(122), comp);
         drawRaceBox(g, 1, xCC, scaled(122), comp);
         drawRaceBox(g, 2, xL, scaled(217), comp);
@@ -1007,12 +1055,26 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 		g.setPaint(GameUI.buttonLeftBackground());
 		g.fillRoundRect(guideBox.x, guideBox.y, buttonW, buttonH, cnr, cnr);
 
+		// BR: No Fog on Icons
+		int raceFrameBottom = raceFrameY + raceFrameH;
+		int noFogX = raceLeftX;
+		int noFogY = raceFrameBottom;
+		String label = noFogOnIcons.getLabel();
+		sw = g.getFontMetrics().stringWidth(label);
+        g.setPaint(GameUI.buttonLeftBackground());
+        g.fillRect(noFogX, noFogY, sw + s40, s25);
+        g.setColor(GameUI.borderBrightColor());
+        g.setFont(labelFont);
+        g.drawString(label, noFogX + s30, noFogY + s19);
+		
 		// BR: Player Race Customization
         // far left button
         g.setFont(smallButtonFont);
         int smallButtonH = s30;
         int smallButtonW = g.getFontMetrics().stringWidth(text(customRaceKey)) + smallButtonMargin;
-        playerRaceSettingBox.setBounds(scaled(140), scaled(615), smallButtonW, smallButtonH);
+        xB = noFogX;
+        yB = noFogY + s35;
+        playerRaceSettingBox.setBounds(xB, yB, smallButtonW, smallButtonH); // TODO
         g.setPaint(GameUI.buttonLeftBackground());
         g.fillRoundRect(playerRaceSettingBox.x, playerRaceSettingBox.y, smallButtonW, smallButtonH, cnr, cnr);
 
@@ -1036,8 +1098,14 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 
         raceBox[num].setBounds(x,y,w,h);
         Race r = Race.keyed(races.get(num));
-        if (racemugs[num] == null)
-            racemugs[num] = newBufferedImage(r.diploMugshotQuiet());
+//        racemugs[num] = null;
+        if (racemugs[num] == null) {
+//        	BufferedImage councilLeader = new BufferedImage(200, 216, BufferedImage.TYPE_INT_ARGB);
+//        	Graphics gI = councilLeader.getGraphics();
+//        	gI.drawImage(r.councilLeader(), 0, 0, 200, 216, 140, 0, 340, 216, null);
+//            racemugs[num] = councilLeader;       	
+           racemugs[num] = newBufferedImage(r.diploMugshotQuiet());
+         }
 
         BufferedImage mug = racemugs[num];
 
@@ -1173,6 +1241,10 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         // BR: Player Race customization
         else if (hoverBox == playerRaceSettingBox)
             goToPlayerRaceCustomization();
+        else if (hoverBox == noFogBox) {
+        	noFogOnIcons.toggle(e, this);
+            noFogBoxChanged();
+        }
         else if (hoverBox == checkBox) {
             playerIsCustom.toggle(e, this);
             checkBoxChanged();
@@ -1239,7 +1311,12 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         	playerShipSet.toggle(e);
         	shipSetChanged();
         	repaint();
-        } else if (hoverBox == checkBox) {
+        }
+        else if (hoverBox == noFogBox) {
+        	noFogOnIcons.toggle(e);
+            noFogBoxChanged();
+        }
+        else if (hoverBox == checkBox) {
             playerIsCustom.toggle(e);
             checkBoxChanged();
         }

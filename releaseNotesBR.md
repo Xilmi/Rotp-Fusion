@@ -87,6 +87,7 @@ Last updates:
   - Absolute minimum distance = 3.8 ly.
   - Always 100% for exotic galaxies: Text, Maze, Lorentz, Fractal, Bulls Eyes.
 - Multiple Bombard: Get the focus without small mouse move.
+- Added Option to remove the fog hiding the race icons.
 
 Last Fixes:
 - New Governor Panel don't crash any more on Apple OS.

@@ -34,12 +34,8 @@ Community subreddit: https://www.reddit.com/r/rotp/<br/>
 Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## To-Do list
-Now:
-- Playing the game...
-
 Bug to fix:
 - Too many tech transfered pop-up...
-- Propagate mouse events...
 
 Very soon:
 - Spare Xenophobes: Stop if caught too.
@@ -57,6 +53,9 @@ Later:
 
 
 ## What's New
+
+2024.07.10 (BR)
+- Added Option to remove the fog hiding the race icons.
 
 2024.07.09 (BR)
 - Added HotKey list to compact and classic options Panels.
