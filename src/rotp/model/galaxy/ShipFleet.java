@@ -73,7 +73,7 @@ public class ShipFleet extends FleetBase implements Base, Sprite, Ship, Serializ
         }
     }
     public void destination(int i, float x, float y) {
-        destSysId = i;
+        destSysId(i);
         destX = x;
         destY = y;
     }
@@ -188,7 +188,7 @@ public class ShipFleet extends FleetBase implements Base, Sprite, Ship, Serializ
         sysId = f.sysId;
         fromX = f.x();
         fromY = f.y();
-        destSysId = f.destSysId;
+        destSysId(f.destSysId);
         destX = f.destX;
         destY = f.destY;
         status = f.status;
@@ -201,7 +201,7 @@ public class ShipFleet extends FleetBase implements Base, Sprite, Ship, Serializ
         sysId = fl.sysId;
         fromX = fl.fromX;
         fromY = fl.fromY;
-        destSysId = fl.destSysId;
+        destSysId(fl.destSysId);
         destX = fl.destX;
         destY = fl.destY;
     }
