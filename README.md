@@ -56,6 +56,8 @@ Later:
 
 2024.07.12 (BR)
 - Remaining years to next council will be shown on the yellow alert sprite too.
+- Fixed council percentage not being saved.
+
 
 2024.07.10 (BR)
 - Added Option to remove the fog hiding the race icons.

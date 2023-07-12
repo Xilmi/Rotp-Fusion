@@ -119,6 +119,7 @@ public interface IInGameOptions extends IConvenienceOptions {
 			, GalacticCouncil.PCT_REQUIRED , 0f, 0.99f, 0.01f/3f, 0.02f, 0.1f, "0.0##", "‰") {
 		@Override public void setOption(Float newValue) {
 			GalacticCouncil.PCT_REQUIRED = newValue;
+			super.setOption(newValue);
 		}
 	};
 	default float selectedCounciRequiredPct()	{ return counciRequiredPct.get(); }
