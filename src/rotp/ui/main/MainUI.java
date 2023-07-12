@@ -677,6 +677,11 @@ public class MainUI extends BasePanel implements IMapHandler {
         drawString(g,title, x1, y1);
         
         String yearStr = displayYearOrTurn();
+        if (rotp.model.game.IConvenienceOptions.showNextCouncil.get()) {
+        	int nextC = galaxy().council().nextCouncil();
+        	 if (nextC > 0)
+        		 yearStr += " (" + nextC + ")";
+        }
         g.setFont(narrowFont(16));
         int yearW = g.getFontMetrics().stringWidth(yearStr);
         drawString(g,yearStr, x+w-s5-yearW, y+h-s5);

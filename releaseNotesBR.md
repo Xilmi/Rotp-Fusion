@@ -88,6 +88,7 @@ Last updates:
   - Always 100% for exotic galaxies: Text, Maze, Lorentz, Fractal, Bulls Eyes.
 - Multiple Bombard: Get the focus without small mouse move.
 - Added Option to remove the fog hiding the race icons.
+- Remaining years to next council will be shown on the yellow alert sprite too.
 
 Last Fixes:
 - New Governor Panel don't crash any more on Apple OS.

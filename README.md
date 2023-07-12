@@ -54,6 +54,9 @@ Later:
 
 ## What's New
 
+2024.07.12 (BR)
+- Remaining years to next council will be shown on the yellow alert sprite too.
+
 2024.07.10 (BR)
 - Added Option to remove the fog hiding the race icons.
 
