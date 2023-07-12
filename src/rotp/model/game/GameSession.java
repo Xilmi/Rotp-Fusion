@@ -350,6 +350,7 @@ public final class GameSession implements Base, Serializable {
     private Runnable nextTurnProcess() {
         return () -> {
             try {
+                rotp.ui.notifications.TradeTechNotification.resetSkipButton();
                 performingTurn = true;
                 Galaxy gal = galaxy();
                 String turnTitle = nextTurnTitle();

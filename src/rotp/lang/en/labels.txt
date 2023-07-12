@@ -2970,7 +2970,7 @@ COUNCIL_CONTINUE                  | Continue
 COUNCIL_ELECTED_TITLE             | Ruler of the Galaxy Elected!
 COUNCIL_ACCEPT_RULING             | Accept Ruling
 COUNCIL_REJECT_RULING             | Reject Ruling
-
+COUNCIL_SKIP_NEXT_TECHS           | Skip notifications
 
 // Credit text
 CREDITS_DEVELOPER                 | Ray Fowler, Developer

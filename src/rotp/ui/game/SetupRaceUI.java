@@ -66,8 +66,6 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
     private static final int    MAX_COLORS 		= 16; // modnar: add new colors
     private static final int    MAX_SHIP   		= ShipLibrary.designsPerSize; // BR:
 	private static final int    settingFont		= 20;
-	private static final Color  enabledColor	= GameUI.labelColor();
-	private static final Color  disabledColor	= GameUI.textColor();
 	private	static final Font   labelFont		= FontManager.current().narrowFont(settingFont);
 	
     private final Color checkBoxC  = new Color(178,124,87);

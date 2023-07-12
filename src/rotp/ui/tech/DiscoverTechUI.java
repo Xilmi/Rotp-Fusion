@@ -42,6 +42,7 @@ import rotp.model.tech.TechCategory;
 import rotp.ui.FadeInPanel;
 import rotp.ui.RotPUI;
 import rotp.ui.main.SystemPanel;
+import rotp.ui.notifications.TradeTechNotification;
 
 public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseMotionListener, ActionListener {
     private static final long serialVersionUID = 1L;    
@@ -94,6 +95,7 @@ public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseM
     Rectangle button4 = new Rectangle();
     Rectangle frameButton1 = new Rectangle();
     Rectangle frameButton2 = new Rectangle();
+    Rectangle skipButton   = new Rectangle();
     Rectangle hoverBox;
 
     boolean finished = false;
@@ -319,6 +321,10 @@ public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseM
 
         g.dispose();
     }
+    private boolean showSkipNextButton() {
+    	return TradeTechNotification.showSkipTechButton
+    			&& view == SCIENTIST_VIEW;
+    }
     private void drawTechDiscovery(Graphics2D g, String title) {
         int w = getWidth();
         int h = getHeight();
@@ -350,6 +356,15 @@ public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseM
             x1 = (w*3/4)-(sw1/2);
             drawBorderedString(g, line, 2, x1, y1, Color.black, Color.white);
             y1 += lineHeight;
+        }
+        if (showSkipNextButton()) {
+            int buttonH = s35;
+            int buttonW = scaled(200);
+            int buttonPad = s10;
+            int xB = w - buttonW - buttonPad;
+            int yB = h - buttonH - buttonPad;
+            String str = text("COUNCIL_SKIP_NEXT_TECHS");
+            drawButton(g, allocateBackC, "", str, skipButton, xB, yB, buttonW, buttonH);        	
         }
     }
     private void drawFrameEmpire(Graphics2D g) {
@@ -410,8 +425,8 @@ public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseM
             drawButton(g, frameBackC2, "2", frameEmpire2.name(), frameButton2, x3b, y3, buttonW, buttonH);
     }
     private void drawReallocation(Graphics2D g) {
-        int w = getWidth();
-        int h = getHeight();
+        // int w = getWidth();
+        // int h = getHeight();
 
         int bdr = s10;
         int titleLineH = s25;
@@ -501,8 +516,8 @@ public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseM
         g.setStroke(prev2);
     }
     private void drawCompletion(Graphics2D g) {
-        int w = getWidth();
-        int h = getHeight();
+        // int w = getWidth();
+        // int h = getHeight();
 
         int bdr = s10;
         int titleLineH = s25;
@@ -710,8 +725,15 @@ public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseM
         int x = e.getX();
         int y = e.getY();
 
-        if (mode == MODE_SHOW_TECH)
-            handleShowTechAction();
+        if (mode == MODE_SHOW_TECH) {
+            if (showSkipNextButton() && skipButton.contains(x,y)) {
+            	TradeTechNotification.skipNextTechNotification = true;
+            	finish();
+            	return;
+            }
+            else
+            	handleShowTechAction();
+        }
         else if (mode == MODE_FRAME_EMPIRE) {
             if (frameButton1.contains(x,y))
                 handleFrameEmpireAction(1);
@@ -755,6 +777,8 @@ public class DiscoverTechUI extends FadeInPanel implements MouseListener, MouseM
             hoverBox = frameButton1;
         else if (frameButton2.contains(x,y))
             hoverBox = frameButton2;
+        else if (skipButton.contains(x,y))
+            hoverBox = skipButton;
 
         if (prevHover != hoverBox)
             repaint();

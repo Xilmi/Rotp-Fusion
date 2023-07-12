@@ -211,7 +211,7 @@ public class GalacticCouncil implements Base, Serializable {
         currentStatus = DISBANDED;
         if (leader == null)
             return;
-        
+        rotp.ui.notifications.TradeTechNotification.showSkipTechButton = true;
         boolean playerWasAllied = player().alliedWith(leader.id);
 
         boolean electedLeaderIsCrazy = rebels.contains(leader);
@@ -243,7 +243,7 @@ public class GalacticCouncil implements Base, Serializable {
             return;
         }
 
-        // final war: player is rebelling aginst leader, or player
+        // final war: player is rebelling against leader, or player
         // is leader and at least one AI is rebelling
         if (leader.isPlayerControlled())
             galaxy().giveAdvice("MAIN_ADVISOR_COUNCIL_RESISTED", leader.raceName());                   
@@ -266,7 +266,7 @@ public class GalacticCouncil implements Base, Serializable {
             }
         }
         
-        // all mmembers of alliance establish unity with each other
+        // all members of alliance establish unity with each other
         // this ensures no spying costs and all learned techs traded freely
         for (Empire ally1: allies) {
             for (Empire ally2: allies) {
@@ -338,7 +338,7 @@ public class GalacticCouncil implements Base, Serializable {
         if (leader != null) {
             rebels.addAll(allVoters);
             for (Empire c : allVoters)
-                c.diplomatAI().acceptCouncilRuling(this);
+            	c.diplomatAI().acceptCouncilRuling(this);
             return;
         }
 
@@ -391,12 +391,12 @@ public class GalacticCouncil implements Base, Serializable {
             }               
         }
     }
-    private void ensureFullContact() {
-        List<Empire> emps = new ArrayList<>(galaxy().activeEmpires());
-        for (Empire emp1: galaxy().activeEmpires()) {
-            emps.remove(emp1);
-            for (Empire emp2: emps)
-                emp1.makeContact(emp2);
-        }
-    }
+//    private void ensureFullContact() {
+//        List<Empire> emps = new ArrayList<>(galaxy().activeEmpires());
+//        for (Empire emp1: galaxy().activeEmpires()) {
+//            emps.remove(emp1);
+//            for (Empire emp2: emps)
+//                emp1.makeContact(emp2);
+//        }
+//    }
 }

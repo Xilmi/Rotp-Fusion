@@ -20,11 +20,17 @@ import rotp.ui.RotPUI;
 
 public class TradeTechNotification implements TurnNotification, Serializable {
     private static final long serialVersionUID = 1L;
+    public static boolean skipNextTechNotification = false;
+    public static boolean showSkipTechButton       = false;
     public String techId;
     public int empId;
 
     public static TradeTechNotification create(String t, int e) {
         return new TradeTechNotification(t, e);
+    }
+    public static void resetSkipButton() {
+    	skipNextTechNotification = false;
+    	showSkipTechButton       = false;
     }
     private TradeTechNotification(String t, int e) {
         techId = t;
@@ -34,6 +40,8 @@ public class TradeTechNotification implements TurnNotification, Serializable {
     public String displayOrder() { return DISCOVER_TECH; }
     @Override
     public void notifyPlayer() {
+    	if (skipNextTechNotification)
+    		return;
         RotPUI.instance().selectTradeTechPanel(techId, empId);
     }
 }

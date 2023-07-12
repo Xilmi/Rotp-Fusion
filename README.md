@@ -57,6 +57,7 @@ Later:
 2024.07.12 (BR)
 - Remaining years to next council will be shown on the yellow alert sprite too.
 - Fixed council percentage not being saved.
+- Added option to skip after council tech sharing notifications.
 
 
 2024.07.10 (BR)
