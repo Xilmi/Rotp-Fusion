@@ -35,15 +35,14 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 
 ## To-Do list
 Bug to fix:
-- Too many tech transfered pop-up...
 
 Very soon:
 - Spare Xenophobes: Stop if caught too.
-- Tech trading extended list.
 - Smooth the Trade blocking option.
 - Investigate: William482 request: Age of your data on each race into the bar graphs on the status page.
 
 Later:
+- Tech trading extended list.
 - Replay:
   - Start Full galaxy View.
   - Speed adjustement.

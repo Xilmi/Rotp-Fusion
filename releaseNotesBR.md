@@ -124,7 +124,7 @@ Last Fixes:
 - Fixed council percentage not being saved.
 
 
-Last Anouuncement:
+Last Anouncement:
 
 - New Governor Panel:
   - Changed to Rotp Colors.

@@ -114,8 +114,6 @@ public interface IGovOptions {
 			}
 		}
 	};
-	ParamBoolean fullRefreshOnLoad		= new ParamBoolean(GOV_UI, "FULL_REFRESH_ON_LOAD", false)
-	{ { isCfgFile(true); } };
 
 	// ==================== GUI List Declarations ====================
 	//
@@ -158,7 +156,7 @@ public interface IGovOptions {
 				
 				headerSpacer,
 				new ParamTitle(GOV_UI + "OTHER_OPTIONS"),
-				fullRefreshOnLoad, governorByDefault, auto_Apply
+				governorByDefault, auto_Apply
 				)));
 		for (LinkedList<IParam> list : map) {
 			for (IParam param : list) {

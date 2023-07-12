@@ -277,6 +277,4 @@ public class GovernorOptions implements Serializable, IGovOptions {
 
 	public boolean isAutoShipsByDefault()		{ return autoShipsDefault.get(); }
 	public void setAutoShipsByDefault(boolean b){ autoShipsDefault.silentSet(b); }
-
-	public boolean isFullRefreshOnLoad()		{ return fullRefreshOnLoad.get(); }
 }
