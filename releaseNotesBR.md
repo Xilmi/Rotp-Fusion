@@ -89,6 +89,9 @@ Last updates:
 - Multiple Bombard: Get the focus without small mouse move.
 - Added Option to remove the fog hiding the race icons.
 - Remaining years to next council will be shown on the yellow alert sprite too.
+- Added option to skip the "after council" tech sharing notifications.
+  - A button is temporary added in the tech trade notification screen.
+
 
 Last Fixes:
 - New Governor Panel don't crash any more on Apple OS.
