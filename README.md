@@ -53,7 +53,10 @@ Later:
 
 ## What's New
 
-2024.07.12 (BR)
+2024.07.15 (BR)
+- Improved the "Reworked"-Abilities description.
+
+2024.07.14 (BR)
 - Updated release notes.
 
 2024.07.12 (BR)

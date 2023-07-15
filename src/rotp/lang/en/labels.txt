@@ -1618,15 +1618,15 @@ SETUP_NO_FOG_ON_ICONS_DESC        | Remove the fog hiding the race icons above.
 
 
 // BR: config Player Race
-SETUP_BUTTON_CUSTOM_PLAYER_RACE   | Customize Player Race
+SETUP_BUTTON_CUSTOM_PLAYER_RACE   | Customize Races
 
 // BR: Customize Player Race
 CUSTOM_RACE_RACE_AI_DESC          | Change the empire AI
-CUSTOM_RACE_GUI_TITLE             | Player Race Customization
+CUSTOM_RACE_GUI_TITLE             | Races Customization
 CUSTOM_RACE_SHOW_TITLE            | Species' Abilities
 CUSTOM_RACE_GUI_COST              | Total Value: %1
 CUSTOM_RACE_GUI_SELECT_DESC       | Save Current Race, Select it as Player Race, Save as Last Settings and Exit Panel
-CUSTOM_RACE_GUI_SELECT            | Select
+CUSTOM_RACE_GUI_SELECT            | Set as Player
 CUSTOM_RACE_GUI_RANDOM_HELP       | Each individual setting will randomly be set within the given relative Setting range.<br> If "Force Target" = Yes, and the Total Value is not within the allowed Range: The values will progressively be randomly shifted (Even outside their allowed range) until the final "Target Range" is reached.
 CUSTOM_RACE_GUI_RANDOM_DESC       | Randomize the race following the above settings
 CUSTOM_RACE_GUI_RANDOM            | Randomize
@@ -1651,7 +1651,7 @@ CUSTOM_RACE_HOME_RESOURCES        | Planet Resources
 CUSTOM_RACE_HOME_ENVIRONMENT_DESC | This selection will affect the growth rate of the home world.
 CUSTOM_RACE_HOME_ENVIRONMENT      | Planet Environment
 CUSTOM_RACE_RACE_KEY              | File Name
-CUSTOM_RACE_RACE_KEY_DESC         | This is the place to enter the filename, it's also used as the key for the standard race... Don't use them
+CUSTOM_RACE_RACE_KEY_DESC         | This is the place to enter the filename, it's also used as the key for the standard race... Don't use them, or keep the default "RACE_xxx" to set the "Reworked"-Abilities.
 CUSTOM_RACE_RACE_NAME             | Race Name
 CUSTOM_RACE_RACE_TYPE             | Species Type
 CUSTOM_RACE_RACE_TERRAN           | Terran
@@ -3220,7 +3220,7 @@ GOVERNOR_FULL_REFRESH_ON_LOAD       | Full Reset: %1
 //
 // ===== BR: Guide and contextual Help added by Mods =====
 // 
-SETUP_OPP_CR_OPTIONS_HELP           | Default abilities for alien Races:<br> 'Base Races' = Standard abilities of the selected Race (in the Boxes below);<br> 'Reworked' = New abilities you have saved with the race default name.<br> (ex: RACE_DARLOK for the Naslok);<br> *Race = specific base Race; or any other customized race you have built.
+SETUP_OPP_CR_OPTIONS_HELP           | Default abilities for alien Races:<br> 'Base Races' = Standard abilities of the selected Race (in the Boxes below);<br> 'Reworked' = New abilities you have saved with the race default name.<br> (ex: RACE_DARLOK for the Darlok);<br> *Race = specific base Race; or any other customized race you have built.
 
 
 // Common Guides and Help
@@ -3285,7 +3285,7 @@ SETUP_SELECT_CR_OPTIONS		      | Selectable Abilities.
 
 'Selection'_DESC     | Same abilities as the global abilitied selected on the top.
 'Base Race'_DESC     | Base abilities of the selected race (the one on the icon)
-'Reworked'_DESC      | Reworked abilitie of the selected race (the one on the icon), saved by the player in respectively named race files: RACE_ALKARI, RACE_BULRATHI, RACE_DARLOK, RACE_HUMAN, RACE_KLACKON, RACE_MEKLAR, RACE_MRRSHAN, RACE_PSILON, RACE_SAKKRA , RACE_SILICOID, RACE_EARLYGAME, RACE_GEARHEAD, RACE_JACKTRADES, RACE_MONOCLE, RACE_NEOHUMAN, RACE_WARDEMON.
+'Reworked'_DESC      | Reworked abilities of the selected race (the one on the icon), modified and saved by the player (in the Race Customization Panel) with the respectively named race files: RACE_ALKARI, RACE_BULRATHI, RACE_DARLOK, RACE_HUMAN, RACE_KLACKON, RACE_MEKLAR, RACE_MRRSHAN, RACE_PSILON, RACE_SAKKRA , RACE_SILICOID, RACE_EARLYGAME, RACE_GEARHEAD, RACE_JACKTRADES, RACE_MONOCLE, RACE_NEOHUMAN, RACE_WARDEMON.
 'Player'_DESC        | Same abilities as the selected player race.
 'Random'_DESC        | Abilities will be randomly generared using the pregame parameters: <b>RANDOM ALIENS OPTIONS</b> : "Target Max", "Target Min", "Custom Aliens", "Setting % Max", "Setting % Min", and "Smooth Edges".
 'Random 10'_DESC     | Abilities randomly selected within the ten base races abilities.
