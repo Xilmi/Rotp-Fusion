@@ -1,99 +1,39 @@
-Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
+- Restored Vanilla Human diplomat.
+  - Added option to select the younger one. (default value)
 
-Last updates:
-- New buttons names: "Static" -> "pregame" and "Dynamic" -> "in-game",
-  - Thanks to William482 for the name proposal.
+<i>Governor</i>
 - All Governor off will now also disable: 
   - Transport from ungoverned colony.
   - Auto-Spy.
   - Auto-Infiltrate.
-- Simplified options' management.
-  - Setup options follow Game options, but game options don't follow setup option. (Exept when starting a new game)
-  - Setup options are loaded once at startup, according to your selection: Last Game, Last Session, or User's
-    - Then will follow the game options and setup panel settings; last change win.
-  - Loaded games will always load their own options.
-    - The player decide if and when to change some options.
-  - Removed "global" load and save from sub-menus.
-    - Only Race setup panel and Galaxy setup panel will allow Global reload.
-    - Sub panels are available in-game, and it wouldn't be a good idea to reload all parameters there!
-- Player initial race will be randomized (as it was on vanilla Rotp)
-  - If the race was a custom race, id wont'be randomized.
-  - If you always want to play with the same race: Standard races can be selected in custom race menu.
-  - "R" in Race setup panel will randomize your race.
-- Custom Race Panel: "Save" button is now on top of "load" Button
-- On launch; "Continue" will now load the last saved game.
-- Showing which ship is currently being built on each colony on the main-map right below the colony.
-- Techs which you could steal but are obsolete to your empire are now displayed in grey on the intelligence-tab in the races-screen.
-- When you select your own empire on the intelligence-tab in the races-screen the techs you are lacking now also are color-coded in grey, yellow or orange depending on whether they are obsolete, stealable or not stealable.
-- Galaxy Map Display Parameters are now memorized!
-- New Main Settings UI with Guide and all options' tool features.
-- Remnant.cfg file:
-  - Moved all parameter not computer related to the game files.
-  - The remaining parameters are available in the settings panel under the main menu, where:
-    - The Guide is available.
-    - Middle click will get the default value, etc...
-    - Can be saved and retreived from User's preference...
-      - But will never be copied from outside of this panel. (Loading parameters from Race or galaxy panel will not change Remnant.cfg)
-- "Menu Options" received new options from in-game Galaxy Map panel, and allow saving them in User's prefered options.
-  - A guide has been writen for these options too.
-- New option to allow full refresh on governor panel when loading a new game.
-  - "Off" by default to avoid glitches on some computer.
-- Separate missile size Modifiers for Bases and Ship weapons.
-  - They are initialized with the former common modifier.
-- Multiple colony send transport panel has 2 new columns:
-  - Stable = Max population to send to keep a stable population on Max ECO.
-  - Fill = Max Population to send to have the planet filled on Max ECO.
-  - Left click on slider = normal % selection.
-  - Middle click on slider = "Stable"-value selection.
-  - Right click on slider = "Fill"-value selection.
-  - It's up to the player or the governor to set the ECO to max.
-- Single colony send transport panel:
-  - Middle click on slider = "Stable"-value selection.
-  - Right click on slider = "Fill"-value selection.
-- Planet Map now display incoming transports.
-  - Pop(num) for Population.
-  - Troop(num) for invasion troops.
-  - Green for Player transports.
-  - Red for opponent transports.
-- Changed default AI to Roleplay.
-- Swapped "Ctrl"-selection on Game, Last loading button.
-  - Last Game" is on the top!
-- Restored vanilla parameters for vanilla galaxies.
+- Governor won't send transports that will be shot down by attacking fleet. (dHannasch)
+
+<i>Galaxy preview and Empire spreading</i>
 - Added a 10 ly grid to the galaxy preview.
-- Added a guide to the galaxy preview.
-- Added "Empire Spacing" to easily customise the distance between home world.
-  - Default value = "Auto"
+  - Added a guide to the galaxy preview.
+- Added a relative"Empire Spreading", between 20% and 500%, to easily customise the distance between home worlds.
+  - Absolute minimum distance = 3.8 ly.  - Removed "Max Spacing Multiplier" and "Maximize Spacing".
+    - Too complex, and replaced by "Empire Spacing".
   - Scrolling on the galaxy preview will change it's value.
   - Middle Click on the galaxy preview will reset it's value to "Auto"
-  - Added distance between empires on the map. (When hovering, or grid on)
-  - Added Galaxy size on the preview. (When hovering, or grid on)
-- Removed "Max Spacing Multiplier" and "Maximize Spacing".
-  - Too complex, and replaced by "Empire Spacing".
-- Restored Moo1 Race names.
-- Restored Vanilla Human diplomat.
-  - Added option to select the younger one (default value)
-- Governor won't send transports that will be shot down by attacking fleet. (dHannasch)
+  - Added Galaxy size and distance between empires on the map. (When hovering, or grid on)
+
+<i>Various improvements</i>
+- Added Option to remove the fog hiding the nice race icons.
+- Showing which ship is currently being built on each colony on the main-map right below the colony. (Xilmi)
+- Techs which you could steal but are obsolete to your empire are now displayed in grey on the intelligence-tab in the races-screen. (Xilmi)
+- When you select your own empire on the intelligence-tab in the races-screen the techs you are lacking now also are color-coded in grey, yellow or orange depending on whether they are obsolete, stealable or not stealable. (Xilmi)
 - Added button in galaxy map to access the "In-game Options" Panel.
-- Changed option call to "O" to be more consistent with other panel call.
-- Added Hotkey list in Galaxy Map Help (second panel).
-  - Available alone by right-clicking the Help button. 
-  - Available alone with SHIFT+F1.
-- Added Hotkey list to main setup and game panels.
-- Colony Panel:
-  - Added "B" Hotkey to change "Max Bases".
-  - Added Arrows Right/Left for Next/Previous Colony.
-  - Clicking on the rail will move the selector.
-- Changed the Fixed value of "Minimum Empires Spacing" to a relative one "Empires Spreading" between 20% and 500%. 100% being the vanilla value.
-  - Absolute minimum distance = 3.8 ly.
-  - Always 100% for exotic galaxies: Text, Maze, Lorentz, Fractal, Bulls Eyes.
-- Multiple Bombard: Get the focus without small mouse move.
-- Added Option to remove the fog hiding the race icons.
-- Remaining years to next council will be shown on the yellow alert sprite too.
+  - Changed option call to "O" to be more consistent with other panel call. (Ctrl isn't required anymore)
 - Added option to skip the "after council" tech sharing notifications.
   - A button is temporary added in the tech trade notification screen.
+- Remaining years to next council will be shown on the yellow alert sprite too.
+- Separate missile size Modifiers for Bases and Ship weapons.
+  - They are initialized with the former common modifier.
+- Changed default AI to Roleplay.
 
 
-Last Fixes:
+<i><u>Last Fixes:</u></i>
 - New Governor Panel don't crash any more on Apple OS.
 - Fixed some missing help text.
 - Fixed Buttons appearing before the panels.
@@ -117,65 +57,7 @@ Last Fixes:
   - Boderless will be used if fullscreen is not available.
 - Fixed ungoverned colony sending transport without following "transport Max Turn". (dHannasch)
 - Fixed inaccuracies of expected colony growth. (dHannasch)
-- Fixed  "Max Spacing Multiplier" not working.
-  - Improved guide for "Max Spacing Multiplier"
 - Fixed eco reallocation when all other slides are locked.
 - Fixed occasional wrong player icon on Setup Galaxy panel.
 - Fixed council percentage not being saved.
-
-
-Last Anouncement:
-
-- New Governor Panel:
-  - Changed to Rotp Colors.
-  - Changed to Rotp Fonts.
-  - Added race image. (Click on it to stop / restart the animation)
-  - Option to choose between the old and new design.
-  - Option to adjust the size. (New design only)
-  - Option to adjust the brightness. (New design only)
-  - Options are now saved to the game file.
-  - New compact panel available from setup Menu. (To configure User's preferences)
-  - Position is Memorized.
-  - In Fullscreen mode, if the OS allows "Always on top": The Governor panel will be set "Always on top".
-    - If the Os does'nt allow it, You can still move the panel to a secondary monitor:
-      - Whith the second Governor compact panel...
-      - Or when in windowed mode.
-  - Governor Spying "Spare Xenophobes": The spying will now be stopped only when framed.
-    - Spying will start again once the timer is expired.
-- Guide improvement: 
-  - Short list are now diplayed with all their options.
-  - Some new contents.
-  - Better integration in Custom Race Menu.
-- Ships Design Scrap Refund:
-  - New option to change the refund percentage.
-  - New option to limit the ships location to get the refund.
-- Renamed "recentStart.rotp" to "!!! To Replay Last Turn !!!".
-  - This should clarify its purpose and keep it on the top of the list.
-- Restored vanilla Planet Quality options.
-  - Modnar options are still available.
-  - Added Hell and Heaven quality.
-- ECO bar adjustment:
-  - Right Click on the text on the right = Enough to terraform, no growing.
-  - Middle Click on the text on the right = Enough to Clean.
-- New option: Terraform End; The auto terraformation will stop either:
-  - When fully populated.
-  - When fully terraformed. (Don't bother populating)
-  - When fully cleaned. (Don't bother terraforming)
-- Different Text colors for Gaia and Fertile planets.
-- New option to select the screen on which you will play.
-- Set AI:Hybrid as default AI.
-- AI:Base and AI:Modnar are now optional.
-
-
-New Fixes:
-- PopUp selection list: "Cancel" will work again!
-- Fixed Governor not updating options when reloading a file.
-- Fixed Bombing auto firing the turn following a "Fire all weapon".
-- Fixed base setting auto colonize and auto bombard not being saved.
-- Governor panel: Fixed ugly html text on Mac.
-- If no flags, only show one black flag.
-- Fixed Missiles not reaching planet.
-  - It was a bug that has probably always been there! The distance to unlock the fire button was calculated according to ship movement rules (Diagonal movement = 1). But missiles follow another rule! (Diagonal movement = sqrt(2)). When ships are on the side of the screen, their distance to the planet is 6, but for missiles, this distance is ~7.2. Since the merculite missile range is 6 (+0.7 attack range)... You were allowed to fire, but the missiles run out of fuel before reaching the target and are destroyed!
-  - The fix only unlocks the button when the missiles are really in range.
-
-
+- Multiple Bombard: Get the focus without small mouse move.
