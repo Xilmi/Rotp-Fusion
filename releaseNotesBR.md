@@ -2,7 +2,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><u>New features since last announcement:</u></b>
 
-<i>HotKey list</b> are available on game panels and setup panels.
+<b>HotKey list</b> are available on game panels and setup panels.
 - Available by right-clicking the Help button. 
 - Available with SHIFT+F1.
 - Colony Panel:
@@ -11,7 +11,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
     - Arrows Up/Down were already taken for scrolling. 
   - Clicking on the rail will move the selector.
 
-<i>Improved panels</b>
+<b>Improved panels</b>
 - Multiple colony send transport panel has 2 new columns:
   - Stable = Max population to send to keep a stable population on Max ECO.
   - Fill = Max Population to send to have the planet filled on Max ECO.
@@ -28,7 +28,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Green for Player transports.
   - Red for opponents transports.
 
-<i>Options managements</b>
+<b>Options managements</b>
 - Remnant.cfg options file:
   - Moved all parameter not computer related to the game files.
   - All the remaining parameters are available in the settings panel under the main menu, where:
@@ -51,7 +51,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Custom Race Panel: "Save" button is now on top of "load" Button
 - On launch: "Continue" will now load the last saved game.
 
-<i>Restored some vanilla default values</b>
+<b>Restored some vanilla default values</b>
 - Player initial race will be randomized (as it was on vanilla Rotp)
   - If the race was a custom race, id wont'be randomized.
   - If you always want to play with the same race: Standard races can be selected in custom race menu.
@@ -61,14 +61,14 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Restored Vanilla Human diplomat.
   - Added option to select the younger one. (default value)
 
-<i>Governor</b>
+<b>Governor</b>
 - All Governor off will now also disable: 
   - Transport from ungoverned colony.
   - Auto-Spy.
   - Auto-Infiltrate.
 - Governor won't send transports that will be shot down by attacking fleet. (dHannasch)
 
-<i>Galaxy preview and Empire spreading</b>
+<b>Galaxy preview and Empire spreading</b>
 - Added a 10 ly grid to the galaxy preview.
   - Added a guide to the galaxy preview.
 - Added a relative"Empire Spreading", between 20% and 500%, to easily customise the distance between home worlds.
@@ -78,7 +78,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Middle Click on the galaxy preview will reset it's value to "Auto"
   - Added Galaxy size and distance between empires on the map. (When hovering, or grid on)
 
-<i>Various improvements</b>
+<b>Various improvements</b>
 - Added Option to remove the fog hiding the nice race icons.
 - Showing which ship is currently being built on each colony on the main-map right below the colony. (Xilmi)
 - Techs which you could steal but are obsolete to your empire are now displayed in grey on the intelligence-tab in the races-screen. (Xilmi)
