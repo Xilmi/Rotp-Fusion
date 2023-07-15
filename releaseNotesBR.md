@@ -1,3 +1,63 @@
+Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
+
+<i><u>New features since last announcement:</u></i>
+
+<i>HotKey list</i> are available on game panels and setup panels.
+- Available by right-clicking the Help button. 
+- Available with SHIFT+F1.
+- Colony Panel:
+  - Added "B" Hotkey to change "Max Bases".
+  - Added Arrows Right/Left for Next/Previous Colony.
+    - Arrows Up/Down were already taken for scrolling. 
+  - Clicking on the rail will move the selector.
+
+<i>Improved panels</i>
+- Multiple colony send transport panel has 2 new columns:
+  - Stable = Max population to send to keep a stable population on Max ECO.
+  - Fill = Max Population to send to have the planet filled on Max ECO.
+  - Left click on slider = normal % selection.
+  - Middle click on slider = "Stable"-value selection.
+  - Right click on slider = "Fill"-value selection.
+  - It's up to the player or the governor to set the ECO to max.
+- Single colony send transport panel:
+  - Middle click on slider = "Stable"-value selection.
+  - Right click on slider = "Fill"-value selection.
+- Planet Map now display incoming transports.
+  - Pop(num) for population.
+  - Troop(num) for invasion troops.
+  - Green for Player transports.
+  - Red for opponents transports.
+
+<i>Options managements</i>
+- Remnant.cfg options file:
+  - Moved all parameter not computer related to the game files.
+  - All the remaining parameters are available in the settings panel under the main menu, where:
+    - The Guide is available.
+    - Middle click will get the default value, etc...
+    - Can be saved and retreived from User's preference...
+      - But will never be copied from outside of this panel. (Loading parameters from Race or galaxy panel will not change Remnant.cfg)
+- Simplified options' management.
+  - Setup options follow Game options, but game options don't follow setup option. (Exept when starting a new game)
+  - Setup options are loaded once at startup, according to your selection: Last Game, Last Session, or User's
+    - Then will follow the game options and setup panel settings; last change win.
+  - Loaded games will always load their own options.
+  - Removed "global" load and save from sub-menus.
+    - Only Race setup panel and Galaxy setup panel will allow Global reload.
+    - Sub panels are available in-game, and it wouldn't be a good idea to reload all parameters there!
+  - New buttons names: "Static" -> "pregame" and "Dynamic" -> "in-game",
+    - Thanks to William482 for the name proposal.
+  - "Menu Options" received new options from in-game Galaxy Map panel, and allow saving them in User's prefered options.
+    - A guide has been writen for these options too.
+- Custom Race Panel: "Save" button is now on top of "load" Button
+- On launch: "Continue" will now load the last saved game.
+
+<i>Restored some vanilla default values</i>
+- Player initial race will be randomized (as it was on vanilla Rotp)
+  - If the race was a custom race, id wont'be randomized.
+  - If you always want to play with the same race: Standard races can be selected in custom race menu.
+  - "R" in Race setup panel will randomize your race.
+- Restored vanilla empire spacing for vanilla galaxies. (Modnar galaxies keep their own values.)
+- Restored Moo1 Race names. (Xilmi)
 - Restored Vanilla Human diplomat.
   - Added option to select the younger one. (default value)
 
