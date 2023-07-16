@@ -2341,12 +2341,35 @@ public final class Empire implements Base, NamedObject, Serializable {
         float squaredDistanceMoved = deltaX*deltaX + deltaY*deltaY;
         return squaredDistanceMoved > maxPossibleTravelSpeed*maxPossibleTravelSpeed*1.125; // allow a fudge factor
     }
+    public boolean knowsTransportCouldNotHaveReachedThisLocation(Transport ufoNow, Transport ufoLastTurn) {
+        float maxPossibleTravelSpeed = maxSpeedTransportMightHave(ufoNow);
+        float deltaX = ufoNow.x() - ufoLastTurn.transitXlastTurn();
+        float deltaY = ufoNow.y() - ufoLastTurn.transitYlastTurn();
+        float squaredDistanceMoved = deltaX*deltaX + deltaY*deltaY;
+        return squaredDistanceMoved > maxPossibleTravelSpeed*maxPossibleTravelSpeed*1.125; // allow a fudge factor
+    }
+    public boolean knowsFleetCouldNotHaveReachedThisLocation(ShipFleet ufoNow, ShipFleet ufoLastTurn) {
+        float maxPossibleTravelSpeed = maxSpeedFleetMightHave(ufoNow);
+        float deltaX = ufoNow.x() - ufoLastTurn.transitXlastTurn();
+        float deltaY = ufoNow.y() - ufoLastTurn.transitYlastTurn();
+        float squaredDistanceMoved = deltaX*deltaX + deltaY*deltaY;
+        for (float speed = minSpeedFleetMightHave(ufoNow); speed < maxPossibleTravelSpeed + 1; speed += 1) {
+            float difference = squaredDistanceMoved - speed*speed;
+            if (difference*difference < 1.125*squaredDistanceMoved)
+                // If this is a possible speed the fleet could be moving at, and that speed would fit this location,
+                // then this empire cannot rule out this fleet reaching this location.
+                return false;
+        }
+        return true;
+    }
     public boolean knowsCouldNotHaveBeenSameFleetLastTurn(ShipFleet fleetNow, ShipFleet fleetLastTurn) {
         if (!visibleShipViews(fleetNow).equals(visibleShipViews(fleetLastTurn)))
             // This defers to ShipView.equals() for the ships that have ShipViews,
             // and compares the count of each as well as the count of all ships that lack ShipViews.
             // Strictly speaking, we could implement ShipView.equals(), but letting ShipView inherit .equals from Object works,
             // because two ShipViews are always distinguishable.
+            return true;
+        if (knowsFleetCouldNotHaveReachedThisLocation(fleetNow, fleetLastTurn))
             return true;
         return false;
     }
@@ -2407,7 +2430,7 @@ public final class Empire implements Base, NamedObject, Serializable {
             return minSpeedFleetMightHave((ShipFleet)ufo);
         if (ufo instanceof Transport)
             return minSpeedTransportMightHave((Transport)ufo);
-        return 0.125;
+        return 0.125f;
     }
     public float maxSpeedFleetMightHave(ShipFleet fleet) {
         return fleet.visibleShipDesigns(id).keySet().stream()
@@ -2438,7 +2461,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public float minSpeedTransportMightHave(Transport transport) {
         // We can never be sure a transport wasn't launched a long, long time ago.
         // Actually, due to transport syncing, can we ever have any lower bound on transport speed?
-        return 0.125;
+        return 0.125f;
     }
     public boolean knowsShipCouldNotHaveFlownInFromOutsideScanRange(Ship ufo) {
         // For simplicity, we completely ignore scan coverage from ships.
