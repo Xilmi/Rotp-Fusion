@@ -108,14 +108,11 @@ public class AIFleetCommander implements Base, FleetCommander {
         {
             if(empire.tech().researchCompleted())
                 maxMaintenance = 0.8f;
-            else if(incomingInvasion() ||
-                    ((underSiege() || !empire.enemies().isEmpty())
-                        && minimalTechForRush()
-                        && (empire.contactedEmpires().size() < 2 || empire.generalAI().techLevelRank() == 1)))
+            else if(minimalTechForRush() && (empire.contactedEmpires().size() < 2 || empire.generalAI().techLevelRank() == 1))
                 maxMaintenance = min(max(empire.generalAI().gameProgress(), enemyMaintenance()), 0.8f);
             else
-                maxMaintenance = min(empire.generalAI().gameProgress(), enemyMaintenance());
-            //System.out.println(galaxy().currentTurn()+" "+empire.name()+" maxMaintenance: "+maxMaintenance+ " enemyMaintenance(): "+enemyMaintenance()+" progress: "+empire.generalAI().gameProgress()+" incomingInvasion: "+incomingInvasion()+" underSiege: "+underSiege()+" minimalTechForRush: "+minimalTechForRush()+" techLevelRank: "+empire.diplomatAI().techLevelRank()+" enemies: "+empire.enemies().size());
+                maxMaintenance = min(empire.generalAI().gameProgress(), enemyMaintenance(), 0.8f);
+            //System.out.println(galaxy().currentTurn()+" "+empire.name()+" maxMaintenance: "+maxMaintenance+ " enemyMaintenance(): "+enemyMaintenance()+" progress: "+empire.generalAI().gameProgress()+" incomingInvasion: "+incomingInvasion()+" underSiege: "+underSiege()+" minimalTechForRush: "+minimalTechForRush()+" techLevelRank: "+empire.generalAI().techLevelRank()+" enemies: "+empire.enemies().size());
         }
         return maxMaintenance;
     }
