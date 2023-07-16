@@ -2321,25 +2321,11 @@ public final class Empire implements Base, NamedObject, Serializable {
             return true;
         if (ufoNow.isTransport() != ufoLastTurn.isTransport())
             return true;
-        if (knowsShipCouldNotHaveReachedThisLocation(ufoNow, ufoLastTurn))
-            return true;
         if (ufoNow instanceof ShipFleet && ufoLastTurn instanceof ShipFleet)
             return knowsCouldNotHaveBeenSameFleetLastTurn((ShipFleet)ufoNow, (ShipFleet)ufoLastTurn);
         if (ufoNow instanceof Transport && ufoLastTurn instanceof Transport)
             return knowsCouldNotHaveBeenSameTransportLastTurn((Transport)ufoNow, (Transport)ufoLastTurn);
         return false;
-    }
-    public boolean knowsShipCouldNotHaveReachedThisLocation(Ship ufoNow, Ship ufoLastTurn) {
-        float maxPossibleTravelSpeed = maxSpeedShipMightHave(ufoNow);
-        // If we wanted this function to have broader uses,
-        // we could call the function on both Ships and take the minimum of the two,
-        // but in the context of trying to distinguish ships from each other,
-        // if the two UFOs are so obviously different that different amounts are known about their possible speeds,
-        // then they'll immediately be known distinct and this function will never be called.
-        float deltaX = ufoNow.x() - ufoLastTurn.transitXlastTurn();
-        float deltaY = ufoNow.y() - ufoLastTurn.transitYlastTurn();
-        float squaredDistanceMoved = deltaX*deltaX + deltaY*deltaY;
-        return squaredDistanceMoved > maxPossibleTravelSpeed*maxPossibleTravelSpeed*1.125; // allow a fudge factor
     }
     public boolean knowsTransportCouldNotHaveReachedThisLocation(Transport ufoNow, Transport ufoLastTurn) {
         float maxPossibleTravelSpeed = maxSpeedTransportMightHave(ufoNow);
@@ -2350,6 +2336,11 @@ public final class Empire implements Base, NamedObject, Serializable {
     }
     public boolean knowsFleetCouldNotHaveReachedThisLocation(ShipFleet ufoNow, ShipFleet ufoLastTurn) {
         float maxPossibleTravelSpeed = maxSpeedFleetMightHave(ufoNow);
+        // If we wanted this function to have broader uses,
+        // we could call maxSpeedFleetMightHave() on both Ships and take the minimum of the two,
+        // but in the context of trying to distinguish ships from each other,
+        // if the two UFOs are so obviously different that different amounts are known about their possible speeds,
+        // then they'll immediately be known distinct and this function will never be called.
         float deltaX = ufoNow.x() - ufoLastTurn.transitXlastTurn();
         float deltaY = ufoNow.y() - ufoLastTurn.transitYlastTurn();
         float squaredDistanceMoved = deltaX*deltaX + deltaY*deltaY;
@@ -2376,6 +2367,8 @@ public final class Empire implements Base, NamedObject, Serializable {
     public boolean knowsCouldNotHaveBeenSameTransportLastTurn(Transport transportNow, Transport transportLastTurn) {
         // There is no concept of a ShipView for transports, but size is always visible.
         if (transportNow.size() != transportLastTurn.size())
+            return true;
+        if (knowsTransportCouldNotHaveReachedThisLocation(transportNow, transportLastTurn))
             return true;
         return false;
     }
