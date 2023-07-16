@@ -95,6 +95,12 @@ public class ShipView implements Base,Serializable {
         else
             return 9;
     }
+    public float minPossibleWarpSpeed() {
+        if (warpSpeedKnown())
+            return design.warpSpeed();
+        else
+            return 1;
+    }
 
     public boolean hasComputer()        { return computer != null; }
     public boolean computerKnown()      { return computerKnown; }
