@@ -41,7 +41,7 @@ import rotp.ui.map.IMapHandler;
 import rotp.ui.sprites.FlightPathSprite;
 import rotp.util.Base;
 
-public class ShipFleet implements Base, Sprite, Ship, Serializable {
+public class ShipFleet extends FleetBase implements Base, Sprite, Ship, Serializable {
     private static final long serialVersionUID = 1L;
     enum Status { ORBITING, DEPLOYED, IN_TRANSIT, RETREAT_ON_ARRIVAL };
     public final int empId;
@@ -54,14 +54,10 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
     private boolean retreating = false;
     private float fromX, fromY, destX, destY;
     private float launchTime = NOT_LAUNCHED;
-    private float arrivalTime = Float.MAX_VALUE;
 
     private transient FleetOrders orders;
     private transient FlightPathSprite pathSprite;
-    private transient Rectangle selectBox;
-    private transient boolean hovering;
     private transient int[] bombardCount = new int[ShipDesignLab.MAX_DESIGNS];
-    private transient boolean displayed = false;
 
     public int sysId()                  { return sysId; }
     public void sysId(int i)            { sysId = i; }
@@ -73,10 +69,11 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
             StarSystem s = galaxy().system(destSysId);
             destX = s.x();
             destY = s.y();
+            setArrivalTime();
         }
     }
     public void destination(int i, float x, float y) {
-        destSysId = i;
+        destSysId(i);
         destX = x;
         destY = y;
     }
@@ -135,16 +132,8 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
     }
     public boolean hasDestination()     { return destSysId != StarSystem.NULL_ID; }
     
-    public Rectangle selectBox() {
-        if (selectBox == null)
-            selectBox = new Rectangle();
-        return selectBox;
-    }
-
     @Override
     public int empId()                  { return empId; }
-    @Override
-    public float arrivalTime()         { return arrivalTime; }
     @Override
     public boolean visibleTo(int emp) {
         if (emp == empId)
@@ -157,12 +146,6 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
         }
         return false;
     }
-    @Override
-    public boolean hovering()                   { return hovering; }
-    @Override
-    public void hovering(boolean b)             { hovering = b; }
-    @Override
-    public boolean displayed()                  { return displayed; }
     public ShipFleet(int emp, StarSystem s) {
         empId = emp;
         sysId = s.id;
@@ -205,7 +188,7 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
         sysId = f.sysId;
         fromX = f.x();
         fromY = f.y();
-        destSysId = f.destSysId;
+        destSysId(f.destSysId);
         destX = f.destX;
         destY = f.destY;
         status = f.status;
@@ -218,19 +201,29 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
         sysId = fl.sysId;
         fromX = fl.fromX;
         fromY = fl.fromY;
-        destSysId = fl.destSysId;
+        destSysId(fl.destSysId);
         destX = fl.destX;
         destY = fl.destY;
     }
     @Override
-    public FlightPathSprite pathSprite() {
+    public StarSystem destinationOrRallySystem() {
         int destId = hasDestination() ? destSysId : rallySysId;
-        if (destId == StarSystem.NULL_ID)
+        // galaxy().system(destId) will return null if destId is StarSystem.NULL_ID
+        // if (destId == StarSystem.NULL_ID)
+        //     return null;
+        return galaxy().system(destId);
+    }
+    @Override
+    public FlightPathSprite pathSprite() {
+        StarSystem dest = destinationOrRallySystem();
+        // If we have no destination and no rally system, we have no path and no path sprite.
+        if (dest == null)
             return null;
-        StarSystem dest = galaxy().system(destId);
         if (pathSprite == null)
             pathSprite = new FlightPathSprite(this, dest);
         if (pathSprite.destination() != dest)
+            // Under what possible circumstances could this ever happen?
+            // The FlightPathSprite constructor sets its destination to the second argument. That's all it does.
             pathSprite.destination(dest);
         return pathSprite;
     }
@@ -529,12 +522,14 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
     public boolean hasShip(ShipDesign d)  {
             return (d == null) || !d.active() ? false : num[d.id()] > 0;
     }
-    public void setArrivalTime() {
-        arrivalTime = galaxy().currentTime();
+    @Override
+    public float calculateArrivalTime() {
+        float arrivalTime = galaxy().currentTime();
         if (hasDestination())
             arrivalTime += travelTime(destination());
         if (arrivalTime <= galaxy().currentTime()) 
             log("Error: ship arrivalTime <= currentTime");
+        return arrivalTime;
     }
     public FleetOrders newOrders() {
         if (orders == null)
@@ -639,6 +634,7 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
         }
         return empire().tech().scoutRange();
     }
+    public float travelSpeed() { return slowestStackSpeed(); }
     public float slowestStackSpeed() {
         float maxSpeed = Integer.MAX_VALUE;
         for (int i=0;i<num.length;i++) {
@@ -689,7 +685,7 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
         return empire().sv.withinRange(dest.id, range());
     }
     public float travelTime(StarSystem to) {
-        return travelTime(to, slowestStackSpeed());
+        return travelTime(to, travelSpeed());
     }
     public float travelTime(StarSystem dest, float speed) {
         if (inOrbit() || deployed()
@@ -728,9 +724,6 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
         // calculate turns to next dest and then return total
         int nextTurns = (int) Math.ceil(travelTime(currDest,finalDest,design.warpSpeed()));
         return currTurns+nextTurns;
-    }
-    public int travelTurnsRemaining()     { 
-        return (int)Math.ceil(arrivalTime - galaxy().currentTime());
     }
     public int numScouts()   { return numShipType(ShipDesign.SCOUT); }
     public int numFighters() { return numShipType(ShipDesign.FIGHTER); }
@@ -957,7 +950,7 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
     }
     @Override
     public boolean isSelectableAt(GalaxyMapPanel map, int mapX, int mapY) {
-        return displayed && selectBox().contains(mapX, mapY);
+        return displayed() && selectBox().contains(mapX, mapY);
     }
     @Override
     public float selectDistance(GalaxyMapPanel map, int mapX, int mapY)  { 
@@ -1035,12 +1028,11 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
             return GalaxyMapPanel.MAX_FLEET_SMALL_SCALE;
     }
     @Override
-    public void setDisplayed(GalaxyMapPanel map) {
-        displayed = false;
+    public boolean decideWhetherDisplayed(GalaxyMapPanel map) {
         if (!map.displays(this))
-            return;
+            return false;
         if (map.scaleX() > maxMapScale())
-            return;
+            return false;
         Sprite clickedSprite = map.parent().clickedSprite();
         boolean clickingOnThisFleet = false;
         if ((clickedSprite == this)
@@ -1051,25 +1043,25 @@ public class ShipFleet implements Base, Sprite, Ship, Serializable {
         // don't draw unless we are clicking on this fleet
         boolean armed = isPotentiallyArmed(player());    
         if (!armed && !map.showUnarmedShips() && !clickingOnThisFleet)
-            return;
+            return false;
         
         // stop drawing unarmed AI fleets at a certain zoom level
         if (!armed && !empire().isPlayerControlled() && (map.scaleX() > GalaxyMapPanel.MAX_FLEET_UNARMED_SCALE))
-            return;
+            return false;
 
         // because fleets can be disbanded asynchronously to the ui thread,
         // make sure this fleet is still active before drawing
         if (!isActive())
-            return;
+            return false;
         
         if (!map.parent().shouldDrawSprite(this))
-            return;
+            return false;
 
-        displayed = true;
+        return true;
     }
     @Override
     public void draw(GalaxyMapPanel map, Graphics2D g2) {
-        if (!displayed)
+        if (!displayed())
             return;
         float size = hullPoints();
         int imgSize = 1;

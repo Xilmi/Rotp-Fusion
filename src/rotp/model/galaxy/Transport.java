@@ -35,7 +35,7 @@ import rotp.ui.notifications.TransportsPerishedAlert;
 import rotp.ui.sprites.FlightPathSprite;
 import rotp.util.Base;
 
-public class Transport implements Base, Ship, Sprite, Serializable {
+public class Transport extends FleetBase implements Base, Ship, Sprite, Serializable {
     private static final long serialVersionUID = 1L;
     private Empire empire;
     private final StarSystem from;
@@ -50,15 +50,11 @@ public class Transport implements Base, Ship, Sprite, Serializable {
     private float combatAdj = 0;
     private float launchTime = NOT_LAUNCHED;
     private float travelSpeed = 0;
-    private float arrivalTime = Float.MAX_VALUE;
 
     private String troopArmorId;
     private String troopBattleSuitId;
     private String troopWeaponId;
     private String troopShieldId;
-    private transient boolean displayed;
-    private transient Rectangle selectBox;
-    private transient boolean hovering;
     private transient FlightPathSprite pathSprite;
     private transient StarSystem hoveringDest;
 
@@ -68,12 +64,6 @@ public class Transport implements Base, Ship, Sprite, Serializable {
     private TechBattleSuit troopBattleSuit() { return (TechBattleSuit) tech(troopBattleSuitId); }
     private TechHandWeapon troopWeapon()     { return (TechHandWeapon) tech(troopWeaponId); }
     private TechPersonalShield troopShield() { return (TechPersonalShield) tech(troopShieldId); }
-    @Override
-    public boolean hovering()                   { return hovering; }
-    @Override
-    public void hovering(boolean b)             { hovering = b; }
-    @Override
-    public boolean displayed()                  { return displayed; }
     @Override
     public int displayPriority()                { return 8; }
     @Override
@@ -90,11 +80,6 @@ public class Transport implements Base, Ship, Sprite, Serializable {
             orderToSurrenderOnArrival();
     }
 
-    public Rectangle selectBox() {
-        if (selectBox == null)
-            selectBox = new Rectangle();
-        return selectBox;
-    }
     @Override
     public FlightPathSprite pathSprite() {
         if (pathSprite == null)
@@ -110,7 +95,10 @@ public class Transport implements Base, Ship, Sprite, Serializable {
     public String toString()          { return concat("Transport: ", Integer.toHexString(hashCode())); }
     public Colony home()              { return from.colony(); }
     public StarSystem destination()   { return dest; }
-    public void setDest(StarSystem d) { dest = d; }
+    public void setDest(StarSystem d) {
+        dest = d;
+        setArrivalTime();
+    }
     public StarSystem from()          { return from; }
     @Override
     public float fromX()              { return from.x(); }
@@ -125,7 +113,8 @@ public class Transport implements Base, Ship, Sprite, Serializable {
     public float combatAdj()          { return combatAdj; }
     @Override
     public float launchTime()         { return launchTime; }
-    public Empire targetCiv()          { return targetEmp; }
+    public Empire targetCiv()         { return targetEmp; }
+    public float travelSpeed()        { return travelSpeed; }
     public void travelSpeed(float d)  { travelSpeed = d; }
 
 
@@ -138,8 +127,6 @@ public class Transport implements Base, Ship, Sprite, Serializable {
     public int destSysId()              { return dest == null ? StarSystem.NULL_ID : dest.id; }
     @Override
     public int empId()                  { return empire.id; }
-    @Override
-    public float arrivalTime()         { return arrivalTime; }
     public void arrive()                { dest.acceptTransport(this); }
     @Override
     public boolean visibleTo(int empId) { return true; }
@@ -245,21 +232,24 @@ public class Transport implements Base, Ship, Sprite, Serializable {
         }
         return normalTime;
     }
-    public int travelTurnsRemaining()     { return !inTransit() ? 0 : (int)Math.ceil(arrivalTime-galaxy().currentTime()); }
-    public void setArrivalTime() {
+    @Override
+    // Why does Transport.travelTurnsRemaining() check whether it's inTransit?
+    // It sort of works, since Transports don't have a "deployed, not in transit" state like ShipFleet,
+    // but a Transport is only not inTransit when dest == null, and when could that ever happen?
+    public int travelTurnsRemaining()     { return !inTransit() ? 0 : (int)Math.ceil(arrivalTime()-galaxy().currentTime()); }
+    public float calculateArrivalTime() {
         // direct time is if we go straight there at empire's tech transport speed
         float directTime = travelTime(dest);
         // set time is if we have travelSpeed alrady set, by synching transports
         float setTime = travelSpeed > 0 ? distanceTo(dest)/travelSpeed : directTime;
         // take the worst time
-        arrivalTime = galaxy().currentTime() + max(setTime, directTime);
+        return galaxy().currentTime() + max(setTime, directTime);
     }
     public boolean  changeDestination(StarSystem to) {
         if (inTransit()
         && validDestination(id(to))) {
-            dest = to;
+            setDest(to);
             targetEmp = to.empire();
-            setArrivalTime();
             return true;
         }
         return false;
@@ -338,21 +328,20 @@ public class Transport implements Base, Ship, Sprite, Serializable {
     @Override
     public int maxMapScale()                    { return GalaxyMapPanel.MAX_FLEET_TRANSPORT_SCALE;  }
     @Override
-    public void setDisplayed(GalaxyMapPanel map) {
-        displayed = false;
+    public boolean decideWhetherDisplayed(GalaxyMapPanel map) {
         if (!map.parent().isClicked(this)) {
             if ((empire == targetEmp) && !map.showFriendlyTransports())
-                return;
+                return false;
             if ((empire != targetEmp) && !map.showArmedShips())
-                return;
+                return false;
         }
         if (map.scaleX() > maxMapScale())
-            return;
-        displayed = true;
+            return false;
+        return true;
     }
     @Override
     public void draw(GalaxyMapPanel map, Graphics2D g2) {
-        if (!displayed)
+        if (!displayed())
             return;
         int x = mapX(map);
         int y = mapY(map);
