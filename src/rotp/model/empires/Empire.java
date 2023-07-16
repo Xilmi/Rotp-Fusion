@@ -264,6 +264,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     }
     public List<Ship> visibleShips()              { return visibleShips; }
     public Map<Ship, StarSystem> suspectedDestinationsOfVisibleShips()  { return suspectedDestinationsOfVisibleShips; }
+    public StarSystem suspectedDestinationOfVisibleShip(Ship sh)  { return suspectedDestinationsOfVisibleShips().get(sh); }
     public EmpireView[] empireViews()             { return empireViews; }
     public List<StarSystem> newSystems()          { return newSystems; }
     public int lastCouncilVoteEmpId()             { return lastCouncilVoteEmpId; }
