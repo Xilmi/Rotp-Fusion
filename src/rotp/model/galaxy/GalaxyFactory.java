@@ -611,7 +611,8 @@ public class GalaxyFactory implements Base {
 					default:
 						if (options().randomizeAIAbility()) // original Advanced Option random abilities
 							dataRace = Race.keyed(random(opts.baseRaceOptions()));
-						dataRace = Race.keyed(raceKey);
+						else
+							dataRace = Race.keyed(raceKey);
 						break;
 				}
 			} else // Restart

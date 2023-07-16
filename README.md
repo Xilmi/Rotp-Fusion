@@ -55,6 +55,8 @@ Later:
 
 2024.07.15 (BR)
 - Improved the "Reworked"-Abilities description.
+- Improved the "Randomize AI" description.
+- Fixed "Randomize AI"-abilities not working.
 
 2024.07.14 (BR)
 - Updated release notes.

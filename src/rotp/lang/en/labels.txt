@@ -1833,7 +1833,7 @@ SETTINGS_COLONIZING_HELP          |  By default, any special colony base can col
 SETTINGS_COLONIZING_DESC          | Restrict the colonization of systems to only those for which you have acquired the specific technology.
 SETTINGS_COUNCIL_WIN_HELP         | This determines whether factions can reject a council victory, or whether one is even possible.
 SETTINGS_COUNCIL_DESC             | Disable the council victory condition or allow enemy empires to rebel against a player victory.
-SETTINGS_RANDOMIZE_AI_HELP        | Original "Advanced Option" to Randomize the AI played personalities, racial abilities, or both.<br><i>In case of conflict with the selected abilities in the Galaxy menu, The Galaxy menu win.</i>
+SETTINGS_RANDOMIZE_AI_HELP        | Original "Advanced Option" to Randomize the AI played personalities, racial abilities, or both.<br><i>In case of conflict with the selected abilities in the Galaxy menu, The Galaxy menu win.</i>(Should be set to 'Base Race' for this option to works.)
 SETTINGS_RANDOMIZE_AI_DESC        | Randomize the AI player personalities, racial abilities, or both.
 SETTINGS_AUTOPLAY_DESC            | Completely automate the game by having an AI play for the player.<br> This is useful for a first-hand view of how the AI works.
 SETTINGS_AUTOPLAY_WARNING         | Warning! Autoplay is currently enabled which will prevent user gameplay.<br> Use "Advanced Options" to disable.
