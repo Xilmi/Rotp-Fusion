@@ -585,8 +585,6 @@ public class AIGovernor implements Base, Governor {
             float currentPercentage = tgtPercentage;
             if(sv.system().colony() != null)
                 currentPercentage = sv.system().colony().populationPct();
-            if(sv.system().enemyShipsInOrbit(empire))
-                return currentPercentage;
             if(!empire.warEnemies().isEmpty())
             {
                 for(Empire warEnemy : empire.warEnemies())
@@ -601,7 +599,7 @@ public class AIGovernor implements Base, Governor {
             }
             for(ShipFleet fl : sv.system().orbitingFleets())
             {
-                if(fl.isArmed() && empire.enemies().contains(fl.empire()))
+                if(fl.isArmed() && fl.empire().aggressiveWith(empire.id))
                     return currentPercentage;
             }
             return tgtPercentage;
