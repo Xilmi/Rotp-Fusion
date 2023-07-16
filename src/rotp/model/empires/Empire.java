@@ -2335,6 +2335,14 @@ public final class Empire implements Base, NamedObject, Serializable {
         return squaredDistanceMoved > maxPossibleTravelSpeed*maxPossibleTravelSpeed*1.125; // allow a fudge factor
     }
     public boolean knowsFleetCouldNotHaveReachedThisLocation(ShipFleet ufoNow, ShipFleet ufoLastTurn) {
+        if (!ufoLastTurn.inTransit())
+            // If the Ship seen last turn arrive()d this turn, then we immediately give up.
+            // Note that the Empire does not know whether the Ship seen last turn is now in orbit,
+            // (matching ships seen last turn to ships seen this turn is exactly what the Empire is trying to do),
+            // but also note that this is entirely 100% about not wanting to store the xy coordinates of ship-sightings.
+            // The squinting-at-screenshots method absolutely *can* match up ships under this condition;
+            // whether the Ship seen last turn is still in transit would be 100% irrelevant *except* that we don't want to store more data.
+            return false;
         float maxPossibleTravelSpeed = maxSpeedFleetMightHave(ufoNow);
         // If we wanted this function to have broader uses,
         // we could call maxSpeedFleetMightHave() on both Ships and take the minimum of the two,
