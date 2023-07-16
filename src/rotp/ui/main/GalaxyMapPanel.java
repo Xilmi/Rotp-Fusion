@@ -842,6 +842,11 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
                 && parent.shouldDrawSprite(sh.pathSprite())) {
                     sh.pathSprite().draw(this,g);
                 }
+                else if (options().selectedTrackUFOsAcrossTurns()) {
+                    StarSystem suspectedDestination = player().suspectedDestinationOfVisibleShip(sh);
+                    if (suspectedDestination != null)
+                        sh.pathSpriteTo(suspectedDestination).draw(this, g);
+                }
                 spr.draw(this, g);
             }
         }
