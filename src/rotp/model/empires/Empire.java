@@ -265,6 +265,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     public List<Ship> visibleShips()              { return visibleShips; }
     public Map<Ship, StarSystem> suspectedDestinationsOfVisibleShips()  { return suspectedDestinationsOfVisibleShips; }
     public StarSystem suspectedDestinationOfVisibleShip(Ship sh)  { return suspectedDestinationsOfVisibleShips().get(sh); }
+    public boolean knowsLastTurnLocationOf(Ship sh) { return suspectedDestinationsOfVisibleShips().containsKey(sh); }
     public EmpireView[] empireViews()             { return empireViews; }
     public List<StarSystem> newSystems()          { return newSystems; }
     public int lastCouncilVoteEmpId()             { return lastCouncilVoteEmpId; }
@@ -2273,7 +2274,7 @@ public final class Empire implements Base, NamedObject, Serializable {
                 addVisibleShip(sh);
         }
 
-        if (options().selectedTrackUFOsAcrossTurns()) { // To disable the tracking background
+        if (options().selectedTrackUFOsAcrossTurns()) { // don't run the background tracking if it won't be displayed
             final Set<Ship> shipsKnowLastTurnLocationOf = matchShipsSeenThisTurnToShipsSeenLastTurn(visibleShips, shipsVisibleLastTurn).keySet();
             suspectedDestinationsOfVisibleShips = suspectedDestinationsOfShipsSeenLastTurn(shipsKnowLastTurnLocationOf);        	
         }
@@ -2320,11 +2321,25 @@ public final class Empire implements Base, NamedObject, Serializable {
             return true;
         if (ufoNow.isTransport() != ufoLastTurn.isTransport())
             return true;
+        if (knowsShipCouldNotHaveReachedThisLocation(ufoNow, ufoLastTurn))
+            return true;
         if (ufoNow instanceof ShipFleet && ufoLastTurn instanceof ShipFleet)
             return knowsCouldNotHaveBeenSameFleetLastTurn((ShipFleet)ufoNow, (ShipFleet)ufoLastTurn);
         if (ufoNow instanceof Transport && ufoLastTurn instanceof Transport)
             return knowsCouldNotHaveBeenSameTransportLastTurn((Transport)ufoNow, (Transport)ufoLastTurn);
         return false;
+    }
+    public boolean knowsShipCouldNotHaveReachedThisLocation(Ship ufoNow, Ship ufoLastTurn) {
+        float maxPossibleTravelSpeed = maxSpeedShipMightHave(ufoNow);
+        // If we wanted this function to have broader uses,
+        // we could call the function on both Ships and take the minimum of the two,
+        // but in the context of trying to distinguish ships from each other,
+        // if the two UFOs are so obviously different that different amounts are known about their possible speeds,
+        // then they'll immediately be known distinct and this function will never be called.
+        float deltaX = ufoNow.x() - ufoLastTurn.transitXlastTurn();
+        float deltaY = ufoNow.y() - ufoLastTurn.transitYlastTurn();
+        float squaredDistanceMoved = deltaX*deltaX + deltaY*deltaY;
+        return squaredDistanceMoved > maxPossibleTravelSpeed*maxPossibleTravelSpeed*1.125; // allow a fudge factor
     }
     public boolean knowsCouldNotHaveBeenSameFleetLastTurn(ShipFleet fleetNow, ShipFleet fleetLastTurn) {
         if (!visibleShipViews(fleetNow).equals(visibleShipViews(fleetLastTurn)))
@@ -2366,18 +2381,44 @@ public final class Empire implements Base, NamedObject, Serializable {
         // then it could not have been built this turn.
         // Ship already stores that information, so we can just reference it.
         return ufo.inTransit();
+        // The fact that a ship is in a star system owned by someone else does not necessarily prove that it was not built that turn,
+        // because ships are built before invasions are resolved, and incoming transports could have run the gauntlet of the ships's weapons
+        // and conquered the planet out from under it.
     }
     public float maxSpeedShipMightHave(Ship ufo) {
+        if (knowsLastTurnLocationOf(ufo))
+            // To save on compute, we don't actually store the location of each UFO last turn.
+            // We only store the list of which UFOs the empire knows last turn's location of,
+            // and query the actual location (hence the actual speed).
+            return ufo.travelSpeed();
         if (ufo instanceof ShipFleet)
             return maxSpeedFleetMightHave((ShipFleet)ufo);
         if (ufo instanceof Transport)
             return maxSpeedTransportMightHave((Transport)ufo);
         return 9;
     }
+    public float minSpeedShipMightHave(Ship ufo) {
+        if (knowsLastTurnLocationOf(ufo))
+            // To save on compute, we don't actually store the location of each UFO last turn.
+            // We only store the list of which UFOs the empire knows last turn's location of,
+            // and query the actual location (hence the actual speed).
+            return ufo.travelSpeed();
+        if (ufo instanceof ShipFleet)
+            return minSpeedFleetMightHave((ShipFleet)ufo);
+        if (ufo instanceof Transport)
+            return minSpeedTransportMightHave((Transport)ufo);
+        return 0.125;
+    }
     public float maxSpeedFleetMightHave(ShipFleet fleet) {
         return fleet.visibleShipDesigns(id).keySet().stream()
                     .map(design -> shipViewFor(design))
                     .map(view -> (view == null) ? 9 : view.maxPossibleWarpSpeed())
+                    .min(Comparator.<Float>naturalOrder()).get();
+    }
+    public float minSpeedFleetMightHave(ShipFleet fleet) {
+        return fleet.visibleShipDesigns(id).keySet().stream()
+                    .map(design -> shipViewFor(design))
+                    .map(view -> (view == null) ? 1 : view.minPossibleWarpSpeed())
                     .min(Comparator.<Float>naturalOrder()).get();
     }
     public float maxSpeedTransportMightHave(Transport transport) {
@@ -2394,6 +2435,11 @@ public final class Empire implements Base, NamedObject, Serializable {
             return spies.tech().transportTravelSpeed();
         return 8;
     }
+    public float minSpeedTransportMightHave(Transport transport) {
+        // We can never be sure a transport wasn't launched a long, long time ago.
+        // Actually, due to transport syncing, can we ever have any lower bound on transport speed?
+        return 0.125;
+    }
     public boolean knowsShipCouldNotHaveFlownInFromOutsideScanRange(Ship ufo) {
         // For simplicity, we completely ignore scan coverage from ships.
         return distanceTo(ufo) + maxSpeedShipMightHave(ufo) < planetScanningRange();
@@ -2407,7 +2453,9 @@ public final class Empire implements Base, NamedObject, Serializable {
         final int MAX_LOOKAHEAD = 8; // just to ensure we don't somehow infinite-loop
         float strideX = secondX - firstX;
         float strideY = secondY - firstY;
-        for (int i=1; i<MAX_LOOKAHEAD; i++)
+        // We start at 0 just so that we store the "destination" of a stationary ship in orbit as its location, for completeness.
+        // This allows e.g. knowing whether we've been tracking a ship across turns just by checking whether it's in suspectedDestinationsOfVisibleShips.
+        for (int i=0; i<MAX_LOOKAHEAD; i++)
             for (StarSystem sys: allColonizedSystems())
                 // Strictly speaking, there's no reason the suspected-destination system needs to be colonized;
                 // it doesn't even need to be in scanner range. But this saves time and it's going to be rare for
