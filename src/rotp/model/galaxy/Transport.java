@@ -416,7 +416,4 @@ public class Transport extends FleetBase implements Base, Ship, Sprite, Serializ
         g.drawRoundRect(x,y,w,h, cnr, cnr);
         g.setStroke(prev);
     }
-    private FlightPathSprite pathSpriteTo(StarSystem sys) {
-        return new FlightPathSprite(this, sys);
-    }
 }

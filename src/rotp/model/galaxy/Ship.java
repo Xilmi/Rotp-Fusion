@@ -93,6 +93,9 @@ public interface Ship extends IMappedObject, Base, Sprite {
 
     public boolean deployed();
     public FlightPathSprite pathSprite();
+    default FlightPathSprite pathSpriteTo(StarSystem sys) {
+        return new FlightPathSprite(this, sys);
+    }
     public int maxMapScale();
     public void setDisplayed(GalaxyMapPanel map);
     public boolean displayed();
