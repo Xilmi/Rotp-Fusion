@@ -38,6 +38,7 @@ public interface Ship extends IMappedObject, Base, Sprite {
     default boolean hasDisplayPanel() { return true; }
 
     public boolean canSendTo(int sysId);
+    public float travelSpeed();
     public float launchTime();
     public float arrivalTime();
     public boolean visibleTo(int empId);
@@ -52,7 +53,9 @@ public interface Ship extends IMappedObject, Base, Sprite {
     public int empId();
     default Empire empire() { return galaxy().empire(empId()); }
     public int destSysId();
-    default StarSystem destination() { return galaxy().system(destSysId());  }
+    default StarSystem destination() { return galaxy().system(destSysId()); }
+    // Rally systems are treated differently from other destinations, but sometimes we just want either one.
+    default StarSystem destinationOrRallySystem() { return destination(); }
     default float destX() { return destination().x(); }
     default float destY() { return destination().y(); }
     // destination is always a star system, but origin point need not be?
@@ -81,6 +84,8 @@ public interface Ship extends IMappedObject, Base, Sprite {
     }
 
     public boolean inTransit();
+    // This default travelTurnsRemaining() assumes that arrivalTime is always well-defined even if the Ship is not in transit (as it is for ShipFleet).
+    default int travelTurnsRemaining() { return (int)Math.ceil(arrivalTime() - galaxy().currentTime()); }
     @Override // from IMappedObject
     default float x() { return inTransit() ? transitX() : fromX(); }
     @Override // from IMappedObject
@@ -88,6 +93,9 @@ public interface Ship extends IMappedObject, Base, Sprite {
 
     public boolean deployed();
     public FlightPathSprite pathSprite();
+    default FlightPathSprite pathSpriteTo(StarSystem sys) {
+        return new FlightPathSprite(this, sys);
+    }
     public int maxMapScale();
     public void setDisplayed(GalaxyMapPanel map);
     public boolean displayed();

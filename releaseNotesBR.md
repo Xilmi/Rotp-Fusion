@@ -1,6 +1,12 @@
 Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
-<b><u>New features since last announcement:</u></b>
+<b><ins>Updates since last announcement:</ins></b>
+
+Xilmi last improvement:
+- For all AIs of the Xilmi-family: A technologically superior AI that currently has no enemies will no longer try to get further ahead in tech and instead focus on increasing fleet-size. This change was inspired by Keilah Martin's Let's play.
+
+
+<b><ins>Last announcement:</ins></b>
 
 <b>HotKey list</b> are available on game panels and setup panels.
 - Available by right-clicking the Help button. 
