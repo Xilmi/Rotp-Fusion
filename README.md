@@ -59,7 +59,9 @@ Later:
   - After: And when this galaxy has given to you all that it has,
 
 2024.07.16 (dHannasch)
-- Building block for next generation of "Track ships across turns".
+- "Track ships across turns"
+  - Building block for next generation.
+  - Improved display, no need to select the ship to see the probable destination.
 
 2024.07.16 (Xilmi)
 - For all AIs of the Xilmi-family: A technologically superior AI that currently has no enemies will no longer try to get further ahead in tech and instead focus on increasing fleet-size. This change was inspired by Keilah Martin's Let's play.
