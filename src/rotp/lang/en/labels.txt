@@ -1863,6 +1863,8 @@ HEADERS_GAME_OTHER_DESC           | Other Options. Can be changed dynamically.
 HEADERS_GAME_OTHER                | ~~~ OTHER OPTIONS ~~~%1
 HEADERS_GAME_COMBAT_DESC          | Options affecting attack and defense. Can be changed dynamically.
 HEADERS_GAME_COMBAT               | ~~~ COMBAT OPTIONS ~~~%1
+HEADERS_BETA_TEST_DESC            | New options under construction.<br>Please test and report bugs and inconsistencies.
+HEADERS_BETA_TEST                 | ~~~ NEW OPTIONS (BETA) ~~~%1
 HEADERS_GAME_DIFFICULTY_DESC      | Options affecting the game difficulty level. Can be changed dynamically.
 HEADERS_GAME_DIFFICULTY           | ~~~ GAME DIFFICULTY ~~~%1
 HEADERS_RESTART_OPTIONS_HELP      | Hidden behind the&nbsp <b>Start</b>&nbsp button, using the&nbsp <b>Ctrl</b>&nbsp Key you will find the&nbsp <b>Restart</b>&nbsp button.<br>You will be asked to select an old played game to start a new one on the same galaxy.<br>- With the same opponents or new ones.<br>- With the same player race, a new one, or swapped with a previous opponent.<br> You can keep your home world or swapp it with a previous opponent.<br> The following options are controlling the way a game will be restarted.

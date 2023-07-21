@@ -2,9 +2,12 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Updates since last announcement:</ins></b>
 
-Xilmi last improvement:
+<em>Xilmi last improvement:</em>
 - For all AIs of the Xilmi-family: A technologically superior AI that currently has no enemies will no longer try to get further ahead in tech and instead focus on increasing fleet-size. This change was inspired by Keilah Martin's Let's play.
+- When invading, AI's of the Xilmi-Family will now keep at least one third of the source-planet's maximum population back at home in order to stay in the window of decent natural population-growth and not to ruin their economy.
 
+<em>Minor changes</em>
+- Added category " ~~~ NEW OPTIONS (BETA) ~~~"
 
 <b><ins>Last announcement:</ins></b>
 

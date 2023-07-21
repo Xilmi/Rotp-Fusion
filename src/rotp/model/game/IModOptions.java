@@ -132,7 +132,7 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 				headerSpacer,
 				new ParamTitle("GAME_OTHER"),
 				showAlliancesGNN, showLimitedWarnings,
-				techExchangeAutoRefuse, autoTerraformEnding, trackUFOsAcrossTurns, autoplay
+				techExchangeAutoRefuse, autoTerraformEnding, autoplay
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("GAME_RELATIONS"),
@@ -143,7 +143,11 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 				new ParamTitle("GAME_COMBAT"),
 				retreatRestrictions, retreatRestrictionTurns, missileBaseModifier, missileShipModifier,
 				targetBombard, bombingTarget, autoBombard_, autoColonize_,
-				scrapRefundFactor, scrapRefundOption
+				scrapRefundFactor, scrapRefundOption,
+				
+				headerSpacer,
+				new ParamTitle("BETA_TEST"),
+				trackUFOsAcrossTurns
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("RANDOM_EVENTS_OPT"),
