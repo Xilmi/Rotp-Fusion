@@ -53,6 +53,9 @@ Later:
 
 ## What's New
 
+2024.07.21 (Xilmi)
+- When invading, AI's of the Xilmi-Family will now keep at least one third of the source-planet's maximum population back at home in order to stay in the window of decent natural population-growth and not to ruin their economy.
+
 2024.07.16 (BR)
 - Fixed Mrrshan victory text: (Thanks to Keilah Martin)
   - Before: And when this galaxy has given to you all that has,

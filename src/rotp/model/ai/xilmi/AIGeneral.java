@@ -456,7 +456,7 @@ public class AIGeneral implements Base, General {
                     // to prevent complete draining of planets
                     // TODO: modify with leader personality and source planet fertility
                     //troopsAvailable += sys.colony().maxTransportsAllowed();
-                    troopsAvailable += Math.max(0.0f, Math.floor(sys.colony().population() * 0.5f));
+                    troopsAvailable += Math.min(Math.floor(sys.colony().population()) * 0.5f, Math.max(0.0f, sys.colony().population() - 1.0f / 3.0f * sys.colony().planet().currentSize()));
                 }
             }
         }
@@ -474,7 +474,7 @@ public class AIGeneral implements Base, General {
             // to prevent complete draining of planets
             // TODO: modify with leader personality and source planet fertility
             // int troops = sys.colony().maxTransportsAllowed();
-            int troops = (int) Math.floor(Math.max(0.0f, sys.colony().population() * 0.5f));
+            int troops = (int) Math.min(Math.floor(sys.colony().population()) * 0.5f, Math.max(0.0f, sys.colony().population() - 1.0f / 3.0f * sys.colony().planet().currentSize()));
             troops = min((int)Math.ceil((double)troopsDesired), troops);
             sys.colony().scheduleTransportsToSystem(target, troops, maxTravelTime);
             troopsDesired -= troops;
