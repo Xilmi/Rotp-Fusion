@@ -2477,8 +2477,14 @@ public final class Empire implements Base, NamedObject, Serializable {
         final int MAX_LOOKAHEAD = 8; // just to ensure we don't somehow infinite-loop
         float strideX = secondX - firstX;
         float strideY = secondY - firstY;
+        // Typically, minLookahead is 0.
         // We start at 0 just so that we store the "destination" of a stationary ship in orbit as its location, for completeness.
         // This allows e.g. knowing whether we've been tracking a ship across turns just by checking whether it's in suspectedDestinationsOfVisibleShips.
+        // However, a ship might have arrived at a system this turn *and retreated*.
+        // In that case, its coordinates will be the coordinates of the system, and its previous-turn coordinates will be (obviously) 1 turn away from that system ---
+        // but it's not in orbit at that system! It's headed *away* from that system!
+        // But we don't check for that in this function, because in that case, in fact, it is *impossible* to guess its destination (using only Deep Space Scanner).
+        // So instead, at a higher level, those cases are dropped.
         for (int i=0; i<MAX_LOOKAHEAD; i++)
             for (StarSystem sys: allColonizedSystems())
                 // Strictly speaking, there's no reason the suspected-destination system needs to be colonized;
@@ -2488,12 +2494,22 @@ public final class Empire implements Base, NamedObject, Serializable {
                     return sys;
         return null;
     }
+    public boolean knowsShipIsLeavingSystemThisTurn(Ship sh, StarSystem sys) {
+        // The fact of whether a ship is retreating or not is always visible to the player if the ship itself is visible.
+        // Similarly, the player can always see that a ship has been deployed (that is, is no longer in orbit).
+        return sh.x() == sys.x() && sh.y() == sys.y() && (sh.retreating() || sh.deployed());
+    }
     public Map<Ship, StarSystem> suspectedDestinationsOfShipsSeenLastTurn(Set<Ship> shipsKnowLastTurnLocationOf) {
         Map<Ship, StarSystem> suspectedDestinations = new HashMap<Ship, StarSystem>();
         for (Ship sh : shipsKnowLastTurnLocationOf) {
             StarSystem suspectedDestination = starSystemInLineIfAny(sh.transitXlastTurn(), sh.transitYlastTurn(), sh.transitX(), sh.transitY());
             if (suspectedDestination != null)
-                suspectedDestinations.put(sh, suspectedDestination);
+                // If the Ship arrived at a system this turn and is currently in orbit, then it can be useful to retain that system as its destination.
+                // However, if the Ship arrived at the system this turn and immediately retreated or deployed from the system,
+                // in terms of xy coordinates that looks exactly like arriving at the system and staying in orbit,
+                // but in that case it is impossible to know its new destination (without Improved Space Scanner).
+                if (!knowsShipIsLeavingSystemThisTurn(sh, suspectedDestination))
+                    suspectedDestinations.put(sh, suspectedDestination);
         }
         return suspectedDestinations;
     }
