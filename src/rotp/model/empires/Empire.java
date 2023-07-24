@@ -263,7 +263,11 @@ public final class Empire implements Base, NamedObject, Serializable {
             return galaxy().ships.notInTransitFleets(id);
     }
     public List<Ship> visibleShips()              { return visibleShips; }
-    public Map<Ship, StarSystem> suspectedDestinationsOfVisibleShips()  { return suspectedDestinationsOfVisibleShips; }
+    public Map<Ship, StarSystem> suspectedDestinationsOfVisibleShips()  {
+    	if (suspectedDestinationsOfVisibleShips == null) // BR: To keep ascendent game compatibility
+    		suspectedDestinationsOfVisibleShips = new HashMap<>();
+    	return suspectedDestinationsOfVisibleShips;
+    }
     public StarSystem suspectedDestinationOfVisibleShip(Ship sh)  { return suspectedDestinationsOfVisibleShips().get(sh); }
     public boolean knowsLastTurnLocationOf(Ship sh) { return suspectedDestinationsOfVisibleShips().containsKey(sh); }
     public EmpireView[] empireViews()             { return empireViews; }

@@ -53,6 +53,12 @@ Later:
 
 ## What's New
 
+2024.07.24 (BR)
+- Fixed Old save game compatibility with "Track ships across turns" (Uninitialized parameter)
+
+2024.07.24 (dHannasch)
+- Fixed Retreating ship bug.
+
 2024.07.21 (BR)
 - Added category " ~~~ NEW OPTIONS (BETA) ~~~"
 
