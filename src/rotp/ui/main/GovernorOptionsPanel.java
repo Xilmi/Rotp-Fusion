@@ -108,7 +108,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 		    		loadDisplayValues();
 		    		loadValues();
 					options().clearRefresh();
-		    		System.out.println("refreshRequested() and executed");
+		    		//System.out.println("refreshRequested() and executed");
 	    		}
 	    	}
 	    	horlogeOngoing	= false;

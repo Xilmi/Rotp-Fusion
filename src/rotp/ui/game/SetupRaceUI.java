@@ -453,7 +453,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         g.drawRoundRect(nextBox.x, nextBox.y, nextBox.width, nextBox.height, cnr, cnr);
         g.setStroke(prev);
 
-        // TODO BR: No Fog on Icons
+        // BR: No Fog on Icons
         int noFogW = s16;
         int noFogX = playerRaceSettingBox.x + s5 ;
         int noFogY = playerRaceSettingBox.y - s15;

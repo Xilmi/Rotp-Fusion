@@ -332,7 +332,7 @@ public final class GameSession implements Base, Serializable {
     public void nextTurn() {
         if (performingTurn())
             return;
-
+        
         performingTurn = true;
         nextTurnThread = new Thread(nextTurnProcess());
         nextTurnThread.start();
@@ -347,6 +347,14 @@ public final class GameSession implements Base, Serializable {
         return maxHeap > reqHeap;
     }
     public boolean inProgress()  { return status().inProgress(); }
+    private void consoleMemory(long fileSize) {
+        if (!UserPreferences.showMemory())
+            return;
+        String s = concat("Turn = ", str(galaxy().currentTurn()),
+        		          " | ", Rotp.getMemoryInfo(false),
+        		          " | File size:", String.format("% 9d", fileSize));
+        System.out.println(s);
+    }
     private Runnable nextTurnProcess() {
         return () -> {
             try {
@@ -359,8 +367,8 @@ public final class GameSession implements Base, Serializable {
                 RotPUI.instance().mainUI().saveMapState();
                 log("Next Turn - BEGIN: ", str(galaxy.currentYear()));
                 log("Autosaving pre-turn");
-                instance.saveRecentSession(false);
-
+                long ufs = instance.saveRecentSession(false);
+                consoleMemory(ufs);
 				/*
 				// modnar: private logging
 				String LogPath = Rotp.jarPath();
@@ -491,7 +499,7 @@ public final class GameSession implements Base, Serializable {
                 log("Autosaving post-turn");
                 log("NEXT TURN PROCESSING TIME: ", str(timeMs()-startMs));
                 NoticeMessage.resetSubstatus(text("TURN_SAVING"));
-                instance.saveRecentSession(true);
+                ufs = instance.saveRecentSession(true);
 
                 log("Reselecting main panel");
                 RotPUI.instance().mainUI().showDisplayPanel();
@@ -505,6 +513,7 @@ public final class GameSession implements Base, Serializable {
                 }
                 RotPUI.instance().repaint();
                 log("Next Turn - END: ", str(galaxy.currentYear()));
+            	consoleMemory(ufs);
             }
             catch(Exception e) {
                 err("Unexpected error during Next Turn:", e.toString());
@@ -819,7 +828,7 @@ public final class GameSession implements Base, Serializable {
         else
             return text("MAIN_ADVANCING_TURN", galaxy().currentTurn()+1);
     }
-    public void saveSession(String filename, boolean backup) throws Exception {
+    public long saveSession(String filename, boolean backup) throws Exception {
         log("Saving game as file: ", filename, "  backup: "+backup);
         GameSession currSession = GameSession.instance();
 
@@ -847,6 +856,7 @@ public final class GameSession implements Base, Serializable {
             }
             catch(IOException ex) {}
         }
+		return e.getSize();
     }
     private void resolveOptionsDiscrepansies(GameSession gs) {
     	// resolving AutoPlay potential issues
@@ -927,12 +937,13 @@ public final class GameSession implements Base, Serializable {
         String dash = "-";
         return concat(leader,dash,race,dash,gShape,dash,gSize,dash,diff,dash,opp,dash,turn,SAVEFILE_EXTENSION);
     }
-    public void saveRecentSession(boolean endOfTurn) {
+    public long saveRecentSession(boolean endOfTurn) {
+    	long ufs = -1;
     	if (!endOfTurn) // BR: Always keep a copy of starting turn
     		saveRecentStartSession();
         String filename = RECENT_SAVEFILE;
         try {
-            saveSession(filename, false);
+            ufs = saveSession(filename, false);
             if (endOfTurn)
                saveBackupSession(galaxy().currentTurn());
         }
@@ -941,6 +952,7 @@ public final class GameSession implements Base, Serializable {
             if (endOfTurn)
                 RotPUI.instance().mainUI().showAutosaveFailedPrompt(e.getMessage());
         }
+		return ufs;
     }
     public void saveRecentStartSession() {
         String filename = RECENT_START_SAVEFILE;

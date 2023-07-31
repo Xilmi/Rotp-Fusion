@@ -64,6 +64,7 @@ public class Rotp {
     // BR: tested: 8GB => 75 stars/MB; 3.5GB => 100 stars/MB
     public static int maximumSystems = (maxHeapMemory > 4096 ?  75 : 100) * (int)(maxHeapMemory-600);
     public static long maxUsedMemory;
+    public static long maxAllocatedMemory;
     public static boolean logging = false;
     private static float resizeAmt =  -1.0f;
     public static int actualAlloc = -1;
@@ -71,6 +72,36 @@ public class Rotp {
 
     private static GraphicsDevice device;
     
+    public static String getMemoryInfo(boolean screen) {
+        int  threads   = Thread.activeCount();
+    	long available = Runtime.getRuntime().maxMemory() / 1048576;
+    	long allocated = Runtime.getRuntime().totalMemory() / 1048576;
+        long free      = Runtime.getRuntime().freeMemory() / 1048576;
+        long used      = allocated - free;
+        if (used > maxUsedMemory)
+            maxUsedMemory = used;
+        if (allocated > maxAllocatedMemory)
+            maxAllocatedMemory = allocated;
+        if (screen) {
+            String s = used   + "M / "  +
+            		allocated + "M / "  +
+            		available + "M  ("  +
+            		maxUsedMemory + "/" +
+            		maxAllocatedMemory  + ")";
+            if (threads >= 15)
+                s += " T:" + Integer.toString(threads);
+            return s;
+        }
+        else {
+            String s = "Memory used:"   + String.format("% 5d", used) + " MB" +
+            		" | Allocated:"     + String.format("% 5d", allocated) + " MB" +
+            		" | Available:"     + String.format("% 5d", available) + " MB" +
+            		" | Max used:"      + String.format("% 5d", maxUsedMemory) + " MB" +
+            		" | Max allocated:" + String.format("% 5d", maxAllocatedMemory) + " MB" +
+            		" | Threads:"       + String.format("% 3d", threads);
+           return s;        	
+        }
+    }
     public static boolean noOptions(String id) {
     	if (noOptions)
     		System.out.println("### noOptions() usefully called from " + id + " ###");

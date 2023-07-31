@@ -53,6 +53,12 @@ Later:
 
 ## What's New
 
+2024.07.31 (BR)
+- Show Memory options:
+  - More descriptive names.
+  - Added Max allocated.
+  - Also written down to console when activated.
+
 2024.07.24 (BR)
 - Fixed Old save game compatibility with "Track ships across turns" (Uninitialized parameter)
 

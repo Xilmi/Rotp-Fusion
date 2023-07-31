@@ -284,23 +284,13 @@ public class BasePanel extends JPanel implements Base, InterfacePreview {
     public boolean displayMemory() {
         return UserPreferences.showMemory();
     }
+
     public void drawMemory(Graphics g) {
         if (!displayMemory())
             return;
-        long max = Runtime.getRuntime().maxMemory() / 1048576;
-        long total = Runtime.getRuntime().totalMemory() / 1048576;
-        long free = Runtime.getRuntime().freeMemory() / 1048576;
-        long used = total - free;
-        if (used > Rotp.maxUsedMemory)
-            Rotp.maxUsedMemory = used;
-
-        int threads = Thread.activeCount();
-
         g.setColor(Color.white);
         g.setFont(narrowFont(14));
-        String s = concat(str(total-free), "M / ", str(total), "M / ", str(max), "M  (", str(Rotp.maxUsedMemory), ")");
-        if (threads >= 15)
-            s = concat(s, " T:", str(threads));
+        String s = Rotp.getMemoryInfo(true);
         int sw = g.getFontMetrics().stringWidth(s);
         drawString(g, s, getWidth()-sw-s5, getHeight()-s5);
     }
