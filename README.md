@@ -53,6 +53,9 @@ Later:
 
 ## What's New
 
+2024.08.01 (BR)
+- Forbidden tech can not be stolen anymore.
+
 2024.07.31 (BR)
 - Show Memory options:
   - More descriptive names.

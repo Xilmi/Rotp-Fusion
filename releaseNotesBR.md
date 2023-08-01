@@ -8,6 +8,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <em>Minor changes</em>
 - Added category " ~~~ NEW OPTIONS (BETA) ~~~"
+- Forbidden tech can not be stolen anymore.
 
 <em>Minor Fixes</em>
 - Fixed AI scouts bugging with "Reduced range"-option.

@@ -338,7 +338,10 @@ public final class SpyNetwork implements Base, Serializable {
         float maxTech = owner.tech().maxTechLevel();
         maxTech *= 1 - overallSecurityAdj(true);
         possibleTechs = emp.tech().worseTechsUnknownToCiv(owner.tech(), maxTech);
-        
+
+        // BR: remove the forbidden tech from the possibleTechs spying list
+        possibleTechs.removeAll(options().forbiddenTechList(owner.isPlayer()));
+
         if (owner.isPlayer()) {
             List<String> newPossible = new ArrayList<>(possibleTechs());
             newPossible.removeAll(prevPossible);

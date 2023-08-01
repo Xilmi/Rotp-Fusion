@@ -1,8 +1,10 @@
 package rotp.model.game;
 
 import java.awt.event.MouseWheelEvent;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 
 import rotp.Rotp;
 import rotp.ui.util.IParam;
@@ -97,6 +99,15 @@ public interface IPreGameOptions extends IAdvOptions {
 			techIndustry2, techThorium, techTransport
 			));
 	default LinkedList<ParamTech> techModList()			{ return techModList; }
+	default List<String> forbiddenTechList(boolean isPlayer)	{
+		List<String> list = new ArrayList<>();
+		for (ParamTech  tech : techModList) {
+			if (tech.isNever(isPlayer)) {
+				list.add(tech.techId());
+			}
+		}
+		return list;
+	}
 
 	ParamInteger randomAlienRacesMin		 = new ParamInteger(MOD_UI, "RACES_RAND_MIN", -50, -100, 100, 1, 5, 20);
 	ParamInteger randomAlienRacesMax		 = new ParamInteger(MOD_UI, "RACES_RAND_MAX", 50, -100, 100, 1, 5, 20);

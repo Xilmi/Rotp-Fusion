@@ -19,7 +19,7 @@ package rotp.ui.util;
 import static rotp.model.game.IBaseOptsTools.*;
 
 
-public class ParamTech extends ParamAAN2 implements IParam {
+public class ParamTech extends ParamAAN2 {
 	
 	public final int techCategory;
 	public final String techType;
