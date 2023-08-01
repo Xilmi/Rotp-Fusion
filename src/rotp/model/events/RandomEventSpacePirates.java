@@ -56,16 +56,16 @@ public class RandomEventSpacePirates implements Base, Serializable, RandomEvent 
       	int piratesDelayTurn = options().selectedPiratesDelayTurn();
 		switch (options().selectedGameDifficulty()) { // BR: added adjustable delay
             case IGameOptions.DIFFICULTY_EASIEST:
-            	turn = RandomEvents.START_TURN + 4 * piratesDelayTurn;
+            	turn = startTurn() + 4 * piratesDelayTurn;
             	break;
             case IGameOptions.DIFFICULTY_EASIER:
-            	turn = RandomEvents.START_TURN + 3 * piratesDelayTurn;
+            	turn = startTurn() + 3 * piratesDelayTurn;
             	break;
             case IGameOptions.DIFFICULTY_EASY:
-            	turn = RandomEvents.START_TURN + 2 * piratesDelayTurn;
+            	turn = startTurn() + 2 * piratesDelayTurn;
             	break;
             default:
-            	turn = RandomEvents.START_TURN + piratesDelayTurn;
+            	turn = startTurn() + piratesDelayTurn;
         }
 //      System.out.println("Space Pirates next Turn = " + max(turn, nextAllowedTurn()) +
 //		" (current turn = " + galaxy().currentTurn() + ")");

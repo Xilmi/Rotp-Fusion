@@ -27,12 +27,14 @@ public class RandomEvents implements Base, Serializable {
     private static final float START_CHANCE = 0.0f;
     private static final float CHANCE_INCR = 0.01f;
     private static final float MAX_CHANCE_INCR = 0.05f;
-    public static int START_TURN = 50; // BR:Made it adjustable
     private List<RandomEvent> events;
     private List<RandomEvent> activeEvents;
 	private RandomEvent lastEvent; // modnar: keep track of last event
     private float eventChance = START_CHANCE;
 
+    public int startTurn() { // BR:Made it adjustable
+    	return IGameOptions.eventsStartTurn.get();
+    }
     public RandomEvents() {
     	activeEvents = new ArrayList<>();
         events = new ArrayList<>();
@@ -50,7 +52,7 @@ public class RandomEvents implements Base, Serializable {
             ev.nextTurn();
 
         int turnNum = galaxy().currentTurn();
-        if (turnNum < START_TURN)
+        if (turnNum < startTurn())
             return;
 
         // BR: To allow RandomEventOption dynamic changes

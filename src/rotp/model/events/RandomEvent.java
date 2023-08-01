@@ -16,15 +16,17 @@
 package rotp.model.events;
 
 import rotp.model.empires.Empire;
+import rotp.model.game.IGameOptions;
 
 public interface RandomEvent {
     boolean goodEvent();
     boolean repeatable();
     String notificationText();
     void trigger(Empire e);
-    default void nextTurn()   { }
-    default int minimumTurn()  { return RandomEvents.START_TURN; }
-    default String systemKey() { return ""; }
+    default void nextTurn()        { }
+    default int minimumTurn()      { return startTurn(); }
+    default String systemKey()     { return ""; }
     default String statusMessage() { return ""; }
     default boolean monsterEvent() { return false; }
+    default int startTurn()        { return IGameOptions.eventsStartTurn.get(); }
 }

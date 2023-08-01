@@ -38,7 +38,7 @@ public class RandomEventGauntletRelic implements Base, Serializable, RandomEvent
     @Override
     public boolean repeatable()    		{ return false; } // not repeatable
     @Override
-    public int minimumTurn()            { return RandomEvents.START_TURN + 50; } // delay Gauntlet Relic event spawn
+    public int minimumTurn()            { return startTurn() + 50; } // delay Gauntlet Relic event spawn
     @Override
     public String notificationText()    {
         String s1 = text("EVENT_RELIC_GAUNTLET");
@@ -58,7 +58,6 @@ public class RandomEventGauntletRelic implements Base, Serializable, RandomEvent
         
         // find all colonies in target empire that are less than base size 90
         // increase base size of those planets 10
-        List<StarSystem> systems = new ArrayList<>();
         for (StarSystem sys : emp.allColonizedSystems()) {
             Planet pl = sys.planet();
             if (pl.baseSize() <= 90.0f) {

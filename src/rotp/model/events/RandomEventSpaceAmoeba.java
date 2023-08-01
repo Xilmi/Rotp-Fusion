@@ -53,16 +53,16 @@ public class RandomEventSpaceAmoeba implements Base, Serializable, RandomEvent {
     	int amoebaDelayTurn = options().selectedAmoebaDelayTurn();
         switch (options().selectedGameDifficulty()) { // BR: added adjustable delay
              case IGameOptions.DIFFICULTY_EASIEST:
-            	 turn = RandomEvents.START_TURN + 4 * amoebaDelayTurn;
+            	 turn = startTurn() + 4 * amoebaDelayTurn;
              	break;
             case IGameOptions.DIFFICULTY_EASIER:
-            	turn = RandomEvents.START_TURN + 3 * amoebaDelayTurn;
+            	turn = startTurn() + 3 * amoebaDelayTurn;
             	break;
            case IGameOptions.DIFFICULTY_EASY:
-            	turn = RandomEvents.START_TURN + 2 * amoebaDelayTurn;
+            	turn = startTurn() + 2 * amoebaDelayTurn;
             	break;
             default:
-            	turn = RandomEvents.START_TURN + amoebaDelayTurn;
+            	turn = startTurn() + amoebaDelayTurn;
         }
 //        System.out.println("Space Amoeba next Turn = " + max(turn, nextAllowedTurn()) +
 //        		" (current turn = " + galaxy().currentTurn() + ")");

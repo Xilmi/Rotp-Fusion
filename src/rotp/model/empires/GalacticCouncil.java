@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.List;
 import rotp.model.galaxy.Galaxy;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.game.IGameOptions;
 import rotp.model.incidents.CouncilVoteIncident;
 import rotp.model.incidents.FinalWarIncident;
 import rotp.model.tech.Tech;
@@ -41,8 +42,6 @@ public class GalacticCouncil implements Base, Serializable {
 
     private static final int noticeDuration = 5;
     private static final int interval = 20;
-    
-    public static float PCT_REQUIRED = 2f/3f;  // BR:Made it adjustable
 
     private int nextAction = CHECK;
     private int currentStatus = INACTIVE;
@@ -58,6 +57,7 @@ public class GalacticCouncil implements Base, Serializable {
     private transient int totalVotes, votes1, votes2, lastVotes;
     private transient Empire candidate1, candidate2, lastVoter, lastVoted;
 
+    public static float pctRequired()  { return IGameOptions.counciRequiredPct.get(); }  // BR:Made it adjustable
     public Empire leader()             { return leader; }
     public void leader(Empire e)       { leader = e; }
     public List<Empire>  allies()      { return allies; }
@@ -124,7 +124,7 @@ public class GalacticCouncil implements Base, Serializable {
     public boolean disbanded()        { return currentStatus == DISBANDED; }
     private void checkFormation() {
         Galaxy gal = galaxy();
-        int limit = (int) Math.ceil(gal.numStarSystems()*PCT_REQUIRED);
+        int limit = (int) Math.ceil(gal.numStarSystems()*pctRequired());
         float colonized = 0;
         for (int i=0; i<gal.numStarSystems(); i++) {
             StarSystem sys = gal.system(i);
@@ -158,7 +158,7 @@ public class GalacticCouncil implements Base, Serializable {
     public Empire lastVoted()  { return lastVoted; }
     public int totalVotes()    { return totalVotes; }
 //    public int votesToElect()  { return (int) Math.ceil(totalVotes * 2 / 3.0); }
-    public int votesToElect()  { return (int) Math.ceil(totalVotes * PCT_REQUIRED); }
+    public int votesToElect()  { return (int) Math.ceil(totalVotes * pctRequired()); }
     public int votes1()        { return votes1; }
     public int votes2()        { return votes2; }
     public int lastVotes()     { return lastVotes; }

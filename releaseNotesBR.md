@@ -9,6 +9,11 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 <em>Minor changes</em>
 - Added category " ~~~ NEW OPTIONS (BETA) ~~~"
 
+<em>Minor Fixes</em>
+- Fixed AI scouts bugging with "Reduced range"-option.
+- Fixed random event delay not updating on reload.
+
+
 <b><ins>Last announcement:</ins></b>
 
 <b>HotKey list</b> are available on game panels and setup panels.

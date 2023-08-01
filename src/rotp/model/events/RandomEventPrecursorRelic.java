@@ -37,7 +37,7 @@ public class RandomEventPrecursorRelic implements Base, Serializable, RandomEven
     @Override
     public boolean repeatable()    		{ return false; } // not repeatable
     @Override
-    public int minimumTurn()            { return RandomEvents.START_TURN + 50; } // delay Precursor Relic event spawn
+    public int minimumTurn()            { return startTurn() + 50; } // delay Precursor Relic event spawn
     @Override
     public String notificationText()    {
         String s1 = text("EVENT_RELIC_PLANETS");

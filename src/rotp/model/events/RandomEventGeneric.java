@@ -48,7 +48,7 @@ public class RandomEventGeneric   implements Base, Serializable, RandomEvent {
         // minimum turn for each event. 
         switch(eventKey) {
             default:
-                return RandomEvents.START_TURN; 
+                return startTurn(); 
         }
     }
     @Override

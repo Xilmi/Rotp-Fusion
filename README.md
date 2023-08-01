@@ -58,6 +58,9 @@ Later:
   - More descriptive names.
   - Added Max allocated.
   - Also written down to console when activated.
+- Fixed and "normalized" random event delay.
+- Normalized council requirement.
+- Fixed "reduced range"-option.
 
 2024.07.24 (BR)
 - Fixed Old save game compatibility with "Track ships across turns" (Uninitialized parameter)

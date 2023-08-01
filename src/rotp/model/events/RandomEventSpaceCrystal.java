@@ -53,16 +53,16 @@ public class RandomEventSpaceCrystal implements Base, Serializable, RandomEvent 
     	int crystalDelayTurn = options().selectedCrystalDelayTurn();
         switch (options().selectedGameDifficulty()) { // BR: added adjustable delay
         case IGameOptions.DIFFICULTY_EASIEST:
-        	turn = RandomEvents.START_TURN + 4 * crystalDelayTurn;
+        	turn = startTurn() + 4 * crystalDelayTurn;
         	break;
         case IGameOptions.DIFFICULTY_EASIER:
-        	turn = RandomEvents.START_TURN + 3 * crystalDelayTurn;
+        	turn = startTurn() + 3 * crystalDelayTurn;
         	break;
         case IGameOptions.DIFFICULTY_EASY:
-        	turn = RandomEvents.START_TURN + 2 * crystalDelayTurn;
+        	turn = startTurn() + 2 * crystalDelayTurn;
         	break;
         default:
-        	turn = RandomEvents.START_TURN + crystalDelayTurn;
+        	turn = startTurn() + crystalDelayTurn;
         }
 //        System.out.println("Space Crystal next Turn = " + max(turn, nextAllowedTurn()) +
 //        		" (current turn = " + galaxy().currentTurn() + ")");
