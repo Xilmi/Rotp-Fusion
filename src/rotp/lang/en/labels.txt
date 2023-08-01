@@ -2200,6 +2200,10 @@ SETTINGS_MOD_TRACK_UFOS_ACROSS_TURNS_HELP | →SCANNER_2_NAME← or →SCANNER_3
 SETTINGS_MOD_TRACK_UFOS_ACROSS_TURNS_DESC | Have →SCANNER_0_NAME← and →SCANNER_1_NAME← automatically track ship trajectories when ships can be unambiguously identified across successive turns.
 SETTINGS_MOD_TRACK_UFOS_ACROSS_TURNS      | Track ships across turns: %1
 
+SETTINGS_MOD_ALLOW_TECH_STEALING_HELP    | To enable or disable technology stealing activities.<br> If disabled, half of the infiltration bonus will be given to Research bonus.<br>Infiltration penalty won't impact Research bonus.
+SETTINGS_MOD_ALLOW_TECH_STEALING_DESC    | To enable or disable technology stealing activities.<br> If disabled, half of the infiltration bonus will be given to Research bonus. (Never removed)
+SETTINGS_MOD_ALLOW_TECH_STEALING         | Tech stealing: %1
+
 SETTINGS_MOD_SHOW_NEW_RACES_DESC         | Show the new races in the opponents list?
 SETTINGS_MOD_SHOW_NEW_RACES              | Show new races: %1
 SETTINGS_MOD_SHOW_GRID_CIRCULAR_DESC     | Show the circular grid on the galaxy map? (Dynamic)
@@ -2242,6 +2246,10 @@ SETTINGS_MOD_TARGET_BOMBARD_NONE_HELP    | Nobody is able to control its bombing
 SETTINGS_MOD_TARGET_BOMBARD_AI_HELP      | AI is smart enough to control its bombing, but the Player is to slow do so!
 SETTINGS_MOD_TARGET_BOMBARD_PLAYER_HELP  | Player is smart enough to control its bombing, but AI is not allowed to do so!
 SETTINGS_MOD_TARGET_BOMBARD_BOTH_HELP    | Everyone is able to control their bombing.
+
+SETTINGS_MOD_DEBUG_OPTIONS_TITLE         | Developper's Options
+SETTINGS_MOD_DEBUG_OPTIONS_UI            | Debug Options: %1
+SETTINGS_MOD_DEBUG_OPTIONS_UI_DESC       | Open Sub Menu to set development tools.
 
 SETTINGS_MOD_FLAG_COLOR_COUNT_DESC       | How may colors should appear on the Star System Flag?
 SETTINGS_MOD_FLAG_COLOR_COUNT            | Flag Color Count: %1

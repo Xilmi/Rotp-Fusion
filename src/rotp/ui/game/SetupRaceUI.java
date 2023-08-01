@@ -1072,7 +1072,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         int smallButtonW = g.getFontMetrics().stringWidth(text(customRaceKey)) + smallButtonMargin;
         xB = noFogX;
         yB = noFogY + s35;
-        playerRaceSettingBox.setBounds(xB, yB, smallButtonW, smallButtonH); // TODO
+        playerRaceSettingBox.setBounds(xB, yB, smallButtonW, smallButtonH);
         g.setPaint(GameUI.buttonLeftBackground());
         g.fillRoundRect(playerRaceSettingBox.x, playerRaceSettingBox.y, smallButtonW, smallButtonH, cnr, cnr);
 

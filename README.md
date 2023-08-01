@@ -57,6 +57,7 @@ Later:
 - Forbidden tech can not be stolen anymore.
 - Cleaned pom files
 - Removed obsolete tools
+- New option to disable tech stealing.
 
 2024.07.31 (BR)
 - Show Memory options:

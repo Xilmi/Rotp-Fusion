@@ -166,13 +166,16 @@ public interface IInGameOptions extends IConvenienceOptions {
 	default boolean selectedShowAllAI()			{ return showAllAI.get(); }
 
 	ParamBoolean trackUFOsAcrossTurns = new ParamBoolean(MOD_UI, "TRACK_UFOS_ACROSS_TURNS", true);
-	
 	default boolean selectedTrackUFOsAcrossTurns() { return trackUFOsAcrossTurns.get(); }
+
+	ParamBoolean allowTechStealing = new ParamBoolean(MOD_UI, "ALLOW_TECH_STEALING", true);
+	default boolean selectedAllowTechStealing()	{ return allowTechStealing.get(); }
+	default boolean forbidTechStealing()	 	{ return !allowTechStealing.get(); }
 	
 	// ==================== GUI List Declarations ====================
 	LinkedList<IParam> modOptionsDynamicA = new LinkedList<>(
 			Arrays.asList(
-				customDifficulty, dynamicDifficulty, challengeMode, showAllAI,
+				customDifficulty, dynamicDifficulty, challengeMode, showAllAI, allowTechStealing,
 				null,
 				missileBaseModifier, missileShipModifier, retreatRestrictions, retreatRestrictionTurns,
 				null,

@@ -341,6 +341,11 @@ public final class SpyNetwork implements Base, Serializable {
 
         // BR: remove the forbidden tech from the possibleTechs spying list
         possibleTechs.removeAll(options().forbiddenTechList(owner.isPlayer()));
+        
+        // BR: no tech are shown if "No tech stealing)
+        if (options().forbidTechStealing())
+        	possibleTechs.clear();
+        	
 
         if (owner.isPlayer()) {
             List<String> newPossible = new ArrayList<>(possibleTechs());

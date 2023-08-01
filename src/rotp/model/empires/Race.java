@@ -383,6 +383,11 @@ public class Race implements Base, Serializable {
     			techDiscoveryPct + discoveryMod[i]));
     }
     public float researchBonusPct()           { return researchBonusPct; }
+    public float researchNoSpyBonusPct()      {
+    	if (options().forbidTechStealing())
+    		return 1f + max(0f, spyInfiltrationAdj/2);
+    	return 1f;
+    }
     public float growthRateMod()              { return growthRateMod; }
     public float tradePctBonus()              { return tradePctBonus; }
     public float positiveDPMod()              { return positiveDPMod; }

@@ -57,7 +57,12 @@ public class ColonyResearch extends ColonySpendingCategory {
             unallocatedBC -= projectBC;
         }       
     }
-    public float researchBonus() { return  planet().researchAdj() * empire().researchBonusPct() * session().researchBonus(); }
+    public float researchBonus() {
+    	return  planet().researchAdj()
+    			* empire().researchBonusPct()
+    			* empire().researchNoSpyBonusPct()
+    			* session().researchBonus();
+    }
     @Override
     public boolean warning()      {        
         return (project != null) && (totalBC() < project.remainingResearchBC()); }
