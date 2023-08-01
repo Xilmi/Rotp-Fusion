@@ -55,6 +55,8 @@ Later:
 
 2024.08.01 (BR)
 - Forbidden tech can not be stolen anymore.
+- Cleaned pom files
+- Removed obsolete tools
 
 2024.07.31 (BR)
 - Show Memory options:
