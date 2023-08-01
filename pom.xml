@@ -114,10 +114,6 @@
                 <excludes>
                     <exclude>**/*.java</exclude>
                     <exclude>rotp-version.properties</exclude>
-                    <!-- for testing minified version
-                                        <exclude>**/*.png</exclude>
-                                        <exclude>**/*.jpg</exclude>
-                    -->
                 </excludes>
             </resource>
             <resource>
