@@ -619,11 +619,11 @@ public final class ShipDesign extends Design {
         }
         return false;
     }
-    public int range() {
+    public float range() {
         if (isExtendedRange())
-            return (int) empire().tech().scoutRange();
+            return empire().tech().scoutRange();
         else
-            return (int) empire().tech().shipRange();
+            return empire().tech().shipRange();
     }
     public int warpSpeed() {
         return engine().warp();

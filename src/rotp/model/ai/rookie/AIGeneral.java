@@ -841,7 +841,7 @@ public class AIGeneral implements Base, General {
         if(additionalColonizersToBuild >= 0 && !returnPotentialUncolonizedInstead)
             return additionalColonizersToBuild;
         int additional = 0;
-        int colonizerRange = empire.shipDesignerAI().BestDesignToColonize().range();
+        float colonizerRange = empire.shipDesignerAI().BestDesignToColonize().range();
         List<StarSystem> alreadyCounted = new ArrayList<>();
         for(StarSystem sys : empire.uncolonizedPlanetsInRange(colonizerRange))
         {
