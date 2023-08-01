@@ -1,465 +1,401 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<!-- Project Declaration -->
-	<groupId>com.rayfowler</groupId>
-	<artifactId>rotp</artifactId>
-	<version>${revision}</version>
-	<packaging>jar</packaging>
-	
-	<!-- Variables Declaration -->
-	<properties>
-		<!-- Personal --> 
-		<maven.build.timestamp.format>yyyy.M.d.H</maven.build.timestamp.format>
-		<revision>${maven.build.timestamp}</revision>
-		<RepoId>Rotp-Fusion</RepoId>
-		<AuthorId>Xilmi</AuthorId>
-		<BaseFileName>rotp-${project.version}</BaseFileName>
-	 	<!-- Maven Standard -->
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>8</java.version>
-		<junit.jupiter.version>5.9.0</junit.jupiter.version>
-		<junit.platform.version>1.9.0</junit.platform.version>
-		<GITHUB_TOKEN></GITHUB_TOKEN>
-	</properties>
+    <!-- Project Declaration -->
+    <groupId>com.rayfowler</groupId>
+    <artifactId>rotp</artifactId>
+    <version>${revision}</version>
+    <packaging>jar</packaging>
+    
+    <!-- Variables Declaration -->
+    <properties>
+        <!-- Personal --> 
+        <maven.build.timestamp.format>yyyy.M.d.H</maven.build.timestamp.format>
+        <revision>${maven.build.timestamp}</revision>
+        <RepoId>Rotp-Fusion</RepoId>
+        <AuthorId>Xilmi</AuthorId>
+        <BaseFileName>rotp-${project.version}</BaseFileName>
+        <!-- Maven Standard -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>8</java.version>
+        <junit.jupiter.version>5.9.0</junit.jupiter.version>
+        <junit.platform.version>1.9.0</junit.platform.version>
+        <GITHUB_TOKEN></GITHUB_TOKEN>
+    </properties>
 
-	<!-- GitHub Declaration -->
-	<scm>
-		<connection>scm:git:${project.scm.url}</connection>
-		<developerConnection>scm:git:${project.scm.url}</developerConnection>
-		<url>https://github.com/${AuthorId}/${RepoId}.git</url>
-		<tag>HEAD</tag>
-	</scm>
+    <!-- GitHub Declaration -->
+    <scm>
+        <connection>scm:git:${project.scm.url}</connection>
+        <developerConnection>scm:git:${project.scm.url}</developerConnection>
+        <url>https://github.com/${AuthorId}/${RepoId}.git</url>
+        <tag>HEAD</tag>
+    </scm>
 
-	<distributionManagement>
-		<repository>
-			<id>github</id>
-			<name>${AuthorId}</name>
-			<url>https://maven.pkg.github.com/${AuthorId}/${RepoId}</url>
-		</repository>
-	</distributionManagement>
-<!-- not needed if antrun works
-	<pluginRepositories>
-		<pluginRepository>
-			<id>local-repository</id>
-			<url>file:///${project.basedir}/maven-repository</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
--->
-	<!-- All the dependencies Declaration -->
-	<dependencies>
-		<!-- JUNIT dependencies -->
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<version>${junit.jupiter.version}</version>
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>${AuthorId}</name>
+            <url>https://maven.pkg.github.com/${AuthorId}/${RepoId}</url>
+        </repository>
+    </distributionManagement>
+    <!-- All the dependencies Declaration -->
+    <dependencies>
+        <!-- JUNIT dependencies -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.jupiter.version}</version>
                         <scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-api</artifactId>
-			<version>${junit.jupiter.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.jupiter.version}</version>
                         <scope>test</scope>
-		</dependency>
-		<!-- Base and modders ROTP dependencies -->
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-math3</artifactId>
-			<version>3.6.1</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.12.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.googlecode.soundlibs</groupId>
-			<artifactId>tritonus-share</artifactId>
-			<version>0.3.7.4</version>
-		</dependency>
-		<dependency>
-			<groupId>com.googlecode.soundlibs</groupId>
-			<artifactId>vorbisspi</artifactId>
-			<version>1.0.3.3</version>
-		</dependency>
-		<dependency>
-			<groupId>org.sejda.imageio</groupId>
-			<artifactId>webp-imageio</artifactId>
-			<version>0.1.6</version>
-		</dependency>
-		<!-- Needed to play video -->
-		<!-- Remove ffmpeg dependency, too big jar size -->
-		<!-- JavaFX doesn't do WebM, don't use JavaFX -->
-		<!-- Try LibGDX next -->
+        </dependency>
+        <!-- Base and modders ROTP dependencies -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+            <version>3.6.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.soundlibs</groupId>
+            <artifactId>tritonus-share</artifactId>
+            <version>0.3.7.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.soundlibs</groupId>
+            <artifactId>vorbisspi</artifactId>
+            <version>1.0.3.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.sejda.imageio</groupId>
+            <artifactId>webp-imageio</artifactId>
+            <version>0.1.6</version>
+        </dependency>
+        <!-- Needed to play video -->
+        <!-- Remove ffmpeg dependency, too big jar size -->
+        <!-- JavaFX doesn't do WebM, don't use JavaFX -->
+        <!-- Try LibGDX next -->
 
-		<!-- My attempt to convert save game files to JSON, incomplete -->
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.13.2.2</version>
-		</dependency>
+        <!-- My attempt to convert save game files to JSON, incomplete -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.13.2.2</version>
+        </dependency>
 
-		<!-- My attempt to produce GraalVM native executables, unfinished -->
-		<dependency>
-			<groupId>org.graalvm.nativeimage</groupId>
-			<artifactId>svm</artifactId>
-			<version>21.1.0</version>
-			<scope>provided</scope>
-		</dependency>
-	</dependencies>
+        <!-- My attempt to produce GraalVM native executables, unfinished -->
+        <dependency>
+            <groupId>org.graalvm.nativeimage</groupId>
+            <artifactId>svm</artifactId>
+            <version>21.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
-	<!-- Files generation -->
-	<build>
-		<!-- Ressources non-conventionnal location Declaration-->
-		<sourceDirectory>src</sourceDirectory>
-		<resources>
-			<resource>
-				<directory>src</directory>
-				<excludes>
-					<exclude>**/*.java</exclude>
-					<exclude>rotp-version.properties</exclude>
-					<!-- for testing minified version
-										<exclude>**/*.png</exclude>
-										<exclude>**/*.jpg</exclude>
-					-->
-				</excludes>
-			</resource>
-			<resource>
-				<directory>src</directory>
-				<includes>
-					<include>rotp-version.properties</include>
-				</includes>
-				<filtering>true</filtering>
-			</resource>
-			<resource>
-				<directory>${project.basedir}</directory>
-				<includes>
-					<include>README.md</include>
-				 </includes>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
+    <!-- Files generation -->
+    <build>
+        <!-- Ressources non-conventionnal location Declaration-->
+        <sourceDirectory>src</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>src</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                    <exclude>rotp-version.properties</exclude>
+                    <!-- for testing minified version
+                                        <exclude>**/*.png</exclude>
+                                        <exclude>**/*.jpg</exclude>
+                    -->
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src</directory>
+                <includes>
+                    <include>rotp-version.properties</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>${project.basedir}</directory>
+                <includes>
+                    <include>README.md</include>
+                 </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
 
-		<!-- Building tools -->
-                <plugins>
-                        <plugin>
-                                <artifactId>maven-compiler-plugin</artifactId>
-                                <version>3.8.1</version>
-                                <configuration>
-                                        <source>${java.version}</source>
-                                        <target>${java.version}</target>
-                                </configuration>
-                        </plugin>
+        <!-- Building tools -->
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
 
-                        <!-- images & sound compression, using antrun which is standard -->
-			<plugin>
-                                <groupId>org.apache.maven.plugins</groupId>
-                                <artifactId>maven-antrun-plugin</artifactId>
-                                <version>3.1.0</version> <!-- Must be high version or echo doesn't work -->
-				<executions>
-                                    <execution>
-                                        <id>ogg</id>
-                                        <phase>compile</phase>
-                                        <goals>
-                                                <goal>run</goal>
-                                        </goals>
-                                        <configuration>
-                                            <target  xmlns:mvn="http://maven.apache.org/ANTRUN">
-                                                <parallel threadCount="4">
-                                                    <!-- convert wav to ogg. Needs vorbis-tools package, oggenc executable  -->
-                                                    <apply executable="oggenc" dest="${project.build.outputDirectory}" verbose="true" parallel="false">
-                                                        <srcfile/>
-                                                        <arg value="-o"/>
-                                                        <targetfile/>
-                                                        <fileset dir="${project.build.sourceDirectory}">
-                                                            <patternset>
-                                                                <include name="**/*.wav"/>
-                                                            </patternset>
-                                                        </fileset>
-                                                        <mapper type="glob" from="*.wav" to="*.ogg"/>
-                                                    </apply>
-                                                    <!-- convert png/jpg to webp. Needs webp package, cwebp executable -->
-                                                    <!-- quality 90 is visually indistinguishable from original jpeg -->
-                                                    <!-- but given that people using minified version want a small jar, let's use quality 80 -->
-                                                    <apply executable="cwebp" dest="${project.build.outputDirectory}" verbose="true" parallel="false">
-                                                        <arg value="-short"/>
-                                                        <arg value="-mt"/>
-                                                        <arg value="-q"/>
-                                                        <arg value="75"/>
-                                                        <srcfile/>
-                                                        <arg value="-o"/>
-                                                        <targetfile/>
-                                                        <fileset dir="${project.build.sourceDirectory}">
-                                                            <patternset>
-                                                                <include name="**/*.png"/>
-                                                                <include name="**/*.jpg"/>
-                                                            </patternset>
-                                                        </fileset>
-                                                        <firstmatchmapper>
-                                                            <globmapper from="*.png" to="*.webp"/>
-                                                            <globmapper from="*.jpg" to="*.webp"/>
-                                                        </firstmatchmapper>
-                                                    </apply>
-                                                </parallel>
-                                            </target>
-                                        </configuration>
-                                    </execution>
-	                        </executions>
-			</plugin>
-                        <!-- Coder plugin for images compression. Better not to use non-standard plugins -->
-                        <!-- To be removed if antrun plugin works -->
-<!--                        <plugin>
-                                <groupId>org.maven.coder</groupId>
-                                <artifactId>native-transform-maven-plugin</artifactId>
-                                <version>1.1-SNAPSHOT</version>
-                                <executions>
-                                         convert wav to ogg. Needs vorbis-tools package, oggenc executable 
-                                        <execution>
-                                                <id>ogg</id>
-                                                <phase>compile</phase>
-                                                <goals>
-                                                        <goal>run</goal>
-                                                </goals>
-                                                <configuration>
-                                                        <command>oggenc ${input} -o ${output}</command>
-                                                        <outputExtension>ogg</outputExtension>
-                                                        <errorToOutput>true</errorToOutput>
-                                                        <inputFiles>
-                                                                <directory>${project.basedir}/src</directory>
-                                                                <includes>
-                                                                        <include>**/*.wav</include>
-                                                                </includes>
-                                                        </inputFiles>
-                                                </configuration>
-                                        </execution>
-                                         convert png/jpg to webp. Needs webp package, cwebp executable 
-                                        <execution>
-                                                <id>webp</id>
-                                                <phase>compile</phase>
-                                                <goals>
-                                                        <goal>run</goal>
-                                                </goals>
-                                                <configuration>
-                                                         quality 90 is visually indistinguishable from original jpeg 
-                                                         but given that people using minified version want a small jar, let's use quality 80 
-                                                        <command>cwebp -mt -q 75 ${input} -o ${output}</command>
-                                                        <outputExtension>webp</outputExtension>
-                                                        <errorToOutput>true</errorToOutput>
-                                                        <inputFiles>
-                                                                <directory>${project.basedir}/src</directory>
-                                                                <includes>
-                                                                        <include>**/*.png</include>
-                                                                        <include>**/*.jpg</include>
-                                                                </includes>
-                                                        </inputFiles>
-                                                </configuration>
-                                        </execution>
-                                </executions>
-                        </plugin>-->
+            <!-- images & sound compression, using antrun which is standard -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version> <!-- Must be high version or echo doesn't work -->
+                <executions>
+                    <execution>
+                        <id>ogg</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target  xmlns:mvn="http://maven.apache.org/ANTRUN">
+                                <parallel threadCount="4">
+                                    <!-- convert wav to ogg. Needs vorbis-tools package, oggenc executable  -->
+                                    <apply executable="oggenc" dest="${project.build.outputDirectory}" verbose="true" parallel="false">
+                                        <srcfile/>
+                                        <arg value="-o"/>
+                                        <targetfile/>
+                                        <fileset dir="${project.build.sourceDirectory}">
+                                            <patternset>
+                                                <include name="**/*.wav"/>
+                                            </patternset>
+                                        </fileset>
+                                        <mapper type="glob" from="*.wav" to="*.ogg"/>
+                                    </apply>
+                                    <!-- convert png/jpg to webp. Needs webp package, cwebp executable -->
+                                    <!-- quality 90 is visually indistinguishable from original jpeg -->
+                                    <!-- but given that people using minified version want a small jar, let's use quality 80 -->
+                                    <apply executable="cwebp" dest="${project.build.outputDirectory}" verbose="true" parallel="false">
+                                        <arg value="-short"/>
+                                        <arg value="-mt"/>
+                                        <arg value="-q"/>
+                                        <arg value="75"/>
+                                        <srcfile/>
+                                        <arg value="-o"/>
+                                        <targetfile/>
+                                        <fileset dir="${project.build.sourceDirectory}">
+                                            <patternset>
+                                                <include name="**/*.png"/>
+                                                <include name="**/*.jpg"/>
+                                            </patternset>
+                                        </fileset>
+                                        <firstmatchmapper>
+                                            <globmapper from="*.png" to="*.webp"/>
+                                            <globmapper from="*.jpg" to="*.webp"/>
+                                        </firstmatchmapper>
+                                    </apply>
+                                </parallel>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
-                        <!-- plugin for Mini Jar -->
-                        <plugin>
-                                <groupId>org.apache.maven.plugins</groupId>
-                                <artifactId>maven-shade-plugin</artifactId>
-                                <version>3.3.0</version>
-                                <executions>
-                                        <!-- Run shade goal on package phase -->
-                                        <!-- package minified jar. This needs to run first as it's attached, doesn't replace main jar -->
-                                        <execution>
-                                                <id>shade-mini</id>
-                                                <phase>package</phase>
-                                                <goals>
-                                                        <goal>shade</goal>
-                                                </goals>
-                                                <configuration>
-                                                        <createDependencyReducedPom>false</createDependencyReducedPom>
-                                                        <shadedArtifactAttached>true</shadedArtifactAttached>
-                                                        <shadedClassifierName>mini</shadedClassifierName>
-                                                        <transformers>
-                                                                <!-- add Main-Class to manifest file -->
-                                                                <!-- When launching full version, run Rotp directly, no need to go via RotpGovernor main -->
-                                                                <transformer
-                                                                                implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                                                        <mainClass>rotp.Rotp</mainClass>
-                                                                        <manifestEntries>
-                                                                                <Built-By>${AuthorId}</Built-By>
-                                                                                <Mini>true</Mini>
-                                                                        </manifestEntries>
-                                                                </transformer>
-                                                        </transformers>
-                                                        <filters>
-                                                                <filter>
-                                                                        <artifact>com.rayfowler:rotp</artifact>
-                                                                        <excludes>
-                                                                                <exclude>**/*.wav</exclude>
-                                                                                <exclude>**/*.jpg</exclude>
-                                                                                <exclude>**/*.png</exclude>
-                                                                        </excludes>
-                                                                </filter>
-                                                        </filters>
-                                                </configuration>
-                                        </execution>
-                                        <execution>
-                                                <id>shade-original</id>
-                                                <phase>package</phase>
-                                                <goals>
-                                                        <goal>shade</goal>
-                                                </goals>
-                                                <configuration>
-                                                        <createDependencyReducedPom>false</createDependencyReducedPom>
-                                                        <transformers>
-                                                                <!-- add Main-Class to manifest file -->
-                                                                <!-- When launching full version, run Rotp directly, no need to go via RotpGovernor main -->
-                                                                <transformer
-                                                                                implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                                                        <mainClass>rotp.RotpGovernor</mainClass>
-                                                                        <manifestEntries>
-                                                                                <Built-By>${AuthorId}</Built-By>
-                                                                        </manifestEntries>
-                                                                </transformer>
-                                                        </transformers>
-                                                        <filters>
-                                                                <filter>
-                                                                        <artifact>com.rayfowler:rotp</artifact>
-                                                                        <excludes>
-                                                                                <exclude>**/*.ogg</exclude>
-                                                                                <exclude>**/*.webp</exclude>
-                                                                                <exclude>**/rotp-mini.properties</exclude>
-                                                                        </excludes>
-                                                                </filter>
-                                                        </filters>
-                                                </configuration>
-                                        </execution>
-                                </executions>
-                        </plugin>
-                        <!-- Download Eclipse OpenJDK to package in windows binary zip -->
-                        <plugin>
-                                <groupId>com.googlecode.maven-download-plugin</groupId>
-                                <artifactId>download-maven-plugin</artifactId>
-                                <version>1.6.3</version>
-                                <executions>
-                                        <execution>
-                                                <phase>compile</phase>
-                                                <goals>
-                                                        <goal>wget</goal>
-                                                </goals>
-                                        </execution>
-                                </executions>
-                                <configuration>
-                                        <url>
-                                                https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.7%2B7/OpenJDK17U-jre_x64_windows_hotspot_17.0.7_7.zip
-                                        </url>
-                                        <unpack>true</unpack>
-                                        <outputDirectory>${project.build.directory}/jre-win</outputDirectory>
-                                        <sha256>62e82c1afa7509424813e9cb22d8becfec4346d7505e6d2fc8770af4dcd5b9a0</sha256>
-                                </configuration>
-                        </plugin>
-                        <!-- Windows executable creation -->
-                        <plugin>
-                                <groupId>com.akathist.maven.plugins.launch4j</groupId>
-                                <artifactId>launch4j-maven-plugin</artifactId>
-                                <!-- <version>2.1.2</version> -->
-                                <executions>
-                                        <execution>
-                                                <phase>package</phase>
-                                                <goals>
-                                                        <goal>launch4j</goal>
-                                                </goals>
-                                                <configuration>
-                                                        <icon>launch4j/rotp.ico</icon>
-                                                        <splash>
-                                                                <file>launch4j/rotp_splash.bmp</file>
-                                                                <waitForWindow>false</waitForWindow>
-                                                                <timeout>15</timeout>
-                                                                <timeoutErr>false</timeoutErr>
-                                                        </splash>
-                                                        <headerType>gui</headerType>
-                                                        <outfile>target/${BaseFileName}.exe</outfile>
-                                                        <jar>target/${BaseFileName}-mini.jar</jar>
-                                                        <errTitle>ROTP</errTitle>
-                                                        <classPath>
-                                                                <mainClass>rotp.RotpGovernor</mainClass>
-                                                                <addDependencies>false</addDependencies>
-                                                                <preCp>anything</preCp>
-                                                        </classPath>
-                                                        <jre>
-                                                                <path>jre</path>
-                                                                <minVersion>11</minVersion>
-                                                                <bundledJre64Bit>true</bundledJre64Bit>
-                                                                <runtimeBits>64</runtimeBits>
-                                                                <jdkPreference>preferJre</jdkPreference>
-                                                                <initialHeapSize>2000</initialHeapSize>
-                                                                <maxHeapSize>3500</maxHeapSize>
-                                                        </jre>
-                                                        <versionInfo>
-                                                                <fileVersion>${project.version}</fileVersion>
-                                                                <txtFileVersion>${project.version}</txtFileVersion>
-                                                                <fileDescription>Remnants of the Precursors</fileDescription>
-                                                                <copyright>Copyright Ray Fowler</copyright>
-                                                                <productVersion>${project.version}</productVersion>
-                                                                <txtProductVersion>${project.version}</txtProductVersion>
-                                                                <productName>Remnants of the Precursors</productName>
-                                                                <internalName>rotp</internalName>
-                                                                <originalFilename>${BaseFileName}.exe</originalFilename>
-                                                        </versionInfo>
-                                                </configuration>
-                                        </execution>
-                                </executions>
-                        </plugin>
-                        <!-- package a zip for windows -->
-                        <plugin>
-                                <artifactId>maven-assembly-plugin</artifactId>
-                                <executions>
-                                        <execution>
-                                                <phase>package</phase>
-                                                <goals>
-                                                        <goal>single</goal>
-                                                </goals>
-                                                <configuration>
-                                                        <appendAssemblyId>true</appendAssemblyId>
-                                                        <descriptors>
-                                                                <descriptor>src/assembly/windows.xml</descriptor>
-                                                        </descriptors>
-                                                </configuration>
-                                        </execution>
-                                </executions>
-                        </plugin>
-                        <!-- runs with github-release:github-release -->
-                        <plugin>
-                                <groupId>com.ragedunicorn.tools.maven</groupId>
-                                <artifactId>github-release-maven-plugin</artifactId>
-                                <version>1.0.2</version>
-                                <executions>
-                                        <execution>
-                                                <id>default-cli</id>
-                                                <configuration>
-                                                        <owner>${AuthorId}</owner>
-                                                        <repository>${RepoId}</repository>
-                                                        <authToken>${GITHUB_TOKEN}</authToken>
-                                                        <tagName>${project.version}</tagName>
-                                                        <name>${BaseFileName}</name>
-                                                        <targetCommitish>main</targetCommitish>
-                                                        <releaseNotes>target/classes/README.md</releaseNotes>
-                                                        <assets>
-                                                                <asset>target/${BaseFileName}.jar</asset>
-                                                                <asset>target/${BaseFileName}-mini.jar</asset>
-                                                                <asset>target/${BaseFileName}-windows.zip</asset>
-                                                                <!-- <asset>Profiles.pdf</asset> -->
-                                                        </assets>
-                                                </configuration>
-                                        </execution>
-                                </executions>
-                        </plugin>
-                </plugins>
-	</build>
+            <!-- plugin for Mini Jar -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <!-- Run shade goal on package phase -->
+                    <!-- package minified jar. This needs to run first as it's attached, doesn't replace main jar -->
+                    <execution>
+                        <id>shade-mini</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <shadedArtifactAttached>true</shadedArtifactAttached>
+                            <shadedClassifierName>mini</shadedClassifierName>
+                            <transformers>
+                                <!-- add Main-Class to manifest file -->
+                                <!-- When launching full version, run Rotp directly, no need to go via RotpGovernor main -->
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>rotp.Rotp</mainClass>
+                                    <manifestEntries>
+                                        <Built-By>${AuthorId}</Built-By>
+                                        <Mini>true</Mini>
+                                    </manifestEntries>
+                                </transformer>
+                            </transformers>
+                            <filters>
+                                <filter>
+                                    <artifact>com.rayfowler:rotp</artifact>
+                                    <excludes>
+                                        <exclude>**/*.wav</exclude>
+                                        <exclude>**/*.jpg</exclude>
+                                        <exclude>**/*.png</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>shade-original</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <transformers>
+                                <!-- add Main-Class to manifest file -->
+                                <!-- When launching full version, run Rotp directly, no need to go via RotpGovernor main -->
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>rotp.RotpGovernor</mainClass>
+                                    <manifestEntries>
+                                        <Built-By>${AuthorId}</Built-By>
+                                    </manifestEntries>
+                                </transformer>
+                            </transformers>
+                            <filters>
+                                <filter>
+                                    <artifact>com.rayfowler:rotp</artifact>
+                                    <excludes>
+                                        <exclude>**/*.ogg</exclude>
+                                        <exclude>**/*.webp</exclude>
+                                        <exclude>**/rotp-mini.properties</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Download Eclipse OpenJDK to package in windows binary zip -->
+            <plugin>
+                <groupId>com.googlecode.maven-download-plugin</groupId>
+                <artifactId>download-maven-plugin</artifactId>
+                <version>1.6.3</version>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <url>
+                        https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.7%2B7/OpenJDK17U-jre_x64_windows_hotspot_17.0.7_7.zip
+                    </url>
+                    <unpack>true</unpack>
+                    <outputDirectory>${project.build.directory}/jre-win</outputDirectory>
+                    <sha256>62e82c1afa7509424813e9cb22d8becfec4346d7505e6d2fc8770af4dcd5b9a0</sha256>
+                </configuration>
+            </plugin>
+            <!-- Windows executable creation -->
+            <plugin>
+                <groupId>com.akathist.maven.plugins.launch4j</groupId>
+                <artifactId>launch4j-maven-plugin</artifactId>
+                <!-- <version>2.1.2</version> -->
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>launch4j</goal>
+                        </goals>
+                        <configuration>
+                            <icon>launch4j/rotp.ico</icon>
+                            <splash>
+                                <file>launch4j/rotp_splash.bmp</file>
+                                <waitForWindow>false</waitForWindow>
+                                <timeout>15</timeout>
+                                <timeoutErr>false</timeoutErr>
+                            </splash>
+                            <headerType>gui</headerType>
+                            <outfile>target/${BaseFileName}.exe</outfile>
+                            <jar>target/${BaseFileName}-mini.jar</jar>
+                            <errTitle>ROTP</errTitle>
+                            <classPath>
+                                <mainClass>rotp.RotpGovernor</mainClass>
+                                <addDependencies>false</addDependencies>
+                                <preCp>anything</preCp>
+                            </classPath>
+                            <jre>
+                                <path>jre</path>
+                                <minVersion>11</minVersion>
+                                <bundledJre64Bit>true</bundledJre64Bit>
+                                <runtimeBits>64</runtimeBits>
+                                <jdkPreference>preferJre</jdkPreference>
+                                <initialHeapSize>2000</initialHeapSize>
+                                <maxHeapSize>3500</maxHeapSize>
+                            </jre>
+                            <versionInfo>
+                                <fileVersion>${project.version}</fileVersion>
+                                <txtFileVersion>${project.version}</txtFileVersion>
+                                <fileDescription>Remnants of the Precursors</fileDescription>
+                                <copyright>Copyright Ray Fowler</copyright>
+                                <productVersion>${project.version}</productVersion>
+                                <txtProductVersion>${project.version}</txtProductVersion>
+                                <productName>Remnants of the Precursors</productName>
+                                <internalName>rotp</internalName>
+                                <originalFilename>${BaseFileName}.exe</originalFilename>
+                            </versionInfo>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- package a zip for windows -->
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <appendAssemblyId>true</appendAssemblyId>
+                            <descriptors>
+                                <descriptor>src/assembly/windows.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- runs with github-release:github-release -->
+            <plugin>
+                <groupId>com.ragedunicorn.tools.maven</groupId>
+                <artifactId>github-release-maven-plugin</artifactId>
+                <version>1.0.2</version>
+                <executions>
+                    <execution>
+                        <id>default-cli</id>
+                        <configuration>
+                            <owner>${AuthorId}</owner>
+                            <repository>${RepoId}</repository>
+                            <authToken>${GITHUB_TOKEN}</authToken>
+                            <tagName>${project.version}</tagName>
+                            <name>${BaseFileName}</name>
+                            <targetCommitish>main</targetCommitish>
+                            <releaseNotes>target/classes/README.md</releaseNotes>
+                            <assets>
+                                <asset>target/${BaseFileName}.jar</asset>
+                                <asset>target/${BaseFileName}-mini.jar</asset>
+                                <asset>target/${BaseFileName}-windows.zip</asset>
+                                <!-- <asset>Profiles.pdf</asset> -->
+                            </assets>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
