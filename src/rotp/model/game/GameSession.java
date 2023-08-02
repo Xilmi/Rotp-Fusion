@@ -83,9 +83,11 @@ public final class GameSession implements Base, Serializable {
     private static final long serialVersionUID = 1L;
     public static final int CURRENT_SAVE_VERSION = 1;
     public static final String SAVEFILE_DIRECTORY = ".";
-    public static final String BACKUP_DIRECTORY = "backup";
+    public static final String BACKUP_DIRECTORY   = "backup";
     public static final String SAVEFILE_EXTENSION = ".rotp";
-    public static final String RECENT_SAVEFILE = "recent"+SAVEFILE_EXTENSION;
+    public static final String RECENT_SAVEFILE    = "recent"+SAVEFILE_EXTENSION;
+    public static final String MEMORY_LOGFILE     = "MonitorMemory.txt";
+    public static final String AUTOPLAY_LOGFILE   = "AutoPlay.txt";
     // BR: to save the beginning of the turn
     public static final String RECENT_START_SAVEFILE = "!!! To Replay Last Turn !!!"+SAVEFILE_EXTENSION;
     public static final SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -347,15 +349,16 @@ public final class GameSession implements Base, Serializable {
         return maxHeap > reqHeap;
     }
     public boolean inProgress()  { return status().inProgress(); }
-    private void writeLnToMemoryFile(String s) {
-        String filename = "MonitorMemory.txt";
-        File   saveFile = saveFileNamed(filename);
+
+    private void appendToFile(String filename, String s, boolean newLine) {
+        File saveFile = saveFileNamed(filename);
         FileWriter fw = null;
         
 		try {
 			fw = new FileWriter(saveFile, true);
 			fw.write(s);
-			fw.write(System.getProperty( "line.separator" ));
+			if (newLine)
+				fw.write(System.getProperty( "line.separator" ));
 		}
 		catch(IOException ex) {}
         finally {
@@ -365,14 +368,14 @@ public final class GameSession implements Base, Serializable {
             catch(IOException ex) {}
         }        
     }
-    private void monitorMemory(long fileSize) {
-        String s = concat("Turn = ", str(galaxy().currentTurn()),
+    private void monitorMemory(long fileSize, String subTurn) { // TODO BR:
+        String s = concat("Turn:", String.format("% 4d", galaxy().currentTurn()), subTurn,
         		          " | ", Rotp.getMemoryInfo(false),
         		          " | File size:", String.format("% 9d", fileSize));   	
         if (options.debugConsoleMemory())
         	System.out.println(s);
         if (options.debugFileMemory())
-        	writeLnToMemoryFile(s);
+        	appendToFile(MEMORY_LOGFILE, s, true);
     }
     private Runnable nextTurnProcess() {
         return () -> {
@@ -387,7 +390,7 @@ public final class GameSession implements Base, Serializable {
                 log("Next Turn - BEGIN: ", str(galaxy.currentYear()));
                 log("Autosaving pre-turn");
                 long ufs = instance.saveRecentSession(false);
-                monitorMemory(ufs);
+                monitorMemory(ufs, ".5");
 				/*
 				// modnar: private logging
 				String LogPath = Rotp.jarPath();
@@ -532,7 +535,7 @@ public final class GameSession implements Base, Serializable {
                 }
                 RotPUI.instance().repaint();
                 log("Next Turn - END: ", str(galaxy.currentYear()));
-            	monitorMemory(ufs);
+            	monitorMemory(ufs, ".0");
             }
             catch(Exception e) {
                 err("Unexpected error during Next Turn:", e.toString());

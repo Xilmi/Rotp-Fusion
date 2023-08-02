@@ -59,6 +59,8 @@ Later:
 - Moved Memory monitoring to Debug options sub-menu.
 - Added Memory monitoring options. (console and file)
 - Sub-menu return id is now the parent GUI_ID.
+- Added fractional turn to logfiles.
+- Fixed .cfg sub-UI load/save.
 
 2023.08.01 (BR)
 - Forbidden tech can not be stolen anymore.

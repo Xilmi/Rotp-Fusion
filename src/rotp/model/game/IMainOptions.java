@@ -52,6 +52,7 @@ import rotp.util.FontManager;
 import rotp.util.sound.SoundManager;
 
 public interface IMainOptions extends IDebugOptions {
+	String DEBUG_GUI_ID		    = "DEBUG_OPTIONS";
 	String WINDOW_MODE			= "GAME_SETTINGS_WINDOWED";
 	String BORDERLESS_MODE		= "GAME_SETTINGS_BORDERLESS";
 	String FULLSCREEN_MODE		= "GAME_SETTINGS_FULLSCREEN";
@@ -180,14 +181,6 @@ public interface IMainOptions extends IDebugOptions {
 //	default int musicVolume()		{ return musicVolume.get(); }
 //	default boolean playMusic()		{ return playMusic.get(); }
 
-//	ParamBoolean showMemory		= new ParamBoolean(GAME_UI, "MEMORY", false) {
-//		{ isDuplicate(true); isCfgFile(true); }
-//		@Override public String getCfgLabel()		{ return "SHOW_MEMORY"; }
-//		@Override public Boolean getOption()		{ return showMemory(); }
-//		@Override public void setOption(Boolean b)	{ showMemory(b); }
-//	};
-//	default boolean showMemory()		{ return showMemory.get(); }
-
 	ParamInteger selectedScreen		= new ParamInteger(GAME_UI, "SELECTED_SCREEN",
 			-1, -1, Rotp.maxScreenIndex(), true) {
 		{ isDuplicate(true); isCfgFile(true); }
@@ -313,7 +306,6 @@ public interface IMainOptions extends IDebugOptions {
 			return val;
 		}
 	};
-
 
 	// ==================== GUI List Declarations ====================
 	//

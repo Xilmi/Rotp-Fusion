@@ -38,7 +38,7 @@ public interface IDebugOptions extends IBaseOptsTools {
 			new LinkedList<LinkedList<IParam>>() { {
 		add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("DEBUG_MEMORY"),
-				IGameOptions.debugShowMemory, debugConsoleMemory, debugFileMemory
+				debugShowMemory, debugConsoleMemory, debugFileMemory
 
 //				headerSpacer,
 //				new ParamTitle("AUTO_FLAG_COLONY_TECH")
@@ -50,7 +50,9 @@ public interface IDebugOptions extends IBaseOptsTools {
 		}
 	};
 	ParamSubUI debugOptionsUI = new ParamSubUI( MOD_UI, "DEBUG_OPTIONS_UI", debugOptionsMap,
-			"DEBUG_OPTIONS_TITLE", DEBUG_GUI_ID);
+			"DEBUG_OPTIONS_TITLE", DEBUG_GUI_ID)
+	{ { isCfgFile(true); } };
+
 
 	LinkedList<IParam> debugOptions = debugOptionsUI.optionsList();
 }
