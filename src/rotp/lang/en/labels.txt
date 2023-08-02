@@ -439,6 +439,8 @@ GAME_SETTINGS_MEMORY_FILE_DESC    | Toggles the file output of memory usage stat
 
 GAME_SETTINGS_DEBUG_AUTO_PLAY      | Auto Play: %1
 GAME_SETTINGS_DEBUG_AUTO_PLAY_DESC | Toggles the Debug auto run. Game will not stop at the end of each turns.
+GAME_SETTINGS_DEBUG_LOG_NOTIF      | Log Notifications: %1
+GAME_SETTINGS_DEBUG_LOG_NOTIF_DESC | Toggles the Notification logging  when in Debug AutoPlay.
 
 GAME_SETTINGS_SCREEN               | Selected Screen: %1
 GAME_SETTINGS_SELECTED_SCREEN      | Selected Screen: %1

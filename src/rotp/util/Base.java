@@ -41,6 +41,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -1452,4 +1453,30 @@ public interface Base {
     	return MouseInfo.getNumberOfButtons() >= 3;
     	//return false;
     }
+    // ----- Debug tools -----
+    public default void appendToFile(String fileName, String s, boolean newLine) {
+        File saveFile = file(fileName);
+        FileWriter fw = null;
+        
+		try {
+			fw = new FileWriter(saveFile, true);
+			fw.write(s);
+			if (newLine)
+				fw.write(System.getProperty( "line.separator" ));
+		}
+		catch(IOException ex) {}
+        finally {
+            try {
+            	fw.close();
+            }
+            catch(IOException ex) {}
+        }        
+    }
+    public default String getTurn() {
+    	return concat("Turn:", String.format("% 4d", galaxy().currentTurn()));
+    }
+    public default String getTurn(String subTurn) {
+    	return concat(getTurn(), subTurn);
+    }
+    
 }

@@ -302,8 +302,20 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         RotPUI.this.mainUI().clearAdvice();
     }
     public void processNotifications(List<TurnNotification> notifications) {
-        for (TurnNotification tn: notifications)
-            processNotification(tn);
+    	if (options().debugAutoPlay()) {
+    		if (options().debugLogNotif()) {
+    			String turn = getTurn(".7");
+    			for (TurnNotification tn: notifications) {
+    				appendToFile( GameSession.AUTOPLAY_LOGFILE,
+    						concat(turn, " | ", tn.toString()),
+    						true);
+    			}
+        	}
+    		return;
+    	}
+    	else
+    		for (TurnNotification tn: notifications)
+    			processNotification(tn);
     }
     public void processNotification(TurnNotification tn) {
         try {

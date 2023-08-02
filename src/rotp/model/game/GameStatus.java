@@ -25,7 +25,11 @@ public class GameStatus implements Base, Serializable {
         WIN_NEW_REPUBLIC, WIN_REBELLION, WIN_REBELLION_ALLIANCE, WIN_COUNCIL_ALLIANCE, LOSS_NO_COLONIES; }
     private Status status = Status.NO_GAME;
 
-    public boolean inProgress()       { return status == Status.IN_PROGRESS; }
+    public boolean inProgress()       {
+    	if (status != Status.NO_GAME && options().debugAutoPlay())
+    		return GameSession.instance().galaxy().numActiveEmpires() > 1;
+    	return status == Status.IN_PROGRESS;
+    }
     public boolean lost() {
     	return lostOverthrown() || lostMilitary() || lostDiplomatic()
     		|| lostNewRepublic() || lostRebellion() || lostNoColonies(); 

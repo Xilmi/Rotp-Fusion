@@ -68,4 +68,6 @@ public class GNNNotification implements TurnNotification {
     	}
         RotPUI.instance().selectGNNPanel(message, eventId, null);
     }
+    @Override public String toString() { return "Event: " + eventId + ": " + message; }
+    
 }

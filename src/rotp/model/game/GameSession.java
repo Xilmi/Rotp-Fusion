@@ -17,6 +17,7 @@ package rotp.model.game;
 
 import static rotp.model.game.IGameOptions.GAME_OPTIONS_FILE;
 import java.io.BufferedInputStream;
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -28,6 +29,7 @@ import java.io.InputStream;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -350,32 +352,63 @@ public final class GameSession implements Base, Serializable {
     }
     public boolean inProgress()  { return status().inProgress(); }
 
-    private void appendToFile(String filename, String s, boolean newLine) {
-        File saveFile = saveFileNamed(filename);
-        FileWriter fw = null;
-        
-		try {
-			fw = new FileWriter(saveFile, true);
-			fw.write(s);
-			if (newLine)
-				fw.write(System.getProperty( "line.separator" ));
-		}
-		catch(IOException ex) {}
-        finally {
-            try {
-            	fw.close();
-            }
-            catch(IOException ex) {}
-        }        
-    }
-    private void monitorMemory(long fileSize, String subTurn) { // TODO BR:
-        String s = concat("Turn:", String.format("% 4d", galaxy().currentTurn()), subTurn,
+    private void debugMonitor(long fileSize, String subTurn) { // TODO BR:
+    	String turn = getTurn(subTurn);
+        String memS = concat(turn,
         		          " | ", Rotp.getMemoryInfo(false),
         		          " | File size:", String.format("% 9d", fileSize));   	
         if (options.debugConsoleMemory())
-        	System.out.println(s);
+        	System.out.println(memS);
         if (options.debugFileMemory())
-        	appendToFile(MEMORY_LOGFILE, s, true);
+        	appendToFile(MEMORY_LOGFILE, memS, true);        
+        if (options.debugAutoPlay())
+        	appendToFile(AUTOPLAY_LOGFILE,
+        			concat(turn, " | ", new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date())),
+        			true);
+    }
+    @SuppressWarnings("unused")
+	private void ModnarPrivateLogging() {
+		String LogPath = Rotp.jarPath();
+		File TestLogFile = new File(LogPath, "TestLogFile.txt");
+		if (galaxy.currentTurn() % 5 == 0) { // log every 5 turns
+			PrintWriter out = null;
+			try {
+				out = new PrintWriter(new BufferedWriter(new FileWriter(TestLogFile, true)));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			out.println("Turn: "+ str(galaxy.currentTurn()));
+			for (Empire e: galaxy().empires()) {
+				StarSystem sys1 = e.mostPopulousSystemForCiv(e);
+				// float relationToPlayer = 0.0f;
+				// if (!(e==player())) {
+				// 	EmpireView pl = e.viewForEmpire(player());
+				// 	relationToPlayer = pl.embassy().relations();
+				// }
+				out.println(String.format("%10s", e.raceName())
+				+ String.format("%6d", e.numColonizedSystems())
+				+ String.format("%12.2f", e.totalPlanetaryPopulation())
+				+ String.format("%12.2f", e.totalPlanetaryProduction())
+				+ String.format("%12.0f", e.totalFleetSize())
+				+ String.format("%10.2f", 100*e.shipMaintCostPerBC()) + "%"
+				+ String.format("%10.2f", 100*e.missileBaseCostPerBC()) + "%"
+                + String.format("%10.2f", 100*e.totalSecurityCostPct()) + "%"
+				+ String.format("%12.2f", e.totalPlanetaryResearch())
+				+ String.format("%8.2f", e.tech().avgTechLevel())
+				+ String.format("%6d", e.numEnemies())
+				+ String.format("reserve %12.2f", e.totalReserve())
+				+ String.format("trade %12.2f", e.netTradeIncome())
+				+ String.format("%10s", sys1.name())
+				+ String.format("%8.2f", sys1.colony().industry().factories())
+				+ String.format("%8.2f", sys1.colony().reserveIncome())
+				+ String.format("%8.2f", sys1.colony().totalIncome())
+				+ String.format("%8.2f", sys1.colony().production())
+				+ String.format("%8.2f", sys1.colony().defense().bases())
+				
+				);
+			}
+			out.close();
+		}
     }
     private Runnable nextTurnProcess() {
         return () -> {
@@ -390,49 +423,8 @@ public final class GameSession implements Base, Serializable {
                 log("Next Turn - BEGIN: ", str(galaxy.currentYear()));
                 log("Autosaving pre-turn");
                 long ufs = instance.saveRecentSession(false);
-                monitorMemory(ufs, ".5");
-				/*
-				// modnar: private logging
-				String LogPath = Rotp.jarPath();
-				File TestLogFile = new File(LogPath, "TestLogFile.txt");
-				if (galaxy.currentTurn() % 5 == 0) { // log every 5 turns
-					PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(TestLogFile, true)));
-					out.println("Turn: "+ str(galaxy.currentTurn()));
-					for (Empire e: galaxy().empires()) {
-						StarSystem sys1 = e.mostPopulousSystemForCiv(e);
-						float relationToPlayer = 0.0f;
-						if (!(e==player())) {
-							EmpireView pl = e.viewForEmpire(player());
-							relationToPlayer = pl.embassy().relations();
-						}
-
-						out.println(String.format("%10s", e.raceName())
-						+ String.format("%6d", e.numColonizedSystems())
-						+ String.format("%12.2f", e.totalPlanetaryPopulation())
-						+ String.format("%12.2f", e.totalPlanetaryProduction())
-						+ String.format("%12.0f", e.totalFleetSize())
-						+ String.format("%10.2f", 100*e.shipMaintCostPerBC()) + "%"
-						+ String.format("%10.2f", 100*e.missileBaseCostPerBC()) + "%"
-                        + String.format("%10.2f", 100*e.totalSecurityCostPct()) + "%"
-						+ String.format("%12.2f", e.totalPlanetaryResearch())
-						+ String.format("%8.2f", e.tech().avgTechLevel())
-						+ String.format("%6d", e.numEnemies())
-						/*
-						+ String.format("reserve %12.2f", e.totalReserve())
-						+ String.format("trade %12.2f", e.netTradeIncome())
-						+ String.format("%10s", sys1.name())
-						+ String.format("%8.2f", sys1.colony().industry().factories())
-						+ String.format("%8.2f", sys1.colony().reserveIncome())
-						+ String.format("%8.2f", sys1.colony().totalIncome())
-						+ String.format("%8.2f", sys1.colony().production())
-						+ String.format("%8.2f", sys1.colony().defense().bases())
-						////
-						);
-					}
-					out.close();
-				}
-				// modnar: private logging
-				*/
+                debugMonitor(ufs, ".5");
+				// ModnarPrivateLogging();
 
                 long startMs = timeMs();
                 systemsToAllocate().clear();
@@ -460,8 +452,10 @@ public final class GameSession implements Base, Serializable {
                 RotPUI.instance().selectMainPanel();
 
                 gal.council().nextTurn();
-                GNNRankingNoticeCheck.nextTurn();
-                GNNExpansionEvent.nextTurn();
+                if (!options().debugAutoPlay()) {
+                	GNNRankingNoticeCheck.nextTurn();
+                    GNNExpansionEvent.nextTurn();
+                }
                 gal.nextEmpireTurns();
                 player().setVisibleShips();
 
@@ -515,8 +509,10 @@ public final class GameSession implements Base, Serializable {
                 NoticeMessage.resetSubstatus(text("TURN_REFRESHING"));
                 validate();
                 //BR: Tentative to fix range area errors
-                RotPUI.instance().mainUI().map().resetRangeAreas();
-                player().setEmpireMapAvgCoordinates();
+                if (!options().debugAutoPlay()) {
+                	RotPUI.instance().mainUI().map().resetRangeAreas();
+                    player().setEmpireMapAvgCoordinates();
+                }
                 gal.refreshAllEmpireViews();
                 log("Autosaving post-turn");
                 log("NEXT TURN PROCESSING TIME: ", str(timeMs()-startMs));
@@ -535,7 +531,7 @@ public final class GameSession implements Base, Serializable {
                 }
                 RotPUI.instance().repaint();
                 log("Next Turn - END: ", str(galaxy.currentYear()));
-            	monitorMemory(ufs, ".0");
+            	debugMonitor(ufs, ".0");
             }
             catch(Exception e) {
                 err("Unexpected error during Next Turn:", e.toString());
@@ -546,8 +542,20 @@ public final class GameSession implements Base, Serializable {
                 if (Rotp.memoryLow())
                     RotPUI.instance().mainUI().showMemoryLowPrompt();
                 // handle game over possibility
-                if (!session().status().inProgress())
-                    RotPUI.instance().selectGameOverPanel();
+                if (options().debugAutoPlay()) {
+                	if (galaxy().numActiveEmpires() == 1) {
+                		RotPUI.instance().selectGameOverPanel();
+                	}
+                	else {
+                		performingTurn = false;
+                		nextTurn();
+                		return;
+                	}
+                }
+                else {
+                    if (!session().status().inProgress())
+                        RotPUI.instance().selectGameOverPanel();                	
+                }
                 performingTurn = false;
             }
         };

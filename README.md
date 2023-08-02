@@ -61,6 +61,9 @@ Later:
 - Sub-menu return id is now the parent GUI_ID.
 - Added fractional turn to logfiles.
 - Fixed .cfg sub-UI load/save.
+- Added Debug AutoPlay: Don't stop at end of turns
+  - Stop for council.
+  - Don't stop if player lost! Run till one Empire only!
 
 2023.08.01 (BR)
 - Forbidden tech can not be stolen anymore.
