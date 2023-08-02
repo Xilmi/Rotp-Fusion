@@ -276,7 +276,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 						return;
 					super.close();
 			        disableGlassPane();
-					activeList.get(i).toggle(e, 2, this);
+					activeList.get(i).toggle(e, GUI_ID, this);
 					return;
 				}			
 				activeList.get(i).toggle(e, w, this);

@@ -16,12 +16,12 @@
 package rotp.model.game;
 
 import static rotp.model.game.IGameOptions.GAME_OPTIONS_FILE;
-
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -347,13 +347,32 @@ public final class GameSession implements Base, Serializable {
         return maxHeap > reqHeap;
     }
     public boolean inProgress()  { return status().inProgress(); }
-    private void consoleMemory(long fileSize) {
-        if (!UserPreferences.showMemory())
-            return;
+    private void writeLnToMemoryFile(String s) {
+        String filename = "MonitorMemory.txt";
+        File   saveFile = saveFileNamed(filename);
+        FileWriter fw = null;
+        
+		try {
+			fw = new FileWriter(saveFile, true);
+			fw.write(s);
+			fw.write(System.getProperty( "line.separator" ));
+		}
+		catch(IOException ex) {}
+        finally {
+            try {
+            	fw.close();
+            }
+            catch(IOException ex) {}
+        }        
+    }
+    private void monitorMemory(long fileSize) {
         String s = concat("Turn = ", str(galaxy().currentTurn()),
         		          " | ", Rotp.getMemoryInfo(false),
-        		          " | File size:", String.format("% 9d", fileSize));
-        System.out.println(s);
+        		          " | File size:", String.format("% 9d", fileSize));   	
+        if (options.debugConsoleMemory())
+        	System.out.println(s);
+        if (options.debugFileMemory())
+        	writeLnToMemoryFile(s);
     }
     private Runnable nextTurnProcess() {
         return () -> {
@@ -368,7 +387,7 @@ public final class GameSession implements Base, Serializable {
                 log("Next Turn - BEGIN: ", str(galaxy.currentYear()));
                 log("Autosaving pre-turn");
                 long ufs = instance.saveRecentSession(false);
-                consoleMemory(ufs);
+                monitorMemory(ufs);
 				/*
 				// modnar: private logging
 				String LogPath = Rotp.jarPath();
@@ -513,7 +532,7 @@ public final class GameSession implements Base, Serializable {
                 }
                 RotPUI.instance().repaint();
                 log("Next Turn - END: ", str(galaxy.currentYear()));
-            	consoleMemory(ufs);
+            	monitorMemory(ufs);
             }
             catch(Exception e) {
                 err("Unexpected error during Next Turn:", e.toString());

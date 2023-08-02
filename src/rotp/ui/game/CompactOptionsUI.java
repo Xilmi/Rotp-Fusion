@@ -84,7 +84,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	private LinkedList<ModText> btListBoth;
 	private LinearGradientPaint bg;
 	private LinkedList<LinkedList<IParam>> optionsList;
-	private int parent = 0; // 0=Base; 1=Merged; 2=Classic
+	private String parent = "";
 	
 	// ========== Constructors and initializers ==========
 	//
@@ -288,7 +288,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 						return;
 					super.close();
 			        disableGlassPane();
-					activeList.get(i).toggle(e, 1, this);
+					activeList.get(i).toggle(e, GUI_ID, this);
 					return;
 				}			
 				activeList.get(i).toggle(e, w, this);
@@ -307,17 +307,17 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		for (InterfaceOptions param : activeList)
 			param.setFromDefault();
 	}
-	public  void start(int p) { // Called from subUI
+	public  void start(String p) { // Called from subUI
 		parent = p;
 		start();
 	}
+
 	private void start() { // Called from subUI
 		super.init();
 		hoverBox = null;
 		prevHover = null;
 		descBox.setVisible(true);
 		int hSettingTotal = hDistSetting * numRows;
-//		hBG	= titlePad + hSettingTotal + descPadV + descHeigh + buttonPadV + smallButtonH + bottomPad;
 		hBG	= titlePad + hSettingTotal + descHeigh + buttonPadV + smallButtonH + bottomPad;
 
 		leftM  = columnPad;
@@ -360,13 +360,26 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		hoverBox = null;
 		prevHover = null;
 		switch (parent) {
-		case 1:
-			RotPUI.mergedDynamicOptionsUI().start(0);
+		case MainOptionsUI.GUI_ID:
+			RotPUI.mainOptionsUI().init();
 			return;
-		case 2:
+		case MergedDynamicOptionsUI.GUI_ID:
+			RotPUI.mergedDynamicOptionsUI().start(""); // could have been called in setup or in game
+			return;
+		case DynamicAOptionsUI.GUI_ID:
 			RotPUI.modOptionsDynamicA().init();
 			return;
-		case 0:
+		case DynamicBOptionsUI.GUI_ID:
+			RotPUI.modOptionsDynamicB().init();
+			return;
+		case StaticAOptionsUI.GUI_ID:
+			RotPUI.modOptionsStaticA().init();
+			return;
+		case StaticBOptionsUI.GUI_ID:
+			RotPUI.modOptionsStaticB().init();
+			return;
+		case SetupGalaxyUI.GUI_ID:
+		case "":
 		default: 
 	        if (guiOptions().isSetupOption())
 	        	RotPUI.setupGalaxyUI().init();
@@ -537,14 +550,26 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		if (hoverBox == exitBox) {
 			doExitBoxAction();
 			switch (parent) { // To reset the buttons on the parent panel!
-			case 1:
+			case MainOptionsUI.GUI_ID:
+				RotPUI.mainOptionsUI().mouseMoved(e);
+				return;
+			case MergedDynamicOptionsUI.GUI_ID:
 				RotPUI.mergedDynamicOptionsUI().mouseMoved(e);
 				return;
-			case 2:
+			case DynamicAOptionsUI.GUI_ID:
 				RotPUI.modOptionsDynamicA().mouseMoved(e);
 				return;
-			case 0:
-			default:
+			case DynamicBOptionsUI.GUI_ID:
+				RotPUI.modOptionsDynamicB().mouseMoved(e);
+				return;
+			case StaticAOptionsUI.GUI_ID:
+				RotPUI.modOptionsStaticA().mouseMoved(e);
+				return;
+			case StaticBOptionsUI.GUI_ID:
+				RotPUI.modOptionsStaticB().mouseMoved(e);
+				return;
+			case "":
+			default: 
 				return;
 			}
 		}

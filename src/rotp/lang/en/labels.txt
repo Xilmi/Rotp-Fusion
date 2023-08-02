@@ -431,6 +431,15 @@ GAME_SETTINGS_MEMORY              | Show Memory Usage: %1
 GAME_SETTINGS_MEMORY_YES          | Yes
 GAME_SETTINGS_MEMORY_NO           | No
 GAME_SETTINGS_MEMORY_DESC         | Toggles the display of memory usage statistics at the bottom right corner of the game. Useful for monitoring memory usage. (Used / Allocated / Available (Max Used / Max Allocated) / Threads)
+
+GAME_SETTINGS_MEMORY_CONSOLE      | Console Memory Usage: %1
+GAME_SETTINGS_MEMORY_CONSOLE_DESC | Toggles the console output of memory usage statistics at the begeining and the end of turn.
+GAME_SETTINGS_MEMORY_FILE         | File Memory Usage: %1
+GAME_SETTINGS_MEMORY_FILE_DESC    | Toggles the file output of memory usage statistics at the begeining and the end of turn.
+
+GAME_SETTINGS_DEBUG_AUTO_PLAY      | Auto Play: %1
+GAME_SETTINGS_DEBUG_AUTO_PLAY_DESC | Toggles the Debug auto run. Game will not stop at the end of each turns.
+
 GAME_SETTINGS_SCREEN               | Selected Screen: %1
 GAME_SETTINGS_SELECTED_SCREEN      | Selected Screen: %1
 GAME_SETTINGS_SELECTED_SCREEN_DESC | Select the screen on which you will play. (-1 = Main Screen)
@@ -1887,6 +1896,12 @@ HEADERS_AUTO_FLAG_RESOURCES_DESC     | Select Flags Color based on Planet Resour
 HEADERS_AUTO_FLAG_RESOURCES          | ~~~ PLANET RESOURCES ~~~%1
 HEADERS_AUTO_FLAG_COLONY_TECH_DESC   | Select Flags Color based on Environment and required Colony ship technologies.
 HEADERS_AUTO_FLAG_COLONY_TECH        | ~~~ COLONY SHIP TECH ~~~%1
+
+HEADERS_DEBUG_MEMORY_DESC            | To enable or disable Memory monitoring.
+HEADERS_DEBUG_MEMORY                 | ~~~ MEMORY MONITORING ~~~%1
+HEADERS_DEBUG_AUTO_PLAY_DESC         | To enable and configure Full Auto Play.
+HEADERS_DEBUG_AUTO_PLAY              | ~~~ AUTO PLAY ~~~%1
+
 HEADERS_SPACER_DESC                  |  
 HEADERS_SPACER                       |  %1
 

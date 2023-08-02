@@ -53,13 +53,20 @@ Later:
 
 ## What's New
 
-2024.08.01 (BR)
+2023.08.02 (BR)
+- Fixed Readme year.
+- Added Debug options sub-menu.
+- Moved Memory monitoring to Debug options sub-menu.
+- Added Memory monitoring options. (console and file)
+- Sub-menu return id is now the parent GUI_ID.
+
+2023.08.01 (BR)
 - Forbidden tech can not be stolen anymore.
 - Cleaned pom files
 - Removed obsolete tools
 - New option to disable tech stealing.
 
-2024.07.31 (BR)
+2023.07.31 (BR)
 - Show Memory options:
   - More descriptive names.
   - Added Max allocated.
@@ -68,40 +75,40 @@ Later:
 - Normalized council requirement.
 - Fixed "reduced range"-option.
 
-2024.07.24 (BR)
+2023.07.24 (BR)
 - Fixed Old save game compatibility with "Track ships across turns" (Uninitialized parameter)
 
-2024.07.24 (dHannasch)
+2023.07.24 (dHannasch)
 - Fixed Retreating ship bug.
 
-2024.07.21 (BR)
+2023.07.21 (BR)
 - Added category " ~~~ NEW OPTIONS (BETA) ~~~"
 
-2024.07.21 (Xilmi)
+2023.07.21 (Xilmi)
 - When invading, AI's of the Xilmi-Family will now keep at least one third of the source-planet's maximum population back at home in order to stay in the window of decent natural population-growth and not to ruin their economy.
 
-2024.07.16 (BR)
+2023.07.16 (BR)
 - Fixed Mrrshan victory text: (Thanks to Keilah Martin)
   - Before: And when this galaxy has given to you all that has,
   - After: And when this galaxy has given to you all that it has,
 
-2024.07.16 (dHannasch)
+2023.07.16 (dHannasch)
 - "Track ships across turns"
   - Building block for next generation.
   - Improved display, no need to select the ship to see the probable destination.
 
-2024.07.16 (Xilmi)
+2023.07.16 (Xilmi)
 - For all AIs of the Xilmi-family: A technologically superior AI that currently has no enemies will no longer try to get further ahead in tech and instead focus on increasing fleet-size. This change was inspired by Keilah Martin's Let's play.
 
-2024.07.15 (BR)
+2023.07.15 (BR)
 - Improved the "Reworked"-Abilities description.
 - Improved the "Randomize AI" description.
 - Fixed "Randomize AI"-abilities not working.
 
-2024.07.14 (BR)
+2023.07.14 (BR)
 - Updated release notes.
 
-2024.07.12 (BR)
+2023.07.12 (BR)
 - Remaining years to next council will be shown on the yellow alert sprite too.
 - Fixed council percentage not being saved.
 - Added option to skip after council tech sharing notifications.
@@ -109,40 +116,40 @@ Later:
   - Useless since the governor panel is closed when leaving the game panel.
 
 
-2024.07.10 (BR)
+2023.07.10 (BR)
 - Added Option to remove the fog hiding the race icons.
 
-2024.07.09 (BR)
+2023.07.09 (BR)
 - Added HotKey list to compact and classic options Panels.
 
-2024.07.08 (BR)
+2023.07.08 (BR)
 - Fixed "Track ships across turns" crash over ship design duplicate.
 - Reactivated "Track ships across turns".
 - HotKey Uniformization.
 - Added HotKey list to Race and Galaxy Setup Menu.
 
-2024.07.05 (BR)
+2023.07.05 (BR)
 - Track ships across turns:
   - Added a test to better disable the background...
   - Temporary disabled the option.
 
-2024.07.02 (BR)
+2023.07.02 (BR)
 - Made "Rudimentary Scanner" Optional.
 - Labels allows now cross referencing with key between →←
   - Updated pom files to include Apache commons-lang3
   - Updated Xilmi pom file to last settings
 
-2024.07.01 (dHannasch)
+2023.07.01 (dHannasch)
 - Added "Rudimentary Scanner".
 
-2024.06.29 (BR)
+2023.06.29 (BR)
 - Set "Empires Spreading" limits  to 10% ~ 1000%.
 - Linearized empire spreading.
 - Changed "Alt Animation" to "Alt Diplomat".
 - Added Galaxy size on the preview.
 - Multiple Bombard: Get the focus without small mouse move.
 
-2024.06.28 (BR)
+2023.06.28 (BR)
 - Changed the Fixed value of "Minimum Empires Spacing" to a relative one "Empires Spreading" between 20% and 1000%. 100% being the vanilla value.
   - Absolute minimum distance = 3.8 ly.
   - Allowed for all galaxies.
@@ -150,10 +157,10 @@ Later:
 - Improved the galaxies' Empire positioning time.
 - Show info on offered Tech trade (Press "T")
 
-2024.06.27 (Xilmi)
+2023.06.27 (Xilmi)
 - A fleet that exclusively consists of designs that are flagged as automated for either scouting, colonizing or attacking will no longer be considered as idle in the context of cycling through idle fleets via space-bar or page-up/down.
 
-2024.06.26 (BR)
+2023.06.26 (BR)
 - Colony Panel:
   - added "B" Hotkey to change "Max Bases".
   - added Arrows Right/Left for Next/Previous Colony.
@@ -161,10 +168,10 @@ Later:
 - Added Hotkey list to Ship Design Panel.
 - Minor changes to Map panel Help.
 
-2024.06.25 (dHannasch)
+2023.06.25 (dHannasch)
 - Added functions to track ships.
 
-2024.06.25 (BR)
+2023.06.25 (BR)
 - Added button in galaxy map to access the "In-game Options" Panel.
 - Updated the galaxy map help.
 - Fixed secondary galaxy shape option being ignored!
@@ -179,11 +186,11 @@ Later:
 - Added Hotkey list in Fleet Panel.
 - Added Hotkey list in Tech Panel.
 
-2024.06.24 (dHannasch)
+2023.06.24 (dHannasch)
 - Extract functions from ShipFleet and Transport to Ship.
 - Don't send transports that will be shot down.
 
-2024.06.24 (BR)
+2023.06.24 (BR)
 - Added distance between empires on the map.
 - Fixed wrong Integer to Integer equal test.
 - Restored the missing race backstory.

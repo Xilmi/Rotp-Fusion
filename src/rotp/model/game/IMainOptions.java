@@ -17,7 +17,6 @@ import static rotp.ui.UserPreferences.saveDirectoryPath;
 import static rotp.ui.UserPreferences.selectedScreen;
 import static rotp.ui.UserPreferences.sensitivityMode;
 import static rotp.ui.UserPreferences.sensitivityToSettingName;
-import static rotp.ui.UserPreferences.showMemory;
 import static rotp.ui.UserPreferences.soundVolume;
 import static rotp.ui.UserPreferences.texturesMode;
 import static rotp.ui.UserPreferences.texturesToSettingName;
@@ -52,7 +51,7 @@ import rotp.ui.util.ParamString;
 import rotp.util.FontManager;
 import rotp.util.sound.SoundManager;
 
-public interface IMainOptions extends IBaseOptsTools {
+public interface IMainOptions extends IDebugOptions {
 	String WINDOW_MODE			= "GAME_SETTINGS_WINDOWED";
 	String BORDERLESS_MODE		= "GAME_SETTINGS_BORDERLESS";
 	String FULLSCREEN_MODE		= "GAME_SETTINGS_FULLSCREEN";
@@ -181,12 +180,12 @@ public interface IMainOptions extends IBaseOptsTools {
 //	default int musicVolume()		{ return musicVolume.get(); }
 //	default boolean playMusic()		{ return playMusic.get(); }
 
-	ParamBoolean showMemory		= new ParamBoolean(GAME_UI, "MEMORY", false) {
-		{ isDuplicate(true); isCfgFile(true); }
-		@Override public String getCfgLabel()		{ return "SHOW_MEMORY"; }
-		@Override public Boolean getOption()		{ return showMemory(); }
-		@Override public void setOption(Boolean b)	{ showMemory(b); }
-	};
+//	ParamBoolean showMemory		= new ParamBoolean(GAME_UI, "MEMORY", false) {
+//		{ isDuplicate(true); isCfgFile(true); }
+//		@Override public String getCfgLabel()		{ return "SHOW_MEMORY"; }
+//		@Override public Boolean getOption()		{ return showMemory(); }
+//		@Override public void setOption(Boolean b)	{ showMemory(b); }
+//	};
 //	default boolean showMemory()		{ return showMemory.get(); }
 
 	ParamInteger selectedScreen		= new ParamInteger(GAME_UI, "SELECTED_SCREEN",
@@ -322,7 +321,8 @@ public interface IMainOptions extends IBaseOptsTools {
 			Arrays.asList(
 					displayMode, graphicsMode, texturesMode, sensitivityMode, selectedScreen, disableAdvisor,
 					null,
-					soundVolume, musicVolume, showMemory, backupTurns, saveDirectory, showAlternateAnimation,
+//					soundVolume, musicVolume, showMemory, backupTurns, saveDirectory, showAlternateAnimation,
+					soundVolume, musicVolume, debugOptionsUI, backupTurns, saveDirectory, showAlternateAnimation,
 					null,
 					mapFontFactor, showNameMinFont, showInfoFontRatio, useFusionFont, galaxyPreviewColorStarsSize,
 					null,

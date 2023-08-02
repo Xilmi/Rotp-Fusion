@@ -94,6 +94,7 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 		allModOptions.addAll(convenienceOptions);
 		allModOptions.addAll(governorOptions);
 		allModOptions.addAll(mainOptionsUI);
+		allModOptions.addAll(debugOptions);
 		return allModOptions;
 	};
 
@@ -103,7 +104,10 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 	static LinkedList<IParam> globalOptions(boolean initialList) {
 		LinkedList<IParam> globalOptions = new LinkedList<>();
 		globalOptions.addAll(mainOptionsUI);
+		globalOptions.remove(debugOptionsUI);
+		globalOptions.addAll(debugOptions);
 		globalOptions.add(bitmapGalaxyLastFolder);
+		
 		if (initialList) {
 			globalOptions.addAll(convenienceOptions);
 			globalOptions.add(governorByDefault);
