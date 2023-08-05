@@ -53,7 +53,16 @@ Later:
 
 ## What's New
 
-2023.08.02 (BR)
+2023.08.05 (BR)
+- Auto Run log:
+  - Fixed Time separation.
+  - Fixed first contact double log.
+  - Added turn duration.
+  - Added num empire left.
+  - Added num system colonized.
+  - Removed 500ms double click security
+
+2023.08.04 (BR)
 - Debug autoPlay to autoRun:
   - Renamed debug autoPlay to autoRun for less confusion.
   - Added first contact notification.

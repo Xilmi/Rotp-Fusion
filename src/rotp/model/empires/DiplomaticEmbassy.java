@@ -674,19 +674,12 @@ public class DiplomaticEmbassy implements Base, Serializable {
             else if (owner().isPlayerControlled())
                 galaxy().giveAdvice("MAIN_ADVISOR_DIPLOMACY", empire(), empire().raceName());
 
-            if (options().debugAutoRun()) {
-                if (empire().isPlayer())
-                	appendToFile( IGameOptions.NOTIF_LOGFILE,
-    						concat(getTurn(),
-    								" | First contact with : ", owner().leader().name(),
-    								" Leader of ", owner().raceName()),
-    						true);
-                else if (owner().isPlayer())
-                	appendToFile( IGameOptions.NOTIF_LOGFILE,
-    						concat(getTurn(),
-    								" | First contact with : ", empire().leader().name(),
-    								" Leader of ", empire().raceName()),
-    						true);
+            if (options().debugAutoRun() && owner().isPlayer()) {
+            	appendToFile( IGameOptions.NOTIF_LOGFILE,
+						concat(getTurn(),
+								" | First contact with : ", empire().leader().name(),
+								" Leader of ", empire().raceName()),
+						true);
             }
         }
     }

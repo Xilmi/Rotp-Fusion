@@ -47,6 +47,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
+import org.apache.commons.lang3.StringUtils;
+
 import rotp.Rotp;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
@@ -353,24 +355,47 @@ public final class GameSession implements Base, Serializable {
     }
     public boolean inProgress()  { return status().inProgress(); }
 
-    private void debugMonitor(long fileSize, String subTurn) { // TODO BR:
-    	String turn = getTurn(subTurn);
+    private String msToHMS(long ms) {
+    	long s = ms/1000;
+    	long m = s/60;
+    	long h = m/60;
+    	ms -= s*1000;
+    	s -= m*60;
+    	m -= h*60;
+    	return String.format("%02d:%02d:%02d.%03d", h, m, s, ms);
+    }
+    private void debugMonitor(long fileSize, long dt) { // TODO BR:
+    	String turn;
+    	String duration;
+    	if (dt == 0) {
+    		turn = getTurn(".5");
+    		duration = " ";
+    	}
+    	else {
+    		turn = getTurn(".0");
+    		duration = msToHMS(dt);
+    	}
     	String time = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
         String memS = concat(turn,
         		          " | ", Rotp.getMemoryInfo(false),
-        		          " | File size:", String.format("% 9d", fileSize),
-        		          time);   	
+        		          " | File size:", String.format("%10d", fileSize),
+        		          " | ", time);   	
         if (options.debugConsoleMemory())
         	System.out.println(memS);
         if (options.debugFileMemory())
         	appendToFile(MEMORY_LOGFILE, memS, true);        
         if (options.debugAutoRun()) {
-        	appendToFile(AUTORUN_LOGFILE,
-        			concat(turn,
-        					" | Col: ", String.format("% 5d", player().numColonies()),
-        					" | Aliens: ", String.format("% 3d", player().numContacts()),
-        					" | ", new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date())),
-        			true);
+        	String s = concat(turn,
+					" | Col:", String.format("%5d", player().numColonies()),
+					"/", StringUtils.rightPad(String.valueOf(galaxy().numColonizedSystems()), 5),
+					" | Aliens:", String.format("%3d", player().numContacts()),
+					"/", StringUtils.rightPad(String.valueOf(galaxy().numActiveEmpires()-1), 2),
+					" | War:", String.format("%3d", player().numEnemies()),
+					" | ", new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date()),
+					" | ", duration
+					);
+        	appendToFile(AUTORUN_LOGFILE, s, true);
+        	System.out.println(s);
         }
     }
     @SuppressWarnings("unused")
@@ -430,7 +455,7 @@ public final class GameSession implements Base, Serializable {
                 log("Next Turn - BEGIN: ", str(galaxy.currentYear()));
                 log("Autosaving pre-turn");
                 long ufs = instance.saveRecentSession(false);
-                debugMonitor(ufs, ".5");
+                debugMonitor(ufs, 0);
 				// ModnarPrivateLogging();
 
                 long startMs = timeMs();
@@ -532,13 +557,13 @@ public final class GameSession implements Base, Serializable {
                 notifications().clear();
                 // ensure Next Turn takes at least a minimum time
                 long spentMs = timeMs() - startMs;
-                if (spentMs < MINIMUM_NEXT_TURN_TIME) {
+                if (spentMs < MINIMUM_NEXT_TURN_TIME && !options().debugAutoRun()) {
                     try { Thread.sleep(MINIMUM_NEXT_TURN_TIME - spentMs);
                     } catch (InterruptedException e) { }
                 }
                 RotPUI.instance().repaint();
                 log("Next Turn - END: ", str(galaxy.currentYear()));
-            	debugMonitor(ufs, ".0");
+            	debugMonitor(ufs, spentMs);
             }
             catch(Exception e) {
                 err("Unexpected error during Next Turn:", e.toString());
