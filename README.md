@@ -54,6 +54,12 @@ Later:
 ## What's New
 
 2023.08.02 (BR)
+- Debug autoPlay to autoRun:
+  - Renamed debug autoPlay to autoRun for less confusion.
+  - Added first contact notification.
+  - Added to Log: Num colonies and Num contacts.
+
+2023.08.02 (BR)
 - Fixed Readme year.
 - Added Debug options sub-menu.
 - Moved Memory monitoring to Debug options sub-menu.

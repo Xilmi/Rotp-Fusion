@@ -26,7 +26,7 @@ public class GameStatus implements Base, Serializable {
     private Status status = Status.NO_GAME;
 
     public boolean inProgress()       {
-    	if (status != Status.NO_GAME && options().debugAutoPlay())
+    	if (status != Status.NO_GAME && options().debugAutoRun())
     		return GameSession.instance().galaxy().numActiveEmpires() > 1;
     	return status == Status.IN_PROGRESS;
     }

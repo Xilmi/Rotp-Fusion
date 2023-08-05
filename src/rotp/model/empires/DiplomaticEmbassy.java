@@ -22,23 +22,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.game.IGameOptions;
 import rotp.model.incidents.BreakAllianceIncident;
 import rotp.model.incidents.BreakPactIncident;
 import rotp.model.incidents.BreakTradeIncident;
 import rotp.model.incidents.CoexistIncident;
 import rotp.model.incidents.DeclareWarIncident;
 import rotp.model.incidents.DemandTributeIncident;
-import rotp.model.incidents.DiplomatIncident;
 import rotp.model.incidents.DiplomaticIncident;
-import rotp.model.incidents.EcologistIncident;
 import rotp.model.incidents.EncroachmentIncident;
 import rotp.model.incidents.ErraticIncident;
 import rotp.model.incidents.ErraticWarIncident;
 import rotp.model.incidents.ExchangeTechnologyIncident;
-import rotp.model.incidents.ExpansionistIncident;
 import rotp.model.incidents.FirstContactIncident;
-import rotp.model.incidents.IndustrialistIncident;
-import rotp.model.incidents.MilitaristIncident;
 import rotp.model.incidents.OathBreakerIncident;
 import rotp.model.incidents.ParanoiaIncident;
 import rotp.model.incidents.SignAllianceIncident;
@@ -47,7 +43,6 @@ import rotp.model.incidents.SignDeclareWarIncident;
 import rotp.model.incidents.SignPactIncident;
 import rotp.model.incidents.SignPeaceIncident;
 import rotp.model.incidents.SignTradeIncident;
-import rotp.model.incidents.TechnologistIncident;
 import rotp.model.tech.Tech;
 import rotp.ui.diplomacy.DialogueManager;
 import rotp.ui.notifications.DiplomaticNotification;
@@ -678,6 +673,21 @@ public class DiplomaticEmbassy implements Base, Serializable {
                 galaxy().giveAdvice("MAIN_ADVISOR_DIPLOMACY", owner(), owner().raceName());
             else if (owner().isPlayerControlled())
                 galaxy().giveAdvice("MAIN_ADVISOR_DIPLOMACY", empire(), empire().raceName());
+
+            if (options().debugAutoRun()) {
+                if (empire().isPlayer())
+                	appendToFile( IGameOptions.NOTIF_LOGFILE,
+    						concat(getTurn(),
+    								" | First contact with : ", owner().leader().name(),
+    								" Leader of ", owner().raceName()),
+    						true);
+                else if (owner().isPlayer())
+                	appendToFile( IGameOptions.NOTIF_LOGFILE,
+    						concat(getTurn(),
+    								" | First contact with : ", empire().leader().name(),
+    								" Leader of ", empire().raceName()),
+    						true);
+            }
         }
     }
     public void makeFirstContact() {

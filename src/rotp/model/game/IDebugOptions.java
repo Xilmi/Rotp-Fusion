@@ -12,6 +12,9 @@ import rotp.ui.util.ParamTitle;
 
 public interface IDebugOptions extends IBaseOptsTools {
 	String DEBUG_GUI_ID		= "DEBUG_OPTIONS";
+    String MEMORY_LOGFILE	= "AutoRunMemory.txt";
+    String AUTORUN_LOGFILE	= "AutoRunPlayer.txt";
+    String NOTIF_LOGFILE	= "AutoRunNotifications.txt";
 
 
 	ParamBoolean debugShowMemory	= new ParamBoolean(GAME_UI, "MEMORY", false) {
@@ -31,9 +34,9 @@ public interface IDebugOptions extends IBaseOptsTools {
 	default boolean debugFileMemory()		{ return debugFileMemory.get(); }
 
 	
-	ParamBoolean debugAutoPlay		= new ParamBoolean(GAME_UI, "DEBUG_AUTO_PLAY", false)
+	ParamBoolean debugAutoRun		= new ParamBoolean(GAME_UI, "DEBUG_AUTO_PLAY", false)
 	{ { isDuplicate(false); isCfgFile(true); } };
-	default boolean debugAutoPlay()			{ return debugAutoPlay.get(); }
+	default boolean debugAutoRun()			{ return debugAutoRun.get(); }
 
 	ParamBoolean debugLogNotif		= new ParamBoolean(GAME_UI, "DEBUG_LOG_NOTIF", true)
 	{ { isDuplicate(false); isCfgFile(true); } };
@@ -44,13 +47,10 @@ public interface IDebugOptions extends IBaseOptsTools {
 		add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("DEBUG_MEMORY"),
 				debugShowMemory, debugConsoleMemory, debugFileMemory
-
-//				headerSpacer,
-//				new ParamTitle("AUTO_FLAG_COLONY_TECH")
 				)));
 		add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("DEBUG_AUTO_PLAY"),
-				debugAutoPlay, debugLogNotif
+				debugAutoRun, debugLogNotif
 				)));
 		}
 	};

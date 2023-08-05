@@ -16,6 +16,9 @@
 package rotp.model.game;
 
 import static rotp.model.game.IGameOptions.GAME_OPTIONS_FILE;
+import static rotp.model.game.IGameOptions.MEMORY_LOGFILE;
+import static rotp.model.game.IGameOptions.AUTORUN_LOGFILE;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
@@ -88,8 +91,6 @@ public final class GameSession implements Base, Serializable {
     public static final String BACKUP_DIRECTORY   = "backup";
     public static final String SAVEFILE_EXTENSION = ".rotp";
     public static final String RECENT_SAVEFILE    = "recent"+SAVEFILE_EXTENSION;
-    public static final String MEMORY_LOGFILE     = "MonitorMemory.txt";
-    public static final String AUTOPLAY_LOGFILE   = "AutoPlay.txt";
     // BR: to save the beginning of the turn
     public static final String RECENT_START_SAVEFILE = "!!! To Replay Last Turn !!!"+SAVEFILE_EXTENSION;
     public static final SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -354,17 +355,23 @@ public final class GameSession implements Base, Serializable {
 
     private void debugMonitor(long fileSize, String subTurn) { // TODO BR:
     	String turn = getTurn(subTurn);
+    	String time = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
         String memS = concat(turn,
         		          " | ", Rotp.getMemoryInfo(false),
-        		          " | File size:", String.format("% 9d", fileSize));   	
+        		          " | File size:", String.format("% 9d", fileSize),
+        		          time);   	
         if (options.debugConsoleMemory())
         	System.out.println(memS);
         if (options.debugFileMemory())
         	appendToFile(MEMORY_LOGFILE, memS, true);        
-        if (options.debugAutoPlay())
-        	appendToFile(AUTOPLAY_LOGFILE,
-        			concat(turn, " | ", new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date())),
+        if (options.debugAutoRun()) {
+        	appendToFile(AUTORUN_LOGFILE,
+        			concat(turn,
+        					" | Col: ", String.format("% 5d", player().numColonies()),
+        					" | Aliens: ", String.format("% 3d", player().numContacts()),
+        					" | ", new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date())),
         			true);
+        }
     }
     @SuppressWarnings("unused")
 	private void ModnarPrivateLogging() {
@@ -452,7 +459,7 @@ public final class GameSession implements Base, Serializable {
                 RotPUI.instance().selectMainPanel();
 
                 gal.council().nextTurn();
-                if (!options().debugAutoPlay()) {
+                if (!options().debugAutoRun()) {
                 	GNNRankingNoticeCheck.nextTurn();
                     GNNExpansionEvent.nextTurn();
                 }
@@ -509,7 +516,7 @@ public final class GameSession implements Base, Serializable {
                 NoticeMessage.resetSubstatus(text("TURN_REFRESHING"));
                 validate();
                 //BR: Tentative to fix range area errors
-                if (!options().debugAutoPlay()) {
+                if (!options().debugAutoRun()) {
                 	RotPUI.instance().mainUI().map().resetRangeAreas();
                     player().setEmpireMapAvgCoordinates();
                 }
@@ -542,7 +549,7 @@ public final class GameSession implements Base, Serializable {
                 if (Rotp.memoryLow())
                     RotPUI.instance().mainUI().showMemoryLowPrompt();
                 // handle game over possibility
-                if (options().debugAutoPlay()) {
+                if (options().debugAutoRun()) {
                 	if (galaxy().numActiveEmpires() == 1) {
                 		RotPUI.instance().selectGameOverPanel();
                 	}

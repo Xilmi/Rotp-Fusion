@@ -2908,6 +2908,14 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
         return r;
     }
+    public int numContacts() {
+        int n = 0;
+        for (EmpireView v : empireViews()) {
+        	if ((v!= null) && !v.empire().extinct && v.embassy().contact())
+                n++;
+        }
+        return n;
+    }
     public List<EmpireView> commonContacts(Empire emp2) {
         List<EmpireView> r = new ArrayList<>();
         if (emp2.extinct)
