@@ -675,11 +675,11 @@ public class DiplomaticEmbassy implements Base, Serializable {
                 galaxy().giveAdvice("MAIN_ADVISOR_DIPLOMACY", empire(), empire().raceName());
 
             if (options().debugAutoRun() && owner().isPlayer()) {
-            	appendToFile( IGameOptions.NOTIF_LOGFILE,
+            	writeToFile( IGameOptions.NOTIF_LOGFILE,
 						concat(getTurn(),
 								" | First contact with : ", empire().leader().name(),
 								" Leader of ", empire().raceName()),
-						true);
+						true, galaxy().currentTurn() > 1);
             }
         }
     }

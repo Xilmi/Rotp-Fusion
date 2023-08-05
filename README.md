@@ -61,6 +61,7 @@ Later:
   - Added num empire left.
   - Added num system colonized.
   - Removed 500ms double click security
+  - Reset log files on first turn.
 
 2023.08.04 (BR)
 - Debug autoPlay to autoRun:

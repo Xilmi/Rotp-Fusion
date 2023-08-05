@@ -365,6 +365,7 @@ public final class GameSession implements Base, Serializable {
     	return String.format("%02d:%02d:%02d.%03d", h, m, s, ms);
     }
     private void debugMonitor(long fileSize, long dt) { // TODO BR:
+    	boolean append = galaxy().currentTurn() > 1;
     	String turn;
     	String duration;
     	if (dt == 0) {
@@ -383,7 +384,7 @@ public final class GameSession implements Base, Serializable {
         if (options.debugConsoleMemory())
         	System.out.println(memS);
         if (options.debugFileMemory())
-        	appendToFile(MEMORY_LOGFILE, memS, true);        
+        	writeToFile(MEMORY_LOGFILE, memS, true, append);        
         if (options.debugAutoRun()) {
         	String s = concat(turn,
 					" | Col:", String.format("%5d", player().numColonies()),
@@ -394,7 +395,7 @@ public final class GameSession implements Base, Serializable {
 					" | ", new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date()),
 					" | ", duration
 					);
-        	appendToFile(AUTORUN_LOGFILE, s, true);
+        	writeToFile(AUTORUN_LOGFILE, s, true, append);
         	System.out.println(s);
         }
     }

@@ -305,9 +305,9 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     	if (options().debugAutoRun()) {
     		if (options().debugLogNotif()) {
     			for (TurnNotification tn: notifications) {
-    				appendToFile( IGameOptions.NOTIF_LOGFILE,
+    				writeToFile( IGameOptions.NOTIF_LOGFILE,
     						concat(getTurn(), " | ", tn.toString()),
-    						true);
+    						true, galaxy().currentTurn() > 1);
     			}
         	}
     		return;

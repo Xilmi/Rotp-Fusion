@@ -1454,12 +1454,12 @@ public interface Base {
     	//return false;
     }
     // ----- Debug tools -----
-    public default void appendToFile(String fileName, String s, boolean newLine) {
+    public default void writeToFile(String fileName, String s, boolean newLine, boolean append) {
         File saveFile = file(fileName);
         FileWriter fw = null;
         
 		try {
-			fw = new FileWriter(saveFile, true);
+			fw = new FileWriter(saveFile, append);
 			fw.write(s);
 			if (newLine)
 				fw.write(System.getProperty( "line.separator" ));
