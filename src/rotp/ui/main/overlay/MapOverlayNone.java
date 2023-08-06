@@ -223,10 +223,10 @@ public class MapOverlayNone extends MapOverlay {
                 session().nextTurn();
                 break;
             case KeyEvent.VK_O: // BR:
-            	//if (ctrl) {
+            	if (!options().isGameOptionsAllowed()) {
             		MergedDynamicOptionsUI optionsUI = RotPUI.mergedDynamicOptionsUI();
         			optionsUI.start("");
-            	//}
+            	}
             	break;
             case KeyEvent.VK_Y: // BR:
             	options().toggleYearDisplay();

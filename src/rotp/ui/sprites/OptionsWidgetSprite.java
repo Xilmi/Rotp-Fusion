@@ -34,11 +34,17 @@ public class OptionsWidgetSprite extends MapControlSprite {
     public boolean acceptDoubleClicks()         { return false; }
     @Override
     public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
-		MergedDynamicOptionsUI optionsUI = RotPUI.mergedDynamicOptionsUI();
-		optionsUI.start("");
+    	if (!options().isGameOptionsAllowed()) {
+    		MergedDynamicOptionsUI optionsUI = RotPUI.mergedDynamicOptionsUI();
+			optionsUI.start("");
+    	}
     }
     @Override
     public void draw(GalaxyMapPanel map, Graphics2D g2) {
+    	if (options().isGameOptionsAllowed()) {
+    		return;
+    	}
+
         drawBackground(map,g2);
 
         int cnr = BasePanel.s12;        

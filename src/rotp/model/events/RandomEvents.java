@@ -21,6 +21,7 @@ import rotp.util.Base;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class RandomEvents implements Base, Serializable {
     private static final long serialVersionUID = 1L;
@@ -31,6 +32,10 @@ public class RandomEvents implements Base, Serializable {
     private List<RandomEvent> activeEvents;
 	private RandomEvent lastEvent; // modnar: keep track of last event
     private float eventChance = START_CHANCE;
+    // BR: Added option for fixed random (reloaldin wont change the issue)
+    private Long turnSeed   = null;
+    private Long listSeed   = null;
+    private Long targetSeed = null;
 
     public int startTurn() { // BR:Made it adjustable
     	return IGameOptions.eventsStartTurn.get();
@@ -38,8 +43,59 @@ public class RandomEvents implements Base, Serializable {
     public RandomEvents() {
     	activeEvents = new ArrayList<>();
         events = new ArrayList<>();
+        turnSeed();
+        listSeed();
+        targetSeed();
         loadEvents();
     }
+
+    // BR: Added option for fixed random (reloaldin wont change the issue)
+    private Long turnSeed() {
+    	if (turnSeed == null)
+    		turnSeed = random.nextLong();
+    	return turnSeed;
+    }
+    private Long listSeed() {
+    	if (listSeed == null)
+    		listSeed = random.nextLong();
+    	return listSeed;
+    }
+    private Long targetSeed() {
+    	if (targetSeed == null)
+    		targetSeed = random.nextLong();
+    	return targetSeed;
+    }
+    private float turnRnd() {
+    	if (options().selectedFixedEventsMode()) {
+    		turnSeed = new Random(turnSeed()).nextLong();
+    		return new Random(turnSeed).nextFloat();
+    	}
+    	else
+    		return random();
+    }
+    private int listRnd(int max) {
+    	if (options().selectedFixedEventsMode()) {
+    		listSeed = new Random(listSeed()).nextLong();
+    		return new Random(listSeed).nextInt(max);
+    	}
+    	else
+    		return random.nextInt(max);
+    }
+    private <T> T listRnd(List<T> list) {
+    	if (list == null || list.isEmpty())
+    		return null;
+    	return list.get(listRnd(list.size()));
+    }
+
+    private float targetRnd() {
+    	if (options().selectedFixedEventsMode()) {
+    		targetSeed = new Random(targetSeed()).nextLong();
+    		return new Random(targetSeed).nextFloat();
+    	}
+    	else
+    		return random();
+    }
+
     public void addActiveEvent(RandomEvent ev)     { activeEvents.add(ev); }
     public void removeActiveEvent(RandomEvent ev)  { activeEvents.remove(ev); }
     public void nextTurn() {
@@ -60,18 +116,14 @@ public class RandomEvents implements Base, Serializable {
             return;
 
         eventChance = min(MAX_CHANCE_INCR, eventChance + CHANCE_INCR);
-//        eventChance = 1.5f; // TO DO BR: REMOVE or COMMENT
-//        System.out.println("eventChance = " + eventChance);
-        if (random() > eventChance)
+        if (turnRnd() > eventChance)
             return;
-//        System.out.println("Event Triggered");
 
         List<RandomEvent> subList = eventSubList();
 		if (subList.isEmpty())
 		    return;
  
-        RandomEvent triggeredEvent = random(subList);
-//        triggeredEvent = new RandomEventPrecursorRelic(); // TO DO BR: REMOVE or COMMENT
+        RandomEvent triggeredEvent = listRnd(subList);
         // RandomEvent triggeredEvent = random(events);
         // if (turnNum < triggeredEvent.minimumTurn())
         //     return;
@@ -168,7 +220,7 @@ public class RandomEvents implements Base, Serializable {
             total += power;
         }
 
-        float r = total * random();
+        float r = total * targetRnd();
         for (int i=0;i<emps.length;i++) {
             if (r <= vals[i])
                 return emps[i];
@@ -192,7 +244,7 @@ public class RandomEvents implements Base, Serializable {
             total += power;
         }
 
-        float r = total * random();
+        float r = total * targetRnd();
         for (int i=0;i<emps.length;i++) {
             if (r <= vals[i])
                 return emps[i];

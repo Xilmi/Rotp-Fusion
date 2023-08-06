@@ -106,12 +106,27 @@ public interface IInGameOptions extends IConvenienceOptions {
 	};
 	default float selectedMissileShipModifier()	{ return missileShipModifier.get(); }
 
+	ParamList ironmanMode	= new ParamList( MOD_UI, "IRONMAN_MODE", "Off") {
+		{
+			showFullGuide(true);
+			put("Off",	MOD_UI + "IRONMAN_OFF");
+			put("NoOptions",	MOD_UI + "IRONMAN_NO_OPTIONS");
+//			put("NoSave",		MOD_UI + "TERRAFORM_NO_SAVE");
+		}
+	};
+
+	default boolean isGameOptionsAllowed()		{ return ironmanMode.get().equalsIgnoreCase("Off"); }
+	default boolean isSaveOptionsAllowed()		{ return !ironmanMode.get().equalsIgnoreCase("NoSave"); }
+	
 	ParamBoolean challengeMode		= new ParamBoolean(MOD_UI, "CHALLENGE_MODE", false);
 	default boolean selectedChallengeMode()		{ return challengeMode.get(); }
 	
 	ParamFloat counciRequiredPct	= new ParamFloat(MOD_UI, "COUNCIL_REQUIRED_PCT"
 			, 2f/3f , 0f, 0.99f, 0.01f/3f, 0.02f, 0.1f, "0.0##", "‰");
 
+	ParamBoolean fixedEventsMode	= new ParamBoolean(MOD_UI, "FIXED_EVENTS_MODE", false);
+	default boolean selectedFixedEventsMode()	{ return fixedEventsMode.get(); }
+	
 	ParamInteger eventsStartTurn	= new ParamInteger(MOD_UI, "EVENTS_START_TURN", 50, 1, null, 1, 5, 20);
 	
 	ParamInteger piratesDelayTurn	= new ParamInteger(MOD_UI, "PIRATES_DELAY_TURN", 25, 0, null, 1, 5, 20);
