@@ -14,6 +14,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Infiltration penalty won't impact Research bonus.
 - Random Event: When set off in game, immediately stop events advancement.
   - They will continue if set on later.
+- Added logarithmic scale for race status.
 
 <em>Minor Fixes</em>
 - Fixed AI scouts bugging with "Reduced range"-option.

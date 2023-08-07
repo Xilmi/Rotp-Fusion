@@ -296,6 +296,10 @@ public interface IMainOptions extends IDebugOptions {
 	};
 	ParamBoolean compactOptionOnly	= new ParamBoolean(MOD_UI, "COMPACT_OPTION_ONLY", false)
 	{	{ isCfgFile(true); } };
+	ParamBoolean raceStatusLog		= new ParamBoolean(MOD_UI, "RACE_STATUS_LOG", false)
+	{	{ isCfgFile(true); } };
+	default boolean selectedRaceStatusLog()	{ return raceStatusLog.get(); }
+	default void	toggleRaceStatusLog()	{ raceStatusLog.toggle(); }
 
 	ParamBoolean showAlternateAnimation	= new ParamBoolean(MOD_UI, "SHOW_ALT_ANIMATION", true)
 	{
@@ -316,7 +320,7 @@ public interface IMainOptions extends IDebugOptions {
 //					soundVolume, musicVolume, showMemory, backupTurns, saveDirectory, showAlternateAnimation,
 					soundVolume, musicVolume, debugOptionsUI, backupTurns, saveDirectory, showAlternateAnimation,
 					null,
-					mapFontFactor, showNameMinFont, showInfoFontRatio, useFusionFont, galaxyPreviewColorStarsSize,
+					mapFontFactor, showNameMinFont, showInfoFontRatio, useFusionFont, galaxyPreviewColorStarsSize, raceStatusLog,
 					null,
 					showFleetFactor, showFlagFactor, showPathFactor, minListSizePopUp, menuStartup, compactOptionOnly
 					));

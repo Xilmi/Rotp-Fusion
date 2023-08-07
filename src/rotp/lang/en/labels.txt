@@ -2172,6 +2172,13 @@ SETTINGS_MOD_COMPACT_OPTION_ONLY_DESC    | Show multiple Options Menus at standa
 SETTINGS_MOD_COMPACT_OPTION_ONLY         | Show Compact Options: %1
 SETTINGS_MOD_COMPACT_OPTION_ONLY_YES     | Display the two buttons for accessing the compact options menus (which share a descripion space), allowing more options per menu.<br>One for the Pregame Options, the other for the In-game Options.
 SETTINGS_MOD_COMPACT_OPTION_ONLY_NO      | Display six buttons for accessing the classic options menus (which simultaneously display a small description of each option).<br>One for the original <b>Advanced Options</b>&nbsp containing both Pregame and In-game Options, two for the mod's Pregame Options, two for the mod's In-game Options, and one for display settings (not affecting game play).
+
+SETTINGS_MOD_RACE_STATUS_LOG_HELP        | The Race status graphs can either be displayed on a linear or logarithmic scale.
+SETTINGS_MOD_RACE_STATUS_LOG_DESC        | The Race status graphs can be displayed on a linear or logarithmic scale.
+SETTINGS_MOD_RACE_STATUS_LOG             | Race status graph log: %1
+SETTINGS_MOD_RACE_STATUS_LOG_YES         | Logarithmic Scale
+SETTINGS_MOD_RACE_STATUS_LOG_NO          | Linear Scale
+
 SETTINGS_MOD_OPTIONS_DEFAULT             | Default Settings
 SETTINGS_MOD_OPTIONS_LAST                | Last GUI Settings
 SETTINGS_MOD_OPTIONS_GAME                | Game Settings

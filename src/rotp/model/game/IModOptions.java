@@ -178,7 +178,7 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 				divertExcessToResearch, defaultMaxBases, displayYear,
 				showNextCouncil, systemNameDisplay, shipDisplay, flightPathDisplay,
 				showGridCircular, showShipRanges, galaxyPreviewColorStarsSize,
-				showAllAI, compactOptionOnly
+				showAllAI, raceStatusLog, compactOptionOnly
 				)));
 		for (LinkedList<IParam> list : map) {
 			for (IParam param : list) {
