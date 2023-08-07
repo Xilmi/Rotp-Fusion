@@ -18,6 +18,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 <em>Minor Fixes</em>
 - Fixed AI scouts bugging with "Reduced range"-option.
 - Fixed random event delay not updating on reload.
+- Fixed "Total Power"-status saturation.
 
 <em>New additions</em>
 - Added New "Fixed Events"-Option.

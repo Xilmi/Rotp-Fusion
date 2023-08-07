@@ -399,11 +399,11 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
     private void getEmpireListing(int cat) {
         vals.clear();
         for (Empire emp: player().contactedEmpires()) {
-            int val = emp.status().lastViewValue(player(), cat);
+            float val = emp.status().lastViewValue(player(), cat);
             int age=  emp.status().age(player());
             vals.add(new RaceValue(emp, val, age));
         }
-        int val = player().status().lastViewValue(player(), cat);
+        float val = player().status().lastViewValue(player(), cat);
         vals.add(new RaceValue(player(), val, 0));
         Collections.sort(vals);
     }
@@ -453,15 +453,15 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
         g.setColor(RacesUI.darkerBrown);
         g.fillRect(x1, y1, w1, h1);
 
-        int[] playerVals = player().status().values(cat);
-        int[] empireVals = parent.selectedEmpire().status().values(cat);
+        float[] playerVals = player().status().values(cat);
+        float[] empireVals = parent.selectedEmpire().status().values(cat);
         int totalTurns = galaxy().numberTurns();
         int empireTurns = parent.selectedEmpire().status().lastViewTurn(player());
         int displayW = w1-rSpacing-lSpacing;
         int displayH = h1-tSpacing-bSpacing;
 
         // find maximum Y value to display
-        int maxYValue = 0;
+        float maxYValue = 0;
         for (int i=0;i<=totalTurns;i++)
             maxYValue = Math.max(playerVals[i], maxYValue);
         for (int i=0;i<=empireTurns;i++)
@@ -485,7 +485,7 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
             int ptX = startX+(displayW*i/totalTurns);
             if ((ptX - prevX) > maxPtSpacing)
                 ptX = prevX + maxPtSpacing;
-            int ptY = maxYValue == 0 ? 0 : startY-(int)((float)displayH*empireVals[i]/maxYValue);
+            int ptY = maxYValue == 0 ? 0 : startY-(int)(displayH*empireVals[i]/maxYValue);
             if (prevY >= 0)
                 g.drawLine(prevX, prevY, ptX, ptY);
             prevX = ptX;
@@ -632,10 +632,10 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
         }
     }
     class RaceValue  implements Comparable<RaceValue> {
-        int value = 0;
+        float value = 0;
         int age = 0;
         Empire emp;
-        public RaceValue(Empire e, int v, int a) {
+        public RaceValue(Empire e, float v, int a) {
             value = v;
             age  = a;
             emp = e;

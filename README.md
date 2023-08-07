@@ -59,6 +59,7 @@ Later:
 - ironmanMode (Once set, options can't be changed)
 - Optimization:
   - Distance to empire are no more recomputed after each colony gain/loss, but once after all these events.
+- Fixed "Total Power"-status saturation
 
 2023.08.06 (BR)
 - Random Event: When set off in game, immediately stop events advancement.

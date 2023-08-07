@@ -30,14 +30,69 @@ public class EmpireStatus implements Base, Serializable {
     final public static int POWER = 5;
 
     private final Empire empire;
-    private int[] fleetStrength = new int[TURNS];
-    private int[] population = new int[TURNS];
-    private int[] technology = new int[TURNS];
-    private int[] planets = new int[TURNS];
-    private int[] production = new int[TURNS];
-    private int[] power = new int[TURNS];
+    // BR: converted to float to avoid power overload!
+    private int[] fleetStrength;
+    private int[] population;
+    private int[] technology;
+    private int[] planets;
+    private int[] production;
+    private int[] power;
+    private float[] fleetStrengthF = new float[TURNS];
+    private float[] populationF    = new float[TURNS];
+    private float[] technologyF    = new float[TURNS];
+    private float[] planetsF       = new float[TURNS];
+    private float[] productionF    = new float[TURNS];
+    private float[] powerF         = new float[TURNS];
     public EmpireStatus (Empire e) {
         empire = e;
+    }
+    private float[] convertArray(int[] src) {
+    	float[] out = new float[src.length];
+    	for (int i=0; i<src.length; i++)
+    		out[i] = (float) src[i];
+    	return out;
+    }
+    private float[] fleetStrength() {
+    	if (fleetStrengthF == null) {
+    		fleetStrengthF = convertArray(fleetStrength);
+    		fleetStrength  = null;
+    	}
+    	return fleetStrengthF;
+    }
+    private float[] population() {
+    	if (populationF == null) {
+    		populationF = convertArray(population);
+    		population  = null;
+    	}
+    	return populationF;
+    }
+    private float[] technology() {
+    	if (technologyF == null) {
+    		technologyF = convertArray(technology);
+    		technology  = null;
+    	}
+    	return technologyF;
+    }
+    private float[] planets() {
+    	if (planetsF == null) {
+    		planetsF = convertArray(planets);
+    		planets  = null;
+    	}
+    	return planetsF;
+    }
+    private float[] production() {
+    	if (productionF == null) {
+    		productionF = convertArray(production);
+    		production  = null;
+    	}
+    	return productionF;
+    }
+    private float[] power() {
+    	if (powerF == null) {
+    		powerF = convertArray(power);
+    		power  = null;
+    	}
+    	return powerF;
     }
     public String title(int cat) {
         switch (cat) {
@@ -52,42 +107,42 @@ public class EmpireStatus implements Base, Serializable {
     }
     public void assessTurn() {
         int turn = galaxy().numberTurns();
-        if (turn >= fleetStrength.length)
+        if (turn >= fleetStrength().length)
             growLists();
         
-        fleetStrength[turn] = currentFleetStrengthValue();
-        population[turn] = currentPopulationValue();
-        technology[turn] = currentTechnologyValue();
-        planets[turn] = currentPlanetsValue();
-        production[turn] = currentProductionValue();
-        power[turn] = currentPowerValue();
+        fleetStrength()[turn] = currentFleetStrengthValue();
+        population()[turn] = currentPopulationValue();
+        technology()[turn] = currentTechnologyValue();
+        planets()[turn] = currentPlanetsValue();
+        production()[turn] = currentProductionValue();
+        power()[turn] = currentPowerValue();
     }
-    public int[] values(int cat) {
+    public float[] values(int cat) {
         switch (cat) {
-            case EmpireStatus.FLEET      : return fleetStrength;
-            case EmpireStatus.POPULATION : return population;
-            case EmpireStatus.TECHNOLOGY : return technology;
-            case EmpireStatus.PLANETS    : return planets;
-            case EmpireStatus.PRODUCTION : return production;
-            case EmpireStatus.POWER      : return power;
+            case EmpireStatus.FLEET      : return fleetStrength();
+            case EmpireStatus.POPULATION : return population();
+            case EmpireStatus.TECHNOLOGY : return technology();
+            case EmpireStatus.PLANETS    : return planets();
+            case EmpireStatus.PRODUCTION : return production();
+            case EmpireStatus.POWER      : return power();
         }
         return null;
     }
     public int age(Empire viewer) {
             return galaxy().numberTurns() - lastViewTurn(viewer);
     }
-    public int lastViewValue(Empire viewer, int cat) {
+    public float lastViewValue(Empire viewer, int cat) {
         switch(cat) {
-            case FLEET:      return valueFor(fleetStrength, lastViewTurn(viewer));
-            case POPULATION: return valueFor(population, lastViewTurn(viewer));
-            case TECHNOLOGY: return valueFor(technology, lastViewTurn(viewer));
-            case PLANETS:    return valueFor(planets, lastViewTurn(viewer));
-            case PRODUCTION: return valueFor(production, lastViewTurn(viewer));
-            case POWER:      return valueFor(power, lastViewTurn(viewer));
+            case FLEET:      return valueFor(fleetStrength(), lastViewTurn(viewer));
+            case POPULATION: return valueFor(population(), lastViewTurn(viewer));
+            case TECHNOLOGY: return valueFor(technology(), lastViewTurn(viewer));
+            case PLANETS:    return valueFor(planets(), lastViewTurn(viewer));
+            case PRODUCTION: return valueFor(production(), lastViewTurn(viewer));
+            case POWER:      return valueFor(power(), lastViewTurn(viewer));
         }
         return 0;
     }
-    private int valueFor(int[] vals, int turn) {
+    private float valueFor(float[] vals, int turn) {
         if (turn < 0)
             return -1;
         if (turn >= vals.length)
@@ -103,37 +158,37 @@ public class EmpireStatus implements Base, Serializable {
         return lastSpyDate < 0 ? -1 : lastSpyDate - galaxy().beginningYear();
     }
     private void growLists() {
-        fleetStrength = larger(fleetStrength);
-        population = larger(population);
-        technology = larger(technology);
-        planets = larger(planets);
-        production = larger(production);
-        power = larger(power);
+        fleetStrengthF = larger(fleetStrength());
+        populationF = larger(population());
+        technologyF = larger(technology());
+        planetsF = larger(planets());
+        productionF = larger(production());
+        powerF = larger(power());
     }
-    private int[] larger(int[] list) {
-        int[] newList = new int[list.length+100];
+    private float[] larger(float[] list) {
+        float[] newList = new float[list.length+100];
         System.arraycopy(list, 0, newList, 0, list.length);
         return newList;
     }
-    private int currentFleetStrengthValue() {
-        return (int)Math.ceil(empire.totalFleetSize());
+    private float currentFleetStrengthValue() {
+        return (float)Math.ceil(empire.totalFleetSize()); // BR: kept ceil to avoid compatibility issues
     }
-    private int currentPlanetsValue() {
+    private float currentPlanetsValue() {
         return empire.allColonizedSystems().size();
     }
-    private int currentPopulationValue() {
-        return (int)Math.ceil(empire.totalEmpirePopulation());
+    private float currentPopulationValue() {
+        return (float)Math.ceil(empire.totalEmpirePopulation()); // BR: kept ceil to avoid compatibility issues
     }
-    private int currentProductionValue() {
-        return (int)Math.ceil(empire.totalPlanetaryProduction());
+    private float currentProductionValue() {
+        return (float)Math.ceil(empire.totalPlanetaryProduction()); // BR: kept ceil to avoid compatibility issues
     }
-    private int currentTechnologyValue() {
-        return (int)Math.ceil(empire.tech().avgTechLevel());
+    private float currentTechnologyValue() {
+        return (float)Math.ceil(empire.tech().avgTechLevel()); // BR: kept ceil to avoid compatibility issues
     }
-    private int currentPowerValue() {
+    private float currentPowerValue() {
         float tech = (float)Math.pow(1 / miniFastRate, empire.tech().avgTechLevel());
         float industrialPower = tech * empire.totalPlanetaryProduction();
         float militaryPower = tech * empire.totalFleetSize();
-        return (int)Math.ceil(industrialPower+militaryPower);
+        return (float) Math.ceil(industrialPower+militaryPower); // BR: kept ceil to avoid compatibility issues
     }
 }
