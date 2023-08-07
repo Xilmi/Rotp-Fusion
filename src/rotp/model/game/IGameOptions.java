@@ -344,8 +344,6 @@ public interface IGameOptions extends IModOptions {
 
     public int numColors();
     public Color color(int i);
-    public boolean disableRandomEvents();
-    public void disableRandomEvents(boolean b);
 
     // selectable options
     public List<String> galaxySizeOptions();
@@ -387,6 +385,9 @@ public interface IGameOptions extends IModOptions {
     public String selectedTechTradeOption();
     public void selectedTechTradeOption(String s);
     public String selectedRandomEventOption();
+    default boolean disableRandomEvents() {
+    	return selectedRandomEventOption().equals(RANDOM_EVENTS_OFF);
+    };
     public void selectedRandomEventOption(String s);
     public String selectedWarpSpeedOption();
     public void selectedWarpSpeedOption(String s);

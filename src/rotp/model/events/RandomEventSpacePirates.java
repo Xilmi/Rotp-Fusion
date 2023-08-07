@@ -79,6 +79,8 @@ return max(turn, nextAllowedTurn()); // BR: To allow repeatable event
     }
     @Override
     public void trigger(Empire emp) {
+    	if (emp == null || emp.extinct())
+    		return;
         log("Starting Pirates event against: "+emp.raceName());
 //      System.out.println("Starting Pirates event against: "+emp.raceName());
         StarSystem targetSystem = random(emp.allColonizedSystems());

@@ -42,6 +42,9 @@ public class RandomEventIndustrialAccident implements Base, Serializable, Random
     }
     @Override
     public void trigger(Empire emp) {
+    	if (emp == null || emp.extinct())
+    		return;
+
         // do not trigger accident in rebelling colonies if the owner cannot colonize irradiated systems
         boolean allowRebellingColonies = emp.canColonize(PlanetType.keyed(PlanetType.RADIATED));
         // find a random colony that has at least 30 factories

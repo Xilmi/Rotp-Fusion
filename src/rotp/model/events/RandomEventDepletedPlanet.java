@@ -41,6 +41,9 @@ public class RandomEventDepletedPlanet implements Base, Serializable, RandomEven
     }
     @Override
     public void trigger(Empire emp) {
+    	if (emp == null || emp.extinct())
+    		return;
+
         // find a random colony that is not poor or ultra-poor
         List<StarSystem> systems = new ArrayList<>();
         for (StarSystem sys : emp.allColonizedSystems()) {

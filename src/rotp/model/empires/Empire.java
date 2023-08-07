@@ -749,22 +749,22 @@ public final class Empire implements Base, NamedObject, Serializable {
         if (!colonizedSystems.contains(s)) {
             colonizedSystems.add(s);
             setRecalcDistances();
-            refreshViews();
+//            refreshViews(); // TODO BR: Optimization Trial
             for (Empire ally: allies())
             {
                 ally.setRecalcDistances();       
-                ally.refreshViews();
+//                 ally.refreshViews(); // TODO BR: Optimization Trial
             }
         }
     }
     public void removeColonizedSystem(StarSystem s) {
         colonizedSystems.remove(s);
         setRecalcDistances();
-        refreshViews();
+//        refreshViews(); // TODO BR: Optimization Trial
         for (Empire ally: allies())
         {
             ally.setRecalcDistances();
-            ally.refreshViews();
+//            ally.refreshViews(); // TODO BR: Optimization Trial
         }
         
         if (colonizedSystems.isEmpty())
@@ -2210,19 +2210,28 @@ public final class Empire implements Base, NamedObject, Serializable {
         return list;
     }
     public void startGame() {
-        refreshViews();
+        refreshViews(false);
         setVisibleShips();
         StarSystem home = galaxy().system(homeSysId);
         governorAI().setInitialAllocations(home.colony());
     }
-    public void refreshViews() {
+    public void refreshViews(boolean afterColony) { // TODO BR: optimize recalcDistances
+        // BR: Removed refreshViews from addColonizedSystem and removeColonizedSystem
+        // the recalcDistances takes time and don't need to be called at each events
+        // Grouped call later on with afterColony=true
         log(this + ": refresh views");
         if (recalcDistances) {
             NoticeMessage.setSubstatus(text("TURN_RECALC_DISTANCES"));
             sv.calculateSystemDistances();
             recalcDistances = false;
         }
-
+        else if(afterColony) {
+        	// BR: recalcDistances grouping
+        	// to avoid this call after every colony gain / lost
+        	// the end should be executed only when recalcDistances is required
+        	return;
+        }
+        
         Galaxy gal = galaxy();
         for (int i=0;i<sv.count();i++) {
             StarSystem sys = gal.system(i);

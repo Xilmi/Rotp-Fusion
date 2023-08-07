@@ -205,6 +205,7 @@ EVENT_RELIC_PLANETS               | A Precursor relic has mysteriously activated
 EVENT_RELIC_PLANETS_NO_CONTACT    | Our astronomers are flabbergasted! Galaxy-wide scanners report the formation of new planets in multiple previously empty Star Systems after intense asteroid coalescence events.
 // modnar: add Gauntlet Relic random event
 EVENT_RELIC_GAUNTLET              | Half of all galactic life have been wiped out following the activation of a Precursor gauntlet with seven embedded gems. [target_race] scientists studying the relic have denied responsibility. Third-party investigators question the capacity increase on many [target_empire] planets and new Planetology technologies.
+EVENT_RELIC_GAUNTLET_NO_CONTACT   | Half of all galactic life have been wiped out, probably following the activation of the legendary Precursor gauntlet with seven embedded gems.
 // modnar: add Boost Planet baseSize random event
 EVENT_SIZEBOOST                   | Archeologists exploring the [target_race] world in the [system] system have revealed massive subterranean caverns. These geologically stable chambers are habitable and have substantially boosted the planet's size.
 
@@ -1990,6 +1991,19 @@ SETTINGS_MOD_OPTION_ALWAYS_AUTO          | Always/Auto
 SETTINGS_MOD_OPTION_ALWAYS_ALWAYS_DESC   | Always for both the Player and the AI.
 SETTINGS_MOD_OPTION_ALWAYS_ALWAYS        | Always/Always
 
+SETTINGS_MOD_IRONMAN_MODE_HELP           | Though for challenges between players on the same starting galaxy.<br>Remove the access to in-game options to avoid easy cheating.<br>The activation of "Fixed random events" is strongly recommended.<br>More options will be added.
+SETTINGS_MOD_IRONMAN_MODE_DESC           | Though for challenges between players on the same starting galaxy. Remove the access to in-game options.
+SETTINGS_MOD_IRONMAN_MODE                | Ironman mode: %1
+SETTINGS_MOD_IRONMAN_OFF                 | Off
+SETTINGS_MOD_IRONMAN_OFF_HELP            | Disabled
+SETTINGS_MOD_IRONMAN_NO_OPTIONS          | No options
+SETTINGS_MOD_IRONMAN_NO_OPTIONS_HELP     | Options won't be accessible In-game.
+SETTINGS_MOD_IRONMAN_NO_SAVE             | No save
+SETTINGS_MOD_IRONMAN_NO_SAVE_HELP        | No save game allowed
+
+SETTINGS_MOD_FIXED_EVENTS_MODE_HELP      | A seed is given at the begining of a game, and will be used to generate the random events.<br>- Target empires are no more determined by their powers.<br>- Same time, same event, same target on different play.<br>- Same Events on Reload.<br>- If an event is still actif, it will be put on waiting list till the previous occurence ends.<br>- If targeted empire is extinct, Monsters are directed to their former home world.
+SETTINGS_MOD_FIXED_EVENTS_MODE_DESC      | A seed is given at the begining of a game, and will be used to generate the random events. Target empire are no more determined by their powers.
+SETTINGS_MOD_FIXED_EVENTS_MODE           | Fixed random events: %1
 SETTINGS_MOD_COUNCIL_REQUIRED_PCT_DESC   | Percentage needed to win the council vote.
 SETTINGS_MOD_COUNCIL_REQUIRED_PCT        | Council Requirement: %1%
 SETTINGS_MOD_EVENTS_START_TURN_DESC      | To adjust the starting turn of random events. If an event has already been started, it will not be stopped.

@@ -678,7 +678,9 @@ public class DiplomaticEmbassy implements Base, Serializable {
             	writeToFile( IGameOptions.NOTIF_LOGFILE,
 						concat(getTurn(),
 								" | First contact with : ", empire().leader().name(),
-								" Leader of ", empire().raceName()),
+								" Leader of ", empire().raceName(),
+								" (id=",String.valueOf(empire().id), ")"
+								),
 						true, galaxy().currentTurn() > 1);
             }
         }

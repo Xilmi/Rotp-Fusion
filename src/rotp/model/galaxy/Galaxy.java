@@ -304,7 +304,7 @@ public class Galaxy implements Base, Serializable {
         NoticeMessage.setSubstatus(text("TURN_REFRESHING"));
         for (Empire e: empires)
         {
-            e.refreshViews();
+            e.refreshViews(false);
             e.setVisibleShips();
         }
     }
@@ -322,6 +322,12 @@ public class Galaxy implements Base, Serializable {
         NoticeMessage.resetSubstatus(text("TURN_COLONIES"));
         // after bombardments, check for any possible colonizations
         checkForColonization();
+        
+        // TODO BR: Removed refreshViews from addColonizedSystem and removeColonizedSystem
+        // the recalcDistances takes time and don't need to be called at each events
+        // Grouped here. Only Removed refreshViews will be executed.
+        for (Empire e: empires)
+            e.refreshViews(true);
 
         NoticeMessage.resetSubstatus(text("TURN_SPIES"));
         for (Empire e: empires)

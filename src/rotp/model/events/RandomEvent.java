@@ -15,6 +15,9 @@
  */
 package rotp.model.events;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import rotp.model.empires.Empire;
 import rotp.model.game.IGameOptions;
 
@@ -22,6 +25,7 @@ public interface RandomEvent {
     boolean goodEvent();
     boolean repeatable();
     String notificationText();
+    List<Empire> pendingEvents = new ArrayList<>();
     void trigger(Empire e);
     default void nextTurn()        { }
     default int minimumTurn()      { return startTurn(); }
@@ -29,4 +33,16 @@ public interface RandomEvent {
     default String statusMessage() { return ""; }
     default boolean monsterEvent() { return false; }
     default int startTurn()        { return IGameOptions.eventsStartTurn.get(); }
+    default boolean hasPendingEvents() {
+    	if (pendingEvents == null) // BR: For backward game compatibility
+    		return false;
+    	return pendingEvents.size() > 0; 
+    }
+    default Empire getPendingEmpire() {
+    	if (pendingEvents == null) // BR: For backward game compatibility
+    		return null;
+    	if (pendingEvents.size()==0)
+    		return null;
+    	return pendingEvents.remove(0); 
+    }
 }

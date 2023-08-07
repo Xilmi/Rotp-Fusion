@@ -49,7 +49,7 @@ public class RandomEvents implements Base, Serializable {
         loadEvents();
     }
 
-    // BR: Added option for fixed random (reloaldin wont change the issue)
+    // BR: Added option for fixed random (reloading wont change the issue)
     private Long turnSeed() {
     	if (turnSeed == null)
     		turnSeed = random.nextLong();
@@ -86,19 +86,20 @@ public class RandomEvents implements Base, Serializable {
     		return null;
     	return list.get(listRnd(list.size()));
     }
-
-    private float targetRnd() {
-    	if (options().selectedFixedEventsMode()) {
-    		targetSeed = new Random(targetSeed()).nextLong();
-    		return new Random(targetSeed).nextFloat();
-    	}
-    	else
-    		return random();
+    private int targetRnd() {
+    	int numEmp = options().selectedNumberOpponents()+1;
+    	targetSeed = new Random(targetSeed()).nextLong();
+		return new Random(targetSeed).nextInt(numEmp);
     }
 
     public void addActiveEvent(RandomEvent ev)     { activeEvents.add(ev); }
-    public void removeActiveEvent(RandomEvent ev)  { activeEvents.remove(ev); }
+    public void removeActiveEvent(RandomEvent ev)  {
+    	activeEvents.remove(ev);
+    	if (ev.hasPendingEvents()) // BR: May only happen with "fixed Event mode"
+    		ev.trigger(ev.getPendingEmpire());
+    }
     public void nextTurn() {
+         // BR: To allow RandomEventOption dynamic changes
         if (options().disableRandomEvents()) 
             return;
 
@@ -109,10 +110,6 @@ public class RandomEvents implements Base, Serializable {
 
         int turnNum = galaxy().currentTurn();
         if (turnNum < startTurn())
-            return;
-
-        // BR: To allow RandomEventOption dynamic changes
-        if (options().selectedRandomEventOption().equals(IGameOptions.RANDOM_EVENTS_OFF))
             return;
 
         eventChance = min(MAX_CHANCE_INCR, eventChance + CHANCE_INCR);
@@ -132,20 +129,17 @@ public class RandomEvents implements Base, Serializable {
 		if (!triggeredEvent.repeatable()) {
 			events.remove(triggeredEvent);
 		}
-		// BR: included in sublist generator
-//		// modnar: with random events now repeatable
-//		// don't trigger the same event twice in a row
-//		if (triggeredEvent == lastEvent)
-//			return;
-//		// don't trigger when a duplicate event is still in effect
-//		for (RandomEvent ev: activeEvents) {
-//            if (triggeredEvent == ev)
-//                return;
-//        }
 		
-        eventChance = START_CHANCE;
-
-        Empire affectedEmpire = triggeredEvent.goodEvent() ? empireForGoodEvent() : empireForBadEvent();
+        eventChance = START_CHANCE; // Reset the probability counter
+        
+        Empire affectedEmpire;
+        if (options().selectedFixedEventsMode())
+        	affectedEmpire = empireForFixedEvent();
+        else if (triggeredEvent.goodEvent())
+        	affectedEmpire = empireForGoodEvent();
+        else
+        	affectedEmpire = empireForBadEvent();
+        
         triggeredEvent.trigger(affectedEmpire);
 		lastEvent = triggeredEvent; // modnar: keep track of last event
     }
@@ -208,8 +202,9 @@ public class RandomEvents implements Base, Serializable {
         // if (options().allowRandomEvent(ev)) // BR: To allow RandomEventOption dynamic changes
             events.add(ev);
     }
+    private Empire empireForFixedEvent() { return galaxy().empire(targetRnd()); }
     private Empire empireForBadEvent() {
-        // chance of empires for bad events is based power for each empire
+    		          // chance of empires for bad events is based power for each empire
         Empire[] emps = galaxy().empires();
         float[] vals = new float[emps.length];
         float total = 0.0f;
@@ -220,7 +215,7 @@ public class RandomEvents implements Base, Serializable {
             total += power;
         }
 
-        float r = total * targetRnd();
+        float r = total * random();
         for (int i=0;i<emps.length;i++) {
             if (r <= vals[i])
                 return emps[i];
@@ -244,7 +239,7 @@ public class RandomEvents implements Base, Serializable {
             total += power;
         }
 
-        float r = total * targetRnd();
+        float r = total * random();
         for (int i=0;i<emps.length;i++) {
             if (r <= vals[i])
                 return emps[i];

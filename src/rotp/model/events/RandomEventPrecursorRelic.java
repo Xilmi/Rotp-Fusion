@@ -68,6 +68,11 @@ public class RandomEventPrecursorRelic implements Base, Serializable, RandomEven
             sys.planet(PlanetFactory.createPlanet(sys, session().populationBonus()));
         }
         
+        if (emp == null || emp.extinct()) {
+        	GNNNotification.notifyRandomEvent(notificationText(emp.isPlayer() 
+        				|| player().hasContact(emp)), "GNN_Event_Relic_Planets");
+        	return;
+        }
         // find unknown Techs in Construction category
         List<String> availableTechs = new ArrayList<>();
 
@@ -80,8 +85,11 @@ public class RandomEventPrecursorRelic implements Base, Serializable, RandomEven
                 availableTechs.add(techId);
         }
 
-        if (availableTechs.isEmpty())
-                return;
+        if (availableTechs.isEmpty()) {
+        	GNNNotification.notifyRandomEvent(notificationText(emp.isPlayer() 
+        				|| player().hasContact(emp)), "GNN_Event_Relic_Planets");
+        	return;
+        }
 
         List<String> discoveredTechs = new ArrayList<>();
         if (availableTechs.size() <= MAX_TECHS_DISCOVERED)

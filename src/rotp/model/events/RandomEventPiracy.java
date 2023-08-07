@@ -48,6 +48,9 @@ public class RandomEventPiracy implements Base, Serializable, RandomEvent {
     }
     @Override
     public void trigger(Empire emp) {
+    	if (emp == null || emp.extinct())
+    		return;
+
         if (!emp.hasTrade())
             return;
 

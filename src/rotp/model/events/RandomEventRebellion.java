@@ -40,6 +40,9 @@ public class RandomEventRebellion implements Base, Serializable, RandomEvent {
     }
     @Override
     public void trigger(Empire emp) {
+    	if (emp == null || emp.extinct())
+    		return;
+
         // find a random colony that is not the homeworld and not already in rebellion
         // and is not uncolonizable by the owning empire (e.g. if the env has degraded)
         List<StarSystem> systems = new ArrayList<>();

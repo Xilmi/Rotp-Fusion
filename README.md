@@ -37,6 +37,8 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 Bug to fix:
 
 Very soon:
+- Status: Fix Total Power saturation (offer log display)
+- security tax: allow higher values.
 - Spare Xenophobes: Stop if caught too.
 - Smooth the Trade blocking option.
 - Investigate: William482 request: Age of your data on each race into the bar graphs on the status page.
@@ -53,6 +55,21 @@ Later:
 
 ## What's New
 
+2023.08.07 (BR)
+- ironmanMode (Once set, options can't be changed)
+- Optimization:
+  - Distance to empire are no more recomputed after each colony gain/loss, but once after all these events.
+
+2023.08.06 (BR)
+- Random Event: When set off in game, immediately stop events advancement.
+  - They will continue if set on later.
+- Fixed Events Mode
+  - Updated random events to follow Fixed Events Rules
+    - Same Events on Reload.
+    - Same time Same event same target on diferent play.
+    - If event still actif, put on waiting list.
+    - If target is dead, Monsters are direct to their former home world.
+
 2023.08.05 (BR)
 - Auto Run log:
   - Fixed Time separation.
@@ -62,6 +79,9 @@ Later:
   - Added num system colonized.
   - Removed 500ms double click security
   - Reset log files on first turn.
+- ironmanMode preparation
+- fixedEventsMode preparation
+- refreshViews - recalcDistances optimization.
 
 2023.08.04 (BR)
 - Debug autoPlay to autoRun:

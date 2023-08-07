@@ -41,6 +41,9 @@ public String notificationText()    {
     }
     @Override
     public void trigger(Empire emp) {
+    	if (emp == null || emp.extinct())
+    		return;
+
         // find a random colony that is not fertile or gaia
     	// BR: Nor Hostile as enrichSoil() has no effect on hostile planets
         List<StarSystem> systems = new ArrayList<>();

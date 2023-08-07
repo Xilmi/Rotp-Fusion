@@ -16,7 +16,6 @@
 package rotp.model.galaxy;
 
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
@@ -114,7 +113,8 @@ public class ShipFleet extends FleetBase implements Base, Sprite, Ship, Serializ
     public boolean isDeployed()         { return status == Status.DEPLOYED; }
     public boolean isInTransit()        { return (status == Status.IN_TRANSIT) || (status == Status.RETREAT_ON_ARRIVAL); }
     public boolean retreatOnArrival()   { return status == Status.RETREAT_ON_ARRIVAL; }
-    public void toggleRetreatOnArrival() {
+    @SuppressWarnings("incomplete-switch")
+	public void toggleRetreatOnArrival() {
         switch (status) {
             case IN_TRANSIT:         status = Status.RETREAT_ON_ARRIVAL; break;
             case RETREAT_ON_ARRIVAL: status = Status.IN_TRANSIT; break;

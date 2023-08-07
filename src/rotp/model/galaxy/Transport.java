@@ -16,7 +16,6 @@
 package rotp.model.galaxy;
 
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;

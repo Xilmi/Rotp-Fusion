@@ -41,6 +41,8 @@ public class RandomEventComputerVirus implements Base, Serializable, RandomEvent
     }
     @Override
     public void trigger(Empire emp) {
+    	if (emp == null || emp.extinct())
+    		return;
         TechCategory targetCat = null;
         TechTree empTech = emp.tech();
         lostRP = 0;

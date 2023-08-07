@@ -117,6 +117,17 @@ public interface IPreGameOptions extends IAdvOptions {
 
 	RandomAlienRaces randomAlienRaces		 = new RandomAlienRaces(MOD_UI, "RACES_ARE_RANDOM", RandomAlienRaces.TARGET);
 	default String selectedRandomAlienRaces()			{ return randomAlienRaces.get(); }
+
+	ParamList ironmanMode	= new ParamList( MOD_UI, "IRONMAN_MODE", "Off") {
+		{
+			showFullGuide(true);
+			put("Off",	MOD_UI + "IRONMAN_OFF");
+			put("NoOptions",	MOD_UI + "IRONMAN_NO_OPTIONS");
+//			put("NoSave",		MOD_UI + "IRONMAN_NO_SAVE");
+		}
+	};
+	default boolean isGameOptionsAllowed()		{ return ironmanMode.get().equalsIgnoreCase("Off"); }
+	default boolean isSaveOptionsAllowed()		{ return !ironmanMode.get().equalsIgnoreCase("NoSave"); }
 	
 	// ==================== GUI List Declarations ====================
 	//
@@ -128,7 +139,7 @@ public interface IPreGameOptions extends IAdvOptions {
 			null,
 			techIndustry2, techThorium, techTransport, randomTechStart, 
 			null,
-			companionWorlds, battleScout
+			companionWorlds, battleScout, ironmanMode
 			));
 	LinkedList<IParam> modOptionsStaticB  = new LinkedList<>(
 			Arrays.asList(
@@ -157,7 +168,11 @@ public interface IPreGameOptions extends IAdvOptions {
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("START_EMPIRE_OPTIONS"),
 				artifactsHomeworld, fertileHomeworld, richHomeworld, ultraRichHomeworld,
-				companionWorlds, battleScout, randomTechStart, randomizeAI
+				companionWorlds, battleScout, randomTechStart, randomizeAI,
+
+				headerSpacer,
+				new ParamTitle("BETA_TEST"),
+				ironmanMode
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("START_TECH_CONTROL"),

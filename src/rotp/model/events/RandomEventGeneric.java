@@ -95,6 +95,9 @@ public class RandomEventGeneric   implements Base, Serializable, RandomEvent {
     }
     @Override
     public void trigger(Empire emp) {
+    	if (emp == null || emp.extinct())
+    		return;
+
         // trigger behavior for each event. Probably should spin off
         // a separate private method for each event
         switch(eventKey) {

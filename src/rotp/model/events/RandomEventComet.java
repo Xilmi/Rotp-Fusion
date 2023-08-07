@@ -49,13 +49,18 @@ public class RandomEventComet implements Base, Serializable, RandomEvent {
     }
     @Override
     public void trigger(Empire emp) {
-        List<StarSystem> allSystems = emp.allColonizedSystems();
-        StarSystem targetSystem = random(allSystems);
-        targetSystem.eventKey(systemKey());
+    	if (emp == null || emp.extinct()) {
+            empId = emp.id;
+            sysId = emp.homeSysId(); // Former home of extinct empire
+    	}
+    	else {
+            List<StarSystem> allSystems = emp.allColonizedSystems();
+            StarSystem targetSystem = random(allSystems);
+            targetSystem.eventKey(systemKey());
 
-        empId = emp.id;
-        sysId = targetSystem.id;
-
+            empId = emp.id;
+            sysId = targetSystem.id;
+    	}
         turnsNeeded = roll(10,15);
         cometHP = 40*turnsNeeded;
         galaxy().events().addActiveEvent(this);

@@ -12,10 +12,23 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - New option to disable tech stealing.
   - If disabled, half of the infiltration bonus will be given to Research bonus.
   - Infiltration penalty won't impact Research bonus.
+- Random Event: When set off in game, immediately stop events advancement.
+  - They will continue if set on later.
 
 <em>Minor Fixes</em>
 - Fixed AI scouts bugging with "Reduced range"-option.
 - Fixed random event delay not updating on reload.
+
+<em>New additions</em>
+- Added New "Fixed Events"-Option.
+  - Same time, same event, same target on different play.
+  - Same Events on Reload.
+  - If event still actif, put on waiting list till the previous occurence ends.
+  - If target is extinct, Monsters are directed to their former home world.
+- Ironman Mode (Once set, options can't be changed)
+- Optimization:
+  - Stars systems distances to empire are no more recomputed after each colony gain/loss, but once after all these events.
+    - was very time cousuming on big galaxy.
 
 
 <b><ins>Last announcement:</ins></b>

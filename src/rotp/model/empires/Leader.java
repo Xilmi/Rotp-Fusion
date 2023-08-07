@@ -169,7 +169,8 @@ public class Leader implements Base, Serializable {
             default:         return 25;
         }
     }
-    public float bioweaponMod() {
+    @SuppressWarnings("incomplete-switch")
+	public float bioweaponMod() {
         float objMod = 1.0f;
         switch(objective) {
             case ECOLOGIST:  objMod = 2.0f;
@@ -184,7 +185,8 @@ public class Leader implements Base, Serializable {
             default:         return objMod*1;
         }
     }
-    public int oathBreakerDuration() {
+    @SuppressWarnings("incomplete-switch")
+	public int oathBreakerDuration() {
         int objMod = 1;
         switch(objective) {
             case DIPLOMAT:  objMod = 2;

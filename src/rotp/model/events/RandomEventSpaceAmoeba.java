@@ -16,6 +16,8 @@
 package rotp.model.events;
 
 import java.io.Serializable;
+import java.util.List;
+
 import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.SpaceAmoeba;
@@ -78,9 +80,18 @@ public class RandomEventSpaceAmoeba implements Base, Serializable, RandomEvent {
     public void trigger(Empire emp) {
         log("Starting Amoeba event against: "+emp.raceName());
 //        System.out.println("Starting Amoeba event against: "+emp.raceName());
-        StarSystem targetSystem = random(emp.allColonizedSystems());
-        empId = emp.id;
-        sysId = targetSystem.id;
+    	if (emp == null || emp.extinct()) {
+            empId = emp.id;
+            sysId = emp.homeSysId(); // Former home of extinct empire
+    	}
+    	else {
+            List<StarSystem> allSystems = emp.allColonizedSystems();
+            StarSystem targetSystem = random(allSystems);
+            targetSystem.eventKey(systemKey());
+
+            empId = emp.id;
+            sysId = targetSystem.id;
+    	}
         turnCount = 3;
         galaxy().events().addActiveEvent(this);
     }

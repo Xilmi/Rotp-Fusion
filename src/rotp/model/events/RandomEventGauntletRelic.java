@@ -45,6 +45,12 @@ public class RandomEventGauntletRelic implements Base, Serializable, RandomEvent
         s1 = galaxy().empire(empId).replaceTokens(s1, "target");
         return s1;
     }
+    private String notificationText(boolean hasContact) {
+    	if (hasContact)
+    		return notificationText();
+    	else
+    		return text("EVENT_RELIC_GAUNTLET_NO_CONTACT");
+    }
     @Override
     public void trigger(Empire emp) {
         
@@ -55,7 +61,13 @@ public class RandomEventGauntletRelic implements Base, Serializable, RandomEvent
                 sys.planet().colony().setPopulation( 0.5f * sys.population() );
             }
         }
-        
+
+    	if (emp == null || emp.extinct()) {
+        	GNNNotification.notifyRandomEvent(notificationText(emp.isPlayer() 
+    				|| player().hasContact(emp)), "GNN_Event_Relic_Gauntlet");
+            return;
+    	}
+
         // find all colonies in target empire that are less than base size 90
         // increase base size of those planets 10
         for (StarSystem sys : emp.allColonizedSystems()) {
@@ -77,8 +89,11 @@ public class RandomEventGauntletRelic implements Base, Serializable, RandomEvent
                 availableTechs.add(techId);
         }
 
-        if (availableTechs.isEmpty())
-                return;
+        if (availableTechs.isEmpty()) {
+        	GNNNotification.notifyRandomEvent(notificationText(emp.isPlayer() 
+    				|| player().hasContact(emp)), "GNN_Event_Relic_Gauntlet");
+        	return;
+        }
 
         List<String> discoveredTechs = new ArrayList<>();
         if (availableTechs.size() <= MAX_TECHS_DISCOVERED)
@@ -92,8 +107,8 @@ public class RandomEventGauntletRelic implements Base, Serializable, RandomEvent
         }
 
         empId = emp.id;
-        if (emp.isPlayer() || player().hasContact(emp))
-            GNNNotification.notifyRandomEvent(notificationText(), "GNN_Event_Relic_Gauntlet");
+    	GNNNotification.notifyRandomEvent(notificationText(emp.isPlayer() 
+				|| player().hasContact(emp)), "GNN_Event_Relic_Gauntlet");
 
         for (String techId: discoveredTechs)
             emp.plunderShipTech(tech(techId), -1);

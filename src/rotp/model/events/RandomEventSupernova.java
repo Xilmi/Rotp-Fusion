@@ -61,6 +61,9 @@ public class RandomEventSupernova implements Base, Serializable, RandomEvent, Co
     }
     @Override
     public void trigger(Empire emp) {
+    	if (emp == null || emp.extinct())
+    		return;
+
         // find a random colony that has at least 30 population that does not already have a research project, not a homeworld
         // allowing these combinations would complicate a lot of code in other places, so not allowed by fiat
         List<StarSystem> systems = new ArrayList<>();

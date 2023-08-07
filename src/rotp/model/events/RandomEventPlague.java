@@ -59,6 +59,9 @@ public class RandomEventPlague implements Base, Serializable, RandomEvent, Colon
     }
     @Override
     public void trigger(Empire emp) {
+    	if (emp == null || emp.extinct())
+    		return;
+
         // find a random colony that has at least 30 population that does not already have a research project and is not in rebellion
         // allowing these combinations would complicate a lot of code in other places, so not allowed by fiat
         List<StarSystem> systems = new ArrayList<>();

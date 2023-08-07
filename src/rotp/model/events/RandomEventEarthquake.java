@@ -43,6 +43,9 @@ public class RandomEventEarthquake implements Base, Serializable, RandomEvent {
     }
     @Override
     public void trigger(Empire emp) {
+    	if (emp == null || emp.extinct())
+    		return;
+
         // find a random colony that has at least 30 population
         List<StarSystem> systems = new ArrayList<>();
         for (StarSystem sys : emp.allColonizedSystems()) {

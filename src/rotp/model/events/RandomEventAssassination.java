@@ -39,6 +39,8 @@ public class RandomEventAssassination implements Base, Serializable, RandomEvent
     }
     @Override
     public void trigger(Empire emp) {
+    	if (emp == null || emp.extinct())
+    		return;
         if (galaxy().council().finalWar())
             return;
         

@@ -43,6 +43,8 @@ public class RandomEventBoostPlanetSize implements Base, Serializable, RandomEve
     }
     @Override
     public void trigger(Empire emp) {
+    	if (emp == null || emp.extinct())
+    		return;
         // find a random colony that is less than base size 50
         List<StarSystem> systems = new ArrayList<>();
         for (StarSystem sys : emp.allColonizedSystems()) {

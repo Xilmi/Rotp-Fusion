@@ -37,6 +37,9 @@ public class RandomEventDonation implements Base, Serializable, RandomEvent {
     }
     @Override
     public void trigger(Empire emp) {
+    	if (emp == null || emp.extinct())
+    		return;
+
         int turnNum = galaxy().currentTurn();
         empId = emp.id;
         donationAmount = turnNum * 10;

@@ -39,6 +39,8 @@ public class RandomEventAncientDerelict implements Base, Serializable, RandomEve
     }
     @Override
     public void trigger(Empire emp) {
+    	if (emp == null || emp.extinct())
+    		return;
         List<String> availableTechs = new ArrayList<>();
 
         TechTree empTech = emp.tech();

@@ -313,7 +313,7 @@ public class GalaxyFactory implements Base {
 		long tm4 = System.currentTimeMillis();
 		log("Other inits: "+(tm4-tm3c)+"ms");
 
-		g.player().refreshViews();
+		g.player().refreshViews(false);
                 g.player().makeNextTurnDecisions();
 		long tm5 = System.currentTimeMillis();
 		log("Next Turn Decision: "+(tm5-tm4)+"ms");

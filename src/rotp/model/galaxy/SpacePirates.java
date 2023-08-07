@@ -18,7 +18,6 @@ package rotp.model.galaxy;
 import rotp.model.colony.Colony;
 import rotp.model.combat.CombatStackSpacePirates;
 import rotp.model.events.RandomEventSpacePirates;
-import rotp.model.planet.PlanetType;
 
 // modnar: add Space Pirates random event
 public class SpacePirates extends SpaceMonster {

@@ -105,7 +105,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private String selectedWarpSpeedOption;
     private String selectedNebulaeOption;
     private String selectedCouncilWinOption;
-    private boolean disableRandomEvents = false;
     private String selectedPlanetQualityOption;
     private String selectedTerraformingOption;
     private String selectedFuelRangeOption;
@@ -143,10 +142,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override
     public void communityAI(boolean b)           { communityAI = b; }
     */
-    @Override
-    public boolean disableRandomEvents()         { return disableRandomEvents; }
-    @Override
-    public void disableRandomEvents(boolean b)   { disableRandomEvents = b; }
     @Override
     public String selectedGalaxySize()           { return selectedGalaxySize; }
     @Override

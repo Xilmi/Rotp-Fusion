@@ -151,7 +151,7 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 				
 				headerSpacer,
 				new ParamTitle("BETA_TEST"),
-				trackUFOsAcrossTurns, allowTechStealing
+				trackUFOsAcrossTurns, allowTechStealing, fixedEventsMode
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("RANDOM_EVENTS_OPT"),

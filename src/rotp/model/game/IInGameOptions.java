@@ -106,18 +106,6 @@ public interface IInGameOptions extends IConvenienceOptions {
 	};
 	default float selectedMissileShipModifier()	{ return missileShipModifier.get(); }
 
-	ParamList ironmanMode	= new ParamList( MOD_UI, "IRONMAN_MODE", "Off") {
-		{
-			showFullGuide(true);
-			put("Off",	MOD_UI + "IRONMAN_OFF");
-			put("NoOptions",	MOD_UI + "IRONMAN_NO_OPTIONS");
-//			put("NoSave",		MOD_UI + "TERRAFORM_NO_SAVE");
-		}
-	};
-
-	default boolean isGameOptionsAllowed()		{ return ironmanMode.get().equalsIgnoreCase("Off"); }
-	default boolean isSaveOptionsAllowed()		{ return !ironmanMode.get().equalsIgnoreCase("NoSave"); }
-	
 	ParamBoolean challengeMode		= new ParamBoolean(MOD_UI, "CHALLENGE_MODE", false);
 	default boolean selectedChallengeMode()		{ return challengeMode.get(); }
 	
@@ -200,7 +188,7 @@ public interface IInGameOptions extends IConvenienceOptions {
 			));
 	LinkedList<IParam> modOptionsDynamicB = new LinkedList<>(
 			Arrays.asList(
-				eventsStartTurn, counciRequiredPct, GovernorOptions.governorOptionsUI,
+				eventsStartTurn, fixedEventsMode, counciRequiredPct, GovernorOptions.governorOptionsUI,
 				null,
 				amoebaDelayTurn, amoebaMaxSystems, amoebaReturnTurn,
 				null,

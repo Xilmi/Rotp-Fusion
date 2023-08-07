@@ -121,8 +121,8 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
         // modnar: reduce RaceIcon size, increase RankingList size
         int s100 = scaled(100);
         int s110 = scaled(110);
-        int s160 = scaled(160);
-        int s200 = scaled(200);
+        //int s160 = scaled(160);
+        //int s200 = scaled(200);
         int s210 = scaled(210);
         int buttonTopY = scaled(140);
         int rankingTopY = scaled(170);
@@ -149,7 +149,7 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
         // modnar: reduce RaceIcon size, increase RankingList size
         int s100 = scaled(100);
         int s110 = scaled(110);
-        int s160 = scaled(160);
+        //int s160 = scaled(160);
         int s200 = scaled(200);
         int s210 = scaled(210);
         int buttonTopY = scaled(140);
