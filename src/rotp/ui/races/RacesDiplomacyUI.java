@@ -1305,19 +1305,24 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
         enableGlassPane(showRaceAbilitiesPane);
         return;
     }
-    private boolean increaseSliderValue() {
+    private boolean increaseSliderValue(int i) {
         int oldValue = player().internalSecurity();
-        player().increaseInternalSecurity();
+        player().increaseInternalSecurity(i);
         return oldValue != player().internalSecurity();
     }
-    private boolean decreaseSliderValue() {
+    private boolean decreaseSliderValue(int i) {
         int oldValue = player().internalSecurity();
-        player().decreaseInternalSecurity();
+        player().decreaseInternalSecurity(i);
         return oldValue != player().internalSecurity();
     }
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
         int count = e.getUnitsToScroll();
+        int inc = 1;
+        if (e.isShiftDown())
+        	inc = 5;
+        if (e.isControlDown())
+        	inc = 20;
         if ((hoverShape == incidentListBox)
         || (hoverShape == incidentScroller)) {
             int prevY = incidentY;
@@ -1330,7 +1335,7 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
             return;
         }
         else if (hoverShape == buttonSlider) {
-            boolean changed = count < 0 ? increaseSliderValue() : decreaseSliderValue();
+            boolean changed = count < 0 ? increaseSliderValue(inc) : decreaseSliderValue(inc);
             if (changed) {
                 setValues();
                 repaint();
@@ -1443,6 +1448,11 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
     }
     @Override
     public void mouseReleased(MouseEvent e) {
+        int inc = 1;
+        if (e.isShiftDown())
+        	inc = 5;
+        if (e.isControlDown())
+        	inc = 20;
         dragY = 0;
         if (e.getButton() > 3)
             return;
@@ -1466,7 +1476,7 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
             return;
         }
         if (hoverShape == buttonIncr) {
-            boolean changed = increaseSliderValue();
+            boolean changed = increaseSliderValue(inc);
             if (changed) {
                 setValues();
                 softClick();
@@ -1477,7 +1487,7 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
             return;
         }
         else if (hoverShape == buttonDecr) {
-            boolean changed = decreaseSliderValue();
+            boolean changed = decreaseSliderValue(inc);
             if (changed) {
                 setValues();
                 softClick();

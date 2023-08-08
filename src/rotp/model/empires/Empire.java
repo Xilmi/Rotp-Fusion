@@ -95,7 +95,7 @@ import rotp.util.Base;
 public final class Empire implements Base, NamedObject, Serializable {
     private static final long serialVersionUID = 1L;
     private static final float SHIP_MAINTENANCE_PCT = .02f;
-    private static final int MAX_SECURITY_TICKS = 10;
+//    private static final int maxSecurityPct() = 10;
     private static final float SECURITY_COST_RATIO = 2f;
     public static final int PLAYER_ID = 0;
     public static final int NULL_ID = -1;
@@ -143,7 +143,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     private boolean scanPlanets = false;
     private boolean recalcDistances = true;
     private float combatTransportPct = 0;
-    private int securityAllocation = 0; // Value in TICK
+    private int securityAllocation = 0; // Value in %
     private int empireTaxLevel = 0;
     private boolean empireTaxOnlyDeveloped = true;
     private boolean divertColonyExcessToResearch = false;
@@ -2855,42 +2855,44 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
         return sum;
     }
-    public int internalSecurity()            { return securityAllocation; }
+    private int securityAllocation()            {
+    	if (securityAllocation > maxSecurityPct()) {
+    		securityAllocation = maxSecurityPct();
+    		flagColoniesToRecalcSpending();
+    	}
+    	return securityAllocation;
+    }
+    public int internalSecurity()            {
+    	return securityAllocation();
+    }
     public void internalSecurity(int i)      {
-        securityAllocation = bounds(0,i,MAX_SECURITY_TICKS);
+        securityAllocation = bounds(0,i,maxSecurityPct());
         flagColoniesToRecalcSpending();
     }
-    public float internalSecurityPct()       { return (float) securityAllocation/MAX_SECURITY_TICKS; }
-    public void increaseInternalSecurity()   { internalSecurity(securityAllocation+1); }
-    public void decreaseInternalSecurity()   { internalSecurity(securityAllocation-1); }
+    public float internalSecurityPct()          { return (float) securityAllocation()/maxSecurityPct(); }
+    public void increaseInternalSecurity(int i) { internalSecurity(securityAllocation+i); }
+    public void increaseInternalSecurity()      { internalSecurity(securityAllocation+1); }
+    public void decreaseInternalSecurity(int i) { internalSecurity(securityAllocation-i); }
+    public void decreaseInternalSecurity()      { internalSecurity(securityAllocation-1); }
     public void securityAllocation(float d) {
         // d assumed to be between 0 & 1, representing pct of slider clicked
-        float incr = 1.0f/(MAX_SECURITY_TICKS+1);
+        float incr = 1.0f/(maxSecurityPct()+1);
         float sum = 0;
-        for (int i=0;i<MAX_SECURITY_TICKS+1;i++) {
+        for (int i=0;i<maxSecurityPct()+1;i++) {
             sum += incr;
             if (d <= sum) {
                 internalSecurity(i);
                 return;
             }
         }
-        internalSecurity(MAX_SECURITY_TICKS);
+        internalSecurity(maxSecurityPct());
     }
-    // TODO BR: this was MAX_SECURITY_PCT but not a pct and no more a constant
-    private float maxSecurityRatio() {
-    	return SECURITY_COST_RATIO * options().selectedMaxSecurityPct()/100f;
-    }
-    public float requestedSecurityCostPct() {
-        return maxSecurityRatio()*securityAllocation/MAX_SECURITY_TICKS/SECURITY_COST_RATIO;
-    }
-    public float totalInternalSecurityPct() {
-        return inRangeOfAnyEmpire() ? maxSecurityRatio()*securityAllocation/MAX_SECURITY_TICKS : 0;
-    }
-    public float internalSecurityCostPct() {
-        return (totalInternalSecurityPct()/SECURITY_COST_RATIO);
-    }
-    public float totalSecurityCostPct() {
-        return totalSpyCostPct() + internalSecurityCostPct();
+    // BR: this was maxSecurityPct(), no more a constant
+    private int maxSecurityPct()			{ return options().selectedMaxSecurityPct(); }
+    public float internalSecurityCostPct()	{ return (totalInternalSecurityPct()/SECURITY_COST_RATIO); }
+    public float totalSecurityCostPct()		{ return totalSpyCostPct() + internalSecurityCostPct(); }
+    public float totalInternalSecurityPct()	{
+        return inRangeOfAnyEmpire() ? SECURITY_COST_RATIO*securityAllocation()/100 : 0;
     }
     public float baseSpyCost() {
         return (25 + (tech.computer().techLevel()*2)) * dataRace().spyCostMod();

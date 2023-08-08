@@ -228,14 +228,12 @@ public class Rotp {
     public static Dimension getSize() {
     	Rectangle rect = device().getDefaultConfiguration().getBounds();
     	return new Dimension(rect.width, rect.height);
-//      return Toolkit.getDefaultToolkit().getScreenSize();
     }
     public static float resizeAmt() {
         int pct = UserPreferences.windowed() ? UserPreferences.screenSizePct() : 100;
         float sizeAdj = (float) pct / 100.0f;
         if (resizeAmt < 0) {
         	
-//            Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
             Dimension size = getSize();
 
             int sizeW = (int) (sizeAdj*size.width);

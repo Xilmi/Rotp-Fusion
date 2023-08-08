@@ -56,6 +56,7 @@ Later:
 
 2023.08.08 (BR)
 - Add new max security tax option.
+  - Security steps: 1%, shift = 5%, ctrl = 20% 
 - Fixed ironman inverted logic.
 
 2023.08.07 (BR)

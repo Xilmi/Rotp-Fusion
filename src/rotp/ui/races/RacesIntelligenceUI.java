@@ -39,7 +39,6 @@ import java.util.List;
 import rotp.model.empires.DiplomaticEmbassy;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
-import rotp.model.incidents.DiplomaticIncident;
 import rotp.model.tech.Tech;
 import rotp.model.tech.TechCategory;
 import rotp.model.tech.TechTree;
@@ -53,7 +52,7 @@ public final class RacesIntelligenceUI extends BasePanel implements MouseListene
     static Color sliderC = new Color(34,140,142);
     static Color sliderButtonC = new Color(153,0,11);
     static Color sliderButtonHiC = new Color(199,199,11);
-    private static final Color selectedC = new Color(178,124,87);
+    //private static final Color selectedC = new Color(178,124,87);
     private static final Color unselectedC = new Color(112,85,68);
     static final Color sliderBoxBlue = new Color(34,140,142);
 
@@ -266,11 +265,11 @@ public final class RacesIntelligenceUI extends BasePanel implements MouseListene
         drawString(g,s, x+w-s20-sw, y2);
         
          // draw string on right for pct 
-        String cost = text("RACES_INTEL_PERCENT_AMT",(int)(player().requestedSecurityCostPct()*100));
+        String cost = text("RACES_INTEL_PERCENT_AMT", player().internalSecurity());
         sw = g.getFontMetrics().stringWidth(cost);
         drawString(g,cost, x+w-s20-sw, y3);
-        // need maxwidth so slider doesn't move as cost pct changes
-        String maxWidthStr = text("RACES_INTEL_PERCENT_AMT",10);
+        // need max width so slider doesn't move as cost pct changes
+        String maxWidthStr = text("RACES_INTEL_PERCENT_AMT", 20);
         sw = g.getFontMetrics().stringWidth(maxWidthStr);
        
         int sliderW = s90;
@@ -756,7 +755,8 @@ public final class RacesIntelligenceUI extends BasePanel implements MouseListene
         int w1a = (int)(pct * w1); // width of spending
 
         int y1 = y+((h-h1)/2);
-        int x1 = x+s20;
+//        int x1 = x+s20;
+        int x1 = x+s16;
 
         g.setColor(Color.black);
         g.fillRect(x1,y1,w1,h1);
@@ -917,10 +917,10 @@ public final class RacesIntelligenceUI extends BasePanel implements MouseListene
             setValues();
         }
     }
-    private boolean increaseSliderValue() {
+    private boolean increaseSliderValue(int i) {
         if (parent.selectedEmpire().isPlayer()) {
             int oldValue = player().internalSecurity();
-            player().increaseInternalSecurity();
+            player().increaseInternalSecurity(i);
             return oldValue != player().internalSecurity();
         }
         else {
@@ -930,10 +930,10 @@ public final class RacesIntelligenceUI extends BasePanel implements MouseListene
             return oldValue != view.spies().allocation();
         }
     }
-    private boolean decreaseSliderValue() {
+    private boolean decreaseSliderValue(int i) {
         if (parent.selectedEmpire().isPlayer()) {
             int oldValue = player().internalSecurity();
-            player().decreaseInternalSecurity();
+            player().decreaseInternalSecurity(i);
             return oldValue != player().internalSecurity();
         }
         else {
@@ -1032,6 +1032,11 @@ public final class RacesIntelligenceUI extends BasePanel implements MouseListene
         int x = e.getX();
         int y = e.getY();
         int count = e.getUnitsToScroll();
+        int inc = 1;
+        if (e.isShiftDown())
+        	inc = 5;
+        if (e.isControlDown())
+        	inc = 20;
         for (int i=0;i<techBoxes.length;i++) {
             if ((hoverShape == techBoxes[i])
             || (hoverShape == techScrollers[i])) {
@@ -1046,7 +1051,7 @@ public final class RacesIntelligenceUI extends BasePanel implements MouseListene
             }
         }
         if (hoverShape == buttonSlider) {
-            boolean changed = count < 0 ? increaseSliderValue() : decreaseSliderValue();
+            boolean changed = count < 0 ? increaseSliderValue(inc) : decreaseSliderValue(inc);
             if (changed) {
                 setValues();
                 repaint();
@@ -1146,6 +1151,11 @@ public final class RacesIntelligenceUI extends BasePanel implements MouseListene
     public void mouseReleased(MouseEvent e) {
         if (e.getButton() > 3)
             return;
+        int inc = 1;
+        if (e.isShiftDown())
+        	inc = 5;
+        if (e.isControlDown())
+        	inc = 20;
         dragY = 0;
         if (hoverShape == null)
             return;
@@ -1181,7 +1191,7 @@ public final class RacesIntelligenceUI extends BasePanel implements MouseListene
         Empire emp = parent.selectedEmpire();
         EmpireView view = parent.selectedView();
         if (hoverShape == buttonIncr) {
-            boolean changed = increaseSliderValue();
+            boolean changed = increaseSliderValue(inc);
             if (changed) {
                 setValues();
                 softClick();
@@ -1192,7 +1202,7 @@ public final class RacesIntelligenceUI extends BasePanel implements MouseListene
             return;
         }
         else if (hoverShape == buttonDecr) {
-            boolean changed = decreaseSliderValue();
+            boolean changed = decreaseSliderValue(inc);
             if (changed) {
                 setValues();
                 softClick();
