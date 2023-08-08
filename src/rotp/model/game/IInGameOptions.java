@@ -171,20 +171,23 @@ public interface IInGameOptions extends IConvenienceOptions {
 	ParamBoolean trackUFOsAcrossTurns = new ParamBoolean(MOD_UI, "TRACK_UFOS_ACROSS_TURNS", true);
 	default boolean selectedTrackUFOsAcrossTurns() { return trackUFOsAcrossTurns.get(); }
 
-	ParamBoolean allowTechStealing = new ParamBoolean(MOD_UI, "ALLOW_TECH_STEALING", true);
+	ParamBoolean allowTechStealing	= new ParamBoolean(MOD_UI, "ALLOW_TECH_STEALING", true);
 	default boolean selectedAllowTechStealing()	{ return allowTechStealing.get(); }
 	default boolean forbidTechStealing()	 	{ return !allowTechStealing.get(); }
-	
+
+	ParamInteger maxSecurityPct		= new ParamInteger(MOD_UI, "MAX_SECURITY_PCT", 10, 10, 90, 1, 5, 20);
+	default int selectedMaxSecurityPct()		{ return maxSecurityPct.get(); }
+
 	// ==================== GUI List Declarations ====================
 	LinkedList<IParam> modOptionsDynamicA = new LinkedList<>(
 			Arrays.asList(
-				customDifficulty, dynamicDifficulty, challengeMode, showAllAI, allowTechStealing,
+				customDifficulty, dynamicDifficulty, challengeMode, showAllAI, trackUFOsAcrossTurns,
 				null,
 				missileBaseModifier, missileShipModifier, retreatRestrictions, retreatRestrictionTurns,
 				null,
-				bombingTarget, targetBombard, flagColorCount, autoFlagOptionsUI,
+				bombingTarget, targetBombard, flagColorCount, autoFlagOptionsUI, allowTechStealing,
 				null,
-				scrapRefundFactor, scrapRefundOption, autoTerraformEnding, trackUFOsAcrossTurns
+				scrapRefundFactor, scrapRefundOption, autoTerraformEnding, maxSecurityPct
 			));
 	LinkedList<IParam> modOptionsDynamicB = new LinkedList<>(
 			Arrays.asList(

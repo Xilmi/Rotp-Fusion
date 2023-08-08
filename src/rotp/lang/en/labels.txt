@@ -2242,6 +2242,9 @@ SETTINGS_MOD_ALLOW_TECH_STEALING_HELP    | To enable or disable technology steal
 SETTINGS_MOD_ALLOW_TECH_STEALING_DESC    | To enable or disable technology stealing activities.<br> If disabled, half of the infiltration bonus will be given to Research bonus. (Never removed)
 SETTINGS_MOD_ALLOW_TECH_STEALING         | Tech stealing: %1
 
+SETTINGS_MOD_MAX_SECURITY_PCT_DESC       | To boost the maximal security tax percentage. (Spying bonus = 2 x tax)
+SETTINGS_MOD_MAX_SECURITY_PCT            | Max Security: %1%
+
 SETTINGS_MOD_SHOW_NEW_RACES_DESC         | Show the new races in the opponents list?
 SETTINGS_MOD_SHOW_NEW_RACES              | Show new races: %1
 SETTINGS_MOD_SHOW_GRID_CIRCULAR_DESC     | Show the circular grid on the galaxy map? (Dynamic)

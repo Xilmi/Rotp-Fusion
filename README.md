@@ -37,7 +37,6 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 Bug to fix:
 
 Very soon:
-- Status: Fix Total Power saturation (offer log display)
 - security tax: allow higher values.
 - Spare Xenophobes: Stop if caught too.
 - Smooth the Trade blocking option.
@@ -54,6 +53,10 @@ Later:
 
 
 ## What's New
+
+2023.08.08 (BR)
+- Add new max security tax option.
+- Fixed ironman inverted logic.
 
 2023.08.07 (BR)
 - ironmanMode (Once set, options can't be changed)

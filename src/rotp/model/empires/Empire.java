@@ -96,7 +96,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     private static final long serialVersionUID = 1L;
     private static final float SHIP_MAINTENANCE_PCT = .02f;
     private static final int MAX_SECURITY_TICKS = 10;
-    private static final float MAX_SECURITY_PCT = 0.20f;
+    private static final float SECURITY_COST_RATIO = 2f;
     public static final int PLAYER_ID = 0;
     public static final int NULL_ID = -1;
     public static final int ABSTAIN_ID = -2;
@@ -143,7 +143,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     private boolean scanPlanets = false;
     private boolean recalcDistances = true;
     private float combatTransportPct = 0;
-    private int securityAllocation = 0;
+    private int securityAllocation = 0; // Value in TICK
     private int empireTaxLevel = 0;
     private boolean empireTaxOnlyDeveloped = true;
     private boolean divertColonyExcessToResearch = false;
@@ -2876,14 +2876,18 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
         internalSecurity(MAX_SECURITY_TICKS);
     }
+    // TODO BR: this was MAX_SECURITY_PCT but not a pct and no more a constant
+    private float maxSecurityRatio() {
+    	return SECURITY_COST_RATIO * options().selectedMaxSecurityPct()/100f;
+    }
     public float requestedSecurityCostPct() {
-        return MAX_SECURITY_PCT*securityAllocation/MAX_SECURITY_TICKS/2;
+        return maxSecurityRatio()*securityAllocation/MAX_SECURITY_TICKS/SECURITY_COST_RATIO;
     }
     public float totalInternalSecurityPct() {
-        return inRangeOfAnyEmpire() ? MAX_SECURITY_PCT*securityAllocation/MAX_SECURITY_TICKS : 0;
+        return inRangeOfAnyEmpire() ? maxSecurityRatio()*securityAllocation/MAX_SECURITY_TICKS : 0;
     }
     public float internalSecurityCostPct() {
-        return (totalInternalSecurityPct()/2);
+        return (totalInternalSecurityPct()/SECURITY_COST_RATIO);
     }
     public float totalSecurityCostPct() {
         return totalSpyCostPct() + internalSecurityCostPct();

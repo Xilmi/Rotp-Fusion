@@ -223,7 +223,7 @@ public class MapOverlayNone extends MapOverlay {
                 session().nextTurn();
                 break;
             case KeyEvent.VK_O: // BR:
-            	if (!options().isGameOptionsAllowed()) {
+            	if (options().isGameOptionsAllowed()) {
             		MergedDynamicOptionsUI optionsUI = RotPUI.mergedDynamicOptionsUI();
         			optionsUI.start("");
             	}
