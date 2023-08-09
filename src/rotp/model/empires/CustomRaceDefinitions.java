@@ -108,8 +108,10 @@ public class CustomRaceDefinitions  {
 		this(loadOptions(Rotp.jarPath(), fileName + EXT));
 	}
 
+	// -------------------- Static Methods --------------------
+	// 
 	private static void backwardComp(DynOptions opts) {
-		if (opts.getString(ROOT + "HOME_RESOURCES").equalsIgnoreCase("Artifacts")) {
+		if (opts.getString(ROOT + "HOME_RESOURCES", "").equalsIgnoreCase("Artifacts")) {
 			opts.setString(ROOT + "HOME_RESOURCES", "Normal");
 			opts.setString(ROOT + "HOME_ARTIFACTS", "Artifacts");
 		}
@@ -124,8 +126,6 @@ public class CustomRaceDefinitions  {
     	return opts;
     }
 
-	// -------------------- Static Methods --------------------
-	// 
 	public static boolean raceFileExist(String fileName) {
 		File f = new File(Rotp.jarPath(), fileName + EXT);
 		return (f.exists() && !f.isDirectory());
