@@ -88,6 +88,9 @@ TOXIC_DESC_BIOLOGICAL             | Toxic planets are frozen worlds with frigid,
 TUNDRA_DESC_BIOLOGICAL            | Tundra planets are dormant terrestrial worlds trapped in an icehouse stage.
 
 // Planet Specials
+PLANET_VESTIGES_SHORT             | V +
+PLANET_ARTIFACTS_SHORT            | A +
+PLANET_VESTIGES                   | Vestiges
 PLANET_ARTIFACTS                  | Artifacts
 PLANET_ULTRA_POOR                 | Ultra Poor
 PLANET_POOR                       | Poor
@@ -1897,12 +1900,14 @@ HEADERS_AUTO_FLAG_ID_SELECTION       | ~~~ AUTO-FLAG SELECTION ~~~%1
 HEADERS_AUTO_FLAG_ID_SELECTION_DESC  | To Associate Auto-Flag position with it's parameter. (Only the first time a Star System is scouted)
 HEADERS_AUTO_FLAG_TYPE_DESC          | Select Flags Color based on Planet Type.
 HEADERS_AUTO_FLAG_TYPE               | ~~~ PLANET TYPE ~~~%1
-HEADERS_AUTO_FLAG_ENVIRONMENT_DESC   | Select Flags Color based on Planet Environment.
+HEADERS_AUTO_FLAG_ENVIRONMENT_DESC   | Set the color of the flags according to Planet Environment.
 HEADERS_AUTO_FLAG_ENVIRONMENT        | ~~~ PLANET ENVIRONMENT ~~~%1
-HEADERS_AUTO_FLAG_RESOURCES_DESC     | Select Flags Color based on Planet Resources.
+HEADERS_AUTO_FLAG_RESOURCES_DESC     | Set the color of the flags according to Planet Resources.
 HEADERS_AUTO_FLAG_RESOURCES          | ~~~ PLANET RESOURCES ~~~%1
-HEADERS_AUTO_FLAG_COLONY_TECH_DESC   | Select Flags Color based on Environment and required Colony ship technologies.
+HEADERS_AUTO_FLAG_COLONY_TECH_DESC   | Set the color of the flags according to Environment and required Colony ship technologies.
 HEADERS_AUTO_FLAG_COLONY_TECH        | ~~~ COLONY SHIP TECH ~~~%1
+HEADERS_AUTO_FLAG_VESTIGES_DESC      | Set the color of the flags according to the vestiges of civilization.
+HEADERS_AUTO_FLAG_VESTIGES           | ~~~ CIVILIZATION VESTIGES ~~~%1
 
 HEADERS_DEBUG_MEMORY_DESC            | To enable or disable Memory monitoring.
 HEADERS_DEBUG_MEMORY                 | ~~~ MEMORY MONITORING ~~~%1
@@ -2309,6 +2314,7 @@ SETTINGS_MOD_AUTO_FLAG_NO_AUTOMATION     | No Automation
 SETTINGS_MOD_AUTO_FLAG_TYPE              | Planet Type
 SETTINGS_MOD_AUTO_FLAG_ENVIRONMENT       | Planet Environment
 SETTINGS_MOD_AUTO_FLAG_RESOURCES         | Planet Resources
+SETTINGS_MOD_AUTO_FLAG_RUINS             | Civilization Vestiges
 SETTINGS_MOD_AUTO_FLAG_TECH              | Colony Ship Tech
 SETTINGS_MOD_AUTO_FLAG_CLEAR             | Clear the Flag
 
@@ -2349,7 +2355,7 @@ SETTINGS_MOD_AUTO_FLAG_RICH_DESC          | Select the Flag Color to set automat
 SETTINGS_MOD_AUTO_FLAG_NORMAL_DESC        | Select the Flag Color to set automatically when a Normal Planet is scouted.
 SETTINGS_MOD_AUTO_FLAG_POOR_DESC          | Select the Flag Color to set automatically when a Poor Planet is scouted.
 SETTINGS_MOD_AUTO_FLAG_ULTRA_POOR_DESC    | Select the Flag Color to set automatically when an Ultra Poor Planet is scouted.
-SETTINGS_MOD_AUTO_FLAG_NONE_DESC          | Select the Flag Color to set automatically when Asteroid are scouted.
+SETTINGS_MOD_AUTO_FLAG_NONE_DESC          | Select the Flag Color to set automatically when No ressources are found.
 
 SETTINGS_MOD_AUTO_FLAG_TECH_GAIA_DESC     | Select the Flag Color to set automatically when a Gaia Planet is scouted. (Standard colony ship)
 SETTINGS_MOD_AUTO_FLAG_TECH_FERTILE_DESC  | Select the Flag Color to set automatically when a Fertile Planet is scouted. (Standard colony ship)
@@ -2360,6 +2366,10 @@ SETTINGS_MOD_AUTO_FLAG_TECH_DEAD_DESC     | Select the Flag Color to set automat
 SETTINGS_MOD_AUTO_FLAG_TECH_TOXIC_DESC    | Select the Flag Color to set automatically when an Inferno or a Toxic Planet is scouted. (Toxic colony ship technology is required)
 SETTINGS_MOD_AUTO_FLAG_TECH_RADIATED_DESC | Select the Flag Color to set automatically when an Irradiated Planet is scouted. (Irradiated colony ship technology is required)
 SETTINGS_MOD_AUTO_FLAG_TECH_NONE_DESC     | Select the Flag Color to set automatically when Asteroid are scouted. (No way to colonize this!)
+
+SETTINGS_MOD_AUTO_FLAG_VESTIGES_ORION_DESC   | Select the Flag Color to set automatically when a Planet with vestige of Orion civilization is scouted.
+SETTINGS_MOD_AUTO_FLAG_VESTIGES_ANTARAN_DESC | Select the Flag Color to set automatically when a Planet with vestige of Antaran civilization is scouted.
+SETTINGS_MOD_AUTO_FLAG_VESTIGES_NONE_DESC    | Select the Flag Color to set automatically when No vestiges are found.
 
 SETTINGS_MOD_AUTO_FLAG_ARID              | Arid Color: %1
 SETTINGS_MOD_AUTO_FLAG_BARREN            | Barren Color: %1
@@ -2400,6 +2410,10 @@ SETTINGS_MOD_AUTO_FLAG_TECH_DEAD         | Dead Color: %1
 SETTINGS_MOD_AUTO_FLAG_TECH_TOXIC        | Toxic Color: %1
 SETTINGS_MOD_AUTO_FLAG_TECH_RADIATED     | Radiated Color: %1
 SETTINGS_MOD_AUTO_FLAG_TECH_NONE         | Asteroid Color: %1
+
+SETTINGS_MOD_AUTO_FLAG_VESTIGES_ORION    | Orion Color: %1
+SETTINGS_MOD_AUTO_FLAG_VESTIGES_ANTARAN  | Antaran Color: %1
+SETTINGS_MOD_AUTO_FLAG_VESTIGES_NONE     | None Color: %1
 
 SETTINGS_MOD_GALAXY_RAND_SOURCE_HELP     | By default, the preview gives only an global idea of the galaxy you will get. By setting a value other than "Random", the preview will display the final galaxy. Use this to avoid configurations you won't like... To far from Orion... To close to the center... or tor far! etc...
 SETTINGS_MOD_GALAXY_RAND_SOURCE_DESC     | if <> 0, this number will be used as source for the galaxy random generator. The final galaxy will be the preview one.<br>This option will unlock the galaxy preview size limitation (5000). Be ready for long generation time with "Insane" and above galaxies!

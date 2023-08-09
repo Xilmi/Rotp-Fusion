@@ -109,7 +109,6 @@ public class CustomRaceDefinitions  {
 	}
 
 	private static void backwardComp(DynOptions opts) {
-		System.out.println("HOME_RESOURCES: " + opts.getString(ROOT + "HOME_RESOURCES"));
 		if (opts.getString(ROOT + "HOME_RESOURCES").equalsIgnoreCase("Artifacts")) {
 			opts.setString(ROOT + "HOME_RESOURCES", "Normal");
 			opts.setString(ROOT + "HOME_ARTIFACTS", "Artifacts");
@@ -1215,7 +1214,7 @@ public class CustomRaceDefinitions  {
 			put("Normal",		ROOT   + "RESOURCES_NORMAL",  0f, "Normal");
 			put("Rich",			PLANET + "RICH",			 30f, "Rich");
 			put("UltraRich",	PLANET + "ULTRA_RICH",		 50f, "UltraRich");
-			put("Artifacts",	PLANET + "ARTIFACTS",		 40f, "Artifacts");
+//			put("Artifacts",	PLANET + "ARTIFACTS",		 40f, "Artifacts");
 			defaultCfgValue(defaultValue);
 			initOptionsText();
 		}

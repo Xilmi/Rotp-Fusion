@@ -33,30 +33,26 @@ public interface IFlagOptions extends IBaseOptsTools {
 			AUTO_FLAG_NOT, flagAssignationMap) {
 		{ showFullGuide(true); }
 	};
-	default String selectedAutoFlagAssignation1() {
-		return autoFlagAssignation1.get();
-	}
+	default String selectedAutoFlagAssignation1() { return autoFlagAssignation1.get(); }
+
 	ParamList autoFlagAssignation2	= new ParamList(MOD_UI, "AUTO_FLAG_ASSIGN_2",
 			AUTO_FLAG_NOT, flagAssignationMap) {
 		{ showFullGuide(true); }
 	};
-	default String selectedAutoFlagAssignation2() {
-		return autoFlagAssignation2.get();
-	}
+	default String selectedAutoFlagAssignation2() { return autoFlagAssignation2.get(); }
+
 	ParamList autoFlagAssignation3	= new ParamList(MOD_UI, "AUTO_FLAG_ASSIGN_3",
 			AUTO_FLAG_NOT, flagAssignationMap) {
 		{ showFullGuide(true); }
 	};
-	default String selectedAutoFlagAssignation3() {
-		return autoFlagAssignation3.get();
-	}
+	default String selectedAutoFlagAssignation3() { return autoFlagAssignation3.get(); }
+
 	ParamList autoFlagAssignation4	= new ParamList(MOD_UI, "AUTO_FLAG_ASSIGN_4",
 			AUTO_FLAG_NOT, flagAssignationMap) {
 		{ showFullGuide(true); }
 	};
-	default String selectedAutoFlagAssignation4() {
-		return autoFlagAssignation4.get();
-	}
+	default String selectedAutoFlagAssignation4() { return autoFlagAssignation4.get(); }
+
 	ParamFlagColor flagTerranColor 		= new ParamFlagColor("AUTO_FLAG_TERRAN",		FLAG_COLOR_GREEN);
 	ParamFlagColor flagJungleColor 		= new ParamFlagColor("AUTO_FLAG_JUNGLE",		FLAG_COLOR_GREEN);
 	ParamFlagColor flagOceanColor 		= new ParamFlagColor("AUTO_FLAG_OCEAN",			FLAG_COLOR_AQUA);
@@ -83,8 +79,8 @@ public interface IFlagOptions extends IBaseOptsTools {
 	ParamFlagColor flagAssetNormalColor = new ParamFlagColor("AUTO_FLAG_NORMAL",		FLAG_COLOR_NONE);
 	ParamFlagColor flagRichColor 		= new ParamFlagColor("AUTO_FLAG_RICH",			FLAG_COLOR_PINK);
 	ParamFlagColor flagUltraRichColor 	= new ParamFlagColor("AUTO_FLAG_ULTRA_RICH",	FLAG_COLOR_RED);
-	ParamFlagColor flagAntaranColor 	= new ParamFlagColor("AUTO_FLAG_RUINS_ANTARAN",	FLAG_COLOR_LTBLUE);
-	ParamFlagColor flagOrionColor 		= new ParamFlagColor("AUTO_FLAG_RUINS_ORION",	FLAG_COLOR_BLUE);
+	ParamFlagColor flagAntaranColor 	= new ParamFlagColor("AUTO_FLAG_RUINS_ANTARAN",	FLAG_COLOR_NONE);
+	ParamFlagColor flagOrionColor 		= new ParamFlagColor("AUTO_FLAG_RUINS_ORION",	FLAG_COLOR_NONE);
 	ParamFlagColor flagNoneColor 		= new ParamFlagColor("AUTO_FLAG_NONE",			FLAG_COLOR_NONE);
 
 	ParamFlagColor flagTechGaiaColor 	= new ParamFlagColor("AUTO_FLAG_TECH_GAIA",		FLAG_COLOR_GREEN);
@@ -94,8 +90,13 @@ public interface IFlagOptions extends IBaseOptsTools {
 	ParamFlagColor flagTechBarrenColor 	= new ParamFlagColor("AUTO_FLAG_TECH_BARREN",	FLAG_COLOR_ORANGE);
 	ParamFlagColor flagTechDeadColor 	= new ParamFlagColor("AUTO_FLAG_TECH_DEAD",		FLAG_COLOR_WHITE);
 	ParamFlagColor flagTechToxicColor 	= new ParamFlagColor("AUTO_FLAG_TECH_TOXIC",	FLAG_COLOR_RED);
-	ParamFlagColor flagTechRadiatedColor = new ParamFlagColor("AUTO_FLAG_TECH_RADIATED",FLAG_COLOR_PURPLE);
+	ParamFlagColor flagTechRadiatedColor= new ParamFlagColor("AUTO_FLAG_TECH_RADIATED",	FLAG_COLOR_PURPLE);
 	ParamFlagColor flagTechNoneColor 	= new ParamFlagColor("AUTO_FLAG_TECH_NONE",		FLAG_COLOR_PINK);
+	
+	ParamFlagColor flagRuinsOrionColor 	= new ParamFlagColor("AUTO_FLAG_VESTIGES_ORION",FLAG_COLOR_BLUE);
+	ParamFlagColor flagRuinsAntaranColor= new ParamFlagColor("AUTO_FLAG_VESTIGES_ANTARAN", FLAG_COLOR_LTBLUE);
+	ParamFlagColor flagRuinsNoneColor 	= new ParamFlagColor("AUTO_FLAG_VESTIGES_NONE",	FLAG_COLOR_NONE);
+	
 
 	ParamInteger flagColorCount = new ParamInteger(MOD_UI, "FLAG_COLOR_COUNT", 1, 1, 4);
 	default int	 selectedFlagColorCount() { return flagColorCount.get(); }
@@ -114,6 +115,10 @@ public interface IFlagOptions extends IBaseOptsTools {
 				flagTechToxicColor, flagTechRadiatedColor, flagTechNoneColor
 				)));
 		add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("AUTO_FLAG_VESTIGES"),
+				flagRuinsOrionColor, flagRuinsAntaranColor, flagRuinsNoneColor,
+
+				headerSpacer,
 				new ParamTitle("AUTO_FLAG_RESOURCES"),
 				flagOrionColor, flagAntaranColor,
 				flagUltraRichColor, flagRichColor, flagAssetNormalColor,

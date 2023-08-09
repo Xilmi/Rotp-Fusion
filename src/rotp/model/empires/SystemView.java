@@ -66,6 +66,7 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
     private static final String AUTO_FLAG_TYPE  = "SETTINGS_MOD_AUTO_FLAG_TYPE";
     private static final String AUTO_FLAG_ENV   = "SETTINGS_MOD_AUTO_FLAG_ENVIRONMENT";
     private static final String AUTO_FLAG_ASSET = "SETTINGS_MOD_AUTO_FLAG_RESOURCES";
+    private static final String AUTO_FLAG_RUINS = "SETTINGS_MOD_AUTO_FLAG_RUINS";
     private static final String AUTO_FLAG_TECH  = "SETTINGS_MOD_AUTO_FLAG_TECH";
     public  static final String AUTO_FLAG_CLEAR = "SETTINGS_MOD_AUTO_FLAG_CLEAR";
 
@@ -88,6 +89,7 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
 		List<String> flagAssignationList = Arrays.asList (
 	    		AUTO_FLAG_NOT,
 	    		AUTO_FLAG_TECH,
+	    		AUTO_FLAG_RUINS,
 	    		AUTO_FLAG_ASSET,
 	    		AUTO_FLAG_ENV,
 	    		AUTO_FLAG_TYPE,
@@ -258,14 +260,28 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
 //        }
 //        return null; 
 //    }
+    private void setVestigesFlagColor(Planet planet, int id) {
+    	int color = flagRuinsNoneColor.getIndex();
+    	if (planet.isAntaran())
+    		color = flagRuinsAntaranColor.getIndex();
+    	else if (planet.isOrionArtifact())
+    		color = flagRuinsOrionColor.getIndex();
+		setFlagColor(color, id);
+    }
     private void setResourceFlagColor(Planet planet, int id) {
     	int color = 0;
     	if (planet.isResourceNormal())
     		color = flagAssetNormalColor.getIndex();
-    	// Asteroid are considered resource Normal.
-    	if (planet.type().key() == NONE)
+    	if (planet.type().key() == NONE) // Asteroid won't be shown as Normal
     		color = flagNoneColor.getIndex();
-    	else if (planet.isResourceUltraPoor())
+
+    	// For backward compatibility.
+    	if (planet.isAntaran())
+    		color = flagAntaranColor.getIndex();
+    	else if (planet.isOrionArtifact())
+    		color = flagOrionColor.getIndex();
+
+    	if (planet.isResourceUltraPoor())
     		color = flagUltraPoorColor.getIndex();
     	else if (planet.isResourcePoor())
     		color = flagPoorColor.getIndex();
@@ -273,11 +289,6 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
     		color = flagRichColor.getIndex();
     	else if (planet.isResourceUltraRich())
     		color = flagUltraRichColor.getIndex();
-    	// Artifact planets are considered resource Normal.
-    	if (planet.isAntaran())
-    		color = flagAntaranColor.getIndex();
-    	else if (planet.isOrionArtifact())
-    		color = flagOrionColor.getIndex();
 		setFlagColor(color, id);
     }
     private void setEnvFlagColor(Planet planet, int id) {
@@ -534,6 +545,9 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
 	    		return;
 	    	case AUTO_FLAG_ASSET:
 	    		setResourceFlagColor(p, id);
+	    		return;
+	    	case AUTO_FLAG_RUINS:
+	    		setVestigesFlagColor(p, id);
 	    		return;
 	    	case AUTO_FLAG_TECH:
 	    		setTechFlagColor(p, id);

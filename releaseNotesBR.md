@@ -15,6 +15,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Random Event: When set off in game, immediately stop events advancement.
   - They will continue if set on later.
 - Added logarithmic scale for race status.
+- Security tax can now go up to 90%.
 
 <em>Minor Fixes</em>
 - Fixed AI scouts bugging with "Reduced range"-option.
@@ -31,7 +32,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Optimization:
   - Stars systems distances to empire are no more recomputed after each colony gain/loss, but once after all these events.
     - was very time cousuming on big galaxy.
-
+- Cuatom Races can now have Artefacts + rich or poor homeworld.
+  - Updated auto-flag for resoures and artefacts combo.
+  - Updated planet display for resoures and artefacts combo.
 
 <b><ins>Last announcement:</ins></b>
 

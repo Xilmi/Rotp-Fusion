@@ -24,6 +24,7 @@ import rotp.model.galaxy.StarSystem;
 import rotp.model.game.GameSession;
 import rotp.model.game.IGameOptions;
 import rotp.model.planet.Planet.PlanetBaseData;
+import rotp.ui.util.ParamAAN2;
 import rotp.util.Base;
 
 public class PlanetFactory implements Base {
@@ -84,6 +85,9 @@ public class PlanetFactory implements Base {
         p.baseSize(120*bonus);
         return p;
     }
+    private static boolean combo(ParamAAN2 aan2, boolean b, boolean isPlayer) {
+    	return aan2.isAlways(isPlayer) || (!aan2.isNever(isPlayer) && b);
+    }
     public static Planet createHomeworld(Race r, Race dr, StarSystem sys,
     		float bonus, boolean isPlayer) { // BR: added player info and dataRace
     	IGameOptions opts = GameSession.instance().options();
@@ -97,34 +101,26 @@ public class PlanetFactory implements Base {
 			p.setResourceUltraPoor();
 		if (dr.raceWithPoorHomeworld())
 			p.setResourcePoor();
-		if (opts.selectedRichHomeworld().isAlways(isPlayer)
-				|| (!opts.selectedRichHomeworld().isNever(isPlayer)
-						&& dr.raceWithRichHomeworld()))
+		if (combo(opts.selectedRichHomeworld(),
+				dr.raceWithRichHomeworld(), isPlayer))
 			p.setResourceRich();
-		if (opts.selectedUltraRichHomeworld().isAlways(isPlayer)
-				|| (!opts.selectedUltraRichHomeworld().isNever(isPlayer)
-						&& dr.raceWithUltraRichHomeworld()))
+		if (combo(opts.selectedUltraRichHomeworld(),
+				dr.raceWithUltraRichHomeworld(), isPlayer))
 			p.setResourceUltraRich();
-		if (opts.selectedArtifactsHomeworld().isAlways(isPlayer)
-				|| (!opts.selectedArtifactsHomeworld().isNever(isPlayer)
-						&& dr.raceWithArtifactsHomeworld())) {
+		if (combo(opts.selectedArtifactsHomeworld(),
+				dr.raceWithArtifactsHomeworld(), isPlayer))
 			p.setArtifactRace();
-		}
-		if (opts.selectedOrionLikeHomeworld().isAlways(isPlayer)
-				|| (!opts.selectedOrionLikeHomeworld().isNever(isPlayer)
-						&& dr.raceWithOrionLikeHomeworld())) {
-			p.setArtifactRace();
-		}
+		if (combo(opts.selectedOrionLikeHomeworld(),
+				dr.raceWithOrionLikeHomeworld(), isPlayer))
+			p.setOrionRace();
 		if (dr.raceWithHostileHomeworld())
 			p.makeEnvironmentHostile();
-		if (opts.selectedFertileHomeworld().isAlways(isPlayer)
-				|| (!opts.selectedFertileHomeworld().isNever(isPlayer)
-						&& dr.raceWithFertileHomeworld())) {
+		if (combo(opts.selectedFertileHomeworld(),
+				dr.raceWithFertileHomeworld(), isPlayer))
 			p.enrichSoil();
-		}
 		if (dr.raceWithGaiaHomeworld()) {
 			p.enrichSoil();
-                        p.enrichSoil();
+            p.enrichSoil();
 		}
 		
         return p;

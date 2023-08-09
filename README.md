@@ -37,9 +37,6 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 Bug to fix:
 
 Very soon:
-- Update flag for combo rich artefacts.
-- Update planet display for combo rich artefacts.
-- security tax: allow higher values.
 - Spare Xenophobes: Stop if caught too.
 - Smooth the Trade blocking option.
 - Investigate: William482 request: Age of your data on each race into the bar graphs on the status page.
@@ -61,6 +58,8 @@ Later:
   - Added to Custom Race.
 - Homeworlds artefact can be Orion Ruin like.
   - Added to Custom Race.
+- Updated auto-flag to resources and ruins combo.
+- Updated planet view to resources and ruins combo.
 
 2023.08.08 (BR)
 - Add new max security tax option.

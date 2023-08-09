@@ -393,11 +393,8 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
         g2.setFont(textF);
         String resourceStr = "";
         g2.setColor(blueText);
-        if (pl.sv.isArtifact(sys.id)) {
-            g2.setColor(orangeText);
-            resourceStr = text("PLANET_ARTIFACTS");
-        }
-        else if (pl.sv.isUltraPoor(sys.id))
+        // Case Resource alone
+        if (pl.sv.isUltraPoor(sys.id))
             resourceStr = text("PLANET_ULTRA_POOR");
         else if (pl.sv.isPoor(sys.id))
             resourceStr = text("PLANET_POOR");
@@ -405,7 +402,26 @@ public abstract class SystemPanel extends BasePanel implements SystemViewer, Map
             resourceStr = text("PLANET_ULTRA_RICH");
         else if (pl.sv.isRich(sys.id))
             resourceStr = text("PLANET_RICH");
+        
+        // Check Artifacts
+        if (pl.sv.isArtifact(sys.id)) {
+        	if (resourceStr.isEmpty()) { // Artifacts alone
+        		g2.setColor(orangeText);
+                if (pl.sv.isOrionArtifact(sys.id))
+                	resourceStr = text("PLANET_VESTIGES");
+                else
+                	resourceStr = text("PLANET_ARTIFACTS");
+        	}
+        	else { // Case Resource + Artifacts
+        		if (pl.sv.isOrionArtifact(sys.id))
+                	resourceStr = text("PLANET_VESTIGES") + " + " + resourceStr;
+        		else
+        			resourceStr = text("PLANET_ARTIFACTS") + " + " + resourceStr;
+        	}
+            
+        }
 
+        
         if (!resourceStr.isEmpty()) {
             int sw = g2.getFontMetrics().stringWidth(resourceStr);
             int x0 = w-rightMargin-sw;
