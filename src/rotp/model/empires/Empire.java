@@ -3510,8 +3510,8 @@ public final class Empire implements Base, NamedObject, Serializable {
     public float hPFactor()                    { return dataRace().hPFactor();  }
     public float maintenanceFactor()           { return dataRace().maintenanceFactor(); }
     public float shipSpaceFactor()             { return dataRace().shipSpaceFactor(); }
-    public String planetRessource()            { return dataRace().planetRessource(); }
-    public String planetEnvironment()          { return dataRace().planetEnvironment(); }
+    // public String planetRessource()            { return dataRace().planetRessource(); }
+    // public String planetEnvironment()          { return dataRace().planetEnvironment(); }
     // \BR:
     public String preferredShipSet() { // BR: Add Ship Set for custom races
     	String ShipSet = dataRace().preferredShipSet;

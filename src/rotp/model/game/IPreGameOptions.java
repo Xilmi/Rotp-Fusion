@@ -21,6 +21,8 @@ public interface IPreGameOptions extends IAdvOptions {
 
 	// ========================================================================
 	// Factory options
+	ParamAAN2 orionLikeHomeworld		= new ParamAAN2("HOME_ORION");
+	default ParamAAN2 selectedOrionLikeHomeworld()	{ return orionLikeHomeworld; }
 	ParamAAN2 artifactsHomeworld		= new ParamAAN2("HOME_ARTIFACT");
 	default ParamAAN2 selectedArtifactsHomeworld()	{ return artifactsHomeworld; }
 	ParamAAN2 fertileHomeworld			= new ParamAAN2("HOME_FERTILE");
@@ -135,11 +137,11 @@ public interface IPreGameOptions extends IAdvOptions {
 			Arrays.asList(
 			artifactsHomeworld, fertileHomeworld, richHomeworld, ultraRichHomeworld,
 			null,
+			orionLikeHomeworld, companionWorlds, battleScout, ironmanMode,
+			null,
 			techIrradiated, techCloaking, techStargate, techHyperspace,
 			null,
-			techIndustry2, techThorium, techTransport, randomTechStart, 
-			null,
-			companionWorlds, battleScout, ironmanMode
+			techIndustry2, techThorium, techTransport, randomTechStart
 			));
 	LinkedList<IParam> modOptionsStaticB  = new LinkedList<>(
 			Arrays.asList(
@@ -167,7 +169,8 @@ public interface IPreGameOptions extends IAdvOptions {
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("START_EMPIRE_OPTIONS"),
-				artifactsHomeworld, fertileHomeworld, richHomeworld, ultraRichHomeworld,
+				orionLikeHomeworld, artifactsHomeworld, fertileHomeworld,
+				richHomeworld, ultraRichHomeworld,
 				companionWorlds, battleScout, randomTechStart, randomizeAI,
 
 				headerSpacer,

@@ -102,14 +102,14 @@ public class DynOptions implements DynamicOptions, Serializable {
 	public void save(String path, String fileName) {
 		saveOptions(this, path, fileName);
 	}
-	public void load(String path, String fileName) {
-		DynOptions opts	= loadOptions(path, fileName);
-		booleanList	= opts.booleanList;
-		floatList	= opts.floatList;
-		integerList	= opts.integerList;
-	    objectList	= opts.objectList;
-	    stringList	= opts.stringList;
-	}
+//	public void load(String path, String fileName) {
+//		DynOptions opts	= loadOptions(path, fileName);
+//		booleanList	= opts.booleanList;
+//		floatList	= opts.floatList;
+//		integerList	= opts.integerList;
+//	    objectList	= opts.objectList;
+//	    stringList	= opts.stringList;
+//	}
 	public DynOptions copy() {
 		return (DynOptions) ObjectCloner.deepCopy(this);
 	}

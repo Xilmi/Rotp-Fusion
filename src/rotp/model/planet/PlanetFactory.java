@@ -110,6 +110,11 @@ public class PlanetFactory implements Base {
 						&& dr.raceWithArtifactsHomeworld())) {
 			p.setArtifactRace();
 		}
+		if (opts.selectedOrionLikeHomeworld().isAlways(isPlayer)
+				|| (!opts.selectedOrionLikeHomeworld().isNever(isPlayer)
+						&& dr.raceWithOrionLikeHomeworld())) {
+			p.setArtifactRace();
+		}
 		if (dr.raceWithHostileHomeworld())
 			p.makeEnvironmentHostile();
 		if (opts.selectedFertileHomeworld().isAlways(isPlayer)

@@ -17,7 +17,6 @@
 package rotp.model.empires;
 
 import static rotp.model.empires.Race.crEmpireNameRandom;
-import static rotp.model.game.DynOptions.loadOptions;
 import static rotp.model.game.IGameOptions.defaultRace;
 import static rotp.model.game.IGameOptions.randomAlienRaces;
 import static rotp.model.game.IGameOptions.randomAlienRacesMax;
@@ -108,6 +107,24 @@ public class CustomRaceDefinitions  {
 	private CustomRaceDefinitions(String fileName) {
 		this(loadOptions(Rotp.jarPath(), fileName + EXT));
 	}
+
+	private static void backwardComp(DynOptions opts) {
+		System.out.println("HOME_RESOURCES: " + opts.getString(ROOT + "HOME_RESOURCES"));
+		if (opts.getString(ROOT + "HOME_RESOURCES").equalsIgnoreCase("Artifacts")) {
+			opts.setString(ROOT + "HOME_RESOURCES", "Normal");
+			opts.setString(ROOT + "HOME_ARTIFACTS", "Artifacts");
+		}
+	}
+	private static DynOptions loadOptions(String path, String fileName) {
+		DynOptions opts = DynOptions.loadOptions(path, fileName);
+    	return opts;
+    }
+	private static DynOptions loadOptions(File saveFile) {
+    	DynOptions opts =  DynOptions.loadOptions(saveFile);
+		backwardComp(opts);
+    	return opts;
+    }
+
 	// -------------------- Static Methods --------------------
 	// 
 	public static boolean raceFileExist(String fileName) {
@@ -216,6 +233,7 @@ public class CustomRaceDefinitions  {
 	 */
 	private void loadSettingList(String path, String fileName) {
 		setSettingTools(loadOptions(path, fileName));
+		
 	}
 	private String fileName() { return race.id + EXT; }
 	public void saveRace() { saveSettingList(Rotp.jarPath(), fileName()); }
@@ -462,6 +480,7 @@ public class CustomRaceDefinitions  {
 		settingList.add(techResearch.propulsion);
 		settingList.add(techResearch.weapon);
 		spacer();
+		settingList.add(new PlanetArtifacts()); // Backward compatibility: stay above PlanetRessources()
 		settingList.add(new PlanetRessources());
 		settingList.add(new PlanetEnvironment());
 		spacer();
@@ -1205,6 +1224,29 @@ public class CustomRaceDefinitions  {
 		}
 		@Override public void pullSetting() {
 			set(race.planetRessource());
+		}
+	}
+	// ==================== PlanetArtifacts ====================
+	//
+	private class PlanetArtifacts extends SettingBase<String> {
+		private static final String defaultValue = "None";
+		
+		public PlanetArtifacts() {
+			super(ROOT, "HOME_ARTIFACTS");
+			isBullet(true);
+			labelsAreFinals(true);
+			showFullGuide(true);
+			put("None",			ROOT + "ARTIFACTS_NONE",	  0f, "None");
+			put("Artifacts",	PLANET + "ARTIFACTS",		 40f, "Artifacts");
+			put("OrionLike",	ROOT   + "ARTIFACTS_ORION",  80f, "OrionLike");
+			defaultCfgValue(defaultValue);
+			initOptionsText();
+		}
+		@Override public void pushSetting() {
+			race.planetArtifacts(settingValue());
+		}
+		@Override public void pullSetting() {
+			set(race.planetArtifacts());
 		}
 	}
 	// ==================== PlanetEnvironment ====================

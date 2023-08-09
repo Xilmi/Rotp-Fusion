@@ -171,6 +171,7 @@ public class Race implements Base, Serializable {
     private float hPFactor = 1f;
     private float maintenanceFactor = 1f;
     private float shipSpaceFactor = 1f;
+    private String planetArtifacts = "None";
     private String planetRessource = "Normal";
     private String planetEnvironment = "Normal";
     // Custom Races:
@@ -417,8 +418,34 @@ public class Race implements Base, Serializable {
     public void  maintenanceFactor(float val) { maintenanceFactor = val; }
     public float shipSpaceFactor()            { return shipSpaceFactor; }
     public void  shipSpaceFactor(float val)   { shipSpaceFactor = val; }
-    public String planetRessource()           { return planetRessource; }
-    public void   planetRessource(String s)   { planetRessource = s; }
+    public String planetArtifacts()           {
+    	if (planetRessource.equalsIgnoreCase("Artifact")) { // for backward compatibility
+    		planetRessource = "Normal";
+    		planetArtifacts = "Artifact";
+    	}
+    	return planetArtifacts;
+    }
+    public void   planetArtifacts(String s)   {
+    	planetArtifacts = s;
+    	if (planetRessource.equalsIgnoreCase("Artifact")) { // for backward compatibility
+    		planetRessource = "Normal";
+    		planetArtifacts = "Artifact";
+    	}
+    }
+    public String planetRessource()           {
+    	if (planetRessource.equalsIgnoreCase("Artifact")) { // for backward compatibility
+    		planetRessource = "Normal";
+    		planetArtifacts = "Artifact";
+    	}
+    	return planetRessource;
+    }
+    public void   planetRessource(String s)   {
+   		planetRessource = s;
+    	if (s.equalsIgnoreCase("Artifact")) { // for backward compatibility
+    		planetArtifacts = s;
+    		planetRessource = "Normal";
+    	}
+    }
     public String planetEnvironment()         { return planetEnvironment; }
     public void   planetEnvironment(String s) { planetEnvironment = s; }
 
@@ -434,8 +461,13 @@ public class Race implements Base, Serializable {
     public boolean raceWithUltraRichHomeworld() {
         return planetRessource.equalsIgnoreCase("UltraRich");
     }
+    public boolean raceWithOrionLikeHomeworld() {
+        return planetArtifacts.equalsIgnoreCase("OrionLike");
+    }
     public boolean raceWithArtifactsHomeworld() {
-        return planetRessource.equalsIgnoreCase("Artifacts");
+//        return planetRessource.equalsIgnoreCase("Artifacts"); // TODO BR: raceWithArtifactsHomeworld()
+        return planetArtifacts.equalsIgnoreCase("Artifacts")
+        		|| planetRessource.equalsIgnoreCase("Artifacts"); // for backward compatibility
     }
     public boolean raceWithHostileHomeworld() {
         return planetEnvironment.equalsIgnoreCase("Hostile");

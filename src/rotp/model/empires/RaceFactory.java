@@ -435,7 +435,8 @@ public enum RaceFactory implements Base {
     		r.planetRessource("Rich");
     		return;
     	case 1337:
-    		r.planetRessource("Artifacts");
+//    		r.planetRessource("Artifacts");  // TODO BR: r.planetRessource("Artifacts")
+    		r.planetArtifacts("Artifacts");
     		r.planetEnvironment("Fertile");
     		return;
     	case 8888:

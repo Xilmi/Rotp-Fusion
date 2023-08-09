@@ -1658,7 +1658,9 @@ CUSTOM_RACE_BASE_DATARACE         | Base Abilities
 CUSTOM_RACE_HOME_TYPE             | Planet Type
 CUSTOM_RACE_HOME_SIZE_DESC        | Starting Size of this Race Home world.
 CUSTOM_RACE_HOME_SIZE             | Planet Size
-CUSTOM_RACE_HOME_RESOURCES_DESC   | This selection will affect either the research or the production of the home world.
+CUSTOM_RACE_HOME_ARTIFACTS_DESC   | This selection will affect the research of the home world.
+CUSTOM_RACE_HOME_ARTIFACTS        | Planet Artefacts
+CUSTOM_RACE_HOME_RESOURCES_DESC   | This selection will affect the production of the home world.
 CUSTOM_RACE_HOME_RESOURCES        | Planet Resources
 CUSTOM_RACE_HOME_ENVIRONMENT_DESC | This selection will affect the growth rate of the home world.
 CUSTOM_RACE_HOME_ENVIRONMENT      | Planet Environment
@@ -1775,6 +1777,8 @@ CUSTOM_RACE_AVAILABLE_AI          | Available to AI
 CUSTOM_RACE_AVAILABLE_AI_DESC     | Should this file be available to Alien?
 CUSTOM_RACE_RESOURCES_NORMAL      | Normal
 CUSTOM_RACE_ENVIRONMENT_NORMAL    | Normal
+CUSTOM_RACE_ARTIFACTS_NONE        | None
+CUSTOM_RACE_ARTIFACTS_ORION       | Orion Ruin
 
 CUSTOM_RACE_FAVORED_SHIPSET       | ShipSet
 CUSTOM_RACE_FAVORED_SHIPSET_DESC  | What is the preferred shipset used by this race? (If still available)
@@ -1938,6 +1942,7 @@ SETTINGS_MOD_RETREAT_AI_HELP         | AI can't retreat that easily, but Player 
 SETTINGS_MOD_RETREAT_PLAYER_HELP     | Player can't retreat that easily, but AI is allowed to do so!
 SETTINGS_MOD_RETREAT_BOTH_HELP       | Nobody can retreat that easily!
 SETTINGS_MOD_RETREAT_RESTRICTION_TURNS | Retreat restricted turns: %1
+SETTINGS_MOD_HOME_ORION              | Orion Ruin HomeWorld: %1
 SETTINGS_MOD_HOME_ARTIFACT           | Get Artifact HomeWorld: %1
 SETTINGS_MOD_HOME_FERTILE            | Get Fertile HomeWorld: %1
 SETTINGS_MOD_HOME_RICH               | Get Rich HomeWorld: %1
@@ -1962,6 +1967,7 @@ SETTINGS_MOD_MISSILE_BASE_MODIFIER_DESC | Sets cost of missile-bases from 10% to
 SETTINGS_MOD_MISSILE_SHIP_MODIFIER_DESC | Sets size, cost and power-consuption of missiles from 10% to 200%. (Hold down Shift/Ctrl, then scroll the mouse wheel to change in units of 5%/20%.)
 SETTINGS_MOD_RETREAT_RESTRICTIONS_DESC | Sets for whom retreating shall be restricted. (scroll the mouse wheel to change)
 SETTINGS_MOD_RETREAT_RESTRICTION_TURNS_DESC | Sets for how many turns someone who's retreating is restricted must remain in combat. (Hold down Shift/Ctrl, then scroll the mouse wheel to change in units of 5/20.)
+SETTINGS_MOD_HOME_ORION_DESC         | {Always, Never, Auto} Gives Player/AI Orion Ruin HomeWorld
 SETTINGS_MOD_HOME_ARTIFACT_DESC      | {Always, Never, Auto} Gives Player/AI Artifact HomeWorld
 SETTINGS_MOD_HOME_FERTILE_DESC       | {Always, Never, Auto} Gives Player/AI Fertile HomeWorld
 SETTINGS_MOD_HOME_RICH_DESC          | {Always, Never, Auto} Gives Player/AI Rich HomeWorld
