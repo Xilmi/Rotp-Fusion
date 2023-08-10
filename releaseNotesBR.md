@@ -8,8 +8,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <em>Minor changes</em>
 - Added category " ~~~ NEW OPTIONS (BETA) ~~~"
-- Forbidden tech can not be stolen anymore.
-- New option to disable tech stealing.
+- Forbidden tech can not be stolen anymore, nor plundered.
+- New option to disable tech stealing (and plundering).
   - If disabled, half of the infiltration bonus will be given to Research bonus.
   - Infiltration penalty won't impact Research bonus.
 - Random Event: When set off in game, immediately stop events advancement.

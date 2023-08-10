@@ -54,8 +54,10 @@ Later:
 ## What's New
 
 2023.08.10 (BR)
-- Moved some debug log tools to Base
+- Moved some debug log tools to Base.
 - Cleaned TODO list
+- No forbidden Tech plundering.
+- No Tech stealing = no Tech plundering.
 
 2023.08.09 (BR)
 - Homeworlds can be rich and have artefacts

@@ -110,6 +110,15 @@ public interface IPreGameOptions extends IAdvOptions {
 		}
 		return list;
 	}
+	default boolean isForbiddenTech(String id, boolean isPlayer)	{
+		boolean forbidden = false;
+		for (ParamTech  tech : techModList) {
+			if (tech.isNever(isPlayer) && tech.techId().equalsIgnoreCase(id)) {
+				return true;
+			}
+		}
+		return forbidden;
+	}
 
 	ParamInteger randomAlienRacesMin		 = new ParamInteger(MOD_UI, "RACES_RAND_MIN", -50, -100, 100, 1, 5, 20);
 	ParamInteger randomAlienRacesMax		 = new ParamInteger(MOD_UI, "RACES_RAND_MAX", 50, -100, 100, 1, 5, 20);

@@ -21,6 +21,7 @@ import java.util.List;
 import rotp.model.colony.MissileBase;
 import rotp.model.empires.Empire;
 import rotp.model.game.GameSession;
+import rotp.model.game.IGameOptions;
 import rotp.model.planet.PlanetType;
 import rotp.ui.notifications.TradeTechNotification;
 import rotp.util.Base;
@@ -676,8 +677,15 @@ public final class TechTree implements Base, Serializable {
     }
     public List<Tech> techsUnknownTo(Empire empire) {
         List<Tech> result = new ArrayList<>();
+        IGameOptions opts = options();
+    	if (opts.forbidTechStealing()) // No tech stealing = no tech plundering
+    		return result;
+
+        List<String> forbiddenTech = opts.forbiddenTechList(empire.isPlayer());
         for (TechCategory cat: category) {
-            for (String id: cat.knownTechs()) {
+        	List<String> catTech = new ArrayList<>(cat.knownTechs());
+        	catTech.removeAll(forbiddenTech);
+            for (String id: catTech) {
                 Tech t = tech(id);
                 // if empire doesn't know tech and hasn't trade for it
                 if (!empire.tech().knows(t)
