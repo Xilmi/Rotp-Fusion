@@ -53,6 +53,10 @@ Later:
 
 ## What's New
 
+2023.08.10 (BR)
+- Moved some debug log tools to Base
+- Cleaned TODO list
+
 2023.08.09 (BR)
 - Homeworlds can be rich and have artefacts
   - Added to Custom Race.

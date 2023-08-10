@@ -15,6 +15,7 @@
  */
 package rotp.model.empires;
 
+import static rotp.model.game.IDebugOptions.AUTORUN_OTHERFILE;
 import static rotp.model.tech.Tech.miniFastRate;
 import static rotp.ui.util.PlayerShipSet.DISPLAY_RACE_SET;
 
@@ -749,22 +750,22 @@ public final class Empire implements Base, NamedObject, Serializable {
         if (!colonizedSystems.contains(s)) {
             colonizedSystems.add(s);
             setRecalcDistances();
-//            refreshViews(); // TODO BR: Optimization Trial
+//            refreshViews(); // BR: Optimization
             for (Empire ally: allies())
             {
                 ally.setRecalcDistances();       
-//                 ally.refreshViews(); // TODO BR: Optimization Trial
+//                 ally.refreshViews(); // BR: Optimization
             }
         }
     }
     public void removeColonizedSystem(StarSystem s) {
         colonizedSystems.remove(s);
         setRecalcDistances();
-//        refreshViews(); // TODO BR: Optimization Trial
+//        refreshViews(); // BR: Optimization
         for (Empire ally: allies())
         {
             ally.setRecalcDistances();
-//            ally.refreshViews(); // TODO BR: Optimization Trial
+//            ally.refreshViews(); // BR: Optimization
         }
         
         if (colonizedSystems.isEmpty())
@@ -1095,7 +1096,13 @@ public final class Empire implements Base, NamedObject, Serializable {
             //ail: calling this before fleetCommanderAI avoids a possible case where a fleet is slower than it could be due to scrapping ships after the fleet was launched
             NoticeMessage.setSubstatus(text("TURN_DESIGN_SHIPS"));
             shipDesignerAI().nextTurn();
+            long startMs = timeMs(); // BR: fleetCommanderAI timing
             fleetCommanderAI().nextTurn();
+            long spentMs = timeMs() - startMs;
+            if (options().debugAutoRun()) {
+            	String s = "fleetCommanderAI (id=" + id + ") duration = " + msToHMS(spentMs);
+            	turnLog(AUTORUN_OTHERFILE, s);
+            }
             ai().sendTransports();
         }
 
@@ -2215,7 +2222,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         StarSystem home = galaxy().system(homeSysId);
         governorAI().setInitialAllocations(home.colony());
     }
-    public void refreshViews(boolean afterColony) { // TODO BR: optimize recalcDistances
+    public void refreshViews(boolean afterColony) { // BR: optimize recalcDistances
         // BR: Removed refreshViews from addColonizedSystem and removeColonizedSystem
         // the recalcDistances takes time and don't need to be called at each events
         // Grouped call later on with afterColony=true

@@ -1478,5 +1478,16 @@ public interface Base {
     public default String getTurn(String subTurn) {
     	return concat(getTurn(), subTurn);
     }
-    
+    public default String msToHMS(long ms) {
+    	long s = ms/1000;
+    	long m = s/60;
+    	long h = m/60;
+    	ms -= s*1000;
+    	s -= m*60;
+    	m -= h*60;
+    	return String.format("%02d:%02d:%02d.%03d", h, m, s, ms);
+    }
+    public default void turnLog(String fileName, String s) {
+    	writeToFile(fileName, getTurn(" | ")+s, true, true);
+    }
 }

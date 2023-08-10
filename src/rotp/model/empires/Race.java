@@ -465,7 +465,6 @@ public class Race implements Base, Serializable {
         return planetArtifacts.equalsIgnoreCase("OrionLike");
     }
     public boolean raceWithArtifactsHomeworld() {
-//        return planetRessource.equalsIgnoreCase("Artifacts"); // TODO BR: raceWithArtifactsHomeworld()
         return planetArtifacts.equalsIgnoreCase("Artifacts")
         		|| planetRessource.equalsIgnoreCase("Artifacts"); // for backward compatibility
     }

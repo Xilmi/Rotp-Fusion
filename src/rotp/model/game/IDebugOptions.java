@@ -15,6 +15,7 @@ public interface IDebugOptions extends IBaseOptsTools {
     String MEMORY_LOGFILE	= "AutoRunMemory.txt";
     String AUTORUN_LOGFILE	= "AutoRunPlayer.txt";
     String NOTIF_LOGFILE	= "AutoRunNotifications.txt";
+    String AUTORUN_OTHERFILE= "AutoRunOther.txt";
 
 
 	ParamBoolean debugShowMemory	= new ParamBoolean(GAME_UI, "MEMORY", false) {

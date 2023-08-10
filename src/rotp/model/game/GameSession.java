@@ -355,16 +355,7 @@ public final class GameSession implements Base, Serializable {
     }
     public boolean inProgress()  { return status().inProgress(); }
 
-    private String msToHMS(long ms) {
-    	long s = ms/1000;
-    	long m = s/60;
-    	long h = m/60;
-    	ms -= s*1000;
-    	s -= m*60;
-    	m -= h*60;
-    	return String.format("%02d:%02d:%02d.%03d", h, m, s, ms);
-    }
-    private void debugMonitor(long fileSize, long dt) { // TODO BR:
+    private void debugMonitor(long fileSize, long dt) {
     	boolean append = galaxy().currentTurn() > 1;
     	String turn;
     	String duration;
