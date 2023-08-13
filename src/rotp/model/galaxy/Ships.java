@@ -807,14 +807,14 @@ public class Ships implements Base, Serializable {
         }
         return hullCount;        
     }
-    public void warpDisturbances() {
-        for (ShipFleet fl: allFleets) {
-        	fl.reset();
-        }
-        allFleets.clear();
-        Galaxy g = galaxy();
-        for (Empire emp: g.empires())
-            emp.visibleShips().clear();
-
-    }
+//    public void spaceTimeShearing() {
+//        for (ShipFleet fl: allFleets) {
+//        	fl.reset();
+//        }
+//        allFleets.clear();
+//        Galaxy g = galaxy();
+//        for (Empire emp: g.empires())
+//            emp.visibleShips().clear();
+//
+//    }
 }

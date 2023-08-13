@@ -55,6 +55,7 @@ Later:
 
 2023.08.13 (BR)
 - Added 2 new very slow research rate (renamed the former "Slowest")
+- Commented "warpDisturbances" not ready for GNN background.
 
 2023.08.10 (BR)
 - Moved some debug log tools to Base.

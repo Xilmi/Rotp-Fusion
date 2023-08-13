@@ -480,11 +480,7 @@ public final class GameSession implements Base, Serializable {
                 	GNNRankingNoticeCheck.nextTurn();
                     GNNExpansionEvent.nextTurn();
                 }
-                if (options.warpDisturbancesTriggered()) {
-                	gal.warpDisturbances();
-                	options.resetWarpDisturbances();
-                	
-                }
+
                 gal.nextEmpireTurns();
                 player().setVisibleShips();
 

@@ -212,7 +212,6 @@ EVENT_RELIC_GAUNTLET_NO_CONTACT   | Half of all galactic life have been wiped ou
 // modnar: add Boost Planet baseSize random event
 EVENT_SIZEBOOST                   | Archeologists exploring the [target_race] world in the [system] system have revealed massive subterranean caverns. These geologically stable chambers are habitable and have substantially boosted the planet's size.
 
-
 SYSEVENT_HOMEWORLD                | Homeworld for the [alien_race].
 SYSEVENT_SCOUTED                  | First scouted by the [alien_race].
 SYSEVENT_COLONIZED                | Colonized by the [alien_race].

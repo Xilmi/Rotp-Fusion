@@ -470,10 +470,10 @@ public class Galaxy implements Base, Serializable {
                 transports.remove(tr);
         }
     }
-    public void warpDisturbances() { // TODO BR: clearFleets()
-    	ships.warpDisturbances();
-    	transports.clear();
-    }
+//    public void spaceTimeShearing() {
+//    	ships.spaceTimeShearing();
+//    	transports.clear();
+//    }
     public void nextEmpireTurns() {
         for (Empire e: empires) {
             if (!e.extinct())

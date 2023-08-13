@@ -15,7 +15,7 @@
  */
 package rotp.model.empires;
 
-import static rotp.model.game.IDebugOptions.AUTORUN_OTHERFILE;
+//import static rotp.model.game.IDebugOptions.AUTORUN_OTHERFILE;
 import static rotp.model.tech.Tech.miniFastRate;
 import static rotp.ui.util.PlayerShipSet.DISPLAY_RACE_SET;
 
@@ -1096,17 +1096,13 @@ public final class Empire implements Base, NamedObject, Serializable {
             //ail: calling this before fleetCommanderAI avoids a possible case where a fleet is slower than it could be due to scrapping ships after the fleet was launched
             NoticeMessage.setSubstatus(text("TURN_DESIGN_SHIPS"));
             shipDesignerAI().nextTurn();
-            long startMs = timeMs(); // BR: fleetCommanderAI timing
+//            long startMs = timeMs(); // BR: fleetCommanderAI timing
             fleetCommanderAI().nextTurn();
-            long spentMs = timeMs() - startMs;
-            if (options().planTimeCheck(spentMs))
-            	System.out.println("Warp Disturbances Triggered");
-            if (options().debugAutoRun()) {
-            	String s = "fleetCommanderAI (id=" + id + ") duration = " + msToHMS(spentMs);
-            	turnLog(AUTORUN_OTHERFILE, s);
-            	if (options().warpDisturbancesTriggered())
-            		turnLog(AUTORUN_OTHERFILE, "Warp Disturbances Triggered");
-            }
+//            long spentMs = timeMs() - startMs;
+//            if (options().debugAutoRun()) {
+//            	String s = "fleetCommanderAI (id=" + id + ") duration = " + msToHMS(spentMs);
+//            	turnLog(AUTORUN_OTHERFILE, s);
+//            }
             ai().sendTransports();
         }
 

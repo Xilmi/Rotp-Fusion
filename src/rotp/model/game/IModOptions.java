@@ -148,11 +148,10 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 				new ParamTitle("GAME_COMBAT"),
 				retreatRestrictions, retreatRestrictionTurns, missileBaseModifier, missileShipModifier,
 				targetBombard, bombingTarget, autoBombard_, autoColonize_,
-				scrapRefundFactor, scrapRefundOption,
+				scrapRefundFactor, scrapRefundOption
 				
-				headerSpacer,
-				new ParamTitle("BETA_TEST"),
-				warpDisturbances, maxPlanTime
+//				headerSpacer,
+//				new ParamTitle("BETA_TEST"),
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("RANDOM_EVENTS_OPT"),
