@@ -136,12 +136,13 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 				headerSpacer,
 				new ParamTitle("GAME_OTHER"),
 				showAlliancesGNN, showLimitedWarnings,
-				techExchangeAutoRefuse, autoTerraformEnding, autoplay
+				techExchangeAutoRefuse, autoTerraformEnding, trackUFOsAcrossTurns,
+				autoplay
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("GAME_RELATIONS"),
-				councilWin, counciRequiredPct,
-				techTrading, aiHostility,
+				councilWin, counciRequiredPct, aiHostility,
+				techTrading, allowTechStealing, maxSecurityPct,
 
 				headerSpacer,
 				new ParamTitle("GAME_COMBAT"),
@@ -151,11 +152,11 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 				
 				headerSpacer,
 				new ParamTitle("BETA_TEST"),
-				trackUFOsAcrossTurns, allowTechStealing, maxSecurityPct, fixedEventsMode
+				warpDisturbances, maxPlanTime
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("RANDOM_EVENTS_OPT"),
-				randomEvents, eventsStartTurn,
+				randomEvents, fixedEventsMode, eventsStartTurn,
 				piratesDelayTurn, piratesReturnTurn, piratesMaxSystems,
 				amoebaDelayTurn, amoebaReturnTurn, amoebaMaxSystems,
 				crystalDelayTurn, crystalReturnTurn, crystalMaxSystems,

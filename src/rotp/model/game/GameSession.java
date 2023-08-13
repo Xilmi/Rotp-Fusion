@@ -476,9 +476,14 @@ public final class GameSession implements Base, Serializable {
                 RotPUI.instance().selectMainPanel();
 
                 gal.council().nextTurn();
-                if (!options().debugAutoRun()) {
+                if (!options.debugAutoRun()) {
                 	GNNRankingNoticeCheck.nextTurn();
                     GNNExpansionEvent.nextTurn();
+                }
+                if (options.warpDisturbancesTriggered()) {
+                	gal.warpDisturbances();
+                	options.resetWarpDisturbances();
+                	
                 }
                 gal.nextEmpireTurns();
                 player().setVisibleShips();
@@ -549,7 +554,7 @@ public final class GameSession implements Base, Serializable {
                 notifications().clear();
                 // ensure Next Turn takes at least a minimum time
                 long spentMs = timeMs() - startMs;
-                if (spentMs < MINIMUM_NEXT_TURN_TIME && !options().debugAutoRun()) {
+                if (spentMs < MINIMUM_NEXT_TURN_TIME && !options.debugAutoRun()) {
                     try { Thread.sleep(MINIMUM_NEXT_TURN_TIME - spentMs);
                     } catch (InterruptedException e) { }
                 }

@@ -16,6 +16,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - They will continue if set on later.
 - Added logarithmic scale for race status.
 - Security tax can now go up to 90%.
+- Added 2 new very slow research rates (renamed the former "Slowest")
+  - Useful with Massives and Insane sized galaxies, to avoid terminating all research.
 
 <em>Minor Fixes</em>
 - Fixed AI scouts bugging with "Reduced range"-option.

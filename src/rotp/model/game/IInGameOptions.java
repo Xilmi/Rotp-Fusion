@@ -178,6 +178,33 @@ public interface IInGameOptions extends IConvenienceOptions {
 	ParamInteger maxSecurityPct		= new ParamInteger(MOD_UI, "MAX_SECURITY_PCT", 10, 10, 90, 1, 5, 20);
 	default int selectedMaxSecurityPct()		{ return maxSecurityPct.get(); }
 
+	ParamInteger maxPlanTime		= new ParamInteger(MOD_UI, "MAX_PLAN_TIME", 20, 0, 1440, 1, 5, 20);
+	default long maxPlanTimeMS()				{
+		final long min2ms = 60000;
+		return min2ms * maxPlanTime.get();
+	}
+
+	ParamList warpDisturbances	= new ParamList( MOD_UI, "WARP_DISTURBANCES", "Off") {
+		{
+			showFullGuide(true);
+			put("Off",		MOD_UI + "WARP_DISTURBANCES_OFF");
+			put("On",		MOD_UI + "WARP_DISTURBANCES_ON");
+			put("Triggered",MOD_UI + "WARP_DISTURBANCES_TRIGGERED");
+		}
+	};
+	default boolean warpDisturbancesTriggered()	{ return warpDisturbances.get().equalsIgnoreCase("Triggered"); }
+	default boolean warpDisturbancesOff()		{ return warpDisturbances.get().equalsIgnoreCase("Off"); }
+	default void resetWarpDisturbances()	 	{ warpDisturbances.set("On"); }
+	default void triggerWarpDisturbances()	 	{ warpDisturbances.set("Triggered"); }
+	default boolean planTimeCheck (long msTime) {
+		if (warpDisturbancesOff())
+			return false;
+		if (msTime < maxPlanTimeMS())
+			return false;
+		triggerWarpDisturbances();
+		return true;
+	}
+
 	// ==================== GUI List Declarations ====================
 	LinkedList<IParam> modOptionsDynamicA = new LinkedList<>(
 			Arrays.asList(

@@ -15,17 +15,12 @@
  */
 package rotp.model.ai.xilmi;
 
-import java.util.Arrays;
 import java.util.List;
 import rotp.model.ai.interfaces.ShipDesigner;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
 import rotp.model.galaxy.ShipFleet;
-import rotp.model.galaxy.Ships;
 import rotp.model.galaxy.StarSystem;
-import static rotp.model.game.IGameOptions.RESEARCH_SLOW;
-import static rotp.model.game.IGameOptions.RESEARCH_SLOWER;
-import static rotp.model.game.IGameOptions.RESEARCH_SLOWEST;
 import rotp.model.planet.PlanetType;
 import rotp.model.ships.ShipDesign;
 import static rotp.model.ships.ShipDesign.maxSpecials;
@@ -944,13 +939,19 @@ public class AIShipDesigner implements Base, ShipDesigner {
         rangeTechLevelThreshold /= max(1.0f, session().researchMapSizeAdjustment());
         
         //System.out.print("\n"+empire.name()+" rangeTechLevelThreshold for galaxysize/empires: "+rangeTechLevelThreshold);
-        
-        if(session().options().selectedResearchRate().equals(RESEARCH_SLOW))
-            rangeTechLevelThreshold /= sqrt(9/3.0f);
-        else if(session().options().selectedResearchRate().equals(RESEARCH_SLOWER))
-            rangeTechLevelThreshold /= sqrt(9);
-        else if(session().options().selectedResearchRate().equals(RESEARCH_SLOWEST))
-            rangeTechLevelThreshold /= sqrt(9*5);
+        float oldSlowFactor = session().options().oldSlowFactor();
+        if (oldSlowFactor > 0f ) // BR: formula generalization
+        	 rangeTechLevelThreshold /= sqrt(9*oldSlowFactor);
+//        if(session().options().selectedResearchRate().equals(RESEARCH_SLOW))
+//            rangeTechLevelThreshold /= sqrt(9/3.0f);
+//        else if(session().options().selectedResearchRate().equals(RESEARCH_SLOWER))
+//            rangeTechLevelThreshold /= sqrt(9);
+//        else if(session().options().selectedResearchRate().equals(RESEARCH_CRAWLING)) // former slowest
+//            rangeTechLevelThreshold /= sqrt(9*5);
+//        else if(session().options().selectedResearchRate().equals(RESEARCH_IMPEDED))
+//            rangeTechLevelThreshold /= sqrt(9*25); // BR: based on equivalent old formula
+//        else if(session().options().selectedResearchRate().equals(RESEARCH_LETHARGIC))
+//            rangeTechLevelThreshold /= sqrt(9*125); // BR: based on equivalent old formula
         if(empire.uncolonizedPlanetsInRange(empire.shipRange()).isEmpty() 
             && empire.enemies().isEmpty()
             && !unexploredInRange

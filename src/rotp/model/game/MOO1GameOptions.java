@@ -545,6 +545,12 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             default:  return 1.0f;
         }
     }
+    private float fastResearch(int techLevel, float[] a) {
+    	return BASE_RESEARCH_MOD * (a[1]/(techLevel+a[2]) + a[3]);
+    }
+    private float slowResearch(int techLevel, float[] a) {
+    	return BASE_RESEARCH_MOD * ((a[1]*techLevel*sqrt(techLevel) + a[2]) / techLevel - a[3]);
+    }
     @Override
     public float researchCostBase(int techLevel) {
         // this is a flat research rate adjustment. The method that calls this to calculate
@@ -565,22 +571,31 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         // old_SLOWEST:  3.16  3.87  4.47  5.00  5.48  5.92  6.32  6.71  7.07  10.00  12.25  14.14  15.81  22.36
         // new_SLOWEST:  1.24  1.36  1.75  2.21  2.68  3.15  3.61  4.06  4.49   8.17  11.10  13.60  15.81  24.55
         
-        float amt = BASE_RESEARCH_MOD;                  // default adjustment
         switch(selectedResearchRate()) {
             // modnar: add fast research option
             case RESEARCH_FAST:
-                return amt*(1.0f/(techLevel+2.0f) + 0.5f);    // modnar: asymptotically approach 2x faster
+            	return fastResearch(techLevel, R_PARAM_FAST);
+                // return amt*(1.0f/(techLevel+2.0f) + 0.5f);    // modnar: asymptotically approach 2x faster
             case RESEARCH_SLOW:
-                return amt*((0.6f*techLevel*sqrt(techLevel)+1.0f)/techLevel - 0.2f); // modnar: asymptotically similar
+            	return slowResearch(techLevel, R_PARAM_SLOW);
+                //return amt*((0.6f*techLevel*sqrt(techLevel)+1.0f)/techLevel - 0.2f); // modnar: asymptotically similar
                 //return amt*sqrt(techLevel/3.0f); // approx. 4x slower for level 50
             case RESEARCH_SLOWER:
-                return amt*((1.2f*techLevel*sqrt(techLevel)+2.0f)/techLevel - 1.5f); // modnar: asymptotically similar
+            	return slowResearch(techLevel, R_PARAM_SLOWER);
+            	//return amt * slow(techLevel, 1.2f, 1.5f);
+                //return amt*((1.2f*techLevel*sqrt(techLevel)+2.0f)/techLevel - 1.5f); // modnar: asymptotically similar
                 //return amt*sqrt(techLevel);   // approx. 7x slower for level 50
-            case RESEARCH_SLOWEST:
-                return amt*((3.0f*techLevel*sqrt(techLevel)+5.0f)/techLevel - 5.5f); // modnar: asymptotically similar
+            case RESEARCH_CRAWLING:
+            	return slowResearch(techLevel, R_PARAM_CRAWLING);
+                //return amt*((3.0f*techLevel*sqrt(techLevel)+5.0f)/techLevel - 5.5f); // modnar: asymptotically similar
                 //return amt*sqrt(techLevel*5); // approx. 16x slower for level 50
+            case RESEARCH_IMPEDED:
+            	return slowResearch(techLevel, R_PARAM_IMPEDED);
+            case RESEARCH_LETHARGIC:
+            	return slowResearch(techLevel, R_PARAM_LETHARGIC);
+            case RESEARCH_NORMAL:
             default:  
-                return amt;                   // no additional slowing. 
+                return BASE_RESEARCH_MOD;   // no additional slowing. 
         }
     }
     @Override
@@ -867,12 +882,15 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override public List<String> researchRateOptions() { return getResearchRateOptions(); }
     public static List<String> getResearchRateOptions() {
         List<String> list = new ArrayList<>();
+        // modnar: add fast research option
+        list.add(RESEARCH_FAST);
         list.add(RESEARCH_NORMAL);
         list.add(RESEARCH_SLOW);
         list.add(RESEARCH_SLOWER);
-        list.add(RESEARCH_SLOWEST);
-        // mondar: add fast research option
-        list.add(RESEARCH_FAST);
+        // BR: add extremely slow research option
+        list.add(RESEARCH_CRAWLING); // former slowest compatible
+        list.add(RESEARCH_IMPEDED);
+        list.add(RESEARCH_LETHARGIC);
         return list;
     }
     @Override public List<String> techTradingOptions() { return getTechTradingOptions(); }

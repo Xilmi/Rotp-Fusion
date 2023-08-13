@@ -53,6 +53,9 @@ Later:
 
 ## What's New
 
+2023.08.13 (BR)
+- Added 2 new very slow research rate (renamed the former "Slowest")
+
 2023.08.10 (BR)
 - Moved some debug log tools to Base.
 - Cleaned TODO list

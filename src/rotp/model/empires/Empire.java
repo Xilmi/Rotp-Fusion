@@ -1099,9 +1099,13 @@ public final class Empire implements Base, NamedObject, Serializable {
             long startMs = timeMs(); // BR: fleetCommanderAI timing
             fleetCommanderAI().nextTurn();
             long spentMs = timeMs() - startMs;
+            if (options().planTimeCheck(spentMs))
+            	System.out.println("Warp Disturbances Triggered");
             if (options().debugAutoRun()) {
             	String s = "fleetCommanderAI (id=" + id + ") duration = " + msToHMS(spentMs);
             	turnLog(AUTORUN_OTHERFILE, s);
+            	if (options().warpDisturbancesTriggered())
+            		turnLog(AUTORUN_OTHERFILE, "Warp Disturbances Triggered");
             }
             ai().sendTransports();
         }

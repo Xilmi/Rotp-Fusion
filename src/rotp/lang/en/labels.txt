@@ -1383,8 +1383,12 @@ SETUP_RESEARCH_RATE_SLOW_HELP     | Research costs factors:<br>115% at level 2;&
 SETUP_RESEARCH_RATE_SLOW          | Slow
 SETUP_RESEARCH_RATE_SLOWER_HELP   | Research costs factors:<br>120% at level 2;&ensp 2.5 at level 10;&ensp 4 at level 20;<br>5 at level 29;&ensp 7 at level 50;&ensp 10 at level 100.
 SETUP_RESEARCH_RATE_SLOWER        | Slower
-SETUP_RESEARCH_RATE_SLOWEST_HELP  | Research costs factors:<br>125% at level 2;&ensp 5 at level 11;&ensp 8 at level 20;<br>10 at level 26;&ensp 16 at level 51;&ensp 25 at level 100.
-SETUP_RESEARCH_RATE_SLOWEST       | Slowest
+SETUP_RESEARCH_RATE_SLOWEST_HELP  | Former "Slowest" factor<br>Research costs factors:<br>127% at level 2;&ensp 5 at level 11;&ensp 8 at level 20;<br>10 at level 26;&ensp 16 at level 51;&ensp 25 at level 100.
+SETUP_RESEARCH_RATE_SLOWEST       | Crawling
+SETUP_RESEARCH_RATE_IMPEDED_HELP  | Research costs factors:<br>134% at level 2;&ensp 10 at level 11;&ensp 17 at level 20;<br>23 at level 28;&ensp 36 at level 51;&ensp 55 at level 100.
+SETUP_RESEARCH_RATE_IMPEDED       | Impeded
+SETUP_RESEARCH_RATE_LETHARGIC_HELP | Research costs factors:<br>141% at level 2;&ensp 21 at level 11;&ensp 38 at level 20;<br>50 at level 27;&ensp 80 at level 51;&ensp 125 at level 100.
+SETUP_RESEARCH_RATE_LETHARGIC      | Lethargic
 SETUP_TECH_TRADING_YES            | Yes
 SETUP_TECH_TRADING_ALLIES         | Allies Only
 SETUP_TECH_TRADING_NO             | No
@@ -2255,6 +2259,18 @@ SETTINGS_MOD_ALLOW_TECH_STEALING         | Tech stealing: %1
 
 SETTINGS_MOD_MAX_SECURITY_PCT_DESC       | To boost the maximal security tax percentage. (Spying bonus = 2 x tax)
 SETTINGS_MOD_MAX_SECURITY_PCT            | Max Security: %1%
+
+SETTINGS_MOD_MAX_PLAN_TIME_DESC          | Max fleet planning time (in minutes) before a warp disturbance event destroy all ships (if activated)
+SETTINGS_MOD_MAX_PLAN_TIME               | Max Planning: %1 min
+
+SETTINGS_MOD_WARP_DISTURBANCES_DESC      | Event generated when to many ships are warping through the galaxy, shearing the spacetime. Warp generators explode, destroying all ships. 
+SETTINGS_MOD_WARP_DISTURBANCES           | Warp disturbances: %1
+SETTINGS_MOD_WARP_DISTURBANCES_OFF       | Off
+SETTINGS_MOD_WARP_DISTURBANCES_ON        | On
+SETTINGS_MOD_WARP_DISTURBANCES_TRIGGERED | Triggered
+SETTINGS_MOD_WARP_DISTURBANCES_OFF_DESC       | Disabled.
+SETTINGS_MOD_WARP_DISTURBANCES_ON_DESC        | Enabled, waiting for the shearing.
+SETTINGS_MOD_WARP_DISTURBANCES_TRIGGERED_DESC | The event has been triggered for next turn.
 
 SETTINGS_MOD_SHOW_NEW_RACES_DESC         | Show the new races in the opponents list?
 SETTINGS_MOD_SHOW_NEW_RACES              | Show new races: %1

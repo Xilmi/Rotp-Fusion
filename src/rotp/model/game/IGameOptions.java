@@ -55,7 +55,7 @@ public interface IGameOptions extends IModOptions {
     public static final String SHAPE_RECTANGLE = "SETUP_GALAXY_SHAPE_RECTANGLE";
     public static final String SHAPE_ELLIPTICAL = "SETUP_GALAXY_SHAPE_ELLIPSE";
     public static final String SHAPE_SPIRAL = "SETUP_GALAXY_SHAPE_SPIRAL";
-    // mondar: add new map shapes
+    // modnar: add new map shapes
     public static final String SHAPE_TEXT = "SETUP_GALAXY_SHAPE_TEXT";
     public static final String SHAPE_LORENZ = "SETUP_GALAXY_SHAPE_LORENZ";
     public static final String SHAPE_FRACTAL = "SETUP_GALAXY_SHAPE_FRACTAL";
@@ -75,16 +75,59 @@ public interface IGameOptions extends IModOptions {
     public static final String DIFFICULTY_HARD    = "SETUP_DIFFICULTY_HARD";
     public static final String DIFFICULTY_HARDER  = "SETUP_DIFFICULTY_HARDER";
     public static final String DIFFICULTY_HARDEST = "SETUP_DIFFICULTY_HARDEST";
-    // mondar: add custom difficulty level option, set in Remnants.cfg
+    // modnar: add custom difficulty level option, set in Remnants.cfg
     public static final String DIFFICULTY_CUSTOM  = "SETUP_DIFFICULTY_CUSTOM";
 
-    public static final String RESEARCH_NORMAL  = "SETUP_RESEARCH_RATE_NORMAL";
-    // mondar: add fast research option
-    public static final String RESEARCH_FAST    = "SETUP_RESEARCH_RATE_FAST";
-    public static final String RESEARCH_SLOW    = "SETUP_RESEARCH_RATE_SLOW";
-    public static final String RESEARCH_SLOWER  = "SETUP_RESEARCH_RATE_SLOWER";
-    public static final String RESEARCH_SLOWEST = "SETUP_RESEARCH_RATE_SLOWEST";
+    public static final String RESEARCH_NORMAL    = "SETUP_RESEARCH_RATE_NORMAL";
+    // modnar: add fast research option
+    public static final String RESEARCH_FAST      = "SETUP_RESEARCH_RATE_FAST";
+    public static final String RESEARCH_SLOW      = "SETUP_RESEARCH_RATE_SLOW";
+    public static final String RESEARCH_SLOWER    = "SETUP_RESEARCH_RATE_SLOWER";
+    public static final String RESEARCH_CRAWLING  = "SETUP_RESEARCH_RATE_SLOWEST"; // for backward compatibility
+    public static final String RESEARCH_IMPEDED   = "SETUP_RESEARCH_RATE_IMPEDED";
+    public static final String RESEARCH_LETHARGIC = "SETUP_RESEARCH_RATE_LETHARGIC";
 
+    public static float[] slowFactors (float src) {
+    	// convert old formula factor to new formula factors
+    	double r2 = Math.log10(src)/10 + 1.2; // rate for tech 2
+    	double a  = (Math.sqrt(50*src)-r2) / (Math.sqrt(50)-Math.sqrt(2)-4.0/5.0);
+    	double b  = a/0.6;
+    	double c  = a * Math.sqrt(2) + b/2 - r2;
+    	float[] factors = new float[4];
+    	factors[0] = src;
+    	factors[1] = (float) a;
+    	factors[2] = (float) b;
+    	factors[3] = (float) c;
+    	return factors;
+    }
+    public static final float[] R_PARAM_FAST      = new float[] {0.005392f, 1f, 2f, 0.5f};
+    public static final float[] R_PARAM_NORMAL    = new float[] {1f/50, 1f};
+    public static final float[] R_PARAM_SLOW      = slowFactors(1f/3); // from old formula factor
+    public static final float[] R_PARAM_SLOWER    = slowFactors(1f);
+    public static final float[] R_PARAM_CRAWLING  = slowFactors(5f);
+    public static final float[] R_PARAM_IMPEDED   = slowFactors(25f);
+    public static final float[] R_PARAM_LETHARGIC = slowFactors(125f);
+
+    default float oldSlowFactor() {
+    	switch(selectedResearchRate()) {
+	    	case RESEARCH_FAST:
+	    	case RESEARCH_NORMAL:
+    			return 0f;
+	    	case RESEARCH_SLOW:
+	    		return R_PARAM_SLOW[0];
+	    	case RESEARCH_SLOWER:
+	    		return R_PARAM_SLOWER[0];
+	    	case RESEARCH_CRAWLING:
+	    		return R_PARAM_CRAWLING[0];
+	    	case RESEARCH_IMPEDED:
+	    		return R_PARAM_IMPEDED[0];
+	    	case RESEARCH_LETHARGIC:
+	    		return R_PARAM_LETHARGIC[0];
+    		default:
+    			return 1f;
+    	}
+    }
+    
     public static final String TECH_TRADING_YES     = "SETUP_TECH_TRADING_YES";
     public static final String TECH_TRADING_ALLIES  = "SETUP_TECH_TRADING_ALLIES";
     public static final String TECH_TRADING_NO      = "SETUP_TECH_TRADING_NO";
