@@ -83,9 +83,10 @@ public interface IGameOptions extends IModOptions {
     public static final String RESEARCH_FAST      = "SETUP_RESEARCH_RATE_FAST";
     public static final String RESEARCH_SLOW      = "SETUP_RESEARCH_RATE_SLOW";
     public static final String RESEARCH_SLOWER    = "SETUP_RESEARCH_RATE_SLOWER";
-    public static final String RESEARCH_CRAWLING  = "SETUP_RESEARCH_RATE_SLOWEST"; // for backward compatibility
-    public static final String RESEARCH_IMPEDED   = "SETUP_RESEARCH_RATE_IMPEDED";
-    public static final String RESEARCH_LETHARGIC = "SETUP_RESEARCH_RATE_LETHARGIC";
+    // BR: rearranged the list to fit the definition... Yes it looks strange
+    public static final String RESEARCH_LETHARGIC = "SETUP_RESEARCH_RATE_SLOWEST"; // for backward compatibility
+    public static final String RESEARCH_CRAWLING  = "SETUP_RESEARCH_RATE_IMPEDED";
+    public static final String RESEARCH_IMPEDED   = "SETUP_RESEARCH_RATE_LETHARGIC";
 
     public static float[] slowFactors (float src) {
     	// convert old formula factor to new formula factors
@@ -104,9 +105,9 @@ public interface IGameOptions extends IModOptions {
     public static final float[] R_PARAM_NORMAL    = new float[] {1f/50, 1f};
     public static final float[] R_PARAM_SLOW      = slowFactors(1f/3); // from old formula factor
     public static final float[] R_PARAM_SLOWER    = slowFactors(1f);
-    public static final float[] R_PARAM_CRAWLING  = slowFactors(5f);
-    public static final float[] R_PARAM_IMPEDED   = slowFactors(25f);
-    public static final float[] R_PARAM_LETHARGIC = slowFactors(125f);
+    public static final float[] R_PARAM_LETHARGIC = slowFactors(5f);
+    public static final float[] R_PARAM_CRAWLING  = slowFactors(25f);
+    public static final float[] R_PARAM_IMPEDED   = slowFactors(125f);
 
     default float oldSlowFactor() {
     	switch(selectedResearchRate()) {
@@ -117,12 +118,12 @@ public interface IGameOptions extends IModOptions {
 	    		return R_PARAM_SLOW[0];
 	    	case RESEARCH_SLOWER:
 	    		return R_PARAM_SLOWER[0];
+	    	case RESEARCH_LETHARGIC:
+	    		return R_PARAM_LETHARGIC[0];
 	    	case RESEARCH_CRAWLING:
 	    		return R_PARAM_CRAWLING[0];
 	    	case RESEARCH_IMPEDED:
 	    		return R_PARAM_IMPEDED[0];
-	    	case RESEARCH_LETHARGIC:
-	    		return R_PARAM_LETHARGIC[0];
     		default:
     			return 1f;
     	}

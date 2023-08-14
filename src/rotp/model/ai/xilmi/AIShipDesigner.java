@@ -942,16 +942,7 @@ public class AIShipDesigner implements Base, ShipDesigner {
         float oldSlowFactor = session().options().oldSlowFactor();
         if (oldSlowFactor > 0f ) // BR: formula generalization
         	 rangeTechLevelThreshold /= sqrt(9*oldSlowFactor);
-//        if(session().options().selectedResearchRate().equals(RESEARCH_SLOW))
-//            rangeTechLevelThreshold /= sqrt(9/3.0f);
-//        else if(session().options().selectedResearchRate().equals(RESEARCH_SLOWER))
-//            rangeTechLevelThreshold /= sqrt(9);
-//        else if(session().options().selectedResearchRate().equals(RESEARCH_CRAWLING)) // former slowest
-//            rangeTechLevelThreshold /= sqrt(9*5);
-//        else if(session().options().selectedResearchRate().equals(RESEARCH_IMPEDED))
-//            rangeTechLevelThreshold /= sqrt(9*25); // BR: based on equivalent old formula
-//        else if(session().options().selectedResearchRate().equals(RESEARCH_LETHARGIC))
-//            rangeTechLevelThreshold /= sqrt(9*125); // BR: based on equivalent old formula
+
         if(empire.uncolonizedPlanetsInRange(empire.shipRange()).isEmpty() 
             && empire.enemies().isEmpty()
             && !unexploredInRange

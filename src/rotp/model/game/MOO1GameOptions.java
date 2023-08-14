@@ -888,9 +888,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         list.add(RESEARCH_SLOW);
         list.add(RESEARCH_SLOWER);
         // BR: add extremely slow research option
-        list.add(RESEARCH_CRAWLING); // former slowest compatible
+        list.add(RESEARCH_LETHARGIC); // former slowest compatible
+        list.add(RESEARCH_CRAWLING);
         list.add(RESEARCH_IMPEDED);
-        list.add(RESEARCH_LETHARGIC);
         return list;
     }
     @Override public List<String> techTradingOptions() { return getTechTradingOptions(); }
