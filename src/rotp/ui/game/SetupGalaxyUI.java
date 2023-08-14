@@ -1298,6 +1298,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		g.setFont(narrowFont(15));
 
 		// draw Opponent CR text
+		if (globalCROptions.isBaseRace()) // for backward compatibility
+			globalCROptions.setFromDefault();
 		String crLbl = text(globalCROptions.get());
 		int crSW = g.getFontMetrics().stringWidth(crLbl);
 		int x4cr = abilitiesBox.x+((aiBox.width-crSW)/2);
