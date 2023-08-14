@@ -135,6 +135,7 @@ public class MapOverlayNone extends MapOverlay {
                     RotPUI.instance().selectSystemsPanel();
                 }
                 break;
+            case KeyEvent.VK_E:
             case KeyEvent.VK_R:
                 if (e.isAltDown()) {
                     if (parent.clickedSprite() instanceof StarSystem) {

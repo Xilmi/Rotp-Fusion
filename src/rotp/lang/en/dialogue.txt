@@ -1,18 +1,18 @@
 // modnar: keep generic dialogue text for newRaces
 // General dialogue for all races unless overridden by race
 
-CONTACT_HONORABLE          | So, another race has entered [my_race] space. Be careful to not irritate the powerful and wise [my_nameTitle] [my_name].
+CONTACT_HONORABLE          | So, another civilization has entered [my_race] space. Be careful to not irritate the powerful and wise [my_nameTitle] [my_name].
 CONTACT_HONORABLE          | The [my_empire] greets the [your_race] warmly, and hopes that you will prosper under our rule.
 CONTACT_HONORABLE          | Harken [your_nameTitle] [your_name], the magnificent, illustrious and godlike [my_race] have arrived.
 CONTACT_HONORABLE          | Hail wise and just [your_nameTitle] [your_name]. The [my_race] welcome a new age of honor between our two empires.
-CONTACT_HONORABLE          | Your race is pathetic and worthless in the light of the glorious [my_empire].
+CONTACT_HONORABLE          | Your civilization is pathetic and worthless in the light of the glorious [my_empire].
 CONTACT_PACIFIST           | [my_nameTitle] [my_name] of the [my_race] sends greetings to you, and desires a peaceful future between our two empires.
 CONTACT_PACIFIST           | Peace unto you, [your_nameTitle] [your_name]! The [my_race] desire a future free of conflict and strife.
 CONTACT_PACIFIST           | Oh illustrious [your_name], surely the [your_empire] and [my_empire] can live in peace and harmony.
 CONTACT_PACIFIST           | Long live [your_nameTitle] [your_name] and the [your_empire]. The [my_race] welcome you.
 CONTACT_DIPLOMATIC         | Hail [your_nameTitle] [your_name]. The [my_empire] greatly welcomes our future relations.
 CONTACT_DIPLOMATIC         | The [my_race] are delighted by our first contact with the [your_race]. Let us work for a mutually beneficial relationship.
-CONTACT_DIPLOMATIC         | The [my_empire] realizes the difficulties of first contact with another race. Hopefully we will overcome our mutual distrust.
+CONTACT_DIPLOMATIC         | The [my_empire] realizes the difficulties of first contact with another civilization. Hopefully we will overcome our mutual distrust.
 CONTACT_DIPLOMATIC         | Now that the [your_race] and [my_race] share common territory, our survival depends on mutual cooperation.
 CONTACT_RUTHLESS           | Surrender now [your_nameTitle] [your_name] and save yourself from the inevitable fall to the [my_empire].
 CONTACT_RUTHLESS           | The [my_empire] and [your_empire] will do fine so long as you acknowledge our superiority.
@@ -62,7 +62,7 @@ DECLAREWAR_ERRATIC_03      | The [my_race] calendar indicates that this is a nic
 DECLAREWAR_ERRATIC_04      | [my_nameTitle] [my_name] of the [my_empire] has declared it to be [your_race] season. The hunt begins!
 DECLAREWAR_ERRATIC_05      | The [your_race] hide behind a mask of diplomatic friendship. The [my_empire] will strike first before you can reveal your true nature.
 //
-DECLAREWAR_MILITARY_01     | Maintaining relations with your pitiful race is no longer beneficial. The [my_race] are mobilizing our fleets and preparing for war.
+DECLAREWAR_MILITARY_01     | Maintaining relations with your pitiful civilization is no longer beneficial. The [my_race] are mobilizing our fleets and preparing for war.
 DECLAREWAR_MILITARY_02     | While our ambassadors promised peace, [my_nameTitle] [my_name] prepared the [my_empire] for war. You will die now.
 DECLAREWAR_MILITARY_03     | [my_nameTitle] [my_name] of the [my_race] grows bored of diplomatic games and now wishes to play war games.
 DECLAREWAR_MILITARY_04     | The [my_empire] is tired of playing diplomatic games. Shudder, [your_nameTitle] [your_name], for we come for you.
@@ -91,10 +91,10 @@ OFFER_TRADE_01             | Trade between the [your_empire] and [my_empire] wou
 OFFER_TRADE_01             | The [my_race] desire your goods. Can we agree to trading [amt] BC per year?
 OFFER_PEACE_01             | Great [your_name], the war between [your_race] and [my_race] has been a tremendous strain on both our peoples. Sign a peace treaty so we can end this senseless war.
 OFFER_PEACE_01             | This war between [your_race] and [my_race] is senseless. Let us call an end to it with a peace treaty.
-OFFER_PEACE_01             | Both [your_race] and [my_race] races have suffered greatly. Isn't it time we sought peace instead?
+OFFER_PEACE_01             | Both [your_race] and [my_race] empires have suffered greatly. Isn't it time we sought peace instead?
 OFFER_PEACE_01             | [your_nameTitle] [your_name], the [my_empire] brings you an offer of peace from our illustrious leader, [my_name].
 OFFER_PEACE_01             | Do you still wish to suffer more? The [my_empire] sees no need to continue hostilities. Let us agree to peace.
-OFFER_PEACE_01             | The [my_empire] can no longer sustain this horrible war. We offer a peace treaty to the powerful [your_race] race.
+OFFER_PEACE_01             | The [my_empire] can no longer sustain this horrible war. We offer a peace treaty to the powerful [your_race] civilization.
 OFFER_PACT_01              | In the interest of future peace, the [my_empire] proposes a Non-Aggression Pact between our two great powers.
 OFFER_PACT_01              | Expansion is dangerous. No one can outguess the other's deployments, so we propose a Non-Aggression Pact to prevent accidental conflict between [your_race] and [my_race].
 OFFER_PACT_01              | The [my_race] bear no ill will toward the [your_race]. Let us agree to a Non-Aggression Pact to ensure future harmony.
@@ -115,7 +115,7 @@ WARN_TRESPASSING_05        | The [my_race] young will soon enjoy museum exhibits
 WARN_ENCROACHING_01        | The [your_empire] has grown far too large. Continue to expand and the [my_empire] will be forced to take militant measures.
 WARN_ENCROACHING_02        | Your reckless expansion is beginning to intrude upon [my_race] territory. Withdraw from our space or be destroyed.
 WARN_ENCROACHING_03        | Your ambitious expansion cannot remain unchecked. Unless you begin to withdraw we will be forced to reclaim [my_race] territory by force.
-WARN_ENCROACHING_04        | Cease your expansion into [my_race] territory or we will crush your pathetic race.
+WARN_ENCROACHING_04        | Cease your expansion into [my_race] territory or we will crush your pathetic civilization.
 WARN_ENCROACHING_05        | [my_race] patience is exhausted. Continue to expand and it will be war.
 
 WARN_EXPANSION_01          | The [your_empire] has become far too powerful. Heed this [my_race] warning: expand any further and you will have to be eliminated.
@@ -147,7 +147,7 @@ WARN_SKIRMISH_09           | Inform the butchers who orchestrated the attack at 
 WARN_ATTACKED_04           | Consider yourself fortunate, [your_nameTitle] [your_name], that the [my_empire] is not yet ready to enter into a senseless war over the incident at [system].
 WARN_ATTACKED_05           | Your senseless attack on the [my_race] star system at [system] has endangered the lives of billions on both our worlds.
 WARN_ATTACKED_06           | How can you not expect retaliation from the [my_empire] for the unprovoked attack at [system]?
-WARN_ATTACKED_07           | Venture near the [system] star system again and the [my_empire] will be forced to annihilate the entire [your_race] race.
+WARN_ATTACKED_07           | Venture near the [system] star system again and the [my_empire] will be forced to annihilate the entire [your_race] civilization.
 WARN_ATTACKED_08           | Many within the [my_empire] are restless and crave action. Another attack like the one at [system] and you will give us an excuse for war.
 WARN_ATTACKED_09           | The relations between our two empires is becoming quite dire. The attack on the [my_race] system at [system] was unprovoked and may soon lead to war.
 
@@ -160,7 +160,7 @@ WARN_INVADED_09            | Whereas the destruction of our ships can be endured
 
 WARN_ESPIONAGE_01          | [spy_nameTitle] [spy_name], the ungrateful one. You risk expulsion from our benevolent graces with your continued espionage attempts against the [victim_empire]. [framed]
 WARN_ESPIONAGE_02          | Children are wise who ask for gifts from their parents, rather than taking them. Cease your espionage activities against the [victim_empire] immediately or face punishment. [framed]
-WARN_ESPIONAGE_03          | Your insolent leader will only lead the [spy_race] race to ruin with your pathetic attempts at espionage within the [victim_empire]. [framed]
+WARN_ESPIONAGE_03          | Your insolent leader will only lead the [spy_race] civilization to ruin with your pathetic attempts at espionage within the [victim_empire]. [framed]
 WARN_ESPIONAGE_04          | The [victim_race] have known of your espionage operations for quite some time, and our patience wears thin. [framed]
 WARN_ESPIONAGE_05          | Watch yourself, [spy_nameTitle] [spy_name]. We will no longer tolerate espionage attempts against the [victim_empire]. [framed]
 WARN_ESPIONAGE_06          | We have had great restraint thus far tolerating your bungling espionage attempts, but soon you shall feel the wrath of the [victim_empire]. [framed]
@@ -176,7 +176,7 @@ WARN_SABOTAGE_04           | [your_nameTitle] [your_name], hear this. Discontinu
 WARN_SABOTAGE_05           | Continued sabotage against [my_race] colonies will soon place our empires precariously close to the brink of war. [framed]
 WARN_SABOTAGE_05           | Continue to sabotage [my_race] colonies and you will plunge us into a foolish and costly war. [framed]
 WARN_SABOTAGE_05           | Your bungling attempts to sabotage [my_race] colonies is shattering what little peace we still have. [framed]
-WARN_SABOTAGE_06           | So, the vile [your_race] race wishes to start a war of mutual extermination? After your recent sabotage attempts, the [my_empire] is dangerously close to accommodating you. [framed]
+WARN_SABOTAGE_06           | So, the vile [your_race] barbarians wishes to start a war of mutual extermination? After your recent sabotage attempts, the [my_empire] is dangerously close to accommodating you. [framed]
 WARN_SABOTAGE_07           | Emperor [your_name], if you wish to avert a senseless war, please immediately discontinue all sabotage operations launched against the [my_empire]. [framed]
 WARN_SABOTAGE_08           | The [my_empire] will not long stand for acts of terrorism and sabotage from the mighty [your_empire]. Wars have begun over less. [framed]
 WARN_SABOTAGE_09           | The noble [my_race] will always stand against the tyrant [your_empire] and its wanton acts of terrorism. [framed]
@@ -184,14 +184,14 @@ WARN_SABOTAGE_09           | The noble [my_race] will always stand against the t
 WARN_GENOCIDE_04           | [attacker_nameTitle] [attacker_name], you go too far! The mighty [my_race] do not look kindly upon your genocide of the [victim_race].
 WARN_GENOCIDE_05           | Remember [your_name], that genocide is often a sword with two edges.
 WARN_GENOCIDE_06           | The friendly [my_race] hope that the powerful [your_empire] continue to distinguish between friend and foe.
-WARN_GENOCIDE_07           | Your mass murder of the [victim_race] race reminds the mighty [my_empire] that we also do not particularly like your pathetic species.
-WARN_GENOCIDE_08           | Your elimination of the entire race of [victim_race] makes clear that violence is the only lesson your foul species understands.
+WARN_GENOCIDE_07           | Your mass murder of the [victim_race] civilization reminds the mighty [my_empire] that we also do not particularly like your pathetic species.
+WARN_GENOCIDE_08           | Your elimination of the entire civilization of [victim_race] makes clear that violence is the only lesson your foul species understands.
 WARN_GENOCIDE_09           | Your barbaric acts against the [victim_race] betray your ruthlessness to the entire galaxy.
 
 WARN_FINAL_WAR_01          | Soon the [my_empire] will put an end to your pathetic rebellion.
 WARN_FINAL_WAR_01          | You cannot resist the might of the New Republic. Prepare to die.
 WARN_FINAL_WAR_01          | Do you wish to change your vote? I regret to inform you that it is too late. 
-WARN_FINAL_WAR_01          | The New Republic will not stop until the treacherous [your_race] race has been erased from existence.
+WARN_FINAL_WAR_01          | The New Republic will not stop until the treacherous [your_race] barbarians has been erased from existence.
 WARN_FINAL_WAR_01          | The New Republic must set the example for all future rebellions by destroying your civilization completely.
 
 WARN_BIOWEAPON_01          | Obviously the [attacker_race] are led by a madman willing to use biological weapons on a whim. Soon the [my_empire] will put an end to your madness.
@@ -204,9 +204,9 @@ WARN_BIOWEAPON_07          | Scum. You will pay dearly for using biological weap
 WARN_BIOWEAPON_08          | Use of biological weapons has placed both our empires on the brink of war.
 WARN_BIOWEAPON_09          | There can be no truth or honor in the words of one who would use biological weapons.
 
-WARN_COUNCIL_VOTE_01       | Your vote cast against the [my_race] race has made us a mockery throughout the galaxy. We will not soon forget the humiliation that you have wrought upon us.
+WARN_COUNCIL_VOTE_01       | Your vote cast against the [my_race] civilization has made us a mockery throughout the galaxy. We will not soon forget the humiliation that you have wrought upon us.
 WARN_COUNCIL_VOTE_01       | Et tu, [your_name]? Beware, for if I should pluck your dagger from my back, I know how to wield it and will teach you to vote against the us again.
-WARN_COUNCIL_VOTE_01       | While deceit becomes you, our patience is wearing thin. Casting votes against the [my_race] race is the sort of mistake that should only be made once.
+WARN_COUNCIL_VOTE_01       | While deceit becomes you, our patience is wearing thin. Casting votes against the [my_race] civilization is the sort of mistake that should only be made once.
 WARN_COUNCIL_VOTE_01       | Stabbed in the back, in plain sight! Your voting record reads like a political assassin's handbook.
 WARN_COUNCIL_VOTE_02       | If your vile attacks on our good reputation continue, we shall write your deceitful little handbook a most unpleasant ending.
 WARN_COUNCIL_VOTE_02       | We are not amused that you have cast your lot against us.
@@ -299,7 +299,7 @@ DECLINE_OATHBREAKER_01     | We see no reason to agree with someone who has not 
 DECLINE_OATHBREAKER_01     | We will not deal with [your_race] who have no honor.
 
 DECLINE_ESPIONAGE_01       | You thieving dogs, you steal the fruits of our research. We deny your request.
-DECLINE_ESPIONAGE_01       | Our technology is for the [my_race] race. You have no right to steal it. We will talk when you stop stealing.
+DECLINE_ESPIONAGE_01       | Our technology is for the [my_race] civilization. You have no right to steal it. We will talk when you stop stealing.
 DECLINE_ESPIONAGE_01       | Why should we give you anything? Your spies already steal everything you need!
 DECLINE_ESPIONAGE_01       | How can you expect us to accept when your spies are stealing our technology?
 DECLINE_ESPIONAGE_01       | Remove your spies, then we will talk.
@@ -330,7 +330,7 @@ DECLINE_INVASION_01        | Our people do not wish to deal with the butchers of
 DECLINE_INVASION_01        | The blood from [system] smears your words. We cannot accept your offer.
 DECLINE_INVASION_01        | The dead of [system] cry out for retribution. We hear their cries louder than your offer.
 
-DECLINE_BIOWEAPONS_01      | The [my_race] will not make any deals with a race who would use biological weapons.
+DECLINE_BIOWEAPONS_01      | The [my_race] will not make any deals with an eco-terrorist who would use biological weapons.
 DECLINE_BIOWEAPONS_01      | We cannot deal with anybody desperate enough to use biological weaponry.
 DECLINE_BIOWEAPONS_01      | You use weapons that cause untold horrors on innocent populations. We refuse to deal with such madness.
 DECLINE_BIOWEAPONS_01      | The gods abhor those who would destroy planets with biological weaponry. The [my_race] cannot allow it.
@@ -346,7 +346,7 @@ DECLINE_TECH_TRADE_01      | [my_nameTitle] [my_name] sees little of interest in
 OFFER_TECH_EXCHANGE_01     | The [your_empire] is in great need of your [tech] technology. Perhaps you are willing to exchange it for some of our technology.
 OFFER_TECH_EXCHANGE_01     | The [your_empire] knows you have learned the secrets of [tech]. Can we offer you some of our technology in exchange?
 OFFER_TECH_EXCHANGE_01     | [your_nameTitle] [your_name] of the [your_empire] wishes for the secret of the [tech] technology. Will you exchange it for one of our advances?
-OFFER_TECH_EXCHANGE_01     | The [your_race] race is awed by the scientific wonders of [tech]. What can we offer you for its secret?
+OFFER_TECH_EXCHANGE_01     | The [your_race] civilization is awed by the scientific wonders of [tech]. What can we offer you for its secret?
 
 ACCEPT_TECH_EXCHANGE_01    | Very well. [my_nameTitle] [my_name] agrees to exchange the wondrous [my_race] secrets of [techGiven] for the technology [techReceived].
 ACCEPT_FINANCIAL_AID_01    | [my_nameTitle] [my_name] accepts your gift of [amt] BC.

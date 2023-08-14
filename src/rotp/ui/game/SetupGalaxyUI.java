@@ -248,7 +248,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			Race   race		= fileToAlienRace(key);
 			String raceName = race.setupName;
 			if (key.startsWith(BASE_RACE_MARKER))
-				help = labelFormat(name(id)) + "<i>(Base race)</i>&nbsp " + race.description1;
+				help = labelFormat(name(id)) + "<i>(Original species)</i>&nbsp " + race.description1;
 			else
 				help = labelFormat(raceName) + race.description1;
 			help += "<br>" + race.description2
@@ -273,7 +273,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			Race   race		= fileToAlienRace(key);
 			String raceName = race.setupName;
 			if (key.startsWith(BASE_RACE_MARKER))
-				help = labelFormat(name(id)) + "<i>(Base race)</i>&nbsp " + race.description1;
+				help = labelFormat(name(id)) + "<i>(Original species)</i>&nbsp " + race.description1;
 			else
 				help = labelFormat(raceName) + race.description1;
 			help += "<br>" + race.description2

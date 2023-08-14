@@ -55,6 +55,7 @@ Later:
 
 2023.08.13 (BR)
 - Rearranged the research slow names: don't affect previous settings
+- Removed the inaccurate "Race"-word from menus and common dialogues.
 
 2023.08.13 (BR)
 - Added 2 new very slow research rate (renamed the former "Slowest")

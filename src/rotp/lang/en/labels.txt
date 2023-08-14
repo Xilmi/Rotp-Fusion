@@ -530,7 +530,7 @@ MAIN_NAVIGATION_GAME              | Game
 MAIN_NAVIGATION_DESIGN            | Designs
 MAIN_NAVIGATION_FLEETS            | Fleets
 MAIN_NAVIGATION_SYSTEMS           | Systems
-MAIN_NAVIGATION_RACES             | Races
+MAIN_NAVIGATION_RACES             | Empires
 MAIN_NAVIGATION_COLONIES          | Colonies
 MAIN_NAVIGATION_TECH              | Tech
 MAIN_NAVIGATION_NEXT_TURN         | Next Turn
@@ -582,7 +582,7 @@ MAIN_HELP_3A                      | Game - returns to the opening menu. Allows y
 MAIN_HELP_3B                      | Systems - galaxy map showing the status of systems in the galaxy by different criteria.
 MAIN_HELP_3C                      | Fleets - allows large-scale control of your fleets and shipbuilding within your empire.
 MAIN_HELP_3D                      | Designs - create ship designs for your fleet using your latest technology. Unwanted designs can be scrapped.
-MAIN_HELP_3E                      | Races - detailed information and diplomatic options for any alien races you have encountered.
+MAIN_HELP_3E                      | Empires - detailed information and diplomatic options for any alien empires you have encountered.
 MAIN_HELP_3F                      | Colonies - detailed and sortable listing of your colonies. Also provides empire income and costs.
 MAIN_HELP_3G                      | Tech - shows available technologies. Allows you to focus or balance research on up to six technologies.
 MAIN_HELP_3H                      | Next Year - advances the game to the next year.
@@ -778,7 +778,7 @@ MAIN_ADVISOR_SCOUT                | My lord, our scouts stand at the ready to di
 MAIN_ADVISOR_TRANSPORT            | A new world bears our banner, but it grows at an inhibited rate. Sending a transport to the colony will enable it to grow at a much swifter rate.
 MAIN_ADVISOR_DIPLOMACY            | Another spacefaring civilization has revealed itself! Our diplomats will observe all appropriate decorum in your name, and take careful note on if they respond in kind.
 MAIN_ADVISOR_SHIP_ENGINE          | Our greatest minds have crafted a new, more efficient engine design. They wish for you to review existing ship schematics and decide how best to apply the new engines to our fleets.
-MAIN_ADVISOR_RALLY_POINTS         | Our era of peace cannot continue while an undignified race wages war on our glorious empire. The people of the Empire stand united under you, and will assemble their fleets to wherever you direct them.
+MAIN_ADVISOR_RALLY_POINTS         | Our era of peace cannot continue while an undignified species wages war on our glorious empire. The people of the Empire stand united under you, and will assemble their fleets to wherever you direct them.
 MAIN_ADVISOR_MISSILE_BASES        | With the sovereign fleets engaged in battle, our outer worlds lie vulnerable to enemy aggression. We can begin our construction of defensive missile bases on any world you desire.
 MAIN_ADVISOR_SHIP_WEAPON          | Our researchers have had a breakthrough in regards to ship weaponry. The fleets can be outfitted with these devastating pieces of technology at any time.
 MAIN_ADVISOR_COUNCIL              | The Galactic Council will soon convene, and our presence will no doubt be highly desired. Our diplomats will take this chance to ensure all that is decided upon will further the good of the sovereignty. 
@@ -1135,8 +1135,8 @@ NOTICE_ESPIONAGE_SUBTITLE         | Select a technology type to steal.
 NOTICE_ESPIONAGE_NO_TECH          | No Available Technology
 NOTICE_ESPIONAGE_MANY_TECHS       | %1 Available Technologies
 NOTICE_ESPIONAGE_FOOTER           | If noticed, this may cause a Diplomatic Incident.
-NOTICE_ESPIONAGE_FRAME_TITLE      | Our spies have managed to frame another race for the theft.
-NOTICE_ESPIONAGE_FRAME_SUBTITLE   | Choose the victim race:
+NOTICE_ESPIONAGE_FRAME_TITLE      | Our spies have managed to frame another empire for the theft.
+NOTICE_ESPIONAGE_FRAME_SUBTITLE   | Choose the victim empire:
 
 // Spy Capture display (during next turn)
 NOTICE_SPIES_TITLE                | Current Spy Report
@@ -1184,7 +1184,7 @@ GNN_EXTINCTION_UNKNOWN_VICTIM     | An unknown civilization
 GNN_EXTINCTION_UNKNOWN_KILLER     | an unknown empire
 GNN_EXTINCTION                    | %1 has been completely destroyed by %2.
 GNN_EXTINCTION_NO_KILLER          | %1 has been completely destroyed.
-GNN_EXPANSION_1                   | The [expanding_empire] now spans %1 star systems, outstripping all the other races.
+GNN_EXPANSION_1                   | The [expanding_empire] now spans %1 star systems, outstripping all the other empires.
 GNN_EXPANSION_2                   | The [expanding_empire] now numbers %1 star systems. If their expansion is not contained they will soon control the galaxy.
 GNN_EXPANSION_3                   | The [expanding_empire] nearly controls a majority of the galaxy. Leaders are already preparing to merge with the mighty empire.
 GNN_ALLIANCE_FORMED               | The [first_empire] has formed an Alliance with the [second_empire].
@@ -1198,7 +1198,7 @@ GNN_ALIEN_REBELLION               | %1 has rebelled and refused to contribute to
 GNN_PLAYER_REBELLION_SPREAD       | Rebellion continues to spread throughout the [rebelling_empire]. At least %2 million rebels now control the colony at %1. 
 GNN_OVERTHROW                     | A new leader emerged from within the [alien_empire]. Rumors indicate the new emperor is a %1. Relations have become neutral and trade has been disrupted.
 GNN_END_COUNCIL                   | With only two Empires remaining, attempts to unify the galaxy with a Galactic Council have ended. Many leaders now debate what sort of final solution can bring lasting peace.
-GNN_FORM_COUNCIL                  | In the pursuit of peace, representatives for each race will soon convene to elect a Galactic Emperor to be chosen from the leaders of the two most populous empires.
+GNN_FORM_COUNCIL                  | In the pursuit of peace, representatives for each empire will soon convene to elect a Galactic Emperor to be chosen from the leaders of the two most populous empires.
 GNN_ALLY_AT_WAR                   | Our ally, the [ally_empire], has entered into war against the [other_empire].
 
 // Error UI text
@@ -1209,7 +1209,7 @@ ERROR_EMAIL                       | Email: Broken.Registry@protonmail.com
 ERROR_REDDIT                      | Reddit: www.Reddit.com/r/rotp
 
 // Setup UI
-SETUP_SELECT_RACE                 | Select Your Race
+SETUP_SELECT_RACE                 | Select Your Empire
 SETUP_SELECT_OPPONENTS            | Select Opponents
 SETUP_SELECT_GALAXY               | Select Galaxy
 SETUP_SELECT_GALAXY_OPTIONS       | Select Options
@@ -1312,8 +1312,8 @@ SETUP_GALAXY_NUMBER_EMPIRES       | Total Empires: %1
 SETUP_GALAXY_NUMBER_SYSTEMS       | Total Systems: %1
 SETUP_GALAXY_MAX_OPPONENTS        | Maximum Opponents: %1
 SETUP_SHOW_ABILITIES_HEADER       | Selectable
-SETUP_NEW_RACES_HEADER            | Race List
-SETUP_NEW_RACES_ON                | All Races
+SETUP_NEW_RACES_HEADER            | Species List
+SETUP_NEW_RACES_ON                | All Species
 SETUP_NEW_RACES_OFF               | Original
 SETUP_OPPONENTS_HEADER_1          | %1 vs.
 SETUP_OPPONENTS_HEADER_2          | Rival Empires
@@ -1335,7 +1335,7 @@ SETUP_OPPONENT_AI_CRUEL_HELP      | AI-Family: Xilmi<br> ... these AIs all play 
 SETUP_OPPONENT_AI_CRUEL           | AI: Fusion
 SETUP_OPPONENT_AI_FUN_HELP        | AI-Family: Xilmi<br> Plays the game in a sort of "king-of-the-hill"-style. It's more concerned about preventing others from winning than it is concerned about winning itself. It will choose the strongest enemy available but takes into account when they are already at war. It creates some sort of tournament-like bracket-gameplay with separate 1v1s, that also can turn into 1vX for someone who's becoming too successfull. Note that once a war is declared they are not easily made to stop it. This prevents swingy-situations where it would become an eternal back-and-forth changing their current enemy with the situation. Basically: A former super-power being tackled from three sides will not simply be left alone when it's not a superpower anymore.
 SETUP_OPPONENT_AI_FUN             | AI: Fun
-SETUP_OPPONENT_AI_PERSONALITY_HELP | AI-Family: Xilmi<br> This one doesn't care about being fair when choosing their opponent. It is highly opportunistic and definitely wants to win. However, it's aggressiveness is heavily dependent on their empire's race and leader's personality. They can be anything from suicidal to overly careful. However, experience has shown that the more careful approach does a lot better on average. That's why...
+SETUP_OPPONENT_AI_PERSONALITY_HELP | AI-Family: Xilmi<br> This one doesn't care about being fair when choosing their opponent. It is highly opportunistic and definitely wants to win. However, it's aggressiveness is heavily dependent on their empire's species and leader's personality. They can be anything from suicidal to overly careful. However, experience has shown that the more careful approach does a lot better on average. That's why...
 SETUP_OPPONENT_AI_PERSONALITY     | AI: Character
 SETUP_OPPONENT_AI_RANDOM_HELP     | Randomly selected from: Base, Modnar, Rookie, Roleplay, Hybrid, Fusion, Fun, or Character.
 SETUP_OPPONENT_AI_RANDOM          | AI: Random
@@ -1500,7 +1500,7 @@ SETUP_RANDOMIZE_AI_ABILITY_HELP   | Only the AI ability will be afected by this 
 SETUP_RANDOMIZE_AI_ABILITY        | Ability
 SETUP_RANDOMIZE_AI_BOTH_HELP      | This option will try to change both the AI personality and the AI ability... Only if the Galaxy Menu options don't override it!
 SETUP_RANDOMIZE_AI_BOTH           | Both
-SETUP_RACE_LABEL                  | Available Races
+SETUP_RACE_LABEL                  | Available Species
 SETUP_RACE_COLOR                  | Empire Color:
 SETUP_HOMEWORLD_NAME_LABEL        | Homeworld:
 SETUP_LEADER_NAME_LABEL           | Leader:
@@ -1528,7 +1528,7 @@ SETUP_SELECT_EMPIRE_SELECT_BUTTON | Select
 SETUP_SELECT_EMPIRE_CANCEL_BUTTON | Cancel
 SETUP_SELECT_EMPIRE_EMPIRE        | Empire
 SETUP_SELECT_EMPIRE_HOME          | HomeWorld
-SETUP_SELECT_EMPIRE_RACE          | Race
+SETUP_SELECT_EMPIRE_RACE          | Species
 SETUP_SELECT_EMPIRE_ABILITIES     | Abilities
 SETUP_SELECT_EMPIRE_VALUE         | Value
 
@@ -1624,7 +1624,7 @@ SETUP_GLOBAL_AI_DESC              | Select one AI...
 SETUP_GLOBAL_AI                   | Opponents AI
 SETUP_SPECIFIC_ABILITY_DESC       | Select the abilities to associate to this specific opponent.
 SETUP_SPECIFIC_ABILITY            | Opponent Specific Abilities
-SETUP_GLOBAL_ABILITY_DESC         | Select the abilities of your opponents, by default the standard abilities associated to the race will be used.
+SETUP_GLOBAL_ABILITY_DESC         | Select the abilities of your opponents, by default the standard abilities associated to the Sspecies will be used.
 SETUP_GLOBAL_ABILITY              | Global Abilities
 SETUP_SPECIFIC_OPPONENT_DESC      | You can select your opponents individually, or let the game choose for you...<br>A maximum of 5 opponents of the same species is allowed.
 SETUP_SPECIFIC_OPPONENT           | Specific Opponent
@@ -1632,29 +1632,29 @@ SETUP_NOT_AVAILABLE               | N/A
 SETUP_ALIENS_NUMBER_DESC          | Select the number of opponents (between 0 an 49), which will be limited by your map size. Then select the setting for base AI (the default), the Modnar AI (a stronger AI that retains a sense of personality sometimes at the expense of efficiency), the Xilmi AI (a ruthless AI that prioritizes efficiency), or individual settings for each opponent. 
 SETUP_ALIENS_NUMBER               | Select Opponents Number.
 
-SETUP_NO_FOG_ON_ICONS             | Remove fog from race icons
-SETUP_NO_FOG_ON_ICONS_DESC        | Remove the fog hiding the race icons above.
+SETUP_NO_FOG_ON_ICONS             | Remove fog from diplomat icons
+SETUP_NO_FOG_ON_ICONS_DESC        | Remove the fog hiding the diplomat icons above.
 
 
 // BR: config Player Race
-SETUP_BUTTON_CUSTOM_PLAYER_RACE   | Customize Races
+SETUP_BUTTON_CUSTOM_PLAYER_RACE   | Customize Species
 
 // BR: Customize Player Race
 CUSTOM_RACE_RACE_AI_DESC          | Change the empire AI
-CUSTOM_RACE_GUI_TITLE             | Races Customization
+CUSTOM_RACE_GUI_TITLE             | Sapiens Species Customization
 CUSTOM_RACE_SHOW_TITLE            | Species' Abilities
 CUSTOM_RACE_GUI_COST              | Total Value: %1
-CUSTOM_RACE_GUI_SELECT_DESC       | Save Current Race, Select it as Player Race, Save as Last Settings and Exit Panel
+CUSTOM_RACE_GUI_SELECT_DESC       | Save Current Species, Select it as Player Species, Save as Last Settings and Exit Panel
 CUSTOM_RACE_GUI_SELECT            | Set as Player
 CUSTOM_RACE_GUI_RANDOM_HELP       | Each individual setting will randomly be set within the given relative Setting range.<br> If "Force Target" = Yes, and the Total Value is not within the allowed Range: The values will progressively be randomly shifted (Even outside their allowed range) until the final "Target Range" is reached.
-CUSTOM_RACE_GUI_RANDOM_DESC       | Randomize the race following the above settings
+CUSTOM_RACE_GUI_RANDOM_DESC       | Randomize the species following the above settings
 CUSTOM_RACE_GUI_RANDOM            | Randomize
 CUSTOM_RACE_GUI_LOAD_DESC         | Load the settings from the file specified in "File Name" Field, if none, create an empty one.
 CUSTOM_RACE_GUI_LOAD              | Reload
 CUSTOM_RACE_GUI_SAVE_DESC         | Save the settings to the file specified in "File Name" Field, existing files will be overwritten.
 CUSTOM_RACE_GUI_SAVE              | Save to File
 CUSTOM_RACE_RACE_LIST             | FileList
-CUSTOM_RACE_RACE_LIST_DESC        | Custom race ablilities file list. Click to load. (At the top is the one when opening the GUI.) 
+CUSTOM_RACE_RACE_LIST_DESC        | Custom species ablilities file list. Click to load. (At the top is the one when opening the GUI.) 
 CUSTOM_RACE_RANDOM_MAX            | Setting Max in %
 CUSTOM_RACE_RANDOM_MIN            | Setting Min in %
 CUSTOM_RACE_RANDOM_EDGES          | Smooth Edges
@@ -1663,7 +1663,7 @@ CUSTOM_RACE_RANDOM_TARGET_MIN     | Total Value Min
 CUSTOM_RACE_RANDOM_USE_TARGET     | Force Target
 CUSTOM_RACE_BASE_DATARACE         | Base Abilities
 CUSTOM_RACE_HOME_TYPE             | Planet Type
-CUSTOM_RACE_HOME_SIZE_DESC        | Starting Size of this Race Home world.
+CUSTOM_RACE_HOME_SIZE_DESC        | Starting Size of this Empire Home world.
 CUSTOM_RACE_HOME_SIZE             | Planet Size
 CUSTOM_RACE_HOME_ARTIFACTS_DESC   | This selection will affect the research of the home world.
 CUSTOM_RACE_HOME_ARTIFACTS        | Planet Artefacts
@@ -1672,17 +1672,17 @@ CUSTOM_RACE_HOME_RESOURCES        | Planet Resources
 CUSTOM_RACE_HOME_ENVIRONMENT_DESC | This selection will affect the growth rate of the home world.
 CUSTOM_RACE_HOME_ENVIRONMENT      | Planet Environment
 CUSTOM_RACE_RACE_KEY              | File Name
-CUSTOM_RACE_RACE_KEY_DESC         | This is the place to enter the filename, it's also used as the key for the standard race... Don't use them, or keep the default "RACE_xxx" to set the "Reworked"-Abilities.
-CUSTOM_RACE_RACE_NAME             | Race Name
+CUSTOM_RACE_RACE_KEY_DESC         | This is the place to enter the filename, it's also used as the key for the standard species... Don't use them, or keep the default "SPECIES_xxx" to set the "Reworked"-Abilities.
+CUSTOM_RACE_RACE_NAME             | Species Name
 CUSTOM_RACE_RACE_TYPE             | Species Type
 CUSTOM_RACE_RACE_TERRAN           | Terran
 CUSTOM_RACE_RACE_AQUATIC          | Aquatic
 CUSTOM_RACE_RACE_SILICATE         | Silicate
 CUSTOM_RACE_RACE_ROBOTIC          | Robotic
 CUSTOM_RACE_IGNORES_ECO_DESC      | Will be able to colonize any planet, and wont be impaired by their Hostility.
-CUSTOM_RACE_IGNORES_ECO           | Race Ignores Eco
-CUSTOM_RACE_PROPERTIE             | Race Propertie
-CUSTOM_RACE_CREDIT_DESC           | Easy Money Races?
+CUSTOM_RACE_IGNORES_ECO           | Species Ignores Eco
+CUSTOM_RACE_PROPERTIE             | Species Propertie
+CUSTOM_RACE_CREDIT_DESC           | Easy Money Species?
 CUSTOM_RACE_CREDIT                | Credits Bonus
 CUSTOM_RACE_HIT_POINTS            | Hit Point Factor
 CUSTOM_RACE_MAINTENANCE           | Maintenance Factor
@@ -1708,7 +1708,7 @@ CUSTOM_RACE_DIPLOMACY_TRADE       | Trade Bonus
 CUSTOM_RACE_DIPLO_POS_DP          | Diplo Pos DP
 CUSTOM_RACE_DIPLOMACY_BONUS       | Diplomacy Bonus
 CUSTOM_RACE_DIPLOMACY_COUNCIL     | Council Bonus
-CUSTOM_RACE_RELATION_DEFAULT      | Default Race Relation
+CUSTOM_RACE_RELATION_DEFAULT      | Default Species Relation
 CUSTOM_RACE_DISCOVERY_COMPUTER    | Disc. Computer
 CUSTOM_RACE_DISCOVERY_CONSTRUCTION | Disc. Construction
 CUSTOM_RACE_DISCOVERY_FORCEFIELD  | Disc. Force Field
@@ -1739,22 +1739,22 @@ CUSTOM_RACE_RESEARCH_PLANET_DESC       | Cost multiplier for reseaching Planet t
 CUSTOM_RACE_RESEARCH_PROPULSION_DESC   | Cost multiplier for reseaching Propulsion tech. Display: Cost multiplier -> Cost multiplier/ Revenue multiplier (Cost)
 CUSTOM_RACE_RESEARCH_WEAPON_DESC       | Cost multiplier for reseaching Weapon tech. Display: Cost multiplier -> Cost multiplier/ Revenue multiplier (Cost)
 CUSTOM_RACE_RACE_EMPIRE_NAME      | Empire Designation
-CUSTOM_RACE_RACE_DESC_1           | Race mood description
-CUSTOM_RACE_RACE_DESC_2           | Race abilities description
-CUSTOM_RACE_RACE_DESC_3           | Race global description
-CUSTOM_RACE_RACE_DESC_4           | Race specific description
-CUSTOM_RACE_RACE_PREFIX           | Race Prefix
-CUSTOM_RACE_RACE_SUFFIX           | Race Suffix
+CUSTOM_RACE_RACE_DESC_1           | Species mood description
+CUSTOM_RACE_RACE_DESC_2           | Species abilities description
+CUSTOM_RACE_RACE_DESC_3           | Species global description
+CUSTOM_RACE_RACE_DESC_4           | Species specific description
+CUSTOM_RACE_RACE_PREFIX           | Species Prefix
+CUSTOM_RACE_RACE_SUFFIX           | Species Suffix
 CUSTOM_RACE_LEADER_PREFIX         | Leader Prefix
 CUSTOM_RACE_LEADER_SUFFIX         | Leader Suffix
 CUSTOM_RACE_WORLDS_PREFIX         | Worlds Prefix
 CUSTOM_RACE_WORLDS_SUFFIX         | Worlds Suffix
-CUSTOM_RACE_RACE_PREFIX_DESC      | Race Name Prefix, to easily recognize custom Races.
-CUSTOM_RACE_RACE_SUFFIX_DESC      | Race Name Suffix, to easily recognize custom Races.
-CUSTOM_RACE_LEADER_PREFIX_DESC    | Leader Name Prefix, to easily recognize custom Races.
-CUSTOM_RACE_LEADER_SUFFIX_DESC    | Leader Name Suffix, to easily recognize custom Races.
-CUSTOM_RACE_WORLDS_PREFIX_DESC    | Worlds Names Prefix, to easily recognize custom Races.
-CUSTOM_RACE_WORLDS_SUFFIX_DESC    | Worlds Names Suffix, to easily recognize custom Races.
+CUSTOM_RACE_RACE_PREFIX_DESC      | Species Name Prefix, to easily recognize custom Species.
+CUSTOM_RACE_RACE_SUFFIX_DESC      | Species Name Suffix, to easily recognize custom Species.
+CUSTOM_RACE_LEADER_PREFIX_DESC    | Leader Name Prefix, to easily recognize custom Species.
+CUSTOM_RACE_LEADER_SUFFIX_DESC    | Leader Name Suffix, to easily recognize custom Species.
+CUSTOM_RACE_WORLDS_PREFIX_DESC    | Worlds Names Prefix, to easily recognize custom Species.
+CUSTOM_RACE_WORLDS_SUFFIX_DESC    | Worlds Names Suffix, to easily recognize custom Species.
 CUSTOM_RACE_ERRATIC               | Erratic
 CUSTOM_RACE_PACIFIST              | Pacifist
 CUSTOM_RACE_HONORABLE             | Honorable
@@ -1788,9 +1788,9 @@ CUSTOM_RACE_ARTIFACTS_NONE        | None
 CUSTOM_RACE_ARTIFACTS_ORION       | Orion Ruin
 
 CUSTOM_RACE_FAVORED_SHIPSET       | ShipSet
-CUSTOM_RACE_FAVORED_SHIPSET_DESC  | What is the preferred shipset used by this race? (If still available)
+CUSTOM_RACE_FAVORED_SHIPSET_DESC  | What is the preferred shipset used by this specie? (If still available)
 CUSTOM_RACE_FAVORED_SHIP_SIZE     | Ships Size
-CUSTOM_RACE_FAVORED_SHIP_SIZE_DESC | What is the preferred ship size used by this race? (AI:Base, AI:Modnar, AI: Rookie, and AI:Roleplay will use this information)
+CUSTOM_RACE_FAVORED_SHIP_SIZE_DESC | What is the preferred ship size used by this species? (AI:Base, AI:Modnar, AI: Rookie, and AI:Roleplay will use this information)
 CUSTOM_RACE_SHIP_SIZE_SMALL       | Small
 CUSTOM_RACE_SHIP_SIZE_MEDIUM      | Medium
 CUSTOM_RACE_SHIP_SIZE_LARGE       | Large
@@ -1856,13 +1856,13 @@ SETTINGS_COLONIZING_HELP          |  By default, any special colony base can col
 SETTINGS_COLONIZING_DESC          | Restrict the colonization of systems to only those for which you have acquired the specific technology.
 SETTINGS_COUNCIL_WIN_HELP         | This determines whether factions can reject a council victory, or whether one is even possible.
 SETTINGS_COUNCIL_DESC             | Disable the council victory condition or allow enemy empires to rebel against a player victory.
-SETTINGS_RANDOMIZE_AI_HELP        | Original "Advanced Option" to Randomize the AI played personalities, racial abilities, or both.<br><i>In case of conflict with the selected abilities in the Galaxy menu, The Galaxy menu win.</i>(Should be set to 'Base Race' for this option to works.)
+SETTINGS_RANDOMIZE_AI_HELP        | Original "Advanced Option" to Randomize the AI played personalities, racial abilities, or both.<br><i>In case of conflict with the selected abilities in the Galaxy menu, The Galaxy menu win.</i>(Should be set to 'Original Species' for this option to works.)
 SETTINGS_RANDOMIZE_AI_DESC        | Randomize the AI player personalities, racial abilities, or both.
 SETTINGS_AUTOPLAY_DESC            | Completely automate the game by having an AI play for the player.<br> This is useful for a first-hand view of how the AI works.
 SETTINGS_AUTOPLAY_WARNING         | Warning! Autoplay is currently enabled which will prevent user gameplay.<br> Use "Advanced Options" to disable.
 SETTINGS_FUEL_RANGE_HELP          | Increase or decrease the range of fuel range technologies and reserve fuel tanks. tolerant species will benefit from reduced ranges, while fast growing species will appreciate increased ranges...
 SETTINGS_FUEL_RANGE_DESC          | Increase the range of fuel range technologies and reserve fuel tanks.
-SETTINGS_AI_HOSTILITY_DESC        | Increase or decrease the general level of hostility between alien races.<br>When the hostility between two empires reach the level 30, a war declaration will follow!
+SETTINGS_AI_HOSTILITY_DESC        | Increase or decrease the general level of hostility between alien species.<br>When the hostility between two empires reach the level 30, a war declaration will follow!
 
 HEADERS_START_GALAXY_OPTIONS_DESC | Options used for galaxy buildings. Only read when starting a new game.
 HEADERS_START_GALAXY_OPTIONS      | ~~~ GALAXY OPTIONS ~~~%1
@@ -1874,7 +1874,7 @@ HEADERS_START_TECH_CONTROL_HELP   | Some technologies may be considered essentia
 HEADERS_START_TECH_CONTROL_DESC   | Options used while generating technologies lists. Only read when starting or restarting a game.
 HEADERS_START_TECH_CONTROL        | ~~ ALLOWED AND FORBIDDEN TECH ~~%1
 HEADERS_START_RANDOM_ALIENS_HELP  | When opponent abilities are set to 'Random' the following settings will be used:
-HEADERS_START_RANDOM_ALIENS_DESC  | Options used for the generation of random races. Only read when starting or restarting a game.
+HEADERS_START_RANDOM_ALIENS_DESC  | Options used for the generation of random species. Only read when starting or restarting a game.
 HEADERS_START_RANDOM_ALIENS       | ~~~ RANDOM ALIENS OPTIONS ~~~%1
 HEADERS_GAME_RELATIONS_DESC       | Options controling the relations between empires. Can be changed dynamically.
 HEADERS_GAME_RELATIONS            | ~~~ EMPIRES RELATIONS ~~~%1
@@ -1890,7 +1890,7 @@ HEADERS_BETA_TEST_DESC            | New options under construction.<br>Please te
 HEADERS_BETA_TEST                 | ~~~ NEW OPTIONS (BETA) ~~~%1
 HEADERS_GAME_DIFFICULTY_DESC      | Options affecting the game difficulty level. Can be changed dynamically.
 HEADERS_GAME_DIFFICULTY           | ~~~ GAME DIFFICULTY ~~~%1
-HEADERS_RESTART_OPTIONS_HELP      | Hidden behind the&nbsp <b>Start</b>&nbsp button, using the&nbsp <b>Ctrl</b>&nbsp Key you will find the&nbsp <b>Restart</b>&nbsp button.<br>You will be asked to select an old played game to start a new one on the same galaxy.<br>- With the same opponents or new ones.<br>- With the same player race, a new one, or swapped with a previous opponent.<br> You can keep your home world or swapp it with a previous opponent.<br> The following options are controlling the way a game will be restarted.
+HEADERS_RESTART_OPTIONS_HELP      | Hidden behind the&nbsp <b>Start</b>&nbsp button, using the&nbsp <b>Ctrl</b>&nbsp Key you will find the&nbsp <b>Restart</b>&nbsp button.<br>You will be asked to select an old played game to start a new one on the same galaxy.<br>- With the same opponents or new ones.<br>- With the same player species, a new one, or swapped with a previous opponent.<br> You can keep your home world or swapp it with a previous opponent.<br> The following options are controlling the way a game will be restarted.
 HEADERS_RESTART_OPTIONS_DESC      | Options controlling the way a game will be restarted. Only read when restarting a game.
 HEADERS_RESTART_OPTIONS           | ~~~ RESTART OPTIONS ~~~%1
 HEADERS_ZOOM_FACTORS_DESC         | Options controlling the galaxy Map Zoom Factors. Can be changed dynamically. (Remnant.cfg options)
@@ -1926,7 +1926,7 @@ SETTINGS_MOD_TITLE                   | modnar MOD Options
 SETTINGS_MOD_STATIC_TITLE            | Pregame Options
 SETTINGS_MOD_DYNAMIC_TITLE           | In-game Options
 SETTINGS_MOD_DIST_ARTIFACT_PLANET    | Min Artifact distance: %1
-SETTINGS_MOD_NEW_RACES_ON            | Include New Races: %1
+SETTINGS_MOD_NEW_RACES_ON            | Include New Species: %1
 SETTINGS_MOD_CHALLENGE_MODE          | Challenge Mode: %1
 SETTINGS_MOD_BATTLE_SCOUT            | Battle Scout: %1
 SETTINGS_MOD_COMPANION_WORLDS        | Companion Worlds: %1
@@ -1959,7 +1959,7 @@ SETTINGS_MOD_HOME_ULTRA_RICH         | Get Ultra-Rich HomeWorld: %1
 SETTINGS_MOD_DIST_ARTIFACT_PLANET_HELP | This will force a minimal distance between all Homeworlds and their nearest artifact planet.<br> The purpose is to avoid a random boost to early in the game for some empires.
 SETTINGS_MOD_DIST_ARTIFACT_PLANET_DESC | Minimal distance between Homeworlds and the nearest artifact planet.
 SETTINGS_MOD_CHALLENGE_MODE_DESC     | Give AI Empires additional starting resources (more Population, Factories, and Ships).
-SETTINGS_MOD_NEW_RACES_ON_DESC       | Include the new races as potential opponents
+SETTINGS_MOD_NEW_RACES_ON_DESC       | Include the new species as potential opponents
 SETTINGS_MOD_BATTLE_SCOUT_DESC       | Medium-Hull armed Scout Design for the Player at start of game. Buildable despite breaking Ship Space limitations.
 SETTINGS_MOD_COMPANION_WORLDS_HELP   | Give 0 to 6 additional Colonies around ALL Empire Homeworlds at start of game.<br> - Use negative values, from -1 to -4, to keep the original pre-assigned layout.<br> - Use positive values, from 1 to 6, to activate the new randomly assigned layout.
 SETTINGS_MOD_COMPANION_WORLDS_DESC   | Give 0 to 6 additional Colonies around ALL Empire Homeworlds at start of game. (Negative value for original disposition)
@@ -2086,22 +2086,22 @@ SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_YES  | Use the current GUI Auto-play sett
 SETTINGS_MOD_RESTART_CHANGES_PLAYER_AI_NO   | Keep the former Auto-play setting on Restart.
 
 SETTINGS_MOD_RESTART_APPLY_SETTINGS_HELP | When starting a new game based on a previously played game, you can either keep its original settings or use the current GUI settings.
-SETTINGS_MOD_RESTART_APPLY_SETTINGS_DESC | Should "Restart" Apply the current GUI Settings? (Except for Galaxy and Races settings) 
+SETTINGS_MOD_RESTART_APPLY_SETTINGS_DESC | Should "Restart" Apply the current GUI Settings? (Except for Galaxy and Species settings) 
 SETTINGS_MOD_RESTART_APPLY_SETTINGS      | Restart with new Settings: %1 
 SETTINGS_MOD_RESTART_APPLY_SETTINGS_YES  | Restart will use the current settings.
 SETTINGS_MOD_RESTART_APPLY_SETTINGS_NO   | Restart with keep the original game settings
 
-SETTINGS_MOD_RESTART_PLAYER_RACE_HELP    | When starting a new game based on a previously played game, you can keep the original race, use the current GUI one, or if you choose to swap the home world with another empire, you can also steel the race of the swapped opponent.
-SETTINGS_MOD_RESTART_PLAYER_RACE_DESC    | Player Race after "Restart" Last? or Swap? GUI & Last Alien? GUI & Swap Alien?
-SETTINGS_MOD_RESTART_PLAYER_RACE         | Restart Player Race: %1 
+SETTINGS_MOD_RESTART_PLAYER_RACE_HELP    | When starting a new game based on a previously played game, you can keep the original species, use the current GUI one, or if you choose to swap the home world with another empire, you can also steel the species of the swapped opponent.
+SETTINGS_MOD_RESTART_PLAYER_RACE_DESC    | Player Species after "Restart" Last? or Swap? GUI & Last Alien? GUI & Swap Alien?
+SETTINGS_MOD_RESTART_PLAYER_RACE         | Restart Player Species: %1 
 SETTINGS_MOD_RESTART_PLAYER_RACE_GUI_LAST  | GUI & Last
 SETTINGS_MOD_RESTART_PLAYER_RACE_GUI_SWAP  | GUI & Swap
 SETTINGS_MOD_RESTART_PLAYER_RACE_LAST      | Last 
 SETTINGS_MOD_RESTART_PLAYER_RACE_SWAP      | Swap
-SETTINGS_MOD_RESTART_PLAYER_RACE_GUI_LAST_DESC | The player will take the current GUI race and, in case of home worlds swap, the swapped opponent will keep is last race.
-SETTINGS_MOD_RESTART_PLAYER_RACE_GUI_SWAP_DESC | The player will take the current GUI race and, in case of home worlds swap, the swapped opponent will take the fpormer player race.
-SETTINGS_MOD_RESTART_PLAYER_RACE_LAST_DESC     | The player will keep the original race.
-SETTINGS_MOD_RESTART_PLAYER_RACE_SWAP_DESC     | The player will take the race of the swapped empire, and the opponent will use the player former race.
+SETTINGS_MOD_RESTART_PLAYER_RACE_GUI_LAST_DESC | The player will take the current GUI species and, in case of home worlds swap, the swapped opponent will keep their last species.
+SETTINGS_MOD_RESTART_PLAYER_RACE_GUI_SWAP_DESC | The player will take the current GUI species and, in case of home worlds swap, the swapped opponent will take the former player species.
+SETTINGS_MOD_RESTART_PLAYER_RACE_LAST_DESC     | The player will keep the original species.
+SETTINGS_MOD_RESTART_PLAYER_RACE_SWAP_DESC     | The player will take the species of the swapped empire, and the opponent will use the player former species.
 
 SETTINGS_MOD_TECH_IRRADIATED_HELP        | To Force Include or Exclude the Technology <b>Irradiated Control</b>&nbsp in the Tech Tree.<br>This technology could be available at Level 18.<br>It coul be very frustrating not being able to colonize all the planet late in the game!
 SETTINGS_MOD_TECH_IRRADIATED_DESC        | (Level 18){Always, Never, Auto} Include "Irradiated Control"  in the Tech Tree for Player/AI.
@@ -2126,33 +2126,33 @@ SETTINGS_MOD_TECH_TRANSPORTERS_DESC      | (Level 45) {Always, Never, Auto} Incl
 SETTINGS_MOD_TECH_TRANSPORTERS           | Tech Combat Transporter: %1
 
 SETTINGS_MOD_RACES_RAND_MIN_HELP         | Setting used when opponents 'Random' abilities are selected.<br>When "Custom Aliens" = Setting Range, each individual setting will be set within a relative range. This is the lower limit of this range.
-SETTINGS_MOD_RACES_RAND_MIN_DESC         | Alien races randomization: Lower limit for the settings relative randomization window.
+SETTINGS_MOD_RACES_RAND_MIN_DESC         | Alien species randomization: Lower limit for the settings relative randomization window.
 SETTINGS_MOD_RACES_RAND_MIN              | Settings % Min: %1
 
 SETTINGS_MOD_RACES_RAND_MAX_HELP         | Setting used when opponents 'Random' abilities are selected.<br>When "Custom Aliens" = Setting Range, each individual setting will be set within a relative range. This is the upper limit of this range.
-SETTINGS_MOD_RACES_RAND_MAX_DESC         | Alien races randomization: Upper limit for the settings relative randomization window.
+SETTINGS_MOD_RACES_RAND_MAX_DESC         | Alien species randomization: Upper limit for the settings relative randomization window.
 SETTINGS_MOD_RACES_RAND_MAX              | Settings % Max: %1
 
 SETTINGS_MOD_RACES_RAND_EDGES_HELP       | Setting used when opponents 'Random' abilities are selected: "Smooth Edges" defines the limits randomization distribution shape; when "Smooth" the values still have a small probablity of going past the limits, the distribution will be bell shaped. 
-SETTINGS_MOD_RACES_RAND_EDGES_DESC       | Alien races randomization: Smooth edges allow 1/6 of settings being over the window and 1/6 of settings being below the window. (Gaussian window)
+SETTINGS_MOD_RACES_RAND_EDGES_DESC       | Alien species randomization: Smooth edges allow 1/6 of settings being over the window and 1/6 of settings being below the window. (Gaussian window)
 SETTINGS_MOD_RACES_RAND_EDGES            | Smooth Edges: %1
 SETTINGS_MOD_RACES_RAND_EDGES_YES        | Two thirds of the values will be within the limits, one sixth may be above the limit while another sixth may be below the limit.
 SETTINGS_MOD_RACES_RAND_EDGES_NO         | All values will be uniformly spread inside the fixed limits.
 
 SETTINGS_MOD_RACES_RAND_TARGET_MIN_HELP  | Setting used when opponents 'Random' abilities are selected.<br>When "Custom Aliens" = Target Range, each individual setting will be set within the given relative range. Then if the final result is not within the final "Target Range" the values will be randomly shifted (Even outside their allowed range) until the final "Target Range" is reached.<br>This is the lower limit for the Target Range.
-SETTINGS_MOD_RACES_RAND_TARGET_MIN_DESC  | Alien races randomization: Lower limit for the Targeted total value.
+SETTINGS_MOD_RACES_RAND_TARGET_MIN_DESC  | Alien species randomization: Lower limit for the Targeted total value.
 SETTINGS_MOD_RACES_RAND_TARGET_MIN       | Target Min: %1
 
 SETTINGS_MOD_RACES_RAND_TARGET_MAX_HELP  | Setting used when opponents 'Random' abilities are selected.<br>When "Custom Aliens" = Target Range, each individual setting will be set within the given relative range. Then if the final result is not within the final "Target Range" the values will be randomly shifted (Even outside their allowed range) until the final "Target Range" is reached.<br>This is the upper limit for the Target Range.
-SETTINGS_MOD_RACES_RAND_TARGET_MAX_DESC  | Alien races randomization: Upper limit for the Targeted total value.
+SETTINGS_MOD_RACES_RAND_TARGET_MAX_DESC  | Alien species randomization: Upper limit for the Targeted total value.
 SETTINGS_MOD_RACES_RAND_TARGET_MAX       | Target Max: %1
 
 SETTINGS_MOD_RACES_RAND_USE_TARGET_HELP  | Setting used when opponents 'Random' abilities are selected. Each individual setting will be set within the given relative range, and may or may not be adjusted to reach The Target Range.
-SETTINGS_MOD_RACES_RAND_USE_TARGET_DESC  | Alien races randomization: Force or ignore targeted value.
+SETTINGS_MOD_RACES_RAND_USE_TARGET_DESC  | Alien species randomization: Force or ignore targeted value.
 SETTINGS_MOD_RACES_RAND_USE_TARGET       | Force Target Value: %1
 
 SETTINGS_MOD_RACES_ARE_RANDOM_HELP       | Setting used when opponents 'Random' abilities are selected. Each individual setting will be set within the given relative range, and may or may not be adjusted to reach The Target Range.
-SETTINGS_MOD_RACES_ARE_RANDOM_DESC       | Alien races randomization: Select the way.
+SETTINGS_MOD_RACES_ARE_RANDOM_DESC       | Alien species randomization: Select the way.
 SETTINGS_MOD_RACES_ARE_RANDOM            | Custom Aliens: %1
 SETTINGS_MOD_RACES_ARE_RANDOM_NO         | No
 SETTINGS_MOD_RACES_ARE_RANDOM_SETTING    | Settings Range
@@ -2188,9 +2188,9 @@ SETTINGS_MOD_COMPACT_OPTION_ONLY         | Show Compact Options: %1
 SETTINGS_MOD_COMPACT_OPTION_ONLY_YES     | Display the two buttons for accessing the compact options menus (which share a descripion space), allowing more options per menu.<br>One for the Pregame Options, the other for the In-game Options.
 SETTINGS_MOD_COMPACT_OPTION_ONLY_NO      | Display six buttons for accessing the classic options menus (which simultaneously display a small description of each option).<br>One for the original <b>Advanced Options</b>&nbsp containing both Pregame and In-game Options, two for the mod's Pregame Options, two for the mod's In-game Options, and one for display settings (not affecting game play).
 
-SETTINGS_MOD_RACE_STATUS_LOG_HELP        | The Race status graphs can either be displayed on a linear or logarithmic scale.
-SETTINGS_MOD_RACE_STATUS_LOG_DESC        | The Race status graphs can be displayed on a linear or logarithmic scale.
-SETTINGS_MOD_RACE_STATUS_LOG             | Race status graph log: %1
+SETTINGS_MOD_RACE_STATUS_LOG_HELP        | The Empire status graphs can either be displayed on a linear or logarithmic scale.
+SETTINGS_MOD_RACE_STATUS_LOG_DESC        | The Empire status graphs can be displayed on a linear or logarithmic scale.
+SETTINGS_MOD_RACE_STATUS_LOG             | Empire status graph log: %1
 SETTINGS_MOD_RACE_STATUS_LOG_YES         | Logarithmic Scale
 SETTINGS_MOD_RACE_STATUS_LOG_NO          | Linear Scale
 
@@ -2272,11 +2272,11 @@ SETTINGS_MOD_WARP_DISTURBANCES_OFF_DESC       | Disabled.
 SETTINGS_MOD_WARP_DISTURBANCES_ON_DESC        | Enabled, waiting for the shearing.
 SETTINGS_MOD_WARP_DISTURBANCES_TRIGGERED_DESC | The event has been triggered for next turn.
 
-SETTINGS_MOD_SHOW_NEW_RACES_DESC         | Show the new races in the opponents list?
-SETTINGS_MOD_SHOW_NEW_RACES              | Show new races: %1
+SETTINGS_MOD_SHOW_NEW_RACES_DESC         | Show the new species in the opponents list?
+SETTINGS_MOD_SHOW_NEW_RACES              | Show new species: %1
 SETTINGS_MOD_SHOW_GRID_CIRCULAR_DESC     | Show the circular grid on the galaxy map? (Dynamic)
 SETTINGS_MOD_SHOW_GRID_CIRCULAR          | Show circular grid: %1
-SETTINGS_MOD_SHOW_TOOLTIPS_DESC          | Custom Race Menu: Show the lower box with Tooltips?
+SETTINGS_MOD_SHOW_TOOLTIPS_DESC          | Custom Species Menu: Show the lower box with Tooltips?
 SETTINGS_MOD_SHOW_TOOLTIPS               | Show Tooltips: %1
 SETTINGS_MOD_USE_FUSION_FONT_HELP        | To be used with <b>Text Shaped Galaxies</b>: On Windows computers you won't have access to all available chars... So I merged a bunch of "noto" fonts to a big package and included it to this mod. It's a mixt of monospaced and variable fonts (for a total of 153 fonts), I had to remove "advanced" table features because they were to big to be merged (There is a reason why Google don't offert the big merged one!). Consequently, it won't be a good idea to try to copy it into your font folder...
 SETTINGS_MOD_USE_FUSION_FONT_DESC        | Galaxy text shaped will use Fusion font.
@@ -2788,7 +2788,7 @@ RELATIONS_FRIENDLY                | Friendly
 RELATIONS_UNITY                   | Unity
 RELATIONS_HARMONY                 | Harmony
 
-RACES_TITLE                       | Race Reports
+RACES_TITLE                       | Empire Reports
 RACES_SELECTOR_TITLE              | Empire Selector
 RACES_TAB_DIPLOMACY               | Diplomacy
 RACES_TAB_INTELLIGENCE            | Intelligence
@@ -2835,13 +2835,13 @@ RACES_DIPLOMACY_TRADE_DESC_FINAL  | We are engaged in a final war with the New R
 RACES_DIPLOMACY_TRADE_TREATY      | Trade Treaty
 RACES_DIPLOMACY_FOREIGN_RELATIONS | Foreign Relations
 RACES_DIPLOMACY_FOREIGN_RANGE     | We cannot know the foreign relations of the [alien_empire] until we have established diplomatic contact.
-RACES_DIPLOMACY_FOREIGN_DESC      | The [alien_race_plural] are in contact with the following races:
+RACES_DIPLOMACY_FOREIGN_DESC      | The [alien_race_plural] are in contact with the following empires:
 RACES_DIPLOMACY_COUNTER_BUREAU    | Counter-Intelligence Bureau
 RACES_DIPLOMACY_COUNTER_DESC      | Security spending increases your spending and chance of discovering foreign spies.
 RACES_DIPLOMACY_COUNTER_DESC2     | Tax your colonies to increase security spending.
 RACES_DIPLOMACY_EVENT_YEAR        | Year
 RACES_DIPLOMACY_EVENT_TURN        | Turn
-RACES_DIPLOMACY_EVENT_RACE        | Race
+RACES_DIPLOMACY_EVENT_RACE        | Empire
 RACES_DIPLOMACY_EVENT_TITLE       | Diplomatic Incident
 RACES_DIPLOMACY_EVENT_EFFECT      | Effect
 RACES_DIPLOMACY_ABILITY           | Click for details on species' abilities
@@ -2858,7 +2858,7 @@ RACES_INTEL_SECURITY_BONUS        | Security Bonus
 RACES_INTEL_TOTAL_SPENDING        | Total Spending
 RACES_INTEL_SECURITY_TAX          | Security Tax
 RACES_INTEL_TAX_DESC              | Tax your colonies to increase your chance of discovering foreign spies.
-RACES_INTEL_TAX_OUT_OF_RANGE      | Spending begins when in range of alien races.
+RACES_INTEL_TAX_OUT_OF_RANGE      | Spending begins when in range of alien empires.
 RACES_INTEL_SECURITY_BONUS_AMT    | +%1%
 RACES_INTEL_SECURITY_BONUS_NONE   | None
 RACES_INTEL_REPORT_AGE            | Report Age
@@ -2881,7 +2881,7 @@ RACES_INTEL_SPENDING_NONE         | None
 RACES_INTEL_COMPLETION_YEARS      | %1 Years
 RACES_INTEL_COMPLETION_PER_YEAR   | %1/Year
 RACES_INTEL_BUREAU_TITLE          | Intelligence Bureau
-RACES_INTEL_BUREAU_DESC           | Assign your spies to steal technology or sabotage foreign races.
+RACES_INTEL_BUREAU_DESC           | Assign your spies to steal technology or sabotage foreign empires.
 RACES_INTEL_BUREAU_SPIES          | Total Spies
 RACES_INTEL_BUREAU_MANAGE         | Manage Spies
 RACES_INTEL_BUREAU_SPENDING       | Total Spending
@@ -2892,7 +2892,7 @@ RACES_INTEL_SPY_WARNING_WAR       | If discovered, this mission could trigger a 
 RACES_INTEL_KNOWN_TECHNOLOGY      | [alien_race] Known Technology
 RACES_INTEL_KNOWN_TECH_DESC       | Our spies report the [alien_race] have mastered the following technologies. Any technology unknown to us is highlighted.
 RACES_INTEL_UNKNOWN_TECHNOLOGY    | Unknown Technology Report
-RACES_INTEL_UNKNOWN_TECH_DESC     | Our spies report foreign races have mastered the following technologies unknown to us.
+RACES_INTEL_UNKNOWN_TECH_DESC     | Our spies report foreign empires have mastered the following technologies unknown to us.
 
 RACES_MILITARY_TITLE              | [alien_race]  Starship Fleet
 RACES_MILITARY_SUBTITLE           | Ships by Hull Size
@@ -2951,19 +2951,19 @@ RACES_SET_COLOR_TITLE             | Choose new color for the [alien_empire]
 RACES_SET_COLOR_DESC              | If the selected color and shape are used by another empire, the colors will be switched.
 
 // Races UI help
-RACES_HELP_0A                     | OVERVIEW: This screen provides detailed information about each of the alien races that you have encountered.
+RACES_HELP_0A                     | OVERVIEW: This screen provides detailed information about each of the alien empires that you have encountered.
 RACES_HELP_0B                     | Diplomacy - Engage in diplomacy with the selected empire. 
 RACES_HELP_0C                     | Intelligence - Display alien technology and manage your spy networks.
 RACES_HELP_0D                     | Military - Display fleet and ship designs.
 RACES_HELP_0E                     | Status - Comparison across several categories.
-RACES_HELP_0F                     | Selecting your empire allows you to manage information for all contacted races on each tab.
-RACES_HELP_0G                     | Selecting an alien empire shows more detailed information for that race on each tab.
+RACES_HELP_0F                     | Selecting your empire allows you to manage information for all contacted empires on each tab.
+RACES_HELP_0G                     | Selecting an alien empire shows more detailed information for that empire on each tab.
 RACES_HELP_1A                     | General information for selected empire.
 RACES_HELP_1B                     | Provides direct access to diplomats for all contacted empires.
 RACES_HELP_1C                     | Increase the security tax to improve your chances of thwarting enemy spies.
 RACES_HELP_1D                     | Provides direct access to manage your spies in all contacted empires.
 RACES_HELP_1E                     | Diplomatic incidents that affect how other empires react to you. The effects will move towards zero over time.
-RACES_HELP_1F                     | Click to change the color for a race displayed on the map
+RACES_HELP_1F                     | Click to change the color for an empire displayed on the map
 RACES_HELP_2A                     | General information for selected empire.
 RACES_HELP_2B                     | Grants an audience with a diplomat for the selected empire.
 RACES_HELP_2C                     | Information about trade treaties signed with the selected empire.
@@ -2976,7 +2976,7 @@ RACES_HELP_3C                     | All technologies known by other empires, as 
 RACES_HELP_4A                     | Set the number of spy networks you want to establish in the selected empire, and the amount you wish to spend annually.
 RACES_HELP_4B                     | Set the orders for the spies infiltrating the selected empire. Hide - gather data. Espionage - attempt to steal technology. Sabotage - incite rebellions or destroy factories and missile bases.
 RACES_HELP_4C                     | All technologies known by the selected empire. Technologies that you do not know are shown in yellow.
-RACES_HELP_5A                     | The known number of ships in the fleet of the selected race, by hull size. This information will remain current as long as you have an active spy network in the selected empire.
+RACES_HELP_5A                     | The known number of ships in the fleet of the selected empire, by hull size. This information will remain current as long as you have an active spy network in the selected empire.
 RACES_HELP_5B                     | The known capabilities of ship designs. Older designs may be out of service. This information is primarily gathered during ship combat.
 RACES_HELP_5C                     | The known defensive capabilities of the selected empire. 
 RACES_HELP_6A                     | This screen provides a current ranking, in various categories, of our empire compared to other known empires. This data is gathered from our spy networks within those empires.
@@ -3150,8 +3150,8 @@ DIPLOMACY_MENU_PACT               | Propose Non-Aggression Pact
 DIPLOMACY_MENU_ALLIANCE           | Propose Alliance
 DIPLOMACY_MENU_PEACE              | Propose Peace Treaty
 DIPLOMACY_MENU_TRADE              | Propose Trade Treaty
-DIPLOMACY_MENU_JOINT_WAR          | Joint Declaration of War on Another Race
-DIPLOMACY_MENU_PROPOSE_BREAK_ALLY | Break Alliance With Another Race
+DIPLOMACY_MENU_JOINT_WAR          | Joint Declaration of War on Another Empire
+DIPLOMACY_MENU_PROPOSE_BREAK_ALLY | Break Alliance With Another Empire
 DIPLOMACY_MENU_BREAK_TRADE        | Break Trade Treaty
 DIPLOMACY_MENU_BREAK_PACT         | Break Non-Aggression Pact
 DIPLOMACY_MENU_BREAK_ALLIANCE     | Break Alliance
@@ -3307,7 +3307,7 @@ GOVERNOR_FULL_REFRESH_ON_LOAD       | Full Reset: %1
 //
 // ===== BR: Guide and contextual Help added by Mods =====
 // 
-SETUP_OPP_CR_OPTIONS_HELP           | Default abilities for alien Races:<br> 'Base Races' = Standard abilities of the selected Race (in the Boxes below);<br> 'Reworked' = New abilities you have saved with the race default name.<br> (ex: RACE_DARLOK for the Darlok);<br> *Race = specific base Race; or any other customized race you have built.
+SETUP_OPP_CR_OPTIONS_HELP           | Default abilities for alien Species:<br> 'Original Species' = Standard abilities of the selected Species (in the Boxes below);<br> 'Reworked' = New abilities you have saved with the Species default name.<br> (ex: RACE_DARLOK for the Darlok);<br> *Species = specific Original Species; or any other customized species you have built.
 
 
 // Common Guides and Help
@@ -3337,13 +3337,13 @@ SETTINGS_LOCAL_USER_SAVE_DESC     | Save options in this panel to the User's pre
 SETTINGS_GLOBAL_USER_SAVE_DESC    | Save options for all GUIs to User's preferred values (To File).
 
 // Race Menu Guides and Help
-SETUP_RACE_MAIN_DESC              | OVERVIEW<br> This screen allows you to adjust Base Player Race parameters.<br> Use "Ctrl" and "Shift" to change the buttons functions.<br> Global = All options. Local = Options from this panel.<br>"R" will select a new race randomly.
+SETUP_RACE_MAIN_DESC              | OVERVIEW<br> This screen allows you to adjust Base Player Empire parameters.<br> Use "Ctrl" and "Shift" to change the buttons functions.<br> Global = All options. Local = Options from this panel.<br>"R" will select a new species randomly.
 SETUP_RACE_NEXT_DESC              | Save options and go to the Galaxy setup menu.
 SETUP_RACE_CANCEL_DESC            | Cancel options and go back to the Main menu.
-SETUP_RACE_CUSTOM_DESC            | Enter the Race Customization Menu.<br> (For Player or Aliens) 
-SETUP_RACE_CHECK_BOX_DESC         | Select the defined custom race as player race.
-SETUP_RACE_SHIPSET_DESC           | Select Shipset used by the player.<br> "Original" = The one associated by default to the selected race.
-SETUP_RACE_RACES_DESC             | The graphical representation of the player race, with its animations, and by default its abilities. (Abilities can also be randomized or customized) 
+SETUP_RACE_CUSTOM_DESC            | Enter the Species Customization Menu.<br> (For Player or Aliens) 
+SETUP_RACE_CHECK_BOX_DESC         | Select the defined custom species as player species.
+SETUP_RACE_SHIPSET_DESC           | Select Shipset used by the player.<br> "Original" = The one associated by default to the selected species.
+SETUP_RACE_RACES_DESC             | The graphical representation of the player species, with its animations, and by default its abilities. (Abilities can also be randomized or customized) 
 SETUP_RACE_LEADER_HELP            | Name your leader here, think twice, as you won't be able to change it later.
 SETUP_RACE_HOMEWORLD_HELP         | You can set your home world name here, or change it later in the game colony tab.
 
@@ -3352,14 +3352,14 @@ SETUP_GALAXY_MAIN_DESC            | OVERVIEW<br> This screen allows you to selec
 SETUP_START_DESC                  | Save options and Start the Game.<br> "Ctrl" => Restart a new game based on and old save game.
 SETUP_BUTTON_START_DESC           | Save options and Start the Game.
 SETUP_BUTTON_RESTART_DESC         | You will be asked to select an old played game to start a new one on the same galaxy.<br>- With the same opponents or new ones.<br>- With the same player race, a new one, or swapped with a previous opponent.<br> You can keep your home world or swapp it with a previous opponent.
-SETUP_GALAXY_BACK_DESC            | Cancel options and go back to the Race selection menu.
+SETUP_GALAXY_BACK_DESC            | Cancel options and go back to the Player options menu.
 SETUP_GALAXY_CLASSIC_OPTIONS_HELP | These buttons open Advanced option Menus.<br> "Pregame" contains parameters being set once when starting or restarting a game.<br> "In-game" contains parameters adjustable in game.<br>To switch to 2 compact option menus:<br> - Go to "Menus Options" and set "Show Compact Options" to "Yes".  (at the bottom right)<br>Compact option menus have the same appearence as the one showing in-game, following "Ctrl-o". 
 SETUP_GALAXY_COMPACT_OPTIONS_HELP | These buttons open Advanced options Menu.<br> "Pregame" contains parameters being set once when starting or restarting a game.<br> "In-game" contains parameters adjustable in game.<br>To switch back to 6 classic option menus:<br> - Go to "Pregame Options" and set "Show Compact Options" to "No". (at the bottom right)
-SETUP_GALAXY_ABILITIES_DESC       | Default abilities for alien Races:<br> 'Base Races' = Standard abilities of the selected Race (in the Boxes below);<br> 'Reworked' = New abilities you have saved with the race default name.<br> (ex: RACE_DARLOK for the Naslok);<br> *Race = specific base Race; or any other customized race you have built.
+SETUP_GALAXY_ABILITIES_DESC       | Default abilities for alien Empires:<br> 'Original Species' = Original abilities of the selected Species (in the Boxes below);<br> 'Reworked' = New abilities you have saved with the original species name.<br> (ex: RACE_DARLOK for the Naslok);<br> *Species = specific Original Species; or any other customized species you have built.
 SETUP_GALAXY_SELECTABLE_DESC      | "Yes" => A selection line will appear at the top of the boxes below, allowing the selection of individual ability.
 SETUP_GALAXY_SELECTABLE		      | Selectable Abilities
-SETUP_GALAXY_RACE_LIST_HELP       | <b>Race list selection</b><br> Modnar has extended the base race list with six new races. If you are not in the mood to see them, you can exclude them from the selection.<hr><b>Default:</b>&nbsp Original<hr><b>Original:</b>&nbsp The 6 Modnar Races are excluded.<br> <b>All Races</b>:&nbsp The 6 Modnar Races can also be selected or randomly assigned.
-SETUP_GALAXY_RACE_LIST_DESC       | "Original" = The 6 Modnar Races are excluded.<br> "All Races" = The 6 Modnar Races can also be selected or randomly assigned.
+SETUP_GALAXY_RACE_LIST_HELP       | <b>Species list selection</b><br> Modnar has extended the original species list with six new species. If you are not in the mood to see them, you can exclude them from the selection.<hr><b>Default:</b>&nbsp Original<hr><b>Original:</b>&nbsp The 6 Modnar Species are excluded.<br> <b>All Species</b>:&nbsp The 6 Modnar Species can also be selected or randomly assigned.
+SETUP_GALAXY_RACE_LIST_DESC       | "Original" = The 6 Modnar Species are excluded.<br> "All Species" = The 6 Modnar Species can also be selected or randomly assigned.
 SETUP_GALAXY_AGAINST_DESC         | To select Aliens AI.<br> "AI:Selectable" => A selection line will appear on the bottom of the Boxes bellow, allowing the selection of individual Aliens AI.
 SETUP_GALAXY_PREVIEW_DESC         | This is what the Galaxy will look like.<br>Blue dot = Orion.<br>Green dots = Player Homeworld and neighbor systems.<br>Red dots = Opponents Homeworlds and their neighbor systems.<br>Grey dots = other star systems.<br>Click to show/hide a 10 ly spaced grid.<br>Scroll to change the empires spreading.<br>Middle Click to restore the default minimal distances between empires.
 
@@ -3370,17 +3370,17 @@ SETUP_SELECT_CR_OPTIONS		      | Selectable Abilities.
 ???		                          | ???
 ???_DESC		                  | ???_DESCXXX
 
-'Selection'_DESC     | Same abilities as the global abilitied selected on the top.
-'Base Race'_DESC     | Base abilities of the selected race (the one on the icon)
-'Reworked'_DESC      | Reworked abilities of the selected race (the one on the icon), modified and saved by the player (in the Race Customization Panel) with the respectively named race files: RACE_ALKARI, RACE_BULRATHI, RACE_DARLOK, RACE_HUMAN, RACE_KLACKON, RACE_MEKLAR, RACE_MRRSHAN, RACE_PSILON, RACE_SAKKRA , RACE_SILICOID, RACE_EARLYGAME, RACE_GEARHEAD, RACE_JACKTRADES, RACE_MONOCLE, RACE_NEOHUMAN, RACE_WARDEMON.
-'Player'_DESC        | Same abilities as the selected player race.
-'Random'_DESC        | Abilities will be randomly generared using the pregame parameters: <b>RANDOM ALIENS OPTIONS</b> : "Target Max", "Target Min", "Custom Aliens", "Setting % Max", "Setting % Min", and "Smooth Edges".
-'Random 10'_DESC     | Abilities randomly selected within the ten base races abilities.
-'Random 16'_DESC     | Abilities randomly selected within the sixteen races abilities. <i>(The ten Base races and the six Modnar races)</i>
-'Files'_DESC         | Abilities randomly selected within customized race file, having the "Available to AI" option enabled. If this list is empty the selection will be made within the base race abilities.
-'All Files'_DESC     | Abilities randomly selected within customized race file, ignoring the "Available to AI" option. If this list is empty the selection will be made within the base race abilities.
-'Files Races'_DESC   | Abilities randomly selected within the base races abilities and the customized race file, having the "Available to AI" option enabled.
-'All'_DESC           | Abilities randomly selected within the base races abilities and the customized race file, ignoring the "Available to AI" option.
+'Selection'_DESC        | Same abilities as the global abilitied selected on the top.
+'Original Species'_DESC | Original abilities of the selected species (the one on the icon)
+'Reworked'_DESC         | Reworked abilities of the selected species (the one on the icon), modified and saved by the player (in the Species Customization Panel) with the respectively named spcies files: RACE_ALKARI, RACE_BULRATHI, RACE_DARLOK, RACE_HUMAN, RACE_KLACKON, RACE_MEKLAR, RACE_MRRSHAN, RACE_PSILON, RACE_SAKKRA , RACE_SILICOID, RACE_EARLYGAME, RACE_GEARHEAD, RACE_JACKTRADES, RACE_MONOCLE, RACE_NEOHUMAN, RACE_WARDEMON.
+'Player'_DESC           | Same abilities as the selected player race.
+'Random'_DESC           | Abilities will be randomly generared using the pregame parameters: <b>RANDOM ALIENS OPTIONS</b> : "Target Max", "Target Min", "Custom Aliens", "Setting % Max", "Setting % Min", and "Smooth Edges".
+'Random 10'_DESC        | Abilities randomly selected within the ten original species abilities.
+'Random 16'_DESC        | Abilities randomly selected within the sixteen species abilities. <i>(The ten original species and the six Modnar species)</i>
+'Files'_DESC            | Abilities randomly selected within customized species files, having the "Available to AI" option enabled. If this list is empty the selection will be made within the original species abilities.
+'All Files'_DESC        | Abilities randomly selected within customized species file, ignoring the "Available to AI" option. If this list is empty the selection will be made within the original species abilities.
+'Files Races'_DESC      | Abilities randomly selected within the original species abilities and the customized species files, having the "Available to AI" option enabled.
+'All'_DESC              | Abilities randomly selected within the original species abilities and the customized species files, ignoring the "Available to AI" option.
 
 SETUP_GALAXY_SHAPE_RECTANGLE_HELP    | Original rectangular or square Galaxies with up to five voids.
 SETUP_GALAXY_SHAPE_RECTANGLE_O1_HELP | Shape ratio adjustement.
@@ -3557,7 +3557,7 @@ HK_G          | <br>G : Toggle Guide.
 
 
 // Shortcuts Full lists
-MAIN_HELP_HK         | →HK_HEADER← →HK_F1_?←<br>F2/F3 : Next/Previous player colony<br>F5/F6 : Next/Previous player colony that has constructed a ship this turn<br>F7/F8 : Next/Previous player colony with incoming armed enemy fleets or transports<br>F9/F10 : Next/Previous player fleet<br>F11/F12 : Next/Previous AI fleet<br>Space/PageDown/PageUp : Next/Previous player Idle fleet<br><br>G : Select Game Panel<br>S : Select System Panel<br>F : Select Fleet Panel<br>D : Select Design Panel<br>R : Select Race Panel<br>C : Select Colonies Panel<br>T : Select Tech Panel<br>N : Next Turn<br>O : Select Option Panel →HK_Y←<br>SHIFT-S : Show spy report<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Mousewheel : Increment quantities/moves slider<br>→HK_ESCAPE←
+MAIN_HELP_HK         | →HK_HEADER← →HK_F1_?←<br>F2/F3 : Next/Previous player colony<br>F5/F6 : Next/Previous player colony that has constructed a ship this turn<br>F7/F8 : Next/Previous player colony with incoming armed enemy fleets or transports<br>F9/F10 : Next/Previous player fleet<br>F11/F12 : Next/Previous AI fleet<br>Space/PageDown/PageUp : Next/Previous player Idle fleet<br><br>G : Select Game Panel<br>S : Select System Panel<br>F : Select Fleet Panel<br>D : Select Design Panel<br>R, E : Select Empire Panel<br>C : Select Colonies Panel<br>T : Select Tech Panel<br>N : Next Turn<br>O : Select Option Panel →HK_Y←<br>SHIFT-S : Show spy report<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Mousewheel : Increment quantities/moves slider<br>→HK_ESCAPE←
 
 PLANETS_HELP_HK      | →HK_HEADER← →HK_F1←<br><br>Arrows Up/Down : Scroll Up/Down<br>Arrows Right/Left : Next/Previous Colony. →HK_TAB← →HK_F← →HK_HOME←<br> →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5←<br><br>CTRL+A : Select All Systems<br>Q/+CTRL : Select Normal And Rich With Full Economy / + Set Ship spending to 100%<br>Y,Z/+CTRL : Select Lacking Population / + Set Eco spending to 100%<br><br>S/+CTRL/+SHIFT : Current Selection Ship Spending to 100% / Lock / Unlock<br>D/+CTRL/+SHIFT : Current Selection Defense Spending to 100% / Lock / Unlock<br>W/+CTRL/+SHIFT : Current Selection Industry Spending to 100% / Lock / Unlock<br>E/+CTRL/+SHIFT : Current Selection Ecology Spending to 100% / Lock / Unlock<br>R/+CTRL/+SHIFT : Current Selection Research Spending to 100% / Lock / Unlock<br>G/+CTRL/+SHIFT : Current Selection Governor Toggle / On / Off <br>→HK_ESCAPE←
 
@@ -3571,8 +3571,8 @@ RACES_HELP_HK        | →HK_HEADER← →HK_F1← <br><br>Arrows Down/Up : Next
 
 SYSTEMS_HELP_HK      | →HK_HEADER← →HK_F1_?← <br>→HK_MAP_ARROWS← →HK_MAP_ZOOM← <br> →HK_Y← →HK_F← →HK_HOME← →HK_ALT_HOME← <br>→HK_ESCAPE←
 
-SETUP_GALAXY_HELP_HK | →HK_HEADER← →HK_F1← →HK_G← <br><br>M : Go to Main Menu.<br>Enter : Start a new Game. <br><br>Escape : Go to Race Setup Panel.
+SETUP_GALAXY_HELP_HK | →HK_HEADER← →HK_F1← →HK_G← <br><br>M : Go to Main Menu.<br>Enter : Start a new Game. <br><br>Escape : Go to Player Setup Panel.
 
-SETUP_RACE_HELP_HK   | →HK_HEADER← →HK_F1← →HK_G← <br><br>R : Random Race. <br>Enter : Go to Galaxy Setup Panel. <br><br>Escape : Go to Main Menu.
+SETUP_RACE_HELP_HK   | →HK_HEADER← →HK_F1← →HK_G← <br><br>R : Random Species. <br>Enter : Go to Galaxy Setup Panel. <br><br>Escape : Go to Main Menu.
 
 MOD_OPTIONS_HELP_HK  | <b><u>HOTKEYS:</u></b> →HK_SHIFT_F1← <br>F1 : Show contextual Help. →HK_G← <br>→HK_ESCAPE←

@@ -21,7 +21,7 @@ import java.util.LinkedList;
 public enum SpecificCROption {
 	
 	SELECTION	("'Selection'"),
-	BASE_RACE	("'Base Race'"),
+	BASE_RACE	("'Original Species'"),
 	REWORKED	("'Reworked'"),
 	PLAYER		("'Player'"),
 	RANDOM		("'Random'"),
@@ -63,7 +63,9 @@ public enum SpecificCROption {
 	public boolean isAll()			 { return this == ALL; }
 	public boolean isUserChoice()	 { return this == USER_CHOICE; }
 
-	public static boolean isBaseRace(String opt)		{ return opt.equals(BASE_RACE.value); }
+	public static boolean isBaseRace(String opt)		{
+		return (opt.equals(BASE_RACE.value) || opt.equalsIgnoreCase("'Base Race'"));
+	}
 	public static boolean isSelection(String opt)		{ return opt.equals(SELECTION.value); }
 	public static boolean isReworked(String opt)		{ return opt.equals(REWORKED.value); }
 	public static boolean isPlayer(String opt)			{ return opt.equals(PLAYER.value); }
