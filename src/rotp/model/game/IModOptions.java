@@ -159,6 +159,7 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 				piratesDelayTurn, piratesReturnTurn, piratesMaxSystems,
 				amoebaDelayTurn, amoebaReturnTurn, amoebaMaxSystems,
 				crystalDelayTurn, crystalReturnTurn, crystalMaxSystems,
+				customRandomEventUI,
 
 				headerSpacer,
 				new ParamTitle("PLANETS_FLAG_OPTIONS"),

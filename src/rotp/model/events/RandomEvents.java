@@ -32,7 +32,7 @@ public class RandomEvents implements Base, Serializable {
     private List<RandomEvent> activeEvents;
 	private RandomEvent lastEvent; // modnar: keep track of last event
     private float eventChance = START_CHANCE;
-    // BR: Added option for fixed random (reloaldin wont change the issue)
+    // BR: Added option for fixed random (reloading wont change the issue)
     private Long turnSeed   = null;
     private Long listSeed   = null;
     private Long targetSeed = null;

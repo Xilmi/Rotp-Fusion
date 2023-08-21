@@ -12,7 +12,7 @@ import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
 
-public interface IInGameOptions extends IConvenienceOptions {
+public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 
 	// ========================================================================
 	// GamePlay options
@@ -112,37 +112,37 @@ public interface IInGameOptions extends IConvenienceOptions {
 	ParamFloat counciRequiredPct	= new ParamFloat(MOD_UI, "COUNCIL_REQUIRED_PCT"
 			, 2f/3f , 0f, 0.99f, 0.01f/3f, 0.02f, 0.1f, "0.0##", "‰");
 
-	ParamBoolean fixedEventsMode	= new ParamBoolean(MOD_UI, "FIXED_EVENTS_MODE", false);
-	default boolean selectedFixedEventsMode()	{ return fixedEventsMode.get(); }
-	
-	ParamInteger eventsStartTurn	= new ParamInteger(MOD_UI, "EVENTS_START_TURN", 50, 1, null, 1, 5, 20);
-	
-	ParamInteger piratesDelayTurn	= new ParamInteger(MOD_UI, "PIRATES_DELAY_TURN", 25, 0, null, 1, 5, 20);
-	default int selectedPiratesDelayTurn()		{ return piratesDelayTurn.get(); }
-
-	ParamInteger amoebaDelayTurn	= new ParamInteger(MOD_UI, "AMOEBA_DELAY_TURN", 100, 0, null, 1, 5, 20);
-	default int selectedAmoebaDelayTurn()		{ return amoebaDelayTurn.get(); }
-
-	ParamInteger crystalDelayTurn	= new ParamInteger(MOD_UI, "CRYSTAL_DELAY_TURN", 100, 0, null, 1, 5, 20);
-	default int selectedCrystalDelayTurn()		{ return crystalDelayTurn.get(); }
-
-	ParamInteger piratesReturnTurn	= new ParamInteger(MOD_UI, "PIRATES_RETURN_TURN", 0, 0, null, 1, 5, 20);
-	default int selectedPiratesReturnTurn()		{ return piratesReturnTurn.get(); }
-
-	ParamInteger amoebaReturnTurn	= new ParamInteger(MOD_UI, "AMOEBA_RETURN_TURN", 0, 0, null, 1, 5, 20);
-	default int selectedAmoebaReturnTurn()		{ return amoebaReturnTurn.get(); }
-
-	ParamInteger crystalReturnTurn	= new ParamInteger(MOD_UI, "CRYSTAL_RETURN_TURN", 0, 0, null, 1, 5, 20);
-	default int selectedCrystalReturnTurn()		{ return crystalReturnTurn.get(); }
-
-	ParamInteger piratesMaxSystems	= new ParamInteger(MOD_UI, "PIRATES_MAX_SYSTEMS", 0, 0, null, 1, 5, 20);
-	default int selectedPiratesMaxSystems()		{ return piratesMaxSystems.get(); }
-
-	ParamInteger amoebaMaxSystems	= new ParamInteger(MOD_UI, "AMOEBA_MAX_SYSTEMS", 0, 0, null, 1, 5, 20);
-	default int selectedAmoebaMaxSystems()		{ return amoebaMaxSystems.get(); }
-
-	ParamInteger crystalMaxSystems	= new ParamInteger(MOD_UI, "CRYSTAL_MAX_SYSTEMS", 0, 0, null, 1, 5, 20);
-	default int selectedCrystalMaxSystems()		{ return crystalMaxSystems.get(); }
+//	ParamBoolean fixedEventsMode	= new ParamBoolean(MOD_UI, "FIXED_EVENTS_MODE", false);
+//	default boolean selectedFixedEventsMode()	{ return fixedEventsMode.get(); }
+//	
+//	ParamInteger eventsStartTurn	= new ParamInteger(MOD_UI, "EVENTS_START_TURN", 50, 1, null, 1, 5, 20);
+//	
+//	ParamInteger piratesDelayTurn	= new ParamInteger(MOD_UI, "PIRATES_DELAY_TURN", 25, 0, null, 1, 5, 20);
+//	default int selectedPiratesDelayTurn()		{ return piratesDelayTurn.get(); }
+//
+//	ParamInteger amoebaDelayTurn	= new ParamInteger(MOD_UI, "AMOEBA_DELAY_TURN", 100, 0, null, 1, 5, 20);
+//	default int selectedAmoebaDelayTurn()		{ return amoebaDelayTurn.get(); }
+//
+//	ParamInteger crystalDelayTurn	= new ParamInteger(MOD_UI, "CRYSTAL_DELAY_TURN", 100, 0, null, 1, 5, 20);
+//	default int selectedCrystalDelayTurn()		{ return crystalDelayTurn.get(); }
+//
+//	ParamInteger piratesReturnTurn	= new ParamInteger(MOD_UI, "PIRATES_RETURN_TURN", 0, 0, null, 1, 5, 20);
+//	default int selectedPiratesReturnTurn()		{ return piratesReturnTurn.get(); }
+//
+//	ParamInteger amoebaReturnTurn	= new ParamInteger(MOD_UI, "AMOEBA_RETURN_TURN", 0, 0, null, 1, 5, 20);
+//	default int selectedAmoebaReturnTurn()		{ return amoebaReturnTurn.get(); }
+//
+//	ParamInteger crystalReturnTurn	= new ParamInteger(MOD_UI, "CRYSTAL_RETURN_TURN", 0, 0, null, 1, 5, 20);
+//	default int selectedCrystalReturnTurn()		{ return crystalReturnTurn.get(); }
+//
+//	ParamInteger piratesMaxSystems	= new ParamInteger(MOD_UI, "PIRATES_MAX_SYSTEMS", 0, 0, null, 1, 5, 20);
+//	default int selectedPiratesMaxSystems()		{ return piratesMaxSystems.get(); }
+//
+//	ParamInteger amoebaMaxSystems	= new ParamInteger(MOD_UI, "AMOEBA_MAX_SYSTEMS", 0, 0, null, 1, 5, 20);
+//	default int selectedAmoebaMaxSystems()		{ return amoebaMaxSystems.get(); }
+//
+//	ParamInteger crystalMaxSystems	= new ParamInteger(MOD_UI, "CRYSTAL_MAX_SYSTEMS", 0, 0, null, 1, 5, 20);
+//	default int selectedCrystalMaxSystems()		{ return crystalMaxSystems.get(); }
 
 	ParamInteger bombingTarget		= new ParamInteger(MOD_UI, "BOMBING_TARGET", 10, null, null, 1, 5, 20);
 	default int selectedBombingTarget()			{ return bombingTarget.get(); }
@@ -220,7 +220,7 @@ public interface IInGameOptions extends IConvenienceOptions {
 			Arrays.asList(
 				eventsStartTurn, fixedEventsMode, counciRequiredPct, GovernorOptions.governorOptionsUI,
 				null,
-				amoebaDelayTurn, amoebaMaxSystems, amoebaReturnTurn,
+				amoebaDelayTurn, amoebaMaxSystems, amoebaReturnTurn, customRandomEventUI,
 				null,
 				crystalDelayTurn, crystalMaxSystems, crystalReturnTurn,
 				null,

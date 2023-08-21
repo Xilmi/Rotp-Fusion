@@ -1913,6 +1913,16 @@ HEADERS_AUTO_FLAG_COLONY_TECH        | ~~~ COLONY SHIP TECH ~~~%1
 HEADERS_AUTO_FLAG_VESTIGES_DESC      | Set the color of the flags according to the vestiges of civilization.
 HEADERS_AUTO_FLAG_VESTIGES           | ~~~ CIVILIZATION VESTIGES ~~~%1
 
+HEADERS_RANDOM_EVENTS_GLOBAL_DESC    | Parameters affecting all random events.
+HEADERS_RANDOM_EVENTS_GLOBAL         | ~~~ GLOBAL PARAMETERS ~~~%1
+HEADERS_RANDOM_EVENTS_MONSTERS_DESC  | Parameters dedicated to monsters random events.
+HEADERS_RANDOM_EVENTS_MONSTERS       | ~~~ MONSTERS PARAMETERS ~~~%1
+HEADERS_RANDOM_EVENTS_DELAYS_DESC    | Parameters related to random events activation and delays.
+HEADERS_RANDOM_EVENTS_DELAYS         | ~~~ DELAYS PARAMETERS ~~~%1
+HEADERS_RANDOM_EVENTS_RETURNS_DESC   | Parameters related to random events reiteration. 
+HEADERS_RANDOM_EVENTS_RETURNS        | ~~~ RECURING PARAMETERS ~~~%1
+
+
 HEADERS_DEBUG_MEMORY_DESC            | To enable or disable Memory monitoring.
 HEADERS_DEBUG_MEMORY                 | ~~~ MEMORY MONITORING ~~~%1
 HEADERS_DEBUG_AUTO_PLAY_DESC         | To enable and configure Full Auto Run.
@@ -2021,28 +2031,6 @@ SETTINGS_MOD_FIXED_EVENTS_MODE_DESC      | A seed is given at the begining of a 
 SETTINGS_MOD_FIXED_EVENTS_MODE           | Fixed random events: %1
 SETTINGS_MOD_COUNCIL_REQUIRED_PCT_DESC   | Percentage needed to win the council vote.
 SETTINGS_MOD_COUNCIL_REQUIRED_PCT        | Council Requirement: %1%
-SETTINGS_MOD_EVENTS_START_TURN_DESC      | To adjust the starting turn of random events. If an event has already been started, it will not be stopped.
-SETTINGS_MOD_EVENTS_START_TURN           | Random Events Starting Turn: %1
-SETTINGS_MOD_PIRATES_DELAY_TURN_DESC     | To adjust the starting turn of random pirates events (x2 for Easy; x3 for Easier; x4 for Easiest).
-SETTINGS_MOD_PIRATES_DELAY_TURN          | Pirates Base Delay Turns: %1
-SETTINGS_MOD_AMOEBA_DELAY_TURN_DESC      | To adjust the starting turn of random space amoeba events (x2 for Easy; x3 for Easier; x4 for Easiest).
-SETTINGS_MOD_AMOEBA_DELAY_TURN           | Amoeba Base Delay Turns: %1
-SETTINGS_MOD_CRYSTAL_DELAY_TURN_DESC     | To adjust the starting turn of random space crystal events (x2 for Easy; x3 for Easier; x4 for Easiest).
-SETTINGS_MOD_CRYSTAL_DELAY_TURN          | Crystal Base Delay Turns: %1
-SETTINGS_MOD_PIRATES_RETURN_TURN_DESC    | To adjust the Delay between two Space Pirates events occurence. (0 = Unique event)
-SETTINGS_MOD_PIRATES_RETURN_TURN         | Pirates Return Delay: %1
-SETTINGS_MOD_AMOEBA_RETURN_TURN_DESC     | To adjust the Delay between two Space Amoeba events occurence. (0 = Unique event)
-SETTINGS_MOD_AMOEBA_RETURN_TURN          | Amoeba Return Delay: %1
-SETTINGS_MOD_CRYSTAL_RETURN_TURN_DESC    | To adjust the Delay between two Space Crystal events occurence. (0 = Unique event)
-SETTINGS_MOD_CRYSTAL_RETURN_TURN         | Crystal Return Delay: %1
-SETTINGS_MOD_PIRATES_MAX_SYSTEMS_DESC    | To adjust the Number of stars system attacked by the Space Pirates before leaving. (0 = Not limited)
-SETTINGS_MOD_PIRATES_MAX_SYSTEMS         | Max Pirates Attack: %1
-SETTINGS_MOD_AMOEBA_MAX_SYSTEMS_DESC     | To adjust the Number of stars system attacked by the Space Amoeba before leaving. (0 = Not limited)
-SETTINGS_MOD_AMOEBA_MAX_SYSTEMS          | Max Amoeba Attack: %1
-SETTINGS_MOD_CRYSTAL_MAX_SYSTEMS_DESC    | To adjust the Number of stars system attacked by the Space Crystal before leaving. (0 = Not limited)
-SETTINGS_MOD_CRYSTAL_MAX_SYSTEMS         | Max Crystal Attack: %1
-SETTINGS_MOD_ALT_MONSTER_MESSAGES_DESC   | Randomly displays standard or alternate messages for Monster events.
-SETTINGS_MOD_ALT_MONSTER_MESSAGES        | Alternate Monster Messages: %1
 
 //SETTINGS_MOD_EMPIRES_SPACING_HELP        | Minimum distance between Empire Homeworlds in light-years.<br>A small value will allow a great variety of distances between Empire homeworlds.<br>Increasing this value will uniformize these distances.<br>The absolute minimum distance is: 3.8 light-years.
 //SETTINGS_MOD_EMPIRES_SPACING_DESC        | Minimum distance between Empire Homeworlds in light-years.
@@ -2447,6 +2435,75 @@ SETTINGS_MOD_TERRAFORM_CLEANED_HELP      | Don't bother terraforming, just keep 
 // Other base menu Mod settings
 SETTINGS_MOD_PLAYER_SHIP_SET_DESC        | Select the Player Ship Set.
 SETTINGS_MOD_PLAYER_SHIP_SET             | Player Ship Set: %1
+
+// ========== Random Events sub Panel
+SETTINGS_MOD_RANDOM_EVENTS_TITLE         | Random Event Customization
+SETTINGS_MOD_RANDOM_EVENTS_UI_DESC       | Open Sub Menu to get more random events customization options.
+SETTINGS_MOD_RANDOM_EVENTS_UI            | Random Events Options: %1
+SETTINGS_MOD_RANDOM_EVENT_DISABLED       | Off
+SETTINGS_MOD_RANDOM_EVENT_UNIQUE         | Unique Event
+
+REF_DELAY        | Base delay: %1
+REF_DELAY_1      | To set the starting turn offset of random
+REF_DELAY_2      | events (x2 for Easy; x3 for Easier; x4 for Easiest).<br>Off (-1) will disable this event.
+REF_RETURN       | Return Delay: %1
+REF_RETURN_1     | To set the Delay between two
+REF_RETURN_2     | events occurence. (0 = Unique event)
+REF_MAX_SYS_1    | To set the Number of stars systems attacked by the
+REF_MAX_SYS_2    | before leaving. (0 = Not limited)
+REF_INTRO        | <br><u>Event Description:</u><br>
+
+// ========== RANDOM EVENT GLOBAL PARAMETERS
+SETTINGS_MOD_EVENTS_START_TURN_DESC      | To adjust the starting turn of random events. If an event has already been started, it will not be stopped.
+SETTINGS_MOD_EVENTS_START_TURN           | Random Events Starting Turn: %1
+
+// ========== RANDOM EVENT MONSTERS PARAMETERS
+REF_PIRATES                              | Pirates
+REF_PIRATES_2                            | Space Pirates
+SETTINGS_MOD_PIRATES_DELAY_TURN_DESC     | →REF_DELAY_1← →REF_PIRATES_2← →REF_DELAY_2←
+SETTINGS_MOD_PIRATES_DELAY_TURN          | →REF_PIRATES← →REF_DELAY←
+SETTINGS_MOD_PIRATES_RETURN_TURN_DESC    | →REF_RETURN_1← →REF_PIRATES_2← →REF_RETURN_2←
+SETTINGS_MOD_PIRATES_RETURN_TURN         | →REF_PIRATES← →REF_RETURN←
+SETTINGS_MOD_PIRATES_MAX_SYSTEMS_DESC    | →REF_MAX_SYS_1← →REF_PIRATES_2← →REF_MAX_SYS_1←
+SETTINGS_MOD_PIRATES_MAX_SYSTEMS         | Max →REF_PIRATES← Attack: %1
+REF_AMOEBA                               | Amoeba
+REF_AMOEBA_2                             | Space Amoeba
+SETTINGS_MOD_AMOEBA_DELAY_TURN_DESC      | →REF_DELAY_1← →REF_AMOEBA_2← →REF_DELAY_2←
+SETTINGS_MOD_AMOEBA_DELAY_TURN           | →REF_AMOEBA← →REF_DELAY←
+SETTINGS_MOD_AMOEBA_RETURN_TURN_DESC     | →REF_RETURN_1← Space →REF_AMOEBA_2← →REF_RETURN_2←
+SETTINGS_MOD_AMOEBA_RETURN_TURN          | →REF_AMOEBA← →REF_RETURN←
+SETTINGS_MOD_AMOEBA_MAX_SYSTEMS_DESC     | →REF_MAX_SYS_1← →REF_AMOEBA_2← →REF_RETURN_2←
+SETTINGS_MOD_AMOEBA_MAX_SYSTEMS          | Max →REF_AMOEBA← Attack: %1
+REF_CRYSTAL                              | Crystal
+REF_CRYSTAL_2                            | Space Crystal
+SETTINGS_MOD_CRYSTAL_DELAY_TURN_DESC     | →REF_DELAY_1← →REF_CRYSTAL_2← →REF_DELAY_2←
+SETTINGS_MOD_CRYSTAL_DELAY_TURN          | →REF_CRYSTAL← →REF_DELAY←
+SETTINGS_MOD_CRYSTAL_RETURN_TURN_DESC    | →REF_RETURN_1← Space →REF_CRYSTAL_2← →REF_RETURN_2←
+SETTINGS_MOD_CRYSTAL_RETURN_TURN         | →REF_CRYSTAL← →REF_RETURN←
+SETTINGS_MOD_CRYSTAL_MAX_SYSTEMS_DESC    | →REF_MAX_SYS_1← →REF_CRYSTAL_2← →REF_RETURN_2←
+SETTINGS_MOD_CRYSTAL_MAX_SYSTEMS         | Max →REF_CRYSTAL← Attack: %1
+
+SETTINGS_MOD_ALT_MONSTER_MESSAGES_DESC   | Randomly displays standard or alternate messages for Monster events.
+SETTINGS_MOD_ALT_MONSTER_MESSAGES        | Alternate Monster Messages: %1
+
+//========== RANDOM EVENT OTHER PARAMETERS →←
+REF_DONATION                             | Donation
+REF_DONATION_2                           | wealthy merchant donation
+SETTINGS_MOD_DONATION_DELAY_TURN_HELP    | →SETTINGS_MOD_DONATION_DELAY_TURN_DESC← →REF_INTRO← →EVENT_DONATION←
+SETTINGS_MOD_DONATION_DELAY_TURN_DESC    | →REF_DELAY_1← →REF_DONATION← →REF_DELAY_2←
+SETTINGS_MOD_DONATION_DELAY_TURN         | →REF_DONATION← →REF_DELAY←
+SETTINGS_MOD_DONATION_RETURN_TURN_HELP   | →SETTINGS_MOD_DONATION_RETURN_TURN_DESC← →REF_INTRO← →EVENT_DONATION←
+SETTINGS_MOD_DONATION_RETURN_TURN_DESC   | →REF_RETURN_1← →REF_DONATION← →REF_RETURN_2←
+SETTINGS_MOD_DONATION_RETURN_TURN        | →REF_DONATION← →REF_RETURN←
+
+REF_DEPLETED                             | Depleted
+REF_DEPLETED_2                           | depleted planetary resources
+SETTINGS_MOD_DEPLETED_DELAY_TURN_HELP    | →SETTINGS_MOD_DONATION_DELAY_TURN_DESC← →REF_INTRO← →EVENT_DEPLETED←
+SETTINGS_MOD_DEPLETED_DELAY_TURN_DESC    | →REF_DELAY_1← →REF_DEPLETED← →REF_DELAY_2←
+SETTINGS_MOD_DEPLETED_DELAY_TURN         | →REF_DONATION← →REF_DELAY←
+SETTINGS_MOD_DEPLETED_RETURN_TURN_HELP   | →SETTINGS_MOD_DEPLETED_RETURN_TURN_DESC← →REF_INTRO← →EVENT_DEPLETED←
+SETTINGS_MOD_DEPLETED_RETURN_TURN_DESC   | →REF_RETURN_1← →REF_DEPLETED← →REF_RETURN_2←
+SETTINGS_MOD_DEPLETED_RETURN_TURN        | →REF_DONATION← →REF_RETURN←
 
 
 // Tech UI labels
