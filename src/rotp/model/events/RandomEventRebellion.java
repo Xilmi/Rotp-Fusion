@@ -15,22 +15,22 @@
  */
 package rotp.model.events;
 
-import rotp.model.empires.Empire;
-import rotp.model.galaxy.StarSystem;
-import rotp.ui.notifications.GNNNotification;
-import rotp.util.Base;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RandomEventRebellion implements Base, Serializable, RandomEvent {
+import rotp.model.empires.Empire;
+import rotp.model.galaxy.StarSystem;
+import rotp.model.game.IGameOptions;
+import rotp.ui.notifications.GNNNotification;
+import rotp.ui.util.ParamInteger;
+
+public class RandomEventRebellion extends RandomEvent {
     private static final long serialVersionUID = 1L;
     private int empId;
     private int sysId;
-    @Override
-    public boolean goodEvent()    		{ return false; }
-    @Override
-    public boolean repeatable()    		{ return true; }
+    @Override ParamInteger delayTurn()		{ return IGameOptions.rebellionDelayTurn; }
+    @Override ParamInteger returnTurn()		{ return IGameOptions.rebellionReturnTurn; }
+    @Override public boolean goodEvent()	{ return false; }
     @Override
     public String notificationText()    {
         String s1 = text("EVENT_REBELLION");

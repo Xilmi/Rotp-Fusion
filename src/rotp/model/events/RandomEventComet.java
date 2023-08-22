@@ -15,30 +15,28 @@
  */
 package rotp.model.events;
 
+import java.util.List;
+
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.game.IGameOptions;
 import rotp.model.ships.ShipDesignLab;
 import rotp.ui.notifications.GNNNotification;
-import rotp.util.Base;
-import java.io.Serializable;
-import java.util.List;
+import rotp.ui.util.ParamInteger;
 
-public class RandomEventComet implements Base, Serializable, RandomEvent {
+public class RandomEventComet extends RandomEvent {
     private static final long serialVersionUID = 1L;
     private int empId;
     private int sysId;
     private float cometHP = 0;
     private int turnsNeeded = 0;
     private int turnCount = 0;
-    @Override
-    public String statusMessage()               { return text("SYSTEMS_STATUS_COMET",str(turnsNeeded-turnCount)); }
-    @Override
-    public String systemKey()                   { return "MAIN_PLANET_EVENT_COMET"; }
-    @Override
-    public boolean goodEvent()    		{ return false; }
-    @Override
-    public boolean repeatable()    		{ return true; }
+    @Override public String statusMessage()	{ return text("SYSTEMS_STATUS_COMET",str(turnsNeeded-turnCount)); }
+    @Override public String systemKey()		{ return "MAIN_PLANET_EVENT_COMET"; }
+    @Override ParamInteger delayTurn()		{ return IGameOptions.cometDelayTurn; }
+    @Override ParamInteger returnTurn()		{ return IGameOptions.cometReturnTurn; }
+    @Override public boolean goodEvent()	{ return false; }
     @Override
     public String notificationText()    {
         String s1 = text("EVENT_COMET");
@@ -128,7 +126,7 @@ public class RandomEventComet implements Base, Serializable, RandomEvent {
         return s1;
     }
     private void cometDestroyed() {
-        galaxy().events().removeActiveEvent(this);
+    	terminateEvent(this);
         StarSystem sys = galaxy().system(sysId);
         sys.clearEvent();
         
@@ -137,7 +135,7 @@ public class RandomEventComet implements Base, Serializable, RandomEvent {
             GNNNotification.notifyRandomEvent(goodEndText(), "GNN_Event_Comet");
     }
     private void destroyColony() {
-        galaxy().events().removeActiveEvent(this);
+    	terminateEvent(this);
         StarSystem sys = galaxy().system(sysId);       
         sys.addEvent(new SystemRandomEvent("SYSEVENT_COMET"));
         sys.clearEvent();

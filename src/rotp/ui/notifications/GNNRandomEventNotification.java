@@ -33,4 +33,5 @@ public class GNNRandomEventNotification implements TurnNotification {
     public void notifyPlayer() {
         RotPUI.instance().selectGNNPanel(type, eventId, null);
     }
+    @Override public String toString() { return "Event: " + eventId + ": " + type; }
 }

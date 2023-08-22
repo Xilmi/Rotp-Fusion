@@ -15,22 +15,22 @@
  */
 package rotp.model.events;
 
-import rotp.model.empires.Empire;
-import rotp.model.tech.TechTree;
-import rotp.ui.notifications.GNNNotification;
-import rotp.util.Base;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RandomEventAncientDerelict implements Base, Serializable, RandomEvent {
+import rotp.model.empires.Empire;
+import rotp.model.game.IGameOptions;
+import rotp.model.tech.TechTree;
+import rotp.ui.notifications.GNNNotification;
+import rotp.ui.util.ParamInteger;
+
+public class RandomEventAncientDerelict extends RandomEvent {
     private static final long serialVersionUID = 1L;
     private static final int MAX_TECHS_DISCOVERED = 10;
     private int empId;
-    @Override
-    public boolean goodEvent()    		{ return true; }
-    @Override
-    public boolean repeatable()    		{ return false; }
+    @Override ParamInteger delayTurn()		{ return IGameOptions.derelictDelayTurn; }
+    @Override ParamInteger returnTurn()		{ return IGameOptions.derelictReturnTurn; }
+    @Override public boolean goodEvent()	{ return true; }
     @Override
     public String notificationText()    {
         String s1 = text("EVENT_DERELICT");

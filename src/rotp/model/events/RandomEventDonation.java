@@ -16,18 +16,18 @@
 package rotp.model.events;
 
 import rotp.model.empires.Empire;
+import rotp.model.game.IGameOptions;
 import rotp.ui.notifications.GNNNotification;
-import rotp.util.Base;
-import java.io.Serializable;
+import rotp.ui.util.ParamInteger;
 
-public class RandomEventDonation implements Base, Serializable, RandomEvent {
+public class RandomEventDonation extends RandomEvent {
     private static final long serialVersionUID = 1L;
     private int donationAmount = 0;
     private int empId;
-    @Override
-    public boolean goodEvent()    		{ return true; }
-    @Override
-    public boolean repeatable()    		{ return true; }
+
+    @Override ParamInteger delayTurn()		{ return IGameOptions.donationDelayTurn; }
+    @Override ParamInteger returnTurn()		{ return IGameOptions.donationReturnTurn; }
+    @Override public boolean goodEvent()	{ return true; }
     @Override
     public String notificationText()    {
         String s1 = text("EVENT_DONATION");

@@ -15,7 +15,6 @@
  */
 package rotp.model.events;
 
-import java.io.Serializable;
 import java.util.List;
 
 import rotp.model.colony.Colony;
@@ -24,52 +23,29 @@ import rotp.model.galaxy.SpaceCrystal;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.game.IGameOptions;
 import rotp.ui.notifications.GNNNotification;
-import rotp.util.Base;
+import rotp.ui.util.ParamInteger;
 
-public class RandomEventSpaceCrystal implements Base, Serializable, RandomEvent {
+public class RandomEventSpaceCrystal extends RandomEvent {
     private static final long serialVersionUID = 1L;
     private static final String NEXT_ALLOWED_TURN = "CRYSTAL_NEXT_ALLOWED_TURN";
     public static SpaceCrystal monster;
     private int empId;
     private int sysId;
     private int turnCount = 0;
-    private transient Integer nextAllowedTurn;
     
     static {
         initMonster();
     }
-    @Override
-    public String statusMessage()       { return text("SYSTEMS_STATUS_SPACE_CRYSTAL"); }
-    @Override
-    public String systemKey()           { return "MAIN_PLANET_EVENT_CRYSTAL"; }
-    @Override
-    public boolean goodEvent()    		{ return false; }
-    @Override
-    public boolean repeatable()    		{ return options().selectedCrystalReturnTurn() != 0; } // BR:
-    @Override
-    public boolean monsterEvent()       { return true; }
-    @Override
-    public int minimumTurn()            {
-    	int turn = 0;
-        // space monsters can be a challenge... delay their entry in the easier game settings
-    	int crystalDelayTurn = options().selectedCrystalDelayTurn();
-        switch (options().selectedGameDifficulty()) { // BR: added adjustable delay
-        case IGameOptions.DIFFICULTY_EASIEST:
-        	turn = startTurn() + 4 * crystalDelayTurn;
-        	break;
-        case IGameOptions.DIFFICULTY_EASIER:
-        	turn = startTurn() + 3 * crystalDelayTurn;
-        	break;
-        case IGameOptions.DIFFICULTY_EASY:
-        	turn = startTurn() + 2 * crystalDelayTurn;
-        	break;
-        default:
-        	turn = startTurn() + crystalDelayTurn;
-        }
-//        System.out.println("Space Crystal next Turn = " + max(turn, nextAllowedTurn()) +
-//        		" (current turn = " + galaxy().currentTurn() + ")");
-        return max(turn, nextAllowedTurn()); // BR: To allow repeatable event
+    @Override ParamInteger delayTurn()		{ return IGameOptions.crystalDelayTurn; }
+    @Override ParamInteger returnTurn()		{ return IGameOptions.crystalReturnTurn; }
+    @Override public String statusMessage()	{ return text("SYSTEMS_STATUS_SPACE_CRYSTAL"); }
+    @Override public String systemKey()		{ return "MAIN_PLANET_EVENT_CRYSTAL"; }
+    @Override public boolean goodEvent()	{ return false; }
+    @Override public boolean monsterEvent()	{ return true; }
+    @Override int nextAllowedTurn()			{ // for backward compatibility
+    	return (Integer) galaxy().dynamicOptions().getInteger(NEXT_ALLOWED_TURN, -1);
     }
+
     @Override
     public String notificationText()    {
         String s1 = text("EVENT_SPACE_CRYSTAL");
@@ -97,8 +73,8 @@ public class RandomEventSpaceCrystal implements Base, Serializable, RandomEvent 
     }
     @Override
     public void nextTurn() {
-        if (!monsterAllowed()) {
-            galaxy().events().removeActiveEvent(this);
+        if (isEventDisabled()) {
+        	terminateEvent(this);
             return;
         }
         if (turnCount == 3) 
@@ -107,21 +83,7 @@ public class RandomEventSpaceCrystal implements Base, Serializable, RandomEvent 
             enterSystem();
         turnCount--;
     }
-    private boolean monsterAllowed() {
-    	return options().selectedRandomEventOption().equals(IGameOptions.RANDOM_EVENTS_ON);
-    }
-    private int nextAllowedTurn() {
-    	if (nextAllowedTurn == null)
-    		nextAllowedTurn = (Integer) galaxy().dynamicOptions().getInteger(NEXT_ALLOWED_TURN, -1);
-    	return nextAllowedTurn;
-    }
-    private void nextAllowedTurn(Integer turn) {
-    	nextAllowedTurn = turn;
-    	galaxy().dynamicOptions().setInteger(NEXT_ALLOWED_TURN, nextAllowedTurn);
-    }
     private boolean nextSystemAllowed() { // BR: To allow disappearance
-        if (!monsterAllowed())
-            return false;
     	int maxSystem = options().selectedCrystalMaxSystems();
         return maxSystem == 0 || maxSystem > monster.vistedSystemsCount();
     }
@@ -178,23 +140,16 @@ public class RandomEventSpaceCrystal implements Base, Serializable, RandomEvent 
             GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_CRYSTAL_2", emp), "GNN_Event_Crystal");
     }
     private void crystalDestroyed() {
-        //galaxy().events().removeActiveEvent(this);
-        terminateEvent();
-        
+        terminateEvent(this);
         monster.plunder();
 
         if (player().knowsOf(galaxy().empire(empId)) || !player().sv.name(sysId).isEmpty())
             GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_CRYSTAL_3", monster.lastAttacker()), "GNN_Event_Crystal");
     }
     private void monsterVanished() { // BR: To allow disappearance
-    	terminateEvent();
+    	terminateEvent(this);
         if (player().knowsOf(galaxy().empire(empId)) || !player().sv.name(sysId).isEmpty())
             GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_CRYSTAL_4", monster.lastAttacker()), "GNN_Event_Crystal");
-    }
-    private void terminateEvent() { // BR: To allow repeatable event
-        galaxy().events().removeActiveEvent(this);
-    	if(repeatable())
-    		nextAllowedTurn(galaxy().currentTurn() + options().selectedCrystalReturnTurn());
     }
     private void moveToNextSystem() {
         StarSystem targetSystem = galaxy().system(sysId);
@@ -225,7 +180,7 @@ public class RandomEventSpaceCrystal implements Base, Serializable, RandomEvent 
             log("ERR: Could not find next system. Space Crystal removed.");
 //            System.out.println("ERR: Could not find next system. Space Crystal removed.");
             // galaxy().events().removeActiveEvent(this);
-            terminateEvent();
+            terminateEvent(this);
             return;
         }
     

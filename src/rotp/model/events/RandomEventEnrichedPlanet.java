@@ -15,23 +15,23 @@
  */
 package rotp.model.events;
 
-import rotp.model.empires.Empire;
-import rotp.model.galaxy.StarSystem;
-import rotp.model.planet.Planet;
-import rotp.ui.notifications.GNNNotification;
-import rotp.util.Base;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RandomEventEnrichedPlanet implements Base, Serializable, RandomEvent {
+import rotp.model.empires.Empire;
+import rotp.model.galaxy.StarSystem;
+import rotp.model.game.IGameOptions;
+import rotp.model.planet.Planet;
+import rotp.ui.notifications.GNNNotification;
+import rotp.ui.util.ParamInteger;
+
+public class RandomEventEnrichedPlanet extends RandomEvent {
     private static final long serialVersionUID = 1L;
     private int empId;
     private int sysId;
-    @Override
-    public boolean goodEvent()    		{ return true; }
-    @Override
-    public boolean repeatable()    		{ return true; }
+    @Override ParamInteger delayTurn()		{ return IGameOptions.enrichedDelayTurn; }
+    @Override ParamInteger returnTurn()		{ return IGameOptions.enrichedReturnTurn; }
+    @Override public boolean goodEvent()	{ return true; }
     @Override
     public String notificationText()    {
         String s1 = text("EVENT_ENRICHED");

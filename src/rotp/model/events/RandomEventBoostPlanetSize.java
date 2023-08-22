@@ -15,25 +15,25 @@
  */
 package rotp.model.events;
 
-import rotp.model.empires.Empire;
-import rotp.model.galaxy.StarSystem;
-import rotp.model.planet.Planet;
-import rotp.ui.notifications.GNNNotification;
-import rotp.util.Base;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import rotp.model.empires.Empire;
+import rotp.model.galaxy.StarSystem;
+import rotp.model.game.IGameOptions;
+import rotp.model.planet.Planet;
+import rotp.ui.notifications.GNNNotification;
+import rotp.ui.util.ParamInteger;
+
 // modnar: add Boost Planet baseSize random event
 // increase planet baseSize for a small planet
-public class RandomEventBoostPlanetSize implements Base, Serializable, RandomEvent {
+public class RandomEventBoostPlanetSize extends RandomEvent {
     private static final long serialVersionUID = 1L;
     private int empId;
     private int sysId;
-    @Override
-    public boolean goodEvent()    		{ return true; }
-    @Override
-    public boolean repeatable()    		{ return true; }
+    @Override ParamInteger delayTurn()		{ return IGameOptions.sizeBoostDelayTurn; }
+    @Override ParamInteger returnTurn()		{ return IGameOptions.sizeBoostReturnTurn; }
+    @Override public boolean goodEvent()	{ return true; }
     @Override
     public String notificationText()    {
         String s1 = text("EVENT_SIZEBOOST");

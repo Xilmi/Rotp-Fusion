@@ -15,7 +15,6 @@
  */
 package rotp.model.events;
 
-import java.io.Serializable;
 import java.util.List;
 
 import rotp.model.colony.Colony;
@@ -24,51 +23,27 @@ import rotp.model.galaxy.SpaceAmoeba;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.game.IGameOptions;
 import rotp.ui.notifications.GNNNotification;
-import rotp.util.Base;
+import rotp.ui.util.ParamInteger;
 
-public class RandomEventSpaceAmoeba implements Base, Serializable, RandomEvent {
+public class RandomEventSpaceAmoeba extends RandomEvent {
     private static final long serialVersionUID = 1L;
     private static final String NEXT_ALLOWED_TURN = "AMOEBA_NEXT_ALLOWED_TURN";
     public static SpaceAmoeba monster;
     private int empId;
     private int sysId;
     private int turnCount = 0;
-    private transient Integer nextAllowedTurn;
     
     static {
         initMonster();
     }
-    @Override
-    public String statusMessage()       { return text("SYSTEMS_STATUS_SPACE_AMOEBA"); }
-    @Override
-    public String systemKey()           { return "MAIN_PLANET_EVENT_AMOEBA"; }
-    @Override
-    public boolean goodEvent()    		{ return false; }
-    @Override
-    public boolean repeatable()    		{ return options().selectedAmoebaDelayTurn() != 0; } // BR:
-    @Override
-    public boolean monsterEvent()       { return true; }
-    @Override
-    public int minimumTurn()            { 
-    	int turn = 0;
-       // space monsters can be a challenge... delay their entry in the easier game settings
-    	int amoebaDelayTurn = options().selectedAmoebaDelayTurn();
-        switch (options().selectedGameDifficulty()) { // BR: added adjustable delay
-             case IGameOptions.DIFFICULTY_EASIEST:
-            	 turn = startTurn() + 4 * amoebaDelayTurn;
-             	break;
-            case IGameOptions.DIFFICULTY_EASIER:
-            	turn = startTurn() + 3 * amoebaDelayTurn;
-            	break;
-           case IGameOptions.DIFFICULTY_EASY:
-            	turn = startTurn() + 2 * amoebaDelayTurn;
-            	break;
-            default:
-            	turn = startTurn() + amoebaDelayTurn;
-        }
-//        System.out.println("Space Amoeba next Turn = " + max(turn, nextAllowedTurn()) +
-//        		" (current turn = " + galaxy().currentTurn() + ")");
-        return max(turn, nextAllowedTurn()); // BR: To allow repeatable event
+    @Override ParamInteger delayTurn()		{ return IGameOptions.amoebaDelayTurn; }
+    @Override ParamInteger returnTurn()		{ return IGameOptions.amoebaReturnTurn; }
+    @Override public String statusMessage()	{ return text("SYSTEMS_STATUS_SPACE_AMOEBA"); }
+    @Override public String systemKey()		{ return "MAIN_PLANET_EVENT_AMOEBA"; }
+    @Override public boolean goodEvent()	{ return false; }
+    @Override public boolean monsterEvent()	{ return true; }
+    @Override int nextAllowedTurn() { // for backward compatibility
+    	return (Integer) galaxy().dynamicOptions().getInteger(NEXT_ALLOWED_TURN, -1);
     }
     @Override
     public String notificationText()    {
@@ -97,8 +72,8 @@ public class RandomEventSpaceAmoeba implements Base, Serializable, RandomEvent {
     }
     @Override
     public void nextTurn() {
-        if (!monsterAllowed()) {
-            galaxy().events().removeActiveEvent(this);
+        if (isEventDisabled()) {
+        	terminateEvent(this);
             return;
         }
        if (turnCount == 3) 
@@ -107,21 +82,7 @@ public class RandomEventSpaceAmoeba implements Base, Serializable, RandomEvent {
             enterSystem();
         turnCount--;
     }
-    private boolean monsterAllowed() {
-    	return options().selectedRandomEventOption().equals(IGameOptions.RANDOM_EVENTS_ON);
-    }
-    private int nextAllowedTurn() {
-    	if (nextAllowedTurn == null)
-    		nextAllowedTurn = (Integer) galaxy().dynamicOptions().getInteger(NEXT_ALLOWED_TURN, -1);
-    	return nextAllowedTurn;
-    }
-    private void nextAllowedTurn(Integer turn) {
-    	nextAllowedTurn = turn;
-    	galaxy().dynamicOptions().setInteger(NEXT_ALLOWED_TURN, nextAllowedTurn);
-    }
     private boolean nextSystemAllowed() { // BR: To allow disappearance
-        if (!options().selectedRandomEventOption().equals(IGameOptions.RANDOM_EVENTS_ON))
-            return false;
     	int maxSystem = options().selectedAmoebaMaxSystems();
         return maxSystem == 0 || maxSystem > monster.vistedSystemsCount();
     }
@@ -179,22 +140,16 @@ public class RandomEventSpaceAmoeba implements Base, Serializable, RandomEvent {
     }
     private void amoebaDestroyed() {
         //galaxy().events().removeActiveEvent(this);
-        terminateEvent();
-        
+        terminateEvent(this);
         monster.plunder();
 
         if (player().knowsOf(empId)|| !player().sv.name(sysId).isEmpty())
             GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_AMOEBA_3", monster.lastAttacker()), "GNN_Event_Amoeba");
     }
     private void monsterVanished() { // BR: To allow disappearance
-    	terminateEvent();
+    	terminateEvent(this);
         if (player().knowsOf(galaxy().empire(empId)) || !player().sv.name(sysId).isEmpty())
             GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_AMOEBA_4", monster.lastAttacker()), "GNN_Event_Amoeba");
-    }
-    private void terminateEvent() { // BR: To allow repeatable event
-   		galaxy().events().removeActiveEvent(this);
-    	if(repeatable())
-    		nextAllowedTurn(galaxy().currentTurn() + options().selectedAmoebaReturnTurn());
     }
     private void moveToNextSystem() {
         StarSystem targetSystem = galaxy().system(sysId);
@@ -225,7 +180,7 @@ public class RandomEventSpaceAmoeba implements Base, Serializable, RandomEvent {
             log("ERR: Could not find next system. Space Amoeba removed.");
 //            System.out.println("ERR: Could not find next system. Space Amoeba removed.");
             // galaxy().events().removeActiveEvent(this);
-            terminateEvent();
+            terminateEvent(this);
             return;
         }
     

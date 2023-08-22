@@ -5,11 +5,11 @@
  */
 package rotp.model.events;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+
 import rotp.model.empires.Empire;
-import rotp.util.Base;
+import rotp.ui.util.ParamInteger;
 
 
 /**
@@ -27,10 +27,11 @@ import rotp.util.Base;
  * 
  * @author RayGame
  */
-public class RandomEventGeneric   implements Base, Serializable, RandomEvent {
+public class RandomEventGeneric   extends RandomEvent {
     private static final long serialVersionUID = 1L;
     private String eventKey;
-    private Map<String,Object> eventData = new HashMap<>();
+    @SuppressWarnings("unused")
+	private Map<String,Object> eventData = new HashMap<>();
     public RandomEventGeneric(String key) {
         eventKey = key;
         initData(key);
@@ -41,14 +42,6 @@ public class RandomEventGeneric   implements Base, Serializable, RandomEvent {
         switch(eventKey) {
             default:
                 return false; 
-        }
-    }
-    @Override
-    public int minimumTurn() { 
-        // minimum turn for each event. 
-        switch(eventKey) {
-            default:
-                return startTurn(); 
         }
     }
     @Override
@@ -68,20 +61,14 @@ public class RandomEventGeneric   implements Base, Serializable, RandomEvent {
                 return ""; 
         }
     }
+    @Override ParamInteger delayTurn()		{ return null; }
+    @Override ParamInteger returnTurn()		{ return null; }
     @Override
     public boolean goodEvent() { 
         // good event flag for each event. 
         switch(eventKey) {
             default:
             return true; 
-        }
-    }
-    @Override
-    public boolean repeatable() { 
-        // repeatable flag for each event. 
-        switch(eventKey) {
-            default:
-            return false; 
         }
     }
     @Override
@@ -106,9 +93,9 @@ public class RandomEventGeneric   implements Base, Serializable, RandomEvent {
         }
     }
     private void initData(String key) {
-        // this is where you define the data map for each particuar generic
+        // this is where you define the data map for each particular generic
         // event. The default is to give each generic event a map keyed for 
-        // a objectname and an object
+        // a object name and an object
         
         // you don't have to init here. You can do it in the trigger method
         // if it makes more sense.

@@ -15,17 +15,18 @@
  */
 package rotp.model.events;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import rotp.model.colony.Colony;
 import rotp.model.colony.ColonyResearchProject;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.game.IGameOptions;
 import rotp.ui.notifications.GNNNotification;
-import rotp.util.Base;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import rotp.ui.util.ParamInteger;
 
-public class RandomEventSupernova implements Base, Serializable, RandomEvent, ColonyResearchProject {
+public class RandomEventSupernova extends RandomEvent implements ColonyResearchProject {
     private static final long serialVersionUID = 1L;
     private int empId;
     private int sysId;
@@ -33,14 +34,11 @@ public class RandomEventSupernova implements Base, Serializable, RandomEvent, Co
     private int turnsNeeded = 0;
     private int turnCount = 0;
     private float researchRemaining = 0;
-    @Override
-    public String statusMessage()               { return text("SYSTEMS_STATUS_SUPERNOVA",str(turnsNeeded-turnCount), str((int)Math.ceil(researchRemaining))); }
-    @Override
-    public String systemKey()                   { return "MAIN_PLANET_EVENT_SUPERNOVA"; }
-    @Override
-    public boolean goodEvent()    		{ return false; }
-    @Override
-    public boolean repeatable()    		{ return false; }
+    @Override public String statusMessage()	{ return text("SYSTEMS_STATUS_SUPERNOVA",str(turnsNeeded-turnCount), str((int)Math.ceil(researchRemaining))); }
+    @Override public String systemKey()		{ return "MAIN_PLANET_EVENT_SUPERNOVA"; }
+    @Override ParamInteger delayTurn()		{ return IGameOptions.supernovaDelayTurn; }
+    @Override ParamInteger returnTurn()		{ return IGameOptions.supernovaReturnTurn; }
+    @Override public boolean goodEvent()	{ return false; }
     @Override
     public String notificationText()    {
         String s1 = text("EVENT_SUPERNOVA");
@@ -145,7 +143,7 @@ public class RandomEventSupernova implements Base, Serializable, RandomEvent, Co
     }
     private void solveSupernova() {
         StarSystem targetSystem = galaxy().system(sysId);
-        galaxy().events().removeActiveEvent(this);
+        terminateEvent(this);
         targetSystem.clearEvent();
         Colony col = targetSystem.colony();
         
@@ -160,7 +158,7 @@ public class RandomEventSupernova implements Base, Serializable, RandomEvent, Co
     }
     private void goSupernova() {
         StarSystem targetSystem = galaxy().system(sysId);
-        galaxy().events().removeActiveEvent(this);
+        terminateEvent(this);
         targetSystem.clearEvent();
         targetSystem.planet().baseSize(roll(11,20)); // reset size first... irradiate will reset pop
         targetSystem.planet().irradiateEnvironment();

@@ -15,21 +15,21 @@
  */
 package rotp.model.events;
 
-import rotp.model.empires.Empire;
-import rotp.model.incidents.AssassinationIncident;
-import rotp.ui.notifications.GNNNotification;
-import rotp.util.Base;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RandomEventAssassination implements Base, Serializable, RandomEvent {
+import rotp.model.empires.Empire;
+import rotp.model.game.IGameOptions;
+import rotp.model.incidents.AssassinationIncident;
+import rotp.ui.notifications.GNNNotification;
+import rotp.ui.util.ParamInteger;
+
+public class RandomEventAssassination extends RandomEvent {
     private static final long serialVersionUID = 1L;
     private int empAssassin, empVictim;
-    @Override
-    public boolean goodEvent()    		{ return false; }
-    @Override
-    public boolean repeatable()    		{ return true; }
+    @Override ParamInteger delayTurn()		{ return IGameOptions.assassinDelayTurn; }
+    @Override ParamInteger returnTurn()		{ return IGameOptions.assassinReturnTurn; }
+    @Override public boolean goodEvent()	{ return false; }
     @Override
     public String notificationText()    {
         String s1 = text("EVENT_ASSASSINATION");

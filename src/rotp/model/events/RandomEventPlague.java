@@ -15,31 +15,29 @@
  */
 package rotp.model.events;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import rotp.model.colony.Colony;
 import rotp.model.colony.ColonyResearchProject;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.game.IGameOptions;
 import rotp.ui.notifications.GNNNotification;
-import rotp.util.Base;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import rotp.ui.util.ParamInteger;
 
-public class RandomEventPlague implements Base, Serializable, RandomEvent, ColonyResearchProject {
+public class RandomEventPlague extends RandomEvent implements ColonyResearchProject {
     private static final long serialVersionUID = 1L;
     private int empId;
     private int sysId;
     private float researchNeeded = 0;
     private int turnCount = 0;
     private float researchRemaining = 0;
-    @Override
-    public String statusMessage()                   { return text("SYSTEMS_STATUS_PLAGUE", str((int)Math.ceil(researchRemaining))); }
-    @Override
-    public String systemKey()                   { return "MAIN_PLANET_EVENT_PLAGUE"; }
-    @Override
-    public boolean goodEvent()    		{ return false; }
-    @Override
-    public boolean repeatable()    		{ return true; }
+    @Override public String statusMessage()	{ return text("SYSTEMS_STATUS_PLAGUE", str((int)Math.ceil(researchRemaining))); }
+    @Override public String systemKey()		{ return "MAIN_PLANET_EVENT_PLAGUE"; }
+    @Override ParamInteger delayTurn()		{ return IGameOptions.plagueDelayTurn; }
+    @Override ParamInteger returnTurn()		{ return IGameOptions.plagueReturnTurn; }
+    @Override public boolean goodEvent()	{ return false; }
     @Override
     public String notificationText()    {
         String s1 = text("EVENT_PLAGUE");
@@ -139,7 +137,7 @@ public class RandomEventPlague implements Base, Serializable, RandomEvent, Colon
         return s1;
     }
     private void endPlague() {
-        galaxy().events().removeActiveEvent(this);
+    	terminateEvent(this);
         galaxy().system(sysId).clearEvent();
         StarSystem sys = galaxy().system(sysId);
         sys.addEvent(new SystemRandomEvent("SYSEVENT_PLAGUE_ENDED"));

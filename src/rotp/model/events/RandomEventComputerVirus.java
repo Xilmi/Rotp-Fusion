@@ -16,21 +16,20 @@
 package rotp.model.events;
 
 import rotp.model.empires.Empire;
+import rotp.model.game.IGameOptions;
 import rotp.model.tech.TechCategory;
 import rotp.model.tech.TechTree;
 import rotp.ui.notifications.GNNNotification;
-import rotp.util.Base;
-import java.io.Serializable;
+import rotp.ui.util.ParamInteger;
 
-public class RandomEventComputerVirus implements Base, Serializable, RandomEvent {
+public class RandomEventComputerVirus extends RandomEvent {
     private static final long serialVersionUID = 1L;
     private int empId;
     private String techId;
     private int lostRP;
-    @Override
-    public boolean goodEvent()    		{ return false; }
-    @Override
-    public boolean repeatable()    		{ return true; }
+    @Override ParamInteger delayTurn()		{ return IGameOptions.virusDelayTurn; }
+    @Override ParamInteger returnTurn()		{ return IGameOptions.virusReturnTurn; }
+    @Override public boolean goodEvent()	{ return false; }
     @Override
     public String notificationText()    {
         String s1 = text("EVENT_VIRUS");

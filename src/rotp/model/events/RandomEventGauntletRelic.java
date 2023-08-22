@@ -15,30 +15,28 @@
  */
 package rotp.model.events;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.game.IGameOptions;
 import rotp.model.planet.Planet;
 import rotp.model.tech.TechTree;
 import rotp.ui.notifications.GNNNotification;
-import rotp.util.Base;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import rotp.ui.util.ParamInteger;
 
 // modnar: add Gauntlet Relic random event
 // give free Techs in Planetology category
 // cut population on all colonies in half
 // baseSize +10 for all planets (less than size-90) in target empire
-public class RandomEventGauntletRelic implements Base, Serializable, RandomEvent {
+public class RandomEventGauntletRelic extends RandomEvent {
     private static final long serialVersionUID = 1L;
     private static final int MAX_TECHS_DISCOVERED = 5; // 5 free techs
     private int empId;
-    @Override
-    public boolean goodEvent()    		{ return true; } // classify as positive event, has galactic effects
-    @Override
-    public boolean repeatable()    		{ return false; } // not repeatable
-    @Override
-    public int minimumTurn()            { return startTurn() + 50; } // delay Gauntlet Relic event spawn
+    @Override ParamInteger delayTurn()		{ return IGameOptions.gauntletDelayTurn; }
+    @Override ParamInteger returnTurn()		{ return IGameOptions.gauntletReturnTurn; }
+    @Override public boolean goodEvent()	{ return true; } // classify as positive event, has galactic effects
     @Override
     public String notificationText()    {
         String s1 = text("EVENT_RELIC_GAUNTLET");

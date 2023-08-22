@@ -15,29 +15,27 @@
  */
 package rotp.model.events;
 
+import java.util.List;
+
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.game.IGameOptions;
 import rotp.model.ships.ShipDesignLab;
 import rotp.ui.notifications.GNNNotification;
-import rotp.util.Base;
-import java.io.Serializable;
-import java.util.List;
+import rotp.ui.util.ParamInteger;
 
-public class RandomEventPiracy implements Base, Serializable, RandomEvent {
+public class RandomEventPiracy extends RandomEvent {
     private static final long serialVersionUID = 1L;
     private int empId;
     private int sysId;
     private float pirateHP = 0;
     private int turnCount = 0;
-    @Override
-    public String statusMessage()               { return text("SYSTEMS_STATUS_PIRACY"); }
-    @Override
-    public String systemKey()                   { return "MAIN_PLANET_EVENT_PIRACY"; }
-    @Override
-    public boolean goodEvent()    		{ return false; }
-    @Override
-    public boolean repeatable()    		{ return true; }
+    @Override public String statusMessage()	{ return text("SYSTEMS_STATUS_PIRACY"); }
+    @Override public String systemKey()		{ return "MAIN_PLANET_EVENT_PIRACY"; }
+    @Override ParamInteger delayTurn()		{ return IGameOptions.piracyDelayTurn; }
+    @Override ParamInteger returnTurn()		{ return IGameOptions.piracyReturnTurn; }
+    @Override public boolean goodEvent()	{ return false; }
     @Override
     public String notificationText()    {
         String s1 = text("EVENT_PIRACY");
@@ -139,7 +137,7 @@ public class RandomEventPiracy implements Base, Serializable, RandomEvent {
     private void endPiracy() {
         StarSystem sys = galaxy().system(sysId);
         Empire emp = galaxy().empire(empId);
-        galaxy().events().removeActiveEvent(this);
+        terminateEvent(this);
         sys.clearEvent();
         sys.piracy(false);
         emp.tradePiracyRate(0.0f);

@@ -15,25 +15,25 @@
  */
 package rotp.model.events;
 
-import rotp.model.empires.Empire;
-import rotp.model.galaxy.StarSystem;
-import rotp.model.planet.Planet;
-import rotp.ui.notifications.GNNNotification;
-import rotp.util.Base;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RandomEventFertilePlanet implements Base, Serializable, RandomEvent {
+import rotp.model.empires.Empire;
+import rotp.model.galaxy.StarSystem;
+import rotp.model.game.IGameOptions;
+import rotp.model.planet.Planet;
+import rotp.ui.notifications.GNNNotification;
+import rotp.ui.util.ParamInteger;
+
+public class RandomEventFertilePlanet extends RandomEvent {
     private static final long serialVersionUID = 1L;
     private int empId;
     private int sysId;
+    @Override ParamInteger delayTurn()		{ return IGameOptions.fertileDelayTurn; }
+    @Override ParamInteger returnTurn()		{ return IGameOptions.fertileReturnTurn; }
+    @Override public boolean goodEvent()	{ return true; }
     @Override
-    public boolean goodEvent()    		{ return true; }
-    @Override
-    public boolean repeatable()    		{ return true; }
-    @Override
-public String notificationText()    {
+    public String notificationText()    {
         String s1 = text("EVENT_FERTILE");
         s1 = s1.replace("[system]", galaxy().empire(empId).sv.name(sysId));
         s1 = galaxy().empire(empId).replaceTokens(s1, "target");

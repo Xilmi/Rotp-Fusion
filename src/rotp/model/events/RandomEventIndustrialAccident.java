@@ -15,24 +15,24 @@
  */
 package rotp.model.events;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.StarSystem;
-import rotp.ui.notifications.GNNNotification;
-import rotp.util.Base;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import rotp.model.game.IGameOptions;
 import rotp.model.planet.PlanetType;
+import rotp.ui.notifications.GNNNotification;
+import rotp.ui.util.ParamInteger;
 
-public class RandomEventIndustrialAccident implements Base, Serializable, RandomEvent {
+public class RandomEventIndustrialAccident extends RandomEvent {
     private static final long serialVersionUID = 1L;
     private int empId;
     private int sysId;
-    @Override
-    public boolean goodEvent()    		{ return false; }
-    @Override
-    public boolean repeatable()    		{ return true; }
+    @Override ParamInteger delayTurn()		{ return IGameOptions.accidentDelayTurn; }
+    @Override ParamInteger returnTurn()		{ return IGameOptions.accidentReturnTurn; }
+    @Override public boolean goodEvent()	{ return false; }
     @Override
     public String notificationText()    {
         String s1 = text("EVENT_ACCIDENT");

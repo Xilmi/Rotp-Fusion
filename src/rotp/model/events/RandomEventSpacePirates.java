@@ -15,62 +15,36 @@
  */
 package rotp.model.events;
 
-import java.io.Serializable;
-
 import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.SpacePirates;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.game.IGameOptions;
 import rotp.ui.notifications.GNNNotification;
-import rotp.util.Base;
+import rotp.ui.util.ParamInteger;
 
 // modnar: add Space Pirates random event
-public class RandomEventSpacePirates implements Base, Serializable, RandomEvent {
+public class RandomEventSpacePirates extends RandomEvent {
     private static final long serialVersionUID = 1L;
     private static final String NEXT_ALLOWED_TURN = "PIRATES_NEXT_ALLOWED_TURN";
     public static SpacePirates monster;
     private int empId;
     private int sysId;
     private int turnCount = 0;
-    private transient Integer nextAllowedTurn;
     
     static {
         initMonster();
     }
-    @Override
-    public String statusMessage()       { return text("SYSTEMS_STATUS_SPACE_PIRATES"); }
-    @Override
-    public String systemKey()           { return "MAIN_PLANET_EVENT_PIRATES"; }
-    @Override
-    public boolean goodEvent()    		{ return false; }
-    @Override // modnar: Space Pirates are repeatable // BR: Player Choice
-    public boolean repeatable()    		{ return options().selectedPiratesReturnTurn() != 0; } 
-    @Override
-    public boolean monsterEvent()       { return true; } // modnar: make into monsterEvent
-    @Override
-    public int minimumTurn() {
-      	int turn = 0;
-      	 		// modnar: Space Pirates can show up earlier than other space monsters, later than regular random events
-		// but the space pirate ship stack stats will be based on galaxy empire development
-      	int piratesDelayTurn = options().selectedPiratesDelayTurn();
-		switch (options().selectedGameDifficulty()) { // BR: added adjustable delay
-            case IGameOptions.DIFFICULTY_EASIEST:
-            	turn = startTurn() + 4 * piratesDelayTurn;
-            	break;
-            case IGameOptions.DIFFICULTY_EASIER:
-            	turn = startTurn() + 3 * piratesDelayTurn;
-            	break;
-            case IGameOptions.DIFFICULTY_EASY:
-            	turn = startTurn() + 2 * piratesDelayTurn;
-            	break;
-            default:
-            	turn = startTurn() + piratesDelayTurn;
-        }
-//      System.out.println("Space Pirates next Turn = " + max(turn, nextAllowedTurn()) +
-//		" (current turn = " + galaxy().currentTurn() + ")");
-return max(turn, nextAllowedTurn()); // BR: To allow repeatable event
-	}
+    @Override ParamInteger delayTurn()		{ return IGameOptions.piratesDelayTurn; }
+    @Override ParamInteger returnTurn()		{ return IGameOptions.piratesReturnTurn; }
+    @Override public String statusMessage()	{ return text("SYSTEMS_STATUS_SPACE_PIRATES"); }
+    @Override public String systemKey()		{ return "MAIN_PLANET_EVENT_PIRATES"; }
+    @Override public boolean goodEvent()	{ return false; }
+    @Override public boolean monsterEvent()	{ return true; } // modnar: make into monsterEvent
+    @Override int nextAllowedTurn()			{ // for backward compatibility
+    	return (Integer) galaxy().dynamicOptions().getInteger(NEXT_ALLOWED_TURN, -1);
+    }
+
     @Override
     public String notificationText()    {
         String s1 = text("EVENT_SPACE_PIRATES");
@@ -91,8 +65,8 @@ return max(turn, nextAllowedTurn()); // BR: To allow repeatable event
     }
     @Override
     public void nextTurn() {
-        if (!monsterAllowed()) {
-            galaxy().events().removeActiveEvent(this);
+        if (isEventDisabled()) {
+        	terminateEvent(this);
             return;
         }
         if (turnCount == 3) 
@@ -101,21 +75,7 @@ return max(turn, nextAllowedTurn()); // BR: To allow repeatable event
             enterSystem();
         turnCount--;
     }
-    private boolean monsterAllowed() {
-    	return options().selectedRandomEventOption().equals(IGameOptions.RANDOM_EVENTS_ON);
-    }
-    private int nextAllowedTurn() {
-    	if (nextAllowedTurn == null)
-    		nextAllowedTurn = (Integer) galaxy().dynamicOptions().getInteger(NEXT_ALLOWED_TURN, -1);
-    	return nextAllowedTurn;
-    }
-    private void nextAllowedTurn(Integer turn) {
-    	nextAllowedTurn = turn;
-    	galaxy().dynamicOptions().setInteger(NEXT_ALLOWED_TURN, nextAllowedTurn);
-    }
     private boolean nextSystemAllowed() { // BR: To allow disappearance
-        if (!options().selectedRandomEventOption().equals(IGameOptions.RANDOM_EVENTS_ON))
-            return false;
     	int maxSystem = options().selectedPiratesMaxSystems();
         return maxSystem == 0 || maxSystem > monster.vistedSystemsCount();
     }
@@ -171,8 +131,7 @@ return max(turn, nextAllowedTurn()); // BR: To allow repeatable event
             GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_PIRATES_2", col.empire()), "GNN_Event_Pirates");
     }
     private void piratesDestroyed() {
-        galaxy().events().removeActiveEvent(this);
-        
+    	terminateEvent(this);
         monster.plunder();
         
         // destroying the space pirates gives reserve BC, scaling with turn number
@@ -185,22 +144,11 @@ return max(turn, nextAllowedTurn()); // BR: To allow repeatable event
             GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_PIRATES_3", monster.lastAttacker()), "GNN_Event_Pirates");
     }
     private void monsterVanished() { // BR: To allow disappearance
-    	terminateEvent();
+    	terminateEvent(this);
         if (player().knowsOf(galaxy().empire(empId)) || !player().sv.name(sysId).isEmpty())
             GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_PIRATES_4", monster.lastAttacker()), "GNN_Event_Pirates");
     }
-    private void terminateEvent() { // BR: To allow repeatable event
-   		galaxy().events().removeActiveEvent(this);
-    	if(repeatable())
-    		nextAllowedTurn(galaxy().currentTurn() + options().selectedPiratesReturnTurn());
-    }
     private void moveToNextSystem() {
-        if (!options().selectedRandomEventOption().equals(IGameOptions.RANDOM_EVENTS_ON)) {
-                log("ERR: Pirate Event No more allowed.");
-                galaxy().events().removeActiveEvent(this);
-                return;
-            }
-
         StarSystem targetSystem = galaxy().system(sysId);
         // next system is one of the 10 nearest systems
         // more likely to go to new system (25%) than visited system (5%)
@@ -235,7 +183,7 @@ return max(turn, nextAllowedTurn()); // BR: To allow repeatable event
         
         if (nextSysId < 0) {
             log("ERR: Could not find next system. Space Pirates removed.");
-            galaxy().events().removeActiveEvent(this);
+            terminateEvent(this);
             return;
         }
     

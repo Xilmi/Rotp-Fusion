@@ -112,13 +112,13 @@ public interface IRandomEvents extends IBaseOptsTools {
 			.specialNegative(SPECIAL_DISABLED);
 	default int selectedCometDelayTurn()		{ return cometDelayTurn.get(); }
 
-	ParamInteger precursorDelayTurn	= new ParamInteger(MOD_UI, "PRECURSOR_DELAY_TURN", 0, -1, MAX_DELAY_TURN, 1, 5, 20)
+	ParamInteger relicDelayTurn	= new ParamInteger(MOD_UI, "RELIC_DELAY_TURN", 0, -1, MAX_DELAY_TURN, 1, 5, 20)
 			.specialNegative(SPECIAL_DISABLED);
-	default int selectedPrecursorDelayTurn()	{ return precursorDelayTurn.get(); }
+	default int selectedRelicDelayTurn()		{ return relicDelayTurn.get(); }
 
-	ParamInteger boostSizeDelayTurn	= new ParamInteger(MOD_UI, "BOOSTSIZE_DELAY_TURN", 0, -1, MAX_DELAY_TURN, 1, 5, 20)
+	ParamInteger sizeBoostDelayTurn	= new ParamInteger(MOD_UI, "SIZEBOOST_DELAY_TURN", 0, -1, MAX_DELAY_TURN, 1, 5, 20)
 			.specialNegative(SPECIAL_DISABLED);
-	default int selectedBoostSizeDelayTurn()	{ return boostSizeDelayTurn.get(); }
+	default int selectedSizeBoostDelayTurn()	{ return sizeBoostDelayTurn.get(); }
 
 	ParamInteger gauntletDelayTurn	= new ParamInteger(MOD_UI, "GAUNTLET_DELAY_TURN", 0, -1, MAX_DELAY_TURN, 1, 5, 20)
 			.specialNegative(SPECIAL_DISABLED);
@@ -158,7 +158,7 @@ public interface IRandomEvents extends IBaseOptsTools {
 			.specialZero(SPECIAL_UNIQUE);
 	default int selectedRebellionReturnTurn()	{ return rebellionReturnTurn.get(); }
 
-	ParamInteger derelictReturnTurn	= new ParamInteger(MOD_UI, "DERELICT_RETURN_TURN", 1, 0, MAX_RETURN_TURN, 1, 5, 20)
+	ParamInteger derelictReturnTurn	= new ParamInteger(MOD_UI, "DERELICT_RETURN_TURN", 0, 0, MAX_RETURN_TURN, 1, 5, 20)
 			.specialZero(SPECIAL_UNIQUE);
 	default int selectedDerelictReturnTurn()	{ return derelictReturnTurn.get(); }
 
@@ -170,7 +170,7 @@ public interface IRandomEvents extends IBaseOptsTools {
 			.specialZero(SPECIAL_UNIQUE);
 	default int selectedPlagueReturnTurn()		{ return plagueReturnTurn.get(); }
 
-	ParamInteger supernovaReturnTurn = new ParamInteger(MOD_UI, "SUPERNOVA_RETURN_TURN", 1, 0, MAX_RETURN_TURN, 1, 5, 20)
+	ParamInteger supernovaReturnTurn = new ParamInteger(MOD_UI, "SUPERNOVA_RETURN_TURN", 0, 0, MAX_RETURN_TURN, 1, 5, 20)
 			.specialZero(SPECIAL_UNIQUE);
 	default int selectedSupernovaReturnTurn()	{ return supernovaReturnTurn.get(); }
 
@@ -182,15 +182,15 @@ public interface IRandomEvents extends IBaseOptsTools {
 			.specialZero(SPECIAL_UNIQUE);
 	default int selectedCometReturnTurn()		{ return cometReturnTurn.get(); }
 
-	ParamInteger precursorReturnTurn = new ParamInteger(MOD_UI, "PRECURSOR_RETURN_TURN", 1, 0, MAX_RETURN_TURN, 1, 5, 20)
+	ParamInteger relicReturnTurn = new ParamInteger(MOD_UI, "RELIC_RETURN_TURN", 0, 0, MAX_RETURN_TURN, 1, 5, 20)
 			.specialZero(SPECIAL_UNIQUE);
-	default int selectedPrecursorReturnTurn()	{ return precursorReturnTurn.get(); }
+	default int selectedRelicReturnTurn()		{ return relicReturnTurn.get(); }
 
-	ParamInteger boostSizeReturnTurn = new ParamInteger(MOD_UI, "BOOSTSIZE_RETURN_TURN", 1, 0, MAX_RETURN_TURN, 1, 5, 20)
+	ParamInteger sizeBoostReturnTurn = new ParamInteger(MOD_UI, "SIZEBOOST_RETURN_TURN", 1, 0, MAX_RETURN_TURN, 1, 5, 20)
 			.specialZero(SPECIAL_UNIQUE);
-	default int selectedBoostSizeReturnTurn()	{ return boostSizeReturnTurn.get(); }
+	default int selectedSizeBoostReturnTurn()	{ return sizeBoostReturnTurn.get(); }
 
-	ParamInteger gauntletReturnTurn	= new ParamInteger(MOD_UI, "GAUNTLET_RETURN_TURN", 1, 0, MAX_RETURN_TURN, 1, 5, 20)
+	ParamInteger gauntletReturnTurn	= new ParamInteger(MOD_UI, "GAUNTLET_RETURN_TURN", 0, 0, MAX_RETURN_TURN, 1, 5, 20)
 			.specialZero(SPECIAL_UNIQUE);
 	default int selectedGauntletReturnTurn()	{ return gauntletReturnTurn.get(); }
 	
@@ -251,8 +251,8 @@ public interface IRandomEvents extends IBaseOptsTools {
 				supernovaDelayTurn,
 				piracyDelayTurn,
 				cometDelayTurn,
-				precursorDelayTurn,
-				boostSizeDelayTurn,
+				relicDelayTurn,
+				sizeBoostDelayTurn,
 				gauntletDelayTurn
 				)));
 		add(new LinkedList<>(Arrays.asList(
@@ -271,8 +271,8 @@ public interface IRandomEvents extends IBaseOptsTools {
 				supernovaReturnTurn,
 				piracyReturnTurn,
 				cometReturnTurn,
-				precursorReturnTurn,
-				boostSizeReturnTurn,
+				relicReturnTurn,
+				sizeBoostReturnTurn,
 				gauntletReturnTurn
 				)));
 		}
