@@ -136,8 +136,8 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 				headerSpacer,
 				new ParamTitle("GAME_OTHER"),
 				showAlliancesGNN, showLimitedWarnings,
-				techExchangeAutoRefuse, autoTerraformEnding, trackUFOsAcrossTurns,
-				autoplay
+				techExchangeAutoRefuse, autoTerraformEnding, trackUFOsAcrossTurns
+//				autoplay
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("GAME_RELATIONS"),
@@ -146,19 +146,19 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 
 				headerSpacer,
 				new ParamTitle("GAME_COMBAT"),
-				retreatRestrictions, retreatRestrictionTurns, missileBaseModifier, missileShipModifier,
+				retreatRestrictions, retreatRestrictionTurns,
+				missileBaseModifier, missileShipModifier,
 				targetBombard, bombingTarget, autoBombard_, autoColonize_,
 				scrapRefundFactor, scrapRefundOption
 				
-//				headerSpacer,
-//				new ParamTitle("BETA_TEST"),
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("RANDOM_EVENTS_OPT"),
-				randomEvents, fixedEventsMode, eventsStartTurn,
-				piratesDelayTurn, piratesReturnTurn, piratesMaxSystems,
-				amoebaDelayTurn, amoebaReturnTurn, amoebaMaxSystems,
-				crystalDelayTurn, crystalReturnTurn, crystalMaxSystems,
+				randomEvents,
+//				fixedEventsMode, eventsStartTurn,
+//				piratesDelayTurn, piratesReturnTurn, piratesMaxSystems,
+//				amoebaDelayTurn, amoebaReturnTurn, amoebaMaxSystems,
+//				crystalDelayTurn, crystalReturnTurn, crystalMaxSystems,
 				customRandomEventUI,
 
 				headerSpacer,
@@ -168,6 +168,10 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 				headerSpacer,
 				new ParamTitle("GOVERNOR_SETUP_MENU"),
 				GovernorOptions.governorOptionsUI
+
+//				headerSpacer,
+//				new ParamTitle("BETA_TEST"),
+
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("ZOOM_FACTORS"),

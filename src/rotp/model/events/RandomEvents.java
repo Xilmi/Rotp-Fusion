@@ -48,7 +48,8 @@ public class RandomEvents implements Base, Serializable {
         targetSeed();
         loadEvents();
     }
-
+    private float chanceIncr()	  { return CHANCE_INCR * options().selectedEventsPace(); }
+    private float maxChanceIncr() { return MAX_CHANCE_INCR * options().selectedEventsPace(); }
     // BR: Added option for fixed random (reloading wont change the issue)
     private Long turnSeed() {
     	if (turnSeed == null)
@@ -100,7 +101,8 @@ public class RandomEvents implements Base, Serializable {
     }
     public void nextTurn() {
          // BR: To allow RandomEventOption dynamic changes
-        if (options().disableRandomEvents()) 
+    	IGameOptions opts = options();
+        if (opts.disableRandomEvents()) 
             return;
 
         // possible that next-turn logic may remove an active event
@@ -112,7 +114,7 @@ public class RandomEvents implements Base, Serializable {
         if (turnNum < startTurn())
             return;
 
-        eventChance = min(MAX_CHANCE_INCR, eventChance + CHANCE_INCR);
+        eventChance = min(maxChanceIncr(), eventChance + chanceIncr());
         if (turnRnd() > eventChance)
             return;
 
@@ -133,8 +135,10 @@ public class RandomEvents implements Base, Serializable {
         eventChance = START_CHANCE; // Reset the probability counter
         
         Empire affectedEmpire;
-        if (options().selectedFixedEventsMode())
+        if (opts.selectedFixedEventsMode())
         	affectedEmpire = empireForFixedEvent();
+        else if (!opts.selectedEventsFavorWeak())
+        	affectedEmpire = randomEmpire();
         else if (triggeredEvent.goodEvent())
         	affectedEmpire = empireForGoodEvent();
         else
@@ -142,6 +146,9 @@ public class RandomEvents implements Base, Serializable {
         
         triggeredEvent.trigger(affectedEmpire);
 		lastEvent = triggeredEvent; // modnar: keep track of last event
+
+		if (opts.debugAutoRun() && opts.debugLogEvents())
+        	turnLog(IGameOptions.AUTORUN_EVENTS, triggeredEvent.notificationText());
     }
     public RandomEvent activeEventForKey(String key) {
         for (RandomEvent ev: activeEvents) {
@@ -203,7 +210,8 @@ public class RandomEvents implements Base, Serializable {
             events.add(ev);
     }
     private Empire empireForFixedEvent() { return galaxy().empire(targetRnd()); }
-    private Empire empireForBadEvent() {
+    private Empire randomEmpire()		 { return listRnd(galaxy().activeEmpires()); }
+    private Empire empireForBadEvent()   {
     		          // chance of empires for bad events is based power for each empire
         Empire[] emps = galaxy().empires();
         float[] vals = new float[emps.length];

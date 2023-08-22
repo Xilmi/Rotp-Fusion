@@ -38,6 +38,12 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Cuatom Races can now have Artefacts + rich or poor homeworld.
   - Updated auto-flag for resoures and artefacts combo.
   - Updated planet display for resoures and artefacts combo.
+- Random Events:
+  - New Random Event Sub Panel.
+  - All Random Events are now customizable.
+  - Random Events can be set to not favor the weak.
+  - New Random Events Pacing adjustment.
+
 
 <b><ins>Last announcement:</ins></b>
 

@@ -16,6 +16,7 @@ public interface IDebugOptions extends IBaseOptsTools {
     String AUTORUN_LOGFILE	= "AutoRunPlayer.txt";
     String NOTIF_LOGFILE	= "AutoRunNotifications.txt";
     String AUTORUN_OTHERFILE= "AutoRunOther.txt";
+    String AUTORUN_EVENTS   = "AutoRunEvents.txt";
 
 
 	ParamBoolean debugShowMemory	= new ParamBoolean(GAME_UI, "MEMORY", false) {
@@ -43,15 +44,19 @@ public interface IDebugOptions extends IBaseOptsTools {
 	{ { isDuplicate(false); isCfgFile(true); } };
 	default boolean debugLogNotif()			{ return debugLogNotif.get(); }
 
-	LinkedList<LinkedList<IParam>> debugOptionsMap = 
-			new LinkedList<LinkedList<IParam>>() { {
+	ParamBoolean debugLogEvents		= new ParamBoolean(GAME_UI, "DEBUG_LOG_EVENTS", true)
+	{ { isDuplicate(false); isCfgFile(true); } };
+	default boolean debugLogEvents()			{ return debugLogEvents.get(); }
+
+	LinkedList<LinkedList<IParam>> debugOptionsMap = new LinkedList<LinkedList<IParam>>()
+	{ {
 		add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("DEBUG_MEMORY"),
 				debugShowMemory, debugConsoleMemory, debugFileMemory
 				)));
 		add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("DEBUG_AUTO_PLAY"),
-				debugAutoRun, debugLogNotif
+				debugAutoRun, debugLogNotif, debugLogEvents
 				)));
 		}
 	};

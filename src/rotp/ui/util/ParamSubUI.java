@@ -119,4 +119,18 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<IParam>>> {
 		return ui;
 	}
 	public LinkedList<IParam> optionsList() { return optionsList; }
+	public void updateList() {
+		optionsList.clear();
+		for (LinkedList<IParam> list : optionsMap) {
+			for (IParam param : list) {
+				if (param != null && !param.isTitle())
+					optionsList.add(param);
+			}
+		}
+	}
+	public void newMap(LinkedList<LinkedList<IParam>> newMap) {
+		optionsMap.clear();
+		optionsMap.addAll(newMap);
+		updateList();
+	}
 }

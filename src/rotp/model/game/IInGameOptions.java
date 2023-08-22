@@ -218,12 +218,10 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 			));
 	LinkedList<IParam> modOptionsDynamicB = new LinkedList<>(
 			Arrays.asList(
-				eventsStartTurn, fixedEventsMode, counciRequiredPct, GovernorOptions.governorOptionsUI,
+				counciRequiredPct, GovernorOptions.governorOptionsUI,
 				null,
-				amoebaDelayTurn, amoebaMaxSystems, amoebaReturnTurn, customRandomEventUI,
+				eventsStartTurn, eventsPace, customRandomEventUI,
 				null,
-				crystalDelayTurn, crystalMaxSystems, crystalReturnTurn,
-				null,
-				piratesDelayTurn, piratesMaxSystems, piratesReturnTurn
+				fixedEventsMode, eventsFavorWeak
 			));
 }

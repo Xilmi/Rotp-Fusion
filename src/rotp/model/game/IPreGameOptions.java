@@ -174,7 +174,11 @@ public interface IPreGameOptions extends IAdvOptions {
 
 				headerSpacer,
 				new ParamTitle("START_PLANET_OPTIONS"),
-				planetQuality, minDistArtifactPlanet
+				planetQuality, minDistArtifactPlanet,
+
+				headerSpacer,
+				new ParamTitle("GAME_OTHER"),
+				autoplay
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("START_EMPIRE_OPTIONS"),

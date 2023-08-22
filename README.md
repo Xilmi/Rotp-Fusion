@@ -53,6 +53,14 @@ Later:
 
 ## What's New
 
+2023.08.22 (BR)
+- New Random Event Sub Panel.
+- All Random Events are now customizable.
+- Random Events can be set to not favor the weak.
+- New Random Events Pacing adjustment.
+- Fixed bug in "Fixed random events": Pending events are now saved!
+- Moved autoplay to pregame option; Was confusing! in game, it should be changed from "Empire panel".
+
 2023.08.13 (BR)
 - Rearranged the research slow names: don't affect previous settings
 - Removed the inaccurate "Race"-word from menus and common dialogues.

@@ -29,6 +29,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -64,6 +65,7 @@ import rotp.model.tech.TechEngineWarp;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.util.IParam;
+import rotp.ui.util.ParamTitle;
 import rotp.ui.util.SpecificCROption;
 import rotp.util.Base;
 
@@ -407,7 +409,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
                 galaxyShape = new GalaxyEllipticalShape(this); break;
             case SHAPE_SPIRAL:
                 galaxyShape = new GalaxySpiralShape(this); break;
-            // mondar: add new map shapes
+            // modnar: add new map shapes
             case SHAPE_TEXT:
                 galaxyShape = new GalaxyTextShape(this); break;
             case SHAPE_CLUSTER:
@@ -1453,6 +1455,19 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	if (!selectedPlayerIsCustom()) {
     		setRandomPlayerRace();
     	}
+    	// Update Special list
+    	debugOptionsMap.clear();
+    	debugOptionsMap.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("DEBUG_MEMORY"),
+				debugShowMemory, debugConsoleMemory, debugFileMemory
+				)));
+    	debugOptionsMap.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("DEBUG_AUTO_PLAY"),
+				debugAutoRun, debugLogNotif, debugLogEvents,
+				headerSpacer,
+				councilWin, autoplay
+				)));
+    	debugOptionsUI.updateList();
     }
     @Override public void copyAliensAISettings(IGameOptions dest) { // BR:
     	MOO1GameOptions d = (MOO1GameOptions) dest; 	
