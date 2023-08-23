@@ -53,6 +53,10 @@ Later:
 
 ## What's New
 
+2023.08.23 (BR)
+- Fixed bug in "Fixed random events": Event selection is more repeatable.
+  - A different event could have been chosen if a previous Monster event was lasting too long. 
+
 2023.08.22 (BR)
 - New Random Event Sub Panel.
 - All Random Events are now customizable.

@@ -170,7 +170,7 @@ public class RandomEvents implements Base, Serializable {
     	if (galaxy().currentTurn() < event.minimumTurn())
     		return false;
 		// don't trigger the same event twice in a row
-    	if (event == lastEvent)
+    	if (event == lastEvent && !options().selectedFixedEventsMode())
 			return false;
 		// don't trigger when a duplicate event is still in effect
 		for (RandomEvent ev: activeEvents)
