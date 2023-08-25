@@ -128,9 +128,10 @@ public class RandomEvents implements Base, Serializable {
         //     return;
         
 		// modnar: make random events repeatable
-		if (!triggeredEvent.repeatable()) {
-			events.remove(triggeredEvent);
-		}
+        // No removal, dynamically built
+//		if (!triggeredEvent.repeatable()) {
+//			events.remove(triggeredEvent);
+//		}
 		
         eventChance = START_CHANCE; // Reset the probability counter
         
@@ -170,9 +171,11 @@ public class RandomEvents implements Base, Serializable {
     	if (galaxy().currentTurn() < event.minimumTurn())
     		return false;
 		// don't trigger the same event twice in a row
-    	if (event == lastEvent && !options().selectedFixedEventsMode())
+    	if (event == lastEvent)
 			return false;
 		// don't trigger when a duplicate event is still in effect
+    	if (options().selectedFixedEventsMode())
+			return true; // FixedEvents exception
 		for (RandomEvent ev: activeEvents)
             if (event == ev)
                 return false;

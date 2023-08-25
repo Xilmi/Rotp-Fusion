@@ -26,7 +26,7 @@ import rotp.model.planet.PlanetType;
 import rotp.ui.notifications.GNNNotification;
 import rotp.ui.util.ParamInteger;
 
-public class RandomEventIndustrialAccident extends RandomEvent {
+public class RandomEventIndustrialAccident extends AbstractRandomEvent {
     private static final long serialVersionUID = 1L;
     private int empId;
     private int sysId;

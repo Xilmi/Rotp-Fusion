@@ -27,7 +27,7 @@ import rotp.ui.util.ParamInteger;
 
 // modnar: add Boost Planet baseSize random event
 // increase planet baseSize for a small planet
-public class RandomEventBoostPlanetSize extends RandomEvent {
+public class RandomEventBoostPlanetSize extends AbstractRandomEvent {
     private static final long serialVersionUID = 1L;
     private int empId;
     private int sysId;

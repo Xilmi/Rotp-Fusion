@@ -29,7 +29,7 @@ import rotp.ui.util.ParamInteger;
 // modnar: add Precursor Relic random event
 // give free Techs in Construction category
 // generates colonizable planets in some systems with "No Colonizable Planets"
-public class RandomEventPrecursorRelic extends RandomEvent {
+public class RandomEventPrecursorRelic extends AbstractRandomEvent {
     private static final long serialVersionUID = 1L;
     private static final int MAX_TECHS_DISCOVERED = 5; // 5 free techs
     private int empId;

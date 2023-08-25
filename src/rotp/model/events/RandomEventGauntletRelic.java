@@ -30,7 +30,7 @@ import rotp.ui.util.ParamInteger;
 // give free Techs in Planetology category
 // cut population on all colonies in half
 // baseSize +10 for all planets (less than size-90) in target empire
-public class RandomEventGauntletRelic extends RandomEvent {
+public class RandomEventGauntletRelic extends AbstractRandomEvent {
     private static final long serialVersionUID = 1L;
     private static final int MAX_TECHS_DISCOVERED = 5; // 5 free techs
     private int empId;

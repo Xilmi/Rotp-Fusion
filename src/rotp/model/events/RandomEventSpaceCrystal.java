@@ -25,7 +25,7 @@ import rotp.model.game.IGameOptions;
 import rotp.ui.notifications.GNNNotification;
 import rotp.ui.util.ParamInteger;
 
-public class RandomEventSpaceCrystal extends RandomEvent {
+public class RandomEventSpaceCrystal extends AbstractRandomEvent {
     private static final long serialVersionUID = 1L;
     private static final String NEXT_ALLOWED_TURN = "CRYSTAL_NEXT_ALLOWED_TURN";
     public static SpaceCrystal monster;

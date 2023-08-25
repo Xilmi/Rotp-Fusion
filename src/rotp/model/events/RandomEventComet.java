@@ -25,7 +25,7 @@ import rotp.model.ships.ShipDesignLab;
 import rotp.ui.notifications.GNNNotification;
 import rotp.ui.util.ParamInteger;
 
-public class RandomEventComet extends RandomEvent {
+public class RandomEventComet extends AbstractRandomEvent {
     private static final long serialVersionUID = 1L;
     private int empId;
     private int sysId;

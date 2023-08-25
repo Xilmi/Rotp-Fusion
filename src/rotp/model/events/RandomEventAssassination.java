@@ -24,7 +24,7 @@ import rotp.model.incidents.AssassinationIncident;
 import rotp.ui.notifications.GNNNotification;
 import rotp.ui.util.ParamInteger;
 
-public class RandomEventAssassination extends RandomEvent {
+public class RandomEventAssassination extends AbstractRandomEvent {
     private static final long serialVersionUID = 1L;
     private int empAssassin, empVictim;
     @Override ParamInteger delayTurn()		{ return IGameOptions.assassinDelayTurn; }

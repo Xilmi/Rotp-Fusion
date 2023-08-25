@@ -22,7 +22,7 @@ import rotp.model.tech.TechTree;
 import rotp.ui.notifications.GNNNotification;
 import rotp.ui.util.ParamInteger;
 
-public class RandomEventComputerVirus extends RandomEvent {
+public class RandomEventComputerVirus extends AbstractRandomEvent {
     private static final long serialVersionUID = 1L;
     private int empId;
     private String techId;

@@ -26,7 +26,7 @@ import rotp.model.game.IGameOptions;
 import rotp.ui.notifications.GNNNotification;
 import rotp.ui.util.ParamInteger;
 
-public class RandomEventPlague extends RandomEvent implements ColonyResearchProject {
+public class RandomEventPlague extends AbstractRandomEvent implements ColonyResearchProject {
     private static final long serialVersionUID = 1L;
     private int empId;
     private int sysId;

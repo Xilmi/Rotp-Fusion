@@ -25,7 +25,7 @@ import rotp.model.game.IGameOptions;
 import rotp.ui.notifications.GNNNotification;
 import rotp.ui.util.ParamInteger;
 
-public class RandomEventEarthquake extends RandomEvent  {
+public class RandomEventEarthquake extends AbstractRandomEvent  {
     private static final long serialVersionUID = 1L;
     private int empId;
     private int sysId;

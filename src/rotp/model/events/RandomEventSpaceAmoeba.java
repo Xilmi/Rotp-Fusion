@@ -25,7 +25,7 @@ import rotp.model.game.IGameOptions;
 import rotp.ui.notifications.GNNNotification;
 import rotp.ui.util.ParamInteger;
 
-public class RandomEventSpaceAmoeba extends RandomEvent {
+public class RandomEventSpaceAmoeba extends AbstractRandomEvent {
     private static final long serialVersionUID = 1L;
     private static final String NEXT_ALLOWED_TURN = "AMOEBA_NEXT_ALLOWED_TURN";
     public static SpaceAmoeba monster;

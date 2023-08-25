@@ -24,7 +24,7 @@ import rotp.model.tech.TechTree;
 import rotp.ui.notifications.GNNNotification;
 import rotp.ui.util.ParamInteger;
 
-public class RandomEventAncientDerelict extends RandomEvent {
+public class RandomEventAncientDerelict extends AbstractRandomEvent {
     private static final long serialVersionUID = 1L;
     private static final int MAX_TECHS_DISCOVERED = 10;
     private int empId;

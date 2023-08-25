@@ -27,7 +27,7 @@ import rotp.ui.util.ParamInteger;
  * 
  * @author RayGame
  */
-public class RandomEventGeneric   extends RandomEvent {
+public class RandomEventGeneric   extends AbstractRandomEvent {
     private static final long serialVersionUID = 1L;
     private String eventKey;
     @SuppressWarnings("unused")

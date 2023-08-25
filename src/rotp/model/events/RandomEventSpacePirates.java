@@ -24,7 +24,7 @@ import rotp.ui.notifications.GNNNotification;
 import rotp.ui.util.ParamInteger;
 
 // modnar: add Space Pirates random event
-public class RandomEventSpacePirates extends RandomEvent {
+public class RandomEventSpacePirates extends AbstractRandomEvent {
     private static final long serialVersionUID = 1L;
     private static final String NEXT_ALLOWED_TURN = "PIRATES_NEXT_ALLOWED_TURN";
     public static SpacePirates monster;

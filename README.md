@@ -58,7 +58,7 @@ Later:
 - added Ironman locked load.
 - added Ironman Artifact same on reload.
 - added Ironman subpanel.
-- cleaned random events methods.
+- cleaned random events classes and methods.
 
 2023.08.23 (BR)
 - Fixed bug in "Fixed random events": Event selection is more repeatable.

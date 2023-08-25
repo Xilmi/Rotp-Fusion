@@ -20,7 +20,7 @@ import rotp.model.game.IGameOptions;
 import rotp.ui.notifications.GNNNotification;
 import rotp.ui.util.ParamInteger;
 
-public class RandomEventDonation extends RandomEvent {
+public class RandomEventDonation extends AbstractRandomEvent {
     private static final long serialVersionUID = 1L;
     private int donationAmount = 0;
     private int empId;
