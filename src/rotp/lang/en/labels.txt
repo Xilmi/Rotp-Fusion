@@ -537,6 +537,8 @@ MAIN_NAVIGATION_COLONIES          | Colonies
 MAIN_NAVIGATION_TECH              | Tech
 MAIN_NAVIGATION_NEXT_TURN         | Next Turn
 MAIN_NAVIGATION_NEXT_YEAR         | Next Year
+MAIN_NAVIGATION_AUTO_RUN          | !!! Auto Run !!!
+MAIN_NAVIGATION_LOCKED            | Ironman Lock
 MAIN_YEAR_DISPLAY                 | Year  %1
 MAIN_TURN_DISPLAY                 | Turn  %1
 MAIN_SPY_REPORT                   | Spy
@@ -2464,7 +2466,7 @@ SETTINGS_MOD_EVENTS_FAVOR_WEAK           | Favor the weak: %1
 
 SETTINGS_MOD_FIXED_EVENTS_MODE_HELP      | A seed is given at the begining of a game, and will be used to generate the random events.<br>- Target empires are no more determined by their powers.<br>- Same time, same event, same target on different play.<br>- Same Events on Reload.<br>- If an event is still actif, it will be put on waiting list till the previous occurence ends.<br>- If targeted empire is extinct, Monsters are directed to their former home world.
 SETTINGS_MOD_FIXED_EVENTS_MODE_DESC      | A seed is given at the begining of a game, and will be used to generate the random events. Target empire are no more determined by their powers.
-SETTINGS_MOD_FIXED_EVENTS_MODE           | Fixed random events: %1
+SETTINGS_MOD_FIXED_EVENTS_MODE           | Deterministic random events: %1
 
 
 // ========== RANDOM EVENT MONSTERS PARAMETERS
@@ -2650,6 +2652,40 @@ SETTINGS_MOD_GAUNTLET_RETURN_TURN_HELP   | →SETTINGS_MOD_GAUNTLET_RETURN_TURN_
 SETTINGS_MOD_GAUNTLET_RETURN_TURN_DESC   | →REF_RETURN_1← →REF_GAUNTLET← →REF_RETURN_2←
 SETTINGS_MOD_GAUNTLET_RETURN_TURN        | →REF_GAUNTLET← →REF_RETURN←
 
+// ========== Ironman sub Panel
+SETTINGS_MOD_IRONMAN_OPTIONS_TITLE       | Ironman Options
+SETTINGS_MOD_IRONMAN_OPTIONS_UI_DESC     | Open Sub Menu to access Ironman customization options.
+SETTINGS_MOD_IRONMAN_OPTIONS_UI          | Ironman Options: %1
+
+HEADERS_IRONMAN_BASIC_DESC               | To test ironman options without risk.<br>Option button removal is only available from Pre-Game options, to avoid unfortunate misclick.
+HEADERS_IRONMAN_BASIC                    | ~~~ TO TASTE IRONMAN ~~~%1
+HEADERS_IRONMAN_MAIN_DESC                | The one that govern all.
+HEADERS_IRONMAN_MAIN                     | ~~~ MAIN OPTION ~~~%1
+HEADERS_IRONMAN_FORMER_DESC              | Former option for backward compatibility.
+HEADERS_IRONMAN_FORMER                   | ~~~ FORMER OPTION ~~~%1
+HEADERS_IRONMAN_CUSTOM_DESC              | To allow full or partial Ironman.
+HEADERS_IRONMAN_CUSTOM                   | ~~~ INDIVIDUAL OPTIONS ~~~%1
+
+SETTINGS_MOD_IRONMAN_MODE_HELP           | Though for challenges between players on the same starting galaxy.<br>Remove the access to in-game options to avoid easy cheating.<br>The activation of "Fixed random events" is strongly recommended.<br>More options will be added.
+SETTINGS_MOD_IRONMAN_MODE_DESC           | Though for challenges between players on the same starting galaxy. Remove the access to in-game options.
+SETTINGS_MOD_IRONMAN_MODE                | Ironman Hide Options: %1
+SETTINGS_MOD_IRONMAN_OFF                 | Off
+SETTINGS_MOD_IRONMAN_OFF_HELP            | Disabled
+SETTINGS_MOD_IRONMAN_NO_OPTIONS          | On
+SETTINGS_MOD_IRONMAN_NO_OPTIONS_HELP     | Options won't be accessible In-game.
+
+SETTINGS_MOD_IRONMAN_NO_SAVE_HELP        | No save game allowed
+SETTINGS_MOD_IRONMAN_NO_SAVE_DESC        | No save game allowed
+SETTINGS_MOD_IRONMAN_NO_SAVE             | No save
+
+SETTINGS_MOD_IRONMAN_NO_LOAD_DESC        | Game files can only be loaded at a limited turn interval.
+SETTINGS_MOD_IRONMAN_NO_LOAD             | Limited Reload: %1
+SETTINGS_MOD_IRONMAN_LOAD_DELAY_HELP     | Reload turn divider.<br>Only saved game at turns that can be divided by this value are allowed to be reloaded.<br>Turn 1 is always valid.
+SETTINGS_MOD_IRONMAN_LOAD_DELAY_DESC     | Reload turn divider.<br>Only saved game at turns that can be divided by this value are allowed to be reloaded.
+SETTINGS_MOD_IRONMAN_LOAD_DELAY          | Reload turn divider: %1
+
+SETTINGS_MOD_REPEATABLE_ARTIFACT_DESC    | Arfifacts planets will constantly give the same tech on reload.
+SETTINGS_MOD_REPEATABLE_ARTIFACT         | Deterministic Artifacts: %1
 
 
 // Tech UI labels

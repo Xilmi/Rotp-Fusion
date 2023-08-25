@@ -220,6 +220,10 @@ public class MapOverlayNone extends MapOverlay {
                 break;
             case KeyEvent.VK_N:
                 //softClick();
+            	if (options().ironmanLocked()) {
+            		misClick();
+            		break;
+            	}
                 parent.handleNextTurn();
                 session().nextTurn();
                 break;

@@ -3490,9 +3490,11 @@ public final class Empire implements Base, NamedObject, Serializable {
         int levelDiff = isOrion ? 25: 10;
         int minLevel = isOrion ? 20: 1;
         s.planet().plunderBonusTech();
-        
+        long seed = s.seed();
         for (int i=0;i<numTechs;i++) {
-            Tech t = tech().randomUnknownTech(minLevel, levelDiff, isPlayerControlled());
+        	long seed1 = seed * (i+1);
+        	long seed2 = (seed+9) * (i+1);
+            Tech t = tech().randomUnknownTech(minLevel, levelDiff, isPlayerControlled(), seed1, seed2);
             if (t == null) // if none found, then break out of loop
                 break;
             boolean newTech = tech().learnTech(t.id);

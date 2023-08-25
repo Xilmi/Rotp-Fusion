@@ -53,6 +53,13 @@ Later:
 
 ## What's New
 
+2023.08.24 (BR)
+- added Warning for Auto-Run.
+- added Ironman locked load.
+- added Ironman Artifact same on reload.
+- added Ironman subpanel.
+- cleaned random events methods.
+
 2023.08.23 (BR)
 - Fixed bug in "Fixed random events": Event selection is more repeatable.
   - A different event could have been chosen if a previous Monster event was lasting too long. 

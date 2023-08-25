@@ -84,7 +84,8 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
     private String eventKey;
     private SpaceMonster monster;
     private final List<StarSystemEvent> events = new ArrayList<>();
-
+    private Long seed;
+    
     public int transportDestId;
     public int transportAmt;
     public float transportTravelTime;
@@ -98,6 +99,11 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
     private transient int twinkleCycle, twinkleOffset, drawRadius;
     private transient boolean displayed = false;
 
+    public Long seed() { // BR: seed for deterministic randomness
+    	if (seed == null)
+    		seed = (long) random.nextInt(); // To allow seed multiplication
+    	return seed;
+    }
     public SystemTransportSprite transportSprite() {
         if ((transportSprite == null) && isColonized()) {
             transportSprite = new SystemTransportSprite(this);
@@ -157,6 +163,7 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
     private StarSystem(String key, int num) {
         starTypeKey = key;
         id = num;
+        seed(); // BR: to initialize the seed
     }
     @Override
     public int displayPriority()           { return 6; }

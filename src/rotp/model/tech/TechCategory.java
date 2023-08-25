@@ -172,7 +172,7 @@ public final class TechCategory implements Base, Serializable {
         return random(knownTechs());
     }
     // BR: modified for the "Never" tech
-    public Tech randomUnknownTech(int minLevel, int levelDiff, boolean isPlayer) {
+    public Tech randomUnknownTech(int minLevel, int levelDiff, boolean isPlayer, Long seed) {
         // find level of highest known tech
         int highestLevel = 0;
         for (String id: knownTechs()) {
@@ -194,7 +194,7 @@ public final class TechCategory implements Base, Serializable {
             		&& isAllowed(id, isPlayer))
                 techList.add(t);
         }
-        return random(techList);
+        return random(techList, seed);
     }
 
     public List<String> possibleTechs()  { return possibleTechs; }

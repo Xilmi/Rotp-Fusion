@@ -95,6 +95,7 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 		allModOptions.addAll(governorOptions);
 		allModOptions.addAll(mainOptionsUI);
 		allModOptions.addAll(debugOptions);
+		allModOptions.addAll(ironmanOptions);
 		return allModOptions;
 	};
 
@@ -150,15 +151,15 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 				missileBaseModifier, missileShipModifier,
 				targetBombard, bombingTarget, autoBombard_, autoColonize_,
 				scrapRefundFactor, scrapRefundOption
-				
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("IRONMAN_BASIC"),
+				repeatableArtifact,
+				ironmanNoLoad, ironmanLoadDelay,
+
+				headerSpacer,
 				new ParamTitle("RANDOM_EVENTS_OPT"),
 				randomEvents,
-//				fixedEventsMode, eventsStartTurn,
-//				piratesDelayTurn, piratesReturnTurn, piratesMaxSystems,
-//				amoebaDelayTurn, amoebaReturnTurn, amoebaMaxSystems,
-//				crystalDelayTurn, crystalReturnTurn, crystalMaxSystems,
 				customRandomEventUI,
 
 				headerSpacer,

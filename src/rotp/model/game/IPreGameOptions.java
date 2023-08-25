@@ -17,7 +17,7 @@ import rotp.ui.util.ParamTech;
 import rotp.ui.util.ParamTitle;
 import rotp.ui.util.RandomAlienRaces;
 
-public interface IPreGameOptions extends IAdvOptions {
+public interface IPreGameOptions extends IAdvOptions, IIronmanOptions {
 
 	// ========================================================================
 	// Factory options
@@ -188,7 +188,7 @@ public interface IPreGameOptions extends IAdvOptions {
 
 				headerSpacer,
 				new ParamTitle("BETA_TEST"),
-				ironmanMode
+				ironmanMode, ironmanOptionsUI
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("START_TECH_CONTROL"),

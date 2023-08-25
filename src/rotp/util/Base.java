@@ -294,8 +294,22 @@ public interface Base {
     public default <T> T random(T[] array) {
         return array == null ? null : array[(random.nextInt(array.length))];
     }
+    public default <T> T random(T[] array, Long seed) {
+    	if (seed == null)
+    		return random(array);
+    	if (array == null)
+    		return null;
+        return array[(new Random(seed).nextInt(array.length))];
+    }
     public default <T> T random(List<T> list) {
         return (list == null || list.isEmpty()) ? null : list.get(random.nextInt(list.size()));
+    }
+    public default <T> T random(List<T> list, Long seed) {
+    	if (seed == null)
+    		return random(list);
+    	if (list == null || list.isEmpty())
+    		return null;
+        return list.get(new Random(seed).nextInt(list.size()));
     }
     public default <T> T random(Set<T> list) {
         return random(new ArrayList<>(list));

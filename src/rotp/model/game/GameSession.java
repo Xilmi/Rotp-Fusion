@@ -115,6 +115,7 @@ public final class GameSession implements Base, Serializable {
     private static HashMap<ShipDesign, Integer> shipsConstructed;
     private static final List<GameAlert> alerts = new ArrayList<>();
     private static int viewedAlerts;
+    private static boolean ironmanLocked = false;
 
     private IGameOptions options;
     private Galaxy galaxy;
@@ -125,6 +126,8 @@ public final class GameSession implements Base, Serializable {
     public GameStatus status()                   { return status; }
     public long id()                             { return id; }
     public ExecutorService smallSphereService()  { return smallSphereService; }
+
+    public static boolean ironmanLocked() 		 { return ironmanLocked; }
 
     public void pauseNextTurnProcessing(String s)   {
         if (performingTurn) {
@@ -740,7 +743,7 @@ public final class GameSession implements Base, Serializable {
             err("Each empire randomly learning 10 unknown techs to facilitate TechExchange testing");
             for (Empire emp: galaxy().empires()) {
                 for (int i=0;i<10;i++)
-                    emp.tech().learnTech(emp.tech().randomUnknownTech(1,20, emp.isPlayer()).id()); // BR: always add in some Technologies
+                    emp.tech().learnTech(emp.tech().randomUnknownTech(1,20, emp.isPlayer(), null, null).id()); // BR: always add in some Technologies
             }
             err("Each empire spying on each other");
             for (Empire emp1: galaxy().empires()) {
@@ -1128,7 +1131,15 @@ public final class GameSession implements Base, Serializable {
     private void validate() {
         galaxy().validate();
     }
+    private void ironmanValidation() {
+        if (options.selectedIronmanLoad()) {
+        	int turn = galaxy().currentTurn();
+	        int modulo = Math.floorMod(turn, options.selectedIronmanLoadDelay());
+	        ironmanLocked = (modulo != 0) && (turn > 1);
+        }
+    }
     private void validateOnLoadOnly() {
+    	ironmanValidation();
         GNNExpansionEvent.instance().validate(galaxy());
 
         // check for invalid colonies with too much waste & negative pop

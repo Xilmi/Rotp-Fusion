@@ -626,8 +626,12 @@ public final class TechTree implements Base, Serializable {
         return random(category).randomKnownTech();
     }
     // BR: modified for the "Never" tech
-    public Tech randomUnknownTech(int minLevel, int levelDiff, boolean isPlayer) {
-        return random(category).randomUnknownTech(minLevel, levelDiff, isPlayer);
+//    public Tech randomUnknownTech(int minLevel, int levelDiff, boolean isPlayer) {
+//        return random(category).randomUnknownTech(minLevel, levelDiff, isPlayer);
+//    }
+    // BR: modified for the "Never" tech and repeatable tech
+    public Tech randomUnknownTech(int minLevel, int levelDiff, boolean isPlayer, Long seed1, Long seed2) {
+    	return random(category, seed1).randomUnknownTech(minLevel, levelDiff, isPlayer, seed2);
     }
     public void knowAll() { knowAll(99, 1); }
     public void knowAll(int maxLevel, float pct) {

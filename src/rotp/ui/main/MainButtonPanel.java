@@ -27,6 +27,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Point2D;
+
+import rotp.model.game.IGameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 
@@ -155,7 +157,8 @@ public final class MainButtonPanel extends BasePanel implements MouseListener, M
         }
     }
     private void drawNextTurn(Graphics2D g, int x, int y, int w, int h) {
-        if (!allowNextTurn)
+    	IGameOptions opts = options();
+        if (!allowNextTurn || opts.ironmanLocked())
             g.setPaint(nextTurnDisableBackground);
         else if (depressedBox == nextTurnBox)
             g.setPaint(nextTurnDepressedBackground);
@@ -172,7 +175,17 @@ public final class MainButtonPanel extends BasePanel implements MouseListener, M
         g.drawRoundRect(x,y,w,h,s10,s10);
         g.setStroke(prevS);
 
-        String label = options().displayYear() ? text("MAIN_NAVIGATION_NEXT_YEAR") : text("MAIN_NAVIGATION_NEXT_TURN");
+//        String label = options().displayYear() ? text("MAIN_NAVIGATION_NEXT_YEAR") : text("MAIN_NAVIGATION_NEXT_TURN");
+        String label;
+        if (opts.ironmanLocked())
+        	label = text("MAIN_NAVIGATION_LOCKED");
+        else if (opts.debugAutoRun())
+        	label = text("MAIN_NAVIGATION_AUTO_RUN");
+        else if (opts.displayYear())
+        	label = text("MAIN_NAVIGATION_NEXT_YEAR");
+        else 
+        	label = text("MAIN_NAVIGATION_NEXT_TURN");
+
         g.setFont(narrowFont(28));
         int sw = g.getFontMetrics().stringWidth(label);
         int x0 = x+((w-sw)/2);
@@ -236,6 +249,10 @@ public final class MainButtonPanel extends BasePanel implements MouseListener, M
             session().nextTurn();
         }
         for (int i=0;i<buttonBox.length;i++) {
+        	if (options().ironmanLocked()) {
+        		misClick();
+        		return;
+        	}
             if (buttonBox[i].contains(x, y)) {
                 clickButton(i);
                 click = 2;
