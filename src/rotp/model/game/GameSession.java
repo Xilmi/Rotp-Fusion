@@ -1096,7 +1096,7 @@ public final class GameSession implements Base, Serializable {
             newSession.validateOnLoadOnly();
 
             loadPreviousSession(newSession, startUp);
-            
+            newSession.ironmanValidation();
             // do not autosave the current session if that is the file we are trying to reload            
             if (!filename.equals(RECENT_SAVEFILE))
                 saveRecentSession(false);
@@ -1132,14 +1132,14 @@ public final class GameSession implements Base, Serializable {
         galaxy().validate();
     }
     private void ironmanValidation() {
-        if (options.selectedIronmanLoad()) {
+    	ironmanLocked = false;
+        if (options().selectedIronmanLoad()) {
         	int turn = galaxy().currentTurn();
 	        int modulo = Math.floorMod(turn, options.selectedIronmanLoadDelay());
 	        ironmanLocked = (modulo != 0) && (turn > 1);
         }
     }
     private void validateOnLoadOnly() {
-    	ironmanValidation();
         GNNExpansionEvent.instance().validate(galaxy());
 
         // check for invalid colonies with too much waste & negative pop

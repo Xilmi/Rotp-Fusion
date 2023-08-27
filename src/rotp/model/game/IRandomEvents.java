@@ -14,6 +14,7 @@ public interface IRandomEvents extends IBaseOptsTools {
 	String RANDOM_EVENTS_GUI_ID	= "RANDOM_EVENTS";
 	String SPECIAL_DISABLED		= MOD_UI + "RANDOM_EVENT_DISABLED";
 	String SPECIAL_UNIQUE		= MOD_UI + "RANDOM_EVENT_UNIQUE";
+	String SPECIAL_UNLIMITED	= MOD_UI + "RANDOM_EVENT_UNLIMITED";
 
 	Integer MAX_DELAY_TURN	= 9999; 
 	Integer MAX_RETURN_TURN	= 9999; 
@@ -34,19 +35,28 @@ public interface IRandomEvents extends IBaseOptsTools {
 	
 	// ========================================================================
 	// BR: RANDOM EVENT MONSTERS PARAMETERS
-	ParamInteger piratesDelayTurn	= new ParamInteger(MOD_UI, "PIRATES_DELAY_TURN",  25, 0, MAX_DELAY_TURN, 1, 5, 20);
-	ParamInteger amoebaDelayTurn	= new ParamInteger(MOD_UI, "AMOEBA_DELAY_TURN",  100, 0, MAX_DELAY_TURN, 1, 5, 20);
-	ParamInteger crystalDelayTurn	= new ParamInteger(MOD_UI, "CRYSTAL_DELAY_TURN", 100, 0, MAX_DELAY_TURN, 1, 5, 20);
+	ParamInteger piratesDelayTurn	= new ParamInteger(MOD_UI, "PIRATES_DELAY_TURN",  25, -1, MAX_DELAY_TURN, 1, 5, 20)
+			.specialNegative(SPECIAL_DISABLED);
+	ParamInteger amoebaDelayTurn	= new ParamInteger(MOD_UI, "AMOEBA_DELAY_TURN",  100, -1, MAX_DELAY_TURN, 1, 5, 20)
+			.specialNegative(SPECIAL_DISABLED);
+	ParamInteger crystalDelayTurn	= new ParamInteger(MOD_UI, "CRYSTAL_DELAY_TURN", 100, -1, MAX_DELAY_TURN, 1, 5, 20)
+			.specialNegative(SPECIAL_DISABLED);
 
-	ParamInteger piratesReturnTurn	= new ParamInteger(MOD_UI, "PIRATES_RETURN_TURN", 0, 0, MAX_RETURN_TURN, 1, 5, 20);
-	ParamInteger amoebaReturnTurn	= new ParamInteger(MOD_UI, "AMOEBA_RETURN_TURN",  0, 0, MAX_RETURN_TURN, 1, 5, 20);
-	ParamInteger crystalReturnTurn	= new ParamInteger(MOD_UI, "CRYSTAL_RETURN_TURN", 0, 0, MAX_RETURN_TURN, 1, 5, 20);
+	ParamInteger piratesReturnTurn	= new ParamInteger(MOD_UI, "PIRATES_RETURN_TURN", 0, 0, MAX_RETURN_TURN, 1, 5, 20)
+			.specialZero(SPECIAL_UNIQUE);
+	ParamInteger amoebaReturnTurn	= new ParamInteger(MOD_UI, "AMOEBA_RETURN_TURN",  0, 0, MAX_RETURN_TURN, 1, 5, 20)
+			.specialZero(SPECIAL_UNIQUE);
+	ParamInteger crystalReturnTurn	= new ParamInteger(MOD_UI, "CRYSTAL_RETURN_TURN", 0, 0, MAX_RETURN_TURN, 1, 5, 20)
+			.specialZero(SPECIAL_UNIQUE);
 
-	ParamInteger piratesMaxSystems	= new ParamInteger(MOD_UI, "PIRATES_MAX_SYSTEMS", 0, 0, MAX_SYSTEMS, 1, 5, 20);
+	ParamInteger piratesMaxSystems	= new ParamInteger(MOD_UI, "PIRATES_MAX_SYSTEMS", 0, 0, MAX_SYSTEMS, 1, 5, 20)
+			.specialZero(SPECIAL_UNLIMITED);
 	default int selectedPiratesMaxSystems()		{ return piratesMaxSystems.get(); }
-	ParamInteger amoebaMaxSystems	= new ParamInteger(MOD_UI, "AMOEBA_MAX_SYSTEMS",  0, 0, MAX_SYSTEMS, 1, 5, 20);
+	ParamInteger amoebaMaxSystems	= new ParamInteger(MOD_UI, "AMOEBA_MAX_SYSTEMS",  0, 0, MAX_SYSTEMS, 1, 5, 20)
+			.specialZero(SPECIAL_UNLIMITED);
 	default int selectedAmoebaMaxSystems()		{ return amoebaMaxSystems.get(); }
-	ParamInteger crystalMaxSystems	= new ParamInteger(MOD_UI, "CRYSTAL_MAX_SYSTEMS", 0, 0, MAX_SYSTEMS, 1, 5, 20);
+	ParamInteger crystalMaxSystems	= new ParamInteger(MOD_UI, "CRYSTAL_MAX_SYSTEMS", 0, 0, MAX_SYSTEMS, 1, 5, 20)
+			.specialZero(SPECIAL_UNLIMITED);
 	default int selectedCrystalMaxSystems()		{ return crystalMaxSystems.get(); }
 
 	// ========================================================================

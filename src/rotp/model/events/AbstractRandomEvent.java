@@ -100,4 +100,9 @@ abstract class AbstractRandomEvent implements RandomEvent, Base, Serializable {
 	        default:								return 1;
 		}
     }
+	@Override public void addPendingEvents(Empire emp) {
+		pendingEvents.add(emp);
+		if (options().debugAutoRun() && options().debugLogEvents())
+        	turnLog(IGameOptions.AUTORUN_EVENTS, "Pending: " + emp.name() + " # " + notificationText());
+	}
 }

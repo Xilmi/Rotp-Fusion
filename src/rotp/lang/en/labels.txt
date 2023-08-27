@@ -538,7 +538,10 @@ MAIN_NAVIGATION_TECH              | Tech
 MAIN_NAVIGATION_NEXT_TURN         | Next Turn
 MAIN_NAVIGATION_NEXT_YEAR         | Next Year
 MAIN_NAVIGATION_AUTO_RUN          | !!! Auto Run !!!
-MAIN_NAVIGATION_LOCKED            | Ironman Lock
+MAIN_NAVIGATION_AUTO_RUN_LOCKED   | !!! Auto Run (L%1 T) !!!
+MAIN_NAVIGATION_NEXT_TURN_LOCKED  | Next Turn (L%1 T)
+MAIN_NAVIGATION_NEXT_YEAR_LOCKED  | Next Year (L%1 T)
+MAIN_NAVIGATION_LOCKED            | Ironman Lock (L%1 T)
 MAIN_YEAR_DISPLAY                 | Year  %1
 MAIN_TURN_DISPLAY                 | Turn  %1
 MAIN_SPY_REPORT                   | Spy
@@ -2443,6 +2446,7 @@ SETTINGS_MOD_RANDOM_EVENTS_UI_DESC       | Open Sub Menu to get more random even
 SETTINGS_MOD_RANDOM_EVENTS_UI            | Random Events Options: %1
 SETTINGS_MOD_RANDOM_EVENT_DISABLED       | Off
 SETTINGS_MOD_RANDOM_EVENT_UNIQUE         | Unique Event
+SETTINGS_MOD_RANDOM_EVENT_UNLIMITED      | Unlimited
 
 REF_DELAY        | Base delay: %1
 REF_DELAY_1      | To set the starting turn offset of random

@@ -248,7 +248,8 @@ public class BasePanel extends JPanel implements Base, InterfacePreview {
         int bdrW = s7;
 
         g.setColor(backShade);
-        g.fillRect(0,0,getWidth(), getHeight());
+        if (!options().debugAutoRun()) // BR: No shading when auto-run
+        	g.fillRect(0,0,getWidth(), getHeight());
 
         String title = NoticeMessage.title();
         String step = NoticeMessage.step();

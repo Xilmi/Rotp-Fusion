@@ -48,7 +48,9 @@ public class RandomEventSpaceAmoeba extends AbstractRandomEvent {
     @Override
     public String notificationText()    {
         String s1 = text("EVENT_SPACE_AMOEBA");
-        s1 = s1.replace("[system]", galaxy().empire(empId).sv.name(sysId));
+    	Empire emp = galaxy().empire(empId);
+        s1 = s1.replace("[system]", emp.sv.name(sysId));
+        s1 = emp.replaceTokens(s1, "victim");
         return s1;
     }
     @Override

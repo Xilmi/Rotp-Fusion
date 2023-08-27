@@ -53,6 +53,14 @@ Later:
 
 ## What's New
 
+2023.08.26 (BR)
+- No galaxy map shading when auto-run.
+- More Lock info on next turn button.
+- Update done with Ironman default values (=None)
+- Minor Auto-run display tuning.
+- Safer Ramdom event changes.
+- Removed useless files.
+
 2023.08.24 (BR)
 - added Warning for Auto-Run.
 - added Ironman locked load.

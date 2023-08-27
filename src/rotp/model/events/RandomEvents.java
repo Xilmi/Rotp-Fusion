@@ -93,11 +93,21 @@ public class RandomEvents implements Base, Serializable {
 		return new Random(targetSeed).nextInt(numEmp);
     }
 
-    public void addActiveEvent(RandomEvent ev)     { activeEvents.add(ev); }
-    public void removeActiveEvent(RandomEvent ev)  {
+    public void addActiveEvent(RandomEvent ev)    { activeEvents.add(ev); }
+    public boolean isActiveEvent(RandomEvent ev)  { return activeEvents.contains(ev); }
+    public void removeActiveEvent(RandomEvent ev) {
     	activeEvents.remove(ev);
-    	if (ev.hasPendingEvents()) // BR: May only happen with "fixed Event mode"
-    		ev.trigger(ev.getPendingEmpire());
+		if (options().debugAutoRun() && options().debugLogEvents()) {
+			turnLog(IGameOptions.AUTORUN_EVENTS, "Remove Event: " + ev.notificationText());
+		}
+   	if (ev.hasPendingEvents()) { // BR: May only happen with "fixed Event mode"
+    		Empire emp = ev.getPendingEmpire();
+    		ev.trigger(emp);
+    		if (options().debugAutoRun() && options().debugLogEvents()) {
+    			turnLog(IGameOptions.AUTORUN_EVENTS, "Get Pending Event for: " + emp.name());
+    			turnLog(IGameOptions.AUTORUN_EVENTS, ev.notificationText());
+    		}
+    	}
     }
     public void nextTurn() {
          // BR: To allow RandomEventOption dynamic changes
@@ -136,8 +146,13 @@ public class RandomEvents implements Base, Serializable {
         eventChance = START_CHANCE; // Reset the probability counter
         
         Empire affectedEmpire;
-        if (opts.selectedFixedEventsMode())
+        if (opts.selectedFixedEventsMode()) {
         	affectedEmpire = empireForFixedEvent();
+        	if (activeEvents.contains(triggeredEvent)) {
+        		triggeredEvent.addPendingEvents(affectedEmpire);
+        		return;
+        	}
+        }
         else if (!opts.selectedEventsFavorWeak())
         	affectedEmpire = randomEmpire();
         else if (triggeredEvent.goodEvent())
@@ -146,8 +161,8 @@ public class RandomEvents implements Base, Serializable {
         	affectedEmpire = empireForBadEvent();
         
         triggeredEvent.trigger(affectedEmpire);
-		lastEvent = triggeredEvent; // modnar: keep track of last event
-
+        lastEvent = triggeredEvent; // modnar: keep track of last event
+       
 		if (opts.debugAutoRun() && opts.debugLogEvents())
         	turnLog(IGameOptions.AUTORUN_EVENTS, triggeredEvent.notificationText());
     }

@@ -30,6 +30,7 @@ public interface RandomEvent {
     Empire getPendingEmpire();
     String notificationText();
     void trigger(Empire e);
+    void addPendingEvents(Empire e);
     void nextTurn();
     int minimumTurn();
     int startTurn();

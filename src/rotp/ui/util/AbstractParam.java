@@ -49,6 +49,7 @@ public abstract class AbstractParam <T> implements IParam{
 	private int	isGovernor	= NOT_GOVERNOR;
 	private boolean isDuplicate	= false;
 	private boolean isCfgFile	= false;
+	private boolean isValueInit	= true;
 
 	// ========== constructors ==========
 	//
@@ -202,7 +203,7 @@ public abstract class AbstractParam <T> implements IParam{
 	// ========== Public Getters ==========
 	//
 	public String getLabel()	{ return langLabel(getLangLabel()); }
-	protected T creationValue()	{ return value; }
+	protected T creationValue()	{ return isValueInit? value : defaultValue; }
 	T minValue()	{ return minValue; }	
 	T maxValue()	{ return maxValue; }	
 	T baseInc()		{ return baseInc; }	
@@ -240,6 +241,7 @@ public abstract class AbstractParam <T> implements IParam{
 	//
 	// ========== Protected Methods ==========
 	//
+	protected void isValueInit(boolean is)	{ isValueInit = is ; }
 	protected void isDuplicate(boolean is)	{ isDuplicate = is ; }
 	protected void isCfgFile(boolean is)	{ isCfgFile   = is ; }
 	protected String descriptionId()		{ return getLangLabel() + LABEL_DESCRIPTION; }

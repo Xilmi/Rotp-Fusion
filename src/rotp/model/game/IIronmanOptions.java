@@ -16,6 +16,7 @@ public interface IIronmanOptions extends IBaseOptsTools {
 	ParamList ironmanMode	= new ParamList( MOD_UI, "IRONMAN_MODE", "Off") {
 		{
 			showFullGuide(true);
+			isValueInit(false);
 			put("Off",			MOD_UI + "IRONMAN_OFF");
 			put("NoOptions",	MOD_UI + "IRONMAN_NO_OPTIONS");
 		}
@@ -23,14 +24,16 @@ public interface IIronmanOptions extends IBaseOptsTools {
 	default boolean isGameOptionsAllowed()	{ return ironmanMode.get().equalsIgnoreCase("Off"); }
 	default boolean isSaveOptionsAllowed()	{ return !ironmanMode.get().equalsIgnoreCase("NoSave"); }
 
-	ParamBoolean ironmanNoLoad		= new ParamBoolean(MOD_UI, "IRONMAN_NO_LOAD", false);
+	ParamBoolean ironmanNoLoad		= new ParamBoolean(MOD_UI, "IRONMAN_NO_LOAD", false)
+	{ { isValueInit(false); } };
 	default boolean selectedIronmanLoad()	{ return ironmanNoLoad.get(); }
 	default boolean ironmanLocked()			{ return ironmanNoLoad.get() && GameSession.ironmanLocked(); }
 
 	ParamInteger ironmanLoadDelay	= new ParamInteger( MOD_UI, "IRONMAN_LOAD_DELAY", 10, 1, 500, 1, 5, 20);
 	default int selectedIronmanLoadDelay()	{ return ironmanLoadDelay.get(); }
 
-	ParamBoolean repeatableArtifact	= new ParamBoolean(MOD_UI, "REPEATABLE_ARTIFACT", false);
+	ParamBoolean repeatableArtifact	= new ParamBoolean(MOD_UI, "REPEATABLE_ARTIFACT", false)
+	{ { isValueInit(false); } };
 	default boolean selectedRepeatableArtifact()	{ return repeatableArtifact.get(); }
 
 	// ==================== GUI List Declarations ====================

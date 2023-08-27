@@ -178,14 +178,20 @@ public final class MainButtonPanel extends BasePanel implements MouseListener, M
 //        String label = options().displayYear() ? text("MAIN_NAVIGATION_NEXT_YEAR") : text("MAIN_NAVIGATION_NEXT_TURN");
         String label;
         if (opts.ironmanLocked())
-        	label = text("MAIN_NAVIGATION_LOCKED");
-        else if (opts.debugAutoRun())
-        	label = text("MAIN_NAVIGATION_AUTO_RUN");
-        else if (opts.displayYear())
-        	label = text("MAIN_NAVIGATION_NEXT_YEAR");
-        else 
-        	label = text("MAIN_NAVIGATION_NEXT_TURN");
-
+        	label = text("MAIN_NAVIGATION_LOCKED", opts.selectedIronmanLoadDelay());
+        else {
+        	String key;
+        	if (opts.debugAutoRun())
+	        	key = "MAIN_NAVIGATION_AUTO_RUN";
+	        else if (opts.displayYear())
+	        	key = "MAIN_NAVIGATION_NEXT_YEAR";
+	        else 
+	        	key = "MAIN_NAVIGATION_NEXT_TURN";
+        	if (opts.selectedIronmanLoad())
+        		label = text(key + "_LOCKED", opts.selectedIronmanLoadDelay());
+        	else
+        		label = text(key);
+        }
         g.setFont(narrowFont(28));
         int sw = g.getFontMetrics().stringWidth(label);
         int x0 = x+((w-sw)/2);
@@ -244,15 +250,15 @@ public final class MainButtonPanel extends BasePanel implements MouseListener, M
 
         int click = 0;
         if (allowNextTurn && nextTurnBox.contains(x,y)) {
+            if (options().ironmanLocked()) {
+        		misClick();
+        		return;
+        	}
             click = 1;
             parent.handleNextTurn();
             session().nextTurn();
         }
         for (int i=0;i<buttonBox.length;i++) {
-        	if (options().ironmanLocked()) {
-        		misClick();
-        		return;
-        	}
             if (buttonBox[i].contains(x, y)) {
                 clickButton(i);
                 click = 2;
