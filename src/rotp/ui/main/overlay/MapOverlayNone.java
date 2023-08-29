@@ -53,6 +53,10 @@ public class MapOverlayNone extends MapOverlay {
     @Override
     public boolean handleKeyPress(KeyEvent e) {
     	setModifierKeysState(e); // BR: For the Flag color selection
+    	if(session().autoRunning() && (e.getKeyCode() == KeyEvent.VK_ESCAPE)) {
+    		session().pauseAutoRun();
+    		return true;
+    	}
         if (session().performingTurn()) {
             // allocate systems overlay should pass keystrokes
             if (parent.displayPanel().isVisible())
@@ -76,7 +80,7 @@ public class MapOverlayNone extends MapOverlay {
         // int code = e.getModifiersEx();
         switch(e.getKeyCode()) {
             case KeyEvent.VK_ESCAPE:
-                if (parent.displayPanel().canEscape())
+            	if (parent.displayPanel().canEscape())
                     parent.displayPanel().keyPressed(e);
                 else
                     RotPUI.instance().selectGamePanel();
@@ -220,7 +224,7 @@ public class MapOverlayNone extends MapOverlay {
                 break;
             case KeyEvent.VK_N:
                 //softClick();
-            	if (options().ironmanLocked()) {
+            	if (options().ironmanLocked() || options().autoRunAILocked()) {
             		misClick();
             		break;
             	}

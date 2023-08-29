@@ -53,6 +53,12 @@ Later:
 
 ## What's New
 
+2023.08.28 (BR)
+- Auto-Run new option do disable console log output.
+- Auto-Run can be paused (Esc or click)
+- Auto-Run ask for AI.
+- Auto-Run available from in game option panel.
+
 2023.08.26 (BR)
 - No galaxy map shading when auto-run.
 - More Lock info on next turn button.

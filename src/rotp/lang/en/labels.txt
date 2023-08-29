@@ -440,12 +440,14 @@ GAME_SETTINGS_MEMORY_CONSOLE_DESC | Toggles the console output of memory usage s
 GAME_SETTINGS_MEMORY_FILE         | File Memory Usage: %1
 GAME_SETTINGS_MEMORY_FILE_DESC    | Toggles the file output of memory usage statistics at the begeining and the end of turn.
 
-GAME_SETTINGS_DEBUG_AUTO_PLAY      | Auto Run: %1
-GAME_SETTINGS_DEBUG_AUTO_PLAY_DESC | Toggles the Debug auto run. Game will not stop at the end of each turns.
-GAME_SETTINGS_DEBUG_LOG_NOTIF      | Log Notifications: %1
-GAME_SETTINGS_DEBUG_LOG_NOTIF_DESC | Toggles the Notification logging  when in Debug AutoPlay.
-GAME_SETTINGS_DEBUG_LOG_EVENTS      | Log Random Events: %1
-GAME_SETTINGS_DEBUG_LOG_EVENTS_DESC | Toggles the RandomEvents logging  when in Debug AutoPlay.
+GAME_SETTINGS_DEBUG_AUTO_PLAY        | Auto Run: %1
+GAME_SETTINGS_DEBUG_AUTO_PLAY_DESC   | Toggles the Debug auto run. Game will not stop at the end of each turns.<br>Press ESC to pause
+GAME_SETTINGS_CONSOLE_AUTO_PLAY      | Log to console: %1
+GAME_SETTINGS_CONSOLE_AUTO_PLAY_DESC | When enabled, the logged data are also shown on the console.
+GAME_SETTINGS_DEBUG_LOG_NOTIF        | Log Notifications: %1
+GAME_SETTINGS_DEBUG_LOG_NOTIF_DESC   | Toggles the Notification logging  when in Debug AutoPlay.
+GAME_SETTINGS_DEBUG_LOG_EVENTS       | Log Random Events: %1
+GAME_SETTINGS_DEBUG_LOG_EVENTS_DESC  | Toggles the RandomEvents logging  when in Debug AutoPlay.
 
 GAME_SETTINGS_SCREEN               | Selected Screen: %1
 GAME_SETTINGS_SELECTED_SCREEN      | Selected Screen: %1
@@ -538,6 +540,8 @@ MAIN_NAVIGATION_TECH              | Tech
 MAIN_NAVIGATION_NEXT_TURN         | Next Turn
 MAIN_NAVIGATION_NEXT_YEAR         | Next Year
 MAIN_NAVIGATION_AUTO_RUN          | !!! Auto Run !!!
+MAIN_NAVIGATION_AUTO_RUN_PAUSE    | Pause Auto Run
+MAIN_NAVIGATION_AUTO_RUN_AI       | Set AI for Auto Run
 MAIN_NAVIGATION_AUTO_RUN_LOCKED   | !!! Auto Run (L%1 T) !!!
 MAIN_NAVIGATION_NEXT_TURN_LOCKED  | Next Turn (L%1 T)
 MAIN_NAVIGATION_NEXT_YEAR_LOCKED  | Next Year (L%1 T)
@@ -2662,7 +2666,7 @@ SETTINGS_MOD_IRONMAN_OPTIONS_UI_DESC     | Open Sub Menu to access Ironman custo
 SETTINGS_MOD_IRONMAN_OPTIONS_UI          | Ironman Options: %1
 
 HEADERS_IRONMAN_BASIC_DESC               | To test ironman options without risk.<br>Option button removal is only available from Pre-Game options, to avoid unfortunate misclick.
-HEADERS_IRONMAN_BASIC                    | ~~~ TO TASTE IRONMAN ~~~%1
+HEADERS_IRONMAN_BASIC                    | ~~~ IRONMAN LITE ~~~%1
 HEADERS_IRONMAN_MAIN_DESC                | The one that govern all.
 HEADERS_IRONMAN_MAIN                     | ~~~ MAIN OPTION ~~~%1
 HEADERS_IRONMAN_FORMER_DESC              | Former option for backward compatibility.

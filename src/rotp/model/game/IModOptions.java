@@ -168,11 +168,11 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 
 				headerSpacer,
 				new ParamTitle("GOVERNOR_SETUP_MENU"),
-				GovernorOptions.governorOptionsUI
+				GovernorOptions.governorOptionsUI,
 
-//				headerSpacer,
-//				new ParamTitle("BETA_TEST"),
-
+				headerSpacer,
+				new ParamTitle("BETA_TEST"),
+				debugAutoRun
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("ZOOM_FACTORS"),

@@ -335,12 +335,13 @@ public interface IGameOptions extends IModOptions {
     	list.add(selectableAI);
     	return list;
     }
-    public default boolean isAutoPlay()          { return !selectedAutoplayOption().equals(AUTOPLAY_OFF); }
-    //public default boolean communityAI()         { return false; }
-    public default boolean selectableAI()        { return selectedOpponentAIOption().equals(OPPONENT_AI_SELECTABLE); }
-    //public default boolean usingExtendedRaces()  { return (selectedNumberOpponents()+1) > startingRaceOptions().size(); }
-    //public default void communityAI(boolean b)   { }
-    public default int maxOpponents()            { return MAX_OPPONENTS; }
+    public default boolean isAutoPlay()           { return !selectedAutoplayOption().equals(AUTOPLAY_OFF); }
+	public default boolean autoRunAILocked()      { return debugAutoRun.get() && !isAutoPlay(); }
+    //public default boolean communityAI()        { return false; }
+    public default boolean selectableAI()         { return selectedOpponentAIOption().equals(OPPONENT_AI_SELECTABLE); }
+    //public default boolean usingExtendedRaces() { return (selectedNumberOpponents()+1) > startingRaceOptions().size(); }
+    //public default void communityAI(boolean b)  { }
+    public default int maxOpponents()             { return MAX_OPPONENTS; }
     public default float hostileTerraformingPct() { return 1.0f; }
     public default boolean restrictedColonization() { return selectedColonizingOption().equals(COLONIZING_RESTRICTED); }
     public default int baseAIRelationsAdj()       { return 0; }

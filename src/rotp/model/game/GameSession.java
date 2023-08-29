@@ -116,6 +116,7 @@ public final class GameSession implements Base, Serializable {
     private static final List<GameAlert> alerts = new ArrayList<>();
     private static int viewedAlerts;
     private static boolean ironmanLocked = false;
+    private static boolean autoRunning = false;
 
     private IGameOptions options;
     private Galaxy galaxy;
@@ -340,6 +341,13 @@ public final class GameSession implements Base, Serializable {
         }
     }
     public void nextTurn() {
+    	if (options.debugAutoRun())
+    		autoRunning = true;
+    	nextTurnLoop();
+    }
+    public void pauseAutoRun() { autoRunning = false; }
+    public boolean autoRunning() { return autoRunning; }
+    private void nextTurnLoop() {
         if (performingTurn())
             return;
         
@@ -390,7 +398,8 @@ public final class GameSession implements Base, Serializable {
 					" | ", duration
 					);
         	writeToFile(AUTORUN_LOGFILE, s, true, append);
-        	System.out.println(s);
+        	if (options.consoleAutoRun())
+        		System.out.println(s);
         }
     }
     @SuppressWarnings("unused")
@@ -570,14 +579,13 @@ public final class GameSession implements Base, Serializable {
                 if (Rotp.memoryLow())
                     RotPUI.instance().mainUI().showMemoryLowPrompt();
                 // handle game over possibility
-                if (options().debugAutoRun()) {
+                if (autoRunning && options().debugAutoRun()) {
                 	if (galaxy().numActiveEmpires() == 1) {
                 		RotPUI.instance().selectGameOverPanel();
                 	}
                 	else {
                 		performingTurn = false;
-                		nextTurn();
-                		return;
+                		nextTurnLoop();
                 	}
                 }
                 else {
@@ -1140,6 +1148,7 @@ public final class GameSession implements Base, Serializable {
         }
     }
     private void validateOnLoadOnly() {
+    	autoRunning = false;
         GNNExpansionEvent.instance().validate(galaxy());
 
         // check for invalid colonies with too much waste & negative pop

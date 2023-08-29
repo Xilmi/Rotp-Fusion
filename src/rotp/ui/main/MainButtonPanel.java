@@ -158,7 +158,7 @@ public final class MainButtonPanel extends BasePanel implements MouseListener, M
     }
     private void drawNextTurn(Graphics2D g, int x, int y, int w, int h) {
     	IGameOptions opts = options();
-        if (!allowNextTurn || opts.ironmanLocked())
+        if (!allowNextTurn || opts.ironmanLocked() || opts.autoRunAILocked())
             g.setPaint(nextTurnDisableBackground);
         else if (depressedBox == nextTurnBox)
             g.setPaint(nextTurnDepressedBackground);
@@ -179,6 +179,10 @@ public final class MainButtonPanel extends BasePanel implements MouseListener, M
         String label;
         if (opts.ironmanLocked())
         	label = text("MAIN_NAVIGATION_LOCKED", opts.selectedIronmanLoadDelay());
+        else if (opts.autoRunAILocked())
+        	label = text("MAIN_NAVIGATION_AUTO_RUN_AI", opts.selectedIronmanLoadDelay());
+        else if (session().autoRunning())
+    		label = text("MAIN_NAVIGATION_AUTO_RUN_PAUSE");
         else {
         	String key;
         	if (opts.debugAutoRun())
@@ -240,17 +244,25 @@ public final class MainButtonPanel extends BasePanel implements MouseListener, M
 
         depressedBox = null;
 
-        if (!parent.enableButtons())
-            return;
+        if (!parent.enableButtons()) {
+        	if (session().autoRunning() && nextTurnBox.contains(x,y))
+        		session().pauseAutoRun();
+        	System.out.println("!parent.enableButtons()");
+        	return;
+        }
 
         if (session().performingTurn()) {
-            misClick();
+        	if (session().autoRunning() && nextTurnBox.contains(x,y))
+        		session().pauseAutoRun();
+        	else
+        		misClick();
+            System.out.println("session().performingTurn()");
             return;
         }
 
         int click = 0;
         if (allowNextTurn && nextTurnBox.contains(x,y)) {
-            if (options().ironmanLocked()) {
+            if (options().ironmanLocked() || options().autoRunAILocked()) {
         		misClick();
         		return;
         	}

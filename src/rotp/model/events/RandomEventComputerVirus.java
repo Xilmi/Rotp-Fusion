@@ -34,7 +34,8 @@ public class RandomEventComputerVirus extends AbstractRandomEvent {
     public String notificationText()    {
         String s1 = text("EVENT_VIRUS");
         s1 = s1.replace("[amt]", str(lostRP));
-        s1 = s1.replace("[technology]", tech(techId).name());
+        if (tech(techId) != null)
+        	s1 = s1.replace("[technology]", tech(techId).name());
         s1 = galaxy().empire(empId).replaceTokens(s1, "target");
         return s1;
     }

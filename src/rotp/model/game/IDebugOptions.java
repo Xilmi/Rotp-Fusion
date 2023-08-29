@@ -40,13 +40,17 @@ public interface IDebugOptions extends IBaseOptsTools {
 	{ { isDuplicate(false); isCfgFile(true); } };
 	default boolean debugAutoRun()			{ return debugAutoRun.get(); }
 
+	ParamBoolean consoleAutoRun		= new ParamBoolean(GAME_UI, "CONSOLE_AUTO_PLAY", false)
+	{ { isDuplicate(false); isCfgFile(true); } };
+	default boolean consoleAutoRun()		{ return consoleAutoRun.get(); }
+
 	ParamBoolean debugLogNotif		= new ParamBoolean(GAME_UI, "DEBUG_LOG_NOTIF", true)
 	{ { isDuplicate(false); isCfgFile(true); } };
 	default boolean debugLogNotif()			{ return debugLogNotif.get(); }
 
 	ParamBoolean debugLogEvents		= new ParamBoolean(GAME_UI, "DEBUG_LOG_EVENTS", true)
 	{ { isDuplicate(false); isCfgFile(true); } };
-	default boolean debugLogEvents()			{ return debugLogEvents.get(); }
+	default boolean debugLogEvents()		{ return debugLogEvents.get(); }
 
 	LinkedList<LinkedList<IParam>> debugOptionsMap = new LinkedList<LinkedList<IParam>>()
 	{ {
@@ -56,7 +60,8 @@ public interface IDebugOptions extends IBaseOptsTools {
 				)));
 		add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("DEBUG_AUTO_PLAY"),
-				debugAutoRun, debugLogNotif, debugLogEvents
+				debugAutoRun, consoleAutoRun,
+				debugLogNotif, debugLogEvents
 				)));
 		}
 	};

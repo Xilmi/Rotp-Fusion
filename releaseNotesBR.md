@@ -32,10 +32,12 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - If event still actif, put on waiting list till the previous occurence ends.
   - If target is extinct, Monsters are directed to their former home world.
 - Ironman Mode (Once set, options can't be changed)
+  - Planet artifact won't change on reload.
+  - Limited reload option (only every n Turns)
 - Optimization:
   - Stars systems distances to empire are no more recomputed after each colony gain/loss, but once after all these events.
     - was very time cousuming on big galaxy.
-- Cuatom Races can now have Artefacts + rich or poor homeworld.
+- Custom Races can now have Artefacts + Rich or Poor homeworld.
   - Updated auto-flag for resoures and artefacts combo.
   - Updated planet display for resoures and artefacts combo.
 - Random Events:
@@ -43,7 +45,13 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - All Random Events are now customizable.
   - Random Events can be set to not favor the weak.
   - New Random Events Pacing adjustment.
-
+- Beta Auto-Run Options.
+  - Mainly thought for debug!
+  - Full log settings in the Main setting option panel.
+  - Can be Toggled from the in-game option panel.
+  - Can be paused/stopped.
+  - Won't start without AI selection (available in empire panel)
+  
 
 <b><ins>Last announcement:</ins></b>
 

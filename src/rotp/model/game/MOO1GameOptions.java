@@ -1463,7 +1463,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 				)));
     	debugOptionsMap.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("DEBUG_AUTO_PLAY"),
-				debugAutoRun, debugLogNotif, debugLogEvents,
+				debugAutoRun, consoleAutoRun,
+				debugLogNotif, debugLogEvents,
 				headerSpacer,
 				councilWin, autoplay
 				)));
