@@ -168,7 +168,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 	};
 	default boolean selectedShowAllAI()			{ return showAllAI.get(); }
 
-	ParamBoolean trackUFOsAcrossTurns = new ParamBoolean(MOD_UI, "TRACK_UFOS_ACROSS_TURNS", true);
+	ParamBoolean trackUFOsAcrossTurns = new ParamBoolean(MOD_UI, "TRACK_UFOS_ACROSS_TURNS", false);
 	default boolean selectedTrackUFOsAcrossTurns() { return trackUFOsAcrossTurns.get(); }
 
 	ParamBoolean allowTechStealing	= new ParamBoolean(MOD_UI, "ALLOW_TECH_STEALING", true);

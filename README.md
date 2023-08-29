@@ -56,6 +56,7 @@ Later:
 2023.08.29 (BR)
 - Made selection pop-up bigger to accommodate smaller screen resolutions.
 - Changed "err("Unable to deploy.." to "log("Unable to deploy.."
+- Set default value of "Track ships across turns" to "disabled".
 
 2023.08.28 (BR)
 - Auto-Run new option do disable console log output.
