@@ -965,7 +965,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		        initialChoice, 					// Initial choice
 		        null,							// long Dialogue
 		        false,							// isVerticalWrap
-		        scaled(420), scaled(320),		// size
+		        scaled(430), scaled(360),		// size
 		        dialogMonoFont(),				// Font
 		        this,							// for listener
 		        null,							// Alternate return
@@ -1004,7 +1004,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		        initialChoice, 				// Initial choice
 		        "XX_AI: Character_XX",		// long Dialogue
 		        true,						// isVerticalWrap
-		        scaled(325), scaled(185),	// size Width, Height
+		        scaled(350), scaled(250),	// size Width, Height
 				null, null,					// Font, Preview
 				returnList,					// Alternate return
 				specificAI);				// help parameter
@@ -1031,7 +1031,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		        initialChoice, 				// Initial choice
 		        "XX_AI:Character_XX",		// long Dialogue
 		        true,						// isVerticalWrap
-		        scaled(225), scaled(250),	// size Width, Height
+		        scaled(350), scaled(270),	// size Width, Height
 				null, null,					// Font, Preview
 				returnList,					// Alternate return
 				opponentAI);				// help parameter
@@ -1056,7 +1056,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		        initialChoice, 				// Initial choice
 		        "XX_RACE_JACKTRADES_XX",	// long Dialogue
 		        false,						// isVerticalWrap
-		        scaled(400), scaled(420),	// size
+		        scaled(500), scaled(450),	// size
 				null, null, null,			// Font, Preview, Alternate return
 				specificAbilities); // help parameter
 
@@ -1079,7 +1079,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		        initialChoice, 				// Initial choice
 		        "XX_RACE_JACKTRADES_XX",	// long Dialogue
 		        false,						// isVerticalWrap
-		        scaled(400), scaled(420),	// size
+		        scaled(500), scaled(450),	// size
 				null, null, null,			// Font, Preview, Alternate return
 				globalAbilities); // help parameter
 

@@ -66,7 +66,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
-import rotp.ui.RotPUI;
 import rotp.ui.game.BaseModPanel;
 import rotp.ui.game.GameUI;
 import rotp.util.Base;
@@ -109,7 +108,6 @@ public class ListDialog extends JDialog implements ActionListener, Base {
 		@SuppressWarnings("unused")
 		JDialog temp = new JDialog();
 	}
-	private Point defaultPosition() { return new Point(RotPUI.scaledSize(250), RotPUI.scaledSize(200)); }
 	public String showDialog() { // Can only be called once.
 		value = null;
 		index = -1;
@@ -157,8 +155,11 @@ public class ListDialog extends JDialog implements ActionListener, Base {
 		this.initialValue	 = initialValue;
 		dialGuide			 = BaseModPanel.autoGuide; // Always reinitialize.
 
-		int topInset  = RotPUI.scaledSize(6);
-		int sideInset = RotPUI.scaledSize(10);
+		int s5 = scaled(5);
+		int s10 = scaled(10);
+		int s15 = scaled(15);
+		int topInset  = scaled(6);
+		int sideInset = s10;
 		//Create and initialize the buttons.
 		final JButton helpButton = new JButton("?");
 		helpButton.setMargin(new Insets(topInset, sideInset, 0, sideInset));
@@ -169,7 +170,7 @@ public class ListDialog extends JDialog implements ActionListener, Base {
 		helpButton.setActionCommand("Guide");
 		helpButton.addActionListener(this);
 		//
-		sideInset = RotPUI.scaledSize(15);
+		sideInset = s15;
 		final JButton cancelButton = new JButton("Cancel");
 		cancelButton.setMargin(new Insets(topInset, sideInset, 0, sideInset));
 		cancelButton.setFont(narrowFont(15));
@@ -268,9 +269,9 @@ public class ListDialog extends JDialog implements ActionListener, Base {
 		list.setSelectionForeground(Color.WHITE);
 
 		if (width<=0)
-			width = 300;
+			width = scaled(300);
 		if (height<=0)
-			height = 150;
+			height = scaled(150);
 		JScrollPane listScroller = new JScrollPane(list);
 		listScroller.setPreferredSize(new Dimension(width, height));
 		listScroller.setAlignmentX(LEFT_ALIGNMENT);
@@ -304,22 +305,22 @@ public class ListDialog extends JDialog implements ActionListener, Base {
 		listPane.setBackground(GameUI.borderMidColor());
 		//listPane.setForeground(Color.BLACK);
 		listPane.add(label);
-		listPane.add(Box.createRigidArea(new Dimension(0,5)));
+		listPane.add(Box.createRigidArea(new Dimension(0,s5)));
 		listPane.add(listScroller);
-		listPane.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+		listPane.setBorder(BorderFactory.createEmptyBorder(s10,s10,s10,s10));
 
 		//Lay out the buttons from left to right.
 		JPanel buttonPane = new JPanel();
 		buttonPane.setFont(narrowFont(15));
 		buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
-		buttonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+		buttonPane.setBorder(BorderFactory.createEmptyBorder(0, s10, s10, s10));
 		buttonPane.setBackground(GameUI.borderMidColor());
 		buttonPane.setForeground(Color.WHITE);
 
 		buttonPane.add(helpButton);
 		buttonPane.add(Box.createHorizontalGlue());
 		buttonPane.add(cancelButton);
-		buttonPane.add(Box.createRigidArea(new Dimension(10, 0)));
+		buttonPane.add(Box.createRigidArea(new Dimension(s10, 0)));
 		buttonPane.add(setButton);
 
 		//Put everything together, using the content pane's BorderLayout.
@@ -333,10 +334,7 @@ public class ListDialog extends JDialog implements ActionListener, Base {
 		initialIndex = list.getSelectedIndex();
 
 		setSize(width, height);
-		if (listFont != null)
-			setLocation(defaultPosition());
-		else
-			setLocationRelativeTo(locationComp);
+		setLocationRelativeTo(locationComp);
 
 		if (dialGuide && param != null) {// For Help
 			showHelp(index);
@@ -385,9 +383,9 @@ public class ListDialog extends JDialog implements ActionListener, Base {
 		Point pt = frame.getLocationOnScreen();
 		dest.x -= pt.x;
 		dest.y -= pt.y;
-		dest.y += RotPUI.scaledSize(80);
+		dest.y += scaled(80);
 		clearHelp();
-		String text		= "No Help Yet";
+		String text	= "No Help Yet";
 		if (param != null)
 			text = param.getGuide(idx);
 		baseModPanel.guidePopUp.setDest(dest, text, frame.getGraphics());

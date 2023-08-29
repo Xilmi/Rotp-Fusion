@@ -53,6 +53,10 @@ Later:
 
 ## What's New
 
+2023.08.29 (BR)
+- Made selection pop-up bigger to accommodate smaller screen resolutions.
+- Changed "err("Unable to deploy.." to "log("Unable to deploy.."
+
 2023.08.28 (BR)
 - Auto-Run new option do disable console log output.
 - Auto-Run can be paused (Esc or click)

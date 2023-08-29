@@ -280,7 +280,7 @@ public class ParamList extends AbstractParam<String> {
 				message, title,				// Message & Title
 				list, currentOption(),		// List & Initial choice
 				null, true,					// long Dialogue & isVertical
-				RotPUI.scaledSize(250), RotPUI.scaledSize(300),	// size
+				RotPUI.scaledSize(350), RotPUI.scaledSize(300),	// size
 				null,						// Font
 				frame,						// Preview
 				valueLabelMap.cfgValueList,	// Alternate return

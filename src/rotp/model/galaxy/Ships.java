@@ -100,7 +100,8 @@ public class Ships implements Base, Serializable {
             totalDeployed += actual[i];
         }
         if (totalDeployed == 0) {
-            err("Unable to deploy.. actual ships deployed = 0");
+            // err("Unable to deploy.. actual ships deployed = 0");
+            log("Unable to deploy.. actual ships deployed = 0");
             return;
         }
 
@@ -212,7 +213,8 @@ public class Ships implements Base, Serializable {
             totalDeployed += actual[i];
         }
         if (totalDeployed == 0) {
-            err("Unable to deploy.. actualships  deployed = 0");
+            // err("Unable to deploy.. actual ships  deployed = 0");
+            log("Unable to deploy.. actual ships  deployed = 0");
             return false;
         }
         if (totalDeployed == sourceFleet.numShips()) {
