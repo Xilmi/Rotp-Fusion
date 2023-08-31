@@ -53,6 +53,10 @@ Later:
 
 ## What's New
 
+2023.08.31 (BR)
+- Minor cleaning.
+- Release description.
+
 2023.08.29 (BR)
 - Made selection pop-up bigger to accommodate smaller screen resolutions.
 - Changed "err("Unable to deploy.." to "log("Unable to deploy.."

@@ -138,7 +138,6 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 				new ParamTitle("GAME_OTHER"),
 				showAlliancesGNN, showLimitedWarnings,
 				techExchangeAutoRefuse, autoTerraformEnding, trackUFOsAcrossTurns
-//				autoplay
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("GAME_RELATIONS"),
@@ -153,14 +152,14 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 				scrapRefundFactor, scrapRefundOption
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle("IRONMAN_BASIC"),
-				repeatableArtifact,
-				ironmanNoLoad, ironmanLoadDelay,
-
-				headerSpacer,
 				new ParamTitle("RANDOM_EVENTS_OPT"),
 				randomEvents,
 				customRandomEventUI,
+
+				headerSpacer,
+				new ParamTitle("IRONMAN_BASIC"),
+				repeatableArtifact,
+				ironmanNoLoad, ironmanLoadDelay,
 
 				headerSpacer,
 				new ParamTitle("PLANETS_FLAG_OPTIONS"),
