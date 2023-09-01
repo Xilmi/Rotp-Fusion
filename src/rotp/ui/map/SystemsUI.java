@@ -997,7 +997,10 @@ public final class SystemsUI extends BasePanel implements IMapHandler, ActionLis
                 return;
             case KeyEvent.VK_MINUS:
                 softClick();
-                map().adjustZoom(1);
+                if (e.isAltDown())
+            		map().maxZoomOut(1f, 1.2f);
+            	else
+            		map().adjustZoom(1);
                 return;
             case KeyEvent.VK_UP:
                 softClick();

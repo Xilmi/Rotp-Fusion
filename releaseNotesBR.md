@@ -19,6 +19,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Added 2 new very slow research rates (renamed the former "Slowest")
   - Useful with Massives and Insane sized galaxies, to avoid terminating all research.
 - Removed the inaccurate "Race"-word from menus and common dialogues.
+- Full view of the galaxy:
+  - Galaxy Map: "ALT -" = Full view of the galaxy.
+  - Final History start with Full view of the galaxy.
 
 <em>Minor Fixes</em>
 - Fixed AI scouts bugging with "Reduced range"-option.

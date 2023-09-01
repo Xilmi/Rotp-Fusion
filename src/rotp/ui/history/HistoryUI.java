@@ -114,8 +114,12 @@ public final class HistoryUI extends BasePanel implements MouseListener {
         mapPane.checkMapInitialized();
         mapPane.map().setScale(20);
         mapPane.selectTargetSystem(galaxy().system(homeSysId));
-        map.centerX(homeSys.x());
-        map.centerY(homeSys.y());
+        if (all)
+        	map.maxZoomOut(1.2f, 1.2f);
+        else {
+        	map.centerX(homeSys.x());
+        	map.centerY(homeSys.y());
+        }
         animationIndex = 0;
         turn = 0;
         numSystems = galaxy().numStarSystems();
@@ -127,7 +131,6 @@ public final class HistoryUI extends BasePanel implements MouseListener {
         
         sortedEmpires.clear();
         sortedEmpires.addAll(Arrays.asList(galaxy().empires()));
-        
         initOwnershipData();
         sortEmpireList();
     }
@@ -282,7 +285,10 @@ public final class HistoryUI extends BasePanel implements MouseListener {
                     map.adjustZoom(-1);
                 break;
             case KeyEvent.VK_MINUS:
-                map.adjustZoom(1);
+            	if (e.isAltDown())
+            		map.maxZoomOut(1.2f, 1.2f);
+            	else
+            		map.adjustZoom(1);
                 break;
             case KeyEvent.VK_UP:
                 map.dragMap(0, s40);
@@ -362,7 +368,8 @@ public final class HistoryUI extends BasePanel implements MouseListener {
         private final Color redEdgeC = new Color(72,14,14);
         private final Color redMidC = new Color(126,28,28);
         private LinearGradientPaint greenBackground;
-        private LinearGradientPaint redBackground;
+        @SuppressWarnings("unused")
+		private LinearGradientPaint redBackground;
         private LinearGradientPaint grayBackground;
         private final Rectangle prevTurnBox = new Rectangle();
         private final Rectangle nextTurnBox = new Rectangle();

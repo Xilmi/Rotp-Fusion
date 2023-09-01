@@ -90,7 +90,10 @@ public class MapOverlayNone extends MapOverlay {
                     parent.map().adjustZoom(-1);
                 break;
             case KeyEvent.VK_MINUS:
-                parent.map().adjustZoom(1);
+            	if (e.isAltDown())
+            		parent.map().maxZoomOut(1f, 1f);
+            	else
+            		parent.map().adjustZoom(1);
                 break;
             case KeyEvent.VK_UP:
                 parent.map().dragMap(0, s40);

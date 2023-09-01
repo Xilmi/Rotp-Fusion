@@ -3784,7 +3784,7 @@ HK_B_SHIFT_B  | <br>B/SHIFT-B : Increment/Decrement Max Bases.
 HK_1_5        | <br>1-5/+SHIFT : Increment/Decrement to ship, def, ind, eco, tech
 HK_CTRL_1_5   | <br>CTRL+1-5 : Lock sliders.
 HK_MAP_ARROWS | <br>Arrows : Move Map.
-HK_MAP_ZOOM   | <br>+/- : Zoom Map. <br>Mousewheel : Zoom Map.
+HK_MAP_ZOOM   | <br>+/- : Zoom Map. ("ALT-" : Full view of the galaxy) <br>Mousewheel : Zoom Map.
 HK_TAB        | <br>Tab/+SHIFT : Next/Previous Tab.
 HK_Y          | <br>Y : Toggle Year Display.
 

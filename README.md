@@ -53,6 +53,10 @@ Later:
 
 ## What's New
 
+2023.09.01 (BR)
+- Galaxy Map: "ALT -" = Full view of the galaxy.
+- Final History start with Full view of the galaxy.
+
 2023.08.31 (BR)
 - Minor cleaning.
 - Release description.

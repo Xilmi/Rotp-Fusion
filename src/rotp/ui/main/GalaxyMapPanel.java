@@ -511,6 +511,12 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         
         setScale(parentStartingScale);
     }
+    public void maxZoomOut(float sX, float sY) {
+    	centerX(sizeX()/2/sX);
+    	centerY(sizeY()/2/sY);
+    	desiredScale = maxScale();
+        zoomTimer.start();
+    }
     // BR: modnar commented the only call to this method
 //    private void drawBackground(Graphics2D g) {
 //        if (showShipRanges()) {
@@ -528,7 +534,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
 //        }
 //    }
 	// modnar: make regular ship fuel range cover starry background
-	private void drawShipRanges(Graphics2D g) {
+ 	private void drawShipRanges(Graphics2D g) {
 		if (showShipRanges()) {
 			if (redrawRangeMap) {
                 //redrawRangeMap = false;
