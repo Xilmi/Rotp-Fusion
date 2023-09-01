@@ -43,9 +43,6 @@ Very soon:
 
 Later:
 - Tech trading extended list.
-- Replay:
-  - Start Full galaxy View.
-  - Speed adjustement.
 - Option to be used to force war declaration upon "Smart Resolve".
   - Check if at war and add a button if not!
 - Governor Auto-invasion ?!
@@ -55,7 +52,14 @@ Later:
 
 2023.09.01 (BR)
 - Galaxy Map: "ALT -" = Full view of the galaxy.
-- Final History start with Full view of the galaxy.
+- Replay History Panel:
+  - New option to start the final replay with a Full view of the galaxy.
+  - New option to start the empire replay with a Full view of the galaxy.
+  - New option to set the turn pace.
+    - Orignal (and default) pace: 100 ms per turn.
+    - Can be set up to 10 s per turn.
+    - In History panel press "1" to "0" to set 1 x 100 ms to 10 x 100 ms.
+    - In History panel press "SHIFT+1" to "SHIFT+0" to set 1 s to 10 s.
 
 2023.08.31 (BR)
 - Minor cleaning.

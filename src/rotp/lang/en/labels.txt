@@ -1939,6 +1939,13 @@ HEADERS_DEBUG_MEMORY                 | ~~~ MEMORY MONITORING ~~~%1
 HEADERS_DEBUG_AUTO_PLAY_DESC         | To enable and configure Full Auto Run.
 HEADERS_DEBUG_AUTO_PLAY              | ~~~ AUTO RUN ~~~%1
 
+HEADERS_ZOOM_FONT_DESC               | To set galaxy map font sizes.
+HEADERS_ZOOM_FONT                    | ~~~ ZOOM FONT FACTORS ~~~%1
+HEADERS_ZOOM_FLEET_DESC              | To set fleet path viewing factors.
+HEADERS_ZOOM_FLEET                   | ~~~ ZOOM FLEET FACTORS ~~~%1
+HEADERS_ZOOM_REPLAY_DESC             | To set History replay zoom and pace.
+HEADERS_ZOOM_REPLAY                  | ~~~ HISTORY REPLAY ~~~%1
+
 HEADERS_SPACER_DESC                  |  
 HEADERS_SPACER                       |  %1
 
@@ -2158,6 +2165,16 @@ SETTINGS_MOD_RACES_ARE_RANDOM_TARGET_DESC  | If the final result is not within t
 
 // BR: Global Settings UI panel for MOD game options
 SETTINGS_MOD_TITLE_GLOBAL                | In-Game Convenience Options
+
+SETTINGS_MOD_ZOOM_FINAL_REPLAY_DESC      | Final History replay start showing the full galaxy (Instead of being zoomed on player empire) 
+SETTINGS_MOD_ZOOM_FINAL_REPLAY           | Final Replay show all: %1
+SETTINGS_MOD_ZOOM_EMPIRE_REPLAY_DESC     | Empire History replay start showing the full galaxy (Instead of being zoomed on selected empire) 
+SETTINGS_MOD_ZOOM_EMPIRE_REPLAY          | Empire Replay show all: %1
+SETTINGS_MOD_REPLAY_TURN_PACE_HELP       | To slow down the pace of History replay. Approximate time between two turns in multiples of 100 ms.<br>Can be set in the history panel using the key "1" to "0" as multiple of 100 ms. ("0" = 10)<br> Use "SHIFT" to get multiple of 1 second.
+SETTINGS_MOD_REPLAY_TURN_PACE_DESC       | To slow down the pace of History replay. Approximate time between two turns in multiples of 100 ms.
+SETTINGS_MOD_REPLAY_TURN_PACE            | Replay pace: %1 x 100 ms
+
+
 SETTINGS_MOD_SHOW_ALT_ANIMATION_DESC     | Select between vanilla animations (No) or Zestyclose Art work (Yes).<br>(Younger Human diplomat)
 SETTINGS_MOD_SHOW_ALT_ANIMATION          | Alt Diplomat: %1
 SETTINGS_MOD_SHOW_FLEET_FACTOR_DESC      | To adjust the galaxy map fleets disappearance while zooming. Bigger factor means stay longer to the screen.
@@ -2302,6 +2319,10 @@ SETTINGS_MOD_TARGET_BOMBARD_BOTH_HELP    | Everyone is able to control their bom
 SETTINGS_MOD_DEBUG_OPTIONS_TITLE         | Developper's Options
 SETTINGS_MOD_DEBUG_OPTIONS_UI            | Debug Options: %1
 SETTINGS_MOD_DEBUG_OPTIONS_UI_DESC       | Open Sub Menu to set development tools.
+
+SETTINGS_MOD_ZOOM_OPTIONS_TITLE          | Zoom Factors Options
+SETTINGS_MOD_ZOOM_OPTIONS_UI             | Zoom Factors: %1
+SETTINGS_MOD_ZOOM_OPTIONS_UI_DESC        | Open Sub Menu to set diverse map zooming factors and replay speed.
 
 SETTINGS_MOD_FLAG_COLOR_COUNT_DESC       | How may colors should appear on the Star System Flag?
 SETTINGS_MOD_FLAG_COLOR_COUNT            | Flag Color Count: %1

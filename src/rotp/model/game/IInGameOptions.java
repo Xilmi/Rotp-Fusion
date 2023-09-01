@@ -163,6 +163,6 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 				null,
 				eventsStartTurn, eventsPace, customRandomEventUI,
 				null,
-				fixedEventsMode, eventsFavorWeak
+				fixedEventsMode, eventsFavorWeak, IZoomOptions.zoomOptionsUI
 			));
 }

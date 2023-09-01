@@ -100,6 +100,8 @@ public final class HistoryUI extends BasePanel implements MouseListener {
     float[] xSum;
     float[] ySum;
     List<Empire> sortedEmpires = new ArrayList<>();
+    int turnPace = 1;
+    int paceCount = 0;
 
     @Override
     public boolean drawMemory()            { return true; }
@@ -114,7 +116,9 @@ public final class HistoryUI extends BasePanel implements MouseListener {
         mapPane.checkMapInitialized();
         mapPane.map().setScale(20);
         mapPane.selectTargetSystem(galaxy().system(homeSysId));
-        if (all)
+        if (all && options().finalReplayZoomOut())
+        	map.maxZoomOut(1.2f, 1.2f);
+        else if (!all && options().empireReplayZoomOut())
         	map.maxZoomOut(1.2f, 1.2f);
         else {
         	map.centerX(homeSys.x());
@@ -128,6 +132,9 @@ public final class HistoryUI extends BasePanel implements MouseListener {
         empire = galaxy().empire(empId);
         showAll = all;
         paused = true;
+        paceCount = 0;
+        turnPace  = options().replayTurnPace();
+        //System.out.println("TurnPace: " + turnPace + " x 100 ms");
         
         sortedEmpires.clear();
         sortedEmpires.addAll(Arrays.asList(galaxy().empires()));
@@ -220,9 +227,10 @@ public final class HistoryUI extends BasePanel implements MouseListener {
         initModel();
     }
     public void setTurn(int n) {
-        if ((n < 0) || (n > maxTurn))
-            return;
-        turn = n;
+//        if ((n < 0) || (n > maxTurn))
+//            return;
+//        turn = n;
+        turn = max(0, min(maxTurn, n));
         sortEmpireList();
         map.clearRangeMap();
         repaint();
@@ -265,13 +273,27 @@ public final class HistoryUI extends BasePanel implements MouseListener {
         add(mapPane, BorderLayout.CENTER);
         addMouseListener(this);
     }
+    private void setTurnPace(int div, KeyEvent e) {
+    	turnPace = div;
+    	if (e.isShiftDown())
+    		turnPace = div * 10;
+    	else
+    		turnPace = div;
+    	options().replayTurnPace(turnPace);
+    	//System.out.println("TurnPace: " + turnPace + " x 100 ms");
+    }
     @Override
     public void animate() {
         if (paused)
             return;
         
-        if (canNextTurn())
-            setTurn(turn+1);
+        if (canNextTurn()) {
+        	paceCount++;
+        	if (paceCount >= turnPace) {
+        		paceCount = 0;
+        		setTurn(turn+1);
+        	}
+        }
         else
             paused = true;
     }
@@ -280,6 +302,36 @@ public final class HistoryUI extends BasePanel implements MouseListener {
     	setModifierKeysState(e); // BR: For the Flag color selection
         int k = e.getKeyCode();
         switch(k) {
+        	case KeyEvent.VK_1:
+        		setTurnPace(1, e);
+        		break;
+        	case KeyEvent.VK_2:
+        		setTurnPace(2, e);
+        		break;
+        	case KeyEvent.VK_3:
+        		setTurnPace(3, e);
+        		break;
+        	case KeyEvent.VK_4:
+        		setTurnPace(4, e);
+        		break;
+        	case KeyEvent.VK_5:
+        		setTurnPace(5, e);
+        		break;
+        	case KeyEvent.VK_6:
+        		setTurnPace(6, e);
+        		break;
+        	case KeyEvent.VK_7:
+        		setTurnPace(7, e);
+        		break;
+        	case KeyEvent.VK_8:
+        		setTurnPace(8, e);
+        		break;
+        	case KeyEvent.VK_9:
+        		setTurnPace(9, e);
+        		break;
+        	case KeyEvent.VK_0:
+        		setTurnPace(10, e);
+        		break;
             case KeyEvent.VK_EQUALS:
                 if (e.isShiftDown())  
                     map.adjustZoom(-1);

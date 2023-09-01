@@ -95,6 +95,7 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 		allModOptions.addAll(governorOptions);
 		allModOptions.addAll(mainOptionsUI);
 		allModOptions.addAll(debugOptions);
+		allModOptions.addAll(zoomOptions);
 		allModOptions.addAll(ironmanOptions);
 		return allModOptions;
 	};
@@ -106,7 +107,9 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 		LinkedList<IParam> globalOptions = new LinkedList<>();
 		globalOptions.addAll(mainOptionsUI);
 		globalOptions.remove(debugOptionsUI);
+		globalOptions.remove(zoomOptionsUI);
 		globalOptions.addAll(debugOptions);
+		globalOptions.addAll(zoomOptions);
 		globalOptions.add(bitmapGalaxyLastFolder);
 		
 		if (initialList) {
@@ -175,8 +178,9 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("ZOOM_FACTORS"),
-				showFleetFactor, showFlagFactor, showPathFactor,
-				showNameMinFont, showInfoFontRatio, mapFontFactor,
+				zoomOptionsUI,
+//				showFleetFactor, showFlagFactor, showPathFactor,
+//				showNameMinFont, showInfoFontRatio, mapFontFactor,
 	
 				headerSpacer,
 				new ParamTitle("MENU_OPTIONS"),
