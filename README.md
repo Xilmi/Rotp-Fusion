@@ -50,6 +50,9 @@ Later:
 
 ## What's New
 
+2023.09.02 (BR)
+- added Guide info (No relationship bar, no alliances) to Fusion, Fun, and Character.
+
 2023.09.01 (BR)
 - Galaxy Map: "ALT -" = Full view of the galaxy.
 - Replay History Panel:

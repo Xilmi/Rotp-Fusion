@@ -32,6 +32,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - These option are common to all game and are merorized in Remnants.cfg
     - Can be set in the Main setting panel, in the In-game Options Panel, and In-Game B classic panel.
       - Look for "Zoom Factors" new Sub-panel.
+- Added Guide info (No relationship bar, no alliances) to Fusion, Fun, and Character.
 
 <em>Minor Fixes</em>
 - Fixed AI scouts bugging with "Reduced range"-option.
