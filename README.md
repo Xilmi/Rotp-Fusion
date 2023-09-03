@@ -50,6 +50,9 @@ Later:
 
 ## What's New
 
+2023.09.03 (BR)
+- Ready for distinct weapon sounds.
+
 2023.09.02 (BR)
 - added Guide info (No relationship bar, no alliances) to Fusion, Fun, and Character.
 

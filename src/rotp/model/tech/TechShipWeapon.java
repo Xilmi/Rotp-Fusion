@@ -25,7 +25,6 @@ import rotp.model.empires.Empire;
 import rotp.model.ships.ShipComponent;
 import rotp.model.ships.ShipWeaponBeam;
 import rotp.ui.BasePanel;
-import static rotp.ui.NoticeMessage.repaint;
 import rotp.ui.combat.ShipBattleUI;
 
 public final class TechShipWeapon extends Tech {
@@ -42,6 +41,7 @@ public final class TechShipWeapon extends Tech {
     public int computer = 0;
     public float enemyShieldMod = 1;
     public boolean streaming = false;
+    private String soundEffect = "ShipLaser";
 
     // graphic effects
     public int weaponSpread = 1;
@@ -63,7 +63,8 @@ public final class TechShipWeapon extends Tech {
     public float comparableDamageValue() {
         return 7.0f* level * 0.5f*(damageLow() + damageHigh()) * attacksPerRound / enemyShieldMod / (size + power);
     }  
-    protected String soundEffect() { return "ShipLaser"; }
+//    protected String soundEffect() { return "ShipLaser"; }
+    protected String soundEffect() { return soundEffect; } // TODO BR: soundEffect()
     protected String soundEffectMulti() { return "ShipMultiLaser"; }
 
     public TechShipWeapon(String typeId, int lv, int seq, boolean b, TechCategory c) {
@@ -94,6 +95,7 @@ public final class TechShipWeapon extends Tech {
                 power = 25;
                 beamColor = new Color(0x9f,0x33,0x35);
                 beamStroke = 1;
+                soundEffect = "ShipLaser";
                 break;
             case 1: // GATLING LASER
                 damageLow = 1;
@@ -105,6 +107,7 @@ public final class TechShipWeapon extends Tech {
                 beamColor = new Color(0xbd,0x23,0x3a);
                 beamColor2 = new Color(0x72,0x10,0x10);
                 beamStroke = 1;
+                soundEffect = "ShipMultiLaser";
                 break;
             case 2: // NEUTRON PELLET GUN
                 damageLow = 2;
@@ -116,6 +119,7 @@ public final class TechShipWeapon extends Tech {
                 beamColor = new Color(0xa8,0xb4,0x85);
                 beamStroke = 1;
                 dashStroke = 3;
+                soundEffect = "ShipNeutronPelletGun";
                 break;
             case 3: // ION CANNON
                 damageLow = 3;
@@ -128,6 +132,7 @@ public final class TechShipWeapon extends Tech {
                 power = 35;
                 beamColor = new Color(0xa4,0x7b,0x56);
                 beamStroke = 1;
+                soundEffect = "ShipIonCannon";
                 break;
             case 4: // MASS DRIVER
                 weaponSpread = 1;
@@ -140,6 +145,7 @@ public final class TechShipWeapon extends Tech {
                 beamColor = new Color(0xac,0xac,0xac);
                 beamStroke = 1;
                 dashStroke = 3;
+                soundEffect = "ShipMassDriver";
                 break;
             case 5: // NEUTRON BLASTER
                 damageLow = 3;
@@ -153,6 +159,7 @@ public final class TechShipWeapon extends Tech {
                 beamColor = new Color(0x3c,0x03,0x78);
                 beamColor2 = new Color(0xcd,0xb1,0xe8);
                 beamStroke = 1;
+                soundEffect = "ShipNeutronBlaster";
                 break;
             case 6: // GRAVITON BEAM
                 damageLow = 1;
@@ -166,6 +173,7 @@ public final class TechShipWeapon extends Tech {
                 beamColor = new Color(0x28,0x00,0x7e);
                 beamColor2 = new Color(0xf5,0xb7,0xf3);
                 beamStroke = 1;
+                soundEffect = "ShipGravitonBeam";
                 break;
             case 7: // HARD BEAM
                 weaponSpread = 1;
@@ -178,6 +186,7 @@ public final class TechShipWeapon extends Tech {
                 beamColor = new Color(0xf0,0xb5,0x6e);
                 beamColor2 = new Color(0xcb,0x81,0x29);
                 beamStroke = 1;
+                soundEffect = "ShipHardBeam";
                 break;
             case 8: // FUSION BEAM
                 damageLow = 4;
@@ -191,6 +200,7 @@ public final class TechShipWeapon extends Tech {
                 beamColor = new Color(0x0c,0x56,0x0c);
                 beamColor2 = new Color(0x82,0xc8,0x82);
                 beamStroke = 1;
+                soundEffect = "ShipFusionBeam";
                 break;
             case 9: // MEGABOLT CANNON
                 damageLow = 2;
@@ -205,6 +215,7 @@ public final class TechShipWeapon extends Tech {
                 cycleColor = new Color(0xce,0xe2,0x89);
                 cycleColor2 = new Color(0xea,0xbb,0xea);
                 beamStroke = 1;
+                soundEffect = "ShipMegaBoltCannon";
                 break;
             case 10: // PHASOR
                 damageLow = 5;
@@ -218,6 +229,7 @@ public final class TechShipWeapon extends Tech {
                 beamColor = new Color(0xb6,0x07,0x5a);
                 beamColor2 = new Color(0xde,0x8d,0xb3);
                 beamStroke = 1;
+                soundEffect = "ShipPhasor";
                 break;
             case 11: // AUTO-BLASTER
                 damageLow = 4;
@@ -229,6 +241,7 @@ public final class TechShipWeapon extends Tech {
                 beamColor = new Color(0x24,0xbe,0x93);
                 beamColor2 = new Color(0x03,0x25,0x1d);
                 beamStroke = 1;
+                soundEffect = "ShipAutoBlaster";
                 break;
             case 12: // TACHYON BEAM
                 damageLow = 1;
@@ -242,6 +255,7 @@ public final class TechShipWeapon extends Tech {
                 beamColor = new Color(0x36,0x06,0x00);
                 beamColor2 = new Color(0xe1,0xa3,0x8d);
                 beamStroke = 1;
+                soundEffect = "ShipTachyonBeam";
                 break;
             case 13: // GAUSS AUTO-CANNON
                 damageLow = 7;
@@ -254,6 +268,7 @@ public final class TechShipWeapon extends Tech {
                 beamColor = new Color(0xac,0xac,0xac);
                 beamStroke = 3;
                 dashStroke = 1;
+                soundEffect = "ShipGaussAutoCannon";
                 break;
             case 14: // PARTICLE BEAM
                 damageLow = 10;
@@ -266,6 +281,7 @@ public final class TechShipWeapon extends Tech {
                 beamColor2 = new Color(0x95,0x94,0x9d);
                 dashStroke = 1;
                 beamStroke = 3;
+                soundEffect = "ShipParticleBeam";
                 break;
             case 15: // PLASMA CANNON
                 damageLow = 6;
@@ -277,6 +293,7 @@ public final class TechShipWeapon extends Tech {
                 beamColor = new Color(0xfe,0x29,0x28);
                 beamColor2 = new Color(0xce,0x1f,0x1e);
                 beamStroke = 1;
+                soundEffect = "ShipPlasmaCannon";
                 break;
             case 16: // DEATH RAY
                 range = 1;
@@ -291,6 +308,7 @@ public final class TechShipWeapon extends Tech {
                 beamColor = new Color(0x56,0x02,0xc2);
                 beamColor2 = new Color(0xcb,0x33,0x5e);
                 beamStroke = 1;
+                soundEffect = "ShipDeathRay";
                 break;
             case 17: // DISRUPTOR
                 damageLow = 10;
@@ -302,6 +320,7 @@ public final class TechShipWeapon extends Tech {
                 beamColor = new Color(0xa4,0x7b,0x56);
                 beamColor2 = new Color(0x82,0xc8,0x82);
                 beamStroke = 1;
+                soundEffect = "ShipDisruptor";
                 break;
             case 18: // PULSE PHASOR
                 damageLow = 5;
@@ -314,6 +333,7 @@ public final class TechShipWeapon extends Tech {
                 beamColor = new Color(0xb6,0x07,0x5a);
                 cycleColor = new Color(0xde,0x8d,0xb3);
                 beamStroke = 1;
+                soundEffect = "ShipPulsePhasor";
                 break;
             case 19: // TRI-FOCUS PLASMA CANNON
                 damageLow = 20;
@@ -325,6 +345,7 @@ public final class TechShipWeapon extends Tech {
                 beamColor = new Color(0xfe,0x29,0x28);
                 beamColor2 = new Color(0xce,0x1f,0x1e);
                 beamStroke = 1;
+                soundEffect = "ShipTriFocusPlasmaCannon";
                 break;
             case 20: // STELLAR CONVERTOR
                 damageLow = 10;
@@ -339,6 +360,7 @@ public final class TechShipWeapon extends Tech {
                 beamColor = new Color(0xff,0xff,0xb0);
                 cycleColor = new Color(0xff,0xff,0xff);
                 beamStroke = 1;
+                soundEffect = "ShipStellarConvertor";
                 break;
             case 21: // MAULER DEVICE
                 damageLow = 20;
@@ -351,6 +373,7 @@ public final class TechShipWeapon extends Tech {
                 beamColor = new Color(0x00,0xaf,0x7d);
                 beamColor2 = new Color(0x4c,0xd0,0xab);
                 beamStroke = 1;
+                soundEffect = "ShipMauler";
                 break;
             case 22: // AMOEBA STREAM
                 damageLow = 250;
@@ -360,6 +383,7 @@ public final class TechShipWeapon extends Tech {
                 restricted = true;
                 beamColor = Color.green;
                 beamStroke = 5;
+                soundEffect = "ShipAmoebaStream";
                 break;
             case 23: // CRYSTAL RAY
                 damageLow = 100;
@@ -369,6 +393,7 @@ public final class TechShipWeapon extends Tech {
                 restricted = true;
                 beamColor = Color.white;
                 beamStroke = 4;
+                soundEffect = "ShipMultiLaser";
                 break;
         }
     }
@@ -498,10 +523,11 @@ public final class TechShipWeapon extends Tech {
         else
             g.setStroke(BasePanel.baseStroke(beamStroke*2));
 
-        if(attacksPerRound > 1)
-            playAudioClip(soundEffectMulti());
-        else
-            playAudioClip(soundEffect());
+//        if(attacksPerRound > 1)
+//            playAudioClip(soundEffectMulti());
+//        else
+//            playAudioClip(soundEffect());
+        playAudioClip(soundEffect()); // TODO BR: playAudioClip
 
         ArrayList<Line2D.Double> lines = new ArrayList<>();
         for(int i = 0; i < attacksPerRound; ++i) {
