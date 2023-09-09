@@ -1,4 +1,4 @@
 ## What's New
 
-2024.07.21 (Xilmi)
-- When invading, AI's of the Xilmi-Family will now keep at least one third of the source-planet's maximum population back at home in order to stay in the window of decent natural population-growth and not to ruin their economy.
+2023.09.10 (Xilmi)
+- Ships controlled by the AI will no longer hold back using missiles when they are not yet at optimal-firing-range. Instead they will no shoot them as soon as they are in maximum firing-range and still try to get into otpimal firing-range for further volleys.
