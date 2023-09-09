@@ -15,11 +15,19 @@
  */
 package rotp.model.tech;
 
-import java.awt.*;
+import java.awt.AlphaComposite;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GradientPaint;
+import java.awt.Graphics2D;
+import java.awt.Stroke;
 import java.awt.geom.Line2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.SortedMap;
 import java.util.TreeMap;
+
 import rotp.model.combat.CombatStack;
 import rotp.model.empires.Empire;
 import rotp.model.ships.ShipComponent;
@@ -28,6 +36,9 @@ import rotp.ui.BasePanel;
 import rotp.ui.combat.ShipBattleUI;
 
 public final class TechShipWeapon extends Tech {
+	private static int WIND_UP_FRAMES = 3;
+	private static int HOLD_FRAMES = 0;
+	
     private int damageLow = 0;
     private int damageHigh = 0;
     public int range = 1;
@@ -45,8 +56,8 @@ public final class TechShipWeapon extends Tech {
 
     // graphic effects
     public int weaponSpread = 1;
-    public int windUpFrames = 3;
-    public int holdFrames = 0;
+    public int windUpFrames = WIND_UP_FRAMES;
+    public int holdFrames = HOLD_FRAMES;
 
     private int beamStroke, dashStroke;
     private transient Color beamColor;
@@ -63,9 +74,9 @@ public final class TechShipWeapon extends Tech {
     public float comparableDamageValue() {
         return 7.0f* level * 0.5f*(damageLow() + damageHigh()) * attacksPerRound / enemyShieldMod / (size + power);
     }  
-//    protected String soundEffect() { return "ShipLaser"; }
-    protected String soundEffect() { return soundEffect; } // TODO BR: soundEffect()
-    protected String soundEffectMulti() { return "ShipMultiLaser"; }
+    protected String soundEffect()		{ return "ShipLaser"; }
+    protected String soundEffectMulti()	{ return "ShipMultiLaser"; }
+    protected String newSoundEffect()	{ return soundEffect; } // BR:
 
     public TechShipWeapon(String typeId, int lv, int seq, boolean b, TechCategory c) {
         id(typeId, seq);
@@ -74,6 +85,9 @@ public final class TechShipWeapon extends Tech {
         cat = c;
         free = b;
         init();
+        // System.out.println(soundEffect);
+        // playAudioClip(soundEffect);
+        // sleep(1500);
     }
     @Override
     public boolean canBeMiniaturized()      { return true; }
@@ -429,7 +443,7 @@ public final class TechShipWeapon extends Tech {
         if (c.isPlayerControlled())
             galaxy().giveAdvice("MAIN_ADVISOR_SHIP_WEAPON");
     }
-    @Override
+    @Override // Shielded
     public void drawIneffectiveAttack(CombatStack source, CombatStack target, int wpnNum, int count) {
         ShipBattleUI ui = source.mgr.ui;
         if (ui == null)
@@ -446,9 +460,9 @@ public final class TechShipWeapon extends Tech {
         int y0 = st0Y+stH/2;
         int x1 = st1X+stW/2;
         int y1 = st1Y+stH/2;
-        drawAttack(source, target, x0, y0, x1, y1, wpnNum, -1, count);
+        drawAttack(source, target, x0, y0, x1, y1, wpnNum, -1f, count, stW, stH, 0f);
     }
-    @Override
+    @Override  // Miss
     public void drawUnsuccessfulAttack(CombatStack source, CombatStack target, int wpnNum, int count) {
         ShipBattleUI ui = source.mgr.ui;
         if (ui == null)
@@ -469,10 +483,10 @@ public final class TechShipWeapon extends Tech {
         int y0 = st0Y+stH/2;
         int x1 = st1X+xMiss;
         int y1 = st1Y+yMiss;
-        drawAttack(source, target, x0, y0, x1, y1, wpnNum, 0, count);
+        drawAttack(source, target, x0, y0, x1, y1, wpnNum, 0f, count, stW, stH, 0f);
     }
     @Override
-    public void drawSuccessfulAttack(CombatStack source, CombatStack target, int wpnNum, float dmg, int count) {
+    public void drawSuccessfulAttack(CombatStack source, CombatStack target, int wpnNum, float dmg, int count, float force) {
         ShipBattleUI ui = source.mgr.ui;
         if (ui == null)
             return;
@@ -488,25 +502,35 @@ public final class TechShipWeapon extends Tech {
         int y0 = st0Y+stH/2;
         int x1 = st1X+stW/2;
         int y1 = st1Y+stH/2;
-        drawAttack(source, target, x0, y0, x1, y1, wpnNum, dmg, count);
+        drawAttack(source, target, x0, y0, x1, y1, wpnNum, dmg, count, stW, stH, force);
     }
-    private void drawAttack(CombatStack source, CombatStack target, int x0, int y0, int x1, int y1, int wpnNum, float dmg, int count) {
+    private void drawAttack(CombatStack source, CombatStack target, int x0, int y0, int x1, int y1,
+    		int wpnNum, float dmg, int count, int boxW, int boxH, float force) {
         ShipBattleUI ui = source.mgr.ui;
         if (!source.mgr.showAnimations()) 
             return;
 
+       
+
+        // BR: Add Shield effect
+        Dimension shieldSize = target.shieldSize(boxW, boxH);
+        int xS = x1 - shieldSize.width/2;
+        int yS = y1 - shieldSize.height/2;
+        boolean showShield = options().newWeaponAnimation() && (dmg != 0);
+       
         ShipComponent wpn = source.weapon(wpnNum);
         int wpnCount = count / attacksPerRound / source.num;
         Graphics2D g = (Graphics2D) ui.getGraphics();
         Stroke prev = g.getStroke();
         
-        int distMul = source.movePointsTo(target.x, target.y);
+        int distFactor = 8*source.movePointsTo(target.x, target.y);
 
         g.setColor(beamColor);
         if(beamColor2 == null && cycleColor == null)
-            beamColor2 = new Color((int)(beamColor.getRed() * 0.75), (int)(beamColor.getGreen() * 0.75), (int)(beamColor.getBlue() * 0.75));
+        	beamColor2 = multColor(beamColor, 0.75f);
         if(beamColor2 != null) {
-            GradientPaint gp = new GradientPaint(x0,y0, beamColor, x0+(x1-x0)/(8*distMul),y0+(y1-y0)/(8*distMul), beamColor2, true);
+            GradientPaint gp = new GradientPaint(x0,y0, beamColor,
+            		x0+(x1-x0)/distFactor,y0+(y1-y0)/distFactor, beamColor2, true);
             g.setPaint(gp);
         }
 
@@ -523,16 +547,31 @@ public final class TechShipWeapon extends Tech {
         else
             g.setStroke(BasePanel.baseStroke(beamStroke*2));
 
-//        if(attacksPerRound > 1)
-//            playAudioClip(soundEffectMulti());
-//        else
-//            playAudioClip(soundEffect());
-        playAudioClip(soundEffect()); // TODO BR: playAudioClip
+        if (options().newWeaponSound())
+        	 playAudioClip(newSoundEffect()); // BR:
+        else if (attacksPerRound > 1)
+            playAudioClip(soundEffectMulti());
+        else
+            playAudioClip(soundEffect());
+       
+        if (showShield) {
+            windUpFrames = WIND_UP_FRAMES;
+            holdFrames = HOLD_FRAMES;        	
+        } else {
+            windUpFrames = source.mgr.autoComplete ? 1 : WIND_UP_FRAMES;
+            holdFrames = source.mgr.autoComplete ? 0 : HOLD_FRAMES;        	
+        }
+        BufferedImage[][] shieldImg = new BufferedImage[attacksPerRound][windUpFrames];
 
+        // Full Beam trajectory generation
         ArrayList<Line2D.Double> lines = new ArrayList<>();
         for(int i = 0; i < attacksPerRound; ++i) {
             int xAdj = scaled(roll(-4,4)*2);
             int yAdj = scaled(roll(-4,4)*2);
+            if (showShield) {
+            	shieldImg[i] = target.shieldImg(windUpFrames, attacksPerRound,
+            			shieldSize, x0, y0, x1, y1, xAdj, yAdj, beamColor, force, dmg);
+            }
             if (weaponSpread > 1) {
                 int xMod = (source.y == target.y) ? 0 : 1;
                 int yMod = (source.x == target.x) ? 0 : 1;
@@ -544,15 +583,15 @@ public final class TechShipWeapon extends Tech {
                     if (!source.mgr.showAnimations()) 
                         break;
                     int adj = scaled(n);
-                    lines.addAll(addMultiLines(source.design().size(), wpnCount, g, x0, y0, x1+xAdj+(xMod*adj), y1+yAdj+(yMod*adj)));
+                    lines.addAll(addMultiLines(source.design().size(), wpnCount, x0, y0, x1+xAdj+(xMod*adj), y1+yAdj+(yMod*adj)));
                 }
             } else {
-                lines.addAll(addMultiLines(source.design().size(), wpnCount, g, x0, y0, x1+xAdj, y1+yAdj));
+                lines.addAll(addMultiLines(source.design().size(), wpnCount, x0, y0, x1+xAdj, y1+yAdj));
             }
         }
+        // Beams Progression generation
         SortedMap<Integer, ArrayList<Line2D.Double>> partLines = new TreeMap<>();
-        windUpFrames = source.mgr.autoComplete ? 1 : windUpFrames;
-        holdFrames = source.mgr.autoComplete ? 0 : holdFrames;
+        long sleepTime = 50; // Original = 50;
         for(int i = 0; i < windUpFrames; ++i) {
             ArrayList<Line2D.Double> pl = new ArrayList<>();
             for(Line2D.Double line : lines) {
@@ -564,12 +603,14 @@ public final class TechShipWeapon extends Tech {
             }
             partLines.put(i, pl);
             paintLines(pl, g);
-            sleep(50);
+            sleep(sleepTime);
             //ui.paintAllImmediately();
         }
+        // Show Continuous
         for(int i = 0; i < holdFrames; i++) {
             if(beamColor2 != null) {
-                GradientPaint gp = new GradientPaint(x0+i*scaled(10),y0+i*scaled(10), beamColor, x0+i*scaled(10)+(x1-x0)/(8*distMul),y0+i*scaled(10)+(y1-y0)/(8*distMul), beamColor2, true);
+                GradientPaint gp = new GradientPaint(x0+i*scaled(10),y0+i*scaled(10), beamColor,
+                		x0+i*scaled(10)+(x1-x0)/distFactor,y0+i*scaled(10)+(y1-y0)/distFactor, beamColor2, true);
                 g.setPaint(gp);
             }
             if(cycleColor != null) {
@@ -582,13 +623,22 @@ public final class TechShipWeapon extends Tech {
                 }
             }
             paintLines(partLines, g);
-            sleep(50);
+            sleep(sleepTime);
         }
+        // Show end of beam
         for(int i = 0; i < windUpFrames; ++i) {
             ui.paintCellsImmediately(source.x, target.x, source.y, target.y);
             partLines.get(i).clear();
             paintLines(partLines, g);
-            sleep(50);
+            if (showShield) {
+    	    	//g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+    	    	g.setComposite(AlphaComposite.SrcOver);
+            	for(int k = 0; k < attacksPerRound; k++) {
+            		g.drawImage(shieldImg[k][i], xS, yS, null);
+            	}
+    	    	g.setComposite(AlphaComposite.Src);
+            }
+            sleep(sleepTime);
         }
         
         ui.paintAllImmediately();
@@ -598,7 +648,7 @@ public final class TechShipWeapon extends Tech {
         g.setStroke(prev);
         ui.paintAllImmediately();
     }
-    private ArrayList<Line2D.Double> addMultiLines(int size, int weapons, Graphics2D g, int sx, int sy, int tx, int ty) {
+    private ArrayList<Line2D.Double> addMultiLines(int size, int weapons, int sx, int sy, int tx, int ty) {
         int offSet = scaled((size + 1) * 5);
         ArrayList<Line2D.Double> lines = new ArrayList<>();
         if(weapons < 3)

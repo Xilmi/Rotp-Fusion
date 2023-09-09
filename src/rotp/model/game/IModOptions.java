@@ -174,7 +174,7 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 
 				headerSpacer,
 				new ParamTitle("BETA_TEST"),
-				debugAutoRun
+				debugAutoRun, newWeaponAnimation, newWeaponSound
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("ZOOM_FACTORS"),

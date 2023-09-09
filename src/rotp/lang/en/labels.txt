@@ -2272,6 +2272,10 @@ SETTINGS_MOD_ALLOW_TECH_STEALING         | Tech stealing: %1
 
 SETTINGS_MOD_MAX_SECURITY_PCT_DESC       | To boost the maximal security tax percentage. (Spying bonus = 2 x tax)
 SETTINGS_MOD_MAX_SECURITY_PCT            | Max Security: %1%
+SETTINGS_MOD_NEW_WEAPON_ANIMATION_DESC   | Show Shield and miss effect.
+SETTINGS_MOD_NEW_WEAPON_ANIMATION        | New Weapon Animation: %1
+SETTINGS_MOD_NEW_WEAPON_SOUND_DESC       | Distinct weapon sound instead of only two!
+SETTINGS_MOD_NEW_WEAPON_SOUND            | New Weapon Sound: %1
 
 SETTINGS_MOD_SHOW_NEW_RACES_DESC         | Show the new species in the opponents list?
 SETTINGS_MOD_SHOW_NEW_RACES              | Show new species: %1

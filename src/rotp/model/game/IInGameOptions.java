@@ -146,6 +146,11 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 	ParamInteger maxSecurityPct		= new ParamInteger(MOD_UI, "MAX_SECURITY_PCT", 10, 10, 90, 1, 5, 20);
 	default int selectedMaxSecurityPct()		{ return maxSecurityPct.get(); }
 
+	ParamBoolean newWeaponAnimation	= new ParamBoolean(MOD_UI, "NEW_WEAPON_ANIMATION", true);
+	default boolean newWeaponAnimation()		{ return newWeaponAnimation.get(); }
+	ParamBoolean newWeaponSound		= new ParamBoolean(MOD_UI, "NEW_WEAPON_SOUND", true);
+	default boolean newWeaponSound() 			{ return newWeaponSound.get(); }
+
 	// ==================== GUI List Declarations ====================
 	LinkedList<IParam> modOptionsDynamicA = new LinkedList<>(
 			Arrays.asList(
@@ -159,7 +164,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 			));
 	LinkedList<IParam> modOptionsDynamicB = new LinkedList<>(
 			Arrays.asList(
-				counciRequiredPct, GovernorOptions.governorOptionsUI,
+				counciRequiredPct, GovernorOptions.governorOptionsUI, newWeaponAnimation, newWeaponSound,
 				null,
 				eventsStartTurn, eventsPace, customRandomEventUI,
 				null,

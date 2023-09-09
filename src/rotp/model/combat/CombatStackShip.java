@@ -214,12 +214,12 @@ public class CombatStackShip extends CombatStack {
                     float targetBackOffRange = 2 * tgt.maxMove();
                     if(distanceTo(0, 0) > tgt.distanceTo(0, 0))
                         targetBackOffRange = min(targetBackOffRange, tgt.distanceTo(0, 0));
-                    if(distanceTo(0, mgr.maxY) > tgt.distanceTo(0, mgr.maxY))
-                        targetBackOffRange = min(targetBackOffRange, tgt.distanceTo(0, mgr.maxY));
-                    if(distanceTo(mgr.maxX, 0) > tgt.distanceTo(mgr.maxX, 0))
-                        targetBackOffRange = min(targetBackOffRange, tgt.distanceTo(mgr.maxX, 0));
-                    if(distanceTo(mgr.maxX, mgr.maxY) > tgt.distanceTo(mgr.maxX, mgr.maxY))
-                        targetBackOffRange = min(targetBackOffRange, tgt.distanceTo(mgr.maxX, mgr.maxY));
+                    if(distanceTo(0, ShipCombatManager.maxY) > tgt.distanceTo(0, ShipCombatManager.maxY))
+                        targetBackOffRange = min(targetBackOffRange, tgt.distanceTo(0, ShipCombatManager.maxY));
+                    if(distanceTo(ShipCombatManager.maxX, 0) > tgt.distanceTo(ShipCombatManager.maxX, 0))
+                        targetBackOffRange = min(targetBackOffRange, tgt.distanceTo(ShipCombatManager.maxX, 0));
+                    if(distanceTo(ShipCombatManager.maxX, ShipCombatManager.maxY) > tgt.distanceTo(ShipCombatManager.maxX, ShipCombatManager.maxY))
+                        targetBackOffRange = min(targetBackOffRange, tgt.distanceTo(ShipCombatManager.maxX, ShipCombatManager.maxY));
                     int curr = (int)(max(1, (weaponRange(wpn) - targetBackOffRange) / sqrt(2) + 0.7f));
                     if(missileRange > 0)
                         missileRange = min(missileRange, curr);

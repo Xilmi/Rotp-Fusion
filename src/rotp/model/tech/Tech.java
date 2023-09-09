@@ -15,8 +15,12 @@
  */
 package rotp.model.tech;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Stroke;
 import java.util.Comparator;
+
 import rotp.model.colony.Colony;
 import rotp.model.combat.CombatStack;
 import rotp.model.empires.Empire;
@@ -121,7 +125,7 @@ public class Tech implements Base {
     @Override
     public String toString() { return concat("Tech: ", name); }
 
-    public float discoveryPct()          { return cat.discoveryPct(); }
+    public float discoveryPct()           { return cat.discoveryPct(); }
     public String name()                  { return text(name); }
     public Integer level()                { return level; }
     public String detail()                { return text(detail); }
@@ -148,8 +152,8 @@ public class Tech implements Base {
 
     public boolean providesShipComponent()  { return false; }
 
-    public float warModeFactor()           { return 1; }
-    public float expansionModeFactor()     { return 1; }
+    public float warModeFactor()            { return 1; }
+    public float expansionModeFactor()      { return 1; }
     public boolean promptToReallocate()     { return followup() != Colony.Orders.NONE; }
     public Colony.Orders followup()         { return Colony.Orders.NONE; }
 
@@ -157,7 +161,7 @@ public class Tech implements Base {
     public void provideBenefits(Empire c)   {  }
     public boolean canBeResearched(Race r)  { return true; }
 
-    public float baseReallocateAmount()   { return 0.25f; }
+    public float baseReallocateAmount()    { return 0.25f; }
     public float tradeValue(Empire civ)    { return level; }
     public float baseValue(Empire civ)     { return level; }
     public float baseCost()                { return cost; }
@@ -170,11 +174,17 @@ public class Tech implements Base {
 
     public boolean reducesEcoSpending()    { return false; }
 
+    // Shielded
     public void drawIneffectiveAttack(CombatStack source, CombatStack target, int wpnNum, int count) {  }
+    // Total Miss
     public void drawUnsuccessfulAttack(CombatStack source, CombatStack target, int wpnNum, int count) {  }
-    public void drawSuccessfulAttack(CombatStack source, CombatStack target, int wpnNum, float dmg, int count) { }
+    // Some Damage
+    public void drawSuccessfulAttack(CombatStack source, CombatStack target, int wpnNum, float dmg, int count) {
+    	drawSuccessfulAttack(source, target, wpnNum, dmg, count, dmg);
+    }
+    public void drawSuccessfulAttack(CombatStack source, CombatStack target, int wpnNum, float dmg, int count, float force) { }
 
-    public float researchCost()            { return cat.costForTech(this); }
+    public float researchCost()             { return cat.costForTech(this); }
     public int maxMiniaturizationLevels()   { return 50; }
     public boolean canBeMiniaturized()      { return false; }
 

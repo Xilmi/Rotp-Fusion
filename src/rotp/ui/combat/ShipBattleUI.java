@@ -34,13 +34,12 @@ import rotp.model.galaxy.StarSystem;
 import rotp.model.ships.*;
 import rotp.ui.FadeInPanel;
 import rotp.ui.main.SystemPanel;
-import rotp.util.Base;
 import javax.swing.*;
 import javax.swing.border.Border;
 import rotp.model.colony.Colony;
 import rotp.model.galaxy.SpaceMonster;
 
-public class ShipBattleUI extends FadeInPanel implements Base, MouseListener, MouseMotionListener {
+public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMotionListener {
     private static final long serialVersionUID = 1L;
     public static final int ENTER_COMBAT = 0;
     public static final int AUTO_RESOLVE = 1;
@@ -84,7 +83,8 @@ public class ShipBattleUI extends FadeInPanel implements Base, MouseListener, Mo
     int barH = s45;
     float planetRotateSpeed = 0.1f;
     private boolean drawingPlanet = false;
-    private boolean planetDrawn = false;
+    @SuppressWarnings("unused")
+	private boolean planetDrawn = false;
     boolean showPlanet = false;
     boolean exited = false;
     boolean shiftPressed = false;
@@ -1182,7 +1182,7 @@ public class ShipBattleUI extends FadeInPanel implements Base, MouseListener, Mo
         drawShadowedString(g, scanTitle, 3, x2, y2, SystemPanel.textShadowC, SystemPanel.whiteText);
 
         y2 += s10;
-        int y2a = y2;
+        //int y2a = y2;
         int x1 = x+s4;
         int w1 = w-s8;
         int x1a = x1+s4;
@@ -1339,7 +1339,7 @@ public class ShipBattleUI extends FadeInPanel implements Base, MouseListener, Mo
         g.setColor(lineColor);
         g.fillRect(x1,y2,w1,s1);
 
-        String unk = text("SHIP_COMBAT_SCAN_UNSCANNED_VALUE");
+        // String unk = text("SHIP_COMBAT_SCAN_UNSCANNED_VALUE");
 
         g.setFont(narrowFont(12));
         String lbl1 = text("SHIP_COMBAT_SCAN_HIT_POINTS");

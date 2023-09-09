@@ -1504,4 +1504,29 @@ public interface Base {
     public default void turnLog(String fileName, String s) {
     	writeToFile(fileName, getTurn(" | ")+s, true, true);
     }
+    public default Color setAlpha(Color color, float alpha) {
+		return new Color(color.getRed(), color.getGreen(), color.getBlue(),
+				bounds(0, (int)(alpha*255+0.5), 255));
+	}
+    public default Color saturateColor(Color color, float alpha) {
+    	int max = max(color.getRed(), max(color.getGreen(), color.getBlue()));
+    	if (max == 0)
+    		return setAlpha(Color.white, alpha);
+    	else
+    		return multColor(color, 255f/max, alpha);
+	}
+    public default Color multColor(Color color, float factor, float alpha) {
+		factor = Math.max(0, factor/255);
+		return new Color(Math.min(1f, color.getRed()   * factor),
+						 Math.min(1f, color.getGreen() * factor),
+						 Math.min(1f, color.getBlue()  * factor),
+						 bounds(0f, alpha, 1f));
+	}
+    public default Color multColor(Color color, float factor) {
+		factor = Math.max(0, factor/255);
+		return new Color(Math.min(1f, color.getRed()   * factor),
+						 Math.min(1f, color.getGreen() * factor),
+						 Math.min(1f, color.getBlue()  * factor),
+						 color.getAlpha()/255f);
+	}
 }

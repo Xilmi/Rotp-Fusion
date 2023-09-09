@@ -289,7 +289,7 @@ public class CombatStackColony extends CombatStack {
     @Override
     public void drawStack(ShipBattleUI ui, Graphics2D g, int origCount, int x, int y, int stackW, int stackH) {
         int x1 = x;
-        int y1 = y;
+        // int y1 = y;
 
         int sysId = colony.starSystem().id;
         String sname = player().sv.name(sysId);

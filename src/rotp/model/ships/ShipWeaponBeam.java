@@ -67,38 +67,43 @@ public final class ShipWeaponBeam extends ShipWeapon {
     @Override
     public void fireUpon(CombatStack source, CombatStack target, int count) {
         if (random() < target.autoMissPct()) {
-            drawUnsuccessfulAttack(source, target, count);
+           	drawUnsuccessfulAttack(source, target, count);
             return;
         }
         float totalDamage = 0;
+        float totalLatent = 0; // TODO BR: Damages if not shielded
         float shieldMod = source.targetShieldMod(this)*shieldMod();
         
         // use attack/defense values to determine chance that weapon will hit
         int minDamage = minDamage();
         int maxDamage = maxDamage();
-        int range = source.movePointsTo(target.x, target.y);
+        int range     = source.movePointsTo(target.x, target.y);
         float defense = target.beamDefense() + range - 1;
-        float attack = source.attackLevel() + tech().computer;
-        float hitPct = (5 + attack - defense) / 10;
+        float attack  = source.attackLevel() + tech().computer;
+        float hitPct  = (5 + attack - defense) / 10;
         hitPct = max(.05f, hitPct);
 
         boolean successfullyHit = false;
         for (int i=0;i<count;i++) {
             if (random() < hitPct) {
                 successfullyHit = true;
-                float damage = roll(minDamage, maxDamage);
+                float latentDamage = roll(minDamage, maxDamage); // BR:
+                float damage;
                 if (isStreamingWeapon())
-                    damage = target.takeStreamingDamage(damage, shieldMod);
+                    damage = target.takeStreamingDamage(latentDamage, shieldMod);
                 else
-                    damage = target.takeBeamDamage(damage, shieldMod);
+                    damage = target.takeBeamDamage(latentDamage, shieldMod);
                 totalDamage += damage;
+                totalLatent += latentDamage;
             }
         }
-        if (totalDamage > 0)
-            drawSuccessfulAttack(source, target, totalDamage, count);
-        else if (successfullyHit)
-            drawIneffectiveAttack(source, target, count);
-        else
+        
+        if (totalDamage > 0) // Success
+            drawSuccessfulAttack(source, target, totalDamage, count, totalLatent);
+        else if (successfullyHit) // Shielded
+            drawSuccessfulAttack(source, target, -1f, count, totalLatent);
+//            drawIneffectiveAttack(source, target, count);
+        else // Miss
             drawUnsuccessfulAttack(source, target, count);
     }
     @Override

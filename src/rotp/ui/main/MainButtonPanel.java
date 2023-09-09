@@ -247,7 +247,6 @@ public final class MainButtonPanel extends BasePanel implements MouseListener, M
         if (!parent.enableButtons()) {
         	if (session().autoRunning() && nextTurnBox.contains(x,y))
         		session().pauseAutoRun();
-        	System.out.println("!parent.enableButtons()");
         	return;
         }
 
@@ -256,7 +255,6 @@ public final class MainButtonPanel extends BasePanel implements MouseListener, M
         		session().pauseAutoRun();
         	else
         		misClick();
-            System.out.println("session().performingTurn()");
             return;
         }
 

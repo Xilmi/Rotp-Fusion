@@ -33,7 +33,8 @@ import rotp.util.Base;
 public class ShipCombatManager implements Base {
     private static final int MAX_TURNS = 100;
     private static Thread autoRunThread;
-    private static Thread runningThread;
+    @SuppressWarnings("unused")
+	private static Thread runningThread;
     // combat vars
     public ShipBattleUI ui;
     private StarSystem system;
@@ -84,7 +85,7 @@ public class ShipCombatManager implements Base {
         empiresInConflict = sys.empiresInConflict();
         log("Ship Combat starting in ", player().sv.name(sys.id), " between empires: ", empiresInConflict.toString());
 
-        // build list of possible conflcts, where two orbiting fleets are in conflict at this system
+        // build list of possible conflicts, where two orbiting fleets are in conflict at this system
         List<EmpireMatchup> matchups = new ArrayList<>();
         for (Empire e1: empiresInConflict) {
             for (Empire e2: empiresInConflict) {

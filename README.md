@@ -50,6 +50,15 @@ Later:
 
 ## What's New
 
+2023.09.09 (BR)
+- Added shielding animation.
+
+2023.09.09 (BR)
+- Added shielding animation.
+
+2023.09.04 (BR)
+- Added new weapon sounds.
+
 2023.09.03 (BR)
 - Ready for distinct weapon sounds.
 
