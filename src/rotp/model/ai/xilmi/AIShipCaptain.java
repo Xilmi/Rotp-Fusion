@@ -325,40 +325,52 @@ public class AIShipCaptain implements Base, ShipCaptain {
             return false;
         //1st run: fire only specials which are not repulsor or stasis-field
         for (int i=0;i<stack.numWeapons(); i++) {
+            if(target == null)
+                continue;
             if(!stack.weapon(i).isSpecial()
                     || !((CombatStackShip)stack).shipComponentCanAttack(target, i)
                     || stack.weapon(i).tech().isType(Tech.REPULSOR)
                     || stack.weapon(i).tech().isType(Tech.STASIS_FIELD))
-            {
                 continue;
-            }
-            else
+            if(((CombatStackShip)stack).shipComponentCanAttack(target, i))
             {
                 stack.fireWeapon(target, i, true);
+                chooseTarget(stack, true, false);
+                target = currentTarget;
                 performedAttack = true;
             }
         }
         //2nd run: fire non-special-weapons
         for (int i=0;i<stack.numWeapons(); i++) {
+            if(target == null)
+                continue;
             if(stack.weapon(i).isSpecial()
                     || !((CombatStackShip)stack).shipComponentCanAttack(target, i)
-                    || (stack.weapon(i).isMissileWeapon() && stack.movePointsTo(target) > stack.optimalFiringRange(target)))
-            {
+                    || (stack.weapon(i).isMissileWeapon() && stack.movePointsTo(target) > stack.maxFiringRange(target)))
                 continue;
-            }
-            else
+            if(stack.weapon(i).isMissileWeapon() && target.isShip() && stack.shotsRemaining(i) <= 2 && stack.movePointsTo(target) > stack.optimalFiringRange(target))
+                continue;
+            if(((CombatStackShip)stack).shipComponentCanAttack(target, i))
             {
                 stack.fireWeapon(target, i, true);
+                chooseTarget(stack, true, false);
+                target = currentTarget;
                 performedAttack = true;
             }
         }
         //3rd run: fire whatever is left, except missiles if we are too far
         for (int i=0;i<stack.numWeapons(); i++) {
-            if(stack.weapon(i).isMissileWeapon() && stack.movePointsTo(target) > stack.optimalFiringRange(target))
+            if(target == null)
+                continue;
+            if(stack.weapon(i).isMissileWeapon() && stack.movePointsTo(target) > stack.maxFiringRange(target))
+                continue;
+            if(stack.weapon(i).isMissileWeapon() && target.isShip() && stack.shotsRemaining(i) <= 2 && stack.movePointsTo(target) > stack.optimalFiringRange(target))
                 continue;
             if(((CombatStackShip)stack).shipComponentCanAttack(target, i))
             {
                 stack.fireWeapon(target, i, true);
+                chooseTarget(stack, true, false);
+                target = currentTarget;
                 performedAttack = true;
             }
         }
@@ -443,7 +455,9 @@ public class AIShipCaptain implements Base, ShipCaptain {
             //System.out.print("\n"+stack.fullName()+" onlyships: "+onlyShips+" onlyInAttackRange: "+onlyInAttackRange+" looking at "+target.fullName()+" killPct: "+killPct+" rangeAdj: "+rangeAdj+" cnt: "+target.num+" target.designCost(): "+target.designCost());
             if (killPct > 0) {
                 killPct = min(1,killPct);
-                float adjustedKillPct = killPct - incomingMissileKillPct(target);
+                float adjustedKillPct = killPct;
+                if(missileKillPct(target) >= 1.0f / target.num)
+                    adjustedKillPct -= missileKillPct(target);
                 float desirability = 0;
                 float valueMod = 0;
                 if(target.isMonster())
@@ -456,7 +470,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
                 {
                     CombatStackColony csCol = (CombatStackColony) target;
                     valueMod = csCol.colony.population() * csCol.colony.empire().tech().populationCost() + csCol.colony.industry().factories() * csCol.colony.empire().tech().baseFactoryCost();
-                    if(killPct > 0.9f && !empire.generalAI().allowedToBomb(target.mgr.system()) && !facingOverwhelmingForce(stack, false, true))
+                    if(killPct > 0.9f && !empire.generalAI().allowedToBomb(target.mgr.system()) && !facingOverwhelmingForce(stack, true))
                         valueMod = 0;
                 }
                 if(adjustedKillPct > 0)
@@ -498,7 +512,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
                         bestTarget = target;
                         maxDesirability = desirability;
                     }
-                    else {
+                    else if(!onlyInAttackRange) {
                         FlightPath path = findBestPathToAttack(stack, target);
                         if (path != null) {  // can we even path to this target?
                             int turnsToReachTarget = stack.canTeleport ? 1 : (int) Math.ceil(path.size() / stack.maxMove());
@@ -799,6 +813,8 @@ public class AIShipCaptain implements Base, ShipCaptain {
                     if(cst.isArmed())
                         atLeastOneStackStillArmed = true;
                 }
+                else if(!cst.missiles().isEmpty())
+                    atLeastOneStackStillArmed = true;
             }
             return inPact || !atLeastOneStackStillArmed;
         }
@@ -822,8 +838,6 @@ public class AIShipCaptain implements Base, ShipCaptain {
         List<CombatStack> activeStacks = new ArrayList<>(currStack.mgr.activeStacks());
         for (CombatStack st: activeStacks) {
             for (CombatStackMissile miss: st.missiles()) {
-                if (miss.owner == currStack) 
-                    return facingOverwhelmingForce(currStack, true, false);
                 if (miss.target == currStack && st.isShip())
                 {
                     float hitPct;
@@ -871,14 +885,14 @@ public class AIShipCaptain implements Base, ShipCaptain {
         if(!canTarget)
             return true;
         
-        if (facingOverwhelmingForce(currStack, false, false)) {
+        if (facingOverwhelmingForce(currStack, false)) {
             log(currStack.toString()+" retreating from overwhelming force");
             return true;
         }
 
         return false;
     }
-    public boolean facingOverwhelmingForce(CombatStack stack, boolean missileShooterMode, boolean skipColonyBombCheck) {
+    public boolean facingOverwhelmingForce(CombatStack stack, boolean skipColonyBombCheck) {
         // build list of allies & enemies
         allies().clear(); enemies().clear();
         for (CombatStack st : combat().activeStacks()) {
@@ -964,6 +978,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
                 }
                 damagePerTurn += killPct;
             }
+            damagePerTurn += missileKillPct(st1);
             float healPerTurn = 0;
             if(st1.isShip())
             {
@@ -1009,6 +1024,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
                 }
                 damagePerTurn += killPct;
             }
+            damagePerTurn += missileKillPct(st1);
             float healPerTurn = 0;
             if(st1.isShip())
             {
@@ -1049,7 +1065,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
             if(dpsOnColony * bomberKillTime > 1 && (!enemyHasRepulsor || weCounterRepulsor) && foesBlockPlanet < 5)
                 return false;
         
-        //System.out.print("\n"+stack.mgr.system().name()+" "+stack.fullName()+" allyKillTime: "+allyKillTime+" enemyKillTime: "+enemyKillTime+" enemyKillTimeWithoutHeal: "+enemyKillTimeWithoutHeal);
+        //System.out.println(stack.mgr.system().name()+" "+stack.fullName()+" allyKillTime: "+allyKillTime+" enemyKillTime: "+enemyKillTime+" enemyKillTimeWithoutHeal: "+enemyKillTimeWithoutHeal);
         if (enemyKillTime == allyKillTime)
         {
             if(col != null && col.empire == empire)
@@ -1057,7 +1073,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
             else
                 return true;
         }
-        else if ((stack.num == 1 && friends.size() == 1 && !enemyHasWarpDissipator) || missileShooterMode)
+        else if ((stack.num == 1 && friends.size() == 1 && !enemyHasWarpDissipator))
             return enemyKillTimeWithoutHeal < 2;
         else
             return allyKillTime > enemyKillTime;
@@ -1263,24 +1279,6 @@ public class AIShipCaptain implements Base, ShipCaptain {
         float popLoss = expectedPopulationLoss(ship, colony);
         return popLoss/colony.colony.population();
     }
-    public float incomingMissileKillPct(CombatStack currStack)
-    {
-        float retVal = 0;
-        List<CombatStack> activeStacks = new ArrayList<>(currStack.mgr.activeStacks());
-        for (CombatStack st: activeStacks)
-            for (CombatStackMissile miss: st.missiles())
-                if (miss.target == currStack)
-                {
-                    float hitPct;
-                    hitPct = (5 + miss.attackLevel - miss.target.missileDefense()) / 10;
-                    hitPct = max(.05f, hitPct);
-                    hitPct = min(hitPct, 1.0f);
-                    float killPct = ((miss.maxDamage()-miss.target.shieldLevel())*miss.num*hitPct)/(miss.target.maxHits*miss.target.num);
-                    //System.out.print("\n"+currStack.fullName()+" will be hit by missiles for approx "+killPct);
-                    retVal += killPct;
-                }
-        return retVal;
-    }
     @Override
     public boolean useSmartRangeForBeams()
     {
@@ -1314,5 +1312,20 @@ public class AIShipCaptain implements Base, ShipCaptain {
         if(st.cloaked || st.canTeleport())
             canByPassRepulsor = true;
         return enemyHasRepulsor && !canByPassRepulsor;
+    }
+    
+    public float missileKillPct(CombatStack target)
+    {
+        if(target.missiles().isEmpty())
+            return 0;
+        float killPct = 0;
+        for (CombatStackMissile miss: target.missiles()) {
+            float hitPct;
+            hitPct = (5 + miss.attackLevel - miss.target.missileDefense()) / 10;
+            hitPct = max(.05f, hitPct);
+            hitPct = min(hitPct, 1.0f);
+            killPct += ((miss.maxDamage()-miss.target.shieldLevel())*miss.num*hitPct)/(miss.target.maxHits*miss.target.num);
+        }
+        return min(1.0f, killPct);
     }
 }
