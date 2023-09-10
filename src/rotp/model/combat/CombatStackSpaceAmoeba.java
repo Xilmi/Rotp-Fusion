@@ -15,6 +15,8 @@
  */
 package rotp.model.combat;
 
+import java.awt.Color;
+
 import rotp.model.ai.AmoebaShipCaptain;
 import rotp.model.events.RandomEventSpaceAmoeba;
 import rotp.model.galaxy.StarSystem;
@@ -129,4 +131,5 @@ public class CombatStackSpaceAmoeba extends CombatStack {
         
         return actualDamage; 
     }
+    @Override public Color shieldBaseColor() { return Color.cyan; }
 }

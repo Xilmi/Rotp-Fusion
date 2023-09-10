@@ -4,6 +4,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Added distinct weapon sounds.
 - Added new beam weapon animated shielding effects.
   - Base shield color = Empire color.
+    - Monsters have their own color.
   - Impact color = Weapon color.
   - Impact Radius is function of beam power.
   - Impact intensity is function of beam absorption ratio.

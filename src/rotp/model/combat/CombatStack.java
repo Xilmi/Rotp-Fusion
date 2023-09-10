@@ -789,7 +789,7 @@ public class CombatStack implements Base {
     	final float fH  = 4.0f;	// To estimate the target size
     	Dimension dim = new Dimension();
         int shipSize;
-    	if (isColony()) {
+    	if (isColony() || design() == null) {
     		shipSize = MAX_SIZE;
     		dim.height = (int) (boxH * (shipSize + fH) / (fH + MAX_SIZE));
     		dim.width  = dim.height;
@@ -799,6 +799,12 @@ public class CombatStack implements Base {
     		dim.width  = (int) (boxW * (shipSize + fW) / (fW + MAX_SIZE));
     	}
     	return dim;
+    }
+    public Color shieldBaseColor() {
+    	if (empire == null)
+        	return Color.red;
+        else
+        	return empire.color();
     }
     public BufferedImage[] shieldImg(int nI, int nA, Dimension size, int srcX, int srcY, int tarX, int tarY,
     		int xAdj, int yAdj, Color beamColor, float beamForce, float damage) { // TODO BR: BufferedImage[] shieldImg(
@@ -849,7 +855,7 @@ public class CombatStack implements Base {
         // Impact color based on BeamWeapon
         Color impactColor = saturateColor(beamColor, alphaImpact);
     	// Spread color based on Target color
-        Color spreadColor = saturateColor(empire.color(), alphaSpread);
+        Color spreadColor = saturateColor(shieldBaseColor(), alphaSpread);
         Color spreadEndColor = setAlpha(spreadColor, alphaEnd);
         
         // True positions

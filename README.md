@@ -52,8 +52,9 @@ Later:
 
 2023.09.09 (BR)
 - Added shielding animation.
+- Added Monster Shield color.
 
-2023.09.09 (BR)
+2023.09.08 (BR)
 - Added shielding animation.
 
 2023.09.04 (BR)

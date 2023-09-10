@@ -15,6 +15,7 @@
  */
 package rotp.model.combat;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import rotp.model.ai.OrionGuardianCaptain;
@@ -84,7 +85,8 @@ public class CombatStackOrionGuardian extends CombatStack {
         if (weapons.size() > 0)
             selectedWeapon = weapons.get(0);
     }    
-    public float missileInterceptPct(ShipWeaponMissileType wpn)   {
+    @Override
+	public float missileInterceptPct(ShipWeaponMissileType wpn)   {
         return max(0, 0.75f - (0.01f * wpn.tech().level));
     }
     @Override
@@ -291,5 +293,6 @@ public class CombatStackOrionGuardian extends CombatStack {
     public int wpnCount(int i) { 
         return weaponCount[i];
     }
+    @Override public Color shieldBaseColor() { return Color.blue; }
 }
         

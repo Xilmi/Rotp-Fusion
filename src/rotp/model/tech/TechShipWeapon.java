@@ -513,10 +513,11 @@ public final class TechShipWeapon extends Tech {
        
 
         // BR: Add Shield effect
-        Dimension shieldSize = target.shieldSize(boxW, boxH);
+        boolean showShield = options().newWeaponAnimation() && (dmg != 0);
+        
+        Dimension shieldSize = showShield? target.shieldSize(boxW, boxH) : new Dimension(boxW, boxH);
         int xS = x1 - shieldSize.width/2;
         int yS = y1 - shieldSize.height/2;
-        boolean showShield = options().newWeaponAnimation() && (dmg != 0);
        
         ShipComponent wpn = source.weapon(wpnNum);
         int wpnCount = count / attacksPerRound / source.num;
@@ -563,6 +564,9 @@ public final class TechShipWeapon extends Tech {
         }
         BufferedImage[][] shieldImg = new BufferedImage[attacksPerRound][windUpFrames];
 
+        int sourceSize = 3;
+        if (source.design() != null)
+        	sourceSize = source.design().size();
         // Full Beam trajectory generation
         ArrayList<Line2D.Double> lines = new ArrayList<>();
         for(int i = 0; i < attacksPerRound; ++i) {
@@ -583,10 +587,10 @@ public final class TechShipWeapon extends Tech {
                     if (!source.mgr.showAnimations()) 
                         break;
                     int adj = scaled(n);
-                    lines.addAll(addMultiLines(source.design().size(), wpnCount, x0, y0, x1+xAdj+(xMod*adj), y1+yAdj+(yMod*adj)));
+                    lines.addAll(addMultiLines(sourceSize, wpnCount, x0, y0, x1+xAdj+(xMod*adj), y1+yAdj+(yMod*adj)));
                 }
             } else {
-                lines.addAll(addMultiLines(source.design().size(), wpnCount, x0, y0, x1+xAdj, y1+yAdj));
+                lines.addAll(addMultiLines(sourceSize, wpnCount, x0, y0, x1+xAdj, y1+yAdj));
             }
         }
         // Beams Progression generation

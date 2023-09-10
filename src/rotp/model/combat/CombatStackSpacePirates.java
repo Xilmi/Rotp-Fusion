@@ -15,6 +15,7 @@
  */
 package rotp.model.combat;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import rotp.model.ai.SpacePiratesCaptain;
@@ -604,5 +605,6 @@ public class CombatStackSpacePirates extends CombatStack {
     public void drawAttack() { 
         return;
     }
+    @Override public Color shieldBaseColor() { return Color.magenta; }
 }
         
