@@ -1,15 +1,16 @@
 Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Updates since last announcement:</ins></b>
+- Last Xilmi's AI missile update.
 - Added distinct weapon sounds.
 - Added new beam weapon animated shielding effects.
   - Base shield color = Empire color.
     - Monsters have their own color.
   - Impact color = Weapon color.
   - Impact Radius is function of beam power.
-  - Impact intensity is function of beam absorption ratio.
+  - Impact Intensity is function of beam absorption ratio.
   - Spreading Radius is function of beam power and shield level.
-  - Spreading intensity is function of beam absorption ratio and and shield level.
+  - Spreading Intensity is function of beam absorption ratio and and shield level.
 
 <b><ins>Last announcement:</ins></b>
 <em>Xilmi last AI improvements:</em>
