@@ -39,7 +39,7 @@ public class SystemInfo implements Serializable, Base {
     private transient BufferedImage starBackground;
     public void addView(SystemView sv)      { views[sv.system().id] = sv; }
     public int count()                      { return views.length; }
-    public boolean missing(int i)          { return (i < 0) || views[i] == null; }
+    public boolean missing(int i) { return (i < 0) || views.length<=i || views[i] == null; }
     public SystemView view(int sysId) {
         if (views[sysId] == null)
             views[sysId] = SystemView.create(sysId, empireId);

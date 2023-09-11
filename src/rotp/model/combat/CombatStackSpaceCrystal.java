@@ -35,7 +35,8 @@ public class CombatStackSpaceCrystal extends CombatStack {
         captain = new CrystalShipCaptain();
         image = image("SPACE_CRYSTAL");
     }    
-    public float missileInterceptPct(ShipWeaponMissileType wpn)   {
+    @Override
+	public float missileInterceptPct(ShipWeaponMissileType wpn)   {
         return max(0, 0.75f - (0.01f * wpn.tech().level));
     }
     @Override
@@ -112,6 +113,6 @@ public class CombatStackSpaceCrystal extends CombatStack {
         brighten = 0;
         mgr.ui.paintAllImmediately();
     }
-    @Override public Color shieldBaseColor() { return Color.pink; }
+    @Override public Color shieldBaseColor() { return Color.cyan; }
 }
         

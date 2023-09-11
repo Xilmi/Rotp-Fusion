@@ -815,13 +815,14 @@ public class CombatStack implements Base {
     	// Spreading Transparency is function of beam absorption ratio (v) and and shield level (v)
 
     	final float topShield = 15f;
-    	final float alphaImpactMin = 0.3f;
-    	final float alphaImpactMax = 0.8f;
-    	final float alphaSpreadMin = 0.2f;
-    	final float alphaSpreadMax = 0.5f;
-        final float impactRbase    = 0.1f;
-        final float impactRmin     = 0.1f;
-        final float impactRmax     = 0.25f;
+    	final float alphaImpactMin = 0.5f;
+    	final float alphaImpactMax = 1.0f;
+    	final float alphaSpreadMin = 0.1f;
+    	final float alphaSpreadMax = 0.3f;
+    	final float alphaEndDiv    = 2.0f;
+        final float impactRbase    = 0.05f;
+        final float impactRmin     = 0.05f;
+        final float impactRmax     = 0.20f;
         final float spreadDrEnd    = 0.05f;
         final float spreadDrMin    = 0.2f;
         final float spreadingRmax  = 0.95f - spreadDrEnd;
@@ -849,7 +850,7 @@ public class CombatStack implements Base {
         float spreadRay =  spreadingRayMin + spreadingFactor * (spreadingRmax-spreadingRayMin);
         impactRay /= nI;
         spreadRay /= nI;
-        float alphaEnd = min(1f, alphaSpread/2.0f);
+        float alphaEnd = min(1f, alphaSpread/alphaEndDiv);
     	// Colors
         Color noColor =  new Color(0f,0f,0f,0f);
         // Impact color based on BeamWeapon
@@ -882,7 +883,7 @@ public class CombatStack implements Base {
         Point2D focus  = new Point2D.Float(focusX, focusY);
 
 
-        Ellipse2D shield = new Ellipse2D.Double(0, 0, shieldW, shieldW);
+        Ellipse2D shieldArea = new Ellipse2D.Double(0, 0, shieldW, shieldW);
     	BufferedImage baseImg = null;
     	RadialGradientPaint paint;
         for (int i=0; i<nI; i++) {
@@ -896,7 +897,7 @@ public class CombatStack implements Base {
 	        Graphics2D g = (Graphics2D) buffImg.getGraphics();
 	        g.setComposite(AlphaComposite.SrcOver);
 	        g.setPaint(paint);
-	        g.fill(shield);
+	        g.fill(shieldArea);
 	        g.dispose();
 	        
 	        // rescale circle to ellipse
@@ -913,14 +914,15 @@ public class CombatStack implements Base {
         }
 	    // last frame goes around
     	float[] distances = {0.0f, nI*impactRay, 1-5*spreadDrEnd, 1-spreadDrEnd, 0.999f, 1.0f};
-        Color[] colors = {noColor, noColor, spreadColor, spreadEndColor, spreadEndColor, noColor};
+        Color[] colors = {noColor, noColor, spreadEndColor, spreadColor, spreadEndColor, noColor};
+//        Color[] colors = {noColor, noColor, spreadColor, spreadEndColor, spreadEndColor, noColor};
 
         paint = new RadialGradientPaint(center, shieldW/2, focus, distances, colors, NO_CYCLE);
     	BufferedImage buffImg = new BufferedImage(shieldW, shieldW, TYPE_INT_ARGB);
         Graphics2D g = (Graphics2D) buffImg.getGraphics();
         g.setComposite(AlphaComposite.SrcOver);
         g.setPaint(paint);
-        g.fill(shield);
+        g.fill(shieldArea);
         g.dispose();
         
         // rescale circle to ellipse

@@ -37,11 +37,11 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 Bug to fix:
 
 Very soon:
-- Spare Xenophobes: Stop if caught too.
+- Character panel: improve the reactivity.
+- Some Achievements options.
+Later:
 - Smooth the Trade blocking option.
 - Investigate: William482 request: Age of your data on each race into the bar graphs on the status page.
-
-Later:
 - Tech trading extended list.
 - Option to be used to force war declaration upon "Smart Resolve".
   - Check if at war and add a button if not!
@@ -49,6 +49,12 @@ Later:
 
 
 ## What's New
+
+2023.09.11 (BR)
+- Fixed shied effects showing when no shield.
+- Fixed mysterious systemView out of bound error.
+- Tuned Shield opacity.
+
 2023.09.10 (Xilmi)
 - The AI can now target different stacks with different missile-racks to split their damage between them and avoid overkill.
 - The AI will now shoot missiles at planets as soon as possible, missiles at ships as soon as possible when it has more than 2 remaining volleys and otherwise first come close enough to guarantee missiles will hit even if the opponent tries to dodge them.

@@ -513,7 +513,9 @@ public final class TechShipWeapon extends Tech {
        
 
         // BR: Add Shield effect
-        boolean showShield = options().newWeaponAnimation() && (dmg != 0);
+        boolean showShield = options().newWeaponAnimation()
+        					&& (dmg != 0)
+        					&& (target.shieldLevel()>0);
         
         Dimension shieldSize = showShield? target.shieldSize(boxW, boxH) : new Dimension(boxW, boxH);
         int xS = x1 - shieldSize.width/2;

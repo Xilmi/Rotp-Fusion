@@ -131,5 +131,5 @@ public class CombatStackSpaceAmoeba extends CombatStack {
         
         return actualDamage; 
     }
-    @Override public Color shieldBaseColor() { return Color.cyan; }
+    @Override public Color shieldBaseColor() { return Color.yellow; }
 }
