@@ -51,6 +51,10 @@ Later:
 ## What's New
 
 2023.09.11 (BR)
+- Character setting panel: Improved Ship drawing efficiency.
+  - Total refresh time improvement: ~10%
+
+2023.09.11 (BR)
 - Fixed shied effects showing when no shield.
 - Fixed mysterious systemView out of bound error.
 - Tuned Shield opacity.
