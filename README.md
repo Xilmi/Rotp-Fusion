@@ -38,6 +38,7 @@ Bug to fix:
 
 Very soon:
 - Character panel: improve the reactivity.
+- Display statistic as "% Linear; val Linear; % Log; val Log"
 - Some Achievements options.
 Later:
 - Smooth the Trade blocking option.
@@ -51,8 +52,9 @@ Later:
 ## What's New
 
 2023.09.11 (BR)
-- Character setting panel: Improved Ship drawing efficiency.
-  - Total refresh time improvement: ~10%
+- Character setting panel:
+  - Improved Ship drawing efficiency. Time improvement: ~10%
+  - Improved Buttons drawing efficiency. Time improvement: ~30%
 
 2023.09.11 (BR)
 - Fixed shied effects showing when no shield.
