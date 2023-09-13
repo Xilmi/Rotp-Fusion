@@ -38,7 +38,13 @@ Bug to fix:
 
 Very soon:
 - Character panel: improve the reactivity.
-- Display statistic as "% Linear; val Linear; % Log; val Log"
+- Add second statistic option: (on the side of lin / log): Display statistic as: 
+    - "% Tot": Precentage relative to known total (!= Galaxy Total)
+    - "% Player": Percentage relative to player value.
+    - "Value": The real value
+    - ("Auto"?): May be! a dynamic, parameter dependent choice.
+    - ("Individual choice"?): Probably not! individual choice for each parameter
+- statistic: improve help
 - Some Achievements options.
 Later:
 - Smooth the Trade blocking option.
@@ -46,15 +52,22 @@ Later:
 - Tech trading extended list.
 - Option to be used to force war declaration upon "Smart Resolve".
   - Check if at war and add a button if not!
-- Governor Auto-invasion ?!
+- Governor: Individual disable receive troops
+- Governor: Auto-invasion ?!
 
 
 ## What's New
 
-2023.09.11 (BR)
+2023.09.13 (BR)
 - Character setting panel:
-  - Improved Ship drawing efficiency. Time improvement: ~10%
-  - Improved Buttons drawing efficiency. Time improvement: ~30%
+  - Improved Big image display: Refresh time < 5 ms !!!
+  - Maximized rendering quality: Refresh time < 10 ms !!!
+  - Can be set to display only original species.
+
+2023.09.12 (BR)
+- Character setting panel: 4K Refresh = 150 ms
+  - Improved Ship drawing efficiency: Time improvement: 16 ms (~10%)
+  - Improved Buttons drawing efficiency: Time improvement: 45 ms (~30%)
 
 2023.09.11 (BR)
 - Fixed shied effects showing when no shield.

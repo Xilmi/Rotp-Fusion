@@ -229,11 +229,13 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         }
         return raceLeftBackground[opt()];
     }
-    public static LinearGradientPaint raceRightBackground() {
-        if (raceRightBackground == null) {
+    public static LinearGradientPaint raceRightBackground(int x) {
+//        if (raceRightBackground == null) {
             raceRightBackground = new LinearGradientPaint[2];
-            Point2D start = new Point2D.Float(RotPUI.scaledSize(815), 0);
-            Point2D end = new Point2D.Float(RotPUI.scaledSize(1040), 0); // modnar: extend right side gradient
+//            Point2D start = new Point2D.Float(RotPUI.scaledSize(815), 0);
+//            Point2D end = new Point2D.Float(RotPUI.scaledSize(1040), 0); // modnar: extend right side gradient
+            Point2D start = new Point2D.Float(x, 0); // BR adjustable for 10 or 16 species
+            Point2D end = new Point2D.Float(x + RotPUI.scaledSize(225), 0);
             float[] dist = {0.0f, 0.2f, 0.8f, 1.0f}; // modnar: adjust right side gradient
             Color edge0 = new Color(113,74,49);
             Color mid0 = new Color(188,123,81);
@@ -243,7 +245,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             Color mid1 = new Color(100,111,110);
             Color[] colors1 = {edge1, mid1, mid1, edge1 };
             raceRightBackground[1] = new LinearGradientPaint(start, end, dist, colors1);
-        }
+//        }
         return raceRightBackground[opt()];
     }
     public static LinearGradientPaint galaxySetupBackground() {
