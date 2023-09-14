@@ -2175,6 +2175,8 @@ SETTINGS_MOD_REPLAY_TURN_PACE_DESC       | To slow down the pace of History repl
 SETTINGS_MOD_REPLAY_TURN_PACE            | Replay pace: %1 x 100 ms
 
 
+SETTINGS_MOD_ORIGINAL_SPECIES_ONLY_DESC  | The character setting panel will only show the then original species (Yes).<br>The six new species will be shown too (No).
+SETTINGS_MOD_ORIGINAL_SPECIES_ONLY       | 10 Species only: %1
 SETTINGS_MOD_SHOW_ALT_ANIMATION_DESC     | Select between vanilla animations (No) or Zestyclose Art work (Yes).<br>(Younger Human diplomat)
 SETTINGS_MOD_SHOW_ALT_ANIMATION          | Alt Diplomat: %1
 SETTINGS_MOD_SHOW_FLEET_FACTOR_DESC      | To adjust the galaxy map fleets disappearance while zooming. Bigger factor means stay longer to the screen.

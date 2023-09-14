@@ -37,6 +37,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 Bug to fix:
 
 Very soon:
+- Improve responsivity of other options panels
 - Character panel: improve the reactivity.
 - Add second statistic option: (on the side of lin / log): Display statistic as: 
     - "% Tot": Precentage relative to known total (!= Galaxy Total)
@@ -52,8 +53,9 @@ Later:
 - Tech trading extended list.
 - Option to be used to force war declaration upon "Smart Resolve".
   - Check if at war and add a button if not!
-- Governor: Individual disable receive troops
 - Governor: Auto-invasion ?!
+- Governor: Individual disable receive troops
+  - The AI is bombing my world, killing 7 or so colonists per turn. Every turn, my healthy planets send colonists to 'help', which ALL get killed by the orbiting enemy fleet. I would like to be able to prevent this while still allowing transport between my other planets.
 
 
 ## What's New
@@ -63,6 +65,9 @@ Later:
   - Improved Big image display: Refresh time < 5 ms !!!
   - Maximized rendering quality: Refresh time < 10 ms !!!
   - Can be set to display only original species.
+    - Still available, but hidden.
+    - Added option setting in the main setting panel.
+- Cleaned the code from debug lines
 
 2023.09.12 (BR)
 - Character setting panel: 4K Refresh = 150 ms

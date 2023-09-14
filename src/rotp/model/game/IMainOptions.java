@@ -258,7 +258,7 @@ public interface IMainOptions extends IDebugOptions, IZoomOptions {
 			return val;
 		}
 	};
-	ParamBoolean originalSpeciesOnly	= new ParamBoolean(MOD_UI, "ORIGINAL_SPECIES_ONLY", true)
+	ParamBoolean originalSpeciesOnly	= new ParamBoolean(MOD_UI, "ORIGINAL_SPECIES_ONLY", false)
 	{	{ isCfgFile(true); } };
 	default boolean originalSpeciesOnly()	{ return originalSpeciesOnly.get(); }
 //	default boolean originalSpeciesOnly()	{ return true; }
@@ -272,7 +272,7 @@ public interface IMainOptions extends IDebugOptions, IZoomOptions {
 //					soundVolume, musicVolume, showMemory, backupTurns, saveDirectory, showAlternateAnimation,
 					soundVolume, musicVolume, backupTurns, saveDirectory, showAlternateAnimation,
 					null,
-					useFusionFont, galaxyPreviewColorStarsSize, raceStatusLog, disableAdvisor,
+					useFusionFont, galaxyPreviewColorStarsSize, raceStatusLog, disableAdvisor, originalSpeciesOnly,
 //					mapFontFactor, showNameMinFont, showInfoFontRatio, useFusionFont, galaxyPreviewColorStarsSize, raceStatusLog,
 					null,
 					minListSizePopUp, menuStartup, compactOptionOnly, debugOptionsUI, zoomOptionsUI

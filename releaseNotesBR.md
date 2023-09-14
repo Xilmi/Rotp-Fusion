@@ -1,6 +1,13 @@
 Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Updates since last announcement:</ins></b>
+- Character setting panel improved Refresh time
+  - On my 4K display it went from 150 ms to < 10 ms !!!
+  - Even been able to maximize image rendering quality.
+- Character setting panel can be set to display only original species.
+    - They are still available, but hidden.
+    - Option setting is located in the main setting panel.
+
 - Last Xilmi's AI missile update.
 - Added distinct weapon sounds.
 - Added new beam weapon animated shielding effects.

@@ -47,6 +47,7 @@ public interface IRaceOptions extends IBaseOptsTools {
 	// ==================== Race Menu addition ====================
 	//
 	ParamBoolean  noFogOnIcons	= new ParamBoolean( BASE_UI, "NO_FOG_ON_ICONS", false);
+	default boolean noFogOnIcons()	{ return noFogOnIcons.get(); }
    
 	PlayerShipSet playerShipSet		= new PlayerShipSet(
 			MOD_UI, "PLAYER_SHIP_SET");
