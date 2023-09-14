@@ -50,6 +50,9 @@ Later:
 
 ## What's New
 
+2023.09.15 (Xilmi)
+- Fixed a recently introduced bug that could prevent the AI from attacking with more than one weapon-bank.
+
 2023.09.11 (BR)
 - Fixed shied effects showing when no shield.
 - Fixed mysterious systemView out of bound error.
