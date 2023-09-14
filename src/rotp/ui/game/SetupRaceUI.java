@@ -41,6 +41,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import rotp.model.empires.Race;
+import rotp.model.game.IGameOptions;
 import rotp.model.game.IRaceOptions;
 import rotp.model.ships.ShipImage;
 import rotp.model.ships.ShipLibrary;
@@ -77,7 +78,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
     private int hLeftFrame = scaled(485);
 
     // Center Frame
-    private int xCtrFrame() { return xLeftFrame() + wLeftFrame(); };
+    private int xCtrFrame() { return xLeftFrame() + wLeftFrame() -s3; };
     private int yCtrFrame = scaled(103);
     private int wCtrFrame = scaled(395);
     private int hCtrFrame = scaled(499);
@@ -112,6 +113,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
     private Box	checkBox			 = new Box("SETUP_RACE_CHECK_BOX"); // BR: Player Race Customization
     private Box[] raceBox			 = new Box[MAX_RACES];
     private BufferedImage raceImg;
+    // static to share with SetupGalaxyUI
     private static BufferedImage raceIconImg; // For the little icon
     private static BufferedImage raceBackImg; // For race Mug
     private static BufferedImage[] racemugs = new BufferedImage[MAX_RACES];
@@ -123,7 +125,6 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
     private Box	leaderBox			= new Box("SETUP_RACE_LEADER");
     private JTextField homeWorld 	= new JTextField("");
     private Box	homeWorldBox		= new Box("SETUP_RACE_HOMEWORLD");
-    private Box	noFogBox			= new Box(noFogOnIcons);
     private Box[] colorBox			= new Box[MAX_COLORS];
 
     // Fleet Parameters
@@ -174,7 +175,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         initTextField(leaderName);
         initTextField(shipSetTxt); // BR:
     }
-    public void resetRaceMug() {
+    public static void resetRaceMug() {
     	for (int i=0;i<racemugs.length;i++)
     		racemugs[i] = null;
     }
@@ -504,26 +505,6 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 	        g.setStroke(stroke1);
 	        g.drawRoundRect(nextBox.x, nextBox.y, nextBox.width, nextBox.height, cnr, cnr);
     	}
-	
-        // BR: No Fog on Icons
-        if (hoverBox == noFogBox || all) {
-	        int noFogW = s16;
-	        int noFogX = playerRaceSettingBox.x + s5 ;
-	        int noFogY = playerRaceSettingBox.y - s15;
-	        noFogBox.setBounds(noFogX, noFogY-noFogW, noFogW, noFogW);
-	        g.setStroke(stroke3);
-			g.setColor(GameUI.setupFrame());
-	        g.fill(noFogBox);
-	        if (hoverBox == noFogBox) {
-	            g.setColor(Color.yellow);
-	            g.draw(noFogBox);
-	        }
-	        if (noFogOnIcons()) {
-	            g.setColor(SystemPanel.blackText);
-	            g.drawLine(noFogX-s1, noFogY-s8, noFogX+s4, noFogY-s4);
-	            g.drawLine(noFogX+s4, noFogY-s4, noFogX+noFogW, noFogY-s16);
-	        }
-		}
 	        
         // BR: Player Race Customization
         // far left button
@@ -834,11 +815,12 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         fleetBackImg = null;
         resetFleetImages();
     }
-    private void noFogBoxChanged() {
+    private void noFogChanged() {
+    	IGameOptions.noFogOnIcons.toggle();
     	resetRaceMug();
     	backImg = null;
         repaint();
-    }
+   }
     private void checkBoxChanged() { repaint(); }
     void raceChanged() {
         Race r   =  Race.keyed(newGameOptions().selectedPlayerRace());
@@ -1088,20 +1070,27 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 		int xM = xL + s90;
         int xR = xM + s95; // modnar: set column for new Races
 
-        float fog = noFogOnIcons()? 1.0f : 0.3f;
+        float fog = newGameOptions().noFogOnIcons()? 1.0f : 0.3f;
         Composite comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER , fog);
         
         for (int i=0; i<5; i++) {
         	int y = yLeftFrame + scaled(12 + i * 95);
-        	drawRaceBox(g, 2*i,   xL, y, comp);
-        	drawRaceBox(g, 1+2*i, xM, y, comp);
+        	int x = xL;
+        	int num = 2*i;
+        	BufferedImage mug = drawRaceBox(g, num, x, y, comp);
+            raceBox[num].setBounds(x, y, mug.getWidth(), mug.getHeight());
+            num++;
+            x = xM;
+        	mug = drawRaceBox(g, num, x, y, comp);
+            raceBox[num].setBounds(x, y, mug.getWidth(), mug.getHeight());
         }
-        if(!isOS())  // For modnar new Races
-            for (int i=0; i<6; i++) {
-            	int y = yLeftFrame + scaled(10 + i * 80);
-            	drawRaceBox(g, i+10,   xR, y, comp);
-            }
-        
+        for (int i=0; i<6; i++) { // For modnar new Races
+        	int y = yLeftFrame + scaled(10 + i * 80);
+        	int num = i+10;
+        	BufferedImage mug = drawRaceBox(g, num,   xR, y, comp);
+            raceBox[num].setBounds(xR, y, mug.getWidth(), mug.getHeight());
+        }
+
         // draw color buttons on right panel
         int xC = xColors();
         int yC = yColors;
@@ -1157,24 +1146,13 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 		xB = s20;
 		guideBox.setBounds(xB, yB, buttonW, buttonH);
 
-		// BR: No Fog on Icons
-		int noFogX = xLeftFrame();
-		int noFogY = yCtrFrame + hCtrFrame + s5;
-		String label = noFogOnIcons.getLabel();
-		sw = g.getFontMetrics().stringWidth(label);
-        g.setPaint(GameUI.buttonLeftBackground());
-        g.fillRect(noFogX, noFogY, sw + s40, s25);
-        g.setColor(GameUI.borderBrightColor());
-        g.setFont(labelFont);
-        g.drawString(label, noFogX + s30, noFogY + s19);
-		
 		// BR: Player Race Customization
         // far left button
         g.setFont(smallButtonFont);
         int smallButtonH = s30;
         int smallButtonW = g.getFontMetrics().stringWidth(text(customRaceKey)) + smallButtonMargin;
-        xB = noFogX;
-        yB = noFogY + s35;
+        xB = xLeftFrame();;
+        yB = yCtrFrame + hCtrFrame + s10;
         playerRaceSettingBox.setBounds(xB, yB, smallButtonW, smallButtonH);
         g.setPaint(GameUI.buttonLeftBackground());
         g.fillRoundRect(playerRaceSettingBox.x, playerRaceSettingBox.y, smallButtonW, smallButtonH, cnr, cnr);
@@ -1219,7 +1197,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 		if (showTiming)
 			System.out.println("initFleetBackImg() Time = " + (System.currentTimeMillis()-timeStart));
     }
-    private void drawRaceBox(Graphics2D g, int num, int x, int y, Composite comp) {
+    private BufferedImage drawRaceBox(Graphics2D g, int num, int x, int y, Composite comp) {
         if (racemugs[num] == null)
         	initRaceMugImg();
         BufferedImage mug = racemugs[num];
@@ -1230,6 +1208,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
             g.setComposite(comp);
         g.drawImage(mug, x, y, null);
         g.setComposite(prevC);
+        return mug;
     }
     private BufferedImage getShipImage(int shapeId) {
     	if (fleetImages[shapeId] != null)
@@ -1293,6 +1272,9 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
     	checkModifierKey(e);
     	int k = e.getKeyCode();
         switch(k) {
+	    	case KeyEvent.VK_F:
+	        	noFogChanged();
+	            return;
 	    	case KeyEvent.VK_R:
 	    		playerIsCustom.set(false);
 	        	newGameOptions().setRandomPlayerRace();
@@ -1402,10 +1384,6 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         // BR: Player Race customization
         else if (hoverBox == playerRaceSettingBox)
             goToPlayerRaceCustomization();
-        else if (hoverBox == noFogBox) {
-        	noFogOnIcons.toggle(e, this);
-            noFogBoxChanged();
-        }
         else if (hoverBox == checkBox) {
             playerIsCustom.toggle(e, this);
             checkBoxChanged();
@@ -1472,10 +1450,6 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         	playerShipSet.toggle(e);
         	shipSetChanged();
         	repaint();
-        }
-        else if (hoverBox == noFogBox) {
-        	noFogOnIcons.toggle(e);
-            noFogBoxChanged();
         }
         else if (hoverBox == checkBox) {
             playerIsCustom.toggle(e);

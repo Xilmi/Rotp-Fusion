@@ -1643,8 +1643,8 @@ SETUP_NOT_AVAILABLE               | N/A
 SETUP_ALIENS_NUMBER_DESC          | Select the number of opponents (between 0 an 49), which will be limited by your map size. Then select the setting for base AI (the default), the Modnar AI (a stronger AI that retains a sense of personality sometimes at the expense of efficiency), the Xilmi AI (a ruthless AI that prioritizes efficiency), or individual settings for each opponent. 
 SETUP_ALIENS_NUMBER               | Select Opponents Number.
 
-SETUP_NO_FOG_ON_ICONS             | Remove fog from diplomat icons
-SETUP_NO_FOG_ON_ICONS_DESC        | Remove the fog hiding the diplomat icons above.
+SETUP_NO_FOG_ON_ICONS             | Remove diplomat fog: %1
+SETUP_NO_FOG_ON_ICONS_DESC        | Remove the fog hiding the diplomat icons in the Character settings panel and in the Galaxy settings panel.
 
 
 // BR: config Player Race
@@ -3804,7 +3804,7 @@ HK_SHIFT_F1   | <br>SHIFT+F1 : Show Hotkeys List (This)
 HK_F1         | <br>F1 : Show Help.
 HK_F1_?       | <br>F1, ? : Show Help.
 HK_ESCAPE     | <br>Escape : Exit this panel.
-HK_F          | <br>F : Toggle Flag Color.
+HK_FLAG       | <br>F : Toggle Flag Color.
 HK_HOME       | <br>Home : Set Auto-Flag Color.
 HK_ALT_HOME   | <br>ALT-Home : Set Auto-Flag Color to all scouted systems.
 HK_B_SHIFT_B  | <br>B/SHIFT-B : Increment/Decrement Max Bases.
@@ -3813,15 +3813,16 @@ HK_CTRL_1_5   | <br>CTRL+1-5 : Lock sliders.
 HK_MAP_ARROWS | <br>Arrows : Move Map.
 HK_MAP_ZOOM   | <br>+/- : Zoom Map. ("ALT-" : Full view of the galaxy) <br>Mousewheel : Zoom Map.
 HK_TAB        | <br>Tab/+SHIFT : Next/Previous Tab.
-HK_Y          | <br>Y : Toggle Year Display.
+HK_YEAR       | <br>Y : Toggle Year Display.
 
-HK_G          | <br>G : Toggle Guide.
+HK_FOG        | <br>F : Show / Hide Fog on Diplomat Icons. 
+HK_GUIDE      | <br>G : Toggle Guide.
 
 
 // Shortcuts Full lists
-MAIN_HELP_HK         | →HK_HEADER← →HK_F1_?←<br>F2/F3 : Next/Previous player colony<br>F5/F6 : Next/Previous player colony that has constructed a ship this turn<br>F7/F8 : Next/Previous player colony with incoming armed enemy fleets or transports<br>F9/F10 : Next/Previous player fleet<br>F11/F12 : Next/Previous AI fleet<br>Space/PageDown/PageUp : Next/Previous player Idle fleet<br><br>G : Select Game Panel<br>S : Select System Panel<br>F : Select Fleet Panel<br>D : Select Design Panel<br>R, E : Select Empire Panel<br>C : Select Colonies Panel<br>T : Select Tech Panel<br>N : Next Turn<br>O : Select Option Panel →HK_Y←<br>SHIFT-S : Show spy report<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Mousewheel : Increment quantities/moves slider<br>→HK_ESCAPE←
+MAIN_HELP_HK         | →HK_HEADER← →HK_F1_?←<br>F2/F3 : Next/Previous player colony<br>F5/F6 : Next/Previous player colony that has constructed a ship this turn<br>F7/F8 : Next/Previous player colony with incoming armed enemy fleets or transports<br>F9/F10 : Next/Previous player fleet<br>F11/F12 : Next/Previous AI fleet<br>Space/PageDown/PageUp : Next/Previous player Idle fleet<br><br>G : Select Game Panel<br>S : Select System Panel<br>F : Select Fleet Panel<br>D : Select Design Panel<br>R, E : Select Empire Panel<br>C : Select Colonies Panel<br>T : Select Tech Panel<br>N : Next Turn<br>O : Select Option Panel →HK_YEAR←<br>SHIFT-S : Show spy report<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Mousewheel : Increment quantities/moves slider<br>→HK_ESCAPE←
 
-PLANETS_HELP_HK      | →HK_HEADER← →HK_F1←<br><br>Arrows Up/Down : Scroll Up/Down<br>Arrows Right/Left : Next/Previous Colony. →HK_TAB← →HK_F← →HK_HOME←<br> →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5←<br><br>CTRL+A : Select All Systems<br>Q/+CTRL : Select Normal And Rich With Full Economy / + Set Ship spending to 100%<br>Y,Z/+CTRL : Select Lacking Population / + Set Eco spending to 100%<br><br>S/+CTRL/+SHIFT : Current Selection Ship Spending to 100% / Lock / Unlock<br>D/+CTRL/+SHIFT : Current Selection Defense Spending to 100% / Lock / Unlock<br>W/+CTRL/+SHIFT : Current Selection Industry Spending to 100% / Lock / Unlock<br>E/+CTRL/+SHIFT : Current Selection Ecology Spending to 100% / Lock / Unlock<br>R/+CTRL/+SHIFT : Current Selection Research Spending to 100% / Lock / Unlock<br>G/+CTRL/+SHIFT : Current Selection Governor Toggle / On / Off <br>→HK_ESCAPE←
+PLANETS_HELP_HK      | →HK_HEADER← →HK_F1←<br><br>Arrows Up/Down : Scroll Up/Down<br>Arrows Right/Left : Next/Previous Colony. →HK_TAB← →HK_FLAG← →HK_HOME←<br> →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5←<br><br>CTRL+A : Select All Systems<br>Q/+CTRL : Select Normal And Rich With Full Economy / + Set Ship spending to 100%<br>Y,Z/+CTRL : Select Lacking Population / + Set Eco spending to 100%<br><br>S/+CTRL/+SHIFT : Current Selection Ship Spending to 100% / Lock / Unlock<br>D/+CTRL/+SHIFT : Current Selection Defense Spending to 100% / Lock / Unlock<br>W/+CTRL/+SHIFT : Current Selection Industry Spending to 100% / Lock / Unlock<br>E/+CTRL/+SHIFT : Current Selection Ecology Spending to 100% / Lock / Unlock<br>R/+CTRL/+SHIFT : Current Selection Research Spending to 100% / Lock / Unlock<br>G/+CTRL/+SHIFT : Current Selection Governor Toggle / On / Off <br>→HK_ESCAPE←
 
 FLEETS_HELP_HK       | →HK_HEADER← →HK_F1_?← <br>→HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>→HK_ESCAPE←
 
@@ -3831,10 +3832,10 @@ SHIP_DESIGN_HELP_HK  | →HK_HEADER← →HK_F1_?← <br><br>Arrows Down/Up : Ne
 
 RACES_HELP_HK        | →HK_HEADER← →HK_F1← <br><br>Arrows Down/Up : Next/Previous Empire. →HK_TAB←<br><br>A : Select Embassy Panel.<br>D : Select Diplomat Panel.<br>S : Select Spies Panel. <br>→HK_ESCAPE←
 
-SYSTEMS_HELP_HK      | →HK_HEADER← →HK_F1_?← <br>→HK_MAP_ARROWS← →HK_MAP_ZOOM← <br> →HK_Y← →HK_F← →HK_HOME← →HK_ALT_HOME← <br>→HK_ESCAPE←
+SYSTEMS_HELP_HK      | →HK_HEADER← →HK_F1_?← <br>→HK_MAP_ARROWS← →HK_MAP_ZOOM← <br> →HK_YEAR← →HK_FLAG← →HK_HOME← →HK_ALT_HOME← <br>→HK_ESCAPE←
 
-SETUP_GALAXY_HELP_HK | →HK_HEADER← →HK_F1← →HK_G← <br><br>M : Go to Main Menu.<br>Enter : Start a new Game. <br><br>Escape : Go to Player Setup Panel.
+SETUP_GALAXY_HELP_HK | →HK_HEADER← →HK_F1← →HK_GUIDE← <br> →HK_FOG← <br>M : Go to Main Menu.<br>Enter : Start a new Game. <br><br>Escape : Go to Player Setup Panel.
 
-SETUP_RACE_HELP_HK   | →HK_HEADER← →HK_F1← →HK_G← <br><br>R : Random Species. <br>Enter : Go to Galaxy Setup Panel. <br><br>Escape : Go to Main Menu.
+SETUP_RACE_HELP_HK   | →HK_HEADER← →HK_F1← →HK_GUIDE← <br> →HK_FOG← <br>R : Random Species. <br>Enter : Go to Galaxy Setup Panel. <br><br>Escape : Go to Main Menu.
 
-MOD_OPTIONS_HELP_HK  | <b><u>HOTKEYS:</u></b> →HK_SHIFT_F1← <br>F1 : Show contextual Help. →HK_G← <br>→HK_ESCAPE←
+MOD_OPTIONS_HELP_HK  | <b><u>HOTKEYS:</u></b> →HK_SHIFT_F1← <br>F1 : Show contextual Help. →HK_GUIDE← <br>→HK_ESCAPE←

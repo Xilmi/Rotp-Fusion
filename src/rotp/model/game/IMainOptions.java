@@ -261,7 +261,11 @@ public interface IMainOptions extends IDebugOptions, IZoomOptions {
 	ParamBoolean originalSpeciesOnly	= new ParamBoolean(MOD_UI, "ORIGINAL_SPECIES_ONLY", false)
 	{	{ isCfgFile(true); } };
 	default boolean originalSpeciesOnly()	{ return originalSpeciesOnly.get(); }
-//	default boolean originalSpeciesOnly()	{ return true; }
+
+	ParamBoolean  noFogOnIcons	= new ParamBoolean( BASE_UI, "NO_FOG_ON_ICONS", false)
+	{	{ isCfgFile(true); } };
+	default boolean noFogOnIcons()	{ return noFogOnIcons.get(); }
+
 
 	// ==================== GUI List Declarations ====================
 	//
@@ -270,7 +274,7 @@ public interface IMainOptions extends IDebugOptions, IZoomOptions {
 					displayMode, graphicsMode, texturesMode, sensitivityMode, selectedScreen,
 					null,
 //					soundVolume, musicVolume, showMemory, backupTurns, saveDirectory, showAlternateAnimation,
-					soundVolume, musicVolume, backupTurns, saveDirectory, showAlternateAnimation,
+					soundVolume, musicVolume, backupTurns, saveDirectory, showAlternateAnimation, noFogOnIcons,
 					null,
 					useFusionFont, galaxyPreviewColorStarsSize, raceStatusLog, disableAdvisor, originalSpeciesOnly,
 //					mapFontFactor, showNameMinFont, showInfoFontRatio, useFusionFont, galaxyPreviewColorStarsSize, raceStatusLog,

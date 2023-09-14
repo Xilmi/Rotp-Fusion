@@ -353,6 +353,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
     public static ParamList opponentAI() { return instance.opponentAI; }
     private static int mouseBoxIndex() { return instance.hoverBox.mouseBoxIndex(); }
 
+    // Debug Parameter
+    private static boolean showTiming = false;
+
  	private Font boxMonoFont() {
     	if (boxMonoFont == null)
     		boxMonoFont = galaxyFont(scaled(boxMonoFontSize));
@@ -1094,6 +1097,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	}
 	@Override
 	public void paintComponent(Graphics g0) {
+//		System.out.println("===== PaintComponents =====");
+//		showTiming = true;
+		long timeStart = System.currentTimeMillis();
 		super.paintComponent(g0);
 		Graphics2D g = (Graphics2D) g0;
 		// modnar: use (slightly) better upsampling
@@ -1139,7 +1145,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		int spaceW = mugW+(((boxW-s60)-(numCols*mugW))/(numCols-1));
 		int spaceH = smallImages ? mugH+s10 : mugH+s15;
 		// draw opponent boxes
-		Composite raceComp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER , 0.5f);
+        float fog = newGameOptions().noFogOnIcons()? 1.0f : 0.5f;
+        Composite raceComp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER , fog);
 		Composite prevComp = g.getComposite();
 		Stroke prevStroke = g.getStroke();
 		Color borderC = GameUI.setupFrame();
@@ -1201,6 +1208,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			g.drawRect(x2, y2, mugW, mugH);
 			g.setStroke(prevStroke);
 
+			if (showTiming)
+				System.out.println("paintComponent() Time = " + (System.currentTimeMillis()-timeStart));
 		}
 
 		// draw galaxy
@@ -2685,6 +2694,14 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		g.fillRect(0, 0, w, h);
 		g.dispose();
 	}
+    private void noFogChanged() {
+    	IGameOptions.noFogOnIcons.toggle();
+    	SetupRaceUI.resetRaceMug();
+    	playerRaceImg = null;
+    	smBackImg     = null;
+//    	backImg = null;
+        repaint();
+   }
 	@Override public String ambienceSoundKey()		{ return GameUI.AMBIENCE_KEY; }
 	@Override public void keyPressed(KeyEvent e)	{
 		super.keyPressed(e);
@@ -2695,6 +2712,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		case KeyEvent.VK_ENTER:
 			doStartBoxAction();
 			return;
+    	case KeyEvent.VK_F:
+            noFogChanged();
+            return;
 		case KeyEvent.VK_M: // BR: "M" = Go to Main Menu
 			goToMainMenu();
 			return;

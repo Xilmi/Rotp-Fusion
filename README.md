@@ -60,6 +60,13 @@ Later:
 
 ## What's New
 
+2023.09.14 (BR)
+- Moved "No Fog on Icon to Main Options Settings"
+  - Removed CheckBox from SetupRaceUI.
+  - SetupRaceUI Toggle FOG KEY = "F"
+  - SetupGalaxyUI Follow No Fog on Icon choice.
+  - SetupGalaxyUI Toggle FOG KEY = "F"
+
 2023.09.13 (BR)
 - Character setting panel:
   - Improved Big image display: Refresh time < 5 ms !!!

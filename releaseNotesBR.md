@@ -7,6 +7,12 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Character setting panel can be set to display only original species.
     - They are still available, but hidden.
     - Option setting is located in the main setting panel.
+- Moved "No Fog on Diplomat Icons" to Main Options Settings
+  - Removed CheckBox from Character setting panel.
+  - Character setting panel Toggle FOG KEY = "F"
+  - Galaxy setting panel Follow the "No Fog on Diplomat Icons" choice.
+  - Galaxy setting panel Toggle FOG KEY = "F"
+
 
 - Last Xilmi's AI missile update.
 - Added distinct weapon sounds.
