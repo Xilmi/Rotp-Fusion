@@ -508,7 +508,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
                 if(!stack.ignoreRepulsors() && stack.maxFiringRange(target) <= target.repulsorRange() && stack.movePointsTo(target) > 1)
                     desirability = -1;
                 if (desirability > maxDesirability && valueMod > 0) {  // this might be a better target, adjust desirability for pathing
-                    if (stack.mgr.autoResolve) {
+                    if (stack.mgr.autoResolve || onlyInAttackRange) {
                         bestTarget = target;
                         maxDesirability = desirability;
                     }
