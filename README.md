@@ -39,7 +39,7 @@ Bug to fix:
 Very soon:
 - Improve responsivity of other options panels
 - Character panel: improve the reactivity.
-- Add second statistic option: (on the side of lin / log): Display statistic as: 
+- Add second statistic option: (on the side of lin / log): Display statistic as:
     - "% Tot": Precentage relative to known total (!= Galaxy Total)
     - "% Player": Percentage relative to player value.
     - "Value": The real value
@@ -59,6 +59,9 @@ Later:
 
 
 ## What's New
+
+2023.09.15 (Xilmi)
+- Fixed a recently introduced bug that could prevent the AI from attacking with more than one weapon-bank.
 
 2023.09.14 (BR)
 - Moved "No Fog on Icon to Main Options Settings"
