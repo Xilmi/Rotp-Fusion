@@ -271,7 +271,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	@Override protected String raceAIButtonTxt() { return ""; }
 	@Override protected void paintButtons(Graphics2D g) {
 		int cnr = s5;
-		g.setFont(smallButtonFont);
+		g.setFont(smallButtonFont());
 
 		// Exit Button
 		String text = text(exitButtonKey());

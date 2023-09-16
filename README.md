@@ -38,6 +38,7 @@ Bug to fix:
 
 Very soon:
 - Improve responsivity of other options panels
+- Add shield fading...
 - Character panel: improve the reactivity.
 - Add second statistic option: (on the side of lin / log): Display statistic as:
     - "% Tot": Precentage relative to known total (!= Galaxy Total)
@@ -59,6 +60,16 @@ Later:
 
 
 ## What's New
+
+2023.09.14 (BR)
+- Moved button background managment to BaseModPanel.
+- SetupGalaxyUI optimization:
+  - Buttons display back Image.
+  - Opponents Mugs back Images:
+  - 4K, 49 opponents, Global AI and abilities: <10 ms
+  - 4K, 49 opponents, Custom AI and abilities: ~30 ms; Text display :-(
+  - 4K, 5 opponents, Global AI and abilities: ~3 ms
+  - 4K, 5 opponents, Custom AI and abilities: ~3 ms;
 
 2023.09.15 (Xilmi)
 - Fixed a recently introduced bug that could prevent the AI from attacking with more than one weapon-bank.

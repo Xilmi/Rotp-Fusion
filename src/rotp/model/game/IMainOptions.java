@@ -254,7 +254,7 @@ public interface IMainOptions extends IDebugOptions, IZoomOptions {
 		{ isCfgFile(true); }
 		@Override public Boolean set(Boolean val) {
 			super.set(val);
-			RotPUI.setupRaceUI().resetRaceMug();
+			// RotPUI.setupRaceUI().resetRaceMug(); // TODO BR: Delete
 			return val;
 		}
 	};

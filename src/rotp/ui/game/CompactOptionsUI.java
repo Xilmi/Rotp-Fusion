@@ -167,7 +167,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		exitBox.setBounds(w-scaled(189)-rightM, yButton, smallButtonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(exitBox.x, exitBox.y, smallButtonW, smallButtonH, cnr, cnr);
-		g.setFont(smallButtonFont);
+		g.setFont(smallButtonFont());
 		String text = text(exitButtonKey());
 		int sw = g.getFontMetrics().stringWidth(text);
 		int x = exitBox.x+((exitBox.width-sw)/2);
@@ -185,7 +185,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		defaultBox.setBounds(exitBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(defaultBox.x, defaultBox.y, smallButtonW, smallButtonH, cnr, cnr);
-		g.setFont(smallButtonFont);
+		g.setFont(smallButtonFont());
 		x = defaultBox.x+((defaultBox.width-sw)/2);
 		y = defaultBox.y+defaultBox.height-s8;
 		c = hoverBox == defaultBox ? Color.yellow : GameUI.borderBrightColor();
@@ -201,7 +201,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		lastBox.setBounds(defaultBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(lastBox.x, lastBox.y, smallButtonW, smallButtonH, cnr, cnr);
-		g.setFont(smallButtonFont);
+		g.setFont(smallButtonFont());
 		x = lastBox.x+((lastBox.width-sw)/2);
 		y = lastBox.y+lastBox.height-s8;
 		c = hoverBox == lastBox ? Color.yellow : GameUI.borderBrightColor();
@@ -217,7 +217,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		userBox.setBounds(lastBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(userBox.x, userBox.y, smallButtonW, smallButtonH, cnr, cnr);
-		g.setFont(smallButtonFont);
+		g.setFont(smallButtonFont());
 		x = userBox.x+((userBox.width-sw)/2);
 		y = userBox.y+userBox.height-s8;
 		c = hoverBox == userBox ? Color.yellow : GameUI.borderBrightColor();
@@ -233,7 +233,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		guideBox.setBounds(leftM+s9, yButton, smallButtonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(guideBox.x, guideBox.y, smallButtonW, smallButtonH, cnr, cnr);
-		g.setFont(smallButtonFont);
+		g.setFont(smallButtonFont());
 		x = guideBox.x+((guideBox.width-sw)/2);
 		y = guideBox.y+guideBox.height-s8;
 		c = hoverBox == guideBox ? Color.yellow : GameUI.borderBrightColor();

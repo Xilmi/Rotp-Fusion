@@ -15,6 +15,7 @@
  */
 package rotp.ui.game;
 
+import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static rotp.model.empires.CustomRaceDefinitions.BASE_RACE_MARKER;
 import static rotp.model.empires.CustomRaceDefinitions.fileToAlienRace;
 import static rotp.model.empires.CustomRaceDefinitions.getAllowedAlienRaces;
@@ -60,14 +61,12 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Point;
 import java.awt.Polygon;
-import java.awt.RadialGradientPaint;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -114,6 +113,7 @@ import rotp.ui.util.ListDialog;
 import rotp.ui.util.ParamButtonHelp;
 import rotp.ui.util.ParamList;
 import rotp.ui.util.SpecificCROption;
+import rotp.util.FontManager;
 import rotp.util.ModifierKeysState;
 
 public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelListener {
@@ -130,21 +130,22 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private static final String SPECIFIC_ABILITY = "SETUP_SPECIFIC_ABILITY";
 	private static final String GLOBAL_ABILITIES = "SETUP_GLOBAL_ABILITY";
 	private static final String OPPONENT_RANDOM	 = "SETUP_OPPONENT_RANDOM";
+ 	private static final int    buttonFont		= 30;
+	private	static final Font   bigButtonFont	= FontManager.current().narrowFont(buttonFont);
 	public  static final int	MAX_DISPLAY_OPPS = 49;
 	private static String opponentRandom = "???";
 	private static SetupGalaxyUI instance;
     private final Color darkBrownC = new Color(112,85,68);
 	private final Color darkYellow = new Color(223, 223, 0);
-	private BufferedImage backImg, playerRaceImg;
-	private BufferedImage smBackImg;
-    private int bSep = s15;
 
-	private static final ParamButtonHelp startButtonHelp = new ParamButtonHelp( // For Help Do not add the list
+	@Override protected ParamButtonHelp newExitButton() {
+		return new ParamButtonHelp(
 			"SETUP_START",
 			START_KEY,
 			"",
 			RESTART_KEY,
-			"");
+			RESTART_KEY);
+	}
 	private final ParamList opponentAI			= new ParamList( // For Guide
 			BASE_UI, "OPPONENT_AI",
 			IGameOptions.globalAIset().getAliens(),
@@ -291,10 +292,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private Box modDynamicBBox		= new Box("SETUP_GALAXY_CLASSIC_OPTIONS"); // BR add UI panel for MOD game options
 	private Box globalModSettingsBox= new Box("SETUP_GALAXY_CLASSIC_OPTIONS"); // BR add UI panel for MOD game options
 	private Box	settingsBox			= new Box("SETUP_GALAXY_CLASSIC_OPTIONS");
-	private Box	helpBox   			= new Box("SETTINGS_BUTTON_HELP");
 	private Box	backBox				= new Box("SETUP_GALAXY_BACK");
 	private Box	galaxyBox			= new Box("SETUP_GALAXY_PREVIEW");
-	private Box	startBox;
 	private Box	newRacesBox			= new Box("SETUP_GALAXY_RACE_LIST"); // BR:
 	private Box	showAbilitiesBox; // BR:
 	private Box		shapeBox;
@@ -348,13 +347,44 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
     
     private int  galaxyGrid  = 10;
     private boolean showGrid = false;
+    
+    private int wSmallMug	= s54;
+    private int hSmallMug 	= s58;
+    private int rShSmallMug	= s56;
 
-    public static ParamList specificAI() { return instance.specificAI; }
-    public static ParamList opponentAI() { return instance.opponentAI; }
-    private static int mouseBoxIndex() { return instance.hoverBox.mouseBoxIndex(); }
+    private int wBigMug		= s76;
+    private int hBigMug		= s82;
+    private int rShBigMug	= s78;
+
+	private BufferedImage backImg, playerMug;
+	private BufferedImage smallBackMug;
+	private BufferedImage bigBackMug;
+	private BufferedImage smallNullMug;
+	private BufferedImage bigNullMug;
+
+    // Local copy of the good sized race Mug, to avoid depending SetupRaceUI
+    private BufferedImage[] bigOppMugs;
+    private BufferedImage[] smallOppMugs;
+    
+    // Buttons Parameters
+    private int buttonSep	= s15;
+    private Box	helpBox		= new Box("SETTINGS_BUTTON_HELP");
+	@Override protected Font bigButtonFont() { return bigButtonFont; }
+	@Override protected void setBigButtonGraphics(Graphics2D g)	{
+		g.setFont(bigButtonFont());
+		g.setPaint(GameUI.buttonRightBackground());
+	}
+	@Override protected void setSmallButtonGraphics(Graphics2D g) {
+		g.setFont(smallButtonFont());
+		g.setPaint(GameUI.buttonLeftBackground());
+	}
 
     // Debug Parameter
     private static boolean showTiming = false;
+    
+    public static ParamList specificAI() { return instance.specificAI; }
+    public static ParamList opponentAI() { return instance.opponentAI; }
+    private static int mouseBoxIndex() { return instance.hoverBox.mouseBoxIndex(); }
 
  	private Font boxMonoFont() {
     	if (boxMonoFont == null)
@@ -403,10 +433,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		globalAbilities.reInit(globalAbilitiesList);
 		globalAbilitiesArray = globalAbilitiesList.toArray(new String[globalAbilitiesList.size()]);
 	}
-
-
 	@Override protected void singleInit() {
-		startBox			= new Box(startButtonHelp);
+		//startBox			= new Box(startButtonHelp);
 		showAbilitiesBox	= new Box(useSelectableAbilities);
 		shapeBox			= new Box(shapeSelection);
 		mapOption1Box		= new Box(shapeOption1);
@@ -417,8 +445,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		diffBox				= new Box(difficultySelection);
 		wysiwygBox			= new Box(galaxyRandSource);
 		oppBox				= new Box(aliensNumber);
-		
-		
 		
 		paramList = optionsGalaxy;
 		for (int i=0;i<oppSet.length;i++)
@@ -439,7 +465,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		super.init();
 		boxMonoFont    = null;
 		dialogMonoFont = null;
-		playerRaceImg  = null;
+		playerMug  = null;
         initAIandAbilitiesList();
         guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
 		refreshGui();
@@ -447,17 +473,153 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	@Override protected String GUI_ID() { return GUI_ID; }
 	@Override public void refreshGui() {
         guiOptions().setAndGenerateGalaxy();
+        clearMugs();
         backImg = null;
         repaint();
 	}
-	@Override protected void close() {
-		super.close();
-		backImg = null;
-		playerRaceImg  = null;
-		boxMonoFont    = null;
-		dialogMonoFont = null;
-		galaxyTextArray = null;
+	@Override protected void clearImages() {
+        backImg			= null;
+		boxMonoFont		= null;
+		dialogMonoFont	= null;
+		galaxyTextArray	= null;
+	    buttonBackImg	= null;
+      	clearMugs();
+    }
+    private void clearMugs() {
+    	playerMug		= null;
+    	smallBackMug	= null;
+		bigBackMug		= null;
+		smallNullMug	= null;
+		bigNullMug		= null;
+		smallOppMugs	= null;
+		bigOppMugs		= null;
+   }
+    private void noFogChanged() {
+    	IGameOptions.noFogOnIcons.toggle();
+    	clearMugs();
+        repaint();
+   }   
+    private BufferedImage getMug(BufferedImage diplo, BufferedImage back) {
+    	int bw = back.getWidth();
+    	int bh = back.getHeight();
+    	int dw = diplo.getWidth();
+    	int dh = diplo.getHeight();
+		BufferedImage mug = new BufferedImage(bw, bh, TYPE_INT_ARGB);
+		Graphics2D g = (Graphics2D) mug.getGraphics();
+
+		float fog = newGameOptions().noFogOnIcons()? 1.0f : 0.5f;
+        Composite raceComp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER , fog);
+		g.setComposite(raceComp);
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+		g.drawImage(back, 0, 0, bw, bh, null);
+		g.drawImage(diplo, 0, 0, bw, bh, 0, 0, dw, dh, null);
+		g.dispose();
+		return mug;
+    }
+    private BufferedImage smallOppMug(int num) {
+        if (smallOppMugs == null)
+        	initOppMugs();
+        return smallOppMugs[num];
+    }
+    private BufferedImage bigOppMug(int num) {
+        if (bigOppMugs == null)
+        	initOppMugs();
+        return bigOppMugs[num];
+    }
+    private BufferedImage oppMug(int num, boolean small) { return small? smallOppMug(num) : bigOppMug(num); }
+     // TODO BR: !!! Here
+    private void updateOppMugs(int i) {
+    	if (smallOppMugs == null) {
+    		initOppMugs();
+    		return;
+    	}
+		String selOpp = newGameOptions().selectedOpponentRace(i);
+		if (selOpp == null) {
+    		smallOppMugs[i] = smallNullMug();
+    		bigOppMugs[i]   = bigNullMug();
+		} else {
+    		BufferedImage diplo = Race.keyed(selOpp).diploMugshotQuiet();
+    		smallOppMugs[i] = getMug(diplo, smallBackMug());
+    		bigOppMugs[i]   = getMug(diplo, bigBackMug());
+		}
+    }
+    private void initOppMugs() {
+    	smallOppMugs = new BufferedImage[MAX_DISPLAY_OPPS];
+    	bigOppMugs   = new BufferedImage[MAX_DISPLAY_OPPS];
+    	for (int i=0; i<MAX_DISPLAY_OPPS; i++)
+    		updateOppMugs(i);
+    }
+	
+//    private BufferedImage bigMug(int num) {
+//        if (bigMugs == null)
+//        	initMugs();
+//        return bigMugs[num];
+//    }
+//    private BufferedImage smallMug(int num) {
+//        if (smallMugs == null)
+//        	initMugs();
+//        return smallMugs[num];
+//    }
+//    private void initMugs() {
+//    	int n = newGameOptions().numberSpecies();
+//    	smallMugs = newGameOptions().getMugImgArray(wSmallMug, hSmallMug, rShSmallMug, n);
+//    	bigMugs   = newGameOptions().getMugImgArray(wBigMug,   hBigMug,   rShBigMug,   n);
+//    }
+	private BufferedImage smallBackMug() {
+		if (smallBackMug == null)
+			initBackMugs();
+		return smallBackMug;
 	}
+	private BufferedImage bigBackMug() {
+		if (bigBackMug == null)
+			initBackMugs();
+		return bigBackMug;
+	}
+    private BufferedImage backMug(boolean small) { return small? smallBackMug() : bigBackMug(); }
+	private BufferedImage smallNullMug() {
+		if (smallNullMug == null)
+			initBackMugs();
+		return smallNullMug;
+	}
+	private BufferedImage bigNullMug() {
+    	System.out.println("BufferedImage bigBackMug()");
+		if (bigNullMug == null)
+			initBackMugs();
+		return bigNullMug;
+	}
+	private void initBackMugs() {
+		smallBackMug = newGameOptions().getMugBackImg(wSmallMug, hSmallMug, rShSmallMug);
+		bigBackMug   = newGameOptions().getMugBackImg(wBigMug,   hBigMug,   rShBigMug);
+		String label = text("SETUP_OPPONENT_RANDOM");
+		smallNullMug = getNullMug(label, true);
+		bigNullMug   = getNullMug(label, false);
+	}
+    private BufferedImage getNullMug(String label, boolean smallImages) {
+    	BufferedImage back = backMug(smallImages);
+    	int bw = back.getWidth();
+    	int bh = back.getHeight();
+    	BufferedImage mug = new BufferedImage(bw, bh, TYPE_INT_ARGB);
+		Graphics2D g = (Graphics2D) mug.getGraphics();
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+		g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+		g.drawImage(back, 0, 0, null);
+		g.setFont(narrowFont(30));
+		g.setColor(Color.black);
+    	int randSW = g.getFontMetrics().stringWidth(label);
+    	int x = ((bw - randSW)/2);
+		int y = smallImages ? bh-s20 : bh-s31;
+		drawString(g, label, x, y);
+		g.dispose();
+		return mug;
+    }
+//	@Override protected void close() { super.close(); }
 	@Override public void showHelp() {
 		loadHelpUI();
 		repaint();   
@@ -577,7 +739,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		// Big buttons, bottom up
 
 		// Start button; right Galaxy
-		dest = startBox;
+		dest = exitBox;
 		txt  = dest.getHelp();
 		nL   = 11;
 		wBox = scaled(300);
@@ -688,7 +850,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 
 		helpUI.open(this);
 	}
-	private void doStartBoxAction() {
+    @Override protected void doExitBoxAction() { doStartBoxAction(); }
+    private void doStartBoxAction() {
 		buttonClick();
 		switch (ModifierKeysState.get()) {
 		case CTRL:
@@ -722,15 +885,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			// return restoreKey;
 		default:
 			return BACK_KEY;
-		}
-	}
-	private static String startButtonKey() {
-		switch (ModifierKeysState.get()) {
-		case CTRL:
-		case CTRL_SHIFT:
-			return RESTART_KEY;
-		default:
-			return START_KEY;
 		}
 	}
 	private int currentSpecificAbilityIndex(String s) {
@@ -1095,14 +1249,17 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	    globalCROptions.set(input);
 	    return input;
 	}
-	@Override
-	public void paintComponent(Graphics g0) {
-//		System.out.println("===== PaintComponents =====");
-//		showTiming = true;
+	@Override public void paintComponent(Graphics g0) {
+		System.out.println("===== PaintComponents =====");
+		showTiming = true;
 		long timeStart = System.currentTimeMillis();
+		long timeMid;
 		super.paintComponent(g0);
 		Graphics2D g = (Graphics2D) g0;
 		// modnar: use (slightly) better upsampling
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+        g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
 		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 		int w = getWidth();
@@ -1117,15 +1274,16 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		// background image
 		g.drawImage(backImg(), 0, 0, w, h, this);
 
+		// Buttons background image
+        g.drawImage(buttonBackImg(), xButton, yButton, null);
+
 		// draw number of opponents
 		int maxOpp = newGameOptions().maximumOpponentsOptions();
 		int numOpp = newGameOptions().selectedNumberOpponents();
 		
 		boolean smallImages = maxOpp > 25;
-		BufferedImage mugBack = smallImages ? smallRaceBackImg() : SetupRaceUI.raceBackImg();
-		int mugW = mugBack.getWidth();
-		int mugH = mugBack.getHeight();
-
+		int mugW = smallImages? wSmallMug : wBigMug;
+		int mugH = smallImages? hSmallMug : hBigMug;
 		g.setFont(narrowFont(30));
 		g.setColor(Color.black);
 		String oppStr =str(numOpp);
@@ -1134,8 +1292,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		int y0 = oppBox.y + oppBox.height -s5;
 		drawString(g,oppStr, x0, y0);
 
-		String randomOppLbl = text("SETUP_OPPONENT_RANDOM");
-		int randSW = g.getFontMetrics().stringWidth(randomOppLbl);
 		int numRows = smallImages ? 7 : 5;
 		int numCols = smallImages ? 7 : 5;
 		int fSize	= smallImages ? 12 : 15;
@@ -1144,10 +1300,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		int boundH	= smallImages ? s17 : s20;
 		int spaceW = mugW+(((boxW-s60)-(numCols*mugW))/(numCols-1));
 		int spaceH = smallImages ? mugH+s10 : mugH+s15;
+
 		// draw opponent boxes
-        float fog = newGameOptions().noFogOnIcons()? 1.0f : 0.5f;
-        Composite raceComp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER , fog);
-		Composite prevComp = g.getComposite();
 		Stroke prevStroke = g.getStroke();
 		Color borderC = GameUI.setupFrame();
 		boolean selectableAI = newGameOptions().selectableAI();
@@ -1168,25 +1322,11 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			if (selectableAI) {
 				mugHo -= boundH;
 			}
-			oppSet[i].setBounds(x2,y2o,mugW,mugHo);
-			// oppAI[i].setBounds(x2,y2+mugH-s20,mugW,s20);
-			oppAI[i].setBounds(x2,y2+mugH-boundH,mugW,boundH); // BR: Adjusted
-			oppAbilities[i].setBounds(x2,y2,mugW,boundH);
-			g.drawImage(mugBack, x2, y2, this);
-			String selOpp = newGameOptions().selectedOpponentRace(i);
-			if (selOpp == null) {
-				int x2b = x2+((mugW-randSW)/2);
-				int y2b = smallImages ? y2+mugH-s20 : y2+mugH-s31;
-				g.setColor(Color.black);
-				g.setFont(narrowFont(30));
-				drawString(g,randomOppLbl, x2b, y2b);
-			}
-			else {
-				Race r = Race.keyed(selOpp);
-				g.setComposite(raceComp);
-				g.drawImage(r.diploMug(), x2, y2, mugW, mugH, this);
-				g.setComposite(prevComp);
-			}
+			oppSet[i].setBounds(x2, y2o, mugW, mugHo);
+			oppAI[i].setBounds(x2, y2+mugH-boundH, mugW, boundH); // BR: Adjusted
+			oppAbilities[i].setBounds(x2, y2, mugW, boundH);
+			g.drawImage(oppMug(i, smallImages), x2, y2, this);
+
 			if (selectableAI) {
 				g.setColor(SystemPanel.whiteText);
 				String aiText = text(newGameOptions().specificOpponentAIOption(i+1));
@@ -1208,12 +1348,16 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			g.drawRect(x2, y2, mugW, mugH);
 			g.setStroke(prevStroke);
 
-			if (showTiming)
-				System.out.println("paintComponent() Time = " + (System.currentTimeMillis()-timeStart));
 		}
+		if (showTiming)
+			System.out.println("paintOpponents Time = " + (System.currentTimeMillis()-timeStart));
 
+		timeMid = System.currentTimeMillis();
+		
 		// draw galaxy
 		drawGalaxyShape(g, newGameOptions().galaxyShape(), galaxyX, galaxyY, galaxyW, galaxyH);
+		if (showTiming)
+			System.out.println("drawGalaxyShape Time = " + (System.currentTimeMillis()-timeMid));
 
 		// draw info under galaxy map
 		g.setColor(Color.black);
@@ -1435,80 +1579,38 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				warnY += s18;
 			}
 		}
+		if (showTiming)
+			System.out.println("drawGalaxyShape Time = " + (System.currentTimeMillis()-timeMid));
 
+		timeMid = System.currentTimeMillis();
 		drawHelpButton(g);
-		drawButtons(g);
+		if (showTiming)
+			System.out.println("drawHelpButtons Time = " + (System.currentTimeMillis()-timeMid));
+		timeMid = System.currentTimeMillis();
+		
+		drawFixButtons(g, false);
+		if (showTiming)
+			System.out.println("drawFixButtons Time = " + (System.currentTimeMillis()-timeMid));
+		timeMid = System.currentTimeMillis();
+		
+		drawButtons(g, false);
+		if (showTiming)
+			System.out.println("drawDynamicButtons Time = " + (System.currentTimeMillis()-timeMid));
 		showGuide(g);
 
 		if (starting) {
 			NoticeMessage.setStatus(text("SETUP_CREATING_GALAXY"));
 			drawNotice(g, 30);
 		}
+		if (showTiming)
+			System.out.println("paintComponent() Time = " + (System.currentTimeMillis()-timeStart));
 	}
 	@Override public void repaintButtons() {
+		initButtonBackImg();
 		Graphics2D g = (Graphics2D) getGraphics();
 		setFontHints(g);
-		drawBackButtons(g);		
-		drawButtons(g);
+		g.drawImage(buttonBackImg(), xButton, yButton, wButton, hButton, null);
 		g.dispose();
-	}
-	private void drawBackButtons(Graphics2D g) {
-		int cnr = s5;
-
-		
-		if (!compactOptionOnly.get()) {
-			// draw Advanced settings button
-			g.setPaint(GameUI.buttonLeftBackground());
-			g.fillRoundRect(settingsBox.x, settingsBox.y, settingsBox.width, settingsBox.height, cnr, cnr);
-
-			// draw MOD settings buttons
-			g.fillRoundRect(modStaticABox.x, modStaticABox.y,
-					modStaticABox.width, modStaticABox.height, cnr, cnr);
-
-			g.fillRoundRect(modStaticBBox.x, modStaticBBox.y,
-					modStaticBBox.width, modStaticBBox.height, cnr, cnr);
-
-			g.fillRoundRect(modDynamicABox.x, modDynamicABox.y,
-					modDynamicABox.width, modDynamicABox.height, cnr, cnr);
-
-			g.fillRoundRect(modDynamicBBox.x, modDynamicBBox.y,
-					modDynamicBBox.width, modDynamicBBox.height, cnr, cnr);
-
-			g.fillRoundRect(globalModSettingsBox.x, globalModSettingsBox.y, 
-					globalModSettingsBox.width, globalModSettingsBox.height, cnr, cnr);			
-		} else {
-			g.setPaint(GameUI.buttonLeftBackground());
-			g.fillRoundRect(mergedStaticBox.x, mergedStaticBox.y,
-					mergedStaticBox.width, mergedStaticBox.height, cnr, cnr);
-
-			g.fillRoundRect(mergedDynamicBox.x, mergedDynamicBox.y,
-					mergedDynamicBox.width, mergedDynamicBox.height, cnr, cnr);
-			
-		}
-
-		// draw START button
-		g.setPaint(GameUI.buttonRightBackground());
-		g.fillRoundRect(startBox.x, startBox.y, startBox.width, startBox.height, cnr, cnr);
-
-		// draw BACK button
-		g.setPaint(GameUI.buttonLeftBackground());
-		g.fillRoundRect(backBox.x, backBox.y, backBox.width, backBox.height, cnr, cnr);
-
-		// draw DEFAULT button
-		g.setPaint(GameUI.buttonLeftBackground());
-		g.fillRoundRect(defaultBox.x, defaultBox.y, defaultBox.width, defaultBox.height, cnr, cnr);
-
-		// draw LAST button
-		g.setPaint(GameUI.buttonLeftBackground());
-		g.fillRoundRect(lastBox.x, lastBox.y, lastBox.width, lastBox.height, cnr, cnr);
-
-		// draw USER button
-		g.setPaint(GameUI.buttonLeftBackground());
-		g.fillRoundRect(userBox.x, userBox.y, userBox.width, userBox.height, cnr, cnr);
-
-		// draw GUIDE button
-		g.setPaint(GameUI.buttonLeftBackground());
-		g.fillRoundRect(guideBox.x, guideBox.y, guideBox.width, guideBox.height, cnr, cnr);
 	}
     private void drawHelpButton(Graphics2D g) {
         helpBox.setBounds(s20,s20,s20,s25);
@@ -1522,192 +1624,140 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 
         drawString(g,"?", s26, s40);
     }
-	private void drawButtons(Graphics2D g) {
-		int cnr = s5;
+	private void drawFixButtons(Graphics2D g, boolean all) {
 		Stroke prev;
-		
 		if (!compactOptionOnly.get()) {
-			// Advanced settings button
 			g.setFont(narrowFont(18)); // 18 for 3 buttons// 20 for 2 buttons
-			String text6 = text("SETUP_BUTTON_SETTINGS");
-			int sw6 = g.getFontMetrics().stringWidth(text6);
-			int x6 = settingsBox.x+((settingsBox.width-sw6)/2);
-			int y6 = settingsBox.y+settingsBox.height-s8;
-			Color c6 = hoverBox == settingsBox ? Color.yellow : GameUI.borderBrightColor();
-			drawShadowedString(g, text6, 2, x6, y6, GameUI.borderDarkColor(), c6);
-			prev = g.getStroke();
-			g.setStroke(stroke1);
-			g.drawRoundRect(settingsBox.x, settingsBox.y, settingsBox.width, settingsBox.height, cnr, cnr);
-			g.setStroke(prev);
-
+			// Advanced settings button
+			if (hoverBox == settingsBox || all) {
+				String text6 = text("SETUP_BUTTON_SETTINGS");
+				int sw6 = g.getFontMetrics().stringWidth(text6);
+				int x6 = settingsBox.x+((settingsBox.width-sw6)/2);
+				int y6 = settingsBox.y+settingsBox.height-s8;
+				Color c6 = hoverBox == settingsBox ? Color.yellow : GameUI.borderBrightColor();
+				drawShadowedString(g, text6, 2, x6, y6, GameUI.borderDarkColor(), c6);
+				prev = g.getStroke();
+				g.setStroke(stroke1);
+				g.drawRoundRect(settingsBox.x, settingsBox.y, settingsBox.width, settingsBox.height, cnr, cnr);
+				g.setStroke(prev);
+			}
 			// modnar: add UI panel for modnar MOD game options
 			// MOD settings button
-			String textMOD = text("SETUP_BUTTON_STATIC_A_SETTINGS");
-			int swMOD = g.getFontMetrics().stringWidth(textMOD);
-			int xMOD = modStaticABox.x+((modStaticABox.width-swMOD)/2);
-			int yMOD = modStaticABox.y+modStaticABox.height-s8;
-			Color cMOD = hoverBox == modStaticABox ? Color.yellow : GameUI.borderBrightColor();
-			drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), cMOD);
-			prev = g.getStroke();
-			g.setStroke(stroke1);
-			g.drawRoundRect(modStaticABox.x, modStaticABox.y, modStaticABox.width, modStaticABox.height, cnr, cnr);
-			g.setStroke(prev);
-
+			if (hoverBox == modStaticABox || all) {
+				String textMOD = text("SETUP_BUTTON_STATIC_A_SETTINGS");
+				int swMOD = g.getFontMetrics().stringWidth(textMOD);
+				int xMOD = modStaticABox.x+((modStaticABox.width-swMOD)/2);
+				int yMOD = modStaticABox.y+modStaticABox.height-s8;
+				Color cMOD = hoverBox == modStaticABox ? Color.yellow : GameUI.borderBrightColor();
+				drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), cMOD);
+				prev = g.getStroke();
+				g.setStroke(stroke1);
+				g.drawRoundRect(modStaticABox.x, modStaticABox.y, modStaticABox.width, modStaticABox.height, cnr, cnr);
+				g.setStroke(prev);
+			}
 			// BR: second UI panel for MOD game options
 			// MOD settings button
-			textMOD = text("SETUP_BUTTON_STATIC_B_SETTINGS");
-			swMOD = g.getFontMetrics().stringWidth(textMOD);
-			xMOD = modStaticBBox.x+((modStaticBBox.width-swMOD)/2);
-			yMOD = modStaticBBox.y+modStaticBBox.height-s8;
-			cMOD = hoverBox == modStaticBBox ? Color.yellow : GameUI.borderBrightColor();
-			drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), cMOD);
-			prev = g.getStroke();
-			g.setStroke(stroke1);
-			g.drawRoundRect(modStaticBBox.x, modStaticBBox.y, modStaticBBox.width, modStaticBBox.height, cnr, cnr);
-			g.setStroke(prev);
-
+			if (hoverBox == modStaticBBox || all) {
+				String textMOD = text("SETUP_BUTTON_STATIC_B_SETTINGS");
+				int swMOD = g.getFontMetrics().stringWidth(textMOD);
+				int xMOD = modStaticBBox.x+((modStaticBBox.width-swMOD)/2);
+				int yMOD = modStaticBBox.y+modStaticBBox.height-s8;
+				Color cMOD = hoverBox == modStaticBBox ? Color.yellow : GameUI.borderBrightColor();
+				drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), cMOD);
+				prev = g.getStroke();
+				g.setStroke(stroke1);
+				g.drawRoundRect(modStaticBBox.x, modStaticBBox.y, modStaticBBox.width, modStaticBBox.height, cnr, cnr);
+				g.setStroke(prev);
+			}
 			// BR: second UI panel for MOD game options
 			// MOD settings button
-			textMOD = text("SETUP_BUTTON_DYNAMIC_A_SETTINGS");
-			swMOD = g.getFontMetrics().stringWidth(textMOD);
-			xMOD = modDynamicABox.x+((modDynamicABox.width-swMOD)/2);
-			yMOD = modDynamicABox.y+modDynamicABox.height-s8;
-			cMOD = hoverBox == modDynamicABox ? Color.yellow : GameUI.borderBrightColor();
-			drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), cMOD);
-			prev = g.getStroke();
-			g.setStroke(stroke1);
-			g.drawRoundRect(modDynamicABox.x, modDynamicABox.y, modDynamicABox.width, modDynamicABox.height, cnr, cnr);
-			g.setStroke(prev);
-
+			if (hoverBox == modDynamicABox || all) {
+				String textMOD = text("SETUP_BUTTON_DYNAMIC_A_SETTINGS");
+				int swMOD = g.getFontMetrics().stringWidth(textMOD);
+				int xMOD = modDynamicABox.x+((modDynamicABox.width-swMOD)/2);
+				int yMOD = modDynamicABox.y+modDynamicABox.height-s8;
+				Color cMOD = hoverBox == modDynamicABox ? Color.yellow : GameUI.borderBrightColor();
+				drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), cMOD);
+				prev = g.getStroke();
+				g.setStroke(stroke1);
+				g.drawRoundRect(modDynamicABox.x, modDynamicABox.y, modDynamicABox.width, modDynamicABox.height, cnr, cnr);
+				g.setStroke(prev);
+			}
 			// BR: second UI panel for MOD game options
 			// MOD settings button
-			textMOD = text("SETUP_BUTTON_DYNAMIC_B_SETTINGS");
-			swMOD = g.getFontMetrics().stringWidth(textMOD);
-			xMOD = modDynamicBBox.x+((modDynamicBBox.width-swMOD)/2);
-			yMOD = modDynamicBBox.y+modDynamicBBox.height-s8;
-			cMOD = hoverBox == modDynamicBBox ? Color.yellow : GameUI.borderBrightColor();
-			drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), cMOD);
-			prev = g.getStroke();
-			g.setStroke(stroke1);
-			g.drawRoundRect(modDynamicBBox.x, modDynamicBBox.y, modDynamicBBox.width, modDynamicBBox.height, cnr, cnr);
-			g.setStroke(prev);
-
+			if (hoverBox == modDynamicBBox || all) {
+				String textMOD = text("SETUP_BUTTON_DYNAMIC_B_SETTINGS");
+				int swMOD = g.getFontMetrics().stringWidth(textMOD);
+				int xMOD = modDynamicBBox.x+((modDynamicBBox.width-swMOD)/2);
+				int yMOD = modDynamicBBox.y+modDynamicBBox.height-s8;
+				Color cMOD = hoverBox == modDynamicBBox ? Color.yellow : GameUI.borderBrightColor();
+				drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), cMOD);
+				prev = g.getStroke();
+				g.setStroke(stroke1);
+				g.drawRoundRect(modDynamicBBox.x, modDynamicBBox.y, modDynamicBBox.width, modDynamicBBox.height, cnr, cnr);
+				g.setStroke(prev);
+			}
 			// BR: Display settings UI panel for MOD game options
 			// MOD settings button
-			String textModView = text("SETUP_BUTTON_MOD_GLOBAL_SETTINGS");
-			int swModView = g.getFontMetrics().stringWidth(textModView);
-			int xModView = globalModSettingsBox.x+((globalModSettingsBox.width-swModView)/2);
-			int yModView = globalModSettingsBox.y+globalModSettingsBox.height-s8;
-			Color cModView = hoverBox == globalModSettingsBox ? Color.yellow : GameUI.borderBrightColor();
-			drawShadowedString(g, textModView, 2, xModView, yModView, GameUI.borderDarkColor(), cModView);
-			prev = g.getStroke();
-			g.setStroke(stroke1);
-			g.drawRoundRect(globalModSettingsBox.x, globalModSettingsBox.y,
-					globalModSettingsBox.width, globalModSettingsBox.height, cnr, cnr);
-			g.setStroke(prev);			
+			if (hoverBox == globalModSettingsBox || all) {
+				String textModView = text("SETUP_BUTTON_MOD_GLOBAL_SETTINGS");
+				int swModView = g.getFontMetrics().stringWidth(textModView);
+				int xModView = globalModSettingsBox.x+((globalModSettingsBox.width-swModView)/2);
+				int yModView = globalModSettingsBox.y+globalModSettingsBox.height-s8;
+				Color cModView = hoverBox == globalModSettingsBox ? Color.yellow : GameUI.borderBrightColor();
+				drawShadowedString(g, textModView, 2, xModView, yModView, GameUI.borderDarkColor(), cModView);
+				prev = g.getStroke();
+				g.setStroke(stroke1);
+				g.drawRoundRect(globalModSettingsBox.x, globalModSettingsBox.y,
+						globalModSettingsBox.width, globalModSettingsBox.height, cnr, cnr);
+				g.setStroke(prev);
+			}
 		} else {
 			g.setFont(narrowFont(20)); // 18 for 3 buttons// 20 for 2 buttons
 			// BR: second UI panel for MOD game options
 			// MOD settings button
-			String textMOD = text("SETUP_BUTTON_MERGED_STATIC_SETTINGS");
-			int swMOD = g.getFontMetrics().stringWidth(textMOD);
-			int xMOD = mergedStaticBox.x+((mergedStaticBox.width-swMOD)/2);
-			int yMOD = mergedStaticBox.y+mergedStaticBox.height-s8;
-			Color cMOD = hoverBox == mergedStaticBox ? Color.yellow : GameUI.borderBrightColor();
-			drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), cMOD);
-			prev = g.getStroke();
-			g.setStroke(stroke1);
-			g.drawRoundRect(mergedStaticBox.x, mergedStaticBox.y, mergedStaticBox.width, mergedStaticBox.height, cnr, cnr);
-			g.setStroke(prev);
-
+			if (hoverBox == mergedStaticBox || all) {
+				String textMOD = text("SETUP_BUTTON_MERGED_STATIC_SETTINGS");
+				int swMOD = g.getFontMetrics().stringWidth(textMOD);
+				int xMOD = mergedStaticBox.x+((mergedStaticBox.width-swMOD)/2);
+				int yMOD = mergedStaticBox.y+mergedStaticBox.height-s8;
+				Color cMOD = hoverBox == mergedStaticBox ? Color.yellow : GameUI.borderBrightColor();
+				drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), cMOD);
+				prev = g.getStroke();
+				g.setStroke(stroke1);
+				g.drawRoundRect(mergedStaticBox.x, mergedStaticBox.y, mergedStaticBox.width, mergedStaticBox.height, cnr, cnr);
+				g.setStroke(prev);
+			}
 			// BR: second UI panel for MOD game options
 			// MOD settings button
-			textMOD = text("SETUP_BUTTON_MERGED_DYNAMIC_SETTINGS");
-			swMOD = g.getFontMetrics().stringWidth(textMOD);
-			xMOD = mergedDynamicBox.x+((mergedDynamicBox.width-swMOD)/2);
-			yMOD = mergedDynamicBox.y+mergedDynamicBox.height-s8;
-			cMOD = hoverBox == mergedDynamicBox ? Color.yellow : GameUI.borderBrightColor();
-			drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), cMOD);
-			prev = g.getStroke();
-			g.setStroke(stroke1);
-			g.drawRoundRect(mergedDynamicBox.x, mergedDynamicBox.y, mergedDynamicBox.width, mergedDynamicBox.height, cnr, cnr);
-			g.setStroke(prev);
+			if (hoverBox == mergedDynamicBox || all) {
+				String textMOD = text("SETUP_BUTTON_MERGED_DYNAMIC_SETTINGS");
+				int swMOD = g.getFontMetrics().stringWidth(textMOD);
+				int xMOD = mergedDynamicBox.x+((mergedDynamicBox.width-swMOD)/2);
+				int yMOD = mergedDynamicBox.y+mergedDynamicBox.height-s8;
+				Color cMOD = hoverBox == mergedDynamicBox ? Color.yellow : GameUI.borderBrightColor();
+				drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), cMOD);
+				prev = g.getStroke();
+				g.setStroke(stroke1);
+				g.drawRoundRect(mergedDynamicBox.x, mergedDynamicBox.y, mergedDynamicBox.width, mergedDynamicBox.height, cnr, cnr);
+				g.setStroke(prev);
+			}
 		}
 
-
-		g.setFont(narrowFont(30));
+		g.setFont(bigButtonFont());
 		// left button
-		String text = text(backButtonKey());
-		int sw = g.getFontMetrics().stringWidth(text);
-		int x = backBox.x+((backBox.width-sw)/2);
-		int y = backBox.y+backBox.height-s12;
-		Color c = hoverBox == backBox ? Color.yellow : GameUI.borderBrightColor();
-		drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), c);
-		prev = g.getStroke();
-		g.setStroke(stroke1);
-		g.drawRoundRect(backBox.x, backBox.y, backBox.width, backBox.height, cnr, cnr);
-		g.setStroke(prev);
-
-		// middle button
-		text = text(startButtonKey());
-		sw= g.getFontMetrics().stringWidth(text);
-		x = startBox.x+((startBox.width-sw)/2);
-		y = startBox.y+startBox.height-s12;
-		c = hoverBox == startBox ? Color.yellow : GameUI.borderBrightColor();
-		drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), c);
-		prev = g.getStroke();
-		g.setStroke(stroke1);
-		g.drawRoundRect(startBox.x, startBox.y, startBox.width, startBox.height, cnr, cnr);
-		g.setStroke(prev);
-
-        g.setFont(narrowFont(20));
-        // BR: Default Button 
-		text = text(defaultButtonKey());
-        sw	 = g.getFontMetrics().stringWidth(text);
-        x = defaultBox.x+((defaultBox.width-sw)/2);
-        y = defaultBox.y+defaultBox.height-s8;
-        c = hoverBox == defaultBox ? Color.yellow : GameUI.borderBrightColor();
-        drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), c);
-        prev = g.getStroke();
-        g.setStroke(stroke1);
-        g.drawRoundRect(defaultBox.x, defaultBox.y, defaultBox.width, defaultBox.height, cnr, cnr);
-        g.setStroke(prev);
-
-        // BR: Last Button 
-		text = text(lastButtonKey());
-        sw  = g.getFontMetrics().stringWidth(text);
-		x = lastBox.x+((lastBox.width-sw)/2);
-		y = lastBox.y+lastBox.height-s8;
-		c = hoverBox == lastBox ? Color.yellow : GameUI.borderBrightColor();
-		drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), c);
-		prev = g.getStroke();
-		g.setStroke(stroke1);
-		g.drawRoundRect(lastBox.x, lastBox.y, lastBox.width, lastBox.height, cnr, cnr);
-		g.setStroke(prev);
-		 
-		// BR: User Button 
-		text = text(userButtonKey());
-        sw 	 = g.getFontMetrics().stringWidth(text);
-		x = userBox.x+((userBox.width-sw)/2);
-		y = userBox.y+userBox.height-s8;
-		c = hoverBox == userBox ? Color.yellow : GameUI.borderBrightColor();
-		drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), c);
-		prev = g.getStroke();
-		g.setStroke(stroke1);
-		g.drawRoundRect(userBox.x, userBox.y, userBox.width, userBox.height, cnr, cnr);
-		g.setStroke(prev);
-		 
-		// BR: Guide Button 
-		text = text(guideButtonKey());
-        sw 	 = g.getFontMetrics().stringWidth(text);
-		x = guideBox.x+((guideBox.width-sw)/2);
-		y = guideBox.y+guideBox.height-s8;
-		c = hoverBox == guideBox ? Color.yellow : GameUI.borderBrightColor();
-		drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), c);
-		prev = g.getStroke();
-		g.setStroke(stroke1);
-		g.drawRoundRect(guideBox.x, guideBox.y, guideBox.width, guideBox.height, cnr, cnr);
-		g.setStroke(prev);
+		if (hoverBox == backBox || all) {
+			String text = text(backButtonKey());
+			int sw = g.getFontMetrics().stringWidth(text);
+			int x = backBox.x+((backBox.width-sw)/2);
+			int y = backBox.y+backBox.height*75/100;
+			Color c = hoverBox == backBox ? Color.yellow : GameUI.borderBrightColor();
+			drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), c);
+			prev = g.getStroke();
+			g.setStroke(stroke1);
+			g.drawRoundRect(backBox.x, backBox.y, backBox.width, backBox.height, cnr, cnr);
+			g.setStroke(prev);
+		}
 	}
 	private String newRacesOnStr() {
 		if (showNewRaces.get()) return text("SETUP_NEW_RACES_ON");
@@ -1741,7 +1791,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			nearShift   = nearSize/2;
 			compShift   = compSize/2;
 		}
-
 		// Start with grid
 		if (showGrid) {
 			int gw = sh.width();
@@ -1880,11 +1929,11 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		return Color.gray;
 	}
 	private BufferedImage playerRaceImg() {
-		if (playerRaceImg == null) {
+		if (playerMug == null) {
 			String selRace = newGameOptions().selectedPlayerRace();
-			playerRaceImg = newBufferedImage(Race.keyed(selRace).diploMug());
+			playerMug = newBufferedImage(Race.keyed(selRace).diploMug());
 		}
-		return playerRaceImg;
+		return playerMug;
 	}
 	private boolean isDynamic() {
 		return newGameOptions().selectedGalaxySize().equals(IGameOptions.SIZE_DYNAMIC);
@@ -2113,12 +2162,16 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			newGameOptions().nextOpponent(i);
 		else
 			newGameOptions().prevOpponent(i);
+		updateOppMugs(i);
 		postSelectionLight(false);
 	}
 	private void toggleGalaxyGrid(MouseEvent e) {
 		if (SwingUtilities.isMiddleMouseButton(e)) {
 			guiOptions().resetEmpireSpreadingFactor();
-			refreshGui();
+			backImg = null;
+			postSelectionMedium(false);
+			//repaint(galaxyBox);
+			//refreshGui();
 			return;
 		}
 		showGrid = !showGrid;
@@ -2223,7 +2276,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			log("Game Name; "+GameUI.gameName);
 			starting = false;
 			backImg = null;
-			playerRaceImg  = null;
+			playerMug  = null;
 			boxMonoFont    = null;
 			dialogMonoFont = null;
 			galaxyTextArray = null;
@@ -2283,7 +2336,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		g.fillRect(leftBoxX+s20, boxY+s20, boxW-s40, s92);
 
 		// draw race box for player
-		BufferedImage backimg = SetupRaceUI.raceBackImg();
+		BufferedImage backimg = bigBackMug(); 
 		int mugW = backimg.getWidth();
 		int mugH = backimg.getHeight();
 		g.drawImage(backimg, leftBoxX+s25, boxY+s25, this);
@@ -2424,7 +2477,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		galaxyH = scaled(325);
 		galaxyBox.setBounds(galaxyX, galaxyY, galaxyW, galaxyH);
 		g.fill(galaxyBox);
-//		g.fillRect(galaxyX, galaxyY, galaxyW, galaxyH);
 
 		// draw 3 galaxy option labels
 		int sectionW = (boxW-s40) / 3;
@@ -2561,7 +2613,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		wysiwygBox.setBounds(sliderX, sliderYAI+s20, sliderW, sliderH);
 		g.fill(wysiwygBox);
 		
-		int cnr = s5;
 		// draw settings button
 		int smallButtonH = s27; // 27 for 3 buttons // 30 for 2 buttons
 		int smallButtonW = scaled(150); // 150 for 3 buttons // 180 for 2 buttons
@@ -2632,9 +2683,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		xb = 950; // was 950
 		dx = 241;
 		// draw START button
-		startBox.setBounds(scaled(xb), scaled(yB), buttonW, buttonH);
-		g.setPaint(GameUI.buttonRightBackground());
-		g.fillRoundRect(startBox.x, startBox.y, buttonW, buttonH, cnr, cnr);
+		exitBox.setBounds(scaled(xb), scaled(yB), buttonW, buttonH);
 
 		// draw BACK button
 		xb -= dx;
@@ -2646,62 +2695,31 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		buttonH = s30;
 		buttonW = defaultButtonWidth(g);
 		yb = scaled(yB+15);
-		xb = scaled(xb)-buttonW-bSep;
+		xb = scaled(xb)-buttonW-buttonSep;
 		defaultBox.setBounds(xb, yb, buttonW, buttonH);
 		g.setPaint(GameUI.buttonLeftBackground());
 		g.fillRoundRect(defaultBox.x, defaultBox.y, buttonW, buttonH, cnr, cnr);
 
 		// draw LAST button
 		buttonW = lastButtonWidth(g);
-		xb -= (buttonW + bSep);
+		xb -= (buttonW + buttonSep);
 		lastBox.setBounds(xb, yb, buttonW, buttonH);
-		g.setPaint(GameUI.buttonLeftBackground());
-		g.fillRoundRect(lastBox.x, lastBox.y, buttonW, buttonH, cnr, cnr);
 
 		// draw USER button
 		buttonW = userButtonWidth(g);
-		xb -= (buttonW + bSep);
+		xb -= (buttonW + buttonSep);
 		userBox.setBounds(xb, yb, buttonW, buttonH);
-		g.setPaint(GameUI.buttonLeftBackground());
-		g.fillRoundRect(userBox.x, userBox.y, buttonW, buttonH, cnr, cnr);
 
 		// draw GUIDE button
 		buttonW = guideButtonWidth(g);
 		xb = s20;
 		guideBox.setBounds(xb, yb, buttonW, buttonH);
-		g.setPaint(GameUI.buttonLeftBackground());
-		g.fillRoundRect(guideBox.x, guideBox.y, buttonW, buttonH, cnr, cnr);
+
+		drawFixButtons(g, true);
+        initButtonBackImg();
 
 		g.dispose();
 	}
-	private BufferedImage smallRaceBackImg() {
-		if (smBackImg == null)
-			initSmallBackImg();
-		return smBackImg;
-	}
-	private void initSmallBackImg() {
-		int w = s54;
-		int h = s58;
-		smBackImg = gc().createCompatibleImage(w, h);
-
-		Point2D center = new Point2D.Float(w/2, h/2);
-		float radius = s56;
-		float[] dist = {0.0f, 0.1f, 0.5f, 1.0f};
-		Color[] colors = {GameUI.raceCenterColor(), GameUI.raceCenterColor(), GameUI.raceEdgeColor(), GameUI.raceEdgeColor()};
-		RadialGradientPaint p = new RadialGradientPaint(center, radius, dist, colors);
-		Graphics2D g = (Graphics2D) smBackImg.getGraphics();
-		g.setPaint(p);
-		g.fillRect(0, 0, w, h);
-		g.dispose();
-	}
-    private void noFogChanged() {
-    	IGameOptions.noFogOnIcons.toggle();
-    	SetupRaceUI.resetRaceMug();
-    	playerRaceImg = null;
-    	smBackImg     = null;
-//    	backImg = null;
-        repaint();
-   }
 	@Override public String ambienceSoundKey()		{ return GameUI.AMBIENCE_KEY; }
 	@Override public void keyPressed(KeyEvent e)	{
 		super.keyPressed(e);
@@ -2768,7 +2786,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			goToModGlobalOptions();
 		else if (hoverBox == galaxyBox)
 			toggleGalaxyGrid(e);
-		else if (hoverBox == startBox)
+		else if (hoverBox == exitBox)
 			doStartBoxAction();
 		else if (hoverPolyBox == shapeBoxL) {
 			shapeSelection.prev();
@@ -2981,4 +2999,3 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 	}
 }
- 

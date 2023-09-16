@@ -266,8 +266,19 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     public String selectedPlayerRace()           { return selectedPlayer().race; }
     @Override
     // public void selectedPlayerRace(String s)  { selectedPlayer().race = s;  resetSelectedOpponentRaces(); }
-    public void selectedPlayerRace(String s)     { selectedPlayer().race = s;} // BR: Reset on demand only
-     @Override
+    public void selectedPlayerRace(String s)     { // BR: Reset on demand only
+    	selectedPlayer().race = s;
+    	// Check if MAX_OPPONENT_TYPE reached
+        int count = 0;
+        for (int i=0; i<opponentRaces.length; i++) {
+        	if (s.equals(opponentRaces[i])) {
+        		count++;
+        		if (count >= MAX_OPPONENT_TYPE)
+        			opponentRaces[i] = null;
+        	}
+        }
+    }
+    @Override
     public int selectedPlayerColor()             { return selectedPlayer().color; }
     @Override
     public void selectedPlayerColor(int i)       { selectedPlayer().color = i; }
@@ -286,10 +297,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override
     public void selectedOpponentRace(int i, String s) {
          if (i < opponentRaces.length)
-    	   	if (s == null) // BR: to allow decrements > 1
-    	   		for (int k=i; k<opponentRaces.length; k++)
-    	   			opponentRaces[k] = s;
-    	   	else
     	   		opponentRaces[i] = s;
     }
     @Override
@@ -335,51 +342,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         selectedGalaxyShapeOption1 = opt.selectedGalaxyShapeOption1;
         selectedGalaxyShapeOption2 = opt.selectedGalaxyShapeOption2;
     }
-//    @Override
-//    public void copyOptions(IGameOptions o) { // BR: No more used
-//        if (!(o instanceof MOO1GameOptions))
-//            return;
-//        
-//        // copy only the options that are immediately visible
-//        // .. not the advanced options
-//        MOO1GameOptions opt = (MOO1GameOptions) o;
-//        
-//        selectedGalaxySize = opt.selectedGalaxySize;
-//        selectedGalaxyShape = opt.selectedGalaxyShape;
-//        selectedGalaxyShapeOption1 = opt.selectedGalaxyShapeOption1;
-//        selectedGalaxyShapeOption2 = opt.selectedGalaxyShapeOption2;
-//        selectedGameDifficulty = opt.selectedGameDifficulty;
-//        selectedNumberOpponents = opt.selectedNumberOpponents;
-//
-//        selectedGalaxyAge = opt.selectedGalaxyAge;
-//        selectedResearchRate = opt.selectedResearchRate;
-//        selectedTechTradeOption = opt.selectedTechTradeOption;
-//        selectedRandomEventOption = opt.selectedRandomEventOption;
-//        selectedWarpSpeedOption = opt.selectedWarpSpeedOption;
-//        selectedNebulaeOption = opt.selectedNebulaeOption;
-//        selectedCouncilWinOption = opt.selectedCouncilWinOption;
-//        selectedStarDensityOption = opt.selectedStarDensityOption;
-//        selectedPlanetQualityOption = opt.selectedPlanetQualityOption;
-//        selectedTerraformingOption = opt.selectedTerraformingOption;
-//        selectedFuelRangeOption = opt.selectedFuelRangeOption;
-//        selectedRandomizeAIOption = opt.selectedRandomizeAIOption;
-//        selectedAutoplayOption = opt.selectedAutoplayOption;
-//        selectedAIHostilityOption = opt.selectedAIHostilityOption;
-//        selectedColonizingOption = opt.selectedColonizingOption;
-//        selectedOpponentAIOption = opt.selectedOpponentAIOption;
-//        
-//        if (opt.specificOpponentAIOption != null) {
-//            for (int i=0;i<specificOpponentAIOption.length;i++)
-//                specificOpponentAIOption[i] = opt.specificOpponentAIOption[i];
-//        }
-//        if (opt.player != null) 
-//            player.copy(opt.player);
-//        
-//        setGalaxyShape(); 
-//        selectedGalaxyShapeOption1 = opt.selectedGalaxyShapeOption1;
-//        selectedGalaxyShapeOption2 = opt.selectedGalaxyShapeOption2;
-//    }
-
     @Override
     public GalaxyShape galaxyShape()   {
         if (galaxyShape == null)

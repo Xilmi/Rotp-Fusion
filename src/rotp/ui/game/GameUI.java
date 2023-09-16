@@ -161,6 +161,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     public static Color loadHoverBackground()     { return loadHoverBackgroundColor[opt()]; }
     public static Color loadListMask()            { return loadListMask[opt()]; }
     public static Color sortLabelBackColor()      { return sortLabelBackColor[opt()]; }
+
     public static LinearGradientPaint loadBackground() {
         if (loadBackground == null) {
             loadBackground = new LinearGradientPaint[2];

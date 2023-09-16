@@ -15,10 +15,11 @@
  */
 package rotp.ui.game;
 
-import static rotp.model.game.IGameOptions.GAME_OPTIONS_FILE;
-import static rotp.model.game.IGameOptions.LAST_OPTIONS_FILE;
-import static rotp.model.game.IGameOptions.LIVE_OPTIONS_FILE;
-import static rotp.model.game.IGameOptions.USER_OPTIONS_FILE;
+import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
+import static rotp.model.game.IBaseOptsTools.GAME_OPTIONS_FILE;
+import static rotp.model.game.IBaseOptsTools.LAST_OPTIONS_FILE;
+import static rotp.model.game.IBaseOptsTools.LIVE_OPTIONS_FILE;
+import static rotp.model.game.IBaseOptsTools.USER_OPTIONS_FILE;
 import static rotp.ui.util.IParam.LABEL_DESCRIPTION;
 
 import java.awt.Color;
@@ -28,11 +29,13 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
 import javax.swing.JEditorPane;
@@ -72,6 +75,8 @@ public abstract class BaseModPanel extends BasePanel
 	protected static int	 mX, mY, w, h;
 	protected static int	 smallButtonMargin;
 	protected static int	 smallButtonH;
+	protected static int	 cnr;
+;
 	public	  static int	 guideFontSize;
 	public	  static boolean autoGuide	= false; // To disable automated Guide
 	public	  static boolean dialGuide	= false; // To disable automated Guide on dialog list
@@ -92,16 +97,23 @@ public abstract class BaseModPanel extends BasePanel
 	private boolean initialised = false;
 	LinkedList<IParam> duplicateList;
 	LinkedList<IParam> activeList;
-	
+	protected int xButton, yButton, wButton, hButton;
+	protected BufferedImage buttonBackImg;
+
 	protected void singleInit() {} // To avoid call to options during class creation
 	
 	public GuidePopUp guidePopUp;
 	
-	protected Font smallButtonFont	= narrowFont(20);
-	protected Box defaultBox		= new Box(defaultButton);
-	protected Box lastBox			= new Box(lastButton);
-	protected Box userBox			= new Box(userButton);
-	protected Box guideBox			= new Box(guideKey);
+	private final Font smallButtonFont	= narrowFont(20);
+	protected Font bigButtonFont()	 { return smallButtonFont; }
+	protected Font smallButtonFont() { return smallButtonFont; }
+	protected Box newExitBox()		 { return new Box(exitButton); }
+
+	protected Box exitBox		= newExitBox();
+	protected Box defaultBox	= new Box(defaultButton);
+	protected Box lastBox		= new Box(lastButton);
+	protected Box userBox		= new Box(userButton);
+	protected Box guideBox		= new Box(guideKey);
 
 	protected boolean globalOptions	= false; // No preferred button and Saved to remnant.cfg
 
@@ -114,9 +126,11 @@ public abstract class BaseModPanel extends BasePanel
 	protected LinkedList<IParam> localOptions() { return activeList; };
 	private void localInit(Graphics2D g) {
 		Font prevFont = g.getFont();
-		g.setFont(smallButtonFont);
-
+		
+		g.setFont(bigButtonFont());
 		initExitButtonWidth(g);
+		
+		g.setFont(smallButtonFont());
 		initGuideButtonWidth(g);
 		initUserButtonWidth(g);
 		initDefaultButtonWidth(g);
@@ -144,6 +158,7 @@ public abstract class BaseModPanel extends BasePanel
 		h = RotPUI.setupRaceUI().getHeight();
 		smallButtonMargin = s30;
 		smallButtonH	  = s30;
+		smallButtonH	  = s5;
 		if (!initialised) {
 			if (isSubMenu) {
 				defaultBox	= new Box(defaultSubButton);
@@ -160,11 +175,96 @@ public abstract class BaseModPanel extends BasePanel
 			initialised = true;
 		}
 	}
+	protected void clearImages() {}
 	protected void close() { 
 		disableGlassPane();
+		clearImages();
 		//ModifierKeysState.reset();
 	}
 
+	protected BufferedImage buttonBackImg() {
+        if (buttonBackImg == null)
+            initButtonBackImg();
+        return buttonBackImg;
+    }
+    protected void drawButton(Graphics2D g, boolean all, Box box, String key) {
+        if (hoverBox == box || all) {
+        	String s = text(key);
+	        int sw	 = g.getFontMetrics().stringWidth(s);
+	        int x    = box.x + ((box.width-sw)/2);
+	        int y    = box.y + box.height*75/100;
+	        if (all) {
+	        	Color c1 = GameUI.borderBrightColor();
+		        drawShadowedString(g, s, 2, x-xButton, y-yButton, GameUI.borderDarkColor(), c1);
+		        g.setStroke(stroke1);
+		        g.drawRoundRect(box.x-xButton, box.y-yButton, box.width, box.height, cnr, cnr);	        	
+	        } else {
+	        	Color c1 = Color.yellow;
+		        drawShadowedString(g, s, 2, x, y, GameUI.borderDarkColor(), c1);
+		        g.setStroke(stroke1);
+		        g.drawRoundRect(box.x, box.y, box.width, box.height, cnr, cnr);
+	        }
+        }
+    }
+	protected void drawButtons(Graphics2D g, boolean all) {
+        Stroke prev = g.getStroke();
+        
+        g.setFont(bigButtonFont());
+        drawButton(g, all, exitBox,		exitButtonKey());
+
+        g.setFont(smallButtonFont());
+        drawButton(g, all, defaultBox,	defaultButtonKey());
+        drawButton(g, all, lastBox,		lastButtonKey());
+        drawButton(g, all, userBox,		userButtonKey());
+        drawButton(g, all, guideBox,	guideButtonKey());
+        g.setStroke(prev);
+	}
+    protected void initButtonPosition() {
+		int xMin = guideBox.x;
+		int yMin = exitBox.y;
+		int xMax = exitBox.x + exitBox.width;
+		int yMax = exitBox.y + exitBox.height;
+		xButton = xMin-s2;
+		yButton = yMin-s2;
+		wButton = xMax - xMin + s4;
+		hButton = yMax - yMin + s4;
+    }
+	protected void setBigButtonGraphics(Graphics2D g)	{
+		g.setFont(bigButtonFont());
+		g.setPaint(GameUI.buttonBackgroundColor());
+	}
+	protected void setSmallButtonGraphics(Graphics2D g) {
+		g.setFont(smallButtonFont());
+		g.setPaint(GameUI.buttonBackgroundColor());
+	}
+    protected BufferedImage initButtonBackImg() {
+    	initButtonPosition();
+		buttonBackImg = new BufferedImage(wButton, hButton, TYPE_INT_ARGB);
+		Graphics2D g = (Graphics2D) buttonBackImg.getGraphics();
+		setFontHints(g);
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+        g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+
+		setBigButtonGraphics(g);
+		// draw EXIT button
+		g.fillRoundRect(exitBox.x-xButton, exitBox.y-yButton, exitBox.width, exitBox.height, cnr, cnr);
+
+		setSmallButtonGraphics(g);
+		// draw DEFAULT button
+		g.fillRoundRect(defaultBox.x-xButton, defaultBox.y-yButton, defaultBox.width, defaultBox.height, cnr, cnr);
+		// draw LAST button
+		g.fillRoundRect(lastBox.x-xButton, lastBox.y-yButton, lastBox.width, lastBox.height, cnr, cnr);
+		// draw USER button
+		g.fillRoundRect(userBox.x-xButton, userBox.y-yButton, userBox.width, userBox.height, cnr, cnr);
+		// draw GUIDE button
+		g.fillRoundRect(guideBox.x-xButton, guideBox.y-yButton, guideBox.width, guideBox.height, cnr, cnr);
+
+		drawButtons(g, true);
+		return buttonBackImg;
+    }
 	// ==================== Guide Button ====================
 	//
 	protected String guideButtonKey() { return guideKey; }
@@ -192,13 +292,16 @@ public abstract class BaseModPanel extends BasePanel
 
 	// ==================== Exit Button ====================
 	//
-	protected static final ParamButtonHelp exitButton = new ParamButtonHelp(
-			"SETTINGS_BUTTON_EXIT", // For Help Do not add the list
-			exitKey,	true,
-			exitKey,	false,
-			cancelKey,	true,
-			cancelKey,	false);
-	protected static final ParamButtonHelp exitSubButton = new ParamButtonHelp(
+	protected ParamButtonHelp newExitButton() {
+		return new ParamButtonHelp(
+				"SETTINGS_BUTTON_EXIT", // For Help Do not add the list
+				exitKey,	true,
+				exitKey,	false,
+				cancelKey,	true,
+				cancelKey,	false);
+	}
+	protected final ParamButtonHelp exitButton = newExitButton();
+	protected final ParamButtonHelp exitSubButton = new ParamButtonHelp(
 			"SETTINGS_BUTTON_EXIT", // For Help Do not add the list
 			exitKey,	true,
 			applyKey,	true,
@@ -206,7 +309,7 @@ public abstract class BaseModPanel extends BasePanel
 			cancelKey,	false);
 	protected String exitButtonKey() {
 		if (isSubMenu)
-			return exitButton.getKey();
+			return exitSubButton.getKey();
 		else
 			return exitButton.getKey();
 	}
