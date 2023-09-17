@@ -309,7 +309,7 @@
 							</splash>
 							<headerType>gui</headerType>
 							<outfile>target/${BaseFileName}.exe</outfile>
-							<jar>target/${BaseFileName}</jar>
+							<jar>target/${BaseFileName}.jar</jar>
 							<errTitle>ROTP</errTitle>
 							<classPath>
 								<mainClass>rotp.RotpGovernor</mainClass>
