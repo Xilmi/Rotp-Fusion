@@ -309,7 +309,7 @@
 							</splash>
 							<headerType>gui</headerType>
 							<outfile>target/${BaseFileName}.exe</outfile>
-							<jar>target/${BaseFileName}-mini.jar</jar>
+							<jar>target/${BaseFileName}</jar>
 							<errTitle>ROTP</errTitle>
 							<classPath>
 								<mainClass>rotp.RotpGovernor</mainClass>
@@ -377,7 +377,7 @@
 							<releaseNotes>releaseNotesBR.md</releaseNotes>
 							<assets>
 								<asset>target/${BaseFileName}.jar</asset>
-								<asset>target/${BaseFileName}-mini.jar</asset>
+								<!-- <asset>target/${BaseFileName}-mini.jar</asset> -->
 								<asset>target/${BaseFileName}-windows.zip</asset>
 								<asset>${pdfFileName}</asset>
 								<asset>BitmapGalaxyExamples.zip</asset>
