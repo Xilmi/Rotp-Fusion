@@ -249,7 +249,7 @@
 								<runtimeBits>64</runtimeBits>
 								<jdkPreference>preferJre</jdkPreference>
 								<initialHeapSize>2000</initialHeapSize>
-								<maxHeapSize>7500</maxHeapSize>
+								<maxHeapSize>3500</maxHeapSize>
 							</jre>
 							<versionInfo>
 								<fileVersion>${exeVersion}</fileVersion>
