@@ -25,6 +25,6 @@ jobs:
     - name: Check CPU
       run: sudo cat /proc/cpuinfo
     - name: Build with Maven
-      run: mvn -B clean package github-release:github-release -DGITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} -Dmaven.javadoc.skip=true --file pomBR.xml
+      run: mvn -B clean package github-release:github-release -DGITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} -Dmaven.javadoc.skip=true --file pomBRnoCompression.xml
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
