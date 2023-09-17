@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
@@ -18,10 +18,10 @@ jobs:
       with:
         distribution: 'zulu'
         java-version: '8'
-    - name: Install vorbis-tools / oggenc
-      run: sudo apt install vorbis-tools
-    - name: Install webp / cwebp
-      run: sudo apt install webp
+#    - name: Install vorbis-tools / oggenc
+#      run: sudo apt install vorbis-tools
+#    - name: Install webp / cwebp
+#      run: sudo apt install webp
     - name: Check CPU
       run: sudo cat /proc/cpuinfo
     - name: Build with Maven
