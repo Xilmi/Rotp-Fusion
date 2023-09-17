@@ -161,6 +161,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 		g.setPaint(GameUI.buttonRightBackground());
 	}
 	@Override protected void setSmallButtonGraphics(Graphics2D g) {
+		System.out.println("SetupRaceUI: setSmallButtonGraphics");
 		g.setFont(smallButtonFont());
 		g.setPaint(GameUI.buttonLeftBackground());
 	}
@@ -347,7 +348,6 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 		txt  = dest.getDescription();
         nL   = 3;
         hBox = nL*lH;
-//        yBox = dest.y-hBox-hShift;
 		xBox += xShift*3;
         yBox -= hBox+yShift;
         sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
@@ -442,42 +442,6 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 			return cancelKey;
 		}
 	}
-	@Override public void repaintButtons() {
-		initButtonBackImg();
-		Graphics2D g  = (Graphics2D) getGraphics();
-        g.drawImage(buttonBackImg(), xButton, yButton, wButton, hButton, null);
-		g.dispose();
-	}
-//    private void drawButton(Graphics2D g, boolean all, Box box, String text) {
-//        if (hoverBox == box || all) {
-//        	String s = text(text);
-//        	int cnr  = s5;
-//	        int sw	 = g.getFontMetrics().stringWidth(s);
-//	        int x    = box.x + ((box.width-sw)/2);
-//	        int y    = box.y + box.height-s8;
-//	        if (all) {
-//	        	Color c1 = GameUI.borderBrightColor();
-//		        drawShadowedString(g, s, 2, x-xButton, y-yButton, GameUI.borderDarkColor(), c1);
-//		        g.setStroke(stroke1);
-//		        g.drawRoundRect(box.x-xButton, box.y-yButton, box.width, box.height, cnr, cnr);	        	
-//	        } else {
-//	        	Color c1 = Color.yellow;
-//		        drawShadowedString(g, s, 2, x, y, GameUI.borderDarkColor(), c1);
-//		        g.setStroke(stroke1);
-//		        g.drawRoundRect(box.x, box.y, box.width, box.height, cnr, cnr);
-//	        }
-//        }
-//    }
-//	private void drawButtons(Graphics2D g, boolean all) {
-//        Stroke prev = g.getStroke();
-//        g.setFont(narrowFont(20));
-//
-//        drawButton(g, all, defaultBox, defaultButtonKey());
-//        drawButton(g, all, lastBox,    lastButtonKey());
-//        drawButton(g, all, userBox,    userButtonKey());
-//        drawButton(g, all, guideBox,   guideButtonKey());
-//        g.setStroke(prev);
-//	}
 	private void drawFixButtons(Graphics2D g, boolean all) {
         Stroke prev = g.getStroke();
 
@@ -574,9 +538,8 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 
         // background image
         g.drawImage(backImg(), 0, 0, this);
-
-		// Buttons background image
-        g.drawImage(buttonBackImg(), xButton, yButton, null);
+        drawFixButtons(g, false);
+        drawButtons(g);
 
         // selected race center img
 		g.drawImage(raceImg(), xCtrFrame(), yCtrFrame, null);
@@ -766,8 +729,6 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
             }
         }
 
-        drawFixButtons(g, false);
-        drawButtons(g, false);
 		showGuide(g);
 
 		if (showTiming)
@@ -784,13 +745,13 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         close();
     }
 	@Override protected void clearImages() {
+		super.clearImages();
         backImg			= null;
         raceImg			= null;
         raceIconImg		= null;
         raceBackImg		= null;
         shipBackImg		= null;
         fleetBackImg	= null;
-        buttonBackImg	= null;
         resetFleetImages();
         resetRaceMug();
     }
@@ -912,11 +873,6 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
             initBackImg();
         return backImg;
     }
-//    private BufferedImage buttonBackImg() {
-//        if (buttonBackImg == null)
-//            initButtonBackImg();
-//        return buttonBackImg;
-//    }
     private void initFleetBackImg() {
 		long timeStart = System.currentTimeMillis();
 		fleetBackImg = new BufferedImage(fleetWidth, fleetHeight, TYPE_INT_ARGB);
@@ -955,43 +911,6 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 			System.out.println("initShipBackImg() Time = " + (System.currentTimeMillis()-timeStart));
 		return shipBackImg;
     }
-//    private BufferedImage getButtonBackImg() {
-//		int cnr = s5;
-//		int xMin = guideBox.x;
-//		int yMin = guideBox.y;
-//		int xMax = defaultBox.x + defaultBox.width;
-//		int yMax = defaultBox.y + defaultBox.height;
-//		xButton = xMin-s2;
-//		yButton = yMin-s2;
-//		wButton = xMax - xMin + s4;
-//		hButton = yMax - yMin + s4;
-//		
-//		BufferedImage buttonBackImg = new BufferedImage(wButton, hButton, TYPE_INT_ARGB);
-//		Graphics2D g = (Graphics2D) buttonBackImg.getGraphics();
-//		setFontHints(g);
-//		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-//		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-//
-//		g.setFont(smallButtonFont);
-//		// draw DEFAULT button
-//		g.setPaint(GameUI.buttonLeftBackground());
-//		g.fillRoundRect(defaultBox.x-xButton, defaultBox.y-yButton, defaultBox.width, defaultBox.height, cnr, cnr);
-//
-//		// draw LAST button
-//		g.setPaint(GameUI.buttonLeftBackground());
-//		g.fillRoundRect(lastBox.x-xButton, lastBox.y-yButton, lastBox.width, lastBox.height, cnr, cnr);
-//
-//		// draw USER button
-//		g.setPaint(GameUI.buttonLeftBackground());
-//		g.fillRoundRect(userBox.x-xButton, userBox.y-yButton, userBox.width, userBox.height, cnr, cnr);
-//
-//		// draw GUIDE button
-//		g.setPaint(GameUI.buttonLeftBackground());
-//		g.fillRoundRect(guideBox.x-xButton, guideBox.y-yButton, guideBox.width, guideBox.height, cnr, cnr);
-//
-//		drawButtons(g, true);
-//		return buttonBackImg;
-//    }
     private void initBackImg() {
 		long timeStart = System.currentTimeMillis();
         int w = getWidth();
@@ -1404,7 +1323,6 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
             repaint();
         }
         else if (e.getComponent() == shipSetTxt) {
-        	//shipSetTxt.requestFocus();
             hoverBox = shipSetBox;
             repaint();
         }

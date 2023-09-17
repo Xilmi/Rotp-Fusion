@@ -120,8 +120,8 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	private int xCost, yCost;
 	private int w;
 	private int h;
-	private int hBG;
-	protected int wBG;
+//	private int hBG;
+//	protected int wBG;
 	private int settingSize;
 	private int settingBoxH;
 	private int topM;
@@ -352,7 +352,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		// frame
 		g.setColor(frameC);
 		g.drawRect(xLine, yLine - frameShift, currentWith, settingBoxH);
-		g.setPaint(GameUI.settingsSetupBackgroundW(w));
+		g.setPaint(bg());
 		bt.displayText(setting.guiSettingDisplayStr());
 		g.fillRect(xLine + settingIndent/2, yLine -s12 + frameShift,
 				bt.stringWidth(g) + settingIndent, s12);
@@ -502,7 +502,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		g.setColor(backgroundHaze);
 		g.fillRect(0, 0, w, h);
 		
-		g.setPaint(GameUI.settingsSetupBackgroundW(w));
+		g.setPaint(bg());
 		g.fillRect(leftM, topM, wBG, hBG);
 		
 		// Tool tip

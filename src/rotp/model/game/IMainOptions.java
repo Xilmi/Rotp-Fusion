@@ -27,7 +27,6 @@ import java.util.LinkedList;
 import javax.swing.JFileChooser;
 
 import rotp.Rotp;
-import rotp.ui.RotPUI;
 import rotp.ui.game.BaseModPanel;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolInt;
@@ -250,14 +249,7 @@ public interface IMainOptions extends IDebugOptions, IZoomOptions {
 	default void	toggleRaceStatusLog()	{ raceStatusLog.toggle(); }
 
 	ParamBoolean showAlternateAnimation	= new ParamBoolean(MOD_UI, "SHOW_ALT_ANIMATION", true)
-	{
-		{ isCfgFile(true); }
-		@Override public Boolean set(Boolean val) {
-			super.set(val);
-			// RotPUI.setupRaceUI().resetRaceMug(); // TODO BR: Delete
-			return val;
-		}
-	};
+	{	{ isCfgFile(true); } };
 	ParamBoolean originalSpeciesOnly	= new ParamBoolean(MOD_UI, "ORIGINAL_SPECIES_ONLY", false)
 	{	{ isCfgFile(true); } };
 	default boolean originalSpeciesOnly()	{ return originalSpeciesOnly.get(); }
@@ -273,14 +265,11 @@ public interface IMainOptions extends IDebugOptions, IZoomOptions {
 			Arrays.asList(
 					displayMode, graphicsMode, texturesMode, sensitivityMode, selectedScreen,
 					null,
-//					soundVolume, musicVolume, showMemory, backupTurns, saveDirectory, showAlternateAnimation,
 					soundVolume, musicVolume, backupTurns, saveDirectory, showAlternateAnimation, noFogOnIcons,
 					null,
 					useFusionFont, galaxyPreviewColorStarsSize, raceStatusLog, disableAdvisor, originalSpeciesOnly,
-//					mapFontFactor, showNameMinFont, showInfoFontRatio, useFusionFont, galaxyPreviewColorStarsSize, raceStatusLog,
 					null,
 					minListSizePopUp, menuStartup, compactOptionOnly, debugOptionsUI, zoomOptionsUI
-//					showFleetFactor, showFlagFactor, showPathFactor, minListSizePopUp, menuStartup, compactOptionOnly
 					));
 
 }

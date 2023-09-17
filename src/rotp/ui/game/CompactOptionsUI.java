@@ -15,18 +15,20 @@
  */
 package rotp.ui.game;
 
-import static rotp.model.game.IGameOptions.LIVE_OPTIONS_FILE;
+import static rotp.model.game.IBaseOptsTools.LIVE_OPTIONS_FILE;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.LinearGradientPaint;
+import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
 import javax.swing.JEditorPane;
@@ -35,14 +37,13 @@ import javax.swing.JTextPane;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
-import rotp.ui.util.InterfaceOptions;
 import rotp.ui.util.IParam;
+import rotp.ui.util.InterfaceOptions;
 import rotp.util.FontManager;
 import rotp.util.ModifierKeysState;
 
 public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener {
 	private static final long serialVersionUID = 1L;
-	private static final Color backgroundHaze = new Color(0,0,0,160);
 	private String guiTitleID;
 	private String GUI_ID;
 	
@@ -67,13 +68,12 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	private static final int bottomPad		= rowPad;
 	private static final int textBoxH		= settingH;
 	private static final int hDistSetting	= settingH + settingpadH; // distance between two setting top corner
-	private		   final Box exitBox		= new Box(exitButton);
 	private		   final JTextPane descBox	= new JTextPane();
 	private int leftM, rightM;
 	private int topM, yTop;
-	private int wBG, hBG;
+//	private int wBG, hBG;
 	private int numColumns, numRows;
-	private int yTitle, yButton;
+	private int yTitle;
 	private int xSetting, ySetting, columnWidth; // settings var
 	private int index, column;
 	private int xDesc, yDesc, descWidth;
@@ -82,10 +82,14 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	private LinkedList<ModText> btList0; // left part
 	private LinkedList<ModText> btList2; // right part
 	private LinkedList<ModText> btListBoth;
-	private LinearGradientPaint bg;
+//	private LinearGradientPaint bg;
 	private LinkedList<LinkedList<IParam>> optionsList;
 	private String parent = "";
-	
+
+	private BufferedImage backImg; // the full background
+	// Debug Parameter
+    private static boolean showTiming = false;
+
 	// ========== Constructors and initializers ==========
 	//
 	public CompactOptionsUI(String guiTitle_ID, String guiId,
@@ -142,6 +146,57 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		addMouseMotionListener(this);
 		addMouseWheelListener(this);
 	}
+	// ========== Optimization Methods ==========
+	//
+    private BufferedImage backImg() {
+        if (backImg == null)
+            initBackImg();
+        return backImg;
+    }
+    private void initBackImg() {
+		long timeStart = System.currentTimeMillis();
+		backImg = newOpaqueImage(w, h);
+		Graphics2D g = (Graphics2D) backImg.getGraphics();
+		// modnar: use (slightly) better upsampling
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+        g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+
+		// background image
+		Image back = GameUI.defaultBackground;
+		int imgW = back.getWidth(null);
+		int imgH = back.getHeight(null);
+		g.drawImage(back, 0, 0, w, h, 0, 0, imgW, imgH, this);
+
+		g.setPaint(bg());
+		g.fillRect(leftM, topM, wBG, hBG);
+
+		// Title
+		g.setFont(titleFont);
+		String title = text(guiTitleID);
+		int sw = g.getFontMetrics().stringWidth(title);
+		int xTitle = (w-sw)/2;
+		drawBorderedString(g, title, 1, xTitle, yTitle, Color.black, Color.white);
+   
+		// buttons location
+		int smallButtonW = scaled(180);
+		exitBox.setBounds(w-scaled(189)-rightM, yButton, smallButtonW, smallButtonH);
+		smallButtonW = defaultButtonWidth(g);
+		defaultBox.setBounds(exitBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
+		smallButtonW = defaultButtonWidth(g);
+		lastBox.setBounds(defaultBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
+		smallButtonW = userButtonWidth(g);
+		userBox.setBounds(lastBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
+		smallButtonW = guideButtonWidth(g);
+		guideBox.setBounds(leftM+s9, yButton, smallButtonW, smallButtonH);
+    
+        initButtonBackImg();
+        g.dispose();
+		if (showTiming) 
+			System.out.println("initBackImg() Time = " + (System.currentTimeMillis()-timeStart));
+    }
 	// ========== Other Methods ==========
 	//
 	private ModText newBT(boolean disabled) {
@@ -160,89 +215,6 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 					disabledColor, hoverC, depressedC, disabledColor, true);
 		return bt;
 	}
-	private void drawButtons(Graphics2D g) {
-		int cnr = s5;
-		// draw settings button
-		int smallButtonW = scaled(180);
-		exitBox.setBounds(w-scaled(189)-rightM, yButton, smallButtonW, smallButtonH);
-		g.setColor(GameUI.buttonBackgroundColor());
-		g.fillRoundRect(exitBox.x, exitBox.y, smallButtonW, smallButtonH, cnr, cnr);
-		g.setFont(smallButtonFont());
-		String text = text(exitButtonKey());
-		int sw = g.getFontMetrics().stringWidth(text);
-		int x = exitBox.x+((exitBox.width-sw)/2);
-		int y = exitBox.y+exitBox.height-s8;
-		Color c = hoverBox == exitBox ? Color.yellow : GameUI.borderBrightColor();
-		drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), c);
-		Stroke prev = g.getStroke();
-		g.setStroke(stroke1);
-		g.drawRoundRect(exitBox.x, exitBox.y, exitBox.width, exitBox.height, cnr, cnr);
-		g.setStroke(prev);
-
-		text = text(defaultButtonKey());
-		sw	 = g.getFontMetrics().stringWidth(text);
-		smallButtonW = defaultButtonWidth(g);
-		defaultBox.setBounds(exitBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
-		g.setColor(GameUI.buttonBackgroundColor());
-		g.fillRoundRect(defaultBox.x, defaultBox.y, smallButtonW, smallButtonH, cnr, cnr);
-		g.setFont(smallButtonFont());
-		x = defaultBox.x+((defaultBox.width-sw)/2);
-		y = defaultBox.y+defaultBox.height-s8;
-		c = hoverBox == defaultBox ? Color.yellow : GameUI.borderBrightColor();
-		drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), c);
-		prev = g.getStroke();
-		g.setStroke(stroke1);
-		g.drawRoundRect(defaultBox.x, defaultBox.y, defaultBox.width, defaultBox.height, cnr, cnr);
-		g.setStroke(prev);
-
-		text = text(lastButtonKey());
-		sw	 = g.getFontMetrics().stringWidth(text);
-		smallButtonW = defaultButtonWidth(g);
-		lastBox.setBounds(defaultBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
-		g.setColor(GameUI.buttonBackgroundColor());
-		g.fillRoundRect(lastBox.x, lastBox.y, smallButtonW, smallButtonH, cnr, cnr);
-		g.setFont(smallButtonFont());
-		x = lastBox.x+((lastBox.width-sw)/2);
-		y = lastBox.y+lastBox.height-s8;
-		c = hoverBox == lastBox ? Color.yellow : GameUI.borderBrightColor();
-		drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), c);
-		prev = g.getStroke();
-		g.setStroke(stroke1);
-		g.drawRoundRect(lastBox.x, lastBox.y, lastBox.width, lastBox.height, cnr, cnr);
-		g.setStroke(prev);
-
-		text = text(userButtonKey());
-		sw	 = g.getFontMetrics().stringWidth(text);
-		smallButtonW = userButtonWidth(g);
-		userBox.setBounds(lastBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
-		g.setColor(GameUI.buttonBackgroundColor());
-		g.fillRoundRect(userBox.x, userBox.y, smallButtonW, smallButtonH, cnr, cnr);
-		g.setFont(smallButtonFont());
-		x = userBox.x+((userBox.width-sw)/2);
-		y = userBox.y+userBox.height-s8;
-		c = hoverBox == userBox ? Color.yellow : GameUI.borderBrightColor();
-		drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), c);
-		prev = g.getStroke();
-		g.setStroke(stroke1);
-		g.drawRoundRect(userBox.x, userBox.y, userBox.width, userBox.height, cnr, cnr);
-		g.setStroke(prev);
-
-		text = text(guideButtonKey());
-		sw	 = g.getFontMetrics().stringWidth(text);
-		smallButtonW = guideButtonWidth(g);
-		guideBox.setBounds(leftM+s9, yButton, smallButtonW, smallButtonH);
-		g.setColor(GameUI.buttonBackgroundColor());
-		g.fillRoundRect(guideBox.x, guideBox.y, smallButtonW, smallButtonH, cnr, cnr);
-		g.setFont(smallButtonFont());
-		x = guideBox.x+((guideBox.width-sw)/2);
-		y = guideBox.y+guideBox.height-s8;
-		c = hoverBox == guideBox ? Color.yellow : GameUI.borderBrightColor();
-		drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), c);
-		prev = g.getStroke();
-		g.setStroke(stroke1);
-		g.drawRoundRect(guideBox.x, guideBox.y, guideBox.width, guideBox.height, cnr, cnr);
-		g.setStroke(prev);
-	}
 	private void paintDescriptions(Graphics2D g) {
 		descBox.setFont(descFont);
 		descBox.setBackground(GameUI.setupFrame());
@@ -259,7 +231,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		setValueColor(index);
 		ModText txt0 = btList0.get(index);
 		ModText txt2 = btList2.get(index);
-		g.setPaint(bg);
+		g.setPaint(bg());
 		int sw0 = txt0.stringWidth(g);
 		int sw2 = txt2.stringWidth(g);
 		int sw = sw0 + sw2;
@@ -311,7 +283,11 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		parent = p;
 		start();
 	}
-
+//	private LinearGradientPaint bg() {
+//		if (bg == null)
+//			bg = GameUI.settingsSetupBackgroundW(wBG);
+//		return bg;
+//	}
 	private void start() { // Called from subUI
 		super.init();
 		hoverBox = null;
@@ -339,8 +315,8 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		xDesc		= leftM + columnPad;		
 		yDesc		= topM + hBG - ( descHeigh + buttonPadV + smallButtonH + bottomPad);
 		
-		if (bg == null)
-			bg = GameUI.settingsSetupBackgroundW(w);
+//		if (bg == null)
+//			bg = GameUI.settingsSetupBackgroundW(w);
 		guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
 		enableGlassPane(this);
 		refreshGui();
@@ -354,6 +330,10 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		case SHIFT:		 return applyKey;
 		default:		 return exitKey;
 		}
+	}
+	@Override protected void clearImages() {
+		super.clearImages();
+		backImg	= null;
 	}
 	@Override protected void close() {
 		super.close();
@@ -447,32 +427,21 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		}
 		repaint();
 	}
-	@Override public void repaintButtons()	{
-		Graphics2D g = (Graphics2D) getGraphics();
-		setFontHints(g);
-		drawButtons(g);
-		g.dispose();
-	}
 	@Override protected String GUI_ID()		{ return GUI_ID; }
 	@Override public void paintComponent(Graphics g0)	{
+		System.out.println("===== Compact PaintComponents =====");
+		showTiming = true;
+		long timeStart = System.currentTimeMillis();
 		super.paintComponent(g0);
 		Graphics2D g = (Graphics2D) g0;
-		// draw background "haze"
-		g.setColor(backgroundHaze);
-		g.fillRect(0, 0, w, h);
-		g.setPaint(bg);
-		g.fillRect(leftM, topM, wBG, hBG);
 		
+        // background image
+        g.drawImage(backImg(), 0, 0, this);
+		// Buttons background image
+        drawButtons(g);
 		// Tool tip
 		paintDescriptions(g);
 
-		// Title
-		g.setFont(titleFont);
-		String title = text(guiTitleID);
-		int sw = g.getFontMetrics().stringWidth(title);
-		int xTitle = (w-sw)/2;
-		drawBorderedString(g, title, 1, xTitle, yTitle, Color.black, Color.white);
-		
 		Stroke prev = g.getStroke();
 		g.setStroke(stroke3);
 		// Loop thru the parameters
@@ -485,9 +454,8 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 			goToNextSetting();
 		}
 		g.setStroke(prev);
-
-		drawButtons(g);
-		showGuide(g);		
+		if (showTiming)
+			System.out.println("paintComponent() Time = " + (System.currentTimeMillis()-timeStart));	
 	}
 	@Override public void keyReleased(KeyEvent e)		{
 		if(checkModifierKey(e))

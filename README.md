@@ -61,7 +61,14 @@ Later:
 
 ## What's New
 
-2023.09.14 (BR)
+2023.09.17 (BR)
+- Moved background paint to BaseModPanel.
+- Compact Menu options Optimizations.
+  - Buttons display back Image.
+- Original Menu options Optimizations.
+  - Buttons display back Image.
+
+2023.09.16 (BR)
 - Moved button background managment to BaseModPanel.
 - SetupGalaxyUI optimization:
   - Buttons display back Image.

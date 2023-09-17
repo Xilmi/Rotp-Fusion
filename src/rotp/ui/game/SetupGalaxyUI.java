@@ -375,6 +375,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		g.setPaint(GameUI.buttonRightBackground());
 	}
 	@Override protected void setSmallButtonGraphics(Graphics2D g) {
+		System.out.println("SetupGalaxyUI: setSmallButtonGraphics");
 		g.setFont(smallButtonFont());
 		g.setPaint(GameUI.buttonLeftBackground());
 	}
@@ -462,6 +463,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		duplicateList.add(aliensNumber);
 	}
 	@Override public void init() {
+		isOnTop = true;
 		super.init();
 		boxMonoFont    = null;
 		dialogMonoFont = null;
@@ -478,11 +480,11 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
         repaint();
 	}
 	@Override protected void clearImages() {
+		super.clearImages();
         backImg			= null;
 		boxMonoFont		= null;
 		dialogMonoFont	= null;
 		galaxyTextArray	= null;
-	    buttonBackImg	= null;
       	clearMugs();
     }
     private void clearMugs() {
@@ -531,7 +533,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
         return bigOppMugs[num];
     }
     private BufferedImage oppMug(int num, boolean small) { return small? smallOppMug(num) : bigOppMug(num); }
-     // TODO BR: !!! Here
     private void updateOppMugs(int i) {
     	if (smallOppMugs == null) {
     		initOppMugs();
@@ -553,22 +554,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
     	for (int i=0; i<MAX_DISPLAY_OPPS; i++)
     		updateOppMugs(i);
     }
-	
-//    private BufferedImage bigMug(int num) {
-//        if (bigMugs == null)
-//        	initMugs();
-//        return bigMugs[num];
-//    }
-//    private BufferedImage smallMug(int num) {
-//        if (smallMugs == null)
-//        	initMugs();
-//        return smallMugs[num];
-//    }
-//    private void initMugs() {
-//    	int n = newGameOptions().numberSpecies();
-//    	smallMugs = newGameOptions().getMugImgArray(wSmallMug, hSmallMug, rShSmallMug, n);
-//    	bigMugs   = newGameOptions().getMugImgArray(wBigMug,   hBigMug,   rShBigMug,   n);
-//    }
 	private BufferedImage smallBackMug() {
 		if (smallBackMug == null)
 			initBackMugs();
@@ -586,7 +571,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		return smallNullMug;
 	}
 	private BufferedImage bigNullMug() {
-    	System.out.println("BufferedImage bigBackMug()");
 		if (bigNullMug == null)
 			initBackMugs();
 		return bigNullMug;
@@ -619,7 +603,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		g.dispose();
 		return mug;
     }
-//	@Override protected void close() { super.close(); }
 	@Override public void showHelp() {
 		loadHelpUI();
 		repaint();   
@@ -1250,8 +1233,10 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	    return input;
 	}
 	@Override public void paintComponent(Graphics g0) {
-		System.out.println("===== PaintComponents =====");
-		showTiming = true;
+		System.out.println("===== Galaxy PaintComponents =====");
+		if (!isOnTop)
+			return;
+		showTiming = false;
 		long timeStart = System.currentTimeMillis();
 		long timeMid;
 		super.paintComponent(g0);
@@ -1273,9 +1258,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			box.setBounds(0,0,0,0);
 		// background image
 		g.drawImage(backImg(), 0, 0, w, h, this);
-
-		// Buttons background image
-        g.drawImage(buttonBackImg(), xButton, yButton, null);
+		drawFixButtons(g, false);
+        drawButtons(g);
 
 		// draw number of opponents
 		int maxOpp = newGameOptions().maximumOpponentsOptions();
@@ -1588,12 +1572,10 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			System.out.println("drawHelpButtons Time = " + (System.currentTimeMillis()-timeMid));
 		timeMid = System.currentTimeMillis();
 		
-		drawFixButtons(g, false);
 		if (showTiming)
 			System.out.println("drawFixButtons Time = " + (System.currentTimeMillis()-timeMid));
 		timeMid = System.currentTimeMillis();
 		
-		drawButtons(g, false);
 		if (showTiming)
 			System.out.println("drawDynamicButtons Time = " + (System.currentTimeMillis()-timeMid));
 		showGuide(g);
@@ -1604,13 +1586,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		if (showTiming)
 			System.out.println("paintComponent() Time = " + (System.currentTimeMillis()-timeStart));
-	}
-	@Override public void repaintButtons() {
-		initButtonBackImg();
-		Graphics2D g = (Graphics2D) getGraphics();
-		setFontHints(g);
-		g.drawImage(buttonBackImg(), xButton, yButton, wButton, hButton, null);
-		g.dispose();
 	}
     private void drawHelpButton(Graphics2D g) {
         helpBox.setBounds(s20,s20,s20,s25);
@@ -2183,6 +2158,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	}
 	private void goToOptions() {
 		buttonClick();
+		isOnTop = false;
 		AdvancedOptionsUI optionsUI = RotPUI.advancedOptionsUI();
 		close();
 		optionsUI.init();
@@ -2190,30 +2166,35 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	// BR: add UI panel for MOD game options
 	private void goToMergedStatic() {
 		buttonClick();
+		isOnTop = false;
 		MergedStaticOptionsUI modOptionsUI = RotPUI.mergedStaticOptionsUI();
 		close();
 		modOptionsUI.start(GUI_ID);
 	}
 	private void goToMergedDynamic() {
 		buttonClick();
+		isOnTop = false;
 		MergedDynamicOptionsUI modOptionsUI = RotPUI.mergedDynamicOptionsUI();
 		close();
 		modOptionsUI.start(GUI_ID);
 	}
 	private void goToModStaticA() {
 		buttonClick();
+		isOnTop = false;
 		StaticAOptionsUI modOptionsUI = RotPUI.modOptionsStaticA();
 		close();
 		modOptionsUI.init();
 	}
 	private void goToModStaticB() {
 		buttonClick();
+		isOnTop = false;
 		StaticBOptionsUI modBOptionsUI = RotPUI.modOptionsStaticB();
 		close();
 		modBOptionsUI.init();
 	}
 	private void goToModDynamicA() {
 		buttonClick();
+		isOnTop = false;
 		DynamicAOptionsUI modOptionsUI = RotPUI.modOptionsDynamicA();
 		close();
 		modOptionsUI.init();
@@ -2295,6 +2276,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		Graphics2D g = (Graphics2D) backImg.getGraphics();
 		setFontHints(g);
 		// modnar: use (slightly) better upsampling
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+        g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
 		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 		Race race = Race.keyed(newGameOptions().selectedPlayerRace());
@@ -2730,6 +2714,11 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		case KeyEvent.VK_ENTER:
 			doStartBoxAction();
 			return;
+    	case KeyEvent.VK_B:
+    		compactOptionOnly.toggle();
+    		clearImages();
+    		repaint();
+            return;
     	case KeyEvent.VK_F:
             noFogChanged();
             return;

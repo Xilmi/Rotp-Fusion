@@ -27,6 +27,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.LinearGradientPaint;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
@@ -76,7 +77,7 @@ public abstract class BaseModPanel extends BasePanel
 	protected static int	 smallButtonMargin;
 	protected static int	 smallButtonH;
 	protected static int	 cnr;
-;
+
 	public	  static int	 guideFontSize;
 	public	  static boolean autoGuide	= false; // To disable automated Guide
 	public	  static boolean dialGuide	= false; // To disable automated Guide on dialog list
@@ -91,6 +92,7 @@ public abstract class BaseModPanel extends BasePanel
 	private	  PolyBox prevPolyBox;
 	protected boolean hoverChanged;
 	protected boolean isSubMenu = true;
+	protected boolean isOnTop = true;
 
 	LinkedList<IParam> paramList;
 	
@@ -98,7 +100,14 @@ public abstract class BaseModPanel extends BasePanel
 	LinkedList<IParam> duplicateList;
 	LinkedList<IParam> activeList;
 	protected int xButton, yButton, wButton, hButton;
-	protected BufferedImage buttonBackImg;
+	protected int wBG, hBG;
+	private BufferedImage buttonBackImg;
+	private LinearGradientPaint bg;
+	protected LinearGradientPaint bg() {
+		if (bg == null)
+			bg = GameUI.settingsSetupBackgroundW(w, wBG);
+		return bg;
+	}
 
 	protected void singleInit() {} // To avoid call to options during class creation
 	
@@ -151,14 +160,13 @@ public abstract class BaseModPanel extends BasePanel
 	
 	protected void refreshGui() {}
 
-	@Override public void repaintButtons() { repaint(); }
 	protected void init() {
 		//ModifierKeysState.reset();
 		w = RotPUI.setupRaceUI().getWidth();
 		h = RotPUI.setupRaceUI().getHeight();
 		smallButtonMargin = s30;
 		smallButtonH	  = s30;
-		smallButtonH	  = s5;
+		cnr				  = s5;
 		if (!initialised) {
 			if (isSubMenu) {
 				defaultBox	= new Box(defaultSubButton);
@@ -175,10 +183,14 @@ public abstract class BaseModPanel extends BasePanel
 			initialised = true;
 		}
 	}
-	protected void clearImages() {}
+	protected void clearImages() {
+		buttonBackImg = null;
+		bg = null;
+	}
 	protected void close() { 
 		disableGlassPane();
 		clearImages();
+		isOnTop = false;
 		//ModifierKeysState.reset();
 	}
 
@@ -187,36 +199,48 @@ public abstract class BaseModPanel extends BasePanel
             initButtonBackImg();
         return buttonBackImg;
     }
-    protected void drawButton(Graphics2D g, boolean all, Box box, String key) {
-        if (hoverBox == box || all) {
+	@Override public void repaintButtons() {
+		initButtonBackImg();
+		Graphics2D g = (Graphics2D) getGraphics();
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+        g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+		drawButtons(g);
+		g.dispose();
+	}
+	protected void drawButtons(Graphics2D g) {
+		g.drawImage(buttonBackImg(), xButton, yButton, null);
+		drawButtons(g, false); // init = false; local = false
+	}
+    protected void drawButton(Graphics2D g, boolean init, Box box, String key) {
+        if (hoverBox == box || init) {
         	String s = text(key);
 	        int sw	 = g.getFontMetrics().stringWidth(s);
 	        int x    = box.x + ((box.width-sw)/2);
 	        int y    = box.y + box.height*75/100;
-	        if (all) {
-	        	Color c1 = GameUI.borderBrightColor();
-		        drawShadowedString(g, s, 2, x-xButton, y-yButton, GameUI.borderDarkColor(), c1);
-		        g.setStroke(stroke1);
-		        g.drawRoundRect(box.x-xButton, box.y-yButton, box.width, box.height, cnr, cnr);	        	
-	        } else {
-	        	Color c1 = Color.yellow;
-		        drawShadowedString(g, s, 2, x, y, GameUI.borderDarkColor(), c1);
-		        g.setStroke(stroke1);
-		        g.drawRoundRect(box.x, box.y, box.width, box.height, cnr, cnr);
+	        if (init) {
+	        	x -= xButton;
+	        	y -= yButton;
 	        }
+	        Color c1 = init? GameUI.borderBrightColor() : Color.yellow;
+	        drawShadowedString(g, s, 2, x, y, GameUI.borderDarkColor(), c1);
+	        g.setStroke(stroke1);
+	        g.drawRoundRect(box.x, box.y, box.width, box.height, cnr, cnr);
         }
     }
-	protected void drawButtons(Graphics2D g, boolean all) {
+	protected void drawButtons(Graphics2D g, boolean init) {
         Stroke prev = g.getStroke();
         
         g.setFont(bigButtonFont());
-        drawButton(g, all, exitBox,		exitButtonKey());
+        drawButton(g, init, exitBox,	exitButtonKey());
 
         g.setFont(smallButtonFont());
-        drawButton(g, all, defaultBox,	defaultButtonKey());
-        drawButton(g, all, lastBox,		lastButtonKey());
-        drawButton(g, all, userBox,		userButtonKey());
-        drawButton(g, all, guideBox,	guideButtonKey());
+        drawButton(g, init, defaultBox,	defaultButtonKey());
+        drawButton(g, init, lastBox,	lastButtonKey());
+        drawButton(g, init, userBox,	userButtonKey());
+        drawButton(g, init, guideBox,	guideButtonKey());
         g.setStroke(prev);
 	}
     protected void initButtonPosition() {
@@ -234,6 +258,7 @@ public abstract class BaseModPanel extends BasePanel
 		g.setPaint(GameUI.buttonBackgroundColor());
 	}
 	protected void setSmallButtonGraphics(Graphics2D g) {
+		System.out.println("BaseModPanel: setSmallButtonGraphics");
 		g.setFont(smallButtonFont());
 		g.setPaint(GameUI.buttonBackgroundColor());
 	}
@@ -262,10 +287,11 @@ public abstract class BaseModPanel extends BasePanel
 		// draw GUIDE button
 		g.fillRoundRect(guideBox.x-xButton, guideBox.y-yButton, guideBox.width, guideBox.height, cnr, cnr);
 
-		drawButtons(g, true);
+		drawButtons(g, true); // init = true; local = true
 		return buttonBackImg;
     }
-	// ==================== Guide Button ====================
+
+    // ==================== Guide Button ====================
 	//
 	protected String guideButtonKey() { return guideKey; }
 	private void initGuideButtonWidth(Graphics2D g) {
@@ -548,11 +574,7 @@ public abstract class BaseModPanel extends BasePanel
 	}
 	@Override public void mouseClicked(MouseEvent e) {  }
 	@Override public void mousePressed(MouseEvent e) {  }
-	@Override public void mouseEntered(MouseEvent e) {
-		repaint();
-//		ModifierKeysState.reset();
-//		repaintButtons();
-	}
+	@Override public void mouseEntered(MouseEvent e) { repaint(); }
 	@Override public void mouseExited(MouseEvent e)	 { clearGuide(); }
 	@Override public void mouseDragged(MouseEvent e) {  }
 	@Override public void mouseMoved(MouseEvent e)	 {

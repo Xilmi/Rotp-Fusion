@@ -179,8 +179,6 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("ZOOM_FACTORS"),
 				zoomOptionsUI,
-//				showFleetFactor, showFlagFactor, showPathFactor,
-//				showNameMinFont, showInfoFontRatio, mapFontFactor,
 	
 				headerSpacer,
 				new ParamTitle("MENU_OPTIONS"),
