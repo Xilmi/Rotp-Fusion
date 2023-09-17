@@ -25,7 +25,7 @@ jobs:
     - name: Check CPU
       run: sudo cat /proc/cpuinfo
     - name: Build with Maven
-      run: mvn -B clean package github-release:github-release -DGITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} -Dmaven.javadoc.skip=true --file pomNoMiniBR.xml
+      run: mvn -e -B clean package github-release:github-release -DGITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} -Dmaven.javadoc.skip=true --file pomNoMiniBR.xml
       env:
-        NODE_OPTIONS: --max_old_space_size=4096
+        NODE_OPTIONS: --max_old_space_size=8192
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
