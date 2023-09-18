@@ -189,7 +189,84 @@
 				</configuration>
 			</plugin>
 			
- 
+
+			<!-- plugin for Mini Jar -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.3.0</version>
+				<executions>
+					<!-- Run shade goal on package phase -->
+					<!-- package minified jar. This needs to run first as it's attached, doesn't replace main jar -->
+					<execution>
+						<id>shade-mini</id>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<createDependencyReducedPom>false</createDependencyReducedPom>
+							<shadedArtifactAttached>true</shadedArtifactAttached>
+							<shadedClassifierName>mini</shadedClassifierName>
+							<transformers>
+								<!-- add Main-Class to manifest file -->
+								<!-- When launching full version, run Rotp directly, no need to go via RotpGovernor main -->
+								<transformer
+										implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>rotp.Rotp</mainClass>
+									<manifestEntries>
+										<Built-By>${AuthorId}</Built-By>
+										<Mini>true</Mini>
+									</manifestEntries>
+								</transformer>
+							</transformers>
+							<filters>
+								<filter>
+									<artifact>com.rayfowler:rotp</artifact>
+									<excludes>
+										<exclude>**/*.wav</exclude>
+										<exclude>**/*.jpg</exclude>
+										<exclude>**/*.png</exclude>
+									</excludes>
+								</filter>
+							</filters>
+						</configuration>
+					</execution>
+					<execution>
+						<id>shade-original</id>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<createDependencyReducedPom>false</createDependencyReducedPom>
+							<transformers>
+								<!-- add Main-Class to manifest file -->
+								<!-- When launching full version, run Rotp directly, no need to go via RotpGovernor main -->
+								<transformer
+										implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>rotp.RotpGovernor</mainClass>
+									<manifestEntries>
+										<Built-By>${AuthorId}</Built-By>
+									</manifestEntries>
+								</transformer>
+							</transformers>
+							<filters>
+								<filter>
+									<artifact>com.rayfowler:rotp</artifact>
+									<excludes>
+										<exclude>**/*.ogg</exclude>
+										<exclude>**/*.webp</exclude>
+										<exclude>**/rotp-mini.properties</exclude>
+									</excludes>
+								</filter>
+							</filters>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+
 			<!-- Download Eclipse OpenJDK to package in windows binary zip -->
 			<plugin>
 				<groupId>com.googlecode.maven-download-plugin</groupId>
