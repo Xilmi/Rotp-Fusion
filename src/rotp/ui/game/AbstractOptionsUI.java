@@ -64,9 +64,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 	private LinkedList<Integer>	lastRowList = new LinkedList<>();
 	private LinkedList<ModText> btList		= new LinkedList<>();
 	
-	private BufferedImage backImg; // the full background
-	// Debug Parameter
-    private static boolean showTiming = false;
+//	private BufferedImage backImg; // the full background
 
 	// ========== Constructors and initializers ==========
 	//
@@ -151,12 +149,12 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 	protected abstract void init0();
 	// ========== Optimization Methods ==========
 	//
-    private BufferedImage backImg() {
-        if (backImg == null)
-            initBackImg();
-        return backImg;
-    }
-    private void initBackImg() {
+//    private BufferedImage backImg() {
+//        if (backImg == null)
+//            initBackImg();
+//        return backImg;
+//    }
+	@Override protected void initBackImg() {
 		long timeStart = System.currentTimeMillis();
 		backImg = newOpaqueImage(w, h);
 		Graphics2D g = (Graphics2D) backImg.getGraphics();
@@ -192,10 +190,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 		g.setColor(SystemPanel.blackText);
 		drawString(g, expl, xDesc, yDesc);
 		
-   
 		// buttons location
-//		drawAllButtons(g);
-
 		int smallButtonW = scaled(180);
 		exitBox.setBounds(w-scaled(189)-rightM, yButton, smallButtonW, smallButtonH);
 		smallButtonW = defaultButtonWidth(g);
@@ -289,10 +284,10 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 		enableGlassPane(this);
 		refreshGui();
 	}
-	@Override protected void clearImages() {
-		super.clearImages();
-		backImg	= null;
-	}
+//	@Override protected void clearImages() {
+//		super.clearImages();
+//		backImg	= null;
+//	}
 	@Override protected void close() {
 		super.close();
         disableGlassPane();
@@ -332,44 +327,18 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 	}
 	@Override protected String GUI_ID()		{ return GUI_ID; }
 	@Override public void paintComponent(Graphics g0)	{
-		System.out.println("===== Compact PaintComponents =====");
-		showTiming = true;
+		// showTiming = true;
+		if (showTiming)
+			System.out.println("===== Classic Menu PaintComponents =====");
 		long timeStart = System.currentTimeMillis();
-		long timeMid = timeStart;
 		super.paintComponent(g0);
 		Graphics2D g = (Graphics2D) g0;
         // background image
         g.drawImage(backImg(), 0, 0, this);
-		if (showTiming)
-			System.out.println("g.drawImage(backImg() Time = " + (System.currentTimeMillis()-timeMid));
-		timeMid = System.currentTimeMillis();
 
 		// Buttons background image
         drawButtons(g);
-		if (showTiming)
-			System.out.println("g.drawImage(buttonBackImg() Time = " + (System.currentTimeMillis()-timeMid));
-		timeMid = System.currentTimeMillis();
 
-//		// draw background "haze"
-//		g.setColor(backgroundHaze);
-//		g.fillRect(0, 0, w, h);
-//		g.setPaint(bg());
-//		g.fillRect(leftM, topM, wBG, hBG);
-//		g.setFont(narrowFont(30));
-//		String title = text(guiTitleID);
-//		int sw = g.getFontMetrics().stringWidth(title);
-//		int xTitle = (w-sw)/2;
-//		if (numRows == 6) {
-//			xTitle = w -rightM - sw - 2*columnPad;
-//		}
-//
-//		drawBorderedString(g, title, 1, xTitle, yTitle, Color.black, Color.white);
-//		
-//		g.setFont(narrowFont(18));
-//		String expl = text("SETTINGS_DESCRIPTION");
-//		g.setColor(SystemPanel.blackText);
-//		drawString(g, expl, xDesc, yDesc);
-		
 		Stroke prev = g.getStroke();
 		g.setStroke(stroke3);
 		
@@ -384,8 +353,9 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 			goToNextSetting();
 		}
 		g.setStroke(prev);
-//		drawAllButtons(g);
 		showGuide(g);
+		if (showTiming)
+			System.out.println("Classic Menu paintComponent() Time = " + (System.currentTimeMillis()-timeStart));	
 	}
 	@Override public void keyPressed(KeyEvent e)		{
 		super.keyPressed(e);

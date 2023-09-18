@@ -28,7 +28,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
 import javax.swing.JEditorPane;
@@ -71,7 +70,6 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	private		   final JTextPane descBox	= new JTextPane();
 	private int leftM, rightM;
 	private int topM, yTop;
-//	private int wBG, hBG;
 	private int numColumns, numRows;
 	private int yTitle;
 	private int xSetting, ySetting, columnWidth; // settings var
@@ -82,13 +80,9 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	private LinkedList<ModText> btList0; // left part
 	private LinkedList<ModText> btList2; // right part
 	private LinkedList<ModText> btListBoth;
-//	private LinearGradientPaint bg;
 	private LinkedList<LinkedList<IParam>> optionsList;
 	private String parent = "";
 
-	private BufferedImage backImg; // the full background
-	// Debug Parameter
-    private static boolean showTiming = false;
 
 	// ========== Constructors and initializers ==========
 	//
@@ -148,12 +142,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	}
 	// ========== Optimization Methods ==========
 	//
-    private BufferedImage backImg() {
-        if (backImg == null)
-            initBackImg();
-        return backImg;
-    }
-    private void initBackImg() {
+    @Override protected void initBackImg() {
 		long timeStart = System.currentTimeMillis();
 		backImg = newOpaqueImage(w, h);
 		Graphics2D g = (Graphics2D) backImg.getGraphics();
@@ -283,11 +272,6 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		parent = p;
 		start();
 	}
-//	private LinearGradientPaint bg() {
-//		if (bg == null)
-//			bg = GameUI.settingsSetupBackgroundW(wBG);
-//		return bg;
-//	}
 	private void start() { // Called from subUI
 		super.init();
 		hoverBox = null;
@@ -315,8 +299,6 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		xDesc		= leftM + columnPad;		
 		yDesc		= topM + hBG - ( descHeigh + buttonPadV + smallButtonH + bottomPad);
 		
-//		if (bg == null)
-//			bg = GameUI.settingsSetupBackgroundW(w);
 		guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
 		enableGlassPane(this);
 		refreshGui();
@@ -330,10 +312,6 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		case SHIFT:		 return applyKey;
 		default:		 return exitKey;
 		}
-	}
-	@Override protected void clearImages() {
-		super.clearImages();
-		backImg	= null;
 	}
 	@Override protected void close() {
 		super.close();
@@ -429,8 +407,9 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	}
 	@Override protected String GUI_ID()		{ return GUI_ID; }
 	@Override public void paintComponent(Graphics g0)	{
-		System.out.println("===== Compact PaintComponents =====");
-		showTiming = true;
+		// showTiming = true;
+		if (showTiming)
+			System.out.println("===== Compact PaintComponents =====");
 		long timeStart = System.currentTimeMillis();
 		super.paintComponent(g0);
 		Graphics2D g = (Graphics2D) g0;
@@ -455,7 +434,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		}
 		g.setStroke(prev);
 		if (showTiming)
-			System.out.println("paintComponent() Time = " + (System.currentTimeMillis()-timeStart));	
+			System.out.println("Compact paintComponent() Time = " + (System.currentTimeMillis()-timeStart));	
 	}
 	@Override public void keyReleased(KeyEvent e)		{
 		if(checkModifierKey(e))

@@ -15,17 +15,20 @@
  */
 package rotp.ui.game;
 
+import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static rotp.model.empires.CustomRaceDefinitions.ROOT;
 import static rotp.model.game.IGameOptions.LIVE_OPTIONS_FILE;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
 import rotp.model.empires.CustomRaceDefinitions;
@@ -220,6 +223,127 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	}
 	// ========== Overriders ==========
 	//
+	@Override protected void drawFixButtons(Graphics2D g, boolean all) {
+		Stroke prev;
+		g.setFont(smallButtonFont());
+		// left button
+		if (hoverBox == randomBox || all) {
+			String text = text(randomKey);
+			int sw = g.getFontMetrics().stringWidth(text);
+			int x = randomBox.x+((randomBox.width-sw)/2);
+			int y = randomBox.y+randomBox.height*75/100;
+			Color c = hoverBox == randomBox ? Color.yellow : GameUI.borderBrightColor();
+			drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), c);
+			prev = g.getStroke();
+			g.setStroke(stroke1);
+			g.drawRoundRect(randomBox.x, randomBox.y, randomBox.width, randomBox.height, cnr, cnr);
+			g.setStroke(prev);
+		}
+	}
+	@Override protected void initButtonsBounds(Graphics2D g) {
+		g.setFont(smallButtonFont());
+
+		// Exit Button
+		int buttonW	= exitButtonWidth(g);
+		xButton = leftM + wBG - buttonW - buttonPad;
+		exitBox.setBounds(xButton, yButton, buttonW, smallButtonH);
+
+		// Select Button
+		String text	 = text(selectKey);
+		int sw = g.getFontMetrics().stringWidth(text);
+		buttonW	 = sw + smallButtonMargin;
+		xButton -= (buttonW + buttonPad);
+		selectBox.setBounds(xButton, yButton, buttonW, smallButtonH);
+
+		// Default Button
+		buttonW	 = defaultButtonWidth(g);
+		xButton -= (buttonW + buttonPad);
+		defaultBox.setBounds(xButton, yButton, buttonW, smallButtonH);
+
+		// Last Button
+		buttonW  = lastButtonWidth(g);
+		xButton -= (buttonW + buttonPad);
+		lastBox.setBounds(xButton, yButton, buttonW, smallButtonH);
+
+		// User Button
+		buttonW	 = userButtonWidth(g);
+		xButton -= (buttonW + buttonPad);
+		userBox.setBounds(xButton, yButton, buttonW, smallButtonH);
+
+		// Load / Save Button
+		buttonW	 = loadButtonWidth(g);
+		xButton -= (buttonW + buttonPad);
+		loadBox.setBounds(xButton, yButton, buttonW, smallButtonH);
+
+		// Guide Button
+		buttonW = g.getFontMetrics().stringWidth(text) + smallButtonMargin;
+		xButton	= leftM + buttonPad;
+		guideBox.setBounds(xButton, yButton, buttonW, smallButtonH);
+
+		// Randomize Button
+		text	= text(randomKey);
+		xButton = leftM + buttonPad;
+		yRandB  = yDesc - buttonPadV - smallButtonH;
+		buttonW = g.getFontMetrics().stringWidth(text) + smallButtonMargin;
+		randomBox.setBounds(xButton, yRandB, buttonW, smallButtonH);
+	}
+	@Override protected void initFixButtons(Graphics2D g) {
+		System.out.println("EDIT: initFixButtons(Graphics2D g) " + (randomBox.y-yButton));
+		// Randomize Button
+        Stroke prev = g.getStroke();
+		setSmallButtonGraphics(g);
+		g.fillRoundRect(randomBox.x, randomBox.y, randomBox.width, randomBox.height, cnr, cnr);
+        drawFixButtons(g, true);
+        g.setStroke(prev);
+	}
+	@Override protected void drawButtons(Graphics2D g, boolean init) {
+        Stroke prev = g.getStroke();
+        
+        g.setFont(bigButtonFont());
+        drawButton(g, init, exitBox,	text(exitButtonKey()));
+
+        g.setFont(smallButtonFont());
+        drawButton(g, init, defaultBox,	text(defaultButtonKey()));
+        drawButton(g, init, lastBox,	text(lastButtonKey()));
+        drawButton(g, init, userBox,	text(userButtonKey()));
+        drawButton(g, init, loadBox,	text(loadButtonKey()));
+        drawButton(g, init, selectBox,	text(selectKey));
+        drawButton(g, init, guideBox,	text(guideButtonKey()));
+        g.setStroke(prev);
+	}
+    @Override protected BufferedImage initButtonBackImg() {
+    	initButtonPosition();
+		buttonBackImg = new BufferedImage(wButton, hButton, TYPE_INT_ARGB);
+		Graphics2D g = (Graphics2D) buttonBackImg.getGraphics();
+		setFontHints(g);
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+        g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+
+		setBigButtonGraphics(g);
+		// draw EXIT button
+		g.fillRoundRect(exitBox.x-xButton, exitBox.y-yButton, exitBox.width, exitBox.height, cnr, cnr);
+
+		setSmallButtonGraphics(g);
+		// Select Button
+		g.fillRoundRect(selectBox.x-xButton, selectBox.y-yButton, selectBox.width, selectBox.height, cnr, cnr);
+		// Default Button
+		g.fillRoundRect(defaultBox.x-xButton, defaultBox.y-yButton, defaultBox.width, defaultBox.height, cnr, cnr);
+		// Last Button
+		g.fillRoundRect(lastBox.x-xButton, lastBox.y-yButton, lastBox.width, lastBox.height, cnr, cnr);
+		// User Button
+		g.fillRoundRect(userBox.x-xButton, userBox.y-yButton, userBox.width, userBox.height, cnr, cnr);
+		// Load / Save Button
+		g.fillRoundRect(loadBox.x-xButton, loadBox.y-yButton, loadBox.width, loadBox.height, cnr, cnr);
+		// draw GUIDE button
+		g.fillRoundRect(guideBox.x-xButton, guideBox.y-yButton, guideBox.width, guideBox.height, cnr, cnr);
+		
+		drawButtons(g, true); // init = true; local = true
+		return buttonBackImg;
+    }
+
 	@Override protected void refreshGui() {
 		System.out.println("===== refreshGui()");
 		System.out.println("playerCustomRace: Race Name = " +
@@ -261,7 +385,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	@Override protected String GUI_ID() { return GUI_ID; }
 	@Override protected void close() {
 		ModifierKeysState.reset();
-		disableGlassPane();
+		super.close();
 		((SetupRaceUI) parent).raceChanged();		
 		RotPUI.instance().selectSetupRacePanel();
 	}
@@ -270,7 +394,6 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	}
 	@Override protected String raceAIButtonTxt() { return ""; }
 	@Override protected void paintButtons(Graphics2D g) {
-		int cnr = s5;
 		g.setFont(smallButtonFont());
 
 		// Exit Button
@@ -411,6 +534,10 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		g.setStroke(prev);
 	}
 	@Override public void paintComponent(Graphics g0) {
+		// showTiming = true;
+		if (showTiming)
+			System.out.println("===== EditCustomRace PaintComponents =====");
+		long timeStart = System.currentTimeMillis();
 		super.paintComponent(g0); // call ShowUI
 		Graphics2D g = (Graphics2D) g0;
 		// Custom Race List
@@ -431,6 +558,8 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			bt.draw(g);
 			yLine -= labelH;
 	    }
+		if (showTiming)
+			System.out.println("EditCustomRace paintComponent() Time = " + (System.currentTimeMillis()-timeStart));	
 	}
 	@Override public void keyPressed(KeyEvent e) {
 		switch(e.getKeyCode()) {

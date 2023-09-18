@@ -1,20 +1,24 @@
 Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Updates since last announcement:</ins></b>
-- Character setting panel improved Refresh time
+- Last Xilmi's AI missile update.
+- Character setting panel improved responsivity
   - On my 4K display it went from 150 ms to < 10 ms !!!
   - Even been able to maximize image rendering quality.
 - Character setting panel can be set to display only original species.
     - They are still available, but hidden.
-    - Option setting is located in the main setting panel.
-- Moved "No Fog on Diplomat Icons" to Main Options Settings
-  - Removed CheckBox from Character setting panel.
+      - This setting is located in the main Option Settings Panel
+- Moved "No Fog on Diplomat Icons" to Main Option Settings Panel
   - Character setting panel Toggle FOG KEY = "F"
-  - Galaxy setting panel Follow the "No Fog on Diplomat Icons" choice.
-  - Galaxy setting panel Toggle FOG KEY = "F"
+Galaxy setting Panel:
+  - Improved responsivity (Buttons and Icons)
+  - Follow the "No Fog on Diplomat Icons" choice.
+  - Toggle FOG KEY = "F"
+Text Option settings Panels (Classic, Compact, and Custom Species)
+  - Improved responsivity (Buttons only)
+    -- Still a lot of text optimization to-do.
 
 
-- Last Xilmi's AI missile update.
 - Added distinct weapon sounds.
 - Added new beam weapon animated shielding effects.
   - Base shield color = Empire color.

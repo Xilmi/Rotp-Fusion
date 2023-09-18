@@ -15,6 +15,7 @@
  */
 package rotp.ui.game;
 
+import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static rotp.model.empires.CustomRaceDefinitions.ROOT;
 import static rotp.ui.game.SetupGalaxyUI.specificAI;
 
@@ -22,10 +23,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -48,7 +52,6 @@ import rotp.util.ModifierKeysState;
 
 public class ShowCustomRaceUI extends BaseModPanel {
 	private static final long serialVersionUID	= 1L;
-	private static final Color	 backgroundHaze	= new Color(0,0,0,160);
 	private static final String	 playerAIOffKey	= "SETUP_OPPONENT_AI_PLAYER";
 	private static final String	 totalCostKey	= ROOT + "GUI_COST";
 	
@@ -120,19 +123,19 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	private int xCost, yCost;
 	private int w;
 	private int h;
-//	private int hBG;
-//	protected int wBG;
 	private int settingSize;
 	private int settingBoxH;
 	private int topM;
 	private int yTop;
 	private int descWidth;
-	protected int xButton, yButton, xDesc, yDesc;
+//	protected int xButton, yButton, xDesc, yDesc;
+	protected int xDesc, yDesc;
 	protected int leftM;
 	protected int xLine, yLine; // settings var
 
 	protected BasePanel parent;
-	protected final Box exitBox			= new Box("SETTINGS_EXIT");
+	@Override protected Box newExitBox() { return new Box("SETTINGS_EXIT"); }
+//	protected final Box exitBox			= new Box("SETTINGS_EXIT");
 	private	  final Box raceAIBox		= new Box(ROOT + "RACE_AI");
 	private	  final JTextPane descBox	= new JTextPane();
 	protected ModText totalCostText;
@@ -384,7 +387,6 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		descBox.setVisible(true);
 	}
 	protected void paintButtons(Graphics2D g) {
-		int cnr = s5;
 		g.setFont(smallButtonFont());
 
 		// Exit Button
@@ -439,8 +441,147 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		g.drawRoundRect(raceAIBox.x, raceAIBox.y, raceAIBox.width, raceAIBox.height, cnr, cnr);
 		g.setStroke(prev);
 	}
+	protected void initButtonsBounds(Graphics2D g) {
+		g.setFont(smallButtonFont());
+
+		// Exit Button
+		String text = text(exitButtonKey());
+		int buttonW	= exitButtonWidth(g);
+		xButton = leftM + wBG - buttonW - buttonPad;
+		exitBox.setBounds(xButton, yButton, buttonW, smallButtonH);
+
+		// Guide Button
+		text	= text(guideButtonKey());
+		xButton = leftM + buttonPad;
+		buttonW = g.getFontMetrics().stringWidth(text) + smallButtonMargin;
+		guideBox.setBounds(xButton, yButton, buttonW, smallButtonH);
+
+		// RaceUI Button
+		text = raceAIButtonTxt();
+		int sw = g.getFontMetrics().stringWidth(text);
+		buttonW	= sw + smallButtonMargin;
+		int xAI = leftM + wBG - columnPad - buttonW;
+		int yAI	= yCost - raceAIH - s10;
+		raceAIBox.setBounds(xAI, yAI, buttonW, smallButtonH);
+	}
+	protected void initFixButtons(Graphics2D g) {
+		// RaceUI Button
+        Stroke prev = g.getStroke();
+		setSmallButtonGraphics(g);
+		g.fillRoundRect(raceAIBox.x, raceAIBox.y, raceAIBox.width, raceAIBox.height, cnr, cnr);
+        drawButton(g, true, raceAIBox,	raceAIButtonTxt());
+        g.setStroke(prev);
+	}
+	protected void drawFixButtons(Graphics2D g, boolean all) {
+		Stroke prev;
+		g.setFont(smallButtonFont());
+		// left button
+		if (hoverBox == raceAIBox || all) {
+			String text = raceAIButtonTxt();
+			int sw = g.getFontMetrics().stringWidth(text);
+			int x = raceAIBox.x+((raceAIBox.width-sw)/2);
+			int y = raceAIBox.y+raceAIBox.height*75/100;
+			Color c = hoverBox == raceAIBox ? Color.yellow : GameUI.borderBrightColor();
+			drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), c);
+			prev = g.getStroke();
+			g.setStroke(stroke1);
+			g.drawRoundRect(raceAIBox.x, raceAIBox.y, raceAIBox.width, raceAIBox.height, cnr, cnr);
+			g.setStroke(prev);
+		}
+	}
 	// ========== Overriders ==========
 	//
+	@Override protected void drawButtons(Graphics2D g, boolean init) {
+        Stroke prev = g.getStroke();
+        
+        g.setFont(bigButtonFont());
+        drawButton(g, init, exitBox,	text(exitButtonKey()));
+
+        g.setFont(smallButtonFont());
+        drawButton(g, init, guideBox,	text(guideButtonKey()));
+        g.setStroke(prev);
+	}
+    @Override protected BufferedImage initButtonBackImg() {
+    	initButtonPosition();
+		buttonBackImg = new BufferedImage(wButton, hButton, TYPE_INT_ARGB);
+		Graphics2D g = (Graphics2D) buttonBackImg.getGraphics();
+		setFontHints(g);
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+        g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+
+		setBigButtonGraphics(g);
+		// draw EXIT button
+		g.fillRoundRect(exitBox.x-xButton, exitBox.y-yButton, exitBox.width, exitBox.height, cnr, cnr);
+
+		setSmallButtonGraphics(g);
+		// draw GUIDE button
+		g.fillRoundRect(guideBox.x-xButton, guideBox.y-yButton, guideBox.width, guideBox.height, cnr, cnr);
+		
+		drawButtons(g, true); // init = true; local = true
+		return buttonBackImg;
+    }
+    @Override protected void initBackImg() {
+		long timeStart = System.currentTimeMillis();
+		w	= getWidth();
+		h	= getHeight();
+		wBG	= getBackGroundWidth();
+		hBG		= titlePad + columnsMaxH + tooltipPadV + descHeigh + buttonPadV + smallButtonH + buttonPadV;
+//		currentWith	 = wFirstColumn;
+//		descWidth = wBG - 2 * columnPad;
+
+		// Set the base top Margin
+		// Set the final High
+		topM	= (h - hBG)/2;
+		yButton	= topM + hBG - buttonPadV - smallButtonH;
+		
+		yTop	= topM + titlePad; // First setting top position
+		leftM	= Math.min((w - wBG)/2, maxLeftM);
+		yTitle	= topM + titleOffset;
+		yDesc	= yButton - buttonPadV - descHeigh;
+		yCost 	= yTitle + costOffset;
+		xCost	= leftM + columnPad/2;
+//		xLine	= leftM + columnPad/2;
+//		yLine	= yTop;
+		xDesc	= leftM + columnPad;
+
+		backImg = newOpaqueImage(w, h);
+		Graphics2D g = (Graphics2D) backImg.getGraphics();
+		g.setFont(descFont);
+		// modnar: use (slightly) better upsampling
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+        g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+
+		// background image
+		Image back = GameUI.defaultBackground;
+		int imgW = back.getWidth(null);
+		int imgH = back.getHeight(null);
+		g.drawImage(back, 0, 0, w, h, 0, 0, imgW, imgH, this);
+
+		g.setPaint(bg());
+		g.fillRect(leftM, topM, wBG, hBG);
+
+		// Title
+		g.setFont(titleFont);
+		String title = text(guiTitleID);
+		int sw = g.getFontMetrics().stringWidth(title);
+		int xTitle = leftM +(wBG-sw)/2;
+		drawBorderedString(g, title, 1, xTitle, yTitle, Color.black, Color.white);
+		
+		initButtonsBounds(g);
+		initFixButtons(g);
+		drawFixButtons(g, true);
+		
+        initButtonBackImg();
+        g.dispose();
+		if (showTiming) 
+			System.out.println("initBackImg() Time = " + (System.currentTimeMillis()-timeStart));
+    }
 	@Override protected void init() {
 		super.init();
 		for (SettingBase<?> setting : commonList) {
@@ -465,55 +606,23 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		boolean change = checkForChange(e);
 		return change;
 	}
-	@Override public void repaintButtons()			  {
-		Graphics2D g = (Graphics2D) getGraphics();
-		super.paintComponent(g);
-		paintButtons(g);
-		g.dispose();
-	}
 	@Override protected String GUI_ID()				  { return ""; }
 	@Override public void paintComponent(Graphics g0) {
+		// showTiming = true;
+		if (showTiming)
+			System.out.println("===== ShowCustomRace PaintComponents =====");
+		long timeStart = System.currentTimeMillis();
 		super.paintComponent(g0);
 		Graphics2D g = (Graphics2D) g0;
-		currentWith	 = wFirstColumn;
-		w	= getWidth();
-		h	= getHeight();
-		wBG	= getBackGroundWidth();
-		descWidth = wBG - 2 * columnPad;
 
-		g.setFont(descFont);
-		// Set the base top Margin
-		// Set the final High
-		hBG		= titlePad + columnsMaxH + tooltipPadV + descHeigh + buttonPadV + smallButtonH + buttonPadV;
-		topM	= (h - hBG)/2;
-		yButton	= topM + hBG - buttonPadV - smallButtonH;
-		
-		yTop	= topM + titlePad; // First setting top position
-		leftM	= Math.min((w - wBG)/2, maxLeftM);
-		yTitle	= topM + titleOffset;
-		yDesc	= yButton - buttonPadV - descHeigh;
-		yCost 	= yTitle + costOffset;
-		xCost	= leftM + columnPad/2;
-		xLine	= leftM + columnPad/2;
-		yLine	= yTop;
-		xDesc	= leftM + columnPad;
+        // background image
+        g.drawImage(backImg(), 0, 0, this);
+		// Buttons background image
+        drawButtons(g);
+        drawFixButtons(g, false);
 
-		// draw background "haze"
-		g.setColor(backgroundHaze);
-		g.fillRect(0, 0, w, h);
-		
-		g.setPaint(bg());
-		g.fillRect(leftM, topM, wBG, hBG);
-		
 		// Tool tip
 		paintDescriptions(g);
-		
-		// Title
-		g.setFont(titleFont);
-		String title = text(guiTitleID);
-		int sw = g.getFontMetrics().stringWidth(title);
-		int xTitle = leftM +(wBG-sw)/2;
-		drawBorderedString(g, title, 1, xTitle, yTitle, Color.black, Color.white);
 		
 		// Total cost
 		totalCostText.displayText(totalCostStr());
@@ -523,6 +632,9 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		// Loop thru the parameters
 		xLine = leftM+s10;
 		yLine = yTop;
+		currentWith	= wFirstColumn;
+		descWidth	= wBG - 2 * columnPad;
+
 
 		// First column (left)
 		// Loop thru parameters
@@ -541,12 +653,13 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		}
 		g.setStroke(prev);
 
-		paintButtons(g);
 		showGuide(g);
 		
 		// ready for extension
 		xLine = xLine + currentWith + columnPad;
 		yLine = yTop;
+		if (showTiming)
+			System.out.println("ShowCustomRace paintComponent() Time = " + (System.currentTimeMillis()-timeStart));	
 	}
 	@Override public void keyReleased(KeyEvent e)	  {
 		if(checkModifierKey(e)) {

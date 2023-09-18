@@ -61,6 +61,11 @@ Later:
 
 ## What's New
 
+2023.09.18 (BR)
+- Moved Options Setup Panels backImage control to BaseModPanel. 
+- Custom Species Menu Buttons display optimization...
+  - Still a lot of text optimization to-do
+
 2023.09.17 (BR)
 - Moved background paint to BaseModPanel.
 - Compact Menu options Optimizations.

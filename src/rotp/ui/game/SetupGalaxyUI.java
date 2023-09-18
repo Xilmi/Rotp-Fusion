@@ -356,7 +356,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
     private int hBigMug		= s82;
     private int rShBigMug	= s78;
 
-	private BufferedImage backImg, playerMug;
+	private BufferedImage playerMug;
 	private BufferedImage smallBackMug;
 	private BufferedImage bigBackMug;
 	private BufferedImage smallNullMug;
@@ -380,9 +380,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		g.setPaint(GameUI.buttonLeftBackground());
 	}
 
-    // Debug Parameter
-    private static boolean showTiming = false;
-    
     public static ParamList specificAI() { return instance.specificAI; }
     public static ParamList opponentAI() { return instance.opponentAI; }
     private static int mouseBoxIndex() { return instance.hoverBox.mouseBoxIndex(); }
@@ -481,7 +478,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	}
 	@Override protected void clearImages() {
 		super.clearImages();
-        backImg			= null;
+//        backImg			= null;
 		boxMonoFont		= null;
 		dialogMonoFont	= null;
 		galaxyTextArray	= null;
@@ -1233,12 +1230,12 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	    return input;
 	}
 	@Override public void paintComponent(Graphics g0) {
-		System.out.println("===== Galaxy PaintComponents =====");
+		// showTiming = true;
+		if (showTiming)
+			System.out.println("===== Galaxy PaintComponents =====");
 		if (!isOnTop)
 			return;
-		showTiming = false;
 		long timeStart = System.currentTimeMillis();
-		long timeMid;
 		super.paintComponent(g0);
 		Graphics2D g = (Graphics2D) g0;
 		// modnar: use (slightly) better upsampling
@@ -1333,15 +1330,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			g.setStroke(prevStroke);
 
 		}
-		if (showTiming)
-			System.out.println("paintOpponents Time = " + (System.currentTimeMillis()-timeStart));
-
-		timeMid = System.currentTimeMillis();
-		
 		// draw galaxy
 		drawGalaxyShape(g, newGameOptions().galaxyShape(), galaxyX, galaxyY, galaxyW, galaxyH);
-		if (showTiming)
-			System.out.println("drawGalaxyShape Time = " + (System.currentTimeMillis()-timeMid));
 
 		// draw info under galaxy map
 		g.setColor(Color.black);
@@ -1563,21 +1553,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				warnY += s18;
 			}
 		}
-		if (showTiming)
-			System.out.println("drawGalaxyShape Time = " + (System.currentTimeMillis()-timeMid));
-
-		timeMid = System.currentTimeMillis();
 		drawHelpButton(g);
-		if (showTiming)
-			System.out.println("drawHelpButtons Time = " + (System.currentTimeMillis()-timeMid));
-		timeMid = System.currentTimeMillis();
-		
-		if (showTiming)
-			System.out.println("drawFixButtons Time = " + (System.currentTimeMillis()-timeMid));
-		timeMid = System.currentTimeMillis();
-		
-		if (showTiming)
-			System.out.println("drawDynamicButtons Time = " + (System.currentTimeMillis()-timeMid));
 		showGuide(g);
 
 		if (starting) {
@@ -1585,7 +1561,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			drawNotice(g, 30);
 		}
 		if (showTiming)
-			System.out.println("paintComponent() Time = " + (System.currentTimeMillis()-timeStart));
+			System.out.println("Galaxy paintComponent() Time = " + (System.currentTimeMillis()-timeStart));
 	}
     private void drawHelpButton(Graphics2D g) {
         helpBox.setBounds(s20,s20,s20,s25);
@@ -2264,12 +2240,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		};
 		SwingUtilities.invokeLater(save);
 	}
-	private BufferedImage backImg() {
-		if (backImg == null)
-			initBackImg();
-		return backImg;
-	}
-	private void initBackImg() {
+	@Override protected void initBackImg() {
 		int w = getWidth();
 		int h = getHeight();
 		backImg = newOpaqueImage(w, h);

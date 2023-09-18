@@ -94,6 +94,9 @@ public abstract class BaseModPanel extends BasePanel
 	protected boolean isSubMenu = true;
 	protected boolean isOnTop = true;
 
+	// Debug Parameter
+	protected boolean showTiming = true;
+
 	LinkedList<IParam> paramList;
 	
 	private boolean initialised = false;
@@ -101,13 +104,21 @@ public abstract class BaseModPanel extends BasePanel
 	LinkedList<IParam> activeList;
 	protected int xButton, yButton, wButton, hButton;
 	protected int wBG, hBG;
-	private BufferedImage buttonBackImg;
+	protected BufferedImage buttonBackImg;
 	private LinearGradientPaint bg;
 	protected LinearGradientPaint bg() {
 		if (bg == null)
 			bg = GameUI.settingsSetupBackgroundW(w, wBG);
 		return bg;
 	}
+	
+	protected BufferedImage backImg; // the full background
+	protected void initBackImg() {  }
+	protected BufferedImage backImg() {
+        if (backImg == null)
+            initBackImg();
+        return backImg;
+    }
 
 	protected void singleInit() {} // To avoid call to options during class creation
 	
@@ -182,9 +193,11 @@ public abstract class BaseModPanel extends BasePanel
 			singleInit();
 			initialised = true;
 		}
+		isOnTop = true;
 	}
 	protected void clearImages() {
 		buttonBackImg = null;
+		backImg = null;
 		bg = null;
 	}
 	protected void close() { 
@@ -193,7 +206,6 @@ public abstract class BaseModPanel extends BasePanel
 		isOnTop = false;
 		//ModifierKeysState.reset();
 	}
-
 	protected BufferedImage buttonBackImg() {
         if (buttonBackImg == null)
             initButtonBackImg();
@@ -214,10 +226,9 @@ public abstract class BaseModPanel extends BasePanel
 		g.drawImage(buttonBackImg(), xButton, yButton, null);
 		drawButtons(g, false); // init = false; local = false
 	}
-    protected void drawButton(Graphics2D g, boolean init, Box box, String key) {
+    protected void drawButton(Graphics2D g, boolean init, Box box, String str) {
         if (hoverBox == box || init) {
-        	String s = text(key);
-	        int sw	 = g.getFontMetrics().stringWidth(s);
+	        int sw	 = g.getFontMetrics().stringWidth(str);
 	        int x    = box.x + ((box.width-sw)/2);
 	        int y    = box.y + box.height*75/100;
 	        if (init) {
@@ -225,7 +236,7 @@ public abstract class BaseModPanel extends BasePanel
 	        	y -= yButton;
 	        }
 	        Color c1 = init? GameUI.borderBrightColor() : Color.yellow;
-	        drawShadowedString(g, s, 2, x, y, GameUI.borderDarkColor(), c1);
+	        drawShadowedString(g, str, 2, x, y, GameUI.borderDarkColor(), c1);
 	        g.setStroke(stroke1);
 	        g.drawRoundRect(box.x, box.y, box.width, box.height, cnr, cnr);
         }
@@ -234,13 +245,13 @@ public abstract class BaseModPanel extends BasePanel
         Stroke prev = g.getStroke();
         
         g.setFont(bigButtonFont());
-        drawButton(g, init, exitBox,	exitButtonKey());
+        drawButton(g, init, exitBox,	text(exitButtonKey()));
 
         g.setFont(smallButtonFont());
-        drawButton(g, init, defaultBox,	defaultButtonKey());
-        drawButton(g, init, lastBox,	lastButtonKey());
-        drawButton(g, init, userBox,	userButtonKey());
-        drawButton(g, init, guideBox,	guideButtonKey());
+        drawButton(g, init, defaultBox,	text(defaultButtonKey()));
+        drawButton(g, init, lastBox,	text(lastButtonKey()));
+        drawButton(g, init, userBox,	text(userButtonKey()));
+        drawButton(g, init, guideBox,	text(guideButtonKey()));
         g.setStroke(prev);
 	}
     protected void initButtonPosition() {
