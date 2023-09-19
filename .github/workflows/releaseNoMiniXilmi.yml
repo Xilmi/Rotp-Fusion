@@ -18,6 +18,7 @@ jobs:
       with:
         distribution: 'zulu'
         java-version: '8'
+        cache: 'maven'
 #    - name: Install vorbis-tools / oggenc
 #      run: sudo apt install vorbis-tools
 #    - name: Install webp / cwebp
