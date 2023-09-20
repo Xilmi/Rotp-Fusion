@@ -61,6 +61,10 @@ Later:
 
 ## What's New
 
+2023.09.20 (BR)
+- Cleaned useless console log.
+- Fixed disconnected "Deterministic Artifact"-option.
+
 2023.09.18 (BR)
 - Moved Options Setup Panels backImage control to BaseModPanel. 
 - Custom Species Menu Buttons display optimization...

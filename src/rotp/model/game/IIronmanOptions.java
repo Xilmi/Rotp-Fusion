@@ -32,9 +32,9 @@ public interface IIronmanOptions extends IBaseOptsTools {
 	ParamInteger ironmanLoadDelay	= new ParamInteger( MOD_UI, "IRONMAN_LOAD_DELAY", 10, 1, 500, 1, 5, 20);
 	default int selectedIronmanLoadDelay()	{ return ironmanLoadDelay.get(); }
 
-	ParamBoolean repeatableArtifact	= new ParamBoolean(MOD_UI, "REPEATABLE_ARTIFACT", false)
+	ParamBoolean deterministicArtifact	= new ParamBoolean(MOD_UI, "REPEATABLE_ARTIFACT", false)
 	{ { isValueInit(false); } };
-	default boolean selectedRepeatableArtifact()	{ return repeatableArtifact.get(); }
+	default boolean isDeterministicArtifact()	{ return deterministicArtifact.get(); }
 
 	// ==================== GUI List Declarations ====================
 	//
@@ -51,7 +51,7 @@ public interface IIronmanOptions extends IBaseOptsTools {
 		add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("IRONMAN_CUSTOM"),
 				IGameOptions.fixedEventsMode,
-				repeatableArtifact,
+				deterministicArtifact,
 				ironmanNoLoad, ironmanLoadDelay
 				)));
 		}

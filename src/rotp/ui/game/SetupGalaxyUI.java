@@ -194,7 +194,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			String key = get();
 			if (key == null || key.equals(opponentRandom))
 				return "Random";
-			System.out.println("key = " + key);
 			Race race = Race.keyed(key);
 			String name = race.setupName();
 			return name; 
@@ -224,7 +223,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			else {
 				Race   race		= Race.keyed(key);
 				String raceName = race.setupName();
-				System.out.println("key = " + key);
 				help = labelFormat(raceName) + race.description1
 						+ "<br>" + race.description2
 						+ "<br>" + race.description3.replace("[race]", raceName)
@@ -375,7 +373,6 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		g.setPaint(GameUI.buttonRightBackground());
 	}
 	@Override protected void setSmallButtonGraphics(Graphics2D g) {
-		System.out.println("SetupGalaxyUI: setSmallButtonGraphics");
 		g.setFont(smallButtonFont());
 		g.setPaint(GameUI.buttonLeftBackground());
 	}

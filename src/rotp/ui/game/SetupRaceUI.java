@@ -161,7 +161,6 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 		g.setPaint(GameUI.buttonRightBackground());
 	}
 	@Override protected void setSmallButtonGraphics(Graphics2D g) {
-		System.out.println("SetupRaceUI: setSmallButtonGraphics");
 		g.setFont(smallButtonFont());
 		g.setPaint(GameUI.buttonLeftBackground());
 	}

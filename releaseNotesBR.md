@@ -1,6 +1,9 @@
 Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Updates since last announcement:</ins></b>
+- Fixed disconnected "Deterministic Artifact"-option.
+
+<b><ins>Last announcement:</ins></b>
 - Last Xilmi's AI missile update.
 - Character setting panel improved responsivity
   - On my 4K display it went from 150 ms to < 10 ms !!!
@@ -10,14 +13,13 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
       - This setting is located in the main Option Settings Panel
 - Moved "No Fog on Diplomat Icons" to Main Option Settings Panel
   - Character setting panel Toggle FOG KEY = "F"
-Galaxy setting Panel:
+- Galaxy setting Panel:
   - Improved responsivity (Buttons and Icons)
   - Follow the "No Fog on Diplomat Icons" choice.
   - Toggle FOG KEY = "F"
-Text Option settings Panels (Classic, Compact, and Custom Species)
+- Text Options settings Panels (Classic, Compact, and Custom Species)
   - Improved responsivity (Buttons only)
-    -- Still a lot of text optimization to-do.
-
+    - Still a lot of text optimization to-do.
 
 - Added distinct weapon sounds.
 - Added new beam weapon animated shielding effects.
@@ -29,7 +31,6 @@ Text Option settings Panels (Classic, Compact, and Custom Species)
   - Spreading Radius is function of beam power and shield level.
   - Spreading Intensity is function of beam absorption ratio and and shield level.
 
-<b><ins>Last announcement:</ins></b>
 <em>Xilmi last AI improvements:</em>
 - For all AIs of the Xilmi-family: A technologically superior AI that currently has no enemies will no longer try to get further ahead in tech and instead focus on increasing fleet-size. This change was inspired by Keilah Martin's Let's play.
 - When invading, AI's of the Xilmi-Family will now keep at least one third of the source-planet's maximum population back at home in order to stay in the window of decent natural population-growth and not to ruin their economy.

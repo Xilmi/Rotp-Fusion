@@ -161,7 +161,7 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 
 				headerSpacer,
 				new ParamTitle("IRONMAN_BASIC"),
-				repeatableArtifact,
+				deterministicArtifact,
 				ironmanNoLoad, ironmanLoadDelay,
 
 				headerSpacer,

@@ -1495,6 +1495,13 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
     }
     public int stackW()                 { return boxW; }
     public int stackH()                 { return boxH; }
+    public Rectangle stackBox(CombatStack st) {
+    	Rectangle rect = combatGrids[st.x][st.y];
+    	return new Rectangle(
+    			(int) (rect.x+ (st.offsetX*rect.width)),
+    			(int) (rect.y+ (st.offsetY*rect.height)),
+    			boxW, boxH);
+    }
 
     private void paintMenuBarToImage(Graphics2D g, int x, int y, int w, int h) {
         if (menuBackC == null) {

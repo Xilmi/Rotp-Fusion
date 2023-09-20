@@ -28,7 +28,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -201,11 +200,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 		userBox.setBounds(lastBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
 		smallButtonW = guideButtonWidth(g);
 		guideBox.setBounds(leftM+s9, yButton, smallButtonW, smallButtonH);
-
-		System.out.println("yButton = " + yButton);
-
         initButtonBackImg();
-		System.out.println("yButton = " + yButton);
 
 		g.dispose();
 		if (showTiming) 

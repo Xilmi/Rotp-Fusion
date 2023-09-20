@@ -30,9 +30,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.MouseInfo;
+import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Transparency;
 import java.awt.event.InputEvent;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.BufferedOutputStream;
@@ -1529,4 +1531,8 @@ public interface Base {
 						 Math.min(1f, color.getBlue()  * factor),
 						 color.getAlpha()/255f);
 	}
+    public default  Point2D center(Rectangle rect) {
+    	return new Point2D.Float((float) rect.getCenterX(), (float) rect.getCenterY());
+    }
+
 }

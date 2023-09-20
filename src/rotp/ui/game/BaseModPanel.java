@@ -95,7 +95,7 @@ public abstract class BaseModPanel extends BasePanel
 	protected boolean isOnTop = true;
 
 	// Debug Parameter
-	protected boolean showTiming = true;
+	protected boolean showTiming = false;
 
 	LinkedList<IParam> paramList;
 	
@@ -269,7 +269,6 @@ public abstract class BaseModPanel extends BasePanel
 		g.setPaint(GameUI.buttonBackgroundColor());
 	}
 	protected void setSmallButtonGraphics(Graphics2D g) {
-		System.out.println("BaseModPanel: setSmallButtonGraphics");
 		g.setFont(smallButtonFont());
 		g.setPaint(GameUI.buttonBackgroundColor());
 	}
