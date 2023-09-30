@@ -22,15 +22,15 @@ public interface IConvenienceOptions extends IMapOptions {
 	{	{ isCfgFile(true); }	};
 
 	ParamInteger showLimitedWarnings	= new ParamInteger(MOD_UI, "SHOW_LIMITED_WARNINGS" , -1, -1, 49, 1, 2, 5)
-	{	{ isCfgFile(true); }	}
+	{	{ isCfgFile(false); }	}
 		.loop(true)
 		.specialNegative(MOD_UI + "SHOW_LIMITED_WARNINGS_ALL");
 
 	ParamBoolean showAlliancesGNN		= new ParamBoolean(MOD_UI, "SHOW_ALLIANCES_GNN", true)
-	{	{ isCfgFile(true); }	};
+	{	{ isCfgFile(false); }	};
 
 	ParamBoolean techExchangeAutoRefuse = new ParamBoolean(MOD_UI, "TECH_EXCHANGE_AUTO_NO", false)
-	{	{ isCfgFile(true); }	};
+	{	{ isCfgFile(false); }	};
 
 	ParamBoolean autoColonize_	= new ParamBoolean( GAME_UI, "AUTOCOLONIZE", false);
 	default boolean autoColonize()				{ return autoColonize_.get(); }

@@ -323,7 +323,15 @@ public class UserPreferences implements IMainOptions {
 			out.println("===== Extended Settings =====");
 			out.println();
 			for (IParam param : optionList()) {
-				if (param != null && !param.isDuplicate())
+//				if (param == null)
+//					System.out.println("Save Skipped because param = null");
+//				else if(param.isDuplicate())
+//					System.out.println("Save Skipped because param = Duplicate");
+//				else if(!param.isCfgFile())
+//					System.out.println("Save Skipped because param = is not cfg File: " + param.getCfgLabel());
+//				else
+//					out.println(keyFormat(param.getCfgLabel()) + param.getCfgValue());
+				if (param != null && !param.isDuplicate() && param.isCfgFile())
 					out.println(keyFormat(param.getCfgLabel()) + param.getCfgValue());
 			}
 			// ========== TEST ==========

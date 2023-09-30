@@ -1376,17 +1376,17 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
     private void transfert(String fileName, boolean set) {
     	// to avoid loosing former cfg settings.
-    	MOO1GameOptions opts = loadOptions(fileName);
-		displayYear.transfert(opts, set);
-		showAlliancesGNN.transfert(opts, set);
-		showNextCouncil.transfert(opts, set);
-		showLimitedWarnings.transfert(opts, set);
-		techExchangeAutoRefuse.transfert(opts, set);
-		autoColonize_.transfert(opts, set);
-		autoBombard_.transfert(opts, set);
-		divertExcessToResearch.transfert(opts, set);
-		defaultMaxBases.transfert(opts, set);
-		saveOptions(opts, fileName);
+//    	MOO1GameOptions opts = loadOptions(fileName);
+//		displayYear.transfert(opts, set);
+//		showAlliancesGNN.transfert(opts, set);
+//		showNextCouncil.transfert(opts, set);
+//		showLimitedWarnings.transfert(opts, set);
+//		techExchangeAutoRefuse.transfert(opts, set);
+//		autoColonize_.transfert(opts, set);
+//		autoBombard_.transfert(opts, set);
+//		divertExcessToResearch.transfert(opts, set);
+//		defaultMaxBases.transfert(opts, set);
+//		saveOptions(opts, fileName);
     }
     // ==================== New Options files public access ====================
     //

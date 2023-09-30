@@ -111,6 +111,7 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 		globalOptions.addAll(debugOptions);
 		globalOptions.addAll(zoomOptions);
 		globalOptions.add(bitmapGalaxyLastFolder);
+		globalOptions.add(showNextCouncil);
 		
 		if (initialList) {
 			globalOptions.addAll(convenienceOptions);

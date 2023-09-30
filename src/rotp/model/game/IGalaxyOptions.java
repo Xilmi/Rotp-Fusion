@@ -156,7 +156,8 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 			return opts().defaultOpponentsOptions();
 		}
 	};
-	ParamString bitmapGalaxyLastFolder = new ParamString(BASE_UI, "BITMAP_LAST_FOLDER", Rotp.jarPath());
+	ParamString bitmapGalaxyLastFolder = new ParamString(BASE_UI, "BITMAP_LAST_FOLDER", Rotp.jarPath())
+	{	{ isCfgFile(true); }	};
 
 	// ==================== GUI List Declarations ====================
 	//
