@@ -64,6 +64,9 @@ Later:
 2023.09.29 (BR)
 - Fixed some display options not always being saved.
 
+2023.09.27 (BR)
+- Fixed Manual about production formula
+
 2023.09.20 (BR)
 - Cleaned useless console log.
 - Fixed disconnected "Deterministic Artifact"-option.
