@@ -61,6 +61,9 @@ Later:
 
 ## What's New
 
+2023.09.29 (BR)
+- Fixed some display options not always being saved.
+
 2023.09.20 (BR)
 - Cleaned useless console log.
 - Fixed disconnected "Deterministic Artifact"-option.

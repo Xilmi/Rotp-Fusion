@@ -46,28 +46,10 @@ public interface IGovOptions {
 	// Colony Options
 	ParamInteger missileBasesMin	= new ParamInteger(GOV_UI, "MIN_MISSILE_BASES", 0, 0, 20, 1, 3, 5);
 	ParamBoolean shieldAlones		= new ParamBoolean(GOV_UI, "SHIELD_WITHOUT_BASES", false);
-	ParamBoolean autoSpend			= new ParamBoolean(GOV_UI, "AUTOSPEND", false)
-	{
-		@Override public void transfert (IGameOptions opts, boolean set)	{
-			if (opts.dynOpts().getBoolean(getLangLabel()) == null) {
-				if (set)
-					set(UserPreferences.governorAutoSpendByDefault());
-				setOptionValue(opts, get());
-			}
-		}
-	};
+	ParamBoolean autoSpend			= new ParamBoolean(GOV_UI, "AUTOSPEND", false);
 	ParamInteger reserveForSlow		= new ParamInteger(GOV_UI, "RESERVE", 0, 0, 100000, 10, 50, 200);
 	ParamBoolean shipBuilding		= new ParamBoolean(GOV_UI, "SHIP_BUILDING", true);
-	ParamBoolean maxGrowthMode		= new ParamBoolean(GOV_UI, "LEGACY_GROWTH_MODE", true)
-	{
-		@Override public void transfert (IGameOptions opts, boolean set)	{
-			if (opts.dynOpts().getBoolean(getLangLabel()) == null) {
-				if (set)
-					set(UserPreferences.legacyGrowth());
-				setOptionValue(opts, get());
-			}
-		}
-	};
+	ParamBoolean maxGrowthMode		= new ParamBoolean(GOV_UI, "LEGACY_GROWTH_MODE", true);
 
 	// Intelligence Options
 	ParamBoolean auto_Infiltrate	= new ParamBoolean(GOV_UI, "AUTO_INFILTRATE", true);
@@ -94,26 +76,8 @@ public interface IGovOptions {
 
 	// Other Options
 	ParamBoolean animatedImage		= new ParamBoolean(GOV_UI, "ANIMATED_IMAGE", true);
-	ParamBoolean auto_Apply			= new ParamBoolean(GOV_UI, "AUTO_APPLY", true)
-	{
-		@Override public void transfert (IGameOptions opts, boolean set)	{
-			if (opts.dynOpts().getBoolean(getLangLabel()) == null) {
-				if (set)
-					set(UserPreferences.governorAutoApply());
-				setOptionValue(opts, get());
-			}
-		}
-	};
-	ParamBoolean governorByDefault	= new ParamBoolean(GOV_UI, "ON_BY_DEFAULT", true)
-	{
-		@Override public void transfert (IGameOptions opts, boolean set)	{
-			if (opts.dynOpts().getBoolean(getLangLabel()) == null) {
-				if (set)
-					set(UserPreferences.governorOnByDefault());
-				setOptionValue(opts, get());
-			}
-		}
-	};
+	ParamBoolean auto_Apply			= new ParamBoolean(GOV_UI, "AUTO_APPLY", true);
+	ParamBoolean governorByDefault	= new ParamBoolean(GOV_UI, "ON_BY_DEFAULT", true);
 
 	// ==================== GUI List Declarations ====================
 	//

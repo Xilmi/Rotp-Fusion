@@ -2,6 +2,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Updates since last announcement:</ins></b>
 - Fixed disconnected "Deterministic Artifact"-option.
+- Fixed some display options not always being saved.
 
 <b><ins>Last announcement:</ins></b>
 - Last Xilmi's AI missile update.

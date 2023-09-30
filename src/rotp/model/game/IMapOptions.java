@@ -1,6 +1,5 @@
 package rotp.model.game;
 
-import rotp.ui.UserPreferences;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
@@ -73,38 +72,14 @@ public interface IMapOptions extends IBaseOptsTools {
 	}
 	
 	ParamInteger defaultMaxBases	= new ParamInteger( GAME_UI, "DEFAULT_MAX_BASES",
-			0, 0, 5000, 1, 5, 20) {
-//		@Override public void transfert (IGameOptions opts, boolean set)	{
-//			if (opts.dynOpts().getInteger(getLangLabel()) == null) {
-//				if (set)
-//					set(UserPreferences.getDefaultMaxBases());
-//				setOptionValue(opts, get());
-//			}
-//		}
-	};
+			0, 0, 5000, 1, 5, 20);
 	default int	defaultMaxBases() { return defaultMaxBases.get(); }
 
-	ParamBoolean divertExcessToResearch	= new ParamBoolean( GAME_UI, "DIVERT_EXCESS_TO_RESEARCH", true) {
-//		@Override public void transfert (IGameOptions opts, boolean set)	{
-//			if (opts.dynOpts().getBoolean(getLangLabel()) == null) {
-//				if (set)
-//					set(UserPreferences.getDivertColonyExcessToResearch());
-//				setOptionValue(opts, get());
-//			}
-//		}
-	};
+	ParamBoolean divertExcessToResearch	= new ParamBoolean( GAME_UI, "DIVERT_EXCESS_TO_RESEARCH", true);
 	default boolean	divertColonyExcessToResearch()	{ return divertExcessToResearch.get(); }
 
 	ParamBoolean displayYear	= new ParamBoolean( // Duplicate Do not add the list
-			GAME_UI, "DISPLAY_YEAR", false) {
-		@Override public void transfert (IGameOptions opts, boolean set)	{
-			if (opts.dynOpts().getBoolean(getLangLabel()) == null) {
-				if (set)
-					set(UserPreferences.getDisplayYear());
-				setOptionValue(opts, get());
-			}
-		}
-	};
+			GAME_UI, "DISPLAY_YEAR", false);
 	default boolean displayYear()		{ return displayYear.get(); }
 	default void toggleYearDisplay()	{ displayYear.toggle(); }
 }

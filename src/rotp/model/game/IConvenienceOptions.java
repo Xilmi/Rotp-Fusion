@@ -19,62 +19,20 @@ public interface IConvenienceOptions extends IMapOptions {
 	String AUTOBOMBARD_INVADE	= "GAME_SETTINGS_AUTOBOMBARD_INVADE";
 
 	ParamBoolean showNextCouncil		= new ParamBoolean(MOD_UI, "SHOW_NEXT_COUNCIL", false) // Show years left until next council
-	{
-		{ isCfgFile(true); }
-		@Override public void transfert (IGameOptions opts, boolean set)	{
-			if (opts.dynOpts().getBoolean(getLangLabel()) == null) {
-				setOptionValue(opts, get());
-			}
-			isCfgFile(false);
-		}
-	};
+	{	{ isCfgFile(true); }	};
 
 	ParamInteger showLimitedWarnings	= new ParamInteger(MOD_UI, "SHOW_LIMITED_WARNINGS" , -1, -1, 49, 1, 2, 5)
-	{
-		{ isCfgFile(true); }
-		@Override public void transfert (IGameOptions opts, boolean set)	{
-			if (opts.dynOpts().getInteger(getLangLabel()) == null) {
-				setOptionValue(opts, get());
-			}
-			isCfgFile(false);
-		}
-	}	.loop(true)
+	{	{ isCfgFile(true); }	}
+		.loop(true)
 		.specialNegative(MOD_UI + "SHOW_LIMITED_WARNINGS_ALL");
 
 	ParamBoolean showAlliancesGNN		= new ParamBoolean(MOD_UI, "SHOW_ALLIANCES_GNN", true)
-	{	
-		{ isCfgFile(true); }
-		@Override public void transfert (IGameOptions opts, boolean set)	{
-			if (opts.dynOpts().getBoolean(getLangLabel()) == null) {
-				setOptionValue(opts, get());
-			}
-			isCfgFile(false);
-		}
-	};
+	{	{ isCfgFile(true); }	};
 
 	ParamBoolean techExchangeAutoRefuse = new ParamBoolean(MOD_UI, "TECH_EXCHANGE_AUTO_NO", false)
-	{
-		{ isCfgFile(true); }
-		@Override public void transfert (IGameOptions opts, boolean set)	{
-			if (opts.dynOpts().getBoolean(getLangLabel()) == null) {
-				setOptionValue(opts, get());
-			}
-			isCfgFile(false);
-		}
-	};
+	{	{ isCfgFile(true); }	};
 
-	ParamBoolean autoColonize_	= new ParamBoolean( GAME_UI, "AUTOCOLONIZE", false) {
-//		{ isDuplicate(true); isCfgFile(true); }
-//		@Override public Boolean getOption()		{ return autoColonize(); }
-//		@Override public void setOption(Boolean b)	{ autoColonize(b); }
-		@Override public void transfert (IGameOptions opts, boolean set)	{
-			if (opts.dynOpts().getBoolean(getLangLabel()) == null) {
-				if (set)
-					set(UserPreferences.getAutoColonize());
-				setOptionValue(opts, get());
-			}
-		}
-	};
+	ParamBoolean autoColonize_	= new ParamBoolean( GAME_UI, "AUTOCOLONIZE", false);
 	default boolean autoColonize()				{ return autoColonize_.get(); }
 
 	ParamList autoBombard_		= new ParamList( GAME_UI, "AUTOBOMBARD",
@@ -93,13 +51,6 @@ public interface IConvenienceOptions extends IMapOptions {
 		@Override public String getCfgValue() { return UserPreferences.autoBombardToSettingName(get()); }
 //		@Override public String getOption()			{ return autoBombardMode(); }
 //		@Override public void setOption(String s)	{ autoBombardMode(s); }
-		@Override public void transfert (IGameOptions opts, boolean set)	{
-			if (opts.dynOpts().getString(getLangLabel()) == null) {
-				if (set)
-					set(UserPreferences.autoBombardMode());
-				setOptionValue(opts, get());
-			}
-		}
 	};
 	default boolean autoBombardNever()		{ return autoBombard_.get().equals(AUTOBOMBARD_NEVER); }
 	default boolean autoBombardYes()		{ return autoBombard_.get().equals(AUTOBOMBARD_YES); }
