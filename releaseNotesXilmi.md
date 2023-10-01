@@ -1,4 +1,4 @@
 ## What's New
 
-2023.09.15 (Xilmi)
-- Fixed a recently introduced bug that could prevent the AI from attacking with more than one weapon-bank.
+2023.10.01 (Xilmi)
+- Fixed an issue where the AI-ship-captain would shoot beam-weapons at the planet instead of ships even when the planet couldn't be damaged by them.

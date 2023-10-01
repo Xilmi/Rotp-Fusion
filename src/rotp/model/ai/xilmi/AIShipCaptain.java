@@ -321,6 +321,9 @@ public class AIShipCaptain implements Base, ShipCaptain {
     private boolean performSmartAttackTarget(CombatStack stack, CombatStack target)
     {
         boolean performedAttack = false;
+        boolean initialTargetWasShip = false;
+        if(target.isShip())
+            initialTargetWasShip = true;
         if(target == null)
             return false;
         //1st run: fire only specials which are not repulsor or stasis-field
@@ -335,7 +338,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
             if(((CombatStackShip)stack).shipComponentCanAttack(target, i))
             {
                 stack.fireWeapon(target, i, true);
-                chooseTarget(stack, true, false);
+                chooseTarget(stack, true, initialTargetWasShip);
                 target = currentTarget;
                 performedAttack = true;
             }
@@ -353,7 +356,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
             if(((CombatStackShip)stack).shipComponentCanAttack(target, i))
             {
                 stack.fireWeapon(target, i, true);
-                chooseTarget(stack, true, false);
+                chooseTarget(stack, true, initialTargetWasShip);
                 target = currentTarget;
                 performedAttack = true;
             }
@@ -369,7 +372,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
             if(((CombatStackShip)stack).shipComponentCanAttack(target, i))
             {
                 stack.fireWeapon(target, i, true);
-                chooseTarget(stack, true, false);
+                chooseTarget(stack, true, initialTargetWasShip);
                 target = currentTarget;
                 performedAttack = true;
             }
