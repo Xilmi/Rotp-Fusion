@@ -49,7 +49,7 @@ ATMOSPHERE_0_DETAIL    | Converts Hostile environments to Normal environments fo
 // Automated Repair techs
 // 
 AUTOREPAIR_0_NAME      | Automated Repair System
-AUTOREPAIR_0_BRIEF     | Heals 15% of ship's hits a turn
+AUTOREPAIR_0_BRIEF     | Heals 15% of ship's hit points a turn
 AUTOREPAIR_0_DETAIL    | Undestroyed ships can repair up to 15% of their total hit points at the end of each turn.
 
 AUTOREPAIR_1_NAME      | Advanced Damage Control
@@ -166,15 +166,15 @@ BIOANTIDOTE_1_DETAIL  | Reduces casualties taken from biological weapons by 2M p
 // 
 BIOWEAPON_0_NAME     | Death Spores
 BIOWEAPON_0_BRIEF    | Biological Weapon
-BIOWEAPON_0_DETAIL   | Horrible biological weapons capable of reducing the maximum planetary populations by 1M per attack.
+BIOWEAPON_0_DETAIL   | Horrible biological weapons capable of reducing the maximum planetary population by 1M per attack.
 
 BIOWEAPON_1_NAME     | Doom Virus
 BIOWEAPON_1_BRIEF    | Biological Weapon
-BIOWEAPON_1_DETAIL   | Dreadful biological weapons capable of reducing planetary populations by 2M per attack.
+BIOWEAPON_1_DETAIL   | Dreadful biological weapons capable of reducing planetary population by 2M per attack.
 
 BIOWEAPON_2_NAME     | Bio Terminator
 BIOWEAPON_2_BRIEF    | Biological Weapon
-BIOWEAPON_2_DETAIL   | Abominable biological weapons capable of reducing planetary populations by 3M per attack.
+BIOWEAPON_2_DETAIL   | Abominable biological weapons capable of reducing planetary population by 3M per attack.
 
 //
 // Black Hole Generator tech
@@ -219,7 +219,7 @@ CLOAK_0_DETAIL   | Renders ship nearly invisible until they attack, improving th
 // Cloning tech
 //
 CLONE_0_NAME     | Cloning
-CLONE_0_DETAIL   | Allows bio engineered colonists to be grown at a rate of 1M per 10 BC.
+CLONE_0_DETAIL   | Allows bio-engineered colonists to be grown at a rate of 1M per 10 BC.
 
 CLONE_1_NAME     | Advanced Cloning
 CLONE_1_DETAIL   | Allows bio-engineered colonists to be grown at a rate of 1M per 5 BC.
@@ -452,9 +452,9 @@ ENGINE_1_ITEM2   | Class 2
 ENGINE_1_BRIEF   | Warp 2  Def %1
 ENGINE_1_BRIEF2  | Combat Speed %1
 
-ENGINE_2_NAME    | SubLight Drives 
+ENGINE_2_NAME    | Subspace Drives 
 ENGINE_2_DETAIL  | Moves ships at Warp %1, and allows a maximum maneuverability of class III in combat.
-ENGINE_2_ITEM    | SubLight
+ENGINE_2_ITEM    | Subspace
 ENGINE_2_ITEM2   | Class 3
 ENGINE_2_BRIEF   | Warp 3  Def %1
 ENGINE_2_BRIEF2  | Combat Speed %1
@@ -881,7 +881,7 @@ MISSWPN_2_DETAIL    | Missiles equipped with high energy warheads that explode f
 MISSWPN_3_NAME      | Scatter Pack V Rockets
 MISSWPN_3_BRIEF     | 2 shots, +1 speed
 MISSWPN_3_BRIEF2    | 5 shots
-MISSWPN_3_DETAIL    | Mirv versions of Hyper-V Rockets, splitting into five separate warheads that each explode for 6 points of damage and move at a speed of 2.5.
+MISSWPN_3_DETAIL    | MIRV versions of Hyper-V Rockets, splitting into five separate warheads that each explode for 6 points of damage and move at a speed of 2.5.
 
 MISSWPN_4_NAME      | Merculite Missiles
 MISSWPN_4_BRIEF     | 2 shots, +2 to hit
@@ -891,7 +891,7 @@ MISSWPN_4_DETAIL    | Hard-hitting, swift missiles that explode for 10 points of
 MISSWPN_5_NAME      | Stinger Missiles
 MISSWPN_5_BRIEF     | 2 shots, +3 to hit
 MISSWPN_5_BRIEF2    | 5 shots, +3 to hit
-MISSWPN_5_DETAIL    | Slow, hyper-accurate missiles to do 15 points of damage, move at a speed of 3.5, and are controlled by a sophisticated +3 targeting computer.
+MISSWPN_5_DETAIL    | Slow, hyper-accurate missiles that do 15 points of damage, move at a speed of 3.5, and are controlled by a sophisticated +3 targeting computer.
 
 MISSWPN_6_NAME      | Scatter Pack VII Missiles
 MISSWPN_6_BRIEF     | 2 shots, MIRVS to 7
@@ -906,7 +906,7 @@ MISSWPN_7_DETAIL    | Powerful missiles equipped with anti-matter warheads that 
 MISSWPN_8_NAME      | Hercular Missiles
 MISSWPN_8_BRIEF     | 2 shots, +5 to hit
 MISSWPN_8_BRIEF2    | 5 shots, +5 to hit
-MISSWPN_8_DETAIL    | Highly advanced missile that explodes for 25 points of damage. The hercular missiles moves at speed 4.5 and is controlled by a +5 targeting computer.
+MISSWPN_8_DETAIL    | Highly advanced missile that explodes for 25 points of damage. The hercular missile moves at speed 4.5 and is controlled by a +5 targeting computer.
 
 MISSWPN_9_NAME      | Zeon Missiles
 MISSWPN_9_BRIEF     | 2 shots, +6 to hit
@@ -1056,7 +1056,7 @@ SHIPWPN_4_DETAIL       | A linear accelerator that halves the effectiveness of e
 
 SHIPWPN_5_NAME         | Neutron Blaster
 SHIPWPN_5_ITEM2        | Heavy Neutron Blaster
-SHIPWPN_5_DETAIL       | High powered beam weapons capable of inflicting 3-12 points of damage. Heavy neutron blasters strike for 3-24 points and have a 2 space range.
+SHIPWPN_5_DETAIL       | High powered beam weapons capable of inflicting 3-12 points of damage. Heavy neutron blasters strike for 3-24 points and have a 2-space range.
 
 SHIPWPN_6_NAME         | Graviton Beam
 SHIPWPN_6_BRIEF        | Streaming Attack
@@ -1068,7 +1068,7 @@ SHIPWPN_7_DETAIL       | An energy-to-matter beam weapon that halves the effecti
 
 SHIPWPN_8_NAME         | Fusion Beam
 SHIPWPN_8_ITEM2        | Heavy Fusion Beam
-SHIPWPN_8_DETAIL       | High intensity beam weapon capable of doing 4-16 points of damage. Heavy fusion beams strike for 4-30 points and have a 2 space range.
+SHIPWPN_8_DETAIL       | High intensity beam weapon capable of doing 4-16 points of damage. Heavy fusion beams strike for 4-30 points and have a 2-space range.
 
 SHIPWPN_9_NAME         | Megabolt Cannon
 SHIPWPN_9_BRIEF        | +3 levels to hit
@@ -1137,7 +1137,7 @@ SOILENRICH_1_DETAIL   | Converts standard and fertile planets to gaias, doubling
 //
 // Stargate tech
 //
-STARGATE_0_NAME      | Intergalactic Star Gates
+STARGATE_0_NAME      | Star Gates
 STARGATE_0_DETAIL    | Allows your ships to move between any two planets equipped with star gates in only one turn. Cost 3000 BC to build.
 
 
@@ -1179,7 +1179,7 @@ SUBSPACETEL_0_DETAIL  | Teleports ships to any space on the combat map and befor
 //
 // Ship Torpedo Weapon techs
 //
-TORPEDO_0_NAME        | Anti-Matter Torpedos
+TORPEDO_0_NAME        | Anti-Matter Torpedoes
 TORPEDO_0_BRIEF       | Fires one per 2 turns
 TORPEDO_0_DETAIL      | High energy tracking torpedoes that deliver 30 points of damage but may only be fired every other turn. Each torpedo is equipped with a +4 level targeting computer.
 
