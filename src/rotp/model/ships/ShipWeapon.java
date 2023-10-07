@@ -21,6 +21,7 @@ import rotp.model.tech.TechBiologicalWeapon;
 
 public class ShipWeapon extends ShipComponent {
     private static final long serialVersionUID = 1L;
+    private static final boolean showErrorMessages = false; // TODO BR: Set to False
     @Override
     public boolean isBeamWeapon()     { return false; }
     @Override
@@ -131,8 +132,10 @@ public class ShipWeapon extends ShipComponent {
             tech().drawIneffectiveAttack(source, target, source.weaponNum(this), count);
         }
         catch(Exception e) {
-        	System.err.println("drawIneffectiveAttack Exception");
-        	System.err.println(e);
+        	if (showErrorMessages) {
+        		System.err.println("drawIneffectiveAttack Exception");
+        		System.err.println(e.getMessage());
+        	}
         }
     }
     public void drawUnsuccessfulAttack(CombatStack source, CombatStack target, int count) {
@@ -140,8 +143,10 @@ public class ShipWeapon extends ShipComponent {
             tech().drawUnsuccessfulAttack(source, target, source.weaponNum(this), count);
         }
         catch(Exception e) {
-        	System.err.println("drawUnsuccessfulAttack Exception");
-        	System.err.println(e);
+        	if (showErrorMessages) {
+        		System.err.println("drawUnsuccessfulAttack Exception");
+        		System.err.println(e.getMessage());
+        	}
         }
     }
     public void drawSuccessfulAttack(CombatStack source, CombatStack target, float dmg, int count) {
@@ -149,8 +154,10 @@ public class ShipWeapon extends ShipComponent {
             tech().drawSuccessfulAttack(source, target, source.weaponNum(this), dmg, count);
         }
         catch(Exception e) {
-        	System.err.println("drawSuccessfulAttack Exception");
-        	System.err.println(e);
+        	if (showErrorMessages) {
+        		System.err.println("drawSuccessfulAttack Exception");
+        		System.err.println(e.getMessage());
+        	}
         }              
     }
     public void drawSuccessfulAttack(CombatStack source, CombatStack target, float dmg, int count, float force) {
@@ -158,8 +165,10 @@ public class ShipWeapon extends ShipComponent {
             tech().drawSuccessfulAttack(source, target, source.weaponNum(this), dmg, count, force);
         }
         catch(Exception e) {
-        	System.err.println("drawSuccessfulAttack Exception");
-        	System.err.println(e);
+        	if (showErrorMessages) {
+	        	System.err.println("drawSuccessfulAttack Exception");
+	        	System.err.println(e.getMessage());
+        	}
         }              
     }
 }

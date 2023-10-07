@@ -69,6 +69,9 @@ Later:
 
 ## What's New
 
+2023.10.07 (BR)
+- Tools for new 3d combat shield animations.
+
 2023.10.06 (Peyre)
 - Fixes typos in tech file.
 
