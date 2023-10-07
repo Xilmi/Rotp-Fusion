@@ -39,7 +39,13 @@ Bug to fix:
 Very soon:
 - Improve responsivity of other options panels
 - Add shield fading...
+- Monsters:
+  - Give loots.
+  - Option to change their travel time.
+  - Option to start late game
+    - Associated with specific tech discovery.
 - Character panel: improve the reactivity.
+- Spy: option to not over spend with the spy budget!
 - Add second statistic option: (on the side of lin / log): Display statistic as:
     - "% Tot": Precentage relative to known total (!= Galaxy Total)
     - "% Player": Percentage relative to player value.
@@ -57,6 +63,8 @@ Later:
 - Governor: Auto-invasion ?!
 - Governor: Individual disable receive troops
   - The AI is bombing my world, killing 7 or so colonists per turn. Every turn, my healthy planets send colonists to 'help', which ALL get killed by the orbiting enemy fleet. I would like to be able to prevent this while still allowing transport between my other planets.
+- Dark Galaxy Idea
+  - https://www.reddit.com/r/rotp/comments/171flnl/dark_galaxy_idea/
 
 
 ## What's New
