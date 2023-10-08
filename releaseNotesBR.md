@@ -1,8 +1,14 @@
 Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Updates since last announcement:</ins></b>
+- Last Xilmi's AI missile update.
 - Fixed disconnected "Deterministic Artifact"-option.
 - Fixed some display options not always being saved.
+- Fixed and re-enabled governor's animations.
+- Added new options to allow/disallow Technologies Research:
+  - Atmospheric Terraforming,
+  - Cloning,
+  - Advanced Soil Enrichment.
 
 <b><ins>Last announcement:</ins></b>
 - Last Xilmi's AI missile update.

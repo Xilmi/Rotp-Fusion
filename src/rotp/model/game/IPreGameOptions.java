@@ -96,8 +96,12 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions {
 	ParamTech techIndustry2		= new ParamTech("TECH_INDUSTRY_2",	1, "ImprovedIndustrial",7); // level 38
 	ParamTech techThorium		= new ParamTech("TECH_THORIUM",		4, "FuelRange",			8); // level 41
 	ParamTech techTransport		= new ParamTech("TECH_TRANSPORTERS",4, "CombatTransporter",	0); // level 45
+	ParamTech techCloning		= new ParamTech("TECH_CLONING",		3, "Cloning",			0); // level 21
+	ParamTech techAtmospheric	= new ParamTech("TECH_ATMOSPHERIC",	3, "AtmosphereEnrichment",	0); // level 22
+	ParamTech techGaia			= new ParamTech("TECH_GAIA",		3, "SoilEnrichment",	1); // level 30
 	LinkedList<ParamTech> techModList		= new LinkedList<>(Arrays.asList(
-			techIrradiated, techCloaking, techStargate, techHyperspace,
+			techIrradiated, techCloning, techAtmospheric,
+			techCloaking, techStargate, techGaia, techHyperspace,
 			techIndustry2, techThorium, techTransport
 			));
 	default LinkedList<ParamTech> techModList()			{ return techModList; }
@@ -146,11 +150,11 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions {
 			Arrays.asList(
 			artifactsHomeworld, fertileHomeworld, richHomeworld, ultraRichHomeworld,
 			null,
-			orionLikeHomeworld, companionWorlds, battleScout, ironmanMode,
+			orionLikeHomeworld, companionWorlds, battleScout, ironmanMode, randomTechStart,
 			null,
-			techIrradiated, techCloaking, techStargate, techHyperspace,
+			techIrradiated, techCloning, techAtmospheric, techCloaking, techStargate,
 			null,
-			techIndustry2, techThorium, techTransport, randomTechStart
+			techGaia, techHyperspace, techIndustry2, techThorium, techTransport
 			));
 	LinkedList<IParam> modOptionsStaticB  = new LinkedList<>(
 			Arrays.asList(
@@ -192,7 +196,8 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions {
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("START_TECH_CONTROL"),
-				techIrradiated, techCloaking, techStargate, techHyperspace,
+				techIrradiated, techCloning, techAtmospheric,
+				techCloaking, techStargate, techGaia, techHyperspace,
 				techIndustry2, techThorium, techTransport,
 
 				headerSpacer,

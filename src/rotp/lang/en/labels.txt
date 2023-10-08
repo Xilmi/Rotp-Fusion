@@ -2124,9 +2124,21 @@ SETTINGS_MOD_TECH_INDUSTRY_2             | Tech Factory cost 2: %1
 SETTINGS_MOD_TECH_THORIUM_HELP           | To Force Include or Exclude the Technology <b>Thorium Cells</b>&nbsp in the Tech Tree.<br>This technology could be available at Level 41.<br>Essential to reach Orion in some ring and symmetric galaxies... But some time you only want to protect you backlines...
 SETTINGS_MOD_TECH_THORIUM_DESC           | (Level 41) {Always, Never, Auto} Include "Thorium Cells" in the Tech Tree for Player/AI.
 SETTINGS_MOD_TECH_THORIUM                | Tech Thorium Cells: %1
-SETTINGS_MOD_TECH_TRANSPORTERS_HELP      | To Force Include or Exclude the Technology <b>Combat Transporter</b>&nbsp in the Tech Tree.<br>This technology could be available at Level 45.<br>A remedy against savage invasions...
+SETTINGS_MOD_TECH_TRANSPORTERS_HELP      | To Force Include or Exclude the Technology <b>Combat Transporter</b>&nbsp in the Tech Tree.<br>This technology could be available at Level 45.<br>A possible remedy against savage invasions...
 SETTINGS_MOD_TECH_TRANSPORTERS_DESC      | (Level 45) {Always, Never, Auto} Include "Combat Transporter" in the Tech Tree for Player/AI.
 SETTINGS_MOD_TECH_TRANSPORTERS           | Tech Combat Transporter: %1
+
+SETTINGS_MOD_TECH_CLONING_HELP           | To Force Include or Exclude the Technology <b>Cloning</b>&nbsp in the Tech Tree.<br>This technology could be available at Level 21.<br>A possible contribution against savage invasions...
+SETTINGS_MOD_TECH_CLONING_DESC           | (Level 21) {Always, Never, Auto} Include "Cloning" in the Tech Tree for Player/AI.
+SETTINGS_MOD_TECH_CLONING                | Tech Cloning: %1
+
+SETTINGS_MOD_TECH_ATMOSPHERIC_HELP       | To Force Include or Exclude the Technology <b>Atmospheric Terraforming</b>&nbsp in the Tech Tree.<br>This technology could be available at Level 22.<br> To remove the 50% Hostile penalty...
+SETTINGS_MOD_TECH_ATMOSPHERIC_DESC       | (Level 22) {Always, Never, Auto} Include "Atmospheric Terraforming" in the Tech Tree for Player/AI.
+SETTINGS_MOD_TECH_ATMOSPHERIC            | Atmospheric Terraform: %1
+
+SETTINGS_MOD_TECH_GAIA_HELP              | To Force Include or Exclude the Technology <b>Advanced Soil Enrichment</b>&nbsp in the Tech Tree.<br>This technology could be available at Level 30.<br>And will allow Gaia Terraforming...
+SETTINGS_MOD_TECH_GAIA_DESC              | (Level 30) {Always, Never, Auto} Include "Advanced Soil Enrichment" (Gaia Terraforming) in the Tech Tree for Player/AI.
+SETTINGS_MOD_TECH_GAIA                   | Tech Adv. Soil Enrichment: %1
 
 SETTINGS_MOD_RACES_RAND_MIN_HELP         | Setting used when opponents 'Random' abilities are selected.<br>When "Custom Aliens" = Setting Range, each individual setting will be set within a relative range. This is the lower limit of this range.
 SETTINGS_MOD_RACES_RAND_MIN_DESC         | Alien species randomization: Lower limit for the settings relative randomization window.
