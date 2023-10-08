@@ -54,6 +54,10 @@ Very soon:
     - ("Individual choice"?): Probably not! individual choice for each parameter
 - statistic: improve help
 - Some Achievements options.
+- add allow/disallow option for:
+  - Atmospheric Terraforming,
+  - Soil Enrichment, and
+  - Advanced Soil Enrichment.
 Later:
 - Smooth the Trade blocking option.
 - Investigate: William482 request: Age of your data on each race into the bar graphs on the status page.
