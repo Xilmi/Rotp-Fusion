@@ -54,10 +54,7 @@ Very soon:
     - ("Individual choice"?): Probably not! individual choice for each parameter
 - statistic: improve help
 - Some Achievements options.
-- add allow/disallow option for:
-  - Atmospheric Terraforming,
-  - Soil Enrichment, and
-  - Advanced Soil Enrichment.
+
 Later:
 - Smooth the Trade blocking option.
 - Investigate: William482 request: Age of your data on each race into the bar graphs on the status page.
@@ -75,6 +72,10 @@ Later:
 
 2023.10.08 (BR)
 - Fixed and re-enabled governor animations.
+- Added new options to allow/disallow Technologies research:
+  - Atmospheric Terraforming,
+  - Cloning,
+  - Advanced Soil Enrichment.
 
 2023.10.07 (BR)
 - Tools for new 3d combat shield animations.
