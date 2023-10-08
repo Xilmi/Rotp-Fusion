@@ -69,6 +69,9 @@ Later:
 
 ## What's New
 
+2023.10.08 (BR)
+- Fixed and re-enabled governor animations.
+
 2023.10.07 (BR)
 - Tools for new 3d combat shield animations.
 

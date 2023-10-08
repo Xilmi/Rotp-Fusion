@@ -98,8 +98,9 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 	    		if (!updateOngoing) {
 		    		optionUpdate();
 		    		animate();
-		    		System.out.println("resetRequested() and executed (isFocused)");
-	    		}
+		    		// System.out.println("resetRequested() and executed (isFocused)");
+	    		} else
+	    			animate();
 	    		horlogeOngoing	= false;
 	    		return;
 	    	}
@@ -110,6 +111,8 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 					options().clearRefresh();
 		    		//System.out.println("refreshRequested() and executed");
 	    		}
+	    	} else if (frame.isFocused()) {
+	    		animate();
 	    	}
 	    	horlogeOngoing	= false;
 	    }

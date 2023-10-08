@@ -162,10 +162,10 @@ public class GovernorOptions implements Serializable, IGovOptions {
 	public boolean	resetRequested()	{ return callForReset; }
 	
 	public boolean isOriginalPanel()			{ return originalPanel.get(); }
-	public void setIsOriginalPanel(boolean b)	{ originalPanel.silentSet(b); }
+	public void setIsOriginalPanel(boolean b)	{ originalPanel.set(b); }
 
 	public boolean isCustomSize()				{ return customSize.get(); }
-	public void setIsCustomSize(boolean b)		{ customSize.silentSet(b); }
+	public void setIsCustomSize(boolean b)		{ customSize.set(b); }
 
 	public boolean isAnimatedImage()			{ return animatedImage.get(); }
 	public void setIsAnimatedImage(boolean b)	{ animatedImage.silentSet(b); }
@@ -175,10 +175,10 @@ public class GovernorOptions implements Serializable, IGovOptions {
 	}
 
 	public int  getBrightnessPct()				{ return brightnessPct.get(); }
-	public void setBrightnessPct(int i)			{ brightnessPct.silentSet(i); }
+	public void setBrightnessPct(int i)			{ brightnessPct.set(i); }
 
 	public int  getSizeFactorPct()				{ return sizeFactorPct.get(); }
-	public void setSizeFactorPct(int i)			{ sizeFactorPct.silentSet(i); }
+	public void setSizeFactorPct(int i)			{ sizeFactorPct.set(i); }
 
 	public int  getPositionX()					{ return horizontalPosition.get(); }
 	public void setPositionX(int i)				{ horizontalPosition.silentSet(i); }
