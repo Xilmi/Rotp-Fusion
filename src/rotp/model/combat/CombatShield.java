@@ -55,10 +55,12 @@ public final class CombatShield {
 	private double noiseFactor = 0.;
 
 	// Locations, size, weapons
-	private final Pos targetCenter	 = new Pos();
-	private final Pos shieldCenter	 = new Pos();
-	private final Pos shipSource	 = new Pos();
-	private final Pos shipImpact	 = new Pos();
+	private final Pos targetCenter	= new Pos();
+//	private final Pos targetCenter	= new Pos();
+//	private final Pos shieldCenter	= new Pos();
+	private final Pos shipSource	= new Pos();
+	private final Pos shipImpact	= new Pos();
+	private final Pos impactAdj		= new Pos();
 	private int beamDiameter;
 	private Color shieldColor, beamColor;
 	private final int windUpFramesNum, holdFramesNum, landUpFramesNum, fadingFramesNum;
@@ -90,7 +92,7 @@ public final class CombatShield {
 			initShieldArray();
 		return shieldArray;
 	}
-	private double insideRatio() {
+	public double insideRatio() {
 		if (neverInitialized)
 			initShieldArray();
 		return insideRatio;
@@ -99,7 +101,7 @@ public final class CombatShield {
 	// = = = = = Constructors, Setters and Initializers = = = = =
 	//
 	public CombatShield(int windUpFrames, int holdFrames, int landUpFrames, int fadingFrames,
-			int x, int y, int z, Color color, int border,
+			int xCtr, int yCtr, int z, Color color, int border,
 			int shieldLevel, BufferedImage image, int boxWidth, int boxHeight) {
 		windUpFramesNum = windUpFrames;
 		holdFramesNum   = holdFrames;
@@ -109,8 +111,9 @@ public final class CombatShield {
 		framesNum		= beamFramesNum + holdFramesNum + fadingFramesNum;
 		shieldColor		= color;
 
-		targetCenter.set(x, y, z);
-		shieldCenter.set(0, 0, 0); // Alway 0: the references point
+		targetCenter.set(xCtr, yCtr, z);
+//		targetCenter.set(xTopLeft+boxWidth/2, yTopLeft+boxHeight/2, z);
+//		shieldCenter.set(0, 0, 0); // Alway 0: the references point
 		this.shieldLevel = shieldLevel; // = design().maxShield
 		targetImage = image;
 		long timeStart = System.currentTimeMillis();
@@ -147,8 +150,10 @@ public final class CombatShield {
 			System.out.println("shipAnalyzis() Time = " + (System.currentTimeMillis()-timeStart));
 	}
 	public void setNoise(int pct) { noiseFactor = 0.01 * pct; }
-	public void setImpact(int dx, int dy, int dz) {
-		shipImpact.set(dx, dy, dz);
+	public int[] setImpact(int dx, int dy, int dz) {
+		impactAdj.set(dx, dy, dz);
+		shipImpact.set(targetCenter.x+dx+centerOffsetX, targetCenter.y+dy+centerOffsetY, dz);
+		return new int[] { (int)shipImpact.x, (int)shipImpact.y};
 	}
 	public void setSource(int x, int y, int z, Color color, int beamSize) {
 		shipSource.set(x, y, z);
@@ -262,7 +267,7 @@ public final class CombatShield {
 		timeMid = System.currentTimeMillis();
 
 //		locateShieldImpact();
-		insideRatio = findShieldImpact(shipSource, shipImpact, shieldImpact);
+		insideRatio = findShieldImpact(shipSource, impactAdj, shieldImpact);
 		geodesic.setImpact(shieldImpact);
 //		System.out.println("insideRatio: " + insideRatio() +  "  Impact: " + shieldImpact);	
 		
@@ -284,25 +289,27 @@ public final class CombatShield {
 	public int getB()			{ return (int) geodesic.b; }
 	public int shieldTopLeftX()	{ return (int) (targetCenter.x+centerOffsetX-shieldColumns/2); }
 	public int shieldTopLeftY()	{ return (int) (targetCenter.y+centerOffsetY-shieldRows/2); }
-//	public int shieldTopLeftX()	{ return (int) (targetCenter.x+centerOffsetX+shieldRows/2); }
-//	public int shieldTopLeftY()	{ return (int) (targetCenter.y+centerOffsetY+shieldColumns/2); }
+	public int[] shieldImpact()	{
+		return new int[] {	(int) (targetCenter.x+centerOffsetX+geodesic.xI),
+							(int) (targetCenter.y+centerOffsetY+geodesic.yI)};
+	}
 
 	// = = = = = Private Methods = = = = =
 	//
 	// = = = = = Tools = = = = =
 	//
-	private double findShieldImpact(Pos src, Pos impact, Pos unused) {
+	private double findShieldImpact(Pos src, Pos impactAdj, Pos unused) {
 		// -> Center the ellipsoid on point = [0,0,0]
 		// Surface equation: x*x/a/a + y*y/b/b + z*z/c/c = 1  
 		// New target
-		double xo = impact.x - shieldCenter.x;
-		double yo = impact.y - shieldCenter.y;
-		double zo = impact.z - shieldCenter.z;
+		double xo = impactAdj.x;
+		double yo = impactAdj.y;
+		double zo = impactAdj.z;
 //		System.out.println("xo =" + xo + "  yo =" + yo + "  zo =" + zo);
 		// - beam path
-		double dx = src.x - (targetCenter.x + centerOffsetX + impact.x);
-		double dy = src.y - (targetCenter.y + centerOffsetY + impact.y);
-		double dz = src.z - (targetCenter.z + impact.z);; // Should be positive
+		double dx = src.x - shipImpact.x;
+		double dy = src.y - shipImpact.y;
+		double dz = src.z - shipImpact.z; // Should be positive
 //		System.out.println("dx =" + dx + "  dy =" + dy + "  dz =" + dz);
 		// beam equation: [xo, yo, zo] + m * [dx, dy, dz] = [x, y, z] with m>0
 		// Intersection point (z always positive)
@@ -318,9 +325,9 @@ public final class CombatShield {
 		double m1 = (-sr-k1)/k2;
 		double m2 = (sr-k1)/k2;
 		double insideRatio = m2>m1 ? m2 : m1;
-		shieldImpact.x = impact.x + insideRatio * dx;
-		shieldImpact.y = impact.y + insideRatio * dy;
-		shieldImpact.z = impact.z + insideRatio * dz;
+		shieldImpact.x = impactAdj.x + insideRatio * dx;
+		shieldImpact.y = impactAdj.y + insideRatio * dy;
+		shieldImpact.z = impactAdj.z + insideRatio * dz;
 //		System.out.println("shieldImpact =" + shieldImpact.toString());
 		return insideRatio;
 	}
