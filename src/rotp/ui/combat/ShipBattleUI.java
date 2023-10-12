@@ -1628,6 +1628,14 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             drawPlanet(g, (CombatStackColony) st, x, y, w, h);
         }
     }
+    public void drawPlanetOnly(Graphics2D g, CombatStackColony st, int x, int y, int w, int h) {
+        if (renderedPlanetImage != null) {
+//            planetDrawn = true;
+            int imgW = renderedPlanetImage.getWidth();
+            int imgH = renderedPlanetImage.getHeight();
+            g.drawImage(renderedPlanetImage, x, y, x+planetR, y+planetR, 0, 0, imgW, imgH, null);
+        }
+    }
     private void drawPlanet(Graphics2D g, CombatStackColony st, int x, int y, int w, int h) {
         if (renderedPlanetImage != null) {
             planetDrawn = true;

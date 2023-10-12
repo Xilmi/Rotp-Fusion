@@ -78,7 +78,43 @@ public interface IZoomOptions extends IBaseOptsTools {
 	{	{ isCfgFile(true); } };
 	default int replayTurnPace()			{ return replayTurnPace.get(); }
 	default void replayTurnPace(int div)	{ replayTurnPace.set(div); }
+
+	ParamBoolean newWeaponSound		= new ParamBoolean(MOD_UI, "NEW_WEAPON_SOUND", true)
+	{	{ isCfgFile(true); } };
+	default boolean newWeaponSound() 		{ return newWeaponSound.get(); }
+
+	ParamBoolean newWeaponAnimation	= new ParamBoolean(MOD_UI, "NEW_WEAPON_ANIMATION", true)
+	{	{ isCfgFile(true); } };
+	default boolean newWeaponAnimation()	{ return newWeaponAnimation.get(); }
+
+	ParamBoolean alwaysShowsShield	= new ParamBoolean(MOD_UI, "ALWAYS_SHOWS_SHIELD", true)
+	{	{ isCfgFile(true); } };
+	default boolean alwaysShowsShield()		{ return alwaysShowsShield.get(); }
+
+	ParamInteger beamWindupFrames	= new ParamInteger(MOD_UI, "BEAM_WINDUP_FRAMES" , 6, 1, 20, 1, 5, 20)
+	{	{ isCfgFile(true); } };
+	default int beamWindupFrames()			{ return beamWindupFrames.get(); }
+
+	ParamInteger beamHoldFrames		= new ParamInteger(MOD_UI, "BEAM_HOLD_FRAMES" , 0, 0, 20, 1, 5, 20)
+	{	{ isCfgFile(true); } };
+	default int beamHoldFrames()			{ return beamHoldFrames.get(); }
 	
+	ParamInteger heavyBeamHoldFrames= new ParamInteger(MOD_UI, "HEAVY_BEAM_HOLD_FRAMES" , 6, 1, 20, 1, 5, 20)
+	{	{ isCfgFile(true); } };
+	default int heavyBeamHoldFrames()		{ return heavyBeamHoldFrames.get(); }
+	
+	ParamBoolean shieldFadingFrames	= new ParamBoolean(MOD_UI, "SHIELD_FADING_FRAMES", true)
+	{	{ isCfgFile(true); } };
+	default boolean shieldFadingFrames()	{ return shieldFadingFrames.get(); }
+
+	ParamInteger beamAnimationDelay	= new ParamInteger(MOD_UI, "BEAM_ANIMATION_DELAY" , 50, 0, 1000, 5, 20, 100)
+	{	{ isCfgFile(true); } };
+	default int beamAnimationDelay()		{ return beamAnimationDelay.get(); }
+
+	ParamInteger shieldNoisePct		= new ParamInteger(MOD_UI, "SHIELD_NOISE_PCT" , 40, 0, 200, 1, 5, 20)
+	{	{ isCfgFile(true); } };
+	default int shieldNoisePct()			{ return shieldNoisePct.get(); }
+
 	// ==================== GUI List Declarations ====================
 	//
 	
@@ -86,15 +122,31 @@ public interface IZoomOptions extends IBaseOptsTools {
 	{ {
 		add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("ZOOM_FONT"),
-				mapFontFactor, showNameMinFont, showInfoFontRatio
-				)));
-		add(new LinkedList<>(Arrays.asList(
+				mapFontFactor, showNameMinFont, showInfoFontRatio,
+				
+				headerSpacer,
 				new ParamTitle("ZOOM_FLEET"),
-				showFleetFactor, showFlagFactor, showPathFactor
-				)));
-		add(new LinkedList<>(Arrays.asList(
+				showFleetFactor, showFlagFactor, showPathFactor,
+				
+				headerSpacer,
 				new ParamTitle("ZOOM_REPLAY"),
 				finalReplayZoomOut, empireReplayZoomOut, replayTurnPace
+				)));
+//		add(new LinkedList<>(Arrays.asList(
+//				new ParamTitle("ZOOM_FLEET"),
+//				showFleetFactor, showFlagFactor, showPathFactor
+//				)));
+//		add(new LinkedList<>(Arrays.asList(
+//				new ParamTitle("ZOOM_REPLAY"),
+//				finalReplayZoomOut, empireReplayZoomOut, replayTurnPace
+//				)));
+		add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("WEAPON_ANIMATIONS"),
+				newWeaponSound, newWeaponAnimation, alwaysShowsShield,
+
+				headerSpacer,
+				beamWindupFrames, beamHoldFrames, heavyBeamHoldFrames,
+				shieldFadingFrames, beamAnimationDelay
 				)));
 		}
 	};

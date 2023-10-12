@@ -705,7 +705,10 @@ public class CombatStack implements Base {
         g.setComposite(prevComp);
         if (overlayImg != null) 
             g.drawImage(overlayImg, x1, y1, ui);
-            
+
+        if (ui == null) // BR: To only get a copy of the targeted ship
+        	return;
+
         int y2 = y+stackH-BasePanel.s5;
         g.setFont(narrowFont(16));
         String s = text(name());

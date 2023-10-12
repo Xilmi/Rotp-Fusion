@@ -1945,6 +1945,8 @@ HEADERS_ZOOM_FLEET_DESC              | To set fleet path viewing factors.
 HEADERS_ZOOM_FLEET                   | ~~~ ZOOM FLEET FACTORS ~~~%1
 HEADERS_ZOOM_REPLAY_DESC             | To set History replay zoom and pace.
 HEADERS_ZOOM_REPLAY                  | ~~~ HISTORY REPLAY ~~~%1
+HEADERS_WEAPON_ANIMATIONS_DESC       | To set combat beam and shield animations parameters.
+HEADERS_WEAPON_ANIMATIONS            | ~~~ BEAM WEAPON ANIMATIONS ~~~%1
 
 HEADERS_SPACER_DESC                  |  
 HEADERS_SPACER                       |  %1
@@ -2291,6 +2293,22 @@ SETTINGS_MOD_NEW_WEAPON_ANIMATION        | New Weapon Animation: %1
 SETTINGS_MOD_NEW_WEAPON_SOUND_DESC       | Distinct weapon sound instead of only two!
 SETTINGS_MOD_NEW_WEAPON_SOUND            | New Weapon Sound: %1
 
+SETTINGS_MOD_BEAM_WINDUP_FRAMES_DESC     | Beam building duration. (Should be instantaneous, but seing the beam propagation is nice too!) 
+SETTINGS_MOD_BEAM_WINDUP_FRAMES          | Beam Windup Frames: %1
+SETTINGS_MOD_BEAM_HOLD_FRAMES_DESC       | After the beam building phase, the attack can be hold a little bit.
+SETTINGS_MOD_BEAM_HOLD_FRAMES            | Beam Hold Frames: %1
+SETTINGS_MOD_HEAVY_BEAM_HOLD_FRAMES_DESC | Heavy beams could last longer than base beam weapons.
+SETTINGS_MOD_HEAVY_BEAM_HOLD_FRAMES      | Heavy Beam Hold Frames: %1
+SETTINGS_MOD_SHIELD_FADING_FRAMES_DESC   | Show Shield fading effect.
+SETTINGS_MOD_SHIELD_FADING_FRAMES        | Shield Fading Frames: %1
+SETTINGS_MOD_BEAM_ANIMATION_DELAY_DESC   | Pause between two frames. You may try to balance this value with higher frames number to get a smoother animation.
+SETTINGS_MOD_BEAM_ANIMATION_DELAY        | Animation Delay: %1 ms
+SETTINGS_MOD_ALWAYS_SHOWS_SHIELD_DESC    | Shield animations will still be displayed, even if the target has no shield!
+SETTINGS_MOD_ALWAYS_SHOWS_SHIELD         | Always Shows Shield: %1
+SETTINGS_MOD_SHIELD_NOISE_PCT_DESC       | Add some noise to the shield animations.
+SETTINGS_MOD_SHIELD_NOISE_PCT            | Shield Noise: %1%
+
+
 SETTINGS_MOD_SHOW_NEW_RACES_DESC         | Show the new species in the opponents list?
 SETTINGS_MOD_SHOW_NEW_RACES              | Show new species: %1
 SETTINGS_MOD_SHOW_GRID_CIRCULAR_DESC     | Show the circular grid on the galaxy map? (Dynamic)
@@ -2338,9 +2356,10 @@ SETTINGS_MOD_DEBUG_OPTIONS_TITLE         | Developper's Options
 SETTINGS_MOD_DEBUG_OPTIONS_UI            | Debug Options: %1
 SETTINGS_MOD_DEBUG_OPTIONS_UI_DESC       | Open Sub Menu to set development tools.
 
-SETTINGS_MOD_ZOOM_OPTIONS_TITLE          | Zoom Factors Options
-SETTINGS_MOD_ZOOM_OPTIONS_UI             | Zoom Factors: %1
+SETTINGS_MOD_ZOOM_OPTIONS_TITLE          | In-Game Display Preferences
+SETTINGS_MOD_ZOOM_OPTIONS_UI             | Display Preferences: %1
 SETTINGS_MOD_ZOOM_OPTIONS_UI_DESC        | Open Sub Menu to set diverse map zooming factors and replay speed.
+SETTINGS_MOD_ZOOM_OPTIONS_UI_HELP        | Open Sub Menu to set several In-Game Preferences: Map zooming factors, Replay speed, Combat Shield Effects
 
 SETTINGS_MOD_FLAG_COLOR_COUNT_DESC       | How may colors should appear on the Star System Flag?
 SETTINGS_MOD_FLAG_COLOR_COUNT            | Flag Color Count: %1
