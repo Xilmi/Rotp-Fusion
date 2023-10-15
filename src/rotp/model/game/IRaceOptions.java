@@ -2,21 +2,15 @@ package rotp.model.game;
 
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 
-import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.RadialGradientPaint;
-import java.awt.RenderingHints;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-import org.apache.commons.lang3.ArrayUtils;
-
-import rotp.model.empires.Race;
 import rotp.ui.game.GameUI;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;

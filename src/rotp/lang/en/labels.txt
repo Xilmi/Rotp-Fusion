@@ -1904,8 +1904,8 @@ HEADERS_GAME_DIFFICULTY           | ~~~ GAME DIFFICULTY ~~~%1
 HEADERS_RESTART_OPTIONS_HELP      | Hidden behind the&nbsp <b>Start</b>&nbsp button, using the&nbsp <b>Ctrl</b>&nbsp Key you will find the&nbsp <b>Restart</b>&nbsp button.<br>You will be asked to select an old played game to start a new one on the same galaxy.<br>- With the same opponents or new ones.<br>- With the same player species, a new one, or swapped with a previous opponent.<br> You can keep your home world or swapp it with a previous opponent.<br> The following options are controlling the way a game will be restarted.
 HEADERS_RESTART_OPTIONS_DESC      | Options controlling the way a game will be restarted. Only read when restarting a game.
 HEADERS_RESTART_OPTIONS           | ~~~ RESTART OPTIONS ~~~%1
-HEADERS_ZOOM_FACTORS_DESC         | Options controlling the galaxy Map Zoom Factors. Can be changed dynamically. (Remnant.cfg options)
-HEADERS_ZOOM_FACTORS              | ~~~ MAP ZOOM FACTORS ~~~%1
+HEADERS_ZOOM_FACTORS_DESC         | Open Sub Menu to set several In-Game Preferences: Map zooming factors, Replay speed, Combat Shield Effects. (Remnant.cfg options)
+HEADERS_ZOOM_FACTORS              | ~~~ DISPLAY PREFERENCES ~~~%1
 HEADERS_MENU_OPTIONS_DESC         | Options controlling Menu Parameters. Can be changed dynamically. (Remnant.cfg options)
 HEADERS_MENU_OPTIONS              | ~~~ MENU'S OPTIONS ~~~%1
 HEADERS_PLANETS_FLAG_OPTIONS_DESC | To allow greater customization of the flag(s) of the planets.
@@ -2295,18 +2295,30 @@ SETTINGS_MOD_NEW_WEAPON_SOUND            | New Weapon Sound: %1
 
 SETTINGS_MOD_BEAM_WINDUP_FRAMES_DESC     | Beam building duration. (Should be instantaneous, but seing the beam propagation is nice too!) 
 SETTINGS_MOD_BEAM_WINDUP_FRAMES          | Beam Windup Frames: %1
-SETTINGS_MOD_BEAM_HOLD_FRAMES_DESC       | After the beam building phase, the attack can be hold a little bit.
+SETTINGS_MOD_BEAM_HOLD_FRAMES_DESC       | After the beam building phase, the attack can be hold a little bit. This value will be added to the base weapon hold value.
 SETTINGS_MOD_BEAM_HOLD_FRAMES            | Beam Hold Frames: %1
-SETTINGS_MOD_HEAVY_BEAM_HOLD_FRAMES_DESC | Heavy beams could last longer than base beam weapons.
+SETTINGS_MOD_HEAVY_BEAM_HOLD_FRAMES_DESC | Heavy beams could last longer than base beam weapons. This will be added to both base weapon hold value, and non-heavy Beam Hold Frames added value.
 SETTINGS_MOD_HEAVY_BEAM_HOLD_FRAMES      | Heavy Beam Hold Frames: %1
 SETTINGS_MOD_SHIELD_FADING_FRAMES_DESC   | Show Shield fading effect.
 SETTINGS_MOD_SHIELD_FADING_FRAMES        | Shield Fading Frames: %1
 SETTINGS_MOD_BEAM_ANIMATION_DELAY_DESC   | Pause between two frames. You may try to balance this value with higher frames number to get a smoother animation.
 SETTINGS_MOD_BEAM_ANIMATION_DELAY        | Animation Delay: %1 ms
+SETTINGS_MOD_SHOW_RESULT_DELAY_DESC      | Little delay before showing the combat result panel, this to allow viewing the last combat animation.
+SETTINGS_MOD_SHOW_RESULT_DELAY           | Result Delay: %1 ms
 SETTINGS_MOD_ALWAYS_SHOWS_SHIELD_DESC    | Shield animations will still be displayed, even if the target has no shield!
 SETTINGS_MOD_ALWAYS_SHOWS_SHIELD         | Always Shows Shield: %1
 SETTINGS_MOD_SHIELD_NOISE_PCT_DESC       | Add some noise to the shield animations.
 SETTINGS_MOD_SHIELD_NOISE_PCT            | Shield Noise: %1%
+SETTINGS_MOD_SHIELD_BORDER_DESC          | Shield border thickness.
+SETTINGS_MOD_SHIELD_BORDER               | Shield Borders: %1
+SETTINGS_MOD_SHIELD_BORDER_SIZE          | Hull Related.
+SETTINGS_MOD_SHIELD_BORDER_SIZE_DESC     | Shield Borders are proportional to the hull size; from 1 to 4.
+SETTINGS_MOD_SHIELD_BORDER_SIZE_2        | Hull Related x2.
+SETTINGS_MOD_SHIELD_BORDER_SIZE_2_DESC   | Shield Borders are proportional to the hull size; from 2 to 8.
+SETTINGS_MOD_WEAPON_Z_POS_DESC           | To add a top view on shield Effect.
+SETTINGS_MOD_WEAPON_Z_POS                | Weapon Z Position: %1
+SETTINGS_MOD_WEAPON_Z_RANDOM_DESC        | To randomize the Weapon Z position. Max variability around the nominal value.
+SETTINGS_MOD_WEAPON_Z_RANDOM             | Weapon Z Randomness: %1
 
 
 SETTINGS_MOD_SHOW_NEW_RACES_DESC         | Show the new species in the opponents list?
@@ -2358,8 +2370,8 @@ SETTINGS_MOD_DEBUG_OPTIONS_UI_DESC       | Open Sub Menu to set development tool
 
 SETTINGS_MOD_ZOOM_OPTIONS_TITLE          | In-Game Display Preferences
 SETTINGS_MOD_ZOOM_OPTIONS_UI             | Display Preferences: %1
-SETTINGS_MOD_ZOOM_OPTIONS_UI_DESC        | Open Sub Menu to set diverse map zooming factors and replay speed.
-SETTINGS_MOD_ZOOM_OPTIONS_UI_HELP        | Open Sub Menu to set several In-Game Preferences: Map zooming factors, Replay speed, Combat Shield Effects
+SETTINGS_MOD_ZOOM_OPTIONS_UI_DESC        | Open Sub Menu to set diverse map zooming factors, replay speed, Combat Shield Effects.
+SETTINGS_MOD_ZOOM_OPTIONS_UI_HELP        | Open Sub Menu to set several In-Game Preferences: Map zooming factors, Replay speed, Combat Shield Effects.
 
 SETTINGS_MOD_FLAG_COLOR_COUNT_DESC       | How may colors should appear on the Star System Flag?
 SETTINGS_MOD_FLAG_COLOR_COUNT            | Flag Color Count: %1

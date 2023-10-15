@@ -21,8 +21,8 @@ import rotp.model.tech.TechBiologicalWeapon;
 
 public class ShipWeapon extends ShipComponent {
     private static final long serialVersionUID = 1L;
-    private static final boolean showErrorMessages = true; // TODO BR: Set to False
-    private static final boolean showErrors = true; // TODO BR: Set to False
+    private static final boolean showErrorMessages = false; // BR: Set to False
+    private static final boolean showErrors = false; // BR: Set to False
     @Override
     public boolean isBeamWeapon()     { return false; }
     @Override

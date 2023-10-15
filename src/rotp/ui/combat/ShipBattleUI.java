@@ -1949,7 +1949,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         mgr.continueToNextPlayerStack();
         paintAllImmediately();
         if (mgr.combatIsFinished())
-            showResult();
+        	showResult();
         newTargetGridCell();
         
         if (mouseGridX >= 0)
@@ -1984,6 +1984,10 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         paintCellImmediately(mouseGridX, mouseGridY);
     }
     public void showResult() {
+    	int sleepTime = options().showResultDelay();
+    	if (sleepTime > 0) {
+    		sleep(sleepTime); // BR: little pause time to show the combat animation
+    	}
         mode = Display.RESULT;
         repaint();
     }

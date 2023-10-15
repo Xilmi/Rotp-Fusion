@@ -810,7 +810,7 @@ public class CombatStack implements Base {
         	return empire.color();
     }
     public BufferedImage[] shieldImg(int nI, int nA, Dimension size, int srcX, int srcY, int tarX, int tarY,
-    		int xAdj, int yAdj, Color beamColor, float beamForce, float damage) { // TODO BR: BufferedImage[] shieldImg(
+    		int xAdj, int yAdj, Color beamColor, float beamForce, float damage) {
 
     	// Impact Radius is function of beam power (^)
     	// Impact Transparency is function of beam absorption ratio (v)

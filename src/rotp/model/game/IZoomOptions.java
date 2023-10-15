@@ -99,7 +99,7 @@ public interface IZoomOptions extends IBaseOptsTools {
 	{	{ isCfgFile(true); } };
 	default int beamHoldFrames()			{ return beamHoldFrames.get(); }
 	
-	ParamInteger heavyBeamHoldFrames= new ParamInteger(MOD_UI, "HEAVY_BEAM_HOLD_FRAMES" , 6, 1, 20, 1, 5, 20)
+	ParamInteger heavyBeamHoldFrames= new ParamInteger(MOD_UI, "HEAVY_BEAM_HOLD_FRAMES" , 6, 0, 20, 1, 5, 20)
 	{	{ isCfgFile(true); } };
 	default int heavyBeamHoldFrames()		{ return heavyBeamHoldFrames.get(); }
 	
@@ -107,13 +107,41 @@ public interface IZoomOptions extends IBaseOptsTools {
 	{	{ isCfgFile(true); } };
 	default boolean shieldFadingFrames()	{ return shieldFadingFrames.get(); }
 
-	ParamInteger beamAnimationDelay	= new ParamInteger(MOD_UI, "BEAM_ANIMATION_DELAY" , 50, 0, 1000, 5, 20, 100)
+	ParamInteger beamAnimationDelay	= new ParamInteger(MOD_UI, "BEAM_ANIMATION_DELAY" , 20, 0, 1000, 5, 20, 100)
 	{	{ isCfgFile(true); } };
 	default int beamAnimationDelay()		{ return beamAnimationDelay.get(); }
+
+	ParamInteger showResultDelay	= new ParamInteger(MOD_UI, "SHOW_RESULT_DELAY" , 500, 0, 5000, 100, 500, 2000)
+	{	{ isCfgFile(true); } };
+	default int showResultDelay()			{ return showResultDelay.get(); }
 
 	ParamInteger shieldNoisePct		= new ParamInteger(MOD_UI, "SHIELD_NOISE_PCT" , 40, 0, 200, 1, 5, 20)
 	{	{ isCfgFile(true); } };
 	default int shieldNoisePct()			{ return shieldNoisePct.get(); }
+
+	ParamInteger shieldBorder		= new ParamInteger(MOD_UI, "SHIELD_BORDER" , 0, 0, 5, 1, 1, 1)
+	{	{ 
+			isCfgFile(true);
+			specialZero(MOD_UI + "SHIELD_BORDER_SIZE");
+			specialNegative(MOD_UI + "SHIELD_BORDER_SIZE_2");
+		}
+	};
+	default int shieldBorder()				{ return shieldBorder.get(); }
+	default int shieldBorder(int hullSize)	{
+		if (shieldBorder.isSpecialZero())
+			return hullSize+1;
+		if (shieldBorder.isSpecialNegative())
+			return 2* (hullSize+1);
+		return shieldBorder.get();
+	}
+
+	ParamInteger weaponZposition	= new ParamInteger(MOD_UI, "WEAPON_Z_POS" , 200, -1000, 1000, 10, 50, 200)
+	{	{ isCfgFile(true); } };
+	default int weaponZposition()			{ return weaponZposition.get(); }
+
+	ParamInteger weaponZRandom		= new ParamInteger(MOD_UI, "WEAPON_Z_RANDOM" , 50, 0, 500, 5, 20, 100)
+	{	{ isCfgFile(true); } };
+	default int weaponZRandom()				{ return weaponZRandom.get(); }
 
 	// ==================== GUI List Declarations ====================
 	//
@@ -142,11 +170,15 @@ public interface IZoomOptions extends IBaseOptsTools {
 //				)));
 		add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("WEAPON_ANIMATIONS"),
-				newWeaponSound, newWeaponAnimation, alwaysShowsShield,
+				newWeaponSound, newWeaponAnimation, alwaysShowsShield, showResultDelay,
 
 				headerSpacer,
-				beamWindupFrames, beamHoldFrames, heavyBeamHoldFrames,
-				shieldFadingFrames, beamAnimationDelay
+				beamWindupFrames, beamHoldFrames,
+				heavyBeamHoldFrames, shieldFadingFrames,
+
+				headerSpacer,
+				 beamAnimationDelay, shieldBorder,
+				 weaponZposition, weaponZRandom
 				)));
 		}
 	};

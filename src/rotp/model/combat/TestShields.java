@@ -14,7 +14,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -40,6 +39,7 @@ public class TestShields extends JPanel implements Base, ActionListener {
 //public class TestShields extends JPanel implements ActionListener {
 	private final float SCREEN_RATIO	= (float)9/16; 
 	private final int SCREEN_WIDTH	= 3840; 
+//	private final int SCREEN_WIDTH	= 1920; 
 //	private final int SCREEN_WIDTH	= 1024; 
 	private final int SCREEN_HEIGHT	= (int) (SCREEN_WIDTH * SCREEN_RATIO + 0.5f);
 	private final int COLUMNS_NUM	= 10; 
@@ -64,13 +64,14 @@ public class TestShields extends JPanel implements Base, ActionListener {
 	private int totalImages, currentImage, animationDelay;
 	private Timer animationTimer;
 	private CombatShield cs;
-	private int[] shieldPos = new int[] {0, 0, 0};
 	private int[] targetCtr = new int[] {0, 0, 0};
 	private int[] sourcePos = new int[] {1000, 500, 100};
-	private int[] semiAxis;
+	private int[] srcLocX = new int[] {-1,  0,  1, 1, 1, 0, -1, -1};
+	private int[] srcLocY = new int[] {-1, -1, -1, 0, 1, 1,  1,  0};
+	private int srcLocation = 0;
 	private Color shieldColor = Color.green;
 	private int beamSize	  = 3;
-	private int windUpFramesNum = 20;
+	private int windUpFramesNum = 6;
 	private int holdFramesNum   = 0;
 	private int heavyHoldFramesNum   = 0;
 	private int landUpFramesNum = windUpFramesNum;
@@ -96,34 +97,32 @@ public class TestShields extends JPanel implements Base, ActionListener {
 	private boolean holdTimer = false;
 
 	// Weapon parameters
-	private int weaponMaxId = 23;
-	private float cost, size, power;
-	private boolean restricted = false;
-	private int weaponId = 1;
-	private int damageLow = 0;
-	private int damageHigh = 0;
-	private int range = 1;
-	private boolean heavyAllowed = false;
-	private int heavyDamageLow = 0;
-	private int heavyDamageHigh = 0;
-	private int heavyRange = 2;
-	public int attacksPerRound = 1;
-	private int computer = 0;
-	private float enemyShieldMod = 1;
-	private boolean streaming = false;
-	private String soundEffect = "ShipLaser";
-	private int weaponSpread = 1; // 1, 2, 4, 7
-	private int windUpFrames = 3;
-	private int holdFrames = 0;
-	private int beamStroke, dashStroke;
-	private Color beamColor = Color.red;
-	private Color beamColor2;
-	private Color cycleColor;
-	private Color cycleColor2;
-	private Stroke weaponStroke;
+	int weaponMaxId = 23;
+	float cost, size, power;
+	boolean restricted = false;
+	int weaponId = 1;
+	int damageLow = 0;
+	int damageHigh = 0;
+	int range = 1;
+	boolean heavyAllowed = false;
+	int heavyDamageLow = 0;
+	int heavyDamageHigh = 0;
+	int heavyRange = 2;
+	int attacksPerRound = 1;
+	int computer = 0;
+	float enemyShieldMod = 1;
+	boolean streaming = false;
+	String soundEffect = "ShipLaser";
+	int weaponSpread = 1; // 1, 2, 4, 7
+	int windUpFrames = 3;
+	int holdFrames = 0;
+	int beamStroke, dashStroke;
+	Color beamColor = Color.red;
+	Color beamColor2;
+	Color cycleColor;
+	Color cycleColor2;
+	Stroke weaponStroke;
 	// \Weapon parameters
-	
-	private boolean debugWait = false;
 	
 	private void initSizes() {
 		shieldArray = new BufferedImage[attacksPerRound][][];
@@ -155,7 +154,7 @@ public class TestShields extends JPanel implements Base, ActionListener {
 		imageWidth  = boxWidth + IMAGE_SEP;
 		imageHeight = boxHeight + IMAGE_SEP;
 		
-		windowWidth  = imageWidth * 7/2 + 10; // + IMAGE_SEP;
+		windowWidth  = imageWidth * 3 + 10; // + IMAGE_SEP;
 		windowHeight = imageHeight * 3  + 30; // + IMAGE_SEP;
 		winRec	= new Rectangle(windowWidth, windowHeight);
 		winTarX = IMAGE_SEP + imageWidth  + boxWidth/2 ;
@@ -179,8 +178,8 @@ public class TestShields extends JPanel implements Base, ActionListener {
 			};
 	}
 	private void loadShields() {
-		long timeStart = System.currentTimeMillis();
-		long timeMid = timeStart;
+		// long timeStart = System.currentTimeMillis();
+		// long timeMid = timeStart;
 		System.out.println();
 		if (isMonster()) {
 			imagePath = monsterPath;
@@ -195,17 +194,15 @@ public class TestShields extends JPanel implements Base, ActionListener {
 		shieldBorders	= scaled(1);
 		initSizes();
 		targetCtr = new int[] {winTarX, winTarY, 0};
-		sourcePos = newSourcePos(1, 1, 500);
-		shieldPos = new int[] {0, 0, 0};
+		sourcePos = newSourcePos(1, 1, scaled(200));
 
-
-		cs = new CombatShield(windUpFramesNum, holdFramesNum, landUpFramesNum, fadingFramesNum,
+		cs = new CombatShield(holdFramesNum, landUpFramesNum, fadingFramesNum,
 				targetCtr[0], targetCtr[1], targetCtr[2], shieldColor, shieldBorders,
 				shieldLevel, shipImg, boxWidth, boxHeight);
 		cs.setNoise(0);
 		cs.setImpact(0, 0, 0); // offset to ship center
 		cs.setSource(sourcePos[0], sourcePos[1], sourcePos[2], beamColor, scaled(beamSize));
-		cs.setWeapons(attacksPerRound, damage, beamForce);
+		cs.setWeapons(damage, beamForce);
 
 		shieldArray[currentAttack] = cs.getShieldArray();
 		shieldDX	= cs.shieldOffsetX();
@@ -609,8 +606,6 @@ public class TestShields extends JPanel implements Base, ActionListener {
 
 		count =20;
 		int wpnCount = count / attacksPerRound;
-		debugWait = false;
-//		System.out.println();
 		int targetTLx = targetCtr[0]-boxW/2; // Top Left points
 		int targetTLy = targetCtr[1]-boxH/2;
 		int sourceTLx = sourcePos[0]-boxW/2;
@@ -646,16 +641,18 @@ public class TestShields extends JPanel implements Base, ActionListener {
 		int fadingFrames = fadingFramesNum;
 		int landUpFrames = windUpFrames;
 		long sleepTime	 = 20; // Original = 50;
-		int targetZ = 0;
-		int sourceZ = 2000;
+		int targetZ  = 0;
+		int weaponZ  = scaled(200);
+		int weaponDz = scaled(50);	
+		weaponZ += roll(-weaponDz,weaponDz); // Already scaled
 		
 		BufferedImage[][][] shieldArray = new BufferedImage[attacksPerRound][][];
-		CombatShield cs = new CombatShield(windUpFrames, holdFrames, landUpFrames, fadingFrames,
+		CombatShield cs = new CombatShield(holdFrames, landUpFrames, fadingFrames,
 				targetCtr[0], targetCtr[1], targetZ, shieldColor, shieldBorders,
 				shieldLevel, shipImg, boxW, boxH);
 		
-		cs.setSource(sourceTLx, sourceTLy, sourceZ, beamColor, w);
-		cs.setWeapons(attacksPerRound, dmg, force);
+		cs.setSource(sourceTLx, sourceTLy, weaponZ, beamColor, w);
+		cs.setWeapons(dmg, force);
 		cs.setImpact(targetTLx, targetTLy, targetZ);
 		int shieldTLx = cs.shieldTopLeftX();
 		int shieldTLy = cs.shieldTopLeftY();
@@ -720,11 +717,11 @@ public class TestShields extends JPanel implements Base, ActionListener {
 			double newY2 = line.getY2();
 			hitLines.add(new Line2D.Double(newX1, newY1, newX2, newY2));
 		}
-		for(int k = 0; k < attacksPerRound; k++) // TODO BR: Here
+		for(int k = 0; k < attacksPerRound; k++)
 			g.drawImage(shieldArray[k][BELLOW][0], shieldTLx, shieldTLy, null);
 		g.drawImage(shipImg, shipTLx, shipTLy, null);
 		paintLines(hitLines, g); // hitting lines are in-between
-		for(int k = 0; k < attacksPerRound; k++) // TODO BR: Here
+		for(int k = 0; k < attacksPerRound; k++)
 			g.drawImage(shieldArray[k][ABOVE][0], shieldTLx, shieldTLy, null);
 	
 		paintLines(partLines, g); // visible line are above
@@ -736,11 +733,11 @@ public class TestShields extends JPanel implements Base, ActionListener {
 			clearWindow(g);
 			setPaint(g, i+1+windUpFrames, weaponX, weaponY, weaponDx, weaponDy);
 			int shieldIdx = i+1;
-			for(int k = 0; k < attacksPerRound; k++) // TODO BR: Here
+			for(int k = 0; k < attacksPerRound; k++)
 				g.drawImage(shieldArray[k][BELLOW][shieldIdx], shieldTLx, shieldTLy, null);
 			g.drawImage(shipImg, shipTLx, shipTLy, null);
 			paintLines(hitLines, g); // hitting lines are in-between
-			for(int k = 0; k < attacksPerRound; k++) // TODO BR: Here
+			for(int k = 0; k < attacksPerRound; k++)
 				g.drawImage(shieldArray[k][ABOVE][shieldIdx], shieldTLx, shieldTLy, null);
 
 			paintLines(partLines, g);
@@ -752,11 +749,11 @@ public class TestShields extends JPanel implements Base, ActionListener {
 			clearWindow(g);
 			setPaint(g, i+1+windUpFrames+holdFrames, weaponX, weaponY, weaponDx, weaponDy);
 			int shieldIdx = i+1+holdFrames;
-			for(int k = 0; k < attacksPerRound; k++) // TODO BR: Here
+			for(int k = 0; k < attacksPerRound; k++)
 				g.drawImage(shieldArray[k][BELLOW][shieldIdx], shieldTLx, shieldTLy, null);
 			g.drawImage(shipImg, shipTLx, shipTLy, null);
 			paintLines(hitLines, g); // hitting lines are in-between
-			for(int k = 0; k < attacksPerRound; k++) // TODO BR: Here
+			for(int k = 0; k < attacksPerRound; k++)
 				g.drawImage(shieldArray[k][ABOVE][shieldIdx], shieldTLx, shieldTLy, null);
 
 			partLines.get(i).clear();
@@ -768,17 +765,11 @@ public class TestShields extends JPanel implements Base, ActionListener {
 		for(int i = 0; i < fadingFrames; ++i) {
 			clearWindow(g);
 			int shieldIdx = i+1+holdFrames+windUpFrames;
-			for(int k = 0; k < attacksPerRound; k++) // TODO BR: Here
+			for(int k = 0; k < attacksPerRound; k++)
 				g.drawImage(shieldArray[k][BELLOW][shieldIdx], shieldTLx, shieldTLy, null);
 			g.drawImage(shipImg, shipTLx, shipTLy, null);
-			for(int k = 0; k < attacksPerRound; k++) // TODO BR: Here
+			for(int k = 0; k < attacksPerRound; k++)
 				g.drawImage(shieldArray[k][ABOVE][shieldIdx], shieldTLx, shieldTLy, null);
-//			for(int k = 0; k < attacksPerRound; k++) { // TODO BR: Here
-//				g.drawImage(shieldArray[k][BELLOW][shieldIdx], shieldTLx, shieldTLy, null);
-//				g.drawImage(shipImg, shipTLx, shipTLy, null);
-//				g.drawImage(shieldArray[k][ABOVE][shieldIdx], shieldTLx, shieldTLy, null);
-//				paintImmediately(winRec);
-//			}
 			paintImmediately(winRec);
 			sleep(sleepTime);
 		}
@@ -947,7 +938,12 @@ public class TestShields extends JPanel implements Base, ActionListener {
 		int x = IMAGE_SEP + imageWidth;
 		int y = IMAGE_SEP + imageHeight;
 		g.drawImage(shipImg, x+dx, y+dy, this);
-		
+
+		sourcePos = newSourcePos(srcLocX[srcLocation], srcLocY[srcLocation], scaled(200));
+		srcLocation++;
+		if (srcLocation >= srcLocX.length)
+			srcLocation = 0;
+
 		int srcX	= sourcePos[0];
 		int srcY	= sourcePos[1];
 		int impactX	= targetCtr[0];

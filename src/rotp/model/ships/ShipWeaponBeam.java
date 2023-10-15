@@ -71,7 +71,7 @@ public final class ShipWeaponBeam extends ShipWeapon {
             return;
         }
         float totalDamage = 0;
-        float totalLatent = 0; // TODO BR: Damages if not shielded
+        float totalLatent = 0; // BR: Damages if not shielded
         float shieldMod = source.targetShieldMod(this)*shieldMod();
         
         // use attack/defense values to determine chance that weapon will hit

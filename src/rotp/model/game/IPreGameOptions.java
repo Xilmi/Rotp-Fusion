@@ -133,16 +133,16 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions {
 	RandomAlienRaces randomAlienRaces		 = new RandomAlienRaces(MOD_UI, "RACES_ARE_RANDOM", RandomAlienRaces.TARGET);
 	default String selectedRandomAlienRaces()			{ return randomAlienRaces.get(); }
 
-	ParamList ironmanMode	= new ParamList( MOD_UI, "IRONMAN_MODE", "Off") {
-		{
-			showFullGuide(true);
-			put("Off",	MOD_UI + "IRONMAN_OFF");
-			put("NoOptions",	MOD_UI + "IRONMAN_NO_OPTIONS");
-//			put("NoSave",		MOD_UI + "IRONMAN_NO_SAVE");
-		}
-	};
-	default boolean isGameOptionsAllowed()		{ return ironmanMode.get().equalsIgnoreCase("Off"); }
-	default boolean isSaveOptionsAllowed()		{ return !ironmanMode.get().equalsIgnoreCase("NoSave"); }
+//	ParamList ironmanMode	= new ParamList( MOD_UI, "IRONMAN_MODE", "Off") {
+//		{
+//			showFullGuide(true);
+//			put("Off",	MOD_UI + "IRONMAN_OFF");
+//			put("NoOptions",	MOD_UI + "IRONMAN_NO_OPTIONS");
+////			put("NoSave",		MOD_UI + "IRONMAN_NO_SAVE");
+//		}
+//	};
+//	@Override default boolean isGameOptionsAllowed() { return ironmanMode.get().equalsIgnoreCase("Off"); }
+//	@Override default boolean isSaveOptionsAllowed() { return !ironmanMode.get().equalsIgnoreCase("NoSave"); }
 	
 	// ==================== GUI List Declarations ====================
 	//

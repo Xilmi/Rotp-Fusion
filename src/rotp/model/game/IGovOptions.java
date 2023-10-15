@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 import rotp.model.game.GovernorOptions.GatesGovernor;
-import rotp.ui.UserPreferences;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamInteger;
