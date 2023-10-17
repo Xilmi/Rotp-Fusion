@@ -3,6 +3,7 @@ package rotp.model.combat;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 
 import java.awt.Color;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 // Combat Shield as ellipsoid
@@ -23,10 +24,6 @@ public final class CombatShield {
 	private static final float spreadDrMin		= 0.2f;
 	private static final float spreadingRmax	= 0.95f - spreadDrEnd;
 
-	private final Tint noColor	= new Tint();
-	private final int shieldLevel;
-	private float damage, beamForce;
-
 	private static final double	PI		= Math.PI;
 	private static final double	HALF_PI	= PI/2;
 	private static final int FF		= 255;
@@ -38,40 +35,41 @@ public final class CombatShield {
 	private static final int FADING		= 2;
 	private static final int RING_NUM	= 3;
 
+	private final Tint noColor	= new Tint();
+	private final int shieldLevel;
+	private final float damage, beamForce;
+
 	// Rendering
 	private final GradientRing[] gradientRing = new GradientRing[RING_NUM];
 	private final int shieldColumns, shieldRows, paintLength;
-	private final int perimeter, halfPerimeter, fullDistance;
+	private final int perimeter, maxDistance, fullDistance;
 	private final Tint[][] paintArray;
-	private double noiseFactor = 0.;
+	private final double noiseFactor, shieldTransparency;
+	private final boolean enveloping;
+	private final float flickeringFactor;
 
 	// Locations, size, weapons
 	private final Pos targetCenter	= new Pos();
 	private final Pos shipSource	= new Pos();
 	private final Pos shipImpact	= new Pos();
 	private final Pos impactAdj		= new Pos();
-	private int beamDiameter;
-	private Color shieldColor, beamColor;
+	private final int spotDiameter;
 	private final int holdFramesNum, landUpFramesNum, fadingFramesNum;
 	private final int framesNum, beamFramesNum;
-	private BufferedImage targetImage;
-	private float scintillationFactor = 0.2f;
+	private final Color shieldColor, beamColor;
 
 	// Results
 	private final Pos shieldImpact = new Pos();
 	private final Geodesic geodesic;
-	private double insideRatio;
 	private final BufferedImage[][] shieldArray = new BufferedImage[3][];
 	private final int shieldOffsetX, shieldOffsetY, centerOffsetX, centerOffsetY;
+	private double insideRatio;
 
 	// Other variables
 	private boolean neverInitialized = true;
 
 	// Debug
-	boolean showTiming = false;
-	boolean debug = false;
-	static int maxWidthPct = 0;
-	static int maxHeightPct = 0;
+	private boolean showTiming = false;
 	
 	// = = = = = Parameters management = = = = =
 	//
@@ -89,28 +87,31 @@ public final class CombatShield {
 	// = = = = = Constructors, Setters and Initializers = = = = =
 	//
 	public CombatShield(int holdFrames, int landUpFrames, int fadingFrames,
-			int xCtr, int yCtr, int z, Color shieldColor, int border,
-			int shieldLevel, BufferedImage image, int boxWidth, int boxHeight) {
+			int boxWidth, int boxHeight, int targetCtrX, int targetCtrY,
+			Color shieldColor, boolean enveloping, int border, int transparency, int flickering,
+			int shieldNoisePct, int shieldLevel, BufferedImage targetImage, 
+			int weaponX, int weaponY, int weaponZ, Color weaponColor, int spotSize,
+			float damage, float beamForce) {
 		holdFramesNum   = holdFrames;
 		landUpFramesNum = landUpFrames;
 		fadingFramesNum = fadingFrames;
 		beamFramesNum	= 1 + landUpFramesNum;
 		framesNum		= beamFramesNum + holdFramesNum + fadingFramesNum;
 		this.shieldColor= shieldColor;
+		this.enveloping = enveloping;
 
-		targetCenter.set(xCtr, yCtr, z);
+		targetCenter.set(targetCtrX, targetCtrY, 0);
 		this.shieldLevel = shieldLevel; // = design().maxShield
-		targetImage		 = image;
 		long timeStart	 = System.currentTimeMillis();
 		
 		ShipAnalysis sA	 = new ShipAnalysis(targetImage, boxWidth, boxHeight, border);
 		
-		shieldColumns	 = (int) (2*sA.b+1);
-		shieldRows		 = (int) (2*sA.a+1);
-		perimeter		 = (int) sA.ellipsePerimeter();
-		halfPerimeter	 = perimeter/2;
-		fullDistance	 = (int) (halfPerimeter * 1.2);
-		paintLength		 = (int) (perimeter * 1.1); // with a little reserve!
+		shieldColumns = (int) (2*sA.b+1);
+		shieldRows	  = (int) (2*sA.a+1);
+		perimeter	  = (int) sA.ellipsePerimeter();
+		maxDistance	  = perimeter/2;
+		fullDistance  = (int) (maxDistance*1.2);
+		paintLength	  = (int) (perimeter * 1.1); // with a little reserve!
 
 		paintArray = new Tint[framesNum][];
 		shieldArray[ABOVE]	= new BufferedImage[framesNum];
@@ -126,25 +127,23 @@ public final class CombatShield {
 		centerOffsetY = sA.centerOffsetY();
 		
 		geodesic = new Geodesic(sA.a, sA.b);
+
+		noiseFactor = 0.01 * shieldNoisePct;
+		shipSource.set(weaponX, weaponY, weaponZ);
+		spotDiameter = spotSize;
+		beamColor	 = weaponColor;
+		this.beamForce = beamForce;
+		this.damage = damage;
+		flickeringFactor = flickering /100f;
+		shieldTransparency	= transparency/100.0;
 		if (showTiming)
 			System.out.println("shipAnalyzis() Time = " + (System.currentTimeMillis()-timeStart));
 	}
-	public void setNoise(int pct) { noiseFactor = 0.01 * pct; }
 	public int[] setImpact(int dx, int dy, int dz) { // dz is for the source
 		impactAdj.set(dx, dy, dz);
 		shipImpact.set(targetCenter.x+dx+centerOffsetX, targetCenter.y+dy+centerOffsetY, dz);
 		return new int[] { (int)shipImpact.x, (int)shipImpact.y};
 	}
-	public void setSource(int x, int y, int z, Color color, int beamSize) {
-		shipSource.set(x, y, z);
-		beamDiameter = beamSize;
-		beamColor	 = color;
-	}
-	public void setWeapons(float damage, float beamForce) {
-		this.beamForce = beamForce;
-		this.damage = damage;
-	}
-
 	private void initPaints() {
 		float shieldForce = shieldLevel / topShield;
 		float beamPowerFactor = 0;
@@ -165,7 +164,7 @@ public final class CombatShield {
 		// Rays
 		int impactR0Start	= 0;
 		int impactR0End		= 0;
-		float impactR1Start	= beamDiameter/2; // Plain color Impact
+		float impactR1Start	= spotDiameter/2; // Plain color Impact
 		float impactR1End	= fullDistance * bounds(impactRmin, impactRbase*beamPowerFactor, impactRmax);
 		float impactR2Start	= impactR1Start * 1.5f;
 		float shieldR0Start	= impactR1Start * 1.f;
@@ -182,31 +181,34 @@ public final class CombatShield {
 		float shieldR1Start	= shieldR1End * impactR1Start/impactR1End;
 		float shieldR2Start	= shieldR2End * impactR1Start/impactR1End;
 
-		float shieldR3End	= shieldR2End + deltaR1*cover;
-		float shieldR3Start	= shieldR3End * impactR1Start/impactR1End;
+		float shieldR3End	= shieldR2End + deltaR1*0.7f; // * cover;
+		shieldR3End	= fullDistance/2;
 		
-		shieldR3End	  = fullDistance;
-		//shieldR3Start = fullDistance;
+		float shieldR3Start	= shieldR3End * impactR1Start/impactR1End;
+		if (enveloping)
+			shieldR3End = fullDistance;
 
 		// On beam impact
 		Tint[]	colors	  = new Tint[]	{impactColorStart, impactColorStart, noColor,      noColor};
 		float[]	startRays = new float[]	{impactR0Start,    impactR1Start,   impactR2Start, fullDistance};
 		float[]	stopRays  = new float[]	{impactR0End,      impactR1End,     impactR2End,   fullDistance};
-		gradientRing[IMPACTING] = new GradientRing(colors, startRays, stopRays, beamFramesNum, scintillationFactor/2, 2);	
+		gradientRing[IMPACTING] = new GradientRing(colors, startRays, stopRays, beamFramesNum, flickeringFactor/2, 2);	
 		
 		// Spreading
 		colors    = new Tint[] {noColor, noColor,       shieldSpreadColor, shieldSpreadColor, noColor,       noColor};
 		startRays = new float[]{0,       shieldR0Start, shieldR1Start,      shieldR2Start,      shieldR3Start, fullDistance};
 		stopRays  = new float[]{0,       shieldR0End/2, shieldR1End,        shieldR2End,        shieldR3End,   fullDistance};
-		gradientRing[SPREADING] = new GradientRing(colors, startRays, stopRays, beamFramesNum*4/2, scintillationFactor, 1);
+		gradientRing[SPREADING] = new GradientRing(colors, startRays, stopRays, beamFramesNum*4/2, flickeringFactor, 1);
 		
 		// Fading
-		Tint fullColor	= new Tint(FF,FF,FF,FF);
-		float startFade = fullDistance / fadingFramesNum;
-		colors    = new Tint[] {noColor, noColor,      fullColor,    fullColor};
-		startRays = new float[]{0,       0,            startFade,    fullDistance};
-		stopRays  = new float[]{0,       fullDistance, fullDistance, fullDistance};
-		gradientRing[FADING] = new GradientRing(colors, startRays, stopRays, fadingFramesNum, 0, 0);
+		if (fadingFramesNum>0) {
+			Tint fullColor	= new Tint(FF,FF,FF,FF);
+			float startFade = fullDistance / fadingFramesNum;
+			colors    = new Tint[] {noColor, noColor,      fullColor,    fullColor};
+			startRays = new float[]{0,       0,            startFade,    fullDistance};
+			stopRays  = new float[]{0,       fullDistance, fullDistance, fullDistance};
+			gradientRing[FADING] = new GradientRing(colors, startRays, stopRays, fadingFramesNum, 0, 0);
+		}
 	}
 	private void initPaintArray() {
 		for (int frame=0; frame<framesNum; frame++) {
@@ -242,11 +244,8 @@ public final class CombatShield {
 			System.out.println("init Rings and PAints Array Time = " + (System.currentTimeMillis()-timeMid));
 		timeMid = System.currentTimeMillis();
 
-//		locateShieldImpact();
 		insideRatio = findShieldImpact(shipSource, impactAdj, shieldImpact);
 		geodesic.setImpact(shieldImpact);
-//		System.out.println("insideRatio: " + insideRatio() +  "  Impact: " + shieldImpact);	
-		
 		geodesic.drawShieldArray(noiseFactor);
 		
 		if (showTiming)
@@ -255,7 +254,6 @@ public final class CombatShield {
 
 	// = = = = = getters = = = = =
 	//
-	//BufferedImage getNextImage()		{ return shieldList().remove(0); }
 	public BufferedImage[][] getShieldArray()	{ return  shieldArray(); }
 	public int shieldOffsetX()	{ return shieldOffsetX; }
 	public int shieldOffsetY()	{ return shieldOffsetY; }
@@ -263,17 +261,13 @@ public final class CombatShield {
 	public int centerOffsetY()	{ return centerOffsetY; }
 	public int getA()			{ return (int) geodesic.a; }
 	public int getB()			{ return (int) geodesic.b; }
-	public int shieldTopLeftX()	{ return (int) (targetCenter.x+centerOffsetX-shieldColumns/2); }
-	public int shieldTopLeftY()	{ return (int) (targetCenter.y+centerOffsetY-shieldRows/2); }
-	public int shieldWidth()	{ return shieldColumns; }
-	public int shieldHeight()	{ return shieldRows; }
-	public int[] shieldImpact()	{
-		return new int[] {	(int) (targetCenter.x+centerOffsetX+geodesic.xI),
-							(int) (targetCenter.y+centerOffsetY+geodesic.yI)};
+	public Rectangle shieldRec(){
+		return new Rectangle(
+				(int) (targetCenter.x+centerOffsetX-shieldColumns/2),
+				(int) (targetCenter.y+centerOffsetY-shieldRows/2),
+				shieldColumns, shieldRows);
 	}
 
-	// = = = = = Private Methods = = = = =
-	//
 	// = = = = = Tools = = = = =
 	//
 	private double findShieldImpact(Pos src, Pos impactAdj, Pos unused) {
@@ -283,12 +277,10 @@ public final class CombatShield {
 		double xo = impactAdj.x;
 		double yo = impactAdj.y;
 		double zo = 0;
-//		System.out.println("xo =" + xo + "  yo =" + yo + "  zo =" + zo);
 		// - beam path
 		double dx = src.x - shipImpact.x;
 		double dy = src.y - shipImpact.y;
 		double dz = src.z - shipImpact.z; // Should be positive
-//		System.out.println("dx =" + dx + "  dy =" + dy + "  dz =" + dz);
 		// beam equation: [xo, yo, zo] + m * [dx, dy, dz] = [x, y, z] with m>0
 		// Intersection point (z always positive)
 		// (xo + m∙dx)^2 /a +  (yo + m∙dy)^2 /b +  (zo + m∙dz)^2 /c = 1
@@ -306,10 +298,8 @@ public final class CombatShield {
 		shieldImpact.x = impactAdj.x + insideRatio * dx;
 		shieldImpact.y = impactAdj.y + insideRatio * dy;
 		shieldImpact.z = impactAdj.z + insideRatio * dz;
-//		System.out.println("shieldImpact =" + shieldImpact.toString());
 		return insideRatio;
 	}
-//	private void locateShieldImpact() { insideRatio = findShieldImpact(shipSource, shipImpact, shieldImpact); }
 	private float bounds(float low, float val, float hi) {
 		return Math.min(Math.max(low, val), hi);
 	}
@@ -377,9 +367,6 @@ public final class CombatShield {
 			// Add Borders
 			a(a+2*border);
 			b(b+2*border);
-			
-			maxWidthPct = Math.max(maxWidthPct, (int)((int)(2*b)*100.0/boxWidth));
-			maxHeightPct = Math.max(maxHeightPct, (int)((int)(2*a)*100.0/boxHeight));
 		}
 		private void a(double val) {
 			a  = val;
@@ -408,14 +395,12 @@ public final class CombatShield {
 				System.out.println("Center");
 			int corr = (int) Math.abs(b * (leftSqMax-rightSqMax)/2);
 			while (corr > 0) {
-//				System.out.println("corr = " + corr);
 				if (rightSqMax > leftSqMax)
 					ctrCol+=corr;
 				else
 					ctrCol-=corr;
 				ctrCol = Math.max(0,Math.min(ctrCol, imgW));
 				testSize(show);
-//				System.out.println("Centered semi-axis: a=" + (int)a + " b=" + (int)b + " off=" + (b-ctrCol));
 				corr = (int) Math.abs(b * (leftSqMax-rightSqMax)/2);
 			}
 		}
@@ -611,7 +596,6 @@ public final class CombatShield {
 		private double xI_bb, yI_aa, zI_aa;	// the impact point
 		private double betaI;	// reduced latitude
 		
-//		private Geodesic() {}
 		private Geodesic(double a, double b) {
 			this.a	= a;
 			this.b	= b;
@@ -678,10 +662,8 @@ public final class CombatShield {
 			else
 				return Math.atan(b_a*x/Math.sqrt(delta));
 		}
-
 		private void drawShieldArray(double noiseFactor) {
 			long timeStart = System.currentTimeMillis();
-
 			double y = -a;
 			for (int row=0; row<shieldRows; row++) {
 				double x = -b;
@@ -710,11 +692,11 @@ public final class CombatShield {
 							cosΔσ = 1;
 						else if (cosΔσ<-1)
 							cosΔσ = -1;
-						double Δσ = Math.acos(cosΔσ); 
+						double Δσ = Math.acos(cosΔσ);
 						double distNFRatio = 1+noiseFactor*(Math.random()-0.5);
 						// Added 1.001 factor to avoid div per 0! (should be 0/0)
 						int aboveDist = (int) (distNFRatio*a*(Δσ-half_f*( 2*Δσ + Math.sin(Δσ) *
-								(sqCosPsinQx2[column]/(1.001-cosΔσ) - sqSinPcosQx2[column]/(1.001+cosΔσ)) )));
+								(sqCosPsinQx2[column]/(1.01-cosΔσ) - sqSinPcosQx2[column]/(1.01+cosΔσ)) )));
 						// Bellow the ship
 						cosΔσ = xPN -zzN;
 						if (cosΔσ>1)
@@ -723,7 +705,7 @@ public final class CombatShield {
 							cosΔσ = -1;
 						Δσ = Math.acos(cosΔσ);
 						int bellowDist = (int) (distNFRatio*a*(Δσ-half_f*( 2*Δσ + Math.sin(Δσ) *
-								(sqCosPsinQx2[column]/(1.001-cosΔσ) - sqSinPcosQx2[column]/(1.001+cosΔσ)) )));
+								(sqCosPsinQx2[column]/(1.01-cosΔσ) - sqSinPcosQx2[column]/(1.01+cosΔσ)) )));
 						for (int frame=0; frame<framesNum; frame++) {
 							int aboveColor  = paintArray[frame][aboveDist].argb(transparencyFactor);
 							if (aboveColor!=0)
@@ -772,10 +754,13 @@ public final class CombatShield {
 		
 		private GradientRing(Tint[] colors, float[] startRays, float[] stopRays,
 				int numEvol, float scintillationFactor, int countInit) {
-			this.rays		= startRays.clone();
-			this.colors		= new Tint[colors.length];
-			scintillation	= scintillationFactor;
-			count			= countInit;
+			count = countInit;
+			rays  = startRays.clone();
+			for (int idx=0; idx<rays.length; idx++)
+				if(rays[idx]<0)
+					rays[idx]=0;
+			scintillation = scintillationFactor;
+			this.colors	  = new Tint[colors.length];
 			for (int idx=0; idx<colors.length; idx++) 
 				this.colors[idx] = new Tint(colors[idx]);
 
@@ -784,8 +769,11 @@ public final class CombatShield {
 				deltaColor[idx] = colors[idx+1].minus(colors[idx]);
 
 			raysEvol	= new float[startRays.length];
-			for (int idx=0; idx<raysEvol.length; idx++) 
+			for (int idx=0; idx<raysEvol.length; idx++) {
 				raysEvol[idx] = (stopRays[idx]-startRays[idx]) / numEvol;
+				if(raysEvol[idx]<0)
+					raysEvol[idx]=0;
+			}
 		}
 		private void evolve() {
 			count++;
@@ -804,12 +792,11 @@ public final class CombatShield {
 				for (dist=0; dist<rayDelta; dist++) { // loop thru distances
 					int distance = rayStart+dist;
 					double opacityFactor = spreadingFactor(distance);
-//					float scintMult = 1-scintillation*factors[count%4];
 					float scintMult = 1-scintillation;
 					if (count%2 == 0)
 						opacityFactor*=scintMult;
-					paint[rayStart+dist] = colorStart.extend(colorDelta, dist+1, rayDelta+1)
-													 .setAlphaMultiplier(opacityFactor);
+					paint[distance] = colorStart.extend(colorDelta, dist+1, rayDelta+1)
+												.setAlphaMultiplier(opacityFactor);
 				}
 			}
 			for (int pos=rayStart+dist; pos<length; pos++) {
@@ -820,15 +807,15 @@ public final class CombatShield {
 		}
 		private double spreadingFactor(int distance) {
 			int dist = distance;
-			if (dist>halfPerimeter)
+			if (dist>maxDistance)
 				dist = perimeter-dist;
-			if (dist<beamDiameter)
+			if (dist<spotDiameter)
 				return 1;
 			// transparency increase as the beam spread away
 			// then decrease after 1/4 turn
 			// Opacity factor
 			// ~ beamRay/(distance)
-			return Math.pow(beamDiameter/(double)dist, 0.25);
+			return Math.pow(spotDiameter/(double)dist, shieldTransparency); // 0.25
 		}
 	}
 }

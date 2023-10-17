@@ -1986,6 +1986,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
     public void showResult() {
     	int sleepTime = options().showResultDelay();
     	if (sleepTime > 0) {
+    		System.out.println("showResultDelay() = " + sleepTime);
     		sleep(sleepTime); // BR: little pause time to show the combat animation
     	}
         mode = Display.RESULT;

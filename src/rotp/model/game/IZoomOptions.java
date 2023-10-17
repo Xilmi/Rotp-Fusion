@@ -107,21 +107,34 @@ public interface IZoomOptions extends IBaseOptsTools {
 	{	{ isCfgFile(true); } };
 	default boolean shieldFadingFrames()	{ return shieldFadingFrames.get(); }
 
-	ParamInteger beamAnimationDelay	= new ParamInteger(MOD_UI, "BEAM_ANIMATION_DELAY" , 20, 0, 1000, 5, 20, 100)
+	ParamBoolean shieldEnveloping	= new ParamBoolean(MOD_UI, "SHIELD_ENVELOPING", true)
+	{	{ isCfgFile(true); } };
+	default boolean shieldEnveloping()		{ return shieldEnveloping.get(); }
+
+	ParamInteger beamAnimationDelay	= new ParamInteger(MOD_UI, "BEAM_ANIMATION_DELAY" , 40, 0, 1000, 5, 20, 100)
 	{	{ isCfgFile(true); } };
 	default int beamAnimationDelay()		{ return beamAnimationDelay.get(); }
 
-	ParamInteger showResultDelay	= new ParamInteger(MOD_UI, "SHOW_RESULT_DELAY" , 500, 0, 5000, 100, 500, 2000)
+	ParamInteger showResultDelay	= new ParamInteger(MOD_UI, "SHOW_RESULT_DELAY" , 1000, 0, 5000, 100, 500, 2000)
 	{	{ isCfgFile(true); } };
 	default int showResultDelay()			{ return showResultDelay.get(); }
 
-	ParamInteger shieldNoisePct		= new ParamInteger(MOD_UI, "SHIELD_NOISE_PCT" , 40, 0, 200, 1, 5, 20)
+	ParamInteger shieldNoisePct		= new ParamInteger(MOD_UI, "SHIELD_NOISE_PCT" , 20, 0, 200, 1, 5, 20)
 	{	{ isCfgFile(true); } };
 	default int shieldNoisePct()			{ return shieldNoisePct.get(); }
 
-	ParamInteger shieldBorder		= new ParamInteger(MOD_UI, "SHIELD_BORDER" , 0, 0, 5, 1, 1, 1)
+	ParamInteger shieldTransparency	= new ParamInteger(MOD_UI, "SHIELD_TRANSPARENCY" , 20, 0, 100, 1, 5, 20)
+	{	{ isCfgFile(true); } };
+	default int shieldTransparency()		{ return shieldTransparency.get(); }
+
+	ParamInteger shieldFlickering	= new ParamInteger(MOD_UI, "SHIELD_FLICKERING" , 20, 0, 100, 1, 5, 20)
+	{	{ isCfgFile(true); } };
+	default int shieldFlickering()		{ return shieldFlickering.get(); }
+
+	ParamInteger shieldBorder		= new ParamInteger(MOD_UI, "SHIELD_BORDER" , 0, -1, 5, 1, 1, 1)
 	{	{ 
 			isCfgFile(true);
+			loop(true);
 			specialZero(MOD_UI + "SHIELD_BORDER_SIZE");
 			specialNegative(MOD_UI + "SHIELD_BORDER_SIZE_2");
 		}
@@ -134,14 +147,29 @@ public interface IZoomOptions extends IBaseOptsTools {
 			return 2* (hullSize+1);
 		return shieldBorder.get();
 	}
-
-	ParamInteger weaponZposition	= new ParamInteger(MOD_UI, "WEAPON_Z_POS" , 200, -1000, 1000, 10, 50, 200)
+	ParamInteger weaponZposition	= new ParamInteger(MOD_UI, "WEAPON_Z_POS" , 150, -1000, 1000, 10, 50, 200)
 	{	{ isCfgFile(true); } };
 	default int weaponZposition()			{ return weaponZposition.get(); }
 
 	ParamInteger weaponZRandom		= new ParamInteger(MOD_UI, "WEAPON_Z_RANDOM" , 50, 0, 500, 5, 20, 100)
 	{	{ isCfgFile(true); } };
 	default int weaponZRandom()				{ return weaponZRandom.get(); }
+	
+	ParamBoolean startShieldDemo	= new ParamBoolean(MOD_UI, "START_SHIELD_DEMO", false)
+	{
+		@Override public Boolean set(Boolean val) {
+			if (val) {
+				javax.swing.SwingUtilities.invokeLater(new Runnable() {
+					@Override public void run(){
+						rotp.model.combat.DemoShields.main(null);
+					}
+				});
+			}
+			return super.set(false);
+		}
+	};
+	default boolean startShieldDemo()		{ return startShieldDemo.get(); }
+	
 
 	// ==================== GUI List Declarations ====================
 	//
@@ -170,15 +198,20 @@ public interface IZoomOptions extends IBaseOptsTools {
 //				)));
 		add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("WEAPON_ANIMATIONS"),
-				newWeaponSound, newWeaponAnimation, alwaysShowsShield, showResultDelay,
+				newWeaponSound, newWeaponAnimation,
+				alwaysShowsShield, showResultDelay,
 
 				headerSpacer,
 				beamWindupFrames, beamHoldFrames,
 				heavyBeamHoldFrames, shieldFadingFrames,
 
 				headerSpacer,
-				 beamAnimationDelay, shieldBorder,
-				 weaponZposition, weaponZRandom
+				 beamAnimationDelay, shieldEnveloping, shieldBorder,
+				 shieldTransparency, shieldFlickering, shieldNoisePct,
+				 weaponZposition, weaponZRandom,
+
+				headerSpacer,
+				startShieldDemo
 				)));
 		}
 	};

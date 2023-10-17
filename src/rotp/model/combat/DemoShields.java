@@ -1,5 +1,8 @@
 package rotp.model.combat;
 
+import static java.awt.BasicStroke.CAP_ROUND;
+import static java.awt.BasicStroke.JOIN_BEVEL;
+import static java.awt.BasicStroke.JOIN_ROUND;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static rotp.model.combat.CombatShield.ABOVE;
 import static rotp.model.combat.CombatShield.BELLOW;
@@ -23,6 +26,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -32,20 +36,17 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import rotp.Rotp;
+import rotp.model.game.IGameOptions;
 import rotp.util.Base;
 
-
-public class TestShields extends JPanel implements Base, ActionListener {
+public class DemoShields extends JPanel implements Base, ActionListener {
 //public class TestShields extends JPanel implements ActionListener {
-	private final float SCREEN_RATIO	= (float)9/16; 
-	private final int SCREEN_WIDTH	= 3840; 
-//	private final int SCREEN_WIDTH	= 1920; 
-//	private final int SCREEN_WIDTH	= 1024; 
-	private final int SCREEN_HEIGHT	= (int) (SCREEN_WIDTH * SCREEN_RATIO + 0.5f);
-	private final int COLUMNS_NUM	= 10; 
-	private final int ROWS_NUM		= 8;
-	private final int IMAGE_SEP		= 50;
-	private final int s10			= scaled(10);
+	private int screenWidth	= 3840, screenHeight;
+	private static final int COLUMNS_NUM = 10; 
+	private static final int ROWS_NUM	 = 8;
+	private static final int IMAGE_SEP	 = 50;
+	private static final int MAX_ZOOM	 = 4;
+	private static JFrame app;
 
 	private final Color spaceBlue = new Color(32,32,64);
 
@@ -54,49 +55,43 @@ public class TestShields extends JPanel implements Base, ActionListener {
 	private final String monsterPath = Rotp.jarPath() + "\\..\\src\\rotp\\images\\missiles\\";
 	private final String[] folders = new String[] {"Alkari", "Bulrathi", "Darlok", "Human",
 			"Klackon", "Meklar", "Mrrshan", "Psilon", "Sakkra", "Silicoid", "Monsters"};
-	private final String[] sizes = new String[] {"A", "B", "C", "D"};
+	private final String[] hulls = new String[] {"A", "B", "C", "D"};
 	private final String[] models = new String[] {"01a", "02a", "03a", "04a", "05a", "06a"};
 	private final String[] monsters = new String[] {"OrionGuardian", "SpaceCrystal", "SpacePirates", "SpaceAmoeba"};
-	private int folderId, sizeId, modelId, monsterId;
+	private int folderId, hullId, modelId, monsterId, colorId;
 
-	private BufferedImage[][][] shieldArray;
 	private BufferedImage shipImg;
-	private int totalImages, currentImage, animationDelay;
+	private int animationDelay;
 	private Timer animationTimer;
-	private CombatShield cs;
 	private int[] targetCtr = new int[] {0, 0, 0};
 	private int[] sourceCtr = new int[] {1000, 500, 100};
 	private int[] srcLocX = new int[] {-1,  0,  1, 1, 1, 0, -1, -1};
 	private int[] srcLocY = new int[] {-1, -1, -1, 0, 1, 1,  1,  0};
 	private int srcLocation = 0;
 	private Color shieldColor = Color.green;
-	private int beamSize	  = 3;
-	private int windUpFramesNum = 6;
-	private int holdFramesNum   = 0;
 	private int heavyHoldFramesNum   = 0;
-	private int landUpFramesNum = windUpFramesNum;
-	private int fadingFramesNum = windUpFramesNum+2;
 	private int shieldLevel = 1;
 	private float beamForce = 10f;
 	private float damage	= 5f;
 	private int imageWidth, imageHeight;
-	private int shieldDX, shieldDY, ctrDX, ctrDY;
 	private int shipWidth, shipHeight;
 	private int boxWidth, boxHeight;
 	private int windowWidth,windowHeight;
 	private Rectangle winRec; 
 	private float shipScale;
-	private int sourceDiameter, sourceDelta;
 	private int winTarX, winTarY;
-	private int currentAttack = 0;
-	private int sourceSize = 3;
-	private int wpnCount = 10;
-	private boolean isHeavy = false;
-	private int shieldBorders;
-	private boolean beamView	 = true;
-	private boolean holdTimer	 = false;
-	private int shieldNoise		 = 20;
-	private int shieldFlickering = 20;
+	private int		wpnCount	= 10;
+	private boolean isHeavy		= false;
+	private boolean holdTimer	= false;
+	private int		zoomFactor	= 1;
+	private boolean resize		= false;
+	private boolean srcRotate	= true;
+	private boolean weaponRotate= true;
+	private boolean colorRotate	= false;
+	private boolean randomRotate= false;
+	private boolean muted		= false;
+	
+	private List<Color> listColors = new ArrayList<>();
 
 	// Weapon parameters
 	int weaponMaxId = 23;
@@ -127,14 +122,11 @@ public class TestShields extends JPanel implements Base, ActionListener {
 	// \Weapon parameters
 	
 	private void initSizes() {
-		shieldArray = new BufferedImage[attacksPerRound][][];
-		windUpFramesNum = 6;
-		holdFramesNum   = 6;
-		landUpFramesNum = windUpFramesNum;
-		fadingFramesNum = windUpFramesNum+2;
+		screenWidth  = (int) (Rotp.IMG_W * zoomFactor);
+		screenHeight = (int) (Rotp.IMG_H * zoomFactor);
 		// Box size
-		boxWidth  = (SCREEN_WIDTH-scaled(20))/COLUMNS_NUM;
-		boxHeight = (SCREEN_HEIGHT-scaled(65))/ROWS_NUM;
+		boxWidth  = (screenWidth-scaled(20))/COLUMNS_NUM;
+		boxHeight = (screenHeight-scaled(65))/ROWS_NUM;
 		// ship size
 		BufferedImage baseShipImg = loadImage(imagePath + imageName);
 		int baseShipWidth  = baseShipImg.getWidth();
@@ -152,24 +144,42 @@ public class TestShields extends JPanel implements Base, ActionListener {
 		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 		g.drawImage(baseShipImg, 0, 0, shipWidth, shipHeight, 0, 0, baseShipWidth, baseShipHeight, null);
 		g.dispose();
-//		semiAxis = initSemiAxis(shipScale);
 		imageWidth  = boxWidth + IMAGE_SEP;
 		imageHeight = boxHeight + IMAGE_SEP;
 		
 		windowWidth  = imageWidth * 3 + 10; // + IMAGE_SEP;
 		windowHeight = imageHeight * 3  + 30; // + IMAGE_SEP;
 		winRec	= new Rectangle(windowWidth, windowHeight);
+		if (resize) {
+			app.setSize(windowWidth, windowHeight);
+			resize = false;
+		}
 		winTarX = IMAGE_SEP + imageWidth  + boxWidth/2 ;
 		winTarY = IMAGE_SEP + imageHeight + boxHeight/2;
-		sourceDiameter = scaled(3);
-		sourceDelta = scaled((sourceSize + 1) * 5);
 	}
 	private void init() {
-		 folderId	= 0;
-		 sizeId		= 0;
-		 modelId	= 0;
-		 monsterId	= 0;
-		 loadShields();
+		folderId  = 0;
+		hullId	  = 0;
+		modelId	  = 0;
+		monsterId = 0;
+		colorId	  = 1;
+		listColors.clear();
+		listColors.add(new Color(237,28,36));   // red
+		listColors.add(new Color(0,166,81));	// green
+		listColors.add(new Color(247,229,60));  // yellow
+		listColors.add(new Color(9,131,214));   // blue
+		listColors.add(new Color(255,127,0));   // orange
+		listColors.add(new Color(145,51,188));  // purple
+		listColors.add(new Color(0,255,255));   // modnar: aqua
+		listColors.add(new Color(255,0,255));   // modnar: fuchsia
+		listColors.add(new Color(132,57,20));   // brown
+		listColors.add(new Color(255,255,255)); // white
+		listColors.add(new Color(0,255,0));		// modnar: lime
+		listColors.add(new Color(220,160,220)); // modnar: plum*
+		listColors.add(new Color(160,220,250)); // modnar: light blue*
+		listColors.add(new Color(170,255,195)); // modnar: mint*
+		listColors.add(new Color(128,128,0));   // modnar: olive**
+		loadShields();
 	}
 	private boolean isMonster() { return folderId == folders.length-1; }
 	private int[] newSourcePos(int dx, int dy, int dz) {
@@ -182,47 +192,17 @@ public class TestShields extends JPanel implements Base, ActionListener {
 	private void loadShields() {
 		// long timeStart = System.currentTimeMillis();
 		// long timeMid = timeStart;
-		System.out.println();
 		if (isMonster()) {
 			imagePath = monsterPath;
 			imageName = monsters[monsterId] + ".png";			
 		} else {
 			imagePath = shipPath + folders[folderId] + "\\";
-			imageName = sizes[sizeId] + models[modelId] + ".png";
+			imageName = hulls[hullId] + models[modelId] + ".png";
 		}
 		initWeapon();
-//		attacksPerRound	= 1;
-		currentAttack	= 0;
-		shieldBorders	= scaled(1);
 		initSizes();
 		targetCtr = new int[] {winTarX, winTarY, 0};
 		sourceCtr = newSourcePos(1, 1, scaled(200));
-		int weaponX	  = sourceCtr[0] + boxWidth/3;
-		int weaponY	  = sourceCtr[1];
-		int weaponZ	  = scaled(200);
-		int shieldTransparency = 20;
-
-		shieldNoise = 20;
-		boolean enveloping = true;
-
-		cs = new CombatShield(holdFramesNum, landUpFramesNum, fadingFramesNum,
-				boxWidth, boxHeight, targetCtr[0], targetCtr[1], shieldColor,
-				enveloping, shieldBorders, shieldTransparency, shieldFlickering,
-				shieldNoise, shieldLevel, shipImg,
-				weaponX, weaponY, weaponZ, beamColor, scaled(beamSize),
-				damage, beamForce);
-		cs.setImpact(0, 0, 0); // offset to ship center
-
-		shieldArray[currentAttack] = cs.getShieldArray();
-		shieldDX	= cs.shieldOffsetX();
-		shieldDY	= cs.shieldOffsetY();
-		ctrDX		= cs.centerOffsetX();
-		ctrDY		= cs.centerOffsetY();
-		totalImages = shieldArray[currentAttack][ABOVE].length;
-		
-		currentImage = 0;
-//		System.out.println("loadShields: " + folders[folderId] + "\\" + imageName +
-//				"  Time = " + (System.currentTimeMillis()-timeMid));
 //		System.out.println("loadShields() Time = " + (System.currentTimeMillis()-timeMid));
 	}
 	private void paintLines(SortedMap<Integer, ArrayList<Line2D.Double>> lines, Graphics2D g) {
@@ -590,10 +570,11 @@ public class TestShields extends JPanel implements Base, ActionListener {
 				soundEffect = "ShipMultiLaser";
 				break;
 		}
-		System.out.println( "##### New Weapon : " + soundEffect +
-							"  Attacks Per Round = " + attacksPerRound);
+//		System.out.println( "##### New Weapon : " + soundEffect +
+//							"  Attacks Per Round = " + attacksPerRound);
 	}
 	private void setPaint(Graphics2D g, int i, int weaponX, int weaponY, int weaponDx, int weaponDy) {
+		int s10 = scaled(10);
 		g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 		if(beamColor2 != null) {
 			GradientPaint gp = new GradientPaint(weaponX+i*s10, weaponY+i*s10, beamColor,
@@ -614,28 +595,37 @@ public class TestShields extends JPanel implements Base, ActionListener {
 	}
 	private void drawAttack(Graphics2D g, int weaponX, int weaponY, int impactX, int impactY,
 			int wpnNum, float dmg, int count, int boxW, int boxH, float force) {
-
+		IGameOptions opt = options();
 		count = 50;
-		int wpnCount = count / attacksPerRound;
-		int targetTLx = targetCtr[0]-boxW/2; // Top Left points
-		int targetTLy = targetCtr[1]-boxH/2;
-		int sourceTLx = sourceCtr[0]-boxW/2;
-		int sourceTLy = sourceCtr[1]-boxH/2;
-		int shipTLx	  = targetCtr[0]-shipImg.getWidth()/2;
-		int shipTLy	  = targetCtr[1]-shipImg.getHeight()/2;
-		
-		int dist = (int) Math.round(Math.sqrt (
-				Math.pow(sourceTLx-targetTLx, 2) +
-				Math.pow(sourceTLy-targetTLy, 2)));
-		int distFactor	= 8*dist;
+		int targetTLx	= targetCtr[0]-boxW/2; // Top Left points
+		int targetTLy	= targetCtr[1]-boxH/2;
+		int targetCtrX	= targetCtr[0];
+		int targetCtrY	= targetCtr[1];
+		int sourceTLx	= sourceCtr[0]-boxW/2;
+		int sourceTLy	= sourceCtr[1]-boxH/2;
+		int shipTLx		= targetCtr[0]-shipImg.getWidth()/2;
+		int shipTLy		= targetCtr[1]-shipImg.getHeight()/2;
+		int distance	= (int) Math.round(Math.sqrt (
+				Math.pow(weaponX-impactX, 2) +
+				Math.pow(weaponY-impactY, 2)));
+		int distFactor	= 8*distance;
 		int weaponDx	= (impactX-weaponX)/distFactor;
 		int weaponDy	= (impactY-weaponY)/distFactor;
+		int weaponDz	= opt.weaponZRandom();
+		int weaponZ		= scaled(opt.weaponZposition()+roll(-weaponDz,weaponDz));
+		long sleepTime	= opt.beamAnimationDelay(); // Original = 50;
+		int targetSize	= hullId;
+		if (isMonster())
+			targetSize	= 3;
+		int sourceSize	= 3;
+		int shieldBorders = opt.shieldBorder(sourceSize);
+		int wpnCount = count / attacksPerRound;
 
 		int beamWidth = scaled(3);
-		int spotWidth = scaled(attacksPerRound + 2*weaponSpread*attacksPerRound);
+		int spotWidth = scaled(attacksPerRound *(1 + 2*weaponSpread));
 		if ((dashStroke > 0) && (weaponStroke == null)) {
 			float dash[] = new float[]{0, beamWidth*dashStroke};
-			weaponStroke = new BasicStroke(beamWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL, 0, dash, 0);
+			weaponStroke = new BasicStroke(beamWidth, CAP_ROUND, JOIN_BEVEL, 0, dash, 0);
 		}
 		if (weaponStroke != null)
 			g.setStroke(weaponStroke);
@@ -643,37 +633,30 @@ public class TestShields extends JPanel implements Base, ActionListener {
 			int strokeSize = beamStroke*2;
 			if (isHeavy)
 				strokeSize += 1;
-			g.setStroke(new BasicStroke(scaled(strokeSize), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+			g.setStroke(new BasicStroke(scaled(strokeSize), CAP_ROUND, JOIN_ROUND));
 		}
-		windUpFrames = windUpFramesNum;
+		int windUpFramesNum = opt.beamWindupFrames();
+		int holdFramesNum = holdFrames + opt.beamHoldFrames();
 		if (isHeavy) {
-			spotWidth = scaled(attacksPerRound + 2*(beamStroke+weaponSpread-1)*attacksPerRound);
+			spotWidth = scaled(attacksPerRound * (1 + 2*(beamStroke+weaponSpread-1)));
 			holdFrames = heavyHoldFramesNum;
 		} else {
 			spotWidth = scaled(2*(beamStroke+weaponSpread-1)*attacksPerRound);
-			holdFrames = holdFramesNum;
+			holdFramesNum += opt.heavyBeamHoldFrames();
 		}
-		int fadingFrames = fadingFramesNum;
-		int landUpFrames = windUpFrames;
-		long sleepTime	 = 20; // Original = 50;
-		int targetZ  = 0;
-		int weaponZ  = scaled(200);
-		int weaponDz = scaled(50);	
-		weaponZ += roll(-weaponDz,weaponDz); // Already scaled
-		boolean enveloping = false;
-		force = 15;
-		dmg = 10;
-		shieldLevel = 15;
-		int shieldTransparency = 20;
+		int fadingFramesNum = opt.shieldFadingFrames()? windUpFramesNum+2 : 0;
+		int landUpFramesNum = windUpFramesNum;
+//
+//		force = 15;
+//		dmg = 10;
+//		shieldLevel = 15;
 
 		BufferedImage[][][] shieldArray = new BufferedImage[attacksPerRound][][];
-		CombatShield cs = new CombatShield(holdFrames, landUpFrames, fadingFrames,
-				boxW, boxH, targetCtr[0], targetCtr[1], shieldColor, enveloping,
-				shieldBorders, shieldTransparency, shieldFlickering, shieldNoise, shieldLevel, shipImg,
-				weaponX, weaponY, weaponZ, beamColor, spotWidth,
-				dmg, force);
-		
-		cs.setImpact(targetTLx, targetTLy, targetZ);
+		CombatShield cs = new CombatShield(holdFramesNum, landUpFramesNum, fadingFramesNum,
+				boxW, boxH, targetCtrX, targetCtrY, shieldColor, opt.shieldEnveloping(), shieldBorders,
+				opt.shieldTransparency(), opt.shieldFlickering(), opt.shieldNoisePct(), shieldLevel, shipImg,
+				weaponX, weaponY, weaponZ, beamColor, spotWidth, damage, force);
+
 		Rectangle toRefreshRec = cs.shieldRec();
 		int shieldTLx = toRefreshRec.x;
 		int shieldTLy = toRefreshRec.y;
@@ -682,10 +665,10 @@ public class TestShields extends JPanel implements Base, ActionListener {
 		ArrayList<Line2D.Double> lines = new ArrayList<>();
 		double insideRatio = 0;
 		for(int i = 0; i < attacksPerRound; ++i) {
-			int xAdj = scaled(roll(-4,4)*2);
-			int yAdj = scaled(roll(-4,4)*2);
-			int[] shipImpact	= cs.setImpact(xAdj, yAdj, 0);
-			shieldArray[i]		= cs.getShieldArray();
+			int xAdj = scaled(roll(-4,4)*(targetSize+1));
+			int yAdj = scaled(roll(-4,4)*(targetSize+1));
+			int[] shipImpact = cs.setImpact(xAdj, yAdj, 0);
+			shieldArray[i]	 = cs.getShieldArray();
 			insideRatio += cs.insideRatio();
 			if (weaponSpread > 1) {
 				int xMod = (sourceTLy == targetTLy) ? 0 : 1;
@@ -703,9 +686,7 @@ public class TestShields extends JPanel implements Base, ActionListener {
 				lines.addAll(addMultiLines(sourceSize, wpnCount, weaponX, weaponY, shipImpact[0], shipImpact[1]));
 			}
 		}
-		double fraction =  (1-insideRatio/attacksPerRound) / (windUpFrames);
-//		System.out.println("fraction = " + fraction);
-//		System.out.println("(1-insideRatio) = " + (1-insideRatio));
+		double fraction =  (1-insideRatio/attacksPerRound) / (windUpFramesNum);
 		//
 		// Animations start Here
 		//
@@ -713,13 +694,14 @@ public class TestShields extends JPanel implements Base, ActionListener {
 		if(beamColor2 == null && cycleColor == null)
 			beamColor2 = multColor(beamColor, 0.75f);
 		setPaint(g, 0, weaponX, weaponY, weaponDx, weaponDy);
+		// Start playing sound
+		if (!muted)
+			 playAudioClip(soundEffect);
 		// Beams Progression toward target
 		SortedMap<Integer, ArrayList<Line2D.Double>> partLines = new TreeMap<>();
-		g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-		for(int i = 0; i < windUpFrames; ++i) {
+		for(int i = 0; i < windUpFramesNum; ++i) {
 			ArrayList<Line2D.Double> pl = new ArrayList<>();
 			for(Line2D.Double line : lines) {
-//				System.out.println("--- fraction * (i+1)= " + (fraction*(i+1)));
 				double newX1 = line.getX1() + (line.getX2() - line.getX1()) * i * fraction;
 				double newY1 = line.getY1() + (line.getY2() - line.getY1()) * i * fraction;
 				double newX2 = line.getX1() + (line.getX2() - line.getX1()) * (i + 1) * fraction;
@@ -736,14 +718,15 @@ public class TestShields extends JPanel implements Base, ActionListener {
 		// Beams reach the shield generation
 		ArrayList<Line2D.Double> hitLines = new ArrayList<>(); // The ones that go thru the shield
 		clearWindow(g);
-		setPaint(g, windUpFrames, weaponX, weaponY, weaponDx, weaponDy);
+		setPaint(g, windUpFramesNum, weaponX, weaponY, weaponDx, weaponDy);
 		for(Line2D.Double line : lines) {
-			double newX1 = line.getX1() + (line.getX2() - line.getX1()) * windUpFrames * fraction;
-			double newY1 = line.getY1() + (line.getY2() - line.getY1()) * windUpFrames * fraction;
+			double newX1 = line.getX1() + (line.getX2() - line.getX1()) * windUpFramesNum * fraction;
+			double newY1 = line.getY1() + (line.getY2() - line.getY1()) * windUpFramesNum * fraction;
 			double newX2 = line.getX2();
 			double newY2 = line.getY2();
 			hitLines.add(new Line2D.Double(newX1, newY1, newX2, newY2));
 		}
+
 		g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f/attacksPerRound));
 		for(int k = 0; k < attacksPerRound; k++)
 			g.drawImage(shieldArray[k][BELLOW][0], shieldTLx, shieldTLy, null);
@@ -761,9 +744,9 @@ public class TestShields extends JPanel implements Base, ActionListener {
 		sleep(sleepTime);
 
 		// Show Continuous
-		for(int i = 0; i < holdFrames; i++) {
+		for(int i = 0; i < holdFramesNum; i++) {
 			clearWindow(g);
-			setPaint(g, i+1+windUpFrames, weaponX, weaponY, weaponDx, weaponDy);
+			setPaint(g, i+1+windUpFramesNum, weaponX, weaponY, weaponDx, weaponDy);
 			int shieldIdx = i+1;
 			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f/attacksPerRound));
 			for(int k = 0; k < attacksPerRound; k++)
@@ -782,10 +765,11 @@ public class TestShields extends JPanel implements Base, ActionListener {
 			sleep(sleepTime);
 		}
 		// Show end of beam
-		for(int i = 0; i < windUpFrames; ++i) {
+		for(int i = 0; i < windUpFramesNum; ++i) {
 			clearWindow(g);
-			setPaint(g, i+1+windUpFrames+holdFrames, weaponX, weaponY, weaponDx, weaponDy);
-			int shieldIdx = i+1+holdFrames;
+			setPaint(g, i+1+windUpFramesNum+holdFramesNum, weaponX, weaponY, weaponDx, weaponDy);
+			int shieldIdx = i+1+holdFramesNum;
+
 			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f/attacksPerRound));
 			for(int k = 0; k < attacksPerRound; k++)
 				g.drawImage(shieldArray[k][BELLOW][shieldIdx], shieldTLx, shieldTLy, null);
@@ -804,9 +788,10 @@ public class TestShields extends JPanel implements Base, ActionListener {
 			sleep(sleepTime);
 		}
 		// Show shield fading
-		for(int i = 0; i < fadingFrames; ++i) {
+		for(int i = 0; i < fadingFramesNum; ++i) {
 			clearWindow(g);
-			int shieldIdx = i+1+holdFrames+windUpFrames;
+			int shieldIdx = i+1+holdFramesNum+windUpFramesNum;
+
 			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f/attacksPerRound));
 			for(int k = 0; k < attacksPerRound; k++)
 				g.drawImage(shieldArray[k][BELLOW][shieldIdx], shieldTLx, shieldTLy, null);
@@ -819,34 +804,98 @@ public class TestShields extends JPanel implements Base, ActionListener {
 			sleep(sleepTime);
 		}
 	}
-//	private void waitForCapsLockPressed() {
-//		if (!debugWait)
-//			return;
-//		System.out.println("##### PRESS CAPS LOCK #####");
-//		Toolkit tk = Toolkit.getDefaultToolkit();
-//		tk.setLockingKeyState(KeyEvent.VK_CAPS_LOCK, Boolean.FALSE);
-//		while(!tk.getLockingKeyState(KeyEvent.VK_CAPS_LOCK))
-//			sleep(100);
-//		tk.setLockingKeyState(KeyEvent.VK_CAPS_LOCK, Boolean.FALSE);
-//	}
-	public TestShields() {
+	public DemoShields() {
 		init();
 		animationDelay = 50;
 		startAnimation();
 	}
 	@Override public int scaled(int i) {
-		int maxX = SCREEN_HEIGHT*8/5;
-		int maxY = SCREEN_WIDTH*5/8;
-		if (maxY > SCREEN_HEIGHT)
-			maxY = maxX*5/8;
-		float resizeAmt = (float) maxY/768;
-        if (i < 1)
-            return (int) Math.ceil(resizeAmt*i);
-        else if (i > 1)
-            return (int) Math.floor(resizeAmt*i);
-        else
-            return i;
+		float resizeAmt = Rotp.resizeAmt()*zoomFactor;
+		if (i < 1)
+			return (int) Math.ceil(resizeAmt*i);
+		else if (i > 1)
+			return (int) Math.floor(resizeAmt*i);
+		else
+			return i;
 	}
+	private void clearWindow(Graphics2D g) {
+		g.setPaint(spaceBlue);
+		g.fillRect(0, 0, windowWidth, windowHeight);
+	}
+	private void paintBeamView(Graphics2D g) {
+		holdTimer = true;
+		clearWindow(g);
+		int shipTLx	= targetCtr[0]-shipImg.getWidth()/2;
+		int shipTLy	= targetCtr[1]-shipImg.getHeight()/2;
+
+		if (this.randomRotate) {
+			srcLocation	= roll(0, srcLocX.length-1);
+			weaponId	= roll(0, weaponMaxId);
+			colorId		= roll(0, listColors.size()-1);
+			folderId	= roll(0, folders.length-1);
+			monsterId	= roll(0, monsters.length-1);
+			hullId		= roll(0, hulls.length-1);
+			modelId		= roll(0, models.length-1);
+			loadShields();
+		} else {
+			if (srcRotate)
+				srcLocation++;
+			if (srcLocation >= srcLocX.length)
+				srcLocation = 0;
+			if (weaponRotate) {
+				nextWeapon();
+				this.initWeapon();
+			}
+			if (colorRotate)
+				nextColor();
+		}
+		shieldColor = listColors.get(colorId);
+		sourceCtr = newSourcePos(srcLocX[srcLocation], srcLocY[srcLocation], scaled(200));
+		g.drawImage(shipImg, shipTLx, shipTLy, this);
+		
+		int weaponX	= sourceCtr[0] + boxWidth/3;
+		int weaponY	= sourceCtr[1];
+		int impactX	= targetCtr[0];
+		int impactY	= targetCtr[1];
+		int wpnNum	= weaponId;
+		float dmg	= damage;
+		int count	= wpnCount;
+		float force	= beamForce;
+		
+		drawAttack(g, weaponX, weaponY, impactX, impactY, wpnNum, dmg, count, boxWidth, boxHeight, force);
+		holdTimer = false;
+	}
+	@Override public void paintComponent(Graphics g0) {
+		if (holdTimer)
+			return;
+		super.paintComponent(g0);
+		Graphics2D g = (Graphics2D) g0;
+		paintBeamView(g);
+	}
+	@Override public void actionPerformed(ActionEvent e) {
+		if (holdTimer)
+			return;		
+		repaint();
+	}
+	private BufferedImage loadImage(String path) {
+		BufferedImage img = null;
+		try {
+			img = ImageIO.read(new File(path));
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.exit(0);
+		}
+		return img;
+	}
+	public void startAnimation() {
+		if (animationTimer == null) {
+			animationTimer = new Timer(animationDelay, this);
+			animationTimer.start();
+		}
+		else if (!animationTimer.isRunning())
+			animationTimer.restart();
+	}
+	public void stopAnimation() { animationTimer.stop(); }
 	private boolean prevFolder() {
 		monsterId=monsters.length-1;
 		folderId--;
@@ -865,22 +914,22 @@ public class TestShields extends JPanel implements Base, ActionListener {
 		}
 		return false;
 	}
-	private boolean prevSize() {
+	private boolean prevHull() {
 		if (isMonster())
 			return false;
-		sizeId--;
-		if (sizeId < 0) {
-			sizeId = sizes.length-1;
+		hullId--;
+		if (hullId < 0) {
+			hullId = hulls.length-1;
 			return true;
 		}
 		return false;
 	}
-	private boolean nextSize() {
+	private boolean nextHull() {
 		if (isMonster())
 			return false;
-		sizeId++;
-		if (sizeId == sizes.length) {
-			sizeId = 0;
+		hullId++;
+		if (hullId == hulls.length) {
+			hullId = 0;
 			return true;
 		}
 		return false;
@@ -930,7 +979,7 @@ public class TestShields extends JPanel implements Base, ActionListener {
 			return;
 		}
 		if (prevModel())
-			if (prevSize())
+			if (prevHull())
 				prevFolder();
 	}
 	private void nextShip() {
@@ -940,7 +989,7 @@ public class TestShields extends JPanel implements Base, ActionListener {
 			return;
 		}
 		if (nextModel())
-			if (nextSize())
+			if (nextHull())
 				nextFolder();
 	}
 	private void prevWeapon() {
@@ -953,146 +1002,52 @@ public class TestShields extends JPanel implements Base, ActionListener {
 		if (weaponId > weaponMaxId)
 			weaponId = 0;
 	}
-	private void drawBoxes(Graphics2D g, int x, int y) {
-		g.drawRect(x, y, boxWidth, boxHeight);
-		g.drawLine(x, y+boxHeight/2, x+boxWidth, y+boxHeight/2);
-		g.drawLine(x+boxWidth/2, y, x+boxWidth/2, y+boxHeight);
+	private void prevZoom() {
+		zoomFactor--;
+		if (zoomFactor < 1)
+			zoomFactor = MAX_ZOOM;
+		resize = true;
 	}
-	private void drawSourceAndTarget(Graphics2D g) {
-		g.setPaint(Color.white);
-		int x = sourceCtr[0]-sourceDiameter/2;
-		int y = sourceCtr[1]-sourceDiameter/2-sourceDelta;
-		g.fillOval(x, y, sourceDiameter, sourceDiameter);
-		y += sourceDelta;
-		g.fillOval(x, y, sourceDiameter, sourceDiameter);
-		y += sourceDelta;
-		g.fillOval(x, y, sourceDiameter, sourceDiameter);
-		g.drawLine(winTarX+ctrDX, 0, winTarX+ctrDX, windowHeight);
-		g.drawLine(0, winTarY+ctrDY, windowWidth, winTarY+ctrDY);
+	private void nextZoom() {
+		zoomFactor++;
+		if (zoomFactor > MAX_ZOOM)
+			zoomFactor = 1;
+		resize = true;
 	}
-	private void clearWindow(Graphics2D g) {
-		g.setPaint(spaceBlue);
-//		g.setPaint(Color.white);
-		g.fillRect (0, 0, windowWidth, windowHeight);
+	private void prevColor() {
+		colorId--;
+		if (colorId < 0)
+			colorId = listColors.size()-1;
 	}
-	private void paintBeamView(Graphics2D g) {
-		holdTimer = true;
-		clearWindow(g);
-		int dx = (boxWidth-shipWidth)/2;
-		int dy = (boxHeight-shipHeight)/2;
-		int x = IMAGE_SEP + imageWidth;
-		int y = IMAGE_SEP + imageHeight;
-		g.drawImage(shipImg, x+dx, y+dy, this);
-
-		sourceCtr = newSourcePos(srcLocX[srcLocation], srcLocY[srcLocation], scaled(200));
-		srcLocation++;
-		if (srcLocation >= srcLocX.length)
-			srcLocation = 0;
-
-		int weaponX	  = sourceCtr[0] + boxWidth/3;
-		int weaponY	  = sourceCtr[1];
-
-		int impactX	= targetCtr[0];
-		int impactY	= targetCtr[1];
-		int wpnNum	= weaponId;
-		float dmg	= damage;
-		int count	= wpnCount;
-		float force	= beamForce;
-		
-		drawAttack(g, weaponX, weaponY, impactX, impactY, wpnNum, dmg, count, boxWidth, boxHeight, force);
-		holdTimer = false;
+	private void nextColor() {
+		colorId++;
+		if (colorId >= listColors.size())
+			colorId = 0;
 	}
-	private void paintQuadView(Graphics2D g) {
-		clearWindow(g);
-		g.setComposite(AlphaComposite.SrcOver);
-		g.setPaint(Color.blue);
-
-		int x = IMAGE_SEP;
-		int y = IMAGE_SEP;
-		int dx = (boxWidth-shipWidth)/2;
-		int dy = (boxHeight-shipHeight)/2;
-		
-		BufferedImage aboveImg  = shieldArray[currentAttack][ABOVE][currentImage];
-		BufferedImage bellowImg = shieldArray[currentAttack][BELLOW][currentImage];
-
-		g.drawImage(bellowImg, x+dx+shieldDX, y+dy+shieldDY, this);
-		drawBoxes(g, x, y);
-		
-		x = IMAGE_SEP + imageWidth;
-		g.drawImage(aboveImg, x+dx+shieldDX, y+dy+shieldDY, this);
-		drawBoxes(g, x, y);
-
-		y = IMAGE_SEP + imageHeight;
-		g.drawImage(bellowImg, x+dx+shieldDX, y+dy+shieldDY, this);
-		g.drawImage(shipImg, x+dx, y+dy, this);
-		g.drawImage(aboveImg, x+dx+shieldDX, y+dy+shieldDY, this);
-		drawBoxes(g, x, y);
-		
-		x = IMAGE_SEP;
-		g.drawImage(bellowImg, x+dx+shieldDX, y+dy+shieldDY, this);
-		g.drawImage(shipImg, x+dx, y+dy, this);
-		drawBoxes(g, x, y);
-
-		drawSourceAndTarget(g);
-		currentImage = next(currentImage, 1);		
-	}
-	@Override public void paintComponent(Graphics g0) {
-		if (holdTimer)
-			return;
-		super.paintComponent(g0);
-		Graphics2D g = (Graphics2D) g0;
-//		System.out.println("beamView = " + beamView);
-		if (beamView) {
-			paintBeamView(g);
-		}
-		else
-			paintQuadView(g);
-	}
-	@Override public void actionPerformed(ActionEvent e) {
-		if (holdTimer)
-			return;		
-		repaint();
-	}
-	private int next(int val, int incr) { return (val + incr) % totalImages; }
-	private BufferedImage loadImage(String path) {
-		BufferedImage img = null;
-		try {
-			img = ImageIO.read(new File(path));
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.exit(0);
-		}
-		return img;
-	}
-	public void startAnimation() {
-		if (animationTimer == null) {
-			currentImage = 0;
-			animationTimer = new Timer(animationDelay, this);
-			animationTimer.start();
-		}
-		else if (!animationTimer.isRunning())
-			animationTimer.restart();
-	}
-	public void stopAnimation() { animationTimer.stop(); }
 	public static void main(String args[]) {
-//		anim = new TestShields();
-		TestShields anim = new TestShields();
-		JFrame app = new JFrame("Animator test");
-//		app = new JFrame("Animator test");
+		DemoShields anim = new DemoShields();
+		app = new JFrame("Animator test");
 		app.add(anim, BorderLayout.CENTER);
 		app.setSize(anim.windowWidth, anim.windowHeight);
-		app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//app.setSize(anim.getPreferredSize().width + 10, anim.getPreferredSize().height + 30);
-		app.setLocation(600, 350);
+		app.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		app.setLocation(0, 0);
 		app.addKeyListener(new KeyListener(){
 			@Override public void keyPressed(KeyEvent e) {}
 			@Override  public void keyTyped(KeyEvent e) {}
 			@Override public void keyReleased(KeyEvent e) {
 				switch(e.getKeyCode()) {
-					case KeyEvent.VK_B:
-						anim.beamView = !anim.beamView;
-						anim.holdTimer = false;
-						//anim.loadShields();
+//					case KeyEvent.VK_B:
+//						anim.beamView = !anim.beamView;
+//						anim.holdTimer = false;
+//						return;
+					case KeyEvent.VK_C:
+						if (e.isControlDown())
+							anim.colorRotate = !anim.colorRotate;
+						else if (e.isShiftDown())
+							anim.prevColor();
+						else
+							anim.nextColor();
+						anim.loadShields();
 						return;
 					case KeyEvent.VK_M:
 						if (e.isShiftDown())
@@ -1113,27 +1068,77 @@ public class TestShields extends JPanel implements Base, ActionListener {
 					case KeyEvent.VK_DOWN:
 						anim.loadShields();
 						return;
+					case KeyEvent.VK_Q: // Quiet
+						anim.muted = !anim.muted;
+						return;
+					case KeyEvent.VK_R: // Randomize
+						anim.randomRotate = !anim.randomRotate;
+						return;
 					case KeyEvent.VK_F:
-					case KeyEvent.VK_R:
+					case KeyEvent.VK_S:
 						if (e.isShiftDown())
 							anim.prevFolder();
 						else
 							anim.nextFolder();
 						anim.loadShields();
 						return;
-					case KeyEvent.VK_S:
+					case KeyEvent.VK_H:
 						if (e.isShiftDown())
-							anim.prevSize();
+							anim.prevHull();
 						else
-							anim.nextSize();
+							anim.nextHull();
 						anim.loadShields();
 						return;
 					case KeyEvent.VK_W:
-						if (e.isShiftDown())
+						if (e.isControlDown())
+							anim.weaponRotate = !anim.weaponRotate;
+						else if (e.isShiftDown())
 							anim.prevWeapon();
 						else
 							anim.nextWeapon();
 						anim.loadShields();
+						return;
+					case KeyEvent.VK_Z:
+						if (e.isShiftDown())
+							anim.prevZoom();
+						else
+							anim.nextZoom();
+						anim.loadShields();
+						return;
+					case KeyEvent.VK_NUMPAD1:
+						anim.srcRotate	 = false;
+						anim.srcLocation = 0;
+						return;
+					case KeyEvent.VK_NUMPAD2:
+						anim.srcRotate	 = false;
+						anim.srcLocation = 1;
+						return;
+					case KeyEvent.VK_NUMPAD3:
+						anim.srcRotate	 = false;
+						anim.srcLocation = 2;
+						return;
+					case KeyEvent.VK_NUMPAD4:
+						anim.srcRotate	 = false;
+						anim.srcLocation = 7;
+						return;
+					case KeyEvent.VK_NUMPAD5:
+						anim.srcRotate	 = true;
+						return;
+					case KeyEvent.VK_NUMPAD6:
+						anim.srcRotate	 = false;
+						anim.srcLocation = 3;
+						return;
+					case KeyEvent.VK_NUMPAD7:
+						anim.srcRotate	 = false;
+						anim.srcLocation = 6;
+						return;
+					case KeyEvent.VK_NUMPAD8:
+						anim.srcRotate	 = false;
+						anim.srcLocation = 5;
+						return;
+					case KeyEvent.VK_NUMPAD9:
+						anim.srcRotate	 = false;
+						anim.srcLocation = 4;
 						return;
 				}
 			}
