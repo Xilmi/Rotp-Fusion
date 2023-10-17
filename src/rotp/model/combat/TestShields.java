@@ -210,8 +210,9 @@ public class TestShields extends JPanel implements Base, ActionListener {
 				enveloping, shieldBorders, shieldTransparency, shieldFlickering,
 				shieldNoise, shieldLevel, shipImg,
 				weaponX, weaponY, weaponZ, beamColor, scaled(beamSize),
-				damage, beamForce);
-		cs.setImpact(0, 0, 0); // offset to ship center
+				attacksPerRound, damage, beamForce);
+		int[] adj = new int[attacksPerRound]; // init to 0 by default
+		cs.setImpact(adj, adj, adj); // offset to ship center
 
 		shieldArray[currentAttack] = cs.getShieldArray();
 		shieldDX	= cs.shieldOffsetX();
@@ -656,7 +657,7 @@ public class TestShields extends JPanel implements Base, ActionListener {
 		int fadingFrames = fadingFramesNum;
 		int landUpFrames = windUpFrames;
 		long sleepTime	 = 20; // Original = 50;
-		int targetZ  = 0;
+//		int targetZ  = 0;
 		int weaponZ  = scaled(200);
 		int weaponDz = scaled(50);	
 		weaponZ += roll(-weaponDz,weaponDz); // Already scaled
@@ -671,9 +672,9 @@ public class TestShields extends JPanel implements Base, ActionListener {
 				boxW, boxH, targetCtr[0], targetCtr[1], shieldColor, enveloping,
 				shieldBorders, shieldTransparency, shieldFlickering, shieldNoise, shieldLevel, shipImg,
 				weaponX, weaponY, weaponZ, beamColor, spotWidth,
-				dmg, force);
+				attacksPerRound, dmg, force);
 		
-		cs.setImpact(targetTLx, targetTLy, targetZ);
+		//cs.setImpact(targetTLx, targetTLy, targetZ);
 		Rectangle toRefreshRec = cs.shieldRec();
 		int shieldTLx = toRefreshRec.x;
 		int shieldTLy = toRefreshRec.y;
@@ -681,12 +682,17 @@ public class TestShields extends JPanel implements Base, ActionListener {
 		// Full Beam trajectory generation
 		ArrayList<Line2D.Double> lines = new ArrayList<>();
 		double insideRatio = 0;
+		int[] xAdj = new int[attacksPerRound];
+		int[] yAdj = new int[attacksPerRound];
+		int[] zAdj = new int[attacksPerRound]; // init to 0 by default
 		for(int i = 0; i < attacksPerRound; ++i) {
-			int xAdj = scaled(roll(-4,4)*2);
-			int yAdj = scaled(roll(-4,4)*2);
-			int[] shipImpact	= cs.setImpact(xAdj, yAdj, 0);
-			shieldArray[i]		= cs.getShieldArray();
-			insideRatio += cs.insideRatio();
+			xAdj[i] = scaled(roll(-4,4));
+			yAdj[i] = scaled(roll(-4,4));
+		}
+		int[][] shipImpact = cs.setImpact(xAdj, yAdj, zAdj);
+		for(int i = 0; i < attacksPerRound; ++i) {
+			shieldArray[i]	= cs.getShieldArray();
+			insideRatio		= cs.meanInsideRatio();
 			if (weaponSpread > 1) {
 				int xMod = (sourceTLy == targetTLy) ? 0 : 1;
 				int yMod = (sourceTLx == targetTLx) ? 0 : 1;
@@ -697,10 +703,10 @@ public class TestShields extends JPanel implements Base, ActionListener {
 				for (int n = -1 * weaponSpread; n <= weaponSpread; n++) {
 					int adj = scaled(n);
 					lines.addAll(addMultiLines(sourceSize, wpnCount, weaponX, weaponY,
-							shipImpact[0]+(xMod*adj), shipImpact[1]+(yMod*adj)));
+							shipImpact[i][0]+(xMod*adj), shipImpact[i][1]+(yMod*adj)));
 				}
 			} else {
-				lines.addAll(addMultiLines(sourceSize, wpnCount, weaponX, weaponY, shipImpact[0], shipImpact[1]));
+				lines.addAll(addMultiLines(sourceSize, wpnCount, weaponX, weaponY, shipImpact[i][0], shipImpact[i][1]));
 			}
 		}
 		double fraction =  (1-insideRatio/attacksPerRound) / (windUpFrames);

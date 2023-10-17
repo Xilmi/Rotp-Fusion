@@ -600,7 +600,7 @@ public final class TechShipWeapon extends Tech {
 		CombatShield cs = new CombatShield(holdFramesNum, landUpFramesNum, fadingFramesNum,
 				boxW, boxH, targetCtrX, targetCtrY, target.shieldBaseColor(), opt.shieldEnveloping(), shieldBorders,
 				opt.shieldTransparency(), opt.shieldFlickering(), opt.shieldNoisePct(), (int)target.maxShield, shipImg,
-				weaponX, weaponY, weaponZ, beamColor, spotWidth, damage, force);
+				weaponX, weaponY, weaponZ, beamColor, spotWidth, attacksPerRound, damage, force);
 
 		Rectangle toRefreshRec = cs.shieldRec();
 		int shieldTLx = toRefreshRec.x;
@@ -609,12 +609,18 @@ public final class TechShipWeapon extends Tech {
 		// Full Beam trajectory generation
 		ArrayList<Line2D.Double> lines = new ArrayList<>();
 		double insideRatio = 0;
+		int[] xAdj = new int[attacksPerRound];
+		int[] yAdj = new int[attacksPerRound];
+		int[] zAdj = new int[attacksPerRound]; // init to 0 by default
+		int roll = 3*(targetSize+1);
 		for(int i = 0; i < attacksPerRound; ++i) {
-			int xAdj = scaled(roll(-4,4)*(targetSize+1));
-			int yAdj = scaled(roll(-4,4)*(targetSize+1));
-			int[] shipImpact = cs.setImpact(xAdj, yAdj, 0);
-			shieldArray[i]	 = cs.getShieldArray();
-			insideRatio += cs.insideRatio();
+			xAdj[i] = scaled(roll(-roll,roll));
+			yAdj[i] = scaled(roll(-roll,roll));
+		}
+		int[][] shipImpact = cs.setImpact(xAdj, yAdj, zAdj);
+		for(int i = 0; i < attacksPerRound; ++i) {
+			shieldArray[i]	= cs.getShieldArray();
+			insideRatio		= cs.meanInsideRatio();
 			if (weaponSpread > 1) {
 				int xMod = (sourceTLy == targetTLy) ? 0 : 1;
 				int yMod = (sourceTLx == targetTLx) ? 0 : 1;
@@ -625,13 +631,13 @@ public final class TechShipWeapon extends Tech {
 				for (int n = -1 * weaponSpread; n <= weaponSpread; n++) {
 					int adj = scaled(n);
 					lines.addAll(addMultiLines(sourceSize, wpnCount, weaponX, weaponY,
-							shipImpact[0]+(xMod*adj), shipImpact[1]+(yMod*adj)));
+							shipImpact[i][0]+(xMod*adj), shipImpact[i][1]+(yMod*adj)));
 				}
 			} else {
-				lines.addAll(addMultiLines(sourceSize, wpnCount, weaponX, weaponY, shipImpact[0], shipImpact[1]));
+				lines.addAll(addMultiLines(sourceSize, wpnCount, weaponX, weaponY, shipImpact[i][0], shipImpact[i][1]));
 			}
 		}
-		double fraction =  (1-insideRatio/attacksPerRound) / (windUpFramesNum);
+		double fraction =  (1-insideRatio) / (windUpFramesNum);
 		//
 		// Animations start Here
 		//

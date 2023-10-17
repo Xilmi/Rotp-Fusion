@@ -44,7 +44,7 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 	private int screenWidth	= 3840, screenHeight;
 	private static final int COLUMNS_NUM = 10; 
 	private static final int ROWS_NUM	 = 8;
-	private static final int IMAGE_SEP	 = 50;
+	private static final int IMAGE_SEP	 = 10;
 	private static final int MAX_ZOOM	 = 4;
 	private static JFrame app;
 
@@ -147,14 +147,14 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 		imageWidth  = boxWidth + IMAGE_SEP;
 		imageHeight = boxHeight + IMAGE_SEP;
 		
-		windowWidth  = imageWidth * 3 + 10; // + IMAGE_SEP;
+		windowWidth  = imageWidth * 23/10 + 10; // + IMAGE_SEP;
 		windowHeight = imageHeight * 3  + 30; // + IMAGE_SEP;
 		winRec	= new Rectangle(windowWidth, windowHeight);
 		if (resize) {
 			app.setSize(windowWidth, windowHeight);
 			resize = false;
 		}
-		winTarX = IMAGE_SEP + imageWidth  + boxWidth/2 ;
+		winTarX = IMAGE_SEP*0 + imageWidth;//  + boxWidth/2 ;
 		winTarY = IMAGE_SEP + imageHeight + boxHeight/2;
 	}
 	private void init() {
@@ -655,7 +655,7 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 		CombatShield cs = new CombatShield(holdFramesNum, landUpFramesNum, fadingFramesNum,
 				boxW, boxH, targetCtrX, targetCtrY, shieldColor, opt.shieldEnveloping(), shieldBorders,
 				opt.shieldTransparency(), opt.shieldFlickering(), opt.shieldNoisePct(), shieldLevel, shipImg,
-				weaponX, weaponY, weaponZ, beamColor, spotWidth, damage, force);
+				weaponX, weaponY, weaponZ, beamColor, spotWidth, attacksPerRound, damage, force);
 
 		Rectangle toRefreshRec = cs.shieldRec();
 		int shieldTLx = toRefreshRec.x;
@@ -664,12 +664,18 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 		// Full Beam trajectory generation
 		ArrayList<Line2D.Double> lines = new ArrayList<>();
 		double insideRatio = 0;
+		int[] xAdj = new int[attacksPerRound];
+		int[] yAdj = new int[attacksPerRound];
+		int[] zAdj = new int[attacksPerRound]; // init to 0 by default
+		int roll = 3*(targetSize+1);
 		for(int i = 0; i < attacksPerRound; ++i) {
-			int xAdj = scaled(roll(-4,4)*(targetSize+1));
-			int yAdj = scaled(roll(-4,4)*(targetSize+1));
-			int[] shipImpact = cs.setImpact(xAdj, yAdj, 0);
-			shieldArray[i]	 = cs.getShieldArray();
-			insideRatio += cs.insideRatio();
+			xAdj[i] = scaled(roll(-roll,roll));
+			yAdj[i] = scaled(roll(-roll,roll));
+		}
+		int[][] shipImpact = cs.setImpact(xAdj, yAdj, zAdj);
+		for(int i = 0; i < attacksPerRound; ++i) {
+			shieldArray[i]	= cs.getShieldArray();
+			insideRatio		= cs.meanInsideRatio();
 			if (weaponSpread > 1) {
 				int xMod = (sourceTLy == targetTLy) ? 0 : 1;
 				int yMod = (sourceTLx == targetTLx) ? 0 : 1;
@@ -680,13 +686,13 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 				for (int n = -1 * weaponSpread; n <= weaponSpread; n++) {
 					int adj = scaled(n);
 					lines.addAll(addMultiLines(sourceSize, wpnCount, weaponX, weaponY,
-							shipImpact[0]+(xMod*adj), shipImpact[1]+(yMod*adj)));
+							shipImpact[i][0]+(xMod*adj), shipImpact[i][1]+(yMod*adj)));
 				}
 			} else {
-				lines.addAll(addMultiLines(sourceSize, wpnCount, weaponX, weaponY, shipImpact[0], shipImpact[1]));
+				lines.addAll(addMultiLines(sourceSize, wpnCount, weaponX, weaponY, shipImpact[i][0], shipImpact[i][1]));
 			}
 		}
-		double fraction =  (1-insideRatio/attacksPerRound) / (windUpFramesNum);
+		double fraction =  (1-insideRatio) / (windUpFramesNum);
 		//
 		// Animations start Here
 		//

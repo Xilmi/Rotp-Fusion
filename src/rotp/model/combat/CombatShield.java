@@ -51,19 +51,20 @@ public final class CombatShield {
 	// Locations, size, weapons
 	private final Pos targetCenter	= new Pos();
 	private final Pos shipSource	= new Pos();
-	private final Pos shipImpact	= new Pos();
-	private final Pos impactAdj		= new Pos();
+	private final Pos shipImpact[];
+	private final Pos impactAdj[];
 	private final int spotDiameter;
 	private final int holdFramesNum, landUpFramesNum, fadingFramesNum;
-	private final int framesNum, beamFramesNum;
+	private final int framesNum, beamFramesNum, attacksPerRound;
 	private final Color shieldColor, beamColor;
 
 	// Results
-	private final Pos shieldImpact = new Pos();
+	private final Pos shieldImpact[];
 	private final Geodesic geodesic;
 	private final BufferedImage[][] shieldArray = new BufferedImage[3][];
 	private final int shieldOffsetX, shieldOffsetY, centerOffsetX, centerOffsetY;
-	private double insideRatio;
+	private final double[] insideRatio;
+	private double meanInsideRatio;
 
 	// Other variables
 	private boolean neverInitialized = true;
@@ -78,10 +79,15 @@ public final class CombatShield {
 			initShieldArray();
 		return shieldArray;
 	}
-	public double insideRatio() {
+	public double[] insideRatio() {
 		if (neverInitialized)
 			initShieldArray();
 		return insideRatio;
+	}
+	public double meanInsideRatio() {
+		if (neverInitialized)
+			initShieldArray();
+		return meanInsideRatio;
 	}
 
 	// = = = = = Constructors, Setters and Initializers = = = = =
@@ -91,7 +97,7 @@ public final class CombatShield {
 			Color shieldColor, boolean enveloping, int border, int transparency, int flickering,
 			int shieldNoisePct, int shieldLevel, BufferedImage targetImage, 
 			int weaponX, int weaponY, int weaponZ, Color weaponColor, int spotSize,
-			float damage, float beamForce) {
+			int attacksPerRound, float damage, float beamForce) {
 		holdFramesNum   = holdFrames;
 		landUpFramesNum = landUpFrames;
 		fadingFramesNum = fadingFrames;
@@ -99,6 +105,16 @@ public final class CombatShield {
 		framesNum		= beamFramesNum + holdFramesNum + fadingFramesNum;
 		this.shieldColor= shieldColor;
 		this.enveloping = enveloping;
+		this.attacksPerRound = attacksPerRound;
+		insideRatio		= new double[attacksPerRound];
+		shieldImpact	= new Pos[attacksPerRound];
+		shipImpact		= new Pos[attacksPerRound];
+		impactAdj		= new Pos[attacksPerRound];
+		for (int attack=0; attack < attacksPerRound; attack++) {
+			shipImpact[attack]	 = new Pos();
+			impactAdj[attack]	 = new Pos();
+			shieldImpact[attack] = new Pos();
+		}
 
 		targetCenter.set(targetCtrX, targetCtrY, 0);
 		this.shieldLevel = shieldLevel; // = design().maxShield
@@ -126,7 +142,7 @@ public final class CombatShield {
 		centerOffsetX = sA.centerOffsetX();
 		centerOffsetY = sA.centerOffsetY();
 		
-		geodesic = new Geodesic(sA.a, sA.b);
+		geodesic = new Geodesic(sA.a, sA.b, attacksPerRound);
 
 		noiseFactor = 0.01 * shieldNoisePct;
 		shipSource.set(weaponX, weaponY, weaponZ);
@@ -139,10 +155,14 @@ public final class CombatShield {
 		if (showTiming)
 			System.out.println("shipAnalyzis() Time = " + (System.currentTimeMillis()-timeStart));
 	}
-	public int[] setImpact(int dx, int dy, int dz) { // dz is for the source
-		impactAdj.set(dx, dy, dz);
-		shipImpact.set(targetCenter.x+dx+centerOffsetX, targetCenter.y+dy+centerOffsetY, dz);
-		return new int[] { (int)shipImpact.x, (int)shipImpact.y};
+	public int[][] setImpact(int[] dx, int[] dy, int[] dz) { // dz is for the source
+		int[][] trueImpacts = new int[attacksPerRound][];
+		for (int attack=0; attack < attacksPerRound; attack++) {
+			impactAdj[attack].set(dx[attack], dy[attack], dz[attack]);
+			shipImpact[attack].set(targetCenter.x+dx[attack]+centerOffsetX, targetCenter.y+dy[attack]+centerOffsetY, dz[attack]);	
+			trueImpacts[attack] = new int[] {(int)shipImpact[attack].x, (int)shipImpact[attack].y};
+		}
+		return trueImpacts;
 	}
 	private void initPaints() {
 		float shieldForce = shieldLevel / topShield;
@@ -244,7 +264,7 @@ public final class CombatShield {
 			System.out.println("init Rings and PAints Array Time = " + (System.currentTimeMillis()-timeMid));
 		timeMid = System.currentTimeMillis();
 
-		insideRatio = findShieldImpact(shipSource, impactAdj, shieldImpact);
+		findShieldImpact(shipImpact, impactAdj, shieldImpact);
 		geodesic.setImpact(shieldImpact);
 		geodesic.drawShieldArray(noiseFactor);
 		
@@ -270,7 +290,15 @@ public final class CombatShield {
 
 	// = = = = = Tools = = = = =
 	//
-	private double findShieldImpact(Pos src, Pos impactAdj, Pos unused) {
+	private void findShieldImpact(Pos[] shipImpact, Pos[] impactAdj, Pos[] unused) {
+		double sum=0;
+		for (int attack=0; attack < attacksPerRound; attack++) {
+			insideRatio[attack] = findShieldImpact(shipImpact[attack], impactAdj[attack], shieldImpact[attack]);
+			sum += insideRatio[attack];
+		}
+		meanInsideRatio = sum/attacksPerRound;
+	}
+	private double findShieldImpact(Pos shipImpact, Pos impactAdj, Pos shieldImpact) {
 		// -> Center the ellipsoid on point = [0,0,0]
 		// Surface equation: x*x/a/a + y*y/b/b + z*z/c/c = 1  
 		// New target
@@ -278,9 +306,9 @@ public final class CombatShield {
 		double yo = impactAdj.y;
 		double zo = 0;
 		// - beam path
-		double dx = src.x - shipImpact.x;
-		double dy = src.y - shipImpact.y;
-		double dz = src.z - shipImpact.z; // Should be positive
+		double dx = shipSource.x - shipImpact.x;
+		double dy = shipSource.y - shipImpact.y;
+		double dz = shipSource.z - shipImpact.z; // Should be positive
 		// beam equation: [xo, yo, zo] + m * [dx, dy, dz] = [x, y, z] with m>0
 		// Intersection point (z always positive)
 		// (xo + m∙dx)^2 /a +  (yo + m∙dy)^2 /b +  (zo + m∙dz)^2 /c = 1
@@ -581,8 +609,8 @@ public final class CombatShield {
 		// Lambert's formula for long lines
 		// Ellipsoid parameters
 		private final double[] beta;
-		private final double[] sqSinPcosQx2;
-		private final double[] sqCosPsinQx2;
+		private final double[][] sqSinPcosQx2;
+		private final double[][] sqCosPsinQx2;
 		private final double a, b;		// a = The circle radius, b the third semi-axis
 		private final double f;		// flattening
 		private final double half_f;
@@ -592,13 +620,20 @@ public final class CombatShield {
 		private final double b_a, aa_bb;	// b/a
 
 		// Impact parameters
-		private double xI, yI, zI;	// the impact point
-		private double xI_bb, yI_aa, zI_aa;	// the impact point
-		private double betaI;	// reduced latitude
+		private final double[] xI, yI, zI;	// the impact point
+		private final double[] xI_bb, yI_aa, zI_aa;	// the impact point
+		private final double[] betaI;	// reduced latitude
 		
-		private Geodesic(double a, double b) {
+		private Geodesic(double a, double b, int attacksPerRound) {
 			this.a	= a;
 			this.b	= b;
+			xI = new double[attacksPerRound];
+			yI = new double[attacksPerRound];
+			zI = new double[attacksPerRound];
+			xI_bb = new double[attacksPerRound];
+			yI_aa = new double[attacksPerRound];
+			zI_aa = new double[attacksPerRound];
+			betaI = new double[attacksPerRound];
 			f		= (a-b)/(double)a;
 			half_f	= f/2;
 			b_a		= b/(double)a;
@@ -608,8 +643,8 @@ public final class CombatShield {
 			aabb = (long)aa*bb;
 			iaa = 1/(double)aa;
 			ibb = 1/(double)bb;
-			sqSinPcosQx2 = new double[shieldColumns];
-			sqCosPsinQx2 = new double[shieldColumns];
+			sqSinPcosQx2 = new double[attacksPerRound][shieldColumns];
+			sqCosPsinQx2 = new double[attacksPerRound][shieldColumns];
 			// Fill the spheric correction
 			beta = new double[shieldColumns];
 			for (int i=0; i<shieldColumns; i++) {
@@ -620,24 +655,29 @@ public final class CombatShield {
 			return "x=" + xI + " y=" + yI + " z=" + zI;
 		}
 
-		private void setImpact(Pos I) {
-			xI = I.x;
-			yI = I.y;
-			zI = I.z;
-			xI_bb = xI*ibb;
-			yI_aa = yI*iaa;
-			zI_aa = zI*iaa;
-			betaI = beta[(int) Math.round(xI+b)];
+		private void setImpact(Pos[] shieldImpact) {
+			for (int attack=0; attack < attacksPerRound; attack++) {
+				setImpact(shieldImpact[attack], attack);
+			}
+		}
+		private void setImpact(Pos shieldImpact, int attack) {
+			xI[attack] = shieldImpact.x;
+			yI[attack] = shieldImpact.y;
+			zI[attack] = shieldImpact.z;
+			xI_bb[attack] = xI[attack]*ibb;
+			yI_aa[attack] = yI[attack]*iaa;
+			zI_aa[attack] = zI[attack]*iaa;
+			betaI[attack] = beta[(int) Math.round(xI[attack]+b)];
 			for (int i=0; i<shieldColumns; i++) {
 				double betaP = reducedLatitude(i-b);
-				double cosP = Math.cos((betaI + betaP)/2);
+				double cosP = Math.cos((betaI[attack] + betaP)/2);
 				double cos2P = cosP*cosP;
 				double sin2P = 1-cos2P;
-				double cosQ = Math.cos((betaI - betaP)/2);
+				double cosQ = Math.cos((betaI[attack] - betaP)/2);
 				double cos2Q = cosQ*cosQ;
 				double sin2Q = 1-cos2Q;
-				sqSinPcosQx2[i] = 2*sin2P*cos2Q;
-				sqCosPsinQx2[i] = 2*cos2P*sin2Q;
+				sqSinPcosQx2[attack][i] = 2*sin2P*cos2Q;
+				sqCosPsinQx2[attack][i] = 2*cos2P*sin2Q;
 			}
 		}
 		private boolean insideEllipse(double x, double y) {
@@ -684,28 +724,38 @@ public final class CombatShield {
 						// cos(θ1)cos(θ2)cos(λ1-λ2) = cos(θ1)cos(θ2)cos(λ1)cos(λ2) + cos(θ1)cos(θ2)sin(λ1)sin(λ2)
 						// cos(θ1)cos(θ2)cos(λ1-λ2) = (y1*y2+z1*z2)/a^2
 						// Δσ = arcCos(x1*x2/b^2 + (y1*y2+z1*z2)/a^2)
-						double xPN = x*xI_bb + y*yI_aa;
-						double zzN = z*zI_aa;
-						// Above the ship
-						double cosΔσ = xPN + zzN;
-						if (cosΔσ>1)
-							cosΔσ = 1;
-						else if (cosΔσ<-1)
-							cosΔσ = -1;
-						double Δσ = Math.acos(cosΔσ);
-						double distNFRatio = 1+noiseFactor*(Math.random()-0.5);
-						// Added 1.001 factor to avoid div per 0! (should be 0/0)
-						int aboveDist = (int) (distNFRatio*a*(Δσ-half_f*( 2*Δσ + Math.sin(Δσ) *
-								(sqCosPsinQx2[column]/(1.01-cosΔσ) - sqSinPcosQx2[column]/(1.01+cosΔσ)) )));
-						// Bellow the ship
-						cosΔσ = xPN -zzN;
-						if (cosΔσ>1)
-							cosΔσ = 1;
-						else if (cosΔσ<-1)
-							cosΔσ = -1;
-						Δσ = Math.acos(cosΔσ);
-						int bellowDist = (int) (distNFRatio*a*(Δσ-half_f*( 2*Δσ + Math.sin(Δσ) *
-								(sqCosPsinQx2[column]/(1.01-cosΔσ) - sqSinPcosQx2[column]/(1.01+cosΔσ)) )));
+						double distNFRatio	= 1+noiseFactor*(Math.random()-0.5);
+						int aboveDist  = Integer.MAX_VALUE;
+						int bellowDist = Integer.MAX_VALUE;
+
+						for (int attack=0; attack < attacksPerRound; attack++) {
+							double xPN = x*xI_bb[attack] + y*yI_aa[attack];
+							double zzN = z*zI_aa[attack];
+							// Above the ship
+							double cosΔσ = xPN + zzN;
+							if (cosΔσ>1)
+								cosΔσ = 1;
+							else if (cosΔσ<-1)
+								cosΔσ = -1;
+							double Δσ = Math.acos(cosΔσ);
+							
+							// Added 1.01 factor to avoid div per 0! (should be 0/0)
+							int dist = (int) (distNFRatio*a*(Δσ-half_f*( 2*Δσ + Math.sin(Δσ) *
+									(sqCosPsinQx2[attack][column]/(1.01-cosΔσ) - sqSinPcosQx2[attack][column]/(1.01+cosΔσ)) )));
+							if (dist < aboveDist)
+								aboveDist = dist;
+							// Bellow the ship
+							cosΔσ = xPN -zzN;
+							if (cosΔσ>1)
+								cosΔσ = 1;
+							else if (cosΔσ<-1)
+								cosΔσ = -1;
+							Δσ = Math.acos(cosΔσ);
+							dist = (int) (distNFRatio*a*(Δσ-half_f*( 2*Δσ + Math.sin(Δσ) *
+									(sqCosPsinQx2[attack][column]/(1.01-cosΔσ) - sqSinPcosQx2[attack][column]/(1.01+cosΔσ)) )));
+							if (dist < bellowDist)
+								bellowDist = dist;
+						}
 						for (int frame=0; frame<framesNum; frame++) {
 							int aboveColor  = paintArray[frame][aboveDist].argb(transparencyFactor);
 							if (aboveColor!=0)
