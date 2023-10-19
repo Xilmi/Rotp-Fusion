@@ -30,17 +30,17 @@ import java.util.Map.Entry;
 import rotp.Rotp;
 
 public class WavClip  implements SoundClip, Base {
-    static WavMap loadedClips = new WavMap();
-    static WavMap[] delayClip = newWavMaps(4);
-    Clip clip;
-    boolean loaded = false;
-    String filename;
-    float gain;
-    int position = 0;
-    boolean continuous = false;
-    String style = "";
-    float decay;
-    int msDelay, msHullDelay, hullSize;
+    private static WavMap loadedClips = new WavMap();
+    private static WavMap[] delayClip = newWavMaps(4);
+    private Clip clip;
+    private boolean loaded = false;
+    private String filename;
+    private float gain;
+    private int position = 0;
+    private boolean continuous = false;
+    private String style = "";
+    private float decay;
+    private int msDelay, msHullDelay, shipSize;
     
     public static void clearDelayClips() {
     	for (WavMap map : delayClip) {
@@ -67,7 +67,7 @@ public class WavClip  implements SoundClip, Base {
         wc.play();
         return wc;    		
     }
-    public static WavClip play(String fn, float clipGain, float masterVolume, int hullSize) { // BR:
+    static WavClip play(String fn, float clipGain, float masterVolume, int hullSize) { // BR:
         if (!delayClip[hullSize].containsKey(fn)) 
         	delayClip[hullSize].put(fn, new WavClip(fn, clipGain, hullSize));
         WavClip wc = delayClip[hullSize].get(fn);
@@ -94,11 +94,11 @@ public class WavClip  implements SoundClip, Base {
         wc.setVolume(vol);
     }          
     public WavClip(String fn, float vol, int hullSize) { // BR:
-        filename = fn;
-        gain = vol;
-        this.hullSize = hullSize;
+        filename	= fn;
+        gain		= vol;
+        shipSize	= hullSize;
         msHullDelay	= options().echoSoundHullDelay();
-        msDelay		= options().echoSoundDelay() + hullSize*msHullDelay;
+        msDelay		= options().echoSoundDelay() + shipSize*msHullDelay;
         decay		= options().echoSoundDecay();
         loaded		= false;
         

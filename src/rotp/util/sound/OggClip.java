@@ -27,18 +27,17 @@ import static javax.sound.sampled.AudioSystem.getAudioInputStream;
 import static javax.sound.sampled.FloatControl.Type.MASTER_GAIN;
 
 public class OggClip implements SoundClip, Base {
-    static OggMap loadedClips = new OggMap();
-    static OggMap[] delayClip = newOggMaps(4);
-    //static HashMap<String, OggClip> loadedClips = new HashMap<>();
+    private static OggMap loadedClips = new OggMap();
+    private static OggMap[] delayClip = newOggMaps(4);
     Clip clip;
-    boolean loaded = false;
-    String filename;
-    float gain;
-    int position = 0;
-    boolean continuous = false;
-    String style = "";
-    float decay;
-    int msDelay, msHullDelay, hullSize;
+    private boolean loaded = false;
+    private String filename;
+    private float gain;
+    private int position = 0;
+    private boolean continuous = false;
+    private String style = "";
+    private float decay;
+    private int msDelay, msHullDelay, shipSize;
 
     public static void clearDelayClips() {
     	for (OggMap map : delayClip) {
@@ -136,12 +135,12 @@ public class OggClip implements SoundClip, Base {
                 }
         }
     }
-    public OggClip(String fn, float vol, int hullSize) { // BR:
-        filename = fn;
-        gain = vol;
-        this.hullSize = hullSize;
+    private OggClip(String fn, float vol, int hullSize) { // BR:
+        filename	= fn;
+        gain		= vol;
+        shipSize	= hullSize;
         msHullDelay	= options().echoSoundHullDelay();
-        msDelay		= options().echoSoundDelay() + hullSize*msHullDelay;
+        msDelay		= options().echoSoundDelay() + shipSize*msHullDelay;
         decay		= options().echoSoundDecay();
         loaded		= false;
 
