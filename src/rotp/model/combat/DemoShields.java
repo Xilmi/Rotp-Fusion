@@ -80,16 +80,17 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 	private Rectangle winRec; 
 	private float shipScale;
 	private int winTarX, winTarY;
-	private int		wpnCount	= 10;
-	private boolean isHeavy		= false;
-	private boolean holdTimer	= false;
-	private int		zoomFactor	= 1;
-	private boolean resize		= false;
-	private boolean srcRotate	= true;
-	private boolean weaponRotate= true;
-	private boolean colorRotate	= false;
-	private boolean randomRotate= false;
-	private boolean muted		= false;
+	private int		wpnCount		= 50;
+	private boolean isHeavy			= false;
+	private boolean holdTimer		= false;
+	private int		zoomFactor		= 1;
+	private boolean resize			= false;
+	private boolean srcRotate		= false;
+	private boolean weaponRotate	= false;
+	private boolean colorRotate		= false;
+	private boolean fullRandom		= true;
+	private boolean muted			= false;
+	private boolean playerIsTarget	= false;
 	
 	private List<Color> listColors = new ArrayList<>();
 
@@ -651,7 +652,8 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 //		dmg = 10;
 //		shieldLevel = 15;
 
-		BufferedImage[][][] shieldArray = new BufferedImage[attacksPerRound][][];
+		boolean playerEcho = opt.newPlayerSound();
+		
 		CombatShield cs = new CombatShield(holdFramesNum, landUpFramesNum, fadingFramesNum,
 				boxW, boxH, targetCtrX, targetCtrY, shieldColor, opt.shieldEnveloping(), shieldBorders,
 				opt.shieldTransparency(), opt.shieldFlickering(), opt.shieldNoisePct(), shieldLevel, shipImg,
@@ -673,9 +675,9 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 			yAdj[i] = scaled(roll(-roll,roll));
 		}
 		int[][] shipImpact = cs.setImpact(xAdj, yAdj, zAdj);
+		BufferedImage[][] shieldArray = cs.getShieldArray();
+		insideRatio	= cs.meanInsideRatio();
 		for(int i = 0; i < attacksPerRound; ++i) {
-			shieldArray[i]	= cs.getShieldArray();
-			insideRatio		= cs.meanInsideRatio();
 			if (weaponSpread > 1) {
 				int xMod = (sourceTLy == targetTLy) ? 0 : 1;
 				int yMod = (sourceTLx == targetTLx) ? 0 : 1;
@@ -701,8 +703,8 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 			beamColor2 = multColor(beamColor, 0.75f);
 		setPaint(g, 0, weaponX, weaponY, weaponDx, weaponDy);
 		// Start playing sound
-		if (!muted)
-			 playAudioClip(soundEffect);
+		if (!muted && !playerIsTarget)
+			playAudioClip(soundEffect);
 		// Beams Progression toward target
 		SortedMap<Integer, ArrayList<Line2D.Double>> partLines = new TreeMap<>();
 		for(int i = 0; i < windUpFramesNum; ++i) {
@@ -721,7 +723,7 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 			sleep(sleepTime);
 		}
 
-		// Beams reach the shield generation
+		// Beams reach the shield
 		ArrayList<Line2D.Double> hitLines = new ArrayList<>(); // The ones that go thru the shield
 		clearWindow(g);
 		setPaint(g, windUpFramesNum, weaponX, weaponY, weaponDx, weaponDy);
@@ -732,19 +734,19 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 			double newY2 = line.getY2();
 			hitLines.add(new Line2D.Double(newX1, newY1, newX2, newY2));
 		}
+		if (!muted && playerIsTarget) // player hear sound when hit
+			if(playerEcho)
+				playAudioClip(soundEffect, targetSize);
+			else
+				playAudioClip(soundEffect);
 
-		g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f/attacksPerRound));
-		for(int k = 0; k < attacksPerRound; k++)
-			g.drawImage(shieldArray[k][BELLOW][0], shieldTLx, shieldTLy, null);
-		g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+		g.drawImage(shieldArray[BELLOW][0], shieldTLx, shieldTLy, null);
 		g.drawImage(shipImg, shipTLx, shipTLy, null);
 		g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, hiddenBeamAlpha));
 		paintLines(hitLines, g); // hitting lines are in-between
-		g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f/attacksPerRound));
-		for(int k = 0; k < attacksPerRound; k++)
-			g.drawImage(shieldArray[k][ABOVE][0], shieldTLx, shieldTLy, null);
+		g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+		g.drawImage(shieldArray[ABOVE][0], shieldTLx, shieldTLy, null);
 
-		setPaint(g, 0, weaponX, weaponY, weaponDx, weaponDy);
 		paintLines(partLines, g); // visible line are above
 		paintImmediately(winRec);
 		sleep(sleepTime);
@@ -754,18 +756,13 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 			clearWindow(g);
 			setPaint(g, i+1+windUpFramesNum, weaponX, weaponY, weaponDx, weaponDy);
 			int shieldIdx = i+1;
-			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f/attacksPerRound));
-			for(int k = 0; k < attacksPerRound; k++)
-				g.drawImage(shieldArray[k][BELLOW][shieldIdx], shieldTLx, shieldTLy, null);
-			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+			g.drawImage(shieldArray[BELLOW][shieldIdx], shieldTLx, shieldTLy, null);
 			g.drawImage(shipImg, shipTLx, shipTLy, null);
 			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, hiddenBeamAlpha));
 			paintLines(hitLines, g); // hitting lines are in-between
-			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f/attacksPerRound));
-			for(int k = 0; k < attacksPerRound; k++)
-				g.drawImage(shieldArray[k][ABOVE][shieldIdx], shieldTLx, shieldTLy, null);
-
 			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+			g.drawImage(shieldArray[ABOVE][shieldIdx], shieldTLx, shieldTLy, null);
+
 			paintLines(partLines, g);
 			paintImmediately(winRec);
 			sleep(sleepTime);
@@ -776,18 +773,13 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 			setPaint(g, i+1+windUpFramesNum+holdFramesNum, weaponX, weaponY, weaponDx, weaponDy);
 			int shieldIdx = i+1+holdFramesNum;
 
-			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f/attacksPerRound));
-			for(int k = 0; k < attacksPerRound; k++)
-				g.drawImage(shieldArray[k][BELLOW][shieldIdx], shieldTLx, shieldTLy, null);
-			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+			g.drawImage(shieldArray[BELLOW][shieldIdx], shieldTLx, shieldTLy, null);
 			g.drawImage(shipImg, shipTLx, shipTLy, null);
 			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, hiddenBeamAlpha));
 			paintLines(hitLines, g); // hitting lines are in-between
-			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f/attacksPerRound));
-			for(int k = 0; k < attacksPerRound; k++)
-				g.drawImage(shieldArray[k][ABOVE][shieldIdx], shieldTLx, shieldTLy, null);
-
 			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+			g.drawImage(shieldArray[ABOVE][shieldIdx], shieldTLx, shieldTLy, null);
+
 			partLines.get(i).clear();
 			paintLines(partLines, g);
 			paintImmediately(winRec);
@@ -798,14 +790,9 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 			clearWindow(g);
 			int shieldIdx = i+1+holdFramesNum+windUpFramesNum;
 
-			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f/attacksPerRound));
-			for(int k = 0; k < attacksPerRound; k++)
-				g.drawImage(shieldArray[k][BELLOW][shieldIdx], shieldTLx, shieldTLy, null);
-			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+			g.drawImage(shieldArray[BELLOW][shieldIdx], shieldTLx, shieldTLy, null);
 			g.drawImage(shipImg, shipTLx, shipTLy, null);
-			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f/attacksPerRound));
-			for(int k = 0; k < attacksPerRound; k++)
-				g.drawImage(shieldArray[k][ABOVE][shieldIdx], shieldTLx, shieldTLy, null);
+			g.drawImage(shieldArray[ABOVE][shieldIdx], shieldTLx, shieldTLy, null);
 			paintImmediately(winRec);
 			sleep(sleepTime);
 		}
@@ -834,7 +821,7 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 		int shipTLx	= targetCtr[0]-shipImg.getWidth()/2;
 		int shipTLy	= targetCtr[1]-shipImg.getHeight()/2;
 
-		if (this.randomRotate) {
+		if (this.fullRandom) {
 			srcLocation	= roll(0, srcLocX.length-1);
 			weaponId	= roll(0, weaponMaxId);
 			colorId		= roll(0, listColors.size()-1);
@@ -842,6 +829,7 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 			monsterId	= roll(0, monsters.length-1);
 			hullId		= roll(0, hulls.length-1);
 			modelId		= roll(0, models.length-1);
+			playerIsTarget = random.nextBoolean();
 			loadShields();
 		} else {
 			if (srcRotate)
@@ -858,7 +846,9 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 		shieldColor = listColors.get(colorId);
 		sourceCtr = newSourcePos(srcLocX[srcLocation], srcLocY[srcLocation], scaled(200));
 		g.drawImage(shipImg, shipTLx, shipTLy, this);
-		
+		paintImmediately(winRec);		
+		sleep(500);
+
 		int weaponX	= sourceCtr[0] + boxWidth/3;
 		int weaponY	= sourceCtr[1];
 		int impactX	= targetCtr[0];
@@ -1074,11 +1064,14 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 					case KeyEvent.VK_DOWN:
 						anim.loadShields();
 						return;
+					case KeyEvent.VK_P: // Is Player
+						anim.playerIsTarget = !anim.playerIsTarget;
+						return;
 					case KeyEvent.VK_Q: // Quiet
 						anim.muted = !anim.muted;
 						return;
 					case KeyEvent.VK_R: // Randomize
-						anim.randomRotate = !anim.randomRotate;
+						anim.fullRandom = !anim.fullRandom;
 						return;
 					case KeyEvent.VK_F:
 					case KeyEvent.VK_S:

@@ -162,6 +162,23 @@ public enum SoundManager implements Base {
         }
         return null;
     }
+    @Override public SoundClip playAudioClip(String key, int hullSize) {
+        log("play audio clip: "+key + " HullSize: "+hullSize);
+        if (!playSounds())
+            return null;
+        Sound s = sounds.get(key);
+        try {
+            if (s != null)
+                return s.play(s.gain, hullSize);
+            else
+                err("no sound found for key:"+key);
+        }
+        catch (Exception e) {
+            err("SoundManager.audio error1: "+e.getMessage());
+            disableOnError("on play:"+e.getMessage());
+        }
+        return null;
+    }
     public SoundClip alwaysPlay(String key) {
         Sound s = sounds.get(key);
         if (s != null)
@@ -295,6 +312,15 @@ public enum SoundManager implements Base {
                     return OggClip.play(oggFilename, gain, masterVolume());
                 }
                 return WavClip.play(filename, gain, masterVolume());
+            } else
+                return null;
+        }
+        public SoundClip play(float gain, int hullSize) {
+            if (filename.endsWith("wav")) {
+                if (formatOgg) {
+                    return OggClip.play(oggFilename, gain, masterVolume(), hullSize);
+                }
+                return WavClip.play(filename, gain, masterVolume(), hullSize);
             } else
                 return null;
         }

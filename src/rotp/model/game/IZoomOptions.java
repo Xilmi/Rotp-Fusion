@@ -83,6 +83,10 @@ public interface IZoomOptions extends IBaseOptsTools {
 	{	{ isCfgFile(true); } };
 	default boolean newWeaponSound() 		{ return newWeaponSound.get(); }
 
+	ParamBoolean newPlayerSound		= new ParamBoolean(MOD_UI, "NEW_PLAYER_SOUND", true)
+	{	{ isCfgFile(true); } };
+	default boolean newPlayerSound() 		{ return newPlayerSound.get(); }
+
 	ParamBoolean newWeaponAnimation	= new ParamBoolean(MOD_UI, "NEW_WEAPON_ANIMATION", true)
 	{	{ isCfgFile(true); } };
 	default boolean newWeaponAnimation()	{ return newWeaponAnimation.get(); }
@@ -107,7 +111,7 @@ public interface IZoomOptions extends IBaseOptsTools {
 	{	{ isCfgFile(true); } };
 	default boolean shieldFadingFrames()	{ return shieldFadingFrames.get(); }
 
-	ParamBoolean shieldEnveloping	= new ParamBoolean(MOD_UI, "SHIELD_ENVELOPING", true)
+	ParamBoolean shieldEnveloping	= new ParamBoolean(MOD_UI, "SHIELD_ENVELOPING", false)
 	{	{ isCfgFile(true); } };
 	default boolean shieldEnveloping()		{ return shieldEnveloping.get(); }
 
@@ -129,7 +133,7 @@ public interface IZoomOptions extends IBaseOptsTools {
 
 	ParamInteger shieldFlickering	= new ParamInteger(MOD_UI, "SHIELD_FLICKERING" , 20, 0, 100, 1, 5, 20)
 	{	{ isCfgFile(true); } };
-	default int shieldFlickering()		{ return shieldFlickering.get(); }
+	default int shieldFlickering()			{ return shieldFlickering.get(); }
 
 	ParamInteger shieldBorder		= new ParamInteger(MOD_UI, "SHIELD_BORDER" , 0, -1, 5, 1, 1, 1)
 	{	{ 
@@ -147,7 +151,7 @@ public interface IZoomOptions extends IBaseOptsTools {
 			return 2* (hullSize+1);
 		return shieldBorder.get();
 	}
-	ParamInteger weaponZposition	= new ParamInteger(MOD_UI, "WEAPON_Z_POS" , 150, -1000, 1000, 10, 50, 200)
+	ParamInteger weaponZposition	= new ParamInteger(MOD_UI, "WEAPON_Z_POS" , 100, -1000, 1000, 10, 50, 200)
 	{	{ isCfgFile(true); } };
 	default int weaponZposition()			{ return weaponZposition.get(); }
 
@@ -170,6 +174,45 @@ public interface IZoomOptions extends IBaseOptsTools {
 	};
 	default boolean startShieldDemo()		{ return startShieldDemo.get(); }
 	
+	ParamInteger echoSoundDelay		= new ParamInteger(MOD_UI, "ECHO_SOUND_DELAY" , 50, 10, 500, 5, 20, 50)
+	{
+		{ isCfgFile(true); }
+		@Override public Integer set(Integer val) {
+			if (val != get()) {
+				rotp.util.sound.WavClip.clearDelayClips();
+				rotp.util.sound.OggClip.clearDelayClips();
+			}
+			return super.set(val);
+		}
+	};
+	default int echoSoundDelay()			{ return echoSoundDelay.get(); }
+
+	ParamInteger echoSoundHullDelay	= new ParamInteger(MOD_UI, "ECHO_SOUND_HULL_DELAY" , 25, 0, 100, 1, 5, 20)
+	{
+		{ isCfgFile(true); }
+		@Override public Integer set(Integer val) {
+			if (val != get()) {
+				rotp.util.sound.WavClip.clearDelayClips();
+				rotp.util.sound.OggClip.clearDelayClips();
+			}
+			return super.set(val);
+		}
+	};
+	default int echoSoundHullDelay()		{ return echoSoundHullDelay.get(); }
+
+	ParamInteger echoSoundDecay		= new ParamInteger(MOD_UI, "ECHO_SOUND_DECAY" , 75, 0, 95, 1, 5, 20)
+	{
+		{ isCfgFile(true); }
+		@Override public Integer set(Integer val) {
+			if (val != get()) {
+				rotp.util.sound.WavClip.clearDelayClips();
+				rotp.util.sound.OggClip.clearDelayClips();
+			}
+			return super.set(val);
+		}
+	};
+	default float echoSoundDecay()			{ return echoSoundDecay.get()/100f; }
+
 
 	// ==================== GUI List Declarations ====================
 	//
@@ -188,28 +231,25 @@ public interface IZoomOptions extends IBaseOptsTools {
 				new ParamTitle("ZOOM_REPLAY"),
 				finalReplayZoomOut, empireReplayZoomOut, replayTurnPace
 				)));
-//		add(new LinkedList<>(Arrays.asList(
-//				new ParamTitle("ZOOM_FLEET"),
-//				showFleetFactor, showFlagFactor, showPathFactor
-//				)));
-//		add(new LinkedList<>(Arrays.asList(
-//				new ParamTitle("ZOOM_REPLAY"),
-//				finalReplayZoomOut, empireReplayZoomOut, replayTurnPace
-//				)));
 		add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("WEAPON_ANIMATIONS"),
-				newWeaponSound, newWeaponAnimation,
-				alwaysShowsShield, showResultDelay,
+				showResultDelay,
+				newWeaponSound, newPlayerSound,
+				echoSoundDecay, echoSoundDelay, echoSoundHullDelay,
 
 				headerSpacer,
 				beamWindupFrames, beamHoldFrames,
-				heavyBeamHoldFrames, shieldFadingFrames,
-
+				heavyBeamHoldFrames, shieldFadingFrames
+				)));
+		add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("SHIELD_ANIMATIONS"),
+				newWeaponAnimation, alwaysShowsShield, 
+	
 				headerSpacer,
-				 beamAnimationDelay, shieldEnveloping, shieldBorder,
-				 shieldTransparency, shieldFlickering, shieldNoisePct,
-				 weaponZposition, weaponZRandom,
-
+				beamAnimationDelay, shieldEnveloping, shieldBorder,
+				shieldTransparency, shieldFlickering, shieldNoisePct,
+				weaponZposition, weaponZRandom,
+	
 				headerSpacer,
 				startShieldDemo
 				)));

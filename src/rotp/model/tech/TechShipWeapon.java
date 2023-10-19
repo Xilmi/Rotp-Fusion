@@ -565,9 +565,11 @@ public final class TechShipWeapon extends Tech {
         if (target.design() != null)
         	targetSize = target.design().size();
         int sourceSize	= 3;
+        boolean playerEcho = opt.newPlayerSound() && !target.isColony();
         if (source.design() != null)
         	sourceSize = source.design().size();
         int shieldBorders = opt.shieldBorder(sourceSize);
+		boolean playerIsTarget = target.empire.isPlayer();
 
         Graphics2D g = (Graphics2D) ui.getGraphics();
         ShipComponent wpn = source.weapon(wpnNum);
@@ -596,7 +598,6 @@ public final class TechShipWeapon extends Tech {
         int fadingFramesNum = opt.shieldFadingFrames()? windUpFramesNum+2 : 0;
         int landUpFramesNum = windUpFramesNum;
 
-		BufferedImage[][][] shieldArray = new BufferedImage[attacksPerRound][][];
 		CombatShield cs = new CombatShield(holdFramesNum, landUpFramesNum, fadingFramesNum,
 				boxW, boxH, targetCtrX, targetCtrY, target.shieldBaseColor(), opt.shieldEnveloping(), shieldBorders,
 				opt.shieldTransparency(), opt.shieldFlickering(), opt.shieldNoisePct(), (int)target.maxShield, shipImg,
@@ -618,9 +619,9 @@ public final class TechShipWeapon extends Tech {
 			yAdj[i] = scaled(roll(-roll,roll));
 		}
 		int[][] shipImpact = cs.setImpact(xAdj, yAdj, zAdj);
+		BufferedImage[][] shieldArray = cs.getShieldArray();
+		insideRatio	= cs.meanInsideRatio();
 		for(int i = 0; i < attacksPerRound; ++i) {
-			shieldArray[i]	= cs.getShieldArray();
-			insideRatio		= cs.meanInsideRatio();
 			if (weaponSpread > 1) {
 				int xMod = (sourceTLy == targetTLy) ? 0 : 1;
 				int yMod = (sourceTLx == targetTLx) ? 0 : 1;
@@ -645,13 +646,15 @@ public final class TechShipWeapon extends Tech {
 		if(beamColor2 == null && cycleColor == null)
 			beamColor2 = multColor(beamColor, 0.75f);
 		setPaint(g, 0, weaponX, weaponY, weaponDx, weaponDy);
-        // Start playing sound
-        if (opt.newWeaponSound())
-        	 playAudioClip(newSoundEffect()); // BR:
-        else if (attacksPerRound > 1)
-            playAudioClip(soundEffectMulti());
-        else
-            playAudioClip(soundEffect());
+        // Start playing sound if Player is shooting
+		if (!playerIsTarget) {		
+	        if (opt.newWeaponSound())
+	        	 playAudioClip(newSoundEffect()); // BR:
+	        else if (attacksPerRound > 1)
+	            playAudioClip(soundEffectMulti());
+	        else
+	            playAudioClip(soundEffect());
+		}
 		// Beams Progression toward target
 		SortedMap<Integer, ArrayList<Line2D.Double>> partLines = new TreeMap<>();
 		for(int i = 0; i < windUpFramesNum; ++i) {
@@ -680,19 +683,26 @@ public final class TechShipWeapon extends Tech {
 			double newY2 = line.getY2();
 			hitLines.add(new Line2D.Double(newX1, newY1, newX2, newY2));
 		}
+        // Start playing sound if Player is the target
+		if (playerIsTarget) {		
+	        if (opt.newWeaponSound())
+				if(playerEcho)
+					playAudioClip(newSoundEffect(), targetSize);
+				else
+					playAudioClip(newSoundEffect());
+	        else if (attacksPerRound > 1)
+	            playAudioClip(soundEffectMulti());
+	        else
+	            playAudioClip(soundEffect());
+		}
 
-		g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f/attacksPerRound));
-		for(int k = 0; k < attacksPerRound; k++)
-			g.drawImage(shieldArray[k][BELLOW][0], shieldTLx, shieldTLy, null);
-		g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+		g.drawImage(shieldArray[BELLOW][0], shieldTLx, shieldTLy, null);
 		g.drawImage(shipImg, shipTLx, shipTLy, null);
 		g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, hiddenBeamAlpha));
 		paintLines(hitLines, g); // hitting lines are in-between
-		g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f/attacksPerRound));
-		for(int k = 0; k < attacksPerRound; k++)
-			g.drawImage(shieldArray[k][ABOVE][0], shieldTLx, shieldTLy, null);
-
 		g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+		g.drawImage(shieldArray[ABOVE][0], shieldTLx, shieldTLy, null);
+
 		paintLines(partLines, g); // visible line are above
 
 		// Show Continuous
@@ -701,18 +711,13 @@ public final class TechShipWeapon extends Tech {
 			ui.paintImmediately(toRefreshRec);
 			setPaint(g, i+1+windUpFramesNum, weaponX, weaponY, weaponDx, weaponDy);
 			int shieldIdx = i+1;
-			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f/attacksPerRound));
-			for(int k = 0; k < attacksPerRound; k++)
-				g.drawImage(shieldArray[k][BELLOW][shieldIdx], shieldTLx, shieldTLy, null);
-			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+			g.drawImage(shieldArray[BELLOW][shieldIdx], shieldTLx, shieldTLy, null);
 			g.drawImage(shipImg, shipTLx, shipTLy, null);
 			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, hiddenBeamAlpha));
 			paintLines(hitLines, g); // hitting lines are in-between
-			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f/attacksPerRound));
-			for(int k = 0; k < attacksPerRound; k++)
-				g.drawImage(shieldArray[k][ABOVE][shieldIdx], shieldTLx, shieldTLy, null);
-
 			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+			g.drawImage(shieldArray[ABOVE][shieldIdx], shieldTLx, shieldTLy, null);
+
 			paintLines(partLines, g);
 			sleep(sleepTime);
 		}
@@ -723,19 +728,14 @@ public final class TechShipWeapon extends Tech {
 			setPaint(g, i+1+windUpFramesNum+holdFramesNum, weaponX, weaponY, weaponDx, weaponDy);
 			int shieldIdx = i+1+holdFramesNum;
 			
-			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f/attacksPerRound));
-			for(int k = 0; k < attacksPerRound; k++)
-				g.drawImage(shieldArray[k][BELLOW][shieldIdx], shieldTLx, shieldTLy, null);
-			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+			g.drawImage(shieldArray[BELLOW][shieldIdx], shieldTLx, shieldTLy, null);
 			g.drawImage(shipImg, shipTLx, shipTLy, null);
 			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, hiddenBeamAlpha));
 			paintLines(hitLines, g); // hitting lines are in-between
-			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f/attacksPerRound));
-			for(int k = 0; k < attacksPerRound; k++)
-				g.drawImage(shieldArray[k][ABOVE][shieldIdx], shieldTLx, shieldTLy, null);
+			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+			g.drawImage(shieldArray[ABOVE][shieldIdx], shieldTLx, shieldTLy, null);
 
 			partLines.get(i).clear();
-			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 			paintLines(partLines, g);
 			sleep(sleepTime);
 		}
@@ -744,14 +744,9 @@ public final class TechShipWeapon extends Tech {
 			ui.paintImmediately(toRefreshRec);
 			int shieldIdx = i+1+holdFramesNum+windUpFramesNum;
 			
-			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f/attacksPerRound));
-			for(int k = 0; k < attacksPerRound; k++)
-				g.drawImage(shieldArray[k][BELLOW][shieldIdx], shieldTLx, shieldTLy, null);
-			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+			g.drawImage(shieldArray[BELLOW][shieldIdx], shieldTLx, shieldTLy, null);
 			g.drawImage(shipImg, shipTLx, shipTLy, null);
-			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f/attacksPerRound));
-			for(int k = 0; k < attacksPerRound; k++)
-				g.drawImage(shieldArray[k][ABOVE][shieldIdx], shieldTLx, shieldTLy, null);
+			g.drawImage(shieldArray[ABOVE][shieldIdx], shieldTLx, shieldTLy, null);
 
 			sleep(sleepTime);
 		}

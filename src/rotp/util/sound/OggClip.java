@@ -20,13 +20,16 @@ import rotp.util.Base;
 import javax.sound.sampled.*;
 import java.io.*;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import static javax.sound.sampled.AudioFormat.Encoding.PCM_SIGNED;
 import static javax.sound.sampled.AudioSystem.getAudioInputStream;
 import static javax.sound.sampled.FloatControl.Type.MASTER_GAIN;
 
 public class OggClip implements SoundClip, Base {
-    static HashMap<String, OggClip> loadedClips = new HashMap<>();
+    static OggMap loadedClips = new OggMap();
+    static OggMap[] delayClip = newOggMaps(4);
+    //static HashMap<String, OggClip> loadedClips = new HashMap<>();
     Clip clip;
     boolean loaded = false;
     String filename;
@@ -34,7 +37,26 @@ public class OggClip implements SoundClip, Base {
     int position = 0;
     boolean continuous = false;
     String style = "";
+    float decay;
+    int msDelay, msHullDelay, hullSize;
 
+    public static void clearDelayClips() {
+    	for (OggMap map : delayClip) {
+    		for (Entry<String, OggClip> entry : map.entrySet()) {
+    			OggClip dc = entry.getValue();
+    			if (dc.clip !=null) {
+    				dc.clip.close();
+    			}
+    		}
+    		map.clear();
+    	}
+    }
+    private static OggMap[] newOggMaps(int size) {
+    	OggMap[] mapArray = new OggMap[size];
+    	for (int i=0; i<size; i++)
+    		mapArray[i] = new OggMap(); 
+    	return mapArray;
+    }
     public static OggClip play(String fn, float clipGain, float masterVolume) {
         if (!loadedClips.containsKey(fn))
             loadedClips.put(fn, new OggClip(fn, clipGain));
@@ -44,7 +66,14 @@ public class OggClip implements SoundClip, Base {
         wc.play();
         return wc;
     }
-
+    public static OggClip play(String fn, float clipGain, float masterVolume, int hullSize) {
+        if (!delayClip[hullSize].containsKey(fn)) 
+        	delayClip[hullSize].put(fn, new OggClip(fn, clipGain, hullSize));
+        OggClip wc = delayClip[hullSize].get(fn);
+        wc.setVolume(masterVolume);
+        wc.play();
+        return wc;
+    }
     public static OggClip playContinuously(String fn, float clipGain, String s, float masterVolume) {
         if (!loadedClips.containsKey(fn))
             loadedClips.put(fn, new OggClip(fn, clipGain));
@@ -55,7 +84,6 @@ public class OggClip implements SoundClip, Base {
         wc.playContinuously();
         return wc;
     }
-
     public static void setVolume(String fn, float vol) {
         if (!loadedClips.containsKey(fn))
             return;
@@ -63,7 +91,6 @@ public class OggClip implements SoundClip, Base {
         OggClip wc = loadedClips.get(fn);
         wc.setVolume(vol);
     }
-
     public OggClip(String fn, float vol) {
         filename = fn;
         gain = vol;
@@ -81,6 +108,56 @@ public class OggClip implements SoundClip, Base {
                 AudioFormat format = new AudioFormat(PCM_SIGNED, rate, 16, ch, ch * 2, rate, false);
                 decoded = getAudioInputStream(format, ais);
 
+                clip = AudioSystem.getClip();
+                clip.open(decoded);
+                if (vol < 1 && clip.isControlSupported(MASTER_GAIN)) {
+                    log("setting gain for sound: " + fn + "  to " + (int) (gain * 100));
+                    FloatControl gain = (FloatControl) clip.getControl(MASTER_GAIN);
+                    gain.setValue(20f * (float) Math.log10(vol));
+                }
+                loaded = true;
+            }
+        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+            e.printStackTrace();
+            System.err.println(e.toString());
+            System.err.println(e.getStackTrace());
+        } finally {
+            if (ais != null)
+                try {
+                    ais.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            if (decoded != null)
+                try {
+                    decoded.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+        }
+    }
+    public OggClip(String fn, float vol, int hullSize) { // BR:
+        filename = fn;
+        gain = vol;
+        this.hullSize = hullSize;
+        msHullDelay	= options().echoSoundHullDelay();
+        msDelay		= options().echoSoundDelay() + hullSize*msHullDelay;
+        decay		= options().echoSoundDecay();
+        loaded		= false;
+
+        AudioInputStream ais = null;
+        AudioInputStream decoded = null;
+        try {
+            if (!loaded) {
+            	EchoFilter filter = new EchoFilter(msDelay*48, decay);
+                BufferedInputStream is = new BufferedInputStream(WavClip.wavFileStream(fn));
+
+                ais = AudioSystem.getAudioInputStream(is);
+                final int ch = ais.getFormat().getChannels();
+                final float rate = ais.getFormat().getSampleRate();
+                AudioFormat format = new AudioFormat(PCM_SIGNED, rate, 16, ch, ch * 2, rate, false);
+                decoded = getAudioInputStream(format, ais);
+                decoded = new FilteredSoundStream(decoded, filter);
                 clip = AudioSystem.getClip();
                 clip.open(decoded);
                 if (vol < 1 && clip.isControlSupported(MASTER_GAIN)) {
@@ -173,3 +250,4 @@ public class OggClip implements SoundClip, Base {
             return filenameWithExtension;
     }
 }
+class OggMap extends HashMap<String, OggClip> { }
