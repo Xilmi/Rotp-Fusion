@@ -14,6 +14,7 @@ import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
@@ -24,20 +25,20 @@ import java.awt.event.KeyListener;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import rotp.Rotp;
 import rotp.model.game.IGameOptions;
+import rotp.model.ships.ShipImage;
+import rotp.model.ships.ShipLibrary;
 import rotp.util.Base;
 
 public class DemoShields extends JPanel implements Base, ActionListener {
@@ -47,20 +48,15 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 	private static final int ROWS_NUM	 = 8;
 	private static final int IMAGE_SEP	 = 10;
 	private static final int MAX_ZOOM	 = 4;
+	private static final int MAX_MODELS	 = 6-1;
+	private static final int MAX_STYLES	 = 11-1;
+	private static final int MAX_HULLS	 = 4-1;
 	private static JFrame app;
 
 	private final Color spaceBlue = new Color(32,32,64);
 
 	private final boolean isJar = new File(Rotp.jarPath() + "/images").exists();
-	private String imagePath, imageName;
-	private String imageFolder = isJar? Rotp.jarPath()+"/images" : Rotp.jarPath()+"/../src/rotp/images";
-	private final String shipPath = imageFolder + "/ships/";
-	private final String monsterPath = imageFolder + "/missiles/";
-	private final String[] folders = new String[] {"Alkari", "Bulrathi", "Darlok", "Human",
-			"Klackon", "Meklar", "Mrrshan", "Psilon", "Sakkra", "Silicoid", "Monsters"};
-	private final String[] hulls = new String[] {"A", "B", "C", "D"};
-	private final String[] models = new String[] {"01a", "02a", "03a", "04a", "05a", "06a"};
-	private final String[] monsters = new String[] {"OrionGuardian", "SpaceCrystal", "SpacePirates", "SpaceAmoeba"};
+	private final String[] monsters	= new String[] {"ORION_GUARDIAN", "SPACE_CRYSTAL", "SPACE_PIRATES", "SPACE_AMOEBA"};
 	private int folderId, hullId, modelId, monsterId, colorId;
 
 	private BufferedImage shipImg;
@@ -131,9 +127,12 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 		boxWidth  = (screenWidth-scaled(20))/COLUMNS_NUM;
 		boxHeight = (screenHeight-scaled(65))/ROWS_NUM;
 		// ship size
-		BufferedImage baseShipImg = loadImage(imagePath + imageName);
-		int baseShipWidth  = baseShipImg.getWidth();
-		int baseShipHeight = baseShipImg.getHeight();
+		//BufferedImage baseShipImg = loadImage(imagePath + imageName);
+		//imageName = hulls[hullId] + models[modelId] + ".png";
+		//loadImage(int shipStyle, int shipSize, int shapeId)
+		Image baseShipImg = loadImage(folderId, hullId, modelId);
+		int baseShipWidth  = baseShipImg.getWidth(null);
+		int baseShipHeight = baseShipImg.getHeight(null);
 		shipScale  = Math.min((float)boxWidth/baseShipWidth, (float)boxHeight/baseShipHeight)*9/10;
 		shipWidth  = (int) (baseShipWidth  * shipScale);
 		shipHeight = (int) (baseShipHeight * shipScale);
@@ -147,8 +146,8 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 		g.drawImage(baseShipImg, 0, 0, shipWidth, shipHeight, 0, 0, baseShipWidth, baseShipHeight, null);
 		g.dispose();
-		imageWidth  = boxWidth + IMAGE_SEP;
-		imageHeight = boxHeight + IMAGE_SEP;
+		imageWidth  = boxWidth + scaled(IMAGE_SEP);
+		imageHeight = boxHeight + scaled(IMAGE_SEP);
 		
 		windowWidth  = imageWidth * 23/10 + 10; // + IMAGE_SEP;
 		windowHeight = imageHeight * 3  + 30; // + IMAGE_SEP;
@@ -158,7 +157,7 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 			resize = false;
 		}
 		winTarX = IMAGE_SEP*0 + imageWidth;//  + boxWidth/2 ;
-		winTarY = IMAGE_SEP + imageHeight + boxHeight/2;
+		winTarY = scaled(IMAGE_SEP)/2 + imageHeight + boxHeight/2;
 	}
 	private void init() {
 		folderId  = 0;
@@ -184,7 +183,7 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 		listColors.add(new Color(128,128,0));   // modnar: olive**
 		loadShields();
 	}
-	private boolean isMonster() { return folderId == folders.length-1; }
+	private boolean isMonster() { return folderId == MAX_STYLES; }
 	private int[] newSourcePos(int dx, int dy, int dz) {
 		return new int[] {
 				targetCtr[0] + dx * boxWidth - boxWidth/6,
@@ -198,13 +197,6 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 		URL rotp = url(Rotp.jarPath() + "\\..\\rotp\\images\\ships\\");
 		System.out.println(Rotp.jarPath());
 		System.out.println(rotp);
-		if (isMonster()) {
-			imagePath = monsterPath;
-			imageName = monsters[monsterId] + ".png";			
-		} else {
-			imagePath = shipPath + folders[folderId] + "\\";
-			imageName = hulls[hullId] + models[modelId] + ".png";
-		}
 		initWeapon();
 		initSizes();
 		targetCtr = new int[] {winTarX, winTarY, 0};
@@ -830,10 +822,10 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 			srcLocation	= roll(0, srcLocX.length-1);
 			weaponId	= roll(0, weaponMaxId);
 			colorId		= roll(0, listColors.size()-1);
-			folderId	= roll(0, folders.length-1);
+			folderId	= roll(0, MAX_STYLES);
 			monsterId	= roll(0, monsters.length-1);
-			hullId		= roll(0, hulls.length-1);
-			modelId		= roll(0, models.length-1);
+			hullId		= roll(0, MAX_HULLS);
+			modelId		= roll(0, MAX_MODELS);
 			playerIsTarget = random.nextBoolean();
 			loadShields();
 		} else {
@@ -878,15 +870,11 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 			return;		
 		repaint();
 	}
-	private BufferedImage loadImage(String path) {
-		BufferedImage img = null;
-		try {
-			img = ImageIO.read(new File(path));
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.exit(0);
-		}
-		return img;
+	private Image loadImage(int shipStyle, int shipSize, int shapeId) {
+		if (isMonster())
+			return image(monsters[monsterId]);
+		ShipImage images = ShipLibrary.current().shipImage(shipStyle, shipSize, shapeId);
+		return icon(images.baseIcon()).getImage();
 	}
 	public void startAnimation() {
 		if (animationTimer == null) {
@@ -901,7 +889,7 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 		monsterId=monsters.length-1;
 		folderId--;
 		if (folderId < 0) {
-			folderId = folders.length-1;
+			folderId = MAX_STYLES;
 			return true;
 		}
 		return false;
@@ -909,7 +897,7 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 	private boolean nextFolder() {
 		monsterId=0;
 		folderId++;
-		if (folderId == folders.length) {
+		if (folderId > MAX_STYLES) {
 			folderId = 0;
 			return true;
 		}
@@ -920,7 +908,7 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 			return false;
 		hullId--;
 		if (hullId < 0) {
-			hullId = hulls.length-1;
+			hullId = MAX_HULLS;
 			return true;
 		}
 		return false;
@@ -929,7 +917,7 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 		if (isMonster())
 			return false;
 		hullId++;
-		if (hullId == hulls.length) {
+		if (hullId > MAX_HULLS) {
 			hullId = 0;
 			return true;
 		}
@@ -940,7 +928,7 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 			return false;
 		modelId--;
 		if (modelId < 0) {
-			modelId = models.length-1;
+			modelId = MAX_MODELS;
 			return true;
 		}
 		return false;
@@ -949,7 +937,7 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 		if (isMonster())
 			return false;
 		modelId++;
-		if (modelId == models.length) {
+		if (modelId > MAX_MODELS) {
 			modelId = 0;
 			return true;
 		}

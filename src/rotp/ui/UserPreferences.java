@@ -288,7 +288,6 @@ public class UserPreferences implements IMainOptions {
 			// modnar: change to OutputStreamWriter, force UTF-8
 			PrintWriter out = new PrintWriter(new OutputStreamWriter(fout, "UTF-8")); ) {
 			out.println("===== Base ROTP Settings =====");
-			out.println("// Jar Path = " + Rotp.jarPath());
 			out.println();
 			out.println(keyFormat("DISPLAY_MODE")+displayModeToSettingName(displayMode));
 			out.println(keyFormat("GRAPHICS")+graphicsModeToSettingName(graphicsMode));
