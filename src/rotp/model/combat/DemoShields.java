@@ -25,6 +25,7 @@ import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.SortedMap;
@@ -50,9 +51,11 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 
 	private final Color spaceBlue = new Color(32,32,64);
 
+	private final boolean isJar = new File(Rotp.jarPath() + "/images").exists();
 	private String imagePath, imageName;
-	private final String shipPath = Rotp.jarPath() + "\\..\\src\\rotp\\images\\ships\\";
-	private final String monsterPath = Rotp.jarPath() + "\\..\\src\\rotp\\images\\missiles\\";
+	private String imageFolder = isJar? Rotp.jarPath()+"/images" : Rotp.jarPath()+"/../src/rotp/images";
+	private final String shipPath = imageFolder + "/ships/";
+	private final String monsterPath = imageFolder + "/missiles/";
 	private final String[] folders = new String[] {"Alkari", "Bulrathi", "Darlok", "Human",
 			"Klackon", "Meklar", "Mrrshan", "Psilon", "Sakkra", "Silicoid", "Monsters"};
 	private final String[] hulls = new String[] {"A", "B", "C", "D"};
@@ -83,7 +86,7 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 	private int		wpnCount		= 50;
 	private boolean isHeavy			= false;
 	private boolean holdTimer		= false;
-	private int		zoomFactor		= 1;
+	private int		zoomFactor		= isJar? 1 : 4;
 	private boolean resize			= false;
 	private boolean srcRotate		= false;
 	private boolean weaponRotate	= false;
@@ -121,7 +124,6 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 	Color cycleColor2;
 	Stroke weaponStroke;
 	// \Weapon parameters
-	
 	private void initSizes() {
 		screenWidth  = (int) (Rotp.IMG_W * zoomFactor);
 		screenHeight = (int) (Rotp.IMG_H * zoomFactor);
@@ -193,6 +195,9 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 	private void loadShields() {
 		// long timeStart = System.currentTimeMillis();
 		// long timeMid = timeStart;
+		URL rotp = url(Rotp.jarPath() + "\\..\\rotp\\images\\ships\\");
+		System.out.println(Rotp.jarPath());
+		System.out.println(rotp);
 		if (isMonster()) {
 			imagePath = monsterPath;
 			imageName = monsters[monsterId] + ".png";			
