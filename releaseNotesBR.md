@@ -8,7 +8,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Testing tools are still available to allow you to adjust the effects to your liking.
  - Settings -> Display Preferences -> Start Demo
  - Toggle Keys
-   -"R" Toggle Random Animations
+   - "R" Toggle Random Animations
    - "P" Toggle Player is Target (Add Echo)
    - "Q" Toggle Quiet (mute)
   - Sequences Keys

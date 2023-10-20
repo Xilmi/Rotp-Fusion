@@ -200,7 +200,7 @@ public interface IZoomOptions extends IBaseOptsTools {
 	};
 	default int echoSoundHullDelay()		{ return echoSoundHullDelay.get(); }
 
-	ParamInteger echoSoundDecay		= new ParamInteger(MOD_UI, "ECHO_SOUND_DECAY" , 75, 0, 95, 1, 5, 20)
+	ParamInteger echoSoundDecay		= new ParamInteger(MOD_UI, "ECHO_SOUND_DECAY" , 50, 0, 95, 1, 5, 20)
 	{
 		{ isCfgFile(true); }
 		@Override public Integer set(Integer val) {
