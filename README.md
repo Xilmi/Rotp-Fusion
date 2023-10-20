@@ -38,7 +38,6 @@ Bug to fix:
 
 Very soon:
 - Improve responsivity of other options panels
-- Add shield fading...
 - Monsters:
   - Give loots.
   - Option to change their travel time.
@@ -69,6 +68,12 @@ Later:
 
 
 ## What's New
+
+2023.10.20 (BR)
+- New 3D Shield animations.
+- New sound echo for when player is the target.
+- Sound on Hit (not fire) when player is the target.
+- Result panel will wait for the end of animation before poping up.
 
 2023.10.08 (BR)
 - Fixed and re-enabled governor animations.

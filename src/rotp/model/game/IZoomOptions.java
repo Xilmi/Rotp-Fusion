@@ -83,9 +83,9 @@ public interface IZoomOptions extends IBaseOptsTools {
 	{	{ isCfgFile(true); } };
 	default boolean newWeaponSound() 		{ return newWeaponSound.get(); }
 
-	ParamBoolean newPlayerSound		= new ParamBoolean(MOD_UI, "NEW_PLAYER_SOUND", true)
+	ParamBoolean playerSoundEcho		= new ParamBoolean(MOD_UI, "PLAYER_SOUND_ECHO", true)
 	{	{ isCfgFile(true); } };
-	default boolean newPlayerSound() 		{ return newPlayerSound.get(); }
+	default boolean playerSoundEcho() 		{ return playerSoundEcho.get(); }
 
 	ParamBoolean newWeaponAnimation	= new ParamBoolean(MOD_UI, "NEW_WEAPON_ANIMATION", true)
 	{	{ isCfgFile(true); } };
@@ -123,7 +123,7 @@ public interface IZoomOptions extends IBaseOptsTools {
 	{	{ isCfgFile(true); } };
 	default int showResultDelay()			{ return showResultDelay.get(); }
 
-	ParamInteger shieldNoisePct		= new ParamInteger(MOD_UI, "SHIELD_NOISE_PCT" , 20, 0, 200, 1, 5, 20)
+	ParamInteger shieldNoisePct		= new ParamInteger(MOD_UI, "SHIELD_NOISE_PCT" , 30, 0, 200, 1, 5, 20)
 	{	{ isCfgFile(true); } };
 	default int shieldNoisePct()			{ return shieldNoisePct.get(); }
 
@@ -234,7 +234,7 @@ public interface IZoomOptions extends IBaseOptsTools {
 		add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("WEAPON_ANIMATIONS"),
 				showResultDelay,
-				newWeaponSound, newPlayerSound,
+				newWeaponSound, playerSoundEcho,
 				echoSoundDecay, echoSoundDelay, echoSoundHullDelay,
 
 				headerSpacer,

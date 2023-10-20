@@ -640,7 +640,7 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 		int fadingFramesNum = opt.shieldFadingFrames()? windUpFramesNum+2 : 0;
 		int landUpFramesNum = windUpFramesNum;
 
-		boolean playerEcho = opt.newPlayerSound();
+		boolean playerEcho = opt.playerSoundEcho();
 		CombatShield cs = new CombatShield(holdFramesNum, landUpFramesNum, fadingFramesNum,
 				boxW, boxH, targetCtrX, targetCtrY, shieldColor, opt.shieldEnveloping(), shieldBorders,
 				opt.shieldTransparency(), opt.shieldFlickering(), opt.shieldNoisePct(), shieldLevel, shipImg,
@@ -1044,7 +1044,7 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 	}
 	public static void main(String args[]) {
 		DemoShields anim = new DemoShields();
-		app = new JFrame("Animator test");
+		app = new JFrame("3D Shields and Echo Sound Test");
 		app.add(anim, BorderLayout.CENTER);
 		app.setSize(anim.windowWidth, anim.windowHeight);
 		app.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

@@ -567,7 +567,7 @@ public final class TechShipWeapon extends Tech {
         if (target.design() != null)
         	targetSize = target.design().size();
         int sourceSize	= 3;
-        boolean playerEcho = opt.newPlayerSound() && !target.isColony();
+        boolean playerEcho = opt.playerSoundEcho() && !target.isColony();
         if (source.design() != null)
         	sourceSize = source.design().size();
         int shieldBorders = opt.shieldBorder(sourceSize);
