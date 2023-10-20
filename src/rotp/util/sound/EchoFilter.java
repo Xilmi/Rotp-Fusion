@@ -72,7 +72,7 @@ class EchoFilter extends SoundFilter {
 	@Override public void filter(byte[] samples, int offset, int length) {
 		for (int i = offset; i < offset + length-1; i += 2) {
 			// update the sample
-			short oldSample = getSample(samples, i);
+			short oldSample = (short) (getSample(samples, i)/2);
 			short newSample = (short) (oldSample + decay * delayBuffer[delayBufferPos]);
 			setSample(samples, i, newSample);
 			// update the delay buffer
