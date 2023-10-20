@@ -1945,8 +1945,10 @@ HEADERS_ZOOM_FLEET_DESC              | To set fleet path viewing factors.
 HEADERS_ZOOM_FLEET                   | ~~~ ZOOM FLEET FACTORS ~~~%1
 HEADERS_ZOOM_REPLAY_DESC             | To set History replay zoom and pace.
 HEADERS_ZOOM_REPLAY                  | ~~~ HISTORY REPLAY ~~~%1
-HEADERS_WEAPON_ANIMATIONS_DESC       | To set combat beam and shield animations parameters.
+HEADERS_WEAPON_ANIMATIONS_DESC       | To set combat beam animations parameters.
 HEADERS_WEAPON_ANIMATIONS            | ~~~ BEAM WEAPON ANIMATIONS ~~~%1
+HEADERS_SHIELD_ANIMATIONS_DESC       | To set combat shield animations parameters.
+HEADERS_SHIELD_ANIMATIONS            | ~~~ SHIELD ANIMATIONS ~~~%1
 
 HEADERS_SPACER_DESC                  |  
 HEADERS_SPACER                       |  %1
