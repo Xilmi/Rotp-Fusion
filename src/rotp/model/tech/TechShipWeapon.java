@@ -534,8 +534,10 @@ public final class TechShipWeapon extends Tech {
     		return;
     	}
         ShipBattleUI ui = source.mgr.ui;
-        if (!source.mgr.showAnimations()) 
-            return;
+        if (!source.mgr.showAnimations()) {
+        	ui.animationCompleted();
+        	return;
+        }
         IGameOptions opt = options();
 
         BufferedImage shipImg = new BufferedImage(boxW, boxH, TYPE_INT_ARGB);
@@ -751,13 +753,16 @@ public final class TechShipWeapon extends Tech {
 			sleep(sleepTime);
 		}
         ui.paintAllImmediately();
+        ui.animationCompleted();
     }
     private void drawNoShieldAttack(CombatStack source, CombatStack target,
     		int weaponX, int weaponY, int impaxtX, int impactY,
     		int wpnNum, float dmg, int count, int boxW, int boxH, float force) {
         ShipBattleUI ui = source.mgr.ui;
-        if (!source.mgr.showAnimations()) 
-            return;
+        if (!source.mgr.showAnimations()) {
+        	ui.animationCompleted();
+        	return;
+        }
 
         ShipComponent wpn = source.weapon(wpnNum);
         int wpnCount = count / attacksPerRound / source.num;
@@ -873,13 +878,16 @@ public final class TechShipWeapon extends Tech {
         target.drawAttackResult(g,impaxtX,impactY,weaponX, dmg,missLabel);   
         g.setStroke(prev);
         ui.paintAllImmediately();
+        ui.animationCompleted();
     }
     private void drawOldAttack(CombatStack source, CombatStack target,
     		int weaponX, int weaponY, int impactX, int impactY,
     		int wpnNum, float dmg, int count, int boxW, int boxH, float force) {
         ShipBattleUI ui = source.mgr.ui;
-        if (!source.mgr.showAnimations()) 
-            return;
+        if (!source.mgr.showAnimations()) {
+        	ui.animationCompleted();
+        	return;
+        }
 
         // BR: Add Shield effect
         boolean showShield = options().newWeaponAnimation()
@@ -1023,6 +1031,7 @@ public final class TechShipWeapon extends Tech {
         target.drawAttackResult(g,impactX,impactY,weaponX, dmg,missLabel);   
         g.setStroke(prev);
         ui.paintAllImmediately();
+        ui.animationCompleted();
     }
     private ArrayList<Line2D.Double> addMultiLines(int size, int weapons, int sx, int sy, int tx, int ty) {
         int offSet = scaled((size + 1) * 5);

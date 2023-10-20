@@ -119,7 +119,7 @@ public interface IZoomOptions extends IBaseOptsTools {
 	{	{ isCfgFile(true); } };
 	default int beamAnimationDelay()		{ return beamAnimationDelay.get(); }
 
-	ParamInteger showResultDelay	= new ParamInteger(MOD_UI, "SHOW_RESULT_DELAY" , 1000, 0, 5000, 100, 500, 2000)
+	ParamInteger showResultDelay	= new ParamInteger(MOD_UI, "SHOW_RESULT_DELAY" , 2000, 0, 5000, 100, 500, 2000)
 	{	{ isCfgFile(true); } };
 	default int showResultDelay()			{ return showResultDelay.get(); }
 

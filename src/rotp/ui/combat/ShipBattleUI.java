@@ -1983,15 +1983,10 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         }
         paintCellImmediately(mouseGridX, mouseGridY);
     }
-    public void showResult() {
-    	int sleepTime = options().showResultDelay();
-    	if (sleepTime > 0) {
-    		//System.out.println("showResultDelay() = " + sleepTime);
-    		sleep(sleepTime); // BR: little pause time to show the combat animation
-    	}
-        mode = Display.RESULT;
-        repaint();
-    }
+//    public void showResult() {
+//        mode = Display.RESULT;
+//        repaint();
+//    }
     private void retreatStack(CombatStack stack, boolean inCombat) {
         if (mgr.combatIsFinished() || mgr.autoResolve)
             return; 
@@ -2673,4 +2668,31 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             // specials are not used with the fire all weapons action
         }
     }
+    private boolean animationCompleted = true;
+    public void showResult(){
+    	int maxTime = options().showResultDelay();
+    	if (maxTime > 0) {
+            synchronized(this){
+                while(!animationCompleted){
+                    try {
+                    	System.out.println("Wait animationCompleted: " + animationCompleted);
+    					wait(maxTime);
+    					animationCompleted = true;
+                    	System.out.println("Wait animationCompleted: " + animationCompleted);
+    				} catch (InterruptedException e) {
+    					e.printStackTrace();
+    				}
+                }
+            }
+    	}
+        mode = Display.RESULT;
+        repaint();
+    }
+    public void animationCompleted(){
+        synchronized(this){
+             animationCompleted = true;
+             notifyAll();
+        }
+    }
+    public void newAnimationStarted() { animationCompleted = false; }
 }

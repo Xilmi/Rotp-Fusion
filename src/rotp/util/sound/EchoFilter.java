@@ -1,3 +1,17 @@
+/* Based on
+DEVELOPING GAME IN JAVA 
+
+Caracteristiques
+
+Editeur : NEW RIDERS 
+Auteur : BRACKEEN 
+Parution : 09 2003 
+Pages : 972 
+Isbn : 1-59273-005-1 
+Reliure : Paperback 
+Disponibilite : Disponible a la librairie 
+*/
+
 package rotp.util.sound;
 
 import java.io.IOException;

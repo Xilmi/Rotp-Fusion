@@ -1095,7 +1095,7 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 					case KeyEvent.VK_R: // Randomize
 						anim.fullRandom = !anim.fullRandom;
 						return;
-					case KeyEvent.VK_F:
+					case KeyEvent.VK_T:
 					case KeyEvent.VK_S:
 						if (e.isShiftDown())
 							anim.prevFolder();
