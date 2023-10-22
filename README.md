@@ -69,6 +69,9 @@ Later:
 
 ## What's New
 
+2023.10.22 (BR)
+- Fixed sound echo default values.
+
 2023.10.21 (BR)
 - Made pom.xml and release.yml able to manage all configurations.
   - Repository name and owner are automatically identified.
