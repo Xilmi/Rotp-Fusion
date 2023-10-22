@@ -69,6 +69,13 @@ Later:
 
 ## What's New
 
+2023.10.21 (BR)
+- Made pom.xml and release.yml able to manage all configurations.
+  - Repository name and owner are automatically identified.
+  - Selected branch will be relased. (Selected under the button "Run workflow")
+  - Added releaseAsDraft.yml to add the "Draft"-Tag to the release, and partially hide it.
+  - Removed old pom and actions.
+
 2023.10.20 (BR)
 - New 3D Shield animations.
 - New sound echo for when player is the target.
