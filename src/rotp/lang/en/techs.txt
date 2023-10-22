@@ -49,7 +49,7 @@ ATMOSPHERE_0_DETAIL    | Converts Hostile environments to Normal environments fo
 // Automated Repair techs
 // 
 AUTOREPAIR_0_NAME      | Automated Repair System
-AUTOREPAIR_0_BRIEF     | Heals 15% of ship's hits a turn
+AUTOREPAIR_0_BRIEF     | Heals 15% of ship's hit points a turn
 AUTOREPAIR_0_DETAIL    | Undestroyed ships can repair up to 15% of their total hit points at the end of each turn.
 
 AUTOREPAIR_1_NAME      | Advanced Damage Control
@@ -454,7 +454,7 @@ ENGINE_1_BRIEF2  | Combat Speed %1
 
 ENGINE_2_NAME    | Subspace Drives 
 ENGINE_2_DETAIL  | Moves ships at Warp %1, and allows a maximum maneuverability of class III in combat.
-ENGINE_2_ITEM    | SubLight
+ENGINE_2_ITEM    | Subspace
 ENGINE_2_ITEM2   | Class 3
 ENGINE_2_BRIEF   | Warp 3  Def %1
 ENGINE_2_BRIEF2  | Combat Speed %1
@@ -881,7 +881,7 @@ MISSWPN_2_DETAIL    | Missiles equipped with high energy warheads that explode f
 MISSWPN_3_NAME      | Scatter Pack V Rockets
 MISSWPN_3_BRIEF     | 2 shots, +1 speed
 MISSWPN_3_BRIEF2    | 5 shots
-MISSWPN_3_DETAIL    | Mirv versions of Hyper-V Rockets, splitting into five separate warheads that each explode for 6 points of damage and move at a speed of 2.5.
+MISSWPN_3_DETAIL    | MIRV versions of Hyper-V Rockets, splitting into five separate warheads that each explode for 6 points of damage and move at a speed of 2.5.
 
 MISSWPN_4_NAME      | Merculite Missiles
 MISSWPN_4_BRIEF     | 2 shots, +2 to hit
@@ -891,7 +891,7 @@ MISSWPN_4_DETAIL    | Hard-hitting, swift missiles that explode for 10 points of
 MISSWPN_5_NAME      | Stinger Missiles
 MISSWPN_5_BRIEF     | 2 shots, +3 to hit
 MISSWPN_5_BRIEF2    | 5 shots, +3 to hit
-MISSWPN_5_DETAIL    | Slow, hyper-accurate missiles to do 15 points of damage, move at a speed of 3.5, and are controlled by a sophisticated +3 targeting computer.
+MISSWPN_5_DETAIL    | Slow, hyper-accurate missiles that do 15 points of damage, move at a speed of 3.5, and are controlled by a sophisticated +3 targeting computer.
 
 MISSWPN_6_NAME      | Scatter Pack VII Missiles
 MISSWPN_6_BRIEF     | 2 shots, MIRVS to 7
@@ -906,7 +906,7 @@ MISSWPN_7_DETAIL    | Powerful missiles equipped with anti-matter warheads that 
 MISSWPN_8_NAME      | Hercular Missiles
 MISSWPN_8_BRIEF     | 2 shots, +5 to hit
 MISSWPN_8_BRIEF2    | 5 shots, +5 to hit
-MISSWPN_8_DETAIL    | Highly advanced missile that explodes for 25 points of damage. The hercular missiles moves at speed 4.5 and is controlled by a +5 targeting computer.
+MISSWPN_8_DETAIL    | Highly advanced missile that explodes for 25 points of damage. The hercular missile moves at speed 4.5 and is controlled by a +5 targeting computer.
 
 MISSWPN_9_NAME      | Zeon Missiles
 MISSWPN_9_BRIEF     | 2 shots, +6 to hit

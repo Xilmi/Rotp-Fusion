@@ -705,7 +705,10 @@ public class CombatStack implements Base {
         g.setComposite(prevComp);
         if (overlayImg != null) 
             g.drawImage(overlayImg, x1, y1, ui);
-            
+
+        if (ui == null) // BR: To only get a copy of the targeted ship
+        	return;
+
         int y2 = y+stackH-BasePanel.s5;
         g.setFont(narrowFont(16));
         String s = text(name());
@@ -807,7 +810,7 @@ public class CombatStack implements Base {
         	return empire.color();
     }
     public BufferedImage[] shieldImg(int nI, int nA, Dimension size, int srcX, int srcY, int tarX, int tarY,
-    		int xAdj, int yAdj, Color beamColor, float beamForce, float damage) { // TODO BR: BufferedImage[] shieldImg(
+    		int xAdj, int yAdj, Color beamColor, float beamForce, float damage) {
 
     	// Impact Radius is function of beam power (^)
     	// Impact Transparency is function of beam absorption ratio (v)

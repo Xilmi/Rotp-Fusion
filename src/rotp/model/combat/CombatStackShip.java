@@ -681,6 +681,9 @@ public class CombatStackShip extends CombatStack {
         if (transparency < 1)
             g.setComposite(prevComp);
 
+        if (ui == null) // BR: To only get a copy of the targeted ship
+        	return;
+
         if (mgr.currentStack().isShip()) {
             CombatStackShip shipStack = (CombatStackShip) mgr.currentStack();
             if (!mgr.performingStackTurn ) {
@@ -795,7 +798,7 @@ public class CombatStackShip extends CombatStack {
                     int shldW = g.getFontMetrics().stringWidth(valStr);
                     g.drawString(valStr, x4a+((iconW-shldW)/2), y4c+BasePanel.s14);
                 }
-                //draw missie defense level
+                //draw missile defense level
                 g.setColor(shipMissDefenseC);
                 int y4d =y4c+iconW+BasePanel.s1;
                 g.fillOval(x4a, y4d, iconW, iconW);

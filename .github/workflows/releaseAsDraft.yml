@@ -1,11 +1,11 @@
 # This workflow will build a Java project with Maven
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: Xilmi Release
+name: Release as draft
 
 on:
   workflow_dispatch:
-
+  
 jobs:
   build:
 
@@ -28,6 +28,13 @@ jobs:
     - name: Check CPU
       run: sudo cat /proc/cpuinfo
     - name: Build with Maven
-      run: mvn -B clean package github-release:github-release -DGITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} -Dmaven.javadoc.skip=true --file pomXilmi.xml
+      run: mvn -B -fae clean package github-release:github-release -DGITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} -Dmaven.javadoc.skip=true
+           -DrepOwner=${{ github.repository_owner }}
+           -DrepName=${{ github.event.repository.name }}
+           -DrepFullName=${{ github.repository }}
+           -DrepBranch=${{ github.ref_name }}
+           -Dnotes=$RELEASE_NOTES
+           -Dhide=true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        RELEASE_NOTES: ${{ github.repository_owner == 'BrokenRegistry' && 'releaseNotesBR.md' || 'releaseNotesXilmi.md' }}

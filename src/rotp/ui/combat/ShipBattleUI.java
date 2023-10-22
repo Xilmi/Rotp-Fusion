@@ -1628,6 +1628,14 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             drawPlanet(g, (CombatStackColony) st, x, y, w, h);
         }
     }
+    public void drawPlanetOnly(Graphics2D g, CombatStackColony st, int x, int y, int w, int h) {
+        if (renderedPlanetImage != null) {
+//            planetDrawn = true;
+            int imgW = renderedPlanetImage.getWidth();
+            int imgH = renderedPlanetImage.getHeight();
+            g.drawImage(renderedPlanetImage, x, y, x+planetR, y+planetR, 0, 0, imgW, imgH, null);
+        }
+    }
     private void drawPlanet(Graphics2D g, CombatStackColony st, int x, int y, int w, int h) {
         if (renderedPlanetImage != null) {
             planetDrawn = true;
@@ -1941,7 +1949,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         mgr.continueToNextPlayerStack();
         paintAllImmediately();
         if (mgr.combatIsFinished())
-            showResult();
+        	showResult();
         newTargetGridCell();
         
         if (mouseGridX >= 0)
@@ -1975,10 +1983,10 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         }
         paintCellImmediately(mouseGridX, mouseGridY);
     }
-    public void showResult() {
-        mode = Display.RESULT;
-        repaint();
-    }
+//    public void showResult() {
+//        mode = Display.RESULT;
+//        repaint();
+//    }
     private void retreatStack(CombatStack stack, boolean inCombat) {
         if (mgr.combatIsFinished() || mgr.autoResolve)
             return; 
@@ -2660,4 +2668,31 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             // specials are not used with the fire all weapons action
         }
     }
+    private boolean animationCompleted = true;
+    public void showResult(){
+    	int maxTime = options().showResultDelay();
+    	if (maxTime > 0) {
+            synchronized(this){
+                while(!animationCompleted){
+                    try {
+                    	System.out.println("Wait animationCompleted: " + animationCompleted);
+    					wait(maxTime);
+    					animationCompleted = true;
+                    	System.out.println("Wait animationCompleted: " + animationCompleted);
+    				} catch (InterruptedException e) {
+    					e.printStackTrace();
+    				}
+                }
+            }
+    	}
+        mode = Display.RESULT;
+        repaint();
+    }
+    public void animationCompleted(){
+        synchronized(this){
+             animationCompleted = true;
+             notifyAll();
+        }
+    }
+    public void newAnimationStarted() { animationCompleted = false; }
 }

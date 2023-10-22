@@ -21,6 +21,8 @@ import rotp.model.tech.TechBiologicalWeapon;
 
 public class ShipWeapon extends ShipComponent {
     private static final long serialVersionUID = 1L;
+    private static final boolean showErrorMessages = false; // BR: Set to False
+    private static final boolean showErrors = false; // BR: Set to False
     @Override
     public boolean isBeamWeapon()     { return false; }
     @Override
@@ -127,39 +129,63 @@ public class ShipWeapon extends ShipComponent {
         return "";
     }
     public void drawIneffectiveAttack(CombatStack source, CombatStack target, int count) {
-        try {
-            tech().drawIneffectiveAttack(source, target, source.weaponNum(this), count);
-        }
-        catch(Exception e) {
-        	System.err.println("drawIneffectiveAttack Exception");
-        	System.err.println(e);
-        }
+    	if (showErrors)
+    		tech().drawIneffectiveAttack(source, target, source.weaponNum(this), count);
+    	else {
+	        try {
+	            tech().drawIneffectiveAttack(source, target, source.weaponNum(this), count);
+	        }
+	        catch(Exception e) {
+	        	if (showErrorMessages) {
+	        		System.err.println("drawIneffectiveAttack Exception");
+	        		System.err.println(e.getMessage());
+	        	}
+	        }
+    	}
     }
     public void drawUnsuccessfulAttack(CombatStack source, CombatStack target, int count) {
-        try {
-            tech().drawUnsuccessfulAttack(source, target, source.weaponNum(this), count);
-        }
-        catch(Exception e) {
-        	System.err.println("drawUnsuccessfulAttack Exception");
-        	System.err.println(e);
-        }
+    	if (showErrors)
+    		tech().drawUnsuccessfulAttack(source, target, source.weaponNum(this), count);
+    	else {
+	        try {
+	            tech().drawUnsuccessfulAttack(source, target, source.weaponNum(this), count);
+	        }
+	        catch(Exception e) {
+	        	if (showErrorMessages) {
+	        		System.err.println("drawUnsuccessfulAttack Exception");
+	        		System.err.println(e.getMessage());
+	        	}
+	        }
+    	}
     }
     public void drawSuccessfulAttack(CombatStack source, CombatStack target, float dmg, int count) {
-        try {
-            tech().drawSuccessfulAttack(source, target, source.weaponNum(this), dmg, count);
-        }
-        catch(Exception e) {
-        	System.err.println("drawSuccessfulAttack Exception");
-        	System.err.println(e);
-        }              
+    	if (showErrors)
+    		tech().drawSuccessfulAttack(source, target, source.weaponNum(this), dmg, count);
+    	else {
+	        try {
+	            tech().drawSuccessfulAttack(source, target, source.weaponNum(this), dmg, count);
+	        }
+	        catch(Exception e) {
+	        	if (showErrorMessages) {
+	        		System.err.println("drawSuccessfulAttack Exception");
+	        		System.err.println(e.getMessage());
+	        	}
+	        }
+    	}
     }
     public void drawSuccessfulAttack(CombatStack source, CombatStack target, float dmg, int count, float force) {
-        try {
-            tech().drawSuccessfulAttack(source, target, source.weaponNum(this), dmg, count, force);
-        }
-        catch(Exception e) {
-        	System.err.println("drawSuccessfulAttack Exception");
-        	System.err.println(e);
-        }              
+    	if (showErrors)
+    		 tech().drawSuccessfulAttack(source, target, source.weaponNum(this), dmg, count, force);
+    	else {
+            try {
+                tech().drawSuccessfulAttack(source, target, source.weaponNum(this), dmg, count, force);
+            }
+            catch(Exception e) {
+            	if (showErrorMessages) {
+    	        	System.err.println("drawSuccessfulAttack Exception");
+    	        	System.err.println(e.getMessage());
+            	}
+            }
+    	}
     }
 }

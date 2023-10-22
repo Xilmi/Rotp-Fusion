@@ -143,7 +143,7 @@ public class Rand extends Random{
 	/**
 	 * @return  int: 0 <= random value < max
 	 */
-	public int nextInt (int max) { return (int) (max * next());  }
+	@Override public int nextInt (int max) { return (int) (max * next());  }
 
 	// ===== Getters with limits =====
 	/**

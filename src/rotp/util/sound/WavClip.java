@@ -25,26 +25,56 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.Map.Entry;
+
 import rotp.Rotp;
 
 public class WavClip  implements SoundClip, Base {
-    static HashMap<String, WavClip> loadedClips = new HashMap<>();
-    Clip clip;
-    boolean loaded = false;
-    String filename;
-    float gain;
-    int position = 0;
-    boolean continuous = false;
-    String style = "";
+    private static WavMap loadedClips = new WavMap();
+    private static WavMap[] delayClip = newWavMaps(4);
+    private Clip clip;
+    private boolean loaded = false;
+    private String filename;
+    private float gain;
+    private int position = 0;
+    private boolean continuous = false;
+    private String style = "";
+    private float decay;
+    private int msDelay, msHullDelay, shipSize;
     
+    public static void clearDelayClips() {
+    	for (WavMap map : delayClip) {
+    		for (Entry<String, WavClip> entry : map.entrySet()) {
+    			WavClip dc = entry.getValue();
+    			if (dc.clip !=null) {
+    				dc.clip.close();
+    			}
+    		}
+    		map.clear();
+    	}
+    }
+    private static WavMap[] newWavMaps(int size) {
+    	WavMap[] mapArray = new WavMap[size];
+    	for (int i=0; i<size; i++)
+    		mapArray[i] = new WavMap(); 
+    	return mapArray;
+    }
     public static WavClip play(String fn, float clipGain, float masterVolume) {
         if (!loadedClips.containsKey(fn)) 
             loadedClips.put(fn, new WavClip(fn, clipGain));
-        
         WavClip wc = loadedClips.get(fn);
         wc.setVolume(masterVolume);
         wc.play();
-        return wc;
+        return wc;    		
+    }
+    static WavClip play(String fn, float clipGain, float masterVolume, int hullSize) { // BR:
+        if (!delayClip[hullSize].containsKey(fn)) 
+        	delayClip[hullSize].put(fn, new WavClip(fn, clipGain, hullSize));
+        WavClip wc = delayClip[hullSize].get(fn);
+        //System.out.println("msDelay: " + wc.msDelay + "  decay: " + wc.decay );
+        wc.setVolume(masterVolume);
+        wc.play();
+        return wc;    		
     }
     public static WavClip playContinuously(String fn, float clipGain, String s, float masterVolume) {
          if (!loadedClips.containsKey(fn)) 
@@ -63,6 +93,54 @@ public class WavClip  implements SoundClip, Base {
         WavClip wc = loadedClips.get(fn);
         wc.setVolume(vol);
     }          
+    public WavClip(String fn, float vol, int hullSize) { // BR:
+        filename	= fn;
+        gain		= vol;
+        shipSize	= hullSize;
+        msHullDelay	= options().echoSoundHullDelay();
+        msDelay		= options().echoSoundDelay() + shipSize*msHullDelay;
+        decay		= options().echoSoundDecay();
+        loaded		= false;
+        
+        AudioInputStream ais = null;
+        DataLine.Info info = null;
+        try {
+            if (!loaded) {
+        		EchoFilter filter = new EchoFilter(msDelay*48, decay);
+                BufferedInputStream is = new BufferedInputStream(wavFileStream(fn));
+//                is = new FilteredSoundStream(is, filter);
+                ais = AudioSystem.getAudioInputStream(is);
+                info = new DataLine.Info(Clip.class, ais.getFormat());
+                ais = new FilteredSoundStream(ais, filter);
+                clip = (Clip)AudioSystem.getLine(info);
+                clip.open(ais);
+                if (vol < 1 && clip.isControlSupported(MASTER_GAIN)) {
+                    log("setting gain for sound: "+filename+"  to "+(int)(gain*100));
+                    FloatControl gain = (FloatControl) clip.getControl(MASTER_GAIN);
+                    gain.setValue(20f * (float) Math.log10(vol));
+                }
+                loaded = true;
+            }
+        }
+        catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+            System.err.println("Error looking for DataLine.Info "+info);
+            if (info != null && info.getFormats() != null && info.getFormats().length > 0) {
+                for (AudioFormat f : info.getFormats()) {
+                    System.err.println("Format channels="+f.getChannels()+" samplerate="+f.getSampleRate()
+                            +" framerate="+f.getFrameRate()+" framesize="+f.getFrameSize()
+                            +" encoding="+f.getEncoding()+" "+f);
+                }
+            } else {
+                System.err.println("Error happened before determining input stream DataLine.Info details");
+            }
+            System.err.println(e.toString());
+            System.err.println(e.getStackTrace());
+        }
+        finally {
+            if (ais != null)
+                try { ais.close(); } catch (IOException e) {}
+        }
+    }
     public WavClip(String fn, float vol) {
         filename = fn;
         gain = vol;
@@ -161,3 +239,4 @@ public class WavClip  implements SoundClip, Base {
         }
     }
 }
+class WavMap extends HashMap<String, WavClip> { }

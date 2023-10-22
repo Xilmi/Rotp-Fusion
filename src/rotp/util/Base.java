@@ -153,6 +153,9 @@ public interface Base {
     public default SoundClip playAudioClip(String key) {
         return SoundManager.current().playAudioClip(key);
     }
+    public default SoundClip playAudioClip(String key, int hullSize) {
+        return SoundManager.current().playAudioClip(key, hullSize);
+    }
     public default SoundClip alwaysPlayAudioClip(String key) {
         return SoundManager.current().alwaysPlay(key);
     }

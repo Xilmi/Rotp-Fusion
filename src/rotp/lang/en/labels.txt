@@ -1904,8 +1904,8 @@ HEADERS_GAME_DIFFICULTY           | ~~~ GAME DIFFICULTY ~~~%1
 HEADERS_RESTART_OPTIONS_HELP      | Hidden behind the&nbsp <b>Start</b>&nbsp button, using the&nbsp <b>Ctrl</b>&nbsp Key you will find the&nbsp <b>Restart</b>&nbsp button.<br>You will be asked to select an old played game to start a new one on the same galaxy.<br>- With the same opponents or new ones.<br>- With the same player species, a new one, or swapped with a previous opponent.<br> You can keep your home world or swapp it with a previous opponent.<br> The following options are controlling the way a game will be restarted.
 HEADERS_RESTART_OPTIONS_DESC      | Options controlling the way a game will be restarted. Only read when restarting a game.
 HEADERS_RESTART_OPTIONS           | ~~~ RESTART OPTIONS ~~~%1
-HEADERS_ZOOM_FACTORS_DESC         | Options controlling the galaxy Map Zoom Factors. Can be changed dynamically. (Remnant.cfg options)
-HEADERS_ZOOM_FACTORS              | ~~~ MAP ZOOM FACTORS ~~~%1
+HEADERS_ZOOM_FACTORS_DESC         | Open Sub Menu to set several In-Game Preferences: Map zooming factors, Replay speed, Combat Shield Effects. (Remnant.cfg options)
+HEADERS_ZOOM_FACTORS              | ~~~ DISPLAY PREFERENCES ~~~%1
 HEADERS_MENU_OPTIONS_DESC         | Options controlling Menu Parameters. Can be changed dynamically. (Remnant.cfg options)
 HEADERS_MENU_OPTIONS              | ~~~ MENU'S OPTIONS ~~~%1
 HEADERS_PLANETS_FLAG_OPTIONS_DESC | To allow greater customization of the flag(s) of the planets.
@@ -1945,6 +1945,10 @@ HEADERS_ZOOM_FLEET_DESC              | To set fleet path viewing factors.
 HEADERS_ZOOM_FLEET                   | ~~~ ZOOM FLEET FACTORS ~~~%1
 HEADERS_ZOOM_REPLAY_DESC             | To set History replay zoom and pace.
 HEADERS_ZOOM_REPLAY                  | ~~~ HISTORY REPLAY ~~~%1
+HEADERS_WEAPON_ANIMATIONS_DESC       | To set combat beam animations parameters.
+HEADERS_WEAPON_ANIMATIONS            | ~~~ BEAM WEAPON ANIMATIONS ~~~%1
+HEADERS_SHIELD_ANIMATIONS_DESC       | To set combat shield animations parameters.
+HEADERS_SHIELD_ANIMATIONS            | ~~~ SHIELD ANIMATIONS ~~~%1
 
 HEADERS_SPACER_DESC                  |  
 HEADERS_SPACER                       |  %1
@@ -2124,9 +2128,21 @@ SETTINGS_MOD_TECH_INDUSTRY_2             | Tech Factory cost 2: %1
 SETTINGS_MOD_TECH_THORIUM_HELP           | To Force Include or Exclude the Technology <b>Thorium Cells</b>&nbsp in the Tech Tree.<br>This technology could be available at Level 41.<br>Essential to reach Orion in some ring and symmetric galaxies... But some time you only want to protect you backlines...
 SETTINGS_MOD_TECH_THORIUM_DESC           | (Level 41) {Always, Never, Auto} Include "Thorium Cells" in the Tech Tree for Player/AI.
 SETTINGS_MOD_TECH_THORIUM                | Tech Thorium Cells: %1
-SETTINGS_MOD_TECH_TRANSPORTERS_HELP      | To Force Include or Exclude the Technology <b>Combat Transporter</b>&nbsp in the Tech Tree.<br>This technology could be available at Level 45.<br>A remedy against savage invasions...
+SETTINGS_MOD_TECH_TRANSPORTERS_HELP      | To Force Include or Exclude the Technology <b>Combat Transporter</b>&nbsp in the Tech Tree.<br>This technology could be available at Level 45.<br>A possible remedy against savage invasions...
 SETTINGS_MOD_TECH_TRANSPORTERS_DESC      | (Level 45) {Always, Never, Auto} Include "Combat Transporter" in the Tech Tree for Player/AI.
 SETTINGS_MOD_TECH_TRANSPORTERS           | Tech Combat Transporter: %1
+
+SETTINGS_MOD_TECH_CLONING_HELP           | To Force Include or Exclude the Technology <b>Cloning</b>&nbsp in the Tech Tree.<br>This technology could be available at Level 21.<br>A possible contribution against savage invasions...
+SETTINGS_MOD_TECH_CLONING_DESC           | (Level 21) {Always, Never, Auto} Include "Cloning" in the Tech Tree for Player/AI.
+SETTINGS_MOD_TECH_CLONING                | Tech Cloning: %1
+
+SETTINGS_MOD_TECH_ATMOSPHERIC_HELP       | To Force Include or Exclude the Technology <b>Atmospheric Terraforming</b>&nbsp in the Tech Tree.<br>This technology could be available at Level 22.<br> To remove the 50% Hostile penalty...
+SETTINGS_MOD_TECH_ATMOSPHERIC_DESC       | (Level 22) {Always, Never, Auto} Include "Atmospheric Terraforming" in the Tech Tree for Player/AI.
+SETTINGS_MOD_TECH_ATMOSPHERIC            | Atmospheric Terraform: %1
+
+SETTINGS_MOD_TECH_GAIA_HELP              | To Force Include or Exclude the Technology <b>Advanced Soil Enrichment</b>&nbsp in the Tech Tree.<br>This technology could be available at Level 30.<br>And will allow Gaia Terraforming...
+SETTINGS_MOD_TECH_GAIA_DESC              | (Level 30) {Always, Never, Auto} Include "Advanced Soil Enrichment" (Gaia Terraforming) in the Tech Tree for Player/AI.
+SETTINGS_MOD_TECH_GAIA                   | Tech Adv. Soil Enrichment: %1
 
 SETTINGS_MOD_RACES_RAND_MIN_HELP         | Setting used when opponents 'Random' abilities are selected.<br>When "Custom Aliens" = Setting Range, each individual setting will be set within a relative range. This is the lower limit of this range.
 SETTINGS_MOD_RACES_RAND_MIN_DESC         | Alien species randomization: Lower limit for the settings relative randomization window.
@@ -2278,6 +2294,51 @@ SETTINGS_MOD_NEW_WEAPON_ANIMATION_DESC   | Show Shield and miss effect.
 SETTINGS_MOD_NEW_WEAPON_ANIMATION        | New Weapon Animation: %1
 SETTINGS_MOD_NEW_WEAPON_SOUND_DESC       | Distinct weapon sound instead of only two!
 SETTINGS_MOD_NEW_WEAPON_SOUND            | New Weapon Sound: %1
+SETTINGS_MOD_PLAYER_SOUND_ECHO_DESC      | Add Echo to weapon sound if the player is the target!
+SETTINGS_MOD_PLAYER_SOUND_ECHO           | Player Target Echo: %1
+SETTINGS_MOD_ECHO_SOUND_DELAY_DESC       | Base Echo Delay, for small hull size!
+SETTINGS_MOD_ECHO_SOUND_DELAY            | Echo Base Delay: %1 ms
+SETTINGS_MOD_ECHO_SOUND_HULL_DELAY_DESC  | Additionnal Echo Delay per Hull size!
+SETTINGS_MOD_ECHO_SOUND_HULL_DELAY       | Echo Hull Delay: %1 ms
+SETTINGS_MOD_ECHO_SOUND_DECAY_DESC       | Echo Decay parameter: 0% = no Echo; 100% = Permanent echo!
+SETTINGS_MOD_ECHO_SOUND_DECAY            | Echo Decay: %1%
+
+SETTINGS_MOD_BEAM_WINDUP_FRAMES_DESC     | Beam building duration. (Should be instantaneous, but seing the beam propagation is nice too!) 
+SETTINGS_MOD_BEAM_WINDUP_FRAMES          | Beam Windup Frames: %1
+SETTINGS_MOD_BEAM_HOLD_FRAMES_DESC       | After the beam building phase, the attack can be hold a little bit. This value will be added to the base weapon hold value.
+SETTINGS_MOD_BEAM_HOLD_FRAMES            | Beam Hold Frames: %1
+SETTINGS_MOD_HEAVY_BEAM_HOLD_FRAMES_DESC | Heavy beams could last longer than base beam weapons. This will be added to both base weapon hold value, and non-heavy Beam Hold Frames added value.
+SETTINGS_MOD_HEAVY_BEAM_HOLD_FRAMES      | Heavy Beam Hold Frames: %1
+SETTINGS_MOD_SHIELD_FADING_FRAMES_DESC   | Show Shield fading effect.
+SETTINGS_MOD_SHIELD_FADING_FRAMES        | Shield Fading Frames: %1
+SETTINGS_MOD_SHIELD_ENVELOPING_DESC      | Local shield effects vs always enveloping shield effects.
+SETTINGS_MOD_SHIELD_ENVELOPING           | Shield Enveloping: %1
+SETTINGS_MOD_BEAM_ANIMATION_DELAY_DESC   | Pause between two frames. You may try to balance this value with higher frames number to get a smoother animation.
+SETTINGS_MOD_BEAM_ANIMATION_DELAY        | Animation Delay: %1 ms
+SETTINGS_MOD_SHOW_RESULT_DELAY_DESC      | The results panel should no longer appear until the animations finish. This is a security delay in the event of a bug. If set to "0 ms", the panel will appear immediately, just like before!
+SETTINGS_MOD_SHOW_RESULT_DELAY           | Result Max Delay: %1 ms
+SETTINGS_MOD_ALWAYS_SHOWS_SHIELD_DESC    | Shield animations will still be displayed, even if the target has no shield!
+SETTINGS_MOD_ALWAYS_SHOWS_SHIELD         | Always Shows Shield: %1
+SETTINGS_MOD_SHIELD_NOISE_PCT_DESC       | Add some noise to the shield animations.
+SETTINGS_MOD_SHIELD_NOISE_PCT            | Shield Noise: %1%
+SETTINGS_MOD_SHIELD_TRANSPARENCY_DESC    | Low value for high shield intensity; High value gives more transparency.
+SETTINGS_MOD_SHIELD_TRANSPARENCY         | Shield Transparency: %1%
+SETTINGS_MOD_SHIELD_FLICKERING_DESC      | Litte shield intensity vibration during the holding phase.
+SETTINGS_MOD_SHIELD_FLICKERING           | Shield Flickering: %1%
+SETTINGS_MOD_SHIELD_BORDER_DESC          | Shield border thickness.
+SETTINGS_MOD_SHIELD_BORDER               | Shield Borders: %1
+SETTINGS_MOD_SHIELD_BORDER_SIZE          | Hull Related.
+SETTINGS_MOD_SHIELD_BORDER_SIZE_DESC     | Shield Borders are proportional to the hull size; from 1 to 4.
+SETTINGS_MOD_SHIELD_BORDER_SIZE_2        | Hull Related x2.
+SETTINGS_MOD_SHIELD_BORDER_SIZE_2_DESC   | Shield Borders are proportional to the hull size; from 2 to 8.
+SETTINGS_MOD_WEAPON_Z_POS_DESC           | To add a top view on shield Effect.
+SETTINGS_MOD_WEAPON_Z_POS                | Weapon Z Position: %1
+SETTINGS_MOD_WEAPON_Z_RANDOM_DESC        | To randomize the Weapon Z position. Max variability around the nominal value.
+SETTINGS_MOD_WEAPON_Z_RANDOM             | Weapon Z Randomness: %1
+SETTINGS_MOD_START_SHIELD_DEMO_DESC      | Start a demo on an independent window to help tuning parameters.
+SETTINGS_MOD_START_SHIELD_DEMO           | Start Demo: %1
+SETTINGS_MOD_START_SHIELD_DEMO_HELP      | Start a demo on an independent window to help tuning parameters.<br><b>Toggle Keys</b><br>"R" Toggle Random Animations<br>"P" Toggle Player is Target (Add Echo)<br>"Q" Toggle Quiet (mute)<br><b>Sequences Keys</b><br>"C"/"Shift-C"/"Ctrl-C": Shield color Next/Previous/Loop<br>"W"/"Shift-W"/"Ctrl-W": Weapon Selection Next/Previous/Loop<br>"M"/"Shift-M": Ship Model (shape) Next/Previous<br>"H"/"Shift-H": Ship Hull (size) Next/Previous<br>"T"/"Shift-T": Ship Type (species) Next/Previous<br>"<-"/"->": Loop thru all ships Next/Previous<br>"Z"/"Shift-Z": Zoom (window size) Next/Previous<br><b>Locations Keys</b><br>Num Pad: Weapon Location ("5" = Loop)
+
 
 SETTINGS_MOD_SHOW_NEW_RACES_DESC         | Show the new species in the opponents list?
 SETTINGS_MOD_SHOW_NEW_RACES              | Show new species: %1
@@ -2326,9 +2387,10 @@ SETTINGS_MOD_DEBUG_OPTIONS_TITLE         | Developper's Options
 SETTINGS_MOD_DEBUG_OPTIONS_UI            | Debug Options: %1
 SETTINGS_MOD_DEBUG_OPTIONS_UI_DESC       | Open Sub Menu to set development tools.
 
-SETTINGS_MOD_ZOOM_OPTIONS_TITLE          | Zoom Factors Options
-SETTINGS_MOD_ZOOM_OPTIONS_UI             | Zoom Factors: %1
-SETTINGS_MOD_ZOOM_OPTIONS_UI_DESC        | Open Sub Menu to set diverse map zooming factors and replay speed.
+SETTINGS_MOD_ZOOM_OPTIONS_TITLE          | In-Game Display Preferences
+SETTINGS_MOD_ZOOM_OPTIONS_UI             | Display Preferences: %1
+SETTINGS_MOD_ZOOM_OPTIONS_UI_DESC        | Open Sub Menu to set diverse map zooming factors, replay speed, Combat Shield Effects.
+SETTINGS_MOD_ZOOM_OPTIONS_UI_HELP        | Open Sub Menu to set several In-Game Preferences: Map zooming factors, Replay speed, Combat Shield Effects.
 
 SETTINGS_MOD_FLAG_COLOR_COUNT_DESC       | How may colors should appear on the Star System Flag?
 SETTINGS_MOD_FLAG_COLOR_COUNT            | Flag Color Count: %1

@@ -38,8 +38,13 @@ Bug to fix:
 
 Very soon:
 - Improve responsivity of other options panels
-- Add shield fading...
+- Monsters:
+  - Give loots.
+  - Option to change their travel time.
+  - Option to start late game
+    - Associated with specific tech discovery.
 - Character panel: improve the reactivity.
+- Spy: option to not over spend with the spy budget!
 - Add second statistic option: (on the side of lin / log): Display statistic as:
     - "% Tot": Precentage relative to known total (!= Galaxy Total)
     - "% Player": Percentage relative to player value.
@@ -48,6 +53,7 @@ Very soon:
     - ("Individual choice"?): Probably not! individual choice for each parameter
 - statistic: improve help
 - Some Achievements options.
+
 Later:
 - Smooth the Trade blocking option.
 - Investigate: William482 request: Age of your data on each race into the bar graphs on the status page.
@@ -57,9 +63,40 @@ Later:
 - Governor: Auto-invasion ?!
 - Governor: Individual disable receive troops
   - The AI is bombing my world, killing 7 or so colonists per turn. Every turn, my healthy planets send colonists to 'help', which ALL get killed by the orbiting enemy fleet. I would like to be able to prevent this while still allowing transport between my other planets.
+- Dark Galaxy Idea
+  - https://www.reddit.com/r/rotp/comments/171flnl/dark_galaxy_idea/
 
 
 ## What's New
+
+2023.10.22 (BR)
+- Fixed sound echo default values.
+
+2023.10.21 (BR)
+- Made pom.xml and release.yml able to manage all configurations.
+  - Repository name and owner are automatically identified.
+  - Selected branch will be relased. (Selected under the button "Run workflow")
+  - Added releaseAsDraft.yml to add the "Draft"-Tag to the release, and partially hide it.
+  - Removed old pom and actions.
+
+2023.10.20 (BR)
+- New 3D Shield animations.
+- New sound echo for when player is the target.
+- Sound on Hit (not fire) when player is the target.
+- Result panel will wait for the end of animation before poping up.
+
+2023.10.08 (BR)
+- Fixed and re-enabled governor animations.
+- Added new options to allow/disallow Technologies research:
+  - Atmospheric Terraforming,
+  - Cloning,
+  - Advanced Soil Enrichment.
+
+2023.10.07 (BR)
+- Tools for new 3d combat shield animations.
+
+2023.10.06 (Peyre)
+- Fixes typos in tech file.
 
 2023.10.01 (Xilmi)
 - Fixed an issue where the AI-ship-captain would shoot beam-weapons at the planet instead of ships even when the planet couldn't be damaged by them.
