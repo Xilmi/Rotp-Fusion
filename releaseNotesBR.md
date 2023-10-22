@@ -2,6 +2,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Updates since last releases:</ins></b>
 - Fixed sound echo default values.
+- Fixed ship building turns estimation when ship reserve is used.
 
 <b><ins>New 3D Shields effects:</ins></b>
 - Ship images are analyzed to determine an enveloping ellipse, the basis for the shield ellipsoid.

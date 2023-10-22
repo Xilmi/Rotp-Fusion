@@ -71,6 +71,7 @@ Later:
 
 2023.10.22 (BR)
 - Fixed sound echo default values.
+- Fixed ship building turns estimation when ship reserve is used.
 
 2023.10.21 (BR)
 - Made pom.xml and release.yml able to manage all configurations.

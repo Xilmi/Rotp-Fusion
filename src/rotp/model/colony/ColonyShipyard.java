@@ -394,7 +394,9 @@ public class ColonyShipyard extends ColonySpendingCategory {
             if (newBC == 0)
                 return text(noneText);
             else {
-                int turns = (int) Math.ceil((cost - accumBC) / newBC);
+                // int turns = (int) Math.ceil((cost - accumBC) / newBC);
+            	// BR: Fixed turns estimation when ship reserve is used
+                int turns = (int) Math.ceil(1 + (cost - totalBC)/newBC);
                 if (turns == 1)
                     return text(yearText, 1);
                 else if (turns > 99)
