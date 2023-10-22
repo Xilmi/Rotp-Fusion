@@ -1,5 +1,8 @@
 Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
+<b><ins>Updates since last releases:</ins></b>
+- Fixed sound echo default values.
+
 <b><ins>New 3D Shields effects:</ins></b>
 - Ship images are analyzed to determine an enveloping ellipse, the basis for the shield ellipsoid.
 - The center of the cell was the target... but the ships are not always centered in the cell ==> The ships are now the real target.

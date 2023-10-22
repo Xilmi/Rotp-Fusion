@@ -174,7 +174,7 @@ public interface IZoomOptions extends IBaseOptsTools {
 	};
 	default boolean startShieldDemo()		{ return startShieldDemo.get(); }
 	
-	ParamInteger echoSoundDelay		= new ParamInteger(MOD_UI, "ECHO_SOUND_DELAY" , 50, 10, 500, 5, 20, 50)
+	ParamInteger echoSoundDelay		= new ParamInteger(MOD_UI, "ECHO_SOUND_DELAY" , 90, 10, 500, 5, 20, 50)
 	{
 		{ isCfgFile(true); }
 		@Override public Integer set(Integer val) {
@@ -187,7 +187,7 @@ public interface IZoomOptions extends IBaseOptsTools {
 	};
 	default int echoSoundDelay()			{ return echoSoundDelay.get(); }
 
-	ParamInteger echoSoundHullDelay	= new ParamInteger(MOD_UI, "ECHO_SOUND_HULL_DELAY" , 25, 0, 100, 1, 5, 20)
+	ParamInteger echoSoundHullDelay	= new ParamInteger(MOD_UI, "ECHO_SOUND_HULL_DELAY" , 30, 0, 100, 1, 5, 20)
 	{
 		{ isCfgFile(true); }
 		@Override public Integer set(Integer val) {
