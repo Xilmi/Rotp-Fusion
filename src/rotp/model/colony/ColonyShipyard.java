@@ -378,11 +378,13 @@ public class ColonyShipyard extends ColonySpendingCategory {
         float newBC = prodBC+rsvBC;
         float totalBC = max(newBC+accumBC, 0);
         float cost = design.cost();
+        float fromReserve = 0;
 
         // add BC from shipyard reserve if buildling ship (ship rsv is capped by prod)
         if (!buildingStargate) 
-            totalBC = totalBC+min(tmpShipReserveBC,prodBC);
-
+        	fromReserve = min(tmpShipReserveBC,prodBC);
+        totalBC += fromReserve;
+        
         if (totalBC == 0)
             return text(noneText);
 
@@ -390,13 +392,27 @@ public class ColonyShipyard extends ColonySpendingCategory {
             return overflowText();
 
         // returns how many years if we are not spending enough to finish even 1 
-        if (totalBC < cost) {
+        float missingBC = cost-totalBC;
+        if (missingBC>0) {
             if (newBC == 0)
                 return text(noneText);
             else {
+            	int turns = (int) Math.ceil(missingBC/newBC);
+            	tmpShipReserveBC-=fromReserve;
+            	if(tmpShipReserveBC>0) {
+            		int reserveTurns = (int) (tmpShipReserveBC/newBC);
+            		turns=(int) Math.ceil(missingBC/(2*newBC));
+            		if (turns > reserveTurns) {
+            			turns = reserveTurns+1;
+            			missingBC-= (tmpShipReserveBC+turns*newBC);
+            			if (missingBC>0)
+            				turns += (int) Math.ceil(missingBC/newBC);
+            		}
+            	}
+            	turns+=1;
                 // int turns = (int) Math.ceil((cost - accumBC) / newBC);
             	// BR: Fixed turns estimation when ship reserve is used
-                int turns = (int) Math.ceil(1 + (cost - totalBC)/newBC);
+                
                 if (turns == 1)
                     return text(yearText, 1);
                 else if (turns > 99)

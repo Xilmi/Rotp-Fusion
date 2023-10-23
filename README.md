@@ -69,6 +69,9 @@ Later:
 
 ## What's New
 
+2023.10.23 (BR)
+- Extended ship building turns estimation Fix to full reserve consumption.
+
 2023.10.22 (BR)
 - Fixed sound echo default values.
 - Fixed ship building turns estimation when ship reserve is used.
