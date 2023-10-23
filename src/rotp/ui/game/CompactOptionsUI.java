@@ -433,6 +433,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 			goToNextSetting();
 		}
 		g.setStroke(prev);
+		showGuide(g);
 		if (showTiming)
 			System.out.println("Compact paintComponent() Time = " + (System.currentTimeMillis()-timeStart));	
 	}

@@ -577,7 +577,17 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
         int y0 = mapY(map);
         int r0 = drawRadius(map);
         twinkleOffset++;
-
+        
+        // TODO BR: Dark Galaxy
+        SystemView sv = pl.sv.view(id);
+        if (options().selectedDarkGalaxy()) {
+        	if (!sv.scouted()) {
+        		float dist = sv.distance();
+        		float scoutRange = pl.scoutRange();
+        		if(dist>scoutRange)
+        			return;
+        	}
+        }
         Empire emp = map.parent().knownEmpire(id, pl);
         // draw ownership radius?
         if ((emp != null) && map.parent().showOwnerReach(this))
@@ -586,7 +596,7 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
         boolean drawStar = map.parent().drawStar(this);
         if (drawStar) {
             if (!session().performingTurn()) {
-                SystemView sv = pl.sv.view(id);
+                // SystemView sv = pl.sv.view(id);
                 Color c0 = map.parent().alertColor(sv);
                 if (c0 != null) 
                     drawAlert(map, g2, c0, x0, y0);

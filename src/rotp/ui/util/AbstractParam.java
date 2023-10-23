@@ -49,7 +49,7 @@ public abstract class AbstractParam <T> implements IParam{
 	private int	isGovernor	= NOT_GOVERNOR;
 	private boolean isDuplicate	= false;
 	private boolean isCfgFile	= false;
-	private boolean isValueInit	= true;
+	private boolean isValueInit	= true; // default values are initialized with current value.
 
 	// ========== constructors ==========
 	//

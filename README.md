@@ -63,14 +63,16 @@ Later:
 - Governor: Auto-invasion ?!
 - Governor: Individual disable receive troops
   - The AI is bombing my world, killing 7 or so colonists per turn. Every turn, my healthy planets send colonists to 'help', which ALL get killed by the orbiting enemy fleet. I would like to be able to prevent this while still allowing transport between my other planets.
-- Dark Galaxy Idea
-  - https://www.reddit.com/r/rotp/comments/171flnl/dark_galaxy_idea/
+- Are there any plans to give the player an option whether to drop Death Spores or not, when they are present? (Or to only use Death Spores, and not bombs)?
 
 
 ## What's New
 
 2023.10.23 (BR)
 - Extended ship building turns estimation Fix to full reserve consumption.
+- Fixed guide appearance on compact option panel
+- Fixed Pom.xml giving errors on eclipse IDE.
+- New option: Dark Galaxy Mode.
 
 2023.10.22 (BR)
 - Fixed sound echo default values.

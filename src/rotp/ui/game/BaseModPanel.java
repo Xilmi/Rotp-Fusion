@@ -956,9 +956,10 @@ public abstract class BaseModPanel extends BasePanel
 					preTest = testW;
 		    		pane.setSize(new Dimension(testW, Short.MAX_VALUE));
 		    		pane.setText(text);
-		    		w = min(testW, pane.getPreferredSize().width);
-		    		h = pane.getPreferredSize().height;
-		    		testW *= (float) h /iH;
+		    		Dimension paneSize = pane.getPreferredSize();
+		    		w = min(testW, paneSize.width);
+		    		h = paneSize.height;
+	    			testW *= (float) h /iH;
 				}
 				go = (w > iW || h > iH);
 				if (go) {

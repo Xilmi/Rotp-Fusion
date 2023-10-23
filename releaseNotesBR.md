@@ -1,8 +1,15 @@
 Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Updates since last releases:</ins></b>
+- New option: Dark Galaxy Mode.
+  - Only Star systems in scout range or in scanner range are shown.
+  - Spy also gives approximative location and info of contacted empires.
+
+<b><ins>Bug Fixes:</ins></b>
 - Fixed sound echo default values.
 - Fixed ship building turns estimation when ship reserve is used.
+- Fixed guide appearance on compact option panels.
+
 
 <b><ins>New 3D Shields effects:</ins></b>
 - Ship images are analyzed to determine an enveloping ellipse, the basis for the shield ellipsoid.

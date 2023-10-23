@@ -197,6 +197,7 @@
 					</execution>
 				</executions>
 				<configuration>
+					<revisionOnScmFailure>no.scm.config.in.pom</revisionOnScmFailure>
 					<timestampFormat>yyyy/MM/dd/HHmm</timestampFormat>
 					<timestampPropertyName>build.date</timestampPropertyName>
 				</configuration>
