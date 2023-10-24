@@ -19,6 +19,7 @@ import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
+import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamSubUI;
 import rotp.ui.util.ParamTitle;
 
@@ -86,10 +87,6 @@ public interface IZoomOptions extends IBaseOptsTools {
 	ParamBoolean playerSoundEcho		= new ParamBoolean(MOD_UI, "PLAYER_SOUND_ECHO", true)
 	{	{ isCfgFile(true); } };
 	default boolean playerSoundEcho() 		{ return playerSoundEcho.get(); }
-
-	ParamBoolean newWeaponAnimation	= new ParamBoolean(MOD_UI, "NEW_WEAPON_ANIMATION", true)
-	{	{ isCfgFile(true); } };
-	default boolean newWeaponAnimation()	{ return newWeaponAnimation.get(); }
 
 	ParamBoolean alwaysShowsShield	= new ParamBoolean(MOD_UI, "ALWAYS_SHOWS_SHIELD", true)
 	{	{ isCfgFile(true); } };
@@ -213,6 +210,28 @@ public interface IZoomOptions extends IBaseOptsTools {
 	};
 	default float echoSoundDecay()			{ return echoSoundDecay.get()/100f; }
 
+	ParamBoolean former2DShield	= new ParamBoolean(MOD_UI, "FORMER_2D_SHIELD", true)
+	{	{ isCfgFile(true); } };
+	default boolean former2DShield()		{ return former2DShield.get(); }
+
+	ParamList shieldType		= new ParamList( MOD_UI, "NEW_WEAPON_ANIMATION", "Yes") {
+		{
+			{ isCfgFile(true); }
+			showFullGuide(true);
+			put("No",	MOD_UI + "SHIELD_TYPE_NONE"); // for compatibility with former boolean
+			put("Yes",	MOD_UI + "SHIELD_TYPE_3D");   // for compatibility with former boolean
+			put("2D",	MOD_UI + "SHIELD_TYPE_2D");
+//			put("3B",	MOD_UI + "SHIELD_TYPE_3_BUFFERS");
+		}
+	};
+	default boolean shieldType3D()			{ return shieldType.get().equalsIgnoreCase("Yes"); }
+	default boolean shieldType2D()			{ return shieldType.get().equalsIgnoreCase("2D"); }
+	default boolean shieldType3Buffer()		{ return shieldType.get().equalsIgnoreCase("3B"); }
+
+//	ParamBoolean newWeaponAnimation	= new ParamBoolean(MOD_UI, "NEW_WEAPON_ANIMATION", true)
+//	{	{ isCfgFile(true); } };
+//	default boolean newWeaponAnimation()	{ return newWeaponAnimation.get(); }
+
 
 	// ==================== GUI List Declarations ====================
 	//
@@ -243,7 +262,7 @@ public interface IZoomOptions extends IBaseOptsTools {
 				)));
 		add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("SHIELD_ANIMATIONS"),
-				newWeaponAnimation, alwaysShowsShield, 
+				shieldType, alwaysShowsShield, 
 	
 				headerSpacer,
 				beamAnimationDelay, shieldEnveloping, shieldBorder,

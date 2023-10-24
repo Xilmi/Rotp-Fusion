@@ -2293,8 +2293,16 @@ SETTINGS_MOD_DARK_GALAXY_HELP            |<br><b>Why? by u/dweller_below</b><br>
 
 SETTINGS_MOD_MAX_SECURITY_PCT_DESC       | To boost the maximal security tax percentage. (Spying bonus = 2 x tax)
 SETTINGS_MOD_MAX_SECURITY_PCT            | Max Security: %1%
+
+SETTINGS_MOD_SHIELD_TYPE_NONE_DESC       | No shield animations (for low power computers)
+SETTINGS_MOD_SHIELD_TYPE_NONE            | None
+SETTINGS_MOD_SHIELD_TYPE_3D_DESC         | 3D semi tranparent shield animations. (May giltch on mac OS)
+SETTINGS_MOD_SHIELD_TYPE_3D              | 3D
+SETTINGS_MOD_SHIELD_TYPE_2D_DESC         | 2D shield animations (for mac OS, if 3D is too glitchy)
+SETTINGS_MOD_SHIELD_TYPE_2D              | 2D
+
 SETTINGS_MOD_NEW_WEAPON_ANIMATION_DESC   | Show Shield and miss effect.
-SETTINGS_MOD_NEW_WEAPON_ANIMATION        | New Weapon Animation: %1
+SETTINGS_MOD_NEW_WEAPON_ANIMATION        | Shields Effects: %1
 SETTINGS_MOD_NEW_WEAPON_SOUND_DESC       | Distinct weapon sound instead of only two!
 SETTINGS_MOD_NEW_WEAPON_SOUND            | New Weapon Sound: %1
 SETTINGS_MOD_PLAYER_SOUND_ECHO_DESC      | Add Echo to weapon sound if the player is the target!

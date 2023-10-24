@@ -522,11 +522,11 @@ public final class TechShipWeapon extends Tech {
     private void drawAttack(CombatStack source, CombatStack target,
     		int weaponX, int weaponY, int impactX, int impactY,
     		int wpnNum, float damage, int count, int boxW, int boxH, float force) {
-    	if (oldAttack) {
+    	if (options().shieldType2D()) {
     		drawOldAttack(source, target, weaponX, weaponY, impactX, impactY, wpnNum, damage, count, boxW, boxH, force);
     		return;
     	}
-    	if (!(options().newWeaponAnimation() &&
+    	if (!(options().shieldType3D() &&
     			( options().alwaysShowsShield() ||
     					( (damage != 0) && (target.shieldLevel()>0) )
     			))) {
@@ -890,9 +890,7 @@ public final class TechShipWeapon extends Tech {
         }
 
         // BR: Add Shield effect
-        boolean showShield = options().newWeaponAnimation()
-        					&& (dmg != 0)
-        					&& (target.shieldLevel()>0);
+        boolean showShield = (dmg != 0) && (target.shieldLevel()>0);
         
         Dimension shieldSize = showShield? target.shieldSize(boxW, boxH) : new Dimension(boxW, boxH);
         int xS = impactX - shieldSize.width/2;
