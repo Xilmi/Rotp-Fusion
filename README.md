@@ -68,7 +68,7 @@ Later:
 
 ## What's New
 
-2023.10.23 (BR)
+2023.10.24 (BR)
 - add access to former 2D shields animations, as 3D glitches with mac OS.
 
 2023.10.23 (BR)

@@ -4,6 +4,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - New option: Dark Galaxy Mode.
   - Only Star systems in scout range or in scanner range are shown.
   - Spy also gives approximative location and info of contacted empires.
+- add access to former 2D shields animations, as 3D glitches with mac OS.
 
 <b><ins>Bug Fixes:</ins></b>
 - Fixed sound echo default values.
