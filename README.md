@@ -69,7 +69,11 @@ Later:
 ## What's New
 
 2023.10.24 (BR)
-- add access to former 2D shields animations, as 3D glitches with mac OS.
+- Add access to former 2D shields animations, as 3D glitches with mac OS.
+- Dark Galaxy Mode new options:
+  - Spies also gives approximate location and info of contacted empires.
+  - Spies are unable to give info on out of range Star systems.
+  - If your empire shrink, out of range scouted planet are hidden.
 
 2023.10.23 (BR)
 - Extended ship building turns estimation Fix to full reserve consumption.

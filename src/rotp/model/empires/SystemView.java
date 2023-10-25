@@ -145,7 +145,7 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
         return new SystemView(sysId,empId);
     }
 
-    public final int ownerId;
+    public final int ownerId; // Owner of the view
     public final int sysId;
     private StarSystem relocationSystem;
     private float hostilityLevel = 0;
@@ -154,7 +154,7 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
     private float spyTime = 0;
 
     // viewed variables
-    private Empire vEmpire;
+    private Empire vEmpire; // Owner of the system
     private String vName = "";
     private Planet vPlanet;
     private String vPlanetTypeKey;
@@ -806,7 +806,22 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
     }
 
     public boolean scouted()                 { return (owner() == empire()) || (scoutTime() > 0); }
-    public boolean spied()                   { return (owner() == empire()) || (spyTime() > 0); }
+    public boolean spied()                   { 
+    	boolean spied = (owner() == empire()) || (spyTime() > 0);
+    	if (spied && options().selectedDarkGalaxy()) {
+    		// TODO BR: Dark Galaxy
+    		// Dark galaxy mode spied should be in range!
+    		if (options().darkGalaxySpy()) {
+    			return true;
+    		}
+    		float dist = distance();
+			float scoutRange = owner().scoutRange();
+			float scanRange = owner().planetScanningRange();
+			float range = max(scoutRange, scanRange);
+			return range>dist;
+    	}
+   		return spied;
+    }
     public int lastReportYear()              { return (owner() == empire()) ? galaxy().currentYear() : (int) spyTime(); }
     public int lastReportTurn()              { return (int) max(spyTurn(), scoutTurn()); }
     public int spyReportAge()                { return galaxy().currentYear() - lastReportYear(); }

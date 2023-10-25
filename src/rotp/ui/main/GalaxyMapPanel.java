@@ -554,15 +554,24 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
             //drawGridCircularDisplayLight(g);
         }
     }
-    private void drawOwnershipDisplay(Graphics2D g) {
+    private void drawOwnershipDisplay(Graphics2D g) { // TODO BR: Dark Galaxy
         int r0 = scale(1.0f);
         int r1 = scale(0.8f);
 
         Galaxy gal = galaxy();
         Empire pl = player();
+        
         for (int id=0; id < pl.sv.count(); id++) {
             Empire emp = parent.knownEmpire(id, pl);
             StarSystem sys = gal.system(id);
+        	if (options().selectedDarkGalaxy() && (pl!=emp) && !options().darkGalaxySpy()) {
+        		float dist = pl.sv.distance(id);
+    			float scoutRange = pl.scoutRange();
+    			float scanRange = pl.planetScanningRange();
+    			float range = max(scoutRange, scanRange);
+    			if (dist>range)
+    				continue;
+        	}
             //Shape sysCircle = new Ellipse2D.Float(mapX(sys.x())-ownerR, mapY(sys.y())-ownerR, 2*ownerR, 2*ownerR);
             if ((emp != null) && parent.showOwnership(sys)) {
                 int shape = emp.shape();

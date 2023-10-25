@@ -581,7 +581,7 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
         // TODO BR: Dark Galaxy
         SystemView sv = pl.sv.view(id);
         if (options().selectedDarkGalaxy()) {
-        	if (!sv.scouted()) {
+        	if (!sv.scouted() || options().darkGalaxyShrink()) {
         		float dist = sv.distance();
         		float scoutRange = pl.scoutRange();
         		if(dist>scoutRange)
