@@ -112,9 +112,14 @@ public interface IZoomOptions extends IBaseOptsTools {
 	{	{ isCfgFile(true); } };
 	default boolean shieldEnveloping()		{ return shieldEnveloping.get(); }
 
-	ParamInteger beamAnimationDelay	= new ParamInteger(MOD_UI, "BEAM_ANIMATION_DELAY" , 40, 0, 1000, 5, 20, 100)
+//	ParamInteger beamAnimationDelay	= new ParamInteger(MOD_UI, "BEAM_ANIMATION_DELAY" , 40, 0, 1000, 5, 20, 100)
+//	{	{ isCfgFile(true); } };
+//	default int beamAnimationDelay()		{ return beamAnimationDelay.get(); }
+
+	ParamInteger beamAnimationFPS	= new ParamInteger(MOD_UI, "BEAM_ANIMATION_FPS" , 15, 5, 100, 1, 5, 20)
 	{	{ isCfgFile(true); } };
-	default int beamAnimationDelay()		{ return beamAnimationDelay.get(); }
+	default int beamAnimationFPS()			{ return beamAnimationFPS.get(); }
+	default int beamAnimationDelay()		{ return 1000/beamAnimationFPS.get(); }
 
 	ParamInteger showResultDelay	= new ParamInteger(MOD_UI, "SHOW_RESULT_DELAY" , 2000, 0, 5000, 100, 500, 2000)
 	{	{ isCfgFile(true); } };
@@ -221,7 +226,7 @@ public interface IZoomOptions extends IBaseOptsTools {
 			put("No",	MOD_UI + "SHIELD_TYPE_NONE"); // for compatibility with former boolean
 			put("Yes",	MOD_UI + "SHIELD_TYPE_3D");   // for compatibility with former boolean
 			put("2D",	MOD_UI + "SHIELD_TYPE_2D");
-//			put("3B",	MOD_UI + "SHIELD_TYPE_3_BUFFERS");
+			put("3B",	MOD_UI + "SHIELD_TYPE_3_BUFFERS");
 		}
 	};
 	default boolean shieldType3D()			{ return shieldType.get().equalsIgnoreCase("Yes"); }
@@ -265,7 +270,8 @@ public interface IZoomOptions extends IBaseOptsTools {
 				shieldType, alwaysShowsShield, 
 	
 				headerSpacer,
-				beamAnimationDelay, shieldEnveloping, shieldBorder,
+//				beamAnimationDelay, shieldEnveloping, shieldBorder,
+				beamAnimationFPS, shieldEnveloping, shieldBorder,
 				shieldTransparency, shieldFlickering, shieldNoisePct,
 				weaponZposition, weaponZRandom,
 	

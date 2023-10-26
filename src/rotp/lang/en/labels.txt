@@ -2309,6 +2309,8 @@ SETTINGS_MOD_SHIELD_TYPE_3D_DESC         | 3D semi tranparent shield animations.
 SETTINGS_MOD_SHIELD_TYPE_3D              | 3D
 SETTINGS_MOD_SHIELD_TYPE_2D_DESC         | 2D shield animations (for mac OS, if 3D is too glitchy)
 SETTINGS_MOD_SHIELD_TYPE_2D              | 2D
+SETTINGS_MOD_SHIELD_TYPE_3_BUFFERS_DESC  | 3D semi tranparent shield animations. With extra buffers to minimize glitches. More computer intensive!
+SETTINGS_MOD_SHIELD_TYPE_3_BUFFERS       | 3D Buf
 
 SETTINGS_MOD_NEW_WEAPON_ANIMATION_DESC   | Show Shield and miss effect.
 SETTINGS_MOD_NEW_WEAPON_ANIMATION        | Shields Effects: %1
@@ -2333,6 +2335,8 @@ SETTINGS_MOD_SHIELD_FADING_FRAMES_DESC   | Show Shield fading effect.
 SETTINGS_MOD_SHIELD_FADING_FRAMES        | Shield Fading Frames: %1
 SETTINGS_MOD_SHIELD_ENVELOPING_DESC      | Local shield effects vs always enveloping shield effects.
 SETTINGS_MOD_SHIELD_ENVELOPING           | Shield Enveloping: %1
+SETTINGS_MOD_BEAM_ANIMATION_FPS_DESC     | Animation Speed in frames per second. This to tune the animation duration, jointly with the number of frames settings.
+SETTINGS_MOD_BEAM_ANIMATION_FPS          | Animation Speed: %1 fps
 SETTINGS_MOD_BEAM_ANIMATION_DELAY_DESC   | Pause between two frames. You may try to balance this value with higher frames number to get a smoother animation.
 SETTINGS_MOD_BEAM_ANIMATION_DELAY        | Animation Delay: %1 ms
 SETTINGS_MOD_SHOW_RESULT_DELAY_DESC      | The results panel should no longer appear until the animations finish. This is a security delay in the event of a bug. If set to "0 ms", the panel will appear immediately, just like before!

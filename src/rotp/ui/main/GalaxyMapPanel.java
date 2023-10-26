@@ -554,7 +554,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
             //drawGridCircularDisplayLight(g);
         }
     }
-    private void drawOwnershipDisplay(Graphics2D g) { // TODO BR: Dark Galaxy
+    private void drawOwnershipDisplay(Graphics2D g) { // BR: Dark Galaxy
         int r0 = scale(1.0f);
         int r1 = scale(0.8f);
 

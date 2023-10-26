@@ -7,12 +7,22 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 	- Spies also gives approximate location and info of contacted empires.
 	- Spies are unable to give info on out of range Star systems.
 	- If your empire shrink, out of range scouted planet are hidden.
-- add access to former 2D shields animations, as 3D glitches with mac OS.
+  - Only the final replay will show the full galaxy!
+- Shields animations tuning:
+  - Added access to former 2D shields animations, as 3D glitches with mac OS.
+  - Added a new 3D shield animations that should be compatible with mac OS.
+  - Added the fire under the ship animation.
+    - Was shown on the demo but not in combat.
+  - Replaced the meaningless Animations delay by Animation Fps.
+    - The real delay was dependent on the computing time.
+    - The animation duration will depends on the fps and the number of frames... 
 
 <b><ins>Bug Fixes:</ins></b>
 - Fixed sound echo default values.
 - Fixed ship building turns estimation when ship reserve is used.
 - Fixed guide appearance on compact option panels.
+- Fixed some animations blocked by the temporisation of Result panel.
+- Fixed Comet Event not resetting its timer! (Leading to negative delays!)
 
 
 <b><ins>New 3D Shields effects:</ins></b>

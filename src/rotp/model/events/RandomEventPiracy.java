@@ -51,7 +51,7 @@ public class RandomEventPiracy extends AbstractRandomEvent {
 
         if (!emp.hasTrade())
             return;
-
+        turnCount = 0;
         StarSystem targetSystem = random(emp.allColonizedSystems());
         empId = emp.id;
         sysId = targetSystem.id;

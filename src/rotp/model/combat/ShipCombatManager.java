@@ -462,7 +462,7 @@ public class ShipCombatManager implements Base {
                 galaxy().ships.cancelRetreatingFleets(victor.id, system().id);
         }
         
-        // ensure rebels are killed in proportionn to overall population
+        // ensure rebels are killed in proportion to overall population
         results.killRebels();
 
         // update treaty with results

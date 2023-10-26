@@ -55,7 +55,8 @@ public class RandomEventSpaceAmoeba extends AbstractRandomEvent {
     }
     @Override
     public void trigger(Empire emp) {
-        log("Starting Amoeba event against: "+emp.raceName());
+    	if (emp != null)
+    		log("Starting Amoeba event against: "+emp.raceName());
 //        System.out.println("Starting Amoeba event against: "+emp.raceName());
     	if (emp == null || emp.extinct()) {
             empId = emp.id;

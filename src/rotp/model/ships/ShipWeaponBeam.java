@@ -19,7 +19,6 @@ import java.awt.BasicStroke;
 import rotp.model.combat.CombatStack;
 import rotp.model.combat.CombatStackColony;
 import rotp.model.tech.TechShipWeapon;
-import rotp.ui.combat.ShipBattleUI;
 
 public final class ShipWeaponBeam extends ShipWeapon {
     private static final long serialVersionUID = 1L;
@@ -67,10 +66,6 @@ public final class ShipWeaponBeam extends ShipWeapon {
     }
     @Override
     public void fireUpon(CombatStack source, CombatStack target, int count) {
-        ShipBattleUI ui = source.mgr.ui;
-        if (ui != null)
-        	ui.newAnimationStarted();
-
         if (random() < target.autoMissPct()) {
            	drawUnsuccessfulAttack(source, target, count);
             return;

@@ -729,6 +729,7 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 			else
 				playAudioClip(soundEffect);
 
+		// Draw first shield part
 		if (isAbove) {
 			g.drawImage(shieldArray[BELLOW][0], shieldTLx, shieldTLy, null);
 			g.drawImage(shipImg, shipTLx, shipTLy, null);
@@ -738,9 +739,9 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 			g.drawImage(shieldArray[ABOVE][0], shieldTLx, shieldTLy, null);
 			paintLines(partLines, g); // visible line are above
 		} else {
-			paintLines(partLines, g); // visible line are above			
-			paintLines(hitLines, g); // hitting lines are in-between
+			paintLines(partLines, g); // visible line are bellow
 			g.drawImage(shieldArray[BELLOW][0], shieldTLx, shieldTLy, null);
+			paintLines(hitLines, g); // hitting lines are in-between
 			g.drawImage(shipImg, shipTLx, shipTLy, null);
 			g.drawImage(shieldArray[ABOVE][0], shieldTLx, shieldTLy, null);
 		}

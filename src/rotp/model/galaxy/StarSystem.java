@@ -578,7 +578,7 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
         int r0 = drawRadius(map);
         twinkleOffset++;
         
-        // TODO BR: Dark Galaxy
+        // BR: Dark Galaxy
         SystemView sv = pl.sv.view(id);
         if (options().selectedDarkGalaxy()) {
         	if (!sv.scouted() || options().darkGalaxyShrink()) {

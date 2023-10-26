@@ -59,6 +59,7 @@ public class RandomEventComet extends AbstractRandomEvent {
             empId = emp.id;
             sysId = targetSystem.id;
     	}
+    	turnCount = 0;
         turnsNeeded = roll(10,15);
         cometHP = 40*turnsNeeded;
         galaxy().events().addActiveEvent(this);

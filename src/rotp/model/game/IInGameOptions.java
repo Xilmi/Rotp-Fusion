@@ -159,7 +159,10 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 			put("Shrink",	MOD_UI + "DARK_GALAXY_SHRINK");
 		}
 	};
-	default boolean selectedDarkGalaxy()	{ return !darkGalaxy.get().equalsIgnoreCase("No"); }
+	default boolean selectedDarkGalaxy()	{
+		return !darkGalaxy.get().equalsIgnoreCase("No") 
+				&& GameSession.instance().inProgress(); // for the final replay
+	}
 	default boolean darkGalaxySpy()			{ return darkGalaxy.get().equalsIgnoreCase("Spy"); }
 	default boolean darkGalaxyNoSpy()		{ return darkGalaxy.get().equalsIgnoreCase("NoSpy"); }
 	default boolean darkGalaxyShrink()		{ return darkGalaxy.get().equalsIgnoreCase("Shrink"); }

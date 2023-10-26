@@ -809,7 +809,7 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
     public boolean spied()                   { 
     	boolean spied = (owner() == empire()) || (spyTime() > 0);
     	if (spied && options().selectedDarkGalaxy()) {
-    		// TODO BR: Dark Galaxy
+    		// BR: Dark Galaxy
     		// Dark galaxy mode spied should be in range!
     		if (options().darkGalaxySpy()) {
     			return true;

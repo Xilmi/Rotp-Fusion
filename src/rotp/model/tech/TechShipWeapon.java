@@ -51,7 +51,6 @@ public final class TechShipWeapon extends Tech {
 	private static int WIND_UP_FRAMES = 3;
 	private static int HOLD_FRAMES = 0;
 
-	private static boolean oldAttack = false;
 	private final int s10 = scaled(10);
 	
     private int damageLow = 0;
@@ -80,6 +79,7 @@ public final class TechShipWeapon extends Tech {
     private transient Color cycleColor;
     private transient Color cycleColor2;
     private Stroke weaponStroke;
+    private long lastSleep;
 
     public int damageLow()       { return (int) (session().damageBonus() * damageLow); }
     public int damageHigh()      { return (int) (session().damageBonus() * damageHigh); }
@@ -437,7 +437,7 @@ public final class TechShipWeapon extends Tech {
     @Override
     public float baseSize()   { return size; }
     @Override
-    public float basePower()   { return power; }
+    public float basePower()  { return power; }
     @Override
     public boolean isObsolete(Empire c) {
         return (c.tech().topShipWeaponTech() != null) && (level < c.tech().topShipWeaponTech().level);
@@ -519,6 +519,16 @@ public final class TechShipWeapon extends Tech {
         int y1 = st1Y+stH/2;
         drawAttack(source, target, x0, y0, x1, y1, wpnNum, dmg, count, stW, stH, force);
     }
+    private long pause(long time) {
+    	long oldLastSleep = lastSleep;
+    	lastSleep = System.currentTimeMillis();
+    	long duration = time-(lastSleep-oldLastSleep);
+    	// System.out.println("duration = " + duration);
+    	if (duration > 2)
+    		sleep(duration);
+    	return duration;
+    }
+    private void pauseInit() { lastSleep = System.currentTimeMillis(); }
     private void drawAttack(CombatStack source, CombatStack target,
     		int weaponX, int weaponY, int impactX, int impactY,
     		int wpnNum, float damage, int count, int boxW, int boxH, float force) {
@@ -526,10 +536,13 @@ public final class TechShipWeapon extends Tech {
     		drawOldAttack(source, target, weaponX, weaponY, impactX, impactY, wpnNum, damage, count, boxW, boxH, force);
     		return;
     	}
-    	if (!(options().shieldType3D() &&
+    	boolean tripleBuffer = options().shieldType3Buffer();
+    	if ( !( ( tripleBuffer || options().shieldType3D() 
+    			) &&
     			( options().alwaysShowsShield() ||
     					( (damage != 0) && (target.shieldLevel()>0) )
-    			))) {
+    			)
+    		  )) {
     		drawNoShieldAttack(source, target, weaponX, weaponY, impactX, impactY, wpnNum, damage, count, boxW, boxH, force);
     		return;
     	}
@@ -561,8 +574,8 @@ public final class TechShipWeapon extends Tech {
 		int weaponDy	= (impactY-weaponY)/distFactor;
         int weaponDz	= opt.weaponZRandom();
         int weaponZ		= scaled(opt.weaponZposition()+roll(-weaponDz,weaponDz));
+        boolean isAbove = weaponZ>=0;
         long sleepTime	= opt.beamAnimationDelay(); // Original = 50;
-        sleepTime = 20;
         int targetSize	= 3;
         if (target.design() != null)
         	targetSize = target.design().size();
@@ -605,9 +618,22 @@ public final class TechShipWeapon extends Tech {
 				opt.shieldTransparency(), opt.shieldFlickering(), opt.shieldNoisePct(), (int)target.maxShield, shipImg,
 				weaponX, weaponY, weaponZ, beamColor, spotWidth, attacksPerRound, damage, force);
 
-		Rectangle toRefreshRec = cs.shieldRec();
-		int shieldTLx = toRefreshRec.x;
-		int shieldTLy = toRefreshRec.y;
+		Rectangle shieldRec = cs.shieldRec();
+		int shieldTLx	= shieldRec.x;
+		int shieldTLy	= shieldRec.y;
+		int shieldWidth	= shieldRec.width;
+		int shieldHeight= shieldRec.height;
+		
+		BufferedImage shieldBackGround = null;
+		int shipX3B = shipTLx - shieldTLx;
+		int shipY3B = shipTLy - shieldTLy;
+		int weaponX3B	= weaponX - shieldTLx;
+		int weaponY3B	= weaponY - shieldTLy;
+		shieldBackGround = new BufferedImage(shieldWidth, shieldHeight, TYPE_INT_ARGB);
+		Graphics2D gbg = (Graphics2D) shieldBackGround.getGraphics();
+		gbg.setColor(Color.black);
+		gbg.fillOval(0, 0, shieldWidth, shieldHeight);
+		gbg.dispose();
 
 		// Full Beam trajectory generation
 		ArrayList<Line2D.Double> lines = new ArrayList<>();
@@ -644,6 +670,9 @@ public final class TechShipWeapon extends Tech {
 		//
 		// Animations start Here
 		//
+		
+		boolean ellipse = false;
+		
 		float hiddenBeamAlpha = 0.3f;
 		if(beamColor2 == null && cycleColor == null)
 			beamColor2 = multColor(beamColor, 0.75f);
@@ -659,32 +688,56 @@ public final class TechShipWeapon extends Tech {
 		}
 		// Beams Progression toward target
 		SortedMap<Integer, ArrayList<Line2D.Double>> partLines = new TreeMap<>();
+		boolean doubleMap = tripleBuffer && !isAbove;
+		SortedMap<Integer, ArrayList<Line2D.Double>> bellowLines = null;
+		pauseInit();
+		if (doubleMap)
+			bellowLines = new TreeMap<>();
 		for(int i = 0; i < windUpFramesNum; ++i) {
 			ArrayList<Line2D.Double> pl = new ArrayList<>();
+			ArrayList<Line2D.Double> pb = null;
+			if (doubleMap)
+				pb = new ArrayList<>();
 			for(Line2D.Double line : lines) {
 				double newX1 = line.getX1() + (line.getX2() - line.getX1()) * i * fraction;
 				double newY1 = line.getY1() + (line.getY2() - line.getY1()) * i * fraction;
 				double newX2 = line.getX1() + (line.getX2() - line.getX1()) * (i + 1) * fraction;
 				double newY2 = line.getY1() + (line.getY2() - line.getY1()) * (i + 1) * fraction;
 				pl.add(new Line2D.Double(newX1, newY1, newX2, newY2));
+				if (doubleMap) // Lines relative to shield
+					pb.add(new Line2D.Double(newX1-shieldTLx, newY1-shieldTLy, newX2-shieldTLx, newY2-shieldTLy));
 			}
 			partLines.put(i, pl);
+			if (doubleMap)
+				bellowLines.put(i, pb);
 			setPaint(g, 0, weaponX, weaponY, weaponDx, weaponDy);
 			paintLines(pl, g);
-			sleep(sleepTime);
+			if (!isAbove)
+				g.drawImage(shipImg, shipTLx, shipTLy, null);
+			pause(sleepTime);
 		}
 		
-		// Beams reach the shield generation
+		// Beams reach the shield
 		ArrayList<Line2D.Double> hitLines = new ArrayList<>(); // The ones that go thru the shield
-		ui.paintCellsImmediately(source.x, target.x, source.y, target.y);
 		setPaint(g, windUpFramesNum, weaponX, weaponY, weaponDx, weaponDy);
-		for(Line2D.Double line : lines) {
-			double newX1 = line.getX1() + (line.getX2() - line.getX1()) * windUpFramesNum * fraction;
-			double newY1 = line.getY1() + (line.getY2() - line.getY1()) * windUpFramesNum * fraction;
-			double newX2 = line.getX2();
-			double newY2 = line.getY2();
-			hitLines.add(new Line2D.Double(newX1, newY1, newX2, newY2));
+		if (tripleBuffer) { // hitLines relative to shield
+			for(Line2D.Double line : lines) {
+				double newX1 = line.getX1()-shieldTLx + (line.getX2()-line.getX1()) * windUpFramesNum * fraction;
+				double newY1 = line.getY1()-shieldTLy + (line.getY2()-line.getY1()) * windUpFramesNum * fraction;
+				double newX2 = line.getX2()-shieldTLx;
+				double newY2 = line.getY2()-shieldTLy;
+				hitLines.add(new Line2D.Double(newX1, newY1, newX2, newY2));
+			}
+		} else {
+			for(Line2D.Double line : lines) {
+				double newX1 = line.getX1() + (line.getX2() - line.getX1()) * windUpFramesNum * fraction;
+				double newY1 = line.getY1() + (line.getY2() - line.getY1()) * windUpFramesNum * fraction;
+				double newX2 = line.getX2();
+				double newY2 = line.getY2();
+				hitLines.add(new Line2D.Double(newX1, newY1, newX2, newY2));
+			}
 		}
+			
         // Start playing sound if Player is the target
 		if (playerIsTarget) {		
 	        if (opt.newWeaponSound())
@@ -698,62 +751,263 @@ public final class TechShipWeapon extends Tech {
 	            playAudioClip(soundEffect());
 		}
 
-		g.drawImage(shieldArray[BELLOW][0], shieldTLx, shieldTLy, null);
-		g.drawImage(shipImg, shipTLx, shipTLy, null);
-		g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, hiddenBeamAlpha));
-		paintLines(hitLines, g); // hitting lines are in-between
-		g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-		g.drawImage(shieldArray[ABOVE][0], shieldTLx, shieldTLy, null);
+		// Draw first shield part
+		if (tripleBuffer) {
+			if (isAbove) {
+				BufferedImage buffer = new BufferedImage(shieldWidth, shieldHeight, TYPE_INT_ARGB);
+				Graphics2D gb = (Graphics2D) buffer.getGraphics();
+				setPaint(gb, windUpFramesNum, weaponX3B, weaponY3B, weaponDx, weaponDy);
+				gb.drawImage(shieldArray[BELLOW][0], 0, 0, null);
+				gb.drawImage(shipImg, shipX3B, shipY3B, null);
+				gb.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, hiddenBeamAlpha));
+				paintLines(hitLines, gb); // hitting lines are in-between
+				gb.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+				gb.drawImage(shieldArray[ABOVE][0], 0, 0, null);
+				gb.dispose();
 
-		paintLines(partLines, g); // visible line are above
+				g.drawImage(buffer, shieldTLx, shieldTLy, null);
+				setPaint(g, windUpFramesNum, weaponX, weaponY, weaponDx, weaponDy);
+				paintLines(partLines, g); // visible line are above
+			} else {
+				BufferedImage buffer = new BufferedImage(shieldWidth, shieldHeight, TYPE_INT_ARGB);
+				Graphics2D gb = (Graphics2D) buffer.getGraphics();
+				setPaint(gb, windUpFramesNum, weaponX3B, weaponY3B, weaponDx, weaponDy);
+				gb.drawImage(shieldArray[BELLOW][0], 0, 0, null);
+				paintLines(hitLines, gb); // hitting lines are in-between
+				gb.drawImage(shipImg, shipX3B, shipY3B, null);
+				gb.drawImage(shieldArray[ABOVE][0], 0, 0, null);		
+				gb.dispose();
+
+				setPaint(g, windUpFramesNum, weaponX, weaponY, weaponDx, weaponDy);
+				paintLines(partLines, g); // visible line are bellow
+				g.drawImage(buffer, shieldTLx, shieldTLy, null);
+			}
+		} else {
+			if (isAbove) {
+				g.drawImage(shieldArray[BELLOW][0], shieldTLx, shieldTLy, null);
+				g.drawImage(shipImg, shipTLx, shipTLy, null);
+				g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, hiddenBeamAlpha));
+				paintLines(hitLines, g); // hitting lines are in-between
+				g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+				g.drawImage(shieldArray[ABOVE][0], shieldTLx, shieldTLy, null);
+				paintLines(partLines, g); // visible line are above
+			} else {
+				paintLines(partLines, g); // visible line are bellow
+				g.drawImage(shieldArray[BELLOW][0], shieldTLx, shieldTLy, null);
+				paintLines(hitLines, g); // hitting lines are in-between
+				g.drawImage(shipImg, shipTLx, shipTLy, null);
+				g.drawImage(shieldArray[ABOVE][0], shieldTLx, shieldTLy, null);				
+			}
+		}
+		pause(sleepTime);
 
 		// Show Continuous
-		for(int i = 0; i < holdFramesNum; i++) {
-			ui.paintCellsImmediately(source.x, target.x, source.y, target.y);
-			ui.paintImmediately(toRefreshRec);
-			setPaint(g, i+1+windUpFramesNum, weaponX, weaponY, weaponDx, weaponDy);
-			int shieldIdx = i+1;
-			g.drawImage(shieldArray[BELLOW][shieldIdx], shieldTLx, shieldTLy, null);
-			g.drawImage(shipImg, shipTLx, shipTLy, null);
-			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, hiddenBeamAlpha));
-			paintLines(hitLines, g); // hitting lines are in-between
-			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-			g.drawImage(shieldArray[ABOVE][shieldIdx], shieldTLx, shieldTLy, null);
-
-			paintLines(partLines, g);
-			sleep(sleepTime);
+		if (tripleBuffer) {
+			if (isAbove) {
+				for(int i = 0; i < holdFramesNum; i++) {
+					BufferedImage buffer = new BufferedImage(shieldWidth, shieldHeight, TYPE_INT_ARGB);
+					Graphics2D gb = (Graphics2D) buffer.getGraphics();
+					gb.drawImage(shieldBackGround, 0, 0, null);
+					setPaint(gb, i+1+windUpFramesNum, weaponX3B, weaponY3B, weaponDx, weaponDy);
+					int shieldIdx = i+1;
+					gb.drawImage(shieldArray[BELLOW][shieldIdx], 0, 0, null);
+					gb.drawImage(shipImg, shipX3B, shipY3B, null);
+					gb.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, hiddenBeamAlpha));
+					paintLines(hitLines, gb); // hitting lines are in-between
+					gb.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+					gb.drawImage(shieldArray[ABOVE][shieldIdx], 0, 0, null);
+					gb.dispose();
+		
+					g.drawImage(buffer, shieldTLx, shieldTLy, null);
+					setPaint(g, i+1+windUpFramesNum, weaponX, weaponY, weaponDx, weaponDy);
+					paintLines(partLines, g); // visible line are above
+					pause(sleepTime);
+				}
+			} else {
+				for(int i = 0; i < holdFramesNum; i++) {
+					BufferedImage buffer = new BufferedImage(shieldWidth, shieldHeight, TYPE_INT_ARGB);
+					Graphics2D gb = (Graphics2D) buffer.getGraphics();
+					gb.drawImage(shieldBackGround, 0, 0, null);
+					setPaint(gb, i+1+windUpFramesNum, weaponX3B, weaponY3B, weaponDx, weaponDy);
+					paintLines(bellowLines, gb);
+					int shieldIdx = i+1;
+					gb.drawImage(shieldArray[BELLOW][shieldIdx], 0, 0, null);
+					paintLines(hitLines, gb); // hitting lines are in-between
+					gb.drawImage(shipImg, shipX3B, shipY3B, null);
+					gb.drawImage(shieldArray[ABOVE][shieldIdx], 0, 0, null);
+					gb.dispose();
+	
+					setPaint(g, i+1+windUpFramesNum, weaponX, weaponY, weaponDx, weaponDy);
+					paintLines(partLines, g); // visible line are bellow
+					g.drawImage(buffer, shieldTLx, shieldTLy, null);
+					pause(sleepTime);
+				}			
+			}
+		} else {
+			if (isAbove) {
+				for(int i = 0; i < holdFramesNum; i++) {
+					if (ellipse)
+						g.drawImage(shieldBackGround, shieldTLx, shieldTLx, null);
+					else
+						ui.paintImmediately(shieldRec);
+					setPaint(g, i+1+windUpFramesNum, weaponX, weaponY, weaponDx, weaponDy);
+					int shieldIdx = i+1;
+					g.drawImage(shieldArray[BELLOW][shieldIdx], shieldTLx, shieldTLy, null);
+					g.drawImage(shipImg, shipTLx, shipTLy, null);
+					g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, hiddenBeamAlpha));
+					paintLines(hitLines, g); // hitting lines are in-between
+					g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+					g.drawImage(shieldArray[ABOVE][shieldIdx], shieldTLx, shieldTLy, null);
+		
+					paintLines(partLines, g);
+					pause(sleepTime);
+				}
+			} else {
+				for(int i = 0; i < holdFramesNum; i++) {
+					if (ellipse)
+						g.drawImage(shieldBackGround, shieldTLx, shieldTLx, null);
+					else
+						ui.paintImmediately(shieldRec);
+					setPaint(g, i+1+windUpFramesNum, weaponX, weaponY, weaponDx, weaponDy);
+					paintLines(partLines, g);
+					int shieldIdx = i+1;
+					g.drawImage(shieldArray[BELLOW][shieldIdx], shieldTLx, shieldTLy, null);
+					paintLines(hitLines, g); // hitting lines are in-between
+					g.drawImage(shipImg, shipTLx, shipTLy, null);
+					g.drawImage(shieldArray[ABOVE][shieldIdx], shieldTLx, shieldTLy, null);
+					pause(sleepTime);
+				}			
+			}
 		}
+		
 		// Show end of beam
-		for(int i = 0; i < windUpFramesNum; ++i) {
-			ui.paintCellsImmediately(source.x, target.x, source.y, target.y);
-			ui.paintImmediately(toRefreshRec);
-			setPaint(g, i+1+windUpFramesNum+holdFramesNum, weaponX, weaponY, weaponDx, weaponDy);
-			int shieldIdx = i+1+holdFramesNum;
-			
-			g.drawImage(shieldArray[BELLOW][shieldIdx], shieldTLx, shieldTLy, null);
-			g.drawImage(shipImg, shipTLx, shipTLy, null);
-			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, hiddenBeamAlpha));
-			paintLines(hitLines, g); // hitting lines are in-between
-			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-			g.drawImage(shieldArray[ABOVE][shieldIdx], shieldTLx, shieldTLy, null);
+		if (tripleBuffer) {
+			if (isAbove) {
+				for(int i = 0; i < windUpFramesNum; ++i) {
+					BufferedImage buffer = new BufferedImage(shieldWidth, shieldHeight, TYPE_INT_ARGB);
+					Graphics2D gb = (Graphics2D) buffer.getGraphics();
+					gb.drawImage(shieldBackGround, 0, 0, null);
+					setPaint(gb, i+1+windUpFramesNum+holdFramesNum, weaponX3B, weaponY3B, weaponDx, weaponDy);
+					int shieldIdx = i+1+holdFramesNum;
+					
+					gb.drawImage(shieldArray[BELLOW][shieldIdx], 0, 0, null);
+					gb.drawImage(shipImg, shipX3B, shipY3B, null);
+					gb.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, hiddenBeamAlpha));
+					paintLines(hitLines, gb); // hitting lines are in-between
+					gb.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+					gb.drawImage(shieldArray[ABOVE][shieldIdx], 0, 0, null);
+					gb.dispose();
+		
+					ui.paintCellsImmediately(source.x, target.x, source.y, target.y);
+					g.drawImage(buffer, shieldTLx, shieldTLy, null);
+					partLines.get(i).clear();
+					setPaint(g, i+1+windUpFramesNum+holdFramesNum, weaponX, weaponY, weaponDx, weaponDy);
+					paintLines(partLines, g);
+					pause(sleepTime);
+				}
+			} else {
+				for(int i = 0; i < windUpFramesNum; ++i) {
+					BufferedImage buffer = new BufferedImage(shieldWidth, shieldHeight, TYPE_INT_ARGB);
+					Graphics2D gb = (Graphics2D) buffer.getGraphics();
+					gb.drawImage(shieldBackGround, 0, 0, null);
+					setPaint(gb, i+1+windUpFramesNum+holdFramesNum, weaponX3B, weaponY3B, weaponDx, weaponDy);
+					bellowLines.get(i).clear();
+					paintLines(bellowLines, gb);
+					int shieldIdx = i+1+holdFramesNum;
+					gb.drawImage(shieldArray[BELLOW][shieldIdx], 0, 0, null);
+					paintLines(hitLines, gb); // hitting lines are in-between
+					gb.drawImage(shipImg, shipX3B, shipY3B, null);
+					gb.drawImage(shieldArray[ABOVE][shieldIdx], 0, 0, null);
+					gb.dispose();
 
-			partLines.get(i).clear();
-			paintLines(partLines, g);
-			sleep(sleepTime);
+					ui.paintCellsImmediately(source.x, target.x, source.y, target.y);
+					partLines.get(i).clear();
+					setPaint(g, i+1+windUpFramesNum+holdFramesNum, weaponX, weaponY, weaponDx, weaponDy);
+					paintLines(partLines, g); // visible line are bellow
+					g.drawImage(buffer, shieldTLx, shieldTLy, null);
+					pause(sleepTime);
+				}
+			}			
+		} else {
+			if (isAbove) {
+				for(int i = 0; i < windUpFramesNum; ++i) {
+					ui.paintCellsImmediately(source.x, target.x, source.y, target.y);
+					if (ellipse)
+						g.drawImage(shieldBackGround, shieldTLx, shieldTLx, null);
+					else
+						ui.paintImmediately(shieldRec);
+					setPaint(g, i+1+windUpFramesNum+holdFramesNum, weaponX, weaponY, weaponDx, weaponDy);
+					int shieldIdx = i+1+holdFramesNum;
+					
+					g.drawImage(shieldArray[BELLOW][shieldIdx], shieldTLx, shieldTLy, null);
+					g.drawImage(shipImg, shipTLx, shipTLy, null);
+					g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, hiddenBeamAlpha));
+					paintLines(hitLines, g); // hitting lines are in-between
+					g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+					g.drawImage(shieldArray[ABOVE][shieldIdx], shieldTLx, shieldTLy, null);
+		
+					partLines.get(i).clear();
+					paintLines(partLines, g);
+					pause(sleepTime);
+				}
+			} else {
+				for(int i = 0; i < windUpFramesNum; ++i) {
+					ui.paintCellsImmediately(source.x, target.x, source.y, target.y);
+					if (ellipse)
+						g.drawImage(shieldBackGround, shieldTLx, shieldTLx, null);
+					else
+						ui.paintImmediately(shieldRec);
+					setPaint(g, i+1+windUpFramesNum+holdFramesNum, weaponX, weaponY, weaponDx, weaponDy);
+					partLines.get(i).clear();
+					paintLines(partLines, g);
+					int shieldIdx = i+1+holdFramesNum;
+					g.drawImage(shieldArray[BELLOW][shieldIdx], shieldTLx, shieldTLy, null);
+					paintLines(hitLines, g); // hitting lines are in-between
+					g.drawImage(shipImg, shipTLx, shipTLy, null);
+					g.drawImage(shieldArray[ABOVE][shieldIdx], shieldTLx, shieldTLy, null);
+					pause(sleepTime);
+				}			
+			}
 		}
+
 		// Show shield fading
-		for(int i = 0; i < fadingFramesNum; ++i) {
-			ui.paintImmediately(toRefreshRec);
-			int shieldIdx = i+1+holdFramesNum+windUpFramesNum;
-			
-			g.drawImage(shieldArray[BELLOW][shieldIdx], shieldTLx, shieldTLy, null);
-			g.drawImage(shipImg, shipTLx, shipTLy, null);
-			g.drawImage(shieldArray[ABOVE][shieldIdx], shieldTLx, shieldTLy, null);
+		if (tripleBuffer) {
+			for(int i = 0; i < fadingFramesNum; ++i) {
+				BufferedImage buffer = new BufferedImage(shieldWidth, shieldHeight, TYPE_INT_ARGB);
+				Graphics2D gb = (Graphics2D) buffer.getGraphics();
+				gb.drawImage(shieldBackGround, 0, 0, null);
+				int shieldIdx = i+1+holdFramesNum+windUpFramesNum;
+				
+				gb.drawImage(shieldArray[BELLOW][shieldIdx], 0, 0, null);
+				gb.drawImage(shipImg, shipX3B, shipY3B, null);
+				gb.drawImage(shieldArray[ABOVE][shieldIdx], 0, 0, null);
+				gb.dispose();
 
-			sleep(sleepTime);
+				g.drawImage(buffer, shieldTLx, shieldTLy, null);
+				pause(sleepTime);
+			}
+		} else {
+			for(int i = 0; i < fadingFramesNum; ++i) {
+				if (ellipse)
+					g.drawImage(shieldBackGround, shieldTLx, shieldTLx, null);
+				else
+					ui.paintImmediately(shieldRec);
+				int shieldIdx = i+1+holdFramesNum+windUpFramesNum;
+				
+				g.drawImage(shieldArray[BELLOW][shieldIdx], shieldTLx, shieldTLy, null);
+				g.drawImage(shipImg, shipTLx, shipTLy, null);
+				g.drawImage(shieldArray[ABOVE][shieldIdx], shieldTLx, shieldTLy, null);
+	
+				pause(sleepTime);
+			}
 		}
-        ui.paintAllImmediately();
+		// System.out.println("ui.waitingToShowResult() = " + ui.waitingToShowResult());
+		if (ui.waitingToShowResult()) {
+			ui.paintAllImmediately();
+			sleep(500); // no rush to show results
+		}
         ui.animationCompleted();
+        ui.paintAllImmediately();
     }
     private void drawNoShieldAttack(CombatStack source, CombatStack target,
     		int weaponX, int weaponY, int impaxtX, int impactY,
@@ -877,8 +1131,8 @@ public final class TechShipWeapon extends Tech {
         String missLabel = dmg < 0 ? text("SHIP_COMBAT_DEFLECTED") : text("SHIP_COMBAT_MISS");
         target.drawAttackResult(g,impaxtX,impactY,weaponX, dmg,missLabel);   
         g.setStroke(prev);
-        ui.paintAllImmediately();
         ui.animationCompleted();
+        ui.paintAllImmediately();
     }
     private void drawOldAttack(CombatStack source, CombatStack target,
     		int weaponX, int weaponY, int impactX, int impactY,
@@ -1028,8 +1282,8 @@ public final class TechShipWeapon extends Tech {
         String missLabel = dmg < 0 ? text("SHIP_COMBAT_DEFLECTED") : text("SHIP_COMBAT_MISS");
         target.drawAttackResult(g,impactX,impactY,weaponX, dmg,missLabel);   
         g.setStroke(prev);
-        ui.paintAllImmediately();
         ui.animationCompleted();
+        ui.paintAllImmediately();
     }
     private ArrayList<Line2D.Double> addMultiLines(int size, int weapons, int sx, int sy, int tx, int ty) {
         int offSet = scaled((size + 1) * 5);

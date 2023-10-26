@@ -68,6 +68,17 @@ Later:
 
 ## What's New
 
+2023.10.25 (BR)
+- Fixed some animations blocked by the temporisation of Result panel.
+- Dark Galaxy: Only the final replay will show the full galaxy!
+- Shields animations tuning:
+  - Added a new 3D shield animations that should be compatible with mac OS.
+  - Added the fire under the ship animation.
+    - Was shown on the demo but not in combat.
+  - Replaced the meaningless Animations delay by Animation Fps.
+    - The real delay was dependent on the computing time.
+- Fixed Comet Event not resetting its timer!
+
 2023.10.24 (BR)
 - Add access to former 2D shields animations, as 3D glitches with mac OS.
 - Dark Galaxy Mode new options:
