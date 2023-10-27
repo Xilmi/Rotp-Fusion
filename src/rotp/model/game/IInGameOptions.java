@@ -154,9 +154,9 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 		{
 			showFullGuide(true);
 			put("No",		MOD_UI + "DARK_GALAXY_NO");
-			put("Spy",		MOD_UI + "DARK_GALAXY_SPY");
-			put("NoSpy",	MOD_UI + "DARK_GALAXY_NO_SPY");
 			put("Shrink",	MOD_UI + "DARK_GALAXY_SHRINK");
+			put("NoSpy",	MOD_UI + "DARK_GALAXY_NO_SPY");
+			put("Spy",		MOD_UI + "DARK_GALAXY_SPY");
 		}
 	};
 	default boolean selectedDarkGalaxy()	{

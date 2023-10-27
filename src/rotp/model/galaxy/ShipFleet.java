@@ -634,7 +634,7 @@ public class ShipFleet extends FleetBase implements Base, Sprite, Ship, Serializ
         }
         return empire().tech().scoutRange();
     }
-    public float travelSpeed() { return slowestStackSpeed(); }
+    @Override public float travelSpeed() { return slowestStackSpeed(); }
     public float slowestStackSpeed() {
         float maxSpeed = Integer.MAX_VALUE;
         for (int i=0;i<num.length;i++) {

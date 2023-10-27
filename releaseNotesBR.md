@@ -2,12 +2,11 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Updates since last releases:</ins></b>
 - New option: Dark Galaxy Mode.
-  - Only Star systems in scout range or in scanner range are shown.
+  - Only Star systems in scout range or in scanner range are shown. Out of range scouted planet are hidden.
+  - Only the final replay will show the full galaxy!
   - Option to:
 	- Spies also gives approximate location and info of contacted empires.
-	- Spies are unable to give info on out of range Star systems.
-	- If your empire shrink, out of range scouted planet are hidden.
-  - Only the final replay will show the full galaxy!
+	- Spies are unable to give info on out of range Star systems, but they remember the Empires names an very approximative location.
 - Shields animations tuning:
   - Added access to former 2D shields animations, as 3D glitches with mac OS.
   - Added a new 3D shield animations that should be compatible with mac OS.

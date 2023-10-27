@@ -68,6 +68,12 @@ Later:
 
 ## What's New
 
+2023.10.26 (BR)
+- Dark Galaxy: Found New cleaner way to hide all out of range elements.
+  - Stars background and nebuleas are no more visible.
+  - "Shrink" replaced by "Dark"
+  - "Limited spying" replaced by "Names": Dark, but you remember the names of out of range Empires.
+
 2023.10.25 (BR)
 - Fixed some animations blocked by the temporisation of Result panel.
 - Dark Galaxy: Only the final replay will show the full galaxy!
