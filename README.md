@@ -69,7 +69,8 @@ Later:
 ## What's New
 
 2023.10.27 (BR)
-- Dark Galaxy: default values not linked to last value.
+- Dark Galaxy: Default values not linked to last value.
+- Dark Galaxy: Removed old clugging test code.
 
 2023.10.26 (BR)
 - Dark Galaxy: Found New cleaner way to hide all out of range elements.

@@ -266,10 +266,6 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         setFontHints(g2);
         parent.checkMapInitialized();
         paintToImage(mapBuffer());
-//    	g2.setColor(Color.black);
-//    	g2.fillRect(0, 0, mapBuffer.getWidth(null), mapBuffer.getHeight(null));
-//        
-//        Shape clipOld = g2.getClip();
         if (options().selectedDarkGalaxy()) { // BR: add mask for dark galaxy mode
             if (darkRangeArea == null) {
             	initDarkRangeArea();
@@ -278,20 +274,13 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
             		resetRangeAreas();
             	}
             }
-//            if (darkRangeArea != null) {
-//            	g2.setColor(Color.black);
-//            	g2.fillRect(0, 0, mapBuffer.getWidth(null), mapBuffer.getHeight(null));
-//            	//g2.setClip(darkRangeArea);
-//            }
         }
         paintToImage(mapBuffer());
         g2.drawImage(mapBuffer,0,0,null);
-//        g2.setClip(clipOld);
         parent.paintOverMap(this, g2);
     }
     private void paintToImage(Image img) {
         Graphics2D g2 = (Graphics2D) img.getGraphics();
-        boolean darkClipped  = false;
         boolean darkShowSpy  = false;
         boolean darkShowName = false;
         Shape clipOld = g2.getClip();
@@ -302,7 +291,6 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
             	g2.setColor(Color.black);
             	g2.fillRect(0, 0, img.getWidth(null), img.getHeight(null));
             	g2.setClip(darkRangeArea);
-            	darkClipped = true;
             	darkShowSpy = options().darkGalaxySpy();
             	darkShowName = darkShowSpy || options().darkGalaxyNoSpy();
             }
@@ -592,7 +580,6 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         Empire emp = parent.empireBoundaries();
         float shipRange  = emp.shipRange();
         float scoutRange = emp.scoutRange();
-        float scanRange  = emp.planetScanningRange();
         if (shipRange > galaxy().width())
             return;
 
@@ -627,7 +614,6 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         }
         float extR = scoutRange*scale;
         float baseR = shipRange*scale;
-        float darkR = max(scoutRange, scanRange)*scale;
         Area tmpRangeArea = scoutRangeArea;
         if (tmpRangeArea == null) {
 //            long time1 = System.nanoTime();
@@ -657,22 +643,6 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
                 toAdd.add(new Area( new Ellipse2D.Float(fMapX(sv.x())-baseR, fMapY(sv.y())-baseR, 2*baseR, 2*baseR) ));
             tmpRangeArea = parallelAdd(toAdd);
             shipRangeArea = tmpRangeArea;
-//            long time2 = System.nanoTime();
-//            double ms = (time2-time1) / 1_000_000.0;
-//            System.out.format("RRR base %.2f ms\n", ms);
-        }
-
-
-        tmpRangeArea = darkRangeArea;
-        if (tmpRangeArea == null) {
-//            long time1 = System.nanoTime();
-            List<Area> toAdd = new ArrayList<>();
-            for (StarSystem sv: alliedSystems)
-                toAdd.add(new Area( new Ellipse2D.Float(fMapX(sv.x())-darkR, fMapY(sv.y())-darkR, 2*darkR, 2*darkR) )); 
-            for (StarSystem sv: systems)
-                toAdd.add(new Area( new Ellipse2D.Float(fMapX(sv.x())-darkR, fMapY(sv.y())-darkR, 2*darkR, 2*darkR) ));
-            tmpRangeArea = parallelAdd(toAdd);
-            darkRangeArea = tmpRangeArea;
 //            long time2 = System.nanoTime();
 //            double ms = (time2-time1) / 1_000_000.0;
 //            System.out.format("RRR base %.2f ms\n", ms);
@@ -980,7 +950,6 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         return null;
     }
     public void dragMap(int deltaX, int deltaY) {
-    	darkRangeArea = null;
         backOffsetX += deltaX/10;
         backOffsetY += deltaY/10;
 
