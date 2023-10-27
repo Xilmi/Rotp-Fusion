@@ -153,6 +153,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 	ParamList darkGalaxy		= new ParamList( MOD_UI, "DARK_GALAXY", "No") {
 		{
 			showFullGuide(true);
+			isValueInit(false);
 			put("No",		MOD_UI + "DARK_GALAXY_NO");
 			put("Shrink",	MOD_UI + "DARK_GALAXY_SHRINK");
 			put("NoSpy",	MOD_UI + "DARK_GALAXY_NO_SPY");
