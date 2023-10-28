@@ -288,7 +288,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		randomBox.setBounds(xButton, yRandB, buttonW, smallButtonH);
 	}
 	@Override protected void initFixButtons(Graphics2D g) {
-		System.out.println("EDIT: initFixButtons(Graphics2D g) " + (randomBox.y-yButton));
+		// System.out.println("EDIT: initFixButtons(Graphics2D g) " + (randomBox.y-yButton));
 		// Randomize Button
         Stroke prev = g.getStroke();
 		setSmallButtonGraphics(g);

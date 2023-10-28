@@ -574,7 +574,7 @@ public class SettingBase<T> implements IParam {
 		deltaYLines	= settingH + frameTopPad + bulletSize*optionH + endPad;
 		int y		= Math.max(shift, frameShift);
 		int x		= 0;
-		int height	= deltaYLines - endPad + y + 1;
+		int height	= deltaYLines - optionH/2 - endPad + y + 1;
 		int width	= currentdWith + 1;
 
 		img = new BufferedImage(width, height, TYPE_INT_ARGB);
@@ -589,7 +589,7 @@ public class SettingBase<T> implements IParam {
 		enabledColor(cost);
 		bt.setScaledXY(x + settingIndent, y);
 		bt.draw(g);
-		bt.shiftBounds(xLine, yLine);
+		bt.shiftBounds(xLine, yLine- 2*frameShift);
 		
 		y += settingH;
 		y += frameTopPad;
@@ -603,7 +603,7 @@ public class SettingBase<T> implements IParam {
 			bt.setScaledXY(x + optionIndent, y);
 			bt.setFixedWidth(true, currentdWith-2*optionIndent);
 			bt.draw(g);
-			bt.shiftBounds(xLine, yLine);
+			bt.shiftBounds(xLine, yLine-2*frameShift);
 			y += optionH;
 		}				
 		y += endPad;

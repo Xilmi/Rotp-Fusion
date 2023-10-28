@@ -68,6 +68,11 @@ Later:
 
 ## What's New
 
+2023.10.28 (BR)
+- Custom Species Menu: Fixed intermitent 3/4 line hight Yellow higlight!
+- Fixed Symmetric Galaxies freezing the setup panel.
+  - Fixed adaptive growth!
+
 2023.10.27 (BR)
 - Dark Galaxy: Default values not linked to last value.
 - Dark Galaxy: Removed old clugging test code.
