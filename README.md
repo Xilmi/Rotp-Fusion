@@ -71,6 +71,7 @@ Later:
 2023.10.27 (BR)
 - Dark Galaxy: Default values not linked to last value.
 - Dark Galaxy: Removed old clugging test code.
+- Custom Species Menu: Improved reactivity.
 
 2023.10.26 (BR)
 - Dark Galaxy: Found New cleaner way to hide all out of range elements.

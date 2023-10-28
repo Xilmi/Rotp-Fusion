@@ -129,6 +129,11 @@ public class BaseText implements Base {
     public void setBounds(int x, int y, int w, int h) {
         bounds.setBounds(x,y,w,h);
     }
+    public void shiftBounds(int dx, int dy) {
+    	int newX = bounds.x + dx;
+    	int newY = bounds.y + dy;
+    	bounds.setLocation(newX, newY);
+    }
     public void reset() { 
         bounds.setBounds(0,0,0,0); 
     }
