@@ -24,6 +24,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed Comet Event not resetting its timer! (Leading to negative delays!)
 - Custom Species Menu: Improved reactivity. (It was painfully slow!)
 - Fixed Symmetric Galaxies freezing the setup panel.
+- Fixed Nasty long lasting crashing bug, when starting a new game. !!!YYYYeeeessss!!!
 
 <b><ins>New 3D Shields effects:</ins></b>
 - Ship images are analyzed to determine an enveloping ellipse, the basis for the shield ellipsoid.

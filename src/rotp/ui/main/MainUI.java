@@ -639,6 +639,8 @@ public class MainUI extends BasePanel implements IMapHandler {
         if (!showAlerts())
             return;
         GameAlert alert = session().currentAlert();
+        if (alert == null)
+        	return;
 
         int x = getWidth() - scaled(255);
         int y = getHeight() - scaled(168);

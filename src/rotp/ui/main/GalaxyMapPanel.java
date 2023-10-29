@@ -822,7 +822,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
                 // if we are drawing the ship, then check if its flight path should be drawn first
                 if ((sh.deployed() || sh.retreating() || sh.inTransit() || sh.isRallied())
                 && parent.shouldDrawSprite(sh.pathSprite())) {
-                    if (pl.knowETA(sh))
+                    if (pl.knowETA(sh) && sh.pathSprite()!=null)
                         sh.pathSprite().draw(this,g);
                     else if (options().selectedTrackUFOsAcrossTurns()) {
                         StarSystem suspectedDestination = player().suspectedDestinationOfVisibleShip(sh);

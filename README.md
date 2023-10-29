@@ -68,6 +68,11 @@ Later:
 
 ## What's New
 
+2023.10.29 (BR)
+- Fixed PrecursorRelic, GauntletRelic, AncientDerelic that were deleting tech from the library.
+- Updated Final Messages with New Species Names.
+  -  Some customized species names will also be displayed.
+
 2023.10.28 (BR)
 - Custom Species Menu: Fixed intermitent 3/4 line hight Yellow higlight!
 - Fixed Symmetric Galaxies freezing the setup panel.

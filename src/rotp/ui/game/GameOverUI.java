@@ -263,47 +263,49 @@ public final class GameOverUI extends FadeInPanel implements MouseListener, Mous
     private String gameOverText() {
         Empire pl = player();
         String year = str(galaxy().currentYear());
-        String pName = pl.leader().name();
-        String pRace = pl.raceName();
+        String pName   = pl.leader().name();
+        String pRace   = pl.raceName();
         String pEmpire = pl.name();
-        Empire ruler = galaxy().council().leader();
-        String rName = ruler == null ? "" : ruler.leader().name();
-        String rRace = ruler == null ? "" : ruler.raceName();
+        String pPlural = pl.label("_race_plural");
+        String pTitle  = pl.label("_title");
+        Empire ruler   = galaxy().council().leader();
+        String rName   = ruler == null ? "" : ruler.leader().name();
+        String rRace   = ruler == null ? "" : ruler.raceName();
         String rEmpire = ruler == null ? "" :ruler.label("_race_plural");
 
         String resultText = "";
         if (session().status().lostOverthrown())
-            resultText = text("GAME_OVER_OVERTHROWN_LOSS2", year, pName, pRace, pEmpire, rName, rRace, rEmpire);
+            resultText = text("GAME_OVER_OVERTHROWN_LOSS2", year, pName, pRace, pEmpire, rName, rRace, rEmpire, "", pPlural, pTitle);
         else if (session().status().lostMilitary())
-            resultText = text("GAME_OVER_MILITARY_LOSS2", year, pName, pRace, pEmpire, rName, rRace, rEmpire);
+            resultText = text("GAME_OVER_MILITARY_LOSS2", year, pName, pRace, pEmpire, rName, rRace, rEmpire, "", pPlural, pTitle);
         else if (session().status().lostDiplomatic())
-            resultText = text("GAME_OVER_COUNCIL_LOSS2", year, pName, pRace, pEmpire, rName, rRace, rEmpire);
+            resultText = text("GAME_OVER_COUNCIL_LOSS2", year, pName, pRace, pEmpire, rName, rRace, rEmpire, "", pPlural, pTitle);
         else if (session().status().lostNewRepublic())
-            resultText = text("GAME_OVER_COUNCIL_MILITARY_LOSS2", year, pName, pRace, pEmpire, rName, rRace, rEmpire);
+            resultText = text("GAME_OVER_COUNCIL_MILITARY_LOSS2", year, pName, pRace, pEmpire, rName, rRace, rEmpire, "", pPlural, pTitle);
         else if (session().status().lostRebellion()) {
-            String special = ruler.race().text("GAME_OVER_REBELLION_LOSS3");
-            resultText = text("GAME_OVER_REBELLION_LOSS2", year, pName, pRace, pEmpire, rName, rRace, rEmpire, special);
+            String special = ruler.race().text("GAME_OVER_REBELLION_LOSS3", year, pName, pRace, pEmpire, rName, rRace, rEmpire, "", pPlural, pTitle);
+            resultText = text("GAME_OVER_REBELLION_LOSS2", year, pName, pRace, pEmpire, rName, rRace, rEmpire, special, pPlural, pTitle);
         }
         else if (session().status().lostNoColonies()) {
-            resultText = text("GAME_OVER_NO_COLONIES_LOSS2", year, pName, pRace, pEmpire, rName, rRace, rEmpire);
+            resultText = text("GAME_OVER_NO_COLONIES_LOSS2", year, pName, pRace, pEmpire, rName, rRace, rEmpire, "", pPlural, pTitle);
             resultText = player().replaceTokens(resultText, "player");
         }
         else if (session().status().wonDiplomatic())
-            resultText = text("GAME_OVER_COUNCIL_WIN2", year, pName, pRace, pEmpire, rName, rRace, rEmpire);
+            resultText = text("GAME_OVER_COUNCIL_WIN2", year, pName, pRace, pEmpire, rName, rRace, rEmpire, "", pPlural, pTitle);
         else if (session().status().wonMilitary())
-            resultText = text("GAME_OVER_MILITARY_WIN2", year, pName, pRace, pEmpire, rName, rRace, rEmpire);
+        	resultText = text("GAME_OVER_MILITARY_WIN2", year, pName, pRace, pEmpire, rName, rRace, rEmpire, "", pPlural, pTitle);
         else if (session().status().wonMilitaryAlliance()) 
-            resultText = text("GAME_OVER_MILITARY_ALLIANCE_WIN2", year, pName, pRace, pEmpire, rName, rRace, rEmpire);
+            resultText = text("GAME_OVER_MILITARY_ALLIANCE_WIN2", year, pName, pRace, pEmpire, rName, rRace, rEmpire, "", pPlural, pTitle);
         else if (session().status().wonNewRepublic())
-            resultText = text("GAME_OVER_COUNCIL_MILITARY_WIN2", year, pName, pRace, pEmpire, rName, rRace, rEmpire);
+            resultText = text("GAME_OVER_COUNCIL_MILITARY_WIN2", year, pName, pRace, pEmpire, rName, rRace, rEmpire, "", pPlural, pTitle);
         else if (session().status().wonRebellion())
-            resultText = text("GAME_OVER_REBELLION_WIN2", year, pName, pRace, pEmpire, rName, rRace, rEmpire);
+            resultText = text("GAME_OVER_REBELLION_WIN2", year, pName, pRace, pEmpire, rName, rRace, rEmpire, "", pPlural, pTitle);
         else if (session().status().wonCouncilAlliance()) {
-            String special = ruler.race().text("GAME_OVER_ALLIANCE_WIN3");
-            resultText = text("GAME_OVER_COUNCIL_ALLIANCE_WIN2", year, pName, pRace, pEmpire, rName, rRace, rEmpire, special);
+            String special = ruler.race().text("GAME_OVER_ALLIANCE_WIN3", year, pName, pRace, pEmpire, rName, rRace, rEmpire, "", pPlural, pTitle);
+            resultText = text("GAME_OVER_COUNCIL_ALLIANCE_WIN2", year, pName, pRace, pEmpire, rName, rRace, rEmpire, special, pPlural, pTitle);
         }
         else if (session().status().wonRebellionAlliance())
-            return text("GAME_OVER_REBEL_ALLIANCE_WIN2", year, pName, pRace, pEmpire, rName, rRace, rEmpire);
+            return text("GAME_OVER_REBEL_ALLIANCE_WIN2", year, pName, pRace, pEmpire, rName, rRace, rEmpire, "", pPlural, pTitle);
 
         resultText = pl.replaceTokens(resultText, "player");
         if (ruler != null)

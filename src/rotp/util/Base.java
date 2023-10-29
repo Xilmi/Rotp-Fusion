@@ -108,7 +108,7 @@ public interface Base {
     public static String lineSplitRegex = "<br>";	// BR: for descriptions and Help. System independent .
     
     static ImageColorizer colorizer = new ImageColorizer();
-    public static String[] textSubs = { "%1", "%2", "%3", "%4", "%5", "%6", "%7", "%8" };
+    public static String[] textSubs = { "%1", "%2", "%3", "%4", "%5", "%6", "%7", "%8", "%9", "%0" };
 
     public default GameSession session()   { return GameSession.instance(); }
     public default Galaxy galaxy()         { return session().galaxy(); }

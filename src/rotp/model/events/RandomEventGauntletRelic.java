@@ -80,7 +80,13 @@ public class RandomEventGauntletRelic extends AbstractRandomEvent {
 
         TechTree empTech = emp.tech();
         int maxConsLevel = (int) empTech.planetology().techLevel()+10;
-        List<String> unkPlanetologyTechs =  empTech.planetology().allTechs();
+
+        // BR: fixed tech Library deletion
+        // allTechs() is the static tech library list!
+        // List<String> unkPlanetologyTechs =  empTech.planetology().allTechs();
+        List<String> unkPlanetologyTechs = new ArrayList<>();;
+        unkPlanetologyTechs.addAll(empTech.planetology().allTechs());
+
         unkPlanetologyTechs.removeAll(empTech.planetology().knownTechs());
         for (String techId: unkPlanetologyTechs) {
             if (tech(techId).level() <= maxConsLevel)

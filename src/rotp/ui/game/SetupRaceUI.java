@@ -494,7 +494,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 	            g.draw(checkBox);
 	        }
         }
-        if (playerIsCustom.get()) {
+        if (!all & playerIsCustom.get()) {
 	        int checkW = s16;
 	        int checkX = playerRaceSettingBox.x + playerRaceSettingBox.width + s10;    
 	        int checkY = playerRaceSettingBox.y + playerRaceSettingBox.height - s7;
