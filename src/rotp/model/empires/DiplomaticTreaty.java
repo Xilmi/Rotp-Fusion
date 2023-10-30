@@ -49,4 +49,5 @@ public class DiplomaticTreaty implements Base, Serializable {
     public void losePopulation(Empire e, float amt) {  }
     public void loseFactories(Empire e, float amt)  {  }
     public void loseFleet(Empire e, float amt)    {  }
+    public void validateOnLoad() {} // For backward compatibility
 }

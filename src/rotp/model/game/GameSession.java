@@ -268,7 +268,7 @@ public final class GameSession implements Base, Serializable {
 
         options(newGameOptions.copyAllOptions());
     	RotPUI.currentOptions(IGameOptions.GAME_ID);
-    	instance.governorOptions.gameStarted();
+    	instance.getGovernorOptions().gameStarted();
         startExecutors();
 
         synchronized(ONE_GAME_AT_A_TIME) {
@@ -290,7 +290,7 @@ public final class GameSession implements Base, Serializable {
     	stopCurrentGame();
         options(src.options().copyAllOptions());
     	RotPUI.currentOptions(IGameOptions.GAME_ID);
-    	instance.governorOptions.gameStarted();
+    	instance.getGovernorOptions().gameStarted();
         startExecutors();
 
         synchronized(ONE_GAME_AT_A_TIME) {
@@ -945,7 +945,7 @@ public final class GameSession implements Base, Serializable {
         if (!startUp) {
             RotPUI.instance().selectMainPanelLoadGame();
         }
-        instance.governorOptions.gameLoaded();
+        instance.getGovernorOptions().gameLoaded();
     }
 	private void showInfo(Galaxy g) { // BR: for debug
 		System.out.println("GameSession.showInfo = true ===========================================");
@@ -1191,6 +1191,11 @@ public final class GameSession implements Base, Serializable {
         maxY = min(gal.height(), maxY+r);
         pl.setBounds(minX, maxX, minY, maxY);
         pl.setVisibleShips();
+        // BR: Backward compatibility tentative
+        for (Empire emp: galaxy().empires()) {
+        	emp.validateOnLoad();
+        }
+        ((MOO1GameOptions) options).validateOnLoad();
     }
     static ThreadFactory minThreadFactory() {
         return (Runnable r) -> {

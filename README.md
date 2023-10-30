@@ -68,6 +68,12 @@ Later:
 
 ## What's New
 
+2023.10.30 (BR)
+- Dark Galaxy:
+  - Fixed ship display on borders.
+  - Fixed ship scanner range (Scale was missing).
+- Vanilla games can now be loaded by Rotp-Fusion.
+
 2023.10.29 (BR)
 - Fixed PrecursorRelic, GauntletRelic, AncientDerelic that were deleting tech from the library.
 - Updated Final Messages with New Species Names.

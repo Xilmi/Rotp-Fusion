@@ -799,4 +799,6 @@ public class DiplomaticEmbassy implements Base, Serializable {
         treaty = new TreatyPeace(view.empire(), view.owner(), duration);
         view.setSuggestedAllocations();
     }
+    public void validateOnLoad() { treaty.validateOnLoad(); } // For backward compatibility
+
 }

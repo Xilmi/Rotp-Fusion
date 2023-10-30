@@ -734,6 +734,11 @@ public final class Empire implements Base, NamedObject, Serializable {
             }
         }
     }
+    public void validateOnLoad() {
+        for(EmpireView view : this.empireViews)
+            if(view != null)
+                view.validateOnLoad();
+    }
     public void cancelTransports(List<StarSystem> fromSystems) {
         for (StarSystem from: fromSystems)
             from.transportSprite().clear();

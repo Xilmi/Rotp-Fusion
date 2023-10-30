@@ -115,7 +115,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private String selectedColonizingOption;
     private String selectedAutoplayOption;
     // BR: Dynamic options
-    private final DynOptions dynamicOptions = new DynOptions();
+    private DynOptions dynamicOptions = new DynOptions();
 
     private transient GalaxyShape galaxyShape;
     private transient int id = UNKNOWN_ID;
@@ -128,8 +128,13 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         randomizeColors();
         setBaseSettingsToDefault();
     }
+    public void validateOnLoad() {
+   		if (dynamicOptions == null) // compatibility tentative... probably not enough!
+   			dynamicOptions = new DynOptions();
+
+    }
 	@Override public IGameOptions opts()		 { return this;	}
-	@Override public DynOptions dynOpts()		 { return dynamicOptions;	}
+	@Override public DynOptions dynOpts()		 { return dynamicOptions; }
     @Override public int id()                    { return id; }
     @Override public void id(int id)             { this.id = id; }
     @Override

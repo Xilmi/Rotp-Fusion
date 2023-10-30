@@ -15,6 +15,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Replaced the meaningless Animations delay by Animation Fps.
     - The real delay was dependent on the computing time.
     - The animation duration will depends on the fps and the number of frames... 
+- Vanilla games can now be loaded by Rotp-Fusion.
+  - Not deeply tested, please report bugs.
 
 <b><ins>Bug Fixes:</ins></b>
 - Fixed sound echo default values.
