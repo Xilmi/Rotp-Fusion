@@ -283,6 +283,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         Graphics2D g2 = (Graphics2D) img.getGraphics();
         boolean darkShowSpy  = false;
         boolean darkShowName = false;
+
         Shape clipOld = g2.getClip();
         if (options().selectedDarkGalaxy()) { // BR: add mask for dark galaxy mode
             if (darkRangeArea == null)
@@ -301,12 +302,12 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         	
         //log("map scale:", fmt(scaleX(),2), "@", fmt(scaleY(),2), "  center:", fmt(center().x(),2), "@", fmt(center().y(),2), "  x-rng:", fmt(mapMinX()), "-", fmt(mapMaxX(),2), "  y-rng:", fmt(mapMinY()), "-", fmt(mapMaxY(),2));
         //drawBackground(g2); // modnar: not needed due to drawShipRanges below
-        if (darkShowSpy) {
+//        if (darkShowSpy) {
         	g2.setClip(clipOld);
         	drawShipRanges(g2);
         	g2.setClip(darkRangeArea);
-        } else
-        	drawShipRanges(g2);
+//        } else
+//        	drawShipRanges(g2);
 
         if (parent.drawBackgroundStars() && showStars()) {
             float alpha = 8/5*sizeX()/scaleX();
@@ -327,13 +328,14 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         drawStarSystems(g2);
         if (!darkShowName)
         	drawEmpireNames(g2);
-        drawShips(g2);
-        drawWorkingFlightPaths(g2);
 
+        drawWorkingFlightPaths(g2);
+        drawShipsAndPath(g2);
         g2.setClip(clipOld);
         if (darkShowName)
 	        drawEmpireNames(g2);
-        
+//        drawShipsOnly(g2);
+
         parent.drawYear(g2);
         parent.drawTitle(g2);
         parent.drawAlerts(g2);
@@ -462,6 +464,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
             }
         float scale = getWidth()/scaleX();
         float darkR = darkRange*scale;
+       	float shipR = max(1, pl.shipScanningRange())*scale;
 
 //        long time1 = System.nanoTime();
         List<Area> toAdd = new ArrayList<>();
@@ -471,13 +474,9 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         for (StarSystem sv: systems)
             toAdd.add(new Area( new Ellipse2D.Float(fMapX(sv.x())-darkR, fMapY(sv.y())-darkR, 2*darkR, 2*darkR) ));
         // Add Ship Scan
-        if (pl.scanPlanets()) {
-        	float shipR = pl.shipScanningRange();
-        	List<ShipFleet> fleets = galaxy().ships.allFleets(pl.id);
-        	for (ShipFleet fl: fleets) {
-        		toAdd.add(new Area( new Ellipse2D.Float(fMapX(fl.x())-shipR, fMapY(fl.y())-shipR, 2*shipR, 2*shipR) ));
-        	 }
-        }
+       	List<ShipFleet> fleets = galaxy().ships.allFleets(pl.id);
+       	for (ShipFleet fl: fleets)
+       		toAdd.add(new Area( new Ellipse2D.Float(fMapX(fl.x())-shipR, fMapY(fl.y())-shipR, 2*shipR, 2*shipR) ));
         Area tmpRangeArea = parallelAdd(toAdd);
         darkRangeArea = tmpRangeArea;
 //        long time2 = System.nanoTime();
@@ -809,11 +808,12 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
                 sys.rallySprite().draw(this, g);
         }
     }
-    private void drawShips(Graphics2D g) {
+    private void drawShipsAndPath(Graphics2D g) {
         if (!parent.drawShips())
             return;
         Empire pl = player();
-        // comodification exception here without this copy
+
+        // commodification exception here without this copy
         List<Ship> visibleShips = new ArrayList<>(pl.visibleShips());
         for (Ship sh: visibleShips) {
             sh.setDisplayed(this);
@@ -830,6 +830,21 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
                             sh.pathSpriteTo(suspectedDestination).draw(this, g);
                     }
                 }
+                spr.draw(this, g);
+            }
+        }
+    }
+    private void drawShipsOnly(Graphics2D g) {
+        if (!parent.drawShips())
+            return;
+        Empire pl = player();
+
+        // commodification exception here without this copy
+        List<Ship> visibleShips = new ArrayList<>(pl.visibleShips());
+        for (Ship sh: visibleShips) {
+            sh.setDisplayed(this);
+            if (sh.displayed()) {
+                Sprite spr = (Sprite) sh;
                 spr.draw(this, g);
             }
         }
