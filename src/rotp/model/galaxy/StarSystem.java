@@ -580,14 +580,8 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
         
         // BR: Dark Galaxy
         SystemView sv = pl.sv.view(id);
-        if (options().selectedDarkGalaxy()) {
-        	if (!sv.scouted() || options().darkGalaxyShrink()) {
-        		float dist = sv.distance();
-        		float scoutRange = pl.scoutRange();
-        		if(dist>scoutRange)
-        			return;
-        	}
-        }
+        if (pl.hiddenSystem(this))
+        	return;
         Empire emp = map.parent().knownEmpire(id, pl);
         // draw ownership radius?
         if ((emp != null) && map.parent().showOwnerReach(this))
@@ -768,6 +762,8 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
     public boolean isSelectableAt(GalaxyMapPanel map, int mapX, int mapY) {
         if (!displayed)
             return false;
+        if (player().hiddenSystem(this))
+        	return false;
         if (nameBox().contains(mapX, mapY)) 
             return true;
         int spriteX = map.mapX(x());

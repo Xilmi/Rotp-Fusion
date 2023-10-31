@@ -806,22 +806,7 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
     }
 
     public boolean scouted()                 { return (owner() == empire()) || (scoutTime() > 0); }
-    public boolean spied()                   { 
-    	boolean spied = (owner() == empire()) || (spyTime() > 0);
-    	if (spied && options().selectedDarkGalaxy()) {
-    		// BR: Dark Galaxy
-    		// Dark galaxy mode spied should be in range!
-    		if (options().darkGalaxySpy()) {
-    			return true;
-    		}
-    		float dist = distance();
-			float scoutRange = owner().scoutRange();
-			float scanRange = owner().planetScanningRange();
-			float range = max(scoutRange, scanRange);
-			return range>dist;
-    	}
-   		return spied;
-    }
+    public boolean spied()                   { return (owner() == empire()) || (spyTime() > 0); }
     public int lastReportYear()              { return (owner() == empire()) ? galaxy().currentYear() : (int) spyTime(); }
     public int lastReportTurn()              { return (int) max(spyTurn(), scoutTurn()); }
     public int spyReportAge()                { return galaxy().currentYear() - lastReportYear(); }

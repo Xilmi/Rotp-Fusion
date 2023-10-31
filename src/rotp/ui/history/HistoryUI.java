@@ -800,7 +800,7 @@ public final class HistoryUI extends BasePanel implements MouseListener {
             return (sysCount[i] > 0);
         }
         @Override
-        public void drawEmpireName(Empire e, GalaxyMapPanel ui, Graphics2D g)  { 
+        public void drawEmpireName(Empire e, GalaxyMapPanel ui, Graphics2D g, boolean darkMode)  { 
             int i = empIndex(e.id, turn);
             float xAvg = sysCount[i] == 0 ? 0 : xSum[i]/sysCount[i];
             float yAvg = sysCount[i] == 0 ? 0 : ySum[i]/sysCount[i];

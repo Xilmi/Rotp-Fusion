@@ -17,6 +17,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
     - The animation duration will depends on the fps and the number of frames... 
 - Vanilla games can now be loaded by Rotp-Fusion.
   - Not deeply tested, please report bugs.
+- Mass Transport Dialog: Set Default to Synchronized.
+
 
 <b><ins>Bug Fixes:</ins></b>
 - Fixed sound echo default values.

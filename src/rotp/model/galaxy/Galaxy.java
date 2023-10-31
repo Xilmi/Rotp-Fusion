@@ -70,7 +70,7 @@ public class Galaxy implements Base, Serializable {
     public int systemCount = 0;
 
     // BR: Dynamic options
-    private final DynOptions dynamicOptions = new DynOptions();
+    private DynOptions dynamicOptions = new DynOptions();
 
     private transient ShipCombatManager shipCombat = new ShipCombatManager();
     private transient Map<String, List<String>> raceSystemNames = new HashMap<>();
@@ -106,7 +106,7 @@ public class Galaxy implements Base, Serializable {
 
     public int width()                       { return widthLY; }
     public int height()                      { return heightLY; }
-    public float maxScaleAdj()              { return maxScaleAdj; }
+    public float maxScaleAdj()               { return maxScaleAdj; }
 
     public void player(Empire d)             { playerEmpire = d; }
     @Override
@@ -403,7 +403,12 @@ public class Galaxy implements Base, Serializable {
                 emp.makeNextTurnDecisions();
         }
     }
-    
+    public void validateOnLoad() {
+    	if (dynamicOptions == null)
+    		dynamicOptions = new DynOptions();
+        for (Empire emp: empires())
+             emp.validateOnLoad();
+     }    
     public void validate() {
        for (Empire emp: empires())
             emp.validate();

@@ -96,7 +96,6 @@ import rotp.util.Base;
 public final class Empire implements Base, NamedObject, Serializable {
     private static final long serialVersionUID = 1L;
     private static final float SHIP_MAINTENANCE_PCT = .02f;
-//    private static final int maxSecurityPct() = 10;
     private static final float SECURITY_COST_RATIO = 2f;
     public static final int PLAYER_ID = 0;
     public static final int NULL_ID = -1;
@@ -155,10 +154,11 @@ public final class Empire implements Base, NamedObject, Serializable {
     private final String dataRaceKey;
 
     // BR: Dynamic options
-    private final DynOptions dynamicOptions = new DynOptions();
+    private DynOptions dynamicOptions = new DynOptions();
     private DynOptions raceOptions;
 
-    private transient float avgX, avgY, nameX1, nameX2;
+    private transient float avgX, avgY, nameX1, nameX2; // Names position
+    private transient float avgXd, avgYd, nameX1d, nameX2d; // Names position for dark Galaxies
 
     private transient AI ai;
     private transient boolean[] canSeeShips;
@@ -182,7 +182,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     private transient float totalEmpireStargateCost;
     private transient float totalEmpireMissileBaseCost;
     private transient int inRange;
-    public transient int numColoniesHistory;
+    public  transient int numColoniesHistory;
     private transient String empireName;
 
     public void resetAI() { ai = null; } // BR:
@@ -735,6 +735,8 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
     }
     public void validateOnLoad() {
+    	if (dynamicOptions == null)
+    		dynamicOptions = new DynOptions();
         for(EmpireView view : this.empireViews)
             if(view != null)
                 view.validateOnLoad();
@@ -858,6 +860,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
         return false;
     }
+    public float darkRange()              { return max(tech().scoutRange(), planetScanningRange); }
     public float shipRange()              { return tech().shipRange(); }
     public float scoutRange()             { return tech().scoutRange(); }
     
@@ -2175,6 +2178,29 @@ public final class Empire implements Base, NamedObject, Serializable {
                 return true;
         }
         return false;
+    }
+    public boolean hiddenSystem (StarSystem sys) {
+    	if (!options().selectedDarkGalaxy())
+        	return false;
+   		return !inVisibleRange(sys);
+    }
+    private boolean inVisibleRange(StarSystem sys) {
+    	// Test if inside empire range
+    	float darkRange	= darkRange();
+    	float empDist	= sv.distance(sys.id);
+    	if (empDist <= darkRange )
+    		return true;
+    	// Could a ship extend the range?
+    	float scanRange = shipScanningRange();
+    	if (scanRange <= 0)
+    		return false;
+    	// Check if scanned by ship
+    	List<ShipFleet> fleets = galaxy().ships.allFleets(id);
+    	for (ShipFleet fl: fleets) {
+    		if (fl.distanceTo(sys) <= scanRange)
+    			return true;
+    	}
+    	return false;
     }
     public boolean inShipRange(int empId) {
         Empire e = galaxy().empire(empId);
@@ -4188,12 +4214,20 @@ public final class Empire implements Base, NamedObject, Serializable {
         float[] xMin = new float[emps.length];
         float[] xMax = new float[emps.length];
         int[] num = new int[emps.length];
+        float[] xAvgD = new float[emps.length];
+        float[] yAvgD = new float[emps.length];
+        float[] xMinD = new float[emps.length];
+        float[] xMaxD = new float[emps.length];
+        int[] numD = new int[emps.length];
         
-        for (int i=0;i<emps.length;i++) 
-            xMin[i] = Float.MAX_VALUE;
+        for (int i=0;i<emps.length;i++) {
+        	xMin[i]  = Float.MAX_VALUE;
+        	xMinD[i] = Float.MAX_VALUE;
+        }
         
         int n = galaxy().numStarSystems();
-        for (int i=0;i<n;i++) {
+        float darkRange = darkRange();
+        for (int i=0; i<n; i++) {
             int empId = sv.empId(i);
             if (empId >= 0) {
                 if (!sv.name(i).isEmpty()) {
@@ -4203,20 +4237,35 @@ public final class Empire implements Base, NamedObject, Serializable {
                     xMin[empId] = min(xMin[empId], sys.x());
                     xMax[empId] = max(xMax[empId], sys.x());
                     num[empId]++;
+                    if (this.distanceTo(sys) <= darkRange) {
+                        xAvgD[empId] += sys.x();
+                        yAvgD[empId] += sys.y();
+                        xMinD[empId] = min(xMinD[empId], sys.x());
+                        xMaxD[empId] = max(xMaxD[empId], sys.x());
+                        numD[empId]++;                    	
+                    }
                 }
             }
         }
         
         for (Empire emp: emps) {
             int id = emp.id;
-            emp.avgX = xAvg[id]/num[id];
-            emp.avgY = yAvg[id]/num[id];
-            emp.nameX1 =xMin[id];
-            emp.nameX2 = xMax[id];
+            emp.avgX	= xAvg[id]/num[id];
+            emp.avgY	= yAvg[id]/num[id];
+            emp.nameX1	= xMin[id];
+            emp.nameX2	= xMax[id];
+
+            emp.avgXd	= xAvgD[id]/numD[id];
+            emp.avgYd	= yAvgD[id]/numD[id];
+            emp.nameX1d	= xMinD[id];
+            emp.nameX2d	= xMaxD[id];
         }  
     }
-    public void draw(GalaxyMapPanel map, Graphics2D g2) {
-        draw(map, g2, nameX1, nameX2, avgX, avgY);
+    public void draw(GalaxyMapPanel map, Graphics2D g2, boolean darkMode) {
+    	if (darkMode)
+            draw(map, g2, nameX1d, nameX2d, avgXd, avgYd);
+    	else
+    		draw(map, g2, nameX1, nameX2, avgX, avgY);
     }
     public void draw(GalaxyMapPanel map, Graphics2D g2, float xMin, float xMax, float xAvg, float yAvg) {
         if (map.hideSystemNames())
@@ -4230,7 +4279,6 @@ public final class Empire implements Base, NamedObject, Serializable {
         float adj = max(0,3-empW);
         int x0 = map.mapX(xMin-adj);
         int x1 = map.mapX(xMax+adj);
-         
         
         int mapX = map.mapX(xAvg);
         int mapY = map.mapY(yAvg);

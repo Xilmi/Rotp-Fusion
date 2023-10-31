@@ -36,7 +36,6 @@ import java.util.Collections;
 import java.util.List;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
-import rotp.ui.fleets.SystemListingUI.DataView;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.sprites.SystemTransportSprite;
 import rotp.util.Palette;
@@ -49,7 +48,7 @@ public class MassTransportsDialog extends BasePanel {
     TransportTargetListingUI listingUI;
     TransportTargetFooterUI footerUI;
     List<StarSystem> sourceSystems = new ArrayList<>();
-    boolean synched = false;
+    boolean synched = true; // BR: Default was false!
     final Color backgroundC = new Color(76,57,41,192);
 
     public MassTransportsDialog(FleetUI p) {

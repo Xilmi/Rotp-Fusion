@@ -57,6 +57,7 @@ import rotp.model.galaxy.Nebula;
 import rotp.model.galaxy.Ship;
 import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.game.IGameOptions;
 import rotp.model.game.IMapOptions;
 import rotp.model.tech.TechCategory;
 import rotp.ui.BasePanel;
@@ -118,8 +119,6 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
     private int backOffsetY = 0;
     private float areaOffsetX = 0;
     private float areaOffsetY = 0;
-//    private float lastAreaOffsetX = 0;
-//    private float lastAreaOffsetY = 0;
     private Area shipRangeArea;
     private Area scoutRangeArea;
     private Area darkRangeArea;
@@ -281,34 +280,32 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
     }
     private void paintToImage(Image img) {
         Graphics2D g2 = (Graphics2D) img.getGraphics();
+        IGameOptions opts	 = options();
         boolean darkShowSpy  = false;
         boolean darkShowName = false;
+        boolean darkGalaxy	 = opts.selectedDarkGalaxy();
 
         Shape clipOld = g2.getClip();
-        if (options().selectedDarkGalaxy()) { // BR: add mask for dark galaxy mode
+        if (darkGalaxy) { // BR: add mask for dark galaxy mode
             if (darkRangeArea == null)
             	initDarkRangeArea();
             if (darkRangeArea != null) {
             	g2.setColor(Color.black);
             	g2.fillRect(0, 0, img.getWidth(null), img.getHeight(null));
-            	g2.setClip(darkRangeArea);
-            	darkShowSpy = options().darkGalaxySpy();
-            	darkShowName = darkShowSpy || options().darkGalaxyNoSpy();
+            	darkShowSpy = opts.darkGalaxySpy();
+            	darkShowName = darkShowSpy || opts.darkGalaxyNoSpy();
             }
         }
         super.paintComponent(g2); //paint background
         setScale(scaleY());
-
         	
         //log("map scale:", fmt(scaleX(),2), "@", fmt(scaleY(),2), "  center:", fmt(center().x(),2), "@", fmt(center().y(),2), "  x-rng:", fmt(mapMinX()), "-", fmt(mapMaxX(),2), "  y-rng:", fmt(mapMinY()), "-", fmt(mapMaxY(),2));
         //drawBackground(g2); // modnar: not needed due to drawShipRanges below
-//        if (darkShowSpy) {
-        	g2.setClip(clipOld);
-        	drawShipRanges(g2);
-        	g2.setClip(darkRangeArea);
-//        } else
-//        	drawShipRanges(g2);
+       	drawShipRanges(g2);
+       	if (darkGalaxy)
+       		g2.setClip(darkRangeArea);
 
+       	// display background stars
         if (parent.drawBackgroundStars() && showStars()) {
             float alpha = 8/5*sizeX()/scaleX();
             Composite prev = g2.getComposite();
@@ -319,22 +316,25 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
             drawBackgroundStars(g2);
             g2.setComposite(prev);
         }
+        // Display Nebulae
         if (UserPreferences.texturesMap())
-            drawBackgroundNebula(g2);
-       
+            drawBackgroundNebula(g2);       
         drawGrids(g2);
-
         drawNebulas(g2);
-        drawStarSystems(g2);
-        if (!darkShowName)
-        	drawEmpireNames(g2);
+
+       	if (darkGalaxy) {
+            g2.setClip(clipOld);
+            drawStarSystems(g2);
+        	drawEmpireNames(g2, !darkShowName);
+            g2.setClip(darkRangeArea);
+       	} else {
+       		drawStarSystems(g2);
+        	drawEmpireNames(g2, false);
+       	}
 
         drawWorkingFlightPaths(g2);
         drawShipsAndPath(g2);
         g2.setClip(clipOld);
-        if (darkShowName)
-	        drawEmpireNames(g2);
-//        drawShipsOnly(g2);
 
         parent.drawYear(g2);
         parent.drawTitle(g2);
@@ -447,11 +447,10 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         zoomTimer.start();
     }
     private void initDarkRangeArea() {
-        Empire pl = player();
-        float scoutRange = pl.scoutRange();
-        float scanRange  = pl.planetScanningRange();
-        float darkRange  = max(scoutRange, scanRange);
-        if (darkRange > galaxy().width())
+        Empire pl  = player();
+        Galaxy gal = galaxy();
+        float darkRange  = pl.darkRange();
+        if (darkRange > gal.width())
             return;
 
         // Get extended Star System
@@ -464,19 +463,21 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
             }
         float scale = getWidth()/scaleX();
         float darkR = darkRange*scale;
+        float darkD = 2*darkR;
        	float shipR = max(1, pl.shipScanningRange())*scale;
+        float shipD = 2*shipR;
 
 //        long time1 = System.nanoTime();
         List<Area> toAdd = new ArrayList<>();
         // Add Colony Scan
         for (StarSystem sv: alliedSystems)
-            toAdd.add(new Area( new Ellipse2D.Float(fMapX(sv.x())-darkR, fMapY(sv.y())-darkR, 2*darkR, 2*darkR) )); 
+            toAdd.add(new Area( new Ellipse2D.Float(fMapX(sv.x())-darkR, fMapY(sv.y())-darkR, darkD, darkD) )); 
         for (StarSystem sv: systems)
-            toAdd.add(new Area( new Ellipse2D.Float(fMapX(sv.x())-darkR, fMapY(sv.y())-darkR, 2*darkR, 2*darkR) ));
+            toAdd.add(new Area( new Ellipse2D.Float(fMapX(sv.x())-darkR, fMapY(sv.y())-darkR, darkD, darkD) ));
         // Add Ship Scan
-       	List<ShipFleet> fleets = galaxy().ships.allFleets(pl.id);
+       	List<ShipFleet> fleets = gal.ships.allFleets(pl.id);
        	for (ShipFleet fl: fleets)
-       		toAdd.add(new Area( new Ellipse2D.Float(fMapX(fl.x())-shipR, fMapY(fl.y())-shipR, 2*shipR, 2*shipR) ));
+       		toAdd.add(new Area( new Ellipse2D.Float(fMapX(fl.x())-shipR, fMapY(fl.y())-shipR, shipD, shipD) ));
         Area tmpRangeArea = parallelAdd(toAdd);
         darkRangeArea = tmpRangeArea;
 //        long time2 = System.nanoTime();
@@ -790,10 +791,10 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
                 neb.draw(this, g);
         }
     }
-    private void drawEmpireNames(Graphics2D g) {
+    private void drawEmpireNames(Graphics2D g, boolean darkMode) {
         for (Empire emp: galaxy().empires()) {
             if (parent.shouldDrawEmpireName(emp, scaleX())) 
-                parent.drawEmpireName(emp, this, g);
+                parent.drawEmpireName(emp, this, g, darkMode);
         }
     }
     private void drawStarSystems(Graphics2D g) {
@@ -830,21 +831,6 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
                             sh.pathSpriteTo(suspectedDestination).draw(this, g);
                     }
                 }
-                spr.draw(this, g);
-            }
-        }
-    }
-    private void drawShipsOnly(Graphics2D g) {
-        if (!parent.drawShips())
-            return;
-        Empire pl = player();
-
-        // commodification exception here without this copy
-        List<Ship> visibleShips = new ArrayList<>(pl.visibleShips());
-        for (Ship sh: visibleShips) {
-            sh.setDisplayed(this);
-            if (sh.displayed()) {
-                Sprite spr = (Sprite) sh;
                 spr.draw(this, g);
             }
         }

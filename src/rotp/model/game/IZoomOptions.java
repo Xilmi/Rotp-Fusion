@@ -88,7 +88,7 @@ public interface IZoomOptions extends IBaseOptsTools {
 	{	{ isCfgFile(true); } };
 	default boolean playerSoundEcho() 		{ return playerSoundEcho.get(); }
 
-	ParamBoolean alwaysShowsShield	= new ParamBoolean(MOD_UI, "ALWAYS_SHOWS_SHIELD", true)
+	ParamBoolean alwaysShowsShield	= new ParamBoolean(MOD_UI, "ALWAYS_SHOWS_SHIELD", false)
 	{	{ isCfgFile(true); } };
 	default boolean alwaysShowsShield()		{ return alwaysShowsShield.get(); }
 

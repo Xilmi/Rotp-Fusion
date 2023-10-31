@@ -1192,9 +1192,7 @@ public final class GameSession implements Base, Serializable {
         pl.setBounds(minX, maxX, minY, maxY);
         pl.setVisibleShips();
         // BR: Backward compatibility tentative
-        for (Empire emp: galaxy().empires()) {
-        	emp.validateOnLoad();
-        }
+        galaxy().validateOnLoad();
         ((MOO1GameOptions) options).validateOnLoad();
     }
     static ThreadFactory minThreadFactory() {

@@ -146,10 +146,6 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 	ParamInteger maxSecurityPct		= new ParamInteger(MOD_UI, "MAX_SECURITY_PCT", 10, 10, 90, 1, 5, 20);
 	default int selectedMaxSecurityPct()		{ return maxSecurityPct.get(); }
 
-//	ParamBoolean darkGalaxy	= new ParamBoolean(MOD_UI, "DARK_GALAXY", false)
-//	{ { isValueInit(false); } };
-//	default boolean selectedDarkGalaxy()	{ return darkGalaxy.get(); }
-	
 	ParamList darkGalaxy		= new ParamList( MOD_UI, "DARK_GALAXY", "No") {
 		{
 			showFullGuide(true);
@@ -166,7 +162,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 	}
 	default boolean darkGalaxySpy()			{ return darkGalaxy.get().equalsIgnoreCase("Spy"); }
 	default boolean darkGalaxyNoSpy()		{ return darkGalaxy.get().equalsIgnoreCase("NoSpy"); }
-	default boolean darkGalaxyShrink()		{ return darkGalaxy.get().equalsIgnoreCase("Shrink"); }
+	default boolean darkGalaxyDark()		{ return darkGalaxy.get().equalsIgnoreCase("Shrink"); }
 	
 
 	// ==================== GUI List Declarations ====================

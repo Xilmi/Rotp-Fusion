@@ -536,22 +536,26 @@ public final class TechShipWeapon extends Tech {
     		drawOldAttack(source, target, weaponX, weaponY, impactX, impactY, wpnNum, damage, count, boxW, boxH, force);
     		return;
     	}
-    	boolean tripleBuffer = options().shieldType3Buffer();
-    	if ( !( ( tripleBuffer || options().shieldType3D() 
-    			) &&
-    			( options().alwaysShowsShield() ||
-    					( (damage != 0) && (target.shieldLevel()>0) )
-    			)
-    		  )) {
-    		drawNoShieldAttack(source, target, weaponX, weaponY, impactX, impactY, wpnNum, damage, count, boxW, boxH, force);
-    		return;
+        IGameOptions opt	 = options();
+    	boolean tripleBuffer = opt.shieldType3Buffer();
+    	boolean ForceShield	 = opt.alwaysShowsShield();
+    	if (!ForceShield) {
+        	boolean inNebula	= source.mgr.system().inNebula();
+        	boolean hasShield	= target.shieldLevel()>0;
+        	boolean notMissed	= damage != 0;
+        	boolean askShield3D	= tripleBuffer || opt.shieldType3D();
+        	boolean shielded	= notMissed && hasShield && !inNebula;
+        	boolean showShield	= askShield3D && shielded;
+        	if ( !showShield ) {
+        		drawNoShieldAttack(source, target, weaponX, weaponY, impactX, impactY, wpnNum, damage, count, boxW, boxH, force);
+        		return;
+        	}
     	}
         ShipBattleUI ui = source.mgr.ui;
         if (!source.mgr.showAnimations()) {
         	ui.animationCompleted();
         	return;
         }
-        IGameOptions opt = options();
 
         BufferedImage shipImg = new BufferedImage(boxW, boxH, TYPE_INT_ARGB);
 		Graphics2D gS = (Graphics2D) shipImg.getGraphics();
