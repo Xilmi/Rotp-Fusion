@@ -42,6 +42,8 @@ public class TradeTechNotification implements TurnNotification, Serializable {
     public void notifyPlayer() {
     	if (skipNextTechNotification)
     		return;
+    	showSkipTechButton = true;
         RotPUI.instance().selectTradeTechPanel(techId, empId);
+    	showSkipTechButton = false;
     }
 }

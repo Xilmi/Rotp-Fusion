@@ -68,6 +68,10 @@ Later:
 
 ## What's New
 
+2023.11.01 (BR)
+- All trade tech notification have the skip Button
+- Dark Galaxy: Fixed sabotage mission showing to much.
+
 2023.10.31 (BR)
 - Dark Galaxy:
   - Names are not clipped anymore

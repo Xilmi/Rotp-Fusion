@@ -265,16 +265,6 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         setFontHints(g2);
         parent.checkMapInitialized();
         paintToImage(mapBuffer());
-        if (options().selectedDarkGalaxy()) { // BR: add mask for dark galaxy mode
-            if (darkRangeArea == null) {
-            	initDarkRangeArea();
-            	if (darkRangeArea != null) {
-            		mapBuffer = null;
-            		resetRangeAreas();
-            	}
-            }
-        }
-        paintToImage(mapBuffer());
         g2.drawImage(mapBuffer,0,0,null);
         parent.paintOverMap(this, g2);
     }
@@ -301,9 +291,15 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         	
         //log("map scale:", fmt(scaleX(),2), "@", fmt(scaleY(),2), "  center:", fmt(center().x(),2), "@", fmt(center().y(),2), "  x-rng:", fmt(mapMinX()), "-", fmt(mapMaxX(),2), "  y-rng:", fmt(mapMinY()), "-", fmt(mapMaxY(),2));
         //drawBackground(g2); // modnar: not needed due to drawShipRanges below
-       	drawShipRanges(g2);
+        Empire emp = parent.empireBoundaries();
+        boolean isPlayer = emp.isPlayer();
+        isPlayer = true;
+        if (isPlayer)
+        	drawShipRanges(g2);
        	if (darkGalaxy)
        		g2.setClip(darkRangeArea);
+        if (!isPlayer)
+        	drawShipRanges(g2);
 
        	// display background stars
         if (parent.drawBackgroundStars() && showStars()) {
@@ -587,11 +583,18 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         Color normalBorder = emp.shipBorderColor();
         Color extendedBorder = emp.scoutBorderColor();
         Color normalBackground = emp.empireRangeColor();
+        boolean isPlayer = emp.isPlayer();
+        IGameOptions opts = options();
+
         // draw extended range
-        List<StarSystem> systems = player().systemsForCiv(emp);
+        List<StarSystem> systems;
+        if (!isPlayer && opts.selectedDarkGalaxy() && !opts.darkGalaxySpy())
+        	systems = player().systemsForCivDark(emp);
+        else
+        	systems = player().systemsForCiv(emp);
         List<StarSystem> alliedSystems = new ArrayList<>();
         // only show range for allied systems when player is selected
-        if (emp.isPlayer()) {
+        if (isPlayer) {
             for (Empire ally: emp.allies())
                 for (StarSystem sys: ally.allColonizedSystems()) {
                     if (pl.sv.empId(sys.id) == ally.id)

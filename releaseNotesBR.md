@@ -18,7 +18,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Vanilla games can now be loaded by Rotp-Fusion.
   - Not deeply tested, please report bugs.
 - Mass Transport Dialog: Set Default to Synchronized.
-
+- All trade tech notification have the skip Button.
 
 <b><ins>Bug Fixes:</ins></b>
 - Fixed sound echo default values.

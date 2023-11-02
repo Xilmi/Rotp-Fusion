@@ -3312,6 +3312,20 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
         return systems;
     }
+    public List<StarSystem> systemsForCivDark(Empire emp) {
+        Galaxy gal = galaxy();
+        Empire pl = player();
+        float range = pl.darkRange();
+        List<StarSystem> systems = new ArrayList<>();
+        for (int i=0;i<sv.count();i++) {
+            if (sv.empire(i) == emp) {
+            	StarSystem sys = gal.system(i);
+            	if (pl.distanceTo(sys)<= range)
+            		systems.add(gal.system(i));
+            }
+        }
+        return systems;
+    }
     public int numSystemsForCiv(Empire emp) {
         int num = 0;
         for (int n=0;n<sv.count();n++) {
