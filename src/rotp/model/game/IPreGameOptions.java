@@ -190,6 +190,8 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions {
 				richHomeworld, ultraRichHomeworld,
 				companionWorlds, battleScout, randomTechStart, randomizeAI,
 
+				// headerSpacer,
+				// new ParamTitle("MENU_OPTIONS"),
 				headerSpacer,
 				new ParamTitle("BETA_TEST"),
 				ironmanMode, ironmanOptionsUI

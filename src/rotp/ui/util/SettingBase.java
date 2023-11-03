@@ -247,6 +247,7 @@ public class SettingBase<T> implements IParam {
 	}
 	@Override public String getValueStr(int id)		{ return valueGuide(valueValidIndex(id)); }
 	@Override public String valueGuide(int id) 		{ return tableFormat(getRowGuide(id)); }
+	@Override public boolean updated()				{ return updated; }
 	
 	// ========== Tools for overriders ==========
 	//
@@ -434,7 +435,6 @@ public class SettingBase<T> implements IParam {
 		else
 			return guiSettingLabelValueCostStr();		
 	}
-	public	boolean updated()			{ return updated; }
 	public	boolean isSpacer()			{ return isSpacer; }
 	public	boolean hasNoCost()			{ return hasNoCost; }
 	public	boolean isBullet()			{ return isBullet; }

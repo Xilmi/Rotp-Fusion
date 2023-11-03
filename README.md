@@ -43,7 +43,6 @@ Very soon:
   - Option to change their travel time.
   - Option to start late game
     - Associated with specific tech discovery.
-- Character panel: improve the reactivity.
 - Spy: option to not over spend with the spy budget!
 - Add second statistic option: (on the side of lin / log): Display statistic as:
     - "% Tot": Precentage relative to known total (!= Galaxy Total)
@@ -55,7 +54,6 @@ Very soon:
 - Some Achievements options.
 
 Later:
-- Smooth the Trade blocking option.
 - Investigate: William482 request: Age of your data on each race into the bar graphs on the status page.
 - Tech trading extended list.
 - Option to be used to force war declaration upon "Smart Resolve".
@@ -67,6 +65,10 @@ Later:
 
 
 ## What's New
+
+2023.11.02 (BR)
+- Improved compact Menu reactivity.
+- The options opening the sub-menus are more obvious.
 
 2023.11.01 (BR)
 - All trade tech notification have the skip Button

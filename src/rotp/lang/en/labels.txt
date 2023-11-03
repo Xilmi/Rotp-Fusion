@@ -1910,6 +1910,8 @@ HEADERS_MENU_OPTIONS_DESC         | Options controlling Menu Parameters. Can be 
 HEADERS_MENU_OPTIONS              | ~~~ MENU'S OPTIONS ~~~%1
 HEADERS_PLANETS_FLAG_OPTIONS_DESC | To allow greater customization of the flag(s) of the planets.
 HEADERS_PLANETS_FLAG_OPTIONS      | ~~~ PLANETS FLAG OPTIONS ~~~%1
+HEADERS_SUB_PANEL_OPTIONS_DESC    | Clicking the following options will open a sub-panel with more dedicated option.
+HEADERS_SUB_PANEL_OPTIONS         | §§~~ SUB PANEL OPTIONS ~~§§%1
 
 HEADERS_AUTO_FLAG_ID_SELECTION       | ~~~ AUTO-FLAG SELECTION ~~~%1
 HEADERS_AUTO_FLAG_ID_SELECTION_DESC  | To Associate Auto-Flag position with it's parameter. (Only the first time a Star System is scouted)
@@ -2419,7 +2421,7 @@ SETTINGS_MOD_ZOOM_OPTIONS_UI_HELP        | Open Sub Menu to set several In-Game 
 SETTINGS_MOD_FLAG_COLOR_COUNT_DESC       | How may colors should appear on the Star System Flag?
 SETTINGS_MOD_FLAG_COLOR_COUNT            | Flag Color Count: %1
 
-SETTINGS_MOD_AUTO_FLAG_TITLE             | Auto-Flag Options
+SETTINGS_MOD_AUTO_FLAG_TITLE             | Auto-Flag Menu
 SETTINGS_MOD_AUTO_FLAG_UI_DESC           | Open Sub Menu to set the parameters that will be automatically associated with flags. (Only the first time a Star System is scouted)
 SETTINGS_MOD_AUTO_FLAG_UI                | Auto-Flag Options: %1
 
@@ -2548,7 +2550,7 @@ SETTINGS_MOD_PLAYER_SHIP_SET             | Player Ship Set: %1
 // ========== Random Events sub Panel
 SETTINGS_MOD_RANDOM_EVENTS_TITLE         | Random Event Customization
 SETTINGS_MOD_RANDOM_EVENTS_UI_DESC       | Open Sub Menu to get more random events customization options.
-SETTINGS_MOD_RANDOM_EVENTS_UI            | Random Events Options: %1
+SETTINGS_MOD_RANDOM_EVENTS_UI            | Random Events Menu: %1
 SETTINGS_MOD_RANDOM_EVENT_DISABLED       | Off
 SETTINGS_MOD_RANDOM_EVENT_UNIQUE         | Unique Event
 SETTINGS_MOD_RANDOM_EVENT_UNLIMITED      | Unlimited

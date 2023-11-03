@@ -50,6 +50,10 @@ public abstract class AbstractParam <T> implements IParam{
 	private boolean isDuplicate	= false;
 	private boolean isCfgFile	= false;
 	private boolean isValueInit	= true; // default values are initialized with current value.
+	
+	private boolean updated = true;
+	public	void displayed()			{ updated = false; }
+	@Override public boolean updated()	{ return updated; }
 
 	// ========== constructors ==========
 	//
@@ -214,15 +218,18 @@ public abstract class AbstractParam <T> implements IParam{
 	//
 	public void toggle(boolean reverse)	{ if (reverse) prev(); else next(); }
 	protected void setFromCfg(T newValue) {
+		updated = true;
 		value = newValue;
 		updateOption(dynOpts());
 	}
 	public T silentSet(T newValue) { // Reserved call from governor class
+		updated = true;
 		value = newValue;
 		setOption(newValue); // For overrider
 		return value;
 	}
 	public T set(T newValue) {
+		updated = true;
 		boolean trueChange = value != newValue;
 		value = newValue;
 //		updateOption(dynOpts()); // only for CR settings...

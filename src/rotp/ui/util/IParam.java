@@ -45,6 +45,7 @@ public interface IParam extends InterfaceOptions{
 	public default boolean	isTitle()				{ return false; }
 	public default boolean	isSubMenu()				{ return false; }
 	public default boolean	isDefaultValue()		{ return false; }
+	public default boolean	updated()				{ return true; }
 	// Display
 	public default void setFromCfgValue(String val) {}
 	public default String	getCfgValue()			{ return ""; }

@@ -136,12 +136,12 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 				headerSpacer,
 				new ParamTitle("GAME_VARIOUS"),
 				terraforming, colonizing, researchRate,
-				warpSpeed, fuelRange, 
+				warpSpeed, fuelRange,
 
 				headerSpacer,
-				new ParamTitle("GAME_OTHER"),
-				showAlliancesGNN, showLimitedWarnings,
-				techExchangeAutoRefuse, autoTerraformEnding, trackUFOsAcrossTurns
+				new ParamTitle("IRONMAN_BASIC"),
+				deterministicArtifact,
+				ironmanNoLoad, ironmanLoadDelay
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("GAME_RELATIONS"),
@@ -156,32 +156,24 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 				scrapRefundFactor, scrapRefundOption
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle("RANDOM_EVENTS_OPT"),
-				randomEvents,
+				new ParamTitle("SUB_PANEL_OPTIONS"),
 				customRandomEventUI,
-
-				headerSpacer,
-				new ParamTitle("IRONMAN_BASIC"),
-				deterministicArtifact,
-				ironmanNoLoad, ironmanLoadDelay,
-
-				headerSpacer,
-				new ParamTitle("PLANETS_FLAG_OPTIONS"),
-				flagColorCount, autoFlagOptionsUI,
-
-				headerSpacer,
-				new ParamTitle("GOVERNOR_SETUP_MENU"),
+				autoFlagOptionsUI,
 				GovernorOptions.governorOptionsUI,
+				zoomOptionsUI,
+
+				headerSpacer,
+				new ParamTitle("GAME_OTHER"),
+				randomEvents,
+				flagColorCount, 
+				showAlliancesGNN, showLimitedWarnings,
+				techExchangeAutoRefuse, autoTerraformEnding, trackUFOsAcrossTurns,
 
 				headerSpacer,
 				new ParamTitle("BETA_TEST"),
 				debugAutoRun, darkGalaxy
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle("ZOOM_FACTORS"),
-				zoomOptionsUI,
-	
-				headerSpacer,
 				new ParamTitle("MENU_OPTIONS"),
 				divertExcessToResearch, defaultMaxBases, displayYear,
 				showNextCouncil, systemNameDisplay, shipDisplay, flightPathDisplay,

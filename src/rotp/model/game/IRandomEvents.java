@@ -166,6 +166,7 @@ public interface IRandomEvents extends IBaseOptsTools {
 			new LinkedList<LinkedList<IParam>>() { {
 		add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("RANDOM_EVENTS_GLOBAL"),
+				IAdvOptions.randomEvents,
 				eventsStartTurn, eventsPace,
 				eventsFavorWeak, fixedEventsMode,
 
