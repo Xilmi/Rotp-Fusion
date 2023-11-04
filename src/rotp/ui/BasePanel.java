@@ -168,17 +168,13 @@ public class BasePanel extends JPanel implements Base, InterfacePreview {
     public void paintComponent(Graphics g) {
         setFontHints(g);
 
-        // BR: always false and could conflict with dark galaxies
-        // If this feature has to be re-activated for other use,
-        // A dark mode filter should be added. 
-        // if (hasStarBackground() && !options().selectedDarkGalaxy())
-        // if (hasStarBackground())
-        //    setBackground(starBackgroundC());
+        if (hasStarBackground())
+            setBackground(starBackgroundC());
 
         super.paintComponent(g);
 
-        // if (hasStarBackground())
-        //    drawStars(g);
+        if (hasStarBackground())
+            drawStars(g);
     }
     protected void setFPS(int fps) {
         RotPUI.fps(fps);
