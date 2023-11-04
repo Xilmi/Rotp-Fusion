@@ -37,7 +37,6 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 Bug to fix:
 
 Very soon:
-- Improve responsivity of other options panels
 - Monsters:
   - Give loots.
   - Option to change their travel time.
@@ -65,6 +64,11 @@ Later:
 
 
 ## What's New
+
+2023.11.04 (BR)
+- Improved classic Menu reactivity.
+- Classic menu: sub-menu have a lighter border color.
+- Dark mode: Fixed nebulae showing in turn-transition.
 
 2023.11.02 (BR)
 - Improved compact Menu reactivity.

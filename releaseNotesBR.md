@@ -19,7 +19,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Not deeply tested, please report bugs.
 - Mass Transport Dialog: Set Default to Synchronized.
 - All trade tech notification have the skip Button.
-- Improved compact Menu reactivity.
+- Improved compact and classic Menu reactivity.
 - The options opening the sub-menus are more obvious.
 
 

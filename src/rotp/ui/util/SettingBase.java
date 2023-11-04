@@ -28,6 +28,7 @@ import static rotp.util.Base.textSubs;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.image.BufferedImage;
@@ -248,6 +249,7 @@ public class SettingBase<T> implements IParam {
 	@Override public String getValueStr(int id)		{ return valueGuide(valueValidIndex(id)); }
 	@Override public String valueGuide(int id) 		{ return tableFormat(getRowGuide(id)); }
 	@Override public boolean updated()				{ return updated; }
+	@Override public void updated(boolean val)		{ updated = val; }
 	
 	// ========== Tools for overriders ==========
 	//
@@ -418,7 +420,6 @@ public class SettingBase<T> implements IParam {
 	public String guiOptionValue(int index) { // For List
 		return String.valueOf(optionValue(index));
 	}
-	public	void displayed()			{ updated = false; }
 	public void clearImage()			{ img = null; }
 	// ===== Getters =====
 	//
@@ -579,6 +580,8 @@ public class SettingBase<T> implements IParam {
 
 		img = new BufferedImage(width, height, TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D) img.getGraphics();
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
 		
 		int settingBoxH	= optNum * optionH + sizePad;
 		// frame
@@ -611,17 +614,17 @@ public class SettingBase<T> implements IParam {
 	}
 	// ========== Private Methods ==========
 	//
-	private void drawBox(Graphics2D g, int x0, int y0, int w, int h, int indent, int blankW) {
-		int x1 = x0+w;
-		g.drawLine(x0, y0, x0+indent, y0);
-		g.drawLine(x0+indent+blankW, y0, x1, y0);
-		if (h>0) {
-			int y1 = y0+h;
-			g.drawLine(x0, y0, x0, y1);			
-			g.drawLine(x0, y1, x1, y1);			
-			g.drawLine(x1, y0, x1, y1);			
-		}
-	}
+//	private void drawBox(Graphics2D g, int x0, int y0, int w, int h, int indent, int blankW) {
+//		int x1 = x0+w;
+//		g.drawLine(x0, y0, x0+indent, y0);
+//		g.drawLine(x0+indent+blankW, y0, x1, y0);
+//		if (h>0) {
+//			int y1 = y0+h;
+//			g.drawLine(x0, y0, x0, y1);			
+//			g.drawLine(x0, y1, x1, y1);			
+//			g.drawLine(x1, y0, x1, y1);			
+//		}
+//	}
 	private String getTableHelp()		{
 		int size = listSize();
 		String rows = "";

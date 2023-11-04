@@ -274,6 +274,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         boolean darkShowSpy  = false;
         boolean darkShowName = false;
         boolean darkGalaxy	 = opts.selectedDarkGalaxy();
+        super.paintComponent(g2); //paint background
 
         Shape clipOld = g2.getClip();
         if (darkGalaxy) { // BR: add mask for dark galaxy mode
@@ -286,7 +287,6 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
             	darkShowName = darkShowSpy || opts.darkGalaxyNoSpy();
             }
         }
-        super.paintComponent(g2); //paint background
         setScale(scaleY());
         	
         //log("map scale:", fmt(scaleX(),2), "@", fmt(scaleY(),2), "  center:", fmt(center().x(),2), "@", fmt(center().y(),2), "  x-rng:", fmt(mapMinX()), "-", fmt(mapMaxX(),2), "  y-rng:", fmt(mapMinY()), "-", fmt(mapMaxY(),2));
@@ -349,7 +349,6 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
     private void generateNewMapBuffers() {
         int w = getWidth();
         int h = getHeight();
-//        mapBuffer = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         mapBuffer = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
         
         if (sharedStarBackground == null) {
@@ -376,9 +375,9 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         clearRangeMap();
         shipRangeArea  = null;
         scoutRangeArea = null;
-        darkRangeArea  = null;
+       	darkRangeArea  = null;
         areaOffsetX = 0;
-        areaOffsetY = 0;
+        areaOffsetY = 0;    	
     }
     private void resetDarkArea() {
         if (options().selectedDarkGalaxy()) {

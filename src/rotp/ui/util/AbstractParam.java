@@ -51,9 +51,9 @@ public abstract class AbstractParam <T> implements IParam{
 	private boolean isCfgFile	= false;
 	private boolean isValueInit	= true; // default values are initialized with current value.
 	
-	private boolean updated = true;
-	public	void displayed()			{ updated = false; }
-	@Override public boolean updated()	{ return updated; }
+	private boolean  updated = true;
+	@Override public void updated(boolean val)	{ updated = val; }
+	@Override public boolean updated()			{ return updated; }
 
 	// ========== constructors ==========
 	//

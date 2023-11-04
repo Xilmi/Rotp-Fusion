@@ -1,5 +1,6 @@
 package rotp.model.game;
 
+
 import java.util.Arrays;
 import java.util.LinkedList;
 
@@ -220,8 +221,10 @@ public interface IRandomEvents extends IBaseOptsTools {
 				)));
 		}
 	};
-	ParamSubUI customRandomEventUI = new ParamSubUI(MOD_UI, "RANDOM_EVENTS_UI", customRandomEventMap,
-			"RANDOM_EVENTS_TITLE", RANDOM_EVENTS_GUI_ID);
-
+	static ParamSubUI customRandomEventUI() {
+		return new ParamSubUI(MOD_UI, "RANDOM_EVENTS_UI", customRandomEventMap,
+				"RANDOM_EVENTS_TITLE", RANDOM_EVENTS_GUI_ID);
+	}
+	ParamSubUI customRandomEventUI = customRandomEventUI();
 	LinkedList<IParam> customRandomEventOptions = customRandomEventUI.optionsList();
 }

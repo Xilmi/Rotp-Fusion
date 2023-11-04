@@ -24,8 +24,8 @@ BOOLEAN_NO                        | No
 BOOLEAN_YES_HELP                  | To enable this option.
 BOOLEAN_NO_HELP                   | To disable this option.
 // Basic Is Default value Display
-SUB_UI_DEFAULT_YES                | Default Value
-SUB_UI_DEFAULT_NO                 | Customized
+SUB_UI_DEFAULT_YES                | Default
+SUB_UI_DEFAULT_NO                 | Custom
 // Star descriptions
 RED_STAR_DESCRIPTION              | Red stars are old and dull stars that commonly have poor planets.
 YELLOW_STAR_DESCRIPTION           | Yellow stars offer the best chance of discovering terran and sub-terran planets.
@@ -2414,7 +2414,7 @@ SETTINGS_MOD_DEBUG_OPTIONS_UI            | Debug Options: %1
 SETTINGS_MOD_DEBUG_OPTIONS_UI_DESC       | Open Sub Menu to set development tools.
 
 SETTINGS_MOD_ZOOM_OPTIONS_TITLE          | In-Game Display Preferences
-SETTINGS_MOD_ZOOM_OPTIONS_UI             | Display Preferences: %1
+SETTINGS_MOD_ZOOM_OPTIONS_UI             | §~ Display Preferences: %1
 SETTINGS_MOD_ZOOM_OPTIONS_UI_DESC        | Open Sub Menu to set diverse map zooming factors, replay speed, Combat Shield Effects.
 SETTINGS_MOD_ZOOM_OPTIONS_UI_HELP        | Open Sub Menu to set several In-Game Preferences: Map zooming factors, Replay speed, Combat Shield Effects.
 
@@ -2423,7 +2423,7 @@ SETTINGS_MOD_FLAG_COLOR_COUNT            | Flag Color Count: %1
 
 SETTINGS_MOD_AUTO_FLAG_TITLE             | Auto-Flag Menu
 SETTINGS_MOD_AUTO_FLAG_UI_DESC           | Open Sub Menu to set the parameters that will be automatically associated with flags. (Only the first time a Star System is scouted)
-SETTINGS_MOD_AUTO_FLAG_UI                | Auto-Flag Options: %1
+SETTINGS_MOD_AUTO_FLAG_UI                | §~ Auto-Flag Menu: %1
 
 SETTINGS_MOD_AUTO_FLAG_NO_AUTOMATION     | No Automation
 SETTINGS_MOD_AUTO_FLAG_TYPE              | Planet Type
@@ -2550,7 +2550,7 @@ SETTINGS_MOD_PLAYER_SHIP_SET             | Player Ship Set: %1
 // ========== Random Events sub Panel
 SETTINGS_MOD_RANDOM_EVENTS_TITLE         | Random Event Customization
 SETTINGS_MOD_RANDOM_EVENTS_UI_DESC       | Open Sub Menu to get more random events customization options.
-SETTINGS_MOD_RANDOM_EVENTS_UI            | Random Events Menu: %1
+SETTINGS_MOD_RANDOM_EVENTS_UI            | §~ Random Events Menu: %1
 SETTINGS_MOD_RANDOM_EVENT_DISABLED       | Off
 SETTINGS_MOD_RANDOM_EVENT_UNIQUE         | Unique Event
 SETTINGS_MOD_RANDOM_EVENT_UNLIMITED      | Unlimited
@@ -2764,7 +2764,7 @@ SETTINGS_MOD_GAUNTLET_RETURN_TURN_DESC   | →REF_RETURN_1← →REF_GAUNTLET←
 SETTINGS_MOD_GAUNTLET_RETURN_TURN        | →REF_GAUNTLET← →REF_RETURN←
 
 // ========== Ironman sub Panel
-SETTINGS_MOD_IRONMAN_OPTIONS_TITLE       | Ironman Options
+SETTINGS_MOD_IRONMAN_OPTIONS_TITLE       | §~ Ironman Menu
 SETTINGS_MOD_IRONMAN_OPTIONS_UI_DESC     | Open Sub Menu to access Ironman customization options.
 SETTINGS_MOD_IRONMAN_OPTIONS_UI          | Ironman Options: %1
 
@@ -3554,7 +3554,7 @@ HEADERS_GOVERNOR_SETUP_MENU_DESC  | To define the Governor options ouside of the
 HEADERS_GOVERNOR_SETUP_MENU       | ~~~ SETUP GOVERNOR ~~~%1
 GOVERNOR_SETUP_TITLE              | Governor Setup Panel
 GOVERNOR_SETUP_MENU_DESC          | Open Sub Menu to access Governor Options Setup.
-GOVERNOR_SETUP_MENU               | Governor Menu: %1
+GOVERNOR_SETUP_MENU               | §~ Governor Menu: %1
 
 HEADERS_GOVERNOR_TRANSPORT_OPTIONS_DESC | AutoTransport Options.
 HEADERS_GOVERNOR_TRANSPORT_OPTIONS  | ~~~ AUTO-TRANSPORT OPTIONS ~~~%1

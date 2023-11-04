@@ -172,16 +172,16 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 				null,
 				missileBaseModifier, missileShipModifier, retreatRestrictions, retreatRestrictionTurns,
 				null,
-				bombingTarget, targetBombard, flagColorCount, autoFlagOptionsUI, allowTechStealing,
+				bombingTarget, targetBombard, flagColorCount, allowTechStealing, autoFlagOptionsUI,
 				null,
 				scrapRefundFactor, scrapRefundOption, autoTerraformEnding, maxSecurityPct
 			));
 	LinkedList<IParam> modOptionsDynamicB = new LinkedList<>(
 			Arrays.asList(
-				counciRequiredPct, GovernorOptions.governorOptionsUI, darkGalaxy,
+				counciRequiredPct, darkGalaxy, GovernorOptions.governorOptionsUI,
 				null,
-				eventsStartTurn, eventsPace, customRandomEventUI,
+				eventsStartTurn, eventsPace, IZoomOptions.zoomOptionsUI,
 				null,
-				fixedEventsMode, eventsFavorWeak, IZoomOptions.zoomOptionsUI
+				fixedEventsMode, eventsFavorWeak // , IRandomEvents.customRandomEventUI
 			));
 }

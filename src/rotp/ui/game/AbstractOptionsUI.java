@@ -15,6 +15,7 @@
  */
 package rotp.ui.game;
 
+import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static rotp.model.game.IBaseOptsTools.LIVE_OPTIONS_FILE;
 
 import java.awt.Color;
@@ -28,6 +29,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.awt.image.BufferedImage;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -38,6 +41,7 @@ import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.util.IParam;
 import rotp.ui.util.InterfaceOptions;
+import rotp.ui.util.ParamSubUI;
 import rotp.util.ModifierKeysState;
 
 // modnar: add UI panel for modnar MOD game options, based on StartOptionsUI.java
@@ -62,8 +66,9 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 	private Color textC = SystemPanel.whiteText;
 	private LinkedList<Integer>	lastRowList = new LinkedList<>();
 	private LinkedList<ModText> btList		= new LinkedList<>();
-	
-//	private BufferedImage backImg; // the full background
+
+	private final LinkedHashMap<Integer, BufferedImage>	imgList	= new LinkedHashMap<>();
+	private boolean forceUpdate = true;
 
 	// ========== Constructors and initializers ==========
 	//
@@ -148,11 +153,6 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 	protected abstract void init0();
 	// ========== Optimization Methods ==========
 	//
-//    private BufferedImage backImg() {
-//        if (backImg == null)
-//            initBackImg();
-//        return backImg;
-//    }
 	@Override protected void initBackImg() {
 		long timeStart = System.currentTimeMillis();
 		backImg = newOpaqueImage(w, h);
@@ -212,20 +212,46 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 		return new ModText(this, 20,  textC, textC, hoverC, depressedC, textC, true);
 	}
 	private void paintSetting(Graphics2D g, ModText txt, String desc) {
-		g.setColor(SystemPanel.blackText);
-		g.drawRect(xSetting, ySetting, wSetting, hSetting);
-		g.setPaint(bg());
-		g.fillRect(xSetting+s10, ySetting-s10, txt.stringWidth(g)+s10,s30);
-		txt.setScaledXY(xSetting+columnPad, ySetting+s7);
-		txt.draw(g);
-		g.setColor(SystemPanel.blackText);
-		g.setFont(descFont);
-		List<String> lines = wrappedLines(g, desc, wSetting-s30);
-		int y3 = ySetting+s10;
-		for (String line: lines) {
-			y3 += lineH;
-			drawString(g,line, xSetting+columnPad, y3);
-		}		
+		int margin = s2;
+		int xNew = margin;
+		int yNew = margin + lineH;
+		IParam param = activeList.get(index);
+		boolean refresh = forceUpdate || param.updated();
+		if (refresh) {
+			BufferedImage img = new BufferedImage(wSetting + xNew + margin,
+					hSetting + yNew + margin, TYPE_INT_ARGB);
+			Graphics2D gi = (Graphics2D) img.getGraphics();
+			gi.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+			gi.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+			
+			gi.setStroke(stroke3);
+			if (param instanceof ParamSubUI)
+				gi.setColor(SystemPanel.darkOrangeText);
+			else
+				gi.setColor(SystemPanel.blackText);
+			int blankW = txt.stringWidth(gi) + s10;
+			param.drawBox(gi, xNew, yNew, wSetting, hSetting, s10/2, blankW);
+			txt.setScaledXY(xNew + columnPad, yNew+s7);
+			txt.draw(gi);
+			gi.setColor(SystemPanel.blackText);
+			gi.setFont(descFont);
+			List<String> lines = scaledNarrowWrappedLines(gi, desc, wSetting-s25, 4, 15, 12);
+			int y3 = xNew + lineH + s10;
+			for (String line: lines) {
+				y3 += lineH;
+				drawString(gi, line, xNew+columnPad, y3);
+			}		
+			gi.dispose();
+			g.drawImage(img, xSetting-xNew, ySetting-yNew, null);
+
+			param.updated(false);
+			imgList.put(index, img);
+
+			txt.setScaledXY(xSetting+columnPad, ySetting+s7);
+			txt.updateBounds(g);
+		}
+		else
+			g.drawImage(imgList.get(index), xSetting-xNew, ySetting-yNew, null);
 	}
 	private void goToNextSetting() {
 		index++;
@@ -244,20 +270,21 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 			, MouseEvent e, MouseWheelEvent w) {
 		for (int i=0; i<activeList.size(); i++) {
 			if (hoverBox == btList.get(i).box()) {
-				if (activeList.get(i).isSubMenu()) {
+				IParam param = activeList.get(i);
+				if (param.isSubMenu()) {
 					if (e == null)
 						return;
 					super.close();
 			        disableGlassPane();
-					activeList.get(i).toggle(e, GUI_ID, this);
+			        param.toggle(e, GUI_ID, this);
 					return;
 				}			
-				activeList.get(i).toggle(e, w, this);
+				param.toggle(e, w, this);
+				param.updated(true);
 				btList.get(i).repaint(activeList.get(i).getGuiDisplay());
-				if (autoGuide) {
+				if (autoGuide)
 					loadGuide();
-					repaint();
-				}
+				repaint();
 				return;
 			}			
 		}
@@ -276,13 +303,11 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 		wSetting = (wBG/numColumns)-columnPad;
 		if (!globalOptions) // The new ways
 			guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
+		forceUpdate = true;
 		enableGlassPane(this);
 		refreshGui();
+		forceUpdate = true;
 	}
-//	@Override protected void clearImages() {
-//		super.clearImages();
-//		backImg	= null;
-//	}
 	@Override protected void close() {
 		super.close();
         disableGlassPane();
@@ -328,6 +353,9 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 		long timeStart = System.currentTimeMillis();
 		super.paintComponent(g0);
 		Graphics2D g = (Graphics2D) g0;
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+
         // background image
         g.drawImage(backImg(), 0, 0, this);
 
@@ -347,6 +375,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 			paintSetting(g, btList.get(index), activeList.get(index).getGuiDescription());
 			goToNextSetting();
 		}
+		forceUpdate = false;
 		g.setStroke(prev);
 		showGuide(g);
 		if (showTiming)
@@ -372,6 +401,11 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 		prevHover	 = hoverBox;
 		hoverBox	 = null;
 		hoverChanged = true;
+		for (ModText bt : btList)
+			if (bt.box() == prevHover) {
+				repaint();
+				break;
+			}
 		for (Box box : boxBaseList)
 			if (box.checkIfHovered())
 				break;

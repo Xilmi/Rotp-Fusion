@@ -27,5 +27,6 @@ public class DynamicBOptionsUI extends AbstractOptionsUI {
 	}
 	@Override protected void init0() {
 		paramList = rotp.model.game.IGameOptions.modOptionsDynamicB;
+		paramList.add(rotp.model.game.IRandomEvents.customRandomEventUI);
 	}
 }

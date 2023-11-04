@@ -20,6 +20,7 @@ import static rotp.ui.game.BaseModPanel.guideFontSize;
 import static rotp.util.Base.lineSplit;
 import static rotp.util.Base.textSubs;
 
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
@@ -39,6 +40,7 @@ public interface IParam extends InterfaceOptions{
 	public default void toggle(MouseEvent e, BaseModPanel frame) {}
 	public default void toggle(MouseEvent e, MouseWheelEvent w, BaseModPanel frame) {}
 	public default void toggle(MouseEvent e, String p, BaseModPanel frame) {}
+	public default void	updated(boolean updated)	{}
 	// State
 	public default boolean	isDuplicate()			{ return false; }
 	public default boolean	isCfgFile()				{ return false; }
@@ -62,6 +64,18 @@ public interface IParam extends InterfaceOptions{
 	public default String	getLangLabel()			{ return ""; }
 	public default String	getLangLabel(int id)	{ return ""; }
 	public default String[]	getModifiers()			{ return null; }
+	public default void drawBox(Graphics2D g, int x0, int y0, int w, int h, int indent, int blankW) {
+		int x1 = x0+w;
+		g.drawLine(x0, y0, x0+indent, y0);
+		g.drawLine(x0+indent+blankW, y0, x1, y0);
+		if (h>0) {
+			int y1 = y0+h;
+			g.drawLine(x0, y0, x0, y1);			
+			g.drawLine(x0, y1, x1, y1);			
+			g.drawLine(x1, y0, x1, y1);			
+		}
+	}
+
 	// Limited size for toolTip boxes
 	public default String getDescription()		{
 		if (getToolTip().isEmpty())
