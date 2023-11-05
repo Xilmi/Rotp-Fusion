@@ -2410,7 +2410,7 @@ SETTINGS_MOD_TARGET_BOMBARD_PLAYER_HELP  | Player is smart enough to control its
 SETTINGS_MOD_TARGET_BOMBARD_BOTH_HELP    | Everyone is able to control their bombing.
 
 SETTINGS_MOD_DEBUG_OPTIONS_TITLE         | Developper's Options
-SETTINGS_MOD_DEBUG_OPTIONS_UI            | Debug Options: %1
+SETTINGS_MOD_DEBUG_OPTIONS_UI            | §~ Debug Menu: %1
 SETTINGS_MOD_DEBUG_OPTIONS_UI_DESC       | Open Sub Menu to set development tools.
 
 SETTINGS_MOD_ZOOM_OPTIONS_TITLE          | In-Game Display Preferences

@@ -16,8 +16,10 @@
 package rotp.model.game;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 
+import rotp.Rotp;
 import rotp.model.ai.AIEntry;
 import rotp.model.ai.AIList;
 import rotp.model.empires.Empire;
@@ -640,4 +642,205 @@ public interface IGameOptions extends IModOptions {
 		}
 		return baseRaceOptions();
     }
+
+    // Was in MOO1GameOptions
+    public static List<String> getAiHostilityOptions() {
+        List<String> list = new ArrayList<>();
+        list.add(AI_HOSTILITY_LOWEST);
+        list.add(AI_HOSTILITY_LOWER);
+        list.add(AI_HOSTILITY_LOW);
+        list.add(AI_HOSTILITY_NORMAL);
+        list.add(AI_HOSTILITY_HIGH);
+        list.add(AI_HOSTILITY_HIGHER);
+        list.add(AI_HOSTILITY_HIGHEST);
+        return list;
+    }
+    public static List<String> getColonizingOptions() {
+        List<String> list = new ArrayList<>();
+        list.add(COLONIZING_NORMAL);
+        list.add(COLONIZING_RESTRICTED);
+        return list;
+    }
+    public static List<String> getCouncilWinOptions() {
+        List<String> list = new ArrayList<>();
+        list.add(COUNCIL_IMMEDIATE);
+        list.add(COUNCIL_REBELS);
+        list.add(COUNCIL_NONE);
+        return list;
+    }
+    public static List<String> getFuelRangeOptions() { // BR: restored and added 2
+        List<String> list = new ArrayList<>();
+        list.add(FUEL_RANGE_CUT);
+        list.add(FUEL_RANGE_LOW);
+        list.add(FUEL_RANGE_NORMAL);
+        list.add(FUEL_RANGE_HIGH);
+        list.add(FUEL_RANGE_HIGHER);
+        list.add(FUEL_RANGE_HIGHEST);
+        return list;
+    }
+    public static List<String> getGalaxyAgeOptions() {
+        List<String> list = new ArrayList<>();
+        list.add(GALAXY_AGE_YOUNG);
+        list.add(GALAXY_AGE_NORMAL);
+        list.add(GALAXY_AGE_OLD);
+        return list;
+    }
+    public static List<String> getNebulaeOptions() {
+        List<String> list = new ArrayList<>();
+        list.add(NEBULAE_NONE);
+        list.add(NEBULAE_RARE);
+        list.add(NEBULAE_UNCOMMON);
+        list.add(NEBULAE_NORMAL);
+        list.add(NEBULAE_COMMON);
+        list.add(NEBULAE_FREQUENT);
+        return list;
+    }
+    public static List<String> getPlanetQualityOptions() {
+        List<String> list = new ArrayList<>();
+        // modnar: change PLANET_QUALITY settings, add larger and richer, comment out poor to great settings
+        // BR: Restored vanilla choices... They are not incompatible
+        list.add(PLANET_QUALITY_HELL);
+        list.add(PLANET_QUALITY_POOR);
+        list.add(PLANET_QUALITY_MEDIOCRE);
+        list.add(PLANET_QUALITY_NORMAL);
+        list.add(PLANET_QUALITY_GOOD);
+        list.add(PLANET_QUALITY_GREAT);
+        list.add(PLANET_QUALITY_HEAVEN);
+        list.add(PLANET_QUALITY_LARGER);
+        list.add(PLANET_QUALITY_RICHER);
+        return list;
+    }
+    public static List<String> getRandomEventOptions() {
+        List<String> list = new ArrayList<>();
+        list.add(RANDOM_EVENTS_ON);
+        list.add(RANDOM_EVENTS_NO_MONSTERS);
+        list.add(RANDOM_EVENTS_OFF);
+        return list;
+    }
+    public static List<String> getRandomizeAIOptions() {
+        List<String> list = new ArrayList<>();
+        list.add(RANDOMIZE_AI_NONE);
+        list.add(RANDOMIZE_AI_PERSONALITY);
+        list.add(RANDOMIZE_AI_ABILITY);
+        list.add(RANDOMIZE_AI_BOTH);
+        return list;
+    }
+    public static List<String> getResearchRateOptions() {
+        List<String> list = new ArrayList<>();
+        // modnar: add fast research option
+        list.add(RESEARCH_FAST);
+        list.add(RESEARCH_NORMAL);
+        list.add(RESEARCH_SLOW);
+        list.add(RESEARCH_SLOWER);
+        // BR: add extremely slow research option
+        list.add(RESEARCH_LETHARGIC); // former slowest compatible
+        list.add(RESEARCH_CRAWLING);
+        list.add(RESEARCH_IMPEDED);
+        return list;
+    }
+    public static List<String> getStarDensityOptions() {
+        List<String> list = new ArrayList<>();
+        list.add(STAR_DENSITY_LOWEST);
+        list.add(STAR_DENSITY_LOWER);
+        list.add(STAR_DENSITY_LOW);
+        list.add(STAR_DENSITY_NORMAL);
+        list.add(STAR_DENSITY_HIGH);
+        list.add(STAR_DENSITY_HIGHER);
+        list.add(STAR_DENSITY_HIGHEST);
+        return list;
+    }
+    public static List<String> getTechTradingOptions() {
+        List<String> list = new ArrayList<>();
+        list.add(TECH_TRADING_YES);
+        list.add(TECH_TRADING_ALLIES);
+        list.add(TECH_TRADING_NO);
+        return list;
+    }
+    public static List<String> getTerraformingOptions() {
+        List<String> list = new ArrayList<>();
+        list.add(TERRAFORMING_NORMAL);
+        list.add(TERRAFORMING_REDUCED);
+        list.add(TERRAFORMING_NONE);
+        return list;
+    }
+    public static List<String> getWarpSpeedOptions() {
+        List<String> list = new ArrayList<>();
+        list.add(WARP_SPEED_NORMAL);
+        list.add(WARP_SPEED_FAST);
+        return list;
+    }
+    public static List<String> getGameDifficultyOptions() {
+        List<String> list = new ArrayList<>();
+        list.add(DIFFICULTY_EASIEST);
+        list.add(DIFFICULTY_EASIER);
+        list.add(DIFFICULTY_EASY);
+        list.add(DIFFICULTY_NORMAL);
+        list.add(DIFFICULTY_HARD);
+        list.add(DIFFICULTY_HARDER);
+        list.add(DIFFICULTY_HARDEST);
+        // modnar: add custom difficulty level option, set in Remnants.cfg
+        list.add(DIFFICULTY_CUSTOM);
+        return list;
+    }
+    public static List<String> getGalaxySizeOptions() {
+        int max = Rotp.maximumSystems;
+        List<String> list = new ArrayList<>();
+        list.add(SIZE_DYNAMIC);
+        if (max > 24)
+        list.add(SIZE_MICRO);
+        if (max > 33)
+        list.add(SIZE_TINY);
+        if (max > 50)
+            list.add(SIZE_SMALL);
+        if (max > 70)
+            list.add(SIZE_SMALL2);
+        if (max > 100)
+            list.add(SIZE_MEDIUM);
+        if (max > 150)
+            list.add(SIZE_MEDIUM2);
+        if (max > 225)
+            list.add(SIZE_LARGE);
+        if (max > 333)
+            list.add(SIZE_LARGE2);
+        if (max > 500)
+            list.add(SIZE_HUGE);
+        if (max > 700)
+            list.add(SIZE_HUGE2);
+        if (max > 1000)
+            list.add(SIZE_MASSIVE);
+        if (max > 1500)
+            list.add(SIZE_MASSIVE2);
+        if (max > 2250)
+            list.add(SIZE_MASSIVE3);
+        if (max > 3333)
+            list.add(SIZE_MASSIVE4);
+        if (max > 5000)
+            list.add(SIZE_MASSIVE5);
+        if (max > 10000)
+            list.add(SIZE_INSANE);
+        if (max > 100000)
+            list.add(SIZE_LUDICROUS);
+        list.add(SIZE_MAXIMUM);
+        return list;
+    }
+    public static List<String> getGalaxyShapeOptions() {
+        List<String> list = new ArrayList<>();
+        list.add(SHAPE_RECTANGLE);
+        list.add(SHAPE_ELLIPTICAL);
+        list.add(SHAPE_SPIRAL);
+        // mondar: add new map shapes
+        list.add(SHAPE_TEXT);
+        list.add(SHAPE_CLUSTER);
+		list.add(SHAPE_SWIRLCLUSTERS);
+		list.add(SHAPE_GRID);
+		list.add(SHAPE_SPIRALARMS);
+		list.add(SHAPE_MAZE);
+		list.add(SHAPE_SHURIKEN);
+		list.add(SHAPE_BULLSEYE);
+		list.add(SHAPE_LORENZ);
+		list.add(SHAPE_FRACTAL);
+		list.add(SHAPE_BITMAP);
+        return list;
+    }    
+
 }

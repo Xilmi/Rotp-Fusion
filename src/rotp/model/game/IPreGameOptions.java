@@ -133,42 +133,48 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions {
 	RandomAlienRaces randomAlienRaces		 = new RandomAlienRaces(MOD_UI, "RACES_ARE_RANDOM", RandomAlienRaces.TARGET);
 	default String selectedRandomAlienRaces()			{ return randomAlienRaces.get(); }
 
-//	ParamList ironmanMode	= new ParamList( MOD_UI, "IRONMAN_MODE", "Off") {
-//		{
-//			showFullGuide(true);
-//			put("Off",	MOD_UI + "IRONMAN_OFF");
-//			put("NoOptions",	MOD_UI + "IRONMAN_NO_OPTIONS");
-////			put("NoSave",		MOD_UI + "IRONMAN_NO_SAVE");
-//		}
-//	};
-//	@Override default boolean isGameOptionsAllowed() { return ironmanMode.get().equalsIgnoreCase("Off"); }
-//	@Override default boolean isSaveOptionsAllowed() { return !ironmanMode.get().equalsIgnoreCase("NoSave"); }
-	
 	// ==================== GUI List Declarations ====================
 	//
-	LinkedList<IParam> modOptionsStaticA  = new LinkedList<>(
-			Arrays.asList(
-			artifactsHomeworld, fertileHomeworld, richHomeworld, ultraRichHomeworld,
-			null,
-			orionLikeHomeworld, companionWorlds, battleScout, ironmanMode, randomTechStart,
-			null,
-			techIrradiated, techCloning, techAtmospheric, techCloaking, techStargate,
-			null,
-			techGaia, techHyperspace, techIndustry2, techThorium, techTransport
-			));
-	LinkedList<IParam> modOptionsStaticB  = new LinkedList<>(
-			Arrays.asList(
-			minStarsPerEmpire, prefStarsPerEmpire, empiresSpreadingFactor, minDistArtifactPlanet,
-			null,
-			randomAlienRacesTargetMax, randomAlienRacesTargetMin, randomAlienRaces,
-			null,
-			randomAlienRacesMax, randomAlienRacesMin, randomAlienRacesSmoothEdges,
-			null,
-			restartChangesPlayerAI, restartChangesAliensAI, restartAppliesSettings, restartChangesPlayerRace
-			));
-	LinkedList<IParam> preGameOptions	= new LinkedList<>();
-	LinkedList<LinkedList<IParam>> preGameOptionsMap = preGameOptionsMap();
+	static LinkedList<IParam> modStaticAOptions() {
+		return new LinkedList<>(
+				Arrays.asList(
+				artifactsHomeworld, fertileHomeworld,
+				richHomeworld, ultraRichHomeworld,
+				null,
+				orionLikeHomeworld, companionWorlds,
+				battleScout, ironmanMode,
+				randomTechStart,
+				null,
+				techIrradiated, techCloning,
+				techAtmospheric, techCloaking,
+				techStargate,
+				null,
+				techGaia, techHyperspace,
+				techIndustry2, techThorium,
+				techTransport
+				));
 
+	}
+	static LinkedList<IParam> modStaticBOptions() {
+		return new LinkedList<>(
+				Arrays.asList(
+						minStarsPerEmpire, prefStarsPerEmpire,
+						empiresSpreadingFactor, minDistArtifactPlanet,
+						null,
+						randomAlienRacesTargetMax, randomAlienRacesTargetMin,
+						randomAlienRaces,
+						null,
+						randomAlienRacesMax, randomAlienRacesMin,
+						randomAlienRacesSmoothEdges,
+						null,
+						restartChangesPlayerAI, restartChangesAliensAI,
+						restartAppliesSettings, restartChangesPlayerRace
+						));
+	}
+
+	static LinkedList<IParam> preGameOptions() {
+		return IBaseOptsTools.getSingleList(preGameOptionsMap());
+	}
 	static LinkedList<LinkedList<IParam>> preGameOptionsMap()	{
 		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
 		map.add(new LinkedList<>(Arrays.asList(
@@ -216,12 +222,6 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions {
 				new ParamTitle("MENU_OPTIONS"),
 				IMainOptions.useFusionFont, IMainOptions.compactOptionOnly
 				)));
-		for (LinkedList<IParam> list : map) {
-			for (IParam param : list) {
-				if (param != null && !param.isTitle())
-					preGameOptions.add(param);
-			}
-		}
 		return map;
 	};
 }

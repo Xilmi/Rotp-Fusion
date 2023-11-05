@@ -258,18 +258,25 @@ public interface IMainOptions extends IDebugOptions, IZoomOptions {
 	{	{ isCfgFile(true); } };
 	default boolean noFogOnIcons()	{ return noFogOnIcons.get(); }
 
-
+	
 	// ==================== GUI List Declarations ====================
 	//
-	LinkedList<IParam> mainOptionsUI  = new LinkedList<>(
+	LinkedList<IParam> mainOptionsUI  = new LinkedList<>( // don't make a method of it
 			Arrays.asList(
-					displayMode, graphicsMode, texturesMode, sensitivityMode, selectedScreen,
+					displayMode, graphicsMode,
+					texturesMode, sensitivityMode,
+					selectedScreen,
 					null,
-					soundVolume, musicVolume, backupTurns, saveDirectory, showAlternateAnimation, noFogOnIcons,
+					soundVolume, musicVolume,
+					backupTurns, saveDirectory,
+					showAlternateAnimation, noFogOnIcons,
 					null,
-					useFusionFont, galaxyPreviewColorStarsSize, raceStatusLog, disableAdvisor, originalSpeciesOnly,
+					useFusionFont, galaxyPreviewColorStarsSize,
+					raceStatusLog, disableAdvisor,
+					originalSpeciesOnly,
 					null,
-					minListSizePopUp, menuStartup, compactOptionOnly, debugOptionsUI, zoomOptionsUI
+					minListSizePopUp, menuStartup,
+					compactOptionOnly, debugOptionsUI,
+					zoomOptionsUI
 					));
-
 }

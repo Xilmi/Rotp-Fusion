@@ -54,9 +54,9 @@ import rotp.util.Base;
 
 public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
     private static final long serialVersionUID = 1L;
-    public static int  minFont  = 8;	// BR: Remotely changed
-    public static int  fontPct  = 100;	// BR: Remotely changed
-    public static int  minFont2 = Math.round(minFont/0.7f); // BR: Remotely changed
+    private static int  minFont  = 8;	// BR: Remotely changed
+    private static int  fontPct  = 100;	// BR: Remotely changed
+    private static int  minFont2 = Math.round(minFont/0.7f); // BR: Remotely changed
 	// modnar: change shield colors to color-coded loot rarity
 	// shield-5 --> shield-10 --> shield-15 --> shield-20
 	//    green -->      blue -->    purple --> orange
@@ -68,6 +68,11 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
     public static final Color systemNameBackC = new Color(40,40,40);
     public static final Color systemDataBackC = new Color(160,160,160);
     public static final int NULL_ID = -1;
+
+    public static void setMinFont(int val)	{ minFont	 = val; }
+    public static void setFontPct(int val)	{ fontPct	 = val; }
+    public static void setMinFont2(int val)	{ minFont2	 = val; }
+    public static int getMinFont()			{ return minFont; }
 
     private String name = "";
     private float x, y;

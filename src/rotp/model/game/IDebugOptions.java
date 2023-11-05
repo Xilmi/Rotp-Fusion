@@ -35,7 +35,7 @@ public interface IDebugOptions extends IBaseOptsTools {
 	{ { isDuplicate(false); isCfgFile(true); } };
 	default boolean debugFileMemory()		{ return debugFileMemory.get(); }
 
-	
+
 	ParamBoolean debugAutoRun		= new ParamBoolean(GAME_UI, "DEBUG_AUTO_PLAY", false)
 	{ { isDuplicate(false); isCfgFile(true); } };
 	default boolean debugAutoRun()			{ return debugAutoRun.get(); }
@@ -52,23 +52,32 @@ public interface IDebugOptions extends IBaseOptsTools {
 	{ { isDuplicate(false); isCfgFile(true); } };
 	default boolean debugLogEvents()		{ return debugLogEvents.get(); }
 
-	LinkedList<LinkedList<IParam>> debugOptionsMap = new LinkedList<LinkedList<IParam>>()
-	{ {
-		add(new LinkedList<>(Arrays.asList(
+	// ==================== GUI List Declarations ====================
+	//
+	static LinkedList<LinkedList<IParam>> debugOptionsMap() {
+		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
+		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("DEBUG_MEMORY"),
 				debugShowMemory, debugConsoleMemory, debugFileMemory
 				)));
-		add(new LinkedList<>(Arrays.asList(
+		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("DEBUG_AUTO_PLAY"),
 				debugAutoRun, consoleAutoRun,
-				debugLogNotif, debugLogEvents
+				debugLogNotif, debugLogEvents,
+
+				headerSpacer,
+				IAdvOptions.councilWin, IAdvOptions.autoplay
 				)));
-		}
-	};
-	ParamSubUI debugOptionsUI = new ParamSubUI( MOD_UI, "DEBUG_OPTIONS_UI", debugOptionsMap,
-			"DEBUG_OPTIONS_TITLE", DEBUG_GUI_ID)
-	{ { isCfgFile(true); } };
+		return map;
+	}
+	ParamSubUI debugOptionsUI = debugOptionsUI();
 
-
-	LinkedList<IParam> debugOptions = debugOptionsUI.optionsList();
+	static ParamSubUI debugOptionsUI() {
+		return new ParamSubUI( MOD_UI, "DEBUG_OPTIONS_UI", IDebugOptions.debugOptionsMap(),
+				"DEBUG_OPTIONS_TITLE", DEBUG_GUI_ID)
+		{ { isCfgFile(true); } };
+	}
+	static LinkedList<IParam> debugOptions() {
+		return IBaseOptsTools.getSingleList(IDebugOptions.debugOptionsMap());
+	}	
 }

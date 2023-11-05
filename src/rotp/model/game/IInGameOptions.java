@@ -1,7 +1,25 @@
 package rotp.model.game;
 
+import static rotp.model.game.IAdvOptions.aiHostility;
+import static rotp.model.game.IAdvOptions.colonizing;
+import static rotp.model.game.IAdvOptions.councilWin;
+import static rotp.model.game.IAdvOptions.fuelRange;
+import static rotp.model.game.IAdvOptions.randomEvents;
+import static rotp.model.game.IAdvOptions.researchRate;
+import static rotp.model.game.IAdvOptions.techTrading;
+import static rotp.model.game.IAdvOptions.terraforming;
+import static rotp.model.game.IAdvOptions.warpSpeed;
+import static rotp.model.game.IDebugOptions.debugAutoRun;
 import static rotp.model.game.IFlagOptions.autoFlagOptionsUI;
 import static rotp.model.game.IFlagOptions.flagColorCount;
+import static rotp.model.game.IGalaxyOptions.difficultySelection;
+import static rotp.model.game.IIronmanOptions.deterministicArtifact;
+import static rotp.model.game.IIronmanOptions.ironmanLoadDelay;
+import static rotp.model.game.IIronmanOptions.ironmanNoLoad;
+import static rotp.model.game.IMainOptions.compactOptionOnly;
+import static rotp.model.game.IMainOptions.galaxyPreviewColorStarsSize;
+import static rotp.model.game.IMainOptions.raceStatusLog;
+import static rotp.model.game.IZoomOptions.zoomOptionsUI;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -11,6 +29,7 @@ import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
+import rotp.ui.util.ParamTitle;
 
 public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 
@@ -166,22 +185,105 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 	
 
 	// ==================== GUI List Declarations ====================
-	LinkedList<IParam> modOptionsDynamicA = new LinkedList<>(
-			Arrays.asList(
-				customDifficulty, dynamicDifficulty, challengeMode, showAllAI, trackUFOsAcrossTurns,
-				null,
-				missileBaseModifier, missileShipModifier, retreatRestrictions, retreatRestrictionTurns,
-				null,
-				bombingTarget, targetBombard, flagColorCount, allowTechStealing, autoFlagOptionsUI,
-				null,
-				scrapRefundFactor, scrapRefundOption, autoTerraformEnding, maxSecurityPct
-			));
-	LinkedList<IParam> modOptionsDynamicB = new LinkedList<>(
-			Arrays.asList(
-				counciRequiredPct, darkGalaxy, GovernorOptions.governorOptionsUI,
-				null,
-				eventsStartTurn, eventsPace, IZoomOptions.zoomOptionsUI,
-				null,
-				fixedEventsMode, eventsFavorWeak // , IRandomEvents.customRandomEventUI
-			));
+	static LinkedList<IParam> modDynamicAOptions() {
+		return new LinkedList<>(
+				Arrays.asList(
+						customDifficulty, dynamicDifficulty,
+						challengeMode, showAllAI,
+						trackUFOsAcrossTurns,
+						null,
+						missileBaseModifier, missileShipModifier,
+						retreatRestrictions, retreatRestrictionTurns,
+						null,
+						bombingTarget, targetBombard,
+						flagColorCount, allowTechStealing,
+						autoFlagOptionsUI,
+						null,
+						scrapRefundFactor, scrapRefundOption,
+						autoTerraformEnding, maxSecurityPct
+				));
+
+	}
+	static LinkedList<IParam> modDynamicBOptions() {
+		return new LinkedList<>(
+				Arrays.asList(
+						counciRequiredPct, darkGalaxy,
+						GovernorOptions.governorOptionsUI,
+						null,
+						eventsStartTurn, eventsPace,
+						IZoomOptions.zoomOptionsUI,
+						null,
+						fixedEventsMode, eventsFavorWeak,
+						IRandomEvents.customRandomEventUI
+						));
+	}
+	// ==================== GUI List Declarations ====================
+	LinkedList<IParam> inGameOptions	= inGameOptions();
+//	LinkedList<LinkedList<IParam>> inGameOptionsMap = inGameOptionsMap(); 
+	static LinkedList<IParam> inGameOptions() {
+		return IBaseOptsTools.getSingleList(inGameOptionsMap());
+	}
+
+	static LinkedList<LinkedList<IParam>> inGameOptionsMap()	{
+		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
+		map.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("GAME_DIFFICULTY"),
+				difficultySelection, customDifficulty,
+				dynamicDifficulty, challengeMode,
+
+				headerSpacer,
+				new ParamTitle("GAME_VARIOUS"),
+				terraforming, colonizing, researchRate,
+				warpSpeed, fuelRange,
+
+				headerSpacer,
+				new ParamTitle("IRONMAN_BASIC"),
+				deterministicArtifact,
+				ironmanNoLoad, ironmanLoadDelay
+				)));
+		map.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("GAME_RELATIONS"),
+				councilWin, counciRequiredPct, aiHostility,
+				techTrading, allowTechStealing, maxSecurityPct,
+
+				headerSpacer,
+				new ParamTitle("GAME_COMBAT"),
+				retreatRestrictions, retreatRestrictionTurns,
+				missileBaseModifier, missileShipModifier,
+				targetBombard, bombingTarget, autoBombard_, autoColonize_,
+				scrapRefundFactor, scrapRefundOption
+				)));
+		map.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("SUB_PANEL_OPTIONS"),
+				customRandomEventUI,
+				autoFlagOptionsUI,
+				GovernorOptions.governorOptionsUI,
+				zoomOptionsUI,
+
+				headerSpacer,
+				new ParamTitle("GAME_OTHER"),
+				randomEvents,
+				flagColorCount, 
+				showAlliancesGNN, showLimitedWarnings,
+				techExchangeAutoRefuse, autoTerraformEnding, trackUFOsAcrossTurns,
+
+				headerSpacer,
+				new ParamTitle("BETA_TEST"),
+				debugAutoRun, darkGalaxy
+				)));
+		map.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("MENU_OPTIONS"),
+				divertExcessToResearch, defaultMaxBases, displayYear,
+				showNextCouncil, systemNameDisplay, shipDisplay, flightPathDisplay,
+				showGridCircular, showShipRanges, galaxyPreviewColorStarsSize,
+				showAllAI, raceStatusLog, compactOptionOnly
+				)));
+//		for (LinkedList<IParam> list : map) {
+//			for (IParam param : list) {
+//				if (param != null && !param.isTitle())
+//					inGameOptions.add(param);
+//			}
+//		}
+		return map;
+	};
 }

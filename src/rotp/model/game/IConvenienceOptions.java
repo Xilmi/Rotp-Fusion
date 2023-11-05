@@ -60,10 +60,16 @@ public interface IConvenienceOptions extends IMapOptions {
 	// ==================== GUI List Declarations ====================
 	LinkedList<IParam> convenienceOptions = new LinkedList<>(
 			Arrays.asList(
-				systemNameDisplay, shipDisplay, flightPathDisplay, showGridCircular, showShipRanges,
+				systemNameDisplay, shipDisplay,
+				flightPathDisplay, showGridCircular,
+				showShipRanges,
 				null,
-				autoColonize_, autoBombard_, divertExcessToResearch, defaultMaxBases, IMainOptions.compactOptionOnly,
+				autoColonize_, autoBombard_,
+				divertExcessToResearch, defaultMaxBases,
+				IMainOptions.compactOptionOnly,
 				null,
-				displayYear, showNextCouncil, showAlliancesGNN, showLimitedWarnings, techExchangeAutoRefuse
+				displayYear, showNextCouncil,
+				showAlliancesGNN, showLimitedWarnings,
+				techExchangeAutoRefuse
 			));
 }

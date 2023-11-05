@@ -1,15 +1,14 @@
 package rotp.model.game;
 
-import static rotp.model.empires.SystemView.AUTO_FLAG_NOT;
-import static rotp.model.empires.SystemView.flagAssignationMap;
-
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamFlagColor;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
+import rotp.ui.util.ParamList.IndexableMap;
 import rotp.ui.util.ParamSubUI;
 import rotp.ui.util.ParamTitle;
 
@@ -26,6 +25,31 @@ public interface IFlagOptions extends IBaseOptsTools {
     String FLAG_COLOR_LTBLUE	= "FLAG_COLOR_LTBLUE";
     String FLAG_COLOR_PURPLE	= "FLAG_COLOR_PURPLE";
     String FLAG_COLOR_PINK		= "FLAG_COLOR_PINK";
+
+    String AUTO_FLAG_NOT	= "SETTINGS_MOD_AUTO_FLAG_NO_AUTOMATION";
+	String AUTO_FLAG_TYPE	= "SETTINGS_MOD_AUTO_FLAG_TYPE";
+	String AUTO_FLAG_ENV	= "SETTINGS_MOD_AUTO_FLAG_ENVIRONMENT";
+	String AUTO_FLAG_ASSET	= "SETTINGS_MOD_AUTO_FLAG_RESOURCES";
+	String AUTO_FLAG_RUINS	= "SETTINGS_MOD_AUTO_FLAG_RUINS";
+	String AUTO_FLAG_TECH	= "SETTINGS_MOD_AUTO_FLAG_TECH";
+	String AUTO_FLAG_CLEAR	= "SETTINGS_MOD_AUTO_FLAG_CLEAR";
+    
+	IndexableMap flagAssignationMap = flagAssignationMap();
+	static IndexableMap flagAssignationMap() {
+		IndexableMap map = new IndexableMap();
+		List<String> flagAssignationList = Arrays.asList (
+	    		AUTO_FLAG_NOT,
+	    		AUTO_FLAG_TECH,
+	    		AUTO_FLAG_RUINS,
+	    		AUTO_FLAG_ASSET,
+	    		AUTO_FLAG_ENV,
+	    		AUTO_FLAG_TYPE,
+	    		AUTO_FLAG_CLEAR
+				);
+		for (String element : flagAssignationList)
+			map.put(element, element); // Temporary; needs to be further initialized
+		return map;
+	}
 
 	// ========================================================================
 	// BR: AUTO-FLAG PARAMETERS SUB UI
@@ -96,14 +120,17 @@ public interface IFlagOptions extends IBaseOptsTools {
 	ParamFlagColor flagRuinsOrionColor 	= new ParamFlagColor("AUTO_FLAG_VESTIGES_ORION",FLAG_COLOR_BLUE);
 	ParamFlagColor flagRuinsAntaranColor= new ParamFlagColor("AUTO_FLAG_VESTIGES_ANTARAN", FLAG_COLOR_LTBLUE);
 	ParamFlagColor flagRuinsNoneColor 	= new ParamFlagColor("AUTO_FLAG_VESTIGES_NONE",	FLAG_COLOR_NONE);
-	
 
 	ParamInteger flagColorCount = new ParamInteger(MOD_UI, "FLAG_COLOR_COUNT", 1, 1, 4);
 	default int	 selectedFlagColorCount() { return flagColorCount.get(); }
 
-	LinkedList<LinkedList<IParam>> autoFlagOptionsMap = 
-			new LinkedList<LinkedList<IParam>>() { {
-		add(new LinkedList<>(Arrays.asList(
+	// ==================== GUI List Declarations ====================
+	//
+	ParamSubUI autoFlagOptionsUI = autoFlagOptionsUI();
+
+	static LinkedList<LinkedList<IParam>> autoFlagOptionsMap() {
+		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
+		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("AUTO_FLAG_ID_SELECTION"),
 				autoFlagAssignation1, autoFlagAssignation2,
 				autoFlagAssignation3, autoFlagAssignation4,
@@ -114,7 +141,7 @@ public interface IFlagOptions extends IBaseOptsTools {
 				flagTechStandardColor, flagTechBarrenColor, flagTechDeadColor,
 				flagTechToxicColor, flagTechRadiatedColor, flagTechNoneColor
 				)));
-		add(new LinkedList<>(Arrays.asList(
+		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("AUTO_FLAG_VESTIGES"),
 				flagRuinsOrionColor, flagRuinsAntaranColor, flagRuinsNoneColor,
 
@@ -129,7 +156,7 @@ public interface IFlagOptions extends IBaseOptsTools {
 				flagEnvGaiaColor, flagEnvFertileColor,
 				flagEnvNormalColor,	flagEnvHostileColor, flagEnvNoneColor
 				)));
-		add(new LinkedList<>(Arrays.asList(
+		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("AUTO_FLAG_TYPE"),
 				flagTerranColor, flagJungleColor, flagOceanColor,
 				flagAridColor, flagSteppeColor, flagDesertColor, flagMinimalColor,
@@ -137,10 +164,13 @@ public interface IFlagOptions extends IBaseOptsTools {
 				flagInfernoColor, flagToxicColor, flagRadiatedColor,
 				flagAsteroidColor
 				)));
-		}
-	};
-	ParamSubUI autoFlagOptionsUI = new ParamSubUI( MOD_UI, "AUTO_FLAG_UI", autoFlagOptionsMap,
-			"AUTO_FLAG_TITLE", AUTO_FLAG_GUI_ID);
-
-	LinkedList<IParam> autoFlagOptions = autoFlagOptionsUI.optionsList();
+		return map;
+	}
+	static ParamSubUI autoFlagOptionsUI() {
+		return new ParamSubUI( MOD_UI, "AUTO_FLAG_UI", autoFlagOptionsMap(),
+				"AUTO_FLAG_TITLE", AUTO_FLAG_GUI_ID);
+	}
+	static LinkedList<IParam> autoFlagOptions() {
+		return IBaseOptsTools.getSingleList(autoFlagOptionsMap());
+	}
 }

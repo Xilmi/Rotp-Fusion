@@ -65,6 +65,13 @@ Later:
 
 ## What's New
 
+2023.11.05 (BR)
+- Fixed occasionally missing options in menu panels
+  - Fixed interfaces directly accessing static class parameters!
+  - Direct accesses are replaced by static method calls, making initialization sequences more predictable.
+  - Or static constants are moved to the interface.
+  - Added static initialization call in Rotp.main to force a static initialization sequence.
+
 2023.11.04 (BR)
 - Improved classic Menu reactivity.
 - Classic menu: sub-menu have a lighter border color.

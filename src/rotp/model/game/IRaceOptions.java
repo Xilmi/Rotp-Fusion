@@ -66,40 +66,6 @@ public interface IRaceOptions extends IBaseOptsTools {
 		g.dispose();
 		return backImg;
 	}
-//	default BufferedImage[] getMugImgArray(int w, int h, int radius, int n1, int n2, float factor) {
-//		int   w2 = (int)(factor * w);
-//		int   h2 = (int)(factor * h);
-//		float r2 = factor * radius;
-//
-//		BufferedImage[] mug1 = getMugImgArray(w, h, radius, n1);
-//		BufferedImage[] mug2 = getMugImgArray(w2, h2, r2, n2-n1);
-//		BufferedImage[] mugs = ArrayUtils.addAll(mug1, mug2);
-//		return mugs;
-//	}
-//	default BufferedImage[] getMugImgArray(int boxW, int boxH, float shadeRadius, int num) {
-//		BufferedImage[] mugs = new BufferedImage[num];
-//		BufferedImage back = getMugBackImg(boxW, boxH, shadeRadius);
-//		for (int i=0; i<num; i++) {
-//			mugs[i] = new BufferedImage(boxW, boxH, TYPE_INT_ARGB);
-//			Graphics2D g = (Graphics2D) mugs[i].getGraphics();
-//			g.setComposite(AlphaComposite.SrcOver);
-//			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-//			g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
-//			g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-//			g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-//			g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-//			
-//			g.drawImage(back, 0, 0, boxW, boxH, null); // modnar: 80% size box for newRaces
-//
-//			Image img = Race.keyed(allRaceOptions.get(i)).diploMugshotQuiet();
-//			int imgW = img.getHeight(null);
-//			int imgH = img.getHeight(null);
-//			g.drawImage(img, 0, 0, boxW, boxH, 0, 0, imgW, imgH, null);
-//			g.dispose();
-//		}
-//		return mugs;
-//	}
-
 	// ==================== Race Menu addition ====================
 	//
    

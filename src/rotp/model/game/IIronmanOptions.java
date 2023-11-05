@@ -38,28 +38,28 @@ public interface IIronmanOptions extends IBaseOptsTools {
 
 	// ==================== GUI List Declarations ====================
 	//
+	ParamSubUI ironmanOptionsUI = ironmanOptionsUI();
 
-	LinkedList<LinkedList<IParam>> ironmanOptionsMap = new LinkedList<LinkedList<IParam>>()
-	{ {
-		add(new LinkedList<>(Arrays.asList(
+	static LinkedList<LinkedList<IParam>> ironmanOptionsMap() {
+		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
+		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("IRONMAN_MAIN"),
 				ironmanMode
-				
-//				headerSpacer,
-//				new ParamTitle("IRONMAN_FORMER"),
 				)));
-		add(new LinkedList<>(Arrays.asList(
+		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("IRONMAN_CUSTOM"),
 				IGameOptions.fixedEventsMode,
 				deterministicArtifact,
 				ironmanNoLoad, ironmanLoadDelay
 				)));
-		}
+		return map;
 	};
-	ParamSubUI ironmanOptionsUI = new ParamSubUI( MOD_UI, "IRONMAN_OPTIONS_UI", ironmanOptionsMap,
-			"IRONMAN_OPTIONS_TITLE", IRONMAN_GUI_ID)
-	{ { isCfgFile(true); } };
-
-
-	LinkedList<IParam> ironmanOptions = ironmanOptionsUI.optionsList();
+	static ParamSubUI ironmanOptionsUI() {
+		return new ParamSubUI( MOD_UI, "IRONMAN_OPTIONS_UI", ironmanOptionsMap(),
+				"IRONMAN_OPTIONS_TITLE", IRONMAN_GUI_ID)
+		{ { isCfgFile(true); } };
+	}
+	static LinkedList<IParam> ironmanOptions() {
+		return IBaseOptsTools.getSingleList(ironmanOptionsMap());
+	}
 }

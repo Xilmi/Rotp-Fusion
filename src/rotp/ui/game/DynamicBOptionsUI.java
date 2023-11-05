@@ -15,7 +15,6 @@
  */
 package rotp.ui.game;
 
-
 public class DynamicBOptionsUI extends AbstractOptionsUI {
 	private static final long serialVersionUID = 1L;
 	private static final String guiTitleID = "SETTINGS_MOD_DYNAMIC_TITLE";
@@ -26,7 +25,6 @@ public class DynamicBOptionsUI extends AbstractOptionsUI {
 		super(guiTitleID, GUI_ID);
 	}
 	@Override protected void init0() {
-		paramList = rotp.model.game.IGameOptions.modOptionsDynamicB;
-		paramList.add(rotp.model.game.IRandomEvents.customRandomEventUI);
+		paramList = rotp.model.game.IInGameOptions.modDynamicBOptions();
 	}
 }

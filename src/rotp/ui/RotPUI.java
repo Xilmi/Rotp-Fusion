@@ -332,8 +332,9 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         timer.start();
     }
     private void init() {
-    	@SuppressWarnings("unused")  // Fake Dialog used to load the code and accelerate the future calls
+    	// Fake Dialog used to load the code and accelerate the future calls
 		ListDialog dialog = new ListDialog(true);
+    	dialog.getValue();
         // Copy the former "Live.Option" to new "Last.Option"
         MOO1GameOptions.copyOptionsFromLiveToLast();
         newOptions().loadStartupOptions();

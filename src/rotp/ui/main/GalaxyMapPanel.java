@@ -94,6 +94,15 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
     public static Color gridLight = new Color(160,160,160);
     public static Color gridDark = new Color(64,64,64);
 
+    public static void maxFlagScale(int val)			{ MAX_FLAG_SCALE	 = val; }
+    public static void maxStargateScale(int val)		{ MAX_STARGATE_SCALE = val; }
+    public static void maxRallyScale(int val)			{ MAX_RALLY_SCALE	 = val; }
+    public static void maxFleetUnarmedScale(int val)	{ MAX_FLEET_UNARMED_SCALE   = val; }
+    public static void maxFleetTransportScale(int val)	{ MAX_FLEET_TRANSPORT_SCALE = val; }
+    public static void maxFleetSmallScale(int val)		{ MAX_FLEET_SMALL_SCALE = val; }
+    public static void maxFleetLargeScale(int val)		{ MAX_FLEET_LARGE_SCALE = val; }
+    public static void maxFleetHugeScale(int val)		{ MAX_FLEET_HUGE_SCALE  = val; }
+
     private final IMapHandler parent;
 
     // static fields shared across all galaxy map panels to keep them 
