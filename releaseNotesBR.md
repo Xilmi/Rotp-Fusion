@@ -21,7 +21,12 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - All trade tech notification have the skip Button.
 - Improved compact and classic Menu reactivity.
 - The options opening the sub-menus are more obvious.
-
+- New Event Monster options: Triggered by tech discovery.
+  - Propulsion/Hyper Drives for Space Pirates.
+  - Planetology/Advanced Cloning for Space Amoeba.
+  - Propulsion/Intergalactic Star Gates for Space Crystal.
+  - Tech Monsters: All events + Tech triggered Monsters.
+  - Only Monsters: Only Tech triggered Monsters.
 
 <b><ins>Bug Fixes:</ins></b>
 - Fixed sound echo default values.

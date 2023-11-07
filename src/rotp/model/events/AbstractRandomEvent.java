@@ -60,8 +60,14 @@ abstract class AbstractRandomEvent implements RandomEvent, Base, Serializable {
 		// Events Globally disabled ?
 		if (reo.equals(IGameOptions.RANDOM_EVENTS_OFF))
 			return true;
+		// Only Monsters ?
+		if (!monsterEvent() && reo.equals(IGameOptions.RANDOM_EVENTS_ONLY_MONSTERS))
+			return true;
 		// Monster Disabled ?
 		if (monsterEvent() && reo.equals(IGameOptions.RANDOM_EVENTS_NO_MONSTERS))
+			return true;
+		// Monster Tech Waiting ?
+		if (!techDiscovered())
 			return true;
 		return false;
 	}

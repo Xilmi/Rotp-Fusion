@@ -42,6 +42,10 @@ Very soon:
   - Option to change their travel time.
   - Option to start late game
     - Associated with specific tech discovery.
+  - https://www.reddit.com/r/rotp/comments/16ov0ln/monstrous_ends_rotp_fusion_mod_tweaks/
+  - https://www.reddit.com/r/rotp/comments/mc3ux3/different_take_on_space_monsters/
+- Planet selection vs fleet selection (with hotkey)
+- If you trade with an empire, the ownership of in range planets should be updated (in the spy way, no scouting). This because traders are always able to spot trade locations...
 - Spy: option to not over spend with the spy budget!
 - Add second statistic option: (on the side of lin / log): Display statistic as:
     - "% Tot": Precentage relative to known total (!= Galaxy Total)
@@ -65,8 +69,13 @@ Later:
 
 ## What's New
 
+2023.11.06 (BR)
+- New Event Monster options: Triggered by tech discovery.
+  - Tech Monsters: All events + Tech triggered Monsters.
+  - Only Monsters: Only Tech triggered Monsters.
+
 2023.11.05 (BR)
-- Fixed occasionally missing options in menu panels
+- Fixed occasionally missing options in menu panels.
   - Fixed interfaces directly accessing static class parameters!
   - Direct accesses are replaced by static method calls, making initialization sequences more predictable.
   - Or static constants are moved to the interface.

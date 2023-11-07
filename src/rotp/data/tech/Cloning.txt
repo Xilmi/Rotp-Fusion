@@ -1,11 +1,12 @@
 
 [tech]
-seq:    0
-name:   CLONE_0_NAME
-detail: CLONE_0_DETAIL
+seq:     0
+name:    CLONE_0_NAME
+detail:  CLONE_0_DETAIL
 
 [tech]
-seq:    1
-name:   CLONE_1_NAME
-detail: CLONE_1_DETAIL
+seq:     1
+name:    CLONE_1_NAME
+detail:  CLONE_1_DETAIL
+trigger: CLONE_1_TRIGGER
 

@@ -27,7 +27,11 @@ import rotp.ui.util.ParamInteger;
 public class RandomEventSpacePirates extends AbstractRandomEvent {
     private static final long serialVersionUID = 1L;
     private static final String NEXT_ALLOWED_TURN = "PIRATES_NEXT_ALLOWED_TURN";
+    public static final String TRIGGER_TECH		= "EngineWarp:8";
+    public static final String TRIGGER_GNN_KEY	= "EVENT_SPACE_PIRATES_TRIG";
+    public static final String GNN_EVENT		= "GNN_Event_Pirates";
     public static SpacePirates monster;
+    public static Empire triggerEmpire;
     private int empId;
     private int sysId;
     private int turnCount = 0;
@@ -35,13 +39,14 @@ public class RandomEventSpacePirates extends AbstractRandomEvent {
     static {
         initMonster();
     }
-    @Override ParamInteger delayTurn()		{ return IGameOptions.piratesDelayTurn; }
-    @Override ParamInteger returnTurn()		{ return IGameOptions.piratesReturnTurn; }
-    @Override public String statusMessage()	{ return text("SYSTEMS_STATUS_SPACE_PIRATES"); }
-    @Override public String systemKey()		{ return "MAIN_PLANET_EVENT_PIRATES"; }
-    @Override public boolean goodEvent()	{ return false; }
-    @Override public boolean monsterEvent()	{ return true; } // modnar: make into monsterEvent
-    @Override int nextAllowedTurn()			{ // for backward compatibility
+    @Override public boolean techDiscovered() { return triggerEmpire != null; }
+    @Override ParamInteger delayTurn()		  { return IGameOptions.piratesDelayTurn; }
+    @Override ParamInteger returnTurn()		  { return IGameOptions.piratesReturnTurn; }
+    @Override public String statusMessage()	  { return text("SYSTEMS_STATUS_SPACE_PIRATES"); }
+    @Override public String systemKey()		  { return "MAIN_PLANET_EVENT_PIRATES"; }
+    @Override public boolean goodEvent()	  { return false; }
+    @Override public boolean monsterEvent()	  { return true; } // modnar: make into monsterEvent
+    @Override int nextAllowedTurn()			  { // for backward compatibility
     	return (Integer) galaxy().dynamicOptions().getInteger(NEXT_ALLOWED_TURN, -1);
     }
 
@@ -81,10 +86,10 @@ public class RandomEventSpacePirates extends AbstractRandomEvent {
     	int maxSystem = options().selectedPiratesMaxSystems();
         return maxSystem == 0 || maxSystem > monster.vistedSystemsCount();
     }
-     private static void initMonster() {
+    private static void initMonster() {
         monster = new SpacePirates();
     }
-   private void enterSystem() {
+    private void enterSystem() {
         monster.visitSystem(sysId);
         monster.initCombat();
         StarSystem targetSystem = galaxy().system(sysId);
@@ -117,10 +122,10 @@ public class RandomEventSpacePirates extends AbstractRandomEvent {
         Empire pl = player();
         if (targetSystem.isColonized()) { 
             if (pl.knowsOf(targetSystem.empire()) || !pl.sv.name(sysId).isEmpty())
-                GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_PIRATES", targetSystem.empire()), "GNN_Event_Pirates");
+                GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_PIRATES", targetSystem.empire()), GNN_EVENT);
         }
         else if (pl.sv.isScouted(sysId))
-            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_PIRATES_1", null), "GNN_Event_Pirates");   
+            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_PIRATES_1", null), GNN_EVENT);   
     }
     private void pillageColony(Colony col) {
         StarSystem targetSystem = galaxy().system(sysId);  
@@ -130,7 +135,7 @@ public class RandomEventSpacePirates extends AbstractRandomEvent {
         
         Empire pl = player();
         if (pl.knowsOf(col.empire()) || !pl.sv.name(sysId).isEmpty())
-            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_PIRATES_2", col.empire()), "GNN_Event_Pirates");
+            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_PIRATES_2", col.empire()), GNN_EVENT);
     }
     private void piratesDestroyed() {
     	terminateEvent(this);
@@ -143,12 +148,12 @@ public class RandomEventSpacePirates extends AbstractRandomEvent {
         heroEmp.addToTreasury(spoilsBC);
 
         if (player().knowsOf(galaxy().empire(empId)) || !player().sv.name(sysId).isEmpty())
-            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_PIRATES_3", monster.lastAttacker()), "GNN_Event_Pirates");
+            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_PIRATES_3", monster.lastAttacker()), GNN_EVENT);
     }
     private void monsterVanished() { // BR: To allow disappearance
     	terminateEvent(this);
         if (player().knowsOf(galaxy().empire(empId)) || !player().sv.name(sysId).isEmpty())
-            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_PIRATES_4", monster.lastAttacker()), "GNN_Event_Pirates");
+            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_PIRATES_4", monster.lastAttacker()), GNN_EVENT);
     }
     private void moveToNextSystem() {
         StarSystem targetSystem = galaxy().system(sysId);

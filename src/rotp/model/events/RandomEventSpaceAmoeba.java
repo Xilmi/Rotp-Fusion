@@ -28,7 +28,11 @@ import rotp.ui.util.ParamInteger;
 public class RandomEventSpaceAmoeba extends AbstractRandomEvent {
     private static final long serialVersionUID = 1L;
     private static final String NEXT_ALLOWED_TURN = "AMOEBA_NEXT_ALLOWED_TURN";
+    public static final String TRIGGER_TECH		= "Cloning:1";
+    public static final String TRIGGER_GNN_KEY	= "EVENT_SPACE_AMOEBA_TRIG";
+    public static final String GNN_EVENT		= "GNN_Event_Amoeba";
     public static SpaceAmoeba monster;
+    public static Empire triggerEmpire;
     private int empId;
     private int sysId;
     private int turnCount = 0;
@@ -36,12 +40,13 @@ public class RandomEventSpaceAmoeba extends AbstractRandomEvent {
     static {
         initMonster();
     }
-    @Override ParamInteger delayTurn()		{ return IGameOptions.amoebaDelayTurn; }
-    @Override ParamInteger returnTurn()		{ return IGameOptions.amoebaReturnTurn; }
-    @Override public String statusMessage()	{ return text("SYSTEMS_STATUS_SPACE_AMOEBA"); }
-    @Override public String systemKey()		{ return "MAIN_PLANET_EVENT_AMOEBA"; }
-    @Override public boolean goodEvent()	{ return false; }
-    @Override public boolean monsterEvent()	{ return true; }
+    @Override public boolean techDiscovered() { return triggerEmpire != null; }
+    @Override ParamInteger delayTurn()		  { return IGameOptions.amoebaDelayTurn; }
+    @Override ParamInteger returnTurn()		  { return IGameOptions.amoebaReturnTurn; }
+    @Override public String statusMessage()	  { return text("SYSTEMS_STATUS_SPACE_AMOEBA"); }
+    @Override public String systemKey()		  { return "MAIN_PLANET_EVENT_AMOEBA"; }
+    @Override public boolean goodEvent()	  { return false; }
+    @Override public boolean monsterEvent()	  { return true; }
     @Override int nextAllowedTurn() { // for backward compatibility
     	return (Integer) galaxy().dynamicOptions().getInteger(NEXT_ALLOWED_TURN, -1);
     }
@@ -124,10 +129,10 @@ public class RandomEventSpaceAmoeba extends AbstractRandomEvent {
         Empire pl = player();
         if (targetSystem.isColonized()) { 
             if (pl.knowsOf(targetSystem.empire()) || !pl.sv.name(sysId).isEmpty())
-                GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_AMOEBA", targetSystem.empire()), "GNN_Event_Amoeba");
+                GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_AMOEBA", targetSystem.empire()), GNN_EVENT);
         }
         else if (!pl.sv.name(sysId).isEmpty())
-            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_AMOEBA_1", null), "GNN_Event_Amoeba");   
+            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_AMOEBA_1", null), GNN_EVENT);   
     }
     private void degradePlanet(StarSystem targetSystem) {
         Empire emp = targetSystem.empire();
@@ -139,7 +144,7 @@ public class RandomEventSpaceAmoeba extends AbstractRandomEvent {
             return;
         Empire pl = player();
         if (pl.knowsOf(emp) || !pl.sv.name(sysId).isEmpty())
-            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_AMOEBA_2", emp), "GNN_Event_Amoeba");
+            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_AMOEBA_2", emp), GNN_EVENT);
     }
     private void amoebaDestroyed() {
         //galaxy().events().removeActiveEvent(this);
@@ -147,12 +152,12 @@ public class RandomEventSpaceAmoeba extends AbstractRandomEvent {
         monster.plunder();
 
         if (player().knowsOf(empId)|| !player().sv.name(sysId).isEmpty())
-            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_AMOEBA_3", monster.lastAttacker()), "GNN_Event_Amoeba");
+            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_AMOEBA_3", monster.lastAttacker()), GNN_EVENT);
     }
     private void monsterVanished() { // BR: To allow disappearance
     	terminateEvent(this);
         if (player().knowsOf(galaxy().empire(empId)) || !player().sv.name(sysId).isEmpty())
-            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_AMOEBA_4", monster.lastAttacker()), "GNN_Event_Amoeba");
+            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_AMOEBA_4", monster.lastAttacker()), GNN_EVENT);
     }
     private void moveToNextSystem() {
         StarSystem targetSystem = galaxy().system(sysId);

@@ -32,8 +32,9 @@ public final class TechEngineWarp extends Tech {
         free = b;
         init();
     }
-    @Override
-    public String detail()                { return text(detail, warp()); }
+//    @Override
+//    public String detail()                { return text(detail, warp()); }
+    @Override public String detail()        { return detail(warp()); }
     @Override
     public boolean canBeMiniaturized()      { return true; }
     @Override

@@ -28,7 +28,11 @@ import rotp.ui.util.ParamInteger;
 public class RandomEventSpaceCrystal extends AbstractRandomEvent {
     private static final long serialVersionUID = 1L;
     private static final String NEXT_ALLOWED_TURN = "CRYSTAL_NEXT_ALLOWED_TURN";
+    public static final String TRIGGER_TECH		= "Stargate:0";
+    public static final String TRIGGER_GNN_KEY	= "EVENT_SPACE_CRYSTAL_TRIG";
+    public static final String GNN_EVENT		= "GNN_Event_Crystal";
     public static SpaceCrystal monster;
+    public static Empire triggerEmpire;
     private int empId;
     private int sysId;
     private int turnCount = 0;
@@ -36,13 +40,14 @@ public class RandomEventSpaceCrystal extends AbstractRandomEvent {
     static {
         initMonster();
     }
-    @Override ParamInteger delayTurn()		{ return IGameOptions.crystalDelayTurn; }
-    @Override ParamInteger returnTurn()		{ return IGameOptions.crystalReturnTurn; }
-    @Override public String statusMessage()	{ return text("SYSTEMS_STATUS_SPACE_CRYSTAL"); }
-    @Override public String systemKey()		{ return "MAIN_PLANET_EVENT_CRYSTAL"; }
-    @Override public boolean goodEvent()	{ return false; }
-    @Override public boolean monsterEvent()	{ return true; }
-    @Override int nextAllowedTurn()			{ // for backward compatibility
+    @Override public boolean techDiscovered() { return triggerEmpire != null; }
+    @Override ParamInteger delayTurn()		  { return IGameOptions.crystalDelayTurn; }
+    @Override ParamInteger returnTurn()		  { return IGameOptions.crystalReturnTurn; }
+    @Override public String statusMessage()	  { return text("SYSTEMS_STATUS_SPACE_CRYSTAL"); }
+    @Override public String systemKey()		  { return "MAIN_PLANET_EVENT_CRYSTAL"; }
+    @Override public boolean goodEvent()	  { return false; }
+    @Override public boolean monsterEvent()   { return true; }
+    @Override int nextAllowedTurn()			  { // for backward compatibility
     	return (Integer) galaxy().dynamicOptions().getInteger(NEXT_ALLOWED_TURN, -1);
     }
 
@@ -124,10 +129,10 @@ public class RandomEventSpaceCrystal extends AbstractRandomEvent {
         Empire pl = player();
         if (targetSystem.isColonized()) { 
             if (pl.knowsOf(targetSystem.empire()) || !pl.sv.name(sysId).isEmpty())
-                GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_CRYSTAL", targetSystem.empire()), "GNN_Event_Crystal");
+                GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_CRYSTAL", targetSystem.empire()), GNN_EVENT);
         }
         else if (pl.sv.isScouted(sysId))
-            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_CRYSTAL_1", null), "GNN_Event_Crystal");   
+            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_CRYSTAL_1", null), GNN_EVENT);   
     }
     private void degradePlanet(StarSystem targetSystem) {
         Empire emp = targetSystem.empire();
@@ -139,19 +144,19 @@ public class RandomEventSpaceCrystal extends AbstractRandomEvent {
             return;
         Empire pl = player();
         if (pl.knowsOf(emp) || !pl.sv.name(sysId).isEmpty())
-            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_CRYSTAL_2", emp), "GNN_Event_Crystal");
+            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_CRYSTAL_2", emp), GNN_EVENT);
     }
     private void crystalDestroyed() {
         terminateEvent(this);
         monster.plunder();
 
         if (player().knowsOf(galaxy().empire(empId)) || !player().sv.name(sysId).isEmpty())
-            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_CRYSTAL_3", monster.lastAttacker()), "GNN_Event_Crystal");
+            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_CRYSTAL_3", monster.lastAttacker()), GNN_EVENT);
     }
     private void monsterVanished() { // BR: To allow disappearance
     	terminateEvent(this);
         if (player().knowsOf(galaxy().empire(empId)) || !player().sv.name(sysId).isEmpty())
-            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_CRYSTAL_4", monster.lastAttacker()), "GNN_Event_Crystal");
+            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_CRYSTAL_4", monster.lastAttacker()), GNN_EVENT);
     }
     private void moveToNextSystem() {
         StarSystem targetSystem = galaxy().system(sysId);

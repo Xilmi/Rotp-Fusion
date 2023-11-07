@@ -112,7 +112,7 @@ public class RandomEvents implements Base, Serializable {
     public void nextTurn() {
          // BR: To allow RandomEventOption dynamic changes
     	IGameOptions opts = options();
-        if (opts.disableRandomEvents()) 
+        if (opts.disabledRandomEvents()) 
             return;
 
         // possible that next-turn logic may remove an active event
@@ -139,9 +139,9 @@ public class RandomEvents implements Base, Serializable {
         
 		// modnar: make random events repeatable
         // No removal, dynamically built
-//		if (!triggeredEvent.repeatable()) {
-//			events.remove(triggeredEvent);
-//		}
+        //	if (!triggeredEvent.repeatable()) {
+        //		events.remove(triggeredEvent);
+        //	}
 		
         eventChance = START_CHANCE; // Reset the probability counter
         

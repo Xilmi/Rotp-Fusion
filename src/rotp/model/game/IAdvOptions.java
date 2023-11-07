@@ -209,11 +209,17 @@ public interface IAdvOptions extends IBaseOptsTools {
 	//
 	LinkedList<IParam> advancedOptions	  = new LinkedList<>(
 			Arrays.asList(
-					galaxyAge, starDensity, nebulae, planetQuality, terraforming,
+					galaxyAge, starDensity,
+					nebulae, planetQuality,
+					terraforming,
 					null,
-					randomEvents, aiHostility, councilWin, randomizeAI, autoplay,
+					randomEvents, aiHostility,
+					councilWin, randomizeAI,
+					autoplay,
 					null,
-					researchRate, warpSpeed, fuelRange, techTrading, colonizing
+					researchRate, warpSpeed,
+					fuelRange, techTrading,
+					colonizing
 					));
 
 }

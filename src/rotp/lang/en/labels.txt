@@ -186,22 +186,29 @@ EVENT_SUPERNOVA_2                 | The threat of supernova in the [system] syst
 EVENT_SUPERNOVA_3                 | Working feverishly, [target_race] physicists in the [system] system have found a way to delay to supernova of their nearby star for the foreseeable future.
 EVENT_SUPERNOVA_4                 | The star in the [system] system has gone supernova, irradiating the [target_race] world, devastating its environment and killing millions.
 EVENT_VIRUS                       | A highly destructive computer virus strikes [target_race] research centers, destroying years of research in [technology].
+
 EVENT_SPACE_AMOEBA                | A monstrous biological form dubbed the "Space Amoeba" has been spotted approaching the [system] system. Defending [victim_race] colonists and fleets are preparing for the worst.
 EVENT_SPACE_AMOEBA_1              | A monstrous biological form dubbed the "Space Amoeba" has been spotted approaching the uncolonized [system] system.
 EVENT_SPACE_AMOEBA_2              | The Space Amoeba has completely consumed the [victim_race] colony in the [system] system.
 EVENT_SPACE_AMOEBA_3              | The Space Amoeba was destroyed by [victim_race] defenders in the [system] system.
 EVENT_SPACE_AMOEBA_4              | Scanners that have been tracking the progress of a Space Amoeba now show that the creature has disappeared from our galaxy.
+EVENT_SPACE_AMOEBA_TRIG           | The SCE (Society to Clone Everything) have successfully incarnated a trans-dimensional horror. When asked for comment, spokesmen said: AAAAAAAAHHHHHHHHH!! IT BURNS!
+
 EVENT_SPACE_CRYSTAL               | A gigantic crystalline entity called the "Space Crystal" has been spotted approaching the [system] system. Defending [victim_race] colonists and fleets are preparing for the worst.
 EVENT_SPACE_CRYSTAL_1             | A gigantic crystalline entity called the "Space Crystal" has been spotted approaching the uncolonized [system] system.
 EVENT_SPACE_CRYSTAL_2             | The Space Crystal has completely destroyed all life on the [victim_race] colony in the [system] system.
 EVENT_SPACE_CRYSTAL_3             | The Space Crystal was destroyed by [victim_race] defenders in the [system] system.
 EVENT_SPACE_CRYSTAL_4             | The hideous Space Crystal has left our galaxy. Why did it come? Why did it leave? The galaxy may never know.
+EVENT_SPACE_CRYSTAL_TRIG          | Scientists responsible for the new Star Gate technology said: We gazed into the Abyss, and the Abyss roared Nom Nom Nom!
+
 // modnar: add space pirate random event
 EVENT_SPACE_PIRATES               | A fleet of marauding Space Pirates have been spotted approaching the [system] system. Defending [race] colonists and fleets are preparing for the worst.
 EVENT_SPACE_PIRATES_1             | A fleet of marauding Space Pirates have been spotted approaching the uncolonized [system] system.
 EVENT_SPACE_PIRATES_2             | The dreaded Space Pirates have ravaged the population and pillaged all industry on the [race] colony in the [system] system, devastating the local ecology.
 EVENT_SPACE_PIRATES_3             | The Space Pirate fleet was destroyed by [race] defenders in the [system] system. Significant riches found in the wreckage have been seized by the [race] military to bolster their Planetary Reserve.
 EVENT_SPACE_PIRATES_4             | The powerful Space Pirate has left our insignificant galaxy! Where did it go? We don't care, good riddance!
+EVENT_SPACE_PIRATES_TRIG          | The recently discovered Hyper Drive will change everything. For example, criminals rejoice at their new-found mobility.
+
 // modnar: add Precursor Relic random event
 EVENT_RELIC_PLANETS               | A Precursor relic has mysteriously activated in [target_empire] space. Galaxy-wide scanners report the formation of new planets in multiple previously empty Star Systems after intense asteroid coalescence events. [target_race] scientists have also harvested several Construction technologies from the relic.
 // BR: info if no contact
@@ -1316,9 +1323,13 @@ SETUP_GALAXY_AGE_OLD_HELP         | Star color probability:<br>Red:&nbsp 50%&ems
 SETUP_RANDOM_EVENTS_ON            | On
 SETUP_RANDOM_EVENTS_OFF           | Off
 SETUP_RANDOM_EVENTS_NO_MONSTERS   | No Monsters
-SETUP_RANDOM_EVENTS_ON_HELP          | All events are allowed once the time has come.
-SETUP_RANDOM_EVENTS_OFF_HELP         | !!! Leave me alone !!! No random events.
-SETUP_RANDOM_EVENTS_NO_MONSTERS_HELP | Ok for the random events, but no Space Amoeba, no Space Crystal, and no Space Pirates. <i> (But some event piracy may happen)</i>
+SETUP_RANDOM_EVENTS_TECH_MONSTERS | Tech Monsters
+SETUP_RANDOM_EVENTS_ONLY_MONSTERS | Only Monsters
+SETUP_RANDOM_EVENTS_ON_HELP            | All events are allowed once the time has come.
+SETUP_RANDOM_EVENTS_OFF_HELP           | !!! Leave me alone !!! No random events.
+SETUP_RANDOM_EVENTS_NO_MONSTERS_HELP   | Ok for the random events, but no Space Amoeba, no Space Crystal, and no Space Pirates. <i> (But some event piracy may happen)</i>
+SETUP_RANDOM_EVENTS_TECH_MONSTERS_HELP | Ok for the random events, and Monsters can be triggered by relevant research:<br>- Propulsion/Hyper Drives for Space Pirates.<br>- Planetology/Advanced Cloning for Space Amoeba.<br>- Propulsion/Intergalactic Star Gates for Space Crystal.
+SETUP_RANDOM_EVENTS_ONLY_MONSTERS_HELP | Only Monsters: No random events, but Monsters can be triggered by relevant research:<br>- Propulsion/Hyper Drives for Space Pirates.<br>- Planetology/Advanced Cloning for Space Amoeba.<br>- Propulsion/Intergalactic Star Gates for Space Crystal.
 SETUP_GALAXY_NUMBER_EMPIRES       | Total Empires: %1
 SETUP_GALAXY_NUMBER_SYSTEMS       | Total Systems: %1
 SETUP_GALAXY_MAX_OPPONENTS        | Maximum Opponents: %1
@@ -2574,10 +2585,17 @@ SETTINGS_MOD_EVENTS_FAVOR_WEAK_HELP      | By default, Yes, the Random events ar
 SETTINGS_MOD_EVENTS_FAVOR_WEAK_DESC      | To adjust the probability of the next event occurring.
 SETTINGS_MOD_EVENTS_FAVOR_WEAK           | Favor the weak: %1
 
-
 SETTINGS_MOD_FIXED_EVENTS_MODE_HELP      | A seed is given at the begining of a game, and will be used to generate the random events.<br>- Target empires are no more determined by their powers.<br>- Same time, same event, same target on different play.<br>- Same Events on Reload.<br>- If an event is still actif, it will be put on waiting list till the previous occurence ends.<br>- If targeted empire is extinct, Monsters are directed to their former home world.
 SETTINGS_MOD_FIXED_EVENTS_MODE_DESC      | A seed is given at the begining of a game, and will be used to generate the random events. Target empire are no more determined by their powers.
 SETTINGS_MOD_FIXED_EVENTS_MODE           | Deterministic random events: %1
+
+SETTINGS_MOD_MONSTERS_GIVE_LOOTS_HELP    | A seed is given at the begining of a game, and will be used to generate the random events.<br>- Target empires are no more determined by their powers.<br>- Same time, same event, same target on different play.<br>- Same Events on Reload.<br>- If an event is still actif, it will be put on waiting list till the previous occurence ends.<br>- If targeted empire is extinct, Monsters are directed to their former home world.
+SETTINGS_MOD_MONSTERS_GIVE_LOOTS_DESC     | Loots are given on Monster destruction.
+SETTINGS_MOD_MONSTERS_GIVE_LOOTS          | Monsters give Loots: %1
+SETTINGS_MOD_MONSTERS_GIVE_LOOTS_YES      | →BOOLEAN_YES←
+SETTINGS_MOD_MONSTERS_GIVE_LOOTS_NO       | →BOOLEAN_NO←
+SETTINGS_MOD_MONSTERS_GIVE_LOOTS_YES_DESC | BC, Tech, or ship
+SETTINGS_MOD_MONSTERS_GIVE_LOOTS_NO_DESC  | Default value (Vanilla)
 
 
 // ========== RANDOM EVENT MONSTERS PARAMETERS
@@ -3653,6 +3671,12 @@ GOVERNOR_ANIMATED_IMAGE             | Animate Image: %1
 GOVERNOR_FULL_REFRESH_ON_LOAD_HELP  | On some computer, loading and updating governor panel appearance while the panel is behing the main window may lead to display glitches. Consequently, by default only the values are updated. "Yes" will allow a full governor panel update.
 GOVERNOR_FULL_REFRESH_ON_LOAD_DESC  | Position, size and color will refresh when loading a new game.<br>Set to false in case of display glitches.
 GOVERNOR_FULL_REFRESH_ON_LOAD       | Full Reset: %1
+
+// BR: Tech Trigger Add-on
+//
+ENGINE_8_TRIGGER                    | →ENGINE_8_DETAIL←<br>It is illegal to use a Hyper Drive in the commission of Theft, Pillage or Piracy.
+STARGATE_0_TRIGGER                  | →STARGATE_0_DETAIL←<br>Traversing Inter-Dimensional space almost never awakes Elritch Abominations.
+CLONE_1_TRIGGER                     | →CLONE_1_DETAIL←<br>The GrowInAtor is perfectly safe! Nothing can't go wrong.
 
 //
 // ===== BR: Guide and contextual Help added by Mods =====

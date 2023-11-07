@@ -1,4 +1,6 @@
 [tech]
-seq:    0
-name:   STARGATE_0_NAME
-detail: STARGATE_0_DETAIL
+seq:     0
+name:    STARGATE_0_NAME
+detail:  STARGATE_0_DETAIL
+trigger: STARGATE_0_TRIGGER
+

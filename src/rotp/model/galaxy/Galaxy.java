@@ -32,6 +32,9 @@ import rotp.model.empires.Empire;
 import rotp.model.empires.Empire.EmpireBaseData;
 import rotp.model.empires.GalacticCouncil;
 import rotp.model.empires.Race;
+import rotp.model.events.RandomEventSpaceAmoeba;
+import rotp.model.events.RandomEventSpaceCrystal;
+import rotp.model.events.RandomEventSpacePirates;
 import rotp.model.events.RandomEvents;
 import rotp.model.galaxy.StarSystem.SystemBaseData;
 import rotp.model.game.DynOptions;
@@ -408,6 +411,9 @@ public class Galaxy implements Base, Serializable {
     		dynamicOptions = new DynOptions();
         for (Empire emp: empires())
              emp.validateOnLoad();
+        RandomEventSpacePirates.triggerEmpire = isTechDiscovered(RandomEventSpacePirates.TRIGGER_TECH);
+        RandomEventSpaceCrystal.triggerEmpire = isTechDiscovered(RandomEventSpaceCrystal.TRIGGER_TECH);
+        RandomEventSpaceAmoeba.triggerEmpire  = isTechDiscovered(RandomEventSpaceAmoeba.TRIGGER_TECH);
      }    
     public void validate() {
        for (Empire emp: empires())
@@ -475,10 +481,6 @@ public class Galaxy implements Base, Serializable {
                 transports.remove(tr);
         }
     }
-//    public void spaceTimeShearing() {
-//    	ships.spaceTimeShearing();
-//    	transports.clear();
-//    }
     public void nextEmpireTurns() {
         for (Empire e: empires) {
             if (!e.extinct())
@@ -663,6 +665,14 @@ public class Galaxy implements Base, Serializable {
     	}
     	return false;
     }
+    public Empire isTechDiscovered(String id) {
+    	for (Empire e: empires) {
+    		if(e.tech().knows(id))
+    			return e;
+    	}
+    	return null;
+    }
+
     // ==================== GalaxyBaseData ====================
     //
 	public static class GalaxyBaseData {

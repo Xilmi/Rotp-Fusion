@@ -597,6 +597,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             case RANDOM_EVENTS_ON:  return true;
             case RANDOM_EVENTS_OFF: return false;
             case RANDOM_EVENTS_NO_MONSTERS: return !ev.monsterEvent();
+            case RANDOM_EVENTS_TECH_MONSTERS: return ev.techDiscovered() ;
+            case RANDOM_EVENTS_ONLY_MONSTERS: return ev.monsterEvent() && ev.techDiscovered() ;
         }
         return true;
     }

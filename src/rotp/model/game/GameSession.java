@@ -580,7 +580,7 @@ public final class GameSession implements Base, Serializable {
                     RotPUI.instance().mainUI().showMemoryLowPrompt();
                 // handle game over possibility
                 if (autoRunning && options().debugAutoRun()) {
-                	if (galaxy().numActiveEmpires() == 1) {
+                	if (galaxy().numActiveEmpires() == 1 && options.selectedOpponentRaces()[0]!=null) {
                 		RotPUI.instance().selectGameOverPanel();
                 	}
                 	else {

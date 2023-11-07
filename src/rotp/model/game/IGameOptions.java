@@ -142,6 +142,8 @@ public interface IGameOptions extends IModOptions {
     public static final String RANDOM_EVENTS_ON  = "SETUP_RANDOM_EVENTS_ON";
     public static final String RANDOM_EVENTS_OFF = "SETUP_RANDOM_EVENTS_OFF";
     public static final String RANDOM_EVENTS_NO_MONSTERS = "SETUP_RANDOM_EVENTS_NO_MONSTERS";
+    public static final String RANDOM_EVENTS_TECH_MONSTERS = "SETUP_RANDOM_EVENTS_TECH_MONSTERS";
+    public static final String RANDOM_EVENTS_ONLY_MONSTERS = "SETUP_RANDOM_EVENTS_ONLY_MONSTERS";
 
     public static final String WARP_SPEED_NORMAL = "SETUP_WARP_SPEED_NORMAL";
     public static final String WARP_SPEED_FAST   = "SETUP_WARP_SPEED_FAST";
@@ -432,8 +434,13 @@ public interface IGameOptions extends IModOptions {
     public String selectedTechTradeOption();
     public void selectedTechTradeOption(String s);
     public String selectedRandomEventOption();
-    default boolean disableRandomEvents() {
+    default boolean disabledRandomEvents() {
     	return selectedRandomEventOption().equals(RANDOM_EVENTS_OFF);
+    };
+    default boolean techRandomEvents() {
+    	String sre = selectedRandomEventOption();
+    	return sre.equals(RANDOM_EVENTS_TECH_MONSTERS)
+    			|| sre.equals(RANDOM_EVENTS_ONLY_MONSTERS);
     };
     public void selectedRandomEventOption(String s);
     public String selectedWarpSpeedOption();
@@ -715,6 +722,8 @@ public interface IGameOptions extends IModOptions {
         list.add(RANDOM_EVENTS_ON);
         list.add(RANDOM_EVENTS_NO_MONSTERS);
         list.add(RANDOM_EVENTS_OFF);
+        list.add(RANDOM_EVENTS_TECH_MONSTERS);
+        list.add(RANDOM_EVENTS_ONLY_MONSTERS);
         return list;
     }
     public static List<String> getRandomizeAIOptions() {

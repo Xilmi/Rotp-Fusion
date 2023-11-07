@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamInteger;
+import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamSubUI;
 import rotp.ui.util.ParamTitle;
 
@@ -33,6 +34,16 @@ public interface IRandomEvents extends IBaseOptsTools {
 	
 	ParamBoolean fixedEventsMode	= new ParamBoolean(MOD_UI, "FIXED_EVENTS_MODE", false);
 	default boolean selectedFixedEventsMode()	{ return fixedEventsMode.get(); }
+	
+	ParamList    monstersGiveLoots	= new ParamList( MOD_UI, "MONSTERS_GIVE_LOOTS", "No") { // TODO BR: monstersGiveLoots
+		{
+			showFullGuide(true);
+			put("No", 	MOD_UI + "MONSTERS_GIVE_LOOTS_NO");
+			put("Yes",	MOD_UI + "MONSTERS_GIVE_LOOTS_YES");
+		}
+	};
+	default boolean monstersGiveLoots()	{ return monstersGiveLoots.get().equalsIgnoreCase("Yes"); }
+
 	
 	// ========================================================================
 	// BR: RANDOM EVENT MONSTERS PARAMETERS

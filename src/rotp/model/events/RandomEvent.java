@@ -34,4 +34,5 @@ public interface RandomEvent {
     void nextTurn();
     int minimumTurn();
     int startTurn();
+    default boolean techDiscovered() { return true; };
 }
