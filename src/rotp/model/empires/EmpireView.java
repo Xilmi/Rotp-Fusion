@@ -215,11 +215,20 @@ public final class EmpireView implements Base, Serializable {
         // build list of unknown systems  (all minus known)
         List<StarSystem> allUnknownSystems = new ArrayList<>(empire.allColonizedSystems());
         allUnknownSystems.removeAll(allKnownSystems);
-        
+
+        // BR: If trade treaty: systems in range are known from the traders
+        if (!allUnknownSystems.isEmpty() && trade().active()) {
+        	float scoutRange = owner.scoutRange();
+        	for (StarSystem sys : allUnknownSystems)
+        		if (owner.distanceTo(sys) <= scoutRange)
+        			allKnownSystems.add(sys);
+            allUnknownSystems.removeAll(allKnownSystems);
+        }
+ 
         // if there are some unknown, all add if unity else sort by distance
         // and add 1 for each spy network
         if (!allUnknownSystems.isEmpty()) {
-            if (embassy().unity() || embassy().alliance()) 
+        	if (embassy().unity() || embassy().alliance()) 
                 allKnownSystems.addAll(allUnknownSystems);
             else {
                 int spyNetworks = spies().activeSpies().size();

@@ -40,12 +40,8 @@ Very soon:
 - Monsters:
   - Give loots.
   - Option to change their travel time.
-  - Option to start late game
-    - Associated with specific tech discovery.
   - https://www.reddit.com/r/rotp/comments/16ov0ln/monstrous_ends_rotp_fusion_mod_tweaks/
   - https://www.reddit.com/r/rotp/comments/mc3ux3/different_take_on_space_monsters/
-- Planet selection vs fleet selection (with hotkey)
-- If you trade with an empire, the ownership of in range planets should be updated (in the spy way, no scouting). This because traders are always able to spot trade locations...
 - Spy: option to not over spend with the spy budget!
 - Add second statistic option: (on the side of lin / log): Display statistic as:
     - "% Tot": Precentage relative to known total (!= Galaxy Total)
@@ -70,11 +66,14 @@ Later:
 ## What's New
 
 2023.11.07 (BR)
+- Galaxy Map: Holding "Ctrl" gives prirority on star system selection over fleet selection.
 - Tech triggered Monsters:
   - Don't follow of other start turn limitations.
   - Follow the repeatability settings.
-  - Follow the max stars system settings. 
-
+  - Follow the max stars system settings.
+- Trade Treaties give spy view into in ranges Empires systems.
+  - Traders are always good at spotting planets ready to trade, and report basic information!
+  - This to prevent friendly neighbors from constantly sending armed scouts and colony!
 
 2023.11.06 (BR)
 - New Event Monster options: Triggered by tech discovery.

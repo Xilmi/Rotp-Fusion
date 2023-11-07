@@ -27,6 +27,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Propulsion/Intergalactic Star Gates for Space Crystal.
   - Tech Monsters: All events + Tech triggered Monsters.
   - Only Monsters: Only Tech triggered Monsters.
+- Galaxy Map: Holding "Ctrl" gives prirority on star system selection over fleet selection.
 
 <b><ins>Bug Fixes:</ins></b>
 - Fixed sound echo default values.

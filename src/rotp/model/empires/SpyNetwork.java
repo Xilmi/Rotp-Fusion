@@ -256,21 +256,26 @@ public final class SpyNetwork implements Base, Serializable {
             maxSpies(0);
             return;
         }
-        
+        boolean hadRefresh = false;
         // data automatically updates for allies
         if (view.embassy().alliance()) {
             lastSpyDate = galaxy().currentYear();
             view.refreshSystemSpyViews();
+            hadRefresh = true;
             updateTechList();
         }
         
         if (maxSpies() == 0) {
             activeSpies.clear();
+            // BR: If trade treaty: systems in range are known from the traders
+        	if (!hadRefresh && view.trade().active())
+        		view.refreshSystemSpyViews();
             return;
         }
         
         log(view+" Spies: nextTurn");
-        if (!activeSpies().isEmpty())
+        // BR: If trade treaty: systems in range are known from the traders
+        if (!activeSpies().isEmpty() || view.trade().active())
             view.refreshSystemSpyViews();
         
         if (empire().extinct()) {
