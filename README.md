@@ -69,6 +69,13 @@ Later:
 
 ## What's New
 
+2023.11.07 (BR)
+- Tech triggered Monsters:
+  - Don't follow of other start turn limitations.
+  - Follow the repeatability settings.
+  - Follow the max stars system settings. 
+
+
 2023.11.06 (BR)
 - New Event Monster options: Triggered by tech discovery.
   - Tech Monsters: All events + Tech triggered Monsters.

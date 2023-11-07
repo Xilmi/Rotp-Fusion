@@ -883,7 +883,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         
         g.setStroke(prev);
     }
-    private Sprite spriteAt(int x1, int y1) {
+    private Sprite spriteAt(int x1, int y1, boolean ctrlDown) {
         // In order of hovering priority:
         // 1. Next Turn Sprites
         // 2. Map Control Sprites
@@ -907,6 +907,15 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
 
         Galaxy gal = galaxy();
         Empire pl = player();
+
+        // if ctrl down, Star systems have priority
+        if (ctrlDown && parent.hoverOverSystems()) {
+            for (int id=0;id<gal.numStarSystems();id++) {
+                if (gal.system(id).isSelectableAt(this, x1, y1))
+                    return gal.system(id);
+            }
+        }
+
         List<Ship> ships = null;
         if (scaleX() <= MAX_FLEET_HUGE_SCALE) {
             if (parent.hoverOverFleets()) {
@@ -933,7 +942,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
                     return closestShip;
             }
         }
-        if (parent.hoverOverSystems()) {
+        if (!ctrlDown && parent.hoverOverSystems()) {
             for (int id=0;id<gal.numStarSystems();id++) {
                 if (gal.system(id).isSelectableAt(this, x1, y1))
                     return gal.system(id);
@@ -1079,16 +1088,16 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
     }
     @Override
     public void mouseMoved(MouseEvent e) {
-    	mouseMoved(e.getX(), e.getY());
+    	mouseMoved(e.getX(), e.getY(), e.isControlDown());
     }
     public void updateHover() { // BR: To remove the need of moving the mouse
     	Point pos = getMousePosition();
     	if (pos == null)
-	    	mouseMoved(lastMouseX, lastMouseY);
+	    	mouseMoved(lastMouseX, lastMouseY, false);
     	else
-	    	mouseMoved(pos.x, pos.y);
+	    	mouseMoved(pos.x, pos.y, false);
     }
-    private void mouseMoved(int x, int y) {
+    private void mouseMoved(int x, int y, boolean ctrlDown) {
        long prevTime = lastMouseTime;
         int prevX = lastMouseX;
         int prevY = lastMouseY;
@@ -1114,7 +1123,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         if (searchingSprite)
             return;      
         searchingSprite = true;
-        try { hoverSprite = spriteAt(x,y); }
+        try { hoverSprite = spriteAt(x,y, ctrlDown); }
         finally { searchingSprite = false; }
         
         // still hovering over same sprite... do nothing
@@ -1129,10 +1138,18 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         // drawn over the system.
         if ((prevHover != null) && prevHover.isSelectableAt(this,x,y)) {
             int prevPriority = prevHover.displayPriority();
-            int hoverPriority = (hoverSprite == null) ? 0 : hoverSprite.displayPriority();
-            if (hoverPriority < prevPriority) {
-                hoverSprite = prevHover;
-                return;
+            if (ctrlDown) { // BR: invert the priority
+                int hoverPriority = (hoverSprite == null) ? Integer.MAX_VALUE : hoverSprite.displayPriority();
+                if (hoverPriority > prevPriority) {
+                    hoverSprite = prevHover;
+                    return;
+                }            	
+            } else {
+                int hoverPriority = (hoverSprite == null) ? 0 : hoverSprite.displayPriority();
+                if (hoverPriority < prevPriority) {
+                    hoverSprite = prevHover;
+                    return;
+                }
             }
         }
             

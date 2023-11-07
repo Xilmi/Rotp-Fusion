@@ -37,7 +37,11 @@ abstract class AbstractRandomEvent implements RandomEvent, Base, Serializable {
 	@Override public String	 systemKey()	 { return ""; }
 	@Override public String	 statusMessage() { return ""; }
 	@Override public boolean monsterEvent()	 { return false; }
-	@Override public int startTurn()		 { return eventsStartTurn() + delayTurn().get() * difficultyFactor(); }
+	@Override public int startTurn()		 {
+		if (monsterEvent() && techDiscovered() && options().techRandomEvents())
+			return 1;
+		return eventsStartTurn() + delayTurn().get() * difficultyFactor();
+	}
     private void	setLastEndedTurn() 		 { lastEndedTurn = galaxy().currentTurn(); }
 	private boolean	isRepeatable()			 { return returnTurn().get() > 0; }
 	private int		eventsStartTurn()		 { return IGameOptions.eventsStartTurn.get(); }
