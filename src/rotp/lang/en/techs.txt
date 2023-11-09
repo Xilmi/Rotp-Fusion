@@ -487,9 +487,9 @@ ENGINE_6_ITEM2   | Class 7
 ENGINE_6_BRIEF   | Warp 7  Def %1
 ENGINE_6_BRIEF2  | Combat Speed %1
 
-ENGINE_7_NAME    | Inter-Phased Drives
+ENGINE_7_NAME    | Interphased Drives
 ENGINE_7_DETAIL  | Moves ships at Warp %1, and allows a maximum maneuverability of class VIII in combat.
-ENGINE_7_ITEM    | Inter-Phased
+ENGINE_7_ITEM    | Interphased
 ENGINE_7_ITEM2   | Class 8
 ENGINE_7_BRIEF   | Warp 8  Def %1
 ENGINE_7_BRIEF2  | Combat Speed %1
@@ -927,7 +927,7 @@ PERSSHIELD_0_NAME     |
 PERSSHIELD_0_DETAIL   | 
 
 PERSSHIELD_1_NAME     | Personal Deflector Shield
-PERSSHIELD_1_DETAIL   | Protects individuals ground troops with a directional force field. Adds +10 to all ground combat battles.
+PERSSHIELD_1_DETAIL   | Protects individual ground troops with a directional force field. Adds +10 to all ground combat battles.
 
 PERSSHIELD_2_NAME     | Personal Absorption Shield
 PERSSHIELD_2_DETAIL   | Absorbs damage from all hand weapons. Adds +20 to all ground combat battles.
@@ -957,7 +957,7 @@ PLANETSHIELD_3_DETAIL  | Absorbs 20 points of damage from all attacks against pl
 //
 REPULSOR_0_NAME    | Repulsor Beam
 REPULSOR_0_BRIEF   | Moves enemy ships back 1 space
-REPULSOR_0_DETAIL  | Repels enemy ships back one space away from the defending ship. This special weapon has a one-space range.
+REPULSOR_0_DETAIL  | Repels enemy ships one space away from the defending ship. This special weapon has a one-space range.
 
 
 //
@@ -978,7 +978,7 @@ ROBOTCTRL_1_NAME     | Improved Robotic Controls IV
 ROBOTCTRL_1_DETAIL   | Allows 4 factories to be operated per population. The refit cost to upgrade is the standard cost of each factory.
 
 ROBOTCTRL_2_NAME     | Improved Robotic Controls V
-ROBOTCTRL_2_DETAIL   | Allows 5 factories to be operated per population. The refit cost to upgrade is one and a half time the standard cost of each factory.
+ROBOTCTRL_2_DETAIL   | Allows 5 factories to be operated per population. The refit cost to upgrade is 1.5 times the standard cost of each factory.
 
 ROBOTCTRL_3_NAME     | Improved Robotic Controls VI
 ROBOTCTRL_3_DETAIL   | Allows 6 factories to be operated per population. The refit cost to upgrade is twice the standard cost of each factory.
@@ -1036,7 +1036,7 @@ SHIPNULLIFIER_1_DETAIL   | Warp Dissipators are long-range weapons that disrupt 
 //
 SHIPWPN_0_NAME         | Laser
 SHIPWPN_0_ITEM2        | Heavy Laser
-SHIPWPN_0_DETAIL       | Direct-fire beam weapon that inflicts 1-4 points of damage. Heavy lasers have a two space range and do 1-7 points of damage.
+SHIPWPN_0_DETAIL       | Direct-fire beam weapon that inflicts 1-4 points of damage. Heavy lasers have a two-space range and do 1-7 points of damage.
 
 SHIPWPN_1_NAME         | Gatling Laser
 SHIPWPN_1_BRIEF        | Fires 4 times/turn
@@ -1048,7 +1048,7 @@ SHIPWPN_2_DETAIL       | Heavy particle stream weapon that halves the effectiven
 
 SHIPWPN_3_NAME         | Ion Cannon
 SHIPWPN_3_ITEM2        | Heavy Ion Cannon
-SHIPWPN_3_DETAIL       | High intensity beam weapons capable of inflicting 3-8 points of damage. Heavy ion cannons strike for 3-15 and have a two space range.
+SHIPWPN_3_DETAIL       | High intensity beam weapons capable of inflicting 3-8 points of damage. Heavy ion cannons strike for 3-15 and have a two-space range.
 
 SHIPWPN_4_NAME         | Mass Driver
 SHIPWPN_4_BRIEF        | Halves Shield Strength
@@ -1076,7 +1076,7 @@ SHIPWPN_9_DETAIL       | Releases multiple bolts of pure energy in a wide field.
 
 SHIPWPN_10_NAME        | Phasor
 SHIPWPN_10_ITEM2       | Heavy Phasor
-SHIPWPN_10_DETAIL      | Phased-energy beams capable of inflicting 5 to 20 points of damage. Heavy phasors strike for 5-40 points of damage and have a two-space range.
+SHIPWPN_10_DETAIL      | Phased-energy beams capable of inflicting 5 to 20 points of damage. Heavy phasors strike for 5-40 points of damage and have a 2-space range.
 
 SHIPWPN_11_NAME        | Auto Blaster
 SHIPWPN_11_BRIEF       | Fires 3 times/turn
@@ -1084,7 +1084,7 @@ SHIPWPN_11_DETAIL      | An advanced neutron blaster that fires up to three time
 
 SHIPWPN_12_NAME        | Tachyon Beam
 SHIPWPN_12_BRIEF       | Streaming Attack
-SHIPWPN_12_DETAIL      | Fires an intense stream of tachyon particles that strike enemy ships for 1-25 hits. The continuous streaming effect allows excess damage to carry over to other ships.
+SHIPWPN_12_DETAIL      | Fires an intense stream of tachyon particles that strike enemy ships for 1-25 points. The continuous streaming effect allows excess damage to carry over to other ships.
 
 SHIPWPN_13_NAME        | Gauss Autocannon
 SHIPWPN_13_BRIEF       | 1/2 Shields, Fires 4x
@@ -1105,7 +1105,7 @@ SHIPWPN_17_DETAIL      | Unleashes tremendous bolts of pure energy that can stri
 
 SHIPWPN_18_NAME        | Pulse Phasor
 SHIPWPN_18_BRIEF       | Fires 3 times/turn
-SHIPWPN_18_DETAIL      | An advanced phasor capable of firing 3 burst per turn for 5-20 points of damage with each hit.
+SHIPWPN_18_DETAIL      | An advanced phasor capable of firing 3 bursts per turn for 5-20 points of damage with each hit.
 
 SHIPWPN_19_NAME        | Tri-Focus Plasma Cannon
 SHIPWPN_19_DETAIL      | Fires a triad of high-intensity plasma beams capable of inflicting 20 to 50 points of damage.
@@ -1138,7 +1138,7 @@ SOILENRICH_1_DETAIL   | Converts standard and fertile planets to gaias, doubling
 // Stargate tech
 //
 STARGATE_0_NAME      | Star Gates
-STARGATE_0_DETAIL    | Allows your ships to move between any two planets equipped with star gates in only one turn. Cost 3000 BC to build.
+STARGATE_0_DETAIL    | Allows your ships to move between any two planets equipped with star gates in only one turn. Costs 3000 BC to build.
 
 
 //

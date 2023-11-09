@@ -103,12 +103,12 @@ public class ListDialog extends JDialog implements ActionListener, Base {
 	private BaseModPanel baseModPanel;
 	private IParam param;
 
-
-	public ListDialog(boolean fake) { // Fake Dialog used to load the code and accelerate the future calls
+	public ListDialog(boolean fake)	{ // Fake Dialog used to load the code and accelerate the future calls
 		@SuppressWarnings("unused")
 		JDialog temp = new JDialog();
 	}
-	public String showDialog() { // Can only be called once.
+	public String getValue()		{ return value; }
+	public String showDialog()		{ // Can only be called once.
 		value = null;
 		index = -1;
 		setVisible(true);

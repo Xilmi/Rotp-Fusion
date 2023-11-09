@@ -24,8 +24,8 @@ BOOLEAN_NO                        | No
 BOOLEAN_YES_HELP                  | To enable this option.
 BOOLEAN_NO_HELP                   | To disable this option.
 // Basic Is Default value Display
-SUB_UI_DEFAULT_YES                | Default Value
-SUB_UI_DEFAULT_NO                 | Customized
+SUB_UI_DEFAULT_YES                | Default
+SUB_UI_DEFAULT_NO                 | Custom
 // Star descriptions
 RED_STAR_DESCRIPTION              | Red stars are old and dull stars that commonly have poor planets.
 YELLOW_STAR_DESCRIPTION           | Yellow stars offer the best chance of discovering terran and sub-terran planets.
@@ -186,22 +186,32 @@ EVENT_SUPERNOVA_2                 | The threat of supernova in the [system] syst
 EVENT_SUPERNOVA_3                 | Working feverishly, [target_race] physicists in the [system] system have found a way to delay to supernova of their nearby star for the foreseeable future.
 EVENT_SUPERNOVA_4                 | The star in the [system] system has gone supernova, irradiating the [target_race] world, devastating its environment and killing millions.
 EVENT_VIRUS                       | A highly destructive computer virus strikes [target_race] research centers, destroying years of research in [technology].
+
 EVENT_SPACE_AMOEBA                | A monstrous biological form dubbed the "Space Amoeba" has been spotted approaching the [system] system. Defending [victim_race] colonists and fleets are preparing for the worst.
 EVENT_SPACE_AMOEBA_1              | A monstrous biological form dubbed the "Space Amoeba" has been spotted approaching the uncolonized [system] system.
 EVENT_SPACE_AMOEBA_2              | The Space Amoeba has completely consumed the [victim_race] colony in the [system] system.
 EVENT_SPACE_AMOEBA_3              | The Space Amoeba was destroyed by [victim_race] defenders in the [system] system.
 EVENT_SPACE_AMOEBA_4              | Scanners that have been tracking the progress of a Space Amoeba now show that the creature has disappeared from our galaxy.
+EVENT_SPACE_AMOEBA_TRIG           | The SCE (Society to Clone Everything) have successfully incarnated a trans-dimensional horror. When asked for comment, spokesmen said: AAAAAAAAHHHHHHHHH!! IT BURNS!
+EVENT_SPACE_AMOEBA_PLUNDER        | →EVENT_SPACE_AMOEBA_3←. The study of the slimy monstrosity allowed scientists to complete their research in planetology, and the sale of its highly prized flesh brings [amt] BC to the empire's coffers.
+
 EVENT_SPACE_CRYSTAL               | A gigantic crystalline entity called the "Space Crystal" has been spotted approaching the [system] system. Defending [victim_race] colonists and fleets are preparing for the worst.
 EVENT_SPACE_CRYSTAL_1             | A gigantic crystalline entity called the "Space Crystal" has been spotted approaching the uncolonized [system] system.
 EVENT_SPACE_CRYSTAL_2             | The Space Crystal has completely destroyed all life on the [victim_race] colony in the [system] system.
 EVENT_SPACE_CRYSTAL_3             | The Space Crystal was destroyed by [victim_race] defenders in the [system] system.
 EVENT_SPACE_CRYSTAL_4             | The hideous Space Crystal has left our galaxy. Why did it come? Why did it leave? The galaxy may never know.
+EVENT_SPACE_CRYSTAL_TRIG          | Scientists responsible for the new Star Gate technology said: We gazed into the Abyss, and the Abyss roared Nom Nom Nom!
+EVENT_SPACE_CRYSTAL_PLUNDER       | →EVENT_SPACE_CRYSTAL_3←.<br>Current research in propulsion could be supplemented through the analysis of crystalline remains, and the sale of lesser crystals brings [amt] BC to the empire's Planetary Reserve.
+
 // modnar: add space pirate random event
 EVENT_SPACE_PIRATES               | A fleet of marauding Space Pirates have been spotted approaching the [system] system. Defending [race] colonists and fleets are preparing for the worst.
 EVENT_SPACE_PIRATES_1             | A fleet of marauding Space Pirates have been spotted approaching the uncolonized [system] system.
 EVENT_SPACE_PIRATES_2             | The dreaded Space Pirates have ravaged the population and pillaged all industry on the [race] colony in the [system] system, devastating the local ecology.
-EVENT_SPACE_PIRATES_3             | The Space Pirate fleet was destroyed by [race] defenders in the [system] system. Significant riches found in the wreckage have been seized by the [race] military to bolster their Planetary Reserve.
+EVENT_SPACE_PIRATES_3             | The Space Pirate fleet was destroyed by [race] defenders in the [system] system. Significant riches found in the wreckage have been seized by the [race] military to bolster their Planetary Reserve by [amt] BC.
 EVENT_SPACE_PIRATES_4             | The powerful Space Pirate has left our insignificant galaxy! Where did it go? We don't care, good riddance!
+EVENT_SPACE_PIRATES_TRIG          | The recently discovered Hyper Drive will change everything. For example, criminals rejoice at their new-found mobility.
+EVENT_SPACE_PIRATES_PLUNDER       | →EVENT_SPACE_PIRATES_3←.<br>Study of damaged pirate ships helps complete two ongoing research projects.
+
 // modnar: add Precursor Relic random event
 EVENT_RELIC_PLANETS               | A Precursor relic has mysteriously activated in [target_empire] space. Galaxy-wide scanners report the formation of new planets in multiple previously empty Star Systems after intense asteroid coalescence events. [target_race] scientists have also harvested several Construction technologies from the relic.
 // BR: info if no contact
@@ -1316,9 +1326,13 @@ SETUP_GALAXY_AGE_OLD_HELP         | Star color probability:<br>Red:&nbsp 50%&ems
 SETUP_RANDOM_EVENTS_ON            | On
 SETUP_RANDOM_EVENTS_OFF           | Off
 SETUP_RANDOM_EVENTS_NO_MONSTERS   | No Monsters
-SETUP_RANDOM_EVENTS_ON_HELP          | All events are allowed once the time has come.
-SETUP_RANDOM_EVENTS_OFF_HELP         | !!! Leave me alone !!! No random events.
-SETUP_RANDOM_EVENTS_NO_MONSTERS_HELP | Ok for the random events, but no Space Amoeba, no Space Crystal, and no Space Pirates. <i> (But some event piracy may happen)</i>
+SETUP_RANDOM_EVENTS_TECH_MONSTERS | Tech Monsters
+SETUP_RANDOM_EVENTS_ONLY_MONSTERS | Only Monsters
+SETUP_RANDOM_EVENTS_ON_HELP            | All events are allowed once the time has come.
+SETUP_RANDOM_EVENTS_OFF_HELP           | !!! Leave me alone !!! No random events.
+SETUP_RANDOM_EVENTS_NO_MONSTERS_HELP   | Ok for the random events, but no Space Amoeba, no Space Crystal, and no Space Pirates. <i> (But some event piracy may happen)</i>
+SETUP_RANDOM_EVENTS_TECH_MONSTERS_HELP | Ok for the random events, and Monsters can be triggered by relevant research:<br>- Propulsion/Hyper Drives for Space Pirates.<br>- Planetology/Advanced Cloning for Space Amoeba.<br>- Propulsion/Intergalactic Star Gates for Space Crystal.
+SETUP_RANDOM_EVENTS_ONLY_MONSTERS_HELP | Only Monsters: No random events, but Monsters can be triggered by relevant research:<br>- Propulsion/Hyper Drives for Space Pirates.<br>- Planetology/Advanced Cloning for Space Amoeba.<br>- Propulsion/Intergalactic Star Gates for Space Crystal.
 SETUP_GALAXY_NUMBER_EMPIRES       | Total Empires: %1
 SETUP_GALAXY_NUMBER_SYSTEMS       | Total Systems: %1
 SETUP_GALAXY_MAX_OPPONENTS        | Maximum Opponents: %1
@@ -1910,6 +1924,8 @@ HEADERS_MENU_OPTIONS_DESC         | Options controlling Menu Parameters. Can be 
 HEADERS_MENU_OPTIONS              | ~~~ MENU'S OPTIONS ~~~%1
 HEADERS_PLANETS_FLAG_OPTIONS_DESC | To allow greater customization of the flag(s) of the planets.
 HEADERS_PLANETS_FLAG_OPTIONS      | ~~~ PLANETS FLAG OPTIONS ~~~%1
+HEADERS_SUB_PANEL_OPTIONS_DESC    | Clicking the following options will open a sub-panel with more dedicated option.
+HEADERS_SUB_PANEL_OPTIONS         | §§~~ SUB PANEL OPTIONS ~~§§%1
 
 HEADERS_AUTO_FLAG_ID_SELECTION       | ~~~ AUTO-FLAG SELECTION ~~~%1
 HEADERS_AUTO_FLAG_ID_SELECTION_DESC  | To Associate Auto-Flag position with it's parameter. (Only the first time a Star System is scouted)
@@ -2288,10 +2304,32 @@ SETTINGS_MOD_ALLOW_TECH_STEALING_HELP    | To enable or disable technology steal
 SETTINGS_MOD_ALLOW_TECH_STEALING_DESC    | To enable or disable technology stealing activities.<br> If disabled, half of the infiltration bonus will be given to Research bonus. (Never removed)
 SETTINGS_MOD_ALLOW_TECH_STEALING         | Tech stealing: %1
 
+SETTINGS_MOD_DARK_GALAXY_NO_DESC         | Not interested in dark galaxy mode.
+SETTINGS_MOD_DARK_GALAXY_NO              | No
+SETTINGS_MOD_DARK_GALAXY_SPY_DESC        | Spy can gives some info about out of range contacted empire star systems.
+SETTINGS_MOD_DARK_GALAXY_SPY             | Spy view
+SETTINGS_MOD_DARK_GALAXY_NO_SPY_DESC     | Remember Empire Names and locations, no memory of scouted systems.
+SETTINGS_MOD_DARK_GALAXY_NO_SPY          | Named
+SETTINGS_MOD_DARK_GALAXY_SHRINK_DESC     | Shows only Systems in range, No Spying, no memory of scouted systems.
+SETTINGS_MOD_DARK_GALAXY_SHRINK          | Dark
+SETTINGS_MOD_DARK_GALAXY_DESC            | Yes: only Star systems in scout range or in scanner range are shown. 
+SETTINGS_MOD_DARK_GALAXY                 | Dark Galaxy: %1
+SETTINGS_MOD_DARK_GALAXY_HELP            |<br><b>Why? by u/dweller_below</b><br><br><b>Boring:</b> We are all within a particulary thick nebula. The supernova that created this nebula spewed heavy elements EVERYWHERE. The particular combination of elements in our local nebula block EVERYTHING.<br><br><b>Funner/self referential:</b> We are participants in a vast simulation created by the Orions/Antarans. Naturally, the simulation must be good enough that we all express sentience/sapience. In iteration 42 of the simulation our Gods/Masters decided to isolate each race until we encounter each other.<br><br><b>Funnerest:</b> The Antarans won the Orion/Antaran war and moved to exterminate Exterminate EXTERMINATE EVERYTHING. Our races have all been recently rescued/moved/copied to our ARC (Antaran Rescue Craft) by the Orions. The ARC just looks like a small galaxy. The ARC is actually a pocket dimension/rescue craft. This explains several things:<br>- The high density of intelligent races within our ARC.<br>- Why the Orions don't dominate our ARC. The Orions oppose the Antarans. One of the differences is the Orions don't dominate/exterminate other races. This matches prior backstory.<br>- Why we haven't sensed radio emissions from each other. Or light from each other's star. Game starts at the creation of the ARC. We USED to see other stars. But, now everything is different. Now, when we start to move outside of our small ight bubbles, we find that everything is different. In fact, every star is radiating a decaying light bubble full of obsolete/meaningless information. But, as you get close to the adjacent stars, you can see what is really there NOW.<br>- Why physical law changes. The Orions manufactured different physical law within each game/ARC for "reasons". Everytime we play, the ARC can be slightly different. The Orions had enough resources to copy our races multiple times and create multiple ARCs. Each Game/ARC is an attempt to create a different combination of survivors.
+
 SETTINGS_MOD_MAX_SECURITY_PCT_DESC       | To boost the maximal security tax percentage. (Spying bonus = 2 x tax)
 SETTINGS_MOD_MAX_SECURITY_PCT            | Max Security: %1%
+
+SETTINGS_MOD_SHIELD_TYPE_NONE_DESC       | No shield animations (for low power computers)
+SETTINGS_MOD_SHIELD_TYPE_NONE            | None
+SETTINGS_MOD_SHIELD_TYPE_3D_DESC         | 3D semi tranparent shield animations. (May giltch on mac OS)
+SETTINGS_MOD_SHIELD_TYPE_3D              | 3D
+SETTINGS_MOD_SHIELD_TYPE_2D_DESC         | 2D shield animations (for mac OS, if 3D is too glitchy)
+SETTINGS_MOD_SHIELD_TYPE_2D              | 2D
+SETTINGS_MOD_SHIELD_TYPE_3_BUFFERS_DESC  | 3D semi tranparent shield animations. With extra buffers to minimize glitches. More computer intensive!
+SETTINGS_MOD_SHIELD_TYPE_3_BUFFERS       | 3D Buf
+
 SETTINGS_MOD_NEW_WEAPON_ANIMATION_DESC   | Show Shield and miss effect.
-SETTINGS_MOD_NEW_WEAPON_ANIMATION        | New Weapon Animation: %1
+SETTINGS_MOD_NEW_WEAPON_ANIMATION        | Shields Effects: %1
 SETTINGS_MOD_NEW_WEAPON_SOUND_DESC       | Distinct weapon sound instead of only two!
 SETTINGS_MOD_NEW_WEAPON_SOUND            | New Weapon Sound: %1
 SETTINGS_MOD_PLAYER_SOUND_ECHO_DESC      | Add Echo to weapon sound if the player is the target!
@@ -2313,6 +2351,8 @@ SETTINGS_MOD_SHIELD_FADING_FRAMES_DESC   | Show Shield fading effect.
 SETTINGS_MOD_SHIELD_FADING_FRAMES        | Shield Fading Frames: %1
 SETTINGS_MOD_SHIELD_ENVELOPING_DESC      | Local shield effects vs always enveloping shield effects.
 SETTINGS_MOD_SHIELD_ENVELOPING           | Shield Enveloping: %1
+SETTINGS_MOD_BEAM_ANIMATION_FPS_DESC     | Animation Speed in frames per second. This to tune the animation duration, jointly with the number of frames settings.
+SETTINGS_MOD_BEAM_ANIMATION_FPS          | Animation Speed: %1 fps
 SETTINGS_MOD_BEAM_ANIMATION_DELAY_DESC   | Pause between two frames. You may try to balance this value with higher frames number to get a smoother animation.
 SETTINGS_MOD_BEAM_ANIMATION_DELAY        | Animation Delay: %1 ms
 SETTINGS_MOD_SHOW_RESULT_DELAY_DESC      | The results panel should no longer appear until the animations finish. This is a security delay in the event of a bug. If set to "0 ms", the panel will appear immediately, just like before!
@@ -2384,20 +2424,20 @@ SETTINGS_MOD_TARGET_BOMBARD_PLAYER_HELP  | Player is smart enough to control its
 SETTINGS_MOD_TARGET_BOMBARD_BOTH_HELP    | Everyone is able to control their bombing.
 
 SETTINGS_MOD_DEBUG_OPTIONS_TITLE         | Developper's Options
-SETTINGS_MOD_DEBUG_OPTIONS_UI            | Debug Options: %1
+SETTINGS_MOD_DEBUG_OPTIONS_UI            | §~ Debug Menu: %1
 SETTINGS_MOD_DEBUG_OPTIONS_UI_DESC       | Open Sub Menu to set development tools.
 
 SETTINGS_MOD_ZOOM_OPTIONS_TITLE          | In-Game Display Preferences
-SETTINGS_MOD_ZOOM_OPTIONS_UI             | Display Preferences: %1
+SETTINGS_MOD_ZOOM_OPTIONS_UI             | §~ Display Preferences: %1
 SETTINGS_MOD_ZOOM_OPTIONS_UI_DESC        | Open Sub Menu to set diverse map zooming factors, replay speed, Combat Shield Effects.
 SETTINGS_MOD_ZOOM_OPTIONS_UI_HELP        | Open Sub Menu to set several In-Game Preferences: Map zooming factors, Replay speed, Combat Shield Effects.
 
 SETTINGS_MOD_FLAG_COLOR_COUNT_DESC       | How may colors should appear on the Star System Flag?
 SETTINGS_MOD_FLAG_COLOR_COUNT            | Flag Color Count: %1
 
-SETTINGS_MOD_AUTO_FLAG_TITLE             | Auto-Flag Options
+SETTINGS_MOD_AUTO_FLAG_TITLE             | Auto-Flag Menu
 SETTINGS_MOD_AUTO_FLAG_UI_DESC           | Open Sub Menu to set the parameters that will be automatically associated with flags. (Only the first time a Star System is scouted)
-SETTINGS_MOD_AUTO_FLAG_UI                | Auto-Flag Options: %1
+SETTINGS_MOD_AUTO_FLAG_UI                | §~ Auto-Flag Menu: %1
 
 SETTINGS_MOD_AUTO_FLAG_NO_AUTOMATION     | No Automation
 SETTINGS_MOD_AUTO_FLAG_TYPE              | Planet Type
@@ -2524,7 +2564,7 @@ SETTINGS_MOD_PLAYER_SHIP_SET             | Player Ship Set: %1
 // ========== Random Events sub Panel
 SETTINGS_MOD_RANDOM_EVENTS_TITLE         | Random Event Customization
 SETTINGS_MOD_RANDOM_EVENTS_UI_DESC       | Open Sub Menu to get more random events customization options.
-SETTINGS_MOD_RANDOM_EVENTS_UI            | Random Events Options: %1
+SETTINGS_MOD_RANDOM_EVENTS_UI            | §~ Random Events Menu: %1
 SETTINGS_MOD_RANDOM_EVENT_DISABLED       | Off
 SETTINGS_MOD_RANDOM_EVENT_UNIQUE         | Unique Event
 SETTINGS_MOD_RANDOM_EVENT_UNLIMITED      | Unlimited
@@ -2548,10 +2588,17 @@ SETTINGS_MOD_EVENTS_FAVOR_WEAK_HELP      | By default, Yes, the Random events ar
 SETTINGS_MOD_EVENTS_FAVOR_WEAK_DESC      | To adjust the probability of the next event occurring.
 SETTINGS_MOD_EVENTS_FAVOR_WEAK           | Favor the weak: %1
 
-
 SETTINGS_MOD_FIXED_EVENTS_MODE_HELP      | A seed is given at the begining of a game, and will be used to generate the random events.<br>- Target empires are no more determined by their powers.<br>- Same time, same event, same target on different play.<br>- Same Events on Reload.<br>- If an event is still actif, it will be put on waiting list till the previous occurence ends.<br>- If targeted empire is extinct, Monsters are directed to their former home world.
 SETTINGS_MOD_FIXED_EVENTS_MODE_DESC      | A seed is given at the begining of a game, and will be used to generate the random events. Target empire are no more determined by their powers.
 SETTINGS_MOD_FIXED_EVENTS_MODE           | Deterministic random events: %1
+
+SETTINGS_MOD_MONSTERS_GIVE_LOOTS_HELP    | A seed is given at the begining of a game, and will be used to generate the random events.<br>- Target empires are no more determined by their powers.<br>- Same time, same event, same target on different play.<br>- Same Events on Reload.<br>- If an event is still actif, it will be put on waiting list till the previous occurence ends.<br>- If targeted empire is extinct, Monsters are directed to their former home world.
+SETTINGS_MOD_MONSTERS_GIVE_LOOTS_DESC     | Loots are given on Monster destruction.
+SETTINGS_MOD_MONSTERS_GIVE_LOOTS          | Monsters give Loots: %1
+SETTINGS_MOD_MONSTERS_GIVE_LOOTS_YES      | →BOOLEAN_YES←
+SETTINGS_MOD_MONSTERS_GIVE_LOOTS_NO       | →BOOLEAN_NO←
+SETTINGS_MOD_MONSTERS_GIVE_LOOTS_YES_DESC | BC, Tech, or Ship
+SETTINGS_MOD_MONSTERS_GIVE_LOOTS_NO_DESC  | Default value (Vanilla)
 
 
 // ========== RANDOM EVENT MONSTERS PARAMETERS
@@ -2738,7 +2785,7 @@ SETTINGS_MOD_GAUNTLET_RETURN_TURN_DESC   | →REF_RETURN_1← →REF_GAUNTLET←
 SETTINGS_MOD_GAUNTLET_RETURN_TURN        | →REF_GAUNTLET← →REF_RETURN←
 
 // ========== Ironman sub Panel
-SETTINGS_MOD_IRONMAN_OPTIONS_TITLE       | Ironman Options
+SETTINGS_MOD_IRONMAN_OPTIONS_TITLE       | §~ Ironman Menu
 SETTINGS_MOD_IRONMAN_OPTIONS_UI_DESC     | Open Sub Menu to access Ironman customization options.
 SETTINGS_MOD_IRONMAN_OPTIONS_UI          | Ironman Options: %1
 
@@ -3381,7 +3428,7 @@ COUNCIL_CONTINUE                  | Continue
 COUNCIL_ELECTED_TITLE             | Ruler of the Galaxy Elected!
 COUNCIL_ACCEPT_RULING             | Accept Ruling
 COUNCIL_REJECT_RULING             | Reject Ruling
-COUNCIL_SKIP_NEXT_TECHS           | Skip notifications
+COUNCIL_SKIP_NEXT_TECHS           | Skip Trade Report
 
 // Credit text
 CREDITS_DEVELOPER                 | Ray Fowler, Developer
@@ -3528,7 +3575,7 @@ HEADERS_GOVERNOR_SETUP_MENU_DESC  | To define the Governor options ouside of the
 HEADERS_GOVERNOR_SETUP_MENU       | ~~~ SETUP GOVERNOR ~~~%1
 GOVERNOR_SETUP_TITLE              | Governor Setup Panel
 GOVERNOR_SETUP_MENU_DESC          | Open Sub Menu to access Governor Options Setup.
-GOVERNOR_SETUP_MENU               | Governor Menu: %1
+GOVERNOR_SETUP_MENU               | §~ Governor Menu: %1
 
 HEADERS_GOVERNOR_TRANSPORT_OPTIONS_DESC | AutoTransport Options.
 HEADERS_GOVERNOR_TRANSPORT_OPTIONS  | ~~~ AUTO-TRANSPORT OPTIONS ~~~%1
@@ -3627,6 +3674,12 @@ GOVERNOR_ANIMATED_IMAGE             | Animate Image: %1
 GOVERNOR_FULL_REFRESH_ON_LOAD_HELP  | On some computer, loading and updating governor panel appearance while the panel is behing the main window may lead to display glitches. Consequently, by default only the values are updated. "Yes" will allow a full governor panel update.
 GOVERNOR_FULL_REFRESH_ON_LOAD_DESC  | Position, size and color will refresh when loading a new game.<br>Set to false in case of display glitches.
 GOVERNOR_FULL_REFRESH_ON_LOAD       | Full Reset: %1
+
+// BR: Tech Trigger Add-on
+//
+ENGINE_8_TRIGGER                    | →ENGINE_8_DETAIL←<br>It is illegal to use a Hyper Drive in the commission of Theft, Pillage or Piracy.
+STARGATE_0_TRIGGER                  | →STARGATE_0_DETAIL←<br>Traversing Inter-Dimensional space almost never awakes Elritch Abominations.
+CLONE_1_TRIGGER                     | →CLONE_1_DETAIL←<br>The GrowInAtor is perfectly safe! Nothing can't go wrong.
 
 //
 // ===== BR: Guide and contextual Help added by Mods =====

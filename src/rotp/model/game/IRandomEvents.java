@@ -1,11 +1,13 @@
 package rotp.model.game;
 
+
 import java.util.Arrays;
 import java.util.LinkedList;
 
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamInteger;
+import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamSubUI;
 import rotp.ui.util.ParamTitle;
 
@@ -32,6 +34,16 @@ public interface IRandomEvents extends IBaseOptsTools {
 	
 	ParamBoolean fixedEventsMode	= new ParamBoolean(MOD_UI, "FIXED_EVENTS_MODE", false);
 	default boolean selectedFixedEventsMode()	{ return fixedEventsMode.get(); }
+	
+	ParamList    monstersGiveLoots	= new ParamList( MOD_UI, "MONSTERS_GIVE_LOOTS", "No") { // TODO BR: monstersGiveLoots
+		{
+			showFullGuide(true);
+			put("No", 	MOD_UI + "MONSTERS_GIVE_LOOTS_NO");
+			put("Yes",	MOD_UI + "MONSTERS_GIVE_LOOTS_YES");
+		}
+	};
+	default boolean monstersGiveLoot()	{ return monstersGiveLoots.get().equalsIgnoreCase("Yes"); }
+
 	
 	// ========================================================================
 	// BR: RANDOM EVENT MONSTERS PARAMETERS
@@ -133,41 +145,17 @@ public interface IRandomEvents extends IBaseOptsTools {
 	ParamInteger gauntletReturnTurn	= new ParamInteger(MOD_UI, "GAUNTLET_RETURN_TURN",	0, 0, MAX_RETURN_TURN, 1, 5, 20)
 			.specialZero(SPECIAL_UNIQUE);
 	
-
-//	ParamInteger maxPlanTime		= new ParamInteger(MOD_UI, "MAX_PLAN_TIME", 20, 0, 1440, 1, 5, 20);
-//	default long maxPlanTimeMS()				{
-//		final long min2ms = 60000;
-//		return min2ms * maxPlanTime.get();
-//	}
-//
-//	ParamList warpDisturbances	= new ParamList( MOD_UI, "WARP_DISTURBANCES", "Off") {
-//		{
-//			showFullGuide(true);
-//			put("Off",		MOD_UI + "WARP_DISTURBANCES_OFF");
-//			put("On",		MOD_UI + "WARP_DISTURBANCES_ON");
-//			put("Triggered",MOD_UI + "WARP_DISTURBANCES_TRIGGERED");
-//		}
-//	};
-//	default boolean warpDisturbancesTriggered()	{ return warpDisturbances.get().equalsIgnoreCase("Triggered"); }
-//	default boolean warpDisturbancesOff()		{ return warpDisturbances.get().equalsIgnoreCase("Off"); }
-//	default void resetWarpDisturbances()	 	{ warpDisturbances.set("On"); }
-//	default void triggerWarpDisturbances()	 	{ warpDisturbances.set("Triggered"); }
-//	default boolean planTimeCheck (long msTime) {
-//		if (warpDisturbancesOff())
-//			return false;
-//		if (msTime < maxPlanTimeMS())
-//			return false;
-//		triggerWarpDisturbances();
-//		return true;
-//	}
-
 	// ==================== GUI List Declarations ====================
-	LinkedList<LinkedList<IParam>> customRandomEventMap = 
-			new LinkedList<LinkedList<IParam>>() { {
-		add(new LinkedList<>(Arrays.asList(
+	//
+	ParamSubUI customRandomEventUI = customRandomEventUI();
+
+	static LinkedList<LinkedList<IParam>> customRandomEventMap() {
+		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
+		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("RANDOM_EVENTS_GLOBAL"),
+				IAdvOptions.randomEvents,
 				eventsStartTurn, eventsPace,
-				eventsFavorWeak, fixedEventsMode,
+				eventsFavorWeak, fixedEventsMode, monstersGiveLoots,
 
 				headerSpacer,
 				new ParamTitle("RANDOM_EVENTS_MONSTERS"),
@@ -177,7 +165,7 @@ public interface IRandomEvents extends IBaseOptsTools {
 				headerSpacer,
 				crystalDelayTurn, crystalReturnTurn, crystalMaxSystems
 				)));
-		add(new LinkedList<>(Arrays.asList(
+		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("RANDOM_EVENTS_DELAYS"),
 				donationDelayTurn,
 				depletedDelayTurn,
@@ -197,7 +185,7 @@ public interface IRandomEvents extends IBaseOptsTools {
 				sizeBoostDelayTurn,
 				gauntletDelayTurn
 				)));
-		add(new LinkedList<>(Arrays.asList(
+		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("RANDOM_EVENTS_RETURNS"),
 				donationReturnTurn,
 				depletedReturnTurn,
@@ -217,10 +205,13 @@ public interface IRandomEvents extends IBaseOptsTools {
 				sizeBoostReturnTurn,
 				gauntletReturnTurn
 				)));
-		}
+		return map;
 	};
-	ParamSubUI customRandomEventUI = new ParamSubUI(MOD_UI, "RANDOM_EVENTS_UI", customRandomEventMap,
-			"RANDOM_EVENTS_TITLE", RANDOM_EVENTS_GUI_ID);
-
-	LinkedList<IParam> customRandomEventOptions = customRandomEventUI.optionsList();
+	static ParamSubUI customRandomEventUI() {
+		return new ParamSubUI(MOD_UI, "RANDOM_EVENTS_UI", customRandomEventMap(),
+				"RANDOM_EVENTS_TITLE", RANDOM_EVENTS_GUI_ID);
+	}
+	static LinkedList<IParam> customRandomEventOptions() {
+		return IBaseOptsTools.getSingleList(customRandomEventMap());
+	}
 }

@@ -31,7 +31,7 @@ public class BaseText implements Base {
 
 
     private final BasePanel panel;
-    private Color enabledC, disabledC, hoverC, depressedC, shadeC; // BR not final
+    protected Color enabledC, disabledC, hoverC, depressedC, shadeC; // BR not final
     @SuppressWarnings("unused")
 	private final int topLBdr, btmRBdr, bdrStep;
     private final Rectangle bounds = new Rectangle();
@@ -129,6 +129,11 @@ public class BaseText implements Base {
     public void setBounds(int x, int y, int w, int h) {
         bounds.setBounds(x,y,w,h);
     }
+    public void shiftBounds(int dx, int dy) {
+    	int newX = bounds.x + dx;
+    	int newY = bounds.y + dy;
+    	bounds.setLocation(newX, newY);
+    }
     public void reset() { 
         bounds.setBounds(0,0,0,0); 
     }
@@ -181,7 +186,7 @@ public class BaseText implements Base {
         int sw2 = hoverText == null ? sw1 : g.getFontMetrics(font()).stringWidth(hoverText);
         return max(sw1,sw2);
     }
-    private Color textColor() {
+    protected Color textColor() {
         if (disabled)
             return disabledC;
         else if (depressed)
@@ -203,7 +208,9 @@ public class BaseText implements Base {
     public int drawCentered() {
         return drawCentered(panel.getGraphics());
     }
-    public int draw(Graphics g) {
+    public void updateBounds(Graphics g) { update(g, false); } // BR:
+    public int draw(Graphics g) { return update(g, true); }
+    private int update(Graphics g, boolean draw) { // BR:
         if (!visible)
             return 0;
         int x1 = x >= 0 ? x : panel.getWidth()+x;
@@ -221,10 +228,12 @@ public class BaseText implements Base {
         	setBounds(x1,y1-fontH,sw+scaled(5),fontH+(fontH/5));
         else
         	setBounds(x1,y1-fontH-1,width,fontH+(fontH/5)+2);
-        if (bordered)
-            drawBorderedString(g,displayText(), x1, y1, Color.black,textColor());
-        else 
-            drawString(g,displayText(), x1,y1);
+        if (draw) {
+            if (bordered)
+                drawBorderedString(g,displayText(), x1, y1, Color.black,textColor());
+            else 
+                drawString(g,displayText(), x1,y1);
+        }
         return x1+sw;
     }
     public int drawCentered(Graphics g) {

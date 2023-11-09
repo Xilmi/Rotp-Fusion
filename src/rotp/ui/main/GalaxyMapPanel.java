@@ -24,6 +24,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Polygon;
+import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -54,7 +55,9 @@ import rotp.model.galaxy.IMappedObject;
 import rotp.model.galaxy.Location;
 import rotp.model.galaxy.Nebula;
 import rotp.model.galaxy.Ship;
+import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.game.IGameOptions;
 import rotp.model.game.IMapOptions;
 import rotp.model.tech.TechCategory;
 import rotp.ui.BasePanel;
@@ -77,32 +80,6 @@ import rotp.ui.sprites.ZoomOutWidgetSprite;
 public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionListener, MouseListener, MouseWheelListener, MouseMotionListener {
     private static final long serialVersionUID = 1L;
     
-//    public static final int HIDE_SYSTEM_NAME = 0;
-//    public static final int SHOW_SYSTEM_NAME = 1;
-//    public static final int SHOW_SYSTEM_DATA = 2;
-//    
-//    public static final int SHOW_ALL_FLIGHTPATHS = 0;
-//    public static final int SHOW_IMPORTANT_FLIGHTPATHS = 1;
-//    public static final int SHOW_NO_FLIGHTPATHS = 2;
-//
-//    public static final int SHOW_ALL_SHIPS = 0;
-//    public static final int SHOW_NO_UNARMED_SHIPS = 1;
-//    public static final int SHOW_ONLY_ARMED_SHIPS = 2;
-//    
-//    public static final int SHOW_RANGES = 0;
-//    public static final int SHOW_STARS_AND_RANGES = 1;
-//    public static final int SHOW_STARS = 2;
-//    public static final int SHOW_NO_STARS_AND_RANGES = 3;
-
-	// BR:
-//    public static int MAX_FLAG_SCALE = (int) (80 * showFlagFactor.get());
-//    public static int MAX_STARGATE_SCALE = (int) (40 * showFleetFactor.get());
-//    public static int MAX_RALLY_SCALE = (int) (100 * showPathFactor.get());
-//    public static int MAX_FLEET_UNARMED_SCALE = (int) (40 * showFleetFactor.get());
-//    public static int MAX_FLEET_TRANSPORT_SCALE = (int) (60 * showFleetFactor.get());
-//    public static int MAX_FLEET_SMALL_SCALE = (int) (60 * showFleetFactor.get());
-//    public static int MAX_FLEET_LARGE_SCALE = (int) (80 * showFleetFactor.get());
-//    public static int MAX_FLEET_HUGE_SCALE = (int) (100 * showFleetFactor.get());
     // BR These values may be changed remotely!
     public static int MAX_FLAG_SCALE			= 80;
     public static int MAX_STARGATE_SCALE 		= 40;
@@ -114,10 +91,17 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
     public static int MAX_FLEET_HUGE_SCALE		= 100;
 	// \BR:
     
-//    private static final Color unreachableBackground = new Color(0,0,0);
-
     public static Color gridLight = new Color(160,160,160);
     public static Color gridDark = new Color(64,64,64);
+
+    public static void maxFlagScale(int val)			{ MAX_FLAG_SCALE	 = val; }
+    public static void maxStargateScale(int val)		{ MAX_STARGATE_SCALE = val; }
+    public static void maxRallyScale(int val)			{ MAX_RALLY_SCALE	 = val; }
+    public static void maxFleetUnarmedScale(int val)	{ MAX_FLEET_UNARMED_SCALE   = val; }
+    public static void maxFleetTransportScale(int val)	{ MAX_FLEET_TRANSPORT_SCALE = val; }
+    public static void maxFleetSmallScale(int val)		{ MAX_FLEET_SMALL_SCALE = val; }
+    public static void maxFleetLargeScale(int val)		{ MAX_FLEET_LARGE_SCALE = val; }
+    public static void maxFleetHugeScale(int val)		{ MAX_FLEET_HUGE_SCALE  = val; }
 
     private final IMapHandler parent;
 
@@ -127,151 +111,55 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
     private static float scaleX, scaleY;
     private static float sizeX, sizeY;
     private static final List<Sprite> baseControls = new ArrayList<>();
-//    private static int systemNameDisplay = SHOW_SYSTEM_DATA;
-//    private static int flightPathDisplay = SHOW_IMPORTANT_FLIGHTPATHS;
-//    private static int shipDisplay = SHOW_ALL_SHIPS;
-//    private static int showShipRanges = SHOW_STARS_AND_RANGES;
- //   private static boolean showGridCircular = false;
 
     private float desiredScale;
     private Image mapBuffer;
-//    private Image rangeMapBuffer;
     public static BufferedImage sharedStarBackground;
-    public static BufferedImage sharedNebulaBackground;
+    private static BufferedImage sharedNebulaBackground;
     private final float zoomBase = 1.1f;
-    boolean dragSelecting = false;
+    private boolean dragSelecting = false;
     public boolean historyMode = false;
     private int selectX0, selectY0, selectX1, selectY1;
     private int lastMouseX, lastMouseY;
     private long lastMouseTime;
     private boolean redrawRangeMap = true;
     public Sprite hoverSprite;
-    int backOffsetX = 0;
-    int backOffsetY = 0;
-    float areaOffsetX = 0;
-    float areaOffsetY = 0;
-    Area shipRangeArea;
-    Area scoutRangeArea;
+    private int backOffsetX = 0;
+    private int backOffsetY = 0;
+    private float areaOffsetX = 0;
+    private float areaOffsetY = 0;
+    private Area shipRangeArea;
+    private Area scoutRangeArea;
+    private Area darkRangeArea;
     private int maxMouseVelocity = -1;
     private boolean searchingSprite = false;
 
     private final Timer zoomTimer;
 
-    public IMapHandler parent()                 { return parent; }
-
-// BR: Moved to options tools control!
-//   public void toggleSystemNameDisplay(boolean reverse)       { 
-//    	options().toggleSystemNameDisplay(reverse);
-//        if (reverse) {
-//                switch(systemNameDisplay) {
-//                case HIDE_SYSTEM_NAME: systemNameDisplay = SHOW_SYSTEM_DATA; break;
-//                case SHOW_SYSTEM_NAME: systemNameDisplay = HIDE_SYSTEM_NAME; break;
-//                case SHOW_SYSTEM_DATA: systemNameDisplay = SHOW_SYSTEM_NAME; break;
-//            }
-//        }
-//        else {
-//            switch(systemNameDisplay) {
-//                case HIDE_SYSTEM_NAME: systemNameDisplay = SHOW_SYSTEM_NAME; break;
-//                case SHOW_SYSTEM_NAME: systemNameDisplay = SHOW_SYSTEM_DATA; break;
-//                case SHOW_SYSTEM_DATA: systemNameDisplay = HIDE_SYSTEM_NAME; break;
-//            }
-//        }
-//    }
-//    public void toggleFlightPathDisplay(boolean reverse)       {
-//    	options().toggleFlightPathDisplay(reverse);
-//        if (reverse) {
-//            switch(flightPathDisplay) {
-//                case SHOW_ALL_FLIGHTPATHS:       flightPathDisplay = SHOW_NO_FLIGHTPATHS; break;
-//                case SHOW_IMPORTANT_FLIGHTPATHS: flightPathDisplay = SHOW_ALL_FLIGHTPATHS; break;
-//                case SHOW_NO_FLIGHTPATHS:        flightPathDisplay = SHOW_IMPORTANT_FLIGHTPATHS; break;
-//            }
-//        }
-//        else {
-//            switch(flightPathDisplay) {
-//                case SHOW_ALL_FLIGHTPATHS:       flightPathDisplay = SHOW_IMPORTANT_FLIGHTPATHS; break;
-//                case SHOW_IMPORTANT_FLIGHTPATHS: flightPathDisplay = SHOW_NO_FLIGHTPATHS; break;
-//                case SHOW_NO_FLIGHTPATHS:        flightPathDisplay = SHOW_ALL_FLIGHTPATHS; break;
-//            }
-//        }
-//    }
-//    public void toggleShipDisplay(boolean reverse)       {
-//        if (reverse) {
-//            switch(shipDisplay) {
-//                case SHOW_ALL_SHIPS:        shipDisplay = SHOW_ONLY_ARMED_SHIPS; break;
-//                case SHOW_NO_UNARMED_SHIPS: shipDisplay = SHOW_ALL_SHIPS; break;
-//                case SHOW_ONLY_ARMED_SHIPS: shipDisplay = SHOW_NO_UNARMED_SHIPS; break;
-//            }
-//        }
-//        else {
-//            switch(shipDisplay) {
-//                case SHOW_ALL_SHIPS:        shipDisplay = SHOW_NO_UNARMED_SHIPS; break;
-//                case SHOW_NO_UNARMED_SHIPS: shipDisplay = SHOW_ONLY_ARMED_SHIPS; break;
-//                case SHOW_ONLY_ARMED_SHIPS: shipDisplay = SHOW_ALL_SHIPS; break;
-//            }
-//        }
-//    }
-//    public void toggleShipRangesDisplay(boolean reverse)       {
-//        if (reverse) {
-//            switch(showShipRanges) {
-//                case SHOW_RANGES:              showShipRanges = SHOW_NO_STARS_AND_RANGES; break;
-//                case SHOW_STARS_AND_RANGES:    showShipRanges = SHOW_RANGES; break;
-//                case SHOW_STARS:               showShipRanges = SHOW_STARS_AND_RANGES; break;
-//                case SHOW_NO_STARS_AND_RANGES: showShipRanges = SHOW_STARS; break;
-//            }
-//        }
-//        else {
-//            switch(showShipRanges) {
-//                case SHOW_RANGES:              showShipRanges = SHOW_STARS_AND_RANGES; break;
-//                case SHOW_STARS_AND_RANGES:    showShipRanges = SHOW_STARS; break;
-//                case SHOW_STARS:               showShipRanges = SHOW_NO_STARS_AND_RANGES; break;
-//                case SHOW_NO_STARS_AND_RANGES: showShipRanges = SHOW_RANGES; break;
-//            }
-//        }
-//    }
-//    public void toggleGridCircularDisplay() { // BR: added memorization
-//    	IGameOptions.showGridCircular.toggle();
-//    	UserPreferences.save();
-//    	showGridCircular = rotp.ui.UserPreferences.showGridCircular.get();
-//    }
-//    public boolean showGridCircular()           { return showGridCircular; }
-//    public boolean showGridCircular()           { return options().selectedShowGridCircular(); }
-//    public boolean showFleetsOnly()             { return options().showFleetsOnly(); }
-//    public boolean showImportantFlightPaths()   { return options().showImportantFlightPaths(); }
-//    public boolean showAllFlightPaths()         { return options().showAllFlightPaths(); }
-//    public boolean showFleetsOnly()             { return flightPathDisplay == SHOW_NO_FLIGHTPATHS; }
-//    public boolean showImportantFlightPaths()   { return flightPathDisplay != SHOW_NO_FLIGHTPATHS; }
-//    public boolean showAllFlightPaths()         { return flightPathDisplay == SHOW_ALL_FLIGHTPATHS; }
-//    public boolean showFriendlyTransports()     { return shipDisplay != SHOW_ONLY_ARMED_SHIPS; }
-//    public boolean showUnarmedShips()           { return shipDisplay == SHOW_ALL_SHIPS; }
-    public boolean showArmedShips()             { return true; }
-//    public boolean hideSystemNames()            { return systemNameDisplay == HIDE_SYSTEM_NAME; }
-//    public boolean showSystemNames()            { return systemNameDisplay == SHOW_SYSTEM_NAME; }
-//    public boolean showSystemData()             { return systemNameDisplay == SHOW_SYSTEM_DATA; }
-//    public boolean showShipRanges()             { return (showShipRanges == SHOW_RANGES) || (showShipRanges == SHOW_STARS_AND_RANGES); }
-//    public boolean showStars()                  { return (showShipRanges == SHOW_STARS)  || (showShipRanges == SHOW_STARS_AND_RANGES); }
-
-    public void clearHoverSprite()              { hoverSprite = null; }
-    public Location currentFocus()        { return parent.mapFocus();  }
-    public void currentFocus(IMappedObject o)  { parent.mapFocus(o); }
-    private Location center()              { return center; }
-    public void center(Location o)        { center = o; }
-    public float mapMinX()                { return center.x()-(scaleX*2/5); }
-    public float mapMinY()                { return center.y()-(scaleY*2/5); }
-    public float mapMaxX()                { return center.x()+(scaleX*3/5); }
-    public float mapMaxY()                { return center.y()+(scaleY*3/5); }
-    public void centerX(float x)       { center.x(x); }
-    public void centerY(float y)       { center.y(y); }
-    public float centerX()                { return center.x(); }
-    public float centerY()                { return center.y(); }
+    public IMapHandler parent()     { return parent; }
+    public boolean showArmedShips() { return true; }
+    public void clearHoverSprite()  { hoverSprite = null; }
+    private Location currentFocus()  { return parent.mapFocus();  }
+    private void currentFocus(IMappedObject o)  { parent.mapFocus(o); }
+    private Location center()       { return center; }
+    private void center(Location o)  { center = o; }
+    private float mapMinX()          { return center.x()-(scaleX*2/5); }
+    private float mapMinY()          { return center.y()-(scaleY*2/5); }
+    private float mapMaxX()          { return center.x()+(scaleX*3/5); }
+    private float mapMaxY()          { return center.y()+(scaleY*3/5); }
+    public void centerX(float x)    { center.x(x); }
+    public void centerY(float y)    { center.y(y); }
+    public float centerX()          { return center.x(); }
+    public float centerY()          { return center.y(); }
     public float sizeX()            { return sizeX; }
     public float sizeY()            { return sizeY; }
-    public void sizeX(float s)      { sizeX = s; }
-    public void sizeY(float s)      { sizeY = s; }
+    private void sizeX(float s)      { sizeX = s; }
+    private void sizeY(float s)      { sizeY = s; }
 
-    public float scaleX()            { return scaleX; }
-    public float scaleY()            { return scaleY; }
-    public void scaleX(float s)      { scaleX = s; }
-    public void scaleY(float s)      { scaleY = s; }
+    public float scaleX()           { return scaleX; }
+    public float scaleY()           { return scaleY; }
+    private void scaleX(float s)     { scaleX = s; }
+    private void scaleY(float s)     { scaleY = s; }
 
     public boolean displays(IMappedObject obj) {
         if (center() == null)
@@ -332,11 +220,11 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
     }
     // objX(int) and objY(int) will translate any arbitrary on-screen
     // map coordinates into "real" coordinates
-    public float objX(int x) {
+    private float objX(int x) {
         int w = getSize().width;
         return mapMinX()+(scaleX()*x/w);
     }
-    public float objY(int y) {
+    private float objY(int y) {
         int h = getSize().height;
         return mapMinY()+(scaleY()*y/h);
     }
@@ -376,7 +264,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         scaleY(scale);
         scaleX(scale*mapSizeX/mapSizeY);
     }
-    public float maxScale() {
+    private float maxScale() {
         float largestAxis = Math.max(sizeX(), sizeY());
         return galaxy().maxScaleAdj()*largestAxis;
     }
@@ -386,17 +274,43 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         setFontHints(g2);
         parent.checkMapInitialized();
         paintToImage(mapBuffer());
-        g.drawImage(mapBuffer,0,0,null);
+        g2.drawImage(mapBuffer,0,0,null);
         parent.paintOverMap(this, g2);
     }
-    public void paintToImage(Image img) {
+    private void paintToImage(Image img) {
         Graphics2D g2 = (Graphics2D) img.getGraphics();
+        IGameOptions opts	 = options();
+        boolean darkShowSpy  = false;
+        boolean darkShowName = false;
+        boolean darkGalaxy	 = opts.selectedDarkGalaxy();
         super.paintComponent(g2); //paint background
 
+        Shape clipOld = g2.getClip();
+        if (darkGalaxy) { // BR: add mask for dark galaxy mode
+            if (darkRangeArea == null)
+            	initDarkRangeArea();
+            if (darkRangeArea != null) {
+            	g2.setColor(Color.black);
+            	g2.fillRect(0, 0, img.getWidth(null), img.getHeight(null));
+            	darkShowSpy = opts.darkGalaxySpy();
+            	darkShowName = darkShowSpy || opts.darkGalaxyNoSpy();
+            }
+        }
         setScale(scaleY());
+        	
         //log("map scale:", fmt(scaleX(),2), "@", fmt(scaleY(),2), "  center:", fmt(center().x(),2), "@", fmt(center().y(),2), "  x-rng:", fmt(mapMinX()), "-", fmt(mapMaxX(),2), "  y-rng:", fmt(mapMinY()), "-", fmt(mapMaxY(),2));
         //drawBackground(g2); // modnar: not needed due to drawShipRanges below
-        drawShipRanges(g2);
+        Empire emp = parent.empireBoundaries();
+        boolean isPlayer = emp.isPlayer();
+        isPlayer = true;
+        if (isPlayer)
+        	drawShipRanges(g2);
+       	if (darkGalaxy)
+       		g2.setClip(darkRangeArea);
+        if (!isPlayer)
+        	drawShipRanges(g2);
+
+       	// display background stars
         if (parent.drawBackgroundStars() && showStars()) {
             float alpha = 8/5*sizeX()/scaleX();
             Composite prev = g2.getComposite();
@@ -407,16 +321,26 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
             drawBackgroundStars(g2);
             g2.setComposite(prev);
         }
+        // Display Nebulae
         if (UserPreferences.texturesMap())
-            drawBackgroundNebula(g2);
-       
+            drawBackgroundNebula(g2);       
         drawGrids(g2);
-
         drawNebulas(g2);
-        drawStarSystems(g2);
-        drawEmpireNames(g2);
-        drawShips(g2);
+
+       	if (darkGalaxy) {
+            g2.setClip(clipOld);
+            drawStarSystems(g2);
+        	drawEmpireNames(g2, !darkShowName);
+            g2.setClip(darkRangeArea);
+       	} else {
+       		drawStarSystems(g2);
+        	drawEmpireNames(g2, false);
+       	}
+
         drawWorkingFlightPaths(g2);
+        drawShipsAndPath(g2);
+        g2.setClip(clipOld);
+
         parent.drawYear(g2);
         parent.drawTitle(g2);
         parent.drawAlerts(g2);
@@ -434,8 +358,8 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
     private void generateNewMapBuffers() {
         int w = getWidth();
         int h = getHeight();
-        mapBuffer = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-//        rangeMapBuffer = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+        mapBuffer = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+        
         if (sharedStarBackground == null) {
             sharedStarBackground = new BufferedImage(RotPUI.instance().getWidth(), RotPUI.instance().getHeight(), BufferedImage.TYPE_INT_ARGB);
             drawBackgroundStars(sharedStarBackground, this);
@@ -455,13 +379,20 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         else
             maxMouseVelocity = -1;
     }
-    public void clearRangeMap()    { redrawRangeMap = true; }
+    public void clearRangeMap()   { redrawRangeMap = true; }
     public void resetRangeAreas() {
         clearRangeMap();
-        shipRangeArea = null;
+        shipRangeArea  = null;
         scoutRangeArea = null;
+       	darkRangeArea  = null;
         areaOffsetX = 0;
-        areaOffsetY = 0;
+        areaOffsetY = 0;    	
+    }
+    private void resetDarkArea() {
+        if (options().selectedDarkGalaxy()) {
+        	clearRangeMap();
+        	resetRangeAreas();
+        }
     }
     private void setFocusToCenter() {
         currentFocus(new Location());
@@ -469,8 +400,10 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         center(currentFocus());
     }
     public void recenterMapOn(IMappedObject obj) {
-    	if (obj != null) // BR: Just in case!
+    	if (obj != null) { // BR: Just in case!
         	recenterMap(obj.x(), obj.y());
+            resetDarkArea();
+    	}
     }
     private void recenterMap(float x, float y) {
         float bestX = bounds(0, x, sizeX());
@@ -517,6 +450,44 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
     	desiredScale = maxScale();
         zoomTimer.start();
     }
+    private void initDarkRangeArea() {
+        Empire pl  = player();
+        Galaxy gal = galaxy();
+        float darkRange  = pl.darkRange();
+        if (darkRange > gal.width())
+            return;
+
+        // Get extended Star System
+        List<StarSystem> systems = pl.systemsForCiv(pl);
+        List<StarSystem> alliedSystems = new ArrayList<>();
+        for (Empire ally: pl.allies())
+            for (StarSystem sys: ally.allColonizedSystems()) {
+                if (pl.sv.empId(sys.id) == ally.id)
+                    alliedSystems.add(sys);
+            }
+        float scale = getWidth()/scaleX();
+        float darkR = darkRange*scale;
+        float darkD = 2*darkR;
+       	float shipR = max(1, pl.shipScanningRange())*scale;
+        float shipD = 2*shipR;
+
+//        long time1 = System.nanoTime();
+        List<Area> toAdd = new ArrayList<>();
+        // Add Colony Scan
+        for (StarSystem sv: alliedSystems)
+            toAdd.add(new Area( new Ellipse2D.Float(fMapX(sv.x())-darkR, fMapY(sv.y())-darkR, darkD, darkD) )); 
+        for (StarSystem sv: systems)
+            toAdd.add(new Area( new Ellipse2D.Float(fMapX(sv.x())-darkR, fMapY(sv.y())-darkR, darkD, darkD) ));
+        // Add Ship Scan
+       	List<ShipFleet> fleets = gal.ships.allFleets(pl.id);
+       	for (ShipFleet fl: fleets)
+       		toAdd.add(new Area( new Ellipse2D.Float(fMapX(fl.x())-shipR, fMapY(fl.y())-shipR, shipD, shipD) ));
+        Area tmpRangeArea = parallelAdd(toAdd);
+        darkRangeArea = tmpRangeArea;
+//        long time2 = System.nanoTime();
+//        double ms = (time2-time1) / 1_000_000.0;
+//        System.out.format("RRR base %.2f ms\n", ms);
+    }
     // BR: modnar commented the only call to this method
 //    private void drawBackground(Graphics2D g) {
 //        if (showShipRanges()) {
@@ -542,7 +513,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
 				Graphics2D g0 = (Graphics2D) g.create(); // use create() to not leave afterimage
 				setFontHints(g0);
 				if(!historyMode)
-                                    drawExtendedRangeDisplay(g0);
+                	drawExtendedRangeDisplay(g0);
 				drawOwnershipDisplay(g0);
 			}
         }
@@ -554,15 +525,24 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
             //drawGridCircularDisplayLight(g);
         }
     }
-    private void drawOwnershipDisplay(Graphics2D g) {
+    private void drawOwnershipDisplay(Graphics2D g) { // BR: Dark Galaxy
         int r0 = scale(1.0f);
         int r1 = scale(0.8f);
 
         Galaxy gal = galaxy();
         Empire pl = player();
+        
         for (int id=0; id < pl.sv.count(); id++) {
             Empire emp = parent.knownEmpire(id, pl);
             StarSystem sys = gal.system(id);
+        	if (options().selectedDarkGalaxy() && (pl!=emp) && !options().darkGalaxySpy()) {
+        		float dist = pl.sv.distance(id);
+    			float scoutRange = pl.scoutRange();
+    			float scanRange = pl.planetScanningRange();
+    			float range = max(scoutRange, scanRange);
+    			if (dist>range)
+    				continue;
+        	}
             //Shape sysCircle = new Ellipse2D.Float(mapX(sys.x())-ownerR, mapY(sys.y())-ownerR, 2*ownerR, 2*ownerR);
             if ((emp != null) && parent.showOwnership(sys)) {
                 int shape = emp.shape();
@@ -602,7 +582,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
     }
     private void drawExtendedRangeDisplay(Graphics2D g) {
         Empire emp = parent.empireBoundaries();
-        float shipRange = emp.shipRange();
+        float shipRange  = emp.shipRange();
         float scoutRange = emp.scoutRange();
         if (shipRange > galaxy().width())
             return;
@@ -611,11 +591,18 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         Color normalBorder = emp.shipBorderColor();
         Color extendedBorder = emp.scoutBorderColor();
         Color normalBackground = emp.empireRangeColor();
+        boolean isPlayer = emp.isPlayer();
+        IGameOptions opts = options();
+
         // draw extended range
-        List<StarSystem> systems = player().systemsForCiv(emp);
+        List<StarSystem> systems;
+        if (!isPlayer && opts.selectedDarkGalaxy() && !opts.darkGalaxySpy())
+        	systems = player().systemsForCivDark(emp);
+        else
+        	systems = player().systemsForCiv(emp);
         List<StarSystem> alliedSystems = new ArrayList<>();
         // only show range for allied systems when player is selected
-        if (emp.isPlayer()) {
+        if (isPlayer) {
             for (Empire ally: emp.allies())
                 for (StarSystem sys: ally.allColonizedSystems()) {
                     if (pl.sv.empId(sys.id) == ally.id)
@@ -681,8 +668,8 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         g.setTransform(prevXForm);
     }
 
-    static ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-    static Function<List<Area>, Area> addAreas = list -> {
+    private static ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+    private static Function<List<Area>, Area> addAreas = list -> {
         Area total = list.get(0);
         for (int i = 1; i < list.size(); i ++) {
             Area area = list.get(i);
@@ -809,19 +796,19 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         BufferedImage botRight = sharedNebulaBackground.getSubimage(0,0,w-x, h-y);
         g.drawImage(botRight,x,y,null);
     }
-    public void drawNebulas(Graphics2D g) {
+    private void drawNebulas(Graphics2D g) {
         for (Nebula neb: galaxy().nebulas()) {
             if (parent.shouldDrawSprite(neb))
                 neb.draw(this, g);
         }
     }
-    public void drawEmpireNames(Graphics2D g) {
+    private void drawEmpireNames(Graphics2D g, boolean darkMode) {
         for (Empire emp: galaxy().empires()) {
             if (parent.shouldDrawEmpireName(emp, scaleX())) 
-                parent.drawEmpireName(emp, this, g);
+                parent.drawEmpireName(emp, this, g, darkMode);
         }
     }
-    public void drawStarSystems(Graphics2D g) {
+    private void drawStarSystems(Graphics2D g) {
         Galaxy gal = galaxy();
         for (int id=0; id< gal.numStarSystems();id++) {
             StarSystem sys = gal.system(id);
@@ -833,11 +820,12 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
                 sys.rallySprite().draw(this, g);
         }
     }
-    public void drawShips(Graphics2D g) {
+    private void drawShipsAndPath(Graphics2D g) {
         if (!parent.drawShips())
             return;
         Empire pl = player();
-        // comodification exception here without this copy
+
+        // commodification exception here without this copy
         List<Ship> visibleShips = new ArrayList<>(pl.visibleShips());
         for (Ship sh: visibleShips) {
             sh.setDisplayed(this);
@@ -846,7 +834,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
                 // if we are drawing the ship, then check if its flight path should be drawn first
                 if ((sh.deployed() || sh.retreating() || sh.inTransit() || sh.isRallied())
                 && parent.shouldDrawSprite(sh.pathSprite())) {
-                    if (pl.knowETA(sh))
+                    if (pl.knowETA(sh) && sh.pathSprite()!=null)
                         sh.pathSprite().draw(this,g);
                     else if (options().selectedTrackUFOsAcrossTurns()) {
                         StarSystem suspectedDestination = player().suspectedDestinationOfVisibleShip(sh);
@@ -858,13 +846,13 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
             }
         }
     }
-    public void drawWorkingFlightPaths(Graphics2D g) {
+    private void drawWorkingFlightPaths(Graphics2D g) {
         for (FlightPathSprite spr: FlightPathSprite.workingPaths()) {
             if (parent.shouldDrawSprite(spr)) 
                 spr.draw(this, g);
         }
     }
-    public void drawControlSprites(Graphics2D g) {
+    private void drawControlSprites(Graphics2D g) {
         for (Sprite sprite: baseControls) {
             if (parent.shouldDrawSprite(sprite))
                 sprite.draw(this, g);
@@ -874,13 +862,13 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
                 sprite.draw(this, g);
         }
     }
-    public void drawNextTurnSprites(Graphics2D g) {
+    private void drawNextTurnSprites(Graphics2D g) {
         for (Sprite sprite: parent.nextTurnSprites()) {
             if (parent.shouldDrawSprite(sprite))
                 sprite.draw(this, g);
         }
     }
-    public void drawRangeSelect(Graphics2D g) {
+    private void drawRangeSelect(Graphics2D g) {
         if ((selectX0 == selectX1) || (selectY0 == selectY1))
             return;
         
@@ -895,7 +883,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         
         g.setStroke(prev);
     }
-    private Sprite spriteAt(int x1, int y1) {
+    private Sprite spriteAt(int x1, int y1, boolean ctrlDown) {
         // In order of hovering priority:
         // 1. Next Turn Sprites
         // 2. Map Control Sprites
@@ -919,6 +907,15 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
 
         Galaxy gal = galaxy();
         Empire pl = player();
+
+        // if ctrl down, Star systems have priority
+        if (ctrlDown && parent.hoverOverSystems()) {
+            for (int id=0;id<gal.numStarSystems();id++) {
+                if (gal.system(id).isSelectableAt(this, x1, y1))
+                    return gal.system(id);
+            }
+        }
+
         List<Ship> ships = null;
         if (scaleX() <= MAX_FLEET_HUGE_SCALE) {
             if (parent.hoverOverFleets()) {
@@ -945,7 +942,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
                     return closestShip;
             }
         }
-        if (parent.hoverOverSystems()) {
+        if (!ctrlDown && parent.hoverOverSystems()) {
             for (int id=0;id<gal.numStarSystems();id++) {
                 if (gal.system(id).isSelectableAt(this, x1, y1))
                     return gal.system(id);
@@ -1003,6 +1000,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         center(parent.mapFocus());
         clearRangeMap();
         repaint();
+        resetDarkArea();
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -1090,16 +1088,16 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
     }
     @Override
     public void mouseMoved(MouseEvent e) {
-    	mouseMoved(e.getX(), e.getY());
+    	mouseMoved(e.getX(), e.getY(), e.isControlDown());
     }
     public void updateHover() { // BR: To remove the need of moving the mouse
     	Point pos = getMousePosition();
     	if (pos == null)
-	    	mouseMoved(lastMouseX, lastMouseY);
+	    	mouseMoved(lastMouseX, lastMouseY, false);
     	else
-	    	mouseMoved(pos.x, pos.y);
+	    	mouseMoved(pos.x, pos.y, false);
     }
-    public void mouseMoved(int x, int y) {
+    private void mouseMoved(int x, int y, boolean ctrlDown) {
        long prevTime = lastMouseTime;
         int prevX = lastMouseX;
         int prevY = lastMouseY;
@@ -1125,7 +1123,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         if (searchingSprite)
             return;      
         searchingSprite = true;
-        try { hoverSprite = spriteAt(x,y); }
+        try { hoverSprite = spriteAt(x,y, ctrlDown); }
         finally { searchingSprite = false; }
         
         // still hovering over same sprite... do nothing
@@ -1140,10 +1138,18 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         // drawn over the system.
         if ((prevHover != null) && prevHover.isSelectableAt(this,x,y)) {
             int prevPriority = prevHover.displayPriority();
-            int hoverPriority = (hoverSprite == null) ? 0 : hoverSprite.displayPriority();
-            if (hoverPriority < prevPriority) {
-                hoverSprite = prevHover;
-                return;
+            if (ctrlDown) { // BR: invert the priority
+                int hoverPriority = (hoverSprite == null) ? Integer.MAX_VALUE : hoverSprite.displayPriority();
+                if (hoverPriority > prevPriority) {
+                    hoverSprite = prevHover;
+                    return;
+                }            	
+            } else {
+                int hoverPriority = (hoverSprite == null) ? 0 : hoverSprite.displayPriority();
+                if (hoverPriority < prevPriority) {
+                    hoverSprite = prevHover;
+                    return;
+                }
             }
         }
             

@@ -16,7 +16,8 @@
 
 package rotp.ui.util;
 
-import static rotp.model.game.IGameOptions.minListSizePopUp;
+import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
+import static rotp.model.game.IMainOptions.minListSizePopUp;
 import static rotp.ui.util.IParam.langHelp;
 import static rotp.ui.util.IParam.langLabel;
 import static rotp.ui.util.IParam.rowsSeparator;
@@ -26,8 +27,11 @@ import static rotp.util.Base.textSubs;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -78,6 +82,9 @@ public class SettingBase<T> implements IParam {
 	private String	settingToolTip;
 	private float	lastRandomSource;
 
+	private boolean updated = true;
+	private BufferedImage img;
+	private int deltaYLines;
 	
 	// ========== Constructors and initializers ==========
 	//
@@ -168,10 +175,6 @@ public class SettingBase<T> implements IParam {
 			prev();
 	}
 	@Override public void setFromDefault()	{ selectedValue(defaultValue); }
-//	@Override public void updateOption()	{
-//		if (!isSpacer && dynOpts() != null)
-//			dynOpts().setString(getLangLabel(), getCfgValue());
-//	}
 	@Override public void updateOptionTool() {
 		if (!isSpacer && dynOpts() != null)
 			setFromCfgValue(dynOpts().getString(getLangLabel(), getDefaultCfgValue()));
@@ -245,6 +248,8 @@ public class SettingBase<T> implements IParam {
 	}
 	@Override public String getValueStr(int id)		{ return valueGuide(valueValidIndex(id)); }
 	@Override public String valueGuide(int id) 		{ return tableFormat(getRowGuide(id)); }
+	@Override public boolean updated()				{ return updated; }
+	@Override public void updated(boolean val)		{ updated = val; }
 	
 	// ========== Tools for overriders ==========
 	//
@@ -386,6 +391,7 @@ public class SettingBase<T> implements IParam {
 	}
 	protected void selectedValue(T newValue) {
 		selectedValue = newValue;
+		updated = true;
 		if (isBullet && listSize()>bulletBoxSize()) {
 			// center the value
 			int boxSize	= bulletBoxSize();
@@ -414,8 +420,11 @@ public class SettingBase<T> implements IParam {
 	public String guiOptionValue(int index) { // For List
 		return String.valueOf(optionValue(index));
 	}
+	public void clearImage()			{ img = null; }
 	// ===== Getters =====
 	//
+	public BufferedImage getImage()		{ return img; }
+	public int deltaYLines()			{ return deltaYLines; }
 	protected T	defaultValue()			{ return defaultValue; }
 	protected String guiOptionLabel()	{ return guiOptionLabel(index()); }
 	protected String guiOptionLabel(int index) {
@@ -550,8 +559,72 @@ public class SettingBase<T> implements IParam {
 			}
 	}
 	protected T optionValue(int index)	{ return valueList.get(valueValidIndex(index)); }
+	public void drawSetting(int sizePad, int endPad, int optionH, int currentdWith,
+			Color frameC, int frameShift, int xLine, int yLine, int settingIndent,
+			int shift, int settingH, int frameTopPad, int wSetting, int optionIndent) {
+		int optNum	= bulletBoxSize();;
+		float cost 	= settingCost();
+		ModText bt	= settingText();
+		int paramId	= index();
+		int bulletStart	= bulletStart();
+		int bulletSize	= bulletBoxSize();
+		if (optNum == 0) {
+			endPad	= 0;
+			sizePad	= 0;
+		}
+		deltaYLines	= settingH + frameTopPad + bulletSize*optionH + endPad;
+		int y		= Math.max(shift, frameShift);
+		int x		= 0;
+		int height	= deltaYLines - optionH/2 - endPad + y + 1;
+		int width	= currentdWith + 1;
+
+		img = new BufferedImage(width, height, TYPE_INT_ARGB);
+		Graphics2D g = (Graphics2D) img.getGraphics();
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+		
+		int settingBoxH	= optNum * optionH + sizePad;
+		// frame
+		bt.displayText(guiSettingDisplayStr());
+		int blankW = bt.stringWidth(g) + settingIndent;
+		g.setColor(frameC);
+		drawBox(g, x, y - frameShift, currentdWith, settingBoxH, settingIndent/2, blankW);
+		enabledColor(cost);
+		bt.setScaledXY(x + settingIndent, y);
+		bt.draw(g);
+		bt.shiftBounds(xLine, yLine- 2*frameShift);
+		
+		y += settingH;
+		y += frameTopPad;
+		// Options
+		formatData(g, wSetting - 2*optionIndent);
+		for (int bulletIdx=0; bulletIdx < bulletSize; bulletIdx++) {
+			int optionIdx = bulletStart + bulletIdx;
+			bt = optionText(bulletIdx);
+			bt.disabled(optionIdx == paramId);
+			bt.displayText(guiCostOptionStr(optionIdx));
+			bt.setScaledXY(x + optionIndent, y);
+			bt.setFixedWidth(true, currentdWith-2*optionIndent);
+			bt.draw(g);
+			bt.shiftBounds(xLine, yLine-2*frameShift);
+			y += optionH;
+		}				
+		y += endPad;
+		g.dispose();
+	}
 	// ========== Private Methods ==========
 	//
+//	private void drawBox(Graphics2D g, int x0, int y0, int w, int h, int indent, int blankW) {
+//		int x1 = x0+w;
+//		g.drawLine(x0, y0, x0+indent, y0);
+//		g.drawLine(x0+indent+blankW, y0, x1, y0);
+//		if (h>0) {
+//			int y1 = y0+h;
+//			g.drawLine(x0, y0, x0, y1);			
+//			g.drawLine(x0, y1, x1, y1);			
+//			g.drawLine(x1, y0, x1, y1);			
+//		}
+//	}
 	private String getTableHelp()		{
 		int size = listSize();
 		String rows = "";

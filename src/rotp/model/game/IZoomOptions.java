@@ -1,16 +1,17 @@
 package rotp.model.game;
 
-import static rotp.model.galaxy.StarSystem.fontPct;
-import static rotp.model.galaxy.StarSystem.minFont;
-import static rotp.model.galaxy.StarSystem.minFont2;
-import static rotp.ui.main.GalaxyMapPanel.MAX_FLAG_SCALE;
-import static rotp.ui.main.GalaxyMapPanel.MAX_FLEET_HUGE_SCALE;
-import static rotp.ui.main.GalaxyMapPanel.MAX_FLEET_LARGE_SCALE;
-import static rotp.ui.main.GalaxyMapPanel.MAX_FLEET_SMALL_SCALE;
-import static rotp.ui.main.GalaxyMapPanel.MAX_FLEET_TRANSPORT_SCALE;
-import static rotp.ui.main.GalaxyMapPanel.MAX_FLEET_UNARMED_SCALE;
-import static rotp.ui.main.GalaxyMapPanel.MAX_RALLY_SCALE;
-import static rotp.ui.main.GalaxyMapPanel.MAX_STARGATE_SCALE;
+import static rotp.model.galaxy.StarSystem.getMinFont;
+import static rotp.model.galaxy.StarSystem.setFontPct;
+import static rotp.model.galaxy.StarSystem.setMinFont;
+import static rotp.model.galaxy.StarSystem.setMinFont2;
+import static rotp.ui.main.GalaxyMapPanel.maxFlagScale;
+import static rotp.ui.main.GalaxyMapPanel.maxFleetHugeScale;
+import static rotp.ui.main.GalaxyMapPanel.maxFleetLargeScale;
+import static rotp.ui.main.GalaxyMapPanel.maxFleetSmallScale;
+import static rotp.ui.main.GalaxyMapPanel.maxFleetTransportScale;
+import static rotp.ui.main.GalaxyMapPanel.maxFleetUnarmedScale;
+import static rotp.ui.main.GalaxyMapPanel.maxRallyScale;
+import static rotp.ui.main.GalaxyMapPanel.maxStargateScale;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -19,6 +20,7 @@ import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
+import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamSubUI;
 import rotp.ui.util.ParamTitle;
 
@@ -28,41 +30,48 @@ public interface IZoomOptions extends IBaseOptsTools {
 	ParamFloat   showFlagFactor		= new ParamFloat(MOD_UI, "SHOW_FLAG_FACTOR"
 			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
 		{ isCfgFile(true); }
-		@Override public void setOption(Float val) { MAX_FLAG_SCALE = (int) (80 * val); }
+		@Override public void setOption(Float val) { maxFlagScale((int) (80 * val)); }
 	};
 	ParamFloat   showPathFactor		= new ParamFloat(MOD_UI, "SHOW_PATH_FACTOR"
 			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
 		{ isCfgFile(true); }
-		@Override public void setOption(Float val) { MAX_RALLY_SCALE = (int) (100 * val); }
+		@Override public void setOption(Float val) { maxRallyScale((int) (100 * val)); }
 	};
 	ParamInteger showNameMinFont	= new ParamInteger(MOD_UI, "SHOW_NAME_MIN_FONT", 8, 2, 24, 1, 2, 5) {
 		{ isCfgFile(true); }
 		@Override public void setOption(Integer val) {
-			minFont	 = val;
-			minFont2 = Math.round(val/showInfoFontRatio.get());
+			setMinFont(val);
+			setMinFont2(Math.round(val/showInfoFontRatio.get()));
 		}
 	};
 	ParamFloat   showInfoFontRatio	= new ParamFloat(MOD_UI, "SHOW_INFO_FONT_RATIO"
 			, 0.7f, 0.2f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
 		{ isCfgFile(true); }
-		@Override public void setOption(Float val) { minFont2	= Math.round(minFont/val);
+		@Override public void setOption(Float val) { setMinFont2(Math.round(getMinFont()/val));
 		}
 	};
 	ParamFloat   mapFontFactor		= new ParamFloat(MOD_UI, "MAP_FONT_FACTOR"
 			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
 		{ isCfgFile(true); }
-		@Override public void setOption(Float val) { fontPct = Math.round(val * 100); }
+		@Override public void setOption(Float val) { setFontPct(Math.round(val * 100)); }
 	};
 	ParamFloat   showFleetFactor	= new ParamFloat( MOD_UI, "SHOW_FLEET_FACTOR"
 			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
 		{ isCfgFile(true); }
 		@Override public void setOption(Float val) {
-			MAX_STARGATE_SCALE			= (int) (40 * val);
-			MAX_FLEET_UNARMED_SCALE		= (int) (40 * val);
-			MAX_FLEET_TRANSPORT_SCALE	= (int) (60 * val);
-			MAX_FLEET_SMALL_SCALE		= (int) (60 * val);
-			MAX_FLEET_LARGE_SCALE		= (int) (80 * val);
-			MAX_FLEET_HUGE_SCALE		= (int) (100 * val);
+			maxStargateScale		((int) (40 * val));
+			maxFleetUnarmedScale	((int) (40 * val));
+			maxFleetTransportScale	((int) (60 * val));
+			maxFleetSmallScale		((int) (60 * val));
+			maxFleetLargeScale		((int) (80 * val));
+			maxFleetHugeScale		((int) (100 * val));
+
+//			MAX_STARGATE_SCALE			= (int) (40 * val);
+//			MAX_FLEET_UNARMED_SCALE		= (int) (40 * val);
+//			MAX_FLEET_TRANSPORT_SCALE	= (int) (60 * val);
+//			MAX_FLEET_SMALL_SCALE		= (int) (60 * val);
+//			MAX_FLEET_LARGE_SCALE		= (int) (80 * val);
+//			MAX_FLEET_HUGE_SCALE		= (int) (100 * val);
 		}
 	};
 	
@@ -87,11 +96,7 @@ public interface IZoomOptions extends IBaseOptsTools {
 	{	{ isCfgFile(true); } };
 	default boolean playerSoundEcho() 		{ return playerSoundEcho.get(); }
 
-	ParamBoolean newWeaponAnimation	= new ParamBoolean(MOD_UI, "NEW_WEAPON_ANIMATION", true)
-	{	{ isCfgFile(true); } };
-	default boolean newWeaponAnimation()	{ return newWeaponAnimation.get(); }
-
-	ParamBoolean alwaysShowsShield	= new ParamBoolean(MOD_UI, "ALWAYS_SHOWS_SHIELD", true)
+	ParamBoolean alwaysShowsShield	= new ParamBoolean(MOD_UI, "ALWAYS_SHOWS_SHIELD", false)
 	{	{ isCfgFile(true); } };
 	default boolean alwaysShowsShield()		{ return alwaysShowsShield.get(); }
 
@@ -115,9 +120,10 @@ public interface IZoomOptions extends IBaseOptsTools {
 	{	{ isCfgFile(true); } };
 	default boolean shieldEnveloping()		{ return shieldEnveloping.get(); }
 
-	ParamInteger beamAnimationDelay	= new ParamInteger(MOD_UI, "BEAM_ANIMATION_DELAY" , 40, 0, 1000, 5, 20, 100)
+	ParamInteger beamAnimationFPS	= new ParamInteger(MOD_UI, "BEAM_ANIMATION_FPS" , 15, 5, 100, 1, 5, 20)
 	{	{ isCfgFile(true); } };
-	default int beamAnimationDelay()		{ return beamAnimationDelay.get(); }
+	default int beamAnimationFPS()			{ return beamAnimationFPS.get(); }
+	default int beamAnimationDelay()		{ return 1000/beamAnimationFPS.get(); }
 
 	ParamInteger showResultDelay	= new ParamInteger(MOD_UI, "SHOW_RESULT_DELAY" , 2000, 0, 5000, 100, 500, 2000)
 	{	{ isCfgFile(true); } };
@@ -213,13 +219,31 @@ public interface IZoomOptions extends IBaseOptsTools {
 	};
 	default float echoSoundDecay()			{ return echoSoundDecay.get()/100f; }
 
+	ParamBoolean former2DShield	= new ParamBoolean(MOD_UI, "FORMER_2D_SHIELD", true)
+	{	{ isCfgFile(true); } };
+	default boolean former2DShield()		{ return former2DShield.get(); }
+
+	ParamList shieldType		= new ParamList( MOD_UI, "NEW_WEAPON_ANIMATION", "Yes") {
+		{
+			{ isCfgFile(true); }
+			showFullGuide(true);
+			put("No",	MOD_UI + "SHIELD_TYPE_NONE"); // for compatibility with former boolean
+			put("Yes",	MOD_UI + "SHIELD_TYPE_3D");   // for compatibility with former boolean
+			put("2D",	MOD_UI + "SHIELD_TYPE_2D");
+			put("3B",	MOD_UI + "SHIELD_TYPE_3_BUFFERS");
+		}
+	};
+	default boolean shieldType3D()			{ return shieldType.get().equalsIgnoreCase("Yes"); }
+	default boolean shieldType2D()			{ return shieldType.get().equalsIgnoreCase("2D"); }
+	default boolean shieldType3Buffer()		{ return shieldType.get().equalsIgnoreCase("3B"); }
 
 	// ==================== GUI List Declarations ====================
 	//
-	
-	LinkedList<LinkedList<IParam>> zoomOptionsMap = new LinkedList<LinkedList<IParam>>()
-	{ {
-		add(new LinkedList<>(Arrays.asList(
+	ParamSubUI zoomOptionsUI = zoomOptionsUI();
+
+	static LinkedList<LinkedList<IParam>> zoomOptionsMap() {
+		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
+		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("ZOOM_FONT"),
 				mapFontFactor, showNameMinFont, showInfoFontRatio,
 				
@@ -231,7 +255,7 @@ public interface IZoomOptions extends IBaseOptsTools {
 				new ParamTitle("ZOOM_REPLAY"),
 				finalReplayZoomOut, empireReplayZoomOut, replayTurnPace
 				)));
-		add(new LinkedList<>(Arrays.asList(
+		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("WEAPON_ANIMATIONS"),
 				showResultDelay,
 				newWeaponSound, playerSoundEcho,
@@ -241,24 +265,26 @@ public interface IZoomOptions extends IBaseOptsTools {
 				beamWindupFrames, beamHoldFrames,
 				heavyBeamHoldFrames, shieldFadingFrames
 				)));
-		add(new LinkedList<>(Arrays.asList(
+		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("SHIELD_ANIMATIONS"),
-				newWeaponAnimation, alwaysShowsShield, 
+				shieldType, alwaysShowsShield, 
 	
 				headerSpacer,
-				beamAnimationDelay, shieldEnveloping, shieldBorder,
+				beamAnimationFPS, shieldEnveloping, shieldBorder,
 				shieldTransparency, shieldFlickering, shieldNoisePct,
 				weaponZposition, weaponZRandom,
 	
 				headerSpacer,
 				startShieldDemo
 				)));
-		}
+		return map;
 	};
-	ParamSubUI zoomOptionsUI = new ParamSubUI( MOD_UI, "ZOOM_OPTIONS_UI", zoomOptionsMap,
-			"ZOOM_OPTIONS_TITLE", ZOOM_GUI_ID)
-	{ { isCfgFile(true); } };
-
-
-	LinkedList<IParam> zoomOptions = zoomOptionsUI.optionsList();
+	static ParamSubUI zoomOptionsUI() {
+		return new ParamSubUI( MOD_UI, "ZOOM_OPTIONS_UI", zoomOptionsMap(),
+				"ZOOM_OPTIONS_TITLE", ZOOM_GUI_ID)
+		{ { isCfgFile(true); } };
+	}
+	static LinkedList<IParam> zoomOptions() {
+		return IBaseOptsTools.getSingleList(zoomOptionsMap());
+	}
 }

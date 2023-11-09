@@ -29,7 +29,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -65,7 +64,6 @@ import rotp.model.tech.TechEngineWarp;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.util.IParam;
-import rotp.ui.util.ParamTitle;
 import rotp.ui.util.SpecificCROption;
 import rotp.util.Base;
 
@@ -115,7 +113,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private String selectedColonizingOption;
     private String selectedAutoplayOption;
     // BR: Dynamic options
-    private final DynOptions dynamicOptions = new DynOptions();
+    private DynOptions dynamicOptions = new DynOptions();
 
     private transient GalaxyShape galaxyShape;
     private transient int id = UNKNOWN_ID;
@@ -123,13 +121,22 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     public MOO1GameOptions() {
         init();
     }
-   private void init() {
-        initOpponentRaces();
+    public MOO1GameOptions(boolean init) {
+    	if(init)
+    		init();
+    }
+    private void init() {
+        // initOpponentRaces();
         randomizeColors();
         setBaseSettingsToDefault();
     }
+    public void validateOnLoad() {
+   		if (dynamicOptions == null) // compatibility tentative... probably not enough!
+   			dynamicOptions = new DynOptions();
+
+    }
 	@Override public IGameOptions opts()		 { return this;	}
-	@Override public DynOptions dynOpts()		 { return dynamicOptions;	}
+	@Override public DynOptions dynOpts()		 { return dynamicOptions; }
     @Override public int id()                    { return id; }
     @Override public void id(int id)             { this.id = id; }
     @Override
@@ -590,6 +597,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
             case RANDOM_EVENTS_ON:  return true;
             case RANDOM_EVENTS_OFF: return false;
             case RANDOM_EVENTS_NO_MONSTERS: return !ev.monsterEvent();
+            case RANDOM_EVENTS_TECH_MONSTERS: return ev.techDiscovered() ;
+            case RANDOM_EVENTS_ONLY_MONSTERS: return ev.monsterEvent() && ev.techDiscovered() ;
         }
         return true;
     }
@@ -757,225 +766,27 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         p.initPlanetType(r.homeworldPlanetType);
         return p;
     }
-    @Override public List<String> galaxySizeOptions() { return getGalaxySizeOptions(); }
-    public static List<String> getGalaxySizeOptions() {
-        int max = Rotp.maximumSystems;
-        List<String> list = new ArrayList<>();
-        list.add(SIZE_DYNAMIC);
-        if (max > 24)
-        list.add(SIZE_MICRO);
-        if (max > 33)
-        list.add(SIZE_TINY);
-        if (max > 50)
-            list.add(SIZE_SMALL);
-        if (max > 70)
-            list.add(SIZE_SMALL2);
-        if (max > 100)
-            list.add(SIZE_MEDIUM);
-        if (max > 150)
-            list.add(SIZE_MEDIUM2);
-        if (max > 225)
-            list.add(SIZE_LARGE);
-        if (max > 333)
-            list.add(SIZE_LARGE2);
-        if (max > 500)
-            list.add(SIZE_HUGE);
-        if (max > 700)
-            list.add(SIZE_HUGE2);
-        if (max > 1000)
-            list.add(SIZE_MASSIVE);
-        if (max > 1500)
-            list.add(SIZE_MASSIVE2);
-        if (max > 2250)
-            list.add(SIZE_MASSIVE3);
-        if (max > 3333)
-            list.add(SIZE_MASSIVE4);
-        if (max > 5000)
-            list.add(SIZE_MASSIVE5);
-        if (max > 10000)
-            list.add(SIZE_INSANE);
-        if (max > 100000)
-            list.add(SIZE_LUDICROUS);
-        list.add(SIZE_MAXIMUM);
-        return list;
-    }
-    @Override public List<String> galaxyShapeOptions() { return getGalaxyShapeOptions(); }
-    public static List<String> getGalaxyShapeOptions() {
-        List<String> list = new ArrayList<>();
-        list.add(SHAPE_RECTANGLE);
-        list.add(SHAPE_ELLIPTICAL);
-        list.add(SHAPE_SPIRAL);
-        // mondar: add new map shapes
-        list.add(SHAPE_TEXT);
-        list.add(SHAPE_CLUSTER);
-		list.add(SHAPE_SWIRLCLUSTERS);
-		list.add(SHAPE_GRID);
-		list.add(SHAPE_SPIRALARMS);
-		list.add(SHAPE_MAZE);
-		list.add(SHAPE_SHURIKEN);
-		list.add(SHAPE_BULLSEYE);
-		list.add(SHAPE_LORENZ);
-		list.add(SHAPE_FRACTAL);
-		list.add(SHAPE_BITMAP);
-        return list;
-    }    
-    @Override public List<String> galaxyShapeOptions1() { return galaxyShape.options1(); }
-    @Override public List<String> galaxyShapeOptions2() { return galaxyShape.options2(); }
-    @Override public List<String> galaxyAgeOptions() { return getGalaxyAgeOptions(); }
-    public static List<String> getGalaxyAgeOptions() {
-        List<String> list = new ArrayList<>();
-        list.add(GALAXY_AGE_YOUNG);
-        list.add(GALAXY_AGE_NORMAL);
-        list.add(GALAXY_AGE_OLD);
-        return list;
-    }
-    @Override public List<String> gameDifficultyOptions() { return getGameDifficultyOptions(); }
-    public static List<String> getGameDifficultyOptions() {
-        List<String> list = new ArrayList<>();
-        list.add(DIFFICULTY_EASIEST);
-        list.add(DIFFICULTY_EASIER);
-        list.add(DIFFICULTY_EASY);
-        list.add(DIFFICULTY_NORMAL);
-        list.add(DIFFICULTY_HARD);
-        list.add(DIFFICULTY_HARDER);
-        list.add(DIFFICULTY_HARDEST);
-        // modnar: add custom difficulty level option, set in Remnants.cfg
-        list.add(DIFFICULTY_CUSTOM);
-        return list;
-    }
-    @Override public List<String> researchRateOptions() { return getResearchRateOptions(); }
-    public static List<String> getResearchRateOptions() {
-        List<String> list = new ArrayList<>();
-        // modnar: add fast research option
-        list.add(RESEARCH_FAST);
-        list.add(RESEARCH_NORMAL);
-        list.add(RESEARCH_SLOW);
-        list.add(RESEARCH_SLOWER);
-        // BR: add extremely slow research option
-        list.add(RESEARCH_LETHARGIC); // former slowest compatible
-        list.add(RESEARCH_CRAWLING);
-        list.add(RESEARCH_IMPEDED);
-        return list;
-    }
-    @Override public List<String> techTradingOptions() { return getTechTradingOptions(); }
-    public static List<String> getTechTradingOptions() {
-        List<String> list = new ArrayList<>();
-        list.add(TECH_TRADING_YES);
-        list.add(TECH_TRADING_ALLIES);
-        list.add(TECH_TRADING_NO);
-        return list;
-    }
-    @Override public List<String> randomEventOptions() { return getRandomEventOptions(); }
-    public static List<String> getRandomEventOptions() {
-        List<String> list = new ArrayList<>();
-        list.add(RANDOM_EVENTS_ON);
-        list.add(RANDOM_EVENTS_NO_MONSTERS);
-        list.add(RANDOM_EVENTS_OFF);
-        return list;
-    }
-    @Override public List<String> warpSpeedOptions() { return getWarpSpeedOptions(); }
-    public static List<String> getWarpSpeedOptions() {
-        List<String> list = new ArrayList<>();
-        list.add(WARP_SPEED_NORMAL);
-        list.add(WARP_SPEED_FAST);
-        return list;
-    }
-    @Override public List<String> nebulaeOptions() { return getNebulaeOptions(); }
-    public static List<String> getNebulaeOptions() {
-        List<String> list = new ArrayList<>();
-        list.add(NEBULAE_NONE);
-        list.add(NEBULAE_RARE);
-        list.add(NEBULAE_UNCOMMON);
-        list.add(NEBULAE_NORMAL);
-        list.add(NEBULAE_COMMON);
-        list.add(NEBULAE_FREQUENT);
-        return list;
-    }
-    @Override public List<String> councilWinOptions() { return getCouncilWinOptions(); }
-    public static List<String> getCouncilWinOptions() {
-        List<String> list = new ArrayList<>();
-        list.add(COUNCIL_IMMEDIATE);
-        list.add(COUNCIL_REBELS);
-        list.add(COUNCIL_NONE);
-        return list;
-    }
-    @Override public List<String> starDensityOptions() { return getStarDensityOptions(); }
-    public static List<String> getStarDensityOptions() {
-        List<String> list = new ArrayList<>();
-        list.add(STAR_DENSITY_LOWEST);
-        list.add(STAR_DENSITY_LOWER);
-        list.add(STAR_DENSITY_LOW);
-        list.add(STAR_DENSITY_NORMAL);
-        list.add(STAR_DENSITY_HIGH);
-        list.add(STAR_DENSITY_HIGHER);
-        list.add(STAR_DENSITY_HIGHEST);
-        return list;
-    }
-    @Override public List<String> aiHostilityOptions() { return getAiHostilityOptions(); }
-    public static List<String> getAiHostilityOptions() {
-        List<String> list = new ArrayList<>();
-        list.add(AI_HOSTILITY_LOWEST);
-        list.add(AI_HOSTILITY_LOWER);
-        list.add(AI_HOSTILITY_LOW);
-        list.add(AI_HOSTILITY_NORMAL);
-        list.add(AI_HOSTILITY_HIGH);
-        list.add(AI_HOSTILITY_HIGHER);
-        list.add(AI_HOSTILITY_HIGHEST);
-        return list;
-    }
-    @Override public List<String> planetQualityOptions() { return getPlanetQualityOptions(); }
-    public static List<String> getPlanetQualityOptions() {
-        List<String> list = new ArrayList<>();
-        // modnar: change PLANET_QUALITY settings, add larger and richer, comment out poor to great settings
-        // BR: Restored vanilla choices... They are not incompatible
-        list.add(PLANET_QUALITY_HELL);
-        list.add(PLANET_QUALITY_POOR);
-        list.add(PLANET_QUALITY_MEDIOCRE);
-        list.add(PLANET_QUALITY_NORMAL);
-        list.add(PLANET_QUALITY_GOOD);
-        list.add(PLANET_QUALITY_GREAT);
-        list.add(PLANET_QUALITY_HEAVEN);
-        list.add(PLANET_QUALITY_LARGER);
-        list.add(PLANET_QUALITY_RICHER);
-        return list;
-    }
-    @Override public List<String> terraformingOptions() { return getTerraformingOptions(); }
-    public static List<String> getTerraformingOptions() {
-        List<String> list = new ArrayList<>();
-        list.add(TERRAFORMING_NORMAL);
-        list.add(TERRAFORMING_REDUCED);
-        list.add(TERRAFORMING_NONE);
-        return list;
-    }
-    @Override public List<String> colonizingOptions() { return getColonizingOptions(); }
-    public static List<String> getColonizingOptions() {
-        List<String> list = new ArrayList<>();
-        list.add(COLONIZING_NORMAL);
-        list.add(COLONIZING_RESTRICTED);
-        return list;
-    }
-    @Override public List<String> fuelRangeOptions() { return getFuelRangeOptions(); }
-    public static List<String> getFuelRangeOptions() { // BR: restored and added 2
-        List<String> list = new ArrayList<>();
-        list.add(FUEL_RANGE_CUT);
-        list.add(FUEL_RANGE_LOW);
-        list.add(FUEL_RANGE_NORMAL);
-        list.add(FUEL_RANGE_HIGH);
-        list.add(FUEL_RANGE_HIGHER);
-        list.add(FUEL_RANGE_HIGHEST);
-        return list;
-    }
-    @Override public List<String> randomizeAIOptions() { return getRandomizeAIOptions(); }
-    public static List<String> getRandomizeAIOptions() {
-        List<String> list = new ArrayList<>();
-        list.add(RANDOMIZE_AI_NONE);
-        list.add(RANDOMIZE_AI_PERSONALITY);
-        list.add(RANDOMIZE_AI_ABILITY);
-        list.add(RANDOMIZE_AI_BOTH);
-        return list;
-    }
-    @Override public List<String> autoplayOptions()   { return IGameOptions.autoPlayAIset().getAutoPlay(); }
-    @Override public List<String> opponentAIOptions() { return IGameOptions.globalAIset().getAliens(); }
+    @Override public List<String> galaxySizeOptions()     { return IGameOptions.getGalaxySizeOptions(); }
+    @Override public List<String> galaxyShapeOptions()    { return IGameOptions.getGalaxyShapeOptions(); }
+    @Override public List<String> galaxyShapeOptions1()   { return galaxyShape.options1(); }
+    @Override public List<String> galaxyShapeOptions2()   { return galaxyShape.options2(); }
+    @Override public List<String> galaxyAgeOptions()      { return IGameOptions.getGalaxyAgeOptions(); }
+    @Override public List<String> gameDifficultyOptions() { return IGameOptions.getGameDifficultyOptions(); }
+    @Override public List<String> researchRateOptions()   { return IGameOptions.getResearchRateOptions(); }
+    @Override public List<String> techTradingOptions()    { return IGameOptions.getTechTradingOptions(); }
+    @Override public List<String> randomEventOptions()    { return IGameOptions.getRandomEventOptions(); }
+    @Override public List<String> warpSpeedOptions()      { return IGameOptions.getWarpSpeedOptions(); }
+    @Override public List<String> nebulaeOptions()        { return IGameOptions.getNebulaeOptions(); }
+    @Override public List<String> councilWinOptions()     { return IGameOptions.getCouncilWinOptions(); }
+    @Override public List<String> starDensityOptions()    { return IGameOptions.getStarDensityOptions(); }
+    @Override public List<String> aiHostilityOptions()    { return IGameOptions.getAiHostilityOptions(); }
+    @Override public List<String> planetQualityOptions()  { return IGameOptions.getPlanetQualityOptions(); }
+    @Override public List<String> terraformingOptions()   { return IGameOptions.getTerraformingOptions(); }
+    @Override public List<String> colonizingOptions()     { return IGameOptions.getColonizingOptions(); }
+    @Override public List<String> fuelRangeOptions()      { return IGameOptions.getFuelRangeOptions(); }
+    @Override public List<String> randomizeAIOptions()    { return IGameOptions.getRandomizeAIOptions(); }
+    @Override public List<String> autoplayOptions()       { return IGameOptions.autoPlayAIset().getAutoPlay(); }
+    @Override public List<String> opponentAIOptions()     { return IGameOptions.globalAIset().getAliens(); }
     @Override
     public List<String> specificOpponentAIOptions() { // BR: new access to base specific opponents
     	return IGameOptions.specificAIset().getAliens();
@@ -1071,7 +882,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         colors.addAll(list4.subList(0,16));
         colors.addAll(list5.subList(0,16));
     }
-    private void initOpponentRaces() {}
+    // private void initOpponentRaces() {}
     private void checkForHostileEnvironment(Planet p, StarSystem s) {
         // these planet types and no chance for poor resources -- skip
         switch(p.type().key()) {
@@ -1417,20 +1228,6 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     	if (!selectedPlayerIsCustom()) {
     		setRandomPlayerRace();
     	}
-    	// Update Special list
-    	debugOptionsMap.clear();
-    	debugOptionsMap.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle("DEBUG_MEMORY"),
-				debugShowMemory, debugConsoleMemory, debugFileMemory
-				)));
-    	debugOptionsMap.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle("DEBUG_AUTO_PLAY"),
-				debugAutoRun, consoleAutoRun,
-				debugLogNotif, debugLogEvents,
-				headerSpacer,
-				councilWin, autoplay
-				)));
-    	debugOptionsUI.updateList();
     }
     @Override public void copyAliensAISettings(IGameOptions dest) { // BR:
     	MOO1GameOptions d = (MOO1GameOptions) dest; 	

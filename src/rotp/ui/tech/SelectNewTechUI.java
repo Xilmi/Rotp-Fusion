@@ -421,7 +421,7 @@ public class SelectNewTechUI extends BasePanel implements MouseListener, MouseMo
         switch(k){
             case KeyEvent.VK_UP: scrollList(-1); return;
             case KeyEvent.VK_DOWN: scrollList(1); return;
-            case KeyEvent.VK_PAGE_UP: techsY = techsY = max(0,techsY-s100);; break;
+            case KeyEvent.VK_PAGE_UP: techsY = max(0,techsY-s100); break;
             case KeyEvent.VK_PAGE_DOWN: techsY = min(techsYMax,techsY+s100); break;
             case KeyEvent.VK_S:
             case KeyEvent.VK_ENTER:

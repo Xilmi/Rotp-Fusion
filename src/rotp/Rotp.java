@@ -34,6 +34,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import rotp.model.game.GameSession;
+import rotp.model.game.MOO1GameOptions;
+import rotp.model.game.ModOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.SwingExceptionHandler;
@@ -130,6 +132,14 @@ public class Rotp {
                 System.exit(0);
             }
         });
+
+        // BR: To initialize all mod static parameters in a controlled order
+        ModOptions modStaticInit = new ModOptions();
+        modStaticInit.allModOptions();
+        modStaticInit = null;
+        MOO1GameOptions optionsStaticInit = new MOO1GameOptions(false);
+        optionsStaticInit.allModOptions();
+        optionsStaticInit = null;
         
         // note: referencing the RotPUI class executes its static block
         // which loads in sounds, images, etc
@@ -325,7 +335,7 @@ public class Rotp {
         int desiredAlloc = Math.max(1024, (int)maxMb/3);
         // we'll alloc smallest of the desired Alloc or 75% of free memory (after 500mb overhead)
         actualAlloc = Math.min(desiredAlloc, (int)((freeMb+allocMb-500)*0.75));
-        // if we're not a 64-bit JVM, limit reqested heap to 1600Mb
+        // if we're not a 64-bit JVM, limit requested heap to 1600Mb
         if (!bits.equals("64"))
             actualAlloc = Math.min(actualAlloc, 1200);
         // if that amount is <500M, then show an error

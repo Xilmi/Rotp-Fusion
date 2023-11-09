@@ -42,22 +42,36 @@ public final class TechReserveFuelRange extends Tech {
             case 0: range = 3; break;
         }
     }
-    @Override
-    public String detail() {
+//    @Override
+//    public String detail() {
+//        float rng = range();
+//        if (rng == (int) rng) 
+//            return text(detail, (int) rng);
+//        else
+//            return text(detail, df1.format(range())); 
+//    }
+    @Override public String detail() {
         float rng = range();
         if (rng == (int) rng) 
-            return text(detail, (int) rng);
+            return detail((int) rng);
         else
-            return text(detail, df1.format(range())); 
+            return detail(df1.format(range())); 
     }
-    @Override
-    public String brief() { 
+    @Override public String brief() { 
         float rng = range();
         if (rng == (int) rng) 
-            return text(shDesc, (int) rng);
+            return brief((int) rng);
         else
-            return text(shDesc, df1.format(range())); 
+            return brief(df1.format(range())); 
     }
+//    @Override
+//    public String brief() { 
+//        float rng = range();
+//        if (rng == (int) rng) 
+//            return text(shDesc, (int) rng);
+//        else
+//            return text(shDesc, df1.format(range())); 
+//    }
     @Override
     public boolean providesShipComponent()  { return true; }
     @Override

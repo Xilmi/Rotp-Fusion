@@ -54,9 +54,9 @@ import rotp.util.Base;
 
 public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
     private static final long serialVersionUID = 1L;
-    public static int  minFont  = 8;	// BR: Remotely changed
-    public static int  fontPct  = 100;	// BR: Remotely changed
-    public static int  minFont2 = Math.round(minFont/0.7f); // BR: Remotely changed
+    private static int  minFont  = 8;	// BR: Remotely changed
+    private static int  fontPct  = 100;	// BR: Remotely changed
+    private static int  minFont2 = Math.round(minFont/0.7f); // BR: Remotely changed
 	// modnar: change shield colors to color-coded loot rarity
 	// shield-5 --> shield-10 --> shield-15 --> shield-20
 	//    green -->      blue -->    purple --> orange
@@ -68,6 +68,11 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
     public static final Color systemNameBackC = new Color(40,40,40);
     public static final Color systemDataBackC = new Color(160,160,160);
     public static final int NULL_ID = -1;
+
+    public static void setMinFont(int val)	{ minFont	 = val; }
+    public static void setFontPct(int val)	{ fontPct	 = val; }
+    public static void setMinFont2(int val)	{ minFont2	 = val; }
+    public static int getMinFont()			{ return minFont; }
 
     private String name = "";
     private float x, y;
@@ -577,7 +582,11 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
         int y0 = mapY(map);
         int r0 = drawRadius(map);
         twinkleOffset++;
-
+        
+        // BR: Dark Galaxy
+        SystemView sv = pl.sv.view(id);
+        if (pl.hiddenSystem(this))
+        	return;
         Empire emp = map.parent().knownEmpire(id, pl);
         // draw ownership radius?
         if ((emp != null) && map.parent().showOwnerReach(this))
@@ -586,7 +595,7 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
         boolean drawStar = map.parent().drawStar(this);
         if (drawStar) {
             if (!session().performingTurn()) {
-                SystemView sv = pl.sv.view(id);
+                // SystemView sv = pl.sv.view(id);
                 Color c0 = map.parent().alertColor(sv);
                 if (c0 != null) 
                     drawAlert(map, g2, c0, x0, y0);
@@ -758,6 +767,8 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
     public boolean isSelectableAt(GalaxyMapPanel map, int mapX, int mapY) {
         if (!displayed)
             return false;
+        if (player().hiddenSystem(this))
+        	return false;
         if (nameBox().contains(mapX, mapY)) 
             return true;
         int spriteX = map.mapX(x());

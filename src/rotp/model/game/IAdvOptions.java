@@ -15,20 +15,20 @@ import static rotp.model.game.IGameOptions.STAR_DENSITY_NORMAL;
 import static rotp.model.game.IGameOptions.TECH_TRADING_YES;
 import static rotp.model.game.IGameOptions.TERRAFORMING_NORMAL;
 import static rotp.model.game.IGameOptions.WARP_SPEED_NORMAL;
-import static rotp.model.game.MOO1GameOptions.getAiHostilityOptions;
-import static rotp.model.game.MOO1GameOptions.getColonizingOptions;
-import static rotp.model.game.MOO1GameOptions.getCouncilWinOptions;
-import static rotp.model.game.MOO1GameOptions.getFuelRangeOptions;
-import static rotp.model.game.MOO1GameOptions.getGalaxyAgeOptions;
-import static rotp.model.game.MOO1GameOptions.getNebulaeOptions;
-import static rotp.model.game.MOO1GameOptions.getPlanetQualityOptions;
-import static rotp.model.game.MOO1GameOptions.getRandomEventOptions;
-import static rotp.model.game.MOO1GameOptions.getRandomizeAIOptions;
-import static rotp.model.game.MOO1GameOptions.getResearchRateOptions;
-import static rotp.model.game.MOO1GameOptions.getStarDensityOptions;
-import static rotp.model.game.MOO1GameOptions.getTechTradingOptions;
-import static rotp.model.game.MOO1GameOptions.getTerraformingOptions;
-import static rotp.model.game.MOO1GameOptions.getWarpSpeedOptions;
+import static rotp.model.game.IGameOptions.getAiHostilityOptions;
+import static rotp.model.game.IGameOptions.getColonizingOptions;
+import static rotp.model.game.IGameOptions.getCouncilWinOptions;
+import static rotp.model.game.IGameOptions.getFuelRangeOptions;
+import static rotp.model.game.IGameOptions.getGalaxyAgeOptions;
+import static rotp.model.game.IGameOptions.getNebulaeOptions;
+import static rotp.model.game.IGameOptions.getPlanetQualityOptions;
+import static rotp.model.game.IGameOptions.getRandomEventOptions;
+import static rotp.model.game.IGameOptions.getRandomizeAIOptions;
+import static rotp.model.game.IGameOptions.getResearchRateOptions;
+import static rotp.model.game.IGameOptions.getStarDensityOptions;
+import static rotp.model.game.IGameOptions.getTechTradingOptions;
+import static rotp.model.game.IGameOptions.getTerraformingOptions;
+import static rotp.model.game.IGameOptions.getWarpSpeedOptions;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -209,11 +209,17 @@ public interface IAdvOptions extends IBaseOptsTools {
 	//
 	LinkedList<IParam> advancedOptions	  = new LinkedList<>(
 			Arrays.asList(
-					galaxyAge, starDensity, nebulae, planetQuality, terraforming,
+					galaxyAge, starDensity,
+					nebulae, planetQuality,
+					terraforming,
 					null,
-					randomEvents, aiHostility, councilWin, randomizeAI, autoplay,
+					randomEvents, aiHostility,
+					councilWin, randomizeAI,
+					autoplay,
 					null,
-					researchRate, warpSpeed, fuelRange, techTrading, colonizing
+					researchRate, warpSpeed,
+					fuelRange, techTrading,
+					colonizing
 					));
 
 }

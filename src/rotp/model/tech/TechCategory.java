@@ -21,6 +21,10 @@ import java.util.Collections;
 import java.util.List;
 
 import rotp.model.empires.Empire;
+import rotp.model.events.RandomEventSpaceAmoeba;
+import rotp.model.events.RandomEventSpaceCrystal;
+import rotp.model.events.RandomEventSpacePirates;
+import rotp.ui.notifications.GNNNotification;
 import rotp.ui.util.ParamTech;
 import rotp.util.Base;
 
@@ -74,7 +78,7 @@ public final class TechCategory implements Base, Serializable {
     public List<String> knownTechs()       { return knownTechs; }
     public String currentTech()            { return currentTech; }
     public String currentTechName()        { return tech(currentTech).name(); }
-    public boolean currentTech(Tech t)        { 
+    public boolean currentTech(Tech t)     { 
         if (!id().equals(t.cat.id()))
             return false;
         researchStarted = true;
@@ -89,8 +93,8 @@ public final class TechCategory implements Base, Serializable {
     public String researchKey()            { return researchKeys[index]; }
     public String key()                    { return categoryKeys[index]; }
     public boolean isWeaponTechCategory()  { return (this == tree.weapon()); }
-    private float racialMod()             { return tree == null? 1.0f : tree.empire().techMod(index); }
-    public float discoveryPct()           { return discoveryPct; }
+    private float racialMod()              { return tree == null? 1.0f : tree.empire().techMod(index); }
+    public float discoveryPct()            { return discoveryPct; }
 
     public TechCategory() { }
 
@@ -101,15 +105,49 @@ public final class TechCategory implements Base, Serializable {
         init();
     }
 
-    public boolean researchCompleted() { return researchCompleted; }
-    public boolean researchStarted() { return researchStarted; }
-    public int allocation()            { return allocation; }
-    public void allocation(int i)      { allocation = bounds(0,i,MAX_ALLOCATION_TICKS); }
-    public float allocationPct()      { return (float) allocation/MAX_ALLOCATION_TICKS; }
+    private void isTriggerEvent(String id, Empire emp) { // TODO BR: Tech event trigger
+    	boolean newEvent = false;
+    	String gnnEvent	 = "";
+    	String gnnKey	 = "";
+    	// System.out.println("isTriggerEvent id = " + id);
+    	switch (id) {
+	    	case RandomEventSpacePirates.TRIGGER_TECH:
+	    		if (RandomEventSpacePirates.triggerEmpire == null) {
+	    			RandomEventSpacePirates.triggerEmpire = emp;
+	    			gnnEvent = RandomEventSpacePirates.GNN_EVENT;
+	    			gnnKey	 = RandomEventSpacePirates.TRIGGER_GNN_KEY;
+	    			newEvent = true;
+	    		}
+	    		break;
+	    	case RandomEventSpaceCrystal.TRIGGER_TECH:
+	    		if (RandomEventSpaceCrystal.triggerEmpire == null) {
+	    			RandomEventSpaceCrystal.triggerEmpire = emp;
+	    			gnnEvent = RandomEventSpaceCrystal.GNN_EVENT;
+	    			gnnKey	 = RandomEventSpaceCrystal.TRIGGER_GNN_KEY;
+	    			newEvent = true;
+	    		}
+	    		break;
+	    	case RandomEventSpaceAmoeba.TRIGGER_TECH:
+	    		if (RandomEventSpaceAmoeba.triggerEmpire == null) {
+	    			RandomEventSpaceAmoeba.triggerEmpire = emp;
+	    			gnnEvent = RandomEventSpaceAmoeba.GNN_EVENT;
+	    			gnnKey	 = RandomEventSpaceAmoeba.TRIGGER_GNN_KEY;
+	    			newEvent = true;
+	    		}
+	    		break;
+    	}
+    	if (newEvent && options().techRandomEvents())
+    		GNNNotification.notifyRandomEvent(text(gnnKey), gnnEvent);
+    }
+    public boolean researchCompleted()  { return researchCompleted; }
+    public boolean researchStarted()    { return researchStarted; }
+    public int allocation()             { return allocation; }
+    public void allocation(int i)       { allocation = bounds(0,i,MAX_ALLOCATION_TICKS); }
+    public float allocationPct()        { return (float) allocation/MAX_ALLOCATION_TICKS; }
     public void adjustAllocation(int i) { allocation(allocation+i); }
-    public void increaseAllocation()   { allocation(allocation+1); }
-    public void decreaseAllocation()   { allocation(allocation-1); }
-    public void allocationPct(float d) {
+    public void increaseAllocation()    { allocation(allocation+1); }
+    public void decreaseAllocation()    { allocation(allocation-1); }
+    public void allocationPct(float d)  {
         // d assumed to be between 0 & 1, representing pct of slider clicked
         float incr = 1.0f/(MAX_ALLOCATION_TICKS+1);
         float sum = 0;
@@ -580,8 +618,10 @@ public final class TechCategory implements Base, Serializable {
         bonusTechs.remove(id);
         possibleTechs.remove(id);
         
-        if (newTech)
-            t.provideBenefits(tree.empire());
+        if (newTech) {
+        	t.provideBenefits(tree.empire());
+        	isTriggerEvent(id, tree.empire());
+        }
 
         if (id.equals(currentTech())) {
             resetResearchBC();
@@ -597,22 +637,11 @@ public final class TechCategory implements Base, Serializable {
         return newTech;
     }
     
-    // BR:
-    /**
-     * @param newTech Tech to insert at the right place in the possible list!
-     */
-    public void insertPossibleTech(String newTech) {
-    	if (possibleTechs.contains(newTech)) {
-    		return; // Nothing to do
-    	}
-    	int newLevel = tech(newTech).level;
-    	int index = possibleTechs.size();
-    	for (String t : possibleTechs) {
-    		if (tech(t).level > newLevel) {
-    			index = possibleTechs.indexOf(t);
-    			break;
-    		}
-    	}
-    	possibleTechs.add(index, newTech);
+    // BR: Complete tech events
+    public boolean completeResearch() {
+    	 if (currentTech == null)
+             return false;
+    	 totalBC += 4*costForTech(tech(currentTech));
+    	 return true;
     }
 }

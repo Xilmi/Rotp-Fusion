@@ -37,7 +37,11 @@ public class TreatyWar extends DiplomaticTreaty implements Base {
     public TreatyWar(Empire e1, Empire e2) {
         super(e1,e2,"RACES_AT_WAR");
         initValues(e1, e2);
-    }    
+    }
+    @Override public void validateOnLoad() { // BR: Backward compatibility tentative
+    	if (contactsNow == null)
+    		contactsNow = new int[2];
+    }
     @Override
     public boolean isWar()                      { return true; }
     @Override

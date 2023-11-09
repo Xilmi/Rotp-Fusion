@@ -45,7 +45,13 @@ public class RandomEventAncientDerelict extends AbstractRandomEvent {
 
         TechTree empTech = emp.tech();
         int maxCompLevel = (int) empTech.forceField().techLevel()+10;
-        List<String> unkComputerTechs =  empTech.forceField().allTechs();
+
+        // BR: fixed tech Library deletion
+        // allTechs() is the static tech library list!
+        // List<String> unkComputerTechs =  empTech.forceField().allTechs();
+        List<String> unkComputerTechs = new ArrayList<>();;
+        unkComputerTechs.addAll(empTech.forceField().allTechs());
+
         unkComputerTechs.removeAll(empTech.forceField().knownTechs());
         for (String techId: unkComputerTechs) {
             if (tech(techId).level() <= maxCompLevel)
@@ -53,7 +59,11 @@ public class RandomEventAncientDerelict extends AbstractRandomEvent {
         }
 
         int maxWpnLevel = (int) empTech.weapon().techLevel()+10;
-        List<String> unkWeaponTechs =  empTech.weapon().allTechs();
+        // BR: fixed tech Library deletion
+        // allTechs() is the static tech library list!
+        //List<String> unkWeaponTechs =  empTech.weapon().allTechs();
+        List<String> unkWeaponTechs = new ArrayList<>();;
+        unkWeaponTechs.addAll(empTech.forceField().allTechs());
         unkWeaponTechs.removeAll(empTech.weapon().knownTechs());
         for (String techId: unkWeaponTechs) {
             if (tech(techId).level() <= maxWpnLevel)

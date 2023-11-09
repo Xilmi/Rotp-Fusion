@@ -1,7 +1,49 @@
 Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Updates since last releases:</ins></b>
+- New option: Dark Galaxy Mode.
+  - Only Star systems in scout range or in scanner range are shown. Out of range scouted planet are hidden.
+  - Only the final replay will show the full galaxy!
+  - Option to:
+	- Spies also gives approximate location and info of contacted empires.
+	- Spies are unable to give info on out of range Star systems, but they remember the Empires names an very approximative location.
+- Shields animations tuning:
+  - Added access to former 2D shields animations, as 3D glitches with mac OS.
+  - Added a new 3D shield animations that should be compatible with mac OS.
+  - Added the fire under the ship animation.
+    - Was shown on the demo but not in combat.
+  - Replaced the meaningless Animations delay by Animation Fps.
+    - The real delay was dependent on the computing time.
+    - The animation duration will depends on the fps and the number of frames... 
+- Vanilla games can now be loaded by Rotp-Fusion.
+  - Not deeply tested, please report bugs.
+- Mass Transport Dialog: Set Default to Synchronized.
+- All trade tech notification have the skip Button.
+- Improved compact and classic Menu reactivity.
+- The options opening the sub-menus are more obvious.
+- New Event Monster options: Triggered by tech discovery.
+  - Propulsion/Hyper Drives for Space Pirates.
+  - Planetology/Advanced Cloning for Space Amoeba.
+  - Propulsion/Intergalactic Star Gates for Space Crystal.
+  - Tech Monsters: All events + Tech triggered Monsters.
+  - Only Monsters: Only Tech triggered Monsters.
+- Random Event Monsters: New option to make them give loots.
+  - Complete some current researh. And BC.
+- Galaxy Map: Holding "Ctrl" gives prirority on star system selection over fleet selection.
+- Trade Treaties give spy view into in ranges Empires systems.
+  - Traders are always good at spotting planets ready to trade, and report basic information!
+  - This to prevent friendly neighbors from constantly sending armed scouts and colony!
+
+
+<b><ins>Bug Fixes:</ins></b>
 - Fixed sound echo default values.
+- Fixed ship building turns estimation when ship reserve is used.
+- Fixed guide appearance on compact option panels.
+- Fixed some animations blocked by the temporisation of Result panel.
+- Fixed Comet Event not resetting its timer! (Leading to negative delays!)
+- Custom Species Menu: Improved reactivity. (It was painfully slow!)
+- Fixed Symmetric Galaxies freezing the setup panel.
+- Fixed Nasty long lasting crashing bug, when starting a new game. !!!YYYYeeeessss!!!
 
 <b><ins>New 3D Shields effects:</ins></b>
 - Ship images are analyzed to determine an enveloping ellipse, the basis for the shield ellipsoid.

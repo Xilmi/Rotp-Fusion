@@ -26,6 +26,6 @@ public class MergedStaticOptionsUI extends CompactOptionsUI {
 	
 	public MergedStaticOptionsUI() { super(guiTitleID, GUI_ID); }
 	@Override protected LinkedList<LinkedList<IParam>> getList() {
-		return rotp.model.game.IGameOptions.preGameOptionsMap;
+		return rotp.model.game.IPreGameOptions.preGameOptionsMap();
 	}
 }

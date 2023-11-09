@@ -288,7 +288,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		randomBox.setBounds(xButton, yRandB, buttonW, smallButtonH);
 	}
 	@Override protected void initFixButtons(Graphics2D g) {
-		System.out.println("EDIT: initFixButtons(Graphics2D g) " + (randomBox.y-yButton));
+		// System.out.println("EDIT: initFixButtons(Graphics2D g) " + (randomBox.y-yButton));
 		// Randomize Button
         Stroke prev = g.getStroke();
 		setSmallButtonGraphics(g);
@@ -345,10 +345,10 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
     }
 
 	@Override protected void refreshGui() {
-		System.out.println("===== refreshGui()");
-		System.out.println("playerCustomRace: Race Name = " +
-				((DynOptions) guiOptions().selectedPlayerCustomRace()).getString("CUSTOM_RACE_RACE_NAME"));
-		System.out.println("settingList : Race Name = " + settingList.get(1).guideValue());
+//		System.out.println("===== refreshGui()");
+//		System.out.println("playerCustomRace: Race Name = " +
+//				((DynOptions) guiOptions().selectedPlayerCustomRace()).getString("CUSTOM_RACE_RACE_NAME"));
+//		System.out.println("settingList : Race Name = " + settingList.get(1).guideValue());
 		cr.setSettingTools((DynOptions) guiOptions().selectedPlayerCustomRace());
 		repaint();
 	}
@@ -541,7 +541,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		super.paintComponent(g0); // call ShowUI
 		Graphics2D g = (Graphics2D) g0;
 		// Custom Race List
-		currentWith = raceListW;
+		currentWidth = raceListW;
 		Stroke prev = g.getStroke();
 		g.setStroke(stroke2);
 		paintSetting(g, raceList);

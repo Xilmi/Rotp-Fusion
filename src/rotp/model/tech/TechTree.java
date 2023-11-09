@@ -648,6 +648,12 @@ public final class TechTree implements Base, Serializable {
     public boolean knows(Tech t) {
         return t == null ? true : category[t.cat.index()].knownTechs().contains(t.id());
     }
+    public boolean knows(String id) {
+        for (TechCategory cat: category)
+        	if (cat.knownTechs().contains(id))
+                    return true;
+        return false;
+    }
     public boolean knowsTechOfType(int type) {
         for (TechCategory cat: category) {
             for (String id: cat.knownTechs()) {

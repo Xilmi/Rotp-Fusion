@@ -76,7 +76,13 @@ public class RandomEventPrecursorRelic extends AbstractRandomEvent {
 
         TechTree empTech = emp.tech();
         int maxConsLevel = (int) empTech.construction().techLevel()+10;
-        List<String> unkConstructionTechs =  empTech.construction().allTechs();
+        
+        // BR: fixed tech Library deletion
+        // allTechs() is the static tech library list!
+        // List<String> unkConstructionTechs =  empTech.construction().allTechs();
+        List<String> unkConstructionTechs = new ArrayList<>();;
+        unkConstructionTechs.addAll(empTech.construction().allTechs());
+
         unkConstructionTechs.removeAll(empTech.construction().knownTechs());
         for (String techId: unkConstructionTechs) {
             if (tech(techId).level() <= maxConsLevel)

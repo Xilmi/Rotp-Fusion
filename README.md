@@ -37,13 +37,12 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 Bug to fix:
 
 Very soon:
-- Improve responsivity of other options panels
+- Species Easy-Normal-Hard
+  - https://www.reddit.com/r/rotp/comments/17qul3g/nudder_nutty_notion_simple_startup_settings/
 - Monsters:
-  - Give loots.
   - Option to change their travel time.
-  - Option to start late game
-    - Associated with specific tech discovery.
-- Character panel: improve the reactivity.
+  - https://www.reddit.com/r/rotp/comments/16ov0ln/monstrous_ends_rotp_fusion_mod_tweaks/
+  - https://www.reddit.com/r/rotp/comments/mc3ux3/different_take_on_space_monsters/
 - Spy: option to not over spend with the spy budget!
 - Add second statistic option: (on the side of lin / log): Display statistic as:
     - "% Tot": Precentage relative to known total (!= Galaxy Total)
@@ -55,7 +54,6 @@ Very soon:
 - Some Achievements options.
 
 Later:
-- Smooth the Trade blocking option.
 - Investigate: William482 request: Age of your data on each race into the bar graphs on the status page.
 - Tech trading extended list.
 - Option to be used to force war declaration upon "Smart Resolve".
@@ -63,14 +61,115 @@ Later:
 - Governor: Auto-invasion ?!
 - Governor: Individual disable receive troops
   - The AI is bombing my world, killing 7 or so colonists per turn. Every turn, my healthy planets send colonists to 'help', which ALL get killed by the orbiting enemy fleet. I would like to be able to prevent this while still allowing transport between my other planets.
-- Dark Galaxy Idea
-  - https://www.reddit.com/r/rotp/comments/171flnl/dark_galaxy_idea/
+- Are there any plans to give the player an option whether to drop Death Spores or not, when they are present? (Or to only use Death Spores, and not bombs)?
 
 
 ## What's New
 
+2023.11.08 (BR)
+- Random Event Monsters: new option to make them give loots.
+  - Complete some current researh. And BC.
+- F7/F8 will loop thru planet with incoming monsters too.
+- Fixed Shields not showing on monsters.
+- Guide on "Difficulty"-option has same content as "Help"
+
+2023.11.07 (BR)
+- Galaxy Map: Holding "Ctrl" gives prirority on star system selection over fleet selection.
+- Tech triggered Monsters:
+  - Don't follow of other start turn limitations.
+  - Follow the repeatability settings.
+  - Follow the max stars system settings.
+- Trade Treaties give spy view into in ranges Empires systems.
+  - Traders are always good at spotting planets ready to trade, and report basic information!
+  - This to prevent friendly neighbors from constantly sending armed scouts and colony!
+
+2023.11.06 (BR)
+- New Event Monster options: Triggered by tech discovery.
+  - Tech Monsters: All events + Tech triggered Monsters.
+  - Only Monsters: Only Tech triggered Monsters.
+
+2023.11.05 (BR)
+- Fixed occasionally missing options in menu panels.
+  - Fixed interfaces directly accessing static class parameters!
+  - Direct accesses are replaced by static method calls, making initialization sequences more predictable.
+  - Or static constants are moved to the interface.
+  - Added static initialization call in Rotp.main to force a static initialization sequence.
+
+2023.11.04 (BR)
+- Improved classic Menu reactivity.
+- Classic menu: sub-menu have a lighter border color.
+- Dark mode: Fixed nebulae showing in turn-transition.
+
+2023.11.02 (BR)
+- Improved compact Menu reactivity.
+- The options opening the sub-menus are more obvious.
+
+2023.11.01 (BR)
+- All trade tech notification have the skip Button
+- Dark Galaxy: Fixed sabotage mission showing to much.
+
+2023.10.31 (BR)
+- Dark Galaxy:
+  - Names are not clipped anymore
+  - Fixed Hidden stars responding to clicking and hovering.
+  - Stars around Out of range ships are shown correctly.
+- Mass Transport Dialog: Set Default to Synchronized.
+
+2023.10.30 (BR)
+- Dark Galaxy:
+  - Fixed ship display on borders.
+  - Fixed ship scanner range (Scale was missing).
+- Vanilla games can now be loaded by Rotp-Fusion.
+- No shield shown in nebulae.
+
+2023.10.29 (BR)
+- Fixed PrecursorRelic, GauntletRelic, AncientDerelic that were deleting tech from the library.
+- Updated Final Messages with New Species Names.
+  -  Some customized species names will also be displayed.
+
+2023.10.28 (BR)
+- Custom Species Menu: Fixed intermitent 3/4 line hight Yellow higlight!
+- Fixed Symmetric Galaxies freezing the setup panel.
+  - Fixed adaptive growth!
+
+2023.10.27 (BR)
+- Dark Galaxy: Default values not linked to last value.
+- Dark Galaxy: Removed old clugging test code.
+- Custom Species Menu: Improved reactivity.
+
+2023.10.26 (BR)
+- Dark Galaxy: Found New cleaner way to hide all out of range elements.
+  - Stars background and nebuleas are no more visible.
+  - "Shrink" replaced by "Dark"
+  - "Limited spying" replaced by "Names": Dark, but you remember the names of out of range Empires.
+
+2023.10.25 (BR)
+- Fixed some animations blocked by the temporisation of Result panel.
+- Dark Galaxy: Only the final replay will show the full galaxy!
+- Shields animations tuning:
+  - Added a new 3D shield animations that should be compatible with mac OS.
+  - Added the fire under the ship animation.
+    - Was shown on the demo but not in combat.
+  - Replaced the meaningless Animations delay by Animation Fps.
+    - The real delay was dependent on the computing time.
+- Fixed Comet Event not resetting its timer!
+
+2023.10.24 (BR)
+- Add access to former 2D shields animations, as 3D glitches with mac OS.
+- Dark Galaxy Mode new options:
+  - Spies also gives approximate location and info of contacted empires.
+  - Spies are unable to give info on out of range Star systems.
+  - If your empire shrink, out of range scouted planet are hidden.
+
+2023.10.23 (BR)
+- Extended ship building turns estimation Fix to full reserve consumption.
+- Fixed guide appearance on compact option panel
+- Fixed Pom.xml giving errors on eclipse IDE.
+- New option: Dark Galaxy Mode.
+
 2023.10.22 (BR)
 - Fixed sound echo default values.
+- Fixed ship building turns estimation when ship reserve is used.
 
 2023.10.21 (BR)
 - Made pom.xml and release.yml able to manage all configurations.

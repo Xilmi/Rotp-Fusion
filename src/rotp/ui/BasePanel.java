@@ -167,6 +167,7 @@ public class BasePanel extends JPanel implements Base, InterfacePreview {
     @Override
     public void paintComponent(Graphics g) {
         setFontHints(g);
+
         if (hasStarBackground())
             setBackground(starBackgroundC());
 

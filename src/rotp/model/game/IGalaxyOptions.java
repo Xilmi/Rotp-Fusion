@@ -3,11 +3,11 @@ package rotp.model.game;
 import static rotp.model.game.IGameOptions.DIFFICULTY_NORMAL;
 import static rotp.model.game.IGameOptions.SHAPE_RECTANGLE;
 import static rotp.model.game.IGameOptions.SIZE_SMALL;
+import static rotp.model.game.IGameOptions.getGalaxyShapeOptions;
+import static rotp.model.game.IGameOptions.getGalaxySizeOptions;
+import static rotp.model.game.IGameOptions.getGameDifficultyOptions;
 import static rotp.model.game.IPreGameOptions.dynStarsPerEmpire;
 import static rotp.model.game.IPreGameOptions.empiresSpreadingFactor;
-import static rotp.model.game.MOO1GameOptions.getGalaxyShapeOptions;
-import static rotp.model.game.MOO1GameOptions.getGalaxySizeOptions;
-import static rotp.model.game.MOO1GameOptions.getGameDifficultyOptions;
 import static rotp.ui.util.IParam.langLabel;
 
 import java.util.Arrays;
@@ -122,7 +122,7 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 	};
 	ParamList    difficultySelection	= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "GAME_DIFFICULTY", getGameDifficultyOptions(), DIFFICULTY_NORMAL) {
-		{ showFullGuide(false); }
+		{ showFullGuide(true); }
 		@Override public String getOptionValue(IGameOptions options) {
 			return options.selectedGameDifficulty();
 		}

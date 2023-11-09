@@ -50,13 +50,20 @@ public final class TechFuelRange extends Tech {
                     break;
         }
     }
-    @Override
-    public String detail() { 
+//    @Override
+//    public String detail() { 
+//        float rng = range();
+//        if (rng == (int) rng) 
+//            return text(detail, (int) rng);
+//        else
+//            return text(detail, df1.format(range())); 
+//    }
+    @Override public String detail() { 
         float rng = range();
         if (rng == (int) rng) 
-            return text(detail, (int) rng);
+            return detail((int) rng);
         else
-            return text(detail, df1.format(range())); 
+            return detail(df1.format(range())); 
     }
     @Override
     public boolean isFuelRangeTech()     { return true; }

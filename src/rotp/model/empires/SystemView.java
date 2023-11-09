@@ -50,7 +50,6 @@ import rotp.model.galaxy.StarSystem;
 import rotp.model.game.IFlagOptions;
 import rotp.model.planet.Planet;
 import rotp.model.planet.PlanetType;
-import rotp.ui.util.ParamList.IndexableMap;
 import rotp.util.Base;
 import rotp.util.ImageManager;
 import rotp.util.ModifierKeysState;
@@ -61,14 +60,6 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
     protected static final int INNER_SYSTEM  = 1;
     protected static final int BORDER_SYSTEM = 2;
     protected static final int ATTACK_TARGET = 3;
-    
-    public  static final String AUTO_FLAG_NOT   = "SETTINGS_MOD_AUTO_FLAG_NO_AUTOMATION";
-    private static final String AUTO_FLAG_TYPE  = "SETTINGS_MOD_AUTO_FLAG_TYPE";
-    private static final String AUTO_FLAG_ENV   = "SETTINGS_MOD_AUTO_FLAG_ENVIRONMENT";
-    private static final String AUTO_FLAG_ASSET = "SETTINGS_MOD_AUTO_FLAG_RESOURCES";
-    private static final String AUTO_FLAG_RUINS = "SETTINGS_MOD_AUTO_FLAG_RUINS";
-    private static final String AUTO_FLAG_TECH  = "SETTINGS_MOD_AUTO_FLAG_TECH";
-    public  static final String AUTO_FLAG_CLEAR = "SETTINGS_MOD_AUTO_FLAG_CLEAR";
 
     // BR: Flag locations
     private static final int SIDE		= 133;			// Flag icon width and height
@@ -84,20 +75,6 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
     private static final int LF_BOTTOM	= SIDE;					// Little flags Bottom Position
     private static final int LF_TOP		= SIDE - LF_WIDTH;		// Little flags Top Position
 
-	public static final IndexableMap flagAssignationMap = new IndexableMap();
-	static {
-		List<String> flagAssignationList = Arrays.asList (
-	    		AUTO_FLAG_NOT,
-	    		AUTO_FLAG_TECH,
-	    		AUTO_FLAG_RUINS,
-	    		AUTO_FLAG_ASSET,
-	    		AUTO_FLAG_ENV,
-	    		AUTO_FLAG_TYPE,
-	    		AUTO_FLAG_CLEAR
-				);
-		for (String element : flagAssignationList)
-			flagAssignationMap.put(element, element); // Temporary; needs to be further initialized
-	}
     private static final List<String> flagImageNameList = Arrays.asList (
 			"Flag_None",
 			"Flag_White",
@@ -145,7 +122,7 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
         return new SystemView(sysId,empId);
     }
 
-    public final int ownerId;
+    public final int ownerId; // Owner of the view
     public final int sysId;
     private StarSystem relocationSystem;
     private float hostilityLevel = 0;
@@ -154,7 +131,7 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
     private float spyTime = 0;
 
     // viewed variables
-    private Empire vEmpire;
+    private Empire vEmpire; // Owner of the system
     private String vName = "";
     private Planet vPlanet;
     private String vPlanetTypeKey;

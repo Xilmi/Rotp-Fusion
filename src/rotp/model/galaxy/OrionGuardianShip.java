@@ -50,7 +50,7 @@ public class OrionGuardianShip extends SpaceMonster {
             if (sys.planet().isOrionArtifact()) {
                 sys.monster(null);
                 sysId = sys.id;
-                break;
+                //break; // BR: For the case of vestige being set to home planets
             }
         }
         // all empires now know this system is no longer guarded

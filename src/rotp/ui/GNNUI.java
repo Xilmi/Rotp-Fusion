@@ -31,10 +31,9 @@ import java.util.List;
 import javax.swing.border.Border;
 import rotp.model.empires.Empire;
 import rotp.ui.main.SystemPanel;
-import rotp.util.Base;
 import rotp.util.ThickBevelBorder;
 
-public class GNNUI extends FadeInPanel implements Base, MouseListener, MouseMotionListener {
+public class GNNUI extends FadeInPanel implements MouseListener, MouseMotionListener {
     private static final long serialVersionUID = 1L;
     static final Color innerTextBackC = new Color(73,163,163);
     static final Color outerTextAreaC = new Color(92,208,208);

@@ -670,9 +670,9 @@ public abstract class BaseModPanel extends BasePanel
 	//
 	class Box extends Rectangle {
 		private IParam	param;
-		private String			label;
-		private ModText         modText;
-		private int 			mouseBoxIndex;
+		private String	label;
+		private ModText modText;
+		private int 	mouseBoxIndex;
 		// ========== Constructors ==========
 		//
 		public Box()				{ addToList(); }
@@ -695,12 +695,12 @@ public abstract class BaseModPanel extends BasePanel
 			this(param);
 			mouseBoxIndex(mouseBoxIndex);
 		}
-		public	void removeFromList()				 { boxBaseList.remove(this); }
-		private void addToList() 					 { boxBaseList.add(this); }
-		private void initGuide(String label)		 { this.label = label; }
+		public	void removeFromList()		 { boxBaseList.remove(this); }
+		private void addToList() 			 { boxBaseList.add(this); }
+		private void initGuide(String label) { this.label = label; }
 		private void initGuide(IParam param) { this.param = param; }
 		IParam param()	 					 { return param; }
-		private void mouseBoxIndex(int idx)			 { mouseBoxIndex = idx; }
+		private void mouseBoxIndex(int idx)	 { mouseBoxIndex = idx; }
 		// ========== Doers ==========
 		//
 		boolean checkIfHovered() { return checkIfHovered(null); }
@@ -726,12 +726,18 @@ public abstract class BaseModPanel extends BasePanel
 			return false;
 		}
 		void mouseEnter() {
-			if (modText != null)
+			if (modText != null) {
+				if (param != null)
+					param.updated(true);
 				modText.mouseEnter();
+			}
 		}
 		void mouseExit() {
-			if (modText != null)
+			if (modText != null) {
+				if (param != null)
+					param.updated(true);
 				modText.mouseExit();
+			}
 		}
 		// ========== Getters ==========
 		//
@@ -806,6 +812,13 @@ public abstract class BaseModPanel extends BasePanel
 	public class ModText extends BaseText {
 
 		private final Box box;
+		public boolean forceHover = false;
+		@Override protected Color textColor() {
+			if (forceHover)
+				return hoverC;
+			else
+				return super.textColor();
+		}
 		
 		/**
 		* @param p		BasePanel
@@ -821,9 +834,9 @@ public abstract class BaseModPanel extends BasePanel
 			super(p, false, fSize, 0, 0, c1, c2, c3, c4, c5, 0, 0, 0);
 			box = new Box(this, add);
 		}
-		public void	   removeBoxFromList()				{ box.removeFromList(); }
+		public void	   removeBoxFromList()		{ box.removeFromList(); }
 		public ModText initGuide(IParam param)	{ box.initGuide(param); return this; }
-		public ModText initGuide(String label)			{ box.initGuide(label); return this; }
+		public ModText initGuide(String label)	{ box.initGuide(label); return this; }
 		Box box() {
 			box.setBounds(bounds());
 			return box;
@@ -956,9 +969,10 @@ public abstract class BaseModPanel extends BasePanel
 					preTest = testW;
 		    		pane.setSize(new Dimension(testW, Short.MAX_VALUE));
 		    		pane.setText(text);
-		    		w = min(testW, pane.getPreferredSize().width);
-		    		h = pane.getPreferredSize().height;
-		    		testW *= (float) h /iH;
+		    		Dimension paneSize = pane.getPreferredSize();
+		    		w = min(testW, paneSize.width);
+		    		h = paneSize.height;
+	    			testW *= (float) h /iH;
 				}
 				go = (w > iW || h > iH);
 				if (go) {

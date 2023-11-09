@@ -37,7 +37,11 @@ abstract class AbstractRandomEvent implements RandomEvent, Base, Serializable {
 	@Override public String	 systemKey()	 { return ""; }
 	@Override public String	 statusMessage() { return ""; }
 	@Override public boolean monsterEvent()	 { return false; }
-	@Override public int startTurn()		 { return eventsStartTurn() + delayTurn().get() * difficultyFactor(); }
+	@Override public int startTurn()		 {
+		if (monsterEvent() && techDiscovered() && options().techRandomEvents())
+			return 1;
+		return eventsStartTurn() + delayTurn().get() * difficultyFactor();
+	}
     private void	setLastEndedTurn() 		 { lastEndedTurn = galaxy().currentTurn(); }
 	private boolean	isRepeatable()			 { return returnTurn().get() > 0; }
 	private int		eventsStartTurn()		 { return IGameOptions.eventsStartTurn.get(); }
@@ -60,8 +64,14 @@ abstract class AbstractRandomEvent implements RandomEvent, Base, Serializable {
 		// Events Globally disabled ?
 		if (reo.equals(IGameOptions.RANDOM_EVENTS_OFF))
 			return true;
+		// Only Monsters ?
+		if (!monsterEvent() && reo.equals(IGameOptions.RANDOM_EVENTS_ONLY_MONSTERS))
+			return true;
 		// Monster Disabled ?
 		if (monsterEvent() && reo.equals(IGameOptions.RANDOM_EVENTS_NO_MONSTERS))
+			return true;
+		// Monster Tech Waiting ?
+		if (!techDiscovered())
 			return true;
 		return false;
 	}

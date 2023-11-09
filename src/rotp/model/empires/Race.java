@@ -345,6 +345,12 @@ public class Race implements Base, Serializable {
             return raceLabels().label(key);
         return labels().label(key);
     }
+    @Override public String text(String key, String... vals) {
+        String str = text(key);
+        for (int i=0;i<vals.length;i++)
+            str = str.replace(textSubs[i], vals[i]);
+        return str;
+    }
 
     public List<String> introduction() {
         // return race-specific dialogue if present

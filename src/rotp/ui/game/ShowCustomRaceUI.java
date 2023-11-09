@@ -92,7 +92,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	private static final int	settingIndent	= s10;
 	private static final int	wFirstColumn	= RotPUI.scaledSize(200);
 	private static final int	wSetting		= RotPUI.scaledSize(200);
-	protected int currentWith = wFirstColumn;
+	protected int currentWidth = wFirstColumn;
 
 	private static final Color optionC		= SystemPanel.blackText; // Unselected option Color
 	private static final Color selectC		= SystemPanel.whiteText;  // Selected option color
@@ -124,18 +124,15 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	private int w;
 	private int h;
 	private int settingSize;
-	private int settingBoxH;
 	private int topM;
 	private int yTop;
 	private int descWidth;
-//	protected int xButton, yButton, xDesc, yDesc;
 	protected int xDesc, yDesc;
 	protected int leftM;
 	protected int xLine, yLine; // settings var
 
 	protected BasePanel parent;
 	@Override protected Box newExitBox() { return new Box("SETTINGS_EXIT"); }
-//	protected final Box exitBox			= new Box("SETTINGS_EXIT");
 	private	  final Box raceAIBox		= new Box(ROOT + "RACE_AI");
 	private	  final JTextPane descBox	= new JTextPane();
 	protected ModText totalCostText;
@@ -143,6 +140,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	protected int maxLeftM;
 	CustomRaceDefinitions cr;
 	protected boolean initialized = false;
+	protected boolean forceUpdate = true;
 
 	// ========== Constructors and initializers ==========
 	//
@@ -173,9 +171,11 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		return this;
 	}
 	public void loadRace(IGameOptions options)		{ // For Race Diplomatic UI Panel
+		forceUpdate = true;
 		cr.setFromRaceToShow(raceUI.selectedEmpire().dataRace());
 	}
 	public void init(RacesUI p)	{ // For Race Diplomatic UI Panel
+		forceUpdate = true;
 		super.init();
 		raceUI = p;
 	}
@@ -186,6 +186,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		settingList	= cr.settingList();
 		settingSize	= settingList.size();
 	    mouseList	= settingList;
+	    forceUpdate = true;
 
 		for (int i=0; i<settingSize; i++) {
 			if (spacerList.contains(i))
@@ -219,6 +220,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		columnH += settingHPad;
 	}
 	public void open(BasePanel p) {
+		forceUpdate = true;
 		enableGlassPane(this);
 		ModifierKeysState.reset();
 		parent = p;
@@ -340,45 +342,13 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		return columnPad+wFirstColumn+columnPad + (wSetting+columnPad) * (numColumns-1);
 	}
 	protected void paintSetting(Graphics2D g, SettingBase<?> setting) {
-		int sizePad	= frameSizePad;
-		int endPad 	= frameEndPad;
-		int optNum	= setting.bulletBoxSize();;
-		float cost 	= setting.settingCost();
-		ModText bt	= setting.settingText();
-		int paramId	= setting.index();
-
-		if (optNum == 0) {
-			endPad	= 0;
-			sizePad	= 0;
-		}
-		settingBoxH	= optNum * optionH + sizePad;
-		// frame
-		g.setColor(frameC);
-		g.drawRect(xLine, yLine - frameShift, currentWith, settingBoxH);
-		g.setPaint(bg());
-		bt.displayText(setting.guiSettingDisplayStr());
-		g.fillRect(xLine + settingIndent/2, yLine -s12 + frameShift,
-				bt.stringWidth(g) + settingIndent, s12);
-		setting.enabledColor(cost);
-		bt.setScaledXY(xLine + settingIndent, yLine);
-		bt.draw(g);
-		yLine += settingH;
-		yLine += frameTopPad;
-		// Options
-		setting.formatData(g, wSetting - 2*optionIndent);
-		int bulletStart	= setting.bulletStart();
-		int bulletSize	= setting.bulletBoxSize();
-		for (int bulletIdx=0; bulletIdx < bulletSize; bulletIdx++) {
-			int optionIdx = bulletStart + bulletIdx;
-			bt = setting.optionText(bulletIdx);
-			bt.disabled(optionIdx == paramId);
-			bt.displayText(setting.guiCostOptionStr(optionIdx));
-			bt.setScaledXY(xLine + optionIndent, yLine);
-			bt.setFixedWidth(true, currentWith-2*optionIndent);
-			bt.draw(g);
-			yLine += optionH;
-		}				
-		yLine += endPad;
+		boolean refresh = forceUpdate || setting.updated();
+		if (refresh)
+			setting.drawSetting(frameSizePad, frameEndPad, optionH, currentWidth,
+					frameC, frameShift, xLine, yLine, settingIndent,
+					s12, settingH, frameTopPad, wSetting, optionIndent);
+		g.drawImage(setting.getImage(),xLine, yLine -s12, null);
+		yLine += setting.deltaYLines();
 	}
 	private void paintDescriptions(Graphics2D g) {
 		descBox.setFont(descFont);
@@ -491,6 +461,11 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	}
 	// ========== Overriders ==========
 	//
+	@Override protected void close() {
+		super.close();
+		for (SettingBase<?> setting : settingList)
+			setting.clearImage();
+	}
 	@Override protected void drawButtons(Graphics2D g, boolean init) {
         Stroke prev = g.getStroke();
         
@@ -608,7 +583,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	}
 	@Override protected String GUI_ID()				  { return ""; }
 	@Override public void paintComponent(Graphics g0) {
-		// showTiming = true;
+		//showTiming = true;
 		if (showTiming)
 			System.out.println("===== ShowCustomRace PaintComponents =====");
 		long timeStart = System.currentTimeMillis();
@@ -616,7 +591,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		Graphics2D g = (Graphics2D) g0;
 
         // background image
-        g.drawImage(backImg(), 0, 0, this);
+		g.drawImage(backImg(), 0, 0, this);
 		// Buttons background image
         drawButtons(g);
         drawFixButtons(g, false);
@@ -632,7 +607,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		// Loop thru the parameters
 		xLine = leftM+s10;
 		yLine = yTop;
-		currentWith	= wFirstColumn;
+		currentWidth	= wFirstColumn;
 		descWidth	= wBG - 2 * columnPad;
 
 
@@ -644,8 +619,8 @@ public class ShowCustomRaceUI extends BaseModPanel {
 			if (spacerList.contains(i))
 				yLine += spacerH;
 			if (columnList.contains(i)) {
-				xLine = xLine + currentWith + columnPad;
-				currentWith = wSetting;
+				xLine = xLine + currentWidth + columnPad;
+				currentWidth = wSetting;
 				yLine = yTop;
 			}
 			paintSetting(g, settingList.get(i));
@@ -656,8 +631,9 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		showGuide(g);
 		
 		// ready for extension
-		xLine = xLine + currentWith + columnPad;
+		xLine = xLine + currentWidth + columnPad;
 		yLine = yTop;
+		forceUpdate = false;
 		if (showTiming)
 			System.out.println("ShowCustomRace paintComponent() Time = " + (System.currentTimeMillis()-timeStart));	
 	}

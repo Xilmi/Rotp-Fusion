@@ -409,10 +409,10 @@ public final class Colony implements Base, IMappedObject, Serializable {
 	        galaxy().ships.buildShips(emp.id, starSystem().id, colony.id(), 1);
 	        lab.recordConstruction(scout, 2);
 	        lab.recordConstruction(colony, 1);
-			}
-			// modnar: add extra starting resources, if challengeMode and AI
-			// double initial ships, increase pop/factories to approximately double initial production
-			if (emp.isAI() && challengeMode) {
+		}
+		// modnar: add extra starting resources, if challengeMode and AI
+		// double initial ships, increase pop/factories to approximately double initial production
+		if (emp.isAI() && challengeMode) {
 	        setPopulation(80);
 	        previousPopulation = population();
 	        industry().factories(80);
@@ -423,7 +423,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
 	        lab.recordConstruction(scout, 4);
 	        lab.recordConstruction(colony, 2);
 		}
-    }
+	}
     
     // modnar: add option to start game with additional colonies
     public void setCompanionWorldValues() {

@@ -3,6 +3,7 @@ package rotp.model.combat;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
@@ -65,6 +66,7 @@ public final class CombatShield {
 	private final int shieldOffsetX, shieldOffsetY, centerOffsetX, centerOffsetY;
 	private final double[] insideRatio;
 	private double meanInsideRatio;
+	private BufferedImage shieldBackGround;
 
 	// Other variables
 	private boolean neverInitialized = true;
@@ -88,6 +90,16 @@ public final class CombatShield {
 		if (neverInitialized)
 			initShieldArray();
 		return meanInsideRatio;
+	}
+	public BufferedImage shieldBackGround() {
+		if (shieldBackGround == null) {
+			shieldBackGround = new BufferedImage(shieldColumns, shieldRows, TYPE_INT_ARGB);
+			Graphics2D g = (Graphics2D) shieldBackGround.getGraphics();
+			g.setColor(Color.black);
+			g.fillOval(0, 0, shieldColumns, shieldRows);
+			g.dispose();
+		}
+		return shieldBackGround;
 	}
 
 	// = = = = = Constructors, Setters and Initializers = = = = =

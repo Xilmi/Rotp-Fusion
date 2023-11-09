@@ -28,7 +28,11 @@ import rotp.ui.util.ParamInteger;
 public class RandomEventSpaceAmoeba extends AbstractRandomEvent {
     private static final long serialVersionUID = 1L;
     private static final String NEXT_ALLOWED_TURN = "AMOEBA_NEXT_ALLOWED_TURN";
+    public static final String TRIGGER_TECH		= "Cloning:1";
+    public static final String TRIGGER_GNN_KEY	= "EVENT_SPACE_AMOEBA_TRIG";
+    public static final String GNN_EVENT		= "GNN_Event_Amoeba";
     public static SpaceAmoeba monster;
+    public static Empire triggerEmpire;
     private int empId;
     private int sysId;
     private int turnCount = 0;
@@ -36,12 +40,13 @@ public class RandomEventSpaceAmoeba extends AbstractRandomEvent {
     static {
         initMonster();
     }
-    @Override ParamInteger delayTurn()		{ return IGameOptions.amoebaDelayTurn; }
-    @Override ParamInteger returnTurn()		{ return IGameOptions.amoebaReturnTurn; }
-    @Override public String statusMessage()	{ return text("SYSTEMS_STATUS_SPACE_AMOEBA"); }
-    @Override public String systemKey()		{ return "MAIN_PLANET_EVENT_AMOEBA"; }
-    @Override public boolean goodEvent()	{ return false; }
-    @Override public boolean monsterEvent()	{ return true; }
+    @Override public boolean techDiscovered() { return triggerEmpire != null; }
+    @Override ParamInteger delayTurn()		  { return IGameOptions.amoebaDelayTurn; }
+    @Override ParamInteger returnTurn()		  { return IGameOptions.amoebaReturnTurn; }
+    @Override public String statusMessage()	  { return text("SYSTEMS_STATUS_SPACE_AMOEBA"); }
+    @Override public String systemKey()		  { return "MAIN_PLANET_EVENT_AMOEBA"; }
+    @Override public boolean goodEvent()	  { return false; }
+    @Override public boolean monsterEvent()	  { return true; }
     @Override int nextAllowedTurn() { // for backward compatibility
     	return (Integer) galaxy().dynamicOptions().getInteger(NEXT_ALLOWED_TURN, -1);
     }
@@ -55,7 +60,8 @@ public class RandomEventSpaceAmoeba extends AbstractRandomEvent {
     }
     @Override
     public void trigger(Empire emp) {
-        log("Starting Amoeba event against: "+emp.raceName());
+    	if (emp != null)
+    		log("Starting Amoeba event against: "+emp.raceName());
 //        System.out.println("Starting Amoeba event against: "+emp.raceName());
     	if (emp == null || emp.extinct()) {
             empId = emp.id;
@@ -123,10 +129,10 @@ public class RandomEventSpaceAmoeba extends AbstractRandomEvent {
         Empire pl = player();
         if (targetSystem.isColonized()) { 
             if (pl.knowsOf(targetSystem.empire()) || !pl.sv.name(sysId).isEmpty())
-                GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_AMOEBA", targetSystem.empire()), "GNN_Event_Amoeba");
+                GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_AMOEBA", targetSystem.empire(), null), GNN_EVENT);
         }
         else if (!pl.sv.name(sysId).isEmpty())
-            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_AMOEBA_1", null), "GNN_Event_Amoeba");   
+            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_AMOEBA_1", null, null), GNN_EVENT);   
     }
     private void degradePlanet(StarSystem targetSystem) {
         Empire emp = targetSystem.empire();
@@ -138,20 +144,33 @@ public class RandomEventSpaceAmoeba extends AbstractRandomEvent {
             return;
         Empire pl = player();
         if (pl.knowsOf(emp) || !pl.sv.name(sysId).isEmpty())
-            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_AMOEBA_2", emp), "GNN_Event_Amoeba");
+            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_AMOEBA_2", emp, null), GNN_EVENT);
     }
     private void amoebaDestroyed() {
         //galaxy().events().removeActiveEvent(this);
         terminateEvent(this);
         monster.plunder();
-
-        if (player().knowsOf(empId)|| !player().sv.name(sysId).isEmpty())
-            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_AMOEBA_3", monster.lastAttacker()), "GNN_Event_Amoeba");
+    	Empire emp = monster.lastAttacker();
+    	String notifKey = "EVENT_SPACE_AMOEBA_3";
+    	Integer saleAmount = null;
+    	if (options().monstersGiveLoot()) {
+        	notifKey = "EVENT_SPACE_AMOEBA_PLUNDER";
+        	saleAmount = galaxy().currentTurn();
+        	// Studying amoeba remains help completing the current research
+        	if (emp.tech().planetology().completeResearch())
+        		saleAmount *= 10;
+        	else
+        		saleAmount *= 25; // if no research then more gold
+        	// Selling the amoeba flesh gives reserve BC, scaling with turn number
+        	emp.addToTreasury(saleAmount);
+        }
+    	if (player().knowsOf(empId)|| !player().sv.name(sysId).isEmpty())
+           	GNNNotification.notifyRandomEvent(notificationText(notifKey, emp, saleAmount), GNN_EVENT);
     }
     private void monsterVanished() { // BR: To allow disappearance
     	terminateEvent(this);
         if (player().knowsOf(galaxy().empire(empId)) || !player().sv.name(sysId).isEmpty())
-            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_AMOEBA_4", monster.lastAttacker()), "GNN_Event_Amoeba");
+            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_AMOEBA_4", monster.lastAttacker(), null), GNN_EVENT);
     }
     private void moveToNextSystem() {
         StarSystem targetSystem = galaxy().system(sysId);
@@ -195,7 +214,7 @@ public class RandomEventSpaceAmoeba extends AbstractRandomEvent {
         if (turnCount <= 3)
             approachSystem();     
     }
-    private String notificationText(String key, Empire emp)    {
+    private String notificationText(String key, Empire emp, Integer amount)    {
         String s1 = text(key);
         if (emp != null) {
             s1 = s1.replace("[system]", emp.sv.name(sysId));
@@ -203,6 +222,8 @@ public class RandomEventSpaceAmoeba extends AbstractRandomEvent {
         }
         else 
             s1 = s1.replace("[system]", player().sv.name(sysId));
+        if (amount != null)
+        	s1 = s1.replace("[amt]", amount.toString());
         return s1;
     }
 }

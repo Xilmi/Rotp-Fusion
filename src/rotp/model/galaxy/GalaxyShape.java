@@ -222,6 +222,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 				empSystems.add(sys);
 				homeStars++; // the two nearby system will be set later
 			} else {
+				dynamicGrowth += 0.01f;
 				continue; // Fail... Retry					
 			}
 			// ----- now the opponents Homes

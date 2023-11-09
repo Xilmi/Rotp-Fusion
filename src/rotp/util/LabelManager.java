@@ -25,7 +25,6 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 import rotp.Rotp;
-import rotp.model.tech.Tech;
 
 public class LabelManager implements Base {
     static LabelManager instance = new LabelManager();

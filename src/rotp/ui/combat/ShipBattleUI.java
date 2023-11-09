@@ -413,13 +413,15 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         }
 
         // draw any overlying messages
-        if (mode == Display.RESULT)
+// BR:        if (mode == Display.RESULT)
+        if (readyToShowResult())
             drawResults(g, 0, 0, getWidth(),getHeight());
         else
             paintShipsToImage(g,x,y,w,h-barH, hoveringX, hoveringY);
         paintMenuBarToImage(g,x,y+h-barH,w,barH);
         
-        if (mode != Display.RESULT)
+// BR:        if (mode != Display.RESULT)
+        if (!readyToShowResult())
             paintStackActions(g, hoveringX, hoveringY);
 
         Stroke prev = g.getStroke();
@@ -474,7 +476,8 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         CombatStack currStack = mgr.currentStack();
         
         // unless we are in auto-complete mode, color grid squares blue that are in reach
-        if ((!mgr.performingStackTurn) && (mode != Display.RESULT)) {
+// BR:       if ((!mgr.performingStackTurn) && (mode != Display.RESULT)) {
+        if ((!mgr.performingStackTurn) && !readyToShowResult()) {
             g.setColor(new Color(0, 0, 255, 64));
             if (!currStack.usingAI()) {
                 for (int y0 = 0; y0 < GRID_COUNT_Y; y0++) {
@@ -1454,8 +1457,9 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
     private void paintTravelPathToImage(Graphics2D g, CombatStack stack, int hoveringX, int hoveringY) {
         if (mgr.autoComplete || mgr.performingStackTurn)
             return;
-        if (mode == Display.RESULT)
-            return;
+ // BR:      if (mode == Display.RESULT)
+        if (readyToShowResult())
+           return;
         if (stack.usingAI())
             return;
         if (!mgr.canTacticallyMoveTo(stack, hoveringX, hoveringY))
@@ -2671,6 +2675,8 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
     private boolean animationCompleted = true;
     public void showResult(){
     	int maxTime = options().showResultDelay();
+        mode = Display.RESULT;
+        repaint();
     	if (maxTime > 0) {
             synchronized(this){
                 while(!animationCompleted){
@@ -2679,14 +2685,13 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
     					wait(maxTime);
     					animationCompleted = true;
                     	System.out.println("Wait animationCompleted: " + animationCompleted);
+                    	repaint();
     				} catch (InterruptedException e) {
     					e.printStackTrace();
     				}
                 }
             }
     	}
-        mode = Display.RESULT;
-        repaint();
     }
     public void animationCompleted(){
         synchronized(this){
@@ -2695,4 +2700,6 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         }
     }
     public void newAnimationStarted() { animationCompleted = false; }
+    public boolean waitingToShowResult() { return mode == Display.RESULT; }
+    private boolean readyToShowResult() { return mode == Display.RESULT && animationCompleted; }
 }

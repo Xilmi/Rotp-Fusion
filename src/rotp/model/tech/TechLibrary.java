@@ -267,13 +267,14 @@ public final class TechLibrary implements Base {
             return;
 
         switch(key) {
-            case "name"   : loadingTech.name = value;    break;
-            case "brief"  : loadingTech.shDesc = value;  break;
-            case "brief2" : loadingTech.shDesc2 = value; break;
-            case "detail" : loadingTech.detail = value;  break;
-            case "item"   : loadingTech.item = value;    break;
-            case "item2"  : loadingTech.item2 = value;   break;
-            default       : log("unknown key->", input);  return;
+            case "name"    : loadingTech.setName(value);	break;
+            case "brief"   : loadingTech.setShDesc(value);	break;
+            case "brief2"  : loadingTech.setShDesc2(value);	break;
+            case "detail"  : loadingTech.setDetail(value);	break;
+            case "trigger" : loadingTech.setTrigger(value);	break;
+            case "item"    : loadingTech.setItem(value);	break;
+            case "item2"   : loadingTech.setItem2(value);	break;
+            default        : log("unknown key->", input);	return;
         }
     }
 }

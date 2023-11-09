@@ -1,10 +1,8 @@
 package rotp.model.game;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 
 import rotp.ui.util.IParam;
-import rotp.ui.util.ParamTitle;
 
 public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptions,
 							IRaceOptions, IGovOptions, IGalaxyOptions, IMainOptions {
@@ -29,7 +27,7 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 
 	void prepareToSave(boolean secure);
 	void UpdateOptionsTools();
-	MOO1GameOptions copyAllOptions();
+	IGameOptions copyAllOptions();
 	
 	void loadStartupOptions();
 	/**
@@ -83,33 +81,66 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 	LinkedList<IParam> allModOptions = getAllModOptions();
 	static LinkedList<IParam> getAllModOptions() {
 		LinkedList<IParam> allModOptions = new LinkedList<>();
-		allModOptions.addAll(modOptionsStaticA);
-		allModOptions.addAll(modOptionsStaticB);
-		allModOptions.addAll(modOptionsDynamicA);
-		allModOptions.addAll(modOptionsDynamicB);
+		allModOptions.addAll(IPreGameOptions.modStaticAOptions());
+		allModOptions.addAll(IPreGameOptions.modStaticBOptions());
+		allModOptions.addAll(IInGameOptions.modDynamicAOptions());
+		allModOptions.addAll(IInGameOptions.modDynamicBOptions());
 		allModOptions.addAll(optionsGalaxy);
 		allModOptions.addAll(optionsRace);
 		allModOptions.addAll(optionsCustomRaceBase);
-		allModOptions.addAll(autoFlagOptions);
-		allModOptions.addAll(convenienceOptions);
+		allModOptions.addAll(IFlagOptions.autoFlagOptions());
+		allModOptions.addAll(convenienceOptions); // Keep as variable
 		allModOptions.addAll(governorOptions);
-		allModOptions.addAll(mainOptionsUI);
-		allModOptions.addAll(debugOptions);
-		allModOptions.addAll(zoomOptions);
-		allModOptions.addAll(ironmanOptions);
+		allModOptions.addAll(mainOptionsUI); // Keep as variable
+		allModOptions.addAll(IDebugOptions.debugOptions());
+		allModOptions.addAll(IZoomOptions.zoomOptions());
+		allModOptions.addAll(IIronmanOptions.ironmanOptions());
 		return allModOptions;
 	};
 
 	// ==================== GUI List Declarations ====================
 	//
+	static LinkedList<IParam> allCfgOptions() {
+		LinkedList<IParam> list = new LinkedList<>();
+		for(IParam param:allOptions())
+			if (param != null && param.isCfgFile())
+				list.add(param);
+		return list;
+	}
+	static LinkedList<IParam> allNotCfgOptions() {
+		LinkedList<IParam> list = new LinkedList<>();
+		for(IParam param:allOptions())
+			if (param != null && !param.isCfgFile())
+				list.add(param);
+		return list;
+	}
+	static LinkedList<IParam> allOptions() {
+		LinkedList<IParam> list = new LinkedList<>();
+		allModOptions.addAll(IPreGameOptions.modStaticAOptions());
+		allModOptions.addAll(IPreGameOptions.modStaticBOptions());
+		allModOptions.addAll(IInGameOptions.modDynamicAOptions());
+		allModOptions.addAll(IInGameOptions.modDynamicBOptions());
+		allModOptions.addAll(optionsGalaxy);
+		allModOptions.addAll(optionsRace);
+		allModOptions.addAll(optionsCustomRaceBase);
+		allModOptions.addAll(IFlagOptions.autoFlagOptions());
+		allModOptions.addAll(convenienceOptions);
+		allModOptions.addAll(governorOptions);
+		allModOptions.addAll(mainOptionsUI);
+		allModOptions.addAll(IDebugOptions.debugOptions());
+		allModOptions.addAll(IRandomEvents.customRandomEventOptions());
+		allModOptions.addAll(IZoomOptions.zoomOptions());
+		allModOptions.addAll(IIronmanOptions.ironmanOptions());
+		return list;
+	}
     // All the Global parameters
 	static LinkedList<IParam> globalOptions(boolean initialList) {
 		LinkedList<IParam> globalOptions = new LinkedList<>();
 		globalOptions.addAll(mainOptionsUI);
 		globalOptions.remove(debugOptionsUI);
 		globalOptions.remove(zoomOptionsUI);
-		globalOptions.addAll(debugOptions);
-		globalOptions.addAll(zoomOptions);
+		globalOptions.addAll(IDebugOptions.debugOptions());
+		globalOptions.addAll(IZoomOptions.zoomOptions());
 		globalOptions.add(bitmapGalaxyLastFolder);
 		globalOptions.add(showNextCouncil);
 		
@@ -122,78 +153,4 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 		}
 		return globalOptions;
 	}
-	
-	LinkedList<IParam> inGameOptions	= new LinkedList<>();
-	LinkedList<LinkedList<IParam>> inGameOptionsMap = inGameOptionsMap(); 
-
-	static LinkedList<LinkedList<IParam>> inGameOptionsMap()	{
-		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
-		map.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle("GAME_DIFFICULTY"),
-				difficultySelection, customDifficulty,
-				dynamicDifficulty, challengeMode,
-
-				headerSpacer,
-				new ParamTitle("GAME_VARIOUS"),
-				terraforming, colonizing, researchRate,
-				warpSpeed, fuelRange, 
-
-				headerSpacer,
-				new ParamTitle("GAME_OTHER"),
-				showAlliancesGNN, showLimitedWarnings,
-				techExchangeAutoRefuse, autoTerraformEnding, trackUFOsAcrossTurns
-				)));
-		map.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle("GAME_RELATIONS"),
-				councilWin, counciRequiredPct, aiHostility,
-				techTrading, allowTechStealing, maxSecurityPct,
-
-				headerSpacer,
-				new ParamTitle("GAME_COMBAT"),
-				retreatRestrictions, retreatRestrictionTurns,
-				missileBaseModifier, missileShipModifier,
-				targetBombard, bombingTarget, autoBombard_, autoColonize_,
-				scrapRefundFactor, scrapRefundOption
-				)));
-		map.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle("RANDOM_EVENTS_OPT"),
-				randomEvents,
-				customRandomEventUI,
-
-				headerSpacer,
-				new ParamTitle("IRONMAN_BASIC"),
-				deterministicArtifact,
-				ironmanNoLoad, ironmanLoadDelay,
-
-				headerSpacer,
-				new ParamTitle("PLANETS_FLAG_OPTIONS"),
-				flagColorCount, autoFlagOptionsUI,
-
-				headerSpacer,
-				new ParamTitle("GOVERNOR_SETUP_MENU"),
-				GovernorOptions.governorOptionsUI,
-
-				headerSpacer,
-				new ParamTitle("BETA_TEST"),
-				debugAutoRun, newWeaponAnimation, newWeaponSound
-				)));
-		map.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle("ZOOM_FACTORS"),
-				zoomOptionsUI,
-	
-				headerSpacer,
-				new ParamTitle("MENU_OPTIONS"),
-				divertExcessToResearch, defaultMaxBases, displayYear,
-				showNextCouncil, systemNameDisplay, shipDisplay, flightPathDisplay,
-				showGridCircular, showShipRanges, galaxyPreviewColorStarsSize,
-				showAllAI, raceStatusLog, compactOptionOnly
-				)));
-		for (LinkedList<IParam> list : map) {
-			for (IParam param : list) {
-				if (param != null && !param.isTitle())
-					inGameOptions.add(param);
-			}
-		}
-		return map;
-	};
 }

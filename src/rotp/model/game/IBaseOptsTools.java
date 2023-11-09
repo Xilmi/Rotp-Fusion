@@ -1,5 +1,7 @@
 package rotp.model.game;
 
+import java.util.LinkedList;
+import rotp.ui.util.IParam;
 import rotp.ui.util.ParamTitle;
 
 public interface IBaseOptsTools {
@@ -19,4 +21,15 @@ public interface IBaseOptsTools {
 
 	ParamTitle headerSpacer = new ParamTitle("SPACER");
 
+	static LinkedList<IParam> getSingleList(LinkedList<LinkedList<IParam>> listList) {
+		LinkedList<IParam> paramList = new LinkedList<>();
+		for ( LinkedList<IParam> list : listList ) {
+			for (IParam param : list) {
+				if (param != null && !param.isTitle())
+					paramList.add(param);
+			}
+		}
+
+		return paramList;
+	}
 }

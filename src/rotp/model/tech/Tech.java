@@ -91,15 +91,17 @@ public class Tech implements Base {
     public int level;
     public TechCategory cat;
     public String iconFilename;
-    public String effectKey;
+    public String effectKey; // BR: Never used
 
-    public String name = "";
-    public String capsName = "";
-    public String detail = "";
-    public String item = null;
-    public String shDesc = "";
-    public String item2 = null;
-    public String shDesc2 = "";
+    // BR: Made private to easily track their access
+    private String name = "";
+    // private String capsName = ""; // BR: Never Used
+    private String detail = "";
+    private String trigger = "";
+    private String item = null;
+    private String shDesc = "";
+    private String item2 = null;
+    private String shDesc2 = "";
 
     public int sequence;
     public int quintile = 0;
@@ -125,19 +127,32 @@ public class Tech implements Base {
     @Override
     public String toString() { return concat("Tech: ", name); }
 
-    public float discoveryPct()           { return cat.discoveryPct(); }
-    public String name()                  { return text(name); }
-    public Integer level()                { return level; }
-    public String detail()                { return text(detail); }
-    public String brief()                 { return text(shDesc); }
-    public String brief2()                { return text(shDesc2); }
-    public String item()                  { return item == null ? name() : text(item); }
-    public String item2()                 { return item2 == null ? item() : text(item2); }
-    public String imageKey()              { return ""; }
-    public Image image()                  { return iconFilename == null ? null : image(iconFilename); }
-    public int futureTechLevel()          { return 0; }
-    public boolean isWarpDissipator()     { return false; }
-    public boolean isTechNullifier()      { return false; }
+    void setName (String s)		{ name		= s; }
+    void setDetail(String s)	{ detail	= s; trigger = s;} // trigger should be loaded after
+    void setTrigger(String s)	{ trigger	= s; }
+    void setItem(String s)		{ item		= s; }
+    void setShDesc(String s)	{ shDesc	= s; }
+    void setItem2(String s)		{ item2		= s; }
+    void setShDesc2(String s)	{ shDesc2	= s; }
+    private String detailKey()	{ return options().techRandomEvents() ? trigger: detail; }
+
+    public	  float	  discoveryPct()		{ return cat.discoveryPct(); }
+    public	  String  name()				{ return text(name); }
+    public	  Integer level()				{ return level; }
+    public	  String  detail()				{ return text(detailKey()); }
+    protected String  detail(int i)			{ return text(detailKey(), i); }
+    protected String  detail(String s)		{ return text(detailKey(), s); }
+    public	  String  brief()				{ return text(shDesc); }
+    protected String  brief(int i)			{ return text(shDesc, i); }
+    protected String  brief(String s)		{ return text(shDesc, s); }
+    public	  String  brief2()				{ return text(shDesc2); }
+    public	  String  item()				{ return item == null ? name() : text(item); }
+    public	  String  item2()				{ return item2 == null ? item() : text(item2); }
+    public	  String  imageKey()			{ return ""; }
+    public	  Image	  image()				{ return iconFilename == null ? null : image(iconFilename); }
+    public	  int	  futureTechLevel()		{ return 0; }
+    public	  boolean isWarpDissipator()	{ return false; }
+    public	  boolean isTechNullifier()		{ return false; }
 
     public boolean isControlEnvironmentTech() { return false; }
     public boolean isMissileWeaponTech()    { return false; }
@@ -162,7 +177,7 @@ public class Tech implements Base {
     public boolean canBeResearched(Race r)  { return true; }
 
     public float baseReallocateAmount()    { return 0.25f; }
-    public float tradeValue(Empire civ)    { return level; }
+    public float tradeValue(Empire civ)    { return level; }  // BR: Never used
     public float baseValue(Empire civ)     { return level; }
     public float baseCost()                { return cost; }
     public float baseSize()                { return size; }

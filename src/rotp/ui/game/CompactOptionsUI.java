@@ -15,6 +15,7 @@
  */
 package rotp.ui.game;
 
+import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static rotp.model.game.IBaseOptsTools.LIVE_OPTIONS_FILE;
 
 import java.awt.Color;
@@ -28,6 +29,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.awt.image.BufferedImage;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
 import javax.swing.JEditorPane;
@@ -76,13 +79,14 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	private int index, column;
 	private int xDesc, yDesc, descWidth;
 	
-	private LinkedList<Integer>	lastRowList;
-	private LinkedList<ModText> btList0; // left part
-	private LinkedList<ModText> btList2; // right part
-	private LinkedList<ModText> btListBoth;
-	private LinkedList<LinkedList<IParam>> optionsList;
+	private final LinkedList<Integer>	lastRowList	= new LinkedList<>();
+	private final LinkedList<ModText>	btListLeft	= new LinkedList<>(); // left part
+	private final LinkedList<ModText>	btListRight	= new LinkedList<>(); // right part
+	private final LinkedList<ModText>	btListBoth	= new LinkedList<>();
+	private final LinkedHashMap<Integer, BufferedImage>	imgList	= new LinkedHashMap<>();
+	private LinkedList<LinkedList<IParam>>	optionsList;
 	private String parent = "";
-
+	private boolean forceUpdate = true;
 
 	// ========== Constructors and initializers ==========
 	//
@@ -104,10 +108,6 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		activeList		= new LinkedList<>();
 		duplicateList	= new LinkedList<>();
 		paramList		= new LinkedList<>();
-		btList0			= new LinkedList<>();
-		btList2			= new LinkedList<>();
-		btListBoth		= new LinkedList<>();
-		lastRowList		= new LinkedList<>();
 		int totalRows   = 0;
 		numColumns = optionsList.size();
 		numRows    = 0;
@@ -118,8 +118,8 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 			for (IParam param : list) {
 				if (param != null) {
 					activeList.add(param);
-					btList0.add(newBT(param.isTitle()).initGuide(param));
-					btList2.add(newBT2(param.isDefaultValue()).initGuide(param));
+					btListLeft.add(newBT(param.isTitle()).initGuide(param));
+					btListRight.add(newBT2(param.isDefaultValue()).initGuide(param));
 					if (param.isDuplicate())
 						duplicateList.add(param);
 					else
@@ -127,8 +127,8 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 				}
 			}
 		}
-		btListBoth.addAll(btList0);
-		btListBoth.addAll(btList2);
+		btListBoth.addAll(btListLeft);
+		btListBoth.addAll(btListRight);
 	}
 	private void init_0() {
 		setOpaque(false);
@@ -210,26 +210,52 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		descBox.setBounds(xDesc, yDesc, descWidth, descHeigh);
 	}
 	private void setValueColor(int index) {
-		ModText txt2 = btList2.get(index);
+		ModText txt2 = btListRight.get(index);
 		if (activeList.get(index).isDefaultValue())
 			txt2.enabledC(defaultValuesColor);
 		else
 			txt2.enabledC(customValuesColor);
 	}
 	private void paintSetting(Graphics2D g) {
-		setValueColor(index);
-		ModText txt0 = btList0.get(index);
-		ModText txt2 = btList2.get(index);
-		g.setPaint(bg());
-		int sw0 = txt0.stringWidth(g);
-		int sw2 = txt2.stringWidth(g);
-		int sw = sw0 + sw2;
-		int dx = (columnWidth - sw)/2;
-		g.fillRect(xSetting, ySetting-rowPad, columnWidth, textBoxH);
-		txt0.setScaledXY(xSetting+dx, ySetting+s7);
-		txt2.setScaledXY(xSetting+dx+sw0, ySetting+s7);
-		txt0.draw(g);
-		txt2.draw(g);
+		IParam param = activeList.get(index);
+		boolean refresh = forceUpdate || param.updated();
+		if (refresh) {
+			BufferedImage img = new BufferedImage(columnWidth, textBoxH, TYPE_INT_ARGB);
+			Graphics2D gi	 = (Graphics2D) img.getGraphics();
+			gi.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+			gi.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+			ModText txtLeft	 = btListLeft.get(index);
+			ModText txtRight = btListRight.get(index);
+			if ((txtLeft.box() == hoverBox) || (txtRight.box() == hoverBox)) {
+				txtLeft.forceHover  = true;
+				txtRight.forceHover = true;
+			}
+			if (param.isDefaultValue())
+				txtRight.enabledC(defaultValuesColor);
+			else
+				txtRight.enabledC(customValuesColor);
+			int swLeft	= txtLeft.stringWidth(gi);
+			int swRight	= txtRight.stringWidth(gi);
+			int sw		= swLeft + swRight;
+			int dx		= (columnWidth - sw)/2;
+			txtLeft.setScaledXY(dx, rowPad+s7);
+			txtRight.setScaledXY(dx + swLeft, rowPad+s7);
+			txtLeft.draw(gi);
+			txtRight.draw(gi);
+			gi.dispose();
+			g.drawImage(img, xSetting, ySetting-rowPad, null);
+
+			param.updated(false);
+			imgList.put(index, img);
+			txtLeft.setScaledXY(xSetting+dx, ySetting+s7);
+			txtRight.setScaledXY(xSetting+dx+swLeft, ySetting+s7);
+			txtLeft.updateBounds(g);
+			txtRight.updateBounds(g);			
+			txtLeft.forceHover  = false;
+			txtRight.forceHover = false;
+		}
+		else
+			g.drawImage(imgList.get(index), xSetting, ySetting-rowPad, null);
 	}
 	private void goToNextSetting() {
 		index++;
@@ -242,24 +268,25 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	}
 	private void mouseCommon(MouseEvent e, MouseWheelEvent w) {
 		for (int i=0; i<activeList.size(); i++) {
-			if (hoverBox == btList0.get(i).box()
-					|| hoverBox == btList2.get(i).box() ) {
-				if (activeList.get(i).isSubMenu()) {
+			if (hoverBox == btListLeft.get(i).box()
+					|| hoverBox == btListRight.get(i).box() ) {
+				IParam param = activeList.get(i);
+				if (param.isSubMenu()) {
 					if (e == null)
 						return;
 					super.close();
 			        disableGlassPane();
-					activeList.get(i).toggle(e, GUI_ID, this);
+			        param.toggle(e, GUI_ID, this);
 					return;
 				}			
-				activeList.get(i).toggle(e, w, this);
+				param.toggle(e, w, this);
+				param.updated(true);
 				setValueColor(i);
-				btList0.get(i).repaint(activeList.get(i).getGuiDisplay(0));
-				btList2.get(i).repaint(activeList.get(i).getGuiDisplay(1));
-				if (autoGuide) {
+				btListLeft.get(i).repaint(activeList.get(i).getGuiDisplay(0));
+				btListRight.get(i).repaint(activeList.get(i).getGuiDisplay(1));
+				if (autoGuide)
 					loadGuide();
-					repaint();
-				}
+				repaint();
 				return;
 			}			
 		}
@@ -301,7 +328,9 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		
 		guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
 		enableGlassPane(this);
+		forceUpdate = true;
 		refreshGui();
+		forceUpdate = true;
 	}
 	// ========== Overriders ==========
 	//
@@ -400,8 +429,8 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		super.refreshGui();
 		for (int i=0; i<activeList.size(); i++) {
 			setValueColor(i);
-			btList0.get(i).displayText(activeList.get(i).getGuiDisplay(0));
-			btList2.get(i).displayText(activeList.get(i).getGuiDisplay(1));
+			btListLeft.get(i).displayText(activeList.get(i).getGuiDisplay(0));
+			btListRight.get(i).displayText(activeList.get(i).getGuiDisplay(1));
 		}
 		repaint();
 	}
@@ -432,7 +461,9 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 			paintSetting(g);
 			goToNextSetting();
 		}
+		forceUpdate = false;
 		g.setStroke(prev);
+		showGuide(g);
 		if (showTiming)
 			System.out.println("Compact paintComponent() Time = " + (System.currentTimeMillis()-timeStart));	
 	}
@@ -453,19 +484,8 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		}
 	}
 	@Override public void mouseEntered(MouseEvent e)	{
-		for (int i=0; i<activeList.size(); i++) {
-			if (hoverBox == btList0.get(i).box()
-					|| hoverBox == btList2.get(i).box() ) {
-				setValueColor(i);
-				btList0.get(i).repaint(activeList.get(i).getGuiDisplay(0));
-				btList2.get(i).repaint(activeList.get(i).getGuiDisplay(1));
-				if (autoGuide) {
-					loadGuide();
-					repaint();
-				}
-				return;
-			}			
-		}
+		//super.mouseEntered(e);
+		repaint();
 	}
 	@Override public void mouseMoved(MouseEvent e)		{
 		mX = e.getX();
@@ -477,6 +497,11 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		prevHover = hoverBox;
 		hoverBox = null;
 		hoverChanged = true;
+		for (ModText bt : btListBoth)
+			if (bt.box() == prevHover) {
+				repaint();
+				break;
+			}
 		for (Box box : boxBaseList)
 			if (box.checkIfHovered(descBox))
 				break;

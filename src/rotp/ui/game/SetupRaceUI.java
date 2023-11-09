@@ -494,7 +494,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 	            g.draw(checkBox);
 	        }
         }
-        if (playerIsCustom.get()) {
+        if (!all & playerIsCustom.get()) {
 	        int checkW = s16;
 	        int checkX = playerRaceSettingBox.x + playerRaceSettingBox.width + s10;    
 	        int checkY = playerRaceSettingBox.y + playerRaceSettingBox.height - s7;
@@ -819,7 +819,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
             int newW = wCtrFrame;
             int newH = hCtrFrame;
             raceImg = new BufferedImage(newW, newH, TYPE_INT_ARGB);
-            Graphics2D g = (Graphics2D) raceImg.getGraphics();            
+            Graphics2D g = (Graphics2D) raceImg.getGraphics();
             g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
             g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
