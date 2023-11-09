@@ -42,7 +42,7 @@ public interface IRandomEvents extends IBaseOptsTools {
 			put("Yes",	MOD_UI + "MONSTERS_GIVE_LOOTS_YES");
 		}
 	};
-	default boolean monstersGiveLoots()	{ return monstersGiveLoots.get().equalsIgnoreCase("Yes"); }
+	default boolean monstersGiveLoot()	{ return monstersGiveLoots.get().equalsIgnoreCase("Yes"); }
 
 	
 	// ========================================================================
@@ -155,7 +155,7 @@ public interface IRandomEvents extends IBaseOptsTools {
 				new ParamTitle("RANDOM_EVENTS_GLOBAL"),
 				IAdvOptions.randomEvents,
 				eventsStartTurn, eventsPace,
-				eventsFavorWeak, fixedEventsMode,
+				eventsFavorWeak, fixedEventsMode, monstersGiveLoots,
 
 				headerSpacer,
 				new ParamTitle("RANDOM_EVENTS_MONSTERS"),

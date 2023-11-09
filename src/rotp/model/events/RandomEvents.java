@@ -121,10 +121,12 @@ public class RandomEvents implements Base, Serializable {
             ev.nextTurn();
 
         int turnNum = galaxy().currentTurn();
-        if (turnNum < startTurn())
+        if (turnNum < startTurn() && !options().selectedRandomEventOption().equals(IGameOptions.RANDOM_EVENTS_ONLY_MONSTERS))
             return;
 
         eventChance = min(maxChanceIncr(), eventChance + chanceIncr());
+        // eventChance = 1;
+        // System.out.println("eventChance = " + eventChance);
         if (turnRnd() > eventChance)
             return;
 

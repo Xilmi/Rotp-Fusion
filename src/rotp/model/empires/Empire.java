@@ -4186,7 +4186,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         Galaxy g = galaxy();
         Empire pl = player();
         for (StarSystem sys: pl.allColonizedSystems()) {
-            if (sys.enemyShipsInOrbit(pl))
+            if (sys.enemyShipsInOrbit(pl) || sys.hasEvent()) // BR: to track incoming monsters
                 list.add(sys);
         }
         if (knowShipETA) {

@@ -61,7 +61,8 @@ public class RandomEventSpaceCrystal extends AbstractRandomEvent {
     }
     @Override
     public void trigger(Empire emp) {
-        log("Starting Crystal event against: "+emp.raceName());
+    	if (emp != null)
+    		log("Starting Crystal event against: "+emp.raceName());
 //        System.out.println("Starting Crystal event against: "+emp.raceName());
     	if (emp == null || emp.extinct()) {
             empId = emp.id;
@@ -129,10 +130,10 @@ public class RandomEventSpaceCrystal extends AbstractRandomEvent {
         Empire pl = player();
         if (targetSystem.isColonized()) { 
             if (pl.knowsOf(targetSystem.empire()) || !pl.sv.name(sysId).isEmpty())
-                GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_CRYSTAL", targetSystem.empire()), GNN_EVENT);
+                GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_CRYSTAL", targetSystem.empire(), null), GNN_EVENT);
         }
         else if (pl.sv.isScouted(sysId))
-            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_CRYSTAL_1", null), GNN_EVENT);   
+            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_CRYSTAL_1", null, null), GNN_EVENT);   
     }
     private void degradePlanet(StarSystem targetSystem) {
         Empire emp = targetSystem.empire();
@@ -144,19 +145,32 @@ public class RandomEventSpaceCrystal extends AbstractRandomEvent {
             return;
         Empire pl = player();
         if (pl.knowsOf(emp) || !pl.sv.name(sysId).isEmpty())
-            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_CRYSTAL_2", emp), GNN_EVENT);
+            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_CRYSTAL_2", emp, null), GNN_EVENT);
     }
     private void crystalDestroyed() {
         terminateEvent(this);
         monster.plunder();
-
-        if (player().knowsOf(galaxy().empire(empId)) || !player().sv.name(sysId).isEmpty())
-            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_CRYSTAL_3", monster.lastAttacker()), GNN_EVENT);
+    	Empire emp = monster.lastAttacker();
+    	String notifKey = "EVENT_SPACE_CRYSTAL_3";
+    	Integer saleAmount = null;
+    	if (options().monstersGiveLoot()) {
+        	notifKey = "EVENT_SPACE_CRYSTAL_PLUNDER";
+        	saleAmount = galaxy().currentTurn();
+        	// Studying Crystal remains help completing the current research
+        	if (emp.tech().propulsion().completeResearch())
+        		saleAmount *= 10;
+        	else
+        		saleAmount *= 25; // if no research then more gold
+        	// Selling the Crystal part gives reserve BC, scaling with turn number
+        	emp.addToTreasury(saleAmount);
+        }
+    	if (player().knowsOf(empId)|| !player().sv.name(sysId).isEmpty())
+           	GNNNotification.notifyRandomEvent(notificationText(notifKey, emp, saleAmount), GNN_EVENT);
     }
     private void monsterVanished() { // BR: To allow disappearance
     	terminateEvent(this);
         if (player().knowsOf(galaxy().empire(empId)) || !player().sv.name(sysId).isEmpty())
-            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_CRYSTAL_4", monster.lastAttacker()), GNN_EVENT);
+            GNNNotification.notifyRandomEvent(notificationText("EVENT_SPACE_CRYSTAL_4", monster.lastAttacker(), null), GNN_EVENT);
     }
     private void moveToNextSystem() {
         StarSystem targetSystem = galaxy().system(sysId);
@@ -200,7 +214,7 @@ public class RandomEventSpaceCrystal extends AbstractRandomEvent {
         if (turnCount <= 3)
             approachSystem();     
     }
-    private String notificationText(String key, Empire emp)    {
+    private String notificationText(String key, Empire emp, Integer amount)    {
         String s1 = text(key);
         if (emp != null) {
             s1 = s1.replace("[system]", emp.sv.name(sysId));
@@ -208,6 +222,8 @@ public class RandomEventSpaceCrystal extends AbstractRandomEvent {
         }
         else 
             s1 = s1.replace("[system]", player().sv.name(sysId));
+        if (amount != null)
+        	s1 = s1.replace("[amt]", amount.toString());
         return s1;
     }
 }

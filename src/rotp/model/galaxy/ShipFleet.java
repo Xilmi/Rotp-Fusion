@@ -18,7 +18,6 @@ package rotp.model.galaxy;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.image.BufferedImage;
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -40,7 +39,7 @@ import rotp.ui.map.IMapHandler;
 import rotp.ui.sprites.FlightPathSprite;
 import rotp.util.Base;
 
-public class ShipFleet extends FleetBase implements Base, Sprite, Ship, Serializable {
+public class ShipFleet extends FleetBase implements Ship {
     private static final long serialVersionUID = 1L;
     enum Status { ORBITING, DEPLOYED, IN_TRANSIT, RETREAT_ON_ARRIVAL };
     public final int empId;

@@ -37,8 +37,9 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 Bug to fix:
 
 Very soon:
+- Species Easy-Normal-Hard
+  - https://www.reddit.com/r/rotp/comments/17qul3g/nudder_nutty_notion_simple_startup_settings/
 - Monsters:
-  - Give loots.
   - Option to change their travel time.
   - https://www.reddit.com/r/rotp/comments/16ov0ln/monstrous_ends_rotp_fusion_mod_tweaks/
   - https://www.reddit.com/r/rotp/comments/mc3ux3/different_take_on_space_monsters/
@@ -64,6 +65,13 @@ Later:
 
 
 ## What's New
+
+2023.11.08 (BR)
+- Random Event Monsters: new option to make them give loots.
+  - Complete some current researh. And BC.
+- F7/F8 will loop thru planet with incoming monsters too.
+- Fixed Shields not showing on monsters.
+- Guide on "Difficulty"-option has same content as "Help"
 
 2023.11.07 (BR)
 - Galaxy Map: Holding "Ctrl" gives prirority on star system selection over fleet selection.

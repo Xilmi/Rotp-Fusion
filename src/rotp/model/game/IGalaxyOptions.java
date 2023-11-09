@@ -122,7 +122,7 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 	};
 	ParamList    difficultySelection	= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "GAME_DIFFICULTY", getGameDifficultyOptions(), DIFFICULTY_NORMAL) {
-		{ showFullGuide(false); }
+		{ showFullGuide(true); }
 		@Override public String getOptionValue(IGameOptions options) {
 			return options.selectedGameDifficulty();
 		}

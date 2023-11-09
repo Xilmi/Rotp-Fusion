@@ -637,22 +637,11 @@ public final class TechCategory implements Base, Serializable {
         return newTech;
     }
     
-    // BR:
-    /**
-     * @param newTech Tech to insert at the right place in the possible list!
-     */
-    public void insertPossibleTech(String newTech) {
-    	if (possibleTechs.contains(newTech)) {
-    		return; // Nothing to do
-    	}
-    	int newLevel = tech(newTech).level;
-    	int index = possibleTechs.size();
-    	for (String t : possibleTechs) {
-    		if (tech(t).level > newLevel) {
-    			index = possibleTechs.indexOf(t);
-    			break;
-    		}
-    	}
-    	possibleTechs.add(index, newTech);
+    // BR: Complete tech events
+    public boolean completeResearch() {
+    	 if (currentTech == null)
+             return false;
+    	 totalBC += 4*costForTech(tech(currentTech));
+    	 return true;
     }
 }

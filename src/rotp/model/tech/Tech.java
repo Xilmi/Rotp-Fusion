@@ -91,7 +91,7 @@ public class Tech implements Base {
     public int level;
     public TechCategory cat;
     public String iconFilename;
-    public String effectKey;
+    public String effectKey; // BR: Never used
 
     // BR: Made private to easily track their access
     private String name = "";
@@ -177,7 +177,7 @@ public class Tech implements Base {
     public boolean canBeResearched(Race r)  { return true; }
 
     public float baseReallocateAmount()    { return 0.25f; }
-    public float tradeValue(Empire civ)    { return level; }
+    public float tradeValue(Empire civ)    { return level; }  // BR: Never used
     public float baseValue(Empire civ)     { return level; }
     public float baseCost()                { return cost; }
     public float baseSize()                { return size; }

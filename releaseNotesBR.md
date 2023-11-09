@@ -27,7 +27,13 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Propulsion/Intergalactic Star Gates for Space Crystal.
   - Tech Monsters: All events + Tech triggered Monsters.
   - Only Monsters: Only Tech triggered Monsters.
+- Random Event Monsters: New option to make them give loots.
+  - Complete some current researh. And BC.
 - Galaxy Map: Holding "Ctrl" gives prirority on star system selection over fleet selection.
+- Trade Treaties give spy view into in ranges Empires systems.
+  - Traders are always good at spotting planets ready to trade, and report basic information!
+  - This to prevent friendly neighbors from constantly sending armed scouts and colony!
+
 
 <b><ins>Bug Fixes:</ins></b>
 - Fixed sound echo default values.
