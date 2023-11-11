@@ -39,7 +39,7 @@ import rotp.ui.map.IMapHandler;
 import rotp.ui.sprites.FlightPathSprite;
 import rotp.util.Base;
 
-public class ShipFleet extends FleetBase implements Ship {
+public class ShipFleet extends FleetBase {
     private static final long serialVersionUID = 1L;
     enum Status { ORBITING, DEPLOYED, IN_TRANSIT, RETREAT_ON_ARRIVAL };
     public final int empId;
@@ -97,6 +97,8 @@ public class ShipFleet extends FleetBase implements Ship {
     @Override
     public StarSystem destination()     { return galaxy().system(destSysId);  }
     @Override
+    public float destX()                { return destX; }
+    @Override
     public float destY()                { return destY; }
     @Override
     public float fromX()                { return fromX; }
@@ -144,6 +146,13 @@ public class ShipFleet extends FleetBase implements Ship {
                 return true;
         }
         return false;
+    }
+    public ShipFleet(int emp, int x, int y) {
+        empId = emp;
+        sysId = -1;
+        fromX = x;
+        fromY = y;
+        reloadBombs();
     }
     public ShipFleet(int emp, StarSystem s) {
         empId = emp;
@@ -204,6 +213,9 @@ public class ShipFleet extends FleetBase implements Ship {
         destX = fl.destX;
         destY = fl.destY;
     }
+//    public ShipFleet() {
+//        empId = -2;
+//    }
     @Override
     public StarSystem destinationOrRallySystem() {
         int destId = hasDestination() ? destSysId : rallySysId;
@@ -689,7 +701,8 @@ public class ShipFleet extends FleetBase implements Ship {
     public float travelTime(StarSystem dest, float speed) {
         if (inOrbit() || deployed()
         || (isInTransit() && (travelPct() == 0 && system() != null))) {
-            if (system().hasStargate(empire()) && dest.hasStargate(empire()))
+        	StarSystem sys = system();
+            if (sys != null && sys.hasStargate(empire()) && dest.hasStargate(empire()))
                 return 1;
         }
         return travelTime(this,dest,speed);
@@ -1110,7 +1123,7 @@ public class ShipFleet extends FleetBase implements Ship {
         else if (map.parent().isHovering(this))
             drawHovering(g2, map, x-s5, y-s5, w+s10, h+s10, cnr);
     }
-    private void drawSelection(Graphics2D g, GalaxyMapPanel map, int x, int y, int w, int h, int cnr) {
+    protected void drawSelection(Graphics2D g, GalaxyMapPanel map, int x, int y, int w, int h, int cnr) {
         if (empire() == null)
             return;
 
@@ -1123,7 +1136,7 @@ public class ShipFleet extends FleetBase implements Ship {
         g.drawRoundRect(x,y,w,h, cnr, cnr);
         g.setStroke(prev);
     }
-    private void drawHovering(Graphics2D g, GalaxyMapPanel map, int x, int y, int w, int h, int cnr) {
+    protected void drawHovering(Graphics2D g, GalaxyMapPanel map, int x, int y, int w, int h, int cnr) {
         if (empire() == null)
             return;
 

@@ -16,6 +16,7 @@
 package rotp.model.events;
 
 import rotp.model.empires.Empire;
+import rotp.model.galaxy.ShipMonster;
 import rotp.model.game.IGameOptions;
 import rotp.util.Base;
 import java.io.Serializable;
@@ -276,5 +277,14 @@ public class RandomEvents implements Base, Serializable {
 
         // should never get here... if we do, have event affect the player
         return player();
+    }
+    public List<ShipMonster> monsters() {
+    	List<ShipMonster> monsters = new ArrayList<>();
+    	for(RandomEvent ev: activeEvents) {
+    		if (ev.monsterEvent()) {
+    			monsters.add(ev.monster());
+    		}
+    	}
+    	return monsters;
     }
 }

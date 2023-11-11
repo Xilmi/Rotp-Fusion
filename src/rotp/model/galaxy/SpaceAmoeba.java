@@ -17,29 +17,36 @@ package rotp.model.galaxy;
 
 import rotp.model.colony.Colony;
 import rotp.model.combat.CombatStackSpaceAmoeba;
-import static rotp.model.events.RandomEventSpaceAmoeba.monster;
+//import static rotp.model.events.RandomEventSpaceAmoeba.monster;
+
+import java.awt.Image;
+
 import rotp.model.planet.PlanetType;
+import rotp.ui.main.GalaxyMapPanel;
 
 public class SpaceAmoeba extends SpaceMonster {
     private static final long serialVersionUID = 1L;
     public SpaceAmoeba() {
-        super("SPACE_AMOEBA");
+        super("SPACE_AMOEBA", -4);
     }
     @Override
     public void initCombat() {
         combatStacks().clear();
-        addCombatStack(new CombatStackSpaceAmoeba());       
+        addCombatStack(new CombatStackSpaceAmoeba(this));       
     }
     public void degradePlanet(StarSystem sys) {
         Colony col = sys.colony();
         if (col != null) {
             float prevFact = col.industry().factories();
             col.industry().factories(prevFact*0.1f);
-            sys.empire().lastAttacker(monster);
+            sys.empire().lastAttacker(this);
             col.destroy();
         }
         sys.planet().degradeToType(PlanetType.BARREN);
         sys.planet().resetWaste();     
         sys.abandoned(false);
     }
+    // ShipMonster overriders
+	@Override public int maxMapScale()	{ return GalaxyMapPanel.MAX_FLEET_HUGE_SCALE; }
+	@Override public Image shipImage()	{ return image("SPACE_AMOEBA"); }
 }

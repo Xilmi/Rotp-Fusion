@@ -213,7 +213,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         int y = getHeight()-scaled(275);
         this.repaint(s10,y,s30,scaled(205));
     }
-    // scale(float) will translate any arbitrary "real" distancce
+    // scale(float) will translate any arbitrary "real" distance
     // into a map distance in pixels
     public int scale(float d) {
         return (int) (d*this.getSize().width/scaleX());
@@ -842,6 +842,16 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
                             sh.pathSpriteTo(suspectedDestination).draw(this, g);
                     }
                 }
+                spr.draw(this, g);
+            }
+        }
+        List<Ship> visibleMonsters = new ArrayList<>(pl.visibleMonsters());
+        for (Ship sh: visibleMonsters) {
+            sh.setDisplayed(this);
+            if (sh.displayed()) {
+                Sprite spr = (Sprite) sh;
+                if (sh.pathSprite()!=null)
+                    sh.pathSprite().draw(this, g);
                 spr.draw(this, g);
             }
         }

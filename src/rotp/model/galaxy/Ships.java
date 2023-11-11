@@ -28,7 +28,7 @@ import rotp.util.Base;
 public class Ships implements Base, Serializable {
     private static final long serialVersionUID = 1L;
     private final List<ShipFleet> allFleets = new ArrayList<>();
-     private List<ShipFleet> allFleetsCopy() { return new ArrayList<>(allFleets); }
+    private List<ShipFleet> allFleetsCopy() { return new ArrayList<>(allFleets); }
     
     public void rallyOrbitingShips(int empId, int sysId, int designId, int count, int rallySysId) {
         ShipFleet orbitingFleet = orbitingFleet(empId, sysId);
@@ -538,10 +538,10 @@ public class Ships implements Base, Serializable {
             sys.empire().scanFleet(orbitingFleet);
         return false;
     }
-    public List<ShipFleet> visibleFleets(int empId) {
-        List<ShipFleet> fleets = new ArrayList<>();
-        return fleets;
-    }
+//    public List<ShipFleet> visibleFleets(int empId) { // ???
+//        List<ShipFleet> fleets = new ArrayList<>();
+//        return fleets;
+//    }
     public ShipFleet anyFleetAtSystem(int empId, int sysId) {
         List<ShipFleet> fleetsAll = allFleetsCopy();
         
@@ -809,14 +809,4 @@ public class Ships implements Base, Serializable {
         }
         return hullCount;        
     }
-//    public void spaceTimeShearing() {
-//        for (ShipFleet fl: allFleets) {
-//        	fl.reset();
-//        }
-//        allFleets.clear();
-//        Galaxy g = galaxy();
-//        for (Empire emp: g.empires())
-//            emp.visibleShips().clear();
-//
-//    }
 }

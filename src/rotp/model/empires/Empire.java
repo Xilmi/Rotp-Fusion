@@ -66,6 +66,7 @@ import rotp.model.galaxy.Location;
 import rotp.model.galaxy.NamedObject;
 import rotp.model.galaxy.Ship;
 import rotp.model.galaxy.ShipFleet;
+import rotp.model.galaxy.ShipMonster;
 import rotp.model.galaxy.Ships;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.galaxy.StarSystem.SystemBaseData;
@@ -184,6 +185,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     private transient int inRange;
     public  transient int numColoniesHistory;
     private transient String empireName;
+    private transient List<Ship> visibleMonsters = new ArrayList<>();
 
     public void resetAI() { ai = null; } // BR:
     public void changePlayerAI(String newAI) { // BR:
@@ -264,6 +266,12 @@ public final class Empire implements Base, NamedObject, Serializable {
             return galaxy().ships.notInTransitFleets(id);
     }
     public List<Ship> visibleShips()              { return visibleShips; }
+    public List<Ship> visibleMonsters()           {
+    	//visibleMonsters = null;
+    	if (visibleMonsters == null)
+    		setVisibleMonsters();
+    	return visibleMonsters;
+    }
     public Map<Ship, StarSystem> suspectedDestinationsOfVisibleShips()  {
     	if (suspectedDestinationsOfVisibleShips == null) // BR: To keep ascendent game compatibility
     		suspectedDestinationsOfVisibleShips = new HashMap<>();
@@ -2236,6 +2244,10 @@ public final class Empire implements Base, NamedObject, Serializable {
                 addVisibleShip(sh);
         }
     }
+    public void addVisibleMonster(Ship sh) {
+        if (sh.visibleTo(id) && !visibleMonsters.contains(sh))
+            visibleMonsters.add(sh);
+    }
     public List<ShipFleet> enemyFleets() {
         List<ShipFleet> list = new ArrayList<>();
         for (Ship sh: visibleShips()) {
@@ -2334,6 +2346,23 @@ public final class Empire implements Base, NamedObject, Serializable {
         for (Ship fl : visibleShips) {
             if (fl instanceof ShipFleet)
                 detectFleet((ShipFleet)fl);
+        }
+    }
+    public void setVisibleMonsters() {
+        Galaxy gal = galaxy();
+        visibleMonsters = null;
+        if (visibleMonsters == null)
+        	visibleMonsters = new ArrayList<>();
+        else
+        	visibleMonsters.clear();
+
+        List<ShipFleet> myShips = gal.ships.allFleets(id);
+        List<StarSystem> mySystems = this.allColonizedSystems();
+
+        // get monsters in transit
+        for (ShipMonster sh : gal.shipMonsters()) {
+            if ((sh.visibleTo(id) && canScanTo(sh, mySystems, myShips) ))
+            	addVisibleMonster(sh);
         }
     }
     public Map<Ship, Ship> matchShipsSeenThisTurnToShipsSeenLastTurn(List<Ship> visibleShips, Set<Ship> shipsVisibleLastTurnDestroyed) {

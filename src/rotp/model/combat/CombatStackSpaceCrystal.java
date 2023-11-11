@@ -18,14 +18,16 @@ package rotp.model.combat;
 import java.awt.Color;
 
 import rotp.model.ai.CrystalShipCaptain;
-import rotp.model.events.RandomEventSpaceCrystal;
+import rotp.model.galaxy.SpaceCrystal;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.ships.ShipWeaponMissileType;
 
 public class CombatStackSpaceCrystal extends CombatStack {
     private static final int MAX_WEAPON_DAMAGE = 1000;
     private boolean weaponUsed = false;
-    public CombatStackSpaceCrystal() {
+    private SpaceCrystal monster;
+    public CombatStackSpaceCrystal(SpaceCrystal crystal) {
+    	monster = crystal;
         num = 1;
         maxHits = hits = 7000;
         canTeleport = true;
@@ -74,7 +76,7 @@ public class CombatStackSpaceCrystal extends CombatStack {
                     if (st.isColony() && st.destroyed()) {
                         CombatStackColony cStack = (CombatStackColony) st;
                         st.mgr.destroyStack(st);
-                        RandomEventSpaceCrystal.monster.degradePlanet(st.mgr.system());                   
+                        monster.degradePlanet(st.mgr.system());                   
                         cStack.colonyDestroyed = true;
                     }
                 }

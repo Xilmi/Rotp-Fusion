@@ -17,6 +17,7 @@ package rotp.model.ai;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import rotp.model.ai.base.AIShipCaptain;
 import rotp.model.ai.interfaces.ShipCaptain;
 import rotp.model.combat.CombatStack;
@@ -24,11 +25,15 @@ import rotp.model.combat.CombatStackColony;
 import rotp.model.combat.CombatStackSpaceAmoeba;
 import rotp.model.combat.FlightPath;
 import rotp.model.combat.ShipCombatManager;
-import rotp.model.events.RandomEventSpaceAmoeba;
+import rotp.model.galaxy.SpaceAmoeba;
 import rotp.model.galaxy.StarSystem;
 import rotp.util.Base;
 
 public class AmoebaShipCaptain implements Base, ShipCaptain {
+	private SpaceAmoeba monster;
+	public AmoebaShipCaptain (SpaceAmoeba amoeba) {
+		monster = amoeba;
+	}
     @Override
     public StarSystem retreatSystem(StarSystem fr) { return null; }
     @Override
@@ -77,7 +82,7 @@ public class AmoebaShipCaptain implements Base, ShipCaptain {
     public void splitAmoeba(CombatStackSpaceAmoeba st) {
         float newScale = st.scale == 1.5f ? 1.0f : st.scale*2/3;
 
-        CombatStackSpaceAmoeba newStack = new CombatStackSpaceAmoeba();
+        CombatStackSpaceAmoeba newStack = new CombatStackSpaceAmoeba(monster);
         newStack.maxHits = st.maxHits;
         newStack.hits = st.maxHits;
         newStack.x = st.x;
@@ -88,7 +93,7 @@ public class AmoebaShipCaptain implements Base, ShipCaptain {
         
         // add to the event so this new stack can carry over to potential
         // combats with other fleets later in this turn
-        RandomEventSpaceAmoeba.monster.addCombatStack(newStack);   
+        monster.addCombatStack(newStack);   
         st.mgr.addStackToCombat(newStack);
         CombatStack eatenStack = st.mgr.moveStackNearest(newStack, st.x, st.y);
         newStack.eatShips(eatenStack);

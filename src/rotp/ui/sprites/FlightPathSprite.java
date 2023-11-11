@@ -92,6 +92,8 @@ public class FlightPathSprite extends MapSprite {
     public boolean aggressiveToPlayer() {
         Empire pl = player();
         Empire shipEmpire = galaxy().empire(ship.empId());
+        if (shipEmpire == null) // Monster
+        	return true;
         int targetEmpId = pl.sv.empId(to.id);
         return shipEmpire.isAI()
             && pl.alliedWith(targetEmpId)

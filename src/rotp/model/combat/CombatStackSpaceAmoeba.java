@@ -18,22 +18,24 @@ package rotp.model.combat;
 import java.awt.Color;
 
 import rotp.model.ai.AmoebaShipCaptain;
-import rotp.model.events.RandomEventSpaceAmoeba;
+import rotp.model.galaxy.SpaceAmoeba;
 import rotp.model.galaxy.StarSystem;
 
 public class CombatStackSpaceAmoeba extends CombatStack {
     private static final int DAMAGE_FOR_SPLIT = 500;
-    public CombatStackSpaceAmoeba() {
+    private SpaceAmoeba monster;
+    public CombatStackSpaceAmoeba(SpaceAmoeba amoeba) {
+        monster = amoeba;
         num = 1;
         maxHits = hits = 3500;
         maxMove = move = 2;
         beamDefense = 1;
         missileDefense = 1;     
         reversed = random() < .5;
-        captain = new AmoebaShipCaptain();
+        captain = new AmoebaShipCaptain(monster);
         image = image("SPACE_AMOEBA");
         scale = 1.5f;
-    }
+     }
     @Override
     public String name()                { return text("SPACE_AMOEBA"); }
     @Override
@@ -85,7 +87,7 @@ public class CombatStackSpaceAmoeba extends CombatStack {
         else if (st.isColony()) {
             CombatStackColony cStack = (CombatStackColony) st;
             st.mgr.destroyStack(st);
-            RandomEventSpaceAmoeba.monster.degradePlanet(st.mgr.system());
+            monster.degradePlanet(st.mgr.system());
             cStack.colonyDestroyed = true;
         }
 

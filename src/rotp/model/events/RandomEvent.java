@@ -16,6 +16,7 @@
 package rotp.model.events;
 
 import rotp.model.empires.Empire;
+import rotp.model.galaxy.SpaceMonster;
 // BR: kept for backward compatibility
 // default methods are now in the abstract class
 // Without keeping the interface, adding method in the abstract lead to some
@@ -34,5 +35,6 @@ public interface RandomEvent {
     void nextTurn();
     int minimumTurn();
     int startTurn();
-    default boolean techDiscovered() { return true; };
+    default boolean techDiscovered() { return true; }
+    default SpaceMonster monster()	 { return null; }
 }

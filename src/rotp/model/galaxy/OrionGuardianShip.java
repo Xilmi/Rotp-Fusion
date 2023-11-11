@@ -27,7 +27,8 @@ public class OrionGuardianShip extends SpaceMonster {
     private static final long serialVersionUID = 1L;
     private final List<String> techs = new ArrayList<>();
     public OrionGuardianShip() {
-        super("ORION_GUARDIAN");
+        super("ORION_GUARDIAN", -2);
+//        this.initEmpireSystem(galaxy().orionId());
         techs.add("ShipWeapon:16");  // death ray
     }
     @Override
@@ -60,4 +61,9 @@ public class OrionGuardianShip extends SpaceMonster {
     @Override
     protected DiplomaticIncident killIncident(Empire emp) { return KillGuardianIncident.create(emp.id, lastAttackerId, nameKey); }
 
+    // Ship overriders
+	@Override public boolean inTransit()	{ return false; }
+	@Override public boolean deployed()		{ return false; }
+	@Override public int empId()			{ return -2; }
+	@Override public Image shipImage()		{ return image("ORION_GUARDIAN"); }
 }

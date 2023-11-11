@@ -62,6 +62,8 @@ public interface IMappedObject {
     }
     default public float travelTime(IMappedObject fr, IMappedObject to, float speed) {
         float dist = fr.distanceTo(to);
+        if (speed<=1) // for Monsters
+        	return dist/speed-0.01f;
         int numSegments = (int) Math.ceil(dist);
         float dX = (to.x()-fr.x())/dist;
         float dY = (to.y()-fr.y())/dist;

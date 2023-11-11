@@ -155,7 +155,7 @@ public class ShipLibrary implements Base {
         return destImg;
     }
     public BufferedImage shipImageHuge(Integer colorId) {
-         int destH = BasePanel.s20;
+        int destH = BasePanel.s20;
         int destW = BasePanel.s30;
         int[] pX = new int[3];
         int[] pY = new int[3];

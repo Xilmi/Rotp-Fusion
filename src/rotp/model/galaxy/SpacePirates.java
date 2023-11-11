@@ -15,15 +15,17 @@
  */
 package rotp.model.galaxy;
 
+import java.awt.Image;
+
 import rotp.model.colony.Colony;
 import rotp.model.combat.CombatStackSpacePirates;
-import rotp.model.events.RandomEventSpacePirates;
+import rotp.ui.main.GalaxyMapPanel;
 
 // modnar: add Space Pirates random event
 public class SpacePirates extends SpaceMonster {
     private static final long serialVersionUID = 1L;
     public SpacePirates() {
-        super("SPACE_PIRATES");
+        super("SPACE_PIRATES", -5);
     }
     @Override
     public void initCombat() {
@@ -36,7 +38,7 @@ public class SpacePirates extends SpaceMonster {
     public void pillageColony(StarSystem sys) {
         Colony col = sys.colony();
         if (col != null) {
-            sys.empire().lastAttacker(RandomEventSpacePirates.monster);
+            sys.empire().lastAttacker(this);
 			float prevPop = col.population();
             col.setPopulation(prevPop*0.5f); // half population
             col.industry().factories(0.0f); // remove all factories
@@ -45,4 +47,7 @@ public class SpacePirates extends SpaceMonster {
             sys.planet().removeExcessWaste();
         }        
     }
+    // ShipMonster overriders
+	@Override public int maxMapScale()	{ return GalaxyMapPanel.MAX_FLEET_HUGE_SCALE; }
+	@Override public Image shipImage()	{ return image("SPACE_PIRATES"); }
 }

@@ -18,8 +18,6 @@ package rotp.model.galaxy;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.image.BufferedImage;
-import java.io.Serializable;
-import rotp.model.Sprite;
 import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
 import rotp.model.tech.TechArmor;
@@ -32,9 +30,8 @@ import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.notifications.TransportsCapturedAlert;
 import rotp.ui.notifications.TransportsPerishedAlert;
 import rotp.ui.sprites.FlightPathSprite;
-import rotp.util.Base;
 
-public class Transport extends FleetBase implements Base, Ship, Sprite, Serializable {
+public class Transport extends FleetBase {
     private static final long serialVersionUID = 1L;
     private Empire empire;
     private final StarSystem from;
@@ -58,7 +55,8 @@ public class Transport extends FleetBase implements Base, Ship, Sprite, Serializ
     private transient StarSystem hoveringDest;
 
 
-    public Empire empire()                   { return empire; }
+    @Override
+	public Empire empire()                   { return empire; }
     private TechArmor troopArmor()           { return (TechArmor) tech(troopArmorId); }
     private TechBattleSuit troopBattleSuit() { return (TechBattleSuit) tech(troopBattleSuitId); }
     private TechHandWeapon troopWeapon()     { return (TechHandWeapon) tech(troopWeaponId); }
@@ -93,7 +91,8 @@ public class Transport extends FleetBase implements Base, Ship, Sprite, Serializ
     @Override
     public String toString()          { return concat("Transport: ", Integer.toHexString(hashCode())); }
     public Colony home()              { return from.colony(); }
-    public StarSystem destination()   { return dest; }
+    @Override
+	public StarSystem destination()   { return dest; }
     public void setDest(StarSystem d) {
         dest = d;
         setArrivalTime();
@@ -113,7 +112,8 @@ public class Transport extends FleetBase implements Base, Ship, Sprite, Serializ
     @Override
     public float launchTime()         { return launchTime; }
     public Empire targetCiv()         { return targetEmp; }
-    public float travelSpeed()        { return travelSpeed; }
+    @Override
+	public float travelSpeed()        { return travelSpeed; }
     public void travelSpeed(float d)  { travelSpeed = d; }
 
 
@@ -236,7 +236,8 @@ public class Transport extends FleetBase implements Base, Ship, Sprite, Serializ
     // It sort of works, since Transports don't have a "deployed, not in transit" state like ShipFleet,
     // but a Transport is only not inTransit when dest == null, and when could that ever happen?
     public int travelTurnsRemaining()     { return !inTransit() ? 0 : (int)Math.ceil(arrivalTime()-galaxy().currentTime()); }
-    public float calculateArrivalTime() {
+    @Override
+	public float calculateArrivalTime() {
         // direct time is if we go straight there at empire's tech transport speed
         float directTime = travelTime(dest);
         // set time is if we have travelSpeed alrady set, by synching transports

@@ -52,7 +52,10 @@ public class Galaxy implements Base, Serializable {
     public static final float TIME_PER_TURN = 1;
     public	static final String EMPIRES_KEY	= "SETUP_EMPIRE_LIST";
     public	static final String SYSTEMS_KEY	= "SETUP_SYSTEM_LIST";
-
+//    public	static final List<ShipMonster> MONSTERS = new ArrayList<>();
+//    public	static final int	NUM_MONSTER	= 4;
+//    public	static final Empire[] MONSTERS	= new Empire[NUM_MONSTER];
+    
     private float currentTime = 0;
     private final GalacticCouncil council = new GalacticCouncil();
     private final RandomEvents events = new RandomEvents();
@@ -78,6 +81,7 @@ public class Galaxy implements Base, Serializable {
     private transient ShipCombatManager shipCombat = new ShipCombatManager();
     private transient Map<String, List<String>> raceSystemNames = new HashMap<>();
     private transient Map<String, Integer> raceSystemCtr = new HashMap<>();
+    private transient List<ShipMonster> shipMonsters;
 
     public void backupStarSystem() {
     	dynamicOptions.setObject(SYSTEMS_KEY, (Serializable) deepCopy(starSystems));
@@ -96,8 +100,20 @@ public class Galaxy implements Base, Serializable {
     public int numStarSystems()              { return systemCount; }
     public StarSystem[] starSystems()        { return starSystems; }
     public List<StarSystem> abandonedSystems() { return abandonedSystems; }
+    public StarSystem orionSystem() 		 { return system(orionId()); }
+    public int orionId() 				     {
+    	IGameOptions opts = options();
+    	int numEmpire = opts.selectedNumberOpponents() + 1;
+    	int numCompWorlds = opts.selectedCompanionWorlds();
+    	int numNearbySys  = 2;
+    	int orionId = numEmpire * (1 + numCompWorlds + numNearbySys);
+    	return orionId;
+    }
     public void addStarSystem(StarSystem s)  {
         starSystems[systemCount] = s;
+        // Init Orion Guardian, and maybe future little guardian monsters
+        if (s.hasMonster())
+        	s.monster().initEmpireSystem(systemCount, s);
         systemCount++;
         
         Nebula neb = nebulaContaining(s);
@@ -197,7 +213,7 @@ public class Galaxy implements Base, Serializable {
         if (!shape.valid(x,y+h))
             return false;
                 
-        // don't add nebulas whose center point is in an existing nebula
+        // don't add nebulae whose center point is in an existing nebula
         for (Nebula existingNeb: nebulas) {
             if (existingNeb.contains(neb.centerX(), neb.centerY()))
                 return false;
@@ -414,6 +430,7 @@ public class Galaxy implements Base, Serializable {
         RandomEventSpacePirates.triggerEmpire = isTechDiscovered(RandomEventSpacePirates.TRIGGER_TECH);
         RandomEventSpaceCrystal.triggerEmpire = isTechDiscovered(RandomEventSpaceCrystal.TRIGGER_TECH);
         RandomEventSpaceAmoeba.triggerEmpire  = isTechDiscovered(RandomEventSpaceAmoeba.TRIGGER_TECH);
+        player().setVisibleMonsters();
      }    
     public void validate() {
        for (Empire emp: empires())
@@ -470,6 +487,17 @@ public class Galaxy implements Base, Serializable {
                 break;
             galaxy().ships.arriveFleet(sh);
         }
+    }
+    public void clearShipMonsters()			{shipMonsters = null;}
+    public List<ShipMonster> shipMonsters()	{ // TODO BR: shipMonsters()
+    	shipMonsters = null;
+    	if (shipMonsters == null) {
+        	shipMonsters = events.monsters();
+        	SpaceMonster guardian = orionSystem().monster();
+        	if (guardian != null)
+        		shipMonsters.add(guardian);
+    	}
+    	return shipMonsters;
     }
     public List<Transport> transports()       { return transports; }
     public void removeTransport(Transport sh) { transports.remove(sh); }

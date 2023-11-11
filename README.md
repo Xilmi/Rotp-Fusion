@@ -67,6 +67,9 @@ Later:
 ## What's New
 
 2023.11.08 (BR)
+- Monsters and Guardian are visible.
+
+2023.11.08 (BR)
 - Random Event Monsters: new option to make them give loots.
   - Complete some current researh. And BC.
 - F7/F8 will loop thru planet with incoming monsters too.

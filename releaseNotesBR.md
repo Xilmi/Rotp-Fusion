@@ -33,7 +33,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Trade Treaties give spy view into in ranges Empires systems.
   - Traders are always good at spotting planets ready to trade, and report basic information!
   - This to prevent friendly neighbors from constantly sending armed scouts and colony!
-
+- Monsters and Guardian are visible.
 
 <b><ins>Bug Fixes:</ins></b>
 - Fixed sound echo default values.
