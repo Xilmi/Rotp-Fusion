@@ -66,7 +66,10 @@ Later:
 
 ## What's New
 
-2023.11.08 (BR)
+2023.11.12 (BR)
+- Removed Monsters redundancies.
+
+2023.11.10 (BR)
 - Monsters and Guardian are visible.
 
 2023.11.08 (BR)

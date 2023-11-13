@@ -29,33 +29,32 @@ public abstract class SpaceMonster extends ShipMonster implements NamedObject {
 	protected final String nameKey;
 	protected int lastAttackerId;
 	private final List<Integer> path = new ArrayList<>();
+	protected Float levelFactor;
 	private transient List<CombatStack> combatStacks = new ArrayList<>();
 	
-	public Empire lastAttacker()			   { return galaxy().empire(lastAttackerId); }
-	public void lastAttacker(Empire c)		 { lastAttackerId = c.id; }
-	public void visitSystem(int sysId)		 { path.add(sysId); }
-	public List<Integer> vistedSystems()	   { return path; }
+	public Empire lastAttacker()			{ return galaxy().empire(lastAttackerId); }
+	public void lastAttacker(Empire c)		{ lastAttackerId = c.id; }
+	public void visitSystem(int sysId)		{ path.add(sysId); }
+	public List<Integer> vistedSystems()	{ return path; }
 	public int vistedSystemsCount()			{ return path.size(); }
 	public List<CombatStack> combatStacks()	{
 		if (combatStacks == null)
 			combatStacks = new ArrayList<>();
 		return combatStacks; 
 	}
-	public Image image()  { return image(nameKey); }
-	public void initCombat() { }
-	public void addCombatStack(CombatStack c)  { combatStacks.add(c); }
-	public SpaceMonster(String name, int empId) {
-		super(empId);
-		nameKey = name;
-//		initEmpireSystem(empId);
+	public Image image()		{ return image(nameKey); }
+	public void initCombat()	{ }
+	public void addCombatStack(CombatStack c)	{ combatStacks.add(c); }
+	public SpaceMonster(String name, int empId, Float speed, Float level)	{
+		super(empId, speed);
+		nameKey		= name;
+		if (level == null)
+			levelFactor	= 1f;
+		else
+			levelFactor	= level;
 	}
-//	public SpaceMonster(String name) {
-//		super(-2, 0, 0);
-//		nameKey = name;
-//	}
-	@Override
-	public String name()	  { return text(nameKey);  }
-	public boolean alive()	{ 
+	@Override public String name()	{ return text(nameKey);  }
+	public boolean alive()			{ 
 		boolean alive = false;
 		for (CombatStack st: combatStacks) {
 			if (!st.destroyed())
@@ -76,4 +75,5 @@ public abstract class SpaceMonster extends ShipMonster implements NamedObject {
 			}
 		}
 	}
+	public void degradePlanet(StarSystem sys) {}
 }

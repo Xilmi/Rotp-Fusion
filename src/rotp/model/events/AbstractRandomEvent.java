@@ -61,18 +61,19 @@ abstract class AbstractRandomEvent implements RandomEvent, Base, Serializable {
 		if (delayTurn().get() < 0)
 			return true;
 		String reo = options().selectedRandomEventOption();
-		// Events Globally disabled ?
-		if (reo.equals(IGameOptions.RANDOM_EVENTS_OFF))
+		switch (reo) {
+		case IGameOptions.RANDOM_EVENTS_OFF:
 			return true;
-		// Only Monsters ?
-		if (!monsterEvent() && reo.equals(IGameOptions.RANDOM_EVENTS_ONLY_MONSTERS))
-			return true;
-		// Monster Disabled ?
-		if (monsterEvent() && reo.equals(IGameOptions.RANDOM_EVENTS_NO_MONSTERS))
-			return true;
-		// Monster Tech Waiting ?
-		if (!techDiscovered())
-			return true;
+		case IGameOptions.RANDOM_EVENTS_ON:
+			return false;
+		case IGameOptions.RANDOM_EVENTS_NO_MONSTERS:
+			return monsterEvent();
+		case IGameOptions.RANDOM_EVENTS_ONLY_MONSTERS:
+			return !(monsterEvent() && techDiscovered());
+		case IGameOptions.RANDOM_EVENTS_TECH_MONSTERS:
+			if (monsterEvent())
+				return !techDiscovered();
+		}
 		return false;
 	}
 	void terminateEvent(RandomEvent event) {

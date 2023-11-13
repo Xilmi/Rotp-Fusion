@@ -24,15 +24,15 @@ import rotp.ui.main.GalaxyMapPanel;
 
 public class SpaceCrystal extends SpaceMonster {
     private static final long serialVersionUID = 1L;
-    public SpaceCrystal() {
-        super("SPACE_CRYSTAL", -3);
+    public SpaceCrystal(Float speed, Float level) {
+        super("SPACE_CRYSTAL", -3, speed, level);
     }
     @Override
     public void initCombat() {
         combatStacks().clear();
         addCombatStack(new CombatStackSpaceCrystal(this));       
     }
-    public void degradePlanet(StarSystem sys) {
+    @Override public void degradePlanet(StarSystem sys) {
         Colony col = sys.colony();
         if (col != null) {
             sys.empire().lastAttacker(this);

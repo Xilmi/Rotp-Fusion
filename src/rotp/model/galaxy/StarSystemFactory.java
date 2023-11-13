@@ -32,12 +32,12 @@ public class StarSystemFactory implements Base {
         StarSystem sys = StarSystem.create(type, gal);
         return sys;
     }
-    public StarSystem newOrionSystem(Galaxy gal) {
+    public StarSystem newOrionSystem(Galaxy gal, Float speed, Float level) {
         IGameOptions opts = GameSession.instance().options();
         String type = opts.randomOrionStarType();
         StarSystem sys = StarSystem.create(type, gal);
         sys.planet(PlanetFactory.createOrion(sys, session().populationBonus()));
-        sys.monster(new OrionGuardianShip());
+        sys.monster(new OrionGuardianShip(speed, level));
         sys.name(text("PLANET_ORION"));
         return sys;
     }

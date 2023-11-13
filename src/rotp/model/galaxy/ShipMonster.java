@@ -14,10 +14,14 @@ public abstract class ShipMonster extends ShipFleet {
 	private float travelSpeed = max(0.4f, 1f / (1.5f * max(1, 100.0f/galaxy().maxNumStarSystems())));
 	private transient BufferedImage shipImage;
 
-	public ShipMonster(int emp) {
+	public ShipMonster(int emp, Float speed) {
 		super(emp, 0, 0);
+		if (speed == null)
+			travelSpeed = max(0.4f, 1f / (1.5f * max(1, 100.0f/galaxy().maxNumStarSystems())));
+		else
+			travelSpeed = speed;
 	}
-	protected void initEmpireSystem(int sysId, StarSystem s) {
+	protected void setEmpireSystem(int sysId, StarSystem s) {
 		sysId(sysId);
 		setXY(s);
 	}
@@ -62,9 +66,9 @@ public abstract class ShipMonster extends ShipFleet {
 		int y = mapY(map);
 		
 		if (!hasDestination() || (destX() >= x()))
-			g2.drawImage(img, x, y, w, h, map);
+			g2.drawImage(img, x-w/4, y-h/4, w, h, map);
 		else
-			g2.drawImage(img, x+w, y, -w, h, map);
+			g2.drawImage(img, x+w/2, y-h/4, -w, h, map);
 
 		int pad = BasePanel.s8;
 		selectBox().setBounds(x-pad,y-pad,w+pad+pad,h+pad+pad);
@@ -77,7 +81,6 @@ public abstract class ShipMonster extends ShipFleet {
 			drawHovering(g2, map, x-s5, y-s5, w+s10, h+s10, cnr);
 	}
 	@Override public boolean canSendTo(int sysId)			{ return false; }
-//	@Override public float travelSpeed()					{ return max(0.4f, 1f / (1.5f * max(1, 100.0f/galaxy().maxNumStarSystems()))); }
 	@Override public float travelSpeed()					{ return travelSpeed; }
 	@Override public boolean visibleTo(int empId)			{ return true; } // TODO BR: improve monster visibility analysis
 	@Override public int empId()							{ return -2; }

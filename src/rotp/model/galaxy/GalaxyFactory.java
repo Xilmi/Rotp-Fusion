@@ -709,7 +709,7 @@ public class GalaxyFactory implements Base {
 	private void addUnsettledSystemsForGalaxy(Galaxy g, GalaxyBaseData galSrc) { // Restart
 		// add Orion
 		SystemBaseData ref = galSrc.starSystems[g.numStarSystems()];
-		StarSystem orion = StarSystemFactory.current().newOrionSystem(g);
+		StarSystem orion = StarSystemFactory.current().newOrionSystem(g, null, null);
 		orion.setXY(ref.x, ref.y);
 		orion.name(text("PLANET_ORION"));
 		g.addStarSystem(orion);
@@ -728,7 +728,7 @@ public class GalaxyFactory implements Base {
 		IGameOptions opts = GameSession.instance().options(); // BR:
 		Point.Float pt = new Point.Float();
 		// add Orion, index =0;
-		StarSystem orion = StarSystemFactory.current().newOrionSystem(g);
+		StarSystem orion = StarSystemFactory.current().newOrionSystem(g, null, null);
 		sh.coords(0, pt);
 		orion.setXY(pt.x, pt.y);
 		orion.name(text("PLANET_ORION"));

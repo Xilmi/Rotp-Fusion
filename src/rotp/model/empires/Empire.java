@@ -267,7 +267,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     }
     public List<Ship> visibleShips()              { return visibleShips; }
     public List<Ship> visibleMonsters()           {
-    	//visibleMonsters = null;
+    	// visibleMonsters = null;
     	if (visibleMonsters == null)
     		setVisibleMonsters();
     	return visibleMonsters;
@@ -2350,7 +2350,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     }
     public void setVisibleMonsters() {
         Galaxy gal = galaxy();
-        visibleMonsters = null;
+        visibleMonsters = null; // TODO BR: Remove
         if (visibleMonsters == null)
         	visibleMonsters = new ArrayList<>();
         else

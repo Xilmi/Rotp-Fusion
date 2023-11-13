@@ -26,15 +26,15 @@ import rotp.ui.main.GalaxyMapPanel;
 
 public class SpaceAmoeba extends SpaceMonster {
     private static final long serialVersionUID = 1L;
-    public SpaceAmoeba() {
-        super("SPACE_AMOEBA", -4);
+    public SpaceAmoeba(Float speed, Float level) {
+        super("SPACE_AMOEBA", -4, speed, level);
     }
     @Override
     public void initCombat() {
         combatStacks().clear();
         addCombatStack(new CombatStackSpaceAmoeba(this));       
     }
-    public void degradePlanet(StarSystem sys) {
+    @Override public void degradePlanet(StarSystem sys) {
         Colony col = sys.colony();
         if (col != null) {
             float prevFact = col.industry().factories();

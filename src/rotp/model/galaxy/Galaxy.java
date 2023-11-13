@@ -113,7 +113,7 @@ public class Galaxy implements Base, Serializable {
         starSystems[systemCount] = s;
         // Init Orion Guardian, and maybe future little guardian monsters
         if (s.hasMonster())
-        	s.monster().initEmpireSystem(systemCount, s);
+        	s.monster().setEmpireSystem(systemCount, s);
         systemCount++;
         
         Nebula neb = nebulaContaining(s);
@@ -488,9 +488,9 @@ public class Galaxy implements Base, Serializable {
             galaxy().ships.arriveFleet(sh);
         }
     }
-    public void clearShipMonsters()			{shipMonsters = null;}
-    public List<ShipMonster> shipMonsters()	{ // TODO BR: shipMonsters()
-    	shipMonsters = null;
+    public void clearShipMonsters()			{ shipMonsters = null; }
+    public List<ShipMonster> shipMonsters()	{
+    	// shipMonsters = null;
     	if (shipMonsters == null) {
         	shipMonsters = events.monsters();
         	SpaceMonster guardian = orionSystem().monster();

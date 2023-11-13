@@ -130,6 +130,7 @@ public class RandomEvents implements Base, Serializable {
         // System.out.println("eventChance = " + eventChance);
         if (turnRnd() > eventChance)
             return;
+        // System.out.println("Random event to be selectionned");
 
         List<RandomEvent> subList = eventSubList();
 		if (subList.isEmpty())

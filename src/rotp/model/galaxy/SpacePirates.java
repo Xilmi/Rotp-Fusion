@@ -24,8 +24,8 @@ import rotp.ui.main.GalaxyMapPanel;
 // modnar: add Space Pirates random event
 public class SpacePirates extends SpaceMonster {
     private static final long serialVersionUID = 1L;
-    public SpacePirates() {
-        super("SPACE_PIRATES", -5);
+    public SpacePirates(Float speed, Float level) {
+        super("SPACE_PIRATES", -5, speed, level);
     }
     @Override
     public void initCombat() {
@@ -35,7 +35,7 @@ public class SpacePirates extends SpaceMonster {
 	// modnar: pirates pillage colonies rather than destroy
 	// half population, remove all factories, produce max waste
 	// ?? add to combat stack numbers from factories pillaged ??
-    public void pillageColony(StarSystem sys) {
+    @Override public void degradePlanet(StarSystem sys) { // was pillageColony
         Colony col = sys.colony();
         if (col != null) {
             sys.empire().lastAttacker(this);
