@@ -17,6 +17,7 @@ package rotp.model.events;
 
 import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
+import rotp.model.galaxy.Galaxy;
 import rotp.model.galaxy.SpaceMonster;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.notifications.GNNNotification;
@@ -32,7 +33,7 @@ abstract class RandomEventMonsters extends AbstractRandomEvent {
 	@Override public boolean monsterEvent() 	{ return true; }
 	@Override public SpaceMonster monster()		{
 		if (monster == null)
-			initMonster();
+			trackLostMonster(); // backward compatibility
 		return monster;
 	}
 	@Override int nextAllowedTurn()				{ // for backward compatibility
@@ -84,7 +85,7 @@ abstract class RandomEventMonsters extends AbstractRandomEvent {
 	
 	abstract protected String name();
 	abstract protected SpaceMonster newMonster(Float speed, Float level);
-	abstract protected void monsterDestroyed();
+	abstract protected Integer lootMonster(boolean lootMode);
 	protected int getNextSystem()				{
 		StarSystem targetSystem = galaxy().system(sysId);
 		// next system is one of the 10 nearest systems
@@ -110,7 +111,44 @@ abstract class RandomEventMonsters extends AbstractRandomEvent {
 		}
 		return nextSysId;
 	}
-
+	private void monsterDestroyed()	{
+		//galaxy().events().removeActiveEvent(this);
+		terminateEvent(this);
+		monster.plunder();
+		Empire emp = monster.lastAttacker();
+		String event = eventName();
+		String notifKey = event + "_3";
+		Integer saleAmount = null;
+		if (options().monstersGiveLoot()) {
+			notifKey = event + "_PLUNDER";
+			saleAmount = lootMonster(true);
+			emp.addToTreasury(saleAmount);
+		} else
+			saleAmount = lootMonster(false);
+		
+		if (player().knowsOf(empId)|| !player().sv.name(sysId).isEmpty())
+		   	GNNNotification.notifyRandomEvent(notificationText(notifKey, emp, saleAmount), gnnEvent());
+		monster = null;
+	}
+	
+	private void trackLostMonster()				{ // backward compatibility
+		Galaxy gal = galaxy();
+		for (StarSystem sys:gal.starSystems()) {
+			if (sys.hasEvent()) {
+				String event = sys.eventKey();
+				if (event.equals(systemKey())) {
+					sysId = sys.id;
+					empId = sys.empId();
+					turnCount = 3;
+					initMonster();
+					return;
+				}
+			}
+		}
+		// No destination found: terminate event
+		System.err.println("No destination found: terminate event " + systemKey());
+		terminateEvent(this);
+	}
 	private String eventName()					{ return "EVENT_SPACE_" + name(); }
 	private String dispName()					{ return capitalize(name()); }
 	private String statusMessageKey()			{ return "SYSTEMS_STATUS_SPACE" + name(); }
@@ -173,25 +211,13 @@ abstract class RandomEventMonsters extends AbstractRandomEvent {
 		StarSystem targetSystem = galaxy().system(sysId);
 		galaxy().shipCombat().battle(targetSystem, monster);
 	}
-	private void degradePlanet(StarSystem targetSystem)	{
-		Empire emp = targetSystem.empire();
-		// colony may have already been destroyed in combat
-		if (targetSystem.isColonized() || targetSystem.abandoned())
-			monster.degradePlanet(targetSystem);
-		
-		if (emp == null)
-			return;
-		Empire pl = player();
-		if (pl.knowsOf(emp) || !pl.sv.name(sysId).isEmpty())
-			GNNNotification.notifyRandomEvent(notificationText(eventName()+"_2", emp, null), gnnEvent());
-	}
 	private void monsterVanished()				{ // BR: To allow disappearance
 		terminateEvent(this);
 		if (player().knowsOf(galaxy().empire(empId)) || !player().sv.name(sysId).isEmpty())
 			GNNNotification.notifyRandomEvent(notificationText(eventName()+"_4", monster.lastAttacker(), null), gnnEvent());
 		monster = null;
 	}
-	private void moveToNextSystem()			{
+	private void moveToNextSystem()				{
 		monster.sysId(sysId); // be sure the monster is a t the planet
 		int nextSysId = getNextSystem();
 		if (nextSysId < 0) {
@@ -208,6 +234,18 @@ abstract class RandomEventMonsters extends AbstractRandomEvent {
 		turnCount = monster.travelTurnsRemaining();
 		if (turnCount <= 3)
 			approachSystem();	 
+	}
+	private void degradePlanet(StarSystem targetSystem)	{
+		Empire emp = targetSystem.empire();
+		// colony may have already been destroyed in combat
+		if (targetSystem.isColonized() || targetSystem.abandoned())
+			monster.degradePlanet(targetSystem);
+		
+		if (emp == null)
+			return;
+		Empire pl = player();
+		if (pl.knowsOf(emp) || !pl.sv.name(sysId).isEmpty())
+			GNNNotification.notifyRandomEvent(notificationText(eventName()+"_2", emp, null), gnnEvent());
 	}
 	protected String notificationText(String key, Empire emp, Integer amount)	{
 		String s1 = text(key);

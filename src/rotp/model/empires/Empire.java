@@ -66,7 +66,7 @@ import rotp.model.galaxy.Location;
 import rotp.model.galaxy.NamedObject;
 import rotp.model.galaxy.Ship;
 import rotp.model.galaxy.ShipFleet;
-import rotp.model.galaxy.ShipMonster;
+import rotp.model.galaxy.SpaceMonster;
 import rotp.model.galaxy.Ships;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.galaxy.StarSystem.SystemBaseData;
@@ -2360,7 +2360,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         List<StarSystem> mySystems = this.allColonizedSystems();
 
         // get monsters in transit
-        for (ShipMonster sh : gal.shipMonsters()) {
+        for (SpaceMonster sh : gal.spaceMonsters()) {
             if ((sh.visibleTo(id) && canScanTo(sh, mySystems, myShips) ))
             	addVisibleMonster(sh);
         }

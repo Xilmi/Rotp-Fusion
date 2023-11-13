@@ -68,6 +68,7 @@ Later:
 
 2023.11.12 (BR)
 - Removed Monsters redundancies.
+- Fixed backward compatibility by reseting the monster to 3 turns to the target. 
 
 2023.11.10 (BR)
 - Monsters and Guardian are visible.

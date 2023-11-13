@@ -494,7 +494,7 @@ public final class GameSession implements Base, Serializable {
                 }
 
                 gal.nextEmpireTurns();
-                gal.clearShipMonsters();
+                gal.clearSpaceMonsters();
                 player().setVisibleShips();
                 player().setVisibleMonsters();
 

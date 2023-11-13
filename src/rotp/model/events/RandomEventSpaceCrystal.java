@@ -19,7 +19,6 @@ import rotp.model.empires.Empire;
 import rotp.model.galaxy.SpaceCrystal;
 import rotp.model.galaxy.SpaceMonster;
 import rotp.model.game.IGameOptions;
-import rotp.ui.notifications.GNNNotification;
 import rotp.ui.util.ParamInteger;
 
 public class RandomEventSpaceCrystal extends RandomEventMonsters {
@@ -37,25 +36,17 @@ public class RandomEventSpaceCrystal extends RandomEventMonsters {
 	@Override protected String name()			{ return "CRYSTAL"; }
 	@Override ParamInteger delayTurn()			{ return IGameOptions.crystalDelayTurn; }
 	@Override ParamInteger returnTurn()			{ return IGameOptions.crystalReturnTurn; }
-	@Override protected void monsterDestroyed()	{
-		terminateEvent(this);
-		monster.plunder();
+	@Override protected Integer lootMonster(boolean lootMode)	{
+		if (!lootMode)
+			return null;
+		Integer saleAmount = galaxy().currentTurn();
+		// Studying Crystal remains help completing the current research
 		Empire emp = monster.lastAttacker();
-		String notifKey = "EVENT_SPACE_CRYSTAL_3";
-		Integer saleAmount = null;
-		if (options().monstersGiveLoot()) {
-			notifKey = "EVENT_SPACE_CRYSTAL_PLUNDER";
-			saleAmount = galaxy().currentTurn();
-			// Studying Crystal remains help completing the current research
-			if (emp.tech().propulsion().completeResearch())
-				saleAmount *= 10;
-			else
-				saleAmount *= 25; // if no research then more gold
-			// Selling the Crystal part gives reserve BC, scaling with turn number
-			emp.addToTreasury(saleAmount);
-		}
-		if (player().knowsOf(empId)|| !player().sv.name(sysId).isEmpty())
-		   	GNNNotification.notifyRandomEvent(notificationText(notifKey, emp, saleAmount), GNN_EVENT);
-		monster = null;
+		if (emp.tech().propulsion().completeResearch())
+			saleAmount *= 10;
+		else
+			saleAmount *= 25; // if no research then more gold
+		// Selling the Crystal part gives reserve BC, scaling with turn number
+		return saleAmount;
 	}
 }

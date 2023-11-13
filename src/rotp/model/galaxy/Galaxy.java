@@ -52,7 +52,7 @@ public class Galaxy implements Base, Serializable {
     public static final float TIME_PER_TURN = 1;
     public	static final String EMPIRES_KEY	= "SETUP_EMPIRE_LIST";
     public	static final String SYSTEMS_KEY	= "SETUP_SYSTEM_LIST";
-//    public	static final List<ShipMonster> MONSTERS = new ArrayList<>();
+//    public	static final List<SpaceMonster> MONSTERS = new ArrayList<>();
 //    public	static final int	NUM_MONSTER	= 4;
 //    public	static final Empire[] MONSTERS	= new Empire[NUM_MONSTER];
     
@@ -81,7 +81,7 @@ public class Galaxy implements Base, Serializable {
     private transient ShipCombatManager shipCombat = new ShipCombatManager();
     private transient Map<String, List<String>> raceSystemNames = new HashMap<>();
     private transient Map<String, Integer> raceSystemCtr = new HashMap<>();
-    private transient List<ShipMonster> shipMonsters;
+    private transient List<SpaceMonster> spaceMonsters;
 
     public void backupStarSystem() {
     	dynamicOptions.setObject(SYSTEMS_KEY, (Serializable) deepCopy(starSystems));
@@ -488,16 +488,16 @@ public class Galaxy implements Base, Serializable {
             galaxy().ships.arriveFleet(sh);
         }
     }
-    public void clearShipMonsters()			{ shipMonsters = null; }
-    public List<ShipMonster> shipMonsters()	{
-    	// shipMonsters = null;
-    	if (shipMonsters == null) {
-        	shipMonsters = events.monsters();
+    public void clearSpaceMonsters()			{ spaceMonsters = null; }
+    public List<SpaceMonster> spaceMonsters()	{
+    	// spaceMonsters = null;
+    	if (spaceMonsters == null) {
+        	spaceMonsters = events.monsters();
         	SpaceMonster guardian = orionSystem().monster();
         	if (guardian != null)
-        		shipMonsters.add(guardian);
+        		spaceMonsters.add(guardian);
     	}
-    	return shipMonsters;
+    	return spaceMonsters;
     }
     public List<Transport> transports()       { return transports; }
     public void removeTransport(Transport sh) { transports.remove(sh); }

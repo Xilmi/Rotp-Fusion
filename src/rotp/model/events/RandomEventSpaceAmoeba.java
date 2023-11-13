@@ -19,7 +19,6 @@ import rotp.model.empires.Empire;
 import rotp.model.galaxy.SpaceAmoeba;
 import rotp.model.galaxy.SpaceMonster;
 import rotp.model.game.IGameOptions;
-import rotp.ui.notifications.GNNNotification;
 import rotp.ui.util.ParamInteger;
 
 public class RandomEventSpaceAmoeba extends RandomEventMonsters {
@@ -37,26 +36,17 @@ public class RandomEventSpaceAmoeba extends RandomEventMonsters {
 	@Override protected String name()			{ return "AMOEBA"; }
 	@Override ParamInteger delayTurn()			{ return IGameOptions.amoebaDelayTurn; }
 	@Override ParamInteger returnTurn()			{ return IGameOptions.amoebaReturnTurn; }
-	@Override protected void monsterDestroyed()	{
-		//galaxy().events().removeActiveEvent(this);
-		terminateEvent(this);
-		monster.plunder();
+	@Override protected Integer lootMonster(boolean lootMode)	{
+		if (!lootMode)
+			return null;
+		Integer saleAmount = galaxy().currentTurn();
+		// Studying amoeba remains help completing the current research
 		Empire emp = monster.lastAttacker();
-		String notifKey = "EVENT_SPACE_AMOEBA_3";
-		Integer saleAmount = null;
-		if (options().monstersGiveLoot()) {
-			notifKey = "EVENT_SPACE_AMOEBA_PLUNDER";
-			saleAmount = galaxy().currentTurn();
-			// Studying amoeba remains help completing the current research
-			if (emp.tech().planetology().completeResearch())
-				saleAmount *= 10;
-			else
-				saleAmount *= 25; // if no research then more gold
-			// Selling the amoeba flesh gives reserve BC, scaling with turn number
-			emp.addToTreasury(saleAmount);
-		}
-		if (player().knowsOf(empId)|| !player().sv.name(sysId).isEmpty())
-		   	GNNNotification.notifyRandomEvent(notificationText(notifKey, emp, saleAmount), GNN_EVENT);
-		monster = null;
+		if (emp.tech().planetology().completeResearch())
+			saleAmount *= 10;
+		else
+			saleAmount *= 25; // if no research then more gold
+		// Selling the amoeba flesh gives reserve BC, scaling with turn number
+		return saleAmount;
 	}
 }

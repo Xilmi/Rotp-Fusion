@@ -25,7 +25,6 @@ import rotp.model.galaxy.SpacePirates;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.game.IGameOptions;
 import rotp.model.tech.TechCategory;
-import rotp.ui.notifications.GNNNotification;
 import rotp.ui.util.ParamInteger;
 
 // modnar: add Space Pirates random event
@@ -44,14 +43,10 @@ public class RandomEventSpacePirates extends RandomEventMonsters {
 	@Override protected String name()			{ return "PIRATES"; }
 	@Override ParamInteger delayTurn()			{ return IGameOptions.piratesDelayTurn; }
 	@Override ParamInteger returnTurn()			{ return IGameOptions.piratesReturnTurn; }
-	@Override protected void monsterDestroyed()	{
-		terminateEvent(this);
-		monster.plunder();
-		String notifKey = "EVENT_SPACE_PIRATES_3";
+	@Override protected Integer lootMonster(boolean lootMode)	{
 		Empire heroEmp = monster.lastAttacker();
 		int spoilsBC;
-		if (options().monstersGiveLoot()) {
-			notifKey = "EVENT_SPACE_PIRATES_PLUNDER";
+		if (lootMode) {
 			// Studying Damaged Pirate ships help completing two current research
 			List<TechCategory> catList = new ArrayList<>();
 			catList.add(heroEmp.tech().weapon());
@@ -69,17 +64,13 @@ public class RandomEventSpacePirates extends RandomEventMonsters {
 			}
 			// destroying the space pirates gives reserve BC, scaling with turn number
 			spoilsBC = galaxy().currentTurn() * 10 *(3-techLearned);
-			heroEmp.addToTreasury(spoilsBC);
 		}
 		else {
 			// destroying the space pirates gives reserve BC, scaling with turn number
 			int turnNum = galaxy().currentTurn();
 			spoilsBC = turnNum * 25;
-			heroEmp.addToTreasury(spoilsBC);
 		}
-		if (player().knowsOf(empId)|| !player().sv.name(sysId).isEmpty())
-		   	GNNNotification.notifyRandomEvent(notificationText(notifKey, heroEmp, spoilsBC), GNN_EVENT);
-		monster = null;
+		return spoilsBC;
 	}
 	@Override protected int getNextSystem()		{
 		StarSystem targetSystem = galaxy().system(sysId);
