@@ -26,8 +26,10 @@ abstract class RandomEventMonsters extends AbstractRandomEvent {
 //	private static final long serialVersionUID = 1L;
 	protected int empId;
 	protected int sysId;
-	private int turnCount = 0;
+	protected int turnCount = 0;
 	protected SpaceMonster monster;
+	protected float level = 1.0f;
+	protected float speed = max(0.4f, 1f / (1.5f * max(1, 100.0f/galaxy().maxNumStarSystems())));
 	
 	@Override public boolean goodEvent()		{ return false; }
 	@Override public boolean monsterEvent() 	{ return true; }
@@ -82,6 +84,11 @@ abstract class RandomEventMonsters extends AbstractRandomEvent {
 			enterSystem();
 		turnCount--;
 	}
+	@Override public int  startTurn()			{
+		if (techDiscovered() && options().techRandomEvents())
+			return 1;
+		return super.startTurn();
+	}
 	
 	abstract protected String name();
 	abstract protected SpaceMonster newMonster(Float speed, Float level);
@@ -111,7 +118,7 @@ abstract class RandomEventMonsters extends AbstractRandomEvent {
 		}
 		return nextSysId;
 	}
-	private void monsterDestroyed()	{
+	private void monsterDestroyed()				{
 		//galaxy().events().removeActiveEvent(this);
 		terminateEvent(this);
 		monster.plunder();
@@ -130,7 +137,6 @@ abstract class RandomEventMonsters extends AbstractRandomEvent {
 		   	GNNNotification.notifyRandomEvent(notificationText(notifKey, emp, saleAmount), gnnEvent());
 		monster = null;
 	}
-	
 	private void trackLostMonster()				{ // backward compatibility
 		Galaxy gal = galaxy();
 		for (StarSystem sys:gal.starSystems()) {
@@ -172,7 +178,8 @@ abstract class RandomEventMonsters extends AbstractRandomEvent {
 		return maxSystem == 0 || maxSystem > monster.vistedSystemsCount();
 	}
 	private void initMonster()					{
-		monster = newMonster(null, null); // for future use
+		level = options().monstersLevel();
+		monster = newMonster(speed, level);
 		StarSystem targetSystem = galaxy().system(sysId);
 		double alpha = random()*Math.PI*2;
 		float speed	= monster.travelSpeed();

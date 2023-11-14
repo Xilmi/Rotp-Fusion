@@ -32,7 +32,7 @@ public class SpaceAmoeba extends SpaceMonster {
     @Override
     public void initCombat() {
         combatStacks().clear();
-        addCombatStack(new CombatStackSpaceAmoeba(this));       
+        addCombatStack(new CombatStackSpaceAmoeba(this, travelSpeed(), monsterLevel));       
     }
     @Override public void degradePlanet(StarSystem sys) {
         Colony col = sys.colony();

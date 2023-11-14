@@ -2350,7 +2350,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     }
     public void setVisibleMonsters() {
         Galaxy gal = galaxy();
-        visibleMonsters = null; // TODO BR: Remove
+        // visibleMonsters = null; // BR: Remove
         if (visibleMonsters == null)
         	visibleMonsters = new ArrayList<>();
         else

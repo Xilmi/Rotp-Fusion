@@ -30,7 +30,7 @@ public class RandomEventSpaceAmoeba extends RandomEventMonsters {
 	public static Empire triggerEmpire;
 
 	@Override protected SpaceMonster newMonster(Float speed, Float level) {
-		return new SpaceAmoeba(null, null);
+		return new SpaceAmoeba(speed, level);
 	}
 	@Override public boolean techDiscovered()	{ return triggerEmpire != null; }
 	@Override protected String name()			{ return "AMOEBA"; }

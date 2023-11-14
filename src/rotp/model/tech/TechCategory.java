@@ -105,7 +105,7 @@ public final class TechCategory implements Base, Serializable {
         init();
     }
 
-    private void isTriggerEvent(String id, Empire emp) { // TODO BR: Tech event trigger
+    private void isTriggerEvent(String id, Empire emp) {
     	boolean newEvent = false;
     	String gnnEvent	 = "";
     	String gnnKey	 = "";

@@ -20,10 +20,16 @@ import rotp.model.ai.interfaces.ShipCaptain;
 import rotp.model.combat.CombatStack;
 import rotp.model.combat.FlightPath;
 import rotp.model.combat.ShipCombatManager;
+import rotp.model.galaxy.SpaceCrystal;
 import rotp.model.galaxy.StarSystem;
 import rotp.util.Base;
 
 public class CrystalShipCaptain implements Base, ShipCaptain {
+	@SuppressWarnings("unused")
+	private SpaceCrystal monster; // for future use
+	public CrystalShipCaptain(SpaceCrystal crystal) {
+		monster = crystal;
+	}
     @Override
     public StarSystem retreatSystem(StarSystem fr) { return null; }
     @Override

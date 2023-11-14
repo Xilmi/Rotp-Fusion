@@ -17,18 +17,26 @@ package rotp.model.ai;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import rotp.model.ai.base.AIShipCaptain;
 import rotp.model.ai.interfaces.ShipCaptain;
 import rotp.model.combat.CombatStack;
 import rotp.model.combat.CombatStackColony;
 import rotp.model.combat.FlightPath;
 import rotp.model.combat.ShipCombatManager;
+import rotp.model.galaxy.SpacePirates;
 import rotp.model.galaxy.StarSystem;
 import rotp.util.Base;
 
 // modnar: add Space Pirates random event
 // modnar: Space Pirates Captain, use OrionGuardianCaptain.java as template
 public class SpacePiratesCaptain implements Base, ShipCaptain {
+	@SuppressWarnings("unused")
+	private SpacePirates monster; // for potential later use
+	public SpacePiratesCaptain (SpacePirates pirate) {
+		monster = pirate;
+	}
+
     @Override
     public StarSystem retreatSystem(StarSystem fr) { return null; }
     @Override
@@ -71,7 +79,7 @@ public class SpacePiratesCaptain implements Base, ShipCaptain {
     }
     @Override
     public FlightPath pathTo(CombatStack st, int x, int y) { return null; }
-    private  FlightPath chooseTarget(CombatStack stack) {
+    private FlightPath chooseTarget(CombatStack stack) {
         ShipCombatManager mgr = galaxy().shipCombat();
 		CombatStackColony colony = stack.mgr.results().colonyStack;
 

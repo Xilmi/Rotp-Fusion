@@ -30,7 +30,7 @@ public class RandomEventSpaceCrystal extends RandomEventMonsters {
 	public static Empire triggerEmpire;
 
 	@Override protected SpaceMonster newMonster(Float speed, Float level) {
-		return new SpaceCrystal(null, null);
+		return new SpaceCrystal(speed, level);
 	}
 	@Override public boolean techDiscovered()	{ return triggerEmpire != null; }
 	@Override protected String name()			{ return "CRYSTAL"; }

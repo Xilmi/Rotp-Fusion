@@ -30,7 +30,7 @@ public class SpacePirates extends SpaceMonster {
     @Override
     public void initCombat() {
         combatStacks().clear();
-        addCombatStack(new CombatStackSpacePirates());       
+        addCombatStack(new CombatStackSpacePirates(this, travelSpeed(), monsterLevel));       
     }
 	// modnar: pirates pillage colonies rather than destroy
 	// half population, remove all factories, produce max waste

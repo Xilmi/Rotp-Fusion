@@ -36,10 +36,20 @@ public class CombatStackSpacePirates extends CombatStack {
     public int[] baseTurnsToFire = new int[4];    // how many turns to wait before you can fire again
     public int[] wpnTurnsToFire = new int[4];    // how many turns to wait before you can fire again
     public ShipComponent selectedWeapon;
+    public SpacePirates monster;
+    public float speed;
+    public float monsterLevel;
 	
-    public CombatStackSpacePirates() {
-		captain = new SpacePiratesCaptain();
+    public CombatStackSpacePirates(SpacePirates pirates, Float speed, Float level) {
+		captain = new SpacePiratesCaptain(monster);
         image = image("SPACE_PIRATES");
+        if (level == null)
+        	monsterLevel = options().monstersLevel();
+        else
+        	monsterLevel = level;
+        float wsLevel	= monsterLevel;
+        float numLevel	= monsterLevel;
+        float hitLevel	= monsterLevel;
 		
 		// modnar: adjust Space Pirate ship stack stats based on galaxy empire development
 		// based on highest average tech level, difficulty, and galaxy size
@@ -69,8 +79,8 @@ public class CombatStackSpacePirates extends CombatStack {
 		// also gradually scale number of weapons, attackLevel, and defenses within each design tier, 75% to 100%
 		float weaponScale = 1.0f;
 		if (maxTechLvl <= 5) {
-			weaponScale = (maxTechLvl + 15.0f)/20.0f;// gradually scale weapon count
-			num = 5;
+			weaponScale = wsLevel * (maxTechLvl + 15.0f)/20.0f;// gradually scale weapon count
+			num = (int) (5 * numLevel);
 			maxHits = hits = 18;
 			maxMove = move = 1;
 			maneuverability = 1;
@@ -98,8 +108,8 @@ public class CombatStackSpacePirates extends CombatStack {
 			shotsRemaining[3] = 1;
 		}
 		else if ((maxTechLvl > 5) && (maxTechLvl <= 10)) {
-			weaponScale = (maxTechLvl + 10.0f)/20.0f;// gradually scale weapon count
-			num = (int)Math.ceil(stackScale*maxTechLvl);
+			weaponScale = wsLevel * (maxTechLvl + 10.0f)/20.0f;// gradually scale weapon count
+			num = (int) Math.ceil(numLevel*stackScale*maxTechLvl);
 			maxHits = hits = 18;
 			maxMove = move = 2;
 			maneuverability = 2;
@@ -126,8 +136,8 @@ public class CombatStackSpacePirates extends CombatStack {
 			shotsRemaining[3] = 1;
 		}
 		else if ((maxTechLvl > 10) && (maxTechLvl <= 15)) {
-			weaponScale = (maxTechLvl + 5.0f)/20.0f;// gradually scale weapon count
-			num = (int)Math.ceil(stackScale*maxTechLvl);
+			weaponScale = wsLevel * (maxTechLvl + 5.0f)/20.0f;// gradually scale weapon count
+			num = (int) Math.ceil(numLevel*stackScale*maxTechLvl);
 			maxHits = hits = 27;
 			maxMove = move = 2;
 			maneuverability = 3;
@@ -154,8 +164,8 @@ public class CombatStackSpacePirates extends CombatStack {
 			shotsRemaining[3] = 1;
 		}
 		else if ((maxTechLvl > 15) && (maxTechLvl <= 20)) {
-			weaponScale = (maxTechLvl + 0.0f)/20.0f;// gradually scale weapon count
-			num = (int)Math.ceil(stackScale*maxTechLvl);
+			weaponScale = wsLevel * (maxTechLvl + 0.0f)/20.0f;// gradually scale weapon count
+			num = (int) Math.ceil(numLevel*stackScale*maxTechLvl);
 			maxHits = hits = 36;
 			maxMove = move = 3;
 			maneuverability = 4;
@@ -183,8 +193,8 @@ public class CombatStackSpacePirates extends CombatStack {
 			shotsRemaining[3] = 1;
 		}
 		else if ((maxTechLvl > 20) && (maxTechLvl <= 25)) {
-			weaponScale = (maxTechLvl - 5.0f)/20.0f;// gradually scale weapon count
-			num = (int)Math.ceil(stackScale*maxTechLvl);
+			weaponScale = wsLevel * (maxTechLvl - 5.0f)/20.0f;// gradually scale weapon count
+			num = (int) Math.ceil(numLevel*stackScale*maxTechLvl);
 			maxHits = hits = 36;
 			maxMove = move = 3;
 			maneuverability = 4;
@@ -212,8 +222,8 @@ public class CombatStackSpacePirates extends CombatStack {
 			shotsRemaining[3] = 1;
 		}
 		else if ((maxTechLvl > 25) && (maxTechLvl <= 30)) {
-			weaponScale = (maxTechLvl - 10.0f)/20.0f;// gradually scale weapon count
-			num = (int)Math.ceil(stackScale*maxTechLvl);
+			weaponScale = wsLevel * (maxTechLvl - 10.0f)/20.0f;// gradually scale weapon count
+			num = (int) Math.ceil(numLevel*stackScale*maxTechLvl);
 			maxHits = hits = 45;
 			maxMove = move = 4;
 			maneuverability = 5;
@@ -241,8 +251,8 @@ public class CombatStackSpacePirates extends CombatStack {
 			shotsRemaining[3] = 1;
 		}
 		else if ((maxTechLvl > 30) && (maxTechLvl <= 35)) {
-			weaponScale = (maxTechLvl - 15.0f)/20.0f;// gradually scale weapon count
-			num = (int)Math.ceil(stackScale*maxTechLvl);
+			weaponScale = wsLevel * (maxTechLvl - 15.0f)/20.0f;// gradually scale weapon count
+			num = (int) Math.ceil(numLevel*stackScale*maxTechLvl);
 			maxHits = hits = 54;
 			maxMove = move = 4;
 			maneuverability = 6;
@@ -272,8 +282,8 @@ public class CombatStackSpacePirates extends CombatStack {
 			shotsRemaining[3] = 1;
 		}
 		else if ((maxTechLvl > 35) && (maxTechLvl <= 40)) {
-			weaponScale = (maxTechLvl - 20.0f)/20.0f;// gradually scale weapon count
-			num = (int)Math.ceil(stackScale*maxTechLvl);
+			weaponScale = wsLevel * (maxTechLvl - 20.0f)/20.0f;// gradually scale weapon count
+			num = (int) Math.ceil(numLevel*stackScale*maxTechLvl);
 			maxHits = hits = 54;
 			maxMove = move = 5;
 			maneuverability = 7;
@@ -303,8 +313,8 @@ public class CombatStackSpacePirates extends CombatStack {
 			shotsRemaining[3] = 1;
 		}
 		else if ((maxTechLvl > 40) && (maxTechLvl <= 45)) {
-			weaponScale = (maxTechLvl - 25.0f)/20.0f;// gradually scale weapon count
-			num = (int)Math.ceil(stackScale*maxTechLvl);
+			weaponScale = wsLevel * (maxTechLvl - 25.0f)/20.0f;// gradually scale weapon count
+			num = (int) Math.ceil(numLevel*stackScale*maxTechLvl);
 			maxHits = hits = 63;
 			maxMove = move = 5;
 			maneuverability = 8;
@@ -334,8 +344,8 @@ public class CombatStackSpacePirates extends CombatStack {
 			shotsRemaining[3] = 1;
 		}
 		else if ((maxTechLvl > 45) && (maxTechLvl <= 50)) {
-			weaponScale = (maxTechLvl - 30.0f)/20.0f;// gradually scale weapon count
-			num = (int)Math.ceil(stackScale*maxTechLvl);
+			weaponScale = wsLevel * (maxTechLvl - 30.0f)/20.0f;// gradually scale weapon count
+			num = (int) Math.ceil(numLevel*stackScale*maxTechLvl);
 			maxHits = hits = 63;
 			maxMove = move = 6;
 			maneuverability = 8;
@@ -365,8 +375,8 @@ public class CombatStackSpacePirates extends CombatStack {
 			shotsRemaining[3] = 1;
 		}
 		else if ((maxTechLvl > 50) && (maxTechLvl <= 55)) {
-			weaponScale = (maxTechLvl - 35.0f)/20.0f;// gradually scale weapon count
-			num = (int)Math.ceil(stackScale*maxTechLvl);
+			weaponScale = wsLevel * (maxTechLvl - 35.0f)/20.0f;// gradually scale weapon count
+			num = (int) Math.ceil(numLevel*stackScale*maxTechLvl);
 			maxHits = hits = 72;
 			maxMove = move = 7;
 			maneuverability = 9;
@@ -396,8 +406,8 @@ public class CombatStackSpacePirates extends CombatStack {
 			shotsRemaining[3] = 1;
 		}
 		else {
-			num = (int)Math.ceil(stackScale*maxTechLvl);
-			maxHits = hits = (int)(9*Math.ceil(maxTechLvl/5));
+			num = (int) (numLevel * Math.ceil(stackScale*maxTechLvl));
+			maxHits = hits = (int)(hitLevel * 9*Math.ceil(maxTechLvl/5));
 			maxMove = move = 7;
 			maneuverability = 9;
 			attackLevel = 12;

@@ -14,6 +14,7 @@ import rotp.ui.util.ParamTitle;
 public interface IRandomEvents extends IBaseOptsTools {
 
 	String RANDOM_EVENTS_GUI_ID	= "RANDOM_EVENTS";
+	String SPECIAL_MULTIPLE		= MOD_UI + "RANDOM_EVENT_MULTIPLE";
 	String SPECIAL_DISABLED		= MOD_UI + "RANDOM_EVENT_DISABLED";
 	String SPECIAL_UNIQUE		= MOD_UI + "RANDOM_EVENT_UNIQUE";
 	String SPECIAL_UNLIMITED	= MOD_UI + "RANDOM_EVENT_UNLIMITED";
@@ -35,7 +36,7 @@ public interface IRandomEvents extends IBaseOptsTools {
 	ParamBoolean fixedEventsMode	= new ParamBoolean(MOD_UI, "FIXED_EVENTS_MODE", false);
 	default boolean selectedFixedEventsMode()	{ return fixedEventsMode.get(); }
 	
-	ParamList    monstersGiveLoots	= new ParamList( MOD_UI, "MONSTERS_GIVE_LOOTS", "No") { // TODO BR: monstersGiveLoots
+	ParamList    monstersGiveLoots	= new ParamList( MOD_UI, "MONSTERS_GIVE_LOOTS", "No") {
 		{
 			showFullGuide(true);
 			put("No", 	MOD_UI + "MONSTERS_GIVE_LOOTS_NO");
@@ -44,6 +45,21 @@ public interface IRandomEvents extends IBaseOptsTools {
 	};
 	default boolean monstersGiveLoot()	{ return monstersGiveLoots.get().equalsIgnoreCase("Yes"); }
 
+	ParamList    monstersLevel	= new ParamList( MOD_UI, "MONSTERS_LEVEL", "Normal") {
+		{
+			showFullGuide(true);
+			put("Normal", 	MOD_UI + "MONSTERS_LEVEL_NORMAL");
+			put("Easy",		MOD_UI + "MONSTERS_LEVEL_EASY");
+		}
+	};
+	default String	monstersLevelKey()		{ return monstersLevel.get(); }
+	default float	monstersLevel()			{
+		switch (monstersLevel.get()) {
+			case "Easy":	return 0.7f;
+			case "Normal":
+			default:		return 1.0f;
+		}
+	}
 	
 	// ========================================================================
 	// BR: RANDOM EVENT MONSTERS PARAMETERS
@@ -54,12 +70,15 @@ public interface IRandomEvents extends IBaseOptsTools {
 	ParamInteger crystalDelayTurn	= new ParamInteger(MOD_UI, "CRYSTAL_DELAY_TURN", 100, -1, MAX_DELAY_TURN, 1, 5, 20)
 			.specialNegative(SPECIAL_DISABLED);
 
-	ParamInteger piratesReturnTurn	= new ParamInteger(MOD_UI, "PIRATES_RETURN_TURN", 0, 0, MAX_RETURN_TURN, 1, 5, 20)
-			.specialZero(SPECIAL_UNIQUE);
-	ParamInteger amoebaReturnTurn	= new ParamInteger(MOD_UI, "AMOEBA_RETURN_TURN",  0, 0, MAX_RETURN_TURN, 1, 5, 20)
-			.specialZero(SPECIAL_UNIQUE);
-	ParamInteger crystalReturnTurn	= new ParamInteger(MOD_UI, "CRYSTAL_RETURN_TURN", 0, 0, MAX_RETURN_TURN, 1, 5, 20)
-			.specialZero(SPECIAL_UNIQUE);
+	ParamInteger piratesReturnTurn	= new ParamInteger(MOD_UI, "PIRATES_RETURN_TURN", 0, -1, MAX_RETURN_TURN, 1, 5, 20)
+			.specialZero(SPECIAL_UNIQUE)
+			.specialNegative(SPECIAL_MULTIPLE);
+	ParamInteger amoebaReturnTurn	= new ParamInteger(MOD_UI, "AMOEBA_RETURN_TURN",  0, -1, MAX_RETURN_TURN, 1, 5, 20)
+			.specialZero(SPECIAL_UNIQUE)
+			.specialNegative(SPECIAL_MULTIPLE);
+	ParamInteger crystalReturnTurn	= new ParamInteger(MOD_UI, "CRYSTAL_RETURN_TURN", 0, -1, MAX_RETURN_TURN, 1, 5, 20)
+			.specialZero(SPECIAL_UNIQUE)
+			.specialNegative(SPECIAL_MULTIPLE);
 
 	ParamInteger piratesMaxSystems	= new ParamInteger(MOD_UI, "PIRATES_MAX_SYSTEMS", 0, 0, MAX_SYSTEMS, 1, 5, 20)
 			.specialZero(SPECIAL_UNLIMITED);
@@ -155,7 +174,8 @@ public interface IRandomEvents extends IBaseOptsTools {
 				new ParamTitle("RANDOM_EVENTS_GLOBAL"),
 				IAdvOptions.randomEvents,
 				eventsStartTurn, eventsPace,
-				eventsFavorWeak, fixedEventsMode, monstersGiveLoots,
+				eventsFavorWeak, fixedEventsMode,
+				monstersGiveLoots, monstersLevel,
 
 				headerSpacer,
 				new ParamTitle("RANDOM_EVENTS_MONSTERS"),

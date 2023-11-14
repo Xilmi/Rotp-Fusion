@@ -67,6 +67,11 @@ Later:
 ## What's New
 
 2023.11.12 (BR)
+- New Option for multiple concurrent monsters
+- Ready for monster extensions
+- New Option for easier monsters.
+
+2023.11.12 (BR)
 - Removed Monsters redundancies.
 - Fixed backward compatibility by reseting the monster to 3 turns to the target. 
 

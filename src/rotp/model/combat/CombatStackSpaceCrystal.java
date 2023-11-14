@@ -25,16 +25,22 @@ import rotp.model.ships.ShipWeaponMissileType;
 public class CombatStackSpaceCrystal extends CombatStack {
     private static final int MAX_WEAPON_DAMAGE = 1000;
     private boolean weaponUsed = false;
-    private SpaceCrystal monster;
-    public CombatStackSpaceCrystal(SpaceCrystal crystal) {
+    public SpaceCrystal monster;
+    public float speed;
+    public float monsterLevel;
+    public CombatStackSpaceCrystal(SpaceCrystal crystal, Float speed, Float level) {
     	monster = crystal;
+        if (level == null)
+        	monsterLevel = options().monstersLevel();
+        else
+        	monsterLevel = level;
         num = 1;
-        maxHits = hits = 7000;
+        maxHits = hits = 7000 * monsterLevel;
         canTeleport = true;
         beamDefense = 1;
         missileDefense = 1;
         maxShield = shield = 5.0f;
-        captain = new CrystalShipCaptain();
+        captain = new CrystalShipCaptain(monster);
         image = image("SPACE_CRYSTAL");
     }    
     @Override
@@ -58,7 +64,8 @@ public class CombatStackSpaceCrystal extends CombatStack {
     @Override
     public void fireWeapon(CombatStack target)  { 
         weaponUsed = true;
-        float dam = roll(1,MAX_WEAPON_DAMAGE);
+        int maxWeaponDamage = (int) (MAX_WEAPON_DAMAGE * monsterLevel);
+        float dam = roll(1, maxWeaponDamage);
 
         drawAttack();
 

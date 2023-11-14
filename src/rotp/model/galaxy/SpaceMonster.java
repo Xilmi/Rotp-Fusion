@@ -35,7 +35,7 @@ public abstract class SpaceMonster extends ShipFleet implements NamedObject {
 	protected int lastAttackerId;
 	private final List<Integer> path = new ArrayList<>();
 	protected float travelSpeed = max(0.4f, 1f / (1.5f * max(1, 100.0f/galaxy().maxNumStarSystems())));
-	protected Float levelFactor;
+	protected Float monsterLevel;
 	private transient List<CombatStack> combatStacks = new ArrayList<>();
 	private transient BufferedImage shipImage;
 	
@@ -43,9 +43,9 @@ public abstract class SpaceMonster extends ShipFleet implements NamedObject {
 		super(empId, 0, 0);
 		nameKey		= name;
 		if (level == null)
-			levelFactor	= 1f;
+			monsterLevel	= 1f;
 		else
-			levelFactor	= level;
+			monsterLevel	= level;
 		if (speed == null)
 			travelSpeed = max(0.4f, 1f / (1.5f * max(1, 100.0f/galaxy().maxNumStarSystems())));
 		else
@@ -65,10 +65,10 @@ public abstract class SpaceMonster extends ShipFleet implements NamedObject {
 	public Image image()		{ return image(nameKey); }
 	public void initCombat()	{ }
 	public void addCombatStack(CombatStack c)	{ combatStacks.add(c); }
-	@Override public String name()	{ return text(nameKey);  }
-	@Override public IMappedObject source()							{ return this; }
+	public float monsterLevel()					{ return monsterLevel; }
+	@Override public String name()				{ return text(nameKey);  }
+	@Override public IMappedObject source()		{ return this; }
 	@Override public void draw(GalaxyMapPanel map, Graphics2D g2)	{
-		// TODO BR:  Auto-generated method stub
 		if (!displayed())
 			return;
 
@@ -118,7 +118,7 @@ public abstract class SpaceMonster extends ShipFleet implements NamedObject {
 		return true;
 	}
 	public abstract Image shipImage();
-	public boolean alive()			{ 
+	public boolean alive()	{ 
 		boolean alive = false;
 		for (CombatStack st: combatStacks) {
 			if (!st.destroyed())
@@ -126,7 +126,7 @@ public abstract class SpaceMonster extends ShipFleet implements NamedObject {
 		}
 		return alive;
 	}
-	public void plunder() { notifyGalaxy(); }
+	public void plunder()	{ notifyGalaxy(); }
 	
 	protected void setEmpireSystem(int sysId, StarSystem s) {
 		sysId(sysId);

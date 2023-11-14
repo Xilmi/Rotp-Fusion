@@ -2568,13 +2568,14 @@ SETTINGS_MOD_RANDOM_EVENTS_UI            | §~ Random Events Menu: %1
 SETTINGS_MOD_RANDOM_EVENT_DISABLED       | Off
 SETTINGS_MOD_RANDOM_EVENT_UNIQUE         | Unique Event
 SETTINGS_MOD_RANDOM_EVENT_UNLIMITED      | Unlimited
+SETTINGS_MOD_RANDOM_EVENT_MULTIPLE       | Concurrent
 
 REF_DELAY        | Base delay: %1
 REF_DELAY_1      | To set the starting turn offset of random
 REF_DELAY_2      | events (x2 for Easy; x3 for Easier; x4 for Easiest).<br>Off (-1) will disable this event.
 REF_RETURN       | Repeat Delay: %1
 REF_RETURN_1     | To set the Delay between two
-REF_RETURN_2     | events occurence. (0 = Unique event)
+REF_RETURN_2     | events occurence. (0 = Unique event; -1 = Concurrent)
 REF_MAX_SYS_1    | To set the Number of stars systems attacked by the
 REF_MAX_SYS_2    | before leaving. (0 = Not limited)
 REF_INTRO        | <br><u>Event Description:</u><br>
@@ -2600,6 +2601,13 @@ SETTINGS_MOD_MONSTERS_GIVE_LOOTS_NO       | →BOOLEAN_NO←
 SETTINGS_MOD_MONSTERS_GIVE_LOOTS_YES_DESC | BC, Tech, or Ship
 SETTINGS_MOD_MONSTERS_GIVE_LOOTS_NO_DESC  | Default value (Vanilla)
 
+SETTINGS_MOD_MONSTERS_LEVEL_HELP         | Default ROTP Monsters are quite challenging. This option will cut the difficulty in half.
+SETTINGS_MOD_MONSTERS_LEVEL_DESC         | To allow easier Monsters.
+SETTINGS_MOD_MONSTERS_LEVEL              | Monsters level: %1
+SETTINGS_MOD_MONSTERS_LEVEL_NORMAL       | Normal
+SETTINGS_MOD_MONSTERS_LEVEL_EASY         | Easy
+SETTINGS_MOD_MONSTERS_LEVEL_NORMAL_DESC  | Vanilla Monsters... Quite a challenge!
+SETTINGS_MOD_MONSTERS_LEVEL_EASY_DESC    | Less scary monsters.
 
 // ========== RANDOM EVENT MONSTERS PARAMETERS
 REF_PIRATES                              | Pirates

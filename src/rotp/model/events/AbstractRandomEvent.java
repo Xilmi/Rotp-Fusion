@@ -26,37 +26,56 @@ import rotp.util.Base;
 
 abstract class AbstractRandomEvent implements RandomEvent, Base, Serializable {
 	private List<Empire> pendingEvents	= new ArrayList<>();
-    private Integer lastEndedTurn; // BR: new parameter, could be null on reload
+	private Integer lastEndedTurn; // BR: new parameter, could be null on reload
 
 	abstract ParamInteger delayTurn();
 	abstract ParamInteger returnTurn();
 
-	int nextAllowedTurn()	 { return -1; } // for backward compatibility
-	@Override public void	 nextTurn()		 { }
-	@Override public boolean repeatable()	 { return returnTurn().get() > 0; }
-	@Override public String	 systemKey()	 { return ""; }
-	@Override public String	 statusMessage() { return ""; }
-	@Override public boolean monsterEvent()	 { return false; }
-	@Override public int startTurn()		 {
-		if (monsterEvent() && techDiscovered() && options().techRandomEvents())
-			return 1;
+	int nextAllowedTurn()						{ return -1; } // for backward compatibility
+	@Override public void	 nextTurn()			{ }
+	@Override public boolean repeatable()		{ return returnTurn().get() > 0; }
+	@Override public String	 systemKey()		{ return ""; }
+	@Override public String	 statusMessage()	{ return ""; }
+	@Override public boolean monsterEvent()		{ return false; }
+	@Override public int startTurn()			{
 		return eventsStartTurn() + delayTurn().get() * difficultyFactor();
 	}
-    private void	setLastEndedTurn() 		 { lastEndedTurn = galaxy().currentTurn(); }
-	private boolean	isRepeatable()			 { return returnTurn().get() > 0; }
-	private int		eventsStartTurn()		 { return IGameOptions.eventsStartTurn.get(); }
-	private boolean alreadyOccurred()		 {
-		if (lastEndedTurn != null)
-			return true;
-		// Test for backward compatibility
-		int nat = nextAllowedTurn(); // overridable call
-		if (nat < 0) // Never have occurred
+	@Override public boolean hasPendingEvents()	{
+		if (pendingEvents == null) // BR: For backward game compatibility
 			return false;
-		// old save: backward compatibility
-		lastEndedTurn = nat - returnTurn().get();
-		return true;
+		return pendingEvents.size() > 0; 
 	}
-	boolean	isEventDisabled()	{
+	@Override public Empire getPendingEmpire()	{
+		if (pendingEvents == null) // BR: For backward game compatibility
+			return null;
+		if (pendingEvents.size()==0)
+			return null;
+		return pendingEvents.remove(0); 
+	}
+	@Override public int minimumTurn()			{
+		if (isEventDisabled())
+			return Integer.MAX_VALUE;
+
+		int returnTurn = returnTurn().get();
+		// Multiple Monster?
+		if (returnTurn == -1 && monsterEvent())
+			return startTurn();
+			
+		if (!alreadyOccurred())
+			return startTurn();
+
+		// repeatable?
+		if (returnTurn != 0)
+			return lastEndedTurn + returnTurn;
+		else
+			return Integer.MAX_VALUE;
+	}	
+	@Override public void addPendingEvents(Empire emp) {
+		pendingEvents.add(emp);
+		if (options().debugAutoRun() && options().debugLogEvents())
+        	turnLog(IGameOptions.AUTORUN_EVENTS, "Pending: " + emp.name() + " # " + notificationText());
+	}
+	boolean	isEventDisabled()					{
 		// Specific Event disabled ?
 		if (delayTurn().get() < 0)
 			return true;
@@ -76,34 +95,24 @@ abstract class AbstractRandomEvent implements RandomEvent, Base, Serializable {
 		}
 		return false;
 	}
-	void terminateEvent(RandomEvent event) {
+	void terminateEvent(RandomEvent event)		{
    		galaxy().events().removeActiveEvent(event);
    		setLastEndedTurn();
 	}
-	@Override public int minimumTurn()	{
-		if (isEventDisabled())
-			return Integer.MAX_VALUE;
-		else if (alreadyOccurred())
-			if (isRepeatable())
-				return lastEndedTurn + returnTurn().get();
-			else
-				return Integer.MAX_VALUE;
-		else // never occurred
-			return startTurn();
-	}	
-	@Override public boolean hasPendingEvents()	{
-		if (pendingEvents == null) // BR: For backward game compatibility
+	private void	setLastEndedTurn() 			{ lastEndedTurn = galaxy().currentTurn(); }
+	private int		eventsStartTurn()			{ return IGameOptions.eventsStartTurn.get(); }
+	private boolean alreadyOccurred()			{
+		if (lastEndedTurn != null)
+			return true;
+		// Test for backward compatibility
+		int nat = nextAllowedTurn(); // overridable call
+		if (nat < 0) // Never have occurred
 			return false;
-		return pendingEvents.size() > 0; 
+		// old save: backward compatibility
+		lastEndedTurn = nat - returnTurn().get();
+		return true;
 	}
-	@Override public Empire getPendingEmpire()	{
-		if (pendingEvents == null) // BR: For backward game compatibility
-			return null;
-		if (pendingEvents.size()==0)
-			return null;
-		return pendingEvents.remove(0); 
-	}
-    private int	 difficultyFactor()	 {
+    private int	 difficultyFactor()				{
 		switch (options().selectedGameDifficulty()) {
 	        case IGameOptions.DIFFICULTY_EASIEST:	return 4;
 	        case IGameOptions.DIFFICULTY_EASIER:	return 3;
@@ -111,9 +120,4 @@ abstract class AbstractRandomEvent implements RandomEvent, Base, Serializable {
 	        default:								return 1;
 		}
     }
-	@Override public void addPendingEvents(Empire emp) {
-		pendingEvents.add(emp);
-		if (options().debugAutoRun() && options().debugLogEvents())
-        	turnLog(IGameOptions.AUTORUN_EVENTS, "Pending: " + emp.name() + " # " + notificationText());
-	}
 }

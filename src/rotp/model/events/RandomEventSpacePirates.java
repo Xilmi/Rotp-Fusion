@@ -37,7 +37,7 @@ public class RandomEventSpacePirates extends RandomEventMonsters {
 	public static Empire triggerEmpire;
 	
 	@Override protected SpaceMonster newMonster(Float speed, Float level) {
-		return new SpacePirates(null, null);
+		return new SpacePirates(speed, level);
 	}
 	@Override public boolean techDiscovered()	{ return triggerEmpire != null; }
 	@Override protected String name()			{ return "PIRATES"; }

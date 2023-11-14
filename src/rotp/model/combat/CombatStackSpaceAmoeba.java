@@ -23,11 +23,20 @@ import rotp.model.galaxy.StarSystem;
 
 public class CombatStackSpaceAmoeba extends CombatStack {
     private static final int DAMAGE_FOR_SPLIT = 500;
-    private SpaceAmoeba monster;
-    public CombatStackSpaceAmoeba(SpaceAmoeba amoeba) {
+    public SpaceAmoeba monster;
+    public float speed;
+    public float monsterLevel;
+    public CombatStackSpaceAmoeba(SpaceAmoeba amoeba, Float speed, Float level) {
         monster = amoeba;
+        if (level == null)
+        	monsterLevel = options().monstersLevel();
+        else
+        	monsterLevel = level;
         num = 1;
-        maxHits = hits = 3500;
+        if (monsterLevel == 1f)
+        	maxHits = hits = 3500;
+        else
+        	maxHits = hits = 1500;
         maxMove = move = 2;
         beamDefense = 1;
         missileDefense = 1;     
