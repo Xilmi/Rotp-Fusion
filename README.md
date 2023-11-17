@@ -69,7 +69,12 @@ Later:
 
 ## What's New
 
-2023.11.15 (BR)
+2023.11.17 (BR)
+- Random Event Monsters:
+  - Constant monster size.
+  - little tuning and comments cleaning!
+
+2023.11.16 (BR)
 - Fixed crash due to concurrent monsters.
 
 2023.11.15 (BR)

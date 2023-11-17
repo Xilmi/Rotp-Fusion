@@ -33,7 +33,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
     - Gives some BC.
   - New option to allow concurrent monsters.
   - New option to make them easier.
-  - Their are shown wandering on the map until They chose their new target.
+  - They are shown wandering the map until they choose their new target.
 - Galaxy Map: Holding "Ctrl" gives prirority on star system selection over fleet selection.
 - Trade Treaties give spy view into in ranges Empires systems.
   - Traders are always good at spotting planets ready to trade, and report basic information!

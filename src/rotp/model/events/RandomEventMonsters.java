@@ -22,10 +22,11 @@ import rotp.model.colony.Colony;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.SpaceMonster;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.game.DynOptions;
 import rotp.model.game.IGameOptions;
 import rotp.ui.notifications.GNNNotification;
 
-abstract class RandomEventMonsters extends AbstractRandomEvent implements IMonsterPos{
+abstract class RandomEventMonsters extends AbstractRandomEvent implements IMonsterPos {
 	static final int NOTIFY_TURN_COUNT = 3;
 	protected int targetEmpId;
 	protected int targetSysId;
@@ -34,11 +35,13 @@ abstract class RandomEventMonsters extends AbstractRandomEvent implements IMonst
 	protected float level = 1.0f;
 	protected float realSpeed = 1.0f;
 	protected float avgSpeed  = 1f / (1.5f * max(1, 100.0f/galaxy().maxNumStarSystems()));
-//	protected Point.Float currentPos; = new Point.Float();
 	protected HashMap<Integer, Point.Float> path;
 	protected long monsterId;
+    // BR: Dynamic options for future backward compatibility
+	protected DynOptions dynamicOptions = new DynOptions();
 	
 	// IMonsterPos
+	@Override public DynOptions dynamicOpts()	{ return dynamicOptions; }
 	@Override public boolean notified()			{ return targetTurnCount<=NOTIFY_TURN_COUNT; }
 	@Override public int targetTurnCount()		{ return bounds(0, targetTurnCount, wanderPath().size()); }
 	@Override public Point.Float pos()			{ return wanderPath().get(targetTurnCount()); }
@@ -111,8 +114,7 @@ abstract class RandomEventMonsters extends AbstractRandomEvent implements IMonst
 			monster.setXY(pos.x, pos.y);
 		else
 			System.err.println("Next Turn: pos == null");
-
-		System.out.println("Next Turn:"+ name() + " targetTurnCount = " + targetTurnCount);
+		// System.out.println("Next Turn:"+ name() + " targetTurnCount = " + targetTurnCount);
 		
 		if (targetTurnCount == NOTIFY_TURN_COUNT) 
 			approachSystem();	 
@@ -251,23 +253,16 @@ abstract class RandomEventMonsters extends AbstractRandomEvent implements IMonst
 		return maxSystem == 0 || maxSystem > monster.vistedSystemsCount();
 	}
 	private void initMonster()					{
-		level = options().monstersLevel();
+		level = options().monstersLevel(); // To avoid uninitialized level!
 		monster = newMonster(realSpeed, level);
 		monster.event = this; // TO DO BR: for debug: Comment
 		StarSystem targetSystem = galaxy().system(targetSysId);
-//		float speed	= monster.travelSpeed();
 		float dist	= realSpeed * (targetTurnCount+1);
-//		double alpha = random()*Math.PI*2;
-//		double dx	= dist*Math.cos(alpha);
-//		double dy	= dist*Math.sin(alpha);
-//		float x		= (float) (targetSystem.x() + dx);
-//		float y		= (float) (targetSystem.y() + dy);
 		Point.Float pos = randomPos(targetSystem.x(), targetSystem.y(), dist);
 		monster.setXY(pos.x, pos.y);
 		monster.destSysId(targetSysId);
 		monster.launch(pos.x, pos.y);
 		buildPath();
-//		monster.notified = targetTurnCount<=NOTIFY_TURN_COUNT;
 	}
  	private void enterSystem()					{
 		//System.out.println("Monster enter system");
@@ -320,13 +315,10 @@ abstract class RandomEventMonsters extends AbstractRandomEvent implements IMonst
 		targetSysId = nextSysId;	
 		monster.destSysId(targetSysId);
 		monster.launch();
-//		targetTurnCount = monster.travelTurnsRemaining();
 		targetTurnCount = travelTurnsRemaining();
 		buildPath();
-//		monster.notified = targetTurnCount<=NOTIFY_TURN_COUNT;
 		if (targetTurnCount <= NOTIFY_TURN_COUNT) {
 			approachSystem();
-//			monster.notified = true;
 		}
 	}
 	private void setGNNState(int state)			{ eventGNNState().put(eventName(), state); }
@@ -429,7 +421,6 @@ abstract class RandomEventMonsters extends AbstractRandomEvent implements IMonst
 	}
 	private void buildPath()			{
 		int approachTurn = NOTIFY_TURN_COUNT+1;
-		int targetTurn = targetTurnCount;
 		StarSystem targetSystem = galaxy().system(targetSysId);
 		float xTarget	= targetSystem.x();
 		float yTarget	= targetSystem.y();
@@ -438,25 +429,24 @@ abstract class RandomEventMonsters extends AbstractRandomEvent implements IMonst
 		monster.travelSpeed = realSpeed;
 		wanderPath().clear();
 		// Close enough for straight line?
-		if (targetTurn <= approachTurn) {
-			monster.travelSpeed = distanceToTarget()/targetTurn;
-			lineTo(xMonster, yMonster, xTarget, yTarget, targetTurn, 0);
+		if (targetTurnCount <= approachTurn) {
+			monster.travelSpeed = distanceToTarget()/targetTurnCount;
+			lineTo(xMonster, yMonster, xTarget, yTarget, targetTurnCount, 0);
 			return;
 		}
-//		targetTurn--; // this will happen later to targetTurnCount
 
 		// Build the approach... (Last straight line)
 		// Find a point at distance 4 turns of Target
 		// and less than targetTurnCount-4 from monster
 		double distanceToTarget		= approachTurn * realSpeed;
-		double maxDistanceToTravel	= (targetTurn - approachTurn) * realSpeed;
+		double maxDistanceToTravel	= (targetTurnCount - approachTurn) * realSpeed;
 		Point.Float approachPos	= randomPos(xMonster, yMonster, xTarget, yTarget,
 				distanceToTarget, maxDistanceToTravel);
 
 		// if nothing found, then straight line
 		if (approachPos == null) {
-			monster.travelSpeed = distanceToTarget()/targetTurn;
-			lineTo(xMonster, yMonster, xTarget, yTarget, targetTurn, 0);
+			monster.travelSpeed = distanceToTarget()/targetTurnCount;
+			lineTo(xMonster, yMonster, xTarget, yTarget, targetTurnCount, 0);
 			return;
 		}
 		// add approach path
@@ -464,12 +454,10 @@ abstract class RandomEventMonsters extends AbstractRandomEvent implements IMonst
 
 		// Build Monster system departure
 		float remainingDistance	= monster.distanceTo(approachPos.x, approachPos.y);
-		int remainingTurns		= targetTurn - approachTurn;
+		int remainingTurns		= targetTurnCount - approachTurn;
 		int maxTravelTurns		= (int) (Math.ceil(remainingDistance / realSpeed));
 		int wanderTurns			= remainingTurns-maxTravelTurns;
 		if (wanderTurns <= 1) {
-//			// then Straight line
-//			lineTo(xMonster, yMonster, approachPos.x, approachPos.y, targetTurnCount, approachTurn);
 			// then No departure... Direct wandering
 			wanderTurns			= remainingTurns;
 			int wanderTurnsAway = wanderTurns/2;
@@ -479,25 +467,25 @@ abstract class RandomEventMonsters extends AbstractRandomEvent implements IMonst
 			Point.Float monsterPos	 = new Point.Float(xMonster, yMonster);
 			Point.Float wanderPos = wanderPoint(monsterPos, approachPos, wanderDistanceAway, wanderDistanceBack);
 			// add wandering path
-			int wanderPointTurn = targetTurn - wanderTurnsAway;
-			lineTo(xMonster, yMonster, wanderPos.x, wanderPos.y, targetTurn, wanderPointTurn);
+			int wanderPointTurn = targetTurnCount - wanderTurnsAway;
+			lineTo(xMonster, yMonster, wanderPos.x, wanderPos.y, targetTurnCount, wanderPointTurn);
 			lineTo(wanderPos.x, wanderPos.y, approachPos.x, approachPos.y, wanderPointTurn, approachTurn);
 
 			return;
 		}
 		int departureTurns		= NOTIFY_TURN_COUNT;
-		int departureTurn		= targetTurn-departureTurns;
+		int departureTurn		= targetTurnCount-departureTurns;
 		float departureDistance	= departureTurns * realSpeed;
 		maxDistanceToTravel		= remainingTurns * realSpeed;
 		Point.Float departurePos = randomPos(approachPos.x, approachPos.y, xMonster, yMonster,
 				departureDistance, maxDistanceToTravel);
 		if (departurePos == null) {
 			// then Straight line
-			lineTo(xMonster, yMonster, approachPos.x, approachPos.y, targetTurn, approachTurn);
+			lineTo(xMonster, yMonster, approachPos.x, approachPos.y, targetTurnCount, approachTurn);
 			return;
 		}
 		// add departure path
-		lineTo(xMonster, yMonster, departurePos.x, departurePos.y, targetTurn, departureTurn);
+		lineTo(xMonster, yMonster, departurePos.x, departurePos.y, targetTurnCount, departureTurn);
 
 		// Build Monster wandering
 		remainingTurns		= departureTurn - approachTurn;

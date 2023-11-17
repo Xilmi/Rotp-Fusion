@@ -129,8 +129,8 @@ public class RandomEvents implements Base, Serializable {
 			return;
 
 		eventChance = min(maxChanceIncr(), eventChance + chanceIncr());
-//		eventChance = 1; // TO DO BR: Comment
-//		System.out.println("eventChance = " + eventChance);
+		// eventChance = 1; // TO DO BR: Comment
+		// System.out.println("eventChance = " + eventChance);
 		if (turnRnd() > eventChance)
 			return;
 		// System.out.println("Random event to be selected");
@@ -189,9 +189,13 @@ public class RandomEvents implements Base, Serializable {
 				triggeredEvent = rem;
 				break;
 			}
+			triggeredEvent.trigger(affectedEmpire);
+			// Not needed yet... This to allow more customization later
+			rem.level = options().monstersLevel();
 		}
-			
-		triggeredEvent.trigger(affectedEmpire);
+		else
+			triggeredEvent.trigger(affectedEmpire);
+		
 		lastEvent = triggeredEvent; // modnar: keep track of last event
 	   
 		if (opts.debugAutoRun() && opts.debugLogEvents())

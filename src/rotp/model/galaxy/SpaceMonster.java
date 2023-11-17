@@ -15,6 +15,8 @@
  */
 package rotp.model.galaxy;
 
+import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -114,7 +116,9 @@ public abstract class SpaceMonster extends ShipFleet implements NamedObject {
 		else if (map.parent().isHovering(this))
 			drawHovering(g2, map, x-s5, y-s5, w+s10, h+s10, cnr);
 		
-		// Wandering path test // TO DO BR: DISABLE
+		// Wandering path test For debug purpose!
+		if (!IMonsterPos.DRAW_WANDERING)
+			return;
 		HashMap<Integer, Point.Float> wanderPath = event.wanderPath();
 		if (wanderPath==null || wanderPath.isEmpty())
 			return;
@@ -145,7 +149,7 @@ public abstract class SpaceMonster extends ShipFleet implements NamedObject {
 	}
 	@Override public boolean canSendTo(int sysId)			{ return false; }
 	@Override public float travelSpeed()					{ return travelSpeed; }
-	@Override public boolean visibleTo(int empId)			{ return true; } // TODO BR: improve monster visibility analysis
+	@Override public boolean visibleTo(int empId)			{ return true; }
 	@Override public int empId()							{ return -2; }
 	@Override public boolean inTransit()					{ return true; }
 	@Override public boolean deployed()						{ return false; }
@@ -175,7 +179,7 @@ public abstract class SpaceMonster extends ShipFleet implements NamedObject {
 	}
 	protected DiplomaticIncident killIncident(Empire emp) { return KillMonsterIncident.create(emp.id, lastAttackerId, nameKey); }
 	
-	private void notifyGalaxy() {
+	private void notifyGalaxy()			{
 		Empire slayerEmp = lastAttacker();
 		for (Empire emp: galaxy().empires()) {
 			if ((emp.id != lastAttackerId) && emp.knowsOf(slayerEmp)) {
@@ -184,16 +188,39 @@ public abstract class SpaceMonster extends ShipFleet implements NamedObject {
 			}
 		}
 	}
-	private BufferedImage getImage() {
+	private int[] locateImage(Image img) {
+		int imgW = img.getWidth(null);
+		int imgH = img.getHeight(null);
+		BufferedImage shipImg = new BufferedImage(imgW, imgH, TYPE_INT_ARGB);
+		Graphics2D g = (Graphics2D) shipImg.getGraphics();
+		g.drawImage(img, 0, 0, null);
+		g.dispose();
+		int yMin = Integer.MAX_VALUE;
+		int yMax = Integer.MIN_VALUE;
+		int xMin = Integer.MAX_VALUE;
+		int xMax = Integer.MIN_VALUE;
+
+		for(int y=0; y<imgH; y++) {
+			for(int x=0; x<imgW; x++) {
+				int color = shipImg.getRGB(x, y);
+				int alpha = color >> 24 & 255;
+				if (alpha > 32) {
+					yMin = yMin>y ? y : yMin;
+					yMax = yMax<y ? y : yMax;
+					xMin = xMin>x ? x : xMin;
+					xMax = xMax<x ? x : xMax;
+				}
+			}
+		}
+		return new int[]{xMin, yMin, xMax, yMax};
+	}
+	private BufferedImage getImage()	{
 		// shipImage = null;
 		if (shipImage == null) {
 			Image baseShipImg = shipImage();
-			int imgW	= baseShipImg.getWidth(null);
-			int imgH	= baseShipImg.getHeight(null);
-			int destW	= BasePanel.s30;
-			int destH	= BasePanel.s20;
-//			int destW	= BasePanel.s60;
-//			int destH	= BasePanel.s40;
+			int[] loc = locateImage(baseShipImg);
+			int destW = BasePanel.s30;
+			int destH = BasePanel.s20;
 			shipImage = newBufferedImage(destW, destH);
 			Graphics2D g = (Graphics2D) shipImage.getGraphics();
 			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -201,7 +228,7 @@ public abstract class SpaceMonster extends ShipFleet implements NamedObject {
 			g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
 			g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 			g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-			g.drawImage(baseShipImg, 0, 0, destW, destH, 0, 0, imgW, imgH, null);
+			g.drawImage(baseShipImg, 0, 0, destW, destH, loc[0], loc[1], loc[2], loc[3], null);
 			g.dispose();
 		}
 		return shipImage;
