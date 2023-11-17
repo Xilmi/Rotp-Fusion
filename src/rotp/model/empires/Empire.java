@@ -185,7 +185,7 @@ public final class Empire implements Base, NamedObject, Serializable {
     private transient int inRange;
     public  transient int numColoniesHistory;
     private transient String empireName;
-    private transient List<Ship> visibleMonsters = new ArrayList<>();
+    private transient List<SpaceMonster> visibleMonsters = new ArrayList<>();
 
     public void resetAI() { ai = null; } // BR:
     public void changePlayerAI(String newAI) { // BR:
@@ -266,7 +266,7 @@ public final class Empire implements Base, NamedObject, Serializable {
             return galaxy().ships.notInTransitFleets(id);
     }
     public List<Ship> visibleShips()              { return visibleShips; }
-    public List<Ship> visibleMonsters()           {
+    public List<SpaceMonster> visibleMonsters()   {
     	// visibleMonsters = null;
     	if (visibleMonsters == null)
     		setVisibleMonsters();
@@ -2244,7 +2244,7 @@ public final class Empire implements Base, NamedObject, Serializable {
                 addVisibleShip(sh);
         }
     }
-    public void addVisibleMonster(Ship sh) {
+    public void addVisibleMonster(SpaceMonster sh) {
         if (sh.visibleTo(id) && !visibleMonsters.contains(sh))
             visibleMonsters.add(sh);
     }

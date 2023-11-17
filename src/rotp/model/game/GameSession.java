@@ -545,6 +545,8 @@ public final class GameSession implements Base, Serializable {
                     SpyReportAlert.create();
 
                 log("Refreshing Player Views");
+                gal.clearSpaceMonsters();
+                player().setVisibleMonsters();
                 NoticeMessage.resetSubstatus(text("TURN_REFRESHING"));
                 validate();
                 //BR: Tentative to fix range area errors

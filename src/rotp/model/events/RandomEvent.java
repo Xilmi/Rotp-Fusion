@@ -22,6 +22,11 @@ import rotp.model.galaxy.SpaceMonster;
 // Without keeping the interface, adding method in the abstract lead to some
 // backward compatibility issues.
 public interface RandomEvent {
+	int GNN_NEVER	= 0;
+	int GNN_READY	= 10;
+	int GNN_TARGET	= 20;
+	int GNN_REDIR	= 30;
+	int GNN_END		= 40;
     boolean goodEvent();
     boolean repeatable();
     boolean hasPendingEvents();
@@ -35,6 +40,6 @@ public interface RandomEvent {
     void nextTurn();
     int minimumTurn();
     int startTurn();
-    default boolean techDiscovered() { return true; }
-    default SpaceMonster monster()	 { return null; }
+    default boolean techDiscovered()	{ return true; }
+    default SpaceMonster monster()		{ return null; }
 }

@@ -43,7 +43,7 @@ public interface IRandomEvents extends IBaseOptsTools {
 			put("Yes",	MOD_UI + "MONSTERS_GIVE_LOOTS_YES");
 		}
 	};
-	default boolean monstersGiveLoot()	{ return monstersGiveLoots.get().equalsIgnoreCase("Yes"); }
+	default boolean monstersGiveLoot()			{ return monstersGiveLoots.get().equalsIgnoreCase("Yes"); }
 
 	ParamList    monstersLevel	= new ParamList( MOD_UI, "MONSTERS_LEVEL", "Normal") {
 		{
@@ -52,14 +52,23 @@ public interface IRandomEvents extends IBaseOptsTools {
 			put("Easy",		MOD_UI + "MONSTERS_LEVEL_EASY");
 		}
 	};
-	default String	monstersLevelKey()		{ return monstersLevel.get(); }
-	default float	monstersLevel()			{
+	default String	monstersLevelKey()			{ return monstersLevel.get(); }
+	default float	monstersLevel()				{
 		switch (monstersLevel.get()) {
 			case "Easy":	return 0.7f;
 			case "Normal":
 			default:		return 1.0f;
 		}
 	}
+	ParamList    monstersGNNNotification	= new ParamList( MOD_UI, "MONSTERS_GNN", "All") {
+		{
+			showFullGuide(true);
+			put("All", 		MOD_UI + "MONSTERS_GNN_ALL");
+			put("New",		MOD_UI + "MONSTERS_GNN_NEW");
+			put("First",	MOD_UI + "MONSTERS_GNN_FIRST");
+		}
+	};
+	default String	monstersGNNNotification()	{ return monstersGNNNotification.get(); }
 	
 	// ========================================================================
 	// BR: RANDOM EVENT MONSTERS PARAMETERS
@@ -176,6 +185,7 @@ public interface IRandomEvents extends IBaseOptsTools {
 				eventsStartTurn, eventsPace,
 				eventsFavorWeak, fixedEventsMode,
 				monstersGiveLoots, monstersLevel,
+				monstersGNNNotification,
 
 				headerSpacer,
 				new ParamTitle("RANDOM_EVENTS_MONSTERS"),

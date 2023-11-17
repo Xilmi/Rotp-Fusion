@@ -52,6 +52,9 @@ Very soon:
     - ("Individual choice"?): Probably not! individual choice for each parameter
 - statistic: improve help
 - Some Achievements options.
+- change the color of a weapon button on the combat screen if the target is so well shielded that damaging it is impossible. Currently all these buttons are green with white/yellow highlights, perhaps swapping the green for a grey would do it? And maybe change the highlight from yellow to black as well.
+  - Hit chance like in bombard panel!
+- To Fix: Planet which was converted from hostile to minimal via atmospheric terraforming, the background matches the original planet type instead of the current minimal environment.
 
 Later:
 - Investigate: William482 request: Age of your data on each race into the bar graphs on the status page.
@@ -66,9 +69,19 @@ Later:
 
 ## What's New
 
-2023.11.12 (BR)
-- New Option for multiple concurrent monsters
-- Ready for monster extensions
+2023.11.15 (BR)
+- Fixed crash due to concurrent monsters.
+
+2023.11.15 (BR)
+- Random Event Monsters: Random wandering path to monsters.
+- Loots adjusted to research speed and monster level.
+
+2023.11.14 (BR)
+- Random Event Monsters: Fixed last backward compatibility issues.
+
+2023.11.13 (BR)
+- New Option for multiple concurrent monsters.
+- Ready for monster extensions.
 - New Option for easier monsters.
 
 2023.11.12 (BR)

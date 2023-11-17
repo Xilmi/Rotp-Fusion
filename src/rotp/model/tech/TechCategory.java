@@ -637,11 +637,17 @@ public final class TechCategory implements Base, Serializable {
         return newTech;
     }
     
-    // BR: Complete tech events
+    // BR: Loot Monsters options: Complete tech events
+    public boolean contributeToResearch(int bc) {
+   	 if (currentTech == null)
+            return false;
+   	 totalBC += bc;
+   	 return true;
+   }
     public boolean completeResearch() {
-    	 if (currentTech == null)
-             return false;
-    	 totalBC += 4*costForTech(tech(currentTech));
-    	 return true;
-    }
+   	 if (currentTech == null)
+            return false;
+   	 totalBC += 4*costForTech(tech(currentTech));
+   	 return true;
+   }
 }

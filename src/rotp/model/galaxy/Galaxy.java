@@ -77,7 +77,7 @@ public class Galaxy implements Base, Serializable {
 
     // BR: Dynamic options
     private DynOptions dynamicOptions = new DynOptions();
-
+ 
     private transient ShipCombatManager shipCombat = new ShipCombatManager();
     private transient Map<String, List<String>> raceSystemNames = new HashMap<>();
     private transient Map<String, Integer> raceSystemCtr = new HashMap<>();
@@ -430,6 +430,7 @@ public class Galaxy implements Base, Serializable {
         RandomEventSpacePirates.triggerEmpire = isTechDiscovered(RandomEventSpacePirates.TRIGGER_TECH);
         RandomEventSpaceCrystal.triggerEmpire = isTechDiscovered(RandomEventSpaceCrystal.TRIGGER_TECH);
         RandomEventSpaceAmoeba.triggerEmpire  = isTechDiscovered(RandomEventSpaceAmoeba.TRIGGER_TECH);
+        events.validateOnLoad();
         player().setVisibleMonsters();
      }    
     public void validate() {
@@ -700,6 +701,7 @@ public class Galaxy implements Base, Serializable {
     	}
     	return null;
     }
+    public HashMap<String, Integer> eventGNNState()	{ return events().eventGNNState(); }
 
     // ==================== GalaxyBaseData ====================
     //

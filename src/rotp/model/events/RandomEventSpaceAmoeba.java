@@ -28,6 +28,9 @@ public class RandomEventSpaceAmoeba extends RandomEventMonsters {
 	public static final String TRIGGER_GNN_KEY	= "EVENT_SPACE_AMOEBA_TRIG";
 	public static final String GNN_EVENT		= "GNN_Event_Amoeba";
 	public static Empire triggerEmpire;
+	private int empId; // Not to be set: kept for backward compatibility
+	private int sysId; // Not to be set: kept for backward compatibility
+	private int turnCount; // Not to be set: kept for backward compatibility
 
 	@Override protected SpaceMonster newMonster(Float speed, Float level) {
 		return new SpaceAmoeba(speed, level);
@@ -39,14 +42,30 @@ public class RandomEventSpaceAmoeba extends RandomEventMonsters {
 	@Override protected Integer lootMonster(boolean lootMode)	{
 		if (!lootMode)
 			return null;
-		Integer saleAmount = galaxy().currentTurn();
+		int lootBC		= bcLootAmount();
+		float lootProb	= bcLootProbability();
+		float rProb		= researchLootProbability();
+		int rBC			= researchLootAmount();
+		boolean completeAllowed = (rProb >= 1) && !repeatable();
+
+		Integer saleAmount = lootBC/5;
+		if (random() < lootProb)
+			saleAmount = lootBC;
 		// Studying amoeba remains help completing the current research
 		Empire emp = monster.lastAttacker();
-		if (emp.tech().planetology().completeResearch())
-			saleAmount *= 10;
-		else
-			saleAmount *= 25; // if no research then more gold
+		if (random() < rProb) {
+			if (completeAllowed) {
+				if (!emp.tech().planetology().completeResearch())
+					saleAmount = saleAmount * 5/2; // if no research then more gold
+			} else
+				if (!emp.tech().planetology().contributeToResearch(rBC))
+					saleAmount += rBC; // if no research then more gold
+		}
 		// Selling the amoeba flesh gives reserve BC, scaling with turn number
 		return saleAmount;
 	}
+	// Don't use! For backward compatibility only, when a monster was already launched
+	@Override protected int oldEmpId()			{ return empId; }
+	@Override protected int oldSysId()			{ return sysId; }
+	@Override protected int oldTurnCount()		{ return turnCount; }
 }

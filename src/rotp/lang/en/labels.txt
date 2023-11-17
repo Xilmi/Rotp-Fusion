@@ -193,7 +193,7 @@ EVENT_SPACE_AMOEBA_2              | The Space Amoeba has completely consumed the
 EVENT_SPACE_AMOEBA_3              | The Space Amoeba was destroyed by [victim_race] defenders in the [system] system.
 EVENT_SPACE_AMOEBA_4              | Scanners that have been tracking the progress of a Space Amoeba now show that the creature has disappeared from our galaxy.
 EVENT_SPACE_AMOEBA_TRIG           | The SCE (Society to Clone Everything) have successfully incarnated a trans-dimensional horror. When asked for comment, spokesmen said: AAAAAAAAHHHHHHHHH!! IT BURNS!
-EVENT_SPACE_AMOEBA_PLUNDER        | →EVENT_SPACE_AMOEBA_3←. The study of the slimy monstrosity allowed scientists to complete their research in planetology, and the sale of its highly prized flesh brings [amt] BC to the empire's coffers.
+EVENT_SPACE_AMOEBA_PLUNDER        | →EVENT_SPACE_AMOEBA_3←. The study of the slimy monstrosity allowed scientists to advance their research in planetology, and the sale of its highly prized flesh brings [amt] BC to the empire's coffers.
 
 EVENT_SPACE_CRYSTAL               | A gigantic crystalline entity called the "Space Crystal" has been spotted approaching the [system] system. Defending [victim_race] colonists and fleets are preparing for the worst.
 EVENT_SPACE_CRYSTAL_1             | A gigantic crystalline entity called the "Space Crystal" has been spotted approaching the uncolonized [system] system.
@@ -210,7 +210,7 @@ EVENT_SPACE_PIRATES_2             | The dreaded Space Pirates have ravaged the p
 EVENT_SPACE_PIRATES_3             | The Space Pirate fleet was destroyed by [race] defenders in the [system] system. Significant riches found in the wreckage have been seized by the [race] military to bolster their Planetary Reserve by [amt] BC.
 EVENT_SPACE_PIRATES_4             | The powerful Space Pirate has left our insignificant galaxy! Where did it go? We don't care, good riddance!
 EVENT_SPACE_PIRATES_TRIG          | The recently discovered Hyper Drive will change everything. For example, criminals rejoice at their new-found mobility.
-EVENT_SPACE_PIRATES_PLUNDER       | →EVENT_SPACE_PIRATES_3←.<br>Study of damaged pirate ships helps complete two ongoing research projects.
+EVENT_SPACE_PIRATES_PLUNDER       | →EVENT_SPACE_PIRATES_3←.<br>Study of damaged pirate ships helps advance some ongoing research projects.
 
 // modnar: add Precursor Relic random event
 EVENT_RELIC_PLANETS               | A Precursor relic has mysteriously activated in [target_empire] space. Galaxy-wide scanners report the formation of new planets in multiple previously empty Star Systems after intense asteroid coalescence events. [target_race] scientists have also harvested several Construction technologies from the relic.
@@ -2608,6 +2608,16 @@ SETTINGS_MOD_MONSTERS_LEVEL_NORMAL       | Normal
 SETTINGS_MOD_MONSTERS_LEVEL_EASY         | Easy
 SETTINGS_MOD_MONSTERS_LEVEL_NORMAL_DESC  | Vanilla Monsters... Quite a challenge!
 SETTINGS_MOD_MONSTERS_LEVEL_EASY_DESC    | Less scary monsters.
+
+SETTINGS_MOD_MONSTERS_GNN_HELP           | GNN Monster Notification Repetition: With the multiple occurence of monsters, the number of GNN Notification can become bothersome. They can be limited to one per Monster appearance, or one per Monster type.
+SETTINGS_MOD_MONSTERS_GNN_DESC           | GNN Monster Notification Repetition: With the multiple occurence of monsters, the number of GNN Notification can become bothersome. They can be limited to one per Monster appearance, or one per Monster type.
+SETTINGS_MOD_MONSTERS_GNN                | GNN Notify %1 Monsters
+SETTINGS_MOD_MONSTERS_GNN_ALL            | All
+SETTINGS_MOD_MONSTERS_GNN_NEW            | New
+SETTINGS_MOD_MONSTERS_GNN_FIRST          | First
+SETTINGS_MOD_MONSTERS_GNN_ALL_DESC       | GNN will notify every time a system is targeted by a monster.
+SETTINGS_MOD_MONSTERS_GNN_NEW_DESC       | GNN will notify the first attack of monsters, when they appear.
+SETTINGS_MOD_MONSTERS_GNN_FIRST_DESC     | GNN will only notify the first attack of each monster type.
 
 // ========== RANDOM EVENT MONSTERS PARAMETERS
 REF_PIRATES                              | Pirates

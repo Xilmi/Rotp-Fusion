@@ -35,6 +35,9 @@ public class RandomEventSpacePirates extends RandomEventMonsters {
 	public static final String TRIGGER_GNN_KEY	= "EVENT_SPACE_PIRATES_TRIG";
 	public static final String GNN_EVENT		= "GNN_Event_Pirates";
 	public static Empire triggerEmpire;
+	private int empId; // Not to be set: kept for backward compatibility
+	private int sysId; // Not to be set: kept for backward compatibility
+	private int turnCount; // Not to be set: kept for backward compatibility
 	
 	@Override protected SpaceMonster newMonster(Float speed, Float level) {
 		return new SpacePirates(speed, level);
@@ -46,6 +49,7 @@ public class RandomEventSpacePirates extends RandomEventMonsters {
 	@Override protected Integer lootMonster(boolean lootMode)	{
 		Empire heroEmp = monster.lastAttacker();
 		int spoilsBC;
+		int lootBC = bcLootAmount();
 		if (lootMode) {
 			// Studying Damaged Pirate ships help completing two current research
 			List<TechCategory> catList = new ArrayList<>();
@@ -54,26 +58,42 @@ public class RandomEventSpacePirates extends RandomEventMonsters {
 			catList.add(heroEmp.tech().computer());
 			catList.add(heroEmp.tech().forceField());
 			Collections.shuffle(catList);
+			
+			float rProb	= researchLootProbability();
+			int rBC		= researchLootAmount();
+			boolean completeAllowed = (rProb >= 1) && !repeatable();
+			int maxTech = 1;
+			if (random() < rProb)
+				maxTech = 2;
 			int techLearned = 0;
 			for (TechCategory cat:catList) {
-				if (cat.completeResearch()) {
-					techLearned++;
-					if (techLearned == 2)
-						break;
+				if (completeAllowed)
+				{
+					if (cat.completeResearch())
+					{
+						techLearned++;
+						completeAllowed = false;
+					}
 				}
+				else
+				{
+					if (cat.contributeToResearch(rBC))
+						techLearned++;
+				}
+				if (techLearned >= maxTech)
+					break;
 			}
 			// destroying the space pirates gives reserve BC, scaling with turn number
-			spoilsBC = galaxy().currentTurn() * 10 *(3-techLearned);
+			spoilsBC = lootBC * (1+maxTech-techLearned);
 		}
 		else {
 			// destroying the space pirates gives reserve BC, scaling with turn number
-			int turnNum = galaxy().currentTurn();
-			spoilsBC = turnNum * 25;
+			spoilsBC = lootBC * 5/2;
 		}
 		return spoilsBC;
 	}
 	@Override protected int getNextSystem()		{
-		StarSystem targetSystem = galaxy().system(sysId);
+		StarSystem targetSystem = galaxy().system(targetSysId);
 		// next system is one of the 10 nearest systems
 		// more likely to go to new system (25%) than visited system (5%)
 		// more likely to go to colony with a lot of factories (factories/2000 = additional chance)
@@ -105,4 +125,8 @@ public class RandomEventSpacePirates extends RandomEventMonsters {
 		}
 		return nextSysId;
 	}
+	// Don't use! For backward compatibility only, when a monster was already launched
+	@Override protected int oldEmpId()			{ return empId; }
+	@Override protected int oldSysId()			{ return sysId; }
+	@Override protected int oldTurnCount()		{ return turnCount; }
 }

@@ -16,6 +16,7 @@
 package rotp.ui.main;
 
 import static rotp.model.galaxy.Ship.EMPIRE_ID;
+
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Composite;
@@ -56,6 +57,7 @@ import rotp.model.galaxy.Location;
 import rotp.model.galaxy.Nebula;
 import rotp.model.galaxy.Ship;
 import rotp.model.galaxy.ShipFleet;
+import rotp.model.galaxy.SpaceMonster;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.game.IGameOptions;
 import rotp.model.game.IMapOptions;
@@ -845,16 +847,25 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
                 spr.draw(this, g);
             }
         }
-        List<Ship> visibleMonsters = new ArrayList<>(pl.visibleMonsters());
-        for (Ship sh: visibleMonsters) {
+        List<SpaceMonster> visibleMonsters = new ArrayList<>(pl.visibleMonsters());
+        for (SpaceMonster sh: visibleMonsters) {
             sh.setDisplayed(this);
             if (sh.displayed()) {
                 Sprite spr = (Sprite) sh;
-                if (sh.pathSprite()!=null)
+                if (sh.event.notified() && sh.pathSprite()!=null)
                     sh.pathSprite().draw(this, g);
                 spr.draw(this, g);
             }
         }
+        // TO DO BR: SWAP COMMENTS
+//        List<SpaceMonster> visibleMonsters = new ArrayList<>(galaxy().events().monsters());
+//        for (SpaceMonster sh: visibleMonsters) {
+//        	sh.setDisplayed(this);
+//            Sprite spr = (Sprite) sh;
+//            if (sh.pathSprite()!=null)
+//                sh.pathSprite().draw(this, g);
+//            spr.draw(this, g);
+//        }
     }
     private void drawWorkingFlightPaths(Graphics2D g) {
         for (FlightPathSprite spr: FlightPathSprite.workingPaths()) {

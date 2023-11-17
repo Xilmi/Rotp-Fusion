@@ -15,15 +15,21 @@
  */
 package rotp.model.galaxy;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.RenderingHints;
+import java.awt.Stroke;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import rotp.model.combat.CombatStack;
 import rotp.model.empires.Empire;
+import rotp.model.events.IMonsterPos;
 import rotp.model.incidents.DiplomaticIncident;
 import rotp.model.incidents.KillMonsterIncident;
 import rotp.ui.BasePanel;
@@ -34,10 +40,11 @@ public abstract class SpaceMonster extends ShipFleet implements NamedObject {
 	protected final String nameKey;
 	protected int lastAttackerId;
 	private final List<Integer> path = new ArrayList<>();
-	protected float travelSpeed = max(0.4f, 1f / (1.5f * max(1, 100.0f/galaxy().maxNumStarSystems())));
+	public  float travelSpeed = 1f / (1.5f * max(1, 100.0f/galaxy().maxNumStarSystems()));
 	protected Float monsterLevel;
 	private transient List<CombatStack> combatStacks = new ArrayList<>();
 	private transient BufferedImage shipImage;
+	public  IMonsterPos event;
 	
 	public SpaceMonster(String name, int empId, Float speed, Float level)	{
 		super(empId, 0, 0);
@@ -47,7 +54,7 @@ public abstract class SpaceMonster extends ShipFleet implements NamedObject {
 		else
 			monsterLevel	= level;
 		if (speed == null)
-			travelSpeed = max(0.4f, 1f / (1.5f * max(1, 100.0f/galaxy().maxNumStarSystems())));
+			travelSpeed = 1f / (1.5f * max(1, 100.0f/galaxy().maxNumStarSystems()));
 		else
 			travelSpeed = speed;
 	}
@@ -69,7 +76,7 @@ public abstract class SpaceMonster extends ShipFleet implements NamedObject {
 	@Override public String name()				{ return text(nameKey);  }
 	@Override public IMappedObject source()		{ return this; }
 	@Override public void draw(GalaxyMapPanel map, Graphics2D g2)	{
-		if (!displayed())
+		if (!displayed()) // TO DO BR: Uncomment
 			return;
 
 		int imgSize = 3;
@@ -81,11 +88,16 @@ public abstract class SpaceMonster extends ShipFleet implements NamedObject {
 		if (imgSize < 1)
 			return;
 
+		Point.Float	  pos = event.pos();
+		if (pos == null) {
+			System.out.println("Draw Monster Pos = null  " + nameKey);
+			return;
+		}
 		BufferedImage img = getImage();
 		int w = img.getWidth();
 		int h = img.getHeight();
-		int x = mapX(map);
-		int y = mapY(map);
+		int x = map.mapX(pos.x);
+		int y = map.mapY(pos.y);
 		
 		if (!hasDestination() || (destX() >= x()))
 			g2.drawImage(img, x-w/4, y-h/4, w, h, map);
@@ -101,6 +113,35 @@ public abstract class SpaceMonster extends ShipFleet implements NamedObject {
 			drawSelection(g2, map, x-s5, y-s5, w+s10, h+s10, cnr);
 		else if (map.parent().isHovering(this))
 			drawHovering(g2, map, x-s5, y-s5, w+s10, h+s10, cnr);
+		
+		// Wandering path test // TO DO BR: DISABLE
+		HashMap<Integer, Point.Float> wanderPath = event.wanderPath();
+		if (wanderPath==null || wanderPath.isEmpty())
+			return;
+		BasicStroke stroke2 = new BasicStroke(scaled(2), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND); // modnar: round cap and join
+	    Stroke prev = g2.getStroke();
+		g2.setStroke(stroke2);
+		g2.setColor(Color.blue);
+		Point.Float lastPos = wanderPath.get(0);
+		int r = scaled(3);
+		int d = 2*r;
+		int size = wanderPath.size();
+		int xL = map.mapX(lastPos.x);
+		int yL = map.mapY(lastPos.y);
+		for (int i=0; i<size; i++) {
+			pos = wanderPath.get(i);
+			if (pos==null) {
+				System.out.println("wanderPath.get(i) = null  i = " + i);
+				continue;
+			}
+			x = map.mapX(pos.x);
+			y = map.mapY(pos.y);
+			g2.drawLine(xL, yL, x, y);
+			g2.fillOval(x-r, y-r, d, d);
+			xL = x;
+			yL = y;
+		}
+		g2.setStroke(prev);
 	}
 	@Override public boolean canSendTo(int sysId)			{ return false; }
 	@Override public float travelSpeed()					{ return travelSpeed; }
@@ -144,12 +185,15 @@ public abstract class SpaceMonster extends ShipFleet implements NamedObject {
 		}
 	}
 	private BufferedImage getImage() {
+		// shipImage = null;
 		if (shipImage == null) {
 			Image baseShipImg = shipImage();
 			int imgW	= baseShipImg.getWidth(null);
 			int imgH	= baseShipImg.getHeight(null);
 			int destW	= BasePanel.s30;
 			int destH	= BasePanel.s20;
+//			int destW	= BasePanel.s60;
+//			int destH	= BasePanel.s40;
 			shipImage = newBufferedImage(destW, destH);
 			Graphics2D g = (Graphics2D) shipImage.getGraphics();
 			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);

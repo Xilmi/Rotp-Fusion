@@ -33,7 +33,7 @@ abstract class AbstractRandomEvent implements RandomEvent, Base, Serializable {
 
 	int nextAllowedTurn()						{ return -1; } // for backward compatibility
 	@Override public void	 nextTurn()			{ }
-	@Override public boolean repeatable()		{ return returnTurn().get() > 0; }
+	@Override public boolean repeatable()		{ return returnTurn().get() != 0; }
 	@Override public String	 systemKey()		{ return ""; }
 	@Override public String	 statusMessage()	{ return ""; }
 	@Override public boolean monsterEvent()		{ return false; }
@@ -105,11 +105,11 @@ abstract class AbstractRandomEvent implements RandomEvent, Base, Serializable {
 		if (lastEndedTurn != null)
 			return true;
 		// Test for backward compatibility
-		int nat = nextAllowedTurn(); // overridable call
-		if (nat < 0) // Never have occurred
+		int nextAllowedTurn = nextAllowedTurn(); // overridable call
+		if (nextAllowedTurn < 0) // Never have occurred
 			return false;
 		// old save: backward compatibility
-		lastEndedTurn = nat - returnTurn().get();
+		lastEndedTurn = nextAllowedTurn - returnTurn().get();
 		return true;
 	}
     private int	 difficultyFactor()				{
