@@ -852,7 +852,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
             sh.setDisplayed(this);
             if (sh.displayed()) {
                 Sprite spr = (Sprite) sh;
-                if (sh.event.notified() && sh.pathSprite()!=null)
+                if (sh.event!=null && sh.event.notified() && sh.pathSprite()!=null)
                     sh.pathSprite().draw(this, g);
                 spr.draw(this, g);
             }

@@ -247,9 +247,10 @@ public class BasePanel extends JPanel implements Base, InterfacePreview {
         int w = getWidth();
         int h = getHeight();
         int bdrW = s7;
+        boolean autoRun = options().debugAutoRun();
 
         g.setColor(backShade);
-        if (!options().debugAutoRun()) // BR: No shading when auto-run
+        if (!autoRun) // BR: No shading when auto-run
         	g.fillRect(0,0,getWidth(), getHeight());
 
         String title = NoticeMessage.title();
@@ -266,6 +267,11 @@ public class BasePanel extends JPanel implements Base, InterfacePreview {
 
         int x = (w-sw)/2;
         int y = (h+yAdj)/2;
+        if (autoRun) { // let us see the map while auto-run
+        	x = bdrW+s10;
+        	y = bdrW+s10;
+        }
+        	
         g.setColor(MainUI.paneShadeC);
         g.fillRect(x-bdrW, y-bdrW, noticeW+bdrW+bdrW, noticeH+bdrW+bdrW);
         g.setColor(MainUI.paneBackground);

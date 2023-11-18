@@ -34,7 +34,7 @@ abstract class RandomEventMonsters extends AbstractRandomEvent implements IMonst
 	protected SpaceMonster monster;
 	protected float level = 1.0f;
 	protected float realSpeed = 1.0f;
-	protected float avgSpeed  = 1f / (1.5f * max(1, 100.0f/galaxy().maxNumStarSystems()));
+	protected float avgSpeed  = 1;
 	protected HashMap<Integer, Point.Float> path;
 	protected long monsterId;
     // BR: Dynamic options for future backward compatibility
@@ -56,6 +56,7 @@ abstract class RandomEventMonsters extends AbstractRandomEvent implements IMonst
 	@Override public SpaceMonster monster()		{
 		if (monster == null)
 			trackLostMonster(); // backward compatibility
+		monster.event = this; // ? just a security!
 		return monster;
 	}
 	@Override int nextAllowedTurn()				{ // for backward compatibility
@@ -92,7 +93,7 @@ abstract class RandomEventMonsters extends AbstractRandomEvent implements IMonst
 		}
 		targetTurnCount = NOTIFY_TURN_COUNT;
 		initMonster();
-		System.out.println("Trigger: "+name() + " targetTurnCount = " + targetTurnCount);
+		//System.out.println("Trigger: "+name() + " targetTurnCount = " + targetTurnCount);
 		
 		galaxy().events().addActiveEvent(this);
 		if (targetTurnCount == NOTIFY_TURN_COUNT) 
@@ -305,8 +306,7 @@ abstract class RandomEventMonsters extends AbstractRandomEvent implements IMonst
 		int nextSysId = getNextSystem();
 		if (nextSysId < 0) {
 			log("ERR: Could not find next system. Space " + dispName() + " removed.");
-			System.out.println("ERR: Could not find next system. Space " + dispName() + " removed.");
-			// System.out.println("ERR: Could not find next system. Space Crystal removed.");
+			// System.out.println("ERR: Could not find next system. Space " + dispName() + " removed.");
 			terminateEvent(this);
 			return;
 		}
@@ -335,7 +335,7 @@ abstract class RandomEventMonsters extends AbstractRandomEvent implements IMonst
 			// Set the new state
 			setGNNState(state);
 
-		System.out.println("options().monstersGNNNotification(): " + options().monstersGNNNotification());
+		//System.out.println("options().monstersGNNNotification(): " + options().monstersGNNNotification());
 		switch (options().monstersGNNNotification()) {
 			case "First": // GNN will only notify the first attack of each monster type.
 				// Conditional notification
@@ -379,7 +379,12 @@ abstract class RandomEventMonsters extends AbstractRandomEvent implements IMonst
 			s1 = s1.replace("[amt]", amount.toString());
 		return s1;
 	}
-	private int travelTurnsRemaining()	{ return (int) Math.ceil(distanceToTarget()/avgSpeed); }
+	private float avgSpeed()			{
+		if (avgSpeed == 1)
+			avgSpeed = 1f / (1.5f * max(1, 100.0f/galaxy().maxNumStarSystems()));
+		return avgSpeed;
+	}
+	private int travelTurnsRemaining()	{ return (int) Math.ceil(distanceToTarget()/avgSpeed()); }
 	private float distanceToTarget()	{ return galaxy().system(targetSysId).distanceTo(monster); }
 	private Point.Float randomPos(float xSrc, float ySrc, double dist) {
 		double alpha = random()*Math.PI*2;

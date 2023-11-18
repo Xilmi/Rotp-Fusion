@@ -78,7 +78,7 @@ public abstract class SpaceMonster extends ShipFleet implements NamedObject {
 	@Override public String name()				{ return text(nameKey);  }
 	@Override public IMappedObject source()		{ return this; }
 	@Override public void draw(GalaxyMapPanel map, Graphics2D g2)	{
-		if (!displayed()) // TO DO BR: Uncomment
+		if (!displayed() || event==null) // TO DO BR: Uncomment
 			return;
 
 		int imgSize = 3;
