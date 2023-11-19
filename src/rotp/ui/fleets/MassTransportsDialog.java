@@ -50,7 +50,7 @@ public class MassTransportsDialog extends BasePanel {
     List<StarSystem> sourceSystems = new ArrayList<>();
     boolean synched = true; // BR: Default was false!
     final Color backgroundC = new Color(76,57,41,192);
-
+    
     public MassTransportsDialog(FleetUI p) {
         topParent = p;
         palette = Palette.named("Brown");
@@ -284,6 +284,7 @@ public class MassTransportsDialog extends BasePanel {
         Rectangle synchButton = new Rectangle();
         Rectangle sendButton = new Rectangle();
         Rectangle cancelButton = new Rectangle();
+        Rectangle ecoBox = new Rectangle();
         Rectangle hoverBox;
         Area textureArea;
 
@@ -420,6 +421,28 @@ public class MassTransportsDialog extends BasePanel {
 
             Area buttonArea = new Area(new RoundRectangle2D.Float(x2, buttonY, buttonW2, buttonH, cnr, cnr));
             textureArea.add(buttonArea);
+
+            // TODO BR:
+            int rightM = s20;
+            String eco = text("MAIN_COLONY_ECOLOGY");
+            g.setFont(narrowFont(20));
+            if(options().transportAutoRefill())
+            	g.setColor(Color.green);
+            else
+            	g.setColor(Color.black);
+            int sw = g.getFontMetrics().stringWidth(eco);
+            int xe = sendButton.x-rightM-sw-s10;
+            int ye = sendButton.y+s22;
+            ecoBox.setBounds(xe-s10, ye-s20, sw+s20 , s25);
+            drawString(g, eco, xe, ye);
+            if (hoverBox == ecoBox) {
+                g.setColor(SystemPanel.yellowText);
+                prev = g.getStroke();
+                g.setStroke(stroke2);
+                g.drawRoundRect(ecoBox.x, ecoBox.y, ecoBox.width, ecoBox.height, s5, s5);
+                g.setStroke(prev);
+            }
+
         }
         private void initModel() {
             setPreferredSize(new Dimension(getWidth(),s60));
@@ -457,6 +480,8 @@ public class MassTransportsDialog extends BasePanel {
                 hoverBox = sendButton;
             else if (synchButton.contains(x, y))
                 hoverBox = synchButton;
+            else if (ecoBox.contains(x, y))
+                hoverBox = ecoBox;
         }
         @Override
         public void mouseClicked(MouseEvent e) {    }
@@ -481,6 +506,11 @@ public class MassTransportsDialog extends BasePanel {
             }
             else if (hoverBox == synchButton) {
                 clickSynch();
+                softClick();
+                repaint();
+            }
+            else if (hoverBox == ecoBox) {
+            	options().transportAutoRefillToggle();
                 softClick();
                 repaint();
             }

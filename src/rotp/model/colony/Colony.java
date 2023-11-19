@@ -15,10 +15,12 @@
  */
 package rotp.model.colony;
 
+import static rotp.model.colony.ColonySpendingCategory.MAX_TICKS;
+
 import java.io.Serializable;
 import java.util.EnumMap;
 import java.util.List;
-import static rotp.model.colony.ColonySpendingCategory.MAX_TICKS;
+
 import rotp.model.empires.DiplomaticTreaty;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
@@ -282,18 +284,35 @@ public final class Colony implements Base, IMappedObject, Serializable {
     public float population()               { return population; }
     public void setPopulation(float pop)    { population = pop; }
     public void adjustPopulation(float pop) { population += pop; }
-    public int rebels()                      { return rebels; }
-    public void rebels(int i)                { rebels = i; }
-    public int deltaPopulation()             { return (int) population - (int) previousPopulation - (int) inTransport(); }
-    public boolean destroyed()               { return population <= 0; }
-    public boolean inRebellion()             { return rebellion && (rebels > 0); }
+    public int rebels()                     { return rebels; }
+    public void rebels(int i)               { rebels = i; }
+    public int deltaPopulation()            { return (int) population - (int) previousPopulation - (int) inTransport(); }
+    public boolean destroyed()              { return population <= 0; }
+    public boolean inRebellion()            { return rebellion && (rebels > 0); }
     public float rebellionPct()             { return rebels / population(); }
-    public boolean hasOrders()               { return !orders.isEmpty(); }
-    
+    public boolean hasOrders()              { return !orders.isEmpty(); }
+    public boolean hasOrder(int cat)		{ // BR:
+    	switch (cat) {
+	    	case DEFENSE:
+	    		return orders.containsKey(Orders.SHIELD)
+	    				|| orders.containsKey(Orders.BASES);
+	    	case INDUSTRY:
+	    		return orders.containsKey(Orders.FACTORIES);
+	    	case ECOLOGY:
+	    		return orders.containsKey(Orders.SOIL)
+	    				|| orders.containsKey(Orders.ATMOSPHERE)
+	    	    		|| orders.containsKey(Orders.TERRAFORM)
+	    				|| orders.containsKey(Orders.POPULATION);
+	    	case SHIP:
+	    	case RESEARCH:
+    		default:
+    			return false;
+    	}
+    }
+
     public boolean isDeveloped()  {
         return defense().isCompleted() && industry().isCompleted() && ecology().isCompleted(); 
     }
-
     public float orderAmount(Colony.Orders order) {
         Colony.Orders priorityOrder = empire.priorityOrders();
         // amount for this order
@@ -384,6 +403,84 @@ public final class Colony implements Base, IMappedObject, Serializable {
         if (orders.containsKey(order)) {
             orders.remove(order);
             reallocationRequired = true;
+        }
+    }
+    public void forceOrder(int cat)		{ // BR:
+    	switch (cat) {
+	    	case DEFENSE:
+	   			addColonyOrder(Orders.BASES, 1);
+	    		return;
+	    	case INDUSTRY:
+	   			addColonyOrder(Orders.FACTORIES, 1);
+	    		return;
+	    	case ECOLOGY:
+	   			addColonyOrder(Orders.POPULATION, 1);
+	   			keepEcoLockedToClean = false;
+	    		return;
+	    	case SHIP:
+	    	case RESEARCH:
+			default:
+    	}
+    }
+    public void removeOrder(int cat)	{ // BR:
+    	switch (cat) {
+	    	case DEFENSE:
+	   			removeColonyOrder(Orders.BASES);
+	   			removeColonyOrder(Orders.SHIELD);
+	    		return;
+	    	case INDUSTRY:
+	   			removeColonyOrder(Orders.FACTORIES);
+	    		return;
+	    	case ECOLOGY:
+	   			removeColonyOrder(Orders.ATMOSPHERE);
+	   			removeColonyOrder(Orders.SOIL);
+	   			removeColonyOrder(Orders.TERRAFORM);
+	   			removeColonyOrder(Orders.POPULATION);
+	   			keepEcoLockedToClean = true;
+	    		return;
+	    	case SHIP:
+	    	case RESEARCH:
+			default:
+		}
+    }
+    public boolean toggleOrder(int cat)	{ // BR:
+	    if (hasOrder(cat)) {
+	    	removeOrder(cat);
+	    	return false;
+	    }
+	    else {
+	    	forceOrder(cat);
+	    	return true;
+	    }
+    }
+    public void smoothMaxSlider(int category) {
+    	if(locked(category))
+    		return;
+        int needAllocation = MAX_TICKS;
+        switch(category)
+        {
+            case SHIP:
+                if(shipyard().buildLimit() > 0)
+                    needAllocation = shipyard().maxAllocationNeeded();
+                break;
+            case DEFENSE:
+                needAllocation = defense().maxAllocationNeeded();
+                break;
+            case INDUSTRY:
+                needAllocation = industry().maxAllocationNeeded();
+                break;
+            case ECOLOGY:
+                needAllocation = ecology().maxAllocationNeeded();
+                break;
+            default:
+                break;
+        }
+        int prevAllocation = allocation(category);
+        int incr = needAllocation>prevAllocation ? 1 : -1;
+        int lim = (needAllocation-prevAllocation) * incr;
+        for (int i=0; i<lim; i++) {
+        	if(!increment(category, incr))
+        		break;
         }
     }
 
@@ -1056,6 +1153,11 @@ public final class Colony implements Base, IMappedObject, Serializable {
         if (oldDest != null) {
             oldDest.colony().governIfNeeded();
         }
+        if (empire.isPlayerControlled()
+        		&& !isGovernor()
+        		&& options().transportAutoRefill())
+        	smoothMaxSlider(ECOLOGY);
+        
         governIfNeeded();
     }
     public int maxTransportsAllowed() {
@@ -1105,8 +1207,11 @@ public final class Colony implements Base, IMappedObject, Serializable {
         empire().flagColoniesToRecalcSpending();
         checkEcoAtClean();
         // reset ship views
-        if (empire.isPlayerControlled())
-            empire.setVisibleShips();
+        if (empire.isPlayerControlled()) {
+        	empire.setVisibleShips();
+        	if (!isGovernor() && options().transportAutoRefill())
+        		smoothMaxSlider(ECOLOGY);
+        }
 
         // recalculate governor if transports are sent
         governIfNeeded();

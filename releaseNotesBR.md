@@ -39,6 +39,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Traders are always good at spotting planets ready to trade, and report basic information!
   - This to prevent friendly neighbors from constantly sending armed scouts and colony!
 - Monsters and Guardian are visible.
+- New Option: Ungoverned colonies will have their Eco sliders set to "Growth" after Transports are sent.
+
 
 <b><ins>Bug Fixes:</ins></b>
 - Fixed sound echo default values.
@@ -49,6 +51,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Custom Species Menu: Improved reactivity. (It was painfully slow!)
 - Fixed Symmetric Galaxies freezing the setup panel.
 - Fixed Nasty long lasting crashing bug, when starting a new game. !!!YYYYeeeessss!!!
+- Fixed: Clicking on the Spending "Results" will no more "scramble" the other spending...
+
 
 <b><ins>New 3D Shields effects:</ins></b>
 - Ship images are analyzed to determine an enveloping ellipse, the basis for the shield ellipsoid.

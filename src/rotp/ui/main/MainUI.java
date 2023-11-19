@@ -721,11 +721,20 @@ public class MainUI extends BasePanel implements IMapHandler {
 
         int w3 = scaled(350);
         int x3 = w-w3-scaled(280);
-        int y3 = y0;
-        int x3a = w-scaled(120);
-        int y3a = scaled(250);
+        int y3 = y0- scaled(120);
+        int x3a = w-scaled(50);
+        int y3a = scaled(185);
+
+        HelpUI.HelpSpec sp3d = helpUI.addBrownHelpText(x3, y3, w3, 4, text("FLEETS_HELP_3D"));
+        sp3d.setLine(x3+w3, y3+sp3d.height()/2, x3a, y3a);
+
+        y3 += (sp3d.height()+s30);
+        x3a = w-scaled(120);
+        y3a = scaled(250);
         HelpUI.HelpSpec sp3 = helpUI.addBrownHelpText(x3, y3, w3, 4, text("FLEETS_HELP_3C"));
         sp3.setLine(x3+w3, y3+sp3.height()/2, x3a, y3a);
+
+        
     }
     private void loadEmpireColonyHelpFrame1() {
         HelpUI helpUI = RotPUI.helpUI();
@@ -741,7 +750,7 @@ public class MainUI extends BasePanel implements IMapHandler {
         
         int x1 = w-scaled(779);
         int w1 = scaled(430);
-        int y1 = scaled(140);
+        int y1 = scaled(100);
         
         HelpSpec sp1 = helpUI.addBlueHelpText(x1, y1, w1, 3, text("MAIN_HELP_1A"));
         y1 += (sp1.height()+s10);
@@ -786,9 +795,9 @@ public class MainUI extends BasePanel implements IMapHandler {
         spM2.setLine(x2+(w2*2/3), y2+spM2.height(), w-s40, scaled(275));
 
         int x3 = w-scaled(254); // BR: was 304
-        int y3 = scaled(480); // BR: was 490
+        int y3 = scaled(470); // BR: was 490
         int w3 = scaled(250); // BR: was 300
-        HelpSpec sp8 = helpUI.addBlueHelpText(x3,y3,w3, 5, text("MAIN_HELP_1H"));
+        HelpSpec sp8 = helpUI.addBlueHelpText(x3,y3,w3, 6, text("MAIN_HELP_1H"));
         sp8.setLine(x3+(w3*3/4), y3, w-scaled(54), scaled(430));        
         // sp8.setLine(x3+(w3*3/4), y3, w-scaled(54), scaled(430));
         

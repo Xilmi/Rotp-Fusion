@@ -19,7 +19,6 @@ import rotp.model.empires.Empire;
 import rotp.model.planet.Planet;
 import rotp.model.tech.TechAtmosphereEnrichment;
 import rotp.model.tech.TechTree;
-import rotp.util.ObjectCloner;
 
 public class ColonyEcology extends ColonySpendingCategory {
     private static final long serialVersionUID = 1L;

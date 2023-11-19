@@ -580,7 +580,7 @@ MAIN_HELP_1D                      | Industry - builds factories which increase o
 MAIN_HELP_1E                      | Ecology  - cleans industrial waste, terraforms the planet, and can increase population growth.
 MAIN_HELP_1F                      | Technology - adds to the empire's overall research.
 MAIN_HELP_1G                      | Ratio bars show the breakdown of a planet's production.  The spending for each bar can be adjusted by mousewheel, clicking within the bar, or clicking on the left/right arrows for each bar.
-MAIN_HELP_1H                      | The expected result of spending for an area is displayed to the right of each bar. Overflow spending will be sent to the empire's treasury reserve.
+MAIN_HELP_1H                      | The expected result of spending for an area is displayed to the right of each bar. Overflow spending will be sent to the empire's treasury reserve.<br>Click to spend enough to finish current task.
 MAIN_HELP_1I                      | To access spy Reports. (If any)
 MAIN_HELP_2A                      | Planetary shield level for the colony. Shields cannot be constructed on planets within a nebula.
 MAIN_HELP_2B                      | Number of missile bases and the maximum desired for this planet. Click or use the mousewheel to change the maximum.
@@ -1108,6 +1108,7 @@ FLEETS_HELP_2E                    | Deploy Fleets - deploy the selected fleets t
 FLEETS_HELP_3A                    | Stable:<br>The maximum number of population you can send from this planet while being able to regrowth to the same level, with ECO bar set to max.<br>It's up to the player or the governor to adjust the ECO bar.
 FLEETS_HELP_3B                    | Fill:<br>The maximum number of population you can send from this planet while being able to regrowth to fill the planet, with ECO bar set to max.<br>It's up to the player or the governor to adjust the ECO bar.
 FLEETS_HELP_3C                    | Population to send selection bars:<br>- Left click on slider = Normal percentage selection.<br>- Middle click on slider = "Stable"-value selection.<br>- Right click on slider = "Fill"-value selection.
+FLEETS_HELP_3D                    | Ungoverned colony will have their Eco sliders set to "Growth" after Transports are sent.<br>(Green = On; Dark = Off)
 FLEETS_HELP_3MAIN                 | OVERVIEW:<br> This screen allows the management of population and troops transport.<br>Select the destination colony and transport size.<br>Destination colony can be changed at will.
 
 // Select Next Tech to Research UI
@@ -2303,6 +2304,12 @@ SETTINGS_MOD_TRACK_UFOS_ACROSS_TURNS       | Track ships across turns: %1
 SETTINGS_MOD_ALLOW_TECH_STEALING_HELP    | To enable or disable technology stealing activities.<br> If disabled, half of the infiltration bonus will be given to Research bonus.<br>Infiltration penalty won't impact Research bonus.
 SETTINGS_MOD_ALLOW_TECH_STEALING_DESC    | To enable or disable technology stealing activities.<br> If disabled, half of the infiltration bonus will be given to Research bonus. (Never removed)
 SETTINGS_MOD_ALLOW_TECH_STEALING         | Tech stealing: %1
+
+SETTINGS_MOD_TRANSPORT_AUTO_REFILL_DESC  | Ungoverned colony will have their Eco sliders set to "Growth" after Transports are sent.
+SETTINGS_MOD_TRANSPORT_AUTO_REFILL       | Transport Refill: %1
+
+SETTINGS_MOD_SHOW_PENDING_ORDERS_DESC    | Spending categories having pending orders (Given after Technology update) are highlighted in blue.
+SETTINGS_MOD_SHOW_PENDING_ORDERS         | Show Orders: %1
 
 SETTINGS_MOD_DARK_GALAXY_NO_DESC         | Not interested in dark galaxy mode.
 SETTINGS_MOD_DARK_GALAXY_NO              | No

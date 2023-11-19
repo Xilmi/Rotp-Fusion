@@ -313,6 +313,7 @@ public class TransportDeploymentPanel extends SystemPanel {
         private final Polygon leftArrow = new Polygon();
         private final Polygon rightArrow = new Polygon();
         private final Rectangle sliderBox = new Rectangle();
+        private final Rectangle ecoBox = new Rectangle();
         private Shape hoverBox;
         Shape textureClip;
 
@@ -359,6 +360,31 @@ public class TransportDeploymentPanel extends SystemPanel {
             StarSystem from = system();
             if (from == null)
                 return;
+
+            if (!from.colony().isGovernor()) {// TODO BR:
+                int rightM = s5;
+                String eco = text("MAIN_COLONY_ECOLOGY");
+                g.setFont(narrowFont(20));
+                if(options().transportAutoRefill())
+                	g.setColor(Color.green);
+                else
+                	g.setColor(blackText);
+                int sw = g.getFontMetrics().stringWidth(eco);
+                int xe = w-rightM-sw-s5;
+                int ye = s30;
+                ecoBox.setBounds(xe-s5, ye-s20, sw+s10 , s25);
+                drawString(g, eco, xe, ye);
+                if (hoverBox == ecoBox) {
+                    g.setColor(SystemPanel.yellowText);
+                    Stroke prev = g.getStroke();
+                    g.setStroke(stroke2);
+                    g.drawRoundRect(ecoBox.x, ecoBox.y, ecoBox.width, ecoBox.height, s5, s5);
+                    g.setStroke(prev);
+                }
+            }
+            else
+            	ecoBox.setBounds(0, 0, 0 , 0);
+
             String fromName = pl.sv.name(from.id);
 
             int maxAllowed = pl.maxTransportsAllowed(dest);
@@ -520,6 +546,8 @@ public class TransportDeploymentPanel extends SystemPanel {
                 decrement(true);
             else if (rightArrow.contains(x,y))
                 increment(true);
+            else if (ecoBox.contains(x,y))
+                options().transportAutoRefillToggle();
             else if (sliderBox.contains(x,y)) {
                 float pct = (float) (x -sliderBox.x) / sliderBox.width;
                 int newAmt = 0;
@@ -564,6 +592,8 @@ public class TransportDeploymentPanel extends SystemPanel {
                 newHover = leftArrow;
             else if (rightArrow.contains(x,y))
                 newHover = rightArrow;
+            else if (ecoBox.contains(x,y))
+                newHover = ecoBox;
 
             if (newHover != hoverBox) {
                 hoverBox = newHover;

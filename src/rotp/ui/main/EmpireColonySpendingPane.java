@@ -15,15 +15,31 @@
  */
 package rotp.ui.main;
 
-import java.awt.*;
+import static rotp.model.colony.Colony.DEFENSE;
+import static rotp.model.colony.Colony.ECOLOGY;
+import static rotp.model.colony.Colony.INDUSTRY;
+import static rotp.model.colony.Colony.SHIP;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Polygon;
+import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.Stroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.util.List; // modnar: change to cleaner icon set
 import java.util.ArrayList; // modnar: change to cleaner icon set
+import java.util.List; // modnar: change to cleaner icon set
+
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 import rotp.model.colony.Colony;
 import rotp.model.galaxy.StarSystem;
@@ -34,23 +50,18 @@ import rotp.ui.SystemViewer;
 import rotp.ui.UserPreferences;
 import rotp.util.ImageManager;
 
-import javax.swing.*;
-import static rotp.model.colony.Colony.ECOLOGY;
-import static rotp.model.colony.Colony.SHIP;
-import static rotp.model.colony.Colony.DEFENSE;
-import static rotp.model.colony.Colony.INDUSTRY;
-
 public class EmpireColonySpendingPane extends BasePanel {
     private static final long serialVersionUID = 1L;
-    static final Color sliderHighlightColor = new Color(255,255,255);
-    static final Color sliderBoxEnabled = new Color(34,140,142);
-    static final Color sliderBoxDisabled = new Color(102,137,137);
-    static final Color sliderErrEnabled = new Color(140,34,34);
-    static final Color sliderErrDisabled = new Color(137,102,102);
-    static final Color sliderBackEnabled = Color.black;
-    static final Color sliderBackDisabled = new Color(65,65,65);
-    static final Color sliderTextEnabled = Color.black;
-    static final Color sliderTextDisabled = new Color(65,65,65);
+    static final Color sliderHighlightColor	= new Color(255,255,255);
+    static final Color sliderBoxEnabled		= new Color(34,140,142);
+    static final Color sliderBoxDisabled	= new Color(102,137,137);
+    static final Color sliderErrEnabled		= new Color(140,34,34);
+    static final Color sliderErrDisabled	= new Color(137,102,102);
+    static final Color sliderBackEnabled	= Color.black;
+    static final Color sliderBackDisabled	= new Color(65,65,65);
+    static final Color sliderTextEnabled	= Color.black;
+    static final Color sliderTextDisabled	= new Color(65,65,65);
+    static final Color sliderTextHasOrder	= new Color(0,0,142);
 
     Color borderHi, borderLo, textC, backC;
 
@@ -221,9 +232,13 @@ public class EmpireColonySpendingPane extends BasePanel {
             if (hoverBox == labelBox)
                 textC = SystemPanel.yellowText;
             else if (colony.canAdjust(category))
-                textC = sliderTextEnabled;
+            	if (colony.hasOrder(category) && options().showPendingOrders())
+            		textC = sliderTextHasOrder;
+            	else
+            		textC = sliderTextEnabled;
             else
                 textC = sliderTextDisabled;
+            
             String labelText = text(text);
             g.setColor(textC);
             g.setFont(narrowFont(18));
@@ -245,7 +260,7 @@ public class EmpireColonySpendingPane extends BasePanel {
             rightButtonY[0] = buttonMidY(); rightButtonY[1] = buttonTopY(); rightButtonY[2] = buttonBottomY();
 
             Color c1  = colony.canAdjust(category) ? sliderBoxEnabled : sliderBoxDisabled;
-            Color c1a = colony.canAdjust(category) ? sliderErrEnabled: sliderErrDisabled;
+            Color c1a = colony.canAdjust(category) ? sliderErrEnabled : sliderErrDisabled;
             Color c2  = colony.canAdjust(category) ? sliderBackEnabled : sliderBackDisabled;
 
             Color c3 = hoverBox == leftArrow ? SystemPanel.yellowText : c2;
@@ -366,7 +381,7 @@ public class EmpireColonySpendingPane extends BasePanel {
             else if (click)
                 misClick();
         }
-        public void maxSlider(boolean click, int button) {
+        public void smoothMaxSlider(boolean click, MouseEvent e) {
             StarSystem sys = parent.systemViewToDisplay();
             if (sys == null)
                 return;
@@ -374,9 +389,27 @@ public class EmpireColonySpendingPane extends BasePanel {
             if (colony == null)
                 return;
             if(!colony.locked(category)) {
-                colony.clearUnlockedSpending();
+                colony.smoothMaxSlider(category);
+                if (e!=null && e.isControlDown())
+           		 colony.toggleOrder(category);
+            }
+            if (click)
+                softClick();
+            parent.repaint();
+        }
+        public void maxSlider(boolean click, MouseEvent e) {
+            StarSystem sys = parent.systemViewToDisplay();
+            if (sys == null)
+                return;
+            Colony colony = sys.colony();
+            if (colony == null)
+                return;
+            if(!colony.locked(category)) {
+                //colony.clearUnlockedSpending();
+            	if (e.isControlDown())
+            		 colony.toggleOrder(category);
                 int allocation = colony.allocationRemaining();
-                if(button == 1)
+                if(e.getButton() == 1)
                 {
                     switch(category)
                     {
@@ -409,7 +442,7 @@ public class EmpireColonySpendingPane extends BasePanel {
                 softClick();
             parent.repaint();
         }
-        public void rightClickResultBox(boolean click) {
+        public void rightClickResultBox(boolean click, MouseEvent e) {
             StarSystem sys = parent.systemViewToDisplay();
             if (sys == null)
                 return;
@@ -417,6 +450,8 @@ public class EmpireColonySpendingPane extends BasePanel {
             if (colony == null)
                 return;
             if(!colony.locked(category)) {
+            	if (e.isControlDown())
+            		colony.toggleOrder(category);
                 float prevTech = mapListener == null ? 0 : colony.totalPlanetaryResearch();
                 switch(category) {
                     case SHIP:		break;
@@ -440,7 +475,7 @@ public class EmpireColonySpendingPane extends BasePanel {
                 softClick();
             parent.repaint();
         }
-        public void middleClickResultBox(boolean click) {
+        public void middleClickResultBox(boolean click, MouseEvent e) {
             StarSystem sys = parent.systemViewToDisplay();
             if (sys == null)
                 return;
@@ -448,6 +483,8 @@ public class EmpireColonySpendingPane extends BasePanel {
             if (colony == null)
                 return;
             if(!colony.locked(category)) {
+            	if (e.isControlDown())
+            		colony.toggleOrder(category);
                 float prevTech = mapListener == null ? 0 : colony.totalPlanetaryResearch();
                 switch(category) {
                     case SHIP:		break;
@@ -478,7 +515,7 @@ public class EmpireColonySpendingPane extends BasePanel {
             Colony colony = sys.colony();
             if (colony == null)
                 return;
-            
+
             float prevTech = mapListener == null ? 0 : colony.totalPlanetaryResearch();
             if (colony.increment(category, 1)) {
                 if (mapListener == null)
@@ -506,6 +543,18 @@ public class EmpireColonySpendingPane extends BasePanel {
             colony.toggleLock(category);
             repaint();
         }
+        public void toggleOrder() {
+            softClick();
+            StarSystem sys = parent.systemViewToDisplay();
+            if (sys == null)
+                return;
+            Colony colony = sys.colony();
+            if (colony == null)
+                return;
+            if(colony.toggleOrder(category))
+            	smoothMaxSlider(true, null);;
+            repaint();
+        }
         @Override
         public void mouseClicked(MouseEvent arg0) {}
         @Override
@@ -526,18 +575,22 @@ public class EmpireColonySpendingPane extends BasePanel {
             int x = e.getX();
             int y = e.getY();
             if (labelBox.contains(x,y))
-                toggleLock();
+            	if (e.isControlDown())
+           		 	toggleOrder();
+            	else
+            		toggleLock();
             else if (leftArrow.contains(x,y))
                 decrement(true);
             else if (rightArrow.contains(x,y))
                 increment(true);
             else if (resultBox.contains(x,y))
             	if (SwingUtilities.isRightMouseButton(e))
-            		rightClickResultBox(true);
+            		rightClickResultBox(true, e);
             	else if (SwingUtilities.isMiddleMouseButton(e))
-            		middleClickResultBox(true);
+            		middleClickResultBox(true, e);
             	else
-            		maxSlider(true, e.getButton());
+            		smoothMaxSlider(true, e);
+//            		maxSlider(true, e);
             else {
                 if (this.category < 0) {
 // TODO: for future use

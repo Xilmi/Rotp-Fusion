@@ -69,6 +69,12 @@ Later:
 
 ## What's New
 
+2023.11.18 (BR)
+- New Options:
+  - Ungoverned colony will have their Eco sliders set to "Growth" after Transports are sent.
+  - Spending categories having pending orders (Given after Technologies update) are highlighted in blue.
+- Fix: Clicking on the Spending "Results" will no more "scramble" the other spending...
+
 2023.11.17 (BR)
 - Random Event Monsters:
   - Constant monster size.

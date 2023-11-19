@@ -219,11 +219,11 @@ public interface IZoomOptions extends IBaseOptsTools {
 	};
 	default float echoSoundDecay()			{ return echoSoundDecay.get()/100f; }
 
-	ParamBoolean former2DShield	= new ParamBoolean(MOD_UI, "FORMER_2D_SHIELD", true)
+	ParamBoolean former2DShield		= new ParamBoolean(MOD_UI, "FORMER_2D_SHIELD", true)
 	{	{ isCfgFile(true); } };
 	default boolean former2DShield()		{ return former2DShield.get(); }
 
-	ParamList shieldType		= new ParamList( MOD_UI, "NEW_WEAPON_ANIMATION", "Yes") {
+	ParamList shieldType			= new ParamList( MOD_UI, "NEW_WEAPON_ANIMATION", "Yes") {
 		{
 			{ isCfgFile(true); }
 			showFullGuide(true);
@@ -237,6 +237,9 @@ public interface IZoomOptions extends IBaseOptsTools {
 	default boolean shieldType2D()			{ return shieldType.get().equalsIgnoreCase("2D"); }
 	default boolean shieldType3Buffer()		{ return shieldType.get().equalsIgnoreCase("3B"); }
 
+	ParamBoolean showPendingOrders	= new ParamBoolean(MOD_UI, "SHOW_PENDING_ORDERS", false);
+	default boolean showPendingOrders()		{ return showPendingOrders.get(); }
+
 	// ==================== GUI List Declarations ====================
 	//
 	ParamSubUI zoomOptionsUI = zoomOptionsUI();
@@ -246,6 +249,7 @@ public interface IZoomOptions extends IBaseOptsTools {
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("ZOOM_FONT"),
 				mapFontFactor, showNameMinFont, showInfoFontRatio,
+				showPendingOrders,
 				
 				headerSpacer,
 				new ParamTitle("ZOOM_FLEET"),

@@ -55,6 +55,7 @@ import rotp.ui.BasePanel;
 import rotp.ui.ExitButton;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
+import rotp.ui.fleets.MassTransportsDialog.TransportTargetFooterUI;
 import rotp.ui.game.HelpUI;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
@@ -892,7 +893,7 @@ public final class FleetUI extends BasePanel implements IMapHandler, ActionListe
         helpUI.open(this);
     }
     private void loadHelpUI() {
-    	System.out.println("loadHelpUI(): currentPane = " + currentPane);
+    	//System.out.println("loadHelpUI(): currentPane = " + currentPane);
         switch(helpFrame) {
             case 1:
                 if (currentPane.equals(TRANSPORT_PANEL)) {
@@ -934,6 +935,16 @@ public final class FleetUI extends BasePanel implements IMapHandler, ActionListe
         int y3a = scaled(185);
         HelpUI.HelpSpec sp3 = helpUI.addBrownHelpText(x3, y3, w3, 4, text("FLEETS_HELP_3C"));
         sp3.setLine(x3+w3/2, y3, x3a, y3a);
+
+        int x4 = x3;
+        int w4 = w1;
+        int y4 = y0+s20;
+        TransportTargetFooterUI fui = massTransportDialog.footerUI;
+        Rectangle ecoBox = fui.ecoBox;
+        int x4a = massTransportDialog.getX() + fui.getX() + ecoBox.x + ecoBox.width/2;
+        int y4a = massTransportDialog.getY() + fui.getY() + ecoBox.y + ecoBox.height;
+        HelpUI.HelpSpec sp4 = helpUI.addBrownHelpText(x4, y4, w4, 3, text("FLEETS_HELP_3D"));
+        sp4.setLine(x4+w4/4, y4, x4a, y4a);
 
         helpUI.open(this);
     }

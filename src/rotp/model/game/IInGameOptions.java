@@ -165,7 +165,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 	ParamInteger maxSecurityPct		= new ParamInteger(MOD_UI, "MAX_SECURITY_PCT", 10, 10, 90, 1, 5, 20);
 	default int selectedMaxSecurityPct()		{ return maxSecurityPct.get(); }
 
-	ParamList darkGalaxy		= new ParamList( MOD_UI, "DARK_GALAXY", "No") {
+	ParamList darkGalaxy			= new ParamList( MOD_UI, "DARK_GALAXY", "No") {
 		{
 			showFullGuide(true);
 			isValueInit(false);
@@ -183,6 +183,9 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 	default boolean darkGalaxyNoSpy()		{ return darkGalaxy.get().equalsIgnoreCase("NoSpy"); }
 	default boolean darkGalaxyDark()		{ return darkGalaxy.get().equalsIgnoreCase("Shrink"); }
 	
+	ParamBoolean transportAutoRefill	= new ParamBoolean(MOD_UI, "TRANSPORT_AUTO_REFILL", false);
+	default boolean transportAutoRefill()	{ return transportAutoRefill.get(); }
+	default void transportAutoRefillToggle(){ transportAutoRefill.toggle(); }
 
 	// ==================== GUI List Declarations ====================
 	static LinkedList<IParam> modDynamicAOptions() {
@@ -208,6 +211,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 		return new LinkedList<>(
 				Arrays.asList(
 						counciRequiredPct, darkGalaxy,
+						transportAutoRefill,
 						GovernorOptions.governorOptionsUI,
 						null,
 						eventsStartTurn, eventsPace,
@@ -233,7 +237,8 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 
 				headerSpacer,
 				new ParamTitle("GAME_VARIOUS"),
-				terraforming, colonizing, researchRate,
+				transportAutoRefill, terraforming,
+				colonizing, researchRate,
 				warpSpeed, fuelRange,
 
 				headerSpacer,
