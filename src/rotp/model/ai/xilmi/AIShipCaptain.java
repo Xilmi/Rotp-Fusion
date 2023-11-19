@@ -980,6 +980,10 @@ public class AIShipCaptain implements Base, ShipCaptain {
                         killPct *= max(0, (2 * mySpeedRange - enemySpeedRange) / mySpeedRange);
                 }
                 damagePerTurn += killPct;
+                if(st1.maxFiringRange(st2) <= st2.repulsorRange() && st2.maxFiringRange(st1) > 1 && !st1.canCloak && !st1.canTeleport())
+                {
+                    pctOfMaxHP = 0;
+                }
             }
             damagePerTurn += missileKillPct(st1);
             float healPerTurn = 0;
@@ -1026,6 +1030,10 @@ public class AIShipCaptain implements Base, ShipCaptain {
                         killPct *= max(0, (2 * mySpeedRange - enemySpeedRange) / mySpeedRange);
                 }
                 damagePerTurn += killPct;
+                if(st1.maxFiringRange(st2) <= st2.repulsorRange() && st2.maxFiringRange(st1) > 1 && !st1.canCloak && !st1.canTeleport())
+                {
+                    pctOfMaxHP = 0;
+                }
             }
             damagePerTurn += missileKillPct(st1);
             float healPerTurn = 0;
