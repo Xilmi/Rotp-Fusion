@@ -67,13 +67,31 @@ public final class ShipDesign extends Design {
     private boolean autoAttack = false;
     private String iconKey;
     private int shipColor;
+    private final Integer hashCode;
     private transient ImageIcon icon;
     private transient Image image;
     private transient float costBC;
 
+    @Override public int hashCode() {
+    	if (hashCode == null)
+    		return super.hashCode(); // for backward compatibility
+    	return hashCode;
+    }
+    @Override public boolean equals(Object shipDesign) {
+    	if (hashCode == null)
+    		return this==shipDesign; // for backward compatibility
+    	if (shipDesign == null)
+    		return false;
+    	if (this==shipDesign)
+    		return true;
+    	if (shipDesign instanceof ShipDesign)
+    		return ((ShipDesign) shipDesign).hashCode() == this.hashCode();
+    	return false;
+    }
+
     public static float hullPoints(int size)   { return Galaxy.current().pow(6, size); }
     @Override
-    public boolean isShip()              { return true; }
+    public boolean isShip()                 { return true; }
 
     public ShipComputer computer()          { return computer; }
     public void computer(ShipComputer c)    { computer = c; }
@@ -151,6 +169,7 @@ public final class ShipDesign extends Design {
         size(sz);
         active = false;
         for (int i=0; i<maxWeapons(); i++)  wpnCount(i,0);
+        hashCode = galaxy().nextHashCodeShipDesign();
     }
     public boolean isScout()       { return (mission() == SCOUT); }
     public boolean isFighter()     { return (mission() == FIGHTER); }

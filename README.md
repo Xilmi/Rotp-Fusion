@@ -69,6 +69,14 @@ Later:
 
 ## What's New
 
+2023.11.19 (BR)
+- Tentative Fix Memory Low Warning.
+- Fix rare crash in Ship Combat when clicking on auto-resolve.
+- Fix proposed tech exchange not shown in Intelligence panel.
+
+2023.11.19 (Xilmi)
+- When fighting against repulsor-ships ships that cannot attack the repulsor-ship are no longer considered when it comes to the health-pool that the repulsor ship must kill. This shall prevent situations where the AI fights with a mixed fleet of ships that can and that can't attack a ship with repulsor and thinks it would win because it would outlast the repulsor ship, when in reality the repulsor ship would win as soon as it beats the ships that can counter it. This isn't fully tested yet as I still need a save where it is relevant as I had only seen it an a Let's Play.
+
 2023.11.18 (BR)
 - New Options:
   - Ungoverned colony will have their Eco sliders set to "Growth" after Transports are sent.

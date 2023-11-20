@@ -922,15 +922,17 @@ public class AIShipCaptain implements Base, ShipCaptain {
         boolean enemyHasWarpDissipator = false;
         
         List<CombatStack> friends = new ArrayList<>();
-        for (CombatStack ally: allies()) {
-            if (ally.isArmed())
+        List<CombatStack> temp = new ArrayList<>(allies());
+        for (CombatStack ally: temp) {
+            if (ally!=null && ally.isArmed())
                 friends.add(ally);
         }
         if (!friends.contains(stack))
             friends.add(stack);
         List<CombatStack> foes = new ArrayList<>();
-        for (CombatStack enemy: enemies()) {
-            if (enemy.isArmed())
+        temp = new ArrayList<>(enemies());
+        for (CombatStack enemy: temp) {
+            if (enemy!=null && enemy.isArmed())
                 foes.add(enemy);
             if(enemy.isColony())
             {

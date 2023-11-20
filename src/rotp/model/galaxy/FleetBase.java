@@ -8,11 +8,31 @@ import rotp.ui.main.GalaxyMapPanel;
 public abstract class FleetBase implements Ship, Serializable {
 	private static final long serialVersionUID = 1L;
 	private float arrivalTime = Float.MAX_VALUE;
-
+	private final Integer hashCode;
+	
 	private transient boolean displayed;
 	private transient Rectangle selectBox;
 	private transient boolean hovering;
 
+	@Override public int hashCode() {
+    	if (hashCode == null)
+    		return super.hashCode(); // for backward compatibility
+    	return hashCode;
+    }
+    @Override public boolean equals(Object ship) {
+    	if (hashCode == null)
+    		return this==ship; // for backward compatibility
+    	if (ship == null)
+    		return false;
+    	if (this==ship)
+    		return true;
+    	if (ship instanceof Ship)
+    		return ((Ship) ship).hashCode() == this.hashCode();
+    	return false;
+    }
+    FleetBase () {
+    	hashCode = galaxy().nextHashCodeShip();
+    }
 	@Override
 	public float arrivalTime() {
 		if (arrivalTime == Float.MAX_VALUE) {

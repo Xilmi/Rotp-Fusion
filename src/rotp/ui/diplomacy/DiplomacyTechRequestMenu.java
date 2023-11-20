@@ -15,8 +15,10 @@
  */
 package rotp.ui.diplomacy;
 
+import java.util.ArrayList;
 import java.util.List;
 import rotp.model.empires.Empire;
+import rotp.model.empires.SpyReport;
 import rotp.model.tech.Tech;
 
 public class DiplomacyTechRequestMenu extends DiplomaticMessage {
@@ -28,6 +30,18 @@ public class DiplomacyTechRequestMenu extends DiplomaticMessage {
     public void diplomat(Empire v)               { 
         super.diplomat(v); 
         choices = player().diplomatAI().techsAvailableForRequest(diplomat());
+
+        // We know they have these tech now
+        if (!choices.isEmpty()) {
+            List<String> techs = new ArrayList<>();
+            for (Tech tech : choices)
+            	techs.add(tech.id());
+			SpyReport report = player().viewForEmpire(v).spies().report();			
+			if (!report.techsLearned.isEmpty())
+	    		techs.removeAll(report.techsLearned);
+			if (!techs.isEmpty())
+				report.recordTechsLearned(techs);
+        }
     }
     @Override
     public boolean showTalking()        { return false; }

@@ -94,6 +94,7 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
     public int transportDestId;
     public int transportAmt;
     public float transportTravelTime;
+    private final Integer hashCode;
     
     // public so we can access without lazy inits from accessors
     public transient SystemTransportSprite transportSprite;
@@ -104,6 +105,23 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
     private transient int twinkleCycle, twinkleOffset, drawRadius;
     private transient boolean displayed = false;
 
+    @Override public int hashCode() {
+    	if (hashCode == null)
+    		return super.hashCode(); // for backward compatibility
+    	return hashCode;
+    }
+    @Override public boolean equals(Object starSystem) {
+    	if (hashCode == null)
+    		return this==starSystem; // for backward compatibility
+    	if (starSystem == null)
+    		return false;
+    	if (this==starSystem)
+    		return true;
+    	if (starSystem instanceof StarSystem)
+    		return ((StarSystem) starSystem).hashCode() == this.hashCode();
+    	return false;
+    }
+   
     public Long seed() { // BR: seed for deterministic randomness
     	if (seed == null)
     		seed = (long) random.nextInt(); // To allow seed multiplication
@@ -168,6 +186,7 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
     private StarSystem(String key, int num) {
         starTypeKey = key;
         id = num;
+        hashCode = id;
         seed(); // BR: to initialize the seed
     }
     @Override

@@ -77,7 +77,31 @@ public class Galaxy implements Base, Serializable {
 
     // BR: Dynamic options
     private DynOptions dynamicOptions = new DynOptions();
- 
+    private Integer lastHashCodeDiplomaticIncident	= 0;
+    private Integer lastHashCodeShipDesign			= 0;
+    private Integer lastHashCodeDesign				= 0;
+    private Integer lastHashCodeShip				= 0;
+    public	Integer nextHashCodeDiplomaticIncident() {
+    	if (lastHashCodeDiplomaticIncident!=null)
+    		lastHashCodeDiplomaticIncident++;
+    	return lastHashCodeDiplomaticIncident;
+    }
+    public	Integer nextHashCodeShipDesign() {
+    	if (lastHashCodeShipDesign!=null)
+    		lastHashCodeShipDesign++;
+    	return lastHashCodeShipDesign;
+    }
+    public	Integer nextHashCodeDesign() {
+    	if (lastHashCodeDesign!=null)
+    		lastHashCodeDesign++;
+    	return lastHashCodeDesign;
+    }
+    public	Integer nextHashCodeShip() {
+    	if (lastHashCodeShip!=null)
+    		lastHashCodeShip++;
+    	return lastHashCodeShip;
+    }
+
     private transient ShipCombatManager shipCombat = new ShipCombatManager();
     private transient Map<String, List<String>> raceSystemNames = new HashMap<>();
     private transient Map<String, Integer> raceSystemCtr = new HashMap<>();

@@ -17,6 +17,8 @@ package rotp.model.incidents;
 
 import java.io.Serializable;
 import java.util.Comparator;
+
+import rotp.model.galaxy.StarSystem;
 import rotp.ui.notifications.TurnNotification;
 import rotp.util.Base;
 
@@ -25,6 +27,26 @@ public abstract class DiplomaticIncident implements Base, Serializable {
     public float severity;
     public int duration;
     public int dateOccurred;
+    private final Integer hashCode; 
+    protected DiplomaticIncident () {
+    	hashCode = galaxy().nextHashCodeDiplomaticIncident();
+    }
+    @Override public int hashCode() {
+    	if (hashCode == null)
+    		return super.hashCode(); // for backward compatibility
+    	return hashCode;
+    }
+    @Override public boolean equals(Object incident) {
+    	if (hashCode == null)
+    		return this==incident; // for backward compatibility
+    	if (incident == null)
+    		return false;
+    	if (this==incident)
+    		return true;
+    	if (incident instanceof StarSystem)
+    		return ((DiplomaticIncident) incident).hashCode() == this.hashCode();
+    	return false;
+    }
 
     public int timerKey()                { return -1; } // default -1 for timerKey index means no timer triggered
     public abstract String key();
@@ -35,9 +57,9 @@ public abstract class DiplomaticIncident implements Base, Serializable {
     public String warningMessageId()     { return ""; }
     public String breakTreatyId()        { return ""; }
     public String declareWarId()         { return ""; }
-    public int duration()	 	 { return duration; }
-    public Integer dateOccurred()	 { return dateOccurred; }
-    public Integer turnOccurred()	 { return dateOccurred - galaxy().beginningYear(); }
+    public int duration()	 	 		 { return duration; }
+    public Integer dateOccurred()		 { return dateOccurred; }
+    public Integer turnOccurred()		 { return dateOccurred - galaxy().beginningYear(); }
     public void notifyOfPraise()         { }  // provides hook to avoid constant praise
 
     @Override

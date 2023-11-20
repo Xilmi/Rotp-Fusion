@@ -304,7 +304,7 @@ public class RacesUI extends BasePanel {
         int x4 = scaled(255);
         int w4 = scaled(360);
         int y4 = scaled(445);
-        helpUI.addBrownHelpText(x4, y4, w4, 3, text("RACES_HELP_3C"));
+        helpUI.addBrownHelpText(x4, y4, w4, 4, text("RACES_HELP_3C"));
     }
     private void loadHelpUI4() {
         int w = getWidth();

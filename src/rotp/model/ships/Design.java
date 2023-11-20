@@ -38,8 +38,28 @@ public class Design implements Base, Serializable {
     private int totalDestroyed = 0;
     private int totalUsed = 0;
     private int totalScrapped = 0;
+    private final Integer hashCode;
 
-    public Design() {  }
+    @Override public int hashCode() {
+    	if (hashCode == null)
+    		return super.hashCode(); // for backward compatibility
+    	return hashCode;
+    }
+    @Override public boolean equals(Object design) {
+    	if (hashCode == null)
+    		return this==design; // for backward compatibility
+    	if (design == null)
+    		return false;
+    	if (this==design)
+    		return true;
+    	if (design instanceof Design)
+    		return ((Design) design).hashCode() == this.hashCode();
+    	return false;
+    }
+
+    public Design() {
+    	hashCode = galaxy().nextHashCodeDesign();
+    }
 
     public ShipDesignLab lab()           { return lab; }
     public void lab(ShipDesignLab l)     { lab = l; }

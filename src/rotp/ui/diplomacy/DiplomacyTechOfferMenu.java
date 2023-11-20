@@ -18,6 +18,7 @@ package rotp.ui.diplomacy;
 import java.util.ArrayList;
 import java.util.List;
 import rotp.model.empires.Empire;
+import rotp.model.empires.SpyReport;
 import rotp.model.tech.Tech;
 
 public class DiplomacyTechOfferMenu extends DiplomacyRequestReply {
@@ -64,6 +65,18 @@ public class DiplomacyTechOfferMenu extends DiplomacyRequestReply {
 	        	counterOffers = unreviewedCounterTechs;
         else
         	System.out.println(galaxy().currentTurn()+" Auto Refused Tech Trade from "+diplomat().name());
+        
+        // We know they have these tech now
+        if (!counterOffers.isEmpty()) {
+            List<String> techs = new ArrayList<>();
+            for (Tech tech : counterOffers)
+            	techs.add(tech.id());
+			SpyReport report = player().viewForEmpire(v).spies().report();			
+			if (!report.techsLearned.isEmpty())
+	    		techs.removeAll(report.techsLearned);
+			if (!techs.isEmpty())
+				report.recordTechsLearned(techs);
+        }
     }
     @Override
     public boolean showTalking()        { return false; }
