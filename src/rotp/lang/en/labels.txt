@@ -2308,6 +2308,9 @@ SETTINGS_MOD_ALLOW_TECH_STEALING         | Tech stealing: %1
 SETTINGS_MOD_TRANSPORT_AUTO_REFILL_DESC  | Ungoverned colony will have their Eco sliders set to "Growth" after Transports are sent.
 SETTINGS_MOD_TRANSPORT_AUTO_REFILL       | Transport Refill: %1
 
+SETTINGS_MOD_SPY_OVERSPEND_DESC          | Use all the available budget to by spy, or stop spending once the team is complete.
+SETTINGS_MOD_SPY_OVERSPEND               | Spy Overspend: %1
+
 SETTINGS_MOD_SHOW_PENDING_ORDERS_DESC    | Spending categories having pending orders (Given after Technology update) are highlighted in blue.
 SETTINGS_MOD_SHOW_PENDING_ORDERS         | Show Orders: %1
 

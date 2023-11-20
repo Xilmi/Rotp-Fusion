@@ -83,6 +83,7 @@ import rotp.ui.notifications.SpyReportAlert;
 import rotp.ui.notifications.StealTechNotification;
 import rotp.ui.notifications.SystemsScoutedNotification;
 import rotp.ui.notifications.TurnNotification;
+import rotp.ui.races.RacesUI;
 import rotp.ui.sprites.FlightPathSprite;
 import rotp.util.Base;
 
@@ -311,10 +312,29 @@ public final class GameSession implements Base, Serializable {
     private void  startExecutors() {
         smallSphereService = Executors.newSingleThreadExecutor();
     }
+    private void resetStaticVars() {
+    	vars.clear();
+    	performingTurn	= false;
+    	if (notifications!=null)
+    		notifications.clear();
+    	if (systemsToAllocate!=null)
+    		systemsToAllocate.clear();
+    	if (systemsScouted!=null)
+    		systemsScouted.clear();
+    	if (shipsConstructed!=null)
+    		shipsConstructed.clear();
+    	if (alerts!=null)
+    		alerts.clear();
+    	autoRunning		= false;
+    	ironmanLocked	= false;
+    	viewedAlerts	= 0;
+    	RacesUI.instance.resetFinalVars();
+    }
     private void stopCurrentGame() {
         RotPUI.instance().mainUI().clearAdvice();
-        vars().clear();
-        clearAlerts();
+        resetStaticVars(); // BR: better twice than never!
+        //vars().clear();
+        //clearAlerts();
         // shut down any threads running from previous game
         smallSphereService().shutdownNow();
     }

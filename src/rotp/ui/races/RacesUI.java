@@ -86,8 +86,13 @@ public class RacesUI extends BasePanel {
         initModel();
         initRelationsColors();
     }
+    public void resetFinalVars()	{
+    	empires.clear();
+    	colorIcons.clear();
+    }
+
     @Override
-    public boolean drawMemory()            { return true; }
+    public boolean drawMemory()		{ return true; }
     @Override
     public void animate() {
         if (!AnimationManager.current().playAnimations())

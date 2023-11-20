@@ -216,6 +216,7 @@ public class Planet implements Base, IMappedObject, Serializable {
         environment = ENVIRONMENT_HOSTILE;
         terraformLevel = 0;
         waste = min(waste, maxWaste());
+    	initTerrain(type()); // BR: Make the environment follow!
     }
     public void sufferImpactEvent() {
         Empire systemEmp = null;
@@ -253,12 +254,13 @@ public class Planet implements Base, IMappedObject, Serializable {
         type = null;
         planetTypeKey = ptype;
         PlanetType pt = type();
-        terrainSeed = pt.randomTerrainSeed();
-        landscapeKey = pt.randomLandscapeKey();
-        oceanPct = pt.randomOceanPct();
-        iceLevel = pt.randomIceLevel();
-        cloudThickness = pt.randomCloudThickness();
-        initColors();
+        initTerrain(pt);
+//        terrainSeed = pt.randomTerrainSeed();
+//        landscapeKey = pt.randomLandscapeKey();
+//        oceanPct = pt.randomOceanPct();
+//        iceLevel = pt.randomIceLevel();
+//        cloudThickness = pt.randomCloudThickness();
+//        initColors();
     }
     public int alienFactories(int empId)  { return alienFactories[empId]; }
     public void addAlienFactories(int empId, int factories) {
@@ -343,7 +345,8 @@ public class Planet implements Base, IMappedObject, Serializable {
             int incr = (int) (20*session().populationBonus());
             increaseBaseSize(incr);
             type = null;
-        	type();
+        	// type();
+        	initTerrain(type()); // BR: Make the environment follow!
             starSystem().addEvent(new SystemTerraformingEvent("SYSEVENT_ATMOSPHERE_TERRAFORMED"));
             if (colony != null)
             	colony.empire().sv.refreshFullScan(starSystem().id);
@@ -448,6 +451,14 @@ public class Planet implements Base, IMappedObject, Serializable {
         return newGrownPopulation;
     }
 
+    private void initTerrain(PlanetType pt) { // BR:
+        terrainSeed = pt.randomTerrainSeed();
+        landscapeKey = pt.randomLandscapeKey();
+        oceanPct = pt.randomOceanPct();
+        iceLevel = pt.randomIceLevel();
+        cloudThickness = pt.randomCloudThickness();
+        initColors();
+    }
     private void initColors() {
         switch(type().key()) {
             case PlanetType.OCEAN:

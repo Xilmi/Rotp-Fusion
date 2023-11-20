@@ -40,7 +40,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - This to prevent friendly neighbors from constantly sending armed scouts and colony!
 - Monsters and Guardian are visible.
 - New Option: Ungoverned colonies will have their Eco sliders set to "Growth" after Transports are sent.
-- AI improvement agains repulsors. (Xilmi)
+- AI improvement against repulsors. (Xilmi)
+- Spy: New option to stop spending the budget once the team is complete.
 
 <b><ins>Bug Fixes:</ins></b>
 - Fixed sound echo default values.
@@ -52,6 +53,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed Symmetric Galaxies freezing the setup panel.
 - Fixed Nasty long lasting crashing bug, when starting a new game. !!!YYYYeeeessss!!!
 - Fixed: Clicking on the Spending "Results" will no more "scramble" the other spending...
-- Tentative Fix Memory Low Warning.
 - Fixed rare crash in Ship Combat when clicking on auto-resolve.
 - Fixed proposed tech exchange not shown in Intelligence panel.
+- Fixed: Update Planet Background when degraded or improved.
+- Fixed some "Memory Low Warning" contributions...

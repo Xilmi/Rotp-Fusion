@@ -38,12 +38,6 @@ Bug to fix:
 
 Very soon:
 - Species Easy-Normal-Hard
-  - https://www.reddit.com/r/rotp/comments/17qul3g/nudder_nutty_notion_simple_startup_settings/
-- Monsters:
-  - Option to change their travel time.
-  - https://www.reddit.com/r/rotp/comments/16ov0ln/monstrous_ends_rotp_fusion_mod_tweaks/
-  - https://www.reddit.com/r/rotp/comments/mc3ux3/different_take_on_space_monsters/
-- Spy: option to not over spend with the spy budget!
 - Add second statistic option: (on the side of lin / log): Display statistic as:
     - "% Tot": Precentage relative to known total (!= Galaxy Total)
     - "% Player": Percentage relative to player value.
@@ -54,8 +48,10 @@ Very soon:
 - Some Achievements options.
 - change the color of a weapon button on the combat screen if the target is so well shielded that damaging it is impossible. Currently all these buttons are green with white/yellow highlights, perhaps swapping the green for a grey would do it? And maybe change the highlight from yellow to black as well.
   - Hit chance like in bombard panel!
-- To Fix: Planet which was converted from hostile to minimal via atmospheric terraforming, the background matches the original planet type instead of the current minimal environment.
-
+- Monsters:
+  - Option to change their travel time.
+  - Planet Monsters Guardian.
+- Add Help to History.
 Later:
 - Investigate: William482 request: Age of your data on each race into the bar graphs on the status page.
 - Tech trading extended list.
@@ -68,6 +64,11 @@ Later:
 
 
 ## What's New
+
+2023.11.20 (BR)
+- Fixed: Update Planet Background when degraded or improved.
+- Spy: New option to stop spending the budget once the team is complete.
+- Memory Low Warning: clear Static and final lists of sessions and UI. 
 
 2023.11.19 (BR)
 - Tentative Fix Memory Low Warning.

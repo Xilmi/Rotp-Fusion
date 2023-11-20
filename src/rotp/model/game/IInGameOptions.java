@@ -187,6 +187,9 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 	default boolean transportAutoRefill()	{ return transportAutoRefill.get(); }
 	default void transportAutoRefillToggle(){ transportAutoRefill.toggle(); }
 
+	ParamBoolean spyOverSpend			= new ParamBoolean(MOD_UI, "SPY_OVERSPEND", true);
+	default boolean spyOverSpend()			{ return spyOverSpend.get(); }
+
 	// ==================== GUI List Declarations ====================
 	static LinkedList<IParam> modDynamicAOptions() {
 		return new LinkedList<>(
@@ -215,6 +218,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 						GovernorOptions.governorOptionsUI,
 						null,
 						eventsStartTurn, eventsPace,
+						spyOverSpend,
 						IZoomOptions.zoomOptionsUI,
 						null,
 						fixedEventsMode, eventsFavorWeak,
@@ -240,6 +244,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 				transportAutoRefill, terraforming,
 				colonizing, researchRate,
 				warpSpeed, fuelRange,
+				spyOverSpend,
 
 				headerSpacer,
 				new ParamTitle("IRONMAN_BASIC"),
