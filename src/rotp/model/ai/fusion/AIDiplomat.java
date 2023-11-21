@@ -846,9 +846,6 @@ public class AIDiplomat implements Base, Diplomat {
         if(!empire.enemies().isEmpty())
             return v.refuse(DialogueManager.DECLINE_OFFER, target);
         
-        if(target == balanceVictim() && variant != 1)
-            return agreeToJointWar(requestor, target);
-        
         if(variant == 1) {
             if(empire.leader().isHonorable() && target == getVictim())
                 return agreeToJointWar(requestor, target);
@@ -1116,13 +1113,6 @@ public class AIDiplomat implements Base, Diplomat {
         
         // build a priority list for Joint War offers:
         for (Empire target: empire.enemies()) {
-            if (willingToOfferJointWar(v.empire(), target)) {
-                //System.out.println(empire.galaxy().currentTurn()+" "+ empire.name()+" asks "+v.empire().name()+" to declare war on "+target.name());
-                v.empire().diplomatAI().receiveOfferJointWar(v.owner(), target); 
-            }
-        }
-        Empire target = getVictim();
-        if(!empire.atWar() && target == balanceVictim() && variant != 1) {
             if (willingToOfferJointWar(v.empire(), target)) {
                 //System.out.println(empire.galaxy().currentTurn()+" "+ empire.name()+" asks "+v.empire().name()+" to declare war on "+target.name());
                 v.empire().diplomatAI().receiveOfferJointWar(v.owner(), target); 
@@ -1477,55 +1467,35 @@ public class AIDiplomat implements Base, Diplomat {
         {
             float victimPowerLevel = victim.powerLevel(victim);
             float myPowerLevel = empire.powerLevel(empire);
-            if(victim.atWar() && victimPowerLevel > myPowerLevel)
-                skipAggressionCheck = true;
-            if(!skipAggressionCheck) {
-                if(empire.generalAI().smartPowerLevel() > victim.totalIncome())
-                    ourMilitaryPower = empire.generalAI().smartPowerLevel();
-                float victimPower = victim.powerLevel(victim);
-                float victimMilitaryPower = victim.militaryPowerLevel();
-                for(Empire enemy : victim.warEnemies())
-                {
-                    if(enemy == empire)
-                        continue;
-                    ourPower += enemy.powerLevel(enemy);
-                    ourMilitaryPower += enemy.militaryPowerLevel();
-                }
-                for(Empire ally : empire.allies())
-                {
-                    //avoid counting our allies twice when they are already counted
-                    if(!victim.warEnemies().contains(ally))
-                    {
-                        ourPower += ally.powerLevel(ally);
-                        ourMilitaryPower += ally.militaryPowerLevel();
-                    }
-                }
-                for(Empire ally : victim.allies())
-                {
-                    victimPower += ally.powerLevel(ally);
-                    victimMilitaryPower += ally.militaryPowerLevel();
-                }
-                for(Empire contact : empire.contactedEmpires()) {
-                    if(contact == victim)
-                        continue;
-                    if(contact.warEnemies().contains(victim) || contact.warEnemies().contains(empire))
-                        continue;
-                    /*float chanceOfContactToBackstabMe = empire.generalAI().predictEmpireChanceToDeclareWarIfIDeclaredWarOn(contact, victim, true);
-                    float chanceOfContactToBackstabVictim = empire.generalAI().predictEmpireChanceToDeclareWarIfIDeclaredWarOn(contact, victim, false);*/
-                    //Let's just assume the worst:
-                    float chanceOfContactToBackstabMe = 1.0f;
-                    float chanceOfContactToBackstabVictim = 0.0f;
-                    ourPower += contact.powerLevel(contact) * chanceOfContactToBackstabVictim;
-                    ourMilitaryPower += contact.militaryPowerLevel() * chanceOfContactToBackstabVictim;
-                    victimPower += contact.powerLevel(contact) * chanceOfContactToBackstabMe;
-                    victimMilitaryPower += contact.militaryPowerLevel() * chanceOfContactToBackstabMe;
-                    //System.out.println(galaxy().currentTurn()+" "+empire.name()+" thinks "+contact.name()+" would backstab "+empire.name()+" with a chance of: "+chanceOfContactToBackstabMe+" and "+victim.name()+" with a chance of: "+chanceOfContactToBackstabVictim);
-                }
-                float aggressiveness = aggressiveness(victim);
-                //System.out.println(galaxy().currentTurn()+" "+empire.name()+" ourPower: "+ourPower+" "+victim.name()+" power: "+victimPower+" my military: "+ourMilitaryPower+" their military: "+victimMilitaryPower+" colonize: "+empire.generalAI().additionalColonizersToBuild(false)+" aggressiveness: "+aggressiveness+" variant: "+variant);
-                if(victimPower > aggressiveness * ourPower && victimMilitaryPower >= aggressiveness * ourMilitaryPower)
-                    warAllowed = false;
+            if(empire.generalAI().smartPowerLevel() > victim.totalIncome())
+                ourMilitaryPower = empire.generalAI().smartPowerLevel();
+            float victimPower = victim.powerLevel(victim);
+            float victimMilitaryPower = victim.militaryPowerLevel();
+            for(Empire enemy : victim.warEnemies())
+            {
+                if(enemy == empire)
+                    continue;
+                ourPower += enemy.powerLevel(enemy);
+                ourMilitaryPower += enemy.militaryPowerLevel();
             }
+            for(Empire ally : empire.allies())
+            {
+                //avoid counting our allies twice when they are already counted
+                if(!victim.warEnemies().contains(ally))
+                {
+                    ourPower += ally.powerLevel(ally);
+                    ourMilitaryPower += ally.militaryPowerLevel();
+                }
+            }
+            for(Empire ally : victim.allies())
+            {
+                victimPower += ally.powerLevel(ally);
+                victimMilitaryPower += ally.militaryPowerLevel();
+            }
+            float aggressiveness = aggressiveness(victim);
+            //System.out.println(galaxy().currentTurn()+" "+empire.name()+" ourPower: "+ourPower+" "+victim.name()+" power: "+victimPower+" my military: "+ourMilitaryPower+" their military: "+victimMilitaryPower+" colonize: "+empire.generalAI().additionalColonizersToBuild(false)+" aggressiveness: "+aggressiveness+" variant: "+variant);
+            if(victimPower > aggressiveness * ourPower && victimMilitaryPower >= aggressiveness * ourMilitaryPower)
+                warAllowed = false;
             if(empire.generalAI().additionalColonizersToBuild(false) > 0 && !empire.atWar())
                 warAllowed = false;
             //Ail: If there's only two empires left, there's no time for preparation. We cannot allow them the first-strike-advantage!
@@ -2202,7 +2172,7 @@ public class AIDiplomat implements Base, Diplomat {
             if(empire.leader().isIndustrialist())
                 return getIndustrialistVictim();
         }
-        Empire victim = balanceVictim();
+        Empire victim = empire.generalAI().bestVictim();
         if(victim == null)
             victim = systemVictim();
         return victim;
@@ -2314,7 +2284,7 @@ public class AIDiplomat implements Base, Diplomat {
             return false;
         boolean considerAlly = false;
         for(Empire myEnemy : empire.enemies()) {
-            if(myEnemy == balanceVictim() && v.empire().enemies().contains(myEnemy))
+            if(myEnemy == empire.generalAI().bestVictim() && v.empire().enemies().contains(myEnemy))
                 considerAlly = true;
         }
         if(v.empire() != null && empire.allies().contains(v.empire()))
