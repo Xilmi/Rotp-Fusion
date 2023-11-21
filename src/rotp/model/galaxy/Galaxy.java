@@ -488,6 +488,7 @@ public class Galaxy implements Base, Serializable {
         return null;
     }
     public void startGame() {
+        memLog(); // TODO BR: comment
         giveAdvice("MAIN_ADVISOR_SCOUT");
         session().processNotifications();
     }
@@ -518,7 +519,10 @@ public class Galaxy implements Base, Serializable {
     	// spaceMonsters = null;
     	if (spaceMonsters == null) {
         	spaceMonsters = events.monsters();
-        	SpaceMonster guardian = orionSystem().monster();
+        	StarSystem orionSystem = orionSystem();
+        	SpaceMonster guardian = null;
+        	if (orionSystem != null)
+        		guardian = orionSystem().monster();
         	if (guardian != null)
         		spaceMonsters.add(guardian);
     	}

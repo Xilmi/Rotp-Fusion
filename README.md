@@ -69,6 +69,7 @@ Later:
 - Fixed: Update Planet Background when degraded or improved.
 - Spy: New option to stop spending the budget once the team is complete.
 - Memory Low Warning: clear Static and final lists of sessions and UI. 
+- Added more info on the Memory Low warning message.
 
 2023.11.19 (BR)
 - Tentative Fix Memory Low Warning.

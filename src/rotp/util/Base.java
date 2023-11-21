@@ -49,6 +49,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.lang.management.GarbageCollectorMXBean;
+import java.lang.management.ManagementFactory;
+import java.lang.management.MemoryPoolMXBean;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -1537,5 +1540,19 @@ public interface Base {
     public default  Point2D center(Rectangle rect) {
     	return new Point2D.Float((float) rect.getCenterX(), (float) rect.getCenterY());
     }
-
+    default void memLog()	{ memLog(""); }
+    default void memLog(String subTurn)	{
+        System.out.println(getTurn(subTurn));
+        System.out.println("Heap: "+ ManagementFactory.getMemoryMXBean().getHeapMemoryUsage());
+        System.out.println("NonHeap: " + ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage());
+        List<MemoryPoolMXBean> beans = ManagementFactory.getMemoryPoolMXBeans();
+        System.out.println("Memory Pool: ");
+        for (MemoryPoolMXBean bean: beans) {
+            System.out.println(bean.getName() + " "+ bean.getUsage());
+        }
+        System.out.println("Garbage Collector: ");
+        for (GarbageCollectorMXBean bean: ManagementFactory.getGarbageCollectorMXBeans()) {
+        	System.out.println(bean.getName() + " "+ bean.getCollectionCount() + " "+ bean.getCollectionTime());
+        }
+    }
 }

@@ -15,9 +15,9 @@
  */
 package rotp.model.game;
 
-import static rotp.model.game.IGameOptions.GAME_OPTIONS_FILE;
-import static rotp.model.game.IGameOptions.MEMORY_LOGFILE;
-import static rotp.model.game.IGameOptions.AUTORUN_LOGFILE;
+import static rotp.model.game.IBaseOptsTools.GAME_OPTIONS_FILE;
+import static rotp.model.game.IDebugOptions.AUTORUN_LOGFILE;
+import static rotp.model.game.IDebugOptions.MEMORY_LOGFILE;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
@@ -319,8 +319,7 @@ public final class GameSession implements Base, Serializable {
     		notifications.clear();
     	if (systemsToAllocate!=null)
     		systemsToAllocate.clear();
-    	if (systemsScouted!=null)
-    		systemsScouted.clear();
+    	this.clearScoutedSystems();
     	if (shipsConstructed!=null)
     		shipsConstructed.clear();
     	if (alerts!=null)
@@ -421,6 +420,9 @@ public final class GameSession implements Base, Serializable {
         	if (options.consoleAutoRun())
         		System.out.println(s);
         }
+//        memLog(); // TODO BR: Comment
+//        RotPUI.instance().mainUI().showMemoryLowPrompt();
+
     }
     @SuppressWarnings("unused")
 	private void ModnarPrivateLogging() {
@@ -1220,6 +1222,8 @@ public final class GameSession implements Base, Serializable {
         // BR: Backward compatibility tentative
         galaxy().validateOnLoad();
         ((MOO1GameOptions) options).validateOnLoad();
+        
+        memLog(); // TODO BR: comment
     }
     static ThreadFactory minThreadFactory() {
         return (Runnable r) -> {

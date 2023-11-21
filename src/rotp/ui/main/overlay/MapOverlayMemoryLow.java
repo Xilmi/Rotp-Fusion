@@ -22,6 +22,9 @@ import java.awt.LinearGradientPaint;
 import java.awt.Stroke;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
+import java.lang.management.GarbageCollectorMXBean;
+import java.lang.management.ManagementFactory;
+import java.lang.management.MemoryPoolMXBean;
 import java.util.List;
 import rotp.Rotp;
 import rotp.model.Sprite;
@@ -65,10 +68,14 @@ public class MapOverlayMemoryLow extends MapOverlay {
         int s25 = BasePanel.s25;
         int s35 = BasePanel.s35;
 
-        int x0 = scaled(330);
-        int y0 = scaled(165);
-        int w0 = scaled(420);
-        int h0 = scaled(335);
+//        int x0 = scaled(330);
+//        int y0 = scaled(165);
+//        int w0 = scaled(420);
+//        int h0 = scaled(335);
+        int x0 = scaled(100);
+        int y0 = scaled(30);
+        int w0 = scaled(850);
+        int h0 = scaled(585);
         g.setColor(MainUI.paneShadeC2);
         g.fillRect(x0, y0, w0, h0);
 
@@ -82,7 +89,8 @@ public class MapOverlayMemoryLow extends MapOverlay {
         int x2 = x1;
         int y2 = y1+h1+s3;
         int w2 = w1;
-        int h2 = scaled(212);
+//        int h2 = scaled(212);
+        int h2 = scaled(462);
         g.setColor(MainUI.paneBackground);
         g.fillRect(x2, y2, w2, h2);
 
@@ -115,7 +123,6 @@ public class MapOverlayMemoryLow extends MapOverlay {
             y2a += lineH;
         }
 
-
         y2a += s10;
         String desc3 = text("MAIN_MEMORY_LOW_DESC_3");
         g.setFont(narrowFont(16));
@@ -123,6 +130,51 @@ public class MapOverlayMemoryLow extends MapOverlay {
         for (String line: lines) {
             drawString(g,line, x2a, y2a);
             y2a += lineH;
+        }
+        
+        y2a += s10;
+        String desc4 = "Heap: "+ ManagementFactory.getMemoryMXBean().getHeapMemoryUsage();
+        g.setFont(narrowFont(16));
+        lines = wrappedLines(g, desc4, textW);
+        for (String line: lines) {
+            drawString(g,line, x2a, y2a);
+            y2a += lineH;
+        }
+//        y2a += s10;
+        desc4 = "NonHeap: " + ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage();
+        g.setFont(narrowFont(16));
+        lines = wrappedLines(g, desc4, textW);
+        for (String line: lines) {
+            drawString(g,line, x2a, y2a);
+            y2a += lineH;
+        }
+
+        y2a += s10;
+        drawString(g,"Memory Pool: ", x2a, y2a);
+        y2a += lineH;
+        
+        List<MemoryPoolMXBean> beans = ManagementFactory.getMemoryPoolMXBeans();
+        for (MemoryPoolMXBean bean: beans) {
+            desc4 = bean.getName() + " "+ bean.getUsage();
+            g.setFont(narrowFont(16));
+            lines = wrappedLines(g, desc4, textW);
+            for (String line: lines) {
+                drawString(g,line, x2a, y2a);
+                y2a += lineH;
+            }
+        }
+
+        y2a += s10;
+        drawString(g,"Garbage Collector: ", x2a, y2a);
+        y2a += lineH;
+        for (GarbageCollectorMXBean bean: ManagementFactory.getGarbageCollectorMXBeans()) {
+            desc4 = bean.getName() + " "+ bean.getCollectionCount() + " "+ bean.getCollectionTime();
+            g.setFont(narrowFont(16));
+            lines = wrappedLines(g, desc4, textW);
+            for (String line: lines) {
+                drawString(g,line, x2a, y2a);
+                y2a += lineH;
+            }
         }
 
         // init and draw continue button sprite
