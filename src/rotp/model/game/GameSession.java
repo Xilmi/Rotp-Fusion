@@ -420,8 +420,10 @@ public final class GameSession implements Base, Serializable {
         	if (options.consoleAutoRun())
         		System.out.println(s);
         }
-//        memLog(); // TODO BR: Comment
-//        RotPUI.instance().mainUI().showMemoryLowPrompt();
+        if (options.debugShowMoreMemory()) {
+            memLog();
+            //RotPUI.instance().mainUI().showMemoryLowPrompt(); // TO DO BR: Comment
+        }
 
     }
     @SuppressWarnings("unused")
@@ -1222,8 +1224,11 @@ public final class GameSession implements Base, Serializable {
         // BR: Backward compatibility tentative
         galaxy().validateOnLoad();
         ((MOO1GameOptions) options).validateOnLoad();
-        
-        memLog(); // TODO BR: comment
+
+        if (options.debugShowMoreMemory()) {
+            memLog();
+            // RotPUI.instance().mainUI().showMemoryLowPrompt(); // TO DO BR: Comment
+        }
     }
     static ThreadFactory minThreadFactory() {
         return (Runnable r) -> {

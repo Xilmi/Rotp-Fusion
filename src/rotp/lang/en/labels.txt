@@ -439,14 +439,18 @@ GAME_SETTINGS_SENSITIVITY_MEDIUM_HELP | Generally enough!
 GAME_SETTINGS_SENSITIVITY_MEDIUM      | Medium
 GAME_SETTINGS_SENSITIVITY_LOW_HELP    | Slowest response with minimal CPU requirement.
 GAME_SETTINGS_SENSITIVITY_LOW         | Low
-GAME_SETTINGS_SENSITIVITY_DESC    | Toggle how quickly the galaxy map responds to mouse movement when updating the display panel.
-GAME_SETTINGS_MEMORY              | Show Memory Usage: %1
-GAME_SETTINGS_MEMORY_YES          | Yes
-GAME_SETTINGS_MEMORY_NO           | No
-GAME_SETTINGS_MEMORY_DESC         | Toggles the display of memory usage statistics at the bottom right corner of the game. Useful for monitoring memory usage. (Used / Allocated / Available (Max Used / Max Allocated) / Threads)
+GAME_SETTINGS_SENSITIVITY_DESC        | Toggle how quickly the galaxy map responds to mouse movement when updating the display panel.
+GAME_SETTINGS_MEMORY                  | Show Memory Usage: %1
+GAME_SETTINGS_MEMORY_YES              | Yes
+GAME_SETTINGS_MEMORY_NO               | No
+GAME_SETTINGS_MEMORY_DESC             | Toggles the display of memory usage statistics at the bottom right corner of the game. Useful for monitoring memory usage. (Used / Allocated / Available (Max Used / Max Allocated) / Threads)
+GAME_SETTINGS_MORE_MEMORY             | Console More Memory: %1
+GAME_SETTINGS_MORE_MEMORY_YES         | Yes
+GAME_SETTINGS_MORE_MEMORY_NO          | No
+GAME_SETTINGS_MORE_MEMORY_DESC        | Toggles the console output of extended memory usage statistics at the begining and the end of turn, and when loading a game.
 
 GAME_SETTINGS_MEMORY_CONSOLE      | Console Memory Usage: %1
-GAME_SETTINGS_MEMORY_CONSOLE_DESC | Toggles the console output of memory usage statistics at the begeining and the end of turn.
+GAME_SETTINGS_MEMORY_CONSOLE_DESC | Toggles the console output of memory usage statistics at the begining and the end of turn.
 GAME_SETTINGS_MEMORY_FILE         | File Memory Usage: %1
 GAME_SETTINGS_MEMORY_FILE_DESC    | Toggles the file output of memory usage statistics at the begeining and the end of turn.
 

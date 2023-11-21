@@ -488,7 +488,10 @@ public class Galaxy implements Base, Serializable {
         return null;
     }
     public void startGame() {
-        memLog(); // TODO BR: comment
+        if (options().debugShowMoreMemory()) {
+            memLog();
+            // RotPUI.instance().mainUI().showMemoryLowPrompt(); // TO DO BR: Comment
+        }
         giveAdvice("MAIN_ADVISOR_SCOUT");
         session().processNotifications();
     }

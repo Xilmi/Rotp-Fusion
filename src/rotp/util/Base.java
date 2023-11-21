@@ -52,6 +52,7 @@ import java.io.PrintWriter;
 import java.lang.management.GarbageCollectorMXBean;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryPoolMXBean;
+import java.lang.management.MemoryUsage;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -68,6 +69,7 @@ import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.math3.util.FastMath;
 
 import rotp.Rotp;
@@ -109,8 +111,8 @@ public interface Base {
     public static DecimalFormat pad4 = new DecimalFormat("0000");
     public static String lineSplit		= "<br>"; 	// BR: for descriptions and Help. System independent .
     public static String lineSplitRegex = "<br>";	// BR: for descriptions and Help. System independent .
-    
-    static ImageColorizer colorizer = new ImageColorizer();
+    public static int MB = 1048576;
+    public static ImageColorizer colorizer = new ImageColorizer();
     public static String[] textSubs = { "%1", "%2", "%3", "%4", "%5", "%6", "%7", "%8", "%9", "%0" };
 
     public default GameSession session()   { return GameSession.instance(); }
@@ -1543,16 +1545,39 @@ public interface Base {
     default void memLog()	{ memLog(""); }
     default void memLog(String subTurn)	{
         System.out.println(getTurn(subTurn));
-        System.out.println("Heap: "+ ManagementFactory.getMemoryMXBean().getHeapMemoryUsage());
-        System.out.println("NonHeap: " + ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage());
+        System.out.println(memHeap());
+        System.out.println(memNonHeap());
         List<MemoryPoolMXBean> beans = ManagementFactory.getMemoryPoolMXBeans();
         System.out.println("Memory Pool: ");
-        for (MemoryPoolMXBean bean: beans) {
-            System.out.println(bean.getName() + " "+ bean.getUsage());
-        }
+        for (MemoryPoolMXBean bean : beans)
+            System.out.println(memoryPoolToString(bean));
         System.out.println("Garbage Collector: ");
-        for (GarbageCollectorMXBean bean: ManagementFactory.getGarbageCollectorMXBeans()) {
-        	System.out.println(bean.getName() + " "+ bean.getCollectionCount() + " "+ bean.getCollectionTime());
-        }
+        for (GarbageCollectorMXBean bean : ManagementFactory.getGarbageCollectorMXBeans())
+        	System.out.println(memoryGCToString(bean));
+    }
+    default String memNonHeap()	{
+    	MemoryUsage mem = ManagementFactory.getMemoryMXBean().getNonHeapMemoryUsage();
+    	return StringUtils.rightPad("Non Heap: ", 32) + memoryToString(mem);
+    }
+    default String memHeap()	{
+    	MemoryUsage mem = ManagementFactory.getMemoryMXBean().getHeapMemoryUsage();
+    	return StringUtils.rightPad("Heap: ", 32) + memoryToString(mem);
+    }
+    default String memoryToString(MemoryUsage mem)	{
+    	String s = "";
+    	s += " Init: "		+ StringUtils.leftPad((mem.getInit()     /MB) + " MB", 7);
+    	s += " Used: "		+ StringUtils.leftPad((mem.getUsed()     /MB) + " MB", 7);
+    	s += " Committed: " + StringUtils.leftPad((mem.getCommitted()/MB) + " MB", 7);
+    	s += " Max: "		+ StringUtils.leftPad((mem.getMax()      /MB) + " MB", 7);
+    	return s;
+    }
+    default String memoryPoolToString(MemoryPoolMXBean bean)	{
+    	return StringUtils.rightPad(bean.getName(), 32)
+    			+ memoryToString(bean.getUsage());
+    }
+    default String memoryGCToString(GarbageCollectorMXBean bean)	{
+    	return StringUtils.rightPad(bean.getName(), 24)
+       			+ " Count = " + StringUtils.leftPad(bean.getCollectionCount() + "",    3)
+    			+ " Time = "  + StringUtils.leftPad(bean.getCollectionTime()  + " ms", 6);
     }
 }

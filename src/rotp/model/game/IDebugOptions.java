@@ -18,7 +18,6 @@ public interface IDebugOptions extends IBaseOptsTools {
     String AUTORUN_OTHERFILE= "AutoRunOther.txt";
     String AUTORUN_EVENTS   = "AutoRunEvents.txt";
 
-
 	ParamBoolean debugShowMemory	= new ParamBoolean(GAME_UI, "MEMORY", false) {
 		{ isDuplicate(true); isCfgFile(true); }
 		@Override public String getCfgLabel()		{ return "SHOW_MEMORY"; }
@@ -26,6 +25,10 @@ public interface IDebugOptions extends IBaseOptsTools {
 		@Override public void setOption(Boolean b)	{ showMemory(b); }
 	};
 	default boolean debugShowMemory()		{ return debugShowMemory.get(); }
+
+    ParamBoolean debugShowMoreMemory	= new ParamBoolean(GAME_UI, "MORE_MEMORY", false)
+  	{ { isDuplicate(false); isCfgFile(true); } };
+	default boolean debugShowMoreMemory()	{ return debugShowMoreMemory.get(); }
 
 	ParamBoolean debugConsoleMemory	= new ParamBoolean(GAME_UI, "MEMORY_CONSOLE", false)
 	{ { isDuplicate(false); isCfgFile(true); } };
@@ -58,7 +61,8 @@ public interface IDebugOptions extends IBaseOptsTools {
 		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("DEBUG_MEMORY"),
-				debugShowMemory, debugConsoleMemory, debugFileMemory
+				debugShowMemory, debugConsoleMemory,
+				debugShowMoreMemory, debugFileMemory
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("DEBUG_AUTO_PLAY"),

@@ -65,6 +65,10 @@ Later:
 
 ## What's New
 
+2023.11.21 (BR)
+- Memory Low warning message: Better aligment.
+- New Debug Option to display more memory info on console.
+
 2023.11.20 (BR)
 - Fixed: Update Planet Background when degraded or improved.
 - Spy: New option to stop spending the budget once the team is complete.
