@@ -65,8 +65,12 @@ Later:
 
 ## What's New
 
+2023.11.23 (BR)
+- Master Of Orion Strategy Guide says differently!
+  - Stream projector damages are repaired again.
+  
 2023.11.22 (BR)
-- Stream projector damage are not restored by automated repair system, and only 10% of them by advanced damage control.
+- Stream projector damages are not restored by automated repair system, and only 10% of them by advanced damage control.
 
 2023.11.21 (Xilmi)
 - Fusion AI once again is about being selfish and opportunistic rather than trying to prevent someone else from winning.

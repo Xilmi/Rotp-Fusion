@@ -258,17 +258,18 @@ public class CombatStack implements Base {
             return;
         if (repairPct <= 0)
             return;
-        float streamProjectorRepairPct	= max(0,(repairPct - 0.2f));
-        float streamProjectorHealAmt	= startingMaxHits*streamProjectorRepairPct;        
-        streamProjectorHits	= max(0, streamProjectorHits-streamProjectorHealAmt);        
-        float maxHitLimit	= startingMaxHits - streamProjectorHits;
-        float healAmt		= startingMaxHits * repairPct;
-        hits				= min(maxHitLimit, hits+healAmt);
-        maxStackHits		= max(hits, maxHitLimit);
-		// BR: Streaming damage is not repaired
-		// float healAmt = startingMaxHits*repairPct;
-		// hits = min(startingMaxHits, hits+healAmt);
-		// maxStackHits = max(hits, maxStackHits);
+        // BR: Wrong Request: Removed! // BR: Streaming damage is not repaired
+//        float streamProjectorRepairPct	= max(0,(repairPct - 0.2f));
+//        float streamProjectorHealAmt	= startingMaxHits*streamProjectorRepairPct;        
+//        streamProjectorHits	= max(0, streamProjectorHits-streamProjectorHealAmt);        
+//        float maxHitLimit	= startingMaxHits - streamProjectorHits;
+//        float healAmt		= startingMaxHits * repairPct;
+//        hits				= min(maxHitLimit, hits+healAmt);
+//        maxStackHits		= max(hits, maxHitLimit);
+
+		 float healAmt = startingMaxHits*repairPct;
+		 hits = min(startingMaxHits, hits+healAmt);
+		 maxStackHits = max(hits, maxStackHits);
     }
     public void endTurn() {
         if (!destroyed())
