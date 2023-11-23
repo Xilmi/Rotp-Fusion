@@ -134,19 +134,13 @@ public class MapOverlayMemoryLow extends MapOverlay {
         
         y2a += s10;
         String desc4 = memHeap();
-        g.setFont(galaxyFont(28));
-        lines = wrappedLines(g, desc4, textW);
-        for (String line: lines) {
-            drawString(g,line, x2a, y2a);
-            y2a += lineH;
-        }
+        g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 22));
+        drawString(g, desc4, x2a, y2a);
+        y2a += lineH;
 
         desc4 = memNonHeap();
-        lines = wrappedLines(g, desc4, textW);
-        for (String line: lines) {
-            drawString(g,line, x2a, y2a);
-            y2a += lineH;
-        }
+        drawString(g, desc4, x2a, y2a);
+        y2a += lineH;
 
         y2a += s10;
         drawString(g,"Memory Pool: ", x2a, y2a);
@@ -154,11 +148,8 @@ public class MapOverlayMemoryLow extends MapOverlay {
         List<MemoryPoolMXBean> beans = ManagementFactory.getMemoryPoolMXBeans();
         for (MemoryPoolMXBean bean: beans) {
             desc4 = memoryPoolToString(bean);
-            lines = wrappedLines(g, desc4, textW);
-            for (String line: lines) {
-                drawString(g,line, x2a, y2a);
-                y2a += lineH;
-            }
+            drawString(g, desc4, x2a, y2a);
+            y2a += lineH;
         }
 
         y2a += s10;
@@ -166,11 +157,9 @@ public class MapOverlayMemoryLow extends MapOverlay {
         y2a += lineH;
         for (GarbageCollectorMXBean bean: ManagementFactory.getGarbageCollectorMXBeans()) {
             desc4 = memoryGCToString(bean);
+            drawString(g, desc4, x2a, y2a);
+            y2a += lineH;
             lines = wrappedLines(g, desc4, textW);
-            for (String line: lines) {
-                drawString(g,line, x2a, y2a);
-                y2a += lineH;
-            }
         }
 
         // init and draw continue button sprite

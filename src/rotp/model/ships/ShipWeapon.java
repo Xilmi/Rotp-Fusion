@@ -66,7 +66,7 @@ public class ShipWeapon extends ShipComponent {
         if (dmg == 0)
             return 0;
         //ail: The only thing that makes sense to return here is our total damage divided by the target's hitpoints
-        return dmg/target.maxHits();
+        return dmg/target.maxStackHits();
     }
     @Override
     public float estimatedBombardDamage(CombatStack source, CombatStackColony target) {

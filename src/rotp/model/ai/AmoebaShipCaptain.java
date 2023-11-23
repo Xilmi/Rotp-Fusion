@@ -83,8 +83,9 @@ public class AmoebaShipCaptain implements Base, ShipCaptain {
         float newScale = st.scale == 1.5f ? 1.0f : st.scale*2/3;
 
         CombatStackSpaceAmoeba newStack = new CombatStackSpaceAmoeba(monster, st.speed, st.monsterLevel);
-        newStack.maxHits = st.maxHits;
-        newStack.hits = st.maxHits;
+        newStack.maxStackHits(st.maxStackHits());
+        newStack.hits(st.maxStackHits());
+        newStack.streamProjectorHits(0); // BR:
         newStack.x = st.x;
         newStack.y = st.y;        
         

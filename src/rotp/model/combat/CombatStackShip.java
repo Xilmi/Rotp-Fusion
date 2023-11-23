@@ -55,7 +55,7 @@ public class CombatStackShip extends CombatStack {
     }
     @Override
     public String shortString() {
-        return concat(design.name(), " hp: ", str((int)hits), "/", str((int)maxHits), " at:", str(x), ",", str(y));
+        return concat(design.name(), " hp: ", str((int)hits()), "/", str((int)maxStackHits()), " at:", str(x), ",", str(y));
     }
     public CombatStackShip(ShipFleet fl, int index, ShipCombatManager m) {
         mgr = m;
@@ -65,13 +65,16 @@ public class CombatStackShip extends CombatStack {
         usingAI = (empire == null) || empire.isAIControlled();
         captain = empire.ai().shipCaptain();
         origNum = num = fl.num(index);
-        startingMaxHits = maxHits = design.hits();
+        maxStackHits(design.hits());
+        streamProjectorHits(0); // BR:
+        startingMaxHits(maxStackHits());
         maxMove = design.moveRange();
         maxShield = m.system().inNebula() ? 0 : design.shieldLevel();
         attackLevel = design.attackLevel() + empire.shipAttackBonus();
         maneuverability = design.maneuverability();
         repulsorRange = design.repulsorRange();
-        hits = maxHits;
+        hits(maxStackHits());
+        streamProjectorHits(0); // BR:
         move = maxMove;
         shield = maxShield;
         missileDefense = design.missileDefense() + empire.shipDefenseBonus();
@@ -731,7 +734,7 @@ public class CombatStackShip extends CombatStack {
             // draw health bar & hp
             g.setColor(healthBarBackC);
             g.fillRect(x4, y4, w4, barH);
-            int w4a = (int)(w4*hits/maxHits);
+            int w4a = (int)(w4*hits()/maxStackHits());
             if(mgr.currentStack() == this)
                 g.setColor(ShipBattleUI.currentBorderC);
             else
@@ -755,7 +758,7 @@ public class CombatStackShip extends CombatStack {
             g.drawString(numStr, x6+BasePanel.s5,y4+BasePanel.s18);
             // draw hit points
             g.setColor(Color.white);
-            String hpStr = ""+(int)Math.ceil(hits)+"/"+(int)Math.ceil(maxHits);
+            String hpStr = ""+(int)Math.ceil(hits())+"/"+(int)Math.ceil(maxStackHits());
             g.setFont(narrowFont(12));
             int hpW = g.getFontMetrics().stringWidth(hpStr);
             int x5 = reversed ? x4+((w4-hpW+numW)/2) : x4+((w4-hpW-numW)/2);

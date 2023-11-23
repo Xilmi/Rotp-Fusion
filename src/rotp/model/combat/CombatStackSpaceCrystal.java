@@ -35,7 +35,9 @@ public class CombatStackSpaceCrystal extends CombatStack {
         else
         	monsterLevel = level;
         num = 1;
-        maxHits = hits = 7000 * monsterLevel;
+        maxStackHits(7000 * monsterLevel);
+        hits(maxStackHits());
+        streamProjectorHits(0); // BR:
         canTeleport = true;
         beamDefense = 1;
         missileDefense = 1;

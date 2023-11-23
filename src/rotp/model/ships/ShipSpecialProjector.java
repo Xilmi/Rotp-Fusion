@@ -39,30 +39,38 @@ public final class ShipSpecialProjector extends ShipSpecial {
     @Override
     public float estimatedKills(CombatStack source, CombatStack target, int num) {
         float armorMod = tech().armorMod(num);
-        float dam = max(1, target.maxHits*armorMod) * target.num;
-        return dam / target.maxHits * target.num;
+        float dam = max(1, target.maxStackHits()*armorMod) * target.num;
+        return dam / target.maxStackHits() * target.num;
     }
     @Override
     public void fireUpon(CombatStack source, CombatStack target, int count)      {
         float armorMod = tech().armorMod(count);
         if (target.isShip()) {
-            CombatStackShip st = (CombatStackShip) target;
-            st.maxHits = (int) st.maxHits*armorMod;
-            st.hits = min(st.hits-1, st.maxHits);
+            CombatStackShip st	= (CombatStackShip) target;
+            float oldStackHit	= st.maxStackHits();
+            float newStackHit	= (int) oldStackHit * armorMod;
+            float streamDamage	= oldStackHit - newStackHit;
+            st.streamProjectorHits(st.streamProjectorHits() + streamDamage);
+            st.maxStackHits(newStackHit);
+            st.hits(min(st.hits()-1, newStackHit));
         }
         else if (target.isColony()) {
-            CombatStackColony st = (CombatStackColony) target;
-            st.maxHits = (int) st.maxHits*armorMod;
-            st.hits = min(st.hits-1, st.maxHits);
+        	CombatStackColony st= (CombatStackColony) target;
+            float oldStackHit	= st.maxStackHits();
+            float newStackHit	= (int) oldStackHit * armorMod;
+            float streamDamage	= oldStackHit - newStackHit;
+            st.streamProjectorHits(st.streamProjectorHits() + streamDamage);
+            st.maxStackHits(newStackHit);
+            st.hits(min(st.hits()-1, st.maxStackHits()));
         }
         if (source.mgr.showAnimations())
         {
             tech().drawSpecialAttack(source, target, 1, 0);
             tech().drawSuccessfulAttack(source, target, source.weaponNum(this), 0, 0);
         }
-        if (target.hits <= 0)
+        if (target.hits() <= 0)
             target.loseShip();
-        if (target.maxHits <= 0)
+        if (target.maxStackHits() <= 0)
             source.mgr.destroyStack(target);
     }
 }

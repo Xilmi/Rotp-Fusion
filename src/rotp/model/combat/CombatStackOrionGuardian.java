@@ -45,7 +45,9 @@ public class CombatStackOrionGuardian extends CombatStack {
     public ShipComponent selectedWeapon;
     public CombatStackOrionGuardian() {
         num = 1;
-        maxHits = hits = 10000;
+        maxStackHits(10000);
+        hits(maxStackHits());
+        streamProjectorHits(0); // BR:
         maxMove = move = 2;
         maneuverability = 2;
         attackLevel = 10;

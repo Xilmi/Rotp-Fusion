@@ -1622,12 +1622,12 @@ public class AIFleetCommander implements Base, FleetCommander {
         for (CombatStack monster : monsters) {
             int num = monster.num;
             if (num > 0) {
-                totalHP += num * monster.hits;
-                totalVal += num * monster.hits;
-                totalShield += num * monster.shieldLevel() * monster.hits;
-                totalDefense += num * monster.beamDefense() * monster.hits;
-                totalMissileDefense += num * monster.missileDefense() * monster.hits;
-                totalSpecials += num * 2 * monster.hits;
+                totalHP += num * monster.hits();
+                totalVal += num * monster.hits();
+                totalShield += num * monster.shieldLevel() * monster.hits();
+                totalDefense += num * monster.beamDefense() * monster.hits();
+                totalMissileDefense += num * monster.missileDefense() * monster.hits();
+                totalSpecials += num * 2 * monster.hits();
             }
         }
         if(totalVal > 0)

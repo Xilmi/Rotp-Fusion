@@ -42,6 +42,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - New Option: Ungoverned colonies will have their Eco sliders set to "Growth" after Transports are sent.
 - AI improvement against repulsors. (Xilmi)
 - Spy: New option to stop spending the budget once the team is complete.
+- Stream projector damage are not restored by automated repair system, and only 10% of them by advanced damage control.
 
 <b><ins>Bug Fixes:</ins></b>
 - Fixed sound echo default values.

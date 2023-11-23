@@ -454,8 +454,8 @@ public final class ShipDesign extends Design {
     }
     public float firepower(CombatStack target, int wpn) {
         float dmg = wpnCount(wpn) * weapon(wpn).firepower(target.shieldLevel());
-        if (weapon(wpn).isStreamingWeapon() && (dmg > target.maxHits()))
-            dmg *= (dmg/target.maxHits());
+        if (weapon(wpn).isStreamingWeapon() && (dmg > target.maxStackHits()))
+            dmg *= (dmg/target.maxStackHits());
         return dmg;
     }
     public float estimatedKills(CombatStack source, CombatStack target) {

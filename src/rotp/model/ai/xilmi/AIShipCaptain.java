@@ -482,7 +482,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
                     desirability = killPct * max(1, target.num) * valueMod * rangeAdj / 100;
                 if(stack.isColony())
                     desirability *= 1 + target.estimatedKillPct(stack) * stack.designCost();
-                if(target.totalHits() > 0 && killPct > target.hits / target.totalHits())
+                if(target.totalHits() > 0 && killPct > target.hits() / target.totalHits())
                     desirability *= 2;
                 //System.out.print("\n"+stack.fullName()+" onlyships: "+onlyShips+" onlyInAttackRange: "+onlyInAttackRange+" looking at "+target.fullName()+" killPct: "+killPct+"target.hits / target.totalHits(): "+target.hits / target.totalHits()+" rangeAdj: "+rangeAdj+" cnt: "+target.num+" target.designCost(): "+target.designCost()+" desirability: "+desirability);
                 if(target.isShip() && stack.isShip())
@@ -847,10 +847,10 @@ public class AIShipCaptain implements Base, ShipCaptain {
                     hitPct = (5 + miss.attackLevel - miss.target.missileDefense()) / 10;
                     hitPct = max(.05f, hitPct);
                     hitPct = min(hitPct, 1.0f);
-                    killPct += ((miss.maxDamage()-miss.target.shieldLevel())*miss.num*hitPct)/(miss.target.maxHits*miss.target.num);
+                    killPct += ((miss.maxDamage()-miss.target.shieldLevel())*miss.num*hitPct)/(miss.target.maxStackHits()*miss.target.num);
                     maxHit += (miss.maxDamage() - currStack.shieldLevel()) * miss.num; //don't use hitPct for max-hit as we have to expect the worst in this case
                     //System.out.println(currStack.fullName()+" will be hit by missiles for approx "+killPct+" dmg: "+maxHit+" hp: "+currStack.hits+" threshold: "+(1.0f / miss.missile.shots()));
-                    if((killPct > 1.0f / miss.missile.shots() && maxHit >= currStack.hits) || (currStack.num == 1 && maxHit >= currStack.hits))
+                    if((killPct > 1.0f / miss.missile.shots() && maxHit >= currStack.hits()) || (currStack.num == 1 && maxHit >= currStack.hits()))
                     {
                         Point safestPoint = findSafestPoint(currStack);
                         if(miss.maxMove * Math.max(1.0, miss.moveRate) + 0.7 < miss.distanceTo((float)safestPoint.x, (float)safestPoint.y))
@@ -964,7 +964,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
             boolean previousCloakingState = st1.cloaked;
             st1.cloaked = false; //decloack in our mind for estimates
             float pctOfMaxHP = 0;
-            pctOfMaxHP = ((st1.num-1) * st1.maxHits + st1.hits) / (st1.num * st1.maxHits);
+            pctOfMaxHP = ((st1.num-1) * st1.maxStackHits() + st1.hits()) / (st1.num * st1.maxStackHits());
             float damagePerTurn = 0;
             for (CombatStack st2: friends) {
                 if(st2.inStasis)
@@ -1013,7 +1013,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
                 continue;
             boolean previousCloakingState = st1.cloaked;
             st1.cloaked = false;
-            float pctOfMaxHP = ((st1.num-1) * st1.maxHits + st1.hits) / (st1.num * st1.maxHits);
+            float pctOfMaxHP = ((st1.num-1) * st1.maxStackHits() + st1.hits()) / (st1.num * st1.maxStackHits());
             float damagePerTurn = 0;
             float damagePerTurnWithoutHeal = 0;
             for (CombatStack st2: foes) {
@@ -1337,7 +1337,7 @@ public class AIShipCaptain implements Base, ShipCaptain {
             hitPct = (5 + miss.attackLevel - miss.target.missileDefense()) / 10;
             hitPct = max(.05f, hitPct);
             hitPct = min(hitPct, 1.0f);
-            killPct += ((miss.maxDamage()-miss.target.shieldLevel())*miss.num*hitPct)/(miss.target.maxHits*miss.target.num);
+            killPct += ((miss.maxDamage()-miss.target.shieldLevel())*miss.num*hitPct)/(miss.target.maxStackHits()*miss.target.num);
         }
         return min(1.0f, killPct);
     }

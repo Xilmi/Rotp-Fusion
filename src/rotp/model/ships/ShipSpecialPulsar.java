@@ -38,7 +38,7 @@ public final class ShipSpecialPulsar extends ShipSpecial {
     public float estimatedKills(CombatStack source, CombatStack target, int num) {
         float maxDam = tech().firstShipDamage + (int)((tech().extraShipDamage * (num-1)));
         float dam = maxDam/2;
-        return target.num * Math.min(1,(dam/target.maxHits));
+        return target.num * Math.min(1,(dam/target.maxStackHits()));
     }
     @Override
     public void fireUpon(CombatStack source, CombatStack target, int count) {

@@ -72,7 +72,7 @@ public class CrystalShipCaptain implements Base, ShipCaptain {
             int y0 = max(0,stack.y-1);
             int x1 = min(maxX, stack.x+1);
             int y1 = min(maxY, stack.y+1);
-            float maxHp = stack.num * stack.maxHits;
+            float maxHp = stack.num * stack.maxStackHits();
             for (int x=x0;x<=x1;x++) {
                 for (int y=y0;y<=y1;y++)
                     validGrid[x][y] += maxHp;

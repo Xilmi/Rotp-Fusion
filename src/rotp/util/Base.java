@@ -1547,8 +1547,8 @@ public interface Base {
         System.out.println(getTurn(subTurn));
         System.out.println(memHeap());
         System.out.println(memNonHeap());
-        List<MemoryPoolMXBean> beans = ManagementFactory.getMemoryPoolMXBeans();
         System.out.println("Memory Pool: ");
+        List<MemoryPoolMXBean> beans = ManagementFactory.getMemoryPoolMXBeans();
         for (MemoryPoolMXBean bean : beans)
             System.out.println(memoryPoolToString(bean));
         System.out.println("Garbage Collector: ");

@@ -69,13 +69,14 @@ public class CombatStack implements Base {
     public float beamDefense = 0;
     public float offsetX = 0;
     public float offsetY = 0;
-    public float startingMaxHits = 1;
-    public float maxHits = 1;
+    private float startingMaxHits = 1;
+    private float maxStackHits = 1; // BR: renamed maxHit
+    private float hits = 0;
+    private float streamProjectorHits = 0;  // BR:
     public float maxMove = 0;
     public float move = 0;
     public float maxShield = 0;
     public float shield = 0;
-    public float hits = 0;
     public float repairPct = 0;
     public int beamRangeBonus = 0;
     public boolean inStasis = false;
@@ -94,7 +95,7 @@ public class CombatStack implements Base {
     public boolean visible = true;
     public float transparency = 1;
     public String destroyedSoundEffect() { return "ShipExplosion"; }
-
+    
     public String shortString() {
         return concat(toString()," at:", str(x), ",", str(y));
     }
@@ -129,7 +130,7 @@ public class CombatStack implements Base {
     public boolean isPlayer()           { return (empire != null) && empire.isPlayer(); }
     public boolean isPlayerControlled() { return (empire != null) && empire.isPlayerControlled(); }
     public boolean isMissile()          { return false; }
-    public boolean destroyed()          { return ((num < 1) || (maxHits <= 0)); }
+    public boolean destroyed()          { return ((num < 1) || (maxStackHits <= 0)); }
     public boolean isArmed()            { return false; }
     public boolean hasTarget()          { return target != null; }
     public CombatStack ward()           { return null; }
@@ -157,9 +158,16 @@ public class CombatStack implements Base {
     public void performTurn()        { captain.performTurn(this); }
     public boolean wantToRetreat()   { return captain.wantToRetreat(this); }
 
-    public float maxHits()          { return maxHits; }
+    public void  streamProjectorHits(float val)	{ streamProjectorHits = val; } // BR:
+    public void  hits(float val)				{ hits = val; } // BR:
+    public void  startingMaxHits(float val)		{ startingMaxHits = val; } // BR:
+    public void  maxStackHits(float val)     	{ maxStackHits = val; } // BR:
+    public float streamProjectorHits()			{ return streamProjectorHits; } // BR:
+    public float hits()							{ return hits; } // BR:
+    public float startingMaxHits()				{ return startingMaxHits; } // BR:
+    public float maxStackHits()					{ return maxStackHits; } // BR:
     public float maxMove()          { return maxMove; }
-    public float totalHits()        { return maxHits * num; }
+    public float totalHits()        { return maxStackHits * num; }
     public boolean canMove()        { return (move > 0) || canTeleport(); }
     public boolean canFireWeapon()  { return false; }
     public boolean canFireWeaponAtTarget(CombatStack st)  { return false; }
@@ -250,9 +258,17 @@ public class CombatStack implements Base {
             return;
         if (repairPct <= 0)
             return;
-        float healAmt = startingMaxHits*repairPct;
-        hits = min(startingMaxHits, hits+healAmt);
-        maxHits = max(hits, maxHits);
+        float streamProjectorRepairPct	= max(0,(repairPct - 0.2f));
+        float streamProjectorHealAmt	= startingMaxHits*streamProjectorRepairPct;        
+        streamProjectorHits	= max(0, streamProjectorHits-streamProjectorHealAmt);        
+        float maxHitLimit	= startingMaxHits - streamProjectorHits;
+        float healAmt		= startingMaxHits * repairPct;
+        hits				= min(maxHitLimit, hits+healAmt);
+        maxStackHits		= max(hits, maxHitLimit);
+		// BR: Streaming damage is not repaired
+		// float healAmt = startingMaxHits*repairPct;
+		// hits = min(startingMaxHits, hits+healAmt);
+		// maxStackHits = max(hits, maxStackHits);
     }
     public void endTurn() {
         if (!destroyed())
@@ -421,8 +437,8 @@ public class CombatStack implements Base {
         if (damage <= 0)
             return 0;
         attacked = true;
-        maxHits = max(0,maxHits - damage);
-        hits = min(hits,maxHits);
+        maxStackHits = max(0,maxStackHits - damage);
+        hits = min(hits,maxStackHits);
 
         if (hits <= 0)
             loseShip();
@@ -497,11 +513,11 @@ public class CombatStack implements Base {
         int kills = Math.round(num * pctLoss);
         for(int i = 0; i < kills; ++i)
             loseShip();
-        return kills * maxHits;
+        return kills * maxStackHits;
     }
     public void loseShip() {
-        int lost = maxHits > 0 ? 1 : num;
-        hits = maxHits;
+        int lost = maxStackHits > 0 ? 1 : num;
+        hits = maxStackHits;
         shield = maxShield;
         num = max(0, num - lost);
         if (destroyed() && (mgr != null))
@@ -738,7 +754,7 @@ public class CombatStack implements Base {
             // draw health bar & hp
             g.setColor(healthBarBackC);
             g.fillRect(x4, y4, w4, barH);
-            int w4a = (int)(w4*hits/maxHits);
+            int w4a = (int)(w4*hits/maxStackHits);
             g.setColor(healthBarC);
             g.fillRect(x4, y4, w4a, barH);
             int numW = 0;
@@ -759,7 +775,7 @@ public class CombatStack implements Base {
             }
             // draw hit points
             g.setColor(Color.white);
-            String hpStr = ""+(int)Math.ceil(hits)+"/"+(int)Math.ceil(maxHits);
+            String hpStr = ""+(int)Math.ceil(hits)+"/"+(int)Math.ceil(maxStackHits);
             g.setFont(narrowFont(12));
             int hpW = g.getFontMetrics().stringWidth(hpStr);
             int x5 = reversed ? x4+((w4-hpW+numW)/2) : x4+((w4-hpW-numW)/2);

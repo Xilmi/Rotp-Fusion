@@ -422,7 +422,7 @@ public final class GameSession implements Base, Serializable {
         }
         if (options.debugShowMoreMemory()) {
             memLog();
-            //RotPUI.instance().mainUI().showMemoryLowPrompt(); // TO DO BR: Comment
+            RotPUI.instance().mainUI().showMemoryLowPrompt(); // TO DO BR: Comment
         }
 
     }

@@ -34,9 +34,12 @@ public class CombatStackSpaceAmoeba extends CombatStack {
         	monsterLevel = level;
         num = 1;
         if (monsterLevel == 1f)
-        	maxHits = hits = 3500;
+        	maxStackHits(3500);
         else
-        	maxHits = hits = 1500;
+        	maxStackHits(1500);
+
+        hits(maxStackHits());
+        streamProjectorHits(0); // BR:
         maxMove = move = 2;
         beamDefense = 1;
         missileDefense = 1;     
@@ -55,9 +58,10 @@ public class CombatStackSpaceAmoeba extends CombatStack {
     public void beginTurn() {
         super.beginTurn();
         // ok, we are splitting
-        if ((maxHits - hits) >= DAMAGE_FOR_SPLIT) {
-            float newMaxHits = (maxHits - DAMAGE_FOR_SPLIT) / 2;
-            hits = maxHits = newMaxHits;
+        if ((maxStackHits() - hits()) >= DAMAGE_FOR_SPLIT) {
+            float newMaxHits = (maxStackHits() - DAMAGE_FOR_SPLIT) / 2;
+            maxStackHits(newMaxHits);
+            hits(newMaxHits);
             ((AmoebaShipCaptain)captain).splitAmoeba(this);
         }
     }
@@ -129,12 +133,12 @@ public class CombatStackSpaceAmoeba extends CombatStack {
         attacked = true;
 
         // max damage that will trigger a split
-        float maxDamage = hits+DAMAGE_FOR_SPLIT-maxHits;
+        float maxDamage = hits()+DAMAGE_FOR_SPLIT-maxStackHits();
         float actualDamage = min(maxDamage, damage);
-        hits -= actualDamage;
+        hits(hits() - actualDamage);
         
         // if we are on smallest form and are reduced < 0, we are dead
-        if (hits <= 0) {
+        if (hits() <= 0) {
             num = 0;
             mgr.destroyStack(this);
             return damage;

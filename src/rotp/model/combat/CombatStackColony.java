@@ -54,14 +54,16 @@ public class CombatStackColony extends CombatStack {
         missile = mBase.missile().warhead();
         scatterPack = mBase.scatterPack() == null ?  null : mBase.scatterPack().warhead();
         maxShield = colony.defense().missileShieldLevel();
-        startingMaxHits = maxHits = mBase.maxHits();
+        maxStackHits(mBase.maxHits());
+        startingMaxHits(maxStackHits());
         attackLevel = mBase.computerLevel();
         missileDefense = mBase.missileDefense();
         beamDefense = mBase.beamDefense();
         startingPop = colony.population();
         startingFactories = colony.industry().factories();
         planetaryShieldLevel = colony.defense().shieldLevel();
-        hits = maxHits;
+        hits(maxStackHits());
+        streamProjectorHits(0); // BR:
         shield = maxShield;
     }
     @Override
@@ -319,7 +321,7 @@ public class CombatStackColony extends CombatStack {
             if (num > 0) {
                 g.setColor(healthBarBackC);
                 g.fillRect(x4, y4, w4, barH);
-                int w4a = (int)(w4*hits/maxHits);
+                int w4a = (int)(w4*hits()/maxStackHits());
                 if(mgr.currentStack() == this)
                     g.setColor(ShipBattleUI.currentBorderC);
                 else
@@ -343,7 +345,7 @@ public class CombatStackColony extends CombatStack {
                 g.drawString(numStr, x6+BasePanel.s5,y4+BasePanel.s18);
                 // draw hit points
                 g.setColor(Color.white);
-                String hpStr = ""+(int)Math.ceil(hits)+"/"+(int)Math.ceil(maxHits);
+                String hpStr = ""+(int)Math.ceil(hits())+"/"+(int)Math.ceil(maxStackHits());
                 g.setFont(narrowFont(12));
                 int hpW = g.getFontMetrics().stringWidth(hpStr);
                 int x5 = reversed ? x4+((w4-hpW+numW)/2) : x4+((w4-hpW-numW)/2);

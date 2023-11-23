@@ -733,7 +733,7 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         drawString(g,lbl1, x1a, y2 + s12);
         drawString(g,lbl2, x1b, y2 + s12);
         val1 = str((int) Math.ceil(target.colony.population()));
-        val2 = str((int) target.maxHits);
+        val2 = str((int) target.maxStackHits());
         sw1 = g.getFontMetrics().stringWidth(val1);
         sw2 = g.getFontMetrics().stringWidth(val2);
         g.setColor(textColor);
@@ -963,8 +963,8 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         g.setFont(narrowFont(12));
         String lbl1 = text("SHIP_COMBAT_SCAN_HIT_POINTS");
         String lbl2 = text("SHIP_COMBAT_SCAN_SHIELD_CLASS");
-        int currHits = (int) Math.ceil(target.hits);
-        int maxHits = (int) Math.ceil(target.maxHits);
+        int currHits = (int) Math.ceil(target.hits());
+        int maxHits = (int) Math.ceil(target.maxStackHits());
         String val1 = currHits == maxHits ? "" + maxHits : ""+currHits+"/"+maxHits;
         String val2 = view.shieldKnown() ? ""+target.shieldLevel() : unk;
         int sw1 = g.getFontMetrics().stringWidth(val1);
@@ -1199,8 +1199,8 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         g.setFont(narrowFont(12));
         String lbl1 = text("SHIP_COMBAT_SCAN_HIT_POINTS");
         String lbl2 = text("SHIP_COMBAT_SCAN_SPEED");
-        int currHits = (int) Math.ceil(target.hits);
-        int maxHits = (int) target.maxHits;
+        int currHits = (int) Math.ceil(target.hits());
+        int maxHits = (int) target.maxStackHits();
         String val1 = currHits == maxHits ? "" + maxHits : ""+currHits+"/"+maxHits;
         String val2 = target.maxMove == 0 ? unk : str((int)target.maxMove);
         int sw1 = g.getFontMetrics().stringWidth(val1);
@@ -1347,8 +1347,8 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
         g.setFont(narrowFont(12));
         String lbl1 = text("SHIP_COMBAT_SCAN_HIT_POINTS");
         String lbl2 = text("SHIP_COMBAT_SCAN_SHIELD_CLASS");
-        int currHits = (int) Math.ceil(pirateStack.hits);
-        int maxHits = (int) Math.ceil(pirateStack.maxHits);
+        int currHits = (int) Math.ceil(pirateStack.hits());
+        int maxHits = (int) Math.ceil(pirateStack.maxStackHits());
         String val1 = currHits == maxHits ? "" + maxHits : ""+currHits+"/"+maxHits;
         String val2 = ""+pirateStack.shield;
         int sw1 = g.getFontMetrics().stringWidth(val1);
