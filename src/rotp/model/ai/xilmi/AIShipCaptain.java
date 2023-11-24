@@ -865,6 +865,13 @@ public class AIShipCaptain implements Base, ShipCaptain {
                         }
                     }
                 }
+                // If our missiles are about to kill something, we must not retreat!
+                if (miss.owner == currStack)
+                {
+                    maxHit += (miss.maxDamage() - currStack.shieldLevel()) * miss.num;
+                    if(maxHit > miss.target.hits())
+                        return false;
+                }
             }
         }
         

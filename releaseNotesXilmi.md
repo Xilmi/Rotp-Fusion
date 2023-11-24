@@ -1,4 +1,4 @@
 ## What's New
 
-2023.10.01 (Xilmi)
-- Fixed an issue where the AI-ship-captain would shoot beam-weapons at the planet instead of ships even when the planet couldn't be damaged by them.
+2023.11.24 (Xilmi)
+- Missile-boats controlled by the AI no longer retreat when their missiles are still flying and are about to kill at least one enemy-unit.
