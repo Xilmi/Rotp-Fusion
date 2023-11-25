@@ -37,6 +37,7 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 Bug to fix:
 
 Very soon:
+
 - Species Easy-Normal-Hard
 - Add second statistic option: (on the side of lin / log): Display statistic as:
     - "% Tot": Precentage relative to known total (!= Galaxy Total)
@@ -64,6 +65,10 @@ Later:
 
 
 ## What's New
+
+2023.11.24 (BR)
+- New buttons on the Ship-selection screen to select or deselect all ships.
+  - If you have 5 stacks or so and want to send a single ship you had to click 5 different |< buttons
 
 2023.11.24 (Xilmi)
 - Missile-boats controlled by the AI no longer retreat when their missiles are still flying and are about to kill at least one enemy-unit.

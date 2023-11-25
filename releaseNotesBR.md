@@ -40,9 +40,14 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - This to prevent friendly neighbors from constantly sending armed scouts and colony!
 - Monsters and Guardian are visible.
 - New Option: Ungoverned colonies will have their Eco sliders set to "Growth" after Transports are sent.
-- AI improvement against repulsors. (Xilmi)
-- Fusion AI once again is about being selfish and opportunistic rather than trying to prevent someone else from winning. (Xilmi)
 - Spy: New option to stop spending the budget once the team is complete.
+- New buttons on the Ship-selection screen to select or deselect all ships.
+  - If you have 5 stacks or so and want to send a single ship you had to click 5 different |< buttons
+- Last Xilmi improvements:
+  - AI improvement against repulsors.
+  - Fusion AI once again is about being selfish and opportunistic rather than trying to prevent someone else from winning.
+  - Missile-boats controlled by the AI no longer retreat when their missiles are still flying and are about to kill at least one enemy-unit.
+
 
 <b><ins>Bug Fixes:</ins></b>
 - Fixed sound echo default values.

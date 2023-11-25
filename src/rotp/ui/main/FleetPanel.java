@@ -634,17 +634,21 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
         private final Color buttonBackC = new Color(30,30,30);
         private int hoverStackNum = -1;
         private Shape hoverBox, hoverBox2;
-        private final Rectangle rallyBox = new Rectangle();
-        private final Rectangle retreatBox = new Rectangle();
-        private final Rectangle shipBox[] = new Rectangle[ShipDesignLab.MAX_DESIGNS];
-        private final Polygon minBox[] = new Polygon[ShipDesignLab.MAX_DESIGNS];
-        private final Polygon maxBox[] = new Polygon[ShipDesignLab.MAX_DESIGNS];
-        private final Polygon downBox[] = new Polygon[ShipDesignLab.MAX_DESIGNS];
-        private final Polygon upBox[] = new Polygon[ShipDesignLab.MAX_DESIGNS];
-        private final Rectangle minBoxH[] = new Rectangle[ShipDesignLab.MAX_DESIGNS];
-        private final Rectangle maxBoxH[] = new Rectangle[ShipDesignLab.MAX_DESIGNS];
-        private final Rectangle downBoxH[] = new Rectangle[ShipDesignLab.MAX_DESIGNS];
-        private final Rectangle upBoxH[] = new Rectangle[ShipDesignLab.MAX_DESIGNS];
+        private final Rectangle rallyBox	= new Rectangle();
+        private final Rectangle retreatBox	= new Rectangle();
+        private final Polygon	minAllBox	= new Polygon();
+        private final Polygon	maxAllBox	= new Polygon();
+        private final Rectangle	minAllBoxH	= new Rectangle();
+        private final Rectangle	maxAllBoxH	= new Rectangle();
+        private final Rectangle shipBox[]	= new Rectangle[ShipDesignLab.MAX_DESIGNS];
+        private final Polygon	minBox[]	= new Polygon[ShipDesignLab.MAX_DESIGNS];
+        private final Polygon	maxBox[]	= new Polygon[ShipDesignLab.MAX_DESIGNS];
+        private final Polygon	downBox[]	= new Polygon[ShipDesignLab.MAX_DESIGNS];
+        private final Polygon	upBox[]		= new Polygon[ShipDesignLab.MAX_DESIGNS];
+        private final Rectangle minBoxH[]	= new Rectangle[ShipDesignLab.MAX_DESIGNS];
+        private final Rectangle maxBoxH[]	= new Rectangle[ShipDesignLab.MAX_DESIGNS];
+        private final Rectangle downBoxH[]	= new Rectangle[ShipDesignLab.MAX_DESIGNS];
+        private final Rectangle upBoxH[]	= new Rectangle[ShipDesignLab.MAX_DESIGNS];
         protected Shape textureClip;
 
         public FleetDetailPane(FleetPanel p) {
@@ -666,6 +670,35 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
             addMouseListener(this);
             addMouseMotionListener(this);
             addMouseWheelListener(this);
+        }
+        private void selectAll() {
+        	int playerId = player().id;
+        	ShipFleet fl = selectedFleet();
+        	for (int i=0; i<ShipDesignLab.MAX_DESIGNS; i++) {
+        		ShipDesign d = fl.visibleDesign(playerId, i);
+        		if(d!=null) {
+        			int index = d.id();
+                    stackAdjustment[index] = 0;
+        		}
+        	}
+            adjustedFleet(newAdjustedFleet());
+            softClick();
+            repaint();
+        	
+        }
+        private void selectNone() {
+        	int playerId = player().id;
+        	ShipFleet fl = selectedFleet();
+        	for (int i=0; i<ShipDesignLab.MAX_DESIGNS; i++) {
+        		ShipDesign d = fl.visibleDesign(playerId, i);
+        		if(d!=null) {
+        			int index = d.id();
+                    stackAdjustment[index] = 0-fl.num(index);
+        		}
+        	}
+            adjustedFleet(newAdjustedFleet());
+            softClick();
+            repaint();    	
         }
         @Override
         public String textureName()            { return TEXTURE_GRAY; }
@@ -698,9 +731,9 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
             boolean showAdjust = canAdjust && sameFleet;
 
             if (showAdjust)
-                drawInfo(g,displayFleet, 0,0,w,h1);
+                drawInfo(g,displayFleet, showAdjust, 0,0,w,h1);
             else
-                drawInfo(g,origFleet, 0,0,w,h1);
+                drawInfo(g,origFleet, showAdjust, 0,0,w,h1);
             drawFleet(g,origFleet,displayFleet, showAdjust,0,h1,w,h-h1);
         }
         private void clearButtons() {
@@ -715,8 +748,12 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
                 upBoxH[i].setBounds(0,0,0,0);
                 downBoxH[i].setBounds(0,0,0,0);
             }
+            minAllBox.reset();
+            maxAllBox.reset();
+            minAllBoxH.setBounds(0,0,0,0);
+            maxAllBoxH.setBounds(0,0,0,0);
         }
-        private void drawInfo(Graphics2D g, ShipFleet displayFl, int x, int y, int w, int h) {
+        private void drawInfo(Graphics2D g, ShipFleet displayFl, boolean showAdjust, int x, int y, int w, int h) {
             textureClip = new Rectangle2D.Float(x,y,w,h);
             g.setColor(MainUI.paneBackground());
             g.fillRect(x, y, w, h);
@@ -728,6 +765,43 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
             g.setFont(narrowFont(22));
             drawShadowedString(g, title, 4, x0, y0, SystemPanel.textShadowC, Color.white);
 
+            // TODO BR: minAll max All
+            if (showAdjust) {
+                int a[] = new int[3];
+                int b[] = new int[3];
+            	int ya = y0-s5;
+            	int xa = x0+w-s40;
+
+            	g.setFont(narrowFont(16));
+                g.setColor(SystemPanel.blackText);
+                g.drawString("All", xa+s8, ya+s15);
+
+                b[0]=ya-s6;  b[1]=ya-s12; b[2]=ya;
+                // draw min all box
+                Color c1 = hoverBox == minAllBoxH ? SystemPanel.yellowText : SystemPanel.blackText;
+                g.setColor(c1);
+                a[0]=xa+s5; a[1]=xa+s15; a[2]=xa+s15;
+                minAllBox.addPoint(a[0], b[0]);
+                minAllBox.addPoint(a[1], b[1]);
+                minAllBox.addPoint(a[2], b[2]);
+                g.fill(minAllBox);
+                g.fillRect(a[0], b[1], s2, b[2]-b[1]);
+                minAllBoxH.setBounds(xa+s5,ya-s20,s12,s23);
+                // draw max all box
+            	xa += s13;
+                b[0]=ya-s6;  b[1]=ya-s12; b[2]=ya;
+                c1 = hoverBox == maxAllBoxH ? SystemPanel.yellowText : SystemPanel.blackText;
+                g.setColor(c1);
+                a[0]=xa+s15; a[1]=xa+s5; a[2]=xa+s5;
+                maxAllBox.addPoint(a[0], b[0]);
+                maxAllBox.addPoint(a[1], b[1]);
+                maxAllBox.addPoint(a[2], b[2]);
+                g.fill(maxAllBox);
+                g.fillRect(a[0]-s2, b[1], s2, b[2]-b[1]);
+                maxAllBoxH.setBounds(xa+s5,ya-s20,s12,s23);
+
+                
+            }
             y0 += s6;
             y0 += lineH;
 
@@ -830,6 +904,7 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
                     y0 += lineH;
                 }
             }
+
             if (rallyText != null) {
                 y0 += lineH/2;
                 int checkW = s12;
@@ -1144,6 +1219,11 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
                 hoverBox = retreatBox;
             else if (rallyBox.contains(x,y)) 
                 hoverBox = rallyBox;
+            else if (minAllBoxH.contains(x,y)) 
+                hoverBox = minAllBoxH;
+            else if (maxAllBoxH.contains(x,y)) 
+                hoverBox = maxAllBoxH;
+           
             hoverStackNum = -1;
             for (int i=0;i<shipBox.length;i++) {
                 if (shipBox[i].contains(x,y)) {
@@ -1200,6 +1280,15 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
                 repaint();
                 return;
             }
+            if (minAllBoxH.contains(x,y)) {
+            	selectNone();
+            	return;
+            }
+            if (maxAllBoxH.contains(x,y)) {
+            	selectAll();
+            	return;
+            }
+
             if (hoverStackNum < 0)
                 return;
             
@@ -1216,7 +1305,7 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
                 adjAmt = 5;
             else if (ctrlPressed)
                 adjAmt = 20;
-            
+ 
             for (int i=0;i<shipBox.length;i++) {
                 if (minBoxH[i].contains(x,y))
                     newAdj = 0-stackNum;
