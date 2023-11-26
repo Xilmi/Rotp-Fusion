@@ -1125,7 +1125,7 @@ public class AIDiplomat implements Base, Diplomat {
         
         decidedToExchangeTech(v);
         
-        if(considerAlly(v))
+        if(considerAlly(v) && variant == 1)
         {
             //System.out.println(empire.galaxy().currentTurn()+" "+ empire.name()+" considers "+v.empire().name()+" an ally.");
             while(canOfferTechnology(v.empire()))
