@@ -2284,7 +2284,7 @@ public class AIDiplomat implements Base, Diplomat {
             return false;
         boolean considerAlly = false;
         for(Empire myEnemy : empire.enemies()) {
-            if(myEnemy == empire.generalAI().bestVictim() && v.empire().enemies().contains(myEnemy))
+            if(myEnemy == balanceVictim() && v.empire().enemies().contains(myEnemy))
                 considerAlly = true;
         }
         if(v.empire() != null && empire.allies().contains(v.empire()))
