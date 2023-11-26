@@ -395,6 +395,10 @@ public class EmpireColonySpendingPane extends BasePanel {
             }
             if (click)
                 softClick();
+            if(category != ECOLOGY)
+                colony.checkEcoAtClean();
+            else
+                colony.redistributeReducedEcoSpending();
             parent.repaint();
         }
         public void maxSlider(boolean click, MouseEvent e) {
