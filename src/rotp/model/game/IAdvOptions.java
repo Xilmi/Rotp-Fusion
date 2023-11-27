@@ -207,19 +207,42 @@ public interface IAdvOptions extends IBaseOptsTools {
 	};
 	// ==================== GUI List Declarations ====================
 	//
-	LinkedList<IParam> advancedOptions	  = new LinkedList<>(
-			Arrays.asList(
-					galaxyAge, starDensity,
-					nebulae, planetQuality,
-					terraforming,
-					null,
-					randomEvents, aiHostility,
-					councilWin, randomizeAI,
-					autoplay,
-					null,
-					researchRate, warpSpeed,
-					fuelRange, techTrading,
-					colonizing
-					));
-
+//	LinkedList<IParam> advancedOptions	  = new LinkedList<>(
+//			Arrays.asList(
+//					galaxyAge, starDensity,
+//					nebulae, planetQuality,
+//					terraforming,
+//					null,
+//					randomEvents, aiHostility,
+//					councilWin, randomizeAI,
+//					autoplay,
+//					null,
+//					researchRate, warpSpeed,
+//					fuelRange, techTrading,
+//					colonizing,
+//					IInGameOptions.inGameOptionsUI,
+//					IPreGameOptions.preGameOptionsUI
+//					));
+	static LinkedList<IParam> advancedOptions() {
+		LinkedList<IParam> options  = new LinkedList<>(
+				Arrays.asList(
+						galaxyAge, starDensity,
+						nebulae, planetQuality,
+						terraforming,
+						null,
+						randomEvents, aiHostility,
+						councilWin, randomizeAI,
+						autoplay,
+						null,
+						researchRate, warpSpeed,
+						fuelRange, techTrading,
+						colonizing,
+						null,
+						IPreGameOptions.preGameOptionsUI(),
+						IInGameOptions.inGameOptionsUI(),
+						IMainOptions.commonOptionsUI(),
+						ICombatOptions.combatOptionsUI()
+						));
+		return options;
+	}
 }

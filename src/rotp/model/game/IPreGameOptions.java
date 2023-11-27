@@ -13,6 +13,7 @@ import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
+import rotp.ui.util.ParamSubUI;
 import rotp.ui.util.ParamTech;
 import rotp.ui.util.ParamTitle;
 import rotp.ui.util.RandomAlienRaces;
@@ -224,4 +225,10 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions {
 				)));
 		return map;
 	};
+	String PRE_GAME_GUI_ID	= "PRE_GAME_OPTIONS";
+	static ParamSubUI preGameOptionsUI() {
+		return new ParamSubUI( MOD_UI, PRE_GAME_GUI_ID, preGameOptionsMap())
+		{ { isCfgFile(false); } };
+	}
+	ParamSubUI preGameOptionsUI	= preGameOptionsUI();
 }

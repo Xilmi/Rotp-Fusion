@@ -36,6 +36,7 @@ import java.util.LinkedList;
 import javax.swing.JEditorPane;
 import javax.swing.JTextPane;
 
+import rotp.model.game.IInGameOptions;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
@@ -86,6 +87,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	private final LinkedHashMap<Integer, BufferedImage>	imgList	= new LinkedHashMap<>();
 	private LinkedList<LinkedList<IParam>>	optionsList;
 	private String parent = "";
+	private BaseModPanel parentUI;
 	private boolean forceUpdate = true;
 
 	// ========== Constructors and initializers ==========
@@ -234,25 +236,46 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 				txtRight.enabledC(defaultValuesColor);
 			else
 				txtRight.enabledC(customValuesColor);
-			int swLeft	= txtLeft.stringWidth(gi);
-			int swRight	= txtRight.stringWidth(gi);
-			int sw		= swLeft + swRight;
-			int dx		= (columnWidth - sw)/2;
-			txtLeft.setScaledXY(dx, rowPad+s7);
-			txtRight.setScaledXY(dx + swLeft, rowPad+s7);
-			txtLeft.draw(gi);
-			txtRight.draw(gi);
-			gi.dispose();
-			g.drawImage(img, xSetting, ySetting-rowPad, null);
 
-			param.updated(false);
-			imgList.put(index, img);
-			txtLeft.setScaledXY(xSetting+dx, ySetting+s7);
-			txtRight.setScaledXY(xSetting+dx+swLeft, ySetting+s7);
-			txtLeft.updateBounds(g);
-			txtRight.updateBounds(g);			
-			txtLeft.forceHover  = false;
-			txtRight.forceHover = false;
+//			int swLeft	= txtLeft.stringWidth(gi);
+//			int swRight	= txtRight.stringWidth(gi);
+			if (param.isSubMenu()) {
+				txtLeft.enabledC(subMenuColor);
+				txtRight.forceHover = false;				
+				int sw	= txtLeft.stringWidth(gi);
+				int dx	= (columnWidth - sw)/2;
+				txtLeft.setScaledXY(dx, rowPad+s7);
+				txtLeft.draw(gi);
+				gi.dispose();
+				g.drawImage(img, xSetting, ySetting-rowPad, null);
+
+				param.updated(false);
+				imgList.put(index, img);
+				txtLeft.setScaledXY(xSetting+dx, ySetting+s7);
+				txtLeft.updateBounds(g);
+				txtLeft.forceHover  = false;
+			}
+			else {
+				int swLeft	= txtLeft.stringWidth(gi);
+				int swRight	= txtRight.stringWidth(gi);
+				int sw		= swLeft + swRight;
+				int dx		= (columnWidth - sw)/2;
+				txtLeft.setScaledXY(dx, rowPad+s7);
+				txtRight.setScaledXY(dx + swLeft, rowPad+s7);
+				txtLeft.draw(gi);
+				txtRight.draw(gi);
+				gi.dispose();
+				g.drawImage(img, xSetting, ySetting-rowPad, null);
+
+				param.updated(false);
+				imgList.put(index, img);
+				txtLeft.setScaledXY(xSetting+dx, ySetting+s7);
+				txtRight.setScaledXY(xSetting+dx+swLeft, ySetting+s7);
+				txtLeft.updateBounds(g);
+				txtRight.updateBounds(g);			
+				txtLeft.forceHover  = false;
+				txtRight.forceHover = false;				
+			}
 		}
 		else
 			g.drawImage(imgList.get(index), xSetting, ySetting-rowPad, null);
@@ -295,11 +318,16 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		for (InterfaceOptions param : activeList)
 			param.setFromDefault();
 	}
-	public  void start(String p) { // Called from subUI
+//	public  void start(String p) { // Called from subUI
+//		parent = p;
+//		start();
+//	}
+	public  void start(String p, BaseModPanel ui) { // Called from subUI
 		parent = p;
+		parentUI = ui;
 		start();
 	}
-	private void start() { // Called from subUI
+	protected void start() { // Called from subUI
 		super.init();
 		hoverBox = null;
 		prevHover = null;
@@ -346,40 +374,70 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		super.close();
 		hoverBox = null;
 		prevHover = null;
-		switch (parent) {
-		case MainOptionsUI.GUI_ID:
-			RotPUI.mainOptionsUI().init();
-			return;
-		case MergedDynamicOptionsUI.GUI_ID:
-			RotPUI.mergedDynamicOptionsUI().start(""); // could have been called in setup or in game
-			return;
-		case DynamicAOptionsUI.GUI_ID:
-			RotPUI.modOptionsDynamicA().init();
-			return;
-		case DynamicBOptionsUI.GUI_ID:
-			RotPUI.modOptionsDynamicB().init();
-			return;
-		case StaticAOptionsUI.GUI_ID:
-			RotPUI.modOptionsStaticA().init();
-			return;
-		case StaticBOptionsUI.GUI_ID:
-			RotPUI.modOptionsStaticB().init();
-			return;
-		case SetupGalaxyUI.GUI_ID:
-		case "":
-		default: 
-	        if (guiOptions().isSetupOption())
-	        	RotPUI.setupGalaxyUI().init();
-	        else
-	        	RotPUI.instance().mainUI().map().resetRangeAreas();
+		
+
+		if (parentUI != null) {
+			if(parentUI instanceof CompactOptionsUI)
+				((CompactOptionsUI) parentUI).start();
+			else
+				parentUI.init();
 		}
+		else
+			RotPUI.instance().mainUI().map().resetRangeAreas();
+
+//		switch (parent) {
+//		case MergedDynamicOptionsUI.GUI_ID:
+//			RotPUI.mergedDynamicOptionsUI().start(); // could have been called in setup or in game
+//			return;
+//		default: 
+//			if (parentUI != null) {
+//				parentUI.init();
+//				if(parentUI instanceof CompactOptionsUI)
+//					((CompactOptionsUI) parentUI).start();
+//
+//			}
+//			else
+//				RotPUI.instance().mainUI().map().resetRangeAreas();
+//
+//		}
+
+//		switch (parent) {
+//		case MainOptionsUI.GUI_ID:
+//			RotPUI.mainOptionsUI().init();
+//			return;
+//		case MergedDynamicOptionsUI.GUI_ID:
+//			RotPUI.mergedDynamicOptionsUI().start(""); // could have been called in setup or in game
+//			return;
+//		case DynamicAOptionsUI.GUI_ID:
+//			RotPUI.modOptionsDynamicA().init();
+//			return;
+//		case DynamicBOptionsUI.GUI_ID:
+//			RotPUI.modOptionsDynamicB().init();
+//			return;
+//		case StaticAOptionsUI.GUI_ID:
+//			RotPUI.modOptionsStaticA().init();
+//			return;
+//		case StaticBOptionsUI.GUI_ID:
+//			RotPUI.modOptionsStaticB().init();
+//			return;
+//		case AdvancedOptionsUI.GUI_ID:
+//			RotPUI.advancedOptionsUI().init();
+//			return;
+//		case SetupGalaxyUI.GUI_ID:
+//		case "":
+//		default: 
+//	        if (guiOptions().isSetupOption())
+//	        	RotPUI.setupGalaxyUI().init();
+//	        else
+//	        	RotPUI.instance().mainUI().map().resetRangeAreas();
+//		}
 	}
 	@Override protected void doExitBoxAction()		{
 		buttonClick();
 		switch (ModifierKeysState.get()) {
 		case CTRL:			// Cancel and exit
 		case CTRL_SHIFT:	// Cancel and exit
-			guiOptions().updateFromFile(LIVE_OPTIONS_FILE);
+			guiOptions().updateAllFromFile(LIVE_OPTIONS_FILE);
 			UserPreferences.load();
 			break;
 		case SHIFT:			// Apply
@@ -521,29 +579,32 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		mouseCommon(e, null);
 		if (hoverBox == exitBox) {
 			doExitBoxAction();
-			switch (parent) { // To reset the buttons on the parent panel!
-			case MainOptionsUI.GUI_ID:
-				RotPUI.mainOptionsUI().mouseMoved(e);
-				return;
-			case MergedDynamicOptionsUI.GUI_ID:
-				RotPUI.mergedDynamicOptionsUI().mouseMoved(e);
-				return;
-			case DynamicAOptionsUI.GUI_ID:
-				RotPUI.modOptionsDynamicA().mouseMoved(e);
-				return;
-			case DynamicBOptionsUI.GUI_ID:
-				RotPUI.modOptionsDynamicB().mouseMoved(e);
-				return;
-			case StaticAOptionsUI.GUI_ID:
-				RotPUI.modOptionsStaticA().mouseMoved(e);
-				return;
-			case StaticBOptionsUI.GUI_ID:
-				RotPUI.modOptionsStaticB().mouseMoved(e);
-				return;
-			case "":
-			default: 
-				return;
-			}
+			if (parentUI!=null)
+				parentUI.mouseMoved(e);
+			return;
+//			switch (parent) { // To reset the buttons on the parent panel!
+//			case MainOptionsUI.GUI_ID:
+//				RotPUI.mainOptionsUI().mouseMoved(e);
+//				return;
+//			case MergedDynamicOptionsUI.GUI_ID:
+//				RotPUI.mergedDynamicOptionsUI().mouseMoved(e);
+//				return;
+//			case DynamicAOptionsUI.GUI_ID:
+//				RotPUI.modOptionsDynamicA().mouseMoved(e);
+//				return;
+//			case DynamicBOptionsUI.GUI_ID:
+//				RotPUI.modOptionsDynamicB().mouseMoved(e);
+//				return;
+//			case StaticAOptionsUI.GUI_ID:
+//				RotPUI.modOptionsStaticA().mouseMoved(e);
+//				return;
+//			case StaticBOptionsUI.GUI_ID:
+//				RotPUI.modOptionsStaticB().mouseMoved(e);
+//				return;
+//			case "":
+//			default: 
+//				return;
+//			}
 		}
 		else if (hoverBox == defaultBox)
 			doDefaultBoxAction();

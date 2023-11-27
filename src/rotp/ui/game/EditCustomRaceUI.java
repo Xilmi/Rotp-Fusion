@@ -356,7 +356,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		buttonClick();
 		switch (ModifierKeysState.get()) {
 		case CTRL: // restoreGlobalKey
-			guiOptions().updateFromFile(LIVE_OPTIONS_FILE);		
+			guiOptions().updateAllFromFile(LIVE_OPTIONS_FILE);		
 			break;
 		case CTRL_SHIFT: // restoreLocalKey
 			guiOptions().updateFromFile(LIVE_OPTIONS_FILE, localOptions());		
@@ -365,7 +365,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			setToLocalDefault();
 			break; 
 		default: // setGlobalDefaultKey
-			guiOptions().resetToDefault();
+			guiOptions().resetAllSettingsToDefault();
 			setToLocalDefault();
 			break; 
 		}

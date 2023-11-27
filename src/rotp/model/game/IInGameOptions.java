@@ -19,7 +19,7 @@ import static rotp.model.game.IIronmanOptions.ironmanNoLoad;
 import static rotp.model.game.IMainOptions.compactOptionOnly;
 import static rotp.model.game.IMainOptions.galaxyPreviewColorStarsSize;
 import static rotp.model.game.IMainOptions.raceStatusLog;
-import static rotp.model.game.IZoomOptions.zoomOptionsUI;
+import static rotp.model.game.ICombatOptions.combatOptionsUI;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -29,6 +29,7 @@ import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
+import rotp.ui.util.ParamSubUI;
 import rotp.ui.util.ParamTitle;
 
 public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
@@ -219,7 +220,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 						null,
 						eventsStartTurn, eventsPace,
 						spyOverSpend,
-						IZoomOptions.zoomOptionsUI,
+						ICombatOptions.combatOptionsUI,
 						null,
 						fixedEventsMode, eventsFavorWeak,
 						IRandomEvents.customRandomEventUI
@@ -268,7 +269,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 				customRandomEventUI,
 				autoFlagOptionsUI,
 				GovernorOptions.governorOptionsUI,
-				zoomOptionsUI,
+				combatOptionsUI,
 
 				headerSpacer,
 				new ParamTitle("GAME_OTHER"),
@@ -288,12 +289,13 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 				showGridCircular, showShipRanges, galaxyPreviewColorStarsSize,
 				showAllAI, raceStatusLog, compactOptionOnly
 				)));
-//		for (LinkedList<IParam> list : map) {
-//			for (IParam param : list) {
-//				if (param != null && !param.isTitle())
-//					inGameOptions.add(param);
-//			}
-//		}
 		return map;
 	};
+	String IN_GAME_GUI_ID	= "IN_GAME_OPTIONS";
+	static ParamSubUI inGameOptionsUI() {
+		return new ParamSubUI( MOD_UI, IN_GAME_GUI_ID, inGameOptionsMap())
+		{ { isCfgFile(false); } };
+	}
+	ParamSubUI inGameOptionsUI	= inGameOptionsUI();
+
 }

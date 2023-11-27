@@ -40,6 +40,7 @@ public interface IParam extends InterfaceOptions{
 	public default void toggle(MouseEvent e, BaseModPanel frame) {}
 	public default void toggle(MouseEvent e, MouseWheelEvent w, BaseModPanel frame) {}
 	public default void toggle(MouseEvent e, String p, BaseModPanel frame) {}
+	public default void toggle(MouseEvent e, String p, BaseModPanel pUI, BaseModPanel frame) {}
 	public default void	updated(boolean updated)	{}
 	// State
 	public default boolean	isDuplicate()			{ return false; }

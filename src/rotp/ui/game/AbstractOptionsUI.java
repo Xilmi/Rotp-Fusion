@@ -225,15 +225,21 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 			gi.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
 			
 			gi.setStroke(stroke3);
-			if (param instanceof ParamSubUI)
-				gi.setColor(SystemPanel.darkOrangeText);
+			if (param.isSubMenu()) {
+//				gi.setColor(SystemPanel.darkOrangeText);
+				gi.setColor(subMenuColor);
+				txt.enabledC(subMenuColor);
+			}
 			else
 				gi.setColor(SystemPanel.blackText);
 			int blankW = txt.stringWidth(gi) + s10;
 			param.drawBox(gi, xNew, yNew, wSetting, hSetting, s10/2, blankW);
 			txt.setScaledXY(xNew + columnPad, yNew+s7);
 			txt.draw(gi);
-			gi.setColor(SystemPanel.blackText);
+			if (param.isSubMenu())
+				gi.setColor(subMenuColor);
+			else
+				gi.setColor(SystemPanel.blackText);
 			gi.setFont(descFont);
 			List<String> lines = scaledNarrowWrappedLines(gi, desc, wSetting-s25, 4, 15, 12);
 			int y3 = xNew + lineH + s10;
@@ -249,6 +255,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 
 			txt.setScaledXY(xSetting+columnPad, ySetting+s7);
 			txt.updateBounds(g);
+			txt.setBounds(xSetting+xNew, ySetting+yNew, wSetting, hSetting);
 		}
 		else
 			g.drawImage(imgList.get(index), xSetting-xNew, ySetting-yNew, null);

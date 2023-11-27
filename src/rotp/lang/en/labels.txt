@@ -1894,6 +1894,15 @@ SETTINGS_FUEL_RANGE_HELP          | Increase or decrease the range of fuel range
 SETTINGS_FUEL_RANGE_DESC          | Increase the range of fuel range technologies and reserve fuel tanks.
 SETTINGS_AI_HOSTILITY_DESC        | Increase or decrease the general level of hostility between alien species.<br>When the hostility between two empires reach the level 30, a war declaration will follow!
 
+HEADERS_COMPUTER_OPTIONS_DESC     | Options related to the hardware.
+HEADERS_COMPUTER_OPTIONS          | ~~~ COMPUTER OPTIONS ~~~%1
+HEADERS_BACKUP_OPTIONS_DESC       | Files related Options.
+HEADERS_BACKUP_OPTIONS            | ~~~ BACKUP OPTIONS ~~~%1
+HEADERS_MENU_APPEARANCE_DESC      | Settings menu personalisation.
+HEADERS_MENU_APPEARANCE           | ~~~ MENU APPEARANCE ~~~%1
+HEADERS_GAME_UI_PREFERENCES_DESC  | Game UI personalisation..
+HEADERS_GAME_UI_PREFERENCES       | ~~~ GAME UI PREFERENCES ~~~%1
+
 HEADERS_START_GALAXY_OPTIONS_DESC | Options used for galaxy buildings. Only read when starting a new game.
 HEADERS_START_GALAXY_OPTIONS      | ~~~ GALAXY OPTIONS ~~~%1
 HEADERS_START_PLANET_OPTIONS_DESC | Options used for planet generation. Only read when starting a new game.
@@ -2437,21 +2446,39 @@ SETTINGS_MOD_TARGET_BOMBARD_AI_HELP      | AI is smart enough to control its bom
 SETTINGS_MOD_TARGET_BOMBARD_PLAYER_HELP  | Player is smart enough to control its bombing, but AI is not allowed to do so!
 SETTINGS_MOD_TARGET_BOMBARD_BOTH_HELP    | Everyone is able to control their bombing.
 
+SETTINGS_MOD_PRE_GAME_OPTIONS_TITLE      | Pregame Options
+SETTINGS_MOD_PRE_GAME_OPTIONS_UI         | - Pregame Options Menu -
+SETTINGS_MOD_PRE_GAME_OPTIONS_UI_DESC    | Opens a submenu containing more game definer settings, they are only used once, when starting or restarting a game.
+SETTINGS_MOD_PRE_GAME_OPTIONS_UI_HELP    | Opens a submenu containing more game definer settings, they are only used once, when starting or restarting a game.
+
+SETTINGS_MOD_IN_GAME_OPTIONS_TITLE       | Gameplay Options
+SETTINGS_MOD_IN_GAME_OPTIONS_UI          | - Gameplay Options Menu -
+SETTINGS_MOD_IN_GAME_OPTIONS_UI_DESC     | Opens a submenu containing more gameplay-related settings.
+SETTINGS_MOD_IN_GAME_OPTIONS_UI_Help     | Opens a submenu containing more gameplay-related settings. These settings are saved with the game. This submenu is also available during gameplay. This submenu is also available during gameplay.
+
+SETTINGS_MOD_COMMON_OPTIONS_TITLE        | Shared Options
+SETTINGS_MOD_COMMON_OPTIONS_UI           | - Shared Options Menu -
+SETTINGS_MOD_COMMON_OPTIONS_UI_DESC      | Opens a submenu containing shared performance and presentation settings common to all gameplay.
+
 SETTINGS_MOD_DEBUG_OPTIONS_TITLE         | Developper's Options
-SETTINGS_MOD_DEBUG_OPTIONS_UI            | §~ Debug Menu: %1
+SETTINGS_MOD_DEBUG_OPTIONS_UI            | - Debug Options Menu -
 SETTINGS_MOD_DEBUG_OPTIONS_UI_DESC       | Open Sub Menu to set development tools.
 
-SETTINGS_MOD_ZOOM_OPTIONS_TITLE          | In-Game Display Preferences
-SETTINGS_MOD_ZOOM_OPTIONS_UI             | §~ Display Preferences: %1
-SETTINGS_MOD_ZOOM_OPTIONS_UI_DESC        | Open Sub Menu to set diverse map zooming factors, replay speed, Combat Shield Effects.
-SETTINGS_MOD_ZOOM_OPTIONS_UI_HELP        | Open Sub Menu to set several In-Game Preferences: Map zooming factors, Replay speed, Combat Shield Effects.
+//SETTINGS_MOD_ZOOM_OPTIONS_TITLE          | In-Game Display Preferences
+// SETTINGS_MOD_ZOOM_OPTIONS_UI             | §~ Display Preferences: %1
+// SETTINGS_MOD_ZOOM_OPTIONS_UI_DESC        | Open Sub Menu to set diverse map zooming factors, // replay speed, Combat Shield Effects.
+// SETTINGS_MOD_ZOOM_OPTIONS_UI_HELP        | Open Sub Menu to set several In-Game Preferences: // Map zooming factors, Replay speed, Combat Shield Effects.
+SETTINGS_MOD_ZOOM_OPTIONS_TITLE          | Combat Options Menu
+SETTINGS_MOD_ZOOM_OPTIONS_UI             | - Combat Options Menu -
+SETTINGS_MOD_ZOOM_OPTIONS_UI_DESC        | Open Sub Menu to set diverse combat options settings.
+SETTINGS_MOD_ZOOM_OPTIONS_UI_HELP        | Open Sub Menu to set several In-Game Preferences: Map zooming factors, Replay speed, Combat Shield Effects. Weapons sounds and Shields effects.
 
 SETTINGS_MOD_FLAG_COLOR_COUNT_DESC       | How may colors should appear on the Star System Flag?
 SETTINGS_MOD_FLAG_COLOR_COUNT            | Flag Color Count: %1
 
 SETTINGS_MOD_AUTO_FLAG_TITLE             | Auto-Flag Menu
 SETTINGS_MOD_AUTO_FLAG_UI_DESC           | Open Sub Menu to set the parameters that will be automatically associated with flags. (Only the first time a Star System is scouted)
-SETTINGS_MOD_AUTO_FLAG_UI                | §~ Auto-Flag Menu: %1
+SETTINGS_MOD_AUTO_FLAG_UI                | - Auto-Flag Options Menu -
 
 SETTINGS_MOD_AUTO_FLAG_NO_AUTOMATION     | No Automation
 SETTINGS_MOD_AUTO_FLAG_TYPE              | Planet Type
@@ -2578,7 +2605,7 @@ SETTINGS_MOD_PLAYER_SHIP_SET             | Player Ship Set: %1
 // ========== Random Events sub Panel
 SETTINGS_MOD_RANDOM_EVENTS_TITLE         | Random Event Customization
 SETTINGS_MOD_RANDOM_EVENTS_UI_DESC       | Open Sub Menu to get more random events customization options.
-SETTINGS_MOD_RANDOM_EVENTS_UI            | §~ Random Events Menu: %1
+SETTINGS_MOD_RANDOM_EVENTS_UI            | - Random Events Menu -
 SETTINGS_MOD_RANDOM_EVENT_DISABLED       | Off
 SETTINGS_MOD_RANDOM_EVENT_UNIQUE         | Unique Event
 SETTINGS_MOD_RANDOM_EVENT_UNLIMITED      | Unlimited
@@ -3607,7 +3634,7 @@ HEADERS_GOVERNOR_SETUP_MENU_DESC  | To define the Governor options ouside of the
 HEADERS_GOVERNOR_SETUP_MENU       | ~~~ SETUP GOVERNOR ~~~%1
 GOVERNOR_SETUP_TITLE              | Governor Setup Panel
 GOVERNOR_SETUP_MENU_DESC          | Open Sub Menu to access Governor Options Setup.
-GOVERNOR_SETUP_MENU               | §~ Governor Menu: %1
+GOVERNOR_SETUP_MENU               | - Governor Menu -
 
 HEADERS_GOVERNOR_TRANSPORT_OPTIONS_DESC | AutoTransport Options.
 HEADERS_GOVERNOR_TRANSPORT_OPTIONS  | ~~~ AUTO-TRANSPORT OPTIONS ~~~%1

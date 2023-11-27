@@ -26,6 +26,6 @@ public class AdvancedOptionsUI extends AbstractOptionsUI {
 		super(guiTitleID, GUI_ID);
 	}
 	@Override protected void init0() {
-		duplicateList = rotp.model.game.IAdvOptions.advancedOptions;
+		duplicateList = rotp.model.game.IAdvOptions.advancedOptions();
 	}
 }

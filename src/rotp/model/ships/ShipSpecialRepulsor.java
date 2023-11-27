@@ -16,8 +16,6 @@
 package rotp.model.ships;
 
 import rotp.model.combat.CombatStack;
-import rotp.model.combat.CombatStackColony;
-import rotp.model.combat.CombatStackShip;
 import rotp.model.tech.TechRepulsor;
 
 public final class ShipSpecialRepulsor extends ShipSpecial {

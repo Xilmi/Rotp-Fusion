@@ -66,6 +66,11 @@ Later:
 
 ## What's New
 
+2023.11.27 (BR)
+- Removed previous (2023.11.19) bad tech exchange fix.
+- Updated "Advanced Game Option" Menu with sub menu.
+- Classic Menus: option is now selected by the mouse being inside the box.
+
 2023.11.24 (BR)
 - New buttons on the Ship-selection screen to select or deselect all ships.
   - If you have 5 stacks or so and want to send a single ship you had to click 5 different |< buttons

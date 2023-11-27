@@ -1,5 +1,9 @@
 package rotp.model.game;
 
+import static rotp.model.galaxy.StarSystem.getMinFont;
+import static rotp.model.galaxy.StarSystem.setFontPct;
+import static rotp.model.galaxy.StarSystem.setMinFont;
+import static rotp.model.galaxy.StarSystem.setMinFont2;
 import static rotp.ui.UserPreferences.backupTurns;
 import static rotp.ui.UserPreferences.disableAdvisor;
 import static rotp.ui.UserPreferences.displayMode;
@@ -17,6 +21,14 @@ import static rotp.ui.UserPreferences.sensitivityToSettingName;
 import static rotp.ui.UserPreferences.soundVolume;
 import static rotp.ui.UserPreferences.texturesMode;
 import static rotp.ui.UserPreferences.texturesToSettingName;
+import static rotp.ui.main.GalaxyMapPanel.maxFlagScale;
+import static rotp.ui.main.GalaxyMapPanel.maxFleetHugeScale;
+import static rotp.ui.main.GalaxyMapPanel.maxFleetLargeScale;
+import static rotp.ui.main.GalaxyMapPanel.maxFleetSmallScale;
+import static rotp.ui.main.GalaxyMapPanel.maxFleetTransportScale;
+import static rotp.ui.main.GalaxyMapPanel.maxFleetUnarmedScale;
+import static rotp.ui.main.GalaxyMapPanel.maxRallyScale;
+import static rotp.ui.main.GalaxyMapPanel.maxStargateScale;
 import static rotp.ui.util.IParam.langLabel;
 
 import java.awt.event.MouseEvent;
@@ -31,14 +43,17 @@ import rotp.ui.game.BaseModPanel;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolInt;
 import rotp.ui.util.ParamBoolean;
+import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamOptions;
 import rotp.ui.util.ParamString;
+import rotp.ui.util.ParamSubUI;
+import rotp.ui.util.ParamTitle;
 import rotp.util.FontManager;
 import rotp.util.sound.SoundManager;
 
-public interface IMainOptions extends IDebugOptions, IZoomOptions {
+public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	String DEBUG_GUI_ID		    = "DEBUG_OPTIONS";
 	String WINDOW_MODE			= "GAME_SETTINGS_WINDOWED";
 	String BORDERLESS_MODE		= "GAME_SETTINGS_BORDERLESS";
@@ -230,12 +245,6 @@ public interface IMainOptions extends IDebugOptions, IZoomOptions {
 	//
 	ParamOptions menuStartup		= new ParamOptions(MOD_UI, "MENU_STARTUP", ParamOptions.LAST)
 	{	{ isCfgFile(true); } };
-	ParamInteger galaxyPreviewColorStarsSize = new ParamInteger(MOD_UI, "GALAXY_PREVIEW_COLOR_SIZE" , 5, 0, 20, 1, 2, 5)
-	{	{ isCfgFile(true); } };
-	ParamInteger minListSizePopUp	= new ParamInteger(MOD_UI, "MIN_LIST_SIZE_POP_UP" , 4, 0, 10, true)
-	{
-		{ isCfgFile(true); }
-	}	.specialZero(MOD_UI + "MIN_LIST_SIZE_POP_UP_NEVER");
 	ParamBoolean useFusionFont		= new ParamBoolean(MOD_UI, "USE_FUSION_FONT", false)
 	{
 		{ isCfgFile(true); }
@@ -243,10 +252,6 @@ public interface IMainOptions extends IDebugOptions, IZoomOptions {
 	};
 	ParamBoolean compactOptionOnly	= new ParamBoolean(MOD_UI, "COMPACT_OPTION_ONLY", false)
 	{	{ isCfgFile(true); } };
-	ParamBoolean raceStatusLog		= new ParamBoolean(MOD_UI, "RACE_STATUS_LOG", false)
-	{	{ isCfgFile(true); } };
-	default boolean selectedRaceStatusLog()	{ return raceStatusLog.get(); }
-	default void	toggleRaceStatusLog()	{ raceStatusLog.toggle(); }
 
 	ParamBoolean showAlternateAnimation	= new ParamBoolean(MOD_UI, "SHOW_ALT_ANIMATION", true)
 	{	{ isCfgFile(true); } };
@@ -259,24 +264,139 @@ public interface IMainOptions extends IDebugOptions, IZoomOptions {
 	default boolean noFogOnIcons()	{ return noFogOnIcons.get(); }
 
 	
+	ParamFloat   showFlagFactor		= new ParamFloat(MOD_UI, "SHOW_FLAG_FACTOR"
+			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
+		{ isCfgFile(true); }
+		@Override public void setOption(Float val) { maxFlagScale((int) (80 * val)); }
+	};
+	ParamFloat   showPathFactor		= new ParamFloat(MOD_UI, "SHOW_PATH_FACTOR"
+			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
+		{ isCfgFile(true); }
+		@Override public void setOption(Float val) { maxRallyScale((int) (100 * val)); }
+	};
+	ParamInteger showNameMinFont	= new ParamInteger(MOD_UI, "SHOW_NAME_MIN_FONT", 8, 2, 24, 1, 2, 5) {
+		{ isCfgFile(true); }
+		@Override public void setOption(Integer val) {
+			setMinFont(val);
+			setMinFont2(Math.round(val/showInfoFontRatio.get()));
+		}
+	};
+	ParamFloat   showInfoFontRatio	= new ParamFloat(MOD_UI, "SHOW_INFO_FONT_RATIO"
+			, 0.7f, 0.2f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
+		{ isCfgFile(true); }
+		@Override public void setOption(Float val) { setMinFont2(Math.round(getMinFont()/val));
+		}
+	};
+	ParamFloat   mapFontFactor		= new ParamFloat(MOD_UI, "MAP_FONT_FACTOR"
+			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
+		{ isCfgFile(true); }
+		@Override public void setOption(Float val) { setFontPct(Math.round(val * 100)); }
+	};
+	ParamFloat   showFleetFactor	= new ParamFloat( MOD_UI, "SHOW_FLEET_FACTOR"
+			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
+		{ isCfgFile(true); }
+		@Override public void setOption(Float val) {
+			maxStargateScale		((int) (40 * val));
+			maxFleetUnarmedScale	((int) (40 * val));
+			maxFleetTransportScale	((int) (60 * val));
+			maxFleetSmallScale		((int) (60 * val));
+			maxFleetLargeScale		((int) (80 * val));
+			maxFleetHugeScale		((int) (100 * val));	
+		}
+	};
 	// ==================== GUI List Declarations ====================
 	//
-	LinkedList<IParam> mainOptionsUI  = new LinkedList<>( // don't make a method of it
-			Arrays.asList(
-					displayMode, graphicsMode,
-					texturesMode, sensitivityMode,
-					selectedScreen,
-					null,
-					soundVolume, musicVolume,
-					backupTurns, saveDirectory,
-					showAlternateAnimation, noFogOnIcons,
-					null,
-					useFusionFont, galaxyPreviewColorStarsSize,
-					raceStatusLog, disableAdvisor,
-					originalSpeciesOnly,
-					null,
-					minListSizePopUp, menuStartup,
-					compactOptionOnly, debugOptionsUI,
-					zoomOptionsUI
-					));
+//	LinkedList<IParam> mainOptionsUI  = new LinkedList<>( // don't make a method of it
+//			Arrays.asList(
+//					displayMode, graphicsMode,
+//					texturesMode, sensitivityMode,
+//					selectedScreen,
+//					null,
+//					soundVolume, musicVolume,
+//					backupTurns, saveDirectory,
+//					showAlternateAnimation,
+//					null,
+//					useFusionFont, disableAdvisor,
+//					originalSpeciesOnly, noFogOnIcons,
+//					null,
+//					menuStartup,
+//					compactOptionOnly, debugOptionsUI,
+//					zoomOptionsUI
+//					));
+
+	static LinkedList<IParam> mainOptionsUI() {
+		LinkedList<IParam> options  = new LinkedList<>(
+				Arrays.asList(
+						displayMode, graphicsMode,
+						texturesMode, sensitivityMode,
+						selectedScreen,
+						null,
+						soundVolume, musicVolume,
+						backupTurns, saveDirectory,
+						showAlternateAnimation,
+						null,
+						useFusionFont, disableAdvisor,
+						originalSpeciesOnly, noFogOnIcons,
+						null,
+						compactOptionOnly,
+						commonOptionsUI(),
+						ICombatOptions.combatOptionsUI(),
+						IDebugOptions.debugOptionsUI()
+						));
+		return options;
+	}
+
+	
+	static LinkedList<LinkedList<IParam>> commonOptionsMap()	{
+		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
+		map.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("COMPUTER_OPTIONS"),
+				graphicsMode, texturesMode, sensitivityMode,
+				soundVolume, musicVolume,
+
+				headerSpacer,
+				new ParamTitle("MENU_APPEARANCE"),
+				galaxyPreviewColorStarsSize, minListSizePopUp,
+				menuStartup, noFogOnIcons,
+				showAlternateAnimation, useFusionFont,
+				compactOptionOnly
+				)));
+		map.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("ZOOM_FONT"),
+				mapFontFactor, showNameMinFont, showInfoFontRatio,
+				showPendingOrders,
+				
+				headerSpacer,
+				new ParamTitle("ZOOM_FLEET"),
+				showFleetFactor, showFlagFactor, showPathFactor,
+				
+				headerSpacer,
+				new ParamTitle("ZOOM_REPLAY"),
+				finalReplayZoomOut, empireReplayZoomOut, replayTurnPace
+				)));
+		map.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("BACKUP_OPTIONS"),
+				backupTurns, saveDirectory,
+
+				headerSpacer,
+				new ParamTitle("GAME_UI_PREFERENCES"),
+				raceStatusLog, disableAdvisor,
+				originalSpeciesOnly,
+
+				// headerSpacer,
+				// new ParamTitle("GAME_VARIOUS"),
+				headerSpacer,
+				new ParamTitle("SUB_PANEL_OPTIONS"),
+				IDebugOptions.debugOptionsUI(),
+				ICombatOptions.combatOptionsUI()
+				)));
+		return map;
+	};
+	String COMMON_GUI_ID	= "COMMON_OPTIONS";
+	static ParamSubUI commonOptionsUI() {
+		return new ParamSubUI( MOD_UI, COMMON_GUI_ID, commonOptionsMap())
+		{ { isCfgFile(false); } };
+	}
+	ParamSubUI commonOptionsUI	= commonOptionsUI();
+
 }

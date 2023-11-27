@@ -2142,14 +2142,14 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		isOnTop = false;
 		MergedStaticOptionsUI modOptionsUI = RotPUI.mergedStaticOptionsUI();
 		close();
-		modOptionsUI.start(GUI_ID);
+		modOptionsUI.start(GUI_ID, this);
 	}
 	private void goToMergedDynamic() {
 		buttonClick();
 		isOnTop = false;
 		MergedDynamicOptionsUI modOptionsUI = RotPUI.mergedDynamicOptionsUI();
 		close();
-		modOptionsUI.start(GUI_ID);
+		modOptionsUI.start(GUI_ID, this);
 	}
 	private void goToModStaticA() {
 		buttonClick();
@@ -2191,7 +2191,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		switch (ModifierKeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Restore
-			guiOptions().updateFromFile(LIVE_OPTIONS_FILE);	
+			guiOptions().updateAllFromFile(LIVE_OPTIONS_FILE);	
 			break;
 		default:
 			guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);

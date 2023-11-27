@@ -24,47 +24,47 @@ import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamSubUI;
 import rotp.ui.util.ParamTitle;
 
-public interface IZoomOptions extends IBaseOptsTools {
+public interface ICombatOptions extends IBaseOptsTools {
 	String ZOOM_GUI_ID		= "ZOOM_OPTIONS";
 
-	ParamFloat   showFlagFactor		= new ParamFloat(MOD_UI, "SHOW_FLAG_FACTOR"
-			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
-		{ isCfgFile(true); }
-		@Override public void setOption(Float val) { maxFlagScale((int) (80 * val)); }
-	};
-	ParamFloat   showPathFactor		= new ParamFloat(MOD_UI, "SHOW_PATH_FACTOR"
-			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
-		{ isCfgFile(true); }
-		@Override public void setOption(Float val) { maxRallyScale((int) (100 * val)); }
-	};
-	ParamInteger showNameMinFont	= new ParamInteger(MOD_UI, "SHOW_NAME_MIN_FONT", 8, 2, 24, 1, 2, 5) {
-		{ isCfgFile(true); }
-		@Override public void setOption(Integer val) {
-			setMinFont(val);
-			setMinFont2(Math.round(val/showInfoFontRatio.get()));
-		}
-	};
-	ParamFloat   showInfoFontRatio	= new ParamFloat(MOD_UI, "SHOW_INFO_FONT_RATIO"
-			, 0.7f, 0.2f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
-		{ isCfgFile(true); }
-		@Override public void setOption(Float val) { setMinFont2(Math.round(getMinFont()/val));
-		}
-	};
-	ParamFloat   mapFontFactor		= new ParamFloat(MOD_UI, "MAP_FONT_FACTOR"
-			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
-		{ isCfgFile(true); }
-		@Override public void setOption(Float val) { setFontPct(Math.round(val * 100)); }
-	};
-	ParamFloat   showFleetFactor	= new ParamFloat( MOD_UI, "SHOW_FLEET_FACTOR"
-			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
-		{ isCfgFile(true); }
-		@Override public void setOption(Float val) {
-			maxStargateScale		((int) (40 * val));
-			maxFleetUnarmedScale	((int) (40 * val));
-			maxFleetTransportScale	((int) (60 * val));
-			maxFleetSmallScale		((int) (60 * val));
-			maxFleetLargeScale		((int) (80 * val));
-			maxFleetHugeScale		((int) (100 * val));
+//	ParamFloat   showFlagFactor		= new ParamFloat(MOD_UI, "SHOW_FLAG_FACTOR"
+//			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
+//		{ isCfgFile(true); }
+//		@Override public void setOption(Float val) { maxFlagScale((int) (80 * val)); }
+//	};
+//	ParamFloat   showPathFactor		= new ParamFloat(MOD_UI, "SHOW_PATH_FACTOR"
+//			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
+//		{ isCfgFile(true); }
+//		@Override public void setOption(Float val) { maxRallyScale((int) (100 * val)); }
+//	};
+//	ParamInteger showNameMinFont	= new ParamInteger(MOD_UI, "SHOW_NAME_MIN_FONT", 8, 2, 24, 1, 2, 5) {
+//		{ isCfgFile(true); }
+//		@Override public void setOption(Integer val) {
+//			setMinFont(val);
+//			setMinFont2(Math.round(val/showInfoFontRatio.get()));
+//		}
+//	};
+//	ParamFloat   showInfoFontRatio	= new ParamFloat(MOD_UI, "SHOW_INFO_FONT_RATIO"
+//			, 0.7f, 0.2f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
+//		{ isCfgFile(true); }
+//		@Override public void setOption(Float val) { setMinFont2(Math.round(getMinFont()/val));
+//		}
+//	};
+//	ParamFloat   mapFontFactor		= new ParamFloat(MOD_UI, "MAP_FONT_FACTOR"
+//			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
+//		{ isCfgFile(true); }
+//		@Override public void setOption(Float val) { setFontPct(Math.round(val * 100)); }
+//	};
+//	ParamFloat   showFleetFactor	= new ParamFloat( MOD_UI, "SHOW_FLEET_FACTOR"
+//			, 1.0f, 0.3f, 3f, 0.01f, 0.05f, 0.2f, "%", "%") {
+//		{ isCfgFile(true); }
+//		@Override public void setOption(Float val) {
+//			maxStargateScale		((int) (40 * val));
+//			maxFleetUnarmedScale	((int) (40 * val));
+//			maxFleetTransportScale	((int) (60 * val));
+//			maxFleetSmallScale		((int) (60 * val));
+//			maxFleetLargeScale		((int) (80 * val));
+//			maxFleetHugeScale		((int) (100 * val));
 
 //			MAX_STARGATE_SCALE			= (int) (40 * val);
 //			MAX_FLEET_UNARMED_SCALE		= (int) (40 * val);
@@ -72,8 +72,8 @@ public interface IZoomOptions extends IBaseOptsTools {
 //			MAX_FLEET_SMALL_SCALE		= (int) (60 * val);
 //			MAX_FLEET_LARGE_SCALE		= (int) (80 * val);
 //			MAX_FLEET_HUGE_SCALE		= (int) (100 * val);
-		}
-	};
+//		}
+//	};
 	
 	ParamBoolean finalReplayZoomOut	 = new ParamBoolean(MOD_UI, "ZOOM_FINAL_REPLAY", false)
 	{	{ isCfgFile(true); } };
@@ -240,25 +240,41 @@ public interface IZoomOptions extends IBaseOptsTools {
 	ParamBoolean showPendingOrders	= new ParamBoolean(MOD_UI, "SHOW_PENDING_ORDERS", false);
 	default boolean showPendingOrders()		{ return showPendingOrders.get(); }
 
+	ParamBoolean raceStatusLog		= new ParamBoolean(MOD_UI, "RACE_STATUS_LOG", false)
+	{	{ isCfgFile(true); } };
+	default boolean selectedRaceStatusLog()	{ return raceStatusLog.get(); }
+	default void	toggleRaceStatusLog()	{ raceStatusLog.toggle(); }
+
+	ParamInteger galaxyPreviewColorStarsSize = new ParamInteger(MOD_UI, "GALAXY_PREVIEW_COLOR_SIZE" , 5, 0, 20, 1, 2, 5)
+	{	{ isCfgFile(true); } };
+	ParamInteger minListSizePopUp	= new ParamInteger(MOD_UI, "MIN_LIST_SIZE_POP_UP" , 4, 0, 10, true)
+	{
+		{ isCfgFile(true); }
+	}	.specialZero(MOD_UI + "MIN_LIST_SIZE_POP_UP_NEVER");
+
 	// ==================== GUI List Declarations ====================
 	//
-	ParamSubUI zoomOptionsUI = zoomOptionsUI();
+	ParamSubUI combatOptionsUI = combatOptionsUI();
 
-	static LinkedList<LinkedList<IParam>> zoomOptionsMap() {
+	static LinkedList<LinkedList<IParam>> combatOptionsMap() {
 		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
-		map.add(new LinkedList<>(Arrays.asList(
-				new ParamTitle("ZOOM_FONT"),
-				mapFontFactor, showNameMinFont, showInfoFontRatio,
-				showPendingOrders,
-				
-				headerSpacer,
-				new ParamTitle("ZOOM_FLEET"),
-				showFleetFactor, showFlagFactor, showPathFactor,
-				
-				headerSpacer,
-				new ParamTitle("ZOOM_REPLAY"),
-				finalReplayZoomOut, empireReplayZoomOut, replayTurnPace
-				)));
+//		map.add(new LinkedList<>(Arrays.asList(
+//				raceStatusLog, galaxyPreviewColorStarsSize,
+//				minListSizePopUp
+//				)));
+//		map.add(new LinkedList<>(Arrays.asList(
+//				new ParamTitle("ZOOM_FONT"),
+//				mapFontFactor, showNameMinFont, showInfoFontRatio,
+//				showPendingOrders,
+//				
+//				headerSpacer,
+//				new ParamTitle("ZOOM_FLEET"),
+//				showFleetFactor, showFlagFactor, showPathFactor,
+//				
+//				headerSpacer,
+//				new ParamTitle("ZOOM_REPLAY"),
+//				finalReplayZoomOut, empireReplayZoomOut, replayTurnPace
+//				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("WEAPON_ANIMATIONS"),
 				showResultDelay,
@@ -283,12 +299,12 @@ public interface IZoomOptions extends IBaseOptsTools {
 				)));
 		return map;
 	};
-	static ParamSubUI zoomOptionsUI() {
-		return new ParamSubUI( MOD_UI, "ZOOM_OPTIONS_UI", zoomOptionsMap(),
+	static ParamSubUI combatOptionsUI() {
+		return new ParamSubUI( MOD_UI, "ZOOM_OPTIONS_UI", combatOptionsMap(),
 				"ZOOM_OPTIONS_TITLE", ZOOM_GUI_ID)
 		{ { isCfgFile(true); } };
 	}
-	static LinkedList<IParam> zoomOptions() {
-		return IBaseOptsTools.getSingleList(zoomOptionsMap());
+	static LinkedList<IParam> combatOptions() {
+		return IBaseOptsTools.getSingleList(combatOptionsMap());
 	}
 }

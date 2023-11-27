@@ -47,6 +47,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - AI improvement against repulsors.
   - Fusion AI once again is about being selfish and opportunistic rather than trying to prevent someone else from winning.
   - Missile-boats controlled by the AI no longer retreat when their missiles are still flying and are about to kill at least one enemy-unit.
+- Classic Menus: option is now selected by the mouse being inside the box.
+- Updated "Advanced Game Option" Menu with sub menu.
 
 
 <b><ins>Bug Fixes:</ins></b>

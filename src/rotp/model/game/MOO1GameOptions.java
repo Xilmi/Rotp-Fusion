@@ -61,6 +61,7 @@ import rotp.model.galaxy.StarType;
 import rotp.model.planet.Planet;
 import rotp.model.planet.PlanetType;
 import rotp.model.tech.TechEngineWarp;
+import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.util.IParam;
@@ -1140,7 +1141,12 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
    }
     // ==================== Generalized options' Tools methods ====================
     //
-    private void copyBaseSettings(MOO1GameOptions dest, LinkedList<IParam> pList) {
+    private void copyAllBaseSettings(MOO1GameOptions dest) {
+		copyBaseGalaxySettings(dest);
+		copyBaseRaceSettings(dest);
+		copyAdvancedOptions(dest);
+    }
+    private void copyPanelBaseSettings(MOO1GameOptions dest, LinkedList<IParam> pList) {
    		if (pList == optionsGalaxy()) {
    			copyBaseGalaxySettings(dest);
    			return;
@@ -1150,24 +1156,33 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
    			return;
    		}
    		if (pList == allModOptions()) {
-    		copyBaseGalaxySettings(dest);
-    		copyBaseRaceSettings(dest);
-    		copyAdvancedOptions(dest);
+    		System.err.println("Old call of copyPanelBaseSettings(allModOptions)");
+    		copyAllBaseSettings(dest);
    		}
     }
-    private void setModSettingsToDefault(LinkedList<IParam> pList) {
+    private void setAllGameSettingsToDefault() { // settings saved in game file.
+       	for (IParam param : allModOptions())
+       		if (param != null && !param.isCfgFile()) // Exclude .cfg parameters
+	       		param.setFromDefault();
+    }
+    private void setAllBaseSettingsToDefault() {
+		setAdvancedOptionsToDefault();
+		setBaseRaceSettingsToDefault();
+		setBaseGalaxySettingsToDefault();
+    }
+    private void setPanelGameSettingsToDefault(LinkedList<IParam> pList) {
     	if (pList == null)
     		return;
-    	if (pList == allModOptions) { // Exclude .cfg parameters
-	       	for (IParam param : pList)
-	       		if (param != null && !param.isCfgFile())
-		       		param.setFromDefault();
-    	} else 
+    	if (pList == allModOptions()) { // Should no more be used
+    		System.err.println("Old call of setModSettingsToDefault(allModOptions)");
+    		setAllGameSettingsToDefault();
+    	}
+    	else 
 	       	for (IParam param : pList)
 	       		if (param != null)
 		       		param.setFromDefault();
     }
-    private void setBaseSettingsToDefault(LinkedList<IParam> pList) {
+    private void setPanelBaseSettingsToDefault(LinkedList<IParam> pList) {
    		if (pList == null)
    			return;
    		if (pList == optionsGalaxy()) {
@@ -1179,9 +1194,8 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
    			return;
    		}
    		if (pList == allModOptions()) {
-   			setAdvancedOptionsToDefault();
-    		setBaseRaceSettingsToDefault();
-    		setBaseGalaxySettingsToDefault();
+    		System.err.println("Old call of setPanelBaseSettingsToDefault(allModOptions)");
+    		setAllBaseSettingsToDefault();
   			return;
    		}
     }
@@ -1203,20 +1217,20 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     //
     @Override public void loadStartupOptions() {
         System.out.println("==================== reset all options() ====================");
-        resetToDefault();
+        resetAllSettingsToDefault();
         System.out.println("==================== loadStartupOptions() ====================");
     	if (menuStartup.isUser()) {
-    		updateFromFile(USER_OPTIONS_FILE);
+    		updateAllFromFile(USER_OPTIONS_FILE);
     		transfert(USER_OPTIONS_FILE, true);
     	}
     	else if (menuStartup.isGame()) {
-    		updateFromFile(GAME_OPTIONS_FILE);
+    		updateAllFromFile(GAME_OPTIONS_FILE);
     		transfert(GAME_OPTIONS_FILE, true);
     	}
     	else if (menuStartup.isDefault())
-    		resetToDefault();
+    		resetAllSettingsToDefault();
     	else { // default = action.isLast()
-    		updateFromFile(LAST_OPTIONS_FILE);
+    		updateAllFromFile(LAST_OPTIONS_FILE);
     		transfert(LAST_OPTIONS_FILE, true);
     	}
 		transfert(USER_OPTIONS_FILE, false);
@@ -1235,9 +1249,13 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         for (int i=0; i<d.specificOpponentAIOption.length; i++)
         	d.specificOpponentAIOption[i] = specificOpponentAIOption[i];
     }
-    @Override public void resetToDefault(LinkedList<IParam> pList) {
-    	setModSettingsToDefault(pList);
-    	setBaseSettingsToDefault(pList);
+    @Override public void resetAllSettingsToDefault() {
+    	setAllGameSettingsToDefault();
+    	setAllBaseSettingsToDefault();
+    }
+    @Override public void resetPanelSettingsToDefault(LinkedList<IParam> pList) {
+    	setPanelGameSettingsToDefault(pList);
+    	setPanelBaseSettingsToDefault(pList);
     }
     @Override public void saveOptionsToFile(String fileName) {
     	saveOptions(this, fileName);
@@ -1252,12 +1270,27 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
        		}
         saveOptions(fileOptions, fileName);
     }
+    @Override public void updateAllFromFile(String fileName) {
+    	MOO1GameOptions source = loadOptions(fileName);
+       	for (IParam param : allModOptions()) {
+       		if (param != null) {
+	       		if (param.isCfgFile()) { // Exclude .cfg parameters
+	       			param.updateOptionTool();
+	       		}
+	       		else {
+	       			param.copyOption(source, this, true); // Copy and update tool
+	       		}
+       		}
+       	}
+        source.copyAllBaseSettings(this);
+    }
     @Override public void updateFromFile(String fileName, LinkedList<IParam> pList) {
     	if (pList == null)
     		return;
     	MOO1GameOptions source = loadOptions(fileName);
     	
-    	if (pList == convenienceOptions || pList == mainOptionsUI) {
+    	if (pList == convenienceOptions // mainOptionsUI
+    			|| pList == RotPUI.mainOptionsUI().activeList()) {
            	for (IParam param : pList) {
            		if (param != null) {
            			param.copyOption(source, this, true); // update tool
@@ -1276,12 +1309,12 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 	       		}
 	       	}
     	}
-        source.copyBaseSettings(this, pList);
+        source.copyPanelBaseSettings(this, pList);
     }
     @Override public void prepareToSave(boolean secure) {
     	// probably not necessary! but it's called during screen swap and won't delay the game
     	//System.out.println("prepareToSave() " + optionName());
-    	for (IParam param : allModOptions) {
+    	for (IParam param : allModOptions()) {
     		if (param != null) {
     			param.prepareToSave(this);
     		}
@@ -1295,7 +1328,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override public void UpdateOptionsTools() {
     	// probably overkill, but no needs to be picky
     	//System.out.println("UpdateOptionsTools() " + optionName());
-    	for (IParam param : allModOptions) {
+    	for (IParam param : allModOptions()) {
     		if (param != null && !param.isCfgFile()) { // cfg file if updated live!
     			param.updateOptionTool();
     		}

@@ -31,7 +31,6 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<IParam>>> {
 	
 	private final String GUI_TITLE_ID;
 	private final String GUI_ID;
-	private CompactOptionsUI ui;
 	public  final LinkedList<LinkedList<IParam>> optionsMap;
 	public  final LinkedList<IParam> optionsList = new LinkedList<>();
 	
@@ -58,6 +57,17 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<IParam>>> {
 					optionsList.add(param);
 			}
 		}
+	}
+	/**
+	 * @param gui  The label header
+	 * @param name The name
+	 * @param optionsMap Full map of options
+	 * @param guiTitleID Label for the GUI Title
+	 * @param guiID Unique GUI ID for load and save
+	 */
+	public ParamSubUI(String gui, String guiId,
+			LinkedList<LinkedList<IParam>> optionsMap) {
+		this(gui, guiId+"_UI", optionsMap, guiId+"_TITLE", guiId);
 	}
 	// ===== Overriders =====
 	//
@@ -101,7 +111,10 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<IParam>>> {
 	@Override public void prev() {  }
 	@Override public void toggle(MouseWheelEvent e) { }
 	@Override public void toggle(MouseEvent e, BaseModPanel frame) { }
-	@Override public void toggle(MouseEvent e, String p, BaseModPanel frame) { ui().start(p); };
+	@Override public void toggle(MouseEvent e, String p, BaseModPanel pUI) {
+		CompactOptionsUI ui = new CompactOptionsUI(GUI_TITLE_ID, GUI_ID, optionsMap);
+		ui.start(p, pUI);
+	};
 	@Override public String guideValue()	{
 		String label = isDefaultValue()? "SUB_UI_DEFAULT_YES" : "SUB_UI_DEFAULT_NO";
 		return langLabel(label);
@@ -113,11 +126,6 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<IParam>>> {
 
 	// ===== Other Methods =====
 	//
-	private CompactOptionsUI ui() {
-		if (ui == null)
-			ui = new CompactOptionsUI(GUI_TITLE_ID, GUI_ID, optionsMap);
-		return ui;
-	}
 	public LinkedList<IParam> optionsList() { return optionsList; }
 	public void updateList() {
 		optionsList.clear();

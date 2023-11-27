@@ -36,7 +36,7 @@ public class OptionsWidgetSprite extends MapControlSprite {
     public void click(GalaxyMapPanel map, int count, boolean rightClick, boolean click, boolean middleClick) {
     	if (options().isGameOptionsAllowed()) {
     		MergedDynamicOptionsUI optionsUI = RotPUI.mergedDynamicOptionsUI();
-			optionsUI.start("");
+			optionsUI.start("", null);
     	}
     }
     @Override
