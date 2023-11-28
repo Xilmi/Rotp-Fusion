@@ -270,6 +270,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 				autoFlagOptionsUI,
 				GovernorOptions.governorOptionsUI,
 				combatOptionsUI,
+				IMainOptions.commonOptionsUI(),
 
 				headerSpacer,
 				new ParamTitle("GAME_OTHER"),
