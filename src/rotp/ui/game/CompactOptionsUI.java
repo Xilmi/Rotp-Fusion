@@ -36,7 +36,6 @@ import java.util.LinkedList;
 import javax.swing.JEditorPane;
 import javax.swing.JTextPane;
 
-import rotp.model.game.IInGameOptions;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
@@ -86,7 +85,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 	private final LinkedList<ModText>	btListBoth	= new LinkedList<>();
 	private final LinkedHashMap<Integer, BufferedImage>	imgList	= new LinkedHashMap<>();
 	private LinkedList<LinkedList<IParam>>	optionsList;
-	private String parent = "";
+//	private String parent = "";
 	private BaseModPanel parentUI;
 	private boolean forceUpdate = true;
 
@@ -323,7 +322,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 //		start();
 //	}
 	public  void start(String p, BaseModPanel ui) { // Called from subUI
-		parent = p;
+//		parent = p;
 		parentUI = ui;
 		start();
 	}

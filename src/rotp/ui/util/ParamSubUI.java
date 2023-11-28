@@ -90,6 +90,13 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<IParam>>> {
 			if (param != null)
 				param.updateOptionTool();
 	}
+	@Override public void setFromDefault(boolean excludeCfg) {
+		super.setFromDefault();
+		for (IParam param : optionsList)
+			if (param != null)
+				if (!(excludeCfg && param.isCfgFile()))
+					param.setFromDefault();
+	}
 	@Override public void setFromDefault() {
 		super.setFromDefault();
 		for (IParam param : optionsList)

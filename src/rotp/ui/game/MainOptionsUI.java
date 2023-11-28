@@ -26,6 +26,7 @@ public class MainOptionsUI extends AbstractOptionsUI {
 		super(guiTitleID, GUI_ID);
 	}
 	@Override protected void init0() {
+		globalOptions = true;
 		duplicateList = rotp.model.game.IMainOptions.mainOptionsUI();
 	}
 }

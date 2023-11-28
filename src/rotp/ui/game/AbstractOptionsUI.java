@@ -41,7 +41,6 @@ import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.util.IParam;
 import rotp.ui.util.InterfaceOptions;
-import rotp.ui.util.ParamSubUI;
 import rotp.util.ModifierKeysState;
 
 // modnar: add UI panel for modnar MOD game options, based on StartOptionsUI.java
@@ -254,8 +253,8 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 			imgList.put(index, img);
 
 			txt.setScaledXY(xSetting+columnPad, ySetting+s7);
-			txt.updateBounds(g);
-			txt.setBounds(xSetting+xNew, ySetting+yNew, wSetting, hSetting);
+//			txt.updateBounds(g);
+			txt.setBounds(xSetting, ySetting-s7, wSetting, hSetting+s10);
 		}
 		else
 			g.drawImage(imgList.get(index), xSetting-xNew, ySetting-yNew, null);
@@ -326,8 +325,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 			UserPreferences.save();
 			close();			
 		}
-		else
-			super.doExitBoxAction();
+		super.doExitBoxAction();
 	}
 	@Override protected void doDefaultBoxAction()	{
 		if (globalOptions) { // The old ways

@@ -37,8 +37,6 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 Bug to fix:
 
 Very soon:
-
-- Species Easy-Normal-Hard
 - Add second statistic option: (on the side of lin / log): Display statistic as:
     - "% Tot": Precentage relative to known total (!= Galaxy Total)
     - "% Player": Percentage relative to player value.
@@ -54,6 +52,7 @@ Very soon:
   - Planet Monsters Guardian.
 - Add Help to History.
 Later:
+- Species Easy-Normal-Hard
 - Investigate: William482 request: Age of your data on each race into the bar graphs on the status page.
 - Tech trading extended list.
 - Option to be used to force war declaration upon "Smart Resolve".
@@ -66,10 +65,15 @@ Later:
 
 ## What's New
 
+2023.11.28 (BR)
+- Classic Menus: bigger and better centered selection box
+- Fixed some CFG settings being reset to default. (Due to adding them to sub menus)
+
 2023.11.27 (BR)
 - Removed previous (2023.11.19) bad tech exchange fix.
 - Updated "Advanced Game Option" Menu with sub menu.
 - Classic Menus: option is now selected by the mouse being inside the box.
+- SubMenus knows their parents and are able to exit to them... Allowing multiple submenus levels.
 
 2023.11.24 (BR)
 - New buttons on the Ship-selection screen to select or deselect all ships.

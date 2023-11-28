@@ -304,6 +304,22 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 			maxFleetHugeScale		((int) (100 * val));	
 		}
 	};
+
+	ParamBoolean showPendingOrders	= new ParamBoolean(MOD_UI, "SHOW_PENDING_ORDERS", false);
+	default boolean showPendingOrders()		{ return showPendingOrders.get(); }
+
+	ParamBoolean raceStatusLog		= new ParamBoolean(MOD_UI, "RACE_STATUS_LOG", false)
+	{	{ isCfgFile(true); } };
+	default boolean selectedRaceStatusLog()	{ return raceStatusLog.get(); }
+	default void	toggleRaceStatusLog()	{ raceStatusLog.toggle(); }
+
+	ParamInteger galaxyPreviewColorStarsSize = new ParamInteger(MOD_UI, "GALAXY_PREVIEW_COLOR_SIZE" , 5, 0, 20, 1, 2, 5)
+	{	{ isCfgFile(true); } };
+	ParamInteger minListSizePopUp	= new ParamInteger(MOD_UI, "MIN_LIST_SIZE_POP_UP" , 4, 0, 10, true)
+	{
+		{ isCfgFile(true); }
+	}	.specialZero(MOD_UI + "MIN_LIST_SIZE_POP_UP_NEVER");
+
 	// ==================== GUI List Declarations ====================
 	//
 //	LinkedList<IParam> mainOptionsUI  = new LinkedList<>( // don't make a method of it

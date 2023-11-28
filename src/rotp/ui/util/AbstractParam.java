@@ -178,6 +178,11 @@ public abstract class AbstractParam <T> implements IParam{
 	@Override public boolean isDuplicate()		{ return isDuplicate; }
 	@Override public boolean isCfgFile()		{ return isCfgFile; }
 	@Override public void setFromDefault()		{ set(defaultValue()); }
+	@Override public void setFromDefault(boolean excludeCfg)	{
+		if (excludeCfg && isCfgFile())
+			return;
+		set(defaultValue());
+	}
 	@Override public void toggle(MouseEvent e, MouseWheelEvent w, BaseModPanel frame) {
 		if (e == null)
 			toggle(w);

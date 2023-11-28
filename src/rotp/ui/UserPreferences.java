@@ -115,7 +115,9 @@ public class UserPreferences implements IMainOptions {
 	}
 	public static void musicVolume(int i)    { musicVolume = i; }
 	public static int musicVolume()		     { return musicVolume; }
-	public static void soundVolume(int i)    { soundVolume = i; }
+	public static void soundVolume(int i)    {
+		soundVolume = i;
+	}
 	public static int soundVolume()		     { return soundVolume; }
 	public static void showMemory(boolean b) { showMemory = b; }
 	public static boolean showMemory()	     { return showMemory; }
@@ -264,7 +266,7 @@ public class UserPreferences implements IMainOptions {
 	@SuppressWarnings("null")
 	public static void load() {
 		
-//		System.out.println("UserPreferences: load()");
+		//System.out.println("UserPreferences: load()");
 		String path = Rotp.jarPath();
 		File configFile = new File(path, PREFERENCES_FILE);
 		// modnar: change to InputStreamReader, force UTF-8
@@ -283,6 +285,7 @@ public class UserPreferences implements IMainOptions {
 		}
 	}
 	public static int save() {
+		// System.out.println("UserPreferences: save()");
 		String path = Rotp.jarPath();
 		try (FileOutputStream fout = new FileOutputStream(new File(path, PREFERENCES_FILE));
 			// modnar: change to OutputStreamWriter, force UTF-8
@@ -331,7 +334,10 @@ public class UserPreferences implements IMainOptions {
 //					System.out.println("Save Skipped because param = is not cfg File: " + param.getCfgLabel());
 //				else
 //					out.println(keyFormat(param.getCfgLabel()) + param.getCfgValue());
-				if (param != null && !param.isDuplicate() && param.isCfgFile())
+				if (param != null
+						&& !param.isDuplicate()
+						&& param.isCfgFile()
+						&& !param.isSubMenu())
 					out.println(keyFormat(param.getCfgLabel()) + param.getCfgValue());
 			}
 			// ========== TEST ==========

@@ -1163,7 +1163,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     private void setAllGameSettingsToDefault() { // settings saved in game file.
        	for (IParam param : allModOptions())
        		if (param != null && !param.isCfgFile()) // Exclude .cfg parameters
-	       		param.setFromDefault();
+	       		param.setFromDefault(true);
     }
     private void setAllBaseSettingsToDefault() {
 		setAdvancedOptionsToDefault();

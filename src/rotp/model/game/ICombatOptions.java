@@ -1,24 +1,10 @@
 package rotp.model.game;
 
-import static rotp.model.galaxy.StarSystem.getMinFont;
-import static rotp.model.galaxy.StarSystem.setFontPct;
-import static rotp.model.galaxy.StarSystem.setMinFont;
-import static rotp.model.galaxy.StarSystem.setMinFont2;
-import static rotp.ui.main.GalaxyMapPanel.maxFlagScale;
-import static rotp.ui.main.GalaxyMapPanel.maxFleetHugeScale;
-import static rotp.ui.main.GalaxyMapPanel.maxFleetLargeScale;
-import static rotp.ui.main.GalaxyMapPanel.maxFleetSmallScale;
-import static rotp.ui.main.GalaxyMapPanel.maxFleetTransportScale;
-import static rotp.ui.main.GalaxyMapPanel.maxFleetUnarmedScale;
-import static rotp.ui.main.GalaxyMapPanel.maxRallyScale;
-import static rotp.ui.main.GalaxyMapPanel.maxStargateScale;
-
 import java.util.Arrays;
 import java.util.LinkedList;
 
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
-import rotp.ui.util.ParamFloat;
 import rotp.ui.util.ParamInteger;
 import rotp.ui.util.ParamList;
 import rotp.ui.util.ParamSubUI;
@@ -237,20 +223,6 @@ public interface ICombatOptions extends IBaseOptsTools {
 	default boolean shieldType2D()			{ return shieldType.get().equalsIgnoreCase("2D"); }
 	default boolean shieldType3Buffer()		{ return shieldType.get().equalsIgnoreCase("3B"); }
 
-	ParamBoolean showPendingOrders	= new ParamBoolean(MOD_UI, "SHOW_PENDING_ORDERS", false);
-	default boolean showPendingOrders()		{ return showPendingOrders.get(); }
-
-	ParamBoolean raceStatusLog		= new ParamBoolean(MOD_UI, "RACE_STATUS_LOG", false)
-	{	{ isCfgFile(true); } };
-	default boolean selectedRaceStatusLog()	{ return raceStatusLog.get(); }
-	default void	toggleRaceStatusLog()	{ raceStatusLog.toggle(); }
-
-	ParamInteger galaxyPreviewColorStarsSize = new ParamInteger(MOD_UI, "GALAXY_PREVIEW_COLOR_SIZE" , 5, 0, 20, 1, 2, 5)
-	{	{ isCfgFile(true); } };
-	ParamInteger minListSizePopUp	= new ParamInteger(MOD_UI, "MIN_LIST_SIZE_POP_UP" , 4, 0, 10, true)
-	{
-		{ isCfgFile(true); }
-	}	.specialZero(MOD_UI + "MIN_LIST_SIZE_POP_UP_NEVER");
 
 	// ==================== GUI List Declarations ====================
 	//
