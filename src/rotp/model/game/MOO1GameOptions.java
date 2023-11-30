@@ -1160,27 +1160,30 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     		copyAllBaseSettings(dest);
    		}
     }
-    private void setAllGameSettingsToDefault() { // settings saved in game file.
+    private void setAllNonCfgGameSettingsToDefault() { // settings saved in game file.
        	for (IParam param : allModOptions())
        		if (param != null && !param.isCfgFile()) // Exclude .cfg parameters
-	       		param.setFromDefault(true);
+	       		param.setFromDefault(true, false);
     }
-    private void setAllBaseSettingsToDefault() {
+    private void setAllNonCfgBaseSettingsToDefault() {
 		setAdvancedOptionsToDefault();
 		setBaseRaceSettingsToDefault();
 		setBaseGalaxySettingsToDefault();
     }
-    private void setPanelGameSettingsToDefault(LinkedList<IParam> pList) {
+    private void setPanelGameSettingsToDefault(LinkedList<IParam> pList,
+    		boolean excludeCfg, boolean excludeSubMenu) {
     	if (pList == null)
     		return;
     	if (pList == allModOptions()) { // Should no more be used
     		System.err.println("Old call of setModSettingsToDefault(allModOptions)");
-    		setAllGameSettingsToDefault();
+    		setAllNonCfgGameSettingsToDefault();
     	}
     	else 
 	       	for (IParam param : pList)
-	       		if (param != null)
-		       		param.setFromDefault();
+	       		if (param != null
+	       				&& !(excludeCfg && param.isCfgFile())
+	       				&& !(excludeSubMenu && param.isSubMenu()))
+		       		param.setFromDefault(excludeCfg, excludeSubMenu);
     }
     private void setPanelBaseSettingsToDefault(LinkedList<IParam> pList) {
    		if (pList == null)
@@ -1195,7 +1198,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
    		}
    		if (pList == allModOptions()) {
     		System.err.println("Old call of setPanelBaseSettingsToDefault(allModOptions)");
-    		setAllBaseSettingsToDefault();
+    		setAllNonCfgBaseSettingsToDefault();
   			return;
    		}
     }
@@ -1217,20 +1220,20 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     //
     @Override public void loadStartupOptions() {
         System.out.println("==================== reset all options() ====================");
-        resetAllSettingsToDefault();
+        resetAllNonCfgSettingsToDefault();
         System.out.println("==================== loadStartupOptions() ====================");
     	if (menuStartup.isUser()) {
-    		updateAllFromFile(USER_OPTIONS_FILE);
+    		updateAllNonCfgFromFile(USER_OPTIONS_FILE);
     		transfert(USER_OPTIONS_FILE, true);
     	}
     	else if (menuStartup.isGame()) {
-    		updateAllFromFile(GAME_OPTIONS_FILE);
+    		updateAllNonCfgFromFile(GAME_OPTIONS_FILE);
     		transfert(GAME_OPTIONS_FILE, true);
     	}
     	else if (menuStartup.isDefault())
-    		resetAllSettingsToDefault();
+    		resetAllNonCfgSettingsToDefault();
     	else { // default = action.isLast()
-    		updateAllFromFile(LAST_OPTIONS_FILE);
+    		updateAllNonCfgFromFile(LAST_OPTIONS_FILE);
     		transfert(LAST_OPTIONS_FILE, true);
     	}
 		transfert(USER_OPTIONS_FILE, false);
@@ -1249,12 +1252,13 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         for (int i=0; i<d.specificOpponentAIOption.length; i++)
         	d.specificOpponentAIOption[i] = specificOpponentAIOption[i];
     }
-    @Override public void resetAllSettingsToDefault() {
-    	setAllGameSettingsToDefault();
-    	setAllBaseSettingsToDefault();
+    @Override public void resetAllNonCfgSettingsToDefault() {
+    	setAllNonCfgGameSettingsToDefault();
+    	setAllNonCfgBaseSettingsToDefault();
     }
-    @Override public void resetPanelSettingsToDefault(LinkedList<IParam> pList) {
-    	setPanelGameSettingsToDefault(pList);
+    @Override public void resetPanelSettingsToDefault(LinkedList<IParam> pList,
+    		boolean excludeCfg, boolean excludeSubMenu) {
+    	setPanelGameSettingsToDefault(pList, excludeCfg, excludeSubMenu);
     	setPanelBaseSettingsToDefault(pList);
     }
     @Override public void saveOptionsToFile(String fileName) {
@@ -1270,7 +1274,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
        		}
         saveOptions(fileOptions, fileName);
     }
-    @Override public void updateAllFromFile(String fileName) {
+    @Override public void updateAllNonCfgFromFile(String fileName) {
     	MOO1GameOptions source = loadOptions(fileName);
        	for (IParam param : allModOptions()) {
        		if (param != null) {

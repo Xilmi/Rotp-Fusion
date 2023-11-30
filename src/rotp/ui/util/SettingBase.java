@@ -165,7 +165,7 @@ public class SettingBase<T> implements IParam {
 	}
 	@Override public void toggle(MouseEvent e, BaseModPanel frame) {
 		if (getDir(e) == 0) 
-			setFromDefault();
+			setFromDefault(true, true);
 		else if (allowListSelect && frame != null && 
 				(e.isControlDown() || listSize() >= minListSizePopUp.get()))
 			setFromList(frame);
@@ -174,7 +174,9 @@ public class SettingBase<T> implements IParam {
 		else 
 			prev();
 	}
-	@Override public void setFromDefault()	{ selectedValue(defaultValue); }
+	@Override public void setFromDefault(boolean excludeCfg, boolean excludeSubMenu) {
+		selectedValue(defaultValue);
+	}
 	@Override public void updateOptionTool() {
 		if (!isSpacer && dynOpts() != null)
 			setFromCfgValue(dynOpts().getString(getLangLabel(), getDefaultCfgValue()));

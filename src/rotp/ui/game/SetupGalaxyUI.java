@@ -473,7 +473,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
         backImg = null;
         repaint();
 	}
-	@Override protected void clearImages() {
+	@Override public void clearImages() {
 		super.clearImages();
 //        backImg			= null;
 		boxMonoFont		= null;
@@ -1423,7 +1423,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 
 		// draw Opponent CR text
 		if (globalCROptions.isBaseRace()) // for backward compatibility
-			globalCROptions.setFromDefault();
+			globalCROptions.setFromDefault(false, true);
 		String crLbl = text(globalCROptions.get());
 		int crSW = g.getFontMetrics().stringWidth(crLbl);
 		int x4cr = abilitiesBox.x+((aiBox.width-crSW)/2);
@@ -2011,7 +2011,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		boolean up  = !SwingUtilities.isRightMouseButton(e);
 		boolean mid = SwingUtilities.isMiddleMouseButton(e);
 		if (mid)
-			globalCROptions.setFromDefault();
+			globalCROptions.setFromDefault(false, true);
 		else if (globalAbilitiesArray.length >= minListSizePopUp.get()
 				|| ModifierKeysState.isCtrlDown())
 			selectAlienAbilityFromList();
@@ -2191,7 +2191,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		switch (ModifierKeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Restore
-			guiOptions().updateAllFromFile(LIVE_OPTIONS_FILE);	
+			guiOptions().updateAllNonCfgFromFile(LIVE_OPTIONS_FILE);	
 			break;
 		default:
 			guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);

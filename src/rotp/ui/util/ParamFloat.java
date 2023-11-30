@@ -154,7 +154,7 @@ public class ParamFloat extends AbstractParam<Float> {
 	}
 	private void next(float i) {
 		if (i == 0) {
-			setFromDefault();
+			setFromDefault(false, true);
 			return;
 		}
 		Float value = get() + i;

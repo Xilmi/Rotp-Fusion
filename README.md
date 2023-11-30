@@ -65,6 +65,13 @@ Later:
 
 ## What's New
 
+2023.11.29 (BR)
+- "Reset options to default" calls are now explicit:
+  - Should Remnant.cfg options be excluded?
+  - Should dependent sub menu be excluded?
+- Fixed Buttons moving up!
+- Enabled alternate color set for settings panels.
+
 2023.11.28 (BR)
 - Classic Menus: bigger and better centered selection box
 - Fixed some CFG settings being reset to default. (Due to adding them to sub menus)

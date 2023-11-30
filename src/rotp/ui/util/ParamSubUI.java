@@ -90,19 +90,20 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<IParam>>> {
 			if (param != null)
 				param.updateOptionTool();
 	}
-	@Override public void setFromDefault(boolean excludeCfg) {
-		super.setFromDefault();
+	@Override public void setFromDefault(boolean excludeCfg, boolean excludeSubMenu) {
+		super.setFromDefault(excludeCfg, excludeSubMenu);
 		for (IParam param : optionsList)
 			if (param != null)
-				if (!(excludeCfg && param.isCfgFile()))
-					param.setFromDefault();
+				if (!(excludeCfg && param.isCfgFile())
+						&& !(excludeSubMenu && param.isSubMenu()))
+					param.setFromDefault(excludeCfg, excludeSubMenu);
 	}
-	@Override public void setFromDefault() {
-		super.setFromDefault();
-		for (IParam param : optionsList)
-			if (param != null)
-				param.setFromDefault();
-	}
+//	@Override public void setFromDefault() {
+//		super.setFromDefault();
+//		for (IParam param : optionsList)
+//			if (param != null)
+//				param.setFromDefault();
+//	}
 	@Override protected LinkedList<LinkedList<IParam>> getOptionValue(
 			IGameOptions options) {
 		return last();

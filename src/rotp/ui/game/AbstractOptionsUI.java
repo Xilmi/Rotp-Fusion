@@ -40,7 +40,6 @@ import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.util.IParam;
-import rotp.ui.util.InterfaceOptions;
 import rotp.util.ModifierKeysState;
 
 // modnar: add UI panel for modnar MOD game options, based on StartOptionsUI.java
@@ -154,6 +153,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 	//
 	@Override protected void initBackImg() {
 		long timeStart = System.currentTimeMillis();
+		forceUpdate = true;
 		backImg = newOpaqueImage(w, h);
 		Graphics2D g = (Graphics2D) backImg.getGraphics();
 		// modnar: use (slightly) better upsampling
@@ -190,7 +190,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 		
 		// buttons location
 		int smallButtonW = scaled(180);
-		exitBox.setBounds(w-scaled(189)-rightM, yButton, smallButtonW, smallButtonH);
+		exitBox.setBounds(w-scaled(189)-rightM, yButton+s2, smallButtonW, smallButtonH);
 		smallButtonW = defaultButtonWidth(g);
 		defaultBox.setBounds(exitBox.x-smallButtonW-s30, yButton, smallButtonW, smallButtonH);
 		smallButtonW = defaultButtonWidth(g);
@@ -225,9 +225,8 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 			
 			gi.setStroke(stroke3);
 			if (param.isSubMenu()) {
-//				gi.setColor(SystemPanel.darkOrangeText);
-				gi.setColor(subMenuColor);
-				txt.enabledC(subMenuColor);
+				gi.setColor(GameUI.textColor());
+				txt.enabledC(GameUI.textColor());
 			}
 			else
 				gi.setColor(SystemPanel.blackText);
@@ -236,7 +235,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 			txt.setScaledXY(xNew + columnPad, yNew+s7);
 			txt.draw(gi);
 			if (param.isSubMenu())
-				gi.setColor(subMenuColor);
+				gi.setColor(GameUI.textColor());
 			else
 				gi.setColor(SystemPanel.blackText);
 			gi.setFont(descFont);
@@ -295,9 +294,11 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 			}			
 		}
 	}
-	private void setLocalToDefault() {
-		for (InterfaceOptions param : activeList)
-			param.setFromDefault();
+	private void setLocalToDefault(boolean excludeCfg, boolean excludeSubMenu) {
+		for (IParam param : activeList)
+			if (!(excludeCfg && param.isCfgFile())
+					&& !(excludeSubMenu && param.isSubMenu()))
+			param.setFromDefault(excludeCfg, excludeSubMenu);
 	}
 	// ========== Overriders ==========
 	//
@@ -336,7 +337,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 				UserPreferences.load();
 				break;
 			default: // setLocalDefaultKey
-				setLocalToDefault();
+				setLocalToDefault(false, isSubMenu); // Main panels (Race & Galaxy) reset their sub menus
 				break; 
 			}
 			refreshGui();
@@ -344,7 +345,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 		else
 			super.doDefaultBoxAction();
 	}
-	@Override protected void refreshGui()	{
+	@Override public void refreshGui()	{
 		super.refreshGui();
 		for (int i=0; i<activeList.size(); i++)
 			btList.get(i).displayText(activeList.get(i).getGuiDisplay());

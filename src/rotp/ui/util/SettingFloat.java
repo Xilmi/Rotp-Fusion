@@ -198,14 +198,14 @@ public class SettingFloat extends SettingBase<Float> {
 	@Override public void toggle(MouseEvent e, BaseModPanel frame) {
 		Float inc = getInc(e) * getDir(e);
 		if (inc == 0)
-			setFromDefault();
+			setFromDefault(false, true);
 		else
 			next(getInc(e) * getDir(e));
 	}
 	@Override public void toggle(MouseWheelEvent e) {
 		Float inc = getInc(e) * getDir(e);
 		if (inc == 0)
-			setFromDefault();
+			setFromDefault(false, true);
 		else
 			next(getInc(e) * getDir(e));
 	}
@@ -238,7 +238,7 @@ public class SettingFloat extends SettingBase<Float> {
 	private boolean isCfgPercent()			{ return cfgFormat.equals("%"); }
 	private void next(Float i) {
 		if (i == 0) {
-			setFromDefault();
+			setFromDefault(false, true);
 			return;
 		}
 		Float value = settingValue() + i;

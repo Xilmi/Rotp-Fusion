@@ -166,7 +166,7 @@ public class ParamInteger extends AbstractParam<Integer> {
 	//
 	private void next(int i) {
 		if (i == 0) {
-			setFromDefault();
+			setFromDefault(false, true);
 			return;
 		}
 		Long value = (long) get() + i;

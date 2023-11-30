@@ -14,11 +14,12 @@ public class ModOptions implements IModOptions {
 	@Override public void prepareToSave(boolean secure)	{ }
 	@Override public void UpdateOptionsTools()			{ }
 	@Override public void loadStartupOptions()			{ }
-	@Override public void resetAllSettingsToDefault()	{ }
+	@Override public void resetAllNonCfgSettingsToDefault()	{ }
 	@Override public void saveOptionsToFile(String s)	{ }
 	@Override public void saveOptionsToFile(String s, LinkedList<IParam> p)	{ }
 	@Override public void updateFromFile(String s, LinkedList<IParam> p)	{ }
-	@Override public void resetPanelSettingsToDefault(LinkedList<IParam> p)	{ }
+	@Override public void resetPanelSettingsToDefault(LinkedList<IParam> p,
+			boolean excludeCfg, boolean excludeSubMenu)	{ }
 	@Override public void copyAliensAISettings(IGameOptions dest)			{ }
-	@Override public void updateAllFromFile(String fileName)				{ }
+	@Override public void updateAllNonCfgFromFile(String fileName)				{ }
 }

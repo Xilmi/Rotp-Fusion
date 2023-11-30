@@ -70,7 +70,6 @@ public abstract class BaseModPanel extends BasePanel
 	protected static final String exitKey		 	= "SETTINGS_EXIT";
 	protected static final String cancelKey		 	= "SETTINGS_CANCEL";
 	protected static final String applyKey		 	= "SETTINGS_APPLY";
-	protected static final Color subMenuColor		= GameUI.textColor();
 	
 	private	  static int	 exitButtonWidth, guideButtonWidth,
 							 userButtonWidth, defaultButtonWidth, lastButtonWidth;
@@ -92,7 +91,7 @@ public abstract class BaseModPanel extends BasePanel
 	protected PolyBox hoverPolyBox;
 	private	  PolyBox prevPolyBox;
 	protected boolean hoverChanged;
-	protected boolean isSubMenu = true;
+	protected boolean isSubMenu = true; // Not (Race or Galaxy)
 	protected boolean isOnTop = true;
 
 	// Debug Parameter
@@ -171,7 +170,7 @@ public abstract class BaseModPanel extends BasePanel
 		return smallButtonMargin + result;
 	}
 	
-	protected void refreshGui() {}
+	public void refreshGui() {}
 
 	protected void init() {
 		//ModifierKeysState.reset();
@@ -197,7 +196,7 @@ public abstract class BaseModPanel extends BasePanel
 		}
 		isOnTop = true;
 	}
-	protected void clearImages() {
+	public void clearImages() {
 		buttonBackImg = null;
 		backImg = null;
 		bg = null;
@@ -364,7 +363,7 @@ public abstract class BaseModPanel extends BasePanel
 		switch (ModifierKeysState.get()) {
 		case CTRL:
 		case CTRL_SHIFT: // Restore
-			guiOptions().updateAllFromFile(LIVE_OPTIONS_FILE);
+			guiOptions().updateAllNonCfgFromFile(LIVE_OPTIONS_FILE);
 			break;
 		default: // Save
 			guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
@@ -431,7 +430,7 @@ public abstract class BaseModPanel extends BasePanel
 				refreshGui();
 				return;
 			default: // setGlobalUserKey
-				guiOptions().updateAllFromFile(USER_OPTIONS_FILE);
+				guiOptions().updateAllNonCfgFromFile(USER_OPTIONS_FILE);
 				refreshGui();
 				return;
 			}
@@ -485,14 +484,14 @@ public abstract class BaseModPanel extends BasePanel
 				return;
 			case SHIFT:
 			default: // setLocalDefaultKey
-				guiOptions().resetPanelSettingsToDefault(localOptions());		
+				guiOptions().resetPanelSettingsToDefault(localOptions(), !globalOptions, isSubMenu);		
 				refreshGui();
 				return;
 			}
 		else
 			switch (ModifierKeysState.get()) {
 			case CTRL: // restoreGlobalKey
-				guiOptions().updateAllFromFile(LIVE_OPTIONS_FILE);		
+				guiOptions().updateAllNonCfgFromFile(LIVE_OPTIONS_FILE);		
 				refreshGui();
 				return;
 			case CTRL_SHIFT: // restoreLocalKey
@@ -500,11 +499,11 @@ public abstract class BaseModPanel extends BasePanel
 				refreshGui();
 				return;
 			case SHIFT: // setLocalDefaultKey
-				guiOptions().resetPanelSettingsToDefault(localOptions());		
+				guiOptions().resetPanelSettingsToDefault(localOptions(), !globalOptions, isSubMenu);		
 				refreshGui();
 				return;
 			default: // setGlobalDefaultKey
-				guiOptions().resetAllSettingsToDefault();		
+				guiOptions().resetAllNonCfgSettingsToDefault();		
 				refreshGui();
 				return;
 			}
@@ -557,7 +556,7 @@ public abstract class BaseModPanel extends BasePanel
 		else
 			switch (ModifierKeysState.get()) {
 			case CTRL: // setGlobalGameKey
-				guiOptions().updateAllFromFile(LAST_OPTIONS_FILE);
+				guiOptions().updateAllNonCfgFromFile(LAST_OPTIONS_FILE);
 				break;
 			case CTRL_SHIFT: // setLocalGameKey
 				guiOptions().updateFromFile(LAST_OPTIONS_FILE, localOptions());
@@ -566,7 +565,7 @@ public abstract class BaseModPanel extends BasePanel
 				guiOptions().updateFromFile(GAME_OPTIONS_FILE, localOptions());
 				break;
 			default: // setGlobalLastKey
-				guiOptions().updateAllFromFile(GAME_OPTIONS_FILE);
+				guiOptions().updateAllNonCfgFromFile(GAME_OPTIONS_FILE);
 			}
 		refreshGui();
 	}

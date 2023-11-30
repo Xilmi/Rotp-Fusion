@@ -49,6 +49,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Missile-boats controlled by the AI no longer retreat when their missiles are still flying and are about to kill at least one enemy-unit.
 - Classic Menus: option is now selected by the mouse being inside the box.
 - Updated "Advanced Game Option" Menu with sub menu.
+- Enabled alternate color set for settings panels.
 
 
 <b><ins>Bug Fixes:</ins></b>
@@ -65,3 +66,4 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed proposed tech exchange not shown in Intelligence panel.
 - Fixed: Update Planet Background when degraded or improved.
 - Fixed some "Memory Low Warning" contributions...
+- Fixed Buttons moving up!

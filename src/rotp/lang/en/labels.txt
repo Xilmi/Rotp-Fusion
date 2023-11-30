@@ -2402,6 +2402,12 @@ SETTINGS_MOD_START_SHIELD_DEMO_DESC      | Start a demo on an independent window
 SETTINGS_MOD_START_SHIELD_DEMO           | Start Demo: %1
 SETTINGS_MOD_START_SHIELD_DEMO_HELP      | Start a demo on an independent window to help tuning parameters.<br><b>Toggle Keys</b><br>"R" Toggle Random Animations<br>"P" Toggle Player is Target (Add Echo)<br>"Q" Toggle Quiet (mute)<br><b>Sequences Keys</b><br>"C"/"Shift-C"/"Ctrl-C": Shield color Next/Previous/Loop<br>"W"/"Shift-W"/"Ctrl-W": Weapon Selection Next/Previous/Loop<br>"M"/"Shift-M": Ship Model (shape) Next/Previous<br>"H"/"Shift-H": Ship Hull (size) Next/Previous<br>"T"/"Shift-T": Ship Type (species) Next/Previous<br>"<-"/"->": Loop thru all ships Next/Previous<br>"Z"/"Shift-Z": Zoom (window size) Next/Previous<br><b>Locations Keys</b><br>Num Pad: Weapon Location ("5" = Loop)
 
+SETTINGS_MOD_COLOR_SET_DESC         | Two User Interface color set are available: Brown (Default) or Grey.
+SETTINGS_MOD_COLOR_SET              | UI Color Set: %1
+SETTINGS_MOD_COLOR_SET_BROWN        | Brown
+SETTINGS_MOD_COLOR_SET_GREY         | Grey
+SETTINGS_MOD_COLOR_SET_BROWN_DESC   | Default vanilla Brown color set.
+SETTINGS_MOD_COLOR_SET_GREY_DESC    | Alternate Grey color set, already in game, but not used!
 
 SETTINGS_MOD_SHOW_NEW_RACES_DESC         | Show the new species in the opponents list?
 SETTINGS_MOD_SHOW_NEW_RACES              | Show new species: %1

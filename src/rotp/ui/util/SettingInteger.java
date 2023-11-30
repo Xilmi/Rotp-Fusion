@@ -152,14 +152,14 @@ public class SettingInteger extends SettingBase<Integer> {
 	@Override public void toggle(MouseEvent e, BaseModPanel frame) {
 		Integer inc = getInc(e) * getDir(e);
 		if (inc == 0)
-			setFromDefault();
+			setFromDefault(false, true);
 		else
 			next(getInc(e) * getDir(e));
 	}
 	@Override public void toggle(MouseWheelEvent e) {
 		Integer inc = getInc(e) * getDir(e);
 		if (inc == 0)
-			setFromDefault();
+			setFromDefault(false, true);
 		else
 			next(getInc(e) * getDir(e));
 	}
@@ -189,7 +189,7 @@ public class SettingInteger extends SettingBase<Integer> {
 	//
 	protected void next(Integer i) {
 		if (i == 0) {
-			setFromDefault();
+			setFromDefault(false, true);
 			return;
 		}
 		Integer value = settingValue() + i;

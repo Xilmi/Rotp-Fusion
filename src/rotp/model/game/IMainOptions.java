@@ -39,7 +39,9 @@ import java.util.LinkedList;
 import javax.swing.JFileChooser;
 
 import rotp.Rotp;
+import rotp.ui.RotPUI;
 import rotp.ui.game.BaseModPanel;
+import rotp.ui.game.GameUI;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolInt;
 import rotp.ui.util.ParamBoolean;
@@ -316,13 +318,40 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	ParamInteger galaxyPreviewColorStarsSize = new ParamInteger(MOD_UI, "GALAXY_PREVIEW_COLOR_SIZE" , 5, 0, 20, 1, 2, 5)
 	{	{ isCfgFile(true); } };
 	ParamInteger minListSizePopUp	= new ParamInteger(MOD_UI, "MIN_LIST_SIZE_POP_UP" , 4, 0, 10, true)
-	{
-		{ isCfgFile(true); }
+	{	{ isCfgFile(true); }
 	}	.specialZero(MOD_UI + "MIN_LIST_SIZE_POP_UP_NEVER");
+
+	ParamList colorSet			= new ParamList( MOD_UI, "COLOR_SET", "Brown") {
+		{
+			isCfgFile(true);
+			showFullGuide(true);
+			put("Brown",	MOD_UI + "COLOR_SET_BROWN");
+			put("Grey",		MOD_UI + "COLOR_SET_GREY");
+		}
+		@Override public void setFromCfgValue(String val) {
+			super.setFromCfgValue(val);
+			GameUI.colorSet(selectedColorSet());
+		}
+		@Override public void setOption(String val) {
+			super.setOption(val);
+			GameUI.colorSet(selectedColorSet());
+			if (RotPUI.instance() != null) {
+				RotPUI.mainOptionsUI().clearImages();
+				RotPUI.mainOptionsUI().refreshGui();
+			}
+		}
+	};
+	static int selectedColorSet()	{
+		switch (colorSet.get()) {
+			case "Brown":	return 0;
+			case "Grey":	return 1;
+			default:		return 0;
+		}
+	}
 
 	// ==================== GUI List Declarations ====================
 	//
-//	LinkedList<IParam> mainOptionsUI  = new LinkedList<>( // don't make a method of it
+//	LinkedList<IParam> mainOptionsUI  = new LinkedList<>(
 //			Arrays.asList(
 //					displayMode, graphicsMode,
 //					texturesMode, sensitivityMode,
@@ -353,6 +382,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 						null,
 						useFusionFont, disableAdvisor,
 						originalSpeciesOnly, noFogOnIcons,
+						colorSet,
 						null,
 						compactOptionOnly,
 						commonOptionsUI(),

@@ -112,6 +112,8 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     private static Border buttonBorder;
     private static Border saveGameBorder;
     private static Border saveListBorder;
+    private static int colorSet = 0;
+    
     int fuzz = 8;
     int fuzzSc = 2;
     int diff = s60;
@@ -135,7 +137,8 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     int animationTimer = BG_DURATION;
     private final GameLanguagePane languagePanel;
     float slideshowFade = SLIDESHOW_MAX;
-    
+
+    public static void  colorSet(int set)		  { colorSet = set; }
     public static Color langShade()               { return langShade[opt()]; }
     public static Color titleColor()              { return titleColor[opt()]; }
     public static Color titleShade()              { return titleShade[opt()]; }
@@ -353,9 +356,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         "SilCouncil", "SilWin", "SilLoss", "SilSab01", "SilSab02",
          };
     public Image background() { return backImg; }
-    public static int opt()     {
-        return 0;
-    }
+    public static int opt()   { return colorSet; }
 
     public GameUI() {
         startingScale = UserPreferences.screenSizePct();

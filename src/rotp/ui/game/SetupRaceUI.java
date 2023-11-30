@@ -66,7 +66,6 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
     private final int    MAX_RACES  		= 16; // modnar: increase MAX_RACES to add new Races
     private final int    MAX_COLORS 		= 16; // modnar: add new colors
 
-    private final Color checkBoxC  = new Color(178,124,87);
     private final Color darkBrownC = new Color(112,85,68);
 
     private int w10Or = scaled(200);
@@ -202,6 +201,9 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 	}
     @Override public void init() {
     	super.init();
+    	leaderName.setBackground(GameUI.setupFrame());
+    	shipSetTxt.setBackground(GameUI.setupFrame());
+    	homeWorld.setBackground(GameUI.setupFrame());
     	EditCustomRaceUI.updatePlayerCustomRace();
         leaderName.setFont(labelFont);
         setHomeWorldFont(); // BR: MonoSpaced font for Galaxy
@@ -425,7 +427,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
  	}
     @Override protected void doExitBoxAction() { doNextBoxAction(); }
 	@Override protected String GUI_ID() { return GUI_ID; }
-	@Override protected void refreshGui() {
+	@Override public void refreshGui() {
 		raceChanged();
 		repaint();
 	}
@@ -487,7 +489,8 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 	        int checkY = playerRaceSettingBox.y + playerRaceSettingBox.height - s7;
 	        checkBox.setBounds(checkX, checkY-checkW, checkW, checkW);
 	        g.setStroke(stroke3);
-	        g.setColor(checkBoxC);
+	        // g.setColor(checkBoxC);
+			g.setColor(GameUI.setupFrame());
 	        g.fill(checkBox);
 	        if (hoverBox == checkBox) {
 	            g.setColor(Color.yellow);
@@ -499,7 +502,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 	        int checkX = playerRaceSettingBox.x + playerRaceSettingBox.width + s10;    
 	        int checkY = playerRaceSettingBox.y + playerRaceSettingBox.height - s7;
 	        g.setStroke(stroke3);
-            g.setColor(SystemPanel.whiteText);
+            g.setColor(SystemPanel.blackText);
             g.drawLine(checkX-s1, checkY-s8, checkX+s4, checkY-s4);
             g.drawLine(checkX+s4, checkY-s4, checkX+checkW, checkY-s16);
         }
@@ -747,7 +750,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         RotPUI.instance().selectSetupGalaxyPanel();
         close();
     }
-	@Override protected void clearImages() {
+	@Override public void clearImages() {
 		super.clearImages();
 //        backImg			= null;
         raceImg			= null;
@@ -871,11 +874,6 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         	raceBackImg = newGameOptions().getMugBackImg(wIcon, hIcon, rShadeIcon);
         return raceBackImg;
     }
-//    private BufferedImage backImg() {
-//        if (backImg == null)
-//            initBackImg();
-//        return backImg;
-//    }
     private void initFleetBackImg() {
 		long timeStart = System.currentTimeMillis();
 		fleetBackImg = new BufferedImage(fleetWidth, fleetHeight, TYPE_INT_ARGB);

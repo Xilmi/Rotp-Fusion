@@ -163,7 +163,7 @@ public class ParamList extends AbstractParam<String> {
 	}
 	@Override public void	toggle(MouseEvent e, BaseModPanel frame){
 		if (getDir(e) == 0)
-			setFromDefault();
+			setFromDefault(false, true);
 		else if (frame != null && 
 				(e.isControlDown() || listSize() >= minListSizePopUp.get()))
 			setFromList(frame);

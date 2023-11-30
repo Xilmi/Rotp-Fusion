@@ -52,7 +52,7 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions {
 	default int		selectedEmpireSpreadingPct()	{ return empiresSpreadingFactor.get(); }
 	default float	selectedEmpireSpreadingFactor()	{ return 0.01f * empiresSpreadingFactor.get(); }
 	default boolean	isCustomEmpireSpreadingFactor()	{ return !empiresSpreadingFactor.isDefaultValue(); }
-	default void	resetEmpireSpreadingFactor()	{ empiresSpreadingFactor.setFromDefault(); }
+	default void	resetEmpireSpreadingFactor()	{ empiresSpreadingFactor.setFromDefault(false, false); }
 	default void	toggleEmpireSpreadingFactor(MouseWheelEvent e)	{ empiresSpreadingFactor.toggle(e); }
 	default String	empireSpreadingFactorMapKey()	{ return  MOD_UI + "EMPIRES_SPREADING_FACTOR_MAP"; }
 

@@ -97,7 +97,11 @@ public class SettingString extends SettingBase<String> implements Base{
 	}
 	@Override protected String randomize(float rand) { return randomStr; }
 	@Override public int index()			{ return -1; } // to get default color
-	@Override public void setFromDefault()	{ set(defaultValue()); }
+	@Override public void setFromDefault(boolean excludeCfg, boolean excludeSubMenu) {
+		if (excludeCfg && isCfgFile())
+			return;
+		set(defaultValue());
+	}
 	@Override public void prev()			{ next(); }
 	@Override public void optionalInput()	{ next(); }
 	@Override public String getGuiDisplay()	{ return getLabel() + END; }

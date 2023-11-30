@@ -154,7 +154,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	}
 	private void setToLocalDefault() {
 		for (InterfaceOptions param : commonList)
-			param.setFromDefault();
+			param.setFromDefault(false, true);
 		writeLocalOptions(guiOptions());
 		init(); // Validate Init
 	}
@@ -246,7 +246,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		// Exit Button
 		int buttonW	= exitButtonWidth(g);
 		xButton = leftM + wBG - buttonW - buttonPad;
-		exitBox.setBounds(xButton, yButton, buttonW, smallButtonH);
+		exitBox.setBounds(xButton, yButton+s2, buttonW, smallButtonH);
 
 		// Select Button
 		String text	 = text(selectKey);
@@ -344,7 +344,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		return buttonBackImg;
     }
 
-	@Override protected void refreshGui() {
+	@Override public void refreshGui() {
 //		System.out.println("===== refreshGui()");
 //		System.out.println("playerCustomRace: Race Name = " +
 //				((DynOptions) guiOptions().selectedPlayerCustomRace()).getString("CUSTOM_RACE_RACE_NAME"));
@@ -356,7 +356,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		buttonClick();
 		switch (ModifierKeysState.get()) {
 		case CTRL: // restoreGlobalKey
-			guiOptions().updateAllFromFile(LIVE_OPTIONS_FILE);		
+			guiOptions().updateAllNonCfgFromFile(LIVE_OPTIONS_FILE);		
 			break;
 		case CTRL_SHIFT: // restoreLocalKey
 			guiOptions().updateFromFile(LIVE_OPTIONS_FILE, localOptions());		
@@ -365,7 +365,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 			setToLocalDefault();
 			break; 
 		default: // setGlobalDefaultKey
-			guiOptions().resetAllSettingsToDefault();
+			guiOptions().resetAllNonCfgSettingsToDefault();
 			setToLocalDefault();
 			break; 
 		}
@@ -401,7 +401,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		int sw = g.getFontMetrics().stringWidth(text);
 		int buttonW	= exitButtonWidth(g);
 		xButton = leftM + wBG - buttonW - buttonPad;
-		exitBox.setBounds(xButton, yButton, buttonW, smallButtonH);
+		exitBox.setBounds(xButton, yButton+s2, buttonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(exitBox.x, exitBox.y, buttonW, smallButtonH, cnr, cnr);
 		int xT = exitBox.x+((exitBox.width-sw)/2);
@@ -503,7 +503,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		sw		= g.getFontMetrics().stringWidth(text);
 		buttonW = g.getFontMetrics().stringWidth(text) + smallButtonMargin;
 		xButton	= leftM + buttonPad;
-		guideBox.setBounds(xButton, yButton, buttonW, smallButtonH);
+		guideBox.setBounds(xButton+s2, yButton, buttonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(guideBox.x, guideBox.y, buttonW, smallButtonH, cnr, cnr);
 		xT = guideBox.x+((guideBox.width-sw)/2);

@@ -30,7 +30,6 @@ public interface InterfaceOptions {
 	public default void updateOptionTool(DynamicOptions options) {};
 	// For settings only
 	public default void updateOption(DynamicOptions options) {};
-	public default void setFromDefault(boolean excludeCfg) { setFromDefault(); }
-	public default void setFromDefault() {}
+	public default void setFromDefault(boolean excludeCfg, boolean excludeSubMenu) { }
 	public default void copyOption(IGameOptions src, IGameOptions dest, boolean updateTool) {}
 }

@@ -364,7 +364,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		int sw = g.getFontMetrics().stringWidth(text);
 		int buttonW	= exitButtonWidth(g);
 		xButton = leftM + wBG - buttonW - buttonPad;
-		exitBox.setBounds(xButton, yButton, buttonW, smallButtonH);
+		exitBox.setBounds(xButton, yButton+s2, buttonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(exitBox.x, exitBox.y, buttonW, smallButtonH, cnr, cnr);
 		int xT = exitBox.x+((exitBox.width-sw)/2);
@@ -381,7 +381,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		xButton = leftM + buttonPad;
 		sw		= g.getFontMetrics().stringWidth(text);
 		buttonW = g.getFontMetrics().stringWidth(text) + smallButtonMargin;
-		guideBox.setBounds(xButton, yButton, buttonW, smallButtonH);
+		guideBox.setBounds(xButton+s2, yButton, buttonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(guideBox.x, guideBox.y, buttonW, smallButtonH, cnr, cnr);
 		xT = guideBox.x+((guideBox.width-sw)/2);
@@ -418,13 +418,13 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		String text = text(exitButtonKey());
 		int buttonW	= exitButtonWidth(g);
 		xButton = leftM + wBG - buttonW - buttonPad;
-		exitBox.setBounds(xButton, yButton, buttonW, smallButtonH);
+		exitBox.setBounds(xButton, yButton+s2, buttonW, smallButtonH);
 
 		// Guide Button
 		text	= text(guideButtonKey());
 		xButton = leftM + buttonPad;
 		buttonW = g.getFontMetrics().stringWidth(text) + smallButtonMargin;
-		guideBox.setBounds(xButton, yButton, buttonW, smallButtonH);
+		guideBox.setBounds(xButton+s2, yButton, buttonW, smallButtonH);
 
 		// RaceUI Button
 		text = raceAIButtonTxt();

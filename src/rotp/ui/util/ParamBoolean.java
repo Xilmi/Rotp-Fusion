@@ -54,7 +54,7 @@ public class ParamBoolean extends AbstractParam<Boolean> {
 	@Override public void	toggle(MouseWheelEvent e)	{ next(); }
 	@Override public void	toggle(MouseEvent e, BaseModPanel frame) {
 		if (getDir(e) == 0)
-			setFromDefault();
+			setFromDefault(false, true);
 		else
 			next();
 	}

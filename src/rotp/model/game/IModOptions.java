@@ -52,10 +52,10 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 	 * (Options and options' tools)
 	 * @param paramList
 	 */
-	void resetPanelSettingsToDefault (LinkedList<IParam> paramList);
+	void resetPanelSettingsToDefault (LinkedList<IParam> paramList, boolean excludeCfg, boolean excludeSubMenu);
 
-	void resetAllSettingsToDefault();
-	void updateAllFromFile(String fileName);
+	void resetAllNonCfgSettingsToDefault();
+	void updateAllNonCfgFromFile(String fileName);
 	void copyAliensAISettings(IGameOptions dest);
 	
 	// Tools For Debug

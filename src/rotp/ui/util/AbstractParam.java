@@ -177,9 +177,11 @@ public abstract class AbstractParam <T> implements IParam{
 	@Override public boolean isDefaultValue()	{ return defaultValue.equals(get()); }
 	@Override public boolean isDuplicate()		{ return isDuplicate; }
 	@Override public boolean isCfgFile()		{ return isCfgFile; }
-	@Override public void setFromDefault()		{ set(defaultValue()); }
-	@Override public void setFromDefault(boolean excludeCfg)	{
+//	@Override public void setFromDefault()		{ set(defaultValue()); }
+	@Override public void setFromDefault(boolean excludeCfg, boolean excludeSubMenu)	{
 		if (excludeCfg && isCfgFile())
+			return;
+		if (excludeSubMenu && isSubMenu())
 			return;
 		set(defaultValue());
 	}
