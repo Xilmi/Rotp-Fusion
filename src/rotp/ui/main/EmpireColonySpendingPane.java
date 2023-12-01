@@ -18,6 +18,7 @@ package rotp.ui.main;
 import static rotp.model.colony.Colony.DEFENSE;
 import static rotp.model.colony.Colony.ECOLOGY;
 import static rotp.model.colony.Colony.INDUSTRY;
+import static rotp.model.colony.Colony.RESEARCH;
 import static rotp.model.colony.Colony.SHIP;
 
 import java.awt.Color;
@@ -396,9 +397,11 @@ public class EmpireColonySpendingPane extends BasePanel {
             if (click)
                 softClick();
             if(category != ECOLOGY)
-                colony.checkEcoAtClean();
-            else
-                colony.redistributeReducedEcoSpending();
+            	colony.checkEcoAtClean();
+            if(category != RESEARCH && !colony.locked(RESEARCH))
+            	colony.allocation(RESEARCH, 0);
+            colony.redistributeReducedEcoSpending();
+
             parent.repaint();
         }
         public void maxSlider(boolean click, MouseEvent e) {

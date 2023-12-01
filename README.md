@@ -60,6 +60,13 @@ Later:
 
 ## What's New
 
+2023.12.01 (BR)
+- SmartMax new compromise:
+  - Optimise the selected spending.
+  - Ensure a minimal cleaning.
+  - Clear research (if not locked and not the selected spending)
+  - Reassign research.
+
 2023.11.30 (BR)
 - Fixed Governor panel glitching when a value is over 127.
 - Governor panel colors will follow settings panels colors.
