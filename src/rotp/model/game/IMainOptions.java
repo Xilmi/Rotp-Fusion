@@ -317,7 +317,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 
 	ParamInteger galaxyPreviewColorStarsSize = new ParamInteger(MOD_UI, "GALAXY_PREVIEW_COLOR_SIZE" , 5, 0, 20, 1, 2, 5)
 	{	{ isCfgFile(true); } };
-	ParamInteger minListSizePopUp	= new ParamInteger(MOD_UI, "MIN_LIST_SIZE_POP_UP" , 4, 0, 10, true)
+	ParamInteger minListSizePopUp	= new ParamInteger(MOD_UI, "MIN_LIST_SIZE_POP_UP" , 8, 0, 10, true)
 	{	{ isCfgFile(true); }
 	}	.specialZero(MOD_UI + "MIN_LIST_SIZE_POP_UP_NEVER");
 
@@ -459,5 +459,9 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		{ { isCfgFile(false); } };
 	}
 	ParamSubUI commonOptionsUI	= commonOptionsUI();
+
+	static LinkedList<IParam> commonOptions() {
+		return IBaseOptsTools.getSingleList(commonOptionsMap());
+	}
 
 }

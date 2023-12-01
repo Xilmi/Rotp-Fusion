@@ -66,6 +66,7 @@ Later:
   - Ensure a minimal cleaning.
   - Clear research (if not locked and not the selected spending)
   - Reassign research.
+- Fixed some cfg options not being saved.
 
 2023.11.30 (BR)
 - Fixed Governor panel glitching when a value is over 127.

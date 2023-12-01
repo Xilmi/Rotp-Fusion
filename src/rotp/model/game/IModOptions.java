@@ -152,6 +152,7 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 		globalOptions.remove(combatOptionsUI);
 		globalOptions.addAll(IDebugOptions.debugOptions());
 		globalOptions.addAll(ICombatOptions.combatOptions());
+		globalOptions.addAll(IMainOptions.commonOptions());
 		globalOptions.add(bitmapGalaxyLastFolder);
 		globalOptions.add(showNextCouncil);
 		
