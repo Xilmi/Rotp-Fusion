@@ -237,9 +237,10 @@ public abstract class AbstractParam <T> implements IParam{
 	}
 	public T set(T newValue) {
 		updated = true;
-		boolean trueChange = value != newValue;
+		boolean trueChange = false;
+		if(value != null && newValue != null)
+			trueChange = !value.equals(newValue);
 		value = newValue;
-//		updateOption(dynOpts()); // only for CR settings...
 		setOption(newValue); // For overrider
 		if (trueChange && (isGovernor != NOT_GOVERNOR))
 			GovernorOptions.callForRefresh(isGovernor);

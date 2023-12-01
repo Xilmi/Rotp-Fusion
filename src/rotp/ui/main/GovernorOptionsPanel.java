@@ -44,7 +44,7 @@ import rotp.model.galaxy.StarSystem;
 import rotp.model.game.GameSession;
 import rotp.model.game.GovernorOptions;
 import rotp.ui.RotPUI;
-import rotp.ui.races.RacesUI;
+import rotp.ui.game.GameUI;
 import rotp.ui.util.swing.RotpJSpinner;
 import rotp.ui.util.swing.RotpJSpinnerButton;
 import rotp.util.FontManager;
@@ -135,6 +135,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 			horlogeOngoing = false;
 			anim = executor.scheduleAtFixedRate(timedRefresh, animationStep, animationStep, TimeUnit.MILLISECONDS);
 		}
+		protectedUpdateColor(); // In the case the color set has been changed.
 	}
 	public static void close() {
 		if (frame == null)
@@ -198,13 +199,17 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 		if (isNewFormat()) {
 			float brightness;
 			if (local)
-				brightness = (int)brightnessPct.getValue() /100f;
+				brightness = (Integer)brightnessPct.getValue() /100f;
 			else
 				brightness = options().getBrightnessPct()/100f;
-			frameBgColor	= multColor(new Color(93,  75,  66), brightness);
-			panelBgColor	= multColor(new Color(150, 105, 73), brightness);
+
+			frameBgColor	= multColor(GameUI.setupFrame(),			0.40f * brightness);
+			panelBgColor	= multColor(GameUI.paneBackgroundColor(),	0.60f * brightness);
+			valueBgColor	= multColor(GameUI.paneBackgroundColor(),	0.85f * brightness);
+//			frameBgColor	= multColor(new Color(93,  75,  66), brightness);
+//			panelBgColor	= multColor(new Color(150, 105, 73), brightness);
+//			valueBgColor	= multColor(RacesUI.lightBrown, 1.2f * brightness);
 			textBgColor		= panelBgColor;
-			valueBgColor	= multColor(RacesUI.lightBrown, 1.2f * brightness);
 			
 			buttonColor		= panelBgColor;
 			borderColor		= multColor(valueBgColor, 1.2f);
@@ -269,7 +274,7 @@ public class GovernorOptionsPanel extends javax.swing.JPanel{
 	// ========== Local tools ==========
 	//
 	private Color multColor(Color offColor, float factor) {
-		factor /= 255f;
+		factor = Math.max(0,  factor/255f);
 		return new Color(Math.min(1f, offColor.getRed()   * factor),
 						 Math.min(1f, offColor.getGreen() * factor),
 						 Math.min(1f, offColor.getBlue()  * factor));

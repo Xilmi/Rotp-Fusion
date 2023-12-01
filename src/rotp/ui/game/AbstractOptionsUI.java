@@ -322,7 +322,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 	}
 	@Override protected void doExitBoxAction()		{
 		if (globalOptions) { // The old ways
-			buttonClick();
+			//buttonClick();
 			UserPreferences.save();
 			close();			
 		}

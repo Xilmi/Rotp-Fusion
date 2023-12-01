@@ -51,6 +51,7 @@ Very soon:
   - Option to change their travel time.
   - Planet Monsters Guardian.
 - Add Help to History.
+
 Later:
 - Species Easy-Normal-Hard
 - Investigate: William482 request: Age of your data on each race into the bar graphs on the status page.
@@ -64,6 +65,10 @@ Later:
 
 
 ## What's New
+
+2023.11.30 (BR)
+- Fixed Governor panel glitching when a value is over 127.
+- Governor panel colors will follow settings panels colors. 
 
 2023.11.29 (BR)
 - "Reset options to default" calls are now explicit:
