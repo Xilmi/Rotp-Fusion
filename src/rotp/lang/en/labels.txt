@@ -2255,6 +2255,16 @@ SETTINGS_MOD_RACE_STATUS_LOG             | Empire status graph log: %1
 SETTINGS_MOD_RACE_STATUS_LOG_YES         | Logarithmic Scale
 SETTINGS_MOD_RACE_STATUS_LOG_NO          | Linear Scale
 
+SETTINGS_MOD_RACE_STATUS_VIEW_HELP       | TThe Empire status values can be displayed as absolute, or relative.<br> Relative to the known total or to the player.
+SETTINGS_MOD_RACE_STATUS_VIEW_DESC       | The Empire status values can be displayed as absolute, or relative.<br> Relative to the known total or to the player.
+SETTINGS_MOD_RACE_STATUS_VIEW            | Empire status value: %1
+SETTINGS_MOD_RACE_STATUS_VIEW_PCT_TOTAL  | % to Total
+SETTINGS_MOD_RACE_STATUS_VIEW_PCT_PLAYER | % to Player
+SETTINGS_MOD_RACE_STATUS_VIEW_VALUE      | Absolute
+SETTINGS_MOD_RACE_STATUS_VIEW_PCT_TOTAL_DESC  | Relative value in % of the total of the known empire.
+SETTINGS_MOD_RACE_STATUS_VIEW_PCT_PLAYER_DESC | Relative value in % of the player value.
+SETTINGS_MOD_RACE_STATUS_VIEW_VALUE_DESC      | Absolute Value.
+
 SETTINGS_MOD_OPTIONS_DEFAULT             | Default Settings
 SETTINGS_MOD_OPTIONS_LAST                | Last GUI Settings
 SETTINGS_MOD_OPTIONS_GAME                | Game Settings

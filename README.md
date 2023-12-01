@@ -37,12 +37,6 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 Bug to fix:
 
 Very soon:
-- Add second statistic option: (on the side of lin / log): Display statistic as:
-    - "% Tot": Precentage relative to known total (!= Galaxy Total)
-    - "% Player": Percentage relative to player value.
-    - "Value": The real value
-    - ("Auto"?): May be! a dynamic, parameter dependent choice.
-    - ("Individual choice"?): Probably not! individual choice for each parameter
 - statistic: improve help
 - Some Achievements options.
 - change the color of a weapon button on the combat screen if the target is so well shielded that damaging it is impossible. Currently all these buttons are green with white/yellow highlights, perhaps swapping the green for a grey would do it? And maybe change the highlight from yellow to black as well.
@@ -68,7 +62,13 @@ Later:
 
 2023.11.30 (BR)
 - Fixed Governor panel glitching when a value is over 127.
-- Governor panel colors will follow settings panels colors. 
+- Governor panel colors will follow settings panels colors.
+- Empire statistic Panel:
+  - Add second statistic option: (on the side of lin / log): Display statistic as:
+    - "% Tot": Precentage relative to known total (!= Galaxy Total)
+    - "% Player": Percentage relative to player value.
+    - "Value": The real value
+  - When not up to date, add age of data on each race into the bar graphs
 
 2023.11.29 (BR)
 - "Reset options to default" calls are now explicit:

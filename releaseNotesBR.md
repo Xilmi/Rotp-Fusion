@@ -50,7 +50,12 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Classic Menus: option is now selected by the mouse being inside the box.
 - Updated "Advanced Game Option" Menu with sub menu.
 - Enabled alternate color set for settings panels and governor panel.
-
+- Empire statistic Panel:
+  - Add second statistic option: (on the side of lin / log): Display statistic as:
+    - "% Tot": Precentage relative to known total (!= Galaxy Total)
+    - "% Player": Percentage relative to player value.
+    - "Value": The real value
+  - When not up to date, add age of data on each race into the bar graphs
 
 <b><ins>Bug Fixes:</ins></b>
 - Fixed sound echo default values.

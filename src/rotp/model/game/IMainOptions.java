@@ -321,7 +321,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	{	{ isCfgFile(true); }
 	}	.specialZero(MOD_UI + "MIN_LIST_SIZE_POP_UP_NEVER");
 
-	ParamList colorSet			= new ParamList( MOD_UI, "COLOR_SET", "Brown") {
+	ParamList colorSet				= new ParamList( MOD_UI, "COLOR_SET", "Brown") {
 		{
 			isCfgFile(true);
 			showFullGuide(true);
@@ -348,6 +348,21 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 			default:		return 0;
 		}
 	}
+
+	ParamList raceStatusView		= new ParamList( MOD_UI, "RACE_STATUS_VIEW", "PctTotal") {
+		{
+			isCfgFile(true);
+			showFullGuide(true);
+			put("PctTotal",		MOD_UI + "RACE_STATUS_VIEW_PCT_TOTAL");
+			put("PctPlayer",	MOD_UI + "RACE_STATUS_VIEW_PCT_PLAYER");
+			put("Value",		MOD_UI + "RACE_STATUS_VIEW_VALUE");
+		}
+	};
+	default void	toggleRaceStatusView()	{ raceStatusView.next(); }
+	default String	raceStatusViewText()	{ return raceStatusView.guideValue(); }
+	default boolean raceStatusViewTotal()	{ return raceStatusView.get().equals("PctTotal"); }
+	default boolean raceStatusViewPlayer()	{ return raceStatusView.get().equals("PctPlayer"); }
+	default boolean raceStatusViewValue()	{ return raceStatusView.get().equals("Value"); }
 
 	// ==================== GUI List Declarations ====================
 	//
