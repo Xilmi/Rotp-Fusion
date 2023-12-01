@@ -112,7 +112,8 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
         StarSystem sys = galaxy().system(sysId);
         if (sys.planet().isEnvironmentNone())
             return;
-        
+        if (sys.planet().isArtifact()) // BR: Not both!
+        	return;
         float ultraPct = numStars * .07f;
         if (random() < ultraPct)
             sys.planet().setResourceUltraRich();

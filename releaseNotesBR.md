@@ -73,3 +73,4 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed some "Memory Low Warning" contributions...
 - Fixed Buttons moving up!
 - Fixed Governor panel glitching when a value is over 127.
+- Fix: Check for artifact before enriching central nebula planet.

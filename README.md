@@ -67,6 +67,7 @@ Later:
   - Clear research (if not locked and not the selected spending)
   - Reassign research.
 - Fixed some cfg options not being saved.
+- Fix: Check for artifact before enriching central nebula planet.
 
 2023.11.30 (BR)
 - Fixed Governor panel glitching when a value is over 127.
