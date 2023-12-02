@@ -2378,6 +2378,7 @@ SETTINGS_MOD_BEAM_WINDUP_FRAMES_DESC     | Beam building duration. (Should be in
 SETTINGS_MOD_BEAM_WINDUP_FRAMES          | Beam Windup Frames: %1
 SETTINGS_MOD_BEAM_HOLD_FRAMES_DESC       | After the beam building phase, the attack can be hold a little bit. This value will be added to the base weapon hold value.
 SETTINGS_MOD_BEAM_HOLD_FRAMES            | Beam Hold Frames: %1
+SETTINGS_MOD_BEAM_HOLD_FRAMES_HELP       | After the beam building phase, the attack can be hold a little bit. This value will be added to the base weapon hold value.<br>Negative values will lower the duration of weapons already having hold presets:<br>- 6 frames: Death Ray, Graviton Beam, Mega Bolt Cannon, Tachyon Beam.<br>- 4 frames: Pulse Phasor, Stellar Convertor, Mauler.
 SETTINGS_MOD_HEAVY_BEAM_HOLD_FRAMES_DESC | Heavy beams could last longer than base beam weapons. This will be added to both base weapon hold value, and non-heavy Beam Hold Frames added value.
 SETTINGS_MOD_HEAVY_BEAM_HOLD_FRAMES      | Heavy Beam Hold Frames: %1
 SETTINGS_MOD_SHIELD_FADING_FRAMES_DESC   | Show Shield fading effect.

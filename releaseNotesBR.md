@@ -76,3 +76,4 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed Buttons moving up!
 - Fixed Governor panel glitching when a value is over 127.
 - Fix: Check for artifact before enriching central nebula planet.
+  - As compensation: Random event "Precursor Relic" add small probability (2%) of super Rich + Artifact planet.

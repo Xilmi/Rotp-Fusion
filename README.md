@@ -45,7 +45,7 @@ Very soon:
   - Option to change their travel time.
   - Planet Monsters Guardian.
 - Add Help to History.
-- Random event "Precusor Relic" add small probability of super U-Rich + Artifact planet.
+
 
 Later:
 - Species Easy-Normal-Hard
@@ -69,6 +69,7 @@ Later:
   - Reassign research.
 - Fixed some cfg options not being saved.
 - Fix: Check for artifact before enriching central nebula planet.
+  - As compensation: Random event "Precursor Relic" add small probability (2%) of super Rich + Artifact planet.
 - Beam Hold Frames can be set negative to lower the duration of weapons with long holding time.
 
 2023.11.30 (BR)

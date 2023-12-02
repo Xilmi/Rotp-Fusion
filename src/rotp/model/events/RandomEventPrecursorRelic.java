@@ -61,9 +61,18 @@ public class RandomEventPrecursorRelic extends AbstractRandomEvent {
         if (systems.isEmpty())
             return;
 
+        float richArtifactProb = 0.02f; // BR: to replace the nebulae fixed bug
         // go through planet generation again for those empty star systems
         for (StarSystem sys : systems) {
             sys.planet(PlanetFactory.createPlanet(sys, session().populationBonus()));
+            if(random.nextFloat()<richArtifactProb) {
+            	richArtifactProb = 0;
+            	sys.planet().setArtifact();
+            	if (random.nextBoolean())
+            		sys.planet().setResourceUltraRich();
+            	else
+            		sys.planet().setResourceRich();
+            }
         }
         
         if (emp == null || emp.extinct()) {
