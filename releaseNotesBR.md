@@ -56,6 +56,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
     - "% Player": Percentage relative to player value.
     - "Value": The real value
   - When not up to date, add age of data on each race into the bar graphs
+- Beam Hold Frames can be set negative to lower the duration of weapons with long holding time.
+
 
 <b><ins>Bug Fixes:</ins></b>
 - Fixed sound echo default values.

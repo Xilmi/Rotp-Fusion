@@ -90,7 +90,7 @@ public interface ICombatOptions extends IBaseOptsTools {
 	{	{ isCfgFile(true); } };
 	default int beamWindupFrames()			{ return beamWindupFrames.get(); }
 
-	ParamInteger beamHoldFrames		= new ParamInteger(MOD_UI, "BEAM_HOLD_FRAMES" , 0, 0, 20, 1, 5, 20)
+	ParamInteger beamHoldFrames		= new ParamInteger(MOD_UI, "BEAM_HOLD_FRAMES" , 0, -6, 20, 1, 5, 20)
 	{	{ isCfgFile(true); } };
 	default int beamHoldFrames()			{ return beamHoldFrames.get(); }
 	

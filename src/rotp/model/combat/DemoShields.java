@@ -629,7 +629,7 @@ public class DemoShields extends JPanel implements Base, ActionListener {
 			g.setStroke(new BasicStroke(scaled(strokeSize), CAP_ROUND, JOIN_ROUND));
 		}
 		int windUpFramesNum = opt.beamWindupFrames();
-		int holdFramesNum = holdFrames + opt.beamHoldFrames();
+		int holdFramesNum = max(0, holdFrames + opt.beamHoldFrames());
 		if (isHeavy) {
 			spotWidth = scaled((1 + (beamStroke+2*weaponSpread-1)));
 			holdFrames = heavyHoldFramesNum;

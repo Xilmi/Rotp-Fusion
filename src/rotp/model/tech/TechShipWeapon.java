@@ -611,7 +611,7 @@ public final class TechShipWeapon extends Tech {
         }
         
         int windUpFramesNum = opt.beamWindupFrames();
-        int holdFramesNum = holdFrames + opt.beamHoldFrames();
+        int holdFramesNum = max(0, holdFrames + opt.beamHoldFrames());
         if (wpn.heavy())
         	holdFramesNum += opt.heavyBeamHoldFrames();
         int fadingFramesNum = opt.shieldFadingFrames()? windUpFramesNum+2 : 0;
