@@ -63,6 +63,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	String GRAPHICS_LOW			= "GAME_SETTINGS_GRAPHICS_LOW";
 	String GRAPHICS_MEDIUM		= "GAME_SETTINGS_GRAPHICS_MED";
 	String GRAPHICS_HIGH		= "GAME_SETTINGS_GRAPHICS_HIGH";
+	String GRAPHICS_RETINA		= "GAME_SETTINGS_GRAPHICS_RETINA";
 	String TEXTURES_NO			= "GAME_SETTINGS_TEXTURES_NO";
 	String TEXTURES_INTERFACE	= "GAME_SETTINGS_TEXTURES_INTERFACE";
 	String TEXTURES_MAP			= "GAME_SETTINGS_TEXTURES_MAP";
@@ -97,7 +98,8 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 			Arrays.asList(
 					GRAPHICS_HIGH,
 					GRAPHICS_MEDIUM,
-					GRAPHICS_LOW
+					GRAPHICS_LOW,
+					GRAPHICS_RETINA
 					),
 			GRAPHICS_HIGH) {
 		{ isDuplicate(true); isCfgFile(true); showFullGuide(true); }

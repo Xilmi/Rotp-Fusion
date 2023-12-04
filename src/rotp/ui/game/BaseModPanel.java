@@ -92,7 +92,9 @@ public abstract class BaseModPanel extends BasePanel
 	private	  PolyBox prevPolyBox;
 	protected boolean hoverChanged;
 	protected boolean isSubMenu = true; // Not (Race or Galaxy)
-	protected boolean isOnTop = true;
+	protected boolean isOnTop	= true;
+	protected boolean retina	= false;
+	protected int retinaFactor	= 1;
 
 	// Debug Parameter
 	protected boolean showTiming = false;
@@ -125,10 +127,23 @@ public abstract class BaseModPanel extends BasePanel
 	
 	public GuidePopUp guidePopUp;
 	
-	private final Font smallButtonFont	= narrowFont(20);
-	protected Font bigButtonFont()	 { return smallButtonFont; }
-	protected Font smallButtonFont() { return smallButtonFont; }
-	protected Box newExitBox()		 { return new Box(exitButton); }
+	private Font smallButtonFont	= narrowFont(20);
+	private Font smallButtonFontR	= narrowFont(40);
+	protected Font smallButtonFont(boolean retina)	{
+		if (retina)
+			return smallButtonFontR;
+		else
+			return smallButtonFont;
+	}
+	protected Font bigButtonFont(boolean retina)	{
+		if (retina)
+			return smallButtonFontR;
+		else
+			return smallButtonFont;
+	}
+	protected Font bigButtonFont()				{ return smallButtonFont; }
+	protected Font smallButtonFont()			{ return smallButtonFont; }
+	protected Box newExitBox()					{ return new Box(exitButton); }
 
 	protected Box exitBox		= newExitBox();
 	protected Box defaultBox	= new Box(defaultButton);
@@ -245,7 +260,7 @@ public abstract class BaseModPanel extends BasePanel
 	protected void drawButtons(Graphics2D g, boolean init) {
         Stroke prev = g.getStroke();
         
-        g.setFont(bigButtonFont());
+        g.setFont(bigButtonFont(false)); // TODO
         drawButton(g, init, exitBox,	text(exitButtonKey()));
 
         g.setFont(smallButtonFont());
@@ -266,7 +281,7 @@ public abstract class BaseModPanel extends BasePanel
 		hButton = yMax - yMin + s4;
     }
 	protected void setBigButtonGraphics(Graphics2D g)	{
-		g.setFont(bigButtonFont());
+		g.setFont(bigButtonFont(false)); // TODO
 		g.setPaint(GameUI.buttonBackgroundColor());
 	}
 	protected void setSmallButtonGraphics(Graphics2D g) {
@@ -275,7 +290,7 @@ public abstract class BaseModPanel extends BasePanel
 	}
     protected BufferedImage initButtonBackImg() {
     	initButtonPosition();
-		buttonBackImg = new BufferedImage(wButton, hButton, TYPE_INT_ARGB);
+		buttonBackImg = new BufferedImage(wButton * retinaFactor, hButton * retinaFactor, TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D) buttonBackImg.getGraphics();
 		setFontHints(g);
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);

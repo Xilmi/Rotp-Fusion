@@ -421,6 +421,8 @@ GAME_SETTINGS_GRAPHICS_MED_HELP   | Medium graphic requirement, Animated images,
 GAME_SETTINGS_GRAPHICS_MED        | Medium
 GAME_SETTINGS_GRAPHICS_HIGH_HELP  | Top quality, with Anti-Aliasing and Animated images.
 GAME_SETTINGS_GRAPHICS_HIGH       | High
+GAME_SETTINGS_GRAPHICS_RETINA_HELP | For Apple computer with retina screens, with retina dedicated bitmap, Top quality, Anti-Aliasing and Animated images.
+GAME_SETTINGS_GRAPHICS_RETINA      | Retina
 GAME_SETTINGS_GRAPHICS_DESC       | Adjusts the graphics quality of game. Medium: Anti-Aliasing of images is off. Low: Animations are turned off.
 GAME_SETTINGS_TEXTURES            | Textures: %1
 GAME_SETTINGS_TEXTURES_NO_HELP    | No Textures for very old graphic cards.

@@ -47,6 +47,7 @@ import rotp.model.ships.ShipImage;
 import rotp.model.ships.ShipLibrary;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
+import rotp.ui.UserPreferences;
 import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.ui.main.SystemPanel;
 import rotp.util.FontManager;
@@ -62,7 +63,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 	private static final int    settingFont		= 20;
 	private	static final Font   labelFont		= FontManager.current().narrowFont(settingFont);
  	private static final int    buttonFont		= 30;
-	private	static final Font   bigButtonFont	= FontManager.current().narrowFont(buttonFont);
+//	private	static final Font   bigButtonFont	= FontManager.current().narrowFont(buttonFont);
     private final int    MAX_RACES  		= 16; // modnar: increase MAX_RACES to add new Races
     private final int    MAX_COLORS 		= 16; // modnar: add new colors
 
@@ -97,9 +98,6 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
     private int wShading() { return xRightFrame() + wRightFrame + wShEdge - xShading(); }
     private int hShading = hLeftFrame + 2 * wShEdge;
 
-    // Whole page Parameters
-//    private BufferedImage backImg; // the full background
-    
     // Colors
     private int xColors() { return xRightFrame() + wShEdge; };
     private int yColors = yRightFrame + hRightFrame - scaled(40);
@@ -152,11 +150,18 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
     private int buttonSep	= s15;
     private Box	helpBox		= new Box("SETTINGS_BUTTON_HELP");
     private Box	cancelBox	= new Box("SETUP_RACE_CANCEL");
+    private boolean drawAllButtons = true;
+    
 	@Override protected Box newExitBox()		{ return new Box("SETUP_RACE_NEXT"); }
 	@Override protected String exitButtonKey()	{return "SETUP_BUTTON_NEXT" ; }
-	@Override protected Font bigButtonFont()	{ return bigButtonFont; }
+	@Override protected Font bigButtonFont(boolean retina)	{
+		if (retina)
+			return narrowFont(buttonFont * retinaFactor);
+		else
+			return narrowFont(buttonFont);
+	}
 	@Override protected void setBigButtonGraphics(Graphics2D g)	{
-		g.setFont(bigButtonFont());
+		g.setFont(bigButtonFont(retina));
 		g.setPaint(GameUI.buttonRightBackground());
 	}
 	@Override protected void setSmallButtonGraphics(Graphics2D g) {
@@ -455,7 +460,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 	        g.drawOval(helpBox.x, helpBox.y, helpBox.width, helpBox.height);
     	}
 	
-        g.setFont(bigButtonFont());
+        g.setFont(bigButtonFont(false)); // TODO
 		// left button
         if (hoverBox == cancelBox || all) {
 	        String text1 = text(cancelButtonKey());
@@ -509,7 +514,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         g.setStroke(prev);
 	}
 	@Override public void paintComponent(Graphics g0) {
-		// showTiming = true;
+		showTiming = true;
 		if (showTiming)
 			System.out.println("===== SetupRaceUI PaintComponents =====");
 		if (!isOnTop)
@@ -543,15 +548,31 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 
         // background image
-        g.drawImage(backImg(), 0, 0, this);
-        drawButtons(g);
-        drawFixButtons(g, false);
+//		if (retina)
+//			g.drawImage(backImg(), 0, 0, w, h, 0, 0, w * retinaFactor, h * retinaFactor, this);
+//		else
+			g.drawImage(backImg(), 0, 0, this);
+
+		if (showTiming)
+			System.out.println("background image Time = " + (System.currentTimeMillis()-timeStart));
+
+		drawButtons(g);
+        drawFixButtons(g, drawAllButtons);
+        drawAllButtons = false;
 
         // selected race center img
-		g.drawImage(raceImg(), xCtrFrame(), yCtrFrame, null);
-
-        // draw Ship frames on the right
-        g.drawImage(fleetBackImg(), xFleet(), yFleet, null);
+		if (retina) {
+			g.drawImage(raceImg(),  xCtrFrame(), yCtrFrame, xCtrFrame()+wCtrFrame, yCtrFrame+hCtrFrame,
+					0, 0, wCtrFrame * retinaFactor, hCtrFrame * retinaFactor, this);
+	        // draw Ship frames on the right
+	        g.drawImage(fleetBackImg(), xFleet(), yFleet, xFleet()+fleetWidth, yFleet+fleetHeight,
+	        		0, 0, fleetWidth * retinaFactor, fleetHeight * retinaFactor, null);
+		}
+		else {
+			g.drawImage(raceImg(), xCtrFrame(), yCtrFrame, null);
+	        // draw Ship frames on the right
+	        g.drawImage(fleetBackImg(), xFleet(), yFleet, null);
+		}
 
         // selected race box
         List<String> races = newGameOptions().startingRaceOptions();
@@ -559,7 +580,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         for (int i=0;i<races.size();i++) {
             if (races.get(i).equals(selRace)) {
                 Rectangle box = raceBox[i];
-                drawRaceBox(g, i, box.x, box.y, null);
+               	drawRaceBox(g, i, box.x, box.y, null, false);
                 Stroke prev = g.getStroke();
                 g.setStroke(stroke2);
                 g.setColor(GameUI.setupFrame());
@@ -584,7 +605,11 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 
         // race icon
         //BufferedImage icon = newBufferedImage(race.flagNorm());
-        g.drawImage(raceIcon(), xIcon(), yIcon, null);
+        if (retina)
+        	g.drawImage(raceIcon(), xIcon(), yIcon, xIcon()+iconSize, yIcon+iconSize,
+        			0, 0, iconSize * retinaFactor, iconSize * retinaFactor, null);
+        else
+        	g.drawImage(raceIcon(), xIcon(), yIcon, null);
 
         // draw race name
         Race race = Race.keyed(newGameOptions().selectedPlayerRace());
@@ -819,8 +844,8 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
     }
     private BufferedImage raceImg() {
         if (raceImg == null) {
-            int newW = wCtrFrame;
-            int newH = hCtrFrame;
+            int newW = wCtrFrame * retinaFactor;
+            int newH = hCtrFrame * retinaFactor;
             raceImg = new BufferedImage(newW, newH, TYPE_INT_ARGB);
             Graphics2D g = (Graphics2D) raceImg.getGraphics();
             g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -840,8 +865,8 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
     }
     private BufferedImage raceIcon() {
         if (raceIconImg == null) {
-            int newW = iconSize;
-            int newH = iconSize;
+            int newW = iconSize * retinaFactor;
+            int newH = iconSize * retinaFactor;
             raceIconImg = new BufferedImage(newW, newH, TYPE_INT_ARGB);
             Graphics2D g = (Graphics2D) raceIconImg.getGraphics();            
             g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -870,13 +895,13 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         return shipBackImg;
     }
     private BufferedImage raceBackImg() {
-        if (raceBackImg == null)
-        	raceBackImg = newGameOptions().getMugBackImg(wIcon, hIcon, rShadeIcon);
+//        if (raceBackImg == null) // Todo BR: Uncomment
+    		raceBackImg = newGameOptions().getMugBackImg(wIcon * retinaFactor, hIcon * retinaFactor, rShadeIcon * retinaFactor);
         return raceBackImg;
     }
     private void initFleetBackImg() {
 		long timeStart = System.currentTimeMillis();
-		fleetBackImg = new BufferedImage(fleetWidth, fleetHeight, TYPE_INT_ARGB);
+		fleetBackImg = new BufferedImage(fleetWidth*retinaFactor, fleetHeight*retinaFactor, TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D) fleetBackImg.getGraphics();
         g.setComposite(AlphaComposite.SrcOver);
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -888,9 +913,9 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 		BufferedImage shipBack = shipBackImg();
         for(int i=0; i<shipNum; i++) {
             int x = 0;
-            int y = i * shipDist;
-            g.drawImage(shipBack, x, y, shipWidth, shipHeight, null);
-            g.drawImage(getShipImage(i), x, y, shipWidth, shipHeight, null);
+            int y = i * shipDist*retinaFactor;
+            g.drawImage(shipBack, x, y, shipWidth*retinaFactor, shipHeight*retinaFactor, null);
+            g.drawImage(getShipImage(i), x, y, shipWidth*retinaFactor, shipHeight*retinaFactor, null);
         }
         g.dispose();
 		if (showTiming)
@@ -898,22 +923,27 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
     }
     private BufferedImage getShipBackImg() {
 		long timeStart = System.currentTimeMillis();
-		BufferedImage shipBackImg = gc().createCompatibleImage(shipWidth, shipHeight);
-        Point2D center = new Point2D.Float(shipWidth/2f, shipHeight/2f);
-        float radius = s60;
+		int shipW = shipWidth*retinaFactor;
+		int shipH = shipHeight*retinaFactor;
+		BufferedImage shipBackImg = gc().createCompatibleImage(shipW, shipH);
+        Point2D center = new Point2D.Float(shipW/2f, shipH/2f);
+        float radius = s60*retinaFactor;
         float[] dist = {0.0f, 0.55f, 0.85f, 1.0f};
         Color[] colors = {GameUI.raceCenterColor(), GameUI.raceCenterColor(), GameUI.raceEdgeColor(), GameUI.raceEdgeColor()};
         RadialGradientPaint p = new RadialGradientPaint(center, radius, dist, colors);
         Graphics2D g = (Graphics2D) shipBackImg.getGraphics();
         g.setPaint(p);
-        g.fillRect(0, 0, shipWidth, shipHeight);
+        g.fillRect(0, 0, shipW, shipH);
         g.dispose();
 		if (showTiming)
 			System.out.println("initShipBackImg() Time = " + (System.currentTimeMillis()-timeStart));
 		return shipBackImg;
     }
     @Override protected void initBackImg() {
-		long timeStart = System.currentTimeMillis();
+ 		long timeStart	= System.currentTimeMillis();
+ 		drawAllButtons	= true;
+ 		retina			= UserPreferences.graphicRetina();
+ 		retinaFactor	= retina ? 2 : 1;
         int w = getWidth();
         int h = getHeight();
         backImg = newOpaqueImage(w, h);
@@ -946,28 +976,24 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 		// modnar: extend out for new Races
         g.setColor(GameUI.setupShade());
         g.fillRect(xShading(), yShading, wShading(), hShading); // BR: adjusted Shading right position
-        // g.fillRect(scaled(125), s95, scaled(1040), scaled(515));
 
         // draw race frame
         g.setColor(GameUI.setupFrame());
         g.fillRect(xCtrFrame(), yCtrFrame, wCtrFrame, hCtrFrame);
-        // g.fillRect(scaled(420), raceFrameY, scaled(395), raceFrameH);
 
         // draw race left gradient
 		// modnar: extend out for new Races
         g.setPaint(GameUI.raceLeftBackground());
         g.fillRect(xLeftFrame(), yLeftFrame, wLeftFrame(), hLeftFrame);
-        // g.fillRect(scaled(140);, scaled(110), scaled(280), scaled(485));
 
         // draw race right gradient, modnar: extend right side
         g.setPaint(GameUI.raceRightBackground(xRightFrame()));
         g.fillRect(xRightFrame(), yRightFrame, wRightFrame, hRightFrame);
-        // g.fillRect(scaled(815), scaled(110), scaled(335), scaled(485)); // BR: adjusted gradient right position
 
         int buttonH = s45;
         int buttonW = scaled(220);
 
-        int xL = xLeftFrame() + s15;
+        int xL = (xLeftFrame() + s15);
 		int xM = xL + s90;
         int xR = xM + s95; // modnar: set column for new Races
 
@@ -975,21 +1001,21 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         Composite comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER , fog);
         
         for (int i=0; i<5; i++) {
-        	int y = yLeftFrame + scaled(12 + i * 95);
+        	int y = (yLeftFrame + scaled(12 + i * 95));
         	int x = xL;
         	int num = 2*i;
-        	BufferedImage mug = drawRaceBox(g, num, x, y, comp);
-            raceBox[num].setBounds(x, y, mug.getWidth(), mug.getHeight());
+        	BufferedImage mug = drawRaceBox(g, num, x, y, comp, true);
+            raceBox[num].setBounds(x, y, mug.getWidth()/retinaFactor, mug.getHeight()/retinaFactor);
             num++;
             x = xM;
-        	mug = drawRaceBox(g, num, x, y, comp);
-            raceBox[num].setBounds(x, y, mug.getWidth(), mug.getHeight());
+        	mug = drawRaceBox(g, num, x, y, comp, true);
+            raceBox[num].setBounds(x, y, mug.getWidth()/retinaFactor, mug.getHeight()/retinaFactor);
         }
         for (int i=0; i<6; i++) { // For modnar new Races
         	int y = yLeftFrame + scaled(10 + i * 80);
         	int num = i+10;
-        	BufferedImage mug = drawRaceBox(g, num,   xR, y, comp);
-            raceBox[num].setBounds(xR, y, mug.getWidth(), mug.getHeight());
+        	BufferedImage mug = drawRaceBox(g, num,   xR, y, comp, true);
+            raceBox[num].setBounds(xR, y, mug.getWidth()/retinaFactor, mug.getHeight()/retinaFactor);
         }
 
         // draw color buttons on right panel
@@ -1024,7 +1050,6 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         g.fillRoundRect(exitBox.x, exitBox.y, buttonW, buttonH, cnr, cnr);
 
 		// setBounds DEFAULT button
-        g.setFont(smallButtonFont());
 		buttonH = s30;
 		buttonW = defaultButtonWidth(g);
 		int xB	= cancelBox.x - (buttonW + buttonSep);
@@ -1098,16 +1123,27 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 		if (showTiming)
 			System.out.println("initFleetBackImg() Time = " + (System.currentTimeMillis()-timeStart));
     }
-    private BufferedImage drawRaceBox(Graphics2D g, int num, int x, int y, Composite comp) {
+    private BufferedImage drawRaceBox(Graphics2D g, int num, int x, int y, Composite comp, boolean bg) {
         if (raceMugs[num] == null)
         	initRaceMugImg();
         BufferedImage mug = raceMugs[num];
-        raceBox[num].setBounds(x, y, mug.getWidth(), mug.getHeight());
-        
+//        if (bg)
+//        	raceBox[num].setBounds(x/retinaFactor, y/retinaFactor, mug.getWidth()/retinaFactor, mug.getHeight()/retinaFactor);
+//        else if (retina)
+//           	raceBox[num].setBounds(x, y, mug.getWidth()/retinaFactor, mug.getHeight()/retinaFactor);
+//        else
+//           	raceBox[num].setBounds(x, y, mug.getWidth(), mug.getHeight());
+        	
         Composite prevC = g.getComposite();
         if (comp != null)
             g.setComposite(comp);
-        g.drawImage(mug, x, y, null);
+//        if (bg)
+//        	g.drawImage(mug, x, y, null);
+        if (retina)
+        	g.drawImage(mug, x, y, x+mug.getWidth()/retinaFactor, y+mug.getHeight()/retinaFactor,
+        			0, 0, mug.getWidth(), mug.getHeight(), null);
+        else
+        	g.drawImage(mug, x, y, null);
         g.setComposite(prevC);
         return mug;
     }

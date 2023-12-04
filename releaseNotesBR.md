@@ -70,10 +70,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed Nasty long lasting crashing bug, when starting a new game. !!!YYYYeeeessss!!!
 - Fixed: Clicking on the Spending "Results" will no more "scramble" the other spending...
 - Fixed rare crash in Ship Combat when clicking on auto-resolve.
-- Fixed proposed tech exchange not shown in Intelligence panel.
 - Fixed: Update Planet Background when degraded or improved.
 - Fixed some "Memory Low Warning" contributions...
-- Fixed Buttons moving up!
-- Fixed Governor panel glitching when a value is over 127.
-- Fix: Check for artifact before enriching central nebula planet.
-  - As compensation: Random event "Precursor Relic" add small probability (2%) of super Rich + Artifact planet.
+- Fixed some menu Buttons moving up!
+- Fixed Governor panel glitching when a value was over 127.
+- Fixed nebula planet being both Artifact and (Ultra)Rich.
+  - As compensation: Random event "Precursor Relic" add small probability (2%) of super Rich + Artifact planet generation.

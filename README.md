@@ -37,23 +37,21 @@ Download build: https://rayfowler.itch.io/remnants-of-the-precursors
 Bug to fix:
 
 Very soon:
-- statistic: improve help
-- Some Achievements options.
-- change the color of a weapon button on the combat screen if the target is so well shielded that damaging it is impossible. Currently all these buttons are green with white/yellow highlights, perhaps swapping the green for a grey would do it? And maybe change the highlight from yellow to black as well.
-  - Hit chance like in bombard panel!
 - Monsters:
   - Option to change their travel time.
   - Planet Monsters Guardian.
 - Add Help to History.
-
+- Some Achievements options.
+- Add a preferred planet (default = Homeworld). The map will be centered on this planet when loading the game and when a specific hotkey is hit.
 
 Later:
+- Stronger GNN filters
+- Stronger Warning filters
+  - Check what recall diplomat limitations are.
 - Species Easy-Normal-Hard
-- Investigate: William482 request: Age of your data on each race into the bar graphs on the status page.
 - Tech trading extended list.
 - Option to be used to force war declaration upon "Smart Resolve".
   - Check if at war and add a button if not!
-- Governor: Auto-invasion ?!
 - Governor: Individual disable receive troops
   - The AI is bombing my world, killing 7 or so colonists per turn. Every turn, my healthy planets send colonists to 'help', which ALL get killed by the orbiting enemy fleet. I would like to be able to prevent this while still allowing transport between my other planets.
 - Are there any plans to give the player an option whether to drop Death Spores or not, when they are present? (Or to only use Death Spores, and not bombs)?

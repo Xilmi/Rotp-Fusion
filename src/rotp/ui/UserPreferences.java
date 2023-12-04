@@ -194,21 +194,22 @@ public class UserPreferences implements IMainOptions {
 //		save();
 //	}
 //	public static void autoBombardMode(String val)   { autoBombardMode = val; }
-	public static String autoBombardMode()   { return autoBombardMode; }
 	// public static boolean autoBombardNo()    { return autoBombardMode.equals(AUTOBOMBARD_NO); }
 //	public static boolean autoBombardNever() { return autoBombardMode.equals(AUTOBOMBARD_NEVER); }
 //	public static boolean autoBombardYes()   { return autoBombardMode.equals(AUTOBOMBARD_YES); }
 //	public static boolean autoBombardWar()   { return autoBombardMode.equals(AUTOBOMBARD_WAR); }
 //	public static boolean autoBombardInvading() { return autoBombardMode.equals(AUTOBOMBARD_INVADE); }
 
-	public static boolean playAnimations()   { return !graphicsMode.equals(GRAPHICS_LOW); }
-	public static boolean antialiasing()     { return graphicsMode.equals(GRAPHICS_HIGH); }
-//	public static void playSounds(boolean b) { playSounds = b; }
-	public static boolean playSounds()       { return playSounds; }
-	public static void toggleSounds()        { playSounds = !playSounds; save(); }
-//	public static void playMusic(boolean b)  { playMusic = b; }
-	public static boolean playMusic()        { return playMusic; }
-	public static void toggleMusic()         { playMusic = !playMusic; save();  } // called from sound manager
+	public static String autoBombardMode()	{ return autoBombardMode; }
+	public static boolean graphicLow()		{ return graphicsMode.equals(GRAPHICS_LOW); }
+	public static boolean graphicHigh()		{ return graphicsMode.equals(GRAPHICS_HIGH); }
+	public static boolean graphicRetina()	{ return graphicsMode.equals(GRAPHICS_RETINA); }
+	public static boolean playAnimations()  { return !graphicLow(); }
+	public static boolean antialiasing()	{ return graphicHigh() || graphicRetina(); }
+	public static boolean playSounds()      { return playSounds; }
+	public static void toggleSounds()       { playSounds = !playSounds; save(); }
+	public static boolean playMusic()       { return playMusic; }
+	public static void toggleMusic()        { playMusic = !playMusic; save();  } // called from sound manager
 	
 	public	static void		selectedScreen(int i)			{ selectedScreen = i; }
 	public	static int		selectedScreen()				{ return selectedScreen; }
@@ -311,45 +312,17 @@ public class UserPreferences implements IMainOptions {
 			out.println(keyFormat("UI_TEXTURE_LEVEL")+(int) (uiTexturePct()*100));
 			out.println(keyFormat("DISABLE_ADVISOR") + yesOrNo(disableAdvisor));
 			out.println(keyFormat("LANGUAGE")+ languageDir());
-			// BR: Governors GUI
-//			out.println();
-//			out.println("===== Governor Settings =====");
-//			out.println();
-//			out.println(keyFormat("DEFAULT_MAX_BASES") + defaultMaxBases);
-//			out.println(keyFormat("GOVERNOR_ON_BY_DEFAULT") + yesOrNo(governorOnByDefault));
-//			out.println(keyFormat("AUTOSPEND_ON_BY_DEFAULT") + yesOrNo(governorAutoSpendByDefault));
-//			out.println(keyFormat("DIVERT_COLONY_EXCESS_TO_RESEARCH")+ yesOrNo(divertColonyExcessToResearch));
-//			out.println(keyFormat("LEGACY_GROWTH") + yesOrNo(legacyGrowth)); // BR:
-//			out.println(keyFormat("GOVERNOR_AUTO_APPLY") + yesOrNo(governorAutoApply)); // BR:
 
 			out.println();
 			out.println("===== Extended Settings =====");
 			out.println();
 			for (IParam param : optionList()) {
-//				if (param == null)
-//					System.out.println("Save Skipped because param = null");
-//				else if(param.isDuplicate())
-//					System.out.println("Save Skipped because param = Duplicate");
-//				else if(!param.isCfgFile())
-//					System.out.println("Save Skipped because param = is not cfg File: " + param.getCfgLabel());
-//				else
-//					out.println(keyFormat(param.getCfgLabel()) + param.getCfgValue());
 				if (param != null
 						&& !param.isDuplicate()
 						&& param.isCfgFile()
 						&& !param.isSubMenu())
 					out.println(keyFormat(param.getCfgLabel()) + param.getCfgValue());
 			}
-			// ========== TEST ==========
-			//
-//		System.out.println("UserPreferences: save()");
-//			for (IParam param : mainOptions)
-//				if (param != null) {
-//					String label = param.getCfgLabel();
-//					String value = param.getCfgValue();
-//					System.out.println(keyFormat(label) + value);
-//				}
-						
 			return 0;
 		}
 		catch (IOException e) {
@@ -485,6 +458,7 @@ public class UserPreferences implements IMainOptions {
 			case GRAPHICS_LOW:	  return "Low";
 			case GRAPHICS_MEDIUM: return "Medium";
 			case GRAPHICS_HIGH:   return "High";
+			case GRAPHICS_RETINA: return "Retina";
 		}
 		return "High";
 	}
@@ -493,6 +467,7 @@ public class UserPreferences implements IMainOptions {
 			case "Low":	   return GRAPHICS_LOW;
 			case "Medium": return GRAPHICS_MEDIUM;
 			case "High":   return GRAPHICS_HIGH;
+			case "Retina": return GRAPHICS_RETINA;
 		}
 		return GRAPHICS_HIGH;
 	}

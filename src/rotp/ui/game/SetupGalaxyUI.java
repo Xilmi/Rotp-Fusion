@@ -367,7 +367,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
     // Buttons Parameters
     private int buttonSep	= s15;
     private Box	helpBox		= new Box("SETTINGS_BUTTON_HELP");
-	@Override protected Font bigButtonFont() { return bigButtonFont; }
+	@Override protected Font bigButtonFont()					{ return bigButtonFont; }
+	@Override protected Font bigButtonFont(boolean retina)		{ return bigButtonFont; }
 	@Override protected void setBigButtonGraphics(Graphics2D g)	{
 		g.setFont(bigButtonFont());
 		g.setPaint(GameUI.buttonRightBackground());
