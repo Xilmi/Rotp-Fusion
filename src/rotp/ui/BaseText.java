@@ -106,6 +106,7 @@ public class BaseText implements Base {
         yOrig = y1;
         y = scaled(y1);
     }
+    protected void newFontSize(int fSize) { fontSize = fSize; }
     private Font font() {
         return logoFont ? logoFont(fontSize) : narrowFont(fontSize);
     }

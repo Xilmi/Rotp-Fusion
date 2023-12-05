@@ -563,7 +563,8 @@ public class SettingBase<T> implements IParam {
 	protected T optionValue(int index)	{ return valueList.get(valueValidIndex(index)); }
 	public void drawSetting(int sizePad, int endPad, int optionH, int currentdWith,
 			Color frameC, int frameShift, int xLine, int yLine, int settingIndent,
-			int shift, int settingH, int frameTopPad, int wSetting, int optionIndent) {
+			int shift, int settingH, int frameTopPad, int wSetting, int optionIndent,
+			boolean retina, float retinaFactor) {
 		int optNum	= bulletBoxSize();;
 		float cost 	= settingCost();
 		ModText bt	= settingText();
@@ -575,9 +576,27 @@ public class SettingBase<T> implements IParam {
 			sizePad	= 0;
 		}
 		deltaYLines	= settingH + frameTopPad + bulletSize*optionH + endPad;
+
+		if (retina) {
+			sizePad			*= retinaFactor;
+			endPad			*= retinaFactor;
+			optionH			*= retinaFactor;
+			currentdWith	*= retinaFactor;
+			frameShift		*= retinaFactor;
+			xLine			*= retinaFactor;
+			yLine			*= retinaFactor;
+			settingIndent	*= retinaFactor;
+			shift			*= retinaFactor;
+			settingH		*= retinaFactor;
+			frameTopPad		*= retinaFactor;
+			wSetting		*= retinaFactor;
+			optionIndent	*= retinaFactor;
+			bt.fontMult(retinaFactor);
+		}
+
 		int y		= Math.max(shift, frameShift);
 		int x		= 0;
-		int height	= deltaYLines - optionH/2 - endPad + y + 1;
+		int height	= (int) (deltaYLines*retinaFactor) - optionH/2 - endPad + y + 1;
 		int width	= currentdWith + 1;
 
 		img = new BufferedImage(width, height, TYPE_INT_ARGB);
@@ -594,7 +613,15 @@ public class SettingBase<T> implements IParam {
 		enabledColor(cost);
 		bt.setScaledXY(x + settingIndent, y);
 		bt.draw(g);
-		bt.shiftBounds(xLine, yLine- 2*frameShift);
+		if (retina) {
+			bt.fontMult(1);
+			bt.setBounds((int) ((x + settingIndent + xLine) / retinaFactor),
+						 (int) ((y + yLine - optionH - 2*frameShift) / retinaFactor),
+						 (int) ((currentdWith - 2*optionIndent) / retinaFactor),
+						 (int) (settingH / retinaFactor));
+		}
+		else
+			bt.shiftBounds(xLine, yLine- 2*frameShift);
 		
 		y += settingH;
 		y += frameTopPad;
@@ -603,30 +630,28 @@ public class SettingBase<T> implements IParam {
 		for (int bulletIdx=0; bulletIdx < bulletSize; bulletIdx++) {
 			int optionIdx = bulletStart + bulletIdx;
 			bt = optionText(bulletIdx);
+			if (retina)
+				bt.fontMult(retinaFactor);
 			bt.disabled(optionIdx == paramId);
 			bt.displayText(guiCostOptionStr(optionIdx));
 			bt.setScaledXY(x + optionIndent, y);
 			bt.setFixedWidth(true, currentdWith-2*optionIndent);
 			bt.draw(g);
-			bt.shiftBounds(xLine, yLine-2*frameShift);
+			if (retina) {
+				bt.fontMult(1);
+				bt.setBounds((int) ((x + optionIndent + xLine) / retinaFactor),
+							 (int) ((y + yLine - optionH - 2*frameShift) / retinaFactor),
+							 (int) ((currentdWith - 2*optionIndent) / retinaFactor),
+							 (int) (optionH / retinaFactor));
+			}
+			else
+				bt.shiftBounds(xLine, yLine-2*frameShift);
 			y += optionH;
-		}				
-		y += endPad;
+		}
 		g.dispose();
 	}
 	// ========== Private Methods ==========
 	//
-//	private void drawBox(Graphics2D g, int x0, int y0, int w, int h, int indent, int blankW) {
-//		int x1 = x0+w;
-//		g.drawLine(x0, y0, x0+indent, y0);
-//		g.drawLine(x0+indent+blankW, y0, x1, y0);
-//		if (h>0) {
-//			int y1 = y0+h;
-//			g.drawLine(x0, y0, x0, y1);			
-//			g.drawLine(x0, y1, x1, y1);			
-//			g.drawLine(x1, y0, x1, y1);			
-//		}
-//	}
 	private String getTableHelp()		{
 		int size = listSize();
 		String rows = "";

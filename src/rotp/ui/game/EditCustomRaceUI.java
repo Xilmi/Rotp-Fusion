@@ -246,7 +246,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		// Exit Button
 		int buttonW	= exitButtonWidth(g);
 		xButton = leftM + wBG - buttonW - buttonPad;
-		exitBox.setBounds(xButton, yButton+s2, buttonW, smallButtonH);
+		exitBox.setBounds(xButton, yButton+s2, buttonW, smallButtonH); // TODO set bounds
 
 		// Select Button
 		String text	 = text(selectKey);
@@ -298,11 +298,16 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	}
 	@Override protected void drawButtons(Graphics2D g, boolean init) {
         Stroke prev = g.getStroke();
-        
-        g.setFont(bigButtonFont());
+        if (init)
+            g.setFont(bigButtonFont(retina)); // TODO
+        else
+        	g.setFont(bigButtonFont(false)); // TODO
         drawButton(g, init, exitBox,	text(exitButtonKey()));
 
-        g.setFont(smallButtonFont());
+        if (init)
+        	g.setFont(smallButtonFont(retina));
+        else
+        	g.setFont(smallButtonFont());
         drawButton(g, init, defaultBox,	text(defaultButtonKey()));
         drawButton(g, init, lastBox,	text(lastButtonKey()));
         drawButton(g, init, userBox,	text(userButtonKey()));
@@ -313,9 +318,9 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	}
     @Override protected BufferedImage initButtonBackImg() {
     	initButtonPosition();
-		buttonBackImg = new BufferedImage(wButton, hButton, TYPE_INT_ARGB);
+		buttonBackImg = new BufferedImage(retina(wButton), retina(hButton), TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D) buttonBackImg.getGraphics();
-		setFontHints(g);
+//		setFontHints(g);
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
         g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
@@ -324,21 +329,28 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 
 		setBigButtonGraphics(g);
 		// draw EXIT button
-		g.fillRoundRect(exitBox.x-xButton, exitBox.y-yButton, exitBox.width, exitBox.height, cnr, cnr);
+		exitBox.fillRoundRect(g);
+//		g.fillRoundRect(exitBox.x-xButton, exitBox.y-yButton, exitBox.width, exitBox.height, cnr, cnr);
 
 		setSmallButtonGraphics(g);
 		// Select Button
-		g.fillRoundRect(selectBox.x-xButton, selectBox.y-yButton, selectBox.width, selectBox.height, cnr, cnr);
+		selectBox.fillRoundRect(g);
+		//g.fillRoundRect(selectBox.x-xButton, selectBox.y-yButton, selectBox.width, selectBox.height, cnr, cnr);
 		// Default Button
-		g.fillRoundRect(defaultBox.x-xButton, defaultBox.y-yButton, defaultBox.width, defaultBox.height, cnr, cnr);
+		defaultBox.fillRoundRect(g);
+		//g.fillRoundRect(defaultBox.x-xButton, defaultBox.y-yButton, defaultBox.width, defaultBox.height, cnr, cnr);
 		// Last Button
-		g.fillRoundRect(lastBox.x-xButton, lastBox.y-yButton, lastBox.width, lastBox.height, cnr, cnr);
+		lastBox.fillRoundRect(g);
+		//g.fillRoundRect(lastBox.x-xButton, lastBox.y-yButton, lastBox.width, lastBox.height, cnr, cnr);
 		// User Button
-		g.fillRoundRect(userBox.x-xButton, userBox.y-yButton, userBox.width, userBox.height, cnr, cnr);
+		userBox.fillRoundRect(g);
+		//g.fillRoundRect(userBox.x-xButton, userBox.y-yButton, userBox.width, userBox.height, cnr, cnr);
 		// Load / Save Button
-		g.fillRoundRect(loadBox.x-xButton, loadBox.y-yButton, loadBox.width, loadBox.height, cnr, cnr);
+		loadBox.fillRoundRect(g);
+		//g.fillRoundRect(loadBox.x-xButton, loadBox.y-yButton, loadBox.width, loadBox.height, cnr, cnr);
 		// draw GUIDE button
-		g.fillRoundRect(guideBox.x-xButton, guideBox.y-yButton, guideBox.width, guideBox.height, cnr, cnr);
+		guideBox.fillRoundRect(g);
+		//g.fillRoundRect(guideBox.x-xButton, guideBox.y-yButton, guideBox.width, guideBox.height, cnr, cnr);
 		
 		drawButtons(g, true); // init = true; local = true
 		return buttonBackImg;
@@ -401,7 +413,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		int sw = g.getFontMetrics().stringWidth(text);
 		int buttonW	= exitButtonWidth(g);
 		xButton = leftM + wBG - buttonW - buttonPad;
-		exitBox.setBounds(xButton, yButton+s2, buttonW, smallButtonH);
+//		exitBox.setBounds(xButton, yButton+s2, buttonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(exitBox.x, exitBox.y, buttonW, smallButtonH, cnr, cnr);
 		int xT = exitBox.x+((exitBox.width-sw)/2);

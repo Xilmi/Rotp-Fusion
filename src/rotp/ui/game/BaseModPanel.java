@@ -46,6 +46,7 @@ import rotp.Rotp;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.RotPUI;
+import rotp.ui.UserPreferences;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamButtonHelp;
 import rotp.util.LabelManager;
@@ -91,10 +92,12 @@ public abstract class BaseModPanel extends BasePanel
 	protected PolyBox hoverPolyBox;
 	private	  PolyBox prevPolyBox;
 	protected boolean hoverChanged;
-	protected boolean isSubMenu = true; // Not (Race or Galaxy)
-	protected boolean isOnTop	= true;
-	protected boolean retina	= false;
-	protected int retinaFactor	= 1;
+	protected boolean isSubMenu  = true; // Not (Race or Galaxy)
+	protected boolean isOnTop	 = true;
+	protected boolean retina	 = false;
+	protected float retinaFactor = 1;
+	private   float baseRF		 = 2f;
+	protected int	cnrR		 = cnr;
 
 	// Debug Parameter
 	protected boolean showTiming = false;
@@ -107,7 +110,7 @@ public abstract class BaseModPanel extends BasePanel
 	protected int xButton, yButton, wButton, hButton;
 	protected int wBG, hBG;
 	protected BufferedImage buttonBackImg;
-	private LinearGradientPaint bg;
+	private	  LinearGradientPaint bg;
 	protected LinearGradientPaint bg() {
 		if (bg == null)
 			bg = GameUI.settingsSetupBackgroundW(w, wBG);
@@ -117,10 +120,16 @@ public abstract class BaseModPanel extends BasePanel
 	protected BufferedImage backImg; // the full background
 	protected void initBackImg() {  }
 	protected BufferedImage backImg() {
-        if (backImg == null)
-            initBackImg();
+        if (backImg == null) {
+     		retina		 = UserPreferences.graphicRetina();
+     		retinaFactor = retina ? baseRF : 1;
+     		cnrR		 = (int) (cnr * retinaFactor);
+        	initBackImg();
+        }
         return backImg;
     }
+	protected int retina(int val)		{ return (int) (val*retinaFactor); }
+	protected int invRetina(int val)	{ return (int) (val/retinaFactor); }
 
 	protected void singleInit() {} // To avoid call to options during class creation
 	public LinkedList<IParam> activeList() { return activeList; }
@@ -128,7 +137,7 @@ public abstract class BaseModPanel extends BasePanel
 	public GuidePopUp guidePopUp;
 	
 	private Font smallButtonFont	= narrowFont(20);
-	private Font smallButtonFontR	= narrowFont(40);
+	private Font smallButtonFontR	= narrowFont((int)(20*baseRF));
 	protected Font smallButtonFont(boolean retina)	{
 		if (retina)
 			return smallButtonFontR;
@@ -239,11 +248,36 @@ public abstract class BaseModPanel extends BasePanel
 		g.dispose();
 	}
 	protected void drawButtons(Graphics2D g) {
-		g.drawImage(buttonBackImg(), xButton, yButton, null);
+		if (retina) {
+			BufferedImage img = buttonBackImg();
+			int w = img.getWidth();
+			int h = img.getHeight();
+			g.drawImage(img, xButton, yButton, xButton+invRetina(w), yButton+invRetina(h), 0, 0, w, h, null);
+		}
+		else
+			g.drawImage(buttonBackImg(), xButton, yButton, null);
 		drawButtons(g, false); // init = false; local = false
 	}
     protected void drawButton(Graphics2D g, boolean init, Box box, String str) {
-        if (hoverBox == box || init) {
+    	if (init) {
+	        int sw	 = g.getFontMetrics().stringWidth(str);
+	        int x    = retina(box.x) + ((retina(box.width)-sw)/2);
+	        int y    = retina(box.y) + retina(box.height)*75/100;
+        	x -= retina(xButton);
+        	y -= retina(yButton);
+	        Color c1 = GameUI.borderBrightColor();
+	        drawShadowedString(g, str, 2, x, y, GameUI.borderDarkColor(), c1);
+	        if (retina) {
+	        	g.setStroke(stroke2);
+//		        g.drawRoundRect(box.x, box.y, box.width, box.height, cnr, cnr);    		
+	        	g.drawRoundRect(retina(box.x), retina(box.y), retina(box.width), retina(box.height), cnrR, cnrR);    		
+	        }
+	        else {
+	        	g.setStroke(stroke1);
+		        g.drawRoundRect(box.x, box.y, box.width, box.height, cnr, cnr);    		
+	        }
+    	}
+    	else if (hoverBox == box) {
 	        int sw	 = g.getFontMetrics().stringWidth(str);
 	        int x    = box.x + ((box.width-sw)/2);
 	        int y    = box.y + box.height*75/100;
@@ -259,11 +293,16 @@ public abstract class BaseModPanel extends BasePanel
     }
 	protected void drawButtons(Graphics2D g, boolean init) {
         Stroke prev = g.getStroke();
-        
-        g.setFont(bigButtonFont(false)); // TODO
+        if (init)
+            g.setFont(bigButtonFont(retina)); // TODO
+        else
+        	g.setFont(bigButtonFont(false)); // TODO
         drawButton(g, init, exitBox,	text(exitButtonKey()));
 
-        g.setFont(smallButtonFont());
+        if (init)
+        	g.setFont(smallButtonFont(retina));
+        else
+        	g.setFont(smallButtonFont());
         drawButton(g, init, defaultBox,	text(defaultButtonKey()));
         drawButton(g, init, lastBox,	text(lastButtonKey()));
         drawButton(g, init, userBox,	text(userButtonKey()));
@@ -275,43 +314,48 @@ public abstract class BaseModPanel extends BasePanel
 		int yMin = exitBox.y;
 		int xMax = exitBox.x + exitBox.width;
 		int yMax = exitBox.y + exitBox.height;
-		xButton = xMin-s2;
-		yButton = yMin-s2;
-		wButton = xMax - xMin + s4;
-		hButton = yMax - yMin + s4;
+		xButton = xMin-retina(s2);
+		yButton = yMin-retina(s2);
+		wButton = xMax - xMin + retina(s4);
+		hButton = yMax - yMin + retina(s4);
     }
 	protected void setBigButtonGraphics(Graphics2D g)	{
-		g.setFont(bigButtonFont(false)); // TODO
+		g.setFont(bigButtonFont(retina)); // TODO
 		g.setPaint(GameUI.buttonBackgroundColor());
 	}
 	protected void setSmallButtonGraphics(Graphics2D g) {
-		g.setFont(smallButtonFont());
+		g.setFont(smallButtonFont(retina));
 		g.setPaint(GameUI.buttonBackgroundColor());
 	}
     protected BufferedImage initButtonBackImg() {
     	initButtonPosition();
-		buttonBackImg = new BufferedImage(wButton * retinaFactor, hButton * retinaFactor, TYPE_INT_ARGB);
+		buttonBackImg = new BufferedImage(retina(wButton), retina(hButton), TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D) buttonBackImg.getGraphics();
-		setFontHints(g);
+//		setFontHints(g);
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
         g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
 		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 
+//		int cnrR = retina(cnr);
 		setBigButtonGraphics(g);
 		// draw EXIT button
-		g.fillRoundRect(exitBox.x-xButton, exitBox.y-yButton, exitBox.width, exitBox.height, cnr, cnr);
-
+		exitBox.fillRoundRect(g);
+//		g.fillRoundRect(exitBox.x-xButton, exitBox.y-yButton, exitBox.width, exitBox.height, cnr, cnr);
 		setSmallButtonGraphics(g);
 		// draw DEFAULT button
-		g.fillRoundRect(defaultBox.x-xButton, defaultBox.y-yButton, defaultBox.width, defaultBox.height, cnr, cnr);
+		defaultBox.fillRoundRect(g);
+//		g.fillRoundRect(defaultBox.x-xButton, defaultBox.y-yButton, defaultBox.width, defaultBox.height, cnr, cnr);
 		// draw LAST button
-		g.fillRoundRect(lastBox.x-xButton, lastBox.y-yButton, lastBox.width, lastBox.height, cnr, cnr);
+		lastBox.fillRoundRect(g);
+//		g.fillRoundRect(lastBox.x-xButton, lastBox.y-yButton, lastBox.width, lastBox.height, cnr, cnr);
 		// draw USER button
-		g.fillRoundRect(userBox.x-xButton, userBox.y-yButton, userBox.width, userBox.height, cnr, cnr);
+		userBox.fillRoundRect(g);
+//		g.fillRoundRect(userBox.x-xButton, userBox.y-yButton, userBox.width, userBox.height, cnr, cnr);
 		// draw GUIDE button
-		g.fillRoundRect(guideBox.x-xButton, guideBox.y-yButton, guideBox.width, guideBox.height, cnr, cnr);
+		guideBox.fillRoundRect(g);
+//		g.fillRoundRect(guideBox.x-xButton, guideBox.y-yButton, guideBox.width, guideBox.height, cnr, cnr);
 
 		drawButtons(g, true); // init = true; local = true
 		return buttonBackImg;
@@ -755,6 +799,12 @@ public abstract class BaseModPanel extends BasePanel
 				modText.mouseExit();
 			}
 		}
+		void fillRoundRect(Graphics2D g) {
+			if (retina)
+				g.fillRoundRect(retina(x-xButton), retina(y-yButton), retina(width), retina(height), cnrR, cnrR);
+			else
+				g.fillRoundRect(x-xButton, y-yButton, width, height, cnr, cnr);
+		}
 		// ========== Getters ==========
 		//
 		public String getDescription()		 {
@@ -826,8 +876,9 @@ public abstract class BaseModPanel extends BasePanel
 		PolyBox() { polyBoxList.add(this); }
 	}
 	public class ModText extends BaseText {
-
+		
 		private final Box box;
+		private final int baseFontsize;
 		public boolean forceHover = false;
 		@Override protected Color textColor() {
 			if (forceHover)
@@ -835,7 +886,6 @@ public abstract class BaseModPanel extends BasePanel
 			else
 				return super.textColor();
 		}
-		
 		/**
 		* @param p		BasePanel
 		* @param fSize	fontSize
@@ -849,7 +899,9 @@ public abstract class BaseModPanel extends BasePanel
 		public ModText(BasePanel p, int fSize, Color c1, Color c2, Color c3, Color c4, Color c5, boolean add) {
 			super(p, false, fSize, 0, 0, c1, c2, c3, c4, c5, 0, 0, 0);
 			box = new Box(this, add);
+			baseFontsize = fSize;
 		}
+	    public void    fontMult(float fMult)	{ super.newFontSize((int) (baseFontsize * fMult)); }
 		public void	   removeBoxFromList()		{ box.removeFromList(); }
 		public ModText initGuide(IParam param)	{ box.initGuide(param); return this; }
 		public ModText initGuide(String label)	{ box.initGuide(label); return this; }

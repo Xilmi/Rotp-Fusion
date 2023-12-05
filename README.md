@@ -43,6 +43,9 @@ Very soon:
 - Add Help to History.
 - Some Achievements options.
 - Add a preferred planet (default = Homeworld). The map will be centered on this planet when loading the game and when a specific hotkey is hit.
+- Assign tasks to the flags.
+  - create a new flag task to assign to one of the four flags.
+  - find a pair of free keys to loop over these flaged planets.
 
 Later:
 - Stronger GNN filters
@@ -58,6 +61,9 @@ Later:
 
 
 ## What's New
+
+2023.12.05 (BR)
+- Added Apple Retina Screen compatibility.
 
 2023.12.01 (BR)
 - SmartMax new compromise:

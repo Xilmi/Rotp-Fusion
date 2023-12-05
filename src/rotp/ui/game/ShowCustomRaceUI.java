@@ -346,8 +346,16 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		if (refresh)
 			setting.drawSetting(frameSizePad, frameEndPad, optionH, currentWidth,
 					frameC, frameShift, xLine, yLine, settingIndent,
-					s12, settingH, frameTopPad, wSetting, optionIndent);
-		g.drawImage(setting.getImage(),xLine, yLine -s12, null);
+					s12, settingH, frameTopPad, wSetting, optionIndent, retina, retinaFactor);
+		if (retina) {
+			BufferedImage img = setting.getImage();
+			int y = yLine -s12;
+			int w = img.getWidth();
+			int h = img.getHeight();
+			g.drawImage(img, xLine, y, xLine+(int)(w/retinaFactor), y+(int)(h/retinaFactor), 0, 0, w, h, null);
+		}
+		else
+			g.drawImage(setting.getImage(),xLine, yLine -s12, null);
 		yLine += setting.deltaYLines();
 	}
 	private void paintDescriptions(Graphics2D g) {
@@ -364,7 +372,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		int sw = g.getFontMetrics().stringWidth(text);
 		int buttonW	= exitButtonWidth(g);
 		xButton = leftM + wBG - buttonW - buttonPad;
-		exitBox.setBounds(xButton, yButton+s2, buttonW, smallButtonH);
+//		exitBox.setBounds(xButton, yButton+s2, buttonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(exitBox.x, exitBox.y, buttonW, smallButtonH, cnr, cnr);
 		int xT = exitBox.x+((exitBox.width-sw)/2);
@@ -469,16 +477,22 @@ public class ShowCustomRaceUI extends BaseModPanel {
 	@Override protected void drawButtons(Graphics2D g, boolean init) {
         Stroke prev = g.getStroke();
         
-        g.setFont(bigButtonFont());
+        if (init)
+            g.setFont(bigButtonFont(retina)); // TODO
+        else
+        	g.setFont(bigButtonFont(false)); // TODO
         drawButton(g, init, exitBox,	text(exitButtonKey()));
 
-        g.setFont(smallButtonFont());
+        if (init)
+        	g.setFont(smallButtonFont(retina));
+        else
+        	g.setFont(smallButtonFont());
         drawButton(g, init, guideBox,	text(guideButtonKey()));
         g.setStroke(prev);
 	}
     @Override protected BufferedImage initButtonBackImg() {
     	initButtonPosition();
-		buttonBackImg = new BufferedImage(wButton, hButton, TYPE_INT_ARGB);
+		buttonBackImg = new BufferedImage(retina(wButton), retina(hButton), TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D) buttonBackImg.getGraphics();
 		setFontHints(g);
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -489,11 +503,13 @@ public class ShowCustomRaceUI extends BaseModPanel {
 
 		setBigButtonGraphics(g);
 		// draw EXIT button
-		g.fillRoundRect(exitBox.x-xButton, exitBox.y-yButton, exitBox.width, exitBox.height, cnr, cnr);
+		exitBox.fillRoundRect(g);
+//		g.fillRoundRect(exitBox.x-xButton, exitBox.y-yButton, exitBox.width, exitBox.height, cnr, cnr);
 
 		setSmallButtonGraphics(g);
 		// draw GUIDE button
-		g.fillRoundRect(guideBox.x-xButton, guideBox.y-yButton, guideBox.width, guideBox.height, cnr, cnr);
+		guideBox.fillRoundRect(g);
+//		g.fillRoundRect(guideBox.x-xButton, guideBox.y-yButton, guideBox.width, guideBox.height, cnr, cnr);
 		
 		drawButtons(g, true); // init = true; local = true
 		return buttonBackImg;

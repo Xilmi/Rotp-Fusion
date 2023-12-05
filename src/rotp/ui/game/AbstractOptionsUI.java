@@ -48,7 +48,9 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 	private final String guiTitleID;
 	private final String GUI_ID;
 	
-	private Font descFont = narrowFont(15);
+	private static final int settingFontSize = 20;
+	private static final int descFontSize	 = 15;
+	private Font descFont;
 	private static int columnPad	= s20;
 	private static int smallButtonH = s30;
 	private static int hSetting	    = s90;
@@ -208,52 +210,93 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 	// ========== Other Methods ==========
 	//
 	private  ModText newBT() { 
-		return new ModText(this, 20,  textC, textC, hoverC, depressedC, textC, true);
+		return new ModText(this, settingFontSize,  textC, textC, hoverC, depressedC, textC, true);
+	}
+	private Font descFont() {
+		if (descFont == null)
+			descFont = narrowFont((int)  (descFontSize * retinaFactor));
+		return descFont;
 	}
 	private void paintSetting(Graphics2D g, ModText txt, String desc) {
 		int margin = s2;
 		int xNew = margin;
 		int yNew = margin + lineH;
+		int xNewR = retina(xNew);
+		int yNewR = retina(yNew);
 		IParam param = activeList.get(index);
 		boolean refresh = forceUpdate || param.updated();
 		if (refresh) {
-			BufferedImage img = new BufferedImage(wSetting + xNew + margin,
-					hSetting + yNew + margin, TYPE_INT_ARGB);
+			int wSettingR	= retina(wSetting);
+			int hSettingR	= retina(hSetting);
+			int columnPadR	= retina(columnPad);
+			int lineHR	= retina(lineH);
+			int imgW	= wSetting + xNew + margin;
+			int imgH	= hSetting + yNew + margin;
+			int imgWR	= retina(imgW);
+			int imgHR	= retina(imgH);
+			BufferedImage img = new BufferedImage(imgWR, imgHR, TYPE_INT_ARGB);
 			Graphics2D gi = (Graphics2D) img.getGraphics();
 			gi.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 			gi.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
 			
-			gi.setStroke(stroke3);
+			if (retina) {
+				if (retinaFactor > 1)
+					gi.setStroke(stroke6);
+				else
+					gi.setStroke(stroke1);
+				txt.fontMult(retinaFactor);
+			}
+			else
+				gi.setStroke(stroke3);
+
 			if (param.isSubMenu()) {
 				gi.setColor(GameUI.textColor());
 				txt.enabledC(GameUI.textColor());
 			}
 			else
 				gi.setColor(SystemPanel.blackText);
-			int blankW = txt.stringWidth(gi) + s10;
-			param.drawBox(gi, xNew, yNew, wSetting, hSetting, s10/2, blankW);
-			txt.setScaledXY(xNew + columnPad, yNew+s7);
+
+			int s10R = retina(s10);
+			int s7R  = retina(s7);
+			int s25R = retina(s25);
+			int blankW = txt.stringWidth(gi) + s10R;
+			param.drawBox(gi, xNewR, yNewR, wSettingR, hSettingR, s10R/2, blankW);
+			txt.setScaledXY(xNewR + columnPadR, yNewR+s7R);
 			txt.draw(gi);
 			if (param.isSubMenu())
 				gi.setColor(GameUI.textColor());
 			else
 				gi.setColor(SystemPanel.blackText);
-			gi.setFont(descFont);
-			List<String> lines = scaledNarrowWrappedLines(gi, desc, wSetting-s25, 4, 15, 12);
-			int y3 = xNew + lineH + s10;
+			gi.setFont(descFont());
+			List<String> lines = scaledNarrowWrappedLines(gi, desc, wSettingR-s25R, 4, retina(15), retina(12));
+			int y3 = xNewR + lineHR + s10R;
 			for (String line: lines) {
-				y3 += lineH;
-				drawString(gi, line, xNew+columnPad, y3);
+				y3 += lineHR;
+				drawString(gi, line, xNewR+columnPadR, y3);
 			}		
 			gi.dispose();
-			g.drawImage(img, xSetting-xNew, ySetting-yNew, null);
+			if (retina) {
+				int x = xSetting-xNew;
+				int y = ySetting-yNew;
+				g.drawImage(img, x, y, x+imgW, y+imgH, 0, 0, imgWR, imgHR, null);
+				txt.fontMult(1);
+			}
+			else
+				g.drawImage(img, xSetting-xNew, ySetting-yNew, null);
 
 			param.updated(false);
 			imgList.put(index, img);
 
 			txt.setScaledXY(xSetting+columnPad, ySetting+s7);
-//			txt.updateBounds(g);
 			txt.setBounds(xSetting, ySetting-s7, wSetting, hSetting+s10);
+		}
+		else if (retina) {
+			BufferedImage img = imgList.get(index);
+			int x = xSetting-xNew;
+			int y = ySetting-yNew;
+			int w = img.getWidth();
+			int h = img.getHeight();
+			g.drawImage(imgList.get(index), x, y, x+invRetina(w), y+invRetina(h), 0, 0, w, h, null);				
 		}
 		else
 			g.drawImage(imgList.get(index), xSetting-xNew, ySetting-yNew, null);
@@ -317,6 +360,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 	}
 	@Override protected void close() {
 		super.close();
+		descFont = null;
         disableGlassPane();
 		RotPUI.setupGalaxyUI().init();
 	}

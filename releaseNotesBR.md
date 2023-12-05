@@ -1,6 +1,14 @@
 Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Updates since last releases:</ins></b>
+
+<b><ins>Optimisation:</ins></b>
+- Fixed Apple Retina Screen compatibility.
+  - Previous reactivity optimisation was not compatible with some retina screen specificity!
+    - Optimized for image quality with reactivity cost.
+
+
+<b><ins> last releases:</ins></b>
 - New option: Dark Galaxy Mode.
   - Only Star systems in scout range or in scanner range are shown. Out of range scouted planet are hidden.
   - Only the final replay will show the full galaxy!
