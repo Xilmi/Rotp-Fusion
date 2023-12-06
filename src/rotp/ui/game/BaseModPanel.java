@@ -92,12 +92,12 @@ public abstract class BaseModPanel extends BasePanel
 	protected PolyBox hoverPolyBox;
 	private	  PolyBox prevPolyBox;
 	protected boolean hoverChanged;
-	protected boolean isSubMenu  = true; // Not (Race or Galaxy)
-	protected boolean isOnTop	 = true;
-	protected boolean retina	 = false;
-	protected float retinaFactor = 1;
-	private   float baseRF		 = 2f;
-	protected int	cnrR		 = cnr;
+	protected boolean isSubMenu = true; // Not (Race or Galaxy)
+	protected boolean isOnTop	= true;
+	protected boolean retina	= false;
+	protected int retinaFactor	= 1;
+	private   int baseRF		= 2;
+	protected int cnrR			= cnr;
 
 	// Debug Parameter
 	protected boolean showTiming = false;
@@ -123,13 +123,15 @@ public abstract class BaseModPanel extends BasePanel
         if (backImg == null) {
      		retina		 = UserPreferences.graphicRetina();
      		retinaFactor = retina ? baseRF : 1;
-     		cnrR		 = (int) (cnr * retinaFactor);
+     		cnrR		 = retina(cnr);
         	initBackImg();
         }
         return backImg;
     }
-	protected int retina(int val)		{ return (int) (val*retinaFactor); }
-	protected int invRetina(int val)	{ return (int) (val/retinaFactor); }
+//	protected int retina(int val)		{ return (int) (val*retinaFactor); }
+//	protected int invRetina(int val)	{ return (int) (val/retinaFactor); }
+	protected int retina(int val)		{ return val*retinaFactor; }
+	protected int invRetina(int val)	{ return val/retinaFactor; }
 
 	protected void singleInit() {} // To avoid call to options during class creation
 	public LinkedList<IParam> activeList() { return activeList; }
@@ -231,7 +233,7 @@ public abstract class BaseModPanel extends BasePanel
 		isOnTop = false;
 		//ModifierKeysState.reset();
 	}
-	protected BufferedImage buttonBackImg() {
+	private BufferedImage buttonBackImg() {
         if (buttonBackImg == null)
             initButtonBackImg();
         return buttonBackImg;
@@ -396,8 +398,8 @@ public abstract class BaseModPanel extends BasePanel
 				cancelKey,	true,
 				cancelKey,	false);
 	}
-	protected final ParamButtonHelp exitButton = newExitButton();
-	protected final ParamButtonHelp exitSubButton = new ParamButtonHelp(
+	private final ParamButtonHelp exitButton = newExitButton();
+	private final ParamButtonHelp exitSubButton = new ParamButtonHelp(
 			"SETTINGS_BUTTON_EXIT", // For Help Do not add the list
 			exitKey,	true,
 			applyKey,	true,
@@ -755,11 +757,10 @@ public abstract class BaseModPanel extends BasePanel
 			this(param);
 			mouseBoxIndex(mouseBoxIndex);
 		}
-		public	void removeFromList()		 { boxBaseList.remove(this); }
+		private	void removeFromList()		 { boxBaseList.remove(this); }
 		private void addToList() 			 { boxBaseList.add(this); }
 		private void initGuide(String label) { this.label = label; }
 		private void initGuide(IParam param) { this.param = param; }
-		IParam param()	 					 { return param; }
 		private void mouseBoxIndex(int idx)	 { mouseBoxIndex = idx; }
 		// ========== Doers ==========
 		//
@@ -785,7 +786,7 @@ public abstract class BaseModPanel extends BasePanel
 			}
 			return false;
 		}
-		void mouseEnter() {
+		private void mouseEnter() {
 			if (modText != null) {
 				if (param != null)
 					param.updated(true);
@@ -843,8 +844,8 @@ public abstract class BaseModPanel extends BasePanel
 			}
 			return guide;
 		}
-		public 	int	   mouseBoxIndex()		 { return mouseBoxIndex; }
-		String getLabelDescription()		 { return IParam.langDesc(label); }
+		int	    mouseBoxIndex()				 { return mouseBoxIndex; }
+		private String getLabelDescription() { return IParam.langDesc(label); }
 		private String getLabelHelp()		 { return IParam.langHelp(label); }
 		private String getParamDescription() {
 			if (param == null)
@@ -879,7 +880,7 @@ public abstract class BaseModPanel extends BasePanel
 		
 		private final Box box;
 		private final int baseFontsize;
-		public boolean forceHover = false;
+		boolean forceHover = false;
 		@Override protected Color textColor() {
 			if (forceHover)
 				return hoverC;
@@ -896,7 +897,7 @@ public abstract class BaseModPanel extends BasePanel
 		* @param c5		shadeC
 		* @param add	add to box list
 		*/
-		public ModText(BasePanel p, int fSize, Color c1, Color c2, Color c3, Color c4, Color c5, boolean add) {
+		ModText(BasePanel p, int fSize, Color c1, Color c2, Color c3, Color c4, Color c5, boolean add) {
 			super(p, false, fSize, 0, 0, c1, c2, c3, c4, c5, 0, 0, 0);
 			box = new Box(this, add);
 			baseFontsize = fSize;

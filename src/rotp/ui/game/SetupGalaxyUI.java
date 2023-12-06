@@ -119,7 +119,7 @@ import rotp.util.ModifierKeysState;
 public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelListener {
 	private static final long serialVersionUID = 1L;
     // public  static final String guiTitleID	= "SETUP_GALAXY";
-	public  static final String GUI_ID       = "START_GALAXY";
+	private	static final String GUI_ID       = "START_GALAXY";
 	private static final String BACK_KEY	 = "SETUP_BUTTON_BACK";
 	private static final String RESTART_KEY	 = "SETUP_BUTTON_RESTART";
 	private static final String START_KEY	 = "SETUP_BUTTON_START";

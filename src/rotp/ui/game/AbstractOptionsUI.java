@@ -214,7 +214,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 	}
 	private Font descFont() {
 		if (descFont == null)
-			descFont = narrowFont((int)  (descFontSize * retinaFactor));
+			descFont = narrowFont(retina(descFontSize));
 		return descFont;
 	}
 	private void paintSetting(Graphics2D g, ModText txt, String desc) {
@@ -240,10 +240,7 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 			gi.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
 			
 			if (retina) {
-				if (retinaFactor > 1)
-					gi.setStroke(stroke6);
-				else
-					gi.setStroke(stroke1);
+				gi.setStroke(stroke6);
 				txt.fontMult(retinaFactor);
 			}
 			else

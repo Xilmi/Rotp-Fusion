@@ -96,7 +96,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		optionsList = paramList;
 		init_0();
 	}
-	public CompactOptionsUI(String guiTitle_ID, String guiId) {
+	CompactOptionsUI(String guiTitle_ID, String guiId) {
 		guiTitleID = guiTitle_ID;
 		GUI_ID = guiId;
 		init_0();
@@ -219,7 +219,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		IParam param = activeList.get(index);
 		boolean refresh = forceUpdate || param.updated();
 		if (refresh) {
-			BufferedImage img = new BufferedImage((int)(columnWidth*retinaFactor), (int)(textBoxH*retinaFactor), TYPE_INT_ARGB);
+			BufferedImage img = new BufferedImage(retina(columnWidth), retina(textBoxH), TYPE_INT_ARGB);
 			Graphics2D gi	 = (Graphics2D) img.getGraphics();
 			gi.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 			gi.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
@@ -243,14 +243,14 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 				txtLeft.enabledC(GameUI.textColor());
 				txtRight.forceHover = false;				
 				int sw	= txtLeft.stringWidth(gi);
-				int dx	= ((int)(columnWidth*retinaFactor) - sw)/2;
-				txtLeft.setScaledXY(dx, (int)((rowPad+s7)*retinaFactor));
+				int dx	= (retina(columnWidth) - sw)/2;
+				txtLeft.setScaledXY(dx, retina(rowPad+s7));
 				txtLeft.draw(gi);
 				gi.dispose();
 				if (retina) {
 					int y = ySetting-rowPad;
 					g.drawImage(img, xSetting, y, xSetting+columnWidth, y+textBoxH,
-							0, 0, (int)(columnWidth*retinaFactor), (int)(textBoxH*retinaFactor), null);
+							0, 0, retina(columnWidth), retina(textBoxH), null);
 					txtLeft.fontMult(1);
 					txtRight.fontMult(1);
 				} 
@@ -259,7 +259,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 
 				param.updated(false);
 				imgList.put(index, img);
-				txtLeft.setScaledXY(xSetting+(int)(dx/retinaFactor), ySetting+s7);
+				txtLeft.setScaledXY(xSetting+invRetina(dx), ySetting+s7);
 				txtLeft.updateBounds(g);
 				txtLeft.forceHover  = false;
 			}
@@ -267,16 +267,16 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 				int swLeft	= txtLeft.stringWidth(gi);
 				int swRight	= txtRight.stringWidth(gi);
 				int sw		= swLeft + swRight;
-				int dx		= ((int)(columnWidth*retinaFactor) - sw)/2;
-				txtLeft.setScaledXY(dx, (int)((rowPad+s7)*retinaFactor));
-				txtRight.setScaledXY(dx + swLeft, (int)((rowPad+s7)*retinaFactor));
+				int dx		= (retina(columnWidth) - sw)/2;
+				txtLeft.setScaledXY(dx, retina(rowPad+s7));
+				txtRight.setScaledXY(dx + swLeft, retina(rowPad+s7));
 				txtLeft.draw(gi);
 				txtRight.draw(gi);
 				gi.dispose();
 				if (retina) {
 					int y = ySetting-rowPad;
 					g.drawImage(img, xSetting, y, xSetting+columnWidth, y+textBoxH,
-							0, 0, (int)(columnWidth*retinaFactor), (int)(textBoxH*retinaFactor), null);
+							0, 0, retina(columnWidth), retina(textBoxH), null);
 					txtLeft.fontMult(1);
 					txtRight.fontMult(1);
 				} 
@@ -298,7 +298,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 			int y = ySetting-rowPad;
 			int w = img.getWidth();
 			int h = img.getHeight();
-			g.drawImage(img, xSetting, y, xSetting+(int)(w/retinaFactor), y+(int)(h/retinaFactor), 0, 0, w, h, null);
+			g.drawImage(img, xSetting, y, xSetting+invRetina(w), y+invRetina(h), 0, 0, w, h, null);
 		}
 		else
 			g.drawImage(imgList.get(index), xSetting, ySetting-rowPad, null);
@@ -347,7 +347,7 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 		parentUI = ui;
 		start();
 	}
-	protected void start() { // Called from subUI
+	private void start() { // Called from subUI
 		super.init();
 		hoverBox = null;
 		prevHover = null;

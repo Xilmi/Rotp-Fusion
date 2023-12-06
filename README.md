@@ -63,6 +63,9 @@ Later:
 ## What's New
 
 2023.12.05 (BR)
+- Cleaned retina changes.
+
+2023.12.05 (BR)
 - Added Apple Retina Screen compatibility.
 - Improved retina Species setting panel Ship Quality.
 

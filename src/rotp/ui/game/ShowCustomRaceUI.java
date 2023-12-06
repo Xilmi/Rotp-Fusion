@@ -352,7 +352,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 			int y = yLine -s12;
 			int w = img.getWidth();
 			int h = img.getHeight();
-			g.drawImage(img, xLine, y, xLine+(int)(w/retinaFactor), y+(int)(h/retinaFactor), 0, 0, w, h, null);
+			g.drawImage(img, xLine, y, xLine+invRetina(w), y+invRetina(h), 0, 0, w, h, null);
 		}
 		else
 			g.drawImage(setting.getImage(),xLine, yLine -s12, null);
