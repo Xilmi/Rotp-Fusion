@@ -901,7 +901,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
     }
     private void initFleetBackImg() {
 		long timeStart = System.currentTimeMillis();
-		fleetBackImg = new BufferedImage((int)(fleetWidth*retinaFactor), (int)(fleetHeight*retinaFactor), TYPE_INT_ARGB);
+		fleetBackImg = new BufferedImage(retina(fleetWidth), retina(fleetHeight), TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D) fleetBackImg.getGraphics();
         g.setComposite(AlphaComposite.SrcOver);
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -913,9 +913,9 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 		BufferedImage shipBack = shipBackImg();
         for(int i=0; i<shipNum; i++) {
             int x = 0;
-            int y = i * (int)((shipDist*retinaFactor));
-            g.drawImage(shipBack, x, y, (int)(shipWidth*retinaFactor), (int)(shipHeight*retinaFactor), null);
-            g.drawImage(getShipImage(i), x, y, (int)(shipWidth*retinaFactor), (int)(shipHeight*retinaFactor), null);
+            int y = i * retina(shipDist);
+            g.drawImage(shipBack, x, y, retina(shipWidth), retina(shipHeight), null);
+            g.drawImage(getShipImage(i), x, y, retina(shipWidth), retina(shipHeight), null);
         }
         g.dispose();
 		if (showTiming)
@@ -923,16 +923,16 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
     }
     private BufferedImage getShipBackImg() {
 		long timeStart = System.currentTimeMillis();
-		int shipW = (int)(shipWidth*retinaFactor);
-		int shipH = (int)(shipHeight*retinaFactor);
-		BufferedImage shipBackImg = gc().createCompatibleImage(shipW, shipH);
+		int shipW = retina(shipWidth);
+		int shipH = retina(shipHeight);
+		BufferedImage shipBackImg = new BufferedImage(shipW, shipH, TYPE_INT_ARGB);
         Point2D center = new Point2D.Float(shipW/2f, shipH/2f);
         float radius = s60*retinaFactor;
         float[] dist = {0.0f, 0.55f, 0.85f, 1.0f};
         Color[] colors = {GameUI.raceCenterColor(), GameUI.raceCenterColor(), GameUI.raceEdgeColor(), GameUI.raceEdgeColor()};
         RadialGradientPaint p = new RadialGradientPaint(center, radius, dist, colors);
         Graphics2D g = (Graphics2D) shipBackImg.getGraphics();
-        g.setPaint(p);
+		g.setPaint(p);
         g.fillRect(0, 0, shipW, shipH);
         g.dispose();
 		if (showTiming)
@@ -1152,7 +1152,7 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
         Image img = icon(images.baseIcon()).getImage();
         int w0 = img.getWidth(null);
         int h0 = img.getHeight(null);
-        float scale = min((float)shipWidth/w0, (float)shipHeight/h0);
+        float scale = min(shipWidth*2f/w0, shipHeight*2f/h0);
         int w1 = (int)(scale*w0);
         int h1 = (int)(scale*h0);
         BufferedImage resizedImg = new BufferedImage(w1,h1, TYPE_INT_ARGB);

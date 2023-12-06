@@ -64,6 +64,7 @@ Later:
 
 2023.12.05 (BR)
 - Added Apple Retina Screen compatibility.
+- Improved retina Species setting panel Ship Quality.
 
 2023.12.01 (BR)
 - SmartMax new compromise:
