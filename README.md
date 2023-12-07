@@ -62,6 +62,9 @@ Later:
 
 ## What's New
 
+2023.12.07 (BR)
+- Num (/) * - 9 + : Loop thru systems with Flags ("SHIFT-" Reverse)("CTRL-" Same Flag Color)
+
 2023.12.06 (BR)
 - Cleaned retina changes.
 - Num / * 9 8 : Loop thru systems with Flags ("CTRL-" Same Flag Color)

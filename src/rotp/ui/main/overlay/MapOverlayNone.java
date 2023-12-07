@@ -513,39 +513,34 @@ public class MapOverlayNone extends MapOverlay {
                     parent.repaint();
                 }
                 break;
-            case KeyEvent.VK_DIVIDE:
-                currSys = parent.displayPanel().systemViewToDisplay();
-                currSys = player().nextFlaggedSystems(currSys, 1, ctrl);
-                parent.clickingOnSprite(currSys, 1, false, true, false);
-//                parent.clickedSprite(currSys);
-                parent.map().recenterMapOn(currSys);
-                parent.repaint();
+            case KeyEvent.VK_MULTIPLY:
+            	nextFlag(1, shift, ctrl);
             	break;
-           case KeyEvent.VK_MULTIPLY:
-               currSys = parent.displayPanel().systemViewToDisplay();
-               currSys = player().nextFlaggedSystems(currSys, 2, ctrl);
-               parent.clickingOnSprite(currSys, 1, false, true, false);
-               parent.map().recenterMapOn(currSys);
-               parent.repaint();
-            	break;
-            case KeyEvent.VK_NUMPAD8:
-                currSys = parent.displayPanel().systemViewToDisplay();
-                currSys = player().nextFlaggedSystems(currSys, 4, ctrl);
-                parent.clickingOnSprite(currSys, 1, false, true, false);
-                parent.map().recenterMapOn(currSys);
-                parent.repaint();
+            case KeyEvent.VK_SUBTRACT:
+        	   nextFlag(2, shift, ctrl);
             	break;
             case KeyEvent.VK_NUMPAD9:
-                currSys = parent.displayPanel().systemViewToDisplay();
-                currSys = player().nextFlaggedSystems(currSys, 3, ctrl);
-                parent.clickingOnSprite(currSys, 1, false, true, false);
-                parent.map().recenterMapOn(currSys);
-                parent.repaint();
+            case KeyEvent.VK_9:
+            case KeyEvent.VK_DIVIDE:
+            	nextFlag(4, shift, ctrl);
             	break;
-             default:
+            case KeyEvent.VK_ADD:
+            	nextFlag(3, shift, ctrl);
+            	break;
+            default:
                 parent.displayPanel().keyPressed(e);
                 break;
         }
         return true;
+    }
+    private void nextFlag(int flagId, boolean shift, boolean ctrl) {
+    	StarSystem currSys = parent.lastSystemSelected();
+        currSys = player().nextFlaggedSystems(currSys, flagId, ctrl, shift);
+        if(currSys != null) {
+        	parent.clickingOnSprite(currSys, 1, false, true, false);
+        	parent.clickedSprite(currSys);
+            parent.map().recenterMapOn(currSys);
+            parent.repaint();
+        }
     }
 }

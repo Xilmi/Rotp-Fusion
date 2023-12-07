@@ -53,17 +53,17 @@ public interface IFlagOptions extends IBaseOptsTools {
 
 	// ========================================================================
 	// BR: AUTO-FLAG PARAMETERS SUB UI
-	ParamInteger loopFlag			= new ParamInteger(MOD_UI, "LOOP_FLAG", 0, 0, 4, 1, 1, 1) {
-		{
-			loop(true);
-			specialValue(0, MOD_UI + "LOOP_NONE");
-			specialValue(1,	MOD_UI + "LOOP_TOP_LEFT");
-			specialValue(2,	MOD_UI + "LOOP_TOP_RIGHT");
-			specialValue(3,	MOD_UI + "LOOP_BOTTOM_RIGHT");
-			specialValue(4,	MOD_UI + "LOOP_BOTTOM_LEFT");
-		}
-	};
-	default int selectedLoopFlag()	{ return loopFlag.get(); } 
+//	ParamInteger loopFlag			= new ParamInteger(MOD_UI, "LOOP_FLAG", 0, 0, 4, 1, 1, 1) {
+//		{
+//			loop(true);
+//			specialValue(0, MOD_UI + "LOOP_NONE");
+//			specialValue(1,	MOD_UI + "LOOP_TOP_LEFT");
+//			specialValue(2,	MOD_UI + "LOOP_TOP_RIGHT");
+//			specialValue(3,	MOD_UI + "LOOP_BOTTOM_RIGHT");
+//			specialValue(4,	MOD_UI + "LOOP_BOTTOM_LEFT");
+//		}
+//	};
+//	default int selectedLoopFlag()	{ return loopFlag.get(); } 
 
 	ParamList autoFlagAssignation1	= new ParamList(MOD_UI, "AUTO_FLAG_ASSIGN_1",
 			AUTO_FLAG_NOT, flagAssignationMap) {
@@ -147,8 +147,8 @@ public interface IFlagOptions extends IBaseOptsTools {
 				autoFlagAssignation1, autoFlagAssignation2,
 				autoFlagAssignation3, autoFlagAssignation4,
 
-				headerSpacer,
-				loopFlag,
+//				headerSpacer,
+//				loopFlag,
 				
 				headerSpacer,
 				new ParamTitle("AUTO_FLAG_COLONY_TECH"),

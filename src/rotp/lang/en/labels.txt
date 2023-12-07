@@ -2495,13 +2495,13 @@ SETTINGS_MOD_ZOOM_OPTIONS_UI_HELP        | Open Sub Menu to set several In-Game 
 SETTINGS_MOD_FLAG_COLOR_COUNT_DESC       | How may colors should appear on the Star System Flag?
 SETTINGS_MOD_FLAG_COLOR_COUNT            | Flag Color Count: %1
 
-SETTINGS_MOD_LOOP_FLAG_DESC              | Flag to be used to loop thru preferred star systems?
-SETTINGS_MOD_LOOP_FLAG                   | Loop Flag: %1
-SETTINGS_MOD_LOOP_NONE                   | None
-SETTINGS_MOD_LOOP_TOP_LEFT               | Top Left
-SETTINGS_MOD_LOOP_TOP_RIGHT              | Top Right
-SETTINGS_MOD_LOOP_BOTTOM_RIGHT           | Bottom Right
-SETTINGS_MOD_LOOP_BOTTOM_LEFT            | Bottom Left
+// SETTINGS_MOD_LOOP_FLAG_DESC              | Flag to be used to loop thru preferred star systems?
+// SETTINGS_MOD_LOOP_FLAG                   | Loop Flag: %1
+// SETTINGS_MOD_LOOP_NONE                   | None
+// SETTINGS_MOD_LOOP_TOP_LEFT               | Top Left
+// SETTINGS_MOD_LOOP_TOP_RIGHT              | Top Right
+// SETTINGS_MOD_LOOP_BOTTOM_RIGHT           | Bottom Right
+// SETTINGS_MOD_LOOP_BOTTOM_LEFT            | Bottom Left
 
 SETTINGS_MOD_AUTO_FLAG_ASSIGN_1_DESC     | Select the parameter that will be automatically associated with the Top Left flag. (Only the first time a Star System is scouted)
 SETTINGS_MOD_AUTO_FLAG_ASSIGN_1          | Auto-Flag 1: %1
@@ -4018,7 +4018,7 @@ HK_MAP_ARROWS | <br>Arrows : Move Map.
 HK_MAP_ZOOM   | <br>+/- : Zoom Map. ("ALT-" : Full view of the galaxy) <br>Mousewheel : Zoom Map.
 HK_TAB        | <br>Tab/+SHIFT : Next/Previous Tab.
 HK_YEAR       | <br>Y : Toggle Year Display.
-HK_FLAG_LOOP  | <br>Num / * 9 8 : Loop thru Flags ("CTRL-" Same Flag Color)
+HK_FLAG_LOOP  | <br>(Num) * - 9 + : Loop thru Flags ("SHIFT-" Reverse) ("CTRL-" Same Flag Color)
 
 HK_FOG        | <br>F : Show / Hide Fog on Diplomat Icons. 
 HK_GUIDE      | <br>G : Toggle Guide.

@@ -4117,36 +4117,72 @@ public final class Empire implements Base, NamedObject, Serializable {
         if (cv != null)
             cv.spies().scanShip(st);
     }
-    public StarSystem nextFlaggedSystems(StarSystem currSys, int flagId, boolean sameColor) { // TODO BR:
+    // TODO BR:
+//    public StarSystem nextFlaggedSystems(StarSystem currSys, int flagId, boolean sameColor, boolean reverse) {
+//    	if (currSys == null)
+//    		return currSys;
+//        Galaxy gal = galaxy();
+//        int currId = currSys.id;
+//        int lim = sv.count();
+//        if (sameColor) {
+//        	int colorId = sv.view(currSys.id).getFlagColor(flagId);
+//            for (int n=currId+1; n<lim; n++) {
+//                if (sv.view(n).hasFlagColor(flagId, colorId))
+//                	return gal.system(n);
+//            }
+//            for (int n=0; n<currId; n++) {
+//                if (sv.view(n).hasFlagColor(flagId, colorId))
+//                	return gal.system(n);
+//            }
+//        }
+//        else {
+//            for (int n=currId+1; n<lim; n++) {
+//                if (sv.view(n).hasFlag(flagId))
+//                	return gal.system(n);
+//            }
+//            for (int n=0; n<currId; n++) {
+//               if (sv.view(n).hasFlag(flagId))
+//                	return gal.system(n);
+//            }
+//        }
+//    	return currSys;
+//    }
+    public StarSystem nextFlaggedSystems(StarSystem currSys, int flagId, boolean sameColor, boolean reverse) {
+    	if (currSys == null)
+    		return currSys;
+    	LinkedList<StarSystem> list = new LinkedList<>();
         Galaxy gal = galaxy();
-        int currId = currSys.id;
         int lim = sv.count();
+        // Build the list
         if (sameColor) {
         	int colorId = sv.view(currSys.id).getFlagColor(flagId);
-            for (int n=currId+1; n<lim; n++) {
-                StarSystem sys = gal.system(n);
-                if (sv.view(sys.id).hasFlagColor(flagId, colorId))
-                	return sys;
-            }
-            for (int n=0; n<currId; n++) {
-                StarSystem sys = gal.system(n);
-                if (sv.view(sys.id).hasFlagColor(flagId, colorId))
-                	return sys;
-            }
+            for (int n=0; n<lim; n++)
+                if (sv.view(n).hasFlagColor(flagId, colorId))
+                	list.add(gal.system(n));
+        }
+        else
+            for (int n=0; n<lim; n++)
+                if (sv.view(n).hasFlag(flagId))
+                	list.add(gal.system(n));
+        if (list.size() <= 1)
+            return currSys;
+
+        // Sort the List
+        Collections.sort(list, IMappedObject.MAP_ORDER);
+        
+        // Get Next index
+        int index = list.indexOf(currSys);
+        if (reverse) {
+        	index--;
+        	if (index < 0)
+        		index = list.size()-1;
         }
         else {
-            for (int n=currId+1; n<lim; n++) {
-                StarSystem sys = gal.system(n);
-                if (sv.view(sys.id).hasFlag(flagId))
-                	return sys;
-            }
-            for (int n=0; n<currId; n++) {
-                StarSystem sys = gal.system(n);
-                if (sv.view(sys.id).hasFlag(flagId))
-                	return sys;
-            }
+        	index++;
+        	if (index >= list.size())
+        		index = 0;
         }
-    	return currSys;
+        return list.get(index);
     }
     public List<StarSystem> orderedColonies() {
         List<StarSystem> list = new ArrayList<>(allColonizedSystems());
