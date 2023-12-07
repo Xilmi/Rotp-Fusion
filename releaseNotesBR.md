@@ -1,6 +1,11 @@
 Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Updates since last releases:</ins></b>
+- New hotkeys to loop thru flagged star systems:
+  - Num / : Loop thru systems with top left flag ("CTRL-/" Same Flag Color only)
+  - Num * : Loop thru systems with top right flag ("CTRL-*" Same Flag Color)
+  - Num 8 : Loop thru systems with bottom left flag ("CTRL-8" Same Flag Color only)
+  - Num 9 : Loop thru systems with bottom right flag ("CTRL-9" Same Flag Color)
 
 <b><ins>Optimisation:</ins></b>
 - Fixed Apple Retina Screen compatibility.

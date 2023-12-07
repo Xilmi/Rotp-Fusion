@@ -4117,6 +4117,37 @@ public final class Empire implements Base, NamedObject, Serializable {
         if (cv != null)
             cv.spies().scanShip(st);
     }
+    public StarSystem nextFlaggedSystems(StarSystem currSys, int flagId, boolean sameColor) { // TODO BR:
+        Galaxy gal = galaxy();
+        int currId = currSys.id;
+        int lim = sv.count();
+        if (sameColor) {
+        	int colorId = sv.view(currSys.id).getFlagColor(flagId);
+            for (int n=currId+1; n<lim; n++) {
+                StarSystem sys = gal.system(n);
+                if (sv.view(sys.id).hasFlagColor(flagId, colorId))
+                	return sys;
+            }
+            for (int n=0; n<currId; n++) {
+                StarSystem sys = gal.system(n);
+                if (sv.view(sys.id).hasFlagColor(flagId, colorId))
+                	return sys;
+            }
+        }
+        else {
+            for (int n=currId+1; n<lim; n++) {
+                StarSystem sys = gal.system(n);
+                if (sv.view(sys.id).hasFlag(flagId))
+                	return sys;
+            }
+            for (int n=0; n<currId; n++) {
+                StarSystem sys = gal.system(n);
+                if (sv.view(sys.id).hasFlag(flagId))
+                	return sys;
+            }
+        }
+    	return currSys;
+    }
     public List<StarSystem> orderedColonies() {
         List<StarSystem> list = new ArrayList<>(allColonizedSystems());
         Collections.sort(list, IMappedObject.MAP_ORDER);

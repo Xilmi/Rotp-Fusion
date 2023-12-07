@@ -20,6 +20,7 @@ import static rotp.ui.util.IParam.langLabel;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import java.util.LinkedHashMap;
 
 import rotp.model.game.IGameOptions;
 import rotp.ui.game.BaseModPanel;
@@ -29,10 +30,9 @@ public class ParamInteger extends AbstractParam<Integer> {
 	private boolean	loop		 	= false;
 	private boolean specialNegative	= false;
 	private boolean specialZero		= false;
-	private Integer	specialValue	= null;
 	private String	negativeLabel	= "";
 	private String	zeroLabel		= "";
-	private String	specialLabel	= "";
+	private LinkedHashMap<Integer, String> specialMap = new LinkedHashMap<>();
 
 	// ========== constructors ==========
 	//
@@ -107,8 +107,7 @@ public class ParamInteger extends AbstractParam<Integer> {
 		return this;
 	}
 	public ParamInteger specialValue(Integer value, String messageLabel) { // TODO BR: create special values map
-		specialValue = value;
-		specialLabel = (messageLabel == null)? "" : messageLabel;
+		specialMap.put(value, messageLabel);
 		return this;
 	}
 	// ===== Overriders =====
@@ -127,7 +126,7 @@ public class ParamInteger extends AbstractParam<Integer> {
 		if (isSpecialZero())
 			return langLabel(zeroLabel);
 		if (isSpecial())
-			return langLabel(specialLabel);
+			return langLabel(specialMap.get(get()));
 		return super.guideValue();
 	}
 	@Override public void setFromCfgValue(String newValue) {
@@ -156,9 +155,7 @@ public class ParamInteger extends AbstractParam<Integer> {
 	}
 	public void next(MouseEvent e)		{ next(Math.abs(getInc(e))); }
 	public void prev(MouseEvent e)		{ next(-Math.abs(getInc(e))); }
-	public boolean isSpecial()			{
-		return (specialValue != null) && (specialValue.equals(get()));
-	}
+	public boolean isSpecial()			{ return specialMap.containsKey(get()); }
 	public boolean isSpecialZero()		{ return specialZero && (get().equals(0)); }
 	public boolean isSpecialNegative()	{ return specialNegative && (get() < 0); }
 	public String  negativeLabel()		{ return negativeLabel; }

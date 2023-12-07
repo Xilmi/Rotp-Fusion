@@ -2495,6 +2495,17 @@ SETTINGS_MOD_ZOOM_OPTIONS_UI_HELP        | Open Sub Menu to set several In-Game 
 SETTINGS_MOD_FLAG_COLOR_COUNT_DESC       | How may colors should appear on the Star System Flag?
 SETTINGS_MOD_FLAG_COLOR_COUNT            | Flag Color Count: %1
 
+SETTINGS_MOD_LOOP_FLAG_DESC              | Flag to be used to loop thru preferred star systems?
+SETTINGS_MOD_LOOP_FLAG                   | Loop Flag: %1
+SETTINGS_MOD_LOOP_NONE                   | None
+SETTINGS_MOD_LOOP_TOP_LEFT               | Top Left
+SETTINGS_MOD_LOOP_TOP_RIGHT              | Top Right
+SETTINGS_MOD_LOOP_BOTTOM_RIGHT           | Bottom Right
+SETTINGS_MOD_LOOP_BOTTOM_LEFT            | Bottom Left
+
+SETTINGS_MOD_AUTO_FLAG_ASSIGN_1_DESC     | Select the parameter that will be automatically associated with the Top Left flag. (Only the first time a Star System is scouted)
+SETTINGS_MOD_AUTO_FLAG_ASSIGN_1          | Auto-Flag 1: %1
+
 SETTINGS_MOD_AUTO_FLAG_TITLE             | Auto-Flag Menu
 SETTINGS_MOD_AUTO_FLAG_UI_DESC           | Open Sub Menu to set the parameters that will be automatically associated with flags. (Only the first time a Star System is scouted)
 SETTINGS_MOD_AUTO_FLAG_UI                | - Auto-Flag Options Menu -
@@ -4007,13 +4018,14 @@ HK_MAP_ARROWS | <br>Arrows : Move Map.
 HK_MAP_ZOOM   | <br>+/- : Zoom Map. ("ALT-" : Full view of the galaxy) <br>Mousewheel : Zoom Map.
 HK_TAB        | <br>Tab/+SHIFT : Next/Previous Tab.
 HK_YEAR       | <br>Y : Toggle Year Display.
+HK_FLAG_LOOP  | <br>Num / * 9 8 : Loop thru Flags ("CTRL-" Same Flag Color)
 
 HK_FOG        | <br>F : Show / Hide Fog on Diplomat Icons. 
 HK_GUIDE      | <br>G : Toggle Guide.
 
 
-// Shortcuts Full lists
-MAIN_HELP_HK         | →HK_HEADER← →HK_F1_?←<br>F2/F3 : Next/Previous player colony<br>F5/F6 : Next/Previous player colony that has constructed a ship this turn<br>F7/F8 : Next/Previous player colony with incoming armed enemy fleets or transports<br>F9/F10 : Next/Previous player fleet<br>F11/F12 : Next/Previous AI fleet<br>Space/PageDown/PageUp : Next/Previous player Idle fleet<br><br>G : Select Game Panel<br>S : Select System Panel<br>F : Select Fleet Panel<br>D : Select Design Panel<br>R, E : Select Empire Panel<br>C : Select Colonies Panel<br>T : Select Tech Panel<br>N : Next Turn<br>O : Select Option Panel →HK_YEAR←<br>SHIFT-S : Show spy report<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Mousewheel : Increment quantities/moves slider<br>→HK_ESCAPE←
+// Shortcuts Full lists*
+MAIN_HELP_HK         | →HK_HEADER← →HK_F1_?←<br>F2/F3 : Next/Previous player colony<br>F5/F6 : Next/Previous player colony that has constructed a ship this turn<br>F7/F8 : Next/Previous player colony with incoming armed enemy fleets or transports<br>F9/F10 : Next/Previous player fleet<br>F11/F12 : Next/Previous AI fleet<br>Space/PageDown/PageUp : Next/Previous player Idle fleet →HK_FLAG_LOOP←<br><br>G : Select Game Panel<br>S : Select System Panel<br>F : Select Fleet Panel<br>D : Select Design Panel<br>R, E : Select Empire Panel<br>C : Select Colonies Panel<br>T : Select Tech Panel<br>N : Next Turn<br>O : Select Option Panel →HK_YEAR←<br>SHIFT-S : Show spy report<br>→HK_HOME← →HK_ALT_HOME← →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5← <br> →HK_MAP_ARROWS← →HK_MAP_ZOOM← <br>Mousewheel : Increment quantities/moves slider<br>→HK_ESCAPE←
 
 PLANETS_HELP_HK      | →HK_HEADER← →HK_F1←<br><br>Arrows Up/Down : Scroll Up/Down<br>Arrows Right/Left : Next/Previous Colony. →HK_TAB← →HK_FLAG← →HK_HOME←<br> →HK_B_SHIFT_B← →HK_1_5← →HK_CTRL_1_5←<br><br>CTRL+A : Select All Systems<br>Q/+CTRL : Select Normal And Rich With Full Economy / + Set Ship spending to 100%<br>Y,Z/+CTRL : Select Lacking Population / + Set Eco spending to 100%<br><br>S/+CTRL/+SHIFT : Current Selection Ship Spending to 100% / Lock / Unlock<br>D/+CTRL/+SHIFT : Current Selection Defense Spending to 100% / Lock / Unlock<br>W/+CTRL/+SHIFT : Current Selection Industry Spending to 100% / Lock / Unlock<br>E/+CTRL/+SHIFT : Current Selection Ecology Spending to 100% / Lock / Unlock<br>R/+CTRL/+SHIFT : Current Selection Research Spending to 100% / Lock / Unlock<br>G/+CTRL/+SHIFT : Current Selection Governor Toggle / On / Off <br>→HK_ESCAPE←
 

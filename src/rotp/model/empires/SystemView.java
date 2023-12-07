@@ -373,12 +373,12 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
 		setFlagColor(color, id);
     }
     private void clearFlagColor(Planet planet, int id) { setFlagColor(0, id); }
-    private void setFlagColor(int color, int id) { // BR: flagColorCount
+    private void setFlagColor(int color, int id)	{ // BR: flagColorCount
     	flagColor = getMixedColor(flagColor, color, id);
     }
-    private int getFlagColor(int id) { // BR: flagColorCount
-    	return getBaseColor(flagColor, id);
-    }
+    int getFlagColor(int id)						{ return getBaseColor(flagColor, id); }
+    public	boolean hasFlag(int id)					{ return getFlagColor(id) != FLAG_NONE; }
+    public	boolean hasFlagColor(int id, int color) { return getFlagColor(id) == color; }
     private int getMixedColor(int mixedColor, int color, int id) { // BR: flagColorCount
     	return getFilteredColor(mixedColor, id) | getShiftedColor(color, id);
     }

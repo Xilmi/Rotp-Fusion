@@ -263,9 +263,10 @@ public class MainUI extends BasePanel implements IMapHandler {
         if (helpFrame == 0)
             return;
         helpFrame++;
-        if (helpFrame > numHelpFrames) 
-            cancelHelp();
-        loadHelpUI();
+        if (helpFrame > numHelpFrames)
+        	cancelHelp();
+        else
+        	loadHelpUI();
         repaint();
     }
     public void showMemoryLowPrompt() {
@@ -382,6 +383,7 @@ public class MainUI extends BasePanel implements IMapHandler {
     private void loadHotKeysUI() {
         if (helpFrame == 0)
             return;
+    	helpFrame = numHelpFrames+2;
         
         Sprite spr = this.clickedSprite();
         if (spr instanceof SystemTransportSprite) {

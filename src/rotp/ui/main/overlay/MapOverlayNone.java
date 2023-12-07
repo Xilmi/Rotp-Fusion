@@ -64,7 +64,7 @@ public class MapOverlayNone extends MapOverlay {
             return true;
         }
         boolean shift = e.isShiftDown();
-        //boolean ctrl  = e.isControlDown();
+        boolean ctrl  = e.isControlDown();
         int s40 = BasePanel.s40;
         List<StarSystem> systems;
         List<ShipFleet> fleets;
@@ -513,7 +513,36 @@ public class MapOverlayNone extends MapOverlay {
                     parent.repaint();
                 }
                 break;
-            default:
+            case KeyEvent.VK_DIVIDE:
+                currSys = parent.displayPanel().systemViewToDisplay();
+                currSys = player().nextFlaggedSystems(currSys, 1, ctrl);
+                parent.clickingOnSprite(currSys, 1, false, true, false);
+//                parent.clickedSprite(currSys);
+                parent.map().recenterMapOn(currSys);
+                parent.repaint();
+            	break;
+           case KeyEvent.VK_MULTIPLY:
+               currSys = parent.displayPanel().systemViewToDisplay();
+               currSys = player().nextFlaggedSystems(currSys, 2, ctrl);
+               parent.clickingOnSprite(currSys, 1, false, true, false);
+               parent.map().recenterMapOn(currSys);
+               parent.repaint();
+            	break;
+            case KeyEvent.VK_NUMPAD8:
+                currSys = parent.displayPanel().systemViewToDisplay();
+                currSys = player().nextFlaggedSystems(currSys, 4, ctrl);
+                parent.clickingOnSprite(currSys, 1, false, true, false);
+                parent.map().recenterMapOn(currSys);
+                parent.repaint();
+            	break;
+            case KeyEvent.VK_NUMPAD9:
+                currSys = parent.displayPanel().systemViewToDisplay();
+                currSys = player().nextFlaggedSystems(currSys, 3, ctrl);
+                parent.clickingOnSprite(currSys, 1, false, true, false);
+                parent.map().recenterMapOn(currSys);
+                parent.repaint();
+            	break;
+             default:
                 parent.displayPanel().keyPressed(e);
                 break;
         }
