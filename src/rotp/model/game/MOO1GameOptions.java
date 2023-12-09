@@ -1289,7 +1289,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         source.copyAllBaseSettings(this);
     }
     @Override public void updateFromFile(String fileName, LinkedList<IParam> pList) {
-    	if (pList == null)
+   	if (pList == null)
     		return;
     	MOO1GameOptions source = loadOptions(fileName);
     	

@@ -460,7 +460,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		return new ParamSubUI( MOD_UI, COMMON_GUI_ID, commonOptionsMap())
 		{ { isCfgFile(false); } };
 	}
-	ParamSubUI commonOptionsUI	= commonOptionsUI();
+//	ParamSubUI commonOptionsUI	= commonOptionsUI();
 
 	static LinkedList<IParam> commonOptions() {
 		return IBaseOptsTools.getSingleList(commonOptionsMap());

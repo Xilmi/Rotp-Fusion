@@ -574,13 +574,15 @@ public final class Colony implements Base, IMappedObject, Serializable {
             message = text(messageKey, sys.name(), rebels);
             message = empire.replaceTokens(message, "rebelling");
             galaxy().giveAdvice("MAIN_ADVISOR_REBELLION", sys.name());
+            GNNNotification.notifyRebellion(message, true);
         }
         else if (empire.hasContact(pl) && pl.sv.isScouted(sys.id)) {
             message = text("GNN_ALIEN_REBELLION", pl.sv.name(sys.id), rebels);
             message = empire.replaceTokens(message, "rebelling");
+            GNNNotification.notifyRebellion(message, false);
         }
-        if (message != null)
-            GNNNotification.notifyRebellion(message);
+//        if (message != null)
+//            GNNNotification.notifyRebellion(message);
     }
 
     public float orderAdjustment() {
@@ -1155,7 +1157,9 @@ public final class Colony implements Base, IMappedObject, Serializable {
         }
         if (empire.isPlayerControlled()
         		&& !isGovernor()
-        		&& options().transportAutoRefill())
+        		&& options().transportAutoRefill()
+        		&& population !=0
+        		)
         	smoothMaxSlider(ECOLOGY);
         
         governIfNeeded();

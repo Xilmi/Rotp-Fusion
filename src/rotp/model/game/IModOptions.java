@@ -46,6 +46,7 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 	 * @param fileName
 	 * @param paramList
 	 */
+//	void updateFromFile (String fileName, LinkedList<IParam> paramList, boolean includeCfg);
 	void updateFromFile (String fileName, LinkedList<IParam> paramList);
 	/**
 	 * update the listed parameters From their default values

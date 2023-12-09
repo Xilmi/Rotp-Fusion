@@ -18,29 +18,33 @@ package rotp.ui.notifications;
 import java.util.List;
 import rotp.model.empires.Empire;
 import rotp.model.game.GameSession;
+import rotp.model.game.IGameOptions;
 import rotp.ui.RotPUI;
 
 public class GNNNotification implements TurnNotification {
     private final String message;
     private final String eventId;
+    private final boolean allianceType;
+    private final boolean nonEssentialType;
+
 
     public static void notifyAllianceFormed(String message) {
-        GameSession.instance().addTurnNotification(new GNNNotification(message, "GNN_Alliance_Formed"));
+        GameSession.instance().addTurnNotification(new GNNNotification(message, "GNN_Alliance_Formed", true, true));
     }
     public static void notifyAllianceBroken(String message) {
-        GameSession.instance().addTurnNotification(new GNNNotification(message, "GNN_Alliance_Broken"));
+        GameSession.instance().addTurnNotification(new GNNNotification(message, "GNN_Alliance_Broken", true, true));
     }
     public static void notifyCouncil(String message) {
-        GameSession.instance().addTurnNotification(new GNNNotification(message, "GNN_Expansion"));
+        GameSession.instance().addTurnNotification(new GNNNotification(message, "GNN_Expansion", false, false));
     }
     public static void notifyExpansion(String message) {
-        GameSession.instance().addTurnNotification(new GNNNotification(message, "GNN_Expansion"));
+        GameSession.instance().addTurnNotification(new GNNNotification(message, "GNN_Expansion", false, true));
     }
-    public static void notifyRebellion(String message) {
-        GameSession.instance().addTurnNotification(new GNNNotification(message, "GNN_Rebellion"));
+    public static void notifyRebellion(String message, boolean player) {
+        GameSession.instance().addTurnNotification(new GNNNotification(message, "GNN_Rebellion", false, !player));
     }
     public static void notifyGenocide(String message) {
-        GameSession.instance().addTurnNotification(new GNNNotification(message, "GNN_Genocide"));
+        GameSession.instance().addTurnNotification(new GNNNotification(message, "GNN_Genocide", false, true));
     }
     public static void notifyImmediateEvent(String message, String id) {
         RotPUI.instance().processNotification(new GNNRandomEventNotification(message, id));
@@ -51,21 +55,30 @@ public class GNNNotification implements TurnNotification {
     public static void notifyRanking(String message, List<Empire> empireList) {
         GameSession.instance().addTurnNotification(new GNNRankingNotification(message, empireList, "GNN_Ranking"));
     }
-    private GNNNotification(String msg, String id) {
+    private GNNNotification(String msg, String id, boolean alliance, boolean nonEssential) {
         message = msg;
         eventId = id;
+        allianceType = alliance;
+        nonEssentialType = nonEssential;
     }
     @Override
     public String displayOrder() { return GNN_NOTIFY; }
     @Override
     public void notifyPlayer() {
     	// BR: Test if this announcement is allowed.
-    	switch (eventId) {
-			case "GNN_Alliance_Formed":
-			case "GNN_Alliance_Broken":
-				if (!rotp.model.game.IConvenienceOptions.showAlliancesGNN.get())
-					return;
-    	}
+    	IGameOptions opts = GameSession.instance().options();
+    	if (allianceType && opts.hideAlliancesGNN())
+    		return;
+    	if (nonEssentialType && opts.hideMinorReports())
+    		return;
+//    	switch (eventId) {
+//			case "GNN_Alliance_Formed":
+//			case "GNN_Alliance_Broken":
+//				if (opts.hideAlliancesGNN())
+//					return;
+//			case "GNN_Expansion":
+//				
+//    	}
         RotPUI.instance().selectGNNPanel(message, eventId, null);
     }
     @Override public String toString() { return "Event: " + eventId + ": " + message; }

@@ -42,10 +42,6 @@ Very soon:
   - Planet Monsters Guardian.
 - Add Help to History.
 - Some Achievements options.
-- Add a preferred planet (default = Homeworld). The map will be centered on this planet when loading the game and when a specific hotkey is hit.
-- Assign tasks to the flags.
-  - create a new flag task to assign to one of the four flags.
-  - find a pair of free keys to loop over these flaged planets.
 
 Later:
 - Stronger GNN filters
@@ -62,8 +58,12 @@ Later:
 
 ## What's New
 
+2023.12.09 (BR)
+- Fixed Colony Landing crash.
+
 2023.12.07 (BR)
 - Num (/) * - 9 + : Loop thru systems with Flags ("SHIFT-" Reverse)("CTRL-" Same Flag Color)
+- New options: Hide minor GNN reports.
 
 2023.12.06 (BR)
 - Cleaned retina changes.

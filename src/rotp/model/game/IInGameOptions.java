@@ -276,7 +276,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 				new ParamTitle("GAME_OTHER"),
 				randomEvents,
 				flagColorCount, 
-				showAlliancesGNN, showLimitedWarnings,
+				showAlliancesGNN, hideMinorReports, showLimitedWarnings,
 				techExchangeAutoRefuse, autoTerraformEnding, trackUFOsAcrossTurns,
 
 				headerSpacer,

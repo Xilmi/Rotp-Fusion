@@ -43,6 +43,7 @@ import javax.swing.JEditorPane;
 import javax.swing.JTextPane;
 
 import rotp.Rotp;
+import rotp.model.game.IConvenienceOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.BaseText;
 import rotp.ui.RotPUI;
@@ -491,7 +492,12 @@ public abstract class BaseModPanel extends BasePanel
 				refreshGui();
 				return;
 			default: // setGlobalUserKey
-				guiOptions().updateAllNonCfgFromFile(USER_OPTIONS_FILE);
+				if (globalOptions) {
+					guiOptions().updateFromFile(USER_OPTIONS_FILE, localOptions());
+					guiOptions().updateFromFile(USER_OPTIONS_FILE, IConvenienceOptions.convenienceOptions);
+				}
+				else
+					guiOptions().updateAllNonCfgFromFile(USER_OPTIONS_FILE);
 				refreshGui();
 				return;
 			}

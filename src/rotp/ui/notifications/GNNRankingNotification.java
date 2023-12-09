@@ -17,6 +17,7 @@ package rotp.ui.notifications;
 
 import java.util.List;
 import rotp.model.empires.Empire;
+import rotp.model.game.GameSession;
 import rotp.ui.RotPUI;
 
 public class GNNRankingNotification implements TurnNotification {
@@ -33,6 +34,8 @@ public class GNNRankingNotification implements TurnNotification {
     public String displayOrder() { return GNN_NOTIFY; }
     @Override
     public void notifyPlayer() {
+    	if (GameSession.instance().options().hideMinorReports())
+    		return;
         RotPUI.instance().selectGNNPanel(type, eventId, empires);
     }
 }

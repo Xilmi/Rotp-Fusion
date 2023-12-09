@@ -2175,7 +2175,7 @@ public final class Empire implements Base, NamedObject, Serializable {
             String leaderDesc = text("LEADER_PERSONALITY_FORMAT", leader.personality(),leader.objective());
             String message = text("GNN_OVERTHROW", leaderDesc);
             message = replaceTokens(message, "alien");
-            GNNNotification.notifyRebellion(message);
+            GNNNotification.notifyRebellion(message, false);
         }
     }
     public boolean inEconomicRange(int empId) {

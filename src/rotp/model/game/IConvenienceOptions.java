@@ -25,15 +25,26 @@ public interface IConvenienceOptions extends IMapOptions {
 	{	{ isCfgFile(false); }	}
 		.loop(true)
 		.specialNegative(MOD_UI + "SHOW_LIMITED_WARNINGS_ALL");
+	default int selectedMaxWarnings()				{
+		int max = showLimitedWarnings.get();
+		if (max < 0)
+			max=100;
+		return max;
+	}
 
-	ParamBoolean showAlliancesGNN		= new ParamBoolean(MOD_UI, "SHOW_ALLIANCES_GNN", true)
+	ParamBoolean showAlliancesGNN	= new ParamBoolean(MOD_UI, "SHOW_ALLIANCES_GNN", true)
 	{	{ isCfgFile(false); }	};
+	default boolean hideAlliancesGNN()		{ return !showAlliancesGNN.get(); }
+
+	ParamBoolean hideMinorReports	= new ParamBoolean(MOD_UI, "HIDE_MINOR_REPORTS", false)
+	{	{ isCfgFile(false); }	};
+	default boolean hideMinorReports()		{ return hideMinorReports.get(); }
 
 	ParamBoolean techExchangeAutoRefuse = new ParamBoolean(MOD_UI, "TECH_EXCHANGE_AUTO_NO", false)
 	{	{ isCfgFile(false); }	};
 
 	ParamBoolean autoColonize_	= new ParamBoolean( GAME_UI, "AUTOCOLONIZE", false);
-	default boolean autoColonize()				{ return autoColonize_.get(); }
+	default boolean autoColonize()			{ return autoColonize_.get(); }
 
 	ParamList autoBombard_		= new ParamList( GAME_UI, "AUTOBOMBARD",
 			Arrays.asList(

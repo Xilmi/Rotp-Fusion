@@ -388,8 +388,14 @@ abstract class AbstractOptionsUI extends BaseModPanel implements MouseWheelListe
 	}
 	@Override public void refreshGui()	{
 		super.refreshGui();
-		for (int i=0; i<activeList.size(); i++)
-			btList.get(i).displayText(activeList.get(i).getGuiDisplay());
+		for (int i=0; i<activeList.size(); i++) {
+			IParam param = activeList.get(i);
+			if (param != null) {
+				ModText modText = btList.get(i);
+				if (modText != null)
+					modText.displayText(param.getGuiDisplay());
+			}
+		}
 		repaint();
 	}
 	@Override protected String GUI_ID()		{ return GUI_ID; }

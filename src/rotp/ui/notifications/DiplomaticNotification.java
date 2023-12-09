@@ -18,6 +18,7 @@ package rotp.ui.notifications;
 import rotp.model.empires.Empire;
 import rotp.model.empires.EmpireView;
 import rotp.model.game.GameSession;
+import rotp.model.game.IGameOptions;
 import rotp.model.incidents.DiplomaticIncident;
 import rotp.ui.RotPUI;
 import rotp.ui.diplomacy.DialogueManager;
@@ -107,20 +108,21 @@ public class DiplomaticNotification implements TurnNotification, Base {
     public void notifyPlayer()   {
     	// BR: Test if this warning is allowed.
     	// System.out.println("Diplomatic Notification: type = " + type);
+    	IGameOptions opts = GameSession.instance().options();
     	switch (type) {
 			case DialogueManager.WARNING_EXPANSION:
 				expansionWarningCount += 1;
-				if (rotp.model.game.IConvenienceOptions.showLimitedWarnings.get() < expansionWarningCount)
+				if (opts.selectedMaxWarnings() < expansionWarningCount)
 					return;
 				break;
 			case DialogueManager.WARNING_BIOWEAPON:
 				bioweaponWarningCount += 1;
-				if (rotp.model.game.IConvenienceOptions.showLimitedWarnings.get() < bioweaponWarningCount)
+				if (opts.selectedMaxWarnings() < bioweaponWarningCount)
 					return;
 				break;
 			case DialogueManager.WARNING_GENOCIDE:
 				genocideWarningCount += 1;
-				if (rotp.model.game.IConvenienceOptions.showLimitedWarnings.get() < genocideWarningCount)
+				if (opts.selectedMaxWarnings() < genocideWarningCount)
 					return;
 				break;
     	}

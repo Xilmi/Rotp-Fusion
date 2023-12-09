@@ -514,17 +514,20 @@ public class MapOverlayNone extends MapOverlay {
                 }
                 break;
             case KeyEvent.VK_MULTIPLY:
+            case KeyEvent.VK_7:
             	nextFlag(1, shift, ctrl);
             	break;
             case KeyEvent.VK_SUBTRACT:
+            case KeyEvent.VK_8:
         	   nextFlag(2, shift, ctrl);
             	break;
             case KeyEvent.VK_NUMPAD9:
-            case KeyEvent.VK_9:
+            case KeyEvent.VK_U:
             case KeyEvent.VK_DIVIDE:
             	nextFlag(4, shift, ctrl);
             	break;
             case KeyEvent.VK_ADD:
+            case KeyEvent.VK_I:
             	nextFlag(3, shift, ctrl);
             	break;
             default:
