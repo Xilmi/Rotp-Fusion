@@ -58,7 +58,7 @@ public class MissileBase implements Base, Serializable {
         TechMissileWeapon scatter = scatterPack() == null ? null : scatterPack().tech();
         TechMissileWeapon msl = missile().tech();
         if (scatter != null)
-            missileDmg = 3*max(msl.damage() - shield, scatter.damage() - shield * scatter.scatterAttacks());
+            missileDmg = 3*max(msl.damage() - shield, (scatter.damage() - shield) * scatter.scatterAttacks());
         else 
             missileDmg = 3*msl.damage() - shield;
         return missileDmg;

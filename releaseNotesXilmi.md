@@ -1,4 +1,4 @@
 ## What's New
 
-2023.11.24 (Xilmi)
-- Missile-boats controlled by the AI no longer retreat when their missiles are still flying and are about to kill at least one enemy-unit.
+2023.12.10 (Xilmi)
+- Fixed an issue that caused the fleet-commander of the AI to underestimate the damage-output of missile-bases equipped with scatter-packs.
