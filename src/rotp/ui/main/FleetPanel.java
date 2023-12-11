@@ -765,7 +765,6 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
             g.setFont(narrowFont(22));
             drawShadowedString(g, title, 4, x0, y0, SystemPanel.textShadowC, Color.white);
 
-            // TODO BR: minAll max All
             if (showAdjust) {
                 int a[] = new int[3];
                 int b[] = new int[3];
@@ -799,8 +798,6 @@ public class FleetPanel extends BasePanel implements MapSpriteViewer {
                 g.fill(maxAllBox);
                 g.fillRect(a[0]-s2, b[1], s2, b[2]-b[1]);
                 maxAllBoxH.setBounds(xa+s5,ya-s20,s12,s23);
-
-                
             }
             y0 += s6;
             y0 += lineH;

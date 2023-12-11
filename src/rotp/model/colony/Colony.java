@@ -105,11 +105,19 @@ public final class Colony implements Base, IMappedObject, Serializable {
 
     private boolean underSiege = false;
     public  boolean keepEcoLockedToClean;
+    private boolean transportAutoEco = false;
+
     private transient boolean hasNewOrders = false;
     private transient int cleanupAllocation = 0;
     private transient boolean recalcSpendingForNewTaxRate;
     public  transient boolean reallocationRequired = false;
 
+    public boolean transportAutoEco()          { return transportAutoEco && !governor; }
+    public void    transportAutoEco(boolean b) { transportAutoEco = b; }
+    public boolean toggleTransportAutoEco()	   {
+    	transportAutoEco(!transportAutoEco());
+    	return !governor;
+    }
     public void toggleRecalcSpending()         { recalcSpendingForNewTaxRate = true; }
     public boolean underSiege()                { return underSiege; }
     public float reserveIncome()               { return reserveIncomeBC; }
@@ -1155,12 +1163,10 @@ public final class Colony implements Base, IMappedObject, Serializable {
         if (oldDest != null) {
             oldDest.colony().governIfNeeded();
         }
-        if (empire.isPlayerControlled()
-        		&& !isGovernor()
-        		&& options().transportAutoRefill()
-        		&& population !=0
-        		)
+        if (empire.isPlayerControlled() && transportAutoEco()) {
         	smoothMaxSlider(ECOLOGY);
+        	redistributeReducedEcoSpending();
+        }
         
         governIfNeeded();
     }
@@ -1213,10 +1219,9 @@ public final class Colony implements Base, IMappedObject, Serializable {
         // reset ship views
         if (empire.isPlayerControlled()) {
         	empire.setVisibleShips();
-        	if (!isGovernor() && options().transportAutoRefill())
+        	if (transportAutoEco())
         		smoothMaxSlider(ECOLOGY);
         }
-
         // recalculate governor if transports are sent
         governIfNeeded();
 

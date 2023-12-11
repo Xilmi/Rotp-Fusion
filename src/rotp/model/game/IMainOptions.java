@@ -260,7 +260,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 
 	ParamBoolean showAlternateAnimation	= new ParamBoolean(MOD_UI, "SHOW_ALT_ANIMATION", true)
 	{	{ isCfgFile(true); } };
-	ParamBoolean originalSpeciesOnly	= new ParamBoolean(MOD_UI, "ORIGINAL_SPECIES_ONLY", false)
+	ParamBoolean originalSpeciesOnly	= new ParamBoolean(MOD_UI, "ORIGINAL_SPECIES_ONLY", true)
 	{	{ isCfgFile(true); } };
 	default boolean originalSpeciesOnly()	{ return originalSpeciesOnly.get(); }
 

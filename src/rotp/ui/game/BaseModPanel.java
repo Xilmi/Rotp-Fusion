@@ -297,9 +297,9 @@ public abstract class BaseModPanel extends BasePanel
 	protected void drawButtons(Graphics2D g, boolean init) {
         Stroke prev = g.getStroke();
         if (init)
-            g.setFont(bigButtonFont(retina)); // TODO
+            g.setFont(bigButtonFont(retina));
         else
-        	g.setFont(bigButtonFont(false)); // TODO
+        	g.setFont(bigButtonFont(false));
         drawButton(g, init, exitBox,	text(exitButtonKey()));
 
         if (init)
@@ -323,7 +323,7 @@ public abstract class BaseModPanel extends BasePanel
 		hButton = yMax - yMin + retina(s4);
     }
 	protected void setBigButtonGraphics(Graphics2D g)	{
-		g.setFont(bigButtonFont(retina)); // TODO
+		g.setFont(bigButtonFont(retina));
 		g.setPaint(GameUI.buttonBackgroundColor());
 	}
 	protected void setSmallButtonGraphics(Graphics2D g) {
@@ -334,31 +334,24 @@ public abstract class BaseModPanel extends BasePanel
     	initButtonPosition();
 		buttonBackImg = new BufferedImage(retina(wButton), retina(hButton), TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D) buttonBackImg.getGraphics();
-//		setFontHints(g);
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
         g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
 		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 
-//		int cnrR = retina(cnr);
 		setBigButtonGraphics(g);
 		// draw EXIT button
 		exitBox.fillRoundRect(g);
-//		g.fillRoundRect(exitBox.x-xButton, exitBox.y-yButton, exitBox.width, exitBox.height, cnr, cnr);
 		setSmallButtonGraphics(g);
 		// draw DEFAULT button
 		defaultBox.fillRoundRect(g);
-//		g.fillRoundRect(defaultBox.x-xButton, defaultBox.y-yButton, defaultBox.width, defaultBox.height, cnr, cnr);
 		// draw LAST button
 		lastBox.fillRoundRect(g);
-//		g.fillRoundRect(lastBox.x-xButton, lastBox.y-yButton, lastBox.width, lastBox.height, cnr, cnr);
 		// draw USER button
 		userBox.fillRoundRect(g);
-//		g.fillRoundRect(userBox.x-xButton, userBox.y-yButton, userBox.width, userBox.height, cnr, cnr);
 		// draw GUIDE button
 		guideBox.fillRoundRect(g);
-//		g.fillRoundRect(guideBox.x-xButton, guideBox.y-yButton, guideBox.width, guideBox.height, cnr, cnr);
 
 		drawButtons(g, true); // init = true; local = true
 		return buttonBackImg;

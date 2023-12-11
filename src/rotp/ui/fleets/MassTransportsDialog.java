@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import rotp.model.galaxy.StarSystem;
+import rotp.model.game.IGameOptions;
 import rotp.ui.BasePanel;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.sprites.SystemTransportSprite;
@@ -125,6 +126,14 @@ public class MassTransportsDialog extends BasePanel {
         sourceSystems.addAll(topParent.filteredSystems);
         sourceSystems.remove(topParent.targetSystem);
         Collections.sort(sourceSystems, StarSystem.TRANSPORT_TIME_TO_TARGET_SYSTEM);
+
+        IGameOptions opts = options();
+        if (opts.transportAutoEcoDefaultYes())
+        	for (StarSystem sys : sourceSystems)
+        		sys.transportAutoEco(true);
+        else if (opts.transportAutoEcoDefaultNo())
+        	for (StarSystem sys : sourceSystems)
+        		sys.transportAutoEco(false);
 
         int listSize = max(6, min(MAX_ROWS,sourceSystems.size()));
         int uiH = s100+s30+(listSize*listingUI.rowHeight());
@@ -284,7 +293,7 @@ public class MassTransportsDialog extends BasePanel {
         Rectangle synchButton = new Rectangle();
         Rectangle sendButton = new Rectangle();
         Rectangle cancelButton = new Rectangle();
-        Rectangle ecoBox = new Rectangle();
+//        Rectangle ecoBox = new Rectangle();
         Rectangle hoverBox;
         Area textureArea;
 
@@ -421,28 +430,6 @@ public class MassTransportsDialog extends BasePanel {
 
             Area buttonArea = new Area(new RoundRectangle2D.Float(x2, buttonY, buttonW2, buttonH, cnr, cnr));
             textureArea.add(buttonArea);
-
-            // TODO BR:
-            int rightM = s20;
-            String eco = text("MAIN_COLONY_ECOLOGY");
-            g.setFont(narrowFont(20));
-            if(options().transportAutoRefill())
-            	g.setColor(Color.green);
-            else
-            	g.setColor(Color.black);
-            int sw = g.getFontMetrics().stringWidth(eco);
-            int xe = sendButton.x-rightM-sw-s10;
-            int ye = sendButton.y+s22;
-            ecoBox.setBounds(xe-s10, ye-s20, sw+s20 , s25);
-            drawString(g, eco, xe, ye);
-            if (hoverBox == ecoBox) {
-                g.setColor(SystemPanel.yellowText);
-                prev = g.getStroke();
-                g.setStroke(stroke2);
-                g.drawRoundRect(ecoBox.x, ecoBox.y, ecoBox.width, ecoBox.height, s5, s5);
-                g.setStroke(prev);
-            }
-
         }
         private void initModel() {
             setPreferredSize(new Dimension(getWidth(),s60));
@@ -473,15 +460,12 @@ public class MassTransportsDialog extends BasePanel {
         }
         private void setHoverSprite(int x, int y) {
             hoverBox = null;
-
             if (cancelButton.contains(x, y))
                 hoverBox = cancelButton;
             else if (sendButton.contains(x, y))
                 hoverBox = sendButton;
             else if (synchButton.contains(x, y))
                 hoverBox = synchButton;
-            else if (ecoBox.contains(x, y))
-                hoverBox = ecoBox;
         }
         @Override
         public void mouseClicked(MouseEvent e) {    }
@@ -509,11 +493,11 @@ public class MassTransportsDialog extends BasePanel {
                 softClick();
                 repaint();
             }
-            else if (hoverBox == ecoBox) {
-            	options().transportAutoRefillToggle();
-                softClick();
-                repaint();
-            }
+//            else if (hoverBox == ecoBox) {
+//            	options().transportAutoRefillToggle();
+//                softClick();
+//                repaint();
+//            }
         }
         @Override
         public void mouseEntered(MouseEvent e) {    }

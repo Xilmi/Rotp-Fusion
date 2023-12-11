@@ -4117,36 +4117,6 @@ public final class Empire implements Base, NamedObject, Serializable {
         if (cv != null)
             cv.spies().scanShip(st);
     }
-    // TODO BR:
-//    public StarSystem nextFlaggedSystems(StarSystem currSys, int flagId, boolean sameColor, boolean reverse) {
-//    	if (currSys == null)
-//    		return currSys;
-//        Galaxy gal = galaxy();
-//        int currId = currSys.id;
-//        int lim = sv.count();
-//        if (sameColor) {
-//        	int colorId = sv.view(currSys.id).getFlagColor(flagId);
-//            for (int n=currId+1; n<lim; n++) {
-//                if (sv.view(n).hasFlagColor(flagId, colorId))
-//                	return gal.system(n);
-//            }
-//            for (int n=0; n<currId; n++) {
-//                if (sv.view(n).hasFlagColor(flagId, colorId))
-//                	return gal.system(n);
-//            }
-//        }
-//        else {
-//            for (int n=currId+1; n<lim; n++) {
-//                if (sv.view(n).hasFlag(flagId))
-//                	return gal.system(n);
-//            }
-//            for (int n=0; n<currId; n++) {
-//               if (sv.view(n).hasFlag(flagId))
-//                	return gal.system(n);
-//            }
-//        }
-//    	return currSys;
-//    }
     public StarSystem nextFlaggedSystems(StarSystem currSys, int flagId, boolean sameColor, boolean reverse) {
     	if (currSys == null)
     		return currSys;

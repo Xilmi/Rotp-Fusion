@@ -12,6 +12,11 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed Apple Retina Screen compatibility.
   - Previous reactivity optimisation was not compatible with some retina screen specificity!
     - Optimized for image quality with reactivity cost.
+- New Mass Transport Auto-refill Set independently for each colony.
+  - Replace the previous global system.
+  - Option to initialyze at the panel opening to "On", "Off", or No changes.
+  - Auto-refill colony are set by Ctrl-Click the slider.
+  - Auto-refill colony sliders are shown in a different color.
 
 <b><ins>Bug Fixes:</ins></b>
 - Fixed an issue that caused the fleet-commander of the AI to underestimate the damage-output of missile-bases equipped with scatter-packs. (Xilmi)

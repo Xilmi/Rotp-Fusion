@@ -478,9 +478,9 @@ public class ShowCustomRaceUI extends BaseModPanel {
         Stroke prev = g.getStroke();
         
         if (init)
-            g.setFont(bigButtonFont(retina)); // TODO
+            g.setFont(bigButtonFont(retina));
         else
-        	g.setFont(bigButtonFont(false)); // TODO
+        	g.setFont(bigButtonFont(false));
         drawButton(g, init, exitBox,	text(exitButtonKey()));
 
         if (init)

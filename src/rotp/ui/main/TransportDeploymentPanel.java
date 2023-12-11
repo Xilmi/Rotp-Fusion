@@ -38,7 +38,9 @@ import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.SwingUtilities;
+
 import rotp.model.Sprite;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.StarSystem;
@@ -51,8 +53,10 @@ public class TransportDeploymentPanel extends SystemPanel {
     protected BasePanel topPane;
     protected BasePanel detailPane;
     protected BasePanel bottomPane;
-    static final Color sliderBoxEnabled = new Color(34,140,142);
-    static final Color sliderBackEnabled = Color.black;
+    static final Color sliderBoxEnabled		= new Color(34,140,142);
+    static final Color sliderBackEnabled	= Color.black;
+    static final Color sliderBoxEcoGreen	= new Color(34,210,72);
+    static final Color sliderButtonEcoColor = Color.darkGray;
     //session vars
     public TransportDeploymentPanel(SpriteDisplayPanel p) {
         parentSpritePanel = p;
@@ -313,7 +317,7 @@ public class TransportDeploymentPanel extends SystemPanel {
         private final Polygon leftArrow = new Polygon();
         private final Polygon rightArrow = new Polygon();
         private final Rectangle sliderBox = new Rectangle();
-        private final Rectangle ecoBox = new Rectangle();
+//        private final Rectangle ecoBox = new Rectangle();
         private Shape hoverBox;
         Shape textureClip;
 
@@ -328,7 +332,7 @@ public class TransportDeploymentPanel extends SystemPanel {
             addMouseWheelListener(this);
         }
         @Override
-        public String textureName()            { return TEXTURE_GRAY; }
+        public String textureName()         { return TEXTURE_GRAY; }
         @Override
         public Shape textureClip()          { return textureClip; }
         @Override
@@ -339,6 +343,7 @@ public class TransportDeploymentPanel extends SystemPanel {
         public void paintComponent(Graphics g0) {
             Graphics2D g = (Graphics2D) g0;
             super.paintComponent(g);
+
 
             int w = getWidth();
             int h = getHeight();
@@ -360,30 +365,9 @@ public class TransportDeploymentPanel extends SystemPanel {
             StarSystem from = system();
             if (from == null)
                 return;
-
-            if (!from.colony().isGovernor()) {// TODO BR:
-                int rightM = s5;
-                String eco = text("MAIN_COLONY_ECOLOGY");
-                g.setFont(narrowFont(20));
-                if(options().transportAutoRefill())
-                	g.setColor(Color.green);
-                else
-                	g.setColor(blackText);
-                int sw = g.getFontMetrics().stringWidth(eco);
-                int xe = w-rightM-sw-s5;
-                int ye = s30;
-                ecoBox.setBounds(xe-s5, ye-s20, sw+s10 , s25);
-                drawString(g, eco, xe, ye);
-                if (hoverBox == ecoBox) {
-                    g.setColor(SystemPanel.yellowText);
-                    Stroke prev = g.getStroke();
-                    g.setStroke(stroke2);
-                    g.drawRoundRect(ecoBox.x, ecoBox.y, ecoBox.width, ecoBox.height, s5, s5);
-                    g.setStroke(prev);
-                }
-            }
-            else
-            	ecoBox.setBounds(0, 0, 0 , 0);
+            boolean autoEco	 = from.transportAutoEco();
+        	Color sliderBoxC = autoEco ? sliderBoxEcoGreen : sliderBoxEnabled;
+        	Color sliderBgC	 = autoEco ? sliderButtonEcoColor : sliderBackEnabled;
 
             String fromName = pl.sv.name(from.id);
 
@@ -467,11 +451,11 @@ public class TransportDeploymentPanel extends SystemPanel {
                 for (int i=0;i<leftButtonX.length;i++)
                     rightArrow.addPoint(rightButtonX[i], rightButtonY[i]);
 
-                Color c0 = hoverBox == leftArrow ? SystemPanel.yellowText : sliderBackEnabled;
+                Color c0 = hoverBox == leftArrow ? SystemPanel.yellowText : sliderBgC;
                 g.setColor(c0);
                 g.fillPolygon(leftButtonX, leftButtonY, 3);
 
-                Color c1 = hoverBox == rightArrow ? SystemPanel.yellowText : sliderBackEnabled;
+                Color c1 = hoverBox == rightArrow ? SystemPanel.yellowText : sliderBgC;
                 g.setColor(c1);
                 g.fillPolygon(rightButtonX, rightButtonY, 3);
 
@@ -484,9 +468,9 @@ public class TransportDeploymentPanel extends SystemPanel {
 
                 sliderBox.setBounds(boxL+boxBorderW, boxTopY-boxBorderW, boxW-(2*boxBorderW), boxH+(2*boxBorderW));
 
-                g.setColor(sliderBackEnabled);
+                g.setColor(sliderBgC);
                 g.fillRect(boxL, boxTopY, boxW, boxH);
-                g.setColor(sliderBoxEnabled);
+                g.setColor(sliderBoxC);
                 g.fillRect(boxL, boxTopY+s2, (int) (pct*boxW), boxH-s3);
 
                 if (hoverBox == sliderBox) {
@@ -546,9 +530,18 @@ public class TransportDeploymentPanel extends SystemPanel {
                 decrement(true);
             else if (rightArrow.contains(x,y))
                 increment(true);
-            else if (ecoBox.contains(x,y))
-                options().transportAutoRefillToggle();
+//            else if (ecoBox.contains(x,y))
+//                options().transportAutoRefillToggle();
             else if (sliderBox.contains(x,y)) {
+                if (e.isControlDown()) {
+                	if (system().toggleTransportAutoEco()) {
+                		softClick();
+                		parentSpritePanel.repaint();
+                	} else
+                		misClick();
+                 	return;
+                }
+
                 float pct = (float) (x -sliderBox.x) / sliderBox.width;
                 int newAmt = 0;
                 if (SwingUtilities.isMiddleMouseButton(e))
@@ -592,8 +585,8 @@ public class TransportDeploymentPanel extends SystemPanel {
                 newHover = leftArrow;
             else if (rightArrow.contains(x,y))
                 newHover = rightArrow;
-            else if (ecoBox.contains(x,y))
-                newHover = ecoBox;
+//            else if (ecoBox.contains(x,y))
+//                newHover = ecoBox;
 
             if (newHover != hoverBox) {
                 hoverBox = newHover;

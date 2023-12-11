@@ -184,10 +184,24 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 	default boolean darkGalaxyNoSpy()		{ return darkGalaxy.get().equalsIgnoreCase("NoSpy"); }
 	default boolean darkGalaxyDark()		{ return darkGalaxy.get().equalsIgnoreCase("Shrink"); }
 	
-	ParamBoolean transportAutoRefill	= new ParamBoolean(MOD_UI, "TRANSPORT_AUTO_REFILL", false);
-	default boolean transportAutoRefill()	{ return transportAutoRefill.get(); }
-	default void transportAutoRefillToggle(){ transportAutoRefill.toggle(); }
+//	ParamBoolean transportAutoRefill	= new ParamBoolean(MOD_UI, "TRANSPORT_AUTO_REFILL", false);
+//	default boolean transportAutoRefill()	{ return transportAutoRefill.get(); }
+//	default void transportAutoRefillToggle(){ transportAutoRefill.toggle(); }
 
+	ParamList transportAutoEco			= new ParamList( MOD_UI, "TRANSPORT_AUTO_ECO", "No") {
+		{
+			showFullGuide(true);
+			isValueInit(false);
+			put("No",	MOD_UI + "TRANSPORT_AUTO_ECO_NO");
+			put("Yes",	MOD_UI + "TRANSPORT_AUTO_ECO_YES");
+			put("Last",	MOD_UI + "TRANSPORT_AUTO_ECO_LAST");
+		}
+	};
+	default boolean transportAutoEcoDefaultNo()	{ return transportAutoEco.get().equals("No"); }
+	default boolean transportAutoEcoDefaultYes(){ return transportAutoEco.get().equals("Yes"); }
+	default boolean transportAutoEcoLast()		{ return transportAutoEco.get().equals("Last"); }
+
+	
 	ParamBoolean spyOverSpend			= new ParamBoolean(MOD_UI, "SPY_OVERSPEND", true);
 	default boolean spyOverSpend()			{ return spyOverSpend.get(); }
 
@@ -215,7 +229,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 		return new LinkedList<>(
 				Arrays.asList(
 						counciRequiredPct, darkGalaxy,
-						transportAutoRefill,
+						transportAutoEco,
 						GovernorOptions.governorOptionsUI,
 						null,
 						eventsStartTurn, eventsPace,
@@ -242,7 +256,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 
 				headerSpacer,
 				new ParamTitle("GAME_VARIOUS"),
-				transportAutoRefill, terraforming,
+				transportAutoEco, terraforming,
 				colonizing, researchRate,
 				warpSpeed, fuelRange,
 				spyOverSpend,

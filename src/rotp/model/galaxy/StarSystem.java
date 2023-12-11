@@ -105,6 +105,10 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
     private transient int twinkleCycle, twinkleOffset, drawRadius;
     private transient boolean displayed = false;
 
+    public boolean transportAutoEco()			{ return colony().transportAutoEco(); }
+    public void	   transportAutoEco(boolean b)	{ colony().transportAutoEco(b); }
+    public boolean toggleTransportAutoEco()		{ return colony().toggleTransportAutoEco(); }
+
     @Override public int hashCode() {
     	if (hashCode == null)
     		return super.hashCode(); // for backward compatibility

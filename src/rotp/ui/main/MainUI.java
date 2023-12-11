@@ -723,17 +723,18 @@ public class MainUI extends BasePanel implements IMapHandler {
 
         int w3 = scaled(350);
         int x3 = w-w3-scaled(280);
-        int y3 = y0- scaled(120);
-        int x3a = w-scaled(50);
-        int y3a = scaled(185);
+//        int y3 = y0- scaled(120);
+//        int x3a = w-scaled(50);
+//        int y3a = scaled(185);
 
-        HelpUI.HelpSpec sp3d = helpUI.addBrownHelpText(x3, y3, w3, 4, text("FLEETS_HELP_3D"));
-        sp3d.setLine(x3+w3, y3+sp3d.height()/2, x3a, y3a);
+//        HelpUI.HelpSpec sp3d = helpUI.addBrownHelpText(x3, y3, w3, 4, text("FLEETS_HELP_3D"));
+//        sp3d.setLine(x3+w3, y3+sp3d.height()/2, x3a, y3a);
 
-        y3 += (sp3d.height()+s30);
-        x3a = w-scaled(120);
-        y3a = scaled(250);
-        HelpUI.HelpSpec sp3 = helpUI.addBrownHelpText(x3, y3, w3, 4, text("FLEETS_HELP_3C"));
+//        y3 += (sp3d.height()+s30);
+        int y3	= y0;
+        int x3a = w-scaled(120);
+        int y3a = scaled(250);
+        HelpUI.HelpSpec sp3 = helpUI.addBrownHelpText(x3, y3, w3, 6, text("FLEETS_HELP_3C"));
         sp3.setLine(x3+w3, y3+sp3.height()/2, x3a, y3a);
 
         

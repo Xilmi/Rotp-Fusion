@@ -246,7 +246,7 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		// Exit Button
 		int buttonW	= exitButtonWidth(g);
 		xButton = leftM + wBG - buttonW - buttonPad;
-		exitBox.setBounds(xButton, yButton+s2, buttonW, smallButtonH); // TODO set bounds
+		exitBox.setBounds(xButton, yButton+s2, buttonW, smallButtonH);
 
 		// Select Button
 		String text	 = text(selectKey);
@@ -299,9 +299,9 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 	@Override protected void drawButtons(Graphics2D g, boolean init) {
         Stroke prev = g.getStroke();
         if (init)
-            g.setFont(bigButtonFont(retina)); // TODO
+            g.setFont(bigButtonFont(retina));
         else
-        	g.setFont(bigButtonFont(false)); // TODO
+        	g.setFont(bigButtonFont(false));
         drawButton(g, init, exitBox,	text(exitButtonKey()));
 
         if (init)
@@ -320,7 +320,6 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
     	initButtonPosition();
 		buttonBackImg = new BufferedImage(retina(wButton), retina(hButton), TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D) buttonBackImg.getGraphics();
-//		setFontHints(g);
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
         g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
@@ -330,37 +329,26 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		setBigButtonGraphics(g);
 		// draw EXIT button
 		exitBox.fillRoundRect(g);
-//		g.fillRoundRect(exitBox.x-xButton, exitBox.y-yButton, exitBox.width, exitBox.height, cnr, cnr);
 
 		setSmallButtonGraphics(g);
 		// Select Button
 		selectBox.fillRoundRect(g);
-		//g.fillRoundRect(selectBox.x-xButton, selectBox.y-yButton, selectBox.width, selectBox.height, cnr, cnr);
 		// Default Button
 		defaultBox.fillRoundRect(g);
-		//g.fillRoundRect(defaultBox.x-xButton, defaultBox.y-yButton, defaultBox.width, defaultBox.height, cnr, cnr);
 		// Last Button
 		lastBox.fillRoundRect(g);
-		//g.fillRoundRect(lastBox.x-xButton, lastBox.y-yButton, lastBox.width, lastBox.height, cnr, cnr);
 		// User Button
 		userBox.fillRoundRect(g);
-		//g.fillRoundRect(userBox.x-xButton, userBox.y-yButton, userBox.width, userBox.height, cnr, cnr);
 		// Load / Save Button
 		loadBox.fillRoundRect(g);
-		//g.fillRoundRect(loadBox.x-xButton, loadBox.y-yButton, loadBox.width, loadBox.height, cnr, cnr);
 		// draw GUIDE button
 		guideBox.fillRoundRect(g);
-		//g.fillRoundRect(guideBox.x-xButton, guideBox.y-yButton, guideBox.width, guideBox.height, cnr, cnr);
 		
 		drawButtons(g, true); // init = true; local = true
 		return buttonBackImg;
     }
 
 	@Override public void refreshGui() {
-//		System.out.println("===== refreshGui()");
-//		System.out.println("playerCustomRace: Race Name = " +
-//				((DynOptions) guiOptions().selectedPlayerCustomRace()).getString("CUSTOM_RACE_RACE_NAME"));
-//		System.out.println("settingList : Race Name = " + settingList.get(1).guideValue());
 		cr.setSettingTools((DynOptions) guiOptions().selectedPlayerCustomRace());
 		repaint();
 	}
@@ -413,7 +401,6 @@ public class EditCustomRaceUI extends ShowCustomRaceUI implements MouseWheelList
 		int sw = g.getFontMetrics().stringWidth(text);
 		int buttonW	= exitButtonWidth(g);
 		xButton = leftM + wBG - buttonW - buttonPad;
-//		exitBox.setBounds(xButton, yButton+s2, buttonW, smallButtonH);
 		g.setColor(GameUI.buttonBackgroundColor());
 		g.fillRoundRect(exitBox.x, exitBox.y, buttonW, smallButtonH, cnr, cnr);
 		int xT = exitBox.x+((exitBox.width-sw)/2);

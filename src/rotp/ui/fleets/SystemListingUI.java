@@ -624,8 +624,10 @@ public abstract class SystemListingUI extends BasePanel implements MouseListener
         StarSystem targetSystem;
         SystemListingUI parentUI;
         final int MAX_TICKS = 50;
-        private final Color sliderBoxBlue = new Color(34,140,142);
-        private final Color sliderButtonColor = Color.black;
+        private final Color sliderBoxBlue		 = new Color(34,140,142);
+        private final Color sliderButtonColor	 = Color.black;
+        private final Color sliderBoxEcoGreen	 = new Color(34,210,72);
+        private final Color sliderButtonEcoColor = Color.gray;
 
         int boxAreaL, boxAreaW;
         // polygon coordinates for left & right increment buttons
@@ -669,6 +671,9 @@ public abstract class SystemListingUI extends BasePanel implements MouseListener
             drawString(g,err,x0,y1);
         }
         private void drawSliderBox(Graphics2D g, RowSprite row, StarSystem sys, int x0, int y1, int w) {
+        	boolean autoEco	 = sys.transportAutoEco();
+        	Color sliderBoxC = autoEco ? sliderBoxEcoGreen : sliderBoxBlue;
+        	Color sliderBgC	 = autoEco ? sliderButtonEcoColor : sliderButtonColor;
             int amt = sys.transportSprite().amt();
             int maxAmt = player().sv.maxTransportsToSend(sys.id);
             if (maxAmt == 0) {
@@ -711,12 +716,12 @@ public abstract class SystemListingUI extends BasePanel implements MouseListener
             if (parentUI.hoveringButton == leftArrow)
                 g.setColor(Color.yellow);
             else
-                g.setColor(sliderButtonColor);
+                g.setColor(sliderBgC);
             g.fillPolygon(leftButtonX, leftButtonY, 3);
             if (parentUI.hoveringButton == rightArrow)
                 g.setColor(Color.yellow);
             else
-                g.setColor(sliderButtonColor);
+                g.setColor(sliderBgC);
             g.fillPolygon(rightButtonX, rightButtonY, 3);
 
             // slider box
@@ -727,9 +732,9 @@ public abstract class SystemListingUI extends BasePanel implements MouseListener
             int boxH = arrowH;
             int boxBorderW = s2;
 
-            g.setColor(Color.black);
+            g.setColor(sliderBgC);
             g.fillRect(boxL, boxTopY, boxW, boxH);
-            g.setColor(sliderBoxBlue);
+            g.setColor(sliderBoxC);
             g.fillRect(boxL, boxTopY+s1, boxW*amt/maxAmt, boxH-s2);
 
             if (parentUI.hoveringButton == sliderBox) {
@@ -1197,6 +1202,15 @@ public abstract class SystemListingUI extends BasePanel implements MouseListener
                 return;
             if (sys == null)
                 return;
+            if (e.isControlDown()) {
+            	if (sys.toggleTransportAutoEco()) {
+            		softClick();
+                   	repaint();
+            	} else
+            		misClick();
+             	return;
+            }
+            	
             int maxSendingSize = player().sv.maxTransportsToSend(sys.id);
             float pct = (float) (e.getX() -x) / width;
             int oldAmt = sys.transportSprite().amt();

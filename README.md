@@ -59,6 +59,15 @@ Later:
 ## What's New
 
 2023.12.10 (BR)
+- New Mass Transport Auto-refill Set independently for each colony.
+  - Replace the previous global system.
+  - Option to initialyze at the panel opening to "On", "Off", or No changes.
+  - Auto-refill colony are set by Ctrl-Click the slider.
+  - Auto-refill colony sliders are shown in a different color.
+- Cleaned TODO comments
+
+
+2023.12.10 (BR)
 - Fixed reset to Default in Galaxy setting panel badly initialyzing the player homeworld.
 - Fixed crash starting a new game after playing vanilla savegame.
 

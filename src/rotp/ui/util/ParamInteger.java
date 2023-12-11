@@ -106,7 +106,7 @@ public class ParamInteger extends AbstractParam<Integer> {
 		zeroLabel	= messageLabel;
 		return this;
 	}
-	public ParamInteger specialValue(Integer value, String messageLabel) { // TODO BR: create special values map
+	public ParamInteger specialValue(Integer value, String messageLabel) {
 		specialMap.put(value, messageLabel);
 		return this;
 	}
