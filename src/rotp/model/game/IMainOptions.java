@@ -42,6 +42,7 @@ import rotp.Rotp;
 import rotp.ui.RotPUI;
 import rotp.ui.game.BaseModPanel;
 import rotp.ui.game.GameUI;
+import rotp.ui.game.MainOptionsUI;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolInt;
 import rotp.ui.util.ParamBoolean;
@@ -337,10 +338,13 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		@Override public void setOption(String val) {
 			super.setOption(val);
 			GameUI.colorSet(selectedColorSet());
-			if (RotPUI.instance() != null) {
-				RotPUI.mainOptionsUI().clearImages();
-				RotPUI.mainOptionsUI().refreshGui();
-			}
+			if (RotPUI.instance() == null)
+				return;
+			MainOptionsUI mo = RotPUI.mainOptionsUI();
+			if (mo.activeList() == null)
+				return;
+			mo.clearImages();
+			mo.refreshGui();
 		}
 	};
 	static int selectedColorSet()	{

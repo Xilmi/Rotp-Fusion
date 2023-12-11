@@ -828,13 +828,13 @@ public class GalaxyFactory implements Base {
 					case "GuiLast":
 					case "GuiSwap":
 						// set Gui Player
-						oldOptions.selectedPlayer().race = newOptions.selectedPlayerRace();
+						oldOptions.selectedPlayer().race(newOptions.selectedPlayerRace());
 						oldOptions.selectedHomeWorldName(newOptions.selectedHomeWorldName());
 						oldOptions.selectedLeaderName	(newOptions.selectedLeaderName());
 						empires(0).raceKey = newOptions.selectedPlayerRace();
 						break;
 					default: // Swap Race
-						oldOptions.selectedPlayer().race = empires(0).raceKey;
+						oldOptions.selectedPlayer().race(empires(0).raceKey);
 						oldOptions.selectedHomeWorldName(empires(0).homeSys.starName);
 						oldOptions.selectedLeaderName	(empires(0).leaderName);
 				}

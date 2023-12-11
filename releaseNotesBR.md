@@ -13,6 +13,11 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - Previous reactivity optimisation was not compatible with some retina screen specificity!
     - Optimized for image quality with reactivity cost.
 
+<b><ins>Bug Fixes:</ins></b>
+- Fixed an issue that caused the fleet-commander of the AI to underestimate the damage-output of missile-bases equipped with scatter-packs. (Xilmi)
+- Fixed reset to Default in Galaxy setting panel badly initialyzing the player homeworld.
+- Fixed crash starting a new game after playing vanilla savegame.
+
 
 <b><ins> last releases:</ins></b>
 - New option: Dark Galaxy Mode.

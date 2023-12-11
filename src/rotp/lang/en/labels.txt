@@ -3441,7 +3441,7 @@ RACES_HELP_4C                     | All technologies known by the selected empir
 RACES_HELP_5A                     | The known number of ships in the fleet of the selected empire, by hull size. This information will remain current as long as you have an active spy network in the selected empire.
 RACES_HELP_5B                     | The known capabilities of ship designs. Older designs may be out of service. This information is primarily gathered during ship combat.
 RACES_HELP_5C                     | The known defensive capabilities of the selected empire. 
-RACES_HELP_6A                     | This screen provides a current ranking, in various categories, of our empire compared to other known empires. This data is gathered from our spy networks within those empires.
+RACES_HELP_6A                     | This screen provides a current ranking, in various categories, of our empire compared to other known empires. This data is gathered from our spy networks within those empires. If it is not up to date, the age is indicated in parentheses.
 RACES_HELP_6A2                    | This screen provides a historical comparison, in various categories, of our empire to a selected empire. This data is gathered from our spy networks within those empires.
 RACES_HELP_6B                     | Fleet Strength - combines number and size of ships.
 RACES_HELP_6C                     | Population - total population of all colonized systems.

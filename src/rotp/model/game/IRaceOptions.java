@@ -73,7 +73,8 @@ public interface IRaceOptions extends IBaseOptsTools {
 			MOD_UI, "PLAYER_SHIP_SET");
 	default int selectedPlayerShipSetId()			{ return playerShipSet.realShipSetId(); }
 
-	ParamBoolean playerIsCustom	= new ParamBoolean( BASE_UI, "BUTTON_CUSTOM_PLAYER_RACE", false);
+	ParamBoolean playerIsCustom	= new ParamBoolean( BASE_UI, "BUTTON_CUSTOM_PLAYER_RACE", false) 
+			{ { isValueInit(false); } };
 	default ParamBoolean playerIsCustom()			{ return playerIsCustom; }
 	default boolean selectedPlayerIsCustom()		{ return playerIsCustom.get(); }
 	default void selectedPlayerIsCustom(boolean is)	{ playerIsCustom.set(is); }

@@ -271,11 +271,11 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     @Override
     public void selectedNumberOpponents(int i)   { selectedNumberOpponents = i; }
     @Override
-    public String selectedPlayerRace()           { return selectedPlayer().race; }
+    public String selectedPlayerRace()           { return selectedPlayer().race(); }
     @Override
     // public void selectedPlayerRace(String s)  { selectedPlayer().race = s;  resetSelectedOpponentRaces(); }
     public void selectedPlayerRace(String s)     { // BR: Reset on demand only
-    	selectedPlayer().race = s;
+    	selectedPlayer().race(s);
     	// Check if MAX_OPPONENT_TYPE reached
         int count = 0;
         for (int i=0; i<opponentRaces.length; i++) {
@@ -287,17 +287,17 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         }
     }
     @Override
-    public int selectedPlayerColor()             { return selectedPlayer().color; }
+    public int selectedPlayerColor()             { return selectedPlayer().color(); }
     @Override
-    public void selectedPlayerColor(int i)       { selectedPlayer().color = i; }
+    public void selectedPlayerColor(int i)       { selectedPlayer().color(i); }
     @Override
-    public String selectedLeaderName()           { return selectedPlayer().leaderName; }
+    public String selectedLeaderName()           { return selectedPlayer().leaderName(); }
     @Override
-    public void selectedLeaderName(String s)     { selectedPlayer().leaderName = s.trim(); }
+    public void selectedLeaderName(String s)     { selectedPlayer().leaderName(s.trim()); }
     @Override
-    public String selectedHomeWorldName()        { return selectedPlayer().homeWorldName; }
+    public String selectedHomeWorldName()        { return selectedPlayer().homeWorldName(); }
     @Override
-    public void selectedHomeWorldName(String s)  { selectedPlayer().homeWorldName = s.trim(); }
+    public void selectedHomeWorldName(String s)  { selectedPlayer().homeWorldName(s.trim()); }
     @Override
     public String[] selectedOpponentRaces()      { return opponentRaces; }
     @Override
@@ -804,7 +804,11 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
     private void generateGalaxy() { galaxyShape().quickGenerate(); }
     @Override
-    public Color color(int i)     { return empireColors.get(i); }
+    public Color color(int i)     {
+    	if (i<0 || i>=empireColors.size())
+    		randomizeColors();
+    	return empireColors.get(i);
+    }
     @Override
     public void randomizeColors() {
 		// modnar: add new colors
@@ -1051,15 +1055,20 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
     // ========== Race Menu Options ==========
     @Override public void setRandomPlayerRace() { // BR:
-    	if (rotp.Rotp.noOptions("setBaseRaceSettingsToDefault()"))
-        	selectedPlayerRace(random(allRaceOptions()));
-        else if (selectedShowNewRaces()) // BR: limit randomness
+    	if (rotp.Rotp.noOptions("setBaseRaceSettingsToDefault()")) {
+    		selectedPlayerRace(random(baseRaceOptions()));
+    		return;
+    	}
+        if (selectedShowNewRaces()) // BR: limit randomness
         	selectedPlayerRace(random(allRaceOptions()));
         else
         	selectedPlayerRace(random(baseRaceOptions()));
+        player.update(this);
     }
     private void setBaseRaceSettingsToDefault() { // BR:
-    	setRandomPlayerRace();
+//    	if (!rotp.Rotp.noOptions("setBaseRaceSettingsToDefault()"))
+//    		playerIsCustom.setFromDefault(false, false);
+     	setRandomPlayerRace();
         selectedPlayerColor(0);
     }
     private void copyBaseRaceSettings(MOO1GameOptions dest) { // BR:
@@ -1075,12 +1084,12 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         for (int i=0;i<opponentRaces.length;i++)
         	opponentRaces[i] = null;
         
-        if (rotp.Rotp.noOptions("setBaseGalaxySettingsToDefault()"))
-        	selectedPlayerRace(random(allRaceOptions()));
-        else if (selectedShowNewRaces()) // BR: limit randomness
-        	selectedPlayerRace(random(allRaceOptions()));
-        else
-        	selectedPlayerRace(random(baseRaceOptions()));
+//        if (rotp.Rotp.noOptions("setBaseGalaxySettingsToDefault()"))
+//        	selectedPlayerRace(random(allRaceOptions()));
+//        else if (selectedShowNewRaces()) // BR: limit randomness
+//        	selectedPlayerRace(random(allRaceOptions()));
+//        else
+//        	selectedPlayerRace(random(baseRaceOptions()));
         selectedGameDifficulty = DIFFICULTY_NORMAL;
         selectedOpponentAIOption = defaultAI.aliensKey;
         for (int i=0;i<specificOpponentAIOption.length;i++)
