@@ -2336,12 +2336,12 @@ SETTINGS_MOD_ALLOW_TECH_STEALING         | Tech stealing: %1
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_Help     | Ungoverned colony can have their Eco sliders set to "Growth" after Transports are sent. Select the default value to be set in the Mass Transport Panel.<br>The slider will be set to green to confirm the auto refill status.<br> Ctrl+Click on sliders to toggle.
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_DESC     | Ungoverned colony can have their Eco sliders set to "Growth" after Transports are sent. Select the default value to be set in the transport panel.
 SETTINGS_MOD_TRANSPORT_AUTO_ECO          | Transport ECO: %1
-SETTINGS_MOD_TRANSPORT_AUTO_ECO_YES_DESC | Default will be set to Yes, refill the colony.
-SETTINGS_MOD_TRANSPORT_AUTO_ECO_YES      | Yes
+SETTINGS_MOD_TRANSPORT_AUTO_ECO_YES_DESC | Default will be set to auto-refill the colony.
+SETTINGS_MOD_TRANSPORT_AUTO_ECO_YES      | On
 SETTINGS_MOD_TRANSPORT_AUTO_ECO_NO_DESC  | Default will be set to No.
-SETTINGS_MOD_TRANSPORT_AUTO_ECO_NO       | No
-SETTINGS_MOD_TRANSPORT_AUTO_ECO_COLONY_DESC  | Will be set to the last colony setting.
-SETTINGS_MOD_TRANSPORT_AUTO_ECO_COLONY       | Colony
+SETTINGS_MOD_TRANSPORT_AUTO_ECO_NO       | Off
+SETTINGS_MOD_TRANSPORT_AUTO_ECO_LAST_DESC | Will keep the last colony setting.
+SETTINGS_MOD_TRANSPORT_AUTO_ECO_LAST      | Last
 
 SETTINGS_MOD_SPY_OVERSPEND_DESC          | Use all the available budget to by spy, or stop spending once the team is complete.
 SETTINGS_MOD_SPY_OVERSPEND               | Spy Overspend: %1
