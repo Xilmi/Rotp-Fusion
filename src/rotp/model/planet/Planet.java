@@ -709,8 +709,8 @@ public class Planet implements Base, IMappedObject, Serializable {
         else if (isOrionArtifact())
             val *= 3;
 
-        // normalized to normal size-100
-        return val/100;
+        // normalized to size 100
+        return val/100f;
     }
     // BR: For Symmetric galaxies
     void copy(Planet src) {

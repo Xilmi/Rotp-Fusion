@@ -74,8 +74,10 @@ public abstract class SpaceMonster extends ShipFleet implements NamedObject {
 	public Image image()					{ return image(nameKey); }
 	public void	 initCombat()				{ 
 		if (monsterLevel == null) {
-			if (isGuardian() && system() != null)
+			if (isGuardian() && system() != null) {
 				stackLevel = options().guardianMonstersLevel() * system().monsterPlanetValue();
+				stackLevel = (float) Math.pow(stackLevel, 0.5);
+			}
 			else
 				stackLevel = options().monstersLevel();
 		}
@@ -87,7 +89,9 @@ public abstract class SpaceMonster extends ShipFleet implements NamedObject {
 	public void	 addCombatStack(CombatStack c)		{ combatStacks.add(c); }
 	protected Float	 stackLevel()					{ return stackLevel; }
 	protected int	 stackLevel(int val)			{ return (int) (val * stackLevel); }
-	protected int	 stackLevel(int val, int max)	{ return Math.min(max, stackLevel(val)); }
+	protected int	 stackLevel(int val, int max)	{
+		// System.out.print(Math.min(max, stackLevel(val)) + " ");
+		return Math.min(max, stackLevel(val)); }
 	public ShipDesign design()						{ return null; }
 	@Override public String name()					{ return text(nameKey);  }
 	@Override public IMappedObject source()			{ return this; }

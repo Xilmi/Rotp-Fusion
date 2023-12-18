@@ -222,7 +222,7 @@ public class CombatStackMonster extends CombatStack {
 	}
 	@Override public String	 name()								{ return text("PLANET_" + name); }
 	@Override public int	 numWeapons()						{ return weapons.size(); }
-	@Override public int	 optimalFiringRange(CombatStack tgt){ return 3; }
+	@Override public int	 optimalFiringRange(CombatStack tgt){ return 2; }
 	@Override public void	 reloadWeapons()					{
 		for (int i=0;i<shotsRemaining.length;i++) 
 			shotsRemaining[i] = 1;

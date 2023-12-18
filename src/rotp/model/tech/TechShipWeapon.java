@@ -425,15 +425,15 @@ public final class TechShipWeapon extends Tech {
                 soundEffect = "ShipMultiLaser";
                 break;
             case 24: // JELLYFISH DART
-                range = 3;
+                range = 2;
                 damageLow = 1;
                 damageHigh = 5;
                 enemyShieldMod = .2f;
                 weaponSpread = 3;
                 holdFrames = 3;
                 restricted = true;
-                cost = 8;
-                size = 10;
+                cost = 100;
+                size = 20;
                 power = 25;
                 beamColor = Color.blue;
                 beamStroke = 1;

@@ -163,8 +163,8 @@ public class ShipCombatManager implements Base {
         for (Empire emp: empires) {
             battle(sys, emp, monster);
             if (!monster.alive()) {
-            	System.out.println(this.getTurn() +  " " + monster.name() +
-            						" killed by " + emp.name() + " (" + emp.id + ")");
+//            	System.out.println(this.getTurn() +  " " + monster.name() +
+//            						" killed by " + emp.name() + " (" + emp.id + ")");
             	break;
             }
         }    

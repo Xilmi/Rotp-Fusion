@@ -24,6 +24,7 @@ public class CombatStackGuardianJellyfish extends CombatStackMonster {
 	public CombatStackGuardianJellyfish(SpaceMonster fl, String imageKey, Float monsterLevel) {
 		super(fl, imageKey, monsterLevel);
 	}
-	@Override public boolean immuneToStasis()		{ return true; }
-	@Override public Color	 shieldBaseColor()		{ return Color.blue; }
+	@Override public boolean immuneToStasis()					{ return true; }
+	@Override public Color	 shieldBaseColor()					{ return Color.blue; }
+	@Override public int	 optimalFiringRange(CombatStack tgt){ return 2; }
 }

@@ -61,6 +61,8 @@ Later:
 2023.12.18 (BR)
 - ShipBattleUI: Added drawSpaceMonsterButtonOverlay, similar to SpacePirates.
 - GalaxyMapPanel: added debugShowAll: to display the full map!
+- Added Guardian Monsters to orbiting ship list => Works with all AI.
+- Reduced the default Guardian monster level.
 
 2023.12.17 (BR)
 - Added common Monster Guardian class.
