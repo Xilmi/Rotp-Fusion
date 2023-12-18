@@ -135,4 +135,9 @@ detail: SHIPWPN_21_DETAIL
 //name:   SHIPWPN_23_NAME
 //detail: SHIPWPN_23_DETAIL
 
+[tech]
+seq:    24
+name:   SHIPWPN_24_NAME
+detail: SHIPWPN_24_DETAIL
+
 

@@ -220,7 +220,7 @@ public class CombatStack implements Base {
     public boolean aggressiveWith(CombatStack st)    { return empire.aggressiveWith(st.empire, mgr.system()); }
 
     public void usedBioweapons() { mgr.results().addBioweaponUse(empire); }
-    public void reverse()                           { reversed = !reversed; }
+    public void reverse()                            { reversed = !reversed; }
     public List<CombatStackMissile> missiles()       { return targetingMissiles; }
     public void addMissile(CombatStackMissile miss)  { targetingMissiles.add(miss); }
     public float scale()                             { return scale; }
@@ -258,18 +258,9 @@ public class CombatStack implements Base {
             return;
         if (repairPct <= 0)
             return;
-        // BR: Wrong Request: Removed! // BR: Streaming damage is not repaired
-//        float streamProjectorRepairPct	= max(0,(repairPct - 0.2f));
-//        float streamProjectorHealAmt	= startingMaxHits*streamProjectorRepairPct;        
-//        streamProjectorHits	= max(0, streamProjectorHits-streamProjectorHealAmt);        
-//        float maxHitLimit	= startingMaxHits - streamProjectorHits;
-//        float healAmt		= startingMaxHits * repairPct;
-//        hits				= min(maxHitLimit, hits+healAmt);
-//        maxStackHits		= max(hits, maxHitLimit);
-
-		 float healAmt = startingMaxHits*repairPct;
-		 hits = min(startingMaxHits, hits+healAmt);
-		 maxStackHits = max(hits, maxStackHits);
+		float healAmt = startingMaxHits*repairPct;
+		hits = min(startingMaxHits, hits+healAmt);
+		maxStackHits = max(hits, maxStackHits);
     }
     public void endTurn() {
         if (!destroyed())

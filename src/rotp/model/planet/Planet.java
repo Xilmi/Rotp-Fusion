@@ -682,6 +682,36 @@ public class Planet implements Base, IMappedObject, Serializable {
             return buffer1;
     }
 
+    public float monsterPlanetValue() {
+        float size = currentSize(); // planet size
+        
+        // increase planet value depending on size (value is normalized below)
+        // (4*pow(SIZE, 0.7)
+        float val = (float) (4.0 * Math.pow(size, 0.7f));
+
+        // Higher desire value for Rich, Ultra-Rich, Artifacts
+        // Lower desire value for Poor, Ultra-Poor
+        // modnar: increase values for poor/ultra-poor
+        if (isResourceUltraPoor())
+            val *= 0.6;
+        else if (isResourcePoor())
+            val *= 0.75;
+        else if (isResourceNormal())
+            val *= 1;
+        else if (isResourceRich())
+            val *= 2;
+        else if (isResourceUltraRich())
+            val *= 3;
+
+        //float for artifacts, triple for super-artifacts
+        if (isAntaran())
+            val *= 2;
+        else if (isOrionArtifact())
+            val *= 3;
+
+        // normalized to normal size-100
+        return val/100;
+    }
     // BR: For Symmetric galaxies
     void copy(Planet src) {
     	this.environment = src.environment();

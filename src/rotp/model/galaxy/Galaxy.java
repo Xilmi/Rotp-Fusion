@@ -68,8 +68,7 @@ public class Galaxy implements Base, Serializable {
     private final List<StarSystem> abandonedSystems = new ArrayList<>();
 
     private Empire playerEmpire;
-    @SuppressWarnings("unused")
-	private Empire orionEmpire; //unused
+	private Empire orionEmpire;
     private final int widthLY;
     private final int heightLY;
     private float maxScaleAdj = 1.0f;
@@ -106,8 +105,13 @@ public class Galaxy implements Base, Serializable {
     private transient Map<String, List<String>> raceSystemNames = new HashMap<>();
     private transient Map<String, Integer> raceSystemCtr = new HashMap<>();
     private transient List<SpaceMonster> spaceMonsters;
-
-    public void backupStarSystem() {
+    
+    public Empire orionEmpire()				 {
+    	if (orionEmpire == null)
+    		orionEmpire = new Empire(this, -2, orionId(), 0, "Orion");
+    	return orionEmpire;
+    }
+    public void backupStarSystem()			 {
     	dynamicOptions.setObject(SYSTEMS_KEY, (Serializable) deepCopy(starSystems));
     }
     public StarSystem[] originalStarSystem() {
@@ -456,7 +460,16 @@ public class Galaxy implements Base, Serializable {
         RandomEventSpaceAmoeba.triggerEmpire  = isTechDiscovered(RandomEventSpaceAmoeba.TRIGGER_TECH);
         events.validateOnLoad();
         player().setVisibleMonsters();
-     }    
+        // Gives Guardian monster their systems
+    	for (StarSystem sys : starSystems())
+    		if (sys.hasMonster()) {
+    			SpaceMonster monster = sys.monster();
+    			if (monster.isGuardian()) {
+    				monster.sysId(sys.id);
+    				monster.setXY(sys);
+    			}
+    		}
+    }    
     public void validate() {
        for (Empire emp: empires())
             emp.validate();
@@ -522,12 +535,10 @@ public class Galaxy implements Base, Serializable {
     	// spaceMonsters = null;
     	if (spaceMonsters == null) {
         	spaceMonsters = events.monsters();
-        	StarSystem orionSystem = orionSystem();
-        	SpaceMonster guardian = null;
-        	if (orionSystem != null)
-        		guardian = orionSystem().monster();
-        	if (guardian != null)
-        		spaceMonsters.add(guardian);
+        	for (StarSystem sys : starSystems())
+        		if (sys.hasMonster())
+        			if (sys.monster().isGuardian())
+        				spaceMonsters.add(sys.monster());
     	}
     	return spaceMonsters;
     }

@@ -32,7 +32,10 @@ public class ShipComponent implements Base, Serializable {
     private transient Tech tech;
 
     public static Comparator<ShipComponent> SELECTION_ORDER = (ShipComponent o1, ShipComponent o2) -> o1.sequence < o2.sequence ? -1 : 1;
-    protected void tech(Tech t)          { techId = t.id(); tech = null; }
+    protected void tech(Tech t)          {
+    	techId = t.id();
+    	tech = null;
+    }
     public float sequence()             { return sequence; }
     public void sequence(float d)       { sequence = d; }
     public Tech tech() {

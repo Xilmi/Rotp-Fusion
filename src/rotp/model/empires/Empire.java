@@ -231,6 +231,8 @@ public final class Empire implements Base, NamedObject, Serializable {
     public String raceName() {
     	if (isPlayer() && isCustomRace())
     		return dataRace().setupName;
+    	if (id < 0)
+    		return "Orion";
     	return raceName(0);
     }
     public String raceName(int i) {
@@ -490,6 +492,30 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
         shipLab = new ShipDesignLab();
     }
+    public Empire(Galaxy g, int empId, int sysId, int cId, String name) {
+        log("creating Monster empire for ",  name);
+        id			= empId;
+        raceKey		= "RACE_PSILON";
+        dataRaceKey	= "RACE_PSILON";
+        race		= Race.keyed(raceKey);
+        dataRace	= Race.keyed(raceKey);
+        raceOptions(dataRace.raceOptions());
+        homeSysId	= capitalSysId = sysId;
+		compSysId	= new int[0];
+        empireViews	= null;
+        status		= null;
+        sv			= null;
+        bannerColor	= cId;
+        race		= null;
+        dataRace	= null;
+        leader		= new Leader(this, name);
+        shipLab		= new ShipDesignLab();
+        loadStartingTechs();
+        loadStartingShipDesigns();
+        raceNameIndex = 0;
+        tech().learnAll();
+    }
+
     public void setBounds(float x1, float x2, float y1, float y2) {
         minX = x1;
         maxX = x2;

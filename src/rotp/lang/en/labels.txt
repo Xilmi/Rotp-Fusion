@@ -114,6 +114,7 @@ PLANET_WORLD                      | [alien_race] World
 PLANET_COLONY                     | [alien_race] Colony
 PLANET_ORION                      | Orion
 PLANET_ORION_GUARDIAN             | Guardian
+PLANET_SPACE_JELLYFISH            | Space Jellyfish
 
 // Nebula names  ("starName" Nebula)
 NEBULA_NAME                       | %1 Nebula
@@ -134,6 +135,8 @@ SPACE_CRYSTAL                     | Space Crystal
 // modnar: add space pirate random event
 SPACE_PIRATES                     | Space Pirates
 ORION_GUARDIAN                    | Orion Guardian
+// BR: add guardian space monsters
+SPACE_JELLYFISH                   | Space Jellyfish
 
 // Personality types (adjective)
 LEADER_ERRATIC                    | Erratic
@@ -2643,6 +2646,22 @@ SETTINGS_MOD_TERRAFORM_CLEANED_HELP      | Don't bother terraforming, just keep 
 // Other base menu Mod settings
 SETTINGS_MOD_PLAYER_SHIP_SET_DESC        | Select the Player Ship Set.
 SETTINGS_MOD_PLAYER_SHIP_SET             | Player Ship Set: %1
+
+SETTINGS_MOD_GUARDIAN_MONSTERS_DESC      | Rich and Artifact planets can be guarded by Space Monsters.
+SETTINGS_MOD_GUARDIAN_MONSTERS           | Guardians: %1
+SETTINGS_MOD_GUARDIAN_MONSTERS_NONE_DESC | No Space Monster Guardians.
+SETTINGS_MOD_GUARDIAN_MONSTERS_NONE      | None
+SETTINGS_MOD_GUARDIAN_MONSTERS_ALL_DESC  | Rich, Ultra-Rich, and Artifact planets can be guarded by Space Monsters.
+SETTINGS_MOD_GUARDIAN_MONSTERS_ALL       | Yes
+SETTINGS_MOD_GUARDIAN_MONSTERS_RICH_DESC | Rich and Ultra-Rich planets can be guarded by Space Monsters.
+SETTINGS_MOD_GUARDIAN_MONSTERS_RICH      | Rich
+SETTINGS_MOD_GUARDIAN_MONSTERS_RUIN_DESC | Artifact planets can be guarded by Space Monsters.
+SETTINGS_MOD_GUARDIAN_MONSTERS_RUIN      | Artifact
+SETTINGS_MOD_GUARDIAN_MONSTERS_PCT_DESC  | Base probability (in %) for good planets to have a Space Monster. This value will be multiplied by the planet size (in %).
+SETTINGS_MOD_GUARDIAN_MONSTERS_PCT       | Guardians Prob: %1%
+SETTINGS_MOD_GUARDIAN_MONSTERS_LEVEL_DESC | Dificulty level for Gardian Space Monsters.
+SETTINGS_MOD_GUARDIAN_MONSTERS_LEVEL      | Guardians Level: %1%
+
 
 // ========== Random Events sub Panel
 SETTINGS_MOD_RANDOM_EVENTS_TITLE         | Random Event Customization

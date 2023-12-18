@@ -360,6 +360,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 	private BufferedImage smallNullMug;
 	private BufferedImage bigNullMug;
 
+	private boolean forceUpdate = true;
+
     // Local copy of the good sized race Mug, to avoid depending SetupRaceUI
     private BufferedImage[] bigOppMugs;
     private BufferedImage[] smallOppMugs;
@@ -1258,7 +1260,9 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			box.setBounds(0,0,0,0);
 		// background image
 		g.drawImage(backImg(), 0, 0, w, h, this);
-		drawFixButtons(g, false);
+//		drawFixButtons(g, false);
+		drawFixButtons(g, forceUpdate);
+		forceUpdate = false;
         drawButtons(g);
 
 		// draw number of opponents
@@ -1588,8 +1592,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				int sw6 = g.getFontMetrics().stringWidth(text6);
 				int x6 = settingsBox.x+((settingsBox.width-sw6)/2);
 				int y6 = settingsBox.y+settingsBox.height-s8;
-				Color c6 = hoverBox == settingsBox ? Color.yellow : GameUI.borderBrightColor();
-				drawShadowedString(g, text6, 2, x6, y6, GameUI.borderDarkColor(), c6);
+				Color color = all ? GameUI.borderBrightColor() : Color.yellow;
+				drawShadowedString(g, text6, 2, x6, y6, GameUI.borderDarkColor(), color);
 				prev = g.getStroke();
 				g.setStroke(stroke1);
 				g.drawRoundRect(settingsBox.x, settingsBox.y, settingsBox.width, settingsBox.height, cnr, cnr);
@@ -1602,8 +1606,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				int swMOD = g.getFontMetrics().stringWidth(textMOD);
 				int xMOD = modStaticABox.x+((modStaticABox.width-swMOD)/2);
 				int yMOD = modStaticABox.y+modStaticABox.height-s8;
-				Color cMOD = hoverBox == modStaticABox ? Color.yellow : GameUI.borderBrightColor();
-				drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), cMOD);
+				Color color = all ? GameUI.borderBrightColor() : Color.yellow;
+				drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), color);
 				prev = g.getStroke();
 				g.setStroke(stroke1);
 				g.drawRoundRect(modStaticABox.x, modStaticABox.y, modStaticABox.width, modStaticABox.height, cnr, cnr);
@@ -1616,8 +1620,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				int swMOD = g.getFontMetrics().stringWidth(textMOD);
 				int xMOD = modStaticBBox.x+((modStaticBBox.width-swMOD)/2);
 				int yMOD = modStaticBBox.y+modStaticBBox.height-s8;
-				Color cMOD = hoverBox == modStaticBBox ? Color.yellow : GameUI.borderBrightColor();
-				drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), cMOD);
+				Color color = all ? GameUI.borderBrightColor() : Color.yellow;
+				drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), color);
 				prev = g.getStroke();
 				g.setStroke(stroke1);
 				g.drawRoundRect(modStaticBBox.x, modStaticBBox.y, modStaticBBox.width, modStaticBBox.height, cnr, cnr);
@@ -1630,8 +1634,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				int swMOD = g.getFontMetrics().stringWidth(textMOD);
 				int xMOD = modDynamicABox.x+((modDynamicABox.width-swMOD)/2);
 				int yMOD = modDynamicABox.y+modDynamicABox.height-s8;
-				Color cMOD = hoverBox == modDynamicABox ? Color.yellow : GameUI.borderBrightColor();
-				drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), cMOD);
+				Color color = all ? GameUI.borderBrightColor() : Color.yellow;
+				drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), color);
 				prev = g.getStroke();
 				g.setStroke(stroke1);
 				g.drawRoundRect(modDynamicABox.x, modDynamicABox.y, modDynamicABox.width, modDynamicABox.height, cnr, cnr);
@@ -1644,8 +1648,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				int swMOD = g.getFontMetrics().stringWidth(textMOD);
 				int xMOD = modDynamicBBox.x+((modDynamicBBox.width-swMOD)/2);
 				int yMOD = modDynamicBBox.y+modDynamicBBox.height-s8;
-				Color cMOD = hoverBox == modDynamicBBox ? Color.yellow : GameUI.borderBrightColor();
-				drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), cMOD);
+				Color color = all ? GameUI.borderBrightColor() : Color.yellow;
+				drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), color);
 				prev = g.getStroke();
 				g.setStroke(stroke1);
 				g.drawRoundRect(modDynamicBBox.x, modDynamicBBox.y, modDynamicBBox.width, modDynamicBBox.height, cnr, cnr);
@@ -1658,8 +1662,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				int swModView = g.getFontMetrics().stringWidth(textModView);
 				int xModView = globalModSettingsBox.x+((globalModSettingsBox.width-swModView)/2);
 				int yModView = globalModSettingsBox.y+globalModSettingsBox.height-s8;
-				Color cModView = hoverBox == globalModSettingsBox ? Color.yellow : GameUI.borderBrightColor();
-				drawShadowedString(g, textModView, 2, xModView, yModView, GameUI.borderDarkColor(), cModView);
+				Color color = all ? GameUI.borderBrightColor() : Color.yellow;
+				drawShadowedString(g, textModView, 2, xModView, yModView, GameUI.borderDarkColor(), color);
 				prev = g.getStroke();
 				g.setStroke(stroke1);
 				g.drawRoundRect(globalModSettingsBox.x, globalModSettingsBox.y,
@@ -1675,8 +1679,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				int swMOD = g.getFontMetrics().stringWidth(textMOD);
 				int xMOD = mergedStaticBox.x+((mergedStaticBox.width-swMOD)/2);
 				int yMOD = mergedStaticBox.y+mergedStaticBox.height-s8;
-				Color cMOD = hoverBox == mergedStaticBox ? Color.yellow : GameUI.borderBrightColor();
-				drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), cMOD);
+				Color color = all ? GameUI.borderBrightColor() : Color.yellow;
+				drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), color);
 				prev = g.getStroke();
 				g.setStroke(stroke1);
 				g.drawRoundRect(mergedStaticBox.x, mergedStaticBox.y, mergedStaticBox.width, mergedStaticBox.height, cnr, cnr);
@@ -1689,8 +1693,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				int swMOD = g.getFontMetrics().stringWidth(textMOD);
 				int xMOD = mergedDynamicBox.x+((mergedDynamicBox.width-swMOD)/2);
 				int yMOD = mergedDynamicBox.y+mergedDynamicBox.height-s8;
-				Color cMOD = hoverBox == mergedDynamicBox ? Color.yellow : GameUI.borderBrightColor();
-				drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), cMOD);
+				Color color = all ? GameUI.borderBrightColor() : Color.yellow;
+				drawShadowedString(g, textMOD, 2, xMOD, yMOD, GameUI.borderDarkColor(), color);
 				prev = g.getStroke();
 				g.setStroke(stroke1);
 				g.drawRoundRect(mergedDynamicBox.x, mergedDynamicBox.y, mergedDynamicBox.width, mergedDynamicBox.height, cnr, cnr);
@@ -2143,6 +2147,10 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		optionsUI.init();
 	}
 	// BR: add UI panel for MOD game options
+	@Override protected void close() { 
+		super.close();
+		forceUpdate = true;
+	}
 	private void goToMergedStatic() {
 		buttonClick();
 		isOnTop = false;

@@ -400,24 +400,6 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		g.setStroke(stroke1);
 		g.drawRoundRect(guideBox.x, guideBox.y, guideBox.width, guideBox.height, cnr, cnr);
 		g.setStroke(prev);
-
-		// RaceUI Button
-		text = raceAIButtonTxt();
-		sw = g.getFontMetrics().stringWidth(text);
-		buttonW	= sw + smallButtonMargin;
-		int xAI = leftM + wBG - columnPad - buttonW;
-		int yAI	= yCost - raceAIH - s10;
-		raceAIBox.setBounds(xAI, yAI, buttonW, smallButtonH);
-		g.setColor(GameUI.buttonBackgroundColor());
-		g.fillRoundRect(raceAIBox.x, raceAIBox.y, buttonW, smallButtonH, cnr, cnr);
-		xT = raceAIBox.x+((raceAIBox.width-sw)/2);
-		yT = raceAIBox.y+raceAIBox.height-s8;
-		cB = hoverBox == raceAIBox ? Color.yellow : GameUI.borderBrightColor();
-		drawShadowedString(g, text, 2, xT, yT, GameUI.borderDarkColor(), cB);
-		prev = g.getStroke();
-		g.setStroke(stroke1);
-		g.drawRoundRect(raceAIBox.x, raceAIBox.y, raceAIBox.width, raceAIBox.height, cnr, cnr);
-		g.setStroke(prev);
 	}
 	protected void initButtonsBounds(Graphics2D g) {
 		g.setFont(smallButtonFont());
@@ -435,7 +417,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
 		guideBox.setBounds(xButton+s2, yButton, buttonW, smallButtonH);
 
 		// RaceUI Button
-		text = raceAIButtonTxt();
+		text = "AI: Character";
 		int sw = g.getFontMetrics().stringWidth(text);
 		buttonW	= sw + smallButtonMargin;
 		int xAI = leftM + wBG - columnPad - buttonW;
@@ -451,21 +433,20 @@ public class ShowCustomRaceUI extends BaseModPanel {
         g.setStroke(prev);
 	}
 	protected void drawFixButtons(Graphics2D g, boolean all) {
+		initFixButtons(g);
 		Stroke prev;
 		g.setFont(smallButtonFont());
 		// left button
-		if (hoverBox == raceAIBox || all) {
-			String text = raceAIButtonTxt();
-			int sw = g.getFontMetrics().stringWidth(text);
-			int x = raceAIBox.x+((raceAIBox.width-sw)/2);
-			int y = raceAIBox.y+raceAIBox.height*75/100;
-			Color c = hoverBox == raceAIBox ? Color.yellow : GameUI.borderBrightColor();
-			drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), c);
-			prev = g.getStroke();
-			g.setStroke(stroke1);
-			g.drawRoundRect(raceAIBox.x, raceAIBox.y, raceAIBox.width, raceAIBox.height, cnr, cnr);
-			g.setStroke(prev);
-		}
+		String text = raceAIButtonTxt();
+		int sw = g.getFontMetrics().stringWidth(text);
+		int x = raceAIBox.x+((raceAIBox.width-sw)/2);
+		int y = raceAIBox.y+raceAIBox.height*75/100;
+		Color c = hoverBox == raceAIBox ? Color.yellow : GameUI.borderBrightColor();
+		drawShadowedString(g, text, 2, x, y, GameUI.borderDarkColor(), c);
+		prev = g.getStroke();
+		g.setStroke(stroke1);
+		g.drawRoundRect(raceAIBox.x, raceAIBox.y, raceAIBox.width, raceAIBox.height, cnr, cnr);
+		g.setStroke(prev);
 	}
 	// ========== Overriders ==========
 	//

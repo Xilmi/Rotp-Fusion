@@ -18,6 +18,7 @@ package rotp.model.galaxy;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
+
 import rotp.model.combat.CombatStackOrionGuardian;
 import rotp.model.empires.Empire;
 import rotp.model.incidents.DiplomaticIncident;
@@ -46,17 +47,18 @@ public class OrionGuardianShip extends SpaceMonster {
             emp.plunderShipTech(tech(techId), -2); 
         
         // find the system with this monster and remove it
-        int sysId = StarSystem.NULL_ID;
-        for (StarSystem sys: galaxy().starSystems()) {
-            if (sys.planet().isOrionArtifact()) {
-                sys.monster(null);
-                sysId = sys.id;
-                //break; // BR: For the case of vestige being set to home planets
-            }
-        }
-        // all empires now know this system is no longer guarded
-        for (Empire emp1: galaxy().empires()) 
-            emp1.sv.view(sysId).refreshSystemEntryScan();
+        removeGuardian();
+//        int sysId = StarSystem.NULL_ID;
+//        for (StarSystem sys: galaxy().starSystems()) {
+//            if (sys.planet().isOrionArtifact()) {
+//                sys.monster(null);
+//                sysId = sys.id;
+//                //break; // BR: For the case of vestige being set to home planets
+//            }
+//        }
+//        // all empires now know this system is no longer guarded
+//        for (Empire emp1: galaxy().empires()) 
+//            emp1.sv.view(sysId).refreshSystemEntryScan();
     } 
     @Override
     protected DiplomaticIncident killIncident(Empire emp) { return KillGuardianIncident.create(emp.id, lastAttackerId, nameKey); }
@@ -64,6 +66,7 @@ public class OrionGuardianShip extends SpaceMonster {
     // Ship overriders
 	@Override public boolean inTransit()	{ return false; }
 	@Override public boolean deployed()		{ return false; }
-	@Override public int empId()			{ return -2; }
-	@Override public Image shipImage()		{ return image("ORION_GUARDIAN"); }
+	@Override public int	 empId()		{ return -2; }
+	@Override public Image	 shipImage()	{ return image("ORION_GUARDIAN"); }
+	@Override public boolean isGuardian()	{ return true; }
 }

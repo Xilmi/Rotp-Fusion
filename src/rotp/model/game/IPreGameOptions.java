@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import rotp.Rotp;
+import rotp.model.planet.Planet;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamAAN2;
 import rotp.ui.util.ParamBoolean;
@@ -132,13 +133,60 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions {
 	ParamBoolean randomAlienRacesSmoothEdges = new ParamBoolean(MOD_UI, "RACES_RAND_EDGES", true);
 
 	RandomAlienRaces randomAlienRaces		 = new RandomAlienRaces(MOD_UI, "RACES_ARE_RANDOM", RandomAlienRaces.TARGET);
-	default String selectedRandomAlienRaces()			{ return randomAlienRaces.get(); }
+	default String selectedRandomAlienRaces()	{ return randomAlienRaces.get(); }
+
+	ParamList    guardianMonsters			 = new ParamList( MOD_UI, "GUARDIAN_MONSTERS", "None") {
+		{
+			showFullGuide(true);
+			put("None", 	MOD_UI + "GUARDIAN_MONSTERS_NONE");
+//			put("Rich",		MOD_UI + "GUARDIAN_MONSTERS_RICH");
+//			put("Artefact",	MOD_UI + "GUARDIAN_MONSTERS_RUIN");
+			put("All",		MOD_UI + "GUARDIAN_MONSTERS_ALL");
+		}
+	};
+	default boolean noPlanetHaveMonster()		{ return guardianMonsters.get().equals("None"); }
+	default boolean richPlanetHaveMonster()		{
+		return guardianMonsters.get().equals("All") || guardianMonsters.get().equals("Rich");
+	}
+	default boolean artefactPlanetHaveMonster()	{
+		return guardianMonsters.get().equals("All") || guardianMonsters.get().equals("Artefact");
+	}
+
+	ParamInteger guardianMonstersProbability = new ParamInteger(MOD_UI, "GUARDIAN_MONSTERS_PCT", 50, 0, 500, 1, 5, 20);
+	default float guardianMonstersProbability()	{
+		if (noPlanetHaveMonster())
+			return 0;
+		return guardianMonstersProbability.get()/100f;
+	}
+	ParamInteger guardianMonstersLevel = new ParamInteger(MOD_UI, "GUARDIAN_MONSTERS_LEVEL", 100, 10, 1000, 5, 20, 100);
+	default float guardianMonstersLevel()		{ return guardianMonstersLevel.get()/100f; }
+	
+	default float guardianMonstersProbability(Planet planet) {
+		if (noPlanetHaveMonster())
+			return 0;
+		if (artefactPlanetHaveMonster() && planet.isArtifact()) {
+			float basePct	= guardianMonstersProbability.get()/100f;
+			float planetPct	= planet.baseSize()/100f;
+			return basePct * planetPct;
+		}
+		if (richPlanetHaveMonster() && planet.isResourceRich()) {
+			float basePct	= guardianMonstersProbability.get()/100f;
+			float planetPct	= planet.baseSize()/100f;
+			return basePct * planetPct;
+		}
+		if (richPlanetHaveMonster() && planet.isResourceUltraRich()) {
+			float basePct	= guardianMonstersProbability.get()/100f;
+			float planetPct	= planet.baseSize()/100f;
+			return 1.5f * basePct * planetPct;
+		}
+		return 0;
+	}
 
 	// ==================== GUI List Declarations ====================
 	//
 	static LinkedList<IParam> modStaticAOptions() {
 		return new LinkedList<>(
-				Arrays.asList(
+			Arrays.asList(
 				artifactsHomeworld, fertileHomeworld,
 				richHomeworld, ultraRichHomeworld,
 				null,
@@ -158,19 +206,20 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions {
 	}
 	static LinkedList<IParam> modStaticBOptions() {
 		return new LinkedList<>(
-				Arrays.asList(
-						minStarsPerEmpire, prefStarsPerEmpire,
-						empiresSpreadingFactor, minDistArtifactPlanet,
-						null,
-						randomAlienRacesTargetMax, randomAlienRacesTargetMin,
-						randomAlienRaces,
-						null,
-						randomAlienRacesMax, randomAlienRacesMin,
-						randomAlienRacesSmoothEdges,
-						null,
-						restartChangesPlayerAI, restartChangesAliensAI,
-						restartAppliesSettings, restartChangesPlayerRace
-						));
+			Arrays.asList(
+				minStarsPerEmpire, prefStarsPerEmpire,
+				empiresSpreadingFactor, minDistArtifactPlanet,
+				null,
+				randomAlienRacesTargetMax, randomAlienRacesTargetMin,
+				randomAlienRaces, guardianMonsters,
+				null,
+				randomAlienRacesMax, randomAlienRacesMin,
+				randomAlienRacesSmoothEdges, guardianMonstersProbability,
+				guardianMonstersLevel,
+				null,
+				restartChangesPlayerAI, restartChangesAliensAI,
+				restartAppliesSettings, restartChangesPlayerRace
+				));
 	}
 
 	static LinkedList<IParam> preGameOptions() {
@@ -186,6 +235,7 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions {
 				headerSpacer,
 				new ParamTitle("START_PLANET_OPTIONS"),
 				planetQuality, minDistArtifactPlanet,
+				guardianMonsters, guardianMonstersLevel, guardianMonstersProbability,
 
 				headerSpacer,
 				new ParamTitle("GAME_OTHER"),

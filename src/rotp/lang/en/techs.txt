@@ -1123,6 +1123,9 @@ SHIPWPN_22_DETAIL      | A stream that does 250-1000 points of damage and has a 
 SHIPWPN_23_NAME        | The Crystal Ray
 SHIPWPN_23_DETAIL      | A beam that surrounds a target's shields, delivering 4 attacks for 100-300 points of damage each. It has a range of 3 spaces.
 
+SHIPWPN_24_NAME        | Jellyfish Darts
+SHIPWPN_24_DETAIL      | A dart streaming weapon that fift the effectiveness of enemy deflector shields to a fifth, and inflicts 1-5 points of damage. It has a range of 3 spaces.
+
 
 //
 // Soil Enrichment techs

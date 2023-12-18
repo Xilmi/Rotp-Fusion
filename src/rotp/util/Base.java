@@ -529,7 +529,9 @@ public interface Base {
     public default int getRed(int pixel)   { return (pixel >> 16) & 0xFF; }
     public default int getGreen(int pixel) { return (pixel >> 8) & 0xFF; }
     public default int getBlue(int pixel)  { return (pixel >> 0) & 0xFF; }
-    public default Tech tech(String id)    { return TechLibrary.current().tech(id); }
+    public default Tech tech(String id)    { 
+    	return TechLibrary.current().tech(id);
+    }
 
     public default String date(float n) {
         int year = (int) n;

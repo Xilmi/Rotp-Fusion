@@ -58,6 +58,22 @@ Later:
 
 ## What's New
 
+2023.12.18 (BR)
+- ShipBattleUI: Added drawSpaceMonsterButtonOverlay, similar to SpacePirates.
+- GalaxyMapPanel: added debugShowAll: to display the full map!
+
+2023.12.17 (BR)
+- Added common Monster Guardian class.
+- Fixed last known guardian issues.
+
+2023.12.10 (BR)
+- Fixed Submenu hover color becoming permanent.
+- Fixed ShowSpecies AI button text not being updated.
+- Fixed hover color remaining on some Galaxy setting Buttons
+- Good planets can now have a Guardian (Space Monster)
+  - Added Giant Space Jellyfish Monster Guardian
+
+
 2023.12.10 (BR)
 - New Mass Transport Auto-refill Set independently for each colony.
   - Replace the previous global system.

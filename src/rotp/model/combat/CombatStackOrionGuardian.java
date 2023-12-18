@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import rotp.model.ai.OrionGuardianCaptain;
+import rotp.model.empires.Empire;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.ships.ShipComponent;
 import rotp.model.ships.ShipSpecial;
@@ -296,5 +297,8 @@ public class CombatStackOrionGuardian extends CombatStack {
         return weaponCount[i];
     }
     @Override public Color shieldBaseColor() { return Color.blue; }
+	@Override public boolean canPotentiallyAttack(CombatStack target)	{
+		Empire emp = target.empire;
+		return emp != null; // You won't them attacking other wandering monsters!
+	}
 }
-        

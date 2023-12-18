@@ -501,8 +501,8 @@ public final class GameSession implements Base, Serializable {
                     return;
 
                 // REMOVE THIS CODE
-                //playerViewAllSystems();
-                //playerViewAllHomeSystems();
+                // playerViewAllSystems();
+                // playerViewAllHomeSystems();
 
                 // all intra-empire events: civ turns, ship movement, etc
                 gal.advanceTime();

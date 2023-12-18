@@ -35,6 +35,7 @@ TECH_HYPER-X_ROCKET           | images/techs/Hyper-X_Rocket.png
 TECH_ION_CANNON               | images/techs/Ion_Cannon.png
 TECH_ION_RIFLE                | images/techs/Ion_Rifle.png
 TECH_ION_STREAM_PROJECTOR     | images/techs/Ion_Stream_Projector.png
+TECH_JELLYFISH_DARTS          | images/techs/Death_Ray.png
 TECH_MASS_DRIVER              | images/techs/Mass_Driver.png
 TECH_MAULER_DEVICE            | images/techs/Mauler_Device.png
 TECH_MEGABOLT_CANNON          | images/techs/Megabolt_Cannon.png

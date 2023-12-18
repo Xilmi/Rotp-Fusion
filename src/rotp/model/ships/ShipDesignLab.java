@@ -154,6 +154,9 @@ public class ShipDesignLab implements Base, Serializable {
         destroyerDesignId = 3;
         colonyDesignId = 4;
         
+        if (empire.id < 0) // BR: Monster Empire
+        	return;
+        
         ShipDesign design;
         rotp.model.ai.xilmi.NewShipTemplate nst = new rotp.model.ai.xilmi.NewShipTemplate();
 
@@ -571,6 +574,7 @@ public class ShipDesignLab implements Base, Serializable {
         for (ShipWeapon wpn : weapons()) {
             if (wpn.isBeamWeapon()) {
                 ShipWeaponBeam wpn2 = (ShipWeaponBeam) wpn;
+                System.out.println("wpn2.tech().sequence = " + wpn2.tech().sequence);
                 if ((wpn2.tech().sequence == seq) && (wpn2.heavy() == heavy))
                     return wpn;
             }

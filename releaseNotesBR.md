@@ -3,10 +3,16 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 <b><ins>Updates since last releases:</ins></b>
 - New hotkeys to loop thru flagged star systems: ("SHIFT" for reverse)
   - Num * : Loop thru systems with top left flag ("CTRL-/" Same Flag Color only)
-  - Num - : Loop thru systems with top right flag ("CTRL-*" Same Flag Color only)
+  - Num - : Loop thru systems with top right flag ("CTRL-* " Same Flag Color only)
   - Num + : Loop thru systems with bottom right flag ("CTRL-9" Same Flag Color only)
   - Num 9 or / : Loop thru systems with bottom left flag ("CTRL-8" Same Flag Color only)
     - When "Num" is off: "9" = "PgUp", then "/" can be used instead.
+- New Space Monsters Guardian
+  - Good planets may now be Guarded (Space Monster)
+    - Option to select the ressource to protect.
+    - Option to tune the probability of guardian.
+    - Option to tune the Monster level.
+  - Added Monster Guardian: Giant Space Jellyfish.
 
 <b><ins>Optimisation:</ins></b>
 - Fixed Apple Retina Screen compatibility.

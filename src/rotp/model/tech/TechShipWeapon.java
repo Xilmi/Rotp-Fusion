@@ -100,9 +100,9 @@ public final class TechShipWeapon extends Tech {
         cat = c;
         free = b;
         init();
-        // System.out.println(soundEffect);
-        // playAudioClip(soundEffect);
-        // sleep(1500);
+//        System.out.println(soundEffect); // TO DO BR: COMMENT
+//        playAudioClip(soundEffect);
+//        sleep(1500);
     }
     @Override
     public boolean canBeMiniaturized()      { return true; }
@@ -423,6 +423,22 @@ public final class TechShipWeapon extends Tech {
                 beamColor = Color.white;
                 beamStroke = 4;
                 soundEffect = "ShipMultiLaser";
+                break;
+            case 24: // JELLYFISH DART
+                range = 3;
+                damageLow = 1;
+                damageHigh = 5;
+                enemyShieldMod = .2f;
+                weaponSpread = 3;
+                holdFrames = 3;
+                restricted = true;
+                cost = 8;
+                size = 10;
+                power = 25;
+                beamColor = Color.blue;
+                beamStroke = 1;
+                dashStroke = 3;
+                soundEffect = "ShipJellyfishDart";
                 break;
         }
     }

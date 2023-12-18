@@ -321,6 +321,9 @@ public class CompactOptionsUI extends BaseModPanel implements MouseWheelListener
 					if (e == null)
 						return;
 					super.close();
+			        param.updated(true);
+			        btListLeft.get(i).mouseExit();
+			        btListRight.get(i).mouseExit();
 			        disableGlassPane();
 			        param.toggle(e, GUI_ID, this);
 					return;

@@ -54,6 +54,7 @@ ShipStellarConvertor     , data/sounds/shipcombat_tos_disruptor.wav          , 1
 ShipMauler               , data/sounds/shipcombat_quantumtorpedoes.wav       ,  50    ,
 ShipAmoebaStream         , data/sounds/shipcombat_cloak_klingon.wav          ,  50    ,
 ShipCrystalRay           , data/sounds/shipcombat_klingon_disruptor3.wav     ,  100   ,
+ShipJellyfishDart        , data/sounds/shipcombat_dart.wav                   ,  100   ,
 
 #Sabotage
 SabotageRiot             , data/sounds/sabotage_riot.wav         , 100            ,

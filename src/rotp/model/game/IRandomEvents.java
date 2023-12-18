@@ -188,6 +188,9 @@ public interface IRandomEvents extends IBaseOptsTools {
 				monstersGNNNotification,
 
 				headerSpacer,
+				IPreGameOptions.guardianMonstersLevel,
+				
+				headerSpacer,
 				new ParamTitle("RANDOM_EVENTS_MONSTERS"),
 				piratesDelayTurn, piratesReturnTurn, piratesMaxSystems,
 				headerSpacer,

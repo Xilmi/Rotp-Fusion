@@ -210,7 +210,13 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
 
     public boolean unnamed()                    { return name().isEmpty(); }
     public SpaceMonster monster()               { return monster; }
-    public void monster(SpaceMonster sm)        { monster = sm; }
+    public void monster(SpaceMonster sm)        {
+    	monster = sm;
+    	if (monster!= null && monster.isGuardian()) {
+    		monster.sysId(id);
+    		monster.setXY(x, y);
+    	}
+    }
 
     public String name()                        { return name; }
     public void name(String s)                  { name = s; }
@@ -280,7 +286,7 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
     public Colony colony()                      { return planet().colony(); };
     public boolean hasBonusTechs()              { return planet().hasBonusTechs(); }
     public Color color()                        { return starType().color(); }
-
+    public float monsterPlanetValue() 			{ return planet.monsterPlanetValue(); }
     public boolean inNebula()                   { return inNebula; }
     public void inNebula(boolean b)             { inNebula = b; }
     public boolean canStargateTravelTo(StarSystem s) {
@@ -1036,13 +1042,16 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
 		String starType;
 		public String starName;
 		PlanetBaseData planetBaseData;
+		SpaceMonster monster;
 
 		SystemBaseData(StarSystem src) {
 			x = src.x;
 			y = src.y;
 			starType = src.starType().key();
 			starName = src.name();
+			monster	 = src.monster;
 			planetBaseData = new PlanetBaseData(src.planet());
 		}
+		boolean hasMonster()           { return monster != null; }
 	}
 }

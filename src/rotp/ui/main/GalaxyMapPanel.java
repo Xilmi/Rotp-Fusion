@@ -91,6 +91,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
     public static int MAX_FLEET_SMALL_SCALE		= 60;
     public static int MAX_FLEET_LARGE_SCALE		= 80;
     public static int MAX_FLEET_HUGE_SCALE		= 100;
+    private static boolean debugShowAll = false;
 	// \BR:
     
     public static Color gridLight = new Color(160,160,160);
@@ -272,6 +273,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
     }
     @Override
     public void paintComponent(Graphics g) {
+    	// debugShowAll = true; // TO DO BR: REMOVE
         Graphics2D g2 = (Graphics2D) g;
         setFontHints(g2);
         parent.checkMapInitialized();
@@ -533,11 +535,12 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
 
         Galaxy gal = galaxy();
         Empire pl = player();
-        
+         
         for (int id=0; id < pl.sv.count(); id++) {
-            Empire emp = parent.knownEmpire(id, pl);
             StarSystem sys = gal.system(id);
-        	if (options().selectedDarkGalaxy() && (pl!=emp) && !options().darkGalaxySpy()) {
+            Empire emp = debugShowAll? sys.empire() : parent.knownEmpire(id, pl);
+
+            if (options().selectedDarkGalaxy() && (pl!=emp) && !options().darkGalaxySpy() && !debugShowAll) {
         		float dist = pl.sv.distance(id);
     			float scoutRange = pl.scoutRange();
     			float scanRange = pl.planetScanningRange();
@@ -806,7 +809,7 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
     }
     private void drawEmpireNames(Graphics2D g, boolean darkMode) {
         for (Empire emp: galaxy().empires()) {
-            if (parent.shouldDrawEmpireName(emp, scaleX())) 
+            if (parent.shouldDrawEmpireName(emp, scaleX()) || debugShowAll) 
                 parent.drawEmpireName(emp, this, g, darkMode);
         }
     }
@@ -814,62 +817,83 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
         Galaxy gal = galaxy();
         for (int id=0; id< gal.numStarSystems();id++) {
             StarSystem sys = gal.system(id);
-            if (parent.shouldDrawSprite(sys))
+            if (debugShowAll) {
                 sys.draw(this, g);
-            if (parent.shouldDrawSprite(sys.transportSprite()))
-                sys.transportSprite().draw(this, g);
-            if (parent.shouldDrawSprite(sys.rallySprite()))
-                sys.rallySprite().draw(this, g);
+                if (sys.transportSprite()!=null)
+                    sys.transportSprite().draw(this, g);
+                if (sys.rallySprite()!=null)
+                    sys.rallySprite().draw(this, g);
+            }
+            else {
+                if (parent.shouldDrawSprite(sys))
+                    sys.draw(this, g);
+                if (parent.shouldDrawSprite(sys.transportSprite()))
+                    sys.transportSprite().draw(this, g);
+                if (parent.shouldDrawSprite(sys.rallySprite()))
+                    sys.rallySprite().draw(this, g);
+            }
         }
     }
     private void drawShipsAndPath(Graphics2D g) {
-        if (!parent.drawShips())
+        if (!parent.drawShips() &&  !debugShowAll)
             return;
         Empire pl = player();
 
-        // commodification exception here without this copy
-        List<Ship> visibleShips = new ArrayList<>(pl.visibleShips());
-        for (Ship sh: visibleShips) {
-            sh.setDisplayed(this);
-            if (sh.displayed()) {
+        if(debugShowAll) {
+            for (Ship sh: galaxy().ships.allFleets()) {
+                sh.setDisplayed(this);
                 Sprite spr = (Sprite) sh;
                 // if we are drawing the ship, then check if its flight path should be drawn first
                 if ((sh.deployed() || sh.retreating() || sh.inTransit() || sh.isRallied())
-                && parent.shouldDrawSprite(sh.pathSprite())) {
-                    if (pl.knowETA(sh) && sh.pathSprite()!=null)
+                && (parent.shouldDrawSprite(sh.pathSprite()) || debugShowAll)) {
+                    if (sh.pathSprite()!=null)
                         sh.pathSprite().draw(this,g);
-                    else if (options().selectedTrackUFOsAcrossTurns()) {
-                        StarSystem suspectedDestination = player().suspectedDestinationOfVisibleShip(sh);
-                        if (suspectedDestination != null)
-                            sh.pathSpriteTo(suspectedDestination).draw(this, g);
-                    }
+                spr.draw(this, g);
                 }
-                spr.draw(this, g);
+            }
+        	for (SpaceMonster sh: galaxy().spaceMonsters()) {
+        		sh.setDisplayed(this);
+        		Sprite spr = (Sprite) sh;
+        		if (sh.pathSprite()!=null)
+        			sh.pathSprite().draw(this, g);
+        		spr.draw(this, g);
+        	}
+        } else {
+            // commodification exception here without this copy
+            List<Ship> visibleShips = new ArrayList<>(pl.visibleShips());
+            for (Ship sh: visibleShips) {
+                sh.setDisplayed(this);
+                if (sh.displayed() || debugShowAll) {
+                    Sprite spr = (Sprite) sh;
+                    // if we are drawing the ship, then check if its flight path should be drawn first
+                    if ((sh.deployed() || sh.retreating() || sh.inTransit() || sh.isRallied())
+                    && (parent.shouldDrawSprite(sh.pathSprite()) || debugShowAll)) {
+                        if (pl.knowETA(sh) && sh.pathSprite()!=null)
+                            sh.pathSprite().draw(this,g);
+                        else if (options().selectedTrackUFOsAcrossTurns()) {
+                            StarSystem suspectedDestination = player().suspectedDestinationOfVisibleShip(sh);
+                            if (suspectedDestination != null)
+                                sh.pathSpriteTo(suspectedDestination).draw(this, g);
+                        }
+                    }
+                    spr.draw(this, g);
+                }
+            }
+            List<SpaceMonster> visibleMonsters = new ArrayList<>(pl.visibleMonsters());
+            for (SpaceMonster sh: visibleMonsters) {
+                sh.setDisplayed(this);
+                if (sh.displayed()) {
+                    Sprite spr = (Sprite) sh;
+                    if (sh.event!=null && sh.event.notified() && sh.pathSprite()!=null)
+                        sh.pathSprite().draw(this, g);
+                    spr.draw(this, g);
+                }
             }
         }
-        List<SpaceMonster> visibleMonsters = new ArrayList<>(pl.visibleMonsters());
-        for (SpaceMonster sh: visibleMonsters) {
-            sh.setDisplayed(this);
-            if (sh.displayed()) {
-                Sprite spr = (Sprite) sh;
-                if (sh.event!=null && sh.event.notified() && sh.pathSprite()!=null)
-                    sh.pathSprite().draw(this, g);
-                spr.draw(this, g);
-            }
-        }
-        // TO DO BR: SWAP COMMENTS
-//        List<SpaceMonster> visibleMonsters = new ArrayList<>(galaxy().events().monsters());
-//        for (SpaceMonster sh: visibleMonsters) {
-//        	sh.setDisplayed(this);
-//            Sprite spr = (Sprite) sh;
-//            if (sh.pathSprite()!=null)
-//                sh.pathSprite().draw(this, g);
-//            spr.draw(this, g);
-//        }
     }
     private void drawWorkingFlightPaths(Graphics2D g) {
         for (FlightPathSprite spr: FlightPathSprite.workingPaths()) {
-            if (parent.shouldDrawSprite(spr)) 
+            if (parent.shouldDrawSprite(spr) || debugShowAll) 
                 spr.draw(this, g);
         }
     }

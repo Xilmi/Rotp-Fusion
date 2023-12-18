@@ -85,6 +85,10 @@ public class StarSystemFactory implements Base {
     	String type = refStar.starType().key();
     	StarSystem sys = StarSystem.create(type, gal);
     	sys.planet(PlanetFactory.copyPlanet(sys, refStar.planet()));
+    	if (refStar.hasMonster()) {
+    		SpaceMonster monster = refStar.monster();
+    		sys.monster(monster.getCopy());
+    	}
     	return sys;
     }
     // BR: For symmetric galaxies copy player characteristics And Restart
@@ -92,6 +96,10 @@ public class StarSystemFactory implements Base {
     	String type = refStar.starType;
     	StarSystem sys = StarSystem.create(type, gal);
     	sys.planet(PlanetFactory.copyPlanet(sys, refStar.planetBaseData));
+    	if (refStar.hasMonster()) {
+    		SpaceMonster monster = refStar.monster;
+    		sys.monster(monster.getCopy());
+    	}
     	return sys;
     }
 }

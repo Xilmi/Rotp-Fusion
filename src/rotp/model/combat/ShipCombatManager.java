@@ -162,8 +162,11 @@ public class ShipCombatManager implements Base {
         Collections.shuffle(empires);
         for (Empire emp: empires) {
             battle(sys, emp, monster);
-            if (!monster.alive())
-                break;
+            if (!monster.alive()) {
+            	System.out.println(this.getTurn() +  " " + monster.name() +
+            						" killed by " + emp.name() + " (" + emp.id + ")");
+            	break;
+            }
         }    
     }
     public boolean validSquare(int x, int y) {
@@ -585,8 +588,10 @@ public class ShipCombatManager implements Base {
         }
 
         // unless system has monster, remove any stacks that want to retreat
-        if (system.hasMonster())
-            return;
+        // BR: let scout get away from monsters
+        // if (system.hasMonster())
+        //     return;
+        // TODO BR: uncomment ???
 
         boolean retreating = true;
         List<CombatStack> retreatingFleets = new ArrayList<>();

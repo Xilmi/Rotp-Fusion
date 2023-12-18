@@ -74,7 +74,6 @@ public class CombatStackShip extends CombatStack {
         maneuverability = design.maneuverability();
         repulsorRange = design.repulsorRange();
         hits(maxStackHits());
-        streamProjectorHits(0); // BR:
         move = maxMove;
         shield = maxShield;
         missileDefense = design.missileDefense() + empire.shipDefenseBonus();

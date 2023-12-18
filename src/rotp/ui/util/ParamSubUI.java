@@ -120,6 +120,7 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<IParam>>> {
 	@Override public void toggle(MouseWheelEvent e) { }
 	@Override public void toggle(MouseEvent e, BaseModPanel frame) { }
 	@Override public void toggle(MouseEvent e, String p, BaseModPanel pUI) {
+		updated(true);
 		CompactOptionsUI ui = new CompactOptionsUI(GUI_TITLE_ID, GUI_ID, optionsMap);
 		ui.start(p, pUI);
 	};
