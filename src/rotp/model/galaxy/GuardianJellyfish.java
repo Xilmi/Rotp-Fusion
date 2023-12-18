@@ -37,17 +37,18 @@ public class GuardianJellyfish extends SpaceMonster {
 	public GuardianJellyfish(Float speed, Float level) {
 		super(IMAGE_KEY, -2, speed, level);
 	}
-	@Override public void initCombat()		{
+	@Override public void initCombat()			 {
 		super.initCombat();
 		addCombatStack(new CombatStackGuardianJellyfish(this, IMAGE_KEY, stackLevel()));	   
 	}
-	@Override public Image	 image()		{ return image(IMAGE_KEY); }
-	@Override public void	 plunder()		{ removeGuardian(); }
-	@Override public Image	 shipImage()	{ return image(IMAGE_KEY); }
-	@Override public int	 maxMapScale()	{ return GalaxyMapPanel.MAX_FLEET_HUGE_SCALE; }
-	@Override public boolean isGuardian()	{ return true; }
-	@Override public SpaceMonster getCopy() { return new GuardianJellyfish(null, null); }
-	@Override public ShipDesign design()	{
+	@Override public Image	 image()			 { return image(IMAGE_KEY); }
+	@Override public void	 plunder()			 { removeGuardian(); }
+	@Override public Image	 shipImage()		 { return image(IMAGE_KEY); }
+	@Override public int	 maxMapScale()		 { return GalaxyMapPanel.MAX_FLEET_HUGE_SCALE; }
+	@Override public boolean isMonsterGuardian() { return true; }
+	@Override public boolean isGuardian()		 { return true; }
+	@Override public SpaceMonster getCopy() 	 { return new GuardianJellyfish(null, null); }
+	@Override public ShipDesign design()		 {
 		ShipDesignLab lab = empire().shipLab();
 		
 		ShipDesign design = lab.newBlankDesign(Math.max(ShipDesign.MEDIUM,

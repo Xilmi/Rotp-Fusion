@@ -502,7 +502,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         raceOptions(dataRace.raceOptions());
         homeSysId	= capitalSysId = sysId;
 		compSysId	= new int[0];
-        empireViews	= null;
+        empireViews	= new EmpireView[0];;
         status		= null;
         sv			= null;
         bannerColor	= cId;
@@ -2811,7 +2811,6 @@ public final class Empire implements Base, NamedObject, Serializable {
     public EmpireView viewForEmpire(int empId) {
         if ((empId < 0) || (empId >= empireViews.length) || (empId == id))
             return null;
-        
         return empireViews[empId];
     }
     public boolean hasContact(Empire c) {

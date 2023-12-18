@@ -662,9 +662,9 @@ public class AIGeneral implements Base, General {
         bcNeeded = max(0, bcNeeded-(destroyersNeeded * empire.shipLab().destroyerDesign().cost()));
         int fightersNeeded = (int) Math.ceil(bcNeeded/empire.shipLab().fighterDesign().cost());
 
-        ShipDesignLab lab = empire.shipLab();
+        // ShipDesignLab lab = empire.shipLab();
         // modnar: should use min speed here (?)
-        float speed = min(lab.destroyerDesign().warpSpeed(), lab.fighterDesign().warpSpeed());
+        // float speed = min(lab.destroyerDesign().warpSpeed(), lab.fighterDesign().warpSpeed());
         FleetPlan fp = empire.sv.fleetPlan(sys.id);
         fp.priority = FleetPlan.INTERCEPT + invasionPriority(sys)/100;
         fp.addShips(empire.shipLab().destroyerDesign(), destroyersNeeded);

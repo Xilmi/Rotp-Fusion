@@ -268,6 +268,7 @@ public abstract class SpaceMonster extends ShipFleet implements NamedObject {
 		return shipImage;
 	}
 	public void degradePlanet(StarSystem sys)	{}
+	public boolean isMonsterGuardian()			{ return false; } // Not Orion Guardian
 	public boolean isGuardian()					{ return false; }
 	public SpaceMonster getCopy()				{ return null; }
 	private void drawGuard(GalaxyMapPanel map, Graphics2D g2)	{

@@ -263,7 +263,14 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
         }
         return 0;
     }
-    public List<ShipFleet> orbitingFleets()     { return galaxy().ships.orbitingFleets(id); }
+    public List<ShipFleet> orbitingFleets()     {
+    	if(monster != null && monster.isMonsterGuardian()) {
+    		List<ShipFleet> list = galaxy().ships.orbitingFleets(id);
+    		list.add(monster);
+    		return list;
+    	}
+    	return galaxy().ships.orbitingFleets(id);
+    }
     public List<ShipFleet> exitingFleets()      { return galaxy().ships.deployedFleets(id); }
     public List<ShipFleet> incomingFleets()     { return galaxy().ships.incomingFleets(id); }
 

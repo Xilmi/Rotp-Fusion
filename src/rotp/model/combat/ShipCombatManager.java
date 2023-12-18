@@ -591,7 +591,6 @@ public class ShipCombatManager implements Base {
         // BR: let scout get away from monsters
         // if (system.hasMonster())
         //     return;
-        // TODO BR: uncomment ???
 
         boolean retreating = true;
         List<CombatStack> retreatingFleets = new ArrayList<>();
