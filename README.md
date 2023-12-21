@@ -59,8 +59,11 @@ Later:
 
 ## What's New
 
+2023.12.21 (BR)
+- Fixed species stat being sometime hidden under the scroll bar.
+ 
 2023.12.20 (BR)
-- New AI tools to help the identification of the new monsters.
+- New tools to help the identification of the new monsters.
   - Added to Base AIs.
 - Added abstract GuardianMonster class for all future Space monsters.
   - Compatible with methods requesting full designs array.

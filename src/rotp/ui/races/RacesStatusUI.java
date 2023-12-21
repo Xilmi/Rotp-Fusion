@@ -387,8 +387,8 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
         int vSpacing = s5;
         int tSpacing = s5;
         int bSpacing = s5;
-        int lSpacing = s5;
-        int rSpacing = s40;
+        int lSpacing = s5;  // left margin
+        int rSpacing = s40; // right margin, (include scroll bar)
         int barH = (listH-((numDisplayEmps-1)*vSpacing)-tSpacing-bSpacing)/numDisplayEmps;
         listH = (barH*numDisplayEmps)+((numDisplayEmps-1)*vSpacing)+tSpacing+bSpacing;
         int yAdj = (barH-s10)/2;
@@ -419,13 +419,20 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
         minValue /= 2;
         float logScale = logScale(maxValue/minValue);
         
+        // BR: the with will depends on the scroll bar activation 
+        int scrollW   = s12; // scroll bar width
+        int rows	  = vals.size();
+        dataYMax[num] = max(0, s21+(barH*rows) - listH);
+        boolean noScrollBar = (dataYMax[num] == 0);
+        
         int x2 = x1 + lSpacing;
         int y2 = y1 + tSpacing-dataY[num];
-        int w2 = w1 - lSpacing - rSpacing;
-        int wl = (w2+rSpacing);
+        int w2 = w1 - lSpacing - rSpacing; // 100% bar width
+        int wbt = (w2+rSpacing-lSpacing); // with available for display bar and text
+        wbt = noScrollBar? wbt : wbt-scrollW;
+        	
         g.setFont(font(16));
         g.setClip(fullBoxes[num]);
-        int rows = vals.size();
 
         float playerVal	= player().status().lastViewValue(player(), num);
         float norm = 1;
@@ -468,7 +475,7 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
                 
                 int swa = g.getFontMetrics().stringWidth(age);
                 int swv = g.getFontMetrics().stringWidth(val);
-                if (swv+barW+s5 > wl) { // Value to the left
+                if (swv+barW+s5 > wbt) { // Value to the left
                 	if(s5+swv+s5 > barW) { // Value full left
                 		drawBorderedString(g, val, x2+s5, y2+barH-yAdj, Color.black, RacesUI.brown);
                 		drawString(g, age, x2+barW+s5+swv+s5, y2+barH-yAdj);
@@ -501,7 +508,7 @@ public final class RacesStatusUI extends BasePanel implements MouseListener, Mou
             dataScrollers[num].setBounds(0,0,0,0);
         else {
             g.setColor(RacesUI.scrollBarC);
-            int scrollW = s12;
+            // int scrollW = s12;
             int scrollH = (int) ((float)listH*listH/(listH+dataYMax[num]));
             int scrollX = x1+w1-scrollW-s2;
             int scrollY =(int) (y1+ (float)listH*dataY[num]/(dataYMax[num]+listH));
