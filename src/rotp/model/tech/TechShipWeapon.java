@@ -432,7 +432,7 @@ public final class TechShipWeapon extends Tech {
                 weaponSpread = 3;
                 holdFrames = 3;
                 restricted = true;
-                cost = 100;
+                cost = 15;
                 size = 20;
                 power = 25;
                 beamColor = Color.blue;

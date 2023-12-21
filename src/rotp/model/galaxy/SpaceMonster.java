@@ -34,7 +34,6 @@ import rotp.model.empires.Empire;
 import rotp.model.events.IMonsterPos;
 import rotp.model.incidents.DiplomaticIncident;
 import rotp.model.incidents.KillMonsterIncident;
-import rotp.model.ships.ShipDesign;
 import rotp.ui.BasePanel;
 import rotp.ui.main.GalaxyMapPanel;
 
@@ -73,26 +72,41 @@ public abstract class SpaceMonster extends ShipFleet implements NamedObject {
 	}
 	public Image image()					{ return image(nameKey); }
 	public void	 initCombat()				{ 
-		if (monsterLevel == null) {
-			if (isGuardian() && system() != null) {
-				stackLevel = options().guardianMonstersLevel() * system().monsterPlanetValue();
-				stackLevel = (float) Math.pow(stackLevel, 0.5);
-			}
-			else
-				stackLevel = options().monstersLevel();
-		}
-		else
-			stackLevel = monsterLevel;
+		stackLevel(); // initialize
+//		if (monsterLevel == null) {
+//			if (isGuardian() && system() != null) {
+//				stackLevel = options().guardianMonstersLevel() * system().monsterPlanetValue();
+//				stackLevel = (float) Math.pow(stackLevel, 0.5);
+//			}
+//			else
+//				stackLevel = options().monstersLevel();
+//		}
+//		else
+//			stackLevel = monsterLevel;
 
 		combatStacks().clear();
 	}
 	public void	 addCombatStack(CombatStack c)		{ combatStacks.add(c); }
-	protected Float	 stackLevel()					{ return stackLevel; }
-	protected int	 stackLevel(int val)			{ return (int) (val * stackLevel); }
+	protected Float	 stackLevel()					{
+		if (stackLevel == null) {
+			if (monsterLevel == null) {
+				if (isGuardian() && system() != null) {
+					stackLevel = options().guardianMonstersLevel() * system().monsterPlanetValue();
+					stackLevel = (float) Math.pow(stackLevel, 0.5);
+				}
+				else
+					stackLevel = options().monstersLevel();
+			}
+			else
+				stackLevel = monsterLevel;
+		}
+		return stackLevel;
+	}
+	protected int	 stackLevel(int val)			{ return (int) (val * stackLevel()); }
 	protected int	 stackLevel(int val, int max)	{
 		// System.out.print(Math.min(max, stackLevel(val)) + " ");
 		return Math.min(max, stackLevel(val)); }
-	public ShipDesign design()						{ return null; }
+//	public ShipDesign design()						{ return null; }
 	@Override public String name()					{ return text(nameKey);  }
 	@Override public IMappedObject source()			{ return this; }
 	@Override public void draw(GalaxyMapPanel map, Graphics2D g2)	{

@@ -670,34 +670,43 @@ public class AIGeneral implements Base, General {
         bcNeeded = max(0, bcNeeded-(destroyersNeeded * empire.shipLab().destroyerDesign().cost()));
         int fightersNeeded = (int) Math.ceil(bcNeeded/empire.shipLab().fighterDesign().cost());
 
-        ShipDesignLab lab = empire.shipLab();
+        // ShipDesignLab lab = empire.shipLab();
         // modnar: should use min speed here (?)
-        float speed = min(lab.destroyerDesign().warpSpeed(), lab.fighterDesign().warpSpeed());
+        // float speed = min(lab.destroyerDesign().warpSpeed(), lab.fighterDesign().warpSpeed());
         FleetPlan fp = empire.sv.fleetPlan(sys.id);
         fp.priority = FleetPlan.INTERCEPT + invasionPriority(sys)/100;
         fp.addShips(empire.shipLab().destroyerDesign(), destroyersNeeded);
         fp.addShips(empire.shipLab().fighterDesign(), fightersNeeded);
     }
     private void setExpelFleetPlan(StarSystem sys, float fleetSize) {
+        ShipDesignLab lab = empire.shipLab();
         float baseBCPresent = empire.sv.bases(sys.id)*empire.tech().newMissileBaseCost();
-        float bcNeeded = max(empire.shipLab().fighterDesign().cost(), fleetSize*3); // modnar: reduce expel fleet
+        float bcNeeded = max(lab.fighterDesign().cost(), fleetSize*3); // modnar: reduce expel fleet
         bcNeeded -= baseBCPresent;
         if (bcNeeded <= 0)
             return;
 
         // use up to half of BC for Destroyers... rest for fighters
-        int destroyersNeeded = (int) Math.ceil((bcNeeded/2)/empire.shipLab().destroyerDesign().cost());
-        bcNeeded = max(0, bcNeeded-(destroyersNeeded * empire.shipLab().destroyerDesign().cost()));
-        int fightersNeeded = (int) Math.ceil(bcNeeded/empire.shipLab().fighterDesign().cost());
+        int destroyersNeeded = (int) Math.ceil((bcNeeded/2)/lab.destroyerDesign().cost());
+        bcNeeded = max(0, bcNeeded-(destroyersNeeded * lab.destroyerDesign().cost()));
+        int fightersNeeded = (int) Math.ceil(bcNeeded/lab.fighterDesign().cost());
 
-        ShipDesignLab lab = empire.shipLab();
+        // TO DO BR: don't send useless fleet to fight the new Guardian Monsters
+        if (sys.hasMonster()) {
+        	ShipFleet fleet = new ShipFleet(empire.id, sys);
+        	fleet.addShips(lab.destroyerDesign().id(), destroyersNeeded);
+        	fleet.addShips(lab.fighterDesign().id(), fightersNeeded);
+        	if (sys.monster().monsterStrongerThan(fleet, 1.2f))
+        		return; // No plan!
+        }
+
         // modnar: should use min speed here (?)
         float speed = min(lab.destroyerDesign().warpSpeed(), lab.fighterDesign().warpSpeed());
         FleetPlan fp = empire.sv.fleetPlan(sys.id);
         fp.priority = FleetPlan.EXPEL + invasionPriority(sys)/100;
         fp.stagingPointId = empire.optimalStagingPoint(sys, speed);
-        fp.addShips(empire.shipLab().destroyerDesign(), destroyersNeeded);
-        fp.addShips(empire.shipLab().fighterDesign(), fightersNeeded);
+        fp.addShips(lab.destroyerDesign(), destroyersNeeded);
+        fp.addShips(lab.fighterDesign(), fightersNeeded);
     }
     private void setExpelPiratesPlan(StarSystem sys) {
         float bcNeeded = 300;
@@ -773,12 +782,13 @@ public class AIGeneral implements Base, General {
             bestVictim = archEnemy;
             return bestVictim;
         }
-        int opponentsInRange = 1;
-        for(Empire emp : empire.contactedEmpires())
-        {
-            if(empire.inShipRange(emp.id))
-                opponentsInRange++;
-        }
+        // BR: Not used... (No more?) Commented to save time
+        // int opponentsInRange = 1;
+        // for(Empire emp : empire.contactedEmpires())
+        // {
+        //    if(empire.inShipRange(emp.id))
+        //        opponentsInRange++;
+        // }
         for(Empire emp : empire.contactedEmpires())
         {
             //Since there's allied victory, there's no reason to ever break up with our alliance

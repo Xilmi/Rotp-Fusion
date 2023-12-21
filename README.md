@@ -44,6 +44,7 @@ Very soon:
 - Some Achievements options.
 
 Later:
+- Some kind of positive monster like instead of attacking strong empires it defends weak empires
 - Stronger GNN filters
 - Stronger Warning filters
   - Check what recall diplomat limitations are.
@@ -57,6 +58,15 @@ Later:
 
 
 ## What's New
+
+2023.12.20 (BR)
+- New AI tools to help the identification of the new monsters.
+  - Added to Base AIs.
+- Added abstract GuardianMonster class for all future Space monsters.
+  - Compatible with methods requesting full designs array.
+    - This will also allow Monster packs!
+  - Added SpaceJellyfish as GuardianMonster. (The same as GuardianJellyfish.)
+  - GuardianJellyfish is kept for backward compatibility. (Even if GuardianMonster extends SpaceMonster, the game load fail!)
 
 2023.12.18 (BR)
 - ShipBattleUI: Added drawSpaceMonsterButtonOverlay, similar to SpacePirates.

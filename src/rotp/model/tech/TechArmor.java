@@ -45,43 +45,43 @@ public final class TechArmor extends Tech {
         baseArmor = new MissileBaseArmor(this);
 
         switch(typeSeq) {
-            case 0:
+            case 0: // Titanium
                 hitsAdj = 1;
                 groundAttackBonus = 0;
                 transportHP = 15;
                 baseArmor.baseCost(0);
                 break;
-            case 1:
+            case 1: // Duralloy
                 hitsAdj = 1.5f;
                 groundAttackBonus = 5;
                 transportHP = 22;
                 baseArmor.baseCost(36);
                 break;
-            case 2:
+            case 2: // Zortrium
                 hitsAdj = 2;
                 groundAttackBonus = 10;
                 transportHP = 30;
                 baseArmor.baseCost(60);
                 break;
-            case 3:
+            case 3: // Andrium
                 hitsAdj = 2.5f;
                 groundAttackBonus = 15;
                 transportHP = 37;
                 baseArmor.baseCost(90);
                 break;
-            case 4:
+            case 4: // Tritanium
                 hitsAdj = 3;
                 groundAttackBonus = 20;
                 transportHP = 45;
                 baseArmor.baseCost(120);
                 break;
-            case 5:
+            case 5: // Adamantium
                 hitsAdj = 3.5f;
                 groundAttackBonus = 25;
                 transportHP = 52;
                 baseArmor.baseCost(150);
                 break;
-            case 6:
+            case 6: // Neutronium
                 hitsAdj = 4;
                 groundAttackBonus = 30;
                 transportHP = 60;

@@ -778,7 +778,8 @@ public class GalaxyFactory implements Base {
 			return;
 		if (prob <= random.nextFloat())
 			return;
-		sys.monster(new GuardianJellyfish(null, null));
+//		sys.monster(new GuardianJellyfish(null, null));
+		sys.monster(new SpaceJellyfish(null, null));
 	}
 	private void addNebulas(Galaxy g, GalaxyCopy src) { // BR: For Restart with new options
 		int numNebula = src.galSrc.nebulas.size();

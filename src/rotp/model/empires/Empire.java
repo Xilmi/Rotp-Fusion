@@ -2809,7 +2809,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         return null;
     }
     public EmpireView viewForEmpire(int empId) {
-        if ((empId < 0) || (empId >= empireViews.length) || (empId == id))
+        if ((empId < 0) || (empireViews == null) || (empId >= empireViews.length) || (empId == id))
             return null;
         return empireViews[empId];
     }
@@ -3173,6 +3173,8 @@ public final class Empire implements Base, NamedObject, Serializable {
     public boolean aggressiveWith(int empId) {
         if (empId == id) return false;
         if (empId == Empire.NULL_ID) return false;
+        if (id < Empire.NULL_ID)
+        	return empId > Empire.NULL_ID;
 
         EmpireView v = viewForEmpire(empId);
         if (v == null)

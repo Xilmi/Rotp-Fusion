@@ -446,6 +446,40 @@ public final class ShipDesign extends Design {
             }
         return dmg;
     }
+    // BR: To avoid monster being attacked too early
+    public float firepowerAntiMonster(float shield, float defense, float missileDefense, int speed, int beamRange) {
+    	int speedBonus = combatSpeed() - speed;
+        float dmg = 0;
+		for (int i=0; i<maxWeapons(); i++) {
+			ShipWeapon wpn = weapon(i);
+            if (wpn.canAttackShips()) {
+            	Integer level  = wpn.tech().level();
+            	int rangeMalus = beamRange - wpn.range();
+                float attack   = attackLevel() + wpn.computerLevel() + empire().shipAttackBonus();
+                float hitPct   = 1;
+                if(wpn.isBeamWeapon()) {
+                	hitPct = (5 + attack - defense) / 10;
+                	if (speedBonus < 0)
+                		hitPct /= (0.5f - speedBonus);
+                	else if (speedBonus > 0)
+                		hitPct *= (0.5f + speedBonus);
+                	if (speedBonus < rangeMalus)
+                		if (level < 7)
+                			hitPct = 0;
+                		else
+                			hitPct /= 2*(1 + rangeMalus - speedBonus );
+                	else if (speedBonus > rangeMalus)
+                		hitPct *= (0.5f + speedBonus - rangeMalus);
+                }
+                if(wpn.isMissileWeapon())
+                    hitPct = (5 + attack - missileDefense) / 10;
+                hitPct = max(.0f, hitPct);
+                hitPct = min(hitPct, 1.0f);
+                dmg += (wpnCount(i) * wpn.firepower(shield) * hitPct);
+            }
+		}
+        return dmg;
+    }
     public float firepower(float shield) {
         float dmg = 0;
         for (int i=0;i<maxWeapons();i++)
@@ -732,5 +766,18 @@ public final class ShipDesign extends Design {
             ++specialCount;
         }
         return specialCount;
+    }
+    public int bestBeamWeaponRange(int minRange) {
+    	int rng = minRange;
+    	for ( ShipWeapon wpn : this.weapon)
+    		if (wpn.isBeamWeapon())
+    			rng = max(rng, wpn.range());
+        return rng;
+    }
+    public boolean hasBeamWeapon() {
+    	for ( ShipWeapon wpn : this.weapon)
+    		if (wpn.isBeamWeapon())
+    			return true;
+        return false;
     }
 }

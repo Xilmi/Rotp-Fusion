@@ -19,14 +19,12 @@ import java.awt.Color;
 
 import rotp.model.galaxy.SpaceMonster;
 
-//BR: Do not use: For Compatibility with the first GuardianJellyfish release
-//Now named SpaceJellyfish
-public class CombatStackGuardianJellyfish extends CombatStackMonster {
+public class CombatStackSpaceJellyfish extends CombatStackMonster {
 
-	public CombatStackGuardianJellyfish(SpaceMonster fl, String imageKey, Float monsterLevel, int designId) {
+	public CombatStackSpaceJellyfish(SpaceMonster fl, String imageKey, Float monsterLevel, int designId) {
 		super(fl, imageKey, monsterLevel, designId);
 	}
 	@Override public boolean immuneToStasis()					{ return true; }
 	@Override public Color	 shieldBaseColor()					{ return Color.blue; }
-	@Override public int	 optimalFiringRange(CombatStack tgt){ return 2; }
+	@Override public int	 optimalFiringRange(CombatStack cs)	{ return 2; }
 }

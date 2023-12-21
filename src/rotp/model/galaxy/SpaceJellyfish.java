@@ -15,11 +15,9 @@
  */
 package rotp.model.galaxy;
 
-import java.awt.Image;
 import java.util.List;
 
-import rotp.model.combat.CombatStackGuardianJellyfish;
-import rotp.model.empires.Empire;
+import rotp.model.combat.CombatStackSpaceJellyfish;
 import rotp.model.ships.ShipArmor;
 import rotp.model.ships.ShipComputer;
 import rotp.model.ships.ShipDesign;
@@ -31,23 +29,19 @@ import rotp.model.ships.ShipShield;
 import rotp.model.ships.ShipWeaponBeam;
 import rotp.model.tech.TechShipWeapon;
 
-// BR: Do not use: For Compatibility with the first GuardianJellyfish release
-// Now named SpaceJellyfish
-public class GuardianJellyfish extends SpaceMonster {
+public class SpaceJellyfish extends GuardianMonsters {
 	private static final long serialVersionUID = 1L;
 	private static final String IMAGE_KEY = "SPACE_JELLYFISH";
-	private transient ShipDesign[] designs;
-	private transient int designTurn;
-	public GuardianJellyfish(Float speed, Float level) {
+	public SpaceJellyfish(Float speed, Float level) {
 		super(IMAGE_KEY, -2, speed, level);
 		num(0, 1); // Number of monsters
 	}
 	@Override public void initCombat()			 {
 		super.initCombat();
-		addCombatStack(new CombatStackGuardianJellyfish(this, IMAGE_KEY, stackLevel(), 0));	   
+		addCombatStack(new CombatStackSpaceJellyfish(this, IMAGE_KEY, stackLevel(), 0));	   
 	}
-	@Override public SpaceMonster getCopy() 	 { return new GuardianJellyfish(null, null); }
-	public void initDesigns()	 {
+	@Override public SpaceMonster getCopy() 	 { return new SpaceJellyfish(null, null); }
+	@Override public void initDesigns()	 {
 		designs = new ShipDesign[ShipDesignLab.MAX_DESIGNS];
 		num(0, 1);
 		num(1, 0);
@@ -57,25 +51,6 @@ public class GuardianJellyfish extends SpaceMonster {
 		num(5, 0);
 		designs[0] = design_0();
 	}
-	@Override public Image	 image()						{ return image(IMAGE_KEY); }
-	@Override public void	 plunder()						{ removeGuardian(); }
-	@Override public Image	 shipImage()					{ return image(IMAGE_KEY); }
-	@Override public boolean isMonsterGuardian()			{ return true; }
-	@Override public boolean isGuardian()					{ return true; }
-	@Override public boolean isArmed()						{ return true; }
-	@Override public boolean isArmedForShipCombat()			{ return true; }
-	@Override public boolean isPotentiallyArmed(Empire e)	{ return true; }
-	@Override public ShipDesign design(int i)				{ return designs()[i]; }
-    @Override protected ShipDesign[] designs()				{
-		// To allow the player to change the level in game.
-		int turn = galaxy().currentTurn();
-		if (designs == null || designTurn != turn)			{
-			designTurn = turn;
-			clearFleetStats();
-			initDesigns();
-		}
-		return designs;
-    }
 	// @Override protected int otherSpecialCount() { return 0; } // change if needed
 
 	private ShipDesign design_0()	 {

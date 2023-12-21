@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import rotp.model.Sprite;
 import rotp.model.ai.FleetOrders;
+import rotp.model.ai.FleetStats;
 import rotp.model.combat.CombatStackColony;
 import rotp.model.combat.CombatStackShip;
 import rotp.model.combat.ShipCombatManager;
@@ -56,6 +57,7 @@ public class ShipFleet extends FleetBase {
     private transient FleetOrders orders;
     private transient FlightPathSprite pathSprite;
     private transient int[] bombardCount = new int[ShipDesignLab.MAX_DESIGNS];
+    private transient FleetStats fleetStats;
 
     public int sysId()                  { return sysId; }
     public void sysId(int i)            { sysId = i; }
@@ -191,7 +193,7 @@ public class ShipFleet extends FleetBase {
             temp.num[desn.id()] = fl.num[desn.id()];
         return temp;
     }
-     private ShipFleet(int emp, ShipFleet f) {
+    private ShipFleet(int emp, ShipFleet f) {
         empId = emp;
         sysId = f.sysId;
         fromX = f.x();
@@ -213,9 +215,6 @@ public class ShipFleet extends FleetBase {
         destX = fl.destX;
         destY = fl.destY;
     }
-//    public ShipFleet() {
-//        empId = -2;
-//    }
     @Override
     public StarSystem destinationOrRallySystem() {
         int destId = hasDestination() ? destSysId : rallySysId;
@@ -238,7 +237,9 @@ public class ShipFleet extends FleetBase {
             pathSprite.destination(dest);
         return pathSprite;
     }
-    private ShipDesign design(int i) { return empire().shipLab().design(i); }
+    public ShipDesign design(int i)		 { return empire().shipLab().design(i); }
+    protected ShipDesign[] designs()	 {return empire().shipLab().designs(); }
+
     public ShipFleet matchingFleetWithin(List<ShipFleet> fleets, StarSystem dest) {
         for (ShipFleet fl: fleets) {
             if ((fl.empId == empId)
@@ -657,6 +658,28 @@ public class ShipFleet extends FleetBase {
         }
         return maxSpeed;
     }
+    protected int bestBeamCombatSpeed() {
+        int speed = 1;
+        for (int i=0;i<num.length;i++) {
+            if (num[i]>0) {
+                ShipDesign des = design(i);
+                if (des != null && des.hasBeamWeapon())
+                    speed = max(speed, des.combatSpeed());
+            }
+        }
+        return speed;
+    }
+    protected int bestBeamWeaponRange(int minRange) {
+        int rng = 1;
+        for (int i=0;i<num.length;i++) {
+            if (num[i]>0) {
+                ShipDesign des = design(i);
+                if (des != null)
+                    rng = max(rng, des.bestBeamWeaponRange(minRange));
+            }
+        }
+        return rng;
+    }
     // modnar: add firepowerAntiShip to only count weapons that can attack ships
     public float firepowerAntiShip(float shield) {
         float dmg = 0;
@@ -692,6 +715,85 @@ public class ShipFleet extends FleetBase {
         }
         return dmg;
     }
+    // BR: tools against space monsters
+    private float firepowerAntiMonster(float shield, float defense, float missileDefense, int speed, int beamRange) {
+        float dmg = 0;
+        for (int i=0;i<num.length;i++) {
+            if (num[i]>0) {
+                ShipDesign des = design(i);
+                if (des != null)
+                    dmg += (num[i] * des.firepowerAntiMonster(shield, defense, missileDefense, speed, beamRange));
+            }
+        }
+        return dmg;
+    }
+	protected int otherSpecialCount()	{ return 0; } // For monster out of design specials
+    protected void clearFleetStats()	{ fleetStats = null; }
+    private FleetStats getFleetStats()	{
+    	if (fleetStats == null)
+    		fleetStats = getFleetStats(this);
+    	return fleetStats;
+    }
+    protected FleetStats getFleetStats(ShipFleet fl) {
+        FleetStats stats	= new FleetStats();
+        float totalShield	= 0;
+        float totalDefense	= 0;
+        float totalMissileDefense = 0;
+        float totalSpecials	= 0;
+        float totalHP		= 0;
+        int shipDefenseBonus  = fl.empire().shipDefenseBonus();
+        int otherSpecialCount = fl.otherSpecialCount();
+        for (int i=0;i<fl.num.length;i++) {
+            int num = fl.num(i);
+            if (num > 0) {
+                ShipDesign des = fl.design(i);
+                if(des == null)
+                    continue;
+                float hits	  = num * des.hits();
+                totalHP		 += hits;
+                totalShield	 += hits * des.shieldLevel();
+                totalDefense += hits * (des.beamDefense() + shipDefenseBonus);
+                totalMissileDefense += hits * (des.missileDefense() + otherSpecialCount);
+            }
+        }
+        if(totalHP > 0)
+        {
+            stats.avgShield	 = totalShield / totalHP;
+            stats.avgDefense = totalDefense / totalHP;
+            stats.avgMissileDefense = totalMissileDefense / totalHP;
+            stats.avgSpecials = totalSpecials / totalHP;
+            stats.totalHP	  = totalHP;
+        }
+        return stats;
+    }
+    public boolean monsterStrongerThan(ShipFleet attacker, float securityFactor) {
+        FleetStats defenderStats = getFleetStats();
+        FleetStats attackerStats = getFleetStats(attacker);
+        float attackerPower = attacker.firepowerAntiMonster(defenderStats.avgShield, defenderStats.avgDefense,
+        		defenderStats.avgMissileDefense, bestBeamCombatSpeed(), bestBeamWeaponRange(1));
+        attackerPower *= Math.pow(1.26, attackerStats.avgSpecials);
+        attackerPower *= attackerStats.totalHP;
+        float defenderPower = firepowerAntiMonster(attackerStats.avgShield, attackerStats.avgDefense,
+        		attackerStats.avgMissileDefense, attacker.bestBeamCombatSpeed(), attacker.bestBeamWeaponRange(1));
+        defenderPower *= Math.pow(1.26, defenderStats.avgSpecials);
+        defenderPower *= defenderStats.totalHP;
+        if (defenderPower == 0)
+        	return attackerPower > 0;
+        float attackerDefenderRatio = attackerPower/defenderPower;
+//        if (attackerDefenderRatio > 0) // TO DO BR: Comment
+//        	System.out.println(getTurn() + " System " + sysId +
+//        			" attacker (" + attacker.empId + ") / Defender Ratio = " + attackerDefenderRatio);
+        return attackerDefenderRatio < securityFactor;
+    }
+    public float combatPower(ShipFleet attacker) {
+        FleetStats defenderStats = getFleetStats();
+        FleetStats attackerStats = getFleetStats(attacker);
+        float power = attacker.firepowerAntiShip(defenderStats.avgShield, defenderStats.avgDefense, defenderStats.avgMissileDefense);
+        power *= Math.pow(1.26, attackerStats.avgSpecials);
+        power *= attackerStats.totalHP;
+        return power;
+    }
+    // \BR:
     public boolean canReach(StarSystem dest) {
         return empire().sv.withinRange(dest.id, range());
     }

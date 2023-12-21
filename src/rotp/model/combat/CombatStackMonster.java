@@ -46,10 +46,9 @@ public class CombatStackMonster extends CombatStack {
 	protected float	 displacementPct = 0;
 	private	final float	monsterLevel;
 
-	public CombatStackMonster(SpaceMonster mstr, String imageKey, Float level) {
+	public CombatStackMonster(SpaceMonster mstr, String imageKey, Float level, int designId) {
 		monster	= mstr;
 		name  	= imageKey;
-		num		= 1;
 		if (level == null) {
 			if (monster.isGuardian() && system() != null)
 				monsterLevel = options().guardianMonstersLevel() * system().monsterPlanetValue();
@@ -58,11 +57,12 @@ public class CombatStackMonster extends CombatStack {
 		} else
 			monsterLevel = level;
 			
-		init0();
+		init0(designId);
 	}
-	protected void init0() {
+	protected void init0(int designId) {
 		empire	= monster.empire();
-	   	design	= monster.design();
+	   	design	= monster.design(designId);
+		num		= monster.num(designId);
 	   	if (design != null)
 	   		initShip();
 

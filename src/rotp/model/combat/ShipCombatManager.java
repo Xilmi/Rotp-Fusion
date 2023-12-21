@@ -161,10 +161,12 @@ public class ShipCombatManager implements Base {
         List<Empire> empires = new ArrayList<>(empiresInConflict);
         Collections.shuffle(empires);
         for (Empire emp: empires) {
+//        	if (sys.orbitingFleetForEmpire(emp).isArmed()) // TO DO BR: COMMENT
+//        		System.out.println( getTurn() +  " " + monster.name() + " attacked by " + emp.name() + " (" + emp.id + ")");
             battle(sys, emp, monster);
             if (!monster.alive()) {
-//            	System.out.println(this.getTurn() +  " " + monster.name() +
-//            						" killed by " + emp.name() + " (" + emp.id + ")");
+            	// TO DO BR: COMMENT
+//            	System.out.println("  --> " + this.getTurn() +  " " + monster.name() + " killed by " + emp.name() + " (" + emp.id + ")");
             	break;
             }
         }    

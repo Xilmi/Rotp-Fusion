@@ -271,6 +271,9 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
     	}
     	return galaxy().ships.orbitingFleets(id);
     }
+    public List<ShipFleet> orbitingFleetsNoMonster() {
+    	return galaxy().ships.orbitingFleets(id);
+    }
     public List<ShipFleet> exitingFleets()      { return galaxy().ships.deployedFleets(id); }
     public List<ShipFleet> incomingFleets()     { return galaxy().ships.incomingFleets(id); }
 
@@ -395,7 +398,7 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
         return false;
     }
     public boolean orbitingShipsInConflict() {
-        List<ShipFleet> fleets = orbitingFleets();
+        List<ShipFleet> fleets = orbitingFleetsNoMonster();
         if (hasMonster() && !fleets.isEmpty())
             return true;
         int i=0;
@@ -428,7 +431,7 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
     }
     public List<Empire> empiresInConflict() {
         List<Empire> emps = new ArrayList<>();
-        List<ShipFleet> fleets = orbitingFleets();
+        List<ShipFleet> fleets = orbitingFleetsNoMonster();
         for (ShipFleet fl: fleets)
             emps.add(fl.empire());
 
