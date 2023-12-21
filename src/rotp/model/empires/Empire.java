@@ -692,7 +692,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
     }
     public void changeRalliesFromAToB(StarSystem source, StarSystem dest) {
-        if (canRallyFleetsTo(id(dest))) {
+        if (canRallyFleetsFrom(id(source)) && canRallyFleetsTo(id(dest))) {
             for (StarSystem sys: allColonizedSystems()) {
                 if (sv.rallySystem(sys.id) == source)
                     sv.rallySystem(sys.id, dest);
