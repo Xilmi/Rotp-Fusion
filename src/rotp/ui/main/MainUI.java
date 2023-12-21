@@ -498,7 +498,10 @@ public class MainUI extends BasePanel implements IMapHandler {
     }
     public void handleRightClick(Sprite s) {
         if (s instanceof StarSystem && clickedSprite() instanceof StarSystem) {
-            player().changeRalliesFromAToB((StarSystem)clickedSprite(), (StarSystem)s);
+            StarSystem from = (StarSystem)clickedSprite();
+            StarSystem to = (StarSystem)s;
+            if(player().canRallyFleetsFrom(from.id) && player().canRallyFleetsTo(to.id))
+                player().changeRalliesFromAToB(from, to);
         }
     }
     @Override
