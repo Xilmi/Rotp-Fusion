@@ -29,6 +29,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed reset to Default in Galaxy setting panel badly initialyzing the player homeworld.
 - Fixed crash starting a new game after playing vanilla savegame.
 - Fixed species stat being sometime hidden under the scroll bar.
+- Fixed rally from alien planets. (Xilmi)
+- Fixed language font generating errors.
+- Fixed modnar races text files missing in most languages.
 
 
 <b><ins> last releases:</ins></b>

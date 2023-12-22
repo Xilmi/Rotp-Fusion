@@ -50,6 +50,7 @@ import rotp.model.tech.TechHyperspaceComm;
 import rotp.model.tech.TechImprovedIndustrial;
 import rotp.model.tech.TechImprovedTerraforming;
 import rotp.model.tech.TechIndustrialWaste;
+import rotp.model.tech.TechLibrary;
 import rotp.model.tech.TechMissileShield;
 import rotp.model.tech.TechMissileWeapon;
 import rotp.model.tech.TechPersonalShield;
@@ -61,6 +62,7 @@ import rotp.model.tech.TechShipInertial;
 import rotp.model.tech.TechShipNullifier;
 import rotp.model.tech.TechShipWeapon;
 import rotp.model.tech.TechSoilEnrichment;
+import rotp.model.tech.TechSquidInk;
 import rotp.model.tech.TechStargate;
 import rotp.model.tech.TechStasisField;
 import rotp.model.tech.TechStreamProjector;
@@ -132,4 +134,9 @@ public interface Scientist {
     //Xilmi-AI
     default boolean isImportant(Tech t) { return true; }
     default boolean isOptional(Tech t) { return false; }
+    
+    // Monster tech
+    default float baseValue(TechSquidInk t) {
+    	return baseValue((TechBlackHole)TechLibrary.current().tech("BlackHole:0"));
+    }
 }

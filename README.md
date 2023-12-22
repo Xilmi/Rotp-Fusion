@@ -39,11 +39,12 @@ Bug to fix:
 Very soon:
 - Monsters:
   - Option to change their travel time.
-  - Planet Monsters Guardian.
+  - More Planet Monsters Guardian.
 - Add Help to History.
 - Some Achievements options.
 
 Later:
+- use real nebula pictures.
 - Some kind of positive monster like instead of attacking strong empires it defends weak empires
 - Stronger GNN filters
 - Stronger Warning filters
@@ -59,8 +60,13 @@ Later:
 
 ## What's New
 
+2023.12.21 (Xilmi)
+- Fixed rally from alien planets.
+
 2023.12.21 (BR)
 - Fixed species stat being sometime hidden under the scroll bar.
+- Fixed language font generating errors.
+- Fixed modnar races text files missing in most languages
  
 2023.12.20 (BR)
 - New tools to help the identification of the new monsters.

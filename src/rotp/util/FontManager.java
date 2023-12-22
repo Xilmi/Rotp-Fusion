@@ -144,6 +144,8 @@ public enum FontManager implements Base {
 
         List<String> fields = substrings(input, ',');
         String fontName = fields.get(0);
+        if (fontName.equalsIgnoreCase("name")) // these lines should have been commented
+        	return;
         String filename = fields.size() > 1 ? fields.get(1) : fields.get(0);
         int fontSizing = fields.size() > 2 ? parseInt(fields.get(2)): 100;
 
