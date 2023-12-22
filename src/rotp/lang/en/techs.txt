@@ -183,9 +183,9 @@ BLACKHOLE_0_NAME     | Black Hole Generator
 BLACKHOLE_0_DETAIL   | Creates a sub-space field that warps normal space, creating a black hole that destroys 25% to 100% of enemy ships or missile bases, less 2% per shield class.
 
 //
-// Squid Ink Generator tech
+// Monster Special tech
 //
-SQUIDINK_0_NAME      | Squid Ink Generator
+SQUIDINK_0_NAME      | Squid Ink
 SQUIDINK_0_DETAIL    | Enveloping substance that destroys 10% to 30% of enemy ships.
 
 

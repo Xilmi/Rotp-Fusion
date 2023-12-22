@@ -716,7 +716,7 @@ public class ShipFleet extends FleetBase {
         return dmg;
     }
     // BR: tools against space monsters
-    private float firepowerAntiMonster(float shield, float defense, float missileDefense, int speed, int beamRange) {
+    protected float firepowerAntiMonster(float shield, float defense, float missileDefense, int speed, int beamRange) {
         float dmg = 0;
         for (int i=0;i<num.length;i++) {
             if (num[i]>0) {
@@ -778,7 +778,7 @@ public class ShipFleet extends FleetBase {
         defenderPower *= Math.pow(1.26, defenderStats.avgSpecials);
         defenderPower *= defenderStats.totalHP;
         if (defenderPower == 0)
-        	return attackerPower > 0;
+        	return attackerPower == 0;
         float attackerDefenderRatio = attackerPower/defenderPower;
 //        if (attackerDefenderRatio > 0) // TO DO BR: Comment
 //        	System.out.println(getTurn() + " System " + sysId +

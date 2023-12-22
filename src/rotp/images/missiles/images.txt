@@ -27,3 +27,4 @@ ORION_GUARDIAN            | images/missiles/OrionGuardian.png
 
 // BR: add guardian space monsters
 SPACE_JELLYFISH           | images/missiles/SpaceJellyfish.png
+SPACE_CUTTLEFISH          | images/missiles/SpaceCuttlefish.png

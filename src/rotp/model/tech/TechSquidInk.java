@@ -32,11 +32,12 @@ public final class TechSquidInk extends Tech {
 		level = lv;
 		cat = c;
 		free = b;
+		restricted = true;
 		init();
 	}
-	@Override public void init() {
+	@Override public void init()	{
 		super.init();
-		techType = Tech.SQUID_INK;
+		techType = Tech.MONSTER_SPECIAL;
 		switch(typeSeq) {
 			case 0:
 				cost = 100;
@@ -45,11 +46,12 @@ public final class TechSquidInk extends Tech {
 				break;
 		}
 	}
-	@Override  public float baseValue(Empire c) {
+	@Override public boolean isMonsterTech()			{ return true; }
+	@Override public float baseValue(Empire c)			{
 		return c.ai().scientist().baseValue((TechBlackHole)TechLibrary.current().tech("BlackHole:0"));
 	}
-	@Override public boolean providesShipComponent()  { return true; }
-	@Override public void provideBenefits(Empire c) {
+	@Override public boolean providesShipComponent()	{ return true; }
+	@Override public void provideBenefits(Empire c)		{
 		super.provideBenefits(c);
 		ShipSpecialSquidInk sh = new ShipSpecialSquidInk(this);
 		c.shipLab().addSpecial(sh);
@@ -87,12 +89,14 @@ public final class TechSquidInk extends Tech {
 		int x0 = startX;
 		int y0 = startY;
 		int r0 = startR;
-		int alphaBase  = 63;
+		int alphaBase  = 0;
 		int alphaDelta = 255 - alphaBase;
+		int redLevel	= 127;
+		int greenLevel	= 127;
 		for (int i=0; i<n; i++) {
 			ui.paintCellImmediately(x,y);
 			int alpha = alphaBase + (int) (alphaDelta*((float)i/n));
-			g.setColor(new Color(16,0,0,alpha));
+			g.setColor(new Color(redLevel,greenLevel,0,alpha));
 			g.fillOval(x0, y0, r0, r0);
 			x0 += dX;
 			y0 += dY;
@@ -102,7 +106,7 @@ public final class TechSquidInk extends Tech {
 		for (int i=0; i<n; i++) {
 			ui.paintCellImmediately(x,y);
 			int alpha = alphaBase + (int) (alphaDelta*((float)(n-i)/n));
-			g.setColor(new Color(16,0,0,alpha));
+			g.setColor(new Color(redLevel,greenLevel,0,alpha));
 			g.fillOval(x0, y0, r0, r0);
 			x0 -= dX;
 			y0 -= dY;

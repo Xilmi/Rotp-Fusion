@@ -60,6 +60,12 @@ Later:
 
 ## What's New
 
+2023.12.22 (BR)
+- Added new Guardian Monster Space Sepiidae.
+  - Special Weapon = Squid Ink.
+  - Effects based on black hole: 10% to 30% chance of destroying ship.
+- Renamed Space Jellyfish to Space Cyaneidae.
+
 2023.12.21 (Xilmi)
 - Fixed rally from alien planets.
 

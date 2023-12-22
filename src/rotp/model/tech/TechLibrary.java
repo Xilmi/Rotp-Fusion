@@ -129,6 +129,7 @@ public final class TechLibrary implements Base {
         if (type.equalsIgnoreCase("MissileShield"))        { return new TechMissileShield(type, level, seq, free, loadingCat); }
         if (type.equalsIgnoreCase("StasisField"))          { return new TechStasisField(type, level, seq, free, loadingCat); }
         if (type.equalsIgnoreCase("BlackHole"))            { return new TechBlackHole(type, level, seq, free, loadingCat); }
+        if (type.equalsIgnoreCase("SquidInk"))             { return new TechSquidInk(type, level, seq, free, loadingCat); }
         if (type.equalsIgnoreCase("ControlEnvironment"))   { return new TechControlEnvironment(type, level, seq, free, loadingCat); }
         if (type.equalsIgnoreCase("EcoRestoration"))       { return new TechEcoRestoration(type, level, seq, free, loadingCat); }
         if (type.equalsIgnoreCase("ImprovedTerraforming")) { return new TechImprovedTerraforming(type, level, seq, free, loadingCat); }
@@ -203,6 +204,7 @@ public final class TechLibrary implements Base {
     	loadTechLangFile(Tech.SHIP_NULLIFIER, "ShipNullifier.txt", dataDir);
     	loadTechLangFile(Tech.SHIP_WEAPON, "ShipWeapon.txt", dataDir);
     	loadTechLangFile(Tech.SOIL_ENRICHMENT, "SoilEnrichment.txt", dataDir);
+    	loadTechLangFile(Tech.MONSTER_SPECIAL, "MonsterSpecial.txt", dataDir);
     	loadTechLangFile(Tech.STARGATE, "Stargate.txt", dataDir);
     	loadTechLangFile(Tech.STASIS_FIELD, "StasisField.txt", dataDir);
     	loadTechLangFile(Tech.STREAM_PROJECTOR, "StreamProjector.txt", dataDir);

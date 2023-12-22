@@ -796,6 +796,8 @@ public class CombatStack implements Base {
         for (int i=0;i<numWeapons(); i++) {
             if (weapon(i).canAttackShips()) {
                 if(weapon(i).isWeapon()) {
+                    if(weapon(i).isSpecial())
+                    	continue;
                     ShipWeapon wpn = (ShipWeapon)weapon(i);
                     float attack = attackLevel() + wpn.computerLevel();
                     float hitPct = 1;

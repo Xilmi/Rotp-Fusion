@@ -78,7 +78,7 @@ public class Tech implements Base {
     public static final int SUBSPACE_INTERDICTOR = 42;
     public static final int TELEPORTER = 43;
     public static final int TORPEDO_WEAPON = 44;
-    public static final int SQUID_INK = 45;
+    public static final int MONSTER_SPECIAL = 45;
     public static final int FUTURE_COMPUTER = 90;
     public static final int FUTURE_CONSTRUCTION = 91;
     public static final int FUTURE_FORCE_FIELD = 92;
@@ -162,6 +162,7 @@ public class Tech implements Base {
     public boolean isPlanetaryShieldTech()  { return false; }
     public boolean isFuelRangeTech()        { return false; }
     public boolean isFutureTech()           { return false; }
+    public boolean isMonsterTech()          { return false; }
     public boolean isObsolete(Empire c)     { return false; }
 
     public boolean isType(int type)         { return techType == type; }

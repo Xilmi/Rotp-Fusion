@@ -114,7 +114,8 @@ PLANET_WORLD                      | [alien_race] World
 PLANET_COLONY                     | [alien_race] Colony
 PLANET_ORION                      | Orion
 PLANET_ORION_GUARDIAN             | Guardian
-PLANET_SPACE_JELLYFISH            | Space Jellyfish
+PLANET_SPACE_JELLYFISH            | Space Cyaneidae
+PLANET_SPACE_CUTTLEFISH           | Space Sepiidae
 
 // Nebula names  ("starName" Nebula)
 NEBULA_NAME                       | %1 Nebula
@@ -136,7 +137,8 @@ SPACE_CRYSTAL                     | Space Crystal
 SPACE_PIRATES                     | Space Pirates
 ORION_GUARDIAN                    | Orion Guardian
 // BR: add guardian space monsters
-SPACE_JELLYFISH                   | Space Jellyfish
+SPACE_JELLYFISH                   | Space Cyaneidae
+SPACE_CUTTLEFISH                  | Space Sepiidae
 
 // Personality types (adjective)
 LEADER_ERRATIC                    | Erratic

@@ -12,7 +12,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
     - Option to select the ressource to protect.
     - Option to tune the probability of guardian.
     - Option to tune the Monster level.
-  - Added Monster Guardian: Giant Space Jellyfish.
+  - Added Monster Guardian: Giant Space Cyaneidae.
+  - Added Monster Guardian: Giant Space Sepiidae.
 
 <b><ins>Optimisation:</ins></b>
 - Fixed Apple Retina Screen compatibility.
