@@ -278,6 +278,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 				flagColorCount, 
 				showAlliancesGNN, hideMinorReports, showLimitedWarnings,
 				techExchangeAutoRefuse, autoTerraformEnding, trackUFOsAcrossTurns,
+				IMainOptions.realNebulaeSize,
 
 				headerSpacer,
 				new ParamTitle("BETA_TEST"),

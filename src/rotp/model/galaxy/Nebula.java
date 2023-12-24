@@ -15,12 +15,18 @@
  */
 package rotp.model.galaxy;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Composite;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
+
+import javax.swing.ImageIcon;
 
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.sprites.MapSprite;
@@ -30,6 +36,7 @@ import rotp.util.FastImage;
 public class Nebula extends MapSprite implements IMappedObject, Serializable {
     private static final long serialVersionUID = 1L;
     private static Color labelColor = new Color(255,255,255,64);
+    public	static int requestedQuality = 0;
     private Rectangle.Float shape;
     private Rectangle.Float innerShape;
     private int sysId = -1;
@@ -37,6 +44,7 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
     private float size, width, height;
     private float x, y;
     private transient BufferedImage image;
+    private transient int currentQuality;
 
     public float width()                  { return width; }
     public float height()                 { return height; }
@@ -127,11 +135,16 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
         return (innerShape != null) && innerShape.contains(x, y);
     }
     public BufferedImage image() {
-        if (image == null)
-            image = buildImage();
+        if (image == null || requestedQuality != currentQuality)
+        	image = buildImage();
         return image;
     }
     private BufferedImage buildImage() {
+    	requestedQuality = options().selectedRealNebulaeSize();
+    	currentQuality	 = requestedQuality;
+    	if (requestedQuality > 0)
+    		return buildNebulaImage(); // TODO BR: add nebula option here
+    	
         int w = (int) width()*19;
         int h = (int) height()*12;
 
@@ -162,7 +175,7 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
             int alpha = min(distFromEdge/2, landLevel*3/5);
             alpha = (int) (pctFromEdge * landLevel);
             alpha = min(alpha*3/2, (alpha+255)/2);
-           //alpha = Math.min(145-distFromCenter, landLevel/2);
+            //alpha = Math.min(145-distFromCenter, landLevel/2);
             int newPixel = (alpha << 24) | (nebR << 16) | (nebG << 8) | nebB;
             fImg.setRGB(x, y, newPixel);
         }
@@ -174,13 +187,23 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
     @Override
     public void draw(GalaxyMapPanel map, Graphics2D g2) {
         Rectangle mShape = mapShape(map);
+        
+        Composite prevComp = g2.getComposite();
+        Composite comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER , 1f);
+        g2.setComposite(comp );
+        RenderingHints prevRender = g2.getRenderingHints();
+        g2.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+
         g2.drawImage(image(), mShape.x, mShape.y, mShape.x+mShape.width, mShape.y+mShape.height, 0, 0, image().getWidth(), image().getHeight(), map);
-        float scale = map.scaleX();
+        g2.setRenderingHints(prevRender);
+        g2.setComposite(prevComp);
+
         
         if (map.hideSystemNames())
             return;
         
         // use smaller font when we have the full name
+        float scale = map.scaleX();
         int fontSize = sysId <= 0 ? (int) (size*1800/scale) : (int) (size*1200/scale);
         if (fontSize >= 14) {
             String name = name();
@@ -194,6 +217,29 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
             }
         }
     }
+//    @Override
+//    public void draw(GalaxyMapPanel map, Graphics2D g2) {
+//        Rectangle mShape = mapShape(map);
+//        g2.drawImage(image(), mShape.x, mShape.y, mShape.x+mShape.width, mShape.y+mShape.height, 0, 0, image().getWidth(), image().getHeight(), map);
+//        float scale = map.scaleX();
+//        
+//        if (map.hideSystemNames())
+//            return;
+//        
+//        // use smaller font when we have the full name
+//        int fontSize = sysId <= 0 ? (int) (size*1800/scale) : (int) (size*1200/scale);
+//        if (fontSize >= 14) {
+//            String name = name();
+//            if (!name.isEmpty()) {
+//                g2.setFont(narrowFont(fontSize));
+//                g2.setColor(labelColor);
+//                int sw = g2.getFontMetrics().stringWidth(name);
+//                int x0 = mShape.x+((mShape.width-sw)/2);
+//                int y0 = mShape.y+((mShape.height-fontSize)/2);
+//                drawString(g2, name, x0, y0);
+//            }
+//        }
+//    }
     private Rectangle mapShape(GalaxyMapPanel map) {
         int x0 = map.mapX(x);
         int y0 = map.mapY(y);
@@ -201,4 +247,27 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
         int y1 = map.mapY(y+(int)adjHeight());
         return new Rectangle(x0,y0, x1-x0, y1-y0);
     }
+    private BufferedImage buildNebulaImage() { // TODO BR: BufferedImage buildNebulaImage()
+        int w = (int) width()*19*currentQuality;
+        int h = (int) height()*12*currentQuality;
+//        BufferedImage nebulaImg = new BufferedImage(w, h, TYPE_INT_ARGB);
+//        Graphics2D g = (Graphics2D) nebulaImg.getGraphics();
+//        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+//        g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
+//        g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+//		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+//		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+		BufferedImage img = newBufferedImage(nextNebula().getScaledInstance(w, h, Image.SCALE_SMOOTH));
+//        int imgW = img.getWidth(null);
+//        int imgH = img.getHeight(null);
+//        g.drawImage(img, 0, 0, w, h, 0, 0, imgW, imgH, null);
+//        g.dispose();
+        return img;
+    }
+	private BufferedImage nextNebula() { // TODO BR: BufferedImage nextNebula()
+//		ImageIcon img = icon("images/nebulae/Lagoon_Nebula.png");
+		ImageIcon img = icon("images/nebulae/VST_images_the_Lagoon_Nebula.png");
+//		ImageIcon img = icon("images/nebulae/VST_images_the_Lagoon_Nebula_127.png");
+		return newBufferedImage(img.getImage());
+	}
 }
