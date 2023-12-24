@@ -2437,6 +2437,10 @@ SETTINGS_MOD_COLOR_SET_GREY         | Grey
 SETTINGS_MOD_COLOR_SET_BROWN_DESC   | Default vanilla Brown color set.
 SETTINGS_MOD_COLOR_SET_GREY_DESC    | Alternate Grey color set, already in game, but not used!
 
+SETTINGS_MOD_REAL_NEBULAE_SIZE_DESC | Use Real Nebulae images with the this resolution factor?
+SETTINGS_MOD_REAL_NEBULAE_SIZE      | Real Nebula: %1
+SETTINGS_MOD_REAL_NEBULAE_NO        | No
+
 SETTINGS_MOD_SHOW_NEW_RACES_DESC         | Show the new species in the opponents list?
 SETTINGS_MOD_SHOW_NEW_RACES              | Show new species: %1
 SETTINGS_MOD_SHOW_GRID_CIRCULAR_DESC     | Show the circular grid on the galaxy map? (Dynamic)

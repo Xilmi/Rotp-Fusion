@@ -62,6 +62,7 @@ Later:
 
 2023.12.24 (BR)
 - No Spying protection is now disabled for council alliance calls.
+to Fix: Interesting, I notice in my game that getting into a final war against rebels, your unity allies don't give you their techs, nor do you give them yours. I checked the code, and realized that doesn't happen when you disable tech stealing in the options. They can still slowly give you techs afterwards though.
 
 2023.12.22 (BR)
 - Added new Guardian Monster Space Sepiidae.
@@ -76,7 +77,8 @@ Later:
 - Fixed species stat being sometime hidden under the scroll bar.
 - Fixed language font generating errors.
 - Fixed modnar races text files missing in most languages
- 
+
+
 2023.12.20 (BR)
 - New tools to help the identification of the new monsters.
   - Added to Base AIs.
@@ -181,7 +183,7 @@ Later:
 2023.11.23 (BR)
 - Master Of Orion Strategy Guide says differently!
   - Stream projector damages are repaired again.
-  
+
 2023.11.22 (BR)
 - Stream projector damages are not restored by automated repair system, and only 10% of them by advanced damage control.
 
@@ -195,7 +197,7 @@ Later:
 2023.11.20 (BR)
 - Fixed: Update Planet Background when degraded or improved.
 - Spy: New option to stop spending the budget once the team is complete.
-- Memory Low Warning: clear Static and final lists of sessions and UI. 
+- Memory Low Warning: clear Static and final lists of sessions and UI.
 - Added more info on the Memory Low warning message.
 
 2023.11.19 (BR)
@@ -234,7 +236,7 @@ Later:
 
 2023.11.12 (BR)
 - Removed Monsters redundancies.
-- Fixed backward compatibility by reseting the monster to 3 turns to the target. 
+- Fixed backward compatibility by reseting the monster to 3 turns to the target.
 
 2023.11.10 (BR)
 - Monsters and Guardian are visible.
@@ -384,7 +386,7 @@ Later:
 - Fixed disconnected "Deterministic Artifact"-option.
 
 2023.09.18 (BR)
-- Moved Options Setup Panels backImage control to BaseModPanel. 
+- Moved Options Setup Panels backImage control to BaseModPanel.
 - Custom Species Menu Buttons display optimization...
   - Still a lot of text optimization to-do
 

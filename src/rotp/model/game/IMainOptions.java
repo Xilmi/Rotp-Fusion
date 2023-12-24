@@ -370,6 +370,20 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	default boolean raceStatusViewPlayer()	{ return raceStatusView.get().equals("PctPlayer"); }
 	default boolean raceStatusViewValue()	{ return raceStatusView.get().equals("Value"); }
 
+	ParamInteger realNebulaeSize	= new ParamInteger(MOD_UI, "REAL_NEBULAE_SIZE", 0, 0, 5, 1, 1, 1) {
+		{
+			isCfgFile(true);
+			specialZero(MOD_UI + "REAL_NEBULAE_NO");
+			loop(true);
+		}
+		@Override public Integer set(Integer i)	{
+			rotp.model.galaxy.Nebula.requestedQuality = i;
+			return super.set(i);
+		}
+	};
+	default int selectedRealNebulaeSize()	{ return realNebulaeSize.get(); }
+	default boolean selectedRealNebulae()	{ return realNebulaeSize.get() == 0; }
+
 	// ==================== GUI List Declarations ====================
 	//
 //	LinkedList<IParam> mainOptionsUI  = new LinkedList<>(
