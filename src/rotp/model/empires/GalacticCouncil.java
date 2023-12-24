@@ -278,12 +278,12 @@ public class GalacticCouncil implements Base, Serializable {
         }
         // all members of alliance share techs with leader
         for (Empire ally: allies) {
-            for (Tech tech : ally.tech().techsUnknownTo(leader))
+            for (Tech tech : ally.tech().techsUnknownTo(leader, false))
                 leader.tech().acquireTechThroughTrade(tech.id, ally.id);
         }
         // leader then shares all techs with allies
         for (Empire ally: allies) {
-            for (Tech tech : leader.tech().techsUnknownTo(ally))
+            for (Tech tech : leader.tech().techsUnknownTo(ally, false))
                 ally.tech().acquireTechThroughTrade(tech.id, leader.id);
         }
         if (leader.isPlayerControlled()) {
