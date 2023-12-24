@@ -1477,7 +1477,7 @@ public final class Colony implements Base, IMappedObject, Serializable {
             session().addSystemToAllocate(starSystem(), str1);
         }
         // list of possible techs that could be recovered from factories
-        List<Tech> possibleTechs = empire().tech().techsUnknownTo(tr.empire());
+        List<Tech> possibleTechs = empire().tech().techsUnknownTo(tr.empire(), true);
         int techsCaptured = 0;
         // each factory is 2% chance to plunder an unknown tech
         for (int i = 0; i < (int) industry().factories(); i++) {

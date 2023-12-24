@@ -33,6 +33,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed rally from alien planets. (Xilmi)
 - Fixed language font generating errors.
 - Fixed modnar races text files missing in most languages.
+- Fixed "No Spying" protection disabling council alliance alliance tech sharing call.
 
 
 <b><ins> last releases:</ins></b>

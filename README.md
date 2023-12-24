@@ -60,6 +60,9 @@ Later:
 
 ## What's New
 
+2023.12.24 (BR)
+- No Spying protection is now disabled for council alliance calls.
+
 2023.12.22 (BR)
 - Added new Guardian Monster Space Sepiidae.
   - Special Weapon = Squid Ink.
@@ -93,22 +96,20 @@ Later:
 - Added common Monster Guardian class.
 - Fixed last known guardian issues.
 
-2023.12.10 (BR)
+2023.12.12 (BR)
 - Fixed Submenu hover color becoming permanent.
 - Fixed ShowSpecies AI button text not being updated.
 - Fixed hover color remaining on some Galaxy setting Buttons
 - Good planets can now have a Guardian (Space Monster)
   - Added Giant Space Jellyfish Monster Guardian
 
-
-2023.12.10 (BR)
+2023.12.11 (BR)
 - New Mass Transport Auto-refill Set independently for each colony.
   - Replace the previous global system.
   - Option to initialyze at the panel opening to "On", "Off", or No changes.
   - Auto-refill colony are set by Ctrl-Click on the slider.
   - Auto-refill colony sliders are shown in a different color.
 - Cleaned TODO comments
-
 
 2023.12.10 (BR)
 - Fixed reset to Default in Galaxy setting panel badly initialyzing the player homeworld.
