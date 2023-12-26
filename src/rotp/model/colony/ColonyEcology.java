@@ -352,15 +352,21 @@ public class ColonyEcology extends ColonySpendingCategory {
         float newPopPurchaseable = maxPopSize - workingPop - expGrowth;
         float newPopCost = tr.populationCost();
         if (newPopPurchaseable > 0) {
+            float purchasableBC = newBC;
+            switch (options().selectedPopGrowthFactor()) {
+                case "Reduced":
+                    newPopPurchaseable = min(newPopPurchaseable, maxPopSize/newPopCost);
+                    purchasableBC = min(maxPopSize,newBC);
+            }
             cost = newPopPurchaseable * newPopCost;
-            int newPop = (int) (workingPop+expGrowth+(newBC / newPopCost)) - (int) currentPop;
+            int newPop = (int) (workingPop+expGrowth+(purchasableBC / newPopCost)) - (int) currentPop;
             expectedPopGrowth = newPop;
             if (newBC < cost)
                 return text(growthText);
             newBC -= cost;
         }
-
-        expectedPopGrowth = (int) maxPopSize - (int) currentPop;
+        else
+            expectedPopGrowth = (int) maxPopSize - (int) currentPop;
 
         // if less <1% of income, show "Clean", else show "Reserve"
         if (newBC <= (c.totalIncome()/100))
@@ -426,6 +432,10 @@ public class ColonyEcology extends ColonySpendingCategory {
         float newPopPurchaseable = maxPopSize - workingPop - expGrowth;
         if (newPopPurchaseable > 0) {
             float newPopCost = tr.populationCost();
+            switch (options().selectedPopGrowthFactor()) {
+                case "Reduced":
+                    newPopPurchaseable = min(newPopPurchaseable, maxPopSize/newPopCost);
+            }
             float growthCost = newPopPurchaseable * newPopCost;
             if (totalBC < growthCost)
                 return 0;

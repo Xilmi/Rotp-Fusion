@@ -796,7 +796,12 @@ public final class TechTree implements Base, Serializable {
         return topBombWeaponTech == null ? 0 : topBombWeaponTech().damageHigh();
     }
     public float populationCost() {
-        return topCloningTech == null ? TechCloning.BASE_POPULATION_COST : topCloningTech().growthCost;
+        float popCost = topCloningTech == null ? TechCloning.BASE_POPULATION_COST : topCloningTech().growthCost;
+        switch (options().selectedPopGrowthFactor()) {
+            case "Reduced":
+                popCost = popCost * 2;
+        }
+        return popCost;
     }
     public boolean enrichSoil() {
         return topSoilEnrichmentTech != null;

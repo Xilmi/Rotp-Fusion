@@ -36,6 +36,15 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 
 	// ========================================================================
 	// GamePlay options
+	ParamList popGrowthFactor				= new ParamList(MOD_UI, "POP_GROWTH", "Normal") {
+		{
+			showFullGuide(true);
+			put("Normal",		MOD_UI + "POP_GROWTH_NORMAL");
+			put("Reduced",		MOD_UI + "POP_GROWTH_REDUCED");
+		}
+	};
+	default String selectedPopGrowthFactor()	{ return popGrowthFactor.get(); }
+
 	ParamInteger retreatRestrictionTurns	= new ParamInteger(MOD_UI, "RETREAT_RESTRICTION_TURNS"
 			, 100, 0, 100, 1, 5, 20);
 	default int selectedRetreatRestrictionTurns()	{ return retreatRestrictionTurns.get(); }
@@ -215,6 +224,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 						null,
 						missileBaseModifier, missileShipModifier,
 						retreatRestrictions, retreatRestrictionTurns,
+						popGrowthFactor,
 						null,
 						bombingTarget, targetBombard,
 						flagColorCount, allowTechStealing,
@@ -259,7 +269,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 				transportAutoEco, terraforming,
 				colonizing, researchRate,
 				warpSpeed, fuelRange,
-				spyOverSpend,
+				spyOverSpend, popGrowthFactor,
 
 				headerSpacer,
 				new ParamTitle("IRONMAN_BASIC"),
