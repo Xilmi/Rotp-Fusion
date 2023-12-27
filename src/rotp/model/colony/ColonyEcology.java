@@ -350,8 +350,8 @@ public class ColonyEcology extends ColonySpendingCategory {
 
         // check for purchasing new pop
         float newPopPurchaseable = getNewPopPurchasable();
-        float newPopCost = tr.populationCost();
         if (newPopPurchaseable > 0) {
+            float newPopCost = tr.populationCost();
             cost = newPopPurchaseable * newPopCost;
             expectedPopGrowth = (int) (workingPop+expGrowth+min(newPopPurchaseable,newBC/newPopCost)) - (int) currentPop;
             if (newBC < cost)
@@ -422,8 +422,7 @@ public class ColonyEcology extends ColonySpendingCategory {
         // deduct cost for purchasing new pop
         float newPopPurchaseable = getNewPopPurchasable();
         if (newPopPurchaseable > 0) {
-            float newPopCost = tr.populationCost();
-            float growthCost = newPopPurchaseable * newPopCost;
+            float growthCost = newPopPurchaseable * tr.populationCost();
             if (totalBC < growthCost)
                 return 0;
             totalBC -= growthCost;
