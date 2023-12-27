@@ -353,8 +353,7 @@ public class ColonyEcology extends ColonySpendingCategory {
         float newPopCost = tr.populationCost();
         if (newPopPurchaseable > 0) {
             cost = newPopPurchaseable * newPopCost;
-            int newPop = (int) (workingPop+expGrowth+min(newPopPurchaseable,newBC/newPopCost)) - (int) currentPop;
-            expectedPopGrowth = newPop;
+            expectedPopGrowth = (int) (workingPop+expGrowth+min(newPopPurchaseable,newBC/newPopCost)) - (int) currentPop;
             if (newBC < cost)
                 return text(growthText);
             newBC -= cost;
@@ -421,8 +420,6 @@ public class ColonyEcology extends ColonySpendingCategory {
         }
         
         // deduct cost for purchasing new pop
-        float expGrowth = c.normalPopGrowth();
-        float workingPop = c.workingPopulation(); // currentpop - transports away
         float newPopPurchaseable = getNewPopPurchasable();
         if (newPopPurchaseable > 0) {
             float newPopCost = tr.populationCost();
