@@ -149,7 +149,10 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
         height = random(8,14);
         image  = buildImage();
     }
-    void cancel()	{ randomFiles.add(nebulaFile); }
+    void cancel()	{
+    	if (isRealNebula())
+    		randomFiles.add(nebulaFile);
+    }
     private void newRealNebula() {
     	int wF = 12; // 19
     	int hF = 19; // 12
@@ -344,7 +347,7 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
             g2.setRenderingHints(prevRender);
             g2.setComposite(prevComp);
             //image();
-            boolean showLimits = true;
+            boolean showLimits = false; // TO DO BR: set to false
             if (showLimits && baseRNShape != null) {
     			double scaleX = (double) mShape.width / baseRNShape.getBounds2D().getWidth();
     			double scaleY = (double) mShape.height / baseRNShape.getBounds2D().getHeight();

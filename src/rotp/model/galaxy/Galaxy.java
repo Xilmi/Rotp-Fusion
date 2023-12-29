@@ -250,22 +250,22 @@ public class Galaxy implements Base, Serializable {
         	neb.cancel();
         	return false;
         }
-                
-//        // don't add nebulae whose center point is in an existing nebula
-//        for (Nebula existingNeb: nebulas) {
-//            if (existingNeb.contains(neb.centerX(), neb.centerY())) {
-//            	neb.cancel();
-//            	return false;
-//            }
-//        }
-        // don't add nebulae to close to an existing nebula
-        for (Nebula existingNeb: nebulas) {
-            if (existingNeb.isToClose(neb)) {
-            	neb.cancel();
-            	return false;
+        if (options().selectedRealNebulae()) {
+            // don't add nebulae to close to an existing nebula
+            for (Nebula existingNeb: nebulas) {
+                if (existingNeb.isToClose(neb)) {
+                	neb.cancel();
+                	return false;
+                }
             }
         }
-            
+        else {
+            // don't add classic nebulae whose center point is in an existing nebula
+            for (Nebula existingNeb: nebulas)
+                if (existingNeb.contains(neb.centerX(), neb.centerY()))
+                	return false;
+        }
+          
         /*
         for (EmpireSystem sys : shape.empSystems) {
             if (sys.inNebula(neb))
