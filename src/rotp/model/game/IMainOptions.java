@@ -387,7 +387,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	default int selectedRealNebulaeSize()	{ return realNebulaeSize.get(); }
 	default boolean selectedRealNebulae()	{ return realNebulaeSize.get() == 0; }
 
-	ParamBoolean realNebulaShape	= new ParamBoolean(MOD_UI, "REAL_NEBULAE_SHAPE", false)
+	ParamBoolean realNebulaShape	= new ParamBoolean(MOD_UI, "REAL_NEBULAE_SHAPE", true)
 	{	{ isCfgFile(true); } };
 	default boolean realNebulaShape()	{ return realNebulaShape.get(); }
 
