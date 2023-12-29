@@ -2440,6 +2440,11 @@ SETTINGS_MOD_COLOR_SET_GREY_DESC    | Alternate Grey color set, already in game,
 SETTINGS_MOD_REAL_NEBULAE_SIZE_DESC | Use Real Nebulae images with the this resolution factor?
 SETTINGS_MOD_REAL_NEBULAE_SIZE      | Real Nebula: %1
 SETTINGS_MOD_REAL_NEBULAE_NO        | No
+SETTINGS_MOD_REAL_NEBULAE_SHAPE_HELP | Flight path analysis will replace rectangular shape with a better approximation of the nebula shape?<br>Changing this parameter may affect the duration already sent fleet!
+SETTINGS_MOD_REAL_NEBULAE_SHAPE_DESC | Flight path analysis will replace rectangular shape with a better approximation of the nebula shape?
+SETTINGS_MOD_REAL_NEBULAE_SHAPE      | Real Nebula Shape: %1
+SETTINGS_MOD_REAL_NEBULAE_OPACITY_DESC | Opacity of the new real image based nebulae. 100% = No transparency.
+SETTINGS_MOD_REAL_NEBULAE_OPACITY      | Real Nebula Opacity: %1%
 
 SETTINGS_MOD_SHOW_NEW_RACES_DESC         | Show the new species in the opponents list?
 SETTINGS_MOD_SHOW_NEW_RACES              | Show new species: %1

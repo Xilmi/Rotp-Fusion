@@ -40,6 +40,7 @@ import javax.swing.JFileChooser;
 
 import rotp.Rotp;
 import rotp.ui.RotPUI;
+import rotp.ui.UserPreferences;
 import rotp.ui.game.BaseModPanel;
 import rotp.ui.game.GameUI;
 import rotp.ui.game.MainOptionsUI;
@@ -377,12 +378,23 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 			loop(true);
 		}
 		@Override public Integer set(Integer i)	{
-			rotp.model.galaxy.Nebula.requestedQuality = i;
-			return super.set(i);
+			rotp.model.galaxy.Nebula.requestedQuality(i);
+			super.set(i);
+			UserPreferences.save();
+			return get();
 		}
 	};
 	default int selectedRealNebulaeSize()	{ return realNebulaeSize.get(); }
 	default boolean selectedRealNebulae()	{ return realNebulaeSize.get() == 0; }
+
+	ParamBoolean realNebulaShape	= new ParamBoolean(MOD_UI, "REAL_NEBULAE_SHAPE", false)
+	{	{ isCfgFile(true); } };
+	default boolean realNebulaShape()	{ return realNebulaShape.get(); }
+
+	ParamInteger realNebulaeOpacity	= new ParamInteger(MOD_UI, "REAL_NEBULAE_OPACITY", 60, 10, 100, 1, 5, 20) {
+		{ isCfgFile(true); }
+	};
+	default float realNebulaeOpacity()	{ return realNebulaeOpacity.get()/100f; }
 
 	// ==================== GUI List Declarations ====================
 	//

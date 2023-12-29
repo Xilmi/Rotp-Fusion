@@ -44,7 +44,6 @@ Very soon:
 - Some Achievements options.
 
 Later:
-- use real nebula pictures.
 - Some kind of positive monster like instead of attacking strong empires it defends weak empires
 - Stronger GNN filters
 - Stronger Warning filters
@@ -60,9 +59,12 @@ Later:
 
 ## What's New
 
+2023.12.28 (BR)
+- New nebulae from real photography option.
+- Nebulae shape: Can be different than rectangular.
+
 2023.12.24 (BR)
 - No Spying protection is now disabled for council alliance calls.
-to Fix: Interesting, I notice in my game that getting into a final war against rebels, your unity allies don't give you their techs, nor do you give them yours. I checked the code, and realized that doesn't happen when you disable tech stealing in the options. They can still slowly give you techs afterwards though.
 
 2023.12.22 (BR)
 - Added new Guardian Monster Space Sepiidae.

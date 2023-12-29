@@ -95,6 +95,9 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 		allModOptions.addAll(convenienceOptions); // Keep as variable
 		allModOptions.addAll(governorOptions);
 		allModOptions.addAll(IMainOptions.mainOptionsUI()); // Keep as variable
+		allModOptions.add(IMainOptions.realNebulaeSize);
+		allModOptions.add(IMainOptions.realNebulaShape);
+		allModOptions.add(IMainOptions.realNebulaeOpacity);
 		allModOptions.addAll(IDebugOptions.debugOptions());
 		allModOptions.addAll(ICombatOptions.combatOptions());
 		allModOptions.addAll(IIronmanOptions.ironmanOptions());
@@ -156,6 +159,9 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 		globalOptions.addAll(IMainOptions.commonOptions());
 		globalOptions.add(bitmapGalaxyLastFolder);
 		globalOptions.add(showNextCouncil);
+		globalOptions.add(realNebulaeOpacity);
+		globalOptions.add(realNebulaShape);
+		globalOptions.add(realNebulaeSize);
 		
 		if (initialList) {
 			globalOptions.addAll(convenienceOptions);

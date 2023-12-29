@@ -14,6 +14,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
     - Option to tune the Monster level.
   - Added Monster Guardian: Giant Space Cyaneidae.
   - Added Monster Guardian: Giant Space Sepiidae.
+- New nebulae from real photography option.
+  - Nebulae shapes can be different than rectangular.
+  - Adjustable real nebulae opacity.
+
 
 <b><ins>Optimisation:</ins></b>
 - Fixed Apple Retina Screen compatibility.

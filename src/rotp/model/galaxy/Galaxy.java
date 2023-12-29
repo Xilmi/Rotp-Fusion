@@ -218,14 +218,18 @@ public class Galaxy implements Base, Serializable {
         
         Nebula neb;
         if (nebulas.size() < MAX_UNIQUE_NEBULAS)
-            neb = new Nebula(true, nebSize);
+            //neb = new Nebula(true, nebSize);
+            neb = new Nebula(nebSize);
         else
             neb = random(nebulas).copy();
         if (centered) {
         	pt.x -= neb.adjWidth()/2;
         	pt.y -= neb.adjWidth()/2;
-            if (!shape.valid(pt))
-                return false;
+            if (!shape.valid(pt)) {
+            	neb.cancel();
+            	return false;
+            }
+               
         }
         neb.setXY(pt.x, pt.y);
         
@@ -234,17 +238,32 @@ public class Galaxy implements Base, Serializable {
         float w = neb.adjWidth();
         float h = neb.adjHeight();
         
-        if (!shape.valid(x+w,y))
-            return false;
-        if (!shape.valid(x+w,y+h))
-            return false;
-        if (!shape.valid(x,y+h))
-            return false;
+        if (!shape.valid(x+w,y)) {
+        	neb.cancel();
+        	return false;
+        }
+        if (!shape.valid(x+w,y+h)) {
+        	neb.cancel();
+        	return false;
+        }
+        if (!shape.valid(x,y+h)) {
+        	neb.cancel();
+        	return false;
+        }
                 
-        // don't add nebulae whose center point is in an existing nebula
+//        // don't add nebulae whose center point is in an existing nebula
+//        for (Nebula existingNeb: nebulas) {
+//            if (existingNeb.contains(neb.centerX(), neb.centerY())) {
+//            	neb.cancel();
+//            	return false;
+//            }
+//        }
+        // don't add nebulae to close to an existing nebula
         for (Nebula existingNeb: nebulas) {
-            if (existingNeb.contains(neb.centerX(), neb.centerY()))
-                return false;
+            if (existingNeb.isToClose(neb)) {
+            	neb.cancel();
+            	return false;
+            }
         }
             
         /*
