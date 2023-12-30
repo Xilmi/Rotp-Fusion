@@ -1835,6 +1835,12 @@ CUSTOM_RACE_SHIP_SIZE_MEDIUM_HELP | Preferred by:&ensp Darlok, Human, Mrrshan, P
 CUSTOM_RACE_SHIP_SIZE_LARGE_HELP  | Preferred by:&ensp Bulrathi, Meklar, Silicoid, <i> JackTrades, WarDemon.</i>
 CUSTOM_RACE_SHIP_SIZE_HUGE_HELP   | Preferred by:&ensp <i>GearHead, Monocle.</i>
 
+CUSTOM_RACE_IGNORES_ECO_NO         | No
+CUSTOM_RACE_IGNORES_ECO_LIMITED    | Limited
+CUSTOM_RACE_IGNORES_ECO_ALL        | All
+CUSTOM_RACE_IGNORES_ECO_NO_DESC      | Normal behavior, Hostile planet types requires tech.
+CUSTOM_RACE_IGNORES_ECO_LIMITED_DESC | Barren, Tundra, and Dead can immediately be colonized.
+CUSTOM_RACE_IGNORES_ECO_ALL_DESC     | All planet types can immediately be colonized.
 
 // Advanced Settings
 SETTINGS_TITLE                    | Advanced Game Options

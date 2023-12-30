@@ -942,7 +942,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         if (pt.isAsteroids())
             return false;
         if (ignoresPlanetEnvironment())
-            return true;
+            return acceptedPlanetEnvironment(pt);
         return tech().canColonize(pt);
     }
     public boolean canColonize(PlanetType pt, int newHostilityLevel) {
@@ -951,7 +951,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         if (pt.isAsteroids())
             return false;
         if (ignoresPlanetEnvironment())
-            return true;
+            return acceptedPlanetEnvironment(pt);
         return tech().canColonize(pt, newHostilityLevel);
     }
     public boolean isLearningToColonize(PlanetType pt) {
@@ -960,7 +960,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         if (pt.isAsteroids())
             return false;
         if (ignoresPlanetEnvironment())
-            return true;
+            return acceptedPlanetEnvironment(pt);
         return tech().isLearningToColonize(pt);
     }
     public boolean canLearnToColonize(PlanetType pt) {
@@ -969,7 +969,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         if (pt.isAsteroids())
             return false;
         if (ignoresPlanetEnvironment())
-            return true;
+            return acceptedPlanetEnvironment(pt);
         return tech().canLearnToColonize(pt);
     }
     public boolean knowETA(Ship sh) {
@@ -3653,6 +3653,22 @@ public final class Empire implements Base, NamedObject, Serializable {
     public int shipDefenseBonus()              { return dataRace().shipDefenseBonus(); }
     public int shipInitiativeBonus()           { return dataRace().shipInitiativeBonus(); }
     public boolean ignoresPlanetEnvironment()  { return dataRace().ignoresPlanetEnvironment(); }
+    public boolean acceptedPlanetEnvironment(PlanetType pt)  {
+        switch (dataRace().acceptedPlanetEnvironment()) {
+            case "Limited":
+                switch (pt.key()) {
+                    case PlanetType.INFERNO:
+                    case PlanetType.TOXIC:
+                    case PlanetType.RADIATED:
+                        return false;
+                    default:
+                        return true;
+                }
+            case "All":
+            default:
+                return true;
+        }
+    }
     public boolean ignoresFactoryRefit()       { return dataRace().ignoresFactoryRefit(); }
     public boolean canResearch(Tech t)         { return t.canBeResearched(dataRace()); }
     public int maxRobotControls() {

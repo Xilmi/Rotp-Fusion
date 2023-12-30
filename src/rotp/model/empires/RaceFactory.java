@@ -375,6 +375,7 @@ public enum RaceFactory implements Base {
         if (key.equalsIgnoreCase("voice"))         { r.voiceKey = value; return; }
         if (key.equalsIgnoreCase("ambience"))      { r.ambienceKey = value; return; }
         if (key.equalsIgnoreCase("species"))       { parseRaceSpeciesMods(r, substrings(value, ',')); return; }
+        if (key.equalsIgnoreCase("ignoreEco"))     { r.acceptedPlanetEnvironment = value; r.ignoresPlanetEnvironment = !value.equalsIgnoreCase("No"); return; }
         if (key.equalsIgnoreCase("preferredship")) { parseRaceShipSize(r, substrings(value,',')); return; }
         if (key.equalsIgnoreCase("shipmod"))       { parseRaceShipMods(r, substrings(value,',')); return; }
         if (key.equalsIgnoreCase("groundmod"))     { r.groundAttackBonus(parseInt(value)); return; }
@@ -461,7 +462,12 @@ public enum RaceFactory implements Base {
 
         // field #1 is species type (carbon,silicate,robotic) -
         r.speciesType = parseInt(vals.get(0));
+        // deprecated - will be overwritten by ignoreEco param
         r.ignoresPlanetEnvironment = (parseInt(vals.get(1)) == 1);
+        if (parseInt(vals.get(1)) == 1)
+            r.acceptedPlanetEnvironment = "All";
+        else
+            r.acceptedPlanetEnvironment = "No";
     }
     private void parseRaceShipSize(Race r, List<String> vals) {
         r.preferredShipSet = vals.get(0);
