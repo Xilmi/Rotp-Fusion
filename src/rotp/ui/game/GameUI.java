@@ -64,7 +64,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     public static final int BG_DURATION = 80;
     public static final float SLIDESHOW_MAX = 15f;
     
-    public static String gameName = "";
+    public  static String gameName = "";
     
     private static final Color langShade[] = { new Color(0,0,0,128), new Color(128,0,0,96) };
     // private static final Color menuHover[] = {  new Color(255,220,181), new Color(255,255,210) };
@@ -730,15 +730,6 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             case KeyEvent.VK_ESCAPE:
                 if (canContinue())
                     continueGame(); return;
-            // BR: Load Profiles with option "Surprise" and start Game
-//            case KeyEvent.VK_R:
-//            	if (e.isShiftDown()) {
-//            		RotPUI.instance().surpriseStart(); return;
-//            	}
-//            	break;
-//            // BR: Load Profiles
-//            case KeyEvent.VK_P:
-//            	Profiles.processKey(k, true, "Race", options());
         }
     }
     private void shrinkFrame() {
@@ -795,6 +786,8 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         	UserPreferences.load();
             RotPUI.instance().selectMainPanel();
             RotPUI.instance().mainUI().showDisplayPanel();
+            if (gameName == "")
+        		gameName = generateGameName();
         }
     }
     public void newGame() { // BR:
