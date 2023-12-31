@@ -56,7 +56,22 @@ public final class TechControlEnvironment extends Tech {
     public boolean canColonize(PlanetType pt)    { return pt.hostility() <= hostilityAllowed(); }
     @Override
     public boolean canBeResearched(Race r)  {
-        return !r.ignoresPlanetEnvironment();  // silicoids don't research these techs
+        // If Ignores Eco is not No, only environments that are not colonizable are researchable
+        switch (r.acceptedPlanetEnvironment) {
+            case "All":
+                return false;
+            case "Limited":
+                switch (hostilityAllowed) {
+                    case PlanetType.HOSTILITY_BARREN:
+                    case PlanetType.HOSTILITY_TUNDRA:
+                    case PlanetType.HOSTILITY_DEAD:
+                        return false;
+                    default:
+                        return true;
+                }
+            default:
+                return true;
+        }
     }
     @Override
     public float expansionModeFactor()  { return 3; }
