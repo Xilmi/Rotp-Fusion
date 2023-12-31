@@ -941,8 +941,8 @@ public final class Empire implements Base, NamedObject, Serializable {
             return false;
         if (pt.isAsteroids())
             return false;
-        if (ignoresPlanetEnvironment())
-            return acceptedPlanetEnvironment(pt);
+        if (ignoresPlanetEnvironment() && acceptedPlanetEnvironment(pt))
+            return true;
         return tech().canColonize(pt);
     }
     public boolean canColonize(PlanetType pt, int newHostilityLevel) {
@@ -950,8 +950,8 @@ public final class Empire implements Base, NamedObject, Serializable {
             return false;
         if (pt.isAsteroids())
             return false;
-        if (ignoresPlanetEnvironment())
-            return acceptedPlanetEnvironment(pt);
+        if (ignoresPlanetEnvironment() && acceptedPlanetEnvironment(pt))
+            return true;
         return tech().canColonize(pt, newHostilityLevel);
     }
     public boolean isLearningToColonize(PlanetType pt) {
@@ -959,8 +959,8 @@ public final class Empire implements Base, NamedObject, Serializable {
             return false;
         if (pt.isAsteroids())
             return false;
-        if (ignoresPlanetEnvironment())
-            return acceptedPlanetEnvironment(pt);
+        if (ignoresPlanetEnvironment() && acceptedPlanetEnvironment(pt))
+            return true;
         return tech().isLearningToColonize(pt);
     }
     public boolean canLearnToColonize(PlanetType pt) {
@@ -968,8 +968,8 @@ public final class Empire implements Base, NamedObject, Serializable {
             return false;
         if (pt.isAsteroids())
             return false;
-        if (ignoresPlanetEnvironment())
-            return acceptedPlanetEnvironment(pt);
+        if (ignoresPlanetEnvironment() && acceptedPlanetEnvironment(pt))
+            return true;
         return tech().canLearnToColonize(pt);
     }
     public boolean knowETA(Ship sh) {
