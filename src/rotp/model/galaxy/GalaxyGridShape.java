@@ -31,6 +31,7 @@ public class GalaxyGridShape extends GalaxyShape {
         options1.add("SETUP_GRID_0");
         options1.add("SETUP_GRID_1");
         options1.add("SETUP_GRID_2");
+        options1.add(RANDOM_OPTION);
         //options2 = new ArrayList<>();
         //options2.add("SETUP_NOT_AVAILABLE");
     }
@@ -60,6 +61,8 @@ public class GalaxyGridShape extends GalaxyShape {
         initWidthHeight();
         option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
         // option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
+        if (option1 == options1.size()-1)
+        	option1 = random.nextInt(options1.size()-1);
  
 		// choose number of grids, clusters, and cluster radii with option1
 		// scale up the number of grid lines with size of map

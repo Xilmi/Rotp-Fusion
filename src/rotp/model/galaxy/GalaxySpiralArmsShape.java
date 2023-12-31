@@ -35,10 +35,12 @@ public class GalaxySpiralArmsShape extends GalaxyShape {
         options1.add("SETUP_SPIRALARMS_2"); // Loose
         options1.add("SETUP_SPIRALARMS_3"); // Normal
         options1.add("SETUP_SPIRALARMS_4"); // Tight
+        options1.add(RANDOM_OPTION);
         // BR: For Symmetric galaxies
         options2 = new ArrayList<>();
         options2.add("SETUP_SPIRALARMS_NORMAL");
         options2.add(SYMMETRIC);
+        options2.add(RANDOM_OPTION);
     }
     // BR: for symmetric galaxy
     private float numSwirls = 2.0f;
@@ -46,6 +48,10 @@ public class GalaxySpiralArmsShape extends GalaxyShape {
     private double minRandRay = 0.0; // relative limit Stars ray
     private double randomOrientation;
     private float adjust_density = 1.0f;
+    
+    private int option1;
+    private int option2;
+
     // \BR:
     public GalaxySpiralArmsShape(IGameOptions options) {
         opts = options;
@@ -92,8 +98,15 @@ public class GalaxySpiralArmsShape extends GalaxyShape {
         super.init(n);
         // reset w/h vars since aspect ratio may have changed
         initWidthHeight();
-        int option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
-		float gW = (float) galaxyWidthLY();
+        option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
+        option2 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption2()));
+
+        if (option1 == options1.size()-1)
+        	option1 = random.nextInt(options1.size()-1);
+        if (option2 == options2.size()-1)
+        	option2 = random.nextInt(options2.size()-2);  // No Symmetric
+
+        float gW = (float) galaxyWidthLY();
 		numSwirls = 2.0f;
 		armRadius = max(1.5f, 0.03f*gW);
 		// BR: Moved here: common for Normal and Symmetric

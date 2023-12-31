@@ -1637,7 +1637,8 @@ public final class Empire implements Base, NamedObject, Serializable {
         if (designs.isEmpty()) {
             // System.out.println("No Scout designs"); // BR: //
             return;
-        } else {
+        }
+        else {
             for (ShipDesign sd: designs) {
                 System.out.println("Scout Design "+sd.name()+" "+sd.isExtendedRange()+" sz="+sd.sizeDesc()+" warp="+sd.warpSpeed());
             }

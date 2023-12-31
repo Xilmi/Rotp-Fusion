@@ -37,12 +37,14 @@ public class GalaxyEllipticalShape extends GalaxyShape {
         options1.add("SETUP_ELLIPSE_3");
         options1.add("SETUP_ELLIPSE_4");
         options1.add(SYMMETRIC); // BR:
+        options1.add(RANDOM_OPTION);
         options2 = new ArrayList<>();
         options2.add("SETUP_VOID_0");
         options2.add("SETUP_VOID_1");
         options2.add("SETUP_VOID_2");
         options2.add("SETUP_VOID_3");
         options2.add("SETUP_VOID_4");
+        options2.add(RANDOM_OPTION);
     }
 
     Shape ellipse, hole, orionSpot;
@@ -53,6 +55,9 @@ public class GalaxyEllipticalShape extends GalaxyShape {
     // BR: for symmetric galaxy
     private double minRandRay = 0.0; // relative limit Stars ray
     private double randomOrientation;
+    
+    private int option1;
+    private int option2;
 	
     public GalaxyEllipticalShape(IGameOptions options) {
         opts = options;
@@ -95,9 +100,14 @@ public class GalaxyEllipticalShape extends GalaxyShape {
     public void init(int n) {
         super.init(n);
 
-        int option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
-        int option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
+        option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
+        option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
         
+        if (option1 == options1.size()-1)
+        	option1 = random.nextInt(options1.size()-2); // No Random Symmetric
+        if (option2 == options2.size()-1)
+        	option2 = random.nextInt(options2.size()-1);
+
         switch(option2) {
             case 0: voidSize = 0.0f; break;
             case 1: voidSize = 0.2f; break;
@@ -194,10 +204,10 @@ public class GalaxyEllipticalShape extends GalaxyShape {
     @Override
     public void setSpecific(Point.Float pt) { // modnar: add possibility for specific placement of homeworld/orion locations
         
-        int opt1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
+        // option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
         
         // modnar: setSpecific only for circular, void-4, non-small maps
-        if ((opt1 == 0)&&(opts.numberStarSystems()>90)&&(voidSize > 0.7f)) {
+        if ((option1 == 0)&&(opts.numberStarSystems()>90)&&(voidSize > 0.7f)) {
             if (indexWorld == 0) { // orion
                 pt.x = galaxyEdgeBuffer()+0.5f*galaxyWidthLY();
                 pt.y = galaxyEdgeBuffer()+0.5f*galaxyHeightLY();

@@ -44,7 +44,7 @@ Very soon:
 - Some Achievements options.
 
 Later:
-Symetric nebulae in symetric galaxy.
+- Symmetric nebulae in symetric galaxy.
 - Some kind of positive monster like instead of attacking strong empires it defends weak empires
 - Stronger GNN filters
 - Stronger Warning filters
@@ -59,6 +59,9 @@ Symetric nebulae in symetric galaxy.
 
 
 ## What's New
+
+2023.12.30 (BR)
+- Most galaxy type can now have their options set to "Random".
 
 2023.12.29 (BR)
 - Fix: "Continue" will now initialise empty game name.

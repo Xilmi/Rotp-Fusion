@@ -408,9 +408,9 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         }
         if (rotp.Rotp.noOptions("setBaseGalaxyShape()"))
         	return;
-		shapeOption1.reInit(galaxyShape().options1()); // New shape -> Reset the list
+		shapeOption1.reInit(galaxyShapeOptions1()); // New shape -> Reset the list
 		shapeOption1.defaultValue(galaxyShape.defaultOption1());
-		shapeOption2.reInit(galaxyShape().options2()); // New shape -> Reset the list
+		shapeOption2.reInit(galaxyShapeOptions2()); // New shape -> Reset the list
 		shapeOption2.defaultValue(galaxyShape.defaultOption2());
     }
     @Override

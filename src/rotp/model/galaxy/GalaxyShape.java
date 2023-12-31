@@ -34,6 +34,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 	private static final float maxMinEmpireFactor = 15f;
 	private static final float absMinEmpireBuffer = 3.8f;
 	private static final int   MaxPreviewSystems  = 5000;
+    protected static final String RANDOM_OPTION   = "SETUP_RANDOM_OPTION";
 
 	static final double twoPI = Math.PI * 2.0; // BR:
 	private static float orionBuffer = 10;

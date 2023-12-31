@@ -37,10 +37,12 @@ public class GalaxyShurikenShape extends GalaxyShape {
         options1.add("SETUP_SHURIKEN_2");
         options1.add("SETUP_SHURIKEN_3");
         options1.add("SETUP_SHURIKEN_4");
+        options1.add("SETUP_RANDOM_OPTION");
 
         options2 = new ArrayList<>();
         options2.add("SETUP_SHURIKEN_ORIGINAL");
         options2.add("SETUP_SHURIKEN_ALTERNATIVE");
+        options2.add("SETUP_RANDOM_OPTION");
 //        options2.add("SETUP_SHURIKEN_ALTERNATIVE_RAND");
     }
     
@@ -67,6 +69,11 @@ public class GalaxyShurikenShape extends GalaxyShape {
         
         int option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
         int option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
+        
+        if (option1 == options1.size()-1)
+        	option1 = random.nextInt(options1.size()-1);
+        if (option2 == options2.size()-1)
+        	option2 = random.nextInt(options2.size()-1);
 		
 		float gE = (float) galaxyEdgeBuffer();
 		float gW = (float) galaxyWidthLY();

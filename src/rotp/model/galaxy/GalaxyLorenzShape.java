@@ -29,17 +29,23 @@ public class GalaxyLorenzShape extends GalaxyShape {
         options1 = new ArrayList<>();
         options1.add("SETUP_LORENZ_0");
         options1.add("SETUP_LORENZ_1");
+        options1.add(RANDOM_OPTION);
         options2 = new ArrayList<>();
         options2.add("SETUP_VIEW_0");
         options2.add("SETUP_VIEW_1");
         options2.add("SETUP_VIEW_2");
+        options2.add(RANDOM_OPTION);
     }
     
 	private double dt1=0.005; // integration time interval;
 	private double sigma=10.0, rho=28.0, beta=8.0/3.0; // Lorenz-1 coefficients values
     private double dt2=0.02; // integration time interval;
 	private double a=1.5, b=0.5, c=5.0; // Lorenz-2 coefficients values
-    public GalaxyLorenzShape(IGameOptions options) {
+
+    private int option1;
+    private int option2;
+
+	public GalaxyLorenzShape(IGameOptions options) {
         opts = options;
     }
     @Override protected float   minEmpireFactor() { return 4f; }
@@ -55,7 +61,15 @@ public class GalaxyLorenzShape extends GalaxyShape {
     @Override
     public void init(int n) {
         super.init(n);
+
+        option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
+        option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
         
+        if (option1 == options1.size()-1)
+        	option1 = random.nextInt(options1.size()-1);
+        if (option2 == options2.size()-1)
+        	option2 = random.nextInt(options2.size()-1);
+
         // reset w/h vars since aspect ratio may have changed
         initWidthHeight();
     }
@@ -72,8 +86,8 @@ public class GalaxyLorenzShape extends GalaxyShape {
     @Override
     public void setRandom(Point.Float pt) {
 		
-        int option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
-        int option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
+//        int option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
+//        int option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
         
         // choose lorenz function with option1
         switch(option1) {

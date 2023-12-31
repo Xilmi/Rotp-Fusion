@@ -1569,6 +1569,8 @@ SETUP_SELECT_EMPIRE_RACE          | Species
 SETUP_SELECT_EMPIRE_ABILITIES     | Abilities
 SETUP_SELECT_EMPIRE_VALUE         | Value
 
+SETUP_RANDOM_OPTION_DESC          | Randomize this option (Great with dark galaxy!)
+SETUP_RANDOM_OPTION               | Random
 SETUP_SPIRAL_2_ARMS               | Two Arms
 SETUP_SPIRAL_3_ARMS               | Three Arms
 SETUP_SPIRAL_4_ARMS               | Four Arms

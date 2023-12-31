@@ -29,13 +29,18 @@ public class GalaxyFractalShape extends GalaxyShape {
         options1 = new ArrayList<>();
         options1.add("SETUP_FRACTAL_0");
         options1.add("SETUP_FRACTAL_1");
+        options1.add(RANDOM_OPTION);
         options2 = new ArrayList<>();
         options2.add("SETUP_GALAXY_MAP_OPTION_A");
         options2.add("SETUP_GALAXY_MAP_OPTION_B");
         options2.add("SETUP_GALAXY_MAP_OPTION_C");
+        options2.add(RANDOM_OPTION);
     }
 	float adjust_density = 2.0f; // modnar: adjust stellar density
-    
+
+    private int option1;
+    private int option2;
+
     public GalaxyFractalShape(IGameOptions options) {
         opts = options;
     }
@@ -52,7 +57,13 @@ public class GalaxyFractalShape extends GalaxyShape {
     @Override
     public void init(int n) {
         super.init(n);
+        option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
+        option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
         
+        if (option1 == options1.size()-1)
+        	option1 = random.nextInt(options1.size()-1);
+        if (option2 == options2.size()-1)
+        	option2 = random.nextInt(options2.size()-1);
         // reset w/h vars since aspect ratio may have changed
         initWidthHeight();
     }
@@ -84,9 +95,10 @@ public class GalaxyFractalShape extends GalaxyShape {
 	
     @Override
     public void setRandom(Point.Float pt) {
-		
-        int option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
-        int option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
+
+    	// BR: Moved to init!
+    	// int option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
+    	// int option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
         
         // choose fractal type with options1
 		switch(option1) {

@@ -300,7 +300,7 @@ public interface Base {
     }
     public default float random()               { return random.nextFloat(); }
     public default float random(float d)       { return d * random(); }
-    public default float random(float low, float hi) { return low+((hi-low)*random()); }
+    public default float random(float low, float hi) { return low + ((hi-low)*random()); }
     public default <T> T random(T[] array) {
         return array == null ? null : array[(random.nextInt(array.length))];
     }

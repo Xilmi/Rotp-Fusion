@@ -38,6 +38,7 @@ public class GalaxySpiralShape extends GalaxyShape {
         options1.add("SETUP_SPIRAL_7_ARMS");
         options1.add("SETUP_SPIRAL_8_ARMS");
         options1.add(SYMMETRIC); // BR:
+        options1.add(RANDOM_OPTION);
         options2 = new ArrayList<>();
         options2.add("SETUP_SPIRAL_ROTATION_0");
         options2.add("SETUP_SPIRAL_ROTATION_1");
@@ -46,6 +47,7 @@ public class GalaxySpiralShape extends GalaxyShape {
         options2.add("SETUP_SPIRAL_ROTATION_4");
         options2.add("SETUP_SPIRAL_ROTATION_5");
         options2.add("SETUP_SPIRAL_ROTATION_6");
+        options2.add(RANDOM_OPTION);
     }
     public static int numOptions1 = 8;
     public static int numOptions2 = 7;
@@ -61,6 +63,7 @@ public class GalaxySpiralShape extends GalaxyShape {
 
     float randomX = 0;
     float randomY = 0;
+    
     public GalaxySpiralShape(IGameOptions options) {
         opts = options;
     }
@@ -88,7 +91,7 @@ public class GalaxySpiralShape extends GalaxyShape {
 //    	}
     	return getRandomSymmetric(minHomeRay);
 	}
-	@Override public boolean isSymmetric() {
+	@Override public boolean isSymmetric()         {
 		return opts.selectedGalaxyShapeOption1().equals(SYMMETRIC);
 	}
 	@Override public boolean isCircularSymmetric() { return isSymmetric(); }
@@ -106,6 +109,11 @@ public class GalaxySpiralShape extends GalaxyShape {
         super.init(n);
         int option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
         int option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
+
+        if (option1 == options1.size()-1)
+        	option1 = random.nextInt(options1.size()-2); // No Random Symmetric
+        if (option2 == options2.size()-1)
+        	option2 = random.nextInt(options2.size()-1);
 
         numArms = option1+2;
     	// BR: For symmetric galaxy

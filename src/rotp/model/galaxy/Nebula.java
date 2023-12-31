@@ -145,8 +145,8 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
     		newRealNebula();
     		return;
     	}
-        width = random(8,14);
-        height = random(8,14);
+        width = random(8f,14f);
+        height = random(8f,14f);
         image  = buildImage();
     }
     void cancel()	{
@@ -156,7 +156,7 @@ public class Nebula extends MapSprite implements IMappedObject, Serializable {
     private void newRealNebula() {
     	int wF = 12; // 19
     	int hF = 19; // 12
-    	float area	= random(8,14) * wF * random(8,14) * hF;
+    	float area	= random(8f,14f) * wF * random(8f,14f) * hF;
     	image		= nextNebula();
         int imgW	= image.getWidth();
         int imgH	= image.getHeight();

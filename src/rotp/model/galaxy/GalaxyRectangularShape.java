@@ -33,11 +33,13 @@ public class GalaxyRectangularShape extends GalaxyShape {
         options1 = new ArrayList<>();
         options1.add("SETUP_RECTANGLE_0");
         options1.add("SETUP_RECTANGLE_1");
+        options1.add("SETUP_RANDOM_OPTION");
         options2 = new ArrayList<>();
         options2.add("SETUP_VOID_0");
         options2.add("SETUP_VOID_1");
         options2.add("SETUP_VOID_2");
         options2.add("SETUP_VOID_5");
+        options2.add("SETUP_RANDOM_OPTION");
     }
 	
     Shape block, circle;
@@ -58,7 +60,7 @@ public class GalaxyRectangularShape extends GalaxyShape {
     @Override
     public String defaultOption2()  { return options2.get(0); }
     @Override
-    public float maxScaleAdj()               { return 0.95f; }
+    public float maxScaleAdj()      { return 0.95f; }
     @Override
     public void init(int n) {
         super.init(n);
@@ -66,6 +68,11 @@ public class GalaxyRectangularShape extends GalaxyShape {
         int option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
         int option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
         
+        if (option1 == options1.size()-1)
+        	option1 = random.nextInt(options1.size()-1);
+        if (option2 == options2.size()-1)
+        	option2 = random.nextInt(options2.size()-1);
+
         switch(option1) {
             case 0: {
                 rectangleRatio = 4.0f/3.0f;

@@ -35,6 +35,7 @@ public class GalaxyBullseyeShape extends GalaxyShape {
         options1.add("SETUP_BULLSEYE_0");
         options1.add("SETUP_BULLSEYE_1");
         options1.add("SETUP_BULLSEYE_2");
+        options1.add(RANDOM_OPTION);
         //options2 = new ArrayList<>();
         //options2.add("SETUP_NOT_AVAILABLE");
     }
@@ -62,6 +63,8 @@ public class GalaxyBullseyeShape extends GalaxyShape {
         
         int option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
         //int option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
+        if (option1 == options1.size()-1)
+        	option1 = random.nextInt(options1.size()-1);
 		
 		// modnar: different bullseye/target configurations with options1
         switch(option1) {
