@@ -352,7 +352,7 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     }
     @Override
     public GalaxyShape galaxyShape()   {
-        if (galaxyShape == null)
+   		if (galaxyShape == null)
         	setGalaxyShape(selectedGalaxyShapeOption1, selectedGalaxyShapeOption2);
             //setGalaxyShape();
         return galaxyShape;
@@ -369,10 +369,56 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     		selectedGalaxyShapeOption2 = option2;
     }
     private void setGalaxyShape() {
+    	if(isRandomGalaxy()) {
+    		setRandomGalaxyShape();
+    		return;
+    	}
     	setBaseGalaxyShape();
         selectedGalaxyShapeOption1 = galaxyShape.defaultOption1();
         selectedGalaxyShapeOption2 = galaxyShape.defaultOption2();
     }
+    private boolean isRandomGalaxy() { return selectedGalaxyShape.equals(SHAPE_RANDOM); }
+    private void setRandomGalaxyShape() {
+    	int rnd = random.nextInt(6);
+        selectedGalaxyShapeOption1 = galaxyShape.randomOption();
+        selectedGalaxyShapeOption2 = galaxyShape.randomOption();
+    	switch (rnd) {
+//		case 11:
+//            galaxyShape = new GalaxyLorenzShape(this); break;
+//		case 10:
+//            galaxyShape = new GalaxySwirlClustersShape(this); break;
+//		case 9:
+//            galaxyShape = new GalaxyGridShape(this); break;
+//		case 8:
+//            galaxyShape = new GalaxyMazeShape(this); break;
+//		case 7:
+//            galaxyShape = new GalaxyFractalShape(this); break;
+//		case 6:
+//            galaxyShape = new GalaxyShurikenShape(this); break;
+		case 5:
+            galaxyShape = new GalaxyClusterShape(this); break;
+		case 4:
+            galaxyShape = new GalaxyBullseyeShape(this); break;
+		case 3:
+            galaxyShape = new GalaxySpiralArmsShape(this); break;
+        case 2:
+            galaxyShape = new GalaxySpiralShape(this); break;
+        case 1:
+            galaxyShape = new GalaxyEllipticalShape(this); break;
+        case 0:
+        default:
+            galaxyShape = new GalaxyRectangularShape(this);
+    	}
+        if (rotp.Rotp.noOptions("setRandomGalaxyShape()"))
+        	return;
+		shapeOption1.reInit(new ArrayList<>()); // New shape -> Reset the list
+		shapeOption1.defaultValue(galaxyShape.randomOption());
+		shapeOption2.reInit(new ArrayList<>()); // New shape -> Reset the list
+		shapeOption2.defaultValue(galaxyShape.randomOption());
+//        selectedGalaxyShapeOption1 = galaxyShape.randomOption();
+//        selectedGalaxyShapeOption2 = galaxyShape.randomOption();
+    }
+
     private void setBaseGalaxyShape() { // BR: Init and rest sub options
         switch(selectedGalaxyShape) {
             case SHAPE_ELLIPTICAL:
@@ -414,9 +460,17 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
 		shapeOption2.defaultValue(galaxyShape.defaultOption2());
     }
     @Override
-    public int numGalaxyShapeOption1() {  return galaxyShape.numOptions1(); }
+    public int numGalaxyShapeOption1() {
+    	if (isRandomGalaxy())
+    		return 0;
+    	return galaxyShape.numOptions1();
+    }
     @Override
-    public int numGalaxyShapeOption2() {  return galaxyShape.numOptions2(); }
+    public int numGalaxyShapeOption2() {
+    	if (isRandomGalaxy())
+    		return 0;
+    	return galaxyShape.numOptions2();
+    }
     @Override
     public int numberStarSystems() {  // BR: For Profile Manager comments
     	return numberStarSystems(selectedGalaxySize());

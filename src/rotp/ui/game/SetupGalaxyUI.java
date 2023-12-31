@@ -1921,6 +1921,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				newGameOptions().selectedOpponentRace(i,null);
 			newGameOptions().selectedNumberOpponents(maxOpps);
 		}
+		if (shapeSelection.get().equals(IGameOptions.SHAPE_RANDOM))
+			newGameOptions().selectedGalaxyShape(IGameOptions.SHAPE_RANDOM);
 		newGameOptions().galaxyShape().quickGenerate(); // modnar: do a quickgen to get correct map preview
 		backImg = null; // BR: to show/hide system per empire
 		postSelectionLight(false);
@@ -2810,15 +2812,15 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		else if (hoverPolyBox == sizeOptionBoxL) {
 			dynStarsPerEmpire.prev(e);
-			postSelectionMedium(true);
+			postGalaxySizeSelection(true);
 		}
 		else if (hoverBox == sizeOptionBox) {
 			dynStarsPerEmpire.toggle(e, this);
-			postSelectionMedium(true);
+			postGalaxySizeSelection(true);
 		}
 		else if (hoverPolyBox == sizeOptionBoxR) {
 			dynStarsPerEmpire.next(e);
-			postSelectionMedium(true);
+			postGalaxySizeSelection(true);
 		}
 		else if (hoverPolyBox == aiBoxL)
 			prevOpponentAI(true);
@@ -2914,7 +2916,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		else if (hoverBox == sizeOptionBox) {
 			dynStarsPerEmpire.toggle(e);
-			postSelectionMedium(false);
+			postGalaxySizeSelection(false);
 		}
 		else if (hoverBox == aiBox) {
 			if (up)

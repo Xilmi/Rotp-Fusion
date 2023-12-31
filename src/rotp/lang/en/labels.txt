@@ -1313,6 +1313,7 @@ SETUP_GALAXY_SHAPE_LORENZ2        | Lorenz 2
 SETUP_GALAXY_SHAPE_FRACTAL        | Fractal
 SETUP_GALAXY_SHAPE_CHAOSGAME      | Chaos Game
 SETUP_GALAXY_SHAPE_BITMAP         | Bitmap
+SETUP_GALAXY_SHAPE_RANDOM         | Random
 SETUP_SHAPE_OPTION_1              | First Shape Option
 SETUP_SHAPE_OPTION_1_DESC         | Select the first shape option
 SETUP_SHAPE_OPTION_2              | Second Shape Option
@@ -4044,6 +4045,8 @@ SETUP_BITMAP_SHARP1_HELP         | Increase the contrast a little bit.
 SETUP_BITMAP_SHARP2_HELP         | Increase the contrast twice.
 SETUP_BITMAP_SHARP3_HELP         | Sharply increase the contrast.
 SETUP_BITMAP_SHARP4_HELP         | Al,ost convert the bitmap to black and white!
+
+SETUP_GALAXY_SHAPE_RANDOM_HELP   | Randomly selected galaxy. (Goes well with dark galaxy option)
 
 // Shortcuts / HotKeys list  (use crossreferences →←) →HK_←
 // Shortcuts Cross referenced

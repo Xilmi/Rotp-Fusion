@@ -73,6 +73,7 @@ public abstract class GalaxyShape implements Base, Serializable {
 	private int   currentEmpire = 0;
 	private int   loopReserve   = 0;
 
+	public String randomOption()	{ return RANDOM_OPTION; }
 	public int width()	{ return fullWidth; }
 	public int height() { return fullHeight; }
 	boolean fullyInit() { return fullyInit; }

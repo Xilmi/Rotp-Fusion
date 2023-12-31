@@ -3,7 +3,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 <b><ins>Updates since last releases:</ins></b>
 
 <b><ins>New Features:</ins></b>
-- Most galaxy type can now have their options set to "Random".
+- New Random Galaxy selection. (Goes well with the dark galaxy!)
+  - Most galaxy type can now have their options set to "Random".
+  - Or Galaxy type and options are random.
 
 
 <b><ins>Last Release:</ins></b>

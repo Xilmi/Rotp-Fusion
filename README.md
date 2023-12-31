@@ -62,6 +62,7 @@ Later:
 
 2023.12.30 (BR)
 - Most galaxy type can now have their options set to "Random".
+- New Random Galaxy option.
 
 2023.12.29 (BR)
 - Fix: "Continue" will now initialise empty game name.

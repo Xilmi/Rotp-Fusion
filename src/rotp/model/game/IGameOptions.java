@@ -69,6 +69,7 @@ public interface IGameOptions extends IModOptions {
     public static final String SHAPE_SWIRLCLUSTERS = "SETUP_GALAXY_SHAPE_SWIRLCLUSTERS";
     public static final String SHAPE_SPIRALARMS = "SETUP_GALAXY_SHAPE_SPIRALARMS";
     public static final String SHAPE_BITMAP = "SETUP_GALAXY_SHAPE_BITMAP";
+    public static final String SHAPE_RANDOM = "SETUP_GALAXY_SHAPE_RANDOM";
 
     public static final String DIFFICULTY_EASIEST = "SETUP_DIFFICULTY_EASIEST";
     public static final String DIFFICULTY_EASIER  = "SETUP_DIFFICULTY_EASIER";
@@ -849,6 +850,7 @@ public interface IGameOptions extends IModOptions {
 		list.add(SHAPE_LORENZ);
 		list.add(SHAPE_FRACTAL);
 		list.add(SHAPE_BITMAP);
+		list.add(SHAPE_RANDOM);
         return list;
     }    
 
