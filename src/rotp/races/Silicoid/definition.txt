@@ -90,8 +90,11 @@ ambience:  SilicoidAmbience
 
 // species info:
 // field #1 - terran(1), aquatic(2), silicate(3) or robotic(4)
-// field #2 - ignoreEco(1), don't ignore eco (0)
+// field #2 - ignoreEco(1), don't ignore eco (0) - replaced by ignoreEco
 species: 3, 1
+
+// ignore eco for planet types: No, Limited (except Inferno, Toxic, Irradiated), All
+ignoreEco: All
 
 // personality % (must=100) - erratic, pacifist, honorable, ruthless, aggressive, xenophobic
 personality:0,0,0,20,20,60

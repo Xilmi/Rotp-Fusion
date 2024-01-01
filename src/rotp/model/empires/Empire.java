@@ -941,7 +941,7 @@ public final class Empire implements Base, NamedObject, Serializable {
             return false;
         if (pt.isAsteroids())
             return false;
-        if (ignoresPlanetEnvironment())
+        if (ignoresPlanetEnvironment() && acceptedPlanetEnvironment(pt))
             return true;
         return tech().canColonize(pt);
     }
@@ -950,7 +950,7 @@ public final class Empire implements Base, NamedObject, Serializable {
             return false;
         if (pt.isAsteroids())
             return false;
-        if (ignoresPlanetEnvironment())
+        if (ignoresPlanetEnvironment() && acceptedPlanetEnvironment(pt))
             return true;
         return tech().canColonize(pt, newHostilityLevel);
     }
@@ -959,7 +959,7 @@ public final class Empire implements Base, NamedObject, Serializable {
             return false;
         if (pt.isAsteroids())
             return false;
-        if (ignoresPlanetEnvironment())
+        if (ignoresPlanetEnvironment() && acceptedPlanetEnvironment(pt))
             return true;
         return tech().isLearningToColonize(pt);
     }
@@ -968,7 +968,7 @@ public final class Empire implements Base, NamedObject, Serializable {
             return false;
         if (pt.isAsteroids())
             return false;
-        if (ignoresPlanetEnvironment())
+        if (ignoresPlanetEnvironment() && acceptedPlanetEnvironment(pt))
             return true;
         return tech().canLearnToColonize(pt);
     }
@@ -1762,7 +1762,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
 
         BiPredicate<ShipDesign, Integer> designFitForSystem =
-            (sd, si) -> dataRace().ignoresPlanetEnvironment() ||
+            (sd, si) -> (ignoresPlanetEnvironment() && acceptedPlanetEnvironment(sv.system(si).planet().type())) ||
                     (canColonize(si) && sd.colonySpecial().canColonize(sv.system(si).planet().type()));
 
         boolean extendedRange = hasExtendedRange(designs);
@@ -1775,7 +1775,7 @@ public final class Empire implements Base, NamedObject, Serializable {
 
                 // if we don't have tech or ships to colonize this planet, ignore it.
                 // Since 2.15, for a game with restricted colonization option, we have to check each design if it can colonize
-                if (!dataRace().ignoresPlanetEnvironment()) {
+                if (!ignoresPlanetEnvironment() || !acceptedPlanetEnvironment(sv.system(i).planet().type())) {
                     boolean canColonize = false;
                     for (ShipDesign sd: designs) {
                         if (this.canColonize(i) && sd.colonySpecial().canColonize(sv.system(i).planet().type())) {
@@ -3654,6 +3654,22 @@ public final class Empire implements Base, NamedObject, Serializable {
     public int shipDefenseBonus()              { return dataRace().shipDefenseBonus(); }
     public int shipInitiativeBonus()           { return dataRace().shipInitiativeBonus(); }
     public boolean ignoresPlanetEnvironment()  { return dataRace().ignoresPlanetEnvironment(); }
+    public boolean acceptedPlanetEnvironment(PlanetType pt)  {
+        switch (dataRace().acceptedPlanetEnvironment()) {
+            case "Limited":
+                switch (pt.key()) {
+                    case PlanetType.INFERNO:
+                    case PlanetType.TOXIC:
+                    case PlanetType.RADIATED:
+                        return false;
+                    default:
+                        return true;
+                }
+            case "All":
+            default:
+                return true;
+        }
+    }
     public boolean ignoresFactoryRefit()       { return dataRace().ignoresFactoryRefit(); }
     public boolean canResearch(Tech t)         { return t.canBeResearched(dataRace()); }
     public int maxRobotControls() {

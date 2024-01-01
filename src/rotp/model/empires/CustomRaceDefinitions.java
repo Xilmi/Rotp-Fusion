@@ -41,6 +41,7 @@ import java.util.stream.Collectors;
 import rotp.Rotp;
 import rotp.model.empires.Leader.Personality;
 import rotp.model.game.DynOptions;
+import rotp.model.game.DynamicOptions;
 import rotp.model.game.IGameOptions;
 import rotp.model.planet.PlanetType;
 import rotp.model.ships.ShipLibrary;
@@ -1340,19 +1341,35 @@ public class CustomRaceDefinitions  {
 	}
 	// ==================== IgnoreEco ====================
 	//
-	private class IgnoresEco extends SettingBoolean {
-		private static final boolean defaultValue = false;
+	private class IgnoresEco extends SettingBase<String> {
+		private static final String defaultValue = "No";
 		
 		private IgnoresEco() {
-			super(ROOT, "IGNORES_ECO", defaultValue, 50f, 0f);
-			isBullet(booleansAreBullet);
+			super(ROOT, "IGNORES_ECO");
+			isBullet(true);
+			labelsAreFinals(true);
+			showFullGuide(true);
+			put("None",		ROOT+"IGNORES_ECO_NO",			0f, "No");
+			put("Limited",	ROOT+"IGNORES_ECO_LIMITED",	30f, "Limited");
+			put("All",		ROOT+"IGNORES_ECO_ALL",		50f, "All");
+			defaultCfgValue(defaultValue);
 			initOptionsText();
 		}
 		@Override public void pushSetting() {
-			race.ignoresPlanetEnvironment = settingValue();
+//			System.err.println("ignoresEco push: "+settingValue());
+			race.acceptedPlanetEnvironment = settingValue();
+			race.ignoresPlanetEnvironment = !settingValue().equalsIgnoreCase("No");
 		}
 		@Override public void pullSetting() {
-			set(race.ignoresPlanetEnvironment);
+			set(race.acceptedPlanetEnvironment);
+		}
+		@Override public void updateOptionTool(DynamicOptions srcOptions) {
+			if (srcOptions != null) {
+				// get the old boolean value (if there is one)
+				boolean oldBooleanValue = srcOptions.getBoolean(getLangLabel(), false);
+				String defaultValue = oldBooleanValue? "All" : "No";
+				setFromCfgValue(srcOptions.getString(getLangLabel(), defaultValue));
+			}
 		}
 	}
 	// ==================== PopGrowRate ====================

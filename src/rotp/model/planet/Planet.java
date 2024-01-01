@@ -438,6 +438,10 @@ public class Planet implements Base, IMappedObject, Serializable {
     public float normalPopGrowth(float currentPopulation, Empire civ) {
         float maxNewPopulation = currentSize() - currentPopulation;
         float baseGrowthRate = max(0, (1 - (currentPopulation / currentSize())) / 10);
+        switch (options().selectedPopGrowthFactor()) {
+            case "Reduced":
+                baseGrowthRate = baseGrowthRate / 2;
+        }
         if (civ != null) {
             baseGrowthRate *= civ.growthRateMod();
             if (!civ.ignoresPlanetEnvironment())

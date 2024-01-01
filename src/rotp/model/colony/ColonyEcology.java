@@ -349,18 +349,17 @@ public class ColonyEcology extends ColonySpendingCategory {
         }
 
         // check for purchasing new pop
-        float newPopPurchaseable = maxPopSize - workingPop - expGrowth;
-        float newPopCost = tr.populationCost();
+        float newPopPurchaseable = getNewPopPurchasable();
         if (newPopPurchaseable > 0) {
+            float newPopCost = tr.populationCost();
             cost = newPopPurchaseable * newPopCost;
-            int newPop = (int) (workingPop+expGrowth+(newBC / newPopCost)) - (int) currentPop;
-            expectedPopGrowth = newPop;
+            expectedPopGrowth = (int) (workingPop+expGrowth+min(newPopPurchaseable,newBC/newPopCost)) - (int) currentPop;
             if (newBC < cost)
                 return text(growthText);
             newBC -= cost;
         }
-
-        expectedPopGrowth = (int) maxPopSize - (int) currentPop;
+        else
+            expectedPopGrowth = (int) maxPopSize - (int) currentPop;
 
         // if less <1% of income, show "Clean", else show "Reserve"
         if (newBC <= (c.totalIncome()/100))
@@ -421,12 +420,9 @@ public class ColonyEcology extends ColonySpendingCategory {
         }
         
         // deduct cost for purchasing new pop
-        float expGrowth = c.normalPopGrowth();
-        float workingPop = c.workingPopulation(); // currentpop - transports away
-        float newPopPurchaseable = maxPopSize - workingPop - expGrowth;
+        float newPopPurchaseable = getNewPopPurchasable();
         if (newPopPurchaseable > 0) {
-            float newPopCost = tr.populationCost();
-            float growthCost = newPopPurchaseable * newPopCost;
+            float growthCost = newPopPurchaseable * tr.populationCost();
             if (totalBC < growthCost)
                 return 0;
             totalBC -= growthCost;
@@ -434,11 +430,26 @@ public class ColonyEcology extends ColonySpendingCategory {
         
         return max(0,totalBC);
     }
+
+    // get how many pops purchasable
+    private float getNewPopPurchasable() {
+        float maxPopSize = colony().maxSize();
+        float newPopPurchaseable = maxPopSize - colony().workingPopulation() - colony().normalPopGrowth();
+        switch (options().selectedPopGrowthFactor()) {
+            case "Reduced":
+                newPopPurchaseable = min(newPopPurchaseable, maxPopSize/tech().populationCost());
+        }
+        if (newPopPurchaseable < 0) {
+            return 0;
+        }
+        return newPopPurchaseable;
+    }
+
     public float maxSpendingNeeded() {
         // cost to terraform planet
         float tform = terraformSpendingNeeded();
         // try to buy new population
-        float newPopCost = (colony().maxSize() - colony().workingPopulation() - colony().normalPopGrowth()) * tech().populationCost();
+        float newPopCost = getNewPopPurchasable() * tech().populationCost();
         newPopCost = max(0,newPopCost);
         return tform + newPopCost;
     }

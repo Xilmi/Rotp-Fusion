@@ -205,6 +205,7 @@ public class Race implements Base, Serializable {
     public float[] techMod = new float[] { 1, 1, 1, 1, 1, 1 };
     public float[] discoveryMod = new float[] { 0, 0, 0, 0, 0, 0 }; // BR:
     public boolean ignoresPlanetEnvironment = false;
+    public String acceptedPlanetEnvironment = "No";
     public boolean ignoresFactoryRefit = false;
     public boolean availablePlayer = true;  // BR: never used!
     public boolean availableAI = true;		// BR: Never used!
@@ -401,6 +402,7 @@ public class Race implements Base, Serializable {
     public int diplomacyBonus()               { return diplomacyBonus; }
     public float councilBonus()               { return councilBonus; }
     public boolean ignoresPlanetEnvironment() { return ignoresPlanetEnvironment; }
+    public String acceptedPlanetEnvironment() { return acceptedPlanetEnvironment; }
     public boolean ignoresFactoryRefit()      { return ignoresFactoryRefit; }
     public int homeworldKey()                 { return homeworldKey; }
     public void homeworldKey(int i)           { homeworldKey = i; }

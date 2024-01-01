@@ -1841,6 +1841,12 @@ CUSTOM_RACE_SHIP_SIZE_MEDIUM_HELP | Preferred by:&ensp Darlok, Human, Mrrshan, P
 CUSTOM_RACE_SHIP_SIZE_LARGE_HELP  | Preferred by:&ensp Bulrathi, Meklar, Silicoid, <i> JackTrades, WarDemon.</i>
 CUSTOM_RACE_SHIP_SIZE_HUGE_HELP   | Preferred by:&ensp <i>GearHead, Monocle.</i>
 
+CUSTOM_RACE_IGNORES_ECO_NO         | No
+CUSTOM_RACE_IGNORES_ECO_LIMITED    | Limited
+CUSTOM_RACE_IGNORES_ECO_ALL        | All
+CUSTOM_RACE_IGNORES_ECO_NO_DESC      | Normal behavior, Hostile planet types requires tech.
+CUSTOM_RACE_IGNORES_ECO_LIMITED_DESC | Barren, Tundra, and Dead can immediately be colonized.
+CUSTOM_RACE_IGNORES_ECO_ALL_DESC     | All planet types can immediately be colonized.
 
 // Advanced Settings
 SETTINGS_TITLE                    | Advanced Game Options
@@ -2054,6 +2060,12 @@ SETTINGS_MOD_HOME_ARTIFACT_DESC      | {Always, Never, Auto} Gives Player/AI Art
 SETTINGS_MOD_HOME_FERTILE_DESC       | {Always, Never, Auto} Gives Player/AI Fertile HomeWorld
 SETTINGS_MOD_HOME_RICH_DESC          | {Always, Never, Auto} Gives Player/AI Rich HomeWorld
 SETTINGS_MOD_HOME_ULTRA_RICH_DESC    | {Always, Never, Auto} Gives Player/AI Ultra-Rich HomeWorld
+SETTINGS_MOD_POP_GROWTH              | Pop Growth: %1
+SETTINGS_MOD_POP_GROWTH_DESC         | Setting for how fast Pops grow and how fast Pops can be purchased
+SETTINGS_MOD_POP_GROWTH_NORMAL       | Normal
+SETTINGS_MOD_POP_GROWTH_NORMAL_DESC  | Pop Growth same as vanilla
+SETTINGS_MOD_POP_GROWTH_REDUCED      | Reduced
+SETTINGS_MOD_POP_GROWTH_REDUCED_DESC | Pop Growth 1/2, Pop purchase cost 2x, Pop purchase capped at a value equal to the max size of the colony
 
 // BR: Second UI panel for MOD game options
 SETTINGS_MOD_TITLE_B                     | Secondary MOD Options
