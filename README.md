@@ -60,10 +60,14 @@ Later:
 
 ## What's New
 
+2024.01.01 (Practical-Incarnation)
+- New Ignore eco limited for custom species.
+  - Barren, Tundra, and Dead can immediately be colonized.
+- New option: Reduced population growth.
+
 2023.12.30 (BR)
 - Most galaxy type can now have their options set to "Random".
-- New Random Galaxy type options. Simple and All.
-
+- New Random Galaxy type options. Simples and All.
 
 2023.12.29 (BR)
 - Fix: "Continue" will now initialise empty game name.

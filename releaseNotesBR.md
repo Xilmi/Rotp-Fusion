@@ -9,7 +9,9 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
     - Or Galaxy type can be randomly selected from a reduced set:
       - Star Field, Ellipse, Spiral, Spiral Arm, Shuriken, Cluster.
     - Random Galaxy type will also have their options set to "Random".
-
+- New Ignore eco limited for custom species (by Practical-Incarnation)
+  - Barren, Tundra, and Dead can immediately be colonized.
+- New option: Reduced population growth (by Practical-Incarnation)
 
 <b><ins>Last Release:</ins></b>
 
