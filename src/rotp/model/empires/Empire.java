@@ -1761,7 +1761,7 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
 
         BiPredicate<ShipDesign, Integer> designFitForSystem =
-            (sd, si) -> dataRace().ignoresPlanetEnvironment() ||
+            (sd, si) -> (ignoresPlanetEnvironment() && acceptedPlanetEnvironment(sv.system(si).planet().type())) ||
                     (canColonize(si) && sd.colonySpecial().canColonize(sv.system(si).planet().type()));
 
         boolean extendedRange = hasExtendedRange(designs);
@@ -1774,7 +1774,7 @@ public final class Empire implements Base, NamedObject, Serializable {
 
                 // if we don't have tech or ships to colonize this planet, ignore it.
                 // Since 2.15, for a game with restricted colonization option, we have to check each design if it can colonize
-                if (!dataRace().ignoresPlanetEnvironment()) {
+                if (!ignoresPlanetEnvironment() || !acceptedPlanetEnvironment(sv.system(i).planet().type())) {
                     boolean canColonize = false;
                     for (ShipDesign sd: designs) {
                         if (this.canColonize(i) && sd.colonySpecial().canColonize(sv.system(i).planet().type())) {
