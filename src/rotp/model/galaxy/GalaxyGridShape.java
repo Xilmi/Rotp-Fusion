@@ -35,14 +35,14 @@ public class GalaxyGridShape extends GalaxyShape {
         //options2 = new ArrayList<>();
         //options2.add("SETUP_NOT_AVAILABLE");
     }
-	private int option1;
+	// private int option1;
 	//private int option2;
 	private float gW, gH, nGrid, clusterR;
 	private int nClusters, numSteps, horizontalSteps;
 	private ArrayList<Integer> clusterList;
 
     public GalaxyGridShape(IGameOptions options) {
-        opts = options;
+    	super(options);
     }
     @Override protected float minEmpireFactor() { return 4f; }
 	@Override
@@ -59,10 +59,10 @@ public class GalaxyGridShape extends GalaxyShape {
         super.init(n);
         // reset w/h vars since aspect ratio may have changed
         initWidthHeight();
-        option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
-        // option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
-        if (option1 == options1.size()-1)
-        	option1 = random.nextInt(options1.size()-1);
+//        option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
+//        // option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
+//        if (option1 == options1.size()-1)
+//        	option1 = random.nextInt(options1.size()-1);
  
 		// choose number of grids, clusters, and cluster radii with option1
 		// scale up the number of grid lines with size of map

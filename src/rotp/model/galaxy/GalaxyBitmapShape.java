@@ -79,7 +79,7 @@ public class GalaxyBitmapShape extends GalaxyShape {
 	private boolean isSharp;
 
 	public GalaxyBitmapShape(IGameOptions options) {
-		opts = options;
+		super(options);
 	}
 	private float sqr(float x) { return x*x;}
 	private void genGaussian(int sx, int sy, float sigma) {
@@ -340,10 +340,10 @@ public class GalaxyBitmapShape extends GalaxyShape {
 				sharpenPD(pD);
 	}
 	private void setOption1() {
-		String option1 = opts.selectedGalaxyShapeOption1();
+		//String finalOption1 = opts.selectedGalaxyShapeOption1();
 		Option1Enum opt1 = Option1Enum.values()[0];
 		for (Option1Enum o1 : Option1Enum.values())
-			if(option1.endsWith(o1.toString())) {
+			if(finalOption1.endsWith(o1.toString())) {
 				opt1 = o1;
 				break;
 			}
@@ -407,10 +407,10 @@ public class GalaxyBitmapShape extends GalaxyShape {
 		}
 	}
 	private void setOption2() {
-		String option2 = opts.selectedGalaxyShapeOption2();
+		//String finalOption2 = opts.selectedGalaxyShapeOption2();
 		Option2Enum opt2 = Option2Enum.values()[0];
 		for (Option2Enum o2 : Option2Enum.values())
-			if(option2.endsWith(o2.toString())) {
+			if(finalOption2.endsWith(o2.toString())) {
 				opt2 = o2;
 				break;
 			}

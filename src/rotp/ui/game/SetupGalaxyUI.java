@@ -1908,7 +1908,11 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			return file.getName();
 		return path;
 	}
-	private void postGalaxySizeSelection(boolean click) {
+    private boolean isRandomGalaxy(String galaxyShape) {
+    	return galaxyShape.equals(IGameOptions.SHAPE_RANDOM)
+    			|| galaxyShape.equals(IGameOptions.SHAPE_RANDOM_2);
+    }
+ 	private void postGalaxySizeSelection(boolean click) {
 		if (click) softClick();
 		int numOpps = newGameOptions().selectedNumberOpponents();
 		if(numOpps<0) {
@@ -1921,8 +1925,8 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				newGameOptions().selectedOpponentRace(i,null);
 			newGameOptions().selectedNumberOpponents(maxOpps);
 		}
-		if (shapeSelection.get().equals(IGameOptions.SHAPE_RANDOM))
-			newGameOptions().selectedGalaxyShape(IGameOptions.SHAPE_RANDOM);
+		if (isRandomGalaxy(shapeSelection.get()))
+			newGameOptions().selectedGalaxyShape(shapeSelection.get());
 		newGameOptions().galaxyShape().quickGenerate(); // modnar: do a quickgen to get correct map preview
 		backImg = null; // BR: to show/hide system per empire
 		postSelectionLight(false);
@@ -2852,15 +2856,15 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		else if (hoverPolyBox == wysiwygBoxL) {
 			galaxyRandSource.prev();
-			postSelectionMedium(true);
+			postGalaxySizeSelection(true);
 		}
 		else if (hoverBox == wysiwygBox) {
 			galaxyRandSource.toggle(e, this);
-			postSelectionMedium(true);
+			postGalaxySizeSelection(true);
 		}
 		else if (hoverPolyBox == wysiwygBoxR) {
 			galaxyRandSource.next();
-			postSelectionMedium(true);
+			postGalaxySizeSelection(true);
 		}
 		else if (hoverPolyBox == oppBoxU) {
 			aliensNumber.next();
@@ -2944,7 +2948,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		else if (hoverBox == wysiwygBox)
 		 {
 			galaxyRandSource.toggle(e);
-			postSelectionMedium(false);
+			postGalaxySizeSelection(false);
 		}
 		else if (hoverBox == oppBox) {
 			aliensNumber.toggle(e);

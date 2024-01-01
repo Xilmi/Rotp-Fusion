@@ -17,6 +17,7 @@
 
 package rotp.util;
 
+import java.util.List;
 import java.util.Random;
 
 public class Rand extends Random{
@@ -211,5 +212,8 @@ public class Rand extends Random{
 	 */
 	public int sym(int ctr, int width) {
 		return (int) ((nextFloat() - 0.5f) * width + ctr);
-	}	
+	}
+    public <T> T random(List<T> list) {
+        return (list == null || list.isEmpty()) ? null : list.get(nextInt(list.size()));
+    }
 }

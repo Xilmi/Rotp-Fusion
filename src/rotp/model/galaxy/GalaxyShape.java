@@ -63,15 +63,51 @@ public abstract class GalaxyShape implements Base, Serializable {
 	private float sysBuffer = 1.9f;
 	int numEmpires;
 	private int numOpponents;
-	Rand rand = new Rand(random()); // For other than location purpose
-	Rand randX = new Rand.RandX(random()); // For X and R
-	Rand randY = new Rand.RandY(random());  // for Y and Angle
+	Rand randRnd = new Rand(random()); // For random option selection purpose
+	Rand rand	 = new Rand(random()); // For other than location purpose
+	Rand randX	 = new Rand.RandX(random()); // For X and R
+	Rand randY	 = new Rand.RandY(random());  // for Y and Angle
 	private long tm0; // for timing computation
 	// \BR
 	
 	private float dynamicGrowth = 1f;
 	private int   currentEmpire = 0;
 	private int   loopReserve   = 0;
+	
+	protected String finalOption1;
+	protected String finalOption2;
+	protected int option1;
+	protected int option2;
+	protected boolean isSymmetric;
+	
+	GalaxyShape (IGameOptions options) {
+		opts = options;
+		init0();
+	}
+	private void init0() {
+		randRnd = new Rand(opts.selectedGalaxyRandSource());
+		rand	= new Rand(opts.selectedGalaxyRandSource());
+		randX	= new Rand.RandX(opts.selectedGalaxyRandSource());
+		randY	= new Rand.RandY(opts.selectedGalaxyRandSource());
+
+		finalOption1 = opts.selectedGalaxyShapeOption1();
+		finalOption2 = opts.selectedGalaxyShapeOption2();
+		
+		if (RANDOM_OPTION.equals(finalOption1)) {
+			List<String> optionList = new ArrayList<>(options1());
+			optionList.remove(RANDOM_OPTION);
+			finalOption1 = randRnd.random(optionList);
+		}
+		if (RANDOM_OPTION.equals(finalOption2)) {
+			List<String> optionList = new ArrayList<>(options2());
+			optionList.remove(RANDOM_OPTION);
+			finalOption2 = randRnd.random(optionList);
+		}
+        option1 = max(0, options1().indexOf(finalOption1));
+        option2 = max(0, options2().indexOf(finalOption2));
+        isSymmetric = (finalOption1 != null && finalOption1.contains("SYMMETRIC"))
+        		|| (finalOption2 != null && finalOption2.contains("SYMMETRIC"));		
+	}
 
 	public String randomOption()	{ return RANDOM_OPTION; }
 	public int width()	{ return fullWidth; }
@@ -120,8 +156,8 @@ public abstract class GalaxyShape implements Base, Serializable {
 
 	protected float   minEmpireFactor()        { return 3f; }
 	protected boolean allowExtendedPreview()   { return true; }
-	protected boolean isSymmetric()            { return false; }
-	protected boolean isCircularSymmetric()    { return false; }
+	protected boolean isSymmetric()            { return isSymmetric; }
+	protected boolean isCircularSymmetric()    { return isSymmetric; }
 	protected boolean isRectangulatSymmetric() { return false; }
 	public CtrPoint getPlayerSymmetricHomeWorld() {
 		// This may have been be abstract... but symmetric isn't mandatory...
@@ -457,9 +493,11 @@ public abstract class GalaxyShape implements Base, Serializable {
 		return growthFactor;
 	}
 	private void generate(boolean full) {
-		rand = new Rand(options().selectedGalaxyRandSource());
-		randX = new Rand.RandX(options().selectedGalaxyRandSource());
-		randY = new Rand.RandY(options().selectedGalaxyRandSource());
+		init0();
+//		randRand = new Rand(options().selectedGalaxyRandSource() + 1.0);
+//		rand = new Rand(options().selectedGalaxyRandSource());
+//		randX = new Rand.RandX(options().selectedGalaxyRandSource());
+//		randY = new Rand.RandY(options().selectedGalaxyRandSource());
 		singleInit(full);
 		if (isSymmetric()) {
 			generateSymmetric(full);

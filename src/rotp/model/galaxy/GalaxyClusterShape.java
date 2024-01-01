@@ -38,7 +38,7 @@ public class GalaxyClusterShape extends GalaxyShape {
 	private Point.Float cc1, cc2, cc3, cc4, cc5, cc6, cc7, cc8;
 	
     public GalaxyClusterShape(IGameOptions options) {
-        opts = options;
+    	super(options);
     }
     @Override protected float minEmpireFactor() { return 4f; }
     @Override
@@ -63,10 +63,10 @@ public class GalaxyClusterShape extends GalaxyShape {
     public void init(int n) {
         super.init(n);
         
-        int option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
-        //int option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
-        if (option1 == options1.size()-1)
-        	option1 = random.nextInt(options1.size()-1);
+//        int option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
+//        //int option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
+//        if (option1 == options1.size()-1)
+//        	option1 = random.nextInt(options1.size()-1);
 		
 		cc1 = new Point.Float();
 		cc2 = new Point.Float();

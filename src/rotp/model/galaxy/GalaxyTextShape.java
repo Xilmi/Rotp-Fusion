@@ -55,7 +55,7 @@ public class GalaxyTextShape extends GalaxyShape {
     	return font;
     }
     public GalaxyTextShape(IGameOptions options) {
-        opts = options;
+    	super(options);
     }
     @Override protected float   minEmpireFactor() { return 4f; }
     @Override protected boolean allowExtendedPreview()  { return false; }
@@ -73,7 +73,7 @@ public class GalaxyTextShape extends GalaxyShape {
         super.init(n);
         
         // int option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
-        int option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
+        // int option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
         
 		BufferedImage img = new BufferedImage(16, 10, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2 = img.createGraphics();
@@ -114,7 +114,8 @@ public class GalaxyTextShape extends GalaxyShape {
 //            }
 //        }
 
-		String galaxyText = opts.selectedGalaxyShapeOption1();
+//		String galaxyText = opts.selectedGalaxyShapeOption1();
+		String galaxyText = finalOption1;
         if (galaxyText.trim().isEmpty())
         	galaxyText = "!!!Blank!!!";
         textShape = font().createGlyphVector(g2.getFontRenderContext(), galaxyText).getOutline();

@@ -67,6 +67,7 @@ import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.util.IParam;
 import rotp.ui.util.SpecificCROption;
 import rotp.util.Base;
+import rotp.util.Rand;
 
 //public class MOO1GameOptions implements Base, IGameOptions, DynamicOptions, Serializable {
 public class MOO1GameOptions implements Base, IGameOptions, Serializable {
@@ -377,37 +378,45 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         selectedGalaxyShapeOption1 = galaxyShape.defaultOption1();
         selectedGalaxyShapeOption2 = galaxyShape.defaultOption2();
     }
-    private boolean isRandomGalaxy() { return selectedGalaxyShape.equals(SHAPE_RANDOM); }
+    private boolean isRandomGalaxy() {
+    	return selectedGalaxyShape.equals(SHAPE_RANDOM)
+    			|| selectedGalaxyShape.equals(SHAPE_RANDOM_2);
+    }
     private void setRandomGalaxyShape() {
-    	int rnd = random.nextInt(6);
+		Rand rand = new Rand(selectedGalaxyRandSource());
+		int rnd;
+		if (selectedGalaxyShape.equals(SHAPE_RANDOM))
+			rnd = rand.nextInt(6);
+		else
+			rnd = rand.nextInt(12);
         selectedGalaxyShapeOption1 = galaxyShape.randomOption();
         selectedGalaxyShapeOption2 = galaxyShape.randomOption();
     	switch (rnd) {
-//		case 11:
-//            galaxyShape = new GalaxyLorenzShape(this); break;
-//		case 10:
-//            galaxyShape = new GalaxySwirlClustersShape(this); break;
-//		case 9:
-//            galaxyShape = new GalaxyGridShape(this); break;
-//		case 8:
-//            galaxyShape = new GalaxyMazeShape(this); break;
-//		case 7:
-//            galaxyShape = new GalaxyFractalShape(this); break;
-//		case 6:
-//            galaxyShape = new GalaxyShurikenShape(this); break;
-		case 5:
-            galaxyShape = new GalaxyClusterShape(this); break;
-		case 4:
-            galaxyShape = new GalaxyBullseyeShape(this); break;
-		case 3:
-            galaxyShape = new GalaxySpiralArmsShape(this); break;
-        case 2:
-            galaxyShape = new GalaxySpiralShape(this); break;
-        case 1:
-            galaxyShape = new GalaxyEllipticalShape(this); break;
-        case 0:
-        default:
-            galaxyShape = new GalaxyRectangularShape(this);
+			case 11:
+	            galaxyShape = new GalaxyLorenzShape(this); break;
+			case 10:
+	            galaxyShape = new GalaxySwirlClustersShape(this); break;
+			case 9:
+	            galaxyShape = new GalaxyGridShape(this); break;
+			case 8:
+	            galaxyShape = new GalaxyMazeShape(this); break;
+			case 7:
+	            galaxyShape = new GalaxyFractalShape(this); break;
+			case 6:
+	            galaxyShape = new GalaxyBullseyeShape(this); break;
+			case 5:
+	            galaxyShape = new GalaxyShurikenShape(this); break;
+			case 4:
+	            galaxyShape = new GalaxyClusterShape(this); break;
+			case 3:
+	            galaxyShape = new GalaxySpiralArmsShape(this); break;
+	        case 2:
+	            galaxyShape = new GalaxySpiralShape(this); break;
+	        case 1:
+	            galaxyShape = new GalaxyEllipticalShape(this); break;
+	        case 0:
+	        default:
+	            galaxyShape = new GalaxyRectangularShape(this);
     	}
         if (rotp.Rotp.noOptions("setRandomGalaxyShape()"))
         	return;

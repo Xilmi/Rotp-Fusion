@@ -3,9 +3,12 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 <b><ins>Updates since last releases:</ins></b>
 
 <b><ins>New Features:</ins></b>
-- New Random Galaxy selection. (Goes well with the dark galaxy!)
+- New Random Galaxy selection. (Pairs well with the dark galaxy!)
   - Most galaxy type can now have their options set to "Random".
-  - Or Galaxy type and options are random.
+  - Galaxy type can be also be randomly selected from any (except Text and Bitmap):
+    - Or Galaxy type can be randomly selected from a reduced set:
+      - Star Field, Ellipse, Spiral, Spiral Arm, Shuriken, Cluster.
+    - Random Galaxy type will also have their options set to "Random".
 
 
 <b><ins>Last Release:</ins></b>

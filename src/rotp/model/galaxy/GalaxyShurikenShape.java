@@ -52,7 +52,7 @@ public class GalaxyShurikenShape extends GalaxyShape {
 	int numPoints = 16;
 	
     public GalaxyShurikenShape(IGameOptions options) {
-        opts = options;
+    	super(options);
     }
     @Override protected float minEmpireFactor() { return 4f; }
     @Override
@@ -67,13 +67,13 @@ public class GalaxyShurikenShape extends GalaxyShape {
     public void init(int n) {
         super.init(n);
         
-        int option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
-        int option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
-        
-        if (option1 == options1.size()-1)
-        	option1 = random.nextInt(options1.size()-1);
-        if (option2 == options2.size()-1)
-        	option2 = random.nextInt(options2.size()-1);
+//        int option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
+//        int option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
+//        
+//        if (option1 == options1.size()-1)
+//        	option1 = random.nextInt(options1.size()-1);
+//        if (option2 == options2.size()-1)
+//        	option2 = random.nextInt(options2.size()-1);
 		
 		float gE = (float) galaxyEdgeBuffer();
 		float gW = (float) galaxyWidthLY();

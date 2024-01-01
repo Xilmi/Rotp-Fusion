@@ -35,10 +35,10 @@ public class GalaxySwirlClustersShape extends GalaxyShape {
         //options2 = new ArrayList<>();
         //options2.add("SETUP_NOT_AVAILABLE");
     }
-    private int option1;
+    //private int option1;
     
     public GalaxySwirlClustersShape(IGameOptions options) {
-        opts = options;
+    	super(options);
     }
     @Override protected float minEmpireFactor() { return 4f; }
     @Override
@@ -53,10 +53,10 @@ public class GalaxySwirlClustersShape extends GalaxyShape {
     public void init(int n) {
         super.init(n);
 
-        option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
-        
-        if (option1 == options1.size()-1)
-        	option1 = random.nextInt(options1.size()-1);
+//        option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
+//        
+//        if (option1 == options1.size()-1)
+//        	option1 = random.nextInt(options1.size()-1);
 
         // reset w/h vars since aspect ratio may have changed
         initWidthHeight();

@@ -38,11 +38,11 @@ public class GalaxyFractalShape extends GalaxyShape {
     }
 	float adjust_density = 2.0f; // modnar: adjust stellar density
 
-    private int option1;
-    private int option2;
+//    private int option1;
+//    private int option2;
 
     public GalaxyFractalShape(IGameOptions options) {
-        opts = options;
+    	super(options);
     }
     @Override protected float   minEmpireFactor() { return 4f; }
     @Override protected boolean allowExtendedPreview()  { return false; }
@@ -57,13 +57,13 @@ public class GalaxyFractalShape extends GalaxyShape {
     @Override
     public void init(int n) {
         super.init(n);
-        option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
-        option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
-        
-        if (option1 == options1.size()-1)
-        	option1 = random.nextInt(options1.size()-1);
-        if (option2 == options2.size()-1)
-        	option2 = random.nextInt(options2.size()-1);
+//        option1 = max(0, options1.indexOf(opts.selectedGalaxyShapeOption1()));
+//        option2 = max(0, options2.indexOf(opts.selectedGalaxyShapeOption2()));
+//        
+//        if (option1 == options1.size()-1)
+//        	option1 = random.nextInt(options1.size()-1);
+//        if (option2 == options2.size()-1)
+//        	option2 = random.nextInt(options2.size()-1);
         // reset w/h vars since aspect ratio may have changed
         initWidthHeight();
     }

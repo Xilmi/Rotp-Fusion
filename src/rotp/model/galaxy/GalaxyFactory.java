@@ -52,7 +52,7 @@ public class GalaxyFactory implements Base {
 	private static GalaxyFactory instance = new GalaxyFactory();
 	public  static GalaxyFactory current() { return instance; }
 	/**
-	 * Companion world greek letter prefix
+	 * Companion world Greek letter prefix
 	 */
 	public static final String[] compSysName = new String[]{"α", "β", "γ", "δ", "ε", "ζ"};// BR : added two possibilities
 	private static final boolean showEmp = false; // BR: for debug
@@ -799,10 +799,10 @@ public class GalaxyFactory implements Base {
 		float nebSize = options().nebulaSizeMult();
 		g.initNebulas(numNebula);
 		
-		// add the nebulas
+		// add the nebulae
 		// for each nebula, try to create it at the options size
 		// in unsuccessful, decrease option size until it is
-		// less than 1 or less than half of the optoin size
+		// less than 1 or less than half of the option size
 		for (int i=0;i<numNebula;i++) {
 			float size = nebSize;
 			boolean added = false;
