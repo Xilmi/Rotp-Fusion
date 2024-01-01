@@ -93,7 +93,7 @@ public class AIShipDesigner implements Base, ShipDesigner {
                 ShipSpecialColony special = design.colonySpecial();
                 if (special != null) {
                     PlanetType pt = sys.planet().type();
-                    if (empire.ignoresPlanetEnvironment()
+                    if ((empire.ignoresPlanetEnvironment() && empire.acceptedPlanetEnvironment(pt))
                     || (empire.canColonize(pt) && special.tech().canColonize(pt)) ) {
                         if ((bestDesign == null)
                         || (design.engine().warp() < bestDesign.engine().warp()))
