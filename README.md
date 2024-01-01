@@ -39,11 +39,12 @@ Bug to fix:
 Very soon:
 - Monsters:
   - Option to change their travel time.
-  - Planet Monsters Guardian.
+  - More Planet Monsters Guardian.
 - Add Help to History.
 - Some Achievements options.
 
 Later:
+Symetric nebulae in symetric galaxy.
 - Some kind of positive monster like instead of attacking strong empires it defends weak empires
 - Stronger GNN filters
 - Stronger Warning filters
@@ -59,9 +60,31 @@ Later:
 
 ## What's New
 
+2023.12.29 (BR)
+- Fix: "Continue" will now initialise empty game name.
+
+2023.12.28 (BR)
+- New nebulae from real photography option.
+- Nebulae shape: Can be different than rectangular.
+
+2023.12.24 (BR)
+- No Spying protection is now disabled for council alliance calls.
+
+2023.12.22 (BR)
+- Added new Guardian Monster Space Sepiidae.
+  - Special Weapon = Squid Ink.
+  - Effects based on black hole: 10% to 30% chance of destroying ship.
+- Renamed Space Jellyfish to Space Cyaneidae.
+
+2023.12.21 (Xilmi)
+- Fixed rally from alien planets.
+
 2023.12.21 (BR)
 - Fixed species stat being sometime hidden under the scroll bar.
- 
+- Fixed language font generating errors.
+- Fixed modnar races text files missing in most languages
+
+
 2023.12.20 (BR)
 - New tools to help the identification of the new monsters.
   - Added to Base AIs.
@@ -81,22 +104,20 @@ Later:
 - Added common Monster Guardian class.
 - Fixed last known guardian issues.
 
-2023.12.10 (BR)
+2023.12.12 (BR)
 - Fixed Submenu hover color becoming permanent.
 - Fixed ShowSpecies AI button text not being updated.
 - Fixed hover color remaining on some Galaxy setting Buttons
 - Good planets can now have a Guardian (Space Monster)
   - Added Giant Space Jellyfish Monster Guardian
 
-
-2023.12.10 (BR)
+2023.12.11 (BR)
 - New Mass Transport Auto-refill Set independently for each colony.
   - Replace the previous global system.
   - Option to initialyze at the panel opening to "On", "Off", or No changes.
   - Auto-refill colony are set by Ctrl-Click on the slider.
   - Auto-refill colony sliders are shown in a different color.
 - Cleaned TODO comments
-
 
 2023.12.10 (BR)
 - Fixed reset to Default in Galaxy setting panel badly initialyzing the player homeworld.
@@ -168,7 +189,7 @@ Later:
 2023.11.23 (BR)
 - Master Of Orion Strategy Guide says differently!
   - Stream projector damages are repaired again.
-  
+
 2023.11.22 (BR)
 - Stream projector damages are not restored by automated repair system, and only 10% of them by advanced damage control.
 
@@ -182,7 +203,7 @@ Later:
 2023.11.20 (BR)
 - Fixed: Update Planet Background when degraded or improved.
 - Spy: New option to stop spending the budget once the team is complete.
-- Memory Low Warning: clear Static and final lists of sessions and UI. 
+- Memory Low Warning: clear Static and final lists of sessions and UI.
 - Added more info on the Memory Low warning message.
 
 2023.11.19 (BR)
@@ -221,7 +242,7 @@ Later:
 
 2023.11.12 (BR)
 - Removed Monsters redundancies.
-- Fixed backward compatibility by reseting the monster to 3 turns to the target. 
+- Fixed backward compatibility by reseting the monster to 3 turns to the target.
 
 2023.11.10 (BR)
 - Monsters and Guardian are visible.
@@ -371,7 +392,7 @@ Later:
 - Fixed disconnected "Deterministic Artifact"-option.
 
 2023.09.18 (BR)
-- Moved Options Setup Panels backImage control to BaseModPanel. 
+- Moved Options Setup Panels backImage control to BaseModPanel.
 - Custom Species Menu Buttons display optimization...
   - Still a lot of text optimization to-do
 

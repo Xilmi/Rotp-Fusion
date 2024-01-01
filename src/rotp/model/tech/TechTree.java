@@ -685,10 +685,10 @@ public final class TechTree implements Base, Serializable {
     public boolean studying(String id) {
         return id == null ? false : category[tech(id).cat.index()].currentTech().equals(id);
     }
-    public List<Tech> techsUnknownTo(Empire empire) {
+    public List<Tech> techsUnknownTo(Empire empire, boolean spying) { // council final war use this too
         List<Tech> result = new ArrayList<>();
         IGameOptions opts = options();
-    	if (opts.forbidTechStealing()) // No tech stealing = no tech plundering
+    	if (spying && opts.forbidTechStealing()) // No tech stealing = no tech plundering
     		return result;
 
         List<String> forbiddenTech = opts.forbiddenTechList(empire.isPlayer());

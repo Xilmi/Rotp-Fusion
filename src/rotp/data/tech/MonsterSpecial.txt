@@ -1,0 +1,5 @@
+
+[tech]
+seq:    0
+name:   SQUIDINK_0_NAME
+detail: SQUIDINK_0_DETAIL

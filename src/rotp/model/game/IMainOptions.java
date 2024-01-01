@@ -40,6 +40,7 @@ import javax.swing.JFileChooser;
 
 import rotp.Rotp;
 import rotp.ui.RotPUI;
+import rotp.ui.UserPreferences;
 import rotp.ui.game.BaseModPanel;
 import rotp.ui.game.GameUI;
 import rotp.ui.game.MainOptionsUI;
@@ -369,6 +370,31 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 	default boolean raceStatusViewTotal()	{ return raceStatusView.get().equals("PctTotal"); }
 	default boolean raceStatusViewPlayer()	{ return raceStatusView.get().equals("PctPlayer"); }
 	default boolean raceStatusViewValue()	{ return raceStatusView.get().equals("Value"); }
+
+	ParamInteger realNebulaeSize	= new ParamInteger(MOD_UI, "REAL_NEBULAE_SIZE", 0, 0, 5, 1, 1, 1) {
+		{
+			isCfgFile(true);
+			specialZero(MOD_UI + "REAL_NEBULAE_NO");
+			loop(true);
+		}
+		@Override public Integer set(Integer i)	{
+			rotp.model.galaxy.Nebula.requestedQuality(i);
+			super.set(i);
+			UserPreferences.save();
+			return get();
+		}
+	};
+	default int selectedRealNebulaeSize()	{ return realNebulaeSize.get(); }
+	default boolean selectedRealNebulae()	{ return realNebulaeSize.get() != 0; }
+
+	ParamBoolean realNebulaShape	= new ParamBoolean(MOD_UI, "REAL_NEBULAE_SHAPE", true)
+	{	{ isCfgFile(true); } };
+	default boolean realNebulaShape()	{ return realNebulaShape.get(); }
+
+	ParamInteger realNebulaeOpacity	= new ParamInteger(MOD_UI, "REAL_NEBULAE_OPACITY", 60, 10, 100, 1, 5, 20) {
+		{ isCfgFile(true); }
+	};
+	default float realNebulaeOpacity()	{ return realNebulaeOpacity.get()/100f; }
 
 	// ==================== GUI List Declarations ====================
 	//

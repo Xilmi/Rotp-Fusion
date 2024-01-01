@@ -89,7 +89,7 @@ public class RandomEventGauntletRelic extends AbstractRandomEvent {
 
         unkPlanetologyTechs.removeAll(empTech.planetology().knownTechs());
         for (String techId: unkPlanetologyTechs) {
-            if (tech(techId).level() <= maxConsLevel)
+            if (tech(techId).level() <= maxConsLevel && !tech(techId).restricted)
                 availableTechs.add(techId);
         }
 

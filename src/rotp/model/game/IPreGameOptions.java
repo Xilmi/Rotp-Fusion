@@ -209,6 +209,7 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions {
 			Arrays.asList(
 				minStarsPerEmpire, prefStarsPerEmpire,
 				empiresSpreadingFactor, minDistArtifactPlanet,
+				IMainOptions.realNebulaeOpacity,
 				null,
 				randomAlienRacesTargetMax, randomAlienRacesTargetMin,
 				randomAlienRaces, guardianMonsters,
@@ -229,7 +230,8 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions {
 		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("START_GALAXY_OPTIONS"),
-				galaxyAge, starDensity, nebulae, empiresSpreadingFactor,
+				galaxyAge, starDensity, nebulae,
+				IMainOptions.realNebulaeOpacity, empiresSpreadingFactor,
 				minStarsPerEmpire, prefStarsPerEmpire, dynStarsPerEmpire,
 
 				headerSpacer,

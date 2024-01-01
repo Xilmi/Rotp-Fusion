@@ -12,7 +12,12 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
     - Option to select the ressource to protect.
     - Option to tune the probability of guardian.
     - Option to tune the Monster level.
-  - Added Monster Guardian: Giant Space Jellyfish.
+  - Added Monster Guardian: Giant Space Cyaneidae.
+  - Added Monster Guardian: Giant Space Sepiidae.
+- New nebulae from real photography option.
+  - Nebulae shapes can be different than rectangular.
+  - Adjustable real nebulae opacity.
+
 
 <b><ins>Optimisation:</ins></b>
 - Fixed Apple Retina Screen compatibility.
@@ -29,6 +34,11 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed reset to Default in Galaxy setting panel badly initialyzing the player homeworld.
 - Fixed crash starting a new game after playing vanilla savegame.
 - Fixed species stat being sometime hidden under the scroll bar.
+- Fixed rally from alien planets. (Xilmi)
+- Fixed language font generating errors.
+- Fixed modnar races text files missing in most languages.
+- Fixed "No Spying" protection disabling council alliance alliance tech sharing call.
+- Fixed "Continue" will now initialise empty game name.
 
 
 <b><ins> last releases:</ins></b>

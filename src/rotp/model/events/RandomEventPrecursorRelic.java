@@ -94,7 +94,7 @@ public class RandomEventPrecursorRelic extends AbstractRandomEvent {
 
         unkConstructionTechs.removeAll(empTech.construction().knownTechs());
         for (String techId: unkConstructionTechs) {
-            if (tech(techId).level() <= maxConsLevel)
+            if (tech(techId).level() <= maxConsLevel && !tech(techId).restricted)
                 availableTechs.add(techId);
         }
 

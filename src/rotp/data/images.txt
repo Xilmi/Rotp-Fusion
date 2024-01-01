@@ -86,6 +86,7 @@ TECH_PERSONAL_SHIELD_03       | images/techs/Personal_Barrier_Shield.png
 TECH_MISSILE_SHIELD_01        | images/techs/Anti-Missile_Rockets.png
 TECH_MISSILE_SHIELD_02        | images/techs/Zyro_Shield.png
 TECH_MISSILE_SHIELD_03        | images/techs/Lightning_Shield.png
+TECH_SQUID_INK                | images/techs/Black_Hole_Generator.png
 
 TECH_ENERGY_PULSAR            | images/techs/Energy_Pulsar.png
 TECH_IONIC_PULSAR             | images/techs/Ionic_Pulsar.png

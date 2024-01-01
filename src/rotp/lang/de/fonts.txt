@@ -1,6 +1,6 @@
 // These are the fonts used for the 5 font types within the game.
 
-name,       Deutsch  
+// name,       Deutsch  
 
 logo,       Amarante-Regular.otf,     100
 dialogue,   CRANBERR.otf,             100

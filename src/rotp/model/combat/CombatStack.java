@@ -507,6 +507,22 @@ public class CombatStack implements Base {
             loseShip();
         return kills * maxStackHits;
     }
+    public float takeSquidInkDamage(float pctLoss) {
+        if (inStasis)
+            return 0;
+        attacked = true;
+        int kills = 0;
+        if (num < 10)
+        	for (int i=0; i<num; i++) { // to give chance to small pct with small stack
+        		if (random.nextFloat() < pctLoss)
+        			kills++;
+        	}
+        else
+        	kills = Math.round(num * pctLoss);
+        for(int i = 0; i < kills; ++i)
+            loseShip();
+        return kills * maxStackHits;
+    }
     public void loseShip() {
         int lost = maxStackHits > 0 ? 1 : num;
         hits = maxStackHits;
@@ -780,6 +796,8 @@ public class CombatStack implements Base {
         for (int i=0;i<numWeapons(); i++) {
             if (weapon(i).canAttackShips()) {
                 if(weapon(i).isWeapon()) {
+                    if(weapon(i).isSpecial())
+                    	continue;
                     ShipWeapon wpn = (ShipWeapon)weapon(i);
                     float attack = attackLevel() + wpn.computerLevel();
                     float hitPct = 1;

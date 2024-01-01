@@ -17,11 +17,21 @@ package rotp.util;
 
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Polygon;
 import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Area;
+import java.awt.geom.PathIterator;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.awt.image.PixelGrabber;
 import java.awt.image.Raster;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import rotp.model.planet.PlanetHeightMap;
 import rotp.ui.UserPreferences;
 
@@ -222,7 +232,6 @@ public class FastImage {
         }
     }
 
-
     private static int indexPosn(int x, int y, int w0) {
         return (y * w0) + x;
     }
@@ -246,4 +255,152 @@ public class FastImage {
         if (!UserPreferences.showMemory())
             return;
     }
+    // BR: Get the approximative shape of the image
+	public Shape getImageOutline(int numRec, float shapeW, float shapeH, int quality) {
+        int imgW = getWidth();
+        int imgH = getHeight();
+        int xMin = imgW;
+        int xMax = -1;
+        int yMin = imgH;
+        int yMax = -1;
+        int[] xMinY = new int[imgH]; // x min on column y
+        int[] xMaxY = new int[imgH];
+        int[] yMinX = new int[imgW];
+        int[] yMaxX = new int[imgW];
+        int alphaMin = 0;
+        // Get the column limits
+        for (int x=0; x<imgW; x++) { // loop thru columns
+       		yMinX[x] = imgH;
+       		yMaxX[x] = -1;
+
+        	for (int y=0; y<imgH; y++) { // Loop thru rows
+            	int alpha = (getRGB(x,y) >> 24 & 0xff);
+        		// search for min
+        		if (alpha > alphaMin) {
+        			yMinX[x] = y;
+        			if (y < yMin)
+        				yMin = y;
+        			break;
+        		}
+            }
+        	for (int y=imgH-1; y>=0; y--) { // Loop thru rows
+            	int alpha = getRGB(x,y) >> 24 & 0xff;
+        		// search for min
+        		if (alpha > alphaMin) {
+        			yMaxX[x] = y;
+        			if (y > yMax)
+        				yMax = y;
+        			break;
+        		}
+            }
+        }
+        // Get the rows limits
+        for (int y=0; y<imgH; y++) { // loop thru columns
+       		xMinY[y] = imgW;
+       		xMaxY[y] = -1;
+        	for (int x=0; x<imgW; x++) { // Loop thru rows
+            	int alpha = getRGB(x,y) >> 24 & 0xff;
+        		// search for min
+        		if (alpha > alphaMin) {
+        			xMinY[y] = x;
+        			if (x < xMin)
+        				xMin = x;
+        			break;
+        		}
+            }
+        	for (int x=imgW-1; x>=0; x--) { // Loop thru rows
+            	int alpha = getRGB(x,y) >> 24 & 0xff;
+        		// search for min
+        		if (alpha > alphaMin) {
+        			xMaxY[y] = x;
+        			if (x > xMax)
+        				xMax = x;
+        			break;
+        		}
+            }
+        }
+        double min = -0.5 * quality;
+        double max = 2 * quality;
+        Shape shapeRows = optimize (Arrays.copyOfRange(xMinY, yMin, yMax),
+        							Arrays.copyOfRange(xMaxY, yMin, yMax), min, max, true);
+        Shape shapeCol  = optimize (Arrays.copyOfRange(yMinX, xMin, xMax),
+        							Arrays.copyOfRange(yMaxX, xMin, xMax), min, max, false);
+        Area area = new Area(shapeRows);
+        area.intersect(new Area(shapeCol));
+        
+        boolean showCounts = false; // TO DO BR: set to false
+        if (showCounts) {
+            System.out.print("shapeCol " );
+            printShapeSegments(shapeRows);
+            System.out.print("shapeRow " );
+            printShapeSegments(shapeCol);
+            System.out.print("Area " );
+            printShapeSegments(area);        	
+        }
+
+    	double xScale = shapeW / imgW;
+    	double yScale = shapeH / imgH;
+    	AffineTransform at=new AffineTransform();
+    	at.scale(xScale, yScale);
+
+    	return at.createTransformedShape(area);
+	}
+	private Shape optimize (int[] yMin, int[] yMax, double min, double max, boolean invXY) {
+		List<Integer> xi = new ArrayList<>();
+		List<Integer> yi = new ArrayList<>();
+		optimize (yMin, -max, -min, xi, yi);
+		Collections.reverse(xi);
+		Collections.reverse(yi);
+		optimize (yMax, min, max, xi, yi);
+		int [] xArr = xi.stream().mapToInt(Integer::intValue).toArray();
+		int [] yArr = yi.stream().mapToInt(Integer::intValue).toArray();
+		Polygon polygon;
+		if (invXY)
+			polygon = new Polygon(yArr, xArr, xArr.length);
+		else
+			polygon = new Polygon(xArr, yArr, xArr.length);
+		return polygon;
+	}
+	private void optimize (int[] y, double min, double max, List<Integer> xi, List<Integer> yi) {
+		int last = 0;
+		xi.add(last);
+		yi.add(y[last]);
+		for (int i=1; i<y.length; i++) {
+			double dx = i-last;
+			if (dx < 2)
+				continue;
+			double slope = (y[i]-y[last])/dx; // dy/dx
+			for (int k=last+1; k<i ; k++) {
+				double newYk = y[last] + slope*(k-last);
+				double dYk   = newYk - y[k];
+				boolean fail = (dYk < min || dYk > max);
+				if (fail) {
+					last = i-1;
+					xi.add(last);
+					yi.add(y[last]);
+					break;
+				}
+			}
+		}
+		last = y.length-1;
+		xi.add(last);
+		yi.add(y[last]);
+	}
+	private void printShapeSegments(Shape shape) {
+	    PathIterator it = shape.getPathIterator(new AffineTransform());
+	    int count = 0;
+	    double [] coords = new double[6];
+	    int currSegment = -1;
+	    while(!it.isDone()) {
+	        currSegment = it.currentSegment(coords);
+	        switch (currSegment) {
+		        case PathIterator.SEG_CUBICTO:
+		        case PathIterator.SEG_LINETO:
+		        case PathIterator.SEG_QUADTO:
+		        	count++;
+	        }
+	        it.next();
+	    }
+	    System.out.println("length = " + count);
+	}
 }

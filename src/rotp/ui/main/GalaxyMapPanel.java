@@ -273,7 +273,8 @@ public class GalaxyMapPanel extends BasePanel implements IMapOptions, ActionList
     }
     @Override
     public void paintComponent(Graphics g) {
-    	// debugShowAll = true; // TO DO BR: REMOVE
+    	// debugShowAll = true; // TO DO BR: COMMENT
+    	// debugShowAll = false; // TO DO BR: COMMENT
         Graphics2D g2 = (Graphics2D) g;
         setFontHints(g2);
         parent.checkMapInitialized();

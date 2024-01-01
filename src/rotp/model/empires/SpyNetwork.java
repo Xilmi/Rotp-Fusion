@@ -498,7 +498,7 @@ public final class SpyNetwork implements Base, Serializable {
         owner().spyMasterAI().setSpyingMission(view);
     }
     public List<Tech> unknownTechs() {
-        return tech.techsUnknownTo(owner());
+        return tech.techsUnknownTo(owner(), true);
     }
     private void allocateSpyBC(float bc) {
         log("Allocating spy bc: "+bc);

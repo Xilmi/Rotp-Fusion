@@ -53,7 +53,7 @@ public enum PlanetImager implements Base {
 	public FastImage getTerrainSubImage(int w, int h) {
 		return getSubImage(terrainBase(), w, h, roll(0,7));
 	}
-	private static FastImage getSubImage(FastImage baseImg, int w, int h, int orientation) {
+	public static FastImage getSubImage(FastImage baseImg, int w, int h, int orientation) { // BR: Made public
 		int imgH = baseImg.getHeight();
 		int imgW = baseImg.getWidth();
 		int imgOffsetX = (int) (Math.random()*(imgW-w));
