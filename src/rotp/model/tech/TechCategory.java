@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import rotp.model.empires.Empire;
 import rotp.model.events.RandomEventSpaceAmoeba;
@@ -246,6 +247,12 @@ public final class TechCategory implements Base, Serializable {
         }
     	return allowed;
     }
+    public Random techRandom()		{ return tree.empire().techRandom(); }
+    @Override public float random() { return techRandom().nextFloat(); }
+    @Override public <T> T random(List<T> list) {
+        return (list == null || list.isEmpty()) ? null : list.get(techRandom().nextInt(list.size()));
+    }
+
     @SuppressWarnings("unchecked")
     private void buildResearchList() {
         TechCategory baseCat = TechLibrary.baseCategory[index];
@@ -267,8 +274,7 @@ public final class TechCategory implements Base, Serializable {
         }
 
         // BR: always add in some Technologies
-        //Xilmi: Why the heck was this in the loop through the quintiles?
-        //quintile != techSeqNum
+        // quintile != techSeqNum
         for (ParamTech tech : options().techModList()) {
             if (tech.isAlways(index, tech.techSeqNum, emp.isPlayer())) {
                 addPossibleTech(tech.techId());

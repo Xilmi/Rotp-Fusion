@@ -22,6 +22,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Optimisation:</ins></b>
 - Added a little transparency to the cuttlefish to reduce its brightness.
+- Restart will now gives the same research tech list.
 
 
 <b><ins>Bug Fixes:</ins></b>

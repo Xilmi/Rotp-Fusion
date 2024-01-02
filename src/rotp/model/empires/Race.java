@@ -30,7 +30,6 @@ import java.util.Map;
 
 import rotp.model.empires.Leader.Objective;
 import rotp.model.empires.Leader.Personality;
-import rotp.model.galaxy.Galaxy;
 import rotp.model.galaxy.StarSystem;
 import rotp.model.game.DynOptions;
 import rotp.model.planet.PlanetType;

@@ -37,6 +37,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Random;
 import java.util.Set;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
@@ -158,6 +159,9 @@ public final class Empire implements Base, NamedObject, Serializable {
     private DynOptions dynamicOptions = new DynOptions();
     private DynOptions raceOptions;
 
+    private Long randomSource; // for more repeatable restart
+    private Random techRandom;
+
     private transient float avgX, avgY, nameX1, nameX2; // Names position
     private transient float avgXd, avgYd, nameX1d, nameX2d; // Names position for dark Galaxies
 
@@ -186,6 +190,15 @@ public final class Empire implements Base, NamedObject, Serializable {
     public  transient int numColoniesHistory;
     private transient String empireName;
     private transient List<SpaceMonster> visibleMonsters = new ArrayList<>();
+
+    public Random techRandom() { // for more repeatable restart
+    	if (techRandom == null) {
+    		if (randomSource == null)
+    			randomSource = random.nextLong();
+    		techRandom = new Random(randomSource);
+    	}
+    	return techRandom;
+    }
 
     public void resetAI() { ai = null; } // BR:
     public void changePlayerAI(String newAI) { // BR:
@@ -456,6 +469,11 @@ public final class Empire implements Base, NamedObject, Serializable {
     public Empire(Galaxy g, int empId, Race r, Race dr, StarSystem s,
     		int[] compId, Integer cId, String name, EmpireBaseData empSrc) {
         log("creating empire for ",  r.id);
+        if (empSrc == null)
+        	randomSource = random.nextLong();
+        else
+        	randomSource = empSrc.randomSource();
+        	
         id = empId;
         raceKey = r.id;
         dataRaceKey = dr.id;
@@ -4478,8 +4496,10 @@ public final class Empire implements Base, NamedObject, Serializable {
 		public SystemBaseData homeSys;
 		private int[] compSysId;
 		public SystemBaseData[] companions;
+		private Long randomSource;
 		
 		public EmpireBaseData(Empire src, SystemBaseData[] systems) {
+			randomSource = src.randomSource;
 			raceKey		 = src.raceKey;
 			dataRaceKey	 = src.dataRaceKey;
 			empireName	 = src.name();
@@ -4514,6 +4534,7 @@ public final class Empire implements Base, NamedObject, Serializable {
 		}
 		public void raceAI(int ai)	{ raceAI = ai; }
 		public int  raceAI()		{ return raceAI; }
+		public Long randomSource()	{ return randomSource == null? random.nextLong() : randomSource; }
 		
 	}
 }
