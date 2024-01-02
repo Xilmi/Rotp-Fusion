@@ -20,6 +20,10 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
   - The goal of this new option is to provide a new option to create Silicoid-like races, that are not too overpowered on certain galaxy settings such as larger Hellish galaxies.
 
 
+<b><ins>Optimisation:</ins></b>
+- Added a little transparency to the cuttlefish to reduce its brightness.
+
+
 <b><ins>Bug Fixes:</ins></b>
 - Fixed multiple star systems sharing the same name.
 
