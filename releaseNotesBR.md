@@ -9,9 +9,16 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
     - Or Galaxy type can be randomly selected from a reduced set:
       - Star Field, Ellipse, Spiral, Spiral Arm, Shuriken, Cluster.
     - Random Galaxy type will also have their options set to "Random".
-- New Ignore eco limited for custom species (by Practical-Incarnation)
-  - Barren, Tundra, and Dead can immediately be colonized.
-- New option: Reduced population growth (by Practical-Incarnation)
+- New option: Reduced population growth: (by Practical-Incarnation)
+  - The goal of this new setting is to make pops a more valuable resource. Losing pops and mass transporting them will have higher costs to your economy. It will slow down conquests from transports and development of newly conquered worlds. There may be a different meta.
+  - The pop purchase cap in particular mainly affects highly developed colonies in the mid to late game. It means colonies cannot instantly regrow their pops after sending transports.
+    - Reduces natural pop growth by 0.5x
+    - Increases the cost to purchase pops with the eco slider by 2x
+    - Adds a maximum cap on how much pops you can purchase per turn, proportionally to the size of the planet. The spending cap is set initially to 2.5% of the planet size, and increases with cloning techs.
+- New Limited Ignores Eco, a new custom race option: (by Practical-Incarnation)
+  - In addition to No, which is the default for all races, and All, which is what Silicoids have, there's a new setting Limited. Limited ignores Waste and Hostile environments like All, but only Barren, Tundra, and Dead hostile planets can be immediately colonized in addition to the normal environments. Inferno, Toxic, and Radiated environments still needs to be researched first.
+  - The goal of this new option is to provide a new option to create Silicoid-like races, that are not too overpowered on certain galaxy settings such as larger Hellish galaxies.
+
 
 <b><ins>Last Release:</ins></b>
 

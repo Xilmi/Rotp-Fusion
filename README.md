@@ -60,6 +60,10 @@ Later:
 
 ## What's New
 
+2024.01.02 (BR)
+- Completed custom species description.
+  - Added the reddit description to the new Practical-Incarnation options.
+
 2024.01.01 (Practical-Incarnation)
 - New Ignore eco limited for custom species.
   - Barren, Tundra, and Dead can immediately be colonized.

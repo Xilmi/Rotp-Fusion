@@ -1725,20 +1725,35 @@ CUSTOM_RACE_IGNORES_ECO           | Species Ignores Eco
 CUSTOM_RACE_PROPERTIE             | Species Propertie
 CUSTOM_RACE_CREDIT_DESC           | Easy Money Species?
 CUSTOM_RACE_CREDIT                | Credits Bonus
+CUSTOM_RACE_HIT_POINTS_DESC       | Hull hability to get damage percentage.
 CUSTOM_RACE_HIT_POINTS            | Hit Point Factor
+CUSTOM_RACE_MAINTENANCE_DESC      | Fleet cost percentage.
 CUSTOM_RACE_MAINTENANCE           | Maintenance Factor
+CUSTOM_RACE_SHIP_SPACE_DESC       | Ship available space for components. (Percentage)
 CUSTOM_RACE_SHIP_SPACE            | Ship Space Factor
+CUSTOM_RACE_SHIP_ATTACK_DESC      | Ship attack bonus/malus.
 CUSTOM_RACE_SHIP_ATTACK           | Ship Attack Bonus
+CUSTOM_RACE_SHIP_DEFENSE_DESC     | Ship defense bonus/malus.
 CUSTOM_RACE_SHIP_DEFENSE          | Ship Defense Bonus
+CUSTOM_RACE_SHIP_INITIATIVE_DESC  | Ship initiative bonus/malus.
 CUSTOM_RACE_SHIP_INITIATIVE       | Ship Initiative Bonus
+CUSTOM_RACE_GROUND_ATTACK_DESC    | Ground battle bonus/malus.
 CUSTOM_RACE_GROUND_ATTACK         | Ground Attack Bonus
+CUSTOM_RACE_SPY_COST_DESC         | Spy cost percentage.
 CUSTOM_RACE_SPY_COST              | Spy Cost
+CUSTOM_RACE_SPY_SECURITY_DESC     | Spy security percentage modifier.
 CUSTOM_RACE_SPY_SECURITY          | Spy Security
+CUSTOM_RACE_SPY_INFILTRATION_DESC | Spy Infiltration percentage modifier.
 CUSTOM_RACE_SPY_INFILTRATION      | Spy Infiltration
+CUSTOM_RACE_SPY_TELEPATHY_DESC    | Spy Telepathy percentage modifier.
 CUSTOM_RACE_SPY_TELEPATHY         | Spy Telepathy
+CUSTOM_RACE_SPY_RELATIONS_DESC    | Spy Relations percentage modifier.
 CUSTOM_RACE_SPY_RELATIONS         | Spy Relations
+CUSTOM_RACE_PROD_WORKER_DESC      | Worker Production Percentage.
 CUSTOM_RACE_PROD_WORKER           | Worker Production
+CUSTOM_RACE_PROD_CONTROL_DESC     | How many additional Factory ca be controlled.
 CUSTOM_RACE_PROD_CONTROL          | Factory Control
+CUSTOM_RACE_PROD_REFIT_COST_DESC  | When new robotic control are discovered, upgrading Factories cos nothing.
 CUSTOM_RACE_PROD_REFIT_COST       | Ignores Refit Cost
 CUSTOM_RACE_TECH_DISCOVERY        | Tech Discovery
 CUSTOM_RACE_TECH_DISCOVERY_DESC   | The base probability of getting a tech available. Displayed cost is the sum of specific tech discovery cost.
@@ -1845,7 +1860,7 @@ CUSTOM_RACE_IGNORES_ECO_NO         | No
 CUSTOM_RACE_IGNORES_ECO_LIMITED    | Limited
 CUSTOM_RACE_IGNORES_ECO_ALL        | All
 CUSTOM_RACE_IGNORES_ECO_NO_DESC      | Normal behavior, Hostile planet types requires tech.
-CUSTOM_RACE_IGNORES_ECO_LIMITED_DESC | Barren, Tundra, and Dead can immediately be colonized.
+CUSTOM_RACE_IGNORES_ECO_LIMITED_DESC | Ignores Waste and Hostile environments like All, Barren, Tundra, and Dead can immediately be colonized.
 CUSTOM_RACE_IGNORES_ECO_ALL_DESC     | All planet types can immediately be colonized.
 
 // Advanced Settings
@@ -2061,7 +2076,8 @@ SETTINGS_MOD_HOME_FERTILE_DESC       | {Always, Never, Auto} Gives Player/AI Fer
 SETTINGS_MOD_HOME_RICH_DESC          | {Always, Never, Auto} Gives Player/AI Rich HomeWorld
 SETTINGS_MOD_HOME_ULTRA_RICH_DESC    | {Always, Never, Auto} Gives Player/AI Ultra-Rich HomeWorld
 SETTINGS_MOD_POP_GROWTH              | Pop Growth: %1
-SETTINGS_MOD_POP_GROWTH_DESC         | Setting for how fast Pops grow and how fast Pops can be purchased
+SETTINGS_MOD_POP_GROWTH_DESC         | The goal of this new setting is to make pops a more valuable resource. Losing pops and mass transporting them will have higher costs to your economy. It will slow down conquests from transports and development of newly conquered worlds. There may be a different meta. <br> - Reduces natural pop growth by 0.5x<br> - Increases the cost to purchase pops with the eco slider by 2x <br> - Adds a maximum cap on how much pops you can purchase per turn, proportionally to the size of the planet. The spending cap is set initially to 2.5% of the planet size, and increases with cloning techs. <br> The pop purchase cap in particular mainly affects highly developed colonies in the mid to late game. It means colonies cannot instantly regrow their pops after sending transports.
+SETTINGS_MOD_POP_GROWTH_Help         | Setting for how fast Pops grow and how fast Pops can be purchased
 SETTINGS_MOD_POP_GROWTH_NORMAL       | Normal
 SETTINGS_MOD_POP_GROWTH_NORMAL_DESC  | Pop Growth same as vanilla
 SETTINGS_MOD_POP_GROWTH_REDUCED      | Reduced
