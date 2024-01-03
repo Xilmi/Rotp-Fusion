@@ -27,7 +27,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Bug Fixes:</ins></b>
 - Fixed multiple star systems sharing the same name.
-
+- Fixed Tech Monsters triggering on reload!
 
 <b><ins>Last Release:</ins></b>
 

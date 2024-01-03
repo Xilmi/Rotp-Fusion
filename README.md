@@ -60,6 +60,9 @@ Later:
 
 ## What's New
 
+2024.01.03 (BR)
+- Fixed Tech Monsters triggering on reload!
+
 2024.01.02 (BR)
 - Completed custom species description.
   - Added the reddit description to the new Practical-Incarnation options.
