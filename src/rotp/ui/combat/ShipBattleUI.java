@@ -582,10 +582,10 @@ public class ShipBattleUI extends FadeInPanel implements MouseListener, MouseMot
             else if (targetStack.isNeutralShip()) // modnar: add NeutralShip display
                 drawNeutralShipButtonOverlay(g, targetStack, shipActionButtons);
 			else if (targetStack.isMonster() && !targetStack.isNeutralShip()) // modnar: separate Monster and NeutralShip
-				if (targetStack instanceof CombatStackOrionGuardian)
-					drawMonsterButtonOverlay(g, targetStack, shipActionButtons);
-				else
+				if (targetStack instanceof CombatStackMonster)
 					drawSpaceMonsterButtonOverlay(g, targetStack, shipActionButtons);
+				else
+					drawMonsterButtonOverlay(g, targetStack, shipActionButtons);
             else
                 drawShipButtonOverlay(g, targetStack, shipActionButtons);
         }

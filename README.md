@@ -62,6 +62,7 @@ Later:
 
 2024.01.03 (BR)
 - Fixed Tech Monsters triggering on reload!
+- Fixed occasional crash when fighting Monster.
 
 2024.01.02 (BR)
 - Completed custom species description.
