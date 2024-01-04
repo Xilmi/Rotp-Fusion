@@ -60,6 +60,9 @@ Later:
 
 ## What's New
 
+2024.01.04 (BR)
+- Fixed untested null list loop crash!
+
 2024.01.03 (BR)
 - Fixed Tech Monsters triggering on reload!
 - Fixed occasional crash when fighting Monster.

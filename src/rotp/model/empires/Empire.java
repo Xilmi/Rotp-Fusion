@@ -1942,11 +1942,13 @@ public final class Empire implements Base, NamedObject, Serializable {
                 return true;
             }
             // This will send ships to own colonies that have enemy ships in orbit. I guess that's OK
-            for (ShipFleet f: fleets) {
-                if (hostileEmpires.contains(f.empId) && !f.retreating()) {
-                    System.out.println("System "+sv.name(i)+" has enemy ships, targeting");
-                    return true;
-                }
+            if (fleets != null) {
+            	for (ShipFleet f: fleets) {
+                    if (hostileEmpires.contains(f.empId) && !f.retreating()) {
+                        System.out.println("System "+sv.name(i)+" has enemy ships, targeting");
+                        return true;
+                    }
+            	}
             }
             return false;
         });
