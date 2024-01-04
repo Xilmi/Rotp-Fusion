@@ -134,7 +134,7 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
     public SystemTransportSprite transportSprite() {
         if ((transportSprite == null) && isColonized()) {
             transportSprite = new SystemTransportSprite(this);
-            if (transportAmt > 0) {
+            if (transportAmt > 0 && transportDestId >= 0) {
                 transportSprite.clickedDest(galaxy().system(transportDestId));
                 if (transportTravelTime == 0)
                     transportSprite.accept();
