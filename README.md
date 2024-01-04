@@ -62,6 +62,7 @@ Later:
 
 2024.01.04 (BR)
 - Fixed untested null list loop crash!
+- Fixed a crash when sending transport to planey without colony!?
 
 2024.01.03 (BR)
 - Fixed Tech Monsters triggering on reload!
