@@ -416,7 +416,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 //					zoomOptionsUI
 //					));
 
-	static LinkedList<IParam> mainOptionsUI() {
+	static LinkedList<IParam> vanillaSettingsUI() {
 		LinkedList<IParam> options  = new LinkedList<>(
 				Arrays.asList(
 						displayMode, graphicsMode,
@@ -424,14 +424,13 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 						selectedScreen,
 						null,
 						soundVolume, musicVolume,
+						debugShowMemory, colorSet,
+						disableAdvisor,
+						null,
+						IConvenienceOptions.autoColonize_, IConvenienceOptions.autoBombard_,
 						backupTurns, saveDirectory,
-						showAlternateAnimation,
+						originalSpeciesOnly,
 						null,
-						useFusionFont, disableAdvisor,
-						originalSpeciesOnly, noFogOnIcons,
-						colorSet,
-						null,
-						compactOptionOnly,
 						commonOptionsUI(),
 						ICombatOptions.combatOptionsUI(),
 						IDebugOptions.debugOptionsUI()
@@ -439,8 +438,86 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		return options;
 	}
 
-	
+//	static LinkedList<IParam> mainOptionsUI() {
+//		LinkedList<IParam> options  = new LinkedList<>(
+//				Arrays.asList(
+//						displayMode, graphicsMode,
+//						texturesMode, sensitivityMode,
+//						selectedScreen,
+//						null,
+//						soundVolume, musicVolume,
+//						backupTurns, saveDirectory,
+//						showAlternateAnimation,
+//						null,
+//						useFusionFont, disableAdvisor,
+//						originalSpeciesOnly, noFogOnIcons,
+//						colorSet,
+//						null,
+//						compactOptionOnly,
+//						commonOptionsUI(),
+//						ICombatOptions.combatOptionsUI(),
+//						IDebugOptions.debugOptionsUI()
+//						));
+//		return options;
+//	}
+
 	static LinkedList<LinkedList<IParam>> commonOptionsMap()	{
+		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
+		map.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("COMPUTER_OPTIONS"),
+				graphicsMode, texturesMode, sensitivityMode,
+				soundVolume, musicVolume,
+
+				headerSpacer,
+				new ParamTitle("MENU_APPEARANCE"),
+				colorSet, galaxyPreviewColorStarsSize,
+				minListSizePopUp, menuStartup,
+				noFogOnIcons, showAlternateAnimation,
+				useFusionFont, compactOptionOnly
+				)));
+		map.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("ZOOM_FONT"),
+				mapFontFactor, showNameMinFont, showInfoFontRatio,
+				showPendingOrders,
+				
+				headerSpacer,
+				new ParamTitle("ZOOM_FLEET"),
+				showFleetFactor, showFlagFactor, showPathFactor,
+				
+				headerSpacer,
+				new ParamTitle("ZOOM_REPLAY"),
+				finalReplayZoomOut, empireReplayZoomOut, replayTurnPace
+				)));
+		map.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("BACKUP_OPTIONS"),
+				backupTurns, saveDirectory,
+
+				headerSpacer,
+				new ParamTitle("GAME_UI_PREFERENCES"),
+				raceStatusLog, disableAdvisor,
+				originalSpeciesOnly,
+
+				// headerSpacer,
+				// new ParamTitle("GAME_VARIOUS"),
+				headerSpacer,
+				new ParamTitle("SUB_PANEL_OPTIONS"),
+				IDebugOptions.debugOptionsUI(),
+				ICombatOptions.combatOptionsUI()
+				)));
+		return map;
+	};
+	String COMMON_GUI_ID	= "COMMON_OPTIONS";
+	static ParamSubUI commonOptionsUI() {
+		return new ParamSubUI( MOD_UI, COMMON_GUI_ID, commonOptionsMap())
+		{ { isCfgFile(false); } };
+	}
+//	ParamSubUI commonOptionsUI	= commonOptionsUI();
+
+	static LinkedList<IParam> commonOptions() {
+		return IBaseOptsTools.getSingleList(commonOptionsMap());
+	}
+
+	static LinkedList<LinkedList<IParam>> cfgOptionsMap()	{
 		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("COMPUTER_OPTIONS"),
@@ -485,15 +562,5 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 				)));
 		return map;
 	};
-	String COMMON_GUI_ID	= "COMMON_OPTIONS";
-	static ParamSubUI commonOptionsUI() {
-		return new ParamSubUI( MOD_UI, COMMON_GUI_ID, commonOptionsMap())
-		{ { isCfgFile(false); } };
-	}
-//	ParamSubUI commonOptionsUI	= commonOptionsUI();
-
-	static LinkedList<IParam> commonOptions() {
-		return IBaseOptsTools.getSingleList(commonOptionsMap());
-	}
 
 }

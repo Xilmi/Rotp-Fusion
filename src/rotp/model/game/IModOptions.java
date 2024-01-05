@@ -96,7 +96,8 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 		allModOptions.addAll(IFlagOptions.autoFlagOptions());
 		allModOptions.addAll(convenienceOptions); // Keep as variable
 		allModOptions.addAll(governorOptions);
-		allModOptions.addAll(IMainOptions.mainOptionsUI());
+		allModOptions.addAll(IMainOptions.vanillaSettingsUI());
+//		allModOptions.addAll(IMainOptions.mainOptionsUI());
 		allModOptions.add(IMainOptions.realNebulaeSize);
 		allModOptions.add(IMainOptions.realNebulaShape);
 		allModOptions.add(IMainOptions.realNebulaeOpacity);
@@ -116,6 +117,13 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 		LinkedList<IParam> list = new LinkedList<>();
 		for(IParam param:getAllModOptions())
 			if (param.isCfgFile())
+				list.add(param);
+		return list;
+	}
+	static LinkedList<IParam> allDuplicateOptions() {
+		LinkedList<IParam> list = new LinkedList<>();
+		for(IParam param:getAllModOptions())
+			if (param.isCfgFile() && param.isDuplicate())
 				list.add(param);
 		return list;
 	}

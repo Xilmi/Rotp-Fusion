@@ -19,7 +19,7 @@ package rotp.ui.game;
 public class MainOptionsUI extends AbstractOptionsUI {
 	private static final long serialVersionUID = 1L;
 	private static final String guiTitleID = "GAME_SETTINGS_TITLE";
-	public static final String GUI_ID     = "MAIN_OPTIONS";
+	public	static final String GUI_ID     = "MAIN_OPTIONS";
 	
 	// Just call the "super" with GUI Title Label ID
 	public MainOptionsUI() {
@@ -28,6 +28,8 @@ public class MainOptionsUI extends AbstractOptionsUI {
 	@Override protected void init0() {
 		globalOptions = true;
 		isSubMenu	  = false;
-		duplicateList = rotp.model.game.IMainOptions.mainOptionsUI();
+//		duplicateList = rotp.model.game.IModOptions.allDuplicateOptions();
+//		duplicateList = rotp.model.game.IMainOptions.mainOptionsUI();
+		duplicateList = rotp.model.game.IMainOptions.vanillaSettingsUI();
 	}
 }

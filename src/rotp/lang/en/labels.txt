@@ -2533,9 +2533,9 @@ SETTINGS_MOD_IN_GAME_OPTIONS_UI          | - Gameplay Options Menu -
 SETTINGS_MOD_IN_GAME_OPTIONS_UI_DESC     | Opens a submenu containing more gameplay-related settings.
 SETTINGS_MOD_IN_GAME_OPTIONS_UI_Help     | Opens a submenu containing more gameplay-related settings. These settings are saved with the game. This submenu is also available during gameplay. This submenu is also available during gameplay.
 
-SETTINGS_MOD_COMMON_OPTIONS_TITLE        | Shared Options
-SETTINGS_MOD_COMMON_OPTIONS_UI           | - Shared Options Menu -
-SETTINGS_MOD_COMMON_OPTIONS_UI_DESC      | Opens a submenu containing shared performance and presentation settings common to all gameplay.
+SETTINGS_MOD_COMMON_OPTIONS_TITLE        | Extended Settings
+SETTINGS_MOD_COMMON_OPTIONS_UI           | - Extended remnant.cfg Settings Menu -
+SETTINGS_MOD_COMMON_OPTIONS_UI_DESC      | Opens a submenu containing remnant.cfg settings and some other performance and presentation settings common to all gameplay.
 
 SETTINGS_MOD_DEBUG_OPTIONS_TITLE         | Developper's Options
 SETTINGS_MOD_DEBUG_OPTIONS_UI            | - Debug Options Menu -
@@ -2547,7 +2547,7 @@ SETTINGS_MOD_DEBUG_OPTIONS_UI_DESC       | Open Sub Menu to set development tool
 // SETTINGS_MOD_ZOOM_OPTIONS_UI_HELP        | Open Sub Menu to set several In-Game Preferences: // Map zooming factors, Replay speed, Combat Shield Effects.
 SETTINGS_MOD_ZOOM_OPTIONS_TITLE          | Combat Options Menu
 SETTINGS_MOD_ZOOM_OPTIONS_UI             | - Combat Options Menu -
-SETTINGS_MOD_ZOOM_OPTIONS_UI_DESC        | Open Sub Menu to set diverse combat options settings.
+SETTINGS_MOD_ZOOM_OPTIONS_UI_DESC        | Open Sub Menu to set diverse graphic combat options settings.
 SETTINGS_MOD_ZOOM_OPTIONS_UI_HELP        | Open Sub Menu to set several In-Game Preferences: Map zooming factors, Replay speed, Combat Shield Effects. Weapons sounds and Shields effects.
 
 SETTINGS_MOD_FLAG_COLOR_COUNT_DESC       | How may colors should appear on the Star System Flag?
