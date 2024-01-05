@@ -64,6 +64,7 @@ Later:
 - Fixed untested null list loop crash!
 - Fixed crash when sending transport to planey without colony!?
 - Fixed crash of lost transport (from dead empire to dead colony)!?
+- Improved galaxy randomization.
 
 2024.01.03 (BR)
 - Fixed Tech Monsters triggering on reload!

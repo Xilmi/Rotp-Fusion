@@ -102,6 +102,8 @@ public class GalaxyFactory implements Base {
 
 		IGameOptions opts = GameSession.instance().options();
 		opts.randomizeColors();
+		if (opts.isRandomGalaxy())
+			opts.setAndGenerateGalaxy();
 		GalaxyShape shape = opts.galaxyShape();
 
 		// for extremely large maps, shape is not fully generated on Setup UI

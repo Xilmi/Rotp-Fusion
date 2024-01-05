@@ -378,17 +378,22 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
         selectedGalaxyShapeOption1 = galaxyShape.defaultOption1();
         selectedGalaxyShapeOption2 = galaxyShape.defaultOption2();
     }
-    private boolean isRandomGalaxy() {
+    @Override public boolean isRandomGalaxy() {
     	return selectedGalaxyShape.equals(SHAPE_RANDOM)
     			|| selectedGalaxyShape.equals(SHAPE_RANDOM_2);
     }
     private void setRandomGalaxyShape() {
 		Rand rand = new Rand(selectedGalaxyRandSource());
 		int rnd;
+		for (int i=0; i<100; i++) {
+			rnd = rand.nextInt(12);
+			// System.out.println("setRandomGalaxyShape() rand = " + rnd);
+		}
 		if (selectedGalaxyShape.equals(SHAPE_RANDOM))
 			rnd = rand.nextInt(6);
 		else
 			rnd = rand.nextInt(12);
+		// System.out.println("setRandomGalaxyShape() rand = " + rnd);
         selectedGalaxyShapeOption1 = galaxyShape.randomOption();
         selectedGalaxyShapeOption2 = galaxyShape.randomOption();
     	switch (rnd) {
@@ -863,6 +868,11 @@ public class MOO1GameOptions implements Base, IGameOptions, Serializable {
     public List<Integer> possibleColors()	  { return new ArrayList<>(colors); }
     @Override public void setAndGenerateGalaxy() {
        	setGalaxyShape(selectedGalaxyShapeOption1, selectedGalaxyShapeOption2);
+    	if(isRandomGalaxy()) {
+    		setRandomGalaxyShape();
+    		generateGalaxy();
+    		return;
+    	}
        	generateGalaxy();
     }
     private void generateGalaxy() { galaxyShape().quickGenerate(); }

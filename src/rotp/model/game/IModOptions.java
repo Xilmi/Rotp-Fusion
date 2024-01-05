@@ -86,15 +86,17 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 		LinkedHashSet<IParam> allModOptions = new LinkedHashSet<>();
 		allModOptions.addAll(IPreGameOptions.modStaticAOptions());
 		allModOptions.addAll(IPreGameOptions.modStaticBOptions());
+		allModOptions.addAll(IPreGameOptions.preGameOptions());
 		allModOptions.addAll(IInGameOptions.modDynamicAOptions());
 		allModOptions.addAll(IInGameOptions.modDynamicBOptions());
+		allModOptions.addAll(IInGameOptions.inGameOptions());
 		allModOptions.addAll(optionsGalaxy);
 		allModOptions.addAll(optionsRace);
 		allModOptions.addAll(optionsCustomRaceBase);
 		allModOptions.addAll(IFlagOptions.autoFlagOptions());
 		allModOptions.addAll(convenienceOptions); // Keep as variable
 		allModOptions.addAll(governorOptions);
-		allModOptions.addAll(IMainOptions.mainOptionsUI()); // Keep as variable
+		allModOptions.addAll(IMainOptions.mainOptionsUI());
 		allModOptions.add(IMainOptions.realNebulaeSize);
 		allModOptions.add(IMainOptions.realNebulaShape);
 		allModOptions.add(IMainOptions.realNebulaeOpacity);
@@ -112,66 +114,66 @@ public interface IModOptions extends IFlagOptions, IPreGameOptions, IInGameOptio
 	//
 	static LinkedList<IParam> allCfgOptions() {
 		LinkedList<IParam> list = new LinkedList<>();
-		for(IParam param:allOptions())
+		for(IParam param:getAllModOptions())
 			if (param.isCfgFile())
 				list.add(param);
 		return list;
 	}
 	static LinkedList<IParam> allNotCfgOptions() {
 		LinkedList<IParam> list = new LinkedList<>();
-		for(IParam param:allOptions())
+		for(IParam param:getAllModOptions())
 			if (!param.isCfgFile())
 				list.add(param);
 		return list;
 	}
-	static LinkedList<IParam> allOptions() {
-		// Start with a set to filter duplicates
-		LinkedHashSet<IParam> allOptions = new LinkedHashSet<>();
-		allOptions.addAll(IPreGameOptions.modStaticAOptions());
-		allOptions.addAll(IPreGameOptions.modStaticBOptions());
-		allOptions.addAll(IInGameOptions.modDynamicAOptions());
-		allOptions.addAll(IInGameOptions.modDynamicBOptions());
-		allOptions.addAll(optionsGalaxy);
-		allOptions.addAll(optionsRace);
-		allOptions.addAll(optionsCustomRaceBase);
-		allOptions.addAll(IFlagOptions.autoFlagOptions());
-		allOptions.addAll(convenienceOptions);
-		allOptions.addAll(governorOptions);
-		allOptions.addAll(IMainOptions.mainOptionsUI());
-		allOptions.addAll(IDebugOptions.debugOptions());
-		allOptions.addAll(IRandomEvents.customRandomEventOptions());
-		allOptions.addAll(ICombatOptions.combatOptions());
-		allOptions.addAll(IIronmanOptions.ironmanOptions());
-		allOptions.remove(null);
-		// Then create the final list (LinkedHashSet don't offer the .get(index) method)
-		LinkedList<IParam> options = new LinkedList<>();
-		options.addAll(allOptions);
-		return options;
-	}
-    // All the Global parameters
-	static LinkedList<IParam> globalOptions(boolean initialList) {
-		LinkedList<IParam> globalOptions = new LinkedList<>();
-		globalOptions.addAll(IMainOptions.mainOptionsUI());
-		globalOptions.remove(debugOptionsUI);
-		globalOptions.remove(combatOptionsUI);
-		globalOptions.addAll(IDebugOptions.debugOptions());
-		globalOptions.addAll(ICombatOptions.combatOptions());
-		globalOptions.addAll(IMainOptions.commonOptions());
-		globalOptions.add(bitmapGalaxyLastFolder);
-		globalOptions.add(showNextCouncil);
-		globalOptions.add(realNebulaeOpacity);
-		globalOptions.add(realNebulaShape);
-		globalOptions.add(realNebulaeSize);
-		
-		if (initialList) {
-			globalOptions.addAll(convenienceOptions);
-			globalOptions.add(governorByDefault);
-			globalOptions.add(autoSpend);
-			globalOptions.add(maxGrowthMode);
-			globalOptions.add(auto_Apply);
-		}
-		return globalOptions;
-	}
+//	static LinkedList<IParam> allOptions() {
+//		// Start with a set to filter duplicates
+//		LinkedHashSet<IParam> allOptions = new LinkedHashSet<>();
+//		allOptions.addAll(IPreGameOptions.modStaticAOptions());
+//		allOptions.addAll(IPreGameOptions.modStaticBOptions());
+//		allOptions.addAll(IInGameOptions.modDynamicAOptions());
+//		allOptions.addAll(IInGameOptions.modDynamicBOptions());
+//		allOptions.addAll(optionsGalaxy);
+//		allOptions.addAll(optionsRace);
+//		allOptions.addAll(optionsCustomRaceBase);
+//		allOptions.addAll(IFlagOptions.autoFlagOptions());
+//		allOptions.addAll(convenienceOptions);
+//		allOptions.addAll(governorOptions);
+//		allOptions.addAll(IMainOptions.mainOptionsUI());
+//		allOptions.addAll(IDebugOptions.debugOptions());
+//		allOptions.addAll(IRandomEvents.customRandomEventOptions());
+//		allOptions.addAll(ICombatOptions.combatOptions());
+//		allOptions.addAll(IIronmanOptions.ironmanOptions());
+//		allOptions.remove(null);
+//		// Then create the final list (LinkedHashSet don't offer the .get(index) method)
+//		LinkedList<IParam> options = new LinkedList<>();
+//		options.addAll(allOptions);
+//		return options;
+//	}
+//    // All the Global parameters
+//	static LinkedList<IParam> globalOptions(boolean initialList) {
+//		LinkedList<IParam> globalOptions = new LinkedList<>();
+//		globalOptions.addAll(IMainOptions.mainOptionsUI());
+//		globalOptions.remove(debugOptionsUI);
+//		globalOptions.remove(combatOptionsUI);
+//		globalOptions.addAll(IDebugOptions.debugOptions());
+//		globalOptions.addAll(ICombatOptions.combatOptions());
+//		globalOptions.addAll(IMainOptions.commonOptions());
+//		globalOptions.add(bitmapGalaxyLastFolder);
+//		globalOptions.add(showNextCouncil);
+//		globalOptions.add(realNebulaeOpacity);
+//		globalOptions.add(realNebulaShape);
+//		globalOptions.add(realNebulaeSize);
+//		
+//		if (initialList) {
+//			globalOptions.addAll(convenienceOptions);
+//			globalOptions.add(governorByDefault);
+//			globalOptions.add(autoSpend);
+//			globalOptions.add(maxGrowthMode);
+//			globalOptions.add(auto_Apply);
+//		}
+//		return globalOptions;
+//	}
 	// ==================== GUI Sub List Declarations ====================
 	//
 	static LinkedList<ParamSubUI> subPanelList() {

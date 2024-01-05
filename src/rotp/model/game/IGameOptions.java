@@ -392,6 +392,7 @@ public interface IGameOptions extends IModOptions {
     public void randomizeColors();
     public GalaxyShape galaxyShape();
     public void setAndGenerateGalaxy();
+    public boolean isRandomGalaxy();
 
     public int numColors();
     public Color color(int i);

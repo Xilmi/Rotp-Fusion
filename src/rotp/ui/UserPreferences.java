@@ -71,16 +71,20 @@ public class UserPreferences implements IMainOptions {
 	private static int screenSizePct = 93;
 	private static int selectedScreen = -1; // BR: to specify the destination display
 	private static int backupTurns = 5; // modnar: change default turns between backups to 5
-	private static boolean initialList = true;
+	// private static boolean initialList = true;
 	private static List<IParam> optionList;
 	private static List<IParam> optionList() {
-		if (optionList == null)
-			optionList = IModOptions.globalOptions(initialList);
+		if (optionList == null) {
+			// optionList = IModOptions.globalOptions(initialList);
+			optionList = IModOptions.allCfgOptions();
+		}
+		
 		return optionList;
 	}
 	public static void initialList(boolean initial) {
-		initialList = initial;
-		optionList = IModOptions.globalOptions(initialList);
+		// initialList = initial;
+		// optionList = IModOptions.globalOptions(initialList);
+		optionList = IModOptions.allCfgOptions();
 		save();
 	}
 
