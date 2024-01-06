@@ -330,7 +330,7 @@ public abstract class BaseModPanel extends BasePanel
 		g.setFont(smallButtonFont(retina));
 		g.setPaint(GameUI.buttonBackgroundColor());
 	}
-    protected BufferedImage initButtonBackImg() {
+    public BufferedImage initButtonBackImg() {
     	initButtonPosition();
 		buttonBackImg = new BufferedImage(retina(wButton), retina(hButton), TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D) buttonBackImg.getGraphics();

@@ -241,7 +241,8 @@ public interface IAdvOptions extends IBaseOptsTools {
 						IPreGameOptions.preGameOptionsUI(),
 						IInGameOptions.inGameOptionsUI(),
 						IMainOptions.commonOptionsUI(),
-						ICombatOptions.combatOptionsUI()
+						ICombatOptions.combatOptionsUI(),
+						IInGameOptions.baseModOptionsUI()
 						));
 		return options;
 	}

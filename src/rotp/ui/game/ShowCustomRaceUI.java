@@ -471,7 +471,7 @@ public class ShowCustomRaceUI extends BaseModPanel {
         drawButton(g, init, guideBox,	text(guideButtonKey()));
         g.setStroke(prev);
 	}
-    @Override protected BufferedImage initButtonBackImg() {
+    @Override public BufferedImage initButtonBackImg() {
     	initButtonPosition();
 		buttonBackImg = new BufferedImage(retina(wButton), retina(hButton), TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D) buttonBackImg.getGraphics();

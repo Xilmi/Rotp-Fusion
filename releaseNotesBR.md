@@ -23,6 +23,8 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 <b><ins>Optimisation:</ins></b>
 - Added a little transparency to the cuttlefish to reduce its brightness.
 - Restart will now gives the same research tech list.
+- Added Base Mod Options SubMenu. (now Empty)
+- Restored vanilla galaxy setup panel advanced options. 
 
 
 <b><ins>Bug Fixes:</ins></b>
@@ -30,6 +32,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed Tech Monsters triggering on reload!
 - Fixed occasional crash when fighting Monster.
 - Fixed some low occurences crash vulnerabilities. (Thanks for reporting them)
+- Fixed wrong button display after Ctrl-option Pop-up panel.
 
 
 <b><ins>Last Release:</ins></b>

@@ -29,6 +29,7 @@ import java.util.List;
 import rotp.model.game.IGameOptions;
 import rotp.ui.RotPUI;
 import rotp.ui.game.BaseModPanel;
+import rotp.util.ModifierKeysState;
 
 public class ParamList extends AbstractParam<String> {
 
@@ -289,6 +290,8 @@ public class ParamList extends AbstractParam<String> {
 		String input = (String) dialog.showDialog();
 		if (input != null && valueLabelMap.getValueIndexIgnoreCase(input) >= 0)
 			set(input);
+//        ModifierKeysState.reset();
+//        frame.refreshGui();
 	}
 	private String getTableHelp()				{
 		int size = listSize();

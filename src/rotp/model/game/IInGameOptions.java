@@ -325,4 +325,25 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 	}
 	ParamSubUI inGameOptionsUI	= inGameOptionsUI();
 
+	static LinkedList<LinkedList<IParam>> baseModOptionsMap()	{
+		LinkedList<LinkedList<IParam>> map = new LinkedList<>();
+		map.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("GAME_VARIOUS"),
+				headerSpacer,
+				headerSpacer
+				)));
+		map.add(new LinkedList<>(Arrays.asList(
+				new ParamTitle("GAME_OTHER"),
+				headerSpacer,
+				headerSpacer
+				)));
+		return map;
+	};
+	String BASE_MOD_GUI_ID	= "BASE_MOD_OPTIONS";
+	static ParamSubUI baseModOptionsUI() {
+		return new ParamSubUI( MOD_UI, BASE_MOD_GUI_ID, baseModOptionsMap())
+		{ { isCfgFile(false); } };
+	}
+	ParamSubUI baseModOptionsUI	= baseModOptionsUI();
+
 }

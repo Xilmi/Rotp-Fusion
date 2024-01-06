@@ -116,6 +116,9 @@ public class ListDialog extends JDialog implements ActionListener, Base {
 			index = Math.max(0,  index);
 			value = alternateReturn.get(index);
 		}
+        ModifierKeysState.reset();
+        baseModPanel.initButtonBackImg();
+        baseModPanel.refreshGui();
 		return value;
 	}
 	private void setValue(String newValue) {

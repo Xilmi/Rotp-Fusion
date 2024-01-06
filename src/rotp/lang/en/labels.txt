@@ -2012,6 +2012,10 @@ HEADERS_WEAPON_ANIMATIONS            | ~~~ BEAM WEAPON ANIMATIONS ~~~%1
 HEADERS_SHIELD_ANIMATIONS_DESC       | To set combat shield animations parameters.
 HEADERS_SHIELD_ANIMATIONS            | ~~~ SHIELD ANIMATIONS ~~~%1
 
+// HEADERS_MODNAR_MOD_DESC              | Former Modnar Mod panel.
+// HEADERS_MODNAR_MOD                   | ~~~ MODNAR MOD ~~~%1
+
+
 HEADERS_SPACER_DESC                  |  
 HEADERS_SPACER                       |  %1
 
@@ -2532,6 +2536,10 @@ SETTINGS_MOD_IN_GAME_OPTIONS_TITLE       | Gameplay Options
 SETTINGS_MOD_IN_GAME_OPTIONS_UI          | - Gameplay Options Menu -
 SETTINGS_MOD_IN_GAME_OPTIONS_UI_DESC     | Opens a submenu containing more gameplay-related settings.
 SETTINGS_MOD_IN_GAME_OPTIONS_UI_Help     | Opens a submenu containing more gameplay-related settings. These settings are saved with the game. This submenu is also available during gameplay. This submenu is also available during gameplay.
+
+SETTINGS_MOD_BASE_MOD_OPTIONS_TITLE      | Base Mod Settings
+SETTINGS_MOD_BASE_MOD_OPTIONS_UI         | - Base Mod Settings Menu -
+SETTINGS_MOD_BASE_MOD_OPTIONS_UI_DESC    | Opens a submenu containing Base mod options.<br>To be extended on demand.
 
 SETTINGS_MOD_COMMON_OPTIONS_TITLE        | Extended Settings
 SETTINGS_MOD_COMMON_OPTIONS_UI           | - Extended remnant.cfg Settings Menu -
@@ -3895,6 +3903,7 @@ SETUP_BUTTON_RESTART_DESC         | You will be asked to select an old played ga
 SETUP_GALAXY_BACK_DESC            | Cancel options and go back to the Player options menu.
 SETUP_GALAXY_CLASSIC_OPTIONS_HELP | These buttons open Advanced option Menus.<br> "Pregame" contains parameters being set once when starting or restarting a game.<br> "In-game" contains parameters adjustable in game.<br>To switch to 2 compact option menus:<br> - Go to "Menus Options" and set "Show Compact Options" to "Yes".  (at the bottom right)<br>Compact option menus have the same appearence as the one showing in-game, following "Ctrl-o". 
 SETUP_GALAXY_COMPACT_OPTIONS_HELP | These buttons open Advanced options Menu.<br> "Pregame" contains parameters being set once when starting or restarting a game.<br> "In-game" contains parameters adjustable in game.<br>To switch back to 6 classic option menus:<br> - Go to "Pregame Options" and set "Show Compact Options" to "No". (at the bottom right)
+SETUP_GALAXY_VANILLA_OPTIONS_HELP | This button open Advanced options Menu.<br> Press "B" to toggle the submenus call buttons.
 SETUP_GALAXY_ABILITIES_DESC       | Default abilities for alien Empires:<br> 'Original Species' = Original abilities of the selected Species (in the Boxes below);<br> 'Reworked' = New abilities you have saved with the original species name.<br> (ex: RACE_DARLOK for the Naslok);<br> *Species = specific Original Species; or any other customized species you have built.
 SETUP_GALAXY_SELECTABLE_DESC      | "Yes" => A selection line will appear at the top of the boxes below, allowing the selection of individual ability.
 SETUP_GALAXY_SELECTABLE		      | Selectable Abilities
@@ -4116,7 +4125,7 @@ RACES_HELP_HK        | →HK_HEADER← →HK_F1← <br><br>Arrows Down/Up : Next
 
 SYSTEMS_HELP_HK      | →HK_HEADER← →HK_F1_?← <br>→HK_MAP_ARROWS← →HK_MAP_ZOOM← <br> →HK_YEAR← →HK_FLAG← →HK_HOME← →HK_ALT_HOME← <br>→HK_ESCAPE←
 
-SETUP_GALAXY_HELP_HK | →HK_HEADER← →HK_F1← →HK_GUIDE← <br> →HK_FOG← <br>M : Go to Main Menu.<br>Enter : Start a new Game. <br><br>Escape : Go to Player Setup Panel.
+SETUP_GALAXY_HELP_HK | →HK_HEADER← →HK_F1← →HK_GUIDE← <br>B : Toggle submenus call buttons.<br> →HK_FOG← <br>M : Go to Main Menu.<br>Enter : Start a new Game. <br><br>Escape : Go to Player Setup Panel.
 
 SETUP_RACE_HELP_HK   | →HK_HEADER← →HK_F1← →HK_GUIDE← <br> →HK_FOG← <br>R : Random Species. <br>Enter : Go to Galaxy Setup Panel. <br><br>Escape : Go to Main Menu.
 

@@ -42,6 +42,7 @@ Very soon:
   - More Planet Monsters Guardian.
 - Add Help to History.
 - Some Achievements options.
+- Add option to limit random event tech generosity... (For slow research, etc...)
 
 Later:
 - Symmetric nebulae in symetric galaxy.
@@ -59,6 +60,11 @@ Later:
 
 
 ## What's New
+
+2024.01.05 (BR)
+- Added Base Mod Options SubMenu. (now Empty)
+- Restored vanilla galaxy setup panel advanced options. 
+- Fixed wrong button display after Ctrl-option Pop-up panel.
 
 2024.01.04 (BR)
 - Fixed untested null list loop crash!
