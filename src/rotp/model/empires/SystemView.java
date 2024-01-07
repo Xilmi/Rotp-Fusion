@@ -930,9 +930,11 @@ public class SystemView implements IMappedObject, IFlagOptions, Base, Serializab
         if (!system().unnamed())
             vName = system().name();
         else if (vName.isEmpty()) {  // BR: for custom Races
-        	vName = owner().dataRace().worldsPrefix
-        			+ owner().race().randomSystemName(owner())
-        			+ owner().dataRace().worldsSuffix;
+//        	vName = owner().dataRace().worldsPrefix
+//        			+ owner().race().randomSystemName(owner())
+//        			+ owner().dataRace().worldsSuffix;
+        	vName = owner().race().randomSystemName(owner());
+        	// BR: Update the system name too, to avoid multiple naming
         }
     }
     private void clearHostility()                   { hostilityLevel = 0; }

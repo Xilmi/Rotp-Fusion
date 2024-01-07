@@ -30,7 +30,6 @@ import java.util.Map;
 
 import rotp.model.empires.Leader.Objective;
 import rotp.model.empires.Leader.Personality;
-import rotp.model.galaxy.StarSystem;
 import rotp.model.game.DynOptions;
 import rotp.model.planet.PlanetType;
 import rotp.model.ships.ShipDesign;
@@ -659,11 +658,22 @@ public class Race implements Base, Serializable {
     public String randomSystemName(Empire emp) {
         // this is only called when a new system is scouted
         // the name is stored on the empire's system view for this system
-        // and transferred to the system when it is colonized 
-        List<String> allPossibleNames = masterNameList();
-        for (StarSystem sys : galaxy().starSystems()) {
-        	String name = sys.name().trim(); // custom species may add confusing spaces
-        	allPossibleNames.remove(name);
+        // and transferred to the system when it is colonized
+        List<String> allPossibleNames = masterNameList(emp);
+//        for (StarSystem sys : galaxy().starSystems()) {
+//        	String name = sys.name().trim(); // custom species may add confusing spaces
+//        	allPossibleNames.remove(name);
+//        }
+        // Multiple and Custom species may share the same list... We have to looks thru all systems view
+        // looking at the galaxy().starSystems() is not good enough. Named only when colonized.
+        int n = galaxy().numStarSystems();
+        for (Empire e : galaxy().empires()) {
+        	if (!e.extinct()) {
+                for (int i=0;i<n;i++) {
+                    if (e.sv.isScouted(i))
+                        allPossibleNames.remove(emp.sv.name(i));
+                }
+        	}
         }
         // Custom species may share the same list... We have to looks thru all systems
         // int n = galaxy().numStarSystems();
@@ -675,17 +685,24 @@ public class Race implements Base, Serializable {
         log("Naming system:", systemName);
         return systemName;
     }
-    private List<String> masterNameList() {
-        List<String> names = new ArrayList<>(systemNames);
+    private List<String> masterNameList(Empire emp) {
         Collections.shuffle(systemNames);
+        // BR: add custom species prefix and suffix
+        List<String> complexNames = new ArrayList<>();
+    	String prefix = emp.dataRace().worldsPrefix;
+    	String suffix = emp.dataRace().worldsSuffix;
+        for (String s: systemNames)
+        	complexNames.add(prefix + s + suffix);
         
-        for (String s: systemNames)
+        List<String> names = new ArrayList<>(complexNames);
+        
+        for (String s: complexNames)
             names.add(text("COLONY_NAME_2", s));
-        for (String s: systemNames)
+        for (String s: complexNames)
             names.add(text("COLONY_NAME_3", s));
-        for (String s: systemNames)
+        for (String s: complexNames)
             names.add(text("COLONY_NAME_4", s));
-        for (String s: systemNames)
+        for (String s: complexNames)
             names.add(text("COLONY_NAME_5", s));
         return names;
     }

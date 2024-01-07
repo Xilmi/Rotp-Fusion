@@ -62,6 +62,9 @@ Later:
 ## What's New
 
 2024.01.05 (BR)
+- Fixed multiple star systems sharing the same name.
+
+2024.01.05 (BR)
 - Added Base Mod Options SubMenu. (now Empty)
 - Restored vanilla galaxy setup panel advanced options. 
 - Fixed wrong button display after Ctrl-option Pop-up panel.
