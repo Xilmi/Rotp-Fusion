@@ -461,6 +461,9 @@ GAME_SETTINGS_MEMORY_CONSOLE_DESC | Toggles the console output of memory usage s
 GAME_SETTINGS_MEMORY_FILE         | File Memory Usage: %1
 GAME_SETTINGS_MEMORY_FILE_DESC    | Toggles the file output of memory usage statistics at the begeining and the end of turn.
 
+GAME_SETTINGS_SHOW_CONSOLE_PANEL      | Show Console Panel: %1
+GAME_SETTINGS_SHOW_CONSOLE_PANEL_DESC | Toggles the Display of a console for alternate interactions.
+
 GAME_SETTINGS_DEBUG_AUTO_PLAY        | Auto Run: %1
 GAME_SETTINGS_DEBUG_AUTO_PLAY_DESC   | Toggles the Debug auto run. Game will not stop at the end of each turns.<br>Press ESC to pause
 GAME_SETTINGS_CONSOLE_AUTO_PLAY      | Log to console: %1
@@ -2012,8 +2015,8 @@ HEADERS_WEAPON_ANIMATIONS            | ~~~ BEAM WEAPON ANIMATIONS ~~~%1
 HEADERS_SHIELD_ANIMATIONS_DESC       | To set combat shield animations parameters.
 HEADERS_SHIELD_ANIMATIONS            | ~~~ SHIELD ANIMATIONS ~~~%1
 
-// HEADERS_MODNAR_MOD_DESC              | Former Modnar Mod panel.
-// HEADERS_MODNAR_MOD                   | ~~~ MODNAR MOD ~~~%1
+HEADERS_UNCLASSIFIED_DESC            | The rigth position has still to be found!
+HEADERS_UNCLASSIFIED                 | ~~~ UNCLASSIFIED MOD ~~~%1
 
 
 HEADERS_SPACER_DESC                  |  

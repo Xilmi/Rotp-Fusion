@@ -5,6 +5,7 @@ import static rotp.ui.UserPreferences.showMemory;
 import java.util.Arrays;
 import java.util.LinkedList;
 
+import rotp.ui.main.CommandConsole;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamSubUI;
@@ -55,6 +56,22 @@ public interface IDebugOptions extends IBaseOptsTools {
 	{ { isDuplicate(false); isCfgFile(true); } };
 	default boolean debugLogEvents()		{ return debugLogEvents.get(); }
 
+	ParamBoolean showConsolePanel	= new ParamBoolean(GAME_UI, "SHOW_CONSOLE_PANEL", false)
+	{
+		{ isDuplicate(false); isCfgFile(true); }
+		@Override public Boolean set(Boolean newValue) {
+			super.set(newValue);
+			CommandConsole.showConsole(newValue);
+			return newValue;
+		}
+	};
+	default boolean selectedShowConsolePanel()	{ return showConsolePanel.get(); }
+	default void showConsolePanel()				{ CommandConsole.showConsole(selectedShowConsolePanel()); }
+	default void showConsolePanel(boolean b)	{
+		showConsolePanel.set(b);
+		showConsolePanel();
+	}
+
 	// ==================== GUI List Declarations ====================
 	//
 	static LinkedList<LinkedList<IParam>> debugOptionsMap() {
@@ -62,7 +79,10 @@ public interface IDebugOptions extends IBaseOptsTools {
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("DEBUG_MEMORY"),
 				debugShowMemory, debugConsoleMemory,
-				debugShowMoreMemory, debugFileMemory
+				debugShowMoreMemory, debugFileMemory,
+
+				headerSpacer,
+				showConsolePanel
 				)));
 		map.add(new LinkedList<>(Arrays.asList(
 				new ParamTitle("DEBUG_AUTO_PLAY"),

@@ -61,7 +61,12 @@ Later:
 
 ## What's New
 
-2024.01.05 (BR)
+2024.01.08 (BR)
+- New Command Console. (On test)
+  - Main Panel: Page_Up to open
+  - Main Panel: Page_Down to close
+
+2024.01.07 (BR)
 - Fixed multiple star systems sharing the same name.
 
 2024.01.05 (BR)

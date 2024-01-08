@@ -799,6 +799,7 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
             add(galacticCouncilUI, COUNCIL_PANEL);
             add(gameOverUI, GAME_OVER_PANEL);
         }
+        options().showConsolePanel();
         selectGamePanel();
     }
     private void selectDialogPanel(String panelName, BasePanel panel)   {
