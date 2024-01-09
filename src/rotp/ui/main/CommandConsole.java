@@ -61,7 +61,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 	private final static String newline = "<br>";
 	private static JFrame frame;
 
-	private JLabel cmdLabel, optLabel, resLabel;
+	private JLabel cmdLabel, optLabel, resultLabel;
 	private JTextField cmdField, optField;
 	private JTextPane resultPane;
 	private JScrollPane scrollPane;
@@ -72,6 +72,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 
 		cmdLabel = new JLabel("Command: ");
 		cmdField = new JTextField(80);
+		cmdLabel.setLabelFor(cmdField);
 		cmdField.addActionListener(new java.awt.event.ActionListener() {
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,6 +82,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 
 		optLabel = new JLabel("Options: ");
 		optField = new JTextField(80);
+		optLabel.setLabelFor(optField);
 		optField.addActionListener(new java.awt.event.ActionListener() {
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,8 +90,9 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 			}
 		});
 
-		resLabel = new JLabel("Result: ");
+		resultLabel = new JLabel("Result: ");
 		resultPane = new JTextPane();
+		resultLabel.setLabelFor(resultPane);
 		resultPane.setEditable(false);
 		resultPane.setOpaque(true);
 		resultPane.setContentType("text/html");
@@ -106,7 +109,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		add(cmdLabel);
 		add(cmdField, c);
 
-		add(resLabel);
+		add(resultLabel);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1.0;
 		c.weighty = 1.0;
@@ -125,13 +128,17 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		String text = getParam(optField.getText(), param);
 		String out = "Command = " + text + newline;
 		switch (text.toUpperCase()) {
+			case ""		:
 			case "?"	: out += optsHelp();	break;
 			case "CLS"	: out = "";				break;
 			case "+"	: out += next();		break;
 			case "-"	: out += prev();		break;
 			case "*"	: out += allOptions();	break;
+			case "="	: out += parseOption(param);	break;
 			default	:
-				out += parseOption(text);	break;
+				out += "? unrecognised command";
+				resultPane.setText(out);
+				return;
 		}
 		optField.setText("");
 		resultPane.setText(out);
@@ -141,16 +148,112 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		String text = getParam(cmdField.getText(), param);
 		String out = "Command = " + text + newline;
 		switch (text.toUpperCase()) {
+			case ""		:
 			case "?"	: out += cmdHelp();		break;
 			case "CLS"	: out = "";				break;
 			case "NEW"	: out += newGame();		break;
 			default:
-				out = ("Command = " + text + " ?");
+				out += "? unrecognised command";
 				resultPane.setText(out);
 				return;
 		}
 		cmdField.setText("");
 		resultPane.setText(out);
+	}
+	private String parseOption(List<String> paramList) {
+		if (paramList.isEmpty())
+			return "? Parameter is missing";
+		String param = paramList.get(0);
+    	if (currentOption instanceof ParamList) {
+    		Integer number = getInteger(param);
+    		if (number != null)
+    			((ParamList)currentOption).setFromIndex(number);
+    		else 
+    			((ParamList)currentOption).set(param);
+    	}
+    	else if (currentOption instanceof ParamInteger) {
+    		Integer number = getInteger(param);
+    		if (number != null)
+    			((ParamInteger)currentOption).set(number);
+    		else
+    			return "";
+    	}
+    	else if (currentOption instanceof ParamFloat) {
+    		Float number = getFloat(param);
+    		if (number != null)
+    			((ParamFloat)currentOption).set(number);
+    		else
+    			return "? Float expected";
+    	}
+    	else if (currentOption instanceof ParamString) {
+    		((ParamString)currentOption).set(param);
+    	}
+    	else if (currentOption instanceof ParamBoolean) {
+   			currentOption.setFromCfgValue(param);
+    	}
+    	else
+    		return "? Something wrong";
+		return optionGuide();
+	}
+	private String optsHelp() {
+		String out = clsHelp();
+		out += newline + "+: next selection";
+		out += newline + "-: previous selection";
+		out += newline + "*: show all choices";
+		out += newline + "= VALUE: Set the option";
+		return out;
+	}
+	private String cmdHelp() {
+		String out = clsHelp();
+		out += newline + "new: create a new setup";
+		return out;
+	}
+	private String clsHelp() { return ("cls: Clear screen"); }
+	
+	private String getParam (String input, List<String> param) {
+		String[] text = input.trim().split("\\s+");
+		for (int i=1; i<text.length; i++)
+			param.add(text[i]);
+		return text[0];
+	}
+	private String prev() {
+		if (currentOption == null)
+			return "? No selected option";
+		currentOption.prev();
+		return optionGuide();
+	}
+	private String next() {
+		if (currentOption == null)
+			return "? No selected option";
+		currentOption.next();
+		return optionGuide();
+	}
+	private String selectOption(IParam option) {
+		currentOption = option;
+		return optionGuide();
+	}
+	private String newGame() {
+		//resultPane.setContentType("text/html");
+		RotPUI.instance().selectGamePanel();
+		RotPUI.instance().selectSetupRacePanel();
+		return selectOption(RotPUI.setupRaceUI().playerSpecies());
+	}
+	private String allOptions() {
+		if (currentOption == null)
+			return "? No selected option";
+		return currentOption.getFullHelp();
+	}
+	private String optionGuide() {
+		if (currentOption == null)
+			return "? No selected option";
+		String out = "Current Setting: " + newline;
+		out += currentOption.getHelp();
+		// out += newline + "Current Setting Value:" +  newline;
+		out += newline + currentOption.selectionGuide();
+		out += newline + newline;
+		//out += newline + newline + "Possible Values" + newline;
+		out += currentOption.getFullHelp();
+		return out;
 	}
 	private Integer getInteger(String text) {
         try {
@@ -165,89 +268,6 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
         } catch (NumberFormatException e) {
         	return null;
         }
-	}
-	private String parseOption(String text) {
-    	if (currentOption instanceof ParamList) {
-    		Integer number = getInteger(text);
-    		if (number != null)
-    			((ParamList)currentOption).setFromIndex(number);
-    		else 
-    			((ParamList)currentOption).set(text);
-    	}
-    	else if (currentOption instanceof ParamInteger) {
-    		Integer number = getInteger(text);
-    		if (number != null)
-    			((ParamInteger)currentOption).set(number);
-    		else
-    			return "";
-    	}
-    	else if (currentOption instanceof ParamFloat) {
-    		Float number = getFloat(text);
-    		if (number != null)
-    			((ParamFloat)currentOption).set(number);
-    		else
-    			return "? Float expected";
-    	}
-    	else if (currentOption instanceof ParamString) {
-    		((ParamString)currentOption).set(text);
-    	}
-    	else if (currentOption instanceof ParamBoolean) {
-   			currentOption.setFromCfgValue(text);
-    	}
-    	else
-    		return "? Something wrong";
-		return OptionHelp();
-	}
-	private String optsHelp() {
-		String out = clsHelp();
-		out += newline + "+: next selection";
-		out += newline + "-: previous selection";
-		out += newline + "*: show all choices";
-		return out;
-	}
-	private String cmdHelp() {
-		String out = clsHelp();
-		out += newline + "new: create a new setup";
-		return out;
-	}
-	private String clsHelp() { return ("cls: Clear screen" + System.lineSeparator()); }
-	
-	private String getParam (String input, List<String> param) {
-		String[] text = input.trim().split("\\s+");
-		for (int i=1; i<text.length; i++)
-			param.add(text[i]);
-		return text[0];
-	}
-	private String allOptions() {
-		if (currentOption == null)
-			return "? No selected option";
-		return currentOption.getFullHelp();
-	}
-	private String prev() {
-		if (currentOption == null)
-			return "? No selected option";
-		currentOption.prev();
-		return OptionHelp();
-	}
-	private String next() {
-		if (currentOption == null)
-			return "? No selected option";
-		currentOption.next();
-		return OptionHelp();
-	}
-	private String newGame() {
-		//resultPane.setContentType("text/html");
-		RotPUI.instance().selectGamePanel();
-		RotPUI.instance().selectSetupRacePanel();
-		currentOption = RotPUI.setupRaceUI().playerSpecies();
-		return OptionHelp();
-	}
-	private String OptionHelp() {
-		String out = "";
-		out = currentOption.getHelp();
-		out += newline;
-		out += currentOption.selectionGuide();
-		return out;
 	}
 	/**
 	 * Create the GUI and show it.  For thread safety,

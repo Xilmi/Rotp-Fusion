@@ -171,6 +171,9 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 	                repaint();
 	            }
 			}
+			@Override public String guideDefaultValue()	{
+				return getRowGuide(defaultValueIndex());
+			}
 			@Override public String getRowGuide(int id)	{
 				String key  = getGuiValue(id);
 				String help = realLangLabel(key+LABEL_DESCRIPTION);

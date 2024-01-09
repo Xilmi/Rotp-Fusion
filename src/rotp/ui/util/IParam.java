@@ -24,6 +24,7 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
+import rotp.model.game.IDebugOptions;
 import rotp.ui.RotPUI;
 import rotp.ui.game.BaseModPanel;
 import rotp.util.LabelManager;
@@ -111,9 +112,10 @@ public interface IParam extends InterfaceOptions{
 	public default String headerHelp(boolean sep)	{ return headerHelp(getLangLabel(), sep); }
 //	public default String headerHelp()			{ return headerHelp(getLangLabel(), true); }
 	public default String defaultValueHelp()	{
-		String help = labelFormat("Default Value") + guideDefaultValue()
-					+ htmlTuneFont(-2, "&emsp<i>(set with Middle Click)<i/>")
-					+ baseSeparator();
+		String help = labelFormat("Default Value") + guideDefaultValue();
+		if (!IDebugOptions.showConsolePanel.get())
+			help += htmlTuneFont(-2, "&emsp<i>(set with Middle Click)<i/>");
+		help += baseSeparator();
 		return help;
 	}
 	// The value in help format

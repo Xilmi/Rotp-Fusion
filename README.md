@@ -63,6 +63,7 @@ Later:
 
 2024.01.09 (BR)
 - Command Console: added Player Species selection.
+- Command Console: Linked the labels and added "= VALUE".
 
 2024.01.08 (BR)
 - New Command Console. (On test)
