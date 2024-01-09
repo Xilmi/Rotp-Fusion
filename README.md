@@ -61,6 +61,9 @@ Later:
 
 ## What's New
 
+2024.01.09 (BR)
+- Command Console: added Player Species selection.
+
 2024.01.08 (BR)
 - New Command Console. (On test)
   - Main Panel: Page_Up to open

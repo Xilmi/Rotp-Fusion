@@ -29,7 +29,6 @@ import java.util.List;
 import rotp.model.game.IGameOptions;
 import rotp.ui.RotPUI;
 import rotp.ui.game.BaseModPanel;
-import rotp.util.ModifierKeysState;
 
 public class ParamList extends AbstractParam<String> {
 

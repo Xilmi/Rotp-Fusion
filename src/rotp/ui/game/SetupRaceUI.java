@@ -16,6 +16,12 @@
 package rotp.ui.game;
 
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
+import static rotp.model.empires.CustomRaceDefinitions.BASE_RACE_MARKER;
+import static rotp.model.empires.CustomRaceDefinitions.fileToAlienRace;
+import static rotp.ui.util.IParam.labelFormat;
+import static rotp.ui.util.IParam.langLabel;
+import static rotp.ui.util.IParam.realLangLabel;
+import static rotp.ui.util.IParam.rowFormat;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -49,6 +55,7 @@ import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.ui.main.SystemPanel;
+import rotp.ui.util.ParamList;
 import rotp.util.FontManager;
 import rotp.util.ModifierKeysState;
 
@@ -149,7 +156,50 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
     private Box	helpBox		= new Box("SETTINGS_BUTTON_HELP");
     private Box	cancelBox	= new Box("SETUP_RACE_CANCEL");
 //    private boolean drawAllButtons = true;
-    
+	public ParamList playerSpecies() {
+		ParamList species =	new ParamList( // For Guide
+				BASE_UI, "PLAYER_SPECIES", guiOptions().getNewRacesOnOffList(), IRaceOptions.defaultRace) {
+			{ isDuplicate(true);}
+			@Override public String	getOptionValue(IGameOptions options)	{
+				return options.selectedPlayerRace();
+			}
+			@Override protected void setOptionValue(IGameOptions options, String value)	{
+		        String selRace = newGameOptions().selectedPlayerRace();
+	            if (!selRace.equals(value)) {
+	                newGameOptions().selectedPlayerRace(value);
+	                raceChanged();
+	                repaint();
+	            }
+			}
+			@Override public String getRowGuide(int id)	{
+				String key  = getGuiValue(id);
+				String help = realLangLabel(key+LABEL_DESCRIPTION);
+				if (help != null)
+					return rowFormat(labelFormat(name(id)), help);
+
+				Race   race		= Race.keyed(key);
+				String raceName = race.setupName();
+				if (key.startsWith(BASE_RACE_MARKER))
+					help = labelFormat(name(id)) + "<i>(Original species)</i>&nbsp " + race.description1;
+				else
+					help = "("+ id +") "+labelFormat(raceName) + race.description1;
+				help += "<br>" + race.description2
+					 +  "<br>" + race.description3.replace("[race]", raceName)
+					 +  "<br>" + race.description4;
+				return help;
+			}
+			@Override public String	guideValue()	{ return text(get()); }
+//			@Override public String	guideValue()	{ return langLabel(get()); }
+			@Override public void reInit(List<String> list) {
+				if (list == null)
+					super.reInit(guiOptions().getNewRacesOnOffList());
+				else
+					super.reInit(list);
+			}
+		};
+		return species;
+	}
+
 	@Override protected Box newExitBox()		{ return new Box("SETUP_RACE_NEXT"); }
 	@Override protected String exitButtonKey()	{return "SETUP_BUTTON_NEXT" ; }
 	@Override protected Font bigButtonFont(boolean retina)	{
@@ -1211,70 +1261,70 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
             case KeyEvent.VK_ENTER:
             	doNextBoxAction();
                 return;
-            case KeyEvent.VK_HOME:
-            	int st = 1500;
-            	System.out.println("");
-            	System.out.println("ShipLaser");
-            	playAudioClip("ShipLaser");
-            	sleep(st);
-            	System.out.println("ShipMultiLaser");
-            	playAudioClip("ShipMultiLaser");
-            	sleep(st);
-            	System.out.println("ShipNeutronPelletGun");
-            	playAudioClip("ShipNeutronPelletGun");
-            	sleep(st);
-            	System.out.println("ShipIonCannon");
-            	playAudioClip("ShipIonCannon");
-            	sleep(st);
-            	System.out.println("ShipMassDriver");
-            	playAudioClip("ShipMassDriver");
-            	sleep(st);
-            	System.out.println("ShipNeutronBlaster");
-            	playAudioClip("ShipNeutronBlaster");
-            	sleep(st);
-            	System.out.println("ShipGravitonBeam");
-            	playAudioClip("ShipGravitonBeam");
-            	sleep(st);
-            	System.out.println("ShipHardBeam");
-            	playAudioClip("ShipHardBeam");
-            	sleep(st);
-            	System.out.println("ShipFusionBeam");
-            	playAudioClip("ShipFusionBeam");
-            	sleep(st);
-            	System.out.println("ShipMegaBoltCannon");
-            	playAudioClip("ShipMegaBoltCannon");
-            	sleep(st);
-            	System.out.println("ShipPhasor");
-            	playAudioClip("ShipPhasor");
-            	sleep(st);
-            	System.out.println("ShipAutoBlaster");
-            	playAudioClip("ShipAutoBlaster");
-            	sleep(st);
-            	System.out.println("ShipTachyonBeam");
-            	playAudioClip("ShipTachyonBeam");
-            	sleep(st);
-            	System.out.println("ShipGaussAutoCannon");
-            	playAudioClip("ShipGaussAutoCannon");
-            	sleep(st);
-            	System.out.println("ShipParticleBeam");
-            	playAudioClip("ShipParticleBeam");
-            	sleep(st);
-            	System.out.println("ShipPlasmaCannon");
-            	playAudioClip("ShipPlasmaCannon");
-            	sleep(st);
-            	System.out.println("ShipDeathRay");
-            	playAudioClip("ShipDeathRay");
-            	sleep(st);
-            	System.out.println("ShipDisruptor");
-            	playAudioClip("ShipDisruptor");
-            	sleep(st);
-            	System.out.println("ShipPulsePhasor");
-            	playAudioClip("ShipPulsePhasor");
-            	sleep(st);
-            	System.out.println("ShipTriFocusPlasmaCannon");
-            	playAudioClip("ShipTriFocusPlasmaCannon");
-            	sleep(st);
-                return;
+//            case KeyEvent.VK_HOME:
+//            	int st = 1500;
+//            	System.out.println("");
+//            	System.out.println("ShipLaser");
+//            	playAudioClip("ShipLaser");
+//            	sleep(st);
+//            	System.out.println("ShipMultiLaser");
+//            	playAudioClip("ShipMultiLaser");
+//            	sleep(st);
+//            	System.out.println("ShipNeutronPelletGun");
+//            	playAudioClip("ShipNeutronPelletGun");
+//            	sleep(st);
+//            	System.out.println("ShipIonCannon");
+//            	playAudioClip("ShipIonCannon");
+//            	sleep(st);
+//            	System.out.println("ShipMassDriver");
+//            	playAudioClip("ShipMassDriver");
+//            	sleep(st);
+//            	System.out.println("ShipNeutronBlaster");
+//            	playAudioClip("ShipNeutronBlaster");
+//            	sleep(st);
+//            	System.out.println("ShipGravitonBeam");
+//            	playAudioClip("ShipGravitonBeam");
+//            	sleep(st);
+//            	System.out.println("ShipHardBeam");
+//            	playAudioClip("ShipHardBeam");
+//            	sleep(st);
+//            	System.out.println("ShipFusionBeam");
+//            	playAudioClip("ShipFusionBeam");
+//            	sleep(st);
+//            	System.out.println("ShipMegaBoltCannon");
+//            	playAudioClip("ShipMegaBoltCannon");
+//            	sleep(st);
+//            	System.out.println("ShipPhasor");
+//            	playAudioClip("ShipPhasor");
+//            	sleep(st);
+//            	System.out.println("ShipAutoBlaster");
+//            	playAudioClip("ShipAutoBlaster");
+//            	sleep(st);
+//            	System.out.println("ShipTachyonBeam");
+//            	playAudioClip("ShipTachyonBeam");
+//            	sleep(st);
+//            	System.out.println("ShipGaussAutoCannon");
+//            	playAudioClip("ShipGaussAutoCannon");
+//            	sleep(st);
+//            	System.out.println("ShipParticleBeam");
+//            	playAudioClip("ShipParticleBeam");
+//            	sleep(st);
+//            	System.out.println("ShipPlasmaCannon");
+//            	playAudioClip("ShipPlasmaCannon");
+//            	sleep(st);
+//            	System.out.println("ShipDeathRay");
+//            	playAudioClip("ShipDeathRay");
+//            	sleep(st);
+//            	System.out.println("ShipDisruptor");
+//            	playAudioClip("ShipDisruptor");
+//            	sleep(st);
+//            	System.out.println("ShipPulsePhasor");
+//            	playAudioClip("ShipPulsePhasor");
+//            	sleep(st);
+//            	System.out.println("ShipTriFocusPlasmaCannon");
+//            	playAudioClip("ShipTriFocusPlasmaCannon");
+//            	sleep(st);
+//                return;
             default:
                 return;
         }
