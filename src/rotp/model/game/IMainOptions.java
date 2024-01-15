@@ -256,7 +256,7 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		{ isCfgFile(true); }
 		@Override public void setOption(Boolean val) { FontManager.INSTANCE.resetGalaxyFont(); }
 	};
-	ParamList buttonsOption			= new ParamList( MOD_UI, "COMPACT_OPTION_ONLY", "No") {
+	ParamList compactOptionOnly			= new ParamList( MOD_UI, "COMPACT_OPTION_ONLY", "No") {
 		{
 			isCfgFile(true);
 			showFullGuide(true);
@@ -266,8 +266,8 @@ public interface IMainOptions extends IDebugOptions, ICombatOptions {
 		}
 	};
 
-	ParamBoolean compactOptionOnly	= new ParamBoolean(MOD_UI, "COMPACT_OPTION_ONLY", false)
-	{	{ isCfgFile(true); } };
+//	ParamBoolean compactOptionOnly	= new ParamBoolean(MOD_UI, "COMPACT_OPTION_ONLY", false)
+//	{	{ isCfgFile(true); } };
 
 	ParamBoolean showAlternateAnimation	= new ParamBoolean(MOD_UI, "SHOW_ALT_ANIMATION", true)
 	{	{ isCfgFile(true); } };

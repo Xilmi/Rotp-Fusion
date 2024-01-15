@@ -17,9 +17,7 @@ package rotp.ui.game;
 
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static rotp.model.empires.CustomRaceDefinitions.BASE_RACE_MARKER;
-import static rotp.model.empires.CustomRaceDefinitions.fileToAlienRace;
 import static rotp.ui.util.IParam.labelFormat;
-import static rotp.ui.util.IParam.langLabel;
 import static rotp.ui.util.IParam.realLangLabel;
 import static rotp.ui.util.IParam.rowFormat;
 
@@ -56,6 +54,7 @@ import rotp.ui.RotPUI;
 import rotp.ui.game.HelpUI.HelpSpec;
 import rotp.ui.main.SystemPanel;
 import rotp.ui.util.ParamList;
+import rotp.ui.util.ParamString;
 import rotp.util.FontManager;
 import rotp.util.ModifierKeysState;
 
@@ -192,7 +191,6 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 				return help;
 			}
 			@Override public String	guideValue()	{ return text(get()); }
-//			@Override public String	guideValue()	{ return langLabel(get()); }
 			@Override public void reInit(List<String> list) {
 				if (list == null)
 					super.reInit(guiOptions().getNewRacesOnOffList());
@@ -202,9 +200,48 @@ public final class SetupRaceUI extends BaseModPanel implements MouseWheelListene
 		};
 		return species;
 	}
+	public ParamString playerHomeWorld() {
+		ParamString homeWorld = new ParamString(BASE_UI, "PLAYER_HOMEWORLD", "") {
+			{ isDuplicate(true);}
+			@Override public String	getOptionValue(IGameOptions options)	{
+				return options.selectedHomeWorldName();
+			}
+			@Override protected void setOptionValue(IGameOptions options, String value)	{
+				options.selectedHomeWorldName(value);
+                repaint();
+			}
+			@Override public String	guideValue()	{ return text(get()); }
+//			@Override public String guideDefaultValue()	{
+//				return defaultValue();
+//			}
+			@Override public String	defaultValue()	{
+		        Race r = Race.keyed(newGameOptions().selectedPlayerRace());
+				return r.defaultHomeworldName();
+			}
+		};
+		return homeWorld;
+	}
+	public ParamString playerLeader() {
+		ParamString leader = new ParamString(BASE_UI, "PLAYER_LEADER", "") {
+			{ isDuplicate(true);}
+			@Override public String	getOptionValue(IGameOptions options)	{
+				return options.selectedLeaderName();
+			}
+			@Override protected void setOptionValue(IGameOptions options, String value)	{
+				options.selectedLeaderName(value);
+                repaint();
+			}
+			@Override public String	guideValue()	{ return text(get()); }
+			@Override public String	defaultValue()	{
+		        Race r = Race.keyed(newGameOptions().selectedPlayerRace());
+				return r.randomLeaderName();
+			}
+		};
+		return leader;
+	}
 
 	@Override protected Box newExitBox()		{ return new Box("SETUP_RACE_NEXT"); }
-	@Override protected String exitButtonKey()	{return "SETUP_BUTTON_NEXT" ; }
+	@Override protected String exitButtonKey()	{ return "SETUP_BUTTON_NEXT" ; }
 	@Override protected Font bigButtonFont(boolean retina)	{
 		if (retina)
 			return narrowFont(retina(buttonFont));

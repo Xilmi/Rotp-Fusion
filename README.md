@@ -61,6 +61,11 @@ Later:
 
 ## What's New
 
+2024.01.14 (BR)
+- Command Console: new structure to accept sub panels
+  - Single command line compatible.
+  - Partial setup only yet.
+
 2024.01.09 (BR)
 - Command Console: added Player Species selection.
 - Command Console: Linked the labels and added "= VALUE".

@@ -1678,6 +1678,10 @@ SETUP_ALIENS_NUMBER               | Select Opponents Number.
 
 SETUP_PLAYER_SPECIES_DESC         | Select your Species
 SETUP_PLAYER_SPECIES              | Player Species
+SETUP_PLAYER_HOMEWORLD_DESC       | Select the name of your Home World.
+SETUP_PLAYER_HOMEWORLD            | Player Home World
+SETUP_PLAYER_LEADER_DESC          | Select the name of your leader.
+SETUP_PLAYER_LEADER               | Player Leader
 
 
 SETUP_NO_FOG_ON_ICONS             | Remove diplomat fog: %1

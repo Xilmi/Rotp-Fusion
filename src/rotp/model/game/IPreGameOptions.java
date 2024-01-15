@@ -8,6 +8,7 @@ import java.util.List;
 
 import rotp.Rotp;
 import rotp.model.planet.Planet;
+import rotp.ui.RotPUI;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamAAN2;
 import rotp.ui.util.ParamBoolean;
@@ -69,6 +70,14 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions {
 			, 10, 3, Rotp.maximumSystems-1, 1, 10, 100) {
 		@Override public Integer defaultValue() {
 			return prefStarsPerEmpire.get();
+		}
+		@Override public void prev() {
+			super.prev();
+			RotPUI.setupGalaxyUI().postGalaxySizeSelection(true);
+		}
+		@Override public void next() {
+			super.next();
+			RotPUI.setupGalaxyUI().postGalaxySizeSelection(true);
 		}
 	};
 	default int selectedDynStarsPerEmpire()		{ return Math.abs(dynStarsPerEmpire.get()); }

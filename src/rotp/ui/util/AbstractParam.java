@@ -173,7 +173,7 @@ public abstract class AbstractParam <T> implements IParam{
 			return "";
 		}
 	}
-	@Override public String guideDefaultValue()	{ return defaultValue.toString(); }
+	@Override public String guideDefaultValue()	{ return defaultValue().toString(); }
 	@Override public boolean isDefaultValue()	{ return defaultValue.equals(get()); }
 	@Override public boolean isDuplicate()		{ return isDuplicate; }
 	@Override public boolean isCfgFile()		{ return isCfgFile; }
@@ -214,7 +214,7 @@ public abstract class AbstractParam <T> implements IParam{
 	// ========== Public Getters ==========
 	//
 	public String getLabel()	{ return langLabel(getLangLabel()); }
-	protected T creationValue()	{ return isValueInit? value : defaultValue; }
+	protected T creationValue()	{ return isValueInit? value : defaultValue(); }
 	T minValue()	{ return minValue; }	
 	T maxValue()	{ return maxValue; }	
 	T baseInc()		{ return baseInc; }	

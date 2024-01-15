@@ -35,7 +35,7 @@ import static rotp.model.game.IGalaxyOptions.shapeSelection;
 import static rotp.model.game.IGalaxyOptions.showNewRaces;
 import static rotp.model.game.IGalaxyOptions.sizeSelection;
 import static rotp.model.game.IGalaxyOptions.useSelectableAbilities;
-import static rotp.model.game.IMainOptions.buttonsOption;
+import static rotp.model.game.IMainOptions.compactOptionOnly;
 import static rotp.model.game.IMainOptions.galaxyPreviewColorStarsSize;
 import static rotp.model.game.IMainOptions.minListSizePopUp;
 import static rotp.model.game.IPreGameOptions.dynStarsPerEmpire;
@@ -146,7 +146,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			RESTART_KEY,
 			"");
 	}
-	private final ParamList opponentAI			= new ParamList( // For Guide
+	public final ParamList opponentAI			= new ParamList( // For Guide
 			BASE_UI, "OPPONENT_AI",
 			IGameOptions.globalAIset().getAliens(),
 			IGameOptions.defaultAI.aliensKey) {
@@ -159,6 +159,22 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 				super.reInit(IGameOptions.globalAIset().getAliens());
 			else
 				super.reInit(list);
+		}
+		@Override public String setFromIndex(int index) {
+			String value = super.setFromIndex(index);
+			newGameOptions().selectedOpponentAIOption(value);
+			return value;
+		}
+		@Override public String set(String value) {
+			super.set(value);
+			newGameOptions().selectedOpponentAIOption(value);
+			return value;
+		}
+		@Override public void prev() {
+			prevOpponentAI(true);
+		}
+		@Override public void next() {
+			nextOpponentAI(true);
 		}
 	};
 	private final ParamList specificAI			= new ParamList( // For Guide
@@ -231,7 +247,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			return tableFormat(help);
 		}
 	};
-    private final ParamList globalAbilities		= new ParamList( // For Guide
+    public final ParamList globalAbilities		= new ParamList( // For Guide
 			BASE_UI, "GLOBAL_ABILITY", globalAbilitiesList,
 			SpecificCROption.BASE_RACE.value)	{
 		@Override public String	getOptionValue(IGameOptions options) {
@@ -254,6 +270,22 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 					+ "&ensp /&ensp " + race.description3.replace("[race]", raceName)
 					+ "&ensp /&ensp " + race.description4;
 			return help;
+		}
+		@Override public String setFromIndex(int index) {
+			String value = super.setFromIndex(index);
+			globalCROptions.set(value);
+			return value;
+		}
+		@Override public String set(String value) {
+			super.set(value);
+			globalCROptions.set(value);
+			return value;
+		}
+		@Override public void prev() {
+			prevGlobalAbilities(true);
+		}
+		@Override public void next() {
+			nextGlobalAbilities(true);
 		}
 	};
 	private final ParamList specificAbilities	= new ParamList( // For Guide
@@ -758,7 +790,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 //			nL   = 9;
 //			txt  = text("SETUP_GALAXY_CLASSIC_OPTIONS_HELP");
 //		}
-		switch (buttonsOption.get().toUpperCase()) {
+		switch (compactOptionOnly.get().toUpperCase()) {
 			case "NO": {
 				hBox = settingsBox.height + 2*margin;
 				wBox = settingsBox.width + 2*margin;
@@ -802,7 +834,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		sp   = helpUI.addBrownHelpText(xBox, yBox, wBox, nL, txt);
 		xb   = xBox + wBox*5/6;
 		yb   = yBox + sp.height();
-		if (buttonsOption.get().equalsIgnoreCase("NO")) {
+		if (compactOptionOnly.get().equalsIgnoreCase("NO")) {
 			xe = settingsBox.x;
 			ye = settingsBox.y;
 			sp.setLine(xb, yb, xe, ye);
@@ -1533,7 +1565,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 					int sw2 = g.getFontMetrics().stringWidth(label3);
 					g.setFont(narrowFont(fs));
 					int x5e =mapOption3Box.x+((mapOption3Box.width-sw2)/2);
-					switch (buttonsOption.get().toUpperCase()) {
+					switch (compactOptionOnly.get().toUpperCase()) {
 						case "NO":
 						case "YES": {
 							drawString(g,label3, x5e, y5+s60);
@@ -1604,7 +1636,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			List<String> warnLines = this.wrappedLines(g, warning, galaxyW);
 			g.setColor(Color.white);
 			int warnY = y5+s60;
-			switch (buttonsOption.get().toUpperCase()) {
+			switch (compactOptionOnly.get().toUpperCase()) {
 				case "NO":
 				case "YES": {
 					warnY += s25;
@@ -1648,7 +1680,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
     }
 	private void drawFixButtons(Graphics2D g, boolean all) {
 		Stroke prev;
-		switch (buttonsOption.get().toUpperCase()) {
+		switch (compactOptionOnly.get().toUpperCase()) {
 			case "YES": {
 				g.setFont(narrowFont(20)); // 18 for 3 buttons// 20 for 2 buttons
 				// BR: second UI panel for MOD game options
@@ -2117,7 +2149,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
     	return galaxyShape.equals(IGameOptions.SHAPE_RANDOM)
     			|| galaxyShape.equals(IGameOptions.SHAPE_RANDOM_2);
     }
- 	private void postGalaxySizeSelection(boolean click) {
+ 	public void postGalaxySizeSelection(boolean click) {
 		if (click) softClick();
 		int numOpps = newGameOptions().selectedNumberOpponents();
 		if(numOpps<0) {
@@ -2715,7 +2747,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		mapOption3Box.setBounds(0,0,0,0);
 		if (newGameOptions().numGalaxyShapeOption2() > 0) {
 			if (this.isShapeBitmapGalaxy()) {
-				switch (buttonsOption.get().toUpperCase()) {
+				switch (compactOptionOnly.get().toUpperCase()) {
 					case "NO":
 					case "YES": {
 						mapOption3Box.setBounds(sliderX, sliderYAI+s60, sliderW+2*sectionW, sliderH);
@@ -2812,7 +2844,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		int dx = 145; // 145 for 3 buttons // 200 for 2 buttons 1 row // 241 for centered
 		int dy = 30; // 30 for 3 buttons // 35 for 2 buttons
 		
-		switch (buttonsOption.get().toUpperCase()) {
+		switch (compactOptionOnly.get().toUpperCase()) {
 			case "YES": {
 				yb = 610; // 615 for 3 buttons (1 row) // 610 for 2 buttons
 				xb = 960; // 984 for 3 buttons // 960 for 2 buttons 1 row // 948 for centered
@@ -3018,7 +3050,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			doStartBoxAction();
 			return;
     	case KeyEvent.VK_B:
-    		buttonsOption.next();
+    		compactOptionOnly.next();
     		clearImages();
     		initBackImg();
     		repaint();
@@ -3083,7 +3115,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			doStartBoxAction();
 		else if (hoverPolyBox == shapeBoxL) {
 			shapeSelection.prev();
-			postSelectionFull(true);
+			//postSelectionFull(true);
 		}
 		else if (hoverBox == shapeBox) {
 			shapeSelection.toggle(e,  this);
@@ -3091,7 +3123,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		else if (hoverPolyBox == shapeBoxR) {
 			shapeSelection.next();
-			postSelectionFull(true);
+			//postSelectionFull(true);
 		}
 		else if (hoverPolyBox == mapOption1BoxL)
 			prevMapOption1(true);
@@ -3106,7 +3138,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			nextMapOption1(true);
 		else if (hoverPolyBox == mapOption2BoxL) {
 			shapeOption2.prev();
-			postSelectionMedium(true);
+			//postSelectionMedium(true);
 		}
 		else if (hoverBox == mapOption2Box) {
 			shapeOption2.toggle(e, this);
@@ -3114,13 +3146,13 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		else if (hoverPolyBox == mapOption2BoxR) {
 			shapeOption2.next();
-			postSelectionMedium(true);
+			//postSelectionMedium(true);
 		}
 		else if (hoverBox == mapOption3Box)
 			selectBitmapFromList();
 		else if (hoverPolyBox == sizeBoxL) {
 			sizeSelection.prev();
-			postGalaxySizeSelection(true);
+			// postGalaxySizeSelection(true);
 		}
 		else if (hoverBox == sizeBox) {
 			sizeSelection.toggle(e, this);
@@ -3128,19 +3160,19 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		else if (hoverPolyBox == sizeBoxR) {
 			sizeSelection.next();
-			postGalaxySizeSelection(true);
+			// postGalaxySizeSelection(true);
 		}
 		else if (hoverPolyBox == sizeOptionBoxL) {
 			dynStarsPerEmpire.prev(e);
-			postGalaxySizeSelection(true);
+			// postGalaxySizeSelection(true);
 		}
 		else if (hoverBox == sizeOptionBox) {
 			dynStarsPerEmpire.toggle(e, this);
-			postGalaxySizeSelection(true);
+			postSelectionMedium(true);
 		}
 		else if (hoverPolyBox == sizeOptionBoxR) {
 			dynStarsPerEmpire.next(e);
-			postGalaxySizeSelection(true);
+			// postGalaxySizeSelection(true);
 		}
 		else if (hoverPolyBox == aiBoxL)
 			prevOpponentAI(true);
@@ -3172,19 +3204,19 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		else if (hoverPolyBox == wysiwygBoxL) {
 			galaxyRandSource.prev();
-			postGalaxySizeSelection(true);
+			postSelectionMedium(true);
 		}
 		else if (hoverBox == wysiwygBox) {
 			galaxyRandSource.toggle(e, this);
-			postGalaxySizeSelection(true);
+			postSelectionMedium(true);
 		}
 		else if (hoverPolyBox == wysiwygBoxR) {
 			galaxyRandSource.next();
-			postGalaxySizeSelection(true);
+			postSelectionMedium(true);
 		}
 		else if (hoverPolyBox == oppBoxU) {
 			aliensNumber.next();
-			postSelectionMedium(true);
+			//postSelectionMedium(true);
 		}
 		else if (hoverBox == oppBox)
 		 {
@@ -3194,7 +3226,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		else if (hoverPolyBox == oppBoxD)
 		 {
 			aliensNumber.prev();
-			postSelectionMedium(true);
+			//postSelectionMedium(true);
 		}
 		else {
 			for (int i=0;i<oppSet.length;i++) {
@@ -3236,7 +3268,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		else if (hoverBox == sizeOptionBox) {
 			dynStarsPerEmpire.toggle(e);
-			postGalaxySizeSelection(false);
+			postSelectionMedium(false);
 		}
 		else if (hoverBox == aiBox) {
 			if (up)
@@ -3264,7 +3296,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		else if (hoverBox == wysiwygBox)
 		 {
 			galaxyRandSource.toggle(e);
-			postGalaxySizeSelection(false);
+			postSelectionMedium(false);
 		}
 		else if (hoverBox == oppBox) {
 			aliensNumber.toggle(e);
