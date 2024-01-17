@@ -62,7 +62,10 @@ Later:
 ## What's New
 
 2024.01.14 (BR)
-- Command Console: new structure to accept sub panels
+- Command Console: added all setup options
+
+2024.01.14 (BR)
+- Command Console: new structure to accept sub panels.
   - Single command line compatible.
   - Partial setup only yet.
 

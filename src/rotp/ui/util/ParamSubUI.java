@@ -135,6 +135,7 @@ public class ParamSubUI extends AbstractParam<LinkedList<LinkedList<IParam>>> {
 
 	// ===== Other Methods =====
 	//
+	public String titleId() { return GUI_TITLE_ID; }
 	public LinkedList<IParam> optionsList() { return optionsList; }
 	public void updateList() {
 		optionsList.clear();

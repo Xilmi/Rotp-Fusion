@@ -49,6 +49,7 @@ public interface IParam extends InterfaceOptions{
 	public default boolean	isTitle()				{ return false; }
 	public default boolean	isSubMenu()				{ return false; }
 	public default boolean	isDefaultValue()		{ return false; }
+	public default boolean	isActive()				{ return true; }
 	public default boolean	updated()				{ return true; }
 	// Display
 	public default void setFromCfgValue(String val) {}
@@ -120,8 +121,14 @@ public interface IParam extends InterfaceOptions{
 	}
 	// The value in help format
 	public default String getSelectionStr()		{ return labelFormat(guideValue()); }
-	public default String getValueStr(int id)	{ return labelFormat(getGuiValue(id)); }
+	public default String getValueStr(int id)	{
+		if (id<0)
+			return "";
+		 return labelFormat(getGuiValue(id));
+	}
 	public default String getRowGuide(int id)	{
+		if (id<0)
+			return "";
 		String help = realHelp(id);
 		if (help == null)
 			help = realDescription(id);
@@ -151,9 +158,21 @@ public interface IParam extends InterfaceOptions{
 		return help;
 	}
 	// ===== Upper level language tools =====
-	public default String name(int id)				{ return langName(getLangLabel(id)); }
-	public default String realDescription(int id)	{ return langDesc(getLangLabel(id)); }
-	public default String realHelp(int id)			{ return langHelp(getLangLabel(id)); }
+	public default String name(int id)				{
+		if (id<0)
+			return "";
+		return langName(getLangLabel(id));
+	}
+	public default String realDescription(int id)	{
+		if (id<0)
+			return "";
+		return langDesc(getLangLabel(id));
+	}
+	public default String realHelp(int id)			{
+		if (id<0)
+			return "";
+		return langHelp(getLangLabel(id));
+	}
 	// ===== Formatters =====
 	public static String tableFormat(String str)	{ return str; }
 	public static String rowFormat(String... strA)	{

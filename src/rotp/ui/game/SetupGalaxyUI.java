@@ -2149,7 +2149,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
     	return galaxyShape.equals(IGameOptions.SHAPE_RANDOM)
     			|| galaxyShape.equals(IGameOptions.SHAPE_RANDOM_2);
     }
- 	public void postGalaxySizeSelection(boolean click) {
+ 	public	void postGalaxySizeSelection(boolean click) {
 		if (click) softClick();
 		int numOpps = newGameOptions().selectedNumberOpponents();
 		if(numOpps<0) {
@@ -2168,18 +2168,18 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		backImg = null; // BR: to show/hide system per empire
 		postSelectionLight(false);
 	}
-	private void postSelectionFull(boolean click) {
+	public	void postSelectionFull(boolean click) {
 		if (click) softClick();
 		newGameOptions().galaxyShape().quickGenerate();
 		backImg = null;
 		postSelectionLight(false);
 	}
-	private void postSelectionMedium(boolean click) {
+	public	void postSelectionMedium(boolean click) {
 		if (click) softClick();
 		newGameOptions().galaxyShape().quickGenerate();
 		postSelectionLight(false);
 	}
-	private void postSelectionLight(boolean click) {
+	public	void postSelectionLight(boolean click) {
 		if (click) softClick();
 		loadGuide();
 		repaint();
@@ -3192,7 +3192,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 			toggleShowAbility(true);
 		else if (hoverPolyBox == diffBoxL) {
 			difficultySelection.prev();
-			postSelectionLight(true);
+			// postSelectionLight(true);
 		}
 		else if (hoverBox == diffBox) {
 			difficultySelection.toggle(e, this);
@@ -3200,11 +3200,11 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		else if (hoverPolyBox == diffBoxR) {
 			difficultySelection.next();
-			postSelectionLight(true);
+			// postSelectionLight(true);
 		}
 		else if (hoverPolyBox == wysiwygBoxL) {
 			galaxyRandSource.prev();
-			postSelectionMedium(true);
+			// postSelectionMedium(true);
 		}
 		else if (hoverBox == wysiwygBox) {
 			galaxyRandSource.toggle(e, this);
@@ -3212,11 +3212,11 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		}
 		else if (hoverPolyBox == wysiwygBoxR) {
 			galaxyRandSource.next();
-			postSelectionMedium(true);
+			// postSelectionMedium(true);
 		}
 		else if (hoverPolyBox == oppBoxU) {
 			aliensNumber.next();
-			//postSelectionMedium(true);
+			// postSelectionMedium(true);
 		}
 		else if (hoverBox == oppBox)
 		 {

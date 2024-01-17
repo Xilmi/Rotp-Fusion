@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 import rotp.Rotp;
+import rotp.ui.RotPUI;
 import rotp.ui.util.GlobalCROptions;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
@@ -27,7 +28,18 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 	// ==================== Galaxy Menu addition ====================
 	//
 	ParamInteger galaxyRandSource		= new ParamInteger(MOD_UI, "GALAXY_RAND_SOURCE",
-			0, 0, Integer.MAX_VALUE, 1, 100, 10000).loop(true);
+			0, 0, Integer.MAX_VALUE, 1, 100, 10000) {
+		{ loop(true); }
+		@Override public void	next()	{
+			super.next();
+			RotPUI.setupGalaxyUI().postSelectionMedium(true);
+		}
+		@Override public void	prev()	{
+			super.prev();
+			RotPUI.setupGalaxyUI().postSelectionMedium(true);
+		}
+
+	};
 	default int selectedGalaxyRandSource()		{ return galaxyRandSource.get(); }
 	ParamBoolean showNewRaces 			= new ParamBoolean(MOD_UI, "SHOW_NEW_RACES", false);
 	default boolean selectedShowNewRaces()		{ return showNewRaces.get(); }
@@ -54,8 +66,12 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 			options.selectedGalaxyShapeOption2(newValue);
 		}
 		@Override public String	headerHelp(boolean sep) {
+			if (listSize() == 0)
+				return ("This shape do not have a secondary option<br>");
 			return headerHelp(shapeSelection.get() + "_O2", sep); }
 		@Override public String getLangLabel(int id) {
+			if (id<0)
+				return "";
 			String label = super.getLangLabel(id);
 			if (label != null && label.startsWith("SETUP_GALAXY_MAP_OPTION_")) {
 				if (shapeOption1.get().endsWith("0"))
@@ -64,6 +80,14 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 					label += "1";
 			}
 			return label;
+		}
+		@Override public void	next()	{
+			super.next();
+			RotPUI.setupGalaxyUI().postSelectionMedium(true);
+		}
+		@Override public void	prev()	{
+			super.prev();
+			RotPUI.setupGalaxyUI().postSelectionMedium(true);
 		}
 	};
 	ParamList    shapeOption1   		= new ParamList( // Duplicate Do not add the list
@@ -76,7 +100,17 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 			options.selectedGalaxyShapeOption1(newValue);
 		}
 		@Override public String	headerHelp(boolean sep) {
+			if (listSize() == 0)
+				return ("This shape do not have options<br>");
 			return headerHelp(shapeSelection.get() + "_O1", sep); }
+		@Override public void	next()	{
+			super.next();
+			RotPUI.setupGalaxyUI().postSelectionMedium(true);
+		}
+		@Override public void	prev()	{
+			super.prev();
+			RotPUI.setupGalaxyUI().postSelectionMedium(true);
+		}
 	};
 	ParamList    shapeSelection			= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "GALAXY_SHAPE", getGalaxyShapeOptions(),  SHAPE_RECTANGLE) {
@@ -85,6 +119,14 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 		}
 		@Override public void setOptionValue(IGameOptions options, String newValue) {
 			options.selectedGalaxyShape(newValue);
+		}
+		@Override public void	next()	{
+			super.next();
+			RotPUI.setupGalaxyUI().postSelectionFull(true);
+		}
+		@Override public void	prev()	{
+			super.prev();
+			RotPUI.setupGalaxyUI().postSelectionFull(true);
 		}
 	};
 	ParamList    sizeSelection 			= new ParamList( // Duplicate Do not add the list
@@ -119,6 +161,14 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 				return langLabel("SETUP_GALAXY_SIZE_UP1000_DESC");
 			return langLabel("SETUP_GALAXY_SIZE_OVER1000_DESC");
 		}
+		@Override public void	next()	{
+			super.next();
+			RotPUI.setupGalaxyUI().postGalaxySizeSelection(true);
+		}
+		@Override public void	prev()	{
+			super.prev();
+			RotPUI.setupGalaxyUI().postGalaxySizeSelection(true);
+		}
 	};
 	ParamList    difficultySelection	= new ParamList( // Duplicate Do not add the list
 			BASE_UI, "GAME_DIFFICULTY", getGameDifficultyOptions(), DIFFICULTY_NORMAL) {
@@ -140,6 +190,14 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 			}
 			return diffLbl;
 		}
+		@Override public void	next()	{
+			super.next();
+			RotPUI.setupGalaxyUI().postSelectionLight(true);
+		}
+		@Override public void	prev()	{
+			super.prev();
+			RotPUI.setupGalaxyUI().postSelectionLight(true);
+		}
 	};
 	ParamInteger aliensNumber 			= new ParamInteger( // Duplicate Do not add the list
 			BASE_UI, "ALIENS_NUMBER", 1, 0, 49, 1, 5, 20) {
@@ -154,6 +212,14 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 		}
 		@Override public Integer defaultValue() {
 			return opts().defaultOpponentsOptions();
+		}
+		@Override public void	next()	{
+			super.next();
+			RotPUI.setupGalaxyUI().postSelectionMedium(true);
+		}
+		@Override public void	prev()	{
+			super.prev();
+			RotPUI.setupGalaxyUI().postSelectionMedium(true);
 		}
 	};
 	ParamString bitmapGalaxyLastFolder = new ParamString(BASE_UI, "BITMAP_LAST_FOLDER", Rotp.jarPath())

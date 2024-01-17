@@ -146,9 +146,15 @@ public class ParamList extends AbstractParam<String> {
 	}
 	// ===== Overriders =====
 	//
+ 	@Override public boolean isActive()					{ return listSize()>0; }
 	@Override public String guideDefaultValue()			{ return name(defaultValueIndex()); }
 	@Override public String getCfgValue(String value)	{ return validateValue(value); }
-	@Override public String	guideValue()				{ return name(this.getIndex()); }
+	@Override public String	guideValue()				{
+		int index = getIndex();
+		if (index >= listSize())
+			return "";
+		return name(index);
+	}
 	@Override public void	next()						{
 		set(valueLabelMap.getNextLangLabelIgnoreCase(get()));
 	}
@@ -196,6 +202,8 @@ public class ParamList extends AbstractParam<String> {
 	@Override public String getValueStr(int id)		{ return valueGuide(getValidIndex(id)); }
 	@Override public String valueGuide(int id) 		{ return tableFormat(getRowGuide(id)); }
 	@Override public String getLangLabel(int id)	{
+		if (id<0 || id >= listSize())
+			return "";
 		if (isDuplicate())
 			return valueLabelMap.getCfgValue(id);
 		else
@@ -265,7 +273,7 @@ public class ParamList extends AbstractParam<String> {
 			return defaultValue();
 		return valueLabelMap.getCfgValue(0);
 	}
-	private int listSize()						{ return valueLabelMap.listSize(); }
+	protected int listSize()					{ return valueLabelMap.listSize(); }
 	private String currentOption()				{
 		int index = Math.max(0, getIndex());
 		return valueLabelMap.guiTextList.get(index);
@@ -296,9 +304,9 @@ public class ParamList extends AbstractParam<String> {
 		int size = listSize();
 		String rows = "";
 		if (size>0) {
-			rows = getRowGuide(0);
+			rows = "(0) " + getRowGuide(0);
 			for (int i=1; i<size; i++)
-				rows += rowsSeparator() + getRowGuide(i);
+				rows += rowsSeparator() + "(" + i + ") " + getRowGuide(i);
 		}
 		return tableFormat(rows);
 	}

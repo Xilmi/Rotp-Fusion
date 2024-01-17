@@ -2967,9 +2967,9 @@ SETTINGS_MOD_GAUNTLET_RETURN_TURN_DESC   | →REF_RETURN_1← →REF_GAUNTLET←
 SETTINGS_MOD_GAUNTLET_RETURN_TURN        | →REF_GAUNTLET← →REF_RETURN←
 
 // ========== Ironman sub Panel
-SETTINGS_MOD_IRONMAN_OPTIONS_TITLE       | §~ Ironman Menu
+SETTINGS_MOD_IRONMAN_OPTIONS_TITLE       | Ironman Menu
 SETTINGS_MOD_IRONMAN_OPTIONS_UI_DESC     | Open Sub Menu to access Ironman customization options.
-SETTINGS_MOD_IRONMAN_OPTIONS_UI          | Ironman Options: %1
+SETTINGS_MOD_IRONMAN_OPTIONS_UI          | §~ Ironman Menu: %1
 
 HEADERS_IRONMAN_BASIC_DESC               | To test ironman options without risk.<br>Option button removal is only available from Pre-Game options, to avoid unfortunate misclick.
 HEADERS_IRONMAN_BASIC                    | ~~~ IRONMAN LITE ~~~%1
