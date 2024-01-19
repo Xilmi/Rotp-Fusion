@@ -286,7 +286,8 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
             mainUI = new MainUI();
         return mainUI;
     }
-    public RaceIntroUI raceIntroUI()  { return raceIntroUI; }
+    public static RaceIntroUI raceIntroUI()  { return instance.raceIntroUI; }
+    public static GameUI gameUI()	  { return instance.gameUI; }
     public AllocateTechUI techUI()    { return allocateTechUI; }
     public RacesUI racesUI()          { return racesUI; }
     @Override
@@ -412,7 +413,14 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
     	setupGalaxyUI.init();
     	selectPanel(SETUP_GALAXY_PANEL, setupGalaxyUI);
     }
-    public void selectLoadGamePanel() { loadGameUI.init(); selectPanel(LOAD_PANEL, loadGameUI); }
+    public void selectLoadGamePanel() {
+		if (guiOptions().selectedShowConsolePanel()) {
+			rotp.ui.main.CommandConsole.loadPanel.open("");
+		} else {
+			loadGameUI.init();
+			selectPanel(LOAD_PANEL, loadGameUI);
+		}
+    }
     // BR: for restarting with new options
     public void selectRestartGamePanel(GalaxyCopy oldGalaxy) {
     	loadGameUI.init(oldGalaxy);
@@ -425,6 +433,8 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener {
         enableGlassPane(raceIntroUI);
         repaint();
         GovernorOptions.callForReset();
+		if (guiOptions().selectedShowConsolePanel())
+			rotp.ui.main.CommandConsole.introPanel.open("");
     }
     public void selectMainPanel()      { selectMainPanel(false); }
     public void selectMainPanel(boolean pauseNextTurn)      {

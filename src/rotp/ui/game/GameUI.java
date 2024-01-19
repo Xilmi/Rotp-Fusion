@@ -499,7 +499,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             repaint();
     }
     @Override
-    public boolean drawMemory()       { return true; }
+    public boolean drawMemory()      { return true; }
     @Override
     public String ambienceSoundKey() { return canContinue() ? super.ambienceSoundKey() : AMBIENCE_KEY; }
     @Override
@@ -660,14 +660,14 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         
         g.setComposite(prevComp);
     }
-    private String manualFilePath() {
+    private String manualFilePath()	 {
         return LanguageManager.current().selectedLanguageFullPath()+"/manual.pdf";
     }
-    private boolean manualExists() { 
+    private boolean manualExists()	 { 
         String filename = manualFilePath();
         return readerExists(filename);
     }
-    private boolean canContinue()    { return session().status().inProgress() || session().hasRecentSession(); }
+    public	boolean canContinue()    { return session().status().inProgress() || session().hasRecentSession(); }
     private boolean canNewGame()     { return true; }
     private boolean canLoadGame()    { return true; }
     private boolean canSaveGame()    { return session().status().inProgress(); }

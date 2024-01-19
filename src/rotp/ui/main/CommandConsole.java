@@ -1,23 +1,33 @@
 package rotp.ui.main;
 
+import static rotp.model.game.IGalaxyOptions.bitmapGalaxyLastFolder;
+
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JEditorPane;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
+import rotp.Rotp;
+import rotp.model.empires.Empire;
+import rotp.model.game.GameSession;
 import rotp.model.game.IAdvOptions;
 import rotp.ui.RotPUI;
+import rotp.ui.game.GameUI;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
 import rotp.ui.util.ParamFloat;
@@ -43,6 +53,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 	private final List<Panel> panels = new ArrayList<>();
 	private Panel livePanel;
 	private Panel mainPanel, setupPanel, gamePanel, speciesPanel;
+	public static Panel introPanel, loadPanel;
 
 	// ##### INITIALIZERS #####
 	private void initPanels() {
@@ -50,10 +61,52 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		livePanel = mainPanel;
 		panels.clear();
 		panels.add(mainPanel);
+		loadPanel = initLoadPanel();
 	}
-	private Panel initMainPanel() { // TODO BR: initMainPanel
+	private Panel initLoadPanel() { // TODO BR: do initLoadPanel
+		Panel panel = new Panel("Load Panel") {
+		    private String fileBaseName(String fn) {
+		        String ext = GameSession.SAVEFILE_EXTENSION;
+		        if (fn.endsWith(ext)) {
+		            List<String> parts = substrings(fn, '.');
+		            if (!parts.get(0).trim().isEmpty()) 
+		                return fn.substring(0, fn.length()-ext.length());
+		        }
+		        return "";
+		    }
+			@Override public String open(String out) {
+				String dirPath = Rotp.jarPath();
+				JFileChooser chooser = new JFileChooser();
+				chooser.setCurrentDirectory(new File(dirPath));
+				chooser.setAcceptAllFileFilterUsed(false);
+				chooser.addChoosableFileFilter(new FileNameExtensionFilter(
+						"RotP", "rotp"));
+				int status = chooser.showOpenDialog(null);
+				if (status == JFileChooser.APPROVE_OPTION) {
+					File file = chooser.getSelectedFile();
+					if (file == null) {
+						out +=  "No file selected" + newline;
+						return mainPanel.open(out);
+					}
+					GameUI.gameName = fileBaseName(file.getName());
+					String dirName = file.getParent();
+					final Runnable load = () -> {
+						GameSession.instance().loadSession(dirName, file.getName(), false);
+					};
+					SwingUtilities.invokeLater(load);
+					out +=  "File: " + GameUI.gameName + newline;
+					return gamePanel.open(out);
+				}
+				out +=  "No file selected" + newline;
+				return mainPanel.open(out);
+			}
+		};
+		return panel;
+	}
+
+	private Panel initMainPanel() { // TODO BR: complete initMainPanel
 		Panel main = new Panel("Main Panel") {
-			@Override protected String open(String out) {
+			@Override public String open(String out) {
 				RotPUI.instance().selectGamePanel();
 				return super.open(out);
 			}
@@ -63,11 +116,26 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		main.addPanel(setupPanel);
 		gamePanel = initGamePanels(main);
 		main.addPanel(gamePanel);
+		main.addCommand(new Command("Continue", "C") {
+			@Override protected String execute(List<String> param) { // TODO BR: new Command("Continue"
+				if (RotPUI.gameUI().canContinue()) {
+					RotPUI.gameUI().continueGame();
+					return gamePanel.open("");
+				}
+				else
+					return "Nothing to continue" + newline;
+			}
+		});
+		main.addCommand(new Command("Load File", "L") {
+			@Override protected String execute(List<String> param) { // TODO BR: new Command("Load"
+				return loadPanel.open("");
+			}
+		});
 		return main;
 	}
 	private Panel initSetupPanels(Panel parent) {
 		Panel panel = new Panel("New Setup Panel", parent) {
-			@Override protected String open(String out) {
+			@Override public String open(String out) {
 				RotPUI.instance().selectGamePanel();
 				return speciesPanel.open(out);
 			}
@@ -77,11 +145,12 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 	}
 	private Panel initGamePanels(Panel parent)	{ // TODO BR: initGamePanels
 		Panel panel = new Panel("Game Panel", parent);
+		introPanel	= initIntroPanel(panel);
 		return panel;
 	}
 	private Panel initSpeciePanel(Panel parent) {
 		Panel panel = new Panel("Player Species Panel", parent) {
-			@Override protected String open(String out) {
+			@Override public String open(String out) {
 				RotPUI.instance().selectSetupRacePanel();
 				return super.open(out);
 			}
@@ -94,7 +163,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 	}
 	private Panel initGalaxyPanel(Panel parent) { // TODO BR: initGalaxyPanel
 		Panel panel = new Panel("Galaxy Panel", parent) {
-			@Override protected String open(String out) {
+			@Override public String open(String out) {
 				RotPUI.instance().selectSetupGalaxyPanel();
 				return super.open(out);
 			}
@@ -108,8 +177,40 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		panel.addSetting(rotp.model.game.IGalaxyOptions.difficultySelection);
 		panel.addSetting(rotp.model.game.IInGameOptions.customDifficulty);
 		panel.addSetting(rotp.model.game.IGalaxyOptions.aliensNumber);
+		panel.addSetting(rotp.model.game.IGalaxyOptions.showNewRaces);
 		panel.addSetting(RotPUI.setupGalaxyUI().opponentAI);
 		panel.addSetting(RotPUI.setupGalaxyUI().globalAbilities);
+		panel.addCommand(new Command("Start Game", "go", "start") {
+			@Override protected String execute(List<String> param) { // TODO BR: new Command("Start Game", "go", "start")
+				RotPUI.setupGalaxyUI().startGame();
+				return "";
+			}
+		});
+		return panel;
+	}
+	private Panel initIntroPanel(Panel parent) { // TODO BR: initGalaxyPanel
+		Panel panel = new Panel("Intro Panel", parent) {
+			@Override public String open(String out) {
+				Empire pl = player();
+				List<String> text = pl.race().introduction();
+				out = "Intro Panel" + newline + newline;
+				for (int i=0; i<text.size(); i++)  {
+					String paragraph = text.get(i).replace("[race]", pl.raceName());
+					out += paragraph + newline;
+				}
+				out += newline + "Enter any command to continue";
+				livePanel = this;
+				resultPane.setText(out);
+				return "";
+			}
+			@Override protected String close(String out) {
+				RotPUI.raceIntroUI().finish();
+				return gamePanel.open(out);
+			}
+			@Override protected void newEntry(ActionEvent evt)	{
+				resultPane.setText(close(""));
+			}
+		};
 		return panel;
 	}
 
@@ -273,11 +374,12 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		});
 	}
 	// ################### SUB CLASS ######################
-	private class Panel {
+	public class Panel {
 		private final String panelName;
 		private final Panel parent;
-		private List<IParam> settings = new ArrayList<>();
-		private List<Panel> subPanels = new ArrayList<>();
+		private final List<IParam> settings	 = new ArrayList<>();
+		private final List<Panel> subPanels	 = new ArrayList<>();
+		private final List<Command> commands = new ArrayList<>();
 		private int lastList = NULL_ID;
 		private IParam liveSetting;
 
@@ -305,18 +407,27 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 						settings.add(p);
 		}
 		// #####  #####
-		protected String open(String out)		{
+		public String open(String out)		{
 			livePanel = this;
 			return panelGuide(out);
 		}
 		protected String close(String out)		{ return parent.open(out); }
 		private void addPanel(Panel panel)		{ subPanels.add(panel); }
 		private void addSetting(IParam setting)	{ settings.add(setting); }
-		private void newEntry(ActionEvent evt)	{
+		private void addCommand(Command cmd)	{ commands.add(cmd); }
+		protected void newEntry(ActionEvent evt)	{
 			List<String> param = new ArrayList<>();
 			String txt = ((JTextField) evt.getSource()).getText();
 			String cmd = getParam(txt, param);
 			String out = "Command = " + txt + newline;
+			for (Command c : commands) {
+				if (c.isKey(cmd)) {
+					out += c.execute(param);
+					optField.setText("");
+					resultPane.setText(out);
+					return;
+				}
+			}
 			switch (cmd.toUpperCase()) {
 				case ""		: out = panelGuide(out);	break;
 				case "?"	: out = optsGuide();	break;
@@ -430,6 +541,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		private String panelGuide(String out) {
 			out += "Current Panel: ";
 			out += panelName + newline;
+			out = commandGuide(out);			
 			out = panelList(out);
 			return settingGuide(out);
 		}
@@ -541,6 +653,33 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 			out += newline + liveSetting.selectionGuide();
 			out += newline + newline;
 			return optionList(out);
+		}
+		// Command methods
+		private String commandGuide(String out) {
+			for (Command cmd : commands) {
+				out += cmd.getGuide() + newline;
+			}
+			return out;
+		}
+	}
+	// ################### SUB CLASS ######################
+	private class Command {
+		private final List <String> keyList = new ArrayList<>();
+		private final String description;
+		protected String execute(List<String> param) { return "Unimplemented command!" + newline; }
+		private Command(String descr, String... keys) {
+			description = descr;
+			for (String key : keys)
+				keyList.add(key.toUpperCase());
+		}
+		private boolean isKey(String str) { return keyList.contains(str.toUpperCase()); }
+		private String getKey() { return keyList.get(0);}
+		private String getGuide() { 
+			String out = "(";
+			out += getKey();
+			out += ") ";
+			out += description;
+			return out;
 		}
 	}
 }

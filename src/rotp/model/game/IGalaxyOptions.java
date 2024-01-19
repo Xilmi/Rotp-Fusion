@@ -30,6 +30,12 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 	ParamInteger galaxyRandSource		= new ParamInteger(MOD_UI, "GALAXY_RAND_SOURCE",
 			0, 0, Integer.MAX_VALUE, 1, 100, 10000) {
 		{ loop(true); }
+		@Override public Integer	set(Integer value)	{
+			super.set(value);
+			if (RotPUI.instance() != null)
+				RotPUI.setupGalaxyUI().postSelectionMedium(true);
+			return value;
+		}
 		@Override public void	next()	{
 			super.next();
 			RotPUI.setupGalaxyUI().postSelectionMedium(true);
@@ -41,7 +47,23 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 
 	};
 	default int selectedGalaxyRandSource()		{ return galaxyRandSource.get(); }
-	ParamBoolean showNewRaces 			= new ParamBoolean(MOD_UI, "SHOW_NEW_RACES", false);
+	ParamBoolean showNewRaces 			= new ParamBoolean(MOD_UI, "SHOW_NEW_RACES", false) {
+		@Override public void	setFromCfgValue(String value)	{
+			super.setFromCfgValue(value);
+			if (RotPUI.instance() != null) {
+				RotPUI.setupGalaxyUI().initOpponentGuide();
+				RotPUI.setupGalaxyUI().postSelectionLight(true);
+			}
+		}
+		@Override public void	next()	{
+			super.next();
+			RotPUI.setupGalaxyUI().postSelectionLight(true);
+		}
+		@Override public void	prev()	{
+			super.prev();
+			RotPUI.setupGalaxyUI().postSelectionLight(true);
+		}
+	};
 	default boolean selectedShowNewRaces()		{ return showNewRaces.get(); }
 
 	GlobalCROptions globalCROptions 	= new GlobalCROptions (BASE_UI, "OPP_CR_OPTIONS",
@@ -81,6 +103,18 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 			}
 			return label;
 		}
+		@Override public String	setFromIndex(int value)	{
+			super.setFromIndex(value);
+			if (RotPUI.instance() != null)
+				RotPUI.setupGalaxyUI().postSelectionMedium(true);
+			return get();
+		}
+		@Override public String	set(String value)	{
+			super.set(value);
+			if (RotPUI.instance() != null)
+				RotPUI.setupGalaxyUI().postSelectionMedium(true);
+			return get();
+		}
 		@Override public void	next()	{
 			super.next();
 			RotPUI.setupGalaxyUI().postSelectionMedium(true);
@@ -103,6 +137,18 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 			if (listSize() == 0)
 				return ("This shape do not have options<br>");
 			return headerHelp(shapeSelection.get() + "_O1", sep); }
+		@Override public String	setFromIndex(int value)	{
+			super.setFromIndex(value);
+			if (RotPUI.instance() != null)
+				RotPUI.setupGalaxyUI().postSelectionMedium(true);
+			return get();
+		}
+		@Override public String	set(String value)	{
+			super.set(value);
+			if (RotPUI.instance() != null)
+				RotPUI.setupGalaxyUI().postSelectionMedium(true);
+			return get();
+		}
 		@Override public void	next()	{
 			super.next();
 			RotPUI.setupGalaxyUI().postSelectionMedium(true);
@@ -119,6 +165,18 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 		}
 		@Override public void setOptionValue(IGameOptions options, String newValue) {
 			options.selectedGalaxyShape(newValue);
+		}
+		@Override public String	setFromIndex(int value)	{
+			super.setFromIndex(value);
+			if (RotPUI.instance() != null)
+				RotPUI.setupGalaxyUI().postSelectionFull(true);
+			return get();
+		}
+		@Override public String	set(String value)	{
+			super.set(value);
+			if (RotPUI.instance() != null)
+				RotPUI.setupGalaxyUI().postSelectionFull(true);
+			return get();
 		}
 		@Override public void	next()	{
 			super.next();
@@ -161,6 +219,18 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 				return langLabel("SETUP_GALAXY_SIZE_UP1000_DESC");
 			return langLabel("SETUP_GALAXY_SIZE_OVER1000_DESC");
 		}
+		@Override public String	setFromIndex(int value)	{
+			super.setFromIndex(value);
+			if (RotPUI.instance() != null)
+				RotPUI.setupGalaxyUI().postGalaxySizeSelection(true);
+			return get();
+		}
+		@Override public String	set(String value)	{
+			super.set(value);
+			if (RotPUI.instance() != null)
+				RotPUI.setupGalaxyUI().postGalaxySizeSelection(true);
+			return get();
+		}
 		@Override public void	next()	{
 			super.next();
 			RotPUI.setupGalaxyUI().postGalaxySizeSelection(true);
@@ -190,6 +260,18 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 			}
 			return diffLbl;
 		}
+		@Override public String	setFromIndex(int value)	{
+			super.setFromIndex(value);
+			if (RotPUI.instance() != null)
+				RotPUI.setupGalaxyUI().postSelectionLight(true);
+			return get();
+		}
+		@Override public String	set(String value)	{
+			super.set(value);
+			if (RotPUI.instance() != null)
+				RotPUI.setupGalaxyUI().postSelectionLight(true);
+			return get();
+		}
 		@Override public void	next()	{
 			super.next();
 			RotPUI.setupGalaxyUI().postSelectionLight(true);
@@ -212,6 +294,12 @@ public interface IGalaxyOptions extends IBaseOptsTools {
 		}
 		@Override public Integer defaultValue() {
 			return opts().defaultOpponentsOptions();
+		}
+		@Override public Integer set(Integer value)	{
+			super.set(value);
+			if (RotPUI.instance() != null)
+				RotPUI.setupGalaxyUI().postSelectionMedium(true);
+			return value;
 		}
 		@Override public void	next()	{
 			super.next();

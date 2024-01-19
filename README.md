@@ -61,7 +61,10 @@ Later:
 
 ## What's New
 
-2024.01.14 (BR)
+2024.01.19 (BR)
+- Command Console: added Start, continue and load.
+
+2024.01.16 (BR)
 - Command Console: added all setup options
 
 2024.01.14 (BR)

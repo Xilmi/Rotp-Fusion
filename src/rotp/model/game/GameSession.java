@@ -1108,6 +1108,7 @@ public final class GameSession implements Base, Serializable {
     }
     // BR: added option to restart with new options
     public void loadSession(String dir, String filename, boolean startUp) {
+    	System.out.println("filename: " + filename);
         RotPUI.currentOptions(IGameOptions.GAME_ID);
         try {
             log("Loading game from file: ", filename);

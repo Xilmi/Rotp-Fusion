@@ -443,7 +443,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
 		addMouseWheelListener(this);
 		
 	}
-    private void initOpponentGuide() {
+    public void initOpponentGuide() {
 		opponentRandom = text(OPPONENT_RANDOM);
 		LinkedList<String> list = new LinkedList<>();
 		list.addAll(guiOptions().getNewRacesOnOffList());
@@ -2470,7 +2470,7 @@ public final class SetupGalaxyUI  extends BaseModPanel implements MouseWheelList
         RotPUI.instance().selectRestartGamePanel(oldGalaxy);
 		starting = false;
 	}
-	private void startGame() {
+	public	void startGame() {
 		guiOptions().saveOptionsToFile(LIVE_OPTIONS_FILE);
 		starting = true;
 		repaint();

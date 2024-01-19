@@ -249,7 +249,7 @@ public class RaceIntroUI extends BasePanel implements MouseListener {
         setBorder(compound4);
         addMouseListener(this);
     }
-    private void finish() {
+    public void finish() {
         if (!playAnimations()) {
             opacity = 0.0f;
             animate();

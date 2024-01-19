@@ -312,6 +312,6 @@ public abstract class AbstractParam <T> implements IParam{
 		return b ? "Yes" : "No";
 	}
 	static boolean yesOrNo(String s) {
-		return s.equalsIgnoreCase("YES");
+		return s.equalsIgnoreCase("YES") || s.equalsIgnoreCase("TRUE");
 	}
 }

@@ -71,6 +71,12 @@ public interface IPreGameOptions extends IAdvOptions, IIronmanOptions {
 		@Override public Integer defaultValue() {
 			return prefStarsPerEmpire.get();
 		}
+		@Override public Integer	set(Integer value)	{
+			super.set(value);
+			if (RotPUI.instance() != null)
+				RotPUI.setupGalaxyUI().postGalaxySizeSelection(true);
+			return value;
+		}
 		@Override public void prev() {
 			super.prev();
 			RotPUI.setupGalaxyUI().postGalaxySizeSelection(true);
