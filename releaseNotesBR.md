@@ -33,7 +33,7 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 - Fixed occasional crash when fighting Monster.
 - Fixed some low occurences crash vulnerabilities. (Thanks for reporting them)
 - Fixed wrong button display after Ctrl-option Pop-up panel.
-
+- Fixed "Continue" on startup will suggest a name based on the loaded game.
 
 <b><ins>Last Release:</ins></b>
 

@@ -1,6 +1,7 @@
 package rotp.ui.main;
 
-import static rotp.model.game.IGalaxyOptions.bitmapGalaxyLastFolder;
+import static rotp.model.game.IBaseOptsTools.GAME_OPTIONS_FILE;
+import static rotp.model.game.IBaseOptsTools.LIVE_OPTIONS_FILE;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -26,7 +27,9 @@ import rotp.Rotp;
 import rotp.model.empires.Empire;
 import rotp.model.game.GameSession;
 import rotp.model.game.IAdvOptions;
+import rotp.model.game.IGameOptions;
 import rotp.ui.RotPUI;
+import rotp.ui.UserPreferences;
 import rotp.ui.game.GameUI;
 import rotp.ui.util.IParam;
 import rotp.ui.util.ParamBoolean;
@@ -45,6 +48,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 	private static final int SETTING_ID	= 1;
 	private static final int PANEL_ID	= 2;
 	private static JFrame frame;
+	private static CommandConsole instance;
 
 	private final JLabel cmdLabel, optLabel, resultLabel;
 	private final JTextField cmdField, optField;
@@ -53,8 +57,11 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 	private final List<Panel> panels = new ArrayList<>();
 	private Panel livePanel;
 	private Panel mainPanel, setupPanel, gamePanel, speciesPanel;
-	public static Panel introPanel, loadPanel;
+	public static Panel introPanel, loadPanel, savePanel;
 
+	public static void turnCompleted(int turn) {
+		instance.resultPane.setText("Current turn: " + turn + newline);
+	}
 	// ##### INITIALIZERS #####
 	private void initPanels() {
 		mainPanel = initMainPanel();
@@ -62,8 +69,71 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		panels.clear();
 		panels.add(mainPanel);
 		loadPanel = initLoadPanel();
+		savePanel = initSavePanel();
 	}
-	private Panel initLoadPanel() { // TODO BR: do initLoadPanel
+	private Panel initSavePanel() {
+		Panel panel = new Panel("Save Panel") {
+		    private String fileBaseName(String fn) {
+		        String ext = GameSession.SAVEFILE_EXTENSION;
+		        if (fn.endsWith(ext)) {
+		            List<String> parts = substrings(fn, '.');
+		            if (!parts.get(0).trim().isEmpty()) 
+		                return fn.substring(0, fn.length()-ext.length());
+		        }
+		        return fn;
+		    }
+			@Override public String open(String out) {
+				if (!session().status().inProgress()) {
+					out += "No game in progress" + newline;
+					return mainPanel.open(out);
+				}
+				String dirPath = UserPreferences.saveDirectoryPath();
+				String fileName = GameUI.gameName + GameSession.SAVEFILE_EXTENSION;
+				JFileChooser chooser = new JFileChooser();
+				chooser.setAcceptAllFileFilterUsed(false);
+				chooser.addChoosableFileFilter(new FileNameExtensionFilter(
+						"RotP", "rotp"));
+				chooser.setCurrentDirectory(new File(dirPath));
+				chooser.setSelectedFile(new File(dirPath, fileName));
+				int status = chooser.showSaveDialog(null);
+				if (status == JFileChooser.APPROVE_OPTION) {
+					File rawFile = chooser.getSelectedFile();
+					if (rawFile == null) {
+						out +=  "No file selected" + newline;
+						return mainPanel.open(out);
+					}
+					GameUI.gameName = fileBaseName(rawFile.getName());
+					dirPath = rawFile.getParent();
+					fileName = GameUI.gameName + GameSession.SAVEFILE_EXTENSION;
+					File file = new File(dirPath, fileName); // Force the correct extension
+			        // Remove sensitive info that should not be shared in game file
+			        // (May contains player name)
+			        RotPUI.currentOptions(IGameOptions.GAME_ID);
+			        options().prepareToSave(true);
+			        options().saveOptionsToFile(GAME_OPTIONS_FILE);
+			        options().saveOptionsToFile(LIVE_OPTIONS_FILE);
+					final Runnable save = () -> {
+			            try {
+			                GameSession.instance().saveSession(file);
+			                RotPUI.instance().selectGamePanel();
+			            }
+			            catch(Exception e) {
+			                String str = "Save unsuccessful: " + file.getAbsolutePath() + newline;
+			                resultPane.setText(mainPanel.open(str));
+			                return;
+			            }
+					};
+					SwingUtilities.invokeLater(save);
+					out +=  "Saved to File: " + file.getAbsolutePath() + newline;
+					return mainPanel.open(out);
+				}
+				out +=  "No file selected" + newline + newline;
+				return mainPanel.open(out);
+			}
+		};
+		return panel;
+	}
+	private Panel initLoadPanel() {
 		Panel panel = new Panel("Load Panel") {
 		    private String fileBaseName(String fn) {
 		        String ext = GameSession.SAVEFILE_EXTENSION;
@@ -75,7 +145,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 		        return "";
 		    }
 			@Override public String open(String out) {
-				String dirPath = Rotp.jarPath();
+				String dirPath = UserPreferences.saveDirectoryPath();
 				JFileChooser chooser = new JFileChooser();
 				chooser.setCurrentDirectory(new File(dirPath));
 				chooser.setAcceptAllFileFilterUsed(false);
@@ -85,7 +155,7 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 				if (status == JFileChooser.APPROVE_OPTION) {
 					File file = chooser.getSelectedFile();
 					if (file == null) {
-						out +=  "No file selected" + newline;
+						out +=  "No file selected" + newline + newline;
 						return mainPanel.open(out);
 					}
 					GameUI.gameName = fileBaseName(file.getName());
@@ -97,13 +167,12 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 					out +=  "File: " + GameUI.gameName + newline;
 					return gamePanel.open(out);
 				}
-				out +=  "No file selected" + newline;
+				out +=  "No file selected" + newline + newline;
 				return mainPanel.open(out);
 			}
 		};
 		return panel;
 	}
-
 	private Panel initMainPanel() { // TODO BR: complete initMainPanel
 		Panel main = new Panel("Main Panel") {
 			@Override public String open(String out) {
@@ -131,6 +200,11 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 				return loadPanel.open("");
 			}
 		});
+		main.addCommand(new Command("Save File", "S") {
+			@Override protected String execute(List<String> param) { // TODO BR: new Command("Load"
+				return savePanel.open("");
+			}
+		});
 		return main;
 	}
 	private Panel initSetupPanels(Panel parent) {
@@ -145,6 +219,12 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 	}
 	private Panel initGamePanels(Panel parent)	{ // TODO BR: initGamePanels
 		Panel panel = new Panel("Game Panel", parent);
+		panel.addCommand(new Command("Next Turn", "N") {
+			@Override protected String execute(List<String> param) { // TODO BR: new Command("Load"
+				session().nextTurn();
+				return "Performing Next Turn...";
+			}
+		});
 		introPanel	= initIntroPanel(panel);
 		return panel;
 	}
@@ -345,7 +425,8 @@ public class CommandConsole extends JPanel  implements Base, ActionListener {
 					frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
 					//Add contents to the window.
-					frame.add(new CommandConsole());
+					instance = new CommandConsole();
+					frame.add(instance);
 
 					//Display the window.
 					frame.pack();

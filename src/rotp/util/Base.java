@@ -1448,6 +1448,21 @@ public interface Base {
 		}
 		return name;
     }
+    public default String generateGameName(IGameOptions options) {
+		String name;
+		if (options.selectedPlayerIsCustom())
+			name = options.playerCustomRace().getRace().setupName;
+		else
+			name = Race.keyed(options.selectedPlayerRace()).setupName();
+		name +=   " - " + text(options.selectedGalaxySize())
+				+ " - " + text(options.selectedGameDifficulty());
+		// modnar: add custom difficulty level option, set in Remnants.cfg
+		// append this custom difficulty percentage to gameName if selected
+		if (options.selectedGameDifficulty().equals(DIFFICULTY_CUSTOM)) {
+			name += " (" + Integer.toString(options.selectedCustomDifficulty()) + "%)";
+		}
+		return name;
+    }
     // BR:
     public default void setModifierKeysState(InputEvent e) { ModifierKeysState.set(e); }
     public default boolean checkForChange(InputEvent e) {

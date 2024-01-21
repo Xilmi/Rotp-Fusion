@@ -61,6 +61,10 @@ Later:
 
 ## What's New
 
+2024.01.20 (BR)
+- Fix: "Continue" on startup will suggest a name based on the loaded game.
+- Command Console: added Save.
+
 2024.01.19 (BR)
 - Command Console: added Start, continue and load.
 

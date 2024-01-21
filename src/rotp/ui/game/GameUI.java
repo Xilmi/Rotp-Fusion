@@ -789,7 +789,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             RotPUI.instance().selectMainPanel();
             RotPUI.instance().mainUI().showDisplayPanel();
             if (gameName == "")
-        		gameName = generateGameName();
+        		gameName = generateGameName(options());
         }
     }
     public void newGame() { // BR:

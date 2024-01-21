@@ -73,6 +73,7 @@ import rotp.ui.NoticeMessage;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.ui.game.GameUI;
+import rotp.ui.main.CommandConsole;
 import rotp.ui.notifications.DiplomaticNotification;
 import rotp.ui.notifications.GNNExpansionEvent;
 import rotp.ui.notifications.GNNRankingNoticeCheck;
@@ -623,6 +624,8 @@ public final class GameSession implements Base, Serializable {
                         RotPUI.instance().selectGameOverPanel();                	
                 }
                 performingTurn = false;
+                if (options.selectedShowConsolePanel())
+                	CommandConsole.turnCompleted(galaxy().currentTurn());
             }
         };
     }
@@ -954,6 +957,32 @@ public final class GameSession implements Base, Serializable {
         }
 		return e.getSize();
     }
+    public long saveSession(File saveFile) throws Exception {
+        log("Saving game as file: ", saveFile.getName());
+        GameSession currSession = GameSession.instance();
+
+        ZipOutputStream out = new ZipOutputStream(new FileOutputStream(saveFile));
+        ZipEntry e = new ZipEntry("GameSession.dat");
+        out.putNextEntry(e);
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutputStream objOut = null;
+        try {
+            objOut = new ObjectOutputStream(bos);
+            objOut.writeObject(currSession);
+            objOut.flush();
+            byte[] data = bos.toByteArray();
+            out.write(data, 0, data.length);
+        }
+        finally {
+            try {
+            bos.close();
+            out.close();
+            }
+            catch(IOException ex) {}
+        }
+		return e.getSize();
+    }
     private void resolveOptionsDiscrepansies(GameSession gs) {
     	// resolving AutoPlay potential issues
     	String autoPlaySetting = gs.options().selectedAutoplayOption();
@@ -1108,7 +1137,6 @@ public final class GameSession implements Base, Serializable {
     }
     // BR: added option to restart with new options
     public void loadSession(String dir, String filename, boolean startUp) {
-    	System.out.println("filename: " + filename);
         RotPUI.currentOptions(IGameOptions.GAME_ID);
         try {
             log("Loading game from file: ", filename);
