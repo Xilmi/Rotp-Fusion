@@ -2394,6 +2394,9 @@ SETTINGS_MOD_TRANSPORT_AUTO_ECO_LAST      | Last
 SETTINGS_MOD_SPY_OVERSPEND_DESC          | Use all the available budget to by spy, or stop spending once the team is complete.
 SETTINGS_MOD_SPY_OVERSPEND               | Spy Overspend: %1
 
+SETTINGS_MOD_RESEARCH_MOO1_DESC          | YES: Reload won't change research probability<br>NO: You may try to reload to get a new dice roll! (RotP default)
+SETTINGS_MOD_RESEARCH_MOO1               | Research Moo1: %1
+
 SETTINGS_MOD_SHOW_PENDING_ORDERS_DESC    | Spending categories having pending orders (Given after Technology update) are highlighted in blue.
 SETTINGS_MOD_SHOW_PENDING_ORDERS         | Show Orders: %1
 

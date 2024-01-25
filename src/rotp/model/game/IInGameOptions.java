@@ -214,6 +214,9 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 	ParamBoolean spyOverSpend			= new ParamBoolean(MOD_UI, "SPY_OVERSPEND", true);
 	default boolean spyOverSpend()			{ return spyOverSpend.get(); }
 
+	ParamBoolean researchMoo1			= new ParamBoolean(MOD_UI, "RESEARCH_MOO1", false);
+	default boolean researchMoo1()			{ return researchMoo1.get(); }
+
 	// ==================== GUI List Declarations ====================
 	static LinkedList<IParam> modDynamicAOptions() {
 		return new LinkedList<>(
@@ -247,7 +250,8 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 						ICombatOptions.combatOptionsUI,
 						null,
 						fixedEventsMode, eventsFavorWeak,
-						IRandomEvents.customRandomEventUI
+						IRandomEvents.customRandomEventUI,
+						researchMoo1
 						));
 	}
 	// ==================== GUI List Declarations ====================
@@ -263,6 +267,7 @@ public interface IInGameOptions extends IRandomEvents, IConvenienceOptions {
 				new ParamTitle("GAME_DIFFICULTY"),
 				difficultySelection, customDifficulty,
 				dynamicDifficulty, challengeMode,
+				researchMoo1,
 
 				headerSpacer,
 				new ParamTitle("GAME_VARIOUS"),

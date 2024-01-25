@@ -61,6 +61,11 @@ Later:
 
 ## What's New
 
+2024.01.25 (BR)
+- New option: Research Moo1 style vs vanilla RotP
+  - YES: Reload won't change research probability (Moo1 style)
+  - NO: You may try to reload to get a new dice roll! (RotP default)
+
 2024.01.09 (BR)
 - Command Console: added Player Species selection.
 - Command Console: Linked the labels and added "= VALUE".
