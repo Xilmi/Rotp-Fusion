@@ -61,6 +61,11 @@ Later:
 
 ## What's New
 
+2024.01.25 (BR)
+- New option: Research Moo1 style vs vanilla RotP
+  - YES: Reload won't change research probability (Moo1 style)
+  - NO: You may try to reload to get a new dice roll! (RotP default)
+
 2024.01.24 (BR)
 - Command Console: added view star systems
 
@@ -93,7 +98,7 @@ Later:
 
 2024.01.05 (BR)
 - Added Base Mod Options SubMenu. (now Empty)
-- Restored vanilla galaxy setup panel advanced options. 
+- Restored vanilla galaxy setup panel advanced options.
 - Fixed wrong button display after Ctrl-option Pop-up panel.
 
 2024.01.04 (BR)

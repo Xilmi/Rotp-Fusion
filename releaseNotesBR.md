@@ -22,9 +22,13 @@ Info for Mac Users: Applications/games/rotp/ is a good place to run it smoothly!
 
 <b><ins>Optimisation:</ins></b>
 - Added a little transparency to the cuttlefish to reduce its brightness.
-- Restart will now gives the same research tech list.
 - Added Base Mod Options SubMenu. (now Empty)
 - Restored vanilla galaxy setup panel advanced options. 
+- Restart will now gives the same research tech list.
+  - This accidentally removed the "new dice roll" when reloading a game! To fix this:
+    - New option: Research Moo1 style vs vanilla RotP.
+    - YES: Reload won't change research probability (Moo1 style)
+    - NO: You may try to reload to get a new dice roll! (RotP default)
 
 
 <b><ins>Bug Fixes:</ins></b>

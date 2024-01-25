@@ -192,12 +192,15 @@ public final class Empire implements Base, NamedObject, Serializable {
     private transient List<SpaceMonster> visibleMonsters = new ArrayList<>();
 
     public Random techRandom() { // for more repeatable restart
-    	if (techRandom == null) {
-    		if (randomSource == null)
-    			randomSource = random.nextLong();
-    		techRandom = new Random(randomSource);
+    	if (options().researchMoo1() || galaxy().numberTurns() < 1) {
+        	if (techRandom == null) {
+        		if (randomSource == null)
+        			randomSource = random.nextLong();
+        		techRandom = new Random(randomSource);
+        	}
+        	return techRandom;
     	}
-    	return techRandom;
+    	return random;
     }
 
     public void resetAI() { ai = null; } // BR:
