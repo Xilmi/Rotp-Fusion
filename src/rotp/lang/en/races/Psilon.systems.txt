@@ -28,6 +28,8 @@ Curie
 Herschel
 Lyell
 Laplace
+Slipher
+Friedmann
 Lemaître
 Hubble
 Thomson

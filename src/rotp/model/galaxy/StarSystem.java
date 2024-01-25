@@ -99,6 +99,7 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
     // public so we can access without lazy inits from accessors
     public transient SystemTransportSprite transportSprite;
     public transient ShipRelocationSprite rallySprite;
+    public transient int altId; // BR:
     private transient StarType starType;
     private transient Rectangle nameBox;
     private transient boolean hovering;

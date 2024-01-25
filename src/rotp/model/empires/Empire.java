@@ -2113,6 +2113,13 @@ public final class Empire implements Base, NamedObject, Serializable {
         }
         return transports;
     }
+    public List<Transport> opponentsTransports() {
+    	List<Transport> transports = new ArrayList<>();
+        for (Ship sh: visibleShips)
+            if (sh.isTransport() && sh.empId()!=id)
+            	transports.add((Transport)sh);
+        return transports;
+    }
     public int transportsInTransit(StarSystem s) {
         Galaxy gal = galaxy();
         int transports = s.orbitingTransports(id);

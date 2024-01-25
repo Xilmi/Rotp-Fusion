@@ -28,7 +28,10 @@ Curie
 Herschel
 Lyell
 Laplace
+Slipher
+Friedmann
 Hubble
+Lemaître
 Thomson
 Born
 Crick

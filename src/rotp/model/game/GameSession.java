@@ -1005,6 +1005,8 @@ public final class GameSession implements Base, Serializable {
             RotPUI.instance().selectMainPanelLoadGame();
         }
         instance.getGovernorOptions().gameLoaded();
+        if (options.selectedShowConsolePanel())
+        	CommandConsole.updateConsole();
     }
 	private void showInfo(Galaxy g) { // BR: for debug
 		System.out.println("GameSession.showInfo = true ===========================================");
